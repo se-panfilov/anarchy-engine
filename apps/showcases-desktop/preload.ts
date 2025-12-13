@@ -1,6 +1,7 @@
 import type { TLocaleId } from '@Anarchy/i18n';
 import { getBrowserInfo } from '@Anarchy/Shared/Utils';
-import type { makeDistName, platformApiChannel, platformApiName, TDistName, TLegalDoc, TLoadDocPayload, TReleaseName, TShowcaseGameSettings, TShowcasesDesktopApi } from '@Showcases/Shared';
+import type { TDistName, TLegalDoc, TLoadDocPayload, TReleaseName, TShowcaseGameSettings, TShowcasesDesktopApi } from '@Showcases/Shared';
+import { makeDistName, platformApiChannel, platformApiName } from '@Showcases/Shared';
 import { DesktopPreloadTrackingService } from 'anarchy-tracking/src/Services/DesktopPreloadTrackingService';
 import { contextBridge, ipcRenderer } from 'electron';
 
