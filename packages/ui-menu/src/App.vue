@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import MenuNavigation from 'packages/MainMenu/Components/MenuNavigation.vue';
-import MenuRouterView from 'packages/MainMenu/Components/MenuRouterView.vue';
+import MenuNavigation from '@Menu/components/MenuNavigation.vue';
+import MenuRouterView from '@Menu/components/MenuRouterView.vue';
 </script>
 
 <template>

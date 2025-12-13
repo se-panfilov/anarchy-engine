@@ -1,15 +1,13 @@
 <script setup lang="ts">
-import type { TWriteable } from 'anarchy_engine/src';
+import type { TWriteable } from '@Engine';
+import MenuSettingsGroup from '@Menu/components/MenuSettingsGroup.vue';
+import MenuView from '@Menu/components/MenuView.vue';
+import MenuViewActions from '@Menu/components/MenuViewActions.vue';
+import SettingsCheckboxComponent from '@Menu/components/SettingsCheckboxComponent.vue';
+import SettingsDropdownComponent from '@Menu/components/SettingsDropdownComponent.vue';
+import type { TDropdownOption } from '@Menu/models';
+import { useSettingsStore } from '@Menu/stores/SettingsStore';
 import { computed, reactive } from 'vue';
-
-import MenuSettingsGroup from 'packages/MainMenu/Components/MenuSettingsGroup.vue';
-import MenuView from 'packages/MainMenu/Components/MenuView.vue';
-import MenuViewActions from 'packages/MainMenu/Components/MenuViewActions.vue';
-import SettingsCheckboxComponent from 'packages/MainMenu/Components/SettingsCheckboxComponent.vue';
-import SettingsDropdownComponent from 'packages/MainMenu/Components/SettingsDropdownComponent.vue';
-import type { TDropdownOption } from 'packages/MainMenu/Models';
-import { useSettingsStore } from 'packages/MainMenu/Stores/SettingsStore';
-import type { TGraphicsSettings } from 'anarchy_engine_showcases/src/Levels/Showcase28Menu/Models';
 
 const emit = defineEmits(['cancel', 'save']);
 

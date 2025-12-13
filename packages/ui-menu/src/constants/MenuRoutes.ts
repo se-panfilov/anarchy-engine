@@ -1,7 +1,7 @@
-import Audio from 'packages/MainMenu/Views/Audio.vue';
-import Graphics from 'packages/MainMenu/Views/Graphics.vue';
-import Home from 'packages/MainMenu/Views/Home.vue';
-import Localization from 'packages/MainMenu/Views/Localization.vue';
+import Audio from '@Menu/views/Audio.vue';
+import Graphics from '@Menu/views/Graphics.vue';
+import Home from '@Menu/views/Home.vue';
+import Localization from '@Menu/views/Localization.vue';
 
 export enum MenuRoutes {
   Home = '/',

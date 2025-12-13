@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import { MenuRoutes } from 'packages/MainMenu/Constants';
-import { useMenuRouterStore } from 'packages/MainMenu/Stores/MenuRouterStore';
-import { closeMainMenu } from 'anarchy_engine_showcases/src/Levels/Showcase28Menu/MainMenuService';
+import { MenuRoutes } from '@Menu/constants';
+import { useMenuRouterStore } from '@Menu/stores/MenuRouterStore';
+// TODO DESKTOP: extract to... shared?
+// import { closeMainMenu } from 'anarchy_engine_showcases/src/Levels/Showcase28Menu/MainMenuService';
 
 // TODO DESKTOP: test i18n (for desktop also)
 

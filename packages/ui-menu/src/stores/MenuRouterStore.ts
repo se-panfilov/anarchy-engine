@@ -1,8 +1,7 @@
+import { MenuRoutes } from '@Menu/constants';
 import { defineStore } from 'pinia';
 import type { ComputedRef } from 'vue';
 import { computed, reactive } from 'vue';
-
-import { MenuRoutes } from 'packages/MainMenu/Constants';
 
 export const useMenuRouterStore = defineStore('menuRouterStore', () => {
   const state: { history: ReadonlyArray<MenuRoutes> } = reactive({

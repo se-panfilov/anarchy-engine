@@ -1,13 +1,11 @@
 <script setup lang="ts">
+import MenuSettingsGroup from '@Menu/components/MenuSettingsGroup.vue';
+import MenuView from '@Menu/components/MenuView.vue';
+import MenuViewActions from '@Menu/components/MenuViewActions.vue';
+import SettingsRangeComponent from '@Menu/components/SettingsRangeComponent.vue';
+import { useSettingsStore } from '@Menu/stores/SettingsStore';
 import type { TWriteable } from 'anarchy_engine/src';
 import { reactive } from 'vue';
-
-import MenuSettingsGroup from 'packages/MainMenu/Components/MenuSettingsGroup.vue';
-import MenuView from 'packages/MainMenu/Components/MenuView.vue';
-import MenuViewActions from 'packages/MainMenu/Components/MenuViewActions.vue';
-import SettingsRangeComponent from 'packages/MainMenu/Components/SettingsRangeComponent.vue';
-import { useSettingsStore } from 'packages/MainMenu/Stores/SettingsStore';
-import type { TAudioSettings } from 'anarchy_engine_showcases/src/Levels/Showcase28Menu/Models';
 
 const emit = defineEmits(['cancel', 'save']);
 
