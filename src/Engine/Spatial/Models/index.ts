@@ -1,3 +1,4 @@
+export * from './TParamsFromConfigSpatial';
 export * from './TSpatialCell';
 export * from './TSpatialConfigToParamsDependencies';
 export * from './TSpatialData';

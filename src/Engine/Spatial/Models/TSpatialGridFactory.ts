@@ -1,8 +1,8 @@
-import type { TParamsFromConfig, TReactiveFactory } from '@/Engine/Abstract';
+import type { TReactiveFactory } from '@/Engine/Abstract';
 import type { TDestroyable } from '@/Engine/Mixins';
 
-import type { TSpatialGridConfig } from './TSpatialGridConfig';
+import type { TParamsFromConfigSpatial } from './TParamsFromConfigSpatial';
 import type { TSpatialGridParams } from './TSpatialGridParams';
 import type { TSpatialGridWrapper } from './TSpatialGridWrapper';
 
-export type TSpatialGridFactory = TReactiveFactory<TSpatialGridWrapper, TSpatialGridParams> & TParamsFromConfig<TSpatialGridConfig, TSpatialGridParams> & TDestroyable;
+export type TSpatialGridFactory = TReactiveFactory<TSpatialGridWrapper, TSpatialGridParams> & TParamsFromConfigSpatial & TDestroyable;
