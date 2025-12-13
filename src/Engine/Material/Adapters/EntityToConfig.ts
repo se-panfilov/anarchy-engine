@@ -3,20 +3,34 @@ import type { MaterialJSON } from 'three';
 import { serializeColor } from '@/Engine/Color';
 import type { MaterialType } from '@/Engine/Material/Constants';
 import { BlendEquationMap, BlendingDstFactorMap, BlendingMap, BlendingSrcFactorMap, NormalMapTypesMap, SideMap, StencilFailMap, StencilFuncMap, StencilOpMap } from '@/Engine/Material/Constants';
-import type { TAllMaterialConfigOptions, TMaterialConfig, TMaterialConfigOptions, TMaterialWrapper } from '@/Engine/Material/Models';
+import type {
+  TAllMaterialConfigOptions,
+  TMaterialConfig,
+  TMaterialConfigOptions,
+  TMaterialConfigTextures,
+  TMaterialEntityToConfigDependencies,
+  TMaterialParamsTextures,
+  TMaterialWrapper
+} from '@/Engine/Material/Models';
 import { getOptionName } from '@/Engine/Material/Utils';
 import { extractSerializableRegistrableFields } from '@/Engine/Mixins';
+import type { TTextureAsyncRegistry } from '@/Engine/Texture';
 import { filterOutEmptyFields, nullsToUndefined } from '@/Engine/Utils';
 
+// TODO 15-0-0: validate if "textures" are match
+// TODO 15-0-0: materials options are does not match
+
 // TODO 15-0-0: validate
-export function materialToConfig(entity: TMaterialWrapper): TMaterialConfig {
+export function materialToConfig(entity: TMaterialWrapper, { textureResourceRegistry }: TMaterialEntityToConfigDependencies): TMaterialConfig {
   const json: MaterialJSON = entity.entity.toJSON();
 
   const options: TMaterialConfigOptions | undefined = getMaterialOptions(entity);
+  const textures: TMaterialConfigTextures | undefined = getMaterialTextures(entity, textureResourceRegistry);
 
   return filterOutEmptyFields({
     type: json.type as MaterialType,
     options,
+    textures,
     ...extractSerializableRegistrableFields(entity)
   });
 }
@@ -73,5 +87,28 @@ function getMaterialOptions({ entity }: TMaterialWrapper): TAllMaterialConfigOpt
       stencilWriteMask: entity.stencilWriteMask,
       stencilFuncMask: entity.stencilFuncMask
     })
+  );
+}
+
+function getMaterialTextures({ entity }: TMaterialWrapper, textureResourceRegistry: TTextureAsyncRegistry): TMaterialConfigTextures | undefined {
+  const maps: TMaterialParamsTextures = getMaps(entity);
+  const mapsKeys: { [key: string]: string } = {};
+
+  Object.entries(maps).forEach(([key, value]) => {
+    const textureName: string | undefined = textureResourceRegistry.findKeyByValue(value);
+    // eslint-disable-next-line functional/immutable-data
+    mapsKeys[key] = textureName;
+  });
+
+  return mapsKeys;
+}
+
+function getMaps(entity: TMaterialWrapper): TMaterialParamsTextures {
+  return filterOutEmptyFields(
+    Object.entries(entity).reduce((acc: TMaterialParamsTextures, [key, value]: [string, string]): TMaterialParamsTextures => {
+      // eslint-disable-next-line functional/immutable-data
+      if (key.toLowerCase().endsWith('map')) acc[key] = value;
+      return acc;
+    }, {})
   );
 }

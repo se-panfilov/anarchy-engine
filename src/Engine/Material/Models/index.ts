@@ -2,6 +2,7 @@ export type * from './TMaterialConfig';
 export type * from './TMaterialConfigOptions';
 export type * from './TMaterialConfigTextures';
 export type * from './TMaterialConfigToParamsDependencies';
+export type * from './TMaterialEntityToConfigDependencies';
 export type * from './TMaterialFactory';
 export type * from './TMaterialParams';
 export type * from './TMaterialParamsOptions';
