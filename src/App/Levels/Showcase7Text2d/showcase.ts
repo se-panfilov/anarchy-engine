@@ -1,4 +1,4 @@
-import './fonts.css';
+import '@public/Showcase/fonts.css';
 
 import { Euler, Vector3 } from 'three';
 import { degToRad } from 'three/src/math/MathUtils';
