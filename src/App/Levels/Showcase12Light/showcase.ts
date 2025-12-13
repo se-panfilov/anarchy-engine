@@ -9,6 +9,8 @@ import type {
   TEngine,
   THemisphereLightWrapper,
   TLightRegistry,
+  TModel3dFacade,
+  TModel3dRegistry,
   TPointLightWrapper,
   TRectAreaLightWrapper,
   TSceneWrapper,
@@ -24,11 +26,17 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
   const gui: GUI = new GUI();
   const space: TSpace = await spaceService.buildSpaceFromConfig(canvas, spaceConfig as TSpaceConfig);
   const engine: TEngine = Engine(space);
-  const { lightService, scenesService } = space.services;
+  const { lightService, scenesService, models3dService } = space.services;
 
   const lightRegistry: TLightRegistry = lightService.getRegistry();
+  const models3dRegistry: TModel3dRegistry = models3dService.getRegistry();
 
-  // void envMapService.load('/Showcase/hdr/urban_alley_01_4k.hdr');
+  const planeModel3dF: TModel3dFacade | undefined = models3dRegistry.findByName('surface_model');
+  if (isNotDefined(planeModel3dF)) throw new Error('Plane model is not defined');
+
+  const sceneW: TSceneWrapper | undefined = scenesService.findActive();
+  if (isNotDefined(sceneW)) throw new Error('Scene is not defined');
+  sceneW.addModel3d(planeModel3dF.getModel());
 
   function init(): void {
     const scene: TSceneWrapper | undefined = scenesService.findActive();
