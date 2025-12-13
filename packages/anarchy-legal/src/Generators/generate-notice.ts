@@ -7,6 +7,7 @@ import { globby } from 'globby';
 // eslint-disable-next-line spellcheck/spell-checker
 import yargs from 'yargs';
 import { hideBin } from 'yargs/helpers';
+import { TWorkspaceInfo } from '@Anarchy/Legal';
 
 /**
  * Anarchy-legal — NOTICE generator (generate-notice.ts)
@@ -61,12 +62,6 @@ import { hideBin } from 'yargs/helpers';
 
 // ---------------------- Types ----------------------
 
-type TWorkspaceInfo = Readonly<{
-  name: string;
-  dir: string; // abs path
-  pkgPath: string; // abs path to package.json
-}>;
-
 type TParsedEntry = Readonly<{
   id: string; // name@version
   name: string;
@@ -84,7 +79,7 @@ type TParsedEntry = Readonly<{
 // ---------------------- Utils ----------------------
 
 let DEBUG = false;
-const dlog = (...args: ReadonlyArray<unknown>): void => {
+const debugLog = (...args: ReadonlyArray<unknown>): void => {
   if (DEBUG) console.log('[debug]', ...args);
 };
 
@@ -107,12 +102,12 @@ const hasWorkspacesField = (pkg: any): boolean => {
   return false;
 };
 
-const findMonorepoRoot = async (startDir: string): Promise<string> => {
+async function findMonorepoRoot(startDir: string): Promise<string> {
   let dir = path.resolve(startDir);
-  dlog('findMonorepoRoot: start at', dir);
+  debugLog('findMonorepoRoot: start at', dir);
   for (let i = 0; i < 50; i++) {
     const p = path.join(dir, 'package.json');
-    dlog('  check', p);
+    debugLog('  check', p);
     if (await exists(p)) {
       try {
         const pkg = await readJson<any>(p);
@@ -126,9 +121,9 @@ const findMonorepoRoot = async (startDir: string): Promise<string> => {
     dir = parent;
   }
   throw new Error(`Monorepo root not found from ${startDir}`);
-};
+}
 
-const loadWorkspaces = async (rootDir: string): Promise<ReadonlyMap<string, TWorkspaceInfo>> => {
+async function loadWorkspaces(rootDir: string): Promise<ReadonlyMap<string, TWorkspaceInfo>> {
   const rootPkg = await readJson<any>(path.join(rootDir, 'package.json'));
   const patterns: string[] = Array.isArray(rootPkg.workspaces) ? rootPkg.workspaces : (rootPkg.workspaces?.packages ?? []);
   if (!patterns.length) throw new Error(`No workspaces patterns in ${path.join(rootDir, 'package.json')}`);
@@ -143,9 +138,9 @@ const loadWorkspaces = async (rootDir: string): Promise<ReadonlyMap<string, TWor
     entries.push([name, { name, dir, pkgPath }]);
   }
   return new Map(entries);
-};
+}
 
-const resolveWorkspaceFromArg = (arg: string, workspaces: ReadonlyMap<string, TWorkspaceInfo>, rootDir: string): Readonly<{ ws: TWorkspaceInfo }> => {
+function resolveWorkspaceFromArg(arg: string, workspaces: ReadonlyMap<string, TWorkspaceInfo>, rootDir: string): Readonly<{ ws: TWorkspaceInfo }> {
   const byName = workspaces.get(arg);
   if (byName) return { ws: byName };
   const asPath = path.isAbsolute(arg) ? arg : path.join(rootDir, arg);
@@ -154,18 +149,18 @@ const resolveWorkspaceFromArg = (arg: string, workspaces: ReadonlyMap<string, TW
     if (path.resolve(w.dir) === norm) return { ws: w };
   }
   throw new Error(`Workspace "${arg}" not found by name or path`);
-};
+}
 
 // ---------------------- Parse THIRD_PARTY_LICENSES.md ----------------------
 
 // split by '---' fences produced by our generator; keep chunks with any heading
-const splitEntriesFromMarkdown = (md: string): ReadonlyArray<string> => {
+function splitEntriesFromMarkdown(md: string): ReadonlyArray<string> {
   const parts = md.split(/\r?\n---\r?\n/g);
   return parts.filter((chunk) => /^##\s+.+/m.test(chunk));
-};
+}
 
 // robust parse of "## <name>@<version>" allowing scoped names
-const parseHeaderLine = (chunk: string): { name: string; version: string } | undefined => {
+function parseHeaderLine(chunk: string): { name: string; version: string } | undefined {
   const m = /^##\s+(.+?)\s*$/m.exec(chunk);
   if (!m) return undefined;
   const full = m[1].trim(); // e.g. "@babel/core@7.27.1"
@@ -175,9 +170,9 @@ const parseHeaderLine = (chunk: string): { name: string; version: string } | und
   const version = full.slice(at + 1).trim();
   if (!name || !version) return undefined;
   return { name, version };
-};
+}
 
-const parseOneEntry = (chunk: string): TParsedEntry | undefined => {
+function parseOneEntry(chunk: string): TParsedEntry | undefined {
   const hdr = parseHeaderLine(chunk);
   if (!hdr) return undefined;
   const { name, version } = hdr;
@@ -243,9 +238,9 @@ const parseOneEntry = (chunk: string): TParsedEntry | undefined => {
     licenseText,
     inferredCopyright
   };
-};
+}
 
-const parseThirdPartyMarkdown = (md: string): ReadonlyArray<TParsedEntry> => {
+function parseThirdPartyMarkdown(md: string): ReadonlyArray<TParsedEntry> {
   const chunks = splitEntriesFromMarkdown(md);
   const out: TParsedEntry[] = [];
   for (const ch of chunks) {
@@ -254,10 +249,10 @@ const parseThirdPartyMarkdown = (md: string): ReadonlyArray<TParsedEntry> => {
   }
   out.sort((a, b) => (a.name === b.name ? a.version.localeCompare(b.version) : a.name.localeCompare(b.name)));
   return out;
-};
+}
 
 // for audit: collect every heading id present in the source file
-const collectAllHeadingIds = (md: string): ReadonlySet<string> => {
+function collectAllHeadingIds(md: string): ReadonlySet<string> {
   const ids = new Set<string>();
   const re = /^##\s+(.+?)\s*$/gm;
   let m: RegExpExecArray | null;
@@ -269,11 +264,11 @@ const collectAllHeadingIds = (md: string): ReadonlySet<string> => {
     }
   }
   return ids;
-};
+}
 
 // ---------------------- Optional upstream NOTICE fetch ----------------------
 
-const findUpstreamNoticeFile = async (dir: string): Promise<string | undefined> => {
+async function findUpstreamNoticeFile(dir: string): Promise<string | undefined> {
   try {
     const list = await fs.readdir(dir);
     const cand = list.find((f) => /^(notice|notice\.txt|notice\.md)$/i.test(f));
@@ -281,9 +276,9 @@ const findUpstreamNoticeFile = async (dir: string): Promise<string | undefined> 
   } catch {
     return undefined;
   }
-};
+}
 
-const loadUpstreamNotice = async (dir: string, maxBytes: number): Promise<string | undefined> => {
+async function loadUpstreamNotice(dir: string, maxBytes: number): Promise<string | undefined> {
   const p = await findUpstreamNoticeFile(dir);
   if (!p) return undefined;
   try {
@@ -296,11 +291,11 @@ const loadUpstreamNotice = async (dir: string, maxBytes: number): Promise<string
   } catch {
     return undefined;
   }
-};
+}
 
 // ---------------------- Render NOTICE.md ----------------------
 
-const renderNotice = (wsName: string, entries: ReadonlyArray<TParsedEntry>, includeUpstream: boolean): string => {
+function renderNotice(wsName: string, entries: ReadonlyArray<TParsedEntry>, includeUpstream: boolean): string {
   const lines: string[] = [];
   lines.push(`# NOTICE
 
@@ -328,11 +323,11 @@ Components listed: ${entries.length}
     }
   }
   return lines.join('\n\n');
-};
+}
 
 // ---------------------- Main ----------------------
 
-const main = async (): Promise<void> => {
+async function main(): Promise<void> {
   const argv = await yargs(hideBin(process.argv))
     .scriptName('anarchy-legal:notice')
     .usage('$0 --workspace <name|path> [--source <path>] [--source-name <file>] [--out <NOTICE.md>] [--include-upstream-notices] [--max-upstream-notice-kb <N>] [--audit] [--strict] [--debug]')
@@ -359,7 +354,7 @@ const main = async (): Promise<void> => {
       rootDir = await findMonorepoRoot(c);
       break;
     } catch (e) {
-      dlog('no root from', c, ':', (e as Error).message);
+      debugLog('no root from', c, ':', (e as Error).message);
     }
   }
   if (!rootDir) throw new Error(`Failed to find monorepo root from: ${startCandidates.join(', ')}`);
@@ -367,7 +362,7 @@ const main = async (): Promise<void> => {
   // Workspaces
   const workspaces = await loadWorkspaces(rootDir);
   const { ws } = resolveWorkspaceFromArg(String(argv.workspace), workspaces, rootDir);
-  dlog('target workspace:', ws.name, ws.dir);
+  debugLog('target workspace:', ws.name, ws.dir);
 
   // Source & Out paths
   const sourceName = String(argv['source-name'] || 'THIRD_PARTY_LICENSES.md');
@@ -375,8 +370,8 @@ const main = async (): Promise<void> => {
   const srcPath = argv.source ? (path.isAbsolute(argv.source) ? argv.source : path.resolve(process.cwd(), argv.source)) : defaultSource;
   const outPath = argv.out ? (path.isAbsolute(argv.out) ? argv.out : path.resolve(process.cwd(), argv.out)) : path.join(ws.dir, 'NOTICE.md');
 
-  dlog('source:', srcPath);
-  dlog('out:', outPath);
+  debugLog('source:', srcPath);
+  debugLog('out:', outPath);
 
   if (!(await exists(srcPath))) {
     console.error(`Source file not found: ${srcPath}`);
@@ -389,7 +384,7 @@ const main = async (): Promise<void> => {
   const declaredIds = collectAllHeadingIds(src);
 
   const entries = parseThirdPartyMarkdown(src);
-  dlog('parsed entries:', entries.length);
+  debugLog('parsed entries:', entries.length);
 
   // Optional upstream NOTICE load
   if (argv['include-upstream-notices']) {
@@ -404,7 +399,7 @@ const main = async (): Promise<void> => {
         filled++;
       }
     }
-    dlog('upstream notices loaded:', filled);
+    debugLog('upstream notices loaded:', filled);
   }
 
   // Audit report
@@ -434,7 +429,7 @@ const main = async (): Promise<void> => {
   await fs.mkdir(path.dirname(outPath), { recursive: true });
   await fs.writeFile(outPath, md, 'utf8');
   console.log(`NOTICE.md written -> ${outPath}`);
-};
+}
 
 main().catch((e) => {
   console.error(e instanceof Error ? e.message : String(e));
