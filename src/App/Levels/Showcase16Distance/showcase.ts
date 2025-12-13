@@ -20,8 +20,8 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
   const { clickLeftRelease$ } = mouseService;
 
   function init(): void {
-    const car: TActorWrapper | undefined = findByName('car');
-    if (isNotDefined(car)) throw new Error('Actor "car" is not defined');
+    const sphereW: TActorWrapper | undefined = findByName('sphere_actor');
+    if (isNotDefined(sphereW)) throw new Error('Actor "sphere_actor" is not defined');
 
     let isMove: boolean = false;
     let isTimerStarted: boolean = false;
@@ -37,17 +37,17 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
         console.time('move');
       }
 
-      if (car.entity.position.z <= -50) {
+      if (sphereW.entity.position.z <= -50) {
         console.timeEnd('move');
         isMove = false;
         // eslint-disable-next-line functional/immutable-data
-        car.entity.position.z = 50;
+        sphereW.entity.position.z = 50;
         return;
       }
 
       if (isMove) {
         // eslint-disable-next-line functional/immutable-data
-        car.entity.position.z -= mpsSpeed(10, delta);
+        sphereW.entity.position.z -= mpsSpeed(10, delta);
       }
     });
 
@@ -58,15 +58,15 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
         console.time('move');
       }
 
-      if (car.entity.position.z <= -50) {
+      if (sphereW.entity.position.z <= -50) {
         console.timeEnd('move');
         // eslint-disable-next-line functional/immutable-data
-        car.entity.position.z = 50;
+        sphereW.entity.position.z = 50;
         return;
       }
 
       // eslint-disable-next-line functional/immutable-data
-      car.entity.position.z -= mpsSpeed(10, delta.delta);
+      sphereW.entity.position.z -= mpsSpeed(10, delta.delta);
     });
   }
 
