@@ -44,9 +44,9 @@ export function showcase(canvas: TAppCanvas): TShowcase {
     if (isDefined(geometry)) geometry.dispose();
     if (isDefined(material)) material.dispose();
     if (isDefined(particles)) {
-      // TODO (S.Panfilov) DESTROY: implement scene remove
+      // TODO DESTROY: implement scene remove
       // particlesService.getScene().entity.remove(particles.entity);
-      // TODO (S.Panfilov) DESTROY: destroy doesn't work atm
+      // TODO DESTROY: destroy doesn't work atm
       //particles.destroy();
       // particles = undefined;
     }

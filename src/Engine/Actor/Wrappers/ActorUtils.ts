@@ -8,7 +8,7 @@ import type { TMesh } from '@/Engine/ThreeLib';
 import { isDefined } from '@/Engine/Utils';
 
 export async function createActorMesh(params: TActorParams, { materialTextureService }: Pick<TActorDependencies, 'materialTextureService'>): Promise<TMesh> | never {
-  // TODO (S.Panfilov) AWAIT: could speed up by not awaiting material loading (return promise of an actor)
+  // TODO AWAIT: could speed up by not awaiting material loading (return promise of an actor)
   const materialWrapper: TMaterialWrapper = await materialTextureService.createAsync(params.material);
 
   if (params.type === ActorType.Plane) return createPlane(params, materialWrapper.entity);

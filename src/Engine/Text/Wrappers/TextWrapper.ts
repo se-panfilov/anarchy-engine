@@ -31,7 +31,7 @@ export function createTextWrapper<T extends CSS2DObject | CSS3DObject>(params: T
 
   element.setAttribute(RelatedEntityAttribute, result.id.toString());
 
-  // TODO (S.Panfilov) we are removing element, but do not dispose entity (but we should)
+  // TODO we are removing element, but do not dispose entity (but we should)
   result.destroyed$.subscribe(() => document.body.removeChild(element));
 
   document.body.appendChild(element);

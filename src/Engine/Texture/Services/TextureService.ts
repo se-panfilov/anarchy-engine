@@ -64,7 +64,7 @@ export function TextureService(): TTextureService {
     if (isNotDefined(m.textures)) return { ...promises, all };
 
     Object.entries(m.textures).forEach(([key, packParams]: [string, TTexturePackParams]): void => {
-      // TODO (S.Panfilov) do not load texture if already loaded
+      // TODO do not load texture if already loaded
       const { url, params }: TTexturePackParams = packParams;
       const p: Promise<TTexture> = textureLoader.loadAsync(url).then((texture: TWriteable<TTexture>): TTexture => {
         applyTextureParams(texture, params);

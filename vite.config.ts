@@ -25,7 +25,7 @@ export default defineConfig({
   },
   test: {
     globals: true,
-    environment: 'jsdom', // TODO (S.Panfilov) try "node", could be faster.
+    environment: 'jsdom', // TODO try "node", could be faster.
     alias: {
       //Since we cannot use wasm version of @dimforge/rapier3d in vitest
       '@dimforge/rapier3d': path.resolve(__dirname, 'node_modules/@dimforge/rapier3d-compat')

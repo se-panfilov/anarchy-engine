@@ -10,7 +10,7 @@ export function configToParamsObject3d(config: Partial<TObject3DPropConfig>): TO
     // layers: config.layers ? (new Layers()).set(config.layers) : undefined,
     layers: undefined,
 
-    // TODO (S.Panfilov) wtf is animations?
+    // TODO wtf is animations?
     animations: [],
 
     position: isDefined(position) ? Vector3Wrapper(position) : undefined,

@@ -60,14 +60,14 @@ module.exports = {
     'functional/no-mixed-types': 'off',
     'functional/no-let': 'off',
     'functional/no-mixed-type': 'off',
-    'functional/no-conditional-statement': 'off', // TODO (S.Panfilov) temp off (don't get this rule tbh)
+    'functional/no-conditional-statement': 'off', // TODO temp off (don't get this rule tbh)
     'functional/no-class': 'off',
     'functional/no-classes': 'off',
     'functional/readonly-type': ['error', 'generic'],
     'functional/no-this-expression': 'off',
-    'functional/no-return-void': 'off', // TODO (S.Panfilov) temp off (don't get this rule tbh)
+    'functional/no-return-void': 'off', // TODO temp off (don't get this rule tbh)
     '@typescript-eslint/explicit-function-return-type': 'error',
-    '@typescript-eslint/no-explicit-any': 'off', // TODO (S.Panfilov) better to turn it on probably, but not right now
+    '@typescript-eslint/no-explicit-any': 'off', // TODO better to turn it on probably, but not right now
     '@typescript-eslint/no-inferrable-types': 'off',
     '@typescript-eslint/restrict-template-expressions': 'off',
     '@typescript-eslint/naming-convention': [

@@ -63,7 +63,7 @@ function getLoopFn(beforeTick$: Subject<TLoopTimes>, state: TLoopServiceState): 
   const clock: Clock = new Clock();
   let lastElapsedTime: number = 0;
 
-  // TODO (S.Panfilov) DEBUG: make stats enable/disable configurable via url params (?debug=true)
+  // TODO DEBUG: make stats enable/disable configurable via url params (?debug=true)
   const stats: any = new Stats();
   // eslint-disable-next-line @typescript-eslint/no-unsafe-call,@typescript-eslint/no-unsafe-member-access
   stats.showPanel(0); // 0: fps, 1: ms, 2: mb, 3+: custom
@@ -74,7 +74,7 @@ function getLoopFn(beforeTick$: Subject<TLoopTimes>, state: TLoopServiceState): 
     // stats.begin();
     if (!state.isLooping) return;
     const elapsedTime: number = clock.getElapsedTime();
-    // TODO (S.Panfilov) MATH: need precision calculations??? (or not? how performant they are?)
+    // TODO MATH: need precision calculations??? (or not? how performant they are?)
     const delta: number = elapsedTime - lastElapsedTime;
     lastElapsedTime = elapsedTime;
     beforeTick$.next({ delta, frameTime, elapsedTime });

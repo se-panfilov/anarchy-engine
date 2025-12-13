@@ -21,7 +21,7 @@ export async function ActorWrapperAsync(
   params: TActorParams,
   { materialTextureService, kinematicLoopService, spatialLoopService, spatialGridService, collisionsLoopService, collisionsService }: TActorDependencies
 ): Promise<TActorWrapperAsync> {
-  // TODO (S.Panfilov) AWAIT: could speed up by not awaiting mesh to be build
+  // TODO AWAIT: could speed up by not awaiting mesh to be build
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   const entity: TMesh = await createActorMesh(params, { materialTextureService });
 

@@ -29,7 +29,7 @@ export function showcase(canvas: TAppCanvas): TShowcase {
   const space: TSpace = buildSpaceFromConfig(canvas, spaceConfig as TSpaceConfig);
   const engine: TEngine = Engine(space);
   const { keyboardService } = engine.services;
-  const { physicsLoopService, cameraService, actorService, loopService, mouseService, intersectionsWatcherService, spatialGridService } = space.services;
+  const { physicsLoopService, cameraService, collisionsService, actorService, loopService, mouseService, intersectionsWatcherService, spatialGridService } = space.services;
 
   async function init(): Promise<void> {
     // physicsWorldService.getDebugRenderer(loopService).start();
@@ -47,8 +47,7 @@ export function showcase(canvas: TAppCanvas): TShowcase {
     const sphereActorW: TActorWrapperAsync | undefined = await actorService.getRegistry().findByNameAsync('sphere');
     if (isNotDefined(sphereActorW)) throw new Error(`Cannot find "sphere" actor`);
 
-    // const gridSize: Vector3 = new Box3().setFromObject(surface?.entity).getSize(new Vector3());
-    // initGridHelper(actorService, gridSize.x, gridSize.z);
+    collisionsService.raycast._debugVisualizeBvh(sphereActorW, actorService.getScene());
 
     const blocks = await buildTower(actorService, { x: 10, z: 0 }, 10, 10, 20);
     // const blocks2 = await buildTower(actorService, { x: 20, z: 0 }, 5, 5, 15);
@@ -56,7 +55,7 @@ export function showcase(canvas: TAppCanvas): TShowcase {
     // await buildTower(actorService, { x: 17, z: 30 }, 7, 7, 35);
     // await buildTower(actorService, { x: -15, z: -15 }, 10, 7, 15);
 
-    // TODO (S.Panfilov) temp
+    // TODO temp
     const maxBulletsSameTime: number = 15;
     const bullets: ReadonlyArray<TBullet> = await Promise.all(getBulletsPool(maxBulletsSameTime, actorService, spatialGridService));
     actorService.getScene().entity.add(...bullets.map((b: TBullet) => b.entity));
@@ -96,11 +95,11 @@ export function showcase(canvas: TAppCanvas): TShowcase {
       cameraFollowingActor(cameraW, heroW);
       updateBullets(bullets, delta.delta, spatialGrid);
 
-      // TODO (S.Panfilov) this should be updated only if coords or angle are changed
+      // TODO this should be updated only if coords or angle are changed
       if (isDefined(mouseLineIntersections.point)) {
         const heroCoords: TWithCoordsXYZ = heroW.getPosition().getCoords();
         fromHeroAngles = get3DAzimuthRad(heroCoords, mouseLineIntersections.point);
-        // TODO (S.Panfilov) could make some use of mouseLineIntersectionsWatcher.latest$ instead of mouseLineIntersections
+        // TODO could make some use of mouseLineIntersectionsWatcher.latest$ instead of mouseLineIntersections
         line.geometry.setPositions([heroCoords.x, heroCoords.y, heroCoords.z, mouseLineIntersections.point.x, mouseLineIntersections.point.y, mouseLineIntersections.point.z]);
         line.computeLineDistances();
       }

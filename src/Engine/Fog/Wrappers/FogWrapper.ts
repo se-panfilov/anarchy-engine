@@ -10,7 +10,7 @@ export function FogWrapper(params: TFogParams): TFogWrapper {
   const wrapper: TWrapper<TFog> = AbstractWrapper(entity, WrapperType.Fog, params);
 
   function destroy(): void {
-    // TODO (S.Panfilov) DESTROY: implement destroy
+    // TODO DESTROY: implement destroy
     throw new Error('Fog destroy not implemented');
   }
 

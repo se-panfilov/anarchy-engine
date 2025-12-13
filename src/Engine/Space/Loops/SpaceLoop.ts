@@ -34,7 +34,7 @@ export function spaceLoop(
 
   if (isDefined(activeCamera)) {
     renderer.entity.render(activeScene.entity, activeCamera.entity);
-    // TODO (S.Panfilov) update these text renderers only when there are any text (or maybe only when it's changed)
+    // TODO update these text renderers only when there are any text (or maybe only when it's changed)
     if (!text2dRegistry?.isEmpty()) text2dRenderer?.renderer.render(activeScene.entity, activeCamera.entity);
     if (!text3dRegistry?.isEmpty()) text3dRenderer?.renderer.render(activeScene.entity, activeCamera.entity);
   }

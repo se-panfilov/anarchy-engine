@@ -10,10 +10,10 @@ import { BvhService } from './BvhService';
 export function CollisionsService(): TCollisionsService {
   const raycastBvhService: TBvhService = BvhService();
 
-  // TODO (S.Panfilov) debug box
+  // TODO debug box
   let box: any;
 
-  // TODO (S.Panfilov) should be possible to check collisions against another grid
+  // TODO should be possible to check collisions against another grid
   function checkCollisions(actorW: TActorWrapperAsync, radius: number, actorsToCheck: ReadonlyArray<TActorWrapperAsync>): TCollisionCheckResult | undefined {
     const actorBox: Box3 = new Box3().setFromObject(actorW.entity);
     const queryBox = {
@@ -25,7 +25,7 @@ export function CollisionsService(): TCollisionsService {
       maxZ: actorBox.max.z + radius
     };
 
-    // TODO (S.Panfilov) debug (window as any).sceneW
+    // TODO debug (window as any).sceneW
     if (box) (window as any).sceneW.entity.remove(box);
     box = createBoundingBox(queryBox.minX, queryBox.minZ, queryBox.maxX, queryBox.maxZ, 'red');
     (window as any).sceneW.entity.add(box);

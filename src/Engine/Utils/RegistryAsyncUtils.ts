@@ -12,13 +12,13 @@ export function getUniqEntityWithTagsAsync<T extends TRegistrable>(
   tags: ReadonlyArray<string>,
   registry: TAbstractEntityRegistry<T> | TAbstractAsyncRegistry<T>,
   strategy: LookUpStrategy,
-  // TODO (S.Panfilov) should be set from default config
+  // TODO should be set from default config
   waitingTime: number = 3000
 ): Promise<T | undefined> {
   return getEntityValueAsync<T>(registry, (entity: T): boolean => shouldHaveTags(entity, tags, strategy), undefined, waitingTime);
 }
 
-// TODO (S.Panfilov) all waiting times should be set from default config
+// TODO all waiting times should be set from default config
 export function getAsyncUniqEntityWithTag<T extends TRegistrable>(tag: string, registry: TAbstractEntityRegistry<T> | TAbstractAsyncRegistry<T>, waitingTime: number = 3000): Promise<T | undefined> {
   return getEntityValueAsync<T>(registry, (entity: T): boolean => entity.hasTag(tag), undefined, waitingTime);
 }
@@ -63,7 +63,7 @@ export function getEntityValueAsync<T extends TRegistrable | TMultitonRegistrabl
   reg: TAbstractEntityRegistry<T> | TAbstractAsyncRegistry<T>,
   filterFn: (entity: T) => boolean,
   stopCb?: (stop: () => void) => void,
-  // TODO (S.Panfilov) this time should be bigger and different for different entities (DEFAULT_WAITING_TIME + from params)
+  // TODO this time should be bigger and different for different entities (DEFAULT_WAITING_TIME + from params)
   waitingTime: number = 3000
 ): Promise<T | undefined> {
   return getValueAsync<T>(reg as unknown as TAbstractSimpleRegistry<T>, filterFn, stopCb, waitingTime);
@@ -73,7 +73,7 @@ export function getValueAsync<T>(
   reg: TAbstractSimpleRegistry<T> | TAbstractSimpleAsyncRegistry<T>,
   filterFn: (entity: T) => boolean,
   stopCb?: (stop: () => void) => void,
-  // TODO (S.Panfilov) this time should be bigger and different for different entities (DEFAULT_WAITING_TIME + from params)
+  // TODO this time should be bigger and different for different entities (DEFAULT_WAITING_TIME + from params)
   waitingTime: number = 3000
 ): Promise<T | undefined> {
   const { resolve, promise, reject } = createDeferredPromise<T | undefined>();
@@ -85,7 +85,7 @@ export function getValueAsync<T>(
       take(1),
       timeout(waitingTime),
       catchError((error: any) => {
-        // TODO (S.Panfilov) LOGGER: instead of console should be forwarded to some kind of logger
+        // TODO LOGGER: instead of console should be forwarded to some kind of logger
         // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
         if (error?.name === 'TimeoutError') console.error(`Cannot get entity async from registry ("${reg.id}"): timeout error has occurred`);
         else console.error(`Cannot get entity async from registry ("${reg.id}"): unknown error has occurred`);

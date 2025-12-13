@@ -6,7 +6,7 @@ import { OrbitControlsWrapper } from '@/Engine/Controls/Wrappers';
 
 // eslint-disable-next-line functional/prefer-tacit
 function create(params: TOrbitControlsParams): TControlsWrapper {
-  // TODO (S.Panfilov) Add support for other types of controls
+  // TODO Add support for other types of controls
   return OrbitControlsWrapper(params);
 }
 

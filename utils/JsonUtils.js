@@ -17,7 +17,7 @@ function generate(config) {
 }
 
 function writeSchema(outputPath, schemaString) {
-  // TODO (S.Panfilov) should create an output file if it's not exist
+  // TODO should create an output file if it's not exist
   fs.writeFile(outputPath, schemaString, (err) => {
     if (err) throw err;
   });

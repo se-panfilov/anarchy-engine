@@ -16,13 +16,13 @@ import { initServices } from '@/Engine/Space/Utils';
 import { validSpaceConfig } from '@/Engine/Space/Validators';
 import { isDefined, isDestroyable, isNotDefined } from '@/Engine/Utils';
 
-// TODO (S.Panfilov) SPACE: we need a space service, and factory, to create from config, and to create from the code.
+// TODO SPACE: we need a space service, and factory, to create from config, and to create from the code.
 
-// TODO (S.Panfilov) LOGGER: add a logger globally (not only for errors, but I'd like to know, which service with which id did what).
+// TODO LOGGER: add a logger globally (not only for errors, but I'd like to know, which service with which id did what).
 export function buildSpaceFromConfig(canvas: TAppCanvas, config: TSpaceConfig): TSpace {
   const { isValid, errors } = validSpaceConfig(config);
   if (!isValid) {
-    // TODO (S.Panfilov) LOGGER: should be forwarded to the errors hub (which is not implemented yet)
+    // TODO LOGGER: should be forwarded to the errors hub (which is not implemented yet)
     console.error(errors);
     throw new Error('Failed to launch a space: invalid data format');
   }
@@ -38,7 +38,7 @@ export function buildSpaceFromConfig(canvas: TAppCanvas, config: TSpaceConfig): 
     if (isNotDefined(sceneW)) throw new Error(`Cannot find an active scene for space "${name}" during space's services initialization.`);
     activeSceneW = sceneW;
 
-    // TODO (S.Panfilov) debug (window as any).sceneW
+    // TODO debug (window as any).sceneW
     (window as any).sceneW = sceneW;
 
     return activeSceneW;

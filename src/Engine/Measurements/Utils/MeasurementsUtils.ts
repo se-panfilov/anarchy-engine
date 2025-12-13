@@ -1,7 +1,7 @@
 import { HOUR, METER, MINUTE, SECOND } from '@/Engine/Measurements/Constants';
 import type { TWithCoordsXYZ } from '@/Engine/Mixins';
 
-// TODO (S.Panfilov) MATH: need precision calculations??? (or not? how performant they are?)
+// TODO MATH: need precision calculations??? (or not? how performant they are?)
 export const meters = (meters: number): number => meters * METER;
 export const centimetersToMeters = (cm: number): number => cm / 100;
 export const kilometersToMeters = (km: number): number => km * 1000 * METER;

@@ -13,12 +13,12 @@ export function withCollisions(params: TActorParams, collisionsService: TCollisi
   const value$: Subject<TCollisionCheckResult> = new Subject<TCollisionCheckResult>();
   let collisionsLoopServiceSub$: Subscription;
 
-  // TODO (S.Panfilov) test this code (should work)
+  // TODO test this code (should work)
   function getActorsToCheck(actorW: TActorWrapperAsync): ReadonlyArray<TActorWrapperAsync> {
     const cells: ReadonlyArray<TSpatialCellWrapper> = actorW.spatial.getSpatialCells();
     if (cells.length > 0) return actorW.spatial.getSpatialCells().flatMap((cell: TSpatialCellWrapper): ReadonlyArray<TActorWrapperAsync> => cell.getObjects());
     return [];
-    // TODO (S.Panfilov) this code is probably an extra overcomplicated corner case)
+    // TODO this code is probably an extra overcomplicated corner case)
     // const grid: TSpatialGridWrapper | undefined = spatialGridService.getRegistry().findByName(gridName);
     // if (isNotDefined(grid)) throw new Error(`Cannot check collisions for actor (id: "${actorW.id}", name: "${actorW.name}"): actor doesn't belong to spatial grid, and no grid name with name "${gridName}" exists`);
     // return grid.findCellsByActorBox(actorW).flatMap((cell: TSpatialCellWrapper): ReadonlyArray<TActorWrapperAsync> => cell.getObjects());
@@ -34,7 +34,7 @@ export function withCollisions(params: TActorParams, collisionsService: TCollisi
         collisionsLoopServiceSub$ = collisionsLoopService.tick$.pipe(filter(() => _isAutoUpdate)).subscribe(({ priority }): void => {
           if (priority < this.getCollisionsUpdatePriority()) return;
 
-          // TODO (S.Panfilov) should be possible to check collisions against another grid
+          // TODO should be possible to check collisions against another grid
           const collision: TCollisionCheckResult | undefined = collisionsService.checkCollisions(actorW, this.data.radius, getActorsToCheck(actorW));
           if (isDefined(collision)) value$.next(collision);
         });
