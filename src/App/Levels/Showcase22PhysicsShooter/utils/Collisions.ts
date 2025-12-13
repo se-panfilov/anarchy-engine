@@ -66,7 +66,7 @@ export function enableCollisions(mouseLineIntersectionsWatcher: TIntersectionsWa
   mouseLineIntersectionsWatcher.addActor(targetActor2W);
   mouseLineIntersectionsWatcher.addActor(targetActor3W);
 
-  // mouseLineIntersectionsWatcher.value$.pipe(distinctUntilChanged()).subscribe((value: TIntersectionEvent): void => {
+  // mouseLineIntersectionsWatcher.value$.subscribe((value: TIntersectionEvent): void => {
   //   grid._debugHighlightObjects(sceneW, value.point.x, value.point.z);
   // });
 

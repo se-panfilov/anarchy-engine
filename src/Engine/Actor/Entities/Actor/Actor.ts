@@ -24,8 +24,6 @@ export function Actor(
   const driveToTargetConnector: TDriveToTargetConnector = DriveToTargetConnector(drive, model3d.getRawModel3d());
 
   // TODO CWP:
-  // TODO 8.0.0. MODELS: make sure distinctUntilChanged works everywhere properly (could have an issue with the same reference)
-
   // TODO 8.0.0. MODELS: Make sure, rotations are working
   // TODO 8.0.0. MODELS: In showcase validate also rotation and scale
 
