@@ -1,17 +1,24 @@
+import { Subject } from 'rxjs';
+import { EquirectangularReflectionMapping } from 'three';
 import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader';
 
-import type { IEnvMapService } from '@/Engine/Domains/EnvMap/Models';
+import type { IDataTexture, IEnvMapService } from '@/Engine/Domains/EnvMap/Models';
+import type { IWriteable } from '@/Engine/Utils';
 
 export function EnvMapService(): IEnvMapService {
   const envMapLoader: RGBELoader = new RGBELoader();
+  const added$: Subject<IDataTexture> = new Subject<IDataTexture>();
 
-  function load(url: string): Promise<void> {
-    return new Promise((resolve, reject) => {
-      envMapLoader.load(url, () => resolve(), undefined, reject);
+  function load(url: string): Promise<IDataTexture> {
+    return envMapLoader.loadAsync(url).then((texture: IWriteable<IDataTexture>): IDataTexture => {
+      // eslint-disable-next-line functional/immutable-data
+      texture.mapping = EquirectangularReflectionMapping;
+      added$.next(texture);
+      return texture;
     });
   }
 
-  return { load };
+  return { load, added$: added$.asObservable() };
 }
 
 export const envMapService: IEnvMapService = EnvMapService();

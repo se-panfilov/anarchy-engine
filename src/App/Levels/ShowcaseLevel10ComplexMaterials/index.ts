@@ -2,7 +2,7 @@ import { BehaviorSubject } from 'rxjs';
 
 import type { IShowcase } from '@/App/Levels/Models';
 import type { IActorWrapper, IAppCanvas, ICameraWrapper, ILevel, ILevelConfig, IOrbitControlsWrapper, IVector3Wrapper } from '@/Engine';
-import { ambientContext, buildLevelFromConfig, CameraTag, EulerWrapper, isNotDefined, TextType, Vector3Wrapper } from '@/Engine';
+import { ambientContext, buildLevelFromConfig, CameraTag, envMapService, EulerWrapper, isNotDefined, TextType, Vector3Wrapper } from '@/Engine';
 
 import levelConfig from './showcase-10-complex-materials.config.json';
 
@@ -57,6 +57,10 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
     if (isNotDefined(orbitControls)) throw new Error('Orbit controls are not found');
     orbitControls.setTarget(position);
   }
+
+  void envMapService.load('/Showcase/hdr/urban_alley_01_4k.hdr').then((envMap) => {
+    console.log('envMap', envMap);
+  });
 
   function start(): void {
     level.start();

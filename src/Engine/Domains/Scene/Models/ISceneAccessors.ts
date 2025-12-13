@@ -1,5 +1,6 @@
 import type { IActorWrapper } from '@/Engine/Domains/Actor';
 import type { ICameraWrapper } from '@/Engine/Domains/Camera';
+import type { IDataTexture } from '@/Engine/Domains/EnvMap';
 import type { ILightWrapper } from '@/Engine/Domains/Light';
 import type { ITextAnyWrapper } from '@/Engine/Domains/Text';
 import type { ITexture } from '@/Engine/Domains/Texture';
@@ -13,6 +14,8 @@ export type ISceneAccessors = Readonly<{
   addCamera: (camera: Readonly<ICameraWrapper>) => void;
   addLight: (light: Readonly<ILightWrapper>) => void;
   addText: (text: Readonly<ITextAnyWrapper>) => void;
-  setBackground: (color: string) => void;
-  getBackground: () => IColor | ITexture | ICubeTexture | null;
+  setBackground: (color: string | IColor | ITexture | ICubeTexture | IDataTexture) => void;
+  getBackground: () => string | IColor | ITexture | ICubeTexture | IDataTexture | null;
+  setEnvironmentMap: (envMap: IDataTexture | ITexture) => void;
+  getEnvironmentMap: () => ITexture | null;
 }>;

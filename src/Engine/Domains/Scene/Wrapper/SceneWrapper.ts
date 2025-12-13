@@ -4,6 +4,7 @@ import type { IWrapper } from '@/Engine/Domains/Abstract';
 import { AbstractWrapper, WrapperType } from '@/Engine/Domains/Abstract';
 import type { IActorWrapper } from '@/Engine/Domains/Actor';
 import type { ICameraWrapper } from '@/Engine/Domains/Camera';
+import type { IDataTexture } from '@/Engine/Domains/EnvMap';
 import type { ILightWrapper } from '@/Engine/Domains/Light';
 import type { ISceneObject, ISceneParams, ISceneWrapper } from '@/Engine/Domains/Scene/Models';
 import type { ITextAnyWrapper } from '@/Engine/Domains/Text';
@@ -32,18 +33,21 @@ export function SceneWrapper(params: ISceneParams): ISceneWrapper {
   const addLight = (light: Readonly<ILightWrapper>): void => add(light.entity);
   const addText = (text: Readonly<ITextAnyWrapper>): void => add(text.entity);
 
-  function setBackground(color: string | IColor | ITexture | ICubeTexture): void {
+  function setBackground(color: string | IColor | ITexture | ICubeTexture | IDataTexture): void {
     let background: string | IColor | ITexture | ICubeTexture | null = null;
     if (isString(color)) background = ColorWrapper(color).entity;
     else background = color;
-    if (isNotDefined(background)) throw new Error('Invalid background color');
+    if (isNotDefined(background)) throw new Error('Invalid background');
     // eslint-disable-next-line functional/immutable-data
     entity.background = background;
   }
 
-  function getBackground(): IColor | ITexture | ICubeTexture | null {
-    return entity.background;
-  }
+  const getBackground = (): IColor | ITexture | ICubeTexture | null => entity.background;
 
-  return { ...wrapper, add, addActor, addCamera, addLight, addText, setBackground, getBackground, ...withObject3d(entity), entity };
+  // eslint-disable-next-line functional/immutable-data
+  const setEnvironmentMap = (texture: IDataTexture | ITexture): void => void (entity.environment = texture);
+
+  const getEnvironmentMap = (): ITexture | null => entity.environment;
+
+  return { ...wrapper, add, addActor, addCamera, addLight, addText, setBackground, getBackground, setEnvironmentMap, getEnvironmentMap, ...withObject3d(entity), entity };
 }

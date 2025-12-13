@@ -10,6 +10,8 @@ import type { ICameraConfig, ICameraFactory, ICameraRegistry, ICameraWrapper } f
 import { CameraFactory, CameraRegistry, CameraTag } from '@/Engine/Domains/Camera';
 import type { IControlsConfig, IControlsFactory, IControlsRegistry, IOrbitControlsWrapper } from '@/Engine/Domains/Controls';
 import { ControlsFactory, ControlsRegistry } from '@/Engine/Domains/Controls';
+import type { IDataTexture } from '@/Engine/Domains/EnvMap';
+import { envMapService } from '@/Engine/Domains/EnvMap';
 import type { IIntersectionsWatcher, IIntersectionsWatcherFactory, IIntersectionsWatcherRegistry } from '@/Engine/Domains/Intersections';
 import { IntersectionsWatcherFactory, IntersectionsWatcherRegistry } from '@/Engine/Domains/Intersections';
 import { withBuiltMixin } from '@/Engine/Domains/Level/Mixin';
@@ -116,6 +118,13 @@ export function buildLevelFromConfig(canvas: IAppCanvas, config: ILevelConfig): 
   const lightEntityCreatedSubscription: Subscription = lightFactory.entityCreated$.subscribe((light: ILightWrapper): void => lightRegistry.add(light));
   lights.forEach((light: ILightConfig): ILightWrapper => lightFactory.create(lightFactory.configToParams({ ...light, tags: [...light.tags, CommonTag.FromConfig] })));
   messages$.next(`Lights (${lights.length}) created`);
+
+  //env maps
+  envMapService.added$.subscribe((texture: IDataTexture): void => {
+    scene.setBackground(texture);
+    scene.setEnvironmentMap(texture);
+    messages$.next(`Env map added: "${texture.id}"`);
+  });
 
   //build renderer
   const rendererFactory: IRendererFactory = RendererFactory();
