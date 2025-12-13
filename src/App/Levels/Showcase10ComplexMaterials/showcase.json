@@ -368,9 +368,9 @@
           "height": 1,
           "radius": 0.7,
           "widthSegments": 64,
-          "heightSegments": 64,
-          "castShadow": true
+          "heightSegments": 64
         },
+        "castShadow": true,
         "tags": ["sphere", "standard", "metal"]
       },
       {
@@ -382,9 +382,9 @@
           "height": 1,
           "radius": 0.7,
           "widthSegments": 64,
-          "heightSegments": 64,
-          "castShadow": true
+          "heightSegments": 64
         },
+        "castShadow": true,
         "tags": ["sphere", "physical", "metal"]
       },
       {
@@ -396,9 +396,9 @@
           "height": 1,
           "radius": 0.7,
           "widthSegments": 64,
-          "heightSegments": 64,
-          "castShadow": true
+          "heightSegments": 64
         },
+        "castShadow": true,
         "tags": ["sphere", "basic", "metal"]
       },
       {
@@ -410,9 +410,9 @@
           "height": 1,
           "radius": 0.7,
           "widthSegments": 64,
-          "heightSegments": 64,
-          "castShadow": true
+          "heightSegments": 64
         },
+        "castShadow": true,
         "tags": ["sphere", "phong", "metal"]
       },
       {
@@ -424,9 +424,9 @@
           "height": 1,
           "radius": 0.7,
           "widthSegments": 64,
-          "heightSegments": 64,
-          "castShadow": true
+          "heightSegments": 64
         },
+        "castShadow": true,
         "tags": ["sphere", "lambert", "metal"]
       },
       {
@@ -438,9 +438,9 @@
           "height": 1,
           "radius": 0.7,
           "widthSegments": 64,
-          "heightSegments": 64,
-          "castShadow": true
+          "heightSegments": 64
         },
+        "castShadow": true,
         "tags": ["sphere", "toon", "metal"]
       },
       {
@@ -452,9 +452,9 @@
           "height": 1,
           "radius": 0.7,
           "widthSegments": 64,
-          "heightSegments": 64,
-          "castShadow": true
+          "heightSegments": 64
         },
+        "castShadow": true,
         "tags": ["sphere", "matcap", "metal"]
       },
       {
@@ -465,9 +465,9 @@
           "width": 1,
           "height": 1,
           "widthSegments": 64,
-          "heightSegments": 64,
-          "castShadow": true
+          "heightSegments": 64
         },
+        "castShadow": true,
         "tags": ["cube", "standard", "wood"]
       },
       {
@@ -478,9 +478,9 @@
           "width": 1,
           "height": 1,
           "widthSegments": 64,
-          "heightSegments": 64,
-          "castShadow": true
+          "heightSegments": 64
         },
+        "castShadow": true,
         "tags": ["cube", "physical", "wood"]
       },
       {
@@ -491,9 +491,9 @@
           "width": 1,
           "height": 1,
           "widthSegments": 64,
-          "heightSegments": 64,
-          "castShadow": true
+          "heightSegments": 64
         },
+        "castShadow": true,
         "tags": ["cube", "basic", "wood"]
       },
       {
@@ -504,9 +504,9 @@
           "width": 1,
           "height": 1,
           "widthSegments": 64,
-          "heightSegments": 64,
-          "castShadow": true
+          "heightSegments": 64
         },
+        "castShadow": true,
         "tags": ["cube", "phong", "wood"]
       },
       {
@@ -517,9 +517,9 @@
           "width": 1,
           "height": 1,
           "widthSegments": 64,
-          "heightSegments": 64,
-          "castShadow": true
+          "heightSegments": 64
         },
+        "castShadow": true,
         "tags": ["cube", "lambert", "wood"]
       },
       {
@@ -530,9 +530,9 @@
           "width": 1,
           "height": 1,
           "widthSegments": 64,
-          "heightSegments": 64,
-          "castShadow": true
+          "heightSegments": 64
         },
+        "castShadow": true,
         "tags": ["cube", "toon", "wood"]
       },
       {
@@ -543,9 +543,9 @@
           "width": 1,
           "height": 1,
           "widthSegments": 64,
-          "heightSegments": 64,
-          "castShadow": true
+          "heightSegments": 64
         },
+        "castShadow": true,
         "tags": ["cube", "matcap", "wood"]
       },
       {
@@ -557,9 +557,9 @@
           "height": 1,
           "radius": 0.7,
           "widthSegments": 64,
-          "heightSegments": 64,
-          "castShadow": true
+          "heightSegments": 64
         },
+        "castShadow": true,
         "tags": ["sphere", "standard", "glass"]
       },
       {
@@ -571,9 +571,9 @@
           "height": 1,
           "radius": 0.7,
           "widthSegments": 64,
-          "heightSegments": 64,
-          "castShadow": true
+          "heightSegments": 64
         },
+        "castShadow": true,
         "tags": ["sphere", "physical", "glass"]
       },
       {
@@ -585,9 +585,9 @@
           "height": 1,
           "radius": 0.7,
           "widthSegments": 64,
-          "heightSegments": 64,
-          "castShadow": true
+          "heightSegments": 64
         },
+        "castShadow": true,
         "tags": ["sphere", "basic", "glass"]
       },
       {
@@ -599,9 +599,9 @@
           "height": 1,
           "radius": 0.7,
           "widthSegments": 64,
-          "heightSegments": 64,
-          "castShadow": true
+          "heightSegments": 64
         },
+        "castShadow": true,
         "tags": ["sphere", "phong", "glass"]
       },
       {
@@ -613,9 +613,9 @@
           "height": 1,
           "radius": 0.7,
           "widthSegments": 64,
-          "heightSegments": 64,
-          "castShadow": true
+          "heightSegments": 64
         },
+        "castShadow": true,
         "tags": ["sphere", "lambert", "glass"]
       },
       {
@@ -627,9 +627,9 @@
           "height": 1,
           "radius": 0.7,
           "widthSegments": 64,
-          "heightSegments": 64,
-          "castShadow": true
+          "heightSegments": 64
         },
+        "castShadow": true,
         "tags": ["sphere", "toon", "glass"]
       },
       {
@@ -641,9 +641,9 @@
           "height": 1,
           "radius": 0.7,
           "widthSegments": 64,
-          "heightSegments": 64,
-          "castShadow": true
+          "heightSegments": 64
         },
+        "castShadow": true,
         "tags": ["sphere", "matcap", "glass"]
       },
       {
@@ -655,9 +655,9 @@
           "height": 1,
           "radius": 0.7,
           "widthSegments": 64,
-          "heightSegments": 64,
-          "castShadow": true
+          "heightSegments": 64
         },
+        "castShadow": true,
         "tags": ["sphere", "standard", "textile"]
       },
       {
@@ -669,9 +669,9 @@
           "height": 1,
           "radius": 0.7,
           "widthSegments": 64,
-          "heightSegments": 64,
-          "castShadow": true
+          "heightSegments": 64
         },
+        "castShadow": true,
         "tags": ["sphere", "physical", "textile"]
       },
       {
@@ -683,9 +683,9 @@
           "height": 1,
           "radius": 0.7,
           "widthSegments": 64,
-          "heightSegments": 64,
-          "castShadow": true
+          "heightSegments": 64
         },
+        "castShadow": true,
         "tags": ["sphere", "basic", "textile"]
       },
       {
@@ -697,9 +697,9 @@
           "height": 1,
           "radius": 0.7,
           "widthSegments": 64,
-          "heightSegments": 64,
-          "castShadow": true
+          "heightSegments": 64
         },
+        "castShadow": true,
         "tags": ["sphere", "phong", "textile"]
       },
       {
@@ -711,9 +711,9 @@
           "height": 1,
           "radius": 0.7,
           "widthSegments": 64,
-          "heightSegments": 64,
-          "castShadow": true
+          "heightSegments": 64
         },
+        "castShadow": true,
         "tags": ["sphere", "lambert", "textile"]
       },
       {
@@ -725,9 +725,9 @@
           "height": 1,
           "radius": 0.7,
           "widthSegments": 64,
-          "heightSegments": 64,
-          "castShadow": true
+          "heightSegments": 64
         },
+        "castShadow": true,
         "tags": ["sphere", "toon", "textile"]
       },
       {
@@ -739,9 +739,9 @@
           "height": 1,
           "radius": 0.7,
           "widthSegments": 64,
-          "heightSegments": 64,
-          "castShadow": true
+          "heightSegments": 64
         },
+        "castShadow": true,
         "tags": ["sphere", "matcap", "textile"]
       }
     ],
