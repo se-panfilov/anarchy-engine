@@ -9,9 +9,7 @@ This repository is provided under the **{{PACKAGE_LICENSE}}** (see `LICENSE`).
 4. **Third-Party Components (OSS Precedence).** Dependencies retain their own licenses and notices. **If this text ever conflicts with an OSS license for a specific component, the OSS license governs for that component.** See `NOTICE` / `THIRD_PARTY_LICENSES`.
 5. **No Warranty / Liability.** Provided **“AS IS”**, **to the extent permitted by law**, without warranties; **statutory consumer rights (if any) are not affected**.
 
-{{#HAS_ACCESSIBILITY_CONTACT}}
-**Accessibility.** Where required by law, we aim to address **accessibility feedback** for officially published artifacts **within reasonable and proportionate limits**. Contact: {{ACCESSIBILITY_CONTACT}}.
-{{/HAS_ACCESSIBILITY_CONTACT}}
+**Accessibility.** Where required by law, we aim to address **accessibility feedback** for officially published artifacts **within reasonable and proportionate limits**. Contact: **{{ACCESSIBILITY_CONTACT}}**. This section does **not** create service levels or guarantees.
 
 ## Governing Language
 

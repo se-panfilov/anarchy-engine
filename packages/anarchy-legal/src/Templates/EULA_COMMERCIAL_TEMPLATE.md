@@ -118,7 +118,7 @@ This {{PRODUCT_TERM}} is not directed to children below the age requiring parent
 
 ## 9. Accessibility
 
-Where required by applicable law (e.g., the **EU Accessibility Act**), we aim to address **accessibility feedback** for consumer-facing builds **within reasonable and proportionate limits**. You may send accessibility requests to **{{SUPPORT_EMAIL}}**. This section does **not** create service levels or guarantees.
+Where required by applicable law (e.g., the **EU Accessibility Act**), we aim to address **accessibility feedback** for consumer-facing builds **within reasonable and proportionate limits**. Contact: **{{ACCESSIBILITY_CONTACT}}**. This section does **not** create service levels or guarantees.
 
 ## 10. Term & Termination
 
