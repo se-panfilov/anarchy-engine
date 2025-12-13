@@ -1,8 +1,6 @@
-import type { EnvMapMappingTypesName } from '@/Engine/EnvMap/Constants';
-
 import type { TEnvMapProps } from './TEnvMapProps';
 
-export type TEnvMapConfig = Omit<TEnvMapProps, 'mapping' | 'texture'> &
+export type TEnvMapConfig = TEnvMapProps &
   Readonly<{
-    mapping?: EnvMapMappingTypesName;
+    texture: string;
   }>;

@@ -1,7 +1,3 @@
-import type { TWithNameRequired } from '@/Engine/Mixins';
+import type { TActive, TWithNameRequired } from '@/Engine/Mixins';
 
-export type TEnvMapProps = Readonly<{
-  texture: string;
-  isActive: boolean;
-}> &
-  TWithNameRequired;
+export type TEnvMapProps = TActive & TWithNameRequired;

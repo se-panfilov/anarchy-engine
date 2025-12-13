@@ -1,5 +1,5 @@
-import type { AnyMapping } from 'three';
+import type { EnvMapMappingTypesName } from '@/Engine/EnvMap/Constants';
 
 export type TEnvMapTextureParams = Readonly<{
-  mapping?: AnyMapping;
+  mapping?: EnvMapMappingTypesName;
 }>;

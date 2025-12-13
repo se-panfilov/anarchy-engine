@@ -3,9 +3,10 @@ import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader';
 
 import type { TAbstractLoader } from '@/Engine/Abstract';
 import { AbstractLoader, LoaderType } from '@/Engine/Abstract';
+import { EnvMapMappingTypesMap, EnvMapMappingTypesName } from '@/Engine/EnvMap/Constants';
 import type { TEnvMapLoader, TEnvMapResourceConfig, TEnvMapTexture, TEnvMapTextureAsyncRegistry, TEnvMapTextureParams } from '@/Engine/EnvMap/Models';
 import type { TWriteable } from '@/Engine/Utils';
-import { isDefined } from '@/Engine/Utils';
+import { isDefined, isNotDefined } from '@/Engine/Utils';
 
 // TODO CWP !!!
 // TODO 9.0.0. RESOURCES: add loaders folder for textures, materials, models3d
@@ -13,9 +14,12 @@ export function EnvMapLoader(registry: TEnvMapTextureAsyncRegistry): TEnvMapLoad
   const envMapLoader: RGBELoader = new RGBELoader();
   const loader: TAbstractLoader<TEnvMapTexture, TEnvMapResourceConfig> = AbstractLoader(envMapLoader, registry, LoaderType.EnvMap);
 
-  function applyParamsOnLoaded(loaded: TWriteable<TEnvMapTexture>, p?: TEnvMapTextureParams): TEnvMapTexture {
+  function applyParamsOnLoaded(loaded: TWriteable<TEnvMapTexture>, params?: TEnvMapTextureParams): TEnvMapTexture {
+    if (isNotDefined(params)) return loaded;
+    const { mapping } = params;
+
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment,functional/immutable-data
-    loaded.mapping = isDefined(p?.mapping) ? p.mapping : EquirectangularReflectionMapping;
+    loaded.mapping = isDefined(mapping) ? EnvMapMappingTypesMap[EnvMapMappingTypesName[mapping]] : EquirectangularReflectionMapping;
     return loaded;
   }
 
