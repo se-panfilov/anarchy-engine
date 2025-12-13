@@ -33,8 +33,8 @@ export const spaceTransformDriveData: TSpacesData = {
     if (isNotDefined(kinematicActor)) throw new Error('[Showcase]: Actor "cube_kinematic_actor" not found');
 
     // kinematicActor.drive.kinematic.rotateTo()
-    kinematicActor.drive.kinematic.moveTo(new Vector3(0, 2, 0), metersPerSecond(0.5));
-    kinematicActor.drive.kinematic.lookAt(new Vector3(0, 2, 0), metersPerSecond(0.001));
+    kinematicActor.drive.kinematic.moveTo(new Vector3(0, 2, 0), metersPerSecond(5));
+    kinematicActor.drive.kinematic.lookAt(new Vector3(0, 2, 0), metersPerSecond(0.003));
 
     const offset: Vector3Like = { x: 4, y: 0, z: 0 };
     //"repeaterActor" is connected with "positionConnector" (from "connected" agent) to "sphereActor" position

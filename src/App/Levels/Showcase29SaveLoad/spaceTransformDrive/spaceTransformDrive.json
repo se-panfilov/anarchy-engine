@@ -64,7 +64,7 @@
         "model3dSource": "cube_kinematic_model",
         "name": "cube_kinematic_actor",
         "position": {
-          "x": 8,
+          "x": 4,
           "y": 2,
           "z": 0
         },
