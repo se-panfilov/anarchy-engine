@@ -10,11 +10,11 @@ _This EULA applies to copies acquired on or after the Effective date. For earlie
 
 ## Identification
 
-This EULA applies to **TBD until market release** (the “Game”).
+This EULA applies to **TBD until market release** (the “Software”).
 
 Also distributed under the following technical identifiers: showcases-core.
 
-**Open-source repository.** The open-source codebase related to this Game (if any) is governed by its open-source license (see `LICENSE` in that repository) and is **not** governed by this EULA.
+**Open-source repository.** The open-source codebase related to this Software (if any) is governed by its open-source license (see `LICENSE` in that repository) and is **not** governed by this EULA.
 
 ## Defined Terms
 
@@ -30,48 +30,49 @@ If any term (including any limitation or exclusion of liability) is found invali
 
 ## 1. License Grant
 
-Subject to this EULA, Licensor grants you a personal, non-exclusive, revocable license to install and use showcases-core on devices you own or control for personal and commercial purposes, and—subject to Section 3—to make and distribute copies as permitted therein.
+Subject to this EULA, Licensor grants you a personal, non-exclusive, revocable license to install and use showcases-core (the “Software”) on devices you own or control for personal and commercial purposes, and—subject to Section 3—to make and distribute copies as permitted therein.
 
 ## 2. Ownership
 
-The Game is licensed, not sold. Sergei Aleksandrovich Panfilov and its licensors retain all title and IP rights. **Open-source components** are licensed under their respective terms.
+The Software is licensed, not sold. Sergei Aleksandrovich Panfilov and its licensors retain all title and IP rights. **Open-source components** are licensed under their respective terms.
 
 ## 3. Permitted Use, Sharing & Reverse Engineering
 
 You may:
 
-- install and use the Game on devices you own or control;
+- install and use the Software on devices you own or control;
 - make personal backup copies for your own use;
-- reverse engineer, decompile, disassemble, analyze and modify the Game to the extent permitted by applicable law **and** for interoperability, modding and educational purposes;
-- share **unmodified** copies of the Game **free of charge** with other individuals, provided that you include this EULA, do not hold us responsible for any issues arising from such sharing, and only where this is not prohibited by applicable law or the terms of the relevant Distribution Channel.
-- distribute or resell the Game commercially **as an unofficial build**, provided that you (i) clearly and prominently state that your distribution is **unofficial and not endorsed** by us, (ii) do **not** use our trademarks, logos or branding beyond nominative fair use, (iii) include this EULA and all third-party notices, (iv) do not modify or bundle the Game with malware, adware, or telemetry, and (v) only where this is not prohibited by applicable law or the terms of the relevant Distribution Channel.
+- reverse engineer, decompile, disassemble, analyze and modify the Software to the extent permitted by applicable law **and** for interoperability, modding and educational purposes;
+- share **unmodified** copies of the Software **free of charge** with other individuals, provided that you include this EULA, do not hold us responsible for any issues arising from such sharing, and only where this is not prohibited by applicable law or the terms of the relevant Distribution Channel.
+- distribute or resell the Software commercially **as an unofficial build**, provided that you (i) clearly and prominently state that your distribution is **unofficial and not endorsed** by us, (ii) do **not** use our trademarks, logos or branding beyond nominative fair use, (iii) include this EULA and all third-party notices, (iv) do not modify or bundle the Software with malware, adware, or telemetry, and (v) only where this is not prohibited by applicable law or the terms of the relevant Distribution Channel.
 
 You must **not**:
 
-- create, market, distribute or use **cheats, hacks, bots, aimbots, trainers, exploits** or other tools intended to gain an unfair advantage, disrupt gameplay, bypass anti-cheat, or compromise the integrity or security of the Game or others’ systems;
-- develop, embed or distribute **malware** or use the Game as a vehicle for malicious code, phishing, or fraud;
+- create, market, distribute or use **cheats, hacks, bots, aimbots, trainers, exploits** or other tools intended to gain an unfair advantage, disrupt Softwareplay, bypass anti-cheat, or compromise the integrity or security of the Software or others’ systems;
+
+- develop, embed or distribute **malware** or use the Software as a vehicle for malicious code, phishing, or fraud;
 - **impersonate** us or **mislead** users by presenting your builds as “official”, using confusingly similar names, or implying sponsorship, endorsement, or partnership without our prior written permission;
-- violate applicable law or third-party rights when using, modifying, or sharing the Game.
+- violate applicable law or third-party rights when using, modifying, or sharing the Software.
 
 We do **not** provide support, tools, or compatibility commitments for reverse engineering, modifications, or shared copies. Updates may break mods or unofficial builds, and we are **not liable** for any resulting loss or damage. Nothing in this section grants rights to our trademarks or proprietary assets beyond what is necessary for interoperability and nominative fair use.
 
 Any distribution under this Section 3 is at your sole responsibility and expense. You act as the seller/distributor for legal purposes, and we provide no warranties, support, or obligations to your recipients.
 
-## 4. Modding
+## 4. Modding / Extensions
 
-You may create, use, and distribute mods for the Game **at your own risk**, provided that your mods:
+You may create, use, and distribute mods for the Software **at your own risk**, provided that your mods:
 
 - comply with applicable law and **do not infringe** third-party rights;
-- **do not harm** security, performance, or integrity of the Game or others’ systems;
+- **do not harm** security, performance, or integrity of the Software or others’ systems;
 - do **not** circumvent technical protection measures or unlawfully access proprietary assets.
 
 We **do not** provide support, tools, or compatibility commitments for mods. Updates may break mods, and we are **not liable** for any loss or damage arising from mods. We may restrict or disable mods in online/competitive modes or where required for legal, safety, anti-cheat, or compliance reasons.
 
-You retain rights in your mods. This EULA does **not** grant you any rights to our IP beyond what is necessary to interoperate with the Game. Do not include or redistribute our proprietary content unless expressly permitted.
+You retain rights in your mods. This EULA does **not** grant you any rights to our IP beyond what is necessary to interoperate with the Software. Do not include or redistribute our proprietary content unless expressly permitted.
 
 ## 5. Updates
 
-The Game may receive updates, patches, bug fixes, or content changes (“Updates”). Updates may be delivered through any Distribution Channels in use from time to time, including automatic updates where supported, or by including updated files in the distribution package. Some Updates may be required to continue use.
+The Software may receive updates, patches, bug fixes, or content changes (“Updates”). Updates may be delivered through any Distribution Channels in use from time to time, including automatic updates where supported, or by including updated files in the distribution package. Some Updates may be required to continue use.
 
 Where we provide release notes or advisories, they may be delivered within the product, in the update package, or via the applicable Distribution Channel. No specific location or publication cadence is guaranteed.
 
@@ -79,23 +80,23 @@ We do **not** commit to any service levels, availability targets, or ongoing sup
 
 ## 6. Third-Party Services
 
-Purchasing, downloading, installation, account, or entitlement functions may be provided by your chosen Distribution Channels and are subject to their own terms and privacy policies. Any online features of the Game (if offered) may rely on third-party services under their respective terms.
+Purchasing, downloading, installation, account, or entitlement functions may be provided by your chosen Distribution Channels and are subject to their own terms and privacy policies. Any online features of the Software (if offered) may rely on third-party services under their respective terms.
 
 ## 7. User-Generated Content (if applicable)
 
-Where UGC features exist, you remain responsible for your content. You grant Licensor a **worldwide, non-exclusive, royalty-free** license to use, reproduce, display, and adapt UGC for operating and promoting the Game. Licensor may remove content that violates this EULA or the law.
+Where UGC features exist for the Software, you remain responsible for your content. You grant Licensor a **worldwide, non-exclusive, royalty-free** license to use, reproduce, display, and adapt UGC for operating and promoting the Software. Licensor may remove content that violates this EULA or the law.
 
 ## 8. Children & Age Ratings
 
-This Game is not directed to children below the age requiring parental consent under applicable law (e.g., EU 16, US 13, China 14). We do not knowingly collect personal data from such children.
+This Software is not directed to children below the age requiring parental consent under applicable law (e.g., EU 16, US 13, China 14). We do not knowingly collect personal data from such children.
 
 ## 9. Term & Termination
 
-This EULA is effective until terminated. It terminates automatically if you materially breach it. Upon termination, cease use and uninstall the Game. Sections intended to survive (Ownership, OSS, Disclaimers, Liability, Governing Law) shall survive.
+This EULA is effective until terminated. It terminates automatically if you materially breach it. Upon termination, cease use and uninstall the Software. Sections intended to survive (Ownership, OSS, Disclaimers, Liability, Governing Law) shall survive.
 
 ## 10. Disclaimer of Warranties
 
-The Game is provided **“AS IS”**, **to the maximum extent permitted by applicable law**, without warranties of any kind, express or implied, including **merchantability, fitness for a particular purpose, and non-infringement**. **Statutory consumer rights are not affected.**
+The Software is provided **“AS IS”**, **to the maximum extent permitted by applicable law**, without warranties of any kind, express or implied, including **merchantability, fitness for a particular purpose, and non-infringement**. **Statutory consumer rights are not affected.**
 
 ## 11. Limitation of Liability
 
@@ -104,16 +105,16 @@ To the fullest extent permitted by law, Licensor shall **not** be liable for any
 
 ## 11A. Liability Cap (Business Users Only)
 
-This clause applies **only** to Business Users. To the extent permitted by applicable law, the Licensor’s aggregate liability for all claims relating to the Game shall not exceed **the total fees paid by that Business User to the Licensor for the Game in the 12 months immediately preceding the event giving rise to the claim**.
+This clause applies **only** to Business Users. To the extent permitted by applicable law, the Licensor’s aggregate liability for all claims relating to the Software shall not exceed **the total fees paid by that Business User to the Licensor for the Game in the 12 months immediately preceding the event giving rise to the claim**.
 Nothing in this clause applies to Consumers, nor does it limit liability where such limitation is unlawful (including for death or personal injury caused by negligence, fraud or wilful misconduct).
 
 ## 12. Export Controls & Sanctions
 
-You must comply with applicable **export, re-export, and sanctions** laws. You may not use or transfer the Game to restricted persons, entities, destinations, or for prohibited end uses.
+You must comply with applicable **export, re-export, and sanctions** laws. You may not use or transfer the Software to restricted persons, entities, destinations, or for prohibited end uses.
 
 ## 13. Open-Source Components (OSS Precedence)
 
-The Game includes **open-source software**. **To the extent of any conflict between this EULA and the license terms of an OSS component, the OSS license controls for that component.** Third-party notices and licenses are provided in the distribution package (see `NOTICE` and `THIRD_PARTY_LICENSES`).
+The Software includes **open-source software**. **To the extent of any conflict between this EULA and the license terms of an OSS component, the OSS license controls for that component.** Third-party notices and licenses are provided in the distribution package (see `NOTICE` and `THIRD_PARTY_LICENSES`).
 
 ## 14. Governing Law & Consumer Rights
 

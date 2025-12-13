@@ -13,7 +13,8 @@ export default [
 
       //The brand name of the product (registered trademark)
       PRODUCT_DISPLAY_NAME: 'TBD until market release',
-      SHOW_TECH_IDENTIFIERS: true
+      SHOW_TECH_IDENTIFIERS: true,
+      IS_GAME: true
     }
   },
   {

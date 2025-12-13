@@ -13,6 +13,7 @@ export default [
       IS_CHILD_DIRECTED: false,
       SHOW_TECH_IDENTIFIERS: true,
       TRADEMARK_SYMBOL: '', //Empty by default. Possible '™' (no obligations, just an indication it's a trademark) or '®' (registered trademark, which requires registration in the country of use).
+      PRODUCT_TERM: 'Software', //E.g. 'Software', 'Product', 'Game', etc.
 
       //B2B
       LIABILITY_CAP_AMOUNT: 'the total fees paid by that Business User to the Licensor for the Game in the 12 months immediately preceding the event giving rise to the claim',
@@ -45,6 +46,7 @@ export default [
       // evaluation purposes only – for demo/beta, if you want to explicitly limit to evaluation.
       // educational and research — for educational and research editions.
       USAGE_SCOPE: 'personal and commercial',
+      IS_GAME: false, //If it's game, add game-specific messages, e.g. no cheating, etc.
 
       // TBD
       SECURITY_SUPPORT_PERIOD: 'TBD until market release',

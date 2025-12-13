@@ -14,7 +14,7 @@ This repository is an **open-source project** and **is not, by itself, a product
 
 If **you** incorporate the Software into a **commercial product** or otherwise **place a product on the market**, **you** are solely responsible for ensuring that **your product** complies with applicable law (including **product safety and cybersecurity** rules such as the EU **Cyber Resilience Act**), **consumer protection**, and **information security** requirements. Nothing herein constitutes legal advice.
 
-Where Sergei Aleksandrovich Panfilov distributes **commercial binaries** of showcases-desktop, security support is handled as described in `SECURITY.md` (see **Security Support Period**).
+Where Sergei Aleksandrovich Panfilov distributes **commercial binaries** of showcases-desktop, security support is handled as described in `SECURITY` (see **Security Support Period**).
 
 ## Export Controls and Sanctions
 
@@ -26,13 +26,13 @@ The Software may be subject to **export control, re-export, and sanctions** laws
 
 ## Third-Party Components (OSS Precedence)
 
-The Software may include or interface with **third-party open-source components**. Such components are licensed under their **own** terms. **If there is a conflict between this disclaimer/EULA and an OSS license for a specific component, the OSS license controls for that component.** See `NOTICE.md` / `THIRD_PARTY_LICENSES.md`.
+The Software may include or interface with **third-party open-source components**. Such components are licensed under their **own** terms. **If there is a conflict between this disclaimer/EULA and an OSS license for a specific component, the OSS license controls for that component.** See `NOTICE` / `THIRD_PARTY_LICENSES`.
 
 ## Security and Support
 
 This project is maintained **without any commitment** to provide support, maintenance, updates, or security fixes for the open-source codebase.
 
-For distributed binaries (if any), see `SECURITY.md` for the **coordinated vulnerability disclosure** process and **TBD until market release**.
+For distributed binaries (if any), see `SECURITY` for the **coordinated vulnerability disclosure** process and **TBD until market release**.
 
 ## Modifications
 
