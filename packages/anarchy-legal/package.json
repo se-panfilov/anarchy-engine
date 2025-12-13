@@ -25,7 +25,7 @@
     "dist/"
   ],
   "scripts": {
-    "before:release": "npm run before:release:check",
+    "before:release": "npm run before:release:check && npm run generate:legal",
     "before:release:check": "npm run ts:check && npm run prettier:check && npm run lint",
     "generate:files": "node ./src/Generators/LegalFilesGenerator.ts",
     "generate:licenses": "node src/Generators/ThirdPartyLicensesGenerator.ts",
@@ -35,7 +35,12 @@
     "prettier": "prettier --write .",
     "prettier:check": "prettier --check .",
     "ts:check": "tsc --noEmit",
-    "ts:check:watch": "tsc --watch --noEmit"
+    "ts:check:watch": "tsc --watch --noEmit",
+    "generate:legal": "npm run generate:legal:3rd-party-licenses && npm run generate:legal:notice && npm run generate:legal:files && npm run generate:legal:sbom",
+    "generate:legal:3rd-party-licenses": "npm run -w anarchy-legal generate:licenses -- --workspace packages/anarchy-legal --out ./legal/THIRD_PARTY_LICENSES.md",
+    "generate:legal:files": "npm run -w anarchy-legal generate:files -- --workspace packages/anarchy-legal --out ./",
+    "generate:legal:notice": "npm run -w anarchy-legal generate:notice -- --audit --strict --workspace packages/anarchy-legal --source ./legal/THIRD_PARTY_LICENSES.md --out ./legal/NOTICE.md",
+    "generate:legal:sbom": "npm sbom --sbom-format=cyclonedx --package-lock-only --omit=dev > ./compliance/sbom/sbom.cdx.json"
   },
   "devDependencies": {
     "@date-fns/utc": "2.1.1",
