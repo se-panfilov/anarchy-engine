@@ -45,7 +45,7 @@ export function start(): void {
 
     setTimeout(() => console.log(`Completed: ${completedSubscriptions}`), 1000);
     setTimeout(() => console.log(`Active: ${totalSubscriptions - completedSubscriptions}`), 1100);
-    setTimeout(() => console.log(subscriptionStacks), 1200);
+    // setTimeout(() => console.log(subscriptionStacks), 1200);
   });
 
   addBtn('Start Beta', rightContainerId, (): void => spaceBeta.start$.next(true), '4px');
