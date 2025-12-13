@@ -5,7 +5,7 @@ import { AbstractEntity, EntityType } from '@/Engine/Abstract';
 import { withObject3d } from '@/Engine/Mixins';
 import { model3dToConfig } from '@/Engine/Models3d/Adapters';
 import { withModel3dEntities } from '@/Engine/Models3d/Mixins';
-import type { TModel3d, TModel3dConfig, TModel3dDependencies, TModel3dEntities, TModel3dParams, TWithModel3dEntities } from '@/Engine/Models3d/Models';
+import type { TModel3d, TModel3dConfig, TModel3dConfigToParamsDependencies, TModel3dDependencies, TModel3dEntities, TModel3dParams, TWithModel3dEntities } from '@/Engine/Models3d/Models';
 import { applyObject3dParamsToModel3d, applyPositionToModel3d, applyRotationToModel3d, applyScaleToModel3d, createModels3dEntities, isModel3dAlreadyInUse } from '@/Engine/Models3d/Utils';
 import type { TOptional } from '@/Engine/Utils';
 import { destroyModel3dAnimationEntities, disposeGltf, isDefined } from '@/Engine/Utils';
@@ -42,7 +42,8 @@ export function Model3d(params: TModel3dParams, { animationsService, model3dRawT
   const result: TModel3d = Object.assign(preResult, abstract, {
     getParams,
     _clone,
-    serialize: (): TModel3dConfig => model3dToConfig(result)
+    // TODO 15-0-0: add serializer to the service to avoid dependencies passing
+    serialize: (dependencies: TModel3dConfigToParamsDependencies): TModel3dConfig => model3dToConfig(result, dependencies)
   });
 
   const destroySub$: Subscription = abstract.destroy$.subscribe((): void => {
