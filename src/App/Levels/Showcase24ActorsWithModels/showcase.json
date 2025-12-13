@@ -84,7 +84,7 @@
           "animationsFsmSource": "dance_anim_fsm"
         },
         "agent": "default",
-        "position": { "x": 6, "y": 0, "z": 8 },
+        "position": { "x": 4, "y": 0, "z": 4 },
         "rotation": { "x": 0, "y": 0.8, "z": 0 },
         "spatial": { "grid": "main_grid", "isAutoUpdate": true }
       }

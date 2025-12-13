@@ -32,15 +32,21 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     const solder1AnimFsm: TFsmWrapper = initSolder1('solder_actor_1', fadeDuration, space.services);
     const solder2AnimFsm: TFsmWrapper = initSolder2('solder_actor_2', fadeDuration, space.services);
 
+    solder1AnimFsm.changed$.pipe(distinctUntilChanged()).subscribe((state: TFsmStates): void => {
+      if (state === 'Idle') {
+        solder2AnimFsm.send('Idle');
+      } else {
+        solder2AnimFsm.send('Dance');
+      }
+    });
+
     onKey(KeyCode.W).pressing$.subscribe((): void => {
       const action: 'Run' | 'Walk' = isKeyPressed(KeysExtra.Shift) ? 'Run' : 'Walk';
       if (solder1AnimFsm.getState() !== action) solder1AnimFsm.send(action);
-      solder2AnimFsm.send('Dance');
     });
 
     onKey(KeyCode.W).released$.subscribe((): void => {
       solder1AnimFsm.send('Idle');
-      solder2AnimFsm.send('Idle');
     });
   }
 
