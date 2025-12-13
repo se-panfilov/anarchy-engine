@@ -15,6 +15,10 @@ export default defineConfig({
     // "topLevelAwait" needed only if build.target is not "esnext"
     topLevelAwait()
   ],
+  worker: {
+    // keep "format" as default value (not "es") if you want to use "topLevelAwait" plugin
+    plugins: [wasm(), topLevelAwait()]
+  },
   build: {
     sourcemap: true
   },
