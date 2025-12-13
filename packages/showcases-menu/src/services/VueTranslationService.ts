@@ -1,8 +1,8 @@
 import type { TLocalesMapping, TTranslationService } from '@Anarchy/i18n';
 import { TranslationService } from '@Anarchy/i18n';
+import { ShowcasesFallbackLocale, ShowcasesLocales } from '@Showcases/i18n';
 import { locales } from '@Showcases/Menu/i18n';
 import type { TVueTranslationService } from '@Showcases/Menu/models';
-import { ShowcasesFallbackLocale, ShowcasesLocales } from '@Showcases/Shared';
 import type { Observable, Subscription } from 'rxjs';
 import { filter } from 'rxjs';
 import type { ShallowRef } from 'vue';
