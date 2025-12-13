@@ -5,7 +5,7 @@ import type { TModel3d } from '@/Engine/Models3d';
 import type { TWriteable } from '@/Engine/Utils';
 import { isNotDefined } from '@/Engine/Utils';
 
-export const Model3dToActorConnectionRegistry = (): TModel3dToActorConnectionRegistry => {
+export function Model3dToActorConnectionRegistry(): TModel3dToActorConnectionRegistry {
   const registry: TWriteable<TAbstractSimpleRegistry<string>> & TWriteable<TModel3dToActorConnectionRegistryExtension> = AbstractSimpleRegistry<string>(
     RegistryType.Models3dToActorConnection
   ) as TWriteable<TAbstractSimpleRegistry<string>> & TWriteable<TModel3dToActorConnectionRegistryExtension>;
@@ -26,4 +26,4 @@ export const Model3dToActorConnectionRegistry = (): TModel3dToActorConnectionReg
   registry.removeByModel3d = (model3d: TModel3d): void => registry.remove(model3d.id);
 
   return registry;
-};
+}
