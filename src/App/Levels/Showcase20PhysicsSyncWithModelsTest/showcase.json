@@ -71,8 +71,7 @@
           "presetName": "ball_physics",
           "shapeParams": {
             "radius": 1
-          },
-          "position": { "x": 0, "y": 6, "z": 0 }
+          }
         },
         "position": { "x": 0, "y": 6, "z": 0 },
         "spatial": { "grid": "main_grid", "isAutoUpdate": false }
@@ -86,9 +85,7 @@
             "hx": 0.5,
             "hy": 2,
             "hz": 0.5
-          },
-          "position": { "x": -4, "y": 4, "z": 3 },
-          "rotation": { "x": 0, "y": 0, "z": 0, "w": 1 }
+          }
         },
         "position": { "x": -4, "y": 4, "z": 3 },
         "rotation": { "x": 0, "y": 0, "z": 0 },
@@ -103,9 +100,7 @@
             "hx": 0.5,
             "hy": 2,
             "hz": 0.5
-          },
-          "position": { "x": 4, "y": 5, "z": -4 },
-          "rotation": { "x": 0, "y": 0, "z": 0, "w": 1 }
+          }
         },
         "position": { "x": 4, "y": 5, "z": -4 },
         "rotation": { "x": 0, "y": 0, "z": 0 },

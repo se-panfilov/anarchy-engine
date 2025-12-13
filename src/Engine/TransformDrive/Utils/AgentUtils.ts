@@ -30,8 +30,7 @@ export function getKinematicWithDefaults(kinematic: TKinematicDataParams | undef
 }
 
 export function getPhysicsTransformAgent(params: TTransformAgentParams, physics: TWithPresetNamePhysicsBodyParams | undefined, dependencies: TPhysicsAgentDependencies): TPhysicsTransformAgent {
-  const agentParams: Omit<TTransformAgentParams, 'rotation'> = { position: params.position, scale: params.scale ?? new Vector3(1, 1, 1) };
-  // TODO 8.0.0. MODELS: Types of "rotation" are different
+  const agentParams: TTransformAgentParams = { position: params.position, rotation: params.rotation, scale: params.scale ?? new Vector3(1, 1, 1) };
   const physicalData: TPhysicsTransformAgentParams = { ...agentParams, ...physics };
   return PhysicsTransformAgent(physicalData, dependencies);
 }
