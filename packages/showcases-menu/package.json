@@ -2,7 +2,7 @@
   "name": "showcases-menu",
   "author": "S. Panfilov",
   "private": true,
-  "version": "1.7.0",
+  "version": "1.7.1",
   "type": "module",
   "license": "MIT",
   "description": "Anarchy Showcases-Menu – a menu for Anarchy Engine Showcases.",
@@ -37,8 +37,11 @@
     "preview": "vite preview",
     "sanitize-assets": "node ../anarchy-shared/ScriptUtils/SanitizeAssets.js ./public",
     "start:dev": "vite --mode dev --port 5083",
-    "test:unit": "vitest",
-    "ts:check": "vue-tsc --noEmit"
+    "ts:check": "vue-tsc --noEmit",
+    "unit": "vitest run",
+    "unit:coverage": "vitest run --coverage",
+    "unit:coverage:ui": "vitest --ui",
+    "unit:watch": "vitest"
   },
   "dependencies": {
     "anarchy-engine": "*",
