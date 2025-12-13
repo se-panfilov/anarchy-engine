@@ -6,11 +6,10 @@ import { DeviceWatcher } from '@Engine/Watchers/DeviceWatcher';
 export class RendererWrapper extends AbstractWrapper<WebGL1Renderer> {
   public entity: WebGL1Renderer;
 
-  constructor(elementId: string, deviceWatcher: DeviceWatcher, canvas: HTMLElement) {
+  constructor(canvas: HTMLElement, deviceWatcher: DeviceWatcher) {
     super();
 
-    // let canvas: HTMLElement | null = document.querySelector(elementId);
-    if (isNotDefined(canvas)) throw new Error(`Cannot find element with selector "${elementId}"`);
+    if (isNotDefined(canvas)) throw new Error(`Canvas is not defined`);
     if (!isWebGLAvailable()) throw new Error('WebGL is not supported by this device');
 
     this.entity = new WebGL1Renderer({ canvas });
@@ -24,12 +23,8 @@ export class RendererWrapper extends AbstractWrapper<WebGL1Renderer> {
       this.entity.setPixelRatio(Math.min(ratio, 2));
     });
 
-    deviceWatcher.destroyed$.subscribe(() => {
-      deviceWatcher.size$.unsubscribe();
-    });
+    deviceWatcher.destroyed$.subscribe(() => deviceWatcher.size$.unsubscribe());
 
-    this.destroyed$.subscribe(() => {
-      deviceWatcher.size$.unsubscribe();
-    });
+    this.destroyed$.subscribe(() => deviceWatcher.size$.unsubscribe());
   }
 }

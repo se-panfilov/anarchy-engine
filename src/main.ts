@@ -9,8 +9,9 @@ import { ActorManager } from '@Engine/Managers/ActorManager';
 import { ControlManager } from '@Engine/Managers/ControlManager';
 import { DeviceWatcher } from '@Engine/Watchers/DeviceWatcher';
 import type { CameraParams } from '@Engine/Wrappers/CameraWrapper';
-import { ActorParams } from '@Engine/Wrappers/ActorWrapper';
+import type { ActorParams } from '@Engine/Wrappers/ActorWrapper';
 import { isNotDefined } from '@Engine/Utils';
+import { RendererManager } from '@Engine/Managers/RendererManager';
 
 const deviceWatcher = new DeviceWatcher({
   width: window.innerWidth,
@@ -60,20 +61,25 @@ wrappedCamera.lookAt(0, 0, 0);
 
 if (isNotDefined(cameraManager.current$.value)) throw new Error('Camera is not ready');
 if (isNotDefined(rendererManager.current$.value)) throw new Error('Renderer is not ready');
-const wrappedControl = controlManager.create(cameraManager.current$.value, rendererManager.current$.value);
-wrappedControl.entity.wrappedCamera.setControls('OrbitControls');
 
-lightManager.createAmbientLight({ type: 'ambient', color: 0xffffff, intensity: 0.5 });
-const wrappedDirectionalLight = lightManager.createDirectionalLight({
+const canvas: HTMLElement | null = document.querySelector('#app');
+if (isNotDefined(canvas)) throw new Error('Canvas is not defined');
+const manager = rendererManager.create(canvas, deviceWatcher);
+
+const wrappedControl = controlManager.create(cameraManager.current$.value, rendererManager.current$.value);
+cameraManager.current$.value.setControls('OrbitControls');
+
+lightManager.create({ type: 'ambient', color: 0xffffff, intensity: 0.5 });
+const wrappedDirectionalLight = lightManager.create({
   type: 'directional',
   color: '#ffffff',
   intensity: 1
 });
-wrappedDirectionalLight.light.castShadow = true;
-wrappedDirectionalLight.light.shadow.mapSize.set(1024, 1024);
-wrappedDirectionalLight.light.shadow.camera.far = 15;
-wrappedDirectionalLight.light.shadow.normalBias = 0.05;
-wrappedDirectionalLight.light.position.set(0.25, 2, 2.25);
+wrappedDirectionalLight.entity.castShadow = true;
+wrappedDirectionalLight.entity.shadow.mapSize.set(1024, 1024);
+wrappedDirectionalLight.entity.shadow.camera.far = 15;
+wrappedDirectionalLight.entity.shadow.normalBias = 0.05;
+wrappedDirectionalLight.entity.position.set(0.25, 2, 2.25);
 
 inputManager.initMousePointer().addIntersectionPointer().onClick(onMouseClick);
 
