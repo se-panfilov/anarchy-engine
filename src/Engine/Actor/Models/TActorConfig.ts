@@ -9,11 +9,9 @@ import type { TActorProps } from './TActorProps';
 export type TActorConfig = Omit<TActorProps, 'material'> &
   Readonly<{
     material: TMaterialPackConfig<TMaterialTexturePack>;
-  }> &
-  Readonly<{
     type: ActorType;
     castShadow: boolean;
+    physics: TWithPhysicsPresetConfig;
   }> &
-  TWithPhysicsPresetConfig &
   TObject3DPropConfig &
   TWithReadonlyTags;

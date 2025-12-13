@@ -9,9 +9,9 @@ import { applyObject3dParams, applyPosition, applyRotation, applyScale, isDefine
 
 import { createActor } from './ActorUtils';
 
-export async function ActorWrapperAsync(params: TActorParams, { materialTextureService }: TActorDependencies): Promise<TActorWrapperAsync> {
+export async function ActorWrapperAsync(params: TActorParams, { materialTextureService, physicsService }: TActorDependencies): Promise<TActorWrapperAsync> {
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-  const entity: TMesh = await createActor(params, materialTextureService);
+  const entity: TMesh = await createActor(params, { materialTextureService, physicsService });
 
   const withMaterialEntity: TWithMaterial = withMaterial(entity);
 
