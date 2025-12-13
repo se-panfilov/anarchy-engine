@@ -11,17 +11,17 @@ export function DesktopAppService(app: App): TDesktopAppService {
     try {
       win.close();
     } catch (err: any) {
-      console.log(`[Desktop] Failed to gracefully close window ("${win.id}"): ${err}`);
+      console.log(`[DESKTOP] Failed to gracefully close window ("${win.id}"): ${err}`);
     }
 
     setTimeout((): void => {
       if (win.isDestroyed()) return;
-      console.log(`[Desktop] Trying to force close window ("${win.id}")...`);
+      console.log(`[DESKTOP] Trying to force close window ("${win.id}")...`);
 
       try {
         win.destroy();
       } catch (err: any) {
-        console.log(`[Desktop] Failed to force close window ("${win.id}"): ${err}`);
+        console.log(`[DESKTOP] Failed to force close window ("${win.id}"): ${err}`);
       }
     }, delay);
   }
@@ -31,7 +31,7 @@ export function DesktopAppService(app: App): TDesktopAppService {
   function closeApp(): void {
     if (isExitingApp) return;
     isExitingApp = true;
-    console.log('[Desktop] Closing app');
+    console.log('[DESKTOP] Closing app');
 
     closeAllWindows();
 
@@ -42,7 +42,7 @@ export function DesktopAppService(app: App): TDesktopAppService {
   function restartApp(args: ReadonlyArray<string> = []): void {
     if (isExitingApp) return;
     isExitingApp = true;
-    console.log('[Desktop] Restarting app');
+    console.log('[DESKTOP] Restarting app');
 
     closeAllWindows();
     const baseArgs: ReadonlyArray<string> = process.argv.slice(1).filter((a: string): boolean => a !== '--relaunch');

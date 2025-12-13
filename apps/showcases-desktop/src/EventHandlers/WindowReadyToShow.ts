@@ -3,7 +3,7 @@ import type { BrowserWindow } from 'electron';
 
 export function windowReadyToShow(win: BrowserWindow, settings: TShowcaseGameSettings): void {
   win.once('ready-to-show', (): void => {
-    console.log(`[Desktop] App's window is ready`);
+    console.log(`[DESKTOP] App's window is ready`);
     win.show();
     applyFullscreen(win, settings);
   });
@@ -11,7 +11,7 @@ export function windowReadyToShow(win: BrowserWindow, settings: TShowcaseGameSet
 
 function applyFullscreen(win: BrowserWindow, settings: TShowcaseGameSettings): void {
   if (settings.graphics.isFullScreen) {
-    console.log(`[Desktop] Starting fullscreen mode`);
+    console.log(`[DESKTOP] Starting fullscreen mode`);
     if (process.platform === 'darwin') {
       win.setSimpleFullScreen(true);
     } else {
