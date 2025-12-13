@@ -8,7 +8,7 @@ export function AbstractWatcherRegistry<T extends TAbstractWatcher<any> | TAbstr
 
   abstractEntityRegistry.destroy$.subscribe((): void => {
     abstractEntityRegistry.forEach((v: T): void => {
-      v.stop$.next();
+      v.enabled$.next(false);
     });
   });
 

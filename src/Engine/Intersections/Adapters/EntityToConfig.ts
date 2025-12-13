@@ -45,7 +45,7 @@ export function intersectionsCameraToConfig(entity: TIntersectionsCameraWatcher)
 
 export function intersectionsDirectionToConfig(entity: TIntersectionsDirectionWatcher): Omit<TIntersectionsDirectionWatcherConfig, keyof TAbstractIntersectionsWatcherConfig> {
   return filterOutEmptyFields({
-    origin: vector3ToXyz(entity.getOrigin()),
-    direction: vector3ToXyz(entity.getDirection())
+    origin: vector3ToXyz(entity.origin$.value),
+    direction: vector3ToXyz(entity.direction$.value)
   });
 }
