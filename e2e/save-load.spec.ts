@@ -28,7 +28,30 @@ test.describe('Space save/load persistence', () => {
       await expect(page.locator('canvas')).toHaveScreenshot(`${sceneName}-default.png`);
     });
 
-    test(`Load, Change, Save, Load changed [${sceneName}]`, async ({ page }, testInfo) => {
+    test(`Load, Save, Load: [${sceneName}]`, async ({ page }, testInfo) => {
+      const canvas: Locator = page.locator('canvas');
+      await page.getByLabel('Spaces').selectOption(sceneName);
+
+      const bufferA = await canvas.screenshot();
+
+      await page.getByRole('button', { name: 'Save' }).click();
+      await page.getByRole('button', { name: 'Drop' }).click();
+      await page.getByRole('button', { name: 'Load' }).click();
+
+      const bufferB = await canvas.screenshot();
+
+      const snapshotName: string = `${sceneName}-compare-same.png`;
+      const snapshotPath: string = testInfo.snapshotPath(snapshotName);
+
+      if (!fs.existsSync(snapshotPath)) {
+        fs.writeFileSync(snapshotPath, bufferA);
+        throw new Error(`Snapshot for ${sceneName} was missing and has now been created. Re-run the test to validate.`);
+      }
+
+      expect(bufferB).toMatchSnapshot(snapshotName, thresholds);
+    });
+
+    test(`Load, Change, Save, Load changed: [${sceneName}]`, async ({ page }, testInfo) => {
       const canvas: Locator = page.locator('canvas');
       await page.getByLabel('Spaces').selectOption(sceneName);
 
@@ -42,7 +65,7 @@ test.describe('Space save/load persistence', () => {
 
       const bufferB = await canvas.screenshot();
 
-      const snapshotName: string = `${sceneName}-compare.png`;
+      const snapshotName: string = `${sceneName}-compare-changed.png`;
       const snapshotPath: string = testInfo.snapshotPath(snapshotName);
 
       if (!fs.existsSync(snapshotPath)) {
