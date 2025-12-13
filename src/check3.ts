@@ -153,3 +153,32 @@ const cat50 = dynamicRegistrableFromConfigDestroyableCatFactory5.create(12323); 
 const cat55: ICat = dynamicRegistrableFromConfigDestroyableCatFactory5.create({ name: 'Tom' }); //nice!
 
 console.log(cat50.name, cat55.meow());
+
+//types test 6: Chain
+
+const cat60 = CatFactoryMixin(DestroyableMixin(FromConfigMixin(RegistrableMixin(DynamicMixin(Factory('cat_factory', catCreate)))))).create(12323);
+const cat66: ICat = CatFactoryMixin(DestroyableMixin(FromConfigMixin(RegistrableMixin(DynamicMixin(Factory('cat_factory', catCreate)))))).create({ name: 'Tom' });
+
+console.log(cat60.name, cat66.meow());
+
+//types test 7: Pipe
+
+type Fn = (arg: any) => any;
+
+type PipableFunction<A, B> = (a: A) => B;
+
+type PipeResult<T, Fns extends any[]> = Fns extends [PipableFunction<T, infer U>, ...infer Rest] ? PipeResult<U, Rest> : T;
+
+function pipe<T, Fns extends PipableFunction<any, any>[]>(initial: T, ...fns: Fns): PipeResult<T, Fns> {
+  return fns.reduce((acc: T, fn) => fn(acc), initial) as PipeResult<T, Fns>;
+}
+
+// function pipe<T>(initial: T, ...fns: Array<(arg: T) => T>): T {
+//   return fns.reduce((acc: T, fn) => fn(acc), initial);
+// }
+//
+
+const cat70 = pipe(Factory('cat_factory', catCreate), DynamicMixin, RegistrableMixin, FromConfigMixin, DestroyableMixin, CatFactoryMixin);
+const cat77: ICat = pipe(Factory('cat_factory', catCreate), DynamicMixin, RegistrableMixin, FromConfigMixin, DestroyableMixin, CatFactoryMixin);
+
+console.log(cat70.name, cat77.meow());
