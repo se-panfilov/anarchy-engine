@@ -112,6 +112,56 @@ export function KinematicTransformAgent(params: TKinematicTransformAgentParams, 
         }
       });
     },
+    // TODO 8.0.0. MODELS: Refactor this code. It's working, but it's a mess atm.
+    rotateTo(vector: Vector3, speed: TMetersPerSecond): void {
+      const targetDirection = vector.clone().normalize();
+      const epsilon = 0.01;
+
+      const currentDirection = agent.getAngularDirection().clone();
+      const angularVelocity = new Vector3(); // Временный вектор для вычислений
+
+      // If the agent is already at the target, do not move
+      if (currentDirection.angleTo(targetDirection) < epsilon) {
+        agent.setAngularSpeed(0);
+        return;
+      }
+
+      agent.setAngularDirection(targetDirection);
+      agent.setAngularSpeed(speed);
+
+      const subscription = kinematicLoopService.tick$.subscribe((deltaTime: TMilliseconds) => {
+        if (agent.getAngularSpeed() === 0) {
+          subscription.unsubscribe();
+          return;
+        }
+
+        currentDirection.copy(agent.getAngularDirection());
+        const angleToTarget = currentDirection.angleTo(targetDirection);
+
+        // If the agent is close enough to the target, stop the agent
+        if (angleToTarget < epsilon) {
+          agent.setAngularSpeed(0);
+          subscription.unsubscribe();
+          return;
+        }
+
+        // If the agent has passed the target, stop the agent
+        angularVelocity.copy(currentDirection).cross(targetDirection);
+        const dotProduct = angularVelocity.dot(targetDirection);
+
+        if (dotProduct < 0) {
+          agent.setAngularSpeed(0);
+          subscription.unsubscribe();
+          return;
+        }
+
+        const angularStep = speed * deltaTime;
+        const quaternion = new Quaternion().setFromAxisAngle(targetDirection, angularStep);
+        const newDirection = currentDirection.applyQuaternion(quaternion).normalize();
+
+        agent.setAngularDirection(newDirection);
+      });
+    },
     adjustDataByLinearVelocity(linearVelocity: TReadonlyVector3): void {
       agent.setLinearSpeed(linearVelocity.length() as TMetersPerSecond);
       agent.setLinearDirection(linearVelocity.clone().normalize());
