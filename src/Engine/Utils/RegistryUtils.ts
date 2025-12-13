@@ -1,3 +1,7 @@
+export function getAll<T>(registry: ReadonlyMap<string, T>): ReadonlyArray<T> {
+  return Array.from(registry.values());
+}
+
 export function getAllEntitiesWithEveryTag<T extends { tags: ReadonlyArray<string> }>(tagList: ReadonlyArray<string>, registry: ReadonlyMap<string, T>): ReadonlyArray<T> {
   return getEntitiesWithTag(tagList, registry, true);
 }

@@ -1,6 +1,6 @@
 import type { IMultitonRegistrable, IRegistrable } from '@Engine/Domains/Mixins';
 import type { RegistryName } from '@Engine/Registries';
-import { getAllEntitiesWithEveryTag, getAllEntitiesWithSomeTag, isDestroyable, isNotDefined } from '@Engine/Utils';
+import { getAll, getAllEntitiesWithEveryTag, getAllEntitiesWithSomeTag, isDestroyable, isNotDefined } from '@Engine/Utils';
 import { nanoid } from 'nanoid';
 import { Subject } from 'rxjs';
 
@@ -73,6 +73,9 @@ export function AbstractRegistry<T extends IRegistrable | IMultitonRegistrable>(
   }
 
   return {
+    get name(): RegistryName {
+      return name;
+    },
     get id(): string {
       return id;
     },
@@ -88,7 +91,7 @@ export function AbstractRegistry<T extends IRegistrable | IMultitonRegistrable>(
     add,
     replace,
     getById,
-    getAll,
+    getAll: () => getAll(registry),
     getAllWithEveryTag: (tags: ReadonlyArray<string>): ReadonlyArray<T> => getAllEntitiesWithEveryTag(tags, registry),
     getAllWithSomeTag: (tags: ReadonlyArray<string>): ReadonlyArray<T> => getAllEntitiesWithSomeTag(tags, registry),
     getUniqWithSomeTag,

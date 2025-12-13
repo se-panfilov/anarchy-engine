@@ -1,8 +1,11 @@
 import type { IDestroyable, IRegistrable } from '@Engine/Domains/Mixins';
 import type { Subject } from 'rxjs';
 
+import type { RegistryName } from '@/Engine/Registries';
+
 export type IAbstractRegistry<T extends IRegistrable> = Readonly<{
   id: string;
+  name: RegistryName;
   add: (entity: T) => void;
   added$: Subject<T>;
   replace: (entity: T) => void;
