@@ -1,7 +1,24 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "type": "object",
+  "additionalProperties": false,
   "properties": {
+    "tags": {
+      "type": "array",
+      "items": {
+        "anyOf": [
+          {
+            "$ref": "#/definitions/LevelTag"
+          },
+          {
+            "$ref": "#/definitions/CommonTag"
+          },
+          {
+            "type": "string"
+          }
+        ]
+      }
+    },
     "name": {
       "type": "string"
     },
@@ -37,27 +54,18 @@
       "items": {
         "$ref": "#/definitions/IControlsConfig"
       }
-    },
-    "tags": {
-      "type": "array",
-      "items": {
-        "anyOf": [
-          {
-            "$ref": "#/definitions/LevelTag"
-          },
-          {
-            "$ref": "#/definitions/CommonTag"
-          },
-          {
-            "type": "string"
-          }
-        ]
-      }
     }
   },
-  "required": ["name", "version", "scenes", "actors", "cameras", "lights", "controls", "tags"],
-  "additionalProperties": false,
+  "required": ["actors", "cameras", "controls", "lights", "name", "scenes", "tags", "version"],
   "definitions": {
+    "LevelTag": {
+      "type": "string",
+      "const": "build-in"
+    },
+    "CommonTag": {
+      "type": "string",
+      "const": "from_config"
+    },
     "SchemaVersion": {
       "type": "string",
       "const": "1.0.0"
@@ -94,10 +102,6 @@
     "SceneTag": {
       "type": "string",
       "const": "current"
-    },
-    "CommonTag": {
-      "type": "string",
-      "const": "from_config"
     },
     "IActorConfig": {
       "type": "object",
@@ -254,7 +258,7 @@
     },
     "CameraTag": {
       "type": "string",
-      "const": "initial"
+      "enum": ["initial", "active"]
     },
     "ILightConfig": {
       "type": "object",
@@ -343,16 +347,8 @@
     },
     "IControlsConfig": {
       "type": "object",
+      "additionalProperties": false,
       "properties": {
-        "type": {
-          "$ref": "#/definitions/IControlsType"
-        },
-        "cameraTag": {
-          "$ref": "#/definitions/CameraTag"
-        },
-        "enableDamping": {
-          "type": "boolean"
-        },
         "tags": {
           "type": "array",
           "items": {
@@ -368,22 +364,26 @@
               }
             ]
           }
+        },
+        "type": {
+          "$ref": "#/definitions/IControlsType"
+        },
+        "cameraTag": {
+          "$ref": "#/definitions/CameraTag"
+        },
+        "enableDamping": {
+          "type": "boolean"
         }
       },
-      "required": ["type", "cameraTag", "tags"],
-      "additionalProperties": false
-    },
-    "IControlsType": {
-      "type": "string",
-      "const": "OrbitControls"
+      "required": ["cameraTag", "tags", "type"]
     },
     "ControlsTag": {
       "type": "string",
       "const": "initial"
     },
-    "LevelTag": {
+    "IControlsType": {
       "type": "string",
-      "const": "build-in"
+      "const": "OrbitControls"
     }
   }
 }
