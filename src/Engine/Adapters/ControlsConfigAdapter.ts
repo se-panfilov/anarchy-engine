@@ -1,24 +1,18 @@
-import type { IControlsConfig } from '@Engine/Launcher/Models';
 import type { IAppCanvas, IControlsParams } from '@Engine/Models';
 import { IControlsType } from '@Engine/Models';
 import type { ICameraRegistry } from '@Engine/Registries';
+import type { IControlsConfig } from '@Engine/SceneLauncher/Models';
 import { isNotDefined } from '@Engine/Utils';
 import type { ICameraWrapper } from '@Engine/Wrappers';
 
-export function controlsAdapter(
-  config: IControlsConfig,
-  cameraRegistry: ICameraRegistry,
-  canvas: IAppCanvas
-): IControlsParams {
+export function controlsAdapter(config: IControlsConfig, cameraRegistry: ICameraRegistry, canvas: IAppCanvas): IControlsParams {
   const { type, cameraTag, tags } = config;
 
-  if (type !== IControlsType.OrbitControls)
-    throw new Error(`Cannot create controls of unknown type "${type as string}"`);
+  if (type !== IControlsType.OrbitControls) throw new Error(`Cannot create controls of unknown type "${type as string}"`);
   if (isNotDefined(cameraTag)) throw new Error(`Cannot attach controls ("${type}") to undefined camera tag`);
 
   const camera: ICameraWrapper | undefined = cameraRegistry.getUniqWithTag([cameraTag]);
-  if (isNotDefined(camera))
-    throw new Error(`Cannot execute ControlsConfigAdapter: a camera with tag "${cameraTag}" is not defined`);
+  if (isNotDefined(camera)) throw new Error(`Cannot execute ControlsConfigAdapter: a camera with tag "${cameraTag}" is not defined`);
 
   return {
     camera,

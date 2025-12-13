@@ -1,5 +1,5 @@
-import type { IAbstractConfig } from '@Engine/Launcher/Models';
 import type { IDestroyableFactory, IWrapper } from '@Engine/Models';
+import type { IAbstractConfig } from '@Engine/SceneLauncher/Models';
 
 import { isEmptyObject } from './ObjectUtils';
 

@@ -1,10 +1,10 @@
 import './style.css';
 
-import { SceneLauncher } from '@Engine/Launcher';
-import sceneConfig from '@Engine/Launcher/debug-scene.config.json';
 import type { IAppCanvas, ISceneLauncher } from '@Engine/Models';
 import type { IFactories } from '@Engine/Pool';
 import { FactoriesPool } from '@Engine/Pool/FactoriesPool';
+import { SceneLauncher } from '@Engine/SceneLauncher';
+import sceneConfig from '@Engine/SceneLauncher/debug-scene.config.json';
 import { isNotDefined, isValidSceneConfig } from '@Engine/Utils';
 
 const canvas: IAppCanvas | null = document.querySelector('#app');

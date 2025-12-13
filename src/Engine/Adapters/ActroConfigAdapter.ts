@@ -1,5 +1,5 @@
-import type { ActorMaterialConfig, IActorConfig } from '@Engine/Launcher/Models';
 import type { IActorParams } from '@Engine/Models';
+import type { ActorMaterialConfig, IActorConfig } from '@Engine/SceneLauncher/Models';
 import { isDefined } from '@Engine/Utils';
 import type { MeshToonMaterialParameters } from 'three';
 import { Color, Vector3 } from 'three';

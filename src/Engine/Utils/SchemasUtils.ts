@@ -1,4 +1,4 @@
-import type { ISceneConfig } from '@Engine/Launcher/Models';
+import type { ISceneConfig } from '@Engine/SceneLauncher/Models';
 import ISceneConfigSchema from '@Engine/Schemas/ISceneConfig.json';
 import Ajv from 'ajv';
 
