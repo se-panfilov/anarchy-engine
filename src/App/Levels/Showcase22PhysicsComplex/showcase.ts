@@ -12,14 +12,14 @@ export function showcase(canvas: TAppCanvas): TShowcase {
   const space: TSpace = buildSpaceFromConfig(canvas, spaceConfig as TSpaceConfig);
   const engine: TEngine = Engine(space);
   const { keyboardService } = engine.services;
-  const { physicsLoopService, physicsWorldService, physicsBodyService, actorService, loopService } = space.services;
+  const { physicsLoopService, physicsWorldService, actorService, loopService } = space.services;
 
   function init(): void {
-    physicsWorldService.getDebugRenderer(loopService).start();
+    // physicsWorldService.getDebugRenderer(loopService).start();
 
     const wold: World | undefined = physicsWorldService.getWorld();
     if (isNotDefined(wold)) throw new Error('World is not defined');
-    buildKevaTower(wold, actorService);
+    void buildKevaTower(actorService);
 
     keyboardService.onKey(KeysExtra.Space).pressed$.subscribe((): void => physicsLoopService.shouldAutoUpdate(!physicsLoopService.isAutoUpdate()));
   }
@@ -32,7 +32,7 @@ export function showcase(canvas: TAppCanvas): TShowcase {
   return { start, space };
 }
 
-function buildKevaTower(world: World, actorService: TActorService): void {
+async function buildKevaTower(actorService: TActorService): Promise<void> {
   const halfExtents: Vector3 = new Vector3(0.1, 0.5, 2.0);
   let blockHeight: number = 0.0;
   // These should only be set to odd values otherwise
@@ -40,17 +40,18 @@ function buildKevaTower(world: World, actorService: TActorService): void {
   const numyArr: ReadonlyArray<number> = [0, 3, 5, 5, 7, 9];
   let i: number;
 
+  // eslint-disable-next-line functional/no-loop-statements
   for (i = 5; i >= 1; --i) {
-    const numx: number = i;
-    const numy: number = numyArr[i];
-    const numz: number = numx * 3 + 1;
-    const blockWidth: number = numx * halfExtents.z * 2.0;
-    buildBlock(world, halfExtents, new Vector3(-blockWidth / 2.0, blockHeight, -blockWidth / 2.0), numx, numy, numz, actorService);
-    blockHeight += numy * halfExtents.y * 2.0 + halfExtents.x * 2.0;
+    const numX: number = i;
+    const numY: number = numyArr[i];
+    const numZ: number = numX * 3 + 1;
+    const blockWidth: number = numX * halfExtents.z * 2.0;
+    await buildBlock(halfExtents, new Vector3(-blockWidth / 2.0, blockHeight, -blockWidth / 2.0), numX, numY, numZ, actorService);
+    blockHeight += numY * halfExtents.y * 2.0 + halfExtents.x * 2.0;
   }
 }
 
-async function buildBlock(world: World, halfExtents: Vector, shift: Vector, numX: number, numY: number, numZ: number, actorService: TActorService): void {
+async function buildBlock(halfExtents: Vector, shift: Vector, numX: number, numY: number, numZ: number, actorService: TActorService): Promise<void> {
   const half_extents_zyx: Vector = {
     x: halfExtents.z,
     y: halfExtents.y,
@@ -66,14 +67,16 @@ async function buildBlock(world: World, halfExtents: Vector, shift: Vector, numX
   let j: number;
   let k: number;
 
+  // eslint-disable-next-line functional/no-loop-statements
   for (i = 0; i < numY; ++i) {
     [numX, numZ] = [numZ, numX];
     const dim: Vector = dimensions[i % 2];
     const y: number = dim.y * i * 2.0;
 
+    // eslint-disable-next-line functional/no-loop-statements
     for (j = 0; j < numX; ++j) {
       const x: number = i % 2 == 0 ? spacing * j * 2.0 : dim.x * j * 2.0;
-
+      // eslint-disable-next-line functional/no-loop-statements
       for (k = 0; k < numZ; ++k) {
         // once = false;
         const z: number = i % 2 == 0 ? dim.z * k * 2.0 : spacing * k * 2.0;
@@ -112,7 +115,9 @@ async function buildBlock(world: World, halfExtents: Vector, shift: Vector, numX
   // Close the top.
   const dim: Vector = { x: halfExtents.z, y: halfExtents.x, z: halfExtents.y };
 
+  // eslint-disable-next-line functional/no-loop-statements
   for (i = 0; i < blockWidth / (dim.x * 2.0); ++i) {
+    // eslint-disable-next-line functional/no-loop-statements
     for (j = 0; j < blockWidth / (dim.z * 2.0); ++j) {
       // Build the rigid body.
       const actor2 = await actorService.createAsync({

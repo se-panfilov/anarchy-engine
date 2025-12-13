@@ -12,17 +12,17 @@
     {
       "name": "surface",
       "type": "plane",
-      "width": 24,
-      "height": 24,
+      "width": 30,
+      "height": 30,
       "widthSegments": 1,
       "heightSegments": 1,
       "material": { "type": "standard", "params": { "color": "#8E8E8E" } },
       "physics": {
         "presetName": "wall_physics",
         "shapeParams": {
-          "hx": 12,
+          "hx": 15,
           "hy": 0.025,
-          "hz": 12
+          "hz": 15
         },
         "position": { "x": 0, "y": -0.025, "z": 0 },
         "rotation": { "x": 0, "y": 0, "z": 0, "w": 1 }
