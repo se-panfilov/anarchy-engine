@@ -1,7 +1,5 @@
-import type { TSpaceCanvas } from '@Engine/Space';
-
 export function isWebGLAvailable(): boolean {
-  let canvas: TSpaceCanvas | undefined = undefined;
+  let canvas: Readonly<HTMLCanvasElement> | undefined = undefined;
 
   try {
     if (!window || !document) return false;
@@ -16,7 +14,7 @@ export function isWebGLAvailable(): boolean {
 }
 
 export function isWebGL2Available(): boolean {
-  let canvas: TSpaceCanvas | undefined = undefined;
+  let canvas: Readonly<HTMLCanvasElement> | undefined = undefined;
 
   try {
     if (!window || !document) return false;
