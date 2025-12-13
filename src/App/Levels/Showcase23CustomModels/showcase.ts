@@ -1,5 +1,5 @@
 import type { TShowcase } from '@/App/Levels/Models';
-import type { TAppCanvas, TEngine, TModel3dLoadResult, TSceneWrapper, TSpace, TSpaceConfig } from '@/Engine';
+import type { TAppCanvas, TEngine, TModel3dLoadOptions, TModel3dLoadResult, TSceneWrapper, TSpace, TSpaceConfig } from '@/Engine';
 import { buildSpaceFromConfig, Engine, isNotDefined } from '@/Engine';
 
 import spaceConfig from './showcase.json';
@@ -11,8 +11,12 @@ export function showcase(canvas: TAppCanvas): TShowcase {
   const activeScene: TSceneWrapper | undefined = scenesService.findActive();
 
   async function init(activeScene: TSceneWrapper): Promise<void> {
-    await models3dService.loadAsync({ url: '/Showcase/models/fox/Fox.gltf' }, false).then((result: TModel3dLoadResult) => {
-      result.model.scale.set(0.025, 0.025, 0.025);
+    const models3dLoadOptions: TModel3dLoadOptions = { shouldSaveToRegistry: true, shouldAddToScene: true };
+    const isForce: boolean = false;
+    const scale: number = 0.025;
+
+    await models3dService.loadAsync({ url: '/Showcase/models/fox/Fox.gltf' }, models3dLoadOptions, isForce).then((result: TModel3dLoadResult) => {
+      result.model.scale.set(scale, scale, scale);
       result.model.position.set(-10, 0, 0);
       activeScene.addModel(result.model);
     });
