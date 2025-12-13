@@ -16,6 +16,6 @@ export async function loadResources(resources: TSpaceConfigResources, { models3d
   materialService.createFromConfig(materials);
 
   // Models3d could be considered both "entities" and "resources"
-  //   because primitives models (e.g. "cube") aren't loaded from anywhere, but complex models does.
-  await Promise.all([models3dService.loadFromConfigAsync(models3d), envMapTexturePromise]);
+  //   because primitives models (e.g. "cube") aren't loading from anywhere, but complex models do.
+  await Promise.all([models3dService.loadOrCreateFromConfigAsync(models3d), envMapTexturePromise]);
 }

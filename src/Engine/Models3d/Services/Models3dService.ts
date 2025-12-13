@@ -1,3 +1,5 @@
+import type { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
+
 import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
 import { Models3dLoader } from '@/Engine/Models3d/Loaders';
@@ -8,11 +10,13 @@ import type {
   TModel3dParams,
   TModel3dRegistry,
   TModel3dResourceAsyncRegistry,
+  TModel3dResourceConfig,
   TModels3dFactory,
   TModels3dLoader,
   TModels3dService,
   TModels3dServiceDependencies
 } from '@/Engine/Models3d/Models';
+import { isPrimitiveModel3dConfig } from '@/Engine/Models3d/Utils';
 import type { TOptional } from '@/Engine/Utils';
 
 export function Models3dService(
@@ -61,6 +65,18 @@ export function Models3dService(
   //   return params.map((p: TModel3dParams): TModel3dFacade => create(p));
   // }
 
+  function loadOrCreateFromConfigAsync(config: ReadonlyArray<TModel3dResourceConfig>): Promise<ReadonlyArray<void | GLTF>> {
+    const promisesList: ReadonlyArray<Promise<void | GLTF>> = config.map((c: TModel3dResourceConfig): Promise<void | GLTF> => {
+      if (isPrimitiveModel3dConfig(c)) {
+        return Promise.resolve(createFromConfig(config));
+      } else {
+        return model3dLoader.loadAsync(c);
+      }
+    });
+
+    return Promise.all(promisesList);
+  }
+
   const destroyable: TDestroyable = destroyableMixin();
   destroyable.destroyed$.subscribe(() => {
     registry.destroy();
@@ -73,6 +89,7 @@ export function Models3dService(
     createFromConfig,
     loadAsync: model3dLoader.loadAsync,
     loadFromConfigAsync: model3dLoader.loadFromConfigAsync,
+    loadOrCreateFromConfigAsync,
     getFactory: (): TModels3dFactory => factory,
     getRegistry: (): TModel3dRegistry => registry,
     getResourceRegistry: (): TModel3dResourceAsyncRegistry => resourcesRegistry,

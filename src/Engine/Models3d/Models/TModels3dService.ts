@@ -6,6 +6,7 @@ import type { TWithCreateFromConfigService, TWithCreateService, TWithFactoryServ
 import type { TOptional } from '@/Engine/Utils';
 
 export type TModels3dService = Readonly<{
+  // TODO 9.0.0. RESOURCES: remove?
   // createFromPack: (pack: TModel3dPack) => TModel3dFacade;
   // getAnimationService: () => TAnimationsService;
   clone: (model3dFacade: TModel3dFacade, overrides?: TOptional<TModel3dPack>) => TModel3dFacade;
@@ -16,4 +17,7 @@ export type TModels3dService = Readonly<{
   TWithRegistryService<TModel3dRegistry> &
   TWithResourcesRegistryService<TModel3dResourceAsyncRegistry> &
   TWithLoadResourcesAsyncService<TModel3dResourceConfig, GLTF> &
+  Readonly<{
+    loadOrCreateFromConfigAsync: (config: ReadonlyArray<TModel3dResourceConfig>) => Promise<ReadonlyArray<void | GLTF>>;
+  }> &
   TDestroyable;

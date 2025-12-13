@@ -17,9 +17,7 @@ export function AbstractLoader<L extends Loader<any>, R extends TProtectedRegist
   const loaded$: Subject<T> = new Subject<T>();
   const id: string = type + '_' + nanoid();
 
-  function loadFromConfigAsync(configs: ReadonlyArray<C>): Promise<ReadonlyArray<T>> {
-    return Promise.all(configs.map((config: C): Promise<T> => loadAsync(config)));
-  }
+  const loadFromConfigAsync = (configs: ReadonlyArray<C>): Promise<ReadonlyArray<T>> => Promise.all(configs.map((config: C): Promise<T> => loadAsync(config)));
 
   function loadAsync({ url, isForce, name, options }: C, onLoaded?: (r: TWriteable<T>, params?: Record<string, any>) => T): Promise<T> {
     if (!isForce) {

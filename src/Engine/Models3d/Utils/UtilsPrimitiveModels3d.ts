@@ -2,7 +2,8 @@
 //
 // import type { TMaterials } from '@/Engine/Material';
 // import { meters } from '@/Engine/Measurements/Utils';
-import type { TModel3dPack, TModel3dParams } from '@/Engine/Models3d';
+import type { TModel3dPack, TModel3dParams, TModel3dResourceConfig } from '@/Engine/Models3d';
+import { PrimitiveModel3dType } from '@/Engine/Models3d';
 // import { PrimitiveModel3dType } from '@/Engine/Models3d';
 // import { TPrimitiveModel3dProps } from '@/Engine/Models3d/Models/TPrimitiveModel3dProps';
 // import type { TBoxGeometryProps, TPlaneGeometryProps, TSphereGeometryProps } from '@/Engine/ThreeLib';
@@ -46,3 +47,5 @@ export function createPrimitiveModel3dPack(params: TModel3dParams): TModel3dPack
 //   const d: number | undefined = isDefined(depth) ? meters(depth) : undefined;
 //   return new Mesh(new BoxGeometry(w, h, d, widthSegments, heightSegments, depthSegments), material);
 // }
+
+export const isPrimitiveModel3dConfig = (config: TModel3dResourceConfig): boolean => [...Object.values(PrimitiveModel3dType)].includes(config.url as PrimitiveModel3dType);
