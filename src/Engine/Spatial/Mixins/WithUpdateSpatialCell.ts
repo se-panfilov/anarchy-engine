@@ -9,11 +9,12 @@ export function withUpdateSpatialCell(): TWithUpdateSpatialCell {
 
   function updateSpatialCells(this: TActor, newPosition: Vector3): void | never {
     const grid: TSpatialGridWrapper | undefined = this.spatial.getGrid();
+    if (isNotDefined(grid)) throw new Error(`Grid is not defined for Actor name: "${this.name}", id: "${this.id}"`);
     const cells: ReadonlyArray<TSpatialCellWrapper> = this.spatial.getSpatialCells();
 
     //first run
     if (prevCells.length === 0) {
-      prevCells = cells.map(({ maxX, maxY, minX, minY }): Pick<TSpatialCell, 'maxX' | 'maxY' | 'minX' | 'minY'> => ({ maxX, maxY, minX, minY }));
+      prevCells = cells.map(({ maxX, maxY, minX, minY }: TSpatialCellWrapper): Pick<TSpatialCell, 'maxX' | 'maxY' | 'minX' | 'minY'> => ({ maxX, maxY, minX, minY }));
       return;
     }
 
@@ -29,7 +30,7 @@ export function withUpdateSpatialCell(): TWithUpdateSpatialCell {
       }
     }
 
-    prevCells = cells.map(({ maxX, maxY, minX, minY }) => ({ maxX, maxY, minX, minY }));
+    prevCells = cells.map(({ maxX, maxY, minX, minY }: TSpatialCellWrapper) => ({ maxX, maxY, minX, minY }));
   }
 
   return {

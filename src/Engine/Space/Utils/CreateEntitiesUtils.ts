@@ -28,6 +28,9 @@ export function createEntities(entities: TSpaceConfigEntities, services: TSpaceS
     textService
   } = services;
 
+  //spatial gids should be created before actors
+  spatialGridService.createFromConfig(spatialGrids);
+
   fogService.createFromConfig(fogs);
 
   envMapService.createFromConfig(envMaps);
@@ -50,7 +53,6 @@ export function createEntities(entities: TSpaceConfigEntities, services: TSpaceS
   controlsService.createFromConfig(controls, cameraService.getRegistry());
   lightService.createFromConfig(lights);
 
-  spatialGridService.createFromConfig(spatialGrids);
   particlesService.createFromConfig(particles);
 
   intersectionsWatcherService.createFromConfig(intersections, mouseService, cameraService, actorService);
