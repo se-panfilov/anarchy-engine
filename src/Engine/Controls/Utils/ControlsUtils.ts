@@ -1,5 +1,6 @@
 import type { Subscription } from 'rxjs';
-import { Quaternion } from 'three';
+import type { Controls } from 'three';
+import { EventDispatcher, Quaternion } from 'three';
 
 import type { TCameraWrapper } from '@/Engine/Camera';
 import { ControlsType } from '@/Engine/Controls/Constants';
@@ -25,4 +26,10 @@ export function updateCameraTransformDriveOnChange(controls: TOrbitControlsWrapp
     destroySub$.unsubscribe();
     controls.entity.removeEventListener('end', updateCameraDrive);
   });
+}
+
+export function makeControlsEvented<T extends Controls<any>>(controls: T): T & EventDispatcher {
+  // eslint-disable-next-line functional/immutable-data
+  Object.assign(controls, new EventDispatcher());
+  return controls as T & EventDispatcher;
 }
