@@ -37,5 +37,7 @@
     "ts:check": "tsc --noEmit",
     "ts:check:watch": "tsc --watch --noEmit"
   },
-  "dependencies": {}
+  "dependencies": {
+    "@sentry/browser": "10.17.0"
+  }
 }
