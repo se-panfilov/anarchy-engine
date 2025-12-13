@@ -68,7 +68,7 @@ export function Actor(
   const positionSub$: Subscription = drive.position$
     .pipe(
       // TODO 8.0.0. MODELS: These performance tweaks actually make performance even worse. Fix or remove (check all th other places with suc optimisations, e.g. intersections or mouse)
-      // sampleTime(spatialUpdateDelay),
+      // throttleTime(spatialUpdateDelay),
       distinctUntilChanged((_prev: Vector3, curr: Vector3): boolean => isEqualOrSimilarByXyzCoords(prevValue[0], prevValue[1], prevValue[2], curr.x, curr.y, curr.z, spatialNoiseThreshold)),
       tap((value: Vector3): void => {
         // eslint-disable-next-line functional/immutable-data
