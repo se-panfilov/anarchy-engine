@@ -15,6 +15,7 @@ export const spaceMaterialsData: TSpacesData = {
   awaits$: new BehaviorSubject<ReadonlySet<string>>(new Set()),
   onChange: (space: TSpace): void => {
     adjustMaterial(space, 'surface_material', {
+      clearcoat: 1,
       clearcoatRoughness: 0.12,
       displacementScale: 0.2,
       ior: 2.5,
@@ -29,6 +30,7 @@ export const spaceMaterialsData: TSpacesData = {
     adjustMaterial(space, 'standard_metal', { displacementScale: 0.2 });
 
     adjustMaterial(space, 'physics_metal', {
+      clearcoat: 1.1,
       clearcoatRoughness: 0.13,
       displacementScale: 0.2,
       ior: 2.2,
@@ -60,6 +62,7 @@ export const spaceMaterialsData: TSpacesData = {
     });
 
     adjustMaterial(space, 'physics_glass', {
+      clearcoat: 0.8,
       clearcoatRoughness: 0.09,
       displacementScale: 0.2,
       ior: 1.76,

@@ -485,13 +485,16 @@
       {
         "name": "surface_material",
         "options": {
+          "clearcoat": 1,
           "clearcoatRoughness": 0.12,
           "displacementScale": 0,
           "ior": 2.3,
+          "iridescence": 0.655,
           "iridescenceIOR": 1.86,
           "metalness": 0.97,
           "roughness": 0.8,
-          "thickness": 0
+          "thickness": 0,
+          "transmission": 0
         },
         "tags": ["physics", "metal"],
         "textures": {
@@ -523,12 +526,16 @@
       {
         "name": "physics_metal",
         "options": {
+          "clearcoat": 1,
+          "clearcoatRoughness": 0.12,
           "displacementScale": 0,
           "ior": 2.3,
+          "iridescence": 0.655,
           "iridescenceIOR": 1.86,
           "metalness": 0.97,
           "roughness": 0.8,
-          "thickness": 0
+          "thickness": 0,
+          "transmission": 0
         },
         "tags": ["physics", "metal"],
         "textures": {
@@ -720,12 +727,16 @@
       {
         "name": "physics_glass",
         "options": {
+          "clearcoat": 0.8,
+          "clearcoatRoughness": 0.09,
           "displacementScale": 0.1,
           "ior": 1.26,
+          "iridescence": 0,
           "iridescenceIOR": 1.38,
           "metalness": 0,
           "roughness": 0,
-          "thickness": 0.5
+          "thickness": 0.5,
+          "transmission": 0.77
         },
         "tags": ["physics", "glass"],
         "type": "MeshPhysicalMaterial"
