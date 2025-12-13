@@ -34,13 +34,8 @@ export function KeyboardService() {
     return { pressed$: pressed$.asObservable(), pressing$: pressing$.asObservable(), released$: released$.asObservable() };
   }
 
-  function pauseKeyBinding(key: string): void {
-    unbindKey(key);
-  }
-
-  function resumeKeyBinding(key: string): void {
-    bind(key);
-  }
+  const pauseKeyBinding = (key: string): void => unbindKey(key);
+  const resumeKeyBinding = (key: string): void => void bind(key);
 
   // TODO (S.Panfilov) combo
   function removeKeyBinding(key: string): void {
