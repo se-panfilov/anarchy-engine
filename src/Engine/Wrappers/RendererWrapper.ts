@@ -1,9 +1,10 @@
 import { PCFShadowMap, WebGL1Renderer } from 'three';
 import { isNotDefined, isWebGLAvailable } from '@Engine/Utils';
 import { AbstractWrapper } from '@Engine/Wrappers/AbstractWrapper';
+import type { RendererParams } from '@Engine/Models/RendererParams';
 
 // TODO (S.Panfilov) DI deviceWatcher
-export function RendererWrapper(canvas: HTMLElement): ReturnType<typeof AbstractWrapper<WebGL1Renderer>> {
+export function RendererWrapper({ canvas }: RendererParams): ReturnType<typeof AbstractWrapper<WebGL1Renderer>> {
   if (isNotDefined(canvas)) throw new Error(`Canvas is not defined`);
   if (!isWebGLAvailable()) throw new Error('WebGL is not supported by this device');
 
