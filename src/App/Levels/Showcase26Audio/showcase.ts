@@ -15,6 +15,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
   function init(): void {
     initMutant('mutant_actor_1', space.services);
     initMusicWithControls('bg_music', 'Background music', gui, space.services);
+    initMusicWithControls('monster_singing', 'Positional music', gui, space.services);
   }
 
   function start(): void {
