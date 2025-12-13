@@ -4,7 +4,7 @@ import type { TSpaceConfigResources, TSpaceServices } from '@/Engine/Space/Model
 export async function loadResourcesFromConfig(
   resources: TSpaceConfigResources,
   { animationsService, audioService, models3dService, envMapService, materialService, textureService }: TSpaceServices
-): Promise<void> {
+): Promise<unknown> {
   const { animations, audio, models3d, envMaps, materials, textures } = resources;
 
   // EnvMaps could be loaded async, no need to wait
@@ -20,7 +20,7 @@ export async function loadResourcesFromConfig(
 
   await animationsService.loadFromConfigAsync(animations);
 
-  await Promise.all([
+  return await Promise.all([
     // Models3d contains of "entities" and "resources". Here only load model resources. And create them lately.
     models3dService.loadFromConfigAsync(models3d),
     audioService.loadFromConfigAsync(audio),

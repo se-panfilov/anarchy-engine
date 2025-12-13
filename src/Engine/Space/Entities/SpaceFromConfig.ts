@@ -20,7 +20,7 @@ export function SpaceFromConfig(params: TSpaceParams, config: TSpaceConfig, hook
 
   const oldBuiltSub$: Subscription = oldBuilt$
     .pipe(
-      exhaustMap((): Promise<void> => {
+      exhaustMap((): Promise<unknown> => {
         hooks?.beforeResourcesLoaded?.(config, space.services, space.loops);
         return loadResourcesFromConfig(config.resources, space.services);
       })

@@ -3,7 +3,7 @@ import type { Subscription } from 'rxjs';
 import type { TAbstractService } from '@/Engine/Abstract';
 import { AbstractService } from '@/Engine/Abstract';
 import type { TDisposable } from '@/Engine/Mixins';
-import { withCreateServiceMixin, withFactoryService, withRegistryService } from '@/Engine/Mixins';
+import { withCreateServiceWithHooksMixin, withFactoryService, withRegistryService } from '@/Engine/Mixins';
 import { SpaceFactory } from '@/Engine/Space/Factories';
 import type {
   TSpace,
@@ -28,11 +28,11 @@ export function SpaceService(factory: TSpaceFactory, registry: TSpaceRegistry): 
     return spaces.map((config: TSpaceConfig): TSpace => {
       hooks?.beforeConfigValidation?.(config);
       validateConfig(config);
-      return factory.create(factory.configToParams(config), config);
+      return factory.create(factory.configToParams(config), { config, hooks });
     });
   };
 
-  const withCreateService: TSpaceServiceWithCreate = withCreateServiceMixin(factory, undefined);
+  const withCreateService: TSpaceServiceWithCreate = withCreateServiceWithHooksMixin(factory, undefined);
   const withFactory: TSpaceServiceWithFactory = withFactoryService(factory);
   const withRegistry: TSpaceServiceWithRegistry = withRegistryService(registry);
 
