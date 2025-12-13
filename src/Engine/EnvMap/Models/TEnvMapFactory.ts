@@ -1,8 +1,9 @@
-import type { TParamsFromConfig, TReactiveFactory } from '@/Engine/Abstract';
+import type { TParamsFromConfigWithDependencies, TReactiveFactory } from '@/Engine/Abstract';
 import type { TDestroyable } from '@/Engine/Mixins';
 
 import type { TEnvMapConfig } from './TEnvMapConfig';
+import type { TEnvMapConfigToParamsDependencies } from './TEnvMapConfigToParamsDependencies';
 import type { TEnvMapParams } from './TEnvMapParams';
 import type { TEnvMapWrapper } from './TEnvMapWrapper';
 
-export type TEnvMapFactory = TReactiveFactory<TEnvMapWrapper, TEnvMapParams> & TParamsFromConfig<TEnvMapConfig, TEnvMapParams> & TDestroyable;
+export type TEnvMapFactory = TReactiveFactory<TEnvMapWrapper, TEnvMapParams> & TParamsFromConfigWithDependencies<TEnvMapConfig, TEnvMapParams, TEnvMapConfigToParamsDependencies> & TDestroyable;
