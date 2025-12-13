@@ -149,7 +149,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     clickLeftRelease$
       .pipe(withLatestFrom(intersectionsWatcher.value$, sphereActor.drive.agent$))
       .subscribe(([, intersection, agent]: [TMouseWatcherEvent, TIntersectionEvent, TransformAgent]): void => {
-        const adjustedPoint: Vector3 = intersection.point.clone().add(new Vector3(0, actorsOffsetY, 0));
+        const adjustedPoint: Vector3 = intersection.point.clone().add(new Vector3(0, 0, 0));
         moveActorTo(sphereActor, adjustedPoint, agent, mode.isTeleportationMode);
       });
 

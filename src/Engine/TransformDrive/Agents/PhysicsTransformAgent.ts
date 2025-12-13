@@ -48,6 +48,7 @@ export function PhysicsTransformAgent(params: TPhysicsTransformAgentParams, { ph
     else physicsBody?.setPhysicsBodyType(previousPhysicsBodyType, false);
   });
 
+  // TODO 8.0.0. MODELS: physical object doesn't move when position is changed externally
   // TODO 8.0.0. MODELS: apply rotation!!!
   // abstractTransformAgent.position$
   //   // .pipe(distinctUntilChanged((prev: Vector3, curr: Vector3): boolean => prev.equals(curr)))
@@ -75,6 +76,7 @@ export function PhysicsTransformAgent(params: TPhysicsTransformAgentParams, { ph
     .pipe(
       filter(([isEnabled, isAutoUpdate]: ReadonlyArray<boolean>): boolean => isEnabled && isAutoUpdate),
       switchMap((): Subject<void> => physicsLoopService.tick$)
+      // TODO 8.0.0. MODELS: perhaps distinctUntilChanged is needed here
     )
     .subscribe((): void => {
       const { position, rotation } = getPhysicalBodyTransform(agent);
