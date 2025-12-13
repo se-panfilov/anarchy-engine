@@ -1,1 +1,1 @@
-export * from './ActorWrapper';
+export * from './ActorWrapperAsync';

@@ -60,8 +60,6 @@ export function TextureService(): ITextureService {
     let promises: Omit<IMaterialTextureUploadPromises, 'all' | 'material'> = {};
     const material: MaterialType = m.type;
 
-    if (isNotDefined(m.textures)) return { material, all: () => Promise.resolve({ material }) };
-
     Object.entries(m.textures).forEach(([key, packParams]: [string, ITexturePackParams]): void => {
       // TODO (S.Panfilov) do not load texture if already loaded
       const { url, params }: ITexturePackParams = packParams;

@@ -7,10 +7,9 @@ import { applyObject3dParams, applyPosition, applyRotation, applyScale, isDefine
 
 import { createActor } from './ActorUtils';
 
-export function ActorWrapper(params: IActorParams): IActorWrapper {
-  // TODO (S.Panfilov) debug
+export async function ActorWrapperAsync(params: IActorParams): Promise<IActorWrapper> {
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-  const entity: IMesh = createActor(params) as any;
+  const entity: IMesh = await createActor(params);
 
   const withMaterialEntity = withMaterialActor(entity);
 

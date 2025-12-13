@@ -30,6 +30,7 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
     const actorParams4: IActorParams = { ...actorDefaultParams, position: Vector3Wrapper({ x: -2, y: 2, z: 0 }) };
     const actorParams5: IActorParams = { ...actorDefaultParams, position: Vector3Wrapper({ x: 2, y: 0, z: 0 }) };
 
+    // eslint-disable-next-line @typescript-eslint/no-misused-promises
     [actorParams1, actorParams2, actorParams3, actorParams4, actorParams5].forEach(actorFactory.create);
 
     const camera: ICameraWrapper = cameraFactory.create({
