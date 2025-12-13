@@ -38,8 +38,8 @@ function validateCommonRegistryBehavior<T extends TRegistrable>(registry: TAbstr
     expectSame(result, entity);
   });
 
-  it('should return original in getAll()', () => {
-    const all: ReadonlyArray<T> = registry.getAll();
+  it('should return original in asArray()', () => {
+    const all: ReadonlyArray<T> = registry.asArray();
     expect(all.some((e: T): boolean => Object.is(e, entity))).toBe(true);
   });
 

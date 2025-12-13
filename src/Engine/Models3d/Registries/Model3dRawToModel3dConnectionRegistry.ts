@@ -4,9 +4,9 @@ import type { TRawModel3d } from '@/Engine/Models3d';
 import type { TModel3d, TModel3dRawToModel3dConnectionRegistry, TModel3dRawToModel3dConnectionRegistryExtension } from '@/Engine/Models3d/Models';
 import type { TWriteable } from '@/Engine/Utils';
 
-const registry: Omit<TWriteable<TAbstractSimpleRegistry<string>>, 'getAll'> & TWriteable<TModel3dRawToModel3dConnectionRegistryExtension> = AbstractSimpleRegistry<string>(
+const registry: Omit<TWriteable<TAbstractSimpleRegistry<string>>, 'asArray'> & TWriteable<TModel3dRawToModel3dConnectionRegistryExtension> = AbstractSimpleRegistry<string>(
   RegistryType.Models3dRawToModels3dToConnection
-) as Omit<TWriteable<TAbstractSimpleRegistry<string>>, 'getAll)'> & TWriteable<TModel3dRawToModel3dConnectionRegistryExtension>;
+) as TWriteable<TAbstractSimpleRegistry<string>> & TWriteable<TModel3dRawToModel3dConnectionRegistryExtension>;
 
 // eslint-disable-next-line functional/immutable-data
 registry.addModel3d = (model3dRaw: TRawModel3d, model3d: TModel3d): void => registry.add(model3dRaw.uuid, model3d.id);

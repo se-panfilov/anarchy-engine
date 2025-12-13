@@ -11,4 +11,4 @@ export type TModel3dRawToModel3dConnectionRegistryExtension = Readonly<{
   getAll: () => Record<string, string>;
 }>;
 
-export type TModel3dRawToModel3dConnectionRegistry = Omit<TProtectedRegistry<TAbstractSimpleRegistry<string>>, 'getAll'> & TModel3dRawToModel3dConnectionRegistryExtension;
+export type TModel3dRawToModel3dConnectionRegistry = Omit<TProtectedRegistry<TAbstractSimpleRegistry<string>>, 'asArray'> & TModel3dRawToModel3dConnectionRegistryExtension;

@@ -1,5 +1,5 @@
 import type { TWithBaseAccessorsRegistry } from '@/Engine/Abstract/Models';
-import { findInMap, getAll } from '@/Engine/Utils';
+import { asArray, findInMap } from '@/Engine/Utils';
 
 export function withBaseAccessorsRegistry<T>(registry: Map<string, T>): TWithBaseAccessorsRegistry<T> {
   const isEmpty = (): boolean => registry.size === 0;
@@ -13,7 +13,7 @@ export function withBaseAccessorsRegistry<T>(registry: Map<string, T>): TWithBas
     isEmpty,
     getLength,
     forEach,
-    getAll: () => getAll(registry),
+    asArray: (): ReadonlyArray<T> => asArray(registry),
     getRegistryCopy,
     clear,
     find

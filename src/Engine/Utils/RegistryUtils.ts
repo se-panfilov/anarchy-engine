@@ -5,7 +5,7 @@ import type { TRegistrable, TWithActiveMixin } from '@/Engine/Mixins';
 import { isNotDefined } from './CheckUtils';
 import { hasTag } from './TagsUtils';
 
-export const getAll = <T>(registry: ReadonlyMap<string, T>): ReadonlyArray<T> => Array.from(registry.values());
+export const asArray = <T>(registry: ReadonlyMap<string, T>): ReadonlyArray<T> => Array.from(registry.values());
 
 export function getAllEntitiesWithTags<T extends TRegistrable>(tagList: ReadonlyArray<string>, registry: ReadonlyMap<string, T>, strategy: LookUpStrategy): ReadonlyArray<T> {
   if (tagList.length === 0) return [];
