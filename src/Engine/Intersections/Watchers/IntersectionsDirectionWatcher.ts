@@ -8,7 +8,13 @@ import { Vector3 } from 'three/src/math/Vector3';
 
 import type { TActor } from '@/Engine/Actor';
 import type { TContainerDecorator } from '@/Engine/Global';
-import type { TAbstractIntersectionsWatcher, TIntersectionEvent, TIntersectionsDirectionWatcher, TIntersectionsDirectionWatcherParams } from '@/Engine/Intersections/Models';
+import type {
+  TAbstractIntersectionsWatcher,
+  TIntersectionEvent,
+  TIntersectionsDirectionWatcher,
+  TIntersectionsDirectionWatcherParams,
+  TIntersectionsWatcherPerformanceOptions
+} from '@/Engine/Intersections/Models';
 import { getChangedOriginAndDirection } from '@/Engine/Intersections/Utils';
 import { AbstractIntersectionsWatcher } from '@/Engine/Intersections/Watchers/AbstractIntersectionsWatcher';
 import type { TMilliseconds } from '@/Engine/Math';
@@ -110,6 +116,10 @@ export function IntersectionsDirectionWatcher(params: TIntersectionsDirectionWat
     direction$,
     targetPointToDirection,
     getDistanceToTargetPoint,
+    getPerformanceSettings: (): TIntersectionsWatcherPerformanceOptions => ({
+      noiseThreshold: threshold,
+      shouldReactOnlyOnChange
+    }),
     _debugGetRayVisualizationLine
   });
 }

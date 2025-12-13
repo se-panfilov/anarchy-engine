@@ -5,9 +5,9 @@ import type { Line2 } from 'three/examples/jsm/lines/Line2';
 import type { TContainerDecorator } from '@/Engine/Global';
 import type { TReadonlyVector3 } from '@/Engine/ThreeLib';
 
-import type { TAbstractIntersectionsWatcher } from './TAbstractIntersectionsWatcher';
+import type { TIntersectionsWatcher } from './TIntersectionsWatcher';
 
-export type TIntersectionsDirectionWatcher = TAbstractIntersectionsWatcher &
+export type TIntersectionsDirectionWatcher = TIntersectionsWatcher &
   Readonly<{
     origin$: BehaviorSubject<TReadonlyVector3>;
     direction$: BehaviorSubject<TReadonlyVector3>;

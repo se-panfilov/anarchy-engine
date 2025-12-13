@@ -5,7 +5,13 @@ import { Vector2 } from 'three';
 
 import type { TActor } from '@/Engine/Actor';
 import type { TAnyCameraWrapper } from '@/Engine/Camera';
-import type { TAbstractIntersectionsWatcher, TIntersectionEvent, TIntersectionsCameraWatcher, TIntersectionsCameraWatcherParams } from '@/Engine/Intersections/Models';
+import type {
+  TAbstractIntersectionsWatcher,
+  TIntersectionEvent,
+  TIntersectionsCameraWatcher,
+  TIntersectionsCameraWatcherParams,
+  TIntersectionsWatcherPerformanceOptions
+} from '@/Engine/Intersections/Models';
 import { getChangedPosition } from '@/Engine/Intersections/Utils';
 import { AbstractIntersectionsWatcher } from '@/Engine/Intersections/Watchers/AbstractIntersectionsWatcher';
 import type { TMilliseconds } from '@/Engine/Math';
@@ -41,7 +47,13 @@ export function IntersectionsCameraWatcher(params: TIntersectionsCameraWatcherPa
     .pipe(
       distinctUntilChanged(),
       switchMap((isEnabled: boolean): Observable<TMilliseconds | never> => (isEnabled ? intersectionsLoop.tick$ : EMPTY)),
-      map((): Readonly<{ position: TReadonlyVector2 }> | undefined => (shouldReactOnlyOnChange ? getChangedPosition(tmpPosition, prevPosition, position, threshold) : { position })),
+      map(
+        ():
+          | Readonly<{
+              position: TReadonlyVector2;
+            }>
+          | undefined => (shouldReactOnlyOnChange ? getChangedPosition(tmpPosition, prevPosition, position, threshold) : { position })
+      ),
       filter(isDefined)
     )
     .subscribe(({ position }: Readonly<{ position: TReadonlyVector2 }>): void => {
@@ -74,7 +86,11 @@ export function IntersectionsCameraWatcher(params: TIntersectionsCameraWatcherPa
   const result: TWriteable<TIntersectionsCameraWatcher> = Object.assign(abstractIntersectionsWatcher, {
     findCamera,
     getCamera,
-    setCamera
+    setCamera,
+    getPerformanceSettings: (): TIntersectionsWatcherPerformanceOptions => ({
+      noiseThreshold: threshold,
+      shouldReactOnlyOnChange
+    })
   });
 
   setCamera(params.camera);

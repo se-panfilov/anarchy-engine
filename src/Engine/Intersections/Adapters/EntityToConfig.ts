@@ -1,26 +1,27 @@
 import type { TActor } from '@/Engine/Actor';
 import type {
-  TAbstractIntersectionsWatcher,
   TAbstractIntersectionsWatcherConfig,
   TAnyIntersectionsWatcher,
   TAnyIntersectionsWatcherConfig,
   TIntersectionsCameraWatcher,
   TIntersectionsCameraWatcherConfig,
   TIntersectionsDirectionWatcher,
-  TIntersectionsDirectionWatcherConfig
+  TIntersectionsDirectionWatcherConfig,
+  TIntersectionsWatcher
 } from '@/Engine/Intersections/Models';
+import type { TIntersectionsWatcherConfig } from '@/Engine/Intersections/Models/TIntersectionsWatcherConfig';
 import { isIntersectionsCameraWatcher, isIntersectionsDirectionWatcher } from '@/Engine/Intersections/Utils';
 import { extractSerializableRegistrableFields } from '@/Engine/Mixins';
 import { filterOutEmptyFields, vector3ToXyz } from '@/Engine/Utils';
 
 export function intersectionsToConfig(entity: TAnyIntersectionsWatcher): TAnyIntersectionsWatcherConfig {
-  const abstractConfig: TAbstractIntersectionsWatcherConfig = intersectionsAbstractToConfig(entity);
+  const config: TIntersectionsWatcherConfig = intersectionsAbstractToConfig(entity);
   let result: TAnyIntersectionsWatcherConfig;
 
   if (isIntersectionsDirectionWatcher(entity)) {
-    result = { ...abstractConfig, ...intersectionsDirectionToConfig(entity) };
+    result = { ...config, ...intersectionsDirectionToConfig(entity) };
   } else if (isIntersectionsCameraWatcher(entity)) {
-    result = { ...abstractConfig, ...intersectionsCameraToConfig(entity) };
+    result = { ...config, ...intersectionsCameraToConfig(entity) };
   } else {
     throw new Error(`[Intersections]: Entity to config failed: Unknown intersections watcher type: ${(entity as TAnyIntersectionsWatcherConfig).name}`);
   }
@@ -28,12 +29,13 @@ export function intersectionsToConfig(entity: TAnyIntersectionsWatcher): TAnyInt
   return result;
 }
 
-export function intersectionsAbstractToConfig(entity: TAbstractIntersectionsWatcher): TAbstractIntersectionsWatcherConfig {
+export function intersectionsAbstractToConfig(entity: TIntersectionsWatcher): TIntersectionsWatcherConfig {
   return filterOutEmptyFields({
     actorNames: entity.getActors().map((actor: TActor): string => actor.name),
     isAutoStart: entity.isAutoStart,
     intersectionsLoop: entity.getIntersectionsLoop()?.name,
     far: entity.raycaster?.far,
+    performance: entity.getPerformanceSettings(),
     ...extractSerializableRegistrableFields(entity)
   });
 }

@@ -1,8 +1,8 @@
 import type { TAnyCameraWrapper } from '@/Engine/Camera';
 
-import type { TAbstractIntersectionsWatcher } from './TAbstractIntersectionsWatcher';
+import type { TIntersectionsWatcher } from './TIntersectionsWatcher';
 
-export type TIntersectionsCameraWatcher = TAbstractIntersectionsWatcher &
+export type TIntersectionsCameraWatcher = TIntersectionsWatcher &
   Readonly<{
     findCamera: () => TAnyCameraWrapper | undefined;
     getCamera: () => TAnyCameraWrapper | never;
