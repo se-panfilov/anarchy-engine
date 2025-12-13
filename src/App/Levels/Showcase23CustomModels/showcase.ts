@@ -45,10 +45,10 @@ export function showcase(canvas: TAppCanvas): TShowcase {
     );
 
     // TODO (S.Panfilov) CWP make animation play via service, so we don't need loop and tick everywhere
-    keyboardService.onKey(KeyCode.W).pressed$.subscribe((): void => void runAnimationGLTF?.play());
-    keyboardService.onKey(KeyCode.W).released$.subscribe((): void => void runAnimationGLTF?.stop());
-    keyboardService.onKey(KeyCode.S).pressed$.subscribe((): void => void runAnimationGLB?.play());
-    keyboardService.onKey(KeyCode.S).released$.subscribe((): void => void runAnimationGLB?.stop());
+    keyboardService.onKey(KeyCode.One).pressed$.subscribe((): void => void runAnimationGLTF?.play());
+    keyboardService.onKey(KeyCode.One).released$.subscribe((): void => void runAnimationGLTF?.stop());
+    keyboardService.onKey(KeyCode.Two).pressed$.subscribe((): void => void runAnimationGLB?.play());
+    keyboardService.onKey(KeyCode.Two).released$.subscribe((): void => void runAnimationGLB?.stop());
 
     loopService.tick$.subscribe(({ delta }) => {
       if (runAnimationGLTF && mixerGLTF) mixerGLTF.update(delta);

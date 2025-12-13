@@ -29,16 +29,16 @@ export enum KeyCode {
   Y = '@KeyY', // 89
   Z = '@KeyZ', // 90
 
-  Zero = 'Digit0', //48
-  One = 'Digit1', //49
-  Two = 'Digit2', //50
+  Zero = '@Digit0', //48
+  One = '@Digit1', //49
+  Two = '@Digit2', //50
   Three = '@Digit3', //51
-  Four = 'Digit4', //52
-  Five = 'Digit5', //53
-  Six = 'Digit6', //54
-  Seven = 'Digit7', //55
-  Eight = 'Digit8', //56
-  Nine = 'Digit9', //57
+  Four = '@Digit4', //52
+  Five = '@Digit5', //53
+  Six = '@Digit6', //54
+  Seven = '@Digit7', //55
+  Eight = '@Digit8', //56
+  Nine = '@Digit9', //57
 
   Numpad0 = '@Numpad0', //96
   Numpad1 = '@Numpad1', //97
