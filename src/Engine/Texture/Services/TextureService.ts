@@ -13,7 +13,6 @@ import type {
   TPhongMaterialTexturePack,
   TPhysicalMaterialTexturePack,
   TStandardMaterialTexturePack,
-  TTexturePackParams,
   TToonMaterialTexturePack
 } from '@/Engine/MaterialTexturePack';
 import type {
@@ -37,7 +36,10 @@ import type {
   TStandardTextureUploadPromises,
   TTexture,
   TTextureAsyncRegistry,
+  TTextureConfig,
   TTextureFactory,
+  TTexturePackParams,
+  TTextureParams,
   TTextureService,
   TTextureUploaded,
   TTextureUploadPromises,
@@ -50,6 +52,13 @@ import { isNotDefined } from '@/Engine/Utils';
 
 export function TextureService(factory: TTextureFactory, registry: TTextureAsyncRegistry): TTextureService {
   const textureLoader: TextureLoader = new TextureLoader();
+  factory.entityCreated$.subscribe((texture: TTexture): void => registry.add(texture));
+
+  const createAsync = (params: TTextureParams): Promise<TTexture> => factory.createAsync(params, { materialTextureService });
+
+  function createFromConfigAsync(textures: ReadonlyArray<TTextureConfig>): Promise<ReadonlyArray<TTexture>> {
+    return textures.map((config: TTextureConfig): Promise<TTexture> => factory.createAsync(factory.configToParams(config), { materialTextureService }));
+  }
 
   function load(m: TMaterialPackParams<TBasicMaterialTexturePack>): TBasicTextureUploadPromises;
   function load(m: TMaterialPackParams<TDepthMaterialTexturePack>): TDepthTextureUploadPromises;
@@ -100,7 +109,5 @@ export function TextureService(factory: TTextureFactory, registry: TTextureAsync
     return { ...promises, all };
   }
 
-  return { load };
+  return { createAsync, createFromConfigAsync, load };
 }
-
-export const textureService: TTextureService = TextureService();

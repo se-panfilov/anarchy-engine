@@ -29,8 +29,8 @@ export function EnvMapService(registry: TEnvMapAsyncRegistry, sceneW: TSceneWrap
 
   const findActive = withActive.findActive;
 
-  function loadFromConfigAsync(envMaps: ReadonlyArray<string>): ReadonlyArray<Promise<TDataTexture>> {
-    return envMaps.map((url: string): Promise<TDataTexture> => loadAsync(url));
+  function loadFromConfigAsync(envMaps: ReadonlyArray<string>): Promise<ReadonlyArray<TDataTexture>> {
+    return Promise.all(envMaps.map((url: string): Promise<TDataTexture> => loadAsync(url)));
   }
 
   function loadAsync(url: string, isForce: boolean = false): Promise<TDataTexture> {

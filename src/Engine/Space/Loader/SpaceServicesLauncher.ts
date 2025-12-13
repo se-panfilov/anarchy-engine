@@ -32,7 +32,8 @@ import type { TSpaceServices } from '@/Engine/Space/Models';
 import type { TSpatialGridService, TSpatialLoopService } from '@/Engine/Spatial';
 import { SpatialGridFactory, SpatialGridRegistry, SpatialGridService, SpatialLoopService } from '@/Engine/Spatial';
 import { Text2dRegistry, Text2dRendererRegistry, Text3dRegistry, Text3dRendererRegistry, TextFactory, TextService } from '@/Engine/Text';
-import { TextureService, textureService } from '@/Engine/Texture';
+import type { TTextureService } from '@/Engine/Texture';
+import { TextureService } from '@/Engine/Texture';
 import { TextureFactory } from '@/Engine/Texture/Factories/TextureFactory';
 import { TextureAsyncRegistry } from '@/Engine/Texture/Registries/TextureRegistry';
 import { isNotDefined } from '@/Engine/Utils';
@@ -46,6 +47,7 @@ export function initSceneService(): TScenesService {
 
 export function initEntitiesServices(sceneW: TSceneWrapper, canvas: TAppCanvas): Omit<TSpaceServices, 'scenesService'> {
   const materialService: TMaterialService = MaterialService(MaterialFactory(), MaterialRegistry());
+  const textureService: TTextureService = TextureService(TextureFactory(), TextureAsyncRegistry());
   const materialTextureService: TMaterialTextureService = MaterialTextureService(materialService, { textureService });
   const physicsPresetService: TPhysicsPresetsService = PhysicsPresetsService(PhysicsPresetRegistry());
   const physicsWorldService: TPhysicsWorldService = PhysicsWorldService(sceneW);
@@ -101,7 +103,7 @@ export function initEntitiesServices(sceneW: TSceneWrapper, canvas: TAppCanvas):
     spatialLoopService,
     spatialGridService,
     textService: TextService(TextFactory(), Text2dRegistry(), Text3dRegistry(), Text2dRendererRegistry(), Text3dRendererRegistry(), sceneW),
-    textureService: TextureService(TextureFactory(), TextureAsyncRegistry())
+    textureService
   };
 }
 

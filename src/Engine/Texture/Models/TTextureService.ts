@@ -12,7 +12,8 @@ import type {
   TToonMaterialTexturePack
 } from '@/Engine/MaterialTexturePack/Models';
 import type { TDestroyable } from '@/Engine/Mixins';
-import type { TWithCreateFromConfigService, TWithFactoryService, TWithRegistryService } from '@/Engine/Space';
+import type { TWithCreateFromConfigAsyncService, TWithFactoryService, TWithRegistryService } from '@/Engine/Space';
+import type { TTexture } from '@/Engine/Texture';
 
 import type { TTextureAsyncRegistry } from './TTextureAsyncRegistry';
 import type { TTextureConfig } from './TTextureConfig';
@@ -64,7 +65,7 @@ export type TTextureService = (
   | TToonMaterialTextureService
   | TStandardMaterialTextureService
 ) &
-  TWithCreateFromConfigService<TTextureConfig> &
+  TWithCreateFromConfigAsyncService<TTextureConfig, ReadonlyArray<TTexture>> &
   TWithFactoryService<TTextureFactory> &
   TWithRegistryService<TTextureAsyncRegistry> &
   TDestroyable;

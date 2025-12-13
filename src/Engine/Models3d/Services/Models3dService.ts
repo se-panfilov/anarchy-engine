@@ -65,14 +65,16 @@ export function Models3dService(registry: TModels3dAsyncRegistry, { animationsSe
     });
   }
 
-  function createFromConfigAsync(config: ReadonlyArray<TModel3dConfig>): ReadonlyArray<Promise<TModel3dFacade>> {
+  function createFromConfigAsync(config: ReadonlyArray<TModel3dConfig>): Promise<ReadonlyArray<TModel3dFacade>> {
     let primitiveModelsConfigs: ReadonlyArray<TModel3dPrimitiveConfig> = [];
     let complexModelsConfigs: ReadonlyArray<TModel3dComplexConfig> = [];
+
     config.forEach((c: TModel3dConfig) => {
       if (isPrimitive(c)) primitiveModelsConfigs = [...primitiveModelsConfigs, c];
       else complexModelsConfigs = [...complexModelsConfigs, c];
     });
-    return [...loadFromConfigAsync(complexModelsConfigs), ...createPrimitiveFromConfig(primitiveModelsConfigs)];
+
+    return Promise.all([...loadFromConfigAsync(complexModelsConfigs), ...createPrimitiveFromConfig(primitiveModelsConfigs)]);
   }
 
   const loadFromConfigAsync = (config: ReadonlyArray<TModel3dComplexConfig>): ReadonlyArray<Promise<TModel3dComplexFacade>> =>

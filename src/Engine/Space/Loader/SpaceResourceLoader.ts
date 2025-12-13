@@ -24,5 +24,5 @@ export async function loadResources(resources: TSpaceConfigResources, { models3d
   //materials and textures should be fully loaded before models
   await materialService.createFromConfigAsync(materials);
   // TODO 9.0.0. RESOURCES: envMapService's should be loadFromConfigAsync
-  await Promise.all([...models3dService.createFromConfigAsync(models3d), ...envMapService.loadFromConfigAsync(envMaps)]);
+  await Promise.all([models3dService.createFromConfigAsync(models3d), envMapService.loadFromConfigAsync(envMaps)]);
 }

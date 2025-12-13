@@ -13,7 +13,7 @@ import type {
   TModel3dPrimitiveParams,
   TModels3dAsyncRegistry
 } from '@/Engine/Models3d/Models';
-import type { TWithRegistryService, TWithSceneGetterService } from '@/Engine/Space';
+import type { TWithCreateFromConfigAsyncService, TWithRegistryService, TWithSceneGetterService } from '@/Engine/Space';
 import type { TOptional } from '@/Engine/Utils';
 
 import type { TModel3dComplexParams } from './TModel3dComplexParams';
@@ -23,7 +23,6 @@ export type TModels3dService = Readonly<{
   loadFromConfigAsync: (config: ReadonlyArray<TModel3dComplexConfig>) => ReadonlyArray<Promise<TModel3dComplexFacade>>;
   createFromPack: (pack: TModel3dPack) => TModel3dFacade;
   createPrimitiveAsync: (params: ReadonlyArray<TModel3dPrimitiveParams>) => ReadonlyArray<Promise<TModel3dPrimitiveFacade>>;
-  createFromConfigAsync: (config: ReadonlyArray<TModel3dConfig>) => ReadonlyArray<Promise<TModel3dFacade>>;
   createPrimitiveFromConfig: (config: ReadonlyArray<TModel3dPrimitiveConfig>) => ReadonlyArray<Promise<TModel3dPrimitiveFacade>>;
   findModel3dAndOverride: (name: string, overrides?: TOptional<TModel3dConfig>) => TModel3dFacade | undefined;
   getAnimationService: () => TAnimationsService;
@@ -31,6 +30,7 @@ export type TModels3dService = Readonly<{
   loaded$: Observable<TModel3dComplexFacade>;
   clone: (model3dFacade: TModel3dFacade, overrides?: TOptional<TModel3dPack>) => TModel3dFacade;
 }> &
+  TWithCreateFromConfigAsyncService<TModel3dConfig, ReadonlyArray<TModel3dFacade>> &
   TWithRegistryService<TModels3dAsyncRegistry> &
   TWithSceneGetterService &
   TDestroyable;
