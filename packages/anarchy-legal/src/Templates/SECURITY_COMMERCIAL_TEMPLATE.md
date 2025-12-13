@@ -45,7 +45,7 @@ Where required by law, we will **notify competent authorities and/or users withi
 
 ## Software Bill of Materials (SBOM)
 
-An SBOM is available in **{{SBOM_FORMAT}}** at **{{SBOM_LOCATION}}** or upon request.
+An SBOM is maintained in **{{SBOM_FORMAT}}** at **`{{SBOM_LOCATION}}`** or available on request.
 {{/SBOM_AVAILABLE}}
 
 ## In / Out of Scope

@@ -45,6 +45,7 @@ export default {
 
       // SBOM
       SBOM_FORMAT: 'CycloneDX JSON',
+      SBOM_AVAILABLE: true,
 
       SHOW_TECH_IDENTIFIERS: true
     }

@@ -37,6 +37,10 @@ Where required by law, we will **notify competent authorities and/or users withi
 - **Advisories/release notes:** may be provided within the product, in the update package, or via the applicable distribution channel. No specific location or cadence is guaranteed.
 - **Security support period:** as declared in **SUPPORT.md**; in any case the **shorter** of (i) the **declared expected lifetime** per **major version** and (ii) **five (5) years** from its initial commercial release.
 
+## Software Bill of Materials (SBOM)
+
+An SBOM is maintained in **CycloneDX JSON** at **`../compliance/sbom/`** or available on request.
+
 ## In / Out of Scope
 
 - **In scope:** issues that materially impact the confidentiality, integrity, or availability of the shipped Software or its **update mechanism**.
