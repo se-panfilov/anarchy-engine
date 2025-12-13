@@ -44,7 +44,7 @@ const options = computed((): ReadonlyArray<TDropdownOption<{ width: number; heig
 <template>
   <View class="graphics" title="Graphics">
     <ViewForm name="graphics" class="graphics__view-form" @submit="save(state)">
-      <SettingsGroup title="Main Graphics Settings">
+      <SettingsGroup title="Main graphics settings">
         <Checkbox v-model="state.isFullScreen" class="graphics__setting -fullscreen" label="Fullscreen" />
         <Dropdown v-model="state.resolution" :options="options" class="graphics__setting -resolution" label="Resolution" />
       </SettingsGroup>
