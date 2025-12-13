@@ -20,6 +20,7 @@
     "unit:coverage:ui": "vitest --ui"
   },
   "dependencies": {
+    "@rwh/keystrokes": "1.5.4",
     "ajv": "8.12.0",
     "animejs": "3.2.2",
     "lil-gui": "0.19.2",
