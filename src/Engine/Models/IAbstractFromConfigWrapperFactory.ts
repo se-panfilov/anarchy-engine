@@ -1,3 +1,5 @@
-import type { IAbstractConfig, IAbstractWrapperFactory, IFromConfig, IWrapper } from '@Engine/Models';
+import type { IAbstractConfig, IAbstractFactory, IAbstractWrapperFactory, IFromConfig, IWrapper } from '@Engine/Models';
 
-export type IAbstractFromConfigWrapperFactory<T extends IWrapper<ENT>, ENT, PRMS, C extends IAbstractConfig> = IAbstractWrapperFactory<T, ENT, PRMS> & IFromConfig<T, ENT, C>;
+export type IAbstractFromConfigWrapperFactory<T extends IWrapper<ENT>, ENT, PRMS, C extends IAbstractConfig, F extends IAbstractFactory<T, PRMS>> = F &
+  IAbstractWrapperFactory<T, ENT, PRMS> &
+  IFromConfig<T, ENT, C>;

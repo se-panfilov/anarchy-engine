@@ -1,3 +1,3 @@
-import type { IAbstractWrapperFactory, IDestroyableFactory, IWrapper } from '@Engine/Models';
+import type { IAbstractFactory, IAbstractWrapperFactory, IDestroyableFactory, IWrapper } from '@Engine/Models';
 
-export type IFactory<T extends IWrapper<ENT>, ENT, PRMS> = IAbstractWrapperFactory<T, ENT, PRMS> | IDestroyableFactory<T, ENT, PRMS>;
+export type IFactory<T extends IWrapper<ENT>, ENT, PRMS> = IAbstractWrapperFactory<T, ENT, PRMS> | IDestroyableFactory<T, ENT, PRMS, IAbstractFactory<T, PRMS>>;

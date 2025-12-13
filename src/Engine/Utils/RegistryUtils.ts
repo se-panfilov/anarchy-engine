@@ -1,4 +1,4 @@
-import type { IAbstractConfig, IFromConfigFactory, IProtectedRegistry, IWrapper } from '@Engine/Models';
+import type { IAbstractConfig, IAbstractFactory, IAbstractRegistry, IFromConfigFactory, IProtectedRegistry, IWrapper } from '@Engine/Models';
 import { isDestroyedFactory } from '@Engine/Utils/DestroyableUtils';
 
 export function getAllEntitiesWithEveryTag<T extends { tags: ReadonlyArray<string> }>(tagList: ReadonlyArray<string>, registry: ReadonlyMap<string, T>): ReadonlyArray<T> {
@@ -19,8 +19,8 @@ function getEntitiesWithTag<T extends { tags: ReadonlyArray<string> }>(tagList: 
 export function addFromConfigToRegistry<E, W extends IWrapper<E>, C extends IAbstractConfig = void>(
   configList: ReadonlyArray<C>,
   // eslint-disable-next-line functional/prefer-immutable-types
-  factory: IFromConfigFactory<W, E, never, C>,
-  registry: IProtectedRegistry<W>
+  factory: IFromConfigFactory<W, E, never, IAbstractFactory<W, never>, C>,
+  registry: IProtectedRegistry<W, IAbstractRegistry<any>>
 ): void {
   if (isDestroyedFactory(factory)) throw new Error('Cannot add to registry: a factory is already destroyed');
   if (!factory.fromConfig) throw new Error(`Factory "${factory.id}" of type "${factory.type}" doesn't meant to create entities from configs`);
