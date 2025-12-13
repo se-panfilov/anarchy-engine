@@ -10,10 +10,13 @@ import type {
   TText2dRegistry,
   TText2dRenderer,
   TText2dRendererRegistry,
+  TText2dWrapper,
   TText3dRegistry,
   TText3dRenderer,
   TText3dRendererRegistry,
   TText3dTextureRegistry,
+  TText3dTextureWrapper,
+  TText3dWrapper,
   TTextAnyWrapper,
   TTextConfig,
   TTextFactory,
@@ -21,7 +24,8 @@ import type {
   TTextServiceDependencies,
   TTextServiceWithCreate,
   TTextServiceWithCreateFromConfig,
-  TTextServiceWithFactory
+  TTextServiceWithFactory,
+  TTextTranslationService
 } from '@Anarchy/Engine/Text/Models';
 import { initText2dRenderer, initText3dRenderer } from '@Anarchy/Engine/Text/Renderers';
 import styles from '@Anarchy/Engine/Text/Styles/font-elements.css?inline';
@@ -74,6 +78,12 @@ export function TextService(
     return renderer;
   }
 
+  function setTextTranslationService(textTranslationService: TTextTranslationService): void {
+    text2dRegistry.forEach((wrapper: TText2dWrapper): void => wrapper.setTranslationService(textTranslationService));
+    text3dRegistry.forEach((wrapper: TText3dWrapper): void => wrapper.setTranslationService(textTranslationService));
+    text3dTextureRegistry.forEach((wrapper: TText3dTextureWrapper): void => wrapper.setTranslationService(textTranslationService));
+  }
+
   const loopSub$: Subscription = textLoopEffect(textLoop, text2dRegistry, text3dRegistry, activeText2dRenderer, activeText3dRenderer, scene, dependencies.cameraService);
 
   const destroySub$: Subscription = abstractService.destroy$.subscribe((): void => {
@@ -85,6 +95,7 @@ export function TextService(
     injectStyle: (): void => injectStyle(styles, 'anarchy-engine-text-styles'),
     createText2dRenderer,
     createText3dRenderer,
+    setTextTranslationService,
     getRegistries: () => ({ text2dRegistry, text3dRegistry, text3dTextureRegistry }),
     getRendererRegistries: () => ({ text2dRendererRegistry, text3dRendererRegistry }),
     activeText2dRenderer: activeText2dRenderer.asObservable(),
