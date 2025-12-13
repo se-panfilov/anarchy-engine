@@ -6,9 +6,18 @@ import { AnimationMixer } from 'three';
 import type { TAbstractService } from '@/Engine/Abstract';
 import { AbstractService } from '@/Engine/Abstract';
 import { AnimationsLoader } from '@/Engine/Animations/Loader';
-import type { TAnimationActions, TAnimationActionsPack, TAnimationsLoader, TAnimationsResourceAsyncRegistry, TAnimationsService, TModel3dAnimations } from '@/Engine/Animations/Models';
+import type {
+  TAnimationActions,
+  TAnimationActionsPack,
+  TAnimationsLoader,
+  TAnimationsResourceAsyncRegistry,
+  TAnimationsResourceConfig,
+  TAnimationsService,
+  TModel3dAnimations
+} from '@/Engine/Animations/Models';
 import type { TDelta } from '@/Engine/Loop';
 import type { TDisposable } from '@/Engine/Mixins';
+import { withSerializeAllResources } from '@/Engine/Mixins';
 import type { TModel3d, TRawModel3d } from '@/Engine/Models3d';
 import type { TSpaceLoops } from '@/Engine/Space';
 import type { TWriteable } from '@/Engine/Utils';
@@ -59,7 +68,7 @@ export function AnimationsService(resourcesRegistry: TAnimationsResourceAsyncReg
   });
 
   // eslint-disable-next-line functional/immutable-data
-  return Object.assign(abstractService, {
+  return Object.assign(abstractService, withSerializeAllResources<TAnimationsResourceConfig, undefined>(resourcesRegistry), {
     createActions,
     added$: added$.asObservable(),
     startAutoUpdateMixer,

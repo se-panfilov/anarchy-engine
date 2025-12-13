@@ -5,11 +5,13 @@ import { AbstractService } from '@/Engine/Abstract';
 import type { TAnimationsResourceAsyncRegistry, TAnimationsService } from '@/Engine/Animations';
 import type { TMaterialRegistry, TMaterialService } from '@/Engine/Material';
 import type { TDisposable } from '@/Engine/Mixins';
-import { withCreateFromConfigServiceMixin, withCreateServiceMixin, withFactoryService, withRegistryService } from '@/Engine/Mixins';
+import { withCreateFromConfigServiceMixin, withCreateServiceMixin, withFactoryService, withRegistryService, withSerializeAllEntities, withSerializeAllResources } from '@/Engine/Mixins';
 import { Models3dLoader } from '@/Engine/Models3d/Loaders';
 import type {
   TModel3d,
+  TModel3dConfig,
   TModel3dParams,
+  TModel3dResourceConfig,
   TModel3dServiceWithCreate,
   TModel3dServiceWithCreateFromConfig,
   TModel3dServiceWithFactory,
@@ -57,12 +59,21 @@ export function Models3dService(
   }
 
   // eslint-disable-next-line functional/immutable-data
-  return Object.assign(abstractService, withCreateService, withCreateFromConfigService, withFactory, withRegistry, {
-    loadAsync: model3dLoader.loadAsync,
-    loadFromConfigAsync: model3dLoader.loadFromConfigAsync,
-    getResourceRegistry: (): TModels3dResourceAsyncRegistry => resourcesRegistry,
-    getAnimationsService: (): TAnimationsService => animationsService,
-    getMaterialService: (): TMaterialService => materialService,
-    clone
-  });
+  return Object.assign(
+    abstractService,
+    withCreateService,
+    withCreateFromConfigService,
+    withFactory,
+    withRegistry,
+    withSerializeAllResources<TModel3dResourceConfig, undefined>(resourcesRegistry),
+    withSerializeAllEntities<TModel3dConfig, undefined>(registry),
+    {
+      loadAsync: model3dLoader.loadAsync,
+      loadFromConfigAsync: model3dLoader.loadFromConfigAsync,
+      getResourceRegistry: (): TModels3dResourceAsyncRegistry => resourcesRegistry,
+      getAnimationsService: (): TAnimationsService => animationsService,
+      getMaterialService: (): TMaterialService => materialService,
+      clone
+    }
+  );
 }

@@ -1,6 +1,6 @@
 import type { AudioListener } from 'three';
 
-import type { TEntitiesService } from '@/Engine/Abstract';
+import type { TSerializableEntitiesService, TSerializableResourceService } from '@/Engine/Abstract';
 import type { TWithCreateFromConfigService, TWithCreateService, TWithFactoryService, TWithLoadResourcesAsyncService, TWithRegistryService, TWithResourcesRegistryService } from '@/Engine/Mixins';
 
 import type { TAnyAudioConfig } from './TAnyAudioConfig';
@@ -18,7 +18,8 @@ export type TAudioServiceWithCreateFromConfig = TWithCreateFromConfigService<TAn
 export type TAudioServiceWithFactory = TWithFactoryService<TAnyAudioWrapper, TAnyAudioParams, TAudioWrapperDependencies, TAudioFactory>;
 export type TAudioServiceWithRegistry = TWithRegistryService<TAudioRegistry>;
 
-export type TAudioService = TEntitiesService &
+export type TAudioService = TSerializableEntitiesService<TAnyAudioConfig> &
+  TSerializableResourceService<TAudioResourceConfig> &
   TAudioServiceWithCreate &
   TAudioServiceWithCreateFromConfig &
   TAudioServiceWithFactory &

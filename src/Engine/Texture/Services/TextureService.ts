@@ -1,8 +1,9 @@
 import type { TAbstractService } from '@/Engine/Abstract';
 import { AbstractService } from '@/Engine/Abstract';
 import type { TDisposable } from '@/Engine/Mixins';
+import { withSerializeAllResources } from '@/Engine/Mixins';
 import { TexturesLoader } from '@/Engine/Texture/Loaders';
-import type { TTextureAsyncRegistry, TTextureService, TTexturesLoader } from '@/Engine/Texture/Models';
+import type { TTextureAsyncRegistry, TTextureResourceConfig, TTextureService, TTexturesLoader } from '@/Engine/Texture/Models';
 
 export function TextureService(resourcesRegistry: TTextureAsyncRegistry): TTextureService {
   const texturesLoader: TTexturesLoader = TexturesLoader(resourcesRegistry);
@@ -10,7 +11,7 @@ export function TextureService(resourcesRegistry: TTextureAsyncRegistry): TTextu
   const abstractService: TAbstractService = AbstractService(disposable);
 
   // eslint-disable-next-line functional/immutable-data
-  return Object.assign(abstractService, {
+  return Object.assign(abstractService, withSerializeAllResources<TTextureResourceConfig, undefined>(resourcesRegistry), {
     loadAsync: texturesLoader.loadAsync,
     loadFromConfigAsync: texturesLoader.loadFromConfigAsync,
     getResourceRegistry: (): TTextureAsyncRegistry => resourcesRegistry

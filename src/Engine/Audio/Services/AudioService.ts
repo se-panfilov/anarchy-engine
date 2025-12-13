@@ -6,12 +6,14 @@ import { AbstractService } from '@/Engine/Abstract';
 import { Listeners } from '@/Engine/Audio/Constants';
 import { AudioLoader } from '@/Engine/Audio/Loader';
 import type {
+  TAnyAudioConfig,
   TAnyAudioWrapper,
   TAudioFactory,
   TAudioListenersRegistry,
   TAudioLoader,
   TAudioRegistry,
   TAudioResourceAsyncRegistry,
+  TAudioResourceConfig,
   TAudioService,
   TAudioServiceDependencies,
   TAudioServiceWithCreate,
@@ -20,7 +22,7 @@ import type {
   TAudioServiceWithRegistry
 } from '@/Engine/Audio/Models';
 import type { TDisposable } from '@/Engine/Mixins';
-import { withCreateFromConfigServiceMixin, withCreateServiceMixin, withFactoryService, withRegistryService } from '@/Engine/Mixins';
+import { withCreateFromConfigServiceMixin, withCreateServiceMixin, withFactoryService, withRegistryService, withSerializeAllEntities, withSerializeAllResources } from '@/Engine/Mixins';
 import type { TSpaceLoops } from '@/Engine/Space';
 
 // TODO Audio: Maybe implement "Sound Perception Manager" for NPCs to react to a sound (if they are in a radius)
@@ -50,11 +52,23 @@ export function AudioService(
   const withRegistry: TAudioServiceWithRegistry = withRegistryService(registry);
 
   // eslint-disable-next-line functional/immutable-data
-  return Object.assign(abstractService, withCreateService, withCreateFromConfigService, withFactory, withRegistry, {
-    getResourceRegistry: (): TAudioResourceAsyncRegistry => audioResourceAsyncRegistry,
-    getListenersRegistry: (): TAudioListenersRegistry => audioListenersRegistry,
-    getMainListener: (): AudioListener | undefined => audioListenersRegistry.findByKey(Listeners.Main),
-    loadAsync: audioLoader.loadAsync,
-    loadFromConfigAsync: audioLoader.loadFromConfigAsync
-  });
+  return Object.assign(
+    abstractService,
+    withCreateService,
+    withCreateFromConfigService,
+    withFactory,
+    withRegistry,
+    withSerializeAllResources<TAudioResourceConfig, undefined>(audioResourceAsyncRegistry),
+    withSerializeAllEntities<TAnyAudioConfig, undefined>(registry),
+    {
+      getResourceRegistry: (): TAudioResourceAsyncRegistry => audioResourceAsyncRegistry,
+      getListenersRegistry: (): TAudioListenersRegistry => audioListenersRegistry,
+      getMainListener: (): AudioListener | undefined => audioListenersRegistry.findByKey(Listeners.Main),
+      loadAsync: audioLoader.loadAsync,
+      loadFromConfigAsync: audioLoader.loadFromConfigAsync,
+      serializeAllListeners: (): ReadonlyArray<AudioListener> => {
+        return audioListenersRegistry.serialize() as ReadonlyArray<AudioListener>;
+      }
+    }
+  );
 }

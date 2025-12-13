@@ -4,9 +4,11 @@ import type { TAbstractService, TRegistryPack } from '@/Engine/Abstract';
 import { AbstractService } from '@/Engine/Abstract';
 import { EnvMapLoader } from '@/Engine/EnvMap/Loader';
 import type {
+  TEnvMapConfig,
   TEnvMapFactory,
   TEnvMapLoader,
   TEnvMapRegistry,
+  TEnvMapResourceConfig,
   TEnvMapService,
   TEnvMapServiceWithCreate,
   TEnvMapServiceWithCreateFromConfig,
@@ -16,7 +18,16 @@ import type {
   TEnvMapWrapper
 } from '@/Engine/EnvMap/Models';
 import type { TDisposable, TWithActiveMixinResult } from '@/Engine/Mixins';
-import { withActiveEntityServiceMixin, withCreateFromConfigServiceMixin, withCreateServiceMixin, withFactoryService, withRegistryService, withSceneGetterService } from '@/Engine/Mixins';
+import {
+  withActiveEntityServiceMixin,
+  withCreateFromConfigServiceMixin,
+  withCreateServiceMixin,
+  withFactoryService,
+  withRegistryService,
+  withSceneGetterService,
+  withSerializeAllEntities,
+  withSerializeAllResources
+} from '@/Engine/Mixins';
 import type { TSceneWrapper } from '@/Engine/Scene';
 import { isDefined } from '@/Engine/Utils';
 
@@ -54,12 +65,22 @@ export function EnvMapService(factory: TEnvMapFactory, registry: TEnvMapRegistry
   });
 
   // eslint-disable-next-line functional/immutable-data
-  return Object.assign(abstractService, withCreateService, withCreateFromConfigService, withFactory, withRegistry, withSceneGetterService(sceneW), {
-    loadAsync: envMapLoader.loadAsync,
-    loadFromConfigAsync: envMapLoader.loadFromConfigAsync,
-    setActive: withActive.setActive,
-    findActive,
-    active$: withActive.active$,
-    getResourceRegistry: (): TEnvMapTextureAsyncRegistry => resourcesRegistry
-  });
+  return Object.assign(
+    abstractService,
+    withCreateService,
+    withCreateFromConfigService,
+    withFactory,
+    withRegistry,
+    withSceneGetterService(sceneW),
+    withSerializeAllResources<TEnvMapResourceConfig, undefined>(resourcesRegistry),
+    withSerializeAllEntities<TEnvMapConfig, undefined>(registry),
+    {
+      loadAsync: envMapLoader.loadAsync,
+      loadFromConfigAsync: envMapLoader.loadFromConfigAsync,
+      setActive: withActive.setActive,
+      findActive,
+      active$: withActive.active$,
+      getResourceRegistry: (): TEnvMapTextureAsyncRegistry => resourcesRegistry
+    }
+  );
 }

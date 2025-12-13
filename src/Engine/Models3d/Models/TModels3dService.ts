@@ -1,6 +1,6 @@
 import type { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
 
-import type { TEntitiesService } from '@/Engine/Abstract';
+import type { TSerializableEntitiesService, TSerializableResourceService } from '@/Engine/Abstract';
 import type { TAnimationsService } from '@/Engine/Animations';
 import type { TMaterialService } from '@/Engine/Material';
 import type { TWithCreateFromConfigService, TWithCreateService, TWithFactoryService, TWithLoadResourcesAsyncService, TWithRegistryService, TWithResourcesRegistryService } from '@/Engine/Mixins';
@@ -26,7 +26,8 @@ export type TModel3dServiceWithFactory = TWithFactoryService<
 >;
 export type TModel3dServiceWithRegistry = TWithRegistryService<TModels3dRegistry>;
 
-export type TModels3dService = TEntitiesService &
+export type TModels3dService = TSerializableEntitiesService<TModel3dConfig> &
+  TSerializableResourceService<TModel3dResourceConfig> &
   TModel3dServiceWithCreate &
   TModel3dServiceWithCreateFromConfig &
   TModel3dServiceWithFactory &
