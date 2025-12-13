@@ -21,7 +21,7 @@ export function createLoops({ create }: TLoopService): TSpaceLoops {
 
   // You could use testTickRate() to test the tick rate of the loop in the main stream and in "parallel mode" (in the worker),
   // cause usually loops in workers fires a way faster due to the fact that the worker is not blocked by the main thread (rendering and etc)
-  // TL;DR: If use parallel mode, set the "trigger" time higher.
+  // TL;DR: If you use parallel mode, set the "trigger" time higher.
   return {
     renderLoop: create({ name: getMainLoopNameByType(Render), type: Render, trigger: requestAnimationFrame, showDebugInfo: true }) as TRenderLoop,
     audioLoop: create({ name: getMainLoopNameByType(Audio), type: Audio, trigger: milliseconds(16), isParallelMode: false, maxPriority: LoopUpdatePriority.ASAP }) as TAudioLoop,
