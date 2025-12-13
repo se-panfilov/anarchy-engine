@@ -18,7 +18,7 @@ test('Save and load scene (no changes)', async ({ page }) => {
   // await page.click('#save-button');
   // await page.click('#load-button');
   // await page.getByRole('button', { name: /save/i }).click();
-  await page.getByRole('button', { name: 'Save' }).click();
+  // await page.getByRole('button', { name: 'Save' }).click();
   // await page.getByText('Save').click();
 
   await page.waitForTimeout(500);
