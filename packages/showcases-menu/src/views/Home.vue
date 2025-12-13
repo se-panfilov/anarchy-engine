@@ -12,6 +12,9 @@ import type { ShallowRef } from 'vue';
 const { $t } = vueTranslationService;
 const menuRouterStore = useRouterStore();
 
+// TODO DESKTOP: Pass legal info from the main app to the menu
+// TODO DESKTOP: Render legal info in a scrollable view
+
 const viewTitleText: ShallowRef<string> = $t('main-menu.home.game-title');
 const continueGameButtonText: ShallowRef<string> = $t('main-menu.home.button.continue-game.text');
 const newGameButtonText: ShallowRef<string> = $t('main-menu.home.button.new-game.text');
