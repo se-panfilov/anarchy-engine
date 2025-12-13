@@ -30,10 +30,13 @@ export function Actor(
   // TODO 8.0.0. MODELS: Close all todoes with tag 9.0.0
   // TODO 8.0.0. MODELS: Close all todoes with tag 9.2.0
   // TODO 8.0.0. MODELS: Close all todoes with tag 10.0.0
-  // TODO 8.0.0. MODELS: Take a look to todoes with tag ANIMATIONS
+  // TODO 8.0.0. MODELS: Take a look to todoes with tag ANIMATIONS (uploading animations separately from a model)
   // TODO 8.0.0. MODELS: Take a look to todoes with tag Layers
+  // TODO 8.0.0. MODELS: GET RID OF PROPS (Use params as defaults, and configs as extended)
 
   const entities: TActorEntities = {
+    // TODO ACTOR: state encapsulate AI (connection)
+    // TODO ACTOR: state encapsulate sounds
     drive,
     model3d,
     ...withSpatial(params),
