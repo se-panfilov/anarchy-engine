@@ -1,6 +1,8 @@
 import { expect } from 'vitest';
 
 import { LookUpStrategy } from '@/Engine/Abstract/Registry';
+import type { ICameraRegistry, ICameraWrapper } from '@/Engine/Camera';
+import { CameraRegistry, CameraWrapper } from '@/Engine/Camera';
 import type { IRegistrable } from '@/Engine/Mixins';
 import { withTagsMixin } from '@/Engine/Mixins/Generic/WithTagsMixin';
 import type { ISceneRegistry, ISceneWrapper } from '@/Engine/Scene';
@@ -128,11 +130,11 @@ describe('RegistryUtils', () => {
     });
 
     it('should set "isActive" to "true" for an entity in a registry', () => {
-      const mockObj: ISceneWrapper = SceneWrapper({ name: 'mock-scene', isActive: false, tags: [] });
-      const registry: ISceneRegistry = SceneRegistry();
+      const mockObj: ICameraWrapper = CameraWrapper({ name: 'mock-camera', isActive: false, tags: [] });
+      const registry: ICameraRegistry = CameraRegistry();
       registry.add(mockObj);
       setActiveWrappedEntity(registry, mockObj.id);
-      expect(registry.find((w: ISceneWrapper): boolean => w.id === mockObj.id)?.isActive).toBe(true);
+      expect(registry.find((w: ICameraWrapper): boolean => w.id === mockObj.id)?.isActive).toBe(true);
     });
 
     it('should set "isActive" to "false" for all entities in a registry but the target entity', () => {

@@ -1,3 +1,4 @@
+import type { IWithName } from '@/Engine/Mixins';
 import type { TextType } from '@/Engine/Text/Constants';
 import type { IVector2Wrapper } from '@/Engine/Vector';
 
@@ -9,4 +10,5 @@ export type ITextProps = Readonly<{
   cssProps?: ITextCssProps;
   center?: IVector2Wrapper;
   elementType?: string;
-}>;
+}> &
+  IWithName;

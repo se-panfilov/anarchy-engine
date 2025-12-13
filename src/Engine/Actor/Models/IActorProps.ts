@@ -1,5 +1,6 @@
 import type { ActorType } from '@/Engine/Actor/Constants';
 import type { IMaterialProps } from '@/Engine/Material';
+import type { IWithName } from '@/Engine/Mixins';
 import type { IMaterialTexturePack } from '@/Engine/Texture';
 
 export type IActorProps = Readonly<{
@@ -13,4 +14,5 @@ export type IActorProps = Readonly<{
   depthSegments?: number;
   castShadow: boolean;
   material: IMaterialProps<IMaterialTexturePack>;
-}>;
+}> &
+  IWithName;

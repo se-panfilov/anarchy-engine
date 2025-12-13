@@ -1,4 +1,4 @@
-import type { IActive } from '@/Engine/Mixins';
+import type { IActive, IWithName } from '@/Engine/Mixins';
 import type { IVector3Wrapper } from '@/Engine/Vector';
 
 export type ICameraProps = Readonly<{
@@ -7,4 +7,5 @@ export type ICameraProps = Readonly<{
   far?: number;
   lookAt?: IVector3Wrapper;
 }> &
+  IWithName &
   IActive;

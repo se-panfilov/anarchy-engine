@@ -1,4 +1,4 @@
-import type { IActive } from '@/Engine/Mixins';
+import type { IActive, IWithName } from '@/Engine/Mixins';
 import type { IVector3 } from '@/Engine/Vector';
 
 export type IOrbitControlsProps = Readonly<{
@@ -29,4 +29,5 @@ export type IOrbitControlsProps = Readonly<{
   autoRotate?: boolean;
   autoRotateSpeed?: number;
 }> &
+  IWithName &
   IActive;

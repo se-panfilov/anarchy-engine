@@ -19,9 +19,6 @@ import { isDefined, isNotDefined, isString } from '@/Engine/Utils';
 export function SceneWrapper(params: ISceneParams): ISceneWrapper {
   const entity: IWriteable<Scene> = new Scene();
 
-  // eslint-disable-next-line functional/immutable-data
-  entity.name = params.name;
-
   if (isDefined(params.background)) setBackground(params.background);
 
   const wrapper: IWrapper<Scene> = AbstractWrapper(entity, WrapperType.Scene, params);

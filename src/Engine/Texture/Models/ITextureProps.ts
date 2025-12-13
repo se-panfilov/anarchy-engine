@@ -1,5 +1,7 @@
 import type { ColorSpace, MagnificationTextureFilter, Mapping, MinificationTextureFilter, PixelFormat, TextureDataType, Wrapping } from 'three';
 
+import type { IWithName } from '@/Engine/Mixins';
+
 export type ITextureProps = Readonly<{
   mapping?: Mapping;
   wrapS?: Wrapping;
@@ -10,4 +12,5 @@ export type ITextureProps = Readonly<{
   type?: TextureDataType;
   anisotropy?: number;
   colorSpace?: ColorSpace;
-}>;
+}> &
+  IWithName;
