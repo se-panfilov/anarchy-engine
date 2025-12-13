@@ -68,6 +68,9 @@ const run = (cmd, opts = {}) => {
 
 console.log(`[package] mode: ${mode}`);
 
+// 0) Clean prebuild artifacts via npm script
+run('npm run clean:prebuild');
+
 // 1) Prebuild for the selected mode
 run(`node ./scripts/prebuild.js --mode=${mode}${dryRun ? ' --dry-run' : ''}`);
 
