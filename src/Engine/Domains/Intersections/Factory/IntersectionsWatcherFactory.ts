@@ -1,9 +1,9 @@
 import { AbstractFactory } from '@Engine/Domains/Abstract';
-import type { IIntersectionsWatcher } from '@Engine/Domains/Intersections';
-import { IntersectionsWatcher, IntersectionsWatcherRegistry } from '@Engine/Domains/Intersections';
 import type { IIntersectionsParams } from '@Engine/Models';
 
-import type { IIntersectionsWatcherFactory, IIntersectionsWatcherRegistry } from '../Models';
+import type { IIntersectionsWatcher, IIntersectionsWatcherFactory, IIntersectionsWatcherRegistry } from '../Models';
+import { IntersectionsWatcherRegistry } from '../Registry';
+import { IntersectionsWatcher } from '../Watchers';
 
 export function IntersectionsWatcherFactory(): IIntersectionsWatcherFactory {
   const registry: IIntersectionsWatcherRegistry = IntersectionsWatcherRegistry();
@@ -13,6 +13,7 @@ export function IntersectionsWatcherFactory(): IIntersectionsWatcherFactory {
     registry.add(watcher);
     return watcher;
   }
+
   const abstractFactory = AbstractFactory('intersections_factory', create);
 
   return {
