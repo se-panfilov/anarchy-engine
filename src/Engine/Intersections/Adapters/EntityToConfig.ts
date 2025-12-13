@@ -1,5 +1,5 @@
 import type { TIntersectionsWatcher, TIntersectionsWatcherConfig } from '@/Engine/Intersections/Models';
-import { extractRegistrableFields } from '@/Engine/Mixins';
+import { extractSerializableRegistrableFields } from '@/Engine/Mixins';
 import { filterOutEmptyFields } from '@/Engine/Utils';
 
 export function intersectionsToConfig(entity: TIntersectionsWatcher): TIntersectionsWatcherConfig {
@@ -8,6 +8,6 @@ export function intersectionsToConfig(entity: TIntersectionsWatcher): TIntersect
 
   // TODO 15-0-0: fix any
   return filterOutEmptyFields({
-    ...extractRegistrableFields(entity)
+    ...extractSerializableRegistrableFields(entity)
   }) as any;
 }

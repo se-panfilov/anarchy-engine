@@ -2,7 +2,7 @@ import type { AudioListener, OrthographicCameraJSONObject, PerspectiveCameraJSON
 
 import type { TAudioService } from '@/Engine/Audio';
 import type { TCameraConfig, TCameraWrapper, TCameraWrapperDependencies } from '@/Engine/Camera/Models';
-import { extractRegistrableFields } from '@/Engine/Mixins';
+import { extractSerializableRegistrableFields } from '@/Engine/Mixins';
 import { filterOutEmptyFields, isDefined } from '@/Engine/Utils';
 
 // TODO 15-0-0: validate result
@@ -25,7 +25,7 @@ export function cameraToConfig(entity: TCameraWrapper, { audioService }: Pick<TC
     zoom: json.zoom,
     isActive: entity.isActive(),
     audioListener: getAudioListenerName(json, audioService),
-    ...extractRegistrableFields(entity),
+    ...extractSerializableRegistrableFields(entity),
     ...drive.serialize()
   });
 }

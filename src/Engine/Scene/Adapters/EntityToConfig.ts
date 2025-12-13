@@ -1,6 +1,6 @@
 import type { SceneJSON } from 'three';
 
-import { extractRegistrableFields } from '@/Engine/Mixins';
+import { extractSerializableRegistrableFields } from '@/Engine/Mixins';
 import type { TSceneConfig, TSceneWrapper } from '@/Engine/Scene/Models';
 import { filterOutEmptyFields } from '@/Engine/Utils';
 
@@ -12,6 +12,6 @@ export function sceneToConfig(entity: TSceneWrapper): TSceneConfig {
 
   // TODO 15-0-0: fix any
   return filterOutEmptyFields({
-    ...extractRegistrableFields(entity)
+    ...extractSerializableRegistrableFields(entity)
   }) as any;
 }

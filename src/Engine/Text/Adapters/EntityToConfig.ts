@@ -1,4 +1,4 @@
-import { extractRegistrableFields } from '@/Engine/Mixins';
+import { extractSerializableRegistrableFields } from '@/Engine/Mixins';
 import type { TTextAnyWrapper, TTextConfig } from '@/Engine/Text/Models';
 import { filterOutEmptyFields } from '@/Engine/Utils';
 
@@ -10,7 +10,7 @@ export function textToConfig(entity: TTextAnyWrapper): TTextConfig {
   const json = entity.entity.toJSON().object;
 
   return filterOutEmptyFields({
-    ...extractRegistrableFields(entity),
+    ...extractSerializableRegistrableFields(entity),
     ...drive.serialize()
     // TODO 15-0-0: fix any
   }) as any;

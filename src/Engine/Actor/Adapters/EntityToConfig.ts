@@ -1,5 +1,5 @@
 import type { TActor, TActorConfig } from '@/Engine/Actor/Models';
-import { extractRegistrableFields } from '@/Engine/Mixins';
+import { extractSerializableRegistrableFields } from '@/Engine/Mixins';
 import { filterOutEmptyFields } from '@/Engine/Utils';
 
 // TODO 15-0-0: (finish 14-0-0 tasks)
@@ -23,7 +23,7 @@ export function actorToConfig(entity: TActor): TActorConfig {
 
     // states?: TActorStatesConfig //Can we have a generic serialization for FSM?
 
-    ...extractRegistrableFields(entity),
+    ...extractSerializableRegistrableFields(entity),
     ...drive.serialize(),
     tags
     // TODO 15-0-0: fix any

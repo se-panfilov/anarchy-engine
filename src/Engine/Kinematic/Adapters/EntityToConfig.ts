@@ -1,6 +1,6 @@
 import type { TKinematicConfig, TKinematicParams } from '@/Engine/Kinematic/Models';
 import type { TRegistrable } from '@/Engine/Mixins';
-import { extractRegistrableFields } from '@/Engine/Mixins';
+import { extractSerializableRegistrableFields } from '@/Engine/Mixins';
 import type { TOptional } from '@/Engine/Utils';
 import { filterOutEmptyFields } from '@/Engine/Utils';
 
@@ -10,6 +10,6 @@ export function kinematicToConfig<T extends Readonly<{ kinematic?: TOptional<TKi
 
   // TODO 15-0-0: fix any
   return filterOutEmptyFields({
-    ...extractRegistrableFields(entity)
+    ...extractSerializableRegistrableFields(entity)
   }) as any;
 }

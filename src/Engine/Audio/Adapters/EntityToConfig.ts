@@ -1,6 +1,6 @@
 import type { TAbstractAudioWrapper, TAnyAudio, TAnyAudioConfig, TAudio3dConfig, TAudioConfigToParamsDependencies } from '@/Engine/Audio/Models';
 import { isAudio3dWrapper } from '@/Engine/Audio/Utils';
-import { extractRegistrableFields } from '@/Engine/Mixins';
+import { extractSerializableRegistrableFields } from '@/Engine/Mixins';
 import { filterOutEmptyFields, isNotDefined } from '@/Engine/Utils';
 
 // TODO 15-0-0: validate result
@@ -26,7 +26,7 @@ export function audioToConfig<T extends TAnyAudio>(entity: TAbstractAudioWrapper
 
   return filterOutEmptyFields({
     ...audio3dConfig,
-    ...extractRegistrableFields(entity),
+    ...extractSerializableRegistrableFields(entity),
     volume: volume$.value,
     loop: loop$.value,
     speed: speed$.value,

@@ -1,5 +1,5 @@
 export * from './DestroyableMixin';
-export * from './ExtractRegistrableFields';
+export * from './ExtractSerializableRegistrableFields';
 export type * from './Models';
 export * from './WithActiveEntityServiceMixin';
 export * from './WithActiveMixin';

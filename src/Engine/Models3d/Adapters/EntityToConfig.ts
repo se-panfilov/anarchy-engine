@@ -1,6 +1,6 @@
 import type { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
 
-import { extractRegistrableFields } from '@/Engine/Mixins';
+import { extractSerializableRegistrableFields } from '@/Engine/Mixins';
 import type { PrimitiveModel3dType } from '@/Engine/Models3d/Constants';
 import type { TModel3d, TModel3dConfig, TModel3dConfigToParamsDependencies, TModel3dParams, TModels3dResourceAsyncRegistry } from '@/Engine/Models3d/Models';
 import { isPrimitiveModel3dSource } from '@/Engine/Models3d/Utils';
@@ -21,7 +21,7 @@ export function model3dToConfig(entity: TModel3d, { animationsResourceAsyncRegis
 
   const model3dSource: string | undefined = isPrimitive ? (params.model3dSource as PrimitiveModel3dType) : getComplexModel3dSource(entity, model3dResourceAsyncRegistry);
   if (isNotDefined(model3dSource)) throw new Error(`[Serialization] Model3d: model3dSource not found for entity with name: "${entity.name}", (id: "${entity.id}")`);
-  const materialSource: string | undefined = isDefined(params.materialSource) ? materialRegistry.findKeyByValue(params.materialSource) : undefined;
+  const materialSource: string | undefined = isDefined(params.materialSource) ? params.materialSource.name : undefined;
   const animationsSource: ReadonlyArray<string> | undefined = isDefined(params.animationsSource) ? animationsResourceAsyncRegistry.findKeyByValue(params.animationsSource) : undefined;
 
   return filterOutEmptyFields({
@@ -30,7 +30,7 @@ export function model3dToConfig(entity: TModel3d, { animationsResourceAsyncRegis
     animationsSource,
     options: params.options,
     forceClone: entity.forceClone,
-    ...extractRegistrableFields(entity)
+    ...extractSerializableRegistrableFields(entity)
   });
 }
 

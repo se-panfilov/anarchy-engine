@@ -19,7 +19,7 @@ import type {
   TSpotLightConfig,
   TSpotLightWrapper
 } from '@/Engine/Light/Models';
-import { extractRegistrableFields } from '@/Engine/Mixins';
+import { extractSerializableRegistrableFields } from '@/Engine/Mixins';
 import { filterOutEmptyFields } from '@/Engine/Utils';
 
 // TODO 15-0-0: validate result
@@ -39,7 +39,7 @@ export function lightToConfig<T extends TLight>(entity: TAbstractLightWrapper<T>
     ...onlyPointLightToConfig(entity as TPointLightWrapper),
     ...onlySpotLightToConfig(entity as TSpotLightWrapper),
     ...onlyLightShadowToConfig(entity),
-    ...extractRegistrableFields(entity),
+    ...extractSerializableRegistrableFields(entity),
     ...drive.serialize()
   });
 }

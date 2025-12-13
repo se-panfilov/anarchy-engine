@@ -1,5 +1,5 @@
 import type { TControlsConfig, TControlsWrapper } from '@/Engine/Controls/Models';
-import { extractRegistrableFields } from '@/Engine/Mixins';
+import { extractSerializableRegistrableFields } from '@/Engine/Mixins';
 import { filterOutEmptyFields } from '@/Engine/Utils';
 
 export function controlsToConfig(entity: TControlsWrapper): TControlsConfig {
@@ -9,6 +9,6 @@ export function controlsToConfig(entity: TControlsWrapper): TControlsConfig {
 
   return filterOutEmptyFields({
     // TODO 15-0-0: fix any
-    ...extractRegistrableFields(entity)
+    ...extractSerializableRegistrableFields(entity)
   }) as any;
 }

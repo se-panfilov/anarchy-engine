@@ -1,5 +1,5 @@
 import type { TEnvMapConfig, TEnvMapConfigToParamsDependencies, TEnvMapWrapper } from '@/Engine/EnvMap/Models';
-import { extractRegistrableFields } from '@/Engine/Mixins';
+import { extractSerializableRegistrableFields } from '@/Engine/Mixins';
 import { filterOutEmptyFields, isNotDefined } from '@/Engine/Utils';
 
 // TODO 15-0-0: validate result
@@ -10,6 +10,6 @@ export function envMapToConfig(entity: TEnvMapWrapper, { resourcesRegistry }: TE
   return filterOutEmptyFields({
     isActive: entity.isActive(),
     texture,
-    ...extractRegistrableFields(entity)
+    ...extractSerializableRegistrableFields(entity)
   });
 }

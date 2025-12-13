@@ -1,4 +1,4 @@
-import { extractRegistrableFields } from '@/Engine/Mixins';
+import { extractSerializableRegistrableFields } from '@/Engine/Mixins';
 import type { TPhysicsBody, TPhysicsBodyConfig } from '@/Engine/Physics/Models';
 import { filterOutEmptyFields } from '@/Engine/Utils';
 
@@ -9,6 +9,6 @@ export function physicsToConfig(entity: TPhysicsBody): TPhysicsBodyConfig {
 
   // TODO 15-0-0: fix any
   return filterOutEmptyFields({
-    ...extractRegistrableFields(entity)
+    ...extractSerializableRegistrableFields(entity)
   }) as any;
 }

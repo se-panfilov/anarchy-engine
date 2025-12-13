@@ -1,7 +1,7 @@
 import type { MaterialJSON } from 'three';
 
 import type { TMaterialConfig, TMaterialWrapper } from '@/Engine/Material/Models';
-import { extractRegistrableFields } from '@/Engine/Mixins';
+import { extractSerializableRegistrableFields } from '@/Engine/Mixins';
 import { filterOutEmptyFields } from '@/Engine/Utils';
 
 export function materialToConfig(entity: TMaterialWrapper): TMaterialConfig {
@@ -11,6 +11,6 @@ export function materialToConfig(entity: TMaterialWrapper): TMaterialConfig {
 
   // TODO 15-0-0: fix any
   return filterOutEmptyFields({
-    ...extractRegistrableFields(entity)
+    ...extractSerializableRegistrableFields(entity)
   }) as any;
 }
