@@ -16,6 +16,7 @@ export * from './TSpatialGridService';
 export * from './TSpatialGridWrapper';
 export * from './TSpatialLoopService';
 export * from './TSpatialMethods';
+export * from './TSpatialPerformanceOptions';
 export * from './TWithReactivePosition';
 export * from './TWithReactiveRotation';
 export * from './TWithSpatial';

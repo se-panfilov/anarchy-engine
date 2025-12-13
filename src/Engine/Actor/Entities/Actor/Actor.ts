@@ -1,4 +1,5 @@
 import type { Subscription } from 'rxjs';
+import { distinctUntilChanged, sampleTime, tap } from 'rxjs';
 import type { Vector3 } from 'three';
 
 import { AbstractEntity, EntityType } from '@/Engine/Abstract';
@@ -10,7 +11,7 @@ import type { TModel3d } from '@/Engine/Models3d';
 import { withSpatial, withUpdateSpatialCell } from '@/Engine/Spatial';
 import type { TDriveToTargetConnector } from '@/Engine/TransformDrive';
 import { DriveToTargetConnector } from '@/Engine/TransformDrive';
-import { isDefined } from '@/Engine/Utils';
+import { isDefined, isEqualOrSimilarByXyzCoords } from '@/Engine/Utils';
 
 export function Actor(
   params: TActorParams,
@@ -57,12 +58,26 @@ export function Actor(
     entities.collisions?.destroy$.next();
   });
 
-  // TODO 8.0.0. MODELS: should optimize this (maybe use "distinctUntilChanged" or "throttleTime")
-  // TODO 8.0.0. MODELS: This might not be triggered if vectors aren't cloned (considered as the same, due to the same reference)
-  const positionSub$: Subscription = drive.position$.subscribe((position: Vector3): void => {
-    // TODO 8.0.0. MODELS: not sure if "updateSpatialCells()" should happen on rotation$ and scale$ changes
-    actor.updateSpatialCells(position);
-  });
+  const spatialUpdateDelay: number = params.spatial.performance?.updateDelay ?? 4;
+  const spatialNoiseThreshold: number = params.spatial.performance?.noiseThreshold ?? 0.0000001;
+  const prevValue: Float32Array = new Float32Array([0, 0, 0]);
+  const positionSub$: Subscription = drive.position$
+    .pipe(
+      sampleTime(spatialUpdateDelay),
+      distinctUntilChanged((_prev: Vector3, curr: Vector3): boolean => isEqualOrSimilarByXyzCoords(prevValue[0], prevValue[1], prevValue[2], curr.x, curr.y, curr.z, spatialNoiseThreshold)),
+      tap((value: Vector3): void => {
+        // eslint-disable-next-line functional/immutable-data
+        prevValue[0] = value.x;
+        // eslint-disable-next-line functional/immutable-data
+        prevValue[1] = value.y;
+        // eslint-disable-next-line functional/immutable-data
+        prevValue[2] = value.z;
+      })
+    )
+    .subscribe((position: Vector3): void => {
+      // TODO 8.0.0. MODELS: not sure if "updateSpatialCells()" should happen on rotation$ and scale$ changes
+      actor.updateSpatialCells(position);
+    });
 
   applySpatialGrid(params, actor, spatialGridService);
 
