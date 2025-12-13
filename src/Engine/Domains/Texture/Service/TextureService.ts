@@ -86,10 +86,10 @@ export function TextureService(): ITextureService {
     function all(): Promise<IToonMaterialTextureUploaded>;
     function all(): Promise<IStandardMaterialTextureUploaded>;
     function all(): Promise<IMaterialTextureUploaded> {
+      let uploaded: IMaterialTextureUploaded = { material };
       return Promise.all(Object.values(promises)).then((textures) => {
-        let uploaded: IMaterialTextureUploaded = {} as IMaterialTextureUploaded;
         Object.keys(pack).forEach((key: string, index: number): void => void (uploaded = { ...uploaded, [key]: textures[index] }));
-        return uploaded;
+        return { ...uploaded, material };
       });
     }
 
