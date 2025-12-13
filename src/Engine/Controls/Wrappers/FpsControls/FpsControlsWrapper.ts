@@ -1,5 +1,5 @@
 import type { Euler } from 'three';
-import { Quaternion } from 'three';
+import { MathUtils, Quaternion, Spherical, Vector3 } from 'three';
 import { FirstPersonControls } from 'three/examples/jsm/controls/FirstPersonControls';
 
 import { AbstractWrapper, WrapperType } from '@/Engine/Abstract';
@@ -7,7 +7,7 @@ import type { TCameraWrapper } from '@/Engine/Camera';
 import { controlsToConfig } from '@/Engine/Controls/Adapters';
 import type { ControlsType } from '@/Engine/Controls/Constants';
 import type { TControlsServiceDependencies, TFpsControlsConfig, TFpsControlsParams, TFpsControlsWrapper } from '@/Engine/Controls/Models';
-import { makeControlsEvented } from '@/Engine/Controls/Utils';
+import { makeControlsEvented, updateCameraTransformDriveOnChange } from '@/Engine/Controls/Utils';
 import { getFpsControlsAccessors } from '@/Engine/Controls/Wrappers/FpsControls/FpsControlsAccessors';
 import { applyFpsControlsParams } from '@/Engine/Controls/Wrappers/FpsControls/FpsControlsWrapperHelper';
 import type { TMilliseconds } from '@/Engine/Math';
@@ -43,9 +43,15 @@ export function FpsControlsWrapper(params: TFpsControlsParams): TFpsControlsWrap
   const isEnable = (): boolean => entity.enabled;
 
   function rotateCameraBy(rotation: Quaternion | Euler): void {
-    const quaternion: Quaternion = isEulerLike(rotation) ? new Quaternion().setFromEuler(rotation) : rotation;
+    const currentQuaternion: Quaternion = params.camera.entity.quaternion.clone();
 
-    params.camera.entity.quaternion.premultiply(quaternion);
+    const deltaQuaternion: Quaternion = rotation instanceof Quaternion ? rotation : new Quaternion().setFromEuler(rotation);
+
+    currentQuaternion.multiply(deltaQuaternion); // order: current * delta
+
+    params.camera.entity.quaternion.copy(currentQuaternion);
+
+    (entity as unknown as any)._setOrientation();
 
     entity.update(0);
     entity.dispatchEvent({ type: 'end' } as never);
@@ -56,6 +62,18 @@ export function FpsControlsWrapper(params: TFpsControlsParams): TFpsControlsWrap
 
     params.camera.entity.quaternion.copy(quaternion);
 
+    const direction: Vector3 = new Vector3(0, 0, -1).applyQuaternion(quaternion);
+    const spherical: Spherical = new Spherical().setFromVector3(direction);
+
+    const latitude: number = 90 - MathUtils.radToDeg(spherical.phi);
+    const longitude: number = MathUtils.radToDeg(spherical.theta);
+
+    // eslint-disable-next-line functional/immutable-data
+    (entity as unknown as any)._lat = latitude;
+    // eslint-disable-next-line functional/immutable-data,spellcheck/spell-checker
+    (entity as unknown as any)._lon = longitude;
+
+    entity.update(0);
     entity.dispatchEvent({ type: 'end' } as never);
   }
 
@@ -79,6 +97,7 @@ export function FpsControlsWrapper(params: TFpsControlsParams): TFpsControlsWrap
   result.enable();
   result.update(0);
   result._setActive(params.isActive, true);
+  updateCameraTransformDriveOnChange(result, params.camera);
 
   return result;
 }
