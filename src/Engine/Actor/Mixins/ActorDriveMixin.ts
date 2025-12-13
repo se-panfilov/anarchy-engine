@@ -1,7 +1,6 @@
 import type { Observable, Subscription } from 'rxjs';
 import { BehaviorSubject, switchMap } from 'rxjs';
-import type { Euler } from 'three';
-import { Vector3 } from 'three';
+import type { Euler, Vector3 } from 'three';
 
 import { ActorDrive } from '@/Engine/Actor/Constants';
 import type { TActorActiveDrives, TActorDependencies, TActorDriveMixin, TActorParams } from '@/Engine/Actor/Models';
@@ -15,7 +14,7 @@ import { PhysicsActorDrive } from '@/Engine/Physics';
 export function ActorDriveMixin(params: TActorParams, { kinematicLoopService }: Pick<TActorDependencies, 'kinematicLoopService'>): TActorDriveMixin {
   const position$: BehaviorSubject<Vector3> = new BehaviorSubject<Vector3>(params.position);
   const rotation$: BehaviorSubject<Euler> = new BehaviorSubject<Euler>(params.rotation);
-  const scale$: BehaviorSubject<Vector3> = new BehaviorSubject<Vector3>(params.scale ?? new Vector3());
+  const scale$: BehaviorSubject<Vector3 | undefined> = new BehaviorSubject<Vector3 | undefined>(params.scale);
   const drive$: BehaviorSubject<ActorDrive> = new BehaviorSubject<ActorDrive>(params.drive);
 
   const kinematicDrive: TKinematicActorDrive = KinematicActorDrive(params, kinematicLoopService, drive$);
