@@ -8,7 +8,7 @@ import { combineLatest, distinctUntilChanged, filter, map, shareReplay } from 'r
 export function ReactiveTranslationMixin<TLocale extends string>(service: TTranslationService<TLocale>): TReactiveTranslationMixin {
   const intlReady$: Observable<IntlShape<string>> = service.intl$.pipe(filter(isDefined), distinctUntilChanged(), shareReplay({ bufferSize: 1, refCount: true }));
 
-  function $t(id: string, params?: Record<string, string> | Observable<Record<string, string>>): Observable<string> {
+  function t$(id: string, params?: Record<string, string> | Observable<Record<string, string>>): Observable<string> {
     const params$ = toObservable$(params ?? {});
     return combineLatest([intlReady$, params$]).pipe(
       map(([intl, p]) => intl.formatMessage({ id, defaultMessage: id }, p)),
@@ -17,7 +17,7 @@ export function ReactiveTranslationMixin<TLocale extends string>(service: TTrans
     );
   }
 
-  function $n(value: number | Observable<number>, options?: FormatNumberOptions | Observable<FormatNumberOptions | undefined>): Observable<string> {
+  function n$(value: number | Observable<number>, options?: FormatNumberOptions | Observable<FormatNumberOptions | undefined>): Observable<string> {
     return combineLatest([intlReady$, toObservable$(value), toObservable$(options)]).pipe(
       map(([intl, v, o]) => intl.formatNumber(v, o)),
       distinctUntilChanged(),
@@ -25,7 +25,7 @@ export function ReactiveTranslationMixin<TLocale extends string>(service: TTrans
     );
   }
 
-  function $d(value: number | Date | Observable<number | Date>, options?: FormatDateOptions | Observable<FormatDateOptions | undefined>): Observable<string> {
+  function d$(value: number | Date | Observable<number | Date>, options?: FormatDateOptions | Observable<FormatDateOptions | undefined>): Observable<string> {
     return combineLatest([intlReady$, toObservable$(value), toObservable$(options)]).pipe(
       map(([intl, v, o]) => intl.formatDate(v, o)),
       distinctUntilChanged(),
@@ -33,5 +33,5 @@ export function ReactiveTranslationMixin<TLocale extends string>(service: TTrans
     );
   }
 
-  return { $t, $n, $d };
+  return { t$, n$, d$ };
 }
