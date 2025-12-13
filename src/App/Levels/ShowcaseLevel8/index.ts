@@ -6,7 +6,7 @@ import { ambientContext, buildLevelFromConfig, CameraTag, getRotationByCos, getR
 
 import levelConfig from './showcase-level-8.config.json';
 
-//Showcase 8: Textures
+//Showcase 8: Textures & Materials
 export function showcaseLevel(canvas: IAppCanvas): IShowcase {
   const level: ILevel = buildLevelFromConfig(canvas, levelConfig as ILevelConfig);
 
