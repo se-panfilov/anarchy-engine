@@ -7,12 +7,13 @@ export function ScreenSizeWatcher({ container, tags = [] }: IScreenSizeWatcherPa
   const containerIdTag: string = `container_id_${container.id}`;
   const abstractWatcher: IAbstractWatcherWithState<IScreenSizeValues> = AbstractWatcherWithState(WatcherType.ScreenSizeWatcher, initialValue, tags);
 
-  const onResize = (): void =>
+  const onResize = (): void => {
     abstractWatcher.value$.next({
       width: container.width,
       height: container.height,
       ratio: container.ratio
     });
+  };
 
   function start(): IScreenSizeWatcher {
     onResize();
