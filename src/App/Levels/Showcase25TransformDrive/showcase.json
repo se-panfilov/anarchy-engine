@@ -96,6 +96,7 @@
       {
         "name": "box_actor",
         "model3dSource": "box_model",
+        "agent": "physical",
         "physics": {
           "presetName": "wall_physics",
           "shapeParams": {
