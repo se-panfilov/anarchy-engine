@@ -1,13 +1,14 @@
 import type { TControlsConfig, TControlsWrapper } from '@/Engine/Controls/Models';
 import { extractRegistrableFields } from '@/Engine/Mixins';
+import { filterOutEmptyFields } from '@/Engine/Utils';
 
 export function controlsToConfig(entity: TControlsWrapper): TControlsConfig {
   // TODO 15-0-0: implement
   console.log('XXX entity', entity);
   // TODO 15-0-0: implement adapters for FpsControls, OrbitControls
 
-  return {
+  return filterOutEmptyFields({
     // TODO 15-0-0: fix any
     ...extractRegistrableFields(entity)
-  } as any;
+  }) as any;
 }
