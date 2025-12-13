@@ -29,8 +29,8 @@ export type TCspKeys = TFetchDirectives | TDocumentDirectives | TNavigationDirec
 
 export type TCspRulles = Partial<Record<TCspKeys, Array<string>>>;
 
-const anarchyTrackingUrls = ['https://*.sentry.io', 'sentry-ipc:'];
-const anarchyTrackingUrl = anarchyTrackingUrls.join(', ');
+const anarchyTrackingUrl = 'https://*.sentry.io' as const;
+const anarchyTrackingUrlElectronPreload = 'sentry-ipc:' as const;
 
 export const BASE_CSP: TCspRulles = {
   'default-src': ["'self'"],
@@ -66,7 +66,7 @@ export const DESKTOP_CSP: TCspRulles = {
   ...BASE_CSP,
   'img-src': ["'self'", 'data:', 'blob:', 'file:'],
   'font-src': ["'self'", 'data:', 'file:'],
-  'connect-src': ["'self'", 'blob:', 'file:', anarchyTrackingUrl],
+  'connect-src': ["'self'", 'blob:', 'file:', anarchyTrackingUrl, anarchyTrackingUrlElectronPreload],
   'media-src': ["'self'", 'blob:', 'file:'],
   'worker-src': ["'self'", 'blob:', 'file:']
 };
