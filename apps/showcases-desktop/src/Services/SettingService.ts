@@ -17,7 +17,7 @@ export function SettingsService(app: App, filesService: TFilesService): TSetting
     try {
       return await filesService.readFileAsJson(appSettingsFileName, userDataFolder, isSettings);
     } catch {
-      console.log(`[DESKTOP]: Settings file ("${appSettingsFileName}") not found in : ${userDataFolder}. Applying default settings.`);
+      console.log(`[Desktop] Settings file ("${appSettingsFileName}") not found in : ${userDataFolder}. Applying default settings.`);
       const settings: TShowcaseGameSettings = buildDefaultSettings();
       // TODO DESKTOP: save settings broken in production mode. Fix
       await saveAppSettings(settings);
@@ -51,13 +51,13 @@ export function SettingsService(app: App, filesService: TFilesService): TSetting
   const getPreferredLocales = (): ReadonlyArray<TLocaleId> => Array.from(new Set([...app.getPreferredSystemLanguages(), app.getLocale()] as ReadonlyArray<TLocaleId>));
 
   async function saveAppSettings(settings: TShowcaseGameSettings): Promise<void> {
-    if (!isSettings(settings)) throw new Error('[DESKTOP]: Attempted to save invalid app settings');
+    if (!isSettings(settings)) throw new Error('[Desktop] Attempted to save invalid app settings');
     await filesService.writeFile(appSettingsFileName, userDataFolder, JSON.stringify(settings, null, 2));
-    console.log(`[DESKTOP]: Saved settings file ("${appSettingsFileName}") in : ${userDataFolder}`);
+    console.log(`[Desktop] Saved settings file ("${appSettingsFileName}") in : ${userDataFolder}`);
   }
 
   function applyPlatformSettings(platformSettings: TShowcaseGameSettings): boolean {
-    console.log('[DESKTOP]: (NOT IMPLEMENTED) Applying platform settings:', platformSettings);
+    console.log('[Desktop] (NOT IMPLEMENTED) Applying platform settings:', platformSettings);
     // TODO DESKTOP: Apply platform-level settings (resolution, etc.)
     // TODO DESKTOP: return true if app restart is needed
     return false;

@@ -19,7 +19,7 @@ export function FilesService(app: App): TFilesService {
 
     //Security: ensure the resolved path is within the base directory
     const rel: string = path.relative(folder, full);
-    if (rel.startsWith('..') || path.isAbsolute(rel)) throw new Error('[DESKTOP]: Forbidden path access');
+    if (rel.startsWith('..') || path.isAbsolute(rel)) throw new Error('[Desktop] Forbidden path access');
     return full;
   }
 
@@ -27,7 +27,7 @@ export function FilesService(app: App): TFilesService {
     try {
       return await readFile(dir ? getPathToFile(fileName, dir) : fileName, encoding);
     } catch (e: any) {
-      throw new Error(`[DESKTOP]: Failed to read "${fileName}": ${e?.message ?? 'unknown'}`);
+      throw new Error(`[Desktop] Failed to read "${fileName}": ${e?.message ?? 'unknown'}`);
     }
   }
 
@@ -44,7 +44,7 @@ export function FilesService(app: App): TFilesService {
       return true;
     } catch (e: any) {
       await removeTempFile(tmpPath);
-      throw new Error(`[DESKTOP]: Failed to write "${finalPath}: ${e?.message ?? 'unknown'}`);
+      throw new Error(`[Desktop] Failed to write "${finalPath}: ${e?.message ?? 'unknown'}`);
     }
   }
 
@@ -52,7 +52,7 @@ export function FilesService(app: App): TFilesService {
     const content: string = await readTextFile(fileName, dir);
     const parsed = JSON.parse(content);
 
-    if (validator && !validator(parsed)) throw new Error(`[DESKTOP]: Invalid JSON structure in "${fileName}"`);
+    if (validator && !validator(parsed)) throw new Error(`[Desktop] Invalid JSON structure in "${fileName}"`);
 
     return parsed as T;
   }
@@ -83,6 +83,6 @@ async function removeTempFile(tmpPath: string): Promise<void> {
   try {
     await rm(tmpPath, { force: true });
   } catch {
-    console.error(`[DESKTOP]: Failed to remove temp file: ${tmpPath}`);
+    console.error(`[Desktop] Failed to remove temp file: ${tmpPath}`);
   }
 }

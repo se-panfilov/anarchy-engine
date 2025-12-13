@@ -20,14 +20,14 @@ export async function handleAppRequest(
   args: [PlatformActions | string, unknown]
 ): Promise<any> {
   const type: PlatformActions | string = args[0];
-  if (!isPlatformAction(type)) throw new Error(`[DESKTOP]: Unknown platform action: ${type}`);
+  if (!isPlatformAction(type)) throw new Error(`[Desktop] Unknown platform action: ${type}`);
   const payload: unknown = args[1];
   let isRestartNeeded: boolean = false;
 
   switch (type) {
     case PlatformActions.SaveAppSettings:
       // TODO DESKTOP: Should we let menu (and the app) know that the save is done?
-      if (!isSettings(payload)) throw new Error(`[DESKTOP]: Failed to save settings: Invalid payload`);
+      if (!isSettings(payload)) throw new Error(`[Desktop] Failed to save settings: Invalid payload`);
       await settingsService.saveAppSettings(payload);
       isRestartNeeded = settingsService.applyPlatformSettings(payload);
       if (isRestartNeeded) desktopAppService.restartApp();
@@ -35,13 +35,13 @@ export async function handleAppRequest(
     case PlatformActions.LoadAppSettings:
       return settingsService.loadAppSettings();
     case PlatformActions.LoadLegalDocs:
-      if (!isLoadDocPayload(payload)) throw new Error(`[DESKTOP]: Failed to load legal docs: Invalid payload`);
+      if (!isLoadDocPayload(payload)) throw new Error(`[Desktop] Failed to load legal docs: Invalid payload`);
       return docsService.load(payload);
     case PlatformActions.AppExit:
       return desktopAppService.closeApp();
     case PlatformActions.AppRestart:
       return desktopAppService.restartApp();
     default:
-      throw new Error(`[DESKTOP]: Unknown platform action: ${type}`);
+      throw new Error(`[Desktop] Unknown platform action: ${type}`);
   }
 }

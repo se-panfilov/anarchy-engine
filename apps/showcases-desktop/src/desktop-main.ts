@@ -22,7 +22,6 @@ const desktopAppSettings: TDesktopAppConfig = {
 // TODO DESKTOP: Fix Electron Security Warning (Insecure Content-Security-Policy) https://www.electronjs.org/docs/latest/tutorial/security
 // TODO DESKTOP: We need e2e eventually
 // TODO DESKTOP: Add .env files for different platforms (macos, windows, linux).
-// TODO DESKTOP: Send user locale to the app (then to menu) for translations
 
 const desktopAppService: TDesktopAppService = DesktopAppService(app);
 const windowService: TWindowService = WindowService();
