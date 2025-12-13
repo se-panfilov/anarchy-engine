@@ -6,29 +6,31 @@ import type { ControlsType } from '@/Engine/Controls/Constants';
 import type { TOrbitControlsParams, TOrbitControlsWrapper } from '@/Engine/Controls/Models';
 import { getOrbitControlsAccessors } from '@/Engine/Controls/Wrappers/OrbitControls/OrbitControlsAccessors';
 import { applyOrbitControlsParams } from '@/Engine/Controls/Wrappers/OrbitControls/OrbitControlsWrapperHelper';
+import type { TMilliseconds } from '@/Engine/Math';
 import { withActiveMixin } from '@/Engine/Mixins';
 import { isDefined } from '@/Engine/Utils';
 
 export function OrbitControlsWrapper(params: TOrbitControlsParams): TOrbitControlsWrapper {
   const entity: OrbitControls = new OrbitControls(params.camera.entity, params.canvas);
+  const update = (delta: TMilliseconds): boolean => entity.update(delta);
+
   if (isDefined(params.target)) {
     entity.target.set(params.target.x, params.target.y, params.target.z);
-    entity.update();
+    update(0);
   }
-  const update = (): boolean => entity.update();
 
   const getType = (): ControlsType => params.type;
 
   function enable(): void {
     // eslint-disable-next-line functional/immutable-data
     entity.enabled = true;
-    entity.update();
+    update(0);
   }
 
   function disable(): void {
     // eslint-disable-next-line functional/immutable-data
     entity.enabled = false;
-    entity.update();
+    update(0);
   }
 
   const isEnable = (): boolean => entity.enabled;
@@ -61,7 +63,7 @@ export function OrbitControlsWrapper(params: TOrbitControlsParams): TOrbitContro
 
   applyOrbitControlsParams(result, params);
   result.enable();
-  result.update();
+  result.update(0);
   result._setActive(params.isActive, true);
 
   return result;

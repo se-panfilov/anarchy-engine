@@ -4147,24 +4147,7 @@
           }
         }
       },
-      "required": [
-        "activeLook",
-        "autoForward",
-        "cameraName",
-        "constrainVertical",
-        "heightCoef",
-        "heightMax",
-        "heightMin",
-        "heightSpeed",
-        "isActive",
-        "lookSpeed",
-        "lookVertical",
-        "mouseDragOn",
-        "movementSpeed",
-        "type",
-        "verticalMax",
-        "verticalMin"
-      ]
+      "required": ["cameraName", "isActive", "type"]
     },
     "TSpaceConfigResources": {
       "type": "object",

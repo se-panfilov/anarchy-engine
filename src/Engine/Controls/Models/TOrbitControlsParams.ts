@@ -1,7 +1,6 @@
 import type { Vector3 } from 'three/src/math/Vector3';
 
 import type { TAppCanvas } from '@/Engine/App';
-import type { TCameraWrapper } from '@/Engine/Camera';
 import type { TActive, TWithNameOptional, TWithTags } from '@/Engine/Mixins';
 
 import type { TBaseControlsParams } from './TBaseControlsParams';
@@ -32,7 +31,6 @@ export type TOrbitControlsParams = TBaseControlsParams &
     keyPanSpeed?: number;
     autoRotate?: boolean;
     autoRotateSpeed?: number;
-    camera: TCameraWrapper;
     canvas: TAppCanvas;
     target?: Vector3;
     cursor?: Vector3;

@@ -1,9 +1,8 @@
 import type { AnimationAction } from 'three';
 
 import type { TShowcase } from '@/App/Levels/Models';
-import { addGizmo } from '@/App/Levels/Utils';
 import type { TActor, TAppCanvas, TEngine, TModel3d, TSpace, TSpaceConfig, TSpaceServices } from '@/Engine';
-import { ambientContext, Engine, isNotDefined, spaceService } from '@/Engine';
+import { Engine, isNotDefined, spaceService } from '@/Engine';
 
 import spaceConfig from './showcase.json';
 
@@ -12,7 +11,6 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
   const engine: TEngine = Engine(space);
 
   function init(): void {
-    addGizmo(space.services, ambientContext.screenSizeWatcher, space.loops, { placement: 'bottom-left' });
     const fadeDuration = 0.3;
 
     initMutant1('mutant_actor_1', fadeDuration, space.services);

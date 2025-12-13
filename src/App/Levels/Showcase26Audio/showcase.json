@@ -116,10 +116,11 @@
     ],
     "controls": [
       {
-        "type": "OrbitControls",
+        "type": "FirstPersonControls",
         "cameraName": "main",
-        "target": { "x": 0, "y": 1.2, "z": 0 },
-        "enableDamping": true,
+        "lookSpeed": 0.1,
+        "movementSpeed": 5,
+        "lookVertical": true,
         "isActive": true
       }
     ],
