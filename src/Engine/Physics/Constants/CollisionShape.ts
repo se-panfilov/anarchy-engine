@@ -1,11 +1,20 @@
-import { ShapeType } from '@dimforge/rapier3d/geometry/shape';
-
-// use ShapeType
 export enum CollisionShape {
   Box = 'box',
   Cuboid = 'cuboid',
   Capsule = 'capsule',
+  Segment = 'segment',
+  Polyline = 'polyline',
+  Triangle = 'triangle',
   Trimesh = 'trimesh',
   Heightfield = 'heightfield',
-  Custom = 'custom'
+  Compound = 'compound',
+  ConvexPolyhedron = 'convexPolyhedron',
+  Cylinder = 'cylinder',
+  Cone = 'cone',
+  RoundCuboid = 'roundCuboid',
+  RoundTriangle = 'roundTriangle',
+  RoundCylinder = 'roundCylinder',
+  RoundCone = 'roundCone',
+  RoundConvexPolyhedron = 'roundConvexPolyhedron',
+  HalfSpace = 'halfSpace'
 }
