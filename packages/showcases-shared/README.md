@@ -26,13 +26,8 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-## Legal Disclaimer
+## Legal
 
-This project is provided "as is", without warranty of any kind. The authors and contributors disclaim all liability for any damages arising from its use, inability to use, or performance. Users are responsible for ensuring compliance with applicable laws and regulations in their jurisdiction, including but not limited to:
+See local files `EULA`/`LICENSE`, `PRIVACY`, `SECURITY`, `DISCLAIMER`, `NOTICE`, `THIRD_PARTY_LICENSES`.
 
-- European Union: Cyber Resilience Act (CRA) and Artificial Intelligence Act (AI Act)
-- United States: Uniform Commercial Code (UCC) and Export Administration Regulations (EAR)
-- China: Cybersecurity Law
-- India: Information Technology Act
-
-For details, see the full [DISCLAIMER.md](DISCLAIMER.md) file.
+Contacts — Privacy: {{PRIVACY_EMAIL}}, Security: {{SECURITY_EMAIL}}.

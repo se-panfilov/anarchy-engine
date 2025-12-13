@@ -26,11 +26,8 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-## Legal Disclaimer
+## Legal
 
-This project is provided **“AS IS”**, **without warranty of any kind**, to the **maximum extent permitted by applicable law**. Use is at your own risk. **Statutory consumer rights (where applicable) are not affected.**
+See local files `EULA`/`LICENSE`, `PRIVACY`, `SECURITY`, `DISCLAIMER`, `NOTICE`, `THIRD_PARTY_LICENSES`.
 
-This repository is a **non-commercial open-source project**. It is **not** a product “placed on the EU market.”
-Anyone who uses this Software **in a commercial product** is solely responsible for ensuring that **their product** complies with applicable **product safety/cybersecurity rules** (e.g., EU Cyber Resilience Act), **consumer protection laws**, and **export control and sanctions regulations**.
-
-See the full [DISCLAIMER.md](./DISCLAIMER.md) file.
+Contacts — Privacy: {{PRIVACY_EMAIL}}, Security: {{SECURITY_EMAIL}}.
