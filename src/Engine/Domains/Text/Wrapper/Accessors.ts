@@ -3,7 +3,6 @@ import type { Text } from 'troika-three-text';
 
 import type { TextAlign, TextAnchorX, TextAnchorY, TextDirection, TextFontStyle, TextFontWeight, TextOverflowWrap, TextWhiteSpace } from '@/Engine/Domains/Text';
 import type { ITextAccessors } from '@/Engine/Domains/Text/Models';
-import { moveableMixin, rotatableMixin } from '@/Engine/Mixins';
 import type { IWriteable } from '@/Engine/Utils';
 
 // eslint-disable-next-line functional/prefer-immutable-types
@@ -115,8 +114,6 @@ export function getAccessors(entity: IWriteable<Text>): ITextAccessors {
   const dispose = (): void => entity.dispose();
 
   return {
-    ...moveableMixin(entity),
-    ...rotatableMixin(entity),
     setText,
     getText,
     setFontSize,

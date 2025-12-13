@@ -1,7 +1,6 @@
 import { AbstractWrapper, WrapperType } from '@/Engine/Domains/Abstract';
 import type { IAmbientLight, IDirectionalLight, ILightParams, ILightWrapper } from '@/Engine/Domains/Light/Models';
-import { moveableMixin, rotatableMixin } from '@/Engine/Mixins';
-import { withObject3d } from '@/Engine/Mixins/GameObject/WithObject3D';
+import { moveableMixin, rotatableMixin, withObject3d } from '@/Engine/Mixins';
 import { applyObject3dParams, applyPosition, applyRotation } from '@/Engine/Utils';
 
 import { getAccessors } from './Accessors';

@@ -3,6 +3,6 @@ import type { Object3D } from 'three';
 import type { IWrapper } from '@/Engine/Domains/Abstract';
 import type { TextTag } from '@/Engine/Domains/Text/Constants';
 import type { ITextAccessors } from '@/Engine/Domains/Text/Models';
-import type { IWithTags } from '@/Engine/Mixins';
+import type { IMovable, IRotatable, IScalable, IWithTags } from '@/Engine/Mixins';
 
-export type ITextWrapper = IWrapper<Object3D> & ITextAccessors & IWithTags<TextTag>;
+export type ITextWrapper = IWrapper<Object3D> & ITextAccessors & IMovable & IRotatable & IScalable & IWithTags<TextTag>;

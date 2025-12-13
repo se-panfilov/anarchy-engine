@@ -1,7 +1,6 @@
 import { AbstractWrapper, WrapperType } from '@/Engine/Domains/Abstract';
 import type { IActorParams, IActorWrapper, IMesh } from '@/Engine/Domains/Actor/Models';
-import { moveableMixin, rotatableMixin, scalableMixin } from '@/Engine/Mixins';
-import { withObject3d } from '@/Engine/Mixins/GameObject/WithObject3D';
+import { moveableMixin, rotatableMixin, scalableMixin, withObject3d } from '@/Engine/Mixins';
 import { applyObject3dParams, applyPosition, applyRotation, applyScale, isDefined } from '@/Engine/Utils';
 
 import { createActor } from './ActorUtils';
