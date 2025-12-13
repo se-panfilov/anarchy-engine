@@ -18,10 +18,10 @@ export const radiansToDegreesPrecise = (radians: TRadians): Decimal => new Decim
 
 // TODO add unit tests
 export function getHorizontalAzimuthDeg(x: number, z: number, point: Vector3Like): TDegrees {
-  return radToDeg(getHorizontalAzimuthRad(x, z, point)) as TDegrees;
+  return radToDeg(getHorizontalAzimuth(x, z, point)) as TDegrees;
 }
 
-export function getHorizontalAzimuthRad(x: number, z: number, point: Vector3Like): TRadians {
+export function getHorizontalAzimuth(x: number, z: number, point: Vector3Like): TRadians {
   const dx: number = point.x - x;
   const dz: number = point.z - z;
 
@@ -33,7 +33,7 @@ export function getHorizontalAzimuthRad(x: number, z: number, point: Vector3Like
 }
 
 // TODO add unit tests
-export const getAzimuthRadFromDirection = (direction: Vector3Like): TRadians => {
+export const getAzimuthFromDirection = (direction: Vector3Like): TRadians => {
   let azimuth: TRadians = Math.atan2(direction.z, direction.x) as TRadians;
   if (azimuth < 0) (azimuth as number) += 2 * Math.PI;
   return azimuth;
@@ -56,7 +56,7 @@ export const getAzimutFromQuaternionDirection = (quaternion: QuaternionLike): TR
 };
 
 // TODO add unit tests
-export const getAzimuthDegFromDirection = (direction: Vector3Like): TDegrees => radToDeg(getAzimuthRadFromDirection(direction)) as TDegrees;
+export const getAzimuthDegFromDirection = (direction: Vector3Like): TDegrees => radToDeg(getAzimuthFromDirection(direction)) as TDegrees;
 // TODO add unit tests
 export const getElevationFromDirection = (direction: Vector3Like): TRadians => Math.atan2(direction.y, Math.sqrt(direction.x ** 2 + direction.z ** 2)) as TRadians;
 // TODO add unit tests
