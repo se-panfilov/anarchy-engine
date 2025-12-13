@@ -11,6 +11,7 @@ import type { TPhysicsBodyConfig, TPhysicsConfig } from '@Anarchy/Engine/Physics
 import type { TSceneConfig } from '@Anarchy/Engine/Scene/Models';
 import { SpaceSchemaVersion } from '@Anarchy/Engine/Space/Constants';
 import type { TSpaceConfig, TSpaceConfigEntities, TSpaceConfigResources } from '@Anarchy/Engine/Space/Models';
+import TSpaceConfigSchema from '@Anarchy/Engine/Space/Schemas/TSpaceConfig.json';
 import {
   validate,
   validateActorNamesForEveryEntity,
@@ -26,8 +27,9 @@ import {
   validateTags,
   validateTagsForEveryEntity
 } from '@Anarchy/Engine/Space/Utils';
-import { validateTSpaceConfig } from '@Anarchy/Engine/Space/Validators/Validators.gen';
 import { isDefined } from '@Anarchy/Shared/Utils';
+import type { Schema } from '@cfworker/json-schema';
+import { Validator } from '@cfworker/json-schema';
 import { isArray } from 'lodash-es';
 
 type TSchemaValidationResult = Readonly<{ isValid: boolean; errors: ReadonlyArray<any> | null | undefined }>;
@@ -42,8 +44,9 @@ export function validSpaceConfig(config: TSpaceConfig): TSchemaValidationResult 
 }
 
 function validateJsonSchema(config: TSpaceConfig): TSchemaValidationResult {
-  const isValid: boolean = validateTSpaceConfig(config);
-  return { isValid, errors: (validateTSpaceConfig as any).errors };
+  const validator = new Validator(TSpaceConfigSchema as Schema, '7');
+  const { valid, errors } = validator.validate(config);
+  return { isValid: valid, errors };
 }
 
 function validateData({ name, version, scenes, resources, entities, canvasSelector, tags }: TSpaceConfig): TSchemaValidationResult {
