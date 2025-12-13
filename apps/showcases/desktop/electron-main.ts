@@ -5,7 +5,7 @@ import { fileURLToPath } from 'url';
 import { existsSync } from 'node:fs';
 import { getDisplayInfo } from '@Desktop/Utils';
 import { handleAppRequest } from '@Desktop/Services';
-import { APP_TO_PLATFORM_CHANNEL } from '@Desktop/Constants';
+import { platformApiChannel } from '@Desktop/Constants';
 
 const __filename: string = fileURLToPath(import.meta.url);
 const __dirname: string = dirname(__filename);
@@ -70,7 +70,7 @@ function createWindow(width: number, height: number): BrowserWindow {
   return win;
 }
 
-ipcMain.handle(APP_TO_PLATFORM_CHANNEL, handleAppRequest);
+ipcMain.handle(platformApiChannel, handleAppRequest);
 
 app.whenReady().then((): void => {
   // TODO DESKTOP: use "getDisplayInfo()" as default settings, prioritize saved user settings and use hardcoded fallback settings. Same for fullscreen mode
