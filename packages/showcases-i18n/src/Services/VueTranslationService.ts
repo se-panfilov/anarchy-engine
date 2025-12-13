@@ -1,4 +1,5 @@
-import type { TVueTranslationService } from '@Showcases/i18n';
+import type { TLocale } from '@Anarchy/i18n';
+import type { TUseVueTranslations, TVueTranslationService } from '@Showcases/i18n';
 import type { Observable, Subscription } from 'rxjs';
 import { filter } from 'rxjs';
 import type { ShallowRef } from 'vue';
@@ -37,10 +38,24 @@ export function VueTranslationService(): TVueTranslationService {
     return ref;
   }
 
-  const $t = (id: string, params?: Record<string, string> | Observable<Record<string, string>>): ShallowRef<string> => toRef(showcasesTranslationService.t$(id, params));
+  function useTranslations(): TUseVueTranslations {
+    const localeRef = shallowRef(showcasesTranslationService.locale$.value);
+    let sub: Subscription | undefined;
+
+    // eslint-disable-next-line functional/immutable-data
+    onMounted(() => (sub = showcasesTranslationService.locale$.subscribe((locale: TLocale): void => void (localeRef.value = locale))));
+    onBeforeUnmount((): void => sub?.unsubscribe());
+
+    const $t = (id: string, params?: Record<string, string>): string => {
+      void localeRef.value;
+      return showcasesTranslationService.translate(id, params);
+    };
+
+    return { $t };
+  }
 
   // eslint-disable-next-line functional/immutable-data
-  return Object.assign(showcasesTranslationService, { waitInitialReady, toRef, $t });
+  return Object.assign(showcasesTranslationService, { waitInitialReady, toRef, useTranslations });
 }
 
 export const vueTranslationService: TVueTranslationService = VueTranslationService();
