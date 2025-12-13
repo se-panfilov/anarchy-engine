@@ -1,4 +1,4 @@
-import type { TIntersectionEvent, TIntersectionsCameraWatcher, TModel3d, TModels3dRegistry, TSceneWrapper, TSpace, TSpaceConfig, TText3dTextureWrapper } from '@Anarchy/Engine';
+import type { TIntersectionEvent, TIntersectionsCameraWatcher, TModel3d, TModels3dRegistry, TSceneWrapper, TSpace, TSpaceConfig } from '@Anarchy/Engine';
 import { spaceService } from '@Anarchy/Engine';
 import { asRecord, isNotDefined } from '@Anarchy/Shared/Utils';
 import { showcasesTranslationService } from '@Showcases/i18n';
@@ -31,11 +31,11 @@ export function showcase(space: TSpace): void {
   const sceneW: TSceneWrapper = scenesService.getActive();
   const openMenu$: Subject<boolean> = new Subject<boolean>();
 
+  textService.setTextTranslationService(showcasesTranslationService);
   addGizmo(space.services, space.container, space.loops, { placement: 'bottom-left' });
 
   const planeModel3d: TModel3d = models3dRegistry.getByName('surface_model');
 
-  const text3dTexture: TText3dTextureWrapper = textService.getRegistries().text3dTextureRegistry.getByName('text_3d_2');
   sceneW.addModel3d(planeModel3d);
 
   const mainMenuService: TMainMenuService = MainMenuService();
@@ -57,11 +57,6 @@ export function showcase(space: TSpace): void {
   let isMouseOverMenuCube: boolean = false;
   watcherMenuCube.value$.subscribe((value: TIntersectionEvent): void => {
     isMouseOverMenuCube = !!value;
-  });
-
-  showcasesTranslationService.t$('main-menu.home.button.new-game.text').subscribe((v: string): void => {
-    // text3dTexture.setText(v);
-    console.log('XXX text', v);
   });
 
   mouseService.clickLeftRelease$.pipe(filter((): boolean => isMouseOverMenuCube)).subscribe((): void => openMenu$.next(true));
