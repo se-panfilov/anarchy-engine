@@ -1,4 +1,5 @@
 import type { TLocaleId } from '@Anarchy/i18n';
+import type { TBrowserInfo } from '@Anarchy/Shared/Models';
 import type { TLegalDoc, TLoadDocPayload, TShowcaseGameSettings } from '@Showcases/Shared';
 import { platformApiName } from '@Showcases/Shared';
 
@@ -8,7 +9,7 @@ import type { TPlatformDriver } from '@/Models';
 export function Driver(): TPlatformDriver {
   const closeApp = (): void => window[platformApiName].closeApp();
   const getAppSettings = (): Promise<TShowcaseGameSettings> => window[platformApiName].getAppSettings();
-  const getBrowserVersion = (): string => window[platformApiName].chrome();
+  const getBrowserInfo = (): TBrowserInfo => window[platformApiName].getBrowserInfo();
   const getLegalDocs = (options: TLoadDocPayload): Promise<TLegalDoc> => window[platformApiName].getLegalDocs(options);
   const getNodeVersion = (): string => window[platformApiName].node();
   const getPlatformVersion = (): string => window[platformApiName].electron();
@@ -21,7 +22,7 @@ export function Driver(): TPlatformDriver {
   return {
     closeApp,
     getAppSettings,
-    getBrowserVersion,
+    getBrowserInfo,
     getLegalDocs,
     getNodeVersion,
     getPlatformVersion,

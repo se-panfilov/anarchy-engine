@@ -1,4 +1,5 @@
 import type { TLocaleId } from '@Anarchy/i18n';
+import type { TBrowserInfo } from '@Anarchy/Shared/Models';
 import type { TLegalDoc, TLoadDocPayload, TShowcaseGameSettings } from '@Showcases/Shared';
 
 import type { TPlatformDriver } from '@/Models';
@@ -10,9 +11,9 @@ export function Driver(): TPlatformDriver {
     throw new Error('[MOBILE] closeApp is not supported on this platform');
   }
 
-  function getBrowserVersion(): string {
-    console.log('XXX [MOBILE]', 'getBrowserVersion');
-    return 'XXX [MOBILE] mocked chrome version';
+  function getBrowserInfo(): TBrowserInfo {
+    console.log('XXX [MOBILE]', 'getBrowserInfo');
+    return {} as TBrowserInfo;
   }
 
   function getNodeVersion(): string {
@@ -62,7 +63,7 @@ export function Driver(): TPlatformDriver {
   return {
     closeApp,
     getAppSettings,
-    getBrowserVersion,
+    getBrowserInfo,
     getLegalDocs,
     getNodeVersion,
     getPlatformVersion,

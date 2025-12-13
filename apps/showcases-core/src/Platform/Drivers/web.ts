@@ -1,6 +1,7 @@
 import type { TLocale, TLocaleId } from '@Anarchy/i18n';
 import { getLocaleByLocaleId, getPreferLocaleId, stringToLocaleId } from '@Anarchy/i18n';
 import { isDefined } from '@Anarchy/Shared/Utils';
+import { getBrowserInfo } from '@Anarchy/Shared/Utils/DetectUtils';
 import { ShowcasesFallbackLocale, ShowcasesLocales } from '@Showcases/i18n';
 import type { TLegalDoc, TLoadDocPayload, TShowcaseGameSettings } from '@Showcases/Shared';
 import { DefaultShowcaseGameSettings } from '@Showcases/Shared';
@@ -13,13 +14,6 @@ import { settingsWebDbService } from '@/Services';
 export function Driver(): TPlatformDriver {
   function closeApp(): void {
     throw new Error('[WEB] closeApp is not supported on this platform');
-  }
-
-  // TODO DESKTOP: implement this
-  function getBrowserVersion(): string {
-    const userAgent = navigator.userAgent;
-    const chromeMatch = userAgent.match(/Chrome\/([0-9.]+)/);
-    return chromeMatch ? chromeMatch[1] : 'Chrome not detected';
   }
 
   const getNodeVersion = (): string => 'N/A';
@@ -87,7 +81,7 @@ export function Driver(): TPlatformDriver {
   return {
     closeApp,
     getAppSettings,
-    getBrowserVersion,
+    getBrowserInfo,
     getLegalDocs,
     getNodeVersion,
     getPlatformVersion,

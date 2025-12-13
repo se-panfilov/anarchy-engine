@@ -1,10 +1,11 @@
 import type { TLocaleId } from '@Anarchy/i18n';
+import type { TBrowserInfo } from '@Anarchy/Shared/Models';
 import type { TLegalDoc, TLoadDocPayload, TShowcaseGameSettings } from '@Showcases/Shared';
 
 export type TPlatformDriver = Readonly<{
   closeApp: () => void;
   getAppSettings: () => Promise<TShowcaseGameSettings>;
-  getBrowserVersion: () => string;
+  getBrowserInfo: () => TBrowserInfo;
   getLegalDocs: (options: TLoadDocPayload) => Promise<TLegalDoc>;
   getNodeVersion: () => string;
   getPlatformVersion: () => string;
