@@ -5,22 +5,24 @@ import { isLoadDocPayload, isSettings } from '@Showcases/Shared';
 import type { IpcMainInvokeEvent } from 'electron';
 
 // TODO DESKTOP: any
-export async function handleAppRequest({ settingsService, docsService }: THandleRequestDependencies, _event: IpcMainInvokeEvent, args: [PlatformActions | string, unknown]): Promise<any> {
+export async function handleAppRequest(
+  { settingsService, docsService, desktopAppService }: THandleRequestDependencies,
+  _event: IpcMainInvokeEvent,
+  args: [PlatformActions | string, unknown]
+): Promise<any> {
   const type: PlatformActions | string = args[0];
   if (!isPlatformAction(type)) throw new Error(`[DESKTOP]: Unknown platform action: ${type}`);
   const payload: unknown = args[1];
+  let isRestartNeeded: boolean = false;
 
-  // TODO DESKTOP: Implement restart app event
   switch (type) {
     case PlatformActions.SaveAppSettings:
-      // TODO DESKTOP: Should we let menu (and the app) know that the save is done? (however, it is sync atm)
+      // TODO DESKTOP: Should we let menu (and the app) know that the save is done?
       if (!isSettings(payload)) throw new Error(`[DESKTOP]: Failed to save settings: Invalid payload`);
-      // TODO DESKTOP: implement apply of the settings in the app (resolution, etc.), maybe restart is needed.
       await settingsService.saveAppSettings(payload);
-      //Important: apply new App-level settings here (and apply play-level settings in a platform code)
-
-      // TODO DESKTOP: remove promise resolve when apply of the settings is implemented
-      return Promise.resolve();
+      isRestartNeeded = settingsService.applyPlatformSettings(payload);
+      if (isRestartNeeded) desktopAppService.restartApp();
+      return null;
     case PlatformActions.LoadAppSettings:
       return settingsService.loadAppSettings();
     case PlatformActions.LoadLegalDocs:

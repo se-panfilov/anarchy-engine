@@ -27,8 +27,17 @@ export function SettingsService(filesService: TFilesService): TSettingsService {
     console.log(`[DESKTOP]: Saved settings file ("${appSettingsFileName}") in : ${userDataFolder}`);
   }
 
+  // TODO DESKTOP: Maybe split TShowcaseGameSettings into app and platform settings
+  function applyPlatformSettings(platformSettings: TShowcaseGameSettings): boolean {
+    console.log('[DESKTOP]: (NOT IMPLEMENTED) Applying platform settings:', platformSettings);
+    // TODO DESKTOP: Apply platform-level settings (resolution, etc.)
+    // TODO DESKTOP: return true if app restart is needed
+    return false;
+  }
+
   return {
     loadAppSettings,
-    saveAppSettings
+    saveAppSettings,
+    applyPlatformSettings
   };
 }
