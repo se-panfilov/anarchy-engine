@@ -1,0 +1,19 @@
+@font-face {
+  font-family: 'Noto Sans';
+  src:
+    //url("/fonts/NotoSansSC-Regular.woff2") format("woff2"),
+    url('NotoSans-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'LongCang';
+  src:
+    //url("/fonts/NotoSansSC-Regular.woff2") format("woff2"),
+    url('LongCang-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
