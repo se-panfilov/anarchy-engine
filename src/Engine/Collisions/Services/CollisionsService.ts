@@ -10,8 +10,8 @@ import type { TReadonlyVector3 } from '@/Engine/ThreeLib';
 import { BvhService } from './BvhService';
 
 export function CollisionsService(): TCollisionsService {
-  const abstractService: TAbstractService = AbstractService();
   const bvhService: TBvhService = BvhService();
+  const abstractService: TAbstractService = AbstractService();
 
   // The bigger "interpolationLengthMultiplier" then less chance the bullet won't fly through the target without a collision registration. But the too big value might lead to false positives registrations
   // i.g. bigger "interpolationLengthMultiplier" (2, 4, etc.) is safer (but better test it first)
@@ -23,6 +23,7 @@ export function CollisionsService(): TCollisionsService {
     const extendedDistance: number = speed * delta * interpolationLengthMultiplier;
     const previousPosition: Vector3 = currentPosition.clone().sub(direction.multiplyScalar(extendedDistance));
 
+    // TODO we could reuse raycaster instead of creating a new one every time
     const raycaster = new Raycaster();
     raycaster.set(previousPosition, direction);
     // eslint-disable-next-line functional/immutable-data

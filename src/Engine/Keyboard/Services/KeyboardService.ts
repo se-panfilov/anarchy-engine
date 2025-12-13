@@ -6,11 +6,13 @@ import { AbstractService } from '@/Engine/Abstract';
 import type { TGameKey, TKeyboardLoop, TKeyboardRegistry, TKeyboardRegistryValues, TKeyboardService, TKeyCombo, TKeySubscription } from '@/Engine/Keyboard/Models';
 import { KeyboardRegistry } from '@/Engine/Keyboard/Registries';
 import type { TDelta } from '@/Engine/Loop';
+import type { TDisposable } from '@/Engine/Mixins';
 import { isDefined, isNotDefined } from '@/Engine/Utils';
 
 export function KeyboardService(keyboardLoop: TKeyboardLoop): TKeyboardService {
-  const abstractService: TAbstractService = AbstractService();
   const keyboardRegistry: TKeyboardRegistry = KeyboardRegistry();
+  const disposable: ReadonlyArray<TDisposable> = [keyboardRegistry];
+  const abstractService: TAbstractService = AbstractService(disposable);
 
   function createKeySubscriptions(key: TGameKey | TKeyCombo): TKeySubscription {
     const subscriptions: TKeyboardRegistryValues | undefined = keyboardRegistry.findByKey(key);

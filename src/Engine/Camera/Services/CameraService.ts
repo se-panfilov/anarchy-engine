@@ -5,7 +5,7 @@ import type { TAbstractService, TRegistryPack } from '@/Engine/Abstract';
 import { AbstractService } from '@/Engine/Abstract';
 import type { TCameraConfig, TCameraFactory, TCameraParams, TCameraRegistry, TCameraService, TCameraServiceDependencies, TCameraWrapper } from '@/Engine/Camera/Models';
 import { ambientContext } from '@/Engine/Context';
-import type { TWithActiveMixinResult } from '@/Engine/Mixins';
+import type { TDisposable, TWithActiveMixinResult } from '@/Engine/Mixins';
 import { withActiveEntityServiceMixin } from '@/Engine/Mixins';
 import type { TSceneWrapper } from '@/Engine/Scene';
 import type { TScreenSizeValues } from '@/Engine/Screen';
@@ -18,13 +18,14 @@ export function CameraService(
   dependencies: TCameraServiceDependencies,
   shouldUpdateCamerasAspect: boolean = true
 ): TCameraService {
-  const abstractService: TAbstractService = AbstractService();
   const withActive: TWithActiveMixinResult<TCameraWrapper> = withActiveEntityServiceMixin<TCameraWrapper>(registry);
   const registrySub$: Subscription = registry.added$.subscribe(({ value }: TRegistryPack<TCameraWrapper>): void => {
     scene.addCamera(value);
     if (value.isActive()) withActive.active$.next(value);
   });
   const factorySub$: Subscription = factory.entityCreated$.subscribe((wrapper: TCameraWrapper): void => registry.add(wrapper));
+  const disposable: ReadonlyArray<TDisposable> = [registry, factory, registrySub$, factorySub$];
+  const abstractService: TAbstractService = AbstractService(disposable);
 
   let screenSizeSub$: Subscription | undefined = undefined;
 
@@ -60,16 +61,8 @@ export function CameraService(
   const destroySub$: Subscription = abstractService.destroy$.subscribe((): void => {
     destroySub$.unsubscribe();
 
-    registrySub$.unsubscribe();
-    factorySub$.unsubscribe();
-
-    factory.destroy$.next();
-    registry.destroy$.next();
-
     withActive.active$.complete();
     withActive.active$.unsubscribe();
-
-    ambientContext.screenSizeWatcher.destroy$.next();
   });
 
   // eslint-disable-next-line functional/immutable-data

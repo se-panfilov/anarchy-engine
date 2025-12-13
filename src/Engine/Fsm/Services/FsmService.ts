@@ -1,5 +1,4 @@
 import { isEqual } from 'lodash-es';
-import type { Subscription } from 'rxjs';
 
 import type { TAbstractService } from '@/Engine/Abstract';
 import { AbstractService } from '@/Engine/Abstract';
@@ -15,15 +14,18 @@ import type {
   TFsmSourceService,
   TFsmWrapper
 } from '@/Engine/Fsm/Models';
+import type { TDisposable } from '@/Engine/Mixins';
 import { isDefined, isNotDefined } from '@/Engine/Utils';
 
 import { FsmInstanceService } from './FsmInstanceService';
 import { FsmSourceService } from './FsmSourceService';
 
 export function FsmService(instanceFactory: TFsmInstanceFactory, sourceFactory: TFsmSourceFactory, instanceRegistry: TFsmInstanceRegistry, sourceRegistry: TFsmSourceRegistry): TFsmService {
-  const abstractService: TAbstractService = AbstractService();
   const sourceService: TFsmSourceService = FsmSourceService(sourceFactory, sourceRegistry);
   const instanceService: TFsmInstanceService = FsmInstanceService(instanceFactory, instanceRegistry);
+
+  const disposable: ReadonlyArray<TDisposable> = [sourceFactory, instanceFactory, instanceRegistry, sourceRegistry];
+  const abstractService: TAbstractService = AbstractService(disposable);
 
   function create(params: TFsmParams, force: boolean = false): TFsmWrapper | never {
     let source: TFsmSource | undefined = sourceService.getRegistry().findByKey(params.name);
@@ -49,12 +51,6 @@ export function FsmService(instanceFactory: TFsmInstanceFactory, sourceFactory: 
     if (isNotDefined(source)) throw new Error(`FsmService. Can't create a fsm instance by a source name "${sourceName}": fsm source not found`);
     return instanceService.create(source);
   }
-
-  const destroySub$: Subscription = abstractService.destroy$.subscribe((): void => {
-    destroySub$.unsubscribe();
-    sourceService.destroy$.next();
-    instanceService.destroy$.next();
-  });
 
   // eslint-disable-next-line functional/immutable-data
   return Object.assign(abstractService, {

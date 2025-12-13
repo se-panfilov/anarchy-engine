@@ -2,7 +2,7 @@ import type { Subscription } from 'rxjs';
 
 import type { TAbstractService, TRegistryPack } from '@/Engine/Abstract';
 import { AbstractService } from '@/Engine/Abstract';
-import type { TWithActiveMixinResult } from '@/Engine/Mixins';
+import type { TDisposable, TWithActiveMixinResult } from '@/Engine/Mixins';
 import { withActiveEntityServiceMixin } from '@/Engine/Mixins';
 import { renderLoopEffect } from '@/Engine/Renderer/Loop';
 import type { TRendererFactory, TRendererParams, TRendererRegistry, TRendererService, TRendererServiceDependencies, TRendererWrapper } from '@/Engine/Renderer/Models';
@@ -16,13 +16,15 @@ export function RendererService(
   { cameraService }: TRendererServiceDependencies,
   scene: TSceneWrapper
 ): TRendererService {
-  const abstractService: TAbstractService = AbstractService();
   const withActive: TWithActiveMixinResult<TRendererWrapper> = withActiveEntityServiceMixin<TRendererWrapper>(registry);
-
   const registrySub$: Subscription = registry.added$.subscribe(({ value }: TRegistryPack<TRendererWrapper>): void => {
     if (value.isActive()) withActive.active$.next(value);
   });
+
   const factorySub$: Subscription = factory.entityCreated$.subscribe((wrapper: TRendererWrapper): void => registry.add(wrapper));
+
+  const disposable: ReadonlyArray<TDisposable> = [registry, factory, factorySub$, registrySub$];
+  const abstractService: TAbstractService = AbstractService(disposable);
 
   const create = (params: TRendererParams): TRendererWrapper => factory.create(params);
 
@@ -30,12 +32,7 @@ export function RendererService(
 
   const destroySub$: Subscription = abstractService.destroy$.subscribe((): void => {
     destroySub$.unsubscribe();
-    registrySub$.unsubscribe();
-    factorySub$.unsubscribe();
     loopSub$.unsubscribe();
-
-    factory.destroy$.next();
-    registry.destroy$.next();
 
     withActive.active$.complete();
     withActive.active$.unsubscribe();

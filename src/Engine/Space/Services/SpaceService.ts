@@ -18,6 +18,8 @@ import { isDestroyable } from '@/Engine/Utils';
 // TODO SPACE: we need a space service, and factory, to create from config, and to create from the code.
 export function SpaceService(): TSpaceService {
   const abstractService: TAbstractService = AbstractService();
+
+  // TODO 14-0-0: Guess we need a registry for spaces (don't forget to add a cascade destroy)
   // TODO LOGGER: add a logger globally (not only for errors, but I'd like to know, which service with which id did what).
   async function buildSpaceFromConfig(canvas: TAppCanvas, config: TSpaceConfig, hooks?: TSpaceHooks): Promise<TSpace> {
     hooks?.beforeConfigValidation?.(config);

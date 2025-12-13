@@ -5,20 +5,14 @@ import { AbstractService } from '@/Engine/Abstract';
 import type { TFsmSource } from '@/Engine/Fsm';
 import type { TFsmInstanceFactory, TFsmInstanceRegistry, TFsmWrapper } from '@/Engine/Fsm/Models';
 import type { TFsmInstanceService } from '@/Engine/Fsm/Models/TFsmInstanceService';
+import type { TDisposable } from '@/Engine/Mixins';
 
 export function FsmInstanceService(factory: TFsmInstanceFactory, registry: TFsmInstanceRegistry): TFsmInstanceService {
-  const abstractService: TAbstractService = AbstractService();
   const factorySub$: Subscription = factory.entityCreated$.subscribe((fsm: TFsmWrapper): void => registry.add(fsm));
+  const disposable: ReadonlyArray<TDisposable> = [registry, factory, factorySub$];
+  const abstractService: TAbstractService = AbstractService(disposable);
 
   const create = (source: TFsmSource): TFsmWrapper => factory.create(source);
-
-  const destroySub$: Subscription = abstractService.destroy$.subscribe((): void => {
-    destroySub$.unsubscribe();
-    factorySub$.unsubscribe();
-
-    factory.destroy$.next();
-    registry.destroy$.next();
-  });
 
   // eslint-disable-next-line functional/immutable-data
   return Object.assign(abstractService, {

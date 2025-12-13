@@ -1,5 +1,6 @@
 export type * from './TActive';
 export type * from './TDestroyable';
+export type * from './TDisposable';
 export type * from './TMultitonRegistrable';
 export type * from './TNoSpread';
 export type * from './TRegistrable';

@@ -1,7 +1,6 @@
-import type { Subscription } from 'rxjs';
-
 import type { TAbstractService } from '@/Engine/Abstract';
 import { AbstractService } from '@/Engine/Abstract';
+import type { TDisposable } from '@/Engine/Mixins';
 import { configToParamsPreset } from '@/Engine/Physics/Adapters';
 import type {
   TPhysicsBodyFactory,
@@ -17,15 +16,11 @@ import type { TOptional } from '@/Engine/Utils';
 import { isDefined, isNotDefined } from '@/Engine/Utils';
 
 export function PhysicsPresetsService(registry: TPhysicsPresetRegistry): TPhysicsPresetsService {
-  const abstractService: TAbstractService = AbstractService();
+  const disposable: ReadonlyArray<TDisposable> = [registry];
+  const abstractService: TAbstractService = AbstractService(disposable);
+
   const addPresets = (presets: ReadonlyArray<TPhysicsPresetParams>): void => presets.forEach((preset: TPhysicsPresetParams) => registry.add(preset.name, preset));
   const addPresetsFromConfig = (presets: ReadonlyArray<TPhysicsPresetConfig>): void => addPresets(presets.map(configToParamsPreset));
-
-  const destroySub$: Subscription = abstractService.destroy$.subscribe((): void => {
-    destroySub$.unsubscribe();
-
-    registry.destroy$.next();
-  });
 
   const getPresetByName = (name: string): TPhysicsPresetParams | undefined => registry.findByKey(name);
 

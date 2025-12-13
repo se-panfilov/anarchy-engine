@@ -13,11 +13,13 @@ import type {
   TIntersectionsWatcherService
 } from '@/Engine/Intersections/Models';
 import type { TLoopService } from '@/Engine/Loop';
+import type { TDisposable } from '@/Engine/Mixins';
 import type { TMouseService } from '@/Engine/Mouse';
 
 export function IntersectionsWatcherService(factory: TIntersectionsWatcherFactory, registry: TIntersectionsWatcherRegistry): TIntersectionsWatcherService {
-  const abstractService: TAbstractService = AbstractService();
   const factorySub$: Subscription = factory.entityCreated$.subscribe((watcher: TIntersectionsWatcher): void => registry.add(watcher));
+  const disposable: ReadonlyArray<TDisposable> = [registry, factory, factorySub$];
+  const abstractService: TAbstractService = AbstractService(disposable);
 
   const create = (params: TIntersectionsWatcherParams): TIntersectionsWatcher => factory.create(params);
   const createFromConfig = (
@@ -28,14 +30,6 @@ export function IntersectionsWatcherService(factory: TIntersectionsWatcherFactor
     loopService: TLoopService
   ): ReadonlyArray<TIntersectionsWatcher> =>
     configs.map((config: TIntersectionsWatcherConfig): TIntersectionsWatcher => create(factory.configToParams(config, mouseService, cameraService, actorService, loopService)));
-
-  const destroySub$: Subscription = abstractService.destroy$.subscribe((): void => {
-    destroySub$.unsubscribe();
-    factorySub$.unsubscribe();
-
-    factory.destroy$.next();
-    registry.destroy$.next();
-  });
 
   // eslint-disable-next-line functional/immutable-data
   return Object.assign(abstractService, {

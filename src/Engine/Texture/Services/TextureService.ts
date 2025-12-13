@@ -1,20 +1,13 @@
-import type { Subscription } from 'rxjs';
-
 import type { TAbstractService } from '@/Engine/Abstract';
 import { AbstractService } from '@/Engine/Abstract';
+import type { TDisposable } from '@/Engine/Mixins';
 import { TexturesLoader } from '@/Engine/Texture/Loaders';
 import type { TTextureAsyncRegistry, TTextureService, TTexturesLoader } from '@/Engine/Texture/Models';
 
 export function TextureService(resourcesRegistry: TTextureAsyncRegistry): TTextureService {
-  const abstractService: TAbstractService = AbstractService();
+  const disposable: ReadonlyArray<TDisposable> = [resourcesRegistry];
+  const abstractService: TAbstractService = AbstractService(disposable);
   const texturesLoader: TTexturesLoader = TexturesLoader(resourcesRegistry);
-
-  const destroySub$: Subscription = abstractService.destroy$.subscribe((): void => {
-    destroySub$.unsubscribe();
-
-    // TODO 13-0-0:  We need a way to unload env maps, tho
-    resourcesRegistry.destroy$.next();
-  });
 
   // eslint-disable-next-line functional/immutable-data
   return Object.assign(abstractService, {

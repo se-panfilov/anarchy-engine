@@ -4,6 +4,7 @@ import type { TAbstractService } from '@/Engine/Abstract';
 import { AbstractService } from '@/Engine/Abstract';
 import type { TAnimationsResourceAsyncRegistry, TAnimationsService } from '@/Engine/Animations';
 import type { TMaterialRegistry, TMaterialService } from '@/Engine/Material';
+import type { TDisposable } from '@/Engine/Mixins';
 import { Models3dLoader } from '@/Engine/Models3d/Loaders';
 import type {
   TModel3d,
@@ -24,11 +25,12 @@ export function Models3dService(
   resourcesRegistry: TModels3dResourceAsyncRegistry,
   { materialService, animationsService, model3dRawToModel3dConnectionRegistry }: TModels3dServiceDependencies
 ): TModels3dService {
-  const abstractService: TAbstractService = AbstractService();
   const factorySub$: Subscription = factory.entityCreated$.subscribe((model3d: TModel3d): void => registry.add(model3d));
   const model3dLoader: TModels3dLoader = Models3dLoader(resourcesRegistry);
   const materialRegistry: TMaterialRegistry = materialService.getRegistry();
   const animationsResourceAsyncRegistry: TAnimationsResourceAsyncRegistry = animationsService.getResourceRegistry();
+  const disposable: ReadonlyArray<TDisposable> = [registry, factory, resourcesRegistry, factorySub$, model3dLoader];
+  const abstractService: TAbstractService = AbstractService(disposable);
 
   const create = (params: TModel3dParams): TModel3d => factory.create(params, { animationsService, model3dRawToModel3dConnectionRegistry });
   const createFromConfig = (models3d: ReadonlyArray<TModel3dConfig>): ReadonlyArray<TModel3d> =>
@@ -39,15 +41,6 @@ export function Models3dService(
     registry.add(cloned);
     return cloned;
   }
-
-  const destroySub$: Subscription = abstractService.destroy$.subscribe((): void => {
-    destroySub$.unsubscribe();
-    factorySub$.unsubscribe();
-
-    registry.destroy$.next();
-    // TODO 13-0-0:  We need a way to unload models3d, tho
-    resourcesRegistry.destroy$.next();
-  });
 
   // eslint-disable-next-line functional/immutable-data
   return Object.assign(abstractService, {

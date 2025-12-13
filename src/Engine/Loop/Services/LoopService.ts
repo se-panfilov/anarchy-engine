@@ -11,6 +11,7 @@ import type { TKinematicLoop } from '@/Engine/Kinematic';
 import { LoopType } from '@/Engine/Loop/Constants';
 import type { TLoop, TLoopFactory, TLoopParams, TLoopRegistry, TLoopService } from '@/Engine/Loop/Models';
 import { getMainLoopNameByType } from '@/Engine/Loop/Utils';
+import type { TDisposable } from '@/Engine/Mixins';
 import type { TMouseLoop } from '@/Engine/Mouse';
 import type { TPhysicalLoop } from '@/Engine/Physics';
 import type { TRenderLoop } from '@/Engine/Space';
@@ -20,16 +21,16 @@ import type { TTransformLoop } from '@/Engine/TransformDrive';
 import { isNotDefined } from '@/Engine/Utils';
 
 export function LoopService(factory: TLoopFactory, registry: TLoopRegistry): TLoopService {
-  const abstractService: TAbstractService = AbstractService();
   let debugInfoSub$: Subscription | undefined;
   const factorySub$: Subscription = factory.entityCreated$.subscribe((wrapper: TLoop): void => registry.add(wrapper));
+  const disposable: ReadonlyArray<TDisposable> = [registry, factory, factorySub$];
+  const abstractService: TAbstractService = AbstractService(disposable);
+
   const create = (params: TLoopParams): TLoop => factory.create(params);
 
   const destroySub$: Subscription = abstractService.destroy$.subscribe((): void => {
     debugInfoSub$?.unsubscribe();
     destroySub$.unsubscribe();
-
-    factorySub$.unsubscribe();
   });
 
   function getLoop(name: string | undefined, type: LoopType): TLoop | never {

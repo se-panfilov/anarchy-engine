@@ -4,18 +4,19 @@ import type { TAbstractService, TRegistryPack } from '@/Engine/Abstract';
 import { AbstractService } from '@/Engine/Abstract';
 import { EnvMapLoader } from '@/Engine/EnvMap/Loader';
 import type { TEnvMapConfig, TEnvMapFactory, TEnvMapLoader, TEnvMapParams, TEnvMapRegistry, TEnvMapService, TEnvMapTextureAsyncRegistry, TEnvMapWrapper } from '@/Engine/EnvMap/Models';
-import type { TWithActiveMixinResult } from '@/Engine/Mixins';
+import type { TDisposable, TWithActiveMixinResult } from '@/Engine/Mixins';
 import { withActiveEntityServiceMixin } from '@/Engine/Mixins';
 import type { TSceneWrapper } from '@/Engine/Scene';
 import { isDefined } from '@/Engine/Utils';
 
 export function EnvMapService(factory: TEnvMapFactory, registry: TEnvMapRegistry, resourcesRegistry: TEnvMapTextureAsyncRegistry, sceneW: TSceneWrapper): TEnvMapService {
-  const abstractService: TAbstractService = AbstractService();
   const registrySub$: Subscription = registry.added$.subscribe(({ value }: TRegistryPack<TEnvMapWrapper>): void => {
     if (value.isActive()) withActive.active$.next(value);
   });
 
   const factorySub$: Subscription = factory.entityCreated$.subscribe((wrapper: TEnvMapWrapper): void => registry.add(wrapper));
+  const disposable: ReadonlyArray<TDisposable> = [registry, factory, registrySub$, factorySub$];
+  const abstractService: TAbstractService = AbstractService(disposable);
 
   const withActive: TWithActiveMixinResult<TEnvMapWrapper> = withActiveEntityServiceMixin<TEnvMapWrapper>(registry);
   const envMapLoader: TEnvMapLoader = EnvMapLoader(resourcesRegistry);
@@ -35,13 +36,6 @@ export function EnvMapService(factory: TEnvMapFactory, registry: TEnvMapRegistry
 
   const destroySub$: Subscription = abstractService.destroy$.subscribe((): void => {
     destroySub$.unsubscribe();
-
-    registrySub$.unsubscribe();
-    factorySub$.unsubscribe();
-
-    registry.destroy$.next();
-    // TODO 13-0-0:  We need a way to unload env maps, tho
-    resourcesRegistry.destroy$.next();
 
     withActive.active$.complete();
     withActive.active$.unsubscribe();

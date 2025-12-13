@@ -8,16 +8,18 @@ import { AbstractService } from '@/Engine/Abstract';
 import { AnimationsLoader } from '@/Engine/Animations/Loader';
 import type { TAnimationActions, TAnimationActionsPack, TAnimationsLoader, TAnimationsResourceAsyncRegistry, TAnimationsService, TModel3dAnimations } from '@/Engine/Animations/Models';
 import type { TDelta } from '@/Engine/Loop';
+import type { TDisposable } from '@/Engine/Mixins';
 import type { TModel3d, TRawModel3d } from '@/Engine/Models3d';
 import type { TSpaceLoops } from '@/Engine/Space';
 import type { TWriteable } from '@/Engine/Utils';
 import { isDefined, isNotDefined } from '@/Engine/Utils';
 
 export function AnimationsService(resourcesRegistry: TAnimationsResourceAsyncRegistry, { renderLoop }: TSpaceLoops): TAnimationsService {
-  const abstractService: TAbstractService = AbstractService();
   const animationsLoader: TAnimationsLoader = AnimationsLoader(resourcesRegistry);
   const added$: Subject<TModel3dAnimations> = new Subject<TModel3dAnimations>();
   const subscriptions: Map<AnimationMixer, Subscription> = new Map<AnimationMixer, Subscription>();
+  const disposable: ReadonlyArray<TDisposable> = [resourcesRegistry];
+  const abstractService: TAbstractService = AbstractService(disposable);
 
   //If you want to create an animation action for a model that already has actions (and a mixer), provide that mixer here
   function createActions(model: TRawModel3d, animations: ReadonlyArray<AnimationClip> = [], customMixer?: AnimationMixer): TAnimationActionsPack {
@@ -41,7 +43,7 @@ export function AnimationsService(resourcesRegistry: TAnimationsResourceAsyncReg
   }
 
   function stopAutoUpdateMixer(mixer: AnimationMixer): void | never {
-    const subs$ = subscriptions.get(mixer);
+    const subs$: Subscription | undefined = subscriptions.get(mixer);
     if (isNotDefined(subs$)) throw new Error('Mixer is not defined');
     subs$.unsubscribe();
     subscriptions.delete(mixer);
@@ -52,9 +54,8 @@ export function AnimationsService(resourcesRegistry: TAnimationsResourceAsyncReg
 
     added$.complete();
     added$.unsubscribe();
-    subscriptions.forEach((subs$) => subs$.unsubscribe());
+    subscriptions.forEach((subs$: Subscription): void => subs$.unsubscribe());
 
-    // TODO 13-0-0:  We need a way to unload env animations, tho
     resourcesRegistry.destroy$.next();
   });
 

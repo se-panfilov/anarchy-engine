@@ -3,6 +3,7 @@ import type { Subscription } from 'rxjs';
 
 import type { TAbstractService } from '@/Engine/Abstract';
 import { AbstractService } from '@/Engine/Abstract';
+import type { TDisposable } from '@/Engine/Mixins';
 import type {
   TPhysicsBody,
   TPhysicsBodyFactory,
@@ -24,8 +25,9 @@ export function PhysicsBodyService(
   physicsPresetService: TPhysicsPresetsService,
   physicsWorldService: TPhysicsWorldService
 ): TPhysicsBodyService {
-  const abstractService: TAbstractService = AbstractService();
   const factorySub$: Subscription = factory.entityCreated$.subscribe((body: TPhysicsBody): void => registry.add(body));
+  const disposable: ReadonlyArray<TDisposable> = [registry, factory, factorySub$];
+  const abstractService: TAbstractService = AbstractService(disposable);
 
   const create = (params: TPhysicsBodyParams): TPhysicsBody | never => {
     const world: World | undefined = physicsWorldService.getWorld();
@@ -51,14 +53,6 @@ export function PhysicsBodyService(
       return create(physicsPresetService.getMergedConfigWithPresetParams(config, factory));
     });
   };
-
-  const destroySub$: Subscription = abstractService.destroy$.subscribe((): void => {
-    destroySub$.unsubscribe();
-    factorySub$.unsubscribe();
-
-    factory.destroy$.next();
-    registry.destroy$.next();
-  });
 
   // eslint-disable-next-line functional/immutable-data
   return Object.assign(abstractService, {

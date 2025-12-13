@@ -16,6 +16,7 @@ import type {
   TAudioResourceAsyncRegistry,
   TAudioService
 } from '@/Engine/Audio/Models';
+import type { TDisposable } from '@/Engine/Mixins';
 import type { TSpaceLoops } from '@/Engine/Space';
 
 // TODO Audio: Maybe implement "Sound Perception Manager" for NPCs to react to a sound (if they are in a radius)
@@ -26,9 +27,11 @@ export function AudioService(
   audioListenersRegistry: TAudioListenersRegistry,
   { audioLoop }: TSpaceLoops
 ): TAudioService {
-  const abstractService: TAbstractService = AbstractService();
   const audioLoader: TAudioLoader = AudioLoader(audioResourceAsyncRegistry);
   const factorySub$: Subscription = factory.entityCreated$.subscribe((wrapper: TAnyAudioWrapper): void => registry.add(wrapper));
+
+  const disposable: ReadonlyArray<TDisposable> = [registry, factory, audioResourceAsyncRegistry, audioListenersRegistry, factorySub$, audioLoader];
+  const abstractService: TAbstractService = AbstractService(disposable);
 
   // Currently we have only one listener, but more could be added in the future
   audioListenersRegistry.add(Listeners.Main, new AudioListener());
@@ -36,15 +39,6 @@ export function AudioService(
   const create = (params: TAnyAudioParams): TAnyAudioWrapper => factory.create(params, { audioLoop });
   const createFromConfig = (models3d: ReadonlyArray<TAnyAudioConfig>): ReadonlyArray<TAnyAudioWrapper> =>
     models3d.map((config: TAnyAudioConfig): TAnyAudioWrapper => create(factory.configToParams(config, { audioResourceAsyncRegistry, audioListenersRegistry })));
-
-  const destroySub$: Subscription = abstractService.destroy$.subscribe((): void => {
-    destroySub$.unsubscribe();
-    factorySub$.unsubscribe();
-
-    registry.destroy$.next();
-    audioResourceAsyncRegistry.destroy$.next();
-    audioListenersRegistry.destroy$.next();
-  });
 
   // eslint-disable-next-line functional/immutable-data
   return Object.assign(abstractService, {

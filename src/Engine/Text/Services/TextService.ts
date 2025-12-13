@@ -4,6 +4,7 @@ import { BehaviorSubject, merge } from 'rxjs';
 import type { TAbstractService, TRegistryPack } from '@/Engine/Abstract';
 import { AbstractService } from '@/Engine/Abstract';
 import type { TAppGlobalContainer } from '@/Engine/Global';
+import type { TDisposable } from '@/Engine/Mixins';
 import type { TSceneWrapper } from '@/Engine/Scene';
 import type { TScreenSizeWatcher } from '@/Engine/Screen';
 import type { TSpaceLoops } from '@/Engine/Space';
@@ -37,7 +38,6 @@ export function TextService(
   dependencies: TTextDependencies,
   scene: TSceneWrapper
 ): TTextService {
-  const abstractService: TAbstractService = AbstractService();
   merge(text2dRegistry.added$, text3dRegistry.added$, text3dTextureRegistry.added$).subscribe(({ value }: TRegistryPack<TTextAnyWrapper>) => scene.addText(value));
   const factorySub$: Subscription = factory.entityCreated$.subscribe((text: TTextAnyWrapper): void => {
     if (isText2dWrapper(text)) text2dRegistry.add(text);
@@ -45,6 +45,9 @@ export function TextService(
     else if (isText3dTextureWrapper(text)) text3dTextureRegistry.add(text);
     else throw new Error(`TextService. EntityCreated: Unknown text type "${(text as any).type ? (text as any).type : ''}"`);
   });
+
+  const disposable: ReadonlyArray<TDisposable> = [text2dRegistry, text3dRegistry, text3dTextureRegistry, text2dRendererRegistry, text3dRendererRegistry, factory, factorySub$];
+  const abstractService: TAbstractService = AbstractService(disposable);
 
   const create = (params: TTextParams): TTextAnyWrapper => factory.create(params, dependencies);
   const createFromConfig = (texts: ReadonlyArray<TTextConfig>): ReadonlyArray<TTextAnyWrapper> => texts.map((text: TTextConfig): TTextAnyWrapper => create(factory.configToParams(text)));
@@ -71,15 +74,7 @@ export function TextService(
 
   const destroySub$: Subscription = abstractService.destroy$.subscribe((): void => {
     destroySub$.unsubscribe();
-    factorySub$.unsubscribe();
     loopSub$.unsubscribe();
-
-    factory.destroy$.next();
-    text2dRegistry.destroy$.next();
-    text3dRegistry.destroy$.next();
-    text3dTextureRegistry.destroy$.next();
-    text2dRendererRegistry.destroy$.next();
-    text3dRendererRegistry.destroy$.next();
   });
 
   // eslint-disable-next-line functional/immutable-data
