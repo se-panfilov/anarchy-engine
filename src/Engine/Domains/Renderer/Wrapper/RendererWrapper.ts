@@ -19,9 +19,10 @@ export function RendererWrapper(params: IRendererParams, screenSizeWatcher: Read
 
   let options: WebGLRendererParameters = {
     canvas: params.canvas,
-    alpha: true,
+    alpha: false, //until we have a reason to use it (off for a better performance)
     antialias: true,
-    stencil: true
+    stencil: false, //until we have a reason to use it (off for a better performance)
+    depth: false //until we have a reason to use it (off for a better performance)
   };
 
   if (isWebGL2) {
