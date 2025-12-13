@@ -9,6 +9,7 @@ import type { TModel3dToActorConnectionRegistry } from './TModel3dToActorConnect
 export type TActorDependencies = Readonly<{
   models3dService: TModels3dService;
   kinematicLoopService: TKinematicLoopService;
+  physicsLoopService: TPhysicsLoopService;
   spatialGridService: TSpatialGridService;
   collisionsLoopService: TCollisionsLoopService;
   collisionsService: TCollisionsService;
