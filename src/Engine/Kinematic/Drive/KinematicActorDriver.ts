@@ -15,10 +15,13 @@ import type { TWriteable } from '@/Engine/Utils';
 export function KinematicActorDriver(params: TActorParams, kinematicLoopService: TKinematicLoopService, drive$: BehaviorSubject<ActorDriver>): TKinematicActorDriver {
   let _isAutoUpdate: boolean = (params.kinematic?.isAutoUpdate && drive$.value === ActorDriver.Kinematic) ?? false;
   const position$: BehaviorSubject<Vector3> = new BehaviorSubject<Vector3>(params.position);
-  const rotation$: BehaviorSubject<Quaternion> = new BehaviorSubject<Quaternion>(new Quaternion().setFromEuler(params.rotation));
+  const rotationQuaternion$: BehaviorSubject<Quaternion> = new BehaviorSubject<Quaternion>(new Quaternion().setFromEuler(params.rotation));
+  const rotation$: BehaviorSubject<Euler> = new BehaviorSubject<Euler>(params.rotation);
   const scale$: BehaviorSubject<Vector3 | undefined> = new BehaviorSubject<Vector3 | undefined>(params.scale);
 
   const driveSubscription$: Subscription = drive$.subscribe((drive: ActorDriver): void => void (_isAutoUpdate = !!(drive === ActorDriver.Kinematic && params.kinematic?.isAutoUpdate)));
+
+  const rotationQuaternionSub$: Subscription = rotationQuaternion$.pipe(map((q: Quaternion): Euler => new Euler().setFromQuaternion(q))).subscribe(rotation$);
 
   let kinematicSub$: Subscription | undefined = undefined;
 
@@ -28,13 +31,14 @@ export function KinematicActorDriver(params: TActorParams, kinematicLoopService:
 
     //Stop subscriptions
     kinematicSub$?.unsubscribe();
+    rotationQuaternionSub$?.unsubscribe();
     driveSubscription$.unsubscribe();
 
     //Complete subjects
     position$.complete();
     position$.unsubscribe();
-    rotation$.complete();
-    rotation$.unsubscribe();
+    rotationQuaternion$.complete();
+    rotationQuaternion$.unsubscribe();
     destroyable.destroy$.complete();
     destroyable.destroy$.unsubscribe();
   });
@@ -48,9 +52,9 @@ export function KinematicActorDriver(params: TActorParams, kinematicLoopService:
       angularDirection: params.kinematic?.angularDirection ?? new Vector3()
     },
     position$: position$,
-    rotation$: rotation$.pipe(map((q: Quaternion): Euler => new Euler().setFromQuaternion(q))),
+    rotation$,
     scale$: scale$,
-    rotationQuaternion$: rotation$,
+    rotationQuaternion$,
     setData({ linearSpeed, linearDirection, angularSpeed, angularDirection }: TKinematicData): void {
       // eslint-disable-next-line functional/immutable-data
       (this.data as TWriteable<TKinematicData>).linearSpeed = linearSpeed;
@@ -211,7 +215,7 @@ export function KinematicActorDriver(params: TActorParams, kinematicLoopService:
     const normalizedAngularDirection: Vector3 = result.data.angularDirection.clone().normalize();
     const angle: TRadians = result.data.angularSpeed * delta;
     const quaternion: Quaternion = new Quaternion().setFromAxisAngle(normalizedAngularDirection, angle);
-    rotation$.next(rotation$.value.clone().multiply(quaternion));
+    rotationQuaternion$.next(rotationQuaternion$.value.clone().multiply(quaternion));
   }
 
   kinematicSub$ = kinematicLoopService.tick$.subscribe((delta: number): void => {
