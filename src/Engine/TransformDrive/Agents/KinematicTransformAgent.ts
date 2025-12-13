@@ -45,9 +45,9 @@ export function KinematicTransformAgent(params: TKinematicTransformAgentParams, 
         linearSpeed: params.state.linearSpeed ?? 0,
         linearDirection: params.state.linearDirection?.clone() ?? new Vector3(),
         angularSpeed: params.state.angularSpeed ?? 0,
-        radius: params.state.radius ?? meters(1),
-        angularDirection: params.state.angularDirection?.clone() ?? new Quaternion()
+        radius: params.state.radius ?? 0,
         angularDirection: params.state.angularDirection?.clone() ?? new Quaternion(),
+        // TODO 8.0.0. MODELS: Extract forwardAxis's X and Z to constants
         // TODO 8.0.0. MODELS: the default "forwardAxis" perhaps should be "X"
         forwardAxis: params.state.forwardAxis ?? 'Z'
       },
@@ -71,6 +71,10 @@ export function KinematicTransformAgent(params: TKinematicTransformAgentParams, 
       agent.data.state.angularSpeed = angularSpeed;
       // eslint-disable-next-line functional/immutable-data
       agent.data.state.angularDirection.copy(angularDirection);
+      // eslint-disable-next-line functional/immutable-data
+      agent.data.state.forwardAxis = forwardAxis;
+      // eslint-disable-next-line functional/immutable-data
+      agent.data.state.isInfiniteRotation = isInfiniteRotation;
 
       if (isNotDefined(target)) return;
 
@@ -156,6 +160,9 @@ export function KinematicTransformAgent(params: TKinematicTransformAgentParams, 
       return getAzimuthElevationFromVector(agent.data.state.linearDirection, agent.data.state.forwardAxis).azimuth;
     },
     setLinearAzimuth(azimuthRad: TRadians): void {
+      // eslint-disable-next-line functional/immutable-data
+      if (isDefined(agent.data.target?.position)) agent.data.target.position = undefined;
+
       // TODO v1
       const { forwardAxis } = agent.data.state;
       const currentDir: Vector3 = agent.data.state.linearDirection.clone();
@@ -202,6 +209,9 @@ export function KinematicTransformAgent(params: TKinematicTransformAgentParams, 
       return getElevationFromDirection(agent.data.state.linearDirection);
     },
     setLinearElevation(elevationRad: TRadians): void {
+      // eslint-disable-next-line functional/immutable-data
+      if (isDefined(agent.data.target?.position)) agent.data.target.position = undefined;
+
       const { forwardAxis } = agent.data.state;
       const currentDir = agent.data.state.linearDirection.clone();
 
