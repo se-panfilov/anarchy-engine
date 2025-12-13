@@ -17,9 +17,40 @@ const [modelValue] = defineModel<number>({ set: Number });
 <template>
   <label class="range">
     <span class="range__label"> {{ props.label }}</span>
-    <input v-model="modelValue" type="range" :min="min" :max="max" class="range__input" />
-    <span class="range__value-helper"> {{ modelValue }}</span>
+    <span class="range__input-container">
+      <input v-model="modelValue" type="range" :min="min" :max="max" class="range__input" />
+      <span class="range__value-helper"> {{ modelValue }}</span>
+    </span>
   </label>
 </template>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.range {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  &__label {
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 16px;
+  }
+
+  &__input-container {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+  }
+
+  &__input {
+    width: 100%;
+    cursor: pointer;
+  }
+
+  &__value-helper {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 18px;
+  }
+}
+</style>
