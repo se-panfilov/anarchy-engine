@@ -1,14 +1,16 @@
 import type { RigidBody } from '@dimforge/rapier3d';
 import { nanoid } from 'nanoid';
 import type { Observable } from 'rxjs';
-import { BufferAttribute, BufferGeometry, PointsMaterial, Vector3 } from 'three';
+import { BufferAttribute, BufferGeometry, Color, PointsMaterial, Vector3 } from 'three';
 import { Points } from 'three/src/objects/Points';
 
+import { createFlashLight } from '@/App/Levels/Showcase22PhysicsShooter/utils/Light';
 import type {
   TActorParams,
   TActorService,
   TActorWrapperAsync,
   TCollisionCheckResult,
+  TLightService,
   TMouseService,
   TRadians,
   TSceneWrapper,
@@ -164,7 +166,7 @@ export function updateBullets(bullets: ReadonlyArray<TBullet>, delta: number, sp
   bullets.forEach((bullet: TBullet): void => bullet.update(delta, spatialGrid));
 }
 
-export function createHitEffect(position: Vector3, sceneW: TSceneWrapper): void {
+export function createHitEffect(position: Vector3, sceneW: TSceneWrapper, lightService: TLightService): void {
   const particleCount = 100;
   const particles = new BufferGeometry();
   const positions = new Float32Array(particleCount * 3);
@@ -184,9 +186,15 @@ export function createHitEffect(position: Vector3, sceneW: TSceneWrapper): void 
   const material = new PointsMaterial({ color: 0xff0000, size: 0.09 });
 
   const particleSystem = new Points(particles, material);
+
+  const lightW = createFlashLight(lightService, position, new Color('#ff0000'), 100, 50);
+
   sceneW.entity.add(particleSystem);
   // TODO setTimout/setInterval is not a good idea (cause the game might be "on pause", e.g. when tab is not active)
-  setTimeout(() => sceneW.entity.remove(particleSystem), 500);
+  setTimeout(() => {
+    sceneW.entity.remove(particleSystem);
+    sceneW.entity.remove(lightW.entity);
+  }, 500);
 }
 
 export function applyExplosionImpulse(actorW: TActorWrapperAsync, collisionPoint: Vector3, explosionForce: number): void {
