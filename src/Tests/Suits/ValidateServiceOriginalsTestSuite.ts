@@ -27,7 +27,6 @@ vi.mock('three/examples/jsm/loaders/DRACOLoader.js', () => {
   };
 });
 
-// TODO 12-0-0: Move to the right place
 export function validateCommonServiceBehavior<T extends TRegistrable, P>(getData: () => Promise<{ service: TAnyMockService<T, P>; params: P }>): void {
   afterEach(() => {
     // const { service, params } = await getData();
