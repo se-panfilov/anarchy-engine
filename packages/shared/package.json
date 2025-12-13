@@ -10,10 +10,10 @@
     "before:release": "npm run clean:reinstall && npm run before:release:check && npm run generate:license-report && npm run generate:all-licenses-list",
     "prettier": "prettier --write .",
     "prettier:check": "prettier --check .",
+    "generate:license-report": "npm install -g license-report && license-report --only=prod --output=markdown --department.value='Game Engine' --relatedTo.value='Runtime dependencies' > THIRD_PARTY_LICENSES.md",
+    "generate:all-licenses-list": "yarn licenses generate-disclaimer > THIRD_PARTY_LICENSES_FULL.txt",
     "ts:check": "tsc --noEmit",
-    "ts:check:watch": "tsc --watch --noEmit",
-    "clean:all": "rimraf ./dist ./node_modules ./package-lock.json",
-    "clean:reinstall": "npm run clean:all && npm install && git add ./package-lock.json"
+    "ts:check:watch": "tsc --watch --noEmit"
   },
   "dependencies": {
     "valibot": "1.1.0"

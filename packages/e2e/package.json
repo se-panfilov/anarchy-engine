@@ -21,9 +21,7 @@
     "e2e:headed": "npm run e2e -- --headed",
     "e2e:update": "npm run e2e -- --update-snapshots",
     "e2e:show-report": "playwright show-report reports/e2e/playwright-report",
-    "e2e:clean-metadate": "node ./utils/PostprocessScreenshots.js",
-    "clean:all": "rimraf ./dist ./node_modules ./package-lock.json",
-    "clean:reinstall": "npm run clean:all && npm install && git add ./package-lock.json"
+    "e2e:clean-metadate": "node ./utils/PostprocessScreenshots.js"
   },
   "dependencies": {
     "playwright": "1.53.1"
