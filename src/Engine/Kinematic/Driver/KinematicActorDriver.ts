@@ -41,6 +41,7 @@ export function KinematicActorDriver(params: TActorParams, kinematicLoopService:
   });
 
   // TODO 8.0.0. MODELS: Could we replace "this" with "driver"?
+  // TODO 8.0.0. MODELS: remove degrees sheet, keep ony radians
   const driver = {
     ...destroyable,
     data: {

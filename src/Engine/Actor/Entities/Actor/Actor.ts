@@ -44,6 +44,7 @@ export function Actor(
   // TODO 8.0.0. MODELS: Make sure external change of position$/rotation$/scale$ works with the PhysicsDriver
   // TODO 8.0.0. MODELS: Make spatial is working
   // TODO 8.0.0. MODELS: Make collisions are working
+  // TODO 8.0.0. MODELS: Make actor workable with ActorDriver.None (let user set values directly)
 
   // const { value$: position$, update: updatePosition } = withReactivePosition(model3d);
   // const { value$: rotation$, update: updateRotation } = withReactiveRotation(model3d);
