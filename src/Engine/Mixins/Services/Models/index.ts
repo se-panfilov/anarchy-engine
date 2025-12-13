@@ -8,3 +8,5 @@ export type * from './TWithLoadResourcesService';
 export type * from './TWithRegistryService';
 export type * from './TWithResourcesRegistryService';
 export type * from './TWithSceneGetterService';
+export type * from './TWithSerializeAllEntities';
+export type * from './TWithSerializeAllResources';

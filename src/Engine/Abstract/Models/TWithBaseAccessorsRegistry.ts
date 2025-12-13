@@ -7,4 +7,5 @@ export type TWithBaseAccessorsRegistry<T> = {
   getLength: () => number;
   isEmpty: () => boolean;
   clear: () => void;
+  serialize: (dependencies?: Record<string, any>) => unknown;
 };
