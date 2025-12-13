@@ -65,10 +65,17 @@
       {
         "name": "surface_actor",
         "model3dSource": "surface_model",
+        "physics": {
+          "presetName": "wall_physics",
+          "shapeParams": {
+            "hx": 50,
+            "hy": 50,
+            "hz": 0.025
+          }
+        },
         "position": { "x": 0, "y": 0, "z": 0 },
         "rotation": { "x": -1.57, "y": 0, "z": 0 },
-        "spatial": { "grid": "main_grid", "isAutoUpdate": true },
-        "tags": ["surface"]
+        "spatial": { "grid": "main_grid", "isAutoUpdate": true }
       }
     ],
     "intersections": [],

@@ -3,8 +3,8 @@ import type { Subject, Subscription } from 'rxjs';
 import { BehaviorSubject, combineLatest, filter, map, switchMap } from 'rxjs';
 import { Euler, Quaternion, Vector3 } from 'three';
 
-import type { TPhysicsBody } from '@/Engine/Physics';
-import { createPhysicsBodyObject, isPhysicsBodyParamsComplete, RigidBodyTypesNames } from '@/Engine/Physics';
+import type { TPhysicsBody, TPhysicsBodyService, TWithPresetNamePhysicsBodyParams } from '@/Engine/Physics';
+import { isPhysicsBodyParamsComplete, RigidBodyTypesNames } from '@/Engine/Physics';
 import type { TReadonlyEuler, TReadonlyQuaternion } from '@/Engine/ThreeLib';
 import { TransformAgent } from '@/Engine/TransformDrive/Constants';
 import type { TAbstractTransformAgent, TPhysicsAgentDependencies, TPhysicsTransformAgent, TPhysicsTransformAgentInternalParams, TPhysicsTransformAgentParams } from '@/Engine/TransformDrive/Models';
@@ -36,9 +36,7 @@ export function PhysicsTransformAgent(params: TPhysicsTransformAgentParams, { ph
     physicsBody$
   };
 
-  if (isPhysicsBodyParamsComplete(adaptedParams)) {
-    physicsBody$.next(createPhysicsBodyObject(adaptedParams, physicsBodyService));
-  }
+  physicsBody$.next(createPhysicsBody(adaptedParams, physicsBodyService));
 
   const destroySub$: Subscription = abstractTransformAgent.destroy$.subscribe((): void => {
     //Stop subscriptions
@@ -47,6 +45,8 @@ export function PhysicsTransformAgent(params: TPhysicsTransformAgentParams, { ph
     physicsSub$?.unsubscribe();
 
     abstractTransformAgent.destroy$.next();
+    physicsBody$.complete();
+    physicsBody$.unsubscribe();
   });
 
   physicsSub$ = combineLatest([agent.enabled$, physicsLoopService.autoUpdate$])
@@ -77,3 +77,10 @@ function getPhysicalBodyTransform<T extends { physicsBody$: BehaviorSubject<TPhy
 //   if (obj.physicsBody.getPhysicsBodyType() === RigidBodyTypesNames.Fixed) return;
 //   obj.drive.kinematic.setData(physicsBodyService.getKinematicDataFromPhysics(obj.physicsBody));
 // }
+
+function createPhysicsBody(physics: TWithPresetNamePhysicsBodyParams, physicsBodyService: TPhysicsBodyService): TPhysicsBody | undefined {
+  const { presetName, ...rest } = physics;
+  if (isDefined(presetName)) return physicsBodyService.createWithPresetName(physics, presetName);
+  if (!isPhysicsBodyParamsComplete(rest)) return undefined;
+  return physicsBodyService.create(rest);
+}

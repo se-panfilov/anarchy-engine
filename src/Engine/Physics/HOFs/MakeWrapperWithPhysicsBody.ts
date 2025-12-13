@@ -18,7 +18,8 @@ export function makeWrapperWithPhysicsBody<T extends TWrapper<any> & TWithOption
   return wrapper as TWithMandatoryPhysicsBody<T>;
 }
 
-export function createPhysicsBodyObject(physics: TWithPresetNamePhysicsBodyParams, physicsBodyService: TPhysicsBodyService): TPhysicsBody {
+// TODO 8.0.0. MODELS: remove?
+export function createPhysicsBodyObject(physics: TWithPresetNamePhysicsBodyParams, physicsBodyService: TPhysicsBodyService): TPhysicsBody | never {
   const { presetName, ...rest } = physics;
   if (isDefined(presetName)) return physicsBodyService.createWithPresetName(physics, presetName);
   if (!isPhysicsBodyParamsComplete(rest))

@@ -53,9 +53,9 @@ export function createActor(
   const physics: TWithPresetNamePhysicsBodyParams = {
     presetName: 'ball_physics',
     shapeParams: {
-      radius: 2
+      radius: 0.7
     },
-    restitution: 0.7
+    restitution: 0.9
   };
 
   return actorService.create({
