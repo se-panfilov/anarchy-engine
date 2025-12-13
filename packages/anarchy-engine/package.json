@@ -42,7 +42,6 @@
     "generate:legal:files": "npm run -w anarchy-legal generate:files -- --workspace packages/anarchy-engine --out ../../packages/anarchy-engine",
     "generate:legal:notice": "npm run -w anarchy-legal generate:notice -- --audit --strict --workspace packages/anarchy-engine --source ../../packages/anarchy-engine/legal/THIRD_PARTY_LICENSES.md --out ../../packages/anarchy-engine/legal/NOTICE.md",
     "generate:legal:sbom": "npm sbom --sbom-format=cyclonedx --package-lock-only --omit=dev > ./compliance/sbom/sbom.cdx.json",
-    "generate:schema-validator": "node ../anarchy-shared/ScriptUtils/GenerateAjvSchemaValidators.mjs --schemas ./src/Space/Schemas --out ./src/Space/Validators  --glob \"*.json\" --loose",
     "generate:schemas": "node ./utils/JsonUtils.js",
     "generate:schemas:minify": "node ./utils/JsonUtils.js --minify",
     "lint": "eslint ./src",
