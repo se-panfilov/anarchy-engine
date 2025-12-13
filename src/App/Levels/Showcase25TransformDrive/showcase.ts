@@ -32,6 +32,8 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
   const { clickLeftRelease$ } = mouseService;
   const models3dRegistry: TModel3dRegistry = models3dService.getRegistry();
 
+  const mode = { isTeleportationMode: false };
+
   function init(): void {
     const sceneW: TSceneWrapper | undefined = scenesService.findActive();
     if (isNotDefined(sceneW)) throw new Error('Scene is not defined');
@@ -48,6 +50,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
 
     const actorCoords = new Vector3(0, 2, 0);
     const sphereActor: TActor = createActor('sphere', grid, actorCoords, '#E91E63', space.services);
+    gui.add(mode, 'isTeleportationMode').name('Teleportation mode');
     addActorFolderGui(gui, sphereActor);
 
     createRepeaterActor(sphereActor, { x: 0, y: -4, z: 0 }, grid, gui, space.services);
@@ -57,7 +60,8 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     clickLeftRelease$
       .pipe(withLatestFrom(intersectionsWatcher.value$, sphereActor.drive.agent$))
       .subscribe(([, intersection, agent]: [TMouseWatcherEvent, TIntersectionEvent, TransformAgent]): void => {
-        moveActorTo(sphereActor, intersection.point, agent);
+        console.log('XXX', intersection.point);
+        moveActorTo(sphereActor, intersection.point, agent, mode.isTeleportationMode);
       });
 
     changeActorActiveAgent(sphereActor, KeysExtra.Space, keyboardService);
@@ -71,22 +75,21 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
   return { start, space };
 }
 
-function moveActorTo(actor: TActor, position: Vector3, agent: TransformAgent): void {
+function moveActorTo(actor: TActor, position: Vector3, agent: TransformAgent, isTeleportationMode: boolean): void | never {
+  if (isTeleportationMode) return actor.drive.position$.next(position);
+
   switch (agent) {
     case TransformAgent.Kinematic:
       // TODO (S.Panfilov) 8.0.0. MODELS: Implement Kinematic movement
-      break;
+      return undefined;
     case TransformAgent.Instant:
       // TODO (S.Panfilov) 8.0.0. MODELS: fix this
       // actor.drive.instant.setPosition(position);
-      actor.drive.position$.next(position);
-      break;
+      return undefined;
     case TransformAgent.Physical:
       // TODO (S.Panfilov) 8.0.0. MODELS: Implement Physics movement
-      break;
+      return undefined;
     default:
       throw new Error(`Unknown agent: ${agent}`);
   }
-  // actor.drive.position$.next(position);
-  // void moverService.goToPosition(actorMouse.drive.instant.positionConnector, { x: intersection.point.x, z: intersection.point.z }, { duration: 1000, easing: Easing.EaseInCubic });
 }
