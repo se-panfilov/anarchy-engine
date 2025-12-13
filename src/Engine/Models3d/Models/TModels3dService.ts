@@ -15,7 +15,7 @@ import type {
 import type { TOptional } from '@/Engine/Utils';
 
 export type TModels3dService = Readonly<{
-  createFromPack: (pack: TModel3dPack) => TModel3dFacade;
+  // createFromPack: (pack: TModel3dPack) => TModel3dFacade;
   getAnimationService: () => TAnimationsService;
   clone: (model3dFacade: TModel3dFacade, overrides?: TOptional<TModel3dPack>) => TModel3dFacade;
 }> &

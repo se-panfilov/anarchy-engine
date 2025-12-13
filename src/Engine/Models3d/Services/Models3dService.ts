@@ -14,8 +14,6 @@ import type {
   TModels3dService,
   TModels3dServiceDependencies
 } from '@/Engine/Models3d/Models';
-import { createPrimitiveModel3dPack, isPrimitive } from '@/Engine/Models3d/Utils';
-import { Model3dFacade } from '@/Engine/Models3d/Wrappers';
 import type { TSceneWrapper } from '@/Engine/Scene';
 import type { TOptional } from '@/Engine/Utils';
 
@@ -34,11 +32,11 @@ export function Models3dService(
     models3d.forEach((config: TModel3dConfig): TModel3dFacade => factory.create(factory.configToParams(config, { resourcesRegistry })));
   };
 
-  function createFromPack(pack: TModel3dPack): TModel3dFacade {
-    const facade: TModel3dFacade = isPrimitive(pack) ? Model3dPrimitiveFacade(createPrimitiveModel3dPack(pack)) : Model3dFacade(pack, animationsService);
-    registry.add(facade);
-    return facade;
-  }
+  // function createFromPack(pack: TModel3dPack): TModel3dFacade {
+  //   const facade: TModel3dFacade = isPrimitive(pack) ? Model3dPrimitiveFacade(createPrimitiveModel3dPack(pack)) : Model3dFacade(pack, animationsService);
+  //   registry.add(facade);
+  //   return facade;
+  // }
 
   // function createFromConfigAsync(config: ReadonlyArray<TModel3dConfig>): Promise<ReadonlyArray<TModel3dFacade>> {
   //   let primitiveModelsConfigs: ReadonlyArray<TModel3dConfig> = [];
@@ -77,10 +75,9 @@ export function Models3dService(
     createFromConfig,
     loadAsync: model3dLoader.loadAsync,
     loadFromConfigAsync: model3dLoader.loadFromConfigAsync,
-    createFromPack,
     getFactory: (): TModels3dFactory => factory,
     getRegistry: (): TModel3dRegistry => registry,
-    getResourceRegistry: (): TModel3dResourceAsyncRegistry => registry,
+    getResourceRegistry: (): TModel3dResourceAsyncRegistry => resourcesRegistry,
     getScene: (): TSceneWrapper => sceneW,
     getAnimationService: (): TAnimationsService => animationsService,
     clone,
