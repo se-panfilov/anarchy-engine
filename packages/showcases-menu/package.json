@@ -2,7 +2,7 @@
   "name": "showcases-menu",
   "author": "S. Panfilov",
   "private": true,
-  "version": "1.7.1",
+  "version": "1.7.2",
   "type": "module",
   "license": "MIT",
   "description": "Anarchy Showcases-Menu – a menu for Anarchy Engine Showcases.",
@@ -24,7 +24,6 @@
     "before:release": "npm run before:release:check && npm run generate:legal",
     "before:release:check": "npm run ts:check && npm run prettier:check && npm run lint",
     "build": "rimraf dist && vite build",
-    "e2e": "playwright test",
     "generate:legal": "npm run generate:legal:3rd-party-licenses && npm run generate:legal:notice && npm run generate:legal:files && npm run generate:legal:sbom",
     "generate:legal:3rd-party-licenses": "npm run -w anarchy-legal generate:licenses -- --workspace packages/showcases-menu --out ../../packages/showcases-menu/legal/THIRD_PARTY_LICENSES.md",
     "generate:legal:files": "npm run -w anarchy-legal generate:files -- --workspace packages/showcases-menu --out ../../packages/showcases-menu",
@@ -48,23 +47,22 @@
     "anarchy-i18n": "*",
     "anarchy-shared": "*",
     "dompurify": "3.2.6",
-    "marked": "16.2.1",
+    "marked": "16.3.0",
     "pinia": "3.0.3",
     "rxjs": "7.8.2",
     "sanitize.css": "13.0.0",
     "showcases-i18n": "*",
     "showcases-shared": "*",
-    "vue": "3.5.18"
+    "vue": "3.5.21"
   },
   "devDependencies": {
-    "@playwright/test": "1.54.1",
-    "@types/node": "22.16.5",
+    "@types/node": "24.5.0",
     "@vitejs/plugin-vue": "6.0.1",
-    "@vitejs/plugin-vue-jsx": "5.0.1",
+    "@vitejs/plugin-vue-jsx": "5.1.1",
     "@vue/test-utils": "2.4.6",
     "eslint-plugin-vue": "10.4.0",
-    "sass-embedded": "1.89.2",
+    "sass-embedded": "1.92.1",
     "vite-plugin-wasm": "3.5.0",
-    "vue-tsc": "3.0.5"
+    "vue-tsc": "3.0.7"
   }
 }

@@ -2,7 +2,7 @@
   "name": "showcases-desktop",
   "author": "S. Panfilov",
   "private": true,
-  "version": "2.5.0",
+  "version": "2.5.1",
   "description": "Anarchy Desktop Showcases  – a desktop wrapper-application for showcases-core.",
   "keywords": [
     "anarchy",
@@ -53,13 +53,13 @@
   },
   "devDependencies": {
     "anarchy-shared": "*",
-    "electron": "37.2.1",
+    "electron": "38.1.0",
     "electron-builder": "26.0.12",
     "electron-reloader": "1.2.3",
     "nanoid": "5.1.5",
     "rollup-plugin-copy": "3.5.0",
     "showcases-shared": "*",
-    "typescript": "5.8.3",
+    "typescript": "5.9.2",
     "vite-tsconfig-paths": "5.1.4"
   },
   "build": {
