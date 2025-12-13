@@ -13,16 +13,9 @@ export function applyShadowParams<T extends TAnyLight, P extends TLightParams>(p
   if (isDefined(params.shadow)) {
     if (isDefined(params.shadow.mapSize)) entity.shadow?.mapSize.copy(params.shadow.mapSize);
 
-    //camera params
-    if (isDefined(params.shadow.camera)) {
-      // eslint-disable-next-line functional/immutable-data
-      if (isDefined(params.shadow.camera.near) && entity.shadow) entity.shadow.camera.near = params.shadow.camera.near;
-      // eslint-disable-next-line functional/immutable-data
-      if (isDefined(params.shadow.camera.far) && entity.shadow) entity.shadow.camera.far = params.shadow.camera.far;
-      // eslint-disable-next-line functional/immutable-data
-      if (isDefined(params.shadow.normalBias) && entity.shadow) entity.shadow.normalBias = params.shadow.normalBias;
-      applyShadowCameraParams(params, entity);
-    }
+    // eslint-disable-next-line functional/immutable-data
+    if (isDefined(params.shadow.normalBias) && entity.shadow) entity.shadow.normalBias = params.shadow.normalBias;
+    if (isDefined(params.shadow?.camera)) applyShadowCameraParams(params, entity);
   }
 }
 
