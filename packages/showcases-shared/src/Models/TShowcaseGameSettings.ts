@@ -12,21 +12,22 @@ export type TShowcaseGameSettings = Readonly<{
   internal: TInternalSettings;
 }>;
 
-export type TGraphicsSettings = Readonly<{
-  // TODO DESKTOP: split platform-specific and common settings
-  // Desktop-only settings
-  isFullScreen: boolean;
+export type TGraphicsPlatformSpecificSettings = Readonly<{
+  isFullScreen?: boolean;
   // isBorderlessWindowed: boolean;
-  resolution: TResolution;
+  resolution?: TResolution;
   // isVsync: boolean;
   // frameLimit: number; // 0 for no limit
   // isUseHighDPI: boolean;
-
-  // ALl platforms settings:
-  // graphicsQuality: 'low' | 'medium' | 'high' | 'ultra'; /// TODO should be an enum
-  // brightness: number;
-  // contrast: number;
 }>;
+
+export type TGraphicsPlatformIndependentSettings = Readonly<{
+  // graphicsQuality: 'low' | 'medium' | 'high' | 'ultra'; /// TODO should be an enum
+  brightness: number;
+  contrast: number;
+}>;
+
+export type TGraphicsSettings = TGraphicsPlatformSpecificSettings & TGraphicsPlatformIndependentSettings;
 
 export type TResolution = Readonly<{
   width: number;

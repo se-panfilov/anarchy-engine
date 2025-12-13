@@ -4,8 +4,10 @@ import { ShowcasesLocales } from './ShowcasesLocales';
 
 export const DefaultShowcaseGameSettings: TShowcaseGameSettings = {
   graphics: {
-    isFullScreen: false,
-    resolution: { width: 800, height: 600 }
+    // isFullScreen: false,
+    // resolution: { width: 800, height: 600 }
+    brightness: 50,
+    contrast: 50
   },
   audio: {
     masterVolume: 80
