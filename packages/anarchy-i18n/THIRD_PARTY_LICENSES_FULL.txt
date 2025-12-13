@@ -1,4 +1,4 @@
-THE FOLLOWING SETS FORTH ATTRIBUTION NOTICES FOR THIRD PARTY SOFTWARE THAT MAY BE CONTAINED IN PORTIONS OF THE ANARCHY ENGINE PRODUCT.
+THE FOLLOWING SETS FORTH ATTRIBUTION NOTICES FOR THIRD PARTY SOFTWARE THAT MAY BE CONTAINED IN PORTIONS OF THE ANARCHY I18N PRODUCT.
 
 -----
 
@@ -3086,7 +3086,7 @@ SOFTWARE.
 
 -----
 
-The following software may be included in this product: anarchy_engine_shared, anarchy_engine_showcases, anarchy-engine, anarchy-i18n, showcases-desktop, showcases-menu, showcases-shared, workspace-aggregator-8c921962-9838-4833-9d34-f1dd3cde24f8. This software contains the following license and notice below:
+The following software may be included in this product: anarchy_engine_shared, anarchy_engine_showcases, anarchy-engine, anarchy-i18n, showcases-desktop, showcases-menu, showcases-shared, workspace-aggregator-86a72686-49e2-4d64-b2e8-12a756fc254f. This software contains the following license and notice below:
 
 MIT License
 
@@ -7155,7 +7155,7 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 -----
 
-The following software may be included in this product: eslint-visitor-keys. A copy of the source code may be downloaded from https://github.com/eslint/js.git. This software contains the following license and notice below:
+The following software may be included in this product: eslint-visitor-keys. A copy of the source code may be downloaded from https://github.com/eslint/eslint-visitor-keys.git. This software contains the following license and notice below:
 
 Apache License
                            Version 2.0, January 2004
