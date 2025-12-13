@@ -53,6 +53,7 @@ export function showcase(canvas: TAppCanvas): TShowcase {
     directionalFolder.add(directionalLight.entity, 'intensity').min(0).max(10).step(0.1);
     directionalFolder.add(directionalLight.entity.shadow.camera, 'near').min(0).max(10).step(1);
     directionalFolder.add(directionalLight.entity.shadow.camera, 'far').min(0).max(10).step(1);
+    directionalFolder.add(directionalLight.entity, 'castShadow');
 
     //hemisphere light
     const hemisphereLight: THemisphereLightWrapper | undefined = lightRegistry.findByTag('hemisphere') as THemisphereLightWrapper | undefined;
@@ -88,6 +89,7 @@ export function showcase(canvas: TAppCanvas): TShowcase {
     pointFolder.add(pointLight.entity, 'intensity').min(0).max(100).step(0.1);
     pointFolder.add(pointLight.entity, 'distance').min(0).max(100).step(0.1);
     pointFolder.add(pointLight.entity, 'decay').min(0).max(100).step(0.1);
+    pointFolder.add(pointLight.entity, 'castShadow');
 
     const spotLight: TSpotLightWrapper | undefined = lightRegistry.findByTag('spot') as TSpotLightWrapper | undefined;
     if (isNotDefined(spotLight)) throw new Error('Spot light not found');
