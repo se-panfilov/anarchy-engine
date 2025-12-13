@@ -5,17 +5,45 @@ import RouterView from '@Showcases/Menu/components/RouterView.vue';
 import { eventsService, vueTranslationService } from '@Showcases/Menu/services';
 import { useSettingsStore } from '@Showcases/Menu/stores/SettingsStore';
 import { Locales } from '@Showcases/Shared';
-import type { Subscription } from 'rxjs';
-import { onMounted, onUnmounted } from 'vue';
+import type { Observable, Subscription } from 'rxjs';
+import type { ShallowRef } from 'vue';
+import { onBeforeUnmount, onMounted, onUnmounted, shallowRef } from 'vue';
 
 let appEventsSub$: Subscription | undefined;
 
+const { t$ } = vueTranslationService;
+
+function useText(obs$: Observable<string>): ShallowRef<string> {
+  const r: ShallowRef<string> = shallowRef<string>('');
+  let sub: Subscription | undefined;
+
+  onMounted((): void => {
+    // eslint-disable-next-line functional/immutable-data
+    sub = obs$.subscribe((value): void => void (r.value = value));
+  });
+
+  onBeforeUnmount((): void => sub?.unsubscribe());
+
+  return r;
+}
+
 // TODO DESKTOP: DEBUG CODE
-console.log('XXX1', vueTranslationService.translate('menu.start'));
-vueTranslationService.locale$.next(Locales.nl);
-setTimeout(() => {
-  console.log('XXX2', vueTranslationService.translate('menu.start'));
-}, 500);
+// console.log('XXX1', vueTranslationService.translate('menu.start'));
+// vueTranslationService.locale$.next(Locales.nl);
+// setTimeout(() => {
+//   console.log('XXX2', vueTranslationService.translate('menu.start'));
+// }, 500);
+
+setInterval(() => {
+  vueTranslationService.locale$.next(vueTranslationService.locale$.value === Locales.nl ? Locales.en : Locales.nl);
+}, 1500);
+
+const translated = useText(t$('menu.start'));
+
+// const asd: any;
+// vueTranslationService.t$('menu.start').subscribe((v) => {
+//   console.log('XXX', v);
+// });
 
 // console.log(i18n.translate('hud.fps', { count: '60' }));
 // console.log(i18n.formatNumber(1234.56, { style: 'currency', currency: 'EUR' }));
@@ -35,7 +63,7 @@ function save(): void {
 
 <template>
   <div class="main-menu">
-    <div>{{ vueTranslationService.translate('menu.start') }}</div>
+    <div>{{ translated }}</div>
     <RouterView class="main-menu__item -view" @save="save" />
   </div>
 </template>
