@@ -15,10 +15,10 @@ export function start(): void {
   const spaces: Record<string, TSpace> = asRecord('name', spaceService.createFromConfig([spaceAlphaConfig, spaceBetaConfig]));
   const spaceAlpha: TSpace = spaces[spaceAlphaConfig.name];
   const spaceBeta: TSpace = spaces[spaceBetaConfig.name];
-  if (isNotDefined(spaceAlpha)) throw new Error(`Showcase "${spaceAlphaConfig.name}": Space is not defined`);
-  if (isNotDefined(spaceBeta)) throw new Error(`Showcase "${spaceBetaConfig.name}": Space is not defined`);
+  if (isNotDefined(spaceAlpha)) throw new Error(`Showcase: Space "${spaceAlphaConfig.name}" is not defined`);
+  if (isNotDefined(spaceBeta)) throw new Error(`Showcase: Space "${spaceBetaConfig.name}" is not defined`);
 
-  combineLatest([spaceAlpha.built$, spaceBeta.built$]).subscribe(() => showcase(spaceAlpha));
+  combineLatest([spaceAlpha.built$, spaceBeta.built$]).subscribe((): void => showcase(spaceAlpha));
 }
 
 export function showcase(space: TSpace): void {
