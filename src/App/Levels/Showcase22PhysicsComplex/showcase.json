@@ -111,7 +111,7 @@
       "isActive": true
     }
   ],
-  "envMaps": [],
+  "envMaps": ["/Showcase/hdr/medieval_cafe_4k.hdr"],
   "particles": [],
   "fogs": [],
   "tags": []
