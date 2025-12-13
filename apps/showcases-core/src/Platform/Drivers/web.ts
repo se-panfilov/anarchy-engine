@@ -16,7 +16,7 @@ export function Driver(): TPlatformDriver {
   }
 
   async function loadLegalDocs({ name }: TLoadDocPayload): Promise<TLegalDoc> {
-    const legalFolder: string = `${import.meta.env.BASE_URL}public/legal/`;
+    const legalFolder: string = `${import.meta.env.BASE_URL}legal/`; // /public/legal/ and /legal are the same here
     const originBase: string = `${window.location.origin}${legalFolder}`;
     const response: Response = await fetch(`${originBase}${name}.md`);
 
