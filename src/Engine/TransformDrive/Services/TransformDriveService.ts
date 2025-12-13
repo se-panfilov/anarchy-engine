@@ -28,6 +28,7 @@ import type {
 } from '@/Engine/TransformDrive/Models';
 import { getKinematicTransformAgent, getPhysicsTransformAgent } from '@/Engine/TransformDrive/Utils';
 import type { TOptional, TWriteable } from '@/Engine/Utils';
+import { isDefined } from '@/Engine/Utils';
 
 export function TransformDriveService(
   factory: TTransformDriveFactory,
@@ -73,7 +74,7 @@ export function TransformDriveService(
       result[TransformAgent.Kinematic] = getKinematicTransformAgent(agentParams, kinematic, { kinematicLoop });
     }
 
-    if (hasPhysics) {
+    if (hasPhysics && isDefined(physics)) {
       const physicalLoop: TPhysicalLoop = loopService.getPhysicalLoop();
       // eslint-disable-next-line functional/immutable-data
       result[TransformAgent.Physical] = getPhysicsTransformAgent(agentParams, physics, { physicalLoop, physicsBodyService });
