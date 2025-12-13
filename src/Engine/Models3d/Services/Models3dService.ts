@@ -23,14 +23,14 @@ export function Models3dService(
   factory: TModels3dFactory,
   registry: TModel3dRegistry,
   resourcesRegistry: TModel3dResourceAsyncRegistry,
-  { materialService }: TModels3dServiceDependencies
+  { materialService, animationsService }: TModels3dServiceDependencies
 ): TModels3dService {
   factory.entityCreated$.subscribe((wrapper: TModel3dFacade): void => registry.add(wrapper));
   const model3dLoader: TModels3dLoader = Models3dLoader(resourcesRegistry);
 
-  const create = (params: TModel3dParams): TModel3dFacade => factory.create(params, { resourcesRegistry });
+  const create = (params: TModel3dParams): TModel3dFacade => factory.create(params, { animationsService });
   const createFromConfig = (models3d: ReadonlyArray<TModel3dConfig>): void => {
-    models3d.forEach((config: TModel3dConfig): TModel3dFacade => factory.create(factory.configToParams(config, { materialService })));
+    models3d.forEach((config: TModel3dConfig): TModel3dFacade => create(factory.configToParams(config, { materialService })));
   };
 
   // function createFromPack(pack: TModel3dPack): TModel3dFacade {

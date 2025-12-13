@@ -77,7 +77,7 @@ export function initEntitiesServices(sceneW: TSceneWrapper, canvas: TAppCanvas):
   const collisionsService: TCollisionsService = CollisionsService();
   const loopService: TLoopService = LoopService();
   const animationsService: TAnimationsService = AnimationsService(loopService);
-  const models3dService: TModels3dService = Models3dService(Models3dFactory(), Models3dRegistry(), Models3dResourceAsyncRegistry(), { materialService });
+  const models3dService: TModels3dService = Models3dService(Models3dFactory(), Models3dRegistry(), Models3dResourceAsyncRegistry(), { materialService, animationsService });
 
   return {
     actorService: ActorService(
