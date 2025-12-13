@@ -4,7 +4,7 @@ import { Euler, Quaternion, Vector3 } from 'three';
 import type { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
 import { degToRad, radToDeg } from 'three/src/math/MathUtils';
 
-import { addGizmo, getMemoryUsage } from '@/App/Levels/Utils';
+import { addGizmo, attachConnectorPositionToSubj, getMemoryUsage } from '@/App/Levels/Utils';
 import type {
   TActor,
   TAnyCameraWrapper,
@@ -54,7 +54,6 @@ import {
   addActorFolderGui,
   addKinematicActorFolderGui,
   addSpatialGuiFolder,
-  attachConnectorPositionToSubj,
   changeActorActiveAgent,
   connectCameraToActor,
   connectObjToActor,

@@ -1,5 +1,5 @@
 import type GUI from 'lil-gui';
-import type { Observable, Subject, Subscription } from 'rxjs';
+import type { Subscription } from 'rxjs';
 import { combineLatest, distinctUntilChanged, map } from 'rxjs';
 import type { ColorRepresentation, Vector3Like } from 'three';
 import { Euler, Quaternion, Vector3 } from 'three';
@@ -8,6 +8,7 @@ import { LineGeometry } from 'three/examples/jsm/lines/LineGeometry';
 import { LineMaterial } from 'three/examples/jsm/lines/LineMaterial';
 import type { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
 
+import { attachConnectorPositionToSubj, attachConnectorRotationToSubj } from '@/App/Levels/Utils';
 import type {
   KeyCode,
   KeysExtra,
@@ -20,7 +21,6 @@ import type {
   TModel3d,
   TOrbitControlsWrapper,
   TParticlesWrapper,
-  TReadonlyQuaternion,
   TReadonlyVector3,
   TSpaceServices,
   TSpatialGridWrapper,
@@ -85,38 +85,6 @@ export function createRepeaterActor(actor: TActor, model3d: TModel3d, offset: Ve
   attachConnectorPositionToSubj(repeaterActor, actor.drive.position$, offset);
   attachConnectorRotationToSubj(repeaterActor, actor.drive.rotation$);
   addActorFolderGui(gui, repeaterActor);
-}
-
-export function attachConnectorPositionToSubj(
-  connectedActor: TActor,
-  subj: Subject<TReadonlyVector3> | Observable<TReadonlyVector3>,
-  offset: Readonly<Vector3Like> = {
-    x: 0,
-    y: 0,
-    z: 0
-  }
-): Subscription {
-  return subj.subscribe((position: TReadonlyVector3): void => {
-    // eslint-disable-next-line functional/immutable-data
-    connectedActor.drive.connected.positionConnector.x = position.x + offset.x;
-    // eslint-disable-next-line functional/immutable-data
-    connectedActor.drive.connected.positionConnector.y = position.y + offset.y;
-    // eslint-disable-next-line functional/immutable-data
-    connectedActor.drive.connected.positionConnector.z = position.z + offset.z;
-  });
-}
-
-export function attachConnectorRotationToSubj(connectedActor: TActor, subj: Subject<TReadonlyQuaternion> | Observable<TReadonlyQuaternion>): Subscription {
-  return subj.subscribe((rotation: TReadonlyQuaternion): void => {
-    // eslint-disable-next-line functional/immutable-data
-    connectedActor.drive.connected.rotationQuaternionConnector.x = rotation.x;
-    // eslint-disable-next-line functional/immutable-data
-    connectedActor.drive.connected.rotationQuaternionConnector.y = rotation.y;
-    // eslint-disable-next-line functional/immutable-data
-    connectedActor.drive.connected.rotationQuaternionConnector.z = rotation.z;
-    // eslint-disable-next-line functional/immutable-data
-    connectedActor.drive.connected.rotationQuaternionConnector.w = rotation.w;
-  });
 }
 
 export function startIntersections({ actorService, cameraService, intersectionsWatcherService, mouseService, loopService }: TSpaceServices): TIntersectionsWatcher {
