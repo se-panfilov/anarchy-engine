@@ -49,12 +49,12 @@ export function start(): void {
   );
 
   //Initial space
-  loadSpace(spacesData.find((s: TSpacesData): boolean => s.name === spaceBasicData.name)?.name);
+  loadSpace(spacesData.find((s: TSpacesData): boolean => s.name === spaceBasicData.name)?.name, spacesData);
 }
 
-function loadSpace(name: string | undefined): void {
+function loadSpace(name: string | undefined, source: ReadonlyArray<TSpacesData>): void {
   if (isNotDefined(name)) return;
-  const spaceData: TSpacesData | undefined = spacesData.find((s: TSpacesData): boolean => s.name === name);
+  const spaceData: TSpacesData | undefined = source.find((s: TSpacesData): boolean => s.name === name);
   if (isNotDefined(spaceData)) throw new Error(`[Showcase]: Space data is not found for space "${name}"`);
 
   const spaces: ReadonlyArray<TSpace> = spaceService.createFromConfig([spaceData.config]);
@@ -102,21 +102,6 @@ function saveSpaceConfigInMemory(name: string | undefined, spaceRegistry: TSpace
   };
 }
 
-function loadSpaceConfigFromMemory(name: string | undefined): void {
-  if (isNotDefined(name)) return;
-  const spaceData: TSpacesData | undefined = spacesInMemoryData.find((s: TSpacesData): boolean => s.name === name);
-  if (isNotDefined(spaceData)) throw new Error(`[Showcase]: Space data is not found for space "${name}"`);
-
-  const spaces: ReadonlyArray<TSpace> = spaceService.createFromConfig([spaceData.config]);
-  const space: TSpace = spaces.find((s: TSpace): boolean => s.name === name) as TSpace;
-  if (isNotDefined(space)) throw new Error(`[Showcase]: Cannot create the space "${name}"`);
-
-  currentSpaceName = space.name;
-  spaceData.onCreate?.(space, subscriptions);
-  space.start$.next(true);
-  setContainerVisibility(name, true, spacesData);
-}
-
 export function createForm(containerId: string | undefined, isTop: boolean, isRight: boolean, options: ReadonlyArray<string>): void {
   const top: string | undefined = isTop ? undefined : 'calc(50% + 14px)';
   const right: string | undefined = !isRight ? 'calc(50% + 14px)' : '4px';
@@ -127,7 +112,7 @@ export function createForm(containerId: string | undefined, isTop: boolean, isRi
     containerId,
     (name: string): void => {
       unloadSpace(currentSpaceName, spaceRegistry);
-      loadSpace(name);
+      loadSpace(name, spacesData);
     },
     options,
     { right, top }
@@ -149,5 +134,5 @@ export function createForm(containerId: string | undefined, isTop: boolean, isRi
 
   // TODO: enable to check false positive screenshot compare
   // addBtn(`Load`, containerId, (): void => loadSpace(currentSpaceName));
-  addBtn(`Load`, containerId, (): void => loadSpaceConfigFromMemory(currentSpaceName));
+  addBtn(`Load`, containerId, (): void => loadSpace(currentSpaceName, spacesInMemoryData));
 }
