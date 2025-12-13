@@ -1,5 +1,5 @@
 import { isNotDefined } from '@Anarchy/Shared/Utils';
-import type { TEventsService } from '@Showcases/Gui/models';
+import type { TEventsService } from '@Showcases/GUI/models';
 import type { TFromGuiEvent, TToGuiEvent } from '@Showcases/Shared';
 import { FromGuiEvents, ToGuiEvents } from '@Showcases/Shared';
 import type { Observable, Subject, Subscription } from 'rxjs';
