@@ -5,6 +5,7 @@ export * from './EntityUtils';
 export * from './MouseUtils';
 export * from './ObjectUtils';
 export * from './RegistryUtils';
+export * from './RotationUtils';
 export * from './SchemasUtils';
 export * from './TypesUtils';
 export * from './WebGLUtils';
