@@ -22,7 +22,6 @@ import type { TTransformLoop } from '@/Engine/TransformDrive';
 import { isNotDefined } from '@/Engine/Utils';
 
 export function LoopService(factory: TLoopFactory, registry: TLoopRegistry): TLoopService {
-  let debugInfoSub$: Subscription | undefined;
   const factorySub$: Subscription = factory.entityCreated$.subscribe((wrapper: TLoop): void => registry.add(wrapper));
   const disposable: ReadonlyArray<TDisposable> = [registry, factory, factorySub$];
   const abstractService: TAbstractService = AbstractService(disposable);
@@ -30,11 +29,6 @@ export function LoopService(factory: TLoopFactory, registry: TLoopRegistry): TLo
   const withCreateService: TLoopServiceWithCreate = withCreateServiceMixin(factory, undefined);
   const withFactory: TLoopServiceWithFactory = withFactoryService(factory);
   const withRegistry: TLoopServiceWithRegistry = withRegistryService(registry);
-
-  const destroySub$: Subscription = abstractService.destroy$.subscribe((): void => {
-    debugInfoSub$?.unsubscribe();
-    destroySub$.unsubscribe();
-  });
 
   function getLoop(name: string | undefined, type: LoopType): TLoop | never {
     const searchName: string = name ?? getMainLoopNameByType(type);

@@ -56,7 +56,7 @@ export function Loop({ name, type, trigger, showDebugInfo, maxPriority, isParall
 
   const destroyable: TDestroyable = destroyableMixin();
 
-  const tickSub$: Subscription = enabled$
+  enabled$
     .pipe(
       switchMap((isEnabled: boolean): Subject<TDelta> | Observable<never> => (isEnabled && !isParallelMode && isTriggerFn ? tick$ : EMPTY)),
       takeUntil(destroyable.destroy$)
@@ -74,7 +74,7 @@ export function Loop({ name, type, trigger, showDebugInfo, maxPriority, isParall
 
   let intervalId: number | undefined;
 
-  const enableSub$: Subscription = enabled$.pipe(distinctUntilChanged(), takeUntil(destroyable.destroy$)).subscribe((isEnabled: boolean): void => {
+  enabled$.pipe(distinctUntilChanged(), takeUntil(destroyable.destroy$)).subscribe((isEnabled: boolean): void => {
     if (isEnabled) {
       if (isTriggerFn) {
         tick$.next(0);
@@ -97,8 +97,6 @@ export function Loop({ name, type, trigger, showDebugInfo, maxPriority, isParall
   const destroySub$: Subscription = destroyable.destroy$.subscribe((): void => {
     isDestroyed = true;
     destroySub$.unsubscribe();
-    tickSub$.unsubscribe();
-    enableSub$.unsubscribe();
     loopSub$.unsubscribe();
 
     if (isDefined(intervalId)) {

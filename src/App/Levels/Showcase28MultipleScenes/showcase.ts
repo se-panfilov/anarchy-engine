@@ -8,9 +8,10 @@ import { asRecord, createDomElement, isDefined, isNotDefined, spaceService } fro
 import spaceAlphaConfigJson from './spaceAlpha.json';
 import spaceBetaConfigJson from './spaceBeta.json';
 
-const tracked = new Map<Subscription, { sub: Subscription; stack: string }>();
-let untrackedSubscriptionsCount: number = 0;
-hackRxJsSubscriptions(tracked);
+const subscriptionStacks = new Map<Subscription, string>();
+let totalSubscriptions = 0;
+let completedSubscriptions = 0;
+hackRxJsSubscriptions(subscriptionStacks);
 
 const spaceAlphaConfig: TSpaceConfig = spaceAlphaConfigJson as TSpaceConfig;
 const spaceBetaConfig: TSpaceConfig = spaceBetaConfigJson as TSpaceConfig;
@@ -38,12 +39,13 @@ export function start(): void {
   addBtn('Start Alpha', leftContainerId, (): void => spaceAlpha.start$.next(true), 'calc(50% + 4px)');
   addBtn('Stop Alpha', leftContainerId, (): void => spaceAlpha.start$.next(false));
   addBtn('Destroy Alpha', leftContainerId, (): void => {
-    console.log('Subscriptions before destroy:', tracked.size);
+    console.log('Subscriptions before destroy:', totalSubscriptions);
     console.log('Cleaning up...');
     spaceAlpha.destroy$.next();
 
-    setTimeout(() => console.log(`Alive subscriptions after destroy (without (${untrackedSubscriptionsCount}) untracked): ${tracked.size - untrackedSubscriptionsCount}`), 1000);
-    setTimeout(() => console.log(tracked), 1000);
+    setTimeout(() => console.log(`Completed: ${completedSubscriptions}`), 1000);
+    setTimeout(() => console.log(`Active: ${totalSubscriptions - completedSubscriptions}`), 1100);
+    setTimeout(() => console.log(subscriptionStacks), 1200);
   });
 
   addBtn('Start Beta', rightContainerId, (): void => spaceBeta.start$.next(true), '4px');
@@ -95,36 +97,26 @@ function addBtn(text: string, containerId: string, cb: (...rest: ReadonlyArray<a
   container.appendChild(button);
 }
 
-function hackRxJsSubscriptions(tracked: Map<Subscription, { sub: Subscription; stack: any }>): void {
-  //Hack RxJS to track subscriptions to prevent memory leaks (DO NOT USE IN PRODUCTION);
+//Hack RxJS to track subscriptions to prevent memory leaks (DO NOT USE IN PRODUCTION);
+function hackRxJsSubscriptions(subscriptionStacks: Map<Subscription, string>): void {
+  const originalSubscribe = Observable.prototype.subscribe;
+  // eslint-disable-next-line functional/immutable-data
+  Observable.prototype.subscribe = function (...args: any[]): Subscription {
+    const result: Subscription = originalSubscribe.apply(this, args as any);
+    totalSubscriptions++;
+    const stackTrace: string = new Error('Subscription created').stack || '';
+    subscriptionStacks.set(result, stackTrace);
+    return result;
+  };
+
   const originalUnsubscribe = Subscription.prototype.unsubscribe;
 
   // eslint-disable-next-line functional/immutable-data
-  Subscription.prototype.unsubscribe = function (): void {
-    if (tracked.has(this)) tracked.delete(this);
-    return originalUnsubscribe.apply(this);
-  };
-
-  const originalSubscribe = Observable.prototype.subscribe;
-
-  // eslint-disable-next-line functional/immutable-data
-  Observable.prototype.subscribe = function (...args: any[]): Subscription {
-    const stack: string = new Error('Subscription created here').stack ?? '[no stack]';
-    const subscription: Subscription = originalSubscribe.apply(this, args as any);
-
-    if (!tracked.has(subscription)) tracked.set(subscription, { sub: subscription, stack });
-
-    const originalUnsubscribe = subscription.unsubscribe.bind(subscription);
-    // eslint-disable-next-line functional/immutable-data
-    subscription.unsubscribe = (): void => {
-      if (tracked.has(subscription)) {
-        tracked.delete(subscription);
-      } else {
-        untrackedSubscriptionsCount++;
-      }
-      return originalUnsubscribe();
-    };
-
-    return subscription;
+  Subscription.prototype.unsubscribe = function (...args: any[]): void {
+    if (!this.closed) {
+      completedSubscriptions++;
+      subscriptionStacks.delete(this);
+    }
+    return originalUnsubscribe.apply(this, args as any);
   };
 }

@@ -1,5 +1,5 @@
 import type { Observable, Subscription } from 'rxjs';
-import { BehaviorSubject, catchError, filter, map, of, take, timeout } from 'rxjs';
+import { BehaviorSubject, catchError, filter, map, of, take, takeUntil, timeout } from 'rxjs';
 
 import type { LookUpStrategy, TAbstractAsyncRegistry, TAbstractEntityRegistry, TAbstractResourceAsyncRegistry, TAbstractSimpleRegistry, TRegistryPack } from '@/Engine/Abstract';
 import type { TMultitonRegistrable, TRegistrable } from '@/Engine/Mixins';
@@ -80,12 +80,13 @@ export function getValueAsync<T>(
   const { resolve, promise, reject } = createDeferredPromise<T | undefined>();
   const destroySub$: Subscription = reg.destroy$.subscribe(stop);
 
-  const sub$: Subscription = reg.added$
+  reg.added$
     .pipe(
       filter(({ value }: TRegistryPack<T>) => filterFn(value)),
       take(1),
       map((pack: TRegistryPack<T>): T => pack.value),
       timeout(waitingTime),
+      takeUntil(reg.destroy$),
       catchError((error: any) => {
         // TODO LOGGER: instead of console should be forwarded to some kind of logger
         if (error?.name === 'TimeoutError') console.error(`Cannot get entity async from registry ("${reg.id}"): timeout error has occurred`);
@@ -104,7 +105,6 @@ export function getValueAsync<T>(
 
   function stop(): void {
     reject();
-    sub$.unsubscribe();
     destroySub$.unsubscribe();
   }
 

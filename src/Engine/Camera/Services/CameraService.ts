@@ -1,5 +1,5 @@
 import type { Observable, Subscription } from 'rxjs';
-import { distinctUntilChanged, EMPTY, switchMap } from 'rxjs';
+import { distinctUntilChanged, EMPTY, switchMap, takeUntil } from 'rxjs';
 
 import type { TAbstractService, TRegistryPack } from '@/Engine/Abstract';
 import { AbstractService } from '@/Engine/Abstract';
@@ -30,17 +30,16 @@ export function CameraService(factory: TCameraFactory, registry: TCameraRegistry
   const disposable: ReadonlyArray<TDisposable> = [registry, factory, registrySub$, factorySub$];
   const abstractService: TAbstractService = AbstractService(disposable);
 
-  let screenSizeSub$: Subscription | undefined = undefined;
-
   // TODO 9.2.0 ACTIVE: Rework ACTIVE mixin to active$ (add hooks to apply ratio). Do the same for all entities with active
   const findActive = withActive.findActive;
 
   // TODO 9.2.0 ACTIVE: This could be moved in active$ camera and applied in onActive hook
   function startUpdatingCamerasAspect(shouldUpdateOnlyActiveCamera: boolean = false): void {
-    screenSizeSub$ = dependencies.screenService.watchers.default$
+    dependencies.screenService.watchers.default$
       .pipe(
         switchMap((screenSizeWatcher: TScreenSizeWatcher | undefined): Observable<TScreenSizeValues> => (isDefined(screenSizeWatcher) ? screenSizeWatcher.value$ : EMPTY)),
-        distinctUntilChanged((prev: TScreenSizeValues, curr: TScreenSizeValues): boolean => prev.width === curr.width && prev.height === curr.height)
+        distinctUntilChanged((prev: TScreenSizeValues, curr: TScreenSizeValues): boolean => prev.width === curr.width && prev.height === curr.height),
+        takeUntil(abstractService.destroy$)
       )
       .subscribe((params: TScreenSizeValues): void => {
         if (shouldUpdateOnlyActiveCamera) {
@@ -62,9 +61,6 @@ export function CameraService(factory: TCameraFactory, registry: TCameraRegistry
 
   const destroySub$: Subscription = abstractService.destroy$.subscribe((): void => {
     destroySub$.unsubscribe();
-    screenSizeSub$?.unsubscribe();
-    screenSizeSub$ = null as any;
-
     withActive.active$.complete();
   });
 

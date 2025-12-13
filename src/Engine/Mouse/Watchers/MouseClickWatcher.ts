@@ -1,4 +1,4 @@
-import type { Subscription } from 'rxjs';
+import { takeUntil } from 'rxjs';
 
 import type { TAbstractWatcher } from '@/Engine/Abstract';
 import { AbstractWatcher, WatcherType } from '@/Engine/Abstract';
@@ -15,24 +15,18 @@ export function MouseClickWatcher({ container, tags }: TMouseClickWatcherParams)
     abstractWatcher.value$.next(e);
   };
 
-  const startSub$: Subscription = abstractWatcher.start$.subscribe((): void => {
+  abstractWatcher.start$.pipe(takeUntil(abstractWatcher.destroy$)).subscribe((): void => {
     container.startWatch(MouseEventType.MouseUp, onMouseListener);
     container.startWatch(MouseEventType.MouseDown, onMouseListener);
     container.startWatch(MouseEventType.DoubleClick, onMouseListener);
     container.startWatch(MouseEventType.Wheel, onMouseListener);
   });
 
-  const stopSub$: Subscription = abstractWatcher.stop$.subscribe((): void => {
+  abstractWatcher.stop$.pipe(takeUntil(abstractWatcher.destroy$)).subscribe((): void => {
     container.stopWatch(MouseEventType.MouseUp, onMouseListener);
     container.stopWatch(MouseEventType.MouseDown, onMouseListener);
     container.stopWatch(MouseEventType.DoubleClick, onMouseListener);
     container.stopWatch(MouseEventType.Wheel, onMouseListener);
-  });
-
-  const destroySub$: Subscription = abstractWatcher.destroy$.subscribe((): void => {
-    destroySub$.unsubscribe();
-    startSub$.unsubscribe();
-    stopSub$.unsubscribe();
   });
 
   // eslint-disable-next-line functional/immutable-data

@@ -1,5 +1,5 @@
 import type { Subscription } from 'rxjs';
-import { BehaviorSubject, skipWhile, Subject } from 'rxjs';
+import { BehaviorSubject, skipWhile, Subject, takeUntil } from 'rxjs';
 import type { AudioListener } from 'three';
 
 import type { TWrapper } from '@/Engine/Abstract';
@@ -20,23 +20,27 @@ export function AbstractAudioWrapper<T extends TAnyAudio>(params: TAnyAudioParam
   const loop$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(params.loop ?? false);
   const volume$: BehaviorSubject<number> = new BehaviorSubject<number>(volume ?? 1);
 
-  const playSub$: Subscription = play$.pipe().subscribe((shouldPlay: boolean): void => {
+  const wrapper: TWrapper<T> = AbstractWrapper(entity, WrapperType.Audio, params);
+
+  play$.pipe(takeUntil(wrapper.destroy$)).subscribe((shouldPlay: boolean): void => {
     if (shouldPlay && !entity.isPlaying) return void entity.play();
     else return void entity.stop();
   });
 
-  const volumeSub$: Subscription = volume$
+  volume$
     .pipe(
       // to avoid initial value (only if it's a default one)
-      skipWhile((volume: number, index: number): boolean => index === 0 && volume === 1)
+      skipWhile((volume: number, index: number): boolean => index === 0 && volume === 1),
+      takeUntil(wrapper.destroy$)
     )
     .subscribe((volume: number): void => void entity.setVolume(volume));
 
   let lastPausedPosition: number = 0;
-  const pauseSub$: Subscription = pause$
+  pause$
     .pipe(
       // to avoid initial value (only if it's a default one)
-      skipWhile((shouldPause: boolean, index: number): boolean => index === 0 && !shouldPause)
+      skipWhile((shouldPause: boolean, index: number): boolean => index === 0 && !shouldPause),
+      takeUntil(wrapper.destroy$)
     )
     .subscribe((shouldPause: boolean): void => {
       if (shouldPause && entity.isPlaying) {
@@ -48,43 +52,38 @@ export function AbstractAudioWrapper<T extends TAnyAudio>(params: TAnyAudioParam
       }
     });
 
-  const speedSub$: Subscription = speed$
+  speed$
     .pipe(
       // to avoid initial value (only if it's a default one)
-      skipWhile((speed: number, index: number): boolean => index === 0 && speed === 1)
+      skipWhile((speed: number, index: number): boolean => index === 0 && speed === 1),
+      takeUntil(wrapper.destroy$)
     )
     .subscribe((speed: number): void => void entity.setPlaybackRate(speed));
 
-  const seekSub$: Subscription = seek$
+  seek$
     .pipe(
       // to avoid initial value (only if it's a default one)
-      skipWhile((seek: number, index: number): boolean => index === 0 && seek === 0)
+      skipWhile((seek: number, index: number): boolean => index === 0 && seek === 0),
+      takeUntil(wrapper.destroy$)
     )
     .subscribe((seek: number): void => {
       seekAudio(entity, seek, entity.isPlaying);
       lastPausedPosition = seek;
     });
 
-  const loopSub$: Subscription = loop$
+  loop$
     .pipe(
       // to avoid initial value (only if it's a default one)
-      skipWhile((shouldLoop: boolean, index: number): boolean => index === 0 && !shouldLoop)
+      skipWhile((shouldLoop: boolean, index: number): boolean => index === 0 && !shouldLoop),
+      takeUntil(wrapper.destroy$)
     )
     .subscribe((shouldLoop: boolean): void => void entity.setLoop(shouldLoop));
-
-  const wrapper: TWrapper<T> = AbstractWrapper(entity, WrapperType.Audio, params);
 
   const destroySub$: Subscription = wrapper.destroy$.subscribe((): void => {
     wrapper.entity.stop();
     destroyAudio(wrapper.entity as TAnyAudio);
 
     destroySub$.unsubscribe();
-    playSub$.unsubscribe();
-    pauseSub$.unsubscribe();
-    volumeSub$.unsubscribe();
-    speedSub$.unsubscribe();
-    seekSub$.unsubscribe();
-    loopSub$.unsubscribe();
 
     play$.complete();
     listener$.complete();

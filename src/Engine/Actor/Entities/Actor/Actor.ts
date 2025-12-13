@@ -1,6 +1,6 @@
 import { nanoid } from 'nanoid';
 import type { BehaviorSubject, Observable, Subscription } from 'rxjs';
-import { distinctUntilChanged, filter, sample, tap } from 'rxjs';
+import { distinctUntilChanged, filter, sample, takeUntil, tap } from 'rxjs';
 import type { Vector3, Vector3Like } from 'three';
 
 import { AbstractEntity, EntityType } from '@/Engine/Abstract';
@@ -43,8 +43,11 @@ export function Actor(params: TActorParams, { spatialGridService, physicsBodySer
 
   const spatialLoop: TSpatialLoop = loopService.getSpatialLoop();
 
-  const positionChangeSub$: Subscription = spatialPositionUpdate(spatialLoop, drive.position$, params.spatial.performance?.noiseThreshold ?? 0.000001)
-    .pipe(filter((): boolean => spatialLoop.shouldUpdateWithPriority(entities.spatial.getSpatialUpdatePriority())))
+  spatialPositionUpdate(spatialLoop, drive.position$, params.spatial.performance?.noiseThreshold ?? 0.000001)
+    .pipe(
+      filter((): boolean => spatialLoop.shouldUpdateWithPriority(entities.spatial.getSpatialUpdatePriority())),
+      takeUntil(actor.destroy$)
+    )
     .subscribe((position: TReadonlyVector3): void => actor.updateSpatialCells(position));
 
   const destroySub$: Subscription = actor.destroy$.subscribe((): void => {
@@ -52,9 +55,6 @@ export function Actor(params: TActorParams, { spatialGridService, physicsBodySer
 
     //Remove model3d registration
     model3dToActorConnectionRegistry.removeByModel3d(model3d);
-
-    //Finish subscriptions
-    positionChangeSub$?.unsubscribe();
 
     //Destroy related entities
     model3d.destroy$.next();

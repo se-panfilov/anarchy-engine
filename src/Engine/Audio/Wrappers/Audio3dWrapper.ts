@@ -1,5 +1,5 @@
 import type { Observable, Subscription } from 'rxjs';
-import { BehaviorSubject, filter, sample } from 'rxjs';
+import { BehaviorSubject, filter, sample, takeUntil } from 'rxjs';
 import type { AudioListener, PositionalAudio } from 'three';
 
 import type { TAbstractAudioWrapper, TAudio3dParams, TAudio3dTransformDrive, TAudio3dWrapper, TAudioCreateFn, TAudioWrapperDependencies } from '@/Engine/Audio/Models';
@@ -28,7 +28,7 @@ export function Audio3dWrapper(params: TAudio3dParams, { audioLoop }: TAudioWrap
 
   const tickFiltered$: Observable<TMilliseconds> = audioLoop.tick$.pipe(filter((): boolean => audioLoop.shouldUpdateWithPriority(updatePriority)));
 
-  const updateVolumeSub$: Subscription = sourcePositionUpdate$.pipe(sample(tickFiltered$)).subscribe((position: TReadonlyVector3): void => {
+  sourcePositionUpdate$.pipe(sample(tickFiltered$), takeUntil(wrapper.destroy$)).subscribe((position: TReadonlyVector3): void => {
     void wrapper.entity.position.copy(position);
     wrapper.entity.updateMatrix();
     wrapper.entity.updateMatrixWorld(true);
@@ -36,9 +36,6 @@ export function Audio3dWrapper(params: TAudio3dParams, { audioLoop }: TAudioWrap
 
   const destroySub$: Subscription = wrapper.destroy$.subscribe((): void => {
     destroySub$.unsubscribe();
-    updateVolumeSub$.unsubscribe();
-    updateVolumeSub$.unsubscribe();
-
     // TODO 14-0-0: how to disconnect listener?
 
     listener$.complete();

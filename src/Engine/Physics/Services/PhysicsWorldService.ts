@@ -1,5 +1,6 @@
 import { World } from '@dimforge/rapier3d';
 import type { Subscription } from 'rxjs';
+import { takeUntil } from 'rxjs';
 import type { Vector3 } from 'three';
 
 import type { TAbstractService } from '@/Engine/Abstract';
@@ -52,7 +53,7 @@ export function PhysicsWorldService(scene: TSceneWrapper, { physicalLoop }: TSpa
   }
 
   // Auto-update world on every tick of the physical loop
-  const loopSub$: Subscription = physicalLoop.tick$.subscribe((): void => world?.step());
+  physicalLoop.tick$.pipe(takeUntil(abstractService.destroy$)).subscribe((): void => world?.step());
 
   const debugRenderersList: Array<TPhysicsDebugRenderer> = [];
 
@@ -75,7 +76,6 @@ export function PhysicsWorldService(scene: TSceneWrapper, { physicalLoop }: TSpa
 
     destroySub$.unsubscribe();
 
-    loopSub$?.unsubscribe();
     world?.free();
     world = null as any;
   });

@@ -1,5 +1,5 @@
 import type { Subscription } from 'rxjs';
-import { BehaviorSubject, concatMap, exhaustMap, filter, mergeMap, switchMap } from 'rxjs';
+import { BehaviorSubject, concatMap, exhaustMap, filter, mergeMap, switchMap, takeUntil } from 'rxjs';
 import { StateMachine, t } from 'typescript-fsm';
 
 import type { TWrapper } from '@/Engine/Abstract';
@@ -26,7 +26,9 @@ export function FsmWrapper(params: TFsmParams): TFsmWrapper {
   const strategy$: BehaviorSubject<FsmEventsStrategy> = new BehaviorSubject<FsmEventsStrategy>(params.strategy ?? FsmEventsStrategy.SkipPending);
   const strategyOperator$: BehaviorSubject<TStrategyType> = new BehaviorSubject<TStrategyType>(getStrategyOperator(strategy$.value));
 
-  const strategySub$: Subscription = strategy$.subscribe((strategy: FsmEventsStrategy): void => strategyOperator$.next(getStrategyOperator(strategy)));
+  const wrapper: TWrapper<TFsmMachine> = AbstractWrapper(entity, WrapperType.Fsm, params);
+
+  strategy$.pipe(takeUntil(wrapper.destroy$)).subscribe((strategy: FsmEventsStrategy): void => strategyOperator$.next(getStrategyOperator(strategy)));
 
   function getStrategyOperator(strategy: FsmEventsStrategy): TStrategyType {
     switch (strategy) {
@@ -42,8 +44,6 @@ export function FsmWrapper(params: TFsmParams): TFsmWrapper {
         throw new Error(`Unknown strategy: ${strategy}`);
     }
   }
-
-  const wrapper: TWrapper<TFsmMachine> = AbstractWrapper(entity, WrapperType.Fsm, params);
 
   const getState = (): TFsmStates => entity.getState();
 
@@ -62,7 +62,6 @@ export function FsmWrapper(params: TFsmParams): TFsmWrapper {
   const destroySub$: Subscription = wrapper.destroy$.subscribe((): void => {
     destroySub$.unsubscribe();
     sendSub$.unsubscribe();
-    strategySub$.unsubscribe();
 
     changed$.complete();
 

@@ -1,4 +1,5 @@
 import type { Subscription } from 'rxjs';
+import { takeUntil } from 'rxjs';
 import { PerspectiveCamera, Vector3 } from 'three';
 
 import { AbstractWrapper, WrapperType } from '@/Engine/Abstract';
@@ -15,7 +16,11 @@ import { getAccessors } from './Accessors';
 
 export function CameraWrapper(params: TCameraParams, { screenService }: TCameraWrapperDependencies): TCameraWrapper {
   const { fov = 45, near = 1, far = 10000, lookAt, audioListener }: TCameraParams = params;
-  const { width, height, ratio }: TScreenSizeValues = screenService.watchers.default$.value?.getValue() ?? { width: 0, height: 0, ratio: 1 };
+  const { width, height, ratio }: TScreenSizeValues = screenService.watchers.default$.value?.getValue() ?? {
+    width: 0,
+    height: 0,
+    ratio: 1
+  };
   const entity: TWriteable<TPerspectiveCamera> = new PerspectiveCamera(fov, ratio, near, far);
 
   const accessors: TCameraAccessors = getAccessors(entity);
@@ -25,7 +30,7 @@ export function CameraWrapper(params: TCameraParams, { screenService }: TCameraW
   const drive: TCameraTransformDrive = CameraTransformDrive(params, wrapper.id);
   const driveToTargetConnector: TDriveToTargetConnector = DriveToTargetConnector(drive, entity);
 
-  const screenSizeSub$: Subscription | undefined = screenService.watchers.default$.value?.value$.subscribe(({ width, height }: TScreenSizeValues): void => {
+  screenService.watchers.default$.value?.value$.pipe(takeUntil(wrapper.destroy$)).subscribe(({ width, height }: TScreenSizeValues): void => {
     accessors.setAspect(width / height);
   });
 
@@ -43,7 +48,6 @@ export function CameraWrapper(params: TCameraParams, { screenService }: TCameraW
 
   const destroySub$: Subscription = result.destroy$.subscribe((): void => {
     destroySub$.unsubscribe();
-    screenSizeSub$?.unsubscribe();
   });
 
   if (isDefined(lookAt)) accessors.lookAt(new Vector3(lookAt.x, lookAt.y, lookAt.z));
