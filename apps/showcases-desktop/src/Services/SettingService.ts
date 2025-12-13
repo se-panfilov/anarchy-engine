@@ -1,8 +1,9 @@
-import type { TLocaleId } from '@Anarchy/i18n';
+import type { TLocale, TLocaleId } from '@Anarchy/i18n';
+import { getLocaleByLocaleId, getPreferLocaleId } from '@Anarchy/i18n';
 import { AllowedSystemFolders } from '@Showcases/Desktop/Constants';
 import type { TFilesService, TSettingsService } from '@Showcases/Desktop/Models';
 import type { TResolution, TShowcaseGameSettings } from '@Showcases/Shared';
-import { DefaultShowcaseGameSettings, isSettings } from '@Showcases/Shared';
+import { DefaultShowcaseGameSettings, isSettings, ShowcasesFallbackLocale, ShowcasesLocales } from '@Showcases/Shared';
 import type { App } from 'electron';
 import { screen } from 'electron';
 
@@ -23,12 +24,21 @@ export function SettingsService(app: App, filesService: TFilesService): TSetting
     }
   };
 
+  // TODO DESKTOP: Test this. Make sure that detected settings (langs and resolution) are applied
   function buildDefaultSettings(): TShowcaseGameSettings {
+    const availableLocales: ReadonlyArray<TLocale> = Object.values(ShowcasesLocales);
+    const availableLocalesIds: ReadonlyArray<TLocaleId> = availableLocales.map((locale: TLocale): TLocaleId => locale.id);
+    const locale: TLocale = getLocaleByLocaleId(getPreferLocaleId(getPreferredLocales(), availableLocalesIds, ShowcasesFallbackLocale.id), availableLocales);
+
     const platformDetectedSettings: Partial<TShowcaseGameSettings> = {
       graphics: {
         ...DefaultShowcaseGameSettings.graphics,
         resolution: detectResolution(),
         isFullScreen: true
+      },
+      localization: {
+        ...DefaultShowcaseGameSettings.localization,
+        locale
       }
     };
 
