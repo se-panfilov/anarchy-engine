@@ -13,6 +13,7 @@ export type TRepoUtilsService = Readonly<{
   findMonorepoRoot: (startDir: string) => Promise<string>;
   isExist: (p: string) => Promise<boolean>;
   loadRoot: (rootDir: string) => Promise<TRootInfo>;
+  loadWorkspaces: (rootDir: string) => Promise<ReadonlyMap<string, TWorkspaceInfo>>;
   npmLsJson: (rootDir: string, workspace: string) => Promise<TDependencyNode | undefined>;
   renderMarkdown: (workspaceLabel: string, items: ReadonlyArray<TLicenseEntry>, emptyNote?: string) => string;
   resolveWorkspaceFromArg: (arg: string, workspaces: ReadonlyMap<string, TWorkspaceInfo>, rootDir: string) => TWorkspaceInfo;

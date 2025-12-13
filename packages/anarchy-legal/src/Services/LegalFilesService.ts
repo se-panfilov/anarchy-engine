@@ -1,8 +1,7 @@
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-import type { TAnarchyLegalConfigEntry, TLegalDocumentType, TLegalFilesService, TLegalFilesUtilsService, TRepoUtilsService, TTemplateGeneratorOptions, TWorkspaceInfo } from '@Anarchy/Legal';
-// eslint-disable-next-line spellcheck/spell-checker
+import type { TAnarchyLegalConfigEntry, TLegalDocumentType, TLegalFilesService, TLegalFilesUtilsService, TRepoUtilsService, TTemplateGeneratorOptions, TWorkspaceInfo } from '@Anarchy/Legal'; // eslint-disable-next-line spellcheck/spell-checker
 import yargs from 'yargs';
 import { hideBin } from 'yargs/helpers';
 
@@ -14,8 +13,8 @@ export function LegalFilesService(): TLegalFilesService {
   let isDebug: boolean = false;
   const repoUtilsService: TRepoUtilsService = RepoUtilsService();
   const legalFilesUtilsService: TLegalFilesUtilsService = LegalFilesUtilsService(repoUtilsService);
-  const { debugLog, findMonorepoRoot, resolveWorkspaceFromArg } = repoUtilsService;
-  const { loadWorkspaces, readConfig, generateAll } = legalFilesUtilsService;
+  const { debugLog, findMonorepoRoot, resolveWorkspaceFromArg, loadWorkspaces } = repoUtilsService;
+  const { readConfig, generateAll } = legalFilesUtilsService;
 
   const options: TTemplateGeneratorOptions = {
     templateExtension: '.md',

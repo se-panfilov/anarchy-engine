@@ -35,6 +35,38 @@ export function RepoUtilsService(): TRepoUtilsService {
     return false;
   }
 
+  async function loadWorkspaces(rootDir: string): Promise<ReadonlyMap<string, TWorkspaceInfo>> {
+    const rootPkg = await readJson<any>(path.join(rootDir, 'package.json'));
+    const patterns: string[] = Array.isArray(rootPkg.workspaces) ? rootPkg.workspaces : (rootPkg.workspaces?.packages ?? []);
+    if (!patterns.length) throw new Error(`No workspaces patterns in ${path.join(rootDir, 'package.json')}`);
+    // eslint-disable-next-line spellcheck/spell-checker
+    const dirs = await globby(patterns, {
+      cwd: rootDir,
+      absolute: true,
+      onlyDirectories: true,
+      gitignore: true,
+      ignore: ['**/node_modules/**', '**/dist/**', '**/dist-*/**', '**/.*/**']
+    });
+    const entries = (
+      await Promise.all(
+        dirs.map(async (dir): Promise<[string, TWorkspaceInfo] | undefined> => {
+          const pkgPath: string = path.join(dir, 'package.json');
+          if (!(await isExist(pkgPath))) return undefined;
+          const pkg = await readJson<{
+            name: string;
+            version?: string;
+            dependencies?: Record<string, string>;
+            devDependencies?: Record<string, string>;
+            optionalDependencies?: Record<string, string>;
+          }>(pkgPath);
+          const name: string | undefined = typeof pkg.name === 'string' ? pkg.name : undefined;
+          return name ? ([name, { name, dir, pkgPath, pkg }] as const) : undefined;
+        })
+      )
+    ).filter(Boolean) as Array<[string, TWorkspaceInfo]>;
+    return new Map(entries);
+  }
+
   async function findMonorepoRoot(startDir: string): Promise<string> {
     const start: string = path.resolve(startDir);
     debugLog(isDebug, 'findMonorepoRoot: start at', start);
@@ -477,6 +509,7 @@ export function RepoUtilsService(): TRepoUtilsService {
     findMonorepoRoot,
     isExist,
     loadRoot,
+    loadWorkspaces,
     npmLsJson,
     renderMarkdown,
     resolveWorkspaceFromArg,
