@@ -15,7 +15,7 @@ export default defineConfig({
   plugins: [
     wasm(),
     dts({
-      exclude: ['**/*.spec.ts', '**/*.test.ts']
+      exclude: ['**/*.spec.ts', '**/*.test.ts', 'vite.config.ts']
     })
   ],
   worker: {
