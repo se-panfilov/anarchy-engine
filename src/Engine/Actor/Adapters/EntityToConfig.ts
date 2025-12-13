@@ -1,4 +1,5 @@
-import type { TActor, TActorConfig, TActorConfigToParamsDependencies } from '@/Engine/Actor/Models';
+import type { TFsmWrapper } from '@/Engine';
+import type { TActor, TActorConfig, TActorConfigToParamsDependencies, TActorStates } from '@/Engine/Actor/Models';
 import { extractSerializableRegistrableFields } from '@/Engine/Mixins';
 import type { TModel3d, TModels3dRegistry } from '@/Engine/Models3d';
 import type { TSpatialDataConfig } from '@/Engine/Spatial';
@@ -7,11 +8,9 @@ import { filterOutEmptyFields, isNotDefined } from '@/Engine/Utils';
 // TODO 15-0-0: (finish 14-0-0 tasks)
 
 // TODO 15-0-0: validate result
-export function actorToConfig(entity: TActor, { fsmService, models3dService }: TActorConfigToParamsDependencies): TActorConfig {
+export function actorToConfig(entity: TActor, { models3dService }: TActorConfigToParamsDependencies): TActorConfig {
   const { drive } = entity;
   console.log('XXX entity', entity);
-  console.log('XXX models3dRegistry', models3dService.getRegistry().asObject());
-  console.log('XXX entity.model3d', entity.model3d.id);
 
   const models3dRegistry: TModels3dRegistry = models3dService.getRegistry();
   const model3d: TModel3d | undefined = models3dRegistry.findById(entity.model3d.id);
@@ -44,8 +43,9 @@ function getSpatial(entity: TActor): TSpatialDataConfig {
 }
 
 function getStates(entity: TActor): TActorStates {
-  let result = {};
-  Object.entries(entity.states).forEach((state) => {
+  let result: TActorStates = {};
+
+  Object.entries(entity.states).forEach((state: [string, TFsmWrapper]): void => {
     const [key, value] = state;
     result = { ...result, [key]: value.name };
   });

@@ -82,9 +82,7 @@ export function Actor(
 
   applySpatialGrid(params, actor, spatialGridService);
   startCollisions(actor);
-
   model3dToActorConnectionRegistry.addModel3d(model3d, actor);
-
   return actor;
 }
 
