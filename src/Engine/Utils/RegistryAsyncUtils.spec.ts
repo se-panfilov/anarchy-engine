@@ -9,12 +9,12 @@ import { withTagsMixin } from '@/Engine/Mixins';
 import {
   getAsyncUniqEntityByNameAsync,
   getAsyncUniqEntityWithTag,
+  getEntityValueAsync,
   getUniqEntityByName$,
   getUniqEntityWithTag$,
   getUniqEntityWithTags$,
   getUniqEntityWithTagsAsync,
-  getValueAsync,
-  subscribeToValue$
+  subscribeToEntityValue$
 } from './RegistryAsyncUtils';
 
 const mockEntity1: TRegistrable = { id: 'mockEntityId1', name: 'mockEntity1' } as unknown as TRegistrable;
@@ -333,14 +333,14 @@ describe('RegistryAsyncUtils', () => {
     }, 100);
   });
 
-  describe('getValueAsync', () => {
+  describe('getEntityValueAsync', () => {
     it('should return an entity that was added sync before getting the value', async () => {
       const registryAsync: TAbstractAsyncRegistry<TRegistrable> = AbstractAsyncRegistry<TRegistrable>('mockEntity' as RegistryType);
       registryAsync.add(mockEntity1);
       registryAsync.add(mockEntity2);
       registryAsync.add(mockEntity3);
       const filterFn = (entity: TRegistrable): boolean => entity.id === mockEntity2.id;
-      const result: TRegistrable | undefined = await getValueAsync(registryAsync, filterFn, undefined, waitingTime);
+      const result: TRegistrable | undefined = await getEntityValueAsync(registryAsync, filterFn, undefined, waitingTime);
       expect(result).toEqual(mockEntity2);
     }, 100);
 
@@ -350,7 +350,7 @@ describe('RegistryAsyncUtils', () => {
       registrySync.add(mockEntity2);
       registrySync.add(mockEntity3);
       const filterFn = (entity: TRegistrable): boolean => entity.id === mockEntity2.id;
-      const result: TRegistrable | undefined = await getValueAsync(registrySync, filterFn, undefined, waitingTime);
+      const result: TRegistrable | undefined = await getEntityValueAsync(registrySync, filterFn, undefined, waitingTime);
       expect(result).toEqual(mockEntity2);
     }, 100);
 
@@ -361,7 +361,7 @@ describe('RegistryAsyncUtils', () => {
       registryAsync.add(mockEntity3);
       setTimeout(() => registryAsync.add(mockEntity4), 20);
       const filterFn = (entity: TRegistrable): boolean => entity.id === mockEntity2.id;
-      const result: TRegistrable | undefined = await getValueAsync(registryAsync, filterFn, undefined, waitingTime);
+      const result: TRegistrable | undefined = await getEntityValueAsync(registryAsync, filterFn, undefined, waitingTime);
       expect(result).toEqual(mockEntity2);
     }, 100);
 
@@ -371,7 +371,7 @@ describe('RegistryAsyncUtils', () => {
       registryAsync.add(mockEntity2);
       registryAsync.add(mockEntity3);
       const filterFn = (entity: TRegistrable): boolean => entity.id === 'wheteverId';
-      const promise: Promise<TRegistrable | undefined> = getValueAsync(registryAsync, filterFn, undefined, waitingTime);
+      const promise: Promise<TRegistrable | undefined> = getEntityValueAsync(registryAsync, filterFn, undefined, waitingTime);
       setTimeout(() => registryAsync.add(mockEntity4), 20);
       setTimeout(() => registryAsync.add(mockEntity5), 20);
       const result: TRegistrable | undefined = await promise;
@@ -381,7 +381,7 @@ describe('RegistryAsyncUtils', () => {
     it('should return an entity that will be added after getting the value', async () => {
       const registryAsync: TAbstractAsyncRegistry<TRegistrable> = AbstractAsyncRegistry<TRegistrable>('mockEntity' as RegistryType);
       const filterFn = (entity: TRegistrable): boolean => entity.id === mockEntity2.id;
-      const promise: Promise<TRegistrable | undefined> = getValueAsync(registryAsync, filterFn, undefined, 65);
+      const promise: Promise<TRegistrable | undefined> = getEntityValueAsync(registryAsync, filterFn, undefined, 65);
       registryAsync.add(mockEntity1);
       setTimeout(() => registryAsync.add(mockEntity2), 25);
       setTimeout(() => registryAsync.add(mockEntity3), 15);
@@ -394,7 +394,7 @@ describe('RegistryAsyncUtils', () => {
       registryAsync.add(mockEntity1);
       setTimeout(() => registryAsync.add(mockEntity2), 25);
       const filterFn = (entity: TRegistrable): boolean => entity.id === mockEntity3.id;
-      const promise: Promise<TRegistrable | undefined> = getValueAsync(registryAsync, filterFn, undefined, waitingTime);
+      const promise: Promise<TRegistrable | undefined> = getEntityValueAsync(registryAsync, filterFn, undefined, waitingTime);
       registryAsync.add(mockEntity3);
       setTimeout(() => registryAsync.add(mockEntity4), 25);
       const result: TRegistrable | undefined = await promise;
@@ -406,7 +406,7 @@ describe('RegistryAsyncUtils', () => {
       registryAsync.add(mockEntity1);
       setTimeout(() => registryAsync.add(mockEntity2), 25);
       const filterFn = (entity: TRegistrable): boolean => entity.id === mockEntity2.id;
-      const result: TRegistrable | undefined = await getValueAsync(registryAsync, filterFn, undefined, waitingTime);
+      const result: TRegistrable | undefined = await getEntityValueAsync(registryAsync, filterFn, undefined, waitingTime);
       registryAsync.add(mockEntity3);
       setTimeout(() => registryAsync.add(mockEntity4), 25);
       expect(result).toEqual(mockEntity2);
@@ -417,7 +417,7 @@ describe('RegistryAsyncUtils', () => {
       registryAsync.add(mockEntity1);
       setTimeout(() => registryAsync.add(mockEntity2), 20);
       const filterFn = (entity: TRegistrable): boolean => entity.id === mockEntity3.id;
-      const promise: Promise<TRegistrable | undefined> = getValueAsync(registryAsync, filterFn, undefined, 65);
+      const promise: Promise<TRegistrable | undefined> = getEntityValueAsync(registryAsync, filterFn, undefined, 65);
       registryAsync.add(mockEntity3);
       setTimeout(() => registryAsync.add(mockEntity4), 30);
       const result: TRegistrable | undefined = await promise;
@@ -435,7 +435,7 @@ describe('RegistryAsyncUtils', () => {
       setTimeout(() => registryB.add(mockEntity4), 25);
 
       const filterFn = (entity: TRegistrable): boolean => entity.id === mockEntity2.id;
-      const result: TRegistrable | undefined = await getValueAsync(registryA, filterFn, undefined, waitingTime);
+      const result: TRegistrable | undefined = await getEntityValueAsync(registryA, filterFn, undefined, waitingTime);
       expect(result).toEqual(mockEntity2);
     }, 100);
 
@@ -443,19 +443,19 @@ describe('RegistryAsyncUtils', () => {
       const registryAsync: TAbstractAsyncRegistry<TRegistrable> = AbstractAsyncRegistry<TRegistrable>('mockEntity' as RegistryType);
       registryAsync.add(mockEntity1);
       const filterFn1 = (entity: TRegistrable): boolean => entity.id === mockEntity1.id;
-      const result1: TRegistrable | undefined = await getValueAsync(registryAsync, filterFn1, undefined, waitingTime);
+      const result1: TRegistrable | undefined = await getEntityValueAsync(registryAsync, filterFn1, undefined, waitingTime);
       registryAsync.add(mockEntity2);
       expect(result1).toEqual(mockEntity1);
 
       registryAsync.add(mockEntity3);
       const filterFn2 = (entity: TRegistrable): boolean => entity.id === mockEntity3.id;
-      const result2: TRegistrable | undefined = await getValueAsync(registryAsync, filterFn2, undefined, waitingTime);
+      const result2: TRegistrable | undefined = await getEntityValueAsync(registryAsync, filterFn2, undefined, waitingTime);
       registryAsync.add(mockEntity4);
       expect(result2).toEqual(mockEntity3);
 
       registryAsync.add(mockEntity5);
       const filterFn3 = (entity: TRegistrable): boolean => entity.id === mockEntity5.id;
-      const result3: TRegistrable | undefined = await getValueAsync(registryAsync, filterFn3, undefined, waitingTime);
+      const result3: TRegistrable | undefined = await getEntityValueAsync(registryAsync, filterFn3, undefined, waitingTime);
       registryAsync.add(mockEntity6);
       expect(result3).toEqual(mockEntity5);
     }, 100);
@@ -464,19 +464,19 @@ describe('RegistryAsyncUtils', () => {
       const registryAsync: TAbstractAsyncRegistry<TRegistrable> = AbstractAsyncRegistry<TRegistrable>('mockEntity' as RegistryType);
       setTimeout(() => registryAsync.add(mockEntity1), 25);
       const filterFn1 = (entity: TRegistrable): boolean => entity.id === mockEntity1.id;
-      const result1: TRegistrable | undefined = await getValueAsync(registryAsync, filterFn1, undefined, waitingTime);
+      const result1: TRegistrable | undefined = await getEntityValueAsync(registryAsync, filterFn1, undefined, waitingTime);
       setTimeout(() => registryAsync.add(mockEntity2), 25);
       expect(result1).toEqual(mockEntity1);
 
       setTimeout(() => registryAsync.add(mockEntity3), 25);
       const filterFn2 = (entity: TRegistrable): boolean => entity.id === mockEntity3.id;
-      const result2: TRegistrable | undefined = await getValueAsync(registryAsync, filterFn2, undefined, waitingTime);
+      const result2: TRegistrable | undefined = await getEntityValueAsync(registryAsync, filterFn2, undefined, waitingTime);
       setTimeout(() => registryAsync.add(mockEntity4), 25);
       expect(result2).toEqual(mockEntity3);
 
       setTimeout(() => registryAsync.add(mockEntity5), 25);
       const filterFn3 = (entity: TRegistrable): boolean => entity.id === mockEntity5.id;
-      const result3: TRegistrable | undefined = await getValueAsync(registryAsync, filterFn3, undefined, waitingTime);
+      const result3: TRegistrable | undefined = await getEntityValueAsync(registryAsync, filterFn3, undefined, waitingTime);
       setTimeout(() => registryAsync.add(mockEntity6), 25);
       expect(result3).toEqual(mockEntity5);
     }, 100);
@@ -492,9 +492,9 @@ describe('RegistryAsyncUtils', () => {
       setTimeout(() => registryAsync.add(mockEntity3), 15);
       setTimeout(() => registryAsync.add(mockEntity4), 20);
 
-      const promise1: Promise<TRegistrable | undefined> = getValueAsync(registryAsync, filterFn1, undefined, waitingTime);
-      const promise2: Promise<TRegistrable | undefined> = getValueAsync(registryAsync, filterFn2, undefined, waitingTime);
-      const promise3: Promise<TRegistrable | undefined> = getValueAsync(registryAsync, filterFn3, undefined, waitingTime);
+      const promise1: Promise<TRegistrable | undefined> = getEntityValueAsync(registryAsync, filterFn1, undefined, waitingTime);
+      const promise2: Promise<TRegistrable | undefined> = getEntityValueAsync(registryAsync, filterFn2, undefined, waitingTime);
+      const promise3: Promise<TRegistrable | undefined> = getEntityValueAsync(registryAsync, filterFn3, undefined, waitingTime);
 
       setTimeout(() => registryAsync.add(mockEntity5), 10);
       setTimeout(() => registryAsync.add(mockEntity6), 25);
@@ -515,13 +515,13 @@ describe('RegistryAsyncUtils', () => {
       registryAsync.add(mockEntity2);
       registryAsync.add(mockEntity3);
       const filterFn1 = (entity: TRegistrable): boolean => entity.id === mockEntity2.id;
-      const result1: TRegistrable | undefined = await getValueAsync(registryAsync, filterFn1, undefined, waitingTime);
+      const result1: TRegistrable | undefined = await getEntityValueAsync(registryAsync, filterFn1, undefined, waitingTime);
       expect(result1).toEqual(mockEntity2);
 
       registryAsync.remove(mockEntity2.id);
 
       const filterFn2 = (entity: TRegistrable): boolean => entity.id === mockEntity2.id;
-      const result2: TRegistrable | undefined = await getValueAsync(registryAsync, filterFn2, undefined, waitingTime);
+      const result2: TRegistrable | undefined = await getEntityValueAsync(registryAsync, filterFn2, undefined, waitingTime);
       expect(result2).toBeUndefined();
     }, 1000);
 
@@ -532,16 +532,16 @@ describe('RegistryAsyncUtils', () => {
       registryAsync.add(mockEntity3);
       const filterFn = (entity: TRegistrable): boolean => entity.id === mockEntity2.id;
 
-      const result1: TRegistrable | undefined = await getValueAsync(registryAsync, filterFn, undefined, waitingTime);
+      const result1: TRegistrable | undefined = await getEntityValueAsync(registryAsync, filterFn, undefined, waitingTime);
       expect(result1).toEqual(mockEntity2);
 
       registryAsync.remove(mockEntity2.id);
 
-      const result2: TRegistrable | undefined = await getValueAsync(registryAsync, filterFn, undefined, waitingTime);
+      const result2: TRegistrable | undefined = await getEntityValueAsync(registryAsync, filterFn, undefined, waitingTime);
       expect(result2).toBeUndefined();
 
       registryAsync.add(mockEntity2);
-      const result3: TRegistrable | undefined = await getValueAsync(registryAsync, filterFn, undefined, waitingTime);
+      const result3: TRegistrable | undefined = await getEntityValueAsync(registryAsync, filterFn, undefined, waitingTime);
       expect(result3).toEqual(mockEntity2);
     }, 200);
 
@@ -551,12 +551,12 @@ describe('RegistryAsyncUtils', () => {
       registryAsync.add(mockEntity2);
       registryAsync.add(mockEntity3);
       const filterFn1 = (entity: TRegistrable): boolean => entity.id === mockEntity2.id;
-      const result1: TRegistrable | undefined = await getValueAsync(registryAsync, filterFn1, undefined, waitingTime);
+      const result1: TRegistrable | undefined = await getEntityValueAsync(registryAsync, filterFn1, undefined, waitingTime);
       expect(result1).toEqual(mockEntity2);
 
       registryAsync.remove(mockEntity1.id);
       const filterFn2 = (entity: TRegistrable): boolean => entity.id === mockEntity2.id;
-      const result2: TRegistrable | undefined = await getValueAsync(registryAsync, filterFn2, undefined, waitingTime);
+      const result2: TRegistrable | undefined = await getEntityValueAsync(registryAsync, filterFn2, undefined, waitingTime);
       expect(result2).toEqual(mockEntity2);
     }, 100);
 
@@ -566,19 +566,19 @@ describe('RegistryAsyncUtils', () => {
       registryAsync.add(mockEntity3);
       setTimeout(() => registryAsync.add(mockEntity2), 20);
       const filterFn = (entity: TRegistrable): boolean => entity.id === mockEntity2.id;
-      const result: TRegistrable | undefined = await getValueAsync(registryAsync, filterFn, undefined, 10);
+      const result: TRegistrable | undefined = await getEntityValueAsync(registryAsync, filterFn, undefined, 10);
       expect(result).toBeUndefined();
     }, 100);
   });
 
-  describe('subscribeToValue$', () => {
+  describe('subscribeToEntityValue$', () => {
     it('should return an entity that was added sync before getting the value', async () => {
       // setup
       const registryAsync: TAbstractAsyncRegistry<TRegistrable> = AbstractAsyncRegistry<TRegistrable>('mockEntity' as RegistryType);
       const filterFn = (entity: TRegistrable): boolean => entity.id === mockEntity2.id;
 
       // execute
-      const subscription$ = firstValueFrom(subscribeToValue$(registryAsync, filterFn));
+      const subscription$ = firstValueFrom(subscribeToEntityValue$(registryAsync, filterFn));
 
       registryAsync.add(mockEntity1);
       registryAsync.add(mockEntity2);
@@ -595,7 +595,7 @@ describe('RegistryAsyncUtils', () => {
       const filterFn = (entity: TRegistrable): boolean => entity.id === mockEntity2.id;
 
       // execute
-      const subscription$ = firstValueFrom(subscribeToValue$(registrySync, filterFn));
+      const subscription$ = firstValueFrom(subscribeToEntityValue$(registrySync, filterFn));
 
       registrySync.add(mockEntity1);
       registrySync.add(mockEntity2);

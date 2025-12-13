@@ -3,7 +3,7 @@ import type { TDestroyable, TRegistrable } from '@/Engine/Mixins';
 
 import type { TAbstractSimpleRegistry } from './TAbstractSimpleRegistry';
 
-export type TAbstractEntityRegistry<T extends TRegistrable> = Omit<TAbstractSimpleRegistry<T>, 'add' | 'replace' | 'remove' | 'getByKey'> &
+export type TAbstractEntityRegistry<T extends TRegistrable> = Omit<TAbstractSimpleRegistry<T>, 'add' | 'replace' | 'remove' | 'findByKey'> &
   Readonly<{
     add: (entity: T) => void;
     replace: (entity: T) => void;
