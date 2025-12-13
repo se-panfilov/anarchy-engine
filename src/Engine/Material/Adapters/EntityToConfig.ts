@@ -1,7 +1,6 @@
 import { isEmpty } from 'lodash-es';
 import type {
   LineDashedMaterial,
-  MaterialJSON,
   MeshBasicMaterial,
   MeshDepthMaterial,
   MeshLambertMaterial,
@@ -46,13 +45,11 @@ import { filterOutEmptyFields, isNotDefined, nullsToUndefined } from '@/Engine/U
 
 // TODO 15-0-0: validate
 export function materialToConfig(entity: TMaterialWrapper, { textureResourceRegistry }: TMaterialEntityToConfigDependencies): TMaterialConfig {
-  const json: MaterialJSON = entity.entity.toJSON();
-
   const options: TMaterialConfigOptions | undefined = getMaterialOptions(entity);
   const textures: TMaterialConfigTextures | undefined = getMaterialTextures(entity, textureResourceRegistry);
 
   return filterOutEmptyFields({
-    type: json.type as MaterialType,
+    type: entity.entity.type as MaterialType,
     options,
     textures,
     ...extractSerializableRegistrableFields(entity)
