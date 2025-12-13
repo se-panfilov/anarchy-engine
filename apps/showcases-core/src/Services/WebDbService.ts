@@ -15,7 +15,7 @@ export function WebDbService(): TWebDbService {
   async function tryIncreaseStorageSpace(): Promise<boolean> {
     // Persistent Storage API — increases the chance that the browser will not clear the storage
     try {
-      const granted: boolean = await navigator.storage.persist();
+      const granted: boolean = (await navigator.storage?.persist?.()) ?? false;
       console.log('[APP][WebDbService] persistent storage granted');
       return granted;
     } catch (e) {
@@ -26,7 +26,7 @@ export function WebDbService(): TWebDbService {
 
   async function getInfo(): Promise<TWebDbStorageInfo> {
     const estimate: StorageEstimate = await navigator.storage?.estimate?.();
-    return { quota: estimate?.quota, usage: estimate?.usage, type: 'indexDB' };
+    return { quota: estimate?.quota, usage: estimate?.usage, isPersisted: (await navigator.storage?.persisted?.()) ?? false, type: 'indexDB' };
   }
 
   return {
