@@ -1,7 +1,7 @@
 import type { TOptional, TWriteable } from '@Anarchy/Shared/Utils';
 import { isNotDefined } from '@Anarchy/Shared/Utils';
 import type { TShowcaseLocaleIds } from '@Showcases/i18n';
-import { menuPinia } from '@Showcases/Menu/main';
+import { menuPinia } from '@Showcases/Menu/stores/CreatePinia';
 import { useSettingsStore } from '@Showcases/Menu/stores/SettingsStore';
 import type { TLegalDoc } from '@Showcases/Shared';
 import { AllowedLegalDocNames } from '@Showcases/Shared';

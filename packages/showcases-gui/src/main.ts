@@ -1,7 +1,7 @@
 import { eventsService } from '@Showcases/GUI/services';
+import { guiPinia } from '@Showcases/GUI/stores/CreatePinia';
 import { initVueI18n, vueTranslationService } from '@Showcases/i18n';
 import type { TFromGuiEvent, TToGuiEvent } from '@Showcases/Shared';
-import { createPinia } from 'pinia';
 import type { Observable, Subject } from 'rxjs';
 import type { App as VueApp } from 'vue';
 import { createApp } from 'vue';
@@ -10,9 +10,6 @@ import type { I18n } from 'vue-i18n';
 import App from './App.vue';
 
 const i18n: I18n = initVueI18n();
-
-//When call any store outside of a component, we need to pass the pinia instance explicitly (to avoid issues when multiple apps are running, e.g. menu + gui)
-export const guiPinia = createPinia();
 
 export async function initGuiApp(id: string, fromGuiBus$: Subject<TFromGuiEvent>, toGuiBus$: Observable<TToGuiEvent>): Promise<void> {
   const app: VueApp<Element> = createApp(App);

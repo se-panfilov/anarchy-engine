@@ -1,6 +1,6 @@
 import { isNotDefined } from '@Anarchy/Shared/Utils';
-import { menuPinia } from '@Showcases/Menu/main';
 import type { TEventsService } from '@Showcases/Menu/models';
+import { menuPinia } from '@Showcases/Menu/stores/CreatePinia';
 import { useLegalDocsStore } from '@Showcases/Menu/stores/LegalDocsStore';
 import { useSettingsStore } from '@Showcases/Menu/stores/SettingsStore';
 import type { TFromMenuEvent, TLoadDocPayload, TShowcaseGameSettings, TToMenuEvent } from '@Showcases/Shared';

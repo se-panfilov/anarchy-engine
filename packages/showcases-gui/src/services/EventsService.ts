@@ -1,7 +1,7 @@
 import type { KeyCode, KeysExtra, MouseButtonValue } from '@Anarchy/Engine';
 import { isNotDefined } from '@Anarchy/Shared/Utils';
-import { guiPinia } from '@Showcases/GUI/main';
 import type { TEventsService } from '@Showcases/GUI/models';
+import { guiPinia } from '@Showcases/GUI/stores/CreatePinia';
 import { useGuiButtonStore } from '@Showcases/GUI/stores/GuiButtonsStore';
 import type { TFromGuiEvent, TToGuiEvent } from '@Showcases/Shared';
 import { FromGuiEvents, ToGuiEvents } from '@Showcases/Shared';
