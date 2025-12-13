@@ -1,8 +1,9 @@
 import { Vector3 } from 'three';
 
 import type { TKinematicData, TKinematicDataParams, TKinematicLoopService } from '@/Engine/Kinematic/Models';
-import { KinematicTransformAgent } from '@/Engine/TransformDrive/Agents';
-import type { TKinematicTransformAgent, TKinematicTransformAgentParams, TTransformAgentParams } from '@/Engine/TransformDrive/Models';
+import type { TPhysicsLoopService, TWithPresetNamePhysicsBodyParams } from '@/Engine/Physics';
+import { KinematicTransformAgent, PhysicsTransformAgent } from '@/Engine/TransformDrive/Agents';
+import type { TKinematicTransformAgent, TKinematicTransformAgentParams, TPhysicsTransformAgent, TPhysicsTransformAgentParams, TTransformAgentParams } from '@/Engine/TransformDrive/Models';
 
 export function getKinematicTransformAgent(params: TTransformAgentParams, kinematic: TKinematicDataParams | undefined, kinematicLoopService: TKinematicLoopService): TKinematicTransformAgent {
   const agentParams: TTransformAgentParams = { position: params.position, rotation: params.rotation, scale: params.scale ?? new Vector3(1, 1, 1) };
@@ -18,4 +19,11 @@ export function getKinematicWithDefaults(kinematic: TKinematicDataParams | undef
     angularSpeed: kinematic?.angularSpeed ?? 0,
     angularDirection: kinematic?.angularDirection ?? new Vector3()
   };
+}
+
+export function getPhysicsTransformAgent(params: TTransformAgentParams, physics: TWithPresetNamePhysicsBodyParams | undefined, physicsLoopService: TPhysicsLoopService): TPhysicsTransformAgent {
+  const agentParams: Omit<TTransformAgentParams, 'rotation'> = { position: params.position, scale: params.scale ?? new Vector3(1, 1, 1) };
+  // TODO 8.0.0. MODELS: perhaps we should use "makeWrapperWithPhysicsBody" here
+  const physicalData: TPhysicsTransformAgentParams = { ...agentParams, ...physics };
+  return PhysicsTransformAgent(physicalData, physicsLoopService);
 }

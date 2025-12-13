@@ -5,6 +5,7 @@ export * from './TDriveToTargetConnector';
 export * from './TKinematicTransformAgent';
 export * from './TKinematicTransformAgentParams';
 export * from './TPhysicsTransformAgent';
+export * from './TPhysicsTransformAgentParams';
 export * from './TProtectedTransformAgentFacade';
 export * from './TTransformAgentParams';
 export * from './TTransformAgents';
