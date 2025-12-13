@@ -143,8 +143,7 @@ const validate = (str: string | undefined): boolean => (isDefined(str) ? str.len
 
 function validateAllActorsHasPhysicsPreset(actors: ReadonlyArray<TActorConfig>, presets: ReadonlyArray<TPhysicsPresetConfig> | undefined): boolean {
   return actors.every((actor: TActorConfig) => {
-    return (presets || []).some((preset: TPhysicsPresetConfig): boolean => {
-      return isNotDefined(actor.physics) || isNotDefined(actor.physics?.presetName) || preset.name === actor.physics.presetName;
-    });
+    if (isNotDefined(presets)) return true;
+    return presets.some((preset: TPhysicsPresetConfig): boolean => isNotDefined(actor.physics) || isNotDefined(actor.physics?.presetName) || preset.name === actor.physics.presetName);
   });
 }
