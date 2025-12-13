@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN"
+  "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <!-- Allow network access -->
+  <!-- <key>com.apple.security.network.client</key>
+  <true/> -->
+
+  <!-- Denies access to memory of other processes (enhances security) -->
+  <!-- <key>com.apple.security.cs.disable-library-validation</key>
+  <true/> -->
+
+  <!-- Allows read and write access to user-selected files -->
+  <key>com.apple.security.files.user-selected.read-write</key>
+  <true/>
+
+  <!-- Allows access to the microphone -->
+  <!-- <key>com.apple.security.device.audio-input</key>
+  <true/> -->
+
+  <!-- Allows access to the camera -->
+  <!-- <key>com.apple.security.device.camera</key>
+  <true/> -->
+
+  <!-- Allows interaction with other applications -->
+  <!-- <key>com.apple.security.app-sandbox</key>
+  <true/> -->
+</dict>
+</plist>
