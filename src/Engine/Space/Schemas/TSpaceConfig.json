@@ -946,6 +946,9 @@
         "performance": {
           "$ref": "#/definitions/TIntersectionsWatcherPerformanceOptions"
         },
+        "far": {
+          "type": "number"
+        },
         "name": {
           "type": "string"
         },
@@ -994,6 +997,9 @@
         },
         "performance": {
           "$ref": "#/definitions/TIntersectionsWatcherPerformanceOptions"
+        },
+        "far": {
+          "type": "number"
         },
         "name": {
           "type": "string"

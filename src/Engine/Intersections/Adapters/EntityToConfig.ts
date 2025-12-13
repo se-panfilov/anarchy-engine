@@ -33,6 +33,7 @@ export function intersectionsAbstractToConfig(entity: TAbstractIntersectionsWatc
     actorNames: entity.getActors().map((actor: TActor): string => actor.name),
     isAutoStart: entity.isAutoStart,
     intersectionsLoop: entity.getIntersectionsLoop()?.name,
+    far: entity.raycaster?.far,
     ...extractSerializableRegistrableFields(entity)
   });
 }

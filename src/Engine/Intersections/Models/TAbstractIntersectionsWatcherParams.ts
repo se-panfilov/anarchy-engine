@@ -9,6 +9,7 @@ export type TAbstractIntersectionsWatcherParams = Readonly<{
   actors: ReadonlyArray<TActor>;
   intersectionsLoop: TIntersectionsLoop;
   performance?: TIntersectionsWatcherPerformanceOptions;
+  far?: number;
 }> &
   TWithName &
   TWithTags;
