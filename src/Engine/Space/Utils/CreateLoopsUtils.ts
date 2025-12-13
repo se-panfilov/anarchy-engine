@@ -27,7 +27,6 @@ export function createLoops({ create }: TLoopService): TSpaceLoops {
   return {
     renderLoop: create({ name: RenderMain, type: Render, trigger: requestAnimationFrame, showDebugInfo: true }) as TRenderLoop,
     physicalLoop: create({ name: PhysicalMain, type: Physical, trigger: milliseconds(16) }) as TPhysicalLoop,
-    // TODO 10.0.0. LOOPS: how do we use collisions loop?
     collisionsLoop: create({ name: CollisionsMain, type: Collisions, trigger: milliseconds(16), maxPriority: CollisionsUpdatePriority.ASAP }) as TCollisionsLoop,
     kinematicLoop: create({ name: KinematicMain, type: Kinematic, trigger: milliseconds(16) }) as TKinematicLoop,
     // TODO 10.0.0. LOOPS: do we use spatial loop?
