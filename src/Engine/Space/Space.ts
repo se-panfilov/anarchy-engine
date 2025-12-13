@@ -14,9 +14,6 @@ import type { IDataTexture } from '@/Engine/EnvMap';
 import { envMapService } from '@/Engine/EnvMap';
 import type { IFogConfig, IFogFactory, IFogRegistry, IFogWrapper } from '@/Engine/Fog';
 import { FogFactory, FogRegistry } from '@/Engine/Fog';
-import { setInitialActiveCamera } from '@/Engine/Space/SpaceHelper';
-import { withBuiltMixin } from '@/Engine/Space/Mixin';
-import type { ISpace, ISpaceConfig, IWithBuilt } from '@/Engine/Space/Models';
 import type { IAbstractLightWrapper, ILight, ILightConfig, ILightFactory, ILightRegistry } from '@/Engine/Light';
 import { LightFactory, LightRegistry } from '@/Engine/Light';
 import type { ILoopTimes } from '@/Engine/Loop';
@@ -29,6 +26,9 @@ import { RendererFactory, RendererModes, RendererRegistry, RendererTag } from '@
 import type { ISceneConfig, ISceneFactory, ISceneRegistry, ISceneWrapper } from '@/Engine/Scene';
 import { SceneFactory, SceneRegistry, SceneTag } from '@/Engine/Scene';
 import { screenService } from '@/Engine/Services';
+import { withBuiltMixin } from '@/Engine/Space/Mixin';
+import type { ISpace, ISpaceConfig, IWithBuilt } from '@/Engine/Space/Models';
+import { setInitialActiveCamera } from '@/Engine/Space/SpaceHelper';
 import type { IText2dRegistry, IText2dRenderer, IText3dRegistry, IText3dRenderer, ITextAnyWrapper, ITextConfig, ITextFactory } from '@/Engine/Text';
 import { initText2dRenderer, initText3dRenderer, isText2dWrapper, isText3dWrapper, Text2dRegistry, Text3dRegistry, TextFactory } from '@/Engine/Text';
 import { isDefined, isNotDefined, validLevelConfig } from '@/Engine/Utils';
@@ -196,13 +196,13 @@ export function buildSpaceFromConfig(canvas: IAppCanvas, config: ISpaceConfig): 
     start(): void {
       setInitialActiveCamera(cameraRegistry);
       standardLoopService.start();
-      messages$.next(`Level started`);
+      messages$.next(`Space started`);
     },
     stop(): void {
       // TODO (S.Panfilov) implement stop
       // if (isDefined(intersectionsWatcher)) intersectionsWatcher.stop();
       // loop.stop(renderer, scene, controlsRegistry, cameraRegistry);
-      messages$.next(`Level stopped`);
+      messages$.next(`Space stopped`);
     },
     entities: {
       actorRegistry: actorRegistry,

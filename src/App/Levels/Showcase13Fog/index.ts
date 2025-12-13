@@ -1,7 +1,7 @@
 import GUI from 'lil-gui';
 
 import type { IShowcase } from '@/App/Levels/Models';
-import type { IAppCanvas, ISpace, ISpaceConfig, ISceneWrapper } from '@/Engine';
+import type { IAppCanvas, ISceneWrapper, ISpace, ISpaceConfig } from '@/Engine';
 import { buildSpaceFromConfig, isNotDefined, RendererTag } from '@/Engine';
 
 import spaceConfig from './showcase-13-fog.json';

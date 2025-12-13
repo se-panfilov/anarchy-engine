@@ -3,7 +3,7 @@ import { CameraHelper, DirectionalLightHelper, HemisphereLightHelper, PointLight
 import { RectAreaLightHelper } from 'three/examples/jsm/helpers/RectAreaLightHelper';
 
 import type { IShowcase } from '@/App/Levels/Models';
-import type { IAppCanvas, IDirectionalLightWrapper, IHemisphereLightWrapper, ISpace, ISpaceConfig, IPointLightWrapper, IRectAreaLightWrapper, ISceneWrapper, ISpotLightWrapper } from '@/Engine';
+import type { IAppCanvas, IDirectionalLightWrapper, IHemisphereLightWrapper, IPointLightWrapper, IRectAreaLightWrapper, ISceneWrapper, ISpace, ISpaceConfig, ISpotLightWrapper } from '@/Engine';
 import { buildSpaceFromConfig, isNotDefined } from '@/Engine';
 
 import spaceConfig from './showcase-12-light.json';

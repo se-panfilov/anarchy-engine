@@ -2,7 +2,7 @@ import GUI from 'lil-gui';
 import { withLatestFrom } from 'rxjs';
 
 import type { IShowcase } from '@/App/Levels/Models';
-import type { IActorWrapperAsync, IAppCanvas, ICameraWrapper, IIntersectionEvent, IIntersectionsWatcher, ISpace, ISpaceConfig, IMouseWatcherEvent } from '@/Engine';
+import type { IActorWrapperAsync, IAppCanvas, ICameraWrapper, IIntersectionEvent, IIntersectionsWatcher, IMouseWatcherEvent, ISpace, ISpaceConfig } from '@/Engine';
 import { buildSpaceFromConfig, Easing, intersectionsService, isNotDefined, keyboardService, KeyCode, LookUpStrategy, mouseService, standardMoverService } from '@/Engine';
 
 import spaceConfig from './showcase-11-keyboard-and-mouse.json';
