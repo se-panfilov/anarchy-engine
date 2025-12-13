@@ -17,3 +17,18 @@ export type TWithUndefined<T> = {
 export type TWithMandatoryField<T, K extends keyof T> = Omit<T, K> & Required<Pick<T, K>>;
 
 export type TValueOf<T> = T[keyof T];
+
+export type TNullToUndefined<T> = {
+  [K in keyof T]: T[K] extends null ? undefined : T[K] extends null | infer U ? U | undefined : T[K];
+};
+
+export function nullsToUndefined<T extends Record<string, any>>(obj: T): TNullToUndefined<T> {
+  const result = {} as TNullToUndefined<T>;
+  // eslint-disable-next-line functional/no-loop-statements
+  for (const key in obj) {
+    const value = obj[key];
+    // eslint-disable-next-line functional/immutable-data
+    (result as any)[key] = value === null ? undefined : value;
+  }
+  return result;
+}

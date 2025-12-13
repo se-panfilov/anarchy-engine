@@ -16,6 +16,6 @@ export * from './ScreenUtils';
 export * from './StringUtils';
 export * from './TagsUtils';
 export * from './TransformUtils';
-export type * from './TypesUtils';
+export * from './TypesUtils';
 export * from './WebGLUtils';
 export * from './WrapperHelpers';

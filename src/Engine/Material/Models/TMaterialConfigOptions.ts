@@ -13,6 +13,7 @@ import type {
   StencilFuncName,
   StencilOpName
 } from '@/Engine/Material/Constants';
+import type { TOptional } from '@/Engine/Utils';
 
 import type {
   TAbstractMaterialParamsOptions,
@@ -60,6 +61,22 @@ export type TToonMaterialConfigOptions = TOmitParamsOnlyFields<TWithNormalScaleC
 export type TStandardMaterialConfigOptions = TOmitParamsOnlyFields<TWithNormalScaleConfig<TStandardMaterialParamsOptions>> & TMaterialConfigFields;
 export type TPhysicalMaterialConfigOptions = TOmitParamsOnlyFields<TWithNormalScaleConfig<TWithClearCoatNormalScaleConfig<TPhysicalMaterialParamsOptions>>> & TMaterialConfigFields;
 export type TPointsMaterialConfigOptions = TOmitParamsOnlyFields<TPointsMaterialParamsOptions> & TMaterialConfigFields;
+
+export type TAllMaterialConfigOptions = TOptional<
+  TAbstractMaterialConfigOptions &
+    TBasicMaterialConfigOptions &
+    TDepthMaterialConfigOptions &
+    TDistanceMaterialConfigOptions &
+    TNormalMaterialConfigOptions &
+    TMatcapMaterialConfigOptions &
+    TLambertMaterialConfigOptions &
+    TPhongMaterialConfigOptions &
+    TToonMaterialConfigOptions &
+    TStandardMaterialConfigOptions &
+    TPhysicalMaterialConfigOptions &
+    TPointsMaterialConfigOptions
+>;
+
 export type TMaterialConfigOptions =
   | TAbstractMaterialConfigOptions
   | TBasicMaterialConfigOptions
