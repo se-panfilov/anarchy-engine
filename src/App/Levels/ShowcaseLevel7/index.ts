@@ -14,7 +14,7 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
     position: Vector3Wrapper({ x: -4, y: 8, z: 0 }),
     rotation: EulerWrapper({ x: -1.57, y: 0, z: 0 }),
     color: '#ff0000',
-    fontSize: 3,
+    fontSize: '14px',
     font: './ShowcaseLevel7/font/RubikDoodleTriangles-Regular.ttf',
     tags: []
   });
@@ -24,7 +24,7 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
     position: Vector3Wrapper({ x: -5, y: 12, z: 6 }),
     rotation: EulerWrapper({ x: -1.57, y: 0, z: 0 }),
     color: '#ff0000',
-    fontSize: 3,
+    fontSize: '14px',
     font: './ShowcaseLevel7/font/RubikScribble-Regular.ttf',
     tags: []
   });
@@ -34,7 +34,7 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
     position: Vector3Wrapper({ x: -10, y: 8, z: -8 }),
     rotation: EulerWrapper({ x: -1.57, y: 0, z: 0 }),
     color: '#ff0000',
-    fontSize: 3,
+    fontSize: '14px',
     font: './ShowcaseLevel7/font/LongCang-Regular.ttf',
     tags: []
   });
@@ -44,7 +44,7 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
     position: Vector3Wrapper({ x: -15, y: 6, z: -14 }),
     rotation: EulerWrapper({ x: -1.57, y: 0, z: 0 }),
     color: '#ff0000',
-    fontSize: 3,
+    fontSize: '14px',
     font: './ShowcaseLevel7/font/VarelaRound-Regular.ttf',
     tags: []
   });

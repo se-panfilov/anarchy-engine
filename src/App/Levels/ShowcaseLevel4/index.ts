@@ -44,7 +44,7 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
 
       textFactory.create({
         text: String(easing),
-        fontSize: 1.2,
+        fontSize: '12px',
         position: Vector3Wrapper({ x: -32, y: 2, z: positionZ - 1 + gap * i }),
         rotation: EulerWrapper({ x: -1.57, y: 0, z: 0 }),
         tags: [...actorTemplate.tags, String(easing)]

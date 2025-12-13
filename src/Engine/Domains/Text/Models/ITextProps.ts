@@ -3,9 +3,9 @@ import type { IVector2Wrapper } from '@/Engine/Wrappers';
 
 export type ITextProps = Readonly<{
   text: string;
-  backgroundColor: string;
-  className: string;
-  fontSize?: string;
+  backgroundColor?: string;
+  className?: string;
+  fontSize: string;
   color?: string;
   font?: string;
   maxWidth?: string;

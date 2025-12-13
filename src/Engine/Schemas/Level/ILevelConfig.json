@@ -958,70 +958,48 @@
         "renderOrder": {
           "type": "number"
         },
-        "color": {
-          "type": "string"
-        },
-        "strokeColor": {
-          "type": ["string", "number"]
-        },
-        "materialType": {
-          "type": "string",
-          "enum": ["MeshBasicMaterial", "MeshStandardMaterial"]
-        },
-        "materialParams": {
-          "type": "object"
+        "center": {
+          "type": "object",
+          "properties": {
+            "x": {
+              "type": "number"
+            },
+            "y": {
+              "type": "number"
+            }
+          },
+          "required": ["x", "y"],
+          "additionalProperties": false
         },
         "text": {
           "type": "string"
         },
+        "backgroundColor": {
+          "type": "string"
+        },
+        "className": {
+          "type": "string"
+        },
         "fontSize": {
-          "type": "number"
+          "type": "string"
+        },
+        "color": {
+          "type": "string"
         },
         "font": {
           "type": "string"
         },
         "maxWidth": {
-          "type": "number"
+          "type": "string"
         },
         "lineHeight": {
-          "type": "number"
+          "type": "string"
         },
         "letterSpacing": {
-          "type": "number"
+          "type": "string"
         },
         "textAlign": {
           "$ref": "#/definitions/TextAlign"
-        },
-        "anchorX": {
-          "anyOf": [
-            {
-              "$ref": "#/definitions/TextAnchorX"
-            },
-            {
-              "type": "number"
-            }
-          ]
-        },
-        "anchorY": {
-          "anyOf": [
-            {
-              "$ref": "#/definitions/TextAnchorY"
-            },
-            {
-              "type": "number"
-            }
-          ]
-        },
-        "clipRect": {
-          "type": "array",
-          "items": {
-            "type": "number"
-          },
-          "minItems": 4,
-          "maxItems": 4
-        },
-        "depthOffset": {
-          "type": "number"
         },
         "direction": {
           "$ref": "#/definitions/TextDirection"
@@ -1032,59 +1010,14 @@
         "whiteSpace": {
           "$ref": "#/definitions/TextWhiteSpace"
         },
-        "outlineWidth": {
-          "type": "number"
-        },
-        "outlineOffsetX": {
-          "type": "number"
-        },
-        "outlineOffsetY": {
-          "type": "number"
-        },
-        "outlineColor": {
-          "type": ["string", "number"]
-        },
-        "outlineOpacity": {
-          "type": "number"
-        },
-        "strokeWidth": {
-          "type": "number"
-        },
-        "strokeOpacity": {
-          "type": "number"
-        },
-        "curveRadius": {
-          "type": "number"
-        },
-        "fillOpacity": {
-          "type": "number"
-        },
         "fontStyle": {
           "$ref": "#/definitions/TextFontStyle"
         },
         "fontWeight": {
           "$ref": "#/definitions/TextFontWeight"
-        },
-        "glyphGeometryDetail": {
-          "type": "number"
-        },
-        "gpuAccelerateSDF": {
-          "type": "boolean"
-        },
-        "outlineBlur": {
-          "type": "number"
-        },
-        "sdfGlyphSize": {
-          "type": "number"
-        },
-        "textIndent": {
-          "type": "number"
-        },
-        "unicodeFontsUrl": {
-          "type": "string"
         }
       },
-      "required": ["position", "tags", "text"]
+      "required": ["fontSize", "position", "tags", "text"]
     },
     "TextTag": {
       "type": "string",
@@ -1093,14 +1026,6 @@
     "TextAlign": {
       "type": "string",
       "enum": ["left", "right", "center", "justify"]
-    },
-    "TextAnchorX": {
-      "type": "string",
-      "enum": ["left", "right", "center"]
-    },
-    "TextAnchorY": {
-      "type": "string",
-      "enum": ["top", "bottom", "middle", "baseline"]
     },
     "TextDirection": {
       "type": "string",

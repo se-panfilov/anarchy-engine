@@ -27,7 +27,7 @@
       "position": { "x": -20, "y": 2, "z": 2 },
       "rotation": { "x": -1.57, "y": 0, "z": 0 },
       "color": "#ff0000",
-      "fontSize": 2.5,
+      "fontSize": "24px",
       "font": "./ShowcaseLevel7/font/Roboto-Regular.ttf",
       "tags": []
     }
