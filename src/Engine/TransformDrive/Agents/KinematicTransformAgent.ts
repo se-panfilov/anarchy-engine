@@ -56,9 +56,62 @@ export function KinematicTransformAgent(params: TKinematicTransformAgentParams, 
     getData(): TKinematicData {
       return agent.data;
     },
-    // rotateToRad(degrees: TRadians, speed: TMetersPerSecond): void {
-    //   agent.getAngularAzimuthRad(degrees);
-    // },
+    // TODO CWP
+    // TODO 8.0.0. MODELS: Refactor this code. It's working, but it's a mess atm.
+    moveTo(vector: Vector3, speed: TMetersPerSecond): void {
+      const targetPosition = vector.clone();
+      const epsilon = 0.01;
+
+      // If the agent is already at the target, do not move
+      if (targetPosition.equals(abstractTransformAgent.position$.value)) {
+        agent.setLinearSpeed(0);
+        return;
+      }
+
+      const vectorToTarget = new Vector3();
+      const direction = targetPosition.clone().sub(abstractTransformAgent.position$.value).normalize();
+
+      agent.setLinearDirection(direction);
+      agent.setLinearSpeed(speed);
+
+      const subscription = kinematicLoopService.tick$.subscribe((deltaTime: TMilliseconds) => {
+        // If the agent is already at the target, do not move
+        if (agent.getLinearSpeed() === 0) {
+          subscription.unsubscribe();
+          return;
+        }
+
+        const currentPosition = abstractTransformAgent.position$.value;
+        vectorToTarget.copy(targetPosition).sub(currentPosition);
+
+        const distanceSquared = vectorToTarget.lengthSq();
+
+        // If the agent is close enough to the target, stop the agent
+        if (distanceSquared < epsilon * epsilon) {
+          agent.setLinearSpeed(0);
+          subscription.unsubscribe();
+          return;
+        }
+
+        const dotProduct = vectorToTarget.dot(agent.getLinearDirection());
+        // If the agent has passed the target, stop the agent
+        if (dotProduct < 0) {
+          agent.setLinearSpeed(0);
+          subscription.unsubscribe();
+          return;
+        }
+
+        const previousPosition = vectorToTarget.copy(currentPosition).sub(direction.clone().multiplyScalar(speed * deltaTime));
+        const crossedTarget = previousPosition.distanceTo(targetPosition) < currentPosition.distanceTo(targetPosition);
+
+        // If the agent has crossed the target (e.g. in a single frame), stop the agent
+        if (crossedTarget) {
+          agent.setLinearSpeed(0);
+          subscription.unsubscribe();
+          return;
+        }
+      });
+    },
     adjustDataByLinearVelocity(linearVelocity: TReadonlyVector3): void {
       agent.setLinearSpeed(linearVelocity.length() as TMetersPerSecond);
       agent.setLinearDirection(linearVelocity.clone().normalize());

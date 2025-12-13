@@ -227,7 +227,8 @@ function moveActorTo(actor: TActor, position: Vector3, agent: TransformAgent, is
       return actor.drive.default.setPosition(position);
     case TransformAgent.Kinematic:
       actor.drive.kinematic.setLinearAzimuth(azimuth);
-      return actor.drive.kinematic.setLinearSpeed(metersPerSecond(5));
+      // return actor.drive.kinematic.setLinearSpeed(metersPerSecond(5));
+      return actor.drive.kinematic.moveTo(position, metersPerSecond(5));
     case TransformAgent.Connected:
       // no need to do anything here, cause already connected
       return undefined;

@@ -7,6 +7,7 @@ import type { TKinematicData } from './TKinematicData';
 export type TKinematicMethods = Readonly<{
   setData: (kinematic: TKinematicData) => void;
   getData: () => TKinematicData;
+  moveTo: (vector: Vector3, speed: TMetersPerSecond) => void;
   adjustDataByLinearVelocity: (linearVelocity: Vector3) => void;
   adjustDataFromAngularVelocity: (angularVelocity: Vector3) => void;
   getLinearSpeed: () => TMetersPerSecond;
