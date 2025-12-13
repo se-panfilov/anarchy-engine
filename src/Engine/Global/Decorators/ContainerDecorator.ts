@@ -17,6 +17,7 @@ export function ContainerDecorator(container: TAppGlobalContainer | HTMLElement)
     getRatio: (): number => getAppContainer().devicePixelRatio || 1,
     startWatch: (type: string, cb: () => void): void => container.addEventListener(type, cb),
     stopWatch: (type: string, cb: () => void): void => container.removeEventListener(type, cb),
-    getAppContainer
+    getAppContainer,
+    getElement: (): TAppGlobalContainer | HTMLElement => container
   };
 }

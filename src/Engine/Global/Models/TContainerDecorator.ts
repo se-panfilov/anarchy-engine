@@ -8,6 +8,7 @@ export type TContainerDecorator = Readonly<{
   startWatch: (type: string, cb: (...args: ReadonlyArray<never>) => void) => void;
   stopWatch: (type: string, cb: (...args: ReadonlyArray<never>) => void) => void;
   getAppContainer: () => TAppGlobalContainer | never;
+  getElement: () => TAppGlobalContainer | HTMLElement;
 }> &
   TWithId &
   TNoSpread;

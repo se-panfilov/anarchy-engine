@@ -2,6 +2,7 @@ import type { Subscription } from 'rxjs';
 
 import type { TAbstractWatcherWithState } from '@/Engine/Abstract';
 import { AbstractWatcherWithState, WatcherType } from '@/Engine/Abstract';
+import { ambientContext } from '@/Engine/Context';
 import type { TScreenSizeValues, TScreenSizeWatcher, TScreenSizeWatcherParams } from '@/Engine/Screen/Models';
 
 export function ScreenSizeWatcher({ container, tags }: TScreenSizeWatcherParams): TScreenSizeWatcher {
@@ -19,7 +20,7 @@ export function ScreenSizeWatcher({ container, tags }: TScreenSizeWatcherParams)
 
   const startSub$: Subscription = abstractWatcher.start$.subscribe((): void => {
     onResize();
-    container.startWatch('resize', onResize);
+    ambientContext.globalContainer.startWatch('resize', onResize);
   });
 
   const stopSub$: Subscription = abstractWatcher.stop$.subscribe((): void => container.stopWatch('resize', onResize));
