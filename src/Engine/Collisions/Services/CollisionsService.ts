@@ -11,7 +11,7 @@ import { BvhService } from './BvhService';
 
 export function CollisionsService(): TCollisionsService {
   const bvhService: TBvhService = BvhService();
-  const abstractService: TAbstractService = AbstractService();
+  const abstractService: TAbstractService = AbstractService([bvhService]);
 
   // The bigger "interpolationLengthMultiplier" then less chance the bullet won't fly through the target without a collision registration. But the too big value might lead to false positives registrations
   // i.g. bigger "interpolationLengthMultiplier" (2, 4, etc.) is safer (but better test it first)
