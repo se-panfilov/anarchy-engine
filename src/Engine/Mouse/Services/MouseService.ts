@@ -1,3 +1,7 @@
+import { WatcherTag } from '@/Engine/Abstract';
+import { ambientContext } from '@/Engine/Context';
+import type { IGlobalContainerDecorator } from '@/Engine/Global';
+import { MouseClickWatcherFactory, MousePositionWatcherFactory } from '@/Engine/Mouse/Factory';
 import type {
   IMouseClickWatcher,
   IMouseClickWatcherFactory,
@@ -7,12 +11,7 @@ import type {
   IMousePositionWatcherRegistry,
   IMouseService
 } from '@/Engine/Mouse/Models';
-
-import { WatcherTag } from '@/Engine/Abstract';
-import { MouseClickWatcherFactory, MousePositionWatcherFactory } from '@/Engine/Mouse/Factory';
 import { MouseClickWatcherRegistry, MousePositionWatcherRegistry } from '@/Engine/Mouse/Registry';
-import { ambientContext } from '@/Engine/Context';
-import type { IGlobalContainerDecorator } from '@/Engine/Global';
 
 export function MouseService(container: IGlobalContainerDecorator): IMouseService {
   const mouseClickWatcherFactory: IMouseClickWatcherFactory = MouseClickWatcherFactory();

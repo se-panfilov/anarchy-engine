@@ -2,7 +2,7 @@ import { combineLatest } from 'rxjs';
 
 import type { IShowcase } from '@/App/Levels/Models';
 import type { IActorWrapperAsync, IAppCanvas, ICameraWrapper, ILevel, ILevelConfig } from '@/Engine';
-import { ambientContext, buildLevelFromConfig, getRotationByCos, getRotationBySin, isNotDefined } from '@/Engine';
+import { ambientContext, buildLevelFromConfig, getRotationByCos, getRotationBySin, isNotDefined, mouseService } from '@/Engine';
 
 import levelConfig from './showcase-3-camera-flying.config.json';
 
@@ -16,8 +16,8 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
 
     const camera: ICameraWrapper | undefined = cameraRegistry.getActiveCamera();
 
-    const { mousePositionWatcher, screenSizeWatcher } = ambientContext;
-    combineLatest([mousePositionWatcher.value$, screenSizeWatcher.latest$]).subscribe(([{ x, y }, { width, height }]): void => {
+    const { screenSizeWatcher } = ambientContext;
+    combineLatest([mouseService.position$, screenSizeWatcher.latest$]).subscribe(([{ x, y }, { width, height }]): void => {
       if (isNotDefined(camera)) return;
       const xRatio: number = x / width - 0.5;
       const yRatio: number = -(y / height - 0.5);

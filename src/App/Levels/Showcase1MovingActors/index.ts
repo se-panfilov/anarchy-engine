@@ -2,7 +2,7 @@ import { filter } from 'rxjs';
 
 import type { IShowcase } from '@/App/Levels/Models';
 import type { IActorWrapperAsync, IAppCanvas, ICameraWrapper, IIntersectionEvent, IIntersectionsWatcher, ILevel, ILevelConfig } from '@/Engine';
-import { ActorTag, ambientContext, buildLevelFromConfig, intersectionsService, isNotDefined, standardLoopService } from '@/Engine';
+import { ActorTag, buildLevelFromConfig, intersectionsService, isNotDefined, mouseService, standardLoopService } from '@/Engine';
 
 import levelConfig from './showcase-1-moving-actors.config.json';
 
@@ -33,7 +33,7 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
       console.log('intersect obj', obj);
     });
 
-    ambientContext.mouseClickWatcher.value$.subscribe((): void => {
+    mouseService.click$.subscribe((): void => {
       console.log('int click:');
     });
 

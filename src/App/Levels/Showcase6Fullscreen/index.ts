@@ -1,6 +1,6 @@
 import type { IShowcase } from '@/App/Levels/Models';
 import type { IActorWrapperAsync, IAppCanvas, ILevel, ILevelConfig } from '@/Engine';
-import { ambientContext, buildLevelFromConfig, screenService, standardLoopService } from '@/Engine';
+import { buildLevelFromConfig, mouseService, screenService, standardLoopService } from '@/Engine';
 
 import levelConfig from './showcase-7-fullscreen.config.json';
 
@@ -13,7 +13,7 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
     const actor: IActorWrapperAsync = await actorRegistry.getUniqByTagAsync('sphere');
     actor.setY(2);
 
-    ambientContext.mouseClickWatcher.value$.subscribe(() => {
+    mouseService.click$.subscribe(() => {
       void screenService.toggleFullScreen();
     });
 

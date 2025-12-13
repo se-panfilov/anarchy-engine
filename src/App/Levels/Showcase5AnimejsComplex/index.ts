@@ -1,6 +1,6 @@
 import type { IShowcase } from '@/App/Levels/Models';
 import type { IActorWrapperAsync, IAnimationParams, IAppCanvas, ILevel, ILevelConfig, IText2dWrapper, ITextAnyWrapper, IWithCoordsXZ } from '@/Engine';
-import { ambientContext, buildLevelFromConfig, createCirclePathXZ, Easing, EulerWrapper, generateAnglesForCircle, isNotDefined, standardMoverService, TextType, Vector3Wrapper } from '@/Engine';
+import { buildLevelFromConfig, createCirclePathXZ, Easing, EulerWrapper, generateAnglesForCircle, isNotDefined, mouseService, standardMoverService, TextType, Vector3Wrapper } from '@/Engine';
 
 import levelConfig from './showcase-5-animejs-complex.config.json';
 
@@ -73,7 +73,7 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
       tags: []
     });
 
-    ambientContext.mouseClickWatcher.value$.subscribe(() => {
+    mouseService.click$.subscribe(() => {
       if (isClickBlocked) {
         redActor.setVisible(false);
         notification.setVisible(true);

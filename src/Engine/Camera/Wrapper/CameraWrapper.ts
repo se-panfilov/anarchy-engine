@@ -28,10 +28,10 @@ export function CameraWrapper(params: ICameraParams, screenSizeWatcher: Readonly
   //init with the values which came before the start of the subscription
   setValues(entity, screenSizeWatcher.latest$.value);
 
-  screenSizeWatcher.value$.subscribe((params: IScreenSizeValues): void => setValues(entity, params));
+  const screenSize$: Subscription = screenSizeWatcher.value$.subscribe((params: IScreenSizeValues): void => setValues(entity, params));
 
   const screenSizeWatcherSubscription: Subscription = screenSizeWatcher.destroyed$.subscribe(() => {
-    screenSizeWatcher.value$.unsubscribe();
+    screenSize$.unsubscribe();
     screenSizeWatcherSubscription.unsubscribe();
   });
 

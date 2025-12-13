@@ -49,17 +49,17 @@ export function RendererWrapper(params: IRendererParams, screenSizeWatcher: Read
   //init with the values which came before the start of the subscription
   setValues(entity, screenSizeWatcher.latest$.value);
 
-  screenSizeWatcher.value$.subscribe((params: IScreenSizeValues): void => setValues(entity, params));
+  const screenSize$: Subscription = screenSizeWatcher.value$.subscribe((params: IScreenSizeValues): void => setValues(entity, params));
 
   const screenSizeWatcherSubscription: Subscription = screenSizeWatcher.destroyed$.subscribe(() => {
-    screenSizeWatcher.value$.unsubscribe();
+    screenSize$.unsubscribe();
     screenSizeWatcherSubscription.unsubscribe();
   });
 
   const wrapper: IWrapper<WebGLRenderer> = AbstractWrapper(entity, WrapperType.Renderer, params);
 
   function destroy(): void {
-    screenSizeWatcher.value$.unsubscribe();
+    screenSize$.unsubscribe();
   }
 
   return { ...wrapper, ...accessors, entity, destroy };

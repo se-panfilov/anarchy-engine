@@ -1,6 +1,6 @@
 import type { IShowcase } from '@/App/Levels/Models';
 import type { IActorParams, IActorWrapperAsync, IAppCanvas, ILevel, ILevelConfig } from '@/Engine';
-import { ActorType, ambientContext, buildLevelFromConfig, EulerWrapper, forEachEnum, LookUpStrategy, MaterialType, TextType, Vector3Wrapper } from '@/Engine';
+import { ActorType, buildLevelFromConfig, EulerWrapper, forEachEnum, LookUpStrategy, MaterialType, mouseService, TextType, Vector3Wrapper } from '@/Engine';
 import type { IAnimationParams } from '@/Engine/Services';
 import { Easing, standardMoverService } from '@/Engine/Services';
 
@@ -54,7 +54,7 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
       });
     });
 
-    ambientContext.mouseClickWatcher.value$.subscribe(() => {
+    mouseService.click$.subscribe(() => {
       if (isClickBlocked) {
         console.log('click is blocked');
         isClickBlocked = false;

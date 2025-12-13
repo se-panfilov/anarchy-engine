@@ -1,10 +1,10 @@
 import type { IMultitonRegistrable } from '@/Engine/Mixins';
 
-import type { IAbstractWatcherWithState } from './IAbstractWatcherWithState';
+import type { IAbstractProtectedWatcherWithState } from './IAbstractProtectedWatcherWithState';
 
 export type IMultitonWatcherWithState<T> = IMultitonRegistrable &
   // IWatcherWithState<T> &
-  IAbstractWatcherWithState<T> &
+  IAbstractProtectedWatcherWithState<T> &
   Readonly<{
     //same as IWatcher<T>
     start: () => IMultitonWatcherWithState<T>;

@@ -1,8 +1,8 @@
 import type { IShowcase } from '@/App/Levels/Models';
 import type { IActorWrapperAsync, IAppCanvas, ILevel, ILevelConfig } from '@/Engine';
-import { ActorTag, buildLevelFromConfig, standardLoopService } from '@/Engine';
+import { buildLevelFromConfig, mouseService } from '@/Engine';
 
-import levelConfig from './showcase-1-keyboard-and-mouse.json';
+import levelConfig from './showcase-11-keyboard-and-mouse.json';
 
 //Showcase 11: Keyboard and Mouse
 export function showcaseLevel(canvas: IAppCanvas): IShowcase {
@@ -10,12 +10,11 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
   const { actorRegistry } = level.entities;
 
   async function init(): Promise<void> {
-    const actor: IActorWrapperAsync = await actorRegistry.getUniqByTagAsync(ActorTag.Intersectable);
-    actor.setY(2);
+    const actorKeyboard: IActorWrapperAsync = await actorRegistry.getUniqByTagAsync('keyboard');
+    const actorMouse: IActorWrapperAsync = await actorRegistry.getUniqByTagAsync('mouse');
 
-    standardLoopService.tick$.subscribe(({ elapsedTime }) => {
-      actor.setX(Math.sin(elapsedTime) * 8);
-      actor.setZ(Math.cos(elapsedTime) * 8);
+    mouseService.position$.subscribe((x) => {
+      console.log(x);
     });
   }
 

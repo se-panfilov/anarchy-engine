@@ -1,9 +1,9 @@
 import type { IActorWrapperAsync } from '@/Engine/Actor';
 import type { ICameraWrapper } from '@/Engine/Camera';
-import { ambientContext } from '@/Engine/Context';
 import { IntersectionsWatcherFactory } from '@/Engine/Intersections/Factory';
 import type { IIntersectionsService, IIntersectionsWatcher, IIntersectionsWatcherFactory, IIntersectionsWatcherRegistry } from '@/Engine/Intersections/Models';
 import { IntersectionsWatcherRegistry } from '@/Engine/Intersections/Registry';
+import { mouseService } from '@/Engine/Mouse';
 import { isNotDefined } from '@/Engine/Utils';
 
 function IntersectionsService(): IIntersectionsService {
@@ -16,7 +16,7 @@ function IntersectionsService(): IIntersectionsService {
   });
 
   function buildWatcher(camera: Readonly<ICameraWrapper>): IIntersectionsWatcher {
-    const watcher: IIntersectionsWatcher = intersectionsWatcherFactory.create({ mousePosWatcher: ambientContext.mousePositionWatcher });
+    const watcher: IIntersectionsWatcher = intersectionsWatcherFactory.create({ mousePosWatcher: mouseService.position$ });
     watcher.setCamera(camera);
     return watcher;
   }

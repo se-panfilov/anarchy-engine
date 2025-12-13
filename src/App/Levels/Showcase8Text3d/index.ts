@@ -2,7 +2,7 @@ import './fonts.css';
 
 import type { IShowcase } from '@/App/Levels/Models';
 import type { IAnimationParams, IAppCanvas, ILevel, ILevelConfig, IText3dWrapper, IWithCoordsXZ } from '@/Engine';
-import { ambientContext, buildLevelFromConfig, createCirclePathXZ, Easing, EulerWrapper, generateAnglesForCircle, standardMoverService, TextType, Vector3Wrapper } from '@/Engine';
+import { buildLevelFromConfig, createCirclePathXZ, Easing, EulerWrapper, generateAnglesForCircle, mouseService, standardMoverService, TextType, Vector3Wrapper } from '@/Engine';
 
 import levelConfig from './showcase-8-text-3d.config.json';
 
@@ -77,7 +77,7 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
     loop: true
   };
 
-  ambientContext.mouseClickWatcher.value$.subscribe(() => {
+  mouseService.click$.subscribe(() => {
     void standardMoverService.goByPath(floatingText, circlePathXZ, { ...animationParams, easing: Easing.Linear });
     setTimeout(() => {
       void standardMoverService.goByPath(floatingText2, circlePathXZ2, { ...animationParams, easing: Easing.Linear });

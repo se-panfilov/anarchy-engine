@@ -2,7 +2,7 @@ import { combineLatest } from 'rxjs';
 
 import type { IShowcase } from '@/App/Levels/Models';
 import type { IActorParams, IAppCanvas, ICameraWrapper, ILevel, ILevelConfig } from '@/Engine';
-import { ActorType, ambientContext, buildLevelFromConfig, EulerWrapper, isNotDefined, MaterialType, Vector3Wrapper } from '@/Engine';
+import { ActorType, ambientContext, buildLevelFromConfig, EulerWrapper, isNotDefined, MaterialType, mouseService, Vector3Wrapper } from '@/Engine';
 
 import levelConfig from './showcase-2-top-down.config.json';
 
@@ -40,8 +40,8 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
     });
     camera.setActive(true);
 
-    const { mousePositionWatcher, screenSizeWatcher } = ambientContext;
-    combineLatest([mousePositionWatcher.value$, screenSizeWatcher.latest$]).subscribe(([{ x, y }, { width, height }]): void => {
+    const { screenSizeWatcher } = ambientContext;
+    combineLatest([mouseService.position$, screenSizeWatcher.latest$]).subscribe(([{ x, y }, { width, height }]): void => {
       if (isNotDefined(camera)) return;
       const xRatio: number = x / width - 0.5;
       const yRatio: number = -(y / height - 0.5);

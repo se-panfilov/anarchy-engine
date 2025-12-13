@@ -19,6 +19,7 @@ export function MouseClickWatcher({ container, tags = [] }: IMouseClickWatcherPa
 
   const result: IMouseClickWatcher = {
     ...abstractWatcher,
+    value$: abstractWatcher.value$.asObservable(),
     key: containerIdTag,
     start,
     stop

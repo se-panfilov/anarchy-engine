@@ -13,7 +13,7 @@
       "height": 40,
       "widthSegments": 10,
       "heightSegments": 10,
-      "material": { "type": "standard", "params": { "color": "#5EDCAE" } },
+      "material": { "type": "toon", "params": { "color": "#5EDCAE" } },
       "type": "plane",
       "position": { "x": 0, "y": 2, "z": 0 },
       "rotation": { "x": -1.57, "y": 0, "z": 0 },
@@ -24,8 +24,8 @@
       "type": "sphere",
       "width": 32,
       "height": 32,
-      "material": { "type": "standard", "params": { "color": "#E91E63" } },
-      "position": { "x": 0, "y": 2, "z": 0 },
+      "material": { "type": "toon", "params": { "color": "#E91E63" } },
+      "position": { "x": -2, "y": 2, "z": 0 },
       "castShadow": true,
       "tags": ["keyboard"]
     },
@@ -33,10 +33,10 @@
       "type": "sphere",
       "width": 32,
       "height": 32,
-      "material": { "type": "standard", "params": { "color": "#E91ED8" } },
-      "position": { "x": 0, "y": 2, "z": 0 },
+      "material": { "type": "toon", "params": { "color": "#E91ED8" } },
+      "position": { "x": 4, "y": 2, "z": 0 },
       "castShadow": true,
-      "tags": ["actor"]
+      "tags": ["mouse"]
     }
   ],
   "texts": [],

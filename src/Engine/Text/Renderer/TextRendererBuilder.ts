@@ -1,4 +1,5 @@
 import { nanoid } from 'nanoid';
+import type { Subscription } from 'rxjs';
 import type { CSS2DRenderer } from 'three/examples/jsm/renderers/CSS2DRenderer';
 import type { CSS3DRenderer } from 'three/examples/jsm/renderers/CSS3DRenderer';
 
@@ -32,10 +33,10 @@ export function getTextRenderer<T extends CSS2DRenderer | CSS3DRenderer>(
   //init with the values which came before the start of the subscription
   updateSize(screenSizeWatcher.latest$.value);
 
-  screenSizeWatcher.value$.subscribe(updateSize);
+  const screenSize$: Subscription = screenSizeWatcher.value$.subscribe(updateSize);
 
   function destroy(): void {
-    screenSizeWatcher.value$.unsubscribe();
+    screenSize$.unsubscribe();
     renderer.domElement.remove();
   }
 

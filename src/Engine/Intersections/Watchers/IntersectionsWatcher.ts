@@ -27,8 +27,10 @@ export function IntersectionsWatcher({ mousePosWatcher, tags = [] }: IIntersecti
   const setCamera = (cam: Readonly<ICameraWrapper>): void => void (camera = cam);
   const getCamera = (): Readonly<ICameraWrapper> | undefined => camera;
 
+  let mousePos$: Subscription | undefined;
+
   function start(): IIntersectionsWatcher {
-    mousePosWatcher.value$.subscribe((position: IMousePosition): void => {
+    mousePos$ = mousePosWatcher.value$.subscribe((position: IMousePosition): void => {
       if (isNotDefined(camera)) throw new Error('Intersections service: cannot start: a camera is not defined');
       const intersection: IIntersectionEvent | undefined = getIntersection(position, camera, [...actors]);
       if (isDefined(intersection)) abstractWatcher.value$.next(intersection);
@@ -37,7 +39,7 @@ export function IntersectionsWatcher({ mousePosWatcher, tags = [] }: IIntersecti
   }
 
   function stop(): IIntersectionsWatcher {
-    mousePosWatcher.value$.unsubscribe();
+    mousePos$?.unsubscribe();
     return result;
   }
 
@@ -49,12 +51,13 @@ export function IntersectionsWatcher({ mousePosWatcher, tags = [] }: IIntersecti
 
   const abstractWatcherSubscription: Subscription = abstractWatcher.destroyed$.subscribe(() => {
     raycaster = undefined;
-    mousePosWatcher.value$.unsubscribe();
+    mousePos$?.unsubscribe();
     abstractWatcherSubscription.unsubscribe();
   });
 
   const result: IIntersectionsWatcher = {
     ...abstractWatcher,
+    value$: abstractWatcher.value$.asObservable(),
     addActors,
     addActor,
     getActors,

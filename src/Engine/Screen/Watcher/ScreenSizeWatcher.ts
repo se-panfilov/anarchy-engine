@@ -28,6 +28,7 @@ export function ScreenSizeWatcher({ container, tags = [] }: IScreenSizeWatcherPa
 
   const result: IScreenSizeWatcher = {
     ...abstractWatcher,
+    value$: abstractWatcher.value$.asObservable(),
     key: containerIdTag,
     start,
     stop

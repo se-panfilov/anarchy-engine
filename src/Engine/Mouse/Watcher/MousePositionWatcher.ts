@@ -19,6 +19,7 @@ export function MousePositionWatcher({ container, tags = [] }: IMousePositionWat
 
   const result: IMousePositionWatcher = {
     ...abstractWatcher,
+    value$: abstractWatcher.value$.asObservable(),
     key: containerIdTag,
     start,
     stop
