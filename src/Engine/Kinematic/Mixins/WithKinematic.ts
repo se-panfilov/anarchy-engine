@@ -1,9 +1,10 @@
 import { MathUtils, Quaternion, Vector3 } from 'three';
+import { radToDeg } from 'three/src/math/MathUtils';
 
 import type { TActorParams, TActorWrapperAsync } from '@/Engine/Actor';
 import type { TKinematicData, TWithKinematic } from '@/Engine/Kinematic/Models';
 import type { TDegrees, TRadians } from '@/Engine/Math';
-import { getAzimuthDegFromDirection, getAzimuthRadFromDirection, getElevationDegFromDirection, getElevationRadFromDirection } from '@/Engine/Math';
+import { getAzimuthDegFromDirection, getAzimuthRadFromDirection, getElevationDegFromDirection, getElevationRadFromDirection, quaternionToDegrees } from '@/Engine/Math';
 import type { TWriteable } from '@/Engine/Utils';
 import { Vector3Wrapper } from '@/Engine/Vector';
 
@@ -125,7 +126,7 @@ export function withKinematic(params: TActorParams): TWithKinematic {
         this.setAngularAzimuthRad(MathUtils.degToRad(azimuthDeg));
       },
       setAngularAzimuthRad(azimuthRad: TRadians): void {
-        const lengthXZ: number = Math.sqrt(this.data.angularDirection.x ** 2 + this.data.angularDirection.z ** 2);
+        const lengthXZ: number = Math.sqrt(this.data.angularDirection.x ** 2 + this.data.angularDirection.z ** 2) || 1;
         this.data.angularDirection.set(Math.cos(azimuthRad) * lengthXZ, this.data.angularDirection.y, Math.sin(azimuthRad) * lengthXZ);
       },
       getAngularElevationDeg(): TDegrees {
@@ -167,7 +168,7 @@ export function withKinematic(params: TActorParams): TWithKinematic {
     doKinematicRotation(delta: number): void {
       if (this.kinematic.data.angularSpeed <= 0) return;
       const normalizedAngularDirection: Vector3 = this.kinematic.data.angularDirection.clone().normalize();
-      const angle: number = this.kinematic.data.angularSpeed * delta;
+      const angle: TRadians = this.kinematic.data.angularSpeed * delta;
       const quaternion: Quaternion = new Quaternion().setFromAxisAngle(normalizedAngularDirection, angle);
       (this as TActorWrapperAsync).entity.quaternion.multiplyQuaternions(quaternion, (this as TActorWrapperAsync).entity.quaternion);
     }

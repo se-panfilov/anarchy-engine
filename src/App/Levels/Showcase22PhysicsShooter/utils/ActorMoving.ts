@@ -1,5 +1,5 @@
 import { distinctUntilChanged, map } from 'rxjs';
-import { Vector3 } from 'three';
+import type { Vector3 } from 'three';
 
 import type { TActorWrapperAsync, TIntersectionEvent, TIntersectionsWatcher, TKeyboardService, TRadians } from '@/Engine';
 import { getAzimuthRadFromDirection, getElevationRadFromDirection, KeyCode } from '@/Engine';
@@ -8,7 +8,6 @@ type TMoveKeys = Readonly<{ Forward: boolean; Left: boolean; Right: boolean; Bac
 
 export function startMoveActorWithKeyboard(actorW: TActorWrapperAsync, keyboardService: TKeyboardService, mouseLineIntersectionsWatcher: TIntersectionsWatcher): void {
   const speed: number = 15;
-  const direction: Vector3 = new Vector3();
   let keyStates: TMoveKeys = { Forward: false, Left: false, Right: false, Backward: false };
 
   keyboardService.onKey(KeyCode.W).pressed$.subscribe((): void => void (keyStates = { ...keyStates, Forward: true }));
@@ -16,10 +15,10 @@ export function startMoveActorWithKeyboard(actorW: TActorWrapperAsync, keyboardS
   keyboardService.onKey(KeyCode.S).pressed$.subscribe((): void => void (keyStates = { ...keyStates, Right: true }));
   keyboardService.onKey(KeyCode.D).pressed$.subscribe((): void => void (keyStates = { ...keyStates, Backward: true }));
 
-  // keyboardService.onKey(KeyCode.W).released$.subscribe((): void => void (keyStates = { ...keyStates, Forward: false }));
-  // keyboardService.onKey(KeyCode.A).released$.subscribe((): void => void (keyStates = { ...keyStates, Left: false }));
-  // keyboardService.onKey(KeyCode.S).released$.subscribe((): void => void (keyStates = { ...keyStates, Right: false }));
-  // keyboardService.onKey(KeyCode.D).released$.subscribe((): void => void (keyStates = { ...keyStates, Backward: false }));
+  keyboardService.onKey(KeyCode.W).released$.subscribe((): void => void (keyStates = { ...keyStates, Forward: false }));
+  keyboardService.onKey(KeyCode.A).released$.subscribe((): void => void (keyStates = { ...keyStates, Left: false }));
+  keyboardService.onKey(KeyCode.S).released$.subscribe((): void => void (keyStates = { ...keyStates, Right: false }));
+  keyboardService.onKey(KeyCode.D).released$.subscribe((): void => void (keyStates = { ...keyStates, Backward: false }));
 
   mouseLineIntersectionsWatcher.value$
     .pipe(
@@ -27,19 +26,11 @@ export function startMoveActorWithKeyboard(actorW: TActorWrapperAsync, keyboardS
       distinctUntilChanged()
     )
     .subscribe(({ azimuth, elevation }: Readonly<{ azimuth: TRadians; elevation: TRadians }>): void => {
-      // direction = getUpdatedDirection(keyStates, direction, azimuth, elevation, speed);
-      // actorW.kinematic.setLinearVelocityFromParams();
-
-      actorW.kinematic.setLinearAzimuthRad(azimuth);
-      // console.log(getAzimuthDegFromDirection(actorW.kinematic.getLinearDirection()));
-      // console.log(actorW.kinematic.getLinearSpeed(), getAzimuthDegFromDirection(actorW.kinematic.getLinearDirection()));
-      actorW.kinematic.setLinearElevationRad(elevation);
-
-      // player.isMoving = player.linearVelocity.lengthSq() > 0;
+      actorW.kinematic.setLinearDirectionFromParamsRad(azimuth, elevation);
     });
 
   keyboardService.onKey(KeyCode.W).pressing$.subscribe((): void => actorW.kinematic.setLinearSpeed(speed));
-  keyboardService.onKey(KeyCode.S).pressing$.subscribe((): void => actorW.kinematic.setLinearSpeed(0));
+  // keyboardService.onKey(KeyCode.S).pressing$.subscribe((): void => actorW.kinematic.setLinearSpeed(0));
 }
 
 function getMouseAzimuthAndElevation(mousePosition: Vector3, playerPosition: Vector3): Readonly<{ azimuth: TRadians; elevation: TRadians }> {

@@ -34,7 +34,7 @@ export async function ActorWrapperAsync(params: TActorParams, { materialTextureS
   const sub$: Subscription = kinematicLoopService.tick$.subscribe((delta: number): void => {
     if (!actorW.kinematic.isAutoUpdate) return;
     actorW.doKinematicMove(delta);
-    // actorW.doKinematicRotation(delta);
+    actorW.doKinematicRotation(delta);
   });
 
   actorW.destroyed$.subscribe(() => sub$.unsubscribe());
