@@ -1,7 +1,7 @@
-# End User License Terms — {{PACKAGE_NAME}}
+# End User License Terms — anarchy-engine
 
-**Effective date:** {{EFFECTIVE_DATE}}
-This repository is provided under the **{{PACKAGE_LICENSE}}** (see `LICENSE`).
+**Effective date:** TBD until market release
+This repository is provided under the **MIT** (see `LICENSE`).
 
 1. **License & Ownership.** The code is licensed, not sold. Copyrights remain with the authors.
 2. **Not a Market Placement by Maintainers.** This repository is **not** a product “placed on the market.” If **you** incorporate it into a **commercial product**, **you** are responsible for compliance with product-safety, cybersecurity (incl. EU CRA), consumer, and export/sanctions laws.
@@ -13,4 +13,4 @@ This repository is provided under the **{{PACKAGE_LICENSE}}** (see `LICENSE`).
 
 This agreement is drafted in English. Translations may be provided for convenience. In consumer markets where local-language versions are required by law for clarity and fairness, the local-language version controls to the extent required by applicable law; otherwise, the English version controls.
 
-For full OSS terms, see `{{PACKAGE_LICENSE}}`.
+For full OSS terms, see `MIT`.
