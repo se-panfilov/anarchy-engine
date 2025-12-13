@@ -2,8 +2,8 @@
   "extends": "../../tsconfig.json",
   "compilerOptions": {
     "paths": {
-      "@Shared/*": ["packages/shared/src/*"],
-      "@Shared": ["packages/shared/src/index.ts"],
+      "@Shared/*": ["packages/anarchy-shared/src/*"],
+      "@Shared": ["packages/anarchy-shared/src/index.ts"],
       "@ShowcasesShared/*": ["packages/showcases-shared/src/*"],
       "@ShowcasesShared": ["packages/showcases-shared/src/index.ts"],
       "@Desktop/*": ["apps/showcases-desktop/src/*"]

@@ -1,7 +1,7 @@
 import path from 'path';
 
 export const sharedAliases = {
-  '@E2E': path.resolve(__dirname, 'apps/e2e/src'),
+  '@E2E': path.resolve(__dirname, 'apps/showcases-e2e/src'),
   '@Engine': path.resolve(__dirname, 'packages/anarchy-engine/src'),
   '@Menu': path.resolve(__dirname, 'packages/showcases-menu/src'),
   '@Shared': path.resolve(__dirname, 'packages/anarchy-shared/src'),

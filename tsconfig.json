@@ -15,12 +15,12 @@
     "paths": {
       "@Engine/*": ["packages/anarchy-engine/src/*"],
       "@Engine": ["packages/anarchy-engine/src/index.ts"],
-      "@Shared/*": ["packages/shared/src/*"],
-      "@Shared": ["packages/shared/src/index.ts"],
+      "@Shared/*": ["packages/anarchy-shared/src/*"],
+      "@Shared": ["packages/anarchy-shared/src/index.ts"],
       "@AnarchyI18n/*": ["packages/anarchy-i18n/src/*"],
       "@AnarchyI18n": ["packages/anarchy-i18n/src/index.ts"],
-      "@E2E/*": ["apps/e2e/src/*"],
-      "@E2E": ["apps/e2e/src/index.ts"],
+      "@E2E/*": ["apps/showcases-e2e/src/*"],
+      "@E2E": ["apps/showcases-e2e/src/index.ts"],
       "@Menu/*": ["packages/showcases-menu/src/*"],
       "@Menu": ["packages/showcases-menu/src/index.ts"]
     },
