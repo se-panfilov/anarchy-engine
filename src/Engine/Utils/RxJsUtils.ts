@@ -24,13 +24,21 @@ export function isEqualOrSimilarNumbers(prev: number, curr: number, threshold: n
 }
 
 export function isEqualOrSimilarVector4Like(prev: Vector4Like, curr: Vector4Like, threshold: number): boolean {
-  return isEqualOrSimilarVector3Like(prev, curr, threshold) && Math.abs(curr.w - prev.w) <= threshold;
+  return isEqualOrSimilarVector3Like(prev, curr, threshold) && differenceSmallerThan(curr.w, prev.w, threshold);
 }
 
 export function isEqualOrSimilarVector3Like(prev: Vector3Like, curr: Vector3Like, threshold: number): boolean {
-  return isEqualOrSimilarVector2Like(prev, curr, threshold) && Math.abs(curr.z - prev.z) <= threshold;
+  return isEqualOrSimilarVector2Like(prev, curr, threshold) && differenceSmallerThan(curr.z, prev.z, threshold);
+}
+
+export function isEqualOrSimilarVector3WithCoords(x: number, y: number, z: number, curr: Vector3Like, threshold: number): boolean {
+  return differenceSmallerThan(curr.x, x, threshold) && differenceSmallerThan(curr.y, y, threshold) && differenceSmallerThan(curr.z, z, threshold);
 }
 
 export function isEqualOrSimilarVector2Like(prev: Vector2Like, curr: Vector2Like, threshold: number): boolean {
-  return Math.abs(curr.x - prev.x) <= threshold && Math.abs(curr.y - prev.y) <= threshold;
+  return differenceSmallerThan(curr.x, prev.x, threshold) && differenceSmallerThan(curr.y, prev.y, threshold);
+}
+
+function differenceSmallerThan(a: number, b: number, value: number): boolean {
+  return Math.abs(a - b) <= value;
 }
