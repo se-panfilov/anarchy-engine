@@ -1,5 +1,5 @@
 import type { IShowcase } from '@/App/Levels/Models';
-import type { IActorWrapper, IAnimationParams, IAppCanvas, ILevel, ILevelConfig, IText2dWrapper, ITextAnyWrapper, IWithCoordsXZ } from '@/Engine';
+import type { IActorWrapperAsync, IAnimationParams, IAppCanvas, ILevel, ILevelConfig, IText2dWrapper, ITextAnyWrapper, IWithCoordsXZ } from '@/Engine';
 import { ambientContext, buildLevelFromConfig, createCirclePathXZ, Easing, EulerWrapper, generateAnglesForCircle, isNotDefined, standardMoverService, TextType, Vector3Wrapper } from '@/Engine';
 
 import levelConfig from './showcase-5-animejs-complex.config.json';
@@ -14,9 +14,9 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
     controlsRegistry.getAll()[0]?.entity.target.set(6, 0, 0);
     cameraRegistry.getAll()[0]?.setPosition(Vector3Wrapper({ x: 6, y: 30, z: 0 }));
 
-    const redActor: IActorWrapper | undefined = await actorRegistry.getUniqByTagAsync('red');
-    const blueActor: IActorWrapper | undefined = await actorRegistry.getUniqByTagAsync('blue');
-    const greenActor: IActorWrapper | undefined = await actorRegistry.getUniqByTagAsync('green');
+    const redActor: IActorWrapperAsync | undefined = await actorRegistry.getUniqByTagAsync('red');
+    const blueActor: IActorWrapperAsync | undefined = await actorRegistry.getUniqByTagAsync('blue');
+    const greenActor: IActorWrapperAsync | undefined = await actorRegistry.getUniqByTagAsync('green');
     if (isNotDefined(redActor) || isNotDefined(blueActor) || isNotDefined(greenActor)) throw new Error('Actors are not defined');
 
     const redText: IText2dWrapper | undefined = text2dRegistry.getUniqByTag('red');

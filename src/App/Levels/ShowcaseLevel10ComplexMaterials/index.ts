@@ -2,7 +2,7 @@
 import { BehaviorSubject, Subject } from 'rxjs';
 
 import type { IShowcase } from '@/App/Levels/Models';
-import type { IActorWrapper, IAppCanvas, ICameraWrapper, ILevel, ILevelConfig, IOrbitControlsWrapper, IVector3Wrapper } from '@/Engine';
+import type { IActorWrapperAsync, IAppCanvas, ICameraWrapper, ILevel, ILevelConfig, IOrbitControlsWrapper, IVector3Wrapper } from '@/Engine';
 import { ambientContext, buildLevelFromConfig, envMapService, EulerWrapper, isNotDefined, TextType, Vector3Wrapper } from '@/Engine';
 
 import levelConfig from './showcase-10-complex-materials.config.json';
@@ -21,7 +21,7 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
   const materials: ReadonlyArray<string> = ['standard', 'basic', 'phong', 'lambert', 'toon', 'physical', 'matcap'];
   const currentMaterialIndex$: BehaviorSubject<number> = new BehaviorSubject(0);
   const currentMaterial$: Subject<string> = new Subject();
-  const currentActor$: Subject<IActorWrapper> = new Subject();
+  const currentActor$: Subject<IActorWrapperAsync> = new Subject();
   currentMaterialIndex$.subscribe((index: number): void => currentMaterial$.next(materials[index]));
   // eslint-disable-next-line @typescript-eslint/no-misused-promises
   currentMaterial$.subscribe(async (material: string): Promise<void> => {
@@ -33,7 +33,7 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
   currentActor$.subscribe(moveCameraToActor);
   actorRegistry.getAll().forEach(addTextToActor);
 
-  function addTextToActor(actor: IActorWrapper): void {
+  function addTextToActor(actor: IActorWrapperAsync): void {
     const position: IVector3Wrapper = actor.getPosition();
     const x: number = position.getX();
     const y: number = position.getY();
@@ -53,7 +53,7 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
     currentMaterialIndex$.next((currentMaterialIndex$.value + 1) % materials.length);
   });
 
-  function moveCameraToActor(actor: IActorWrapper): void {
+  function moveCameraToActor(actor: IActorWrapperAsync): void {
     const position: IVector3Wrapper = actor.getPosition();
     const orbitControls: IOrbitControlsWrapper | undefined = controlsRegistry.getUniqByTag('orbit');
     if (isNotDefined(orbitControls)) throw new Error('Orbit controls are not found');

@@ -1,6 +1,6 @@
 import { Color } from 'three';
 
-import type { IAbstractAsyncRegistry, IAbstractEntityWithWrapperId, IAbstractRegistry } from '@/Engine/Abstract/Models';
+import type { IAbstractAsyncRegistry, IAbstractRegistry, IWithWrapperIdEntity } from '@/Engine/Abstract/Models';
 import type { IColorWrapper } from '@/Engine/Color';
 import type { IDestroyable, IRegistrable, IWithPosition2dProperty, IWithPosition3dProperty, IWithPosition4dProperty, IWithPositionProperty } from '@/Engine/Mixins';
 import type { IVector2, IVector2Wrapper, IVector3, IVector3Wrapper, IVector4, IVector4Wrapper } from '@/Engine/Vector';
@@ -31,8 +31,8 @@ export function isColorWrapper(obj: unknown): obj is IColorWrapper {
   return isDefined((obj as IColorWrapper).entity) && (obj as IColorWrapper).entity instanceof Color;
 }
 
-export function isWithWrapperId(obj: unknown): obj is IAbstractEntityWithWrapperId {
-  return isDefined(obj) && isObject(obj) && isDefined((obj as IAbstractEntityWithWrapperId).userData) && isDefined((obj as IAbstractEntityWithWrapperId).userData.wrapperId);
+export function isWithWrapperId(obj: unknown): obj is IWithWrapperIdEntity {
+  return isDefined(obj) && isObject(obj) && isDefined((obj as IWithWrapperIdEntity).userData) && isDefined((obj as IWithWrapperIdEntity).userData.wrapperId);
 }
 
 export const isVector2 = (obj: IVector2 | IVector3 | IVector4): obj is IVector2 => isDefined(obj.x) && isDefined(obj.x) && isNotDefined((obj as IVector3).z) && isNotDefined((obj as IVector4).w);

@@ -1,7 +1,7 @@
 import { combineLatest } from 'rxjs';
 
 import type { IShowcase } from '@/App/Levels/Models';
-import type { IActorWrapper, IAppCanvas, ICameraWrapper, ILevel, ILevelConfig } from '@/Engine';
+import type { IActorWrapperAsync, IAppCanvas, ICameraWrapper, ILevel, ILevelConfig } from '@/Engine';
 import { ambientContext, buildLevelFromConfig, getRotationByCos, getRotationBySin, isDefined, isNotDefined } from '@/Engine';
 
 import levelConfig from './showcase-9-textures-and-materials.config.json';
@@ -18,7 +18,7 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
 
   async function init(): Promise<void> {
     const { actorRegistry } = level.entities;
-    const actor: IActorWrapper | undefined = await actorRegistry.getUniqByTagAsync('central_actor');
+    const actor: IActorWrapperAsync | undefined = await actorRegistry.getUniqByTagAsync('central_actor');
     if (isNotDefined(actor)) throw new Error('Actor is not found');
 
     //apply textures async, without blocking the main thread (game might be started before textures are loaded)
@@ -35,7 +35,7 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
 }
 
 // This is mostly a copy of Showcase 3 (camera rotation)
-function initCameraRotation(level: ILevel, actor: IActorWrapper | undefined): void {
+function initCameraRotation(level: ILevel, actor: IActorWrapperAsync | undefined): void {
   const { cameraRegistry } = level.entities;
 
   const camera: ICameraWrapper | undefined = cameraRegistry.getActiveCamera();

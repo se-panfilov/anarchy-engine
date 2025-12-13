@@ -1,5 +1,5 @@
 import type { IAbstractAsyncRegistry, IProtectedRegistry } from '@/Engine/Abstract';
 
-import type { IActorWrapper } from './IActorWrapper';
+import type { IActorWrapperAsync } from './IActorWrapperAsync';
 
-export type IActorAsyncRegistry = IProtectedRegistry<IAbstractAsyncRegistry<IActorWrapper>>;
+export type IActorAsyncRegistry = IProtectedRegistry<IAbstractAsyncRegistry<IActorWrapperAsync>>;

@@ -1,5 +1,5 @@
 import type { IShowcase } from '@/App/Levels/Models';
-import type { IActorWrapper, IAppCanvas, ILevel, ILevelConfig } from '@/Engine';
+import type { IActorWrapperAsync, IAppCanvas, ILevel, ILevelConfig } from '@/Engine';
 import { ambientContext, buildLevelFromConfig, screenService, standardLoopService } from '@/Engine';
 
 import levelConfig from './showcase-7-fullscreen.config.json';
@@ -10,7 +10,7 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
   const { actorRegistry } = level.entities;
 
   async function init(): Promise<void> {
-    const actor: IActorWrapper = await actorRegistry.getUniqByTagAsync('sphere');
+    const actor: IActorWrapperAsync = await actorRegistry.getUniqByTagAsync('sphere');
     actor.setY(2);
 
     ambientContext.mouseClickWatcher.value$.subscribe(() => {

@@ -3,6 +3,6 @@ import type { IDestroyable } from '@/Engine/Mixins';
 
 import type { IActorConfig } from './IActorConfig';
 import type { IActorParams } from './IActorParams';
-import type { IActorWrapper } from './IActorWrapper';
+import type { IActorWrapperAsync } from './IActorWrapperAsync';
 
-export type IActorFactory = IAsyncReactiveFactory<IActorWrapper, IActorParams> & IParamsFromConfig<IActorConfig, IActorParams> & IDestroyable;
+export type IActorFactory = IAsyncReactiveFactory<IActorWrapperAsync, IActorParams> & IParamsFromConfig<IActorConfig, IActorParams> & IDestroyable;

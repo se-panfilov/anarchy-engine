@@ -2,7 +2,7 @@ import { Scene } from 'three';
 
 import type { IWrapper } from '@/Engine/Abstract';
 import { AbstractWrapper, WrapperType } from '@/Engine/Abstract';
-import type { IActorWrapper } from '@/Engine/Actor';
+import type { IActorWrapperAsync } from '@/Engine/Actor';
 import type { ICameraWrapper } from '@/Engine/Camera';
 import type { IColor } from '@/Engine/Color';
 import { ColorWrapper } from '@/Engine/Color';
@@ -29,7 +29,7 @@ export function SceneWrapper(params: ISceneParams): ISceneWrapper {
     entity.add(obj);
   };
   const addCamera = (camera: Readonly<ICameraWrapper>): void => add(camera.entity);
-  const addActor = (actor: Readonly<IActorWrapper>): void => add(actor.entity);
+  const addActor = (actor: Readonly<IActorWrapperAsync>): void => add(actor.entity);
   const addLight = (light: Readonly<ILightWrapper>): void => add(light.entity);
   const addText = (text: Readonly<ITextAnyWrapper>): void => add(text.entity);
 

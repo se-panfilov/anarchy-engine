@@ -2,7 +2,7 @@ import type { Subscription } from 'rxjs';
 import { merge, ReplaySubject } from 'rxjs';
 
 import { CommonTag } from '@/Engine/Abstract';
-import type { IActorAsyncRegistry, IActorConfig, IActorFactory, IActorWrapper } from '@/Engine/Actor';
+import type { IActorAsyncRegistry, IActorConfig, IActorFactory, IActorWrapperAsync } from '@/Engine/Actor';
 import { ActorAsyncRegistry, ActorFactory } from '@/Engine/Actor';
 import type { IAppCanvas } from '@/Engine/App';
 import type { ICameraConfig, ICameraFactory, ICameraRegistry, ICameraWrapper } from '@/Engine/Camera';
@@ -55,8 +55,10 @@ export function buildLevelFromConfig(canvas: IAppCanvas, config: ILevelConfig): 
   const actorRegistry: IActorAsyncRegistry = ActorAsyncRegistry();
   const actorAddedSubscription: Subscription = actorRegistry.added$.subscribe((actor: IActorWrapper) => scene.addActor(actor));
   const actorEntityCreatedSubscription: Subscription = actorFactory.entityCreated$.subscribe((actor: IActorWrapper): void => actorRegistry.add(actor));
+  const actorAddedSubscription: Subscription = actorRegistry.added$.subscribe((actor: IActorWrapperAsync) => scene.addActor(actor));
+  const actorEntityCreatedSubscription: Subscription = actorFactory.entityCreated$.subscribe((actor: IActorWrapperAsync): void => actorRegistry.add(actor));
   // eslint-disable-next-line @typescript-eslint/no-misused-promises
-  actors.forEach((actor: IActorConfig): Promise<IActorWrapper> => actorFactory.createAsync(actorFactory.configToParams({ ...actor, tags: [...actor.tags, CommonTag.FromConfig] })));
+  actors.forEach((actor: IActorConfig): Promise<IActorWrapperAsync> => actorFactory.createAsync(actorFactory.configToParams({ ...actor, tags: [...actor.tags, CommonTag.FromConfig] })));
   messages$.next(`Actors (${actors.length}) created`);
 
   //build texts

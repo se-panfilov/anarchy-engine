@@ -1,5 +1,5 @@
 import type { IShowcase } from '@/App/Levels/Models';
-import type { IActorWrapper, IAppCanvas, ICameraWrapper, IIntersectionsWatcher, ILevel, ILevelConfig, IVector3 } from '@/Engine';
+import type { IActorWrapperAsync, IAppCanvas, ICameraWrapper, IIntersectionEvent, IIntersectionsWatcher, ILevel, ILevelConfig } from '@/Engine';
 import { ActorTag, ambientContext, buildLevelFromConfig, intersectionsService, isNotDefined, LookUpStrategy, standardLoopService } from '@/Engine';
 
 import levelConfig from './showcase-1-moving-actors.config.json';
@@ -10,7 +10,7 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
   const { actorRegistry, cameraRegistry } = level.entities;
 
   async function init(): Promise<void> {
-    const actor: IActorWrapper = await actorRegistry.getUniqByTagAsync(ActorTag.Intersectable);
+    const actor: IActorWrapperAsync = await actorRegistry.getUniqByTagAsync(ActorTag.Intersectable);
     actor.setY(2);
 
     standardLoopService.tick$.subscribe(({ elapsedTime }) => {
@@ -22,10 +22,10 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
   function startIntersections(): void {
     const camera: ICameraWrapper | undefined = cameraRegistry.getActiveCamera();
     if (isNotDefined(camera)) throw new Error('Camera is not defined');
-    const actors: ReadonlyArray<IActorWrapper> = actorRegistry.getAllByTags([ActorTag.Intersectable], LookUpStrategy.Every);
+    const actors: ReadonlyArray<IActorWrapperAsync> = actorRegistry.getAllByTags([ActorTag.Intersectable], LookUpStrategy.Every);
 
     const intersectionsWatcher: IIntersectionsWatcher = intersectionsService.start(actors, camera);
-    intersectionsWatcher.value$.subscribe((obj: IVector3): void => {
+    intersectionsWatcher.value$.subscribe((obj: IIntersectionEvent): void => {
       console.log('intersect obj', obj);
     });
 

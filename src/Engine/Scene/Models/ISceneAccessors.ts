@@ -10,7 +10,7 @@ import type { ISceneObject } from './ISceneObject';
 
 export type ISceneAccessors = Readonly<{
   add: (obj: ISceneObject) => void;
-  addActor: (actor: Readonly<IActorWrapper>) => void;
+  addActor: (actor: Readonly<IActorWrapperAsync>) => void;
   addCamera: (camera: Readonly<ICameraWrapper>) => void;
   addLight: (light: Readonly<ILightWrapper>) => void;
   addText: (text: Readonly<ITextAnyWrapper>) => void;
