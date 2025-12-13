@@ -2,11 +2,16 @@
 import './assets/style.scss';
 
 import RouterView from '@Menu/components/RouterView.vue';
+import { eventsService } from '@Menu/services';
+
+function save(): void {
+  eventsService.emitCloseMenu;
+}
 </script>
 
 <template>
   <div class="main-menu">
-    <RouterView class="main-menu__item -view" />
+    <RouterView class="main-menu__item -view" @save="save" />
   </div>
 </template>
 

@@ -13,18 +13,18 @@ const navOptions: ReadonlyArray<TNavOption> = [
   {
     id: 0,
     label: 'Continue',
-    action: () => eventsService.emitContinue()
+    action: () => eventsService.emitContinueGame()
   },
   {
     id: 1,
     label: 'New game',
     disabled: true,
-    action: () => eventsService.emitStartNew()
+    action: () => eventsService.emitStartNewGame()
   },
   {
     id: 2,
     label: 'Load game',
-    action: () => eventsService.emitLoad()
+    action: () => eventsService.emitLoadGame()
   },
   {
     id: 3,
@@ -35,7 +35,7 @@ const navOptions: ReadonlyArray<TNavOption> = [
     id: 4,
     label: 'Close menu',
     condition: useMenuOptionsStore().showExitBtn,
-    action: () => eventsService.emitClose()
+    action: () => eventsService.emitCloseMenu()
   }
 ];
 </script>

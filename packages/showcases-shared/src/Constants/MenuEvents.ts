@@ -1,6 +1,6 @@
 export enum MenuEvents {
-  Open = 'menu:open',
-  Close = 'menu:close',
+  OpenMenu = 'menu:open',
+  CloseMenu = 'menu:close',
   LoadGame = 'menu:game:load',
   ContinueGame = 'menu:game:continue',
   StartNewGame = 'menu:game:start-new',

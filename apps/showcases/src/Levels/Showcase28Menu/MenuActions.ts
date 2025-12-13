@@ -8,7 +8,7 @@ import { closeMainMenu, loadSettings, saveSettings } from '@/Levels/Showcase28Me
 export function handleMenuEvents(menuEventsBus$: Observable<TMenuEvent>): void {
   menuEventsBus$.subscribe((event: TMenuEvent): void => {
     switch (event.type) {
-      case MenuEvents.Close: {
+      case MenuEvents.CloseMenu: {
         closeMainMenu();
         break;
       }
