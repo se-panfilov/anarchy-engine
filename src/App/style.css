@@ -1,1 +1,16 @@
 @import url(../../node_modules/sanitize.css/sanitize.css);
+
+body,
+html {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+#app {
+  background-color: red;
+  position: fixed;
+  left: 0;
+  top: 0;
+  outline: none;
+}
