@@ -15,8 +15,8 @@ import { withReactivePosition, withReactiveRotation, withSpatial, withUpdateSpat
 import { applyObject3dParams, applyPosition, applyRotation, applyScale, isDefined } from '@/Engine/Utils';
 
 export function ActorWrapper(params: TActorParams, { kinematicLoopService, spatialLoopService, spatialGridService, collisionsLoopService, collisionsService }: TActorDependencies): TActorWrapper {
-  const facade: TModel3dFacade = params.model3dSource;
-  const entity: Group | Mesh | Object3D = facade.getModel();
+  const model3dF: TModel3dFacade = params.model3dSource;
+  const entity: Group | Mesh | Object3D = model3dF.getModel();
 
   // TODO 8.0.0. MODELS: MATERIAL MIXIN: decide what to do with this mixin
   // TODO 9.0.0. RESOURCES: Maybe no need in overrides, just create a new instance of a resource
@@ -42,7 +42,7 @@ export function ActorWrapper(params: TActorParams, { kinematicLoopService, spati
     ...withUpdateSpatialCell(),
     position$: position$.asObservable(),
     rotation$: rotation$.asObservable(),
-    getFacade: (): TModel3dFacade => facade,
+    getFacade: (): TModel3dFacade => model3dF,
     entity
   };
 
