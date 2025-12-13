@@ -1,6 +1,7 @@
 import type { Subscription } from 'rxjs';
 import { PerspectiveCamera, Vector3 } from 'three';
 
+import { ambientContext } from '@/Engine/Context';
 import { AbstractWrapper, WrapperType } from '@/Engine/Domains/Abstract';
 import type { ICameraParams, ICameraWrapper, IPerspectiveCamera } from '@/Engine/Domains/Camera/Models';
 import type { IScreenSizeValues, IScreenSizeWatcher } from '@/Engine/Domains/Screen';
@@ -13,8 +14,8 @@ import { getAccessors } from './Accessors';
 
 export function CameraWrapper(params: ICameraParams, screenSizeWatcher: Readonly<IScreenSizeWatcher>): ICameraWrapper {
   const { fov = 45, near = 1, far = 10000, lookAt, tags }: ICameraParams = params;
-  // TODO (S.Panfilov) Test this: aspect is 0 fot now, but should be set by screenSizeWatcher
-  const entity: IWriteable<IPerspectiveCamera> = new PerspectiveCamera(fov, 0, near, far);
+  const aspectRatio: number = ambientContext.screenSizeWatcher.latest$.value.ratio || 0;
+  const entity: IWriteable<IPerspectiveCamera> = new PerspectiveCamera(fov, aspectRatio, near, far);
 
   // eslint-disable-next-line functional/prefer-immutable-types
   function setValues(entity: IWriteable<IPerspectiveCamera>, { width, height }: IScreenSizeValues): void {
