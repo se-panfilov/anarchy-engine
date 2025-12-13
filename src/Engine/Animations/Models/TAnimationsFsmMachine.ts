@@ -1,3 +1,3 @@
-import type { Machine, MachineStates } from 'robot3';
+import type { StateMachine } from 'typescript-fsm';
 
-export type TAnimationsFsmMachine = Machine<MachineStates<unknown, string>>;
+export type TAnimationsFsmMachine = StateMachine<string | number | symbol, string | number | symbol>;

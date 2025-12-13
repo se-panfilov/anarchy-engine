@@ -1,25 +1,42 @@
-import { createMachine, interpret } from 'robot3';
 import type { Subscription } from 'rxjs';
 import { Subject } from 'rxjs';
+import { StateMachine, t } from 'typescript-fsm';
 
 import type { TWrapper } from '@/Engine/Abstract';
 import { AbstractWrapper, WrapperType } from '@/Engine/Abstract';
-import type { TAnimationsFsmInstance, TAnimationsFsmMachine, TAnimationsFsmParams, TAnimationsFsmState, TAnimationsFsmWrapper } from '@/Engine/Animations/Models';
+import type { TAnimationsFsmMachine, TAnimationsFsmParams, TAnimationsFsmWrapper } from '@/Engine/Animations/Models';
 import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
 
+// export function AnimationsFsmWrapper<TStates extends string | number | symbol, TEvents extends string | number | symbol>(params: TAnimationsFsmParams): TAnimationsFsmWrapper {
 export function AnimationsFsmWrapper(params: TAnimationsFsmParams): TAnimationsFsmWrapper {
-  const changed$: Subject<TAnimationsFsmState> = new Subject<TAnimationsFsmState>();
+  const changed$: Subject<string | number | symbol> = new Subject<string | number | symbol>();
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { name, ...machineParams } = params;
-  const machine: TAnimationsFsmMachine = createMachine(machineParams);
-  const entity: TAnimationsFsmInstance = interpret(machine, (v: TAnimationsFsmState): void => changed$.next(v));
 
-  const wrapper: TWrapper<TAnimationsFsmInstance> = AbstractWrapper(entity, WrapperType.AnimationsFsm, params);
+  const onChange = (val: string | number | symbol): void => changed$.next(val);
 
-  function getCurrentState(): TAnimationsFsmState {
-    return entity.machine.current;
-  }
+  const entity: TAnimationsFsmMachine = new StateMachine<string | number | symbol, string | number | symbol>(
+    machineParams.initial,
+    machineParams.transitions.map(([from, to, event]) => {
+      return t(from, to, event, (): void => onChange(to));
+    })
+  );
+
+  const wrapper: TWrapper<TAnimationsFsmMachine> = AbstractWrapper(entity, WrapperType.AnimationsFsm, params);
+
+  const getState = (): string | number | symbol => entity.getState();
+
+  let prev: string | number | symbol = entity.getState();
+  const send = (event: string | number | symbol): void => {
+    if (entity.getState() === event) return;
+
+    //this is a hack to prevent double dispatching of the same event. getState() is not updated immediately after dispatch
+    if (prev === event) return;
+    prev = event;
+
+    void entity.dispatch(event);
+  };
 
   const destroyable: TDestroyable = destroyableMixin();
   const destroySub$: Subscription = destroyable.destroy$.subscribe((): void => {
@@ -29,5 +46,5 @@ export function AnimationsFsmWrapper(params: TAnimationsFsmParams): TAnimationsF
     changed$.unsubscribe();
   });
 
-  return { ...wrapper, entity, changed$, send: entity.send, getCurrentState, ...destroyable };
+  return { ...wrapper, entity, changed$, send, getState, ...destroyable };
 }

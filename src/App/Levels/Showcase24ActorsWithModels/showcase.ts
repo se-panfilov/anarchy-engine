@@ -1,4 +1,4 @@
-import { state, transition } from 'robot3';
+import { distinctUntilChanged } from 'rxjs';
 import type { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
 
 import type { TShowcase } from '@/App/Levels/Models';
@@ -50,35 +50,35 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     // const tPoseAction = actions['TPose'];
 
     const solderAnimFsm: TAnimationsFsmWrapper = animationsFsmService.create({
-      [Idle]: state(transition(Run, Run), transition(Walk, Walk)),
-      [Walk]: state(transition(Idle, Idle), transition(Run, Run)),
-      [Run]: state(transition(Idle, Idle), transition(Walk, Walk))
+      initial: Idle,
+      transitions: [
+        [Idle, Run, Run],
+        [Idle, Walk, Walk],
+        [Walk, Idle, Idle],
+        [Walk, Run, Run],
+        [Run, Walk, Walk],
+        [Run, Idle, Idle]
+      ]
     });
 
     const solderActor: TActor | undefined = actorService.getRegistry().findByName('solder_actor_1');
     if (isNotDefined(solderActor)) throw new Error('Solder actor is not found');
+
     solderActor.setAnimationsFsm(solderAnimFsm);
 
     const { animationsFsm } = solderActor.states;
     if (isNotDefined(animationsFsm)) throw new Error('Animations FSM is not defined');
 
-    let prev: any = '';
-    solderAnimFsm.changed$.subscribe((state): void => {
-      console.log('XXX state', state);
-      const current = animationsFsm.getCurrentState();
-      if (current === prev) return;
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-      prev = current;
-
-      if (current === Idle) {
+    solderAnimFsm.changed$.pipe(distinctUntilChanged()).subscribe((state): void => {
+      if (state === Idle) {
         walkAction.fadeOut(fadeDuration);
         runAction.fadeOut(fadeDuration);
         idleAction.reset().fadeIn(fadeDuration).play();
-      } else if (current === Walk) {
+      } else if (state === Walk) {
         idleAction.fadeOut(fadeDuration);
         runAction.fadeOut(fadeDuration);
         walkAction.reset().fadeIn(fadeDuration).play();
-      } else if (current === Run) {
+      } else if (state === Run) {
         idleAction.fadeOut(fadeDuration);
         walkAction.fadeOut(fadeDuration);
         runAction.reset().fadeIn(fadeDuration).play();
@@ -86,13 +86,11 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     });
 
     onKey(KeyCode.W).pressing$.subscribe((): void => {
-      const type = isKeyPressed(KeysExtra.Shift) ? Run : Walk;
-      if (animationsFsm.getCurrentState() !== type) animationsFsm.send({ type });
+      const action: AnimationActions.Run | AnimationActions.Walk = isKeyPressed(KeysExtra.Shift) ? Run : Walk;
+      if (animationsFsm.getState() !== action) animationsFsm.send(action);
     });
 
-    onKey(KeyCode.W).released$.subscribe((): void => {
-      animationsFsm.send({ type: Idle });
-    });
+    onKey(KeyCode.W).released$.subscribe((): void => animationsFsm.send(Idle));
   }
 
   function start(): void {
