@@ -1,62 +1,24 @@
 import { combineLatest } from 'rxjs';
 
 import type { IShowcase } from '@/App/Levels/Models';
-import type { IActorWrapper, IAppCanvas, ILevel, ILevelConfig } from '@/Engine';
+import type { IActorWrapper, IAppCanvas, ILevel, ILevelConfig, ITexture } from '@/Engine';
 import { ambientContext, buildLevelFromConfig, CameraTag, getRotationByCos, getRotationBySin, isDefined, isNotDefined } from '@/Engine';
+import { textureService } from '@/Engine/Domains/Texture';
 
 import levelConfig from './showcase-level-8.config.json';
-import {
-  LinearFilter,
-  LinearMipMapLinearFilter,
-  LinearMipMapNearestFilter,
-  MeshBasicMaterial,
-  NearestFilter,
-  NearestMipMapLinearFilter,
-  NearestMipMapNearestFilter,
-  SRGBColorSpace,
-  TextureLoader
-} from 'three';
 
 //Showcase 8: Textures
 export function showcaseLevel(canvas: IAppCanvas): IShowcase {
   const level: ILevel = buildLevelFromConfig(canvas, levelConfig as ILevelConfig);
 
-  const textureLoader = new TextureLoader();
-  const texture = textureLoader.load(
-    '/ShowcaseLevel8/Door_Wood/Door_Wood_001_basecolor.jpg',
-    (texture) => {
-      console.log(111, texture);
-    },
-    (xhr) => {
-      console.log(222, xhr);
-    },
-    (error) => {
-      console.log(333, error);
-    }
-  );
-  // eslint-disable-next-line functional/immutable-data
-  texture.colorSpace = SRGBColorSpace;
-
-  // texture.minFilter = NearestFilter;
-  // texture.minFilter = NearestMipMapLinearFilter;
-  // texture.minFilter = NearestMipMapNearestFilter;
-  // texture.minFilter = LinearMipMapNearestFilter;
-  // texture.minFilter = LinearMipMapLinearFilter;
-  // texture.minFilter = LinearFilter;
-  if (texture.minFilter === NearestFilter) texture.generateMipmaps = false;
-
-  texture.magFilter = LinearFilter; //default
-  // texture.magFilter = NearestFilter; //cheaper
+  const textures: Record<string, ITexture> = textureService.load({ door: '/ShowcaseLevel8/Door_Wood/Door_Wood_001_basecolor.jpg' });
 
   function start(): void {
     level.start();
     const { actorRegistry } = level.entities;
     const actor: IActorWrapper | undefined = actorRegistry.getUniqByTag('central_actor');
-    // const material = new MeshBasicMaterial({ map: textureWrapper.entity });
-    const material = new MeshBasicMaterial({ map: texture });
-    console.log((actor as any)?.entity.material);
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-    (actor as any).entity.material = material;
+    if (isNotDefined(actor)) throw new Error('Actor is not found');
+    actor.useTexture({ map: textures.door });
     initCameraRotation(level, actor);
   }
 

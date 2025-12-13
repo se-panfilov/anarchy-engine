@@ -1,6 +1,6 @@
 import { AbstractWrapper, WrapperType } from '@/Engine/Domains/Abstract';
 import type { IActorParams, IActorWrapper, IMesh } from '@/Engine/Domains/Actor/Models';
-import { scalableMixin, withMoveByXyzMixin, withObject3d, withRotationByXyzMixin } from '@/Engine/Mixins';
+import { scalableMixin, withMoveByXyzMixin, withObject3d, withRotationByXyzMixin, withTexturesActor } from '@/Engine/Mixins';
 import { applyObject3dParams, applyPosition, applyRotation, applyScale, isDefined } from '@/Engine/Utils';
 
 import { createActor } from './ActorUtils';
@@ -14,6 +14,7 @@ export function ActorWrapper(params: IActorParams): IActorWrapper {
     ...withRotationByXyzMixin(entity),
     ...scalableMixin(entity),
     ...withObject3d(entity),
+    ...withTexturesActor(entity),
     entity
   };
 
