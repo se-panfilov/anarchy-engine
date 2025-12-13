@@ -1,6 +1,7 @@
-import type { Vector3 } from 'three';
+import type { AudioListener, Vector3 } from 'three';
 
 export type TCameraAccessors = Readonly<{
+  addListener: (listener: AudioListener) => void;
   lookAt: (vector3: Vector3) => void;
   setControls: (x: number, y: number, z: number) => Vector3;
   setFov: (fov: number) => void;

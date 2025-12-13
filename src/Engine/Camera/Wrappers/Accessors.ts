@@ -1,4 +1,4 @@
-import type { Vector3 } from 'three';
+import type { AudioListener, Vector3 } from 'three';
 
 import type { TCameraAccessors, TPerspectiveCamera } from '@/Engine/Camera/Models';
 import type { TWriteable } from '@/Engine/Utils';
@@ -31,5 +31,9 @@ export function getAccessors(entity: TWriteable<TPerspectiveCamera>): TCameraAcc
     entity.updateProjectionMatrix();
   }
 
-  return { setControls, lookAt, setFov, setNear, setFar, setAspect };
+  function addListener(listener: AudioListener): void {
+    entity.add(listener);
+  }
+
+  return { setControls, lookAt, setFov, setNear, setFar, setAspect, addListener };
 }

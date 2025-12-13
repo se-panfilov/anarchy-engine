@@ -20,8 +20,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
   if (isNotDefined(camera)) throw new Error('Active camera listener is not found');
   if (isNotDefined(mainListener)) throw new Error('Main audio listener is not found');
   // TODO 11.0.0: Connect listener to the camera (throw an error if listener is not connected to anything). This should happen in camera domain. Make sure cameras creates after the audio entities
-  // TODO 11.0.0: add method to the wrapper, to add listener to the camera (also let it work from config)
-  camera.entity.add(mainListener);
+  camera.addListener(mainListener);
 
   function init(): void {
     const scene: TSceneWrapper | undefined = scenesService.findActive();
