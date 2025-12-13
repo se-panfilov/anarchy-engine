@@ -27,6 +27,7 @@ module.exports = {
     'import/first': 'error',
     'import/newline-after-import': 'error',
     'import/no-duplicates': 'error',
+    'import/consistent-type-specifier-style': ['error', 'prefer-top-level'],
     'import/no-mutable-exports': 'error',
     'import/no-cycle': [2, { maxDepth: 1 }],
     'import/no-useless-path-segments': ['error', { noUselessIndex: true }],
