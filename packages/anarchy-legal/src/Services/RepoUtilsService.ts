@@ -83,7 +83,7 @@ export function RepoUtilsService(): TRepoUtilsService {
       absolute: true,
       expandDirectories: false,
       gitignore: true,
-      ignore: ['**/node_modules/**', '**/dist/**', '**/.*/**']
+      ignore: ['**/node_modules/**', '**/dist/**', '**/dist-*/**', '**/.*/**']
     });
 
     debugLog(isDebug, 'workspace dirs found:', dirs.length);

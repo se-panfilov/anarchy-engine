@@ -45,7 +45,13 @@ export function LegalFilesService(): TLegalFilesService {
     const patterns: string[] = Array.isArray(rootPkg.workspaces) ? rootPkg.workspaces : (rootPkg.workspaces?.packages ?? []);
     if (!patterns.length) throw new Error(`No workspaces patterns in ${path.join(rootDir, 'package.json')}`);
     // eslint-disable-next-line spellcheck/spell-checker
-    const dirs = await globby(patterns, { cwd: rootDir, absolute: true, onlyDirectories: true, gitignore: true, ignore: ['**/node_modules/**', '**/dist/**', '**/.*/**'] });
+    const dirs = await globby(patterns, {
+      cwd: rootDir,
+      absolute: true,
+      onlyDirectories: true,
+      gitignore: true,
+      ignore: ['**/node_modules/**', '**/dist/**', '**/dist-*/**', '**/.*/**']
+    });
     const entries: Array<[string, TWorkspaceInfo]> = [];
     for (const dir of dirs) {
       const pkgPath: string = path.join(dir, 'package.json');

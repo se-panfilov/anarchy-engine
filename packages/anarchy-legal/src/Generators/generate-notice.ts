@@ -127,7 +127,7 @@ async function loadWorkspaces(rootDir: string): Promise<ReadonlyMap<string, TWor
   const rootPkg = await readJson<any>(path.join(rootDir, 'package.json'));
   const patterns: string[] = Array.isArray(rootPkg.workspaces) ? rootPkg.workspaces : (rootPkg.workspaces?.packages ?? []);
   if (!patterns.length) throw new Error(`No workspaces patterns in ${path.join(rootDir, 'package.json')}`);
-  const dirs = await globby(patterns, { cwd: rootDir, absolute: true, onlyDirectories: true, gitignore: true, ignore: ['**/node_modules/**', '**/dist/**', '**/.*/**'] });
+  const dirs = await globby(patterns, { cwd: rootDir, absolute: true, onlyDirectories: true, gitignore: true, ignore: ['**/node_modules/**', '**/dist/**', '**/dist-*/**', '**/.*/**'] });
   const entries: Array<[string, TWorkspaceInfo]> = [];
   for (const dir of dirs) {
     const pkgPath = path.join(dir, 'package.json');
