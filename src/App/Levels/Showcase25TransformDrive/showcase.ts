@@ -60,7 +60,6 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     clickLeftRelease$
       .pipe(withLatestFrom(intersectionsWatcher.value$, sphereActor.drive.agent$))
       .subscribe(([, intersection, agent]: [TMouseWatcherEvent, TIntersectionEvent, TransformAgent]): void => {
-        console.log('XXX', intersection.point);
         moveActorTo(sphereActor, intersection.point, agent, mode.isTeleportationMode);
       });
 

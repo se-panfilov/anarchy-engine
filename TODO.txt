@@ -41,3 +41,6 @@ Bugs and issues:
 Also:
 - Make stats enable/disable configurable via url params (?debug=true)
 - Screenshot testing is interesting, but it's a part of an app, not engine
+
+Before release:
+- Check every function in the engine that it's not calling every second (with adding console.log everywhere)

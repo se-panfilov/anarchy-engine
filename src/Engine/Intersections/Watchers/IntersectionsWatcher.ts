@@ -1,5 +1,6 @@
 import type { Subscription } from 'rxjs';
-import type { Vector3 } from 'three';
+import { distinctUntilChanged, sampleTime } from 'rxjs';
+import type { Vector2Like } from 'three';
 import { Raycaster, Vector2 } from 'three';
 
 import type { TAbstractWatcher } from '@/Engine/Abstract';
@@ -30,17 +31,26 @@ export function IntersectionsWatcher({ position$, isAutoStart, tags, name, ...re
   const getCamera = (): TCameraWrapper | undefined => camera;
 
   let mousePos$: Subscription | undefined;
+  // TODO ENV: limit is 60 fps, perhaps should be configurable
+  const delay: number = rest.delay ?? 16; // 60 FPS
 
   function start(): TIntersectionsWatcher {
-    mousePos$ = position$.subscribe((position: TMousePosition): void => {
-      if (isNotDefined(camera)) throw new Error('Intersections service: cannot start: a camera is not defined');
-      const intersection: TIntersectionEvent | undefined = getIntersection(
-        new Vector2(position.coords.x, position.coords.y),
-        camera,
-        actors.map((a: TActor): TRawModel3d => a.model3d.model3d.getRawModel3d())
-      );
-      if (isDefined(intersection)) abstractWatcher.value$.next(intersection);
-    });
+    mousePos$ = position$
+      .pipe(
+        distinctUntilChanged((prev: TMousePosition, curr: TMousePosition): boolean => prev.coords.x === curr.coords.x && prev.coords.y === curr.coords.y),
+        sampleTime(delay)
+      )
+      .subscribe((position: TMousePosition): void => {
+        if (isNotDefined(camera)) throw new Error('Intersections service: cannot start: a camera is not defined');
+        const intersection: TIntersectionEvent | undefined = getIntersection(
+          new Vector2(position.coords.x, position.coords.y),
+          camera,
+          actors.map((a: TActor): TRawModel3d => a.model3d.model3d.getRawModel3d())
+        );
+        // TODO 8.0.0. MODELS: check if this works while mouse not moving, but the scene is moving
+        //console.log('XXX 111', position);
+        if (isDefined(intersection)) abstractWatcher.value$.next(intersection);
+      });
     // eslint-disable-next-line functional/immutable-data
     result.isStarted = true;
     return result;
@@ -53,13 +63,14 @@ export function IntersectionsWatcher({ position$, isAutoStart, tags, name, ...re
     return result;
   }
 
-  function getIntersection(coords: Vector2 | Vector3, cameraWrapper: Readonly<TCameraWrapper>, list: Array<TSceneObject>): TIntersectionEvent | undefined | never {
+  function getIntersection(coords: Vector2Like, cameraWrapper: Readonly<TCameraWrapper>, list: Array<TSceneObject>): TIntersectionEvent | undefined | never {
     if (isNotDefined(raycaster)) throw new Error('Intersections service: cannot get intersection: a raycaster is not defined');
-    raycaster.setFromCamera(getNormalizedMousePosition(coords), cameraWrapper.entity);
+    const normalizedPosition: Vector2Like = getNormalizedMousePosition(coords);
+    raycaster.setFromCamera(new Vector2(normalizedPosition.x, normalizedPosition.y), cameraWrapper.entity);
     return raycaster.intersectObjects(list)[0];
   }
 
-  const abstractWatcherSubscription: Subscription = abstractWatcher.destroy$.subscribe(() => {
+  const abstractWatcherSubscription: Subscription = abstractWatcher.destroy$.subscribe((): void => {
     raycaster = undefined;
     mousePos$?.unsubscribe();
     abstractWatcherSubscription.unsubscribe();
