@@ -1,12 +1,8 @@
-import type { Subscription } from 'rxjs';
-
 import type { IAppCanvas } from '@/Engine/App';
 import type { ICameraWrapper } from '@/Engine/Camera';
 import { ambientContext } from '@/Engine/Context';
-import type { IOrbitControlsWrapper } from '@/Engine/Controls';
 import type { IDataTexture } from '@/Engine/EnvMap';
-import type { ILoopService, ILoopTimes } from '@/Engine/Loop';
-import { LoopService } from '@/Engine/Loop';
+import type { ILoopTimes } from '@/Engine/Loop';
 import type { IDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
 import { withTags } from '@/Engine/Mixins/Generic';
@@ -17,9 +13,10 @@ import { screenService } from '@/Engine/Services';
 import { withBuiltMixin } from '@/Engine/Space/Mixin';
 import type { ISpace, ISpaceConfig, ISpaceServices, IWithBuilt } from '@/Engine/Space/Models';
 import { initServices } from '@/Engine/Space/SpaceHelpers';
+import { spaceLoop } from '@/Engine/Space/SpaceLoop';
 import type { IText2dRenderer, IText3dRenderer } from '@/Engine/Text';
 import { initText2dRenderer, initText3dRenderer } from '@/Engine/Text';
-import { isDefined, isDestroyable, isNotDefined, validLevelConfig } from '@/Engine/Utils';
+import { isDestroyable, isNotDefined, validLevelConfig } from '@/Engine/Utils';
 
 export function buildSpaceFromConfig(canvas: IAppCanvas, config: ISpaceConfig): ISpace {
   const { isValid, errors } = validLevelConfig(config);
@@ -41,7 +38,7 @@ export function buildSpaceFromConfig(canvas: IAppCanvas, config: ISpaceConfig): 
     return activeScene;
   });
 
-  const { cameraService, controlsService, lightService, fogService, envMapService, textService, rendererService } = services;
+  const { cameraService, controlsService, lightService, loopService, fogService, envMapService, intersectionsService, textService, rendererService } = services;
 
   cameraService.createFromConfig(cameras);
   services.actorService.createFromConfig(actors);
@@ -55,38 +52,22 @@ export function buildSpaceFromConfig(canvas: IAppCanvas, config: ISpaceConfig): 
 
   //build intersections
   // TODO (S.Panfilov) We need to load intersections from config as well as the other entities
+  // intersectionsService.createFromConfig(intersections);
 
   fogService.createFromConfig(fogs);
 
-  //env maps
   envMapService.added$.subscribe((texture: IDataTexture): void => {
     activeScene.setBackground(texture);
     activeScene.setEnvironmentMap(texture);
   });
 
   const renderer: IRendererWrapper = rendererService.create({ canvas, tags: [], mode: RendererModes.WebGL2, isActive: true });
-  const loopService: ILoopService = LoopService();
-
   const { text2dRegistry, text3dRegistry } = textService.getRegistries();
   const controlsRegistry = controlsService.getRegistry();
 
-  const loopTick$: Subscription = loopService.tick$.subscribe(({ delta }: ILoopTimes): void => {
-    const activeCamera: ICameraWrapper | undefined = cameraService?.findActiveCamera();
-    if (isDefined(activeCamera)) {
-      if (isNotDefined(renderer)) throw new Error('Cannot find renderer');
-      renderer.entity.render(activeScene.entity, activeCamera.entity);
-      // TODO (S.Panfilov) update these text renderers only when there are any text (or maybe only when it's changed)
-      if (!text2dRegistry?.isEmpty()) text2dRenderer?.renderer.render(activeScene.entity, activeCamera.entity);
-      if (!text3dRegistry?.isEmpty()) text3dRenderer?.renderer.render(activeScene.entity, activeCamera.entity);
-    }
-
-    if (isNotDefined(loopTick$)) throw new Error('Loop tick subscription is not defined');
-
-    // just for control's damping
-    controlsRegistry.getAll().forEach((controls: IOrbitControlsWrapper): void => {
-      if (controls.entity.enableDamping) controls.entity.update(delta);
-    });
-  });
+  const camera: ICameraWrapper | undefined = cameraService.findActiveCamera();
+  if (isNotDefined(camera)) throw new Error(`Cannot find an active camera for space "${name}" during space's initialization.`);
+  loopService.tick$.subscribe(({ delta }: ILoopTimes): void => spaceLoop(delta, camera, renderer, activeScene, text2dRegistry, text3dRegistry, text2dRenderer, text3dRenderer, controlsRegistry));
 
   const destroyable: IDestroyable = destroyableMixin();
   const builtMixin: IWithBuilt = withBuiltMixin();
@@ -94,6 +75,8 @@ export function buildSpaceFromConfig(canvas: IAppCanvas, config: ISpaceConfig): 
   destroyable.destroyed$.subscribe(() => {
     builtMixin.built$.complete();
     Object.values(services).forEach((service): void => void (isDestroyable(service) && service.destroy()));
+    loopService.stop();
+    loopService.destroy();
   });
 
   builtMixin.build();
