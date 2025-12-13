@@ -1,6 +1,7 @@
 /// <reference types="vitest" />
 import { defineConfig } from 'vite';
 import path from 'path';
+import wasm from 'vite-plugin-wasm';
 
 export default defineConfig({
   resolve: {
@@ -10,6 +11,15 @@ export default defineConfig({
       // '@App': path.resolve(__dirname, './src/App')
     }
   },
+  plugins: [wasm()],
+  build: {
+    sourcemap: true
+  },
+  // optimizeDeps: {
+  //   exclude: [
+  //     "@dimforge/rapier3d"
+  //   ]
+  // },
   test: {
     globals: true,
     environment: 'jsdom',
