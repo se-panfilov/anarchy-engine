@@ -1,8 +1,10 @@
-import { AbstractFromConfigWrapperFactory } from '@Engine/Domains/Abstract';
+import type { IFactory } from '@Engine/Domains/Abstract';
+import { AbstractFactory, withConfigFactoryMixin } from '@Engine/Domains/Abstract';
 
-import { lightAdapter } from '../Adapter';
-import type { ICreateLightFn, ILightFactory, ILightParams, ILightWrapper } from '../Models';
+import { fromConfig } from '../Adapter';
+import type { ILightFactory, ILightParams, ILightWrapper } from '../Models';
 import { LightWrapper } from '../Wrapper';
 
-const create: ICreateLightFn = (params: ILightParams): ILightWrapper => LightWrapper(params);
-export const LightFactory = (): ILightFactory => AbstractFromConfigWrapperFactory('light', create, lightAdapter);
+const create = (params: ILightParams): ILightWrapper => LightWrapper(params);
+const factory: IFactory<ILightWrapper, ILightParams> = { ...AbstractFactory('light'), create };
+export const LightFactory = (): ILightFactory => withConfigFactoryMixin(factory, fromConfig);

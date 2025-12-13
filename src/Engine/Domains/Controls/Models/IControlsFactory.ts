@@ -1,9 +1,9 @@
-import type { IAbstractFactory } from '@Engine/Domains/Abstract';
-import type { IDestroyableFromConfigFactory } from '@Engine/Domains/Mixins';
-import type { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
+import type { IFactory, IFromConfig } from '@Engine/Domains/Abstract';
+
+import type { IDestroyable } from '@/Engine/Domains/Mixins';
 
 import type { IControlsConfig } from './IControlsConfig';
 import type { IControlsParams } from './IControlsParams';
 import type { IControlsWrapper } from './IControlsWrapper';
 
-export type IControlsFactory = IDestroyableFromConfigFactory<IControlsWrapper, OrbitControls, IControlsParams, IControlsConfig, IAbstractFactory<IControlsWrapper, IControlsParams>>;
+export type IControlsFactory = IFactory<IControlsWrapper, IControlsParams> & IFromConfig<IControlsWrapper, IControlsConfig> & IDestroyable;

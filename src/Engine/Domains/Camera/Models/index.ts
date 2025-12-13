@@ -4,6 +4,5 @@ export * from './ICameraFactory';
 export * from './ICameraParams';
 export * from './ICameraRegistry';
 export * from './ICameraWrapper';
-export * from './ICreateCameraFn';
 export * from './IOrthographicCamera';
 export * from './IPerspectiveCamera';

@@ -2,7 +2,7 @@ import { Vector3 } from 'three';
 
 import type { ICameraConfig, ICameraParams } from '../Models';
 
-export function cameraAdapter(config: ICameraConfig): ICameraParams {
+export function fromConfig(config: ICameraConfig): ICameraParams {
   const { position, lookAt, ...rest } = config;
   return {
     ...rest,

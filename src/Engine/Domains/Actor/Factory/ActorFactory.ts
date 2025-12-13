@@ -1,8 +1,10 @@
-import { AbstractFromConfigWrapperFactory } from '@Engine/Domains/Abstract';
+import type { IFactory } from '@Engine/Domains/Abstract';
+import { AbstractFactory, withConfigFactoryMixin } from '@Engine/Domains/Abstract';
 
-import { actorAdapter } from '../Adapter';
-import type { IActorFactory, IActorParams, IActorWrapper, ICreateActorFn } from '../Models';
+import { fromConfig } from '../Adapter';
+import type { IActorFactory, IActorParams, IActorWrapper } from '../Models';
 import { ActorWrapper } from '../Wrapper';
 
-const create: ICreateActorFn = (params: IActorParams): IActorWrapper => ActorWrapper(params);
-export const ActorFactory = (): IActorFactory => AbstractFromConfigWrapperFactory('actor', create, actorAdapter);
+const create = (params: IActorParams): IActorWrapper => ActorWrapper(params);
+const factory: IFactory<IActorWrapper, IActorParams> = { ...AbstractFactory('actor'), create };
+export const ActorFactory = (): IActorFactory => withConfigFactoryMixin(factory, fromConfig);

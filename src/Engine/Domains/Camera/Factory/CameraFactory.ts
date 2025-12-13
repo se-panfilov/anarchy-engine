@@ -1,9 +1,11 @@
 import { ambientContext } from '@Engine/Context';
-import { AbstractFromConfigWrapperFactory } from '@Engine/Domains/Abstract';
+import type { IFactory } from '@Engine/Domains/Abstract';
+import { AbstractFactory, withConfigFactoryMixin } from '@Engine/Domains/Abstract';
 
-import { cameraAdapter } from '../Adapter';
-import type { ICameraFactory, ICameraParams, ICameraWrapper, ICreateCameraFn } from '../Models';
+import { fromConfig } from '../Adapter';
+import type { ICameraFactory, ICameraParams, ICameraWrapper } from '../Models';
 import { CameraWrapper } from '../Wrapper';
 
-const create: ICreateCameraFn = (params: ICameraParams): ICameraWrapper => CameraWrapper(params, ambientContext.screenSizeWatcher);
-export const CameraFactory = (): ICameraFactory => AbstractFromConfigWrapperFactory('camera', create, cameraAdapter);
+const create = (params: ICameraParams): ICameraWrapper => CameraWrapper(params, ambientContext.screenSizeWatcher);
+const factory: IFactory<ICameraWrapper, ICameraParams> = { ...AbstractFactory('camera'), create };
+export const CameraFactory = (): ICameraFactory => withConfigFactoryMixin(factory, fromConfig);

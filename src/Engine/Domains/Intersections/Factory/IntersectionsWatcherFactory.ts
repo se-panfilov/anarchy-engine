@@ -1,3 +1,4 @@
+import type { IFactory } from '@Engine/Domains/Abstract';
 import { AbstractFactory } from '@Engine/Domains/Abstract';
 
 import type { IIntersectionsParams, IIntersectionsWatcher, IIntersectionsWatcherFactory, IIntersectionsWatcherRegistry } from '../Models';
@@ -13,9 +14,9 @@ export function IntersectionsWatcherFactory(): IIntersectionsWatcherFactory {
     return watcher;
   }
 
-  const abstractFactory = AbstractFactory('intersections_factory', create);
+  const factory: IFactory<IIntersectionsWatcher, IIntersectionsParams> = { ...AbstractFactory('intersections'), create };
 
   return {
-    ...abstractFactory
+    ...factory
   };
 }

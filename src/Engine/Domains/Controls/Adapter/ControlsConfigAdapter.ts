@@ -5,7 +5,7 @@ import { isNotDefined } from '@Engine/Utils';
 import type { IControlsConfig, IControlsParams } from '../Models';
 import { IControlsType } from '../Models';
 
-export function controlsAdapter(config: IControlsConfig, cameraRegistry: ICameraRegistry, canvas: IAppCanvas): IControlsParams {
+export function fromConfig(config: IControlsConfig, cameraRegistry: ICameraRegistry, canvas: IAppCanvas): IControlsParams {
   const { type, cameraTag, tags } = config;
 
   if (type !== IControlsType.OrbitControls) throw new Error(`Cannot create controls of unknown type "${type as string}"`);

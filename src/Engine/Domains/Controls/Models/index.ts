@@ -5,4 +5,3 @@ export * from './IControlsParams';
 export * from './IControlsRegistry';
 export * from './IControlsType';
 export * from './IControlsWrapper';
-export * from './ICreateControlsFn';

@@ -1,4 +1,3 @@
-export * from './ICreateSceneFn';
 export * from './IScene';
 export * from './ISceneConfig';
 export * from './ISceneFactory';

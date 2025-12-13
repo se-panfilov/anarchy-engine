@@ -1,6 +1,5 @@
-import type { IAbstractFactory } from '@Engine/Domains/Abstract';
-import type { IAbstractFromConfigWrapperFactory } from '@Engine/Domains/Mixins';
+import type { IFactory, IFromConfig } from '@Engine/Domains/Abstract';
 
-import type { IAmbientLight, IDirectionalLight, ILightConfig, ILightParams, ILightWrapper } from '../Models';
+import type { ILightConfig, ILightParams, ILightWrapper } from '../Models';
 
-export type ILightFactory = IAbstractFromConfigWrapperFactory<ILightWrapper, IAmbientLight | IDirectionalLight, ILightParams, ILightConfig, IAbstractFactory<ILightWrapper, ILightParams>>;
+export type ILightFactory = IFactory<ILightWrapper, ILightParams> & IFromConfig<ILightWrapper, ILightConfig>;

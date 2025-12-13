@@ -4,5 +4,4 @@ export * from './IActorFactory';
 export * from './IActorParams';
 export * from './IActorRegistry';
 export * from './IActorWrapper';
-export * from './ICreateActorFn';
 export * from './IMesh';
