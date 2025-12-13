@@ -30,7 +30,7 @@ export function lightToConfig<T extends TLight>(entity: TAbstractLightWrapper<T>
 
   return filterOutEmptyFields({
     type: json.type as LightType,
-    color: (json as unknown as TAbstractLightConfig<T>).color,
+    color: `#${entity.entity.color.getHexString()}`,
     intensity: (json as unknown as TAbstractLightConfig<T>).intensity,
     castShadow: json.castShadow,
     ...onlyDirectionalLightToConfig(entity as TDirectionalLightWrapper),
