@@ -94,7 +94,7 @@ function moveActorTo(actor: TActor, position: Vector3, agent: TransformAgent, is
   // TODO 8.0.0. MODELS: When we do "actor.drive.position$.next(position)" or change the agent, all other agents should update their position/rotation/scale
   switch (agent) {
     case TransformAgent.Default:
-      return actor.drive.position$.next(position);
+      return actor.drive.default.setPosition(position);
     case TransformAgent.Kinematic:
       actor.drive.kinematic.setLinearAzimuthRad(getMouseAzimuthAndElevation(position, actor.drive.getPosition()).azimuth);
       return actor.drive.kinematic.setLinearSpeed(meters(5));
