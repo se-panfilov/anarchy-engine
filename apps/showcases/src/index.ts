@@ -1,5 +1,8 @@
 import '@/style.css';
 
+import type { TSpaceFlags } from '@Engine';
+
+import { runtimeEnv } from '@/env';
 // import { start } from '@/Levels/Showcase1MovingActors';
 // import { start } from '@/Levels/Showcase2TopDown';
 // import { start } from '@/Levels/Showcase3CameraFlying';
@@ -28,4 +31,8 @@ import '@/style.css';
 // import { start } from '@/Levels/Showcase26MultipleScenes';
 import { start } from '@/Levels/Showcase27SaveLoad';
 
-void start();
+const flags: TSpaceFlags = {
+  loopsDebugInfo: runtimeEnv.VITE_SHOW_DEBUG_INFO
+};
+
+void start(flags);
