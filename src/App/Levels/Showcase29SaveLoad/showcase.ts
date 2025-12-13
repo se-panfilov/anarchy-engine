@@ -91,8 +91,7 @@ export function start(): void {
   );
 
   //Initial space
-  // loadSpace(spaceBasicConfig.name);
-  loadSpace(spaceTextsConfig.name);
+  loadSpace(spaceBasicConfig.name);
 }
 
 function loadSpace(name: string): void {
