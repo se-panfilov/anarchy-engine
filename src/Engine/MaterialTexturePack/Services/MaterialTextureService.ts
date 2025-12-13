@@ -1,8 +1,7 @@
 import type { TMaterialParams, TMaterialProps, TMaterialService, TMaterialWrapper } from '@/Engine/Material';
-import type { TMaterialPackConfig, TMaterialPackParams, TMaterialTexturePack, TMaterialTextureService, TMaterialTextureServiceDependencies } from '@/Engine/MaterialTexturePack';
+import type { TMaterialPackParams, TMaterialTexturePack, TMaterialTextureService, TMaterialTextureServiceDependencies } from '@/Engine/MaterialTexturePack';
 import type { TTextureUploaded } from '@/Engine/Texture';
 
-// TODO 9.0.0. RESOURCES: adjust return type to match destroyable/factory/etc interfaces
 export function MaterialTextureService(materialService: TMaterialService, { textureService }: TMaterialTextureServiceDependencies): TMaterialTextureService {
   const createAsync = (pack: TMaterialPackParams<TMaterialTexturePack>): Promise<TMaterialWrapper> => {
     return textureService
@@ -14,18 +13,5 @@ export function MaterialTextureService(materialService: TMaterialService, { text
       });
   };
 
-  // TODO 9.0.0. RESOURCES: Add factory
-  // TODO 9.0.0. RESOURCES: Add registry (registry will be needed later for create with overrides)
-  // TODO 9.0.0. RESOURCES: Add reactivity
-  const createFromConfigAsync = (packs: ReadonlyArray<TMaterialPackConfig<TMaterialTexturePack>>): void => {
-    packs.forEach((pack: TMaterialPackConfig<TMaterialTexturePack>): void => createAsync(pack));
-  };
-
-  const createFromConfigAsync = (packs: ReadonlyArray<TMaterialPackConfig<TMaterialTexturePack>>): void => {
-    packs.forEach((config: TMaterialPackConfig<TMaterialTexturePack>): void => factory.create(factory.configToParams(config)));
-  };
-
-  // TODO 9.0.0. RESOURCES: add destroyable mixin
-
-  return { createAsync, createFromConfigAsync };
+  return { createAsync };
 }
