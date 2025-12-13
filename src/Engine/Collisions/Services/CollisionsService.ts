@@ -24,7 +24,7 @@ export function CollisionsService(): TCollisionsService {
       maxZ: actorBox.max.z + radius
     };
 
-    // TODO (S.Panfilov) debug
+    // TODO (S.Panfilov) debug (window as any).sceneW
     if (box) (window as any).sceneW.entity.remove(box);
     box = createBoundingBox(queryBox.minX, queryBox.minZ, queryBox.maxX, queryBox.maxZ, 'red');
     (window as any).sceneW.entity.add(box);

@@ -37,6 +37,10 @@ export function buildSpaceFromConfig(canvas: TAppCanvas, config: TSpaceConfig): 
     const sceneW: TSceneWrapper | undefined = scenesService.findActive();
     if (isNotDefined(sceneW)) throw new Error(`Cannot find an active scene for space "${name}" during space's services initialization.`);
     activeSceneW = sceneW;
+
+    // TODO (S.Panfilov) debug (window as any).sceneW
+    (window as any).sceneW = sceneW;
+
     return activeSceneW;
   });
 
