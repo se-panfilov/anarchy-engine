@@ -11,19 +11,18 @@ export function showcase(canvas: TAppCanvas): TShowcase {
   const activeScene: TSceneWrapper | undefined = scenesService.findActive();
 
   async function init(activeScene: TSceneWrapper): Promise<void> {
-    const models3dLoadOptions: TModel3dLoadOptions = { shouldSaveToRegistry: true, shouldAddToScene: true };
-    const isForce: boolean = false;
+    const options: TModel3dLoadOptions = { shouldSaveToRegistry: true, shouldAddToScene: true, isForce: false };
     const scale: number = 0.025;
 
     //gltf model
-    await models3dService.loadAsync({ url: '/Showcase/models/fox/Fox.gltf' }, models3dLoadOptions, isForce).then((result: TModel3dLoadResult) => {
+    await models3dService.loadAsync({ url: '/Showcase/models/fox/Fox.gltf', options }).then((result: TModel3dLoadResult) => {
       result.model.scale.set(scale, scale, scale);
       result.model.position.set(-10, 0, 0);
       activeScene.addModel(result.model);
     });
 
     //glb model (draco compressed)
-    await models3dService.loadAsync({ url: '/Showcase/models/fox/Fox.glb' }, models3dLoadOptions, isForce).then((result: TModel3dLoadResult) => {
+    await models3dService.loadAsync({ url: '/Showcase/models/fox/Fox.glb', options }).then((result: TModel3dLoadResult) => {
       result.model.scale.set(scale, scale, scale);
       result.model.position.set(10, 0, 0);
       activeScene.addModel(result.model);
