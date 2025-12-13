@@ -30,6 +30,7 @@ export default defineConfig(({ mode, command }: ConfigEnv): UserConfig => {
       alias: {
         '@': path.resolve(__dirname, './src'),
         '@Public': path.resolve(__dirname, './public'),
+        '@ShowcasesShared': path.resolve(__dirname, '../../packages/showcase-shared/src'),
         ...sharedAliases
       }
     },
