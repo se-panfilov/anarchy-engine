@@ -3,7 +3,7 @@ import type { Vector3Like } from 'three';
 import { Vector3 } from 'three/src/math/Vector3';
 
 import { attachConnectorPositionToSubj, attachConnectorRotationToSubj } from '@/App/Levels/Utils';
-import type { TActor, TSpace, TSpaceConfig } from '@/Engine';
+import type { TActor, TLightWrapper, TSpace, TSpaceConfig, TText3dTextureWrapper } from '@/Engine';
 import { getQueryParams, isDefined, isNotDefined, metersPerSecond } from '@/Engine';
 
 import type { TSpacesData } from '../ShowcaseTypes';
@@ -103,15 +103,27 @@ function doKinematicSteps(space: TSpace, stepsCount: number, stepCooldown: numbe
   });
 }
 
-function getShowcaseActors(space: TSpace): { defaultActor: TActor; kinematicActor: TActor; connectedActor: TActor } {
-  const defaultActor: TActor | undefined = space.services.actorService.getRegistry().findByName('cube_default_actor');
+function getShowcaseActors({ services }: TSpace): {
+  defaultActor: TActor;
+  kinematicActor: TActor;
+  connectedActor: TActor;
+  kinematicText: TText3dTextureWrapper;
+  kinematicLight: TLightWrapper;
+} {
+  const defaultActor: TActor | undefined = services.actorService.getRegistry().findByName('cube_default_actor');
   if (isNotDefined(defaultActor)) throw new Error('[Showcase]: Actor "cube_default_actor" not found');
 
-  const kinematicActor: TActor | undefined = space.services.actorService.getRegistry().findByName('cube_kinematic_actor');
+  const kinematicActor: TActor | undefined = services.actorService.getRegistry().findByName('cube_kinematic_actor');
   if (isNotDefined(kinematicActor)) throw new Error('[Showcase]: Actor "cube_kinematic_actor" not found');
 
-  const connectedActor: TActor | undefined = space.services.actorService.getRegistry().findByName('cube_connected_actor');
+  const connectedActor: TActor | undefined = services.actorService.getRegistry().findByName('cube_connected_actor');
   if (isNotDefined(connectedActor)) throw new Error('[Showcase]: Actor "cube_connected_actor" not found');
 
-  return { defaultActor, kinematicActor, connectedActor };
+  const kinematicText: TText3dTextureWrapper | undefined = services.textService.getRegistries().text3dTextureRegistry.findByName('kinematic_text');
+  if (isNotDefined(kinematicText)) throw new Error('[Showcase]: Text "kinematic_text" not found');
+
+  const kinematicLight: TLightWrapper | undefined = services.lightService.getRegistry().findByName('kinematic_light') as TLightWrapper;
+  if (isNotDefined(kinematicLight)) throw new Error('[Showcase]: Actor "kinematic_light" not found');
+
+  return { defaultActor, kinematicActor, connectedActor, kinematicText, kinematicLight };
 }

@@ -147,13 +147,13 @@
       {
         "castShadow": false,
         "color": "#FF0000",
-        "decay": 1,
-        "distance": 1,
+        "decay": 5,
+        "distance": 5,
         "intensity": 100,
-        "name": "point_light",
+        "name": "kinematic_light",
         "position": {
           "x": 0,
-          "y": 4,
+          "y": 1,
           "z": 0
         },
         "type": "PointLight"
@@ -292,7 +292,7 @@
           "fontFamily": "\"Roboto\", sans-serif",
           "fontSize": "24rem"
         },
-        "name": "td_text",
+        "name": "kinematic_text",
         "position": {
           "x": 0,
           "y": 1,
@@ -303,7 +303,7 @@
           "y": 0,
           "z": 0
         },
-        "text": "TD_text",
+        "text": "kinematic",
         "type": "text_3d_texture"
       }
     ]
