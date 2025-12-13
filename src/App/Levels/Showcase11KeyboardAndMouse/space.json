@@ -520,28 +520,28 @@
         "options": {
           "color": "#5EDCAE"
         },
-        "type": "toon"
+        "type": "MeshToonMaterial"
       },
       {
         "name": "sphere_keyboard_material",
         "options": {
           "color": "#E91E63"
         },
-        "type": "toon"
+        "type": "MeshToonMaterial"
       },
       {
         "name": "sphere_mouse_material",
         "options": {
           "color": "#E91ED8"
         },
-        "type": "toon"
+        "type": "MeshToonMaterial"
       },
       {
         "name": "keys_material",
         "options": {
           "color": "#373739"
         },
-        "type": "toon"
+        "type": "MeshToonMaterial"
       }
     ],
     "models3d": [],

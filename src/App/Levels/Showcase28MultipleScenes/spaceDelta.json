@@ -190,21 +190,21 @@
           "color": "#ff0000",
           "wireframe": true
         },
-        "type": "basic"
+        "type": "MeshBasicMaterial"
       },
       {
         "name": "sphere_material",
         "options": {
           "color": "#E91E63"
         },
-        "type": "basic"
+        "type": "MeshBasicMaterial"
       },
       {
         "name": "sphere_mouse_material",
         "options": {
           "color": "#E91ED8"
         },
-        "type": "toon"
+        "type": "MeshToonMaterial"
       },
       {
         "name": "particles_material",
@@ -220,7 +220,7 @@
         "textures": {
           "alphaMap": "particles_alpha_map_texture"
         },
-        "type": "points"
+        "type": "PointsMaterial"
       }
     ],
     "models3d": [],

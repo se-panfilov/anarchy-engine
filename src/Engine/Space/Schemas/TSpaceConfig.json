@@ -7238,7 +7238,25 @@
     },
     "MaterialType": {
       "type": "string",
-      "enum": ["basic", "depth", "distance", "lambert", "matcap", "normal", "phong", "physical", "points", "standard", "toon"]
+      "enum": [
+        "MeshBasicMaterial",
+        "MeshDepthMaterial",
+        "MeshDistanceMaterial",
+        "MeshLambertMaterial",
+        "MeshMatcapMaterial",
+        "MeshNormalMaterial",
+        "MeshPhongMaterial",
+        "MeshPhysicalMaterial",
+        "PointsMaterial",
+        "MeshStandardMaterial",
+        "MeshToonMaterial",
+        "ShadowMaterial",
+        "SpriteMaterial",
+        "RawShaderMaterial",
+        "ShaderMaterial",
+        "LineDashedMaterial",
+        "LineBasicMaterial"
+      ]
     },
     "TModel3dResourceConfig": {
       "type": "object",

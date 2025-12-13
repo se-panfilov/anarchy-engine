@@ -291,21 +291,21 @@
           "color": "#CBCBCB",
           "depthWrite": false
         },
-        "type": "phong"
+        "type": "MeshPhongMaterial"
       },
       {
         "name": "sphere_material",
         "options": {
           "color": "#E91E63"
         },
-        "type": "standard"
+        "type": "MeshStandardMaterial"
       },
       {
         "name": "cube_material",
         "options": {
           "color": "#5EDCAE"
         },
-        "type": "standard"
+        "type": "MeshStandardMaterial"
       }
     ],
     "models3d": [

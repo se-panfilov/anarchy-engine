@@ -345,49 +345,49 @@
         "options": {
           "color": "#8E8E8E"
         },
-        "type": "standard"
+        "type": "MeshStandardMaterial"
       },
       {
         "name": "box_2_material",
         "options": {
           "color": "#FF8E8E"
         },
-        "type": "standard"
+        "type": "MeshStandardMaterial"
       },
       {
         "name": "box_3_material",
         "options": {
           "color": "#8E8EFF"
         },
-        "type": "standard"
+        "type": "MeshStandardMaterial"
       },
       {
         "name": "box_4_material",
         "options": {
           "color": "#8EFEFE"
         },
-        "type": "standard"
+        "type": "MeshStandardMaterial"
       },
       {
         "name": "box_5_material",
         "options": {
           "color": "#8FAA8F"
         },
-        "type": "standard"
+        "type": "MeshStandardMaterial"
       },
       {
         "name": "box_6_material",
         "options": {
           "color": "#E91E63"
         },
-        "type": "standard"
+        "type": "MeshStandardMaterial"
       },
       {
         "name": "box_7_material",
         "options": {
           "color": "#8EFF8E"
         },
-        "type": "standard"
+        "type": "MeshStandardMaterial"
       }
     ],
     "models3d": [],

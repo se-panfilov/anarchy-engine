@@ -503,7 +503,7 @@
           "normalMap": "metal_normal_map_texture",
           "roughnessMap": "metal_roughness_map_texture"
         },
-        "type": "physical"
+        "type": "MeshPhysicalMaterial"
       },
       {
         "name": "glass_1_material",
@@ -519,7 +519,7 @@
           "thickness": 0.5,
           "transmission": 0.77
         },
-        "type": "physical"
+        "type": "MeshPhysicalMaterial"
       },
       {
         "name": "glass_2_material",
@@ -535,7 +535,7 @@
           "thickness": 0.5,
           "transmission": 0.77
         },
-        "type": "physical"
+        "type": "MeshPhysicalMaterial"
       },
       {
         "name": "wood_material",
@@ -551,7 +551,7 @@
           "normalMap": "wood_normal_map_texture",
           "roughnessMap": "wood_roughness_map_texture"
         },
-        "type": "physical"
+        "type": "MeshPhysicalMaterial"
       }
     ],
     "models3d": [],

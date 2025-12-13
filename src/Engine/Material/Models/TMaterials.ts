@@ -1,4 +1,6 @@
 import type {
+  LineBasicMaterial,
+  LineDashedMaterial,
   MeshBasicMaterial,
   MeshDepthMaterial,
   MeshDistanceMaterial,
@@ -9,10 +11,16 @@ import type {
   MeshPhysicalMaterial,
   MeshStandardMaterial,
   MeshToonMaterial,
-  PointsMaterial
+  PointsMaterial,
+  RawShaderMaterial,
+  ShaderMaterial,
+  ShadowMaterial,
+  SpriteMaterial
 } from 'three';
 
 export type TMaterials =
+  | LineBasicMaterial
+  | LineDashedMaterial
   | MeshBasicMaterial
   | MeshDepthMaterial
   | MeshDistanceMaterial
@@ -23,9 +31,15 @@ export type TMaterials =
   | MeshPhysicalMaterial
   | MeshStandardMaterial
   | MeshToonMaterial
-  | PointsMaterial;
+  | PointsMaterial
+  | RawShaderMaterial
+  | ShaderMaterial
+  | ShadowMaterial
+  | SpriteMaterial;
 
 export type TTypeOfMaterials =
+  | typeof LineBasicMaterial
+  | typeof LineDashedMaterial
   | typeof MeshBasicMaterial
   | typeof MeshDepthMaterial
   | typeof MeshDistanceMaterial
@@ -36,4 +50,8 @@ export type TTypeOfMaterials =
   | typeof MeshPhysicalMaterial
   | typeof MeshStandardMaterial
   | typeof MeshToonMaterial
-  | typeof PointsMaterial;
+  | typeof PointsMaterial
+  | typeof RawShaderMaterial
+  | typeof ShaderMaterial
+  | typeof ShadowMaterial
+  | typeof SpriteMaterial;

@@ -156,14 +156,14 @@
         "options": {
           "color": "#5EDCAE"
         },
-        "type": "standard"
+        "type": "MeshStandardMaterial"
       },
       {
         "name": "sphere_material",
         "options": {
           "color": "#E91E63"
         },
-        "type": "standard"
+        "type": "MeshStandardMaterial"
       }
     ],
     "models3d": [],

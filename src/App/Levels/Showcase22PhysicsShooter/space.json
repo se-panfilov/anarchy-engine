@@ -550,91 +550,91 @@
         "options": {
           "color": "#8E8E8E"
         },
-        "type": "standard"
+        "type": "MeshStandardMaterial"
       },
       {
         "name": "hero_material",
         "options": {
           "color": "#8EFEFE"
         },
-        "type": "standard"
+        "type": "MeshStandardMaterial"
       },
       {
         "name": "sphere_material",
         "options": {
           "color": "#E91E63"
         },
-        "type": "standard"
+        "type": "MeshStandardMaterial"
       },
       {
         "name": "box_1_material",
         "options": {
           "color": "#FF9800"
         },
-        "type": "standard"
+        "type": "MeshStandardMaterial"
       },
       {
         "name": "box_2_material",
         "options": {
           "color": "#FF00FF"
         },
-        "type": "standard"
+        "type": "MeshStandardMaterial"
       },
       {
         "name": "box_3_material",
         "options": {
           "color": "#FFFF00"
         },
-        "type": "standard"
+        "type": "MeshStandardMaterial"
       },
       {
         "name": "box_4_material",
         "options": {
           "color": "#FF00FF"
         },
-        "type": "standard"
+        "type": "MeshStandardMaterial"
       },
       {
         "name": "box_5_material",
         "options": {
           "color": "#FF0FF0"
         },
-        "type": "standard"
+        "type": "MeshStandardMaterial"
       },
       {
         "name": "box_6_material",
         "options": {
           "color": "#FF0FF0"
         },
-        "type": "standard"
+        "type": "MeshStandardMaterial"
       },
       {
         "name": "box_7_material",
         "options": {
           "color": "#0FF0F0"
         },
-        "type": "standard"
+        "type": "MeshStandardMaterial"
       },
       {
         "name": "target_1_material",
         "options": {
           "color": "#000FFF"
         },
-        "type": "standard"
+        "type": "MeshStandardMaterial"
       },
       {
         "name": "target_2_material",
         "options": {
           "color": "#FF00FF"
         },
-        "type": "standard"
+        "type": "MeshStandardMaterial"
       },
       {
         "name": "target_3_material",
         "options": {
           "color": "#FFF000"
         },
-        "type": "standard"
+        "type": "MeshStandardMaterial"
       }
     ],
     "models3d": [],

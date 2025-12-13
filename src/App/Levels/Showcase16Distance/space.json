@@ -148,14 +148,14 @@
         "options": {
           "color": "#5EDCAE"
         },
-        "type": "toon"
+        "type": "MeshToonMaterial"
       },
       {
         "name": "sphere_material",
         "options": {
           "color": "#E91E63"
         },
-        "type": "toon"
+        "type": "MeshToonMaterial"
       }
     ],
     "models3d": [],

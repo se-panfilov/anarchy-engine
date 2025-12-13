@@ -101,14 +101,14 @@
         "options": {
           "color": "#E91E63"
         },
-        "type": "basic"
+        "type": "MeshBasicMaterial"
       },
       {
         "name": "move_material",
         "options": {
           "color": "#e66a36"
         },
-        "type": "basic"
+        "type": "MeshBasicMaterial"
       }
     ],
     "models3d": [],

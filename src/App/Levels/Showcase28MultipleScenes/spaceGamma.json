@@ -180,7 +180,7 @@
         "options": {
           "color": "#4638DF"
         },
-        "type": "basic"
+        "type": "MeshBasicMaterial"
       },
       {
         "name": "particles_material",
@@ -196,7 +196,7 @@
         "textures": {
           "alphaMap": "particles_alpha_map_texture"
         },
-        "type": "points"
+        "type": "PointsMaterial"
       }
     ],
     "models3d": [

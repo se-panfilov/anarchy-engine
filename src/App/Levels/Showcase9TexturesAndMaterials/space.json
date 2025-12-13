@@ -110,7 +110,7 @@
           "aoMap": "door_ao_texture",
           "map": "door_base_texture"
         },
-        "type": "basic"
+        "type": "MeshBasicMaterial"
       }
     ],
     "models3d": [],

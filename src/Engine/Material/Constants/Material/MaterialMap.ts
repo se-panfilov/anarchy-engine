@@ -1,4 +1,6 @@
 import {
+  LineBasicMaterial,
+  LineDashedMaterial,
   MeshBasicMaterial,
   MeshDepthMaterial,
   MeshDistanceMaterial,
@@ -9,7 +11,11 @@ import {
   MeshPhysicalMaterial,
   MeshStandardMaterial,
   MeshToonMaterial,
-  PointsMaterial
+  PointsMaterial,
+  RawShaderMaterial,
+  ShaderMaterial,
+  ShadowMaterial,
+  SpriteMaterial
 } from 'three';
 
 import type { TTypeOfMaterials } from '@/Engine/Material/Models';
@@ -21,11 +27,17 @@ export const MaterialMap: Readonly<Record<MaterialType, TTypeOfMaterials>> = {
   [MaterialType.Depth]: MeshDepthMaterial,
   [MaterialType.Distance]: MeshDistanceMaterial,
   [MaterialType.Lambert]: MeshLambertMaterial,
+  [MaterialType.LineBasic]: LineBasicMaterial,
+  [MaterialType.LineDashed]: LineDashedMaterial,
   [MaterialType.Matcap]: MeshMatcapMaterial,
   [MaterialType.Normal]: MeshNormalMaterial,
   [MaterialType.Phong]: MeshPhongMaterial,
   [MaterialType.Physical]: MeshPhysicalMaterial,
   [MaterialType.Points]: PointsMaterial,
+  [MaterialType.RawShader]: RawShaderMaterial,
+  [MaterialType.Shader]: ShaderMaterial,
+  [MaterialType.Shadow]: ShadowMaterial,
+  [MaterialType.Sprite]: SpriteMaterial,
   [MaterialType.Standard]: MeshStandardMaterial,
   [MaterialType.Toon]: MeshToonMaterial
 };

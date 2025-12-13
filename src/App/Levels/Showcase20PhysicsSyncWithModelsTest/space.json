@@ -209,7 +209,7 @@
         "options": {
           "color": "#8E8E8E"
         },
-        "type": "standard"
+        "type": "MeshStandardMaterial"
       }
     ],
     "models3d": [],

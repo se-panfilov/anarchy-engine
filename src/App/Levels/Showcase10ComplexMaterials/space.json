@@ -897,7 +897,7 @@
           "normalMap": "metal_steel_brushed_normal_map",
           "roughnessMap": "metal_steel_brushed_roughness_map"
         },
-        "type": "standard"
+        "type": "MeshStandardMaterial"
       },
       {
         "name": "physical_metal",
@@ -922,7 +922,7 @@
           "normalMap": "metal_steel_brushed_normal_map",
           "roughnessMap": "metal_steel_brushed_roughness_map"
         },
-        "type": "physical"
+        "type": "MeshPhysicalMaterial"
       },
       {
         "name": "basic_metal",
@@ -930,7 +930,7 @@
         "textures": {
           "map": "metal_steel_brushed_map"
         },
-        "type": "basic"
+        "type": "MeshBasicMaterial"
       },
       {
         "name": "phong_metal",
@@ -944,7 +944,7 @@
           "map": "metal_steel_brushed_map",
           "normalMap": "metal_steel_brushed_normal_map"
         },
-        "type": "phong"
+        "type": "MeshPhongMaterial"
       },
       {
         "name": "lambert_metal",
@@ -958,7 +958,7 @@
           "map": "metal_steel_brushed_map",
           "normalMap": "metal_steel_brushed_normal_map"
         },
-        "type": "lambert"
+        "type": "MeshLambertMaterial"
       },
       {
         "name": "toon_metal",
@@ -972,7 +972,7 @@
           "map": "metal_steel_brushed_map",
           "normalMap": "metal_steel_brushed_normal_map"
         },
-        "type": "toon"
+        "type": "MeshToonMaterial"
       },
       {
         "name": "matcap_metal",
@@ -986,7 +986,7 @@
           "map": "metal_steel_brushed_map",
           "normalMap": "metal_steel_brushed_normal_map"
         },
-        "type": "matcap"
+        "type": "MeshMatcapMaterial"
       },
       {
         "name": "standard_wood",
@@ -1003,7 +1003,7 @@
           "normalMap": "wood_normal_map",
           "roughnessMap": "wood_roughness_map"
         },
-        "type": "standard"
+        "type": "MeshStandardMaterial"
       },
       {
         "name": "physical_wood",
@@ -1020,7 +1020,7 @@
           "normalMap": "wood_normal_map",
           "roughnessMap": "wood_roughness_map"
         },
-        "type": "physical"
+        "type": "MeshPhysicalMaterial"
       },
       {
         "name": "basic_wood",
@@ -1030,7 +1030,7 @@
           "aoMap": "wood_ao_map",
           "map": "wood_map"
         },
-        "type": "basic"
+        "type": "MeshBasicMaterial"
       },
       {
         "name": "phong_wood",
@@ -1045,7 +1045,7 @@
           "map": "wood_map",
           "normalMap": "wood_normal_map"
         },
-        "type": "phong"
+        "type": "MeshPhongMaterial"
       },
       {
         "name": "lambert_wood",
@@ -1060,7 +1060,7 @@
           "map": "wood_map",
           "normalMap": "wood_normal_map"
         },
-        "type": "lambert"
+        "type": "MeshLambertMaterial"
       },
       {
         "name": "toon_wood",
@@ -1075,7 +1075,7 @@
           "map": "wood_map",
           "normalMap": "wood_normal_map"
         },
-        "type": "toon"
+        "type": "MeshToonMaterial"
       },
       {
         "name": "matcap_wood",
@@ -1089,7 +1089,7 @@
           "map": "wood_map",
           "normalMap": "wood_normal_map"
         },
-        "type": "matcap"
+        "type": "MeshMatcapMaterial"
       },
       {
         "name": "standard_glass",
@@ -1098,7 +1098,7 @@
           "roughness": 0
         },
         "tags": ["standard", "glass"],
-        "type": "standard"
+        "type": "MeshStandardMaterial"
       },
       {
         "name": "physical_glass",
@@ -1115,12 +1115,12 @@
           "transmission": 0.77
         },
         "tags": ["physical", "glass"],
-        "type": "physical"
+        "type": "MeshPhysicalMaterial"
       },
       {
         "name": "basic_glass",
         "tags": ["basic", "glass"],
-        "type": "basic"
+        "type": "MeshBasicMaterial"
       },
       {
         "name": "phong_glass",
@@ -1128,7 +1128,7 @@
           "displacementScale": 0.1
         },
         "tags": ["phong", "glass"],
-        "type": "phong"
+        "type": "MeshPhongMaterial"
       },
       {
         "name": "lambert_glass",
@@ -1136,7 +1136,7 @@
           "displacementScale": 0.1
         },
         "tags": ["lambert", "glass"],
-        "type": "lambert"
+        "type": "MeshLambertMaterial"
       },
       {
         "name": "toon_glass",
@@ -1144,7 +1144,7 @@
           "displacementScale": 0.1
         },
         "tags": ["toon", "glass"],
-        "type": "toon"
+        "type": "MeshToonMaterial"
       },
       {
         "name": "matcap_glass",
@@ -1152,7 +1152,7 @@
           "displacementScale": 0.1
         },
         "tags": ["matcap", "glass"],
-        "type": "matcap"
+        "type": "MeshMatcapMaterial"
       },
       {
         "name": "standard_textile",
@@ -1167,7 +1167,7 @@
           "normalMap": "carpet_normal_map",
           "roughnessMap": "carpet_roughness_map"
         },
-        "type": "standard"
+        "type": "MeshStandardMaterial"
       },
       {
         "name": "physical_textile",
@@ -1182,7 +1182,7 @@
           "normalMap": "carpet_normal_map",
           "roughnessMap": "carpet_roughness_map"
         },
-        "type": "physical"
+        "type": "MeshPhysicalMaterial"
       },
       {
         "name": "basic_textile",
@@ -1191,7 +1191,7 @@
           "aoMap": "carpet_ao_map",
           "map": "carpet_map"
         },
-        "type": "basic"
+        "type": "MeshBasicMaterial"
       },
       {
         "name": "phong_textile",
@@ -1205,7 +1205,7 @@
           "map": "carpet_map",
           "normalMap": "carpet_normal_map"
         },
-        "type": "phong"
+        "type": "MeshPhongMaterial"
       },
       {
         "name": "lambert_textile",
@@ -1219,7 +1219,7 @@
           "map": "carpet_map",
           "normalMap": "carpet_normal_map"
         },
-        "type": "lambert"
+        "type": "MeshLambertMaterial"
       },
       {
         "name": "toon_textile",
@@ -1233,7 +1233,7 @@
           "map": "carpet_map",
           "normalMap": "carpet_normal_map"
         },
-        "type": "toon"
+        "type": "MeshToonMaterial"
       },
       {
         "name": "matcap_textile",
@@ -1246,7 +1246,7 @@
           "map": "carpet_map",
           "normalMap": "carpet_normal_map"
         },
-        "type": "matcap"
+        "type": "MeshMatcapMaterial"
       }
     ],
     "models3d": [],

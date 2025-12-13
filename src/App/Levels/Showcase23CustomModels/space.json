@@ -175,7 +175,7 @@
         "options": {
           "color": "#5EDCAE"
         },
-        "type": "standard"
+        "type": "MeshStandardMaterial"
       }
     ],
     "models3d": [

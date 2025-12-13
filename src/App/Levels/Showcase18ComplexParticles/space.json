@@ -104,7 +104,7 @@
         "textures": {
           "alphaMap": "particles_ao_map_texture"
         },
-        "type": "points"
+        "type": "PointsMaterial"
       }
     ],
     "models3d": [],

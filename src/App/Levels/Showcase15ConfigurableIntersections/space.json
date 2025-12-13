@@ -254,35 +254,35 @@
         "options": {
           "color": "#5EDCAE"
         },
-        "type": "standard"
+        "type": "MeshStandardMaterial"
       },
       {
         "name": "sphere_red_1_material",
         "options": {
           "color": "#E91E63"
         },
-        "type": "standard"
+        "type": "MeshStandardMaterial"
       },
       {
         "name": "sphere_red_2_material",
         "options": {
           "color": "#9f0441"
         },
-        "type": "standard"
+        "type": "MeshStandardMaterial"
       },
       {
         "name": "cube_blue_1_material",
         "options": {
           "color": "#6a35de"
         },
-        "type": "standard"
+        "type": "MeshStandardMaterial"
       },
       {
         "name": "cube_blue_2_material",
         "options": {
           "color": "#4013a4"
         },
-        "type": "standard"
+        "type": "MeshStandardMaterial"
       }
     ],
     "models3d": [],

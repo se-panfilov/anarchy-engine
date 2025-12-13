@@ -278,28 +278,28 @@
         "options": {
           "color": "#5ddc9a"
         },
-        "type": "standard"
+        "type": "MeshStandardMaterial"
       },
       {
         "name": "red_material",
         "options": {
           "color": "#ff0000"
         },
-        "type": "standard"
+        "type": "MeshStandardMaterial"
       },
       {
         "name": "green_material",
         "options": {
           "color": "#00ff00"
         },
-        "type": "standard"
+        "type": "MeshStandardMaterial"
       },
       {
         "name": "blue_material",
         "options": {
           "color": "#0000ff"
         },
-        "type": "standard"
+        "type": "MeshStandardMaterial"
       }
     ],
     "models3d": [],
