@@ -32,7 +32,7 @@ export async function handleAppRequest(
       return settingsService.updateAppSettings(payload);
     case PlatformActions.GetLegalDocs:
       if (!isLoadDocPayload(payload)) throw new Error(`[DESKTOP] Failed to load legal docs: Invalid payload`);
-      return docsService.load(payload);
+      return docsService.get(payload);
     case PlatformActions.AppExit:
       return desktopAppService.closeApp();
     case PlatformActions.AppRestart:
