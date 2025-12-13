@@ -1,8 +1,8 @@
 import GUI from 'lil-gui';
-import { combineLatest, map, withLatestFrom } from 'rxjs';
+import { BehaviorSubject, combineLatest, map, withLatestFrom } from 'rxjs';
 import { Euler, Vector3 } from 'three';
 import type { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
-import { radToDeg } from 'three/src/math/MathUtils';
+import { degToRad, radToDeg } from 'three/src/math/MathUtils';
 
 import type { TShowcase } from '@/App/Levels/Models';
 import { addGizmo, getMemoryUsage } from '@/App/Levels/Utils';
@@ -43,7 +43,7 @@ import {
   TextType,
   TransformAgent
 } from '@/Engine';
-import { meters } from '@/Engine/Measurements/Utils';
+import { degrees, meters } from '@/Engine/Measurements/Utils';
 
 import spaceConfig from './showcase.json';
 import {
@@ -180,9 +180,16 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
       rotation: new Euler(-1.57, 0, 0)
     });
 
+    const azimuth$: BehaviorSubject<TDegrees> = new BehaviorSubject<TDegrees>(0);
+
+    azimuth$.pipe(withLatestFrom(sphereActor.drive.agent$)).subscribe(([degrees, agent]: [TDegrees, TransformAgent]): void => {
+      azimuthText.setText(`Azimuth: ${degrees.toFixed(2)}`);
+      rotateActorTo(sphereActor, new Euler(0, degToRad(degrees), 0, 'YXZ'), agent);
+    });
+
     intersectionsWatcher.value$.pipe(withLatestFrom(sphereActor.drive.position$)).subscribe(([v, actorPosition]: [TIntersectionEvent, Vector3]): void => {
       const azimuth: TDegrees = getHorizontalAzimuthDeg(actorPosition.x, actorPosition.z, v.point);
-      azimuthText.setText(`Azimuth: ${azimuth.toFixed(2)}`);
+      azimuth$.next(azimuth);
     });
 
     clickLeftRelease$
@@ -215,17 +222,9 @@ function moveActorTo(actor: TActor, position: Vector3, agent: TransformAgent, is
   let forcePower: number = 1;
   const azimuth: TRadians = getMouseAzimuthAndElevation(position, actor.drive.getPosition()).azimuth;
 
-  // TODO 8.0.0. MODELS: model3d looking in tne not exact direction as I want
-  // const azimuthEuler: Euler = new Euler(0, azimuth, 0, 'YXZ');
-
-  // For debug reasons: here is how we can rotate the model3d without TransformDrive
-  // actor.model3d.getRawModel3d().rotation.set(0, degToRad(-90), 0);
-
   switch (agent) {
     case TransformAgent.Default:
-      actor.drive.default.setPosition(position);
-      // return actor.drive.default.setRotation(new Euler(0, azimuth, 0, 'YXZ'));
-      return actor.drive.default.setRotation(new Euler(0, azimuth, 0, 'YXZ'));
+      return actor.drive.default.setPosition(position);
     case TransformAgent.Kinematic:
       actor.drive.kinematic.setLinearAzimuthRad(azimuth);
       return actor.drive.kinematic.setLinearSpeed(meters(5));
@@ -235,6 +234,29 @@ function moveActorTo(actor: TActor, position: Vector3, agent: TransformAgent, is
     case TransformAgent.Physical:
       forcePower = getDistancePrecisely(actor.drive.getPosition(), position).toNumber();
       actor.drive.physical.physicsBody$.value?.getRigidBody()?.applyImpulse(getPushCoordsFrom3dAzimuthDeg(radToDeg(azimuth) as TDegrees, 0 as TDegrees, forcePower * 1.5), true);
+      return undefined;
+    default:
+      throw new Error(`Unknown agent: ${agent}`);
+  }
+}
+
+function rotateActorTo(actor: TActor, rotation: Euler, agent: TransformAgent): void {
+  const rotationXYZ: Euler = rotation.clone().reorder('XYZ');
+
+  // For debug reasons: here is how we can rotate the model3d without TransformDrive
+  // sphereActor.model3d.getRawModel3d().rotation.set(0, rotationXYZ.y, 0);
+
+  switch (agent) {
+    case TransformAgent.Default:
+      return actor.drive.default.setRotation(rotationXYZ);
+    case TransformAgent.Kinematic:
+      actor.drive.kinematic.setAngularAzimuthDeg(degrees(radToDeg(rotationXYZ.y)));
+      return actor.drive.kinematic.setAngularSpeed(meters(5));
+    case TransformAgent.Connected:
+      // TODO what should we do here?
+      return undefined;
+    case TransformAgent.Physical:
+      // Should not do anything here, cause physical agent should read values from physical body
       return undefined;
     default:
       throw new Error(`Unknown agent: ${agent}`);
