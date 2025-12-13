@@ -279,27 +279,11 @@
             "blendColor": {
               "$ref": "#/definitions/ColorRepresentation"
             },
-            "blendDst": {
-              "$ref": "#/definitions/BlendingDstFactor"
-            },
             "blendDstAlpha": {
               "type": "number"
             },
-            "blendEquation": {
-              "$ref": "#/definitions/BlendingEquation"
-            },
             "blendEquationAlpha": {
               "type": "number"
-            },
-            "blendSrc": {
-              "anyOf": [
-                {
-                  "$ref": "#/definitions/BlendingSrcFactor"
-                },
-                {
-                  "$ref": "#/definitions/BlendingDstFactor"
-                }
-              ]
             },
             "blendSrcAlpha": {
               "type": "number"
@@ -351,9 +335,6 @@
             "dithering": {
               "type": "boolean"
             },
-            "side": {
-              "$ref": "#/definitions/Side"
-            },
             "shadowSide": {
               "$ref": "#/definitions/Side"
             },
@@ -369,14 +350,8 @@
             "visible": {
               "type": "boolean"
             },
-            "format": {
-              "$ref": "#/definitions/PixelFormat"
-            },
             "stencilWrite": {
               "type": "boolean"
-            },
-            "stencilFunc": {
-              "$ref": "#/definitions/StencilFunc"
             },
             "stencilRef": {
               "type": "number"
@@ -387,20 +362,54 @@
             "stencilFuncMask": {
               "type": "number"
             },
-            "stencilFail": {
-              "$ref": "#/definitions/StencilOp"
-            },
-            "stencilZFail": {
-              "$ref": "#/definitions/StencilOp"
-            },
-            "stencilZPass": {
-              "$ref": "#/definitions/StencilOp"
-            },
             "userData": {
               "type": "object"
             },
             "blending": {
               "$ref": "#/definitions/BlendingName"
+            },
+            "blendDst": {
+              "$ref": "#/definitions/BlendingDstFactorName"
+            },
+            "blendEquation": {
+              "$ref": "#/definitions/BlendEquationName"
+            },
+            "blendSrc": {
+              "anyOf": [
+                {
+                  "$ref": "#/definitions/BlendingSrcFactorName"
+                },
+                {
+                  "$ref": "#/definitions/BlendingDstFactorName"
+                }
+              ]
+            },
+            "side": {
+              "$ref": "#/definitions/SideName"
+            },
+            "format": {
+              "$ref": "#/definitions/PixelFormatName"
+            },
+            "stencilFunc": {
+              "$ref": "#/definitions/StencilFuncName"
+            },
+            "stencilFail": {
+              "$ref": "#/definitions/StencilOpName"
+            },
+            "stencilZFail": {
+              "$ref": "#/definitions/StencilOpName"
+            },
+            "stencilZPass": {
+              "$ref": "#/definitions/StencilOpName"
+            },
+            "combine": {
+              "$ref": "#/definitions/CombineName"
+            },
+            "depthPacking": {
+              "$ref": "#/definitions/DepthPackingStrategiesName"
+            },
+            "normalMapType": {
+              "$ref": "#/definitions/NormalMapTypesName"
             },
             "color": {
               "$ref": "#/definitions/ColorRepresentation"
@@ -413,9 +422,6 @@
             },
             "fog": {
               "type": "boolean"
-            },
-            "combine": {
-              "$ref": "#/definitions/Combine"
             },
             "reflectivity": {
               "type": "number"
@@ -435,9 +441,6 @@
             "wireframeLinejoin": {
               "type": "string"
             },
-            "depthPacking": {
-              "$ref": "#/definitions/DepthPackingStrategies"
-            },
             "displacementScale": {
               "type": "number"
             },
@@ -455,9 +458,6 @@
             },
             "bumpScale": {
               "type": "number"
-            },
-            "normalMapType": {
-              "$ref": "#/definitions/NormalMapTypes"
             },
             "normalScale": {
               "$ref": "#/definitions/IVector2"
@@ -625,25 +625,6 @@
       "additionalProperties": false,
       "description": "Represents a color. See also  {@link  ColorUtils  } .\n\nsee  {@link  https://github.com/mrdoob/three.js/blob/master/src/math/Color.js src/math/Color.js }"
     },
-    "BlendingDstFactor": {
-      "type": "number",
-      "enum": [200, 201, 202, 203, 204, 205, 206, 207, 208, 209, 211, 212, 213, 214]
-    },
-    "BlendingEquation": {
-      "type": "number",
-      "enum": [100, 101, 102, 103, 104]
-    },
-    "BlendingSrcFactor": {
-      "anyOf": [
-        {
-          "$ref": "#/definitions/BlendingDstFactor"
-        },
-        {
-          "type": "number",
-          "const": 210
-        }
-      ]
-    },
     "DepthModes": {
       "type": "number",
       "enum": [0, 1, 2, 3, 4, 5, 6, 7]
@@ -653,30 +634,77 @@
       "enum": [0, 1, 2],
       "description": "Defines which side of faces will be rendered - front, back or both. Default is  {@link  FrontSide } ."
     },
-    "PixelFormat": {
-      "type": "number",
-      "enum": [1021, 1022, 1023, 1024, 1025, 1026, 1027, 1028, 1029, 1030, 1031, 1033],
-      "description": "All Texture Pixel Formats Modes."
-    },
-    "StencilFunc": {
-      "type": "number",
-      "enum": [512, 513, 514, 515, 516, 517, 518, 519]
-    },
-    "StencilOp": {
-      "type": "number",
-      "enum": [0, 7680, 7681, 7682, 7283, 34055, 34056, 5386]
-    },
     "BlendingName": {
       "type": "string",
       "enum": ["NormalBlending", "AdditiveBlending", "SubtractiveBlending", "MultiplyBlending", "CustomBlending", "NoBlending"]
     },
-    "Combine": {
-      "type": "number",
-      "enum": [0, 1, 2]
+    "BlendingDstFactorName": {
+      "type": "string",
+      "enum": [
+        "ZeroFactor",
+        "OneFactor",
+        "SrcColorFactor",
+        "OneMinusSrcColorFactor",
+        "SrcAlphaFactor",
+        "OneMinusSrcAlphaFactor",
+        "DstAlphaFactor",
+        "OneMinusDstAlphaFactor",
+        "DstColorFactor",
+        "OneMinusDstColorFactor",
+        "ConstantColorFactor",
+        "OneMinusConstantColorFactor",
+        "ConstantAlphaFactor",
+        "OneMinusConstantAlphaFactor"
+      ]
     },
-    "DepthPackingStrategies": {
-      "type": "number",
-      "enum": [3200, 3201]
+    "BlendEquationName": {
+      "type": "string",
+      "enum": ["AddEquation", "SubtractEquation", "ReverseSubtractEquation", "MinEquation", "MaxEquation"]
+    },
+    "BlendingSrcFactorName": {
+      "type": "string",
+      "const": "SrcAlphaSaturateFactor"
+    },
+    "SideName": {
+      "type": "string",
+      "enum": ["FrontSide", "BackSide", "DoubleSide"]
+    },
+    "PixelFormatName": {
+      "type": "string",
+      "enum": [
+        "AlphaFormat",
+        "RGBFormat",
+        "RGBAFormat",
+        "LuminanceFormat",
+        "LuminanceAlphaFormat",
+        "DepthFormat",
+        "DepthStencilFormat",
+        "RedFormat",
+        "RedIntegerFormat",
+        "RGFormat",
+        "RGIntegerFormat",
+        "RGBAIntegerFormat"
+      ]
+    },
+    "StencilFuncName": {
+      "type": "string",
+      "enum": ["NeverStencilFunc", "LessStencilFunc", "EqualStencilFunc", "LessEqualStencilFunc", "GreaterStencilFunc", "NotEqualStencilFunc", "GreaterEqualStencilFunc", "AlwaysStencilFunc"]
+    },
+    "StencilOpName": {
+      "type": "string",
+      "enum": ["ZeroStencilOp", "KeepStencilOp", "ReplaceStencilOp", "IncrementStencilOp", "DecrementStencilOp", "IncrementWrapStencilOp", "DecrementWrapStencilOp", "InvertStencilOp"]
+    },
+    "CombineName": {
+      "type": "string",
+      "enum": ["MultiplyOperation", "MixOperation", "AddOperation"]
+    },
+    "DepthPackingStrategiesName": {
+      "type": "string",
+      "enum": ["BasicDepthPacking", "RGBADepthPacking"]
+    },
+    "NormalMapTypesName": {
+      "type": "string",
+      "enum": ["TangentSpaceNormalMap", "ObjectSpaceNormalMap"]
     },
     "IVector3": {
       "type": "object",
@@ -700,10 +728,6 @@
       },
       "required": ["x", "y", "z", "isVector3"],
       "additionalProperties": false
-    },
-    "NormalMapTypes": {
-      "type": "number",
-      "enum": [0, 1]
     },
     "IVector2": {
       "type": "object",
@@ -989,6 +1013,11 @@
         }
       ],
       "description": "All Possible Texture Pixel Formats Modes. For any Type or SubType of Textures."
+    },
+    "PixelFormat": {
+      "type": "number",
+      "enum": [1021, 1022, 1023, 1024, 1025, 1026, 1027, 1028, 1029, 1030, 1031, 1033],
+      "description": "All Texture Pixel Formats Modes."
     },
     "DepthTexturePixelFormat": {
       "type": "number",
