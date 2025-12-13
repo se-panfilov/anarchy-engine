@@ -1,7 +1,6 @@
+import type { ISceneConfig } from '@Engine/Domains/Scene';
 import ISceneConfigSchema from '@Engine/Schemas/ISceneConfig.json';
 import Ajv from 'ajv';
-
-import type { ISceneConfig } from '@/Engine';
 
 const ajv: Ajv = new Ajv();
 

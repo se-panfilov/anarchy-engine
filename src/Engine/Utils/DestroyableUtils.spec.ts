@@ -1,6 +1,20 @@
-import type { IActorFactory, ICameraFactory, IControlsFactory, IControlsFactoryParams, IInputFactory, ILightFactory, ILoopFactory, IRendererFactory, ISceneFactory } from '@Engine/Factories';
-import { AbstractWrapperFactory, ActorFactory, CameraFactory, ControlsFactory, InputFactory, LightFactory, LoopFactory, RendererFactory, SceneFactory } from '@Engine/Factories';
-import { AbstractDestroyableFactory } from '@Engine/Factories/AbstractFactory/AbstractDestroyableFactory';
+import type { IActorFactory } from '@Engine/Domains/Actor';
+import { ActorFactory } from '@Engine/Domains/Actor';
+import type { ICameraFactory } from '@Engine/Domains/Camera';
+import { CameraFactory } from '@Engine/Domains/Camera';
+import type { IControlsFactory, IControlsFactoryParams } from '@Engine/Domains/Controls';
+import { ControlsFactory } from '@Engine/Domains/Controls';
+import { InputFactory } from '@Engine/Domains/Input';
+import type { IInputFactory } from '@Engine/Domains/Input/Models';
+import type { ILightFactory } from '@Engine/Domains/Light';
+import { LightFactory } from '@Engine/Domains/Light';
+import type { ILoopFactory } from '@Engine/Domains/Loop';
+import { LoopFactory } from '@Engine/Domains/Loop';
+import type { IRendererFactory } from '@Engine/Domains/Renderer';
+import { RendererFactory } from '@Engine/Domains/Renderer';
+import type { ISceneFactory } from '@Engine/Domains/Scene';
+import { SceneFactory } from '@Engine/Domains/Scene';
+import { AbstractDestroyableFactory, AbstractWrapperFactory } from '@Engine/Factories/AbstractFactory';
 import type { IAbstractWrapperFactory, IDestroyableFactory } from '@Engine/Models';
 import { isDestroyedFactory } from '@Engine/Utils/DestroyableUtils';
 

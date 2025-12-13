@@ -1,4 +1,4 @@
-import { ControlsFactory } from '@Engine/Factories';
+import { ControlsFactory } from '@Engine/Domains/Controls';
 import { DestroyablePool } from '@Engine/Pool/DestroyablePool';
 
 import type { IDestroyableFactories, ILocalFactoryPool, ILocalFactoryPoolParams } from './Models';

@@ -1,4 +1,5 @@
-import type { IAbstractFactory, IIntersectionsWatcher } from '@/Engine';
-import type { IIntersectionsParams } from '@/Engine/Models';
+import type { IIntersectionsWatcher } from '@Engine/Watchers';
+
+import type { IAbstractFactory, IIntersectionsParams } from '@/Engine/Models';
 
 export type IIntersectionsWatcherFactory = IAbstractFactory<IIntersectionsWatcher, IIntersectionsParams>;

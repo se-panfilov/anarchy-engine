@@ -1,16 +1,14 @@
+import type { IActorWrapper } from '@Engine/Domains/Actor';
+import { ActorRegistry } from '@Engine/Domains/Actor';
+import type { ICameraWrapper } from '@Engine/Domains/Camera';
+import { CameraRegistry } from '@Engine/Domains/Camera';
+import { ControlsRegistry } from '@Engine/Domains/Controls';
+import type { ILightWrapper } from '@Engine/Domains/Light';
+import { LightRegistry } from '@Engine/Domains/Light';
+import type { ISceneWrapper } from '@Engine/Domains/Scene';
 import { DestroyablePool } from '@Engine/Pool/DestroyablePool';
-import {
-  ActorRegistry,
-  CameraRegistry,
-  ControlsRegistry,
-  IntersectionsWatcherRegistry,
-  LightRegistry,
-  MouseClicksWatcherRegistry,
-  MousePositionWatcherRegistry,
-  ScreenSizeWatcherRegistry
-} from '@Engine/Registries';
+import { IntersectionsWatcherRegistry, MouseClicksWatcherRegistry, MousePositionWatcherRegistry, ScreenSizeWatcherRegistry } from '@Engine/Registries';
 import { isNotDefined } from '@Engine/Utils';
-import type { IActorWrapper, ICameraWrapper, ILightWrapper, ISceneWrapper } from '@Engine/Wrappers';
 
 import type { IDestroyablePool, IRegistries, IRegistryPool } from './Models';
 

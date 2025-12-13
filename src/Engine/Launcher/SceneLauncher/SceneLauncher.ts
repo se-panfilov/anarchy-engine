@@ -1,11 +1,16 @@
-import { CameraTag, LoopTag, RendererTag } from '@Engine/Constants';
-import type { IAppCanvas, ILaunchedScene, ISceneConfig, ISceneLauncher } from '@Engine/Models';
+import type { ICameraWrapper } from '@Engine/Domains/Camera';
+import { CameraTag } from '@Engine/Domains/Camera';
+import type { ILoopWrapper } from '@Engine/Domains/Loop';
+import { LoopTag } from '@Engine/Domains/Loop';
+import type { IRendererWrapper } from '@Engine/Domains/Renderer';
+import { RendererTag } from '@Engine/Domains/Renderer';
+import type { ISceneConfig, ISceneWrapper } from '@Engine/Domains/Scene';
+import type { IAppCanvas, ILaunchedScene, ISceneLauncher } from '@Engine/Models';
 import type { IDestroyableFactories, ILocalFactoryPool, IRegistryPool } from '@Engine/Pool';
 import { RegistryPool } from '@Engine/Pool';
 import { LocalFactoriesPool } from '@Engine/Pool/LocalFactoriesPool';
 import type { IFactories, IRegistries } from '@Engine/Pool/Models';
 import { addFromConfigToRegistry, isNotDefined, isValidSceneConfig } from '@Engine/Utils';
-import type { ICameraWrapper, ILoopWrapper, IRendererWrapper, ISceneWrapper } from '@Engine/Wrappers';
 import { BehaviorSubject } from 'rxjs';
 
 // TODO (S.Panfilov) CWP fix ts

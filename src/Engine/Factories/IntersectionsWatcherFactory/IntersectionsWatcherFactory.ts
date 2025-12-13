@@ -1,4 +1,5 @@
-import { AbstractFactory } from '@/Engine';
+import { AbstractFactory } from '@Engine/Factories';
+
 import type { IIntersectionsParams } from '@/Engine/Models';
 import type { IIntersectionsWatcherRegistry } from '@/Engine/Registries';
 import { IntersectionsWatcherRegistry } from '@/Engine/Registries';

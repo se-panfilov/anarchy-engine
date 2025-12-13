@@ -1,9 +1,12 @@
-import type { IMousePosition, ISceneObject } from '@Engine/Models';
+import type { IActorWrapper } from '@Engine/Domains/Actor';
+import type { ICameraWrapper } from '@Engine/Domains/Camera';
+import type { ISceneObject } from '@Engine/Domains/Scene';
+import type { IMousePosition } from '@Engine/Models';
+import { getNormalizedMousePosition, isNotDefined, unWrapEntities } from '@Engine/Utils';
 import type { IAbstractWatcher, IMousePositionWatcher } from '@Engine/Watchers';
 import { AbstractWatcher } from '@Engine/Watchers/AbstractWatcher/AbstractWatcher';
+import type { IVector3 } from '@Engine/Wrappers';
 import { Raycaster } from 'three';
-
-import { getNormalizedMousePosition, type IActorWrapper, type ICameraWrapper, isNotDefined, type IVector3, unWrapEntities } from '@/Engine';
 
 import type { IIntersectionsWatcher } from './Models';
 

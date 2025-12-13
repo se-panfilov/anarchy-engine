@@ -1,4 +1,5 @@
-import type { IMouseClickWatcherParams } from '@/Engine';
+import type { IMouseClickWatcherParams } from '@Engine/Models';
+
 import type { IMouseClicksWatcherRegistry } from '@/Engine/Registries';
 import { MouseClicksWatcherRegistry } from '@/Engine/Registries';
 import type { IMouseClicksWatcher } from '@/Engine/Watchers';

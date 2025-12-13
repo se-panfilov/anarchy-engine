@@ -1,5 +1,8 @@
-import type { IAppCanvas, IFactories, ILaunchedEngine } from '@/Engine';
-import { ambientContext, FactoriesPool, isNotDefined } from '@/Engine';
+import { ambientContext } from '@Engine/Context';
+import type { IAppCanvas, ILaunchedEngine } from '@Engine/Models';
+import type { IFactories } from '@Engine/Pool';
+import { FactoriesPool } from '@Engine/Pool';
+import { isNotDefined } from '@Engine/Utils';
 
 export function launchEngine(canvasSelector: string): ILaunchedEngine {
   const canvas: IAppCanvas | null = ambientContext.container.getCanvasElement(canvasSelector);

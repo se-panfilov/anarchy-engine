@@ -1,6 +1,5 @@
+import type { IRegistrable } from '@Engine/Models';
 import type { Subject } from 'rxjs';
-
-import type { IRegistrable } from '@/Engine';
 
 export type IAbstractWatcher<T> = Readonly<{
   type: string;

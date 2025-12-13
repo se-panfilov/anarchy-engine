@@ -1,5 +1,5 @@
-import type { IMultitonRegistrable } from '@/Engine';
-import { IAbstractWatcher } from '@/Engine';
+import { IMultitonRegistrable } from '@Engine/Models';
+import { IAbstractWatcher } from '@Engine/Watchers/Models';
 
 export type IMultitonWatcher<T> = IMultitonRegistrable &
   // IWatcher<T> &
