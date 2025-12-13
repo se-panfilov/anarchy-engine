@@ -12,9 +12,9 @@ export async function createActorMesh(params: TActorParams, { materialTextureSer
   // TODO (S.Panfilov) AWAIT: could speed up by not awaiting material loading (return promise of an actor)
   const materialWrapper: TMaterialWrapper = await materialTextureService.createAsync(params.material);
 
-  if (params.type === ActorType.plane) return createPlane(params, materialWrapper.entity);
-  if (params.type === ActorType.sphere) return createSphere(params, materialWrapper.entity);
-  if (params.type === ActorType.cube) return createCube(params, materialWrapper.entity);
+  if (params.type === ActorType.Plane) return createPlane(params, materialWrapper.entity);
+  if (params.type === ActorType.Sphere) return createSphere(params, materialWrapper.entity);
+  if (params.type === ActorType.Cube) return createCube(params, materialWrapper.entity);
 
   throw new Error('Cannot create Actor: unknown actor type');
 }

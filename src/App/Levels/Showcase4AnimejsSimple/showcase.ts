@@ -27,7 +27,7 @@ export function showcase(canvas: TAppCanvas): TShowcase {
     const boxActorTag: string = 'box';
 
     const actorTemplate: TActorParams = {
-      type: ActorType.cube,
+      type: ActorType.Cube,
       width: 1,
       height: 1,
       position: Vector3Wrapper({ x: -20, y: 2, z: -2 }),

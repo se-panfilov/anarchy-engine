@@ -15,7 +15,7 @@ export function showcase(canvas: TAppCanvas): TShowcase {
     const { actorService, cameraService } = space.services;
 
     const actorDefaultParams: TActorParams = {
-      type: ActorType.cube,
+      type: ActorType.Cube,
       position: Vector3Wrapper({ x: 0, y: 0, z: 0 }),
       castShadow: true,
       material: { type: MaterialType.Toon, params: { color: '#5177ff' } },
