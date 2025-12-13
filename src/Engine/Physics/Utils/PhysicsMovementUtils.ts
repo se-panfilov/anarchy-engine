@@ -9,7 +9,7 @@ import { VelocityType } from '@/Engine/Physics/Constants';
 import type { TPhysicsBody } from '@/Engine/Physics/Models';
 import { isNotDefined } from '@/Engine/Utils';
 
-export function getPushCoordsFrom3dAzimuth(azimuthDeg: number, elevationDeg: number, force: number): Vector3 {
+export function getPushCoordsFrom3dAzimuthRad(azimuthDeg: number, elevationDeg: number, force: number): Vector3 {
   const azimuthDecimal: Decimal = degToRadPrecise(azimuthDeg);
   const elevationDecimal: Decimal = degToRadPrecise(elevationDeg);
   const forceDecimal: Decimal = new Decimal(force);

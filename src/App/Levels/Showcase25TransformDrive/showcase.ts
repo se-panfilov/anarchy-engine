@@ -1,6 +1,7 @@
 import GUI from 'lil-gui';
 import { map, withLatestFrom } from 'rxjs';
 import { Vector3 } from 'three';
+import { radToDeg } from 'three/src/math/MathUtils';
 import { ViewportGizmo } from 'three-viewport-gizmo';
 
 import type { TShowcase } from '@/App/Levels/Models';
@@ -25,7 +26,7 @@ import type {
   TText3dWrapper,
   TWithPresetNamePhysicsBodyParams
 } from '@/Engine';
-import { Engine, getMouseAzimuthAndElevation, isNotDefined, KeysExtra, spaceService, TransformAgent } from '@/Engine';
+import { Engine, getDistancePrecisely, getMouseAzimuthAndElevation, getPushCoordsFrom3dAzimuthRad, isNotDefined, KeysExtra, spaceService, TransformAgent } from '@/Engine';
 import { meters } from '@/Engine/Measurements/Utils';
 import { getHumanReadableMemorySize } from '@/Engine/Utils/FileUtils';
 
@@ -172,17 +173,22 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
 function moveActorTo(actor: TActor, position: Vector3, agent: TransformAgent, isTeleportationMode: boolean): void | never {
   if (isTeleportationMode) return actor.drive.position$.next(position);
 
+  let forcePower: number = 1;
+  const azimuth: number = getMouseAzimuthAndElevation(position, actor.drive.getPosition()).azimuth;
+
   switch (agent) {
     case TransformAgent.Default:
       return actor.drive.default.setPosition(position);
     case TransformAgent.Kinematic:
-      actor.drive.kinematic.setLinearAzimuthRad(getMouseAzimuthAndElevation(position, actor.drive.getPosition()).azimuth);
+      actor.drive.kinematic.setLinearAzimuthRad(azimuth);
       return actor.drive.kinematic.setLinearSpeed(meters(5));
     case TransformAgent.Connected:
       // no need to do anything here, cause already connected
       return undefined;
     case TransformAgent.Physical:
       // TODO 8.0.0. MODELS: Implement Physics movement
+      forcePower = getDistancePrecisely(actor.drive.getPosition(), position).toNumber();
+      actor.drive.physical.physicsBody$.value?.getRigidBody()?.applyImpulse(getPushCoordsFrom3dAzimuthRad(radToDeg(azimuth), 0, forcePower * 1.5), true);
       return undefined;
     default:
       throw new Error(`Unknown agent: ${agent}`);
