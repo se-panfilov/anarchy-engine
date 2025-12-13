@@ -12,8 +12,8 @@ import type { ISceneObject } from '@/Engine/Scene';
 import type { IWriteable } from '@/Engine/Utils';
 import { isDefined, isNotDefined, unWrapEntities } from '@/Engine/Utils';
 
-export function IntersectionsWatcher({ position$, isAutoStart, tags, ...rest }: IIntersectionsWatcherParams): IIntersectionsWatcher {
-  const abstractWatcher: IAbstractWatcher<IIntersectionEvent> = AbstractWatcher(WatcherType.IntersectionWatcher, tags);
+export function IntersectionsWatcher({ position$, isAutoStart, tags, name, ...rest }: IIntersectionsWatcherParams): IIntersectionsWatcher {
+  const abstractWatcher: IAbstractWatcher<IIntersectionEvent> = AbstractWatcher(WatcherType.IntersectionWatcher, name, tags);
   let raycaster: Readonly<Raycaster> | undefined = new Raycaster();
   let actors: ReadonlyArray<IActorWrapperAsync> = [];
   let camera: Readonly<ICameraWrapper> | undefined;
