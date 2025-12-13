@@ -20,9 +20,11 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     const nameGlb: string = 'fox_glb_config_original';
 
     //gltf model
-    await models3dService.loadAsync({ name: nameGltfOriginal, url: '/Showcase/Models/Fox/Fox.gltf', options: { scale, position: { x: -10, y: 0, z: 0 } } });
+    // TODO 9.0.0. RESOURCES: if "options" are not needed, remove this line
+    // await models3dService.loadAsync({ name: nameGltfOriginal, url: '/Showcase/Models/Fox/Fox.gltf', options: { scale, position: { x: -10, y: 0, z: 0 } } });
+    await models3dService.loadAsync({ name: nameGltfOriginal, url: '/Showcase/Models/Fox/Fox.gltf' });
     //glb model (draco compressed), won't be loaded, cause already loaded from json config
-    // await models3dService.loadAsync({ name: nameGlb, url: '/Showcase/Models/Fox/Fox.glb', options: { scale, position: { x: 0, y: 0, z: 0 } }});
+    // await models3dService.loadAsync({ name: nameGlb, url: '/Showcase/Models/Fox/Fox.glb'});
 
     const foxGltfOriginal: TModel3dFacade | undefined = models3dService.getRegistry().findByName(nameGltfOriginal);
     if (isNotDefined(foxGltfOriginal)) throw new Error(`Model "${nameGltfOriginal}" model is not defined`);
@@ -31,7 +33,8 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     models3dService.clone(foxGltfOriginal, { name: nameGltfClone1, position: Vector3Wrapper({ x: -5, y: 0, z: 0 }) });
 
     //or could be created from pack
-    models3dService.createFromPack({ ...foxGltfOriginal.getPack(), name: nameGltfClone2, position: Vector3Wrapper({ x: 0, y: 0, z: 0 }) });
+    // TODO 9.0.0. RESOURCES: repair this line
+    // models3dService.createFromPack({ ...foxGltfOriginal.getPack(), name: nameGltfClone2, position: Vector3Wrapper({ x: 0, y: 0, z: 0 }) });
 
     const foxGltfClone1: TModel3dFacade | undefined = models3dService.getRegistry().findByName(nameGltfClone1);
     if (isNotDefined(foxGltfClone1)) throw new Error(`Model "${foxGltfClone1}" model is not defined`);
