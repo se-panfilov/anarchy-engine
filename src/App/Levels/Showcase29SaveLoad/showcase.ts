@@ -154,8 +154,7 @@ export function start(): void {
   );
 
   //Initial space
-  // loadSpace(basicCase.name);
-  loadSpace(lightCase.name);
+  loadSpace(basicCase.name);
 }
 
 function loadSpace(name: string): void {
