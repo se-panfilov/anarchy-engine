@@ -6,6 +6,7 @@ import type { TOptional } from '@/Engine/Utils';
 import type { TModel3dComplexProps } from './TModel3dComplexProps';
 
 export type TModel3dComplexConfig = Omit<TModel3dComplexProps, 'scale' | 'position' | 'rotation' | 'material'> &
+  // TODO 9.0.0. RESOURCES: Maybe no need in overrides, just create a new instance of a resource
   Readonly<{ material?: TWithMaterialConfigPresetWithOverrides }> &
   // TODO 8.0.0. MODELS: apply all TObject3DProps
   // We're not ready to add animations like this, so omit them for now

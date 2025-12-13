@@ -5,8 +5,7 @@ import type { SpaceSchemaVersion } from '@/Engine/Space/Constants';
 import type { TSpaceConfigEntities } from './TSpaceConfigEntities';
 import type { TSpaceConfigResources } from './TSpaceConfigResources';
 
-// TODO CWP save configs into config registries
-// TODO CWP use config registries to implement creation with overrides
+// TODO 9.0.0. RESOURCES: use config registries to implement creation with overrides (or maybe no need in overrides, just create a new instance of a resource)
 
 export type TSpaceConfig = Readonly<{
   name: string;

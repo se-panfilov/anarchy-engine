@@ -16,6 +16,7 @@ export function MaterialService(factory: TMaterialFactory, registry: TMaterialRe
     registry.destroy();
   });
 
+  // TODO 9.0.0. RESOURCES: Maybe no need in overrides, just create a new instance of a resource
   function getMaterialWithOverrides(config: TWithMaterialConfigPresetWithOverrides): TMaterialWrapper | undefined {
     const material: TMaterialWrapper | undefined = registry.findByName(config.presetName);
     if (isNotDefined(material)) return undefined;

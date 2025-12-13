@@ -6,6 +6,7 @@ import type { TWithModel3dPrimitiveFacadeEntities } from './TWithModel3dPrimitiv
 
 export type TModel3dPrimitiveFacade = TFacade<TWithModel3dPrimitiveFacadeEntities> &
   Readonly<{
+    // TODO 9.0.0. RESOURCES: Maybe no need in overrides, just create a new instance of a resource
     _clone: (overrides?: TOptional<TModel3dPrimitivePack>) => TModel3dPrimitiveFacade;
     getPack: () => TModel3dPrimitivePack;
   }>;

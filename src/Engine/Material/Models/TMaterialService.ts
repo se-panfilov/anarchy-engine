@@ -10,6 +10,7 @@ import type { TMaterialWrapper } from './TMaterialWrapper';
 
 export type TMaterialService = TWithCreateService<TMaterialWrapper, TMaterialParams> &
   Readonly<{
+    // TODO 9.0.0. RESOURCES: Maybe no need in overrides, just create a new instance of a resource
     getMaterialWithOverrides: (config: TWithMaterialConfigPresetWithOverrides) => TMaterialWrapper | undefined;
   }> &
   TWithCreateFromConfigService<TMaterialConfig> &

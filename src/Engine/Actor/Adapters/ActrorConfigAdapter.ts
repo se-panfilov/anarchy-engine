@@ -8,6 +8,7 @@ export function configToParams(config: TActorConfig, dependencies: TActorConfigT
   const { position, rotation, scale, physics, spatial, model3d: model3dConfig, ...rest } = config;
   const { presetName, ...restModel3d } = model3dConfig;
 
+  // TODO 9.0.0. RESOURCES: Maybe no need in overrides, just create a new instance of a resource
   const model3d = isDefined(presetName) ? dependencies.models3dService.findModel3dAndOverride(presetName, restModel3d) : undefined;
   if (isNotDefined(model3d)) throw new Error(`Actor. ConfigToParams: Model3d "${presetName}" not found, while actor initialization`);
 

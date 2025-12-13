@@ -23,6 +23,7 @@ export function ActorWrapper(
   const entity: Group | Mesh | Object3D = facade.getModel();
 
   // TODO 8.0.0. MODELS: MATERIAL MIXIN: decide what to do with this mixin
+  // TODO 9.0.0. RESOURCES: Maybe no need in overrides, just create a new instance of a resource
   // TODO Option 1.: Test if this override model's material and maybe keep it here
   // TODO Option 1.: Or move it into TModel3dFacade
   const withMaterialEntity: TWithMaterial = withMaterial(entity);
