@@ -15,6 +15,7 @@ In the root folder (every app):
 - EULA.md (+ archive/2025-08-21_EULA.pdf on every release)
 - PRIVACY.md (+ archive/2025-08-21_Privacy.pdf).
 - SECURITY.md
+- DISCLAIMER.md
 - EU_DECLARATION_OF_CONFORMITY.pdf (PDF!!!!)
 - INSTRUCTIONS.md
 - SUPPORT.md
@@ -22,6 +23,10 @@ In the root folder (every app):
 - THIRD_PARTY_LICENSES
 - ce-mark.png
 - sbom/cyclonedx.json
+- **in the ./compliance folder**:
+  EU_DECLARATION_OF_CONFORMITY.md
+  TECHNICAL_DOCUMENTATION.md
+  VULN_HANDLING.md
 
 Other:
 /.well-known/security.txt (a copy of CVD from SECURITY)
