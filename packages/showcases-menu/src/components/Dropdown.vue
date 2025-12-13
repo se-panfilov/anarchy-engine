@@ -1,5 +1,5 @@
 <script setup lang="ts" generic="T">
-import type { TDropdownOption } from '@Menu/models';
+import type { TDropdownOption } from '@ShowcasesShared';
 
 const props = defineProps<{
   label: string;

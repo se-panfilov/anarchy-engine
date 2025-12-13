@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import type { TNavOption } from '@Menu/models';
 import { useRouterStore } from '@Menu/stores/RouterStore';
+import type { TNavOption } from '@ShowcasesShared';
 
 // TODO DESKTOP: test i18n (for desktop also)
 // TODO DESKTOP: add version to html body

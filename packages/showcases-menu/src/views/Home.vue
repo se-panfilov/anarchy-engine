@@ -2,10 +2,10 @@
 import Navigation from '@Menu/components/Navigation.vue';
 import PageTitle from '@Menu/components/PageTitle.vue';
 import { Routes } from '@Menu/constants';
-import type { TNavOption } from '@Menu/models';
 import { eventsService } from '@Menu/services';
 import { useMenuOptionsStore } from '@Menu/stores/MenuOptionsStore';
 import { useRouterStore } from '@Menu/stores/RouterStore';
+import type { TNavOption } from '@ShowcasesShared';
 
 const menuRouterStore = useRouterStore();
 
