@@ -59,6 +59,8 @@ cameraManager.setCurrent(wrappedCamera);
 wrappedCamera.setPosition(3, 2, 15);
 wrappedCamera.lookAt(0, 0, 0);
 
+deviceWatcher.start();
+
 if (isNotDefined(cameraManager.current$.value)) throw new Error('Camera is not ready');
 
 const canvas: HTMLElement | null = document.querySelector('#app');
@@ -70,7 +72,7 @@ if (isNotDefined(rendererManager.current$.value)) throw new Error('Renderer is n
 const controls = controlManager.create(cameraManager.current$.value, rendererManager.current$.value);
 controlManager.setCurrent(controls);
 
-lightManager.create({ type: 'ambient', color: 0xffffff, intensity: 0.5 });
+const ambientLight = lightManager.create({ type: 'ambient', color: 0xffffff, intensity: 0.5 });
 const wrappedDirectionalLight = lightManager.create({
   type: 'directional',
   color: '#ffffff',
@@ -90,6 +92,8 @@ wrappedDirectionalLight.entity.position.set(0.25, 2, 2.25);
 if (isNotDefined(sceneManager.current$.value)) throw new Error('Current scene is not set');
 sceneManager.current$.value.entity.add(planeActor.entity);
 sceneManager.current$.value.entity.add(wrappedCamera.entity);
+sceneManager.current$.value.entity.add(ambientLight.entity);
+sceneManager.current$.value.entity.add(wrappedDirectionalLight.entity);
 
 const loop = loopManager.create();
 loopManager.setCurrent(loop);

@@ -7,8 +7,8 @@ import { startWatchResize } from './Watchers/Device/ResizeWatcher';
 import { deviceSize$ } from './Store/DeviceSize';
 
 const scene = new Scene();
-// scene.add(sphere);
-// scene.add(plane);
+scene.add(sphere);
+scene.add(plane);
 
 const { camera } = CameraWrapper(window.innerWidth, window.innerHeight);
 camera.position.set(3, 2, 15);
@@ -17,8 +17,8 @@ scene.add(camera);
 
 startWatchResize();
 
-// scene.add(ambientLight);
-// scene.add(directionalLight);
+scene.add(ambientLight);
+scene.add(directionalLight);
 
 //init screen
 deviceSize$.next({
