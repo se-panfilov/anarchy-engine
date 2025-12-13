@@ -1,5 +1,6 @@
 import type { TKeyboardService, TMouseService } from '@Anarchy/Engine';
 import { KeyCode } from '@Anarchy/Engine';
+import { isEventKey } from '@Anarchy/Engine/Keyboard/Utils/KeysUtils';
 import type { TToGuiEvent } from '@Showcases/Shared';
 import type { Subject } from 'rxjs';
 import { GuiActionType } from 'showcases-gui/src/constants';
@@ -7,7 +8,7 @@ import { createToGuiActionEvent } from 'showcases-gui/src/events';
 
 export function initGuiEvents(keyboardService: TKeyboardService, mouseService: TMouseService, toGuiEventsBus$: Subject<TToGuiEvent>): void {
   const { clickLeftRelease$, clickLeftPress$, clickRightPress$, clickRightRelease$ } = mouseService;
-  const { onKey } = keyboardService;
+  const { pressed$, released$ } = keyboardService;
 
   const { Attack, Defense, MiniMap, Inventory, Settings } = GuiActionType;
 
@@ -17,17 +18,19 @@ export function initGuiEvents(keyboardService: TKeyboardService, mouseService: T
   clickRightPress$.subscribe((): void => toGuiEventsBus$.next(createToGuiActionEvent(Defense, true)));
   clickRightRelease$.subscribe((): void => toGuiEventsBus$.next(createToGuiActionEvent(Defense, false)));
 
-  onKey(KeyCode.I).pressed$.subscribe((): void => toGuiEventsBus$.next(createToGuiActionEvent(Inventory, true)));
-  onKey(KeyCode.I).released$.subscribe((): void => toGuiEventsBus$.next(createToGuiActionEvent(Inventory, false)));
-  onKey(KeyCode.M).pressed$.subscribe((): void => toGuiEventsBus$.next(createToGuiActionEvent(MiniMap, true)));
-  onKey(KeyCode.M).released$.subscribe((): void => toGuiEventsBus$.next(createToGuiActionEvent(MiniMap, false)));
-  onKey(KeyCode.Escape).pressed$.subscribe((): void => toGuiEventsBus$.next(createToGuiActionEvent(Settings, true)));
-  onKey(KeyCode.Escape).released$.subscribe((): void => toGuiEventsBus$.next(createToGuiActionEvent(Settings, false)));
+  const openInventory = (open: boolean): void => toGuiEventsBus$.next(createToGuiActionEvent(Inventory, open));
+  const openSettings = (open: boolean): void => toGuiEventsBus$.next(createToGuiActionEvent(Settings, open));
+  const openMiniMap = (open: boolean): void => toGuiEventsBus$.next(createToGuiActionEvent(MiniMap, open));
 
-  // TODO DESKTOP: a bug: if pressed$ and released$ subscriptions are both present, pressed$ fires twice. Fix
-  onKey(KeyCode.X).pressed$.subscribe((v): void => {
-    console.log('XXX0', v, true);
-    return toGuiEventsBus$.next(createToGuiActionEvent(Inventory, true));
+  pressed$.subscribe((event: KeyboardEvent): void => {
+    if (isEventKey(KeyCode.I, event)) openInventory(true);
+    if (isEventKey(KeyCode.M, event)) openMiniMap(true);
+    if (isEventKey(KeyCode.Escape, event)) openSettings(true);
   });
-  onKey(KeyCode.X).released$.subscribe((): void => toGuiEventsBus$.next(createToGuiActionEvent(Inventory, false)));
+
+  released$.subscribe((event: KeyboardEvent): void => {
+    if (isEventKey(KeyCode.I, event)) openInventory(false);
+    if (isEventKey(KeyCode.M, event)) openMiniMap(false);
+    if (isEventKey(KeyCode.Escape, event)) openSettings(false);
+  });
 }
