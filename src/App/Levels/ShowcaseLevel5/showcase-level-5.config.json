@@ -54,7 +54,7 @@
       "position": { "x": -20, "y": 2, "z": 2 },
       "rotation": { "x": -1.57, "y": 0, "z": 0 },
       "color": "#ff0000",
-      "fontSize": 1,
+      "fontSize": "12px",
       "tags": ["actor", "red", "linear"]
     },
     {
@@ -62,7 +62,7 @@
       "position": { "x": -20, "y": 2, "z": 0 },
       "rotation": { "x": -1.57, "y": 0, "z": 0 },
       "color": "#00ff00",
-      "fontSize": 1,
+      "fontSize": "12px",
       "tags": ["actor", "green", "EaseInBack"]
     },
     {
@@ -70,7 +70,7 @@
       "position": { "x": -20, "y": 2, "z": -2 },
       "rotation": { "x": -1.57, "y": 0, "z": 0 },
       "color": "#0000ff",
-      "fontSize": 1,
+      "fontSize": "12px",
       "tags": ["actor", "blue", "easeInCirc"]
     }
   ],
