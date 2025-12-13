@@ -4,6 +4,7 @@ import './style.css';
 import type { Subscription } from 'rxjs';
 
 import { spaceActorData } from '@/App/Levels/Showcase29SaveLoad/spaceActor';
+import { spaceAnimationsData } from '@/App/Levels/Showcase29SaveLoad/spaceAnimations';
 import { spaceBasicData } from '@/App/Levels/Showcase29SaveLoad/spaceBasic';
 import { spaceCameraData } from '@/App/Levels/Showcase29SaveLoad/spaceCamera';
 import { spaceCustomModelsData } from '@/App/Levels/Showcase29SaveLoad/spaceCustomModels';
@@ -26,8 +27,8 @@ const subscriptions: Record<string, Subscription> = {};
 // TODO 15-0-0: E2E: Fog
 // TODO 15-0-0: E2E: Physics
 // TODO 15-0-0: E2E: Intersections
-// TODO 15-0-0: E2E: Animations (state, progress, etc)
 // TODO 15-0-0: E2E: Complex scene (similar to Showcase22PhysicsShooter)
+// TODO 15-0-0: Physics sync test has an issue: camera doesn't follow an actor (perhaps related to TransformDrive)
 
 // TODO 15-0-0: E2E: Perhaps serialization should return promise (cause it feels kinda async)
 const spacesData: ReadonlyArray<TSpacesData> = [
@@ -57,7 +58,8 @@ export function start(): void {
   );
 
   //Initial space
-  loadSpace(spacesData.find((s: TSpacesData): boolean => s.name === spaceBasicData.name)?.name, spacesData);
+  // loadSpace(spacesData.find((s: TSpacesData): boolean => s.name === spaceBasicData.name)?.name, spacesData);
+  loadSpace(spacesData.find((s: TSpacesData): boolean => s.name === spaceAnimationsData.name)?.name, spacesData);
 }
 
 function loadSpace(name: string | undefined, source: ReadonlyArray<TSpacesData>): void {

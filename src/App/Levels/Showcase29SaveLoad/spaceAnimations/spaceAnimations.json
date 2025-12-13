@@ -1,0 +1,195 @@
+{
+  "canvasSelector": "#animations_container #app",
+  "entities": {
+    "actors": [
+      {
+        "agent": "default",
+        "model3dSource": "surface_model",
+        "name": "surface_actor",
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "rotation": {
+          "x": -1.57,
+          "y": 0,
+          "z": 0
+        },
+        "spatial": {
+          "grid": "main_grid",
+          "isAutoUpdate": true
+        }
+      },
+      {
+        "agent": "default",
+        "model3dSource": "solder_model_entity_1",
+        "name": "solder_actor_1",
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "rotation": {
+          "x": 0,
+          "y": 3.14,
+          "z": 0
+        },
+        "spatial": {
+          "grid": "main_grid",
+          "isAutoUpdate": true
+        },
+        "states": {
+          "animationsFsm": {
+            "name": "solder_anim_fsm"
+          }
+        }
+      }
+    ],
+    "audio": [],
+    "cameras": [
+      {
+        "far": 100,
+        "type": "PerspectiveCamera",
+        "fov": 45,
+        "isActive": true,
+        "name": "main",
+        "near": 1,
+        "position": { "x": 0.9841922251964863, "y": 2.6400532850995773, "z": 2.0445412541520187 },
+        "rotation": { "x": -0.7476708028448679, "y": 0.6094718078100407, "z": 0.4879773445044666 }
+      }
+    ],
+    "controls": [],
+    "envMaps": [],
+    "fogs": [],
+    "fsm": [
+      {
+        "initial": "TPose",
+        "name": "solder_anim_fsm",
+        "transitions": [
+          ["Idle", "TPose", "TPose"],
+          ["TPose", "Idle", "Idle"]
+        ],
+        "type": "animation"
+      }
+    ],
+    "intersections": [],
+    "lights": [
+      {
+        "color": "#FFFFFF",
+        "intensity": 0.5,
+        "name": "ambient_light",
+        "position": {
+          "x": 0.25,
+          "y": 2,
+          "z": 2.25
+        },
+        "type": "AmbientLight"
+      },
+      {
+        "castShadow": true,
+        "color": "#FFFFFF",
+        "intensity": 1.5,
+        "name": "directional_light",
+        "position": {
+          "x": 0.25,
+          "y": 15,
+          "z": 2.25
+        },
+        "shadow": {
+          "camera": {
+            "bottom": -50,
+            "far": 40,
+            "type": "OrthographicCamera",
+            "left": -50,
+            "near": 0.1,
+            "right": 50,
+            "top": 50
+          },
+          "mapSize": {
+            "x": 4096,
+            "y": 4096
+          },
+          "normalBias": 0.05
+        },
+        "type": "DirectionalLight"
+      }
+    ],
+    "materials": [
+      {
+        "name": "surface_material",
+        "options": {
+          "color": "#5EDCAE"
+        },
+        "type": "MeshStandardMaterial"
+      }
+    ],
+    "models3d": [
+      {
+        "castShadow": false,
+        "material": "surface_material",
+        "model3dSource": "plane",
+        "name": "surface_model",
+        "options": {
+          "height": 100,
+          "heightSegments": 1,
+          "width": 100,
+          "widthSegments": 1
+        },
+        "receiveShadow": true,
+        "rotation": {
+          "x": -1.57,
+          "y": 0,
+          "z": 0
+        }
+      },
+      {
+        "castShadow": true,
+        "model3dSource": "solder_model",
+        "name": "solder_model_entity_1"
+      }
+    ],
+    "particles": [],
+    "physics": {},
+    "renderers": [
+      {
+        "alpha": true,
+        "isActive": true,
+        "mode": "webgl2",
+        "name": "main"
+      }
+    ],
+    "spatialGrids": [
+      {
+        "cellSize": 10,
+        "centerX": 0,
+        "centerZ": 0,
+        "mapHeight": 100,
+        "mapWidth": 100,
+        "name": "main_grid"
+      }
+    ],
+    "texts": []
+  },
+  "name": "SpaceAnimations",
+  "resources": {
+    "animations": [],
+    "audio": [],
+    "envMaps": [],
+    "models3d": [
+      {
+        "name": "solder_model",
+        "url": "/Showcase/Models/Solder/Solder.glb"
+      }
+    ],
+    "textures": []
+  },
+  "scenes": [
+    {
+      "background": "#A0A0A0",
+      "isActive": true,
+      "name": "showcase"
+    }
+  ],
+  "version": "1.0.0"
+}
