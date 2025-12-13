@@ -1,6 +1,6 @@
 import * as fs from 'node:fs';
 
-import type { TResolution } from '@Desktop/Models';
+import type { TResolution } from '@ShowcasesShared';
 import type { App } from 'electron';
 import { join } from 'path';
 
