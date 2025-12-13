@@ -67,6 +67,7 @@
   ],
   "lights": [
     {
+      "name": "dir_light",
       "type": "Directional",
       "color": "#ffffff",
       "intensity": 0.5,
@@ -84,6 +85,14 @@
           "far": 40
         }
       }
+    },
+    {
+      "name": "ambient_light",
+      "type": "Hemisphere",
+      "color": "#ffffff",
+      "groundColor": "#8d8d8d",
+      "position": { "x": 0, "y": 20, "z": 0 },
+      "intensity": 3
     }
   ],
   "controls": [
