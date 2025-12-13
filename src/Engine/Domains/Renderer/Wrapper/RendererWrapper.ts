@@ -17,8 +17,6 @@ export function RendererWrapper(params: IRendererParams, screenSizeWatcher: Read
   entity.shadowMap.enabled = true;
   // eslint-disable-next-line functional/immutable-data
   entity.shadowMap.type = PCFShadowMap;
-  // eslint-disable-next-line functional/immutable-data
-  entity.useLegacyLights = false;
 
   // eslint-disable-next-line functional/prefer-immutable-types
   function setValues(entity: IWriteable<WebGLRenderer>, { width, height, ratio }: IScreenParams): void {
