@@ -1,1 +1,1 @@
-export * from './ControlsConfigAdapter';
+export * from './ConfigToParams';
