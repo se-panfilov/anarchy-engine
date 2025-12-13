@@ -42,10 +42,10 @@ export function showcase(canvas: TAppCanvas): TShowcase {
   const space: TSpace = buildSpaceFromConfig(canvas, spaceConfig as TSpaceConfig);
   const engine: TEngine = Engine(space);
   const { keyboardService } = engine.services;
-  const { physicsLoopService, cameraService, physicsWorldService, actorService, loopService, controlsService, intersectionsWatcherService } = space.services;
+  const { physicsLoopService, cameraService, actorService, loopService, controlsService, intersectionsWatcherService } = space.services;
 
   async function init(): Promise<void> {
-    physicsWorldService.getDebugRenderer(loopService).start();
+    // physicsWorldService.getDebugRenderer(loopService).start();
     physicsLoopService.shouldAutoUpdate(false);
 
     controlsService.findActive()?.entity.target.set(0, 10, 0);

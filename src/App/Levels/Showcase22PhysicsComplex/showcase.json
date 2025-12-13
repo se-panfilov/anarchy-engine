@@ -81,7 +81,7 @@
       "name": "main",
       "near": 1,
       "far": 10000,
-      "position": { "x": 3, "y": 20, "z": 30 },
+      "position": { "x": -20, "y": 2, "z": 10 },
       "rotation": { "x": 0, "y": 0, "z": 0 },
       "tags": [],
       "isActive": true
