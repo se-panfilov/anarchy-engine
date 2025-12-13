@@ -15,6 +15,7 @@ import type {
 } from '@/Engine/Fsm/Models';
 import type { TDisposable } from '@/Engine/Mixins';
 import { withCreateFromConfigServiceMixin, withCreateServiceMixin, withFactoryService, withRegistryService, withSerializeAllEntities } from '@/Engine/Mixins';
+import { mergeAll } from '@/Engine/Utils';
 
 export function FsmSourceService(factory: TFsmSourceFactory, registry: TFsmSourceRegistry): TFsmSourceService {
   const factorySub$: Subscription = factory.entityCreated$.subscribe((fsm: TFsmSource): void => registry.add(fsm.name, fsm));
@@ -26,6 +27,5 @@ export function FsmSourceService(factory: TFsmSourceFactory, registry: TFsmSourc
   const withFactory: TFsmSourceServiceWithFactory = withFactoryService(factory);
   const withRegistry: TFsmSourceServiceWithRegistry = withRegistryService(registry);
 
-  // eslint-disable-next-line functional/immutable-data
-  return Object.assign(abstractService, withCreateService, withCreateFromConfigService, withFactory, withRegistry, withSerializeAllEntities<TFsmConfig, undefined>(registry));
+  return mergeAll(abstractService, withCreateService, withCreateFromConfigService, withFactory, withRegistry, withSerializeAllEntities<TFsmConfig, undefined>(registry));
 }

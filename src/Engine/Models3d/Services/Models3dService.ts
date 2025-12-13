@@ -28,6 +28,7 @@ import type {
   TModels3dServiceDependencies
 } from '@/Engine/Models3d/Models';
 import type { TOptional } from '@/Engine/Utils';
+import { mergeAll } from '@/Engine/Utils';
 
 export function Models3dService(
   factory: TModels3dFactory,
@@ -63,8 +64,7 @@ export function Models3dService(
     );
   }
 
-  // eslint-disable-next-line functional/immutable-data
-  return Object.assign(
+  return mergeAll(
     abstractService,
     withCreateService,
     withCreateFromConfigService,

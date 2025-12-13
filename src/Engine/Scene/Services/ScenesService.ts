@@ -15,6 +15,7 @@ import type {
   TScenesServiceWithRegistry,
   TSceneWrapper
 } from '@/Engine/Scene';
+import { mergeAll } from '@/Engine/Utils';
 
 export function ScenesService(factory: TSceneFactory, registry: TSceneRegistry): TScenesService {
   const withActive: TWithActiveMixinResult<TSceneWrapper> = withActiveEntityServiceMixin<TSceneWrapper>(registry);
@@ -38,8 +39,7 @@ export function ScenesService(factory: TSceneFactory, registry: TSceneRegistry):
     withActive.active$.complete();
   });
 
-  // eslint-disable-next-line functional/immutable-data
-  return Object.assign(abstractService, withCreateService, withCreateFromConfigService, withFactory, withRegistry, withSerializeAllEntities<TSceneConfig, undefined>(registry), {
+  return mergeAll(abstractService, withCreateService, withCreateFromConfigService, withFactory, withRegistry, withSerializeAllEntities<TSceneConfig, undefined>(registry), {
     setActive: withActive.setActive,
     findActive: withActive.findActive,
     getActive: withActive.getActive,

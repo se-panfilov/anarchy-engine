@@ -5,7 +5,7 @@ import type { EntityType } from '@/Engine/Abstract/Constants';
 import type { TAbstractEntity, TEntityParams } from '@/Engine/Abstract/Models';
 import type { TDestroyable, TNoSpread, TRegistrable, TWithName } from '@/Engine/Mixins';
 import { destroyableMixin, withNameAndNameAccessorsMixin } from '@/Engine/Mixins';
-import { genericEntityCleanUp, isDefined } from '@/Engine/Utils';
+import { genericEntityCleanUp, isDefined, mergeAll } from '@/Engine/Utils';
 
 // TODO 14-0-0: Make sure we are destroying Intersections
 
@@ -26,8 +26,7 @@ export function AbstractEntity<T extends Record<string, any>, P extends TEntityP
     tags: params?.tags ?? []
   });
 
-  // eslint-disable-next-line functional/immutable-data
-  const result: TAbstractEntity<T> = Object.assign(partialResult, destroyable, withNameAndNameAccessorsMixin(partialResult));
+  const result: TAbstractEntity<T> = mergeAll(partialResult, destroyable, withNameAndNameAccessorsMixin(partialResult));
 
   if (isDefined(params?.name)) result.setName(params.name);
 

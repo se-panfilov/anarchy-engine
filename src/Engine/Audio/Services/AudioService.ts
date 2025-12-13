@@ -28,6 +28,7 @@ import type { TDisposable } from '@/Engine/Mixins';
 import { withCreateFromConfigServiceMixin, withCreateServiceMixin, withFactoryService, withRegistryService, withSerializeAllEntities, withSerializeAllResources } from '@/Engine/Mixins';
 import { withSerializeEntity } from '@/Engine/Mixins/Generics/WithSerializeEntity';
 import type { TSpaceLoops } from '@/Engine/Space';
+import { mergeAll } from '@/Engine/Utils';
 
 // TODO Audio: Maybe implement "Sound Perception Manager" for NPCs to react to a sound (if they are in a radius)
 export function AudioService(
@@ -56,8 +57,7 @@ export function AudioService(
   const withFactory: TAudioServiceWithFactory = withFactoryService(factory);
   const withRegistry: TAudioServiceWithRegistry = withRegistryService(registry);
 
-  // eslint-disable-next-line functional/immutable-data
-  return Object.assign(
+  return mergeAll(
     abstractService,
     withCreateService,
     withCreateFromConfigService,

@@ -16,6 +16,7 @@ import type {
 import type { TDisposable } from '@/Engine/Mixins';
 import { withCreateFromConfigServiceMixin, withCreateServiceMixin, withFactoryService, withRegistryService, withSceneGetterService, withSerializeAllEntities } from '@/Engine/Mixins';
 import type { TSceneWrapper } from '@/Engine/Scene';
+import { mergeAll } from '@/Engine/Utils';
 
 export function FogService(factory: TFogFactory, registry: TFogRegistry, scene: TSceneWrapper): TFogService {
   const registrySub$: Subscription = registry.added$.subscribe(({ value }: TRegistryPack<TFogWrapper>) => scene.setFog(value));
@@ -28,14 +29,5 @@ export function FogService(factory: TFogFactory, registry: TFogRegistry, scene: 
   const withFactory: TFogServiceWithFactory = withFactoryService(factory);
   const withRegistry: TFogServiceWithRegistry = withRegistryService(registry);
 
-  // eslint-disable-next-line functional/immutable-data
-  return Object.assign(
-    abstractService,
-    withCreateService,
-    withCreateFromConfigService,
-    withFactory,
-    withRegistry,
-    withSerializeAllEntities<TFogConfig, undefined>(registry),
-    withSceneGetterService(scene)
-  );
+  return mergeAll(abstractService, withCreateService, withCreateFromConfigService, withFactory, withRegistry, withSerializeAllEntities<TFogConfig, undefined>(registry), withSceneGetterService(scene));
 }

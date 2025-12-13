@@ -28,6 +28,7 @@ import type {
 } from '@/Engine/Text/Models';
 import { initText2dRenderer, initText3dRenderer } from '@/Engine/Text/Renderers';
 import { isText2dWrapper, isText3dTextureWrapper, isText3dWrapper } from '@/Engine/Text/Utils';
+import { mergeAll } from '@/Engine/Utils';
 
 export function TextService(
   factory: TTextFactory,
@@ -80,8 +81,7 @@ export function TextService(
     loopSub$.unsubscribe();
   });
 
-  // eslint-disable-next-line functional/immutable-data
-  return Object.assign(abstractService, withCreateService, withCreateFromConfigService, withFactory, withSceneGetterService(scene), {
+  return mergeAll(abstractService, withCreateService, withCreateFromConfigService, withFactory, withSceneGetterService(scene), {
     createText2dRenderer,
     createText3dRenderer,
     getRegistries: () => ({ text2dRegistry, text3dRegistry, text3dTextureRegistry }),

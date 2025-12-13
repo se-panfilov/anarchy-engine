@@ -20,7 +20,7 @@ import type { TLoopService } from '@/Engine/Loop';
 import type { TDisposable } from '@/Engine/Mixins';
 import { withFactoryService, withRegistryService, withSerializeAllEntities } from '@/Engine/Mixins';
 import type { TMouseService } from '@/Engine/Mouse';
-import { isDefined } from '@/Engine/Utils';
+import { isDefined, mergeAll } from '@/Engine/Utils';
 
 export function IntersectionsWatcherService(factory: TIntersectionsWatcherFactory, registry: TIntersectionsWatcherRegistry): TIntersectionsWatcherService {
   const factorySub$: Subscription = factory.entityCreated$.subscribe((watcher: TAnyIntersectionsWatcher): void => registry.add(watcher));
@@ -69,8 +69,7 @@ export function IntersectionsWatcherService(factory: TIntersectionsWatcherFactor
     return watcher;
   }
 
-  // eslint-disable-next-line functional/immutable-data
-  return Object.assign(abstractService, withFactory, withRegistry, withSerializeAllEntities<TAnyIntersectionsWatcherConfig, undefined>(registry), {
+  return mergeAll(abstractService, withFactory, withRegistry, withSerializeAllEntities<TAnyIntersectionsWatcherConfig, undefined>(registry), {
     create,
     createFromList,
     createFromConfig,

@@ -19,6 +19,7 @@ import type { TRenderLoop } from '@/Engine/Space';
 import type { TSpatialLoop } from '@/Engine/Spatial';
 import type { TTextLoop } from '@/Engine/Text';
 import type { TTransformLoop } from '@/Engine/TransformDrive';
+import { mergeAll } from '@/Engine/Utils';
 
 export function LoopService(factory: TLoopFactory, registry: TLoopRegistry): TLoopService {
   const factorySub$: Subscription = factory.entityCreated$.subscribe((wrapper: TLoop): void => registry.add(wrapper));
@@ -36,8 +37,7 @@ export function LoopService(factory: TLoopFactory, registry: TLoopRegistry): TLo
     return registry.get((loop: TLoop): boolean => loop.name === searchName);
   }
 
-  // eslint-disable-next-line functional/immutable-data
-  return Object.assign(abstractService, withCreateService, withFactory, withRegistry, {
+  return mergeAll(abstractService, withCreateService, withFactory, withRegistry, {
     getLoop,
     getRenderLoop: (name?: string): TRenderLoop => getLoop(name, LoopType.Render) as TRenderLoop,
     getAudioLoop: (name?: string): TAudioLoop => getLoop(name, LoopType.Audio) as TAudioLoop,

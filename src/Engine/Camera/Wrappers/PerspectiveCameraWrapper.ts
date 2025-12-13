@@ -23,7 +23,7 @@ import { withActiveMixin, withObject3d } from '@/Engine/Mixins';
 import type { TDriveToTargetConnector } from '@/Engine/TransformDrive';
 import { DriveToTargetConnector } from '@/Engine/TransformDrive';
 import type { TOptional, TWriteable } from '@/Engine/Utils';
-import { applyObject3dParams, isDefined } from '@/Engine/Utils';
+import { applyObject3dParams, isDefined, mergeAll } from '@/Engine/Utils';
 
 import { getCommonCameraAccessors, getPerspectiveCameraAccessors } from './Accessors';
 
@@ -44,8 +44,7 @@ export function PerspectiveCameraWrapper(params: TPerspectiveCameraParams, { con
     (accessors as unknown as TPerspectiveCameraAccessors).setAspect(width / height);
   });
 
-  // eslint-disable-next-line functional/immutable-data
-  const result = Object.assign(wrapper, accessors, {
+  const result = mergeAll(wrapper, accessors, {
     drive,
     driveToTargetConnector,
     entity,

@@ -15,7 +15,7 @@ import {
   createModels3dEntities,
   isModel3dAlreadyInUse
 } from '@/Engine/Models3d/Utils';
-import { applyObject3dParams, destroyModel3dAnimationEntities, disposeGltf, isDefined } from '@/Engine/Utils';
+import { applyObject3dParams, destroyModel3dAnimationEntities, disposeGltf, isDefined, mergeAll } from '@/Engine/Utils';
 
 export function Model3d(params: TModel3dParams, { animationsService, model3dRawToModel3dConnectionRegistry }: TModel3dDependencies): TModel3d {
   const shouldForceClone: boolean = params.forceClone ?? isModel3dAlreadyInUse(params.model3dSource, model3dRawToModel3dConnectionRegistry);
@@ -34,8 +34,7 @@ export function Model3d(params: TModel3dParams, { animationsService, model3dRawT
   model3dRawToModel3dConnectionRegistry.addModel3d(abstract.getRawModel3d(), abstract as TModel3d);
 
   const preResult = withObject3d(abstract.getRawModel3d());
-  // eslint-disable-next-line functional/immutable-data
-  const result: TModel3d = Object.assign(preResult, abstract, {
+  const result: TModel3d = mergeAll(preResult, abstract, {
     getParams,
     serialize: (dependencies: TModel3dConfigToParamsDependencies): TModel3dConfig => model3dToConfig(result, dependencies)
   });

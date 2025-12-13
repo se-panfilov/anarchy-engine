@@ -21,6 +21,7 @@ import type { TDisposable, TWithActiveMixinResult } from '@/Engine/Mixins';
 import { withActiveEntityServiceMixin, withFactoryService, withRegistryService, withSerializeAllEntities } from '@/Engine/Mixins';
 import { withSerializeEntity } from '@/Engine/Mixins/Generics/WithSerializeEntity';
 import type { TSpaceCanvas, TSpaceLoops } from '@/Engine/Space';
+import { mergeAll } from '@/Engine/Utils';
 
 export function ControlService(
   factory: TControlsFactory,
@@ -61,8 +62,7 @@ export function ControlService(
     withActive.active$.complete();
   });
 
-  // eslint-disable-next-line functional/immutable-data
-  return Object.assign(
+  return mergeAll(
     abstractService,
     withFactory,
     withRegistry,

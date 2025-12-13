@@ -6,7 +6,7 @@ import { withBaseAccessorsRegistry } from '@/Engine/Abstract/Registries/Mixin';
 import { withReactiveRegistry } from '@/Engine/Abstract/Registries/Mixin/Registry/WithReactiveRegistry';
 import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
-import { findKeyWithValue, isNotDefined } from '@/Engine/Utils';
+import { findKeyWithValue, isNotDefined, mergeAll } from '@/Engine/Utils';
 
 export function AbstractSimpleRegistry<T>(type: RegistryType): TAbstractSimpleRegistry<T> {
   const id: string = type + '_registry_' + nanoid();
@@ -41,7 +41,7 @@ export function AbstractSimpleRegistry<T>(type: RegistryType): TAbstractSimpleRe
 
   const asObject = (): Record<string, T> => Object.fromEntries(registry.entries());
 
-  return Object.assign(
+  return mergeAll(
     {
       add,
       added$: reactiveRegistry.added$.asObservable(),

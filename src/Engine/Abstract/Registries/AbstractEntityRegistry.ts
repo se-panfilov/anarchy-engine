@@ -7,7 +7,17 @@ import { withBaseAccessorsRegistry } from '@/Engine/Abstract/Registries/Mixin';
 import { withReactiveRegistry } from '@/Engine/Abstract/Registries/Mixin/Registry/WithReactiveRegistry';
 import type { TDestroyable, TMultitonRegistrable, TRegistrable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
-import { findInMap, findKeyWithValue, getAllEntitiesWithNames, getAllEntitiesWithTag, getAllEntitiesWithTags, getUniqEntityWithTag, getUniqEntityWithTags, isNotDefined } from '@/Engine/Utils';
+import {
+  findInMap,
+  findKeyWithValue,
+  getAllEntitiesWithNames,
+  getAllEntitiesWithTag,
+  getAllEntitiesWithTags,
+  getUniqEntityWithTag,
+  getUniqEntityWithTags,
+  isNotDefined,
+  mergeAll
+} from '@/Engine/Utils';
 
 export function AbstractEntityRegistry<T extends TRegistrable | TMultitonRegistrable>(type: RegistryType): TAbstractEntityRegistry<T> {
   const id: string = type + '_registry_' + nanoid();
@@ -56,7 +66,7 @@ export function AbstractEntityRegistry<T extends TRegistrable | TMultitonRegistr
 
   const asObject = (): Record<string, T> => Object.fromEntries(registry.entries());
 
-  return Object.assign(
+  return mergeAll(
     {
       add,
       added$: reactiveRegistry.added$.asObservable(),

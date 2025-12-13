@@ -19,7 +19,7 @@ import type { TReadonlyVector3 } from '@/Engine/ThreeLib';
 import type { TDriveToTargetConnector } from '@/Engine/TransformDrive';
 import { DriveToTargetConnector } from '@/Engine/TransformDrive';
 import type { TWriteable } from '@/Engine/Utils';
-import { isDefined, isEqualOrSimilarByXyzCoords } from '@/Engine/Utils';
+import { isDefined, isEqualOrSimilarByXyzCoords, mergeAll } from '@/Engine/Utils';
 
 export function Actor(
   params: TActorParams,
@@ -33,7 +33,7 @@ export function Actor(
   const drive: TActorTransformDrive = ActorTransformDrive(params, { transformDriveService }, id);
   const driveToTargetConnector: TDriveToTargetConnector = DriveToTargetConnector(drive, model3d.getRawModel3d(), params.model3dSettings);
 
-  const entities: TActorEntities = Object.assign(
+  const entities: TActorEntities = mergeAll(
     {
       drive,
       driveToTargetConnector,
@@ -45,7 +45,7 @@ export function Actor(
     withUpdateSpatialCell()
   );
 
-  const actor: TActor = Object.assign(AbstractEntity(entities, EntityType.Actor, { name: params.name, tags: params.tags, id }), {
+  const actor: TActor = mergeAll(AbstractEntity(entities, EntityType.Actor, { name: params.name, tags: params.tags, id }), {
     serialize: (dependencies: TActorEntityToConfigDependencies): TActorConfig => actorToConfig(actor, dependencies),
     getModel3dSettings: (): TActorModel3dSettings | undefined => params.model3dSettings,
     getPhysicsBody: (): TPhysicsBody | undefined => params.physicsBody

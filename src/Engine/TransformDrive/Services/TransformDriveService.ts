@@ -29,7 +29,7 @@ import type {
 } from '@/Engine/TransformDrive/Models';
 import { getKinematicTransformAgent } from '@/Engine/TransformDrive/Utils';
 import type { TOptional, TWriteable } from '@/Engine/Utils';
-import { isDefined } from '@/Engine/Utils';
+import { isDefined, mergeAll } from '@/Engine/Utils';
 
 export function TransformDriveService(factory: TTransformDriveFactory, registry: TTransformDriveRegistry, { loopService }: TTransformDriveServiceDependencies): TTransformDriveService {
   const factorySub$: Subscription = factory.entityCreated$.subscribe((entity: TTransformDrive<TTransformDriveCompatibleEntity>): void => registry.add(entity));
@@ -86,8 +86,7 @@ export function TransformDriveService(factory: TTransformDriveFactory, registry:
     return result;
   }
 
-  // eslint-disable-next-line functional/immutable-data
-  return Object.assign(abstractService, withFactory, withRegistry, withSerializeAllEntities<TTransformDriveSerializedData, undefined>(registry), {
+  return mergeAll(abstractService, withFactory, withRegistry, withSerializeAllEntities<TTransformDriveSerializedData, undefined>(registry), {
     create,
     createFromList,
     getTransformAgents

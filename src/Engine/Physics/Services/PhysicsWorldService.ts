@@ -12,7 +12,7 @@ import type { TPhysicsDebugRenderer, TPhysicsLoop, TPhysicsWorldConfig, TPhysics
 import { PhysicsDebugRenderer } from '@/Engine/Physics/Renderers';
 import type { TSceneWrapper } from '@/Engine/Scene';
 import type { TSpaceLoops } from '@/Engine/Space';
-import { isNotDefined } from '@/Engine/Utils';
+import { isNotDefined, mergeAll } from '@/Engine/Utils';
 
 export function PhysicsWorldService(scene: TSceneWrapper, { physicsLoop }: TSpaceLoops): TPhysicsWorldService {
   const abstractService: TAbstractService = AbstractService();
@@ -53,8 +53,7 @@ export function PhysicsWorldService(scene: TSceneWrapper, { physicsLoop }: TSpac
     world = null as any;
   });
 
-  // eslint-disable-next-line functional/immutable-data
-  return Object.assign(abstractService, withSceneGetterService(scene), {
+  return mergeAll(abstractService, withSceneGetterService(scene), {
     createWorld,
     getDebugRenderer,
     findWorld: (): World | undefined => world,

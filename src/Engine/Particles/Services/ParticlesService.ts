@@ -19,6 +19,7 @@ import type {
   TParticlesWrapper
 } from '@/Engine/Particles/Models';
 import type { TSceneWrapper } from '@/Engine/Scene';
+import { mergeAll } from '@/Engine/Utils';
 
 export function ParticlesService(factory: TParticlesFactory, registry: TParticlesRegistry, dependencies: TParticlesServiceDependencies, scene: TSceneWrapper): TParticlesService {
   const registrySub$: Subscription = registry.added$.subscribe(({ value }: TRegistryPack<TParticlesWrapper>): void => scene.addParticles(value));
@@ -33,8 +34,7 @@ export function ParticlesService(factory: TParticlesFactory, registry: TParticle
   const withFactory: TParticlesServiceWithFactory = withFactoryService(factory);
   const withRegistry: TParticlesServiceWithRegistry = withRegistryService(registry);
 
-  // eslint-disable-next-line functional/immutable-data
-  return Object.assign(
+  return mergeAll(
     abstractService,
     withCreateService,
     withCreateFromConfigService,

@@ -17,6 +17,7 @@ import type {
 } from '@/Engine/Material/Models';
 import type { TDisposable } from '@/Engine/Mixins';
 import { withCreateFromConfigServiceMixin, withCreateServiceMixin, withFactoryService, withRegistryService, withSerializeAllEntities } from '@/Engine/Mixins';
+import { mergeAll } from '@/Engine/Utils';
 
 export function MaterialService(factory: TMaterialFactory, registry: TMaterialRegistry, dependencies: TMaterialServiceDependencies): TMaterialService {
   const factorySub$: Subscription = factory.entityCreated$.subscribe((wrapper: TMaterialWrapper): void => registry.add(wrapper));
@@ -28,8 +29,7 @@ export function MaterialService(factory: TMaterialFactory, registry: TMaterialRe
   const withFactory: TMaterialServiceWithFactory = withFactoryService(factory);
   const withRegistry: TMaterialServiceWithRegistry = withRegistryService(registry);
 
-  // eslint-disable-next-line functional/immutable-data
-  return Object.assign(
+  return mergeAll(
     abstractService,
     withCreateService,
     withCreateFromConfigService,

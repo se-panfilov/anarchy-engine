@@ -19,6 +19,7 @@ import type {
 } from '@/Engine/Renderer/Models';
 import type { TSceneWrapper } from '@/Engine/Scene';
 import type { TSpaceLoops } from '@/Engine/Space';
+import { mergeAll } from '@/Engine/Utils';
 
 export function RendererService(
   factory: TRendererFactory,
@@ -51,8 +52,7 @@ export function RendererService(
     withActive.active$.complete();
   });
 
-  // eslint-disable-next-line functional/immutable-data
-  return Object.assign(abstractService, withCreateService, withCreateFromConfigService, withFactory, withRegistry, withSerializeAllEntities<TRendererConfig, undefined>(registry), {
+  return mergeAll(abstractService, withCreateService, withCreateFromConfigService, withFactory, withRegistry, withSerializeAllEntities<TRendererConfig, undefined>(registry), {
     setActive: withActive.setActive,
     findActive: withActive.findActive,
     getActive: withActive.getActive,

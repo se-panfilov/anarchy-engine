@@ -10,7 +10,7 @@ import { rendererToConfig } from '@/Engine/Renderer/Adapters';
 import { RendererModes } from '@/Engine/Renderer/Constants';
 import type { TRendererAccessors, TRendererConfig, TRendererParams, TRendererWrapper, TRendererWrapperDependencies } from '@/Engine/Renderer/Models';
 import type { TWriteable } from '@/Engine/Utils';
-import { isNotDefined, isWebGL2Available, isWebGLAvailable } from '@/Engine/Utils';
+import { isNotDefined, isWebGL2Available, isWebGLAvailable, mergeAll } from '@/Engine/Utils';
 
 import { getAccessors } from './Accessors';
 
@@ -67,8 +67,7 @@ export function RendererWrapper(params: TRendererParams, { container }: TRendere
     screenSizeSub$.unsubscribe();
   });
 
-  // eslint-disable-next-line functional/immutable-data
-  const result = Object.assign(wrapper, accessors, withActiveMixin(), {
+  const result = mergeAll(wrapper, accessors, withActiveMixin(), {
     getParams: () => params,
     serialize: (): TRendererConfig => rendererToConfig(result)
   });

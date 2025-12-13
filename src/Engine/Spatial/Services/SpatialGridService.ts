@@ -18,6 +18,7 @@ import type {
   TSpatialGridServiceWithRegistry,
   TSpatialGridWrapper
 } from '@/Engine/Spatial/Models';
+import { mergeAll } from '@/Engine/Utils';
 
 export function SpatialGridService(factory: TSpatialGridFactory, registry: TSpatialGridRegistry): TSpatialGridService {
   const factorySub$: Subscription = factory.entityCreated$.subscribe((spatialGrid: TSpatialGridWrapper): void => registry.add(spatialGrid));
@@ -29,6 +30,5 @@ export function SpatialGridService(factory: TSpatialGridFactory, registry: TSpat
   const withFactory: TSpatialGridServiceWithFactory = withFactoryService(factory);
   const withRegistry: TSpatialGridServiceWithRegistry = withRegistryService(registry);
 
-  // eslint-disable-next-line functional/immutable-data
-  return Object.assign(abstractService, withCreateService, withCreateFromConfigService, withFactory, withRegistry, withSerializeAllEntities<TSpatialGridConfig, undefined>(registry));
+  return mergeAll(abstractService, withCreateService, withCreateFromConfigService, withFactory, withRegistry, withSerializeAllEntities<TSpatialGridConfig, undefined>(registry));
 }

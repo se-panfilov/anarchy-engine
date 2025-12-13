@@ -23,7 +23,7 @@ import { withSerializeAllResources } from '@/Engine/Mixins';
 import type { TModel3d, TRawModel3d } from '@/Engine/Models3d';
 import type { TSpaceLoops } from '@/Engine/Space';
 import type { TWriteable } from '@/Engine/Utils';
-import { isDefined, isNotDefined } from '@/Engine/Utils';
+import { isDefined, isNotDefined, mergeAll } from '@/Engine/Utils';
 
 export function AnimationsService(resourcesRegistry: TAnimationsResourceAsyncRegistry, metaInfoRegistry: TAnimationsMetaInfoRegistry, { renderLoop }: TSpaceLoops): TAnimationsService {
   const animationsLoader: TAnimationsLoader = AnimationsLoader(resourcesRegistry, metaInfoRegistry);
@@ -69,8 +69,7 @@ export function AnimationsService(resourcesRegistry: TAnimationsResourceAsyncReg
     resourcesRegistry.destroy$.next();
   });
 
-  // eslint-disable-next-line functional/immutable-data
-  return Object.assign(abstractService, withSerializeAllResources<TAnimationsResourceConfig, TAnimationsSerializeResourcesDependencies>(resourcesRegistry, { metaInfoRegistry }), {
+  return mergeAll(abstractService, withSerializeAllResources<TAnimationsResourceConfig, TAnimationsSerializeResourcesDependencies>(resourcesRegistry, { metaInfoRegistry }), {
     createActions,
     added$: added$.asObservable(),
     startAutoUpdateMixer,

@@ -17,6 +17,7 @@ import type {
   TPhysicsWorldService
 } from '@/Engine/Physics/Models';
 import { getKinematicDataFromPhysics } from '@/Engine/Physics/Utils';
+import { mergeAll } from '@/Engine/Utils';
 
 export function PhysicsBodyService(factory: TPhysicsBodyFactory, registry: TPhysicsBodyRegistry, physicsWorldService: TPhysicsWorldService): TPhysicsBodyService {
   const factorySub$: Subscription = factory.entityCreated$.subscribe((body: TPhysicsBody): void => registry.add(body));
@@ -28,8 +29,7 @@ export function PhysicsBodyService(factory: TPhysicsBodyFactory, registry: TPhys
   const withFactory: TPhysicsBodyServiceWithFactory = withFactoryService(factory);
   const withRegistry: TPhysicsBodyServiceWithRegistry = withRegistryService(registry);
 
-  // eslint-disable-next-line functional/immutable-data
-  return Object.assign(abstractService, withCreateService, withCreateFromConfigService, withFactory, withRegistry, withSerializeAllEntities<TPhysicsBodyConfig, undefined>(registry), {
+  return mergeAll(abstractService, withCreateService, withCreateFromConfigService, withFactory, withRegistry, withSerializeAllEntities<TPhysicsBodyConfig, undefined>(registry), {
     getKinematicDataFromPhysics
   });
 }

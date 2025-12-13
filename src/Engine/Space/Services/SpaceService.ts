@@ -18,6 +18,7 @@ import type {
 } from '@/Engine/Space/Models';
 import { SpaceRegistry } from '@/Engine/Space/Registries';
 import { validateConfig, validateSpacesDoNotUseSameCanvas } from '@/Engine/Space/Validators';
+import { mergeAll } from '@/Engine/Utils';
 
 export function SpaceService(factory: TSpaceFactory, registry: TSpaceRegistry): TSpaceService {
   const factorySub$: Subscription = factory.entityCreated$.subscribe((space: TSpace): void => {
@@ -39,8 +40,7 @@ export function SpaceService(factory: TSpaceFactory, registry: TSpaceRegistry): 
   const withFactory: TSpaceServiceWithFactory = withFactoryService(factory);
   const withRegistry: TSpaceServiceWithRegistry = withRegistryService(registry);
 
-  // eslint-disable-next-line functional/immutable-data
-  return Object.assign(abstractService, withCreateService, withFactory, withRegistry, withSerializeAllEntities<TSpaceConfig, undefined>(registry), { createFromConfig });
+  return mergeAll(abstractService, withCreateService, withFactory, withRegistry, withSerializeAllEntities<TSpaceConfig, undefined>(registry), { createFromConfig });
 }
 
 export const spaceService: TSpaceService = SpaceService(SpaceFactory(), SpaceRegistry());

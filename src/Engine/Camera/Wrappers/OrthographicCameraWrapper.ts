@@ -23,7 +23,7 @@ import { withActiveMixin, withObject3d } from '@/Engine/Mixins';
 import type { TDriveToTargetConnector } from '@/Engine/TransformDrive';
 import { DriveToTargetConnector } from '@/Engine/TransformDrive';
 import type { TOptional, TWriteable } from '@/Engine/Utils';
-import { applyObject3dParams, isDefined } from '@/Engine/Utils';
+import { applyObject3dParams, isDefined, mergeAll } from '@/Engine/Utils';
 
 import { getCommonCameraAccessors, getOrthographicCameraAccessors } from './Accessors';
 
@@ -40,8 +40,7 @@ export function OrthographicCameraWrapper(params: TOrthographicCameraParams, { c
   const drive: TCameraTransformDrive = CameraTransformDrive(params, { transformDriveService }, wrapper.id);
   const driveToTargetConnector: TDriveToTargetConnector = DriveToTargetConnector(drive, entity);
 
-  // eslint-disable-next-line functional/immutable-data
-  const result = Object.assign(wrapper, accessors, {
+  const result = mergeAll(wrapper, accessors, {
     drive,
     driveToTargetConnector,
     entity,

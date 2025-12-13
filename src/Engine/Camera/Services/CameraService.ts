@@ -28,7 +28,7 @@ import {
   withSerializeAllEntities
 } from '@/Engine/Mixins';
 import type { TSceneWrapper } from '@/Engine/Scene';
-import { isNotDefined } from '@/Engine/Utils';
+import { isNotDefined, mergeAll } from '@/Engine/Utils';
 
 export function CameraService(factory: TCameraFactory, registry: TCameraRegistry, scene: TSceneWrapper, dependencies: TCameraServiceDependencies): TCameraService {
   const withActive: TWithActiveMixinResult<TAnyCameraWrapper> = withActiveEntityServiceMixin<TAnyCameraWrapper>(registry);
@@ -77,8 +77,7 @@ export function CameraService(factory: TCameraFactory, registry: TCameraRegistry
     withActive.active$.complete();
   });
 
-  // eslint-disable-next-line functional/immutable-data
-  return Object.assign(
+  return mergeAll(
     abstractService,
     withCreateService,
     withCreateFromConfigService,

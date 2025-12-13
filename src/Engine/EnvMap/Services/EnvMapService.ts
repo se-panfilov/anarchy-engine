@@ -33,7 +33,7 @@ import {
 } from '@/Engine/Mixins';
 import { withSerializeEntity } from '@/Engine/Mixins/Generics/WithSerializeEntity';
 import type { TSceneWrapper } from '@/Engine/Scene';
-import { isDefined } from '@/Engine/Utils';
+import { isDefined, mergeAll } from '@/Engine/Utils';
 
 export function EnvMapService(
   factory: TEnvMapFactory,
@@ -74,8 +74,7 @@ export function EnvMapService(
     withActive.active$.complete();
   });
 
-  // eslint-disable-next-line functional/immutable-data
-  return Object.assign(
+  return mergeAll(
     abstractService,
     withCreateService,
     withCreateFromConfigService,

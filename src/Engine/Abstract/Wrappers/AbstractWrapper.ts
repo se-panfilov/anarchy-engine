@@ -6,7 +6,7 @@ import { withNoWrapperIdMixin, withWrapperIdMixin } from '@/Engine/Abstract';
 import type { TDestroyable, TRegistrable, TWithEntity, TWithName } from '@/Engine/Mixins';
 import { destroyableMixin, withNameAndNameAccessorsMixin } from '@/Engine/Mixins';
 import type { TWithTags } from '@/Engine/Mixins/Generics/Models/TWithTags';
-import { genericEntityCleanUp, isDefined, isWithUserData, isWithWrapperIdAccessors } from '@/Engine/Utils';
+import { genericEntityCleanUp, isDefined, isWithUserData, isWithWrapperIdAccessors, mergeAll } from '@/Engine/Utils';
 
 type TWrapperParams = TWithTags & TWithName;
 
@@ -25,8 +25,7 @@ export function AbstractWrapper<T extends TWithUserData>(entity: T, type: Wrappe
     tags: params?.tags ?? []
   };
 
-  // eslint-disable-next-line functional/immutable-data
-  const result: TAbstractWrapper<T> = Object.assign(partialResult, withWrapperId, destroyable, withNameAndNameAccessorsMixin(partialResult));
+  const result: TAbstractWrapper<T> = mergeAll(partialResult, withWrapperId, destroyable, withNameAndNameAccessorsMixin(partialResult));
 
   const destroyableSub$: Subscription = destroyable.destroy$.subscribe((): void => {
     genericEntityCleanUp(entity);
