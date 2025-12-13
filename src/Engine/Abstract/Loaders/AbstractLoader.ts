@@ -46,8 +46,8 @@ export function AbstractLoader<L extends Loader<any>, R extends TAbstractResourc
     (loader as any).clearCache?.();
 
     destroySub$.unsubscribe();
-    loaded$.unsubscribe();
     loaded$.complete();
+    loaded$.unsubscribe();
 
     registry.destroy$.next();
   });
