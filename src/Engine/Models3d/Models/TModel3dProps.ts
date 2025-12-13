@@ -1,5 +1,5 @@
 import type { TWithNameRequired, TWithReadonlyTags } from '@/Engine/Mixins';
-import type { TPrimitiveProps } from '@/Engine/Models3d/Models/TPrimitiveProps';
+import type { TPrimitiveModel3dProps } from '@/Engine/Models3d/Models/TPrimitiveModel3dProps';
 import type { TObject3DParams, TObject3DProps } from '@/Engine/ThreeLib';
 import type { TOptional } from '@/Engine/Utils';
 
@@ -7,6 +7,6 @@ import type { TOptional } from '@/Engine/Utils';
 // We're not ready to add animations like this, so omit them for now
 export type TModel3dProps = Omit<TObject3DProps, 'animations' | 'position' | 'scale' | 'rotation'> &
   Pick<TObject3DParams, 'position' | 'scale' | 'rotation'> &
-  TOptional<TPrimitiveProps> &
+  TOptional<TPrimitiveModel3dProps> &
   TWithNameRequired &
   TWithReadonlyTags;
