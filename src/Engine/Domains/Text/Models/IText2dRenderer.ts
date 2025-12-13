@@ -1,9 +1,8 @@
 import type { CSS2DRenderer } from 'three/examples/jsm/renderers/CSS2DRenderer';
 
-import type { IScreenSizeValues } from '@/Engine/Domains/Screen';
+import type { ITextRenderer } from './ITextRenderer';
 
-export type IText2dRenderer = {
-  renderer: CSS2DRenderer;
-  destroy: () => void;
-  updateSize: (size: IScreenSizeValues) => void;
-};
+export type IText2dRenderer = Omit<ITextRenderer, 'renderer'> &
+  Readonly<{
+    renderer: CSS2DRenderer;
+  }>;

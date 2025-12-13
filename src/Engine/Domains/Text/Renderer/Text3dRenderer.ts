@@ -1,13 +1,13 @@
 import { nanoid } from 'nanoid';
-import { CSS2DRenderer } from 'three/examples/jsm/renderers/CSS2DRenderer';
+import { CSS3DRenderer } from 'three/examples/jsm/renderers/CSS3DRenderer';
 
 import type { IAppGlobalContainer } from '@/Engine/Domains/Global';
 import type { IScreenSizeValues, IScreenSizeWatcher } from '@/Engine/Domains/Screen';
 import { RelatedEntityAttribute, TextCssClass } from '@/Engine/Domains/Text/Constants';
-import type { IText2dRenderer } from '@/Engine/Domains/Text/Models';
+import type { IText3dRenderer } from '@/Engine/Domains/Text/Models';
 
-export function initText2dRenderer(container: IAppGlobalContainer, screenSizeWatcher: Readonly<IScreenSizeWatcher>): IText2dRenderer {
-  const renderer: CSS2DRenderer = new CSS2DRenderer();
+export function initText3dRenderer(container: IAppGlobalContainer, screenSizeWatcher: Readonly<IScreenSizeWatcher>): IText3dRenderer {
+  const renderer: CSS3DRenderer = new CSS3DRenderer();
   const id: string = nanoid();
   renderer.setSize(container.innerWidth, container.innerHeight);
   // eslint-disable-next-line functional/immutable-data
@@ -17,7 +17,7 @@ export function initText2dRenderer(container: IAppGlobalContainer, screenSizeWat
   // eslint-disable-next-line functional/immutable-data
   renderer.domElement.style.pointerEvents = 'none';
   // eslint-disable-next-line functional/immutable-data
-  renderer.domElement.className = TextCssClass.RendererText2d;
+  renderer.domElement.className = TextCssClass.RendererText3d;
   renderer.domElement.setAttribute(RelatedEntityAttribute, id);
   container.document.body.appendChild(renderer.domElement);
 
