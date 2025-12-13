@@ -2,7 +2,7 @@
   "name": "anarchy-shared",
   "author": "S. Panfilov",
   "private": true,
-  "version": "1.1.5",
+  "version": "1.1.6",
   "type": "module",
   "sideEffects": false,
   "license": "MIT",
@@ -33,7 +33,11 @@
     "prettier": "prettier --write .",
     "prettier:check": "prettier --check .",
     "ts:check": "tsc --noEmit",
-    "ts:check:watch": "tsc --watch --noEmit"
+    "ts:check:watch": "tsc --watch --noEmit",
+    "unit": "vitest run",
+    "unit:coverage": "vitest run --coverage",
+    "unit:coverage:ui": "vitest --ui",
+    "unit:watch": "vitest"
   },
   "dependencies": {},
   "devDependencies": {

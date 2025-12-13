@@ -2,7 +2,7 @@
   "name": "showcases-i18n",
   "author": "S. Panfilov",
   "private": true,
-  "version": "1.2.0",
+  "version": "1.2.1",
   "type": "module",
   "sideEffects": false,
   "license": "MIT",
@@ -35,7 +35,11 @@
     "prettier:check": "prettier --check .",
     "sanitize-assets": "node ../../packages/anarchy-shared/ScriptUtils/SanitizeAssets.js ./src/assets",
     "ts:check": "tsc --noEmit",
-    "ts:check:watch": "tsc --watch --noEmit"
+    "ts:check:watch": "tsc --watch --noEmit",
+    "unit": "vitest run",
+    "unit:coverage": "vitest run --coverage",
+    "unit:coverage:ui": "vitest --ui",
+    "unit:watch": "vitest"
   },
   "dependencies": {
     "anarchy-engine": "*",
