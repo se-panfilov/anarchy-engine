@@ -2,8 +2,6 @@
 // You need to download the font files and place them in the same directory as this file.
 // You can get the Noto fonts from Google Fonts: https://fonts.google.com/noto
 
-// TODO DESKTOP: implement app-level translation (i18n, not fonts)
-
 // Mixin for creating font-face declarations with consistent properties
 @mixin font-face($font-family, $font-file, $font-weight: 400, $font-style: normal, $font-display: swap) {
   @font-face {
