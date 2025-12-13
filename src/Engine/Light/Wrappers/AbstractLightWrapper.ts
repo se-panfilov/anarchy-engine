@@ -36,5 +36,9 @@ export function AbstractLightWrapper<T extends TLight>(entity: T, params: TLight
   applyShadowParams(params, result.entity);
   applyObject3dParams(result, params);
 
+  setTimeout((): void => {
+    result.serialize();
+  }, 1000);
+
   return result;
 }

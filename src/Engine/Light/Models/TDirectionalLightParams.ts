@@ -1,5 +1,3 @@
-import type { Color } from 'three';
-
 import type { TWithTags } from '@/Engine/Mixins';
 import type { TObject3DParams } from '@/Engine/ThreeLib';
 
@@ -8,8 +6,6 @@ import type { TDirectionalLightShadowParams } from './TDirectionalLightShadowPar
 
 export type TDirectionalLightParams = Omit<TAbstractLightParams, 'shadow'> &
   Readonly<{
-    color: Color;
-    intensity?: number;
     shadow?: TDirectionalLightShadowParams;
     castShadow?: boolean;
   }> &

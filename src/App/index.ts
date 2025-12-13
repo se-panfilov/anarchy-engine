@@ -11,7 +11,7 @@ import '@/App/style.css';
 // import { start } from '@/App/Levels/Showcase9TexturesAndMaterials';
 // import { start } from '@/App/Levels/Showcase10ComplexMaterials';
 // import { start } from '@/App/Levels/Showcase11KeyboardAndMouse';
-// import { start } from '@/App/Levels/Showcase12Light';
+import { start } from '@/App/Levels/Showcase12Light';
 // import { start } from '@/App/Levels/Showcase13Fog';
 // import { start } from '@/App/Levels/Showcase14SwitchingActiveCamera';
 // import { start } from '@/App/Levels/Showcase15ConfigurableIntersections';
@@ -25,7 +25,7 @@ import '@/App/style.css';
 // import { start } from '@/App/Levels/Showcase23CustomModels';
 // import { start } from '@/App/Levels/Showcase24ActorsWithModels';
 // import { start } from '@/App/Levels/Showcase25TransformDrive';
-import { start } from '@/App/Levels/Showcase26Audio';
+// import { start } from '@/App/Levels/Showcase26Audio';
 // import { start } from '@/App/Levels/Showcase27SplitScreen';
 // import { start } from '@/App/Levels/Showcase28MultipleScenes';
 

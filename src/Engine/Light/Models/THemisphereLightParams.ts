@@ -5,11 +5,9 @@ import type { TObject3DParams } from '@/Engine/ThreeLib';
 
 import type { TAbstractLightParams } from './TAbstractLightParams';
 
-export type THemisphereLightParams = Omit<TAbstractLightParams, 'color'> &
+export type THemisphereLightParams = TAbstractLightParams &
   Readonly<{
-    color: Color;
     groundColor: Color;
-    intensity?: number;
   }> &
   TObject3DParams &
   TWithTags;
