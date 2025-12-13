@@ -30,7 +30,7 @@ export function SceneWrapper(params: TSceneParams): TSceneWrapper {
   const addActor = (actor: Readonly<TActorWrapper>): void => add(actor.entity);
   const addLight = <T extends TLight>(light: Readonly<TAbstractLightWrapper<T>>): void => add(light.entity);
   const addParticles = (particles: Readonly<TParticlesWrapper>): void => add(particles.entity);
-  const addModel = add;
+  const addModel3d = add;
 
   const addText = (text: Readonly<TTextAnyWrapper>): void => add(text.entity);
 
@@ -58,7 +58,7 @@ export function SceneWrapper(params: TSceneParams): TSceneWrapper {
     addActor,
     addCamera,
     addLight,
-    addModel,
+    addModel3d,
     setFog,
     addText,
     addParticles,

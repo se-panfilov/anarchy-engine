@@ -1,7 +1,20 @@
 import { filter } from 'rxjs';
 
 import type { TShowcase } from '@/App/Levels/Models';
-import type { TActorRegistry, TActorWrapper, TAppCanvas, TCameraWrapper, TEngine, TIntersectionEvent, TIntersectionsWatcher, TSpace, TSpaceConfig } from '@/Engine';
+import type {
+  TActorRegistry,
+  TActorWrapper,
+  TAppCanvas,
+  TCameraWrapper,
+  TEngine,
+  TIntersectionEvent,
+  TIntersectionsWatcher,
+  TModel3dFacade,
+  TModel3dRegistry,
+  TSceneWrapper,
+  TSpace,
+  TSpaceConfig
+} from '@/Engine';
 import { Engine, isNotDefined, spaceService } from '@/Engine';
 
 import spaceConfig from './showcase.json';
@@ -10,10 +23,19 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
   const space: TSpace = await spaceService.buildSpaceFromConfig(canvas, spaceConfig as TSpaceConfig);
   const engine: TEngine = Engine(space);
 
-  const { actorService, cameraService, intersectionsWatcherService, loopService, mouseService } = space.services;
+  const { actorService, cameraService, intersectionsWatcherService, loopService, models3dService, mouseService, scenesService } = space.services;
+  const models3dRegistry: TModel3dRegistry = models3dService.getRegistry();
   const actorRegistry: TActorRegistry = actorService.getRegistry();
 
   function init(): void {
+    const sceneW: TSceneWrapper | undefined = scenesService.findActive();
+    if (isNotDefined(sceneW)) throw new Error('Scene is not defined');
+
+    const planeModel3dF: TModel3dFacade | undefined = models3dRegistry.findByName('surface_model');
+    if (isNotDefined(planeModel3dF)) throw new Error('Plane model is not defined');
+
+    sceneW?.addModel3d(planeModel3dF.getModel());
+
     const actor: TActorWrapper | undefined = actorRegistry.findByTag('intersectable');
     if (isNotDefined(actor)) throw new Error('Actor is not defined');
     actor.setY(2);
