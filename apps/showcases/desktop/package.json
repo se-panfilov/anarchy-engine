@@ -29,7 +29,7 @@
     "prebuild:ts": "tsc",
     "reload-and-prebuild": "npm run reload:game-dist && npm run prebuild",
     "reload:game-dist": "npm run clean && npm run copy:game-dist",
-    "start": "npm run prebuild && electron ."
+    "start": "npm run reload-and-prebuild && electron ."
   },
   "devDependencies": {
     "electron": "37.2.1",
