@@ -11,6 +11,14 @@ import vue from '@vitejs/plugin-vue';
 // @ts-expect-error: no type declarations
 import vueJsx from '@vitejs/plugin-vue-jsx';
 import { version } from './package.json';
+import { version as engineVersion } from '../../packages/anarchy-engine/package.json';
+import { version as anarchySharedVersion } from '../../packages/anarchy-shared/package.json';
+import { version as anarchyI18nVersion } from '../../packages/anarchy-i18n/package.json';
+import { version as anarchyLegalVersion } from '../../packages/anarchy-legal/package.json';
+import { version as showcasesI18nVersion } from '../../packages/showcases-i18n/package.json';
+import { version as showcasesMenuVersion } from '../../packages/showcases-menu/package.json';
+import { version as showcasesSharedVersion } from '../../packages/showcases-shared/package.json';
+import { emitDefineJson } from '../../packages/anarchy-shared/src/Plugins/EmitDefineVitePlugin';
 
 export default defineConfig(({ mode, command }: ConfigEnv): UserConfig => {
   const root: string = process.cwd();
@@ -24,6 +32,17 @@ export default defineConfig(({ mode, command }: ConfigEnv): UserConfig => {
   const buildCompression: boolean = toBool(VITE_BUILD_COMPRESSION);
   const minify: boolean = toBool(VITE_BUILD_MINIFIED);
   const sourcemap: boolean = toBool(VITE_BUILD_SOURCEMAPS);
+
+  const buildMetaInfo = {
+    'showcases-core': version,
+    'anarchy-engine': engineVersion,
+    'anarchy-shared': anarchySharedVersion,
+    'anarchy-i18n': anarchyI18nVersion,
+    'anarchy-legal': anarchyLegalVersion,
+    'showcases-i18n': showcasesI18nVersion,
+    'showcases-menu': showcasesMenuVersion,
+    'showcases-shared': showcasesSharedVersion
+  };
 
   return {
     base: './',
@@ -47,6 +66,9 @@ export default defineConfig(({ mode, command }: ConfigEnv): UserConfig => {
       vue(),
       vueJsx(),
       //END: FOR GUI only///////
+
+      //Build meta info (versions)
+      emitDefineJson({ value: buildMetaInfo, fileName: 'build-meta.json' }),
 
       wasm(),
       dts({
