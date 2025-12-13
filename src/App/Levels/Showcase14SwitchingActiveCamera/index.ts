@@ -16,7 +16,8 @@ export function showcase(canvas: IAppCanvas): IShowcase {
   const { clickLeftRelease$ } = mouseService;
 
   async function init(): Promise<void> {
-    const actor: IActorWrapperAsync = await actorRegistry.findByNameAsync('ball');
+    const actor: IActorWrapperAsync | undefined = await actorRegistry.findByNameAsync('ball');
+    if (isNotDefined(actor)) throw new Error('Cannot find actor"');
     actor.setY(2);
 
     let cameraFolder: GUI | undefined;

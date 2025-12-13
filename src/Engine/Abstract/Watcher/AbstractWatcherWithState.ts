@@ -7,7 +7,7 @@ import type { IAbstractWatcher, IAbstractWatcherWithState } from '@/Engine/Abstr
 import { AbstractWatcher } from './AbstractWatcher';
 
 export function AbstractWatcherWithState<T>(type: WatcherType | string, initialValue: T, tags: ReadonlyArray<string> = []): IAbstractWatcherWithState<T> {
-  const abstractWatcher: IAbstractWatcher<T> = AbstractWatcher(type, tags);
+  const abstractWatcher: IAbstractWatcher<T> = AbstractWatcher(type, undefined, tags);
   const latest$: BehaviorSubject<T> = new BehaviorSubject<T>(initialValue);
 
   abstractWatcher.value$.subscribe((val: T): void => {

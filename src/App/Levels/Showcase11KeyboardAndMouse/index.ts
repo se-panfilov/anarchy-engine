@@ -33,18 +33,31 @@ export function showcase(canvas: IAppCanvas): IShowcase {
   const { onKey } = keyboardService;
 
   async function init(): Promise<void> {
-    const actorKeyboard: IActorWrapperAsync = await findByTagAsync('keyboard');
-    const actorMouse: IActorWrapperAsync = await findByTagAsync('mouse');
-    const actorKeyW: IActorWrapperAsync = await findByTagsAsync(['key', 'W'], LookUpStrategy.Every);
-    const actorKeyA: IActorWrapperAsync = await findByTagsAsync(['key', 'A'], LookUpStrategy.Every);
-    const actorKeyS: IActorWrapperAsync = await findByTagsAsync(['key', 'S'], LookUpStrategy.Every);
-    const actorKeyD: IActorWrapperAsync = await findByTagsAsync(['key', 'D'], LookUpStrategy.Every);
-    const actorMkeyLeft: IActorWrapperAsync = await findByTagsAsync(['mkey', 'Left'], LookUpStrategy.Every);
-    const actorMkeyRight: IActorWrapperAsync = await findByTagsAsync(['mkey', 'Right'], LookUpStrategy.Every);
-    const actorMkeyMiddle: IActorWrapperAsync = await findByTagsAsync(['mkey', 'Middle'], LookUpStrategy.Every);
-    const actorMkeyBack: IActorWrapperAsync = await findByTagsAsync(['mkey', 'Back'], LookUpStrategy.Every);
-    const actorMkeyForward: IActorWrapperAsync = await findByTagsAsync(['mkey', 'Forward'], LookUpStrategy.Every);
-    const actorMkeyExtra: IActorWrapperAsync = await findByTagsAsync(['mkey', 'Extra'], LookUpStrategy.Every);
+    const actorKeyboard: IActorWrapperAsync | undefined = await findByTagAsync('keyboard');
+    const actorMouse: IActorWrapperAsync | undefined = await findByTagAsync('mouse');
+    const actorKeyW: IActorWrapperAsync | undefined = await findByTagsAsync(['key', 'W'], LookUpStrategy.Every);
+    const actorKeyA: IActorWrapperAsync | undefined = await findByTagsAsync(['key', 'A'], LookUpStrategy.Every);
+    const actorKeyS: IActorWrapperAsync | undefined = await findByTagsAsync(['key', 'S'], LookUpStrategy.Every);
+    const actorKeyD: IActorWrapperAsync | undefined = await findByTagsAsync(['key', 'D'], LookUpStrategy.Every);
+    const actorMkeyLeft: IActorWrapperAsync | undefined = await findByTagsAsync(['mkey', 'Left'], LookUpStrategy.Every);
+    const actorMkeyRight: IActorWrapperAsync | undefined = await findByTagsAsync(['mkey', 'Right'], LookUpStrategy.Every);
+    const actorMkeyMiddle: IActorWrapperAsync | undefined = await findByTagsAsync(['mkey', 'Middle'], LookUpStrategy.Every);
+    const actorMkeyBack: IActorWrapperAsync | undefined = await findByTagsAsync(['mkey', 'Back'], LookUpStrategy.Every);
+    const actorMkeyForward: IActorWrapperAsync | undefined = await findByTagsAsync(['mkey', 'Forward'], LookUpStrategy.Every);
+    const actorMkeyExtra: IActorWrapperAsync | undefined = await findByTagsAsync(['mkey', 'Extra'], LookUpStrategy.Every);
+
+    if (isNotDefined(actorKeyboard)) throw new Error('Actor keyboard is not defined');
+    if (isNotDefined(actorMouse)) throw new Error('Actor mouse is not defined');
+    if (isNotDefined(actorKeyW)) throw new Error('Actor key W is not defined');
+    if (isNotDefined(actorKeyA)) throw new Error('Actor key A is not defined');
+    if (isNotDefined(actorKeyS)) throw new Error('Actor key S is not defined');
+    if (isNotDefined(actorKeyD)) throw new Error('Actor key D is not defined');
+    if (isNotDefined(actorMkeyLeft)) throw new Error('Actor mkey Left is not defined');
+    if (isNotDefined(actorMkeyRight)) throw new Error('Actor mkey Right is not defined');
+    if (isNotDefined(actorMkeyMiddle)) throw new Error('Actor mkey Middle is not defined');
+    if (isNotDefined(actorMkeyBack)) throw new Error('Actor mkey Back is not defined');
+    if (isNotDefined(actorMkeyForward)) throw new Error('Actor mkey Forward is not defined');
+    if (isNotDefined(actorMkeyExtra)) throw new Error('Actor mkey Extra is not defined');
 
     onKey(KeyCode.W).pressing$.subscribe((): void => void actorKeyboard.addZ(-0.3));
     onKey(KeyCode.W).pressed$.subscribe((): void => void actorKeyW.addY(-0.2));
@@ -101,7 +114,8 @@ export function showcase(canvas: IAppCanvas): IShowcase {
   async function startIntersections(): Promise<IIntersectionsWatcher> {
     const camera: ICameraWrapper | undefined = cameraService.findActive();
     if (isNotDefined(camera)) throw new Error('Camera is not defined');
-    const actor: IActorWrapperAsync = await findByNameAsync('surface');
+    const actor: IActorWrapperAsync | undefined = await findByNameAsync('surface');
+    if (isNotDefined(actor)) throw new Error('Actor is not defined');
 
     console.log({ actors: [actor], camera, isAutoStart: true, position$: mouseService.position$, tags: [] });
 

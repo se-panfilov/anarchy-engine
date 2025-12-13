@@ -13,7 +13,8 @@ export function showcase(canvas: IAppCanvas): IShowcase {
   const actorRegistry: IActorAsyncRegistry = actorService.getRegistry();
 
   async function init(): Promise<void> {
-    const actor: IActorWrapperAsync = await actorRegistry.findByTagAsync('intersectable');
+    const actor: IActorWrapperAsync | undefined = await actorRegistry.findByTagAsync('intersectable');
+    if (isNotDefined(actor)) throw new Error('Actor is not defined');
     actor.setY(2);
 
     loopService.tick$.subscribe(({ elapsedTime }) => {

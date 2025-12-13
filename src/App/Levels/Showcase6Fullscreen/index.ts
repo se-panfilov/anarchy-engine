@@ -1,6 +1,6 @@
 import type { IShowcase } from '@/App/Levels/Models';
 import type { IActorAsyncRegistry, IActorWrapperAsync, IAppCanvas, ISpace, ISpaceConfig } from '@/Engine';
-import { buildSpaceFromConfig, mouseService, screenService } from '@/Engine';
+import { buildSpaceFromConfig, isNotDefined, mouseService, screenService } from '@/Engine';
 
 import spaceConfig from './showcase-6.json';
 
@@ -11,7 +11,8 @@ export function showcase(canvas: IAppCanvas): IShowcase {
   const actorRegistry: IActorAsyncRegistry = actorService.getRegistry();
 
   async function init(): Promise<void> {
-    const actor: IActorWrapperAsync = await actorRegistry.findByTagAsync('sphere');
+    const actor: IActorWrapperAsync | undefined = await actorRegistry.findByTagAsync('sphere');
+    if (isNotDefined(actor)) throw new Error('Actor not found');
     actor.setY(2);
 
     mouseService.clickLeftRelease$.subscribe(() => {

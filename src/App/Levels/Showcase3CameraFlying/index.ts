@@ -30,7 +30,8 @@ export function showcase(canvas: IAppCanvas): IShowcase {
       camera.setY(yRatio * 10);
       camera.setZ(yRotation);
 
-      void actorRegistry.findByTagAsync('central_actor').then((actor: IActorWrapperAsync): void => {
+      void actorRegistry.findByTagAsync('central_actor').then((actor: IActorWrapperAsync | undefined): void => {
+        if (isNotDefined(actor)) throw new Error('Actor not found');
         camera.lookAt(actor.getPosition());
       });
     });

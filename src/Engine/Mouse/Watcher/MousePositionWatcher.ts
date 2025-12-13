@@ -4,7 +4,7 @@ import type { IMouseEvent, IMousePosition, IMousePositionWatcher, IMousePosition
 
 export function MousePositionWatcher({ container, tags = [] }: IMousePositionWatcherParams): IMousePositionWatcher {
   const containerIdTag: string = `container_id_${container.id}`;
-  const abstractWatcher: IAbstractWatcher<IMousePosition> = AbstractWatcher(WatcherType.MousePositionWatcher, tags);
+  const abstractWatcher: IAbstractWatcher<IMousePosition> = AbstractWatcher(WatcherType.MousePositionWatcher, 'global_mouse_position_watcher', tags);
   const onMouseMoveListener = ({ clientX: x, clientY: y }: IMouseEvent): void => abstractWatcher.value$.next({ x, y });
 
   function start(): IMousePositionWatcher {
