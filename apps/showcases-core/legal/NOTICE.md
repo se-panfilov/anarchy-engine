@@ -309,7 +309,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## anarchy-engine@20.3.2
+## anarchy-engine@20.3.3
 
 **License(s):** MIT
 
@@ -317,7 +317,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## anarchy-i18n@1.1.1
+## anarchy-i18n@1.1.2
 
 **License(s):** MIT
 
@@ -325,7 +325,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## anarchy-shared@1.1.1
+## anarchy-shared@1.1.2
 
 **License(s):** MIT
 
@@ -499,11 +499,11 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## magic-string@0.30.17
+## magic-string@0.30.18
 
 **License(s):** MIT
 
-**Repository:** https://github.com/rich-harris/magic-string
+**Repository:** https://github.com/rich-harris/magic-string.git
 
 **Attribution:** Copyright 2018 Rich Harris
 
@@ -653,7 +653,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## showcases-menu@1.5.6
+## showcases-menu@1.5.7
 
 **License(s):** MIT
 
@@ -661,7 +661,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## showcases-shared@1.0.7
+## showcases-shared@1.0.8
 
 **License(s):** MIT
 
