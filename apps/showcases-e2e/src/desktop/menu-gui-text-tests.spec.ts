@@ -8,7 +8,7 @@ const GAME_URL: string = `http://localhost:${process.env.PORT ?? '4173'}?path=me
 
 let context: TLaunchContext;
 
-test.describe('Desktop app tests', () => {
+test.describe('Desktop app Menu/GUI text tests', () => {
   test.beforeAll(async () => {
     const { electronApp, page } = await launchPackagedElectronApp();
 
@@ -17,6 +17,7 @@ test.describe('Desktop app tests', () => {
     await page.goto(GAME_URL);
   });
 
+  //Not sure if this is needed
   // test.afterAll(async () => {
   //   if (context?.electronApp) await context.electronApp.close();
   // });
