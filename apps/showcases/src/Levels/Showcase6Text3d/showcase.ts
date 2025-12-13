@@ -1,4 +1,4 @@
-import '@public/Showcase/fonts.css';
+import '@Public/Showcase/fonts.css';
 
 import { Euler, Vector3 } from 'three';
 
