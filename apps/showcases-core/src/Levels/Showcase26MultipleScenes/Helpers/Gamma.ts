@@ -35,7 +35,7 @@ function addActors(space: TSpace): void {
   });
 
   onKey(KeyCode.W).pressing$.subscribe((): void => {
-    const action: 'Run' | 'Walk' = isKeyPressed(KeyCode.Shift) ? 'Run' : 'Walk';
+    const action: 'Run' | 'Walk' = isKeyPressed(KeyCode.ShiftLeft) ? 'Run' : 'Walk';
     if (solder1AnimFsm.getState() !== action) solder1AnimFsm.send$.next(action);
   });
 
