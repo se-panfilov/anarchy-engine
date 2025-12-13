@@ -1,11 +1,11 @@
-import { Vector3 } from 'three/src/math/Vector3';
+import type { Vector3 } from 'three/src/math/Vector3';
 
 import type { TCameraAccessors, TPerspectiveCamera } from '@/Engine/Camera/Models';
 import type { TWriteable } from '@/Engine/Utils';
 
 // eslint-disable-next-line functional/prefer-immutable-types
 export function getAccessors(entity: TWriteable<TPerspectiveCamera>): TCameraAccessors {
-  const setControls = (x: number, y: number, z: number): Vector3 => new Vector3(entity.position.set(x, y, z));
+  const setControls = (x: number, y: number, z: number): Vector3 => entity.position.set(x, y, z);
   const lookAt = (vector3: Vector3): void => entity.lookAt(vector3);
 
   function setFov(fov: number): void {

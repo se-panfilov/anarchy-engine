@@ -35,7 +35,7 @@ export function CameraWrapper(params: TCameraParams): TCameraWrapper {
   applyObject3dParams(result, params);
   result._setActive(params.isActive, true);
 
-  if (isDefined(lookAt)) entity.lookAt(new Vector3(lookAt.entity.x, lookAt.entity.y, lookAt.entity.z));
+  if (isDefined(lookAt)) entity.lookAt(new Vector3(lookAt.x, lookAt.y, lookAt.z));
 
   return result;
 }

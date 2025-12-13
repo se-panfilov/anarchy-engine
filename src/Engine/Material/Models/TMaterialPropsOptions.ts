@@ -116,7 +116,7 @@ export type TMatcapMaterialPropsOptions = TAbstractMaterialPropsOptions &
     color?: ColorRepresentation;
     bumpScale?: number;
     normalMapType?: NormalMapTypes;
-    normalScale?: TVector2;
+    normalScale?: Vector2;
     displacementScale?: number;
     displacementBias?: number;
     fog?: boolean;
