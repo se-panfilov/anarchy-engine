@@ -1,8 +1,8 @@
 import type { TAbstractEntityRegistry } from '@Engine/Abstract/Models';
 import type { LookUpStrategy } from '@Engine/Abstract/Registries';
 import type { TRegistrable, TWithActiveMixin } from '@Engine/Mixins';
+import { isNotDefined } from '@Shared/Utils';
 
-import { isNotDefined } from './CheckUtils';
 import { hasTag } from './TagsUtils';
 
 export const asArray = <T>(registry: ReadonlyMap<string, T>): ReadonlyArray<T> => Array.from(registry.values());
