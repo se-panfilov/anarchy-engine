@@ -1,1 +1,1 @@
-export * from './FsmConfigAdapter';
+export * from './ConfigToParams';
