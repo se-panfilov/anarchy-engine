@@ -44,7 +44,7 @@ export async function launch(
 
   // TODO (S.Panfilov) any
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const loop: ILoopWrapper = loopFactory.create({} as any);
+  const loop: ILoopWrapper = loopFactory.create({ tag: name });
   const initialCamera: ICameraWrapper = cameraRegistry.getByTag(CameraTag.Initial);
   loop.start(renderer, scene, initialCamera);
   ////////////////////////////////////
