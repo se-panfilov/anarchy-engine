@@ -4501,7 +4501,7 @@
           "type": "string"
         },
         "options": {
-          "$ref": "#/definitions/TModel3dOptions"
+          "$ref": "#/definitions/TModel3dConfig"
         },
         "url": {
           "type": "string"
@@ -4521,8 +4521,95 @@
       },
       "required": ["url"]
     },
-    "TModel3dOptions": {
-      "type": "object"
+    "TModel3dConfig": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "material": {
+          "type": "string"
+        },
+        "position": {
+          "$ref": "#/definitions/TWithCoordsXYZ"
+        },
+        "scale": {
+          "$ref": "#/definitions/TWithCoordsXYZ"
+        },
+        "rotation": {
+          "$ref": "#/definitions/TEuler3dConfig"
+        },
+        "visible": {
+          "type": "boolean"
+        },
+        "castShadow": {
+          "type": "boolean"
+        },
+        "receiveShadow": {
+          "type": "boolean"
+        },
+        "layers": {
+          "$ref": "#/definitions/Layers"
+        },
+        "frustumCulled": {
+          "type": "boolean"
+        },
+        "renderOrder": {
+          "type": "number"
+        },
+        "width": {
+          "type": "number"
+        },
+        "height": {
+          "type": "number"
+        },
+        "depth": {
+          "type": "number"
+        },
+        "widthSegments": {
+          "type": "number"
+        },
+        "heightSegments": {
+          "type": "number"
+        },
+        "depthSegments": {
+          "type": "number"
+        },
+        "radius": {
+          "type": "number"
+        },
+        "phiStart": {
+          "type": "number"
+        },
+        "phiLength": {
+          "type": "number"
+        },
+        "thetaStart": {
+          "type": "number"
+        },
+        "thetaLength": {
+          "type": "number"
+        },
+        "name": {
+          "type": "string"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "Layers": {
+      "type": "object",
+      "properties": {
+        "mask": {
+          "type": "number",
+          "description": "A bit mask storing which of the 32 layers this layers object is currently a member of."
+        }
+      },
+      "required": ["mask"],
+      "additionalProperties": false,
+      "description": "A  {@link  THREE.Layers Layers }  object assigns an  {@link  THREE.Object3D Object3D }  to 1 or more of 32 layers numbered `0` to `31` - internally the layers are stored as a  {@link  https://en.wikipedia.org/wiki/Mask_(computing) bit mask } , and by default all Object3Ds are a member of layer `0`."
     },
     "TTextureResourceConfig": {
       "type": "object",

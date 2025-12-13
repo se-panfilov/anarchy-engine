@@ -26,7 +26,9 @@
           "widthSegments": 1,
           "heightSegments": 1,
           "castShadow": false,
-          "receiveShadow": true
+          "receiveShadow": true,
+          "position": { "x": 0, "y": 0, "z": 0 },
+          "rotation": { "x": -1.57, "y": 0, "z": 0 }
         }
       },
       {
@@ -58,10 +60,10 @@
     ],
     "actors": [
       {
-        "model3d": "sphere_model",
+        "model3d": "sphere_actor",
         "position": { "x": 0, "y": 2, "z": 0 },
         "castShadow": true,
-        "spatial": { "grid": "main_grid", "isAutoUpdate": false },
+        "spatial": { "grid": "main_grid", "isAutoUpdate": true },
         "tags": ["intersectable"]
       }
     ],
