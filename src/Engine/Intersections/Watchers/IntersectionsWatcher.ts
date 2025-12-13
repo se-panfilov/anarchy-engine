@@ -35,7 +35,7 @@ export function IntersectionsWatcher({ position$, isAutoStart, tags, name, perfo
   // shouldUseDistinct might improve performance, however won't fire an event if the mouse is not moving (and actor or scene is moving)
   const shouldUseDistinct: boolean = performance?.shouldUseDistinct ?? false;
 
-  abstractWatcher.start$.subscribe((): void => {
+  const startSub$: Subscription = abstractWatcher.start$.subscribe((): void => {
     const prevValue: Float32Array = new Float32Array([0, 0]);
     positionSub$ = position$
       .pipe(
@@ -62,7 +62,7 @@ export function IntersectionsWatcher({ position$, isAutoStart, tags, name, perfo
     result.isStarted = true;
   });
 
-  abstractWatcher.stop$.subscribe((): void => {
+  const stopSub$: Subscription = abstractWatcher.stop$.subscribe((): void => {
     positionSub$?.unsubscribe();
     // eslint-disable-next-line functional/immutable-data
     result.isStarted = false;
@@ -75,10 +75,15 @@ export function IntersectionsWatcher({ position$, isAutoStart, tags, name, perfo
     return raycaster.intersectObjects(list)[0];
   }
 
-  const abstractWatcherSubscription: Subscription = abstractWatcher.destroy$.subscribe((): void => {
-    raycaster = undefined;
+  const destroySub$: Subscription = abstractWatcher.destroy$.subscribe((): void => {
+    raycaster = null as any;
+    // eslint-disable-next-line functional/immutable-data
+    (actors as Array<TActor>).length = 0;
+
     positionSub$?.unsubscribe();
-    abstractWatcherSubscription.unsubscribe();
+    destroySub$.unsubscribe();
+    startSub$.unsubscribe();
+    stopSub$.unsubscribe();
   });
 
   // eslint-disable-next-line functional/immutable-data

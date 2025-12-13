@@ -1,3 +1,5 @@
+import type { Subscription } from 'rxjs';
+
 import type { TAbstractWatcherWithState } from '@/Engine/Abstract';
 import { AbstractWatcherWithState, WatcherType } from '@/Engine/Abstract';
 import type { TScreenSizeValues, TScreenSizeWatcher, TScreenSizeWatcherParams } from '@/Engine/Screen/Models';
@@ -15,20 +17,22 @@ export function ScreenSizeWatcher({ container, tags = [] }: TScreenSizeWatcherPa
     });
   };
 
-  abstractWatcher.start$.subscribe((): void => {
+  const startSub$: Subscription = abstractWatcher.start$.subscribe((): void => {
     onResize();
     container.startWatch('resize', onResize);
   });
 
-  abstractWatcher.stop$.subscribe((): void => {
-    container.stopWatch('resize', onResize);
+  const stopSub$: Subscription = abstractWatcher.stop$.subscribe((): void => container.stopWatch('resize', onResize));
+
+  const destroySub$: Subscription = abstractWatcher.destroy$.subscribe((): void => {
+    destroySub$.unsubscribe();
+    startSub$.unsubscribe();
+    stopSub$.unsubscribe();
   });
 
   // eslint-disable-next-line functional/immutable-data
-  const result: TScreenSizeWatcher = Object.assign(abstractWatcher, {
+  return Object.assign(abstractWatcher, {
     getValue: (): TScreenSizeValues => ({ ...abstractWatcher.value$.value }),
     key: containerIdTag
   });
-
-  return result;
 }

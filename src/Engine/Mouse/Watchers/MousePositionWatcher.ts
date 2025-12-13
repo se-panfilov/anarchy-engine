@@ -11,8 +11,8 @@ import { isEqualOrSimilarByXyCoords } from '@/Engine/Utils';
 export function MousePositionWatcher({ container, tags, performance }: TMousePositionWatcherParams, mouseLoop: TMouseLoop): TMousePositionWatcher {
   const containerIdTag: string = `container_id_${container.id}`;
   const abstractWatcher: TAbstractWatcherWithState<Vector2Like> = AbstractWatcherWithState(WatcherType.MousePositionWatcher, 'global_mouse_position_watcher', { x: 0, y: 0 }, tags);
-  const prevPosition: Float32Array = new Float32Array(2); // [x, y] = [0, 0]
-  const position: Float32Array = new Float32Array(2); // [x, y] = [0, 0]
+  let prevPosition: Float32Array = new Float32Array(2); // [x, y] = [0, 0]
+  let position: Float32Array = new Float32Array(2); // [x, y] = [0, 0]
 
   const onMouseMoveListener = ({ clientX: x, clientY: y }: TMouseEvent): void => {
     // eslint-disable-next-line functional/immutable-data
@@ -25,7 +25,7 @@ export function MousePositionWatcher({ container, tags, performance }: TMousePos
   // shouldUseDistinct might improve performance, however won't fire an event if the mouse is not moving (and actor or scene is moving)
   const shouldUseDistinct: boolean = performance?.shouldUseDistinct ?? false;
 
-  mouseLoop.tick$
+  const mouseTickSub$: Subscription = mouseLoop.tick$
     .pipe(
       shouldUseDistinct ? distinctUntilChanged((): boolean => isEqualOrSimilarByXyCoords(prevPosition[0], prevPosition[1], position[0], position[1], threshold)) : identity,
       tap((): void => {
@@ -35,9 +35,7 @@ export function MousePositionWatcher({ container, tags, performance }: TMousePos
         prevPosition[1] = position[1]; //y
       })
     )
-    .subscribe((): void => {
-      abstractWatcher.value$.next({ x: position[0], y: position[1] });
-    });
+    .subscribe((): void => abstractWatcher.value$.next({ x: position[0], y: position[1] }));
 
   const startSub$: Subscription = abstractWatcher.start$.subscribe((): void => {
     container.startWatch('mousemove', onMouseMoveListener);
@@ -48,17 +46,19 @@ export function MousePositionWatcher({ container, tags, performance }: TMousePos
   });
 
   const destroySub$: Subscription = abstractWatcher.destroy$.subscribe((): void => {
+    prevPosition = null as any;
+    position = null as any;
+
+    mouseTickSub$.unsubscribe();
     destroySub$.unsubscribe();
     startSub$.unsubscribe();
     stopSub$.unsubscribe();
   });
 
   // eslint-disable-next-line functional/immutable-data
-  const result: TMousePositionWatcher = Object.assign(abstractWatcher, {
+  return Object.assign(abstractWatcher, {
     getValue: (): Vector2Like => ({ ...abstractWatcher.value$.value }),
     valueNormalized$: abstractWatcher.value$.pipe(map(getNormalizedMousePosition)),
     key: containerIdTag
   });
-
-  return result;
 }
