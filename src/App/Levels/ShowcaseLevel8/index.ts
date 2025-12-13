@@ -1,8 +1,8 @@
 import { combineLatest } from 'rxjs';
 
 import type { IShowcase } from '@/App/Levels/Models';
-import type { IActorWrapper, IAppCanvas, ILevel, ILevelConfig, ITexturePack, ITextureUploaded, ITextureUploadPromises } from '@/Engine';
-import { ambientContext, buildLevelFromConfig, CameraTag, getRotationByCos, getRotationBySin, isDefined, isNotDefined, textureService } from '@/Engine';
+import type { IActorWrapper, IAppCanvas, ICameraWrapper, ILevel, ILevelConfig, ITexturePack } from '@/Engine';
+import { ambientContext, buildLevelFromConfig, CameraTag, getRotationByCos, getRotationBySin, isDefined, isNotDefined } from '@/Engine';
 
 import levelConfig from './showcase-level-8.config.json';
 
@@ -11,8 +11,10 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
   const level: ILevel = buildLevelFromConfig(canvas, levelConfig as ILevelConfig);
 
   // TODO (S.Panfilov) CWP add loading of textures from config
-  const pack: ITexturePack = { map: { url: '/ShowcaseLevel8/Door_Wood/Door_Wood_001_basecolor.jpg' } };
-  const textures: ITextureUploadPromises = textureService.load(pack);
+  // TODO (S.Panfilov) try the other textures (alpha, etc)
+  const pack: ITexturePack = {
+    map: { url: '/ShowcaseLevel8/Door_Wood/Door_Wood_001_basecolor.jpg' }
+  };
 
   function start(): void {
     level.start();
@@ -21,7 +23,7 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
     if (isNotDefined(actor)) throw new Error('Actor is not found');
 
     //apply textures async, without blocking the main thread (game might be started before textures are loaded)
-    void textures.all().then((textures: ITextureUploaded): void => actor.useTexture({ ...textures }));
+    void actor.loadTexturePack(pack);
     initCameraRotation(level, actor);
   }
 
@@ -32,7 +34,7 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
 function initCameraRotation(level: ILevel, actor: IActorWrapper | undefined): void {
   const { cameraRegistry } = level.entities;
 
-  const camera = cameraRegistry.getUniqByTag(CameraTag.Active);
+  const camera: ICameraWrapper | undefined = cameraRegistry.getUniqByTag(CameraTag.Active);
 
   const { mousePositionWatcher, screenSizeWatcher } = ambientContext;
   combineLatest([mousePositionWatcher.value$, screenSizeWatcher.latest$]).subscribe(([{ x, y }, { width, height }]): void => {
