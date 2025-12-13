@@ -1,17 +1,14 @@
 import { combineLatest, Observable, Subscription } from 'rxjs';
 
-import { runBeta } from '@/App/Levels/Showcase28MultipleScenes/Beta';
-import { runDelta } from '@/App/Levels/Showcase28MultipleScenes/Delta';
-import { runGamma } from '@/App/Levels/Showcase28MultipleScenes/Gamma';
 import type { TSpace, TSpaceConfig } from '@/Engine';
 import { asRecord, isNotDefined, spaceService } from '@/Engine';
 
-import { runAlpha } from './Alpha';
+import { runAlpha, runBeta, runDelta, runGamma } from './Helpers';
+import { createButtons, createContainersDivs } from './Helpers/Utils';
 import spaceAlphaConfigJson from './spaceAlpha.json';
 import spaceBetaConfigJson from './spaceBeta.json';
 import spaceDeltaConfigJson from './spaceDelta.json';
 import spaceGammaConfigJson from './spaceGamma.json';
-import { createButtons, createContainersDivs } from './Utils';
 
 const subscriptionStacks = new Map<Subscription, string>();
 let totalSubscriptions = 0;
