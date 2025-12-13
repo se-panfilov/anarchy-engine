@@ -193,6 +193,7 @@ export const JsRules = {
         '[R-r]eadonly',
         '[R-r]ender[er]?[s]?',
         '[R-r]oboto',
+        '[S-s]hader[s]?',
         '[S-s]chema[s]?',
         '[S-s]erializable',
         '[U-u]nobserve[d]?',
