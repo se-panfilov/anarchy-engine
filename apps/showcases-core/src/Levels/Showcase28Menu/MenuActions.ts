@@ -49,7 +49,7 @@ export function handleFromMenuEvents(fromMenuEventsBus$: Observable<TFromMenuEve
 
         toMenuEventsBus$.next({
           type: ToMenuEvents.SettingsLoaded,
-          payload: legalDocs
+          payload: { legal: legalDocs }
         });
         break;
       }

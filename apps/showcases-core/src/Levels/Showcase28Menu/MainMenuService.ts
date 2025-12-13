@@ -21,4 +21,4 @@ export async function saveSettings(settings: TShowcaseGameSettings): Promise<voi
 
 export const loadSettings = async (): Promise<TShowcaseGameSettings> => platformApiService.loadAppSettings();
 // TODO DESKTOP: fix return type of "loadLegalDocs"
-export const loadLegalDocs = async (): Promise<string> => platformApiService.loadAppSettings();
+export const loadLegalDocs = async (): Promise<string> => platformApiService.loadLegalDocs();
