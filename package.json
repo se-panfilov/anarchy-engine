@@ -2,7 +2,7 @@
   "name": "anarchy_engine",
   "author": "S. Panfilov",
   "private": true,
-  "version": "3.3.1",
+  "version": "3.4.0",
   "type": "module",
   "license": "MIT",
   "scripts": {
@@ -32,10 +32,12 @@
     "decimal.js": "10.4.3",
     "lil-gui": "0.19.2",
     "nanoid": "5.0.7",
+    "rbush": "4.0.0",
     "rxjs": "7.8.1",
     "sanitize.css": "13.0.0",
     "stats.js": "0.17.0",
     "three": "0.165.0",
+    "three-mesh-bvh": "0.7.6",
     "ts-key-enum": "3.0.12"
   },
   "devDependencies": {
