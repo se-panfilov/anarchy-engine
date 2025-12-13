@@ -1,5 +1,4 @@
-import type { IAbstractConfig, IAbstractFactory, IAbstractRegistry, IWrapper } from '@Engine/Domains/Abstract';
-import type { IFromConfigFactory, IProtectedRegistry } from '@Engine/Mixins';
+import type { IAbstractConfig, IAbstractFactory, IAbstractRegistry, IFromConfigFactory, IProtectedRegistry, IWrapper } from '@Engine/Domains/Abstract';
 import { isDestroyedFactory } from '@Engine/Utils/DestroyableUtils';
 
 export function getAllEntitiesWithEveryTag<T extends { tags: ReadonlyArray<string> }>(tagList: ReadonlyArray<string>, registry: ReadonlyMap<string, T>): ReadonlyArray<T> {

@@ -1,6 +1,6 @@
 import type { IWrapper } from '@Engine/Domains/Abstract';
-import type { IFromConfig } from '@Engine/Mixins';
 
+import type { IFromConfig } from '../Registry/Mixin/Models';
 import type { IAbstractConfig } from './IAbstractConfig';
 import type { IAbstractFactory } from './IAbstractFactory';
 import type { IAbstractWrapperFactory } from './IAbstractWrapperFactory';

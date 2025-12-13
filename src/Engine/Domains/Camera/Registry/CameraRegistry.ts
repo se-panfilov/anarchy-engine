@@ -1,6 +1,5 @@
 import type { IAbstractRegistry } from '@Engine/Domains/Abstract';
-import { AbstractRegistry } from '@Engine/Domains/Abstract';
-import { RegistryFacade } from '@Engine/Mixins';
+import { AbstractRegistry, RegistryFacade } from '@Engine/Domains/Abstract';
 import { RegistryName } from '@Engine/Registries';
 
 import type { ICameraRegistry, ICameraWrapper } from '../Models';

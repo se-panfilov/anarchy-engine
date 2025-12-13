@@ -9,6 +9,7 @@ export * from './IAbstractWrapperFactory';
 export * from './ICreateFN';
 export * from './IDestroyableFactory';
 export * from './IDestroyableFromConfigFactory';
+export * from './IDestroyablePool';
 export * from './IMultitonWatcher';
 export * from './IMultitonWatcherWithState';
 export * from './IWatcher';

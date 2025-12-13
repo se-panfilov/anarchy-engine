@@ -1,3 +1,5 @@
+import type { IDestroyablePool } from '@Engine/Domains/Abstract';
+import { DestroyablePool } from '@Engine/Domains/Abstract';
 import type { IActorWrapper } from '@Engine/Domains/Actor';
 import { ActorRegistry } from '@Engine/Domains/Actor';
 import type { ICameraWrapper } from '@Engine/Domains/Camera';
@@ -9,10 +11,9 @@ import { LightRegistry } from '@Engine/Domains/Light';
 import { MouseClicksWatcherRegistry, MousePositionWatcherRegistry } from '@Engine/Domains/Mouse';
 import type { ISceneWrapper } from '@Engine/Domains/Scene';
 import { ScreenSizeWatcherRegistry } from '@Engine/Domains/Screen';
-import { DestroyablePool } from '@Engine/Pool/Mixins/DestroyablePool';
 import { isNotDefined } from '@Engine/Utils';
 
-import type { IDestroyablePool, IRegistries, IRegistryPool } from './Models';
+import type { IRegistries, IRegistryPool } from './Models';
 
 export function RegistryPool(): IRegistryPool {
   const abstractPool: IDestroyablePool<IRegistries> = DestroyablePool<IRegistries>({

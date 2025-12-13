@@ -1,10 +1,10 @@
-import type { IMultitonRegistrable, IRegistrable } from '@Engine/Mixins';
 import type { RegistryName } from '@Engine/Registries';
 import { getAllEntitiesWithEveryTag, getAllEntitiesWithSomeTag, isNotDefined } from '@Engine/Utils';
 import { nanoid } from 'nanoid';
 import { Subject } from 'rxjs';
 
 import type { IAbstractRegistry } from '../Models';
+import type { IMultitonRegistrable, IRegistrable } from './Mixin';
 
 export function AbstractRegistry<T extends IRegistrable | IMultitonRegistrable>(name: RegistryName): IAbstractRegistry<T> {
   const id: string = nanoid();

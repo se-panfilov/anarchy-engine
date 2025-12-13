@@ -1,5 +1,4 @@
-import type { IAbstractConfig, IWrapper } from '@Engine/Domains/Abstract';
-import type { IGenericDestroyableFactory } from '@Engine/Mixins';
+import type { IAbstractConfig, IGenericDestroyableFactory, IWrapper } from '@Engine/Domains/Abstract';
 
 import { isEmptyObject } from './ObjectUtils';
 

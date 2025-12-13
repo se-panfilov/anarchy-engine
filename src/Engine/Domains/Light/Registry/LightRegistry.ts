@@ -1,5 +1,4 @@
-import { AbstractRegistry } from '@Engine/Domains/Abstract';
-import { RegistryFacade } from '@Engine/Mixins';
+import { AbstractRegistry, RegistryFacade } from '@Engine/Domains/Abstract';
 import { RegistryName } from '@Engine/Registries';
 
 import type { ILightRegistry, ILightWrapper } from '../Models';

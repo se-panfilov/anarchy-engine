@@ -1,7 +1,7 @@
 import type { IWrapper } from '@Engine/Domains/Abstract';
-import type { IDestroyable } from '@Engine/Mixins';
 import type { INullable } from '@Engine/Utils';
 
+import type { IDestroyable } from '../Registry/Mixin';
 import type { IAbstractConfig } from './IAbstractConfig';
 import type { IAbstractFactory } from './IAbstractFactory';
 import type { IAbstractFromConfigWrapperFactory } from './IAbstractFromConfigWrapperFactory';

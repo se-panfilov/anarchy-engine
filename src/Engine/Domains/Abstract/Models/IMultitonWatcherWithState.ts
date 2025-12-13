@@ -1,5 +1,4 @@
-import type { IMultitonRegistrable } from '@Engine/Mixins';
-
+import type { IMultitonRegistrable } from '../Registry/Mixin';
 import type { IAbstractWatcherWithState } from './IAbstractWatcherWithState';
 
 export type IMultitonWatcherWithState<T> = IMultitonRegistrable &
