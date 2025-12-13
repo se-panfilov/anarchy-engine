@@ -242,15 +242,39 @@ ${locales.map((locale) => `export const ${kebabToCamel(locale.id)}: TLocale =  `
 }
 
 async function writeModels(header, locales) {
-  const idsUnion = locales.map(({ id }) => `  | '${id}'`).join('\n');
+  //export type TLocale = Readonly<{
+  //   id: TLocaleId; // BCP47, e.g. 'en-US'
+  //   languageCode: string; // 'en' (ISO 639-1)
+  //   regionCode?: string; // 'US' (ISO 3166-1 alpha-2)
+  //   scriptCode?: string; // 'Latn' | 'Cyrl' | 'Hans' |
+  //   englishName: string;
+  //   nativeName: string;
+  //   direction: 'ltr' | 'rtl';
+  // }>;
   const modelsStr = `
 
 // Union type of all possible BCP47 IDs
-export type TLocaleId = ${idsUnion};
+export type TLocaleId = ${getUnion(locales, 'id')};
+
+export type TLocaleCode = ${getUnion(locales, 'languageCode')};
+
+export type TRegionCode = ${getUnion(
+    locales.filter((locale) => locale.regionCode),
+    'regionCode'
+  )};
+
+export type TScriptCode = ${getUnion(
+    locales.filter((locale) => locale.scriptCode),
+    'scriptCode'
+  )};
 `;
 
   await fs.mkdir(path.dirname(OUT_MODELS_PATH), { recursive: true });
   await fs.writeFile(OUT_MODELS_PATH, header + modelsStr, 'utf8');
+}
+
+function getUnion(list, key) {
+  return list.map((item) => `  | '${item[key]}'`).join('\n');
 }
 
 function toTs(locale) {
