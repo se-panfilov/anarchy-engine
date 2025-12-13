@@ -7483,6 +7483,9 @@
         "text": {
           "type": "string"
         },
+        "textKey": {
+          "type": "string"
+        },
         "type": {
           "$ref": "#/definitions/TextType"
         },
@@ -7499,7 +7502,7 @@
           }
         }
       },
-      "required": ["name", "position", "text", "type"]
+      "required": ["name", "position", "type"]
     },
     "TTextCssProps": {
       "type": "object",
