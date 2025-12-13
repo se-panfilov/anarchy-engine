@@ -6,10 +6,10 @@ import type { IMousePosition } from '@Engine/Domains/Mouse';
 import type { ISceneObject } from '@Engine/Domains/Scene';
 import { getNormalizedMousePosition, isNotDefined, unWrapEntities } from '@Engine/Utils';
 import type { IVector3 } from '@Engine/Wrappers';
+import type { Subscription } from 'rxjs';
 import { Raycaster } from 'three';
 
 import type { IIntersectionsWatcher, IIntersectionsWatcherParams } from '@/Engine/Domains/Intersections/Models';
-import { Subscription } from 'rxjs';
 
 export function IntersectionsWatcher({ actors, camera, positionWatcher, tags = [] }: IIntersectionsWatcherParams): IIntersectionsWatcher {
   const abstractWatcher: IAbstractWatcher<IVector3> = AbstractWatcher(WatcherType.IntersectionWatcher, tags);

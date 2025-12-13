@@ -19,10 +19,10 @@ import type { IControlsConfig, IControlsFactory, IControlsRegistry, IOrbitContro
 import { ControlsFactory, ControlsRegistry } from '@/Engine/Domains/Controls';
 import type { IIntersectionsWatcher, IIntersectionsWatcherFactory, IIntersectionsWatcherRegistry } from '@/Engine/Domains/Intersections';
 import { IntersectionsWatcherFactory, IntersectionsWatcherRegistry } from '@/Engine/Domains/Intersections';
+import type { ILevel, ILevelConfig } from '@/Engine/Domains/Level/Models';
 import type { ILightConfig, ILightFactory, ILightRegistry, ILightWrapper } from '@/Engine/Domains/Light';
 import { LightFactory, LightRegistry } from '@/Engine/Domains/Light';
-
-import type { ILevel, ILevelConfig } from '../Models';
+import { withDestroyedMixin } from '@/Engine/Domains/Mixins';
 
 // TODO (S.Panfilov) CWP All factories should be self-registrable (maybe pass a registry as a param there?)
 // TODO (S.Panfilov) Registries' destroy() should kill all registered instances
@@ -192,12 +192,6 @@ export function buildLevelFromConfig(canvas: IAppCanvas, config: ILevelConfig): 
     },
     isBuilt: (): boolean => built$.getValue(),
     destroy,
-    isDestroyed: (): boolean => destroyed$.getValue(),
-    get destroyed$(): Observable<void> {
-      return destroyed$.pipe(
-        filter((v: boolean): boolean => !!v),
-        map(() => undefined)
-      );
-    }
+    ...withDestroyedMixin(destroyed$)
   };
 }

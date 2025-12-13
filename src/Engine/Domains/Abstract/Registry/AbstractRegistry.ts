@@ -3,9 +3,10 @@ import type { RegistryType } from '@Engine/Registries';
 import { getAll, getAllEntitiesWithEveryTag, getAllEntitiesWithSomeTag, isDestroyable, isNotDefined } from '@Engine/Utils';
 import { nanoid } from 'nanoid';
 import type { Observable } from 'rxjs';
-import { BehaviorSubject, filter, map, Subject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 
-import type { IAbstractRegistry } from '../Models';
+import type { IAbstractRegistry } from '@/Engine/Domains/Abstract/Models';
+import { withDestroyedMixin } from '@/Engine/Domains/Mixins';
 
 export function AbstractRegistry<T extends IRegistrable | IMultitonRegistrable>(type: RegistryType): IAbstractRegistry<T> {
   const id: string = type + '_registry_' + nanoid();
@@ -100,13 +101,7 @@ export function AbstractRegistry<T extends IRegistrable | IMultitonRegistrable>(
     registry,
     remove,
     destroy,
-    isDestroyed: (): boolean => destroyed$.getValue(),
-    get destroyed$(): Observable<void> {
-      return destroyed$.pipe(
-        filter((v: boolean): boolean => !!v),
-        map(() => undefined)
-      );
-    }
+    ...withDestroyedMixin(destroyed$)
   };
 }
 

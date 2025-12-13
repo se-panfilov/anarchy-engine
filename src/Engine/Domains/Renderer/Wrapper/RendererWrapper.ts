@@ -3,12 +3,12 @@ import { AbstractWrapper, WrapperType } from '@Engine/Domains/Abstract';
 import type { IScreenSizeValues, IScreenSizeWatcher } from '@Engine/Domains/Screen';
 import type { IWriteable } from '@Engine/Utils';
 import { isNotDefined, isWebGL2Available, isWebGLAvailable } from '@Engine/Utils';
+import type { Subscription } from 'rxjs';
 import type { WebGLRendererParameters } from 'three';
 import { PCFShadowMap, WebGLRenderer } from 'three';
 
 import { RendererModes } from '../Constants';
 import type { IRendererParams, IRendererWrapper } from '../Models';
-import { Subscription } from 'rxjs';
 
 // TODO (S.Panfilov) Should we provide delta here?
 export function RendererWrapper(params: IRendererParams, screenSizeWatcher: Readonly<IScreenSizeWatcher>): IRendererWrapper {

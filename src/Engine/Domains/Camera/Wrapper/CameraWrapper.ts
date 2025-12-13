@@ -2,11 +2,11 @@ import { AbstractWrapper, WrapperType } from '@Engine/Domains/Abstract';
 import type { IScreenSizeValues, IScreenSizeWatcher } from '@Engine/Domains/Screen';
 import type { IWriteable } from '@Engine/Utils';
 import { isNotDefined } from '@Engine/Utils';
+import type { Subscription } from 'rxjs';
 import { PerspectiveCamera } from 'three';
 
 import type { ICameraParams, ICameraWrapper, IPerspectiveCamera } from '../Models';
 import { getAccessors } from './Accessors';
-import { Subscription } from 'rxjs';
 
 export function CameraWrapper(params: ICameraParams, screenSizeWatcher: Readonly<IScreenSizeWatcher>): ICameraWrapper {
   const { fov = 45, near = 1, far = 10000, rotation, position, tags }: ICameraParams = params;

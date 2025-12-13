@@ -1,8 +1,8 @@
 import type { FactoryType } from '@Engine/Domains/Abstract/Constants';
-import type { Observable } from 'rxjs';
-import { BehaviorSubject, filter, map, Subject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 
 import type { IReactiveFactory } from '@/Engine/Domains/Abstract/Models';
+import { withDestroyedMixin } from '@/Engine/Domains/Mixins';
 import { cleanObject } from '@/Engine/Utils';
 
 import { AbstractFactory } from './AbstractFactory';
@@ -28,12 +28,6 @@ export function ReactiveFactory<T, P>(type: FactoryType | string, createEntityFn
     entityCreated$,
     create,
     destroy,
-    isDestroyed: (): boolean => destroyed$.getValue(),
-    get destroyed$(): Observable<void> {
-      return destroyed$.pipe(
-        filter((v: boolean): boolean => !!v),
-        map(() => undefined)
-      );
-    }
+    ...withDestroyedMixin(destroyed$)
   };
 }

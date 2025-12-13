@@ -1,4 +1,4 @@
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 import type { IDestroyable, IRegistrable } from '@/Engine/Domains/Mixins';
 import { ColorWrapper } from '@/Engine/Wrappers';
@@ -131,17 +131,17 @@ describe('CheckUtils', () => {
 
   describe('isDestroyable', () => {
     it('should return "true" if "destroy" and "destriyed$" is defined', () => {
-      const obj: IDestroyable = { destroy: () => undefined, destroyed$: new BehaviorSubject<boolean>(false).asObservable(), isDestroyed: (): boolean => false };
+      const obj: IDestroyable = { destroy: () => undefined, destroyed$: new Observable<void>(), isDestroyed: (): boolean => false };
       expect(isDestroyable(obj)).toBe(true);
     });
 
     it('should return "false" if "destroy" is NOT defined', () => {
-      const obj: any = { destroyed$: new BehaviorSubject<boolean>(false).asObservable(), isDestroyed: (): boolean => false };
+      const obj: Omit<IDestroyable, 'destroy'> = { destroyed$: new Observable<void>(), isDestroyed: (): boolean => false };
       expect(isDestroyable(obj)).toBe(false);
     });
 
     it('should return "false" if "destroyed$" is NOT defined', () => {
-      const obj: any = { destroy: () => undefined, isDestroyed: (): boolean => false };
+      const obj: Omit<IDestroyable, 'destroyed$'> = { destroy: () => undefined, isDestroyed: (): boolean => false };
       expect(isDestroyable(obj)).toBe(false);
     });
 
