@@ -1,4 +1,4 @@
-import type { TWithWrapperId } from '@/Engine/Abstract';
-import type { TDestroyable, TNoSpread, TRegistrable, TWithEntity, TWithNameAndNameAccessorsMixin, TWithTags } from '@/Engine/Mixins';
+import type { TAbstractWrapper } from '@/Engine/Abstract';
+import type { TSerializable } from '@/Engine/Mixins';
 
-export type TWrapper<T> = TWithEntity<T> & TWithTags & TWithWrapperId & TDestroyable & TRegistrable & TWithNameAndNameAccessorsMixin & TNoSpread;
+export type TWrapper<T> = TAbstractWrapper<T> & TSerializable<any>;

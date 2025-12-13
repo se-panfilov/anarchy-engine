@@ -1,9 +1,8 @@
 import { nanoid } from 'nanoid';
 import type { Subscription } from 'rxjs';
 
-import type { TWithUserData, TWithWrapperId, TWithWrapperIdEntity, WrapperType } from '@/Engine/Abstract';
+import type { TAbstractWrapper, TWithUserData, TWithWrapperId, TWithWrapperIdEntity, WrapperType } from '@/Engine/Abstract';
 import { withNoWrapperIdMixin, withWrapperIdMixin } from '@/Engine/Abstract';
-import type { TWrapper } from '@/Engine/Abstract/Models';
 import type { TDestroyable, TRegistrable, TWithEntity, TWithName } from '@/Engine/Mixins';
 import { destroyableMixin, withNameAndNameAccessorsMixin } from '@/Engine/Mixins';
 import type { TWithTags } from '@/Engine/Mixins/Generics/Models/TWithTags';
@@ -11,9 +10,9 @@ import { genericEntityCleanUp, isDefined, isWithUserData, isWithWrapperIdAccesso
 
 type TWrapperParams = TWithTags & TWithName;
 
-export function AbstractWrapper<T>(entity: T, type: WrapperType | string, params?: TWrapperParams): TWrapper<T>;
-export function AbstractWrapper<T extends TWithUserData>(entity: T, type: WrapperType | string, params?: TWrapperParams): TWrapper<TWithWrapperIdEntity<T>>;
-export function AbstractWrapper<T extends TWithUserData>(entity: T, type: WrapperType | string, params?: TWrapperParams): TWrapper<TWithWrapperIdEntity<any>> | TWrapper<T> {
+export function AbstractWrapper<T>(entity: T, type: WrapperType | string, params?: TWrapperParams): TAbstractWrapper<T>;
+export function AbstractWrapper<T extends TWithUserData>(entity: T, type: WrapperType | string, params?: TWrapperParams): TAbstractWrapper<TWithWrapperIdEntity<T>>;
+export function AbstractWrapper<T extends TWithUserData>(entity: T, type: WrapperType | string, params?: TWrapperParams): TAbstractWrapper<TWithWrapperIdEntity<any>> | TAbstractWrapper<T> {
   const id: string = type + '_' + nanoid();
 
   const withWrapperId: TWithWrapperId = isWithUserData(entity) ? withWrapperIdMixin(entity) : withNoWrapperIdMixin(entity);
@@ -28,7 +27,7 @@ export function AbstractWrapper<T extends TWithUserData>(entity: T, type: Wrappe
   };
 
   // eslint-disable-next-line functional/immutable-data
-  const result: TWrapper<T> = Object.assign(partialResult, withWrapperId, destroyable, withNameAndNameAccessorsMixin(partialResult));
+  const result: TAbstractWrapper<T> = Object.assign(partialResult, withWrapperId, destroyable, withNameAndNameAccessorsMixin(partialResult));
 
   const destroyableSub$: Subscription = destroyable.destroy$.subscribe((): void => {
     genericEntityCleanUp(entity);

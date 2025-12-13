@@ -4,6 +4,7 @@ export type * from './TDisposable';
 export type * from './TMultitonRegistrable';
 export type * from './TNoSpread';
 export type * from './TRegistrable';
+export type * from './TSerializable';
 export type * from './TWithActiveMixin';
 export type * from './TWithActiveMixinResult';
 export type * from './TWithCreateAsync';

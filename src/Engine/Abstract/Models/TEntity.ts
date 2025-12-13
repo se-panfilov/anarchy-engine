@@ -1,3 +1,5 @@
-import type { TDestroyable, TNoSpread, TRegistrable, TWithId, TWithNameAndNameAccessorsMixin, TWithTags } from '@/Engine/Mixins';
+import type { TSerializable } from '@/Engine/Mixins';
 
-export type TEntity<T extends Record<string, any>> = Readonly<T> & TWithTags & TDestroyable & TRegistrable & TWithNameAndNameAccessorsMixin & TWithId & TNoSpread;
+import type { TAbstractEntity } from './TAbstractEntity';
+
+export type TEntity<T extends Record<string, any>> = TAbstractEntity<T> & TSerializable<any>;

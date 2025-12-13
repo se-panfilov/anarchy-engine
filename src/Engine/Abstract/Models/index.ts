@@ -1,4 +1,5 @@
 export type * from './TAbstractAsyncRegistry';
+export type * from './TAbstractEntity';
 export type * from './TAbstractEntityRegistry';
 export type * from './TAbstractLoadedResourcePack';
 export type * from './TAbstractLoader';
@@ -12,6 +13,7 @@ export type * from './TAbstractSimpleRegistry';
 export type * from './TAbstractWatcher';
 export type * from './TAbstractWatcherRegistry';
 export type * from './TAbstractWatcherWithState';
+export type * from './TAbstractWrapper';
 export type * from './TCreateEntityFactoryFn';
 export type * from './TEntity';
 export type * from './TEntityParams';

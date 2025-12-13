@@ -3,21 +3,17 @@ import type { TActor, TActorConfig } from '@/Engine/Actor/Models';
 // TODO 15-0-0: (finish 14-0-0 tasks)
 
 export function entityToConfig(entity: TActor): TActorConfig {
+  const { name, tags, drive, spatial } = entity;
   // TODO 15-0-0: implement
 
   return {
-    //params
-    //driveUpdateDelay?: number;
-    //   driveCoordsThreshold?: number;
+    name,
+
+    // driveUpdateDelay //needs a getter (maybe at TransformDrive)
+    //   driveCoordsThreshold?: number;  //needs a getter (maybe at TransformDrive)
+
     //   model3dSettings?: TActorModel3dSettings;
-    //   model3dSource: TModel3d;
-    //   physics?: TWithPresetNamePhysicsBodyParams;
-    //   kinematic?: TOptional<TKinematicParams>;
-    //   spatial: TSpatialDataParams;
-    //   collisions?: TCollisionsDataParams;
-    //   states?: TActorStates;
-    // OMIT: 'model3dSettings' | 'model3dSource' | 'physics' | 'kinematic' | 'spatial' | 'collisions' | 'states' | 'position' | 'rotation' | 'scale'
-    // name: 'string',
+
     // model3dSource: 'string'
     // physics?: TWithPresetNamePhysicsBodyConfig,
     // kinematic?: TKinematicConfig,
@@ -25,8 +21,13 @@ export function entityToConfig(entity: TActor): TActorConfig {
     // collisions?: TCollisionsDataConfig,
     // model3dSettings?: TActorModel3dSettingsConfig,
     // states?: TActorStatesConfig
-    // 'position' | 'rotation' | 'scale'
-    // agent?: TransformAgent;
-    // tags: [];
+
+    ...drive.serialize(),
+    // position: drive.position$.value,
+    // rotation: drive.rotation$.value,
+    // scale: drive.scale$.value,
+    // agent: drive.agent$.value,
+
+    tags
   };
 }
