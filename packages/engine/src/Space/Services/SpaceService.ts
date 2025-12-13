@@ -7,12 +7,12 @@ import type {
   TSpace,
   TSpaceConfig,
   TSpaceFactory,
-  TSpaceFlags,
   TSpaceRegistry,
   TSpaceService,
   TSpaceServiceWithCreate,
   TSpaceServiceWithFactory,
-  TSpaceServiceWithRegistry
+  TSpaceServiceWithRegistry,
+  TSpaceSettings
 } from '@Engine/Space/Models';
 import { SpaceRegistry } from '@Engine/Space/Registries';
 import { validateConfig, validateSpacesDoNotUseSameCanvas } from '@Engine/Space/Validators';
@@ -27,10 +27,10 @@ export function SpaceService(factory: TSpaceFactory, registry: TSpaceRegistry): 
   const disposable: ReadonlyArray<TDisposable> = [registry, factory, factorySub$];
   const abstractService: TAbstractService = AbstractService(disposable);
 
-  const createFromConfig = (spaces: ReadonlyArray<TSpaceConfig>, flags?: TSpaceFlags): ReadonlyArray<TSpace> => {
+  const createFromConfig = (spaces: ReadonlyArray<TSpaceConfig>, settings?: TSpaceSettings): ReadonlyArray<TSpace> => {
     return spaces.map((config: TSpaceConfig): TSpace => {
       validateConfig(config);
-      return factory.create(factory.configToParams(config), { config, registry }, flags);
+      return factory.create(factory.configToParams(config), { config, registry }, settings);
     });
   };
 

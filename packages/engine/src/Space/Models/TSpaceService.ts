@@ -1,17 +1,17 @@
 import type { TSerializableEntitiesService } from '@Engine/Abstract';
 import type { TWithCreateFromConfigService, TWithCreateService, TWithFactoryService, TWithRegistryService } from '@Engine/Mixins';
+import type { TSpaceSettings } from '@Engine/Space';
 
 import type { TSpace } from './TSpace';
 import type { TSpaceConfig } from './TSpaceConfig';
 import type { TSpaceFactory } from './TSpaceFactory';
 import type { TSpaceFactoryDependencies } from './TSpaceFactoryDependencies';
-import type { TSpaceFlags } from './TSpaceFlags';
 import type { TSpaceParams } from './TSpaceParams';
 import type { TSpaceRegistry } from './TSpaceRegistry';
 
-export type TSpaceServiceWithCreate = TWithCreateService<TSpace, TSpaceParams, TSpaceFlags>;
-export type TSpaceServiceWithCreateFromConfig = TWithCreateFromConfigService<TSpaceConfig, TSpace, TSpaceFlags>;
-export type TSpaceServiceWithFactory = TWithFactoryService<TSpace, TSpaceParams, TSpaceFactoryDependencies, TSpaceFactory, TSpaceFlags>;
+export type TSpaceServiceWithCreate = TWithCreateService<TSpace, TSpaceParams, TSpaceSettings>;
+export type TSpaceServiceWithCreateFromConfig = TWithCreateFromConfigService<TSpaceConfig, TSpace, TSpaceSettings>;
+export type TSpaceServiceWithFactory = TWithFactoryService<TSpace, TSpaceParams, TSpaceFactoryDependencies, TSpaceFactory, TSpaceSettings>;
 export type TSpaceServiceWithRegistry = TWithRegistryService<TSpaceRegistry>;
 
 export type TSpaceService = TSerializableEntitiesService<TSpace, TSpaceConfig> & TSpaceServiceWithCreate & TSpaceServiceWithCreateFromConfig & TSpaceServiceWithFactory & TSpaceServiceWithRegistry;

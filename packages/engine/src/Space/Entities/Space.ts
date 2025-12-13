@@ -7,21 +7,25 @@ import type { TMouseClickWatcher, TMousePositionWatcher } from '@Engine/Mouse';
 import type { TSceneWrapper } from '@Engine/Scene';
 import { spaceToConfig } from '@Engine/Space/Adapters';
 import { CreateEntitiesStrategy, SpaceEvents } from '@Engine/Space/Constants';
-import type { TSpace, TSpaceAnyEvent, TSpaceBaseServices, TSpaceCanvas, TSpaceConfig, TSpaceFlags, TSpaceLoops, TSpaceParams, TSpaceParts, TSpaceRegistry, TSpaceServices } from '@Engine/Space/Models';
+import type {
+  TSpace,
+  TSpaceAnyEvent,
+  TSpaceBaseServices,
+  TSpaceCanvas,
+  TSpaceConfig,
+  TSpaceLoops,
+  TSpaceParams,
+  TSpaceParts,
+  TSpaceRegistry,
+  TSpaceServices,
+  TSpaceSettings
+} from '@Engine/Space/Models';
 import { buildBaseServices, buildEntitiesServices, createEntities, createLoops } from '@Engine/Space/Utils';
 import { findDomElement, getCanvasContainer, getOrCreateCanvasFromSelector, isCanvasElement, isDefined, isDestroyable, isNotDefined, mergeAll } from '@Engine/Utils';
 import type { Subscription } from 'rxjs';
 import { BehaviorSubject, distinctUntilChanged, filter, skip, Subject } from 'rxjs';
 
-export function Space(params: TSpaceParams, registry: TSpaceRegistry, flags?: TSpaceFlags): TSpace {
-  if (isDefined(flags)) {
-    console.log(
-      `Space "${params.name}" is launching with flags: ${Object.entries(flags)
-        .map(([key, value]: [string, boolean]): string => `${key}=${value}`)
-        .join(', ')}`
-    );
-  }
-
+export function Space(params: TSpaceParams, registry: TSpaceRegistry, settings?: TSpaceSettings): TSpace {
   const { canvasSelector, version, name, tags } = params;
   const built$: BehaviorSubject<TSpace | undefined> = new BehaviorSubject<TSpace | undefined>(undefined);
   const start$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
@@ -31,7 +35,7 @@ export function Space(params: TSpaceParams, registry: TSpaceRegistry, flags?: TS
   const canvas: TSpaceCanvas = getOrCreateCanvasFromSelector(canvasSelector);
   const container: TContainerDecorator = getCanvasContainer(canvas);
 
-  const { services, loops } = initSpaceServices(canvas, container, params, events$);
+  const { services, loops } = initSpaceServices(canvas, container, params, settings, events$);
   events$.next({ name: SpaceEvents.AfterAllServicesInitialized, args: { canvas, services, loops, params } });
 
   let entitiesCreationPromise: Promise<void> = Promise.resolve();
@@ -126,6 +130,7 @@ function initSpaceServices(
   canvas: TSpaceCanvas,
   container: TContainerDecorator,
   params: TSpaceParams,
+  settings: TSpaceSettings | undefined,
   events$: Subject<TSpaceAnyEvent>
 ): {
   services: TSpaceServices;
@@ -139,7 +144,7 @@ function initSpaceServices(
   const sceneW: TSceneWrapper = baseServices.scenesService.getActive();
 
   events$.next({ name: SpaceEvents.BeforeLoopsCreated, args: { params } });
-  const loops: TSpaceLoops = createLoops(baseServices.loopService, params.settings);
+  const loops: TSpaceLoops = createLoops(baseServices.loopService, settings);
 
   events$.next({ name: SpaceEvents.BeforeEntitiesServicesBuilt, args: { canvas, params } });
   const services: TSpaceServices = buildEntitiesServices(sceneW, canvas, container, loops, baseServices);

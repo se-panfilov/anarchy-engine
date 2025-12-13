@@ -3,8 +3,8 @@ import type { TNoSpread, TWithId } from '@Engine/Mixins';
 
 import type { TCreateEntityFactoryFn } from './TCreateEntityFactoryFn';
 
-export type TFactory<T, P, D = Record<string, any> | undefined, O extends Record<string, any> | undefined = undefined> = Readonly<{
-  create: TCreateEntityFactoryFn<T, P, D, O>;
+export type TFactory<T, P, D = Record<string, any> | undefined, S extends Record<string, any> | undefined = undefined, F extends Record<string, boolean> | undefined = undefined> = Readonly<{
+  create: TCreateEntityFactoryFn<T, P, D, S, F>;
   type: FactoryType | string;
 }> &
   TWithId &
