@@ -10,15 +10,31 @@ export function BrowserTrackingService(options?: BrowserOptions, metaData?: Reco
       // eslint-disable-next-line functional/immutable-data
       if (isDefined(event.user)) event.user = null as any;
 
+      if (event.request) {
+        // eslint-disable-next-line functional/immutable-data
+        event.request = {
+          ...event.request,
+          url: 'hidden',
+          headers: {
+            ...event.request?.headers,
+            url: 'hidden',
+            Referer: 'hidden',
+            referer: 'hidden'
+          }
+        };
+
+        // eslint-disable-next-line functional/immutable-data
+        delete (event.request.headers as any).Cookie;
+        // eslint-disable-next-line functional/immutable-data
+        delete (event.request.headers as any).cookie;
+      }
+
       // eslint-disable-next-line functional/immutable-data
-      event.request = {
-        ...event.request,
-        url: 'hidden',
-        headers: {
-          ...event.request?.headers,
-          url: 'hidden'
-        }
-      };
+      if ((event as any).contexts?.geo) delete (event as any).contexts.geo;
+      // eslint-disable-next-line functional/immutable-data
+      if ((event as any).contexts?.Geography) delete (event as any).contexts.Geography;
+      // eslint-disable-next-line functional/immutable-data
+      if ((event as any).contexts?.geography) delete (event as any).contexts.geography;
 
       // eslint-disable-next-line functional/immutable-data
       if (isDefined(event.breadcrumbs)) event.breadcrumbs = undefined;
