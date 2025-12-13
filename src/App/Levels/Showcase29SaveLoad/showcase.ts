@@ -113,11 +113,11 @@ function saveSpaceConfigInMemory(name: string | undefined, spaceRegistry: TSpace
   const space: TSpace | undefined = spaceRegistry.findByName(name);
   if (isNotDefined(space)) throw new Error(`[Showcase]: Cannot save the space "${name}"`);
 
-  const index: number = spacesInMemoryData.findIndex((s: TSpacesData): boolean => s.name === name) || spacesInMemoryData.length;
+  const index: number = spacesInMemoryData.findIndex((s: TSpacesData): boolean => s.name === name);
   const config: TSpaceConfig = space.serialize();
 
   // eslint-disable-next-line functional/immutable-data
-  spacesInMemoryData[index] = {
+  spacesInMemoryData[index > -1 ? index : 0] = {
     name: space.name,
     config,
     container: config.canvasSelector,
