@@ -1,4 +1,4 @@
-import type { TFsmStates, TFsmWrapper, TKeysEvent, TModels3dResourceAsyncRegistry, TRegistryPack, TSpace, TSpaceAnyEvent, TSpaceConfig, TSpaceServices } from '@Anarchy/Engine';
+import type { TFsmStates, TFsmWrapper, TKeyEvent, TModels3dResourceAsyncRegistry, TRegistryPack, TSpace, TSpaceAnyEvent, TSpaceConfig, TSpaceServices } from '@Anarchy/Engine';
 import { KeyCode, SpaceEvents, spaceService } from '@Anarchy/Engine';
 import { hasKey } from '@Anarchy/Engine/Keyboard/Utils/KeysUtils';
 import { asRecord, isNotDefined } from '@Anarchy/Shared/Utils';
@@ -55,7 +55,7 @@ export function showcase(space: TSpace): void {
     }
   });
 
-  keys$.subscribe(({ keys }: TKeysEvent): void => {
+  keys$.subscribe(({ keys }: TKeyEvent): void => {
     const isWalk: boolean = hasKey(KeyCode.W, keys);
     const isRun: boolean = isWalk && hasKey(KeyCode.ShiftLeft, keys);
     const action = isRun ? run : isWalk ? walk : idle;

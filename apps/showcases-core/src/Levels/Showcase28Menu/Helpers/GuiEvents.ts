@@ -1,4 +1,4 @@
-import type { TKeyboardService, TKeysEvent, TMouseService } from '@Anarchy/Engine';
+import type { TKeyboardService, TKeyEvent, TMouseService } from '@Anarchy/Engine';
 import { isPressEvent, KeyCode } from '@Anarchy/Engine';
 import { isKeyInEvent } from '@Anarchy/Engine/Keyboard/Utils/KeysUtils';
 import type { TToGuiEvent } from '@Showcases/Shared';
@@ -22,7 +22,7 @@ export function initGuiEvents(keyboardService: TKeyboardService, mouseService: T
   const openSettings = (open: boolean): void => toGuiEventsBus$.next(createToGuiActionEvent(Settings, open));
   const openMiniMap = (open: boolean): void => toGuiEventsBus$.next(createToGuiActionEvent(MiniMap, open));
 
-  keys$.subscribe((event: TKeysEvent): void => {
+  keys$.subscribe((event: TKeyEvent): void => {
     if (isKeyInEvent(KeyCode.I, event)) openInventory(isPressEvent(event));
     if (isKeyInEvent(KeyCode.M, event)) openMiniMap(isPressEvent(event));
     if (isKeyInEvent(KeyCode.Escape, event)) openSettings(isPressEvent(event));

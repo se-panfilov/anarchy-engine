@@ -1,5 +1,5 @@
 import type { TAbstractWatcherWithState } from '@Anarchy/Engine/Abstract';
 
-import type { TKeysEvent } from './TKeysEvent';
+import type { TKeyEvent } from './TKeyEvent';
 
-export type TKeyComboWatcher = TAbstractWatcherWithState<TKeysEvent>;
+export type TKeyComboWatcher = TAbstractWatcherWithState<TKeyEvent>;

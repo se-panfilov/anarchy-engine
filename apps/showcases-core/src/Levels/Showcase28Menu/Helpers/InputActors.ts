@@ -10,7 +10,7 @@ import type {
   TMouseWatcherEvent
 } from '@Anarchy/Engine';
 import { isPressEvent, KeyCode, LookUpStrategy, metersPerSecond, mpsSpeed } from '@Anarchy/Engine';
-import type { TKeysEvent } from '@Anarchy/Engine/Keyboard/Models';
+import type { TKeyEvent } from '@Anarchy/Engine/Keyboard/Models';
 import { hasKey, isKeyInEvent } from '@Anarchy/Engine/Keyboard/Utils';
 import { isNotDefined } from '@Anarchy/Shared/Utils';
 import { withLatestFrom } from 'rxjs';
@@ -46,7 +46,7 @@ export function initInputActors(
   const actorMkeyRight: TActor = getByTags(['mkey', 'Right'], Every);
   const actorMkeyMiddle: TActor = getByTags(['mkey', 'Middle'], Every);
 
-  keys$.subscribe((event: TKeysEvent): void => {
+  keys$.subscribe((event: TKeyEvent): void => {
     //true/false switches
     if (isKeyInEvent(GoUp, event)) void actorKeyW.drive.default.addY(isPressEvent(event) ? -0.2 : 0.2);
     if (isKeyInEvent(GoLeft, event)) void actorKeyA.drive.default.addY(isPressEvent(event) ? -0.2 : 0.2);

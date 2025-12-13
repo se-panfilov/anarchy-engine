@@ -1,15 +1,15 @@
 import type { TAbstractWatcherWithState } from '@Anarchy/Engine/Abstract';
 import { AbstractWatcherWithState, WatcherType } from '@Anarchy/Engine/Abstract';
 import { ContainerEvents } from '@Anarchy/Engine/Global';
-import type { TGameKey, TKeyComboWatcher, TKeyComboWatcherDependencies, TKeyComboWatcherParams, TKeysState } from '@Anarchy/Engine/Keyboard';
+import type { TGameKey, TKeyComboWatcher, TKeyComboWatcherDependencies, TKeyComboWatcherParams, TKeysCombo } from '@Anarchy/Engine/Keyboard';
 import { KeyboardEventType } from '@Anarchy/Engine/Keyboard';
-import type { TKeysEvent } from '@Anarchy/Engine/Keyboard/Models/TKeysEvent';
+import type { TKeyEvent } from '@Anarchy/Engine/Keyboard/Models/TKeyEvent';
 import type { Subscription } from 'rxjs';
 import { distinctUntilChanged, takeUntil } from 'rxjs';
 
 export function KeyComboWatcher({ container, tags }: TKeyComboWatcherParams, { keyPressWatcher, keyReleaseWatcher }: TKeyComboWatcherDependencies): TKeyComboWatcher {
-  const keys: TKeysState = new Set<TGameKey>();
-  const watcher: TAbstractWatcherWithState<TKeysEvent> = AbstractWatcherWithState(WatcherType.KeyPressWatcher, 'key_combo_watcher', { keys }, tags);
+  const keys: TKeysCombo = new Set<TGameKey>();
+  const watcher: TAbstractWatcherWithState<TKeyEvent> = AbstractWatcherWithState(WatcherType.KeyPressWatcher, 'key_combo_watcher', { keys }, tags);
 
   function onPress(event: KeyboardEvent): void {
     if (keys.has(event.code as TGameKey)) return;

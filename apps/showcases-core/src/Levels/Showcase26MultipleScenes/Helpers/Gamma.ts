@@ -1,4 +1,4 @@
-import type { TFsmStates, TFsmWrapper, TKeysEvent, TSpace } from '@Anarchy/Engine';
+import type { TFsmStates, TFsmWrapper, TKeyEvent, TSpace } from '@Anarchy/Engine';
 import { KeyCode } from '@Anarchy/Engine';
 import { hasKey } from '@Anarchy/Engine/Keyboard/Utils/KeysUtils';
 import { distinctUntilChanged } from 'rxjs';
@@ -40,7 +40,7 @@ function addActors(space: TSpace): void {
     }
   });
 
-  keys$.subscribe(({ keys }: TKeysEvent): void => {
+  keys$.subscribe(({ keys }: TKeyEvent): void => {
     const isWalk: boolean = hasKey(KeyCode.W, keys);
     const isRun: boolean = isWalk && hasKey(KeyCode.ShiftLeft, keys);
     const action = isRun ? run : isWalk ? walk : idle;

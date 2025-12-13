@@ -1,4 +1,4 @@
-import type { TActor, TActorRegistry, TAnyCameraWrapper, TIntersectionEvent, TIntersectionsCameraWatcher, TKeysEvent, TMouseWatcherEvent, TSpace, TSpaceConfig } from '@Anarchy/Engine';
+import type { TActor, TActorRegistry, TAnyCameraWrapper, TIntersectionEvent, TIntersectionsCameraWatcher, TKeyEvent, TMouseWatcherEvent, TSpace, TSpaceConfig } from '@Anarchy/Engine';
 import { hasKey, isKeyInEvent, isPressEvent, KeyCode, LookUpStrategy, metersPerSecond, mpsSpeed, spaceService } from '@Anarchy/Engine';
 import { asRecord, isNotDefined } from '@Anarchy/Shared/Utils';
 import GUI from 'lil-gui';
@@ -60,7 +60,7 @@ export function showcase(space: TSpace): void {
   const actorMkeyForward: TActor = getByTags(['mkey', 'Forward'], Every);
   const actorMkeyExtra: TActor = getByTags(['mkey', 'Extra'], Every);
 
-  keys$.subscribe((event: TKeysEvent): void => {
+  keys$.subscribe((event: TKeyEvent): void => {
     //true/false switches
     if (isKeyInEvent(GoUp, event)) void actorKeyW.drive.default.addY(isPressEvent(event) ? -0.2 : 0.2);
     if (isKeyInEvent(GoLeft, event)) void actorKeyA.drive.default.addY(isPressEvent(event) ? -0.2 : 0.2);

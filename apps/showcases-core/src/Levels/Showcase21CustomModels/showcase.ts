@@ -1,4 +1,4 @@
-import type { TKeysEvent, TModel3d, TModels3dRegistry, TModels3dResourceAsyncRegistry, TRegistryPack, TSceneWrapper, TSpace, TSpaceAnyEvent, TSpaceConfig, TSpaceServices } from '@Anarchy/Engine';
+import type { TKeyEvent, TModel3d, TModels3dRegistry, TModels3dResourceAsyncRegistry, TRegistryPack, TSceneWrapper, TSpace, TSpaceAnyEvent, TSpaceConfig, TSpaceServices } from '@Anarchy/Engine';
 import { isKeyInEvent, isPressEvent, KeyCode, SpaceEvents, spaceService } from '@Anarchy/Engine';
 import { asRecord, isNotDefined } from '@Anarchy/Shared/Utils';
 import type { AnimationAction } from 'three';
@@ -69,7 +69,7 @@ export async function showcase(space: TSpace): Promise<void> {
   const runActionCloneModel: AnimationAction = animationsService.startAutoUpdateMixer(modelClone).actions['Run'];
   const runActionCompressedModel: AnimationAction = animationsService.startAutoUpdateMixer(modelCompressed).actions['Run'];
 
-  keyboardService.keys$.pipe().subscribe((event: TKeysEvent): void => {
+  keyboardService.keys$.pipe().subscribe((event: TKeyEvent): void => {
     const action = isPressEvent(event) ? 'play' : ('stop' as const);
     if (isKeyInEvent(KeyCode.One, event)) runActionCloneModel?.[action]();
     if (isKeyInEvent(KeyCode.Two, event)) runActionOriginalModel?.[action]();
