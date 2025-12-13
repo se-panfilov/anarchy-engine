@@ -62,8 +62,9 @@ export function Actor(
   const spatialSub$: Subscription = spatialLoopService.tick$.subscribe(({ priority }: TSpatialLoopServiceValue): void => {
     if (!entities.spatial.isAutoUpdate()) return;
     if (entities.spatial.getSpatialUpdatePriority() >= priority) {
-      updatePosition();
-      updateRotation();
+      // TODO 8.0.0. MODELS: Fix the following code
+      // updatePosition();
+      // updateRotation();
     }
   });
 
