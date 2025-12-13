@@ -103,7 +103,7 @@ export function isRotationReached(target: TKinematicTarget | undefined, rotation
   return false;
 }
 
-export function rotateInstantly(agent: TWriteable<TKinematicTransformAgent>, targetRotation: Quaternion): void {
+export function rotateInstantly(agent: TWriteable<TKinematicTransformAgent>, targetRotation: TReadonlyQuaternion): void {
   agent.setAngularSpeed(0);
   // eslint-disable-next-line functional/immutable-data
   if (isDefined(agent.data.target?.rotation)) (agent.data.target as TWriteable<TKinematicTarget>).rotation = undefined;
@@ -113,7 +113,7 @@ export function rotateInstantly(agent: TWriteable<TKinematicTransformAgent>, tar
   return;
 }
 
-export function moveInstantly(agent: TWriteable<TKinematicTransformAgent>, targetPosition: Vector3): void {
+export function moveInstantly(agent: TWriteable<TKinematicTransformAgent>, targetPosition: TReadonlyVector3): void {
   agent.setLinearSpeed(0);
   // eslint-disable-next-line functional/immutable-data
   if (isDefined(agent.data.target?.position)) (agent.data.target as TWriteable<TKinematicTarget>).position = undefined;

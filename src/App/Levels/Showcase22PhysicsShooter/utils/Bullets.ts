@@ -23,6 +23,7 @@ import type {
   TMouseService,
   TMouseWatcherEvent,
   TPointLightWrapper,
+  TReadonlyVector3,
   TSceneWrapper,
   TSpatialGridService,
   TSpatialGridWrapper
@@ -182,7 +183,7 @@ export function prepareShooting(
   });
 }
 
-export function shoot(actorPosition: Vector3, target: Vector3, speed: TMetersPerSecond, bullets: ReadonlyArray<TBullet>): void {
+export function shoot(actorPosition: TReadonlyVector3, target: TReadonlyVector3, speed: TMetersPerSecond, bullets: ReadonlyArray<TBullet>): void {
   const bullet: TBullet | undefined = bullets.find((b: TBullet): boolean => !b.isActive());
   if (isDefined(bullet)) {
     bullet.drive.position$.next(actorPosition);
