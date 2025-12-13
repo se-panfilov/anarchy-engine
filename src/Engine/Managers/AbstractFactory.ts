@@ -21,12 +21,18 @@ export function AbstractFactory<T extends Entity<unknown>, R extends Record<stri
   }
 
   return {
-    get id() {
+    get id(): string {
       return id;
     },
-    latest$,
-    add$,
+    get latest$(): Subject<T> {
+      return latest$;
+    },
+    get add$(): Subject<R> {
+      return add$;
+    },
     destroy,
-    destroyed$
+    get destroyed$(): Subject<void> {
+      return destroyed$;
+    }
   };
 }

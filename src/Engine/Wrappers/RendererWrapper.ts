@@ -1,30 +1,26 @@
 import { PCFShadowMap, WebGL1Renderer } from 'three';
 import { isNotDefined, isWebGLAvailable } from '@Engine/Utils';
 import { AbstractWrapper } from '@Engine/Wrappers/AbstractWrapper';
-import { DeviceWatcher } from '@Engine/Watchers/DeviceWatcher';
 
-export class RendererWrapper extends AbstractWrapper<WebGL1Renderer> {
-  public entity: WebGL1Renderer;
+// TODO (S.Panfilov) DI deviceWatcher
+export function RendererWrapper(canvas: HTMLElement): ReturnType<typeof AbstractWrapper<WebGL1Renderer>> {
+  if (isNotDefined(canvas)) throw new Error(`Canvas is not defined`);
+  if (!isWebGLAvailable()) throw new Error('WebGL is not supported by this device');
 
-  constructor(canvas: HTMLElement, deviceWatcher: DeviceWatcher) {
-    super();
+  const entity: WebGL1Renderer = new WebGL1Renderer({ canvas });
+  entity.shadowMap.enabled = true;
+  entity.shadowMap.type = PCFShadowMap;
+  entity.physicallyCorrectLights = true;
 
-    if (isNotDefined(canvas)) throw new Error(`Canvas is not defined`);
-    if (!isWebGLAvailable()) throw new Error('WebGL is not supported by this device');
+  deviceWatcher.size$.subscribe(({ width, height, ratio }) => {
+    if (isNotDefined(entity)) return;
+    entity.setSize(width, height);
+    entity.setPixelRatio(Math.min(ratio, 2));
+  });
 
-    this.entity = new WebGL1Renderer({ canvas });
-    this.entity.shadowMap.enabled = true;
-    this.entity.shadowMap.type = PCFShadowMap;
-    this.entity.physicallyCorrectLights = true;
+  deviceWatcher.destroyed$.subscribe(() => deviceWatcher.size$.unsubscribe());
 
-    deviceWatcher.size$.subscribe(({ width, height, ratio }) => {
-      if (isNotDefined(this.entity)) return;
-      this.entity.setSize(width, height);
-      this.entity.setPixelRatio(Math.min(ratio, 2));
-    });
+  destroyed$.subscribe(() => deviceWatcher.size$.unsubscribe());
 
-    deviceWatcher.destroyed$.subscribe(() => deviceWatcher.size$.unsubscribe());
-
-    this.destroyed$.subscribe(() => deviceWatcher.size$.unsubscribe());
-  }
+  return { ...AbstractWrapper(entity), entity };
 }
