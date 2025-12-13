@@ -1,18 +1,12 @@
-import type { Observable } from 'rxjs';
-import type { Vector2Like } from 'three';
-
 import type { TActor } from '@/Engine/Actor';
-import type { TAnyCameraWrapper } from '@/Engine/Camera';
 import type { TWithName, TWithTags } from '@/Engine/Mixins';
 
 import type { TIntersectionsLoop } from './TIntersectionsLoop';
 import type { TIntersectionsWatcherPerformanceOptions } from './TIntersectionsWatcherPerformanceOptions';
 
-export type TIntersectionsWatcherParams = Readonly<{
+export type TAbstractIntersectionsWatcherParams = Readonly<{
   isAutoStart: boolean;
-  camera: TAnyCameraWrapper;
   actors: ReadonlyArray<TActor>;
-  position$: Observable<Vector2Like>;
   intersectionsLoop: TIntersectionsLoop;
   performance?: TIntersectionsWatcherPerformanceOptions;
 }> &

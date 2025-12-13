@@ -5,7 +5,7 @@ import type { TActorConfig } from '@/Engine/Actor';
 import type { TAnyAudioConfig, TAudioResourceConfig } from '@/Engine/Audio';
 import type { TAnyCameraConfig } from '@/Engine/Camera';
 import type { TControlsConfig } from '@/Engine/Controls';
-import type { TIntersectionsWatcherConfig } from '@/Engine/Intersections';
+import type { TAnyIntersectionsWatcherConfig } from '@/Engine/Intersections';
 import type { TActive, TWithName, TWithNameOptional, TWithTags } from '@/Engine/Mixins';
 import type { TModel3dConfig, TModel3dResourceConfig } from '@/Engine/Models3d';
 import type { TSceneConfig } from '@/Engine/Scene/Models';
@@ -124,7 +124,7 @@ function validateRelations(
   models3dResources: ReadonlyArray<TModel3dResourceConfig>,
   audioResources: ReadonlyArray<TAudioResourceConfig>,
   audio: ReadonlyArray<TAnyAudioConfig>,
-  intersections: ReadonlyArray<TIntersectionsWatcherConfig>
+  intersections: ReadonlyArray<TAnyIntersectionsWatcherConfig>
 ): ReadonlyArray<string> {
   let errors: ReadonlyArray<string> = [];
 

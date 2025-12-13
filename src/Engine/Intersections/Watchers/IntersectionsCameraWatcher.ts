@@ -1,30 +1,28 @@
 import type { Subscription } from 'rxjs';
 import { distinctUntilChanged, identity, sample, tap } from 'rxjs';
 import type { Vector2Like } from 'three';
-import { Raycaster, Vector2 } from 'three';
+import { Vector2 } from 'three';
 
-import type { TAbstractWatcher } from '@/Engine/Abstract';
-import { AbstractWatcher, WatcherType } from '@/Engine/Abstract';
 import type { TActor } from '@/Engine/Actor';
 import type { TAnyCameraWrapper } from '@/Engine/Camera';
 import { intersectionsToConfig } from '@/Engine/Intersections/Adapters';
-import type { TIntersectionEvent, TIntersectionsLoop, TIntersectionsWatcher, TIntersectionsWatcherConfig, TIntersectionsWatcherParams } from '@/Engine/Intersections/Models';
+import type {
+  TAbstractIntersectionsWatcher,
+  TIntersectionEvent,
+  TIntersectionsCameraWatcher,
+  TIntersectionsCameraWatcherConfig,
+  TIntersectionsCameraWatcherParams
+} from '@/Engine/Intersections/Models';
+import { AbstractIntersectionsWatcher } from '@/Engine/Intersections/Watchers/AbstractIntersectionsWatcher';
 import type { TRawModel3d } from '@/Engine/Models3d';
 import type { TSceneObject } from '@/Engine/Scene';
 import type { TWriteable } from '@/Engine/Utils';
 import { isDefined, isEqualOrSimilarByXyCoords, isNotDefined } from '@/Engine/Utils';
 
-export function IntersectionsWatcher({ position$, isAutoStart, tags, name, performance, intersectionsLoop, ...rest }: TIntersectionsWatcherParams): TIntersectionsWatcher {
-  const abstractWatcher: TAbstractWatcher<TIntersectionEvent> = AbstractWatcher<TIntersectionEvent>(WatcherType.IntersectionWatcher, name, tags);
-  let raycaster: Readonly<Raycaster> | undefined = new Raycaster();
-  let actors: ReadonlyArray<TActor> = [];
+export function IntersectionsCameraWatcher(params: TIntersectionsCameraWatcherParams): TIntersectionsCameraWatcher {
+  const { position$, isAutoStart, tags, name, performance, intersectionsLoop, ...rest } = params;
+  const abstractIntersectionsWatcher: TAbstractIntersectionsWatcher = AbstractIntersectionsWatcher(params);
   let camera: Readonly<TAnyCameraWrapper> | undefined;
-
-  const addActors = (actorsList: ReadonlyArray<TActor>): void => void (actors = [...actors, ...actorsList]);
-  const addActor = (actor: TActor): void => void (actors = [...actors, actor]);
-  const getActors = (): ReadonlyArray<TActor> => actors;
-  const removeActors = (actorIds: ReadonlyArray<string>): void => void (actors = actors.filter((actor: TActor): boolean => !actorIds.includes(actor.id)));
-  const removeActor = (actorId: string): void => void (actors = actors.filter((actor: TActor): boolean => actorId !== actor.id));
 
   const setCamera = (c: TAnyCameraWrapper): void => void (camera = c);
   const findCamera = (): TAnyCameraWrapper | undefined => camera;
@@ -32,15 +30,8 @@ export function IntersectionsWatcher({ position$, isAutoStart, tags, name, perfo
     if (isNotDefined(camera)) throw new Error('[IntersectionsWatcher]: Cannot get camera: not defined');
     return camera;
   };
-  const getIntersectionsLoop = (): TIntersectionsLoop => intersectionsLoop;
 
-  let positionSub$: Subscription | undefined;
-
-  const threshold: number = performance?.noiseThreshold ?? 0.001;
-  // shouldUseDistinct might improve performance, however, won't fire an event if the mouse is not moving (and actor or scene is moving)
-  const shouldUseDistinct: boolean = performance?.shouldUseDistinct ?? false;
-
-  const startSub$: Subscription = abstractWatcher.start$.subscribe((): void => {
+  const startSub$: Subscription = abstractIntersectionsWatcher.start$.subscribe((): void => {
     const prevValue: Float32Array = new Float32Array([0, 0]);
     positionSub$ = position$
       .pipe(
@@ -67,7 +58,7 @@ export function IntersectionsWatcher({ position$, isAutoStart, tags, name, perfo
     result.isStarted = true;
   });
 
-  const stopSub$: Subscription = abstractWatcher.stop$.subscribe((): void => {
+  const stopSub$: Subscription = abstractIntersectionsWatcher.stop$.subscribe((): void => {
     positionSub$?.unsubscribe();
     // eslint-disable-next-line functional/immutable-data
     result.isStarted = false;
@@ -79,36 +70,23 @@ export function IntersectionsWatcher({ position$, isAutoStart, tags, name, perfo
     return raycaster.intersectObjects(list)[0];
   }
 
-  const destroySub$: Subscription = abstractWatcher.destroy$.subscribe((): void => {
-    raycaster = null as any;
-    // eslint-disable-next-line functional/immutable-data
-    (actors as Array<TActor>).length = 0;
+  const destroySub$: Subscription = abstractIntersectionsWatcher.destroy$.subscribe((): void => {
+    abstractIntersectionsWatcher.destroy$.next();
 
-    positionSub$?.unsubscribe();
     destroySub$.unsubscribe();
-    startSub$.unsubscribe();
-    stopSub$.unsubscribe();
   });
 
   // eslint-disable-next-line functional/immutable-data
-  const result: TWriteable<TIntersectionsWatcher> = Object.assign(abstractWatcher, {
-    addActor,
-    addActors,
+  const result: TWriteable<TIntersectionsCameraWatcher> = Object.assign(abstractIntersectionsWatcher, {
     findCamera,
-    getActors,
     getCamera,
-    getIntersectionsLoop,
     isAutoStart,
     isStarted: false,
-    removeActor,
-    removeActors,
-    serialize: (): TIntersectionsWatcherConfig => intersectionsToConfig(result),
+    serialize: (): TIntersectionsCameraWatcherConfig => intersectionsToConfig(result),
     setCamera
   });
 
-  setCamera(rest.camera);
-  if (rest.actors.length > 0) addActors(rest.actors);
-  if (isAutoStart) result.start$.next();
+  setCamera(camera);
 
   return result;
 }

@@ -5,10 +5,10 @@ import { AbstractService } from '@/Engine/Abstract';
 import type { TActorService } from '@/Engine/Actor';
 import type { TCameraService } from '@/Engine/Camera';
 import type {
-  TIntersectionsWatcher,
-  TIntersectionsWatcherConfig,
+  TAnyIntersectionsWatcher,
+  TAnyIntersectionsWatcherConfig,
+  TAnyIntersectionsWatcherParams,
   TIntersectionsWatcherFactory,
-  TIntersectionsWatcherParams,
   TIntersectionsWatcherRegistry,
   TIntersectionsWatcherService,
   TIntersectionsWatcherServiceWithFactory,
@@ -20,26 +20,26 @@ import { withFactoryService, withRegistryService, withSerializeAllEntities } fro
 import type { TMouseService } from '@/Engine/Mouse';
 
 export function IntersectionsWatcherService(factory: TIntersectionsWatcherFactory, registry: TIntersectionsWatcherRegistry): TIntersectionsWatcherService {
-  const factorySub$: Subscription = factory.entityCreated$.subscribe((watcher: TIntersectionsWatcher): void => registry.add(watcher));
+  const factorySub$: Subscription = factory.entityCreated$.subscribe((watcher: TAnyIntersectionsWatcher): void => registry.add(watcher));
   const disposable: ReadonlyArray<TDisposable> = [registry, factory, factorySub$];
   const abstractService: TAbstractService = AbstractService(disposable);
 
-  const create = (params: TIntersectionsWatcherParams): TIntersectionsWatcher => factory.create(params, undefined);
-  const createFromList = (list: ReadonlyArray<TIntersectionsWatcherParams>): ReadonlyArray<TIntersectionsWatcher> => list.map(create);
+  const create = (params: TAnyIntersectionsWatcherParams): TAnyIntersectionsWatcher => factory.create(params, undefined);
+  const createFromList = (list: ReadonlyArray<TAnyIntersectionsWatcherParams>): ReadonlyArray<TAnyIntersectionsWatcher> => list.map(create);
   const createFromConfig = (
-    configs: ReadonlyArray<TIntersectionsWatcherConfig>,
+    configs: ReadonlyArray<TAnyIntersectionsWatcherConfig>,
     mouseService: TMouseService,
     cameraService: TCameraService,
     actorService: TActorService,
     loopService: TLoopService
-  ): ReadonlyArray<TIntersectionsWatcher> =>
-    configs.map((config: TIntersectionsWatcherConfig): TIntersectionsWatcher => create(factory.configToParams(config, mouseService, cameraService, actorService, loopService)));
+  ): ReadonlyArray<TAnyIntersectionsWatcher> =>
+    configs.map((config: TAnyIntersectionsWatcherParams): TAnyIntersectionsWatcher => create(factory.configToParams(config, mouseService, cameraService, actorService, loopService)));
 
   const withFactory: TIntersectionsWatcherServiceWithFactory = withFactoryService(factory);
   const withRegistry: TIntersectionsWatcherServiceWithRegistry = withRegistryService(registry);
 
   // eslint-disable-next-line functional/immutable-data
-  return Object.assign(abstractService, withFactory, withRegistry, withSerializeAllEntities<TIntersectionsWatcherConfig, undefined>(registry), {
+  return Object.assign(abstractService, withFactory, withRegistry, withSerializeAllEntities<TAnyIntersectionsWatcherConfig, undefined>(registry), {
     create,
     createFromList,
     createFromConfig

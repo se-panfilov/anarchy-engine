@@ -5,7 +5,7 @@ import type { TControlsParams } from '@/Engine/Controls';
 import type { TEnvMapParams } from '@/Engine/EnvMap';
 import type { TFogParams } from '@/Engine/Fog';
 import type { TFsmParams } from '@/Engine/Fsm';
-import type { TIntersectionsWatcherParams } from '@/Engine/Intersections';
+import type { TAnyIntersectionsWatcherParams } from '@/Engine/Intersections';
 import type { TAnyLightParams } from '@/Engine/Light';
 import type { TMaterialParams } from '@/Engine/Material';
 import type { TModel3dParams } from '@/Engine/Models3d';
@@ -23,7 +23,7 @@ export type TSpaceParamsEntities = Readonly<{
   envMaps?: ReadonlyArray<TEnvMapParams>;
   fogs?: ReadonlyArray<TFogParams>;
   fsm?: ReadonlyArray<TFsmParams>;
-  intersections?: ReadonlyArray<TIntersectionsWatcherParams>;
+  intersections?: ReadonlyArray<TAnyIntersectionsWatcherParams>;
   lights?: ReadonlyArray<TAnyLightParams>;
   materials?: ReadonlyArray<TMaterialParams>;
   models3d?: ReadonlyArray<TModel3dParams>;

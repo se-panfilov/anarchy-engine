@@ -4,7 +4,7 @@ import { BehaviorSubject, distinctUntilChanged, filter, skip } from 'rxjs';
 import type { TAbstractService, TRegistryPack } from '@/Engine/Abstract';
 import { AbstractEntity, EntityType } from '@/Engine/Abstract';
 import type { TContainerDecorator } from '@/Engine/Global';
-import type { TIntersectionsWatcher } from '@/Engine/Intersections';
+import type { TIntersectionsCameraWatcher } from '@/Engine/Intersections';
 import type { TLoop } from '@/Engine/Loop';
 import type { TMouseClickWatcher, TMousePositionWatcher } from '@/Engine/Mouse';
 import type { TSceneWrapper } from '@/Engine/Scene';
@@ -33,7 +33,7 @@ export function Space(params: TSpaceParams, registry: TSpaceRegistry, hooks?: TS
       hooks?.afterEntitiesCreated?.(params, services, loops);
 
       // TODO 14-0-0: Find a better place for this
-      services.intersectionsWatcherService.getRegistry().added$.subscribe(({ value }: TRegistryPack<TIntersectionsWatcher>): void => {
+      services.intersectionsWatcherService.getRegistry().added$.subscribe(({ value }: TRegistryPack<TIntersectionsCameraWatcher>): void => {
         if (value.isAutoStart && !value.isStarted) value.start$.next();
       });
     });
@@ -142,5 +142,5 @@ function initSpaceServices(
 function stopWatchers({ intersectionsWatcherService, mouseService }: TSpaceServices): void {
   mouseService.getMouseClickWatcherRegistry().forEach((watcher: TMouseClickWatcher): void => watcher.stop$.next());
   mouseService.getMousePositionWatcherRegistry().forEach((watcher: TMousePositionWatcher): void => watcher.stop$.next());
-  intersectionsWatcherService.getRegistry().forEach((watcher: TIntersectionsWatcher): void => void (watcher.isStarted && watcher.stop$.next()));
+  intersectionsWatcherService.getRegistry().forEach((watcher: TIntersectionsCameraWatcher): void => void (watcher.isStarted && watcher.stop$.next()));
 }

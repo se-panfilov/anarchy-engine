@@ -4,19 +4,19 @@ import type { TCameraService } from '@/Engine/Camera';
 import type { TLoopService } from '@/Engine/Loop';
 import type { TMouseService } from '@/Engine/Mouse';
 
-import type { TIntersectionsWatcher } from './TIntersectionsWatcher';
-import type { TIntersectionsWatcherConfig } from './TIntersectionsWatcherConfig';
-import type { TIntersectionsWatcherParams } from './TIntersectionsWatcherParams';
+import type { TAnyIntersectionsWatcher } from './TAnyIntersectionsWatcher';
+import type { TAnyIntersectionsWatcherConfig } from './TAnyIntersectionsWatcherConfig';
+import type { TAnyIntersectionsWatcherParams } from './TAnyIntersectionsWatcherParams';
 
-export type TIntersectionsWatcherParamsFromConfig = Omit<TParamsFromConfig<TIntersectionsWatcherConfig, TIntersectionsWatcherParams>, 'configToParams'> &
+export type TIntersectionsWatcherParamsFromConfig = Omit<TParamsFromConfig<TAnyIntersectionsWatcherConfig, TAnyIntersectionsWatcherParams>, 'configToParams'> &
   Readonly<{
     configToParams: (
-      config: TIntersectionsWatcherConfig,
+      config: TAnyIntersectionsWatcherConfig,
       mouseService: TMouseService,
       cameraService: TCameraService,
       actorsService: TActorService,
       loopService: TLoopService
-    ) => TIntersectionsWatcherParams;
+    ) => TAnyIntersectionsWatcherParams;
   }>;
 
-export type TIntersectionsWatcherFactory = TReactiveFactory<TIntersectionsWatcher, TIntersectionsWatcherParams> & TIntersectionsWatcherParamsFromConfig;
+export type TIntersectionsWatcherFactory = TReactiveFactory<TAnyIntersectionsWatcher, TAnyIntersectionsWatcherParams> & TIntersectionsWatcherParamsFromConfig;

@@ -5,7 +5,7 @@ import type { TControlsConfig } from '@/Engine/Controls';
 import type { TEnvMapConfig } from '@/Engine/EnvMap';
 import type { TFogConfig } from '@/Engine/Fog';
 import type { TFsmConfig } from '@/Engine/Fsm';
-import type { TIntersectionsWatcherConfig } from '@/Engine/Intersections';
+import type { TAnyIntersectionsWatcherConfig } from '@/Engine/Intersections';
 import type { TAnyLightConfig } from '@/Engine/Light';
 import type { TMaterialConfig } from '@/Engine/Material';
 import type { TModel3dConfig } from '@/Engine/Models3d';
@@ -21,7 +21,7 @@ export type TSpaceConfigEntities = Readonly<{
   audio: ReadonlyArray<TAnyAudioConfig>;
   cameras: ReadonlyArray<TAnyCameraConfig>;
   envMaps: ReadonlyArray<TEnvMapConfig>;
-  intersections: ReadonlyArray<TIntersectionsWatcherConfig>;
+  intersections: ReadonlyArray<TAnyIntersectionsWatcherConfig>;
   lights: ReadonlyArray<TAnyLightConfig>;
   materials: ReadonlyArray<TMaterialConfig>;
   models3d: ReadonlyArray<TModel3dConfig>;

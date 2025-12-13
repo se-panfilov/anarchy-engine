@@ -1,5 +1,5 @@
 import type { TAbstractEntityRegistry } from '@/Engine/Abstract/Models';
 
-import type { TIntersectionsWatcher } from './TIntersectionsWatcher';
+import type { TAnyIntersectionsWatcher } from './TAnyIntersectionsWatcher';
 
-export type TIntersectionsWatcherRegistry = TAbstractEntityRegistry<TIntersectionsWatcher>;
+export type TIntersectionsWatcherRegistry = TAbstractEntityRegistry<TAnyIntersectionsWatcher>;

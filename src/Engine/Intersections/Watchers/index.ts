@@ -1,1 +1,2 @@
-export * from './IntersectionsWatcher';
+export * from './IntersectionsCameraWatcher';
+export * from './IntersectionsDirectionWatcher';

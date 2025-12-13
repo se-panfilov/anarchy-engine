@@ -5,28 +5,28 @@ import type { TLoopService } from '@/Engine/Loop';
 import type { TWithCreateFromConfigService, TWithCreateService, TWithFactoryService, TWithRegistryService } from '@/Engine/Mixins';
 import type { TMouseService } from '@/Engine/Mouse';
 
-import type { TIntersectionsWatcher } from './TIntersectionsWatcher';
-import type { TIntersectionsWatcherConfig } from './TIntersectionsWatcherConfig';
+import type { TAnyIntersectionsWatcher } from './TAnyIntersectionsWatcher';
+import type { TAnyIntersectionsWatcherConfig } from './TAnyIntersectionsWatcherConfig';
+import type { TAnyIntersectionsWatcherParams } from './TAnyIntersectionsWatcherParams';
 import type { TIntersectionsWatcherFactory } from './TIntersectionsWatcherFactory';
-import type { TIntersectionsWatcherParams } from './TIntersectionsWatcherParams';
 import type { TIntersectionsWatcherRegistry } from './TIntersectionsWatcherRegistry';
 
-export type TIntersectionsWatcherServiceWithCreate = TWithCreateService<TIntersectionsWatcher, TIntersectionsWatcherParams>;
-export type TIntersectionsWatcherServiceWithCreateFromConfig = Omit<TWithCreateFromConfigService<TIntersectionsWatcherConfig, TIntersectionsWatcher>, 'createFromConfig'>;
-export type TIntersectionsWatcherServiceWithFactory = TWithFactoryService<TIntersectionsWatcher, TIntersectionsWatcherParams, undefined, TIntersectionsWatcherFactory>;
+export type TIntersectionsWatcherServiceWithCreate = TWithCreateService<TAnyIntersectionsWatcher, TAnyIntersectionsWatcherParams>;
+export type TIntersectionsWatcherServiceWithCreateFromConfig = Omit<TWithCreateFromConfigService<TAnyIntersectionsWatcherConfig, TAnyIntersectionsWatcher>, 'createFromConfig'>;
+export type TIntersectionsWatcherServiceWithFactory = TWithFactoryService<TAnyIntersectionsWatcher, TAnyIntersectionsWatcherParams, undefined, TIntersectionsWatcherFactory>;
 export type TIntersectionsWatcherServiceWithRegistry = TWithRegistryService<TIntersectionsWatcherRegistry>;
 
-export type TIntersectionsWatcherService = TSerializableEntitiesService<TIntersectionsWatcherConfig> &
+export type TIntersectionsWatcherService = TSerializableEntitiesService<TAnyIntersectionsWatcherConfig> &
   TIntersectionsWatcherServiceWithCreate &
   TIntersectionsWatcherServiceWithCreateFromConfig &
   Readonly<{
     createFromConfig: (
-      configs: ReadonlyArray<TIntersectionsWatcherConfig>,
+      configs: ReadonlyArray<TAnyIntersectionsWatcherConfig>,
       mouseService: TMouseService,
       cameraService: TCameraService,
       actorsService: TActorService,
       loopService: TLoopService
-    ) => ReadonlyArray<TIntersectionsWatcher>;
+    ) => ReadonlyArray<TAnyIntersectionsWatcher>;
   }> &
   TIntersectionsWatcherServiceWithFactory &
   TIntersectionsWatcherServiceWithRegistry;
