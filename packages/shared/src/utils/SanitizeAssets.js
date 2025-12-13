@@ -1,15 +1,18 @@
+import { NodeIO } from '@gltf-transform/core';
+import { exec } from 'child_process';
+import fg from 'fast-glob';
 import { promises as fs } from 'fs';
 import path from 'path';
 import sharp from 'sharp';
 import { optimize as optimizeSvg } from 'svgo';
-import fg from 'fast-glob';
-import { exec } from 'child_process';
+// eslint-disable-next-line spellcheck/spell-checker
 import { promisify } from 'util';
-import { NodeIO } from '@gltf-transform/core';
 
+// eslint-disable-next-line spellcheck/spell-checker
 const execAsync = promisify(exec);
 const TARGET_DIR = path.resolve(process.cwd(), './public');
 
+// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 async function cleanImage(filePath) {
   const ext = path.extname(filePath).toLowerCase();
   const image = sharp(filePath);
@@ -18,6 +21,7 @@ async function cleanImage(filePath) {
   console.log(`🧼 Cleaned ${ext.toUpperCase()}: ${filePath}`);
 }
 
+// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 async function cleanSvg(filePath) {
   const original = await fs.readFile(filePath, 'utf-8');
   const result = optimizeSvg(original, {
@@ -28,6 +32,7 @@ async function cleanSvg(filePath) {
   console.log(`🧼 Optimized SVG: ${filePath}`);
 }
 
+// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 async function cleanMp3(filePath) {
   const tmp = filePath + '.cleaned.mp3';
   await execAsync(`ffmpeg -i "${filePath}" -map_metadata -1 -y "${tmp}"`);
@@ -35,13 +40,13 @@ async function cleanMp3(filePath) {
   console.log(`🧼 Stripped metadata from MP3: ${filePath}`);
 }
 
+// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 function sanitizeDocument(doc) {
   const root = doc.getRoot();
 
-  // Удаляем asset.generator
+  // eslint-disable-next-line functional/immutable-data
   root.getAsset().generator = undefined;
 
-  // Удаляем extras из всех объектов
   [
     root.listAccessors(),
     root.listAnimations(),
@@ -62,12 +67,14 @@ function sanitizeDocument(doc) {
       item.setExtras(undefined);
     });
 
-  // Удаляем пустые extensions (если есть)
+  // eslint-disable-next-line functional/no-loop-statements
   for (const extension of root.listExtensions()) {
+    // eslint-disable-next-line spellcheck/spell-checker
     root.unregisterExtension(extension);
   }
 }
 
+// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 async function cleanGlb(filePath) {
   try {
     const io = new NodeIO();
@@ -80,12 +87,14 @@ async function cleanGlb(filePath) {
   }
 }
 
+// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 async function sanitizeAssets() {
   const files = await fg(['**/*.{png,jpg,jpeg,svg,mp3,ogg,glb,gltf}'], {
     cwd: TARGET_DIR,
     absolute: true
   });
 
+  // eslint-disable-next-line functional/no-loop-statements
   for (const file of files) {
     const ext = path.extname(file).toLowerCase();
     try {

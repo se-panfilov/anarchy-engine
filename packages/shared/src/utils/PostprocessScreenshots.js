@@ -1,9 +1,10 @@
-import sharp from 'sharp';
 import fs from 'fs/promises';
 import path from 'path';
+import sharp from 'sharp';
 
 const SCREENSHOT_DIR = path.resolve(process.cwd(), './e2e');
 
+// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 async function processPng(filePath) {
   const outputPath = filePath;
   const buffer = await sharp(filePath)
@@ -12,9 +13,11 @@ async function processPng(filePath) {
   await fs.writeFile(outputPath, buffer);
 }
 
+// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 async function processAllPngs(dir) {
   const entries = await fs.readdir(dir, { withFileTypes: true });
 
+  // eslint-disable-next-line functional/no-loop-statements
   for (const entry of entries) {
     const fullPath = path.join(dir, entry.name);
     if (entry.isDirectory()) {
