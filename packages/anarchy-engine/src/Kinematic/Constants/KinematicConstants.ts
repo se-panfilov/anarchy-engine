@@ -1,6 +1,6 @@
 import type { TKinematicConfigState, TKinematicState, TKinematicTarget } from '@Anarchy/Engine/Kinematic';
 import type { TMeters } from '@Anarchy/Engine/Math';
-import { eulerToXyz, vector3ToXyz } from '@Anarchy/Engine/Utils';
+import { eulerToXyz, vector3ToXyz } from '@Anarchy/Engine/Utils/TransformUtils';
 import { Euler, Quaternion, Vector3 } from 'three';
 
 import { ForwardAxis } from './ForwardAxis';
