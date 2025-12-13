@@ -23,6 +23,8 @@ import { RendererFactory, RendererRegistry, RendererService } from '@/Engine/Ren
 import type { TSceneFactory, TSceneRegistry, TScenesService, TSceneWrapper } from '@/Engine/Scene';
 import { SceneFactory, SceneRegistry, ScenesService } from '@/Engine/Scene';
 import type { TSpaceServices } from '@/Engine/Space/Models';
+import type { TSpatialGridService, TSpatialLoopService } from '@/Engine/Spatial';
+import { SpatialGridService, SpatialLoopService } from '@/Engine/Spatial';
 import { Text2dRegistry, Text2dRendererRegistry, Text3dRegistry, Text3dRendererRegistry, TextFactory, TextService } from '@/Engine/Text';
 import { textureService } from '@/Engine/Texture';
 import { isNotDefined } from '@/Engine/Utils';
@@ -42,10 +44,12 @@ export function initEntitiesServices(scene: TSceneWrapper, canvas: TAppCanvas): 
   const physicsBodyService: TPhysicsBodyService = PhysicsBodyService(PhysicsBodyFactory(), PhysicsBodyRegistry(), physicsPresetService, physicsWorldService);
   const physicsLoopService: TPhysicsLoopService = PhysicsLoopService(physicsWorldService);
   const kinematicLoopService: TKinematicLoopService = KinematicLoopService();
+  const spatialLoopService: TSpatialLoopService = SpatialLoopService();
+  const spatialGridService: TSpatialGridService = SpatialGridService();
   const loopService: TLoopService = LoopService();
 
   return {
-    actorService: ActorService(ActorFactory(), ActorAsyncRegistry(), { materialTextureService, physicsBodyService, physicsLoopService, kinematicLoopService }, scene),
+    actorService: ActorService(ActorFactory(), ActorAsyncRegistry(), { materialTextureService, physicsBodyService, physicsLoopService, kinematicLoopService, spatialLoopService }, scene),
     cameraService: CameraService(CameraFactory(), CameraRegistry(), scene),
     controlsService: ControlService(ControlsFactory(), ControlsRegistry(), canvas),
     envMapService: EnvMapService(EnvMapAsyncRegistry()),
@@ -63,6 +67,8 @@ export function initEntitiesServices(scene: TSceneWrapper, canvas: TAppCanvas): 
     physicsPresetService,
     physicsLoopService,
     rendererService: RendererService(RendererFactory(), RendererRegistry()),
+    spatialLoopService,
+    spatialGridService,
     textService: TextService(TextFactory(), Text2dRegistry(), Text3dRegistry(), Text2dRendererRegistry(), Text3dRendererRegistry(), scene)
   };
 }

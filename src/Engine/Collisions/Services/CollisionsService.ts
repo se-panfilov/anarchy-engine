@@ -1,15 +1,10 @@
-import type { Intersection, Mesh } from 'three';
-import { Box3, Raycaster } from 'three';
-
 import type { TActorWrapperAsync } from '@/Engine/Actor/Models';
-import type { TCollisionCheckResult, TCollisionsService, TRaycastBvhService, TSpatialGridService } from '@/Engine/Collisions/Models';
+import type { TCollisionCheckResult, TCollisionsService, TRaycastBvhService } from '@/Engine/Collisions/Models';
 
 import { RaycastBvhService } from './RaycastBvhService';
-import { SpatialGridService } from './SpatialGridService';
 
 export function CollisionsService(): TCollisionsService {
   const bvhService: TRaycastBvhService = RaycastBvhService();
-  const spatialGridService: TSpatialGridService = SpatialGridService();
   // const spatialGrid = spatialGridService.createSpatialGrid();
 
   function checkCollision(actorW: TActorWrapperAsync, radius: number): TCollisionCheckResult | null {
@@ -52,7 +47,6 @@ export function CollisionsService(): TCollisionsService {
 
   return {
     checkCollision,
-    grid: spatialGridService,
     raycast: bvhService
   };
 }

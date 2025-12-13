@@ -17,7 +17,7 @@ import type {
   TSpaceConfig,
   TWithCoordsXYZ
 } from '@/Engine';
-import { buildSpaceFromConfig, collisionsService, Engine, get3DAzimuthRad, isDefined, isNotDefined, KeysExtra } from '@/Engine';
+import { buildSpaceFromConfig, Engine, get3DAzimuthRad, isDefined, isNotDefined, KeysExtra } from '@/Engine';
 import { meters } from '@/Engine/Measurements/Utils';
 
 import spaceConfig from './showcase.json';
@@ -28,7 +28,7 @@ export function showcase(canvas: TAppCanvas): TShowcase {
   const space: TSpace = buildSpaceFromConfig(canvas, spaceConfig as TSpaceConfig);
   const engine: TEngine = Engine(space);
   const { keyboardService } = engine.services;
-  const { physicsLoopService, cameraService, actorService, loopService, mouseService, intersectionsWatcherService } = space.services;
+  const { physicsLoopService, cameraService, actorService, loopService, mouseService, intersectionsWatcherService, spatialGridService } = space.services;
 
   async function init(): Promise<void> {
     // physicsWorldService.getDebugRenderer(loopService).start();
@@ -71,7 +71,7 @@ export function showcase(canvas: TAppCanvas): TShowcase {
 
     startMoveActorWithKeyboard(heroW, keyboardService, mouseLineIntersectionsWatcher);
 
-    await enableCollisions(actorService.getScene(), actorService, mouseLineIntersectionsWatcher, collisionsService);
+    await enableCollisions(actorService.getScene(), actorService, mouseLineIntersectionsWatcher, spatialGridService);
 
     let mouseLineIntersections: TIntersectionEvent = { point: new Vector3(), distance: 0 } as Intersection;
     mouseLineIntersectionsWatcher.value$.subscribe((intersection: TIntersectionEvent): void => void (mouseLineIntersections = intersection));

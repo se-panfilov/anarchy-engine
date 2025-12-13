@@ -4,8 +4,12 @@ import type { TKinematicLoopService } from '@/Engine/Kinematic';
 import type { TPhysicsLoopService } from '@/Engine/Physics';
 import type { TRendererWrapper } from '@/Engine/Renderer';
 import type { TSceneWrapper } from '@/Engine/Scene';
+import type { TSpatialLoopService } from '@/Engine/Spatial';
+import { SpatialUpdatePriority } from '@/Engine/Spatial';
 import type { TText2dRegistry, TText2dRenderer, TText3dRegistry, TText3dRenderer } from '@/Engine/Text';
 import { isDefined } from '@/Engine/Utils';
+
+let currentPriorityCounter: number = SpatialUpdatePriority.ASAP;
 
 export function spaceLoop(
   delta: number,
@@ -18,7 +22,8 @@ export function spaceLoop(
   text3dRenderer: TText3dRenderer,
   controlsRegistry: TControlsRegistry,
   physicsLoopService: TPhysicsLoopService,
-  kinematicLoopService: TKinematicLoopService
+  kinematicLoopService: TKinematicLoopService,
+  spatialLoopService: TSpatialLoopService
 ): void {
   const isAutoUpdatePhysicalWorld: boolean = physicsLoopService.isAutoUpdate();
   if (isAutoUpdatePhysicalWorld) physicsLoopService.step();
@@ -33,6 +38,11 @@ export function spaceLoop(
   if (isAutoUpdatePhysicalWorld) physicsLoopService.tick$.next();
 
   if (kinematicLoopService.isAutoUpdate()) kinematicLoopService.tick$.next(delta);
+
+  if (spatialLoopService.isAutoUpdate()) {
+    spatialLoopService.tick$.next({ delta, priority: currentPriorityCounter });
+    currentPriorityCounter = currentPriorityCounter === (SpatialUpdatePriority.IDLE as number) ? SpatialUpdatePriority.ASAP : currentPriorityCounter - 1;
+  }
 
   // just for control's damping
   controlsRegistry.getAll().forEach((controls: TOrbitControlsWrapper): void => {

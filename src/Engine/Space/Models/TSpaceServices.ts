@@ -14,6 +14,7 @@ import type { TParticlesService } from '@/Engine/Particles';
 import type { TPhysicsBodyService, TPhysicsLoopService, TPhysicsPresetsService, TPhysicsWorldService } from '@/Engine/Physics';
 import type { TRendererService } from '@/Engine/Renderer';
 import type { TScenesService } from '@/Engine/Scene';
+import type { TSpatialGridService, TSpatialLoopService } from '@/Engine/Spatial';
 import type { TTextService } from '@/Engine/Text';
 
 export type TSpaceServices = Readonly<{
@@ -36,5 +37,7 @@ export type TSpaceServices = Readonly<{
   physicsLoopService: TPhysicsLoopService;
   rendererService: TRendererService;
   scenesService: TScenesService;
+  spatialLoopService: TSpatialLoopService;
+  spatialGridService: TSpatialGridService;
   textService: TTextService;
 }>;
