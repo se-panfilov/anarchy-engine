@@ -137,22 +137,21 @@ export function ThirdPartyLicensesService(): TThirdPartyLicensesService {
 
     // 11) Merge & write
     const merged = [...wsEntries, ...thirdEntries];
-    // eslint-disable-next-line functional/immutable-data
-    merged.sort((a, b) => (a.name === b.name ? a.version.localeCompare(b.version) : a.name.localeCompare(b.name)));
+    const sorted = [...merged].sort((a, b) => (a.name === b.name ? a.version.localeCompare(b.version) : a.name.localeCompare(b.name)));
 
     const outPath: string = path.isAbsolute(argv.out as string) ? (argv.out as string) : path.join(process.cwd(), argv.out as string);
 
     let emptyNote: string | undefined;
-    if (merged.length === 0) {
+    if (sorted.length === 0) {
       const noSeeds = seedNames.size === 0;
       emptyNote = noSeeds
         ? 'This workspace declares no production dependencies and has no reachable internal workspaces. Therefore, there are no third-party licenses to list.'
         : 'There are no third-party production dependencies reachable from this workspace. Therefore, there are no third-party licenses to list.';
     }
 
-    debugLog(isDebug, 'write output to:', outPath, 'total entries:', merged.length);
+    debugLog(isDebug, 'write output to:', outPath, 'total entries:', sorted.length);
 
-    const md = renderMarkdown(wsName, merged, emptyNote);
+    const md = renderMarkdown(wsName, sorted, emptyNote);
     await fs.mkdir(path.dirname(outPath), { recursive: true });
     await fs.writeFile(outPath, md, 'utf8');
     console.log(`The result file written to: ${outPath}`);

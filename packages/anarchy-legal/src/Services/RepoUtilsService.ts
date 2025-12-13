@@ -417,7 +417,7 @@ export function RepoUtilsService(isDebug: boolean): TRepoUtilsService {
       })
     );
 
-    return list.sort((a, b): number => (a.name === b.name ? a.version.localeCompare(b.version) : a.name.localeCompare(b.name)));
+    return [...list].sort((a, b): number => (a.name === b.name ? a.version.localeCompare(b.version) : a.name.localeCompare(b.name)));
   };
 
   // ---------- Workspace license entries ----------
@@ -447,7 +447,7 @@ export function RepoUtilsService(isDebug: boolean): TRepoUtilsService {
           } satisfies TLicenseEntry;
         })
     );
-    return entries.sort((a, b) => (a.name === b.name ? a.version.localeCompare(b.version) : a.name.localeCompare(b.name)));
+    return [...entries].sort((a, b) => (a.name === b.name ? a.version.localeCompare(b.version) : a.name.localeCompare(b.name)));
   };
 
   // ---------- Markdown ----------
