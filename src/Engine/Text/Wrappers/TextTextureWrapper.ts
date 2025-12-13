@@ -6,7 +6,7 @@ import { AbstractWrapper } from '@/Engine/Abstract';
 import { withObject3d } from '@/Engine/Mixins';
 import { textToConfig } from '@/Engine/Text/Adapters';
 import type { TextType } from '@/Engine/Text/Constants';
-import type { TTextConfig, TTextParams, TTextServiceDependencies, TTextTextureWrapper, TTextTransformDrive } from '@/Engine/Text/Models';
+import type { TTextConfig, TTextCssProps, TTextParams, TTextServiceDependencies, TTextTextureWrapper, TTextTransformDrive } from '@/Engine/Text/Models';
 import { TextTransformDrive } from '@/Engine/Text/TransformDrive';
 import { getWrapperTypeByTextType } from '@/Engine/Text/Wrappers/TextWrapperHelper';
 import type { TDriveToTargetConnector } from '@/Engine/TransformDrive';
@@ -82,6 +82,27 @@ export function createTextTextureWrapper(params: TTextParams, type: TextType, de
     entity.geometry = new PlaneGeometry(newGeometryWidth, newGeometryHeight);
   }
 
+  function getPropsAsCss(): Pick<TTextCssProps, 'fontSize' | 'fontFamily' | 'backgroundColor' | 'color'> {
+    const font: string = context.font;
+    const match = font.match(/(\d+(?:\.\d+)?)(px|pt|em|rem|%)\s+(.+)/) ?? [];
+    const fontSize: string = match?.[1] + match?.[2];
+    const fontFamily: string = match?.[3];
+
+    let color: string | undefined = context.fillStyle.toString();
+    if (color === '#000000') color = undefined;
+
+    const [r, g, b, a] = context.getImageData(0, 0, 1, 1).data;
+    let backgroundColor: string | undefined = `rgba(${r}, ${g}, ${b}, ${(a / 255).toFixed(3)})`;
+    if (r === 0 && g === 0 && b === 0 && a === 0) backgroundColor = undefined;
+
+    return {
+      fontSize,
+      fontFamily,
+      color,
+      backgroundColor
+    };
+  }
+
   const wrapper: TAbstractWrapper<Mesh> = AbstractWrapper(entity, getWrapperTypeByTextType(type), { name: params.name, tags: params.tags });
   const drive: TTextTransformDrive = TextTransformDrive(params, dependencies, wrapper.id);
   const driveToTargetConnector: TDriveToTargetConnector = DriveToTargetConnector(drive, entity);
@@ -95,6 +116,7 @@ export function createTextTextureWrapper(params: TTextParams, type: TextType, de
     getElement: () => canvas,
     setText,
     getText: (): string => text,
+    getPropsAsCss,
     serialize: (): TTextConfig => textToConfig(result)
   });
 

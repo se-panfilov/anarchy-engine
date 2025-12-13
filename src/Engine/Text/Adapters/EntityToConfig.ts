@@ -1,7 +1,7 @@
 import type { Vector2 } from 'three';
 
 import { extractSerializableRegistrableFields } from '@/Engine/Mixins';
-import type { TText2dWrapper, TTextAnyWrapper, TTextConfig } from '@/Engine/Text/Models';
+import type { TText2dWrapper, TText3dTextureWrapper, TTextAnyWrapper, TTextConfig, TTextCssProps } from '@/Engine/Text/Models';
 import { filterOutEmptyFields, isNotDefined, kebabToCamel, vector2ToXy } from '@/Engine/Utils';
 
 // TODO 15-0-0: validate result
@@ -13,11 +13,11 @@ export function textToConfig(entity: TTextAnyWrapper): TTextConfig {
   return filterOutEmptyFields({
     text: entity.getText(),
     type: entity.type,
-    cssProps: extractInlineStyles((entity as TText2dWrapper).getElement()),
+    cssProps: extractInlineStyles((entity as TText2dWrapper).getElement()) ?? (entity as TText3dTextureWrapper).getPropsAsCss(),
     elementType: (entity as TText2dWrapper).getElement()?.tagName,
     center: center ? vector2ToXy(center) : undefined,
     physics: drive.physical?.serialize(),
-    // TODO 15-0-0: Why kinematic is always exist?
+    // TODO 15-0-0: Why do the kinematic is always exist in the serialized data? Probably it should be removed if not used
     kinematic: drive.kinematic?.serialize(),
     receiveShadow: entity.getReceiveShadow(),
     frustumCulled: entity.getFrustumCulled(),
@@ -29,7 +29,7 @@ export function textToConfig(entity: TTextAnyWrapper): TTextConfig {
   });
 }
 
-function extractInlineStyles(element: HTMLElement | undefined): Record<string, string> | undefined {
+function extractInlineStyles(element: HTMLElement | undefined): TTextCssProps | undefined {
   if (isNotDefined(element)) return undefined;
 
   const result: Record<string, string> = {};
