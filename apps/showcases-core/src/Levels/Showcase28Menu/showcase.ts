@@ -8,13 +8,13 @@ import { initMenuApp } from 'showcases-menu/src/main';
 
 import { runtimeEnv } from '@/env';
 import { fromGuiEventsBus$, fromMenuEventsBus$, toGuiEventsBus$, toMenuEventsBus$ } from '@/Levels/Showcase28Menu/EventsBus';
+import { initInputActors } from '@/Levels/Showcase28Menu/Helpers';
 import type { TAppService, TEventsService, TGuiService, TMainMenuService, TSettingsService } from '@/Levels/Showcase28Menu/Models';
 import { AppService, EventsService, GuiService, MainMenuService, SettingsService } from '@/Levels/Showcase28Menu/Services';
 import type { TAppSettings } from '@/Models';
 import { addGizmo } from '@/Utils';
 
 import spaceConfigJson from './space.json';
-import { initInputActors } from '@/Levels/Showcase28Menu/Helpers';
 
 const spaceConfig: TSpaceConfig = spaceConfigJson as TSpaceConfig;
 
