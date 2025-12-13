@@ -1,1 +1,1 @@
-export * from './SpaceConfigAdapter';
+export * from './ConfigToParams';
