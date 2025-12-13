@@ -21,6 +21,7 @@ import type {
   TModel3d,
   TOrbitControlsWrapper,
   TParticlesWrapper,
+  TPhysicsBody,
   TPhysicsBodyParams,
   TReadonlyVector3,
   TSpaceServices,
@@ -28,7 +29,7 @@ import type {
   TWithConnectedTransformAgent,
   TWithTransformDrive
 } from '@/Engine';
-import { ForwardAxis, MaterialType, metersPerSecond, TransformAgent } from '@/Engine';
+import { ForwardAxis, isDefined, MaterialType, metersPerSecond, TransformAgent } from '@/Engine';
 import { meters } from '@/Engine/Measurements/Utils';
 
 export function createActor(
@@ -39,9 +40,12 @@ export function createActor(
   position: Vector3,
   color: string,
   physics: TPhysicsBodyParams | undefined,
-  { actorService, materialService, models3dService }: TSpaceServices
+  { actorService, materialService, models3dService, physicsBodyService }: TSpaceServices
 ): TActor {
   const material: TMaterialWrapper = materialService.create({ name: `${name}_material`, type: MaterialType.Standard, options: { color } });
+
+  let physicBody: TPhysicsBody | undefined;
+  if (isDefined(physics)) physicBody = physicsBodyService.create(physics);
 
   let model: TModel3d;
 
@@ -63,7 +67,7 @@ export function createActor(
   return actorService.create({
     name: `${name}_actor`,
     model3dSource: model,
-    physics,
+    physicBody,
     agent,
     position: position.clone(),
     rotation: new Euler(0, 0, 0),

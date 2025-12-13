@@ -50,8 +50,19 @@ export function start(): void {
 }
 
 export function showcase(space: TSpace): void {
-  const { cameraService, physicsWorldService, actorService, lightService, keyboardService, models3dService, materialService, mouseService, intersectionsWatcherService, spatialGridService } =
-    space.services;
+  const {
+    cameraService,
+    physicsWorldService,
+    physicsBodyService,
+    actorService,
+    lightService,
+    keyboardService,
+    models3dService,
+    materialService,
+    mouseService,
+    intersectionsWatcherService,
+    spatialGridService
+  } = space.services;
   const { physicalLoop, transformLoop, intersectionsLoop } = space.loops;
 
   physicsWorldService.getDebugRenderer(physicalLoop).start();
@@ -66,10 +77,10 @@ export function showcase(space: TSpace): void {
   const sphereActor: TActor = actorService.getRegistry().getByName('sphere');
   const spatialGrid: TSpatialGridWrapper = spatialGridService.getRegistry().getByName('main_grid');
 
-  // const blocks: ReadonlyArray<TActor> = buildTower(actorService, models3dService, materialService, { x: 10, z: 0 }, 5, 5, 10, spatialGrid);
-  const blocks: ReadonlyArray<TActor> = buildTower(actorService, models3dService, materialService, { x: 10, z: 0 }, 10, 10, 20, spatialGrid);
-  const blocks2: ReadonlyArray<TActor> = buildTower(actorService, models3dService, materialService, { x: 45, z: 7 }, 6, 7, 18, spatialGrid);
-  const blocks3: ReadonlyArray<TActor> = buildTower(actorService, models3dService, materialService, { x: -15, z: -15 }, 10, 7, 15, spatialGrid);
+  // const blocks: ReadonlyArray<TActor> = buildTower(actorService, models3dService, materialService, physicsBodyService, { x: 10, z: 0 }, 5, 5, 10, spatialGrid);
+  const blocks: ReadonlyArray<TActor> = buildTower(actorService, models3dService, materialService, physicsBodyService, { x: 10, z: 0 }, 10, 10, 20, spatialGrid);
+  const blocks2: ReadonlyArray<TActor> = buildTower(actorService, models3dService, materialService, physicsBodyService, { x: 45, z: 7 }, 6, 7, 18, spatialGrid);
+  const blocks3: ReadonlyArray<TActor> = buildTower(actorService, models3dService, materialService, physicsBodyService, { x: -15, z: -15 }, 10, 7, 15, spatialGrid);
 
   const maxBulletsSameTime: number = 150;
   const bullets: ReadonlyArray<TBullet> = getBulletsPool(maxBulletsSameTime, actorService, models3dService, materialService, spatialGridService);

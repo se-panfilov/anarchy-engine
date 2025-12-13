@@ -2,7 +2,20 @@ import type { Vector3Like } from 'three';
 import { Euler, Vector3 } from 'three';
 
 import { BULLET_TARGET_TAG } from '@/App/Levels/Showcase20PhysicsShooter/utils/Bullets';
-import type { TActor, TActorService, TBoxGeometryParams, TMaterialService, TMaterialWrapper, TMeters, TModel3d, TModels3dService, TObject3DParams, TSpatialGridWrapper } from '@/Engine';
+import type {
+  TActor,
+  TActorService,
+  TBoxGeometryParams,
+  TMaterialService,
+  TMaterialWrapper,
+  TMeters,
+  TModel3d,
+  TModels3dService,
+  TObject3DParams,
+  TPhysicsBody,
+  TPhysicsBodyService,
+  TSpatialGridWrapper
+} from '@/Engine';
 import { CollisionShape, MaterialType, meters, PrimitiveModel3dType, RigidBodyTypesNames, TransformAgent } from '@/Engine';
 
 export type TBuidingBlock = Required<Pick<TBoxGeometryParams, 'height' | 'width' | 'depth'>> & Required<Pick<TObject3DParams, 'position'>>;
@@ -11,6 +24,7 @@ export function buildTower(
   actorService: TActorService,
   models3dService: TModels3dService,
   materialService: TMaterialService,
+  physicsBodyService: TPhysicsBodyService,
   startCoords: Pick<Vector3Like, 'x' | 'z'>,
   rows: number,
   cols: number,
@@ -20,7 +34,11 @@ export function buildTower(
   const blocks: ReadonlyArray<TBuidingBlock> = getBlocks(startCoords, rows, cols, levels);
 
   console.log('number of blocks:', blocks.length);
-  const material: TMaterialWrapper = materialService.create({ name: 'building_block_material', type: MaterialType.Standard, options: { color: '#8FAA8F' } });
+  const material: TMaterialWrapper = materialService.create({
+    name: 'building_block_material',
+    type: MaterialType.Standard,
+    options: { color: '#8FAA8F' }
+  });
 
   return blocks.map((block: TBuidingBlock): TActor => {
     const model3d: TModel3d = models3dService.create({
@@ -41,25 +59,27 @@ export function buildTower(
       rotation: new Euler()
     });
 
+    const physicBody: TPhysicsBody = physicsBodyService.create({
+      name: `block_physic_body_${block.position.x}_${block.position.y}_${block.position.z}_model3d`,
+      type: RigidBodyTypesNames.Dynamic,
+      collisionShape: CollisionShape.Cuboid,
+      mass: 1,
+      friction: 0.5,
+      restitution: 0,
+      isSleep: true,
+      shapeParams: {
+        hx: block.width / 2,
+        hy: block.height / 2,
+        hz: block.depth / 2
+      },
+      position: block.position
+    });
+
     return actorService.create({
       name: `block_${block.position.x}_${block.position.y}_${block.position.z}_actor`,
       model3dSource: model3d,
       agent: TransformAgent.Physical,
-      physics: {
-        name: `block_physics_${block.position.x}_${block.position.y}_${block.position.z}_model3d`,
-        type: RigidBodyTypesNames.Dynamic,
-        collisionShape: CollisionShape.Cuboid,
-        mass: 1,
-        friction: 0.5,
-        restitution: 0,
-        isSleep: true,
-        shapeParams: {
-          hx: block.width / 2,
-          hy: block.height / 2,
-          hz: block.depth / 2
-        },
-        position: block.position
-      },
+      physicBody,
       position: block.position,
       rotation: new Euler(),
       spatial: { isAutoUpdate: true, grid },

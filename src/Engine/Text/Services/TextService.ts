@@ -52,7 +52,7 @@ export function TextService(
   const abstractService: TAbstractService = AbstractService(disposable);
 
   const withCreateService: TTextServiceWithCreate = withCreateServiceMixin(factory, dependencies);
-  const withCreateFromConfigService: TTextServiceWithCreateFromConfig = withCreateFromConfigServiceMixin(withCreateService.create, factory.configToParams, undefined);
+  const withCreateFromConfigService: TTextServiceWithCreateFromConfig = withCreateFromConfigServiceMixin(withCreateService.create, factory.configToParams, dependencies);
   const withFactory: TTextServiceWithFactory = withFactoryService(factory);
 
   const activeText2dRenderer: BehaviorSubject<TText2dRenderer | undefined> = new BehaviorSubject<TText2dRenderer | undefined>(undefined);

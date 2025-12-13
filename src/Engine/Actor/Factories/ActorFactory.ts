@@ -7,5 +7,5 @@ import type { TActor, TActorFactory, TActorParams, TActorServiceDependencies } f
 export function ActorFactory(): TActorFactory {
   const factory: TReactiveFactory<TActor, TActorParams, TActorServiceDependencies> = ReactiveFactory(FactoryType.Actor, Actor);
   // eslint-disable-next-line functional/immutable-data
-  return Object.assign(factory, { configToParams: configToParams });
+  return Object.assign(factory, { configToParams });
 }

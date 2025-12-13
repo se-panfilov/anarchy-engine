@@ -85,12 +85,13 @@ export function buildEntitiesServices(
       ActorFactory(),
       ActorRegistry(),
       {
-        spatialGridService,
-        loopService,
         collisionsService,
-        models3dService,
-        model3dToActorConnectionRegistry,
         fsmService,
+        loopService,
+        model3dToActorConnectionRegistry,
+        models3dService,
+        physicsBodyService,
+        spatialGridService,
         transformDriveService
       },
       sceneW
