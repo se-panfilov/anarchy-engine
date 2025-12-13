@@ -4,12 +4,10 @@ import type { TContainerDecorator } from '@Anarchy/Engine/Global';
 import type { TKeyComboWatcher } from '@Anarchy/Engine/Keyboard';
 import { KeyWatcherType } from '@Anarchy/Engine/Keyboard';
 import type { TKeyboardService, TKeyWatcher, TKeyWatcherFactory, TKeyWatcherRegistry } from '@Anarchy/Engine/Keyboard/Models';
-import type { TSpaceLoops } from '@Anarchy/Engine/Space';
 import { isDefined } from '@Anarchy/Shared/Utils';
 import type { Subscription } from 'rxjs';
 
-// TODO DESKTOP: Remove keyboardLoop from everywhere
-export function KeyboardService(container: TContainerDecorator, keyWatcherFactory: TKeyWatcherFactory, keyWatcherRegistry: TKeyWatcherRegistry, { keyboardLoop }: TSpaceLoops): TKeyboardService {
+export function KeyboardService(container: TContainerDecorator, keyWatcherFactory: TKeyWatcherFactory, keyWatcherRegistry: TKeyWatcherRegistry): TKeyboardService {
   keyWatcherFactory.entityCreated$.subscribe((watcher: TKeyWatcher | TKeyComboWatcher): void => keyWatcherRegistry.add(watcher));
 
   // Only focusable elements can receive keyboard events

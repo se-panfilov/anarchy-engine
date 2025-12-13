@@ -110,7 +110,7 @@ export function buildEntitiesServices(
     fogService: FogService(FogFactory(), FogRegistry(), sceneW),
     fsmService,
     intersectionsWatcherService: IntersectionsWatcherService(IntersectionsWatcherFactory(), IntersectionsWatcherRegistry()),
-    keyboardService: KeyboardService(container, KeyWatcherFactory(), KeyWatcherRegistry(), loops),
+    keyboardService: KeyboardService(container, KeyWatcherFactory(), KeyWatcherRegistry()),
     lightService: LightService(LightFactory(), LightRegistry(), { transformDriveService }, sceneW),
     loopService,
     materialService,

@@ -3,7 +3,6 @@ import type { TAudioLoop } from '@Anarchy/Engine/Audio';
 import type { TCollisionsLoop } from '@Anarchy/Engine/Collisions';
 import type { TControlsLoop } from '@Anarchy/Engine/Controls';
 import type { TIntersectionsLoop } from '@Anarchy/Engine/Intersections';
-import type { TKeyboardLoop } from '@Anarchy/Engine/Keyboard';
 import type { TKinematicLoop } from '@Anarchy/Engine/Kinematic';
 import type { LoopType } from '@Anarchy/Engine/Loop/Constants';
 import type { TWithCreateService, TWithFactoryService, TWithRegistryService } from '@Anarchy/Engine/Mixins';
@@ -33,7 +32,6 @@ export type TLoopService = TAbstractService &
     getSpatialLoop: (name?: string) => TSpatialLoop;
     getTransformLoop: (name?: string) => TTransformLoop;
     getTextLoop: (name?: string) => TTextLoop;
-    getKeyboardLoop: (name?: string) => TKeyboardLoop;
     getMouseLoop: (name?: string) => TMouseLoop;
     getIntersectionsLoop: (name?: string) => TIntersectionsLoop;
     getControlsLoop: (name?: string) => TControlsLoop;

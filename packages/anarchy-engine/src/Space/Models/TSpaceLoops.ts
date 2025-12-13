@@ -2,7 +2,6 @@ import type { TAudioLoop } from '@Anarchy/Engine/Audio';
 import type { TCollisionsLoop } from '@Anarchy/Engine/Collisions';
 import type { TControlsLoop } from '@Anarchy/Engine/Controls';
 import type { TIntersectionsLoop } from '@Anarchy/Engine/Intersections';
-import type { TKeyboardLoop } from '@Anarchy/Engine/Keyboard';
 import type { TKinematicLoop } from '@Anarchy/Engine/Kinematic';
 import type { TMouseLoop } from '@Anarchy/Engine/Mouse';
 import type { TPhysicsLoop } from '@Anarchy/Engine/Physics';
@@ -21,7 +20,6 @@ export type TSpaceLoops = Readonly<{
   spatialLoop: TSpatialLoop;
   transformLoop: TTransformLoop;
   textLoop: TTextLoop;
-  keyboardLoop: TKeyboardLoop;
   mouseLoop: TMouseLoop;
   intersectionsLoop: TIntersectionsLoop;
   controlsLoop: TControlsLoop;

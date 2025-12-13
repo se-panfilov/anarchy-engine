@@ -5,7 +5,6 @@ export type TLoopsSettingsSteps = Readonly<{
   collisionsLoopStep: number;
   controlsLoopStep: number;
   intersectionsLoopStep: number;
-  keyboardLoopStep: number;
   kinematicLoopStep: number;
   mouseLoopStep: number;
   physicsLoopStep: number;
@@ -19,7 +18,6 @@ export type TLoopsSettingsModes = Readonly<{
   isCollisionsParallel: boolean;
   isControlsParallel: boolean;
   isIntersectionsParallel: boolean;
-  isKeyboardParallel: boolean;
   isKinematicParallel: boolean;
   isMouseParallel: boolean;
   isPhysicsParallel: boolean;

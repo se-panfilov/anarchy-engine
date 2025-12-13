@@ -2,7 +2,6 @@ import type { TAudioLoop } from '@Anarchy/Engine/Audio';
 import type { TCollisionsLoop } from '@Anarchy/Engine/Collisions';
 import type { TControlsLoop } from '@Anarchy/Engine/Controls';
 import type { TIntersectionsLoop } from '@Anarchy/Engine/Intersections';
-import type { TKeyboardLoop } from '@Anarchy/Engine/Keyboard';
 import type { TKinematicLoop } from '@Anarchy/Engine/Kinematic';
 import type { TLoopService, TLoopsSettings } from '@Anarchy/Engine/Loop';
 import { getMainLoopNameByType, LOOPS_DEFAULT_SETTINGS, LoopType, LoopUpdatePriority } from '@Anarchy/Engine/Loop';
@@ -15,7 +14,7 @@ import type { TTextLoop } from '@Anarchy/Engine/Text';
 import type { TTransformLoop } from '@Anarchy/Engine/TransformDrive';
 
 export function createLoops({ create }: TLoopService, spaceSettings: TSpaceSettings = {}): TSpaceLoops {
-  const { Audio, Render, Intersections, Spatial, Mouse, Text, Kinematic, Collisions, Controls, Transform, Keyboard, Physics } = LoopType;
+  const { Audio, Render, Intersections, Spatial, Mouse, Text, Kinematic, Collisions, Controls, Transform, Physics } = LoopType;
 
   const settings: TLoopsSettings = { ...LOOPS_DEFAULT_SETTINGS, ...spaceSettings.loopsSettings };
 
@@ -27,7 +26,6 @@ export function createLoops({ create }: TLoopService, spaceSettings: TSpaceSetti
     spatialLoopStep,
     transformLoopStep,
     textLoopStep,
-    keyboardLoopStep,
     mouseLoopStep,
     intersectionsLoopStep,
     controlsLoopStep,
@@ -38,7 +36,6 @@ export function createLoops({ create }: TLoopService, spaceSettings: TSpaceSetti
     isSpatialParallel,
     isTransformParallel,
     isTextParallel,
-    isKeyboardParallel,
     isMouseParallel,
     isIntersectionsParallel,
     isControlsParallel
@@ -101,13 +98,6 @@ export function createLoops({ create }: TLoopService, spaceSettings: TSpaceSetti
       trigger: milliseconds(textLoopStep),
       isParallelMode: isTextParallel
     }) as TTextLoop,
-
-    keyboardLoop: create({
-      name: getMainLoopNameByType(Keyboard),
-      type: Keyboard,
-      trigger: milliseconds(keyboardLoopStep),
-      isParallelMode: isKeyboardParallel
-    }) as TKeyboardLoop,
 
     mouseLoop: create({
       name: getMainLoopNameByType(Mouse),

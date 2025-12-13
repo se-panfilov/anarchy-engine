@@ -4,7 +4,6 @@ import type { TAudioLoop } from '@Anarchy/Engine/Audio';
 import type { TCollisionsLoop } from '@Anarchy/Engine/Collisions';
 import type { TControlsLoop } from '@Anarchy/Engine/Controls';
 import type { TIntersectionsLoop } from '@Anarchy/Engine/Intersections';
-import type { TKeyboardLoop } from '@Anarchy/Engine/Keyboard';
 import type { TKinematicLoop } from '@Anarchy/Engine/Kinematic';
 import { LoopType } from '@Anarchy/Engine/Loop/Constants';
 import type { TLoop, TLoopFactory, TLoopRegistry, TLoopService, TLoopServiceWithCreate, TLoopServiceWithFactory, TLoopServiceWithRegistry } from '@Anarchy/Engine/Loop/Models';
@@ -46,7 +45,6 @@ export function LoopService(factory: TLoopFactory, registry: TLoopRegistry): TLo
     getSpatialLoop: (name?: string): TSpatialLoop => getLoop(name, LoopType.Spatial) as TSpatialLoop,
     getTransformLoop: (name?: string): TTransformLoop => getLoop(name, LoopType.Transform) as TTransformLoop,
     getTextLoop: (name?: string): TTextLoop => getLoop(name, LoopType.Text) as TTextLoop,
-    getKeyboardLoop: (name?: string): TKeyboardLoop => getLoop(name, LoopType.Keyboard) as TKeyboardLoop,
     getMouseLoop: (name?: string): TMouseLoop => getLoop(name, LoopType.Mouse) as TMouseLoop,
     getIntersectionsLoop: (name?: string): TIntersectionsLoop => getLoop(name, LoopType.Intersections) as TIntersectionsLoop,
     getControlsLoop: (name?: string): TControlsLoop => getLoop(name, LoopType.Controls) as TControlsLoop
