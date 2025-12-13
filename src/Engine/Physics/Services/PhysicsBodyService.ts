@@ -1,5 +1,6 @@
 import { World } from '@dimforge/rapier3d';
 
+import type { TLoopService } from '@/Engine/Loop';
 import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
 import type {
@@ -83,9 +84,9 @@ export function PhysicsBodyService(factory: TPhysicsBodyFactory, registry: TPhys
     return world;
   }
 
-  const getDebugRenderer = (): TPhysicsDebugRenderer => {
+  const getDebugRenderer = (loopService: TLoopService): TPhysicsDebugRenderer => {
     if (isNotDefined(world)) throw new Error('Cannot get debug renderer: world is not defined');
-    return PhysicsDebugRenderer(scene.entity, world);
+    return PhysicsDebugRenderer(scene, world, loopService);
   };
 
   function setGravity(vector: TVector3Wrapper): void {

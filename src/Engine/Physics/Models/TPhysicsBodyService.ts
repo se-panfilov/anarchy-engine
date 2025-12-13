@@ -1,5 +1,6 @@
 import type { World } from '@dimforge/rapier3d';
 
+import type { TLoopService } from '@/Engine/Loop';
 import type { TDestroyable } from '@/Engine/Mixins';
 import type { TWithCreateFromConfigService, TWithCreateService, TWithFactoryService, TWithRegistryService, TWithSceneGetterService } from '@/Engine/Space';
 import type { TOptional } from '@/Engine/Utils';
@@ -24,7 +25,7 @@ export type TPhysicsBodyService = TWithCreateService<TPhysicsBodyFacade, TPhysic
     createWithPreset: (params: TOptional<TPhysicsBodyParams>, preset: TPhysicsPresetParams) => TPhysicsBodyFacade | never;
     createWithPresetName: (params: TOptional<TPhysicsBodyParams>, presetName: string) => TPhysicsBodyFacade | never;
     createWorld: (physicsWorldParams: TPhysicsWorldParams) => World;
-    getDebugRenderer: () => TPhysicsDebugRenderer;
+    getDebugRenderer: (loopService: TLoopService) => TPhysicsDebugRenderer;
     setGravity: (vector: TVector3Wrapper) => void;
     getWorld: () => World | undefined;
   }>;

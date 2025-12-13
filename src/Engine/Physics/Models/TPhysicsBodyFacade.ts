@@ -1,5 +1,6 @@
-import type { TWrapper } from '@/Engine/Abstract';
+import type { TFacade } from '@/Engine/Abstract';
 
+import type { TPhysicsBodyFacadeEntities } from './TPhysicsBodyFacadeEntities';
 import type { TWithPhysicsBodyFacadeEntities } from './TWithPhysicsBodyFacadeEntities';
 
-export type TPhysicsBodyFacade = Omit<TWrapper<unknown>, 'entity'> & TWithPhysicsBodyFacadeEntities;
+export type TPhysicsBodyFacade = Omit<TFacade<TPhysicsBodyFacadeEntities>, 'entity'> & TWithPhysicsBodyFacadeEntities;
