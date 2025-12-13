@@ -1,3 +1,3 @@
-export type TSerializable<T> = Readonly<{
-  serialize: () => T;
+export type TSerializable<T, D extends Record<string, any> | undefined = undefined> = Readonly<{
+  serialize: (dependencies?: D) => T;
 }>;
