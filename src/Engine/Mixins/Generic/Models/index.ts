@@ -4,6 +4,7 @@ export * from './IMultitonRegistrable';
 export * from './IRegistrable';
 export * from './IWithActiveMixin';
 export * from './IWithActiveMixinResult';
+export * from './IWithCreateAsync';
 export * from './IWithMessages';
 export * from './IWithName';
 export * from './IWithTagsMixin';

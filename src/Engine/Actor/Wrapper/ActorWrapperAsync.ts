@@ -1,5 +1,5 @@
 import { AbstractWrapper, WrapperType } from '@/Engine/Abstract';
-import type { IActorParams, IActorWrapperAsync } from '@/Engine/Actor/Models';
+import type { IActorDependencies, IActorParams, IActorWrapperAsync } from '@/Engine/Actor/Models';
 import type { IWithMaterial } from '@/Engine/Material';
 import { withMaterial } from '@/Engine/Material';
 import { scalableMixin, withMoveBy3dMixin, withObject3d, withRotationByXyzMixin } from '@/Engine/Mixins';
@@ -9,9 +9,9 @@ import { applyObject3dParams, applyPosition, applyRotation, applyScale, isDefine
 
 import { createActor } from './ActorUtils';
 
-export async function ActorWrapperAsync(params: IActorParams): Promise<IActorWrapperAsync> {
+export async function ActorWrapperAsync(params: IActorParams, { materialService }: IActorDependencies): Promise<IActorWrapperAsync> {
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-  const entity: IMesh = await createActor(params);
+  const entity: IMesh = await createActor(params, materialService);
 
   const withMaterialEntity: IWithMaterial = withMaterial(entity);
 
@@ -22,7 +22,7 @@ export async function ActorWrapperAsync(params: IActorParams): Promise<IActorWra
     ...scalableMixin(entity),
     ...withObject3d(entity),
     ...withMaterialEntity,
-    ...withTextures(withMaterialEntity),
+    ...withTextures(withMaterialEntity, materialService),
     entity
   };
 

@@ -8,7 +8,7 @@ import type { IControlsWrapper } from './IControlsWrapper';
 
 export type IControlsParamsFromConfig = Omit<IParamsFromConfig<IControlsConfig, IControlsParams>, 'configToParams'> &
   Readonly<{
-    configToParams: (config: IControlsConfig, additionalParams: IAdditionalControlsConfigParams) => IControlsParams;
+    configToParams: (config: IControlsConfig, dependencies: IAdditionalControlsConfigParams) => IControlsParams;
   }>;
 
 export type IControlsFactory = IReactiveFactory<IControlsWrapper, IControlsParams> & IControlsParamsFromConfig & IDestroyable;

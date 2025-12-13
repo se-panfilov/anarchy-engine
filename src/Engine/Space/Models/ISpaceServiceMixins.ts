@@ -1,14 +1,13 @@
 import type { Observable } from 'rxjs';
 
+import type { IWithCreateAsync } from '@/Engine/Mixins';
 import type { ISceneWrapper } from '@/Engine/Scene';
 
 export type IWithCreateService<W, P> = Readonly<{
   create: (params: P) => W;
 }>;
 
-export type IWithCreateAsyncService<W, P> = Readonly<{
-  createAsync: (params: P) => Promise<W>;
-}>;
+export type IWithCreateAsyncService<W, P> = IWithCreateAsync<W, P>;
 
 export type IWithCreateFromConfigService<C> = Readonly<{
   createFromConfig: (config: ReadonlyArray<C>) => void;

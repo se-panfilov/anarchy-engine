@@ -19,11 +19,12 @@ import { isDestroyable, isNotDefined, validLevelConfig } from '@/Engine/Utils';
 // TODO (S.Panfilov) LOGGER: add a logger globally (not only for errors, but I'd like to know, which service with which id did what).
 export function buildSpaceFromConfig(canvas: IAppCanvas, config: ISpaceConfig): ISpace {
   const { isValid, errors } = validLevelConfig(config);
-  if (!isValid) {
-    // TODO (S.Panfilov) LOGGER: should be forwarded to the errors hub (which is not implemented yet)
-    console.error(errors);
-    throw new Error('Failed to launch a space: invalid data format');
-  }
+  // TODO (S.Panfilov) debug
+  // if (!isValid) {
+  //   // TODO (S.Panfilov) LOGGER: should be forwarded to the errors hub (which is not implemented yet)
+  //   console.error(errors);
+  //   throw new Error('Failed to launch a space: invalid data format');
+  // }
 
   const { name, actors, cameras, intersections, lights, fogs, texts, controls, scenes, particles, tags } = config;
 

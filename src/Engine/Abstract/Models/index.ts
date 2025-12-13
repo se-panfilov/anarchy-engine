@@ -7,6 +7,7 @@ export * from './IAbstractSimpleRegistry';
 export * from './IAbstractWatcher';
 export * from './IAbstractWatcherWithState';
 export * from './IAsyncReactiveFactory';
+export * from './ICreateEntityFactoryFn';
 export * from './IFactory';
 export * from './IHtmlElementStyleDeclaration';
 export * from './IMultitonWatcher';

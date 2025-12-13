@@ -6,6 +6,8 @@ import { EnvMapService } from '@/Engine/EnvMap';
 import { FogFactory, FogRegistry, FogService } from '@/Engine/Fog';
 import { IntersectionsWatcherFactory, IntersectionsWatcherRegistry, IntersectionsWatcherService } from '@/Engine/Intersections';
 import { LightFactory, LightRegistry, LightService } from '@/Engine/Light';
+import type { IMaterialService } from '@/Engine/Material';
+import { MaterialAsyncRegistry, MaterialFactory, MaterialService } from '@/Engine/Material';
 import { ParticlesAsyncRegistry, ParticlesFactory, ParticlesService } from '@/Engine/Particles';
 import { RendererFactory, RendererRegistry, RendererService } from '@/Engine/Renderer';
 import type { ISceneFactory, ISceneRegistry, IScenesService, ISceneWrapper } from '@/Engine/Scene';
@@ -22,13 +24,15 @@ export function initSceneService(): IScenesService {
 }
 
 export function initEntitiesServices(scene: ISceneWrapper, canvas: IAppCanvas): Omit<ISpaceServices, 'scenesService'> {
+  const materialService: IMaterialService = MaterialService(MaterialFactory(), MaterialAsyncRegistry());
   return {
-    actorService: ActorService(ActorFactory(), ActorAsyncRegistry(), scene),
+    actorService: ActorService(ActorFactory(), ActorAsyncRegistry(), materialService, scene),
     cameraService: CameraService(CameraFactory(), CameraRegistry(), scene),
     lightService: LightService(LightFactory(), LightRegistry(), scene),
     fogService: FogService(FogFactory(), FogRegistry(), scene),
     envMapService: EnvMapService(),
-    particlesService: ParticlesService(ParticlesFactory(), ParticlesAsyncRegistry(), scene),
+    materialService,
+    particlesService: ParticlesService(ParticlesFactory(), ParticlesAsyncRegistry(), materialService, scene),
     rendererService: RendererService(RendererFactory(), RendererRegistry()),
     textService: TextService(TextFactory(), Text2dRegistry(), Text3dRegistry(), Text2dRendererRegistry(), Text3dRendererRegistry(), scene),
     intersectionsWatcherService: IntersectionsWatcherService(IntersectionsWatcherFactory(), IntersectionsWatcherRegistry()),
