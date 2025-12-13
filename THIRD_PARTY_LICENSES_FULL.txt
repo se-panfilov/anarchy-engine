@@ -1662,7 +1662,7 @@ THE SOFTWARE.
 
 -----
 
-The following software may be included in this product: @types/animejs, @types/braces, @types/date-fns, @types/estree, @types/glob, @types/howler, @types/json-schema, @types/language-tags, @types/lodash, @types/lodash-es, @types/micromatch, @types/minimatch, @types/ndarray, @types/node, @types/node-fetch, @types/parse-json, @types/prompts, @types/rbush, @types/spdx-correct, @types/stats.js, @types/three, @types/tmp, @types/triple-beam, @types/webxr, @types/wrap-ansi. A copy of the source code may be downloaded from https://github.com/DefinitelyTyped/DefinitelyTyped.git (@types/animejs), https://github.com/DefinitelyTyped/DefinitelyTyped.git (@types/braces), https://github.com/DefinitelyTyped/DefinitelyTyped.git (@types/estree), https://github.com/DefinitelyTyped/DefinitelyTyped.git (@types/glob), https://github.com/DefinitelyTyped/DefinitelyTyped.git (@types/howler), https://github.com/DefinitelyTyped/DefinitelyTyped.git (@types/json-schema), https://github.com/DefinitelyTyped/DefinitelyTyped.git (@types/language-tags), https://github.com/DefinitelyTyped/DefinitelyTyped.git (@types/lodash), https://github.com/DefinitelyTyped/DefinitelyTyped.git (@types/lodash-es), https://github.com/DefinitelyTyped/DefinitelyTyped.git (@types/micromatch), https://github.com/DefinitelyTyped/DefinitelyTyped.git (@types/minimatch), https://github.com/DefinitelyTyped/DefinitelyTyped.git (@types/ndarray), https://github.com/DefinitelyTyped/DefinitelyTyped.git (@types/node), https://github.com/DefinitelyTyped/DefinitelyTyped.git (@types/node-fetch), https://github.com/DefinitelyTyped/DefinitelyTyped.git (@types/parse-json), https://github.com/DefinitelyTyped/DefinitelyTyped.git (@types/prompts), https://github.com/DefinitelyTyped/DefinitelyTyped.git (@types/rbush), https://github.com/DefinitelyTyped/DefinitelyTyped.git (@types/spdx-correct), https://github.com/DefinitelyTyped/DefinitelyTyped.git (@types/stats.js), https://github.com/DefinitelyTyped/DefinitelyTyped.git (@types/three), https://github.com/DefinitelyTyped/DefinitelyTyped.git (@types/tmp), https://github.com/DefinitelyTyped/DefinitelyTyped.git (@types/triple-beam), https://github.com/DefinitelyTyped/DefinitelyTyped.git (@types/webxr). This software contains the following license and notice below:
+The following software may be included in this product: @types/animejs, @types/braces, @types/estree, @types/glob, @types/howler, @types/json-schema, @types/language-tags, @types/lodash, @types/lodash-es, @types/micromatch, @types/minimatch, @types/ndarray, @types/node, @types/node-fetch, @types/parse-json, @types/prompts, @types/rbush, @types/spdx-correct, @types/stats.js, @types/three, @types/tmp, @types/triple-beam, @types/webxr, @types/wrap-ansi. A copy of the source code may be downloaded from https://github.com/DefinitelyTyped/DefinitelyTyped.git (@types/animejs), https://github.com/DefinitelyTyped/DefinitelyTyped.git (@types/braces), https://github.com/DefinitelyTyped/DefinitelyTyped.git (@types/estree), https://github.com/DefinitelyTyped/DefinitelyTyped.git (@types/glob), https://github.com/DefinitelyTyped/DefinitelyTyped.git (@types/howler), https://github.com/DefinitelyTyped/DefinitelyTyped.git (@types/json-schema), https://github.com/DefinitelyTyped/DefinitelyTyped.git (@types/language-tags), https://github.com/DefinitelyTyped/DefinitelyTyped.git (@types/lodash), https://github.com/DefinitelyTyped/DefinitelyTyped.git (@types/lodash-es), https://github.com/DefinitelyTyped/DefinitelyTyped.git (@types/micromatch), https://github.com/DefinitelyTyped/DefinitelyTyped.git (@types/minimatch), https://github.com/DefinitelyTyped/DefinitelyTyped.git (@types/ndarray), https://github.com/DefinitelyTyped/DefinitelyTyped.git (@types/node), https://github.com/DefinitelyTyped/DefinitelyTyped.git (@types/node-fetch), https://github.com/DefinitelyTyped/DefinitelyTyped.git (@types/parse-json), https://github.com/DefinitelyTyped/DefinitelyTyped.git (@types/prompts), https://github.com/DefinitelyTyped/DefinitelyTyped.git (@types/rbush), https://github.com/DefinitelyTyped/DefinitelyTyped.git (@types/spdx-correct), https://github.com/DefinitelyTyped/DefinitelyTyped.git (@types/stats.js), https://github.com/DefinitelyTyped/DefinitelyTyped.git (@types/three), https://github.com/DefinitelyTyped/DefinitelyTyped.git (@types/tmp), https://github.com/DefinitelyTyped/DefinitelyTyped.git (@types/triple-beam), https://github.com/DefinitelyTyped/DefinitelyTyped.git (@types/webxr). This software contains the following license and notice below:
 
 MIT License
 
@@ -1719,6 +1719,32 @@ The following software may be included in this product: @typescript-eslint/eslin
 MIT License
 
 Copyright (c) 2019 typescript-eslint and other contributors
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+-----
+
+The following software may be included in this product: @typescript-eslint/project-service, @typescript-eslint/tsconfig-utils. A copy of the source code may be downloaded from https://github.com/typescript-eslint/typescript-eslint.git (@typescript-eslint/project-service), https://github.com/typescript-eslint/typescript-eslint.git (@typescript-eslint/tsconfig-utils). This software contains the following license and notice below:
+
+MIT License
+
+Copyright (c) 2025 typescript-eslint and other contributors
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -4186,7 +4212,7 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 -----
 
-The following software may be included in this product: eslint-visitor-keys. A copy of the source code may be downloaded from https://github.com/eslint/js.git. This software contains the following license and notice below:
+The following software may be included in this product: eslint-visitor-keys. A copy of the source code may be downloaded from https://github.com/eslint/eslint-visitor-keys.git. This software contains the following license and notice below:
 
 Apache License
                            Version 2.0, January 2004
@@ -9037,6 +9063,7 @@ The following software may be included in this product: slice-ansi. A copy of th
 MIT License
 
 Copyright (c) DC <threedeecee@gmail.com>
+Copyright (c) Sindre Sorhus <sindresorhus@gmail.com> (https://sindresorhus.com)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
@@ -9051,7 +9078,6 @@ The following software may be included in this product: slice-ansi. A copy of th
 MIT License
 
 Copyright (c) DC <threedeecee@gmail.com>
-Copyright (c) Sindre Sorhus <sindresorhus@gmail.com> (https://sindresorhus.com)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
