@@ -11,9 +11,10 @@ import { BehaviorSubject } from 'rxjs';
 // TODO (S.Panfilov) CWP fix ts
 // finish factories refactoring 1 (HOC from config)
 // finish factories refactoring 2 (factories for non-wrapper entities)
-// finish registry refactoring (works with watcher as singltons)
+// finish registry refactoring (works with watcher as singletons)
 // make factories create watchers with check for container ID (to prevent copies)
 // intersection service should be refactored into factory and a watcher, could be possible to create multiple intersection watchers (and manage them in registry)
+// All factories (especially wrapper's) don't care about entity registration, but they should
 
 export function SceneLauncher(): ISceneLauncher {
   const prepared$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);

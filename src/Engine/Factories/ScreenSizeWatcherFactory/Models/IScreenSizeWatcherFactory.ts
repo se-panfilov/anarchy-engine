@@ -1,5 +1,3 @@
-import type { IGlobalContainerDecorator, IScreenSizeWatcher } from '@/Engine';
+import type { IAbstractFactory, IScreenSizeWatcher, IScreenSizeWatcherParams } from '@/Engine';
 
-export type IScreenSizeWatcherFactory = {
-  create: (container: IGlobalContainerDecorator, tags?: ReadonlyArray<string>) => IScreenSizeWatcher;
-};
+export type IScreenSizeWatcherFactory = IAbstractFactory<IScreenSizeWatcher, IScreenSizeWatcherParams>;

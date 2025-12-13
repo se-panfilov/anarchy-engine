@@ -31,6 +31,8 @@ export * from './ILightParams';
 export * from './ILoopParams';
 export * from './IMesh';
 export * from './IMouseClickWatcherParams';
+export * from './IMousePositionWatcherParams';
+export * from './IScreenSizeWatcherParams';
 export * from './IMouseEvent';
 export * from './IMousePosition';
 export * from './IMultitonRegistrable';

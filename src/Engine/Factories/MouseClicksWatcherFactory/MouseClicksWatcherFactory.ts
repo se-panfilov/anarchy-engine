@@ -1,5 +1,3 @@
-import type { IGlobalContainerDecorator } from '@Engine/Global';
-
 import type { IMouseClicksWatcherRegistry } from '@/Engine/Registries';
 import { MouseClicksWatcherRegistry } from '@/Engine/Registries';
 import type { IMouseClicksWatcher } from '@/Engine/Watchers';

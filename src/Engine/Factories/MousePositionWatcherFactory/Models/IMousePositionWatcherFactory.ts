@@ -1,5 +1,3 @@
-import type { IGlobalContainerDecorator, IMousePositionWatcher } from '@/Engine';
+import type { IAbstractFactory, IMousePositionWatcher, IMousePositionWatcherParams } from '@/Engine';
 
-export type IMousePositionWatcherFactory = {
-  create: (container: IGlobalContainerDecorator, tags?: ReadonlyArray<string>) => IMousePositionWatcher;
-};
+export type IMousePositionWatcherFactory = IAbstractFactory<IMousePositionWatcher, IMousePositionWatcherParams>;

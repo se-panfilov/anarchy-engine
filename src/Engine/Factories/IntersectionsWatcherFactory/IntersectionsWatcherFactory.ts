@@ -7,7 +7,6 @@ import type { IIntersectionsWatcherFactory } from './Models';
 import type { IIntersectionsParams } from '@/Engine/Models';
 import { AbstractFactory } from '@/Engine';
 
-// TODO (S.Panfilov) CWP the other factories (wrapper) doesn't care about entity registration, shall they?
 export function IntersectionsWatcherFactory(): IIntersectionsWatcherFactory {
   const registry: IIntersectionsWatcherRegistry = IntersectionsWatcherRegistry();
 
