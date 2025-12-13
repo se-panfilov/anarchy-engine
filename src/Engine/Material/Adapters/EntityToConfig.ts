@@ -59,8 +59,8 @@ export function materialToConfig(entity: TMaterialWrapper, { textureResourceRegi
   });
 }
 
-function getMaterialOptions({ entity, ...rest }: TMaterialWrapper): TOptional<TMaterialConfigOptions> | undefined {
-  const result = filterOutEmptyFields(
+function getMaterialOptions({ entity }: TMaterialWrapper): TOptional<TMaterialConfigOptions> | undefined {
+  return filterOutEmptyFields(
     nullsToUndefined({
       alphaHash: entity.alphaHash,
       alphaTest: entity.alphaTest,
@@ -160,21 +160,6 @@ function getMaterialOptions({ entity, ...rest }: TMaterialWrapper): TOptional<TM
       wireframeLinewidth: (entity as MeshPhongMaterial).wireframeLinewidth
     })
   );
-
-  if (rest.name === 'physical_metal') {
-    console.log('XXX2 clearcoat', result.clearcoat, result.clearcoat === 1.1, result.clearcoat === 1);
-    console.log('XXX2 clearcoatRoughness', result.clearcoatRoughness, result.clearcoatRoughness === 0.13, result.clearcoatRoughness === 0.12);
-    console.log('XXX2 displacementScale', result.displacementScale, result.displacementScale === 0.2, result.displacementScale === 0);
-    console.log('XXX2 ior', result.ior, result.ior === 2.2, result.ior === 2.5);
-    console.log('XXX2 iridescence', result.iridescence, result.iridescence === 0.7, result.iridescence === 0.655);
-    console.log('XXX2 iridescenceIOR', result.iridescenceIOR, result.iridescenceIOR === 1.7, result.iridescenceIOR === 1.86);
-    console.log('XXX2 metalness', result.metalness, result.metalness === 1, result.metalness === 0.97);
-    console.log('XXX2 roughness', result.roughness, result.roughness === 0.9, result.roughness === 0.8);
-    console.log('XXX2 thickness', result.thickness, result.thickness === 0.1, result.thickness === 0);
-    console.log('XXX2 transmission', result.transmission, result.transmission === 0.1, result.transmission === 0);
-  }
-
-  return result;
 }
 
 function getMaterialTextures({ entity }: TMaterialWrapper, textureResourceRegistry: TTextureAsyncRegistry): TMaterialConfigTextures | undefined | never {

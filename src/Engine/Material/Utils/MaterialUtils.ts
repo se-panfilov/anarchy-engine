@@ -13,10 +13,6 @@ export function isPointsMaterial<T extends Material | ReadonlyArray<Material>>(m
 export function buildMaterial(params: TMaterialParams): TMaterials {
   const { type, options, textures } = params;
 
-  if (params.name === 'physical_metal') {
-    console.log('XXX5 IOR', (options as any).ior);
-  }
-
   const MaterialConstructor: TTypeOfMaterials = MaterialMap[type];
   if (isNotDefined(MaterialConstructor)) throw new Error(`Unsupported material type: ${type}`);
   return new MaterialConstructor({ ...(options as TWithoutNull<TMaterialParamsOptions>), ...textures });

@@ -11,9 +11,5 @@ export function MaterialWrapper(params: TMaterialParams): TMaterialWrapper {
     serialize: (dependencies: TMaterialEntityToConfigDependencies): TMaterialConfig => materialToConfig(result, dependencies)
   }) as TMaterialWrapper;
 
-  if (params.name === 'physical_metal') {
-    console.log('XXX6', result.entity.ior, params.options.ior);
-  }
-
   return result;
 }

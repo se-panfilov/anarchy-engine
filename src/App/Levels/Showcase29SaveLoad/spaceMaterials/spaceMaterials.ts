@@ -7,6 +7,9 @@ import spaceConfig from './spaceMaterials.json';
 
 const config: TSpaceConfig = spaceConfig as TSpaceConfig;
 
+// TODO 15-0-0: compare saved json with the original one (and check how it's loads)
+// TODO 15-0-0: in entityToConfig maybe use a mix oe entity & json values
+// TODO 15-0-0: Save should return a promise
 export const spaceMaterialsData: TSpacesData = {
   name: config.name,
   config: config,
@@ -17,7 +20,7 @@ export const spaceMaterialsData: TSpacesData = {
     adjustMaterial(space, 'surface_material', {
       clearcoat: 1,
       clearcoatRoughness: 0.12,
-      displacementScale: 0,
+      displacementScale: 0.2,
       ior: 2.5,
       iridescence: 1.655,
       iridescenceIOR: 2,
@@ -30,16 +33,16 @@ export const spaceMaterialsData: TSpacesData = {
     adjustMaterial(space, 'standard_metal', { displacementScale: 0.2 });
 
     adjustMaterial(space, 'physical_metal', {
-      clearcoat: 1,
-      clearcoatRoughness: 0.12,
-      displacementScale: 0,
-      ior: 100,
-      iridescence: 0.655,
-      iridescenceIOR: 1.86,
-      metalness: 0.97,
-      roughness: 0.8,
-      thickness: 0,
-      transmission: 0
+      clearcoat: 1.1,
+      clearcoatRoughness: 0.13,
+      displacementScale: 0.2,
+      ior: 2.2,
+      iridescence: 0.7,
+      iridescenceIOR: 1.7,
+      metalness: 1,
+      roughness: 0.9,
+      thickness: 0.1,
+      transmission: 0.1
     });
 
     adjustMaterial(space, 'basic_metal', {});
@@ -64,7 +67,7 @@ export const spaceMaterialsData: TSpacesData = {
     adjustMaterial(space, 'physical_glass', {
       clearcoat: 0.8,
       clearcoatRoughness: 0.09,
-      displacementScale: 0.1,
+      displacementScale: 0.2,
       ior: 1.76,
       iridescence: 1,
       iridescenceIOR: 1.44,
