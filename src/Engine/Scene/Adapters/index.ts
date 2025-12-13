@@ -1,1 +1,1 @@
-export * from './SceneConfigAdapter';
+export * from './ConfigToParams';
