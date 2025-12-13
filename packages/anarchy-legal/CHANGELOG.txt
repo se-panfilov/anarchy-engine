@@ -1,0 +1,9 @@
+1.0.0 Initial
+
+Roadmap:
+- Generate THIRD_PARTY_LICENSES.md
+- Generate NOTICE.md
+- Generate DISCLAIMER.md
+- Generate EULA.md
+- Generate PRIVACY.md
+- Generate SECURITY.md
