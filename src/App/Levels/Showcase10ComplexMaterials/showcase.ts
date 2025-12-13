@@ -47,7 +47,7 @@ export function showcase(space: TSpace): void {
   const gui: GUI = new GUI();
   const { textService, keyboardService, screenService } = space.services;
 
-  addGizmo(space.services, screenService.watchers.default, space.loops, { placement: 'bottom-left' });
+  addGizmo(space.services, screenService.watchers.default$.value, space.loops, { placement: 'bottom-left' });
 
   const { actorService, controlsService } = space.services;
   const actorRegistry: TActorRegistry = actorService.getRegistry();

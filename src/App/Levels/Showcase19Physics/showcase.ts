@@ -29,7 +29,7 @@ export function showcase(space: TSpace): void {
 
   physicsWorldService.getDebugRenderer(physicalLoop).start();
 
-  addGizmo(space.services, screenService.watchers.default, space.loops, { placement: 'bottom-left' });
+  addGizmo(space.services, screenService.watchers.default$.value, space.loops, { placement: 'bottom-left' });
 
   const line: Line2 = createLine();
   sceneWrapper.entity.add(line);

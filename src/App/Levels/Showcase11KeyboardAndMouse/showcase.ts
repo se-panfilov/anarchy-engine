@@ -34,7 +34,7 @@ export function showcase(space: TSpace): void {
   const camera: TCameraWrapper | undefined = cameraService.findActive();
   if (isNotDefined(camera)) throw new Error('Camera is not defined');
 
-  addGizmo(space.services, screenService.watchers.default, space.loops, { placement: 'bottom-left' });
+  addGizmo(space.services, screenService.watchers.default$.value, space.loops, { placement: 'bottom-left' });
 
   const actorKeyboard: TActor | undefined = findByName('sphere_keyboard_actor');
   const actorMouse: TActor | undefined = findByName('sphere_mouse_actor');

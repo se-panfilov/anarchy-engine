@@ -14,7 +14,7 @@ import { getAccessors } from './Accessors';
 
 export function CameraWrapper(params: TCameraParams, { screenService }: TCameraWrapperDependencies): TCameraWrapper {
   const { fov = 45, near = 1, far = 10000, lookAt, audioListener }: TCameraParams = params;
-  const { width, height, ratio } = screenService.watchers.default?.getValue() ?? { width: 0, height: 0, ratio: 1 };
+  const { width, height, ratio } = screenService.watchers.default$.value?.getValue() ?? { width: 0, height: 0, ratio: 1 };
   const entity: TWriteable<TPerspectiveCamera> = new PerspectiveCamera(fov, ratio, near, far);
 
   const accessors: TCameraAccessors = getAccessors(entity);

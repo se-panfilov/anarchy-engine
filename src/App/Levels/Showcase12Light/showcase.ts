@@ -48,7 +48,7 @@ export function showcase(space: TSpace): void {
   const scene: TSceneWrapper | undefined = scenesService.findActive();
   if (isNotDefined(scene)) throw new Error('Scene not found');
 
-  addGizmo(space.services, screenService.watchers.default, space.loops, { placement: 'bottom-left' });
+  addGizmo(space.services, screenService.watchers.default$.value, space.loops, { placement: 'bottom-left' });
 
   //directional light
   const directionalLight: TDirectionalLightWrapper | undefined = lightRegistry.findByTag('directional') as TDirectionalLightWrapper | undefined;

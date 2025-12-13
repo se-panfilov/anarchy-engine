@@ -146,7 +146,7 @@ export async function showcase(space: TSpace): Promise<void> {
   const renderer: TRendererWrapper | undefined = rendererService.findActive();
   if (isNotDefined(renderer)) throw new Error('Renderer is not defined');
 
-  addGizmo(space.services, screenService.watchers.default, space.loops, { placement: 'bottom-left' });
+  addGizmo(space.services, screenService.watchers.default$.value, space.loops, { placement: 'bottom-left' });
 
   setParticles(particles);
   grid._debugVisualizeCells(sceneW, '#4e0c85');

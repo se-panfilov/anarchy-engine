@@ -39,7 +39,7 @@ export function showcase(space: TSpace): void {
   const sphere: TActor | undefined = findByName('sphere_actor');
   if (isNotDefined(sphere)) throw new Error('Actor "sphere_actor" is not defined');
 
-  addGizmo(space.services, screenService.watchers.default, space.loops, { placement: 'bottom-left' });
+  addGizmo(space.services, screenService.watchers.default$.value, space.loops, { placement: 'bottom-left' });
 
   let isMove: boolean = false;
   let isTimerStarted: boolean = false;

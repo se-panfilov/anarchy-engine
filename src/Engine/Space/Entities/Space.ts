@@ -4,6 +4,8 @@ import { BehaviorSubject, distinctUntilChanged, filter } from 'rxjs';
 import type { TAbstractService } from '@/Engine/Abstract';
 import { AbstractEntity, EntityType } from '@/Engine/Abstract';
 import type { TAppCanvas } from '@/Engine/App';
+import { ambientContext } from '@/Engine/Context';
+import type { TGlobalContainerDecorator } from '@/Engine/Global';
 import type { TIntersectionsWatcher } from '@/Engine/Intersections';
 import type { TLoop } from '@/Engine/Loop';
 import { RendererModes } from '@/Engine/Renderer';
@@ -80,7 +82,10 @@ export function Space(params: TSpaceParams, hooks?: TSpaceHooks): TSpace {
 
 function initSpaceServices(canvas: TAppCanvas, params: TSpaceParams, hooks?: TSpaceHooks): { services: TSpaceServices; loops: TSpaceLoops } {
   hooks?.beforeBaseServicesBuilt?.(params.canvas, params);
-  const baseServices: TSpaceBaseServices = buildBaseServices(canvas);
+  const baseServices: TSpaceBaseServices = buildBaseServices();
+  baseServices.screenService.setCanvas(canvas);
+  const container: TGlobalContainerDecorator = ambientContext.container;
+  baseServices.screenService.watchers.create({ container });
 
   baseServices.scenesService.createFromList(params.scenes);
   const sceneW: TSceneWrapper | undefined = baseServices.scenesService.findActive();

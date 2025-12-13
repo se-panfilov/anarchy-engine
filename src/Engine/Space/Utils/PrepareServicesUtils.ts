@@ -42,11 +42,10 @@ import { Text2dRegistry, Text2dRendererRegistry, Text3dRegistry, Text3dRendererR
 import type { TTextureService } from '@/Engine/Texture';
 import { TextureAsyncRegistry, TextureService } from '@/Engine/Texture';
 
-export function buildBaseServices(canvas: TAppCanvas): TSpaceBaseServices {
+export function buildBaseServices(): TSpaceBaseServices {
   const scenesService: TScenesService = ScenesService(SceneFactory(), SceneRegistry());
   const loopService: TLoopService = LoopService(LoopFactory(), LoopRegistry());
   const screenService: TScreenService = ScreenService(ScreenSizeWatcherFactory(), ScreenSizeWatcherRegistry());
-  screenService.setCanvas(canvas);
 
   return { loopService, scenesService, screenService };
 }

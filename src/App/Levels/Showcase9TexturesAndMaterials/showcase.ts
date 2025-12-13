@@ -39,7 +39,7 @@ function initCameraRotation(space: TSpace, model3d: TModel3d | undefined, mouseS
 
   const camera: TCameraWrapper | undefined = cameraService.findActive();
 
-  const screenSizeWatcher = screenService.watchers.default;
+  const screenSizeWatcher = screenService.watchers.default$.value;
   if (isNotDefined(screenSizeWatcher)) throw new Error('ScreenSizeWatcher is not defined');
 
   const prevValue: Float32Array = new Float32Array([0, 0, 0, 0]); // [x, y, wight, height]

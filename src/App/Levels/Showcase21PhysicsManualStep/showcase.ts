@@ -23,7 +23,7 @@ export function showcase(space: TSpace): void {
   physicsWorldService.getDebugRenderer(physicalLoop).start();
   physicalLoop.enabled$.next(false);
 
-  addGizmo(space.services, screenService.watchers.default, space.loops, { placement: 'bottom-left' });
+  addGizmo(space.services, screenService.watchers.default$.value, space.loops, { placement: 'bottom-left' });
 
   //run/stop physics loop
   keyboardService.onKey(KeysExtra.Space).pressed$.subscribe((): void => physicalLoop.enabled$.next(true));

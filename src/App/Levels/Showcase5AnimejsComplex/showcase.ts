@@ -41,7 +41,7 @@ export function showcase(space: TSpace): void {
   const controlsRegistry: TControlsRegistry = controlsService.getRegistry();
   const { text2dRegistry } = textService.getRegistries();
 
-  addGizmo(space.services, screenService.watchers.default, space.loops, { placement: 'bottom-left' });
+  addGizmo(space.services, screenService.watchers.default$.value, space.loops, { placement: 'bottom-left' });
 
   const orbitControls: TControlsWrapper | undefined = controlsRegistry.asArray()[0];
   if (isNotDefined(orbitControls)) throw new Error('Orbit controls are not defined');

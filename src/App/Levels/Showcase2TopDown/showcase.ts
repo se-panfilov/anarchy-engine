@@ -44,7 +44,7 @@ export function showcase(space: TSpace): void {
     isActive: true
   });
 
-  const screenSizeWatcher: TScreenSizeWatcher | undefined = screenService.watchers.default;
+  const screenSizeWatcher: TScreenSizeWatcher | undefined = screenService.watchers.default$.value;
   if (isNotDefined(screenSizeWatcher)) throw new Error('Cannot find default screen size watcher');
 
   combineLatest([mouseService.position$, screenSizeWatcher.value$]).subscribe(([coords, { width, height }]): void => {

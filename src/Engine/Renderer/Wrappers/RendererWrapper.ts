@@ -1,5 +1,5 @@
-import type { Subscription } from 'rxjs';
-import { distinctUntilChanged } from 'rxjs';
+import type { Observable, Subscription } from 'rxjs';
+import { distinctUntilChanged, EMPTY, switchMap } from 'rxjs';
 import type { WebGLRendererParameters } from 'three';
 import { PCFShadowMap, WebGLRenderer } from 'three';
 
@@ -10,7 +10,7 @@ import { RendererModes } from '@/Engine/Renderer/Constants';
 import type { TRendererAccessors, TRendererParams, TRendererWrapper, TRendererWrapperDependencies } from '@/Engine/Renderer/Models';
 import type { TScreenSizeValues, TScreenSizeWatcher } from '@/Engine/Screen';
 import type { TWriteable } from '@/Engine/Utils';
-import { isNotDefined, isWebGL2Available, isWebGLAvailable } from '@/Engine/Utils';
+import { isDefined, isNotDefined, isWebGL2Available, isWebGLAvailable } from '@/Engine/Utils';
 
 import { getAccessors } from './Accessors';
 
@@ -20,9 +20,6 @@ export function RendererWrapper(params: TRendererParams, { screenService }: TRen
   if (!isWebGLAvailable()) throw new Error('WebGL is not supported by this device');
   const isWebGL2: boolean = params.mode === RendererModes.WebGL2;
   if (isWebGL2 && !isWebGL2Available()) throw new Error('WebGL2 is not supported by this device');
-
-  const screenSizeWatcher: TScreenSizeWatcher | undefined = screenService.watchers.default;
-  if (isNotDefined(screenSizeWatcher)) throw new Error('RendererWrapper: Screen size watcher is not defined');
 
   let options: WebGLRendererParameters = {
     canvas: params.canvas,
@@ -50,18 +47,24 @@ export function RendererWrapper(params: TRendererParams, { screenService }: TRen
     accessors.setPixelRatio(ratio, maxPixelRatio);
   }
 
+  // TODO 14-0-0: do we still need this initial setup?
   //init with the values which came before the start of the subscription
-  setValues(entity, screenSizeWatcher.getValue() ?? { width: 0, height: 0, ratio: 1 });
+  // setValues(entity, screenSizeWatcher.getValue() ?? { width: 0, height: 0, ratio: 1 });
 
   // TODO 9.2.0 ACTIVE: This could be done only in active$ renderer and applied in onActive hook
-  const screenSize$: Subscription = screenSizeWatcher.value$
-    .pipe(distinctUntilChanged((prev: TScreenSizeValues, curr: TScreenSizeValues): boolean => prev.width === curr.width && prev.height === curr.height))
+  const screenSizeSub$: Subscription = screenService.watchers.default$
+    .pipe(
+      switchMap((screenSizeWatcher: TScreenSizeWatcher | undefined): Observable<TScreenSizeValues> => (isDefined(screenSizeWatcher) ? screenSizeWatcher.value$ : EMPTY)),
+      distinctUntilChanged((prev: TScreenSizeValues, curr: TScreenSizeValues): boolean => prev.width === curr.width && prev.height === curr.height)
+    )
     .subscribe((params: TScreenSizeValues): void => setValues(entity, params));
 
-  const screenSizeWatcherSubscription: Subscription = screenSizeWatcher.destroy$.subscribe((): void => {
-    screenSize$.unsubscribe();
-    screenSizeWatcherSubscription.unsubscribe();
-  });
+  const screenSizeWatcherSubscription: Subscription = screenService.watchers.default$
+    .pipe(switchMap((screenSizeWatcher: TScreenSizeWatcher | undefined): Observable<void> => (isDefined(screenSizeWatcher) ? screenSizeWatcher.destroy$ : EMPTY)))
+    .subscribe((): void => {
+      screenSizeSub$.unsubscribe();
+      screenSizeWatcherSubscription.unsubscribe();
+    });
 
   const wrapper: TWrapper<WebGLRenderer> = AbstractWrapper(entity, WrapperType.Renderer, params);
 
@@ -71,7 +74,7 @@ export function RendererWrapper(params: TRendererParams, { screenService }: TRen
     entity = null as any;
 
     destroySub$.unsubscribe();
-    screenSize$.unsubscribe();
+    screenSizeSub$.unsubscribe();
     screenSizeWatcherSubscription.unsubscribe();
   });
 

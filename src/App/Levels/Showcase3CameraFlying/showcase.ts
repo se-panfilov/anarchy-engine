@@ -22,7 +22,7 @@ export function showcase(space: TSpace): void {
 
   const camera: TCameraWrapper | undefined = cameraService.findActive();
 
-  const screenSizeWatcher = screenService.watchers.default;
+  const screenSizeWatcher = screenService.watchers.default$.value;
   if (isNotDefined(screenSizeWatcher)) throw new Error('ScreenSizeWatcher is not defined');
 
   combineLatest([mouseService.position$, screenSizeWatcher.value$]).subscribe(([coords, { width, height }]): void => {

@@ -1,4 +1,5 @@
 import type { Subscription } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 
 import type { TAbstractService } from '@/Engine/Abstract';
 import { AbstractService } from '@/Engine/Abstract';
@@ -15,10 +16,10 @@ import type {
 } from '@/Engine/Screen/Models';
 
 export function ScreenSizeWatcherService(factory: TScreenSizeWatcherFactory, registry: TScreenSizeWatcherRegistry): TScreenSizeWatcherService {
-  let defaultWatcher: TScreenSizeWatcher | undefined;
+  const default$: BehaviorSubject<TScreenSizeWatcher | undefined> = new BehaviorSubject<TScreenSizeWatcher | undefined>(undefined);
   const factorySub$: Subscription = factory.entityCreated$.subscribe((watcher: TScreenSizeWatcher): void => {
+    if (registry.isEmpty()) default$.next(watcher);
     registry.add(watcher);
-    if (registry.isEmpty()) defaultWatcher = watcher;
   });
   const disposable: ReadonlyArray<TDisposable> = [registry, factory, factorySub$];
   const abstractService: TAbstractService = AbstractService(disposable);
@@ -30,9 +31,10 @@ export function ScreenSizeWatcherService(factory: TScreenSizeWatcherFactory, reg
   const destroySub$: Subscription = abstractService.destroy$.subscribe((): void => {
     destroySub$.unsubscribe();
 
-    defaultWatcher = null as any;
+    default$.unsubscribe();
+    default$.complete();
   });
 
   // eslint-disable-next-line functional/immutable-data
-  return Object.assign(abstractService, withCreateService, withFactory, withRegistry, { default: defaultWatcher });
+  return Object.assign(abstractService, withCreateService, withFactory, withRegistry, { default$ });
 }

@@ -126,7 +126,7 @@ export function showcase(space: TSpace): void {
     }
   });
 
-  addGizmo(space.services, screenService.watchers.default, space.loops, { placement: 'bottom-left' });
+  addGizmo(space.services, screenService.watchers.default$.value, space.loops, { placement: 'bottom-left' });
   gui.add(parameters, 'count').min(1000).max(1000000).step(1000).onFinishChange(createGalaxy);
   gui.add(parameters, 'size').min(0.001).max(1).step(0.001).onFinishChange(createGalaxy);
   gui.add(parameters, 'radius').min(0.01).max(20).step(0.01).onFinishChange(createGalaxy);

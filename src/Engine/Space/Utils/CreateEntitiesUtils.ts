@@ -5,7 +5,7 @@ import type { TIntersectionsWatcher } from '@/Engine/Intersections';
 import type { TScreenSizeWatcher } from '@/Engine/Screen';
 import { CreateEntitiesStrategy } from '@/Engine/Space/Constants';
 import type { TSpaceConfigEntities, TSpaceParamsEntities, TSpaceServices } from '@/Engine/Space/Models';
-import { isDefined } from '@/Engine/Utils';
+import { isDefined, isNotDefined } from '@/Engine/Utils';
 
 export function createEntities(entities: TSpaceConfigEntities | TSpaceParamsEntities, services: TSpaceServices, strategy: CreateEntitiesStrategy): void | never {
   switch (strategy) {
@@ -55,7 +55,9 @@ export function createEntitiesFromConfigs(entities: TSpaceConfigEntities, servic
 
   const container: TGlobalContainerDecorator = ambientContext.container;
   const appContainer: TAppGlobalContainer = container.getAppContainer();
-  const screenSizeWatcher: TScreenSizeWatcher = screenService.watchers.create({ container });
+
+  const screenSizeWatcher: TScreenSizeWatcher | undefined = screenService.watchers.default$.value;
+  if (isNotDefined(screenSizeWatcher)) throw new Error(`Space: ScreenSizeWatcher is not defined`);
 
   // better to create FSMs before any other entities
   fsmService.createSourceFromConfig(fsm);
@@ -108,7 +110,9 @@ export function createEntitiesFromParams(entities: TSpaceParamsEntities, service
 
   const container: TGlobalContainerDecorator = ambientContext.container;
   const appContainer: TAppGlobalContainer = container.getAppContainer();
-  const screenSizeWatcher: TScreenSizeWatcher = screenService.watchers.create({ container });
+
+  const screenSizeWatcher: TScreenSizeWatcher | undefined = screenService.watchers.default$.value;
+  if (isNotDefined(screenSizeWatcher)) throw new Error(`Space: ScreenSizeWatcher is not defined`);
 
   // better to create FSMs before any other entities
   if (isDefined(fsm)) fsmService.createSourceFromList(fsm);

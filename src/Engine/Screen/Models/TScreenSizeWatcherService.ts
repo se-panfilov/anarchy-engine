@@ -1,3 +1,5 @@
+import type { BehaviorSubject } from 'rxjs';
+
 import type { TAbstractService } from '@/Engine/Abstract';
 import type { TWithCreateService, TWithFactoryService, TWithRegistryService } from '@/Engine/Mixins';
 
@@ -15,5 +17,5 @@ export type TScreenSizeWatcherService = TAbstractService &
   TScreenSizeWatcherServiceWithFactory &
   TScreenSizeWatcherServiceWithRegistry &
   Readonly<{
-    default: TScreenSizeWatcher | undefined;
+    default$: BehaviorSubject<TScreenSizeWatcher | undefined>;
   }>;

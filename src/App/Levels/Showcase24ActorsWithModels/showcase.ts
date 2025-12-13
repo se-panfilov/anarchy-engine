@@ -31,7 +31,7 @@ export function showcase(space: TSpace): void {
   const { keyboardService, screenService } = space.services;
   const { onKey, isKeyPressed } = keyboardService;
 
-  addGizmo(space.services, screenService.watchers.default, space.loops, { placement: 'bottom-left' });
+  addGizmo(space.services, screenService.watchers.default$.value, space.loops, { placement: 'bottom-left' });
   const fadeDuration = 0.3;
 
   const solder1AnimFsm: TFsmWrapper = initSolder1('solder_actor_1', fadeDuration, space.services);

@@ -26,7 +26,7 @@ export function showcase(space: TSpace): void {
   if (isNotDefined(scene)) throw new Error('Scene not found');
   if (isNotDefined(scene.entity.fog)) throw new Error("Scene's fog not found");
 
-  addGizmo(space.services, screenService.watchers.default, space.loops, { placement: 'bottom-left' });
+  addGizmo(space.services, screenService.watchers.default$.value, space.loops, { placement: 'bottom-left' });
 
   rendererService.findActive()?.entity.setClearColor(scene.entity.fog.color);
 
