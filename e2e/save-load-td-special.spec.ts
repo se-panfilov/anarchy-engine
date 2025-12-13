@@ -1,6 +1,4 @@
-import type { Locator } from '@playwright/test';
 import { expect, test } from '@playwright/test';
-import fs from 'fs';
 import type { Page } from 'playwright';
 
 const VIEWPORT = { width: 800, height: 600 };
@@ -11,57 +9,41 @@ test.use({ viewport: VIEWPORT });
 
 test.beforeEach(async ({ page }) => {
   await page.goto(GAME_URL + '?e2eName=continuous-move');
-  await waitUntilReady(page);
+  await waitUntilReady('GO_TO_PAGE', page);
 });
 
 test.describe('Space Transform Drive save/load Special tests', () => {
-  const thresholds = {
-    threshold: 0.01,
-    maxDiffPixelRatio: 0.001
-  };
-
-  test(`Special: Transform Drive continuous move`, async ({ page }, testInfo) => {
+  test(`Special: Transform Drive continuous move`, async ({ page }) => {
     const sceneName: string = 'SpaceTransformDrive';
 
-    const canvas: Locator = page.locator('canvas');
     await page.getByLabel('Spaces').selectOption(sceneName);
 
-    await waitUntilReady(page);
+    await waitUntilReady('WAIT_PAGE_LOAD', page);
 
     await page.getByRole('button', { name: 'Change' }).click();
-    await waitUntilReady(page);
-
-    const bufferA = await canvas.screenshot();
+    await waitUntilReady('CLICKED_CHANGE', page);
 
     await page.getByRole('button', { name: 'Save' }).click();
-    await waitUntilReady(page);
+    await waitUntilReady('CLICKED_SAVE', page);
     await page.getByRole('button', { name: 'Drop' }).click();
     await page.getByRole('button', { name: 'Load' }).click();
-    await waitUntilReady(page);
+    await waitUntilReady('CLICKED_LOAD', page);
     await page.getByRole('button', { name: 'Change' }).click();
-    await waitUntilReady(page);
+    await waitUntilReady('CLICKED_Change_2', page);
 
-    const bufferB = await canvas.screenshot();
-
-    const snapshotName: string = `${sceneName}-4-td-continuous-move-compare-changed.png`;
-    const snapshotPath: string = testInfo.snapshotPath(snapshotName);
-
-    if (!fs.existsSync(snapshotPath)) {
-      fs.writeFileSync(snapshotPath, bufferA);
-      throw new Error(`Snapshot for ${sceneName} was missing and has now been created. Re-run the test to validate.`);
-    }
-
-    expect(bufferB).toMatchSnapshot(snapshotName, thresholds);
+    await expect(page).toHaveScreenshot(`${sceneName}-4-td-continuous-move-compare-changed.png`);
   });
 });
 
-export async function waitUntilReady(page: Page, timeout: number = 1000, delay: number = 500): Promise<void> {
+export async function waitUntilReady(actionName: string, page: Page, timeout: number = 1000): Promise<void> {
   await page.waitForFunction(
-    (): boolean | undefined => {
+    ({ actionName }): boolean | undefined => {
+      console.log('XXX [E2E] is ', actionName, ' ready: ', (window as any)._isReady);
       const body: HTMLBodyElement | null = document.querySelector('body');
-      return body?.classList.contains('ready') && !body?.classList.contains('await');
+      const loaded: boolean = !!body?.classList.contains('ready');
+      const isReady: boolean = !!(window as any)._isReady;
+      return loaded && isReady;
     },
-    { timeout }
+    { timeout, actionName }
   );
-  await page.waitForTimeout(delay);
 }
