@@ -9,9 +9,9 @@ declare const __DESKTOP_APP_VERSION__: string;
 
 const mapping: TShowcasesDesktopApi = {
   saveAppSettings: (settings: TShowcaseGameSettings): Promise<void> => ipcRenderer.invoke(platformApiChannel, SaveAppSettings, settings),
-  loadAppSettings: (options: TLoadDocPayload): Promise<TShowcaseGameSettings> => ipcRenderer.invoke(platformApiChannel, LoadAppSettings, options),
+  loadAppSettings: (): Promise<TShowcaseGameSettings> => ipcRenderer.invoke(platformApiChannel, LoadAppSettings),
   // TODO DESKTOP: fix return type of "loadLegalDocs"
-  loadLegalDocs: (): Promise<string> => ipcRenderer.invoke(platformApiChannel, LoadLegalDocs),
+  loadLegalDocs: (options: TLoadDocPayload): Promise<string> => ipcRenderer.invoke(platformApiChannel, LoadLegalDocs, options),
   node: (): string => process.versions.node,
   chrome: (): string => process.versions.chrome,
   electron: (): string => process.versions.electron,

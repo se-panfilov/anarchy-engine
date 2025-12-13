@@ -10,6 +10,8 @@ export function handleAppRequest({ settingsService, docsService }: THandleReques
   if (!isPlatformAction(type)) throw new Error(`[DESKTOP]: Unknown platform action: ${type}`);
   const payload: unknown = args[1];
 
+  console.log('XXX1122233', payload);
+
   // TODO DESKTOP: On load/save settings should apply (e.g. resolution), maybe restart is needed.
   // TODO DESKTOP: Implement restart app event
   switch (type) {
