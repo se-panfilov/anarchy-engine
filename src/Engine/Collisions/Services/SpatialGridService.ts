@@ -1,8 +1,11 @@
 import RBush from 'rbush';
-import { BoxGeometry, Mesh, MeshBasicMaterial } from 'three';
+import type { LineSegments, Vector2, Vector3 } from 'three';
+import { BoxGeometry, Mesh, MeshBasicMaterial, Raycaster } from 'three';
 
 import type { TActorWrapperAsync } from '@/Engine/Actor';
+import type { TCameraWrapper } from '@/Engine/Camera';
 import type { TSpatialCell, TSpatialGridService } from '@/Engine/Collisions/Models';
+import { createOutline } from '@/Engine/Collisions/Services/SpatialHelper';
 import type { TSceneWrapper } from '@/Engine/Scene';
 import { isDefined, isNotDefined } from '@/Engine/Utils';
 
@@ -17,11 +20,43 @@ export function SpatialGridService(): TSpatialGridService {
   }
 
   //this visualization is for debugging purposes only
-  function visualizeSpatialCells(tree: RBush<TSpatialCell>, sceneW: TSceneWrapper): void {
+  function _debugVisualizeSpatialCells(tree: RBush<TSpatialCell>, sceneW: TSceneWrapper): void {
     tree.all().forEach((cell: TSpatialCell): void => {
       const box: Mesh = createBoundingBox(cell.minX, cell.minY, cell.maxX, cell.maxY);
       sceneW.entity.add(box);
     });
+  }
+
+  let outlines: LineSegments[] = [];
+
+  //this highlight is for debugging purposes only
+  function _debugHighlightCellObjects(position: Vector2, camera: TCameraWrapper, scene: TSceneWrapper, tree: RBush<TSpatialCell>): void {
+    // eslint-disable-next-line functional/no-loop-statements
+    for (const outline of outlines) {
+      scene.entity.remove(outline);
+    }
+
+    outlines = [];
+
+    if (position) {
+      const raycaster: Raycaster = new Raycaster();
+      raycaster.setFromCamera(position, camera.entity);
+      const intersects = raycaster.intersectObject(scene.entity, true);
+      if (intersects.length > 0) {
+        const point: Vector3 = intersects[0].point;
+        const cells: ReadonlyArray<TSpatialCell> = tree.search({ minX: point.x, minY: point.z, maxX: point.x, maxY: point.z });
+        // eslint-disable-next-line functional/no-loop-statements
+        for (const cell of cells) {
+          // eslint-disable-next-line functional/no-loop-statements
+          for (const object of cell.objects) {
+            const outline = createOutline(object);
+            scene.entity.add(outline);
+            // eslint-disable-next-line functional/immutable-data
+            outlines.push(outline);
+          }
+        }
+      }
+    }
   }
 
   function addToSpatialCell(x: number, y: number, actorW: TActorWrapperAsync, tree: RBush<TSpatialCell>): void {
@@ -83,6 +118,7 @@ export function SpatialGridService(): TSpatialGridService {
     removeFromSpatialCell,
     moveToNewSpatialCell,
     updateActorsSpatialCells,
-    visualizeSpatialCells
+    _debugVisualizeSpatialCells,
+    _debugHighlightCellObjects
   };
 }
