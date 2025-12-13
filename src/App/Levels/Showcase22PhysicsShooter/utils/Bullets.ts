@@ -1,6 +1,7 @@
 import type { RigidBody } from '@dimforge/rapier3d';
 import { nanoid } from 'nanoid';
 import type { Observable } from 'rxjs';
+import { withLatestFrom } from 'rxjs';
 import { BufferAttribute, BufferGeometry, Color, Euler, PointsMaterial, Vector3 } from 'three';
 import { Points } from 'three/src/objects/Points';
 
@@ -10,6 +11,7 @@ import type {
   TActorParams,
   TActorService,
   TCollisionCheckResult,
+  TIntersectionEvent,
   TIntersectionsWatcher,
   TLightService,
   TMaterialService,
@@ -18,6 +20,7 @@ import type {
   TModel3d,
   TModels3dService,
   TMouseService,
+  TMouseWatcherEvent,
   TPointLightWrapper,
   TSceneWrapper,
   TSpatialGridService,

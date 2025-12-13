@@ -8,8 +8,9 @@ import type { TKinematicData } from './TKinematicData';
 export type TKinematicMethods = Readonly<{
   setData: (kinematic: TKinematicData) => void;
   getData: () => TKinematicData;
-  moveTo: (vector: Vector3, speed: TMetersPerSecond) => void;
-  rotateTo: (quaternion: Quaternion, speed: TMetersPerSecond, radius: TMeters) => void;
+  moveTo: (vector: Vector3, speed: TMetersPerSecond) => void | never;
+  rotateTo: (quaternion: Quaternion, speed: TMetersPerSecond, radius: TMeters) => void | never;
+  lookAt: (vector: Vector3, speed: TMetersPerSecond, radius: TMeters) => void | never;
   getLinearSpeed: () => TMetersPerSecond;
   setLinearSpeed: (speed: TMetersPerSecond) => void;
   getLinearDirection: () => Vector3;

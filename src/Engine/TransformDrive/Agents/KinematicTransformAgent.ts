@@ -70,7 +70,7 @@ export function KinematicTransformAgent(params: TKinematicTransformAgentParams, 
     getData(): TKinematicData {
       return agent.data;
     },
-    moveTo(targetPosition: Vector3, speed: TMetersPerSecond): void {
+    moveTo(targetPosition: Vector3, speed: TMetersPerSecond): void | never {
       if (speed < 0) throw new Error('Speed must be greater than 0 to calculate angular speed.');
       if (speed === 0) return agent.setLinearSpeed(0);
 
