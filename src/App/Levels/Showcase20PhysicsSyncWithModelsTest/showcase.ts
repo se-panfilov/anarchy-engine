@@ -21,14 +21,9 @@ export function showcase(space: TSpace): void {
 
   const actorAsyncRegistry = actorService.getRegistry();
 
-  const actor1: TActor | undefined = actorAsyncRegistry.findByName('actor_1');
-  if (isNotDefined(actor1)) throw new Error(`Cannot find "actor_1" actor`);
-
-  const actor2: TActor | undefined = actorAsyncRegistry.findByName('actor_2');
-  if (isNotDefined(actor2)) throw new Error(`Cannot find "actor_2" actor`);
-
-  const actor3: TActor | undefined = actorAsyncRegistry.findByName('actor_3');
-  if (isNotDefined(actor3)) throw new Error(`Cannot find "actor_3" actor`);
+  const actor1: TActor = actorAsyncRegistry.getByName('actor_1');
+  const actor2: TActor = actorAsyncRegistry.getByName('actor_2');
+  const actor3: TActor = actorAsyncRegistry.getByName('actor_3');
 
   const cameraW: TAnyCameraWrapper | undefined = cameraService.findActive();
   if (isNotDefined(cameraW)) throw new Error(`Cannot find active camera`);

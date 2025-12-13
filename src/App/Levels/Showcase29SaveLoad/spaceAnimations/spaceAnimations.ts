@@ -3,7 +3,6 @@ import type { AnimationAction, AnimationClip, AnimationMixer } from 'three';
 import { LoopOnce } from 'three';
 
 import type { TActor, TSpace, TSpaceConfig } from '@/Engine';
-import { isNotDefined } from '@/Engine';
 
 import type { TSpacesData } from '../ShowcaseTypes';
 import { addAwait, getContainer, removeAwait } from '../utils';
@@ -46,9 +45,7 @@ export const spaceAnimationsData: TSpacesData = {
 };
 
 function initRunningSolder(actorName: string, space: TSpace): void {
-  const solder: TActor | undefined = space.services.actorService.getRegistry().findByName(actorName);
-  if (isNotDefined(solder)) throw new Error(`[Showcase]: Can't create actor: "${actorName}": not found`);
-
+  const solder: TActor = space.services.actorService.getRegistry().getByName(actorName);
   const actions = space.services.animationsService.startAutoUpdateMixer(solder.model3d).actions;
 
   const idleAction: AnimationAction = actions[Idle];
@@ -63,9 +60,7 @@ function initRunningSolder(actorName: string, space: TSpace): void {
 }
 
 function changeRunningSolder(actorName: string, space: TSpace): void {
-  const solder: TActor | undefined = space.services.actorService.getRegistry().findByName(actorName);
-  if (isNotDefined(solder)) throw new Error(`[Showcase]: Can't update actor: "${actorName}": not found`);
-
+  const solder: TActor = space.services.actorService.getRegistry().getByName(actorName);
   const idleAction: AnimationAction = solder.model3d.actions[Idle];
   const runAction: AnimationAction = solder.model3d.actions[Run];
 
@@ -74,9 +69,7 @@ function changeRunningSolder(actorName: string, space: TSpace): void {
 }
 
 function initDancingSolder(actorName: string, space: TSpace): void {
-  const solder: TActor | undefined = space.services.actorService.getRegistry().findByName(actorName);
-  if (isNotDefined(solder)) throw new Error(`[Showcase]: Can't create actor: "${actorName}": not found`);
-
+  const solder: TActor = space.services.actorService.getRegistry().getByName(actorName);
   const actions = space.services.animationsService.startAutoUpdateMixer(solder.model3d).actions;
 
   const idleAction: AnimationAction = actions[Idle];
@@ -91,9 +84,7 @@ function initDancingSolder(actorName: string, space: TSpace): void {
 }
 
 function changeDancingSolder(actorName: string, space: TSpace): void {
-  const solder: TActor | undefined = space.services.actorService.getRegistry().findByName(actorName);
-  if (isNotDefined(solder)) throw new Error(`[Showcase]: Can't update actor: "${actorName}": not found`);
-
+  const solder: TActor = space.services.actorService.getRegistry().getByName(actorName);
   const idleAction: AnimationAction = solder.model3d.actions[Idle];
   const danceAction: AnimationAction = solder.model3d.actions['Armature|mixamo.com|Layer0'];
 

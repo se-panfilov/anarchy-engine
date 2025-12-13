@@ -23,8 +23,7 @@ export function showcase(space: TSpace): void {
   const sceneW: TSceneWrapper | undefined = scenesService.findActive();
   if (isNotDefined(sceneW)) throw new Error('Scene is not defined');
 
-  const model3d: TModel3d | undefined = models3dRegistry.findByName('wood_cube_model');
-  if (isNotDefined(model3d)) throw new Error('Model is not found');
+  const model3d: TModel3d = models3dRegistry.getByName('wood_cube_model');
 
   sceneW.addModel3d(model3d);
 

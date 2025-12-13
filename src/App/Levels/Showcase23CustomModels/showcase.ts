@@ -57,15 +57,10 @@ export async function showcase(space: TSpace): Promise<void> {
   await models3dService.loadAsync({ name: originalName, url: '/Showcase/Models/Fox/Fox.gltf', options: { scale } });
 
   //Let's clone the original model (which was loaded from the code)
-  const modelOriginal: TModel3d | undefined = models3dService.getRegistry().findByName(originalName);
-  if (isNotDefined(modelOriginal)) throw new Error(`Model "${originalName}" doesn't exist in the registry`);
+  const modelOriginal: TModel3d = models3dService.getRegistry().getByName(originalName);
   models3dService.clone(modelOriginal, { name: cloneName, position: new Vector3(-5, 0, 0) });
-
-  const modelClone: TModel3d | undefined = models3dService.getRegistry().findByName(cloneName);
-  if (isNotDefined(modelClone)) throw new Error(`Model "${modelClone}" model is not defined`);
-
-  const modelCompressed: TModel3d | undefined = models3dService.getRegistry().findByName(originalCompressedName);
-  if (isNotDefined(modelCompressed)) throw new Error(`Model "${modelCompressed}" model is not defined`);
+  const modelClone: TModel3d = models3dService.getRegistry().getByName(cloneName);
+  const modelCompressed: TModel3d = models3dService.getRegistry().getByName(originalCompressedName);
 
   const runActionOriginalModel: AnimationAction = animationsService.startAutoUpdateMixer(modelOriginal).actions['Run'];
   const runActionCloneModel: AnimationAction = animationsService.startAutoUpdateMixer(modelClone).actions['Run'];

@@ -107,23 +107,12 @@ function getShowcaseActors({ services }: TSpace): {
   connectedLight: TLightWrapper;
   camera: TCameraWrapper<any>;
 } {
-  const defaultActor: TActor | undefined = services.actorService.getRegistry().findByName('cube_default_actor');
-  if (isNotDefined(defaultActor)) throw new Error('[Showcase]: Actor "cube_default_actor" not found');
-
-  const kinematicActor: TActor | undefined = services.actorService.getRegistry().findByName('cube_kinematic_actor');
-  if (isNotDefined(kinematicActor)) throw new Error('[Showcase]: Actor "cube_kinematic_actor" not found');
-
-  const connectedActor: TActor | undefined = services.actorService.getRegistry().findByName('cube_connected_actor');
-  if (isNotDefined(connectedActor)) throw new Error('[Showcase]: Actor "cube_connected_actor" not found');
-
-  const kinematicText: TText3dTextureWrapper | undefined = services.textService.getRegistries().text3dTextureRegistry.findByName('kinematic_text');
-  if (isNotDefined(kinematicText)) throw new Error('[Showcase]: Text "kinematic_text" not found');
-
-  const connectedText: TText3dWrapper | undefined = services.textService.getRegistries().text3dRegistry.findByName('connected_text');
-  if (isNotDefined(connectedText)) throw new Error('[Showcase]: Text "connected_text" not found');
-
-  const connectedLight: TLightWrapper | undefined = services.lightService.getRegistry().findByName('connected_light') as TLightWrapper;
-  if (isNotDefined(connectedLight)) throw new Error('[Showcase]: Light "connected_light" not found');
+  const defaultActor: TActor = services.actorService.getRegistry().getByName('cube_default_actor');
+  const kinematicActor: TActor = services.actorService.getRegistry().getByName('cube_kinematic_actor');
+  const connectedActor: TActor = services.actorService.getRegistry().getByName('cube_connected_actor');
+  const kinematicText: TText3dTextureWrapper = services.textService.getRegistries().text3dTextureRegistry.getByName('kinematic_text');
+  const connectedText: TText3dWrapper = services.textService.getRegistries().text3dRegistry.getByName('connected_text');
+  const connectedLight: TLightWrapper = services.lightService.getRegistry().getByName('connected_light') as TLightWrapper;
 
   const camera: TCameraWrapper<any> | undefined = services.cameraService.findActive();
   if (isNotDefined(camera)) throw new Error('[Showcase]: Active camera not found');

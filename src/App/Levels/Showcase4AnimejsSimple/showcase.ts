@@ -31,7 +31,7 @@ export function showcase(space: TSpace): void {
   };
 
   const boxActorTag: string = 'box';
-  const grid: TSpatialGridWrapper | undefined = spatialGridService.getRegistry().findByName('main_grid');
+  const grid: TSpatialGridWrapper = spatialGridService.getRegistry().getByName('main_grid');
 
   const material: TMaterialWrapper = materialService.create({ name: 'cube_material', type: MaterialType.Toon, options: { color: '#5177ff' } });
 

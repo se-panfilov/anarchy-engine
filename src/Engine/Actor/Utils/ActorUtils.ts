@@ -10,8 +10,7 @@ export function applySpatialGrid(params: TActorParams, actor: TActor, spatialGri
   const gridName: string | undefined = params.spatial.grid.getName();
   if (isNotDefined(gridName)) throw new Error(`Cannot add actor (id: "${actor.id}") to spatial grid: spatial grid name is not defined`);
 
-  const grid: TSpatialGridWrapper | undefined = spatialGridService.getRegistry().findByName(gridName);
-  if (isNotDefined(grid)) throw new Error(`Cannot add actor (id: "${actor.id}") to spatial grid: "${gridName}", no such grid found`);
+  const grid: TSpatialGridWrapper = spatialGridService.getRegistry().getByName(gridName);
 
   actor.spatial.setGrid(grid);
   grid.addActor(actor);

@@ -53,9 +53,7 @@ export function getBulletsPool(
   spatialGridService: TSpatialGridService
 ): ReadonlyArray<TBullet> {
   let bullets: ReadonlyArray<TBullet> = [];
-  const grid: TSpatialGridWrapper | undefined = spatialGridService.getRegistry().findByName('main_grid');
-  if (isNotDefined(grid)) throw new Error(`Failed to create bullet: Cannot find "main_grid" spatial grid`);
-
+  const grid: TSpatialGridWrapper = spatialGridService.getRegistry().getByName('main_grid');
   const material: TMaterialWrapper = materialService.create({ name: 'bullet_material', type: MaterialType.Standard, options: { color: '#FF0000' } });
 
   // eslint-disable-next-line functional/no-loop-statements

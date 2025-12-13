@@ -15,8 +15,7 @@ export function actorToConfig(entity: TActor, { models3dService }: TActorEntityT
   const { drive } = entity;
 
   const models3dRegistry: TModels3dRegistry = models3dService.getRegistry();
-  const model3d: TModel3d | undefined = models3dRegistry.findById(entity.model3d.id);
-  if (isNotDefined(model3d)) throw new Error(`[Serialization] Actor: model3d not found for entity with name: "${entity.name}", (id: "${entity.id}")`);
+  const model3d: TModel3d | undefined = models3dRegistry.getById(entity.model3d.id);
   const model3dSource: string = model3d.name;
 
   return filterOutEmptyFields({

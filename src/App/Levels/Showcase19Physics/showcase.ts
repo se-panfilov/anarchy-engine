@@ -37,12 +37,10 @@ export function showcase(space: TSpace): void {
   let azimuth: TRadians = radians(0);
   let forcePower: number = 0;
 
-  const ballActor: TActor | undefined = actorAsyncRegistry.findByName('sphere_actor');
-  if (isNotDefined(ballActor)) throw new Error(`Cannot find "ball" actor`);
+  const ballActor: TActor = actorAsyncRegistry.getByName('sphere_actor');
   if (!isActorHasPhysicsBody(ballActor)) throw new Error(`"ball" actor is not a physic actor`);
 
-  const surfaceActor: TActor | undefined = actorAsyncRegistry.findByName('surface_actor');
-  if (isNotDefined(surfaceActor)) throw new Error(`Cannot find "surfaceActor" actor`);
+  const surfaceActor: TActor = actorAsyncRegistry.getByName('surface_actor');
   if (!isActorHasPhysicsBody(surfaceActor)) throw new Error(`"surfaceActor" actor is not a physic actor`);
 
   const cameraW: TAnyCameraWrapper | undefined = cameraService.findActive();

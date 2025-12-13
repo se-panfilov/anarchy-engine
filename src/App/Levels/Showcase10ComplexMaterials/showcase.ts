@@ -116,8 +116,7 @@ export function showcase(space: TSpace): void {
     // eslint-disable-next-line functional/immutable-data
     state.controllers = addGuiToActor(actor);
     const position: TReadonlyVector3 = actor.drive.position$.value;
-    const orbitControls: TControlsWrapper | undefined = controlsRegistry.findByName('orbit_controls');
-    if (isNotDefined(orbitControls)) throw new Error('Orbit controls are not found');
+    const orbitControls: TControlsWrapper = controlsRegistry.getByName('orbit_controls');
     if (!isOrbitControls(orbitControls)) throw new Error(`Active controls are not of type "${ControlsType.OrbitControls}", but ${orbitControls.getType()}`);
     orbitControls.setDamping(true);
     orbitControls.moveToTargetSmoothly(position);

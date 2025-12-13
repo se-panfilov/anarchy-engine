@@ -16,9 +16,9 @@ export const spaceLightData: TSpacesData = {
   container: getContainer(config.canvasSelector),
   awaits$: new BehaviorSubject<ReadonlySet<string>>(new Set()),
   onChange: (space: TSpace): void => {
-    const hemisphere: THemisphereLightWrapper = space.services.lightService.getRegistry().findByName('hemisphere_light') as THemisphereLightWrapper;
-    const pointLight: TPointLightWrapper = space.services.lightService.getRegistry().findByName('point_light') as TPointLightWrapper;
-    const spotlight: TSpotLightWrapper = space.services.lightService.getRegistry().findByName('spot_light') as TSpotLightWrapper;
+    const hemisphere: THemisphereLightWrapper = space.services.lightService.getRegistry().getByName('hemisphere_light') as THemisphereLightWrapper;
+    const pointLight: TPointLightWrapper = space.services.lightService.getRegistry().getByName('point_light') as TPointLightWrapper;
+    const spotlight: TSpotLightWrapper = space.services.lightService.getRegistry().getByName('spot_light') as TSpotLightWrapper;
 
     // eslint-disable-next-line functional/immutable-data
     (hemisphere.entity as TWriteable<HemisphereLight>).color = new Color('#2121AB');

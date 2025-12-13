@@ -37,8 +37,7 @@ export function download(space: TSpace): void {
 }
 
 export function changeText(name: string, registry: TText2dRegistry | TText3dRegistry | TText3dTextureRegistry): void {
-  const text: TText2dWrapper | TText3dWrapper | TText3dTextureWrapper | undefined = registry.findByName(name);
-  if (isNotDefined(text)) throw new Error(`[Showcase]: Text with name "${name}" is not found`);
+  const text: TText2dWrapper | TText3dWrapper | TText3dTextureWrapper = registry.getByName(name);
 
   //Text3dTexture texts don't support a runtime text changing
   if (text.type !== TextType.Text3dTexture) text.setText(text.getText() + ' Changed!');
@@ -82,7 +81,6 @@ export function removeAwait(id: string, awaits$: BehaviorSubject<ReadonlySet<str
 }
 
 export function addModel3dToScene(space: TSpace, modelName: string): void | never {
-  const model3d: TModel3d | undefined = space.services.models3dService.getRegistry().findByName(modelName);
-  if (isNotDefined(model3d)) throw new Error(`[Showcase]: Model3d "${modelName}" not found`);
+  const model3d: TModel3d = space.services.models3dService.getRegistry().getByName(modelName);
   space.services.scenesService.findActive()?.addModel3d(model3d);
 }

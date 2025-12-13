@@ -1,40 +1,24 @@
 import type { TActor, TIntersectionsWatcher, TSceneWrapper, TSpaceServices } from '@/Engine';
 import type { TSpatialGridWrapper } from '@/Engine/Spatial';
-import { isNotDefined } from '@/Engine/Utils';
 
 export function enableCollisions(mouseLineIntersectionsWatcher: TIntersectionsWatcher, { actorService, spatialGridService, collisionsService }: TSpaceServices): void {
   const sceneW: TSceneWrapper = actorService.getScene();
-  const grid: TSpatialGridWrapper | undefined = spatialGridService.getRegistry().findByName('main_grid');
-  if (isNotDefined(grid)) throw new Error(`Cannot find "main_grid" spatial grid`);
+  const grid: TSpatialGridWrapper = spatialGridService.getRegistry().getByName('main_grid');
   const registry = actorService.getRegistry();
-  const { findByName, findAllByTag } = registry;
+  const { getByName, findAllByTag } = registry;
 
-  const sphereActor: TActor | undefined = findByName('sphere');
-  const boxActor1: TActor | undefined = findByName('box_static_1');
-  const boxActor2: TActor | undefined = findByName('box_static_2');
-  const boxActor3: TActor | undefined = findByName('box_static_3');
-  const boxActor4: TActor | undefined = findByName('box_static_4');
-  const boxActor5: TActor | undefined = findByName('box_static_5');
-  const boxActor6: TActor | undefined = findByName('box_static_6');
-  const boxActor7: TActor | undefined = findByName('box_static_7');
-  const targetActor1: TActor | undefined = findByName('target_1');
-  const targetActor2: TActor | undefined = findByName('target_2');
-  const targetActor3: TActor | undefined = findByName('target_3');
+  const sphereActor: TActor = getByName('sphere');
+  const boxActor1: TActor = getByName('box_static_1');
+  const boxActor2: TActor = getByName('box_static_2');
+  const boxActor3: TActor = getByName('box_static_3');
+  const boxActor4: TActor = getByName('box_static_4');
+  const boxActor5: TActor = getByName('box_static_5');
+  const boxActor6: TActor = getByName('box_static_6');
+  const boxActor7: TActor = getByName('box_static_7');
+  const targetActor1: TActor = getByName('target_1');
+  const targetActor2: TActor = getByName('target_2');
+  const targetActor3: TActor = getByName('target_3');
 
-  if (
-    isNotDefined(sphereActor) ||
-    isNotDefined(boxActor1) ||
-    isNotDefined(boxActor2) ||
-    isNotDefined(boxActor3) ||
-    isNotDefined(boxActor4) ||
-    isNotDefined(boxActor5) ||
-    isNotDefined(boxActor6) ||
-    isNotDefined(boxActor7) ||
-    isNotDefined(targetActor1) ||
-    isNotDefined(targetActor2) ||
-    isNotDefined(targetActor3)
-  )
-    throw new Error(`Cannot find actors`);
   grid.addActor(sphereActor);
   grid.addActor(boxActor1);
   grid.addActor(boxActor2);

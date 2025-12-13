@@ -21,10 +21,8 @@ export function showcase(space: TSpace): void {
   const cameraRegistry: TCameraRegistry = cameraService.getRegistry();
   const { clickLeftRelease$ } = mouseService;
 
-  const watcherRed: TIntersectionsWatcher | undefined = intersectionsWatcherService.getRegistry().findByName('watcher_red');
-  if (isNotDefined(watcherRed)) throw new Error('Watcher not found');
-  const watcherBlue: TIntersectionsWatcher | undefined = intersectionsWatcherService.getRegistry().findByName('watcher_blue');
-  if (isNotDefined(watcherBlue)) throw new Error('Watcher not found');
+  const watcherRed: TIntersectionsWatcher = intersectionsWatcherService.getRegistry().getByName('watcher_red');
+  const watcherBlue: TIntersectionsWatcher = intersectionsWatcherService.getRegistry().getByName('watcher_blue');
 
   watcherRed.value$.subscribe((value: TIntersectionEvent) => console.log('redWatcher', value));
   watcherBlue.value$.subscribe((value: TIntersectionEvent) => console.log('blueWatcher', value));
@@ -32,9 +30,8 @@ export function showcase(space: TSpace): void {
   let cameraFolder: GUI | undefined;
   let cameraName: string = 'camera_red';
   clickLeftRelease$.subscribe((): void => {
-    const camera: TAnyCameraWrapper | undefined = cameraRegistry.findByName(cameraName);
+    const camera: TAnyCameraWrapper = cameraRegistry.getByName(cameraName);
     // console.log(cameraName, cameraService.findActive()?.name, cameraName === cameraService.findActive()?.name);
-    if (isNotDefined(camera)) throw new Error(`Cannot switch camera: camera ("${cameraName}") not found`);
     cameraFolder = resetGui(gui, cameraFolder, camera);
 
     cameraService.setActive(camera.id);

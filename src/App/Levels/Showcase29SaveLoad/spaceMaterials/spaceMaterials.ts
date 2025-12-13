@@ -93,8 +93,7 @@ export const spaceMaterialsData: TSpacesData = {
 };
 
 function adjustMaterial(space: TSpace, materialName: string, options: TMaterialConfigOptions): void | never {
-  const materialW: TPhysicalMaterialWrapper | undefined = space.services.materialService.getRegistry().findByName(materialName) as TPhysicalMaterialWrapper;
-  if (isNotDefined(materialW)) throw new Error(`[Showcase]: Cannot find the material "${materialName}"`);
+  const materialW: TPhysicalMaterialWrapper = space.services.materialService.getRegistry().getByName(materialName) as TPhysicalMaterialWrapper;
 
   Object.entries(options).forEach(([key, value]): void => {
     if (isNotDefined(value)) return;

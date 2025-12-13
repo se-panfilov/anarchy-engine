@@ -5,9 +5,7 @@ import type { TActor, TFsmStates, TFsmWrapper, TModel3d, TSpaceServices } from '
 import { isNotDefined } from '@/Engine';
 
 export function initSolder1(actorName: string, fadeDuration: number, { animationsService, fsmService, actorService }: TSpaceServices): TFsmWrapper {
-  const actor: TActor | undefined = actorService.getRegistry().findByName(actorName);
-  if (isNotDefined(actor)) throw new Error(`Actor "${actorName}" is not found`);
-
+  const actor: TActor = actorService.getRegistry().getByName(actorName);
   const model3d: TModel3d = actor.model3d;
   const actions = animationsService.startAutoUpdateMixer(model3d).actions;
 
@@ -70,9 +68,7 @@ export function initSolder1(actorName: string, fadeDuration: number, { animation
 }
 
 export function initSolder2(actorName: string, fadeDuration: number, { animationsService, actorService }: TSpaceServices): TFsmWrapper {
-  const actor: TActor | undefined = actorService.getRegistry().findByName(actorName);
-  if (isNotDefined(actor)) throw new Error(`Actor "${actorName}" is not found`);
-
+  const actor: TActor = actorService.getRegistry().getByName(actorName);
   const model3d: TModel3d = actor.model3d;
   const actions = animationsService.startAutoUpdateMixer(model3d).actions;
 

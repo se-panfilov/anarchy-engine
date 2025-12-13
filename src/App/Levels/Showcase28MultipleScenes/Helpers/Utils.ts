@@ -1,7 +1,7 @@
 import type { TSubscriptionsData } from '@/App/Levels/Showcase28MultipleScenes/Helpers/TSubscriptionsData';
 import { addBtn } from '@/App/Levels/Utils';
 import type { TActor, TActorRegistry, TKeyboardPressingEvent, TParticlesWrapper, TSpace, TSpaceServices } from '@/Engine';
-import { createDomElement, isNotDefined, KeyCode, metersPerSecond, mpsSpeed } from '@/Engine';
+import { createDomElement, KeyCode, metersPerSecond, mpsSpeed } from '@/Engine';
 
 export function createContainersDivs(): void {
   createDomElement(
@@ -36,9 +36,7 @@ export function createContainersDivs(): void {
 
 export function driveByKeyboard(actorName: string, { actorService, keyboardService }: TSpaceServices): void {
   const actorRegistry: TActorRegistry = actorService.getRegistry();
-  const actor: TActor | undefined = actorRegistry.findByName(actorName);
-  if (isNotDefined(actor)) throw new Error(`Actor "${actorName}" is not defined`);
-
+  const actor: TActor = actorRegistry.getByName(actorName);
   const { onKey } = keyboardService;
 
   onKey(KeyCode.W).pressing$.subscribe(({ delta }: TKeyboardPressingEvent): void => void actor.drive.default.addZ(mpsSpeed(metersPerSecond(-10), delta)));
@@ -84,7 +82,6 @@ export function addParticles(space: TSpace): void {
   const { particlesService } = space.services;
 
   const particlesName: string = 'bubbles';
-  const particles: TParticlesWrapper | undefined = particlesService.getRegistry().findByName(particlesName);
-  if (isNotDefined(particles)) throw new Error(`Particles "${particlesName}" not found`);
+  const particles: TParticlesWrapper = particlesService.getRegistry().getByName(particlesName);
   particles.setIndividualPositions(positions);
 }

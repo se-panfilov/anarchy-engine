@@ -90,12 +90,9 @@ export function createRepeaterActor(actor: TActor, model3d: TModel3d, offset: Ve
 export function startIntersections({ actorService, cameraService, intersectionsWatcherService, mouseService, loopService }: TSpaceServices): TIntersectionsWatcher {
   const camera: TAnyCameraWrapper | undefined = cameraService.findActive();
   if (isNotDefined(camera)) throw new Error('Camera is not defined');
-  const surfaceActor: TActor | undefined = actorService.getRegistry().findByName('surface_actor');
-  if (isNotDefined(surfaceActor)) throw new Error('Actor "surface_actor" is not defined');
-  const boxActor1: TActor | undefined = actorService.getRegistry().findByName('box_actor_1');
-  if (isNotDefined(boxActor1)) throw new Error('Actor "box_actor_1" is not defined');
-  const boxActor2: TActor | undefined = actorService.getRegistry().findByName('box_actor_2');
-  if (isNotDefined(boxActor2)) throw new Error('Actor "box_actor_2" is not defined');
+  const surfaceActor: TActor = actorService.getRegistry().getByName('surface_actor');
+  const boxActor1: TActor = actorService.getRegistry().getByName('box_actor_1');
+  const boxActor2: TActor = actorService.getRegistry().getByName('box_actor_2');
 
   return intersectionsWatcherService.create({
     name: 'intersections_watcher',

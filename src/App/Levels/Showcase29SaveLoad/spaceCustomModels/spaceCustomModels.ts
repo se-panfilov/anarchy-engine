@@ -1,7 +1,6 @@
 import { BehaviorSubject } from 'rxjs';
 
 import type { TModel3d, TSpace, TSpaceConfig } from '@/Engine';
-import { isNotDefined } from '@/Engine';
 
 import type { TSpacesData } from '../ShowcaseTypes';
 import { addModel3dToScene, getContainer } from '../utils';
@@ -19,8 +18,7 @@ export const spaceCustomModelsData: TSpacesData = {
     addModel3dToScene(space, 'surface_model');
   },
   onChange: (space: TSpace): void | never => {
-    const model3d: TModel3d | undefined = space.services.models3dService.getRegistry().findByName('fox_glb_config_original');
-    if (isNotDefined(model3d)) throw new Error(`[Showcase]: Model3d is not found`);
+    const model3d: TModel3d = space.services.models3dService.getRegistry().getByName('fox_glb_config_original');
     // eslint-disable-next-line functional/immutable-data
     model3d.getRawModel3d().position.x += 5;
     // eslint-disable-next-line functional/immutable-data

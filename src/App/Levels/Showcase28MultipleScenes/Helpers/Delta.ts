@@ -26,15 +26,13 @@ function initAudio(space: TSpace): void {
   const scene: TSceneWrapper | undefined = scenesService.findActive();
   if (isNotDefined(scene)) throw new Error('Showcase: No active scene is not found');
 
-  const gunshot2: TAudio3dWrapper | undefined = audioService.getRegistry().findByName(gunshotName2) as TAudio3dWrapper | undefined;
-  if (isNotDefined(gunshot2)) throw new Error(`Showcase: Audio "${gunshotName2}" is not found`);
+  const gunshot2: TAudio3dWrapper = audioService.getRegistry().getByName(gunshotName2) as TAudio3dWrapper;
   DebugAudioRenderer(gunshot2, scene, audioLoop);
 
   setInterval((): void => gunshot2.play$.next(true), 500);
 
   const actorRegistry: TActorRegistry = actorService.getRegistry();
-  const actor: TActor | undefined = actorRegistry.findByName('sphere_actor');
-  if (isNotDefined(actor)) throw new Error(`Actor "${'sphere_actor'}" is not defined`);
+  const actor: TActor = actorRegistry.getByName('sphere_actor');
 
   transformLoop.tick$.subscribe((): void => {
     // eslint-disable-next-line functional/immutable-data
@@ -49,8 +47,7 @@ function initAudio(space: TSpace): void {
 function startIntersections(space: TSpace, camera: TAnyCameraWrapper): TIntersectionsWatcher {
   const { actorService, intersectionsWatcherService, mouseService } = space.services;
   const { intersectionsLoop } = space.loops;
-  const surfaceActor: TActor | undefined = actorService.getRegistry().findByName('surface_actor');
-  if (isNotDefined(surfaceActor)) throw new Error('Actor is not defined');
+  const surfaceActor: TActor = actorService.getRegistry().getByName('surface_actor');
 
   return intersectionsWatcherService.create({
     name: 'intersection_watcher',
@@ -71,8 +68,7 @@ function initKinematic(space: TSpace): void {
   if (isNotDefined(camera)) throw new Error('Camera is not defined');
 
   const intersectionsWatcher: TIntersectionsWatcher = startIntersections(space, camera);
-  const actorMouse: TActor | undefined = actorService.getRegistry().findByName('sphere_mouse_actor');
-  if (isNotDefined(actorMouse)) throw new Error('Actor mouse is not defined');
+  const actorMouse: TActor = actorService.getRegistry().getByName('sphere_mouse_actor');
 
   const { line } = createReactiveLineFromActor('#E91E63', actorMouse, intersectionsWatcher);
   scenesService.findActive()?.entity.add(line);

@@ -27,7 +27,17 @@ export function showcase(space: TSpace): void {
 
   let particles: TParticlesWrapper | undefined;
 
-  type TGalaxyParams = { count: number; size: number; radius: number; branches: number; spin: number; randomness: number; randomnessPower: number; insideColor: string; outsideColor: string };
+  type TGalaxyParams = {
+    count: number;
+    size: number;
+    radius: number;
+    branches: number;
+    spin: number;
+    randomness: number;
+    randomnessPower: number;
+    insideColor: string;
+    outsideColor: string;
+  };
 
   const parameters: TGalaxyParams = {
     count: 42000,
@@ -70,9 +80,7 @@ export function showcase(space: TSpace): void {
       size: parameters.size
     });
 
-    particles = particlesService.getRegistry().findByName(particlesName);
-    if (isNotDefined(particles)) throw new Error(`Particles "${particlesName}" not found`);
-
+    particles = particlesService.getRegistry().getByName(particlesName);
     particles.setIndividualPositions(positions);
     particles.setIndividualMaterialColors(colors);
   }

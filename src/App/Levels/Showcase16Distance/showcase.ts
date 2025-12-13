@@ -33,11 +33,10 @@ export function showcase(space: TSpace): void {
   const cameraRegistry: TCameraRegistry = cameraService.getRegistry();
   if (isNotDefined(actorRegistry)) throw new Error('Actor registry is not defined');
   if (isNotDefined(cameraRegistry)) throw new Error('Camera registry is not defined');
-  const { findByName } = actorRegistry;
+  const { getByName } = actorRegistry;
   const { onKey } = keyboardService;
 
-  const sphere: TActor | undefined = findByName('sphere_actor');
-  if (isNotDefined(sphere)) throw new Error('Actor "sphere_actor" is not defined');
+  const sphere: TActor = getByName('sphere_actor');
 
   addGizmo(space.services, space.container, space.loops, { placement: 'bottom-left' });
 

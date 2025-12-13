@@ -29,8 +29,7 @@ export function showcase(space: TSpace): void {
   keyboardService.onKey(KeysExtra.Space).pressed$.subscribe((): void => physicalLoop.enabled$.next(true));
   keyboardService.onKey(KeysExtra.Space).released$.subscribe((): void => physicalLoop.enabled$.next(false));
 
-  const actor: TActor | undefined = actorService.getRegistry().findByName('sphere_4_actor');
-  if (isNotDefined(actor)) throw new Error('Non-physical actor not found');
+  const actor: TActor = actorService.getRegistry().getByName('sphere_4_actor');
 
   //always running non-physical actor
   const clock: Clock = new Clock();

@@ -44,9 +44,7 @@ export function runBeta(space: TSpace): void {
 
 function driveByKeyboard(actorName: string, { actorService, keyboardService }: TSpaceServices): void {
   const actorRegistry: TActorRegistry = actorService.getRegistry();
-  const actor: TActor | undefined = actorRegistry.findByName(actorName);
-  if (isNotDefined(actor)) throw new Error(`Actor "${actorName}" is not defined`);
-
+  const actor: TActor = actorRegistry.getByName(actorName);
   const { onKey } = keyboardService;
 
   onKey(KeyCode.W).pressing$.subscribe(({ delta }: TKeyboardPressingEvent): void => void actor.drive.default.addZ(mpsSpeed(metersPerSecond(-10), delta)));

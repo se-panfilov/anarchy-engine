@@ -16,7 +16,7 @@ export function configToParams(config: TModel3dConfig, { animationsResourceAsync
     ...configToParamsObject3d({ position, rotation, scale }),
     animationsSource: getAnimationsSource(config, animationsResourceAsyncRegistry),
     model3dSource: getModel3d(config, model3dResourceAsyncRegistry),
-    material: isDefined(material) ? materialRegistry.findByName(material) : undefined
+    material: isDefined(material) ? materialRegistry.getByName(material) : undefined
   };
 }
 

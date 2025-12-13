@@ -27,8 +27,7 @@ export const spaceActorData: TSpacesData = {
   onSpaceReady(space: TSpace, subscriptions?: Record<string, Subscription>): void {
     const fadeDuration = 0.3;
 
-    const solder: TActor | undefined = space.services.actorService.getRegistry().findByName('solder_actor_1');
-    if (isNotDefined(solder)) throw new Error('[Showcase]: Solder actor not found');
+    const solder: TActor = space.services.actorService.getRegistry().getByName('solder_actor_1');
 
     const { animationsFsm } = solder.states;
     if (isNotDefined(animationsFsm)) throw new Error('[Showcase]:Solder animationsFsm not found');
@@ -60,8 +59,7 @@ export const spaceActorData: TSpacesData = {
     });
   },
   onChange: (space: TSpace): void => {
-    const solder: TActor | undefined = space.services.actorService.getRegistry().findByName('solder_actor_1');
-    if (isNotDefined(solder)) throw new Error('[Showcase]: Solder actor not found');
+    const solder: TActor = space.services.actorService.getRegistry().getByName('solder_actor_1');
     solder.states.animationsFsm?.send$.next(Idle);
     solder.drive.position$.next(new Vector3(-0.5, 0, 0.3));
   },

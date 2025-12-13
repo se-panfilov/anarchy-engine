@@ -24,17 +24,15 @@ export function showcase(space: TSpace): void {
   const cameraRegistry: TCameraRegistry = cameraService.getRegistry();
   const { clickLeftRelease$ } = mouseService;
 
-  const actor: TActor | undefined = actorRegistry.findByName('sphere_actor');
-  if (isNotDefined(actor)) throw new Error('Cannot find actor');
+  const actor: TActor = actorRegistry.getByName('sphere_actor');
   actor.drive.default.setY(2);
 
   let cameraFolder: GUI | undefined;
   let counter: number = 1;
   const getCameraName = (): string => `cam${counter}`;
   clickLeftRelease$.subscribe((): void => {
-    const camera: TAnyCameraWrapper | undefined = cameraRegistry.findByName(getCameraName());
+    const camera: TAnyCameraWrapper | undefined = cameraRegistry.getByName(getCameraName());
     console.log(getCameraName(), cameraService.findActive()?.name, getCameraName() === cameraService.findActive()?.name);
-    if (isNotDefined(camera)) throw new Error(`Cannot switch camera: camera ("${getCameraName()}") not found`);
     cameraFolder = resetGui(gui, cameraFolder, camera);
 
     cameraService.setActive(camera.id);

@@ -38,8 +38,7 @@ export function showcase(space: TSpace): void {
   const lightRegistry: TLightRegistry = lightService.getRegistry();
   const models3dRegistry: TModels3dRegistry = models3dService.getRegistry();
 
-  const planeModel3d: TModel3d | undefined = models3dRegistry.findByName('surface_model');
-  if (isNotDefined(planeModel3d)) throw new Error('Plane model is not defined');
+  const planeModel3d: TModel3d = models3dRegistry.getByName('surface_model');
 
   const sceneW: TSceneWrapper | undefined = scenesService.findActive();
   if (isNotDefined(sceneW)) throw new Error('Scene is not defined');

@@ -42,8 +42,7 @@ export function showcase(space: TSpace): void {
       camera.drive.default.setY(yRatio * 10);
       camera.drive.default.setZ(yRotation);
 
-      const actor: TActor | undefined = actorRegistry.findByName('central_actor');
-      if (isNotDefined(actor)) throw new Error('Actor not found');
+      const actor: TActor = actorRegistry.getByName('central_actor');
       camera.lookAt(actor.drive.position$.value as Vector3);
     });
 

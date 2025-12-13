@@ -30,8 +30,7 @@ export function showcase(space: TSpace): void {
   }
 
   const particlesName: string = 'bubbles';
-  const particles: TParticlesWrapper | undefined = particlesService.getRegistry().findByName(particlesName);
-  if (isNotDefined(particles)) throw new Error(`Particles "${particlesName}" not found`);
+  const particles: TParticlesWrapper = particlesService.getRegistry().getByName(particlesName);
   particles.setIndividualPositions(positions);
 
   addGizmo(space.services, space.container, space.loops, { placement: 'bottom-left' });

@@ -23,8 +23,7 @@ function addModel3d(space: TSpace): void {
 
   const foxModelName: string = 'fox_model_3d';
 
-  const foxActor: TModel3d | undefined = models3dService.getRegistry().findByName(foxModelName);
-  if (isNotDefined(foxActor)) throw new Error(`Model "${foxModelName}" is not defined`);
+  const foxActor: TModel3d = models3dService.getRegistry().getByName(foxModelName);
   const sceneW: TSceneWrapper | undefined = scenesService.findActive();
   if (isNotDefined(sceneW)) throw new Error('Scene is not defined');
   sceneW.addModel3d(foxActor);

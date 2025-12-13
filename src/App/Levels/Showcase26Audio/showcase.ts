@@ -50,11 +50,9 @@ export function showcase(space: TSpace): void {
   const gunshotName1: string = 'gunshot_1';
   const gunshotName2: string = 'gunshot_2';
 
-  const gunshot1: TAudio3dWrapper | undefined = audioService.getRegistry().findByName(gunshotName1) as TAudio3dWrapper | undefined;
-  if (isNotDefined(gunshot1)) throw new Error(`Showcase: Audio "${gunshotName1}" is not found`);
+  const gunshot1: TAudio3dWrapper = audioService.getRegistry().getByName(gunshotName1) as TAudio3dWrapper;
   DebugAudioRenderer(gunshot1, scene, audioLoop);
-  const gunshot2: TAudio3dWrapper | undefined = audioService.getRegistry().findByName(gunshotName2) as TAudio3dWrapper | undefined;
-  if (isNotDefined(gunshot2)) throw new Error(`Showcase: Audio "${gunshotName2}" is not found`);
+  const gunshot2: TAudio3dWrapper = audioService.getRegistry().getByName(gunshotName2) as TAudio3dWrapper;
   DebugAudioRenderer(gunshot2, scene, audioLoop);
 
   initMutant('mutant_actor_1', space.services);
@@ -65,8 +63,7 @@ export function showcase(space: TSpace): void {
 
   //Keep in mind that setInterval/setTimeout could be slowdown in background tabs, don't use it for production (or use in web workers)
   setInterval((): void => {
-    const ladyShootFsm: TFsmWrapper | undefined = lady.getAnimationsFsm();
-    if (isNotDefined(ladyShootFsm)) throw new Error('Showcase: Animations FSM is not found');
+    const ladyShootFsm: TFsmWrapper = lady.getAnimationsFsm();
     ladyShootFsm.send$.next('Shoot');
     setTimeout((): void => ladyShootFsm.send$.next('Idle'), 500);
   }, 1500);
@@ -75,8 +72,7 @@ export function showcase(space: TSpace): void {
 }
 
 function initMutant(actorName: string, { animationsService, actorService }: TSpaceServices): TActor {
-  const actor: TActor | undefined = actorService.getRegistry().findByName(actorName);
-  if (isNotDefined(actor)) throw new Error(`Actor "${actorName}" is not found`);
+  const actor: TActor = actorService.getRegistry().getByName(actorName);
 
   const model3d: TModel3d = actor.model3d;
   const fadeDuration = 0.3;
@@ -89,9 +85,7 @@ function initMutant(actorName: string, { animationsService, actorService }: TSpa
 }
 
 function initLady(actorName: string, gunshotAudioW: TAudio3dWrapper, { animationsService, actorService }: TSpaceServices): TActor {
-  const actor: TActor | undefined = actorService.getRegistry().findByName(actorName);
-  if (isNotDefined(actor)) throw new Error(`Actor "${actorName}" is not found`);
-
+  const actor: TActor = actorService.getRegistry().getByName(actorName);
   const model3d: TModel3d = actor.model3d;
   const fadeDuration = 0.3;
   const actions = animationsService.startAutoUpdateMixer(model3d).actions;
@@ -122,10 +116,21 @@ function initLady(actorName: string, gunshotAudioW: TAudio3dWrapper, { animation
   return actor;
 }
 
-function initMusicWithControls(name: string, folderName: string, gui: GUI, { audioService }: TSpaceServices, { loop, scene }: { loop?: TLoop; scene?: TSceneWrapper } = {}): TAnyAudioWrapper {
+function initMusicWithControls(
+  name: string,
+  folderName: string,
+  gui: GUI,
+  { audioService }: TSpaceServices,
+  {
+    loop,
+    scene
+  }: {
+    loop?: TLoop;
+    scene?: TSceneWrapper;
+  } = {}
+): TAnyAudioWrapper {
   const folder: GUI = gui.addFolder(folderName);
-  const audioW: TAnyAudioWrapper | undefined = audioService.getRegistry().findByName(name);
-  if (isNotDefined(audioW)) throw new Error('Background music is not found');
+  const audioW: TAnyAudioWrapper = audioService.getRegistry().getByName(name);
   const isDebugRendererEnabled: boolean = isAudio3dWrapper(audioW) && isDefined(loop) && isDefined(scene);
 
   let debugAudioRenderer: TDebugAudioRenderer | undefined;
@@ -170,9 +175,7 @@ function initMusicWithControls(name: string, folderName: string, gui: GUI, { aud
 }
 
 function initMovingCube(actorName: string, sound: TAudio3dWrapper, { actorService }: TSpaceServices, { transformLoop }: TSpaceLoops): TActor {
-  const actor: TActor | undefined = actorService.getRegistry().findByName(actorName);
-  if (isNotDefined(actor)) throw new Error(`Actor "${actorName}" is not found`);
-
+  const actor: TActor = actorService.getRegistry().getByName(actorName);
   const clock: Clock = new Clock();
   const center: TReadonlyVector3 = actor.drive.position$.value.clone();
   const radius = 3;

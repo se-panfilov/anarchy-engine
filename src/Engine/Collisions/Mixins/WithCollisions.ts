@@ -34,8 +34,7 @@ export function withCollisions(params: TActorParams, collisionsService: TCollisi
     }
     return [];
     // TODO this code is probably an extra overcomplicated corner case
-    // const grid: TSpatialGridWrapper | undefined = spatialGridService.getRegistry().findByName(gridName);
-    // if (isNotDefined(grid)) throw new Error(`Cannot check collisions for actor (id: "${actor.id}", name: "${actor.name}"): actor doesn't belong to spatial grid, and no grid name with name "${gridName}" exists`);
+    // const grid: TSpatialGridWrapper = spatialGridService.getRegistry().getByName(gridName);
     // return grid.findCellsByActorBox(actor).flatMap((cell: TSpatialCellWrapper): ReadonlyArray<TActor> => cell.getObjects());
   }
 

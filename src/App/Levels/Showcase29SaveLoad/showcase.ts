@@ -122,8 +122,7 @@ function unloadSpace(name: string | undefined, spaceRegistry: TSpaceRegistry): v
 
 function saveSpaceConfigInMemory(name: string | undefined, spaceRegistry: TSpaceRegistry): void {
   if (isNotDefined(name)) return;
-  const space: TSpace | undefined = spaceRegistry.findByName(name);
-  if (isNotDefined(space)) throw new Error(`[Showcase]: Cannot save the space "${name}"`);
+  const space: TSpace = spaceRegistry.getByName(name);
 
   const index: number = spacesInMemoryData.findIndex((s: TSpacesData): boolean => s.name === name);
   const config: TSpaceConfig = space.serialize();
@@ -170,8 +169,7 @@ export function createForm(containerId: string | undefined, isTop: boolean, isRi
     const spaceData: TSpacesData | undefined = spacesData.find((s: TSpacesData): boolean => s.name === currentSpaceName);
     if (isNotDefined(spaceData)) throw new Error(`[Showcase]: Space data is not found for space "${currentSpaceName}"`);
 
-    const space: TSpace | undefined = spaceRegistry.findByName(currentSpaceName);
-    if (isNotDefined(space)) throw new Error(`[Showcase]: Cannot find the space "${currentSpaceName}"`);
+    const space: TSpace = spaceRegistry.getByName(currentSpaceName);
 
     setSpaceReady(false);
     spaceData.onChange?.(space, subscriptions);

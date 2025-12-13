@@ -1,7 +1,6 @@
 import GUI from 'lil-gui';
 
 import type { TActor, TActorService, TIntersectionEvent, TIntersectionsWatcher, TSpatialGridService, TSpatialGridWrapper } from '@/Engine';
-import { isNotDefined } from '@/Engine';
 
 export function initGui(
   mouseLineIntersectionsWatcher: TIntersectionsWatcher,
@@ -10,8 +9,7 @@ export function initGui(
   shootingParams: Readonly<{ cooldownMs: number; speed: number }>
 ): void {
   const gui: GUI = new GUI();
-  const grid: TSpatialGridWrapper | undefined = spatialGridService.getRegistry().findByName('main_grid');
-  if (isNotDefined(grid)) throw new Error(`Cannot find "main_grid" spatial grid`);
+  const grid: TSpatialGridWrapper = spatialGridService.getRegistry().getByName('main_grid');
 
   const mouse: Record<string, string | number> = {
     x: 0,

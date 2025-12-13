@@ -28,7 +28,7 @@ export function showcase(space: TSpace): void {
   const { actorService, cameraService, intersectionsWatcherService, mouseService, scenesService } = space.services;
   const { transformLoop, intersectionsLoop } = space.loops;
   const actorRegistry: TActorRegistry = actorService.getRegistry();
-  const { findByName, findByTags } = actorRegistry;
+  const { getByName, getByTags } = actorRegistry;
   const { onKey } = keyboardService;
 
   const camera: TAnyCameraWrapper | undefined = cameraService.findActive();
@@ -36,31 +36,18 @@ export function showcase(space: TSpace): void {
 
   addGizmo(space.services, space.container, space.loops, { placement: 'bottom-left' });
 
-  const actorKeyboard: TActor | undefined = findByName('sphere_keyboard_actor');
-  const actorMouse: TActor | undefined = findByName('sphere_mouse_actor');
-  const actorKeyW: TActor | undefined = findByTags(['key', 'W'], LookUpStrategy.Every);
-  const actorKeyA: TActor | undefined = findByTags(['key', 'A'], LookUpStrategy.Every);
-  const actorKeyS: TActor | undefined = findByTags(['key', 'S'], LookUpStrategy.Every);
-  const actorKeyD: TActor | undefined = findByTags(['key', 'D'], LookUpStrategy.Every);
-  const actorMkeyLeft: TActor | undefined = findByTags(['mkey', 'Left'], LookUpStrategy.Every);
-  const actorMkeyRight: TActor | undefined = findByTags(['mkey', 'Right'], LookUpStrategy.Every);
-  const actorMkeyMiddle: TActor | undefined = findByTags(['mkey', 'Middle'], LookUpStrategy.Every);
-  const actorMkeyBack: TActor | undefined = findByTags(['mkey', 'Back'], LookUpStrategy.Every);
-  const actorMkeyForward: TActor | undefined = findByTags(['mkey', 'Forward'], LookUpStrategy.Every);
-  const actorMkeyExtra: TActor | undefined = findByTags(['mkey', 'Extra'], LookUpStrategy.Every);
-
-  if (isNotDefined(actorKeyboard)) throw new Error('Actor keyboard is not defined');
-  if (isNotDefined(actorMouse)) throw new Error('Actor mouse is not defined');
-  if (isNotDefined(actorKeyW)) throw new Error('Actor key W is not defined');
-  if (isNotDefined(actorKeyA)) throw new Error('Actor key A is not defined');
-  if (isNotDefined(actorKeyS)) throw new Error('Actor key S is not defined');
-  if (isNotDefined(actorKeyD)) throw new Error('Actor key D is not defined');
-  if (isNotDefined(actorMkeyLeft)) throw new Error('Actor mkey Left is not defined');
-  if (isNotDefined(actorMkeyRight)) throw new Error('Actor mkey Right is not defined');
-  if (isNotDefined(actorMkeyMiddle)) throw new Error('Actor mkey Middle is not defined');
-  if (isNotDefined(actorMkeyBack)) throw new Error('Actor mkey Back is not defined');
-  if (isNotDefined(actorMkeyForward)) throw new Error('Actor mkey Forward is not defined');
-  if (isNotDefined(actorMkeyExtra)) throw new Error('Actor mkey Extra is not defined');
+  const actorKeyboard: TActor = getByName('sphere_keyboard_actor');
+  const actorMouse: TActor = getByName('sphere_mouse_actor');
+  const actorKeyW: TActor = getByTags(['key', 'W'], LookUpStrategy.Every);
+  const actorKeyA: TActor = getByTags(['key', 'A'], LookUpStrategy.Every);
+  const actorKeyS: TActor = getByTags(['key', 'S'], LookUpStrategy.Every);
+  const actorKeyD: TActor = getByTags(['key', 'D'], LookUpStrategy.Every);
+  const actorMkeyLeft: TActor = getByTags(['mkey', 'Left'], LookUpStrategy.Every);
+  const actorMkeyRight: TActor = getByTags(['mkey', 'Right'], LookUpStrategy.Every);
+  const actorMkeyMiddle: TActor = getByTags(['mkey', 'Middle'], LookUpStrategy.Every);
+  const actorMkeyBack: TActor = getByTags(['mkey', 'Back'], LookUpStrategy.Every);
+  const actorMkeyForward: TActor = getByTags(['mkey', 'Forward'], LookUpStrategy.Every);
+  const actorMkeyExtra: TActor = getByTags(['mkey', 'Extra'], LookUpStrategy.Every);
 
   onKey(KeyCode.W).pressing$.subscribe(({ delta }: TKeyboardPressingEvent): void => void actorKeyboard.drive.default.addZ(mpsSpeed(metersPerSecond(-10), delta)));
   onKey(KeyCode.W).pressed$.subscribe((): void => void actorKeyW.drive.default.addY(-0.2));
@@ -135,8 +122,7 @@ export function showcase(space: TSpace): void {
   wheelDown$.subscribe((): void => actorMkeyMiddle.drive.default.adjustRotationByX(-10));
 
   function startIntersections(camera: TAnyCameraWrapper): TIntersectionsWatcher {
-    const actor: TActor | undefined = findByName('surface_actor');
-    if (isNotDefined(actor)) throw new Error('Actor is not defined');
+    const actor: TActor = getByName('surface_actor');
 
     return intersectionsWatcherService.create({
       name: 'intersection_watcher',

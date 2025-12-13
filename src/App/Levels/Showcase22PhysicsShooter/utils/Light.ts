@@ -2,11 +2,10 @@ import { CameraHelper, DirectionalLightHelper, Euler, Vector2, Vector3 } from 't
 import type { Color } from 'three/src/math/Color';
 
 import type { TDirectionalLightWrapper, TLightService, TPointLightWrapper } from '@/Engine';
-import { isNotDefined, LightType } from '@/Engine';
+import { LightType } from '@/Engine';
 
 export function initLight(lightService: TLightService): void {
-  const directionalLight: TDirectionalLightWrapper | undefined = lightService.getRegistry().findByName('directional_light') as TDirectionalLightWrapper | undefined;
-  if (isNotDefined(directionalLight)) throw new Error(`Cannot find "directional_light" light`);
+  const directionalLight: TDirectionalLightWrapper = lightService.getRegistry().getByName('directional_light') as TDirectionalLightWrapper;
   const directionalLightHelper: DirectionalLightHelper = new DirectionalLightHelper(directionalLight.entity, 3);
   const directionalLightCameraHelper: CameraHelper = new CameraHelper(directionalLight.entity.shadow.camera);
   lightService.getScene().entity.add(directionalLightHelper);

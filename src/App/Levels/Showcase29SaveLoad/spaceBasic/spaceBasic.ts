@@ -17,6 +17,6 @@ export const spaceBasicData: TSpacesData = {
     addModel3dToScene(space, 'surface_model');
   },
   onChange: (space: TSpace): void => {
-    space.services.actorService.getRegistry().findByName('sphere_actor')?.drive.default.setX(10);
+    space.services.actorService.getRegistry().getByName('sphere_actor').drive.default.setX(10);
   }
 };

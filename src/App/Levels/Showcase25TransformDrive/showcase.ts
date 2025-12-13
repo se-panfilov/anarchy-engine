@@ -106,12 +106,8 @@ export async function showcase(space: TSpace): Promise<void> {
   const sceneW: TSceneWrapper | undefined = scenesService.findActive();
   if (isNotDefined(sceneW)) throw new Error('Scene is not defined');
 
-  const grid: TSpatialGridWrapper | undefined = spatialGridService.getRegistry().findByName('main_grid');
-  if (isNotDefined(grid)) throw new Error('Grid is not defined');
-
-  const planeModel3d: TModel3d | undefined = models3dRegistry.findByName('surface_model');
-  if (isNotDefined(planeModel3d)) throw new Error('Plane model is not defined');
-
+  const grid: TSpatialGridWrapper = spatialGridService.getRegistry().getByName('main_grid');
+  const planeModel3d: TModel3d = models3dRegistry.getByName('surface_model');
   const camera: TAnyCameraWrapper | undefined = cameraService.findActive();
   if (isNotDefined(camera)) throw new Error('Camera is not defined');
 
@@ -119,14 +115,9 @@ export async function showcase(space: TSpace): Promise<void> {
   if (isNotDefined(controls)) throw new Error('Controls are not defined');
   if (!isOrbitControls(controls)) throw new Error(`Active controls are not of type "${ControlsType.OrbitControls}", but ${controls.getType()}`);
 
-  const light: TPointLightWrapper | undefined = lightService.getRegistry().findByName('point_light') as TPointLightWrapper | undefined;
-  if (isNotDefined(light)) throw new Error('Light is not defined');
-
-  const particles: TParticlesWrapper | undefined = particlesService.getRegistry().findByName('bubbles');
-  if (isNotDefined(particles)) throw new Error('Particles are not defined');
-
-  const sphereText: TText3dWrapper | undefined = textService.getRegistries().text3dRegistry.findByName('sphere_text');
-  if (isNotDefined(sphereText)) throw new Error('Text is not defined');
+  const light: TPointLightWrapper = lightService.getRegistry().getByName('point_light') as TPointLightWrapper;
+  const particles: TParticlesWrapper = particlesService.getRegistry().getByName('bubbles');
+  const sphereText: TText3dWrapper = textService.getRegistries().text3dRegistry.getByName('sphere_text');
 
   addGizmo(space.services, space.container, space.loops, { placement: 'bottom-left' });
 

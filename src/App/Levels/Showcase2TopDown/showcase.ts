@@ -19,9 +19,7 @@ export function start(): void {
 
 export function showcase(space: TSpace): void {
   const { actorService, spatialGridService, cameraService, materialService, models3dService, mouseService } = space.services;
-  const grid: TSpatialGridWrapper | undefined = spatialGridService.getRegistry().findByName('main_grid');
-  if (isNotDefined(grid)) throw new Error(`Cannot find "main_grid" grid`);
-
+  const grid: TSpatialGridWrapper = spatialGridService.getRegistry().getByName('main_grid');
   const materialW: TMaterialWrapper = materialService.create({ name: 'model_material', type: MaterialType.Toon, options: { color: '#5177ff' } });
 
   const actorDefaultParams: Omit<TActorParams, 'model3dSource' | 'name'> = {

@@ -63,17 +63,10 @@ export function showcase(space: TSpace): void {
   const cameraW: TAnyCameraWrapper | undefined = cameraService.findActive();
   if (isNotDefined(cameraW)) throw new Error(`Cannot find active camera`);
 
-  const hero: TActor | undefined = actorService.getRegistry().findByName('hero');
-  if (isNotDefined(hero)) throw new Error(`Cannot find "hero" actor`);
-
-  const surface: TActor | undefined = actorService.getRegistry().findByName('surface');
-  if (isNotDefined(surface)) throw new Error(`Cannot find "surface" actor`);
-
-  const sphereActor: TActor | undefined = actorService.getRegistry().findByName('sphere');
-  if (isNotDefined(sphereActor)) throw new Error(`Cannot find "sphere" actor`);
-
-  const spatialGrid: TSpatialGridWrapper | undefined = spatialGridService.getRegistry().findByName('main_grid');
-  if (isNotDefined(spatialGrid)) throw new Error(`Cannot find "main_grid" spatial grid`);
+  const hero: TActor = actorService.getRegistry().getByName('hero');
+  const surface: TActor = actorService.getRegistry().getByName('surface');
+  const sphereActor: TActor = actorService.getRegistry().getByName('sphere');
+  const spatialGrid: TSpatialGridWrapper = spatialGridService.getRegistry().getByName('main_grid');
 
   // const blocks: ReadonlyArray<TActor> = buildTower(actorService, models3dService, materialService, { x: 10, z: 0 }, 5, 5, 10, spatialGrid);
   const blocks: ReadonlyArray<TActor> = buildTower(actorService, models3dService, materialService, { x: 10, z: 0 }, 10, 10, 20, spatialGrid);
@@ -114,12 +107,9 @@ export function showcase(space: TSpace): void {
   //move bouncing sphere to target practice
   moveActorBounce(sphereActor, metersPerSecond(4.3), radians(degToRad(210)), milliseconds(5000));
 
-  const targetActor1: TActor | undefined = actorService.getRegistry().findByName('target_1');
-  if (isNotDefined(targetActor1)) throw new Error(`Cannot find "target_1" actor`);
-  const targetActor2: TActor | undefined = actorService.getRegistry().findByName('target_2');
-  if (isNotDefined(targetActor2)) throw new Error(`Cannot find "target_2" actor`);
-  const targetActor3: TActor | undefined = actorService.getRegistry().findByName('target_3');
-  if (isNotDefined(targetActor3)) throw new Error(`Cannot find "target_3" actor`);
+  const targetActor1: TActor = actorService.getRegistry().getByName('target_1');
+  const targetActor2: TActor = actorService.getRegistry().getByName('target_2');
+  const targetActor3: TActor = actorService.getRegistry().getByName('target_3');
 
   moveActorBounce(targetActor1, metersPerSecond(4), radians(degToRad(-270)), milliseconds(3000));
   // TODO setTimeout/setInterval is not a good idea (cause the game might be "on pause", e.g. when tab is not active)

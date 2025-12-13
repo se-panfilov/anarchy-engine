@@ -31,10 +31,8 @@ export function showcase(space: TSpace): void {
 
   addGizmo(space.services, space.container, space.loops, { placement: 'bottom-left' });
 
-  const planeModel3d: TModel3d | undefined = models3dRegistry.findByName('surface_model');
-  if (isNotDefined(planeModel3d)) throw new Error('Plane model is not defined');
-  const sphereModel3d: TModel3d | undefined = models3dRegistry.findByName('sphere_model');
-  if (isNotDefined(sphereModel3d)) throw new Error('Sphere model is not defined');
+  const planeModel3d: TModel3d = models3dRegistry.getByName('surface_model');
+  const sphereModel3d: TModel3d = models3dRegistry.getByName('sphere_model');
 
   sceneW.addModel3d(planeModel3d);
   sceneW.addModel3d(sphereModel3d);
