@@ -49,7 +49,7 @@ Provide evidence/artifacts per requirement:
 
 ## G. Labels & Markings
 
-- **CE Marking placement:** in-product Legal/About screen and documentation; on physical media/packaging where used
+- **CE Marking placement:** **in-product (Legal/About) and in these instructions; on physical media/packaging where used**
 - **Legal notices included:** `EULA`, `PRIVACY`, `SECURITY`, `DISCLAIMER`, `NOTICE/THIRD_PARTY_LICENSES`
 
 ## H. Lifecycle & Support
