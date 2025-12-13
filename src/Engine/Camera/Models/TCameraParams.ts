@@ -1,6 +1,17 @@
-import type { TWithReadonlyTags } from '@/Engine/Mixins';
+import type { Vector3 } from 'three/src/math/Vector3';
+
+import type { TActive, TWithNameOptional, TWithReadonlyTags } from '@/Engine/Mixins';
 import type { TObject3DParams } from '@/Engine/ThreeLib';
+import type { TWithTransformAgentParam } from '@/Engine/TransformDrive';
 
-import type { TCameraProps } from './TCameraProps';
-
-export type TCameraParams = TCameraProps & TObject3DParams & TWithReadonlyTags;
+export type TCameraParams = Readonly<{
+  fov?: number;
+  near?: number;
+  far?: number;
+  lookAt?: Vector3;
+}> &
+  TWithTransformAgentParam &
+  TWithNameOptional &
+  TActive &
+  TObject3DParams &
+  TWithReadonlyTags;

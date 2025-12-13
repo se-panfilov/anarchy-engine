@@ -4,7 +4,6 @@ export type * from './TCameraAccessors';
 export type * from './TCameraConfig';
 export type * from './TCameraFactory';
 export type * from './TCameraParams';
-export type * from './TCameraProps';
 export type * from './TCameraRegistry';
 export type * from './TCameraService';
 export type * from './TCameraTransformAgents';
