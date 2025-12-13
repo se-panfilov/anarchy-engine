@@ -12,8 +12,7 @@
       "@ShowcasesShared": ["packages/showcase-shared/src/index.ts"],
       "@E2E/*": ["apps/e2e/src/*"],
       "@E2E": ["apps/e2e/src/index.ts"],
-      "@Menu/*": ["packages/showcases-menu/src/*"],
-      "@Menu": ["packages/showcases-menu/src/index.ts"]
+      "showcases_menu/src/main": ["apps/showcases/types/showcases_menu-shim"]
     }
   },
   "include": ["src", "vite.config.ts", "types", "dist-desktop", "dist-web", "dist-mobile", "dist"]
