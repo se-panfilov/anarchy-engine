@@ -1,10 +1,15 @@
+// import type { MeshBasicMaterialParameters, MeshStandardMaterialParameters } from 'three';
+
 import type { IWithCoordsXYZ } from '@/Engine/Mixins';
 
 import type { ITextParams } from './ITextParams';
 
-export type ITextConfig = Omit<ITextParams, 'position'> &
+export type ITextConfig = Omit<ITextParams, 'position' | 'color' | 'strokeColor' | 'material'> &
   Readonly<{
-    color: string;
-    intensity: number;
     position: IWithCoordsXYZ;
+    rotation?: IWithCoordsXYZ;
+    color?: string;
+    strokeColor?: string | number;
+    materialType?: 'MeshBasicMaterial' | 'MeshStandardMaterial';
+    materialParams?: Record<string, any>;
   }>;

@@ -1,4 +1,4 @@
-import type { Material } from 'three';
+import type { Color } from 'three';
 import type { Text } from 'troika-three-text';
 
 import type { ITextAccessors } from '@/Engine/Domains/Text/Models';
@@ -17,7 +17,7 @@ export function getAccessors(entity: IWriteable<Text>): ITextAccessors {
     entity.fontSize = fontSize;
   }
 
-  function setColor(color: string | number | Material): void {
+  function setColor(color: string | number | Color): void {
     // eslint-disable-next-line functional/immutable-data
     entity.color = color;
   }

@@ -358,20 +358,164 @@
       "type": "object",
       "additionalProperties": false,
       "properties": {
+        "position": {
+          "$ref": "#/definitions/IWithCoordsXYZ"
+        },
+        "rotation": {
+          "$ref": "#/definitions/IWithCoordsXYZ"
+        },
         "color": {
           "type": "string"
         },
-        "intensity": {
-          "type": "number"
+        "strokeColor": {
+          "type": ["string", "number"]
         },
-        "position": {
-          "$ref": "#/definitions/IWithCoordsXYZ"
+        "materialType": {
+          "type": "string",
+          "enum": ["MeshBasicMaterial", "MeshStandardMaterial"]
+        },
+        "materialParams": {
+          "type": "object"
         },
         "text": {
           "type": "string"
         },
         "fontSize": {
           "type": "number"
+        },
+        "font": {
+          "type": "string"
+        },
+        "maxWidth": {
+          "type": "number"
+        },
+        "lineHeight": {
+          "type": "number"
+        },
+        "letterSpacing": {
+          "type": "number"
+        },
+        "textAlign": {
+          "type": "string",
+          "enum": ["left", "right", "center", "justify"]
+        },
+        "anchorX": {
+          "anyOf": [
+            {
+              "type": "string",
+              "const": "left"
+            },
+            {
+              "type": "string",
+              "const": "center"
+            },
+            {
+              "type": "string",
+              "const": "right"
+            },
+            {
+              "type": "number"
+            }
+          ]
+        },
+        "anchorY": {
+          "anyOf": [
+            {
+              "type": "string",
+              "const": "top"
+            },
+            {
+              "type": "string",
+              "const": "middle"
+            },
+            {
+              "type": "string",
+              "const": "bottom"
+            },
+            {
+              "type": "string",
+              "const": "baseline"
+            },
+            {
+              "type": "number"
+            }
+          ]
+        },
+        "clipRect": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "minItems": 4,
+          "maxItems": 4
+        },
+        "depthOffset": {
+          "type": "number"
+        },
+        "direction": {
+          "type": "string",
+          "enum": ["auto", "ltr", "rtl"]
+        },
+        "overflowWrap": {
+          "type": "string",
+          "enum": ["normal", "break-word"]
+        },
+        "whiteSpace": {
+          "type": "string",
+          "enum": ["normal", "nowrap"]
+        },
+        "outlineWidth": {
+          "type": "number"
+        },
+        "outlineOffsetX": {
+          "type": "number"
+        },
+        "outlineOffsetY": {
+          "type": "number"
+        },
+        "outlineColor": {
+          "type": ["string", "number"]
+        },
+        "outlineOpacity": {
+          "type": "number"
+        },
+        "strokeWidth": {
+          "type": "number"
+        },
+        "strokeOpacity": {
+          "type": "number"
+        },
+        "curveRadius": {
+          "type": "number"
+        },
+        "fillOpacity": {
+          "type": "number"
+        },
+        "fontStyle": {
+          "type": "string",
+          "enum": ["normal", "italic"]
+        },
+        "fontWeight": {
+          "type": "string",
+          "enum": ["normal", "bold"]
+        },
+        "glyphGeometryDetail": {
+          "type": "number"
+        },
+        "gpuAccelerateSDF": {
+          "type": "boolean"
+        },
+        "outlineBlur": {
+          "type": "number"
+        },
+        "sdfGlyphSize": {
+          "type": "number"
+        },
+        "textIndent": {
+          "type": "number"
+        },
+        "unicodeFontsUrl": {
+          "type": "string"
         },
         "tags": {
           "type": "array",
@@ -390,7 +534,7 @@
           }
         }
       },
-      "required": ["color", "fontSize", "intensity", "position", "tags", "text"]
+      "required": ["fontSize", "position", "tags", "text"]
     },
     "TextTag": {
       "type": "string",

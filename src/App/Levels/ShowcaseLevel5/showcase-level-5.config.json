@@ -38,7 +38,16 @@
       "tags": ["actor", "blue"]
     }
   ],
-  "texts": [],
+  "texts": [
+    {
+      "text": "Linear",
+      "position": { "x": 0, "y": 2, "z": 0 },
+      "rotation": { "x": 0, "y": 0, "z": 0 },
+      "color": "#ffffff",
+      "fontSize": 1,
+      "tags": []
+    }
+  ],
   "cameras": [
     {
       "fov": 45,

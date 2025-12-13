@@ -1,5 +1,5 @@
 declare module 'troika-three-text' {
-  import type { Color, Material, MeshBasicMaterial, MeshStandardMaterial } from 'three';
+  import type { Color, MeshBasicMaterial, MeshStandardMaterial } from 'three';
   import { Object3D } from 'three';
 
   export class Text extends Object3D {
@@ -8,7 +8,7 @@ declare module 'troika-three-text' {
     text: string;
     fontSize: number;
     font: string;
-    color: string | number | Material;
+    color: string | number | Color;
     maxWidth: number;
     lineHeight: number;
     letterSpacing: number;
