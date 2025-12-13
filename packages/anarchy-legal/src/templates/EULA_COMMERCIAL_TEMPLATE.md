@@ -6,7 +6,7 @@
 
 ## 1. License Grant
 
-Subject to this EULA, Licensor grants you a **personal, non-exclusive, non-transferable, revocable** license to install and use **{{PACKAGE_NAME}}** (the “Game”) on devices linked to your **{{STORE_ACCOUNT}** for **personal, non-commercial** purposes.
+Subject to this EULA, Licensor grants you a **personal, non-exclusive, non-transferable, revocable** license to install and use **{{PACKAGE_NAME}}** (the “Game”) on devices linked to your **{{STORE_ACCOUNT}}** for **personal, non-commercial** purposes.
 
 ## 2. Ownership
 
