@@ -1,5 +1,5 @@
 import type { Subscription } from 'rxjs';
-import { distinctUntilChanged, sampleTime } from 'rxjs';
+import { distinctUntilChanged, sampleTime, tap } from 'rxjs';
 import type { Vector2Like } from 'three';
 import { Raycaster, Vector2 } from 'three';
 
@@ -12,7 +12,7 @@ import type { TRawModel3d } from '@/Engine/Models3d';
 import { getNormalizedMousePosition } from '@/Engine/Mouse';
 import type { TSceneObject } from '@/Engine/Scene';
 import type { TWriteable } from '@/Engine/Utils';
-import { isDefined, isEqualOrSimilarVector2Like, isNotDefined } from '@/Engine/Utils';
+import { isDefined, isEqualOrSimilarByXyCoords, isNotDefined } from '@/Engine/Utils';
 
 export function IntersectionsWatcher({ position$, isAutoStart, tags, name, performance, ...rest }: TIntersectionsWatcherParams): TIntersectionsWatcher {
   const abstractWatcher: TAbstractWatcher<TIntersectionEvent> = AbstractWatcher(WatcherType.IntersectionWatcher, name, tags);
@@ -35,14 +35,22 @@ export function IntersectionsWatcher({ position$, isAutoStart, tags, name, perfo
   const threshold: number = performance?.noiseThreshold ?? 0.001;
 
   function start(): TIntersectionsWatcher {
+    const prevValue: Float32Array = new Float32Array([0, 0]);
     mousePos$ = position$
       .pipe(
-        distinctUntilChanged((prev: Vector2Like, curr: Vector2Like): boolean => isEqualOrSimilarVector2Like(prev, curr, threshold)),
-        sampleTime(delay)
+        distinctUntilChanged((_prev: Vector2Like, curr: Vector2Like): boolean => isEqualOrSimilarByXyCoords(prevValue[0], prevValue[1], curr.x, curr.y, threshold)),
+        sampleTime(delay),
+        tap((value: Vector2Like): void => {
+          // eslint-disable-next-line functional/immutable-data
+          prevValue[0] = value.x;
+          // eslint-disable-next-line functional/immutable-data
+          prevValue[1] = value.y;
+        })
       )
       .subscribe((position: Vector2Like): void => {
         if (isNotDefined(camera)) throw new Error('Intersections service: cannot start: a camera is not defined');
         const intersection: TIntersectionEvent | undefined = getIntersection(
+          // TODO PERFORMANCE: Vector2 is might be too heavy here, consider {x,y} object
           new Vector2(position.x, position.y),
           camera,
           actors.map((a: TActor): TRawModel3d => a.model3d.getRawModel3d())
