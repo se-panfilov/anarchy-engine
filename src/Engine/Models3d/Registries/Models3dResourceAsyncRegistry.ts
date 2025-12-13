@@ -6,6 +6,7 @@ import { isNotDefined } from '@/Engine/Utils';
 
 export function Models3dResourceAsyncRegistry(): TModels3dResourceAsyncRegistry {
   const registry = Object.assign(AbstractSimpleAsyncRegistry<GLTF>(RegistryType.Model3dRaw), {
+    // TODO 15-0-0: could we extract this function as a generic one?
     serialize: ({ metaInfoRegistry }: TModel3dSerializeResourcesDependencies): ReadonlyArray<TModel3dResourceConfig> => {
       return registry.map((_value: GLTF, key: string | undefined): TModel3dResourceConfig => {
         if (isNotDefined(key)) throw new Error(`[Models3dResourceAsyncRegistry]: Cannot serialize resource: key "${key}" is not found`);
