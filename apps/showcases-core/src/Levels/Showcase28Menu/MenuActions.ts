@@ -18,10 +18,10 @@ export function handleFromMenuEvents(fromMenuEventsBus$: Observable<TFromMenuEve
       }
       case FromMenuEvents.SaveSettings: {
         if (isNotDefined(event.payload)) throw new Error(`[Showcase]: No settings provided for saving`);
-        if (isSettings(event.payload)) throw new Error(`[Showcase]: payload is not valid settings: ${event.payload}`);
+        if (!isSettings(event.payload)) throw new Error('[Showcase]: Attempted to save invalid app settings');
         //Better to validate the payload type here
         // TODO DESKTOP: this code is async, hmm... What should we do with the UI?
-        saveSettings(event.payload as TShowcaseGameSettings);
+        await saveSettings(event.payload as TShowcaseGameSettings);
         break;
       }
       case FromMenuEvents.LoadSettings: {

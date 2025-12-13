@@ -6,8 +6,8 @@ import { AllowedAppFolders } from '@Showcases/Desktop/Constants';
 import type { TFilesService } from '@Showcases/Desktop/Models';
 import type { App } from 'electron';
 import type { FileHandle } from 'fs/promises';
+import { nanoid } from 'nanoid';
 import { join } from 'path';
-import { nanoid } from 'valibot';
 
 // TODO DESKTOP: Finalize this service, use it in SettingsService and DocsService. Test all methods
 export function FilesService(app: App): TFilesService {
