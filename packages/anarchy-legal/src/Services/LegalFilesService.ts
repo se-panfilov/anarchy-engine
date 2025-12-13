@@ -3,6 +3,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 import type { TLegalFilesService, TRepoUtilsService, TWorkspaceInfo } from '@Anarchy/Legal';
+import { format as dfFormat, isValid, parseISO } from 'date-fns';
 // eslint-disable-next-line spellcheck/spell-checker
 import { globby } from 'globby';
 // eslint-disable-next-line spellcheck/spell-checker
@@ -20,8 +21,8 @@ export function LegalFilesService(): TLegalFilesService {
   type TDocType = (typeof DOC_TYPES)[number];
 
   type TDateMessage = Readonly<{
-    date: string; // "now" or ISO-like "YYYY-MM-DD" or full ISO
-    format: string; // supports tokens: YYYY, MM, DD
+    date: string; // "now" or ISO-like "yyyy-MMMM-dd" or full ISO
+    format: string; // date-fns tokens (yyyy, MM, dd, ...)
   }>;
 
   type TMessages = Readonly<Record<string, string | TDateMessage>>;
@@ -112,25 +113,34 @@ export function LegalFilesService(): TLegalFilesService {
 
   // ---------------------- Placeholder rendering ----------------------
 
-  // Very small mustache-like renderer: only {{NAME}} (no sections/conditions)
-  const PLACEHOLDER_RE: RegExp = /{{\s*([A-Z0-9_]+)\s*}}/g;
+  const PLACEHOLDER_RE = /{{\s*([A-Z0-9_]+)\s*}}/g;
 
-  function formatDate(dateStr: string, fmt: string): string {
-    const d: Date = dateStr === 'now' ? new Date() : new Date(dateStr);
-    // naive pad helper
-    const pad2 = (n: number): string => String(n).padStart(2, '0');
-    const YYYY: string = String(d.getFullYear());
-    const MM: string = pad2(d.getMonth() + 1);
-    const DD: string = pad2(d.getDate());
-    return fmt.replace(/YYYY/g, YYYY).replace(/MM/g, MM).replace(/DD/g, DD);
-  }
+  /** Parse date string with date-fns (supports "now", ISO, and Date constructor fallback) */
+  const formatWithDateFns = (dateStr: string, fmt: string): string => {
+    const d =
+      dateStr.toLowerCase() === 'now'
+        ? new Date()
+        : ((): Date => {
+            // try parseISO first; fallback to Date ctor
+            const iso = parseISO(dateStr);
+            return isValid(iso) ? iso : new Date(dateStr);
+          })();
+    if (!isValid(d)) return ''; // invalid date → empty
+    try {
+      return dfFormat(d, fmt);
+    } catch {
+      return '';
+    }
+  };
 
   // Convert message value (string | {date,format}) -> string
   function materializeMessage(v: unknown): string {
     if (typeof v === 'string') return v;
     if (v && typeof v === 'object' && 'date' in (v as any) && 'format' in (v as any)) {
       const { date, format } = v as TDateMessage;
-      if (typeof date === 'string' && typeof format === 'string') return formatDate(date, format);
+      if (typeof date === 'string' && typeof format === 'string') {
+        return formatWithDateFns(date, format);
+      }
     }
     return '';
   }
