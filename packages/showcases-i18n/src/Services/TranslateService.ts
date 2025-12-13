@@ -1,80 +1,79 @@
-import type { IntlCache, IntlShape } from '@formatjs/intl';
+import type { FormatNumberOptions, IntlCache, IntlShape } from '@formatjs/intl';
 import { createIntl, createIntlCache } from '@formatjs/intl';
-import { BehaviorSubject } from 'rxjs';
+import type { FormatDateOptions } from '@formatjs/intl/src/types';
+import { isDefined, omitInArray } from '@Shared/Utils';
+import { BehaviorSubject, concatMap, distinctUntilChanged, from, map } from 'rxjs';
 
-export type TLocale = 'en' | 'nl' | 'fr';
+export type TLocale = 'en' | 'nl';
 export type TMessages = Readonly<Record<string, string>>;
-export type TMessagesByLocale = Readonly<Record<TLocale, TMessages>>;
-export type TParams = Readonly<Record<string, unknown>>;
 
 export type TTranslateService = Readonly<{
-  translate: (id: string, params?: TParams) => string;
-  formatDate: (value: Date | number, opts?: Intl.DateTimeFormatOptions) => string;
-  formatNumber: (value: number, opts?: Intl.NumberFormatOptions) => string;
+  translate: (id: string, params?: Record<string, string>) => string | never;
+  formatDate: (value: Date | number, options?: FormatDateOptions) => string;
+  formatNumber: (value: number, options?: FormatNumberOptions) => string;
   locale$: BehaviorSubject<TLocale>;
+  ready$: BehaviorSubject<boolean>;
 }>;
 
-export function TranslateService(initialLocale: TLocale, fallbackLocale: TLocale, messagesByLocale: TMessagesByLocale): TTranslateService {
+export type TLocaleLoaders = Readonly<Record<TLocale, () => Promise<TMessages>>>;
+
+export function TranslateService(initialLocale: TLocale, defaultLocale: TLocale, locales: TLocaleLoaders): TTranslateService {
   const cache: IntlCache = createIntlCache();
+  const ready$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   const locale$: BehaviorSubject<TLocale> = new BehaviorSubject<TLocale>(initialLocale);
-  const intlByLocale: Map<TLocale, IntlShape<string>> = new Map<TLocale, IntlShape<string>>();
+  const loaded: Map<TLocale, TMessages> = new Map<TLocale, TMessages>();
+  const intlMap: Map<TLocale, IntlShape<string>> = new Map<TLocale, IntlShape<string>>();
+  const intl$: BehaviorSubject<IntlShape<string> | undefined> = new BehaviorSubject<IntlShape<string> | undefined>(undefined);
 
   function getIntl(locale: TLocale): IntlShape<string> {
-    const hit: IntlShape<string> | undefined = intlByLocale.get(locale);
-    if (hit) return hit;
+    if (intlMap.has(locale)) return intlMap.get(locale)!;
 
-    const current = messagesByLocale[locale] ?? {};
-    const merged = { ...(messagesByLocale[fallbackLocale] ?? {}), ...current };
-    const intl: IntlShape<string> = createIntl({ locale: locale, messages: merged }, cache);
-    intlByLocale.set(locale, intl);
+    const current: TMessages = loaded.get(locale) ?? {};
+    const fallback: TMessages = loaded.get(defaultLocale) ?? {};
+    const intl: IntlShape<string> = createIntl({ locale, defaultLocale, messages: { ...fallback, ...current } }, cache);
+
+    intlMap.set(locale, intl);
+
     return intl;
   }
 
-  function translate(id: string, params?: TParams): string {
-    const intl: IntlShape<string> = getIntl(locale$.value);
-    const fallbackMessage: string = messagesByLocale[fallbackLocale]?.[id] ?? id;
-    try {
-      return intl.formatMessage({ id, defaultMessage: fallbackMessage }, params);
-    } catch {
-      console.warn(`[TranslateService]: Missing translation for "${id}" in locale "${locale$.value}". Using fallback: "${fallbackMessage}"`);
-      return fallbackMessage;
-    }
+  const loadingLocale$: BehaviorSubject<ReadonlyArray<TLocale>> = new BehaviorSubject<ReadonlyArray<TLocale>>([initialLocale, defaultLocale]);
+
+  async function loadLocale(locale: TLocale): Promise<void> {
+    loadingLocale$.next([...loadingLocale$.value, locale]);
+    if (!loaded.has(locale)) loaded.set(locale, await locales[locale]());
+    intl$.next(getIntl(locale));
+    loadingLocale$.next(omitInArray(loadingLocale$.value, locale));
   }
 
-  const formatDate = (value: Date | number, opts?: Intl.DateTimeFormatOptions): string => getIntl(locale$.value).formatDate(value, opts);
-  const formatNumber = (value: number, opts?: Intl.NumberFormatOptions): string => getIntl(locale$.value).formatNumber(value, opts);
+  loadingLocale$
+    .pipe(
+      map((list: ReadonlyArray<TLocale>): boolean => list.length === 0),
+      distinctUntilChanged()
+    )
+    .subscribe((v: boolean) => ready$.next(v));
 
-  getIntl(locale$.value);
+  locale$
+    .pipe(
+      distinctUntilChanged(),
+      concatMap((locale: TLocale) => from(loadLocale(locale)).pipe(map((): IntlShape<string> => getIntl(locale))))
+    )
+    .subscribe((intl: IntlShape<string>) => void intl$.next(intl));
 
-  return { translate, formatDate, formatNumber, locale$ };
+  return {
+    translate: (id: string, params?: Record<string, string>): string | never => {
+      if (isDefined(intl$.value)) return intl$.value.formatMessage({ id }, params);
+      throw new Error(`[TranslateService]: The service is not ready. At id "${id}"`);
+    },
+    formatDate: (value: Date | number, options?: FormatDateOptions): string | never => {
+      if (isDefined(intl$.value)) return intl$.value.formatDate(value, options);
+      throw new Error(`[TranslateService]: The service is not ready. At the value "${value}"`);
+    },
+    formatNumber: (value: number, options?: FormatNumberOptions): string | never => {
+      if (isDefined(intl$.value)) return intl$.value.formatNumber(value, options);
+      throw new Error(`[TranslateService]: The service is not ready. At the value "${value}"`);
+    },
+    ready$,
+    locale$
+  };
 }
-
-// export const messagesEn = {
-//   'menu.start': 'Start',
-//   'hud.fps': 'FPS: {count}',
-//   'money.amount': '{val, number, ::currency/EUR}'
-// } as const;
-//
-// export const messagesNL = {
-//   'menu.start': 'Starten',
-//   'hud.fps': 'FPS: {count}',
-//   'money.amount': '{val, number, ::currency/EUR}'
-// };
-//
-// export const i18n = TranslateService('en', 'en', {
-//   en: messagesEn,
-//   nl: messagesNL,
-//   fr: {}
-// });
-//
-// console.log(i18n.translate('menu.start'));
-// console.log(i18n.translate('hud.fps', { count: 60 }));
-// console.log(i18n.formatDate(new Date()));
-// console.log(i18n.formatNumber(123456.789));
-//
-// i18n.locale$.next('nl');
-//
-// console.log(i18n.translate('menu.start'));
-// console.log(i18n.translate('hud.fps', { count: 60 }));
-// console.log(i18n.formatDate(new Date()));
-// console.log(i18n.formatNumber(123456.789));
