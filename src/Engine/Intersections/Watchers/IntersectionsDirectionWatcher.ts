@@ -10,7 +10,6 @@ import type { TMilliseconds } from '@/Engine/Math';
 import type { TRawModel3d } from '@/Engine/Models3d';
 import type { TSceneObject } from '@/Engine/Scene';
 import type { TReadonlyVector3 } from '@/Engine/ThreeLib';
-import type { TWriteable } from '@/Engine/Utils';
 import { isDefined, isNotDefined } from '@/Engine/Utils';
 
 export function IntersectionsDirectionWatcher(params: TIntersectionsDirectionWatcherParams): TIntersectionsDirectionWatcher {
@@ -63,10 +62,8 @@ export function IntersectionsDirectionWatcher(params: TIntersectionsDirectionWat
   });
 
   // eslint-disable-next-line functional/immutable-data
-  const result: TWriteable<TIntersectionsDirectionWatcher> = Object.assign(abstractIntersectionsWatcher, {
+  return Object.assign(abstractIntersectionsWatcher, {
     origin$,
     direction$
   });
-
-  return result;
 }
