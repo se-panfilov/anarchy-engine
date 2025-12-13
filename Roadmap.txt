@@ -41,6 +41,7 @@ Roadmap:
 - 23.0.x Shaders
 
 Thoughts:
+- TASK: fix usage of physics-related terms in the code (physics, physic, physical, etc.);
 - Maybe: Try to replace spread operator with Object.assign everywhere (for performance and make sure that we are not creating new objects)? Check with AbstractEntity first;
 - Maybe: Add domain for timers (based on web workers);
 - Maybe: Add domain for lines;
