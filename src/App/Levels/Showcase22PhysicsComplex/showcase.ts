@@ -323,11 +323,10 @@ function updateBullets(bullets: ReadonlyArray<TBullet>, delta: number): void {
   bullets.forEach((bullet: TBullet): void => {
     if (bullet.isActive()) {
       const azimuthRadians: number = MathUtils.degToRad(bullet.getDirection());
-      // const elevationRadians: number = MathUtils.degToRad(bullet.getDirection());
-      const vectorDirection: Vector3 = new Vector3(Math.cos(azimuthRadians), 0, Math.sin(azimuthRadians));
+      const elevationRadians: number = MathUtils.degToRad(bullet.getElevation());
+      const vectorDirection: Vector3 = new Vector3(Math.cos(azimuthRadians), elevationRadians, Math.sin(azimuthRadians));
       bullet.entity.position.add(vectorDirection.clone().multiplyScalar(bulletSpeed * delta));
       bullet.setDistanceTraveled(bullet.getDistanceTraveled() + bulletSpeed * delta);
-
       // const collision = checkCollision(bullet);
       // if (collision) {
       //   console.log('Hit detected', collision);
