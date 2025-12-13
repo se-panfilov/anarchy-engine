@@ -359,7 +359,7 @@ describe('RegistryAsyncUtils', () => {
     }, 100);
 
     it('should return an empty array if the registryAsync is empty', async () => {
-      const result: TSimpeObj | undefined = await getAsyncUniqEntityByKeyAsync('some', AbstractAsyncRegistry<TSimpeObj>('mockEntity' as RegistryType), waitingTime);
+      const result: TSimpeObj | undefined = await getAsyncUniqEntityByKeyAsync('some', AbstractSimpleAsyncRegistry<TSimpeObj>('mockEntity' as RegistryType), waitingTime);
       expect(result).toBeUndefined();
     }, 100);
 
