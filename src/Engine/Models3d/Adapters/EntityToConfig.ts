@@ -6,7 +6,7 @@ import { extractSerializableRegistrableFields } from '@/Engine/Mixins';
 import type { PrimitiveModel3dType } from '@/Engine/Models3d/Constants';
 import type { TModel3d, TModel3dConfig, TModel3dConfigToParamsDependencies, TModel3dParams, TModels3dResourceAsyncRegistry, TRawModel3d } from '@/Engine/Models3d/Models';
 import { isPrimitiveModel3dSource } from '@/Engine/Models3d/Utils';
-import { filterOutEmptyFields, isDefined, isNotDefined } from '@/Engine/Utils';
+import { eulerToXyz, filterOutEmptyFields, isDefined, isNotDefined } from '@/Engine/Utils';
 
 // TODO 15-0-0: validate result
 export function model3dToConfig(
@@ -31,7 +31,7 @@ export function model3dToConfig(
     castShadow: rawModel3d.castShadow,
     receiveShadow: rawModel3d.receiveShadow,
     position: rawModel3d.position,
-    rotation: rawModel3d.rotation,
+    rotation: eulerToXyz(rawModel3d.rotation),
     scale: rawModel3d.scale,
     ...extractSerializableRegistrableFields(entity)
   });

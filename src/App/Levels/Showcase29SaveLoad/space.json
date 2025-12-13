@@ -11,8 +11,8 @@
           "z": 0
         },
         "spatial": {
-          "grid": "main_grid",
-          "isAutoUpdate": true
+          "isAutoUpdate": true,
+          "grid": "main_grid"
         }
       }
     ],
@@ -172,10 +172,8 @@
   "scenes": [
     {
       "isActive": true,
-      "name": "showcase",
-      "tags": []
+      "name": "showcase"
     }
   ],
-  "tags": [],
   "version": "1.0.0"
 }

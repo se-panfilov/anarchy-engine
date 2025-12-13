@@ -18,14 +18,6 @@ export function start(): void {
   });
 }
 
-// TODO 15-0-0:   "_order": "XYZ",
-//           "_x": -1.57,
-//           "_y": 0,
-//           "_z": 0,
-//           "isEuler": true
-//         },
-// TODO 15-0-0:   "type": "DirectionalLight",
-
 export function runSpace(space: TSpace): void {
   space.start$.next(true);
 }

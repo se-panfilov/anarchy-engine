@@ -1,6 +1,6 @@
 import type { Vector2Like, Vector3Like, Vector4Like } from 'three';
 
-import type { TEulerLike } from '@/Engine/ThreeLib';
+import type { TEulerLike, TEulerString } from '@/Engine/ThreeLib';
 
 export function isEqualOrSimilarNumbers(prev: number, curr: number, threshold: number = 0): boolean {
   return Math.abs(curr - prev) <= threshold;
@@ -47,11 +47,11 @@ export function quaternionToXyzw(quaternion: Vector4Like): Readonly<{ x: number;
   };
 }
 
-export function eulerToXyz(euler: TEulerLike): Readonly<{ x: number; y: number; z: number; order?: 'XYZ' | 'XZY' | 'YXZ' | 'YZX' | 'ZXY' | 'ZYX' }> {
+export function eulerToXyz(euler: TEulerLike | TEulerString): Readonly<{ x: number; y: number; z: number; order?: 'XYZ' | 'XZY' | 'YXZ' | 'YZX' | 'ZXY' | 'ZYX' }> {
   return {
-    x: euler.x,
-    y: euler.y,
-    z: euler.z,
-    order: euler.order
+    x: (euler as TEulerLike).x ?? (euler as TEulerString)._x,
+    y: (euler as TEulerLike).y ?? (euler as TEulerString)._y,
+    z: (euler as TEulerLike).z ?? (euler as TEulerString)._z,
+    order: (euler as TEulerLike).order ?? (euler as TEulerString)._order
   };
 }
