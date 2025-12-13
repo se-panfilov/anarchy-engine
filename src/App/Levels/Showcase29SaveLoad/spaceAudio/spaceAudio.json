@@ -1,28 +1,27 @@
 {
   "canvasSelector": "#audio_container #app",
   "entities": {
-    "actors": [
+    "actors": [],
+    "audio": [
       {
-        "model3dSource": "sphere_model",
-        "name": "sphere_actor",
+        "audioSource": "gunshot_sound",
+        "maxDistance": 3,
+        "name": "gunshot_1",
         "position": {
           "x": 0,
-          "y": 2,
+          "y": 0,
           "z": 0
         },
-        "spatial": {
-          "grid": "main_grid",
-          "isAutoUpdate": true
-        }
+        "refDistance": 1
       }
     ],
-    "audio": [],
     "cameras": [
       {
-        "far": 10000,
+        "audioListener": "main_listener",
+        "far": 100,
         "fov": 45,
         "isActive": true,
-        "name": "main",
+        "name": "main_camera",
         "near": 1,
         "position": {
           "x": 3,
@@ -87,14 +86,7 @@
       {
         "name": "surface_material",
         "options": {
-          "color": "#5EDCAE"
-        },
-        "type": "MeshStandardMaterial"
-      },
-      {
-        "name": "sphere_material",
-        "options": {
-          "color": "#E91E63"
+          "color": "#E77BAD"
         },
         "type": "MeshStandardMaterial"
       }
@@ -121,15 +113,6 @@
           "x": -1.57,
           "y": 0,
           "z": 0
-        }
-      },
-      {
-        "castShadow": true,
-        "material": "sphere_material",
-        "model3dSource": "sphere",
-        "name": "sphere_model",
-        "options": {
-          "radius": 0.7
         }
       }
     ],
@@ -158,7 +141,12 @@
   "name": "SpaceAudio",
   "resources": {
     "animations": [],
-    "audio": [],
+    "audio": [
+      {
+        "name": "gunshot_sound",
+        "url": "/Showcase/Audio/357-magnum-revolver-gunshot.mp3"
+      }
+    ],
     "envMaps": [],
     "models3d": [],
     "textures": []
