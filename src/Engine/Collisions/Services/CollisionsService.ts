@@ -1,9 +1,8 @@
 import type { Intersection, Mesh } from 'three';
-import { Box3, Raycaster, Vector3 } from 'three';
+import { Box3, Raycaster } from 'three';
 
 import type { TActorWrapperAsync } from '@/Engine/Actor/Models';
 import type { TBvhService, TCollisionCheckResult, TCollisionsService, TSpatialGridService } from '@/Engine/Collisions/Models';
-import { isNotDefined } from '@/Engine/Utils';
 
 import { BvhService } from './BvhService';
 import { SpatialGridService } from './SpatialGridService';
@@ -28,12 +27,10 @@ export function CollisionsService(): TCollisionsService {
     // eslint-disable-next-line functional/no-loop-statements
     for (const candidate of candidates) {
       if (candidate.object !== actorW.entity) {
-        if (isNotDefined(actorW.kinematic.linearVelocity)) throw new Error('Cannot check collisions: Linear velocity is not defined');
         const raycaster: Raycaster = new Raycaster();
 
-        // TODO (S.Panfilov) is linearVelocity is the same as direction here?
         // raycaster.set(actorW.entity.position, actorW.kinematic.getAzimuth());
-        raycaster.set(actorW.entity.position, new Vector3(actorW.kinematic.linearVelocity.x, actorW.kinematic.linearVelocity.y, actorW.kinematic.linearVelocity.z));
+        raycaster.set(actorW.entity.position, actorW.kinematic.getLinearDirection());
 
         const intersects: Array<Intersection> = [];
         bvhService.raycastWithBVH(candidate.object as Mesh, raycaster, intersects);

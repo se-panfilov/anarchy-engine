@@ -28,8 +28,8 @@ export function startMoveActorWithKeyboard(actorW: TActorWrapperAsync, keyboardS
     )
     .subscribe(({ azimuth, elevation }): void => {
       direction = getUpdatedLinearVelocity(keyStates, direction, azimuth, elevation, speed);
-      actorW.setKinematicLinearVelocityFromParams;
-      actorW.setKinematicLinearVelocity(direction);
+      // actorW.kinematic.setLinearVelocityFromParams();
+      actorW.kinematic.setLinearVelocity(direction);
       // player.isMoving = player.linearVelocity.lengthSq() > 0;
     });
 
@@ -48,10 +48,10 @@ function getMouseAzimuthAndElevation(mousePosition: Vector3, playerPosition: Vec
 }
 
 function getUpdatedLinearVelocity(keyStates: TMoveKeys, direction: Vector3, azimuth: number, elevation: number, speed: number): Vector3 {
-  if (keyStates.W) direction.add(new Vector3(Math.cos(azimuth) * Math.cos(elevation), Math.sin(elevation), Math.sin(azimuth) * Math.cos(elevation)));
-  if (keyStates.S) direction.add(new Vector3(-Math.cos(azimuth) * Math.cos(elevation), -Math.sin(elevation), -Math.sin(azimuth) * Math.cos(elevation)));
-  if (keyStates.A) direction.add(new Vector3(Math.sin(azimuth), 0, -Math.cos(azimuth)));
-  if (keyStates.D) direction.add(new Vector3(-Math.sin(azimuth), 0, Math.cos(azimuth)));
+  if (keyStates.Forward) direction.add(new Vector3(Math.cos(azimuth) * Math.cos(elevation), Math.sin(elevation), Math.sin(azimuth) * Math.cos(elevation)));
+  if (keyStates.Left) direction.add(new Vector3(-Math.cos(azimuth) * Math.cos(elevation), -Math.sin(elevation), -Math.sin(azimuth) * Math.cos(elevation)));
+  if (keyStates.Right) direction.add(new Vector3(Math.sin(azimuth), 0, -Math.cos(azimuth)));
+  if (keyStates.Backward) direction.add(new Vector3(-Math.sin(azimuth), 0, Math.cos(azimuth)));
 
   // if (keyStates.W) direction.add(new Vector3(Math.cos(azimuth), 0, Math.sin(azimuth)));
   // if (keyStates.S) direction.add(new Vector3(-Math.cos(azimuth), 0, -Math.sin(azimuth)));

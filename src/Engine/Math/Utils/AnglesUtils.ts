@@ -1,6 +1,5 @@
-import type { Vector } from '@dimforge/rapier3d/math';
 import Decimal from 'decimal.js';
-import { Euler, Quaternion } from 'three';
+import { Euler, Quaternion, Vector3 } from 'three';
 
 import type { TEuler } from '@/Engine/Euler';
 import type { TWithCoordsXYZ, TWithCoordsXYZW, TWithCoordsXZ } from '@/Engine/Mixins';
@@ -27,17 +26,20 @@ export function getHorizontalAzimuth(center: TWithCoordsXZ, point: TWithCoordsXZ
 }
 
 // TODO (S.Panfilov) add unit tests
-export const getAzimuthByLinearVelocity = (linearVelocity: Vector): number => Math.atan2(linearVelocity.z, linearVelocity.x) * (180 / Math.PI);
+export const getAzimuthFromDirection = (direction: Vector3): number => Math.atan2(direction.z, direction.x) * (180 / Math.PI);
 // TODO (S.Panfilov) add unit tests
-export const getElevationByLinearVelocity = (linearVelocity: Vector): number => Math.atan2(linearVelocity.y, Math.sqrt(linearVelocity.x ** 2 + linearVelocity.z ** 2)) * (180 / Math.PI);
+export const getElevationFromDirection = (direction: Vector3): number => Math.atan2(direction.y, Math.sqrt(direction.x ** 2 + direction.z ** 2)) * (180 / Math.PI);
 // TODO (S.Panfilov) add unit tests
-export const getSpeedByLinearVelocity = (linearVelocity: Vector): number => Math.sqrt(linearVelocity.x ** 2 + linearVelocity.y ** 2 + linearVelocity.z ** 2);
+export const getDirectionFromLinearVelocity = (linearVelocity: Vector3): Vector3 => linearVelocity.clone().normalize();
 // TODO (S.Panfilov) add unit tests
-export const getLinearVelocity = (speed: number, azimuth: number, elevation: number): Vector => ({
-  x: speed * Math.cos(elevation) * Math.cos(azimuth),
-  y: speed * Math.sin(elevation),
-  z: speed * Math.cos(elevation) * Math.sin(azimuth)
-});
+export const getSpeedFromLinearVelocity = (linearVelocity: Vector3): number => Math.sqrt(linearVelocity.x ** 2 + linearVelocity.y ** 2 + linearVelocity.z ** 2);
+// TODO (S.Panfilov) add unit tests
+export const getLinearVelocity = (speed: number, azimuth: number, elevation: number): Vector3 =>
+  new Vector3(speed * Math.cos(elevation) * Math.cos(azimuth), speed * Math.sin(elevation), speed * Math.cos(elevation) * Math.sin(azimuth));
+// TODO (S.Panfilov) add unit tests
+export const getSpeedFromAngularVelocity = (angularVelocity: Vector3): number => angularVelocity.length();
+// TODO (S.Panfilov) add unit tests
+export const getDirectionFromAngularVelocity = (angularVelocity: Vector3): Vector3 => angularVelocity.clone().normalize();
 
 // TODO (S.Panfilov) add unit tests
 export function get3DAzimuth(center: TWithCoordsXYZ, point: TWithCoordsXYZ): { azimuth: number; elevation: number } {

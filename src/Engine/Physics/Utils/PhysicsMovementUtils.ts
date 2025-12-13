@@ -1,9 +1,10 @@
 import type { RigidBody } from '@dimforge/rapier3d';
 import type { Vector } from '@dimforge/rapier3d/math';
 import Decimal from 'decimal.js';
+import { Vector3 } from 'three';
 
 import type { TKinematicData } from '@/Engine/Kinematic';
-import { cos, degToRad, sin } from '@/Engine/Math';
+import { cos, degToRad, getDirectionFromAngularVelocity, getDirectionFromLinearVelocity, getSpeedFromAngularVelocity, getSpeedFromLinearVelocity, sin } from '@/Engine/Math';
 import type { TWithCoordsXYZ } from '@/Engine/Mixins';
 import { VelocityType } from '@/Engine/Physics/Constants';
 import type { TPhysicsBodyFacade } from '@/Engine/Physics/Models';
@@ -39,11 +40,16 @@ export function movePhysicsDynamicObjectByVelocity(rigidBody: RigidBody, type: V
 export function getKinematicDataFromPhysics(facade: TPhysicsBodyFacade): TKinematicData {
   const rigidBody: RigidBody | undefined = facade.getRigidBody();
   if (isNotDefined(rigidBody)) throw new Error('Cannot get movement info: rigid body is not defined');
-  const linearVelocity: Vector = rigidBody.linvel();
+  const linvel: Vector = rigidBody.linvel();
+  const linearVelocity: Vector3 = new Vector3(linvel.x, linvel.y, linvel.z);
+
+  const angvel: Vector = rigidBody.angvel();
+  const angularVelocity: Vector3 = new Vector3(angvel.x, angvel.y, angvel.z);
 
   return {
-    linearVelocity,
-    angularVelocity: rigidBody.angvel(),
-    principalInertia: rigidBody.principalInertia()
+    linearSpeed: getSpeedFromLinearVelocity(linearVelocity),
+    linearDirection: getDirectionFromLinearVelocity(linearVelocity),
+    angularSpeed: getSpeedFromAngularVelocity(angularVelocity),
+    angularDirection: getDirectionFromAngularVelocity(angularVelocity)
   };
 }

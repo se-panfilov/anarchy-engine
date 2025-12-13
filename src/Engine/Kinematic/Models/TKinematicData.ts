@@ -1,7 +1,8 @@
-import type { TWithCoordsXYZ } from '@/Engine/Mixins';
+import type { Vector3 } from 'three';
 
 export type TKinematicData = Readonly<{
-  linearVelocity: TWithCoordsXYZ | undefined;
-  angularVelocity: TWithCoordsXYZ | undefined;
-  principalInertia: TWithCoordsXYZ | undefined;
+  linearSpeed: number;
+  linearDirection: Vector3;
+  angularSpeed: number;
+  angularDirection: Vector3;
 }>;

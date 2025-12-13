@@ -66,8 +66,8 @@ export async function BulletAsync(params: TActorParams, actorService: TActorServ
 
   function reset(): void {
     actor.setPosition(Vector3Wrapper({ x: 0, y: 0, z: 0 }));
-    actor.setKinematicAzimuth(0);
-    actor.setKinematicElevation(0);
+    actor.kinematic.setLinearAzimuth(0);
+    actor.kinematic.setLinearElevation(0);
     setDistanceTraveled(0);
     setActive(false);
     // eslint-disable-next-line functional/immutable-data
@@ -77,17 +77,17 @@ export async function BulletAsync(params: TActorParams, actorService: TActorServ
 
   function update(delta: number): void {
     if (isActive()) {
-      const azimuthRadians: number = MathUtils.degToRad(actor.getKinematicAzimuth());
-      const elevationRadians: number = MathUtils.degToRad(actor.getKinematicElevation());
+      const azimuthRadians: number = MathUtils.degToRad(actor.kinematic.getLinearAzimuth());
+      const elevationRadians: number = MathUtils.degToRad(actor.kinematic.getLinearElevation());
       const vectorDirection: Vector3 = new Vector3(Math.cos(elevationRadians) * Math.cos(azimuthRadians), Math.sin(elevationRadians), Math.cos(elevationRadians) * Math.sin(azimuthRadians));
       // const vectorDirection: Vector3 = new Vector3(Math.cos(azimuthRadians), elevationRadians, Math.sin(azimuthRadians));
-      actor.entity.position.add(vectorDirection.clone().multiplyScalar(mpsSpeed(actor.getKinematicSpeed(), delta)));
+      actor.entity.position.add(vectorDirection.clone().multiplyScalar(mpsSpeed(actor.kinematic.getLinearSpeed(), delta)));
 
       // TODO (S.Panfilov) this is a very naive implementation of gravity (a real bullet flying in more complex half parabola)
       // eslint-disable-next-line functional/immutable-data
       actor.entity.position.y = actor.entity.position.y - mpsSpeed(fallSpeed, delta);
 
-      setDistanceTraveled(getDistanceTraveled() + mpsSpeed(actor.getKinematicSpeed(), delta));
+      setDistanceTraveled(getDistanceTraveled() + mpsSpeed(actor.kinematic.getLinearSpeed(), delta));
 
       const collisionCheckRadius: number = meters(5);
       const collision = collisionsService.checkCollision(actor, collisionCheckRadius);
@@ -117,11 +117,11 @@ export function shoot(actorPosition: TWithCoordsXYZ, toAngle: number, elevation:
   const bullet: TBullet | undefined = bullets.find((b: TBullet) => !b.isActive());
   if (isDefined(bullet)) {
     bullet.setPosition(Vector3Wrapper(actorPosition));
-    bullet.setKinematicAzimuth(toAngle);
-    bullet.setKinematicElevation(elevation);
+    bullet.kinematic.setLinearAzimuth(toAngle);
+    bullet.kinematic.setLinearElevation(elevation);
     bullet.setDistanceTraveled(0);
     bullet.setFallSpeed(meters(fallSpeedMeters));
-    bullet.setKinematicSpeed(meters(speedMeters));
+    bullet.kinematic.setLinearSpeed(meters(speedMeters));
     bullet.setActive(true);
   }
 }
