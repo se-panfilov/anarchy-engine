@@ -1,7 +1,11 @@
 import type { World } from '@dimforge/rapier3d';
+import type { Subscription } from 'rxjs';
+import type { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
 
 import { ambientContext } from '@/Engine/Context';
+import type { TEnvMapTexture, TEnvMapWrapper } from '@/Engine/EnvMap';
 import type { TIntersectionsWatcher } from '@/Engine/Intersections';
+import type { TModel3dFacade } from '@/Engine/Models3d/Models';
 import type { TSpaceConfigEntities, TSpaceServices } from '@/Engine/Space/Models';
 import { isDefined } from '@/Engine/Utils';
 
@@ -52,4 +56,12 @@ export function createEntities(entities: TSpaceConfigEntities, services: TSpaceS
   intersectionsWatcherService.getRegistry().added$.subscribe((watcher: TIntersectionsWatcher): void => {
     if (watcher.isAutoStart && !watcher.isStarted) watcher.start();
   });
+}
+
+// TODO CWP !!!
+// TODO 9.0.0. RESOURCES: fix create method of resource entities
+export function watchResourcesAndCreateResourceEntities(services: TSpaceServices): ReadonlyArray<Subscription> {
+  const models3dSub$: Subscription = services.models3dService.getResourceRegistry().added$.subscribe((model: GLTF): TModel3dFacade => services.models3dService.create(model));
+  const envMaps3dSub$: Subscription = services.envMapService.getResourceRegistry().added$.subscribe((envMap: TEnvMapTexture): TEnvMapWrapper => services.envMapService.create(envMap));
+  return [models3dSub$, envMaps3dSub$];
 }

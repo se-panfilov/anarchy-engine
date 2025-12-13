@@ -1,5 +1,3 @@
-import type { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
-
 import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
 import { Models3dLoader } from '@/Engine/Models3d/Loaders';
@@ -64,17 +62,21 @@ export function Models3dService(
   //   return params.map((p: TModel3dParams): TModel3dFacade => create(p));
   // }
 
-  function loadOrCreateFromConfigAsync(config: ReadonlyArray<TModel3dResourceConfig>): Promise<ReadonlyArray<TModel3dFacade | GLTF>> {
-    const promisesList: ReadonlyArray<Promise<TModel3dFacade | GLTF>> = config.map((c: TModel3dResourceConfig): Promise<TModel3dFacade | GLTF> => {
-      if (isPrimitiveModel3dConfig(c)) {
-        return Promise.resolve(create(factory.configToParams(c, { materialService })));
-      } else {
-        return model3dLoader.loadAsync(c);
-      }
-    });
+  // TODO 9.0.0. RESOURCES: remove?
+  // function loadOrCreateFromConfigAsync(config: ReadonlyArray<TModel3dResourceConfig>): Promise<ReadonlyArray<TModel3dFacade | GLTF>> {
+  //   const promisesList: ReadonlyArray<Promise<TModel3dFacade | GLTF>> = config.map((c: TModel3dResourceConfig): Promise<TModel3dFacade | GLTF> => {
+  //     if (isPrimitiveModel3dConfig(c)) {
+  //       return Promise.resolve(create(factory.configToParams(c, { materialService })));
+  //     } else {
+  //       return model3dLoader.loadAsync(c);
+  //     }
+  //   });
+  //
+  //   return Promise.all(promisesList);
+  // }
 
-    return Promise.all(promisesList);
-  }
+  const filterPrimitiveModel3dConfigs = (configs: ReadonlyArray<TModel3dResourceConfig>): ReadonlyArray<TModel3dResourceConfig> => configs.filter((c) => isPrimitiveModel3dConfig(c));
+  const filterLoadableModel3dConfigs = (configs: ReadonlyArray<TModel3dResourceConfig>): ReadonlyArray<TModel3dResourceConfig> => configs.filter((c) => !isPrimitiveModel3dConfig(c));
 
   const destroyable: TDestroyable = destroyableMixin();
   destroyable.destroyed$.subscribe(() => {
@@ -88,7 +90,9 @@ export function Models3dService(
     createFromConfig,
     loadAsync: model3dLoader.loadAsync,
     loadFromConfigAsync: model3dLoader.loadFromConfigAsync,
-    loadOrCreateFromConfigAsync,
+    // loadOrCreateFromConfigAsync,
+    filterPrimitiveModel3dConfigs,
+    filterLoadableModel3dConfigs,
     getFactory: (): TModels3dFactory => factory,
     getRegistry: (): TModel3dRegistry => registry,
     getResourceRegistry: (): TModel3dResourceAsyncRegistry => resourcesRegistry,

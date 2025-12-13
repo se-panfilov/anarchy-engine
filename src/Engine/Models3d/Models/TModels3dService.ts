@@ -18,6 +18,9 @@ export type TModels3dService = Readonly<{
   TWithResourcesRegistryService<TModel3dResourceAsyncRegistry> &
   TWithLoadResourcesAsyncService<TModel3dResourceConfig, GLTF> &
   Readonly<{
-    loadOrCreateFromConfigAsync: (config: ReadonlyArray<TModel3dResourceConfig>) => Promise<ReadonlyArray<TModel3dFacade | GLTF>>;
+    // TODO 9.0.0. RESOURCES: remove?
+    //loadOrCreateFromConfigAsync: (config: ReadonlyArray<TModel3dResourceConfig>) => Promise<ReadonlyArray<TModel3dFacade | GLTF>>;
+    filterPrimitiveModel3dConfigs: (configs: ReadonlyArray<TModel3dResourceConfig>) => ReadonlyArray<TModel3dResourceConfig>;
+    filterLoadableModel3dConfigs: (configs: ReadonlyArray<TModel3dResourceConfig>) => ReadonlyArray<TModel3dResourceConfig>;
   }> &
   TDestroyable;

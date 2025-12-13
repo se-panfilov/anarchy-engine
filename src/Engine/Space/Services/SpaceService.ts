@@ -1,3 +1,5 @@
+import type { Subscription } from 'rxjs';
+
 import type { TAppCanvas } from '@/Engine/App';
 import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
@@ -6,7 +8,7 @@ import { RendererModes } from '@/Engine/Renderer';
 import { screenService } from '@/Engine/Services';
 import { withBuiltMixin } from '@/Engine/Space/Mixins';
 import type { TSpace, TSpaceConfig, TSpaceService, TWithBuilt } from '@/Engine/Space/Models';
-import { createEntities, loadResources, prepareServices } from '@/Engine/Space/Utils';
+import { createEntities, loadResources, prepareServices, watchResourcesAndCreateResourceEntities } from '@/Engine/Space/Utils';
 import { validateConfig } from '@/Engine/Space/Validators';
 import { isDestroyable } from '@/Engine/Utils';
 
@@ -17,6 +19,8 @@ export function SpaceService(): TSpaceService {
     validateConfig(config);
     screenService.setCanvas(canvas);
     const { services } = await prepareServices(config.name, canvas, config.scenes);
+
+    const resourceEntitiesSubsList: ReadonlyArray<Subscription> = watchResourcesAndCreateResourceEntities(services);
     await loadResources(config.resources, services);
     services.rendererService.create({ canvas, tags: [], mode: RendererModes.WebGL2, isActive: true });
     createEntities(config.entities, services);
@@ -26,6 +30,7 @@ export function SpaceService(): TSpaceService {
 
     destroyable.destroyed$.subscribe(() => {
       builtMixin.built$.complete();
+      resourceEntitiesSubsList.forEach((sub: Subscription): void => sub.unsubscribe());
       Object.values(services).forEach((service): void => void (isDestroyable(service) && service.destroy()));
     });
 
