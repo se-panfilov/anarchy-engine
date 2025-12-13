@@ -1104,6 +1104,9 @@
         "far": {
           "type": "number"
         },
+        "agent": {
+          "$ref": "#/definitions/TransformAgent"
+        },
         "name": {
           "type": "string"
         },
@@ -1237,6 +1240,9 @@
         "intensity": {
           "type": "number"
         },
+        "agent": {
+          "$ref": "#/definitions/TransformAgent"
+        },
         "name": {
           "type": "string"
         }
@@ -1297,6 +1303,9 @@
         },
         "intensity": {
           "type": "number"
+        },
+        "agent": {
+          "$ref": "#/definitions/TransformAgent"
         },
         "name": {
           "type": "string"
@@ -1391,6 +1400,9 @@
         },
         "intensity": {
           "type": "number"
+        },
+        "agent": {
+          "$ref": "#/definitions/TransformAgent"
         },
         "name": {
           "type": "string"
@@ -1487,6 +1499,9 @@
         "intensity": {
           "type": "number"
         },
+        "agent": {
+          "$ref": "#/definitions/TransformAgent"
+        },
         "name": {
           "type": "string"
         },
@@ -1551,6 +1566,9 @@
         "intensity": {
           "type": "number"
         },
+        "agent": {
+          "$ref": "#/definitions/TransformAgent"
+        },
         "name": {
           "type": "string"
         },
@@ -1614,6 +1632,9 @@
         },
         "intensity": {
           "type": "number"
+        },
+        "agent": {
+          "$ref": "#/definitions/TransformAgent"
         },
         "name": {
           "type": "string"
@@ -1789,6 +1810,9 @@
         },
         "materialSource": {
           "type": "string"
+        },
+        "agent": {
+          "$ref": "#/definitions/TransformAgent"
         },
         "name": {
           "type": "string"
@@ -2076,6 +2100,9 @@
         "center": {
           "$ref": "#/definitions/TWithCoordsXY"
         },
+        "kinematic": {
+          "$ref": "#/definitions/TKinematicDataConfig"
+        },
         "text": {
           "type": "string"
         },
@@ -2087,6 +2114,9 @@
         },
         "elementType": {
           "type": "string"
+        },
+        "agent": {
+          "$ref": "#/definitions/TransformAgent"
         },
         "name": {
           "type": "string"
