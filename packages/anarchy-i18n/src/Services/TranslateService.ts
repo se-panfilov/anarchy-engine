@@ -3,7 +3,8 @@ import { isDefined } from '@Anarchy/Shared/Utils';
 import type { FormatNumberOptions, IntlCache, IntlShape } from '@formatjs/intl';
 import { createIntl, createIntlCache } from '@formatjs/intl';
 import type { FormatDateOptions } from '@formatjs/intl/src/types';
-import { BehaviorSubject, concatMap, distinctUntilChanged, from, map } from 'rxjs';
+import type { Subscription } from 'rxjs';
+import { BehaviorSubject, concatMap, distinctUntilChanged, from, map, Subject } from 'rxjs';
 
 export function TranslateService<TLocale extends string>(initialLocale: TLocale, defaultLocale: TLocale, locales: TLocalesMapping<TLocale>): TTranslateService<TLocale> {
   const loaded: Map<TLocale, TMessages> = new Map<TLocale, TMessages>();
@@ -15,6 +16,7 @@ export function TranslateService<TLocale extends string>(initialLocale: TLocale,
   const cache: IntlCache = createIntlCache();
   const ready$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   const locale$: BehaviorSubject<TLocale> = new BehaviorSubject<TLocale>(initialLocale);
+  const destroy$: Subject<void> = new Subject<void>();
 
   const intlMap: Map<TLocale, IntlShape<string>> = new Map<TLocale, IntlShape<string>>();
   const intl$: BehaviorSubject<IntlShape<string> | undefined> = new BehaviorSubject<IntlShape<string> | undefined>(undefined);
@@ -48,19 +50,29 @@ export function TranslateService<TLocale extends string>(initialLocale: TLocale,
     }
   }
 
-  loadingLocale$
+  const loadingLocaleSub$: Subscription = loadingLocale$
     .pipe(
       map((list: Set<TLocale>): boolean => list.size === 0),
       distinctUntilChanged()
     )
     .subscribe((v: boolean): void => void ready$.next(v));
 
-  locale$
+  const localeSub$: Subscription = locale$
     .pipe(
       distinctUntilChanged(),
       concatMap((locale: TLocale) => from(loadLocale(locale)).pipe(map((): IntlShape<string> => getIntl(locale))))
     )
     .subscribe((intl: IntlShape<string>): void => void intl$.next(intl));
+
+  const destroySub$: Subscription = destroy$.subscribe(() => {
+    destroySub$.unsubscribe();
+    loadingLocaleSub$.unsubscribe();
+    localeSub$.unsubscribe();
+
+    ready$.complete();
+    loadingLocale$.complete();
+    intl$.complete();
+  });
 
   return {
     translate: (id: string, params?: Record<string, string>): string | never => {
@@ -82,6 +94,7 @@ export function TranslateService<TLocale extends string>(initialLocale: TLocale,
       throw new Error(`[TranslateService]: The service is not ready. At the value "${value}"`);
     },
     ready$,
-    locale$
+    locale$,
+    destroy$
   };
 }

@@ -1,6 +1,6 @@
 import type { FormatNumberOptions } from '@formatjs/intl';
 import type { FormatDateOptions } from '@formatjs/intl/src/types';
-import type { BehaviorSubject } from 'rxjs';
+import type { BehaviorSubject, Subject } from 'rxjs';
 
 export type TTranslateService<TLocale extends string> = Readonly<{
   translate: (id: string, params?: Record<string, string>) => string | never;
@@ -8,4 +8,5 @@ export type TTranslateService<TLocale extends string> = Readonly<{
   formatNumber: (value: number, options?: FormatNumberOptions) => string;
   locale$: BehaviorSubject<TLocale>;
   ready$: BehaviorSubject<boolean>;
+  destroy$: Subject<void>;
 }>;
