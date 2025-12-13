@@ -41,9 +41,11 @@
       },
       "physics": {
         "preset": "wall_physics",
-        "width": 20,
-        "height": 20,
-        "deep": 1,
+        "shapeParams": {
+          "hx": 20,
+          "hy": 20,
+          "hz": 1
+        },
         "position": { "x": 0, "y": 0, "z": 0 },
         "rotation": { "x": -1.57, "y": 0, "z": 0 }
       },
@@ -85,9 +87,11 @@
       },
       "physics": {
         "preset": "wall_physics",
-        "height": 20,
-        "width": 1,
-        "depth": 5,
+        "shapeParams": {
+          "width": 20,
+          "height": 1,
+          "depth": 5
+        },
         "position": { "x": -10.5, "y": 0, "z": 0 },
         "rotation": { "x": -1.57, "y": 0, "z": 0 }
       },
@@ -129,9 +133,11 @@
       },
       "physics": {
         "preset": "wall_physics",
-        "height": 20,
-        "width": 1,
-        "depth": 5,
+        "shapeParams": {
+          "hx": 20,
+          "hy": 1,
+          "hz": 5
+        },
         "position": { "x": 10.5, "y": 0, "z": 0 },
         "rotation": { "x": -1.57, "y": 0, "z": 0 }
       },
@@ -173,9 +179,11 @@
       },
       "physics": {
         "preset": "wall_physics",
-        "height": 22,
-        "width": 1,
-        "depth": 5,
+        "shapeParams": {
+          "hx": 22,
+          "hy": 1,
+          "hz": 5
+        },
         "position": { "x": 0, "y": 0, "z": -10.5 },
         "rotation": { "x": -1.57, "y": 0, "z": -1.57 }
       },
@@ -217,9 +225,11 @@
       },
       "physics": {
         "preset": "wall_physics",
-        "height": 22,
-        "width": 1,
-        "depth": 5,
+        "shapeParams": {
+          "hx": 22,
+          "hy": 1,
+          "hz": 5
+        },
         "position": { "x": 0, "y": 0, "z": 10.5 },
         "rotation": { "x": -1.57, "y": 0, "z": -1.57 }
       },
@@ -249,7 +259,9 @@
       },
       "physics": {
         "preset": "ball_physics",
-        "radius": 1,
+        "shapeParams": {
+          "radius": 1
+        },
         "position": { "x": 0, "y": 6, "z": 0 }
       },
       "position": { "x": 0, "y": 6, "z": 0 },
@@ -289,9 +301,11 @@
       },
       "physics": {
         "preset": "box_physics",
-        "height": 4,
-        "width": 1,
-        "depth": 1,
+        "shapeParams": {
+          "width": 4,
+          "height": 1,
+          "depth": 1
+        },
         "position": { "x": -4, "y": 2, "z": 2 },
         "rotation": { "x": -1.57, "y": 0, "z": 0 }
       },
@@ -325,9 +339,11 @@
       },
       "physics": {
         "preset": "box_physics",
-        "height": 4,
-        "width": 1,
-        "depth": 1,
+        "shapeParams": {
+          "width": 4,
+          "height": 1,
+          "depth": 1
+        },
         "position": { "x": 4, "y": 2, "z": 1 },
         "rotation": { "x": -1.57, "y": 0, "z": 0 }
       },
@@ -411,7 +427,7 @@
     "presets": {
       "wall_physics": {
         "type": "static",
-        "collisionShape": "box",
+        "collisionShape": "cuboid",
         "mass": 1,
         "restitution": 0.7,
         "friction": 0.5,
