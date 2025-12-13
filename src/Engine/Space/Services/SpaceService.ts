@@ -17,10 +17,13 @@ import type {
   TSpaceServiceWithRegistry
 } from '@/Engine/Space/Models';
 import { SpaceRegistry } from '@/Engine/Space/Registries';
-import { validateConfig } from '@/Engine/Space/Validators';
+import { validateConfig, validateSpacesDoNotUseSameCanvas } from '@/Engine/Space/Validators';
 
 export function SpaceService(factory: TSpaceFactory, registry: TSpaceRegistry): TSpaceService {
-  const factorySub$: Subscription = factory.entityCreated$.subscribe((space: TSpace): void => registry.add(space));
+  const factorySub$: Subscription = factory.entityCreated$.subscribe((space: TSpace): void => {
+    if (!validateSpacesDoNotUseSameCanvas(registry, space)) throw new Error(`SpaceService: Spaces must not use the same canvas element ("${space.canvasId}")`);
+    registry.add(space);
+  });
   const disposable: ReadonlyArray<TDisposable> = [registry, factory, factorySub$];
   const abstractService: TAbstractService = AbstractService(disposable);
 

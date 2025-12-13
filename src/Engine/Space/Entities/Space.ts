@@ -48,12 +48,12 @@ export function Space(params: TSpaceParams, hooks?: TSpaceHooks): TSpace {
 
   const getCanvasElement = (): TSpaceCanvas | never => {
     const result: HTMLElement | TSpaceCanvas | null = findDomElement(canvasId);
-    if (!isNotDefined(result)) throw new Error(`Space: Can't find canvas element: ${result}`);
+    if (isNotDefined(result)) throw new Error(`Space: Can't find canvas element: ${result}`);
     if (!isCanvasElement(result)) throw new Error(`Space: Element (${result}) is found, but it isn't a canvas`);
     return result;
   };
 
-  const space: TSpace = Object.assign(AbstractEntity(parts, EntityType.Space, { version, name, tags }), { getCanvasElement });
+  const space: TSpace = Object.assign(AbstractEntity(parts, EntityType.Space, { version, name, tags }), { getCanvasElement, canvasId });
 
   start$.pipe(skip(1), distinctUntilChanged()).subscribe((value: boolean): void => {
     if (value) return Object.values(space.loops).forEach((loop: TLoop): void => loop.start());
