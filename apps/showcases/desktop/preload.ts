@@ -1,5 +1,6 @@
 import { contextBridge, ipcRenderer } from 'electron';
 
+// TODO DESKTOP: add "sanitize assets" script for desktop/assets and mobile/assets
 contextBridge.exposeInMainWorld('electronAPI', {
   // TODO DESKTOP: "ping" is just a test api, remove it.
   ping: () => ipcRenderer.invoke('ping'),
