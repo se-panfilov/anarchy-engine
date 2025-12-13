@@ -4,8 +4,8 @@
     "paths": {
       "@Shared/*": ["packages/shared/src/*"],
       "@Shared": ["packages/shared/src/index.ts"],
-      "@ShowcasesShared/*": ["packages/showcases-shared/src/*"],
-      "@ShowcasesShared": ["packages/showcases-shared/src/index.ts"],
+      "@ShowcasesShared/*": ["packages/showcases_shared/src/*"],
+      "@ShowcasesShared": ["packages/showcases_shared/src/index.ts"],
       "@Desktop/*": ["apps/showcases-desktop/src/*"]
     },
     "sourceMap": false,
