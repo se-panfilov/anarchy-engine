@@ -1,10 +1,12 @@
 <script setup lang="ts">
+import PageTitle from '@Menu/components/PageTitle.vue';
+
 defineProps<{ title: string }>();
 </script>
 
 <template>
-  <div class="menu-settings-view">
-    <div class="menu-settings-view__title">{{ title }}</div>
+  <div class="view">
+    <PageTitle class="view__title" :title="title" />
     <slot name="default" />
   </div>
 </template>

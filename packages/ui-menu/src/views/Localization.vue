@@ -34,7 +34,7 @@ const options = computed((): ReadonlyArray<TDropdownOption<Languages>> => {
 </script>
 
 <template>
-  <View class="localization" title="Localization settings">
+  <View class="localization" title="Localization">
     <SettingsGroup class="main-menu-view__group" title="Main Localization Settings">
       <Dropdown v-model="state.language" :options="options" class="main-menu-view__setting -resolution" label="Resolution" />
     </SettingsGroup>

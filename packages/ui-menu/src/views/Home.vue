@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import Navigation from '@Menu/components/Navigation.vue';
+import PageTitle from '@Menu/components/PageTitle.vue';
 import { Routes } from '@Menu/constants';
 import type { TNavOption } from '@Menu/models';
 import { eventsService } from '@Menu/services';
@@ -16,7 +17,8 @@ const navOptions: ReadonlyArray<TNavOption> = [
   },
   {
     id: 1,
-    label: 'Start new game',
+    label: 'New game',
+    disabled: true,
     action: () => eventsService.emitStartNew()
   },
   {
@@ -40,7 +42,7 @@ const navOptions: ReadonlyArray<TNavOption> = [
 
 <template>
   <div class="home">
-    <h1 class="home__title">Game title</h1>
+    <PageTitle class="home__title" title="Game title" />
     <Navigation class="home__navigation" :options="navOptions" />
   </div>
 </template>
@@ -53,13 +55,5 @@ const navOptions: ReadonlyArray<TNavOption> = [
   align-items: center;
   flex-direction: column;
   gap: 14px;
-
-  &__title {
-    // TODO DESKTOP: add px-to-rem function (to shared?)
-    letter-spacing: 2.1px;
-    font-size: 42px;
-    line-height: 42px;
-    text-transform: uppercase;
-  }
 }
 </style>

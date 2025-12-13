@@ -27,7 +27,7 @@ function save(payload: TAudioSettings): void {
 </script>
 
 <template>
-  <View class="audio" title="Audio settings">
+  <View class="audio" title="Audio">
     <SettingsGroup class="main-menu-view__group" title="Main Audio Settings">
       <Range v-model="state.masterVolume" :min="0" :max="100" class="main-menu-view__setting -masterVolume" label="Master Volume" />
     </SettingsGroup>

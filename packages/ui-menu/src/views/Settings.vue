@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import Navigation from '@Menu/components/Navigation.vue';
+import PageTitle from '@Menu/components/PageTitle.vue';
 import { Routes } from '@Menu/constants';
 import type { TNavOption } from '@Menu/models';
 import { useRouterStore } from '@Menu/stores/RouterStore';
@@ -27,6 +28,7 @@ const navOptions: ReadonlyArray<TNavOption> = [
 
 <template>
   <div class="settings">
+    <PageTitle class="settings__title" title="Settings" />
     <Navigation class="settings__navigation" :options="navOptions" :back-btn="true" />
   </div>
 </template>

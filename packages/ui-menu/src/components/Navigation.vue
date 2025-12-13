@@ -19,16 +19,44 @@ withDefaults(
 </script>
 
 <template>
-  <div class="menu-navigation">
-    <ul class="menu-navigation__list">
-      <li v-for="option in options" :key="option.id" class="menu-navigation__list-item">
-        <button type="button" class="menu-navigation__button" @click="option.action()">
+  <div class="navigation">
+    <ul class="navigation__list">
+      <li v-for="option in options" :key="option.id" class="navigation__list-item">
+        <button type="button" class="navigation__button" :disabled="option.disabled" @click="option.action()">
           {{ option.label }}
         </button>
       </li>
-      <li v-if="backBtn" class="menu-navigation__list-item -back">
-        <button type="button" class="menu-navigation__button" @click="useRouterStore().goBack()">Back</button>
+      <li v-if="backBtn" class="navigation__list-item -back">
+        <button type="button" class="navigation__button" @click="useRouterStore().goBack()">Back</button>
       </li>
     </ul>
   </div>
 </template>
+
+<style scoped lang="scss">
+.navigation {
+  display: flex;
+  flex-direction: column;
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  &__button {
+    outline-style: none;
+    white-space: nowrap;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 18px;
+    border: 1px solid black;
+    border-radius: 6px;
+    min-height: 42px;
+    width: 100%;
+  }
+}
+</style>
