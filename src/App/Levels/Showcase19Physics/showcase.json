@@ -235,12 +235,13 @@
       {
         "name": "surface_actor",
         "model3dSource": "surface_model",
+        "agent": "physical",
         "physics": {
           "presetName": "wall_physics",
           "shapeParams": {
             "hx": 10,
-            "hy": 0.025,
-            "hz": 10
+            "hy": 10,
+            "hz": 0.025
           }
         },
         "position": { "x": 0, "y": 0, "z": 0 },
@@ -250,6 +251,7 @@
       {
         "name": "wall_left_actor",
         "model3dSource": "wall_left_model",
+        "agent": "physical",
         "physics": {
           "presetName": "wall_physics",
           "shapeParams": {
@@ -265,6 +267,7 @@
       {
         "name": "wall_right_actor",
         "model3dSource": "wall_right_model",
+        "agent": "physical",
         "physics": {
           "presetName": "wall_physics",
           "shapeParams": {
@@ -280,6 +283,7 @@
       {
         "name": "wall_front_actor",
         "model3dSource": "wall_front_model",
+        "agent": "physical",
         "physics": {
           "presetName": "wall_physics",
           "shapeParams": {
@@ -295,6 +299,7 @@
       {
         "name": "wall_back_actor",
         "model3dSource": "wall_back_model",
+        "agent": "physical",
         "physics": {
           "presetName": "wall_physics",
           "shapeParams": {
@@ -310,6 +315,7 @@
       {
         "name": "sphere_actor",
         "model3dSource": "sphere_model",
+        "agent": "physical",
         "physics": {
           "presetName": "ball_physics",
           "shapeParams": {
@@ -322,6 +328,7 @@
       {
         "name": "obstacle_1_actor",
         "model3dSource": "obstacle_1_model",
+        "agent": "physical",
         "physics": {
           "presetName": "box_physics",
           "shapeParams": {
@@ -337,6 +344,7 @@
       {
         "name": "obstacle_2_actor",
         "model3dSource": "obstacle_2_model",
+        "agent": "physical",
         "physics": {
           "presetName": "box_physics",
           "shapeParams": {
@@ -352,6 +360,7 @@
       {
         "name": "obstacle_3_actor",
         "model3dSource": "obstacle_3_model",
+        "agent": "physical",
         "physics": {
           "presetName": "ball_physics",
           "shapeParams": {
@@ -364,6 +373,7 @@
       {
         "name": "obstacle_4_actor",
         "model3dSource": "obstacle_4_model",
+        "agent": "physical",
         "physics": {
           "presetName": "ball_physics",
           "shapeParams": {

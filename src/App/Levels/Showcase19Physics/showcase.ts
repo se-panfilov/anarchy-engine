@@ -56,11 +56,12 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
 
     mouseService.clickLeftRelease$.subscribe(() => {
       // TODO CWP: 8.0.0. MODELS: Perhaps, "applyImpulse" (and similar functions) should be available via physical drive
-      ballActorW.physicsBody.getRigidBody()?.applyImpulse(getPushCoordsFrom3dAzimuthDeg(azimuth, 0, forcePower * 10.5), true);
+      ballActorW.drive.physical.physicsBody$.value?.getRigidBody()?.applyImpulse(getPushCoordsFrom3dAzimuthDeg(azimuth, 0, forcePower * 10.5), true);
     });
 
     keyboardService.onKey(KeysExtra.Space).pressed$.subscribe((): void => {
-      ballActorW.physicsBody.getRigidBody()?.applyImpulse({ x: 0, y: 20, z: 0 }, true);
+      // TODO CWP: 8.0.0. MODELS: Perhaps, "applyImpulse" (and similar functions) should be available via physical drive
+      ballActorW.drive.physical.physicsBody$.value?.getRigidBody()?.applyImpulse({ x: 0, y: 20, z: 0 }, true);
     });
 
     const mouseLineIntersectionsWatcher: TIntersectionsWatcher = intersectionsWatcherService.create({
