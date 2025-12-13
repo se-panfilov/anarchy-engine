@@ -1,7 +1,7 @@
 import type { AnimationClip } from 'three';
 
 import type { TShowcase } from '@/App/Levels/Models';
-import type { TAppCanvas, TEngine, TModel3dAnimations, TModel3dLoadOptions, TSpace, TSpaceConfig, TVector3Wrapper } from '@/Engine';
+import type { TAnimationActions, TAppCanvas, TEngine, TModel3dAnimations, TModel3dFacade, TModel3dLoadOptions, TSpace, TSpaceConfig, TVector3Wrapper } from '@/Engine';
 import { buildSpaceFromConfig, Engine, Vector3Wrapper } from '@/Engine';
 
 import spaceConfig from './showcase.json';
@@ -19,9 +19,10 @@ export function showcase(canvas: TAppCanvas): TShowcase {
     let runAnimationGLTF: AnimationClip | undefined = undefined;
     let runAnimationGLB: AnimationClip | undefined = undefined;
 
-    animationsService.added$.subscribe(({ url, pack }: TModel3dAnimations): void => {
-      if (url === urlGLTF) runAnimationGLTF = pack['Run'];
-      if (url === urlGLB) runAnimationGLB = pack['Run'];
+    models3dService.added$.subscribe((facade: TModel3dFacade): void => {
+      const actions: TAnimationActions = facade.getActions();
+      if (facade.getUrl() === urlGLTF) runAnimationGLTF = actions['Run'];
+      if (facade.getUrl() === urlGLB) runAnimationGLB = actions['Run'];
     });
 
     await Promise.all(
