@@ -10,7 +10,7 @@
       "@Anarchy/i18n/*": ["packages/anarchy-i18n/src/*"],
       "@Anarchy/Tracking": ["packages/anarchy-tracking/src/index.ts"],
       "@Anarchy/Tracking/*": ["packages/anarchy-tracking/src/*"],
-      "@Public/*": ["packages/showcases-menu/public/*"],
+      "@Public/*": ["packages/showcases-gui/public/*"],
       "@Showcases/Menu": ["packages/showcases-menu/src/index.ts"],
       "@Showcases/Menu/*": ["packages/showcases-menu/src/*"],
       "@Showcases/GUI": ["packages/showcases-gui/src/index.ts"],

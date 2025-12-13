@@ -1,0 +1,1 @@
+- 1.0.0 Created a separate package for the GUI

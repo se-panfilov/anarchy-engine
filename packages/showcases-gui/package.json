@@ -1,0 +1,68 @@
+{
+  "name": "showcases-gui",
+  "author": "S. Panfilov",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "license": "MIT",
+  "description": "Anarchy Showcases-GUI – an GUI for Anarchy Engine Showcases.",
+  "keywords": [
+    "anarchy",
+    "showcases",
+    "anarchy-showcases",
+    "anarchy-gui"
+  ],
+  "files": [
+    "./legal/**",
+    "CHANGELOG.md",
+    "NOTICE.md",
+    "LICENSE",
+    "README.md",
+    "dist/"
+  ],
+  "scripts": {
+    "before:release": "npm run build:all && npm run before:release:check",
+    "before:release:check": "npm run ts:check && npm run check:circular-dependencies && npm run lint",
+    "build:all": "npm run build:desktop && npm run build:mobile && npm run build:web",
+    "build:desktop": "rimraf dist-desktop && vite build --mode production.desktop",
+    "build:mobile": "rimraf dist-mobile && vite build --mode production.mobile",
+    "build:web": "rimraf dist-web && vite build --mode production.web",
+    "check:circular-dependencies": "npx dpdm -T --no-warning --no-tree --exit-code circular:1 ./src/main.ts",
+    "generate:legal": "npm run generate:legal:3rd-party-licenses && npm run generate:legal:notice && npm run generate:legal:files && npm run generate:legal:sbom",
+    "generate:legal:3rd-party-licenses": "npm run -w anarchy-legal generate:licenses -- --workspace packages/showcases-gui --out /legal/THIRD_PARTY_LICENSES.md",
+    "generate:legal:files": "npm run -w anarchy-legal generate:files -- --workspace packages/showcases-gui --out ",
+    "generate:legal:notice": "npm run -w anarchy-legal generate:notice -- --audit --strict --workspace packages/showcases-gui --source /legal/THIRD_PARTY_LICENSES.md --out /legal/NOTICE.md",
+    "generate:legal:sbom": "npm sbom --sbom-format=cyclonedx --package-lock-only --omit=dev > ./compliance/sbom/sbom.cdx.json",
+    "lint": "eslint ./src",
+    "lint:fix": "npm run lint -- --fix",
+    "prettier": "prettier --write .",
+    "prettier:check": "prettier --check .",
+    "preview": "vite preview",
+    "sanitize-assets": "node ../anarchy-shared/ScriptUtils/SanitizeAssets.js ./public",
+    "start:dev": "vite --mode dev --port 5083",
+    "ts:check": "vue-tsc --noEmit",
+    "unit": "vitest run",
+    "unit:coverage": "vitest run --coverage",
+    "unit:coverage:ui": "vitest --ui",
+    "unit:watch": "vitest"
+  },
+  "dependencies": {
+    "anarchy-engine": "*",
+    "anarchy-i18n": "*",
+    "anarchy-shared": "*",
+    "sanitize.css": "13.0.0",
+    "showcases-i18n": "*",
+    "showcases-shared": "*",
+    "vue": "3.5.22"
+  },
+  "devDependencies": {
+    "@types/node": "24.9.1",
+    "@vitejs/plugin-vue": "6.0.1",
+    "@vitejs/plugin-vue-jsx": "5.1.1",
+    "@vue/test-utils": "2.4.6",
+    "eslint-plugin-vue": "10.5.1",
+    "sass-embedded": "1.93.2",
+    "vite-plugin-wasm": "3.5.0",
+    "vue-tsc": "3.1.1"
+  }
+}
