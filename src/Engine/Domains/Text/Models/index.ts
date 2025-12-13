@@ -1,4 +1,4 @@
-export * from './IElement2dAccessors';
+export * from './IElementWithCssAccessors';
 export * from './IText2dRegistry';
 export * from './IText2dRenderer';
 export * from './IText2dWrapper';
