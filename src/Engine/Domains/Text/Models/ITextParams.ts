@@ -1,6 +1,6 @@
 import type { Color, MeshBasicMaterial, MeshStandardMaterial } from 'three';
 
-import type { TextTag } from '@/Engine/Domains/Text';
+import type { TextAlign, TextAnchorX, TextAnchorY, TextDirection, TextFontStyle, TextFontWeight, TextOverflowWrap, TextTag, TextWhiteSpace } from '@/Engine/Domains/Text';
 import type { IWithReadonlyTags } from '@/Engine/Mixins';
 import type { IVector3Wrapper } from '@/Engine/Wrappers';
 
@@ -13,15 +13,15 @@ export type ITextParams = Readonly<{
   maxWidth?: number;
   lineHeight?: number;
   letterSpacing?: number;
-  textAlign?: 'left' | 'right' | 'center' | 'justify';
+  textAlign?: TextAlign;
   material?: MeshBasicMaterial | MeshStandardMaterial;
-  anchorX?: 'left' | 'center' | 'right' | number;
-  anchorY?: 'top' | 'middle' | 'bottom' | 'baseline' | number;
+  anchorX?: TextAnchorX | number;
+  anchorY?: TextAnchorY | number;
   clipRect?: [number, number, number, number];
   depthOffset?: number;
-  direction?: 'auto' | 'ltr' | 'rtl';
-  overflowWrap?: 'normal' | 'break-word';
-  whiteSpace?: 'normal' | 'nowrap';
+  direction?: TextDirection;
+  overflowWrap?: TextOverflowWrap;
+  whiteSpace?: TextWhiteSpace;
   outlineWidth?: number;
   outlineOffsetX?: number;
   outlineOffsetY?: number;
@@ -32,8 +32,8 @@ export type ITextParams = Readonly<{
   strokeOpacity?: number;
   curveRadius?: number;
   fillOpacity?: number;
-  fontStyle?: 'normal' | 'italic';
-  fontWeight?: 'normal' | 'bold';
+  fontStyle?: TextFontStyle;
+  fontWeight?: TextFontWeight;
   glyphGeometryDetail?: number;
   gpuAccelerateSDF?: boolean;
   outlineBlur?: number;
