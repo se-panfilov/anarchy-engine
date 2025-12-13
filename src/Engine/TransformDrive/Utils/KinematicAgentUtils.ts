@@ -1,9 +1,9 @@
 import { Quaternion, Vector3 } from 'three';
 
-import type { TKinematicState, TKinematicTarget } from '@/Engine/Kinematic/Models';
+import type { TKinematicState, TKinematicTarget } from '@/Engine/Kinematic';
+import { KinematicSpeed } from '@/Engine/Kinematic';
 import type { TMeters, TRadians } from '@/Engine/Math';
 import type { TReadonlyQuaternion, TReadonlyVector3 } from '@/Engine/ThreeLib';
-import { KinematicSpeed } from '@/Engine/TransformDrive/Constants';
 import type { TKinematicSpeed, TKinematicTransformAgent } from '@/Engine/TransformDrive/Models';
 import type { TWriteable } from '@/Engine/Utils';
 import { isDefined, isNotDefined } from '@/Engine/Utils';

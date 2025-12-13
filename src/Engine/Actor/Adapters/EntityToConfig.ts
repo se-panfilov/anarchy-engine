@@ -7,7 +7,6 @@ import type { TSpatialDataConfig } from '@/Engine/Spatial';
 import { filterOutEmptyFields, isNotDefined } from '@/Engine/Utils';
 
 // TODO 15-0-0: (finish 14-0-0 tasks)
-// TODO 15-0-0: CWP: add more scenes to test save/load (all types of entities)
 // TODO 15-0-0: Make sure all registries are getting empty on destroy$
 // TODO 15-0-0: Make sure connection registries are empty on destroy$
 // TODO 15-0-0: Space: add onUnload (onDestroy?) hook
@@ -23,9 +22,6 @@ export function actorToConfig(entity: TActor, { models3dService }: TActorEntityT
 
   return filterOutEmptyFields({
     model3dSource,
-    // TODO 15-0-0: should we look for presetName here? (use "physicsPresetService.getPresetByName(presetName)")
-    physics: drive.physical?.serialize(),
-    kinematic: drive.kinematic?.serialize(),
     spatial: getSpatial(entity),
     collisions: getCollisions(entity),
     model3dSettings: entity.getModel3dSettings(),

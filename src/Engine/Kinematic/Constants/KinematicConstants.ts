@@ -1,8 +1,9 @@
-import { Quaternion, Vector3 } from 'three';
+import { Euler, Quaternion, Vector3 } from 'three';
 
-import type { TKinematicState, TKinematicTarget } from '@/Engine/Kinematic';
+import type { TKinematicConfigState, TKinematicState, TKinematicTarget } from '@/Engine/Kinematic';
 import { ForwardAxis } from '@/Engine/Kinematic';
 import type { TMeters } from '@/Engine/Math';
+import { eulerToXyz, vector3ToXyz } from '@/Engine/Utils';
 
 export enum KinematicSpeed {
   Instant = 'instant'
@@ -20,9 +21,17 @@ export const DefaultKinematicState: TKinematicState = {
   isInfiniteRotation: false
 };
 
+export const DefaultKinematicConfigState: TKinematicConfigState = {
+  ...DefaultKinematicState,
+  angularDirection: eulerToXyz(new Euler().setFromQuaternion(DefaultKinematicState.angularDirection)),
+  linearDirection: vector3ToXyz(DefaultKinematicState.linearDirection)
+};
+
 export const DefaultKinematicTarget: TKinematicTarget = {
   positionThreshold: 0.01,
   position: undefined,
   rotationThreshold: 0.0001,
   rotation: undefined
 };
+
+export const DefaultIsAutoUpdate: boolean = true;

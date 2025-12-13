@@ -4,13 +4,13 @@ import type { QuaternionLike, Vector3Like } from 'three';
 import { Object3D, Quaternion, Vector3 } from 'three';
 
 import { metersPerSecond } from '@/Engine/Distance';
-import { kinematicToConfig } from '@/Engine/Kinematic';
+import { DefaultIsAutoUpdate, DefaultKinematicState, DefaultKinematicTarget, kinematicToConfig } from '@/Engine/Kinematic';
 import { ForwardAxis } from '@/Engine/Kinematic/Constants';
 import type { TKinematicConfig, TKinematicData, TKinematicWritableData } from '@/Engine/Kinematic/Models';
 import type { TMeters, TMetersPerSecond, TMilliseconds, TRadians, TRadiansPerSecond } from '@/Engine/Math';
 import { getAzimuthElevationFromVector, getElevationFromDirection } from '@/Engine/Math';
 import type { TReadonlyQuaternion, TReadonlyVector3 } from '@/Engine/ThreeLib';
-import { DefaultKinematicState, DefaultKinematicTarget, TransformAgent } from '@/Engine/TransformDrive/Constants';
+import { TransformAgent } from '@/Engine/TransformDrive/Constants';
 import type { TAbstractTransformAgent, TKinematicAgentDependencies, TKinematicSpeed, TKinematicTransformAgent, TKinematicTransformAgentParams } from '@/Engine/TransformDrive/Models';
 import { getStepRotation, isInstant, isPointReached, isRotationReached, moveInstantly, rotateInstantly } from '@/Engine/TransformDrive/Utils';
 import { isDefined, isNotDefined } from '@/Engine/Utils';
@@ -18,7 +18,7 @@ import { isDefined, isNotDefined } from '@/Engine/Utils';
 import { AbstractTransformAgent } from './AbstractTransformAgent';
 
 export function KinematicTransformAgent(params: TKinematicTransformAgentParams, { kinematicLoop }: TKinematicAgentDependencies): TKinematicTransformAgent {
-  const autoUpdate$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(params.isAutoUpdate ?? false);
+  const autoUpdate$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(params.isAutoUpdate ?? DefaultIsAutoUpdate);
   const abstractTransformAgent: TAbstractTransformAgent = AbstractTransformAgent(params, TransformAgent.Kinematic);
 
   let kinematicSub$: Subscription | undefined = undefined;

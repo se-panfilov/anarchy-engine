@@ -15,9 +15,6 @@ export function textToConfig(entity: TTextAnyWrapper): TTextConfig {
     cssProps: extractInlineStyles((entity as TText2dWrapper).getElement()) ?? (entity as TText3dTextureWrapper).getPropsAsCss(),
     elementType: (entity as TText2dWrapper).getElement()?.tagName,
     center: center ? vector2ToXy(center) : undefined,
-    physics: drive.physical?.serialize(),
-    // TODO 15-0-0: Why do the kinematic is always exist in the serialized data? Probably it should be removed if not used
-    kinematic: drive.kinematic?.serialize(),
     receiveShadow: entity.getReceiveShadow(),
     frustumCulled: entity.getFrustumCulled(),
     renderOrder: entity.getRenderOrder(),
