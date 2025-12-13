@@ -47,29 +47,35 @@ export async function launch(sceneConfig: SceneConfig): Promise<void> {
   const lightRegistry: Registry<ILightWrapper> = LightRegistry();
 
   //Subscriptions
-  combineLatest([actorFactory.latest$, sceneFactory.latest$]).subscribe(([actor, scene]) => {
-    if (isNotDefined(scene) || isNotDefined(actor)) return;
-    actorRegistry.add$.next(actor);
-    scene.addActor$.next(actor);
-  });
+  combineLatest([actorFactory.latest$, sceneFactory.latest$]).subscribe(
+    ([actor, scene]: [IActorWrapper, ISceneWrapper]) => {
+      if (isNotDefined(scene) || isNotDefined(actor)) return;
+      actorRegistry.add$.next(actor);
+      scene.addActor$.next(actor);
+    }
+  );
 
-  combineLatest([cameraFactory.latest$, sceneFactory.latest$]).subscribe(([camera, scene]) => {
-    if (isNotDefined(scene) || isNotDefined(camera)) return;
-    cameraRegistry.add$.next(camera);
-    scene.addCamera$.next(camera);
-  });
+  combineLatest([cameraFactory.latest$, sceneFactory.latest$]).subscribe(
+    ([camera, scene]: [ICameraWrapper, ISceneWrapper]) => {
+      if (isNotDefined(scene) || isNotDefined(camera)) return;
+      cameraRegistry.add$.next(camera);
+      scene.addCamera$.next(camera);
+    }
+  );
 
-  combineLatest([lightFactory.latest$, sceneFactory.latest$]).subscribe(([light, scene]) => {
-    if (isNotDefined(scene) || isNotDefined(light)) return;
-    lightRegistry.add$.next(light);
-    scene.addLight$.next(light);
-  });
+  combineLatest([lightFactory.latest$, sceneFactory.latest$]).subscribe(
+    ([light, scene]: [ILightWrapper, ISceneWrapper]) => {
+      if (isNotDefined(scene) || isNotDefined(light)) return;
+      lightRegistry.add$.next(light);
+      scene.addLight$.next(light);
+    }
+  );
 
   // TODO (S.Panfilov) CWP
   // debug the scene to make sure no errors and it's fully rendering
   // and fix this loop
   combineLatest([loopFactory.latest$, rendererFactory.latest$, sceneFactory.latest$, cameraFactory.latest$]).subscribe(
-    ([loop, renderer, scene, camera]) => {
+    ([loop, renderer, scene, camera]: [ILoopWrapper, IRendererWrapper, ISceneWrapper, ICameraWrapper]) => {
       console.log('111');
       loop.start(renderer, scene, camera);
       console.log(loop);
