@@ -13,5 +13,6 @@ export * from './TActorRegistry';
 export * from './TActorService';
 export * from './TActorWithPhysics';
 export * from './TDriveToModel3dConnector';
+export * from './TInstantActorDriver';
 export * from './TModel3dToActorConnectionRegistry';
 export * from './TParamsFromConfigActor';

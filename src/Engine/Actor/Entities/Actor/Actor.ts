@@ -5,7 +5,8 @@ import type { Vector3 } from 'three';
 import { AbstractEntity, EntityType } from '@/Engine/Abstract';
 import { ActorDriver } from '@/Engine/Actor/Constants';
 import { ActorDrive, DriveToModel3dConnector } from '@/Engine/Actor/Drive';
-import type { TActor, TActorDependencies, TActorDrive, TActorDrivers, TActorEntities, TActorParams, TDriveToModel3dConnector } from '@/Engine/Actor/Models';
+import { InstantActorDriver } from '@/Engine/Actor/Drive/Drivers';
+import type { TActor, TActorDependencies, TActorDrive, TActorDrivers, TActorEntities, TActorParams, TDriveToModel3dConnector, TInstantActorDriver } from '@/Engine/Actor/Models';
 import { applySpatialGrid, startCollisions } from '@/Engine/Actor/Utils';
 import { withCollisions } from '@/Engine/Collisions';
 import type { TKinematicActorDriver } from '@/Engine/Kinematic';
@@ -27,7 +28,8 @@ export function Actor(
 
   const kinematicDriver: TKinematicActorDriver = KinematicActorDriver(params, kinematicLoopService);
   const physicsDriver: TPhysicsActorDriver = PhysicsActorDriver(params);
-  const drivers: TActorDrivers = { [ActorDriver.Kinematic]: kinematicDriver, [ActorDriver.Physical]: physicsDriver };
+  const instantDriver: TInstantActorDriver = InstantActorDriver(params);
+  const drivers: TActorDrivers = { [ActorDriver.Kinematic]: kinematicDriver, [ActorDriver.Physical]: physicsDriver, [ActorDriver.Instant]: instantDriver };
   const drive: TActorDrive = ActorDrive(params, drivers);
   const driveToModel3dConnector: TDriveToModel3dConnector = DriveToModel3dConnector(drive, model3d);
 
@@ -44,7 +46,7 @@ export function Actor(
   // TODO 8.0.0. MODELS: Make sure external change of position$/rotation$/scale$ works with the PhysicsDriver
   // TODO 8.0.0. MODELS: Make spatial is working
   // TODO 8.0.0. MODELS: Make collisions are working
-  // TODO 8.0.0. MODELS: Make actor workable with ActorDriver.None (let user set values directly)
+  // TODO 8.0.0. MODELS: Make actor workable with ActorDriver.Instant (let user set values directly)
 
   // const { value$: position$, update: updatePosition } = withReactivePosition(model3d);
   // const { value$: rotation$, update: updateRotation } = withReactiveRotation(model3d);

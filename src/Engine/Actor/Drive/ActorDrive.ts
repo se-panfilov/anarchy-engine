@@ -23,7 +23,7 @@ export function ActorDrive(params: TActorParams, drivers: TActorDrivers): TActor
   rotation$.subscribe(rotationRep$);
   scale$.subscribe(scaleRep$);
 
-  const driver$: BehaviorSubject<ActorDriver> = new BehaviorSubject<ActorDriver>(params.driver ?? ActorDriver.None);
+  const driver$: BehaviorSubject<ActorDriver> = new BehaviorSubject<ActorDriver>(params.driver ?? ActorDriver.Instant);
 
   const destroyable: TDestroyable = destroyableMixin();
 

@@ -7,6 +7,8 @@ import type { TKinematicActorDriver } from '@/Engine/Kinematic';
 import type { TDestroyable } from '@/Engine/Mixins';
 import type { TPhysicsActorDriver } from '@/Engine/Physics';
 
+import type { TInstantActorDriver } from './TInstantActorDriver';
+
 export type TActorDrive = Readonly<{
   driver$: BehaviorSubject<ActorDriver>;
   position$: ReplaySubject<Vector3>;
@@ -17,5 +19,6 @@ export type TActorDrive = Readonly<{
   getScale: () => Vector3 | undefined;
   [ActorDriver.Kinematic]: TProtectedDriverFacade<TKinematicActorDriver>;
   [ActorDriver.Physical]: TProtectedDriverFacade<TPhysicsActorDriver>;
+  [ActorDriver.Instant]: TProtectedDriverFacade<TInstantActorDriver>;
 }> &
   TDestroyable;
