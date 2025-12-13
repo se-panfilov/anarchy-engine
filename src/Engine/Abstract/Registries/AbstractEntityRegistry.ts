@@ -22,7 +22,7 @@ export function AbstractEntityRegistry<T extends TRegistrable | TMultitonRegistr
     if (isMultitonEntity(entity)) {
       registry.forEach((v: T): void => {
         if ((v as TMultitonRegistrable).key === entity.key)
-          throw new Error(`Cannot add an entity with key "${entity.key}" to multiton registry ${id}: already added. Only one instance per key is allowed.`);
+          throw new Error(`Cannot add an entity with key "${entity.key}" (name: "${entity.name}") to multiton registry ${id}: already added. Only one instance per key is allowed.`);
       });
     }
     registry.set(entity.id, entity);
