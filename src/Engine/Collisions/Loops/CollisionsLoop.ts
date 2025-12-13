@@ -9,7 +9,7 @@ import type { TMilliseconds } from '@/Engine/Math';
 import { milliseconds } from '@/Engine/Measurements';
 
 export function CollisionsLoop(name: string, loopService: TLoopService, updateRate: TMilliseconds): TCollisionsLoop {
-  const loop: TLoop = loopService.createIntervalLoop(name, LoopType.Collisions, milliseconds(updateRate));
+  const loop: TLoop = loopService.create({ name, type: LoopType.Collisions, trigger: milliseconds(updateRate) });
   const priority$: BehaviorSubject<CollisionsUpdatePriority> = new BehaviorSubject<CollisionsUpdatePriority>(CollisionsUpdatePriority.ASAP);
 
   const loopSub$: Subscription = loop.tick$.subscribe((): void => {

@@ -7,7 +7,7 @@ import type { TMilliseconds } from '@/Engine/Math';
 import { milliseconds } from '@/Engine/Measurements';
 
 export function KinematicLoop(name: string, loopService: TLoopService, updateRate: TMilliseconds): TKinematicLoop {
-  const loop: TLoop = loopService.createIntervalLoop(name, LoopType.Kinematic, milliseconds(updateRate));
+  const loop: TLoop = loopService.create({ name, type: LoopType.Kinematic, trigger: milliseconds(updateRate) });
   const destroySub$: Subscription = loop.destroy$.subscribe((): void => destroySub$.unsubscribe());
 
   return loop;

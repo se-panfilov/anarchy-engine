@@ -1,5 +1,4 @@
 import type { TParamsFromConfig, TReactiveFactory } from '@/Engine/Abstract';
-import type { TDestroyable } from '@/Engine/Mixins';
 
 import type { TAdditionalControlsConfigParams } from './TAdditionalControlsConfigParams';
 import type { TControlsConfig } from './TControlsConfig';
@@ -11,4 +10,4 @@ export type TControlsParamsFromConfig = Omit<TParamsFromConfig<TControlsConfig, 
     configToParams: (config: TControlsConfig, dependencies: TAdditionalControlsConfigParams) => TControlsParams;
   }>;
 
-export type TControlsFactory = TReactiveFactory<TControlsWrapper, TControlsParams> & TControlsParamsFromConfig & TDestroyable;
+export type TControlsFactory = TReactiveFactory<TControlsWrapper, TControlsParams> & TControlsParamsFromConfig;
