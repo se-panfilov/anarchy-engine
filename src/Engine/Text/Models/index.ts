@@ -14,4 +14,5 @@ export * from './ITextParams';
 export * from './ITextProps';
 export * from './ITextRegistry';
 export * from './ITextRenderer';
+export * from './ITextService';
 export * from './ITextWrapper';

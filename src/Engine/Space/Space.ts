@@ -29,7 +29,7 @@ import { screenService } from '@/Engine/Services';
 import { withBuiltMixin } from '@/Engine/Space/Mixin';
 import type { ISpace, ISpaceConfig, ISpaceFactories, ISpaceRegistries, ISpaceRenderer, ISpaceServices, IWithBuilt } from '@/Engine/Space/Models';
 import { getBoolValue, setInitialActiveCamera } from '@/Engine/Space/SpaceHelper';
-import type { IText2dRegistry, IText2dRenderer, IText3dRegistry, IText3dRenderer, ITextAnyWrapper, ITextConfig, ITextFactory } from '@/Engine/Text';
+import { IText2dRegistry, IText2dRenderer, IText3dRegistry, IText3dRenderer, ITextAnyWrapper, ITextConfig, ITextFactory, ITextService, TextService } from '@/Engine/Text';
 import { initText2dRenderer, initText3dRenderer, isText2dWrapper, isText3dWrapper, Text2dRegistry, Text3dRegistry, TextFactory } from '@/Engine/Text';
 import { isDefined, isDestroyable, isNotDefined, validLevelConfig } from '@/Engine/Utils';
 
@@ -106,18 +106,7 @@ export function buildSpaceFromConfig(canvas: IAppCanvas, config: ISpaceConfig): 
     const text2dRegistry: IText2dRegistry = Text2dRegistry();
     const text3dRegistry: IText3dRegistry = Text3dRegistry();
 
-    const textService: ITextService = TextService(textFactory, text2dRegistry, text3dRegistry, text2dRenderer, text3dRenderer);
-
-    // TODO (S.Panfilov) move this into the service
-    merge(text2dRegistry.added$, text3dRegistry.added$).subscribe((text: ITextAnyWrapper) => scene.addText(text));
-    textFactory.entityCreated$.subscribe((text: ITextAnyWrapper): void => {
-      if (isText2dWrapper(text)) text2dRegistry.add(text);
-      if (isText3dWrapper(text)) text3dRegistry.add(text);
-    });
-    ////
-
-    // TODO (S.Panfilov) use service
-    texts.forEach((text: ITextConfig): ITextAnyWrapper => textFactory.create(textFactory.configToParams({ ...text, tags: [...text.tags, CommonTag.FromConfig] })));
+    const textService: ITextService = TextService(textFactory, text2dRegistry, text3dRegistry);
 
     factories = { ...factories, textFactory };
     registries = { ...registries, text2dRegistry, text3dRegistry };
