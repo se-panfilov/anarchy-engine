@@ -8,6 +8,6 @@ import type { TModel3d, TModel3dParams, TModels3dFactory, TModels3dServiceDepend
 const factory: TReactiveFactoryWithDependencies<
   TModel3d,
   TModel3dParams,
-  Pick<TModels3dServiceDependencies, 'animationsService' | 'model3dToModel3dFacadeConnectionRegistry'>
+  Pick<TModels3dServiceDependencies, 'animationsService' | 'model3dRawToModel3dConnectionRegistry'>
 > = ReactiveFactoryWithDependencies(FactoryType.Models3d, Model3d);
 export const Models3dFactory = (): TModels3dFactory => ({ ...factory, configToParams });

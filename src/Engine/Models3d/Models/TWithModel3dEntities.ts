@@ -2,7 +2,7 @@ import type { AnimationClip, AnimationMixer, Group, Mesh, Object3D } from 'three
 
 import type { TAnimationActions } from '@/Engine/Animations/Models';
 
-export type TWithModel3dFacadeEntities = Readonly<{
+export type TWithModel3dEntities = Readonly<{
   getRawModel3d: () => Group | Mesh | Object3D;
   getAnimations: () => ReadonlyArray<AnimationClip>;
   getMixer: () => AnimationMixer;

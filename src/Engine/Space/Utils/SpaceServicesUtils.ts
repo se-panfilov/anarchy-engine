@@ -18,7 +18,7 @@ import type { TLoopService } from '@/Engine/Loop';
 import { LoopService } from '@/Engine/Loop';
 import type { TMaterialService } from '@/Engine/Material';
 import { MaterialFactory, MaterialRegistry, MaterialService } from '@/Engine/Material';
-import type { TModel3dToModel3dFacadeConnectionRegistry, TModels3dService } from '@/Engine/Models3d';
+import type { TModel3dRawToModel3dConnectionRegistry, TModels3dService } from '@/Engine/Models3d';
 import { Model3dToModel3dFacadeConnectionRegistry, Models3dFactory, Models3dRegistry, Models3dResourceAsyncRegistry, Models3dService } from '@/Engine/Models3d';
 import { MouseService } from '@/Engine/Mouse';
 import { ParticlesFactory, ParticlesRegistry, ParticlesService } from '@/Engine/Particles';
@@ -79,11 +79,11 @@ export function initEntitiesServices(sceneW: TSceneWrapper, canvas: TAppCanvas):
   const loopService: TLoopService = LoopService();
   const animationsService: TAnimationsService = AnimationsService(loopService);
   const model3dFacadeToActorConnectionRegistry: TModel3dFacadeToActorConnectionRegistry = Model3dFacadeToActorConnectionRegistry();
-  const model3dToModel3dFacadeConnectionRegistry: TModel3dToModel3dFacadeConnectionRegistry = Model3dToModel3dFacadeConnectionRegistry();
+  const model3dRawToModel3dConnectionRegistry: TModel3dRawToModel3dConnectionRegistry = Model3dToModel3dFacadeConnectionRegistry();
   const models3dService: TModels3dService = Models3dService(Models3dFactory(), Models3dRegistry(), Models3dResourceAsyncRegistry(), {
     materialService,
     animationsService,
-    model3dToModel3dFacadeConnectionRegistry
+    model3dRawToModel3dConnectionRegistry
   });
 
   return {

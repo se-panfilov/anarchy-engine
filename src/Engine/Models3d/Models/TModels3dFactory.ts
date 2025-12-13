@@ -7,6 +7,6 @@ import type { TModel3dConfigToParamsDependencies } from './TModel3dConfigToParam
 import type { TModel3dParams } from './TModel3dParams';
 import type { TModels3dServiceDependencies } from './TModels3dServiceDependencies';
 
-export type TModels3dFactory = TReactiveFactoryWithDependencies<TModel3d, TModel3dParams, Pick<TModels3dServiceDependencies, 'animationsService' | 'model3dToModel3dFacadeConnectionRegistry'>> &
+export type TModels3dFactory = TReactiveFactoryWithDependencies<TModel3d, TModel3dParams, Pick<TModels3dServiceDependencies, 'animationsService' | 'model3dRawToModel3dConnectionRegistry'>> &
   TParamsFromConfigWithDependencies<TModel3dConfig, TModel3dParams, TModel3dConfigToParamsDependencies> &
   TDestroyable;
