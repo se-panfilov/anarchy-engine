@@ -32,7 +32,7 @@ The Software may include or interface with **third-party open-source components*
 
 This project is maintained **without any commitment** to provide support, maintenance, updates, or security fixes for the open-source codebase.
 
-For distributed binaries (if any), see `SECURITY` for the **coordinated vulnerability disclosure** process and **TBD until market release**.
+For distributed binaries (if any), see `SECURITY` for the **coordinated vulnerability disclosure** process.
 
 ## Modifications
 

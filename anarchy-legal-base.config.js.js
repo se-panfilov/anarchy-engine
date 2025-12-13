@@ -60,7 +60,7 @@ export default [
       SUPPORT_EMAILS_RETAIN_PERIOD_MONTH: 24,
 
       // TBD
-      SECURITY_SUPPORT_PERIOD: 'TBD until market release',
+      SECURITY_SUPPORT_PERIOD_MONTH: 24,
       EFFECTIVE_DATE: 'TBD until market release'
     }
   }
