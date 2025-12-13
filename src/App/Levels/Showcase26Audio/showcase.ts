@@ -12,7 +12,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
   const engine: TEngine = Engine(space);
   const { audioService } = space.services;
   const gui: GUI = new GUI();
-  const audio: GUI = gui.addFolder('Moving mode');
+  const bgMusicFolder: GUI = gui.addFolder('Background music');
 
   function init(): void {
     const fadeDuration = 0.3;
@@ -26,13 +26,23 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
       playBgMusic: (): void => bgMusic.play$.next(true),
       pauseBgMusic: (): void => bgMusic.pause$.next(true),
       resumeBgMusic: (): void => bgMusic.pause$.next(false),
-      stopBgMusic: (): void => bgMusic.play$.next(false)
+      stopBgMusic: (): void => bgMusic.play$.next(false),
+      seekPlus: (): void => {
+        const currentTime: number = bgMusic.seek$.getValue();
+        bgMusic.seek$.next(currentTime + 10);
+      },
+      seekMinus: (): void => {
+        const currentTime: number = bgMusic.seek$.getValue();
+        bgMusic.seek$.next(currentTime - 10);
+      }
     };
 
-    audio.add(state, 'playBgMusic').name('Play background music');
-    audio.add(state, 'pauseBgMusic').name('Pause background music');
-    audio.add(state, 'resumeBgMusic').name('resume background music');
-    audio.add(state, 'stopBgMusic').name('Stop background music');
+    bgMusicFolder.add(state, 'playBgMusic').name('Play background music');
+    bgMusicFolder.add(state, 'pauseBgMusic').name('Pause background music');
+    bgMusicFolder.add(state, 'resumeBgMusic').name('resume background music');
+    bgMusicFolder.add(state, 'stopBgMusic').name('Stop background music');
+    bgMusicFolder.add(state, 'seekPlus').name('Seek +10s');
+    bgMusicFolder.add(state, 'seekMinus').name('Seek -10s');
   }
 
   function start(): void {
