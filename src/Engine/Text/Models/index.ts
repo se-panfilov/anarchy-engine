@@ -21,4 +21,5 @@ export * from './TTextRegistry';
 export * from './TTextRenderer';
 export * from './TTextRendererRegistry';
 export * from './TTextService';
+export * from './TTextTextureWrapper';
 export * from './TTextWrapper';

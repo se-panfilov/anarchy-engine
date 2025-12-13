@@ -1,5 +1,5 @@
 import type { Mesh } from 'three';
 
-import type { TTextWrapper } from './TTextWrapper';
+import type { TTextTextureWrapper } from './TTextTextureWrapper';
 
-export type TText3dTextureWrapper = TTextWrapper<Mesh>;
+export type TText3dTextureWrapper = TTextTextureWrapper<Mesh>;
