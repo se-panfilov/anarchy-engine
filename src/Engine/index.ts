@@ -5,6 +5,7 @@ export * from './Camera';
 export * from './Color';
 export * from './Context';
 export * from './Controls';
+export * from './Fog';
 export * from './EnvMap';
 export * from './Euler';
 export * from './Global';
