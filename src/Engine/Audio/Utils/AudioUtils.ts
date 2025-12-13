@@ -1,11 +1,11 @@
 import { PositionalAudio } from 'three';
 
-import type { TAudio3dConfig, TAudioConfig, TAudioParams } from '@/Engine/Audio/Models';
+import type { TAudio3dConfig, TAudioConfig, TAudioFadeParams, TAudioParams } from '@/Engine/Audio/Models';
 
 export const isAudio3dConfig = (config: TAudioConfig | TAudio3dConfig): config is TAudio3dConfig => (config as TAudio3dConfig).position !== undefined;
 
 // TODO 11.0.0: implement pauseAudio
-export function pauseAudio(entity: AudioBuffer): void {
+export function pauseAudio(entity: PositionalAudio): void {
   console.warn('pauseAudio is not implemented yet');
   // if (!entity.isPlaying) return;
   // entity.pausedAt = entity.context.currentTime - entity.startTime;
@@ -14,7 +14,7 @@ export function pauseAudio(entity: AudioBuffer): void {
 }
 
 // TODO 11.0.0: implement resumeAudio
-export function resumeAudio(entity: AudioBuffer): void {
+export function resumeAudio(entity: PositionalAudio): void {
   console.warn('resumeAudio is not implemented yet');
   // if (!entity.isPaused || entity.pausedAt === null) return;
   // entity.offset = entity.pausedAt;
@@ -24,11 +24,11 @@ export function resumeAudio(entity: AudioBuffer): void {
 }
 
 // TODO 11.0.0: fadeAudio if seekAudio is working
-export function fadeAudio(audio: PositionalAudio, toVolume: number, duration: number): void {
+export function fadeAudio(audio: PositionalAudio, { to, duration }: TAudioFadeParams): void {
   const gainNode = audio.gain;
   gainNode.gain.cancelScheduledValues(audio.context.currentTime);
   gainNode.gain.setValueAtTime(gainNode.gain.value, audio.context.currentTime);
-  gainNode.gain.linearRampToValueAtTime(toVolume, audio.context.currentTime + duration);
+  gainNode.gain.linearRampToValueAtTime(to, audio.context.currentTime + duration);
 }
 
 // TODO 11.0.0: check if seekAudio is working

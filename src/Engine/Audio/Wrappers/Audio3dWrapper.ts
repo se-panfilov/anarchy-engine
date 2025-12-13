@@ -1,12 +1,10 @@
 import type { Observable, Subscription } from 'rxjs';
-import { BehaviorSubject, combineLatest, distinctUntilChanged, filter, sample, Subject, tap } from 'rxjs';
-import type { PositionalAudio } from 'three';
-import { Vector3 } from 'three';
+import { BehaviorSubject, distinctUntilChanged, filter, sample, Subject, tap } from 'rxjs';
+import type { AudioListener, PositionalAudio } from 'three';
 
 import type { TWrapper } from '@/Engine/Abstract';
 import { AbstractWrapper, WrapperType } from '@/Engine/Abstract';
-import { DriveToAudio3dConnector } from '@/Engine/Audio/Connectors';
-import type { TAudio3dParams, TAudio3dTransformDrive, TAudio3dWrapper, TAudio3dWrapperDependencies, TAudioLoop } from '@/Engine/Audio/Models';
+import type { TAudio3dParams, TAudio3dTransformDrive, TAudio3dWrapper, TAudio3dWrapperDependencies, TAudioFadeParams, TAudioLoop } from '@/Engine/Audio/Models';
 import { Audio3dTransformDrive } from '@/Engine/Audio/TransformDrive';
 import { createPositionalAudion, fadeAudio, pauseAudio, resumeAudio, seekAudio } from '@/Engine/Audio/Utils';
 import { LoopUpdatePriority } from '@/Engine/Loop';
@@ -16,16 +14,16 @@ import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
 import type { TReadonlyVector3 } from '@/Engine/ThreeLib';
 import type { TDriveToTargetConnector } from '@/Engine/TransformDrive';
+import { DriveToTargetConnector } from '@/Engine/TransformDrive';
 import { isEqualOrSimilarByXyzCoords } from '@/Engine/Utils';
 
 export function Audio3dWrapper(params: TAudio3dParams, { loopService }: TAudio3dWrapperDependencies): TAudio3dWrapper {
   const { audioSource, volume, position, performance } = params;
   const entity: PositionalAudio = createPositionalAudion(audioSource, params);
   const position$: BehaviorSubject<TReadonlyVector3> = new BehaviorSubject<TReadonlyVector3>(position);
-  const listenerPosition$: BehaviorSubject<TReadonlyVector3> = new BehaviorSubject<TReadonlyVector3>(new Vector3());
 
   const pause$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(params.pause ?? false);
-  const fade$: Subject<Readonly<{ to: number; duration: number }>> = new Subject<Readonly<{ to: number; duration: number }>>();
+  const fade$: Subject<TAudioFadeParams> = new Subject<TAudioFadeParams>();
   const speed$: BehaviorSubject<number> = new BehaviorSubject<number>(params.speed ?? 1);
   const seek$: BehaviorSubject<number> = new BehaviorSubject<number>(params.seek ?? 0);
   const loop$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(params.loop ?? false);
@@ -35,7 +33,7 @@ export function Audio3dWrapper(params: TAudio3dParams, { loopService }: TAudio3d
   // TODO 11.0.0: maybe the default threshold should be higher?
   const noiseThreshold: TMeters = performance?.noiseThreshold ?? meters(0.000001);
 
-  const volumeSub$: Subscription = volume$.pipe(distinctUntilChanged()).subscribe((volume: number): void => void entity.volume(volume));
+  const volumeSub$: Subscription = volume$.pipe(distinctUntilChanged()).subscribe((volume: number): void => void entity.setVolume(volume));
 
   const audioLoop$: TAudioLoop = loopService.getAudioLoop();
 
@@ -45,45 +43,26 @@ export function Audio3dWrapper(params: TAudio3dParams, { loopService }: TAudio3d
   });
 
   const fadeSub$: Subscription = fade$
-    .pipe(distinctUntilChanged((prev: { to: number; duration: number }, curr: { to: number; duration: number }): boolean => prev.to === curr.to && prev.duration === curr.duration))
-    .subscribe(({ to, duration }: { to: number; duration: number }): void => {
-      fadeAudio(entity, to, duration);
-    });
+    .pipe(distinctUntilChanged((prev: TAudioFadeParams, curr: TAudioFadeParams): boolean => prev.to === curr.to && prev.duration === curr.duration))
+    .subscribe((fadeParams: TAudioFadeParams): void => fadeAudio(entity, fadeParams));
 
-  const speedSub$: Subscription = speed$.pipe(distinctUntilChanged()).subscribe((speed: number): void => {
-    entity.setPlaybackRate(speed);
-  });
-
-  const seekSub$: Subscription = seek$.pipe(distinctUntilChanged()).subscribe((seek: number): void => {
-    seekAudio(entity, seek);
-  });
-
+  const speedSub$: Subscription = speed$.pipe(distinctUntilChanged()).subscribe((speed: number): void => void entity.setPlaybackRate(speed));
+  const seekSub$: Subscription = seek$.pipe(distinctUntilChanged()).subscribe((seek: number): void => seekAudio(entity, seek));
   const sourcePositionUpdate$: Observable<TReadonlyVector3> = onPositionUpdate(position$, noiseThreshold);
-  const listenerPositionUpdate$: Observable<TReadonlyVector3> = onPositionUpdate(listenerPosition$, noiseThreshold);
 
-  const updateVolumeSub$: Subscription = combineLatest([sourcePositionUpdate$, listenerPositionUpdate$])
+  const updateVolumeSub$: Subscription = sourcePositionUpdate$
     .pipe(
       sample(audioLoop$.tick$),
       // TODO 11.0.0: check filter logic
       filter((): boolean => updatePriority >= audioLoop$.priority$.value)
     )
-    .subscribe(([sourcePosition, listenerPos]: [TReadonlyVector3, TReadonlyVector3]): void => {
-      volume$.next(calculateVolume(sourcePosition, listenerPos));
-      const relativePos: TReadonlyVector3 = sourcePosition.clone().sub(listenerPos);
-      entity.position(relativePos);
+    .subscribe((position: TReadonlyVector3): void => {
+      entity.position.copy(position);
     });
 
-  function calculateVolume(sourcePosition: TReadonlyVector3, listenerPos: TReadonlyVector3): number {
-    const distance: TMeters = sourcePosition.distanceTo(listenerPos) as TMeters;
-
-    // then farther, the quieter
-    const refDistance = 1;
-    return Math.max(0, 1 / (1 + Math.pow(distance / refDistance, 2)));
-  }
-
-  const wrapper: TWrapper<AudioBuffer> = AbstractWrapper(entity, WrapperType.Audio3d, params);
+  const wrapper: TWrapper<PositionalAudio> = AbstractWrapper(entity, WrapperType.Audio3d, params);
   const drive: TAudio3dTransformDrive = Audio3dTransformDrive(params, wrapper.id);
-  const driveToTargetConnector: TDriveToTargetConnector = DriveToAudio3dConnector(drive, entity);
+  const driveToTargetConnector: TDriveToTargetConnector = DriveToTargetConnector(drive, entity);
 
   const destroyable: TDestroyable = destroyableMixin();
   const destroySub$: Subscription = destroyable.destroy$.subscribe((): void => {
@@ -124,18 +103,12 @@ export function Audio3dWrapper(params: TAudio3dParams, { loopService }: TAudio3d
     speed$,
     seek$,
     loop$,
-    isPlaying: (): boolean => entity.playing(),
-    getDuration: (): number => entity.duration(),
-    getState: (): 'unloaded' | 'loading' | 'loaded' => entity.state(),
-    load: (): void => void entity.load(),
-    unload: (): void => {
-      void entity.unload();
-      destroyable.destroy$.next();
-    },
-    stop: (): void => entity.stop(),
+    isPlaying: (): boolean => entity.isPlaying,
+    getDuration: (): number | undefined => entity.duration,
+    stop: (): void => void entity.stop(),
     volume$,
+    getListener: (): AudioListener => entity.listener,
     position$,
-    listenerPosition$,
     ...destroyable
   };
 }

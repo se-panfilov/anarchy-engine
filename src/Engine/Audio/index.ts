@@ -1,5 +1,4 @@
 export * from './Adapters';
-export * from './Connectors';
 export * from './Constants';
 export * from './Factories';
 export * from './Loader';
