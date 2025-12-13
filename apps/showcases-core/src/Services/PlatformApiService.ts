@@ -5,7 +5,7 @@ import type { TPlatformApiService, TPlatformDriver } from '@/Models';
 export function PlatformApiService(): TPlatformApiService {
   const driver: TPlatformDriver = Driver();
 
-  const { closeApp, getChromeVersion, getNodeVersion, getPlatformVersion, getWrappedAppVersion, readAppSettings, loadLegalDocs, restartApp, writeAppSettings } = driver;
+  const { closeApp, getChromeVersion, getNodeVersion, getPlatformVersion, getWrappedAppVersion, readAppSettings, loadLegalDocs, restartApp, setFirstRun, writeAppSettings } = driver;
 
   return {
     closeApp,
@@ -14,9 +14,10 @@ export function PlatformApiService(): TPlatformApiService {
     getNodeVersion,
     getPlatformVersion,
     getWrappedAppVersion,
-    readAppSettings,
     loadLegalDocs,
+    readAppSettings,
     restartApp,
+    setFirstRun,
     writeAppSettings
   };
 }

@@ -10,4 +10,5 @@ export type TPlatformDriver = Readonly<{
   loadLegalDocs: (options: TLoadDocPayload) => Promise<TLegalDoc>;
   restartApp: (args?: ReadonlyArray<string>) => void;
   writeAppSettings: (settings: TShowcaseGameSettings) => Promise<void>;
+  setFirstRun: (isFirstRun: boolean) => Promise<void>;
 }>;

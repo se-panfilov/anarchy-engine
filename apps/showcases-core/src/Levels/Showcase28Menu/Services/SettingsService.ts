@@ -1,6 +1,7 @@
 import type { TShowcaseGameSettings } from '@Showcases/Shared';
 
 import type { TSettingsService } from '@/Levels/Showcase28Menu/Models';
+import { platformApiService } from '@/Services';
 
 export function SettingsService(): TSettingsService {
   function applyAppSettings(appSettings: TShowcaseGameSettings): boolean {
@@ -10,7 +11,16 @@ export function SettingsService(): TSettingsService {
     return false;
   }
 
+  const setFirstRun = (isFirstRun: boolean): Promise<void> => platformApiService.setFirstRun(isFirstRun);
+
+  async function isFirstRun(): Promise<boolean> {
+    const appSettings: TShowcaseGameSettings = await platformApiService.readAppSettings();
+    return appSettings.internal?.isFirstRun ?? true;
+  }
+
   return {
-    applyAppSettings
+    applyAppSettings,
+    isFirstRun,
+    setFirstRun
   };
 }

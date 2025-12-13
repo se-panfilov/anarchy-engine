@@ -13,6 +13,7 @@ export function Driver(): TPlatformDriver {
   const readAppSettings = (): Promise<TShowcaseGameSettings> => window[platformApiName].readAppSettings();
   const loadLegalDocs = (options: TLoadDocPayload): Promise<TLegalDoc> => window[platformApiName].loadLegalDocs(options);
   const restartApp = (): void => window[platformApiName].restartApp();
+  const setFirstRun: (isFirstRun: boolean) => Promise<void> = (isFirstRun: boolean): Promise<void> => window[platformApiName].setFirstRun(isFirstRun);
   const writeAppSettings = (settings: TShowcaseGameSettings): Promise<void> => window[platformApiName].writeAppSettings(settings);
 
   return {
@@ -24,6 +25,7 @@ export function Driver(): TPlatformDriver {
     readAppSettings,
     loadLegalDocs,
     restartApp,
+    setFirstRun,
     writeAppSettings
   };
 }

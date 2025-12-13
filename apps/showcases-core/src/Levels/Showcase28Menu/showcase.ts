@@ -41,6 +41,9 @@ export function showcase(space: TSpace): void {
   const mainMenuService: TMainMenuService = MainMenuService();
   const appService: TAppService = AppService();
   const settingsService: TSettingsService = SettingsService();
+  settingsService.isFirstRun().then((isFirstRun: boolean): void => {
+    if (isFirstRun) settingsService.setFirstRun(false);
+  });
   const eventsService: TEventsService = EventsService({ mainMenuService, appService, settingsService });
 
   //Subscribe the menu app's events (clicks, etc.).

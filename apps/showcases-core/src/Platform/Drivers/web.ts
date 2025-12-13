@@ -49,6 +49,11 @@ export function Driver(): TPlatformDriver {
     console.log('XXX [WEB]', 'restartApp');
   }
 
+  function setFirstRun(isFirstRun: boolean): Promise<void> {
+    console.log('XXX [WEB]', 'setFirstRun', isFirstRun);
+    return Promise.resolve();
+  }
+
   function writeAppSettings(settings: TShowcaseGameSettings): Promise<void> {
     console.log('XXX [WEB]', 'writeAppSettings', settings);
     return Promise.resolve();
@@ -63,6 +68,7 @@ export function Driver(): TPlatformDriver {
     readAppSettings,
     loadLegalDocs,
     restartApp,
+    setFirstRun,
     writeAppSettings
   };
 }
