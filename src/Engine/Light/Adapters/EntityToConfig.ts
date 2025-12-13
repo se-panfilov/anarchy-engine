@@ -1,17 +1,23 @@
 import type { Object3DJSONObject, Vector2Like } from 'three';
+import { Vector2 } from 'three';
 
+import type { TCamera } from '@/Engine/Camera';
 import type { LightType } from '@/Engine/Light/Constants';
 import type {
   TAbstractLightConfig,
+  TAbstractLightParams,
   TAbstractLightWrapper,
   TAmbientLightConfig,
   TDirectionalLightConfig,
+  TDirectionalLightParams,
   TDirectionalLightShadowConfig,
+  TDirectionalLightShadowParams,
   TDirectionalLightWrapper,
   THemisphereLightConfig,
   THemisphereLightWrapper,
   TLight,
   TLightShadowConfig,
+  TLightShadowParams,
   TPointLightConfig,
   TPointLightWrapper,
   TRectAreaLightConfig,
@@ -20,7 +26,7 @@ import type {
   TSpotLightWrapper
 } from '@/Engine/Light/Models';
 import { extractSerializableRegistrableFields } from '@/Engine/Mixins';
-import { filterOutEmptyFields, isDefined } from '@/Engine/Utils';
+import { filterOutEmptyFields, isDefined, isNotDefined, omitInObjectWithoutMutation } from '@/Engine/Utils';
 
 // TODO 15-0-0: validate result
 export function lightToConfig<T extends TLight>(entity: TAbstractLightWrapper<T>): TDirectionalLightConfig | THemisphereLightConfig | TRectAreaLightConfig | TAmbientLightConfig | TSpotLightConfig {
@@ -98,15 +104,20 @@ export function onlyLightShadowToConfig<T extends TLight>(
 }> {
   const json: Object3DJSONObject = entity.entity.toJSON().object;
 
-  const shadow: TLightShadowConfig | TDirectionalLightShadowConfig | undefined = (json as unknown as TDirectionalLightConfig | TAbstractLightConfig<T>).shadow;
+  const lightConfig = json as unknown as TDirectionalLightParams | TAbstractLightParams;
+  const shadow: TLightShadowParams | TDirectionalLightShadowParams | undefined = lightConfig.shadow;
+  if (isNotDefined(shadow)) return {};
 
   return filterOutEmptyFields({
-    shadow,
-    mapSize: getMapSize(shadow)
+    shadow: {
+      ...shadow,
+      mapSize: getMapSize(shadow),
+      camera: omitInObjectWithoutMutation(shadow.camera as TCamera, ['uuid']) as TLightShadowConfig['camera'] | TDirectionalLightShadowConfig['camera']
+    }
   });
 }
 
-function getMapSize(shadow: TLightShadowConfig | TDirectionalLightShadowConfig | undefined): Vector2Like | undefined {
+function getMapSize(shadow: TLightShadowConfig | TDirectionalLightShadowConfig | TLightShadowParams | TDirectionalLightShadowParams | undefined): Vector2Like {
   let mapSize: Vector2Like | undefined = undefined;
   if (isDefined(shadow) && isDefined(shadow.mapSize)) {
     mapSize =
@@ -114,5 +125,5 @@ function getMapSize(shadow: TLightShadowConfig | TDirectionalLightShadowConfig |
         ? { x: (shadow.mapSize as any)[0] as number, y: (shadow.mapSize as any)[1] as number }
         : undefined;
   }
-  return mapSize;
+  return mapSize ?? new Vector2();
 }

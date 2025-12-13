@@ -40,12 +40,10 @@ export type TLightShadowConfig = Omit<TLightShadowParams, 'mapSize'> &
   Readonly<{
     mapSize: Vector2Like;
     camera: { far: number };
-    normalBias: number;
   }>;
 
 export type TDirectionalLightShadowConfig = Omit<TDirectionalLightShadowParams, 'mapSize'> &
   Readonly<{
     mapSize: Vector2Like;
     camera: { far: number; left?: number; right?: number; top?: number; bottom?: number };
-    normalBias: number;
   }>;
