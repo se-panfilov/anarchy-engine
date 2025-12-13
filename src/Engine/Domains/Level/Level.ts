@@ -34,6 +34,7 @@ export function buildLevelFromConfig(canvas: IAppCanvas, config: ILevelConfig): 
   const messages$: ReplaySubject<string> = new ReplaySubject<string>();
 
   // TODO (S.Panfilov) refactor this maybe with command/strategy pattern?
+  //build scene
   const sceneFactory: ISceneFactory = SceneFactory();
   const sceneRegistry: ISceneRegistry = SceneRegistry();
   const sceneEntityCreatedSubscription: Subscription = sceneFactory.entityCreated$.subscribe((scene: ISceneWrapper): void => sceneRegistry.add(scene));
@@ -43,6 +44,7 @@ export function buildLevelFromConfig(canvas: IAppCanvas, config: ILevelConfig): 
   const scene: ISceneWrapper | undefined = sceneRegistry.getUniqByTag(SceneTag.Current);
   if (isNotDefined(scene)) throw new Error(`Cannot find the current scene for level "${name}" during the level building.`);
 
+  //build actors
   const actorFactory: IActorFactory = ActorFactory();
   const actorRegistry: IActorRegistry = ActorRegistry();
   const actorAddedSubscription: Subscription = actorRegistry.added$.subscribe((actor: IActorWrapper) => scene.addActor(actor));
@@ -50,6 +52,7 @@ export function buildLevelFromConfig(canvas: IAppCanvas, config: ILevelConfig): 
   actors.forEach((actor: IActorConfig): IActorWrapper => actorFactory.create(actorFactory.getParams({ ...actor, tags: [...actor.tags, CommonTag.FromConfig] })));
   messages$.next(`Actors (${actors.length}) created`);
 
+  //build cameras
   const cameraFactory: ICameraFactory = CameraFactory();
   const cameraRegistry: ICameraRegistry = CameraRegistry();
   const cameraAddedSubscription: Subscription = cameraRegistry.added$.subscribe((camera: ICameraWrapper) => scene.addCamera(camera));
@@ -57,6 +60,7 @@ export function buildLevelFromConfig(canvas: IAppCanvas, config: ILevelConfig): 
   cameras.forEach((camera: ICameraConfig): ICameraWrapper => cameraFactory.create(cameraFactory.getParams({ ...camera, tags: [...camera.tags, CommonTag.FromConfig] })));
   messages$.next(`Cameras (${cameras.length}) created`);
 
+  //build controls
   const controlsFactory: IControlsFactory = ControlsFactory();
   const controlsRegistry: IControlsRegistry = ControlsRegistry();
   const controlsEntityCreatedSubscription: Subscription = controlsFactory.entityCreated$.subscribe((controls: IOrbitControlsWrapper): void => controlsRegistry.add(controls));
@@ -68,6 +72,7 @@ export function buildLevelFromConfig(canvas: IAppCanvas, config: ILevelConfig): 
   const clickableActors: ReadonlyArray<IActorWrapper> = actorRegistry.getAllWithEveryTag([ActorTag.Intersectable]);
   const initialCamera: ICameraWrapper | undefined = cameraRegistry.getUniqByTag(CameraTag.Initial);
 
+  //build intersections watcher
   const intersectionsWatcherFactory: IIntersectionsWatcherFactory = IntersectionsWatcherFactory();
   const intersectionsWatcherRegistry: IIntersectionsWatcherRegistry = IntersectionsWatcherRegistry();
   let intersectionsWatcher: IIntersectionsWatcher | undefined;
@@ -84,6 +89,7 @@ export function buildLevelFromConfig(canvas: IAppCanvas, config: ILevelConfig): 
     messages$.next(`WARNING: no initial camera`);
   }
 
+  //build lights
   const lightFactory: ILightFactory = LightFactory();
   const lightRegistry: ILightRegistry = LightRegistry();
   const lightAddedSubscription: Subscription = lightRegistry.added$.subscribe((light: ILightWrapper) => scene.addLight(light));
@@ -91,6 +97,7 @@ export function buildLevelFromConfig(canvas: IAppCanvas, config: ILevelConfig): 
   lights.forEach((light: ILightConfig): ILightWrapper => lightFactory.create(lightFactory.getParams({ ...light, tags: [...light.tags, CommonTag.FromConfig] })));
   messages$.next(`Lights (${lights.length}) created`);
 
+  //build renderer
   const rendererFactory: IRendererFactory = RendererFactory();
   const rendererRegistry: IRendererRegistry = RendererRegistry();
   const rendererEntityCreatedSubscription: Subscription = rendererFactory.entityCreated$.subscribe((renderer: IRendererWrapper): void => rendererRegistry.add(renderer));
