@@ -1,4 +1,4 @@
-# Anarchy engine showcases-i18n package
+# Anarchy engine anarchy_i18n package
 
 Shared utilities and types for the Anarchy engine' showcases app.
 

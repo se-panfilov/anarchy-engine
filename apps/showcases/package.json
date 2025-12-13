@@ -2,7 +2,7 @@
   "name": "anarchy_engine_showcases",
   "author": "S. Panfilov",
   "private": true,
-  "version": "2.7.1",
+  "version": "2.7.2",
   "type": "module",
   "license": "MIT",
   "scripts": {
@@ -30,7 +30,7 @@
     "anarchy_engine_shared": "*",
     "showcases_menu": "*",
     "showcases_shared": "*",
-    "showcases_i18n": "*",
+    "anarchy_i18n": "*",
     "lil-gui": "0.20.0",
     "rxjs": "7.8.2",
     "sanitize.css": "13.0.0",

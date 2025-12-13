@@ -26,7 +26,7 @@
     "anarchy_engine": "*",
     "anarchy_engine_shared": "*",
     "showcases_shared": "*",
-    "showcases_i18n": "*",
+    "anarchy_i18n": "*",
     "pinia": "3.0.3",
     "rxjs": "7.8.2",
     "sanitize.css": "13.0.0",

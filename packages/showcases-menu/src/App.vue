@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import './assets/style.scss';
 
+import type { TLocalesMapping, TMessages } from '@AnarchyI18n';
+import { TranslateService } from '@AnarchyI18n';
 import RouterView from '@Menu/components/RouterView.vue';
 import { eventsService } from '@Menu/services';
 import { useSettingsStore } from '@Menu/stores/SettingsStore';
 import type { Subscription } from 'rxjs';
 import { filter } from 'rxjs';
-import type { TLocalesMapping, TMessages } from 'showcases_i18n';
-import { TranslateService } from 'showcases_i18n';
 import { onMounted, onUnmounted } from 'vue';
 
 let appEventsSub$: Subscription | undefined;
