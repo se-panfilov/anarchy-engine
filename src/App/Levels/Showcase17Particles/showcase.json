@@ -95,7 +95,12 @@
         "type": "points",
         "params": {
           "color": "#E91E63",
-          "size": 0.5
+          "size": 0.5,
+          "sizeAttenuation": true,
+          "transparent": true,
+          "depthWrite": false,
+          "blending": "AdditiveBlending",
+          "vertexColors": false
         },
         "textures": {
           "alphaMap": { "url": "/Showcase/particles/2.png" }

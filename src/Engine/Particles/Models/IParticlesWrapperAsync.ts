@@ -18,6 +18,6 @@ export type IParticlesWrapperAsync = IWrapper<IPoints> &
     getMaterialColor: () => IColor;
     setIndividualMaterialColors: (colors: Float32Array) => void;
     getIndividualMaterialColors: () => Float32Array;
-    setPositions: (positions: Float32Array) => void;
-    getPositions: () => Float32Array;
+    setIndividualPositions: (positions: Float32Array) => void;
+    getIndividualPositions: () => Float32Array;
   }>;

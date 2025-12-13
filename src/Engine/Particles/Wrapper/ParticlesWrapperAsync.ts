@@ -15,6 +15,7 @@ import { createParticles } from './ParticlesUtils';
 export async function ParticlesWrapperAsync(params: IParticlesParams, { materialTextureService }: IParticlesDependencies): Promise<IParticlesWrapperAsync> {
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   const entity: IPoints = await createParticles(params, materialTextureService);
+
   const { material, geometry } = entity;
   if (!isPointsMaterial(material)) throw new Error('Material is not PointsMaterial or not defined');
 
@@ -24,11 +25,9 @@ export async function ParticlesWrapperAsync(params: IParticlesParams, { material
   const setMaterialColor = (color: IColor): void => void (material.color = color);
   const getMaterialColor = (): IColor => material.color;
   const setIndividualMaterialColors = (colors: Float32Array): void => void geometry.setAttribute('color', new BufferAttribute(colors, 3));
-  // TODO (S.Panfilov) test this if it works
   const getIndividualMaterialColors = (): Float32Array => geometry.getAttribute('color').array as Float32Array;
-  const setPositions = (positions: Float32Array): void => void geometry.setAttribute('position', new BufferAttribute(positions, 3));
-  // TODO (S.Panfilov) test this if it works
-  const getPositions = (): Float32Array => geometry.getAttribute('position').array as Float32Array;
+  const setIndividualPositions = (positions: Float32Array): void => void geometry.setAttribute('position', new BufferAttribute(positions, 3));
+  const getIndividualPositions = (): Float32Array => geometry.getAttribute('position').array as Float32Array;
 
   const result = {
     ...AbstractWrapper(entity, WrapperType.Particles, params),
@@ -42,8 +41,8 @@ export async function ParticlesWrapperAsync(params: IParticlesParams, { material
     getMaterialColor,
     setIndividualMaterialColors,
     getIndividualMaterialColors,
-    setPositions,
-    getPositions,
+    setIndividualPositions,
+    getIndividualPositions,
     entity
   };
 
