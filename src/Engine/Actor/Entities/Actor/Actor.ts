@@ -27,16 +27,13 @@ export function Actor(
   const driveToTargetConnector: TDriveToTargetConnector = DriveToTargetConnector(drive, model3d.getRawModel3d(), params.model3dSettings);
 
   // TODO CWP:
-  // TODO 8.0.0. MODELS: Check if azimuth working good, or broken (cause it's something has to be fixed: either azimut calculation, usage of the cords, or rotation of agents)
-
   // TODO 8.0.0. MODELS: Make sure, that collisions are working
   // TODO 8.0.0. MODELS: In showcase check spatial and collisions
 
   // TODO 8.0.0. MODELS: Make sure, rotations are working for kinematics (add some methods to move to a point, rotate to a point)
   // TODO 8.0.0. MODELS: Kinematic drive needs additional methods: go to position (and stop), rotate to angle (and stop), move to point (calculate azimuth, elevation by itelf)
 
-  // TODO 8.0.0. MODELS: Remove Vector3/Euler/Quaternion from schema in favour of Vector3Like and etc. Adjust config adapters (Also for Rapier's Vector and etc)
-  // TODO 8.0.0. MODELS: Replace all rotations with Quaternions
+  // TODO 8.0.0. MODELS: Replace all rotations with Quaternions (kill TEulerLike)
   // TODO 8.0.0. MODELS: close all issues (todoes) with tag 8.0.0
   // TODO 8.0.0. MODELS: close all issues (todoes) with tag 9.2.0
 
