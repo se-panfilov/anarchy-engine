@@ -55,7 +55,11 @@ export function KeyboardService(container: TContainerDecorator, keyWatcherFactor
     isKeyPressed: (key: TGameKey): boolean => keyComboWatcher.value$.value.has(key),
     isKeysPressed: (keys: ReadonlyArray<TGameKey>): boolean => {
       const combos: ReadonlySet<TGameKey> = keyComboWatcher.value$.value;
-      return keys.every((key: TGameKey): boolean => combos.has(key));
+      // eslint-disable-next-line functional/no-loop-statements
+      for (const key of keys) {
+        if (!combos.has(key)) return false;
+      }
+      return true;
     }
   });
 }
