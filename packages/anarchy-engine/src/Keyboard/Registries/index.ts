@@ -1,1 +1,2 @@
-export * from './KeyboardRegistry';
+export * from './KeyboardWatcherRegistry';
+export * from './MousePositionWatcherRegistry';

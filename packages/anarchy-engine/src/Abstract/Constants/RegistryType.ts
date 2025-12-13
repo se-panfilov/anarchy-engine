@@ -15,7 +15,7 @@ export enum RegistryType {
   FsmInstance = 'fsm_instance',
   FsmSource = 'fsm_source',
   IntersectionsWatcher = 'intersections_watcher',
-  KeyboardRecord = 'keyboard_record',
+  KeyboardWatcher = 'keyboard_watcher',
   Light = 'light',
   Loop = 'loop',
   Material = 'material',
