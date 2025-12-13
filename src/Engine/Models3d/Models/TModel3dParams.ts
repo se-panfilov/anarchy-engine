@@ -11,4 +11,5 @@ export type TModel3dParams = TModel3dProps &
     model3dSource: GLTF | PrimitiveModel3dType;
     animationsSource?: ReadonlyArray<AnimationClip>;
     materialSource?: TMaterialWrapper;
+    forceClone?: boolean;
   }>;
