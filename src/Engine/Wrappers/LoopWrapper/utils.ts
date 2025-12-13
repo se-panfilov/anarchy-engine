@@ -1,4 +1,5 @@
 import type { ICameraWrapper, IRendererWrapper, ISceneWrapper } from '@Engine/Wrappers';
+
 import type { ILoopUtils, LoopFn } from './Models';
 
 export function getUtils(entity: LoopFn): ILoopUtils {

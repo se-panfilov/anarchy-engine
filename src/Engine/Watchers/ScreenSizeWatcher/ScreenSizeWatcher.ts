@@ -1,7 +1,7 @@
-import { AbstractWatcher } from '@Engine/Watchers/AbstractWatcher/AbstractWatcher';
 import type { IGlobalContainerDecorator } from '@Engine/Global';
-import type { IScreenSizeWatcher } from '@Engine/Watchers/ScreenSizeWatcher/Models/IScreenSizeWatcher';
 import type { IScreenParams } from '@Engine/Models';
+import { AbstractWatcher } from '@Engine/Watchers/AbstractWatcher/AbstractWatcher';
+import type { IScreenSizeWatcher } from '@Engine/Watchers/ScreenSizeWatcher/Models/IScreenSizeWatcher';
 import { Subject } from 'rxjs';
 
 export function ScreenSizeWatcher(container: IGlobalContainerDecorator): IScreenSizeWatcher {

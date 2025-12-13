@@ -1,5 +1,5 @@
-import type { IFactory, IProtectedRegistry, IWrapper } from '@Engine/Models';
 import type { IAbstractConfig } from '@Engine/Launcher/Models';
+import type { IFactory, IProtectedRegistry, IWrapper } from '@Engine/Models';
 
 export function addToRegistry<E, W extends IWrapper<E>, C extends IAbstractConfig>(
   configList: ReadonlyArray<C>,

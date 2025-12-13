@@ -1,4 +1,5 @@
 import type { ILightParams, ILightShadowParams, ILightType } from '@Engine/Models';
+
 import type { IVector2dConfig } from './IVector2dConfig';
 import type { IVector3dConfig } from './IVector3dConfig';
 

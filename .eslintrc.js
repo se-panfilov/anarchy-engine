@@ -1,8 +1,9 @@
 module.exports = {
   root: true,
   parser: '@typescript-eslint/parser',
-  plugins: ['@typescript-eslint', 'functional', 'sort-export-all'],
+  plugins: ['@typescript-eslint', 'functional', 'sort-export-all', 'simple-import-sort', 'import'],
   parserOptions: {
+    sourceType: 'module',
     tsconfigRootDir: __dirname,
     project: ['./tsconfig.json']
   },
@@ -10,16 +11,26 @@ module.exports = {
     'eslint:recommended',
     'plugin:@typescript-eslint/recommended',
     'plugin:@typescript-eslint/recommended-requiring-type-checking',
-    'plugin:import/errors',
-    'plugin:import/warnings',
-    'plugin:import/typescript',
-    'plugin:sort-export-all/recommended',
-    // 'plugin:functional/external-recommended',
     'plugin:functional/recommended',
     'plugin:functional/stylistic'
   ],
   rules: {
     'import/no-unresolved': 'off',
+    'import/order': 'off',
+    'import/export': 'error',
+    'import/no-absolute-path': 'error',
+    'import/no-dynamic-require': 'error',
+    'import/no-webpack-loader-syntax': 'error',
+    'import/no-commonjs': 'error',
+    'import/no-amd': 'error',
+    'import/no-nodejs-modules': 'off',
+    'import/first': 'error',
+    'import/newline-after-import': 'error',
+    'import/no-duplicates': 'error',
+    'import/no-mutable-exports': 'error',
+    'import/no-cycle': [2, { maxDepth: 1 }],
+    'import/no-useless-path-segments': ['error', { noUselessIndex: true }],
+    'import/no-named-as-default': 'off',
     'functional/functional-parameters': [
       'error',
       {
@@ -52,6 +63,8 @@ module.exports = {
     'functional/no-this-expression': 'off',
     'functional/no-return-void': 'off', // TODO (S.Panfilov) temp off (don't get this rule tbh)
     '@typescript-eslint/explicit-function-return-type': 'error',
-    '@typescript-eslint/no-explicit-any': 'error'
+    '@typescript-eslint/no-explicit-any': 'error',
+    'simple-import-sort/imports': 'error',
+    'simple-import-sort/exports': 'error'
   }
 };

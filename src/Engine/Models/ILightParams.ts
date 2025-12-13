@@ -1,5 +1,5 @@
-import type { Color } from 'three/src/math/Color';
 import type { IVector2, IVector3 } from '@Engine/Models';
+import type { Color } from 'three/src/math/Color';
 
 export type ILightParams = Readonly<{
   type: ILightType;

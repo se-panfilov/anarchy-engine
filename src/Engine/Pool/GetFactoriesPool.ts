@@ -7,6 +7,7 @@ import {
   RendererFactory,
   SceneFactory
 } from '@Engine/Factories';
+
 import type { IFactoriesPool, IFactoryPoolParams } from './Models';
 
 export function getFactoriesPool({ canvas, cameraRegistry }: IFactoryPoolParams): IFactoriesPool {

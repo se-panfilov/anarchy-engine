@@ -1,6 +1,7 @@
 import type { IAmbientLight, IDirectionalLight, IOrthographicCamera, IVector2, IVector3 } from '@Engine/Models';
-import type { ILightAccessors } from './Models';
 import { Writeable } from '@Engine/Utils';
+
+import type { ILightAccessors } from './Models';
 
 // eslint-disable-next-line functional/prefer-immutable-types
 export function getAccessors(entity: Writeable<IAmbientLight | IDirectionalLight>): ILightAccessors {

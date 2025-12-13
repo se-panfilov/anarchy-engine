@@ -1,5 +1,6 @@
-import { Subject } from 'rxjs';
 import { nanoid } from 'nanoid';
+import { Subject } from 'rxjs';
+
 import type { IAbstractWatcher } from '../Models';
 
 export function AbstractWatcher<T>(type: string): IAbstractWatcher<T> {

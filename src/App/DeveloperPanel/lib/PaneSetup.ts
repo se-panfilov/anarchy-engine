@@ -1,5 +1,5 @@
-import { Pane } from 'tweakpane';
 import * as EssentialsPlugin from '@tweakpane/plugin-essentials';
+import { Pane } from 'tweakpane';
 
 export const pane = new Pane();
 

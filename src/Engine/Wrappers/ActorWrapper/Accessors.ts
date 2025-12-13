@@ -1,6 +1,7 @@
 import type { IMesh, IVector3 } from '@Engine/Models';
-import type { IActorAccessors } from './Models';
 import type { Writeable } from '@Engine/Utils';
+
+import type { IActorAccessors } from './Models';
 
 // eslint-disable-next-line
 export function getAccessors(entity: Writeable<IMesh>): IActorAccessors {

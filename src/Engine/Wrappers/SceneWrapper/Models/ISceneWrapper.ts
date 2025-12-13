@@ -1,5 +1,5 @@
-import type { IActorWrapper, ICameraWrapper, ILightWrapper } from '@Engine/Wrappers';
 import type { IScene, ISceneObject, IWrapper } from '@Engine/Models';
+import type { IActorWrapper, ICameraWrapper, ILightWrapper } from '@Engine/Wrappers';
 
 export type ISceneWrapper = IWrapper<IScene> &
   Readonly<{

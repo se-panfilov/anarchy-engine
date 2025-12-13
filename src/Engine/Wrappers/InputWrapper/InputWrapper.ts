@@ -1,6 +1,7 @@
-import type { IInputWrapper, MOCK_INPUT_TYPE } from './Models';
-import { AbstractWrapper } from '@Engine/Wrappers';
 import type { IInputParams } from '@Engine/Models';
+import { AbstractWrapper } from '@Engine/Wrappers';
+
+import type { IInputWrapper, MOCK_INPUT_TYPE } from './Models';
 
 // TODO (S.Panfilov) params is not needed here, remove
 export function InputWrapper(params: IInputParams): IInputWrapper {

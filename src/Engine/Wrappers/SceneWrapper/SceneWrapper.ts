@@ -1,10 +1,11 @@
-import type { IActorWrapper, ICameraWrapper, ILightWrapper } from '@Engine/Wrappers';
 import type { IScene, ISceneObject, IWrapper } from '@Engine/Models';
-import { AbstractWrapper } from '@Engine/Wrappers';
 import type { ISceneParams } from '@Engine/Models/ISceneParams';
-import type { ISceneWrapper } from './Models';
-import { Scene } from 'three';
 import type { Writeable } from '@Engine/Utils';
+import type { IActorWrapper, ICameraWrapper, ILightWrapper } from '@Engine/Wrappers';
+import { AbstractWrapper } from '@Engine/Wrappers';
+import { Scene } from 'three';
+
+import type { ISceneWrapper } from './Models';
 
 export function SceneWrapper({ name }: ISceneParams): ISceneWrapper {
   const entity: Writeable<IScene> = new Scene();

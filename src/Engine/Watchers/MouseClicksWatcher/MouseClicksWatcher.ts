@@ -1,5 +1,5 @@
-import { AbstractWatcher } from '@Engine/Watchers/AbstractWatcher/AbstractWatcher';
 import type { IMouseClicksWatcher } from '@Engine/Watchers';
+import { AbstractWatcher } from '@Engine/Watchers/AbstractWatcher/AbstractWatcher';
 import { Subject } from 'rxjs';
 
 export function MouseClicksWatcher(): IMouseClicksWatcher {

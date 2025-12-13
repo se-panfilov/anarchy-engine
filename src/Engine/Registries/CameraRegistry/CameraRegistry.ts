@@ -1,9 +1,10 @@
+import type { IAbstractRegistry } from '@Engine/Models';
+import { RegistryFacade } from '@Engine/Registries';
+import { findKeyByTag, isNotDefined } from '@Engine/Utils';
+import type { ICameraWrapper } from '@Engine/Wrappers';
+
 import { AbstractRegistry } from '../AbstractRegistry';
 import type { ICameraRegistry } from './Models';
-import type { ICameraWrapper } from '@Engine/Wrappers';
-import type { IAbstractRegistry } from '@Engine/Models';
-import { findKeyByTag, isNotDefined } from '@Engine/Utils';
-import { RegistryFacade } from '@Engine/Registries';
 
 export const CameraRegistry = (): ICameraRegistry => {
   const abstractRegistry: IAbstractRegistry<ICameraWrapper> = AbstractRegistry<ICameraWrapper>();

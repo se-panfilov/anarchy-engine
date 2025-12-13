@@ -1,5 +1,6 @@
 import { ActorRegistry, CameraRegistry, ControlsRegistry, LightRegistry } from '@Engine/Registries';
 import type { IActorWrapper, ICameraWrapper, ILightWrapper, ISceneWrapper } from '@Engine/Wrappers';
+
 import type { IRegistriesPool } from './Models';
 
 export function getRegistryPool(): IRegistriesPool {

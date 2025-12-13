@@ -1,5 +1,5 @@
-import { nanoid } from 'nanoid';
 import type { IWrapper } from '@Engine/Models';
+import { nanoid } from 'nanoid';
 
 export function AbstractWrapper<T>(entity: T): IWrapper<T> {
   const id: string = nanoid();

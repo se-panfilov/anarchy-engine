@@ -1,7 +1,7 @@
 import type { IActorConfig } from './IActorConfig';
 import type { ICameraConfig } from './ICameraConfig';
-import type { ILightConfig } from './ILightConfig';
 import type { IControlsConfig } from './IControlsConfig';
+import type { ILightConfig } from './ILightConfig';
 
 export type ISceneConfig = Readonly<{
   name: string;

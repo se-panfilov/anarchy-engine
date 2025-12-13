@@ -1,8 +1,8 @@
-import type { IActorConfig, ActorMaterialConfig } from '@Engine/Launcher/Models';
-import { Color, Vector3 } from 'three';
+import type { ActorMaterialConfig, IActorConfig } from '@Engine/Launcher/Models';
 import type { IActorParams } from '@Engine/Models';
-import type { MeshToonMaterialParameters } from 'three';
 import { isDefined } from '@Engine/Utils';
+import type { MeshToonMaterialParameters } from 'three';
+import { Color, Vector3 } from 'three';
 
 export function actorAdapter(config: IActorConfig): IActorParams {
   const { materialParams, position, ...rest } = config;

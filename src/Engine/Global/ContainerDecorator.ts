@@ -1,5 +1,5 @@
-import type { IAppGlobalContainer } from '@Engine/Models/IAppGlobalContainer';
 import type { IGlobalContainerDecorator } from '@Engine/Global/Models';
+import type { IAppGlobalContainer } from '@Engine/Models/IAppGlobalContainer';
 
 export function ContainerDecorator(container: IAppGlobalContainer): IGlobalContainerDecorator {
   return {

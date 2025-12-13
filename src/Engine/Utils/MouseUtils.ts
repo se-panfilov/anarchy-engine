@@ -1,4 +1,4 @@
-import type { IMousePosition, IVector3, IVector2 } from '@Engine/Models';
+import type { IMousePosition, IVector2, IVector3 } from '@Engine/Models';
 
 // TODO (S.Panfilov) I don't like this being a distinct function, also don't really get why I might need that normalization
 export function getNormalizedMousePosition(position: IMousePosition | IVector3 | IVector2): IMousePosition {

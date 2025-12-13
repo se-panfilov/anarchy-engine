@@ -1,6 +1,6 @@
 import type { IMouseEvent, IMousePosition } from '@Engine/Models';
-import { AbstractWatcher } from '@Engine/Watchers/AbstractWatcher/AbstractWatcher';
 import type { IMousePositionWatcher } from '@Engine/Watchers';
+import { AbstractWatcher } from '@Engine/Watchers/AbstractWatcher/AbstractWatcher';
 import { Subject } from 'rxjs';
 
 export function MousePositionWatcher(): IMousePositionWatcher {

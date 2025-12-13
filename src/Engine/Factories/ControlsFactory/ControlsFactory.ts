@@ -1,10 +1,11 @@
-import type { IControlsFactory, IControlsFactoryParams, ICreateControlsFn } from '@Engine/Factories';
-import { AbstractFactory } from '../AbstractFactory';
 import { controlsAdapter } from '@Engine/Adapters';
-import { ControlsWrapper } from '@Engine/Wrappers';
+import type { IControlsFactory, IControlsFactoryParams, ICreateControlsFn } from '@Engine/Factories';
 import type { IControlsConfig } from '@Engine/Launcher/Models';
 import type { IControlsParams } from '@Engine/Models';
 import type { IControlsWrapper } from '@Engine/Wrappers';
+import { ControlsWrapper } from '@Engine/Wrappers';
+
+import { AbstractFactory } from '../AbstractFactory';
 
 const create: ICreateControlsFn = (params: IControlsParams): IControlsWrapper => ControlsWrapper(params);
 

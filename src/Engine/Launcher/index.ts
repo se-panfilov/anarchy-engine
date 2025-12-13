@@ -1,11 +1,11 @@
-import type { ICameraWrapper, ILoopWrapper, IRendererWrapper, ISceneWrapper } from '@Engine/Wrappers';
-import type { IFactoriesPool, IRegistriesPool } from '@Engine/Pool/Models';
-import { addToRegistry } from '@Engine/Launcher/AddToRegistry';
 import { CameraTag } from '@Engine/Constants';
-import { createDeferredPromise } from '@Engine/Utils';
-import type { IAppCanvas } from '@Engine/Models';
+import { addToRegistry } from '@Engine/Launcher/AddToRegistry';
 import type { ISceneConfig } from '@Engine/Launcher/Models';
+import type { IAppCanvas } from '@Engine/Models';
 import { initRegistriesAddSubscription } from '@Engine/Pool/GetRegistiryPool';
+import type { IFactoriesPool, IRegistriesPool } from '@Engine/Pool/Models';
+import { createDeferredPromise } from '@Engine/Utils';
+import type { ICameraWrapper, ILoopWrapper, IRendererWrapper, ISceneWrapper } from '@Engine/Wrappers';
 
 export async function launch(
   sceneConfig: ISceneConfig,

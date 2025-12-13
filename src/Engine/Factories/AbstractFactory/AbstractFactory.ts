@@ -1,8 +1,8 @@
-import { nanoid } from 'nanoid';
-import type { IFactory, IWrapper } from '@Engine/Models';
-import type { IAbstractConfig } from '@Engine/Launcher/Models';
-import { isNotDefined } from '@Engine/Utils';
 import type { ICreateFN } from '@Engine/Factories/AbstractFactory/Models';
+import type { IAbstractConfig } from '@Engine/Launcher/Models';
+import type { IFactory, IWrapper } from '@Engine/Models';
+import { isNotDefined } from '@Engine/Utils';
+import { nanoid } from 'nanoid';
 
 // TODO (S.Panfilov) create form config is an extra functionality,
 //  could be extracted from here ("FactoryFromConfig", which together with "AbstractFactory" makes just "Factory")
