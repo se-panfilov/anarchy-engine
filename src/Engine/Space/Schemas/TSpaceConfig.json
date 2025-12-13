@@ -42,7 +42,7 @@
     "models3d": {
       "type": "array",
       "items": {
-        "$ref": "#/definitions/TModel3dConfig"
+        "$ref": "#/definitions/TModel3dComplexConfig"
       }
     },
     "intersections": {
@@ -124,12 +124,6 @@
         },
         "layers": {
           "type": "number"
-        },
-        "animations": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
         },
         "rotation": {
           "$ref": "#/definitions/TEuler3dConfig"
@@ -231,15 +225,6 @@
             "type": "string"
           }
         },
-        "layers": {
-          "type": "number"
-        },
-        "animations": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
         "position": {
           "$ref": "#/definitions/TWithCoordsXYZ"
         },
@@ -248,21 +233,6 @@
         },
         "scale": {
           "$ref": "#/definitions/TWithCoordsXYZ"
-        },
-        "visible": {
-          "type": "boolean"
-        },
-        "castShadow": {
-          "type": "boolean"
-        },
-        "receiveShadow": {
-          "type": "boolean"
-        },
-        "frustumCulled": {
-          "type": "boolean"
-        },
-        "renderOrder": {
-          "type": "number"
         },
         "collisions": {
           "$ref": "#/definitions/TCollisionsDataConfig"
@@ -276,50 +246,20 @@
         "physics": {
           "$ref": "#/definitions/TWithPresetNamePhysicsBodyConfig"
         },
-        "material": {
-          "$ref": "#/definitions/TMaterialPackConfig%3CTMaterialTexturePack%3E"
-        },
-        "model3d": {
-          "$ref": "#/definitions/TActorModel3dConfig"
-        },
-        "width": {
-          "type": "number"
-        },
-        "height": {
-          "type": "number"
-        },
-        "depth": {
-          "type": "number"
-        },
-        "widthSegments": {
-          "type": "number"
-        },
-        "heightSegments": {
-          "type": "number"
-        },
-        "depthSegments": {
-          "type": "number"
-        },
-        "radius": {
-          "type": "number"
-        },
-        "phiStart": {
-          "type": "number"
-        },
-        "phiLength": {
-          "type": "number"
-        },
-        "thetaStart": {
-          "type": "number"
-        },
-        "thetaLength": {
-          "type": "number"
+        "model3dName": {
+          "type": "string"
         },
         "name": {
           "type": "string"
+        },
+        "castShadow": {
+          "type": "boolean"
+        },
+        "receiveShadow": {
+          "type": "boolean"
         }
       },
-      "required": ["castShadow", "material", "model3d", "position", "spatial"]
+      "required": ["castShadow", "position", "receiveShadow", "spatial"]
     },
     "TCollisionsDataConfig": {
       "type": "object",
@@ -1116,6 +1056,128 @@
       },
       "required": ["halfHeight", "radius", "borderRadius"],
       "additionalProperties": false
+    },
+    "TCameraConfig": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "layers": {
+          "type": "number"
+        },
+        "position": {
+          "$ref": "#/definitions/TWithCoordsXYZ"
+        },
+        "rotation": {
+          "$ref": "#/definitions/TEuler3dConfig"
+        },
+        "scale": {
+          "$ref": "#/definitions/TWithCoordsXYZ"
+        },
+        "visible": {
+          "type": "boolean"
+        },
+        "castShadow": {
+          "type": "boolean"
+        },
+        "receiveShadow": {
+          "type": "boolean"
+        },
+        "frustumCulled": {
+          "type": "boolean"
+        },
+        "renderOrder": {
+          "type": "number"
+        },
+        "lookAt": {
+          "$ref": "#/definitions/TWithCoordsXYZ"
+        },
+        "fov": {
+          "type": "number"
+        },
+        "near": {
+          "type": "number"
+        },
+        "far": {
+          "type": "number"
+        },
+        "name": {
+          "type": "string"
+        },
+        "isActive": {
+          "type": "boolean"
+        }
+      },
+      "required": ["isActive", "position"]
+    },
+    "TModel3dComplexConfig": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "name": {
+          "type": "string"
+        },
+        "position": {
+          "$ref": "#/definitions/TWithCoordsXYZ"
+        },
+        "scale": {
+          "$ref": "#/definitions/TWithCoordsXYZ"
+        },
+        "rotation": {
+          "$ref": "#/definitions/TEuler3dConfig"
+        },
+        "visible": {
+          "type": "boolean"
+        },
+        "castShadow": {
+          "type": "boolean"
+        },
+        "receiveShadow": {
+          "type": "boolean"
+        },
+        "frustumCulled": {
+          "type": "boolean"
+        },
+        "renderOrder": {
+          "type": "number"
+        },
+        "layers": {
+          "$ref": "#/definitions/Layers"
+        },
+        "material": {
+          "$ref": "#/definitions/TMaterialPackConfig%3CTMaterialTexturePack%3E"
+        },
+        "url": {
+          "type": "string"
+        },
+        "options": {
+          "$ref": "#/definitions/TModel3dLoadOptions"
+        }
+      },
+      "required": ["options", "position", "url"]
+    },
+    "Layers": {
+      "type": "object",
+      "properties": {
+        "mask": {
+          "type": "number",
+          "description": "A bit mask storing which of the 32 layers this layers object is currently a member of."
+        }
+      },
+      "required": ["mask"],
+      "additionalProperties": false,
+      "description": "A  {@link  THREE.Layers Layers }  object assigns an  {@link  THREE.Object3D Object3D }  to 1 or more of 32 layers numbered `0` to `31` - internally the layers are stored as a  {@link  https://en.wikipedia.org/wiki/Mask_(computing) bit mask } , and by default all Object3Ds are a member of layer `0`."
     },
     "TMaterialPackConfig<TMaterialTexturePack>": {
       "type": "object",
@@ -2022,162 +2084,6 @@
       },
       "additionalProperties": false
     },
-    "TActorModel3dConfig": {
-      "type": "object",
-      "additionalProperties": false,
-      "properties": {
-        "options": {
-          "$ref": "#/definitions/TOptional%3CTModel3dLoadOptions%3E"
-        },
-        "url": {
-          "anyOf": [
-            {
-              "type": "string"
-            },
-            {
-              "$ref": "#/definitions/Model3dType"
-            }
-          ]
-        },
-        "castShadow": {
-          "type": "boolean"
-        },
-        "name": {
-          "type": "string"
-        },
-        "tags": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        }
-      },
-      "required": ["url"]
-    },
-    "TOptional<TModel3dLoadOptions>": {
-      "type": "object",
-      "properties": {
-        "shouldAddToScene": {
-          "type": "boolean"
-        },
-        "shouldAddToRegistry": {
-          "type": "boolean"
-        },
-        "isForce": {
-          "type": "boolean"
-        }
-      },
-      "additionalProperties": false
-    },
-    "Model3dType": {
-      "type": "string",
-      "enum": ["cube", "plane", "sphere"]
-    },
-    "TCameraConfig": {
-      "type": "object",
-      "additionalProperties": false,
-      "properties": {
-        "tags": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "layers": {
-          "type": "number"
-        },
-        "animations": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "position": {
-          "$ref": "#/definitions/TWithCoordsXYZ"
-        },
-        "rotation": {
-          "$ref": "#/definitions/TEuler3dConfig"
-        },
-        "scale": {
-          "$ref": "#/definitions/TWithCoordsXYZ"
-        },
-        "visible": {
-          "type": "boolean"
-        },
-        "castShadow": {
-          "type": "boolean"
-        },
-        "receiveShadow": {
-          "type": "boolean"
-        },
-        "frustumCulled": {
-          "type": "boolean"
-        },
-        "renderOrder": {
-          "type": "number"
-        },
-        "lookAt": {
-          "$ref": "#/definitions/TWithCoordsXYZ"
-        },
-        "fov": {
-          "type": "number"
-        },
-        "near": {
-          "type": "number"
-        },
-        "far": {
-          "type": "number"
-        },
-        "name": {
-          "type": "string"
-        },
-        "isActive": {
-          "type": "boolean"
-        }
-      },
-      "required": ["isActive", "position"]
-    },
-    "TModel3dConfig": {
-      "type": "object",
-      "additionalProperties": false,
-      "properties": {
-        "tags": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "name": {
-          "type": "string"
-        },
-        "position": {
-          "$ref": "#/definitions/TWithCoordsXYZ"
-        },
-        "scale": {
-          "$ref": "#/definitions/TWithCoordsXYZ"
-        },
-        "rotation": {
-          "$ref": "#/definitions/TEuler3dConfig"
-        },
-        "url": {
-          "anyOf": [
-            {
-              "type": "string"
-            },
-            {
-              "$ref": "#/definitions/Model3dType"
-            }
-          ]
-        },
-        "castShadow": {
-          "type": "boolean"
-        },
-        "options": {
-          "$ref": "#/definitions/TModel3dLoadOptions"
-        }
-      },
-      "required": ["options", "position", "url"]
-    },
     "TModel3dLoadOptions": {
       "type": "object",
       "properties": {
@@ -2259,12 +2165,6 @@
         },
         "layers": {
           "type": "number"
-        },
-        "animations": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
         },
         "position": {
           "$ref": "#/definitions/TWithCoordsXYZ"
@@ -2390,12 +2290,6 @@
         "layers": {
           "type": "number"
         },
-        "animations": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
         "position": {
           "$ref": "#/definitions/TWithCoordsXYZ"
         },
@@ -2426,12 +2320,6 @@
         },
         "layers": {
           "type": "number"
-        },
-        "animations": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
         },
         "position": {
           "$ref": "#/definitions/TWithCoordsXYZ"
@@ -2528,12 +2416,6 @@
         "layers": {
           "type": "number"
         },
-        "animations": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
         "position": {
           "$ref": "#/definitions/TWithCoordsXYZ"
         },
@@ -2598,12 +2480,6 @@
         "layers": {
           "type": "number"
         },
-        "animations": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
         "position": {
           "$ref": "#/definitions/TWithCoordsXYZ"
         },
@@ -2667,12 +2543,6 @@
         },
         "layers": {
           "type": "number"
-        },
-        "animations": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
         },
         "position": {
           "$ref": "#/definitions/TWithCoordsXYZ"
@@ -2740,12 +2610,6 @@
         },
         "layers": {
           "type": "number"
-        },
-        "animations": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
         },
         "position": {
           "$ref": "#/definitions/TWithCoordsXYZ"
@@ -3037,12 +2901,6 @@
         },
         "layers": {
           "type": "number"
-        },
-        "animations": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
         },
         "position": {
           "$ref": "#/definitions/TWithCoordsXYZ"
