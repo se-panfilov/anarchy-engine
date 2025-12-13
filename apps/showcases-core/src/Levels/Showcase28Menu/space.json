@@ -3,6 +3,24 @@
   "entities": {
     "actors": [
       {
+        "model3dSource": "surface_model",
+        "name": "surface_actor",
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "rotation": {
+          "x": -1.57,
+          "y": 0,
+          "z": 0
+        },
+        "spatial": {
+          "grid": "main_grid",
+          "isAutoUpdate": false
+        }
+      },
+      {
         "model3dSource": "sphere_model",
         "name": "sphere_actor",
         "position": {
@@ -27,6 +45,21 @@
           "grid": "main_grid",
           "isAutoUpdate": true
         }
+      },
+      {
+        "agent": "kinematic",
+        "model3dSource": "sphere_mouse_model",
+        "name": "sphere_mouse_actor",
+        "position": {
+          "x": 4,
+          "y": 2,
+          "z": 0
+        },
+        "spatial": {
+          "grid": "main_grid",
+          "isAutoUpdate": true
+        },
+        "tags": []
       }
     ],
     "audio": [],
@@ -76,6 +109,18 @@
           "noiseThreshold": 0.01,
           "shouldReactOnlyOnChange": true
         }
+      },
+      {
+        "actorNames": ["surface_actor"],
+        "cameraName": "main",
+        "isAutoStart": true,
+        "triggerNoIntersections": true,
+        "isDistinct": false,
+        "name": "watcher_surface",
+        "performance": {
+          "noiseThreshold": 0.01,
+          "shouldReactOnlyOnChange": true
+        }
       }
     ],
     "lights": [],
@@ -98,6 +143,13 @@
         "name": "cube_material",
         "options": {
           "color": "#E91E63"
+        },
+        "type": "MeshBasicMaterial"
+      },
+      {
+        "name": "sphere_mouse_material",
+        "options": {
+          "color": "#E91ED8"
         },
         "type": "MeshBasicMaterial"
       }
@@ -153,6 +205,15 @@
           "z": 0
         },
         "receiveShadow": true
+      },
+      {
+        "castShadow": true,
+        "material": "sphere_mouse_material",
+        "model3dSource": "sphere",
+        "name": "sphere_mouse_model",
+        "options": {
+          "radius": 1
+        }
       }
     ],
     "particles": [],

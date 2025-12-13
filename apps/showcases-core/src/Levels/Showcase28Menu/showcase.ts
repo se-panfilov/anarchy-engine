@@ -1,10 +1,11 @@
-import type { TIntersectionEvent, TIntersectionsCameraWatcher, TModel3d, TModels3dRegistry, TSceneWrapper, TSpace, TSpaceConfig } from '@Anarchy/Engine';
-import { spaceService } from '@Anarchy/Engine';
+import type { TActor, TIntersectionEvent, TIntersectionsCameraWatcher, TModel3d, TModels3dRegistry, TMouseWatcherEvent, TSceneWrapper, TSpace, TSpaceConfig } from '@Anarchy/Engine';
+import { metersPerSecond, spaceService } from '@Anarchy/Engine';
 import { asRecord, isNotDefined } from '@Anarchy/Shared/Utils';
 import { showcasesTranslationService } from '@Showcases/i18n';
-import { filter, Subject } from 'rxjs';
+import { filter, Subject, withLatestFrom } from 'rxjs';
 import { initGuiApp } from 'showcases-gui/src/main';
 import { initMenuApp } from 'showcases-menu/src/main';
+import { Vector3 } from 'three';
 
 import { runtimeEnv } from '@/env';
 import { fromGuiEventsBus$, fromMenuEventsBus$, toGuiEventsBus$, toMenuEventsBus$ } from '@/Levels/Showcase28Menu/EventsBus';
@@ -26,8 +27,10 @@ export function start(settings: TAppSettings): void {
 }
 
 export function showcase(space: TSpace): void {
-  const { models3dService, scenesService, textService, intersectionsWatcherService, mouseService } = space.services;
+  const { actorService, models3dService, scenesService, textService, intersectionsWatcherService, mouseService } = space.services;
   const models3dRegistry: TModels3dRegistry = models3dService.getRegistry();
+  const { clickLeftRelease$ } = mouseService;
+  const { getByName } = actorService.getRegistry();
   const sceneW: TSceneWrapper = scenesService.getActive();
   const openMenu$: Subject<boolean> = new Subject<boolean>();
 
@@ -59,14 +62,20 @@ export function showcase(space: TSpace): void {
   initGuiApp('#gui', fromGuiEventsBus$, toGuiEventsBus$.asObservable());
 
   const watcherMenuCube: TIntersectionsCameraWatcher = intersectionsWatcherService.getCameraWatcher('watcher_menu_cube');
+  const watcherSurface: TIntersectionsCameraWatcher = intersectionsWatcherService.getCameraWatcher('watcher_surface');
 
   // TODO DESKTOP: Implement also UI (health, ammo, etc.) and make sure it is not under the menu
   let isMouseOverMenuCube: boolean = false;
-  watcherMenuCube.value$.subscribe((value: TIntersectionEvent): void => {
-    isMouseOverMenuCube = !!value;
-  });
+  watcherMenuCube.value$.subscribe((value: TIntersectionEvent): void => void (isMouseOverMenuCube = !!value));
 
-  mouseService.clickLeftRelease$.pipe(filter((): boolean => isMouseOverMenuCube)).subscribe((): void => openMenu$.next(true));
+  clickLeftRelease$.pipe(filter((): boolean => isMouseOverMenuCube)).subscribe((): void => openMenu$.next(true));
+
+  const actorMouse: TActor = getByName('sphere_mouse_actor');
+  clickLeftRelease$.pipe(withLatestFrom(watcherSurface.value$)).subscribe(([, intersection]: [TMouseWatcherEvent, TIntersectionEvent]): void => {
+    if (isNotDefined(intersection)) throw new Error('Intersection not defined');
+    const position: Vector3 = intersection.point.clone().add(new Vector3(0, 1.5, 0));
+    actorMouse.drive.kinematic.moveTo(position, metersPerSecond(15));
+  });
   guiService.openGui();
 
   openMenu$.pipe().subscribe(mainMenuService.openMainMenu);
