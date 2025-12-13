@@ -2,6 +2,8 @@ import type { TSpatialDataConfig, TSpatialDataParams } from '@/Engine/Spatial/Mo
 
 export function spatialConfigToParams(config: TSpatialDataConfig): TSpatialDataParams {
   return {
-    // spatial ? { ...spatial, tree: spatial.tree } : undefined
+    ...config,
+    // TODO (S.Panfilov) CWP add spatialGridRegistry and factory
+    grid: config.gridName ? spatialGridRegistry.findByName(config.gridName) : undefined
   };
 }

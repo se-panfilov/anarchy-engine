@@ -6,6 +6,6 @@ import type { TSpatialCell } from './TSpatialCell';
 
 export type TSpatialData = Readonly<{
   updatePriority: SpatialUpdatePriority;
-  tree: RBush<TSpatialCell> | undefined;
+  grid: RBush<TSpatialCell> | undefined;
   cell: TSpatialCell | undefined;
 }>;
