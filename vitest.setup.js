@@ -10,6 +10,20 @@ vi.mock('@/Engine/Utils', async () => {
   };
 });
 
+vi.mock('three/examples/jsm/loaders/DRACOLoader.js', () => {
+  return {
+    DRACOLoader: class {
+      setDecoderPath = vi.fn();
+      load = vi.fn((_url, onLoad) => {
+        onLoad({ mock: 'geometry' });
+      });
+      dispose = vi.fn();
+      setDecoderConfig = vi.fn();
+      preload = vi.fn();
+    }
+  };
+});
+
 //Mock "MockWebGLRenderer" globally (webgl is not available in unit tests)
 vi.mock('three', async () => {
   const actual = await vi.importActual('three');

@@ -1,4 +1,4 @@
-import { afterEach, expect, it, vi } from 'vitest';
+import { afterEach, expect, it } from 'vitest';
 
 import type { TRegistrable } from '@/Engine/Mixins';
 import type { TWithCreateService, TWithFactoryService, TWithRegistryService } from '@/Engine/Space/Models';
@@ -13,21 +13,12 @@ function expectSame<T>(a: T | undefined, b: T | undefined): void {
 
 type TAnyMockService<T, P> = TWithCreateService<T, P> & TWithFactoryService<any> & TWithRegistryService<any>;
 
-vi.mock('three/examples/jsm/loaders/DRACOLoader.js', () => {
-  return {
-    DRACOLoader: class {
-      setDecoderPath = vi.fn();
-      load = vi.fn((_url: string, onLoad: any) => {
-        onLoad({ mock: 'geometry' });
-      });
-      dispose = vi.fn();
-      setDecoderConfig = vi.fn();
-      preload = vi.fn();
-    }
-  };
-});
-
-export function validateCommonServiceBehavior<T extends TRegistrable, P>(getData: () => Promise<{ service: TAnyMockService<T, P>; params: P }>): void {
+export function validateCommonServiceBehavior<T extends TRegistrable, P>(
+  getData: () => Promise<{
+    service: TAnyMockService<T, P>;
+    params: P;
+  }>
+): void {
   afterEach(() => {
     // const { service, params } = await getData();
     // return getService().getRegistry().clear();
