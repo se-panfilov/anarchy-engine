@@ -28,7 +28,7 @@
   "dependencies": {
     "anarchy-engine": "*",
     "anarchy_engine_shared": "*",
-    "showcases_menu": "*",
+    "showcases-menu": "*",
     "showcases_shared": "*",
     "anarchy-i18n": "*",
     "lil-gui": "0.20.0",

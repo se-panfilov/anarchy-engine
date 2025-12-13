@@ -2,7 +2,7 @@ import type { TIntersectionEvent, TIntersectionsCameraWatcher, TModel3d, TModels
 import { spaceService } from '@Engine';
 import { asRecord, isNotDefined } from '@Shared/Utils';
 import { filter, Subject } from 'rxjs';
-import { initMenuApp } from 'showcases_menu/src/main';
+import { initMenuApp } from 'showcases-menu/src/main';
 
 import { runtimeEnv } from '@/env';
 import { openMainMenu } from '@/Levels/Showcase28Menu/MainMenuService';

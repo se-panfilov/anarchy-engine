@@ -14,7 +14,7 @@
       "@ShowcasesShared": ["packages/showcases_shared/src/index.ts"],
       "@E2E/*": ["apps/e2e/src/*"],
       "@E2E": ["apps/e2e/src/index.ts"],
-      "showcases_menu/src/main": ["apps/showcases/types/showcases_menu-shim"],
+      "showcases-menu/src/main": ["apps/showcases/types/showcases-menu-shim"],
       "platform:api": ["apps/showcases/src/Platform/Drivers/web"]
     }
   },
