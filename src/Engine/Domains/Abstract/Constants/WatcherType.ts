@@ -1,6 +1,6 @@
 export enum WatcherType {
-  MouseClickWatcher = 'MouseClickWatcher',
-  MousePositionWatcher = 'MousePositionWatcher',
-  ScreenSizeWatcher = 'ScreenSizeWatcher',
-  IntersectionWatcher = 'IntersectionWatcher'
+  MouseClickWatcher = 'mouse_click_watcher',
+  MousePositionWatcher = 'mouse_position_watcher',
+  ScreenSizeWatcher = 'screen_size_watcher',
+  IntersectionWatcher = 'intersection_watcher'
 }
