@@ -41,6 +41,8 @@ export function buildSpaceFromConfig(canvas: IAppCanvas, config: ISpaceConfig): 
   }
   const { name, actors, cameras, lights, fogs, texts, controls, scenes, tags } = config;
 
+  // TODO (S.Panfilov) CWP do not init space if the param set to false, or init namely what is set to true
+
   screenService.setCanvas(canvas);
 
   const messages$: ReplaySubject<string> = new ReplaySubject<string>();
