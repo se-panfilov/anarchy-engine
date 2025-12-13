@@ -1,6 +1,9 @@
+import type { Subscription } from 'rxjs';
 import { Subject } from 'rxjs';
 
 import type { TActorParams } from '@/Engine/Actor';
+import type { TDestroyable } from '@/Engine/Mixins';
+import { destroyableMixin } from '@/Engine/Mixins';
 import type { TSpatialCellWrapper, TSpatialGridWrapper } from '@/Engine/Spatial';
 import { SpatialUpdatePriority } from '@/Engine/Spatial';
 import type { TSpatialData, TWithSpatial } from '@/Engine/Spatial/Models';
@@ -10,7 +13,9 @@ export function withSpatial(params: TActorParams): TWithSpatial {
   let _isAutoUpdate: boolean = params.spatial.isAutoUpdate;
   const cellsChanged$: Subject<ReadonlyArray<TSpatialCellWrapper>> = new Subject<ReadonlyArray<TSpatialCellWrapper>>();
 
-  return {
+  const destroyable: TDestroyable = destroyableMixin();
+
+  const result = {
     spatial: {
       data: {
         updatePriority: params.spatial.updatePriority ?? SpatialUpdatePriority.LOW,
@@ -58,13 +63,19 @@ export function withSpatial(params: TActorParams): TWithSpatial {
       resetSpatialCells(): void {
         this.setSpatialCells([]);
       },
-      destroy(): void {
-        this.resetGrid();
-        this.resetSpatialCells();
-        cellsChanged$.complete();
-        cellsChanged$.unsubscribe();
-      },
+      ...destroyable,
       cellsChanged$: cellsChanged$.asObservable()
     }
   };
+
+  const destroySub$: Subscription = destroyable.destroy$.subscribe((): void => {
+    destroySub$.unsubscribe();
+
+    result.spatial.resetGrid();
+    result.spatial.resetSpatialCells();
+    cellsChanged$.complete();
+    cellsChanged$.unsubscribe();
+  });
+
+  return result;
 }

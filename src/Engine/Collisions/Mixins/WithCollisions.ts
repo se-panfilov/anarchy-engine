@@ -4,6 +4,8 @@ import { filter, Subject } from 'rxjs';
 import type { TActor, TActorParams } from '@/Engine/Actor';
 import { CollisionsUpdatePriority } from '@/Engine/Collisions/Constants';
 import type { TCollisionCheckResult, TCollisionsData, TCollisionsLoopService, TCollisionsService, TWithCollisions } from '@/Engine/Collisions/Models';
+import type { TDestroyable } from '@/Engine/Mixins';
+import { destroyableMixin } from '@/Engine/Mixins';
 import type { TSpatialCellWrapper } from '@/Engine/Spatial';
 import type { TWriteable } from '@/Engine/Utils';
 import { isDefined } from '@/Engine/Utils';
@@ -13,6 +15,15 @@ export function withCollisions(params: TActorParams, collisionsService: TCollisi
   const value$: Subject<TCollisionCheckResult> = new Subject<TCollisionCheckResult>();
   let collisionsLoopServiceSub$: Subscription;
   let filterFn: ((o: TActor) => boolean) | undefined = undefined;
+
+  const destroyable: TDestroyable = destroyableMixin();
+  const destroySub$: Subscription = destroyable.destroy$.subscribe((): void => {
+    destroySub$.unsubscribe();
+
+    value$.complete();
+    value$.unsubscribe();
+    collisionsLoopServiceSub$.unsubscribe();
+  });
 
   // TODO test this code (should work)
   function getActorsToCheck(actor: TActor): ReadonlyArray<TActor> {
@@ -65,11 +76,7 @@ export function withCollisions(params: TActorParams, collisionsService: TCollisi
       setAutoUpdate(value: boolean): void {
         _isAutoUpdate = value;
       },
-      destroy: (): void => {
-        value$.complete();
-        value$.unsubscribe();
-        collisionsLoopServiceSub$.unsubscribe();
-      },
+      ...destroyable,
       value$: value$.asObservable()
     }
   };

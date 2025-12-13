@@ -4,6 +4,8 @@ import type { CSS2DRenderer } from 'three/examples/jsm/renderers/CSS2DRenderer';
 import type { CSS3DRenderer } from 'three/examples/jsm/renderers/CSS3DRenderer';
 
 import type { TAppGlobalContainer } from '@/Engine/Global';
+import type { TDestroyable } from '@/Engine/Mixins';
+import { destroyableMixin } from '@/Engine/Mixins';
 import type { TScreenSizeValues, TScreenSizeWatcher } from '@/Engine/Screen';
 import type { TextCssClass, TextRendererType } from '@/Engine/Text/Constants';
 import { RelatedEntityAttribute } from '@/Engine/Text/Constants';
@@ -36,10 +38,13 @@ export function getTextRenderer<T extends CSS2DRenderer | CSS3DRenderer>(
 
   const screenSize$: Subscription = screenSizeWatcher.value$.subscribe(updateSize);
 
-  function destroy(): void {
+  const destroyable: TDestroyable = destroyableMixin();
+  const destroySub$: Subscription = destroyable.destroy$.subscribe((): void => {
+    destroySub$.unsubscribe();
+
     screenSize$.unsubscribe();
     renderer.domElement.remove();
-  }
+  });
 
-  return { id, type, renderer, destroy, updateSize };
+  return { id, type, renderer, updateSize, ...destroyable };
 }
