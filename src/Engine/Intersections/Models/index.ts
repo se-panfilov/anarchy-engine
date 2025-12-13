@@ -1,3 +1,4 @@
+export * from './IIntersectionConfig';
 export * from './IIntersectionEvent';
 export * from './IIntersectionsService';
 export * from './IIntersectionsWatcher';

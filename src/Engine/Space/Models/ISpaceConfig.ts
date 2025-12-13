@@ -2,6 +2,7 @@ import type { IActorConfig } from '@/Engine/Actor';
 import type { ICameraConfig } from '@/Engine/Camera';
 import type { IControlsConfig } from '@/Engine/Controls';
 import type { IFogConfig } from '@/Engine/Fog';
+import type { IIntersectionConfig } from '@/Engine/Intersections';
 import type { ILightConfig } from '@/Engine/Light';
 import type { IWithReadonlyTags } from '@/Engine/Mixins';
 import type { ISceneConfig } from '@/Engine/Scene';
@@ -14,6 +15,7 @@ export type ISpaceConfig = Readonly<{
   scenes: ReadonlyArray<ISceneConfig>;
   actors: ReadonlyArray<IActorConfig>;
   cameras: ReadonlyArray<ICameraConfig>;
+  intersections: ReadonlyArray<IIntersectionConfig>;
   lights: ReadonlyArray<ILightConfig>;
   fogs: ReadonlyArray<IFogConfig>;
   texts: ReadonlyArray<ITextConfig>;

@@ -1,7 +1,9 @@
+import type { IActorWrapperAsync } from '@/Engine/Actor';
 import type { IAppCanvas } from '@/Engine/App';
 import type { ICameraWrapper } from '@/Engine/Camera';
 import { ambientContext } from '@/Engine/Context';
 import type { IDataTexture } from '@/Engine/EnvMap';
+import type { IIntersectionConfig, IIntersectionsWatcher } from '@/Engine/Intersections';
 import type { ILoopTimes } from '@/Engine/Loop';
 import type { IDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
@@ -16,7 +18,7 @@ import { initServices } from '@/Engine/Space/SpaceHelpers';
 import { spaceLoop } from '@/Engine/Space/SpaceLoop';
 import type { IText2dRenderer, IText3dRenderer } from '@/Engine/Text';
 import { initText2dRenderer, initText3dRenderer } from '@/Engine/Text';
-import { isDestroyable, isNotDefined, validLevelConfig } from '@/Engine/Utils';
+import { isDefined, isDestroyable, isNotDefined, validLevelConfig } from '@/Engine/Utils';
 
 export function buildSpaceFromConfig(canvas: IAppCanvas, config: ISpaceConfig): ISpace {
   const { isValid, errors } = validLevelConfig(config);
@@ -26,7 +28,7 @@ export function buildSpaceFromConfig(canvas: IAppCanvas, config: ISpaceConfig): 
     throw new Error('Failed to launch a space: invalid data format');
   }
 
-  const { name, actors, cameras, lights, fogs, texts, controls, scenes, tags } = config;
+  const { name, actors, cameras, intersections, lights, fogs, texts, controls, scenes, tags } = config;
 
   screenService.setCanvas(canvas);
 
@@ -39,10 +41,10 @@ export function buildSpaceFromConfig(canvas: IAppCanvas, config: ISpaceConfig): 
     return activeScene;
   });
 
-  const { cameraService, controlsService, lightService, loopService, fogService, envMapService, textService, rendererService } = services;
+  const { actorService, cameraService, controlsService, lightService, loopService, fogService, envMapService, textService, rendererService, intersectionsService } = services;
 
   cameraService.createFromConfig(cameras);
-  services.actorService.createFromConfig(actors);
+  actorService.createFromConfig(actors);
 
   const text2dRenderer: IText2dRenderer = initText2dRenderer(ambientContext.container.getAppContainer(), ambientContext.screenSizeWatcher);
   const text3dRenderer: IText3dRenderer = initText3dRenderer(ambientContext.container.getAppContainer(), ambientContext.screenSizeWatcher);
@@ -52,8 +54,21 @@ export function buildSpaceFromConfig(canvas: IAppCanvas, config: ISpaceConfig): 
   lightService.createFromConfig(lights);
 
   //build intersections
-  // TODO (S.Panfilov) We need to load intersections from config as well as the other entities
-  // intersectionsService.createFromConfig(intersections);
+  if (isDefined(intersections) && intersections.length > 0) {
+    actorService.getRegistry().added$.subscribe((actorWrapper: IActorWrapperAsync): void => {
+      if (isDefined(actorWrapper.name)) {
+        const intersection: IIntersectionConfig | undefined = intersections.find((int: IIntersectionConfig) => isDefined(actorWrapper.name) && int.actorNames.includes(actorWrapper.name));
+        if (isNotDefined(intersection)) return;
+        const camera: ICameraWrapper | undefined = cameraService.getRegistry().findByName(intersection.cameraName);
+        if (isNotDefined(camera)) throw new Error(`Intersections: Cannot find camera ("${intersection.cameraName}") for actor ("${actorWrapper.name}")`);
+        const watcherId: IIntersectionsWatcher = intersectionsService.buildWatcher(camera);
+        intersectionsService.addActorsToWatcher(watcherId.id, [actorWrapper]);
+      }
+      // TODO (S.Panfilov) turn of intersections watcher for inactive cameras (then turn on again on active)
+      // TODO (S.Panfilov) we need a normal logging from services (which service with which id do what)
+      // TODO (S.Panfilov) add validation for intersections config (names, uniq, patterns, etc)
+    });
+  }
 
   fogService.createFromConfig(fogs);
 

@@ -5,7 +5,7 @@
     "tags": {
       "type": "array",
       "items": {
-        "type": ["string"]
+        "type": "string"
       }
     },
     "name": {
@@ -30,6 +30,12 @@
       "type": "array",
       "items": {
         "$ref": "#/definitions/ICameraConfig"
+      }
+    },
+    "intersections": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/IIntersectionConfig"
       }
     },
     "lights": {
@@ -63,7 +69,7 @@
       }
     }
   },
-  "required": ["actors", "cameras", "controls", "envMaps", "fogs", "lights", "name", "scenes", "tags", "texts", "version"],
+  "required": ["actors", "cameras", "controls", "envMaps", "fogs", "intersections", "lights", "name", "scenes", "tags", "texts", "version"],
   "definitions": {
     "SpaceSchemaVersion": {
       "type": "string",
@@ -75,7 +81,7 @@
         "tags": {
           "type": "array",
           "items": {
-            "type": ["string"]
+            "type": "string"
           }
         },
         "visible": {
@@ -166,7 +172,7 @@
         "tags": {
           "type": "array",
           "items": {
-            "type": ["string"]
+            "type": "string"
           }
         },
         "layers": {
@@ -2359,7 +2365,7 @@
         "tags": {
           "type": "array",
           "items": {
-            "type": ["string"]
+            "type": "string"
           }
         },
         "name": {
@@ -2674,7 +2680,7 @@
         "tags": {
           "type": "array",
           "items": {
-            "type": ["string"]
+            "type": "string"
           }
         },
         "layers": {
@@ -2731,13 +2737,28 @@
       },
       "required": ["isActive", "position", "tags"]
     },
+    "IIntersectionConfig": {
+      "type": "object",
+      "properties": {
+        "cameraName": {
+          "type": "string"
+        },
+        "actorNames": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": ["cameraName", "actorNames"]
+    },
     "ILightConfig": {
       "type": "object",
       "properties": {
         "tags": {
           "type": "array",
           "items": {
-            "type": ["string"]
+            "type": "string"
           }
         },
         "layers": {
@@ -2835,7 +2856,7 @@
         "tags": {
           "type": "array",
           "items": {
-            "type": ["string"]
+            "type": "string"
           }
         },
         "color": {
@@ -2859,14 +2880,7 @@
         "tags": {
           "type": "array",
           "items": {
-            "anyOf": [
-              {
-                "$ref": "#/definitions/TextTag"
-              },
-              {
-                "type": "string"
-              }
-            ]
+            "type": "string"
           }
         },
         "layers": {
@@ -2931,10 +2945,6 @@
         }
       },
       "required": ["position", "tags", "text", "type"]
-    },
-    "TextTag": {
-      "type": "string",
-      "enum": ["ui", "action"]
     },
     "TextType": {
       "type": "string",
@@ -4406,14 +4416,7 @@
         "tags": {
           "type": "array",
           "items": {
-            "anyOf": [
-              {
-                "$ref": "#/definitions/ControlsTag"
-              },
-              {
-                "type": "string"
-              }
-            ]
+            "type": "string"
           }
         },
         "type": {
@@ -4532,10 +4535,6 @@
         }
       },
       "required": ["cameraName", "isActive", "tags", "type"]
-    },
-    "ControlsTag": {
-      "type": "string",
-      "const": "orbit"
     },
     "ControlsType": {
       "type": "string",

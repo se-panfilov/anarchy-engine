@@ -23,16 +23,32 @@
       "tags": []
     },
     {
+      "name": "actor1",
       "type": "sphere",
       "width": 32,
       "height": 32,
       "material": { "type": "standard", "params": { "color": "#E91E63" } },
       "position": { "x": 0, "y": 2, "z": 0 },
       "castShadow": true,
-      "tags": ["intersectable"]
+      "tags": []
+    },
+    {
+      "name": "actor2",
+      "type": "sphere",
+      "width": 32,
+      "height": 32,
+      "material": { "type": "standard", "params": { "color": "#E91E00" } },
+      "position": { "x": 0, "y": 2, "z": 0 },
+      "castShadow": true,
+      "tags": []
     }
   ],
-  "intersections": [],
+  "interactions": [
+    {
+      "cameraName": "main",
+      "actorName": ["actor1", "actor2"]
+    }
+  ],
   "texts": [],
   "cameras": [
     {
