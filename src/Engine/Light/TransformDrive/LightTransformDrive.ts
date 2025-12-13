@@ -11,7 +11,7 @@ export function LightTransformDrive(params: TLightParams): TLightTransformDrive 
 }
 
 function getTransformAgents(params: TLightParams): TLightTransformAgents {
-  const agentParams: TTransformAgentParams = { position: params.position, rotation: params.rotation, scale: params.scale ?? new Vector3(1, 1, 1) };
+  const agentParams: TTransformAgentParams = { position: params.position, rotation: params.rotation, scale: params.scale ?? new Vector3(1, 1, 1), onDeactivated: undefined, onActivated: undefined };
   const connectedTransformAgent: TConnectedTransformAgent = ConnectedTransformAgent(agentParams);
   const defaultTransformAgent: TDefaultTransformAgent = DefaultTransformAgent(agentParams);
   return {

@@ -11,7 +11,8 @@ export function ActorTransformDrive(params: TActorParams, dependencies: TActorTr
 }
 
 function getTransformAgents(params: TActorParams, { kinematicLoopService, physicsBodyService, physicsLoopService }: TActorTransformDriveDependencies): TActorTransformAgents {
-  const agentParams: TTransformAgentParams = { position: params.position, rotation: params.rotation, scale: params.scale ?? new Vector3(1, 1, 1) };
+  //PhysicsTransformAgent might need a special "onDeactivated" hook if it supposed to switch physics/non-physics mode in runtime
+  const agentParams: TTransformAgentParams = { position: params.position, rotation: params.rotation, scale: params.scale ?? new Vector3(1, 1, 1), onDeactivated: undefined, onActivated: undefined };
   const kinematicTransformAgent: TKinematicTransformAgent = getKinematicTransformAgent(agentParams, params.kinematic, { kinematicLoopService });
   const physicsTransformAgent: TPhysicsTransformAgent = getPhysicsTransformAgent(agentParams, params.physics, { physicsLoopService, physicsBodyService });
   const connectedTransformAgent: TConnectedTransformAgent = ConnectedTransformAgent(agentParams);

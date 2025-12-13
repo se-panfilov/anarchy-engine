@@ -45,8 +45,6 @@ export function PhysicsTransformAgent(params: TPhysicsTransformAgentParams, { ph
 
   const physicsBody$: BehaviorSubject<TPhysicsBody | undefined> = new BehaviorSubject<TPhysicsBody | undefined>(undefined);
 
-  // TODO 8.0.0. MODELS: apply position from an external source
-
   const agent: TPhysicsTransformAgent = {
     ...abstractTransformAgent,
     rotationQuaternion$,
