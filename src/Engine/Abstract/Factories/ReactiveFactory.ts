@@ -7,7 +7,7 @@ import { destroyableMixin } from '@/Engine/Mixins';
 
 import { AbstractFactory } from './AbstractFactory';
 
-export function ReactiveFactory<T, P, D = Record<string, any>, H extends TAbstractHooks = undefined>(
+export function ReactiveFactory<T, P, D = Record<string, any> | undefined, H extends TAbstractHooks = undefined>(
   type: FactoryType | string,
   createEntityFn: TCreateEntityFactoryFn<T, P, D, H>
 ): TReactiveFactory<T, P, D, H> {

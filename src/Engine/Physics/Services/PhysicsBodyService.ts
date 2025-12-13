@@ -35,7 +35,7 @@ export function PhysicsBodyService(
   const create = (params: TPhysicsBodyParams): TPhysicsBody | never => {
     const world: World | undefined = physicsWorldService.getWorld();
     if (isNotDefined(world)) throw new Error('Cannot create physics body: physical world is not defined');
-    return factory.create(params, { world });
+    return factory.create(params, { world }, undefined);
   };
 
   const createFromList = (list: ReadonlyArray<TPhysicsBodyParams>): ReadonlyArray<TPhysicsBody> => list.map((params: TPhysicsBodyParams): TPhysicsBody => create(params));

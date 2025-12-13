@@ -24,7 +24,7 @@ export function SpaceService(factory: TSpaceFactory, registry: TSpaceRegistry): 
   const disposable: ReadonlyArray<TDisposable> = [registry, factory, factorySub$];
   const abstractService: TAbstractService = AbstractService(disposable);
 
-  const createFromConfig = (spaces: ReadonlyArray<TSpaceConfig>, hooks?: TSpaceHooks): ReadonlyArray<TSpace> => {
+  const createFromConfig = (spaces: ReadonlyArray<TSpaceConfig>, hooks: TSpaceHooks): ReadonlyArray<TSpace> => {
     return spaces.map((config: TSpaceConfig): TSpace => {
       hooks?.beforeConfigValidation?.(config);
       validateConfig(config);

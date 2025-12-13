@@ -24,7 +24,7 @@ export function ActorService(factory: TActorFactory, registry: TActorRegistry, a
   const disposable: ReadonlyArray<TDisposable> = [registry, factory, registrySub$, factorySub$];
   const abstractService: TAbstractService = AbstractService(disposable);
 
-  const create = (params: TActorParams): TActor => factory.create(params, actorServiceDependencies);
+  const create = (params: TActorParams): TActor => factory.create(params, actorServiceDependencies, undefined);
   const createFromList = (list: ReadonlyArray<TActorParams>): ReadonlyArray<TActor> => list.map((params: TActorParams): TActor => create(params));
   const createFromConfig = (actors: ReadonlyArray<TActorConfig>): ReadonlyArray<TActor> => {
     const spatialGridRegistry: TSpatialGridRegistry = actorServiceDependencies.spatialGridService.getRegistry();
