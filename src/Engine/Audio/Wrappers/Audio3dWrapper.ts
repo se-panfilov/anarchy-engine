@@ -1,7 +1,6 @@
 import type { Observable, Subscription } from 'rxjs';
-import { BehaviorSubject, distinctUntilChanged, filter, sample, tap } from 'rxjs';
+import { BehaviorSubject, combineLatest, distinctUntilChanged, filter, sample, tap } from 'rxjs';
 import { Vector3 } from 'three';
-import type { Vector3Like } from 'three/src/math/Vector3';
 
 import { AbstractWrapper, WrapperType } from '@/Engine/Abstract';
 import type { TAudio3dParams, TAudio3dWrapper, TAudio3dWrapperDependencies } from '@/Engine/Audio/Models';
@@ -17,9 +16,8 @@ import { isEqualOrSimilarByXyzCoords } from '@/Engine/Utils';
 // TODO 11.0.0: transform drive position? (connected?)
 export function Audio3dWrapper({ sound, volume, position, name, performance }: TAudio3dParams, { loopService }: TAudio3dWrapperDependencies): TAudio3dWrapper {
   const entity: Howl = sound;
-  const position$: BehaviorSubject<Vector3Like> = new BehaviorSubject<Vector3Like>(position);
-  const listenerPosition$: BehaviorSubject<Vector3Like> = new BehaviorSubject<Vector3Like>(new Vector3());
-  const updateVolume$: BehaviorSubject<Vector3Like> = new BehaviorSubject<Vector3Like>(position);
+  const position$: BehaviorSubject<TReadonlyVector3> = new BehaviorSubject<TReadonlyVector3>(position);
+  const listenerPosition$: BehaviorSubject<TReadonlyVector3> = new BehaviorSubject<TReadonlyVector3>(new Vector3());
   // TODO 11.0.0: should use decibels instead of number?
   const volume$: BehaviorSubject<number> = new BehaviorSubject<number>(volume);
 
@@ -31,23 +29,23 @@ export function Audio3dWrapper({ sound, volume, position, name, performance }: T
 
   const audioLoop: TAudioLoop = loopService.getAudioLoop();
 
-  const updateVolumeSub$: Subscription = updateVolume$
+  const sourcePositionUpdate$: Observable<TReadonlyVector3> = onPositionUpdate(position$, noiseThreshold);
+  const listenerPositionUpdate$: Observable<TReadonlyVector3> = onPositionUpdate(listenerPosition$, noiseThreshold);
+
+  const updateVolumeSub$: Subscription = combineLatest([sourcePositionUpdate$, listenerPositionUpdate$])
     .pipe(
       sample(audioLoop.tick$),
       // TODO 11.0.0: check filter logic
       filter((): boolean => updatePriority < audioLoop.priority$.value)
     )
-    .subscribe((): void => {
-      volume$.next(calculateVolume(soundPosition, listenerPos));
-      const relativePos = soundPosition.sub(listenerPos);
-      entity.pos(relativePos);
+    .subscribe(([sourcePosition, listenerPos]: [TReadonlyVector3, TReadonlyVector3]): void => {
+      volume$.next(calculateVolume(sourcePosition, listenerPos));
+      const relativePos: TReadonlyVector3 = sourcePosition.clone().sub(listenerPos);
+      entity.pos(relativePos.x, relativePos.y, relativePos.z);
     });
 
-  const positionChangeSub$: Subscription = onPositionUpdate(position$, noiseThreshold).subscribe((position: Vector3Like): void => updateVolume$.next(position));
-  const listenerPositionChangeSub$: Subscription = onPositionUpdate(listenerPosition$, noiseThreshold).subscribe((position: Vector3Like): void => updateVolume$.next(position));
-
   // TODO 11.0.0: should use decibels instead of number?
-  function calculateVolume(sourcePosition: Vector3, listenerPos: Vector3Like): number {
+  function calculateVolume(sourcePosition: TReadonlyVector3, listenerPos: TReadonlyVector3): number {
     // const distance: TMeters = getDistance(sourcePosition, listenerPos);
     const distance: TMeters = sourcePosition.distanceTo(listenerPos) as TMeters;
 
@@ -55,24 +53,15 @@ export function Audio3dWrapper({ sound, volume, position, name, performance }: T
     return Math.max(0, 1 - distance / 20);
   }
 
-  // function getDistance(posA: Float32Array, posB: Float32Array): TMeters {
-  //   return meters(Math.hypot(posA[0] - posB[0], posA[1] - posB[1], posA[2] - posB[2]));
-  // }
-
   const destroyable: TDestroyable = destroyableMixin();
   const destroySub$: Subscription = destroyable.destroy$.subscribe((): void => {
     destroySub$.unsubscribe();
 
-    positionChangeSub$.unsubscribe();
-    listenerPositionChangeSub$.unsubscribe();
     volumeSub.unsubscribe();
     updateVolumeSub$.unsubscribe();
 
     position$.complete();
     position$.unsubscribe();
-
-    updateVolume$.complete();
-    updateVolume$.unsubscribe();
 
     volume$.complete();
     volume$.unsubscribe();
@@ -90,12 +79,14 @@ export function Audio3dWrapper({ sound, volume, position, name, performance }: T
   };
 }
 
-function onPositionUpdate<T extends Vector3Like | Vector3 | TReadonlyVector3>(position$: BehaviorSubject<T>, noiseThreshold?: number): Observable<T> {
+function onPositionUpdate(position$: BehaviorSubject<TReadonlyVector3>, noiseThreshold?: number): Observable<TReadonlyVector3> {
   const prevValue: Float32Array = new Float32Array([0, 0, 0]);
 
   return position$.pipe(
-    distinctUntilChanged((_prev: T, curr: T): boolean => isEqualOrSimilarByXyzCoords(prevValue[0], prevValue[1], prevValue[2], curr.x, curr.y, curr.z, noiseThreshold ?? 0)),
-    tap((value: T): void => {
+    distinctUntilChanged((_prev: TReadonlyVector3, curr: TReadonlyVector3): boolean =>
+      isEqualOrSimilarByXyzCoords(prevValue[0], prevValue[1], prevValue[2], curr.x, curr.y, curr.z, noiseThreshold ?? 0)
+    ),
+    tap((value: TReadonlyVector3): void => {
       // eslint-disable-next-line functional/immutable-data
       prevValue[0] = value.x;
       // eslint-disable-next-line functional/immutable-data
