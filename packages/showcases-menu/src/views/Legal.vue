@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import Navigation from '@Showcases/Menu/components/Navigation.vue';
+import Navigation from '@Showcases/Menu/components/Navigation/Navigation.vue';
 import SettingsGroup from '@Showcases/Menu/components/SettingsGroup.vue';
 import View from '@Showcases/Menu/components/View.vue';
 import ViewForm from '@Showcases/Menu/components/ViewForm.vue';

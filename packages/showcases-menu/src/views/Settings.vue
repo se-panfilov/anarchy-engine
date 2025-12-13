@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import Navigation from '@Showcases/Menu/components/Navigation.vue';
+import Navigation from '@Showcases/Menu/components/Navigation/Navigation.vue';
 import PageTitle from '@Showcases/Menu/components/PageTitle.vue';
 import { Routes } from '@Showcases/Menu/constants';
 import type { TVueNavOption } from '@Showcases/Menu/models';
