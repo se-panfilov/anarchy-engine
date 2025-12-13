@@ -19,7 +19,7 @@ export function MousePositionWatcher({ container, tags, performance }: TMousePos
   const updateDelay: number = performance?.updateDelay ?? 2; // 480 FPS (when 16 is 60 FPS)
   const threshold: number = performance?.updateDelay ?? 0.001;
 
-  // TODO Instead of loopService.tick$, mouse should have own loop (with configurable tick speed)
+  // TODO LOOP: Instead of loopService.tick$, mouse should have own loop (with configurable tick speed)
   loopService.tick$
     .pipe(
       distinctUntilChanged((): boolean => isEqualOrSimilarVector2Like(prevPosition, position, threshold)),
