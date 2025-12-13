@@ -960,6 +960,9 @@
         },
         "triggerNoIntersections": {
           "type": "boolean"
+        },
+        "isDistinct": {
+          "type": "boolean"
         }
       },
       "required": ["actorNames", "cameraName", "isAutoStart", "name"]

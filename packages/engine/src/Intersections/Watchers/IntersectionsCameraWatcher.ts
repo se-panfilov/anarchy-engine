@@ -62,11 +62,15 @@ export function IntersectionsCameraWatcher(params: TIntersectionsCameraWatcherPa
 
       const intersection: TIntersectionEvent | undefined = getIntersection(position as Vector2, camera, abstractIntersectionsWatcher.getModelsFromActors());
       if (isDefined(intersection)) {
-        abstractIntersectionsWatcher.value$.next(intersection);
-        isPrevValueUndefined = false;
-      } else if (params.triggerNoIntersections && !isPrevValueUndefined) {
-        abstractIntersectionsWatcher.value$.next(undefined);
-        isPrevValueUndefined = true;
+        if (!params.isDistinct || (params.isDistinct && isPrevValueUndefined)) {
+          abstractIntersectionsWatcher.value$.next(intersection);
+          isPrevValueUndefined = false;
+        }
+      } else if (params.triggerNoIntersections) {
+        if (!params.isDistinct || (params.isDistinct && !isPrevValueUndefined)) {
+          abstractIntersectionsWatcher.value$.next(undefined);
+          isPrevValueUndefined = true;
+        }
       }
     });
 
