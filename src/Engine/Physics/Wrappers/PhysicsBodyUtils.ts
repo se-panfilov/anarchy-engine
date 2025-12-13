@@ -1,5 +1,5 @@
-import type { Collider, RigidBody, World } from '@dimforge/rapier3d';
-import { ColliderDesc, RigidBodyDesc, TriMeshFlags } from '@dimforge/rapier3d';
+import type { Collider, RigidBody, TriMeshFlags, World } from '@dimforge/rapier3d';
+import { ColliderDesc, RigidBodyDesc } from '@dimforge/rapier3d';
 
 import { coordsXYZToMeters, meters } from '@/Engine/Measurements/Utils';
 import type { TWithCoordsXYZ } from '@/Engine/Mixins';
@@ -17,6 +17,7 @@ import type {
   TPhysicsBodyPolylineParams,
   TPhysicsBodyRoundTriangleParams,
   TPhysicsBodyTriangleParams,
+  TPhysicsBodyTriMeshParams,
   TPhysicsPresetParams
 } from '@/Engine/Physics/Models';
 import type { TOptional } from '@/Engine/Utils';
@@ -108,7 +109,8 @@ export function getColliderDesc(params: TPhysicsPresetParams): ColliderDesc | ne
 export function paramsToMeters(params: TPhysicsBodyParams): TOptional<TAllPhysicsBodyParams> {
   const vertices: Float32Array | undefined = (params as TPhysicsBodyPolylineParams).vertices;
   const indices: Uint32Array | undefined = (params as TPhysicsBodyPolylineParams).indices;
-  // const flags: TriMeshFlags | HeightFieldFlags | undefined = (params as TPhysicsBodyTriMeshParams).flags;
+  // "flags" as undefined to suppress a buf with TS
+  const flags: TriMeshFlags | undefined = (params as TPhysicsBodyTriMeshParams).flags as undefined;
   const heights: Float32Array | undefined = (params as TPhysicsBodyHeightfieldParams).heights;
   const nrows: number | undefined = (params as TPhysicsBodyHeightfieldParams).nrows;
   const ncols: number | undefined = (params as TPhysicsBodyHeightfieldParams).ncols;
@@ -125,5 +127,5 @@ export function paramsToMeters(params: TPhysicsBodyParams): TOptional<TAllPhysic
   const scale: TWithCoordsXYZ | undefined = (params as TPhysicsBodyHeightfieldParams).scale ? coordsXYZToMeters((params as TPhysicsBodyHeightfieldParams).scale) : undefined;
   const normal: TWithCoordsXYZ | undefined = (params as TPhysicsBodyHalfSpaceParams).normal ? coordsXYZToMeters((params as TPhysicsBodyHalfSpaceParams).normal) : undefined;
 
-  return { a, b, c, borderRadius, nrows, ncols, normal, heights, scale, halfHeight, flags: TriMeshFlags.ORIENTED, radius, hx, hy, hz, vertices, indices };
+  return { a, b, c, borderRadius, nrows, ncols, normal, heights, scale, halfHeight, flags, radius, hx, hy, hz, vertices, indices };
 }
