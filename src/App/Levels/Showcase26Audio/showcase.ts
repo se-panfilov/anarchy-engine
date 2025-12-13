@@ -1,8 +1,8 @@
 import GUI from 'lil-gui';
-import type { AnimationAction } from 'three';
+import type { AnimationAction, AudioListener } from 'three';
 
 import type { TShowcase } from '@/App/Levels/Models';
-import type { TActor, TAppCanvas, TAudioWrapper, TEngine, TModel3d, TSpace, TSpaceConfig, TSpaceServices } from '@/Engine';
+import type { TActor, TAppCanvas, TAudioWrapper, TCameraWrapper, TEngine, TModel3d, TSpace, TSpaceConfig, TSpaceServices } from '@/Engine';
 import { Engine, isNotDefined, spaceService } from '@/Engine';
 
 import spaceConfig from './showcase.json';
@@ -11,6 +11,15 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
   const space: TSpace = await spaceService.buildSpaceFromConfig(canvas, spaceConfig as TSpaceConfig);
   const engine: TEngine = Engine(space);
   const gui: GUI = new GUI();
+
+  const { audioService, cameraService } = space.services;
+  const mainListener: AudioListener | undefined = audioService.getMainListener();
+
+  const camera: TCameraWrapper | undefined = cameraService.findActive();
+  if (isNotDefined(camera)) throw new Error('Active camera listener is not found');
+  if (isNotDefined(mainListener)) throw new Error('Main audio listener is not found');
+  // TODO 11.0.0: add method to the wrapper, to add listener to the camera (also let it work from config)
+  camera.entity.add(mainListener);
 
   function init(): void {
     initMutant('mutant_actor_1', space.services);

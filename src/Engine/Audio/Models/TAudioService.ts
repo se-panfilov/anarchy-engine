@@ -1,8 +1,11 @@
+import type { AudioListener } from 'three';
+
 import type { TDestroyable } from '@/Engine/Mixins';
 import type { TWithCreateFromConfigService, TWithCreateService, TWithFactoryService, TWithLoadResourcesAsyncService, TWithRegistryService, TWithResourcesRegistryService } from '@/Engine/Space';
 
 import type { TAudioConfig } from './TAudioConfig';
 import type { TAudioFactory } from './TAudioFactory';
+import type { TAudioListenersRegistry } from './TAudioListenersRegistry';
 import type { TAudioParams } from './TAudioParams';
 import type { TAudioRegistry } from './TAudioRegistry';
 import type { TAudioResourceAsyncRegistry } from './TAudioResourceAsyncRegistry';
@@ -14,5 +17,9 @@ export type TAudioService = TWithCreateService<TAudioWrapper, TAudioParams> &
   TWithFactoryService<TAudioFactory> &
   TWithRegistryService<TAudioRegistry> &
   TWithResourcesRegistryService<TAudioResourceAsyncRegistry> &
+  Readonly<{
+    getListenersRegistry: () => TAudioListenersRegistry;
+    getMainListener: () => AudioListener | undefined;
+  }> &
   TWithLoadResourcesAsyncService<TAudioResourceConfig, AudioBuffer> &
   TDestroyable;

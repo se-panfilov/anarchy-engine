@@ -31,6 +31,12 @@ export function Audio3dWrapper(params: TAudio3dParams, { audioLoop }: TAudioWrap
   const loop$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(params.loop ?? false);
   const volume$: BehaviorSubject<number> = new BehaviorSubject<number>(volume ?? 1);
 
+  if (params.refDistance) entity.setRefDistance(params.refDistance);
+  if (params.rolloffFactor) entity.setRolloffFactor(params.rolloffFactor);
+  if (params.distanceModel) entity.setDistanceModel(params.distanceModel);
+  if (params.maxDistance) entity.setMaxDistance(params.maxDistance);
+  if (params.directionalCone) entity.setDirectionalCone(params.directionalCone.x, params.directionalCone.y, params.directionalCone.z);
+
   const updatePriority: LoopUpdatePriority = performance?.updatePriority ?? LoopUpdatePriority.LOW;
   // TODO 11.0.0: maybe the default threshold should be higher?
   const noiseThreshold: TMeters = performance?.noiseThreshold ?? meters(0.000001);

@@ -14,7 +14,6 @@ export type TAudioBasicParams = Readonly<{
   speed?: number;
   seek?: number;
   pause?: boolean;
-  mute?: boolean;
   refDistance?: number;
   rolloffFactor?: number;
   distanceModel?: 'linear' | 'inverse' | 'exponential';

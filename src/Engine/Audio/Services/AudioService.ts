@@ -59,6 +59,8 @@ export function AudioService(
     getFactory: (): TAudioFactory => factory,
     getRegistry: (): TAudioRegistry => registry,
     getResourceRegistry: (): TAudioResourceAsyncRegistry => audioResourceAsyncRegistry,
+    getListenersRegistry: (): TAudioListenersRegistry => audioListenersRegistry,
+    getMainListener: (): AudioListener | undefined => audioListenersRegistry.findByKey(Listeners.Main),
     create,
     createFromConfig,
     loadAsync: audioLoader.loadAsync,

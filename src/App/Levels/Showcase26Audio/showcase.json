@@ -44,7 +44,6 @@
       {
         "audioSource": "persimmon_music",
         "name": "bg_music",
-        "listener": "main_listener",
         "position": {
           "x": 0,
           "y": 0,
@@ -54,7 +53,8 @@
       {
         "audioSource": "monster_sound",
         "name": "monster_singing",
-        "listener": "main_listener",
+        "refDistance": 1,
+        "maxDistance": 10,
         "position": {
           "x": 0,
           "y": 0,
