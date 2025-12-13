@@ -25,7 +25,6 @@ export function MousePositionWatcher({ container, tags, performance }: TMousePos
   // shouldUseDistinct might improve performance, however won't fire an event if the mouse is not moving (and actor or scene is moving)
   const shouldUseDistinct: boolean = performance?.shouldUseDistinct ?? false;
 
-  // TODO 10.0.0. LOOPS: Mouse should have an own loop independent from frame rate (driven by time)
   mouseLoop.tick$
     .pipe(
       shouldUseDistinct ? distinctUntilChanged((): boolean => isEqualOrSimilarByXyCoords(prevPosition[0], prevPosition[1], position[0], position[1], threshold)) : identity,
