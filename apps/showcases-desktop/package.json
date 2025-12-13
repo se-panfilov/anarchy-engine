@@ -29,6 +29,7 @@
     "build:win": "npm run build -- --win --x64 --arm64 && npm run clean:postbuild",
     "build:win:app": "npm run build -- --win --dir && npm run clean:postbuild",
     "build:win:nsis": "npm run build -- --win nsis && npm run clean:postbuild",
+    "make:png-to-ico": "node ../../packages/anarchy-shared/ScriptUtils/MakeIcoFromPng --in assets/icon.png --out assets/icon.ico",
     "check:circular-dependencies": "npx dpdm -T --no-warning --no-tree --exit-code circular:1 ./src/desktop-main.ts",
     "clean:postbuild": "rimraf dist/desktop-main.js dist/desktop-main.js.map dist/preload.js dist/preload.js.map dist/dist-desktop",
     "copy:legal-to-assets": "node ../../packages/anarchy-shared/ScriptUtils/CopyDir.js from=./legal to=./assets/legal",
