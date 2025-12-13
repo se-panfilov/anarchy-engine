@@ -5,6 +5,15 @@ import { app, BrowserWindow, dialog } from 'electron';
 import { dirname, join } from 'path';
 import { fileURLToPath } from 'url';
 
+export const windowDefaultSettings: TDesktopAppConfig = {
+  isOpenDevTools: false,
+  showInstantly: false,
+  isBorderless: false,
+  isResizable: true,
+  isFullScreenable: true,
+  isFullScreen: false
+};
+
 export function WindowService(): TWindowService {
   const __filename: string = fileURLToPath(import.meta.url);
   const __dirname: string = dirname(__filename);
@@ -23,13 +32,18 @@ export function WindowService(): TWindowService {
     return path;
   }
 
-  function createWindow(width: number, height: number, { isOpenDevTools }: TDesktopAppConfig): BrowserWindow {
+  function createWindow(width: number, height: number, { isOpenDevTools, showInstantly, isBorderless, isResizable, isFullScreenable, isFullScreen }: TDesktopAppConfig): BrowserWindow {
     const win = new BrowserWindow({
+      ...windowDefaultSettings,
       width,
       height,
       // TODO DESKTOP: Is Fullscreen or not should depend on the app settings
       // TODO DESKTOP: Change default fullscreen mode to "true"
-      fullscreen: false,
+      show: !showInstantly,
+      frame: !isBorderless,
+      resizable: isResizable,
+      fullscreenable: isFullScreenable,
+      fullscreen: isFullScreen,
       autoHideMenuBar: true,
       useContentSize: true,
       hiddenInMissionControl: true,

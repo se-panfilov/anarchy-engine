@@ -2,7 +2,8 @@ import type { PlatformActions } from '@Showcases/Desktop/Constants';
 import { appBeforeQuitHandler, appCrashHandler, appWindowAllClosedHandler, windowNavigateHandler, windowSecondInstanceHandler } from '@Showcases/Desktop/EventHandlers';
 import type { TDesktopAppConfig, TDesktopAppService, TDocsService, TFilesService, TSettingsService, TWindowService } from '@Showcases/Desktop/Models';
 import { DesktopAppService, DocsService, FilesService, handleAppRequest, SettingsService, WindowService } from '@Showcases/Desktop/Services';
-import { getDisplayInfo, hideMenuBar, noZoom, turnOffMenuBarAndHotkeys } from '@Showcases/Desktop/Utils';
+import { getWindowSizeSafe, hideMenuBar, noZoom, turnOffMenuBarAndHotkeys } from '@Showcases/Desktop/Utils';
+import type { TResolution } from '@Showcases/Shared';
 import { platformApiChannel } from '@Showcases/Shared';
 import type { BrowserWindow, IpcMainInvokeEvent } from 'electron';
 import { app, ipcMain } from 'electron';
@@ -21,7 +22,6 @@ const desktopAppSettings: TDesktopAppConfig = {
 // TODO DESKTOP: Fix Electron Security Warning (Insecure Content-Security-Policy) https://www.electronjs.org/docs/latest/tutorial/security
 // TODO DESKTOP: We need e2e eventually
 // TODO DESKTOP: Add .env files for different platforms (macos, windows, linux).
-// TODO DESKTOP: Does "exit to desktop" button displayed (and works)?
 // TODO DESKTOP: Send user locale to the app (then to menu) for translations
 
 const desktopAppService: TDesktopAppService = DesktopAppService(app);
@@ -32,10 +32,11 @@ const docsService: TDocsService = DocsService(filesService);
 
 ipcMain.handle(platformApiChannel, (event: IpcMainInvokeEvent, ...args: [PlatformActions | string, unknown]) => handleAppRequest({ settingsService, docsService, desktopAppService }, event, args));
 
-app.whenReady().then((): void => {
-  // TODO DESKTOP: use "getDisplayInfo()" as default settings, prioritize saved user settings and use hardcoded fallback settings. Same for fullscreen mode
-  const { width, height } = getDisplayInfo();
-  const win: BrowserWindow = windowService.createWindow(width, height, desktopAppSettings);
+app.whenReady().then(async (): Promise<void> => {
+  const settings = await settingsService.loadAppSettings();
+
+  const initialWindowSize: TResolution = getWindowSizeSafe();
+  const win: BrowserWindow = windowService.createWindow(initialWindowSize.width, initialWindowSize.height, desktopAppSettings);
 
   appWindowAllClosedHandler(app);
   turnOffMenuBarAndHotkeys();
