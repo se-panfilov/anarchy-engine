@@ -4,6 +4,5 @@ export type * from './TIntersectionsWatcherConfig';
 export type * from './TIntersectionsWatcherFactory';
 export type * from './TIntersectionsWatcherParams';
 export type * from './TIntersectionsWatcherPerformanceOptions';
-export type * from './TIntersectionsWatcherProps';
 export type * from './TIntersectionsWatcherRegistry';
 export type * from './TIntersectionsWatcherService';

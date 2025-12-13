@@ -1,5 +1,8 @@
-import type { TWithReadonlyTags } from '@/Engine/Mixins';
+import type { TIntersectionsWatcherParams } from './TIntersectionsWatcherParams';
 
-import type { TIntersectionsWatcherProps } from './TIntersectionsWatcherProps';
-
-export type TIntersectionsWatcherConfig = TIntersectionsWatcherProps & TWithReadonlyTags;
+export type TIntersectionsWatcherConfig = Omit<TIntersectionsWatcherParams, 'position$' | 'camera' | 'actors' | 'delay'> &
+  Readonly<{
+    cameraName: string;
+    actorNames: ReadonlyArray<string>;
+    isAutoStart: boolean;
+  }>;

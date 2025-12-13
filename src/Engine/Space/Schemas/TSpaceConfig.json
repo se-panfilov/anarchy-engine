@@ -1277,15 +1277,6 @@
       "type": "object",
       "additionalProperties": false,
       "properties": {
-        "tags": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "name": {
-          "type": "string"
-        },
         "cameraName": {
           "type": "string"
         },
@@ -1297,9 +1288,33 @@
         },
         "isAutoStart": {
           "type": "boolean"
+        },
+        "performance": {
+          "$ref": "#/definitions/TIntersectionsWatcherPerformanceOptions"
+        },
+        "name": {
+          "type": "string"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
         }
       },
       "required": ["actorNames", "cameraName", "isAutoStart"]
+    },
+    "TIntersectionsWatcherPerformanceOptions": {
+      "type": "object",
+      "properties": {
+        "noiseThreshold": {
+          "type": "number"
+        },
+        "shouldUseDistinct": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false
     },
     "TAnyLightConfig": {
       "anyOf": [
