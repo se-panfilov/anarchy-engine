@@ -9,6 +9,7 @@ import { getWrapperTypeByTextType } from '@Anarchy/Engine/Text/Wrappers/TextWrap
 import type { TDriveToTargetConnector } from '@Anarchy/Engine/TransformDrive';
 import { DriveToTargetConnector } from '@Anarchy/Engine/TransformDrive';
 import { applyObject3dParams } from '@Anarchy/Engine/Utils';
+import { FallBackFonts } from '@Anarchy/Shared/Constants';
 import { isDefined, isNotDefined, stripUnits, toPx, toRem } from '@Anarchy/Shared/Utils';
 import type { Subscription } from 'rxjs';
 import { distinctUntilChanged } from 'rxjs';
@@ -52,13 +53,13 @@ export function createTextTextureWrapper(params: TTextParams, type: TextType, de
 
     const fontSizeNoUnits: number = stripUnits(fontSize);
     // TODO DESKTOP: font-family doesn't apply!
-    const fontFamily: string | undefined = params.cssProps?.fontFamily;
+    const fontFamily: string | undefined = params.cssProps?.fontFamily || textTranslationService?.locale$.value.font;
 
     await document.fonts.ready;
-    await document.fonts.load(`${fontSize} ${fontFamily ?? 'Arial'}`, text);
+    await document.fonts.load(`${fontSize} ${fontFamily ?? FallBackFonts}`, text);
 
     // eslint-disable-next-line functional/immutable-data
-    context.font = `${fontSize} ${fontFamily ?? 'Arial'}`;
+    context.font = `${fontSize} ${fontFamily ?? FallBackFonts}`;
 
     const textMetrics: TextMetrics = context.measureText(text);
     const padding: number = fontSizeNoUnits * 0.2;
