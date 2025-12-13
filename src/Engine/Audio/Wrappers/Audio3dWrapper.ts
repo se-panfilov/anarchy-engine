@@ -23,15 +23,13 @@ export function Audio3dWrapper(params: TAudio3dParams, { audioLoop }: TAudioWrap
   const position$: BehaviorSubject<TReadonlyVector3> = new BehaviorSubject<TReadonlyVector3>(position);
   const listener$: BehaviorSubject<AudioListener | undefined> = new BehaviorSubject<AudioListener | undefined>(params.listener);
 
+  const play$: Subject<boolean> = new Subject<boolean>();
   const pause$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(params.pause ?? false);
   const fade$: Subject<TAudioFadeParams> = new Subject<TAudioFadeParams>();
   const speed$: BehaviorSubject<number> = new BehaviorSubject<number>(params.speed ?? 1);
   const seek$: BehaviorSubject<number> = new BehaviorSubject<number>(params.seek ?? 0);
   const loop$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(params.loop ?? false);
   const volume$: BehaviorSubject<number> = new BehaviorSubject<number>(volume ?? 1);
-
-  // TODO 11.0.0: make Subject for play
-  // TODO 11.0.0: do not start playing music before the audio context is ready (user must interact with the page first)
 
   // TODO debug
   // setTimeout((): void => {
@@ -44,6 +42,11 @@ export function Audio3dWrapper(params: TAudio3dParams, { audioLoop }: TAudioWrap
   const updatePriority: LoopUpdatePriority = performance?.updatePriority ?? LoopUpdatePriority.LOW;
   // TODO 11.0.0: maybe the default threshold should be higher?
   const noiseThreshold: TMeters = performance?.noiseThreshold ?? meters(0.000001);
+
+  const playSub$: Subscription = play$.pipe(distinctUntilChanged()).subscribe((isPlay: boolean): void => {
+    if (isPlay) return void entity.play();
+    else return void entity.stop();
+  });
 
   const volumeSub$: Subscription = volume$
     .pipe(
@@ -105,6 +108,7 @@ export function Audio3dWrapper(params: TAudio3dParams, { audioLoop }: TAudioWrap
   const destroyable: TDestroyable = destroyableMixin();
   const destroySub$: Subscription = destroyable.destroy$.subscribe((): void => {
     destroySub$.unsubscribe();
+    playSub$.unsubscribe();
     pauseSub$.unsubscribe();
     fadeSub$.unsubscribe();
     driveToTargetConnector.destroy$.next();
@@ -114,6 +118,8 @@ export function Audio3dWrapper(params: TAudio3dParams, { audioLoop }: TAudioWrap
     seekSub$.unsubscribe();
     loopSub$.unsubscribe();
 
+    play$.complete();
+    play$.unsubscribe();
     position$.complete();
     position$.unsubscribe();
     listener$.complete();
@@ -137,7 +143,7 @@ export function Audio3dWrapper(params: TAudio3dParams, { audioLoop }: TAudioWrap
   return {
     ...wrapper,
     drive,
-    play: (): void => void entity.play(),
+    play$,
     pause$,
     fade$,
     speed$,
