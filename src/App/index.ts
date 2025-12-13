@@ -10,13 +10,13 @@ import '@/App/style.css';
 // import { showcase } from '@/App/Levels/Showcase8Text3d';
 // import { showcase } from '@/App/Levels/Showcase9TexturesAndMaterials';
 // import { showcase } from '@/App/Levels/Showcase10ComplexMaterials';
-// import { showcase } from '@/App/Levels/Showcase11KeyboardAndMouse';
+import { showcase } from '@/App/Levels/Showcase11KeyboardAndMouse';
 // import { showcase } from '@/App/Levels/Showcase12Light';
 // import { showcase } from '@/App/Levels/Showcase13Fog';
 // import { showcase } from '@/App/Levels/Showcase14SwitchingActiveCamera';
 // import { showcase } from '@/App/Levels/Showcase15ConfigurableIntersections';
 // import { showcase } from '@/App/Levels/Showcase16Distance';
-import { showcase } from '@/App/Levels/Showcase17Particles';
+// import { showcase } from '@/App/Levels/Showcase17Particles';
 import type { IAppCanvas } from '@/Engine';
 import { ambientContext, isNotDefined } from '@/Engine';
 

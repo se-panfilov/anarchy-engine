@@ -16,7 +16,7 @@ import type {
   ISpace,
   ISpaceConfig
 } from '@/Engine';
-import { buildSpaceFromConfig, defaultMoverServiceConfig, Easing, Engine, isNotDefined, KeyCode, LookUpStrategy, mouseService } from '@/Engine';
+import { buildSpaceFromConfig, defaultMoverServiceConfig, Easing, Engine, isNotDefined, KeyCode, LookUpStrategy, mouseService, mpsSpeed } from '@/Engine';
 import { MoverService } from '@/Engine/Services/MoverService/MoverService';
 
 import spaceConfig from './showcase.json';
@@ -62,21 +62,19 @@ export function showcase(canvas: IAppCanvas): IShowcase {
     if (isNotDefined(actorMkeyForward)) throw new Error('Actor mkey Forward is not defined');
     if (isNotDefined(actorMkeyExtra)) throw new Error('Actor mkey Extra is not defined');
 
-    // TODO (S.Panfilov) CWP We need a speed service and to set units (1 unit = 1 meter)
-
-    onKey(KeyCode.W).pressing$.subscribe(({ delta }): void => void actorKeyboard.addZ(-10 * delta.delta));
+    onKey(KeyCode.W).pressing$.subscribe(({ delta }): void => void actorKeyboard.addZ(mpsSpeed(-10, delta.delta)));
     onKey(KeyCode.W).pressed$.subscribe((): void => void actorKeyW.addY(-0.2));
     onKey(KeyCode.W).released$.subscribe((): void => void actorKeyW.addY(0.2));
 
-    onKey(KeyCode.A).pressing$.subscribe(({ delta }): void => void actorKeyboard.addX(-10 * delta.delta));
+    onKey(KeyCode.A).pressing$.subscribe(({ delta }): void => void actorKeyboard.addX(mpsSpeed(-10, delta.delta)));
     onKey(KeyCode.A).pressed$.subscribe((): void => void actorKeyA.addY(-0.2));
     onKey(KeyCode.A).released$.subscribe((): void => void actorKeyA.addY(0.2));
 
-    onKey(KeyCode.S).pressing$.subscribe(({ delta }): void => void actorKeyboard.addZ(10 * delta.delta));
+    onKey(KeyCode.S).pressing$.subscribe(({ delta }): void => void actorKeyboard.addZ(mpsSpeed(10, delta.delta)));
     onKey(KeyCode.S).pressed$.subscribe((): void => void actorKeyS.addY(-0.2));
     onKey(KeyCode.S).released$.subscribe((): void => void actorKeyS.addY(0.2));
 
-    onKey(KeyCode.D).pressing$.subscribe(({ delta }): void => void actorKeyboard.addX(10 * delta.delta));
+    onKey(KeyCode.D).pressing$.subscribe(({ delta }): void => void actorKeyboard.addX(mpsSpeed(10, delta.delta)));
     onKey(KeyCode.D).pressed$.subscribe((): void => void actorKeyD.addY(-0.2));
     onKey(KeyCode.D).released$.subscribe((): void => void actorKeyD.addY(0.2));
 
