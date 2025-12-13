@@ -19,7 +19,8 @@ import type {
   TSceneWrapper,
   TSpace,
   TSpaceConfig,
-  TSpatialGridWrapper
+  TSpatialGridWrapper,
+  TText3dWrapper
 } from '@/Engine';
 import { Engine, getMouseAzimuthAndElevation, isNotDefined, KeysExtra, spaceService, TransformAgent } from '@/Engine';
 import { meters } from '@/Engine/Measurements/Utils';
@@ -52,7 +53,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
   const space: TSpace = await spaceService.buildSpaceFromConfig(canvas, spaceConfig as TSpaceConfig);
   const engine: TEngine = Engine(space);
 
-  const { cameraService, controlsService, lightService, models3dService, mouseService, particlesService, scenesService, spatialGridService } = space.services;
+  const { cameraService, controlsService, lightService, models3dService, mouseService, particlesService, scenesService, spatialGridService, textService } = space.services;
   const { keyboardService } = engine.services;
   const { clickLeftRelease$ } = mouseService;
   const models3dRegistry: TModel3dRegistry = models3dService.getRegistry();
@@ -81,6 +82,9 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     const particles: TParticlesWrapper | undefined = particlesService.getRegistry().findByName('bubbles');
     if (isNotDefined(particles)) throw new Error('Particles are not defined');
 
+    const sphereText: TText3dWrapper | undefined = textService.getRegistries().text3dRegistry.findByName('sphere_text');
+    if (isNotDefined(sphereText)) throw new Error('Text is not defined');
+
     setParticles(particles);
     grid._debugVisualizeCells(sceneW, '#4e0c85');
 
@@ -102,6 +106,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     connectCameraToActor(camera, controls, sphereActor, gui);
     connectObjToActor('Light', light, sphereActor, gui);
     connectObjToActor('Particles', particles, sphereActor, gui);
+    connectObjToActor('Text', sphereText, sphereActor, gui);
 
     const { line } = createReactiveLineFromActor('#E91E63', sphereActor, intersectionsWatcher);
     sceneW.entity.add(line);
