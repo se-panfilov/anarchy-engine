@@ -23,7 +23,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @asamuzakjp/dom-selector@6.6.1
+## @asamuzakjp/dom-selector@6.6.2
 
 **License(s):** MIT
 
@@ -1249,7 +1249,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## showcases-core@2.14.3
+## showcases-core@2.15.0
 
 **License(s):** MIT
 

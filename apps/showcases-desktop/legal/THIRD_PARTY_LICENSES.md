@@ -40,7 +40,7 @@ SOFTWARE.
 
 ---
 
-## @asamuzakjp/dom-selector@6.6.1
+## @asamuzakjp/dom-selector@6.6.2
 
 **License:** MIT
 
@@ -5225,7 +5225,7 @@ _No license text file found; relying on package metadata._
 
 ---
 
-## showcases-core@2.14.3
+## showcases-core@2.15.0
 
 **License:** MIT
 

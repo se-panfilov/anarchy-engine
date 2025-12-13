@@ -5,7 +5,7 @@
 This product includes third-party components. Their **licenses and attributions** are listed below.
 For the **full license texts**, see `THIRD_PARTY_LICENSES.md`.
 
-Components listed: 152
+Components listed: 145
 
 ## 1) Mandatory Attributions (verbatim)
 
@@ -23,7 +23,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @asamuzakjp/dom-selector@6.6.1
+## @asamuzakjp/dom-selector@6.6.2
 
 **License(s):** MIT
 
@@ -356,48 +356,6 @@ The following notices are reproduced as provided by the respective licensors (e.
 **License(s):** BSD-3-Clause
 
 **Repository:** https://github.com/getsentry/sentry-cli
-
----
-
-## @sentry/cli-linux-arm@2.56.1
-
-**License(s):** UNKNOWN
-
----
-
-## @sentry/cli-linux-arm64@2.56.1
-
-**License(s):** UNKNOWN
-
----
-
-## @sentry/cli-linux-i686@2.56.1
-
-**License(s):** UNKNOWN
-
----
-
-## @sentry/cli-linux-x64@2.56.1
-
-**License(s):** UNKNOWN
-
----
-
-## @sentry/cli-win32-arm64@2.56.1
-
-**License(s):** UNKNOWN
-
----
-
-## @sentry/cli-win32-i686@2.56.1
-
-**License(s):** UNKNOWN
-
----
-
-## @sentry/cli-win32-x64@2.56.1
-
-**License(s):** UNKNOWN
 
 ---
 
