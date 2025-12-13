@@ -3,7 +3,6 @@ import type { AnimationAction } from 'three';
 import type { TAnimationStateParams } from '@/Engine/Animations/Models';
 import { isDefined } from '@/Engine/Utils';
 
-// TODO 15-0-0 implement applying of a leading animation
 export function applyAnimationActionProperties(action: AnimationAction, { enabled, weight, loop, repetitions, clampWhenFinished, timeScale, time, paused }: TAnimationStateParams): void {
   // eslint-disable-next-line functional/immutable-data
   if (isDefined(enabled)) action.enabled = enabled;

@@ -20,7 +20,9 @@ const fadeDuration = 0.3;
 
 const { Idle, Run } = AnimationActions;
 
-// TODO 15-0-0: Test separately loaded animation
+// We don't want to reset/pause animations when the changed scene is loaded
+let isOriginalSceneLoaded: boolean = true;
+
 export const spaceAnimationsData: TSpacesData = {
   name: config.name,
   config: config,
@@ -38,6 +40,7 @@ export const spaceAnimationsData: TSpacesData = {
     addAwait('onChange', spaceAnimationsData.awaits$);
     changeRunningSolder('solder_actor_1', space);
     changeDancingSolder('solder_actor_2', space);
+    isOriginalSceneLoaded = false;
     removeAwait('onChange', spaceAnimationsData.awaits$);
   }
 };
@@ -51,10 +54,12 @@ function initRunningSolder(actorName: string, space: TSpace): void {
   const idleAction: AnimationAction = actions[Idle];
   const runAction: AnimationAction = actions[Run];
 
-  runAction.fadeOut(fadeDuration);
-  idleAction.reset().fadeIn(fadeDuration).play();
-  // eslint-disable-next-line functional/immutable-data
-  idleAction.paused = true;
+  if (isOriginalSceneLoaded) {
+    runAction.fadeOut(fadeDuration);
+    idleAction.reset().fadeIn(fadeDuration).play();
+    // eslint-disable-next-line functional/immutable-data
+    idleAction.paused = true;
+  }
 }
 
 function changeRunningSolder(actorName: string, space: TSpace): void {
@@ -77,10 +82,12 @@ function initDancingSolder(actorName: string, space: TSpace): void {
   const idleAction: AnimationAction = actions[Idle];
   const danceAction: AnimationAction = actions['Armature|mixamo.com|Layer0'];
 
-  danceAction.fadeOut(fadeDuration);
-  idleAction.reset().fadeIn(fadeDuration).play();
-  // eslint-disable-next-line functional/immutable-data
-  idleAction.paused = true;
+  if (isOriginalSceneLoaded) {
+    danceAction.fadeOut(fadeDuration);
+    idleAction.reset().fadeIn(fadeDuration).play();
+    // eslint-disable-next-line functional/immutable-data
+    idleAction.paused = true;
+  }
 }
 
 function changeDancingSolder(actorName: string, space: TSpace): void {
