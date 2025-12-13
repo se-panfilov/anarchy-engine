@@ -1,10 +1,9 @@
 import type { Vector3 } from 'three';
 
-import type { TWithCoordsXYZ } from '@/Engine/Mixins';
-import type { TWriteable } from '@/Engine/Utils';
+import type { TWithConnectedTransformAgent, TWithTransformDrive } from '@/Engine/TransformDrive';
 
 export type TFollowTargetParams = Readonly<{
-  obj: TWriteable<TWithCoordsXYZ>;
-  target: TWithCoordsXYZ;
+  obj: TWithTransformDrive<TWithConnectedTransformAgent>;
+  target: TWithTransformDrive<any>;
   offset?: Partial<Vector3>;
 }>;

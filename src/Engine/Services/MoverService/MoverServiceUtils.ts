@@ -1,8 +1,8 @@
 import anime from 'animejs';
 import type { Subscription } from 'rxjs';
+import type { Vector3 } from 'three';
 
 import type { TLoopService, TLoopTimes } from '@/Engine/Loop';
-import type { TWithCoordsXYZ } from '@/Engine/Mixins';
 import type {
   TAnimationParams,
   TFullKeyframeDestination,
@@ -15,6 +15,7 @@ import type {
   TMoveFnParams,
   TStopMoveCb
 } from '@/Engine/Services/MoverService/Models';
+import type { TWithConnectedTransformAgent, TWithTransformDrive } from '@/Engine/TransformDrive';
 import { createDeferredPromise } from '@/Engine/Utils';
 
 export function performMove(moveFn: TMoveFn | TMoveByPathFn, loopService: TLoopService, params: Omit<TMoveFnParams, 'complete'> | Omit<TMoveByPathFnParams, 'complete'>): Promise<void> {
@@ -36,16 +37,21 @@ export function performMoveUntil<F extends (params: P) => TMoveableByTick, P>(mo
 }
 
 // Do not use this function for complex paths (with more than 1 point), it might not work as expected when partial coords are provided.
-export function addMissingCoords<T extends TKeyframeDestination | TMoveDestination>(destination: T, obj: TWithCoordsXYZ): TKeyframeDestination | Required<TMoveDestination> {
-  return { ...destination, x: destination.x ?? obj.x, y: destination.y ?? obj.y, z: destination.z ?? obj.z };
+export function addMissingCoords<T extends TKeyframeDestination | TMoveDestination>(
+  destination: T,
+  obj: TWithTransformDrive<TWithConnectedTransformAgent>
+): TKeyframeDestination | Required<TMoveDestination> {
+  const objPosition: Vector3 = obj.drive.getPosition();
+  return { ...destination, x: destination.x ?? objPosition.x, y: destination.y ?? objPosition.y, z: destination.z ?? objPosition.z };
 }
 
-export function getAccumulatedKeyframes(path: ReadonlyArray<TKeyframeDestination>, obj: TWithCoordsXYZ): ReadonlyArray<TFullKeyframeDestination> {
+export function getAccumulatedKeyframes(path: ReadonlyArray<TKeyframeDestination>, obj: TWithTransformDrive<TWithConnectedTransformAgent>): ReadonlyArray<TFullKeyframeDestination> {
   return path.reduce((acc: ReadonlyArray<TFullKeyframeDestination>, destination: TKeyframeDestination, index: number) => {
     const prevDestination: TKeyframeDestination | undefined = acc[index - 1];
-    const prevX: number = prevDestination?.x ?? obj.x;
-    const prevY: number = prevDestination?.y ?? obj.y;
-    const prevZ: number = prevDestination?.z ?? obj.z;
+    const objPosition: Vector3 = obj.drive.getPosition();
+    const prevX: number = prevDestination?.x ?? objPosition.x;
+    const prevY: number = prevDestination?.y ?? objPosition.y;
+    const prevZ: number = prevDestination?.z ?? objPosition.z;
     const x: number = destination.x ?? prevX;
     const y: number = destination.y ?? prevY;
     const z: number = destination.z ?? prevZ;
@@ -54,11 +60,11 @@ export function getAccumulatedKeyframes(path: ReadonlyArray<TKeyframeDestination
   }, []);
 }
 
-export function prepareDestination(destination: TMoveDestination, obj: TWithCoordsXYZ): Required<TMoveDestination> {
+export function prepareDestination(destination: TMoveDestination, obj: TWithTransformDrive<TWithConnectedTransformAgent>): Required<TMoveDestination> {
   return addMissingCoords(destination, obj) as Required<TMoveDestination>;
 }
 
-export function preparePathList(list: ReadonlyArray<TKeyframeDestination>, obj: TWithCoordsXYZ): ReadonlyArray<TFullKeyframeDestination> {
+export function preparePathList(list: ReadonlyArray<TKeyframeDestination>, obj: TWithTransformDrive<TWithConnectedTransformAgent>): ReadonlyArray<TFullKeyframeDestination> {
   return list.map((destination: TKeyframeDestination) => addMissingCoords(destination, obj) as TFullKeyframeDestination);
 }
 

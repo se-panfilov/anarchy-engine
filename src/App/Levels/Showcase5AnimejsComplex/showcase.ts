@@ -94,9 +94,9 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
       follow();
 
       void Promise.all([
-        moverService.goByPath(redActor.drive.connected.positionConnector, redPath, { ...animationParams, easing: Easing.Linear }).then(() => console.log('red done')),
-        moverService.goByPath(greenActor.drive.connected.positionConnector, greenPath, { ...animationParams, easing: Easing.EaseInCirc }).then(() => console.log('green done')),
-        moverService.goByPath(blueActor.drive.connected.positionConnector, bluePath, { ...animationParams, easing: Easing.EaseInBack }).then(() => console.log('blue done'))
+        moverService.goByPath(redActor, redPath, { ...animationParams, easing: Easing.Linear }).then(() => console.log('red done')),
+        moverService.goByPath(greenActor, greenPath, { ...animationParams, easing: Easing.EaseInCirc }).then(() => console.log('green done')),
+        moverService.goByPath(blueActor, bluePath, { ...animationParams, easing: Easing.EaseInBack }).then(() => console.log('blue done'))
       ]).then(() => {
         isClickBlocked = false;
         stopFollowing();

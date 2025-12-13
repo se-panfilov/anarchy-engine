@@ -81,7 +81,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     const moverService: TMoverService = MoverService(loopService, defaultMoverServiceConfig);
 
     clickLeftRelease$.pipe(withLatestFrom(intersectionsWatcher.value$)).subscribe(([, intersection]: [TMouseWatcherEvent, TIntersectionEvent]): void => {
-      void moverService.goToPosition(actorMouse.drive.connected.positionConnector, { x: intersection.point.x, z: intersection.point.z }, { duration: 1000, easing: Easing.EaseInCubic });
+      void moverService.goToPosition(actorMouse, { x: intersection.point.x, z: intersection.point.z }, { duration: 1000, easing: Easing.EaseInCubic });
     });
 
     isLeftPressed$.subscribe((isPressed: boolean): void => void actorMkeyLeft.drive.default.addY(isPressed ? -0.2 : 0.2));
