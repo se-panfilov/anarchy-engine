@@ -1,50 +1,59 @@
 import { filter } from 'rxjs';
 
 import type { IShowcase } from '@/App/Levels/Models';
-import type { IActorAsyncRegistry, IActorWrapperAsync, IAppCanvas, ICameraWrapper, IIntersectionEvent, IIntersectionsWatcher, ISpace, ISpaceConfig } from '@/Engine';
+import type { IActorAsyncRegistry, IActorWrapperAsync, IAppCanvas, ICameraRegistry, ICameraWrapper, IIntersectionEvent, IIntersectionsWatcher, ISpace, ISpaceConfig } from '@/Engine';
 import { buildSpaceFromConfig, isNotDefined, mouseService } from '@/Engine';
 
 import spaceConfig from './showcase-15.json';
+import GUI from 'lil-gui';
 
 //Showcase 15: configurable intersections
 export function showcase(canvas: IAppCanvas): IShowcase {
+  const gui: GUI = new GUI();
   const space: ISpace = buildSpaceFromConfig(canvas, spaceConfig as ISpaceConfig);
-  const { actorService, cameraService, intersectionsService, loopService } = space.services;
+  const { actorService, cameraService, loopService } = space.services;
   const actorRegistry: IActorAsyncRegistry = actorService.getRegistry();
+  const cameraRegistry: ICameraRegistry = cameraService.getRegistry();
+  const { clickLeftRelease$ } = mouseService;
 
-  async function init(): Promise<void> {
-    const actor: IActorWrapperAsync = await actorRegistry.findByTagAsync('intersectable');
-    actor.setY(2);
+  function init(): void {
+    // const actor1: IActorWrapperAsync = await actorRegistry.findByNameAsync('actor1');
+    // const actor2: IActorWrapperAsync = await actorRegistry.findByNameAsync('actor2');
+    // const actor3: IActorWrapperAsync = await actorRegistry.findByNameAsync('actor3');
+    // const actor4: IActorWrapperAsync = await actorRegistry.findByNameAsync('actor4');
 
-    loopService.tick$.subscribe(({ elapsedTime }) => {
-      actor.setX(Math.sin(elapsedTime) * 8);
-      actor.setZ(Math.cos(elapsedTime) * 8);
+    let cameraFolder: GUI | undefined;
+    let cameraName: string = 'main';
+    clickLeftRelease$.subscribe((): void => {
+      const camera: ICameraWrapper | undefined = cameraRegistry.findByName(cameraName);
+      console.log(cameraName, cameraService.findActive()?.name, cameraName === cameraService.findActive()?.name);
+      if (isNotDefined(camera)) throw new Error(`Cannot switch camera: camera ("${cameraName}") not found`);
+      cameraFolder = resetGui(cameraFolder, camera);
+
+      cameraService.setActive(camera.id);
+      cameraName = cameraName === 'main' ? 'alt' : 'main';
     });
+
+    // loopService.tick$.subscribe(({ elapsedTime }) => {
+    //
+    // });
   }
 
-  function startIntersections(): void {
-    const camera: ICameraWrapper | undefined = cameraService.findActive();
-    if (isNotDefined(camera)) throw new Error('Camera is not defined');
-    // const actors: ReadonlyArray<IActorWrapperAsync> = actorRegistry.findAllByTags(['intersectable'], LookUpStrategy.Every);
-    const intersectionsWatcher: IIntersectionsWatcher = intersectionsService.buildWatcher(camera);
-
-    actorRegistry.added$.pipe(filter((a: IActorWrapperAsync) => a.hasTag('intersectable'))).subscribe((actor: IActorWrapperAsync): void => intersectionsWatcher.addActor(actor));
-
-    intersectionsWatcher.value$.subscribe((obj: IIntersectionEvent): void => {
-      console.log('intersect obj', obj);
-    });
-
-    mouseService.clickLeftRelease$.subscribe((): void => {
-      console.log('int click:');
-    });
-
-    intersectionsWatcher.start();
+  function resetGui(folder: GUI | undefined, camera: ICameraWrapper): GUI {
+    folder?.destroy();
+    folder = gui.addFolder(`Active camera ${camera.name}`);
+    folder.add(camera.entity.position, 'x').min(-50).max(50).step(0.5);
+    folder.add(camera.entity.position, 'y').min(-50).max(50).step(0.5);
+    folder.add(camera.entity.position, 'z').min(-50).max(50).step(0.5);
+    folder.add(camera.entity.rotation, 'x').min(-Math.PI).max(Math.PI).step(0.01);
+    folder.add(camera.entity.rotation, 'y').min(-Math.PI).max(Math.PI).step(0.01);
+    folder.add(camera.entity.rotation, 'z').min(-Math.PI).max(Math.PI).step(0.01);
+    return folder;
   }
 
   function start(): void {
     space.start();
     void init();
-    startIntersections();
   }
 
   return { start, space };

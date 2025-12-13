@@ -28,7 +28,7 @@
       "width": 32,
       "height": 32,
       "material": { "type": "standard", "params": { "color": "#E91E63" } },
-      "position": { "x": 0, "y": 2, "z": 0 },
+      "position": { "x": -2, "y": 2, "z": -10 },
       "castShadow": true,
       "tags": []
     },
@@ -38,15 +38,45 @@
       "width": 32,
       "height": 32,
       "material": { "type": "standard", "params": { "color": "#E91E00" } },
-      "position": { "x": 0, "y": 2, "z": 0 },
+      "position": { "x": 4, "y": 2, "z": -10 },
+      "castShadow": true,
+      "tags": []
+    },
+    {
+      "name": "actor3",
+      "type": "cube",
+      "width": 2,
+      "height": 2,
+      "depth": 2,
+      "widthSegments": 2,
+      "heightSegments": 2,
+      "material": { "type": "standard", "params": { "color": "#E90063" } },
+      "position": { "x": -2, "y": 2, "z": 10 },
+      "castShadow": true,
+      "tags": []
+    },
+    {
+      "name": "actor4",
+      "type": "cube",
+      "width": 2,
+      "height": 2,
+      "depth": 2,
+      "widthSegments": 2,
+      "heightSegments": 2,
+      "material": { "type": "standard", "params": { "color": "#001E00" } },
+      "position": { "x": 4, "y": 2, "z": 10 },
       "castShadow": true,
       "tags": []
     }
   ],
-  "interactions": [
+  "intersections": [
     {
       "cameraName": "main",
-      "actorName": ["actor1", "actor2"]
+      "actorNames": ["actor1", "actor2"]
+    },
+    {
+      "cameraName": "alt",
+      "actorNames": ["actor3", "actor4"]
     }
   ],
   "texts": [],
@@ -60,6 +90,16 @@
       "rotation": { "x": 0, "y": 0, "z": 0 },
       "tags": [],
       "isActive": true
+    },
+    {
+      "fov": 45,
+      "name": "alt",
+      "near": 1,
+      "far": 10000,
+      "position": { "x": 45, "y": 20, "z": 5.5 },
+      "rotation": { "x": 1.52, "y": 1.52, "z": 0.05 },
+      "tags": [],
+      "isActive": false
     }
   ],
   "lights": [
