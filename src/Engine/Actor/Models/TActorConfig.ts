@@ -11,8 +11,6 @@ export type TActorConfig = Omit<TActorProps, 'material'> &
   }> &
   Readonly<{
     type: ActorType;
-    width: number;
-    height: number;
     castShadow: boolean;
   }> &
   TObject3DPropConfig &

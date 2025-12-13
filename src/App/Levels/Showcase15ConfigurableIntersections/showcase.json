@@ -24,8 +24,7 @@
     {
       "name": "actor_red_1",
       "type": "sphere",
-      "width": 32,
-      "height": 32,
+      "radius": 1,
       "material": { "type": "standard", "params": { "color": "#E91E63" } },
       "position": { "x": -2, "y": 2, "z": -10 },
       "castShadow": true,
@@ -34,8 +33,7 @@
     {
       "name": "actor_red_2",
       "type": "sphere",
-      "width": 32,
-      "height": 32,
+      "radius": 1,
       "material": { "type": "standard", "params": { "color": "#9f0441" } },
       "position": { "x": 4, "y": 2, "z": -10 },
       "castShadow": true,

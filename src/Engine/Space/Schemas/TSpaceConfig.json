@@ -221,14 +221,14 @@
         "type": {
           "$ref": "#/definitions/ActorType"
         },
+        "material": {
+          "$ref": "#/definitions/TMaterialPackConfig%3CTMaterialTexturePack%3E"
+        },
         "width": {
           "type": "number"
         },
         "height": {
           "type": "number"
-        },
-        "material": {
-          "$ref": "#/definitions/TMaterialPackConfig%3CTMaterialTexturePack%3E"
         },
         "depth": {
           "type": "number"
@@ -249,7 +249,7 @@
           "type": "string"
         }
       },
-      "required": ["castShadow", "height", "material", "position", "tags", "type", "width"]
+      "required": ["castShadow", "material", "position", "tags", "type"]
     },
     "ActorType": {
       "type": "string",
