@@ -1,13 +1,18 @@
+import type { TDeepPartial } from '@Anarchy/Shared/Utils';
 import type { TShowcaseGameSettings } from '@Showcases/Shared';
-import type Dexie from 'dexie';
+import type { Dexie, EntityTable } from 'dexie';
 
 export type TSettingsWebDbService = Readonly<{
-  readSettings: <T = TShowcaseGameSettings>() => Promise<T | null>;
-  writeSettings: <T = TShowcaseGameSettings>(value: T) => Promise<void>;
-  patchSettings: <T = TShowcaseGameSettings>(patch: Partial<T>) => Promise<T>;
+  findSettings: () => Promise<TShowcaseGameSettings | undefined>;
+  getSettings: () => Promise<TShowcaseGameSettings> | never;
+  setSettings: (value: TShowcaseGameSettings) => Promise<void>;
+  updateSettings: (patch: TDeepPartial<TShowcaseGameSettings>) => Promise<TShowcaseGameSettings> | never;
 }>;
 
-export type TSettingsWebDb = Dexie &
-  Readonly<{
-    some: string;
-  }>;
+export type TSettingsRow = Readonly<{
+  id: 'singleton';
+  value: TShowcaseGameSettings;
+  schemaVersion: number;
+}>;
+
+export type TSettingsWebDb = Dexie & Readonly<{ settings: EntityTable<TSettingsRow, 'id'> }>;
