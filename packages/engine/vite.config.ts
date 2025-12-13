@@ -1,10 +1,11 @@
 /// <reference types="vitest" />
+import compression from 'vite-plugin-compression';
 import { defineConfig } from 'vite';
 import dts from 'vite-plugin-dts';
 import path from 'path';
-import wasm from 'vite-plugin-wasm';
-import { visualizer } from 'rollup-plugin-visualizer';
 import { sharedAliases } from '../../vite.alias';
+import { visualizer } from 'rollup-plugin-visualizer';
+import wasm from 'vite-plugin-wasm';
 
 export default defineConfig({
   resolve: {
@@ -16,7 +17,9 @@ export default defineConfig({
     wasm(),
     dts({
       exclude: ['**/*.spec.ts', '**/*.test.ts', 'vite.config.ts']
-    })
+    }),
+    compression({ algorithm: 'gzip' }),
+    compression({ algorithm: 'brotliCompress', ext: '.br' })
   ],
   worker: {
     format: 'es',
