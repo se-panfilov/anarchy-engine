@@ -4,14 +4,14 @@ import type { TInputShieldService } from '@Showcases/Shared/Models';
 const eventTypes = [
   'pointerdown',
   'pointerup',
-  'pointermove',
+  // 'pointermove',
   'pointercancel',
   'click',
   'dblclick',
   'contextmenu',
   'mousedown',
   'mouseup',
-  'mousemove',
+  // 'mousemove',
   'wheel',
   'touchstart',
   'touchmove',
@@ -26,7 +26,7 @@ export function InputShieldService(rootGetter: () => HTMLElement | null): TInput
   const preventEvents = (e: Event): boolean => {
     // e.stopImmediatePropagation?.();
     // e.stopPropagation();
-    if (e.cancelable) e.preventDefault();
+    // if (e.cancelable) e.preventDefault();
     // (e as any).cancelBubble = true;
     return false;
   };
