@@ -21,14 +21,14 @@ export function AbstractLoader<L extends Loader<any>, R extends TProtectedRegist
     return Promise.all(configs.map((config: C): Promise<T> => loadAsync(config)));
   }
 
-  function loadAsync({ url, isForce, name, params }: C, onLoaded?: (r: TWriteable<T>, params?: Record<string, any>) => T): Promise<T> {
+  function loadAsync({ url, isForce, name, options }: C, onLoaded?: (r: TWriteable<T>, params?: Record<string, any>) => T): Promise<T> {
     if (!isForce) {
       const resource: T | undefined = registry.findByKey(name);
       if (isDefined(resource)) return Promise.resolve(resource);
     }
 
     return loader.loadAsync(url).then((loaded: TWriteable<T>): T => {
-      const res: T = isDefined(onLoaded) ? onLoaded(loaded, params) : loaded;
+      const res: T = isDefined(onLoaded) ? onLoaded(loaded, options) : loaded;
       registry.add(name, res);
       loaded$.next(res);
       return res;
