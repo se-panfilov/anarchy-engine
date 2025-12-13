@@ -56,11 +56,7 @@ export function configToParams(config: TMaterialConfig, { textureService }: TMat
     if (isDefined(combine)) options = { ...options, combine: CombineMap[combine] };
     if (isDefined(depthPacking)) options = { ...options, depthPacking: DepthPackingStrategiesMap[depthPacking] };
     if (isDefined(normalMapType)) options = { ...options, normalMapType: NormalMapTypesMap[normalMapType] };
-    if (isDefined(referencePosition))
-      options = {
-        ...options,
-        referencePosition: new Vector3(referencePosition.x, referencePosition.y, referencePosition.z)
-      };
+    if (isDefined(referencePosition)) options = { ...options, referencePosition: new Vector3(referencePosition.x, referencePosition.y, referencePosition.z) };
     if (isDefined(normalScale)) options = { ...options, normalScale: new Vector2(normalScale.x, normalScale.y) };
   }
 
