@@ -21,7 +21,7 @@ const isOpenDevTools: boolean = true;
 // TODO DESKTOP: Add canvas.requestPointerLock(); on a Space level
 // TODO DESKTOP: Fix Electron Security Warning (Insecure Content-Security-Policy) https://www.electronjs.org/docs/latest/tutorial/security
 // TODO DESKTOP: TS check, lint, prettier, etc.?
-// TODO DESKTOP: npm scripts, like clean reinstall, generate licenses etc?
+// TODO DESKTOP: npm scripts, like clean reinstall, generate licenses, before release etc?
 // TODO DESKTOP: Add readme
 // TODO DESKTOP: Maybe move desktop app to the apps/showcases level?
 // TODO DESKTOP: Can we avoid copying of dist-desktop to dist-app? (check paths in asar)
