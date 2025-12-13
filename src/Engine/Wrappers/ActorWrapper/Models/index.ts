@@ -1,2 +1,2 @@
-export * from './ICameraAccessors';
+export * from './IActorAccessors';
 export * from './IActorWrapper';

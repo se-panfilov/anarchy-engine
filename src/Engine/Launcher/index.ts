@@ -18,25 +18,17 @@ import {
   RendererFactory,
   SceneFactory
 } from '@Engine/Factories';
-import {
-  ActorRegistry,
-  CameraRegistry,
-  IActorRegistry,
-  ICameraRegistry,
-  ILightRegistry,
-  LightRegistry
-} from '@Engine/Registries';
-import { createDeferredPromise, isNotDefined } from '@Engine/Utils';
+import type { IActorRegistry, ICameraRegistry, ILightRegistry } from '@Engine/Registries';
+import { ActorRegistry, CameraRegistry, LightRegistry } from '@Engine/Registries';
+import { createDeferredPromise } from '@Engine/Utils';
 import type {
   IActorWrapper,
   ICameraWrapper,
   IControlsWrapper,
   ILightWrapper,
   ILoopWrapper,
-  IRendererWrapper,
   ISceneWrapper
 } from '@Engine/Wrappers';
-import { combineLatest } from 'rxjs';
 import { MouseClicksWatcher, MousePositionWatcher } from '@Engine/Watchers';
 
 export async function launch(sceneConfig: ISceneConfig, canvas: IAppCanvas): Promise<boolean> {
@@ -63,57 +55,34 @@ export async function launch(sceneConfig: ISceneConfig, canvas: IAppCanvas): Pro
   const controlsFactory: IControlsFactory = ControlsFactory({ canvas, cameraRegistry });
   const loopFactory: ILoopFactory = LoopFactory();
 
-  //Subscriptions
-  combineLatest([actorFactory.latest$, sceneFactory.latest$]).subscribe(
-    ([actor, scene]: [IActorWrapper, ISceneWrapper]): void => {
-      if (isNotDefined(scene) || isNotDefined(actor)) return;
-      actorRegistry.add$.next(actor);
-      scene.addActor$.next(actor);
-    }
-  );
-
-  combineLatest([cameraFactory.latest$, sceneFactory.latest$]).subscribe(
-    ([camera, scene]: [ICameraWrapper, ISceneWrapper]): void => {
-      if (isNotDefined(scene) || isNotDefined(camera)) return;
-      cameraRegistry.add$.next(camera);
-      scene.addCamera$.next(camera);
-    }
-  );
-
-  combineLatest([lightFactory.latest$, sceneFactory.latest$]).subscribe(
-    ([light, scene]: [ILightWrapper, ISceneWrapper]): void => {
-      if (isNotDefined(scene) || isNotDefined(light)) return;
-      lightRegistry.add$.next(light);
-      scene.addLight$.next(light);
-    }
-  );
-
-  combineLatest([controlsFactory.latest$, sceneFactory.latest$]).subscribe(
-    ([control, scene]: [IControlsWrapper, ISceneWrapper]): void => {
-      if (isNotDefined(scene) || isNotDefined(control)) return;
-      console.log('control!!');
-      // controlsRegistry.add$.next(control);
-      // scene.addControl$.next(control);
-    }
-  );
-
-  combineLatest([loopFactory.latest$, rendererFactory.latest$, sceneFactory.latest$, cameraFactory.latest$]).subscribe(
-    ([loop, renderer, scene, camera]: [ILoopWrapper, IRendererWrapper, ISceneWrapper, ICameraWrapper]): void => {
-      // TODO (S.Panfilov) this loop should start once every entity in the list is ready, not earlyer
-      // TODO (S.Panfilov) and once, not twice or whatever
-      // TODO (S.Panfilov) check!
-      loop.start(renderer, scene, camera);
-    }
-  );
-
   //Dynamic create entities
-  sceneFactory.create$.next({ name });
-  actors.forEach((config: IActorConfig) => actorFactory.createFromConfig$.next(config));
-  cameras.forEach((config: ICameraConfig) => cameraFactory.createFromConfig$.next(config));
-  lights.forEach((config: ILightConfig) => lightFactory.createFromConfig$.next(config));
-  controls.forEach((config: IControlsConfig) => controlsFactory.createFromConfig$.next(config));
+  const scene: ISceneWrapper = sceneFactory.create({ name });
 
-  rendererFactory.create$.next({ canvas });
+  actors.forEach((config: IActorConfig) => {
+    const actor: IActorWrapper = actorFactory.fromConfig(config);
+    actorRegistry.add(actor);
+    scene.addActor(actor);
+  });
+
+  cameras.forEach((config: ICameraConfig) => {
+    const camera: ICameraWrapper = cameraFactory.fromConfig(config);
+    cameraRegistry.add(camera);
+    scene.addCamera(camera);
+  });
+
+  lights.forEach((config: ILightConfig) => {
+    const light: ILightWrapper = lightFactory.fromConfig(config);
+    lightRegistry.add(light);
+    scene.addLight(light);
+  });
+
+  controls.forEach((config: IControlsConfig) => {
+    const control: IControlsWrapper = controlsFactory.fromConfig(config);
+    controlsRegistry.add(control);
+    scene.addControl(control);
+  });
+
+  const renderer = rendererFactory.create({ canvas });
   // create controls (needs camera, renderer)/////////////////////
   // TODO (S.Panfilov)
   ////////////////////////////////////
@@ -132,7 +101,8 @@ export async function launch(sceneConfig: ISceneConfig, canvas: IAppCanvas): Pro
 
   // TODO (S.Panfilov) any
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  loopFactory.create$.next({} as any);
+  const loop: ILoopWrapper = loopFactory.create({} as any);
+  loop.start(renderer, scene, camera);
   ////////////////////////////////////
 
   resolve(true);

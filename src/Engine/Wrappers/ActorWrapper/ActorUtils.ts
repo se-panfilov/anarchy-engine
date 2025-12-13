@@ -26,6 +26,7 @@ function createPlane({
   plane.receiveShadow = true;
 
   plane.position.set(position.x, position.y, position.z);
+  // eslint-disable-next-line functional/immutable-data
   plane.castShadow = castShadow;
 
   return plane;

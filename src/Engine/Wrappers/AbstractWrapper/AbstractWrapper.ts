@@ -1,15 +1,8 @@
-import { Subject } from 'rxjs';
 import { nanoid } from 'nanoid';
-import type { IReactiveWrapper } from '@Engine/Models';
+import type { IWrapper } from '@Engine/Models';
 
-export function AbstractWrapper<T>(entity: T): IReactiveWrapper<T> {
+export function AbstractWrapper<T>(entity: T): IWrapper<T> {
   const id: string = nanoid();
-  const destroy$ = new Subject<void>();
-
-  destroy$.subscribe(() => {
-    destroy$.unsubscribe();
-    destroy$.complete();
-  });
 
   return {
     get id(): string {
@@ -17,9 +10,6 @@ export function AbstractWrapper<T>(entity: T): IReactiveWrapper<T> {
     },
     get entity(): T {
       return entity;
-    },
-    get destroy$(): Subject<void> {
-      return destroy$;
     }
   };
 }

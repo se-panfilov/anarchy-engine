@@ -1,17 +1,8 @@
-import { Scene } from 'three';
-import type {
-  ActorWrapper,
-  CameraWrapper,
-  IActorWrapper,
-  ICameraWrapper,
-  ILightWrapper,
-  LightWrapper
-} from '@Engine/Wrappers';
-import { AbstractWrapper } from '@Engine/Wrappers';
-import { getAccessors } from './Accessors';
+import { AbstractWrapper, ActorWrapper, CameraWrapper, LightWrapper } from '@Engine/Wrappers';
 import type { ISceneParams } from '@Engine/Models/ISceneParams';
 import type { ISceneWrapper } from './Models';
-import { Subject } from 'rxjs';
+import type { IWrapper } from '@Engine/Models';
+import { Scene } from 'three';
 
 export function SceneWrapper({ name }: ISceneParams): ISceneWrapper {
   const entity: Scene = new Scene();
@@ -19,27 +10,19 @@ export function SceneWrapper({ name }: ISceneParams): ISceneWrapper {
   // eslint-disable-next-line functional/immutable-data
   entity.name = name;
 
-  const wrapper = AbstractWrapper(entity);
+  const wrapper: IWrapper<Scene> = AbstractWrapper(entity);
 
-  const addActor$: Subject<IActorWrapper> = new Subject<ReturnType<typeof ActorWrapper>>();
-  const addCamera$: Subject<ICameraWrapper> = new Subject<ReturnType<typeof CameraWrapper>>();
-  const addLight$: Subject<ILightWrapper> = new Subject<ReturnType<typeof LightWrapper>>();
+  function addCamera(camera: ReturnType<typeof CameraWrapper>): void {
+    entity.add(camera.entity);
+  }
 
-  const { addActor, addCamera, addLight } = getAccessors(entity);
+  function addActor(actor: ReturnType<typeof ActorWrapper>): void {
+    entity.add(actor.entity);
+  }
 
-  addActor$.subscribe(addActor);
-  addCamera$.subscribe(addCamera);
-  addLight$.subscribe(addLight);
+  function addLight(actor: ReturnType<typeof LightWrapper>): void {
+    entity.add(actor.entity);
+  }
 
-  wrapper.destroy$.subscribe(() => {
-    wrapper.destroy$.unsubscribe();
-    addActor$.unsubscribe();
-    addActor$.complete();
-    addCamera$.unsubscribe();
-    addCamera$.complete();
-    addLight$.unsubscribe();
-    addLight$.complete();
-  });
-
-  return { ...wrapper, addActor$, addCamera$, addLight$, entity };
+  return { ...wrapper, addActor, addCamera, addLight, entity };
 }

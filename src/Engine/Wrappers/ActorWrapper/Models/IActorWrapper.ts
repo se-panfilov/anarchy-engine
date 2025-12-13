@@ -1,5 +1,5 @@
-import type { AbstractWrapper } from '@Engine/Wrappers';
 import type { Mesh } from 'three';
-import type { getAccessors } from '../Accessors';
+import type { IWrapper } from '@Engine/Models';
+import type { IActorAccessors } from '@Engine/Wrappers';
 
-export type IActorWrapper = ReturnType<typeof AbstractWrapper<Mesh>> & ReturnType<typeof getAccessors>;
+export type IActorWrapper = IWrapper<Mesh> & IActorAccessors;

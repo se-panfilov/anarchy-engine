@@ -10,7 +10,7 @@ export * from './ILightParams';
 export * from './ILoopParams';
 export * from './IMousePosition';
 export * from './IProtectedRegistry';
-export * from './IReactiveWrapper';
+export * from './IWrapper';
 export * from './IRendererParams';
 export * from './ISceneParams';
 export * from './IScreenParams';

@@ -13,6 +13,6 @@ export interface ILightConfig extends Omit<ILightParams, 'color' | 'position' | 
 
 export interface LightShadowConfig extends Omit<ILightShadowParams, 'mapSize'> {
   readonly mapSize: IVector2dConfig;
-  readonly camera: { readonly far: number };
+  readonly camera: Readonly<{ far: number }>;
   readonly normalBias: number;
 }

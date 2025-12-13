@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { Color, Mesh, MeshToonMaterial, Scene, SphereGeometry, Vector3 } from 'three';
 import { IntersectionPointerWrapper, MousePointerWrapper } from './Pointer';
 import { RendererWrapper } from './Wrappers/RendererWrapper';

@@ -1,7 +1,4 @@
 import type { IAbstractRegistry } from '@Engine/Models/IAbstractRegistry';
-import type { IReactiveWrapper } from '@Engine/Models/IReactiveWrapper';
+import type { IWrapper } from '@Engine/Models/IWrapper';
 
-export type IProtectedRegistry<T extends IReactiveWrapper<unknown>, R extends IAbstractRegistry<T>> = Omit<
-  R,
-  'registry'
->;
+export type IProtectedRegistry<T extends IWrapper<unknown>, R extends IAbstractRegistry<T>> = Omit<R, 'registry'>;

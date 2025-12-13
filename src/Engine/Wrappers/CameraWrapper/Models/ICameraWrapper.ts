@@ -1,5 +1,5 @@
-import type { AbstractWrapper } from '@Engine/Wrappers';
+import type { ICameraAccessors } from '@Engine/Wrappers';
+import type { IWrapper } from '@Engine/Models';
 import type { PerspectiveCamera } from 'three';
-import type { getAccessors } from '../Accessors';
 
-export type ICameraWrapper = ReturnType<typeof AbstractWrapper<PerspectiveCamera>> & ReturnType<typeof getAccessors>;
+export type ICameraWrapper = IWrapper<PerspectiveCamera> & ICameraAccessors;

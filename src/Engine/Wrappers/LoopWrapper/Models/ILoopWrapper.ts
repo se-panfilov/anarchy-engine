@@ -1,5 +1,5 @@
-import type { AbstractWrapper } from '@Engine/Wrappers';
 import type { LoopFn } from '@Engine/Wrappers/LoopWrapper/Models/LoopFn';
-import type { getUtils } from '../utils';
+import type { IWrapper } from '@Engine/Models';
+import type { ILoopUtils } from '@Engine/Wrappers';
 
-export type ILoopWrapper = ReturnType<typeof AbstractWrapper<LoopFn>> & ReturnType<typeof getUtils>;
+export type ILoopWrapper = IWrapper<LoopFn> & ILoopUtils;

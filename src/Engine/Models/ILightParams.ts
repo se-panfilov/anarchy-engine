@@ -12,7 +12,7 @@ export interface ILightParams {
 
 export interface ILightShadowParams {
   readonly mapSize: Vector2;
-  readonly camera: { readonly far: number };
+  readonly camera: Readonly<{ far: number }>;
   readonly normalBias: number;
 }
 

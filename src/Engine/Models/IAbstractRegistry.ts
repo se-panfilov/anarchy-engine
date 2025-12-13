@@ -1,12 +1,11 @@
-import type { Subject } from 'rxjs';
-import type { IReactiveWrapper } from '@Engine/Models';
+import type { IWrapper } from '@Engine/Models';
 
-export interface IAbstractRegistry<T extends IReactiveWrapper<unknown>> {
+export interface IAbstractRegistry<T extends IWrapper<unknown>> {
   readonly id: string;
-  readonly add$: Subject<T>;
-  readonly replace$: Subject<T>;
+  readonly add: (entity: T) => void;
+  readonly replace: (entity: T) => void;
   readonly registry: Map<string, T>;
-  readonly getById: (id: string) => T;
-  readonly remove$: Subject<string>;
-  readonly destroy$: Subject<void>;
+  readonly getById: (id: string) => T | undefined;
+  readonly remove: (id: string) => void;
+  readonly destroy: () => void;
 }

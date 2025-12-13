@@ -1,3 +1,4 @@
+/* eslint-disable */
 import './style.css';
 import { Color } from 'three';
 import { SceneManager } from '@Engine/Managers/SceneManager';
