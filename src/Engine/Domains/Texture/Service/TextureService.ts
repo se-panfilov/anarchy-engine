@@ -58,6 +58,7 @@ export function TextureService(): ITextureService {
   function load(pack: IStandardMaterialTexturePack): IStandardMaterialTextureUploadPromises;
   function load(pack: IMaterialTexturePack): IMaterialTextureUploadPromises {
     let promises: Omit<IMaterialTextureUploadPromises, 'all' | 'material'> = {};
+    const material: MaterialType = pack.material;
 
     Object.entries(pack).forEach(([key, packParams]: [string, ITexturePackParams | MaterialType]): void => {
       // TODO (S.Panfilov) CWP do not load texture if already loaded
@@ -69,9 +70,8 @@ export function TextureService(): ITextureService {
           applyFilters(texture, params);
           return texture;
         });
+
         promises = { ...promises, [key]: p };
-      } else {
-        promises = { ...promises, material: packParams };
       }
     });
 
@@ -87,13 +87,13 @@ export function TextureService(): ITextureService {
     function all(): Promise<IStandardMaterialTextureUploaded>;
     function all(): Promise<IMaterialTextureUploaded> {
       return Promise.all(Object.values(promises)).then((textures) => {
-        let uploaded: IMaterialTextureUploaded = {};
+        let uploaded: IMaterialTextureUploaded = {} as IMaterialTextureUploaded;
         Object.keys(pack).forEach((key: string, index: number): void => void (uploaded = { ...uploaded, [key]: textures[index] }));
         return uploaded;
       });
     }
 
-    return { ...promises, all };
+    return { ...promises, material, all };
   }
 
   return { load };

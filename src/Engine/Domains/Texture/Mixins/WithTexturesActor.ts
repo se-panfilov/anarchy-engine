@@ -1,5 +1,6 @@
 import type { IMesh } from '@/Engine/Domains/Actor';
-import { ITypeOfMaterials, MaterialMap } from '@/Engine/Domains/Material';
+import type { ITypeOfMaterials } from '@/Engine/Domains/Material';
+import { MaterialMap } from '@/Engine/Domains/Material';
 import type {
   IBasicMaterialTexturePack,
   IDepthMaterialTexturePack,
@@ -23,7 +24,6 @@ export function withTexturesActor<T extends IWriteable<IMesh>>(entity: T): IWith
   function useTextureAsMaterial(mt: IMaterialTextureUploaded): void {
     const params: Omit<IMaterialTextureUploaded, 'material'> = omitInObjectWithoutMutation(mt, 'material');
     const MaterialConstructor: ITypeOfMaterials = MaterialMap[mt.material];
-    console.log('111 MaterialConstructor', MaterialConstructor);
     if (isNotDefined(MaterialConstructor)) throw new Error(`Unsupported material type: ${mt.material}`);
 
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access,functional/immutable-data

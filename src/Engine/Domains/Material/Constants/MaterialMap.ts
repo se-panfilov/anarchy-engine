@@ -12,6 +12,7 @@ import {
 } from 'three';
 
 import type { ITypeOfMaterials } from '@/Engine/Domains/Material/Models';
+
 import { MaterialType } from './MaterialType';
 
 export const MaterialMap: Readonly<Record<MaterialType, ITypeOfMaterials>> = {
