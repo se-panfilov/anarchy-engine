@@ -16,8 +16,7 @@ export function handleAppRequest({ settingsService }: THandleRequestDependencies
       settingsService.saveAppSettings(payload);
       return Promise.resolve();
     case PlatformActions.LoadAppSettings:
-      // TODO DESKTOP: implement loading app settings
-      return Promise.resolve({});
+      return Promise.resolve(settingsService.loadAppSettings());
     default:
       throw new Error(`[DESKTOP]: Unknown platform action: ${type}`);
   }
