@@ -53,7 +53,8 @@ export function Audio3dWrapper(params: TAudio3dParams, { audioLoop }: TAudioWrap
 
   const pauseSub$: Subscription = pause$
     .pipe(
-      skipWhile((pause: boolean, index: number): boolean => index === 0 && !pause), // to avoid initial value (only if it's a default one)
+      // to avoid initial value (only if it's a default one)
+      skipWhile((pause: boolean, index: number): boolean => index === 0 && !pause),
       distinctUntilChanged()
     )
     .subscribe((isPause: boolean): void => {
@@ -73,14 +74,16 @@ export function Audio3dWrapper(params: TAudio3dParams, { audioLoop }: TAudioWrap
 
   const speedSub$: Subscription = speed$
     .pipe(
-      skipWhile((speed: number, index: number): boolean => index === 0 && speed === 1), // to avoid initial value (only if it's a default one)
+      // to avoid initial value (only if it's a default one)
+      skipWhile((speed: number, index: number): boolean => index === 0 && speed === 1),
       distinctUntilChanged()
     )
     .subscribe((speed: number): void => void entity.setPlaybackRate(speed));
 
   const seekSub$: Subscription = seek$
     .pipe(
-      skipWhile((seek: number, index: number): boolean => index === 0 && seek === 0), // to avoid initial value (only if it's a default one)
+      // to avoid initial value (only if it's a default one)
+      skipWhile((seek: number, index: number): boolean => index === 0 && seek === 0),
       distinctUntilChanged()
     )
     .subscribe((seek: number): void => {
@@ -91,7 +94,8 @@ export function Audio3dWrapper(params: TAudio3dParams, { audioLoop }: TAudioWrap
 
   const loopSub$: Subscription = loop$
     .pipe(
-      skipWhile((loop: boolean, index: number): boolean => index === 0 && !loop), // to avoid initial value (only if it's a default one)
+      // to avoid initial value (only if it's a default one)
+      skipWhile((loop: boolean, index: number): boolean => index === 0 && !loop),
       distinctUntilChanged()
     )
     .subscribe((loop: boolean): void => void entity.setLoop(loop));
