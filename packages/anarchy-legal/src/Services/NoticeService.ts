@@ -18,13 +18,19 @@ export function NoticeService(): TNoticeService {
   const { debugLog, findMonorepoRoot, isExist, loadWorkspaces, resolveWorkspaceFromArg } = repoUtilsService;
   const { collectAllHeadingIds, parseThirdPartyMarkdown, loadUpstreamNotice } = noticeUtilsService;
 
-  function renderNotice(wsName: string, entries: ReadonlyArray<TTemplateParsedEntry>, includeUpstream: boolean): string {
-    const header: string = `# NOTICE
+  function renderNotice(wsName: string, entries: ReadonlyArray<TTemplateParsedEntry>, includeUpstream: boolean, sourceName: string): string {
+    const header: string = `# Third-Party Notices
 
 ## Application: ${wsName}
 
+This product includes third-party components. Their **licenses and attributions** are listed below.
+For the **full license texts**, see \`${sourceName}\`.
+
 Components listed: ${entries.length}
 
+## 1) Mandatory Attributions (verbatim)
+
+The following notices are reproduced as provided by the respective licensors (e.g., **Apache-2.0 NOTICE**, **CC-BY credits**, **font attributions**):
 `;
 
     const note: string = entries.length === 0 ? `**Note:** No third-party components were detected.` : '';
@@ -35,17 +41,24 @@ Components listed: ${entries.length}
       const url: string = v.url ? `**URL:** ${v.url}\n\n` : '';
       const inferredCopyright: string = v.inferredCopyright ? `**Attribution:** ${v.inferredCopyright}\n\n` : '';
 
-      const base: string = `---
-
+      const base: string = `
 ## ${v.name}@${v.version}
 
 **License(s):** ${licenses}
-${repository}${url}${inferredCopyright}`;
+${repository}${url}${inferredCopyright}
+---
+`;
       const upstream: ReadonlyArray<string> = includeUpstream && v.upstreamNotice ? [`**Upstream NOTICE:**`, ...v.upstreamNotice.split(/\r?\n/).map((ln) => `> ${ln}`), ``] : [];
       return [base, ...upstream];
     });
 
-    return [header, note, ...blocks.flat()].join('');
+    const footer: string = `
+    ## 2) General OSS Acknowledgment
+
+This product incorporates open-source software. **If any term of this file or the EULA conflicts with an OSS license for a specific component, the OSS license controls for that component.**
+`;
+
+    return [header, note, ...blocks.flat(), footer].join('');
   }
 
   async function generate(): Promise<void> {
@@ -89,10 +102,10 @@ ${repository}${url}${inferredCopyright}`;
     debugLog(isDebug, 'target workspace:', ws.name, ws.dir);
 
     // Source & Out paths
-    const sourceName = String(argv['source-name'] || 'THIRD_PARTY_LICENSES.md');
-    const defaultSource = path.join(ws.dir, sourceName);
-    const srcPath = argv.source ? (path.isAbsolute(argv.source) ? argv.source : path.resolve(process.cwd(), argv.source)) : defaultSource;
-    const outPath = argv.out ? (path.isAbsolute(argv.out) ? argv.out : path.resolve(process.cwd(), argv.out)) : path.join(ws.dir, 'NOTICE.md');
+    const sourceName: string = String(argv['source-name'] || 'THIRD_PARTY_LICENSES.md');
+    const defaultSource: string = path.join(ws.dir, sourceName);
+    const srcPath: string = argv.source ? (path.isAbsolute(argv.source) ? argv.source : path.resolve(process.cwd(), argv.source)) : defaultSource;
+    const outPath: string = argv.out ? (path.isAbsolute(argv.out) ? argv.out : path.resolve(process.cwd(), argv.out)) : path.join(ws.dir, 'NOTICE.md');
 
     debugLog(isDebug, 'source:', srcPath);
     debugLog(isDebug, 'out:', outPath);
@@ -149,7 +162,7 @@ ${repository}${url}${inferredCopyright}`;
       }
     }
 
-    const md: string = renderNotice(ws.name, entries, Boolean(argv['include-upstream-notices']));
+    const md: string = renderNotice(ws.name, entries, Boolean(argv['include-upstream-notices']), sourceName);
     await fs.mkdir(path.dirname(outPath), { recursive: true });
     await fs.writeFile(outPath, md, 'utf8');
     console.log(`NOTICE.md written -> ${outPath}`);

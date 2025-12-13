@@ -40,7 +40,7 @@ export function RepoUtilsService(): TRepoUtilsService {
     const patterns: string[] = Array.isArray(rootPkg.workspaces) ? rootPkg.workspaces : (rootPkg.workspaces?.packages ?? []);
     if (!patterns.length) throw new Error(`No workspaces patterns in ${path.join(rootDir, 'package.json')}`);
     // eslint-disable-next-line spellcheck/spell-checker
-    const dirs = await globby(patterns, {
+    const dirs: string[] = await globby(patterns, {
       cwd: rootDir,
       absolute: true,
       onlyDirectories: true,
