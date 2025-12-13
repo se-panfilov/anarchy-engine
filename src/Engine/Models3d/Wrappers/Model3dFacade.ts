@@ -15,6 +15,7 @@ export function Model3dFacade(params: TModels3dFacadeParams, animationsService: 
 
   const getPack = (): TModel3dPack => omitInObjectWithoutMutation({ ...entities, clonedFrom: facade.id }, ['actions', 'mixer']);
 
+  // Be aware that this clone method doesn't save the facade to the registry, use clone() method of the service instead
   function _clone(overrides: TOptional<TModel3dPack> = {}): TModel3dFacade {
     const _overrides = omitInObjectWithoutMutation(overrides, ['clonedFrom']);
     return Model3dFacade({ ...getPack(), clonedFrom: facade.id, ..._overrides }, animationsService);
