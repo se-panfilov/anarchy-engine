@@ -160,6 +160,12 @@
             "$ref": "#/definitions/TActorConfig"
           }
         },
+        "audio": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/TAudioConfig"
+          }
+        },
         "cameras": {
           "type": "array",
           "items": {
@@ -224,7 +230,7 @@
           }
         }
       },
-      "required": ["spatialGrids", "actors", "cameras", "envMaps", "intersections", "lights", "models3d", "particles", "physics", "fogs", "fsm", "texts", "controls"],
+      "required": ["spatialGrids", "actors", "audio", "cameras", "envMaps", "intersections", "lights", "models3d", "particles", "physics", "fogs", "fsm", "texts", "controls"],
       "additionalProperties": false
     },
     "TSpatialGridConfig": {
@@ -1181,6 +1187,146 @@
     "TransformAgent": {
       "type": "string",
       "enum": ["default", "kinematic", "physical", "connected"]
+    },
+    "TAudioConfig": {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/TAudio3dConfig"
+        },
+        {
+          "$ref": "#/definitions/TAudioBasicConfig"
+        }
+      ]
+    },
+    "TAudio3dConfig": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "position": {
+          "$ref": "#/definitions/Vector3Like"
+        },
+        "audioSource": {
+          "type": "string"
+        },
+        "listener": {
+          "type": "string"
+        },
+        "volume": {
+          "type": "number"
+        },
+        "name": {
+          "type": "string"
+        },
+        "loop": {
+          "type": "boolean"
+        },
+        "speed": {
+          "type": "number"
+        },
+        "seek": {
+          "type": "number"
+        },
+        "pause": {
+          "type": "boolean"
+        },
+        "mute": {
+          "type": "boolean"
+        },
+        "refDistance": {
+          "type": "number"
+        },
+        "rolloffFactor": {
+          "type": "number"
+        },
+        "distanceModel": {
+          "type": "string",
+          "enum": ["linear", "inverse", "exponential"]
+        },
+        "maxDistance": {
+          "type": "number"
+        },
+        "directionalCone": {
+          "$ref": "#/definitions/Vector3Like"
+        },
+        "performance": {
+          "$ref": "#/definitions/TAudioPerformanceOptions"
+        },
+        "agent": {
+          "$ref": "#/definitions/TransformAgent"
+        }
+      },
+      "required": ["audioSource", "listener", "position", "volume"]
+    },
+    "TAudioPerformanceOptions": {
+      "type": "object",
+      "properties": {
+        "updatePriority": {
+          "$ref": "#/definitions/LoopUpdatePriority"
+        },
+        "noiseThreshold": {
+          "$ref": "#/definitions/TMeters"
+        }
+      },
+      "additionalProperties": false
+    },
+    "TAudioBasicConfig": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "position": {
+          "$ref": "#/definitions/Vector3Like"
+        },
+        "audioSource": {
+          "type": "string"
+        },
+        "listener": {
+          "type": "string"
+        },
+        "volume": {
+          "type": "number"
+        },
+        "name": {
+          "type": "string"
+        },
+        "loop": {
+          "type": "boolean"
+        },
+        "speed": {
+          "type": "number"
+        },
+        "seek": {
+          "type": "number"
+        },
+        "pause": {
+          "type": "boolean"
+        },
+        "mute": {
+          "type": "boolean"
+        },
+        "refDistance": {
+          "type": "number"
+        },
+        "rolloffFactor": {
+          "type": "number"
+        },
+        "distanceModel": {
+          "type": "string",
+          "enum": ["linear", "inverse", "exponential"]
+        },
+        "maxDistance": {
+          "type": "number"
+        },
+        "directionalCone": {
+          "$ref": "#/definitions/Vector3Like"
+        },
+        "performance": {
+          "$ref": "#/definitions/TAudioPerformanceOptions"
+        },
+        "agent": {
+          "$ref": "#/definitions/TransformAgent"
+        }
+      },
+      "required": ["audioSource", "listener", "position", "volume"]
     },
     "TCameraConfig": {
       "type": "object",
@@ -2432,10 +2578,10 @@
           "type": "number"
         },
         "position": {
-          "$ref": "#/definitions/Vector3"
+          "$ref": "#/definitions/TReadonlyVector3"
         },
         "rotation": {
-          "$ref": "#/definitions/Quaternion"
+          "$ref": "#/definitions/TReadonlyQuaternion"
         },
         "isSleep": {
           "type": "boolean"
@@ -2451,7 +2597,7 @@
         }
       }
     },
-    "Vector3": {
+    "TReadonlyVector3": {
       "type": "object",
       "properties": {
         "x": {
@@ -2472,10 +2618,9 @@
         }
       },
       "required": ["x", "y", "z", "isVector3"],
-      "additionalProperties": false,
-      "description": "3D vector.\n\nsee  {@link  https://github.com/mrdoob/three.js/blob/master/src/math/Vector3.js }"
+      "additionalProperties": false
     },
-    "Quaternion": {
+    "TReadonlyQuaternion": {
       "type": "object",
       "properties": {
         "x": {
@@ -2503,8 +2648,7 @@
         }
       },
       "required": ["x", "y", "z", "w", "isQuaternion", "_onChangeCallback"],
-      "additionalProperties": false,
-      "description": "Implementation of a quaternion. This is used for rotating things without incurring in the dreaded gimbal lock issue, amongst other advantages."
+      "additionalProperties": false
     },
     "TextType": {
       "type": "string",
@@ -4158,6 +4302,12 @@
             "$ref": "#/definitions/TAnimationsResourceConfig"
           }
         },
+        "audio": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/TAudioResourceConfig"
+          }
+        },
         "envMaps": {
           "type": "array",
           "items": {
@@ -4183,7 +4333,7 @@
           }
         }
       },
-      "required": ["animations", "envMaps", "materials", "models3d", "textures"],
+      "required": ["animations", "audio", "envMaps", "materials", "models3d", "textures"],
       "additionalProperties": false
     },
     "TAnimationsResourceConfig": {
@@ -4213,6 +4363,9 @@
         }
       },
       "required": ["url"]
+    },
+    "TAudioResourceConfig": {
+      "$ref": "#/definitions/TAbstractResourceConfig"
     },
     "TEnvMapResourceConfig": {
       "type": "object",

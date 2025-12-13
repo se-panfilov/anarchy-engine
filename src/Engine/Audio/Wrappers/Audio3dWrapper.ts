@@ -6,7 +6,7 @@ import type { TWrapper } from '@/Engine/Abstract';
 import { AbstractWrapper, WrapperType } from '@/Engine/Abstract';
 import type { TAudio3dParams, TAudio3dTransformDrive, TAudio3dWrapper, TAudioFadeParams, TAudioWrapperDependencies } from '@/Engine/Audio/Models';
 import { Audio3dTransformDrive } from '@/Engine/Audio/TransformDrive';
-import { createPositionalAudion, fadeAudio, pauseAudio, resumeAudio, seekAudio } from '@/Engine/Audio/Utils';
+import { createPositionalAudion, fadeAudio, seekAudio } from '@/Engine/Audio/Utils';
 import { LoopUpdatePriority } from '@/Engine/Loop';
 import type { TMeters } from '@/Engine/Math';
 import { meters } from '@/Engine/Measurements';
@@ -36,8 +36,9 @@ export function Audio3dWrapper(params: TAudio3dParams, { audioLoop }: TAudioWrap
   const volumeSub$: Subscription = volume$.pipe(distinctUntilChanged()).subscribe((volume: number): void => void entity.setVolume(volume));
 
   const pauseSub$: Subscription = pause$.pipe(distinctUntilChanged()).subscribe((isPause: boolean): void => {
-    if (isPause) pauseAudio(entity);
-    else resumeAudio(entity);
+    console.log('XXX pause', isPause);
+    // if (isPause) pauseAudio(entity);
+    // else resumeAudio(entity);
   });
 
   const fadeSub$: Subscription = fade$

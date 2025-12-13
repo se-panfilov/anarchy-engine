@@ -6,7 +6,7 @@ export const isAudio3dConfig = (config: TAudioConfig | TAudio3dConfig): config i
 export const isAudio3dParams = (config: TAudioParams | TAudio3dParams): config is TAudio3dParams => (config as TAudio3dParams).position !== undefined;
 
 // TODO 11.0.0: implement pauseAudio
-export function pauseAudio(entity: PositionalAudio): void {
+export function pauseAudio(): void {
   console.warn('pauseAudio is not implemented yet');
   // if (!entity.isPlaying) return;
   // entity.pausedAt = entity.context.currentTime - entity.startTime;
@@ -15,7 +15,7 @@ export function pauseAudio(entity: PositionalAudio): void {
 }
 
 // TODO 11.0.0: implement resumeAudio
-export function resumeAudio(entity: PositionalAudio): void {
+export function resumeAudio(): void {
   console.warn('resumeAudio is not implemented yet');
   // if (!entity.isPaused || entity.pausedAt === null) return;
   // entity.offset = entity.pausedAt;
