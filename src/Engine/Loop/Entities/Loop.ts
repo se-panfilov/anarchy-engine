@@ -84,11 +84,6 @@ export function Loop({ name, type, trigger, showDebugInfo, maxPriority, isParall
     enableSub$.unsubscribe();
     loopSub$.unsubscribe();
 
-    tick$.complete();
-    tick$.unsubscribe();
-    enabled$.complete();
-    enabled$.unsubscribe();
-
     if (isDefined(intervalId)) {
       clearInterval(intervalId);
       intervalId = null as any;
@@ -96,10 +91,16 @@ export function Loop({ name, type, trigger, showDebugInfo, maxPriority, isParall
 
     tickCounter = 0;
 
+    enabled$.complete();
+    enabled$.unsubscribe();
+
     worker?.postMessage({ loopId: id, action: LoopWorkerActions.Destroy } satisfies TLoopWorkerDestroyRequestData);
     worker?.terminate();
     worker = null;
     deltaCalc?.destroy();
+
+    tick$.complete();
+    tick$.unsubscribe();
   });
 
   return {
