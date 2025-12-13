@@ -4,7 +4,7 @@ import { BehaviorSubject, combineLatest, filter, map, switchMap } from 'rxjs';
 import { Euler, Quaternion, Vector3 } from 'three';
 
 import type { TPhysicsBody } from '@/Engine/Physics';
-import { createPhysicsBodyObject, RigidBodyTypesNames } from '@/Engine/Physics';
+import { createPhysicsBodyObject, isPhysicsBodyParamsComplete, RigidBodyTypesNames } from '@/Engine/Physics';
 import type { TReadonlyEuler, TReadonlyQuaternion } from '@/Engine/ThreeLib';
 import { TransformAgent } from '@/Engine/TransformDrive/Constants';
 import type { TAbstractTransformAgent, TPhysicsAgentDependencies, TPhysicsTransformAgent, TPhysicsTransformAgentInternalParams, TPhysicsTransformAgentParams } from '@/Engine/TransformDrive/Models';
@@ -23,7 +23,9 @@ export function PhysicsTransformAgent(params: TPhysicsTransformAgentParams, { ph
 
   let physicsSub$: Subscription | undefined = undefined;
 
-  // TODO CWP test all os this anc add a showcase
+  const physicsBody$: BehaviorSubject<TPhysicsBody | undefined> = new BehaviorSubject<TPhysicsBody | undefined>(undefined);
+
+  // TODO CWP test all of this and add a showcase
   // TODO 8.0.0. MODELS: PhysicsTransformAgent should do nothing if actor has no "physics" field.
   // TODO 8.0.0. MODELS: Make sure we can work with presets
   // TODO 8.0.0. MODELS: Add physics config to text (and to adapter)
@@ -31,8 +33,12 @@ export function PhysicsTransformAgent(params: TPhysicsTransformAgentParams, { ph
   const agent: TPhysicsTransformAgent = {
     ...abstractTransformAgent,
     rotationQuaternion$,
-    physicsBody: createPhysicsBodyObject(adaptedParams, physicsBodyService)
+    physicsBody$
   };
+
+  if (isPhysicsBodyParamsComplete(adaptedParams)) {
+    physicsBody$.next(createPhysicsBodyObject(adaptedParams, physicsBodyService));
+  }
 
   const destroySub$: Subscription = abstractTransformAgent.destroy$.subscribe((): void => {
     //Stop subscriptions
@@ -57,9 +63,10 @@ export function PhysicsTransformAgent(params: TPhysicsTransformAgentParams, { ph
   return agent;
 }
 
-function getPhysicalBodyTransform<T extends { physicsBody: TPhysicsBody }>(obj: T): { position?: Vector; rotation?: Rotation } | never {
-  if (obj.physicsBody.getPhysicsBodyType() === RigidBodyTypesNames.Fixed) return {};
-  const rigidBody: RigidBody | undefined = obj.physicsBody.getRigidBody();
+function getPhysicalBodyTransform<T extends { physicsBody$: BehaviorSubject<TPhysicsBody | undefined> }>(obj: T): { position?: Vector; rotation?: Rotation } | never {
+  if (isNotDefined(obj.physicsBody$.value)) return {};
+  if (obj.physicsBody$.value.getPhysicsBodyType() === RigidBodyTypesNames.Fixed) return {};
+  const rigidBody: RigidBody | undefined = obj.physicsBody$.value.getRigidBody();
   if (isNotDefined(rigidBody)) throw new Error('Cannot update Actor with Physics: rigidBody is missing');
 
   return { position: rigidBody.translation(), rotation: rigidBody.rotation() };

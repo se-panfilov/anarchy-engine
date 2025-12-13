@@ -1,4 +1,4 @@
-import type { Observable } from 'rxjs';
+import type { BehaviorSubject, Observable } from 'rxjs';
 
 import type { TPhysicsBody } from '@/Engine/Physics';
 import type { TReadonlyQuaternion } from '@/Engine/ThreeLib';
@@ -8,5 +8,5 @@ import type { TAbstractTransformAgent } from './TAbstractTransformAgent';
 export type TPhysicsTransformAgent = TAbstractTransformAgent &
   Readonly<{
     rotationQuaternion$: Observable<TReadonlyQuaternion>;
-    physicsBody: TPhysicsBody;
+    physicsBody$: BehaviorSubject<TPhysicsBody | undefined>;
   }>;
