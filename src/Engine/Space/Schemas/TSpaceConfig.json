@@ -6681,7 +6681,11 @@
     },
     "TModel3dResourceConfig": {
       "type": "object",
+      "additionalProperties": false,
       "properties": {
+        "options": {
+          "$ref": "#/definitions/TOptional%3CTObject3DProps%3E"
+        },
         "url": {
           "type": "string"
         },
@@ -6698,7 +6702,39 @@
           }
         }
       },
-      "required": ["url"],
+      "required": ["url"]
+    },
+    "TOptional<TObject3DProps>": {
+      "type": "object",
+      "properties": {
+        "position": {
+          "$ref": "#/definitions/TWithCoordsXYZ"
+        },
+        "rotation": {
+          "$ref": "#/definitions/TWithCoordsXYZ"
+        },
+        "scale": {
+          "$ref": "#/definitions/TWithCoordsXYZ"
+        },
+        "visible": {
+          "type": "boolean"
+        },
+        "castShadow": {
+          "type": "boolean"
+        },
+        "receiveShadow": {
+          "type": "boolean"
+        },
+        "layers": {
+          "$ref": "#/definitions/Layers"
+        },
+        "frustumCulled": {
+          "type": "boolean"
+        },
+        "renderOrder": {
+          "type": "number"
+        }
+      },
       "additionalProperties": false
     },
     "TTextureResourceConfig": {
