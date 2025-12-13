@@ -18,6 +18,7 @@ import { FsmInstanceFactory, FsmInstanceRegistry, FsmSourceRegistry } from '@/En
 import { FsmSourceFactory } from '@/Engine/Fsm/Factories/FsmSourceFactory';
 import { FsmService } from '@/Engine/Fsm/Services/FsmService';
 import { IntersectionsWatcherFactory, IntersectionsWatcherRegistry, IntersectionsWatcherService } from '@/Engine/Intersections';
+import { KeyboardService } from '@/Engine/Keyboard';
 import { LightFactory, LightRegistry, LightService } from '@/Engine/Light';
 import type { TLoopService } from '@/Engine/Loop';
 import { LoopFactory, LoopRegistry, LoopService } from '@/Engine/Loop';
@@ -46,7 +47,6 @@ export function buildBaseServices(): TSpaceBaseServices {
   return { loopService, scenesService };
 }
 
-// TODO 10.0.0: Loops: check if loopService is redundant
 export function buildEntitiesServices(sceneW: TSceneWrapper, canvas: TAppCanvas, loops: TSpaceLoops, { loopService, scenesService }: TSpaceBaseServices): TSpaceServices {
   const textureService: TTextureService = TextureService(TextureAsyncRegistry());
   const materialService: TMaterialService = MaterialService(MaterialFactory(), MaterialRegistry(), { textureService });
@@ -91,6 +91,7 @@ export function buildEntitiesServices(sceneW: TSceneWrapper, canvas: TAppCanvas,
     fogService: FogService(FogFactory(), FogRegistry(), sceneW),
     fsmService,
     intersectionsWatcherService: IntersectionsWatcherService(IntersectionsWatcherFactory(), IntersectionsWatcherRegistry()),
+    keyboardService: KeyboardService(loops.keyboardLoop),
     lightService: LightService(LightFactory(), LightRegistry(), sceneW),
     loopService,
     materialService,

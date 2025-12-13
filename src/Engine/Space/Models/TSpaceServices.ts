@@ -8,6 +8,7 @@ import type { TEnvMapService } from '@/Engine/EnvMap';
 import type { TFogService } from '@/Engine/Fog';
 import type { TFsmService } from '@/Engine/Fsm';
 import type { TIntersectionsWatcherService } from '@/Engine/Intersections';
+import type { TKeyboardService } from '@/Engine/Keyboard';
 import type { TLightService } from '@/Engine/Light';
 import type { TLoopService } from '@/Engine/Loop';
 import type { TMaterialService } from '@/Engine/Material';
@@ -31,6 +32,7 @@ export type TSpaceServices = Readonly<{
   fogService: TFogService;
   fsmService: TFsmService;
   intersectionsWatcherService: TIntersectionsWatcherService;
+  keyboardService: TKeyboardService;
   lightService: TLightService;
   loopService: TLoopService;
   materialService: TMaterialService;

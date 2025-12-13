@@ -1,8 +1,9 @@
-import type { Subscription } from 'rxjs';
-import { BehaviorSubject } from 'rxjs';
+import type { Observable, Subscription } from 'rxjs';
+import { BehaviorSubject, distinctUntilChanged, skip, Subject } from 'rxjs';
 
 import type { TAbstractService } from '@/Engine/Abstract';
 import { AbstractEntity, EntityType } from '@/Engine/Abstract';
+import type { TIntersectionsWatcher } from '@/Engine/Intersections';
 import type { TLoop } from '@/Engine/Loop';
 import { RendererModes } from '@/Engine/Renderer';
 import type { TSceneWrapper } from '@/Engine/Scene';
@@ -13,9 +14,10 @@ import { buildBaseServices, buildEntitiesServices, createEntities } from '@/Engi
 import { createLoops } from '@/Engine/Space/Utils/CreateLoopsUtils';
 import { isDefined, isDestroyable, isNotDefined } from '@/Engine/Utils';
 
-export function Space(params: TSpaceParams, hooks?: TSpaceHooks): TSpace | never {
+export function Space(params: TSpaceParams, hooks?: TSpaceHooks): TSpace {
   const { canvas, version, name, tags } = params;
-  const built$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  const built$: BehaviorSubject<TSpace | undefined> = new BehaviorSubject<TSpace | undefined>(undefined);
+  const start$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   screenService.setCanvas(params.canvas);
 
@@ -33,13 +35,28 @@ export function Space(params: TSpaceParams, hooks?: TSpaceHooks): TSpace | never
   const parts: TSpaceParts = {
     services,
     loops,
-    built$
+    built$: built$.asObservable(), //.pipe(skip(1)) as Observable<TSpace>,
+    start$
   };
 
   const space: TSpace = AbstractEntity(parts, EntityType.Space, { version, name, tags });
 
-  // TODO 13-0-0: Add possibility to drop the whole canvas on destroy
+  start$.pipe(distinctUntilChanged()).subscribe((value: boolean): void => {
+    if (value) return Object.values(space.loops).forEach((loop: TLoop): void => loop.start());
 
+    //stop
+    if (isNotDefined(space)) throw new Error('Engine is not started yet (space is not defined)');
+    const { intersectionsWatcherService } = space.services;
+    Object.values(space.loops).forEach((loop: TLoop): void => loop.stop());
+    // TODO 14-0-0: stop all watchers, not only intersections
+    void intersectionsWatcherService.getRegistry().forEach((watcher: TIntersectionsWatcher): void => {
+      if (watcher.isStarted) watcher.stop$.next();
+    });
+
+    return undefined;
+  });
+
+  // TODO 13-0-0: Add possibility to drop the whole canvas on destroy
   const destroySub$: Subscription = space.destroy$.subscribe((): void => {
     destroySub$.unsubscribe();
 
@@ -52,7 +69,7 @@ export function Space(params: TSpaceParams, hooks?: TSpaceHooks): TSpace | never
   // eslint-disable-next-line functional/immutable-data
   const result = Object.assign(space, parts);
 
-  built$.next(true);
+  built$.next(result);
 
   return result;
 }
