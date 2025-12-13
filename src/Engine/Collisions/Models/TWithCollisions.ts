@@ -1,4 +1,14 @@
-// TODO (S.Panfilov) fix
+import type { Observable } from 'rxjs';
+
+import type { TCollisionCheckResult } from './TCollisionCheckResult';
+import type { TCollisionsData } from './TCollisionsData';
+import type { TCollisionsMethods } from './TCollisionsMethods';
+
 export type TWithCollisions = Readonly<{
-  QQQ: number;
+  collisions: Readonly<{ data: TCollisionsData }> &
+    Readonly<{
+      value$: Observable<TCollisionCheckResult>;
+      destroy: () => void;
+    }> &
+    TCollisionsMethods;
 }>;

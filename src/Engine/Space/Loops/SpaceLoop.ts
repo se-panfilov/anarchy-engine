@@ -1,4 +1,6 @@
 import type { TCameraWrapper } from '@/Engine/Camera';
+import type { TCollisionsLoopService } from '@/Engine/Collisions';
+import { CollisionsUpdatePriority } from '@/Engine/Collisions';
 import type { TControlsRegistry, TOrbitControlsWrapper } from '@/Engine/Controls';
 import type { TKinematicLoopService } from '@/Engine/Kinematic';
 import type { TPhysicsLoopService } from '@/Engine/Physics';
@@ -9,7 +11,8 @@ import { SpatialUpdatePriority } from '@/Engine/Spatial';
 import type { TText2dRegistry, TText2dRenderer, TText3dRegistry, TText3dRenderer } from '@/Engine/Text';
 import { isDefined } from '@/Engine/Utils';
 
-let currentPriorityCounter: number = SpatialUpdatePriority.ASAP;
+let currentSpatialPriorityCounter: number = SpatialUpdatePriority.ASAP;
+let currentCollisionsPriorityCounter: number = CollisionsUpdatePriority.ASAP;
 
 export function spaceLoop(
   delta: number,
@@ -23,7 +26,8 @@ export function spaceLoop(
   controlsRegistry: TControlsRegistry,
   physicsLoopService: TPhysicsLoopService,
   kinematicLoopService: TKinematicLoopService,
-  spatialLoopService: TSpatialLoopService
+  spatialLoopService: TSpatialLoopService,
+  collisionsLoopService: TCollisionsLoopService
 ): void {
   const isAutoUpdatePhysicalWorld: boolean = physicsLoopService.isAutoUpdate();
   if (isAutoUpdatePhysicalWorld) physicsLoopService.step();
@@ -40,8 +44,13 @@ export function spaceLoop(
   if (kinematicLoopService.isAutoUpdate()) kinematicLoopService.tick$.next(delta);
 
   if (spatialLoopService.isAutoUpdate()) {
-    spatialLoopService.tick$.next({ delta, priority: currentPriorityCounter });
-    currentPriorityCounter = currentPriorityCounter === (SpatialUpdatePriority.IDLE as number) ? SpatialUpdatePriority.ASAP : currentPriorityCounter - 1;
+    spatialLoopService.tick$.next({ delta, priority: currentSpatialPriorityCounter });
+    currentSpatialPriorityCounter = currentSpatialPriorityCounter === (SpatialUpdatePriority.IDLE as number) ? SpatialUpdatePriority.ASAP : currentSpatialPriorityCounter - 1;
+  }
+
+  if (collisionsLoopService.isAutoUpdate()) {
+    collisionsLoopService.tick$.next({ delta, priority: currentCollisionsPriorityCounter });
+    currentCollisionsPriorityCounter = currentCollisionsPriorityCounter === (CollisionsUpdatePriority.IDLE as number) ? CollisionsUpdatePriority.ASAP : currentCollisionsPriorityCounter - 1;
   }
 
   // just for control's damping

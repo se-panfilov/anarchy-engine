@@ -1,14 +1,10 @@
-import type { Subscription } from 'rxjs';
-import { Subject } from 'rxjs';
 import type { Intersection } from 'three';
 import { Box3, Raycaster } from 'three';
 
 import type { TActorWrapperAsync } from '@/Engine/Actor/Models';
 import type { TCollisionCheckResult, TCollisionsService, TRaycastBvhService } from '@/Engine/Collisions/Models';
 import type { TSceneWrapper } from '@/Engine/Scene';
-import type { TSpatialCell, TSpatialCellWrapper } from '@/Engine/Spatial';
 import { createBoundingBox } from '@/Engine/Spatial/Services/SpatialHelper';
-import { isDefined } from '@/Engine/Utils';
 
 import { RaycastBvhService } from './RaycastBvhService';
 
@@ -18,53 +14,7 @@ export function CollisionsService(): TCollisionsService {
   // TODO (S.Panfilov) debug box
   let box: any;
 
-  // TODO (S.Panfilov) extract to collision watcher
-  function createCollisionsWatcher(actorW: TActorWrapperAsync, radius: number, sceneW: TSceneWrapper): Readonly<{ checkCollisions: () => TCollisionCheckResult | undefined; stop: () => void }> {
-    const value$: Subject<TCollisionCheckResult> = new Subject<TCollisionCheckResult>();
-    let actorsToCheck: ReadonlyArray<TActorWrapperAsync> = [];
-    let cellSubs$: ReadonlyArray<Subscription> = [];
-
-    function unsubscribeFromCells(): void {
-      cellSubs$.forEach((s: Subscription): void => s.unsubscribe());
-      cellSubs$ = [];
-    }
-
-    function subscribeToCells(cells: ReadonlyArray<TSpatialCellWrapper>): void {
-      cellSubs$ = cells.map((cell: TSpatialCellWrapper): Subscription => {
-        return cell.update$.subscribe(({ objects }: TSpatialCell): void => {
-          actorsToCheck = objects.filter((a: TActorWrapperAsync): boolean => a.id !== actorW.id);
-        });
-      });
-    }
-
-    // TODO (S.Panfilov) CWP What if bullet is not in the grid? Should be still possible to get actors from a grid anyway (could have if/else and 2 checks for bullet in grid and not in grid)
-    // TODO (S.Panfilov) CWP Also remember that bullet could be bigger than 1 cell
-    // TODO (S.Panfilov) CWP test this code (should not produce memory leaks)
-    let actorSub$: Subscription | undefined = actorW.spatial.cellsChanged$.subscribe((cells: ReadonlyArray<TSpatialCellWrapper>): void => {
-      if (isDefined(actorSub$)) actorSub$.unsubscribe();
-
-      unsubscribeFromCells();
-      actorsToCheck = cells.flatMap((cell: TSpatialCellWrapper) => cell.getObjects()).filter((a: TActorWrapperAsync): boolean => a.id !== actorW.id);
-      subscribeToCells(cells);
-    });
-
-    collisionLoopService.tick$.subscribe((): void => {
-      const collision: TCollisionCheckResult | undefined = checkCollisions(actorW, radius, actorsToCheck, sceneW);
-      if (isDefined(collision)) value$.next(collision);
-    });
-
-    return {
-      stop: (): void => {
-        actorSub$?.unsubscribe();
-        actorSub$ = undefined;
-        unsubscribeFromCells();
-        collisionLoopService.tick$.unsubscribe();
-      },
-      value$: value$.asObservable()
-    };
-  }
-
-  // TODO (S.Panfilov) debug scene
+  // TODO (S.Panfilov) debug sceneW
   function checkCollisions(actorW: TActorWrapperAsync, radius: number, actorsToCheck: ReadonlyArray<TActorWrapperAsync>, sceneW: TSceneWrapper): TCollisionCheckResult | undefined {
     const actorBox: Box3 = new Box3().setFromObject(actorW.entity);
     const queryBox = {
@@ -122,9 +72,7 @@ export function CollisionsService(): TCollisionsService {
   }
 
   return {
-    createCollisionsWatcher,
+    checkCollisions,
     raycast: raycastBvhService
   };
 }
-
-export const collisionsService: TCollisionsService = CollisionsService();

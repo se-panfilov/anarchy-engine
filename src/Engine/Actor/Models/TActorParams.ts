@@ -1,3 +1,4 @@
+import type { TCollisionsDataParams } from '@/Engine/Collisions';
 import type { TKinematicData } from '@/Engine/Kinematic';
 import type { TWithReadonlyTags } from '@/Engine/Mixins';
 import type { TWithPresetNamePhysicsBodyParams } from '@/Engine/Physics';
@@ -21,5 +22,9 @@ export type TActorParams = TActorProps &
   Readonly<{
     spatial?: TSpatialDataParams;
     isSpatialAutoUpdate?: boolean;
+  }> &
+  Readonly<{
+    collisions?: TCollisionsDataParams;
+    isCollisionsAutoUpdate?: boolean;
   }> &
   TWithReadonlyTags;

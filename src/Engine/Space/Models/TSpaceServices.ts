@@ -1,5 +1,6 @@
 import type { TActorService } from '@/Engine/Actor';
 import type { TCameraService } from '@/Engine/Camera';
+import type { TCollisionsLoopService, TCollisionsService } from '@/Engine/Collisions';
 import type { TControlsService } from '@/Engine/Controls';
 import type { TEnvMapService } from '@/Engine/EnvMap';
 import type { TFogService } from '@/Engine/Fog';
@@ -21,6 +22,8 @@ export type TSpaceServices = Readonly<{
   actorService: TActorService;
   cameraService: TCameraService;
   controlsService: TControlsService;
+  collisionsService: TCollisionsService;
+  collisionsLoopService: TCollisionsLoopService;
   envMapService: TEnvMapService;
   fogService: TFogService;
   intersectionsWatcherService: TIntersectionsWatcherService;

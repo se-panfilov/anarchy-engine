@@ -3,7 +3,8 @@ import type { Vector3 } from 'three';
 
 import { AbstractWrapper, WrapperType } from '@/Engine/Abstract';
 import type { TActorDependencies, TActorParams, TActorWrapperAsync } from '@/Engine/Actor/Models';
-import { applySpatialGrid } from '@/Engine/Actor/Wrappers/ActorWrapperHelper';
+import { applySpatialGrid, startCollisions } from '@/Engine/Actor/Wrappers/ActorWrapperHelper';
+import { withCollisions } from '@/Engine/Collisions';
 import { withKinematic } from '@/Engine/Kinematic';
 import type { TWithMaterial } from '@/Engine/Material';
 import { withMaterial } from '@/Engine/Material';
@@ -18,7 +19,7 @@ import { createActorMesh } from './ActorUtils';
 
 export async function ActorWrapperAsync(
   params: TActorParams,
-  { materialTextureService, kinematicLoopService, spatialLoopService, spatialGridService }: TActorDependencies
+  { materialTextureService, kinematicLoopService, spatialLoopService, spatialGridService, collisionLoopService, collisionsService }: TActorDependencies
 ): Promise<TActorWrapperAsync> {
   // TODO (S.Panfilov) AWAIT: could speed up by not awaiting mesh to be build
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
@@ -39,6 +40,8 @@ export async function ActorWrapperAsync(
     ...withTextures(withMaterialEntity, materialTextureService),
     ...withKinematic(params),
     ...withSpatial(params),
+    // TODO (S.Panfilov) debug sceneW
+    ...withCollisions(params, collisionsService, collisionLoopService, sceneW),
     ...withUpdateSpatialCell(),
     position$: position$.asObservable(),
     rotation$: rotation$.asObservable(),
@@ -67,13 +70,15 @@ export async function ActorWrapperAsync(
     rotation$.unsubscribe();
     rotation$.complete();
     actorW.spatial.destroy();
+    actorW.collisions?.destroy();
   });
 
   applyPosition(actorW, params.position);
   applyRotation(actorW, params.rotation);
-  applySpatialGrid(params, actorW, spatialGridService);
   if (isDefined(params.scale)) applyScale(actorW, params.scale);
   applyObject3dParams(actorW, params);
+  applySpatialGrid(params, actorW, spatialGridService);
+  startCollisions(actorW);
 
   position$.subscribe((newPosition: Vector3): void => {
     // TODO (S.Panfilov) debug "if" clause

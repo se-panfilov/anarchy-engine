@@ -20,6 +20,7 @@ export type TSpatialGridWrapper = TWrapper<TSpatialGrid> &
     getAllInCellByCellId: (cellId: TSpatialCellId) => ReadonlyArray<TActorWrapperAsync>;
     findCellsForPoint: (x: number, z: number) => ReadonlyArray<TSpatialCellWrapper>;
     findCellsForBox: (box: Readonly<{ minX: number; minZ: number; maxX: number; maxZ: number }>) => ReadonlyArray<TSpatialCellWrapper>;
+    findCellsByActorBox: (actorW: TActorWrapperAsync) => ReadonlyArray<TSpatialCellWrapper>;
     findCellById: (id: TSpatialCellId) => TSpatialCellWrapper | undefined;
     removeFromGrid: (actorW: TActorWrapperAsync) => void;
     clearGrid: () => void;

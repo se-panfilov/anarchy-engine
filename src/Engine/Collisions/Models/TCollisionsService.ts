@@ -6,6 +6,6 @@ import type { TRaycastBvhService } from './TRaycastBvhService';
 
 export type TCollisionsService = Readonly<{
   // TODO (S.Panfilov) debug sceneW
-  createCollisionsWatcher: (actorW: TActorWrapperAsync, radius: number, sceneW: TSceneWrapper) => Readonly<{ checkCollisions: () => TCollisionCheckResult | undefined; stop: () => void }>;
+  checkCollisions: (actorW: TActorWrapperAsync, radius: number, actorsToCheck: ReadonlyArray<TActorWrapperAsync>, sceneW: TSceneWrapper) => TCollisionCheckResult | undefined;
   raycast: TRaycastBvhService;
 }>;

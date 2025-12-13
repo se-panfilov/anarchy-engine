@@ -125,6 +125,12 @@ export function SpatialGridWrapper(params: TSpatialGridParams): TSpatialGridWrap
   const findCellsForBox = ({ minX, minZ, maxX, maxZ }: Readonly<{ minX: number; minZ: number; maxX: number; maxZ: number }>): ReadonlyArray<TSpatialCellWrapper> =>
     entity.search({ minX, minY: minZ, maxX, maxY: maxZ });
 
+  // TODO (S.Panfilov) test this function
+  function findCellsByActorBox(actorW: TActorWrapperAsync): ReadonlyArray<TSpatialCellWrapper> {
+    const actorBox: Box3 = getBoundingBox(actorW.entity);
+    return findCellsForBox({ minX: actorBox.min.x, minZ: actorBox.min.z, maxX: actorBox.max.x, maxZ: actorBox.max.z });
+  }
+
   function findCellById(id: TSpatialCellId): TSpatialCellWrapper | undefined {
     return entity.all().filter((cell: TSpatialCellWrapper): boolean => cell.id === id)[0];
   }
@@ -181,6 +187,7 @@ export function SpatialGridWrapper(params: TSpatialGridParams): TSpatialGridWrap
     getAllInCellByCellId,
     findCellsForPoint,
     findCellsForBox,
+    findCellsByActorBox,
     findCellById,
     removeFromGrid,
     clearGrid,

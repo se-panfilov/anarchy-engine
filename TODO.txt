@@ -23,6 +23,7 @@ Global Refactoring:
 - extract materials from actors, keep there an alias to a material to be able to reuse the same material
 - feels like env map is not async at all (check for extra "await", and compare with vanila env map loading)
 - "tags" should be optional everywhere
+- Simplify positions and rotations (and scale), should be Vector3 when possible, not a wrapper probably
 
 Also:
 - Add line domain and let lines be created via config

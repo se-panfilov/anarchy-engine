@@ -14,3 +14,7 @@ export function applySpatialGrid(params: TActorParams, actorW: TActorWrapperAsyn
   actorW.spatial.setGrid(grid);
   grid.addActor(actorW);
 }
+
+export function startCollisions(actorW: TActorWrapperAsync): void {
+  actorW.collisions?.start(actorW);
+}

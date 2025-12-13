@@ -1,6 +1,8 @@
 import { ActorAsyncRegistry, ActorFactory, ActorService } from '@/Engine/Actor';
 import type { TAppCanvas } from '@/Engine/App';
 import { CameraFactory, CameraRegistry, CameraService } from '@/Engine/Camera';
+import type { TCollisionsLoopService, TCollisionsService } from '@/Engine/Collisions';
+import { CollisionsLoopService, CollisionsService } from '@/Engine/Collisions';
 import { ambientContext } from '@/Engine/Context';
 import { ControlService, ControlsFactory, ControlsRegistry } from '@/Engine/Controls';
 import { EnvMapAsyncRegistry, EnvMapService } from '@/Engine/EnvMap';
@@ -46,6 +48,8 @@ export function initEntitiesServices(scene: TSceneWrapper, canvas: TAppCanvas): 
   const kinematicLoopService: TKinematicLoopService = KinematicLoopService();
   const spatialLoopService: TSpatialLoopService = SpatialLoopService();
   const spatialGridService: TSpatialGridService = SpatialGridService(SpatialGridFactory(), SpatialGridRegistry());
+  const collisionsLoopService: TCollisionsLoopService = CollisionsLoopService();
+  const collisionsService: TCollisionsService = CollisionsService();
   const loopService: TLoopService = LoopService();
 
   return {
@@ -64,6 +68,8 @@ export function initEntitiesServices(scene: TSceneWrapper, canvas: TAppCanvas): 
     ),
     cameraService: CameraService(CameraFactory(), CameraRegistry(), scene),
     controlsService: ControlService(ControlsFactory(), ControlsRegistry(), canvas),
+    collisionsService,
+    collisionsLoopService,
     envMapService: EnvMapService(EnvMapAsyncRegistry()),
     fogService: FogService(FogFactory(), FogRegistry(), scene),
     intersectionsWatcherService: IntersectionsWatcherService(IntersectionsWatcherFactory(), IntersectionsWatcherRegistry()),

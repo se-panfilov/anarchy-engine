@@ -1,4 +1,5 @@
 import type { ActorType } from '@/Engine/Actor/Constants';
+import type { TCollisionsDataConfig } from '@/Engine/Collisions';
 import type { TKinematicData } from '@/Engine/Kinematic';
 import type { TMaterialPackConfig, TMaterialTexturePack } from '@/Engine/MaterialTexturePack';
 import type { TWithReadonlyTags } from '@/Engine/Mixins';
@@ -27,6 +28,10 @@ export type TActorConfig = Omit<TActorProps, 'material'> &
   Readonly<{
     spatial?: TSpatialDataConfig;
     isSpatialAutoUpdate?: boolean;
+  }> &
+  Readonly<{
+    collisions?: TCollisionsDataConfig;
+    isCollisionsAutoUpdate?: boolean;
   }> &
   TObject3DPropConfig &
   TWithReadonlyTags;
