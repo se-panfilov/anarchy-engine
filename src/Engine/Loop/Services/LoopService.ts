@@ -27,7 +27,7 @@ export function LoopService(): TLoopService {
         if (isDefined(beforeTick)) beforeTick(times);
       })
     )
-    .subscribe(tick$);
+    .subscribe((times: TLoopTimes): void => tick$.next(times));
 
   const loopFn = getLoopFn(beforeTick$, state);
 

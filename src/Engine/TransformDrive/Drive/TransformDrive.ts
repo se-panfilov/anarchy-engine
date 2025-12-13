@@ -83,9 +83,9 @@ export function TransformDrive<T extends Partial<Record<TransformAgent, TAbstrac
   const scaleRep$: ReplaySubject<Vector3> = new ReplaySubject<Vector3>(1);
   const activeAgentRep$: ReplaySubject<TProtectedTransformAgentFacade<TAbstractTransformAgent>> = new ReplaySubject(1);
 
-  position$.subscribe(positionRep$);
-  rotation$.subscribe(rotationRep$);
-  scale$.subscribe(scaleRep$);
+  position$.subscribe((p: Vector3): void => positionRep$.next(p));
+  rotation$.subscribe((r: Quaternion): void => rotationRep$.next(r));
+  scale$.subscribe((s: Vector3): void => scaleRep$.next(s));
   activeAgent$.subscribe((agent: TAbstractTransformAgent): void => activeAgentRep$.next(ProtectedTransformAgentFacade(agent)));
 
   // TODO 8.0.0. MODELS: Make sure we have no performance issue here, cause "filter" might be really highloaded
@@ -104,11 +104,11 @@ export function TransformDrive<T extends Partial<Record<TransformAgent, TAbstrac
   };
 
   // TODO 10.0.0. LOOPS: TransformDrive should have an Transform loop independent from frame rate (driven by time)
-  const positionSub$: Subscription = updateFromActiveAgent<Vector3>(activeAgent$, 'position$', { threshold: performance.positionNoiseThreshold })
-    // TODO 8.0.0. MODELS: get rid of .subscribe(val$), use subscribe(() => val$.next()) instead due to potential "this" context issue (replace that everywhere)
-    .subscribe(position$);
-  const rotationSub$: Subscription = updateFromActiveAgent<Quaternion>(activeAgent$, 'rotation$', { threshold: performance.rotationNoiseThreshold }).subscribe(rotation$);
-  const scaleSub$: Subscription = updateFromActiveAgent<Vector3>(activeAgent$, 'scale$', { threshold: performance.scaleNoiseThreshold }).subscribe(scale$);
+  const positionSub$: Subscription = updateFromActiveAgent<Vector3>(activeAgent$, 'position$', { threshold: performance.positionNoiseThreshold }).subscribe((v: Vector3): void => position$.next(v));
+  const rotationSub$: Subscription = updateFromActiveAgent<Quaternion>(activeAgent$, 'rotation$', { threshold: performance.rotationNoiseThreshold }).subscribe((r: Quaternion): void =>
+    rotation$.next(r)
+  );
+  const scaleSub$: Subscription = updateFromActiveAgent<Vector3>(activeAgent$, 'scale$', { threshold: performance.scaleNoiseThreshold }).subscribe((s: Vector3): void => scale$.next(s));
 
   const result: TTransformDriveMandatoryFields = {
     ...destroyable,

@@ -167,13 +167,11 @@ export function prepareShooting(
   bullets: ReadonlyArray<TBullet>
 ): void {
   let idx: ReturnType<typeof setTimeout> | number = 0;
-  mouseService.clickLeftPress$.subscribe((): void => {
-    const targetPosition: Vector3 | undefined = intersectionsWatcher.getValue()?.point;
-    if (isNotDefined(targetPosition)) return;
-    shoot(actor.drive.getPosition(), targetPosition, shootingParams.speed, bullets);
+  mouseService.clickLeftPress$.pipe(withLatestFrom(intersectionsWatcher.value$)).subscribe(([, intersection]: [TMouseWatcherEvent, TIntersectionEvent]): void => {
+    shoot(actor.drive.getPosition(), intersection.point, shootingParams.speed, bullets);
     // TODO setTimout/setInterval is not a good idea (cause the game might be "on pause", e.g. when tab is not active)
     idx = setInterval((): void => {
-      shoot(actor.drive.getPosition(), targetPosition, shootingParams.speed, bullets);
+      shoot(actor.drive.getPosition(), intersection.point, shootingParams.speed, bullets);
     }, shootingParams.cooldownMs);
   });
   mouseService.clickLeftRelease$.subscribe((): void => {
