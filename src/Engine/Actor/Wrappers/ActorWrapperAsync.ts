@@ -1,20 +1,20 @@
 import type { Subscription } from 'rxjs';
-import type { Vector3 } from 'three';
+import type { Group, Mesh, Vector3 } from 'three';
 
 import { AbstractWrapper, WrapperType } from '@/Engine/Abstract';
 import type { TActorDependencies, TActorParams, TActorWrapperAsync } from '@/Engine/Actor/Models';
-import { createActorMesh } from '@/Engine/Actor/Wrappers/ActorUtils';
+import { createActorModel3d } from '@/Engine/Actor/Wrappers/ActorUtils';
 import { applySpatialGrid, startCollisions } from '@/Engine/Actor/Wrappers/ActorWrapperHelper';
 import { withCollisions } from '@/Engine/Collisions';
 import { withKinematic } from '@/Engine/Kinematic';
 import type { TWithMaterial } from '@/Engine/Material';
 import { withMaterial } from '@/Engine/Material';
 import { scalableMixin, withMoveBy3dMixin, withObject3d, withRotationByXyzMixin } from '@/Engine/Mixins';
+import type { TModel3dLoadResult } from '@/Engine/Models3d';
 import { Model3dType } from '@/Engine/Models3d';
 import type { TSpatialLoopServiceValue } from '@/Engine/Spatial';
 import { withReactivePosition, withReactiveRotation, withSpatial, withUpdateSpatialCell } from '@/Engine/Spatial';
 import { withTextures } from '@/Engine/Texture';
-import type { TMesh } from '@/Engine/ThreeLib';
 import { applyObject3dParams, applyPosition, applyRotation, applyScale, isDefined } from '@/Engine/Utils';
 
 export async function ActorWrapperAsync(
@@ -30,7 +30,8 @@ export async function ActorWrapperAsync(
     isForce: params.model3d.options?.isForce ?? false
   };
   // TODO AWAIT: could speed up by not awaiting mesh to be build
-  const entity: TMesh = isPrimitiveModel3d ? await createActorMesh(params, { materialTextureService }) : await models3dService.loadAsync({ ...params.model3d, options });
+  const model3dLoadResult: TModel3dLoadResult = isPrimitiveModel3d ? await createActorModel3d(params, { materialTextureService }) : await models3dService.loadAsync({ ...params.model3d, options });
+  const entity: Mesh | Group = model3dLoadResult.model;
 
   const withMaterialEntity: TWithMaterial = withMaterial(entity);
 

@@ -1,6 +1,6 @@
 import RBush from 'rbush';
 import { Subject } from 'rxjs';
-import type { Mesh, Object3D, Vector3 } from 'three';
+import type { Group, Mesh, Object3D, Vector3 } from 'three';
 import { Box3 } from 'three';
 import type { Line2 } from 'three/examples/jsm/lines/Line2';
 import type { ColorRepresentation } from 'three/src/math/Color';
@@ -42,7 +42,7 @@ export function SpatialGridWrapper(params: TSpatialGridParams): TSpatialGridWrap
 
   const wrapper: TWrapper<TSpatialGrid> = AbstractWrapper(entity, WrapperType.SpatialGrid, params);
 
-  function getBoundingBox(mesh: Mesh): Box3 {
+  function getBoundingBox(mesh: Mesh | Group): Box3 {
     const box: Box3 = new Box3();
     box.setFromObject(mesh);
     return box;

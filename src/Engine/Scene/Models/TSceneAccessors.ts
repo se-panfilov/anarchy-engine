@@ -1,4 +1,4 @@
-import type { Group } from 'three';
+import type { Group, Mesh } from 'three';
 
 import type { TActorWrapperAsync } from '@/Engine/Actor';
 import type { TCameraWrapper } from '@/Engine/Camera';
@@ -16,7 +16,7 @@ export type TSceneAccessors = Readonly<{
   addLight: <T extends TLight>(light: Readonly<TAbstractLightWrapper<T>>) => void;
   setFog: (fog: Readonly<TFogWrapper>) => void;
   addText: (text: Readonly<TTextAnyWrapper>) => void;
-  addModel: (mesh: Group) => void;
+  addModel: (mesh: Mesh | Group) => void;
   addParticles: (text: Readonly<TParticlesWrapperAsync>) => void;
   setBackground: (color: string | TColor | TTexture | TCubeTexture | TDataTexture) => void;
   getBackground: () => string | TColor | TTexture | TCubeTexture | TDataTexture | null;

@@ -1,7 +1,7 @@
 import type { Controller } from 'lil-gui';
 import GUI from 'lil-gui';
 import { BehaviorSubject, combineLatest, startWith, Subject } from 'rxjs';
-import type { MeshPhysicalMaterial, MeshStandardMaterial } from 'three';
+import type { Mesh, MeshPhysicalMaterial, MeshStandardMaterial } from 'three';
 
 import type { TShowcase } from '@/App/Levels/Models';
 import type { TActorAsyncRegistry, TActorWrapperAsync, TAppCanvas, TControlsRegistry, TEngine, TOrbitControlsWrapper, TSpace, TSpaceConfig, TVector3Wrapper } from '@/Engine';
@@ -100,20 +100,52 @@ export function showcase(canvas: TAppCanvas): TShowcase {
 
   function addGuiToActor(actor: TActorWrapperAsync): ReadonlyArray<GUI | Controller> {
     let controllers: ReadonlyArray<GUI | Controller> = [];
-    const isMetalness: boolean = isDefined((actor.entity.material as MeshStandardMaterial).metalness);
-    const isRoughness: boolean = isDefined((actor.entity.material as MeshStandardMaterial).roughness);
-    const isAoMap: boolean = isDefined((actor.entity.material as MeshStandardMaterial).aoMap);
-    const isDisplacementMap: boolean = isDefined((actor.entity.material as MeshStandardMaterial).displacementMap);
-    const isNormalMap: boolean = isDefined((actor.entity.material as MeshStandardMaterial).normalMap);
-    const isClearCoat: boolean = isDefined((actor.entity.material as MeshPhysicalMaterial).clearcoat);
-    const isSheen: boolean = isDefined((actor.entity.material as MeshPhysicalMaterial).sheen);
-    const isIridescence: boolean = isDefined((actor.entity.material as MeshPhysicalMaterial).iridescence);
-    const isTransmission: boolean = isDefined((actor.entity.material as MeshPhysicalMaterial).transmission);
+    const isMetalness: boolean = isDefined(((actor.entity as Mesh).material as MeshStandardMaterial).metalness);
+    const isRoughness: boolean = isDefined(((actor.entity as Mesh).material as MeshStandardMaterial).roughness);
+    const isAoMap: boolean = isDefined(((actor.entity as Mesh).material as MeshStandardMaterial).aoMap);
+    const isDisplacementMap: boolean = isDefined(((actor.entity as Mesh).material as MeshStandardMaterial).displacementMap);
+    const isNormalMap: boolean = isDefined(((actor.entity as Mesh).material as MeshStandardMaterial).normalMap);
+    const isClearCoat: boolean = isDefined(((actor.entity as Mesh).material as MeshPhysicalMaterial).clearcoat);
+    const isSheen: boolean = isDefined(((actor.entity as Mesh).material as MeshPhysicalMaterial).sheen);
+    const isIridescence: boolean = isDefined(((actor.entity as Mesh).material as MeshPhysicalMaterial).iridescence);
+    const isTransmission: boolean = isDefined(((actor.entity as Mesh).material as MeshPhysicalMaterial).transmission);
 
-    if (isMetalness) controllers = [...controllers, gui.add(actor.entity.material, 'metalness').min(0).max(1).step(0.0001)];
-    if (isRoughness) controllers = [...controllers, gui.add(actor.entity.material, 'roughness').min(0).max(1).step(0.0001)];
-    if (isAoMap) controllers = [...controllers, gui.add(actor.entity.material, 'aoMapIntensity').min(0).max(1).step(0.0001)];
-    if (isDisplacementMap) controllers = [...controllers, gui.add(actor.entity.material, 'displacementScale').min(0).max(1).step(0.0001)];
+    if (isMetalness)
+      controllers = [
+        ...controllers,
+        gui
+          .add((actor.entity as Mesh).material, 'metalness')
+          .min(0)
+          .max(1)
+          .step(0.0001)
+      ];
+    if (isRoughness)
+      controllers = [
+        ...controllers,
+        gui
+          .add((actor.entity as Mesh).material, 'roughness')
+          .min(0)
+          .max(1)
+          .step(0.0001)
+      ];
+    if (isAoMap)
+      controllers = [
+        ...controllers,
+        gui
+          .add((actor.entity as Mesh).material, 'aoMapIntensity')
+          .min(0)
+          .max(1)
+          .step(0.0001)
+      ];
+    if (isDisplacementMap)
+      controllers = [
+        ...controllers,
+        gui
+          .add((actor.entity as Mesh).material, 'displacementScale')
+          .min(0)
+          .max(1)
+          .step(0.0001)
+      ];
     if (isNormalMap) {
       const scale = { normalScale: 1 };
       controllers = [
@@ -124,28 +156,70 @@ export function showcase(canvas: TAppCanvas): TShowcase {
           .max(1)
           .step(0.0001)
           .onChange((value: number): void => {
-            (actor.entity.material as MeshStandardMaterial).normalScale.set(value, value);
+            ((actor.entity as Mesh).material as MeshStandardMaterial).normalScale.set(value, value);
           })
       ];
     }
     if (isClearCoat) {
-      controllers = [...controllers, gui.add(actor.entity.material, 'clearcoat').min(0).max(1).step(0.0001)];
-      controllers = [...controllers, gui.add(actor.entity.material, 'clearcoatRoughness').min(0).max(1).step(0.0001)];
-    }
-
-    if (isSheen) {
-      controllers = [...controllers, gui.add(actor.entity.material, 'sheen').min(0).max(1).step(0.0001)];
-      controllers = [...controllers, gui.add(actor.entity.material, 'sheenRoughness').min(0).max(1).step(0.0001)];
-      controllers = [...controllers, gui.addColor(actor.entity.material, 'sheenColor')];
-    }
-
-    if (isIridescence) {
-      controllers = [...controllers, gui.add(actor.entity.material, 'iridescence').min(0).max(1).step(0.0001)];
-      controllers = [...controllers, gui.add(actor.entity.material, 'iridescenceIOR').min(0).max(2.333).step(0.0001)];
       controllers = [
         ...controllers,
         gui
-          .add((actor.entity.material as MeshPhysicalMaterial).iridescenceThicknessRange, '0')
+          .add((actor.entity as Mesh).material, 'clearcoat')
+          .min(0)
+          .max(1)
+          .step(0.0001)
+      ];
+      controllers = [
+        ...controllers,
+        gui
+          .add((actor.entity as Mesh).material, 'clearcoatRoughness')
+          .min(0)
+          .max(1)
+          .step(0.0001)
+      ];
+    }
+
+    if (isSheen) {
+      controllers = [
+        ...controllers,
+        gui
+          .add((actor.entity as Mesh).material, 'sheen')
+          .min(0)
+          .max(1)
+          .step(0.0001)
+      ];
+      controllers = [
+        ...controllers,
+        gui
+          .add((actor.entity as Mesh).material, 'sheenRoughness')
+          .min(0)
+          .max(1)
+          .step(0.0001)
+      ];
+      controllers = [...controllers, gui.addColor((actor.entity as Mesh).material, 'sheenColor')];
+    }
+
+    if (isIridescence) {
+      controllers = [
+        ...controllers,
+        gui
+          .add((actor.entity as Mesh).material, 'iridescence')
+          .min(0)
+          .max(1)
+          .step(0.0001)
+      ];
+      controllers = [
+        ...controllers,
+        gui
+          .add((actor.entity as Mesh).material, 'iridescenceIOR')
+          .min(0)
+          .max(2.333)
+          .step(0.0001)
+      ];
+      controllers = [
+        ...controllers,
+        gui
+          .add(((actor.entity as Mesh).material as MeshPhysicalMaterial).iridescenceThicknessRange, '0')
           .min(0)
           .max(1000)
           .step(1)
@@ -153,7 +227,7 @@ export function showcase(canvas: TAppCanvas): TShowcase {
       controllers = [
         ...controllers,
         gui
-          .add((actor.entity.material as MeshPhysicalMaterial).iridescenceThicknessRange, '1')
+          .add(((actor.entity as Mesh).material as MeshPhysicalMaterial).iridescenceThicknessRange, '1')
           .min(0)
           .max(1000)
           .step(1)
@@ -161,9 +235,30 @@ export function showcase(canvas: TAppCanvas): TShowcase {
     }
 
     if (isTransmission) {
-      controllers = [...controllers, gui.add(actor.entity.material, 'transmission').min(0).max(1).step(0.0001)];
-      controllers = [...controllers, gui.add(actor.entity.material, 'ior').min(1).max(10).step(0.0001)]; //diamond ior 2.417, water 1.333, glass 1.5, air 1.0003
-      controllers = [...controllers, gui.add(actor.entity.material, 'thickness').min(0).max(1).step(0.0001)];
+      controllers = [
+        ...controllers,
+        gui
+          .add((actor.entity as Mesh).material, 'transmission')
+          .min(0)
+          .max(1)
+          .step(0.0001)
+      ];
+      controllers = [
+        ...controllers,
+        gui
+          .add((actor.entity as Mesh).material, 'ior')
+          .min(1)
+          .max(10)
+          .step(0.0001)
+      ]; //diamond ior 2.417, water 1.333, glass 1.5, air 1.0003
+      controllers = [
+        ...controllers,
+        gui
+          .add((actor.entity as Mesh).material, 'thickness')
+          .min(0)
+          .max(1)
+          .step(0.0001)
+      ];
     }
 
     return controllers;

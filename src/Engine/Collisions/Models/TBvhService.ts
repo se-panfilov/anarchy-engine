@@ -10,7 +10,7 @@ export type TBvhService = Readonly<{
   computeBVHBoundsTree: (geometry: BufferGeometry, options?: TBvhOptions) => MeshBVH;
   disposeBVHBoundsTree: (geometry: BufferGeometry) => void;
   raycastWithBvh: (actorW: TActorWrapperAsync, raycaster: Raycaster, intersects: Array<Intersection>) => void;
-  createBvhForActor: (actorW: TActorWrapperAsync, options?: TBvhOptions) => void | never;
+  createBvhForActor: (actorW: TActorWrapperAsync, options?: TBvhOptions) => void;
   _debugVisualizeBvhForActor: (actorW: TActorWrapperAsync, sceneW: TSceneWrapper, depth?: number) => void;
   _debugVisualizeBvhForScene: (sceneW: TSceneWrapper, depth?: number) => void;
 }>;

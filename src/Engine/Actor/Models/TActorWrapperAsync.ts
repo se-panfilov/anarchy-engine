@@ -1,5 +1,5 @@
 import type { Observable } from 'rxjs';
-import type { Euler, Vector3 } from 'three';
+import type { Euler, Group, Mesh, Vector3 } from 'three';
 
 import type { TWrapper } from '@/Engine/Abstract';
 import type { TWithCollisions } from '@/Engine/Collisions';
@@ -9,9 +9,8 @@ import type { TMovable3dXYZ, TRotatable, TScalable, TWithObject3d, TWithTagsMixi
 import type { TWithOptionalPhysicsBody } from '@/Engine/Physics';
 import type { TWithSpatial, TWithUpdateSpatialCell } from '@/Engine/Spatial/Models';
 import type { TWithTextures } from '@/Engine/Texture';
-import type { TMesh } from '@/Engine/ThreeLib';
 
-export type TActorWrapperAsync = TWrapper<TMesh> &
+export type TActorWrapperAsync = TWrapper<Mesh | Group> &
   TMovable3dXYZ &
   TRotatable &
   TScalable &

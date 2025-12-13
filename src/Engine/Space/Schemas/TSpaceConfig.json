@@ -274,7 +274,7 @@
           "$ref": "#/definitions/TMaterialPackConfig%3CTMaterialTexturePack%3E"
         },
         "model3d": {
-          "$ref": "#/definitions/TModel3dConfig"
+          "$ref": "#/definitions/TActorModel3dConfig"
         },
         "width": {
           "type": "number"
@@ -2017,24 +2017,39 @@
       },
       "additionalProperties": false
     },
-    "TModel3dConfig": {
-      "$ref": "#/definitions/TModel3dProps"
-    },
-    "TModel3dProps": {
+    "TActorModel3dConfig": {
       "type": "object",
+      "additionalProperties": false,
       "properties": {
+        "options": {
+          "$ref": "#/definitions/TOptional%3CTModel3dLoadOptions%3E"
+        },
         "url": {
           "anyOf": [
             {
-              "$ref": "#/definitions/Model3dType"
+              "type": "string"
             },
             {
-              "type": "string"
+              "$ref": "#/definitions/Model3dType"
             }
           ]
         }
       },
-      "required": ["url"],
+      "required": ["url"]
+    },
+    "TOptional<TModel3dLoadOptions>": {
+      "type": "object",
+      "properties": {
+        "shouldAddToScene": {
+          "type": "boolean"
+        },
+        "shouldSaveToRegistry": {
+          "type": "boolean"
+        },
+        "isForce": {
+          "type": "boolean"
+        }
+      },
       "additionalProperties": false
     },
     "Model3dType": {

@@ -1,5 +1,5 @@
 import { Subject } from 'rxjs';
-import type { AnimationClip, Group } from 'three';
+import type { AnimationClip, Group, Mesh } from 'three';
 import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader';
 import type { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
@@ -36,7 +36,7 @@ export function Models3dService(models3dRegistry: TModels3dAsyncRegistry, models
     if ([...Object.values(Model3dType)].includes(url as Model3dType)) throw new Error(`Trying to load a primitive(e.g. cube, sphere, etc.) as an imported model: ${url}`);
 
     if (!options.isForce) {
-      const model: Group | undefined = models3dRegistry.findByKey(url);
+      const model: Mesh | Group | undefined = models3dRegistry.findByKey(url);
       const animations: ReadonlyArray<AnimationClip> | undefined = models3dAnimationsRegistry.findByKey(url);
       if (isDefined(model)) return Promise.resolve({ url, model, animations: animations ?? [], options });
     }
