@@ -6,6 +6,7 @@ import { AbstractWatcher, WatcherType } from '@/Engine/Abstract';
 import type { TActorWrapperAsync } from '@/Engine/Actor';
 import type { TCameraWrapper } from '@/Engine/Camera';
 import type { TIntersectionEvent, TIntersectionsWatcher, TIntersectionsWatcherParams } from '@/Engine/Intersections/Models';
+import type { TWithCoordsXY } from '@/Engine/Mixins';
 import type { TMousePosition } from '@/Engine/Mouse';
 import { getNormalizedMousePosition } from '@/Engine/Mouse';
 import type { TSceneObject } from '@/Engine/Scene';
@@ -33,7 +34,7 @@ export function IntersectionsWatcher({ position$, isAutoStart, tags, name, ...re
   function start(): TIntersectionsWatcher {
     mousePos$ = position$.subscribe((position: TMousePosition): void => {
       if (isNotDefined(camera)) throw new Error('Intersections service: cannot start: a camera is not defined');
-      const intersection: TIntersectionEvent | undefined = getIntersection(position, camera, unWrapEntities(actors) as Array<TMesh>);
+      const intersection: TIntersectionEvent | undefined = getIntersection(position.coords, camera, unWrapEntities(actors) as Array<TMesh>);
       if (isDefined(intersection)) abstractWatcher.value$.next(intersection);
     });
     // eslint-disable-next-line functional/immutable-data
@@ -48,9 +49,9 @@ export function IntersectionsWatcher({ position$, isAutoStart, tags, name, ...re
     return result;
   }
 
-  function getIntersection(position: TMousePosition, cameraWrapper: Readonly<TCameraWrapper>, list: Array<TSceneObject>): TIntersectionEvent | undefined | never {
+  function getIntersection(coords: TWithCoordsXY, cameraWrapper: Readonly<TCameraWrapper>, list: Array<TSceneObject>): TIntersectionEvent | undefined | never {
     if (isNotDefined(raycaster)) throw new Error('Intersections service: cannot get intersection: a raycaster is not defined');
-    raycaster.setFromCamera(getNormalizedMousePosition(position), cameraWrapper.entity);
+    raycaster.setFromCamera(getNormalizedMousePosition(coords), cameraWrapper.entity);
     return raycaster.intersectObjects(list)[0];
   }
 

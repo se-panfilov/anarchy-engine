@@ -1,5 +1,4 @@
-import type { Vector3 } from 'three';
-import { GridHelper } from 'three';
+import { GridHelper, Plane, Raycaster, Vector2, Vector3 } from 'three';
 import { Line2 } from 'three/examples/jsm/lines/Line2';
 import { LineGeometry } from 'three/examples/jsm/lines/LineGeometry';
 import { LineMaterial } from 'three/examples/jsm/lines/LineMaterial';
@@ -13,8 +12,6 @@ import type {
   TAppCanvas,
   TCameraWrapper,
   TEngine,
-  TIntersectionEvent,
-  TIntersectionsWatcher,
   TSceneWrapper,
   TSpace,
   TSpaceConfig,
@@ -25,7 +22,6 @@ import {
   buildSpaceFromConfig,
   CollisionShape,
   Engine,
-  get3DAzimuth,
   getPushCoordsFrom3dAzimuth,
   isDefined,
   isNotDefined,
@@ -73,42 +69,47 @@ export function showcase(canvas: TAppCanvas): TShowcase {
 
     const blocks = await buildTower(actorService, 10, 10, 20);
 
-    const mouseLineIntersectionsWatcher: TIntersectionsWatcher = intersectionsWatcherService.create({
-      name: 'mouse_line_intersections_watcher',
-      isAutoStart: true,
-      camera: cameraW,
-      actors: blocks,
-      position$: mouseService.position$,
-      tags: []
-    });
+    let mouseLineIntersectionsCoords: Vector3 | undefined = undefined;
 
-    const mouseLineIntersectionsCoords: Vector3 | undefined = undefined;
-    mouseLineIntersectionsWatcher.value$.subscribe((intersection: TIntersectionEvent) => {
-      // mouseLineIntersectionsCoords = intersection.point;
+    const mouse = new Vector2();
+    const raycaster = new Raycaster();
+    const plane = new Plane(new Vector3(0, 1, 0), 0); // XZ plane
+    const planeNormal = new Vector3(0, 1, 0); // Normal vector of the XZ plane
+
+    let angle = 0;
+
+    mouseService.position$.subscribe(({ coords }): void => {
+      // Convert mouse coordinates to normalized device coordinates (-1 to +1)
+      mouse.x = (coords.x / window.innerWidth) * 2 - 1;
+      mouse.y = -(coords.y / window.innerHeight) * 2 + 1;
+
+      raycaster.setFromCamera(mouse, (cameraService.findActive() as TCameraWrapper)?.entity);
+
+      const intersects = raycaster.ray.intersectPlane(plane, new Vector3());
+      if (intersects) {
+        const point = intersects;
+        angle = planeNormal.angleTo(raycaster.ray.direction);
+        const distance = point.distanceTo(heroW.getPosition().getCoords());
+        mouseLineIntersectionsCoords = new Vector3(point.x, 2, point.z);
+      }
     });
 
     const line: Line2 = createLine();
     sceneWrapper.entity.add(line);
 
-    const coords: Readonly<{ azimuth: number; elevation: number }> = {
-      azimuth: 0,
-      elevation: 0
-    };
-
     loopService.tick$.subscribe(() => {
-      cameraFollowingActor(cameraW, heroW);
+      // cameraFollowingActor(cameraW, heroW);
 
-      // if (isDefined(mouseLineIntersectionsCoords)) {
-      //   const ballCoords: TWithCoordsXYZ = ballActorW.getPosition().getCoords();
-      //   coords = get3DAzimuth(ballCoords, mouseLineIntersectionsCoords);
-      //   line.geometry.setPositions([ballCoords.x, ballCoords.y, ballCoords.z, mouseLineIntersectionsCoords.x, mouseLineIntersectionsCoords.y, mouseLineIntersectionsCoords.z]);
-      //   line.computeLineDistances();
-      // }
+      if (isDefined(mouseLineIntersectionsCoords)) {
+        const heroCoords: TWithCoordsXYZ = heroW.getPosition().getCoords();
+        line.geometry.setPositions([heroCoords.x, heroCoords.y, heroCoords.z, mouseLineIntersectionsCoords.x, mouseLineIntersectionsCoords.y, mouseLineIntersectionsCoords.z]);
+        line.computeLineDistances();
+      }
     });
 
     mouseService.clickLeftRelease$.subscribe(() => {
-      // if (isNotDefined(ballActorW)) throw new Error(`Cannot find "ball" actor`);
-      // ballActorW.physicsBody?.getRigidBody()?.applyImpulse(getPushCoordsFrom3dAzimuth(coords.azimuth, coords.elevation, 100), true);
+      if (isNotDefined(heroW)) throw new Error(`Cannot find "hero" actor`);
+      heroW.physicsBody?.getRigidBody()?.applyImpulse(getPushCoordsFrom3dAzimuth(angle, 2, 100), true);
     });
 
     physicsLoopService.shouldAutoUpdate(true);
@@ -206,7 +207,7 @@ function createLine(): Line2 {
 }
 
 function cameraFollowingActor(cameraW: TCameraWrapper, actorW: TActorWrapperAsync): void {
-  const actorCoords: TWithCoordsXYZ = actorW.getPosition().getCoords();
-  cameraW.setPosition(Vector3Wrapper({ x: actorCoords.x, y: actorCoords.y + 10, z: actorCoords.z + 10 }));
-  cameraW.lookAt(Vector3Wrapper(actorCoords));
+  // const actorCoords: TWithCoordsXYZ = actorW.getPosition().getCoords();
+  // cameraW.setPosition(Vector3Wrapper({ x: actorCoords.x, y: actorCoords.y + 10, z: actorCoords.z + 10 }));
+  // cameraW.lookAt(Vector3Wrapper(actorCoords));
 }

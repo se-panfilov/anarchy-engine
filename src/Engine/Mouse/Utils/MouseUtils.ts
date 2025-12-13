@@ -1,18 +1,12 @@
-import type { TMousePosition, TMouseWatcherEvent } from '@/Engine/Mouse';
+import { Vector2 } from 'three';
+
+import type { TWithCoordsXY } from '@/Engine/Mixins';
+import type { TMouseWatcherEvent } from '@/Engine/Mouse';
 import { MouseButtonValue, MouseEventType, MouseWheelValue } from '@/Engine/Mouse';
 import { isNotDefined } from '@/Engine/Utils';
 import type { TVector2, TVector3 } from '@/Engine/Vector';
-import { Vector2Wrapper } from '@/Engine/Vector';
 
-// TODO (S.Panfilov) I don't like this being a distinct function, also don't really get why I might need that normalization
-export function getNormalizedMousePosition(position: TMousePosition | TVector3 | TVector2): TVector2 {
-  const { x, y } = position;
-
-  return Vector2Wrapper({
-    x: (x / window.innerWidth) * 2 - 1,
-    y: -(y / window.innerHeight) * 2 + 1
-  }).entity;
-}
+export const getNormalizedMousePosition = ({ x, y }: TWithCoordsXY | TVector3 | TVector2): TVector2 => new Vector2((x / window.innerWidth) * 2 - 1, -(y / window.innerHeight) * 2 + 1);
 
 export function getMouseButtonValue({ button }: MouseEvent | WheelEvent): MouseButtonValue {
   switch (button) {
