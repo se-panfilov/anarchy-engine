@@ -11,7 +11,8 @@ export function SettingsService(filesService: TFilesService): TSettingsService {
   const appSettingsFileName: string = 'user-config.json';
 
   // TODO DESKTOP: rename load/save to read/write
-  // TODO DESKTOP: What should happen when no settings? Return values from desktop? Use defaults from the main app?
+  // TODO DESKTOP: What should happen when no settings? Return values from desktop?
+  //  Use defaults from the main app? (or send partial settings, what were detected by the desktop app)
   const loadAppSettings = async (): Promise<TShowcaseGameSettings | undefined> => {
     if (!fs.existsSync(filesService.getPathToFile(appSettingsFileName, userDataFolder))) {
       console.log(`[DESKTOP]: Settings file ("${appSettingsFileName}") not found in : ${userDataFolder}`);
