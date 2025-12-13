@@ -11,6 +11,7 @@ export type TSpatialCellWrapper = Omit<TWrapper<TSpatialCell>, 'name'> &
     minY: number;
     maxX: number;
     maxY: number;
+    getVersion: () => number;
     findObject: (id: string) => TActor | undefined;
     addObject: (object: TActor) => void;
     getObjects: () => ReadonlyArray<TActor>;

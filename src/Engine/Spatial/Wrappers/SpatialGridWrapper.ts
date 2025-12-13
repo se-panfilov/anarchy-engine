@@ -19,7 +19,7 @@ import { isDefined, isNotDefined } from '@/Engine/Utils';
 export function SpatialGridWrapper(params: TSpatialGridParams): TSpatialGridWrapper {
   const entity: TSpatialGrid = createEntity(params);
   let _debugOutlines: Array<Line2> = [];
-  let _debugOutlinesIds: Array<number> = [];
+  const _debugOutlinesIds: Array<number> = [];
   const update$: Subject<TSpatialCellWrapper> = new Subject<TSpatialCellWrapper>();
 
   function createEntity({ mapWidth, mapHeight, cellSize, centerX, centerZ }: TSpatialGridParams): TSpatialGrid {
@@ -29,9 +29,9 @@ export function SpatialGridWrapper(params: TSpatialGridParams): TSpatialGridWrap
     const grid: TSpatialGrid = new RBush();
 
     // eslint-disable-next-line functional/no-loop-statements
-    for (let x = 0; x < mapWidth; x += cellSize) {
+    for (let x: number = 0; x < mapWidth; x += cellSize) {
       // eslint-disable-next-line functional/no-loop-statements
-      for (let z = 0; z < mapHeight; z += cellSize) {
+      for (let z: number = 0; z < mapHeight; z += cellSize) {
         const cell: TSpatialCellParams = { minX: startX + x, minZ: startZ + z, maxX: startX + x + cellSize, maxZ: startZ + z + cellSize, x, z };
         const cellW: TSpatialCellWrapper = SpatialCellWrapper(cell);
         grid.insert(cellW);
@@ -144,8 +144,10 @@ export function SpatialGridWrapper(params: TSpatialGridParams): TSpatialGridWrap
   }
 
   const destroySub$: Subscription = wrapper.destroy$.subscribe((): void => {
-    _debugOutlines = [];
-    _debugOutlinesIds = [];
+    // eslint-disable-next-line functional/immutable-data
+    _debugOutlines.length = 0;
+    // eslint-disable-next-line functional/immutable-data
+    _debugOutlinesIds.length = 0;
     destroySub$.unsubscribe();
 
     update$.complete();
@@ -170,7 +172,8 @@ export function SpatialGridWrapper(params: TSpatialGridParams): TSpatialGridWrap
       const obj: Object3D | undefined = sceneW.entity.getObjectById(id);
       if (isDefined(obj)) sceneW.entity.remove(obj);
     });
-    _debugOutlinesIds = [];
+    // eslint-disable-next-line functional/immutable-data
+    _debugOutlinesIds.length = 0;
 
     const actorsList: ReadonlyArray<TActor> = getAllInCell(x, z);
 

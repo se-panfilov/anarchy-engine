@@ -1,12 +1,11 @@
 import type { Subscription } from 'rxjs';
 import { Subject } from 'rxjs';
 
-import type { TSpatialCellSerializedData } from '@/Engine';
-import { entityToConfigSpatialCell } from '@/Engine';
 import type { TAbstractWrapper } from '@/Engine/Abstract';
 import { AbstractWrapper, WrapperType } from '@/Engine/Abstract';
 import type { TActor } from '@/Engine/Actor';
-import type { TSpatialCell, TSpatialCellParams, TSpatialCellWrapper } from '@/Engine/Spatial/Models';
+import { entityToConfigSpatialCell } from '@/Engine/Spatial/Adapters';
+import type { TSpatialCell, TSpatialCellParams, TSpatialCellSerializedData, TSpatialCellWrapper } from '@/Engine/Spatial/Models';
 
 export function SpatialCellWrapper(params: TSpatialCellParams): TSpatialCellWrapper {
   const entity: TSpatialCell = {
@@ -26,7 +25,7 @@ export function SpatialCellWrapper(params: TSpatialCellParams): TSpatialCellWrap
     sub$.unsubscribe();
 
     // eslint-disable-next-line functional/immutable-data
-    entity.objects = [];
+    entity.objects.length = 0;
 
     update$.complete();
   });
@@ -73,6 +72,7 @@ export function SpatialCellWrapper(params: TSpatialCellParams): TSpatialCellWrap
     get maxY(): number {
       return entity.maxY;
     },
+    getVersion: (): number => entity.version,
     findObject,
     addObject,
     getObjects,
