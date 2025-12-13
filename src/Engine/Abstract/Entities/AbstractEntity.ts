@@ -29,10 +29,7 @@ export function AbstractEntity<T extends Record<string, any>, P extends TEntityP
 
   const destroySub$: Subscription = destroyable.destroy$.subscribe((): void => {
     Object.values(entities).forEach(genericEntityCleanUp);
-
     destroySub$.unsubscribe();
-    destroyable.destroy$.complete();
-    destroyable.destroy$.unsubscribe();
   });
 
   const partialResult: T & TRegistrable & TNoSpread & TDestroyable = Object.assign(
