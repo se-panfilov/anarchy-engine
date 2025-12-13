@@ -22,6 +22,6 @@ export function applySpatialGrid(params: TActorParams, actor: TActor, spatialGri
 }
 
 export function startCollisions(actor: TActor): void {
-  if (isNotDefined(actor.collisions) || !actor.collisions.isAutoUpdate()) return;
+  if (isNotDefined(actor.collisions) || !actor.collisions.autoUpdate$.value) return;
   actor.collisions.start(actor);
 }

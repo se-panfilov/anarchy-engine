@@ -48,7 +48,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
 
   async function init(): Promise<void> {
     // physicsWorldService.getDebugRenderer(loopService).start();
-    // physicsLoopService.shouldAutoUpdate(false);
+    // physicsLoopService.autoUpdate$.next(false);
 
     initLight(lightService);
 
@@ -151,8 +151,8 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
 
     shootRapidFire(heroW, mouseService, fromHeroAngles, shootingParams, bullets);
 
-    physicsLoopService.shouldAutoUpdate(true);
-    keyboardService.onKey(KeysExtra.Space).pressed$.subscribe((): void => physicsLoopService.shouldAutoUpdate(!physicsLoopService.isAutoUpdate()));
+    physicsLoopService.autoUpdate$.next(true);
+    keyboardService.onKey(KeysExtra.Space).pressed$.subscribe((): void => physicsLoopService.autoUpdate$.next(!physicsLoopService.autoUpdate$.value));
   }
 
   function start(): void {

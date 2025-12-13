@@ -1,6 +1,6 @@
 import type { World } from '@dimforge/rapier3d';
 import type { Subscription } from 'rxjs';
-import { Subject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 
 import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
@@ -8,7 +8,7 @@ import type { TPhysicsLoopService, TPhysicsWorldService } from '@/Engine/Physics
 import { isNotDefined } from '@/Engine/Utils';
 
 export function PhysicsLoopService(physicsWorldService: TPhysicsWorldService): TPhysicsLoopService {
-  let _isAutoUpdate: boolean = true;
+  const autoUpdate$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
   const tick$: Subject<void> = new Subject<void>();
 
   const destroyable: TDestroyable = destroyableMixin();
@@ -25,9 +25,8 @@ export function PhysicsLoopService(physicsWorldService: TPhysicsWorldService): T
       if (isNotDefined(world)) return;
       world.step();
     },
-    tick$: tick$,
-    isAutoUpdate: (): boolean => _isAutoUpdate,
-    shouldAutoUpdate: (value: boolean): void => void (_isAutoUpdate = value),
+    tick$,
+    autoUpdate$,
     ...destroyable
   };
 }

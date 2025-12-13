@@ -1,4 +1,4 @@
-import type { Observable } from 'rxjs';
+import type { BehaviorSubject, Observable } from 'rxjs';
 
 import type { TDestroyable } from '@/Engine/Mixins';
 
@@ -9,6 +9,7 @@ import type { TSpatialMethods } from './TSpatialMethods';
 export type TWithSpatial = Readonly<{
   spatial: Readonly<{ data: TSpatialData }> &
     Readonly<{
+      autoUpdate$: BehaviorSubject<boolean>;
       cellsChanged$: Observable<ReadonlyArray<TSpatialCellWrapper>>;
     }> &
     TSpatialMethods &

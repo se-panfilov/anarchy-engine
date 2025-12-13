@@ -36,7 +36,7 @@ export function createEntities(entities: TSpaceConfigEntities, services: TSpaceS
 
   if (isDefined(physics.global)) {
     const world: World = physicsWorldService.createWorld(physics.global);
-    physicsLoopService.shouldAutoUpdate((isDefined(world) && physics.isAutoUpdate) ?? true);
+    physicsLoopService.autoUpdate$.next((isDefined(world) && physics.isAutoUpdate) ?? true);
   }
   if (isDefined(physics.presets)) physicsPresetService.addPresetsFromConfig(physics.presets);
 

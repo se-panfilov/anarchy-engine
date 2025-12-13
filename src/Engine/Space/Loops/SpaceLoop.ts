@@ -29,7 +29,7 @@ export function spaceLoop(
   spatialLoopService: TSpatialLoopService,
   collisionsLoopService: TCollisionsLoopService
 ): void {
-  const isAutoUpdatePhysicalWorld: boolean = physicsLoopService.isAutoUpdate();
+  const isAutoUpdatePhysicalWorld: boolean = physicsLoopService.autoUpdate$.value;
   if (isAutoUpdatePhysicalWorld) physicsLoopService.step();
 
   if (isDefined(activeCamera)) {
@@ -41,14 +41,14 @@ export function spaceLoop(
 
   if (isAutoUpdatePhysicalWorld) physicsLoopService.tick$.next();
 
-  if (kinematicLoopService.isAutoUpdate()) kinematicLoopService.tick$.next(delta);
+  if (kinematicLoopService.autoUpdate$.value) kinematicLoopService.tick$.next(delta);
 
-  if (spatialLoopService.isAutoUpdate()) {
+  if (spatialLoopService.autoUpdate$.value) {
     spatialLoopService.tick$.next({ delta, priority: currentSpatialPriorityCounter });
     currentSpatialPriorityCounter = currentSpatialPriorityCounter === (SpatialUpdatePriority.IDLE as number) ? SpatialUpdatePriority.ASAP : currentSpatialPriorityCounter - 1;
   }
 
-  if (collisionsLoopService.isAutoUpdate()) {
+  if (collisionsLoopService.autoUpdate$.value) {
     collisionsLoopService.tick$.next({ delta, priority: currentCollisionsPriorityCounter });
     currentCollisionsPriorityCounter = currentCollisionsPriorityCounter === (CollisionsUpdatePriority.IDLE as number) ? CollisionsUpdatePriority.ASAP : currentCollisionsPriorityCounter - 1;
   }

@@ -1,12 +1,12 @@
 import type { Subscription } from 'rxjs';
-import { Subject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 
 import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
 import type { TSpatialLoopService, TSpatialLoopServiceValue } from '@/Engine/Spatial/Models';
 
 export function SpatialLoopService(): TSpatialLoopService {
-  let _isAutoUpdate: boolean = true;
+  const autoUpdate$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
   const tick$: Subject<TSpatialLoopServiceValue> = new Subject<TSpatialLoopServiceValue>();
 
   const destroyable: TDestroyable = destroyableMixin();
@@ -18,9 +18,8 @@ export function SpatialLoopService(): TSpatialLoopService {
   });
 
   return {
-    tick$: tick$,
-    isAutoUpdate: (): boolean => _isAutoUpdate,
-    shouldAutoUpdate: (value: boolean): void => void (_isAutoUpdate = value),
+    tick$,
+    autoUpdate$,
     ...destroyable
   };
 }

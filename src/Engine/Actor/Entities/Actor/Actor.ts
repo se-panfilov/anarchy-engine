@@ -1,5 +1,4 @@
 import type { Subscription } from 'rxjs';
-import { distinctUntilChanged } from 'rxjs';
 import type { Vector3 } from 'three';
 
 import { AbstractEntity, EntityType } from '@/Engine/Abstract';
@@ -51,7 +50,7 @@ export function Actor(
   };
 
   // TODO 8.0.0. MODELS: This might not be triggered if vectors aren't cloned (considered as the same, due to the same reference)
-  const positionSub$: Subscription = drive.position$.pipe(distinctUntilChanged((prev: Vector3, curr: Vector3): boolean => prev.equals(curr))).subscribe((position: Vector3): void => {
+  const positionSub$: Subscription = drive.position$.subscribe((position: Vector3): void => {
     // TODO 8.0.0. MODELS: not sure if "updateSpatialCells()" should happen on rotation$ and scale$ changes
     entities.updateSpatialCells(position);
   });
@@ -59,7 +58,7 @@ export function Actor(
   const actor: TActor = AbstractEntity(entities, EntityType.Actor, params);
 
   const spatialSub$: Subscription = spatialLoopService.tick$.subscribe(({ priority }: TSpatialLoopServiceValue): void => {
-    if (!entities.spatial.isAutoUpdate()) return;
+    if (!entities.spatial.autoUpdate$.value) return;
     if (entities.spatial.getSpatialUpdatePriority() >= priority) {
       // TODO 8.0.0. MODELS: Fix the following code
       // updatePosition();

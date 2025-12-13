@@ -5,8 +5,6 @@ import type { TCollisionsData } from './TCollisionsData';
 
 export type TCollisionsMethods = Readonly<{
   start: (actor: TActor) => void;
-  isAutoUpdate: () => boolean;
-  setAutoUpdate: (value: boolean) => void;
   setCollisionsUpdatePriority: (priority: CollisionsUpdatePriority) => void;
   setCollisionsFilterFn: (filterFn: (actor: TActor) => boolean) => void;
   getCollisionsUpdatePriority: () => CollisionsUpdatePriority;

@@ -14,7 +14,7 @@ import type { TWriteable } from '@/Engine/Utils';
 import { AbstractTransformAgent } from './AbstractTransformAgent';
 
 export function KinematicTransformAgent(params: TKinematicTransformAgentParams, kinematicLoopService: TKinematicLoopService): TKinematicTransformAgent {
-  let _isAutoUpdate: boolean = params.isAutoUpdate ?? false;
+  const autoUpdate$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(params.isAutoUpdate ?? false);
   const abstractTransformAgent: TAbstractTransformAgent = AbstractTransformAgent(params, TransformAgent.Kinematic);
 
   const rotationQuaternion$: BehaviorSubject<TReadonlyQuaternion> = new BehaviorSubject<TReadonlyQuaternion>(new Quaternion().setFromEuler(params.rotation));
@@ -64,12 +64,6 @@ export function KinematicTransformAgent(params: TKinematicTransformAgentParams, 
     adjustDataFromAngularVelocity(angularVelocity: TReadonlyVector3): void {
       agent.setAngularSpeed(angularVelocity.length());
       agent.setAngularDirection(angularVelocity.clone().normalize());
-    },
-    isAutoUpdate(): boolean {
-      return _isAutoUpdate;
-    },
-    setAutoUpdate(value: boolean): void {
-      _isAutoUpdate = value;
     },
     getLinearSpeed(): number {
       return agent.data.linearSpeed;
@@ -189,7 +183,8 @@ export function KinematicTransformAgent(params: TKinematicTransformAgentParams, 
     setAngularVelocityFromParamsRad(speed: number, azimuth: TRadians, elevation: TRadians): void {
       agent.setAngularSpeed(speed);
       agent.setAngularDirectionFromParamsRad(azimuth, elevation);
-    }
+    },
+    autoUpdate$
   };
 
   function doKinematicMove(delta: number): void {
@@ -211,7 +206,7 @@ export function KinematicTransformAgent(params: TKinematicTransformAgentParams, 
 
   kinematicSub$ = agent.enabled$
     //Do not update if agent is disabled
-    .pipe(switchMap((isEnabled: boolean) => (isEnabled ? kinematicLoopService.tick$.pipe(filter((): boolean => agent.isAutoUpdate())) : [])))
+    .pipe(switchMap((isEnabled: boolean) => (isEnabled ? kinematicLoopService.tick$.pipe(filter((): boolean => agent.autoUpdate$.value)) : [])))
     .subscribe((delta: number): void => {
       doKinematicRotation(delta);
       doKinematicMove(delta);

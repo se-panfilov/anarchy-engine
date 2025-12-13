@@ -80,7 +80,7 @@ function getActorMoveAzimuthRad(keyStates: TMoveKeysState): TRadians {
 }
 
 export function moveActorBounce(actor: TActor, speedMPS: number, azimuthDeg: number, duration: number): void {
-  actor.drive.kinematic.setAutoUpdate(true);
+  actor.drive.kinematic.autoUpdate$.next(true);
   actor.drive.kinematic.setLinearSpeed(meters(speedMPS));
   actor.drive.kinematic.setLinearAzimuthDeg(azimuthDeg);
   // TODO setTimout/setInterval is not a good idea (cause the game might be "on pause", e.g. when tab is not active)

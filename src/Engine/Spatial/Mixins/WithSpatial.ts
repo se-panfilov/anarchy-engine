@@ -1,5 +1,5 @@
 import type { Subscription } from 'rxjs';
-import { Subject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 
 import type { TActorParams } from '@/Engine/Actor';
 import type { TDestroyable } from '@/Engine/Mixins';
@@ -10,12 +10,12 @@ import type { TSpatialData, TWithSpatial } from '@/Engine/Spatial/Models';
 import type { TWriteable } from '@/Engine/Utils';
 
 export function withSpatial(params: TActorParams): TWithSpatial {
-  let _isAutoUpdate: boolean = params.spatial.isAutoUpdate;
+  const autoUpdate$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(params.spatial.isAutoUpdate);
   const cellsChanged$: Subject<ReadonlyArray<TSpatialCellWrapper>> = new Subject<ReadonlyArray<TSpatialCellWrapper>>();
 
   const destroyable: TDestroyable = destroyableMixin();
 
-  const result = {
+  const result: TWithSpatial = {
     spatial: {
       data: {
         updatePriority: params.spatial.updatePriority ?? SpatialUpdatePriority.LOW,
@@ -35,12 +35,6 @@ export function withSpatial(params: TActorParams): TWithSpatial {
       },
       getSpatialUpdatePriority(): SpatialUpdatePriority {
         return this.data.updatePriority;
-      },
-      isAutoUpdate(): boolean {
-        return _isAutoUpdate;
-      },
-      setAutoUpdate(value: boolean): void {
-        _isAutoUpdate = value;
       },
       setGrid(grid: TSpatialGridWrapper): void {
         // eslint-disable-next-line functional/immutable-data
@@ -64,6 +58,7 @@ export function withSpatial(params: TActorParams): TWithSpatial {
         this.setSpatialCells([]);
       },
       ...destroyable,
+      autoUpdate$,
       cellsChanged$: cellsChanged$.asObservable()
     }
   };

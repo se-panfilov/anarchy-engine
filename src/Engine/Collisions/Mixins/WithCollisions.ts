@@ -1,5 +1,5 @@
 import type { Subscription } from 'rxjs';
-import { filter, Subject } from 'rxjs';
+import { BehaviorSubject, filter, Subject } from 'rxjs';
 
 import type { TActor, TActorParams } from '@/Engine/Actor';
 import { CollisionsUpdatePriority } from '@/Engine/Collisions/Constants';
@@ -11,7 +11,7 @@ import type { TWriteable } from '@/Engine/Utils';
 import { isDefined } from '@/Engine/Utils';
 
 export function withCollisions(params: TActorParams, collisionsService: TCollisionsService, collisionsLoopService: TCollisionsLoopService): TWithCollisions {
-  let _isAutoUpdate: boolean = params.collisions?.isAutoUpdate ?? false;
+  const autoUpdate$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(params.collisions?.isAutoUpdate ?? false);
   const value$: Subject<TCollisionCheckResult> = new Subject<TCollisionCheckResult>();
   let collisionsLoopServiceSub$: Subscription;
   let filterFn: ((o: TActor) => boolean) | undefined = undefined;
@@ -70,13 +70,8 @@ export function withCollisions(params: TActorParams, collisionsService: TCollisi
       getCollisionsUpdatePriority(): CollisionsUpdatePriority {
         return this.data.updatePriority;
       },
-      isAutoUpdate(): boolean {
-        return _isAutoUpdate;
-      },
-      setAutoUpdate(value: boolean): void {
-        _isAutoUpdate = value;
-      },
       ...destroyable,
+      autoUpdate$,
       value$: value$.asObservable()
     }
   };

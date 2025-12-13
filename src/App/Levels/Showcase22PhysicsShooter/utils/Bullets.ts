@@ -105,7 +105,7 @@ export function BulletAsync(params: TActorParams, actorService: TActorService): 
   const getDistanceTraveled = (): number => distanceTraveled;
 
   function setActive(act: boolean): void {
-    actor.collisions.setAutoUpdate(act);
+    actor.collisions.autoUpdate$.next(act);
     // eslint-disable-next-line functional/immutable-data
     // (actor.model3d.getRawModel3d() as Mesh).visible = true;
     active = act;
@@ -113,7 +113,7 @@ export function BulletAsync(params: TActorParams, actorService: TActorService): 
 
   const isActive = (): boolean => active;
 
-  actor.collisions.setAutoUpdate(false);
+  actor.collisions.autoUpdate$.next(false);
 
   function reset(): void {
     actor.setPosition(new Vector3(0, 0, 0));
