@@ -1,10 +1,7 @@
 import type { BehaviorSubject, Observable, Subject } from 'rxjs';
-import { animationFrame, asapScheduler, auditTime, bufferTime, debounceTime, distinctUntilChanged, EMPTY, sampleTime, switchMap, tap, throttle, throttleTime, timer } from 'rxjs';
-import { animationFrameScheduler } from 'rxjs/src/internal/scheduler/animationFrame';
-import { queueScheduler } from 'rxjs/src/internal/scheduler/queue';
+import { distinctUntilChanged, EMPTY, switchMap, tap } from 'rxjs';
 import type { Euler, Vector3 } from 'three';
 
-import type { TSpace } from '@/Engine';
 import type { TransformAgent } from '@/Engine/TransformDrive/Constants';
 import { ProtectedTransformAgentFacade } from '@/Engine/TransformDrive/Facades';
 import type { TAbstractTransformAgent, TWithProtectedTransformAgents } from '@/Engine/TransformDrive/Models';
