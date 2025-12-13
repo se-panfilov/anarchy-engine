@@ -31,7 +31,6 @@ const subscriptions: Record<string, Subscription> = {};
 // TODO 15-0-0: E2E: FpsControls
 // TODO 15-0-0: E2E: FpsControls
 // TODO 15-0-0: E2E: Materials
-// TODO 15-0-0: E2E: Light
 // TODO 15-0-0: E2E: Fog
 // TODO 15-0-0: E2E: Intersections
 // TODO 15-0-0: E2E: Particles
@@ -41,6 +40,8 @@ const subscriptions: Record<string, Subscription> = {};
 // TODO 15-0-0: E2E: TransformDrive (default, connected, physics, kinematic)
 // TODO 15-0-0: E2E: Animations (state, progress, etc)
 // TODO 15-0-0: E2E: Complex scene (similar to Showcase22PhysicsShooter)
+
+// TODO 15-0-0: E2E: Perhaps serialization should return promise (cause it feels kinda async)
 const spacesData: ReadonlyArray<TSpacesData> = [
   {
     name: basicCase.name,
