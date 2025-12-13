@@ -127,7 +127,7 @@ function saveSpaceConfigInMemory(name: string | undefined, spaceRegistry: TSpace
   };
 }
 
-function loadSpaceConfigFromMemory(name: string | undefined, spaceRegistry: TSpaceRegistry): void {
+function loadSpaceConfigFromMemory(name: string | undefined): void {
   if (isNotDefined(name)) return;
   const spaceData: TSpacesData | undefined = spacesInMemoryData.find((s: TSpacesData): boolean => s.name === name);
   if (isNotDefined(spaceData)) throw new Error(`[Showcase]: Space data is not found for space "${name}"`);
@@ -169,11 +169,7 @@ export function createForm(containerId: string | undefined, isTop: boolean, isRi
 
     spaceData.onChange?.(space);
   });
-  addBtn(`Save`, containerId, (): void => {
-    saveSpaceConfigInMemory(currentSpaceName, spaceRegistry);
-  });
+  addBtn(`Save`, containerId, (): void => saveSpaceConfigInMemory(currentSpaceName, spaceRegistry));
   addBtn(`Drop`, containerId, (): void => unloadSpace(currentSpaceName, spaceRegistry));
-  addBtn(`Load`, containerId, (): void => {
-    loadSpaceConfigFromMemory(currentSpaceName, spaceRegistry);
-  });
+  addBtn(`Load`, containerId, (): void => loadSpaceConfigFromMemory(currentSpaceName));
 }
