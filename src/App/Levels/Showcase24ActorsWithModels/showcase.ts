@@ -65,7 +65,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
 
     if (isNotDefined(solderActor.states.animationsFsm)) throw new Error('Animations FSM is not defined');
 
-    const prev: any = '';
+    let prev: any = '';
     solderActor.states.animationsFsm.subscribe((state) => {
       if (prev === state.value) return;
       prev = state.value;
