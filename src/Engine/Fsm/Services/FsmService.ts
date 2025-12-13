@@ -4,6 +4,7 @@ import type {
   TFsmInstanceFactory,
   TFsmInstanceRegistry,
   TFsmInstanceService,
+  TFsmParams,
   TFsmService,
   TFsmSource,
   TFsmSourceFactory,
@@ -13,7 +14,7 @@ import type {
 } from '@/Engine/Fsm/Models';
 import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
-import { isNotDefined } from '@/Engine/Utils';
+import { isDefined, isNotDefined } from '@/Engine/Utils';
 
 import { FsmInstanceService } from './FsmInstanceService';
 import { FsmSourceService } from './FsmSourceService';
@@ -21,6 +22,15 @@ import { FsmSourceService } from './FsmSourceService';
 export function FsmService(instanceFactory: TFsmInstanceFactory, sourceFactory: TFsmSourceFactory, instanceRegistry: TFsmInstanceRegistry, sourceRegistry: TFsmSourceRegistry): TFsmService {
   const sourceService: TFsmSourceService = FsmSourceService(sourceFactory, sourceRegistry);
   const instanceService: TFsmInstanceService = FsmInstanceService(instanceFactory, instanceRegistry);
+
+  function create(params: TFsmParams): TFsmWrapper {
+    let source: TFsmSource | undefined = sourceService.getRegistry().findByKey(params.name);
+    if (isDefined(source)) {
+      return instanceFactory.create(source);
+    }
+    source = sourceFactory.create(params);
+    return instanceFactory.create(source);
+  }
 
   function createInstanceBySourceName(sourceName: string): TFsmWrapper | never {
     const source: TFsmSource | undefined = sourceService.getRegistry().findByKey(sourceName);
@@ -36,6 +46,7 @@ export function FsmService(instanceFactory: TFsmInstanceFactory, sourceFactory: 
   });
 
   return {
+    create,
     createInstanceBySourceName,
     createSource: sourceService.create,
     createSourceFromConfig: sourceService.createFromConfig,

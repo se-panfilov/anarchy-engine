@@ -52,6 +52,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
 
     const solderAnimFsm: TFsmWrapper = fsmService.create({
       name: 'solder_anim_fsm',
+      type: 'animation',
       initial: Idle,
       transitions: [
         [Idle, Run, Run],
