@@ -3,7 +3,7 @@ import { useSettingsStore } from '@Menu/stores/SettingsStore';
 import { isNotDefined } from '@Shared/Utils';
 import type { TFromMenuEvent, TShowcaseGameSettings, TToMenuEvent } from '@ShowcasesShared';
 import { FromMenuEvents, isSettings, ToMenuEvents } from '@ShowcasesShared';
-import type { Observable, Subject } from 'rxjs';
+import type { Observable, Subject, Subscription } from 'rxjs';
 import { toRaw } from 'vue';
 
 function EventsService(): TEventsService {
@@ -51,9 +51,9 @@ function EventsService(): TEventsService {
     fromMenuBus$.next({ type: FromMenuEvents.LoadGame });
   }
 
-  function startListeningAppEvents(): void {
+  function startListeningAppEvents(): Subscription {
     if (isNotDefined(toMenuBus$)) throw new Error('[EventsService]: toMenuBus$ is not defined. Call setToMenuBus() first.');
-    toMenuBus$.subscribe(handleToMenuEvents);
+    return toMenuBus$.subscribe(handleToMenuEvents);
   }
 
   function handleToMenuEvents(event: TToMenuEvent): void {

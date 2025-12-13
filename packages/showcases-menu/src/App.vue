@@ -4,13 +4,17 @@ import './assets/style.scss';
 import RouterView from '@Menu/components/RouterView.vue';
 import { eventsService } from '@Menu/services';
 import { useSettingsStore } from '@Menu/stores/SettingsStore';
-import { onMounted } from 'vue';
+import type { Subscription } from 'rxjs';
+import { onMounted, onUnmounted } from 'vue';
+
+let appEventsSub$: Subscription | undefined;
 
 onMounted((): void => {
-  // TODO DESKTOP: make sure this is only called once (close/open menu doesn't retrigger this)
-  eventsService.startListeningAppEvents();
+  appEventsSub$ = eventsService.startListeningAppEvents();
   eventsService.emitLoadMenuSettings();
 });
+
+onUnmounted(() => appEventsSub$?.unsubscribe());
 
 function save(): void {
   eventsService.emitSaveMenuSettings(useSettingsStore().state);
