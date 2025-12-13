@@ -1,4 +1,3 @@
-import type { TLocale } from '@Anarchy/i18n';
 import type { TDeepWriteable } from '@Anarchy/Shared/Utils';
 import type { TAudioSettings, TDebugSettings, TGraphicsSettings, TInternalSettings, TLocalizationSettings, TResolution, TShowcaseGameSettings, TShowcaseLocaleIds } from '@Showcases/Shared';
 import { ShowcasesLocales } from '@Showcases/Shared';
@@ -9,24 +8,27 @@ export const useSettingsStore = defineStore('settingsStore', () => {
   const state: TDeepWriteable<TShowcaseGameSettings> = reactive({
     graphics: {
       isFullScreen: false,
-      // TODO DESKTOP: resolution should come from .env (desktop/mobile/web) or should be set by platform (detect default resolution)
+      // TODO DESKTOP: resolution should come from .env or should be set by platform (detect default resolution)
       resolution: { width: 1920, height: 1080 }
     },
     audio: {
       masterVolume: 80
     },
     localization: {
-      locale: ShowcasesLocales['en-US'] // TODO DESKTOP: should be set by platform (desktop/mobile/web) or from .env
+      // TODO DESKTOP: should be set by platform or from .env
+      locale: ShowcasesLocales['en-US']
     },
     debug: {
+      // TODO DESKTOP: should be set by platform or from .env
       isDebugMode: false
     },
     internal: {
+      // TODO DESKTOP: should be set by platform (settings file)
       isFirstRun: true
     }
   });
 
-  // TODO DESKTOP: available resolutions depends on platform (desktop/mobile/web). Should be set by platform or from .env
+  // TODO DESKTOP: available resolutions depends on platform. Should be set by platform or from .env
   function getAvailableResolutions(): ReadonlyArray<TResolution> {
     return [
       { width: 1920, height: 1080 },
@@ -45,7 +47,7 @@ export const useSettingsStore = defineStore('settingsStore', () => {
   const setAudio = (newAudio: Partial<TAudioSettings>): void => void Object.assign(state.audio, { ...newAudio });
   const setLocalization = (newLocalization: Partial<TLocalizationSettings>): void => void Object.assign(state.localization, { ...newLocalization });
   function setLocaleById(id: TShowcaseLocaleIds): void | never {
-    const newLocale = ShowcasesLocales[id] as TLocale;
+    const newLocale = ShowcasesLocales[id];
     if (!newLocale) throw new Error(`[Settings store] Locale with id "${id}" not found in ShowcasesLocales`);
     setLocalization({ locale: newLocale });
   }
