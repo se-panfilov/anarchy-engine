@@ -87,12 +87,12 @@ export function TransformDrive<T extends Partial<Record<TransformAgent, TAbstrac
 
   // TODO ENV: limited fps, perhaps should be configurable
   const performance: Required<TTransformDrivePerformanceOptions> = {
-    updatePositionDelay: params.performance?.updatePositionDelay ?? 4, // 240 FPS (when 16 is 60 FPS)
-    updateRotationDelay: params.performance?.updateRotationDelay ?? 4, // 240 FPS (when 16 is 60 FPS)
-    updateScaleDelay: params.performance?.updateScaleDelay ?? 4, // 240 FPS (when 16 is 60 FPS)
-    positionNoiseThreshold: params.performance?.positionNoiseThreshold ?? 0.0001,
-    rotationNoiseThreshold: params.performance?.rotationNoiseThreshold ?? 0.0001,
-    scaleNoiseThreshold: params.performance?.scaleNoiseThreshold ?? 0.0001
+    updatePositionDelay: params.performance?.updatePositionDelay ?? 2,
+    updateRotationDelay: params.performance?.updateRotationDelay ?? 2,
+    updateScaleDelay: params.performance?.updateScaleDelay ?? 2,
+    positionNoiseThreshold: params.performance?.positionNoiseThreshold ?? 0.0000001,
+    rotationNoiseThreshold: params.performance?.rotationNoiseThreshold ?? 0.0000001,
+    scaleNoiseThreshold: params.performance?.scaleNoiseThreshold ?? 0.0000001
   };
 
   const positionSub$: Subscription = updateFromActiveAgent<Vector3>(activeAgent$, 'position$', { delay: performance.updatePositionDelay, threshold: performance.positionNoiseThreshold }).subscribe(

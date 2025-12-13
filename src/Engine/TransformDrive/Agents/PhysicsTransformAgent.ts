@@ -27,7 +27,7 @@ import { AbstractTransformAgent } from './AbstractTransformAgent';
 // of the transform from any external source (e.g. position$.next()).
 // So, once physics object is set, better not to touch it from the outside.
 export function PhysicsTransformAgent(params: TPhysicsTransformAgentParams, { physicsBodyService, physicsLoopService }: TPhysicsAgentDependencies): TPhysicsTransformAgent {
-  const noiseThreshold: number = params.performance?.noiseThreshold ?? 0.001;
+  const noiseThreshold: number = params.performance?.noiseThreshold ?? 0.0000001;
 
   const adaptedParams: TPhysicsTransformAgentInternalParams = { ...params, rotation: new Quaternion().setFromEuler(params.rotation) };
   const abstractTransformAgent: TAbstractTransformAgent = AbstractTransformAgent(params, TransformAgent.Physical);
