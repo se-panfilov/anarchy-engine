@@ -1,7 +1,8 @@
-import type { IFactory } from '@Engine/Domains/Abstract';
+import type { IReactiveFactory } from '@Engine/Domains/Abstract';
 
-import type { IMousePositionWatcher } from './IMousePositionWatcher';
+import type { IDestroyable } from '@/Engine/Domains/Mixins';
+
+import type { IMousePositionWatcherWrapper } from '../Models';
 import type { IMousePositionWatcherParams } from './IMousePositionWatcherParams';
-import type { IMousePositionWatcherRegistry } from './IMousePositionWatcherRegistry';
 
-export type IMousePositionWatcherFactory = IFactory<IMousePositionWatcher, IMousePositionWatcherParams> & IMousePositionWatcherRegistry;
+export type IMousePositionWatcherFactory = IReactiveFactory<IMousePositionWatcherWrapper, IMousePositionWatcherParams> & IDestroyable;

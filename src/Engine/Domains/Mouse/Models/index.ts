@@ -8,3 +8,4 @@ export * from './IMousePositionWatcher';
 export * from './IMousePositionWatcherFactory';
 export * from './IMousePositionWatcherParams';
 export * from './IMousePositionWatcherRegistry';
+export * from './IMousePositionWatcherWrapper';

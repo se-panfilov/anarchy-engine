@@ -6,6 +6,7 @@ import levelConfig from './showcase-level-2.config.json';
 export function showcaseLevel2(canvas: IAppCanvas): void {
   const level: ILevel = buildLevelFromConfig(canvas, levelConfig as ILevelConfig);
   level.start();
+  console.log(level);
 
   // START Experiment1: animations ---------------
   level.actor.factory.initial.create({
@@ -15,5 +16,6 @@ export function showcaseLevel2(canvas: IAppCanvas): void {
     materialParams: { color: '#5177ff' },
     tags: [ActorTag.Intersectable]
   } satisfies IActorParams);
+
   // // END Experiment1: animations ---------------
 }

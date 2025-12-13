@@ -1,23 +1,8 @@
-import type { IFactory } from '@Engine/Domains/Abstract';
-import { AbstractFactory } from '@Engine/Domains/Abstract';
+import type { IReactiveFactory } from '@Engine/Domains/Abstract';
+import { ReactiveFactory } from '@Engine/Domains/Abstract';
 
-import type { IMousePositionWatcher, IMousePositionWatcherFactory, IMousePositionWatcherParams, IMousePositionWatcherRegistry } from '../Models';
-import { MousePositionWatcherRegistry } from '../Registry';
-import { MousePositionWatcher } from '../Watcher';
+import type { IMousePositionWatcherFactory, IMousePositionWatcherParams, IMousePositionWatcherWrapper } from '../Models';
+import { MousePositionWatcherWrapper } from '../Wrapper';
 
-export function MousePositionWatcherFactory(): IMousePositionWatcherFactory {
-  const registry: IMousePositionWatcherRegistry = MousePositionWatcherRegistry();
-
-  function create({ container, tags }: IMousePositionWatcherParams): IMousePositionWatcher {
-    const watcher: IMousePositionWatcher = MousePositionWatcher(container, tags);
-    registry.add(watcher);
-    return watcher;
-  }
-
-  const factory: IFactory<IMousePositionWatcher, IMousePositionWatcherParams> = { ...AbstractFactory('mouse_positions_watcher'), create };
-
-  return {
-    ...registry,
-    ...factory
-  };
-}
+const factory: IReactiveFactory<IMousePositionWatcherWrapper, IMousePositionWatcherParams> = { ...ReactiveFactory('mouse_positions_watcher', MousePositionWatcherWrapper) };
+export const MousePositionWatcherFactory = (): IMousePositionWatcherFactory => ({ ...factory });
