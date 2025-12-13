@@ -1,5 +1,5 @@
 import type { Subscription } from 'rxjs';
-import { Subject } from 'rxjs';
+import { filter, Subject } from 'rxjs';
 
 import type { TActorParams, TActorWrapperAsync } from '@/Engine/Actor';
 import { CollisionsUpdatePriority } from '@/Engine/Collisions/Constants';
@@ -31,7 +31,7 @@ export function withCollisions(params: TActorParams, collisionsService: TCollisi
         radius: params.collisions?.radius ?? 0.01
       },
       start(actorW: TActorWrapperAsync): void {
-        collisionsLoopServiceSub$ = collisionsLoopService.tick$.subscribe(({ priority }): void => {
+        collisionsLoopServiceSub$ = collisionsLoopService.tick$.pipe(filter(() => _isAutoUpdate)).subscribe(({ priority }): void => {
           if (priority < this.getCollisionsUpdatePriority()) return;
 
           // TODO (S.Panfilov) should be possible to check collisions against another grid
@@ -66,9 +66,6 @@ export function withCollisions(params: TActorParams, collisionsService: TCollisi
         _isAutoUpdate = value;
       },
       destroy: (): void => {
-        // actorSub$?.unsubscribe();
-        // actorSub$ = undefined;
-        // unsubscribeFromCells();
         value$.complete();
         collisionsLoopServiceSub$.unsubscribe();
       },

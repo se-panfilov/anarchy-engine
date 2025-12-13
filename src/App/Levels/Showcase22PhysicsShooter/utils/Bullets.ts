@@ -1,4 +1,5 @@
 import { nanoid } from 'nanoid';
+import type { Mesh } from 'three';
 import { Vector3 } from 'three';
 
 import type { TActorParams, TActorService, TActorWrapperAsync, TRadians, TSpatialGridService, TSpatialGridWrapper, TWithCoordsXYZ } from '@/Engine';
@@ -57,12 +58,20 @@ export function getBulletsPool(count: number, actorService: TActorService, spati
 export async function BulletAsync(params: TActorParams, actorService: TActorService): Promise<TBullet> {
   const actorW: TActorWrapperAsync = await actorService.createAsync(params);
   let distanceTraveled: number = 0;
+  const maxDistance: number = 50;
   let active: boolean = false;
 
   const setDistanceTraveled = (dist: number): void => void (distanceTraveled = dist);
   const getDistanceTraveled = (): number => distanceTraveled;
-  const setActive = (act: boolean): void => void (active = act);
+
+  function setActive(act: boolean): void {
+    actorW.collisions.setAutoUpdate(act);
+    active = act;
+  }
+
   const isActive = (): boolean => active;
+
+  actorW.collisions.setAutoUpdate(false);
 
   function reset(): void {
     actorW.setPosition(Vector3Wrapper({ x: 0, y: 0, z: 0 }));
@@ -71,7 +80,7 @@ export async function BulletAsync(params: TActorParams, actorService: TActorServ
     setDistanceTraveled(0);
     setActive(false);
     // eslint-disable-next-line functional/immutable-data
-    actorW.entity.visible = false;
+    (actorW.entity as Mesh).visible = false;
   }
 
   actorW.collisions.value$.subscribe((collision: any): void => {
@@ -87,6 +96,7 @@ export async function BulletAsync(params: TActorParams, actorService: TActorServ
       actorW.kinematic.setLinearDirection(vectorDirection);
 
       setDistanceTraveled(getDistanceTraveled() + mpsSpeed(actorW.kinematic.getLinearSpeed(), delta));
+      if (getDistanceTraveled() > maxDistance) reset();
     }
   }
 
