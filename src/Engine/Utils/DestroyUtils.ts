@@ -1,6 +1,8 @@
 import type { Material, Object3D } from 'three';
 import { Mesh, Texture } from 'three';
 
+import { hasTransformDrive } from '@/Engine/TransformDrive/Utils';
+
 export function disposeGltf(gltf: Object3D | null): void {
   if (!gltf) return;
 
@@ -30,4 +32,10 @@ export function disposeGltf(gltf: Object3D | null): void {
   // eslint-disable-next-line functional/immutable-data
   gltf.children = [];
   gltf = null;
+}
+
+export function destroyTransformDriveInEntity(result: unknown): void {
+  if (!hasTransformDrive(result)) return;
+  result.drive.destroy$.next();
+  result.driveToTargetConnector.destroy$.next();
 }
