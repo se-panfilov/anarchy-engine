@@ -1,8 +1,10 @@
+import type { TLocaleId } from '@Anarchy/i18n';
+import { getLangFromLocaleId } from '@Anarchy/i18n';
 import { isDefined } from '@Anarchy/Shared/Utils';
 import type { TMetaData, TTrackingService } from '@Anarchy/Tracking';
 import { BrowserTrackingService } from '@Anarchy/Tracking/Services/BrowserTrackingService';
 import type { BrowserOptions } from '@sentry/browser';
-import type { TShowcaseAnonymizedGameSettings } from '@Showcases/Shared';
+import type { TShowcaseGameSettings } from '@Showcases/Shared';
 import { getAnonymizedSettings } from '@Showcases/Shared';
 
 import { runtimeEnv } from '@/env';
@@ -28,20 +30,24 @@ export function WebErrorTrackingService(): TWebErrorTrackingService {
       platformVersion: platformApiService.getPlatformVersion(),
       node: platformApiService.getNodeVersion(),
       wrappedAppVersion: await platformApiService.getWrappedAppVersion()
-      // TODO DESKTOP: add here lang (two letters, e.g. "en") and some other short info
     };
 
     // TODO DESKTOP: Do the same at the Desktop app level
-    const dynamicDataGetters = (): Record<string, any> => ({
-      settings: (): TShowcaseAnonymizedGameSettings => {
-        const settings = platformApiService.getCachedAppSettings();
-        return isDefined(settings) ? getAnonymizedSettings(settings) : {};
-      }
-      // TODO DESKTOP: And some "state of the game" (current level, quest, etc)
-      // game: ...
+    const dynamicContext = (): Record<string, any> => {
+      const settings: TShowcaseGameSettings | undefined = platformApiService.getCachedAppSettings();
+
+      return {
+        settings: isDefined(settings) ? getAnonymizedSettings(settings) : undefined
+        // TODO DESKTOP: And some "state of the game" (current level, quest, etc)
+        // game: ...
+      };
+    };
+
+    const dynamicTags = (): Record<string, number | string | boolean | bigint | symbol | null | undefined> => ({
+      lang: getLangFromLocaleId(platformApiService.getCachedAppSettings()?.localization.locale.id ?? ('??' as TLocaleId))
     });
 
-    return BrowserTrackingService(options, metaData, dynamicDataGetters);
+    return BrowserTrackingService(options, metaData, dynamicContext, dynamicTags);
   }
 
   return { start };
