@@ -1,7 +1,7 @@
 import { combineLatest } from 'rxjs';
 
 import type { IShowcase } from '@/App/Levels/Models';
-import type { IAppCanvas, ICameraWrapper, ILevel, ILevelConfig } from '@/Engine';
+import { IAppCanvas, ICameraWrapper, ILevel, ILevelConfig, isDefined } from '@/Engine';
 import { ActorType, ambientContext, buildLevelFromConfig, CameraTag, EulerWrapper, isNotDefined, Vector3Wrapper } from '@/Engine';
 
 import levelConfig from './showcase-level-2.config.json';
@@ -22,44 +22,34 @@ export function showcaseLevel2(canvas: IAppCanvas): IShowcase {
       tags: []
     });
 
-    const cameraTag: string = 'showcase-2-camera';
-
-    const initialCamera: ICameraWrapper = cameraFactory.create({
-      position: Vector3Wrapper({ x: 2, y: 2, z: 2 }),
+    const camera: ICameraWrapper = cameraFactory.create({
+      position: Vector3Wrapper({ x: 0, y: 0, z: 0 }),
       rotation: EulerWrapper({ x: 0, y: 0, z: 0 }),
       lookAt: Vector3Wrapper({ x: 0, y: 0, z: 0 }),
-      tags: [cameraTag]
+      tags: [CameraTag.Active]
     });
-
-    initialCamera.addTag(CameraTag.Active);
 
     const { mousePositionWatcher, screenSizeWatcher } = ambientContext;
     combineLatest([mousePositionWatcher.value$, screenSizeWatcher.latest$]).subscribe(([{ x, y }, { width, height }]): void => {
-      const xRatio: number = x / width;
-      const yRatio: number = -(y / height);
-      // const xAngle = xRatio * Math.PI * 2;
-      // const yAngle = yRatio * Math.PI * 2;
-      // const xPosition = Math.sin(xAngle) * 5;
-      // const yPosition = Math.sin(yAngle) * 5;
-      // camera.getAll()[0].entity.position.setX(xPosition);
-      // camera.getAll()[0].entity.position.setY(yPosition);
-      // TODO (S.Panfilov) CWP Camera is always a PerspectiveCamera, is that right?
-
-      const camera = cameraRegistry.getUniqByTag(cameraTag);
       if (isNotDefined(camera)) return;
 
-      // console.log('camera rotation', cameraRegistry.getAll()[0].entity.rotation);
-      camera.setX(xRatio);
-      // camera.setX(x * 3);
-      camera.setY(yRatio);
-      camera.lookAt(actor.getPosition());
+      const xRatio: number = x / width;
+      const yRatio: number = -(y / height);
+      // const xAngle: number = xRatio * Math.PI * 2;
+      // const yAngle: number = yRatio * Math.PI * 2;
+      // const xPosition: number = Math.sin(xAngle) * 5;
+      // const yPosition: number = Math.sin(yAngle) * 5;
+      // camera.getAll()[0].entity.position.setX(xPosition);
+      // camera.getAll()[0].entity.position.setY(yPosition);
 
-      // const xRatio: number = x / width - 0.5;
-      // const yRatio: number = -(y / height - 0.5);
-      // const {camera} = level.registry
-      // camera.getAll()[0].setX(xRatio * 10);
-      // camera.getAll()[0].setY(yRatio);
-      // camera.getAll()[0].lookAt(Vector3Wrapper({ x: 0, y: 0, z: 0 }));
+      // console.log('camera rotation', cameraRegistry.getAll()[0].entity.rotation);
+      // camera.setX(xRatio);
+      // camera.setX(xRatio * 30);
+      // camera.setY(yRatio * 30);
+      console.log(cameraRegistry.getAll()[0]?.entity.position);
+      cameraRegistry.getAll()[0]?.entity.position.setX(xRatio * 30);
+      // cameraRegistry.getAll()[0]?.entity.position.setY(yRatio);
+      camera.lookAt(actor.getPosition());
     });
 
     // END Experiment1: custom controls ---------------
