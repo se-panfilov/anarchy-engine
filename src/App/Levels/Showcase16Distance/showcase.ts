@@ -21,8 +21,8 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
   const { clickLeftRelease$ } = mouseService;
 
   function init(): void {
-    const sphereW: TActor | undefined = findByName('sphere_actor');
-    if (isNotDefined(sphereW)) throw new Error('Actor "sphere_actor" is not defined');
+    const sphere: TActor | undefined = findByName('sphere_actor');
+    if (isNotDefined(sphere)) throw new Error('Actor "sphere_actor" is not defined');
 
     addGizmo(space.services, ambientContext.screenSizeWatcher, { placement: 'bottom-left' });
 
@@ -40,17 +40,15 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
         console.time('move');
       }
 
-      if (sphereW.drive.getPosition().z <= -50) {
+      if (sphere.drive.getPosition().z <= -50) {
         console.timeEnd('move');
         isMove = false;
-        // eslint-disable-next-line functional/immutable-data
-        sphereW.drive.getPosition().z = 50;
+        sphere.drive.default.setZ(50);
         return;
       }
 
       if (isMove) {
-        // eslint-disable-next-line functional/immutable-data
-        sphereW.drive.getPosition().z -= mpsSpeed(10, delta);
+        sphere.drive.default.setZ(sphere.drive.getPosition().z - mpsSpeed(10, delta));
       }
     });
 
@@ -61,15 +59,14 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
         console.time('move');
       }
 
-      if (sphereW.drive.getPosition().z <= -50) {
+      if (sphere.drive.getPosition().z <= -50) {
         console.timeEnd('move');
         // eslint-disable-next-line functional/immutable-data
-        sphereW.drive.getPosition().z = 50;
+        sphere.drive.default.setZ(50);
         return;
       }
 
-      // eslint-disable-next-line functional/immutable-data
-      sphereW.drive.getPosition().z -= mpsSpeed(10, delta.delta);
+      sphere.drive.default.setZ(sphere.drive.getPosition().z - mpsSpeed(10, delta.delta));
     });
   }
 
