@@ -5,7 +5,6 @@ export enum FactoryType {
   Input = 'input_factory',
   IntersectionsWatcher = 'intersections_watcher_factory',
   Light = 'light_factory',
-  Loop = 'loop_factory',
   Renderer = 'renderer_factory',
   Scene = 'scene_factory',
   Text = 'text_factory',

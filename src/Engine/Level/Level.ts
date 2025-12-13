@@ -106,7 +106,7 @@ export function buildLevelFromConfig(canvas: IAppCanvas, config: ILevelConfig): 
       intersectionsWatcher.addTag(CommonTag.FromConfig);
       intersectionsWatcherRegistry.add(intersectionsWatcher);
     });
-    intersectionsWatcher = intersectionsWatcherFactory.create({ actors: clickableActors, camera: initialCamera, positionWatcher: ambientContext.mousePositionWatcher });
+    intersectionsWatcher = intersectionsWatcherFactory.create({ actors: clickableActors, camera: initialCamera, mousePosWatcher: ambientContext.mousePositionWatcher });
     messages$.next(`Intersections watcher created`);
   } else {
     messages$.next(`WARNING: no initial camera`);

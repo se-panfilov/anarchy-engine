@@ -11,12 +11,12 @@ import type { ISceneObject } from '@/Engine/Scene';
 import { getNormalizedMousePosition, isNotDefined, unWrapEntities } from '@/Engine/Utils';
 import type { IVector3 } from '@/Engine/Vector';
 
-export function IntersectionsWatcher({ actors, camera, positionWatcher, tags = [] }: IIntersectionsWatcherParams): IIntersectionsWatcher {
+export function IntersectionsWatcher({ actors, camera, mousePosWatcher, tags = [] }: IIntersectionsWatcherParams): IIntersectionsWatcher {
   const abstractWatcher: IAbstractWatcher<IVector3> = AbstractWatcher(WatcherType.IntersectionWatcher, tags);
   let raycaster: Readonly<Raycaster> | undefined = new Raycaster();
 
   function start(): IIntersectionsWatcher {
-    positionWatcher.value$.subscribe((position: IMousePosition): void => {
+    mousePosWatcher.value$.subscribe((position: IMousePosition): void => {
       const obj: IVector3 | undefined = getIntersection(position, camera, actors);
       if (obj) abstractWatcher.value$.next(obj);
     });
@@ -24,7 +24,7 @@ export function IntersectionsWatcher({ actors, camera, positionWatcher, tags = [
   }
 
   function stop(): IIntersectionsWatcher {
-    positionWatcher.value$.unsubscribe();
+    mousePosWatcher.value$.unsubscribe();
     return result;
   }
 
@@ -38,7 +38,7 @@ export function IntersectionsWatcher({ actors, camera, positionWatcher, tags = [
 
   const abstractWatcherSubscription: Subscription = abstractWatcher.destroyed$.subscribe(() => {
     raycaster = undefined;
-    positionWatcher.value$.unsubscribe();
+    mousePosWatcher.value$.unsubscribe();
     abstractWatcherSubscription.unsubscribe();
   });
 

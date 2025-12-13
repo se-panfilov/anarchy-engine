@@ -7,6 +7,6 @@ import type { IMousePositionWatcher } from '@/Engine/Mouse';
 export type IIntersectionsWatcherParams = Readonly<{
   actors: ReadonlyArray<IActorWrapper>;
   camera: Readonly<ICameraWrapper>;
-  positionWatcher: Readonly<IMousePositionWatcher>;
+  mousePosWatcher: Readonly<IMousePositionWatcher>;
   tags?: ReadonlyArray<IntersectionsTag | CommonTag | string>;
 }>;
