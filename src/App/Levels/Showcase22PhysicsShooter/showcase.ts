@@ -69,7 +69,7 @@ export function showcase(canvas: TAppCanvas): TShowcase {
     // await buildTower(actorService, { x: 17, z: 30 }, 7, 7, 35, spatialGrid);
     // await buildTower(actorService, { x: -15, z: -15 }, 10, 7, 15, spatialGrid);
 
-    const maxBulletsSameTime: number = 15;
+    const maxBulletsSameTime: number = 150;
     const bullets: ReadonlyArray<TBullet> = await Promise.all(getBulletsPool(maxBulletsSameTime, actorService, spatialGridService));
     const sceneW = actorService.getScene();
     sceneW.entity.add(...bullets.map((b: TBullet) => b.entity));
@@ -144,10 +144,15 @@ export function showcase(canvas: TAppCanvas): TShowcase {
       }
     });
 
-    mouseService.clickLeftRelease$.subscribe((): void => {
-      if (isNotDefined(heroW)) throw new Error(`Cannot find "hero" actor`);
-      shoot(heroW.getPosition().getCoords(), fromHeroAngles.azimuth, fromHeroAngles.elevation, meters(50), bullets);
-    });
+    let shooting = false;
+    const cooldownMs = 300;
+    mouseService.clickLeftPress$.subscribe((): void => void (shooting = true));
+    mouseService.clickLeftRelease$.subscribe((): void => void (shooting = false));
+
+    // TODO setTimout/setInterval is not a good idea (cause the game might be "on pause", e.g. when tab is not active)
+    setInterval(() => {
+      if (shooting) shoot(heroW.getPosition().getCoords(), fromHeroAngles.azimuth, fromHeroAngles.elevation, meters(30), bullets);
+    }, cooldownMs);
 
     physicsLoopService.shouldAutoUpdate(true);
 

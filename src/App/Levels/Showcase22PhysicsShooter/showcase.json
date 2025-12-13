@@ -72,13 +72,13 @@
     {
       "name": "box_static_1",
       "type": "cube",
-      "width": 1,
-      "height": 2,
-      "depth": 1,
+      "width": 2,
+      "height": 4,
+      "depth": 2,
       "widthSegments": 1,
       "heightSegments": 1,
       "material": { "type": "standard", "params": { "color": "#FF9800" } },
-      "position": { "x": 24, "y": 1, "z": 14 },
+      "position": { "x": 24, "y": 2, "z": 14 },
       "castShadow": true,
       "spatial": { "grid": "main_grid", "isAutoUpdate": false },
       "tags": []
