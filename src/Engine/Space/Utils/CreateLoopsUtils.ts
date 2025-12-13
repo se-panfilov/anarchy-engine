@@ -33,7 +33,6 @@ export function createLoops({ create }: TLoopService): TSpaceLoops {
     spatialLoop: create({ name: SpatialMain, type: Spatial, trigger: milliseconds(16), maxPriority: SpatialUpdatePriority.ASAP }) as TSpatialLoop,
     transformLoop: create({ name: TransformMain, type: Transform, trigger: milliseconds(16) }) as TTransformLoop,
     textLoop: create({ name: TextMain, type: Text, trigger: milliseconds(16) }) as TTextLoop,
-    // TODO 10.0.0. LOOPS: check pressing speed
     keyboardLoop: create({ name: KeyboardMain, type: Keyboard, trigger: milliseconds(16) }) as TKeyboardLoop,
     mouseLoop: create({ name: MouseMain, type: Mouse, trigger: milliseconds(16) }) as TMouseLoop,
     intersectionsLoop: create({ name: IntersectionsMain, type: Intersections, trigger: milliseconds(16) }) as TIntersectionsLoop,
