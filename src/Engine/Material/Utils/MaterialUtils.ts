@@ -29,17 +29,17 @@ export function getOptionNameIfPossible<T extends string, V>(option: V | undefin
   return getOptionName(option, optionsMap, name);
 }
 
-export function vector2ToXyIfPossible(vector: Vector2Like): Readonly<{ x: number; y: number }> {
+export function vector2ToXyIfPossible(vector: Vector2Like | undefined): Readonly<{ x: number; y: number }> {
   if (isNotDefined(vector)) return { x: 0, y: 0 };
   return vector2ToXy(vector);
 }
 
-export function vector3ToXyzIfPossible(vector: Vector3Like): Readonly<{ x: number; y: number; z: number }> {
+export function vector3ToXyzIfPossible(vector: Vector3Like | undefined): Readonly<{ x: number; y: number; z: number }> {
   if (isNotDefined(vector)) return { x: 0, y: 0, z: 0 };
   return vector3ToXyz(vector);
 }
 
-export function eulerToXyzIfPossible(euler: TEulerLike | TEulerString): Readonly<{
+export function eulerToXyzIfPossible(euler: TEulerLike | TEulerString | undefined): Readonly<{
   x: number;
   y: number;
   z: number;

@@ -12,6 +12,7 @@ import type {
   PointsMaterial
 } from 'three';
 import type { MeshDistanceMaterialParameters } from 'three/src/materials/MeshDistanceMaterial';
+import type { SpriteNodeMaterial } from 'three/src/materials/nodes/NodeMaterials';
 
 import { serializeColorWhenPossible } from '@/Engine/Color';
 import type { MaterialType } from '@/Engine/Material/Constants';
@@ -122,10 +123,10 @@ function getMaterialOptions({ entity }: TMaterialWrapper): TOptional<TMaterialCo
       polygonOffsetUnits: entity.polygonOffsetUnits,
       precision: entity.precision,
       premultipliedAlpha: entity.premultipliedAlpha,
-      referencePosition: vector3ToXyzIfPossible((entity as any).referencePosition),
+      referencePosition: vector3ToXyzIfPossible((entity as MeshDistanceMaterialParameters).referencePosition),
       reflectivity: (entity as MeshPhysicalMaterial).reflectivity,
       refractionRatio: (entity as MeshBasicMaterial).refractionRatio,
-      rotation: eulerToXyzIfPossible((entity as any).rotation),
+      rotation: (entity as SpriteNodeMaterial).rotation,
       roughness: (entity as MeshStandardMaterial).roughness,
       scale: (entity as LineDashedMaterial).scale,
       shadowSide: entity.shadowSide,
