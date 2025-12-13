@@ -5,11 +5,11 @@ import type { TLoopService, TLoopTimes } from '@/Engine/Loop/Models';
 import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
 
-type ILoopServiceState = { isLooping: boolean };
+type TLoopServiceState = { isLooping: boolean };
 
 export function LoopService(): TLoopService {
   const tick$: Subject<TLoopTimes> = new Subject<TLoopTimes>();
-  const state: ILoopServiceState = {
+  const state: TLoopServiceState = {
     isLooping: false
   };
 
@@ -38,7 +38,7 @@ export function LoopService(): TLoopService {
   };
 }
 
-function getLoopFn(tick$: Subject<TLoopTimes>, state: ILoopServiceState): (time: number) => void {
+function getLoopFn(tick$: Subject<TLoopTimes>, state: TLoopServiceState): (time: number) => void {
   const clock: Clock = new Clock();
   let lastElapsedTime: number = 0;
 

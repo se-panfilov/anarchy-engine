@@ -1,2 +1,2 @@
-export * from './IGetParamsFn';
+export * from './TGetParamsFn';
 export * from './TParamsFromConfig';

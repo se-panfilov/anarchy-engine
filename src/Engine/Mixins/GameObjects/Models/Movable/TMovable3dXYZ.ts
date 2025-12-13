@@ -5,6 +5,6 @@ import type { TMovable3dY, TMovable4dY } from './TMovableY';
 import type { TMovable3dZ, TMovable4dZ } from './TMovableZ';
 
 export type TMovable3dXYZ = TWithPosition3d & TMovable3dX & TMovable3dY & TMovable3dZ;
-export type IMovable4dXYZ = TWithPosition4d & TMovable4dX & TMovable4dY & TMovable4dZ;
+export type TMovable4dXYZ = TWithPosition4d & TMovable4dX & TMovable4dY & TMovable4dZ;
 
-export type TMovableXYZ = TMovable3dXYZ | IMovable4dXYZ;
+export type TMovableXYZ = TMovable3dXYZ | TMovable4dXYZ;

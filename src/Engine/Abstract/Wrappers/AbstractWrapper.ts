@@ -8,11 +8,11 @@ import { destroyableMixin, withNameAndNameAccessorsMixin } from '@/Engine/Mixins
 import { withTagsMixin } from '@/Engine/Mixins/Generics';
 import { isDefined, isWithUserData, isWithWrapperIdAccessors } from '@/Engine/Utils';
 
-type IWrapperParams = Readonly<{ tags?: ReadonlyArray<string> } & TWithName>;
+type TWrapperParams = Readonly<{ tags?: ReadonlyArray<string> } & TWithName>;
 
-export function AbstractWrapper<T>(entity: T, type: WrapperType | string, params?: IWrapperParams): TWrapper<T>;
-export function AbstractWrapper<T extends TWithUserData>(entity: T, type: WrapperType | string, params?: IWrapperParams): TWrapper<TWithWrapperIdEntity<T>>;
-export function AbstractWrapper<T extends TWithUserData>(entity: T, type: WrapperType | string, params?: IWrapperParams): TWrapper<TWithWrapperIdEntity<any>> | TWrapper<T> {
+export function AbstractWrapper<T>(entity: T, type: WrapperType | string, params?: TWrapperParams): TWrapper<T>;
+export function AbstractWrapper<T extends TWithUserData>(entity: T, type: WrapperType | string, params?: TWrapperParams): TWrapper<TWithWrapperIdEntity<T>>;
+export function AbstractWrapper<T extends TWithUserData>(entity: T, type: WrapperType | string, params?: TWrapperParams): TWrapper<TWithWrapperIdEntity<any>> | TWrapper<T> {
   const id: string = type + '_' + nanoid();
 
   const withNameAndNameAccessors: TWithNameAndNameAccessorsMixin = withNameAndNameAccessorsMixin();
