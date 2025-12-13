@@ -9,6 +9,7 @@ export default {
       SHOW_TECH_IDENTIFIERS: true
     }
   },
+  // TODO DESKTOP: LEGAL: looks like DISCLAIMER generation is broken. Fix and check for the rest.
   DISCLAIMER: { template: 'DISCLAIMER_TEMPLATE' },
   EULA: { template: 'EULA_COMMERCIAL_TEMPLATE', relativeOutput: './legal' },
   EU_DECLARATION_OF_CONFORMITY: { template: 'EU_DECLARATION_OF_CONFORMITY_COMMERCIAL_TEMPLATE', relativeOutput: './compliance' },

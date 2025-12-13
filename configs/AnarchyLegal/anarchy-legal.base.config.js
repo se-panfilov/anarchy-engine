@@ -18,7 +18,7 @@ export default {
       PRODUCT_TERM: 'Software', //E.g. 'Software', 'Product', 'Game', etc.
       STORE_DISCLOSURES: true,
       LEGAL_FOLDER: './legal/',
-      PATH_TO_CE_MARK: './images/ce-mark.png',
+      PATH_TO_CE_MARK: 'ce-mark.png',
 
       //DATA COLLECTION
       CRASH_OPT_IN: false,
