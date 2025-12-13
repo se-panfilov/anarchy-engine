@@ -3,7 +3,7 @@ import { Vector3 } from 'three';
 
 import type { IShowcase } from '@/App/Levels/Models';
 import type { IAppCanvas, ILevel, ILevelConfig } from '@/Engine';
-import { ActorType, ambientContext, buildLevelFromConfig, Vector3Wrapper } from '@/Engine';
+import { ActorType, ambientContext, buildLevelFromConfig, EulerWrapper, Vector3Wrapper } from '@/Engine';
 
 import levelConfig from './showcase-level-2.config.json';
 
@@ -12,7 +12,7 @@ export function showcaseLevel2(canvas: IAppCanvas): IShowcase {
 
   function start(): void {
     level.start();
-    const { actorFactory, cameraRegistry } = level.entities;
+    const { actorFactory, cameraFactory, cameraRegistry } = level.entities;
 
     // START Experiment1: custom controls ---------------
     actorFactory.create({
@@ -21,6 +21,14 @@ export function showcaseLevel2(canvas: IAppCanvas): IShowcase {
       castShadow: true,
       materialParams: { color: '#5177ff' },
       tags: []
+    });
+
+    const cameraTag: string = 'showcase-2-camera';
+
+    cameraFactory.create({
+      position: Vector3Wrapper({ x: 0, y: 0, z: 0 }),
+      rotation: EulerWrapper({ x: 0, y: 0, z: 0 }),
+      tags: [cameraTag]
     });
 
     const { mousePositionWatcher, screenSizeWatcher } = ambientContext;
@@ -36,9 +44,9 @@ export function showcaseLevel2(canvas: IAppCanvas): IShowcase {
       // TODO (S.Panfilov) CWP Camera is always a PerspectiveCamera, is that right?
 
       // console.log('camera rotation', cameraRegistry.getAll()[0].entity.rotation);
-      cameraRegistry.getAll()[0].entity.position.setX(xRatio);
-      cameraRegistry.getAll()[0].entity.position.setY(yRatio);
-      cameraRegistry.getAll()[0].entity.lookAt(new Vector3(0, 0, 0));
+      cameraRegistry.getUniqByTag(cameraTag)?.entity.position.setX(xRatio);
+      cameraRegistry.getUniqByTag(cameraTag)?.entity.position.setY(yRatio);
+      cameraRegistry.getUniqByTag(cameraTag)?.entity.lookAt(new Vector3(0, 0, 0));
 
       // const xRatio: number = x / width - 0.5;
       // const yRatio: number = -(y / height - 0.5);
