@@ -130,7 +130,7 @@ export function KinematicTransformAgent(params: TKinematicTransformAgentParams, 
 
       if (speed < 0) throw new Error('Speed must be greater than 0 to calculate angular speed.');
       if (speed === 0) return agent.setAngularSpeed(0);
-      if (agent.data.state.radius <= 0) throw new Error('Radius must be greater than 0 to calculate angular speed.');
+      if (agent.data.state.radius <= 0) throw new Error('Radius must be set and be greater than 0 to calculate angular speed.');
       const angularSpeed: TRadiansPerSecond = (speed / agent.data.state.radius) as TRadiansPerSecond;
 
       // eslint-disable-next-line functional/immutable-data
@@ -255,15 +255,16 @@ export function KinematicTransformAgent(params: TKinematicTransformAgentParams, 
     getAngularSpeed(): TRadiansPerSecond {
       return agent.data.state.angularSpeed;
     },
-    getAngularSpeedMps(): TMetersPerSecond {
+    getAngularSpeedMps(): TMetersPerSecond | never {
+      if (agent.data.state.radius <= 0) throw new Error('Radius must be set and be greater than 0 to calculate angular speed.');
       return metersPerSecond(agent.data.state.angularSpeed * agent.data.state.radius);
     },
     setAngularSpeed(speed: TRadiansPerSecond): void {
       // eslint-disable-next-line functional/immutable-data
       agent.data.state.angularSpeed = speed;
     },
-    setAngularSpeedMps(speed: TMetersPerSecond): void {
-      if (agent.data.state.radius <= 0) throw new Error('Radius must be greater than 0 to calculate angular speed.');
+    setAngularSpeedMps(speed: TMetersPerSecond): void | never {
+      if (agent.data.state.radius <= 0) throw new Error('Radius must be set and be greater than 0 to calculate angular speed.');
       agent.setAngularSpeed((speed / agent.data.state.radius) as TRadiansPerSecond);
     },
     getAngularDirection(): Quaternion {
