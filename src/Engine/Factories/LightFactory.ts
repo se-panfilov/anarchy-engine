@@ -1,7 +1,7 @@
 import { AbstractFactory } from './AbstractFactory';
 import { LightWrapper } from '@Engine/Wrappers';
 import type { Factory, LightParams } from '@Engine/Models';
-import { lightAdapter } from '@Engine/Launcher/ConfigToParamAdapters';
+import { lightAdapter } from '@Engine/Adapters';
 
 const create = (params: LightParams): ReturnType<typeof LightWrapper> => LightWrapper(params);
 
