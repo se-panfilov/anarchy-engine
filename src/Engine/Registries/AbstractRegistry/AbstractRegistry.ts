@@ -1,5 +1,5 @@
 import type { IAbstractRegistry, IMultitonRegistrable, IRegistrable } from '@Engine/Models';
-import { RegistryName } from '@Engine/Registries';
+import type { RegistryName } from '@Engine/Registries';
 import { getAllEntitiesWithEveryTag, getAllEntitiesWithSomeTag, isNotDefined } from '@Engine/Utils';
 import { nanoid } from 'nanoid';
 import { Subject } from 'rxjs';
