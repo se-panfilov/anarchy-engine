@@ -50,6 +50,16 @@
           "y": 0,
           "z": 0
         }
+      },
+      {
+        "audioSource": "monster_sound",
+        "name": "monster_singing",
+        "listener": "main_listener",
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        }
       }
     ],
     "cameras": [
@@ -188,6 +198,10 @@
       {
         "name": "persimmon_music",
         "url": "/Showcase/Audio/Pierce Murphy - Persimmon.mp3"
+      },
+      {
+        "name": "monster_sound",
+        "url": "/Showcase/Audio/girl_singing.mp3"
       }
     ],
     "envMaps": [],
