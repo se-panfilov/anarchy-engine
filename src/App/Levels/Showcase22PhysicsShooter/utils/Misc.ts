@@ -1,10 +1,12 @@
+import type { ColorRepresentation } from 'three';
 import { Line2 } from 'three/examples/jsm/lines/Line2';
 import { LineGeometry } from 'three/examples/jsm/lines/LineGeometry';
 import { LineMaterial } from 'three/examples/jsm/lines/LineMaterial';
 
 import { meters } from '@/Engine/Measurements/Utils';
 
-export function createLine(color: string, width: number): Line2 {
+// TODO LINES: refactor this with lines domain
+export function createLine(color: ColorRepresentation, width: number): Line2 {
   const material = new LineMaterial({
     color,
     linewidth: meters(width),

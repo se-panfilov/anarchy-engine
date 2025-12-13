@@ -17,10 +17,11 @@ import type {
   TSpaceConfig,
   TSpatialGridWrapper
 } from '@/Engine';
-import { Engine, isNotDefined, KeysExtra, spaceService, TransformAgent } from '@/Engine';
+import { Engine, getMouseAzimuthAndElevation, isNotDefined, KeysExtra, radiansToDegreesPrecise, spaceService, TransformAgent } from '@/Engine';
+import { meters } from '@/Engine/Measurements/Utils';
 
 import spaceConfig from './showcase.json';
-import { addActorFolderGui, attachConnectorToSubj, changeActorActiveAgent, createActor, createRepeaterActor, startIntersections } from './Utils';
+import { addActorFolderGui, attachConnectorToSubj, changeActorActiveAgent, createActor, createReactiveLineFromActor, createRepeaterActor, startIntersections } from './Utils';
 
 //This showcase should demonstrate the ways we can move the actor.
 // We have different "agents" (modes) which can be switched in runtime
@@ -64,9 +65,18 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
 
     const intersectionsWatcher: TIntersectionsWatcher = startIntersections(space.services);
 
+    sphereActor.drive.kinematic.setLinearSpeed(meters(5));
+
+    const { line } = createReactiveLineFromActor('#E91E63', sphereActor, intersectionsWatcher);
+    sceneW.entity.add(line);
+
     clickLeftRelease$
-      .pipe(withLatestFrom(intersectionsWatcher.value$, sphereActor.drive.agent$))
-      .subscribe(([, intersection, agent]: [TMouseWatcherEvent, TIntersectionEvent, TransformAgent]): void => {
+      .pipe(withLatestFrom(intersectionsWatcher.value$, sphereActor.drive.agent$, sphereActor.drive.position$))
+      .subscribe(([, intersection, agent, position]: [TMouseWatcherEvent, TIntersectionEvent, TransformAgent, Vector3]): void => {
+        // TODO CWP implement kinematic move with this
+        const directionToMouse = getMouseAzimuthAndElevation(intersection.point, position);
+        console.log('XXX', radiansToDegreesPrecise(directionToMouse.azimuth).toNumber());
+        sphereActor.drive.kinematic.setLinearAzimuthRad(directionToMouse.azimuth);
         moveActorTo(sphereActor, intersection.point, agent, mode.isTeleportationMode);
       });
 

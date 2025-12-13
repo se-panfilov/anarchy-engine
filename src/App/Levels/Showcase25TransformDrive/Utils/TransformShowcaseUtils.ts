@@ -1,10 +1,28 @@
 import type GUI from 'lil-gui';
 import type { Observable, Subject, Subscription } from 'rxjs';
+import { combineLatest } from 'rxjs';
+import type { ColorRepresentation } from 'three';
 import { Euler, Vector3 } from 'three';
+import { Line2 } from 'three/examples/jsm/lines/Line2';
+import { LineGeometry } from 'three/examples/jsm/lines/LineGeometry';
+import { LineMaterial } from 'three/examples/jsm/lines/LineMaterial';
 import type { Vector3Like } from 'three/src/math/Vector3';
 
-import type { KeyCode, KeysExtra, TActor, TCameraWrapper, TIntersectionsWatcher, TKeyboardService, TMaterialWrapper, TModel3d, TSpaceServices, TSpatialGridWrapper } from '@/Engine';
+import type {
+  KeyCode,
+  KeysExtra,
+  TActor,
+  TCameraWrapper,
+  TIntersectionEvent,
+  TIntersectionsWatcher,
+  TKeyboardService,
+  TMaterialWrapper,
+  TModel3d,
+  TSpaceServices,
+  TSpatialGridWrapper
+} from '@/Engine';
 import { isNotDefined, MaterialType, PrimitiveModel3dType, TransformAgent } from '@/Engine';
+import { meters } from '@/Engine/Measurements/Utils';
 
 export function createActor(
   name: string,
@@ -84,4 +102,29 @@ export function addActorFolderGui(gui: GUI, actor: TActor): void {
   folder.add(position, 'x').listen();
   folder.add(position, 'y').listen();
   folder.add(position, 'z').listen();
+}
+
+// TODO LINES: refactor this with lines domain
+export function createLine(color: ColorRepresentation, width: number): Line2 {
+  const material = new LineMaterial({
+    color,
+    linewidth: meters(width),
+    worldUnits: true,
+    alphaToCoverage: true
+  });
+  const geometry: LineGeometry = new LineGeometry();
+  geometry.setPositions([0, 0, 0, 0, 0, 0]);
+
+  return new Line2(geometry, material);
+}
+
+export function createReactiveLineFromActor(color: ColorRepresentation, actor: TActor, intersectionsWatcher: TIntersectionsWatcher): { line: Line2; sub$: Subscription } {
+  const line: Line2 = createLine(color, 0.1);
+
+  const sub$: Subscription = combineLatest([intersectionsWatcher.value$, actor.drive.position$]).subscribe(([intersection, position]: [TIntersectionEvent, Vector3]): void => {
+    line.geometry.setPositions([position.x, position.y, position.z, intersection.point.x, intersection.point.y, 1]);
+    line.computeLineDistances();
+  });
+
+  return { line, sub$ };
 }
