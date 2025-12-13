@@ -48,7 +48,6 @@ export function getUniqEntityWithTag$<T extends IRegistrable>(tag: string, regis
   return subscribeToValue$<T>(registry, (entity: T): boolean => entity.hasTag(tag));
 }
 
-// TODO (S.Panfilov) add unit tests
 export function getUniqEntityByName$<T extends IRegistrable>(name: string, registry: IAbstractEntityRegistry<T> | IAbstractAsyncRegistry<T>): Observable<T> {
   const result: T | undefined = isDefined((registry as IAbstractEntityRegistry<T>).findByName) ? (registry as IAbstractEntityRegistry<T>).findByName(name) : undefined;
   if (isDefined(result)) new BehaviorSubject(result).asObservable();

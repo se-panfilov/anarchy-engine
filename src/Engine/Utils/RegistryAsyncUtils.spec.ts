@@ -9,6 +9,7 @@ import { withTagsMixin } from '@/Engine/Mixins';
 import {
   getAsyncUniqEntityByNameAsync,
   getAsyncUniqEntityWithTag,
+  getUniqEntityByName$,
   getUniqEntityWithTag$,
   getUniqEntityWithTags$,
   getUniqEntityWithTagsAsync,
@@ -618,6 +619,48 @@ describe('RegistryAsyncUtils', () => {
 
         setTimeout(() => registry.add(obj1AB), 50);
         setTimeout(() => registry.add(obj9Uniq2), 50);
+        setTimeout(() => registry.add(obj2B), 50);
+
+        // check
+        const result: IRegistrable = await subscription$;
+        expect(result).toEqual(obj9Uniq2);
+      }, 1000);
+    });
+  });
+
+  describe('getUniqEntityByName$', () => {
+    describe('added before subscription started', () => {
+      describe('added after subscription started', () => {
+        it('should return an entity that was added before getting the value', async () => {
+          // setup
+          const name: string = 'sam';
+          const registry: IAbstractAsyncRegistry<IRegistrable> = AbstractAsyncRegistry<IRegistrable>('mockEntity' as RegistryType);
+
+          registry.add(obj1AB);
+          registry.add({ ...obj9Uniq2, name });
+          setTimeout(() => registry.add(obj2B), 50);
+
+          // execute
+          const subscription$ = firstValueFrom(getUniqEntityByName$(name, registry));
+
+          // check
+          const result: IRegistrable = await subscription$;
+          expect(result).toEqual(obj9Uniq2);
+        }, 1000);
+      });
+    });
+
+    describe('added after subscription started', () => {
+      it('should return an entity that was added before getting the value', async () => {
+        // setup
+        const name: string = 'pete';
+        const registry: IAbstractAsyncRegistry<IRegistrable> = AbstractAsyncRegistry<IRegistrable>('mockEntity' as RegistryType);
+
+        // execute
+        const subscription$ = firstValueFrom(getUniqEntityByName$(name, registry));
+
+        setTimeout(() => registry.add(obj1AB), 50);
+        setTimeout(() => registry.add({ ...obj9Uniq2, name }), 50);
         setTimeout(() => registry.add(obj2B), 50);
 
         // check
