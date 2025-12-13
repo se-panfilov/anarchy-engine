@@ -29,7 +29,7 @@ export function validatePresetNames(
   return entities
     .map((entity) => entity.physics)
     .filter(isDefined)
-    .every((physics) => isNotDefined(physics.presetName) || validatePresetName(physics as any));
+    .every((physics): boolean => isNotDefined(physics.presetName) || validatePresetName(physics as any));
 }
 
 export const validateActorNamesForEveryEntity = (
@@ -55,8 +55,8 @@ export const validateArrayField = <T extends Record<string, any>>(obj: T, field:
 export const validate = (str: string | undefined): boolean => (isDefined(str) ? str.length > 0 && /^[A-z0-9_]+$/gm.test(str) : true);
 
 export function validateAllActorsHasPhysicsPreset(actors: ReadonlyArray<TActorConfig>, presets: ReadonlyArray<TPhysicsPresetConfig> | undefined): boolean {
-  return actors.every((actor: TActorConfig) => {
-    if (isNotDefined(presets)) return true;
+  return actors.every((actor: TActorConfig): boolean => {
+    if (isNotDefined(presets) || presets.length === 0) return true;
     return presets.some((preset: TPhysicsPresetConfig): boolean => isNotDefined(actor.physics) || isNotDefined(actor.physics?.presetName) || preset.name === actor.physics.presetName);
   });
 }
