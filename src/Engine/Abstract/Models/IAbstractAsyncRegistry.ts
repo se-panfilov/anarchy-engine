@@ -7,11 +7,11 @@ import type { IAbstractEntityRegistry } from './IAbstractEntityRegistry';
 
 export type IAbstractAsyncRegistry<T extends IRegistrable> = Omit<IAbstractEntityRegistry<T>, 'findByTags' | 'findByTag' | 'findByName'> &
   Readonly<{
-    findByTagsAsync: (tags: ReadonlyArray<string>, strategy: LookUpStrategy) => Promise<T>;
+    findByTagsAsync: (tags: ReadonlyArray<string>, strategy: LookUpStrategy) => Promise<T | undefined>;
     findByTags$: (tags: ReadonlyArray<string>, strategy: LookUpStrategy) => Observable<T>;
-    findByTagAsync: (tag: string) => Promise<T>;
+    findByTagAsync: (tag: string) => Promise<T | undefined>;
     findByTag$: (tag: string) => Observable<T>;
-    findByNameAsync: (name: string) => Promise<T>;
+    findByNameAsync: (name: string) => Promise<T | undefined>;
     findByName$: (name: string) => Observable<T>;
   }> &
   IDestroyable;

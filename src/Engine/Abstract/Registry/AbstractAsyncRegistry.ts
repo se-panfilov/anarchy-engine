@@ -13,23 +13,10 @@ import { AbstractEntityRegistry } from './AbstractEntityRegistry';
 export function AbstractAsyncRegistry<T extends IRegistrable | IMultitonRegistrable>(type: RegistryType): IAbstractAsyncRegistry<T> {
   const abstractRegistry: IAbstractEntityRegistry<T> = AbstractEntityRegistry<T>(type);
 
-  function findByTagsAsync(tags: ReadonlyArray<string>, strategy: LookUpStrategy): Promise<T> {
-    const result: T | undefined = abstractRegistry.findByTags(tags, strategy);
-    if (isDefined(result)) return Promise.resolve(result);
-    return getValueAsync<T>(abstractRegistry, (entity: T): boolean => entity.getTags()[strategy]((tag: string) => tags.includes(tag)));
-  }
-
-  function findByTagAsync(tag: string): Promise<T> {
-    const result: T | undefined = abstractRegistry.findByTag(tag);
-    if (isDefined(result)) return Promise.resolve(result);
-    return getValueAsync<T>(abstractRegistry, (entity: T): boolean => entity.hasTag(tag));
-  }
-
-  function findByNameAsync(name: string): Promise<T> {
-    const result: T | undefined = abstractRegistry.findByName(name);
-    if (isDefined(result)) return Promise.resolve(result);
-    return getValueAsync<T>(abstractRegistry, (entity: T): boolean => entity.name === name);
-  }
+  const findByTagsAsync = (tags: ReadonlyArray<string>, strategy: LookUpStrategy): Promise<T | undefined> =>
+    getValueAsync<T>(abstractRegistry, (entity: T): boolean => entity.getTags()[strategy]((tag: string) => tags.includes(tag)));
+  const findByTagAsync = (tag: string): Promise<T | undefined> => getValueAsync<T>(abstractRegistry, (entity: T): boolean => entity.hasTag(tag));
+  const findByNameAsync = (name: string): Promise<T | undefined> => getValueAsync<T>(abstractRegistry, (entity: T): boolean => entity && entity.name === name);
 
   function findByTags$(tags: ReadonlyArray<string>, strategy: LookUpStrategy): Observable<T> {
     const result: T | undefined = abstractRegistry.findByTags(tags, strategy);

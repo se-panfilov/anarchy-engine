@@ -15,12 +15,13 @@ export function showcase(canvas: IAppCanvas): IShowcase {
   const { clickLeftRelease$ } = mouseService;
 
   async function init(): Promise<void> {
-    const redWatcher: IIntersectionsWatcher | undefined = await intersectionsWatcherService.getRegistry().findByNameAsync('red_watcher');
+    const redWatcher: IIntersectionsWatcher | undefined = await intersectionsWatcherService.getRegistry().findByNameAsync('watcher_red');
     if (isNotDefined(redWatcher)) throw new Error('Cannot find red watcher');
-    // const blueWatcher: IIntersectionsWatcher | undefined = intersectionsService.getRegistry().findByName('blue_watcher');
-    // if (isNotDefined(blueWatcher)) throw new Error('Cannot find blue watcher');
+    const blueWatcher: IIntersectionsWatcher | undefined = await intersectionsWatcherService.getRegistry().findByNameAsync('watcher_blue');
+    if (isNotDefined(blueWatcher)) throw new Error('Cannot find blue watcher');
 
     redWatcher.value$.subscribe((value) => console.log('red watcher', value));
+    blueWatcher.value$.subscribe((value) => console.log('blue watcher', value));
 
     let cameraFolder: GUI | undefined;
     let cameraName: string = 'camera_red';

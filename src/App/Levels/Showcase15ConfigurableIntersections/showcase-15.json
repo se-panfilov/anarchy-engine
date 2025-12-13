@@ -71,9 +71,16 @@
   ],
   "intersections": [
     {
-      "name": "red_watcher",
+      "name": "watcher_red",
       "cameraName": "camera_red",
-      "actorNames": ["actor_red_1"],
+      "actorNames": ["actor_red_1", "actor_red_2"],
+      "isAutoStart": true,
+      "tags": []
+    },
+    {
+      "name": "watcher_blue",
+      "cameraName": "camera_blue",
+      "actorNames": ["actor_blue_1", "actor_blue_2"],
       "isAutoStart": true,
       "tags": []
     }
