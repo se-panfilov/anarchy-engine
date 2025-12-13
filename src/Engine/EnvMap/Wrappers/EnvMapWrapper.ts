@@ -2,7 +2,7 @@ import type { Subscription } from 'rxjs';
 
 import { AbstractWrapper, WrapperType } from '@/Engine/Abstract';
 import { envMapToConfig } from '@/Engine/EnvMap/Adapters';
-import type { TEnvMapConfig, TEnvMapParams, TEnvMapTexture, TEnvMapWrapper } from '@/Engine/EnvMap/Models';
+import type { TEnvMapConfig, TEnvMapConfigToParamsDependencies, TEnvMapParams, TEnvMapTexture, TEnvMapWrapper } from '@/Engine/EnvMap/Models';
 import { withActiveMixin } from '@/Engine/Mixins';
 
 export function EnvMapWrapper(params: TEnvMapParams): TEnvMapWrapper {
@@ -12,7 +12,9 @@ export function EnvMapWrapper(params: TEnvMapParams): TEnvMapWrapper {
   const wrapper = Object.assign(AbstractWrapper(entity, WrapperType.EnvMap), {
     getName: (): string => params.name,
     ...withActiveMixin(),
-    serialize: (): TEnvMapConfig => envMapToConfig(wrapper)
+    // TODO 15-0-0: Let all Services to have service-level .serialize(). Also add type TWithSerializableEntities
+    // TODO 15-0-0: add serializer to the service to avoid dependencies passing
+    serialize: (dependencies: TEnvMapConfigToParamsDependencies): TEnvMapConfig => envMapToConfig(wrapper, dependencies)
   });
 
   wrapper._setActive(isActive, true);
