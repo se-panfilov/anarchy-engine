@@ -22,8 +22,6 @@ export function spaceLoop(
   text3dRenderer: TText3dRenderer,
   controlsRegistry: TControlsRegistry
 ): void {
-  // TODO 10.0.0. LOOPS: get rid of autoUpdate$ (and isAutoUpdate in config, guess)
-
   if (isDefined(activeCamera)) {
     renderer.entity.render(activeScene.entity, activeCamera.entity);
     // TODO update these text renderers only when there are any text (or maybe only when it's changed)

@@ -11,6 +11,7 @@ import type { TPhysicalLoop } from '@/Engine/Space/Models';
 // TODO 10.0.0. LOOPS: add transforms loop?
 // TODO 10.0.0. LOOPS: add keyboard loop?
 // TODO 10.0.0. LOOPS: add text loop?
+// TODO 10.0.0. LOOPS: get rid of autoUpdate$ (and isAutoUpdate in config, guess)
 
 export function PhysicalLoop(loopService: TLoopService, physicsWorldService: TPhysicsWorldService, updateRate: TMilliseconds): TPhysicalLoop {
   const loop: TLoop = loopService.createIntervalLoop(milliseconds(updateRate));

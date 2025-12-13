@@ -1,7 +1,10 @@
+import { CollisionsLoop } from '@/Engine/Collisions';
+import { KinematicLoop } from '@/Engine/Kinematic';
 import { milliseconds } from '@/Engine/Measurements';
-import { CollisionsLoop, KinematicLoop, RenderLoop, SpatialLoop } from '@/Engine/Space/Loops';
-import { PhysicalLoop } from '@/Engine/Space/Loops/PhysicalLoop';
+import { PhysicalLoop } from '@/Engine/Physics';
+import { RenderLoop } from '@/Engine/Space/Loops';
 import type { TSpaceLoops, TSpaceServices } from '@/Engine/Space/Models';
+import { SpatialLoop } from '@/Engine/Spatial';
 
 export function createLoops(services: TSpaceServices): TSpaceLoops {
   return {
