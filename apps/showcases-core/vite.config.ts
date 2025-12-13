@@ -17,6 +17,7 @@ import { version as anarchyI18nVersion } from '../../packages/anarchy-i18n/packa
 import { version as anarchyLegalVersion } from '../../packages/anarchy-legal/package.json';
 import { version as showcasesI18nVersion } from '../../packages/showcases-i18n/package.json';
 import { version as showcasesMenuVersion } from '../../packages/showcases-menu/package.json';
+import { version as showcasesGuiVersion } from '../../packages/showcases-gui/package.json';
 import { version as showcasesSharedVersion } from '../../packages/showcases-shared/package.json';
 import { emitDefineJson } from '../../packages/anarchy-shared/src/Plugins/EmitDefineVitePlugin';
 import csp from 'vite-plugin-csp-guard';
@@ -43,6 +44,7 @@ export default defineConfig(({ mode, command }: ConfigEnv): UserConfig => {
     'anarchy-legal': anarchyLegalVersion,
     'showcases-i18n': showcasesI18nVersion,
     'showcases-menu': showcasesMenuVersion,
+    'showcases-gui': showcasesGuiVersion,
     'showcases-shared': showcasesSharedVersion
   };
 

@@ -61,6 +61,7 @@
     "lil-gui": "0.21.0",
     "rxjs": "7.8.2",
     "sanitize.css": "13.0.0",
+    "showcases-gui": "*",
     "showcases-i18n": "*",
     "showcases-menu": "*",
     "showcases-shared": "*",
