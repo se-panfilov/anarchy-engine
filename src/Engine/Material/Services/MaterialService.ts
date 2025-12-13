@@ -3,6 +3,7 @@ import type { Subscription } from 'rxjs';
 import type { TAbstractService } from '@/Engine/Abstract';
 import { AbstractService } from '@/Engine/Abstract';
 import type {
+  TMaterialConfig,
   TMaterialFactory,
   TMaterialRegistry,
   TMaterialService,
@@ -14,7 +15,7 @@ import type {
   TMaterialWrapper
 } from '@/Engine/Material/Models';
 import type { TDisposable } from '@/Engine/Mixins';
-import { withCreateFromConfigServiceMixin, withCreateServiceMixin, withFactoryService, withRegistryService } from '@/Engine/Mixins';
+import { withCreateFromConfigServiceMixin, withCreateServiceMixin, withFactoryService, withRegistryService, withSerializeAllEntities } from '@/Engine/Mixins';
 
 export function MaterialService(factory: TMaterialFactory, registry: TMaterialRegistry, dependencies: TMaterialServiceDependencies): TMaterialService {
   const factorySub$: Subscription = factory.entityCreated$.subscribe((wrapper: TMaterialWrapper): void => registry.add(wrapper));
@@ -27,5 +28,5 @@ export function MaterialService(factory: TMaterialFactory, registry: TMaterialRe
   const withRegistry: TMaterialServiceWithRegistry = withRegistryService(registry);
 
   // eslint-disable-next-line functional/immutable-data
-  return Object.assign(abstractService, withCreateService, withCreateFromConfigService, withFactory, withRegistry);
+  return Object.assign(abstractService, withCreateService, withCreateFromConfigService, withFactory, withRegistry, withSerializeAllEntities<TMaterialConfig, undefined>(registry));
 }

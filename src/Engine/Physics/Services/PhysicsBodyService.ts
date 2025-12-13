@@ -4,9 +4,10 @@ import type { Subscription } from 'rxjs';
 import type { TAbstractService } from '@/Engine/Abstract';
 import { AbstractService } from '@/Engine/Abstract';
 import type { TDisposable } from '@/Engine/Mixins';
-import { withFactoryService, withRegistryService } from '@/Engine/Mixins';
+import { withFactoryService, withRegistryService, withSerializeAllEntities } from '@/Engine/Mixins';
 import type {
   TPhysicsBody,
+  TPhysicsBodyConfig,
   TPhysicsBodyFactory,
   TPhysicsBodyParams,
   TPhysicsBodyRegistry,
@@ -63,7 +64,7 @@ export function PhysicsBodyService(
   const withRegistry: TPhysicsBodyServiceWithRegistry = withRegistryService(registry);
 
   // eslint-disable-next-line functional/immutable-data
-  return Object.assign(abstractService, withFactory, withRegistry, {
+  return Object.assign(abstractService, withFactory, withRegistry, withSerializeAllEntities<TPhysicsBodyConfig, undefined>(registry), {
     create,
     createFromList,
     createWithPreset,

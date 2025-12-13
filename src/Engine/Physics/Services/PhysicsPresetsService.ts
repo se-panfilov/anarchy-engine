@@ -1,6 +1,7 @@
 import type { TAbstractService } from '@/Engine/Abstract';
 import { AbstractService } from '@/Engine/Abstract';
 import type { TDisposable } from '@/Engine/Mixins';
+import { withSerializeAllEntities } from '@/Engine/Mixins';
 import { configToParamsPreset } from '@/Engine/Physics/Adapters';
 import type {
   TPhysicsBodyFactory,
@@ -41,7 +42,7 @@ export function PhysicsPresetsService(registry: TPhysicsPresetRegistry): TPhysic
   }
 
   // eslint-disable-next-line functional/immutable-data
-  return Object.assign(abstractService, {
+  return Object.assign(abstractService, withSerializeAllEntities<TPhysicsPresetConfig, undefined>(registry), {
     addPresets,
     addPresetsFromConfig,
     getPresetByName,

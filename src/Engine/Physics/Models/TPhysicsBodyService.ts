@@ -1,9 +1,10 @@
-import type { TEntitiesService } from '@/Engine/Abstract';
+import type { TSerializableEntitiesService } from '@/Engine/Abstract';
 import type { TKinematicState } from '@/Engine/Kinematic';
 import type { TWithCreateFromConfigService, TWithCreateService, TWithFactoryService, TWithRegistryService } from '@/Engine/Mixins';
 import type { TOptional } from '@/Engine/Utils';
 
 import type { TPhysicsBody } from './TPhysicsBody';
+import type { TPhysicsBodyConfig } from './TPhysicsBodyConfig';
 import type { TPhysicsBodyFactory } from './TPhysicsBodyFactory';
 import type { TPhysicsBodyParams } from './TPhysicsBodyParams';
 import type { TPhysicsBodyRegistry } from './TPhysicsBodyRegistry';
@@ -16,7 +17,7 @@ export type TPhysicsBodyServiceWithCreateFromConfig = TWithCreateFromConfigServi
 export type TPhysicsBodyServiceWithFactory = TWithFactoryService<TPhysicsBody, TPhysicsBodyParams, TPhysicsDependencies, TPhysicsBodyFactory>;
 export type TPhysicsBodyServiceWithRegistry = TWithRegistryService<TPhysicsBodyRegistry>;
 
-export type TPhysicsBodyService = TEntitiesService &
+export type TPhysicsBodyService = TSerializableEntitiesService<TPhysicsBodyConfig> &
   TPhysicsBodyServiceWithCreate &
   TPhysicsBodyServiceWithCreateFromConfig &
   TPhysicsBodyServiceWithFactory &

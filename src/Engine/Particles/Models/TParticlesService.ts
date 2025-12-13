@@ -1,4 +1,4 @@
-import type { TEntitiesService } from '@/Engine/Abstract';
+import type { TSerializableEntitiesService } from '@/Engine/Abstract';
 import type { TWithCreateFromConfigService, TWithCreateService, TWithFactoryService, TWithRegistryService, TWithSceneGetterService } from '@/Engine/Mixins';
 
 import type { TParticlesConfig } from './TParticlesConfig';
@@ -13,7 +13,7 @@ export type TParticlesServiceWithCreateFromConfig = TWithCreateFromConfigService
 export type TParticlesServiceWithFactory = TWithFactoryService<TParticlesWrapper, TParticlesParams, TParticlesServiceDependencies, TParticlesFactory>;
 export type TParticlesServiceWithRegistry = TWithRegistryService<TParticlesRegistry>;
 
-export type TParticlesService = TEntitiesService &
+export type TParticlesService = TSerializableEntitiesService<TParticlesConfig> &
   TParticlesServiceWithCreate &
   TParticlesServiceWithCreateFromConfig &
   TParticlesServiceWithFactory &
