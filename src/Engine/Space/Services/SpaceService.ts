@@ -2,72 +2,26 @@ import type { Subscription } from 'rxjs';
 
 import type { TAbstractService } from '@/Engine/Abstract';
 import { AbstractService } from '@/Engine/Abstract';
-import type { TAppCanvas } from '@/Engine/App';
-import type { TDestroyable } from '@/Engine/Mixins';
-import { destroyableMixin } from '@/Engine/Mixins';
-import { RendererModes } from '@/Engine/Renderer';
-import type { TSceneWrapper } from '@/Engine/Scene';
-import { screenService } from '@/Engine/Services';
-import { withBuiltMixin } from '@/Engine/Space/Mixins';
-import type { TSpace, TSpaceBaseServices, TSpaceConfig, TSpaceHooks, TSpaceLoops, TSpaceService, TWithBuilt } from '@/Engine/Space/Models';
-import { buildBaseServices, buildEntitiesServices, createEntities, getActiveScene, loadResources } from '@/Engine/Space/Utils';
-import { createLoops } from '@/Engine/Space/Utils/CreateLoopsUtils';
-import { validateConfig } from '@/Engine/Space/Validators';
-import { isDestroyable } from '@/Engine/Utils';
+import type { TDisposable } from '@/Engine/Mixins';
+import { SpaceFactory } from '@/Engine/Space/Factories';
+import type { TSpace, TSpaceConfig, TSpaceFactory, TSpaceParams, TSpaceRegistry, TSpaceService } from '@/Engine/Space/Models';
+import { SpaceRegistry } from '@/Engine/Space/Registries';
 
-// TODO SPACE: we need a space service, and factory, to create from config, and to create from the code.
-export function SpaceService(): TSpaceService {
-  const abstractService: TAbstractService = AbstractService();
+export function SpaceService(factory: TSpaceFactory, registry: TSpaceRegistry): TSpaceService {
+  const factorySub$: Subscription = factory.entityCreated$.subscribe((space: TSpace): void => registry.add(space));
+  const disposable: ReadonlyArray<TDisposable> = [registry, factory, factorySub$];
+  const abstractService: TAbstractService = AbstractService(disposable);
 
-  // TODO 14-0-0: Guess we need a registry for spaces (don't forget to add a cascade destroy)
-  // TODO LOGGER: add a logger globally (not only for errors, but I'd like to know, which service with which id did what).
-  async function buildSpaceFromConfig(canvas: TAppCanvas, config: TSpaceConfig, hooks?: TSpaceHooks): Promise<TSpace> {
-    hooks?.beforeConfigValidation?.(config);
-    validateConfig(config);
-    screenService.setCanvas(canvas);
-    hooks?.beforeBaseServicesBuilt?.(canvas, config);
-    const baseServices: TSpaceBaseServices = buildBaseServices();
-    const sceneW: TSceneWrapper = getActiveScene(config.name, config.scenes, baseServices.scenesService);
-    hooks?.beforeLoopsCreated?.(config);
-    const loops: TSpaceLoops = createLoops(baseServices.loopService);
-    hooks?.beforeEntitiesServicesBuilt?.(canvas, config);
-    const services = buildEntitiesServices(sceneW, canvas, loops, baseServices);
-
-    hooks?.beforeResourcesLoaded?.(config, services, loops);
-    await loadResources(config.resources, services);
-    services.rendererService.create({ canvas, mode: RendererModes.WebGL2, isActive: true });
-    hooks?.beforeEntitiesCreated?.(config, services, loops);
-    createEntities(config.entities, services);
-    hooks?.afterEntitiesCreated?.(config, services, loops);
-
-    const destroyable: TDestroyable = destroyableMixin();
-    const builtMixin: TWithBuilt = withBuiltMixin();
-
-    const destroySub$: Subscription = destroyable.destroy$.subscribe((): void => {
-      destroySub$.unsubscribe();
-
-      builtMixin.built$.complete();
-      builtMixin.built$.unsubscribe();
-      Object.values(services).forEach((service): void => void (isDestroyable(service) && service.destroy$.next()));
-    });
-
-    builtMixin.build();
-
-    return {
-      name: config.name,
-      services,
-      loops,
-      ...builtMixin,
-      built$: builtMixin.built$.asObservable(),
-      ...destroyable,
-      tags: config.tags
-    };
-  }
+  const create = (params: TSpaceParams): TSpace => factory.create(params);
+  const createFromConfig = (spaces: ReadonlyArray<TSpaceConfig>): ReadonlyArray<TSpace> => spaces.map((config: TSpaceConfig): TSpace => create(factory.configToParams(config)));
 
   // eslint-disable-next-line functional/immutable-data
   return Object.assign(abstractService, {
-    buildSpaceFromConfig
+    create,
+    createFromConfig,
+    getFactory: (): TSpaceFactory => factory,
+    getRegistry: (): TSpaceRegistry => registry
   });
 }
 
-export const spaceService: TSpaceService = SpaceService();
+export const spaceService: TSpaceService = SpaceService(SpaceFactory(), SpaceRegistry());

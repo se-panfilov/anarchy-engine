@@ -11,6 +11,7 @@ export type * from './TPhysicsDebugRenderer';
 export type * from './TPhysicsDependencies';
 export type * from './TPhysicsGlobalConfig';
 export type * from './TPhysicsGlobalParams';
+export type * from './TPhysicsParams';
 export type * from './TPhysicsPresetConfig';
 export type * from './TPhysicsPresetParams';
 export type * from './TPhysicsPresetRegistry';

@@ -1,0 +1,31 @@
+import type { TActorParams } from '@/Engine/Actor';
+import type { TAnyAudioParams } from '@/Engine/Audio';
+import type { TCameraParams } from '@/Engine/Camera';
+import type { TControlsParams } from '@/Engine/Controls';
+import type { TEnvMapParams } from '@/Engine/EnvMap';
+import type { TFogParams } from '@/Engine/Fog';
+import type { TFsmParams } from '@/Engine/Fsm';
+import type { TIntersectionsWatcherParams } from '@/Engine/Intersections';
+import type { TAnyLightParams } from '@/Engine/Light';
+import type { TModel3dParams } from '@/Engine/Models3d';
+import type { TParticlesParams } from '@/Engine/Particles';
+import type { TPhysicsParams } from '@/Engine/Physics';
+import type { TSpatialGridParams } from '@/Engine/Spatial';
+import type { TTextParams } from '@/Engine/Text';
+
+export type TSpaceParamsEntities = Readonly<{
+  spatialGrids: ReadonlyArray<TSpatialGridParams>;
+  actors: ReadonlyArray<TActorParams>;
+  audio: ReadonlyArray<TAnyAudioParams>;
+  cameras: ReadonlyArray<TCameraParams>;
+  envMaps: ReadonlyArray<TEnvMapParams>;
+  intersections: ReadonlyArray<TIntersectionsWatcherParams>;
+  lights: ReadonlyArray<TAnyLightParams>;
+  models3d: ReadonlyArray<TModel3dParams>;
+  particles: ReadonlyArray<TParticlesParams>;
+  physics: TPhysicsParams;
+  fogs: ReadonlyArray<TFogParams>;
+  fsm: ReadonlyArray<TFsmParams>;
+  texts: ReadonlyArray<TTextParams>;
+  controls: ReadonlyArray<TControlsParams>;
+}>;

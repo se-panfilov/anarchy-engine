@@ -1,15 +1,12 @@
-import type { TWithName, TWithTags } from '@/Engine/Mixins';
 import type { TSceneConfig } from '@/Engine/Scene';
-import type { SpaceSchemaVersion } from '@/Engine/Space/Constants';
 
 import type { TSpaceConfigEntities } from './TSpaceConfigEntities';
 import type { TSpaceConfigResources } from './TSpaceConfigResources';
+import type { TSpaceParams } from './TSpaceParams';
 
-export type TSpaceConfig = Readonly<{
-  version: SpaceSchemaVersion;
-  scenes: ReadonlyArray<TSceneConfig>;
-  entities: TSpaceConfigEntities;
-  resources: TSpaceConfigResources;
-}> &
-  TWithName &
-  TWithTags;
+export type TSpaceConfig = Omit<TSpaceParams, 'canvas' | 'hooks' | 'scenes' | 'entities' | 'resources'> &
+  Readonly<{
+    scenes: ReadonlyArray<TSceneConfig>;
+    entities: TSpaceConfigEntities;
+    resources: TSpaceConfigResources;
+  }>;

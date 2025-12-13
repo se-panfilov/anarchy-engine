@@ -3,6 +3,7 @@ export type * from './TAbstractLightWrapper';
 export type * from './TAmbientLight';
 export type * from './TAmbientLightParams';
 export type * from './TAmbientLightWrapper';
+export type * from './TAnyLightParams';
 export type * from './TDirectionalLight';
 export type * from './TDirectionalLightParams';
 export type * from './TDirectionalLightShadowParams';

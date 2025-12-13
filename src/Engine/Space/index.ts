@@ -1,6 +1,10 @@
+export * from './Adapters';
 export * from './Constants';
+export * from './Entities';
+export * from './Factories';
 export * from './Mixins';
 export type * from './Models';
+export * from './Registries';
 export * from './Schemas';
 export * from './Services';
 export * from './Utils';
