@@ -27,9 +27,6 @@ export function Actor(
   const driveToTargetConnector: TDriveToTargetConnector = DriveToTargetConnector(drive, model3d.getRawModel3d());
 
   // TODO CWP:
-  // TODO 8.0.0. MODELS: In showcase "keyboard" with a lot of clicks "sphere" is "jumping" (check performance and fix)
-  // TODO 8.0.0. MODELS: In showcase "keyboard" I can see visually that "mouse" actor a bit "jump" before start moving. Is it because of performance's noiseThreshold/throttleTime? Fix.
-
   // TODO 8.0.0. MODELS: Make sure, rotations are working (adjust showcase)
   // TODO 8.0.0. MODELS: Rigid body immediately created (should be created only when physics drive is initialized, maybe in hook)
   // TODO 8.0.0. MODELS: Fix Kinematic and Physics agents: should respect external change of position, rotation, scale

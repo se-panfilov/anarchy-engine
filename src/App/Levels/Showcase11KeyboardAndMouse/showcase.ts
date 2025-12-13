@@ -1,10 +1,13 @@
 import GUI from 'lil-gui';
 import { withLatestFrom } from 'rxjs';
+import { Vector3 } from 'three';
 
 import type { TShowcase } from '@/App/Levels/Models';
+import { createReactiveLineFromActor } from '@/App/Levels/Showcase25TransformDrive/Utils';
 import { addGizmo } from '@/App/Levels/Utils';
 import type { TActor, TActorRegistry, TAppCanvas, TCameraWrapper, TEngine, TIntersectionEvent, TIntersectionsWatcher, TMouseWatcherEvent, TMoverService, TSpace, TSpaceConfig } from '@/Engine';
-import { ambientContext, defaultMoverServiceConfig, Easing, Engine, isNotDefined, KeyCode, LookUpStrategy, mpsSpeed, spaceService } from '@/Engine';
+import { ambientContext, defaultMoverServiceConfig, Easing, Engine, getMouseAzimuthAndElevation, isNotDefined, KeyCode, LookUpStrategy, mpsSpeed, spaceService, TransformAgent } from '@/Engine';
+import { meters } from '@/Engine/Measurements/Utils';
 import { MoverService } from '@/Engine/Services/MoverService/MoverService';
 
 import spaceConfig from './showcase.json';
@@ -15,7 +18,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
   const engine: TEngine = Engine(space);
   const { keyboardService } = engine.services;
 
-  const { actorService, cameraService, intersectionsWatcherService, loopService, mouseService } = space.services;
+  const { actorService, cameraService, intersectionsWatcherService, loopService, mouseService, scenesService } = space.services;
   const actorRegistry: TActorRegistry = actorService.getRegistry();
   const { findByName, findByTags } = actorRegistry;
   const { onKey } = keyboardService;
@@ -71,6 +74,9 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     const intersectionsWatcher: TIntersectionsWatcher = startIntersections(camera);
     const coordsUI: { x: number; z: number } = { x: 0, z: 0 };
 
+    const { line } = createReactiveLineFromActor('#E91E63', actorMouse, intersectionsWatcher);
+    scenesService.findActive()?.entity.add(line);
+
     gui.add(coordsUI, 'x').listen();
     gui.add(coordsUI, 'z').listen();
 
@@ -86,8 +92,22 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
 
     const moverService: TMoverService = MoverService(loopService, defaultMoverServiceConfig);
 
+    const folder: GUI = gui.addFolder('Mouse Actor');
+    const mode = { isKinematicMouseActor: false };
+    folder.add(mode, 'isKinematicMouseActor').name('Mouse actor in kinematic mode');
+
     clickLeftRelease$.pipe(withLatestFrom(intersectionsWatcher.value$)).subscribe(([, intersection]: [TMouseWatcherEvent, TIntersectionEvent]): void => {
-      void moverService.goToPosition(actorMouse, { x: intersection.point.x, z: intersection.point.z }, { duration: 1000, easing: Easing.EaseInCubic });
+      if (!mode.isKinematicMouseActor) {
+        if (actorMouse.drive.getActiveAgent().type !== TransformAgent.Connected) actorMouse.drive.agent$.next(TransformAgent.Connected);
+        void moverService.goToPosition(actorMouse, { x: intersection.point.x, z: intersection.point.z }, { duration: 1000, easing: Easing.EaseInCubic });
+      } else {
+        if (actorMouse.drive.getActiveAgent().type !== TransformAgent.Kinematic) actorMouse.drive.agent$.next(TransformAgent.Kinematic);
+        const position: Vector3 = intersection.point.clone().add(new Vector3(0, 0, 0));
+        const azimuth: number = getMouseAzimuthAndElevation(position, actorMouse.drive.getPosition()).azimuth;
+
+        actorMouse.drive.kinematic.setLinearAzimuthRad(azimuth);
+        actorMouse.drive.kinematic.setLinearSpeed(meters(5));
+      }
     });
 
     isLeftPressed$.subscribe((isPressed: boolean): void => void actorMkeyLeft.drive.default.addY(isPressed ? -0.2 : 0.2));
