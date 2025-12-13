@@ -10,7 +10,7 @@ export function Vector2Wrapper(params: IVector2Params): IVector2Wrapper {
   const entity: IVector2 = new Vector2(params.x, params.y);
 
   function getCoords(): IWithCoordsXY {
-    return { x: entity.x, y: entity.y, z: entity.z };
+    return { x: entity.x, y: entity.y };
   }
 
   return { ...AbstractWrapper(entity, WrapperType.Vector2), getCoords, entity };

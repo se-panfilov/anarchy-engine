@@ -1,13 +1,8 @@
 import type { Object3D } from 'three';
 
-import type { IVector3Wrapper } from '@/Engine/Wrappers';
+import type { IWrapper } from '@/Engine/Domains/Abstract';
+import type { TextTag } from '@/Engine/Domains/Text/Constants';
+import type { ITextAccessors } from '@/Engine/Domains/Text/Models';
+import type { IWithTags } from '@/Engine/Mixins';
 
-export type ITextWrapper = Readonly<{
-  setText: (text: string) => void;
-  setFontSize: (fontSize: number) => void;
-  setColor: (color: string) => void;
-  setPosition: (position: IVector3Wrapper) => void;
-  dispose: () => void;
-  update: () => void;
-  entity: Object3D;
-}>;
+export type ITextWrapper = IWrapper<Object3D> & ITextAccessors & IWithTags<TextTag>;

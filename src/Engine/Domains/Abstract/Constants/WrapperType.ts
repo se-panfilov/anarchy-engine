@@ -8,6 +8,7 @@ export enum WrapperType {
   Light = 'light_wrapper',
   Renderer = 'renderer_wrapper',
   Scene = 'scene_wrapper',
+  Text = 'text_wrapper',
   Texture = 'texture_wrapper',
   Vector2 = 'vector2_wrapper',
   Vector3 = 'vector3_wrapper',

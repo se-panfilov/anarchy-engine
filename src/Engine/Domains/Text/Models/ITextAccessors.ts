@@ -1,0 +1,11 @@
+import type { IMovable, IRotatable } from '@/Engine/Mixins';
+
+export type ITextAccessors = IMovable &
+  IRotatable &
+  Readonly<{
+    setText: (text: string) => void;
+    setFontSize: (fontSize: number) => void;
+    setColor: (color: string) => void;
+    dispose: () => void;
+    update: () => void;
+  }>;
