@@ -17,6 +17,7 @@
     "prettier": "prettier --write .",
     "prettier:check": "prettier --check .",
     "prettier:staged": "pretty-quick --staged",
+    "prettier:changed": "git diff --name-only --diff-filter=ACMRTUXB HEAD | grep -E '\\.(ts|tsx|js|json|css|md)$' | xargs prettier --write",
     "generate:schemas": "node ./utils/JsonUtils.js",
     "generate:schemas:minify": "node ./utils/JsonUtils.js --minify",
     "generate:license-report": "npm install -g license-report && license-report --only=prod --output=markdown --department.value='Game Engine' --relatedTo.value='Runtime dependencies' > THIRD_PARTY_LICENSES.md",
