@@ -16,7 +16,6 @@ const desktopAppSettings: TDesktopAppConfig = {
 // TODO DESKTOP: Other integrations (epic, gog, etc.)
 // TODO DESKTOP: Error forwarding to a file (with versions)
 // TODO DESKTOP: Add canvas.requestPointerLock(); on a Space level
-// TODO DESKTOP: Fix Electron Security Warning (Insecure Content-Security-Policy) https://www.electronjs.org/docs/latest/tutorial/security
 // TODO DESKTOP: We need e2e eventually
 // TODO DESKTOP: Add .env files for different platforms (macos, windows, linux).
 // TODO DESKTOP: 3d texts doesn't work in Safari
