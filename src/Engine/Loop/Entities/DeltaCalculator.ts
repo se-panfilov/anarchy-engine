@@ -1,39 +1,49 @@
-import type { Clock } from 'three';
+import { Clock } from 'three';
 
 import type { TDeltaCalculator } from '@/Engine/Loop/Models';
 import type { TMilliseconds } from '@/Engine/Math';
+import { isDefined } from '@/Engine/Utils';
 
-export function DeltaCalculator(clock: Clock): TDeltaCalculator {
+export function DeltaCalculator(useClock: boolean = true): TDeltaCalculator {
+  const clock: Clock | undefined = useClock ? new Clock() : undefined;
+
   const result = {
     isPaused: false,
-    lastElapsedTime: 0 as TMilliseconds,
+    lastElapsedTime: getLastTime(clock),
     update(): TMilliseconds {
       if (result.isPaused) return 0;
-      const elapsedTime: TMilliseconds = clock.getElapsedTime() as TMilliseconds;
-      const delta: TMilliseconds = (elapsedTime - result.lastElapsedTime) as TMilliseconds;
-      // eslint-disable-next-line functional/immutable-data
-      result.lastElapsedTime = elapsedTime;
 
+      const now: number = getLastTime(clock);
+      const delta: number = (now - result.lastElapsedTime) / 1000;
+      // eslint-disable-next-line functional/immutable-data
+      result.lastElapsedTime = now as TMilliseconds;
+
+      // Limit the delta to 0.1 seconds (to prevent too big delta)
       return Math.min(delta, 0.1) as TMilliseconds;
     },
-    reset(): number {
+    reset(): TMilliseconds {
       // eslint-disable-next-line functional/immutable-data
-      result.lastElapsedTime = 0 as TMilliseconds;
+      result.lastElapsedTime = getLastTime(clock);
       return 0;
     },
     pause(): void {
       // eslint-disable-next-line functional/immutable-data
       result.isPaused = true;
-      clock.stop();
+      if (isDefined(clock)) clock.stop();
     },
     resume(): void {
       // eslint-disable-next-line functional/immutable-data
       result.isPaused = false;
-      clock.start();
+      if (isDefined(clock)) clock.start();
       // eslint-disable-next-line functional/immutable-data
-      result.lastElapsedTime = clock.getElapsedTime() as TMilliseconds;
+      result.lastElapsedTime = getLastTime(clock);
+    },
+    getClock(): Clock | undefined {
+      return clock;
     }
   };
 
   return result;
 }
+
+const getLastTime = (clock: Clock | undefined): TMilliseconds => ((clock && clock.getElapsedTime() * 1000) || performance.now()) as TMilliseconds;
