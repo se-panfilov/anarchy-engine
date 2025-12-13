@@ -11,7 +11,7 @@ const windowWidth: number = 1280;
 const isOpenDevTools: boolean = true;
 
 function getIndexHtmlPath(): string {
-  const path: string = app.isPackaged ? join(app.getAppPath(), 'game-dist', 'index.html') : join(__dirname, '..', 'game-dist', 'index.html');
+  const path: string = app.isPackaged ? join(app.getAppPath(), 'dist-app', 'index.html') : join(__dirname, '..', 'dist-app', 'index.html');
 
   if (!existsSync(path)) {
     const errMsg: string = `[Main] index.html not found at: ${path}`;

@@ -21,15 +21,15 @@
     "build:mac:dmg": "npm run build -- --mac dmg && npm run clean:postbuild",
     "build:win:app": "npm run build -- --win --dir && npm run clean:postbuild",
     "build:win:nsis": "npm run build -- --win nsis && npm run clean:postbuild",
-    "clean": "rimraf dist && rimraf game-dist",
+    "clean": "rimraf dist && rimraf dist-app",
     "clean:postbuild": "rimraf dist/electron-main.js dist/electron-main.js.map dist/preload.js dist/preload.js.map",
-    "copy:game-dist": "node ../../../packages/shared/ScriptUtils/CopyDir.js -- from=../dist to=game-dist",
-    "copy:draco": "node ../../../packages/shared/ScriptUtils/CopyFiles.js ../../../node_modules/three/examples/jsm/libs/draco/draco_decoder.js ../../../node_modules/three/examples/jsm/libs/draco/draco_wasm_wrapper.js ../../../node_modules/three/examples/jsm/libs/draco/draco_decoder.wasm to=game-dist/draco",
+    "copy:dist-app": "node ../../../packages/shared/ScriptUtils/CopyDir.js -- from=../dist-desktop to=dist-app",
+    "copy:draco": "node ../../../packages/shared/ScriptUtils/CopyFiles.js ../../../node_modules/three/examples/jsm/libs/draco/draco_decoder.js ../../../node_modules/three/examples/jsm/libs/draco/draco_wasm_wrapper.js ../../../node_modules/three/examples/jsm/libs/draco/draco_decoder.wasm to=dist-app/draco",
     "prebuild": "npm run prebuild:ts && npm run prebuild:preload",
     "prebuild:preload": "tsc -p tsconfig.preload.json",
     "prebuild:ts": "tsc",
-    "reload-and-prebuild": "npm run reload:game-dist && npm run prebuild",
-    "reload:game-dist": "npm run clean && npm run copy:game-dist && npm run copy:draco",
+    "reload-and-prebuild": "npm run reload:dist-app && npm run prebuild",
+    "reload:dist-app": "npm run clean && npm run copy:dist-app && npm run copy:draco",
     "start": "npm run reload-and-prebuild && electron ."
   },
   "devDependencies": {
@@ -57,7 +57,7 @@
     "files": [
       "dist/electron-main.js",
       "dist/preload.js",
-      "game-dist/**"
+      "dist-app/**"
     ],
     "asar": true,
     "mac": {

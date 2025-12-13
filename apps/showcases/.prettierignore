@@ -1,5 +1,9 @@
 node_modules
 dist
+dist-desktop
+dist-mobile
+dist-web
+dist-ssr
 reports
 pnpm-lock.yaml
 package-lock.json

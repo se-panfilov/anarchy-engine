@@ -3,7 +3,7 @@ import { resolve, dirname } from 'path';
 
 const args = process.argv.slice(2);
 
-// last arg must be the destination (e.g. to=game-dist/draco)
+// last arg must be the destination (e.g. to=dist-app/draco)
 const toArg = args.find((arg) => arg.startsWith('to='));
 if (!toArg) {
   console.error('❌ Missing argument: to=<destination folder>');

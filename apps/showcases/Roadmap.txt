@@ -2,6 +2,7 @@ Done:
 - 1.0.x Initial (monorepo)
 - 1.1.x Production build groundwork (preparations)
 - 2.0.x Desktop Build
+- 2.1.x Distinct builds for desktop, web and mobile
 
 Roadmap:
 - 3.0.x Mobile Build

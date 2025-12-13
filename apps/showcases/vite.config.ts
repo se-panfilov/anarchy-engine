@@ -10,7 +10,9 @@ import wasm from 'vite-plugin-wasm';
 export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
   const root: string = process.cwd();
   const env: ImportMetaEnv = loadEnv(mode, root) as ImportMetaEnv;
-  const { VITE_BUILD_COMPRESSION, VITE_BUILD_MINIFIED, VITE_BUILD_SOURCEMAPS } = env;
+  const { VITE_BUILD_COMPRESSION, VITE_BUILD_MINIFIED, VITE_BUILD_SOURCEMAPS, VITE_BUILD_TARGET_DIR } = env;
+
+  if (!VITE_BUILD_TARGET_DIR) throw new Error('[BUILD] VITE_BUILD_TARGET_DIR mast be specified in .env file, but it is not.');
 
   const toBool = (v: string): boolean => v === 'true';
   const buildCompression: boolean = toBool(VITE_BUILD_COMPRESSION as any);
@@ -70,7 +72,7 @@ export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
         },
         plugins: [visualizer({ open: false })]
       },
-      outDir: 'dist',
+      outDir: VITE_BUILD_TARGET_DIR,
       emptyOutDir: true
     }
   };
