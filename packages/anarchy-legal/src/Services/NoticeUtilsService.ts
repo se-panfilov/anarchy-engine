@@ -5,15 +5,15 @@ import type { TNoticeUtilsService, TTemplateParsedEntry } from '@Anarchy/Legal/M
 
 export function NoticeUtilsService(): TNoticeUtilsService {
   function splitEntriesFromMarkdown(md: string): ReadonlyArray<string> {
-    const parts = md.split(/\r?\n---\r?\n/g);
+    const parts: string[] = md.split(/\r?\n---\r?\n/g);
     return parts.filter((chunk) => /^##\s+.+/m.test(chunk));
   }
 
   function parseHeaderLine(chunk: string): { name: string; version: string } | undefined {
-    const m = /^##\s+(.+?)\s*$/m.exec(chunk);
+    const m: RegExpExecArray | null = /^##\s+(.+?)\s*$/m.exec(chunk);
     if (!m) return undefined;
     const full: string = m[1].trim(); // e.g. "@babel/core@7.27.1"
-    const at = full.lastIndexOf('@');
+    const at: number = full.lastIndexOf('@');
     if (at <= 0 || at === full.length - 1) return undefined;
     const name: string = full.slice(0, at).trim();
     const version: string = full.slice(at + 1).trim();
@@ -22,7 +22,7 @@ export function NoticeUtilsService(): TNoticeUtilsService {
   }
 
   function parseOneEntry(chunk: string): TTemplateParsedEntry | undefined {
-    const header = parseHeaderLine(chunk);
+    const header: { name: string; version: string } | undefined = parseHeaderLine(chunk);
     if (!header) return undefined;
     const { name, version } = header;
     const id = `${name}@${version}`;
@@ -49,7 +49,7 @@ export function NoticeUtilsService(): TNoticeUtilsService {
     // License text: tail after the first blank line following the header+KV area
     let licenseText: string | undefined = undefined;
     {
-      const lines = chunk.split(/\r?\n/);
+      const lines: string[] = chunk.split(/\r?\n/);
       const firstBlankAfterHeaderIdx: number = ((): number => {
         let seenHeader: boolean = false;
         return lines.findIndex((ln: string): boolean => {
@@ -88,20 +88,19 @@ export function NoticeUtilsService(): TNoticeUtilsService {
   }
 
   function parseThirdPartyMarkdown(md: string): ReadonlyArray<TTemplateParsedEntry> {
-    const chunks = splitEntriesFromMarkdown(md);
-    const entries = chunks.flatMap((ch) => {
-      const e = parseOneEntry(ch);
+    const chunks: ReadonlyArray<string> = splitEntriesFromMarkdown(md);
+    const entries: TTemplateParsedEntry[] = chunks.flatMap((ch) => {
+      const e: TTemplateParsedEntry | undefined = parseOneEntry(ch);
       return e ? [e] : [];
     });
-    const sorted = entries.toSorted((a, b) => (a.name === b.name ? a.version.localeCompare(b.version) : a.name.localeCompare(b.name)));
-    return sorted;
+    return entries.toSorted((a, b) => (a.name === b.name ? a.version.localeCompare(b.version) : a.name.localeCompare(b.name)));
   }
 
   function collectAllHeadingIds(md: string): ReadonlySet<string> {
     const re = /^##\s+(.+?)\s*$/gm;
-    return [...md.matchAll(re)].reduce<Set<string>>((ids, m) => {
-      const full = String(m[1]).trim();
-      const at = full.lastIndexOf('@');
+    return [...md.matchAll(re)].reduce<Set<string>>((ids: Set<string>, m: RegExpExecArray) => {
+      const full: string = String(m[1]).trim();
+      const at: number = full.lastIndexOf('@');
       if (at > 0 && at < full.length - 1) {
         ids.add(`${full.slice(0, at).trim()}@${full.slice(at + 1).trim()}`);
       }
@@ -111,7 +110,7 @@ export function NoticeUtilsService(): TNoticeUtilsService {
 
   async function findUpstreamNoticeFile(dir: string): Promise<string | undefined> {
     try {
-      const list = await fs.readdir(dir);
+      const list: string[] = await fs.readdir(dir);
       const candidate = list.find((f) => /^(notice|notice\.txt|notice\.md)$/i.test(f));
       return candidate ? path.join(dir, candidate) : undefined;
     } catch {
