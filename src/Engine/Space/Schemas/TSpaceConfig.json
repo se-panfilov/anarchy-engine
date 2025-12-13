@@ -232,12 +232,6 @@
       "type": "object",
       "additionalProperties": false,
       "properties": {
-        "tags": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
         "position": {
           "$ref": "#/definitions/TWithCoordsXYZ"
         },
@@ -262,14 +256,14 @@
         "model3dSource": {
           "type": "string"
         },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
         "name": {
           "type": "string"
-        },
-        "castShadow": {
-          "type": "boolean"
-        },
-        "receiveShadow": {
-          "type": "boolean"
         }
       },
       "required": ["model3dSource", "position", "spatial"]
