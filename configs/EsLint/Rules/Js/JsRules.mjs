@@ -199,6 +199,7 @@ export const JsRules = {
         '[D-d]ropdown',
         '[E-e]num[s]?',
         '[E-e]vented',
+        '[E-e]xe',
         '[F-f]ormatter[s]?',
         '[F-f]sm',
         '[G-g]etter[s]?',
