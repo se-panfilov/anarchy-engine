@@ -1,0 +1,242 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$ref": "#/definitions/ISceneConfig",
+  "definitions": {
+    "ISceneConfig": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "actors": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/IActorConfig"
+          }
+        },
+        "cameras": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ICameraConfig"
+          }
+        },
+        "lights": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ILightConfig"
+          }
+        },
+        "controls": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/IControlsConfig"
+          }
+        }
+      },
+      "required": ["name", "actors", "cameras", "lights", "controls"],
+      "additionalProperties": false
+    },
+    "IActorConfig": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "$ref": "#/definitions/IActorType"
+        },
+        "width": {
+          "type": "number"
+        },
+        "height": {
+          "type": "number"
+        },
+        "radius": {
+          "type": "number"
+        },
+        "widthSegments": {
+          "type": "number"
+        },
+        "heightSegments": {
+          "type": "number"
+        },
+        "rotation": {
+          "$ref": "#/definitions/Vector3"
+        },
+        "castShadow": {
+          "type": "boolean"
+        },
+        "materialParams": {
+          "$ref": "#/definitions/ActorMaterialConfig"
+        },
+        "position": {
+          "$ref": "#/definitions/IVector3dConfig"
+        }
+      },
+      "required": ["castShadow", "height", "materialParams", "position", "type", "width"],
+      "additionalProperties": false
+    },
+    "IActorType": {
+      "type": "string",
+      "enum": ["sphere", "plane"]
+    },
+    "Vector3": {
+      "type": "object",
+      "properties": {
+        "x": {
+          "type": "number",
+          "default": 0
+        },
+        "y": {
+          "type": "number",
+          "default": 0
+        },
+        "z": {
+          "type": "number",
+          "default": 0
+        },
+        "isVector3": {
+          "type": "boolean",
+          "const": true
+        }
+      },
+      "required": ["x", "y", "z", "isVector3"],
+      "additionalProperties": false,
+      "description": "3D vector. ( class Vector3 implements Vector<Vector3> )\n\nsee  {@link  https://github.com/mrdoob/three.js/blob/master/src/math/Vector3.js }"
+    },
+    "ActorMaterialConfig": {
+      "type": "object",
+      "properties": {
+        "color": {
+          "type": "string"
+        }
+      },
+      "required": ["color"],
+      "additionalProperties": false
+    },
+    "IVector3dConfig": {
+      "type": "object",
+      "properties": {
+        "x": {
+          "type": "number"
+        },
+        "y": {
+          "type": "number"
+        },
+        "z": {
+          "type": "number"
+        }
+      },
+      "required": ["x", "y", "z"],
+      "additionalProperties": false
+    },
+    "ICameraConfig": {
+      "type": "object",
+      "properties": {
+        "fov": {
+          "type": "number"
+        },
+        "near": {
+          "type": "number"
+        },
+        "far": {
+          "type": "number"
+        },
+        "tag": {
+          "$ref": "#/definitions/CameraTag"
+        },
+        "lookAt": {
+          "$ref": "#/definitions/IVector3dConfig"
+        },
+        "position": {
+          "$ref": "#/definitions/IVector3dConfig"
+        }
+      },
+      "required": ["lookAt", "position", "tag"],
+      "additionalProperties": false
+    },
+    "CameraTag": {
+      "type": "string",
+      "const": "initial"
+    },
+    "ILightConfig": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "$ref": "#/definitions/ILightType"
+        },
+        "intensity": {
+          "type": "number"
+        },
+        "castShadow": {
+          "type": "boolean"
+        },
+        "color": {
+          "type": "string"
+        },
+        "shadow": {
+          "$ref": "#/definitions/LightShadowConfig"
+        },
+        "position": {
+          "$ref": "#/definitions/IVector3dConfig"
+        }
+      },
+      "required": ["castShadow", "color", "intensity", "position", "type"],
+      "additionalProperties": false
+    },
+    "ILightType": {
+      "type": "string",
+      "enum": ["ambient", "directional"]
+    },
+    "LightShadowConfig": {
+      "type": "object",
+      "properties": {
+        "camera": {
+          "type": "object",
+          "properties": {
+            "far": {
+              "type": "number"
+            }
+          },
+          "required": ["far"],
+          "additionalProperties": false
+        },
+        "normalBias": {
+          "type": "number"
+        },
+        "mapSize": {
+          "$ref": "#/definitions/IVector2dConfig"
+        }
+      },
+      "required": ["camera", "mapSize", "normalBias"],
+      "additionalProperties": false
+    },
+    "IVector2dConfig": {
+      "type": "object",
+      "properties": {
+        "x": {
+          "type": "number"
+        },
+        "y": {
+          "type": "number"
+        }
+      },
+      "required": ["x", "y"],
+      "additionalProperties": false
+    },
+    "IControlsConfig": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "$ref": "#/definitions/ControlsType"
+        },
+        "cameraTag": {
+          "$ref": "#/definitions/CameraTag"
+        }
+      },
+      "required": ["type", "cameraTag"],
+      "additionalProperties": false
+    },
+    "ControlsType": {
+      "type": "string",
+      "const": "OrbitControls"
+    }
+  }
+}

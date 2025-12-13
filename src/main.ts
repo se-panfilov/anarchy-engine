@@ -9,7 +9,7 @@ import type { ISceneConfig } from '@Engine/Launcher/Models';
 const canvas: HTMLCanvasElement | null = document.querySelector('#app');
 if (isNotDefined(canvas)) throw new Error('Canvas is not defined');
 
-// if (!isValidSceneConfig(sceneConfig)) throw new Error('Failed to load a scene: invalid data format');
+if (!isValidSceneConfig(sceneConfig)) throw new Error('Failed to load a scene: invalid data format');
 const isLaunched: boolean = await launch(sceneConfig as unknown as ISceneConfig, canvas);
 console.log('Launched', isLaunched);
 
