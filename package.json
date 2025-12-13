@@ -15,7 +15,7 @@
   ],
   "license": "MIT",
   "scripts": {
-    "before:release": "npm run --workspaces --if-present before:release && npm run generate:legal",
+    "before:release": "npm run --workspaces --if-present before:release && npm run generate:legal && npm run sanitize:all",
     "clean:all": "rimraf packages/**/package-lock.json -g packages/**/node_modules -g packages/**/dist -g apps/**/package-lock.json -g apps/**/node_modules -g  ./node_modules  ./package-lock.json ",
     "clean:all-metadate": "npm run e2e:clean-metadate --workspace=apps/showcases-e2e && npm run sanitize-assets --workspace=apps/showcases-desktop ** npm run sanitize-assets --workspace=apps/showcases-core && npm run sanitize-assets --workspace=packages/showcases-menu",
     "clean:all:restore": "git add ./package-lock.json && find packages -type d -name node_modules -prune -false -o -type f -name package-lock.json -exec git add {} +\n",
@@ -36,6 +36,7 @@
     "gitleaks:ci": "gitleaks detect --config=.gitleaks.toml --source=. --no-git --redact --report-format=json --report-path=reports/gitleaks-ci.json --verbose",
     "gitleaks:scan:files": "gitleaks detect --config=.gitleaks.toml --no-git --verbose --source=.",
     "gitleaks:scan:history": "gitleaks detect --config=.gitleaks.toml --report-format=table --verbose --source=.",
+    "sanitize:all": "npm run --workspaces --if-present sanitize-assets",
     "prettier": "prettier --write .",
     "prettier:changed": "git diff --name-only --diff-filter=ACMRTUXB HEAD | grep -E '\\.(ts|tsx|js|json|css|md)$' | xargs prettier --write",
     "prettier:check": "prettier --check .",
