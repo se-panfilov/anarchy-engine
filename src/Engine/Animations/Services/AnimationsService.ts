@@ -9,7 +9,7 @@ import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
 import type { TModel3dFacade } from '@/Engine/Models3d';
 import type { TWriteable } from '@/Engine/Utils';
-import { isNotDefined } from '@/Engine/Utils';
+import { isDefined, isNotDefined } from '@/Engine/Utils';
 
 export function AnimationsService(loopService: TLoopService): TAnimationsService {
   const added$: Subject<TModel3dAnimations> = new Subject<TModel3dAnimations>();
@@ -23,14 +23,16 @@ export function AnimationsService(loopService: TLoopService): TAnimationsService
     return { model, mixer, actions };
   }
 
-  function startAutoUpdateMixer(modelF: TModel3dFacade, updateTick$: Observable<TLoopTimes> = loopService.tick$): TAnimationActionsPack {
+  function startAutoUpdateMixer(modelF: TModel3dFacade, updateTick$: Observable<TLoopTimes> = loopService.tick$): TAnimationActionsPack | never {
     const mixer = modelF.getMixer();
     const subs$: Subscription = updateTick$.subscribe(({ delta }) => mixer.update(delta));
+    if (isDefined(subscriptions.get(mixer)))
+      throw new Error(`AnimationsService: Cannot auto-update mixer twice: subscribe is already exist. Mixer relates to the model facade (name: ${modelF.getName()}, id: ${modelF.id}})`);
     subscriptions.set(mixer, subs$);
     return { model: modelF.getModel(), mixer, actions: modelF.getActions() };
   }
 
-  function stopAutoUpdateMixer(mixer: AnimationMixer): void {
+  function stopAutoUpdateMixer(mixer: AnimationMixer): void | never {
     const subs$ = subscriptions.get(mixer);
     if (isNotDefined(subs$)) throw new Error('Mixer is not defined');
     subs$.unsubscribe();
