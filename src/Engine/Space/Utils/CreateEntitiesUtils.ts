@@ -60,8 +60,7 @@ export function createEntities(entities: TSpaceConfigEntities, services: TSpaceS
 
 // TODO CWP !!!
 // TODO 9.0.0. RESOURCES: fix create method of resource entities
-export function watchResourcesAndCreateResourceEntities(services: TSpaceServices): ReadonlyArray<Subscription> {
-  const models3dSub$: Subscription = services.models3dService.getResourceRegistry().added$.subscribe((model: GLTF): TModel3dFacade => services.models3dService.create(model));
-  const envMaps3dSub$: Subscription = services.envMapService.getResourceRegistry().added$.subscribe((envMap: TEnvMapTexture): TEnvMapWrapper => services.envMapService.create(envMap));
-  return [models3dSub$, envMaps3dSub$];
+export function createResourceEntities(services: TSpaceServices): void {
+  services.models3dService.getResourceRegistry().forEach((model: GLTF): TModel3dFacade => services.models3dService.create(model));
+  services.envMapService.getResourceRegistry().forEach((envMap: TEnvMapTexture): TEnvMapWrapper => services.envMapService.create(envMap));
 }
