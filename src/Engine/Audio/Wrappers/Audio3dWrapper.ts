@@ -17,6 +17,7 @@ import type { TDriveToTargetConnector } from '@/Engine/TransformDrive';
 import { DriveToTargetConnector } from '@/Engine/TransformDrive';
 import { isEqualOrSimilarByXyzCoords } from '@/Engine/Utils';
 
+// TODO 11.0.0: pause/resume/seek/stop/play doesn't work perfectly in showcase, fix
 export function Audio3dWrapper(params: TAudio3dParams, { audioLoop }: TAudioWrapperDependencies): TAudio3dWrapper {
   const { audioSource, volume, position, performance } = params;
   const entity: PositionalAudio = createPositionalAudion(audioSource, params);
