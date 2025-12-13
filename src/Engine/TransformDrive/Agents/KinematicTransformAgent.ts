@@ -60,6 +60,7 @@ export function KinematicTransformAgent(params: TKinematicTransformAgentParams, 
     },
     // TODO CWP
     // TODO 8.0.0. MODELS: Refactor this code. It's working, but it's a mess atm.
+    // TODO 8.0.0. MODELS: with showcase multiple "moveTo" in the same direction increases the speed, while opposite directions stopped the model
     moveTo(targetPosition: Vector3, speed: TMetersPerSecond): void {
       const epsilon = 0.01;
 
@@ -76,6 +77,7 @@ export function KinematicTransformAgent(params: TKinematicTransformAgentParams, 
       agent.setLinearDirection(direction);
       agent.setLinearSpeed(speed);
 
+      // TODO 8.0.0. MODELS: Refactor this subscription.
       const subscription = kinematicLoopService.tick$.subscribe((deltaTime: TMilliseconds) => {
         // If the agent is already at the target, do not move
         if (agent.getLinearSpeed() === 0) {
@@ -122,69 +124,46 @@ export function KinematicTransformAgent(params: TKinematicTransformAgentParams, 
       });
     },
     // TODO 8.0.0. MODELS: Refactor this code. It's working, but it's a mess atm.
-    rotateTo(targetRotation: Quaternion, speed: TMetersPerSecond, radius: TMeters): void {
-      const epsilon = 0.01;
-
-      if (radius <= 0) {
-        console.warn('Radius must be greater than 0 to calculate angular speed.');
-        return;
-      }
-
+    rotateTo(targetRotation: Quaternion, speed: TMetersPerSecond, radius: TMeters): void | never {
+      const epsilon = 0.1;
+      if (speed < 0) throw new Error('Speed must be greater than 0 to calculate angular speed.');
+      if (speed === 0) return agent.setAngularSpeed(0);
+      if (radius <= 0) throw new Error('Radius must be greater than 0 to calculate angular speed.');
       const angularSpeed: TMetersPerSecond = (speed / radius) as TMetersPerSecond;
 
-      // If the speed is 0, do nothing
-      if (angularSpeed === 0) {
-        agent.setAngularSpeed(0);
-        return;
-      }
-
-      const currentRotation: Quaternion = rotationQuaternion$.value.clone();
-
       // Calculate angle to the target using dot product
-      const dot = currentRotation.dot(targetRotation);
-      let angleToTarget = Math.acos(2 * dot * dot - 1);
-
-      if (angleToTarget < epsilon) {
-        agent.setAngularSpeed(0);
-        return;
-      }
+      const dot: number = rotationQuaternion$.value.dot(targetRotation);
+      const angleToTarget: number = Math.acos(2 * dot * dot - 1);
+      if (angleToTarget < epsilon) return agent.setAngularSpeed(0);
 
       agent.setAngularDirection(targetRotation);
       agent.setAngularSpeed(angularSpeed);
 
-      const subscription = kinematicLoopService.tick$.subscribe((deltaTime: TMilliseconds) => {
+      // TODO 8.0.0. MODELS: Refactor this subscription.
+      const subscription: Subscription = kinematicLoopService.tick$.subscribe((deltaTime: TMilliseconds): void => {
         // If the speed is 0, do nothing
-        if (agent.getAngularSpeed() === 0) {
-          subscription.unsubscribe();
-          return;
-        }
-
-        const currentRotation = rotationQuaternion$.value.clone();
-
-        // Recalculate angle to target
-        const dot = currentRotation.dot(targetRotation);
-        angleToTarget = Math.acos(2 * dot * dot - 1);
+        if (agent.getAngularSpeed() === 0) return subscription.unsubscribe();
 
         // If the agent is close enough to the target, stop the agent
+        const dot: number = rotationQuaternion$.value.dot(targetRotation);
+        const angleToTarget: number = Math.acos(2 * dot * dot - 1);
         if (angleToTarget < epsilon) {
           agent.setAngularSpeed(0);
-          subscription.unsubscribe();
-          return;
+          return subscription.unsubscribe();
         }
 
-        const rotationStep = angularSpeed * deltaTime;
-        const stepRotation = new Quaternion().setFromAxisAngle(new Vector3(0, 1, 0), rotationStep);
-        const newRotation = currentRotation.clone().multiply(stepRotation).normalize();
+        const rotationStep: number = angularSpeed * deltaTime;
+        const stepRotation: Quaternion = new Quaternion().setFromAxisAngle(new Vector3(0, 1, 0), rotationStep);
+        const newRotation: Quaternion = new Quaternion().multiplyQuaternions(rotationQuaternion$.value, stepRotation).normalize();
 
         // Recalculate angle after applying step rotation
-        const newDot = newRotation.dot(targetRotation);
-        const angleAfterStep = Math.acos(2 * newDot * newDot - 1);
+        const newDot: number = newRotation.dot(targetRotation);
+        const angleAfterStep: TRadians = Math.acos(2 * newDot * newDot - 1) as TRadians;
 
         // If the agent has passed the target, stop the agent
         if (angleAfterStep > angleToTarget) {
           agent.setAngularSpeed(0);
-          subscription.unsubscribe();
-          return;
+          return subscription.unsubscribe();
         }
 
         rotationQuaternion$.next(newRotation);
@@ -258,18 +237,24 @@ export function KinematicTransformAgent(params: TKinematicTransformAgentParams, 
       return getAzimutFromQuaternionDirection(agent.data.angularDirection);
     },
     setAngularAzimuth(azimuthRad: TRadians): void {
-      const elevation = agent.getAngularElevation();
-      const quaternion = new Quaternion().setFromEuler(new Euler(elevation, azimuthRad, 0, 'ZYX'));
+      // const elevation = agent.getAngularElevation();
+      // const quaternion = new Quaternion().setFromEuler(new Euler(elevation, azimuthRad, 0, 'ZYX'));
+      // agent.data.angularDirection.copy(quaternion);
+
+      const lengthXZ: number = Math.sqrt(agent.data.angularDirection.x ** 2 + agent.data.angularDirection.z ** 2) || 1;
+      const quaternion = new Quaternion().setFromEuler(new Euler(Math.cos(azimuthRad) * lengthXZ, agent.data.angularDirection.y, Math.sin(azimuthRad) * lengthXZ));
+
+      // console.log('XXX2', radToDeg(new Euler().setFromQuaternion(agent.data.angularDirection).z));
+
       agent.data.angularDirection.copy(quaternion);
     },
     getAngularElevation(): TRadians {
       return getElevationFromQuaternionDirection(agent.data.angularDirection);
     },
     setAngularElevation(elevationRad: TRadians): void {
-      const azimuth: TRadians = agent.getAngularAzimuth();
-      const quaternion: Quaternion = new Quaternion().setFromEuler(new Euler(elevationRad, azimuth, 0, 'ZYX'));
-      agent.data.angularDirection.copy(quaternion);
-
+      // const azimuth: TRadians = agent.getAngularAzimuth();
+      // const quaternion: Quaternion = new Quaternion().setFromEuler(new Euler(elevationRad, azimuth, 0, 'ZYX'));
+      // agent.data.angularDirection.copy(quaternion);
       // This approach could lead to bugs, if the quaternion is not normalized
       // const azimuth: TRadians = agent.getAngularAzimuth();
       //
@@ -308,11 +293,14 @@ export function KinematicTransformAgent(params: TKinematicTransformAgentParams, 
     abstractTransformAgent.position$.next(abstractTransformAgent.position$.value.clone().add(displacement));
   }
 
+  // TODO 8.0.0. MODELS: Destroy subscriptions tempQuaternion on agent destroy
+  const tempQuaternion: Quaternion = new Quaternion();
+
   function doKinematicRotation(delta: TMilliseconds): void {
     if (agent.data.angularSpeed <= 0) return;
 
     const angle: TRadians = (agent.data.angularSpeed * delta) as TRadians;
-    const quaternion = new Quaternion().setFromAxisAngle(new Vector3(0, 1, 0), angle);
+    const quaternion: TReadonlyQuaternion = tempQuaternion.setFromAxisAngle(agent.data.angularDirection, angle);
     rotationQuaternion$.next(rotationQuaternion$.value.clone().multiply(quaternion));
   }
 
