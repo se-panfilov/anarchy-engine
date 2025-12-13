@@ -7,12 +7,12 @@ import { createPrimitiveModel3d, isPrimitiveModel3dSource } from '@/Engine/Model
 
 export function createModels3dEntities(params: TModel3dParams, animationsService: TAnimationsService): TModel3dEntities {
   let model3dSource: Object3D;
-  let animationsSource: ReadonlyArray<AnimationClip> = [];
+  let animationsSource: ReadonlyArray<AnimationClip> = params.animationsSource ?? [];
 
   if (isPrimitiveModel3dSource(params.model3dSource)) {
     model3dSource = createPrimitiveModel3d(params);
   } else {
-    animationsSource = params.model3dSource.animations;
+    animationsSource = [...params.model3dSource.animations, ...animationsSource];
     model3dSource = params.forceClone ? SkeletonUtils.clone(params.model3dSource.scene) : params.model3dSource.scene;
   }
   const { actions, mixer } = animationsService.createActions(model3dSource, animationsSource);

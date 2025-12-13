@@ -34,8 +34,6 @@ export function AnimationsService(loopService: TLoopService, resourcesRegistry: 
     if (isDefined(subscriptions.get(mixer)))
       throw new Error(`AnimationsService: Cannot auto-update mixer twice: subscribe is already exist. Mixer relates to the mode3d (name: ${model3d.getName()}, id: ${model3d.id}})`);
 
-    // console.log('XXX model3d.getActions()', model3d.getActions());
-
     subscriptions.set(mixer, subs$);
     return { model: model3d.getRawModel3d(), mixer, actions: model3d.getActions() };
   }

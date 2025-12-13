@@ -131,7 +131,7 @@ function initSolder2(actorName: string, fadeDuration: number, { animationsServic
   const actions = animationsService.startAutoUpdateMixer(model3d).actions;
 
   const idleAction: AnimationAction = actions['Idle'];
-  // const danceAction: AnimationAction = actions['Dance'];
+  const danceAction: AnimationAction = actions['Armature|mixamo.com|Layer0'];
 
   const { animationsFsm } = actor.states;
   if (isNotDefined(animationsFsm)) throw new Error('Animations FSM is not defined');
@@ -139,12 +139,12 @@ function initSolder2(actorName: string, fadeDuration: number, { animationsServic
   animationsFsm.changed$.pipe(distinctUntilChanged()).subscribe((state: TFsmStates): void => {
     switch (state) {
       case 'Idle':
-        // danceAction.fadeOut(fadeDuration);
+        danceAction.fadeOut(fadeDuration);
         idleAction.reset().fadeIn(fadeDuration).play();
         break;
       case 'Dance':
         idleAction.fadeOut(fadeDuration);
-        // danceAction.reset().fadeIn(fadeDuration).play();
+        danceAction.reset().fadeIn(fadeDuration).play();
         break;
       default:
         throw new Error(`Unknown state: ${String(state)}`);

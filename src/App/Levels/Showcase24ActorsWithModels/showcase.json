@@ -57,6 +57,7 @@
       {
         "name": "solder_model_entity_2",
         "model3dSource": "solder_model_2",
+        "animationsSource": ["dance_anim"],
         "position": { "x": 0, "y": 0, "z": 0 },
         "castShadow": true
       }
