@@ -1,8 +1,12 @@
 import type { EasingOptions } from 'animejs';
 import anime from 'animejs';
 
-import type { IMesh } from '@/Engine';
-import { createDeferredPromise } from '@/Engine';
+import type { IActorWrapper } from '@/Engine/Domains/Actor';
+import { createDeferredPromise } from '@/Engine/Utils/AsyncUtils';
+
+// TODO (S.Panfilov) should be configurable
+// eslint-disable-next-line @typescript-eslint/no-unsafe-member-access,functional/immutable-data
+(anime as any).suspendWhenDocumentHidden = false; // If "true" - do not pause animation when document is hidden (i.g. when user switches to another tab)
 
 // TODO (S.Panfilov) refactor
 interface Position {
@@ -35,11 +39,11 @@ const defaultAnimationParams: Partial<IAnimationParams> = {
 // add loop.tick$.subscribe((delta) => { ... })
 // and do animation.tick(delta)
 
-export function goToPosition(actor: IMesh, targetPosition: Position, params: IAnimationParams): Promise<void> {
+export function goToPosition(actor: IActorWrapper, targetPosition: Position, params: IAnimationParams): Promise<void> {
   const { promise, resolve } = createDeferredPromise<void>();
 
   anime({
-    targets: actor.position,
+    targets: actor.entity.position,
     x: targetPosition.x,
     y: targetPosition.y,
     z: targetPosition.z,
