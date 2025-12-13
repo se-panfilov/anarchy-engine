@@ -121,7 +121,6 @@ export function showcase(space: TSpace): void {
   const targetActor3: TActor | undefined = actorService.getRegistry().findByName('target_3');
   if (isNotDefined(targetActor3)) throw new Error(`Cannot find "target_3" actor`);
 
-  // TODO CWP refactor objects creation (do not add to a registry immediately, cause in that case if we extend, there will be unextetended version in the registry)
   moveActorBounce(targetActor1, metersPerSecond(4), radians(degToRad(-270)), milliseconds(3000));
   // TODO setTimeout/setInterval is not a good idea (cause the game might be "on pause", e.g. when tab is not active)
   setTimeout(() => moveActorBounce(targetActor2, metersPerSecond(4.5), radians(degToRad(-270)), milliseconds(3000)), 500);
