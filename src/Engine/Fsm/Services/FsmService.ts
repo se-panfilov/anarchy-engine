@@ -24,7 +24,7 @@ export function FsmService(instanceFactory: TFsmInstanceFactory, sourceFactory: 
   const sourceService: TFsmSourceService = FsmSourceService(sourceFactory, sourceRegistry);
   const instanceService: TFsmInstanceService = FsmInstanceService(instanceFactory, instanceRegistry);
 
-  const disposable: ReadonlyArray<TDisposable> = [sourceFactory, instanceFactory, instanceRegistry, sourceRegistry];
+  const disposable: ReadonlyArray<TDisposable> = [sourceFactory, instanceFactory, instanceRegistry, sourceRegistry, sourceService, instanceService];
   const abstractService: TAbstractService = AbstractService(disposable);
 
   function create(params: TFsmParams, force: boolean = false): TFsmWrapper | never {
