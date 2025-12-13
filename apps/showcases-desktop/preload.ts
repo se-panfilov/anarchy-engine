@@ -1,5 +1,5 @@
 import type { TLocaleId } from '@Anarchy/i18n';
-import type { TBrowserInfo } from '@Anarchy/Shared/Models';
+import { getBrowserInfo } from '@Anarchy/Shared/Utils';
 import type { TLegalDoc, TLoadDocPayload, TShowcaseGameSettings, TShowcasesDesktopApi } from '@Showcases/Shared';
 import { platformApiChannel, platformApiName } from '@Showcases/Shared';
 import { DesktopPreloadTrackingService } from 'anarchy-tracking/src/Services/DesktopPreloadTrackingService';
@@ -7,14 +7,14 @@ import { contextBridge, ipcRenderer } from 'electron';
 
 import { PlatformActions } from './src/Constants';
 
-const { AppExit, AppRestart, GetAppSettings, GetBrowserInfo, GetLegalDocs, GetPackagesVersions, GetPreferredLocales, SetAppSettings, UpdateAppSettings } = PlatformActions;
+const { AppExit, AppRestart, GetAppSettings, GetLegalDocs, GetPackagesVersions, GetPreferredLocales, SetAppSettings, UpdateAppSettings } = PlatformActions;
 
 const mapping: TShowcasesDesktopApi = {
   closeApp: (): Promise<void> => ipcRenderer.invoke(platformApiChannel, AppExit),
   desktopAppVersion: async (): Promise<string> => __DESKTOP_APP_VERSION__,
   electron: (): string => process.versions.electron,
   getAppSettings: (): Promise<TShowcaseGameSettings> => ipcRenderer.invoke(platformApiChannel, GetAppSettings),
-  getBrowserInfo: (): Promise<TBrowserInfo> => ipcRenderer.invoke(platformApiChannel, GetBrowserInfo),
+  getBrowserInfo,
   getLegalDocs: (options: TLoadDocPayload): Promise<TLegalDoc> => ipcRenderer.invoke(platformApiChannel, GetLegalDocs, options),
   getPackagesVersions: async (): Promise<Record<string, string>> => ipcRenderer.invoke(platformApiChannel, GetPackagesVersions),
   getPreferredLocales: (): Promise<ReadonlyArray<TLocaleId>> => ipcRenderer.invoke(platformApiChannel, GetPreferredLocales),

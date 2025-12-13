@@ -1,4 +1,3 @@
-import { getBrowserInfo } from '@Anarchy/Shared/Utils';
 import { PlatformActions } from '@Showcases/Desktop/Constants';
 import type { THandleRequestDependencies } from '@Showcases/Desktop/Models';
 import { isPlatformAction } from '@Showcases/Desktop/Utils';
@@ -26,8 +25,6 @@ export async function handleAppRequest(
       return null;
     case PlatformActions.GetAppSettings:
       return settingsService.getAppSettings();
-    case PlatformActions.GetBrowserInfo:
-      return getBrowserInfo();
     case PlatformActions.GetPackagesVersions:
       return { ...(await desktopAppService.getPackagesVersions()), desktop: __DESKTOP_APP_VERSION__ };
     case PlatformActions.GetPreferredLocales:
