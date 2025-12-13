@@ -6,10 +6,10 @@
   "type": "module",
   "license": "MIT",
   "scripts": {
-    "lint": "eslint ../../src",
+    "lint": "eslint ./src",
     "lint:fix": "npm run lint -- --fix",
-    "prettier": "prettier --write ../..",
-    "prettier:check": "prettier --check ../..",
+    "prettier": "prettier --write .",
+    "prettier:check": "prettier --check .",
     "prettier:staged": "pretty-quick --staged",
     "prettier:changed": "git diff --name-only --diff-filter=ACMRTUXB HEAD | grep -E '\\.(ts|tsx|js|json|css|md)$' | xargs prettier --write",
     "ts:check": "tsc --noEmit",
@@ -20,10 +20,10 @@
     "e2e:with-clean": "playwright test && npm run e2e:clean-metadate",
     "e2e:headed": "npm run e2e -- --headed",
     "e2e:update": "npm run e2e -- --update-snapshots",
-    "e2e:show-report": "playwright show-report ../../reports/e2e/playwright-report",
-    "e2e:clean-metadate": "node ../shared/src/utils/PostprocessScreenshots.js",
-    "clean:all": "rimraf ./dist ../../node_modules ./package-lock.json",
-    "clean:reinstall": "npm run clean:all && npm install && git add package-lock.json"
+    "e2e:show-report": "playwright show-report reports/e2e/playwright-report",
+    "e2e:clean-metadate": "node ./utils/PostprocessScreenshots.js",
+    "clean:all": "rimraf ./dist ./node_modules ./package-lock.json",
+    "clean:reinstall": "npm run clean:all && npm install && git add ./package-lock.json"
   },
   "dependencies": {
     "playwright": "1.53.1"
