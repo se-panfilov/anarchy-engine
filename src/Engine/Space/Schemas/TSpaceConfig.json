@@ -3958,6 +3958,12 @@
     "TSpaceConfigResources": {
       "type": "object",
       "properties": {
+        "animations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/TAnimationsResourceConfig"
+          }
+        },
         "envMaps": {
           "type": "array",
           "items": {
@@ -3983,8 +3989,36 @@
           }
         }
       },
-      "required": ["envMaps", "materials", "models3d", "textures"],
+      "required": ["animations", "envMaps", "materials", "models3d", "textures"],
       "additionalProperties": false
+    },
+    "TAnimationsResourceConfig": {
+      "$ref": "#/definitions/TAbstractResourceConfig"
+    },
+    "TAbstractResourceConfig": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "name": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string"
+        },
+        "isForce": {
+          "type": "boolean"
+        },
+        "options": {
+          "type": "object"
+        }
+      },
+      "required": ["url"]
     },
     "TEnvMapResourceConfig": {
       "type": "object",
