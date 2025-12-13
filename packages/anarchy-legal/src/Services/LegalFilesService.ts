@@ -2,7 +2,8 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-import type { TLegalFilesService, TRepoUtilsService, TWorkspaceInfo } from '@Anarchy/Legal';
+import type { TAnarchyLegalConfigEntry, TDateMessage, TLegalDocumentType, TLegalFilesService, TRepoUtilsService, TTemplateMessages, TWorkspaceInfo } from '@Anarchy/Legal';
+import type { TAnarchyLegalConfig } from '@Anarchy/Legal/Models';
 import { format as dfFormat, isValid, parseISO } from 'date-fns';
 // eslint-disable-next-line spellcheck/spell-checker
 import { globby } from 'globby';
@@ -10,6 +11,7 @@ import { globby } from 'globby';
 import yargs from 'yargs';
 import { hideBin } from 'yargs/helpers';
 
+import { LegalDocumentType } from '../Constants/LegalDocumentType.ts';
 import { RepoUtilsService } from './RepoUtilsService.ts';
 
 export function LegalFilesService(): TLegalFilesService {
@@ -17,30 +19,12 @@ export function LegalFilesService(): TLegalFilesService {
   const repoUtilsService: TRepoUtilsService = RepoUtilsService();
   const { debugLog, findMonorepoRoot, resolveWorkspaceFromArg } = repoUtilsService;
 
-  const DOC_TYPES = ['DISCLAIMER', 'EULA', 'PRIVACY', 'SECURITY'] as const;
-  type TDocType = (typeof DOC_TYPES)[number];
-
-  type TDateMessage = Readonly<{
-    date: string; // "now" or ISO-like "yyyy-MMMM-dd" or full ISO
-    format: string; // date-fns tokens (yyyy, MM, dd, ...)
-  }>;
-
-  type TMessages = Readonly<Record<string, string | TDateMessage>>;
-
-  type TConfigEntry = Readonly<{
-    type: 'GENERIC' | TDocType;
-    template?: string; // base name without extension, e.g. "DISCLAIMER_COMMERCIAL_TEMPLATE"
-    messages?: TMessages;
-  }>;
-
-  type TConfig = ReadonlyArray<TConfigEntry>;
-
   type TRenderInput = Readonly<{
     ws: TWorkspaceInfo;
     outDir: string;
     templatesDir: string;
-    types: ReadonlySet<TDocType>;
-    config: TConfig;
+    types: ReadonlySet<TLegalDocumentType>;
+    config: TAnarchyLegalConfig;
   }>;
 
   // ---------------------- Utils ----------------------
@@ -60,13 +44,14 @@ export function LegalFilesService(): TLegalFilesService {
     const rootPkg = await readJson<any>(path.join(rootDir, 'package.json'));
     const patterns: string[] = Array.isArray(rootPkg.workspaces) ? rootPkg.workspaces : (rootPkg.workspaces?.packages ?? []);
     if (!patterns.length) throw new Error(`No workspaces patterns in ${path.join(rootDir, 'package.json')}`);
+    // eslint-disable-next-line spellcheck/spell-checker
     const dirs = await globby(patterns, { cwd: rootDir, absolute: true, onlyDirectories: true, gitignore: true, ignore: ['**/node_modules/**', '**/dist/**', '**/.*/**'] });
     const entries: Array<[string, TWorkspaceInfo]> = [];
     for (const dir of dirs) {
-      const pkgPath = path.join(dir, 'package.json');
+      const pkgPath: string = path.join(dir, 'package.json');
       if (!(await exists(pkgPath))) continue;
-      const pkg = await readJson<Record<string, unknown>>(pkgPath);
-      const name = typeof pkg.name === 'string' ? pkg.name : undefined;
+      const pkg: Record<string, unknown> = await readJson<Record<string, unknown>>(pkgPath);
+      const name: string | undefined = typeof pkg.name === 'string' ? pkg.name : undefined;
       if (!name) continue;
       entries.push([name, { name, dir, pkgPath, pkg }]);
     }
@@ -75,27 +60,28 @@ export function LegalFilesService(): TLegalFilesService {
 
   // ---------------------- Config ----------------------
 
-  async function readConfig(wsDir: string): Promise<TConfig> {
+  async function readConfig(wsDir: string): Promise<TAnarchyLegalConfig> {
     const p = path.join(wsDir, '.anarchy-legal.config.json');
     if (!(await exists(p))) return [];
     try {
       const json = await readJson<unknown>(p);
       if (!Array.isArray(json)) throw new Error('config root must be an array');
       // very light validation
-      return json.filter(Boolean) as TConfig;
+      return json.filter(Boolean) as TAnarchyLegalConfig;
     } catch (e) {
       throw new Error(`Failed to read ${p}: ${(e as Error).message}`);
     }
   }
 
-  const pickEntry = (cfg: TConfig, type: 'GENERIC' | TDocType): TConfigEntry | undefined => cfg.find((e) => e?.type === type);
+  const pickEntry = (config: TAnarchyLegalConfig, type: 'GENERIC' | TLegalDocumentType): TAnarchyLegalConfigEntry | undefined =>
+    config.find((e: TAnarchyLegalConfigEntry): boolean => e?.type === type);
 
   // ---------------------- Templates ----------------------
 
   const TEMPLATE_EXT: string = '.md';
-  const DEFAULT_TEMPLATE_BASENAME = (t: TDocType): string => `${t}_TEMPLATE`;
+  const DEFAULT_TEMPLATE_BASENAME = (t: TLegalDocumentType): string => `${t}_TEMPLATE`;
 
-  async function findTemplateFile(templatesDir: string, docType: TDocType, desiredBase?: string): Promise<string | undefined> {
+  async function findTemplateFile(templatesDir: string, docType: TLegalDocumentType, desiredBase?: string): Promise<string | undefined> {
     // 1) exact by desiredBase
     if (desiredBase) {
       const exact: string = path.join(templatesDir, `${desiredBase}${TEMPLATE_EXT}`);
@@ -116,18 +102,17 @@ export function LegalFilesService(): TLegalFilesService {
   const PLACEHOLDER_RE = /{{\s*([A-Z0-9_]+)\s*}}/g;
 
   /** Parse date string with date-fns (supports "now", ISO, and Date constructor fallback) */
-  const formatWithDateFns = (dateStr: string, fmt: string): string => {
-    const d =
+  const formatWithDateFns = (dateStr: string, format: string): string => {
+    const d: Date =
       dateStr.toLowerCase() === 'now'
         ? new Date()
         : ((): Date => {
-            // try parseISO first; fallback to Date ctor
-            const iso = parseISO(dateStr);
+            const iso: Date = parseISO(dateStr);
             return isValid(iso) ? iso : new Date(dateStr);
           })();
     if (!isValid(d)) return ''; // invalid date → empty
     try {
-      return dfFormat(d, fmt);
+      return dfFormat(d, format);
     } catch {
       return '';
     }
@@ -204,8 +189,7 @@ export function LegalFilesService(): TLegalFilesService {
         return arrStr((pkg as any).keywords);
       default:
         // if someone uses {{PACKAGE_FOO_BAR}}, try naive lowercased lookup "foo_bar" then "fooBar"
-        const lowered: string = key.toLowerCase();
-        const direct = (pkg as any)[lowered];
+        const direct = (pkg as any)[key.toLowerCase()];
         if (typeof direct === 'string') return direct;
         return undefined;
     }
@@ -213,11 +197,11 @@ export function LegalFilesService(): TLegalFilesService {
 
   // Build final map for a given doc type
   function buildPlaceholderValues(
-    docType: TDocType,
+    docType: TLegalDocumentType,
     tplText: string,
     pkg: Readonly<Record<string, unknown>>,
-    generic: TMessages | undefined,
-    specific: TMessages | undefined
+    generic: TTemplateMessages | undefined,
+    specific: TTemplateMessages | undefined
   ): Readonly<Record<string, string>> {
     const names: ReadonlySet<string> = collectPlaceholders(tplText);
     const out: Record<string, string> = {};
@@ -245,8 +229,8 @@ export function LegalFilesService(): TLegalFilesService {
 
   // Render
   function renderTemplate(tpl: string, values: Readonly<Record<string, string>>, onMissing: (name: string) => void): string {
-    return tpl.replace(PLACEHOLDER_RE, (_m, g1: string) => {
-      const v = values[g1];
+    return tpl.replace(PLACEHOLDER_RE, (_m, g1: string): string => {
+      const v: string = values[g1];
       if (v === undefined) {
         onMissing(g1);
         return '';
@@ -257,10 +241,10 @@ export function LegalFilesService(): TLegalFilesService {
 
   // ---------------------- Main rendering pipeline ----------------------
 
-  async function generateForType(i: TRenderInput, docType: TDocType): Promise<void> {
-    const cfgGeneric: TConfigEntry | undefined = pickEntry(i.config, 'GENERIC');
-    const cfgSpecific: TConfigEntry | undefined = pickEntry(i.config, docType);
-    const desiredBase: string | undefined = cfgSpecific?.template;
+  async function generateForType(i: TRenderInput, docType: TLegalDocumentType): Promise<void> {
+    const genericConfig: TAnarchyLegalConfigEntry | undefined = pickEntry(i.config, 'GENERIC');
+    const specificConfig: TAnarchyLegalConfigEntry | undefined = pickEntry(i.config, docType);
+    const desiredBase: string | undefined = specificConfig?.template;
 
     const tplPath: string | undefined = await findTemplateFile(i.templatesDir, docType, desiredBase);
     if (!tplPath) {
@@ -269,10 +253,10 @@ export function LegalFilesService(): TLegalFilesService {
     }
 
     const tplText: string = await fs.readFile(tplPath, 'utf8');
-    const values = buildPlaceholderValues(docType, tplText, i.ws.pkg, cfgGeneric?.messages, cfgSpecific?.messages);
+    const values = buildPlaceholderValues(docType, tplText, i.ws.pkg, genericConfig?.messages, specificConfig?.messages);
 
     const missing: string[] = [];
-    const rendered: string = renderTemplate(tplText, values, (name) => missing.push(name));
+    const rendered: string = renderTemplate(tplText, values, (name: string): number => missing.push(name));
     if (missing.length) {
       console.warn(`[warn] ${docType}: ${missing.length} placeholders had no value: ${missing.slice(0, 10).join(', ')}${missing.length > 10 ? '…' : ''}`);
     }
@@ -285,7 +269,7 @@ export function LegalFilesService(): TLegalFilesService {
   }
 
   async function generateAll(i: TRenderInput): Promise<void> {
-    for (const t of DOC_TYPES) {
+    for (const t of Object.values(LegalDocumentType)) {
       if (!i.types.has(t)) continue;
       await generateForType(i, t);
     }
@@ -294,13 +278,14 @@ export function LegalFilesService(): TLegalFilesService {
   // ---------------------- CLI ----------------------
 
   async function generate(): Promise<void> {
+    // eslint-disable-next-line spellcheck/spell-checker
     const argv = await yargs(hideBin(process.argv))
       .scriptName('anarchy-legal:files')
       .usage('$0 --workspace <name|path> --out <dir> [--templates <dir>] [--types DISCLAIMER,EULA,...] [--debug]')
       .option('workspace', { type: 'string', demandOption: true, describe: 'Target workspace (name or path relative to monorepo root)' })
       .option('out', { type: 'string', demandOption: true, describe: 'Output directory for generated files (relative to current working dir allowed)' })
       .option('templates', { type: 'string', describe: 'Templates directory. Default: packages/anarchy-legal/templates' })
-      .option('types', { type: 'string', describe: `Comma-separated list of doc types. Default: ${DOC_TYPES.join(',')}` })
+      .option('types', { type: 'string', describe: `Comma-separated list of doc types. Default: ${Object.values(LegalDocumentType).join(',')}` })
       .option('debug', { type: 'boolean', default: false })
       .help()
       .parseAsync();
@@ -337,27 +322,27 @@ export function LegalFilesService(): TLegalFilesService {
     debugLog(isDebug, 'out dir:', outDir);
 
     // Types
-    const typesSet: ReadonlySet<TDocType> = (() => {
-      if (!argv.types) return new Set(DOC_TYPES);
+    const typesSet: ReadonlySet<TLegalDocumentType> = (() => {
+      if (!argv.types) return new Set(Object.values(LegalDocumentType));
       const parts: string[] = String(argv.types)
         .split(',')
         .map((s) => s.trim().toUpperCase())
         .filter(Boolean);
-      const set = new Set<TDocType>();
+      const set = new Set<TLegalDocumentType>();
       for (const p of parts) {
-        if ((DOC_TYPES as ReadonlyArray<string>).includes(p)) set.add(p as TDocType);
-        else console.warn(`[warn] Unknown doc type "${p}" ignored. Known: ${DOC_TYPES.join(', ')}`);
+        if (Object.values(LegalDocumentType).includes(p)) set.add(p);
+        else console.warn(`[warn] Unknown doc type "${p}" ignored. Known: ${Object.values(LegalDocumentType).join(', ')}`);
       }
-      return set.size ? set : new Set(DOC_TYPES);
+      return set.size ? set : new Set(Object.values(LegalDocumentType));
     })();
 
     // Read config (optional)
-    const config: ReadonlyArray<TConfigEntry> = await readConfig(ws.dir);
+    const config: ReadonlyArray<TAnarchyLegalConfigEntry> = await readConfig(ws.dir);
     if (config.length)
       debugLog(
         isDebug,
         'config entries:',
-        config.map((c) => c.type)
+        config.map((c: TAnarchyLegalConfigEntry): TLegalDocumentType | 'GENERIC' => c.type)
       );
     else debugLog(isDebug, 'config: <none>');
 

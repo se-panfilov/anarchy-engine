@@ -1,8 +1,13 @@
+export type * from './TAnarchyLegalConfig';
+export type * from './TAnarchyLegalConfigEntry';
 export type * from './TCollected';
+export type * from './TDateMessage';
 export type * from './TDependencyNode';
+export type * from './TLegalDocumentType';
 export type * from './TLegalFilesService';
 export type * from './TLicenseEntry';
 export type * from './TRepoUtilsService';
 export type * from './TRootInfo';
+export type * from './TTemplateMessages.ts';
 export type * from './TThirdPartyLicensesService';
 export type * from './TWorkspaceInfo';
