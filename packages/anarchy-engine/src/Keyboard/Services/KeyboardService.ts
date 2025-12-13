@@ -1,136 +1,46 @@
 import type { TAbstractService } from '@Anarchy/Engine/Abstract';
-import { AbstractService } from '@Anarchy/Engine/Abstract';
-import type { TGameKey, TKeyboardLoop, TKeyboardPressingEvent, TKeyboardRegistry, TKeyboardRegistryValues, TKeyboardService, TKeyCombo, TKeySubscription } from '@Anarchy/Engine/Keyboard/Models';
-import { KeyboardRegistry } from '@Anarchy/Engine/Keyboard/Registries';
-import type { TDelta } from '@Anarchy/Engine/Loop';
-import { isDefined, isNotDefined } from '@Anarchy/Shared/Utils';
-import { bindKey, bindKeyCombo, checkKey, checkKeyCombo, unbindKey, unbindKeyCombo } from '@rwh/keystrokes';
+import { AbstractService, WatcherTag } from '@Anarchy/Engine/Abstract';
+import type { TContainerDecorator } from '@Anarchy/Engine/Global';
+import type { TKeyboardService, TKeyboardWatcher, TKeyboardWatcherFactory, TKeyboardWatcherRegistry } from '@Anarchy/Engine/Keyboard/Models';
+import type { TSpaceLoops } from '@Anarchy/Engine/Space';
+import { checkKey } from '@rwh/keystrokes';
 import type { Subscription } from 'rxjs';
-import { filter, map, Subject } from 'rxjs';
 
-export function KeyboardService(keyboardLoop: TKeyboardLoop): TKeyboardService {
-  const keyboardRegistry: TKeyboardRegistry = KeyboardRegistry();
-  // Do not add keyboardRegistry to disposable, because we may need to manually destroy entities.
-  const abstractService: TAbstractService = AbstractService();
+export function KeyboardService(
+  container: TContainerDecorator,
+  keyboardWatcherFactory: TKeyboardWatcherFactory,
+  keyboardWatcherRegistry: TKeyboardWatcherRegistry,
+  { keyboardLoop }: TSpaceLoops
+): TKeyboardService {
+  const keyboardWatcher: TKeyboardWatcher = keyboardWatcherFactory.create({ container, tags: [WatcherTag.Initial, WatcherTag.Global] }, undefined);
+  keyboardWatcher.enabled$.next(true);
 
-  function createKeySubscriptions(key: TGameKey | TKeyCombo): TKeySubscription {
-    const subscriptions: TKeyboardRegistryValues | undefined = keyboardRegistry.findByKey(key);
-    if (!subscriptions) {
-      const pressed$: Subject<TGameKey | TKeyCombo> = new Subject();
-      const pressing$: Subject<TKeyboardPressingEvent> = new Subject();
-      const released$: Subject<TGameKey | TKeyCombo> = new Subject();
+  const abstractService: TAbstractService = AbstractService([keyboardWatcherFactory, keyboardWatcherRegistry]);
 
-      keyboardRegistry.add(key, { pressed$, pressing$, released$ });
-      return { pressed$, pressing$, released$ };
-    }
+  // TODO:
+  //  - Listen events from container (not window)
+  //  - sort combo priority by combo length (longer first)
+  //  - ignore inputs
+  //  - remove listeners on destroy
+  //  - remove extra models
 
-    return subscriptions;
+  function isTextInputTarget(target: EventTarget | null | undefined): boolean {
+    if (!(target instanceof HTMLElement)) return false;
+    const tag: string = target.tagName.toLowerCase();
+    if (tag === 'input' || tag === 'textarea' || tag === 'select') return true;
+    if (target.isContentEditable) return true;
+
+    return false;
   }
-
-  function onKey(key: TGameKey): TKeySubscription {
-    createKeySubscriptions(key);
-    return bind(key, false);
-  }
-
-  function onKeyCombo(combo: TKeyCombo): TKeySubscription {
-    createKeySubscriptions(combo);
-    return bind(combo, true);
-  }
-
-  function bind(key: TGameKey | TKeyCombo, isCombo: boolean): TKeySubscription {
-    const subjects: TKeyboardRegistryValues = keyboardRegistry.getByKey(key);
-    const { pressed$, pressing$, released$ } = subjects;
-
-    let pressedKey: TGameKey | TKeyCombo | undefined = undefined;
-
-    keyboardLoop.tick$
-      .pipe(
-        filter((): boolean => isDefined(pressedKey)),
-        map((v: TDelta): [TDelta, TGameKey | TKeyCombo] => [v, pressedKey as TGameKey | TKeyCombo])
-      )
-      .subscribe(([delta, pressedKey]: [TDelta, TGameKey | TKeyCombo]): void =>
-        pressing$.next({
-          key: pressedKey,
-          delta
-        })
-      );
-
-    if (isCombo) {
-      bindKeyCombo(key, {
-        onPressed: (): void => {
-          pressedKey = key;
-          pressed$.next(key);
-        },
-        onReleased: (): void => {
-          pressedKey = undefined;
-          released$.next(key);
-        }
-      });
-    } else {
-      bindKey(key, {
-        onPressed: (): void => {
-          pressedKey = key;
-          pressed$.next(key);
-        },
-        onReleased: (): void => {
-          pressedKey = undefined;
-          released$.next(key);
-        }
-      });
-    }
-
-    return {
-      pressed$: pressed$.asObservable(),
-      pressing$: pressing$.asObservable(),
-      released$: released$.asObservable()
-    };
-  }
-
-  const pauseKeyBinding = (key: TGameKey): void => unbindKey(key);
-  const pauseKeyComboBinding = (combo: TKeyCombo): void => unbindKeyCombo(combo);
-  const resumeKeyBinding = (key: TGameKey): void => void bind(key, false);
-  const resumeKeyComboBinding = (combo: TKeyCombo): void => void bind(combo, true);
-
-  function removeBinding(key: TGameKey | TKeyCombo, isCombo: boolean, skipValidation: boolean = false): void {
-    if (isCombo) {
-      unbindKeyCombo(key);
-    } else {
-      unbindKey(key);
-    }
-
-    const subjects: TKeyboardRegistryValues | undefined = keyboardRegistry.findByKey(key);
-    if (isNotDefined(subjects) && !skipValidation) throw new Error(`Cannot remove key "${key}": it's not in the registry`);
-    if (isNotDefined(subjects) && skipValidation) return;
-    subjects?.pressed$.complete();
-    subjects?.pressing$.complete();
-    subjects?.released$.complete();
-    keyboardRegistry.remove(key);
-  }
-
-  const removeKeyBinding = (key: TGameKey): void => removeBinding(key, false);
-  const removeKeyComboBinding = (key: TKeyCombo): void => removeBinding(key, true);
 
   const destroySub$: Subscription = abstractService.destroy$.subscribe((): void => {
-    Object.keys(keyboardRegistry.asObject()).forEach((val: string): void => {
-      removeBinding(val, false, true);
-      removeBinding(val, true, true);
-    });
-
-    keyboardRegistry.destroy$.next();
     destroySub$.unsubscribe();
+
+    keyboardWatcherRegistry.destroy$.next();
   });
 
   // eslint-disable-next-line functional/immutable-data
   return Object.assign(abstractService, {
-    onKey,
-    onKeyCombo,
-    pauseKeyBinding,
-    pauseKeyComboBinding,
-    resumeKeyBinding,
-    resumeKeyComboBinding,
-    removeKeyBinding,
-    removeKeyComboBinding,
-    isKeyPressed: checkKey,
-    isKeyComboPressed: checkKeyCombo
+    isPressed: checkKey
   });
 }
