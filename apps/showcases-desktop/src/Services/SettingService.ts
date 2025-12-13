@@ -18,7 +18,10 @@ export function SettingsService(app: App, filesService: TFilesService): TSetting
       return await filesService.readFileAsJson(appSettingsFileName, userDataFolder, isSettings);
     } catch {
       console.log(`[DESKTOP]: Settings file ("${appSettingsFileName}") not found in : ${userDataFolder}. Applying default settings.`);
-      return buildDefaultSettings();
+      const settings: TShowcaseGameSettings = buildDefaultSettings();
+      // TODO DESKTOP: save settings broken in production mode. Fix
+      await saveAppSettings(settings);
+      return settings;
     }
   };
 
