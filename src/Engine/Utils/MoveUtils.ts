@@ -1,9 +1,10 @@
 import type { EasingOptions } from 'animejs';
 import anime from 'animejs';
+import { Clock } from 'three';
 
 import type { IActorWrapper } from '@/Engine/Domains/Actor';
+import type { ILoopWrapper } from '@/Engine/Domains/Loop';
 import { createDeferredPromise } from '@/Engine/Utils/AsyncUtils';
-import { ILoopWrapper } from '@/Engine';
 
 // TODO (S.Panfilov) should be a service (MoveService) that uses LoopService
 
@@ -48,8 +49,60 @@ const defaultAnimationParams: Partial<IAnimationParams> = {
 // add loop.tick$.subscribe((delta) => { ... })
 // and do animation.tick(delta)
 
-export function goToPosition(actor: IActorWrapper, targetPosition: Position, params: IAnimationParams): Promise<void> {
-  const { promise, resolve } = createDeferredPromise<void>();
+// TODO (S.Panfilov) debug
+const lastElapsedTime = 0; // Для хранения времени последнего обновления
+
+// export function goToPosition(actor: IActorWrapper, targetPosition: Position, params: IAnimationParams): Promise<void> {
+//   const { promise, resolve } = createDeferredPromise<void>();
+//
+//   const animation = anime({
+//     targets: actor.entity.position,
+//     x: targetPosition.x,
+//     y: targetPosition.y,
+//     z: targetPosition.z,
+//     ...defaultAnimationParams,
+//     ...params,
+//     // TODO (S.Panfilov) debug
+//     direction: 'normal',
+//     autoplay: false,
+//     complete: (): void => resolve()
+//   });
+//
+//   // TODO (S.Panfilov) debug
+//   // Функция для обновления анимации, вызывается в цикле обновления
+//   function animate(): void {
+//     const elapsedTime = new Clock().getElapsedTime(); // Получаем текущее время
+//     const deltaTime = elapsedTime - lastElapsedTime; // Вычисляем delta time
+//     lastElapsedTime = elapsedTime; // Обновляем последнее время
+//
+//     animation.tick(deltaTime * 1000); // Обновляем анимацию, преобразуем в миллисекунды
+//
+//     requestAnimationFrame(animate); // Планируем следующий кадр
+//   }
+//
+//   animate();
+//   // function pause(): void {
+//   //   animation.pause();
+//   //   resolve();
+//   // }
+//
+//   // function doTickAnimation(delta: number): void {
+//   //   console.log('tick');
+//   //   animation.tick(delta);
+//   // }
+//   //
+//   // loop.tick$.subscribe((delta: number): void => {
+//   //   // doTickAnimation(delta);
+//   //   requestAnimationFrame(() => doTickAnimation(delta));
+//   // });
+//
+//   return promise;
+// }
+
+let startTime = 0; // Начальное время для отслеживания общего времени анимации
+
+export function goToPosition(actor: IActorWrapper, targetPosition: Position, params: IAnimationParams): void {
+  let animationRunning = false;
 
   const animation = anime({
     targets: actor.entity.position,
@@ -58,13 +111,27 @@ export function goToPosition(actor: IActorWrapper, targetPosition: Position, par
     z: targetPosition.z,
     ...defaultAnimationParams,
     ...params,
-    complete: (): void => resolve()
+    autoplay: false, // Отключаем автоматическое воспроизведение
+    complete: (): void => {
+      animationRunning = false;
+    }
   });
 
-  // loop.tick$.subscribe((delta: number): void => {
-  //   console.log('tick');
-  //   animation.tick(delta);
-  // });
+  startTime = new Clock().getElapsedTime(); // Инициализируем начальное время
 
-  return promise;
+  // Функция для обновления анимации, вызывается в цикле обновления
+  function animate(t: number): void {
+    console.log(t);
+    if (!animationRunning) return;
+    console.log('animate');
+    const currentTime = new Clock().getElapsedTime(); // Получаем текущее время
+    const elapsedTime = currentTime - startTime; // Вычисляем общее прошедшее время с начала анимации
+
+    // animation.tick(elapsedTime * 1000); // Обновляем анимацию, преобразуем в миллисекунды
+    animation.tick(t); // Обновляем анимацию, преобразуем в миллисекунды
+
+    requestAnimationFrame(animate); // Планируем следующий кадр
+  }
+  animationRunning = true;
+  requestAnimationFrame(animate);
 }

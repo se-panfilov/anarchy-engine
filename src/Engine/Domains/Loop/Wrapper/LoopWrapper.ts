@@ -1,3 +1,5 @@
+import { Subject } from 'rxjs';
+
 import { AbstractWrapper, WrapperType } from '@/Engine/Domains/Abstract';
 import type { ICameraRegistry, ICameraWrapper } from '@/Engine/Domains/Camera';
 import { CameraTag } from '@/Engine/Domains/Camera';
@@ -8,7 +10,6 @@ import type { ISceneWrapper } from '@/Engine/Domains/Scene';
 import { isDefined } from '@/Engine/Utils';
 
 import { getUtils } from './utils';
-import { Subject } from 'rxjs';
 
 // TODO (S.Panfilov) should be a service (LoopService)
 

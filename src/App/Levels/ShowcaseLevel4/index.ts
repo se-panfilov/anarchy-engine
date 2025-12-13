@@ -1,8 +1,8 @@
 import type { IShowcase } from '@/App/Levels/Models';
 import type { IActorWrapper, IAppCanvas, ILevel, ILevelConfig } from '@/Engine';
 import { ambientContext, buildLevelFromConfig, isNotDefined } from '@/Engine';
-import { IAnimationParams, setLoopForMoveUtils } from '@/Engine/Utils/MoveUtils';
-import { goToPosition } from '@/Engine/Utils/MoveUtils';
+import type { IAnimationParams } from '@/Engine/Utils/MoveUtils';
+import { goToPosition, setLoopForMoveUtils } from '@/Engine/Utils/MoveUtils';
 
 import levelConfig from './showcase-level-4.config.json';
 
