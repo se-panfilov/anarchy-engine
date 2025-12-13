@@ -28,7 +28,7 @@ export function AbstractAsyncRegistry<T extends IRegistrable | IMultitonRegistra
   function getUniqByTags$(tags: ReadonlyArray<string>, strategy: LookUpStrategy): Observable<T> {
     const result: T | undefined = abstractRegistry.getUniqByTags(tags, strategy);
     if (isDefined(result)) {
-      const subj$ = new BehaviorSubject(result);
+      const subj$: BehaviorSubject<T> = new BehaviorSubject(result);
       return subj$.asObservable();
     }
     return subscribeToValue$<T>(abstractRegistry, (entity: T) => entity.getTags()[strategy]((tag: string) => tags.includes(tag)));
@@ -37,8 +37,7 @@ export function AbstractAsyncRegistry<T extends IRegistrable | IMultitonRegistra
   function getUniqByTag$(tag: string): Observable<T> {
     const result: T | undefined = abstractRegistry.getUniqByTag(tag);
     if (isDefined(result)) {
-      console.log('111 actor is already here');
-      const subj$ = new BehaviorSubject(result);
+      const subj$: BehaviorSubject<T> = new BehaviorSubject(result);
       return subj$.asObservable();
     }
     return subscribeToValue$<T>(abstractRegistry, (entity: T) => entity.hasTag(tag));
