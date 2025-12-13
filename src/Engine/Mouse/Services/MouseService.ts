@@ -26,8 +26,6 @@ export function MouseService(
   mousePositionWatcherRegistry: TMousePositionWatcherRegistry,
   { mouseLoop }: TSpaceLoops
 ): TMouseService {
-  const abstractService: TAbstractService = AbstractService();
-
   mouseClickWatcherFactory.entityCreated$.subscribe((watcher: TMouseClickWatcher): void => mouseClickWatcherRegistry.add(watcher));
   const mouseClickWatcher: TMouseClickWatcher = mouseClickWatcherFactory.create({ container, tags: [WatcherTag.Initial, WatcherTag.Global] }, undefined);
   mouseClickWatcher.start$.next();
@@ -35,6 +33,8 @@ export function MouseService(
   mousePositionWatcherFactory.entityCreated$.subscribe((watcher: TMousePositionWatcher): void => mousePositionWatcherRegistry.add(watcher));
   const mousePositionWatcher: TMousePositionWatcher = mousePositionWatcherFactory.create({ container, tags: [WatcherTag.Initial, WatcherTag.Global] }, { mouseLoop });
   mousePositionWatcher.start$.next();
+
+  const abstractService: TAbstractService = AbstractService([mouseClickWatcherFactory, mousePositionWatcherFactory, mouseClickWatcherRegistry, mousePositionWatcherRegistry]);
 
   const clickPress$: Subject<TMouseWatcherEvent> = new Subject<TMouseWatcherEvent>();
   const clickLeftPress$: Subject<TMouseWatcherEvent> = new Subject<TMouseWatcherEvent>();
