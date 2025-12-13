@@ -1,4 +1,4 @@
-# Anarchy monorepo
+# Anarchy Engine (monorepo)
 
 A framework around three.js for game development.
 
