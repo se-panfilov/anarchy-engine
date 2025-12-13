@@ -7,7 +7,14 @@ import type { TPhysicsBody, TPhysicsBodyService, TWithPresetNamePhysicsBodyParam
 import { isPhysicsBodyParamsComplete, RigidBodyTypesNames } from '@/Engine/Physics';
 import type { TReadonlyEuler, TReadonlyQuaternion } from '@/Engine/ThreeLib';
 import { TransformAgent } from '@/Engine/TransformDrive/Constants';
-import type { TAbstractTransformAgent, TPhysicsAgentDependencies, TPhysicsTransformAgent, TPhysicsTransformAgentInternalParams, TPhysicsTransformAgentParams } from '@/Engine/TransformDrive/Models';
+import type {
+  TAbstractTransformAgent,
+  TPhysicsAgentDependencies,
+  TPhysicsTransformAgent,
+  TPhysicsTransformAgentInternalParams,
+  TPhysicsTransformAgentParams,
+  TReadonlyTransform
+} from '@/Engine/TransformDrive/Models';
 import { isDefined, isNotDefined } from '@/Engine/Utils';
 
 import { AbstractTransformAgent } from './AbstractTransformAgent';
@@ -16,12 +23,17 @@ export function PhysicsTransformAgent(params: TPhysicsTransformAgentParams, { ph
   const adaptedParams: TPhysicsTransformAgentInternalParams = { ...params, rotation: new Quaternion().setFromEuler(params.rotation) };
   const abstractTransformAgent: TAbstractTransformAgent = AbstractTransformAgent(params, TransformAgent.Physical);
 
-  const onDeactivated$Sub: Subscription = abstractTransformAgent.onDeactivated$.subscribe((): void => {
+  const onDeactivated$Sub: Subscription = abstractTransformAgent.onDeactivated$.subscribe((transform: TReadonlyTransform): void => {
     isDefined(params.onDeactivated)
-      ? params.onDeactivated()
+      ? params.onDeactivated(transform)
       : console.warn(
           'PhysicsTransformAgent: onDeactivated is not defined. The physics body remains at the position it was the moment of deactivation. Please handle this (remove, move to a safe place), cause if left it as is could produce unexpected behavior.'
         );
+  });
+
+  //apply the latest position/rotation to the physics body on activation
+  const onActivated$Sub: Subscription = abstractTransformAgent.onActivated$.subscribe(({ position, rotation, scale }: TReadonlyTransform): void => {
+    isDefined(params.onActivated) ? params.onActivated({ position, rotation, scale }) : applyLatestTransform(physicsBody$.value?.getRigidBody(), position, rotation);
   });
 
   const rotationQuaternion$: BehaviorSubject<TReadonlyQuaternion> = new BehaviorSubject<TReadonlyQuaternion>(
@@ -72,6 +84,7 @@ export function PhysicsTransformAgent(params: TPhysicsTransformAgentParams, { ph
     enabledSub$.unsubscribe();
     prevBodyTypeSub.unsubscribe();
     onDeactivated$Sub.unsubscribe();
+    onActivated$Sub.unsubscribe();
 
     abstractTransformAgent.destroy$.next();
     physicsBody$.complete();
@@ -108,4 +121,10 @@ function createPhysicsBody(physics: TWithPresetNamePhysicsBodyParams, physicsBod
   if (isDefined(presetName)) return physicsBodyService.createWithPresetName(physics, presetName);
   if (!isPhysicsBodyParamsComplete(rest)) return undefined;
   return physicsBodyService.create(rest);
+}
+
+function applyLatestTransform(rigidBody: RigidBody | undefined, position: Vector3, rotation: Euler): void {
+  if (isNotDefined(rigidBody)) return;
+  rigidBody.setTranslation(position, false);
+  rigidBody.setRotation(new Quaternion().setFromEuler(rotation), false);
 }
