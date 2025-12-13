@@ -3,6 +3,7 @@ import { Mesh, Texture } from 'three';
 
 import type { TAbstractEntity } from '@/Engine/Abstract';
 import type { TAnyAudio } from '@/Engine/Audio';
+import type { TMaterials } from '@/Engine/Material';
 import type { TWithModel3d, TWithModel3dEntities } from '@/Engine/Models3d';
 import { hasTransformDrive } from '@/Engine/TransformDrive/Utils';
 import { hasGeometry, hasMaterial, isDefined, isNotDefined } from '@/Engine/Utils';
@@ -37,7 +38,7 @@ export function destroyTransformDriveInEntity(entity: unknown): void {
   entity.driveToTargetConnector.destroy$.next();
 }
 
-export function destroyMaterialInEntity(entity: unknown): void {
+export function destroyMaterialInEntity<T extends { material: TMaterials | ReadonlyArray<TMaterials> }>(entity: T): void {
   if (isNotDefined(entity)) return;
   if (!hasMaterial(entity)) return;
   if (isNotDefined(entity.material)) return;
@@ -46,7 +47,7 @@ export function destroyMaterialInEntity(entity: unknown): void {
   disposeMaterialDeep(materials);
 
   // eslint-disable-next-line functional/immutable-data
-  entity.material = null;
+  entity.material = null as any;
 }
 
 export function disposeMaterialDeep(material: Material | ReadonlyArray<Material> | undefined | null): void {
