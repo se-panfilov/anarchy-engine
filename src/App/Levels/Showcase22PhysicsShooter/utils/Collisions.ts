@@ -1,16 +1,24 @@
-import type { Mesh, Object3D } from 'three';
+import { Vector2 } from 'three';
 
-import type { TCollisionsService, TSceneWrapper } from '@/Engine';
+import type { TCameraWrapper, TCollisionsService, TIntersectionsWatcher, TSceneWrapper } from '@/Engine';
 
-export function enableCollisions(scene: TSceneWrapper, collisionsService: TCollisionsService): void {
-  // TODO (S.Panfilov) CWP 1. Visualize grids
+export function enableCollisions(scene: TSceneWrapper, cameraW: TCameraWrapper, mouseLineIntersectionsWatcher: TIntersectionsWatcher, collisionsService: TCollisionsService): void {
   // TODO (S.Panfilov) CWP 2. Visualize raycasting
   // TODO (S.Panfilov) CWP 3. Fix collision detection
   // TODO (S.Panfilov) CWP 4. make sure raycasting is working inside the grid only
   // TODO (S.Panfilov) CWP 5. make bullets and actors can travel among grids
 
   const spatialGrid = collisionsService.createSpatialGrid(200, 200, 10, 0, 0);
+
+  // mouseLineIntersectionsWatcher.value$.subscribe((value) => {
+  //   console.log(value.point);
+  //   //collisionsService._debugHighlightCellObjects(new Vector2(value.point.x, value.point.z), cameraW, scene, spatialGrid);
+  // });
+
   collisionsService._debugVisualizeSpatialCells(spatialGrid, scene);
+  setTimeout(() => {
+    collisionsService._debugHighlightCellObjects(new Vector2(5, 16), cameraW, scene, spatialGrid);
+  }, 1500);
 
   // scene.entity.traverse((object: Object3D): void => {
   //   if ((object as Mesh).isMesh) {
