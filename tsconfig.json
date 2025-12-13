@@ -18,7 +18,9 @@
       "@Shared/*": ["packages/shared/src/*"],
       "@Shared": ["packages/shared/src/index.ts"],
       "@E2E/*": ["apps/e2e/src/*"],
-      "@E2E": ["apps/e2e/src/index.ts"]
+      "@E2E": ["apps/e2e/src/index.ts"],
+      "@Menu/*": ["packages/ui-menu/src/*"],
+      "@Menu": ["packages/ui-menu/src/index.ts"]
     },
     "resolveJsonModule": true,
     // TODO DESKTOP: Why global "skipLibCheck"?,
