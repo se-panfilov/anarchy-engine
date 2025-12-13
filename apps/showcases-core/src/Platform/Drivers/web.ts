@@ -7,7 +7,7 @@ import type { TLegalDoc, TLoadDocPayload, TShowcaseGameSettings } from '@Showcas
 import { DefaultShowcaseGameSettings, sanitizeMarkDown } from '@Showcases/Shared';
 
 import type { TPlatformDriver } from '@/Models';
-import { settingsWebDbService } from '@/Services';
+import { settingsWebDbService } from '@/Services/SettingsWebDbService';
 
 export function Driver(): TPlatformDriver {
   function closeApp(): void {
