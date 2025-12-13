@@ -5,7 +5,9 @@ import type { TOptional } from '@/Engine/Utils';
 import type { TPhysicsBodyParams } from './TPhysicsBodyParams';
 
 export type TPhysicsBodyConfig = Omit<TOptional<TPhysicsBodyParams>, 'type' | 'name'> &
-  Readonly<{
-    type: RigidBodyTypesNames;
-  }> &
+  TOptional<
+    Readonly<{
+      type: RigidBodyTypesNames;
+    }>
+  > &
   Required<TWithName>;
