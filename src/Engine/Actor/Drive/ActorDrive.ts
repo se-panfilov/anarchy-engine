@@ -26,7 +26,7 @@ export function ActorDrive(params: TActorParams, { kinematicLoopService }: Pick<
   rotation$.subscribe(rotationRep$);
   scale$.subscribe(scaleRep$);
 
-  const driver$: BehaviorSubject<ActorDriver> = new BehaviorSubject<ActorDriver>(params.driver);
+  const driver$: BehaviorSubject<ActorDriver> = new BehaviorSubject<ActorDriver>(params.driver ?? ActorDriver.None);
 
   const kinematicDriver: TKinematicActorDriver = KinematicActorDriver(params, kinematicLoopService, driver$);
   const physicsDriver: TPhysicsActorDriver = PhysicsActorDriver(params, driver$);

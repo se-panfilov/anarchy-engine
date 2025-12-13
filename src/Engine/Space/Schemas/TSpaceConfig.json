@@ -253,7 +253,7 @@
           "type": "number"
         }
       },
-      "required": ["driver", "model3dSource", "position", "spatial"]
+      "required": ["model3dSource", "position", "spatial"]
     },
     "TWithPresetNamePhysicsBodyConfig": {
       "type": "object",
