@@ -63,6 +63,10 @@ export function OrbitControlsWrapper(params: TOrbitControlsParams): TOrbitContro
     serialize: (): TOrbitControlsConfig => controlsToConfig(result)
   });
 
+  setTimeout(() => {
+    console.log('XXX', result.serialize());
+  }, 1000);
+
   applyOrbitControlsParams(result, params);
   result.enable();
   result.update(0);
