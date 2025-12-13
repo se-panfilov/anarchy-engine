@@ -1,6 +1,5 @@
-import type { TPhysicalLoop, TPhysicsBodyService } from '@/Engine/Physics';
+import type { TPhysicalLoop } from '@/Engine/Physics';
 
 export type TPhysicsAgentDependencies = Readonly<{
-  physicsBodyService: TPhysicsBodyService;
   physicalLoop: TPhysicalLoop;
 }>;

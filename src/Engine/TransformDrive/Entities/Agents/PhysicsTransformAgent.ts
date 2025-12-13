@@ -24,7 +24,7 @@ import { AbstractTransformAgent } from './AbstractTransformAgent';
 // Physical bodies doesn't play well with manual set of position/rotation (e.g. position$.next(), rotation$.next() from any external sources).
 // In principle, it's better to avoid manual setting of position/rotation for physics objects.
 // But if you have to, first change active agent to "Default", then set position/rotation, and then switch back to "Physical" agent.
-export function PhysicsTransformAgent(params: TPhysicsTransformAgentParams, { physicsBodyService, physicalLoop }: TPhysicsAgentDependencies): TPhysicsTransformAgent {
+export function PhysicsTransformAgent(params: TPhysicsTransformAgentParams, { physicalLoop }: TPhysicsAgentDependencies): TPhysicsTransformAgent {
   const positionNoiseThreshold: TMeters = params.performance?.positionNoiseThreshold ?? meters(0.0000001);
   const rotationNoiseThreshold: TRadians = params.performance?.rotationNoiseThreshold ?? radians(0.0000001);
 
@@ -45,7 +45,7 @@ export function PhysicsTransformAgent(params: TPhysicsTransformAgentParams, { ph
   //apply the latest position/rotation to the physics body on activation
   const onActivated$Sub: Subscription = abstractTransformAgent.onActivated$.subscribe(({ position, rotation }: TReadonlyTransform): void => {
     // TODO 15-0-0: Does this position/rotation works? (check on reactivation)
-    if (isNotDefined(physicsBody$.value)) physicsBody$.next(physicsBodyService.getRegistry().getByName(params.name));
+    if (isNotDefined(physicsBody$.value)) physicsBody$.next(params.physicBody);
     applyLatestTransform(physicsBody$.value?.getRigidBody(), position, rotation);
   });
 
@@ -58,7 +58,7 @@ export function PhysicsTransformAgent(params: TPhysicsTransformAgentParams, { ph
     physicsBody$,
     serialize: (): TPhysicsBodyConfig => {
       const body: TPhysicsBody | undefined = physicsBody$.value;
-      if (isNotDefined(body)) throw new Error(`[Serialization] [PhysicsTransformAgent]: physic body is not defined for agent with name: "${params.name}", (id: "${agent.id}")`);
+      if (isNotDefined(body)) throw new Error(`[Serialization] [PhysicsTransformAgent]: physic body with name "${params.physicBody.name}" is not defined for physic agent(id: "${agent.id}")`);
 
       return body.serialize();
     }

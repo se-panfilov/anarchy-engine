@@ -31,11 +31,7 @@ import { getKinematicTransformAgent, getPhysicsTransformAgent } from '@/Engine/T
 import type { TOptional, TWriteable } from '@/Engine/Utils';
 import { isDefined } from '@/Engine/Utils';
 
-export function TransformDriveService(
-  factory: TTransformDriveFactory,
-  registry: TTransformDriveRegistry,
-  { loopService, physicsBodyService }: TTransformDriveServiceDependencies
-): TTransformDriveService {
+export function TransformDriveService(factory: TTransformDriveFactory, registry: TTransformDriveRegistry, { loopService }: TTransformDriveServiceDependencies): TTransformDriveService {
   const factorySub$: Subscription = factory.entityCreated$.subscribe((entity: TTransformDrive<TTransformDriveCompatibleEntity>): void => registry.add(entity));
   const disposable: ReadonlyArray<TDisposable> = [registry, factory, factorySub$];
   const abstractService: TAbstractService = AbstractService(disposable);
@@ -78,7 +74,7 @@ export function TransformDriveService(
     if (hasPhysics && isDefined(physicBody)) {
       const physicalLoop: TPhysicalLoop = loopService.getPhysicalLoop();
       // eslint-disable-next-line functional/immutable-data
-      result[TransformAgent.Physical] = getPhysicsTransformAgent(agentParams, physicBody, { physicalLoop, physicsBodyService });
+      result[TransformAgent.Physical] = getPhysicsTransformAgent(agentParams, physicBody, { physicalLoop });
     }
 
     // eslint-disable-next-line functional/immutable-data

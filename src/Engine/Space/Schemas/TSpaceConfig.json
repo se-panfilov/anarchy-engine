@@ -5696,16 +5696,19 @@
           "$ref": "#/definitions/Vector3Like"
         },
         "rotation": {
-          "$ref": "#/definitions/QuaternionLike"
+          "$ref": "#/definitions/TEulerLike"
         },
-        "type": {
-          "$ref": "#/definitions/RigidBodyTypesNames"
+        "collisionGroups": {
+          "type": "number"
         },
         "collisionShape": {
           "$ref": "#/definitions/CollisionShape"
         },
-        "shapeParams": {
-          "$ref": "#/definitions/TPhysicsShapeParams"
+        "friction": {
+          "type": "number"
+        },
+        "isSleep": {
+          "type": "boolean"
         },
         "mass": {
           "type": "number"
@@ -5713,14 +5716,11 @@
         "restitution": {
           "type": "number"
         },
-        "friction": {
-          "type": "number"
+        "shapeParams": {
+          "$ref": "#/definitions/TPhysicsShapeParams"
         },
-        "collisionGroups": {
-          "type": "number"
-        },
-        "isSleep": {
-          "type": "boolean"
+        "type": {
+          "$ref": "#/definitions/RigidBodyTypesNames"
         },
         "name": {
           "type": "string"
@@ -5732,11 +5732,7 @@
           }
         }
       },
-      "required": ["collisionShape", "name", "shapeParams", "type"]
-    },
-    "RigidBodyTypesNames": {
-      "type": "string",
-      "enum": ["dynamic", "fixed", "kinematicPositionBased", "kinematicVelocityBased"]
+      "required": ["collisionShape", "name", "position", "rotation", "shapeParams", "type"]
     },
     "CollisionShape": {
       "type": "string",
@@ -6377,6 +6373,10 @@
       },
       "required": ["halfHeight", "radius", "borderRadius"],
       "additionalProperties": false
+    },
+    "RigidBodyTypesNames": {
+      "type": "string",
+      "enum": ["dynamic", "fixed", "kinematicPositionBased", "kinematicVelocityBased"]
     },
     "TFogConfig": {
       "type": "object",

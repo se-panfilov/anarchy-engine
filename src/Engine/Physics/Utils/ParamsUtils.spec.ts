@@ -1,3 +1,6 @@
+import { Quaternion } from 'three';
+import { Vector3 } from 'three/src/math/Vector3';
+
 import type { TPhysicsBodyParams } from '@/Engine/Physics';
 import { CollisionShape, RigidBodyTypesNames } from '@/Engine/Physics';
 import type { TOptional } from '@/Engine/Utils';
@@ -16,6 +19,8 @@ describe('ParamsUtils', () => {
           hy: 1,
           hz: 1
         },
+        position: new Vector3(),
+        rotation: new Quaternion(),
         tags: []
       };
       expect(isPhysicsBodyParamsComplete(params)).toBe(true);

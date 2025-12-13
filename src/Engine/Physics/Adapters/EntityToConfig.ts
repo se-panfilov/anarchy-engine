@@ -1,7 +1,10 @@
-import type { Collider, RigidBody, World } from '@dimforge/rapier3d';
+import type { Collider, RigidBody, Rotation, World } from '@dimforge/rapier3d';
+import type { Vector3Like } from 'three';
+import { Euler, Quaternion } from 'three';
 
 import type { TPhysicsBody, TPhysicsBodyConfig, TPhysicsWorldConfig } from '@/Engine/Physics/Models';
-import { filterOutEmptyFields, isDefined } from '@/Engine/Utils';
+import type { TEulerLike } from '@/Engine/ThreeLib';
+import { filterOutEmptyFields, isDefined, vector3ToXyz } from '@/Engine/Utils';
 
 export function physicBodyToConfig(entity: TPhysicsBody): TPhysicsBodyConfig {
   const rigidBody: RigidBody | undefined = entity.getRigidBody();
@@ -33,13 +36,25 @@ export function physicBodyToConfig(entity: TPhysicsBody): TPhysicsBodyConfig {
     };
   }
 
+  const body: RigidBody | undefined = entity.getRigidBody();
+  let position: Vector3Like = { x: 0, y: 0, z: 0 };
+  let rotation: TEulerLike = { x: 0, y: 0, z: 0 };
+
+  if (isDefined(body)) {
+    position = vector3ToXyz(body.translation());
+    const bodyRotation: Rotation = body.rotation();
+    rotation = new Euler().setFromQuaternion(new Quaternion(bodyRotation.x, bodyRotation.y, bodyRotation.z, bodyRotation.w));
+  }
+
   return filterOutEmptyFields({
     collisionShape: entity.getPhysicsBodyShape(),
     ...rigidBodySettings,
     ...colliderSettings,
     name: entity.name,
     type: entity.getPhysicsBodyType(),
-    shapeParams: entity.getShapeParams()
+    shapeParams: entity.getShapeParams(),
+    position,
+    rotation
   });
 }
 
