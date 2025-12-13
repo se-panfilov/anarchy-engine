@@ -52,41 +52,45 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     if (isNotDefined(solderActor)) throw new Error('Solder actor is not found');
     solderActor.setAnimationsFsm(solderAnimFsm);
 
-    // idleAction.play();
-    // walkAction.play();
-
     if (isNotDefined(solderActor.states.animationsFsm)) throw new Error('Animations FSM is not defined');
 
+    let prev: any = '';
     solderActor.states.animationsFsm.subscribe((state) => {
+      if (prev === state.value) return;
+      prev = state.value;
+
       console.log('XXX state', state.value);
       if (state.matches('idle')) {
-        if (!idleAction.isRunning()) idleAction.play();
-        // walkAction.stop();
-        // runAction.stop();
-        walkAction.crossFadeTo(idleAction, fadeDuration, true);
+        walkAction.fadeOut(fadeDuration);
+        runAction.fadeOut(fadeDuration);
+        idleAction.reset().fadeIn(fadeDuration).play();
       } else if (state.matches('walk')) {
-        if (!walkAction.isRunning()) walkAction.play();
-        // idleAction.stop();
-        // runAction.stop();
-        // if (!idleAction.isRunning()) idleAction.play();
-        // if (!walkAction.isRunning()) walkAction.play();
-        idleAction.crossFadeTo(walkAction, fadeDuration, true);
+        idleAction.fadeOut(fadeDuration);
+        runAction.fadeOut(fadeDuration);
+        walkAction.reset().fadeIn(fadeDuration).play();
       } else if (state.matches('run')) {
-        // runAction.play();
-        // idleAction.stop();
-        // walkAction.stop();
+        idleAction.fadeOut(fadeDuration);
+        walkAction.fadeOut(fadeDuration);
+        runAction.reset().fadeIn(fadeDuration).play();
       }
     });
 
-    onKey(KeyCode.W).pressed$.subscribe((): void => {
-      if (isKeyPressed(KeysExtra.Shift)) return;
-      solderActor.states.animationsFsm?.send({ type: 'WALK' });
+    let isRunning: boolean = false;
+
+    onKey(KeyCode.W).pressing$.subscribe((): void => {
+      // if (isKeyPressed(KeysExtra.Shift)) return;
+      const type = isRunning ? 'RUN' : 'WALK';
+      console.log('XXX', type);
+      if (solderActor.states.animationsFsm?.getSnapshot().value !== type.toLocaleLowerCase()) solderActor.states.animationsFsm?.send({ type });
     });
 
-    // onKeyCombo(`${KeyCode.W} + ${KeysExtra.Shift}`).pressed$.subscribe((): void => {
-    //   console.log('XXX Combo');
-    //   solderActor.states.animationsFsm.send({ type: 'RUN' });
-    // });
+    onKey(KeysExtra.Shift).pressed$.subscribe((): void => {
+      isRunning = true;
+    });
+
+    onKey(KeysExtra.Shift).released$.subscribe((): void => {
+      isRunning = false;
+    });
 
     onKey(KeyCode.W).released$.subscribe((): void => {
       solderActor.states.animationsFsm?.send({ type: 'IDLE' });
