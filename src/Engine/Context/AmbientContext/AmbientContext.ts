@@ -8,8 +8,8 @@ const container: IGlobalContainerDecorator = ContainerDecorator(window);
 export const ambientContext: IAmbientContext = {
   container,
   screenSizeWatcher: ScreenSizeWatcher(container),
-  mouseClicksWatcher: MouseClicksWatcher(),
-  mousePositionWatcher: MousePositionWatcher()
+  mouseClicksWatcher: MouseClicksWatcher(container),
+  mousePositionWatcher: MousePositionWatcher(container)
 };
 
 export function startAmbientContext(ambientContext: IAmbientContext): void {
