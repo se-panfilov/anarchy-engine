@@ -283,8 +283,7 @@
           "x": -1.57,
           "y": 0,
           "z": -1.57
-        },
-        "tags": []
+        }
       }
     ],
     "controls": [],
@@ -294,8 +293,7 @@
         "name": "main_fog",
         "color": "#454b55",
         "far": 100,
-        "near": 1,
-        "tags": []
+        "near": 1
       }
     ],
     "fsm": [],
@@ -535,8 +533,7 @@
         "centerZ": 0,
         "mapHeight": 200,
         "mapWidth": 200,
-        "name": "main_grid",
-        "tags": []
+        "name": "main_grid"
       }
     ],
     "texts": []

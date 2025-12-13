@@ -36,6 +36,5 @@ export const mockConfig: TSpaceConfig = {
       name: 'mock_scene'
     }
   ],
-  tags: [],
   version: SpaceSchemaVersion.V1
 };

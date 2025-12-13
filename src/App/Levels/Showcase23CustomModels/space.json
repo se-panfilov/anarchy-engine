@@ -19,8 +19,7 @@
           "x": 0,
           "y": 0,
           "z": 0
-        },
-        "tags": []
+        }
       }
     ],
     "controls": [
@@ -29,7 +28,6 @@
         "cameraName": "main",
         "enableDamping": true,
         "isActive": true,
-        "tags": [],
         "type": "OrbitControls"
       }
     ],
@@ -47,7 +45,6 @@
           "y": 2,
           "z": 2.25
         },
-        "tags": [],
         "type": "Ambient"
       }
     ],
@@ -100,8 +97,7 @@
         "centerZ": 0,
         "mapHeight": 100,
         "mapWidth": 100,
-        "name": "main_grid",
-        "tags": []
+        "name": "main_grid"
       }
     ],
     "texts": [

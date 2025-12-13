@@ -13,8 +13,7 @@
         "spatial": {
           "grid": "main_grid",
           "isAutoUpdate": false
-        },
-        "tags": []
+        }
       }
     ],
     "audio": [],
@@ -34,8 +33,7 @@
           "x": 0,
           "y": 0,
           "z": 0
-        },
-        "tags": []
+        }
       }
     ],
     "controls": [],
@@ -53,7 +51,6 @@
           "y": 2,
           "z": 2.25
         },
-        "tags": [],
         "type": "Ambient"
       },
       {
@@ -76,7 +73,6 @@
           },
           "normalBias": 0.05
         },
-        "tags": [],
         "type": "Directional"
       }
     ],
@@ -109,8 +105,7 @@
         "centerZ": 0,
         "mapHeight": 10,
         "mapWidth": 10,
-        "name": "main_grid",
-        "tags": []
+        "name": "main_grid"
       }
     ],
     "texts": []

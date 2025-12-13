@@ -53,8 +53,7 @@
           "x": 0,
           "y": 0,
           "z": 0
-        },
-        "tags": []
+        }
       }
     ],
     "controls": [
@@ -63,7 +62,6 @@
         "cameraName": "main",
         "enableDamping": true,
         "isActive": true,
-        "tags": [],
         "type": "OrbitControls"
       }
     ],
@@ -73,8 +71,7 @@
         "name": "main_fog",
         "color": "#353CA7",
         "far": 100,
-        "near": 1,
-        "tags": []
+        "near": 1
       }
     ],
     "fsm": [],
@@ -132,8 +129,7 @@
         "centerZ": 0,
         "mapHeight": 40,
         "mapWidth": 60,
-        "name": "main_grid",
-        "tags": []
+        "name": "main_grid"
       }
     ],
     "texts": []

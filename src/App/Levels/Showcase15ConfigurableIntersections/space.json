@@ -91,8 +91,7 @@
           "x": 0,
           "y": 0,
           "z": 0
-        },
-        "tags": []
+        }
       },
       {
         "far": 10000,
@@ -109,8 +108,7 @@
           "x": 1.52,
           "y": 1.52,
           "z": 0.05
-        },
-        "tags": []
+        }
       }
     ],
     "controls": [
@@ -119,7 +117,6 @@
         "cameraName": "camera_red",
         "enableDamping": true,
         "isActive": true,
-        "tags": [],
         "type": "OrbitControls"
       }
     ],
@@ -131,15 +128,13 @@
         "actorNames": ["sphere_red_1_actor", "sphere_red_2_actor"],
         "cameraName": "camera_red",
         "isAutoStart": true,
-        "name": "watcher_red",
-        "tags": []
+        "name": "watcher_red"
       },
       {
         "actorNames": ["cube_blue_1_actor", "cube_blue_2_actor"],
         "cameraName": "camera_blue",
         "isAutoStart": true,
-        "name": "watcher_blue",
-        "tags": []
+        "name": "watcher_blue"
       }
     ],
     "lights": [
@@ -152,7 +147,6 @@
           "y": 2,
           "z": 2.25
         },
-        "tags": [],
         "type": "Ambient"
       },
       {
@@ -174,7 +168,6 @@
           },
           "normalBias": 0.05
         },
-        "tags": [],
         "type": "Directional"
       }
     ],
@@ -243,8 +236,7 @@
         "centerZ": 0,
         "mapHeight": 40,
         "mapWidth": 60,
-        "name": "main_grid",
-        "tags": []
+        "name": "main_grid"
       }
     ],
     "texts": []

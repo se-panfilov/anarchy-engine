@@ -51,8 +51,7 @@
           "x": -0.5,
           "y": 0,
           "z": 0
-        },
-        "tags": []
+        }
       },
       {
         "far": 10000,
@@ -69,8 +68,7 @@
           "x": 1.52,
           "y": 1.52,
           "z": 0.05
-        },
-        "tags": []
+        }
       }
     ],
     "controls": [],
@@ -88,7 +86,6 @@
           "y": 2,
           "z": 2.25
         },
-        "tags": [],
         "type": "Ambient"
       },
       {
@@ -110,7 +107,6 @@
           },
           "normalBias": 0.05
         },
-        "tags": [],
         "type": "Directional"
       }
     ],
@@ -147,8 +143,7 @@
         "centerZ": 0,
         "mapHeight": 40,
         "mapWidth": 60,
-        "name": "main_grid",
-        "tags": []
+        "name": "main_grid"
       }
     ],
     "texts": []
