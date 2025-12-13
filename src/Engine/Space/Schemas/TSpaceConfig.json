@@ -31,7 +31,7 @@
       }
     }
   },
-  "required": ["canvasSelector", "entities", "resources", "scenes", "version"],
+  "required": ["canvasSelector", "entities", "name", "resources", "scenes", "version"],
   "definitions": {
     "TSceneConfig": {
       "type": "object",
@@ -87,7 +87,7 @@
           }
         }
       },
-      "required": ["isActive"]
+      "required": ["isActive", "name"]
     },
     "TEulerLike": {
       "type": "object",
@@ -270,7 +270,7 @@
           "type": "number"
         }
       },
-      "required": ["cellSize", "centerX", "centerZ", "mapHeight", "mapWidth"]
+      "required": ["cellSize", "centerX", "centerZ", "mapHeight", "mapWidth", "name"]
     },
     "TActorConfig": {
       "type": "object",
@@ -332,7 +332,7 @@
           }
         }
       },
-      "required": ["model3dSource", "position", "spatial"]
+      "required": ["model3dSource", "name", "position", "spatial"]
     },
     "TWithPresetNamePhysicsBodyConfig": {
       "type": "object",
@@ -1257,7 +1257,7 @@
           "$ref": "#/definitions/TransformAgent"
         }
       },
-      "required": ["audioSource", "position"]
+      "required": ["audioSource", "name", "position"]
     },
     "TAudioPerformanceOptions": {
       "type": "object",
@@ -1319,7 +1319,7 @@
           "$ref": "#/definitions/TransformAgent"
         }
       },
-      "required": ["audioSource"]
+      "required": ["audioSource", "name"]
     },
     "TCameraConfig": {
       "type": "object",
@@ -1397,7 +1397,7 @@
           }
         }
       },
-      "required": ["isActive", "position"]
+      "required": ["isActive", "name", "position"]
     },
     "Listeners": {
       "type": "string",
@@ -1423,7 +1423,7 @@
           }
         }
       },
-      "required": ["isActive", "texture"]
+      "required": ["isActive", "name", "texture"]
     },
     "TIntersectionsWatcherConfig": {
       "type": "object",
@@ -1457,7 +1457,7 @@
           }
         }
       },
-      "required": ["actorNames", "cameraName", "isAutoStart"]
+      "required": ["actorNames", "cameraName", "isAutoStart", "name"]
     },
     "TIntersectionsWatcherPerformanceOptions": {
       "type": "object",
@@ -1559,7 +1559,7 @@
           "type": "string"
         }
       },
-      "required": ["color", "position", "type"]
+      "required": ["color", "name", "position", "type"]
     },
     "TLightShadowConfig": {
       "type": "object",
@@ -1669,7 +1669,7 @@
           "$ref": "#/definitions/Vector3Like"
         }
       },
-      "required": ["color", "groundColor", "position", "type"]
+      "required": ["color", "groundColor", "name", "position", "type"]
     },
     "TDirectionalLightConfig": {
       "type": "object",
@@ -1734,7 +1734,7 @@
           }
         }
       },
-      "required": ["color", "position", "type"]
+      "required": ["color", "name", "position", "type"]
     },
     "TDirectionalLightShadowConfig": {
       "type": "object",
@@ -1845,7 +1845,7 @@
           "type": "number"
         }
       },
-      "required": ["color", "position", "type"]
+      "required": ["color", "name", "position", "type"]
     },
     "TRectAreaLightConfig": {
       "$ref": "#/definitions/TAbstractLightConfig%3CTRectAreaLightParams%3E"
@@ -1919,7 +1919,7 @@
           "type": "number"
         }
       },
-      "required": ["color", "height", "position", "type", "width"]
+      "required": ["color", "height", "name", "position", "type", "width"]
     },
     "TSpotLightConfig": {
       "$ref": "#/definitions/TAbstractLightConfig%3CTSpotLightParams%3E"
@@ -1999,7 +1999,7 @@
           "type": "number"
         }
       },
-      "required": ["color", "position", "type"]
+      "required": ["color", "name", "position", "type"]
     },
     "TModel3dConfig": {
       "type": "object",
@@ -2074,7 +2074,7 @@
           }
         }
       },
-      "required": ["model3dSource"]
+      "required": ["model3dSource", "name"]
     },
     "PrimitiveModel3dType": {
       "type": "string",
@@ -2179,6 +2179,9 @@
         "isActive": {
           "type": "boolean"
         },
+        "name": {
+          "type": "string"
+        },
         "tags": {
           "type": "array",
           "items": {
@@ -2186,7 +2189,7 @@
           }
         }
       },
-      "required": ["mode", "isActive"],
+      "required": ["mode", "isActive", "name"],
       "additionalProperties": false
     },
     "RendererModes": {
@@ -2247,7 +2250,7 @@
           }
         }
       },
-      "required": ["materialSource", "position"]
+      "required": ["materialSource", "name", "position"]
     },
     "TPhysicsConfig": {
       "type": "object",
@@ -2477,7 +2480,7 @@
           }
         }
       },
-      "required": ["color"]
+      "required": ["color", "name"]
     },
     "TFsmConfig": {
       "type": "object",
@@ -2525,7 +2528,7 @@
           }
         }
       },
-      "required": ["initial", "transitions", "type"]
+      "required": ["initial", "name", "transitions", "type"]
     },
     "TFsmStates": {
       "type": ["string", "number"]
@@ -2613,7 +2616,7 @@
           }
         }
       },
-      "required": ["position", "text", "type"]
+      "required": ["name", "position", "text", "type"]
     },
     "TextType": {
       "type": "string",
@@ -4188,7 +4191,7 @@
           }
         }
       },
-      "required": ["cameraName", "isActive", "type"]
+      "required": ["cameraName", "isActive", "name", "type"]
     },
     "ControlsType": {
       "type": "string",
@@ -4256,7 +4259,7 @@
           }
         }
       },
-      "required": ["cameraName", "isActive", "type"]
+      "required": ["cameraName", "isActive", "name", "type"]
     },
     "TSpaceConfigResources": {
       "type": "object",
@@ -4327,7 +4330,7 @@
           "type": "object"
         }
       },
-      "required": ["url"]
+      "required": ["name", "url"]
     },
     "TAudioResourceConfig": {
       "$ref": "#/definitions/TAbstractResourceConfig"
@@ -4355,7 +4358,7 @@
           }
         }
       },
-      "required": ["url"]
+      "required": ["name", "url"]
     },
     "TEnvMapTextureOptions": {
       "type": "object",
@@ -4393,7 +4396,7 @@
           }
         }
       },
-      "required": ["type"]
+      "required": ["name", "type"]
     },
     "TMaterialConfigOptions": {
       "anyOf": [
@@ -7226,7 +7229,7 @@
           }
         }
       },
-      "required": ["url"]
+      "required": ["name", "url"]
     },
     "TOptional<TObject3DPropConfig>": {
       "type": "object",
@@ -7291,7 +7294,7 @@
           }
         }
       },
-      "required": ["url"]
+      "required": ["name", "url"]
     },
     "TTextureOptions": {
       "type": "object",

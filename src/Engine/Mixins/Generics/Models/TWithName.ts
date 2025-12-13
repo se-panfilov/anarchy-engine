@@ -1,7 +1,7 @@
-import type { TWriteable } from '@/Engine/Utils';
+import type { TOptional, TWriteable } from '@/Engine/Utils';
 
-export type TWithNameOptional = Readonly<{ name?: string }>;
-export type TWithName = Required<TWithNameOptional>;
+export type TWithNameOptional = TOptional<TWithName>;
+export type TWithName = Readonly<{ name: string }>;
 export type TWithNameAccessors = Readonly<{
   getName: () => string | undefined;
   setName: (name: string) => void;
