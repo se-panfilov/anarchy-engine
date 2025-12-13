@@ -1,8 +1,8 @@
 import { combineLatest } from 'rxjs';
 
 import type { TShowcase } from '@/App/Levels/Models';
-import type { TActorParams, TAppCanvas, TCameraWrapper, TEngine, TSpace, TSpaceConfig, TSpatialGridWrapper } from '@/Engine';
-import { ambientContext, buildSpaceFromConfig, Engine, EulerWrapper, isNotDefined, MaterialType, PrimitiveModel3dType, Vector3Wrapper } from '@/Engine';
+import type { TActorParams, TAppCanvas, TCameraWrapper, TEngine, TMaterialWrapper, TModel3dFacade, TSpace, TSpaceConfig, TSpatialGridWrapper } from '@/Engine';
+import { ambientContext, Engine, EulerWrapper, isNotDefined, MaterialType, PrimitiveModel3dType, spaceService, Vector3Wrapper } from '@/Engine';
 
 import spaceConfig from './showcase.json';
 
@@ -12,17 +12,25 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
 
   function start(): void {
     engine.start();
-    const { actorService, spatialGridService, cameraService, mouseService } = space.services;
+    const { actorService, spatialGridService, cameraService, materialService, models3dService, mouseService } = space.services;
     const grid: TSpatialGridWrapper | undefined = spatialGridService.getRegistry().findByName('main_grid');
     if (isNotDefined(grid)) throw new Error(`Cannot find "main_grid" grid`);
 
+    const materialW: TMaterialWrapper = materialService.create({ name: 'model_material', type: MaterialType.Toon, options: { color: '#5177ff' } });
+
+    const modelF: TModel3dFacade = models3dService.create({
+      name: 'model_1',
+      model3dSource: PrimitiveModel3dType.Cube,
+      animationsSource: [],
+      materialSource: materialW,
+      options: { width: 1, height: 1, depth: 1 }
+    });
+
     const actorDefaultParams: TActorParams = {
-      model3d: { url: PrimitiveModel3dType.Cube },
+      model3dEntity: modelF,
       position: Vector3Wrapper({ x: 0, y: 0, z: 0 }),
       castShadow: true,
-      material: { type: MaterialType.Toon, params: { color: '#5177ff' } },
-      spatial: { grid, isAutoUpdate: false },
-      tags: []
+      spatial: { grid, isAutoUpdate: false }
     };
 
     const centralActorTag: string = 'central';

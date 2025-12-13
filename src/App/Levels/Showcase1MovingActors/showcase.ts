@@ -39,6 +39,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
 
     watchIntersections([actor]);
 
+    //Better to move actors via kinematic (or physics), but for a simple example we can just set coords
     loopService.tick$.subscribe(({ elapsedTime }) => {
       actor.setX(Math.sin(elapsedTime) * 8);
       actor.setZ(Math.cos(elapsedTime) * 8);
