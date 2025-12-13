@@ -51,7 +51,7 @@ export function OrbitControlsWrapper(params: IOrbitControlsParams): IOrbitContro
     disable,
     isEnable,
     ...getOrbitControlsAccessors(entity),
-    ...withActiveMixin,
+    ...withActiveMixin(),
     moveToTargetSmoothly,
     entity
   };

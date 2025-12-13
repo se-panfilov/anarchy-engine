@@ -60,7 +60,7 @@ export function SceneWrapper(params: ISceneParams): ISceneWrapper {
     setEnvironmentMap,
     getEnvironmentMap,
     ...withObject3d(entity),
-    ...withActiveMixin,
+    ...withActiveMixin(),
     entity
   };
 

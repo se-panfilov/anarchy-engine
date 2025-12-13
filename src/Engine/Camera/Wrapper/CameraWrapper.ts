@@ -26,7 +26,7 @@ export function CameraWrapper(params: ICameraParams): ICameraWrapper {
     ...withMoveBy3dMixin(entity),
     ...withRotationByXyzMixin(entity),
     ...withObject3d(entity),
-    ...withActiveMixin,
+    ...withActiveMixin(),
     ...withTagsMixin(tags)
   };
 

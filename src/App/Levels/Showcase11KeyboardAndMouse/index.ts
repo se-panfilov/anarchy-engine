@@ -59,6 +59,10 @@ export function showcase(canvas: IAppCanvas): IShowcase {
     if (isNotDefined(actorMkeyForward)) throw new Error('Actor mkey Forward is not defined');
     if (isNotDefined(actorMkeyExtra)) throw new Error('Actor mkey Extra is not defined');
 
+    console.log(actorKeyW);
+    // console.log(cameraService.getRegistry().getAll().map((camera: ICameraWrapper) => camera.getName()));
+    // console.log(actorService.getRegistry().getAll().map((actor: IActorWrapperAsync) => actor.getName()));
+
     onKey(KeyCode.W).pressing$.subscribe((): void => void actorKeyboard.addZ(-0.3));
     onKey(KeyCode.W).pressed$.subscribe((): void => void actorKeyW.addY(-0.2));
     onKey(KeyCode.W).released$.subscribe((): void => void actorKeyW.addY(0.2));

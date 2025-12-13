@@ -63,7 +63,7 @@ export function RendererWrapper(params: IRendererParams, screenSizeWatcher: Read
     screenSize$.unsubscribe();
   }
 
-  const result = { ...wrapper, ...accessors, ...withActiveMixin, entity, destroy };
+  const result = { ...wrapper, ...accessors, ...withActiveMixin(), entity, destroy };
 
   result._setActive(params.isActive, true);
 
