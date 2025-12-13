@@ -22,13 +22,13 @@ export default defineConfig({
       ext: '.gz',
       algorithm: 'gzip',
       deleteOriginFile: false,
-      filter: (file) => /\.(js|css|map|wasm)$/.test(file)
+      filter: (file: string): boolean => /\.(js|css|map|wasm)$/.test(file)
     }),
     compression({
       ext: '.br',
       algorithm: 'brotliCompress',
       deleteOriginFile: false,
-      filter: (file) => /\.(js|css|map|wasm)$/.test(file)
+      filter: (file: string): boolean => /\.(js|css|map|wasm)$/.test(file)
     })
   ],
   worker: {
