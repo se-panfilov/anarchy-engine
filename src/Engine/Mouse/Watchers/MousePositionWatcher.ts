@@ -10,7 +10,7 @@ import { isEqualOrSimilarByXyCoords } from '@/Engine/Utils';
 
 export function MousePositionWatcher({ container, tags, performance }: TMousePositionWatcherParams, mouseLoop: TMouseLoop): TMousePositionWatcher {
   const containerIdTag: string = `container_id_${container.id}`;
-  const abstractWatcher: TAbstractWatcherWithState<Vector2Like> = AbstractWatcherWithState(WatcherType.MousePositionWatcher, 'global_mouse_position_watcher', { x: 0, y: 0 }, tags);
+  const abstractWatcher: TAbstractWatcherWithState<Vector2Like> = AbstractWatcherWithState(WatcherType.MousePositionWatcher, 'mouse_position_watcher', { x: 0, y: 0 }, tags);
   let prevPosition: Float32Array = new Float32Array(2); // [x, y] = [0, 0]
   let position: Float32Array = new Float32Array(2); // [x, y] = [0, 0]
 

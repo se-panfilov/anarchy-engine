@@ -6,9 +6,9 @@ import { MouseEventType } from '@/Engine/Mouse/Constants';
 import type { TMouseClickWatcher, TMouseClickWatcherParams, TMouseWatcherEvent } from '@/Engine/Mouse/Models';
 import { getMouseWatcherEvent } from '@/Engine/Mouse/Utils';
 
-export function MouseClickWatcher({ container, tags = [] }: TMouseClickWatcherParams): TMouseClickWatcher {
+export function MouseClickWatcher({ container, tags }: TMouseClickWatcherParams): TMouseClickWatcher {
   const containerIdTag: string = `container_id_${container.id}`;
-  const abstractWatcher: TAbstractWatcher<TMouseWatcherEvent> = AbstractWatcher<TMouseWatcherEvent>(WatcherType.MouseClickWatcher, 'global_mouse_click_watcher', tags);
+  const abstractWatcher: TAbstractWatcher<TMouseWatcherEvent> = AbstractWatcher<TMouseWatcherEvent>(WatcherType.MouseClickWatcher, 'mouse_click_watcher', tags);
   const onMouseListener = (event: MouseEvent | WheelEvent): void => {
     if ((event.type as MouseEventType) !== MouseEventType.Wheel && event.cancelable) event.preventDefault();
     const e: TMouseWatcherEvent = getMouseWatcherEvent(event);

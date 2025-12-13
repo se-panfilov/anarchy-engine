@@ -5,7 +5,6 @@ import type { TAbstractService } from '@/Engine/Abstract';
 import { AbstractService, WatcherTag } from '@/Engine/Abstract';
 import type { TGlobalContainerDecorator } from '@/Engine/Global';
 import { MouseButtonValue, MouseEventType, MouseWheelValue } from '@/Engine/Mouse/Constants';
-import { MouseClickWatcherFactory, MousePositionWatcherFactory } from '@/Engine/Mouse/Factories';
 import type {
   TMouseClickWatcher,
   TMouseClickWatcherFactory,
@@ -17,20 +16,21 @@ import type {
   TMouseStateUpdate,
   TMouseWatcherEvent
 } from '@/Engine/Mouse/Models';
-import { MouseClickWatcherRegistry, MousePositionWatcherRegistry } from '@/Engine/Mouse/Registries';
 import type { TSpaceLoops } from '@/Engine/Space';
 
-export function MouseService(container: TGlobalContainerDecorator, { mouseLoop }: TSpaceLoops): TMouseService {
+export function MouseService(
+  container: TGlobalContainerDecorator,
+  mouseClickWatcherFactory: TMouseClickWatcherFactory,
+  mouseClickWatcherRegistry: TMouseClickWatcherRegistry,
+  mousePositionWatcherFactory: TMousePositionWatcherFactory,
+  mousePositionWatcherRegistry: TMousePositionWatcherRegistry,
+  { mouseLoop }: TSpaceLoops
+): TMouseService {
   const abstractService: TAbstractService = AbstractService();
 
-  const mouseClickWatcherFactory: TMouseClickWatcherFactory = MouseClickWatcherFactory();
-  const mouseClickWatcherRegistry: TMouseClickWatcherRegistry = MouseClickWatcherRegistry();
-  mouseClickWatcherFactory.entityCreated$.subscribe((watcher: TMouseClickWatcher) => mouseClickWatcherRegistry.add(watcher));
+  mouseClickWatcherFactory.entityCreated$.subscribe((watcher: TMouseClickWatcher): void => mouseClickWatcherRegistry.add(watcher));
   const mouseClickWatcher: TMouseClickWatcher = mouseClickWatcherFactory.create({ container, tags: [WatcherTag.Initial, WatcherTag.Global] }, undefined);
   mouseClickWatcher.start$.next();
-
-  const mousePositionWatcherFactory: TMousePositionWatcherFactory = MousePositionWatcherFactory();
-  const mousePositionWatcherRegistry: TMousePositionWatcherRegistry = MousePositionWatcherRegistry();
 
   mousePositionWatcherFactory.entityCreated$.subscribe((watcher: TMousePositionWatcher): void => mousePositionWatcherRegistry.add(watcher));
   const mousePositionWatcher: TMousePositionWatcher = mousePositionWatcherFactory.create({ container, tags: [WatcherTag.Initial, WatcherTag.Global] }, { mouseLoop });

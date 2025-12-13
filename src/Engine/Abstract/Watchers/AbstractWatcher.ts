@@ -8,7 +8,7 @@ import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin, withNameAndNameAccessorsMixin } from '@/Engine/Mixins';
 import { isDefined } from '@/Engine/Utils';
 
-export function AbstractWatcher<T>(type: WatcherType | string, name: string | undefined, tags: ReadonlyArray<string> = []): TAbstractWatcher<T> {
+export function AbstractWatcher<T>(type: WatcherType | string, name: string, tags: ReadonlyArray<string> = []): TAbstractWatcher<T> {
   const id: string = type + '_' + nanoid();
   const value$: Subject<T> = new Subject<T>();
   const start$: Subject<void> = new Subject<void>();
