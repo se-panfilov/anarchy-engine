@@ -1,24 +1,24 @@
-import { distinctUntilChanged, map } from 'rxjs';
+import { BehaviorSubject, distinctUntilChanged, map } from 'rxjs';
 import type { Vector3 } from 'three';
 
 import type { TActorWrapperAsync, TIntersectionEvent, TIntersectionsWatcher, TKeyboardService, TRadians } from '@/Engine';
 import { getAzimuthRadFromDirection, getElevationRadFromDirection, KeyCode } from '@/Engine';
 
-type TMoveKeysState = Readonly<{ Forward: boolean; Left: boolean; Right: boolean; Backward: boolean }>;
+type TMoveKeysState = { Forward: boolean; Left: boolean; Right: boolean; Backward: boolean };
 
 export function startMoveActorWithKeyboard(actorW: TActorWrapperAsync, keyboardService: TKeyboardService, mouseLineIntersectionsWatcher: TIntersectionsWatcher): void {
-  let keyStates: TMoveKeysState = { Forward: false, Left: false, Right: false, Backward: false };
+  const keyStates$: BehaviorSubject<TMoveKeysState> = new BehaviorSubject<TMoveKeysState>({ Forward: false, Left: false, Right: false, Backward: false });
   let baseAzimuthRad: TRadians = 0;
 
-  keyboardService.onKey(KeyCode.W).pressed$.subscribe((): void => void (keyStates = { ...keyStates, Forward: true }));
-  keyboardService.onKey(KeyCode.A).pressed$.subscribe((): void => void (keyStates = { ...keyStates, Left: true }));
-  keyboardService.onKey(KeyCode.S).pressed$.subscribe((): void => void (keyStates = { ...keyStates, Backward: true }));
-  keyboardService.onKey(KeyCode.D).pressed$.subscribe((): void => void (keyStates = { ...keyStates, Right: true }));
+  keyboardService.onKey(KeyCode.W).pressed$.subscribe((): void => keyStates$.next({ ...keyStates$.value, Forward: true }));
+  keyboardService.onKey(KeyCode.A).pressed$.subscribe((): void => keyStates$.next({ ...keyStates$.value, Left: true }));
+  keyboardService.onKey(KeyCode.S).pressed$.subscribe((): void => keyStates$.next({ ...keyStates$.value, Backward: true }));
+  keyboardService.onKey(KeyCode.D).pressed$.subscribe((): void => keyStates$.next({ ...keyStates$.value, Right: true }));
 
-  keyboardService.onKey(KeyCode.W).released$.subscribe((): void => void (keyStates = { ...keyStates, Forward: false }));
-  keyboardService.onKey(KeyCode.A).released$.subscribe((): void => void (keyStates = { ...keyStates, Left: false }));
-  keyboardService.onKey(KeyCode.S).released$.subscribe((): void => void (keyStates = { ...keyStates, Backward: false }));
-  keyboardService.onKey(KeyCode.D).released$.subscribe((): void => void (keyStates = { ...keyStates, Right: false }));
+  keyboardService.onKey(KeyCode.W).released$.subscribe((): void => keyStates$.next({ ...keyStates$.value, Forward: false }));
+  keyboardService.onKey(KeyCode.A).released$.subscribe((): void => keyStates$.next({ ...keyStates$.value, Left: false }));
+  keyboardService.onKey(KeyCode.S).released$.subscribe((): void => keyStates$.next({ ...keyStates$.value, Backward: false }));
+  keyboardService.onKey(KeyCode.D).released$.subscribe((): void => keyStates$.next({ ...keyStates$.value, Right: false }));
 
   mouseLineIntersectionsWatcher.value$
     .pipe(
@@ -27,13 +27,12 @@ export function startMoveActorWithKeyboard(actorW: TActorWrapperAsync, keyboardS
     )
     .subscribe(({ azimuth }: Readonly<{ azimuth: TRadians; elevation: TRadians }>): void => void (baseAzimuthRad = azimuth));
 
-  // TODO (S.Panfilov) DEBUG: remove. Testing kinematic movement
-  setInterval(() => {
+  keyStates$.subscribe((keyStates: TMoveKeysState): void => {
     actorW.kinematic.setLinearSpeed(getActorMoveSpeed(keyStates, 5, 4, 3));
     actorW.kinematic.setLinearAzimuthRad(baseAzimuthRad + getActorMoveAzimuthRad(keyStates));
     // actorW.kinematic.setAngularSpeed(5);
     // actorW.kinematic.setAngularAzimuthRad(baseAzimuthRad);
-  }, 40);
+  });
 }
 
 function getMouseAzimuthAndElevation(mousePosition: Vector3, playerPosition: Vector3): Readonly<{ azimuth: TRadians; elevation: TRadians }> {
