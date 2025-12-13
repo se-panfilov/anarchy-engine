@@ -1,6 +1,6 @@
 import type { Observable } from 'rxjs';
 
-import type { TEntitiesService } from '@/Engine/Abstract';
+import type { TSerializableEntitiesService } from '@/Engine/Abstract';
 import type { TContainerDecorator } from '@/Engine/Global';
 import type { TWithCreateFromConfigService, TWithCreateService, TWithFactoryService, TWithSceneGetterService } from '@/Engine/Mixins';
 
@@ -21,7 +21,7 @@ export type TTextServiceWithCreate = TWithCreateService<TTextAnyWrapper, TTextPa
 export type TTextServiceWithCreateFromConfig = TWithCreateFromConfigService<TTextConfig, TTextAnyWrapper>;
 export type TTextServiceWithFactory = TWithFactoryService<TTextAnyWrapper, TTextParams, TTextServiceDependencies, TTextFactory>;
 
-export type TTextService = TEntitiesService &
+export type TTextService = TSerializableEntitiesService<TTextConfig> &
   TTextServiceWithCreate &
   TTextServiceWithCreateFromConfig &
   TTextServiceWithFactory &

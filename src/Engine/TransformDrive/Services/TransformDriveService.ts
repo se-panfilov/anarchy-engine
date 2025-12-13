@@ -6,7 +6,7 @@ import { AbstractService } from '@/Engine/Abstract';
 import type { TKinematicLoop } from '@/Engine/Kinematic';
 import { toQuaternion } from '@/Engine/Math';
 import type { TDisposable } from '@/Engine/Mixins';
-import { withFactoryService, withRegistryService } from '@/Engine/Mixins';
+import { withFactoryService, withRegistryService, withSerializeAllEntities } from '@/Engine/Mixins';
 import type { TPhysicalLoop } from '@/Engine/Physics';
 import { TransformAgent } from '@/Engine/TransformDrive/Constants';
 import { ConnectedTransformAgent, DefaultTransformAgent } from '@/Engine/TransformDrive/Entities';
@@ -21,6 +21,7 @@ import type {
   TTransformDriveFactory,
   TTransformDriveParams,
   TTransformDriveRegistry,
+  TTransformDriveSerializedData,
   TTransformDriveService,
   TTransformDriveServiceDependencies,
   TTransformDriveServiceWithFactory,
@@ -90,5 +91,9 @@ export function TransformDriveService(
   }
 
   // eslint-disable-next-line functional/immutable-data
-  return Object.assign(abstractService, withFactory, withRegistry, { create, createFromList, getTransformAgents });
+  return Object.assign(abstractService, withFactory, withRegistry, withSerializeAllEntities<TTransformDriveSerializedData, undefined>(registry), {
+    create,
+    createFromList,
+    getTransformAgents
+  });
 }

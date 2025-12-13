@@ -1,8 +1,9 @@
-import type { TEntitiesService } from '@/Engine/Abstract';
+import type { TSerializableEntitiesService } from '@/Engine/Abstract';
 import type { TWithFactoryService, TWithRegistryService } from '@/Engine/Mixins';
 import type { TransformAgent } from '@/Engine/TransformDrive/Constants';
 import type { TOptional } from '@/Engine/Utils';
 
+import type { TTransformDriveSerializedData } from '.';
 import type { TAbstractTransformAgent } from './TAbstractTransformAgent';
 import type { TGetTransformAgentsOptions, TGetTransformAgentsParams } from './TGetTransformAgentsParams';
 import type { TTransformAgents } from './TTransformAgents';
@@ -27,7 +28,7 @@ export type TTransformDriveServiceWithCreate = TWithCreateTransformDriveService<
 export type TTransformDriveServiceWithFactory = TWithFactoryService<TTransformDrive<TTransformDriveCompatibleEntity>, TTransformDriveFactoryParams, undefined, TTransformDriveFactory>;
 export type TTransformDriveServiceWithRegistry = TWithRegistryService<TTransformDriveRegistry>;
 
-export type TTransformDriveService = TEntitiesService &
+export type TTransformDriveService = TSerializableEntitiesService<TTransformDriveSerializedData> &
   TTransformDriveServiceWithCreate &
   TTransformDriveServiceWithFactory &
   TTransformDriveServiceWithRegistry &

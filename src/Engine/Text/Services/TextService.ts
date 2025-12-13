@@ -18,6 +18,7 @@ import type {
   TText3dRendererRegistry,
   TText3dTextureRegistry,
   TTextAnyWrapper,
+  TTextConfig,
   TTextFactory,
   TTextService,
   TTextServiceDependencies,
@@ -88,6 +89,13 @@ export function TextService(
     activeText2dRenderer: activeText2dRenderer.asObservable(),
     activeText3dRenderer: activeText3dRenderer.asObservable(),
     getActiveText2dRenderer: (): TText2dRenderer | undefined => activeText2dRenderer.value,
-    getActiveText3dRenderer: (): TText3dRenderer | undefined => activeText3dRenderer.value
+    getActiveText3dRenderer: (): TText3dRenderer | undefined => activeText3dRenderer.value,
+    serializeAllEntities: (): ReadonlyArray<TTextConfig> => {
+      return [
+        ...(text2dRegistry.serialize() as ReadonlyArray<TTextConfig>),
+        ...(text3dRegistry.serialize() as ReadonlyArray<TTextConfig>),
+        ...(text3dTextureRegistry.serialize() as ReadonlyArray<TTextConfig>)
+      ];
+    }
   });
 }

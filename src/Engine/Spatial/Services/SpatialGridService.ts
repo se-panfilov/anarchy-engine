@@ -3,11 +3,12 @@ import type { Subscription } from 'rxjs';
 import type { TAbstractService } from '@/Engine/Abstract';
 import { AbstractService } from '@/Engine/Abstract';
 import type { TDisposable } from '@/Engine/Mixins';
-import { withCreateServiceMixin } from '@/Engine/Mixins';
+import { withCreateServiceMixin, withSerializeAllEntities } from '@/Engine/Mixins';
 import { withCreateFromConfigServiceMixin } from '@/Engine/Mixins/Services/WithCreateFromConfigService';
 import { withFactoryService } from '@/Engine/Mixins/Services/WithFactoryService';
 import { withRegistryService } from '@/Engine/Mixins/Services/WithRegistryService';
 import type {
+  TSpatialGridConfig,
   TSpatialGridFactory,
   TSpatialGridRegistry,
   TSpatialGridService,
@@ -29,5 +30,5 @@ export function SpatialGridService(factory: TSpatialGridFactory, registry: TSpat
   const withRegistry: TSpatialGridServiceWithRegistry = withRegistryService(registry);
 
   // eslint-disable-next-line functional/immutable-data
-  return Object.assign(abstractService, withCreateService, withCreateFromConfigService, withFactory, withRegistry);
+  return Object.assign(abstractService, withCreateService, withCreateFromConfigService, withFactory, withRegistry, withSerializeAllEntities<TSpatialGridConfig, undefined>(registry));
 }
