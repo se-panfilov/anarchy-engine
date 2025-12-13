@@ -1,0 +1,78 @@
+{
+  "name": "showcase",
+  "version": "1.0.0",
+  "scenes": [
+    {
+      "name": "showcase",
+      "tags": [],
+      "isActive": true
+    }
+  ],
+  "actors": [
+    {
+      "name": "surface",
+      "width": 4,
+      "height": 100,
+      "widthSegments": 1,
+      "heightSegments": 1,
+      "material": { "type": "toon", "params": { "color": "#5EDCAE" } },
+      "type": "plane",
+      "position": { "x": 0, "y": 2, "z": 0 },
+      "rotation": { "x": -1.57, "y": 0, "z": 0 },
+      "castShadow": false,
+      "tags": []
+    },
+    {
+      "type": "sphere",
+      "width": 1,
+      "height": 1,
+      "widthSegments": 6,
+      "heightSegments": 6,
+      "material": { "type": "toon", "params": { "color": "#E91E63", "wireframe": true } },
+      "position": { "x": -2, "y": 2, "z": 50 },
+      "castShadow": true,
+      "tags": ["car"]
+    }
+  ],
+  "intersections": [],
+  "texts": [],
+  "cameras": [
+    {
+      "fov": 45,
+      "name": "main",
+      "near": 1,
+      "far": 10000,
+      "position": { "x": 3, "y": 20, "z": 35 },
+      "rotation": { "x": 0, "y": 0, "z": 0 },
+      "tags": [],
+      "isActive": true
+    }
+  ],
+  "lights": [
+    {
+      "type": "Directional",
+      "color": "#ffffff",
+      "intensity": 1,
+      "castShadow": true,
+      "shadow": {
+        "mapSize": { "x": 1024, "y": 1024 },
+        "camera": { "far": 15 },
+        "normalBias": 0.05
+      },
+      "position": { "x": 0.25, "y": 2, "z": 2.25 },
+      "tags": []
+    }
+  ],
+  "controls": [
+    {
+      "type": "OrbitControls",
+      "cameraName": "main",
+      "enableDamping": true,
+      "tags": [],
+      "isActive": true
+    }
+  ],
+  "envMaps": [],
+  "fogs": [],
+  "tags": []
+}
