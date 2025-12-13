@@ -1,4 +1,4 @@
-import { GridHelper, Plane, Raycaster, Vector2, Vector3 } from 'three';
+import { Box3, Color, GridHelper, Plane, Raycaster, Vector2, Vector3 } from 'three';
 import { Line2 } from 'three/examples/jsm/lines/Line2';
 import { LineGeometry } from 'three/examples/jsm/lines/LineGeometry';
 import { LineMaterial } from 'three/examples/jsm/lines/LineMaterial';
@@ -56,16 +56,13 @@ export function showcase(canvas: TAppCanvas): TShowcase {
     const heroW: TActorWrapperWithPhysicsAsync | TActorWrapperAsync | undefined = await actorService.getRegistry().findByNameAsync('hero');
     if (isNotDefined(heroW)) throw new Error(`Cannot find "hero" actor`);
 
+    const surface: TActorWrapperWithPhysicsAsync | TActorWrapperAsync | undefined = await actorService.getRegistry().findByNameAsync('surface');
+    if (isNotDefined(surface)) throw new Error(`Cannot find "surface" actor`);
+
     startMoveActorWithKeyboard(heroW, keyboardService.onKey);
 
-    const sceneWrapper: TSceneWrapper = actorService.getScene();
-
-    //helper grid
-    const size: number = 200;
-    const divisions: number = 200;
-    const gridHelper: GridHelper = new GridHelper(size, divisions);
-    sceneWrapper.entity.add(gridHelper);
-    /////////////////////
+    const gridSize: Vector3 = new Box3().setFromObject(surface?.entity).getSize(new Vector3());
+    initGridHelper(actorService, gridSize.x, gridSize.z);
 
     await buildTower(actorService, 10, 10, 20);
 
@@ -84,7 +81,7 @@ export function showcase(canvas: TAppCanvas): TShowcase {
     });
 
     const line: Line2 = createLine();
-    sceneWrapper.entity.add(line);
+    actorService.getScene().entity.add(line);
 
     loopService.tick$.subscribe(() => {
       // cameraFollowingActor(cameraW, heroW);
@@ -225,4 +222,9 @@ function startMoveActorWithKeyboard(actor: TActorWrapperAsync, onKey: (key: TGam
   onKey(KeyCode.A).pressing$.subscribe(({ delta }): void => void actor.addX(mpsSpeed(-10, delta.delta)));
   onKey(KeyCode.S).pressing$.subscribe(({ delta }): void => void actor.addZ(mpsSpeed(10, delta.delta)));
   onKey(KeyCode.D).pressing$.subscribe(({ delta }): void => void actor.addX(mpsSpeed(10, delta.delta)));
+}
+
+function initGridHelper(actorService: TActorService, size: number, divisions: number): void {
+  const gridHelper: GridHelper = new GridHelper(size, divisions, '#03A062', '#03A062');
+  actorService.getScene().entity.add(gridHelper);
 }
