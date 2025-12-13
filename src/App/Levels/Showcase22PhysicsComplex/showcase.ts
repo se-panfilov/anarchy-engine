@@ -15,7 +15,7 @@ export function showcase(canvas: TAppCanvas): TShowcase {
   async function init(): Promise<void> {
     physicsWorldService.getDebugRenderer(loopService).start();
 
-    controlsService.findActive()?.entity.target.set(0, 0, 0);
+    controlsService.findActive()?.entity.target.set(0, 10, 0);
 
     const world: World | undefined = physicsWorldService.getWorld();
     if (isNotDefined(world)) throw new Error('World is not defined');
@@ -45,6 +45,8 @@ export function showcase(canvas: TAppCanvas): TShowcase {
 
 async function buildTower(actorService: TActorService, rows: number, cols: number, levels: number): Promise<ReadonlyArray<TActorWrapperWithPhysicsAsync>> {
   const blocks: ReadonlyArray<Required<Pick<TActorParams, 'height' | 'width' | 'depth' | 'position'>>> = getBlocks(rows, cols, levels);
+
+  console.log('number of blocks:', blocks.length);
 
   const result = blocks.map((block: Required<Pick<TActorParams, 'height' | 'width' | 'depth' | 'position'>>): Promise<TActorWrapperWithPhysicsAsync> => {
     return actorService.createAsync({
@@ -97,7 +99,7 @@ function getBlocks(rows: number, cols: number, levels: number): ReadonlyArray<Re
             depth,
             position: Vector3Wrapper({
               x: i * (width + gap),
-              y: k * (height + gap),
+              y: k * (height + gap / 4),
               z: j * (depth + gap)
             })
           }
