@@ -2,7 +2,7 @@
   "extends": "../../tsconfig.json",
   "compilerOptions": {
     "paths": {
-      "@Public/*": ["packages/showcases-menu/public/*"],
+      "@Public/*": ["packages/showcases_menu/public/*"],
       "@Engine/*": ["packages/engine/src/*"],
       "@Engine": ["packages/engine/src/index.ts"],
       "@Shared/*": ["packages/shared/src/*"],
@@ -11,8 +11,8 @@
       "@AnarchyI18n": ["packages/anarchy_i18n/src/index.ts"],
       "@ShowcasesShared/*": ["packages/showcases-shared/src/*"],
       "@ShowcasesShared": ["packages/showcases-shared/src/index.ts"],
-      "@Menu/*": ["packages/showcases-menu/src/*"],
-      "@Menu": ["packages/showcases-menu/src/index.ts"]
+      "@Menu/*": ["packages/showcases_menu/src/*"],
+      "@Menu": ["packages/showcases_menu/src/index.ts"]
     },
     "typeRoots": ["./node_modules/@types", "./node_modules", "../../node_modules/@types", "../../node_modules", "./src/Engine/Types", "./types"]
   },

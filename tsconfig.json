@@ -21,8 +21,8 @@
       "@AnarchyI18n": ["packages/anarchy_i18n/src/index.ts"],
       "@E2E/*": ["apps/e2e/src/*"],
       "@E2E": ["apps/e2e/src/index.ts"],
-      "@Menu/*": ["packages/showcases-menu/src/*"],
-      "@Menu": ["packages/showcases-menu/src/index.ts"]
+      "@Menu/*": ["packages/showcases_menu/src/*"],
+      "@Menu": ["packages/showcases_menu/src/index.ts"]
     },
     "resolveJsonModule": true,
     "skipLibCheck": true,
