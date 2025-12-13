@@ -27,6 +27,9 @@ const mapping: TShowcasesDesktopApi = {
 //platformApiName will be available in the main app as `window[platformApiName]`
 contextBridge.exposeInMainWorld(platformApiName, mapping);
 
+// TODO DESKTOP: fix env variable (TS)
+// TODO DESKTOP: upload source maps for desktop releases
+
 if (import.meta.env.VITE_SENTRY_DSN) {
   console.log('XXX tracking started');
   DesktopPreloadTrackingService(
