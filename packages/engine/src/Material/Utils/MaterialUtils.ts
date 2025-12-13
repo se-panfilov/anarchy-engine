@@ -10,6 +10,7 @@ import type {
   MeshDepthMaterial,
   MeshLambertMaterial,
   MeshMatcapMaterial,
+  MeshPhongMaterial,
   MeshPhysicalMaterial,
   MeshStandardMaterial,
   PointsMaterial,
@@ -49,11 +50,11 @@ export function isMeshMatcapMaterial<T extends Material | ReadonlyArray<Material
   return !Array.isArray(material) && (material as Material).type === MaterialType.Matcap;
 }
 
-export function isSpriteNodeMaterial<T extends Material | ReadonlyArray<Material>>(material: MeshBasicMaterial | T): material is MeshBasicMaterial {
+export function isSpriteNodeMaterial<T extends Material | ReadonlyArray<Material>>(material: SpriteMaterial | T): material is SpriteMaterial {
   return !Array.isArray(material) && (material as Material).type === MaterialType.Sprite;
 }
 
-export function isMeshPhongMaterial<T extends Material | ReadonlyArray<Material>>(material: SpriteMaterial | T): material is SpriteMaterial {
+export function isMeshPhongMaterial<T extends Material | ReadonlyArray<Material>>(material: MeshPhongMaterial | T): material is MeshPhongMaterial {
   return !Array.isArray(material) && (material as Material).type === MaterialType.Phong;
 }
 
