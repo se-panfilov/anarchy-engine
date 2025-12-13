@@ -10,7 +10,6 @@ import { eventsService } from '@Showcases/Menu/services';
 import { useLegalDocsStore } from '@Showcases/Menu/stores/LegalDocsStore';
 import { useSettingsStore } from '@Showcases/Menu/stores/SettingsStore';
 import { AllowedLegalDocNames } from '@Showcases/Shared';
-import type { ShallowRef } from 'vue';
 import { onMounted } from 'vue';
 
 const { DISCLAIMER, EULA, NOTICE, SUPPORT, PRIVACY, SECURITY, THIRD_PARTY_LICENSES } = AllowedLegalDocNames;
@@ -31,12 +30,10 @@ onMounted(() => {
 });
 
 const { $t } = vueTranslationService.useTranslations();
-
-const viewTitleText: ShallowRef<string> = $t('main-menu.settings.legal.view.title');
 </script>
 
 <template>
-  <View class="legal" :title="viewTitleText">
+  <View class="legal" :title="$t('main-menu.settings.legal.view.title')">
     <ViewForm name="legal" class="legal__view-form">
       <MdRenderer class="legal__renderer -DISCLAIMER" :content="legalDocsStore.translatedDisclaimer" />
       <MdRenderer class="legal__renderer -EULA" :content="legalDocsStore.translatedEula" />

@@ -10,7 +10,7 @@ import ViewActions from '@Showcases/Menu/components/ViewActions.vue';
 import ViewForm from '@Showcases/Menu/components/ViewForm.vue';
 import { useSettingsStore } from '@Showcases/Menu/stores/SettingsStore';
 import type { TDropdownOption } from '@Showcases/Shared';
-import type { ComputedRef, ShallowRef } from 'vue';
+import type { ComputedRef } from 'vue';
 import { computed, reactive } from 'vue';
 
 const emit = defineEmits(['reset', 'save']);
@@ -39,17 +39,13 @@ const options: ComputedRef<ReadonlyArray<TDropdownOption<TShowcaseLocaleIds>>> =
     return { value: locale.id as TShowcaseLocaleIds, label };
   });
 });
-
-const viewTitleText: ShallowRef<string> = $t('main-menu.settings.localization.view.title');
-const mainSettingsGroupTitleText: ShallowRef<string> = $t('main-menu.settings.localization.group.main-localization-settings.title');
-const languageLabelText: ShallowRef<string> = $t('main-menu.settings.localization.language.label');
 </script>
 
 <template>
-  <View class="localization" :title="viewTitleText">
+  <View class="localization" :title="$t('main-menu.settings.localization.view.title')">
     <ViewForm name="localization" class="localization__view-form" @submit="save(state)">
-      <SettingsGroup :title="mainSettingsGroupTitleText">
-        <Dropdown v-model="state.locale" :options="options" class="localization__setting -languages" :label="languageLabelText" />
+      <SettingsGroup :title="$t('main-menu.settings.localization.group.main-localization-settings.title')">
+        <Dropdown v-model="state.locale" :options="options" class="localization__setting -languages" :label="$t('main-menu.settings.localization.language.label')" />
       </SettingsGroup>
       <ViewActions @reset="reset()" />
       <Navigation class="settings__navigation" :back-btn="true" />

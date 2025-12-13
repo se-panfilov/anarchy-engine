@@ -1,19 +1,15 @@
 <script setup lang="ts">
 import { vueTranslationService } from '@Showcases/i18n';
-import type { ShallowRef } from 'vue';
 
 defineEmits(['reset']);
 
 const { $t } = vueTranslationService.useTranslations();
-
-const saveBtnText: ShallowRef<string> = $t('view-actions.button.text.save');
-const resetBtnText: ShallowRef<string> = $t('view-actions.button.text.reset');
 </script>
 
 <template>
   <div class="view-actions">
-    <button type="button" class="view-actions__btn -reset" @click="$emit('reset')">{{ resetBtnText }}</button>
-    <button type="submit" class="view-actions__btn -save">{{ saveBtnText }}</button>
+    <button type="button" class="view-actions__btn -reset" @click="$emit('reset')">{{ $t('view-actions.button.text.reset') }}</button>
+    <button type="submit" class="view-actions__btn -save">{{ $t('view-actions.button.text.save') }}</button>
   </div>
 </template>
 

@@ -5,34 +5,26 @@ import PageTitle from '@Showcases/Menu/components/PageTitle.vue';
 import { Routes } from '@Showcases/Menu/constants';
 import type { TVueNavOption } from '@Showcases/Menu/models';
 import { useRouterStore } from '@Showcases/Menu/stores/RouterStore';
-import type { ShallowRef } from 'vue';
 
 const { $t } = vueTranslationService.useTranslations();
 const menuRouterStore = useRouterStore();
-
-const viewTitleText: ShallowRef<string> = $t('main-menu.settings.view.title');
-
-const graphicsButtonText: ShallowRef<string> = $t('main-menu.settings.button.graphics.text');
-const audioButtonText: ShallowRef<string> = $t('main-menu.settings.button.audio.text');
-const localizationButtonText: ShallowRef<string> = $t('main-menu.settings.button.localization.text');
-
 const navOptions: ReadonlyArray<TVueNavOption> = [
   {
     id: 0,
     name: 'graphics',
-    label: graphicsButtonText,
+    label: $t('main-menu.settings.button.graphics.text'),
     action: () => menuRouterStore.go(Routes.Graphics)
   },
   {
     id: 1,
     name: 'audio',
-    label: audioButtonText,
+    label: $t('main-menu.settings.button.audio.text'),
     action: () => menuRouterStore.go(Routes.Audio)
   },
   {
     id: 2,
     name: 'controls',
-    label: localizationButtonText,
+    label: $t('main-menu.settings.button.localization.text'),
     action: () => menuRouterStore.go(Routes.Localization)
   }
 ];
@@ -40,7 +32,7 @@ const navOptions: ReadonlyArray<TVueNavOption> = [
 
 <template>
   <div class="settings">
-    <PageTitle class="settings__title" :title="viewTitleText" />
+    <PageTitle class="settings__title" :title="$t('main-menu.settings.view.title')" />
     <Navigation class="settings__navigation" :options="navOptions" :back-btn="true" />
   </div>
 </template>

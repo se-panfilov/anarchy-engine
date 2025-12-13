@@ -8,56 +8,46 @@ import type { TVueNavOption } from '@Showcases/Menu/models';
 import { eventsService } from '@Showcases/Menu/services';
 import { useMenuOptionsStore } from '@Showcases/Menu/stores/MenuOptionsStore';
 import { useRouterStore } from '@Showcases/Menu/stores/RouterStore';
-import type { ShallowRef } from 'vue';
 
 const { $t } = vueTranslationService.useTranslations();
 const menuRouterStore = useRouterStore();
-
-const viewTitleText: ShallowRef<string> = $t('main-menu.home.game-title');
-const continueGameButtonText: ShallowRef<string> = $t('main-menu.home.button.continue-game.text');
-const newGameButtonText: ShallowRef<string> = $t('main-menu.home.button.new-game.text');
-const loadGameButtonText: ShallowRef<string> = $t('main-menu.home.button.load-game.text');
-const settingsButtonText: ShallowRef<string> = $t('main-menu.home.button.settings.text');
-const closeMenuButtonText: ShallowRef<string> = $t('main-menu.home.button.close-menu.text');
-const exitAppButtonText: ShallowRef<string> = $t('main-menu.home.button.exit-app.text');
-const legalButtonText: ShallowRef<string> = $t('main-menu.home.button.legal.text');
 
 const navOptions: ReadonlyArray<TVueNavOption> = [
   {
     id: 0,
     name: 'continue-game',
-    label: continueGameButtonText,
+    label: $t('main-menu.home.button.continue-game.text'),
     action: () => eventsService.emitContinueGame()
   },
   {
     id: 1,
     name: 'new-game',
-    label: newGameButtonText,
+    label: $t('main-menu.home.button.new-game.text'),
     disabled: true,
     action: () => eventsService.emitStartNewGame()
   },
   {
     id: 2,
     name: 'load-game',
-    label: loadGameButtonText,
+    label: $t('main-menu.home.button.load-game.text'),
     action: () => eventsService.emitLoadGame()
   },
   {
     id: 3,
     name: 'settings',
-    label: settingsButtonText,
+    label: $t('main-menu.home.button.settings.text'),
     action: () => menuRouterStore.go(Routes.Settings)
   },
   {
     id: 4,
     name: 'close-menu',
-    label: closeMenuButtonText,
+    label: $t('main-menu.home.button.close-menu.text'),
     action: () => eventsService.emitCloseMenu()
   },
   {
     id: 5,
     name: 'exit-app',
-    label: exitAppButtonText,
+    label: $t('main-menu.home.button.exit-app.text'),
     condition: useMenuOptionsStore().showExitBtn,
     action: () => eventsService.emitExitApp()
   }
@@ -67,7 +57,7 @@ const linksOptions: ReadonlyArray<TVueNavOption> = [
   {
     id: 0,
     name: 'legal-view',
-    label: legalButtonText,
+    label: $t('main-menu.home.button.legal.text'),
     action: () => menuRouterStore.go(Routes.Legal)
   }
 ];
@@ -75,7 +65,7 @@ const linksOptions: ReadonlyArray<TVueNavOption> = [
 
 <template>
   <div class="home">
-    <PageTitle class="home__title" :title="viewTitleText" />
+    <PageTitle class="home__title" :title="$t('main-menu.home.game-title')" />
     <Navigation class="home__navigation" :options="navOptions" />
     <div class="home__footer">
       <Navigation class="home__links" :options="linksOptions" :direction="NavDirection.Horizontal" :style="NavStyle.Links" />

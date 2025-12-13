@@ -9,7 +9,6 @@ import ViewActions from '@Showcases/Menu/components/ViewActions.vue';
 import ViewForm from '@Showcases/Menu/components/ViewForm.vue';
 import { useSettingsStore } from '@Showcases/Menu/stores/SettingsStore';
 import type { TGraphicsSettings } from '@Showcases/Shared';
-import type { ShallowRef } from 'vue';
 import { reactive } from 'vue';
 
 const emit = defineEmits(['reset', 'save']);
@@ -33,17 +32,13 @@ function save(payload: TGraphicsSettings): void {
   settingsStore.setGraphics(payload);
   emit('save');
 }
-
-const viewTitleText: ShallowRef<string> = $t('main-menu.settings.graphics.view.title');
-const mainSettingsGroupTitleText: ShallowRef<string> = $t('main-menu.settings.graphics.group.main-graphics-settings.title');
-const fullscreenLabelText: ShallowRef<string> = $t('main-menu.settings.graphics.is-fullscreen.label');
 </script>
 
 <template>
-  <View class="graphics" :title="viewTitleText">
+  <View class="graphics" :title="$t('main-menu.settings.graphics.view.title')">
     <ViewForm name="graphics" class="graphics__view-form" @submit="save(state)">
       <SettingsGroup :title="mainSettingsGroupTitleText">
-        <Checkbox v-model="state.isFullScreen" class="graphics__setting -fullscreen" :label="fullscreenLabelText" />
+        <Checkbox v-model="state.isFullScreen" class="graphics__setting -fullscreen" :label="$t('main-menu.settings.graphics.is-fullscreen.label')" />
         <!--        <Dropdown v-model="state.resolution" :options="options" class="graphics__setting -resolution" :label="resolutionLabelText" />-->
       </SettingsGroup>
       <ViewActions @reset="reset()" />

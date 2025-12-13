@@ -4,7 +4,7 @@ import { vueTranslationService } from '@Showcases/i18n';
 import { NavDirection, NavStyle } from '@Showcases/Menu/components/Navigation/constants';
 import type { TVueNavOption } from '@Showcases/Menu/models';
 import { useRouterStore } from '@Showcases/Menu/stores/RouterStore';
-import type { ComputedRef, ShallowRef } from 'vue';
+import type { ComputedRef } from 'vue';
 import { computed } from 'vue';
 
 const { $t } = vueTranslationService.useTranslations();
@@ -31,8 +31,6 @@ const filteredOptions: ComputedRef<ReadonlyArray<TVueNavOption>> = computed(
       return option.condition;
     }) ?? []
 );
-
-const backButtonText: ShallowRef<string> = $t('main-menu.navigation.back-button.text');
 </script>
 
 <template>
@@ -44,7 +42,7 @@ const backButtonText: ShallowRef<string> = $t('main-menu.navigation.back-button.
         </button>
       </li>
       <li v-if="backBtn" class="navigation__list-item -back">
-        <button type="button" class="navigation__button" @click="useRouterStore().goBack()">{{ backButtonText }}</button>
+        <button type="button" class="navigation__button" @click="useRouterStore().goBack()">{{ $t('main-menu.navigation.back-button.text') }}</button>
       </li>
     </ul>
   </div>

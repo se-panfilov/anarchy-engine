@@ -9,7 +9,6 @@ import ViewActions from '@Showcases/Menu/components/ViewActions.vue';
 import ViewForm from '@Showcases/Menu/components/ViewForm.vue';
 import { useSettingsStore } from '@Showcases/Menu/stores/SettingsStore';
 import type { TAudioSettings } from '@Showcases/Shared';
-import type { ShallowRef } from 'vue';
 import { reactive } from 'vue';
 
 const emit = defineEmits(['reset', 'save']);
@@ -28,17 +27,13 @@ function save(payload: TAudioSettings): void {
   settingsStore.setAudio(payload);
   emit('save');
 }
-
-const viewTitleText: ShallowRef<string> = $t('main-menu.settings.audio.view.title');
-const mainSettingsGroupTitleText: ShallowRef<string> = $t('main-menu.settings.audio.group.main-audio-settings.title');
-const labelText: ShallowRef<string> = $t('main-menu.settings.audio.master-volume.label');
 </script>
 
 <template>
-  <View class="audio" :title="viewTitleText">
+  <View class="audio" :title="$t('main-menu.settings.audio.view.title')">
     <ViewForm name="audio" class="audio__view-form" @submit="save(state)">
-      <SettingsGroup :title="mainSettingsGroupTitleText">
-        <Range v-model="state.masterVolume" :min="0" :max="100" class="audio__setting -masterVolume" :label="labelText" />
+      <SettingsGroup :title="$t('main-menu.settings.audio.group.main-audio-settings.title')">
+        <Range v-model="state.masterVolume" :min="0" :max="100" class="audio__setting -masterVolume" :label="$t('main-menu.settings.audio.master-volume.label')" />
       </SettingsGroup>
       <ViewActions @reset="reset()" />
       <Navigation class="settings__navigation" :back-btn="true" />
