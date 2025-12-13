@@ -236,6 +236,7 @@
       {
         "name": "surface",
         "model3dSource": "surface_model",
+        "agent": "physical",
         "physics": {
           "presetName": "box_physics",
           "shapeParams": {
@@ -251,12 +252,14 @@
       {
         "name": "hero",
         "model3dSource": "hero_model",
+        "agent": "kinematic",
         "kinematic": { "isAutoUpdate": true },
         "position": { "x": 18, "y": 1, "z": 12 },
         "spatial": { "grid": "main_grid", "isAutoUpdate": true }
       },
       {
         "name": "sphere",
+        "agent": "kinematic",
         "model3dSource": "sphere_1_model",
         "kinematic": { "isAutoUpdate": true },
         "position": { "x": 6, "y": 2, "z": 12 },
@@ -265,6 +268,7 @@
       {
         "name": "box_static_1",
         "model3dSource": "box_1_model",
+        "agent": "kinematic",
         "kinematic": { "isAutoUpdate": true },
         "position": { "x": 24, "y": 2, "z": 14 },
         "spatial": { "grid": "main_grid", "isAutoUpdate": false }
@@ -272,6 +276,7 @@
       {
         "name": "box_static_2",
         "model3dSource": "box_2_model",
+        "agent": "kinematic",
         "kinematic": { "isAutoUpdate": true },
         "position": { "x": 26, "y": 1, "z": 17 },
         "spatial": { "grid": "main_grid", "isAutoUpdate": false }
@@ -279,6 +284,7 @@
       {
         "name": "box_static_3",
         "model3dSource": "box_3_model",
+        "agent": "kinematic",
         "kinematic": { "isAutoUpdate": true },
         "position": { "x": 23, "y": 2, "z": 22 },
         "spatial": { "grid": "main_grid", "isAutoUpdate": false }
@@ -286,6 +292,7 @@
       {
         "name": "box_static_4",
         "model3dSource": "box_4_model",
+        "agent": "kinematic",
         "kinematic": { "isAutoUpdate": true },
         "position": { "x": 32, "y": 1, "z": 20 },
         "spatial": { "grid": "main_grid", "isAutoUpdate": false }
@@ -293,6 +300,7 @@
       {
         "name": "box_static_5",
         "model3dSource": "box_5_model",
+        "agent": "kinematic",
         "kinematic": { "isAutoUpdate": true },
         "position": { "x": 40, "y": 1, "z": 20 },
         "spatial": { "grid": "main_grid", "isAutoUpdate": false }
@@ -300,6 +308,7 @@
       {
         "name": "box_static_6",
         "model3dSource": "box_6_model",
+        "agent": "kinematic",
         "kinematic": { "isAutoUpdate": true },
         "position": { "x": 14, "y": 1, "z": 28 },
         "spatial": { "grid": "main_grid", "isAutoUpdate": false }
@@ -307,6 +316,7 @@
       {
         "name": "box_static_7",
         "model3dSource": "box_7_model",
+        "agent": "kinematic",
         "kinematic": { "isAutoUpdate": true },
         "position": { "x": 1, "y": 1, "z": 30 },
         "rotation": { "x": 0, "y": 0.9, "z": 0 },
@@ -315,6 +325,7 @@
       {
         "name": "target_1",
         "model3dSource": "target_1_model",
+        "agent": "kinematic",
         "kinematic": { "isAutoUpdate": true },
         "position": { "x": -6, "y": 0, "z": 8.5 },
         "rotation": { "x": 0, "y": 0, "z": 0 },
@@ -323,6 +334,7 @@
       {
         "name": "target_2",
         "model3dSource": "target_2_model",
+        "agent": "kinematic",
         "kinematic": { "isAutoUpdate": true },
         "position": { "x": -15, "y": 0, "z": 8.5 },
         "rotation": { "x": 0, "y": 0, "z": 0 },
@@ -331,6 +343,7 @@
       {
         "name": "target_3",
         "model3dSource": "target_3_model",
+        "agent": "kinematic",
         "kinematic": { "isAutoUpdate": true },
         "position": { "x": -22, "y": 0, "z": 8.5 },
         "rotation": { "x": 0, "y": 0, "z": 0 },
@@ -339,6 +352,7 @@
       {
         "name": "map_center",
         "model3dSource": "map_center_model",
+        "agent": "kinematic",
         "kinematic": { "isAutoUpdate": true },
         "position": { "x": 0, "y": 2, "z": 0 },
         "spatial": { "grid": "main_grid", "isAutoUpdate": false }

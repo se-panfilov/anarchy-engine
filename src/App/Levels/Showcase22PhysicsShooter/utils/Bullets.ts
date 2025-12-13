@@ -21,7 +21,7 @@ import type {
   TSpatialGridService,
   TSpatialGridWrapper
 } from '@/Engine';
-import { isDefined, isNotDefined, MaterialType, mpsSpeed, PrimitiveModel3dType, SpatialUpdatePriority } from '@/Engine';
+import { isDefined, isNotDefined, MaterialType, mpsSpeed, PrimitiveModel3dType, SpatialUpdatePriority, TransformAgent } from '@/Engine';
 import { meters } from '@/Engine/Measurements/Utils';
 
 export const BULLET_TAG = 'bullet';
@@ -79,6 +79,7 @@ export function getBulletsPool(
           model3dSource: model3d,
           position: new Vector3(),
           rotation: new Euler(0, 1.57, 0),
+          agent: TransformAgent.Kinematic,
           spatial: { grid, isAutoUpdate: true, updatePriority: SpatialUpdatePriority.ASAP },
           collisions: { isAutoUpdate: true },
           kinematic: {
@@ -222,7 +223,8 @@ export function createHitEffect(position: Vector3, sceneW: TSceneWrapper, lightS
 }
 
 export function applyExplosionImpulse(actor: TActor, collisionPoint: Vector3, explosionForce: number): void {
-  const body: RigidBody | undefined = actor.physicsBody?.getRigidBody();
+  // TODO CWP: 8.0.0. MODELS: Perhaps, "applyImpulse" (and similar functions) should be available via physical drive
+  const body: RigidBody | undefined = actor.drive.physical.physicsBody$.value?.getRigidBody();
   if (isNotDefined(body)) return;
 
   const bodyPosition = new Vector3(body.translation().x, body.translation().y, body.translation().z);

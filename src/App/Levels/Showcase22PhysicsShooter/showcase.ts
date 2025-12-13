@@ -86,7 +86,13 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
       name: 'mouse_line_intersections_watcher',
       isAutoStart: true,
       camera: cameraW,
-      actors: [...blocks, ...blocks2, ...blocks3, surface, sphereActor],
+      actors: [
+        // ...blocks,
+        // ...blocks2,
+        // ...blocks3,
+        surface,
+        sphereActor
+      ],
       position$: mouseService.position$,
       tags: []
     });

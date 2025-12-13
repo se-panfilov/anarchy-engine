@@ -21,9 +21,7 @@ export function startMoveActorWithKeyboard(actor: TActor, keyboardService: TKeyb
   keyboardService.onKey(KeyCode.S).released$.subscribe((): void => keyStates$.next({ ...keyStates$.value, Backward: false }));
   keyboardService.onKey(KeyCode.D).released$.subscribe((): void => keyStates$.next({ ...keyStates$.value, Right: false }));
 
-  mouseLineIntersectionsWatcher.value$
-    .pipe(map((intersection: TIntersectionEvent) => getMouseAzimuthAndElevation(intersection.point, actor.drive.getPosition())))
-    .subscribe((value: TIntersectionDirection): void => intersectionDirection$.next(value));
+  mouseLineIntersectionsWatcher.value$.pipe(map((intersection: TIntersectionEvent) => getMouseAzimuthAndElevation(intersection.point, actor.drive.getPosition()))).subscribe(intersectionDirection$);
 
   combineLatest([keyStates$, intersectionDirection$]).subscribe(([keyStates, { azimuth }]: [TMoveKeysState, TIntersectionDirection]): void => {
     actor.drive.kinematic.setLinearSpeed(getActorMoveSpeed(keyStates, 5, 4, 3));
