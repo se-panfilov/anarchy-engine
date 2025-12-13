@@ -1,5 +1,5 @@
 import type { IShowcase } from '@/App/Levels/Models';
-import { buildSpaceFromConfig, Engine, IActorAsyncRegistry, IActorWrapperAsync, IAppCanvas, ICameraRegistry, IEngine, isNotDefined, ISpace, ISpaceConfig, mouseService } from '@/Engine';
+import { buildSpaceFromConfig, Engine, IActorAsyncRegistry, IActorWrapperAsync, IAppCanvas, ICameraRegistry, IEngine, isNotDefined, ISpace, ISpaceConfig, mouseService, mpsSpeed } from '@/Engine';
 
 import spaceConfig from './showcase.json';
 
@@ -47,7 +47,9 @@ export function showcase(canvas: IAppCanvas): IShowcase {
 
       if (isMove) {
         // eslint-disable-next-line functional/immutable-data
-        car.entity.position.z -= 10 * delta;
+        // car.entity.position.z -= 10 * delta;
+        // eslint-disable-next-line functional/immutable-data
+        car.entity.position.z -= mpsSpeed(10, delta);
       }
     });
 
