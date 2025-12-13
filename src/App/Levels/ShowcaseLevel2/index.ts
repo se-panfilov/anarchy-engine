@@ -31,9 +31,8 @@ export function showcaseLevel2(canvas: IAppCanvas): void {
     // const zPosition = Math.cos(xAngle) * 5;
     // camera.registry.initial.getAll()[0].entity.position.set(xPosition, yPosition, zPosition);
     // camera.registry.initial.getAll()[0].entity.lookAt(0, 0, 0);
-
-    level.camera.registry.initial.getAll()[0].setX(x);
-    level.camera.registry.initial.getAll()[0].setY(y);
+    // level.camera.registry.initial.getAll()[0].setX(x);
+    // level.camera.registry.initial.getAll()[0].setY(y);
   });
 
   // END Experiment1: custom controls ---------------
