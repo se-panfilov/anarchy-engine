@@ -49,6 +49,6 @@ Copies of public content may also appear in mirrors, forks, caches, or package r
 
 ## Safe Harbor
 
-We welcome good-faith research that avoids privacy violations and service disruption. If you comply with this policy and act in good faith, we **do not intend** to pursue legal action **solely** for your security research on this Project. This policy does not authorize unlawful activity or override third-party terms, and it does not protect actions that cause harm or data loss.
+We welcome good-faith research that avoids privacy violations and service disruption. If you comply with this policy and act in good faith, we **do not intend** to pursue legal action **solely** for your security research on this {{PRODUCT_TERM}}. This policy does not authorize unlawful activity or override third-party terms, and it does not protect actions that cause harm or data loss.
 
 **Governing Law:** subject to mandatory law, matters under this policy are handled under **{{GOVERNING_LAW_COUNTRY}}/{{GOVERNING_VENUE}}**.
