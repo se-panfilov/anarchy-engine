@@ -1,14 +1,18 @@
-import { Quaternion, Vector3 } from 'three';
+import { BehaviorSubject, map } from 'rxjs';
+import { Euler, Quaternion, Vector3 } from 'three';
 import { degToRad } from 'three/src/math/MathUtils';
 
-import type { TActor, TActorParams } from '@/Engine/Actor';
+import type { TActorParams } from '@/Engine/Actor';
 import type { TKinematicData, TWithKinematic } from '@/Engine/Kinematic/Models';
 import type { TDegrees, TRadians } from '@/Engine/Math';
 import { getAzimuthDegFromDirection, getAzimuthRadFromDirection, getElevationDegFromDirection, getElevationRadFromDirection } from '@/Engine/Math';
+import type { TObject3dMoveData } from '@/Engine/ThreeLib';
 import type { TWriteable } from '@/Engine/Utils';
 
-export function withKinematic(params: TActorParams): TWithKinematic {
+export function withKinematic(params: TActorParams, { position, rotation }: Omit<TObject3dMoveData, 'scale'>): TWithKinematic {
   let _isAutoUpdate: boolean = params.kinematic?.isAutoUpdate ?? false;
+  const position$: BehaviorSubject<Vector3> = new BehaviorSubject<Vector3>(position);
+  const rotation$: BehaviorSubject<Quaternion> = new BehaviorSubject<Quaternion>(new Quaternion().setFromEuler(rotation));
 
   return {
     kinematic: {
@@ -16,7 +20,10 @@ export function withKinematic(params: TActorParams): TWithKinematic {
         linearSpeed: params.kinematic?.linearSpeed ?? 0,
         linearDirection: params.kinematic?.linearDirection ?? new Vector3(),
         angularSpeed: params.kinematic?.angularSpeed ?? 0,
-        angularDirection: params.kinematic?.angularDirection ?? new Vector3()
+        angularDirection: params.kinematic?.angularDirection ?? new Vector3(),
+        position$: position$.asObservable(),
+        rotationQuaternion$: rotation$.asObservable(),
+        rotationEuler$: rotation$.pipe(map((q: Quaternion): Euler => new Euler().setFromQuaternion(q)))
       },
       setData({ linearSpeed, linearDirection, angularSpeed, angularDirection }: TKinematicData): void {
         // eslint-disable-next-line functional/immutable-data
@@ -169,14 +176,20 @@ export function withKinematic(params: TActorParams): TWithKinematic {
       if (this.kinematic.data.linearSpeed <= 0) return;
       const normalizedDirection: Vector3 = this.kinematic.data.linearDirection.clone().normalize();
       const displacement: Vector3 = normalizedDirection.multiplyScalar(this.kinematic.data.linearSpeed * delta);
-      (this as TActor).addPosition(displacement);
+      position$.next(position$.value.clone().add(displacement));
     },
     doKinematicRotation(delta: number): void {
       if (this.kinematic.data.angularSpeed <= 0) return;
       const normalizedAngularDirection: Vector3 = this.kinematic.data.angularDirection.clone().normalize();
       const angle: TRadians = this.kinematic.data.angularSpeed * delta;
       const quaternion: Quaternion = new Quaternion().setFromAxisAngle(normalizedAngularDirection, angle);
-      (this as TActor).model.getRawModel3d().quaternion.multiplyQuaternions(quaternion, (this as TActor).model.getRawModel3d().quaternion);
+
+      const rotation$: BehaviorSubject<Quaternion> = new BehaviorSubject<Quaternion>(new Quaternion().setFromEuler(rotation));
+
+      // rotation$.next(rotation$.value.clone().multiply(quaternion));
+      rotation$.next(rotation$.value.multiplyQuaternions(quaternion, rotation$.value));
+      // TODO 8.0.0. MODELS: move this to actor in subscription of the rotationQuaternion$
+      // (this as TActor).model.getRawModel3d().quaternion.multiplyQuaternions(quaternion, (this as TActor).model.getRawModel3d().quaternion);
     }
   };
 }
