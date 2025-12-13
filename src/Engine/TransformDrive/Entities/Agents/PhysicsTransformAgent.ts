@@ -1,8 +1,8 @@
-import type { Subscription } from 'rxjs';
+import type { Observable, Subscription } from 'rxjs';
 import { BehaviorSubject, distinctUntilChanged, EMPTY, filter, map, switchMap, takeWhile, withLatestFrom } from 'rxjs';
 import { Quaternion, Vector3 } from 'three';
 
-import type { TMeters, TRadians } from '@/Engine/Math';
+import type { TMeters, TMilliseconds, TRadians } from '@/Engine/Math';
 import { meters, radians } from '@/Engine/Measurements';
 import type { TPhysicsBody, TPhysicsBodyConfig } from '@/Engine/Physics';
 import { RigidBodyTypesNames } from '@/Engine/Physics';
@@ -99,7 +99,7 @@ export function PhysicsTransformAgent(params: TPhysicsTransformAgentParams, { ph
   physicsSub$ = agent.enabled$
     .pipe(
       distinctUntilChanged(),
-      switchMap((isEnabled: boolean) => (isEnabled ? physicsLoop.tick$ : EMPTY)),
+      switchMap((isEnabled: boolean): Observable<TMilliseconds | never> => (isEnabled ? physicsLoop.tick$ : EMPTY)),
       filter((): boolean => {
         const body: TPhysicsBody | undefined = physicsBody$.value;
         return isDefined(body) && body.getPhysicsBodyType() !== RigidBodyTypesNames.Fixed;
