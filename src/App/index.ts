@@ -2,8 +2,8 @@ import '@App/style.css';
 
 import sceneConfig from '@App/Scenes/debug-scene.config.json';
 
-import type { IActorWrapper, ICameraWrapper, IIntersectionsWatcher, ILaunchedEngine, ILaunchedScene, IRegistries, IVector3 } from '@/Engine';
-import { ActorTag, ambientContext, CameraTag, IntersectionsWatcherFactory, isNotDefined, launchEngine, SceneLauncher } from '@/Engine';
+import type { IActorWrapper, ICameraWrapper, IIntersectionsWatcher, ILaunchedEngine, ILaunchedScene, IRegistries } from '@/Engine';
+import { ActorTag, ambientContext, CameraTag, IMousePosition, IntersectionsWatcherFactory, isNotDefined, launchEngine, SceneLauncher } from '@/Engine';
 
 const { factories, canvas }: ILaunchedEngine = launchEngine('#app');
 const { registries }: ILaunchedScene = SceneLauncher().launch(sceneConfig, canvas, factories);
@@ -16,7 +16,7 @@ const camera: ICameraWrapper | undefined = cameraRegistry.getUniqByTag(cameraTag
 if (isNotDefined(camera)) throw new Error(`Cannot init intersection service: camera with tag "${cameraTag}" is not defined`);
 const intersectionsWatcher: IIntersectionsWatcher = IntersectionsWatcherFactory().create({ actors: clickableActors, camera, positionWatcher: ambientContext.mousePositionWatcher });
 
-intersectionsWatcher.value$.subscribe((obj: IVector3): void => {
+intersectionsWatcher.value$.subscribe((obj: IMousePosition): void => {
   console.log('intersect obj', obj);
 });
 
