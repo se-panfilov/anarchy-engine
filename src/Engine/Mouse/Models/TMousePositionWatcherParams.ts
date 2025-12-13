@@ -1,9 +1,10 @@
 import type { TGlobalContainerDecorator } from '@/Engine/Global';
 import type { TWithReadonlyTags } from '@/Engine/Mixins';
 
+import type { TMousePositionPerformanceOptions } from './TMousePositionPerformanceOptions';
+
 export type TMousePositionWatcherParams = Readonly<{
   container: TGlobalContainerDecorator;
-  delay?: number;
-  noiseThreshold?: number;
+  performance?: TMousePositionPerformanceOptions;
 }> &
   TWithReadonlyTags;

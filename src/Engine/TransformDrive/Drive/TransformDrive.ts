@@ -57,30 +57,34 @@ export function TransformDrive(params: TTransformDriveParams, agents: TTransform
   const destroyable: TDestroyable = destroyableMixin();
 
   // TODO ENV: limited fps, perhaps should be configurable
-  const delay: number = params.updateDelay ?? 4; // 240 FPS (when 16 is 60 FPS)
-  const threshold: number = params.noiseThreshold ?? 0.001;
+  const positionDelay: number = params.performance?.updatePositionDelay ?? 4; // 240 FPS (when 16 is 60 FPS)
+  const rotationDelay: number = params.performance?.updateRotationDelay ?? 4; // 240 FPS (when 16 is 60 FPS)
+  const scaleDelay: number = params.performance?.updateScaleDelay ?? 4; // 240 FPS (when 16 is 60 FPS)
+  const positionThreshold: number = params.performance?.positionNoiseThreshold ?? 0.001;
+  const rotationThreshold: number = params.performance?.positionNoiseThreshold ?? 0.001;
+  const scaleThreshold: number = params.performance?.positionNoiseThreshold ?? 0.001;
 
   const positionSub$: Subscription = activeAgent$
     .pipe(
       switchMap((agent: TAbstractTransformAgent): BehaviorSubject<TReadonlyVector3> => agent.position$),
-      distinctUntilChanged((prev: Vector3, curr: Vector3): boolean => isEqualOrSimilarVector3Like(prev, curr, threshold)),
-      sampleTime(delay)
+      distinctUntilChanged((prev: Vector3, curr: Vector3): boolean => isEqualOrSimilarVector3Like(prev, curr, positionThreshold)),
+      sampleTime(positionDelay)
     )
     .subscribe(position$);
 
   const rotationSub$: Subscription = activeAgent$
     .pipe(
       switchMap((agent: TAbstractTransformAgent): BehaviorSubject<TReadonlyEuler> => agent.rotation$),
-      distinctUntilChanged((prev: Euler, curr: Euler): boolean => isEqualOrSimilarVector3Like(prev, curr, threshold)),
-      sampleTime(delay)
+      distinctUntilChanged((prev: Euler, curr: Euler): boolean => isEqualOrSimilarVector3Like(prev, curr, rotationThreshold)),
+      sampleTime(rotationDelay)
     )
     .subscribe(rotation$);
 
   const scaleSub$: Subscription = activeAgent$
     .pipe(
       switchMap((agent: TAbstractTransformAgent): BehaviorSubject<TReadonlyVector3> => agent.scale$),
-      distinctUntilChanged((prev: Vector3, curr: Vector3): boolean => isEqualOrSimilarVector3Like(prev, curr, threshold)),
-      sampleTime(delay)
+      distinctUntilChanged((prev: Vector3, curr: Vector3): boolean => isEqualOrSimilarVector3Like(prev, curr, scaleThreshold)),
+      sampleTime(scaleDelay)
     )
     .subscribe(scale$);
 

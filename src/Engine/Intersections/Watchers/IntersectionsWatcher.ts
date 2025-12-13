@@ -15,7 +15,7 @@ import type { TSceneObject } from '@/Engine/Scene';
 import type { TWriteable } from '@/Engine/Utils';
 import { isDefined, isEqualOrSimilarVector2Like, isNotDefined } from '@/Engine/Utils';
 
-export function IntersectionsWatcher({ position$, isAutoStart, tags, name, ...rest }: TIntersectionsWatcherParams): TIntersectionsWatcher {
+export function IntersectionsWatcher({ position$, isAutoStart, tags, name, performance, ...rest }: TIntersectionsWatcherParams): TIntersectionsWatcher {
   const abstractWatcher: TAbstractWatcher<TIntersectionEvent> = AbstractWatcher(WatcherType.IntersectionWatcher, name, tags);
   let raycaster: Readonly<Raycaster> | undefined = new Raycaster();
   let actors: ReadonlyArray<TActor> = [];
@@ -32,8 +32,8 @@ export function IntersectionsWatcher({ position$, isAutoStart, tags, name, ...re
 
   let mousePos$: Subscription | undefined;
   // TODO ENV: limited fps, perhaps should be configurable
-  const delay: number = rest.delay ?? 2; // 480 FPS (when 16 is 60 FPS)
-  const threshold: number = rest.noiseThreshold ?? 0.001;
+  const delay: number = performance?.updateDelay ?? 2; // 480 FPS (when 16 is 60 FPS)
+  const threshold: number = performance?.noiseThreshold ?? 0.001;
 
   function start(): TIntersectionsWatcher {
     mousePos$ = position$

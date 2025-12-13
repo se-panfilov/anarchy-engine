@@ -5,6 +5,7 @@ import type { TCameraWrapper } from '@/Engine/Camera';
 import type { TWithReadonlyTags } from '@/Engine/Mixins';
 import type { TMousePosition } from '@/Engine/Mouse';
 
+import type { TIntersectionsWatcherPerformanceOptions } from './TIntersectionsWatcherPerformanceOptions';
 import type { TIntersectionsWatcherProps } from './TIntersectionsWatcherProps';
 
 export type TIntersectionsWatcherParams = Omit<TIntersectionsWatcherProps, 'cameraName' | 'actorNames'> &
@@ -14,5 +15,6 @@ export type TIntersectionsWatcherParams = Omit<TIntersectionsWatcherProps, 'came
     position$: Observable<TMousePosition>;
     delay?: number;
     noiseThreshold?: number;
+    performance?: TIntersectionsWatcherPerformanceOptions;
   }> &
   TWithReadonlyTags;

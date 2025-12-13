@@ -7,7 +7,7 @@ import type { TMouseEvent, TMousePosition, TMousePositionWatcher, TMousePosition
 import { getNormalizedMousePosition } from '@/Engine/Mouse/Utils';
 import { isEqualOrSimilarVector2Like } from '@/Engine/Utils';
 
-export function MousePositionWatcher({ container, tags, delay, noiseThreshold }: TMousePositionWatcherParams, loopService: TLoopService): TMousePositionWatcher {
+export function MousePositionWatcher({ container, tags, performance }: TMousePositionWatcherParams, loopService: TLoopService): TMousePositionWatcher {
   const containerIdTag: string = `container_id_${container.id}`;
   const abstractWatcher: TAbstractWatcher<TMousePosition> = AbstractWatcher(WatcherType.MousePositionWatcher, 'global_mouse_position_watcher', tags);
   let prevPosition: TMousePosition = { coords: { x: 0, y: 0 }, normalizedCoords: { x: 0, y: 0 } };
@@ -16,8 +16,8 @@ export function MousePositionWatcher({ container, tags, delay, noiseThreshold }:
   const onMouseMoveListener = ({ clientX: x, clientY: y }: TMouseEvent): void => void (position = { coords: { x, y }, normalizedCoords: getNormalizedMousePosition({ x, y }) });
 
   // TODO ENV: limited fps, perhaps should be configurable
-  const updateDelay: number = delay ?? 2; // 480 FPS (when 16 is 60 FPS)
-  const threshold: number = noiseThreshold ?? 0.001;
+  const updateDelay: number = performance?.updateDelay ?? 2; // 480 FPS (when 16 is 60 FPS)
+  const threshold: number = performance?.updateDelay ?? 0.001;
 
   // TODO Instead of loopService.tick$, mouse should have own loop (with configurable tick speed)
   loopService.tick$

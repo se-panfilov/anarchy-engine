@@ -3,6 +3,7 @@ export * from './TIntersectionsWatcher';
 export * from './TIntersectionsWatcherConfig';
 export * from './TIntersectionsWatcherFactory';
 export * from './TIntersectionsWatcherParams';
+export * from './TIntersectionsWatcherPerformanceOptions';
 export * from './TIntersectionsWatcherProps';
 export * from './TIntersectionsWatcherRegistry';
 export * from './TIntersectionsWatcherService';

@@ -10,6 +10,7 @@ export * from './TTransformAgentParams';
 export * from './TTransformAgents';
 export * from './TTransformDrive';
 export * from './TTransformDriveParams';
+export * from './TTransformDrivePerformanceOptions';
 export * from './TWithConnectedProtectedAgent';
 export * from './TWithDefaultProtectedAgent';
 export * from './TWithKinematicProtectedAgent';
