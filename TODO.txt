@@ -1,5 +1,7 @@
-To be done:
+Done:
 - 3.x.x Physics
+
+To be done:
 - 4.x.x Complex models
 - 4.x.x Lines domain
 - 5.x.x Animations
@@ -22,4 +24,3 @@ Global Refactoring:
 Also:
 - Maybe actor position/rotation should be an observable?
 - Add line domain and let lines be created via config
-- Add example of physics with manual step
