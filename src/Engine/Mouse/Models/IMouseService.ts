@@ -1,9 +1,11 @@
 import type { Observable } from 'rxjs';
 
+import type { IDestroyable } from '@/Engine';
+
 import type { IMousePosition } from './IMousePosition';
 import type { IMouseWatcherEvent } from './IMouseWatcherEvent';
 
-export type IMouseService = {
+export type IMouseService = Readonly<{
   clickPress$: Observable<IMouseWatcherEvent>;
   clickLeftPress$: Observable<IMouseWatcherEvent>;
   clickRightPress$: Observable<IMouseWatcherEvent>;
@@ -36,4 +38,5 @@ export type IMouseService = {
   wheelDown$: Observable<IMouseWatcherEvent>;
 
   position$: Observable<IMousePosition>;
-};
+}> &
+  IDestroyable;

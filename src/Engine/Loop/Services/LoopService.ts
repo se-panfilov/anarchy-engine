@@ -2,6 +2,8 @@ import { Subject } from 'rxjs';
 import { Clock } from 'three';
 
 import type { ILoopService, ILoopTimes } from '@/Engine/Loop/Models';
+import type { IDestroyable } from '@/Engine/Mixins';
+import { destroyableMixin } from '@/Engine/Mixins';
 
 type ILoopServiceState = { isLooping: boolean };
 
@@ -24,11 +26,15 @@ export function LoopService(): ILoopService {
     state.isLooping = false;
   }
 
+  const destroyable: IDestroyable = destroyableMixin();
+  destroyable.destroyed$.subscribe((): void => tick$.complete());
+
   return {
     start,
     stop,
     tick$: tick$.asObservable(),
-    getIsLooping: (): boolean => state.isLooping
+    getIsLooping: (): boolean => state.isLooping,
+    ...destroyable
   };
 }
 

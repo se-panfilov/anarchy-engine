@@ -15,10 +15,13 @@ export function ReactiveFactory<T, P>(type: FactoryType | string, createEntityFn
     return entity;
   }
 
+  const destroyable = destroyableMixin();
+  destroyable.destroyed$.subscribe(() => entityCreated$.complete());
+
   return {
     ...AbstractFactory(type),
-    entityCreated$,
+    entityCreated$: entityCreated$.asObservable(),
     create,
-    ...destroyableMixin()
+    ...destroyable
   };
 }

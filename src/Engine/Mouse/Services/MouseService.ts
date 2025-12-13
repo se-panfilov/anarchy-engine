@@ -3,6 +3,8 @@ import { filter, Subject } from 'rxjs';
 import { WatcherTag } from '@/Engine/Abstract';
 import { ambientContext } from '@/Engine/Context';
 import type { IGlobalContainerDecorator } from '@/Engine/Global';
+import type { IDestroyable } from '@/Engine/Mixins';
+import { destroyableMixin } from '@/Engine/Mixins';
 import { MouseButtonValue, MouseEventType, MouseWheelValue } from '@/Engine/Mouse/Constants';
 import { MouseClickWatcherFactory, MousePositionWatcherFactory } from '@/Engine/Mouse/Factory';
 import type {
@@ -101,6 +103,40 @@ export function MouseService(container: IGlobalContainerDecorator): IMouseServic
     if (event.type === MouseEventType.Wheel) wheel$.next(event);
   });
 
+  const destroyable: IDestroyable = destroyableMixin();
+  destroyable.destroyed$.subscribe(() => {
+    clickPress$.complete();
+    clickLeftPress$.complete();
+    clickRightPress$.complete();
+    clickMiddlePress$.complete();
+    clickBackPress$.complete();
+    clickForwardPress$.complete();
+    clickExtraPress$.complete();
+
+    clickRelease$.complete();
+    clickLeftRelease$.complete();
+    clickRightRelease$.complete();
+    clickMiddleRelease$.complete();
+    clickBackRelease$.complete();
+    clickForwardRelease$.complete();
+    clickExtraRelease$.complete();
+
+    isLeftPressed$.complete();
+    isRightPressed$.complete();
+    isMiddlePressed$.complete();
+    isBackPressed$.complete();
+    isForwardPressed$.complete();
+    isExtraPressed$.complete();
+
+    doubleClick$.complete();
+    doubleLeftClick$.complete();
+    doubleRightClick$.complete();
+
+    wheel$.complete();
+    wheelUp$.complete();
+    wheelDown$.complete();
+  });
+
   return {
     clickPress$: clickPress$.asObservable(),
     clickLeftPress$: clickLeftPress$.asObservable(),
@@ -133,7 +169,8 @@ export function MouseService(container: IGlobalContainerDecorator): IMouseServic
     wheelUp$: wheelUp$.asObservable(),
     wheelDown$: wheelDown$.asObservable(),
 
-    position$: mousePositionWatcher.value$
+    position$: mousePositionWatcher.value$,
+    ...destroyable
   };
 }
 
