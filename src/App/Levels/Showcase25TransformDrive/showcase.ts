@@ -31,7 +31,7 @@ import {
   attachConnectorToSubj,
   changeActorActiveAgent,
   connectCameraToActor,
-  connectLightToActor,
+  connectObjToActor,
   createActor,
   createReactiveLineFromActor,
   createRepeaterActor,
@@ -94,7 +94,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     addSpatialGuiFolder(gui, grid, intersectionsWatcher);
 
     connectCameraToActor(camera, controls, sphereActor, gui);
-    connectLightToActor(light, sphereActor, gui);
+    connectObjToActor(light, sphereActor, gui);
 
     const { line } = createReactiveLineFromActor('#E91E63', sphereActor, intersectionsWatcher);
     sceneW.entity.add(line);

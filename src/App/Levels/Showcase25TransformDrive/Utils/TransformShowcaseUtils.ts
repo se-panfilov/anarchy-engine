@@ -11,7 +11,6 @@ import type { Vector3Like } from 'three/src/math/Vector3';
 import type {
   KeyCode,
   KeysExtra,
-  TAbstractLightWrapper,
   TActor,
   TCameraWrapper,
   TIntersectionEvent,
@@ -21,7 +20,9 @@ import type {
   TModel3d,
   TOrbitControlsWrapper,
   TSpaceServices,
-  TSpatialGridWrapper
+  TSpatialGridWrapper,
+  TWithConnectedTransformAgent,
+  TWithTransformDrive
 } from '@/Engine';
 import { isNotDefined, MaterialType, PrimitiveModel3dType, TransformAgent } from '@/Engine';
 import { meters } from '@/Engine/Measurements/Utils';
@@ -126,7 +127,7 @@ export function connectCameraToActor(camera: TCameraWrapper, controls: TOrbitCon
     });
 }
 
-export function connectLightToActor(light: TAbstractLightWrapper<any>, actor: TActor, gui: GUI): void {
+export function connectObjToActor(light: TWithTransformDrive<TWithConnectedTransformAgent>, actor: TActor, gui: GUI): void {
   const lightSettings = { isFollowingActor: false };
   const folder: GUI = gui.addFolder('Light');
   folder.add(lightSettings, 'isFollowingActor').name('Following mode');
