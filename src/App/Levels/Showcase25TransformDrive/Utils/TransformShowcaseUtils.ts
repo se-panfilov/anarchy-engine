@@ -23,6 +23,7 @@ import type {
   TSpaceServices,
   TSpatialGridWrapper,
   TWithConnectedTransformAgent,
+  TWithPresetNamePhysicsBodyParams,
   TWithTransformDrive
 } from '@/Engine';
 import { isNotDefined, MaterialType, PrimitiveModel3dType, TransformAgent } from '@/Engine';
@@ -49,9 +50,18 @@ export function createActor(
     rotation: new Euler(0, 0, 0)
   });
 
+  const physics: TWithPresetNamePhysicsBodyParams = {
+    presetName: 'ball_physics',
+    shapeParams: {
+      radius: 2
+    },
+    restitution: 0.7
+  };
+
   return actorService.create({
     name: `${name}_actor`,
     model3dSource: model,
+    physics,
     agent,
     position: position.clone(),
     rotation: new Euler(0, 0, 0),

@@ -53,12 +53,15 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
   const space: TSpace = await spaceService.buildSpaceFromConfig(canvas, spaceConfig as TSpaceConfig);
   const engine: TEngine = Engine(space);
 
-  const { cameraService, controlsService, lightService, models3dService, mouseService, particlesService, scenesService, spatialGridService, textService } = space.services;
+  const { cameraService, controlsService, lightService, models3dService, mouseService, particlesService, physicsWorldService, physicsLoopService, scenesService, spatialGridService, textService } =
+    space.services;
   const { keyboardService } = engine.services;
   const { clickLeftRelease$ } = mouseService;
   const models3dRegistry: TModel3dRegistry = models3dService.getRegistry();
 
   const mode = { isTeleportationMode: false };
+
+  physicsWorldService.getDebugRenderer(physicsLoopService).start();
 
   function init(): void {
     const sceneW: TSceneWrapper | undefined = scenesService.findActive();
