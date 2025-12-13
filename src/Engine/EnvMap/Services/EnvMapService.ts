@@ -9,6 +9,10 @@ export function EnvMapService(): TEnvMapService {
   const envMapLoader: RGBELoader = new RGBELoader();
   const added$: Subject<TDataTexture> = new Subject<TDataTexture>();
 
+  function loadFromConfig(envMaps: ReadonlyArray<string>): ReadonlyArray<Promise<TDataTexture>> {
+    return envMaps.map((url: string): Promise<TDataTexture> => load(url));
+  }
+
   function load(url: string): Promise<TDataTexture> {
     return envMapLoader.loadAsync(url).then((texture: TWriteable<TDataTexture>): TDataTexture => {
       // eslint-disable-next-line functional/immutable-data
@@ -19,5 +23,5 @@ export function EnvMapService(): TEnvMapService {
     });
   }
 
-  return { load, added$: added$.asObservable() };
+  return { load, loadFromConfig, added$: added$.asObservable() };
 }

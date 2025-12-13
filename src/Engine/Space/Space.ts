@@ -25,7 +25,7 @@ export function buildSpaceFromConfig(canvas: TAppCanvas, config: TSpaceConfig): 
     throw new Error('Failed to launch a space: invalid data format');
   }
 
-  const { name, actors, cameras, intersections, lights, fogs, texts, controls, scenes, particles, tags } = config;
+  const { name, actors, cameras, intersections, lights, fogs, texts, envMaps, controls, scenes, particles, tags } = config;
 
   screenService.setCanvas(canvas);
 
@@ -57,6 +57,8 @@ export function buildSpaceFromConfig(canvas: TAppCanvas, config: TSpaceConfig): 
     activeScene.setBackground(texture);
     activeScene.setEnvironmentMap(texture);
   });
+
+  void envMapService.loadFromConfig(envMaps);
 
   rendererService.create({ canvas, tags: [], mode: RendererModes.WebGL2, isActive: true });
 
