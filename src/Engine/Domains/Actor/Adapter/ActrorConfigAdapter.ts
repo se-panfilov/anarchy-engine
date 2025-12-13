@@ -2,16 +2,17 @@ import { isDefined } from '@Engine/Utils';
 import type { MeshToonMaterialParameters } from 'three';
 import { Color } from 'three';
 
-import { Vector3Wrapper } from '@/Engine/Wrappers';
+import { EulerWrapper, Vector3Wrapper } from '@/Engine/Wrappers';
 
 import type { IActorConfig, IActorMaterialConfig, IActorParams } from '../Models';
 
 export function getParams(config: IActorConfig): IActorParams {
-  const { materialParams, position, ...rest } = config;
+  const { materialParams, position, rotation, ...rest } = config;
   return {
     ...rest,
     ...getAdaptedMaterialParams(materialParams),
-    position: Vector3Wrapper(position)
+    position: Vector3Wrapper(position),
+    rotation: rotation ? EulerWrapper(rotation) : undefined
   };
 }
 

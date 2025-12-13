@@ -111,6 +111,9 @@
         "position": {
           "$ref": "#/definitions/IVector3dConfig"
         },
+        "rotation": {
+          "$ref": "#/definitions/IEuler3dConfig"
+        },
         "castShadow": {
           "type": "boolean"
         },
@@ -128,9 +131,6 @@
         },
         "depthSegments": {
           "type": "number"
-        },
-        "rotation": {
-          "$ref": "#/definitions/IVector3"
         },
         "tags": {
           "type": "array",
@@ -169,40 +169,39 @@
       "type": "object",
       "additionalProperties": false,
       "properties": {
+        "z": {
+          "type": "number"
+        },
         "x": {
           "type": "number"
         },
         "y": {
-          "type": "number"
-        },
-        "z": {
           "type": "number"
         }
       },
       "required": ["x", "y", "z"]
     },
-    "IVector3": {
+    "IEuler3dConfig": {
       "type": "object",
       "properties": {
         "x": {
-          "type": "number",
-          "default": 0
+          "type": "number"
         },
         "y": {
-          "type": "number",
-          "default": 0
+          "type": "number"
         },
         "z": {
-          "type": "number",
-          "default": 0
+          "type": "number"
         },
-        "isVector3": {
-          "type": "boolean",
-          "const": true
+        "order": {
+          "$ref": "#/definitions/EulerOrder"
         }
       },
-      "required": ["x", "y", "z", "isVector3"],
       "additionalProperties": false
+    },
+    "EulerOrder": {
+      "type": "string",
+      "enum": ["XYZ", "YXZ", "ZXY", "ZYX", "YZX", "XZY"]
     },
     "ActorTag": {
       "type": "string",

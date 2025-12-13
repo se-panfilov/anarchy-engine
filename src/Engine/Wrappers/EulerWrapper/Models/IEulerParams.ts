@@ -1,8 +1,3 @@
-import type { EulerOrder } from 'three/src/math/Euler';
+import type { IEuler3dConfig } from '@Engine/Domains/ThreeLib/Models';
 
-export type IEulerParams = Readonly<{
-  x?: number;
-  y?: number;
-  z?: number;
-  order?: EulerOrder;
-}>;
+export type IEulerParams = IEuler3dConfig;
