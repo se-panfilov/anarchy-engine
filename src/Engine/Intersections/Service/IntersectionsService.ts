@@ -4,6 +4,7 @@ import { ambientContext } from '@/Engine/Context';
 import { IntersectionsWatcherFactory } from '@/Engine/Intersections/Factory';
 import type { IIntersectionsService, IIntersectionsWatcher, IIntersectionsWatcherFactory, IIntersectionsWatcherRegistry } from '@/Engine/Intersections/Models';
 import { IntersectionsWatcherRegistry } from '@/Engine/Intersections/Registry';
+import { isNotDefined } from '@/Engine/Utils';
 
 function IntersectionsService(): IIntersectionsService {
   //build intersections watcher
@@ -15,21 +16,25 @@ function IntersectionsService(): IIntersectionsService {
   });
 
   function buildWatcher(camera: Readonly<ICameraWrapper>): IIntersectionsWatcher {
-    return intersectionsWatcherFactory.create({ mousePosWatcher: ambientContext.mousePositionWatcher });
+    const watcher: IIntersectionsWatcher = intersectionsWatcherFactory.create({ mousePosWatcher: ambientContext.mousePositionWatcher });
+    watcher.setCamera(camera);
+    return watcher;
   }
 
   function addActorsToWatcher(watcherId: string, actors: ReadonlyArray<IActorWrapperAsync>): void {
-    // TODO (S.Panfilov) implement
-    // const watcher: IIntersectionsWatcher | undefined = intersectionsWatcherRegistry.get(watcherId);
-    // if (watcher) watcher.addActors(actors);
+    const watcher: IIntersectionsWatcher | undefined = intersectionsWatcherRegistry.getById(watcherId);
+    if (isNotDefined(watcher)) throw new Error(`Intersections service: cannot add actors to watcher: watcher with id ${watcherId} is not defined`);
+    watcher.addActors(actors);
   }
 
   function start(watcherId: string): IIntersectionsWatcher {
-    intersectionsWatcher.start(camera);
-    return intersectionsWatcher;
+    const watcher: IIntersectionsWatcher | undefined = intersectionsWatcherRegistry.getById(watcherId);
+    if (isNotDefined(watcher)) throw new Error(`Intersections service: cannot start watcher: watcher with id ${watcherId} is not defined`);
+    return watcher.start();
   }
 
   return {
+    buildWatcher,
     addActorsToWatcher,
     start
   };

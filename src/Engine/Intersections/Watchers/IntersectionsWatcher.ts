@@ -14,17 +14,19 @@ export function IntersectionsWatcher({ mousePosWatcher, tags = [] }: IIntersecti
   const abstractWatcher: IAbstractWatcher<IIntersectionEvent> = AbstractWatcher(WatcherType.IntersectionWatcher, tags);
   let raycaster: Readonly<Raycaster> | undefined = new Raycaster();
   let actors: ReadonlyArray<IWithWrapperIdEntity<IMesh>> = [];
+  let camera: Readonly<ICameraWrapper> | undefined;
 
-  function addActors(actorsWrappers: ReadonlyArray<IActorWrapperAsync>): void {
-    actors = unWrapEntities(actorsWrappers) as ReadonlyArray<IWithWrapperIdEntity<IMesh>>;
-  }
+  const addActors = (actorsWrappers: ReadonlyArray<IActorWrapperAsync>): void => void (actors = unWrapEntities(actorsWrappers) as ReadonlyArray<IWithWrapperIdEntity<IMesh>>);
+  const getActors = (): ReadonlyArray<IWithWrapperIdEntity<IMesh>> => actors;
+  const removeActors = (actorsWrapperIds: ReadonlyArray<string>): void =>
+    void (actors = actors.filter((actor: IWithWrapperIdEntity<IMesh>): boolean => !actorsWrapperIds.includes(actor.userData.wrapperId)));
 
-  function removeActors(actorsWrapperIds: ReadonlyArray<string>): void {
-    actors = actors.filter((actor: IWithWrapperIdEntity<IMesh>): boolean => !actorsWrapperIds.includes(actor.userData.wrapperId));
-  }
+  const setCamera = (cam: Readonly<ICameraWrapper>): void => void (camera = cam);
+  const getCamera = (): Readonly<ICameraWrapper> | undefined => camera;
 
-  function start(camera: Readonly<ICameraWrapper>): IIntersectionsWatcher {
+  function start(): IIntersectionsWatcher {
     mousePosWatcher.value$.subscribe((position: IMousePosition): void => {
+      if (isNotDefined(camera)) throw new Error('Intersections service: cannot start: a camera is not defined');
       const intersection: IIntersectionEvent | undefined = getIntersection(position, camera, [...actors]);
       if (isDefined(intersection)) abstractWatcher.value$.next(intersection);
     });
@@ -37,7 +39,7 @@ export function IntersectionsWatcher({ mousePosWatcher, tags = [] }: IIntersecti
   }
 
   function getIntersection(position: IMousePosition, cameraWrapper: Readonly<ICameraWrapper>, list: Array<ISceneObject>): IIntersectionEvent | undefined | never {
-    if (isNotDefined(raycaster)) throw new Error('Intersections service: cannot get intersection: a raycaster is not defined.');
+    if (isNotDefined(raycaster)) throw new Error('Intersections service: cannot get intersection: a raycaster is not defined');
     raycaster.setFromCamera(getNormalizedMousePosition(position), cameraWrapper.entity);
     return raycaster.intersectObjects(list)[0];
   }
@@ -51,6 +53,9 @@ export function IntersectionsWatcher({ mousePosWatcher, tags = [] }: IIntersecti
   const result: IIntersectionsWatcher = {
     ...abstractWatcher,
     addActors,
+    getActors,
+    setCamera,
+    getCamera,
     removeActors,
     start,
     stop

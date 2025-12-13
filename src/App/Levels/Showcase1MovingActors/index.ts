@@ -24,8 +24,9 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
     if (isNotDefined(camera)) throw new Error('Camera is not defined');
     const actors: ReadonlyArray<IActorWrapperAsync> = actorRegistry.getAllByTags([ActorTag.Intersectable], LookUpStrategy.Every);
 
-    const intersectionsWatcher: IIntersectionsWatcher = intersectionsService.addActorsToWatcher(actors);
-    const intersectionsWatcher: IIntersectionsWatcher = intersectionsService.start(camera);
+    const intersectionsWatcher: IIntersectionsWatcher = intersectionsService.buildWatcher(camera);
+    intersectionsWatcher.addActors(actors);
+    intersectionsWatcher.start();
     intersectionsWatcher.value$.subscribe((obj: IIntersectionEvent): void => {
       console.log('intersect obj', obj);
     });
