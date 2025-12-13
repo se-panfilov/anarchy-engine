@@ -9,7 +9,7 @@ import { isObject } from './ObjectUtils';
 
 export const isDefined = <T>(value: T | undefined | null): value is T => <T>value !== undefined && <T>value !== null;
 
-export const isAllDefined = <T>(values: ReadonlyArray<T | undefined | null>): values is ReadonlyArray<T> => values.every(isDefined);
+export const isAllDefined = <T>(values: ReadonlyArray<T | undefined | null>): values is ReadonlyArray<T> => !values.some(isNotDefined);
 
 export const isNotDefined = <T>(value: T | undefined | null): value is undefined | null => !isDefined<T>(value);
 
