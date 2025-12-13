@@ -70,7 +70,7 @@ export function TranslationService(initialLocale: TLocale, defaultLocale: TLocal
       return void intl$.next(intl);
     });
 
-  const destroySub$: Subscription = destroy$.subscribe(() => {
+  const destroySub$: Subscription = destroy$.subscribe((): void => {
     destroySub$.unsubscribe();
     loadingLocaleSub$.unsubscribe();
     localeSub$.unsubscribe();
@@ -107,7 +107,7 @@ export function TranslationService(initialLocale: TLocale, defaultLocale: TLocal
     intl$: intl$.asObservable()
   };
 
-  const reactiveMixin = ReactiveTranslationMixin(result);
+  const reactiveMixin: TReactiveTranslationMixin = ReactiveTranslationMixin(result);
 
   // eslint-disable-next-line functional/immutable-data
   return Object.assign(result, reactiveMixin);
