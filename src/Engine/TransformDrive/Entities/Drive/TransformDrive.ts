@@ -112,7 +112,7 @@ export function TransformDrive<T extends Partial<Record<TransformAgent, TAbstrac
     ...getDynamicAgents(agents)
   };
 
-  destroyable.destroy$.subscribe((): void => {
+  const destroySub$: Subscription = destroyable.destroy$.subscribe((): void => {
     // Stop subscriptions
     positionSub$.unsubscribe();
     rotationSub$.unsubscribe();
@@ -132,6 +132,7 @@ export function TransformDrive<T extends Partial<Record<TransformAgent, TAbstrac
     activeAgent = null as any;
     prevAgent = null as any;
     Object.values(agents).forEach((agent: TAbstractTransformAgent): void => agent.destroy$.next());
+    destroySub$.unsubscribe();
   });
 
   return result as TTransformDrive<T>;
