@@ -25,3 +25,13 @@ export function asRecord<T, K extends keyof T, V extends string | number | symbo
     {} as Record<V, T>
   );
 }
+
+export function findDuplicateString(arr: ReadonlyArray<string>): string | undefined {
+  const seen: Set<string> = new Set<string>();
+  // eslint-disable-next-line functional/no-loop-statements
+  for (const str of arr) {
+    if (seen.has(str)) return str;
+    seen.add(str);
+  }
+  return undefined;
+}

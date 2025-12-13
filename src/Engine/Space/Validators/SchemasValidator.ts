@@ -1,4 +1,5 @@
 import Ajv from 'ajv';
+import { isArray } from 'lodash-es';
 
 import type { TAbstractResourceConfig } from '@/Engine/Abstract';
 import type { TActorConfig } from '@/Engine/Actor';
@@ -9,10 +10,10 @@ import type { TAnyIntersectionsWatcherConfig } from '@/Engine/Intersections';
 import { isIntersectionsCameraWatcherConfig } from '@/Engine/Intersections';
 import type { TActive, TWithName, TWithNameOptional, TWithTags } from '@/Engine/Mixins';
 import type { TModel3dConfig, TModel3dResourceConfig } from '@/Engine/Models3d';
-import type { TPhysicsConfig } from '@/Engine/Physics';
+import type { TPhysicsBodyConfig, TPhysicsConfig } from '@/Engine/Physics';
 import type { TSceneConfig } from '@/Engine/Scene/Models';
 import { SpaceSchemaVersion } from '@/Engine/Space/Constants';
-import type { TSpaceConfig } from '@/Engine/Space/Models';
+import type { TSpaceConfig, TSpaceConfigEntities, TSpaceConfigResources } from '@/Engine/Space/Models';
 import TSpaceConfigSchema from '@/Engine/Space/Schemas/TSpaceConfig.json';
 import {
   validate,
@@ -25,15 +26,16 @@ import {
   validateFileUrls,
   validateModel3dFileUrls,
   validateNames,
+  validateNoSameName,
   validateTags,
   validateTagsForEveryEntity
 } from '@/Engine/Space/Utils';
+import { isDefined } from '@/Engine/Utils';
 
 const ajv: Ajv = new Ajv();
 
 type TSchemaValidationResult = Readonly<{ isValid: boolean; errors: ReadonlyArray<any> | null | undefined }>;
 
-// TODO 15-0-0: add validation of the same name of entities in every categories (materials, models, etc.)
 export function validSpaceConfig(config: TSpaceConfig): TSchemaValidationResult {
   const jsonResult = validateJsonSchema(config);
   const dataResult = validateData(config);
@@ -86,9 +88,10 @@ function validateData({ name, version, scenes, resources, entities, canvasSelect
     envMaps,
     textures
   });
+  const duplicationErrors: ReadonlyArray<string> = validateNamesDuplication(entities, resources);
   const urlsErrors: ReadonlyArray<string> = validateUrls({ models3dResources }, { envMaps, textures });
 
-  const errors: ReadonlyArray<string> = [...basicErrors, ...activeErrors, ...relationsErrors, ...namesErrors, ...tagsErrors, ...urlsErrors];
+  const errors: ReadonlyArray<string> = [...basicErrors, ...activeErrors, ...relationsErrors, ...namesErrors, ...tagsErrors, ...duplicationErrors, ...urlsErrors];
 
   return { isValid: errors.length === 0, errors };
 }
@@ -170,6 +173,17 @@ function validateEntityTags(entities: Record<string, ReadonlyArray<TWithTags>>):
   });
 
   return errors;
+}
+
+function validateNamesDuplication(entities: TSpaceConfigEntities, resources: TSpaceConfigResources): ReadonlyArray<string> {
+  const bodies: ReadonlyArray<TPhysicsBodyConfig> = entities.physics?.bodies ?? [];
+
+  return [
+    //"physics" is not an array, but we could check the bodies
+    ...Object.values(entities).filter(isArray).map(validateNoSameName),
+    validateNoSameName(bodies),
+    ...Object.values(resources).map(validateNoSameName)
+  ].filter(isDefined);
 }
 
 function validateUrls(models3dResources: Record<string, ReadonlyArray<TModel3dResourceConfig>>, withFileUrls: Record<string, ReadonlyArray<TAbstractResourceConfig>>): ReadonlyArray<string> {

@@ -1,11 +1,11 @@
-import type { TPhysicsBodyConfig, TPhysicsConfig } from '@/Engine';
 import type { TAbstractResourceConfig } from '@/Engine/Abstract';
 import type { TActorConfig } from '@/Engine/Actor';
 import type { TAnyAudioConfig, TAudioResourceConfig } from '@/Engine/Audio';
-import type { TWithNameOptional, TWithTags } from '@/Engine/Mixins';
+import type { TWithName, TWithNameOptional, TWithTags } from '@/Engine/Mixins';
 import type { TModel3dConfig, TModel3dResourceConfig } from '@/Engine/Models3d';
 import { isPrimitiveModel3dResourceConfig, isPrimitiveModel3dSource } from '@/Engine/Models3d';
-import { isDefined, isNotDefined } from '@/Engine/Utils';
+import type { TPhysicsBodyConfig, TPhysicsConfig } from '@/Engine/Physics';
+import { findDuplicateString, isDefined, isNotDefined } from '@/Engine/Utils';
 
 export const validateNames = (entities: ReadonlyArray<TWithNameOptional>): boolean => entities.every(validateName);
 export const validateName = (entity: TWithNameOptional): boolean => validateField(entity, 'name');
@@ -54,6 +54,11 @@ export function validateAllActorsWithPhysicsHasRelatedPhysicsBody(actors: Readon
     if (isNotDefined(actor.physicsBodyName)) return true;
     return bodies.some((body: TPhysicsBodyConfig): boolean => body.name === actor.physicsBodyName);
   });
+}
+
+export function validateNoSameName(entities: ReadonlyArray<TWithName>): string | undefined {
+  const duplicate: string | undefined = findDuplicateString(entities.map((e: TWithName): string => e.name));
+  return duplicate ? `Name "${duplicate}" is duplicated` : undefined;
 }
 
 // TODO would be nice to check all the resources and relations (e.g. materials)
