@@ -1,4 +1,3 @@
-import * as fs from 'node:fs';
 import { readFile } from 'node:fs/promises';
 import { join, normalize } from 'node:path';
 
@@ -23,15 +22,19 @@ export function DocsService(app: App): TDocsService {
   }
 
   // TODO DESKTOP: Extract file reading/writing to a separate utility
-  // TODO DESKTOP: Better to make all of this async
   async function load({ name }: TLoadDocPayload): Promise<TLegalDoc> | never {
     const filePath: string = resolveDocPath(name);
-    if (isNotDefined(filePath) || !fs.existsSync(filePath)) throw new Error(`[DESKTOP]: Document "${name}" does not found: ${filePath}`);
+    if (isNotDefined(filePath)) throw new Error(`[DESKTOP]: Failed to load a document "${name}". Path: ${filePath}`);
 
-    // TODO DESKTOP: fix type of the result
-    const result: string = await readFile(filePath, 'utf-8');
-    // TODO DESKTOP: should sanitize result here
-    return { name, content: result };
+    try {
+      const content: string = await readFile(filePath, 'utf-8');
+      return { name, content };
+    } catch (err: any) {
+      const code = err?.code;
+      if (code === 'ENOENT' || code === 'ENOTDIR') throw new Error(`[DESKTOP] Document "${name}" not found`);
+      if (code === 'EACCES') throw new Error(`[DESKTOP] Permission denied for "${name}"`);
+      throw new Error(`[DESKTOP] Read failed for "${name}": ${err?.message ?? 'unknown'}`);
+    }
   }
 
   return {
