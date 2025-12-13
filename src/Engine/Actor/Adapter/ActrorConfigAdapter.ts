@@ -1,5 +1,6 @@
 import type { IActorConfig, IActorParams } from '@/Engine/Actor/Models';
 import { configToParams as materialConfigToParams } from '@/Engine/Material/Adapter';
+import type { IMaterialPackParams, IMaterialTexturePack } from '@/Engine/MaterialTexturePack';
 import { configToParamsObject3d } from '@/Engine/ThreeLib';
 
 export function configToParams(config: IActorConfig): IActorParams {
@@ -8,7 +9,7 @@ export function configToParams(config: IActorConfig): IActorParams {
 
   return {
     ...rest,
-    material: { type: materialType, params: { ...restMaterialParams } },
+    material: { type: materialType, params: { ...restMaterialParams }, textures: material.textures } satisfies IMaterialPackParams<IMaterialTexturePack>,
     ...configToParamsObject3d({ position, rotation, scale, layers, animations })
   };
 }

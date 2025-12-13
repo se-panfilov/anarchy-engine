@@ -1,7 +1,7 @@
-import type { IMaterialPackParams, IPointsMaterialTexturePack } from '@/Engine/MaterialTexturePack';
+import type { IMaterialPackParams, IMaterialTexturePack } from '@/Engine/MaterialTexturePack';
 import type { IWithName } from '@/Engine/Mixins';
 
 export type IParticlesProps = Readonly<{
-  material: IMaterialPackParams<IPointsMaterialTexturePack>;
+  material: IMaterialPackParams<IMaterialTexturePack>;
 }> &
   IWithName;
