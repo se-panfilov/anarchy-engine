@@ -1,5 +1,6 @@
 import type { IAbstractRegistry } from '@Engine/Domains/Abstract';
 import type { IProtectedRegistry } from '@Engine/Mixins';
-import type { IMouseClicksWatcher } from '@Engine/Watchers';
+
+import type { IMouseClicksWatcher } from './IMouseClicksWatcher';
 
 export type IMouseClicksWatcherRegistry = IProtectedRegistry<IMouseClicksWatcher, IAbstractRegistry<IMouseClicksWatcher>>;

@@ -1,10 +1,7 @@
-import type { IMouseClickWatcherParams } from '@Engine/Models';
-import type { IMouseClicksWatcherRegistry } from '@Engine/Registries';
-import { MouseClicksWatcherRegistry } from '@Engine/Registries';
-import type { IMouseClicksWatcher } from '@Engine/Watchers';
-import { MouseClicksWatcher } from '@Engine/Watchers';
+import { MouseClicksWatcherRegistry } from '@Engine/Domains/Mouse/Registry';
+import { MouseClicksWatcher } from '@Engine/Domains/Mouse/Watcher';
 
-import type { IMouseClicksWatcherFactory } from '../Models';
+import type { IMouseClicksWatcher, IMouseClicksWatcherFactory, IMouseClicksWatcherRegistry, IMouseClickWatcherParams } from '../Models';
 
 export function MouseClicksWatcherFactory(): IMouseClicksWatcherFactory {
   const registry: IMouseClicksWatcherRegistry = MouseClicksWatcherRegistry();
