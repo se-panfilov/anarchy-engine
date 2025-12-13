@@ -14,6 +14,7 @@ export type TModel3dToActorConnectionRegistryExtension = Readonly<{
   setByModel3d: (model3d: TModel3dFacade, actor: TActorWrapper) => void;
   removeByModel3dId: (id: string) => void;
   removeByModel3d: (model3d: TModel3dFacade) => void;
+  getAll: () => Record<string, string>;
 }>;
 
-export type TModel3dToActorConnectionRegistry = TProtectedRegistry<TAbstractSimpleRegistry<string>> & TModel3dToActorConnectionRegistryExtension;
+export type TModel3dToActorConnectionRegistry = Omit<TProtectedRegistry<TAbstractSimpleRegistry<string>>, 'getAll'> & TModel3dToActorConnectionRegistryExtension;

@@ -4,9 +4,9 @@ import type { TActorWrapper, TModel3dToActorConnectionRegistry, TModel3dToActorC
 import type { TModel3dFacade } from '@/Engine/Models3d';
 import type { TWriteable } from '@/Engine/Utils';
 
-const registry: TWriteable<TAbstractSimpleRegistry<string>> & TWriteable<TModel3dToActorConnectionRegistryExtension> = AbstractSimpleRegistry<string>(
+const registry: Omit<TWriteable<TAbstractSimpleRegistry<string>>, 'getAll'> & TWriteable<TModel3dToActorConnectionRegistryExtension> = AbstractSimpleRegistry<string>(
   RegistryType.Models3dToActorConnection
-) as TWriteable<TAbstractSimpleRegistry<string>> & TWriteable<TModel3dToActorConnectionRegistryExtension>;
+) as Omit<TWriteable<TAbstractSimpleRegistry<string>>, 'getAll)'> & TWriteable<TModel3dToActorConnectionRegistryExtension>;
 
 // eslint-disable-next-line functional/immutable-data
 registry.addModel3d = (model3d: TModel3dFacade, actor: TActorWrapper): void => registry.add(model3d.getModel().uuid, actor.id);
@@ -29,5 +29,7 @@ registry.setByModel3d = (model3d: TModel3dFacade, actor: TActorWrapper): void =>
 registry.removeByModel3dId = (model3dId: string): void => registry.remove(model3dId);
 // eslint-disable-next-line functional/immutable-data
 registry.removeByModel3d = (model3d: TModel3dFacade): void => registry.remove(model3d.getModel().uuid);
+// eslint-disable-next-line functional/immutable-data
+registry.getAll = (): Record<string, string> => Object.fromEntries(registry.registry.entries());
 
 export const Model3dToActorConnectionRegistry = (): TModel3dToActorConnectionRegistry => RegistryFacade(registry);
