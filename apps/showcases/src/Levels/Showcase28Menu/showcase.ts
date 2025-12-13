@@ -1,4 +1,4 @@
-import type { TModel3d, TModels3dRegistry, TSceneWrapper, TSpace, TSpaceConfig } from '@Engine';
+import type { TModel3d, TModels3dRegistry, TSceneWrapper, TSpace, TSpaceConfig, TText3dWrapper } from '@Engine';
 import { asRecord, isNotDefined, spaceService } from '@Engine';
 
 import type { TAppSettings } from '@/Models';
@@ -17,7 +17,7 @@ export function start(settings: TAppSettings): void {
 }
 
 export function showcase(space: TSpace): void {
-  const { models3dService, scenesService } = space.services;
+  const { models3dService, scenesService, textService } = space.services;
   const models3dRegistry: TModels3dRegistry = models3dService.getRegistry();
   const sceneW: TSceneWrapper = scenesService.getActive();
 
@@ -25,7 +25,10 @@ export function showcase(space: TSpace): void {
 
   const planeModel3d: TModel3d = models3dRegistry.getByName('surface_model');
 
+  const text3d: TText3dWrapper = textService.getRegistries().text3dRegistry.getByName('text_3d_1');
+
   sceneW.addModel3d(planeModel3d);
+  sceneW.addText(text3d);
 
   space.start$.next(true);
 }

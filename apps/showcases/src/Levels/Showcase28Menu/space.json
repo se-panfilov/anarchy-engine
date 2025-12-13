@@ -6,6 +6,19 @@
         "model3dSource": "sphere_model",
         "name": "sphere_actor",
         "position": {
+          "x": 6,
+          "y": 2,
+          "z": 0
+        },
+        "spatial": {
+          "grid": "main_grid",
+          "isAutoUpdate": true
+        }
+      },
+      {
+        "model3dSource": "cube_model",
+        "name": "cube_actor",
+        "position": {
           "x": 0,
           "y": 2,
           "z": 0
@@ -104,6 +117,13 @@
       {
         "name": "sphere_material",
         "options": {
+          "color": "#d7d200"
+        },
+        "type": "MeshStandardMaterial"
+      },
+      {
+        "name": "cube_material",
+        "options": {
           "color": "#E91E63"
         },
         "type": "MeshStandardMaterial"
@@ -141,6 +161,25 @@
         "options": {
           "radius": 0.7
         }
+      },
+      {
+        "castShadow": true,
+        "material": "cube_material",
+        "model3dSource": "cube",
+        "name": "cube_model",
+        "options": {
+          "height": 1,
+          "depth": 4,
+          "heightSegments": 1,
+          "width": 15,
+          "widthSegments": 1
+        },
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "receiveShadow": true
       }
     ],
     "particles": [],
@@ -163,7 +202,28 @@
         "name": "main_grid"
       }
     ],
-    "texts": []
+    "texts": [
+      {
+        "cssProps": {
+          "color": "#D7D200",
+          "fontFamily": "\"Roboto\", sans-serif",
+          "fontSize": "0.2rem"
+        },
+        "name": "text_3d_1",
+        "position": {
+          "x": -1,
+          "y": 2.5,
+          "z": 0
+        },
+        "rotation": {
+          "x": -1.57,
+          "y": 0,
+          "z": 0
+        },
+        "text": "Menu",
+        "type": "text_3d"
+      }
+    ]
   },
   "name": "showcase",
   "resources": {
