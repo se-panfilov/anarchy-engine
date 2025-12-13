@@ -23,7 +23,7 @@ export function getUniqEntityWithTagsAsync<T extends IRegistrable>(
   );
 }
 
-// TODO (S.Panfilov) should be set from default config
+// TODO (S.Panfilov) all waiting times should be set from default config
 export function getAsyncUniqEntityWithTag<T extends IRegistrable>(tag: string, registry: IAbstractEntityRegistry<T> | IAbstractAsyncRegistry<T>, waitingTime: number = 3000): Promise<T | undefined> {
   return getValueAsync<T>(registry, (entity: T): boolean => entity.hasTag(tag), undefined, waitingTime);
 }
