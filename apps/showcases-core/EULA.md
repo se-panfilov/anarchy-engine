@@ -1,4 +1,4 @@
-# End User License Agreement (EULA) — showcases-core
+# End User License Agreement (EULA) — TBD until market release
 
 **Effective date:** TBD until market release
 
@@ -7,6 +7,14 @@ _This EULA applies to copies acquired on or after the Effective date. For earlie
 **Licensor (Developer):** Sergei Aleksandrovich Panfilov
 
 **Support/Legal Contact:** TBD until market release / TBD until market release
+
+## Identification
+
+This EULA applies to **TBD until market release** (the “Game”).
+
+Also distributed under the following technical identifiers: showcases-core.
+
+**Open-source repository.** The open-source codebase related to this Game (if any) is governed by its open-source license (see `LICENSE` in that repository) and is **not** governed by this EULA.
 
 ## Defined Terms
 
@@ -105,7 +113,7 @@ You must comply with applicable **export, re-export, and sanctions** laws. You m
 
 ## 13. Open-Source Components (OSS Precedence)
 
-The Game includes **open-source software**. **To the extent of any conflict between this EULA and the license terms of an OSS component, the OSS license controls for that component.** Third-party notices and licenses are provided in the distribution package (see `NOTICE.md` and `THIRD_PARTY_LICENSES.md`).
+The Game includes **open-source software**. **To the extent of any conflict between this EULA and the license terms of an OSS component, the OSS license controls for that component.** Third-party notices and licenses are provided in the distribution package (see `NOTICE` and `THIRD_PARTY_LICENSES`).
 
 ## 14. Governing Law & Consumer Rights
 
@@ -121,3 +129,6 @@ We may update this EULA. Material changes may be communicated **within the produ
 This agreement is drafted in English. Translations may be provided for convenience. In consumer markets where local-language versions are required by law for clarity and fairness, the local-language version controls to the extent required by applicable law; otherwise, the English version controls.
 
 **Contact:** TBD until market release
+
+Trademarks. TBD until market release is a trademark of Sergei Aleksandrovich Panfilov.
+All other trademarks are the property of their respective owners.

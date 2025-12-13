@@ -1,4 +1,4 @@
-# End User License Agreement (EULA) — {{PACKAGE_NAME}}
+# End User License Agreement (EULA) — {{PRODUCT_DISPLAY_NAME}}{{TRADEMARK_SYMBOL}}
 
 **Effective date:** {{EFFECTIVE_DATE}}
 
@@ -7,6 +7,17 @@ _This EULA applies to copies acquired on or after the Effective date. For earlie
 **Licensor (Developer):** {{LEGAL_ENTITY_NAME}}
 
 **Support/Legal Contact:** {{SUPPORT_EMAIL}} / {{LEGAL_EMAIL}}
+
+## Identification
+
+This EULA applies to **{{PRODUCT_DISPLAY_NAME}}{{TRADEMARK_SYMBOL}}** (the “Game”).
+{{#SHOW_TECH_IDENTIFIERS}}
+Also distributed under the following technical identifiers: {{PACKAGE_NAME}}.
+{{/SHOW_TECH_IDENTIFIERS}}
+
+{{#HAS_OSS_SIBLING}}
+**Open-source repository.** The open-source codebase related to this Game (if any) is governed by its open-source license (see `LICENSE` in that repository) and is **not** governed by this EULA.
+{{/HAS_OSS_SIBLING}}
 
 {{#HAS_EU_REP}}
 **EU Representative:** {{EU_REPRESENTATIVE_CONTACT}}
@@ -126,7 +137,7 @@ You must comply with applicable **export, re-export, and sanctions** laws. You m
 
 ## 13. Open-Source Components (OSS Precedence)
 
-The Game includes **open-source software**. **To the extent of any conflict between this EULA and the license terms of an OSS component, the OSS license controls for that component.** Third-party notices and licenses are provided in the distribution package (see `NOTICE.md` and `THIRD_PARTY_LICENSES.md`).
+The Game includes **open-source software**. **To the extent of any conflict between this EULA and the license terms of an OSS component, the OSS license controls for that component.** Third-party notices and licenses are provided in the distribution package (see `NOTICE` and `THIRD_PARTY_LICENSES`).
 
 ## 14. Governing Law & Consumer Rights
 
@@ -142,3 +153,6 @@ We may update this EULA. Material changes may be communicated **within the produ
 This agreement is drafted in English. Translations may be provided for convenience. In consumer markets where local-language versions are required by law for clarity and fairness, the local-language version controls to the extent required by applicable law; otherwise, the English version controls.
 
 **Contact:** {{LEGAL_EMAIL}}
+
+Trademarks. {{PRODUCT_DISPLAY_NAME}} is a trademark of {{LEGAL_ENTITY_NAME}}.
+All other trademarks are the property of their respective owners.
