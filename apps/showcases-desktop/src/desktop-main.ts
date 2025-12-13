@@ -12,6 +12,9 @@ const desktopAppSettings: TDesktopAppConfig = {
   isOpenDevTools: true
 };
 
+// TODO CWP
+// TODO DESKTOP: TEST SENTRY WITH DIFFERENT PLATFORMS/RELEASES
+
 // TODO DESKTOP: Add .env files for different platforms (macos, windows, linux).
 // TODO DESKTOP: We need e2e eventually
 // TODO DESKTOP: 3d texts doesn't work in Safari
