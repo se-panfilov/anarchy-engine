@@ -3,6 +3,7 @@ export * from './IText2dRenderer';
 export * from './IText2dWrapper';
 export * from './IText3dRenderer';
 export * from './IText3dWrapper';
+export * from './ITextAnyWrapper';
 export * from './ITextConfig';
 export * from './ITextFactory';
 export * from './ITextParams';
