@@ -41,8 +41,8 @@ export function showcase(canvas: IAppCanvas): IShowcase {
     directionalLight.entity.shadow.camera.near = 1;
     // eslint-disable-next-line functional/immutable-data
     directionalLight.entity.shadow.camera.far = 6;
-    scene.addLight(directionalLightHelper);
-    scene.addLight(directionalLightCameraHelper);
+    scene.entity.add(directionalLightHelper);
+    scene.entity.add(directionalLightCameraHelper);
     const directionalFolder: GUI = gui.addFolder('Directional light');
     directionalFolder.add(directionalLight.entity.position, 'x').min(-50).max(50).step(0.5);
     directionalFolder.add(directionalLight.entity.position, 'y').min(-50).max(50).step(0.5);
@@ -56,7 +56,7 @@ export function showcase(canvas: IAppCanvas): IShowcase {
     const hemisphereLight: IHemisphereLightWrapper | undefined = lightRegistry.findByTag('hemisphere') as IHemisphereLightWrapper | undefined;
     if (isNotDefined(hemisphereLight)) throw new Error('Hemisphere light not found');
     const hemisphereLightHelper: HemisphereLightHelper = new HemisphereLightHelper(hemisphereLight.entity, 3);
-    scene.addLight(hemisphereLightHelper);
+    scene.entity.add(hemisphereLightHelper);
     const hemisphereFolder: GUI = gui.addFolder('Hemisphere light');
     hemisphereFolder.addColor(hemisphereLight.entity, 'color');
     hemisphereFolder.addColor(hemisphereLight.entity, 'groundColor');
@@ -65,7 +65,7 @@ export function showcase(canvas: IAppCanvas): IShowcase {
     const rectAreaLight: IRectAreaLightWrapper | undefined = lightRegistry.findByTag('rect_area') as IRectAreaLightWrapper | undefined;
     if (isNotDefined(rectAreaLight)) throw new Error('Rect area light not found');
     const rectAreaLightHelper: RectAreaLightHelper = new RectAreaLightHelper(rectAreaLight.entity, 5);
-    scene.addLight(rectAreaLightHelper);
+    scene.entity.add(rectAreaLightHelper);
     const rectAreaFolder: GUI = gui.addFolder('RectArea light');
     rectAreaFolder.add(rectAreaLight.entity.position, 'x').min(-50).max(50).step(0.5);
     rectAreaFolder.add(rectAreaLight.entity.position, 'y').min(-50).max(50).step(0.5);
@@ -77,7 +77,7 @@ export function showcase(canvas: IAppCanvas): IShowcase {
     const pointLight: IPointLightWrapper | undefined = lightRegistry.findByTag('point') as IPointLightWrapper | undefined;
     if (isNotDefined(pointLight)) throw new Error('Point light not found');
     const pointLightHelper: PointLightHelper = new PointLightHelper(pointLight.entity, 3);
-    scene.addLight(pointLightHelper);
+    scene.entity.add(pointLightHelper);
     const pointFolder: GUI = gui.addFolder('Point light');
     pointFolder.addColor(pointLight.entity, 'color');
     pointFolder.add(pointLight.entity.position, 'x').min(-50).max(50).step(0.5);
@@ -90,7 +90,7 @@ export function showcase(canvas: IAppCanvas): IShowcase {
     const spotLight: ISpotLightWrapper | undefined = lightRegistry.findByTag('spot') as ISpotLightWrapper | undefined;
     if (isNotDefined(spotLight)) throw new Error('Spot light not found');
     const spotLightHelper: SpotLightHelper = new SpotLightHelper(spotLight.entity, 3);
-    scene.addLight(spotLightHelper);
+    scene.entity.add(spotLightHelper);
     const spotFolder: GUI = gui.addFolder('Spot light');
     spotFolder.add(spotLight.entity.position, 'x').min(-50).max(50).step(0.5);
     spotFolder.add(spotLight.entity.position, 'y').min(-50).max(50).step(0.5);
