@@ -1,4 +1,5 @@
 import type { IVector3 } from '@/Engine/Vector';
+import type { IActive } from '@/Engine';
 
 export type IOrbitControlsProps = Readonly<{
   enabled?: boolean;
@@ -27,4 +28,5 @@ export type IOrbitControlsProps = Readonly<{
   keyPanSpeed?: number;
   autoRotate?: boolean;
   autoRotateSpeed?: number;
-}>;
+}> &
+  IActive;

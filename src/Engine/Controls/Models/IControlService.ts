@@ -10,6 +10,5 @@ export type IControlsService = Readonly<{
   createFromConfig: (controls: ReadonlyArray<IControlsConfig>) => void;
   setActiveControls: (controlsId: string) => void;
   findActiveControls: (controlsRegistry: IControlsRegistry) => IControlsWrapper | undefined;
-  startUpdatingControlsAspect: (isOnlyActive: boolean) => void;
 }> &
   IDestroyable;

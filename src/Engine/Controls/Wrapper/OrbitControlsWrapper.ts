@@ -4,6 +4,7 @@ import { AbstractWrapper, WrapperType } from '@/Engine/Abstract';
 import type { IOrbitControlsParams, IOrbitControlsWrapper } from '@/Engine/Controls/Models';
 import { getOrbitControlsAccessors } from '@/Engine/Controls/Wrapper/OrbitControlsAccessors';
 import { applyOrbitControlsParams } from '@/Engine/Controls/Wrapper/OrbitControlsWrapperHelper';
+import { adjustWthActive } from '@/Engine/Mixins';
 import { isDefined } from '@/Engine/Utils';
 import type { IVector3Wrapper } from '@/Engine/Vector';
 import { Vector3Wrapper } from '@/Engine/Vector';
@@ -43,7 +44,7 @@ export function OrbitControlsWrapper(params: IOrbitControlsParams): IOrbitContro
     result.setTarget(position);
   }
 
-  const result = {
+  let result = {
     ...AbstractWrapper(entity, WrapperType.Controls, params),
     update,
     enable,
@@ -53,6 +54,8 @@ export function OrbitControlsWrapper(params: IOrbitControlsParams): IOrbitContro
     moveToTargetSmoothly,
     entity
   };
+
+  result = adjustWthActive(result, params.isActive);
 
   applyOrbitControlsParams(result, params);
   result.enable();
