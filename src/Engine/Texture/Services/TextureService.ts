@@ -15,6 +15,8 @@ import type {
   TStandardMaterialTexturePack,
   TToonMaterialTexturePack
 } from '@/Engine/MaterialTexturePack';
+import type { TDestroyable } from '@/Engine/Mixins';
+import { destroyableMixin } from '@/Engine/Mixins';
 import type {
   TBasicTextureUploaded,
   TBasicTextureUploadPromises,
@@ -36,10 +38,9 @@ import type {
   TStandardTextureUploadPromises,
   TTexture,
   TTextureAsyncRegistry,
-  TTextureConfig,
   TTextureFactory,
+  TTexturePackConfig,
   TTexturePackParams,
-  TTextureParams,
   TTextureService,
   TTextureUploaded,
   TTextureUploadPromises,
@@ -54,23 +55,23 @@ export function TextureService(factory: TTextureFactory, registry: TTextureAsync
   const textureLoader: TextureLoader = new TextureLoader();
   factory.entityCreated$.subscribe((texture: TTexture): void => registry.add(texture));
 
-  const createAsync = (params: TTextureParams): Promise<TTexture> => factory.createAsync(params, { materialTextureService });
+  const createAsync = (params: TTexturePackParams): Promise<TTexture> => factory.createAsync(params, { materialTextureService });
 
-  function createFromConfigAsync(textures: ReadonlyArray<TTextureConfig>): Promise<ReadonlyArray<TTexture>> {
-    return textures.map((config: TTextureConfig): Promise<TTexture> => factory.createAsync(factory.configToParams(config), { materialTextureService }));
+  function createFromConfigAsync(textures: ReadonlyArray<TTexturePackConfig>): Promise<ReadonlyArray<TTexture>> {
+    return textures.map((config: TTexturePackConfig): Promise<TTexture> => factory.createAsync(factory.configToParams(config), { materialTextureService }));
   }
 
-  function load(m: TMaterialPackParams<TBasicMaterialTexturePack>): TBasicTextureUploadPromises;
-  function load(m: TMaterialPackParams<TDepthMaterialTexturePack>): TDepthTextureUploadPromises;
-  function load(m: TMaterialPackParams<TDistanceMaterialTexturePack>): TDistanceTextureUploadPromises;
-  function load(m: TMaterialPackParams<TNormalMaterialTexturePack>): TNormalTextureUploadPromises;
-  function load(m: TMaterialPackParams<TMatcapMaterialTexturePack>): TMatcapTextureUploadPromises;
-  function load(m: TMaterialPackParams<TLambertMaterialTexturePack>): TLambertTextureUploadPromises;
-  function load(m: TMaterialPackParams<TPhongMaterialTexturePack>): TPhongTextureUploadPromises;
-  function load(m: TMaterialPackParams<TPhysicalMaterialTexturePack>): TPhysicalTextureUploadPromises;
-  function load(m: TMaterialPackParams<TToonMaterialTexturePack>): TToonTextureUploadPromises;
-  function load(m: TMaterialPackParams<TStandardMaterialTexturePack>): TStandardTextureUploadPromises;
-  function load(m: TMaterialPackParams<TMaterialTexturePack>): TTextureUploadPromises {
+  function loadMaterialPack(m: TMaterialPackParams<TBasicMaterialTexturePack>): TBasicTextureUploadPromises;
+  function loadMaterialPack(m: TMaterialPackParams<TDepthMaterialTexturePack>): TDepthTextureUploadPromises;
+  function loadMaterialPack(m: TMaterialPackParams<TDistanceMaterialTexturePack>): TDistanceTextureUploadPromises;
+  function loadMaterialPack(m: TMaterialPackParams<TNormalMaterialTexturePack>): TNormalTextureUploadPromises;
+  function loadMaterialPack(m: TMaterialPackParams<TMatcapMaterialTexturePack>): TMatcapTextureUploadPromises;
+  function loadMaterialPack(m: TMaterialPackParams<TLambertMaterialTexturePack>): TLambertTextureUploadPromises;
+  function loadMaterialPack(m: TMaterialPackParams<TPhongMaterialTexturePack>): TPhongTextureUploadPromises;
+  function loadMaterialPack(m: TMaterialPackParams<TPhysicalMaterialTexturePack>): TPhysicalTextureUploadPromises;
+  function loadMaterialPack(m: TMaterialPackParams<TToonMaterialTexturePack>): TToonTextureUploadPromises;
+  function loadMaterialPack(m: TMaterialPackParams<TStandardMaterialTexturePack>): TStandardTextureUploadPromises;
+  function loadMaterialPack(m: TMaterialPackParams<TMaterialTexturePack>): TTextureUploadPromises {
     let promises: Omit<TTextureUploadPromises, 'all' | 'material'> = {};
     if (isNotDefined(m.textures)) return { ...promises, all };
 
@@ -109,5 +110,19 @@ export function TextureService(factory: TTextureFactory, registry: TTextureAsync
     return { ...promises, all };
   }
 
-  return { createAsync, createFromConfigAsync, load };
+  const destroyable: TDestroyable = destroyableMixin();
+  destroyable.destroyed$.subscribe(() => {
+    factory.destroy();
+    // TODO DESTROY: unload textures (maybe in registry)
+    registry.destroy();
+  });
+
+  return {
+    createAsync,
+    createFromConfigAsync,
+    loadMaterialPack,
+    getFactory: (): TTextureFactory => factory,
+    getRegistry: (): TTextureAsyncRegistry => registry,
+    ...destroyable
+  };
 }

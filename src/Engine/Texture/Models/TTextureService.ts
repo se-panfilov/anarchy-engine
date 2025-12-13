@@ -11,12 +11,11 @@ import type {
   TStandardMaterialTexturePack,
   TToonMaterialTexturePack
 } from '@/Engine/MaterialTexturePack/Models';
-import type { TDestroyable } from '@/Engine/Mixins';
+import type { TDestroyable, TWithCreateAsync } from '@/Engine/Mixins';
 import type { TWithCreateFromConfigAsyncService, TWithFactoryService, TWithRegistryService } from '@/Engine/Space';
-import type { TTexture } from '@/Engine/Texture';
+import type { TTexture, TTexturePackConfig, TTexturePackParams } from '@/Engine/Texture';
 
 import type { TTextureAsyncRegistry } from './TTextureAsyncRegistry';
-import type { TTextureConfig } from './TTextureConfig';
 import type { TTextureFactory } from './TTextureFactory';
 import type {
   TBasicTextureUploadPromises,
@@ -31,16 +30,16 @@ import type {
   TToonTextureUploadPromises
 } from './TTextureUploadPromises';
 
-export type TWithBasicMaterialTextureLoader = Readonly<{ load: (m: TMaterialPackParams<TBasicMaterialTexturePack>) => TBasicTextureUploadPromises }>;
-export type TWithDepthMaterialTextureLoader = Readonly<{ load: (m: TMaterialPackParams<TDepthMaterialTexturePack>) => TDepthTextureUploadPromises }>;
-export type TWithDistanceMaterialTextureLoader = Readonly<{ load: (m: TMaterialPackParams<TDistanceMaterialTexturePack>) => TDistanceTextureUploadPromises }>;
-export type TWithNormalMaterialTextureLoader = Readonly<{ load: (m: TMaterialPackParams<TNormalMaterialTexturePack>) => TNormalTextureUploadPromises }>;
-export type TWithMatcapMaterialTextureLoader = Readonly<{ load: (m: TMaterialPackParams<TMatcapMaterialTexturePack>) => TMatcapTextureUploadPromises }>;
-export type TWithLamberMaterialTextureLoader = Readonly<{ load: (m: TMaterialPackParams<TLambertMaterialTexturePack>) => TLambertTextureUploadPromises }>;
-export type TWithPhongMaterialTextureLoader = Readonly<{ load: (m: TMaterialPackParams<TPhongMaterialTexturePack>) => TPhongTextureUploadPromises }>;
-export type TWithPhysicalMaterialTextureLoader = Readonly<{ load: (m: TMaterialPackParams<TPhysicalMaterialTexturePack>) => TPhysicalTextureUploadPromises }>;
-export type TWithToonMaterialTextureLoader = Readonly<{ load: (m: TMaterialPackParams<TToonMaterialTexturePack>) => TToonTextureUploadPromises }>;
-export type TWithStandardMaterialTextureLoader = Readonly<{ load: (m: TMaterialPackParams<TStandardMaterialTexturePack>) => TStandardTextureUploadPromises }>;
+export type TWithBasicMaterialTextureLoader = Readonly<{ loadMaterialPack: (m: TMaterialPackParams<TBasicMaterialTexturePack>) => TBasicTextureUploadPromises }>;
+export type TWithDepthMaterialTextureLoader = Readonly<{ loadMaterialPack: (m: TMaterialPackParams<TDepthMaterialTexturePack>) => TDepthTextureUploadPromises }>;
+export type TWithDistanceMaterialTextureLoader = Readonly<{ loadMaterialPack: (m: TMaterialPackParams<TDistanceMaterialTexturePack>) => TDistanceTextureUploadPromises }>;
+export type TWithNormalMaterialTextureLoader = Readonly<{ loadMaterialPack: (m: TMaterialPackParams<TNormalMaterialTexturePack>) => TNormalTextureUploadPromises }>;
+export type TWithMatcapMaterialTextureLoader = Readonly<{ loadMaterialPack: (m: TMaterialPackParams<TMatcapMaterialTexturePack>) => TMatcapTextureUploadPromises }>;
+export type TWithLamberMaterialTextureLoader = Readonly<{ loadMaterialPack: (m: TMaterialPackParams<TLambertMaterialTexturePack>) => TLambertTextureUploadPromises }>;
+export type TWithPhongMaterialTextureLoader = Readonly<{ loadMaterialPack: (m: TMaterialPackParams<TPhongMaterialTexturePack>) => TPhongTextureUploadPromises }>;
+export type TWithPhysicalMaterialTextureLoader = Readonly<{ loadMaterialPack: (m: TMaterialPackParams<TPhysicalMaterialTexturePack>) => TPhysicalTextureUploadPromises }>;
+export type TWithToonMaterialTextureLoader = Readonly<{ loadMaterialPack: (m: TMaterialPackParams<TToonMaterialTexturePack>) => TToonTextureUploadPromises }>;
+export type TWithStandardMaterialTextureLoader = Readonly<{ loadMaterialPack: (m: TMaterialPackParams<TStandardMaterialTexturePack>) => TStandardTextureUploadPromises }>;
 
 export type TBasicMaterialTextureService = TWithBasicMaterialTextureLoader;
 export type TDepthMaterialTextureService = TWithDepthMaterialTextureLoader;
@@ -65,7 +64,8 @@ export type TTextureService = (
   | TToonMaterialTextureService
   | TStandardMaterialTextureService
 ) &
-  TWithCreateFromConfigAsyncService<TTextureConfig, ReadonlyArray<TTexture>> &
+  TWithCreateAsync<TTexture, TTexturePackParams> &
+  TWithCreateFromConfigAsyncService<TTexturePackConfig, ReadonlyArray<TTexture>> &
   TWithFactoryService<TTextureFactory> &
   TWithRegistryService<TTextureAsyncRegistry> &
   TDestroyable;
