@@ -1,5 +1,6 @@
 import type { MaterialJSON } from 'three';
 
+import { serializeColor } from '@/Engine/Color';
 import type { MaterialType } from '@/Engine/Material/Constants';
 import { BlendEquationMap, BlendingDstFactorMap, BlendingMap, BlendingSrcFactorMap, NormalMapTypesMap, SideMap, StencilFailMap, StencilFuncMap, StencilOpMap } from '@/Engine/Material/Constants';
 import type { TAllMaterialConfigOptions, TMaterialConfig, TMaterialConfigOptions, TMaterialWrapper } from '@/Engine/Material/Models';
@@ -28,7 +29,7 @@ function getMaterialOptions({ entity }: TMaterialWrapper): TAllMaterialConfigOpt
       blendDst: getOptionName(entity.blendDst, BlendingDstFactorMap, 'blendDst'),
       blendEquation: getOptionName(entity.blendEquation, BlendEquationMap, 'blendEquation'),
       blendSrc: getOptionName(entity.blendSrc, { ...BlendingSrcFactorMap, ...BlendingDstFactorMap }, 'blendSrc'),
-      color: `#${(entity as any).color.getHexString()}`,
+      color: serializeColor((entity as any).color),
       side: getOptionName(entity.side, SideMap, 'side'),
       format: (entity as any).format,
       stencilFunc: getOptionName(entity.stencilFunc, StencilFuncMap, 'stencilFunc'),

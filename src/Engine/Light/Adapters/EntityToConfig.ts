@@ -2,6 +2,7 @@ import type { Object3DJSONObject, Vector2Like } from 'three';
 import { Vector2 } from 'three';
 
 import type { TCamera } from '@/Engine/Camera';
+import { serializeColor } from '@/Engine/Color';
 import type { LightType } from '@/Engine/Light/Constants';
 import type {
   TAbstractLightConfig,
@@ -34,7 +35,7 @@ export function lightToConfig<T extends TLight>(entity: TAbstractLightWrapper<T>
 
   return filterOutEmptyFields({
     type: json.type as LightType,
-    color: `#${entity.entity.color.getHexString()}`,
+    color: serializeColor(entity.entity.color),
     intensity: (json as unknown as TAbstractLightConfig<T>).intensity,
     castShadow: json.castShadow,
     // ...onlyDirectionalLightToConfig(entity as TDirectionalLightWrapper),
@@ -59,10 +60,8 @@ export function lightToConfig<T extends TLight>(entity: TAbstractLightWrapper<T>
 // }
 
 export function onlyHemisphereLightToConfig(entity: THemisphereLightWrapper): Partial<THemisphereLightConfig> {
-  const json: Object3DJSONObject = entity.entity.toJSON().object;
-
   return filterOutEmptyFields({
-    groundColor: (json as unknown as THemisphereLightConfig).groundColor
+    groundColor: serializeColor(entity.entity.groundColor)
   });
 }
 
