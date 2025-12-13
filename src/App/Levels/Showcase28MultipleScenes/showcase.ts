@@ -7,9 +7,9 @@ import type { TSubscriptionsData } from './Helpers';
 import { runAlpha, runBeta, runDelta, runGamma } from './Helpers';
 import { createButtons, createContainersDivs } from './Helpers/Utils';
 import spaceAlphaConfigJson from './spaceAlpha.json';
-// import spaceBetaConfigJson from './spaceBeta.json';
-// import spaceDeltaConfigJson from './spaceDelta.json';
-// import spaceGammaConfigJson from './spaceGamma.json';
+import spaceBetaConfigJson from './spaceBeta.json';
+import spaceDeltaConfigJson from './spaceDelta.json';
+import spaceGammaConfigJson from './spaceGamma.json';
 
 const subscriptionsData: TSubscriptionsData = {
   totalSubscriptions: 0,
@@ -19,41 +19,39 @@ const subscriptionsData: TSubscriptionsData = {
 hackRxJsSubscriptions(subscriptionsData);
 
 const spaceAlphaConfig: TSpaceConfig = spaceAlphaConfigJson as TSpaceConfig;
-// const spaceBetaConfig: TSpaceConfig = spaceBetaConfigJson as TSpaceConfig;
-// const spaceGammaConfig: TSpaceConfig = spaceGammaConfigJson as TSpaceConfig;
-// const spaceDeltaConfig: TSpaceConfig = spaceDeltaConfigJson as TSpaceConfig;
+const spaceBetaConfig: TSpaceConfig = spaceBetaConfigJson as TSpaceConfig;
+const spaceGammaConfig: TSpaceConfig = spaceGammaConfigJson as TSpaceConfig;
+const spaceDeltaConfig: TSpaceConfig = spaceDeltaConfigJson as TSpaceConfig;
 
 export function start(): void {
   createContainersDivs();
 
-  // const spaces: Record<string, TSpace> = asRecord('name', spaceService.createFromConfig([spaceAlphaConfig, spaceBetaConfig, spaceGammaConfig, spaceDeltaConfig]));
-  const spaces: Record<string, TSpace> = asRecord('name', spaceService.createFromConfig([spaceAlphaConfig]));
+  const spaces: Record<string, TSpace> = asRecord('name', spaceService.createFromConfig([spaceAlphaConfig, spaceBetaConfig, spaceGammaConfig, spaceDeltaConfig]));
   const spaceAlpha: TSpace = spaces[spaceAlphaConfig.name];
-  // const spaceBeta: TSpace = spaces[spaceBetaConfig.name];
-  // const spaceGamma: TSpace = spaces[spaceGammaConfig.name];
-  // const spaceDelta: TSpace = spaces[spaceDeltaConfig.name];
+  const spaceBeta: TSpace = spaces[spaceBetaConfig.name];
+  const spaceGamma: TSpace = spaces[spaceGammaConfig.name];
+  const spaceDelta: TSpace = spaces[spaceDeltaConfig.name];
   if (isNotDefined(spaceAlpha)) throw new Error(`Showcase: Space "${spaceAlphaConfig.name}" is not defined`);
-  // if (isNotDefined(spaceBeta)) throw new Error(`Showcase: Space "${spaceBetaConfig.name}" is not defined`);
-  // if (isNotDefined(spaceBeta)) throw new Error(`Showcase: Space "${spaceGamma.name}" is not defined`);
-  // if (isNotDefined(spaceBeta)) throw new Error(`Showcase: Space "${spaceDelta.name}" is not defined`);
+  if (isNotDefined(spaceBeta)) throw new Error(`Showcase: Space "${spaceBetaConfig.name}" is not defined`);
+  if (isNotDefined(spaceBeta)) throw new Error(`Showcase: Space "${spaceGamma.name}" is not defined`);
+  if (isNotDefined(spaceBeta)) throw new Error(`Showcase: Space "${spaceDelta.name}" is not defined`);
 
-  combineLatest([spaceAlpha.built$]).subscribe(([alpha]: ReadonlyArray<TSpace>): void => {
-    // combineLatest([spaceAlpha.built$, spaceBeta.built$, spaceGamma.built$, spaceDelta.built$]).subscribe(([alpha, beta, gamma, delta]: ReadonlyArray<TSpace>): void => {
+  combineLatest([spaceAlpha.built$, spaceBeta.built$, spaceGamma.built$, spaceDelta.built$]).subscribe(([alpha, beta, gamma, delta]: ReadonlyArray<TSpace>): void => {
     runAlpha(alpha);
-    // runBeta(beta);
-    // runGamma(gamma);
-    // runDelta(delta);
+    runBeta(beta);
+    runGamma(gamma);
+    runDelta(delta);
   });
 
   const leftTopContainerId = 'btn-container-left-top';
-  // const rightTopContainerId = 'btn-container-right-top';
-  // const leftBottomContainerId = 'btn-container-left-bottom';
-  // const rightBottomContainerId = 'btn-container-right-bottom';
+  const rightTopContainerId = 'btn-container-right-top';
+  const leftBottomContainerId = 'btn-container-left-bottom';
+  const rightBottomContainerId = 'btn-container-right-bottom';
 
   createButtons('Alpha', leftTopContainerId, spaceAlpha, true, false, subscriptionsData);
-  // createButtons('Beta', rightTopContainerId, spaceBeta, true, true, subscriptionsData);
-  // createButtons('Gamma', leftBottomContainerId, spaceGamma, false, false, subscriptionsData);
-  // createButtons('Delta', rightBottomContainerId, spaceDelta, false, true, subscriptionsData);
+  createButtons('Beta', rightTopContainerId, spaceBeta, true, true, subscriptionsData);
+  createButtons('Gamma', leftBottomContainerId, spaceGamma, false, false, subscriptionsData);
+  createButtons('Delta', rightBottomContainerId, spaceDelta, false, true, subscriptionsData);
 }
 
 //Hack RxJS to track subscriptions to prevent memory leaks (DO NOT USE IN PRODUCTION);
