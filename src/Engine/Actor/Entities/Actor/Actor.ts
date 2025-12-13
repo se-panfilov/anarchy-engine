@@ -27,15 +27,21 @@ export function Actor(
   const driveToModel3dConnector: TDriveToModel3dConnector = DriveToModel3dConnector(drive, model3d);
 
   // TODO CWP:
-  // TODO 8.0.0. MODELS: Finish Actor's implementation, make sure it works with the KinematicAgent
   // TODO 8.0.0. MODELS: In ActorDriver implement external change of position$/rotation$/scale$ and make sure it works
+
   // TODO 8.0.0. MODELS: Implement PhysicsAgent
   // TODO 8.0.0. MODELS: Connect Physics body with the PhysicsAgent
-  // TODO 8.0.0. MODELS: Make sure it works with the Physics
   // TODO 8.0.0. MODELS: Make sure external change of position$/rotation$/scale$ works with the PhysicsAgent
+
   // TODO 8.0.0. MODELS: Make spatial is working
   // TODO 8.0.0. MODELS: Make collisions are working
-  // TODO 8.0.0. MODELS: Make actor workable with ActorDriver.Instant (let user set values directly)
+
+  // TODO 8.0.0. MODELS: Make sure it works with the Kinematic agent
+  // TODO 8.0.0. MODELS: Make sure it works with the Physics agent
+  // TODO 8.0.0. MODELS: Make sure it works with the Instant agent (set)
+  // TODO 8.0.0. MODELS: Make sure it works with the Instant agent (connector)
+
+  // TODO 8.0.0. MODELS: Add a showcase with runtime switch between agents
 
   // const { value$: position$, update: updatePosition } = withReactivePosition(model3d);
   // const { value$: rotation$, update: updateRotation } = withReactiveRotation(model3d);
