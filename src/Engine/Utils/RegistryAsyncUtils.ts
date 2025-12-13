@@ -82,7 +82,7 @@ export function getValueAsync<T>(
 
   reg.added$
     .pipe(
-      filter(({ value }: TRegistryPack<T>) => filterFn(value)),
+      filter(({ value }: TRegistryPack<T>): boolean => filterFn(value)),
       take(1),
       map((pack: TRegistryPack<T>): T => pack.value),
       timeout(waitingTime),
