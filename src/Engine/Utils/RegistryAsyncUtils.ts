@@ -36,9 +36,8 @@ export function getAsyncUniqEntityByNameAsync<T extends IRegistrable>(
   return getValueAsync<T>(registry, (entity: T): boolean => isDefined(entity) && entity.name === name, undefined, waitingTime);
 }
 
-// TODO (S.Panfilov) add unit tests
-export function getUniqEntityWithTags$<T extends IRegistrable>(tags: ReadonlyArray<string>, registry: IAbstractEntityRegistry<T>, strategy: LookUpStrategy): Observable<T> {
-  const result: T | undefined = registry.findByTags(tags, strategy);
+export function getUniqEntityWithTags$<T extends IRegistrable>(tags: ReadonlyArray<string>, registry: IAbstractEntityRegistry<T> | IAbstractAsyncRegistry<T>, strategy: LookUpStrategy): Observable<T> {
+  const result: T | undefined = isDefined((registry as IAbstractEntityRegistry<T>).findByTags) ? (registry as IAbstractEntityRegistry<T>).findByTags(tags, strategy) : undefined;
   if (isDefined(result)) new BehaviorSubject(result).asObservable();
   return subscribeToValue$<T>(registry, (entity: T): boolean => entity.getTags()[strategy]((tag: string) => tags.includes(tag)));
 }
