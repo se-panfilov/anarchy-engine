@@ -1,9 +1,9 @@
-# Privacy Notice — anarchy-engine
+# Privacy Notice — showcases-shared
 
 **Effective date:** TBD until market release
 **Controller:** Sergei Aleksandrovich Panfilov — Contact: TBD until market release
 
-**Scope / Identification.** This notice applies to the **open-source repository** for **anarchy-engine** (hosted on or mirrored to **public code hosting platform(s)**). We do **not** operate a consumer service through this repository.
+**Scope / Identification.** This notice applies to the **open-source repository** for **showcases-shared** (hosted on or mirrored to **public code hosting platform(s)**). We do **not** operate a consumer service through this repository.
 
 **CPRA (California):** we **do not sell or share** personal information for cross-context behavioral advertising.
 
