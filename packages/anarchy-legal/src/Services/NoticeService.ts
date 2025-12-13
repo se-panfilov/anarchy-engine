@@ -140,8 +140,8 @@ export function NoticeService(): TNoticeService {
   async function findUpstreamNoticeFile(dir: string): Promise<string | undefined> {
     try {
       const list = await fs.readdir(dir);
-      const cand = list.find((f) => /^(notice|notice\.txt|notice\.md)$/i.test(f));
-      return cand ? path.join(dir, cand) : undefined;
+      const candidate = list.find((f) => /^(notice|notice\.txt|notice\.md)$/i.test(f));
+      return candidate ? path.join(dir, candidate) : undefined;
     } catch {
       return undefined;
     }
@@ -152,38 +152,44 @@ export function NoticeService(): TNoticeService {
     if (!p) return undefined;
     try {
       const stat = await fs.stat(p);
-      const txt: string = await fs.readFile(p, 'utf8');
+      const text: string = await fs.readFile(p, 'utf8');
       if (stat.size > maxBytes) {
-        return `Upstream NOTICE is too large (${stat.size} bytes); truncated.\n\n` + txt.slice(0, maxBytes);
+        return `Upstream NOTICE is too large (${stat.size} bytes); truncated.\n\n` + text.slice(0, maxBytes);
       }
-      return txt;
+      return text;
     } catch {
       return undefined;
     }
   }
 
   function renderNotice(wsName: string, entries: ReadonlyArray<TParsedEntry>, includeUpstream: boolean): string {
-    const header: ReadonlyArray<string> = [`# NOTICE`, ``, `## Application: ${wsName}`, ``, `Components listed: ${entries.length}`, ``];
+    const header: string = `# NOTICE
 
-    const note: ReadonlyArray<string> = entries.length === 0 ? [`**Note:** No third-party components were detected.`] : [];
+## Application: ${wsName}
 
-    const blocks: ReadonlyArray<ReadonlyArray<string>> = entries.map((e) => {
-      const base: string[] = [
-        `---`,
-        ``,
-        `## ${e.name}@${e.version}`,
-        `**License(s):** ${e.licenses.length ? e.licenses.join(', ') : 'UNKNOWN'}`,
-        ...(e.repository ? [`**Repository:** ${e.repository}`] : []),
-        ...(e.url ? [`**URL:** ${e.url}`] : []),
-        ...(e.inferredCopyright ? [`**Attribution:** ${e.inferredCopyright}`] : []),
-        ``
-      ];
-      const upstream: ReadonlyArray<string> = includeUpstream && e.upstreamNotice ? [`**Upstream NOTICE:**`, ...e.upstreamNotice.split(/\r?\n/).map((ln) => `> ${ln}`), ``] : [];
-      return [...base, ...upstream];
+Components listed: ${entries.length}
+
+`;
+
+    const note: string = entries.length === 0 ? `**Note:** No third-party components were detected.` : '';
+
+    const blocks: ReadonlyArray<ReadonlyArray<string>> = entries.map((v: TParsedEntry): ReadonlyArray<string> => {
+      const licenses: string = v.licenses.length ? v.licenses.join(', ') + '\n' : 'UNKNOWN';
+      const repository: string = v.repository ? `**Repository:** ${v.repository}\n\n` : '';
+      const url: string = v.url ? `**URL:** ${v.url}\n\n` : '';
+      const inferredCopyright: string = v.inferredCopyright ? `**Attribution:** ${v.inferredCopyright}\n\n` : '';
+
+      const base: string = `---
+
+## ${v.name}@${v.version}
+
+**License(s):** ${licenses}
+${repository}${url}${inferredCopyright}`;
+      const upstream: ReadonlyArray<string> = includeUpstream && v.upstreamNotice ? [`**Upstream NOTICE:**`, ...v.upstreamNotice.split(/\r?\n/).map((ln) => `> ${ln}`), ``] : [];
+      return [base, ...upstream];
     });
 
-    const allLines = [...header, ...note, ...blocks.flat()];
-    return allLines.join('\n\n');
+    return [header, note, ...blocks.flat()].join('');
   }
 
   // ---------------------- Main ----------------------
