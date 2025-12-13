@@ -15,8 +15,8 @@ export function LegalFilesService(): TLegalFilesService {
   let isDebug: boolean = false;
   const repoUtilsService: TRepoUtilsService = RepoUtilsService();
   const {
-    debugLog
-    // findMonorepoRoot,
+    debugLog,
+    findMonorepoRoot
     // resolveWorkspaceFromArg
   } = repoUtilsService;
 
@@ -58,36 +58,6 @@ export function LegalFilesService(): TLegalFilesService {
       return false;
     }
   };
-
-  // Monorepo discovery (simple: look upward for workspaces field)
-  function hasWorkspacesField(pkg: any): boolean {
-    const ws = pkg?.workspaces;
-    if (!ws) return false;
-    if (Array.isArray(ws)) return ws.length > 0;
-    if (typeof ws === 'object' && Array.isArray(ws.packages)) return ws.packages.length > 0;
-    return false;
-  }
-
-  async function findMonorepoRoot(startDir: string): Promise<string> {
-    let dir = path.resolve(startDir);
-    debugLog('findMonorepoRoot: start at', dir);
-    for (let i = 0; i < 50; i++) {
-      const p = path.join(dir, 'package.json');
-      debugLog('  check', p);
-      if (await exists(p)) {
-        try {
-          const pkg = await readJson<any>(p);
-          if (hasWorkspacesField(pkg)) return dir;
-        } catch {
-          /* ignore */
-        }
-      }
-      const parent = path.dirname(dir);
-      if (parent === dir) break;
-      dir = parent;
-    }
-    throw new Error(`Monorepo root not found from ${startDir}`);
-  }
 
   async function loadWorkspaces(rootDir: string): Promise<ReadonlyMap<string, TWorkspaceInfo>> {
     const rootPkg = await readJson<any>(path.join(rootDir, 'package.json'));
