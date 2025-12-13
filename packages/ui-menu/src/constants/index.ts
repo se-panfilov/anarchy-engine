@@ -1,2 +1,3 @@
+export * from './Events';
 export * from './Languages';
-export * from './MenuRoutes';
+export * from './Routes';

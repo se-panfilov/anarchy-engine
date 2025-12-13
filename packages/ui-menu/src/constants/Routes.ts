@@ -3,7 +3,7 @@ import Graphics from '@Menu/views/Graphics.vue';
 import Home from '@Menu/views/Home.vue';
 import Localization from '@Menu/views/Localization.vue';
 
-export enum MenuRoutes {
+export enum Routes {
   Home = '/',
   Audio = '/audio',
   Graphics = '/graphics',
@@ -11,9 +11,9 @@ export enum MenuRoutes {
 }
 
 // TODO DESKTOP: any?
-export const menuRouteMap: Record<MenuRoutes, any> = {
-  [MenuRoutes.Home]: Home,
-  [MenuRoutes.Audio]: Audio,
-  [MenuRoutes.Graphics]: Graphics,
-  [MenuRoutes.Localization]: Localization
+export const menuRouteMap: Record<Routes, any> = {
+  [Routes.Home]: Home,
+  [Routes.Audio]: Audio,
+  [Routes.Graphics]: Graphics,
+  [Routes.Localization]: Localization
 };
