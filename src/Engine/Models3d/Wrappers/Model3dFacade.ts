@@ -13,7 +13,7 @@ export function Model3dFacade(params: TModels3dFacadeParams, animationsService: 
   const entities: TModel3dEntities = createModels3dEntities(params, animationsService);
   const facade = AbstractFacade(withModel3dFacadeEntities(entities), FacadeType.Model3d, params);
 
-  const getPack = (): TModel3dPack => omitInObjectWithoutMutation(entities, ['actions', 'mixer']);
+  const getPack = (): TModel3dPack => omitInObjectWithoutMutation({ ...entities, clonedFrom: facade.id }, ['actions', 'mixer']);
 
   function _clone(overrides: TOptional<TModel3dPack> = {}): TModel3dFacade {
     const _overrides = omitInObjectWithoutMutation(overrides, ['clonedFrom']);
