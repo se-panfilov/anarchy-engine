@@ -77,22 +77,12 @@ function initMusicWithControls(name: string, folderName: string, gui: GUI, { aud
     pauseMusic: (): void => audioW.pause$.next(true),
     resumeMusic: (): void => audioW.pause$.next(false),
     stopMusic: (): void => audioW.play$.next(false),
-    seekPlus: (): void => {
-      const currentTime: number = audioW.seek$.getValue();
-      audioW.seek$.next(currentTime + 10);
-    },
-    seekMinus: (): void => {
-      const currentTime: number = audioW.seek$.getValue();
-      audioW.seek$.next(currentTime - 10);
-    },
-    loop: (): void => {
-      const currentLoop: boolean = audioW.loop$.getValue();
-      audioW.loop$.next(!currentLoop);
-    },
-    toggleDebugRendrer: (): void => {
-      debugAudioRenderer?.enabled$.next(!debugAudioRenderer?.enabled$.value);
-    },
+    seekPlus: (): void => audioW.seek$.next(audioW.seek$.getValue() + 10),
+    seekMinus: (): void => audioW.seek$.next(audioW.seek$.getValue() - 10),
+    loop: (): void => audioW.loop$.next(!audioW.loop$.getValue()),
+    toggleDebugRendrer: (): void => debugAudioRenderer?.enabled$.next(!debugAudioRenderer?.enabled$.value),
     volume: 1,
+    speed: 1,
     progress: 0
   };
 
@@ -108,6 +98,12 @@ function initMusicWithControls(name: string, folderName: string, gui: GUI, { aud
     .name('Volume')
     .onChange((value: number): void => {
       audioW.volume$.next(value);
+    });
+  folder
+    .add(state, 'speed', 1, 2)
+    .name('Speed')
+    .onChange((value: number): void => {
+      audioW.speed$.next(value);
     });
   if (isDebugRendererEnabled) folder.add(state, 'toggleDebugRendrer').name('Debug renderer');
 
