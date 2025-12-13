@@ -3,7 +3,8 @@ import anime from 'animejs';
 import { defaultAnimationParams, Easing } from '@/Engine/Services/MoverService/Constants';
 import type { followTargetFn, IFollowTargetParams, IMoveableByTick, IMoveByPathFn, IMoveByPathFnParams, IMoveFn, IMoveFnParams } from '@/Engine/Services/MoverService/Models';
 import { getAnimationWrapperForComplexPathAnimation } from '@/Engine/Services/MoverService/MoverServiceUtils';
-import type { IVector3Wrapper } from '@/Engine/Wrappers';
+import { isVector3Wrapper } from '@/Engine/Utils';
+import type { IVector2Wrapper, IVector3Wrapper } from '@/Engine/Wrappers';
 
 export const goStraightMove: IMoveFn = ({ obj, destination, animationParams, complete }: IMoveFnParams): anime.AnimeInstance => {
   return anime({
@@ -37,10 +38,10 @@ export const byPathMove: IMoveByPathFn = ({ obj, path, animationParams, complete
 export const followTarget: followTargetFn = ({ obj, target, offset }: IFollowTargetParams): IMoveableByTick => {
   return {
     tick: (): void => {
-      const position: IVector3Wrapper = target.getPosition();
+      const position: IVector3Wrapper | IVector2Wrapper = target.getPosition();
       obj.setX(position.getX() + (offset?.x ?? 0));
       obj.setY(position.getY() + (offset?.y ?? 0));
-      obj.setZ(position.getZ() + (offset?.z ?? 0));
+      if (isVector3Wrapper(position)) obj.setZ(position.getZ() + (offset?.z ?? 0));
     }
   };
 };

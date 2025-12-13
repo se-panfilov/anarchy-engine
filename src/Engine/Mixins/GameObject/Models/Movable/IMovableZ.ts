@@ -1,6 +1,6 @@
-import type { IWithPosition } from '@/Engine/Mixins/GameObject/Models/Position';
+import type { IWithPositionXYZ } from '@/Engine/Mixins/GameObject/Models/Position';
 
-export type IMovableZ = IWithPosition &
+export type IMovableZ = IWithPositionXYZ &
   Readonly<{
     addZ: (z: number) => number;
     setZ: (z: number) => number;
