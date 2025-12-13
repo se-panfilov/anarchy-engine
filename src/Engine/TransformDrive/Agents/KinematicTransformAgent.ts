@@ -188,16 +188,16 @@ export function KinematicTransformAgent(params: TKinematicTransformAgentParams, 
   };
 
   function doKinematicMove(delta: number): void {
-    if (!agent.enabled$.value) return;
     if (agent.data.linearSpeed <= 0) return;
+
     const normalizedDirection: TReadonlyVector3 = agent.data.linearDirection.clone().normalize();
     const displacement: TReadonlyVector3 = normalizedDirection.multiplyScalar(agent.data.linearSpeed * delta);
     abstractTransformAgent.position$.next(abstractTransformAgent.position$.value.clone().add(displacement));
   }
 
   function doKinematicRotation(delta: number): void {
-    if (!agent.enabled$.value) return;
     if (agent.data.angularSpeed <= 0) return;
+
     const normalizedAngularDirection: TReadonlyVector3 = agent.data.angularDirection.clone().normalize();
     const angle: TRadians = agent.data.angularSpeed * delta;
     const quaternion: TReadonlyQuaternion = new Quaternion().setFromAxisAngle(normalizedAngularDirection, angle);
