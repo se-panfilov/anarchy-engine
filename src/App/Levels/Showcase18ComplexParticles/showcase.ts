@@ -72,6 +72,7 @@ export function showcase(canvas: TAppCanvas): TShowcase {
     const colorInside: Color = new Color(parameters.insideColor);
     const colorOutside: Color = new Color(parameters.outsideColor);
 
+    // eslint-disable-next-line functional/no-loop-statements
     for (let i: number = 0; i < parameters.count; i++) {
       // Position
       const i3: number = i * 3;
@@ -85,16 +86,22 @@ export function showcase(canvas: TAppCanvas): TShowcase {
       const randomY: number = Math.pow(Math.random(), parameters.randomnessPower) * (Math.random() < 0.5 ? 1 : -1) * parameters.randomness * radius;
       const randomZ: number = Math.pow(Math.random(), parameters.randomnessPower) * (Math.random() < 0.5 ? 1 : -1) * parameters.randomness * radius;
 
+      // eslint-disable-next-line functional/immutable-data
       positions[i3] = Math.cos(branchAngle + spinAngle) * radius + randomX;
+      // eslint-disable-next-line functional/immutable-data
       positions[i3 + 1] = randomY;
+      // eslint-disable-next-line functional/immutable-data
       positions[i3 + 2] = Math.sin(branchAngle + spinAngle) * radius + randomZ;
 
       // Color
       const mixedColor: Color = colorInside.clone();
       mixedColor.lerp(colorOutside, radius / parameters.radius);
 
+      // eslint-disable-next-line functional/immutable-data
       colors[i3] = mixedColor.r;
+      // eslint-disable-next-line functional/immutable-data
       colors[i3 + 1] = mixedColor.g;
+      // eslint-disable-next-line functional/immutable-data
       colors[i3 + 2] = mixedColor.b;
     }
 
