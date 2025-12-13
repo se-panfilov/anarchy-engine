@@ -9,6 +9,7 @@ import type {
   TAnyIntersectionsWatcherConfig,
   TAnyIntersectionsWatcherParams,
   TIntersectionsCameraWatcher,
+  TIntersectionsDirectionWatcher,
   TIntersectionsWatcherFactory,
   TIntersectionsWatcherRegistry,
   TIntersectionsWatcherService,
@@ -55,7 +56,7 @@ export function IntersectionsWatcherService(factory: TIntersectionsWatcherFactor
     return watcher;
   }
 
-  function findDirectionWatcher(name: string): TAnyIntersectionsWatcher | undefined | never {
+  function findDirectionWatcher(name: string): TIntersectionsDirectionWatcher | undefined | never {
     const watcher: TAnyIntersectionsWatcher | undefined = registry.getByName(name);
     if (isDefined(watcher) && !isIntersectionsDirectionWatcher(watcher)) {
       throw new Error(`[IntersectionsWatcherService]: Watcher "${watcher.name}" is not type of TIntersectionsDirectionWatcher`);
@@ -63,7 +64,7 @@ export function IntersectionsWatcherService(factory: TIntersectionsWatcherFactor
     return watcher;
   }
 
-  function getDirectionWatcher(name: string): TAnyIntersectionsWatcher | never {
+  function getDirectionWatcher(name: string): TIntersectionsDirectionWatcher | never {
     const watcher: TAnyIntersectionsWatcher | undefined = findDirectionWatcher(name);
     if (watcher === undefined) throw new Error(`[IntersectionsWatcherService]: Cannot get direction watcher: "${name}" is not found`);
     return watcher;
