@@ -37,6 +37,17 @@ export function addBtn(
   // eslint-disable-next-line functional/immutable-data
   button.textContent = text;
 
+  // eslint-disable-next-line functional/immutable-data
+  button.style.background = 'oklch(0.66 0.1 204.08)';
+  // eslint-disable-next-line functional/immutable-data
+  button.style.color = 'white';
+  // eslint-disable-next-line functional/immutable-data
+  button.style.border = '1px solid oklch(0.55 0.09 166.31)';
+  // eslint-disable-next-line functional/immutable-data
+  button.style.cursor = 'pointer';
+  // eslint-disable-next-line functional/immutable-data
+  button.style.outline = 'none';
+
   button.addEventListener('click', cb);
   container.appendChild(button);
 }
