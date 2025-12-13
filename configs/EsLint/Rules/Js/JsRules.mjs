@@ -223,6 +223,7 @@ export const JsRules = {
         '[J-j]peg',
         '[J-j]pg',
         '[K-k]eyframe[s]?',
+        '[L-l]licensor[s]?',
         '[M-m]acos',
         '[M-m]in[s]?',
         '[M-m]onorepo[s]?',
