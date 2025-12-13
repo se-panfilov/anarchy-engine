@@ -15,7 +15,7 @@
     "resources": {
       "$ref": "#/definitions/TSpaceConfigResources"
     },
-    "canvasId": {
+    "canvasSelector": {
       "type": "string"
     },
     "version": {
@@ -31,7 +31,7 @@
       }
     }
   },
-  "required": ["canvasId", "entities", "resources", "scenes", "version"],
+  "required": ["canvasSelector", "entities", "resources", "scenes", "version"],
   "definitions": {
     "TSceneConfig": {
       "type": "object",

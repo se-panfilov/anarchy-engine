@@ -7,6 +7,5 @@ export type TSpace = TEntity<
   TSpaceParts &
     Readonly<{
       getCanvasElement: () => TSpaceCanvas | never;
-      canvasId: string;
     }>
 >;

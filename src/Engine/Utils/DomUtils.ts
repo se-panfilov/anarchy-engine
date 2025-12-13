@@ -3,14 +3,14 @@ import type { TAppGlobalContainer } from '@/Engine/Global';
 import type { TSpaceCanvas } from '@/Engine/Space';
 import { isDefined } from '@/Engine/Utils';
 
-export function findDomElement(canvasId: string): HTMLElement | null {
+export function findDomElement(canvasSelector: string): HTMLElement | null {
   const appContainer: TAppGlobalContainer = ambientContext.container.getAppContainer();
-  return appContainer.document.querySelector(canvasId);
+  return appContainer.document.querySelector(canvasSelector);
 }
 
-export function findOrCreateCanvas(canvasId: string): TSpaceCanvas | never {
-  const result: TSpaceCanvas | HTMLElement = findDomElement(canvasId) ?? createDomElement(canvasId, 'canvas');
-  if (!isCanvasElement(result)) throw new Error(`DomUtils: Canvas ("${canvasId}") found, but it isn't an instance of HTMLCanvasElement`);
+export function findOrCreateCanvas(canvasSelector: string): TSpaceCanvas | never {
+  const result: TSpaceCanvas | HTMLElement = findDomElement(canvasSelector) ?? createDomElement(canvasSelector, 'canvas');
+  if (!isCanvasElement(result)) throw new Error(`DomUtils: Canvas ("${canvasSelector}") found, but it isn't an instance of HTMLCanvasElement`);
   return result;
 }
 

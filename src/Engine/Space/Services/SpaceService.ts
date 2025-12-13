@@ -21,7 +21,7 @@ import { validateConfig, validateSpacesDoNotUseSameCanvas } from '@/Engine/Space
 
 export function SpaceService(factory: TSpaceFactory, registry: TSpaceRegistry): TSpaceService {
   const factorySub$: Subscription = factory.entityCreated$.subscribe((space: TSpace): void => {
-    if (!validateSpacesDoNotUseSameCanvas(registry, space)) throw new Error(`SpaceService: Spaces must not use the same canvas element ("${space.canvasId}")`);
+    if (!validateSpacesDoNotUseSameCanvas(registry, space)) throw new Error('SpaceService: Spaces must not use the same canvas');
     registry.add(space);
   });
   const disposable: ReadonlyArray<TDisposable> = [registry, factory, factorySub$];

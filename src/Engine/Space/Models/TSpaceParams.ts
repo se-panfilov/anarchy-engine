@@ -5,7 +5,7 @@ import type { SpaceSchemaVersion } from '@/Engine/Space/Constants';
 import type { TSpaceParamsEntities } from './TSpaceParamsEntities';
 
 export type TSpaceParams = Readonly<{
-  canvasId: string;
+  canvasSelector: string;
   version: SpaceSchemaVersion;
   scenes: ReadonlyArray<TSceneParams>;
   entities?: TSpaceParamsEntities;

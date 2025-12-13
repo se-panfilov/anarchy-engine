@@ -4,7 +4,7 @@ import { SpaceSchemaVersion } from '@/Engine/Space';
 import { mockSpatialGridConfig } from './MockSpatialGridConfig';
 
 export const mockConfig: TSpaceConfig = {
-  canvasId: '#mock_canvas',
+  canvasSelector: '#mock_canvas',
   entities: {
     actors: [],
     audio: [],

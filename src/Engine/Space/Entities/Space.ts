@@ -17,11 +17,11 @@ import { createLoops } from '@/Engine/Space/Utils/CreateLoopsUtils';
 import { findDomElement, getOrCreateCanvasFromSelector, isCanvasElement, isDefined, isDestroyable, isNotDefined } from '@/Engine/Utils';
 
 export function Space(params: TSpaceParams, hooks?: TSpaceHooks): TSpace {
-  const { canvasId, version, name, tags } = params;
+  const { canvasSelector, version, name, tags } = params;
   const built$: BehaviorSubject<TSpace | undefined> = new BehaviorSubject<TSpace | undefined>(undefined);
   const start$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
-  const canvas: TSpaceCanvas = getOrCreateCanvasFromSelector(canvasId);
+  const canvas: TSpaceCanvas = getOrCreateCanvasFromSelector(canvasSelector);
 
   const { services, loops } = initSpaceServices(canvas, params);
   hooks?.afterAllServicesInitialized?.(canvas, services, loops, params);
@@ -47,13 +47,13 @@ export function Space(params: TSpaceParams, hooks?: TSpaceHooks): TSpace {
   };
 
   const getCanvasElement = (): TSpaceCanvas | never => {
-    const result: HTMLElement | TSpaceCanvas | null = findDomElement(canvasId);
+    const result: HTMLElement | TSpaceCanvas | null = findDomElement(canvasSelector);
     if (isNotDefined(result)) throw new Error(`Space: Can't find canvas element: ${result}`);
     if (!isCanvasElement(result)) throw new Error(`Space: Element (${result}) is found, but it isn't a canvas`);
     return result;
   };
 
-  const space: TSpace = Object.assign(AbstractEntity(parts, EntityType.Space, { version, name, tags }), { getCanvasElement, canvasId });
+  const space: TSpace = Object.assign(AbstractEntity(parts, EntityType.Space, { version, name, tags }), { getCanvasElement });
 
   start$.pipe(skip(1), distinctUntilChanged()).subscribe((value: boolean): void => {
     if (value) return Object.values(space.loops).forEach((loop: TLoop): void => loop.start());
