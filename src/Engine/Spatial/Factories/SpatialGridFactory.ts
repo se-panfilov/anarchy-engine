@@ -4,6 +4,9 @@ import { configToParamsSpatial as configToParams } from '@/Engine/Spatial/Adapte
 import type { TSpatialGridFactory, TSpatialGridParams, TSpatialGridWrapper } from '@/Engine/Spatial/Models';
 import { SpatialGridWrapper } from '@/Engine/Spatial/Wrappers';
 
-const factory: TReactiveFactory<TSpatialGridWrapper, TSpatialGridParams> = ReactiveFactory(FactoryType.SpatialGrid, SpatialGridWrapper);
-// eslint-disable-next-line functional/immutable-data
-export const SpatialGridFactory = (): TSpatialGridFactory => Object.assign(factory, { configToParams });
+export function SpatialGridFactory(): TSpatialGridFactory {
+  const factory: TReactiveFactory<TSpatialGridWrapper, TSpatialGridParams> = ReactiveFactory(FactoryType.SpatialGrid, SpatialGridWrapper);
+
+  // eslint-disable-next-line functional/immutable-data
+  return Object.assign(factory, { configToParams });
+}

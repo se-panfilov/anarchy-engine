@@ -4,6 +4,9 @@ import { configToParamsBody as configToParams } from '@/Engine/Physics/Adapters'
 import { PhysicsBody } from '@/Engine/Physics/Entities';
 import type { TPhysicsBody, TPhysicsBodyFactory, TPhysicsBodyParams, TPhysicsDependencies } from '@/Engine/Physics/Models';
 
-const factory: TReactiveFactory<TPhysicsBody, TPhysicsBodyParams, TPhysicsDependencies> = ReactiveFactory(FactoryType.PhysicsBody, PhysicsBody);
-// eslint-disable-next-line functional/immutable-data
-export const PhysicsBodyFactory = (): TPhysicsBodyFactory => Object.assign(factory, { configToParams });
+export function PhysicsBodyFactory(): TPhysicsBodyFactory {
+  const factory: TReactiveFactory<TPhysicsBody, TPhysicsBodyParams, TPhysicsDependencies> = ReactiveFactory(FactoryType.PhysicsBody, PhysicsBody);
+
+  // eslint-disable-next-line functional/immutable-data
+  return Object.assign(factory, { configToParams });
+}

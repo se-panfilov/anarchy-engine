@@ -4,6 +4,9 @@ import { configToParams } from '@/Engine/Scene/Adapters';
 import type { TSceneFactory, TSceneParams, TSceneWrapper } from '@/Engine/Scene/Models';
 import { SceneWrapper } from '@/Engine/Scene/Wrappers';
 
-const factory: TReactiveFactory<TSceneWrapper, TSceneParams> = ReactiveFactory(FactoryType.Scene, SceneWrapper);
-// eslint-disable-next-line functional/immutable-data
-export const SceneFactory = (): TSceneFactory => Object.assign(factory, { configToParams });
+export function SceneFactory(): TSceneFactory {
+  const factory: TReactiveFactory<TSceneWrapper, TSceneParams> = ReactiveFactory(FactoryType.Scene, SceneWrapper);
+
+  // eslint-disable-next-line functional/immutable-data
+  return Object.assign(factory, { configToParams });
+}

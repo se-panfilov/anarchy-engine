@@ -4,6 +4,8 @@ import { configToParams } from '@/Engine/Material/Adapters';
 import type { TMaterialFactory, TMaterialParams, TMaterialWrapper } from '@/Engine/Material/Models';
 import { MaterialWrapper } from '@/Engine/Material/Wrappers';
 
-const factory: TReactiveFactory<TMaterialWrapper, TMaterialParams> = ReactiveFactory(FactoryType.Material, MaterialWrapper);
-// eslint-disable-next-line functional/immutable-data
-export const MaterialFactory = (): TMaterialFactory => Object.assign(factory, { configToParams });
+export function MaterialFactory(): TMaterialFactory {
+  const factory: TReactiveFactory<TMaterialWrapper, TMaterialParams> = ReactiveFactory(FactoryType.Material, MaterialWrapper);
+  // eslint-disable-next-line functional/immutable-data
+  return Object.assign(factory, { configToParams });
+}

@@ -10,6 +10,9 @@ function create(params: TSpaceParams, { config, hooks }: TSpaceFactoryDependenci
   return Space(params, hooks);
 }
 
-const factory: TReactiveFactory<TSpace, TSpaceParams, TSpaceFactoryDependencies> = ReactiveFactory(FactoryType.Space, create);
-// eslint-disable-next-line functional/immutable-data
-export const SpaceFactory = (): TSpaceFactory => Object.assign(factory, { configToParams });
+export function SpaceFactory(): TSpaceFactory {
+  const factory: TReactiveFactory<TSpace, TSpaceParams, TSpaceFactoryDependencies> = ReactiveFactory(FactoryType.Space, create);
+
+  // eslint-disable-next-line functional/immutable-data
+  return Object.assign(factory, { configToParams });
+}

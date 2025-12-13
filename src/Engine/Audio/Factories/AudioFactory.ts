@@ -11,6 +11,8 @@ function create(params: TAnyAudioParams, loops: Pick<TSpaceLoops, 'audioLoop'>):
   else return AudioWrapper(params);
 }
 
-const factory: TReactiveFactory<TAnyAudioWrapper, TAnyAudioParams, Pick<TAudioWrapperDependencies, 'audioLoop'>> = ReactiveFactory(FactoryType.Audio, create);
-// eslint-disable-next-line functional/immutable-data
-export const AudioFactory = (): TAudioFactory => Object.assign(factory, { configToParams });
+export function AudioFactory(): TAudioFactory {
+  const factory: TReactiveFactory<TAnyAudioWrapper, TAnyAudioParams, Pick<TAudioWrapperDependencies, 'audioLoop'>> = ReactiveFactory(FactoryType.Audio, create);
+  // eslint-disable-next-line functional/immutable-data
+  return Object.assign(factory, { configToParams });
+}

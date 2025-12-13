@@ -16,6 +16,9 @@ function create(params: TLightParams): TLightWrapper | never {
   throw new Error(`Unsupported light type: "${params.type}" or invalid params (does not match the light type)`);
 }
 
-const factory: TReactiveFactory<TLightWrapper, TLightParams> = ReactiveFactory(FactoryType.Light, create);
-// eslint-disable-next-line functional/immutable-data
-export const LightFactory = (): TLightFactory => Object.assign(factory, { configToParams });
+export function LightFactory(): TLightFactory {
+  const factory: TReactiveFactory<TLightWrapper, TLightParams> = ReactiveFactory(FactoryType.Light, create);
+
+  // eslint-disable-next-line functional/immutable-data
+  return Object.assign(factory, { configToParams });
+}
