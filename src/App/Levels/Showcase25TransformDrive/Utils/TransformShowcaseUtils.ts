@@ -86,10 +86,12 @@ export function attachConnectorToSubj(actor: TActor, subj: Subject<Vector3> | Ob
 export function startIntersections({ actorService, cameraService, intersectionsWatcherService, mouseService }: TSpaceServices): TIntersectionsWatcher {
   const camera: TCameraWrapper | undefined = cameraService.findActive();
   if (isNotDefined(camera)) throw new Error('Camera is not defined');
-  const actor: TActor | undefined = actorService.getRegistry().findByName('surface_actor');
-  if (isNotDefined(actor)) throw new Error('Actor is not defined');
+  const surfaceActor: TActor | undefined = actorService.getRegistry().findByName('surface_actor');
+  if (isNotDefined(surfaceActor)) throw new Error('Actor is not defined');
+  const boxActor: TActor | undefined = actorService.getRegistry().findByName('box_actor');
+  if (isNotDefined(boxActor)) throw new Error('Actor is not defined');
 
-  return intersectionsWatcherService.create({ actors: [actor], camera, isAutoStart: true, position$: mouseService.position$, tags: [] });
+  return intersectionsWatcherService.create({ actors: [surfaceActor, boxActor], camera, isAutoStart: true, position$: mouseService.position$, tags: [] });
 }
 
 export function changeActorActiveAgent(actor: TActor, key: KeyCode | KeysExtra, keyboardService: TKeyboardService): Subscription {

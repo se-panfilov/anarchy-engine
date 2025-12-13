@@ -59,6 +59,21 @@
         "receiveShadow": true,
         "position": { "x": 0, "y": 0, "z": 0 },
         "rotation": { "x": -1.57, "y": 0, "z": 0 }
+      },
+      {
+        "name": "box_model",
+        "model3dSource": "cube",
+        "materialSource": "surface_material",
+        "options": {
+          "width": 20,
+          "height": 20,
+          "depth": 2,
+          "widthSegments": 1,
+          "heightSegments": 1
+        },
+        "castShadow": true,
+        "receiveShadow": true,
+        "position": { "x": 0, "y": 0, "z": -20 }
       }
     ],
     "actors": [
@@ -74,6 +89,21 @@
           }
         },
         "position": { "x": 0, "y": 0, "z": 0 },
+        "rotation": { "x": -1.57, "y": 0, "z": 0 },
+        "spatial": { "grid": "main_grid", "isAutoUpdate": true }
+      },
+      {
+        "name": "box_actor",
+        "model3dSource": "box_model",
+        "physics": {
+          "presetName": "wall_physics",
+          "shapeParams": {
+            "hx": 10,
+            "hy": 10,
+            "hz": 1
+          }
+        },
+        "position": { "x": 0, "y": 1, "z": -20 },
         "rotation": { "x": -1.57, "y": 0, "z": 0 },
         "spatial": { "grid": "main_grid", "isAutoUpdate": true }
       }
