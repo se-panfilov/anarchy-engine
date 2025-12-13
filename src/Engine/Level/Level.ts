@@ -53,8 +53,6 @@ export function buildLevelFromConfig(canvas: IAppCanvas, config: ILevelConfig): 
   //build actors
   const actorFactory: IActorFactory = ActorFactory();
   const actorRegistry: IActorAsyncRegistry = ActorAsyncRegistry();
-  const actorAddedSubscription: Subscription = actorRegistry.added$.subscribe((actor: IActorWrapper) => scene.addActor(actor));
-  const actorEntityCreatedSubscription: Subscription = actorFactory.entityCreated$.subscribe((actor: IActorWrapper): void => actorRegistry.add(actor));
   const actorAddedSubscription: Subscription = actorRegistry.added$.subscribe((actor: IActorWrapperAsync) => scene.addActor(actor));
   const actorEntityCreatedSubscription: Subscription = actorFactory.entityCreated$.subscribe((actor: IActorWrapperAsync): void => actorRegistry.add(actor));
   // eslint-disable-next-line @typescript-eslint/no-misused-promises
