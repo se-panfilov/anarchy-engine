@@ -31,7 +31,7 @@ export function Model3dPrimitiveFacade(params: TModel3dFacadeParams): TModel3dFa
   // if (isDefined(params.position)) applyPositionToModel3d(entities.model, params.position);
   // if (isDefined(params.castShadow)) applyCastShadowToModel3d(entities.model, params.castShadow);
 
-  throw new Error('Model3dPrimitiveFacade is not implemented yet');
+  throw new Error(`DEBUG: Model3dPrimitiveFacade is not implemented yet ${JSON.stringify(params)}`);
   // return {
   //   ...facade,
   //   getPack,
