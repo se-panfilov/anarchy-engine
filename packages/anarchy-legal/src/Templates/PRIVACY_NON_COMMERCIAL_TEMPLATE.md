@@ -26,6 +26,8 @@ We may use email/CI hosting providers as processors with appropriate safeguards 
 
 Where applicable, you may request **access, rectification, erasure, restriction, objection,** or **portability** at **{{PRIVACY_EMAIL}}**. You may also contact your local supervisory authority.
 
+We will respond **within timelines required by applicable law**.
+
 ## 6. Children
 
 This project is intended for developers and is **not** directed to children.

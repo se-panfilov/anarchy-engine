@@ -3,6 +3,12 @@
 **Effective date:** {{EFFECTIVE_DATE}}
 **Publisher/Developer (Licensor):** {{LEGAL_ENTITY_NAME}}
 **Support/Legal Contact:** {{SUPPORT_EMAIL}} / {{LEGAL_EMAIL}}
+{{#HAS_EU_REP}}
+**EU Representative:** {{EU_REPRESENTATIVE_CONTACT}}
+{{/HAS_EU_REP}}
+{{#HAS_CHINA_REP}}
+**China Representative (PIPL):** {{CHINA_REPRESENTATIVE_CONTACT}}
+{{/HAS_CHINA_REP}}
 
 ## Defined Terms
 

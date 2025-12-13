@@ -26,6 +26,10 @@ Where required by law, we will **notify competent authorities and/or users withi
 - **Advisories / release notes:** may be provided within the product or the update package, or via the applicable Distribution Channel. No specific location is guaranteed.
 - **Security support period:** {{SECURITY_SUPPORT_PERIOD}} (counted from the initial commercial release of the relevant major version), unless a longer period is required by applicable law.
 
+{{#SBOM_AVAILABLE}}
+**Software Bill of Materials (SBOM):** available in **{{SBOM_FORMAT}}** at **{{SBOM_LOCATION}}** or upon request.
+{{/SBOM_AVAILABLE}}
+
 ## In/Out of Scope
 
 **In scope:** issues that materially impact the confidentiality, integrity, or availability of the shipped product or its update mechanism.

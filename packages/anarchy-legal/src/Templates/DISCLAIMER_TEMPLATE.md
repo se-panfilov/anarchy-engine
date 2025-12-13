@@ -23,6 +23,10 @@ The Software may be subject to **export control, re-export, and sanctions** laws
 
 The Software is **not designed or intended** for use in **safety-critical** environments (including medical, aviation, nuclear, military, or critical infrastructure) where failure could lead to death, personal injury, or severe environmental or property damage. Any such use is **at your sole risk**.
 
+{{#PROHIBIT_HIGH_RISK_USE}}
+**High-Risk Use Prohibition.** The Software **must not** be used in safety-critical contexts (including medical, aviation, nuclear, military, or critical infrastructure). Any such use is **strictly prohibited**.
+{{/PROHIBIT_HIGH_RISK_USE}}
+
 ## Third-Party Components (OSS Precedence)
 
 The Software may include or interface with **third-party open-source components**. Such components are licensed under their **own** terms. **If there is a conflict between this disclaimer/EULA and an OSS license for a specific component, the OSS license controls for that component.** See `NOTICE` / `THIRD_PARTY_LICENSES.md`.
