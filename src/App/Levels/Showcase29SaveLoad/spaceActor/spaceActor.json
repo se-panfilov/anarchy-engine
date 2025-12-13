@@ -32,7 +32,7 @@
         },
         "rotation": {
           "x": 0,
-          "y": 0,
+          "y": 3.14,
           "z": 0
         },
         "spatial": {
@@ -49,34 +49,11 @@
         "isActive": true,
         "name": "main",
         "near": 1,
-        "position": {
-          "x": 3,
-          "y": 20,
-          "z": 35
-        },
-        "rotation": {
-          "x": -0.519146114246523,
-          "y": 0.07428390319893977,
-          "z": 0.04238351982512054
-        }
+        "position": { "x": 1.787368434424427, "y": 4.714311488359444, "z": 10.511963126740232 },
+        "rotation": { "x": -0.7476708028448679, "y": 0.6094718078100407, "z": 0.4879773445044666 }
       }
     ],
-    "controls": [
-      {
-        "cameraName": "main",
-        "isActive": true,
-        "name": "orbit_controls",
-        "options": {
-          "enableDamping": true
-        },
-        "target": {
-          "x": 0,
-          "y": 1.2,
-          "z": 0
-        },
-        "type": "OrbitControls"
-      }
-    ],
+    "controls": [],
     "envMaps": [],
     "fogs": [],
     "fsm": [
