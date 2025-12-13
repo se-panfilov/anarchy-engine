@@ -7,5 +7,8 @@ export type TAbstractTransformAgent = Readonly<{
   position$: BehaviorSubject<TReadonlyVector3>;
   rotation$: BehaviorSubject<TReadonlyEuler>;
   scale$: BehaviorSubject<TReadonlyVector3>;
+  isEnabled: () => boolean;
+  enable: () => void;
+  disable: () => void;
 }> &
   TDestroyable;
