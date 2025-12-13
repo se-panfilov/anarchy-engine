@@ -1,12 +1,11 @@
 import type { Observable } from 'rxjs';
 
-import type { TAbstractDriver } from '@/Engine/Abstract';
+import type { TKinematicData, TKinematicMethods } from '@/Engine/Kinematic';
 import type { TReadonlyQuaternion } from '@/Engine/ThreeLib';
 
-import type { TKinematicData } from './TKinematicData';
-import type { TKinematicMethods } from './TKinematicMethods';
+import type { TAbstractTransformDriver } from './TAbstractTransformDriver';
 
-export type TKinematicActorDriver = TAbstractDriver &
+export type TKinematicActorDriver = TAbstractTransformDriver &
   Readonly<{
     data: TKinematicData;
     rotationQuaternion$: Observable<TReadonlyQuaternion>;

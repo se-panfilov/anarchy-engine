@@ -1,4 +1,3 @@
-export * from './TPhysicsActorDriver';
 export * from './TPhysicsBody';
 export * from './TPhysicsBodyConfig';
 export * from './TPhysicsBodyEntities';

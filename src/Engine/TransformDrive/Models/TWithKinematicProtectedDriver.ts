@@ -1,5 +1,5 @@
 import type { TKinematicActorDriver } from '@/Engine/Kinematic';
 import type { TProtectedDriverFacade } from '@/Engine/TransformDrive';
-import type { ActorDriver } from '@/Engine/TransformDrive/Constants';
+import type { TransformDriver } from '@/Engine/TransformDrive/Constants';
 
-export type TWithKinematicProtectedDriver = Readonly<{ [ActorDriver.Kinematic]: TProtectedDriverFacade<TKinematicActorDriver> }>;
+export type TWithKinematicProtectedDriver = Readonly<{ [TransformDriver.Kinematic]: TProtectedDriverFacade<TKinematicActorDriver> }>;

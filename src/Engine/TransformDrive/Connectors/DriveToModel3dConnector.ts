@@ -5,9 +5,9 @@ import type { Euler, Vector3 } from 'three';
 import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
 import type { TModel3d } from '@/Engine/Models3d';
-import type { TActorDrive, TDriveToModel3dConnector } from '@/Engine/TransformDrive/Models';
+import type { TDriveToModel3dConnector, TTransformDrive } from '@/Engine/TransformDrive/Models';
 
-export function DriveToModel3dConnector(drive: TActorDrive, model3d: TModel3d): TDriveToModel3dConnector {
+export function DriveToModel3dConnector(drive: TTransformDrive, model3d: TModel3d): TDriveToModel3dConnector {
   const positionSub$: Subscription = drive.position$.pipe(distinctUntilChanged((prev: Vector3, curr: Vector3): boolean => prev.equals(curr))).subscribe((position: Vector3): void => {
     model3d.getRawModel3d().position.copy(position);
   });

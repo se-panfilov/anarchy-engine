@@ -1,4 +1,3 @@
-export * from './TKinematicActorDriver';
 export * from './TKinematicData';
 export * from './TKinematicDataConfig';
 export * from './TKinematicDataParams';

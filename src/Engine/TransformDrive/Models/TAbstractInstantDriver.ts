@@ -1,5 +1,5 @@
 import type { TMovable3dXYZ, TScaleMixin, TWithRotation } from '@/Engine/Mixins';
 
-import type { TAbstractDriver } from './TAbstractDriver';
+import type { TAbstractTransformDriver } from './TAbstractTransformDriver';
 
-export type TAbstractInstantDriver = TAbstractDriver & TMovable3dXYZ & TWithRotation & TScaleMixin;
+export type TAbstractInstantDriver = TAbstractTransformDriver & TMovable3dXYZ & TWithRotation & TScaleMixin;

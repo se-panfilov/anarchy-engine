@@ -5,11 +5,11 @@ import type { Euler, Vector3 } from 'three';
 import { isEqualOrSimilar } from '@/Engine/Actor/Utils';
 import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
-import { ActorDriver } from '@/Engine/TransformDrive/Constants';
+import { TransformDriver } from '@/Engine/TransformDrive/Constants';
 import { ProtectedDriverFacade } from '@/Engine/TransformDrive/Facades';
-import type { TAbstractDriver, TActorDrive, TActorDrivers, TProtectedActorDrivers, TProtectedDriverFacade } from '@/Engine/TransformDrive/Models';
+import type { TAbstractTransformDriver, TProtectedDriverFacade, TProtectedTransformDrivers, TTransformDrive, TTransformDrivers } from '@/Engine/TransformDrive/Models';
 
-export function TransformDrive(params: TActorParams, drivers: TActorDrivers): TActorDrive {
+export function TransformDrive(params: TActorParams, drivers: TTransformDrivers): TTransformDrive {
   //We don't want to expose these BehaviorSubjects, because they're vulnerable to external changes without .next()
   const position$: BehaviorSubject<Vector3> = new BehaviorSubject<Vector3>(params.position);
   const positionRep$: ReplaySubject<Vector3> = new ReplaySubject<Vector3>(1);
@@ -22,7 +22,7 @@ export function TransformDrive(params: TActorParams, drivers: TActorDrivers): TA
   rotation$.subscribe(rotationRep$);
   scale$.subscribe(scaleRep$);
 
-  const driver$: BehaviorSubject<ActorDriver> = new BehaviorSubject<ActorDriver>(params.driver ?? ActorDriver.Instant);
+  const driver$: BehaviorSubject<TransformDriver> = new BehaviorSubject<TransformDriver>(params.driver ?? TransformDriver.Instant);
 
   const destroyable: TDestroyable = destroyableMixin();
 
@@ -31,7 +31,7 @@ export function TransformDrive(params: TActorParams, drivers: TActorDrivers): TA
 
   const positionSub$: Subscription = driver$
     .pipe(
-      switchMap((drive: ActorDriver): Observable<Vector3> => drivers[drive as keyof TActorDrivers].position$),
+      switchMap((drive: TransformDriver): Observable<Vector3> => drivers[drive as keyof TTransformDrivers].position$),
       distinctUntilChanged((prev: Vector3, curr: Vector3): boolean => isEqualOrSimilar(prev, curr, threshold)),
       sampleTime(delay)
     )
@@ -39,7 +39,7 @@ export function TransformDrive(params: TActorParams, drivers: TActorDrivers): TA
 
   const rotationSub$: Subscription = driver$
     .pipe(
-      switchMap((drive: ActorDriver): Observable<Euler> => drivers[drive as keyof TActorDrivers].rotation$),
+      switchMap((drive: TransformDriver): Observable<Euler> => drivers[drive as keyof TTransformDrivers].rotation$),
       distinctUntilChanged((prev: Euler, curr: Euler): boolean => isEqualOrSimilar(prev, curr, threshold)),
       sampleTime(delay)
     )
@@ -47,14 +47,14 @@ export function TransformDrive(params: TActorParams, drivers: TActorDrivers): TA
 
   const scaleSub$: Subscription = driver$
     .pipe(
-      switchMap((drive: ActorDriver): Observable<Vector3 | undefined> => drivers[drive as keyof TActorDrivers].scale$),
+      switchMap((drive: TransformDriver): Observable<Vector3 | undefined> => drivers[drive as keyof TTransformDrivers].scale$),
       filter((value: Vector3 | undefined): value is Vector3 => value !== undefined),
       distinctUntilChanged((prev: Vector3, curr: Vector3): boolean => isEqualOrSimilar(prev, curr, threshold)),
       sampleTime(delay)
     )
     .subscribe(scale$);
 
-  const result: TActorDrive = {
+  const result: TTransformDrive = {
     ...destroyable,
     driver$,
     position$: positionRep$,
@@ -80,12 +80,12 @@ export function TransformDrive(params: TActorParams, drivers: TActorDrivers): TA
     scale$.complete();
     scale$.unsubscribe();
 
-    Object.values(drivers).forEach((driver: TProtectedDriverFacade<TAbstractDriver>): void => driver.destroy$.next());
+    Object.values(drivers).forEach((driver: TProtectedDriverFacade<TAbstractTransformDriver>): void => driver.destroy$.next());
   });
 
   return result;
 }
 
-function getDynamicDrivers(drivers: TActorDrivers): TProtectedActorDrivers {
-  return Object.fromEntries(Object.entries(drivers).map((v) => [v[0], ProtectedDriverFacade(v[1])])) as TProtectedActorDrivers;
+function getDynamicDrivers(drivers: TTransformDrivers): TProtectedTransformDrivers {
+  return Object.fromEntries(Object.entries(drivers).map((v) => [v[0], ProtectedDriverFacade(v[1])])) as TProtectedTransformDrivers;
 }

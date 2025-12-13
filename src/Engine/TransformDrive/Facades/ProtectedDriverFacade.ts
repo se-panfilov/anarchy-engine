@@ -1,6 +1,6 @@
-import type { TAbstractDriver, TProtectedDriverFacade } from '@/Engine/TransformDrive/Models';
+import type { TAbstractTransformDriver, TProtectedDriverFacade } from '@/Engine/TransformDrive/Models';
 
-export function ProtectedDriverFacade<T extends TAbstractDriver>(driver: T): TProtectedDriverFacade<T> {
+export function ProtectedDriverFacade<T extends TAbstractTransformDriver>(driver: T): TProtectedDriverFacade<T> {
   return {
     ...driver,
     position$: driver.position$.asObservable(),
