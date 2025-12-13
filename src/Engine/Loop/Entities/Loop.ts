@@ -1,6 +1,6 @@
 import { nanoid } from 'nanoid';
 import type { Observable, Subscription } from 'rxjs';
-import { BehaviorSubject, EMPTY, Subject, switchMap } from 'rxjs';
+import { BehaviorSubject, distinctUntilChanged, EMPTY, Subject, switchMap } from 'rxjs';
 
 import { LoopTrigger } from '@/Engine/Loop/Constants';
 import type { TDelta, TDeltaCalculator, TLoop, TLoopParams, TLoopTriggerFn } from '@/Engine/Loop/Models';

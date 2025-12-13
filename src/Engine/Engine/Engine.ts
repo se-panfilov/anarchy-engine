@@ -10,13 +10,13 @@ export function Engine(space: TSpace): TEngine {
   const keyboardService: TKeyboardService = KeyboardService(space.loops.keyboardLoop);
 
   function start(): void {
-    Object.values(space.loops).forEach((loop: TLoop): void => queueMicrotask((): void => loop.start()));
+    Object.values(space.loops).forEach((loop: TLoop): void => loop.start());
   }
 
   function stop(): void {
     if (isNotDefined(space)) throw new Error('Engine is not started yet (space is not defined)');
     const { intersectionsWatcherService } = space.services;
-    Object.values(space.loops).forEach((loop: TLoop): void => queueMicrotask((): void => loop.stop()));
+    Object.values(space.loops).forEach((loop: TLoop): void => loop.stop());
     void intersectionsWatcherService.getRegistry().forEach((watcher: TIntersectionsWatcher): void => {
       if (watcher.isStarted) watcher.stop();
     });

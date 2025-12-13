@@ -16,7 +16,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
 
   function init(): void {
     physicsWorldService.getDebugRenderer(physicalLoop).start();
-    // physicalLoop.enabled$.next(false);
+    physicalLoop.enabled$.next(false);
 
     addGizmo(space.services, ambientContext.screenSizeWatcher, space.loops, { placement: 'bottom-left' });
 

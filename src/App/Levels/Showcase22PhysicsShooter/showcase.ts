@@ -143,8 +143,6 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     });
 
     prepareShooting(hero, mouseService, mouseLineIntersectionsWatcher, shootingParams, bullets);
-
-    physicalLoop.enabled$.next(true);
     keyboardService.onKey(KeysExtra.Space).pressed$.subscribe((): void => physicalLoop.enabled$.next(!physicalLoop.enabled$.value));
   }
 
