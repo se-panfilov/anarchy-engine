@@ -119,6 +119,7 @@ export function AbstractAudioWrapper<T extends TAnyAudio>(params: TAnyAudioParam
     volume$.complete();
     volume$.unsubscribe();
     disposeAudio(entity);
+    // TODO 11.0.0: and remove from registry
   });
 
   return {

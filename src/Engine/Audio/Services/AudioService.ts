@@ -42,8 +42,8 @@ export function AudioService(
     factorySub$.unsubscribe();
 
     registry.destroy$.next();
-    // TODO DESTROY: We need a way to unload audio
     audioResourceAsyncRegistry.destroy$.next();
+    audioListenersRegistry.destroy$.next();
   });
 
   return {
