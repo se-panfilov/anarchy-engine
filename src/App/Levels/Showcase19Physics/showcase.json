@@ -42,9 +42,9 @@
       "physics": {
         "presetName": "wall_physics",
         "shapeParams": {
-          "hx": 20,
-          "hy": 20,
-          "hz": 1
+          "hx": 10,
+          "hy": 0.005,
+          "hz": 2.5
         },
         "position": { "x": 0, "y": 0, "z": 0 },
         "rotation": { "x": -1.57, "y": 0, "z": 0, "w": 0 }
@@ -88,9 +88,9 @@
       "physics": {
         "presetName": "wall_physics",
         "shapeParams": {
-          "hx": 20,
-          "hy": 1,
-          "hz": 5
+          "hx": 0.5,
+          "hy": 0.5,
+          "hz": 2.5
         },
         "position": { "x": -10.5, "y": 0, "z": 0 },
         "rotation": { "x": -1.57, "y": 0, "z": 0, "w": 0 }
@@ -134,9 +134,9 @@
       "physics": {
         "presetName": "wall_physics",
         "shapeParams": {
-          "hx": 20,
-          "hy": 1,
-          "hz": 5
+          "hx": 0.5,
+          "hy": 0.5,
+          "hz": 2.5
         },
         "position": { "x": 10.5, "y": 0, "z": 0 },
         "rotation": { "x": -1.57, "y": 0, "z": 0, "w": 0 }
@@ -180,9 +180,9 @@
       "physics": {
         "presetName": "wall_physics",
         "shapeParams": {
-          "hx": 22,
-          "hy": 1,
-          "hz": 5
+          "hx": 0.5,
+          "hy": 0.5,
+          "hz": 2.5
         },
         "position": { "x": 0, "y": 0, "z": -10.5 },
         "rotation": { "x": -1.57, "y": 0.7071067811865475, "z": -1.57, "w": 0.7071067811865476 }
@@ -226,9 +226,9 @@
       "physics": {
         "presetName": "wall_physics",
         "shapeParams": {
-          "hx": 22,
-          "hy": 1,
-          "hz": 5
+          "hx": 0.5,
+          "hy": 0.5,
+          "hz": 2.5
         },
         "position": { "x": 0, "y": 0, "z": 10.5 },
         "rotation": { "x": -1.57, "y": 0.7071067811865475, "z": -1.57, "w": 0.7071067811865476 }
@@ -302,9 +302,9 @@
       "physics": {
         "presetName": "box_physics",
         "shapeParams": {
-          "hx": 4,
-          "hy": 1,
-          "hz": 1
+          "hx": 0.5,
+          "hy": 2,
+          "hz": 0.5
         },
         "position": { "x": -4, "y": 2, "z": 2 },
         "rotation": { "x": 0, "y": 0, "z": 0, "w": 1 }
@@ -340,9 +340,9 @@
       "physics": {
         "presetName": "box_physics",
         "shapeParams": {
-          "hx": 4,
-          "hy": 1,
-          "hz": 1
+          "hx": 0.5,
+          "hy": 2,
+          "hz": 0.5
         },
         "position": { "x": 4, "y": 2, "z": 1 },
         "rotation": { "x": 0, "y": 0, "z": 0, "w": 1 }
@@ -430,29 +430,17 @@
       {
         "name": "wall_physics",
         "type": "fixed",
-        "collisionShape": "cuboid",
-        "mass": 1,
-        "restitution": 0.7,
-        "friction": 0.5,
-        "collisionGroups": 1
+        "collisionShape": "cuboid"
       },
       {
         "name": "ball_physics",
         "type": "dynamic",
-        "collisionShape": "ball",
-        "mass": 1,
-        "restitution": 0.7,
-        "friction": 0.5,
-        "collisionGroups": 1
+        "collisionShape": "ball"
       },
       {
         "name": "box_physics",
         "type": "dynamic",
-        "collisionShape": "cuboid",
-        "mass": 1,
-        "restitution": 0.7,
-        "friction": 0.5,
-        "collisionGroups": 1
+        "collisionShape": "cuboid"
       }
     ]
   },
