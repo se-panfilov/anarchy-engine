@@ -99,83 +99,27 @@ export function KinematicTransformAgent(params: TKinematicTransformAgentParams, 
 
       agent.setLinearDirection(targetPosition.clone().sub(abstractTransformAgent.position$.value).normalize());
       agent.setLinearSpeed(speed);
-
-      // const vectorToTarget = new Vector3();
-      //
-      // // TODO 8.0.0. MODELS: Refactor this subscription.
-      // const subscription = kinematicLoopService.tick$.subscribe((): void => {
-      //   // If the agent is already at the target, do not move
-      //   if (agent.getLinearSpeed() === 0) return subscription.unsubscribe();
-      //
-      //   const currentPosition = abstractTransformAgent.position$.value;
-      //   vectorToTarget.copy(targetPosition).sub(currentPosition);
-      //
-      //   const distanceSquared = vectorToTarget.lengthSq();
-      //
-      //   // If the agent is close enough to the target, stop the agent
-      //   if (distanceSquared < epsilon * epsilon) {
-      //     agent.setLinearSpeed(0);
-      //     return subscription.unsubscribe();
-      //   }
-      //
-      //   const dotProduct = vectorToTarget.dot(agent.getLinearDirection());
-      //   // If the agent has passed the target, stop the agent
-      //   if (dotProduct < 0) {
-      //     agent.setLinearSpeed(0);
-      //     return subscription.unsubscribe();
-      //   }
-      //
-      //   // If the agent has crossed the target (e.g. in a single frame), stop the agent
-      //   const crossedTarget = vectorToTarget.dot(direction) < 0;
-      //   if (crossedTarget) {
-      //     agent.setLinearSpeed(0);
-      //     return subscription.unsubscribe();
-      //   }
-      // });
+      return undefined;
     },
     // TODO 8.0.0. MODELS: Refactor this code. It's working, but it's a mess atm.
     rotateTo(targetRotation: Quaternion, speed: TMetersPerSecond, radius: TMeters): void | never {
-      const epsilon = 0.0001;
       if (speed < 0) throw new Error('Speed must be greater than 0 to calculate angular speed.');
       if (speed === 0) return agent.setAngularSpeed(0);
       if (radius <= 0) throw new Error('Radius must be greater than 0 to calculate angular speed.');
       const angularSpeed: TMetersPerSecond = (speed / radius) as TMetersPerSecond;
 
+      // eslint-disable-next-line functional/immutable-data
+      agent.data.target.rotation = targetRotation;
+
       // Calculate angle to the target using dot product
       const dot: number = rotationQuaternion$.value.dot(targetRotation);
       const angleToTarget: number = Math.acos(2 * dot * dot - 1);
-      if (angleToTarget < epsilon) return agent.setAngularSpeed(0);
+      if (angleToTarget < agent.data.target.rotationThreshold) return agent.setAngularSpeed(0);
 
       agent.setAngularDirection(targetRotation);
       agent.setAngularSpeed(angularSpeed);
 
-      // TODO 8.0.0. MODELS: Refactor this subscription. Most of these things could be done in doKinematicRotation
-      const subscription: Subscription = kinematicLoopService.tick$.subscribe((deltaTime: TMilliseconds): void => {
-        // If the speed is 0, do nothing
-        if (agent.getAngularSpeed() === 0) return subscription.unsubscribe();
-
-        // If the agent is close enough to the target, stop the agent
-        const dot: number = rotationQuaternion$.value.dot(targetRotation);
-        const angleToTarget: number = Math.acos(2 * dot * dot - 1);
-        if (angleToTarget < epsilon) {
-          agent.setAngularSpeed(0);
-          return subscription.unsubscribe();
-        }
-
-        const rotationStep: number = angularSpeed * deltaTime;
-        const stepRotation: Quaternion = new Quaternion().setFromAxisAngle(agent.data.state.angularDirection, rotationStep);
-        const newRotation: Quaternion = new Quaternion().multiplyQuaternions(rotationQuaternion$.value, stepRotation).normalize();
-
-        // Recalculate angle after applying step rotation
-        const newDot: number = newRotation.dot(targetRotation);
-        const angleAfterStep: TRadians = Math.acos(2 * newDot * newDot - 1) as TRadians;
-
-        // If the agent has passed the target, stop the agent
-        if (angleAfterStep > angleToTarget) {
-          agent.setAngularSpeed(0);
-          return subscription.unsubscribe();
-        }
-      });
+      return undefined;
     },
     adjustDataByLinearVelocity(linearVelocity: Quaternion): void {
       const { x, y, z, w } = linearVelocity;
@@ -314,6 +258,8 @@ export function KinematicTransformAgent(params: TKinematicTransformAgentParams, 
   function doKinematicRotation(delta: TMilliseconds): void {
     if (agent.data.state.angularSpeed <= 0) return;
 
+    if (isRotationReached(agent.data.target, rotationQuaternion$.value, agent.data.state, delta)) return;
+
     const angle: TRadians = (agent.data.state.angularSpeed * delta) as TRadians;
     if (angle < angleThreshold) return;
 
@@ -353,6 +299,36 @@ function isPointReached(target: TKinematicTarget | undefined, position: Vector3,
   const crossedTarget: boolean = vectorToTarget.dot(linearDirection) < 0;
   // If the agent has passed the target, stop
   if (crossedTarget) return true;
+
+  return false;
+}
+
+function isRotationReached(target: TKinematicTarget | undefined, rotation: Quaternion, state: TKinematicState, delta: TMilliseconds): boolean {
+  if (isNotDefined(target)) return false;
+  const { rotation: targetRotation, rotationThreshold } = target;
+  if (isNotDefined(targetRotation)) return false;
+
+  const { angularSpeed, angularDirection } = state;
+
+  // If the speed is 0, do nothing
+  if (angularSpeed === 0) return true;
+
+  // Calculate the current angle to the target
+  const angleToTarget: TRadians = rotation.angleTo(targetRotation) as TRadians;
+
+  // If the agent is close enough to the target, stop
+  if (angleToTarget < rotationThreshold) return true;
+
+  // Predict the next rotation step
+  const deltaAngle: TRadians = (angularSpeed * delta) as TRadians;
+  const stepRotation: Quaternion = new Quaternion().setFromAxisAngle(angularDirection, deltaAngle);
+  const predictedRotation: Quaternion = rotation.clone().multiply(stepRotation);
+
+  // Calculate the new angle after the rotation step
+  const newAngleToTarget: TRadians = predictedRotation.angleTo(targetRotation) as TRadians;
+
+  // If the new angle is greater than the current angle, we've "overshot" the target
+  if (newAngleToTarget > angleToTarget) return true;
 
   return false;
 }
