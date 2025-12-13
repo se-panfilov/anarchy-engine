@@ -10,7 +10,9 @@
     "lint": "eslint ./src --ext .js,.ts",
     "lint:fix": "eslint ./src --ext .js,.ts --fix",
     "prettier": "prettier --write .",
-    "generate:schemas": "node ./utils/JsonUtils.js"
+    "generate:schemas": "node ./utils/JsonUtils.js",
+    "ts:check": "tsc --noEmit",
+    "ts:check:watch": "tsc --watch --noEmit"
   },
   "dependencies": {
     "@tweakpane/core": "1.1.9",
