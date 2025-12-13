@@ -2280,17 +2280,45 @@
     "TKinematicData": {
       "type": "object",
       "properties": {
-        "linearVelocity": {
-          "$ref": "#/definitions/TWithCoordsXYZ"
+        "linearSpeed": {
+          "type": "number"
         },
-        "angularVelocity": {
-          "$ref": "#/definitions/TWithCoordsXYZ"
+        "linearDirection": {
+          "$ref": "#/definitions/Vector3"
         },
-        "principalInertia": {
-          "$ref": "#/definitions/TWithCoordsXYZ"
+        "angularSpeed": {
+          "type": "number"
+        },
+        "angularDirection": {
+          "$ref": "#/definitions/Vector3"
         }
       },
+      "required": ["linearSpeed", "linearDirection", "angularSpeed", "angularDirection"],
       "additionalProperties": false
+    },
+    "Vector3": {
+      "type": "object",
+      "properties": {
+        "x": {
+          "type": "number",
+          "default": 0
+        },
+        "y": {
+          "type": "number",
+          "default": 0
+        },
+        "z": {
+          "type": "number",
+          "default": 0
+        },
+        "isVector3": {
+          "type": "boolean",
+          "const": true
+        }
+      },
+      "required": ["x", "y", "z", "isVector3"],
+      "additionalProperties": false,
+      "description": "3D vector.\n\nsee  {@link  https://github.com/mrdoob/three.js/blob/master/src/math/Vector3.js }"
     },
     "TCameraConfig": {
       "type": "object",
