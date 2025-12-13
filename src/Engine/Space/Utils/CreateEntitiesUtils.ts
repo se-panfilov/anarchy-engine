@@ -1,12 +1,11 @@
 import type { World } from '@dimforge/rapier3d';
-import type { Subscription } from 'rxjs';
 import type { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
 
 import { ambientContext } from '@/Engine/Context';
 import type { TEnvMapTexture, TEnvMapWrapper } from '@/Engine/EnvMap';
 import type { TIntersectionsWatcher } from '@/Engine/Intersections';
 import type { TModel3dFacade } from '@/Engine/Models3d/Models';
-import type { TSpaceConfigEntities, TSpaceServices } from '@/Engine/Space/Models';
+import type { TSpaceConfigEntities, TSpaceConfigResources, TSpaceServices } from '@/Engine/Space/Models';
 import { isDefined } from '@/Engine/Utils';
 
 // TODO SPACE: Maybe we need a space service, and factory, to create from config, and to create from the code.
@@ -28,6 +27,8 @@ export function createEntities(entities: TSpaceConfigEntities, services: TSpaceS
     spatialGridService,
     textService
   } = services;
+
+  createResourceEntities(services);
 
   if (isDefined(physics.global)) {
     const world: World = physicsWorldService.createWorld(physics.global);

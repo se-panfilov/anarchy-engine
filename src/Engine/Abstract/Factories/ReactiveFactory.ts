@@ -1,15 +1,19 @@
 import { Subject } from 'rxjs';
 
 import type { FactoryType } from '@/Engine/Abstract/Constants';
-import type { TCreateEntityFactoryFn, TReactiveFactory } from '@/Engine/Abstract/Models';
+import type { TCreateEntityFactoryFn, TCreateEntityFactoryWithDependenciesFn, TReactiveFactory, TReactiveFactoryWithDependencies } from '@/Engine/Abstract/Models';
 import { destroyableMixin } from '@/Engine/Mixins';
 
 import { AbstractFactory } from './AbstractFactory';
 
 export function ReactiveFactory<T, P>(type: FactoryType | string, createEntityFn: TCreateEntityFactoryFn<T, P>): TReactiveFactory<T, P> {
+  return ReactiveFactoryWithDependencies<T, P, any>(type, createEntityFn) as TReactiveFactory<T, P>;
+}
+
+export function ReactiveFactoryWithDependencies<T, P, D>(type: FactoryType | string, createEntityFn: TCreateEntityFactoryWithDependenciesFn<T, P, D>): TReactiveFactoryWithDependencies<T, P, D> {
   const entityCreated$: Subject<T> = new Subject<T>();
 
-  function create(params: P, dependencies?: Record<string, any>): T {
+  function create(params: P, dependencies: D): T {
     const entity: T = createEntityFn(params, dependencies);
     entityCreated$.next(entity);
     return entity;

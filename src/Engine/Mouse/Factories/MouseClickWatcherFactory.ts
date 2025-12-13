@@ -3,5 +3,5 @@ import { FactoryType, ReactiveFactory } from '@/Engine/Abstract';
 import type { TMouseClickWatcher, TMouseClickWatcherFactory, TMouseClickWatcherParams } from '@/Engine/Mouse/Models';
 import { MouseClickWatcher } from '@/Engine/Mouse/Watchers';
 
-const factory: TReactiveFactory<TMouseClickWatcher, TMouseClickWatcherParams> = { ...ReactiveFactory(FactoryType.MouseClickWatcher, MouseClickWatcher) };
+const factory: TReactiveFactory<TMouseClickWatcher, TMouseClickWatcherParams> = ReactiveFactory(FactoryType.MouseClickWatcher, MouseClickWatcher);
 export const MouseClickWatcherFactory = (): TMouseClickWatcherFactory => ({ ...factory });

@@ -13,8 +13,7 @@ export function ActorService(factory: TActorFactory, registry: TActorRegistry, a
     const spatialGridRegistry: TSpatialGridRegistry = actorServiceDependencies.spatialGridService.getRegistry();
     return actors.map(
       // eslint-disable-next-line @typescript-eslint/no-misused-promises
-      (config: TActorConfig): TActorWrapper | TActorWrapperWithPhysics =>
-        factory.create(factory.configToParams(config, { spatialGridRegistry, models3dService: actorServiceDependencies.models3dService }), actorServiceDependencies)
+      (config: TActorConfig): TActorWrapper | TActorWrapperWithPhysics => create(factory.configToParams(config, { spatialGridRegistry, models3dService: actorServiceDependencies.models3dService }))
     );
   };
 

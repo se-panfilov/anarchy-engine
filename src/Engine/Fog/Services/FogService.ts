@@ -8,7 +8,7 @@ export function FogService(factory: TFogFactory, registry: TFogRegistry, scene: 
   factory.entityCreated$.subscribe((fog: TFogWrapper): void => registry.add(fog));
 
   const create = (params: TFogParams): TFogWrapper => factory.create(params);
-  const createFromConfig = (fogs: ReadonlyArray<TFogConfig>): ReadonlyArray<TFogWrapper> => fogs.map((fog: TFogConfig): TFogWrapper => factory.create(factory.configToParams(fog)));
+  const createFromConfig = (fogs: ReadonlyArray<TFogConfig>): ReadonlyArray<TFogWrapper> => fogs.map((fog: TFogConfig): TFogWrapper => create(factory.configToParams(fog)));
 
   const destroyable: TDestroyable = destroyableMixin();
   destroyable.destroyed$.subscribe(() => {

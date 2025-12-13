@@ -9,7 +9,7 @@ export function LightService(factory: TLightFactory, registry: TLightRegistry, s
 
   const create = (params: TLightParams): TAbstractLightWrapper<TLight> => factory.create(params);
   const createFromConfig = (lights: ReadonlyArray<TAnyLightConfig>): ReadonlyArray<TAbstractLightWrapper<TLight>> =>
-    lights.map((config: TAnyLightConfig): TAbstractLightWrapper<TLight> => factory.create(factory.configToParams(config)));
+    lights.map((config: TAnyLightConfig): TAbstractLightWrapper<TLight> => create(factory.configToParams(config)));
 
   const destroyable: TDestroyable = destroyableMixin();
   destroyable.destroyed$.subscribe(() => {

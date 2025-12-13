@@ -16,5 +16,5 @@ function create(params: TLightParams): TLightWrapper | never {
   throw new Error(`Unsupported light type: "${params.type}" or invalid params (doest not match the light type)`);
 }
 
-const factory: TReactiveFactory<TLightWrapper, TLightParams> = { ...ReactiveFactory(FactoryType.Light, create) };
+const factory: TReactiveFactory<TLightWrapper, TLightParams> = ReactiveFactory(FactoryType.Light, create);
 export const LightFactory = (): TLightFactory => ({ ...factory, configToParams });

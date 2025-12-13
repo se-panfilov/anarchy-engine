@@ -1,4 +1,4 @@
-export type TParamsFromConfigWithDependencies<C, P, D extends Record<string, any>> = Readonly<{
+export type TParamsFromConfigWithDependencies<C, P, D> = Readonly<{
   configToParams: (config: C, dependencies: D) => P;
 }>;
 

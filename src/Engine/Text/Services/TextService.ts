@@ -36,7 +36,7 @@ export function TextService(
   });
 
   const create = (params: TTextParams): TTextAnyWrapper => factory.create(params);
-  const createFromConfig = (texts: ReadonlyArray<TTextConfig>): void => texts.forEach((text: TTextConfig): TTextAnyWrapper => factory.create(factory.configToParams(text)));
+  const createFromConfig = (texts: ReadonlyArray<TTextConfig>): ReadonlyArray<TTextAnyWrapper> => texts.map((text: TTextConfig): TTextAnyWrapper => create(factory.configToParams(text)));
 
   const destroyable: TDestroyable = destroyableMixin();
   destroyable.destroyed$.subscribe((): void => {

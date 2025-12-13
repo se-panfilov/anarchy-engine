@@ -6,7 +6,7 @@ import { RendererModes } from '@/Engine/Renderer';
 import { screenService } from '@/Engine/Services';
 import { withBuiltMixin } from '@/Engine/Space/Mixins';
 import type { TSpace, TSpaceConfig, TSpaceService, TWithBuilt } from '@/Engine/Space/Models';
-import { createEntities, createResourceEntities, loadResources, prepareServices } from '@/Engine/Space/Utils';
+import { createEntities, loadResources, prepareServices } from '@/Engine/Space/Utils';
 import { validateConfig } from '@/Engine/Space/Validators';
 import { isDestroyable } from '@/Engine/Utils';
 
@@ -18,9 +18,7 @@ export function SpaceService(): TSpaceService {
     screenService.setCanvas(canvas);
     const { services } = await prepareServices(config.name, canvas, config.scenes);
 
-    // TODO 9.0.0. RESOURCES: "watchResourcesAndCreateResourceEntities" will work async, perhaps we need to wait for it to finish, before do "createEntities"
     await loadResources(config.resources, services);
-    createResourceEntities(services);
     services.rendererService.create({ canvas, tags: [], mode: RendererModes.WebGL2, isActive: true });
     createEntities(config.entities, services);
 

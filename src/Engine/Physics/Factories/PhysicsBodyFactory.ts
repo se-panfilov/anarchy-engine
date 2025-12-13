@@ -1,10 +1,8 @@
-import type { TCreateEntityFactoryFn, TReactiveFactory } from '@/Engine/Abstract';
-import { FactoryType, ReactiveFactory } from '@/Engine/Abstract';
+import type { TReactiveFactoryWithDependencies } from '@/Engine/Abstract';
+import { FactoryType, ReactiveFactoryWithDependencies } from '@/Engine/Abstract';
 import { configToParamsBody as configToParams } from '@/Engine/Physics/Adapters';
-import type { TPhysicsBodyFacade, TPhysicsBodyFactory, TPhysicsBodyParams } from '@/Engine/Physics/Models';
+import type { TPhysicsBodyFacade, TPhysicsBodyFactory, TPhysicsBodyParams, TPhysicsFacadeDependencies } from '@/Engine/Physics/Models';
 import { PhysicsBodyFacade } from '@/Engine/Physics/Wrappers';
 
-const factory: TReactiveFactory<TPhysicsBodyFacade, TPhysicsBodyParams> = {
-  ...ReactiveFactory(FactoryType.PhysicsBody, PhysicsBodyFacade as TCreateEntityFactoryFn<TPhysicsBodyFacade, TPhysicsBodyParams>)
-};
+const factory: TReactiveFactoryWithDependencies<TPhysicsBodyFacade, TPhysicsBodyParams, TPhysicsFacadeDependencies> = ReactiveFactoryWithDependencies(FactoryType.PhysicsBody, PhysicsBodyFacade);
 export const PhysicsBodyFactory = (): TPhysicsBodyFactory => ({ ...factory, configToParams });

@@ -9,10 +9,9 @@ export function ParticlesService(factory: TParticlesFactory, registry: TParticle
   factory.entityCreated$.subscribe((wrapper: TParticlesWrapper): void => registry.add(wrapper));
   const materialRegistry: TMaterialRegistry = materialService.getRegistry();
 
-  const create = (params: TParticlesParams): TParticlesWrapper => factory.create(params, { materialRegistry });
-  const createFromConfig = (particles: ReadonlyArray<TParticlesConfig>): ReadonlyArray<TParticlesWrapper> => {
-    return particles.map((config: TParticlesConfig): TParticlesWrapper => factory.create(factory.configToParams(config, { materialRegistry })));
-  };
+  const create = (params: TParticlesParams): TParticlesWrapper => factory.create(params);
+  const createFromConfig = (particles: ReadonlyArray<TParticlesConfig>): ReadonlyArray<TParticlesWrapper> =>
+    particles.map((config: TParticlesConfig): TParticlesWrapper => create(factory.configToParams(config, { materialRegistry })));
 
   const destroyable: TDestroyable = destroyableMixin();
   destroyable.destroyed$.subscribe(() => {

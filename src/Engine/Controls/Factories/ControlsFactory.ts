@@ -10,5 +10,5 @@ function create(params: TOrbitControlsParams): TControlsWrapper {
   return OrbitControlsWrapper(params);
 }
 
-export const controlsWithConfigFactory: TReactiveFactory<TControlsWrapper, TControlsParams> = { ...ReactiveFactory(FactoryType.Controls, create) };
+export const controlsWithConfigFactory: TReactiveFactory<TControlsWrapper, TControlsParams> = ReactiveFactory(FactoryType.Controls, create);
 export const ControlsFactory = (): TControlsFactory => ({ ...controlsWithConfigFactory, configToParams });

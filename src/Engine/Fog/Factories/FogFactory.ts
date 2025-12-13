@@ -4,5 +4,5 @@ import { configToParams } from '@/Engine/Fog/Adapters';
 import type { TFogFactory, TFogParams, TFogWrapper } from '@/Engine/Fog/Models';
 import { FogWrapper } from '@/Engine/Fog/Wrappers';
 
-const factory: TReactiveFactory<TFogWrapper, TFogParams> = { ...ReactiveFactory(FactoryType.Fog, FogWrapper) };
+const factory: TReactiveFactory<TFogWrapper, TFogParams> = ReactiveFactory(FactoryType.Fog, FogWrapper);
 export const FogFactory = (): TFogFactory => ({ ...factory, configToParams });

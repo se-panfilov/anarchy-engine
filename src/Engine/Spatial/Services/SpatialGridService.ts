@@ -6,8 +6,8 @@ export function SpatialGridService(factory: TSpatialGridFactory, registry: TSpat
   factory.entityCreated$.subscribe((spatialGrid: TSpatialGridWrapper): void => registry.add(spatialGrid));
 
   const create = (params: TSpatialGridParams): TSpatialGridWrapper => factory.create(params);
-  const createFromConfig = (spatialGrids: ReadonlyArray<TSpatialGridConfig>): void =>
-    spatialGrids.forEach((spatialGrid: TSpatialGridConfig): TSpatialGridWrapper => factory.create(factory.configToParams(spatialGrid)));
+  const createFromConfig = (spatialGrids: ReadonlyArray<TSpatialGridConfig>): ReadonlyArray<TSpatialGridWrapper> =>
+    spatialGrids.map((spatialGrid: TSpatialGridConfig): TSpatialGridWrapper => create(factory.configToParams(spatialGrid)));
 
   const destroyable: TDestroyable = destroyableMixin();
   destroyable.destroyed$.subscribe(() => {

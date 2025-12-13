@@ -21,9 +21,8 @@ export function IntersectionsWatcherService(factory: TIntersectionsWatcherFactor
     mouseService: TMouseService,
     cameraService: TCameraService,
     actorService: TActorService
-  ): ReadonlyArray<TIntersectionsWatcher> => {
-    return configs.map((config: TIntersectionsWatcherConfig): TIntersectionsWatcher => factory.create(factory.configToParams(config, mouseService, cameraService, actorService)));
-  };
+  ): ReadonlyArray<TIntersectionsWatcher> =>
+    configs.map((config: TIntersectionsWatcherConfig): TIntersectionsWatcher => create(factory.configToParams(config, mouseService, cameraService, actorService)));
 
   const destroyable: TDestroyable = destroyableMixin();
   destroyable.destroyed$.subscribe(() => {

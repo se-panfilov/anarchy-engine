@@ -7,7 +7,7 @@ export function MaterialService(factory: TMaterialFactory, registry: TMaterialRe
 
   const create = (params: TMaterialParams): TMaterialWrapper => factory.create(params);
   const createFromConfig = (material: ReadonlyArray<TMaterialPackConfig<TMaterialTexturePack>>): ReadonlyArray<TMaterialWrapper> =>
-    material.map((config: TMaterialPackConfig<TMaterialTexturePack>): TMaterialWrapper => factory.create(factory.configToParams(config)));
+    material.map((config: TMaterialPackConfig<TMaterialTexturePack>): TMaterialWrapper => create(factory.configToParams(config)));
 
   const destroyable: TDestroyable = destroyableMixin();
   destroyable.destroyed$.subscribe(() => {
