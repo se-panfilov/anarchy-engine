@@ -6,6 +6,7 @@ import type { IDestroyable, IWithActiveMixinResult } from '@/Engine/Mixins';
 import { destroyableMixin, withActiveEntityServiceMixin } from '@/Engine/Mixins';
 import type { ISceneWrapper } from '@/Engine/Scene';
 import type { IScreenSizeValues } from '@/Engine/Screen';
+import { isNotDefined } from '@/Engine/Utils';
 
 export function CameraService(factory: ICameraFactory, registry: ICameraRegistry, scene: ISceneWrapper, isUpdateCamerasAspect: boolean = true): ICameraService {
   const withActive: IWithActiveMixinResult<ICameraWrapper> = withActiveEntityServiceMixin<ICameraWrapper>(registry);
@@ -17,12 +18,17 @@ export function CameraService(factory: ICameraFactory, registry: ICameraRegistry
 
   let screenSize$: Subscription | undefined = undefined;
 
-  function startUpdatingCamerasAspect(isOnlyActive: boolean = false): void {
-    const cameras: ReadonlyArray<ICameraWrapper> = registry.getAll();
+  const findActive = withActive.findActive;
+
+  function startUpdatingCamerasAspect(shouldUpdateOnlyActiveCamera: boolean = false): void {
     screenSize$ = ambientContext.screenSizeWatcher.value$.subscribe((params: IScreenSizeValues): void => {
-      cameras.forEach((camera: ICameraWrapper): void => {
-        if ((isOnlyActive && camera.isActive()) || !isOnlyActive) camera.setAspect(params.width / params.height);
-      });
+      if (shouldUpdateOnlyActiveCamera) {
+        const activeCamera: ICameraWrapper | undefined = findActive();
+        if (isNotDefined(activeCamera)) throw new Error('Cannot find an active camera during the aspect update.');
+        activeCamera.setAspect(params.width / params.height);
+      } else {
+        registry.getAll().forEach((camera: ICameraWrapper): void => camera.setAspect(params.width / params.height));
+      }
     });
   }
 
@@ -49,7 +55,7 @@ export function CameraService(factory: ICameraFactory, registry: ICameraRegistry
     create,
     createFromConfig,
     setActive: withActive.setActive,
-    findActive: withActive.findActive,
+    findActive,
     active$: withActive.active$.asObservable(),
     startUpdatingCamerasAspect,
     getFactory: (): ICameraFactory => factory,
