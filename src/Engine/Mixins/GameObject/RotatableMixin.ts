@@ -1,5 +1,4 @@
-import type { IRotatable, IWithRotation } from '@Engine/Domains/Mixins/GameObject/Models';
-
+import type { IRotatable, IWithRotation } from '@/Engine/Mixins/GameObject/Models';
 import type { IEulerWrapper } from '@/Engine/Wrappers';
 import { EulerWrapper } from '@/Engine/Wrappers';
 

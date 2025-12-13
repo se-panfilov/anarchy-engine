@@ -1,6 +1,6 @@
 import type { IReactiveFactory } from '@Engine/Domains/Abstract';
 
-import type { IDestroyable } from '@/Engine/Domains/Mixins';
+import type { IDestroyable } from '@/Engine/Mixins';
 
 import type { IAdditionalControlsConfigParams } from './IAdditionalControlsConfigParams';
 import type { IControlsConfig } from './IControlsConfig';

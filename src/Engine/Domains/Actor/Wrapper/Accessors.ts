@@ -1,7 +1,7 @@
-import { moveableMixin, rotatableMixin } from '@Engine/Domains/Mixins';
 import type { IWriteable } from '@Engine/Utils';
 
 import type { IActorAccessors, IMesh } from '@/Engine/Domains/Actor/Models';
+import { moveableMixin, rotatableMixin } from '@/Engine/Mixins';
 
 // eslint-disable-next-line
 export function getAccessors(entity: IWriteable<IMesh>): IActorAccessors {

@@ -1,4 +1,4 @@
-import type { IMultitonRegistrable } from '@Engine/Domains/Mixins';
+import type { IMultitonRegistrable } from '@/Engine/Mixins';
 
 import type { IAbstractWatcher } from './IAbstractWatcher';
 

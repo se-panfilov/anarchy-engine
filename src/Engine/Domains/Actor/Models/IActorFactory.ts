@@ -1,6 +1,6 @@
 import type { IParamsFromConfig, IReactiveFactory } from '@Engine/Domains/Abstract';
 
-import type { IDestroyable } from '@/Engine/Domains/Mixins';
+import type { IDestroyable } from '@/Engine/Mixins';
 
 import type { IActorConfig } from './IActorConfig';
 import type { IActorParams } from './IActorParams';

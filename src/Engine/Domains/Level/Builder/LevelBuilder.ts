@@ -22,8 +22,8 @@ import { withBuiltMixin } from '@/Engine/Domains/Level/Mixin';
 import type { ILevel, ILevelConfig, IWithBuilt } from '@/Engine/Domains/Level/Models';
 import type { ILightConfig, ILightFactory, ILightRegistry, ILightWrapper } from '@/Engine/Domains/Light';
 import { LightFactory, LightRegistry } from '@/Engine/Domains/Light';
-import type { IDestroyable } from '@/Engine/Domains/Mixins';
-import { destroyableMixin } from '@/Engine/Domains/Mixins';
+import type { IDestroyable } from '@/Engine/Mixins';
+import { destroyableMixin } from '@/Engine/Mixins';
 
 export function buildLevelFromConfig(canvas: IAppCanvas, config: ILevelConfig): ILevel {
   if (!isValidLevelConfig(config)) throw new Error('Failed to launch a level: invalid data format');

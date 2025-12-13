@@ -1,4 +1,4 @@
-import type { IMovable, IRotatable } from '@/Engine/Domains/Mixins';
+import type { IMovable, IRotatable } from '@/Engine/Mixins';
 import type { IVector3Wrapper } from '@/Engine/Wrappers';
 
 export type ICameraAccessors = IMovable &

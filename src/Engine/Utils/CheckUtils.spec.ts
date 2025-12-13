@@ -1,6 +1,6 @@
 import { BehaviorSubject, Observable } from 'rxjs';
 
-import type { IDestroyable, IRegistrable } from '@/Engine/Domains/Mixins';
+import type { IDestroyable, IRegistrable } from '@/Engine/Mixins';
 import { ColorWrapper } from '@/Engine/Wrappers';
 
 import { isColorWrapper, isDefined, isDestroyable, isNotDefined, isRegistrable, isString } from './CheckUtils';

@@ -1,6 +1,6 @@
 import type { IReactiveFactory } from '@Engine/Domains/Abstract';
 
-import type { IDestroyable } from '@/Engine/Domains/Mixins';
+import type { IDestroyable } from '@/Engine/Mixins';
 
 import type { IRendererParams } from './IRendererParams';
 import type { IRendererWrapper } from './IRendererWrapper';

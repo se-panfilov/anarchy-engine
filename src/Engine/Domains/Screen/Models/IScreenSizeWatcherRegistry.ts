@@ -1,5 +1,6 @@
 import type { IAbstractRegistry } from '@Engine/Domains/Abstract';
-import type { IProtectedRegistry } from '@Engine/Domains/Mixins';
+
+import type { IProtectedRegistry } from '@/Engine/Mixins';
 
 import type { IScreenSizeWatcher } from './IScreenSizeWatcher';
 

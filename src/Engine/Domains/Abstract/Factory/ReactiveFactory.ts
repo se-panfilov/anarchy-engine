@@ -2,7 +2,7 @@ import type { FactoryType } from '@Engine/Domains/Abstract/Constants';
 import { Subject } from 'rxjs';
 
 import type { IReactiveFactory } from '@/Engine/Domains/Abstract/Models';
-import { destroyableMixin } from '@/Engine/Domains/Mixins';
+import { destroyableMixin } from '@/Engine/Mixins';
 
 import { AbstractFactory } from './AbstractFactory';
 

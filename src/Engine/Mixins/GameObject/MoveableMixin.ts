@@ -1,5 +1,4 @@
-import type { IMovable, IWithPosition } from '@Engine/Domains/Mixins/GameObject/Models';
-
+import type { IMovable, IWithPosition } from '@/Engine/Mixins/GameObject/Models';
 import type { IVector3Wrapper } from '@/Engine/Wrappers';
 import { Vector3Wrapper } from '@/Engine/Wrappers';
 

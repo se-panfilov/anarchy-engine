@@ -3,8 +3,8 @@ import { Subject } from 'rxjs';
 
 import type { CommonTag, WatcherType } from '@/Engine/Domains/Abstract/Constants';
 import type { IAbstractWatcher } from '@/Engine/Domains/Abstract/Models';
-import type { IDestroyable } from '@/Engine/Domains/Mixins';
-import { destroyableMixin } from '@/Engine/Domains/Mixins';
+import type { IDestroyable } from '@/Engine/Mixins';
+import { destroyableMixin } from '@/Engine/Mixins';
 
 export function AbstractWatcher<T>(type: WatcherType | string, tags: ReadonlyArray<string> = []): IAbstractWatcher<T> {
   const id: string = type + '_' + nanoid();

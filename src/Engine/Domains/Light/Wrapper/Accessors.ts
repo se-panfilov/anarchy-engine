@@ -4,7 +4,7 @@ import type { IVector2Wrapper, IVector3Wrapper } from '@Engine/Wrappers';
 import { Vector2Wrapper, Vector3Wrapper } from '@Engine/Wrappers';
 
 import type { IAmbientLight, IDirectionalLight, ILightAccessors } from '@/Engine/Domains/Light/Models';
-import { moveableMixin } from '@/Engine/Domains/Mixins';
+import { moveableMixin } from '@/Engine/Mixins';
 
 // eslint-disable-next-line functional/prefer-immutable-types
 export function getAccessors(entity: IWriteable<IAmbientLight | IDirectionalLight>): ILightAccessors {
