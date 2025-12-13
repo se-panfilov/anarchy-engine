@@ -5,7 +5,6 @@ import { isPlatformAction } from '@Showcases/Desktop/Utils';
 import { isLoadDocPayload, isPartialSettings, isSettings } from '@Showcases/Shared';
 import type { IpcMainInvokeEvent } from 'electron';
 
-// TODO DESKTOP: any
 export async function handleAppRequest(
   { settingsService, docsService, desktopAppService }: THandleRequestDependencies,
   _event: IpcMainInvokeEvent,

@@ -24,7 +24,6 @@ export function start(settings: TAppSettings): void {
   space.built$.subscribe(showcase);
 }
 
-// TODO DESKTOP: Add UI elements (make sure Main Menu is over the UI elements and canvas)
 export function showcase(space: TSpace): void {
   const { models3dService, scenesService, textService, intersectionsWatcherService, mouseService } = space.services;
   const models3dRegistry: TModels3dRegistry = models3dService.getRegistry();
