@@ -3,6 +3,7 @@ Done:
 - 1.1.x Production build groundwork (preparations)
 - 2.0.x Desktop Build
 - 2.1.x Distinct builds for desktop, web and mobile
+- 2.2.x Added routing for showcases
 
 Roadmap:
 - 3.0.x Mobile Build
