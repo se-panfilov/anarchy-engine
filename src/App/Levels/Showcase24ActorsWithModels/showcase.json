@@ -2,7 +2,7 @@
   "entities": {
     "actors": [
       {
-        "agent": "physical",
+        "agent": "default",
         "model3dSource": "surface_model",
         "name": "surface_actor",
         "position": {
@@ -168,11 +168,6 @@
           "width": 100,
           "widthSegments": 1
         },
-        "position": {
-          "x": 0,
-          "y": 0,
-          "z": 0
-        },
         "receiveShadow": true,
         "rotation": {
           "x": -1.57,
@@ -183,23 +178,13 @@
       {
         "castShadow": true,
         "model3dSource": "solder_model",
-        "name": "solder_model_entity_1",
-        "position": {
-          "x": 0,
-          "y": 0,
-          "z": 0
-        }
+        "name": "solder_model_entity_1"
       },
       {
         "animationsSource": ["dance_anim"],
         "castShadow": true,
         "model3dSource": "solder_model",
-        "name": "solder_model_entity_2",
-        "position": {
-          "x": 0,
-          "y": 0,
-          "z": 0
-        }
+        "name": "solder_model_entity_2"
       }
     ],
     "particles": [],

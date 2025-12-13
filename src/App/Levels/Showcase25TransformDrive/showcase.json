@@ -185,11 +185,6 @@
           "width": 100,
           "widthSegments": 1
         },
-        "position": {
-          "x": 0,
-          "y": 0,
-          "z": 0
-        },
         "receiveShadow": true,
         "rotation": {
           "x": -1.57,
