@@ -21,8 +21,7 @@ import '@/App/style.css';
 // import { showcase } from '@/App/Levels/Showcase19Physics';
 // import { showcase } from '@/App/Levels/Showcase20PhysicsSyncWithModelsTest';
 // import { showcase } from '@/App/Levels/Showcase21PhysicsManualStep';
-import { showcase } from 'src/App/Levels/Showcase22PhysicsShooter';
-
+import { showcase } from '@/App/Levels/Showcase22PhysicsShooter';
 import type { TAppCanvas } from '@/Engine';
 import { ambientContext, isNotDefined } from '@/Engine';
 
