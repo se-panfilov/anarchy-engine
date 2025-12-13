@@ -4,11 +4,13 @@ import { isDefined } from '@Anarchy/Shared/Utils';
 defineProps<{
   title: string;
   dataKey?: string | undefined;
+  isActive?: boolean;
 }>();
 </script>
 
 <template>
-  <button type="button" :title="title" class="action-btn" :aria-label="title">
+  <button type="button" :title="title" class="action-btn" :aria-label="title" :class="{ '-active': isActive }">
+    <span class="action-btn__title">{{ title }}</span>
     <span class="action-btn__content">
       <slot />
     </span>
@@ -30,6 +32,8 @@ $slate-800: #1e293b;
 $slate-900: #0f172a;
 
 .action-btn {
+  display: flex;
+  flex-direction: column;
   position: relative;
   width: 4rem;
   height: 4rem;
@@ -44,13 +48,14 @@ $slate-900: #0f172a;
   transition: all 0.2s ease;
 
   &:hover {
-    transform: scale(1.05) translateY(-2px);
+    //transform: scale(1.05) translateY(-2px);
     border-color: $slate-400;
     background-color: rgba($slate-700, 0.8);
     color: white;
   }
 
-  &:active {
+  &:active,
+  &.-active {
     transform: scale(0.95);
     background: linear-gradient(to bottom right, rgba($amber-500, 0.2), rgba($orange-600, 0.2));
     border-color: rgba($amber-500, 0.5);

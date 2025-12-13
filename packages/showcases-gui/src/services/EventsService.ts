@@ -1,4 +1,4 @@
-import type { KeyCode, MouseButtonValue } from '@Anarchy/Engine';
+import type { KeyCode, KeysExtra, MouseButtonValue } from '@Anarchy/Engine';
 import { isNotDefined } from '@Anarchy/Shared/Utils';
 import type { TEventsService } from '@Showcases/GUI/models';
 import { useGuiButtonStore } from '@Showcases/GUI/stores/GuiButtonsStore';
@@ -32,12 +32,12 @@ function EventsService(): TEventsService {
     switch (event.type) {
       case ToGuiEvents.KeyPress: {
         if (isNotDefined(event.payload?.key)) throw new Error('[EventsService]: KeyPress event payload key is not defined');
-        useGuiButtonStore().setActiveButtonByKey(event.payload.key as KeyCode | MouseButtonValue, true);
+        useGuiButtonStore().setActiveButtonByKey(event.payload.key as KeyCode | KeysExtra | MouseButtonValue, true);
         break;
       }
       case ToGuiEvents.KeyRelease: {
         if (isNotDefined(event.payload?.key)) throw new Error('[EventsService]: KeyRelease event payload key is not defined');
-        useGuiButtonStore().setActiveButtonByKey(event.payload.key as KeyCode | MouseButtonValue, false);
+        useGuiButtonStore().setActiveButtonByKey(event.payload.key as KeyCode | KeysExtra | MouseButtonValue, false);
         break;
       }
       default: {
