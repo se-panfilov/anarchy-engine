@@ -9,6 +9,7 @@ import type { TActor, TAppCanvas, TCameraWrapper, TEngine, TIntersectionEvent, T
 import {
   ambientContext,
   Engine,
+  ForwardAxis,
   getDistancePrecisely,
   getHorizontalAzimuth,
   getPushCoordsFrom3dAzimuth,
@@ -96,7 +97,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     loopService.tick$.subscribe(() => {
       if (isDefined(mouseLineIntersectionsCoords)) {
         const ballCoords: Vector3 = ballActor.drive.getPosition();
-        azimuth = getHorizontalAzimuth(ballCoords.x, ballCoords.z, mouseLineIntersectionsCoords);
+        azimuth = getHorizontalAzimuth(ballCoords.x, ballCoords.z, mouseLineIntersectionsCoords, ForwardAxis.Z);
         azimuthText.setText(`Azimuth: ${azimuth.toFixed(2)}`);
         forcePowerText.setText(`Force: ${forcePower.toFixed(2)}`);
         forcePower = getDistancePrecisely(ballActor.drive.getPosition(), mouseLineIntersectionsCoords).toNumber();

@@ -54,7 +54,6 @@ export function KinematicTransformAgent(params: TKinematicTransformAgentParams, 
         positionThreshold: 0.01,
         position: undefined,
         rotationThreshold: 0.0001,
-        // TODO 8.0.0. MODELS: rename "rotation" to "angularDirection"
         rotation: undefined
       }
     },
