@@ -16,7 +16,6 @@ export type TModel3dParams = Readonly<{
   options?: TModel3dOptions;
 }> &
   // We're not ready to add animations like this, so omit them for now
-  Omit<TObject3DParams, 'animations' | 'position' | 'scale' | 'rotation'> &
-  Pick<TObject3DParams, 'position' | 'scale' | 'rotation'> &
+  Omit<TObject3DParams, 'animations'> &
   TWithName &
   TWithReadonlyTags;
