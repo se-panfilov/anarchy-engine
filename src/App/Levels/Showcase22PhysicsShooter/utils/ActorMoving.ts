@@ -29,7 +29,7 @@ export function startMoveActorWithKeyboard(actorW: TActorWrapperAsync, keyboardS
     .subscribe(({ azimuth, elevation }): void => {
       direction = getUpdatedLinearVelocity(keyStates, direction, azimuth, elevation, speed);
       // actorW.kinematic.setLinearVelocityFromParams();
-      actorW.kinematic.setLinearVelocity(direction);
+      actorW.kinematic.setLinearDirection(direction);
       // player.isMoving = player.linearVelocity.lengthSq() > 0;
     });
 
