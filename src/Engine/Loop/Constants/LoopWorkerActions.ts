@@ -1,4 +1,5 @@
 export enum LoopWorkerActions {
   Start = 'start',
-  Stop = 'stop'
+  Stop = 'stop',
+  Destroy = 'destroy'
 }

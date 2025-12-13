@@ -4,7 +4,17 @@ import { BehaviorSubject, distinctUntilChanged, EMPTY, Subject, switchMap, takeW
 
 import type { LoopUpdatePriority } from '@/Engine/Loop/Constants';
 import { LoopTrigger, LoopWorkerActions, MaxTicks } from '@/Engine/Loop/Constants';
-import type { TDelta, TDeltaCalculator, TLoop, TLoopParams, TLoopTriggerFn, TLoopWorkerResponseData, TLoopWorkerStartRequestData, TLoopWorkerStopRequestData } from '@/Engine/Loop/Models';
+import type {
+  TDelta,
+  TDeltaCalculator,
+  TLoop,
+  TLoopParams,
+  TLoopTriggerFn,
+  TLoopWorkerDestroyRequestData,
+  TLoopWorkerResponseData,
+  TLoopWorkerStartRequestData,
+  TLoopWorkerStopRequestData
+} from '@/Engine/Loop/Models';
 import { enableFPSCounter } from '@/Engine/Loop/Utils';
 import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
@@ -81,6 +91,7 @@ export function Loop({ name, type, trigger, showDebugInfo, maxPriority, isParall
 
     if (isDefined(intervalId)) clearInterval(intervalId);
 
+    worker?.postMessage({ loopId: id, action: LoopWorkerActions.Destroy } satisfies TLoopWorkerDestroyRequestData);
     worker?.terminate();
     worker = null;
     deltaCalc?.destroy();

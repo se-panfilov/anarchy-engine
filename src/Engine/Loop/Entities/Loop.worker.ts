@@ -19,8 +19,13 @@ self.onmessage = (event: MessageEvent<TLoopWorkerStopRequestData | TLoopWorkerSt
     case LoopWorkerActions.Stop:
       stopLoop(intervalId);
       break;
+    case LoopWorkerActions.Destroy:
+      stopLoop(intervalId);
+      deltaCalc.destroy();
+      self?.close();
+      break;
     default:
-      console.warn(`[Worker] Unknown action: ${action}`);
+      console.warn(`[Worker] Unknown action: ${action}, loopId: ${loopId}`);
   }
 };
 
