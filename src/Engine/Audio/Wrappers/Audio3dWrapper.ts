@@ -101,8 +101,7 @@ export function Audio3dWrapper(params: TAudio3dParams, { audioLoop }: TAudioWrap
   const updateVolumeSub$: Subscription = sourcePositionUpdate$
     .pipe(
       sample(audioLoop.tick$),
-      // TODO 11.0.0: check filter logic
-      filter((): boolean => updatePriority >= audioLoop.priority$.value)
+      filter((): boolean => audioLoop.shouldUpdateWithPriority(updatePriority))
     )
     .subscribe((position: TReadonlyVector3): void => {
       entity.position.copy(position);
