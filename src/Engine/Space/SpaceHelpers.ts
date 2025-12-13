@@ -1,4 +1,3 @@
-import { ParticlesFactory, ParticlesRegistry, ParticlesService } from '@/Engine';
 import { ActorAsyncRegistry, ActorFactory, ActorService } from '@/Engine/Actor';
 import type { IAppCanvas } from '@/Engine/App';
 import { CameraFactory, CameraRegistry, CameraService } from '@/Engine/Camera';
@@ -7,6 +6,7 @@ import { EnvMapService } from '@/Engine/EnvMap';
 import { FogFactory, FogRegistry, FogService } from '@/Engine/Fog';
 import { IntersectionsWatcherFactory, IntersectionsWatcherRegistry, IntersectionsWatcherService } from '@/Engine/Intersections';
 import { LightFactory, LightRegistry, LightService } from '@/Engine/Light';
+import { ParticlesAsyncRegistry, ParticlesFactory, ParticlesService } from '@/Engine/Particles';
 import { RendererFactory, RendererRegistry, RendererService } from '@/Engine/Renderer';
 import type { ISceneFactory, ISceneRegistry, IScenesService, ISceneWrapper } from '@/Engine/Scene';
 import { SceneFactory, SceneRegistry, ScenesService } from '@/Engine/Scene';
@@ -28,7 +28,7 @@ export function initEntitiesServices(scene: ISceneWrapper, canvas: IAppCanvas): 
     lightService: LightService(LightFactory(), LightRegistry(), scene),
     fogService: FogService(FogFactory(), FogRegistry(), scene),
     envMapService: EnvMapService(),
-    particlesService: ParticlesService(ParticlesFactory(), ParticlesRegistry(), scene),
+    particlesService: ParticlesService(ParticlesFactory(), ParticlesAsyncRegistry(), scene),
     rendererService: RendererService(RendererFactory(), RendererRegistry()),
     textService: TextService(TextFactory(), Text2dRegistry(), Text3dRegistry(), Text2dRendererRegistry(), Text3dRendererRegistry(), scene),
     intersectionsWatcherService: IntersectionsWatcherService(IntersectionsWatcherFactory(), IntersectionsWatcherRegistry()),

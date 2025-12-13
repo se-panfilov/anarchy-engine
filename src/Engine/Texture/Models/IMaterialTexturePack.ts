@@ -7,6 +7,7 @@ import type {
   INormalMaterialPackKeys,
   IPhongMaterialPackKeys,
   IPhysicalMaterialPackKeys,
+  IPointsMaterialPackKeys,
   IStandardMaterialPackKeys,
   IToonMaterialPackKeys
 } from '@/Engine/Material';
@@ -23,6 +24,7 @@ export type IPhongMaterialTexturePack = Readonly<{ [key in IPhongMaterialPackKey
 export type IPhysicalMaterialTexturePack = Readonly<{ [key in IPhysicalMaterialPackKeys]?: ITexturePackParams }>;
 export type IToonMaterialTexturePack = Readonly<{ [key in IToonMaterialPackKeys]?: ITexturePackParams }>;
 export type IStandardMaterialTexturePack = Readonly<{ [key in IStandardMaterialPackKeys]?: ITexturePackParams }>;
+export type IPointsMaterialTexturePack = Readonly<{ [key in IPointsMaterialPackKeys]?: ITexturePackParams }>;
 
 export type IMaterialTexturePack =
   | IBasicMaterialTexturePack
@@ -34,4 +36,5 @@ export type IMaterialTexturePack =
   | IPhongMaterialTexturePack
   | IPhysicalMaterialTexturePack
   | IToonMaterialTexturePack
-  | IStandardMaterialTexturePack;
+  | IStandardMaterialTexturePack
+  | IPointsMaterialTexturePack;

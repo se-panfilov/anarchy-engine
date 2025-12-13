@@ -8,7 +8,8 @@ import type {
   MeshPhongMaterialParameters,
   MeshPhysicalMaterialParameters,
   MeshStandardMaterialParameters,
-  MeshToonMaterialParameters
+  MeshToonMaterialParameters,
+  PointsMaterialParameters
 } from 'three';
 
 type IMeshBasicMaterialPick = Pick<MeshBasicMaterialParameters, 'map' | 'aoMap' | 'specularMap' | 'alphaMap' | 'envMap' | 'lightMap'>;
@@ -24,6 +25,7 @@ type IMeshStandardMaterialPick = Pick<
   MeshStandardMaterialParameters,
   'map' | 'lightMap' | 'aoMap' | 'emissiveMap' | 'bumpMap' | 'normalMap' | 'displacementMap' | 'roughnessMap' | 'metalnessMap' | 'alphaMap' | 'envMap'
 >;
+type IPointsMaterialPick = Pick<PointsMaterialParameters, 'map' | 'alphaMap'>;
 
 export type IBasicMaterialPackKeys = keyof IMeshBasicMaterialPick;
 export type IDepthMaterialPackKeys = keyof IMeshDepthMaterialPick;
@@ -35,6 +37,7 @@ export type IPhongMaterialPackKeys = keyof IMeshPhongMaterialPick;
 export type IPhysicalMaterialPackKeys = keyof IMeshPhysicalMaterialPick;
 export type IToonMaterialPackKeys = keyof IMeshToonMaterialPick;
 export type IStandardMaterialPackKeys = keyof IMeshStandardMaterialPick;
+export type IPointsMaterialPackKeys = keyof IPointsMaterialPick;
 
 export type IMaterialPackKeys =
   | IBasicMaterialPackKeys
@@ -45,4 +48,6 @@ export type IMaterialPackKeys =
   | ILambertMaterialPackKeys
   | IPhysicalMaterialPackKeys
   | IToonMaterialPackKeys
-  | IStandardMaterialPackKeys;
+  | IStandardMaterialPackKeys
+  // eslint-disable-next-line @typescript-eslint/no-duplicate-type-constituents
+  | IPointsMaterialPackKeys;
