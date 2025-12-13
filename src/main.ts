@@ -1,1 +1,1 @@
-import '../apps/showcases';
+import '../apps/showcases/src';
