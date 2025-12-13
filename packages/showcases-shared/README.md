@@ -1,4 +1,4 @@
-# Anarchy engine showcase-shared package
+# Anarchy engine showcases-shared package
 
 Shared utilities and types for the Anarchy engine' showcases app.
 
