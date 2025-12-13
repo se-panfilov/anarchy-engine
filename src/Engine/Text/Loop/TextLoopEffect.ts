@@ -20,9 +20,6 @@ export function textLoopEffect(
   const text2dRenderer: TText2dRenderer | undefined = text2dRendererRegistry.getAll()[0];
   const text3dRenderer: TText3dRenderer | undefined = text3dRendererRegistry.getAll()[0];
 
-  if (isNotDefined(text2dRenderer)) throw new Error('TextLoopEffect: Cannot find an active text2d renderer');
-  if (isNotDefined(text3dRenderer)) throw new Error('TextLoopEffect: Cannot find an active text3d renderer');
-
   return loop.tick$.pipe(withLatestFrom(cameraService.active$)).subscribe(([, activeCameraW]: [TMilliseconds, TCameraWrapper | undefined]): void | never => {
     if (isNotDefined(activeCameraW)) return;
 
