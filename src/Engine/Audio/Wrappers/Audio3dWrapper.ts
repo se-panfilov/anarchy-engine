@@ -44,9 +44,11 @@ export function Audio3dWrapper(params: TAudio3dParams, { loopService }: TAudio3d
     else resumeAudio(entity);
   });
 
-  const fadeSub$: Subscription = fade$.pipe(distinctUntilChanged()).subscribe(({ to, duration }: { to: number; duration: number }): void => {
-    fadeAudio(entity, to, duration);
-  });
+  const fadeSub$: Subscription = fade$
+    .pipe(distinctUntilChanged((prev: { to: number; duration: number }, curr: { to: number; duration: number }): boolean => prev.to === curr.to && prev.duration === curr.duration))
+    .subscribe(({ to, duration }: { to: number; duration: number }): void => {
+      fadeAudio(entity, to, duration);
+    });
 
   const speedSub$: Subscription = speed$.pipe(distinctUntilChanged()).subscribe((speed: number): void => {
     entity.setPlaybackRate();
