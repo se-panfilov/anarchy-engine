@@ -1,5 +1,5 @@
-import type { TReactiveFactoryWithDependencies } from '@/Engine/Abstract';
-import { FactoryType, ReactiveFactoryWithDependencies } from '@/Engine/Abstract';
+import type { TReactiveFactory } from '@/Engine/Abstract';
+import { FactoryType, ReactiveFactory } from '@/Engine/Abstract';
 import { configToParams } from '@/Engine/Audio/Adapters';
 import type { TAnyAudioParams, TAnyAudioWrapper, TAudioFactory, TAudioWrapperDependencies } from '@/Engine/Audio/Models';
 import { isAudio3dParams } from '@/Engine/Audio/Utils';
@@ -11,6 +11,6 @@ function create(params: TAnyAudioParams, loops: Pick<TSpaceLoops, 'audioLoop'>):
   else return AudioWrapper(params);
 }
 
-const factory: TReactiveFactoryWithDependencies<TAnyAudioWrapper, TAnyAudioParams, Pick<TAudioWrapperDependencies, 'audioLoop'>> = ReactiveFactoryWithDependencies(FactoryType.Audio, create);
+const factory: TReactiveFactory<TAnyAudioWrapper, TAnyAudioParams, Pick<TAudioWrapperDependencies, 'audioLoop'>> = ReactiveFactory(FactoryType.Audio, create);
 // eslint-disable-next-line functional/immutable-data
 export const AudioFactory = (): TAudioFactory => Object.assign(factory, { configToParams });
