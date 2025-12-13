@@ -1,4 +1,5 @@
 import type { TLocale } from '@Anarchy/i18n';
+import { isDefined, isNotDefined } from '@Anarchy/Shared/Utils';
 import type { TVueTranslationService } from '@Showcases/i18n';
 import type { Observable, Subscription } from 'rxjs';
 import { filter } from 'rxjs';
@@ -43,10 +44,13 @@ export function VueTranslationService(): TVueTranslationService {
   function connectVueI18n(i18n: I18n): void {
     const sub: Subscription = showcasesTranslationService.locale$.subscribe(({ id: localeId }: TLocale): void => {
       // eslint-disable-next-line functional/immutable-data
-      i18n.global.locale = localeId;
-      import(`../i18n/locales/${localeId}.json`).then((messages): void => {
-        i18n.global.setLocaleMessage(localeId, messages.default);
-      });
+      if (i18n.mode === 'legacy') i18n.global.locale = localeId;
+      // eslint-disable-next-line functional/immutable-data
+      else (i18n.global.locale as any).value = localeId;
+
+      const messages = showcasesTranslationService.getCurrentMessages();
+      if (isDefined(messages)) i18n.global.setLocaleMessage(localeId, messages);
+      if (isNotDefined(messages)) console.error(`[VueTranslationService]: Cannot load messages for vue-i18n for locale "${localeId}"`);
     });
   }
 
