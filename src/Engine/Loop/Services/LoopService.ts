@@ -3,7 +3,7 @@ import { Subject, tap } from 'rxjs';
 import Stats from 'stats.js';
 import { Clock } from 'three';
 
-import type { TLoopService, TLoopTimes } from '@/Engine/Loop/Models';
+import type { TDelta, TLoopService } from '@/Engine/Loop/Models';
 import type { TMilliseconds } from '@/Engine/Math/Types';
 import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
@@ -12,22 +12,22 @@ import { isDefined } from '@/Engine/Utils';
 type TLoopServiceState = { isLooping: boolean };
 
 export function LoopService(): TLoopService {
-  const tick$: Subject<TLoopTimes> = new Subject<TLoopTimes>();
-  const beforeTick$: Subject<TLoopTimes> = new Subject<TLoopTimes>();
+  const tick$: Subject<TDelta> = new Subject<TDelta>();
+  const beforeTick$: Subject<TDelta> = new Subject<TDelta>();
   const state: TLoopServiceState = {
     isLooping: false
   };
 
-  let beforeTick: ((times: TLoopTimes) => void) | undefined = undefined;
-  const setBeforeEveryTick = (fn: (times: TLoopTimes) => void): void => void (beforeTick = fn);
+  let beforeTick: ((times: TDelta) => void) | undefined = undefined;
+  const setBeforeEveryTick = (fn: (times: TDelta) => void): void => void (beforeTick = fn);
 
   beforeTick$
     .pipe(
-      tap((times: TLoopTimes) => {
+      tap((times: TDelta) => {
         if (isDefined(beforeTick)) beforeTick(times);
       })
     )
-    .subscribe((times: TLoopTimes): void => tick$.next(times));
+    .subscribe((times: TDelta): void => tick$.next(times));
 
   const loopFn = getLoopFn(beforeTick$, state);
 
@@ -64,7 +64,7 @@ export function LoopService(): TLoopService {
   };
 }
 
-function getLoopFn(beforeTick$: Subject<TLoopTimes>, state: TLoopServiceState): (time: number) => void {
+function getLoopFn(beforeTick$: Subject<TDelta>, state: TLoopServiceState): (time: number) => void {
   const clock: Clock = new Clock();
   let lastElapsedTime: TMilliseconds = 0 as TMilliseconds;
 
@@ -75,14 +75,13 @@ function getLoopFn(beforeTick$: Subject<TLoopTimes>, state: TLoopServiceState): 
   // eslint-disable-next-line @typescript-eslint/no-unsafe-call,@typescript-eslint/no-unsafe-member-access
   document.body.appendChild(stats.dom);
 
-  function loopFn(frameTime: number): void {
+  function loopFn(): void {
     // stats.begin();
     if (!state.isLooping) return;
     const elapsedTime: TMilliseconds = clock.getElapsedTime() as TMilliseconds;
-    // TODO MATH: need precision calculations??? (or not? how performant they are?)
     const delta: TMilliseconds = (elapsedTime - lastElapsedTime) as TMilliseconds;
     lastElapsedTime = elapsedTime;
-    beforeTick$.next({ delta, frameTime: frameTime as TMilliseconds, elapsedTime });
+    beforeTick$.next(delta);
 
     // eslint-disable-next-line @typescript-eslint/no-unsafe-call,@typescript-eslint/no-unsafe-member-access
     stats.end();
