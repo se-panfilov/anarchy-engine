@@ -1,5 +1,6 @@
 export * from './TCubeTexture';
 export * from './TTexture';
+export * from './TTextureConfig';
 export * from './TTextureParams';
 export * from './TTextureProps';
 export * from './TTextureService';

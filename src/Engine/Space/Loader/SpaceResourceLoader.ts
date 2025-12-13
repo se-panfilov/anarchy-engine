@@ -2,7 +2,7 @@ import { configToParams as materialConfigToParams } from '@/Engine/Material/Adap
 import type { TMaterialPackParams, TMaterialTexturePack } from '@/Engine/MaterialTexturePack';
 import type { TSpaceConfigResources, TSpaceServices } from '@/Engine/Space/Models';
 
-export async function loadResources(resources: TSpaceConfigResources, { models3dService, envMapService, materialTextureService }: TSpaceServices): Promise<void> {
+export async function loadResources(resources: TSpaceConfigResources, { models3dService, envMapService, materialService, textureService }: TSpaceServices): Promise<void> {
   const { models3d, envMaps, materials, textures } = resources;
 
   // TODO CWP !!!
@@ -19,5 +19,10 @@ export async function loadResources(resources: TSpaceConfigResources, { models3d
   //   materialTextureService.createAsync(materialParams);
   // });
 
+  // textures should be loaded before materials
+  await textureService.createFromConfigAsync(textures);
+  //materials and textures should be fully loaded before models
+  await materialService.createFromConfigAsync(materials);
+  // TODO 9.0.0. RESOURCES: envMapService's should be loadFromConfigAsync
   await Promise.all([...models3dService.createFromConfigAsync(models3d), ...envMapService.loadFromConfigAsync(envMaps)]);
 }

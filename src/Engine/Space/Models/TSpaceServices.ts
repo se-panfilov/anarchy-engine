@@ -19,6 +19,7 @@ import type { TRendererService } from '@/Engine/Renderer';
 import type { TScenesService } from '@/Engine/Scene';
 import type { TSpatialGridService, TSpatialLoopService } from '@/Engine/Spatial';
 import type { TTextService } from '@/Engine/Text';
+import type { TTextureService } from '@/Engine/Texture';
 
 export type TSpaceServices = Readonly<{
   actorService: TActorService;
@@ -47,4 +48,5 @@ export type TSpaceServices = Readonly<{
   spatialLoopService: TSpatialLoopService;
   spatialGridService: TSpatialGridService;
   textService: TTextService;
+  textureService: TTextureService;
 }>;

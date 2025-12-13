@@ -1,5 +1,5 @@
-import type { TWithReadonlyTags } from '@/Engine/Mixins';
+import type { TWithName, TWithReadonlyTags } from '@/Engine/Mixins';
 
 import type { TTextureProps } from './TTextureProps';
 
-export type TTextureParams = TTextureProps & TWithReadonlyTags;
+export type TTextureParams = TTextureProps & TWithName & TWithReadonlyTags;

@@ -32,7 +32,7 @@ import type { TSpaceServices } from '@/Engine/Space/Models';
 import type { TSpatialGridService, TSpatialLoopService } from '@/Engine/Spatial';
 import { SpatialGridFactory, SpatialGridRegistry, SpatialGridService, SpatialLoopService } from '@/Engine/Spatial';
 import { Text2dRegistry, Text2dRendererRegistry, Text3dRegistry, Text3dRendererRegistry, TextFactory, TextService } from '@/Engine/Text';
-import { textureService } from '@/Engine/Texture';
+import { TextureService, textureService } from '@/Engine/Texture';
 import { isNotDefined } from '@/Engine/Utils';
 
 export function initSceneService(): TScenesService {
@@ -79,7 +79,7 @@ export function initEntitiesServices(sceneW: TSceneWrapper, canvas: TAppCanvas):
     controlsService: ControlService(ControlsFactory(), ControlsRegistry(), canvas),
     collisionsService,
     collisionsLoopService,
-    envMapService: EnvMapService(EnvMapAsyncRegistry()),
+    envMapService: EnvMapService(EnvMapAsyncRegistry(), sceneW),
     fogService: FogService(FogFactory(), FogRegistry(), sceneW),
     intersectionsWatcherService: IntersectionsWatcherService(IntersectionsWatcherFactory(), IntersectionsWatcherRegistry()),
     kinematicLoopService,
@@ -98,7 +98,8 @@ export function initEntitiesServices(sceneW: TSceneWrapper, canvas: TAppCanvas):
     rendererService: RendererService(RendererFactory(), RendererRegistry()),
     spatialLoopService,
     spatialGridService,
-    textService: TextService(TextFactory(), Text2dRegistry(), Text3dRegistry(), Text2dRendererRegistry(), Text3dRendererRegistry(), sceneW)
+    textService: TextService(TextFactory(), Text2dRegistry(), Text3dRegistry(), Text2dRendererRegistry(), Text3dRendererRegistry(), sceneW),
+    textureService: TextureService()
   };
 }
 
