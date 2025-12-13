@@ -1,6 +1,6 @@
 import './style.css';
 import { Color } from 'three';
-import { SceneFactory } from '@Engine/Managers/SceneFactory';
+import { SceneManager } from '@Engine/Managers/SceneManager';
 import { LoopManager } from '@Engine/Managers/LoopManager';
 import { CameraManager } from '@Engine/Managers/CameraManager';
 import { LightManager } from '@Engine/Managers/LightManager';
