@@ -7,27 +7,46 @@ export function createActor(params: ActorParams): Mesh | never {
   throw new Error('Cannot create Actor: unknown actor type');
 }
 
-function createPlane({ width, height, widthSegments, heightSegments, materialParams }: ActorParams): Mesh {
+function createPlane({
+  width,
+  height,
+  widthSegments,
+  heightSegments,
+  materialParams,
+  rotation,
+  position,
+  castShadow
+}: ActorParams): Mesh {
   const plane = new Mesh(
     new PlaneGeometry(width, height, widthSegments, heightSegments),
     new MeshToonMaterial(materialParams)
   );
-  plane.rotation.set(-Math.PI / 2, 0, 0);
+  plane.rotation.set(rotation?.x ?? -Math.PI / 2, rotation?.y ?? 0, rotation?.z ?? 0);
   // eslint-disable-next-line functional/immutable-data
   plane.receiveShadow = true;
+
+  plane.position.set(position.x, position.y, position.z);
+  plane.castShadow = castShadow;
 
   return plane;
 }
 
-function createSphere({ radius, widthSegments, heightSegments, materialParams }: ActorParams): Mesh {
+function createSphere({
+  radius,
+  widthSegments,
+  heightSegments,
+  materialParams,
+  position,
+  castShadow
+}: ActorParams): Mesh {
   // const sphere = new Mesh(new SphereGeometry(1, 32, 32), new MeshToonMaterial({ color: new Color('#5EDCAE') }));
   const sphere = new Mesh(
     new SphereGeometry(radius, widthSegments, heightSegments),
     new MeshToonMaterial(materialParams)
   );
-  sphere.position.set(0, 2, 0);
+  sphere.position.set(position.x, position.y, position.z);
   // eslint-disable-next-line functional/immutable-data
-  sphere.castShadow = true;
+  sphere.castShadow = castShadow;
 
   return sphere;
 }

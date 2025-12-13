@@ -21,8 +21,7 @@ export async function launch(sceneConfig: SceneConfig): Promise<void> {
 
   // TODO (S.Panfilov) CWP
   // make actor config a part of actor params (do same for camera and light)
-  // actor should be added to registry on creation (done!!!)
-  // then the actor should watch if he was added to the scene,
+  // then the actor should watch if he was added to the scene,ZZ
   // then apply position (or maybe it's not necessary, an we could apply values immediately
   // check if the adding to a scene must go before setting position and etc
 
@@ -59,25 +58,9 @@ export async function launch(sceneConfig: SceneConfig): Promise<void> {
 
   //Dynamic create entities
   sceneFactory.add$.next({ name });
-  actors.forEach((config: ActorConfig) => {
-    const params: ActorParams = actorAdapter(config);
-    actorFactory.add$.next(params);
-    // TODO (S.Panfilov) CWP we should set actor's position adn etc in a single place, avoid multiple subscriptions if possible
-    // const actor: ActorWrapper = actorManager.create(params);
-    actor.setPosition(config.position.x, config.position.y, config.position.z);
-    actor.setCastShadow(config.castShadow);
-  });
-
-  cameras.forEach((config: CameraConfig) => {
-    cameraFactory.add$.next(config.params);
-    camera.lookAt(config.lookAt.x, config.lookAt.y, config.lookAt.z);
-    camera.setPosition(config.position.x, config.position.y, config.position.z);
-  });
-
-  lights.forEach((config: LightConfig) => {
-    const params: LightParams = lightAdapter(config);
-    lightFactory.add$.next(params);
-  });
+  actors.forEach((config: ActorConfig) => actorFactory.add$.next(actorAdapter(config)));
+  cameras.forEach((config: CameraConfig) => cameraFactory.add$.next(config.params));
+  lights.forEach((config: LightConfig) => lightFactory.add$.next(lightAdapter(config)));
 
   // TODO (S.Panfilov) canvas (or something else) should come from settings
   const canvas: HTMLElement | null = document.querySelector('#app');

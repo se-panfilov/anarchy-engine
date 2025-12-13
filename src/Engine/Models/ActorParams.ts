@@ -1,4 +1,4 @@
-import { MeshToonMaterialParameters } from 'three/src/materials/MeshToonMaterial';
+import type { MeshToonMaterialParameters, Vector3 } from 'three';
 
 export interface ActorParams {
   readonly type: ActorType;
@@ -8,6 +8,9 @@ export interface ActorParams {
   readonly widthSegments?: number;
   readonly heightSegments?: number;
   readonly materialParams?: MeshToonMaterialParameters;
+  readonly position: Vector3;
+  readonly rotation?: Vector3;
+  readonly castShadow: boolean;
 }
 
 export type ActorType = 'sphere' | 'plane';
