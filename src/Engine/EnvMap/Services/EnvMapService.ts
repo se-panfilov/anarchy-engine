@@ -10,7 +10,7 @@ export function EnvMapService(registry: TEnvMapAsyncRegistry): TEnvMapService {
   const envMapLoader: RGBELoader = new RGBELoader();
   const added$: Subject<TAddedTexturePack> = new Subject<TAddedTexturePack>();
 
-  added$.subscribe(({ key, value }: TAddedTexturePack): void => registry.add(key, value));
+  added$.subscribe(({ url, texture }: TAddedTexturePack): void => registry.add(url, texture));
 
   function loadFromConfigAsync(envMaps: ReadonlyArray<string>): ReadonlyArray<Promise<TDataTexture>> {
     return envMaps.map((url: string): Promise<TDataTexture> => loadAsync(url));
@@ -26,7 +26,7 @@ export function EnvMapService(registry: TEnvMapAsyncRegistry): TEnvMapService {
       // eslint-disable-next-line functional/immutable-data
       texture.mapping = EquirectangularReflectionMapping;
       // setTimeout(() => added$.next(texture), 1000);
-      added$.next({ key: url, value: texture });
+      added$.next({ url: url, texture: texture });
       return texture;
     });
   }

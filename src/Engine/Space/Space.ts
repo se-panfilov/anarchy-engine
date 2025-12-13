@@ -1,6 +1,6 @@
 import type { TAppCanvas } from '@/Engine/App';
 import { ambientContext } from '@/Engine/Context';
-import type { TDataTexture } from '@/Engine/EnvMap';
+import type { TAddedTexturePack } from '@/Engine/EnvMap';
 import type { TIntersectionsWatcher } from '@/Engine/Intersections';
 import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
@@ -53,7 +53,7 @@ export function buildSpaceFromConfig(canvas: TAppCanvas, config: TSpaceConfig): 
   fogService.createFromConfig(fogs);
   particlesService.createFromConfig(particles);
 
-  envMapService.added$.subscribe((texture: TDataTexture): void => {
+  envMapService.added$.subscribe(({ texture }: TAddedTexturePack): void => {
     activeScene.setBackground(texture);
     activeScene.setEnvironmentMap(texture);
   });

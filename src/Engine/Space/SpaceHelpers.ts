@@ -2,7 +2,7 @@ import { ActorAsyncRegistry, ActorFactory, ActorService } from '@/Engine/Actor';
 import type { TAppCanvas } from '@/Engine/App';
 import { CameraFactory, CameraRegistry, CameraService } from '@/Engine/Camera';
 import { ControlService, ControlsFactory, ControlsRegistry } from '@/Engine/Controls';
-import { EnvMapService } from '@/Engine/EnvMap';
+import { EnvMapAsyncRegistry, EnvMapService } from '@/Engine/EnvMap';
 import { FogFactory, FogRegistry, FogService } from '@/Engine/Fog';
 import { IntersectionsWatcherFactory, IntersectionsWatcherRegistry, IntersectionsWatcherService } from '@/Engine/Intersections';
 import { LightFactory, LightRegistry, LightService } from '@/Engine/Light';
@@ -35,7 +35,7 @@ export function initEntitiesServices(scene: TSceneWrapper, canvas: TAppCanvas): 
     cameraService: CameraService(CameraFactory(), CameraRegistry(), scene),
     lightService: LightService(LightFactory(), LightRegistry(), scene),
     fogService: FogService(FogFactory(), FogRegistry(), scene),
-    envMapService: EnvMapService(),
+    envMapService: EnvMapService(EnvMapAsyncRegistry()),
     materialService,
     materialTextureService,
     particlesService: ParticlesService(ParticlesFactory(), ParticlesAsyncRegistry(), materialTextureService, scene),
