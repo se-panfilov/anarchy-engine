@@ -1,11 +1,11 @@
 import './fonts.css';
 
 import type { IShowcase } from '@/App/Levels/Models';
-import { defaultMoverServiceConfig, IAnimationParams, IAppCanvas, IMoverService, ISpace, ISpaceConfig, IText3dWrapper, IWithCoordsXZ } from '@/Engine';
-import { buildSpaceFromConfig, createCirclePathXZ, Easing, EulerWrapper, generateAnglesForCircle, mouseService, TextType, Vector3Wrapper } from '@/Engine';
+import type { IAnimationParams, IAppCanvas, IMoverService, ISpace, ISpaceConfig, IText3dWrapper, IWithCoordsXZ } from '@/Engine';
+import { buildSpaceFromConfig, createCirclePathXZ, defaultMoverServiceConfig, Easing, EulerWrapper, generateAnglesForCircle, mouseService, TextType, Vector3Wrapper } from '@/Engine';
+import { MoverService } from '@/Engine/Services/MoverService/MoverService';
 
 import spaceConfig from './showcase-8-text-3d.config.json';
-import { MoverService } from '@/Engine/Services/MoverService/MoverService';
 
 //Showcase 8: Text 3d
 export function showcase(canvas: IAppCanvas): IShowcase {

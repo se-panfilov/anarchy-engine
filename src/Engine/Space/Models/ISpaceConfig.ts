@@ -8,12 +8,9 @@ import type { ISceneConfig } from '@/Engine/Scene';
 import type { SpaceSchemaVersion } from '@/Engine/Space/Constants';
 import type { ITextConfig } from '@/Engine/Text';
 
-import type { ISpaceInitializationConfig } from './ISpaceInitializationConfig';
-
 export type ISpaceConfig = Readonly<{
   name: string;
   version: SpaceSchemaVersion;
-  initSpace: boolean | ISpaceInitializationConfig;
   scenes: ReadonlyArray<ISceneConfig>;
   actors: ReadonlyArray<IActorConfig>;
   cameras: ReadonlyArray<ICameraConfig>;

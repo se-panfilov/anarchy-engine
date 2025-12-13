@@ -29,7 +29,6 @@ import { SceneFactory, SceneRegistry, ScenesService } from '@/Engine/Scene';
 import { screenService } from '@/Engine/Services';
 import { withBuiltMixin } from '@/Engine/Space/Mixin';
 import type { ISpace, ISpaceConfig, ISpaceServices, IWithBuilt } from '@/Engine/Space/Models';
-import { getBoolValue } from '@/Engine/Space/SpaceHelper';
 import type { IText2dRegistry, IText2dRenderer, IText3dRegistry, IText3dRenderer, ITextFactory, ITextService } from '@/Engine/Text';
 import { initText2dRenderer, initText3dRenderer, Text2dRegistry, Text3dRegistry, TextFactory, TextService } from '@/Engine/Text';
 import { isDefined, isDestroyable, isNotDefined, validLevelConfig } from '@/Engine/Utils';
@@ -41,212 +40,163 @@ export function buildSpaceFromConfig(canvas: IAppCanvas, config: ISpaceConfig): 
     throw new Error('Failed to launch a space: invalid data format');
   }
 
-  const { initSpace, name, actors, cameras, lights, fogs, texts, controls, scenes, tags } = config;
+  const { name, actors, cameras, lights, fogs, texts, controls, scenes, tags } = config;
   const messages$: ReplaySubject<string> = new ReplaySubject<string>();
-
-  const isScenesInit: boolean = getBoolValue('isScenesInit', initSpace);
-  const isActorsInit: boolean = getBoolValue('isActorsInit', initSpace);
-  const isCamerasInit: boolean = getBoolValue('isCamerasInit', initSpace);
-  const isLightsInit: boolean = getBoolValue('isLightsInit', initSpace);
-  const isFogsInit: boolean = getBoolValue('isFogsInit', initSpace);
-  const isTextsInit: boolean = getBoolValue('isTextsInit', initSpace);
-  const isControlsInit: boolean = getBoolValue('isControlsInit', initSpace);
-  const isEnvMapsInit: boolean = getBoolValue('isEnvMapsInit', initSpace);
-  const isRendererInit: boolean = getBoolValue('isRendererInit', initSpace);
-  const isLoopInit: boolean = getBoolValue('isLoopInit', initSpace);
-  const isInitIntersections: boolean = getBoolValue('isInitIntersections', initSpace);
 
   screenService.setCanvas(canvas);
 
-  let scene: ISceneWrapper | undefined = undefined;
   let services: ISpaceServices = {};
 
-  let cameraRegistry: ICameraRegistry | undefined;
-  let rendererRegistry: IRendererRegistry | undefined;
-  let controlsRegistry: IControlsRegistry | undefined;
-  let text2dRegistry: IText2dRegistry | undefined;
-  let text3dRegistry: IText3dRegistry | undefined;
-
-  let text2dRenderer: IText2dRenderer | undefined;
-  let text3dRenderer: IText3dRenderer | undefined;
-  let renderer: IRendererWrapper | undefined;
-
   //build scenes
-  if (isScenesInit) {
-    const sceneFactory: ISceneFactory = SceneFactory();
-    const sceneRegistry: ISceneRegistry = SceneRegistry();
-    const scenesService: IScenesService = ScenesService(sceneFactory, sceneRegistry);
+  const sceneFactory: ISceneFactory = SceneFactory();
+  const sceneRegistry: ISceneRegistry = SceneRegistry();
+  const scenesService: IScenesService = ScenesService(sceneFactory, sceneRegistry);
 
-    scenesService.createFromConfig(scenes);
+  scenesService.createFromConfig(scenes);
 
-    messages$.next(`Scenes (${scenes.length}) created`);
-    scene = scenesService.findActiveScene();
-    if (isNotDefined(scene)) throw new Error(`Cannot find the current scene for space "${name}" during the space building.`);
+  messages$.next(`Scenes (${scenes.length}) created`);
+  const scene: ISceneWrapper | undefined = scenesService.findActiveScene();
+  if (isNotDefined(scene)) throw new Error(`Cannot find the current scene for space "${name}" during the space building.`);
 
-    services = { ...services, scenesService };
-  }
+  services = { ...services, scenesService };
 
   //build actors
-  if (isActorsInit) {
-    if (isNotDefined(scene)) throw new Error('Scene should be initialized for actors initialization');
+  if (isNotDefined(scene)) throw new Error('Scene should be initialized for actors initialization');
 
-    const actorFactory: IActorFactory = ActorFactory();
-    const actorRegistry: IActorAsyncRegistry = ActorAsyncRegistry();
-    const actorService: IActorService = ActorService(actorFactory, actorRegistry, scene);
+  const actorFactory: IActorFactory = ActorFactory();
+  const actorRegistry: IActorAsyncRegistry = ActorAsyncRegistry();
+  const actorService: IActorService = ActorService(actorFactory, actorRegistry, scene);
 
-    actorService.createFromConfig(actors);
+  actorService.createFromConfig(actors);
 
-    services = { ...services, actorService };
-    messages$.next(`Actors (${actors.length}) created (async))`);
-  }
+  services = { ...services, actorService };
+  messages$.next(`Actors (${actors.length}) created (async))`);
 
   //build texts
-  if (isTextsInit) {
-    if (isNotDefined(scene)) throw new Error('Scene should be initialized for texts initialization');
+  if (isNotDefined(scene)) throw new Error('Scene should be initialized for texts initialization');
 
-    const textFactory: ITextFactory = TextFactory();
+  const textFactory: ITextFactory = TextFactory();
 
-    text2dRenderer = initText2dRenderer(ambientContext.container.getAppContainer(), ambientContext.screenSizeWatcher);
-    text3dRenderer = initText3dRenderer(ambientContext.container.getAppContainer(), ambientContext.screenSizeWatcher);
+  const text2dRenderer: IText2dRenderer = initText2dRenderer(ambientContext.container.getAppContainer(), ambientContext.screenSizeWatcher);
+  const text3dRenderer: IText3dRenderer = initText3dRenderer(ambientContext.container.getAppContainer(), ambientContext.screenSizeWatcher);
 
-    text2dRegistry = Text2dRegistry();
-    text3dRegistry = Text3dRegistry();
+  const text2dRegistry: IText2dRegistry = Text2dRegistry();
+  const text3dRegistry: IText3dRegistry = Text3dRegistry();
 
-    const textService: ITextService = TextService(textFactory, text2dRegistry, text3dRegistry, scene);
+  const textService: ITextService = TextService(textFactory, text2dRegistry, text3dRegistry, scene);
 
-    services = { ...services, textService };
+  services = { ...services, textService };
 
-    messages$.next(`Texts (${texts.length}) created`);
-  }
+  messages$.next(`Texts (${texts.length}) created`);
 
   //build cameras
-  if (isCamerasInit) {
-    if (isNotDefined(scene)) throw new Error('Scene should be initialized for cameras initialization');
-    const cameraFactory: ICameraFactory = CameraFactory();
-    cameraRegistry = CameraRegistry();
-    const cameraService: ICameraService = CameraService(cameraFactory, cameraRegistry, scene);
+  if (isNotDefined(scene)) throw new Error('Scene should be initialized for cameras initialization');
+  const cameraFactory: ICameraFactory = CameraFactory();
+  const cameraRegistry: ICameraRegistry = CameraRegistry();
+  const cameraService: ICameraService = CameraService(cameraFactory, cameraRegistry, scene);
 
-    cameraService.createFromConfig(cameras);
+  cameraService.createFromConfig(cameras);
 
-    services = { ...services, cameraService };
+  services = { ...services, cameraService };
 
-    messages$.next(`Cameras (${cameras.length}) created`);
-  }
+  messages$.next(`Cameras (${cameras.length}) created`);
 
   //build controls
-  if (isControlsInit) {
-    if (isNotDefined(isCamerasInit)) throw new Error('Camera initialization should be "true" for controls initialization');
-    if (isNotDefined(services.cameraService)) throw new Error('Cannot find camera service for controls initialization');
-    const camera: ICameraWrapper | undefined = services.cameraService.findActiveCamera();
-    if (isNotDefined(camera)) throw new Error('Cannot find active camera for controls initialization');
+  if (isNotDefined(cameraService)) throw new Error('Cannot find camera service for controls initialization');
+  const camera: ICameraWrapper | undefined = cameraService.findActiveCamera();
+  if (isNotDefined(camera)) throw new Error('Cannot find active camera for controls initialization');
 
-    const controlsFactory: IControlsFactory = ControlsFactory();
-    controlsRegistry = ControlsRegistry();
-    const controlsService: IControlsService = ControlService(controlsFactory, controlsRegistry, camera, canvas);
+  const controlsFactory: IControlsFactory = ControlsFactory();
+  const controlsRegistry: IControlsRegistry = ControlsRegistry();
+  const controlsService: IControlsService = ControlService(controlsFactory, controlsRegistry, camera, canvas);
 
-    controlsService.createFromConfig(controls);
+  controlsService.createFromConfig(controls);
 
-    services = { ...services, controlsService };
-    messages$.next(`Controls (${controls.length}) created`);
-  }
+  services = { ...services, controlsService };
+  messages$.next(`Controls (${controls.length}) created`);
 
   //build lights
-  if (isLightsInit) {
-    if (isNotDefined(scene)) throw new Error('Scene should be initialized for lights initialization');
+  if (isNotDefined(scene)) throw new Error('Scene should be initialized for lights initialization');
 
-    const lightFactory: ILightFactory = LightFactory();
-    const lightRegistry: ILightRegistry = LightRegistry();
-    const lightService: ILightService = LightService(lightFactory, lightRegistry, scene);
+  const lightFactory: ILightFactory = LightFactory();
+  const lightRegistry: ILightRegistry = LightRegistry();
+  const lightService: ILightService = LightService(lightFactory, lightRegistry, scene);
 
-    lightService.createFromConfig(lights);
+  lightService.createFromConfig(lights);
 
-    services = { ...services, lightService };
-    messages$.next(`Lights (${lights.length}) created`);
-  }
+  services = { ...services, lightService };
+  messages$.next(`Lights (${lights.length}) created`);
 
-  if (isInitIntersections) {
-    if (isNotDefined(scene)) throw new Error('Scene should be initialized for intersections initialization');
-    if (isNotDefined(cameraRegistry)) throw new Error('Cannot find camera registry for intersections initialization');
+  if (isNotDefined(scene)) throw new Error('Scene should be initialized for intersections initialization');
+  if (isNotDefined(cameraRegistry)) throw new Error('Cannot find camera registry for intersections initialization');
 
-    const intersectionsWatcherFactory: IIntersectionsWatcherFactory = IntersectionsWatcherFactory();
-    const intersectionsWatcherRegistry: IIntersectionsWatcherRegistry = IntersectionsWatcherRegistry();
-    const intersectionsService: IIntersectionsService = IntersectionsService(intersectionsWatcherFactory, intersectionsWatcherRegistry);
+  const intersectionsWatcherFactory: IIntersectionsWatcherFactory = IntersectionsWatcherFactory();
+  const intersectionsWatcherRegistry: IIntersectionsWatcherRegistry = IntersectionsWatcherRegistry();
+  const intersectionsService: IIntersectionsService = IntersectionsService(intersectionsWatcherFactory, intersectionsWatcherRegistry);
 
-    // TODO (S.Panfilov) We need to load intersections from config as well as the other entities
+  // TODO (S.Panfilov) We need to load intersections from config as well as the other entities
 
-    services = { ...services, intersectionsService };
-    messages$.next(`Intersections watcher created`);
-  }
+  services = { ...services, intersectionsService };
+  messages$.next(`Intersections watcher created`);
 
   //build fogs
-  if (isFogsInit) {
-    if (isNotDefined(scene)) throw new Error('Scene should be initialized for fogs initialization');
+  if (isNotDefined(scene)) throw new Error('Scene should be initialized for fogs initialization');
 
-    const fogFactory: IFogFactory = FogFactory();
-    const fogRegistry: IFogRegistry = FogRegistry();
-    const fogService: IFogService = FogService(fogFactory, fogRegistry, scene);
+  const fogFactory: IFogFactory = FogFactory();
+  const fogRegistry: IFogRegistry = FogRegistry();
+  const fogService: IFogService = FogService(fogFactory, fogRegistry, scene);
 
-    fogService.createFromConfig(fogs);
+  fogService.createFromConfig(fogs);
 
-    services = { ...services, fogService };
-    messages$.next(`Fogs (${fogs.length}) created`);
-  }
+  services = { ...services, fogService };
+  messages$.next(`Fogs (${fogs.length}) created`);
 
   //env maps
-  if (isEnvMapsInit) {
-    if (isNotDefined(scene)) throw new Error('Scene should be initialized for fogs initialization');
-    const envMapService: IEnvMapService = EnvMapService();
+  if (isNotDefined(scene)) throw new Error('Scene should be initialized for fogs initialization');
+  const envMapService: IEnvMapService = EnvMapService();
 
-    envMapService.added$.subscribe((texture: IDataTexture): void => {
-      scene.setBackground(texture);
-      scene.setEnvironmentMap(texture);
-      messages$.next(`Env map added: "${texture.id}"`);
-    });
-    services = { ...services, envMapService };
-  }
+  envMapService.added$.subscribe((texture: IDataTexture): void => {
+    scene.setBackground(texture);
+    scene.setEnvironmentMap(texture);
+    messages$.next(`Env map added: "${texture.id}"`);
+  });
+  services = { ...services, envMapService };
 
   //build renderer
-  if (isRendererInit) {
-    const rendererFactory: IRendererFactory = RendererFactory();
-    rendererRegistry = RendererRegistry();
-    const rendererService: IRendererService = RendererService(rendererFactory, rendererRegistry);
+  const rendererFactory: IRendererFactory = RendererFactory();
+  const rendererRegistry: IRendererRegistry = RendererRegistry();
+  const rendererService: IRendererService = RendererService(rendererFactory, rendererRegistry);
 
-    renderer = rendererService.create({ canvas, tags: [], mode: RendererModes.WebGL2, isActive: true });
+  const renderer: IRendererWrapper = rendererService.create({ canvas, tags: [], mode: RendererModes.WebGL2, isActive: true });
 
-    services = { ...services, rendererService };
-    messages$.next(`Renderer ("${renderer.id}") created`);
-  }
+  services = { ...services, rendererService };
+  messages$.next(`Renderer ("${renderer.id}") created`);
 
-  let loopTick$: Subscription | undefined;
-  if (isLoopInit) {
-    if (isNotDefined(scene)) throw new Error('Scene should be initialized for loop initialization');
-    if (isNotDefined(cameraRegistry)) throw new Error('Cannot find camera registry for loop initialization');
-    if (isNotDefined(rendererRegistry)) throw new Error('Cannot find renderer registry for loop initialization');
-    if (isNotDefined(renderer)) throw new Error('Cannot find renderer');
-    if (isNotDefined(controlsRegistry)) throw new Error('Cannot find controls registry for loop initialization');
-    const loopService: ILoopService = LoopService();
-    services = { ...services, loopService };
+  if (isNotDefined(scene)) throw new Error('Scene should be initialized for loop initialization');
+  if (isNotDefined(cameraRegistry)) throw new Error('Cannot find camera registry for loop initialization');
+  if (isNotDefined(rendererRegistry)) throw new Error('Cannot find renderer registry for loop initialization');
+  if (isNotDefined(renderer)) throw new Error('Cannot find renderer');
+  if (isNotDefined(controlsRegistry)) throw new Error('Cannot find controls registry for loop initialization');
+  const loopService: ILoopService = LoopService();
+  services = { ...services, loopService };
 
-    loopTick$ = loopService.tick$.subscribe(({ delta }: ILoopTimes): void => {
-      const activeCamera: ICameraWrapper | undefined = services.cameraService?.findActiveCamera();
-      if (isDefined(activeCamera)) {
-        if (isNotDefined(renderer)) throw new Error('Cannot find renderer');
-        renderer.entity.render(scene.entity, activeCamera.entity);
-        // TODO (S.Panfilov) update these text renderers only when there are any text (or maybe only when it's changed)
-        if (isTextsInit) {
-          if (!text2dRegistry?.isEmpty()) text2dRenderer?.renderer.render(scene.entity, activeCamera.entity);
-          if (!text3dRegistry?.isEmpty()) text3dRenderer?.renderer.render(scene.entity, activeCamera.entity);
-        }
-      }
+  const loopTick$: Subscription = loopService.tick$.subscribe(({ delta }: ILoopTimes): void => {
+    const activeCamera: ICameraWrapper | undefined = cameraService?.findActiveCamera();
+    if (isDefined(activeCamera)) {
+      if (isNotDefined(renderer)) throw new Error('Cannot find renderer');
+      renderer.entity.render(scene.entity, activeCamera.entity);
+      // TODO (S.Panfilov) update these text renderers only when there are any text (or maybe only when it's changed)
+      if (!text2dRegistry?.isEmpty()) text2dRenderer?.renderer.render(scene.entity, activeCamera.entity);
+      if (!text3dRegistry?.isEmpty()) text3dRenderer?.renderer.render(scene.entity, activeCamera.entity);
+    }
 
-      if (isNotDefined(loopTick$)) throw new Error('Loop tick subscription is not defined');
+    if (isNotDefined(loopTick$)) throw new Error('Loop tick subscription is not defined');
 
-      // just for control's damping
-      controlsRegistry?.getAll().forEach((controls: IOrbitControlsWrapper): void => {
-        if (controls.entity.enableDamping) controls.entity.update(delta);
-      });
+    // just for control's damping
+    controlsRegistry?.getAll().forEach((controls: IOrbitControlsWrapper): void => {
+      if (controls.entity.enableDamping) controls.entity.update(delta);
     });
-  }
+  });
 
   const destroyable: IDestroyable = destroyableMixin();
   const builtMixin: IWithBuilt = withBuiltMixin();
@@ -263,8 +213,7 @@ export function buildSpaceFromConfig(canvas: IAppCanvas, config: ISpaceConfig): 
   return {
     name,
     start(): void {
-      if (isNotDefined(services.loopService)) throw new Error('Cannot start space, loop service is not defined');
-      services.loopService.start();
+      loopService.start();
       messages$.next(`Space started`);
     },
     stop(): void {

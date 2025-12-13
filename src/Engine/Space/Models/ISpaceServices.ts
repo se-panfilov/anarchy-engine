@@ -11,15 +11,15 @@ import type { IScenesService } from '@/Engine/Scene';
 import type { ITextService } from '@/Engine/Text';
 
 export type ISpaceServices = {
-  actorService?: IActorService;
-  textService?: ITextService;
-  cameraService?: ICameraService;
-  intersectionsService?: IIntersectionsService;
-  lightService?: ILightService;
-  fogService?: IFogService;
-  controlsService?: IControlsService;
-  scenesService?: IScenesService;
-  rendererService?: IRendererService;
-  envMapService?: IEnvMapService;
-  loopService?: ILoopService;
+  actorService: IActorService;
+  textService: ITextService;
+  cameraService: ICameraService;
+  intersectionsService: IIntersectionsService;
+  lightService: ILightService;
+  fogService: IFogService;
+  controlsService: IControlsService;
+  scenesService: IScenesService;
+  rendererService: IRendererService;
+  envMapService: IEnvMapService;
+  loopService: ILoopService;
 };
