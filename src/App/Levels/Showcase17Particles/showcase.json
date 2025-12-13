@@ -46,6 +46,33 @@
         }
       },
       "tags": []
+    },
+    {
+      "name": "glass",
+      "type": "sphere",
+      "width": 1,
+      "height": 1,
+      "radius": 0.7,
+      "position": { "x": 0, "y": 2, "z": 0 },
+      "widthSegments": 64,
+      "heightSegments": 64,
+      "castShadow": true,
+      "material": {
+        "type": "physical",
+        "params": {
+          "clearcoat": 0.8,
+          "clearcoatRoughness": 0.09,
+          "displacementScale": 0.1,
+          "metalness": 0,
+          "roughness": 0,
+          "iridescence": 0,
+          "iridescenceIOR": 1.38,
+          "transmission": 0.77,
+          "ior": 1.26,
+          "thickness": 0.5
+        }
+      },
+      "tags": ["physical", "glass"]
     }
   ],
   "intersections": [],
