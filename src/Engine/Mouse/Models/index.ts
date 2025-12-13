@@ -10,4 +10,5 @@ export * from './TMousePositionWatcherFactory';
 export * from './TMousePositionWatcherParams';
 export * from './TMousePositionWatcherRegistry';
 export * from './TMouseService';
+export * from './TMouseStateUpdate';
 export * from './TMouseWatcherEvent';

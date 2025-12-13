@@ -1,5 +1,5 @@
-import type { Subscription } from 'rxjs';
-import { filter, Subject } from 'rxjs';
+import type { Observable, Subscription } from 'rxjs';
+import { EMPTY, filter, map, merge, mergeMap, Subject } from 'rxjs';
 
 import { WatcherTag } from '@/Engine/Abstract';
 import type { TGlobalContainerDecorator } from '@/Engine/Global';
@@ -16,6 +16,7 @@ import type {
   TMousePositionWatcherFactory,
   TMousePositionWatcherRegistry,
   TMouseService,
+  TMouseStateUpdate,
   TMouseWatcherEvent
 } from '@/Engine/Mouse/Models';
 import { MouseClickWatcherRegistry, MousePositionWatcherRegistry } from '@/Engine/Mouse/Registries';
@@ -63,39 +64,64 @@ export function MouseService(container: TGlobalContainerDecorator, { loopService
   const wheelUp$: Subject<TMouseWatcherEvent> = new Subject<TMouseWatcherEvent>();
   const wheelDown$: Subject<TMouseWatcherEvent> = new Subject<TMouseWatcherEvent>();
 
-  clickPress$.pipe(filter((event: TMouseWatcherEvent): boolean => event.value === MouseButtonValue.Left)).subscribe((event: TMouseWatcherEvent) => clickLeftPress$.next(event));
-  clickPress$.pipe(filter((event: TMouseWatcherEvent): boolean => event.value === MouseButtonValue.Right)).subscribe((event: TMouseWatcherEvent) => clickRightPress$.next(event));
-  clickPress$.pipe(filter((event: TMouseWatcherEvent): boolean => event.value === MouseButtonValue.Middle)).subscribe((event: TMouseWatcherEvent) => clickMiddlePress$.next(event));
-  clickPress$.pipe(filter((event: TMouseWatcherEvent): boolean => event.value === MouseButtonValue.Back)).subscribe((event: TMouseWatcherEvent) => clickBackPress$.next(event));
-  clickPress$.pipe(filter((event: TMouseWatcherEvent): boolean => event.value === MouseButtonValue.Forward)).subscribe((event: TMouseWatcherEvent) => clickForwardPress$.next(event));
-  clickPress$.pipe(filter((event: TMouseWatcherEvent): boolean => event.value === MouseButtonValue.Extra)).subscribe((event: TMouseWatcherEvent) => clickExtraPress$.next(event));
+  const buttonPressMap = new Map<MouseButtonValue | MouseWheelValue, Subject<TMouseWatcherEvent>>([
+    [MouseButtonValue.Left, clickLeftPress$],
+    [MouseButtonValue.Right, clickRightPress$],
+    [MouseButtonValue.Middle, clickMiddlePress$],
+    [MouseButtonValue.Back, clickBackPress$],
+    [MouseButtonValue.Forward, clickForwardPress$],
+    [MouseButtonValue.Extra, clickExtraPress$]
+  ]);
 
-  clickLeftPress$.subscribe((): void => isLeftPressed$.next(true));
-  clickRightPress$.subscribe((): void => isRightPressed$.next(true));
-  clickMiddlePress$.subscribe((): void => isMiddlePressed$.next(true));
-  clickBackPress$.subscribe((): void => isBackPressed$.next(true));
-  clickForwardPress$.subscribe((): void => isForwardPressed$.next(true));
-  clickExtraPress$.subscribe((): void => isExtraPressed$.next(true));
+  clickPress$
+    .pipe(
+      mergeMap((event: TMouseWatcherEvent): Subject<TMouseWatcherEvent> | Observable<never> => {
+        const subject = buttonPressMap.get(event.value);
+        if (subject) subject.next(event);
+        return subject ?? EMPTY;
+      })
+    )
+    .subscribe();
 
-  clickRelease$.pipe(filter((event: TMouseWatcherEvent): boolean => event.value === MouseButtonValue.Left)).subscribe((event: TMouseWatcherEvent) => clickLeftRelease$.next(event));
-  clickRelease$.pipe(filter((event: TMouseWatcherEvent): boolean => event.value === MouseButtonValue.Right)).subscribe((event: TMouseWatcherEvent) => clickRightRelease$.next(event));
-  clickRelease$.pipe(filter((event: TMouseWatcherEvent): boolean => event.value === MouseButtonValue.Middle)).subscribe((event: TMouseWatcherEvent) => clickMiddleRelease$.next(event));
-  clickRelease$.pipe(filter((event: TMouseWatcherEvent): boolean => event.value === MouseButtonValue.Back)).subscribe((event: TMouseWatcherEvent) => clickBackRelease$.next(event));
-  clickRelease$.pipe(filter((event: TMouseWatcherEvent): boolean => event.value === MouseButtonValue.Forward)).subscribe((event: TMouseWatcherEvent) => clickForwardRelease$.next(event));
-  clickRelease$.pipe(filter((event: TMouseWatcherEvent): boolean => event.value === MouseButtonValue.Extra)).subscribe((event: TMouseWatcherEvent) => clickExtraRelease$.next(event));
+  const buttonReleaseMap = new Map<MouseButtonValue | MouseWheelValue, Subject<TMouseWatcherEvent>>([
+    [MouseButtonValue.Left, clickLeftRelease$],
+    [MouseButtonValue.Right, clickRightRelease$],
+    [MouseButtonValue.Middle, clickMiddleRelease$],
+    [MouseButtonValue.Back, clickBackRelease$],
+    [MouseButtonValue.Forward, clickForwardRelease$],
+    [MouseButtonValue.Extra, clickExtraRelease$]
+  ]);
 
-  clickLeftRelease$.subscribe((): void => isLeftPressed$.next(false));
-  clickRightRelease$.subscribe((): void => isRightPressed$.next(false));
-  clickMiddleRelease$.subscribe((): void => isMiddlePressed$.next(false));
-  clickBackRelease$.subscribe((): void => isBackPressed$.next(false));
-  clickForwardRelease$.subscribe((): void => isForwardPressed$.next(false));
-  clickExtraRelease$.subscribe((): void => isExtraPressed$.next(false));
+  clickRelease$
+    .pipe(
+      mergeMap((event: TMouseWatcherEvent): Subject<TMouseWatcherEvent> | Observable<never> => {
+        const subject = buttonReleaseMap.get(event.value);
+        if (subject) subject.next(event);
+        return subject ?? EMPTY;
+      })
+    )
+    .subscribe();
 
-  doubleClick$.pipe(filter((event: TMouseWatcherEvent): boolean => event.value === MouseButtonValue.Left)).subscribe((event: TMouseWatcherEvent) => doubleLeftClick$.next(event));
-  doubleClick$.pipe(filter((event: TMouseWatcherEvent): boolean => event.value === MouseButtonValue.Right)).subscribe((event: TMouseWatcherEvent) => doubleRightClick$.next(event));
+  const mergeSub$: Subscription = merge(
+    clickLeftPress$.pipe(map((): TMouseStateUpdate => ({ state$: isLeftPressed$, value: true }))),
+    clickRightPress$.pipe(map((): TMouseStateUpdate => ({ state$: isRightPressed$, value: true }))),
+    clickMiddlePress$.pipe(map((): TMouseStateUpdate => ({ state$: isMiddlePressed$, value: true }))),
+    clickBackPress$.pipe(map((): TMouseStateUpdate => ({ state$: isBackPressed$, value: true }))),
+    clickForwardPress$.pipe(map((): TMouseStateUpdate => ({ state$: isForwardPressed$, value: true }))),
+    clickExtraPress$.pipe(map((): TMouseStateUpdate => ({ state$: isExtraPressed$, value: true }))),
+    clickLeftRelease$.pipe(map((): TMouseStateUpdate => ({ state$: isLeftPressed$, value: false }))),
+    clickRightRelease$.pipe(map((): TMouseStateUpdate => ({ state$: isRightPressed$, value: false }))),
+    clickMiddleRelease$.pipe(map((): TMouseStateUpdate => ({ state$: isMiddlePressed$, value: false }))),
+    clickBackRelease$.pipe(map((): TMouseStateUpdate => ({ state$: isBackPressed$, value: false }))),
+    clickForwardRelease$.pipe(map((): TMouseStateUpdate => ({ state$: isForwardPressed$, value: false }))),
+    clickExtraRelease$.pipe(map((): TMouseStateUpdate => ({ state$: isExtraPressed$, value: false })))
+  ).subscribe(({ state$, value }: TMouseStateUpdate): void => state$.next(value));
 
-  wheel$.pipe(filter((event: TMouseWatcherEvent): boolean => event.value === MouseWheelValue.WheelUp)).subscribe((event: TMouseWatcherEvent) => wheelUp$.next(event));
-  wheel$.pipe(filter((event: TMouseWatcherEvent): boolean => event.value === MouseWheelValue.WheelDown)).subscribe((event: TMouseWatcherEvent) => wheelDown$.next(event));
+  doubleClick$.pipe(filter((event: TMouseWatcherEvent): boolean => event.value === MouseButtonValue.Left)).subscribe((event: TMouseWatcherEvent): void => doubleLeftClick$.next(event));
+  doubleClick$.pipe(filter((event: TMouseWatcherEvent): boolean => event.value === MouseButtonValue.Right)).subscribe((event: TMouseWatcherEvent): void => doubleRightClick$.next(event));
+
+  wheel$.pipe(filter((event: TMouseWatcherEvent): boolean => event.value === MouseWheelValue.WheelUp)).subscribe((event: TMouseWatcherEvent): void => wheelUp$.next(event));
+  wheel$.pipe(filter((event: TMouseWatcherEvent): boolean => event.value === MouseWheelValue.WheelDown)).subscribe((event: TMouseWatcherEvent): void => wheelDown$.next(event));
 
   mouseClickWatcher.value$.subscribe((event: TMouseWatcherEvent): void => {
     if (event.type === MouseEventType.MouseDown) clickPress$.next(event);
@@ -164,6 +190,8 @@ export function MouseService(container: TGlobalContainerDecorator, { loopService
     wheelUp$.unsubscribe();
     wheelDown$.complete();
     wheelDown$.unsubscribe();
+
+    mergeSub$.unsubscribe();
   });
 
   return {
