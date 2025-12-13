@@ -8,6 +8,8 @@ import { withObject3d } from '@/Engine/Mixins';
 import type { TParticlesParams, TParticlesTransformDrive, TParticlesWrapper } from '@/Engine/Particles/Models';
 import { ParticlesTransformDrive } from '@/Engine/Particles/TransformDrive';
 import type { TBufferGeometry, TPoints } from '@/Engine/ThreeLib';
+import type { TDriveToTargetConnector } from '@/Engine/TransformDrive';
+import { DriveToTargetConnector } from '@/Engine/TransformDrive';
 import { applyObject3dParams } from '@/Engine/Utils';
 
 export function ParticlesWrapper(params: TParticlesParams): TParticlesWrapper {
@@ -28,6 +30,7 @@ export function ParticlesWrapper(params: TParticlesParams): TParticlesWrapper {
   const getIndividualPositions = (): Float32Array => geometry.getAttribute('position').array as Float32Array;
 
   const drive: TParticlesTransformDrive = ParticlesTransformDrive(params);
+  const driveToTargetConnector: TDriveToTargetConnector = DriveToTargetConnector(drive, entity);
 
   const result = {
     ...AbstractWrapper(entity, WrapperType.Particles, params),
@@ -44,6 +47,8 @@ export function ParticlesWrapper(params: TParticlesParams): TParticlesWrapper {
   };
 
   applyObject3dParams(result, params);
+
+  result.destroy$.subscribe((): void => driveToTargetConnector.destroy$.next());
 
   return result;
 }

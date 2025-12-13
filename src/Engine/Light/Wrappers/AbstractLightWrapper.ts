@@ -4,10 +4,13 @@ import { LightTransformDrive } from '@/Engine/Light/TransformDrive';
 import { getWrapperType } from '@/Engine/Light/Utils';
 import { applyShadowParams } from '@/Engine/Light/Wrappers/LightWrapperHelper';
 import { withObject3d } from '@/Engine/Mixins';
+import type { TDriveToTargetConnector } from '@/Engine/TransformDrive';
+import { DriveToTargetConnector } from '@/Engine/TransformDrive';
 import { applyObject3dParams } from '@/Engine/Utils';
 
 export function AbstractLightWrapper<T extends TLight>(entity: T, params: TLightParams): TAbstractLightWrapper<T> {
   const drive: TLightTransformDrive = LightTransformDrive(params);
+  const driveToTargetConnector: TDriveToTargetConnector = DriveToTargetConnector(drive, entity);
 
   const result: TAbstractLightWrapper<T> = {
     ...AbstractWrapper(entity, getWrapperType(entity), params),
@@ -15,6 +18,8 @@ export function AbstractLightWrapper<T extends TLight>(entity: T, params: TLight
     ...withObject3d(entity),
     entity
   };
+
+  result.destroy$.subscribe((): void => driveToTargetConnector.destroy$.next());
 
   applyShadowParams(params, result.entity);
   applyObject3dParams(result, params);

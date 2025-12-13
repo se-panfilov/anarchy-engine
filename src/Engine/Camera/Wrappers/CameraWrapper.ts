@@ -6,6 +6,8 @@ import { CameraTransformDrive } from '@/Engine/Camera/TransformDrive';
 import { ambientContext } from '@/Engine/Context';
 import { withActiveMixin, withObject3d } from '@/Engine/Mixins';
 import { withTagsMixin } from '@/Engine/Mixins/Generics';
+import type { TDriveToTargetConnector } from '@/Engine/TransformDrive';
+import { DriveToTargetConnector } from '@/Engine/TransformDrive';
 import type { TWriteable } from '@/Engine/Utils';
 import { applyObject3dParams, isDefined } from '@/Engine/Utils';
 
@@ -21,6 +23,7 @@ export function CameraWrapper(params: TCameraParams): TCameraWrapper {
   accessors.setAspect(width / height);
 
   const drive: TCameraTransformDrive = CameraTransformDrive(params);
+  const driveToTargetConnector: TDriveToTargetConnector = DriveToTargetConnector(drive, entity);
 
   const result = {
     ...AbstractWrapper(entity, WrapperType.Camera, params),
@@ -34,6 +37,8 @@ export function CameraWrapper(params: TCameraParams): TCameraWrapper {
 
   applyObject3dParams(result, params);
   result._setActive(params.isActive, true);
+
+  result.destroy$.subscribe((): void => driveToTargetConnector.destroy$.next());
 
   if (isDefined(lookAt)) entity.lookAt(new Vector3(lookAt.x, lookAt.y, lookAt.z));
 

@@ -8,8 +8,8 @@ import { applySpatialGrid, startCollisions } from '@/Engine/Actor/Utils';
 import { withCollisions } from '@/Engine/Collisions';
 import type { TModel3d } from '@/Engine/Models3d';
 import { withSpatial, withUpdateSpatialCell } from '@/Engine/Spatial';
-import type { TDriveToModel3dConnector } from '@/Engine/TransformDrive';
-import { DriveToModel3dConnector } from '@/Engine/TransformDrive';
+import type { TDriveToTargetConnector } from '@/Engine/TransformDrive';
+import { DriveToTargetConnector } from '@/Engine/TransformDrive';
 import { isDefined } from '@/Engine/Utils';
 
 export function Actor(
@@ -21,7 +21,7 @@ export function Actor(
 
   // Init TransformDrive
   const drive: TActorTransformDrive = ActorTransformDrive(params, kinematicLoopService);
-  const driveToModel3dConnector: TDriveToModel3dConnector = DriveToModel3dConnector(drive, model3d);
+  const driveToTargetConnector: TDriveToTargetConnector = DriveToTargetConnector(drive, model3d.getRawModel3d());
 
   // TODO CWP:
   // TODO 8.0.0. MODELS: Implement PhysicsAgent
@@ -57,7 +57,7 @@ export function Actor(
     positionSub$?.unsubscribe();
 
     // Destroy related entities
-    driveToModel3dConnector.destroy$.next();
+    driveToTargetConnector.destroy$.next();
     model3d.destroy$.next();
     entities.spatial.destroy$.next();
     entities.collisions?.destroy$.next();

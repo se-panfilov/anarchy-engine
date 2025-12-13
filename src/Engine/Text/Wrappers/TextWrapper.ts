@@ -10,6 +10,8 @@ import type { TTextDependencies, TTextParams, TTextTransformDrive, TTextWrapper 
 import { TextTransformDrive } from '@/Engine/Text/TransformDrive';
 import { getCssAccessors } from '@/Engine/Text/Wrappers/Accessors';
 import { applyHtmlElementParams, getWrapperTypeByTextType } from '@/Engine/Text/Wrappers/TextWrapperHelper';
+import type { TDriveToTargetConnector } from '@/Engine/TransformDrive';
+import { DriveToTargetConnector } from '@/Engine/TransformDrive';
 import { applyCenter, applyObject3dParams, isDefined } from '@/Engine/Utils';
 
 export function createTextWrapper<T extends CSS2DObject | CSS3DObject>(params: TTextParams, type: TextType, { kinematicLoopService }: TTextDependencies): TTextWrapper<T> {
@@ -19,6 +21,7 @@ export function createTextWrapper<T extends CSS2DObject | CSS3DObject>(params: T
   const entity: T = createText(type, element) as T;
 
   const drive: TTextTransformDrive = TextTransformDrive(params, kinematicLoopService);
+  const driveToTargetConnector: TDriveToTargetConnector = DriveToTargetConnector(drive, entity);
 
   const result: TTextWrapper<T> = {
     ...AbstractWrapper(entity, getWrapperTypeByTextType(type), params),
@@ -40,6 +43,8 @@ export function createTextWrapper<T extends CSS2DObject | CSS3DObject>(params: T
   if (isDefined(params.cssProps)) applyHtmlElementParams(result, params.cssProps, type === TextType.Text2d ? TextCssClass.Text2d : TextCssClass.Text3d);
   applyObject3dParams(result, params);
   if (type === TextType.Text2d) applyCenter(entity as CSS2DObject, params.center);
+
+  result.destroy$.subscribe((): void => driveToTargetConnector.destroy$.next());
 
   return result;
 }

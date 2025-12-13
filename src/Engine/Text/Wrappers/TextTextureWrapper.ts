@@ -6,6 +6,8 @@ import type { TextType } from '@/Engine/Text/Constants';
 import type { TTextDependencies, TTextParams, TTextTextureWrapper, TTextTransformDrive } from '@/Engine/Text/Models';
 import { TextTransformDrive } from '@/Engine/Text/TransformDrive';
 import { getWrapperTypeByTextType } from '@/Engine/Text/Wrappers/TextWrapperHelper';
+import type { TDriveToTargetConnector } from '@/Engine/TransformDrive';
+import { DriveToTargetConnector } from '@/Engine/TransformDrive';
 import { applyObject3dParams, isNotDefined } from '@/Engine/Utils';
 
 export function createTextTextureWrapper(params: TTextParams, type: TextType, { kinematicLoopService }: TTextDependencies): TTextTextureWrapper<Mesh> {
@@ -67,6 +69,7 @@ export function createTextTextureWrapper(params: TTextParams, type: TextType, { 
   }
 
   const drive: TTextTransformDrive = TextTransformDrive(params, kinematicLoopService);
+  const driveToTargetConnector: TDriveToTargetConnector = DriveToTargetConnector(drive, entity);
 
   const result: TTextTextureWrapper<Mesh> = {
     ...AbstractWrapper(entity, getWrapperTypeByTextType(type), params),
@@ -79,6 +82,8 @@ export function createTextTextureWrapper(params: TTextParams, type: TextType, { 
 
   setText(params.text);
   applyObject3dParams(result, params);
+
+  result.destroy$.subscribe((): void => driveToTargetConnector.destroy$.next());
 
   return result;
 }

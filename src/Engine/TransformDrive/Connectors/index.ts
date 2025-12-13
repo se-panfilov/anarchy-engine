@@ -1,1 +1,2 @@
-export * from './DriveToModel3dConnector';
+export * from './DriveToTargetConnector';
+export * from './DriveToTargetConnector';

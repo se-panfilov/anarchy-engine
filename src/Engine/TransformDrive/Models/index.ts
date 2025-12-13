@@ -1,7 +1,7 @@
 export * from './TAbstractTransformAgent';
 export * from './TConnectedTransformAgent';
 export * from './TDefaultTransformAgent';
-export * from './TDriveToModel3dConnector';
+export * from './TDriveToTargetConnector';
 export * from './TKinematicTransformAgent';
 export * from './TKinematicTransformAgentParams';
 export * from './TPhysicsTransformAgent';
@@ -21,3 +21,4 @@ export * from './TWithPhysicsProtectedAgent';
 export * from './TWithProtectedTransformAgents';
 export * from './TWithTransformAgentParam';
 export * from './TWithTransformDrive';
+export * from './TWithTransforms';
