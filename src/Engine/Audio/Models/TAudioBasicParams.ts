@@ -7,7 +7,7 @@ import type { TAudioPerformanceOptions } from './TAudioPerformanceOptions';
 
 export type TAudioBasicParams = Readonly<{
   audioSource: AudioBuffer;
-  listener: AudioListener;
+  listener?: AudioListener;
   name: string;
   volume?: number;
   loop?: boolean;
