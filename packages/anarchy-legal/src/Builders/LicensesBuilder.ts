@@ -237,7 +237,7 @@ const npmLsJson = async (rootDir: string, workspace: string): Promise<TDependenc
     });
   });
 
-// ---------- NEW: seeds из package.json зависимостей воркспейсов ----------
+// ---------- Seeds from package.json ----------
 
 const collectExternalSeedNames = (closure: ReadonlySet<string>, wsMap: ReadonlyMap<string, TWorkspaceInfo>, wsNames: ReadonlySet<string>): ReadonlySet<string> => {
   const seeds = new Set<string>();
@@ -246,15 +246,13 @@ const collectExternalSeedNames = (closure: ReadonlySet<string>, wsMap: ReadonlyM
     if (!info) continue;
     const deps = info.pkg.dependencies ?? {};
     for (const dependencyName of Object.keys(deps)) {
-      if (!wsNames.has(dependencyName)) {
-        seeds.add(dependencyName);
-      }
+      if (!wsNames.has(dependencyName)) seeds.add(dependencyName);
     }
   }
   return seeds;
 };
 
-// ---------- Collect third-party (with install paths) ТОЛЬКО под seeds ----------
+// ---------- Collect third-party (with install paths) ----------
 
 const collectThirdPartyMap = (root: TDependencyNode | undefined, wsNames: ReadonlySet<string>, seedNames: ReadonlySet<string>): ReadonlyMap<string, TCollected> => {
   const acc = new Map<string, TCollected>();
@@ -269,16 +267,11 @@ const collectThirdPartyMap = (root: TDependencyNode | undefined, wsNames: Readon
       const id = `${node.name}@${node.version}`;
       const prev = acc.get(id);
       const installPath = node.path;
-      if (!prev) {
-        acc.set(id, { id, name: node.name, version: node.version, installPath });
-      } else if (!prev.installPath && installPath) {
-        acc.set(id, { ...prev, installPath });
-      }
+      if (!prev) acc.set(id, { id, name: node.name, version: node.version, installPath });
+      else if (!prev.installPath && installPath) acc.set(id, { ...prev, installPath });
     }
-    if (node.dependencies) {
-      // eslint-disable-next-line functional/no-loop-statements
-      for (const child of Object.values(node.dependencies)) visit(child, nowInside);
-    }
+    // eslint-disable-next-line functional/no-loop-statements
+    if (node.dependencies) for (const child of Object.values(node.dependencies)) visit(child, nowInside);
   };
 
   // eslint-disable-next-line functional/no-loop-statements
@@ -445,9 +438,10 @@ const buildLicenseEntries = async (collected: ReadonlyMap<string, TCollected>): 
 
 // ---------- Workspace license entries ----------
 
-const buildWorkspaceLicenseEntries = async (names: ReadonlySet<string>, wsMap: ReadonlyMap<string, TWorkspaceInfo>): Promise<ReadonlyArray<TLicenseEntry>> => {
+const buildWorkspaceLicenseEntries = async (names: ReadonlySet<string>, wsMap: ReadonlyMap<string, TWorkspaceInfo>, excludeName?: string): Promise<ReadonlyArray<TLicenseEntry>> => {
   const entries: TLicenseEntry[] = [];
   for (const name of names) {
+    if (excludeName && name === excludeName) continue;
     const info = wsMap.get(name);
     if (!info) continue;
     const version = info.pkg.version ?? '0.0.0';
@@ -473,21 +467,25 @@ const buildWorkspaceLicenseEntries = async (names: ReadonlySet<string>, wsMap: R
 
 // ---------- Markdown ----------
 
-const renderMarkdown = (workspaceLabel: string, items: ReadonlyArray<TLicenseEntry>): string => {
+const renderMarkdown = (workspaceLabel: string, items: ReadonlyArray<TLicenseEntry>, emptyNote?: string): string => {
   const lines: string[] = [];
   lines.push(`# Third-Party Licenses
 ## Application: ${workspaceLabel}
 Production dependencies (including transition dependencies): ${items.length}
 `);
 
+  if (items.length === 0 && emptyNote) {
+    lines.push(`**Note:** ${emptyNote}`, ``);
+  }
+
   for (const it of items) {
     const licenseStr = Array.isArray(it.licenses) ? it.licenses.join(', ') : String(it.licenses ?? 'UNKNOWN');
     lines.push(`---`, ``);
     lines.push(`## ${it.name}@${it.version}`);
-    lines.push(`**License:** ${licenseStr}`);
-    if (it.repository) lines.push(`**Repository:** ${it.repository}`);
-    if (it.url) lines.push(`**URL:** ${it.url}`);
-    if (it.publisher) lines.push(`**Publisher:** ${it.publisher}${it.email ? ` <${it.email}>` : ''}`);
+    lines.push(`**License:** ${licenseStr}\n`);
+    if (it.repository) lines.push(`**Repository:** ${it.repository}\n`);
+    if (it.url) lines.push(`**URL:** ${it.url}\n`);
+    if (it.publisher) lines.push(`**Publisher:** ${it.publisher}${it.email ? ` <${it.email}>` : ''}\n`);
     lines.push(``);
     if (it.licenseText) {
       lines.push(it.licenseText.trim(), ``);
@@ -539,7 +537,12 @@ export const main = async (): Promise<void> => {
     .option('include-workspaces', {
       type: 'boolean',
       default: true,
-      describe: 'Also include licenses of the target workspace and all reachable internal workspaces'
+      describe: 'Also include licenses of reachable internal workspaces (excluding self by default)'
+    })
+    .option('include-workspace-self', {
+      type: 'boolean',
+      default: false,
+      describe: 'Also include license of the target workspace itself'
     })
     .help()
     .parseAsync();
@@ -586,26 +589,25 @@ export const main = async (): Promise<void> => {
   const seedNames = collectExternalSeedNames(closure, root.workspaces, wsNamesSet);
   debugLog('workspace closure size:', closure.size, 'seed external deps:', seedNames.size, 'sample:', [...seedNames].slice(0, 10));
 
-  // 7) Resolved prod tree (global, но мы фильтруем по seeds)
+  // 7) Resolved prod tree
   const tree = await npmLsJson(root.rootDir, wsName);
 
   // 8) Collect external packages WITH paths (seed-filtered)
   const thirdPartyMap = new Map(collectThirdPartyMap(tree, wsNamesSet, seedNames));
-  // Fallback: resolve missing install paths via Node resolver
   fillMissingInstallPaths(thirdPartyMap, wsDir, root.rootDir);
 
-  if (thirdPartyMap.size === 0) {
-    debugLog(`[info] No third-party prod deps reachable from seeds.`);
-  } else if (DEBUG) {
-    const examples = [...thirdPartyMap.values()].slice(0, 5);
-    console.log('[debug] examples (third-party):', examples);
-  }
+  if (thirdPartyMap.size === 0) debugLog(`[info] No third-party prod deps reachable from seeds.`);
+  else if (DEBUG) console.log('[debug] examples (third-party):', [...thirdPartyMap.values()].slice(0, 5));
 
-  // 9) Workspace licenses (optional)
+  // 9) Workspace licenses (excluding self by default)
   let wsEntries: ReadonlyArray<TLicenseEntry> = [];
   if (argv['include-workspaces'] !== false) {
-    wsEntries = await buildWorkspaceLicenseEntries(closure, root.workspaces);
-    debugLog('workspace license entries:', wsEntries.length);
+    wsEntries = await buildWorkspaceLicenseEntries(
+      closure,
+      root.workspaces,
+      argv['include-workspace-self'] ? undefined : wsName // exclude self
+    );
+    debugLog('workspace license entries (after self-filter):', wsEntries.length);
   }
 
   // 10) Third-party licenses
@@ -617,9 +619,18 @@ export const main = async (): Promise<void> => {
   merged.sort((a, b) => (a.name === b.name ? a.version.localeCompare(b.version) : a.name.localeCompare(b.name)));
 
   const outPath = path.isAbsolute(argv.out as string) ? (argv.out as string) : path.join(process.cwd(), argv.out as string);
+
+  let emptyNote: string | undefined;
+  if (merged.length === 0) {
+    const noSeeds = seedNames.size === 0;
+    emptyNote = noSeeds
+      ? 'This workspace declares no production dependencies and has no reachable internal workspaces. Therefore, there are no third-party licenses to list.'
+      : 'There are no third-party production dependencies reachable from this workspace. Therefore, there are no third-party licenses to list.';
+  }
+
   debugLog('write output to:', outPath, 'total entries:', merged.length);
 
-  const md = renderMarkdown(wsName, merged);
+  const md = renderMarkdown(wsName, merged, emptyNote);
   await fs.mkdir(path.dirname(outPath), { recursive: true });
   await fs.writeFile(outPath, md, 'utf8');
   console.log(`The result file written to: ${outPath}`);
