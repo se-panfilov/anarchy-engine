@@ -2,7 +2,7 @@
 
 ## Application: showcases-core
 
-Production dependencies (including transition dependencies): 141
+Production dependencies (including transition dependencies): 131
 
 ---
 
@@ -1076,40 +1076,6 @@ MIT License
 
 ---
 
-## @vue/compiler-core@3.5.21
-
-**License:** MIT
-
-**Repository:** git+https://github.com/vuejs/core.git
-
-**URL:** https://github.com/vuejs/core/tree/main/packages/compiler-core#readme
-
-**Publisher:** Evan You
-
-The MIT License (MIT)
-
-Copyright (c) 2018-present, Yuxi (Evan) You
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.
-
----
-
 ## @vue/compiler-core@3.5.22
 
 **License:** MIT
@@ -1117,40 +1083,6 @@ THE SOFTWARE.
 **Repository:** git+https://github.com/vuejs/core.git
 
 **URL:** https://github.com/vuejs/core/tree/main/packages/compiler-core#readme
-
-**Publisher:** Evan You
-
-The MIT License (MIT)
-
-Copyright (c) 2018-present, Yuxi (Evan) You
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.
-
----
-
-## @vue/compiler-dom@3.5.21
-
-**License:** MIT
-
-**Repository:** git+https://github.com/vuejs/core.git
-
-**URL:** https://github.com/vuejs/core/tree/main/packages/compiler-dom#readme
 
 **Publisher:** Evan You
 
@@ -1212,40 +1144,6 @@ THE SOFTWARE.
 
 ---
 
-## @vue/compiler-sfc@3.5.21
-
-**License:** MIT
-
-**Repository:** git+https://github.com/vuejs/core.git
-
-**URL:** https://github.com/vuejs/core/tree/main/packages/compiler-sfc#readme
-
-**Publisher:** Evan You
-
-The MIT License (MIT)
-
-Copyright (c) 2018-present, Yuxi (Evan) You
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.
-
----
-
 ## @vue/compiler-sfc@3.5.22
 
 **License:** MIT
@@ -1253,40 +1151,6 @@ THE SOFTWARE.
 **Repository:** git+https://github.com/vuejs/core.git
 
 **URL:** https://github.com/vuejs/core/tree/main/packages/compiler-sfc#readme
-
-**Publisher:** Evan You
-
-The MIT License (MIT)
-
-Copyright (c) 2018-present, Yuxi (Evan) You
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.
-
----
-
-## @vue/compiler-ssr@3.5.21
-
-**License:** MIT
-
-**Repository:** git+https://github.com/vuejs/core.git
-
-**URL:** https://github.com/vuejs/core/tree/main/packages/compiler-ssr#readme
 
 **Publisher:** Evan You
 
@@ -1444,40 +1308,6 @@ SOFTWARE.
 
 ---
 
-## @vue/reactivity@3.5.21
-
-**License:** MIT
-
-**Repository:** git+https://github.com/vuejs/core.git
-
-**URL:** https://github.com/vuejs/core/tree/main/packages/reactivity#readme
-
-**Publisher:** Evan You
-
-The MIT License (MIT)
-
-Copyright (c) 2018-present, Yuxi (Evan) You
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.
-
----
-
 ## @vue/reactivity@3.5.22
 
 **License:** MIT
@@ -1485,40 +1315,6 @@ THE SOFTWARE.
 **Repository:** git+https://github.com/vuejs/core.git
 
 **URL:** https://github.com/vuejs/core/tree/main/packages/reactivity#readme
-
-**Publisher:** Evan You
-
-The MIT License (MIT)
-
-Copyright (c) 2018-present, Yuxi (Evan) You
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.
-
----
-
-## @vue/runtime-core@3.5.21
-
-**License:** MIT
-
-**Repository:** git+https://github.com/vuejs/core.git
-
-**URL:** https://github.com/vuejs/core/tree/main/packages/runtime-core#readme
 
 **Publisher:** Evan You
 
@@ -1580,40 +1376,6 @@ THE SOFTWARE.
 
 ---
 
-## @vue/runtime-dom@3.5.21
-
-**License:** MIT
-
-**Repository:** git+https://github.com/vuejs/core.git
-
-**URL:** https://github.com/vuejs/core/tree/main/packages/runtime-dom#readme
-
-**Publisher:** Evan You
-
-The MIT License (MIT)
-
-Copyright (c) 2018-present, Yuxi (Evan) You
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.
-
----
-
 ## @vue/runtime-dom@3.5.22
 
 **License:** MIT
@@ -1648,40 +1410,6 @@ THE SOFTWARE.
 
 ---
 
-## @vue/server-renderer@3.5.21
-
-**License:** MIT
-
-**Repository:** git+https://github.com/vuejs/core.git
-
-**URL:** https://github.com/vuejs/core/tree/main/packages/server-renderer#readme
-
-**Publisher:** Evan You
-
-The MIT License (MIT)
-
-Copyright (c) 2018-present, Yuxi (Evan) You
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.
-
----
-
 ## @vue/server-renderer@3.5.22
 
 **License:** MIT
@@ -1689,40 +1417,6 @@ THE SOFTWARE.
 **Repository:** git+https://github.com/vuejs/core.git
 
 **URL:** https://github.com/vuejs/core/tree/main/packages/server-renderer#readme
-
-**Publisher:** Evan You
-
-The MIT License (MIT)
-
-Copyright (c) 2018-present, Yuxi (Evan) You
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.
-
----
-
-## @vue/shared@3.5.21
-
-**License:** MIT
-
-**Repository:** git+https://github.com/vuejs/core.git
-
-**URL:** https://github.com/vuejs/core/tree/main/packages/shared#readme
 
 **Publisher:** Evan You
 
@@ -1907,7 +1601,7 @@ SOFTWARE.
 
 ---
 
-## anarchy-tracking@1.2.0
+## anarchy-tracking@1.0.0
 
 **License:** MIT
 
@@ -5656,7 +5350,7 @@ SOFTWARE.
 
 ---
 
-## tldts@7.0.16
+## tldts@7.0.17
 
 **License:** MIT
 
@@ -5682,7 +5376,7 @@ WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN 
 
 ---
 
-## tldts-core@7.0.16
+## tldts-core@7.0.17
 
 **License:** MIT
 
@@ -5923,40 +5617,6 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-
----
-
-## vue@3.5.21
-
-**License:** MIT
-
-**Repository:** git+https://github.com/vuejs/core.git
-
-**URL:** https://github.com/vuejs/core/tree/main/packages/vue#readme
-
-**Publisher:** Evan You
-
-The MIT License (MIT)
-
-Copyright (c) 2018-present, Yuxi (Evan) You
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.
 
 ---
 

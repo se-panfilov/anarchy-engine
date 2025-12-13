@@ -2403,7 +2403,7 @@ THE SOFTWARE.
 
 ---
 
-## tldts@7.0.16
+## tldts@7.0.17
 
 **License:** MIT
 
@@ -2429,7 +2429,7 @@ WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN 
 
 ---
 
-## tldts-core@7.0.16
+## tldts-core@7.0.17
 
 **License:** MIT
 
