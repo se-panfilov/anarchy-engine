@@ -27,7 +27,8 @@ export function Actor(
   const driveToTargetConnector: TDriveToTargetConnector = DriveToTargetConnector(drive, model3d.getRawModel3d());
 
   // TODO CWP:
-  // TODO 8.0.0. MODELS: Bug in showcase "transform drive": "teleportation" works weird with Z axis (connected agent is moving weird)
+  // TODO 8.0.0. MODELS: In showcase "keyboard" with a lot of clicks "sphere" is "jumping" (check performance and fix)
+  // TODO 8.0.0. MODELS: In showcase "keyboard" I can see visually that "mouse" actor a bit "jump" before start moving. Is it because of performance's noiseThreshold/throttleTime? Fix.
 
   // TODO 8.0.0. MODELS: Make sure, rotations are working (adjust showcase)
   // TODO 8.0.0. MODELS: Rigid body immediately created (should be created only when physics drive is initialized, maybe in hook)
@@ -37,9 +38,6 @@ export function Actor(
   // TODO 8.0.0. MODELS: In showcase check spatial and collisions
 
   // TODO 8.0.0. MODELS: close all issues (todoes) with tag 8.0.0
-
-  // TODO 8.0.0. MODELS: In showcase "keyboard" I can see visually that "mouse" actor a bit "jump" before start moving. Is it because of performance's noiseThreshold/throttleTime? Fix.
-  // TODO 8.0.0. MODELS: In showcase "keyboard" with a lot of clicks "sphere" is "jumping" (check performance and fix)
 
   const entities: TActorEntities = {
     drive,
