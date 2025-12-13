@@ -13,7 +13,7 @@ export type TActorDependencies = Readonly<{
   spatialGridService: TSpatialGridService;
   collisionsLoopService: TCollisionsLoopService;
   collisionsService: TCollisionsService;
-  Model3dToActorConnectionRegistry: TModel3dToActorConnectionRegistry;
+  model3dToActorConnectionRegistry: TModel3dToActorConnectionRegistry;
 }>;
 
 export type TActorWithPhysicsDependencies = TActorDependencies &

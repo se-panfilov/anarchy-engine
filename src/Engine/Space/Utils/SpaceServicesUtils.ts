@@ -92,7 +92,7 @@ export function initEntitiesServices(sceneW: TSceneWrapper, canvas: TAppCanvas):
         spatialGridService,
         collisionsLoopService,
         collisionsService,
-        Model3dToActorConnectionRegistry: Model3dToActorConnectionRegistry()
+        model3dToActorConnectionRegistry: Model3dToActorConnectionRegistry()
       },
       sceneW
     ),

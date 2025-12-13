@@ -6,8 +6,6 @@ import { applyObject3dParamsToModel3d, applyPositionToModel3d, applyRotationToMo
 import type { TOptional } from '@/Engine/Utils';
 import { isDefined } from '@/Engine/Utils';
 
-// TODO 9.0.0. RESOURCES: In actor should use models3dUsageRegistry.set() to mark the model as used after it's creation
-// TODO 9.0.0. RESOURCES: In actor should update models3dUsageRegistry when remove model or delete actor itself
 export function Model3dFacade(params: TModel3dParams, { animationsService }: TModel3dFacadeDependencies): TModel3dFacade {
   const entities: TModel3dEntities = createModels3dEntities(params, animationsService);
   const facade = AbstractFacade(withModel3dFacadeEntities(entities), FacadeType.Model3d, params);
