@@ -11,16 +11,16 @@ export function Model3d(params: TModel3dParams, { animationsService, model3dRawT
 
   const isModelAlreadyInUse: boolean = isDefined(model3dRawToModel3dConnectionRegistry.findByModel3d(entities.model3dSource));
 
-  // At the moment we don't allow Model3dFacade to re-use the same model3d resource, because it might lead to unexpected behavior.
+  // At the moment we don't allow Model3d to re-use the same model3d resource (raw), because it might lead to unexpected behavior.
   // However, it might be nothing wrong with it, so we can remove the exception throwing and cloning the resource model3d instead (inside "createModels3dEntities()").
   if (isModelAlreadyInUse)
-    throw new Error(`Model3dFacade: Trying to create Model3dFacade around model3d resource that is already in use by another Model3dFacade. Might be a mistake. Consider cloning the source instead.`);
+    throw new Error(`Model3d Trying to create Model3d around a raw model3d resource that is already in use by another Model3d. Might be a mistake. Consider cloning the source instead.`);
 
   const facade = AbstractEntity(withModel3dEntities(entities), EntityType.Model3d, params);
 
   const getParams = (): TModel3dParams => ({ ...params });
 
-  // IMPORTANT!!!: This clone() doesn't save the facade to the registry. Consider using of clone() the models3d service instead.
+  // IMPORTANT!!!: This clone() doesn't save the model3d to the registry. Consider using of clone() the models3d service instead.
   const _clone = (overrides: TOptional<TModel3dParams> = {}): TModel3d => Model3d({ ...getParams(), forceClone: true, ...overrides }, { animationsService, model3dRawToModel3dConnectionRegistry });
 
   // TODO 8.0.0. MODELS: apply all the params from object3d (can we do it in a more generic way?)

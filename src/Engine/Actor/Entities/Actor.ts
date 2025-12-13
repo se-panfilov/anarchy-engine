@@ -2,8 +2,7 @@ import type { Subscription } from 'rxjs';
 import { combineLatest, Subject } from 'rxjs';
 import { Euler, Vector3 } from 'three';
 
-import { EntityType } from '@/Engine/Abstract';
-import { AbstractEntity } from '@/Engine/Abstract/Wrappers/AbstractEntity';
+import { AbstractEntity, EntityType } from '@/Engine/Abstract';
 import type { ActorDrive } from '@/Engine/Actor/Constants';
 import type { TActor, TActorDependencies, TActorEntities, TActorParams } from '@/Engine/Actor/Models';
 import { applySpatialGrid, startCollisions } from '@/Engine/Actor/Wrappers/ActorHelper';
@@ -32,13 +31,13 @@ export function Actor(
   // TODO 8.0.0. MODELS: position$, rotation$, scale$ should update related model3d values
 
   const isModelAlreadyInUse: boolean = isDefined(model3dFacadeToActorConnectionRegistry.findByModel3dFacade(params.model3dSource));
-  const model3dF: TModel3d = isModelAlreadyInUse ? models3dService.clone(params.model3dSource) : params.model3dSource;
+  const model3d: TModel3d = isModelAlreadyInUse ? models3dService.clone(params.model3dSource) : params.model3dSource;
 
   // const { value$: position$, update: updatePosition } = withReactivePosition(model3d);
   // const { value$: rotation$, update: updateRotation } = withReactiveRotation(model3d);
 
   const entities: TActorEntities = {
-    ...withModel3d(model3dF),
+    ...withModel3d(model3d),
     // TODO 8.0.0. MODELS: Kinematic should update rotation (and position?) (if "drive" is "kinematic")
     // TODO 8.0.0. MODELS: Physics should update position and rotation (if "drive" is "physics")
     ...withKinematic(params),
@@ -72,8 +71,8 @@ export function Actor(
     rotation$.complete();
     entities.spatial.destroy();
     entities.collisions?.destroy();
-    model3dFacadeToActorConnectionRegistry.removeByModel3dFacade(model3dF);
-    model3dF.destroy();
+    model3dFacadeToActorConnectionRegistry.removeByModel3dFacade(model3d);
+    model3d.destroy();
   });
 
   let oldPosition: Vector3 = new Vector3();
@@ -112,7 +111,7 @@ export function Actor(
   // TODO 8.0.0. MODELS: check how collisions works with the model3d?
   startCollisions(entities);
 
-  model3dFacadeToActorConnectionRegistry.addModel3dFacade(model3dF, entities);
+  model3dFacadeToActorConnectionRegistry.addModel3dFacade(model3d, entities);
 
   return {
     ...facade,

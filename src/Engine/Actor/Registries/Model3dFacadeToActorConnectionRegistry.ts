@@ -5,7 +5,7 @@ import type { TModel3d } from '@/Engine/Models3d';
 import type { TWriteable } from '@/Engine/Utils';
 
 const registry: Omit<TWriteable<TAbstractSimpleRegistry<string>>, 'getAll'> & TWriteable<TModel3dFacadeToActorConnectionRegistryExtension> = AbstractSimpleRegistry<string>(
-  RegistryType.Models3dFacadeToActorConnection
+  RegistryType.Models3dToActorConnection
 ) as Omit<TWriteable<TAbstractSimpleRegistry<string>>, 'getAll)'> & TWriteable<TModel3dFacadeToActorConnectionRegistryExtension>;
 
 // eslint-disable-next-line functional/immutable-data

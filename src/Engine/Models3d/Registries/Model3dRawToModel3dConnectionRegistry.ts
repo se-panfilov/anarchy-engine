@@ -6,18 +6,18 @@ import type { TModel3d, TModel3dRawToModel3dConnectionRegistry, TModel3dRawToMod
 import type { TWriteable } from '@/Engine/Utils';
 
 const registry: Omit<TWriteable<TAbstractSimpleRegistry<string>>, 'getAll'> & TWriteable<TModel3dRawToModel3dConnectionRegistryExtension> = AbstractSimpleRegistry<string>(
-  RegistryType.Models3dToModels3dFacadeToConnection
+  RegistryType.Models3dRawToModels3dToConnection
 ) as Omit<TWriteable<TAbstractSimpleRegistry<string>>, 'getAll)'> & TWriteable<TModel3dRawToModel3dConnectionRegistryExtension>;
 
 // eslint-disable-next-line functional/immutable-data
-registry.addModel3d = (model3d: Group | Mesh | Object3D, model3dFacade: TModel3d): void => registry.add(model3d.uuid, model3dFacade.id);
+registry.addModel3d = (model3dRaw: Group | Mesh | Object3D, model3d: TModel3d): void => registry.add(model3dRaw.uuid, model3d.id);
 // eslint-disable-next-line functional/immutable-data
-registry.findByModel3d = (model3d: Group | Mesh | Object3D): string | undefined => registry.findByKey(model3d.uuid);
+registry.findByModel3d = (model3dRaw: Group | Mesh | Object3D): string | undefined => registry.findByKey(model3dRaw.uuid);
 // eslint-disable-next-line functional/immutable-data
-registry.setByModel3d = (model3d: Group | Mesh | Object3D, model3dFacade: TModel3d): void => registry.add(model3d.uuid, model3dFacade.id);
+registry.setByModel3d = (model3dRaw: Group | Mesh | Object3D, model3d: TModel3d): void => registry.add(model3dRaw.uuid, model3d.id);
 // eslint-disable-next-line functional/immutable-data
-registry.removeByModel3d = (model3d: Group | Mesh | Object3D): void => registry.remove(model3d.uuid);
+registry.removeByModel3d = (model3dRaw: Group | Mesh | Object3D): void => registry.remove(model3dRaw.uuid);
 // eslint-disable-next-line functional/immutable-data
 registry.getAll = (): Record<string, string> => Object.fromEntries(registry.registry.entries());
 
-export const Model3dToModel3dFacadeConnectionRegistry = (): TModel3dRawToModel3dConnectionRegistry => RegistryFacade(registry);
+export const Model3dRawToModel3dConnectionRegistry = (): TModel3dRawToModel3dConnectionRegistry => RegistryFacade(registry);
