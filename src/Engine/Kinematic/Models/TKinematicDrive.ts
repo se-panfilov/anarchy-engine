@@ -6,7 +6,7 @@ import type { TDestroyable } from '@/Engine/Mixins';
 import type { TKinematicData } from './TKinematicData';
 import type { TKinematicMethods } from './TKinematicMethods';
 
-export type TWithKinematic = {
+export type TKinematicDrive = {
   data: TKinematicData;
   position$: Observable<Vector3>;
   rotationQuaternion$: Observable<Quaternion>;
