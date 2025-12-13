@@ -1,5 +1,5 @@
 import type { TAbstractEntityRegistry } from '@/Engine/Abstract';
 
-import type { TMaterialWrapper } from './TMaterialWrapper';
+import type { TAnyMaterialWrapper } from './TAnyMaterialWrapper';
 
-export type TMaterialRegistry = TAbstractEntityRegistry<TMaterialWrapper>;
+export type TMaterialRegistry = TAbstractEntityRegistry<TAnyMaterialWrapper>;

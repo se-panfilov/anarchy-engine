@@ -3,6 +3,7 @@ import type { Subscription } from 'rxjs';
 import type { TAbstractService } from '@/Engine/Abstract';
 import { AbstractService } from '@/Engine/Abstract';
 import type {
+  TAnyMaterialWrapper,
   TMaterialConfig,
   TMaterialEntityToConfigDependencies,
   TMaterialFactory,
@@ -12,15 +13,14 @@ import type {
   TMaterialServiceWithCreate,
   TMaterialServiceWithCreateFromConfig,
   TMaterialServiceWithFactory,
-  TMaterialServiceWithRegistry,
-  TMaterialWrapper
+  TMaterialServiceWithRegistry
 } from '@/Engine/Material/Models';
 import type { TDisposable } from '@/Engine/Mixins';
 import { withCreateFromConfigServiceMixin, withCreateServiceMixin, withFactoryService, withRegistryService, withSerializeAllEntities } from '@/Engine/Mixins';
 import { mergeAll } from '@/Engine/Utils';
 
 export function MaterialService(factory: TMaterialFactory, registry: TMaterialRegistry, dependencies: TMaterialServiceDependencies): TMaterialService {
-  const factorySub$: Subscription = factory.entityCreated$.subscribe((wrapper: TMaterialWrapper): void => registry.add(wrapper));
+  const factorySub$: Subscription = factory.entityCreated$.subscribe((wrapper: TAnyMaterialWrapper): void => registry.add(wrapper));
   const disposable: ReadonlyArray<TDisposable> = [registry, factory, factorySub$];
   const abstractService: TAbstractService = AbstractService(disposable);
 

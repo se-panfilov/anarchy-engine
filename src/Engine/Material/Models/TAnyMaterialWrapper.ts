@@ -47,7 +47,7 @@ export type TShaderMaterialWrapper = TAbstractMaterialWrapper<ShaderMaterial>;
 export type TShadowMaterialWrapper = TAbstractMaterialWrapper<ShadowMaterial>;
 export type TSpriteMaterialWrapper = TAbstractMaterialWrapper<SpriteMaterial>;
 
-export type TMaterialWrapper =
+export type TAnyMaterialWrapper =
   | TLineBasicMaterialWrapper
   | TLineDashedMaterialWrapper
   | TBasicMaterialWrapper

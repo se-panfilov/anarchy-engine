@@ -14,10 +14,10 @@ import type {
   KeysExtra,
   TActor,
   TAnyCameraWrapper,
+  TAnyMaterialWrapper,
   TIntersectionEvent,
   TIntersectionsCameraWatcher,
   TKeyboardService,
-  TMaterialWrapper,
   TModel3d,
   TOrbitControlsWrapper,
   TParticlesWrapper,
@@ -42,7 +42,7 @@ export function createActor(
   physics: Omit<TPhysicsBodyParams, 'position' | 'rotation'> | undefined,
   { actorService, materialService, models3dService, physicsBodyService }: TSpaceServices
 ): TActor {
-  const material: TMaterialWrapper = materialService.create({ name: `${name}_material`, type: MaterialType.Standard, options: { color } });
+  const material: TAnyMaterialWrapper = materialService.create({ name: `${name}_material`, type: MaterialType.Standard, options: { color } });
 
   const rotation: Euler = new Euler(0, 0, 0);
 

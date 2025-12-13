@@ -1,6 +1,6 @@
 import { AbstractEntityRegistry, RegistryType } from '@/Engine/Abstract';
-import type { TMaterialRegistry, TMaterialWrapper } from '@/Engine/Material/Models';
+import type { TAnyMaterialWrapper, TMaterialRegistry } from '@/Engine/Material/Models';
 
 export function MaterialRegistry(): TMaterialRegistry {
-  return AbstractEntityRegistry<TMaterialWrapper>(RegistryType.Material);
+  return AbstractEntityRegistry<TAnyMaterialWrapper>(RegistryType.Material);
 }

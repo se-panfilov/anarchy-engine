@@ -1,3 +1,4 @@
+export type * from './TAnyMaterialWrapper';
 export type * from './TMaterialConfig';
 export type * from './TMaterialConfigOptions';
 export type * from './TMaterialConfigTextures';
@@ -12,7 +13,6 @@ export type * from './TMaterials';
 export type * from './TMaterialService';
 export type * from './TMaterialServiceDependencies';
 export type * from './TMaterialTextureKeys';
-export type * from './TMaterialWrapper';
 export type * from './TWithMaterial';
 export type * from './TWithMaterialProperties';
 export type * from './TWithMaterialType';

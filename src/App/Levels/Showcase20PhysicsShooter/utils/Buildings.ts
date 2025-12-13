@@ -5,9 +5,9 @@ import { BULLET_TARGET_TAG } from '@/App/Levels/Showcase20PhysicsShooter/utils/B
 import type {
   TActor,
   TActorService,
+  TAnyMaterialWrapper,
   TBoxGeometryParams,
   TMaterialService,
-  TMaterialWrapper,
   TMeters,
   TModel3d,
   TModels3dService,
@@ -34,7 +34,7 @@ export function buildTower(
   const blocks: ReadonlyArray<TBuidingBlock> = getBlocks(startCoords, rows, cols, levels);
 
   console.log('number of blocks:', blocks.length);
-  const material: TMaterialWrapper = materialService.create({
+  const material: TAnyMaterialWrapper = materialService.create({
     name: 'building_block_material',
     type: MaterialType.Standard,
     options: { color: '#8FAA8F' }

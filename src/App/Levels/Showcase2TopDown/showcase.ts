@@ -2,7 +2,7 @@ import { combineLatest, distinctUntilChanged } from 'rxjs';
 import type { Vector2Like } from 'three';
 import { Euler, Vector3 } from 'three';
 
-import type { TActorParams, TAnyCameraWrapper, TMaterialWrapper, TModel3d, TModels3dService, TSpace, TSpaceConfig, TSpatialGridWrapper } from '@/Engine';
+import type { TActorParams, TAnyCameraWrapper, TAnyMaterialWrapper, TModel3d, TModels3dService, TSpace, TSpaceConfig, TSpatialGridWrapper } from '@/Engine';
 import { asRecord, CameraType, isNotDefined, MaterialType, meters, PrimitiveModel3dType, spaceService } from '@/Engine';
 
 import spaceConfigJson from './space.json';
@@ -20,7 +20,7 @@ export function start(): void {
 export function showcase(space: TSpace): void {
   const { actorService, spatialGridService, cameraService, materialService, models3dService, mouseService } = space.services;
   const grid: TSpatialGridWrapper = spatialGridService.getRegistry().getByName('main_grid');
-  const materialW: TMaterialWrapper = materialService.create({ name: 'model_material', type: MaterialType.Toon, options: { color: '#5177ff' } });
+  const materialW: TAnyMaterialWrapper = materialService.create({ name: 'model_material', type: MaterialType.Toon, options: { color: '#5177ff' } });
 
   const actorDefaultParams: Omit<TActorParams, 'model3dSource' | 'name'> = {
     position: new Vector3(),
@@ -88,7 +88,7 @@ export function showcase(space: TSpace): void {
   space.start$.next(true);
 }
 
-function createCube(models3dService: TModels3dService, name: string, material: TMaterialWrapper): TModel3d {
+function createCube(models3dService: TModels3dService, name: string, material: TAnyMaterialWrapper): TModel3d {
   return models3dService.create({
     name,
     model3dSource: PrimitiveModel3dType.Cube,

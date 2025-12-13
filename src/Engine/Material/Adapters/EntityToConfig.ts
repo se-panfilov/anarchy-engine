@@ -29,13 +29,13 @@ import {
   StencilOpMap
 } from '@/Engine/Material/Constants';
 import type {
+  TAnyMaterialWrapper,
   TMaterialConfig,
   TMaterialConfigOptions,
   TMaterialConfigTextures,
   TMaterialEntityToConfigDependencies,
   TMaterialParamsTextures,
-  TMaterials,
-  TMaterialWrapper
+  TMaterials
 } from '@/Engine/Material/Models';
 import { eulerToXyzIfPossible, getOptionNameIfPossible, vector2ToXyIfPossible, vector3ToXyzIfPossible } from '@/Engine/Material/Utils';
 import { extractSerializableRegistrableFields } from '@/Engine/Mixins';
@@ -43,7 +43,7 @@ import type { TTexture, TTextureAsyncRegistry } from '@/Engine/Texture';
 import type { TOptional } from '@/Engine/Utils';
 import { filterOutEmptyFields, nullsToUndefined } from '@/Engine/Utils';
 
-export function materialToConfig(entity: TMaterialWrapper, { textureResourceRegistry }: TMaterialEntityToConfigDependencies): TMaterialConfig {
+export function materialToConfig(entity: TAnyMaterialWrapper, { textureResourceRegistry }: TMaterialEntityToConfigDependencies): TMaterialConfig {
   const options: TMaterialConfigOptions | undefined = getMaterialOptions(entity);
   const textures: TMaterialConfigTextures | undefined = getMaterialTextures(entity, textureResourceRegistry);
 
@@ -55,7 +55,7 @@ export function materialToConfig(entity: TMaterialWrapper, { textureResourceRegi
   });
 }
 
-function getMaterialOptions({ entity }: TMaterialWrapper): TOptional<TMaterialConfigOptions> | undefined {
+function getMaterialOptions({ entity }: TAnyMaterialWrapper): TOptional<TMaterialConfigOptions> | undefined {
   return filterOutEmptyFields(
     nullsToUndefined({
       alphaHash: entity.alphaHash,
@@ -158,7 +158,7 @@ function getMaterialOptions({ entity }: TMaterialWrapper): TOptional<TMaterialCo
   );
 }
 
-function getMaterialTextures({ entity }: TMaterialWrapper, textureResourceRegistry: TTextureAsyncRegistry): TMaterialConfigTextures | undefined | never {
+function getMaterialTextures({ entity }: TAnyMaterialWrapper, textureResourceRegistry: TTextureAsyncRegistry): TMaterialConfigTextures | undefined | never {
   const maps: TMaterialParamsTextures = getMaps(entity);
   const mapsKeys: { [key: string]: string } = {};
 
