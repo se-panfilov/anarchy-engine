@@ -10,6 +10,10 @@ const windowHeight: number = 720;
 const windowWidth: number = 1280;
 const isOpenDevTools: boolean = true;
 
+// TODO CWP
+// TODO DESKTOP: Save/Load with files?
+// TODO DESKTOP: Block browser's hotkeys and navigation
+
 function getIndexHtmlPath(): string {
   const path: string = app.isPackaged ? join(app.getAppPath(), 'dist-app', 'index.html') : join(__dirname, '..', 'dist-app', 'index.html');
 
