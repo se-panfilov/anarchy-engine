@@ -2,35 +2,61 @@ import type { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
 
 import type { TShowcase } from '@/App/Levels/Models';
 import { addGizmo } from '@/App/Levels/Utils';
-import type { TAppCanvas, TEngine, TModel3d, TModel3dRegistry, TModel3dResourceAsyncRegistry, TRegistryPack, TSceneWrapper, TSpace, TSpaceConfig, TSpaceServices } from '@/Engine';
-import { ambientContext, Engine, isNotDefined, spaceService } from '@/Engine';
+import type { TAppCanvas, TEngine, TModel3d, TModel3dResourceAsyncRegistry, TRegistryPack, TSceneWrapper, TSpace, TSpaceConfig, TSpaceServices } from '@/Engine';
+import { ambientContext, Engine, isNotDefined, KeyCode, KeysExtra, spaceService } from '@/Engine';
 
 import spaceConfig from './showcase.json';
 
 export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
   function beforeResourcesLoaded(_config: TSpaceConfig, { models3dService, scenesService }: TSpaceServices): void {
-    const models3dRegistry: TModel3dRegistry = models3dService.getRegistry();
     const models3dResourceRegistry: TModel3dResourceAsyncRegistry = models3dService.getResourceRegistry();
     const sceneW: TSceneWrapper | undefined = scenesService.findActive();
     if (isNotDefined(sceneW)) throw new Error('Scene is not defined');
 
-    //Adding models3d to the scene
+    //Logging models3d loading
     models3dResourceRegistry.added$.subscribe(({ key: name, value: model3dSource }: TRegistryPack<GLTF>): void => console.log(`Model "${name}" is loaded`, model3dSource));
-
-    models3dRegistry.added$.subscribe(({ key, value: model3dSource }: TRegistryPack<TModel3d>): void => {
-      console.log(`Model "${model3dSource.name}" is created (${key})`, model3dSource);
-      sceneW.addModel3d(model3dSource);
-    });
   }
 
   const space: TSpace = await spaceService.buildSpaceFromConfig(canvas, spaceConfig as TSpaceConfig, { beforeResourcesLoaded });
   const engine: TEngine = Engine(space);
-  // const { actorService } = space.services;
+
+  const { keyboardService } = engine.services;
+  const { animationsService, models3dService } = space.services;
+  const { onKey, isKeyPressed } = keyboardService;
 
   function init(): void {
     addGizmo(space.services, ambientContext.screenSizeWatcher, { placement: 'bottom-left' });
 
-    // const actor: TActor = actorService.create(params);
+    // TODO perhaps should be moved inside actor
+    const solderModel3d: TModel3d | undefined = models3dService.getRegistry().findByName('solder_model_entity');
+    if (isNotDefined(solderModel3d)) throw new Error(`Model "solder_model_entity" doesn't exist in the registry`);
+    const actions = animationsService.startAutoUpdateMixer(solderModel3d).actions;
+    const runAction = actions['Run'];
+    const walkAction = actions['Walk'];
+    const idleAction = actions['Idle'];
+    // const tPoseAction = actions['TPose'];
+
+    onKey(KeyCode.W).pressed$.subscribe((): void => {
+      if (idleAction.isRunning()) idleAction.stop();
+    });
+
+    onKey(KeyCode.W).pressing$.subscribe((): void => {
+      if (isKeyPressed(KeysExtra.Shift)) {
+        if (runAction.isRunning()) return;
+        runAction?.play();
+        walkAction.stop();
+      } else {
+        if (walkAction.isRunning()) return;
+        walkAction?.play();
+        runAction.stop();
+      }
+    });
+
+    onKey(KeyCode.W).released$.subscribe((): void => {
+      walkAction.stop();
+      runAction.stop();
+      idleAction.play();
+    });
   }
 
   // TODO debug light

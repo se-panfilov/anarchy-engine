@@ -51,7 +51,24 @@
         "castShadow": true
       }
     ],
-    "actors": [],
+    "actors": [
+      {
+        "name": "surface_actor",
+        "model3dSource": "surface_model",
+        "agent": "physical",
+        "position": { "x": 0, "y": 0, "z": 0 },
+        "rotation": { "x": -1.57, "y": 0, "z": 0 },
+        "spatial": { "grid": "main_grid", "isAutoUpdate": true }
+      },
+      {
+        "name": "solder_actor_1",
+        "model3dSource": "solder_model_entity",
+        "agent": "default",
+        "position": { "x": 0, "y": 0, "z": 0 },
+        "rotation": { "x": 0, "y": 0, "z": 0 },
+        "spatial": { "grid": "main_grid", "isAutoUpdate": true }
+      }
+    ],
     "physics": {},
     "intersections": [],
     "texts": [],
