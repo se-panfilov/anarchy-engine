@@ -24,7 +24,7 @@ import spaceConfig from './showcase-11.json';
 export function showcase(canvas: IAppCanvas): IShowcase {
   const gui: GUI = new GUI();
   const space: ISpace = buildSpaceFromConfig(canvas, spaceConfig as ISpaceConfig);
-  const { actorService, cameraService, intersectionsService, loopService } = space.services;
+  const { actorService, cameraService, intersectionsWatcherService, loopService } = space.services;
   const actorRegistry: IActorAsyncRegistry = actorService.getRegistry();
   const cameraRegistry: ICameraRegistry = cameraService.getRegistry();
   if (isNotDefined(actorRegistry)) throw new Error('Actor registry is not defined');
@@ -102,9 +102,8 @@ export function showcase(canvas: IAppCanvas): IShowcase {
   async function startIntersections(): Promise<IIntersectionsWatcher> {
     const camera: ICameraWrapper | undefined = cameraService.findActive();
     if (isNotDefined(camera)) throw new Error('Camera is not defined');
-    const intersectionsWatcher: IIntersectionsWatcher = intersectionsService.buildWatcher(camera);
-
-    await findByTagAsync('surface').then((actor: IActorWrapperAsync) => intersectionsWatcher.addActor(actor));
+    const actor: IActorWrapperAsync = await findByTagAsync('surface');
+    const intersectionsWatcher: IIntersectionsWatcher = intersectionsWatcherService.create({ actors: [actor], camera });
 
     intersectionsWatcher.start();
     return intersectionsWatcher;

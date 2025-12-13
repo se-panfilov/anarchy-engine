@@ -1,5 +1,4 @@
 export * from './IIntersectionEvent';
-export * from './IIntersectionsService';
 export * from './IIntersectionsWatcher';
 export * from './IIntersectionsWatcherConfig';
 export * from './IIntersectionsWatcherFactory';
