@@ -7,7 +7,6 @@ import { model3dToConfig } from '@/Engine/Models3d/Adapters';
 import { withModel3dEntities } from '@/Engine/Models3d/Mixins';
 import type { TModel3d, TModel3dConfig, TModel3dConfigToParamsDependencies, TModel3dDependencies, TModel3dEntities, TModel3dParams, TWithModel3dEntities } from '@/Engine/Models3d/Models';
 import { applyObject3dParamsToModel3d, applyPositionToModel3d, applyRotationToModel3d, applyScaleToModel3d, createModels3dEntities, isModel3dAlreadyInUse } from '@/Engine/Models3d/Utils';
-import type { TOptional } from '@/Engine/Utils';
 import { destroyModel3dAnimationEntities, disposeGltf, isDefined } from '@/Engine/Utils';
 
 export function Model3d(params: TModel3dParams, { animationsService, model3dRawToModel3dConnectionRegistry }: TModel3dDependencies): TModel3d {
@@ -16,17 +15,6 @@ export function Model3d(params: TModel3dParams, { animationsService, model3dRawT
   const abstract: TAbstractEntity<TWithModel3dEntities> = AbstractEntity(withModel3dEntities(entities), EntityType.Model3d, params);
 
   const getParams = (): TModel3dParams => ({ ...params });
-
-  // IMPORTANT!!!: This clone() doesn't save the model3d to the registry. Consider using of clone() the models3d service instead.
-  const _clone = (overrides: TOptional<TModel3dParams> = {}): TModel3d =>
-    Model3d(
-      {
-        ...getParams(),
-        forceClone: true,
-        ...overrides
-      },
-      { animationsService, model3dRawToModel3dConnectionRegistry }
-    );
 
   // Maybe we should apply all the params from object3d (can we do it in a more generic way?)
   //applying model's params

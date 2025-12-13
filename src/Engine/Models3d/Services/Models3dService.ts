@@ -46,9 +46,14 @@ export function Models3dService(
   const withRegistry: TModel3dServiceWithRegistry = withRegistryService(registry);
 
   function clone(model3d: TModel3d, overrides?: TOptional<TModel3dParams>): TModel3d {
-    const cloned: TModel3d = model3d._clone(overrides);
-    registry.add(cloned);
-    return cloned;
+    return factory.create(
+      {
+        ...model3d.getParams(),
+        forceClone: true,
+        ...overrides
+      },
+      { animationsService, model3dRawToModel3dConnectionRegistry }
+    );
   }
 
   // eslint-disable-next-line functional/immutable-data
