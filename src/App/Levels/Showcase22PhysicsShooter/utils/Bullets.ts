@@ -75,7 +75,7 @@ export function getBulletsPool(
         {
           name: `bullet_${i}_${id}_actor`,
           model3dSource: model3dF,
-          position: new Vector3(0, 0, 0),
+          position: new Vector3(),
           rotation: new Euler(0, 1.57, 0),
           spatial: { grid, isAutoUpdate: true, updatePriority: SpatialUpdatePriority.ASAP },
           collisions: { isAutoUpdate: true },

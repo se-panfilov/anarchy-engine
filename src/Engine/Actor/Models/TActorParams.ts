@@ -23,4 +23,5 @@ export type TActorParams = TActorProps &
   Readonly<{
     collisions?: TCollisionsDataParams;
   }> &
+  // TODO 8.0.0. MODELS: do we need scale?
   Pick<TObject3DParams, 'position' | 'rotation' | 'scale'>;

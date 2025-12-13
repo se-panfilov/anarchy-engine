@@ -36,7 +36,7 @@ export async function buildTower(
       castShadow: true,
       receiveShadow: false,
       position: block.position,
-      rotation: new Euler(0, 0, 0)
+      rotation: new Euler()
     });
 
     return actorService.create({
@@ -57,7 +57,7 @@ export async function buildTower(
         position: block.position
       },
       position: block.position,
-      rotation: new Euler(0, 0, 0),
+      rotation: new Euler(),
       spatial: { isAutoUpdate: true, grid },
       tags: ['physics_block']
     }) as TActorWrapperWithPhysics;

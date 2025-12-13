@@ -20,7 +20,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     const materialW: TMaterialWrapper = materialService.create({ name: 'model_material', type: MaterialType.Toon, options: { color: '#5177ff' } });
 
     const actorDefaultParams: Omit<TActorParams, 'model3dSource'> = {
-      position: new Vector3(0, 0, 0),
+      position: new Vector3(),
       spatial: { grid, isAutoUpdate: false }
     };
 
@@ -35,7 +35,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
 
     const camera: TCameraWrapper = cameraService.create({
       position: new Vector3(0, 0, 3),
-      rotation: new Euler(0, 0, 0),
+      rotation: new Euler(),
       isActive: true,
       tags: []
     });

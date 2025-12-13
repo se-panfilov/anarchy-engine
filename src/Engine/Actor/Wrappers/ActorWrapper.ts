@@ -6,8 +6,6 @@ import type { TActorDependencies, TActorParams, TActorWrapper } from '@/Engine/A
 import { applySpatialGrid, startCollisions } from '@/Engine/Actor/Wrappers/ActorWrapperHelper';
 import { withCollisions } from '@/Engine/Collisions';
 import { withKinematic } from '@/Engine/Kinematic';
-import type { TWithMaterial } from '@/Engine/Material';
-import { withMaterial } from '@/Engine/Material';
 import { scalableMixin, withMoveBy3dMixin, withObject3d, withRotationByXyzMixin } from '@/Engine/Mixins';
 import type { TModel3dFacade } from '@/Engine/Models3d';
 import type { TSpatialLoopServiceValue } from '@/Engine/Spatial';
@@ -22,9 +20,6 @@ export function ActorWrapper(
   const model3dF: TModel3dFacade = isModelAlreadyInUse ? models3dService.clone(params.model3dSource) : params.model3dSource;
   const entity: Group | Mesh | Object3D = model3dF.getModel();
 
-  // TODO 8.0.0. MODELS: MATERIAL MIXIN: decide what to do with this mixin
-  const withMaterialEntity: TWithMaterial = withMaterial(entity);
-
   // TODO 8.0.0. MODELS: options such as "castShadow", "receiveShadow" and etc might be not needed here
 
   const { value$: position$, update: updatePosition } = withReactivePosition(entity);
@@ -32,14 +27,18 @@ export function ActorWrapper(
 
   const actorW: TActorWrapper = {
     ...AbstractWrapper(entity, WrapperType.Actor, params),
+
+    // TODO 8.0.0. MODELS: perhaps move these mixins to Model3dFacade
     ...withMoveBy3dMixin(entity),
     ...withRotationByXyzMixin(entity),
     ...scalableMixin(entity),
     ...withObject3d(entity),
-    ...withMaterialEntity,
+
     ...withKinematic(params),
     ...withSpatial(params),
     ...withCollisions(params, collisionsService, collisionsLoopService),
+
+    // TODO 8.0.0. MODELS: this mixin should be work properly with Model3dFacade (check if it detects the model's size correctly)
     ...withUpdateSpatialCell(),
     position$: position$.asObservable(),
     rotation$: rotation$.asObservable(),
@@ -71,12 +70,18 @@ export function ActorWrapper(
     actorW.spatial.destroy();
     actorW.collisions?.destroy();
     model3dFacadeToActorConnectionRegistry.removeByModel3dFacade(model3dF);
+    model3dF.destroy();
   });
-
+  // TODO 8.0.0. MODELS: check: should be applied both for actor and model3d
   applyPosition(actorW, params.position);
+  // TODO 8.0.0. MODELS: check: should be applied both for actor and model3d
   applyRotation(actorW, params.rotation);
+  // TODO 8.0.0. MODELS: do we need to apply scale for actor?
+
   if (isDefined(params.scale)) applyScale(actorW, params.scale);
   applySpatialGrid(params, actorW, spatialGridService);
+
+  // TODO 8.0.0. MODELS: check how collisions works with the model3d?
   startCollisions(actorW);
 
   position$.subscribe((newPosition: Vector3): void => actorW.updateSpatialCells(newPosition));

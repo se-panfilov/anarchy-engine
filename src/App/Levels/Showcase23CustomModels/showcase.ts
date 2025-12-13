@@ -1,5 +1,5 @@
 import type { AnimationAction } from 'three';
-import { Vector3 } from 'three';
+import { Euler, Vector3 } from 'three';
 import type { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
 
 import type { TShowcase } from '@/App/Levels/Models';
@@ -10,10 +10,6 @@ import spaceConfig from './showcase.json';
 
 export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
   console.log('Press keys 1..3 to play animations of related models');
-
-  // TODO CWP 1. Finalize all the todoes "// TODO 9.0.0."
-  // TODO CWP 2. Implement "actors with models" feature (and showcase 24)
-  // TODO CWP 3. Finalize all the todoes "// TODO 8.0.0."
 
   const originalName: string = 'fox_gltf_original';
   const cloneName: string = 'fox_gltf_clone_1';
@@ -30,7 +26,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
       console.log(`Model "${name}" is loaded`);
 
       //Preventing creating the same model twice (it's already created once config is loaded)
-      if (name !== 'fox_glb') models3dService.create({ name, model3dSource });
+      if (name !== 'fox_glb') models3dService.create({ name, model3dSource, position: new Vector3(), rotation: new Euler() });
     });
 
     models3dRegistry.added$.subscribe(({ key, value: model3dSource }: TRegistryPack<TModel3dFacade>): void => {
