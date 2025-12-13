@@ -1,15 +1,15 @@
 import { nanoid } from 'nanoid';
 
 import type { EntityType } from '@/Engine/Abstract';
-import type { TFacade } from '@/Engine/Abstract/Models';
+import type { TEntity } from '@/Engine/Abstract/Models';
 import type { TDestroyable, TRegistrable, TWithName, TWithNameAndNameAccessorsMixin, TWithTagsMixin } from '@/Engine/Mixins';
 import { destroyableMixin, withNameAndNameAccessorsMixin } from '@/Engine/Mixins';
 import { withTagsMixin } from '@/Engine/Mixins/Generics';
 import { isDefined } from '@/Engine/Utils';
 
-type TFacadeParams = Readonly<{ tags?: ReadonlyArray<string> } & TWithName>;
+type TEntityParams = Readonly<{ tags?: ReadonlyArray<string> } & TWithName>;
 
-export function AbstractEntity<T extends Record<string, any>>(entities: T, type: EntityType | string, params?: TFacadeParams): TFacade<T> {
+export function AbstractEntity<T extends Record<string, any>>(entities: T, type: EntityType | string, params?: TEntityParams): TEntity<T> {
   const id: string = type + '_' + nanoid();
 
   const withNameAndNameAccessors: TWithNameAndNameAccessorsMixin = withNameAndNameAccessorsMixin();
@@ -23,7 +23,7 @@ export function AbstractEntity<T extends Record<string, any>>(entities: T, type:
     ...destroyable
   };
 
-  const result: TFacade<T> = { ...partialResult, ...withNameAndNameAccessors };
+  const result: TEntity<T> = { ...partialResult, ...withNameAndNameAccessors };
 
   if (isDefined(params?.name)) result.setName(params.name);
 

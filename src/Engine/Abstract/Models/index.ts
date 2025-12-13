@@ -12,7 +12,7 @@ export * from './TAbstractWatcher';
 export * from './TAbstractWatcherWithState';
 export * from './TAsyncReactiveFactory';
 export * from './TCreateEntityFactoryFn';
-export * from './TFacade';
+export * from './TEntity';
 export * from './TFactory';
 export * from './THtmlElementStyleDeclaration';
 export * from './TMultitonWatcher';
