@@ -103,9 +103,10 @@ const hasWorkspacesField = (pkg: any): boolean => {
 };
 
 async function findMonorepoRoot(startDir: string): Promise<string> {
-  let dir = path.resolve(startDir);
-  debugLog('findMonorepoRoot: start at', dir);
-  for (let i = 0; i < 50; i++) {
+  const start = path.resolve(startDir);
+  debugLog('findMonorepoRoot: start at', start);
+  const ascend = async (dir: string, depth: number): Promise<string> => {
+    if (depth > 50) throw new Error(`Monorepo root not found from ${startDir}`);
     const p = path.join(dir, 'package.json');
     debugLog('  check', p);
     if (await exists(p)) {
@@ -117,10 +118,10 @@ async function findMonorepoRoot(startDir: string): Promise<string> {
       }
     }
     const parent = path.dirname(dir);
-    if (parent === dir) break;
-    dir = parent;
-  }
-  throw new Error(`Monorepo root not found from ${startDir}`);
+    if (parent === dir) throw new Error(`Monorepo root not found from ${startDir}`);
+    return ascend(parent, depth + 1);
+  };
+  return ascend(start, 0);
 }
 
 async function loadWorkspaces(rootDir: string): Promise<ReadonlyMap<string, TWorkspaceInfo>> {
@@ -149,9 +150,8 @@ function resolveWorkspaceFromArg(arg: string, workspaces: ReadonlyMap<string, TW
   if (byName) return { ws: byName };
   const asPath: string = path.isAbsolute(arg) ? arg : path.join(rootDir, arg);
   const norm: string = path.resolve(asPath);
-  for (const w of workspaces.values()) {
-    if (path.resolve(w.dir) === norm) return { ws: w };
-  }
+  const found = Array.from(workspaces.values()).find((w) => path.resolve(w.dir) === norm);
+  if (found) return { ws: found };
   throw new Error(`Workspace "${arg}" not found by name or path`);
 }
 
@@ -205,24 +205,22 @@ function parseOneEntry(chunk: string): TParsedEntry | undefined {
   let licenseText: string | undefined = undefined;
   {
     const lines = chunk.split(/\r?\n/);
-    let seenHeader = false;
-    let idx = 0;
-    for (; idx < lines.length; idx++) {
-      const ln = lines[idx];
-      if (ln.startsWith('## ')) {
-        seenHeader = true;
-        continue;
-      }
-      if (seenHeader && ln.trim() === '') {
-        idx++;
-        break;
-      }
-    }
-    const tail = lines.slice(idx).join('\n').trim();
+    const firstBlankAfterHeaderIdx = ((): number => {
+      let seenHeader = false;
+      return lines.findIndex((ln) => {
+        if (ln.startsWith('## ')) {
+          seenHeader = true;
+          return false;
+        }
+        return seenHeader && ln.trim() === '';
+      });
+    })();
+    const startIdx = firstBlankAfterHeaderIdx >= 0 ? firstBlankAfterHeaderIdx + 1 : lines.length;
+    const tail = lines.slice(startIdx).join('\n').trim();
     if (tail && !/^_No license text file found;/m.test(tail)) licenseText = tail;
   }
 
-  const inferredCopyright = (() => {
+  const inferredCopyright = ((): string | undefined => {
     if (licenseText) {
       const ln = licenseText.split(/\r?\n/).find((l) => /^\s*(?:copyright|\(c\)|©)\s+/i.test(l));
       if (ln) return ln.trim();
@@ -256,17 +254,15 @@ function parseThirdPartyMarkdown(md: string): ReadonlyArray<TParsedEntry> {
 
 // for audit: collect every heading id present in the source file
 function collectAllHeadingIds(md: string): ReadonlySet<string> {
-  const ids = new Set<string>();
   const re = /^##\s+(.+?)\s*$/gm;
-  let m: RegExpExecArray | null;
-  while ((m = re.exec(md))) {
-    const full = m[1].trim();
+  return [...md.matchAll(re)].reduce<Set<string>>((ids, m) => {
+    const full = String(m[1]).trim();
     const at = full.lastIndexOf('@');
     if (at > 0 && at < full.length - 1) {
       ids.add(`${full.slice(0, at).trim()}@${full.slice(at + 1).trim()}`);
     }
-  }
-  return ids;
+    return ids;
+  }, new Set<string>());
 }
 
 // ---------------------- Optional upstream NOTICE fetch ----------------------
@@ -345,15 +341,16 @@ async function main(): Promise<void> {
   // Locate monorepo root
   const scriptDir = path.dirname(fileURLToPath(import.meta.url));
   const startCandidates = [process.env.INIT_CWD, process.cwd(), scriptDir].filter(Boolean) as string[];
-  let rootDir: string | undefined;
-  for (const c of startCandidates) {
+  const rootDir: string | undefined = await startCandidates.reduce<Promise<string | undefined>>(async (accP, c) => {
+    const acc = await accP;
+    if (acc) return acc;
     try {
-      rootDir = await findMonorepoRoot(c);
-      break;
+      return await findMonorepoRoot(c);
     } catch (e) {
       debugLog('no root from', c, ':', (e as Error).message);
+      return undefined;
     }
-  }
+  }, Promise.resolve(undefined));
   if (!rootDir) throw new Error(`Failed to find monorepo root from: ${startCandidates.join(', ')}`);
 
   // Workspaces
@@ -384,7 +381,7 @@ async function main(): Promise<void> {
   debugLog('parsed entries:', entries.length);
 
   // Optional upstream NOTICE load
-  const finalEntries: ReadonlyArray<TParsedEntry> = await (async () => {
+  const finalEntries: ReadonlyArray<TParsedEntry> = await (async (): Promise<ReadonlyArray<TParsedEntry>> => {
     if (!argv['include-upstream-notices']) return entries;
     const maxBytes = Math.max(1, Math.floor(Number(argv['max-upstream-notice-kb']) || 128)) * 1024;
     const withUpstream = await Promise.all(

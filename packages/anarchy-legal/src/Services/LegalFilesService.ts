@@ -139,10 +139,7 @@ export function LegalFilesService(): TLegalFilesService {
 
   // Extract placeholders present in a template text
   function collectPlaceholders(tpl: string): ReadonlySet<string> {
-    const names: Set<string> = new Set<string>();
-    let m: RegExpExecArray | null;
-    while ((m = PLACEHOLDER_RE.exec(tpl))) names.add(m[1]);
-    return names;
+    return new Set<string>([...tpl.matchAll(PLACEHOLDER_RE)].map((m) => m[1] as string));
   }
 
   // PACKAGE_* resolution from package.json
@@ -194,11 +191,12 @@ export function LegalFilesService(): TLegalFilesService {
         return arrStr((pkg as any).authors);
       case 'KEYWORDS':
         return arrStr((pkg as any).keywords);
-      default:
-        // if someone uses {{PACKAGE_FOO_BAR}}, try naive lowercased lookup "foo_bar" then "fooBar"
+      default: {
+        // if someone uses {{PACKAGE_FOO_BAR}}, try a naive lower-cased lookup "foo_bar" then "fooBar"
         const direct = (pkg as any)[key.toLowerCase()];
         if (typeof direct === 'string') return direct;
         return undefined;
+      }
     }
   }
 
@@ -211,27 +209,19 @@ export function LegalFilesService(): TLegalFilesService {
     specific: TTemplateMessages | undefined
   ): Readonly<Record<string, string>> {
     const names: ReadonlySet<string> = collectPlaceholders(tplText);
-    const out: Record<string, string> = {};
 
-    // 1) Package-derived for PACKAGE_*
-    for (const name of names) {
-      if (name.startsWith('PACKAGE_')) {
-        const suffix: string = name.slice('PACKAGE_'.length);
-        const v: string | undefined = packagePlaceholder(suffix, pkg);
-        if (v !== undefined) out[name] = v;
-      }
-    }
+    const pkgValues: Record<string, string> = Array.from(names).reduce<Record<string, string>>((acc, name) => {
+      if (!name.startsWith('PACKAGE_')) return acc;
+      const suffix: string = name.slice('PACKAGE_'.length);
+      const v: string | undefined = packagePlaceholder(suffix, pkg);
+      return v !== undefined ? { ...acc, [name]: v } : acc;
+    }, {});
 
-    // 2) Generic overrides
-    if (generic) {
-      for (const [k, v] of Object.entries(generic)) out[k] = materializeMessage(v);
-    }
-    // 3) Type-specific overrides
-    if (specific) {
-      for (const [k, v] of Object.entries(specific)) out[k] = materializeMessage(v);
-    }
+    const genericValues: Record<string, string> = generic ? Object.fromEntries(Object.entries(generic).map(([k, v]) => [k, materializeMessage(v)])) : {};
 
-    return out;
+    const specificValues: Record<string, string> = specific ? Object.fromEntries(Object.entries(specific).map(([k, v]) => [k, materializeMessage(v)])) : {};
+
+    return { ...pkgValues, ...genericValues, ...specificValues };
   }
 
   // Render
@@ -278,10 +268,12 @@ export function LegalFilesService(): TLegalFilesService {
   }
 
   async function generateAll(i: TRenderInput): Promise<void> {
-    for (const t of Object.values(LegalDocumentType)) {
-      if (!i.types.has(t)) continue;
-      await generateForType(i, t);
-    }
+    await (Object.values(LegalDocumentType) as ReadonlyArray<TLegalDocumentType>).reduce<Promise<void>>(async (prev, t) => {
+      await prev;
+      if (i.types.has(t)) {
+        await generateForType(i, t);
+      }
+    }, Promise.resolve());
   }
 
   // ---------------------- CLI ----------------------
@@ -306,15 +298,16 @@ export function LegalFilesService(): TLegalFilesService {
     const startCandidates: string[] = [process.env.INIT_CWD, process.cwd(), scriptDir].filter(Boolean) as string[];
 
     // Find monorepo root
-    let rootDir: string | undefined;
-    for (const c of startCandidates) {
+    const rootDir: string | undefined = await startCandidates.reduce<Promise<string | undefined>>(async (accP, c) => {
+      const acc = await accP;
+      if (acc) return acc;
       try {
-        rootDir = await findMonorepoRoot(c);
-        break;
+        return await findMonorepoRoot(c);
       } catch (e) {
         debugLog(isDebug, 'no root from', c, ':', (e as Error).message);
+        return undefined;
       }
-    }
+    }, Promise.resolve(undefined));
     if (!rootDir) throw new Error(`Failed to find monorepo root from: ${startCandidates.join(', ')}`);
 
     // Load workspaces and resolve target
@@ -331,18 +324,18 @@ export function LegalFilesService(): TLegalFilesService {
     debugLog(isDebug, 'out dir:', outDir);
 
     // Types
-    const typesSet: ReadonlySet<TLegalDocumentType> = (() => {
+    const typesSet: ReadonlySet<TLegalDocumentType> = ((): ReadonlySet<TLegalDocumentType> => {
       const allTypes = Object.values(LegalDocumentType) as ReadonlyArray<TLegalDocumentType>;
       if (!argv.types) return new Set(allTypes);
-      const parts: string[] = String(argv.types)
+      const parts: ReadonlyArray<string> = String(argv.types)
         .split(',')
         .map((s) => s.trim().toUpperCase())
         .filter(Boolean);
-      const set = new Set<TLegalDocumentType>();
-      for (const p of parts) {
-        if ((allTypes as ReadonlyArray<string>).includes(p)) set.add(p as TLegalDocumentType);
-        else console.warn(`[warn] Unknown doc type "${p}" ignored. Known: ${allTypes.join(', ')}`);
-      }
+      const isKnown = (p: string): p is TLegalDocumentType => (allTypes as ReadonlyArray<string>).includes(p);
+      const known = parts.filter(isKnown);
+      const unknown = parts.filter((p) => !isKnown(p));
+      unknown.forEach((p) => console.warn(`[warn] Unknown doc type "${p}" ignored. Known: ${allTypes.join(', ')}`));
+      const set = new Set<TLegalDocumentType>(known);
       return set.size ? set : new Set(allTypes);
     })();
 
