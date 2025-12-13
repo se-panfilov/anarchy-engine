@@ -1,4 +1,12 @@
 export type * from './TAnimationActions';
 export type * from './TAnimationActionsPack';
+export type * from './TAnimationsFsm';
+export type * from './TAnimationsFsmConfig';
+export type * from './TAnimationsFsmFactory';
+export type * from './TAnimationsFsmParams';
+export type * from './TAnimationsFsmParams';
+export type * from './TAnimationsFsmRegistry';
+export type * from './TAnimationsFsmService';
+export type * from './TAnimationsFsmWrapper';
 export type * from './TAnimationsService';
 export type * from './TModel3dAnimations';

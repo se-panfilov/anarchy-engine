@@ -1,5 +1,6 @@
 export enum FactoryType {
   Actor = 'actor_factory',
+  AnimationsFsm = 'animations_fsm_factory',
   Camera = 'camera_factory',
   Controls = 'controls_factory',
   EnvMap = 'env_map_factory',
