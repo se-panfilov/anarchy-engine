@@ -1,7 +1,14 @@
 {
-  "menu.start": "Starten",
-  "menu.quit": "Afsluiten",
-  "hud.fps": "FPS: {count}",
-  "wallet.money": "{val, number, ::currency/USD}",
-  "date.today": "{ts, date, medium}"
+  "main-menu.home.game-title": "Spel titel",
+  "main-menu.settings.audio.group.main-audio-settings.title": "Hoofd audio-instellingen",
+  "main-menu.settings.audio.master-volume.label": "Hoofdvolume",
+  "main-menu.settings.audio.view.title": "Audio-instellingen",
+  "main-menu.settings.graphics.group.main-graphics-settings.title": "Hoofd grafische instellingen",
+  "main-menu.settings.graphics.is-fullscreen.label": "Volledig scherm",
+  "main-menu.settings.graphics.resolution.label": "Resolutie",
+  "main-menu.settings.graphics.view.title": "Grafische instellingen",
+  "main-menu.settings.localization.group.main-localization-settings.title": "Hoofd taalinstellingen",
+  "main-menu.settings.localization.language.label": "Taal",
+  "main-menu.settings.localization.view.title": "Taalinstellingen",
+  "main-menu.settings.view.title": "Instellingen"
 }

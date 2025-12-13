@@ -2,11 +2,17 @@
 import Navigation from '@Showcases/Menu/components/Navigation.vue';
 import PageTitle from '@Showcases/Menu/components/PageTitle.vue';
 import { Routes } from '@Showcases/Menu/constants';
+import { vueTranslationService } from '@Showcases/Menu/services';
 import { useRouterStore } from '@Showcases/Menu/stores/RouterStore';
 import type { TNavOption } from '@Showcases/Shared';
+import type { ShallowRef } from 'vue';
 
+const { $t } = vueTranslationService;
 const menuRouterStore = useRouterStore();
 
+const viewTitleText: ShallowRef<string> = $t('main-menu.settings.view.title');
+
+// TODO DESKTOP: replace stings with $t refs
 const navOptions: ReadonlyArray<TNavOption> = [
   {
     id: 0,
@@ -28,7 +34,7 @@ const navOptions: ReadonlyArray<TNavOption> = [
 
 <template>
   <div class="settings">
-    <PageTitle class="settings__title" title="Settings" />
+    <PageTitle class="settings__title" :title="viewTitleText" />
     <Navigation class="settings__navigation" :options="navOptions" :back-btn="true" />
   </div>
 </template>

@@ -1,7 +1,14 @@
 {
-  "menu.start": "Start",
-  "menu.quit": "Quit",
-  "hud.fps": "FPS: {count}",
-  "wallet.money": "{val, number, ::currency/USD}",
-  "date.today": "{ts, date, medium}"
+  "main-menu.home.game-title": "Game title",
+  "main-menu.settings.audio.group.main-audio-settings.title": "Main audio settings",
+  "main-menu.settings.audio.master-volume.label": "Master Volume",
+  "main-menu.settings.audio.view.title": "Audio Settings",
+  "main-menu.settings.graphics.group.main-graphics-settings.title": "Main graphics settings",
+  "main-menu.settings.graphics.is-fullscreen.label": "Fullscreen",
+  "main-menu.settings.graphics.resolution.label": "Resolution",
+  "main-menu.settings.graphics.view.title": "Graphics Settings",
+  "main-menu.settings.localization.group.main-localization-settings.title": "Main localization settings",
+  "main-menu.settings.localization.language.label": "Language",
+  "main-menu.settings.localization.view.title": "Localization Settings",
+  "main-menu.settings.view.title": "Settings"
 }

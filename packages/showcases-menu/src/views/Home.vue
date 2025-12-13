@@ -2,13 +2,18 @@
 import Navigation from '@Showcases/Menu/components/Navigation.vue';
 import PageTitle from '@Showcases/Menu/components/PageTitle.vue';
 import { Routes } from '@Showcases/Menu/constants';
-import { eventsService } from '@Showcases/Menu/services';
+import { eventsService, vueTranslationService } from '@Showcases/Menu/services';
 import { useMenuOptionsStore } from '@Showcases/Menu/stores/MenuOptionsStore';
 import { useRouterStore } from '@Showcases/Menu/stores/RouterStore';
 import type { TNavOption } from '@Showcases/Shared';
+import type { ShallowRef } from 'vue';
 
+const { $t } = vueTranslationService;
 const menuRouterStore = useRouterStore();
 
+const viewTitleText: ShallowRef<string> = $t('main-menu.home.game-title');
+
+// TODO DESKTOP: replace stings with $t refs
 const navOptions: ReadonlyArray<TNavOption> = [
   {
     id: 0,
@@ -42,7 +47,7 @@ const navOptions: ReadonlyArray<TNavOption> = [
 
 <template>
   <div class="home">
-    <PageTitle class="home__title" title="Game title" />
+    <PageTitle class="home__title" :title="viewTitleText" />
     <Navigation class="home__navigation" :options="navOptions" />
   </div>
 </template>
