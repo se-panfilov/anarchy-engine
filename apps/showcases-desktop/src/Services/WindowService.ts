@@ -1,12 +1,12 @@
 import { existsSync } from 'node:fs';
 
-import { isNotDefined } from '@Anarchy/Shared/Utils';
+import { isDefined, isNotDefined } from '@Anarchy/Shared/Utils';
 import type { TDesktopAppConfig, TWindowService } from '@Showcases/Desktop/Models';
 import { app, BrowserWindow, dialog } from 'electron';
 import { dirname, join } from 'path';
 import { fileURLToPath } from 'url';
 
-export const windowDefaultSettings: TDesktopAppConfig = {
+export const windowDefaultSettings: Required<TDesktopAppConfig> = {
   isOpenDevTools: false,
   showInstantly: false,
   isBorderless: false,
@@ -35,15 +35,21 @@ export function WindowService(): TWindowService {
   }
 
   function createWindow(width: number, height: number, { isOpenDevTools, showInstantly, isBorderless, isResizable, isFullScreenable, isFullScreen }: TDesktopAppConfig): BrowserWindow {
+    const show: boolean = !(isDefined(showInstantly) ? showInstantly : windowDefaultSettings.showInstantly);
+    const frame: boolean = !(isDefined(isBorderless) ? isBorderless : windowDefaultSettings.isBorderless);
+    const resizable: boolean = isDefined(isResizable) ? isResizable : windowDefaultSettings.isResizable;
+    const fullscreenable: boolean = isDefined(isFullScreenable) ? isFullScreenable : windowDefaultSettings.isFullScreenable;
+    const fullscreen: boolean = isDefined(isFullScreen) ? isFullScreen : windowDefaultSettings.isFullScreen;
+
     win = new BrowserWindow({
       ...windowDefaultSettings,
       width,
       height,
-      show: !showInstantly,
-      frame: !isBorderless,
-      resizable: isResizable,
-      fullscreenable: isFullScreenable,
-      fullscreen: isFullScreen,
+      show,
+      frame,
+      resizable,
+      fullscreenable,
+      fullscreen,
       autoHideMenuBar: true,
       useContentSize: true,
       hiddenInMissionControl: true,
