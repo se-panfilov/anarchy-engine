@@ -2,7 +2,7 @@ import type { BehaviorSubject, Observable } from 'rxjs';
 import type { Euler, Vector3 } from 'three';
 
 import type { ActorDrive } from '@/Engine/Actor/Constants';
-import type { TKinematicDrive } from '@/Engine/Kinematic';
+import type { TKinematicACtorDrive } from '@/Engine/Kinematic';
 import type { TDestroyable } from '@/Engine/Mixins';
 
 export type TActorDriveMixin = Readonly<{
@@ -11,5 +11,5 @@ export type TActorDriveMixin = Readonly<{
   rotation$: Observable<Euler>;
   scale$: Observable<Vector3>;
 }> &
-  TKinematicDrive &
+  TKinematicACtorDrive &
   TDestroyable;

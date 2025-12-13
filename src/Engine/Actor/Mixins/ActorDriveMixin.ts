@@ -5,14 +5,14 @@ import { Vector3 } from 'three';
 
 import { ActorDrive } from '@/Engine/Actor/Constants';
 import type { TActorDependencies, TActorDriveMixin, TActorParams } from '@/Engine/Actor/Models';
-import type { TKinematicDrive } from '@/Engine/Kinematic';
-import { KinematicDrive } from '@/Engine/Kinematic';
+import type { TKinematicACtorDrive } from '@/Engine/Kinematic';
+import { KinematicActorDrive } from '@/Engine/Kinematic';
 import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
 
 // TODO 8.0.0. MODELS: extract to separate file
 type TAvailableDrives = Readonly<{
-  [ActorDrive.Kinematic]: TKinematicDrive;
+  [ActorDrive.Kinematic]: TKinematicACtorDrive;
   // TODO 8.0.0. MODELS: implement physics drive
   // [ActorDrive.Physical]: TWithPhysics;
 }>;
@@ -23,7 +23,7 @@ export function ActorDriveMixin(params: TActorParams, { kinematicLoopService }: 
   const scale$: BehaviorSubject<Vector3> = new BehaviorSubject<Vector3>(params.scale ?? new Vector3());
   const drive$: BehaviorSubject<ActorDrive> = new BehaviorSubject<ActorDrive>(params.drive);
 
-  const kinematicDrive: TKinematicDrive = KinematicDrive(params, kinematicLoopService, drive$);
+  const kinematicDrive: TKinematicACtorDrive = KinematicActorDrive(params, kinematicLoopService, drive$);
   // TODO 8.0.0. MODELS: implement physics drive
   // const physicsDrive: TWithPhysics = withPhysicsDrive(params, physicsLoopService, drive$);
 
