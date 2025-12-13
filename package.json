@@ -7,7 +7,7 @@
   "license": "MIT",
   "scripts": {
     "start:dev": "vite --mode dev",
-    "start:e2e": "vite --mode e2e --port 5073",
+    "start:e2e": "vite --mode e2e --port 5073 --logLevel error",
     "build": "rimraf ./dist tsc && vite build",
     "before:release:check": "npm run ts:check && npm run prettier:check && npm run check:ts-morph && npm run lint && npm run unit:coverage && npm run e2e:with-clean",
     "before:release": "npm run clean:reinstall && npm run before:release:check && npm run generate:license-report && npm run generate:all-licenses-list",
