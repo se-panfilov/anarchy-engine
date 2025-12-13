@@ -1,6 +1,7 @@
 import { extractSerializableRegistrableFields } from '@Engine/Mixins';
 import type { TText2dWrapper, TText3dTextureWrapper, TTextAnyWrapper, TTextConfig, TTextCssProps } from '@Engine/Text/Models';
-import { filterOutEmptyFields, isNotDefined, kebabToCamel, vector2ToXy } from '@Engine/Utils';
+import { vector2ToXy } from '@Engine/Utils';
+import { filterOutEmptyFields, isNotDefined, kebabToCamel } from '@Shared/Utils';
 import type { Vector2 } from 'three';
 
 export function textToConfig(entity: TTextAnyWrapper): TTextConfig {

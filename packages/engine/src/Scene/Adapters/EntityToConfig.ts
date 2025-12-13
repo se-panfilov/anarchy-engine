@@ -2,7 +2,7 @@ import type { TColor } from '@Engine/Color';
 import { serializeColor } from '@Engine/Color';
 import { extractSerializableRegistrableFields } from '@Engine/Mixins';
 import type { TSceneConfig, TSceneWrapper } from '@Engine/Scene/Models';
-import { filterOutEmptyFields, isDefined } from '@Engine/Utils';
+import { filterOutEmptyFields, isDefined } from '@Shared/Utils';
 
 export function sceneToConfig(entity: TSceneWrapper): TSceneConfig {
   const background: TColor | undefined = entity.getBackground() as TColor | undefined;

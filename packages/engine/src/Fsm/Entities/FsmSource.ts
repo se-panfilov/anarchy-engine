@@ -1,5 +1,5 @@
 import type { TFsmConfig, TFsmParams, TFsmSource } from '@Engine/Fsm/Models';
-import { omitInObjectWithoutMutation } from '@Engine/Utils';
+import { omitInObjectWithoutMutation } from '@Shared/Utils';
 import { nanoid } from 'nanoid';
 
 export function FsmSource(params: TFsmParams): TFsmSource {

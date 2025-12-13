@@ -5,17 +5,8 @@ import { withBaseAccessorsRegistry } from '@Engine/Abstract/Registries/Mixin';
 import { withReactiveRegistry } from '@Engine/Abstract/Registries/Mixin/Registry/WithReactiveRegistry';
 import type { TDestroyable, TMultitonRegistrable, TRegistrable } from '@Engine/Mixins';
 import { destroyableMixin } from '@Engine/Mixins';
-import {
-  findInMap,
-  findKeyWithValue,
-  getAllEntitiesWithNames,
-  getAllEntitiesWithTag,
-  getAllEntitiesWithTags,
-  getUniqEntityWithTag,
-  getUniqEntityWithTags,
-  isNotDefined,
-  mergeAll
-} from '@Engine/Utils';
+import { getAllEntitiesWithNames, getAllEntitiesWithTag, getAllEntitiesWithTags, getUniqEntityWithTag, getUniqEntityWithTags, mergeAll } from '@Engine/Utils';
+import { findInMap, findKeyWithValue, isNotDefined } from '@Shared/Utils';
 import { nanoid } from 'nanoid';
 
 export function AbstractEntityRegistry<T extends TRegistrable | TMultitonRegistrable>(type: RegistryType): TAbstractEntityRegistry<T> {

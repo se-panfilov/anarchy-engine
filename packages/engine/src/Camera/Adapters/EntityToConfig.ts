@@ -13,7 +13,8 @@ import type { TOrthographicCameraOnlyConfig } from '@Engine/Camera/Models/TOrtho
 import { isOrthographicCameraWrapper, isPerspectiveCameraWrapper } from '@Engine/Camera/Utils';
 import type { TShadowCameraParams } from '@Engine/Light';
 import { extractSerializableRegistrableFields } from '@Engine/Mixins';
-import { filterOutEmptyFields, isDefined, isVector3Like } from '@Engine/Utils';
+import { isVector3Like } from '@Engine/Utils';
+import { filterOutEmptyFields, isDefined } from '@Shared/Utils';
 import type { AudioListener, OrthographicCameraJSONObject, PerspectiveCameraJSONObject, Vector3Like } from 'three';
 
 // Sometimes Camera's "drive" might hold old values (position, rotation), cause controls might not update it (they are update values directly)

@@ -26,7 +26,8 @@ import type {
 } from '@Engine/Light/Models';
 import { extractSerializableRegistrableFields } from '@Engine/Mixins';
 import type { TWriteable } from '@Engine/Utils';
-import { filterOutEmptyFields, isDefined, isNotDefined, vector2ToXy } from '@Engine/Utils';
+import { vector2ToXy } from '@Engine/Utils';
+import { filterOutEmptyFields, isDefined, isNotDefined } from '@Shared/Utils';
 import type { DirectionalLightShadow, Object3DJSONObject, PointLightShadow, SpotLightShadow, Vector2Like } from 'three';
 import { Vector2 } from 'three';
 

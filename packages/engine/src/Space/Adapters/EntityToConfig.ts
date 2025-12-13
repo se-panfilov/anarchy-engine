@@ -1,7 +1,7 @@
 import { extractSerializableRegistrableFields } from '@Engine/Mixins';
 import type { SpaceSchemaVersion } from '@Engine/Space/Constants';
 import type { TSpace, TSpaceConfig, TSpaceConfigEntities, TSpaceConfigResources, TSpaceServices } from '@Engine/Space/Models';
-import { filterOutEmptyFields, isDefined } from '@Engine/Utils';
+import { filterOutEmptyFields, isDefined } from '@Shared/Utils';
 
 export function spaceToConfig(
   entity: TSpace,

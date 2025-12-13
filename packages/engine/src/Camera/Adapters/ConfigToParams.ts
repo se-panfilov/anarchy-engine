@@ -2,7 +2,7 @@ import type { TAudioService } from '@Engine/Audio';
 import type { TAnyCameraParams, TCameraServiceDependencies, TCommonCameraConfig } from '@Engine/Camera/Models';
 import type { TShadowCameraConfig, TShadowCameraParams } from '@Engine/Light';
 import { configToParamsObject3d } from '@Engine/ThreeLib';
-import { isDefined, isNotDefined, omitInObjectWithoutMutation } from '@Engine/Utils';
+import { isDefined, isNotDefined, omitInObjectWithoutMutation } from '@Shared/Utils';
 import type { AudioListener } from 'three';
 import { Vector3 } from 'three';
 

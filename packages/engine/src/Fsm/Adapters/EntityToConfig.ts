@@ -1,6 +1,6 @@
 import type { TFsmConfig, TFsmWrapper } from '@Engine/Fsm/Models';
 import { extractSerializableRegistrableFields } from '@Engine/Mixins';
-import { filterOutEmptyFields } from '@Engine/Utils';
+import { filterOutEmptyFields } from '@Shared/Utils';
 
 export function fsmToConfig(entity: TFsmWrapper): TFsmConfig {
   return filterOutEmptyFields({

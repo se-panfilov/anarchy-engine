@@ -5,7 +5,8 @@ import { extractSerializableRegistrableFields } from '@Engine/Mixins';
 import type { PrimitiveModel3dType } from '@Engine/Models3d/Constants';
 import type { TModel3d, TModel3dConfig, TModel3dConfigToParamsDependencies, TModel3dParams, TModels3dResourceAsyncRegistry, TRawModel3d } from '@Engine/Models3d/Models';
 import { isPrimitiveModel3dSource } from '@Engine/Models3d/Utils';
-import { eulerToXyz, filterOutEmptyFields, isDefined, isNotDefined, vector3ToXyz } from '@Engine/Utils';
+import { eulerToXyz, vector3ToXyz } from '@Engine/Utils';
+import { filterOutEmptyFields, isDefined, isNotDefined } from '@Shared/Utils';
 import type { AnimationAction, AnimationClip } from 'three';
 import type { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
 

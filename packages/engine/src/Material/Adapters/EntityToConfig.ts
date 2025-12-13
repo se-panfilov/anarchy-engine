@@ -26,7 +26,7 @@ import { eulerToXyzIfPossible, getOptionNameIfPossible, vector2ToXyIfPossible } 
 import { extractSerializableRegistrableFields } from '@Engine/Mixins';
 import type { TTexture, TTextureAsyncRegistry } from '@Engine/Texture';
 import type { TOptional } from '@Engine/Utils';
-import { filterOutEmptyFields, nullsToUndefined } from '@Engine/Utils';
+import { filterOutEmptyFields, nullsToUndefined } from '@Shared/Utils';
 import { isEmpty } from 'lodash-es';
 import type {
   LineDashedMaterial,

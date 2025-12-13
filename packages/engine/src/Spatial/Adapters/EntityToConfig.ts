@@ -1,7 +1,7 @@
 import type { TActor } from '@Engine/Actor';
 import { extractSerializableRegistrableFields } from '@Engine/Mixins';
 import type { TSpatialCellId, TSpatialCellSerializedData, TSpatialCellWrapper, TSpatialGridConfig, TSpatialGridWrapper } from '@Engine/Spatial/Models';
-import { filterOutEmptyFields } from '@Engine/Utils';
+import { filterOutEmptyFields } from '@Shared/Utils';
 
 export function entityToConfigSpatialGrid(entity: TSpatialGridWrapper): TSpatialGridConfig {
   return filterOutEmptyFields({

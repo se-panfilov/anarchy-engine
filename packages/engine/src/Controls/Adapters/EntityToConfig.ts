@@ -4,7 +4,8 @@ import type { TFpsControlsConfigOptions } from '@Engine/Controls/Models/TFpsCont
 import { isFpsControls, isOrbitControls } from '@Engine/Controls/Utils';
 import { extractSerializableRegistrableFields } from '@Engine/Mixins';
 import type { TWriteable } from '@Engine/Utils';
-import { filterOutEmptyFields, isNotDefined, vector3ToXyz } from '@Engine/Utils';
+import { vector3ToXyz } from '@Engine/Utils';
+import { filterOutEmptyFields, isNotDefined } from '@Shared/Utils';
 
 export function controlsToConfig(entity: TAnyControlsWrapper, { cameraService }: TControlsServiceDependencies): TControlsConfig {
   const camera: TAnyCamera | undefined = entity.entity.object as TAnyCamera;

@@ -12,7 +12,8 @@ import type {
 import type { TIntersectionsWatcherConfig } from '@Engine/Intersections/Models/TIntersectionsWatcherConfig';
 import { isIntersectionsCameraWatcher, isIntersectionsDirectionWatcher } from '@Engine/Intersections/Utils';
 import { extractSerializableRegistrableFields } from '@Engine/Mixins';
-import { filterOutEmptyFields, vector3ToXyz } from '@Engine/Utils';
+import { vector3ToXyz } from '@Engine/Utils';
+import { filterOutEmptyFields } from '@Shared/Utils';
 
 export function intersectionsToConfig(entity: TAnyIntersectionsWatcher): TAnyIntersectionsWatcherConfig {
   const config: TIntersectionsWatcherConfig = intersectionsAbstractToConfig(entity);

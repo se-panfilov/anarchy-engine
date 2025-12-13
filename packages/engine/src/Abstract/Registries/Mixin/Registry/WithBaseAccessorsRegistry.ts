@@ -1,6 +1,7 @@
 import type { TWithBaseAccessorsRegistry } from '@Engine/Abstract/Models';
 import type { TSerializable } from '@Engine/Mixins';
-import { asArray, findInMap, findKeyInMap, isDefined, isNotDefined } from '@Engine/Utils';
+import { asArray } from '@Engine/Utils';
+import { findInMap, findKeyInMap, isDefined, isNotDefined } from '@Shared/Utils';
 
 export function withBaseAccessorsRegistry<T>(registry: Map<string, T>): TWithBaseAccessorsRegistry<T> {
   const isEmpty = (): boolean => registry.size === 0;

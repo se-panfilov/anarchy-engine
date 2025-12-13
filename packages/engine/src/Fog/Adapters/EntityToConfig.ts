@@ -1,7 +1,7 @@
 import { serializeColor } from '@Engine/Color';
 import type { TFogConfig, TFogWrapper } from '@Engine/Fog/Models';
 import { extractSerializableRegistrableFields } from '@Engine/Mixins';
-import { filterOutEmptyFields } from '@Engine/Utils';
+import { filterOutEmptyFields } from '@Shared/Utils';
 import type { FogJSON } from 'three';
 
 export function fogToConfig(entity: TFogWrapper): TFogConfig {

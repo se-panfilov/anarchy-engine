@@ -1,7 +1,8 @@
 import type { Collider, RigidBody, Rotation, World } from '@dimforge/rapier3d';
 import type { TPhysicsBody, TPhysicsBodyConfig, TPhysicsWorldConfig } from '@Engine/Physics/Models';
 import type { TEulerLike } from '@Engine/ThreeLib';
-import { eulerToXyz, filterOutEmptyFields, isDefined, vector3ToXyz } from '@Engine/Utils';
+import { eulerToXyz, vector3ToXyz } from '@Engine/Utils';
+import { filterOutEmptyFields, isDefined } from '@Shared/Utils';
 import type { Vector3Like } from 'three';
 import { Euler, Quaternion } from 'three';
 

@@ -8,7 +8,8 @@ import { TextTransformDrive } from '@Engine/Text/TransformDrive';
 import { getWrapperTypeByTextType } from '@Engine/Text/Wrappers/TextWrapperHelper';
 import type { TDriveToTargetConnector } from '@Engine/TransformDrive';
 import { DriveToTargetConnector } from '@Engine/TransformDrive';
-import { applyObject3dParams, stripUnits, toPx, toRem } from '@Engine/Utils';
+import { applyObject3dParams } from '@Engine/Utils';
+import { stripUnits, toPx, toRem } from '@Shared/Utils';
 import type { Subscription } from 'rxjs';
 import { LinearFilter, Mesh, MeshBasicMaterial, PlaneGeometry, Texture } from 'three';
 

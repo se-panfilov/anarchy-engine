@@ -1,6 +1,6 @@
 import { extractSerializableRegistrableFields } from '@Engine/Mixins';
 import type { TRendererConfig, TRendererParams, TRendererWrapper } from '@Engine/Renderer/Models';
-import { filterOutEmptyFields } from '@Engine/Utils';
+import { filterOutEmptyFields } from '@Shared/Utils';
 
 export function rendererToConfig(entity: TRendererWrapper): TRendererConfig {
   const params: TRendererParams = entity.getParams();

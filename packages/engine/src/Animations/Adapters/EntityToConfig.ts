@@ -1,5 +1,5 @@
 import type { TAnimationStateConfig } from '@Engine/Animations/Models';
-import { filterOutEmptyFields } from '@Engine/Utils';
+import { filterOutEmptyFields } from '@Shared/Utils';
 import type { AnimationAction } from 'three';
 
 export function animationActionToConfig(entity: AnimationAction): TAnimationStateConfig {

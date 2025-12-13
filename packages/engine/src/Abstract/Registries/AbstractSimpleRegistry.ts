@@ -4,7 +4,8 @@ import { withBaseAccessorsRegistry } from '@Engine/Abstract/Registries/Mixin';
 import { withReactiveRegistry } from '@Engine/Abstract/Registries/Mixin/Registry/WithReactiveRegistry';
 import type { TDestroyable } from '@Engine/Mixins';
 import { destroyableMixin } from '@Engine/Mixins';
-import { findKeyWithValue, isNotDefined, mergeAll } from '@Engine/Utils';
+import { mergeAll } from '@Engine/Utils';
+import { findKeyWithValue, isNotDefined } from '@Shared/Utils';
 import { nanoid } from 'nanoid';
 
 export function AbstractSimpleRegistry<T>(type: RegistryType): TAbstractSimpleRegistry<T> {
