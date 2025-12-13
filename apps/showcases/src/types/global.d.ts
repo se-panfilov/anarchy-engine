@@ -1,19 +1,11 @@
+import type { TPlatformApiName, TShowcasesDesktopApi } from '@ShowcasesShared';
+
 // Keep this line. Otherwise, the file will not be recognized as a script, not as a declaration file
 export {};
 
+export type TPlatformApiOnWindow = { [K in TPlatformApiName]: TShowcasesDesktopApi };
+
 declare global {
-  interface Window {
-    //Same name as "platformApiName" in showcase-desktop/src/Constants/AppToPlatformMessagesConstants.ts
-    platformApi: {
-      // TODO DESKTOP: Declare all platform API methods here
-      // TODO DESKTOP: any (should be TAppSettings)
-      saveAppSettings: (settings: any) => Promise<void>;
-      // TODO DESKTOP: any (should be TAppSettings)
-      loadAppSettings: () => Promise<any>;
-      node: () => string;
-      chrome: () => string;
-      electron: () => string;
-      desktopAppVersion: () => Promise<string>;
-    };
-  }
+  // eslint-disable-next-line @typescript-eslint/no-empty-object-type
+  interface Window extends TPlatformApiOnWindow {}
 }
