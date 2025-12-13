@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import './assets/style.scss';
 
-import type { TLocalesMapping, TMessages } from '@AnarchyI18n';
-import { TranslateService } from '@AnarchyI18n';
+import type { TLocalesMapping, TMessages } from '@Anarchy/i18n';
+import { TranslateService } from '@Anarchy/i18n';
 import RouterView from '@Showcases/Menu/components/RouterView.vue';
 import { eventsService } from '@Showcases/Menu/services';
 import { useSettingsStore } from '@Showcases/Menu/stores/SettingsStore';
