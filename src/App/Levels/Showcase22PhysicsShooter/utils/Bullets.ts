@@ -85,6 +85,7 @@ export async function BulletAsync(params: TActorParams, actorService: TActorServ
     setElevation(0);
     setDistanceTraveled(0);
     setActive(false);
+    // eslint-disable-next-line functional/immutable-data
     actor.entity.visible = false;
     collisionsService.updateObjectInGrid(actor.entity);
   }

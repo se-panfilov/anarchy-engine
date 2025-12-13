@@ -4,6 +4,8 @@ export type TWithKinematic = {
   kinematic: TKinematicInfo & TKinematicAccessors;
   setKinematicInfo: (kinematic: TKinematicInfo) => void;
   getKinematicInfo: () => TKinematicInfo;
+  doKinematicMove: (delta: number) => void;
+  doKinematicRotation: (delta: number) => void;
 };
 
 export type TKinematicAccessors = Readonly<{

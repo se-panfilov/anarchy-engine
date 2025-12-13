@@ -10,7 +10,7 @@ export function PhysicsBodyFacade(params: TPhysicsBodyParams, { world }: TPhysic
 
   let _shouldUpdateKinematic: boolean = params.shouldUpdateKinematic ?? true;
 
-  const { isSleep = true } = params;
+  const { isSleep = false } = params;
   if (isSleep) entities.rigidBody?.sleep();
 
   return {
