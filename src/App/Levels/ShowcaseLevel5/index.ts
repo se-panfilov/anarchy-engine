@@ -39,7 +39,7 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
       const angleArray: ReadonlyArray<number> = generateAnglesForCircle(numberOfPoints, numberOfCircles, startAngle);
 
       const path: ReadonlyArray<IWithCoordsXZ> = createCirclePathXZ(angleArray, radius, { x: 0, z: 0 });
-      void standardMoverService.goByPath(actor, path, { ...animationParams, easing: Easing.EaseInBounce });
+      void standardMoverService.goByPath(actor, path, { ...animationParams, easing: Easing.EaseInCubic });
     });
   }
 
