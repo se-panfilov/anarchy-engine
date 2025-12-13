@@ -43,8 +43,6 @@ export function initGui(mouseLineIntersectionsWatcher: TIntersectionsWatcher, sp
   });
 
   const mouseFolderGui: GUI = gui.addFolder('Mouse');
-  const gridFolderGui: GUI = gui.addFolder('Grid');
-  const actorFolderGui: GUI = gui.addFolder('Actor');
   mouseFolderGui.add(mouse, 'x').listen();
   mouseFolderGui.add(mouse, 'y').listen();
   mouseFolderGui.add(mouse, 'z').listen();
@@ -52,6 +50,10 @@ export function initGui(mouseLineIntersectionsWatcher: TIntersectionsWatcher, sp
   mouseFolderGui.add(mouse, 'objectId').listen();
   mouseFolderGui.add(mouse, 'wrapperId').listen();
   mouseFolderGui.add(mouse, 'objectName').listen();
+
+  const gridFolderGui: GUI = gui.addFolder('Grid');
   gridFolderGui.add(cell, 'id').listen();
+
+  const actorFolderGui: GUI = gui.addFolder('Actor');
   actorFolderGui.add(actor, 'name').listen();
 }
