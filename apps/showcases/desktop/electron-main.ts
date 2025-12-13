@@ -1,16 +1,40 @@
 import { app, BrowserWindow, ipcMain } from 'electron';
 import { dirname, join, resolve } from 'path';
 import { fileURLToPath } from 'url';
-import * as fs from 'node:fs';
+import { existsSync } from 'node:fs';
 
 const __filename: string = fileURLToPath(import.meta.url);
 const __dirname: string = dirname(__filename);
 
-function createWindow(): void {
-  // TODO DESKTOP: why fixed resolution?
+// TODO DESKTOP: These vars should come from .env files:
+const FAKE_ENV_IS_PROD: boolean = false;
+const FAKE_ENV_WINDOW_HEIGHT: number = 720;
+const FAKE_ENV_WINDOW_WIDTH: number = 1280;
+const FAKE_ENV_IS_OPEN_DEV_TOOLS: boolean = true;
+
+function getIndexHtmlPath(isProdMode: boolean): string {
+  //console.log('XXX app.isPackaged', app.isPackaged);
+  //   // console.log('XXX resolve', join(process.resourcesPath, 'dist', 'index.html'));
+  //   const indexPath: string = false ? resolve(__dirname, '../../dist/index.html') : join(process.resourcesPath, 'dist', 'index.html');
+  //   // const indexPath: string = resolve(__dirname, '../../dist/index.html');
+  //   console.log('__dirname', __dirname);
+  //   console.log('🔍 Resolved index.html path:', indexPath);
+  //   console.log('📁 Exists:', fs.existsSync(indexPath));
+
+  const path: string = isProdMode ? join(process.resourcesPath, 'dist', 'index.html') : resolve(__dirname, '../../dist/index.html');
+
+  if (!existsSync(path)) {
+    console.error('[Main] index.html not found:', path);
+    app.exit(1);
+  }
+
+  return path;
+}
+
+function createWindow(width: number, height: number): void {
   const win = new BrowserWindow({
-    width: 1280,
-    height: 720,
+    width,
+    height,
     webPreferences: {
       // TODO DESKTOP: what is "contextIsolation"?
       contextIsolation: true,
@@ -19,15 +43,13 @@ function createWindow(): void {
     }
   });
 
-  const indexPath: string = resolve(__dirname, '../../dist/index.html');
-  console.log('__dirname', __dirname);
-  console.log('🔍 Resolved index.html path:', indexPath);
-  console.log('📁 Exists:', fs.existsSync(indexPath));
-
+  // TODO DESKTOP: Should come from .env file, to enable/disable dev tools.
+  // const isProdMode: boolean = app.isPackaged;
+  const isProdMode: boolean = false;
+  const indexPath: string = getIndexHtmlPath(FAKE_ENV_IS_PROD);
   win.loadFile(indexPath);
 
-  // TODO DESKTOP: Should come from .env file, to enable/disable dev tools.
-  win.webContents.openDevTools();
+  if (FAKE_ENV_IS_OPEN_DEV_TOOLS) win.webContents.openDevTools();
 
   // TODO DESKTOP: Should come from .env file, to enable/disable dev tools.
   // TODO DESKTOP: Enable hot reloading in development mode.
@@ -42,4 +64,5 @@ ipcMain.handle('ping', async () => {
   return 'pong';
 });
 
-app.whenReady().then(createWindow);
+// TODO DESKTOP: Should come from .env file, to enable/disable dev tools.
+app.whenReady().then((): void => createWindow(FAKE_ENV_WINDOW_WIDTH, FAKE_ENV_WINDOW_HEIGHT));
