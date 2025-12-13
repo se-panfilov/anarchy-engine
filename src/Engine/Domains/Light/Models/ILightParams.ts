@@ -1,7 +1,7 @@
 import type { IVector3 } from '@Engine/Wrappers';
 import type { Color } from 'three/src/math/Color';
 
-import type { CommonTags } from '@/Engine/Domains/Abstract';
+import type { CommonTag } from '@/Engine/Domains/Abstract';
 import type { LightTag } from '@/Engine/Domains/Light/Constants';
 
 import type { ILightShadowParams } from './ILightShadowParams';
@@ -14,5 +14,5 @@ export type ILightParams = Readonly<{
   position: IVector3;
   castShadow: boolean;
   shadow?: ILightShadowParams;
-  tags: ReadonlyArray<LightTag | CommonTags | string>;
+  tags: ReadonlyArray<LightTag | CommonTag | string>;
 }>;

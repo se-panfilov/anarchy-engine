@@ -1,5 +1,5 @@
 import type { IActorWrapper, IAppCanvas, IIntersectionsWatcher, ILevel, ILevelConfig, ILoopWrapper, IVector3 } from '@/Engine';
-import { ActorTag, ambientContext, buildLevelFromConfig, CommonTags, isNotDefined, LoopTag } from '@/Engine';
+import { ActorTag, ambientContext, buildLevelFromConfig, CommonTag, isNotDefined, LoopTag } from '@/Engine';
 
 import levelConfig from './showcase-level-1.config.json';
 
@@ -9,8 +9,8 @@ export function showcaseLevel1(canvas: IAppCanvas): void {
 
   //START: just debug
   console.log(level);
-  const intersectionsWatcher: IIntersectionsWatcher | undefined = level.intersectionsWatcher.registry.initial.getUniqByTag(CommonTags.FromConfig);
-  if (isNotDefined(intersectionsWatcher)) throw new Error(`Cannot get "intersectionsWatcher" with tag "${CommonTags.FromConfig}"`);
+  const intersectionsWatcher: IIntersectionsWatcher | undefined = level.intersectionsWatcher.registry.initial.getUniqByTag(CommonTag.FromConfig);
+  if (isNotDefined(intersectionsWatcher)) throw new Error(`Cannot get "intersectionsWatcher" with tag "${CommonTag.FromConfig}"`);
   intersectionsWatcher.value$.subscribe((obj: IVector3): void => {
     console.log('intersect obj', obj);
   });

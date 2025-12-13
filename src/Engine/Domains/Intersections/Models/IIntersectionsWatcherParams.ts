@@ -3,11 +3,11 @@ import type { ICameraWrapper } from '@Engine/Domains/Camera';
 import type { IntersectionsTag } from '@Engine/Domains/Intersections/Constants';
 import type { IMousePositionWatcher } from '@Engine/Domains/Mouse';
 
-import type { CommonTags } from '@/Engine/Domains/Abstract';
+import type { CommonTag } from '@/Engine/Domains/Abstract';
 
 export type IIntersectionsWatcherParams = Readonly<{
   actors: ReadonlyArray<IActorWrapper>;
   camera: Readonly<ICameraWrapper>;
   positionWatcher: Readonly<IMousePositionWatcher>;
-  tags?: ReadonlyArray<IntersectionsTag | CommonTags | string>;
+  tags?: ReadonlyArray<IntersectionsTag | CommonTag | string>;
 }>;

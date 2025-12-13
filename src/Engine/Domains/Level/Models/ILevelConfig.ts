@@ -4,7 +4,7 @@ import type { IControlsConfig } from '@Engine/Domains/Controls';
 import type { ILightConfig } from '@Engine/Domains/Light';
 import type { ISceneConfig } from '@Engine/Domains/Scene';
 
-import type { CommonTags } from '@/Engine/Domains/Abstract';
+import type { CommonTag } from '@/Engine/Domains/Abstract';
 import type { LevelTag } from '@/Engine/Domains/Level/Constants';
 
 export type ILevelConfig = Readonly<{
@@ -14,5 +14,5 @@ export type ILevelConfig = Readonly<{
   cameras: ReadonlyArray<ICameraConfig>;
   lights: ReadonlyArray<ILightConfig>;
   controls: ReadonlyArray<IControlsConfig>;
-  tags: ReadonlyArray<LevelTag | CommonTags | string>;
+  tags: ReadonlyArray<LevelTag | CommonTag | string>;
 }>;

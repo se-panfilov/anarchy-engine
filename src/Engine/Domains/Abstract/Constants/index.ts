@@ -1,4 +1,4 @@
-export * from './CommonTags';
+export * from './CommonTag';
 export * from './FactoryType';
 export * from './WatcherTag';
 export * from './WatcherType';

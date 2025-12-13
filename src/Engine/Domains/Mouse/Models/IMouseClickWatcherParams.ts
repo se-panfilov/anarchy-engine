@@ -1,8 +1,8 @@
 import type { IGlobalContainerDecorator } from '@Engine/Domains/Global';
 
-import type { CommonTags, WatcherTag } from '@/Engine/Domains/Abstract';
+import type { CommonTag, WatcherTag } from '@/Engine/Domains/Abstract';
 
 export type IMouseClickWatcherParams = Readonly<{
   container: IGlobalContainerDecorator;
-  tags?: ReadonlyArray<WatcherTag | CommonTags | string>;
+  tags?: ReadonlyArray<WatcherTag | CommonTag | string>;
 }>;
