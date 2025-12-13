@@ -2,6 +2,7 @@ import Ajv from 'ajv';
 
 import type { TAbstractResourceConfig } from '@/Engine/Abstract';
 import type { TActorConfig } from '@/Engine/Actor';
+import type { TAnyAudioConfig, TAudioResourceConfig } from '@/Engine/Audio';
 import type { TCameraConfig } from '@/Engine/Camera';
 import type { TControlsConfig } from '@/Engine/Controls';
 import type { TWithNameOptional, TWithTags } from '@/Engine/Mixins';
@@ -37,8 +38,8 @@ function validateJsonSchema(config: TSpaceConfig): TSchemaValidationResult {
 //  Maybe split resource and entities validation
 //  Also extract utils functions to a separate file
 function validateData({ name, version, scenes, resources, entities, tags }: TSpaceConfig): TSchemaValidationResult {
-  const { models3d: models3dResources, envMaps, materials, textures } = resources;
-  const { actors, cameras, spatialGrids, controls, intersections, lights, models3d: models3dEntities, fogs, texts, physics } = entities;
+  const { models3d: models3dResources, audio: audioResources, envMaps, materials, textures } = resources;
+  const { actors, audio, cameras, spatialGrids, controls, intersections, lights, models3d: models3dEntities, fogs, texts, physics } = entities;
 
   let errors: ReadonlyArray<string> = [];
 
@@ -101,6 +102,7 @@ function validateData({ name, version, scenes, resources, entities, tags }: TSpa
   //Resources
   const isAllActorsHasModel3d: boolean = validateAllActorsHasModel3d(actors, models3dEntities);
   const isAllModel3dEntityHasValidResource: boolean = validateAllModel3dEntityHasValidResource(models3dEntities, models3dResources);
+  const isAllAudioEntityHasValidResource: boolean = validateAllAudioEntityHasValidResource(audio, audioResources);
 
   //Adding errors
   if (isSupportedVersion) errors = [...errors, `Unsupported schema's version(${version}). Supported version is: ${SpaceSchemaVersion.V2}`];
@@ -154,6 +156,7 @@ function validateData({ name, version, scenes, resources, entities, tags }: TSpa
   //Resources
   if (!isAllActorsHasModel3d) errors = [...errors, 'Not every actor has a defined model3dSource (check actors model3dSource against models3d entities)'];
   if (!isAllModel3dEntityHasValidResource) errors = [...errors, 'Not every model3d entity has a valid resource (must be a primitive or an url)'];
+  if (!isAllAudioEntityHasValidResource) errors = [...errors, 'Not every audio entity has a valid resource (must be a primitive or an url)'];
 
   return { isValid: errors.length === 0, errors };
 }
@@ -195,10 +198,16 @@ function validateAllActorsHasModel3d(actors: ReadonlyArray<TActorConfig>, models
 }
 
 // TODO would be nice to check all the resources and relations (e.g. materials)
-function validateAllModel3dEntityHasValidResource(models3dEntities: ReadonlyArray<TModel3dConfig>, models3dResources: ReadonlyArray<TModel3dResourceConfig>): boolean {
-  return models3dEntities.every((models3d: TModel3dConfig): boolean => {
-    if (isPrimitiveModel3dSource(models3d.model3dSource)) return true;
-    return models3dResources.some((resource: TModel3dResourceConfig): boolean => resource.name === models3d.model3dSource);
+function validateAllModel3dEntityHasValidResource(entities: ReadonlyArray<TModel3dConfig>, resources: ReadonlyArray<TModel3dResourceConfig>): boolean {
+  return entities.every((entity: TModel3dConfig): boolean => {
+    if (isPrimitiveModel3dSource(entity.model3dSource)) return true;
+    return resources.some((resource: TModel3dResourceConfig): boolean => resource.name === entity.model3dSource);
+  });
+}
+
+function validateAllAudioEntityHasValidResource(entities: ReadonlyArray<TAnyAudioConfig>, resources: ReadonlyArray<TAudioResourceConfig>): boolean {
+  return entities.every((entity: TAnyAudioConfig): boolean => {
+    return resources.some((resource: TAudioResourceConfig): boolean => resource.name === entity.audioSource);
   });
 }
 
