@@ -1,9 +1,9 @@
 import type { Subscription } from 'rxjs';
 import { Raycaster } from 'three';
 
-import type { IAbstractWatcher } from '@/Engine/Abstract';
+import type { IAbstractWatcher, IWithWrapperIdEntity } from '@/Engine/Abstract';
 import { AbstractWatcher, WatcherType } from '@/Engine/Abstract';
-import type { IActorWrapperAsync } from '@/Engine/Actor';
+import type { IActorWrapperAsync, IMesh } from '@/Engine/Actor';
 import type { ICameraWrapper } from '@/Engine/Camera';
 import type { IIntersectionEvent, IIntersectionsWatcher, IIntersectionsWatcherParams } from '@/Engine/Intersections/Models';
 import type { IMousePosition } from '@/Engine/Mouse';
@@ -13,15 +13,17 @@ import { getNormalizedMousePosition, isDefined, isNotDefined, unWrapEntities } f
 export function IntersectionsWatcher({ mousePosWatcher, tags = [] }: IIntersectionsWatcherParams): IIntersectionsWatcher {
   const abstractWatcher: IAbstractWatcher<IIntersectionEvent> = AbstractWatcher(WatcherType.IntersectionWatcher, tags);
   let raycaster: Readonly<Raycaster> | undefined = new Raycaster();
-  let actors: ReadonlyArray<ISceneObject> = [];
+  let actors: ReadonlyArray<IWithWrapperIdEntity<IMesh>> = [];
 
   function addActors(actorsWrappers: ReadonlyArray<IActorWrapperAsync>): void {
-    actors = unWrapEntities(actorsWrappers);
+    actors = unWrapEntities(actorsWrappers) as ReadonlyArray<IWithWrapperIdEntity<IMesh>>;
   }
 
-  function start(actorsWrappers: ReadonlyArray<IActorWrapperAsync>, camera: Readonly<ICameraWrapper>): IIntersectionsWatcher {
-    actors = unWrapEntities(actorsWrappers);
-    console.log('actors', actors);
+  function removeActors(actorsWrapperIds: ReadonlyArray<string>): void {
+    actors = actors.filter((actor: IWithWrapperIdEntity<IMesh>): boolean => !actorsWrapperIds.includes(actor.userData.wrapperId));
+  }
+
+  function start(camera: Readonly<ICameraWrapper>): IIntersectionsWatcher {
     mousePosWatcher.value$.subscribe((position: IMousePosition): void => {
       const intersection: IIntersectionEvent | undefined = getIntersection(position, camera, [...actors]);
       if (isDefined(intersection)) abstractWatcher.value$.next(intersection);
@@ -48,6 +50,8 @@ export function IntersectionsWatcher({ mousePosWatcher, tags = [] }: IIntersecti
 
   const result: IIntersectionsWatcher = {
     ...abstractWatcher,
+    addActors,
+    removeActors,
     start,
     stop
   };

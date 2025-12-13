@@ -6,4 +6,4 @@ import type { IWithTexturesActor } from '@/Engine/Texture';
 
 import type { IMesh } from './IMesh';
 
-export type IActorWrapper = IWrapper<IMesh> & IMovable3dXYZ & IRotatable & IScalable & IWithObject3d & IWithMaterialActor & IWithTexturesActor & IWithTags<ActorTag>;
+export type IActorWrapperAsync = IWrapper<IMesh> & IMovable3dXYZ & IRotatable & IScalable & IWithObject3d & IWithMaterialActor & IWithTexturesActor & IWithTags<ActorTag>;

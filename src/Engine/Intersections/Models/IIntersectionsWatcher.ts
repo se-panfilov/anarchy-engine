@@ -6,6 +6,8 @@ import type { IIntersectionEvent } from './IIntersectionEvent';
 
 export type IIntersectionsWatcher = Omit<IWatcher<IIntersectionEvent>, 'start' | 'stop'> &
   Readonly<{
-    start: (actors: ReadonlyArray<IActorWrapperAsync>, camera: Readonly<ICameraWrapper>) => IIntersectionsWatcher;
+    start: (camera: Readonly<ICameraWrapper>) => IIntersectionsWatcher;
     stop: () => IIntersectionsWatcher;
+    addActors: (actorsWrappers: ReadonlyArray<IActorWrapperAsync>) => void;
+    removeActors: (actorsWrapperIds: ReadonlyArray<string>) => void;
   }>;

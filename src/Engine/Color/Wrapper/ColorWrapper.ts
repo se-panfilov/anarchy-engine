@@ -6,5 +6,6 @@ import { isColorWrapper } from '@/Engine/Utils';
 
 export function ColorWrapper(color: IColorParams): IColorWrapper {
   const entity: IColor = new Color(isColorWrapper(color) ? color.entity : color);
+  entity;
   return { ...AbstractWrapper(entity, WrapperType.Color), entity };
 }

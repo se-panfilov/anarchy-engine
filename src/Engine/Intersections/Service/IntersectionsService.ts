@@ -14,13 +14,23 @@ function IntersectionsService(): IIntersectionsService {
     intersectionsWatcherRegistry.add(intersectionsWatcher);
   });
 
-  function start(actors: ReadonlyArray<IActorWrapperAsync>, camera: Readonly<ICameraWrapper>): IIntersectionsWatcher {
-    const intersectionsWatcher: IIntersectionsWatcher = intersectionsWatcherFactory.create({ mousePosWatcher: ambientContext.mousePositionWatcher });
-    intersectionsWatcher.start(actors, camera);
+  function buildWatcher(camera: Readonly<ICameraWrapper>): IIntersectionsWatcher {
+    return intersectionsWatcherFactory.create({ mousePosWatcher: ambientContext.mousePositionWatcher });
+  }
+
+  function addActorsToWatcher(watcherId: string, actors: ReadonlyArray<IActorWrapperAsync>): void {
+    // TODO (S.Panfilov) implement
+    // const watcher: IIntersectionsWatcher | undefined = intersectionsWatcherRegistry.get(watcherId);
+    // if (watcher) watcher.addActors(actors);
+  }
+
+  function start(watcherId: string): IIntersectionsWatcher {
+    intersectionsWatcher.start(camera);
     return intersectionsWatcher;
   }
 
   return {
+    addActorsToWatcher,
     start
   };
 }
