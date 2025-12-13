@@ -27,7 +27,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
   // const { actorService } = space.services;
 
   function init(): void {
-    // const actorW: TActorWrapper = actorService.create(params);
+    // const actor: TActorWrapper = actorService.create(params);
   }
 
   // TODO debug light

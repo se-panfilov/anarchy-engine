@@ -47,26 +47,26 @@ export function SpatialGridWrapper(params: TSpatialGridParams): TSpatialGridWrap
     return box;
   }
 
-  function registerActorToGrid(actorW: TActor, gridW: TSpatialGridWrapper): void {
-    actorW.spatial.setGrid(gridW);
+  function registerActorToGrid(actor: TActor, gridW: TSpatialGridWrapper): void {
+    actor.spatial.setGrid(gridW);
   }
 
-  function addActor(this: TSpatialGridWrapper, actorW: TActor): void | never {
-    if (isNotDefined(actorW.spatial.getGrid())) registerActorToGrid(actorW, this);
+  function addActor(this: TSpatialGridWrapper, actor: TActor): void | never {
+    if (isNotDefined(actor.spatial.getGrid())) registerActorToGrid(actor, this);
 
-    const boundingBox: Box3 = getBoundingBox(actorW.entity.getRawModel3d());
+    const boundingBox: Box3 = getBoundingBox(actor.entity.getRawModel3d());
     const min: Vector3 = boundingBox.min;
     const max: Vector3 = boundingBox.max;
 
     const cells: ReadonlyArray<TSpatialCellWrapper> = entity.search({ minX: min.x, minY: min.z, maxX: max.x, maxY: max.z });
     // eslint-disable-next-line functional/no-loop-statements
     for (const cell of cells) {
-      if (isNotDefined(cell.findObject(actorW.id))) {
-        cell.addObject(actorW);
+      if (isNotDefined(cell.findObject(actor.id))) {
+        cell.addObject(actor);
         update$.next(cell);
       }
     }
-    actorW.spatial.setSpatialCells(cells);
+    actor.spatial.setSpatialCells(cells);
   }
 
   const getAllCells = (): ReadonlyArray<TSpatialCellWrapper> => entity.all();
@@ -89,16 +89,16 @@ export function SpatialGridWrapper(params: TSpatialGridParams): TSpatialGridWrap
     return getAllInCell(x, z);
   }
 
-  function removeFromGrid(actorW: TActor): void | never {
-    const cells: ReadonlyArray<TSpatialCellWrapper> = actorW.spatial.getSpatialCells();
+  function removeFromGrid(actor: TActor): void | never {
+    const cells: ReadonlyArray<TSpatialCellWrapper> = actor.spatial.getSpatialCells();
 
     // eslint-disable-next-line functional/no-loop-statements
     for (const cell of cells) {
-      cell.removeObject(actorW);
+      cell.removeObject(actor);
       update$.next(cell);
     }
 
-    actorW.spatial.resetSpatialCells();
+    actor.spatial.resetSpatialCells();
   }
 
   function clearGrid(): void {
@@ -112,9 +112,9 @@ export function SpatialGridWrapper(params: TSpatialGridParams): TSpatialGridWrap
     // });
   }
 
-  function updateActorCell(this: TSpatialGridWrapper, actorW: TActor): void {
-    removeFromGrid(actorW);
-    addActor.call(this, actorW);
+  function updateActorCell(this: TSpatialGridWrapper, actor: TActor): void {
+    removeFromGrid(actor);
+    addActor.call(this, actor);
   }
 
   const findCellsForPoint = (x: number, z: number): ReadonlyArray<TSpatialCellWrapper> => entity.search({ minX: x, minY: z, maxX: x, maxY: z });
@@ -123,8 +123,8 @@ export function SpatialGridWrapper(params: TSpatialGridParams): TSpatialGridWrap
     entity.search({ minX, minY: minZ, maxX, maxY: maxZ });
 
   // TODO test this function
-  function findCellsByActorBox(actorW: TActor): ReadonlyArray<TSpatialCellWrapper> {
-    const actorBox: Box3 = getBoundingBox(actorW.entity.getRawModel3d());
+  function findCellsByActorBox(actor: TActor): ReadonlyArray<TSpatialCellWrapper> {
+    const actorBox: Box3 = getBoundingBox(actor.entity.getRawModel3d());
     return findCellsForBox({ minX: actorBox.min.x, minZ: actorBox.min.z, maxX: actorBox.max.x, maxZ: actorBox.max.z });
   }
 
@@ -163,8 +163,8 @@ export function SpatialGridWrapper(params: TSpatialGridParams): TSpatialGridWrap
 
     const actorsWrapperList: ReadonlyArray<TActor> = getAllInCell(x, z);
 
-    actorsWrapperList.forEach((actorW: TActor): void => {
-      const outline: Line2 = createOutline(actorW, color, 0.1);
+    actorsWrapperList.forEach((actor: TActor): void => {
+      const outline: Line2 = createOutline(actor, color, 0.1);
       sceneW.entity.add(outline);
       // eslint-disable-next-line functional/immutable-data
       _debugOutlines.push(outline);

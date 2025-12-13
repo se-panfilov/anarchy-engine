@@ -15,17 +15,17 @@ export function withCollisions(params: TActorParams, collisionsService: TCollisi
   let filterFn: ((o: TActor) => boolean) | undefined = undefined;
 
   // TODO test this code (should work)
-  function getActorsToCheck(actorW: TActor): ReadonlyArray<TActor> {
-    const cells: ReadonlyArray<TSpatialCellWrapper> = actorW.spatial.getSpatialCells();
+  function getActorsToCheck(actor: TActor): ReadonlyArray<TActor> {
+    const cells: ReadonlyArray<TSpatialCellWrapper> = actor.spatial.getSpatialCells();
     if (cells.length > 0) {
-      const objects = actorW.spatial.getSpatialCells().flatMap((cell: TSpatialCellWrapper): ReadonlyArray<TActor> => cell.getObjects());
+      const objects = actor.spatial.getSpatialCells().flatMap((cell: TSpatialCellWrapper): ReadonlyArray<TActor> => cell.getObjects());
       return isDefined(filterFn) ? objects.filter(filterFn) : objects;
     }
     return [];
     // TODO this code is probably an extra overcomplicated corner case)
     // const grid: TSpatialGridWrapper | undefined = spatialGridService.getRegistry().findByName(gridName);
-    // if (isNotDefined(grid)) throw new Error(`Cannot check collisions for actor (id: "${actorW.id}", name: "${actorW.name}"): actor doesn't belong to spatial grid, and no grid name with name "${gridName}" exists`);
-    // return grid.findCellsByActorBox(actorW).flatMap((cell: TSpatialCellWrapper): ReadonlyArray<TActorWrapperAsync> => cell.getObjects());
+    // if (isNotDefined(grid)) throw new Error(`Cannot check collisions for actor (id: "${actor.id}", name: "${actor.name}"): actor doesn't belong to spatial grid, and no grid name with name "${gridName}" exists`);
+    // return grid.findCellsByActorBox(actor).flatMap((cell: TSpatialCellWrapper): ReadonlyArray<TActorWrapperAsync> => cell.getObjects());
   }
 
   return {
@@ -33,13 +33,13 @@ export function withCollisions(params: TActorParams, collisionsService: TCollisi
       data: {
         updatePriority: params.collisions?.updatePriority ?? CollisionsUpdatePriority.LOW
       },
-      start(actorW: TActor): void {
+      start(actor: TActor): void {
         const collisionsInterpolationLengthMultiplier: number = 4;
         collisionsLoopServiceSub$ = collisionsLoopService.tick$.pipe(filter(() => _isAutoUpdate)).subscribe(({ delta, priority }): void => {
           if (priority < this.getCollisionsUpdatePriority()) return;
 
           // TODO should be possible to check collisions against another grid
-          const collision: TCollisionCheckResult | undefined = collisionsService.checkCollisions(actorW, getActorsToCheck(actorW), collisionsInterpolationLengthMultiplier, delta);
+          const collision: TCollisionCheckResult | undefined = collisionsService.checkCollisions(actor, getActorsToCheck(actor), collisionsInterpolationLengthMultiplier, delta);
           if (isDefined(collision)) value$.next(collision);
         });
       },
@@ -53,7 +53,7 @@ export function withCollisions(params: TActorParams, collisionsService: TCollisi
         // eslint-disable-next-line functional/immutable-data
         (this.data as TWriteable<TCollisionsData>).updatePriority = value;
       },
-      setCollisionsFilterFn(fn: (actorW: TActor) => boolean): void {
+      setCollisionsFilterFn(fn: (actor: TActor) => boolean): void {
         filterFn = fn;
       },
       getCollisionsUpdatePriority(): CollisionsUpdatePriority {

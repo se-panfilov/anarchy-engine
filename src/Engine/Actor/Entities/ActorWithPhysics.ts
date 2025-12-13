@@ -18,8 +18,8 @@ export function ActorWithPhysics(
   additionalParams?: Record<string, any>
 ): TActorWithPhysics | never {
   if (isNotDefined(params.physics)) throw new Error('Cannot create Actor with Physics: physics params are missing');
-  const actorW: TActor = Actor(params, deps);
-  const actorPhysicalW: TActorWithPhysics = makeWrapperWithPhysicsBody(actorW, params.physics, deps.physicsBodyService, customCreatePhysicsBodyFn, additionalParams);
+  const actor: TActor = Actor(params, deps);
+  const actorPhysicalW: TActorWithPhysics = makeWrapperWithPhysicsBody(actor, params.physics, deps.physicsBodyService, customCreatePhysicsBodyFn, additionalParams);
 
   const sub$: Subscription = deps.physicsLoopService.tick$.subscribe((): void => {
     updateActorByPhysicalBody(actorPhysicalW);

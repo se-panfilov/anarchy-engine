@@ -9,8 +9,8 @@ import type { TBvhOptions } from './TBvhOptions';
 export type TBvhService = Readonly<{
   computeBVHBoundsTree: (geometry: BufferGeometry, options?: TBvhOptions) => MeshBVH;
   disposeBVHBoundsTree: (geometry: BufferGeometry) => void;
-  raycastWithBvh: (actorW: TActor, raycaster: Raycaster, intersects: Array<Intersection>) => void;
-  createBvhForActor: (actorW: TActor, options?: TBvhOptions) => void;
-  _debugVisualizeBvhForActor: (actorW: TActor, sceneW: TSceneWrapper, depth?: number) => void;
+  raycastWithBvh: (actor: TActor, raycaster: Raycaster, intersects: Array<Intersection>) => void;
+  createBvhForActor: (actor: TActor, options?: TBvhOptions) => void;
+  _debugVisualizeBvhForActor: (actor: TActor, sceneW: TSceneWrapper, depth?: number) => void;
   _debugVisualizeBvhForScene: (sceneW: TSceneWrapper, depth?: number) => void;
 }>;

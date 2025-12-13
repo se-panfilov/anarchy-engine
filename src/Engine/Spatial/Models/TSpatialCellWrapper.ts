@@ -13,6 +13,6 @@ export type TSpatialCellWrapper = TWrapper<TSpatialCell> &
     findObject: (id: string) => TActor | undefined;
     addObject: (object: TActor) => void;
     getObjects: () => ReadonlyArray<TActor>;
-    removeObject: (actorW: TActor) => void;
+    removeObject: (actor: TActor) => void;
     update$: Observable<TSpatialCell>;
   }>;

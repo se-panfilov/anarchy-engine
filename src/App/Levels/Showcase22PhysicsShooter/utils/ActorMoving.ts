@@ -8,7 +8,7 @@ import { meters } from '@/Engine/Measurements/Utils';
 type TMoveKeysState = { Forward: boolean; Left: boolean; Right: boolean; Backward: boolean };
 type TIntersectionDirection = Readonly<{ azimuth: TRadians; elevation: TRadians }>;
 
-export function startMoveActorWithKeyboard(actorW: TActor, keyboardService: TKeyboardService, mouseLineIntersectionsWatcher: TIntersectionsWatcher): void {
+export function startMoveActorWithKeyboard(actor: TActor, keyboardService: TKeyboardService, mouseLineIntersectionsWatcher: TIntersectionsWatcher): void {
   const keyStates$: BehaviorSubject<TMoveKeysState> = new BehaviorSubject<TMoveKeysState>({ Forward: false, Left: false, Right: false, Backward: false });
   const intersectionDirection$: Subject<TIntersectionDirection> = new Subject<TIntersectionDirection>();
 
@@ -23,14 +23,14 @@ export function startMoveActorWithKeyboard(actorW: TActor, keyboardService: TKey
   keyboardService.onKey(KeyCode.D).released$.subscribe((): void => keyStates$.next({ ...keyStates$.value, Right: false }));
 
   mouseLineIntersectionsWatcher.value$
-    .pipe(map((intersection: TIntersectionEvent) => getMouseAzimuthAndElevation(intersection.point, actorW.getPosition())))
+    .pipe(map((intersection: TIntersectionEvent) => getMouseAzimuthAndElevation(intersection.point, actor.getPosition())))
     .subscribe((value: TIntersectionDirection): void => intersectionDirection$.next(value));
 
   combineLatest([keyStates$, intersectionDirection$]).subscribe(([keyStates, { azimuth }]: [TMoveKeysState, TIntersectionDirection]): void => {
-    actorW.kinematic.setLinearSpeed(getActorMoveSpeed(keyStates, 5, 4, 3));
-    actorW.kinematic.setLinearAzimuthRad(azimuth + getActorMoveAzimuthRad(keyStates));
-    // actorW.kinematic.setAngularSpeed(5);
-    // actorW.kinematic.setAngularAzimuthRad(baseAzimuthRad);
+    actor.kinematic.setLinearSpeed(getActorMoveSpeed(keyStates, 5, 4, 3));
+    actor.kinematic.setLinearAzimuthRad(azimuth + getActorMoveAzimuthRad(keyStates));
+    // actor.kinematic.setAngularSpeed(5);
+    // actor.kinematic.setAngularAzimuthRad(baseAzimuthRad);
   });
 }
 
@@ -90,12 +90,12 @@ function getActorMoveAzimuthRad(keyStates: TMoveKeysState): TRadians {
   return 0;
 }
 
-export function moveActorBounce(actorW: TActor, speedMPS: number, azimuthDeg: number, duration: number): void {
-  actorW.kinematic.setAutoUpdate(true);
-  actorW.kinematic.setLinearSpeed(meters(speedMPS));
-  actorW.kinematic.setLinearAzimuthDeg(azimuthDeg);
+export function moveActorBounce(actor: TActor, speedMPS: number, azimuthDeg: number, duration: number): void {
+  actor.kinematic.setAutoUpdate(true);
+  actor.kinematic.setLinearSpeed(meters(speedMPS));
+  actor.kinematic.setLinearAzimuthDeg(azimuthDeg);
   // TODO setTimout/setInterval is not a good idea (cause the game might be "on pause", e.g. when tab is not active)
   setInterval((): void => {
-    actorW.kinematic.setLinearAzimuthDeg(actorW.kinematic.getLinearAzimuthDeg() + 180);
+    actor.kinematic.setLinearAzimuthDeg(actor.kinematic.getLinearAzimuthDeg() + 180);
   }, duration);
 }

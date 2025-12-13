@@ -12,17 +12,17 @@ import type { TSpatialGrid } from './TSpatialGrid';
 export type TSpatialGridWrapper = TWrapper<TSpatialGrid> &
   TDestroyable &
   Readonly<{
-    addActor: (actorW: TActor) => void | never;
+    addActor: (actor: TActor) => void | never;
     getAllCells: () => ReadonlyArray<TSpatialCellWrapper>;
     getAllInCell: (x: number, z: number) => ReadonlyArray<TActor>;
     getAllInCellByCellId: (cellId: TSpatialCellId) => ReadonlyArray<TActor>;
     findCellsForPoint: (x: number, z: number) => ReadonlyArray<TSpatialCellWrapper>;
     findCellsForBox: (box: Readonly<{ minX: number; minZ: number; maxX: number; maxZ: number }>) => ReadonlyArray<TSpatialCellWrapper>;
-    findCellsByActorBox: (actorW: TActor) => ReadonlyArray<TSpatialCellWrapper>;
+    findCellsByActorBox: (actor: TActor) => ReadonlyArray<TSpatialCellWrapper>;
     findCellById: (id: TSpatialCellId) => TSpatialCellWrapper | undefined;
-    removeFromGrid: (actorW: TActor) => void;
+    removeFromGrid: (actor: TActor) => void;
     clearGrid: () => void;
-    updateActorCell: (actorW: TActor) => void;
+    updateActorCell: (actor: TActor) => void;
     _debugVisualizeCells: (sceneW: TSceneWrapper, color?: ColorRepresentation, wireframe?: boolean) => void;
     _debugHighlightObjects: (sceneW: TSceneWrapper, x: number, z: number) => void;
     update$: Observable<TSpatialCellWrapper>;

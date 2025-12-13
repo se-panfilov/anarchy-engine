@@ -96,7 +96,7 @@ export function getBulletsPool(
 }
 
 export function BulletAsync(params: TActorParams, actorService: TActorService): TBullet {
-  const actorW: TActor = actorService.create(params);
+  const actor: TActor = actorService.create(params);
   let distanceTraveled: number = 0;
   const maxDistance: number = 50;
   let active: boolean = false;
@@ -105,57 +105,57 @@ export function BulletAsync(params: TActorParams, actorService: TActorService): 
   const getDistanceTraveled = (): number => distanceTraveled;
 
   function setActive(act: boolean): void {
-    actorW.collisions.setAutoUpdate(act);
+    actor.collisions.setAutoUpdate(act);
     // eslint-disable-next-line functional/immutable-data
-    // (actorW.entity.getRawModel3d() as Mesh).visible = true;
+    // (actor.entity.getRawModel3d() as Mesh).visible = true;
     active = act;
   }
 
   const isActive = (): boolean => active;
 
-  actorW.collisions.setAutoUpdate(false);
+  actor.collisions.setAutoUpdate(false);
 
   function reset(): void {
-    actorW.setPosition(new Vector3(0, 0, 0));
-    actorW.kinematic.setLinearAzimuthRad(0);
-    actorW.kinematic.setLinearElevationRad(0);
-    actorW.kinematic.setLinearSpeed(0);
+    actor.setPosition(new Vector3(0, 0, 0));
+    actor.kinematic.setLinearAzimuthRad(0);
+    actor.kinematic.setLinearElevationRad(0);
+    actor.kinematic.setLinearSpeed(0);
     setDistanceTraveled(0);
     setActive(false);
     // eslint-disable-next-line functional/immutable-data
-    // (actorW.entity.getRawModel3d() as Mesh).visible = false;
+    // (actor.entity.getRawModel3d() as Mesh).visible = false;
   }
 
-  actorW.collisions.value$.subscribe(reset);
+  actor.collisions.value$.subscribe(reset);
 
   function update(delta: number): void {
     if (isActive()) {
-      const azimuthRadians: TRadians = actorW.kinematic.getLinearAzimuthRad();
-      const elevationRadians: TRadians = actorW.kinematic.getLinearElevationRad();
+      const azimuthRadians: TRadians = actor.kinematic.getLinearAzimuthRad();
+      const elevationRadians: TRadians = actor.kinematic.getLinearElevationRad();
       const vectorDirection: Vector3 = new Vector3(Math.cos(elevationRadians) * Math.cos(azimuthRadians), Math.sin(elevationRadians), Math.cos(elevationRadians) * Math.sin(azimuthRadians));
-      actorW.kinematic.setLinearDirection(vectorDirection);
+      actor.kinematic.setLinearDirection(vectorDirection);
 
-      setDistanceTraveled(getDistanceTraveled() + mpsSpeed(actorW.kinematic.getLinearSpeed(), delta));
+      setDistanceTraveled(getDistanceTraveled() + mpsSpeed(actor.kinematic.getLinearSpeed(), delta));
       if (getDistanceTraveled() > maxDistance) reset();
     }
   }
 
-  actorW.collisions.setCollisionsFilterFn((actorW: TActor): boolean => !actorW.getTags().includes(BULLET_TAG));
+  actor.collisions.setCollisionsFilterFn((actor: TActor): boolean => !actor.getTags().includes(BULLET_TAG));
 
   return {
-    ...actorW,
+    ...actor,
     setDistanceTraveled,
     getDistanceTraveled,
     setActive,
     isActive,
     reset,
     update,
-    hit$: actorW.collisions.value$
+    hit$: actor.collisions.value$
   };
 }
 
 export function shootRapidFire(
-  actorW: TActor,
+  actor: TActor,
   mouseService: TMouseService,
   from: Readonly<{ azimuth: TRadians; elevation: TRadians }>,
   shootingParams: Readonly<{ cooldownMs: number; speed: number }>,
@@ -163,10 +163,10 @@ export function shootRapidFire(
 ): void {
   let idx: ReturnType<typeof setTimeout> | number = 0;
   mouseService.clickLeftPress$.subscribe((): void => {
-    shoot(actorW.getPosition(), from.azimuth, from.elevation, meters(shootingParams.speed), bullets);
+    shoot(actor.getPosition(), from.azimuth, from.elevation, meters(shootingParams.speed), bullets);
     // TODO setTimout/setInterval is not a good idea (cause the game might be "on pause", e.g. when tab is not active)
     idx = setInterval(() => {
-      shoot(actorW.getPosition(), from.azimuth, from.elevation, meters(shootingParams.speed), bullets);
+      shoot(actor.getPosition(), from.azimuth, from.elevation, meters(shootingParams.speed), bullets);
     }, shootingParams.cooldownMs);
   });
   mouseService.clickLeftRelease$.subscribe((): void => {
@@ -221,8 +221,8 @@ export function createHitEffect(position: Vector3, sceneW: TSceneWrapper, lightS
   }, 500);
 }
 
-export function applyExplosionImpulse(actorW: TActor, collisionPoint: Vector3, explosionForce: number): void {
-  const body: RigidBody | undefined = actorW.physicsBody?.getRigidBody();
+export function applyExplosionImpulse(actor: TActor, collisionPoint: Vector3, explosionForce: number): void {
+  const body: RigidBody | undefined = actor.physicsBody?.getRigidBody();
   if (isNotDefined(body)) return;
 
   const bodyPosition = new Vector3(body.translation().x, body.translation().y, body.translation().z);

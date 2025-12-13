@@ -8,20 +8,20 @@ export function isBodyServiceDependency(dependencies: TActorDependencies | TActo
   return isDefined((dependencies as TActorWithPhysicsDependencies).physicsBodyService);
 }
 
-export function applySpatialGrid(params: TActorParams, actorW: TActor, spatialGridService: TSpatialGridService): void {
+export function applySpatialGrid(params: TActorParams, actor: TActor, spatialGridService: TSpatialGridService): void {
   if (isNotDefined(params.spatial.grid)) return;
 
   const gridName: string | undefined = params.spatial.grid.getName();
-  if (isNotDefined(gridName)) throw new Error(`Cannot add actor (id: "${actorW.id}") to spatial grid: spatial grid name is not defined`);
+  if (isNotDefined(gridName)) throw new Error(`Cannot add actor (id: "${actor.id}") to spatial grid: spatial grid name is not defined`);
 
   const grid: TSpatialGridWrapper | undefined = spatialGridService.getRegistry().findByName(gridName);
-  if (isNotDefined(grid)) throw new Error(`Cannot add actor (id: "${actorW.id}") to spatial grid: "${gridName}", no such grid found`);
+  if (isNotDefined(grid)) throw new Error(`Cannot add actor (id: "${actor.id}") to spatial grid: "${gridName}", no such grid found`);
 
-  actorW.spatial.setGrid(grid);
-  grid.addActor(actorW);
+  actor.spatial.setGrid(grid);
+  grid.addActor(actor);
 }
 
-export function startCollisions(actorW: TActor): void {
-  if (isNotDefined(actorW.collisions) || !actorW.collisions.isAutoUpdate()) return;
-  actorW.collisions.start(actorW);
+export function startCollisions(actor: TActor): void {
+  if (isNotDefined(actor.collisions) || !actor.collisions.isAutoUpdate()) return;
+  actor.collisions.start(actor);
 }

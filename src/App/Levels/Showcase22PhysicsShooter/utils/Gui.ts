@@ -48,7 +48,7 @@ export function initGui(
     // eslint-disable-next-line functional/immutable-data
     cell.actors = grid
       .getAllInCell(intersection.point.x, intersection.point.z)
-      .map((actorW: TActor) => actorW.name)
+      .map((actor: TActor) => actor.name)
       .join(', ');
   });
 

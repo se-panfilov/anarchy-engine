@@ -9,19 +9,19 @@ import type { TSceneWrapper } from '@/Engine/Scene';
 export function BvhService(): TBvhService {
   const computeBVHBoundsTree = (geometry: BufferGeometry, options?: TBvhOptions): MeshBVH => computeBoundsTree.call(geometry, options);
   const disposeBVHBoundsTree = (geometry: BufferGeometry): void => disposeBoundsTree.call(geometry);
-  function raycastWithBvh(actorW: TActor, raycaster: Raycaster, intersects: Array<Intersection>): void {
-    processEntity(actorW.entity.getRawModel3d(), (mesh) => {
+  function raycastWithBvh(actor: TActor, raycaster: Raycaster, intersects: Array<Intersection>): void {
+    processEntity(actor.entity.getRawModel3d(), (mesh) => {
       acceleratedRaycast.call(mesh, raycaster, intersects);
     });
   }
 
-  function createBvhForActor(actorW: TActor, options?: TBvhOptions): void {
-    processEntity(actorW.entity.getRawModel3d(), (mesh: Mesh) => computeBVHBoundsTree(mesh.geometry, options));
+  function createBvhForActor(actor: TActor, options?: TBvhOptions): void {
+    processEntity(actor.entity.getRawModel3d(), (mesh: Mesh) => computeBVHBoundsTree(mesh.geometry, options));
   }
 
   // this highlight is for debugging purposes only
-  function _debugVisualizeBvhForActor(actorW: TActor, sceneW: TSceneWrapper, depth: number = 10): void {
-    processEntity(actorW.entity.getRawModel3d(), (mesh: Mesh) => {
+  function _debugVisualizeBvhForActor(actor: TActor, sceneW: TSceneWrapper, depth: number = 10): void {
+    processEntity(actor.entity.getRawModel3d(), (mesh: Mesh) => {
       const bvhHelper: MeshBVHHelper = new MeshBVHHelper(mesh, depth);
       sceneW.entity.add(bvhHelper);
     });

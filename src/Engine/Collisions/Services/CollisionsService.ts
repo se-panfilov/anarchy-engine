@@ -10,10 +10,10 @@ export function CollisionsService(): TCollisionsService {
 
   // The bigger "interpolationLengthMultiplier" then less chance the bullet won't fly through the target without a collision registration. But the too big value might lead to false positives registrations
   // i.g. bigger "interpolationLengthMultiplier" (2, 4, etc.) is safer (but better test it first)
-  function checkCollisions(actorW: TActor, actorsToCheck: ReadonlyArray<TActor>, interpolationLengthMultiplier: number, delta: number): TCollisionCheckResult | undefined {
-    const currentPosition = actorW.getPosition().clone();
-    const direction = actorW.kinematic.getLinearDirection().normalize();
-    const speed = actorW.kinematic.getLinearSpeed();
+  function checkCollisions(actor: TActor, actorsToCheck: ReadonlyArray<TActor>, interpolationLengthMultiplier: number, delta: number): TCollisionCheckResult | undefined {
+    const currentPosition = actor.getPosition().clone();
+    const direction = actor.kinematic.getLinearDirection().normalize();
+    const speed = actor.kinematic.getLinearSpeed();
 
     const extendedDistance = speed * delta * interpolationLengthMultiplier;
     const previousPosition = currentPosition.clone().sub(direction.multiplyScalar(extendedDistance));
@@ -27,7 +27,7 @@ export function CollisionsService(): TCollisionsService {
 
     // eslint-disable-next-line functional/no-loop-statements
     for (const object of actorsToCheck) {
-      if (object.id === actorW.id) continue;
+      if (object.id === actor.id) continue;
 
       const intersects = raycaster.intersectObject(object.entity.getRawModel3d(), true);
       if (intersects.length > 0) {

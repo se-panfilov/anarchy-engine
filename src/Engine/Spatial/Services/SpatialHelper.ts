@@ -21,8 +21,8 @@ export function createLine(color: ColorRepresentation, width: number, positions:
   return new Line2(geometry, material);
 }
 
-export function createOutline(actorW: TActor, color: ColorRepresentation, lineWidth: number): Line2 {
-  const boundingBox = new Box3().setFromObject(actorW.entity.getRawModel3d());
+export function createOutline(actor: TActor, color: ColorRepresentation, lineWidth: number): Line2 {
+  const boundingBox = new Box3().setFromObject(actor.entity.getRawModel3d());
   const min = boundingBox.min;
   const max = boundingBox.max;
   const positions = getBoxEdges(min, max);

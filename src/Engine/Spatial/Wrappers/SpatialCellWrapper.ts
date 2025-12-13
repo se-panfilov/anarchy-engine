@@ -39,9 +39,9 @@ export function SpatialCellWrapper(params: TSpatialCellParams): TSpatialCellWrap
 
   const getObjects = (): ReadonlyArray<TActor> => entity.objects;
 
-  const removeObject = (actorW: TActor): void => {
-    const index: number = getObjects().indexOf(actorW);
-    if (index === -1) throw new Error(`Cannot remove actor (id: "${actorW.id}", name: "${actorW.name}") from spatial cell (id: "${entity.id}"). Such actor is not in the cell`);
+  const removeObject = (actor: TActor): void => {
+    const index: number = getObjects().indexOf(actor);
+    if (index === -1) throw new Error(`Cannot remove actor (id: "${actor.id}", name: "${actor.name}") from spatial cell (id: "${entity.id}"). Such actor is not in the cell`);
 
     // eslint-disable-next-line functional/immutable-data
     entity.objects.splice(index, 1);
