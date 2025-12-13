@@ -1,5 +1,6 @@
 import type { IGlobalContainerDecorator } from '@Engine/Global';
-import type { IMouseClicksWatcher, IMousePositionWatcher, IScreenSizeWatcher } from '@Engine/Watchers';
+import type { IMouseClicksWatcher, IScreenSizeWatcher } from '@Engine/Watchers';
+import type { IMousePositionWatcher } from '@Engine/Domains/Mouse';
 
 export type IAmbientContext = Readonly<{
   container: IGlobalContainerDecorator;
