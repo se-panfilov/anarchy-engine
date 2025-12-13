@@ -42,8 +42,8 @@ export function RendererWrapper(params: IRendererParams, screenSizeWatcher: Read
   // eslint-disable-next-line functional/prefer-immutable-types
   function setValues(entity: IWriteable<WebGLRenderer>, { width, height, ratio }: IScreenSizeValues): void {
     if (isNotDefined(entity)) return;
-    entity.setSize(width, height);
-    entity.setPixelRatio(Math.min(ratio, maxPixelRatio));
+    accessors.setSize(width, height);
+    accessors.setPixelRatio(ratio, maxPixelRatio);
   }
 
   //init with the values which came before the start of the subscription
