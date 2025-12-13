@@ -25,14 +25,14 @@ export function createTextWrapper<T extends CSS2DObject | CSS3DObject>(params: T
   const drive: TTextTransformDrive = TextTransformDrive(params, dependencies, wrapper.id);
   const driveToTargetConnector: TDriveToTargetConnector = DriveToTargetConnector(drive, entity);
 
-  const result: TTextWrapper<T> = {
-    ...wrapper,
+  // eslint-disable-next-line functional/immutable-data
+  const result: TTextWrapper<T> = Object.assign(wrapper, {
     type,
     drive,
     ...getCssAccessors(element),
     ...withObject3d(entity),
     getElement: () => element
-  };
+  });
 
   element.setAttribute(RelatedEntityAttribute, result.id.toString());
 

@@ -5,4 +5,5 @@ import type { TSceneFactory, TSceneParams, TSceneWrapper } from '@/Engine/Scene/
 import { SceneWrapper } from '@/Engine/Scene/Wrappers';
 
 const factory: TReactiveFactory<TSceneWrapper, TSceneParams> = ReactiveFactory(FactoryType.Scene, SceneWrapper);
-export const SceneFactory = (): TSceneFactory => ({ ...factory, configToParams });
+// eslint-disable-next-line functional/immutable-data
+export const SceneFactory = (): TSceneFactory => Object.assign(factory, { configToParams });

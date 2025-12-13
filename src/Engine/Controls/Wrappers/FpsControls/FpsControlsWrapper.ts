@@ -33,8 +33,7 @@ export function FpsControlsWrapper(params: TFpsControlsParams): TFpsControlsWrap
 
   const isEnable = (): boolean => entity.enabled;
 
-  const result = {
-    ...AbstractWrapper(entity, WrapperType.Controls, params),
+  const result = Object.assign(AbstractWrapper(entity, WrapperType.Controls, params), {
     update,
     enable,
     disable,
@@ -43,7 +42,7 @@ export function FpsControlsWrapper(params: TFpsControlsParams): TFpsControlsWrap
     ...getFpsControlsAccessors(entity),
     ...withActiveMixin(),
     entity
-  };
+  });
 
   applyFpsControlsParams(result, params);
   result.enable();

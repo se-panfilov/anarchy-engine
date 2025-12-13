@@ -1,7 +1,7 @@
 import { distinctUntilChanged, identity, map, tap } from 'rxjs';
 import type { Vector2Like } from 'three';
 
-import type { TAbstractWatcherWithState } from '@/Engine/Abstract';
+import type { TAbstractWatcher, TAbstractWatcherWithState } from '@/Engine/Abstract';
 import { AbstractWatcherWithState, WatcherType } from '@/Engine/Abstract';
 import { ProtectedWatcher } from '@/Engine/Abstract/Watchers/ProtectedWatcher';
 import type { TMouseEvent, TMouseLoop, TMousePositionWatcher, TMousePositionWatcherParams } from '@/Engine/Mouse/Models';
@@ -49,14 +49,13 @@ export function MousePositionWatcher({ container, tags, performance }: TMousePos
     return result;
   }
 
-  const result: TMousePositionWatcher = {
-    ...ProtectedWatcher(abstractWatcher),
+  const result: TMousePositionWatcher = Object.assign(ProtectedWatcher<TAbstractWatcher<Vector2Like>, Vector2Like>(abstractWatcher), {
     getValue: (): Vector2Like => ({ ...abstractWatcher.value$.value }),
     valueNormalized$: abstractWatcher.value$.pipe(map(getNormalizedMousePosition)),
     key: containerIdTag,
     start,
     stop
-  };
+  });
 
   return result;
 }

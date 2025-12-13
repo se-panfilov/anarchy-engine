@@ -49,8 +49,7 @@ export function OrbitControlsWrapper(params: TOrbitControlsParams): TOrbitContro
     result.setTarget(position);
   }
 
-  const result = {
-    ...AbstractWrapper(entity, WrapperType.Controls, params),
+  const result = Object.assign(AbstractWrapper(entity, WrapperType.Controls, params), {
     update,
     enable,
     disable,
@@ -60,7 +59,7 @@ export function OrbitControlsWrapper(params: TOrbitControlsParams): TOrbitContro
     ...withActiveMixin(),
     moveToTargetSmoothly,
     entity
-  };
+  });
 
   applyOrbitControlsParams(result, params);
   result.enable();

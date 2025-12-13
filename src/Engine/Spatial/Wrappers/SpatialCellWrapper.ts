@@ -51,8 +51,8 @@ export function SpatialCellWrapper(params: TSpatialCellParams): TSpatialCellWrap
     update$.next(entity);
   };
 
-  return {
-    ...wrapper,
+  // eslint-disable-next-line functional/immutable-data
+  return Object.assign(wrapper, {
     name: params.name ?? entity.id,
     // eslint-disable-next-line no-restricted-syntax
     get minX(): number {
@@ -75,5 +75,5 @@ export function SpatialCellWrapper(params: TSpatialCellParams): TSpatialCellWrap
     getObjects,
     removeObject,
     update$: update$.asObservable()
-  };
+  });
 }

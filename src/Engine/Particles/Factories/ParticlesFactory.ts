@@ -5,4 +5,6 @@ import type { TParticlesFactory, TParticlesParams, TParticlesWrapper } from '@/E
 import { ParticlesWrapper } from '@/Engine/Particles/Wrappers';
 
 const factory: TReactiveFactory<TParticlesWrapper, TParticlesParams> = ReactiveFactory(FactoryType.Particles, ParticlesWrapper);
-export const ParticlesFactory = (): TParticlesFactory => ({ ...factory, configToParams });
+
+// eslint-disable-next-line functional/immutable-data
+export const ParticlesFactory = (): TParticlesFactory => Object.assign(factory, { configToParams });

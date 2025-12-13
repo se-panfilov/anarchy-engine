@@ -180,8 +180,8 @@ export function SpatialGridWrapper(params: TSpatialGridParams): TSpatialGridWrap
     });
   }
 
-  return {
-    ...wrapper,
+  // eslint-disable-next-line functional/immutable-data
+  return Object.assign(wrapper, {
     entity,
     addActor,
     getAllCells,
@@ -198,5 +198,5 @@ export function SpatialGridWrapper(params: TSpatialGridParams): TSpatialGridWrap
     updateActorCell,
     ...destroyable,
     update$: update$.asObservable()
-  };
+  });
 }

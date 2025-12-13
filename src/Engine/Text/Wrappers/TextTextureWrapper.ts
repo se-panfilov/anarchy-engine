@@ -72,14 +72,14 @@ export function createTextTextureWrapper(params: TTextParams, type: TextType, de
   const drive: TTextTransformDrive = TextTransformDrive(params, dependencies, wrapper.id);
   const driveToTargetConnector: TDriveToTargetConnector = DriveToTargetConnector(drive, entity);
 
-  const result: TTextTextureWrapper<Mesh> = {
-    ...wrapper,
+  // eslint-disable-next-line functional/immutable-data
+  const result: TTextTextureWrapper<Mesh> = Object.assign(wrapper, {
     type,
     drive,
     ...withObject3d(entity),
     getElement: () => canvas,
     setText
-  };
+  });
 
   setText(params.text);
   applyObject3dParams(result, params);

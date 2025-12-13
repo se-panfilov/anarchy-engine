@@ -17,8 +17,8 @@ export function PhysicsBody(params: TPhysicsBodyParams, { world }: TPhysicsDepen
 
   const abstract = AbstractEntity(withPhysicsBodyEntities(entities), EntityType.PhysicsBody, params);
 
-  return {
-    ...abstract,
+  // eslint-disable-next-line functional/immutable-data
+  return Object.assign(abstract, {
     setPhysicsBodyType: (type: RigidBodyTypesNames, wakeUp: boolean): void => {
       abstract.getRigidBody()?.setBodyType(RigidBodyTypesMap[type], wakeUp);
     },
@@ -32,5 +32,5 @@ export function PhysicsBody(params: TPhysicsBodyParams, { world }: TPhysicsDepen
       return result;
     },
     getPhysicsBodyShape: (): CollisionShape => params.collisionShape
-  };
+  });
 }

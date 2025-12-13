@@ -5,4 +5,5 @@ import type { TTextAnyWrapper, TTextDependencies, TTextFactory, TTextParams } fr
 import { buildTextWrapper } from '@/Engine/Text/Wrappers';
 
 const factory: TReactiveFactoryWithDependencies<TTextAnyWrapper, TTextParams, TTextDependencies> = ReactiveFactoryWithDependencies(FactoryType.Text, buildTextWrapper);
-export const TextFactory = (): TTextFactory => ({ ...factory, configToParams });
+// eslint-disable-next-line functional/immutable-data
+export const TextFactory = (): TTextFactory => Object.assign(factory, { configToParams });

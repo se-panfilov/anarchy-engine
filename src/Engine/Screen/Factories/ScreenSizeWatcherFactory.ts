@@ -4,4 +4,4 @@ import type { TScreenSizeWatcher, TScreenSizeWatcherFactory, TScreenSizeWatcherP
 import { ScreenSizeWatcher } from '@/Engine/Screen/Watchers';
 
 const factory: TReactiveFactory<TScreenSizeWatcher, TScreenSizeWatcherParams> = ReactiveFactory(FactoryType.ScreenSizeWatcher, ScreenSizeWatcher);
-export const ScreenSizeWatcherFactory = (): TScreenSizeWatcherFactory => ({ ...factory });
+export const ScreenSizeWatcherFactory = (): TScreenSizeWatcherFactory => factory;

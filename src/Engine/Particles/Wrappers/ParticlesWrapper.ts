@@ -33,8 +33,8 @@ export function ParticlesWrapper(params: TParticlesParams): TParticlesWrapper {
   const drive: TParticlesTransformDrive = ParticlesTransformDrive(params, wrapper.id);
   const driveToTargetConnector: TDriveToTargetConnector = DriveToTargetConnector(drive, entity);
 
-  const result = {
-    ...wrapper,
+  // eslint-disable-next-line functional/immutable-data
+  const result = Object.assign(wrapper, {
     drive,
     ...withObject3d(entity),
     ...withMaterialEntity,
@@ -45,7 +45,7 @@ export function ParticlesWrapper(params: TParticlesParams): TParticlesWrapper {
     setIndividualPositions,
     getIndividualPositions,
     entity
-  };
+  });
 
   applyObject3dParams(result, params);
 

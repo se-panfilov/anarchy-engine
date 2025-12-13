@@ -30,7 +30,7 @@ export function MouseClickWatcher({ container, tags = [] }: TMouseClickWatcherPa
     return result;
   }
 
-  const result: TMouseClickWatcher = Object.assign(ProtectedWatcher(abstractWatcher), {
+  const result: TMouseClickWatcher = Object.assign(ProtectedWatcher<TAbstractWatcher<TMouseWatcherEvent>, TMouseWatcherEvent>(abstractWatcher), {
     key: containerIdTag,
     start,
     stop

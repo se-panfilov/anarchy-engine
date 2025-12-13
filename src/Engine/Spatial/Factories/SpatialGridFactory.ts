@@ -5,4 +5,5 @@ import type { TSpatialGridFactory, TSpatialGridParams, TSpatialGridWrapper } fro
 import { SpatialGridWrapper } from '@/Engine/Spatial/Wrappers';
 
 const factory: TReactiveFactory<TSpatialGridWrapper, TSpatialGridParams> = ReactiveFactory(FactoryType.SpatialGrid, SpatialGridWrapper);
-export const SpatialGridFactory = (): TSpatialGridFactory => ({ ...factory, configToParams });
+// eslint-disable-next-line functional/immutable-data
+export const SpatialGridFactory = (): TSpatialGridFactory => Object.assign(factory, { configToParams });

@@ -70,7 +70,8 @@ export function RendererWrapper(params: TRendererParams, screenSizeWatcher: Read
     screenSizeWatcherSubscription.unsubscribe();
   });
 
-  const result = { ...wrapper, ...accessors, ...withActiveMixin(), entity, ...destroyable };
+  // eslint-disable-next-line functional/immutable-data
+  const result = Object.assign(wrapper, { ...accessors, ...withActiveMixin(), entity, ...destroyable });
 
   result._setActive(params.isActive, true);
 

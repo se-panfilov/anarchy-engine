@@ -6,4 +6,4 @@ import { RendererWrapper } from '@/Engine/Renderer/Wrappers';
 
 const create = (params: TRendererParams): TRendererWrapper => RendererWrapper(params, ambientContext.screenSizeWatcher);
 const factory: TReactiveFactory<TRendererWrapper, TRendererParams> = ReactiveFactory(FactoryType.Renderer, create);
-export const RendererFactory = (): TRendererFactory => ({ ...factory });
+export const RendererFactory = (): TRendererFactory => factory;

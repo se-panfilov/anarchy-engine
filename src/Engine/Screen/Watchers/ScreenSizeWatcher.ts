@@ -27,13 +27,12 @@ export function ScreenSizeWatcher({ container, tags = [] }: TScreenSizeWatcherPa
     return result;
   }
 
-  const result: TScreenSizeWatcher = {
-    ...ProtectedWatcher(abstractWatcher),
+  const result: TScreenSizeWatcher = Object.assign(ProtectedWatcher(abstractWatcher), {
     getValue: (): TScreenSizeValues => ({ ...abstractWatcher.value$.value }),
     key: containerIdTag,
     start,
     stop
-  };
+  });
 
   return result;
 }

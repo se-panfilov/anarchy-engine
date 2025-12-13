@@ -54,8 +54,8 @@ export function SceneWrapper(params: TSceneParams): TSceneWrapper {
 
   const getEnvironmentMap = (): TTexture | null => entity.environment;
 
-  const result = {
-    ...wrapper,
+  // eslint-disable-next-line functional/immutable-data
+  const result = Object.assign(wrapper, {
     addCamera,
     addLight,
     addModel3d,
@@ -70,7 +70,7 @@ export function SceneWrapper(params: TSceneParams): TSceneWrapper {
     ...withObject3d(entity),
     ...withActiveMixin(),
     entity
-  };
+  });
 
   result._setActive(params.isActive, true);
 
