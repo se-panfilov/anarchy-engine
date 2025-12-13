@@ -21,6 +21,9 @@ export function toRem(value: string | number | undefined): string {
   return getSizeInRem(value);
 }
 
+// eslint-disable-next-line functional/prefer-tacit
+export const stripUnits = (value: string): number => parseFloat(value);
+
 function getSizeInPx(size: string): string {
   const units: string = getUnitsFromCssValue(size);
   const value: number = stripUnits(size);
@@ -57,10 +60,6 @@ function getSizeInRem(size: string): string {
     default:
       return size;
   }
-}
-
-export function stripUnits(value: string): number {
-  return parseFloat(value);
 }
 
 export function getUnitsFromCssValue(value: string): string {
