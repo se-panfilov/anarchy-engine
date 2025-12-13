@@ -1,8 +1,8 @@
-import type { ActorDriver } from '@/Engine/Actor/Constants';
 import type { TWithName, TWithReadonlyTags } from '@/Engine/Mixins';
+import type { TransformAgent } from '@/Engine/TransformDrive/Constants';
 
 export type TActorProps = Readonly<{
-  driver?: ActorDriver;
+  agent?: TransformAgent;
   driveUpdateDelay?: number;
   driveCoordsThreshold?: number;
 }> &

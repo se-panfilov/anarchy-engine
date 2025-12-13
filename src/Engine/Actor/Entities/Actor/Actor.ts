@@ -1,6 +1,6 @@
 import type { Subscription } from 'rxjs';
 import { distinctUntilChanged } from 'rxjs';
-import type { Vector3 } from 'three';
+import { Vector3 } from 'three';
 
 import { AbstractEntity, EntityType } from '@/Engine/Abstract';
 import type { TActor, TActorDependencies, TActorEntities, TActorParams } from '@/Engine/Actor/Models';
@@ -15,6 +15,7 @@ import type {
   TInstantTransformAgent,
   TKinematicTransformAgent,
   TPhysicsTransformAgent,
+  TTransformAgentParams,
   TTransformAgents,
   TTransformDrive,
   TTransformDriveParams
@@ -32,21 +33,23 @@ export function Actor(
   const isModelAlreadyInUse: boolean = isDefined(model3dToActorConnectionRegistry.findByModel3d(params.model3dSource));
   const model3d: TModel3d = isModelAlreadyInUse ? models3dService.clone(params.model3dSource) : params.model3dSource;
 
-  const driverParams: TTransformDriveParams = { ...params, driver: TransformAgent.Kinematic };
-  const kinematicDriver: TKinematicTransformAgent = KinematicTransformAgent(driverParams, kinematicLoopService);
-  const physicsDriver: TPhysicsTransformAgent = PhysicsTransformAgent(driverParams);
-  const instantDriver: TInstantTransformAgent = InstantTransformAgent(driverParams);
-  const drivers: TTransformAgents = { [TransformAgent.Kinematic]: kinematicDriver, [TransformAgent.Physical]: physicsDriver, [TransformAgent.Instant]: instantDriver };
-  const drive: TTransformDrive = TransformDrive(driverParams, drivers);
+  // Init TransformDrive
+  const agentParams: TTransformAgentParams = { position: params.position, rotation: params.rotation, scale: params.scale ?? new Vector3(1, 1, 1) };
+  const driveParams: TTransformDriveParams = { activeAgent: params.agent ?? TransformAgent.Instant };
+  const kinematicTransformAgent: TKinematicTransformAgent = KinematicTransformAgent(agentParams, kinematicLoopService);
+  const physicsTransformAgent: TPhysicsTransformAgent = PhysicsTransformAgent(agentParams);
+  const instantTransformAgent: TInstantTransformAgent = InstantTransformAgent(agentParams);
+  const transformAgents: TTransformAgents = { [TransformAgent.Kinematic]: kinematicTransformAgent, [TransformAgent.Physical]: physicsTransformAgent, [TransformAgent.Instant]: instantTransformAgent };
+  const drive: TTransformDrive = TransformDrive(driveParams, transformAgents);
   const driveToModel3dConnector: TDriveToModel3dConnector = DriveToModel3dConnector(drive, model3d);
 
   // TODO CWP:
-  // TODO 8.0.0. MODELS: Finish Actor's implementation, make sure it works with the KinematicDriver
+  // TODO 8.0.0. MODELS: Finish Actor's implementation, make sure it works with the KinematicAgent
   // TODO 8.0.0. MODELS: In ActorDriver implement external change of position$/rotation$/scale$ and make sure it works
-  // TODO 8.0.0. MODELS: Implement PhysicsDriver
-  // TODO 8.0.0. MODELS: Connect Physics body with the PhysicsDriver
+  // TODO 8.0.0. MODELS: Implement PhysicsAgent
+  // TODO 8.0.0. MODELS: Connect Physics body with the PhysicsAgent
   // TODO 8.0.0. MODELS: Make sure it works with the Physics
-  // TODO 8.0.0. MODELS: Make sure external change of position$/rotation$/scale$ works with the PhysicsDriver
+  // TODO 8.0.0. MODELS: Make sure external change of position$/rotation$/scale$ works with the PhysicsAgent
   // TODO 8.0.0. MODELS: Make spatial is working
   // TODO 8.0.0. MODELS: Make collisions are working
   // TODO 8.0.0. MODELS: Make actor workable with ActorDriver.Instant (let user set values directly)

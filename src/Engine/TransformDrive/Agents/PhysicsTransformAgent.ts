@@ -6,7 +6,7 @@ import { destroyableMixin } from '@/Engine/Mixins';
 import type { TReadonlyEuler, TReadonlyVector3 } from '@/Engine/ThreeLib';
 import type { TPhysicsTransformAgent, TTransformAgentParams } from '@/Engine/TransformDrive/Models';
 
-// TODO 8.0.0. MODELS: This is a placeholder for PhysicsActorAgent
+// TODO 8.0.0. MODELS: This is a placeholder for PhysicsTransformAgent
 export function PhysicsTransformAgent(params: TTransformAgentParams): TPhysicsTransformAgent {
   const position$: BehaviorSubject<TReadonlyVector3> = new BehaviorSubject<TReadonlyVector3>(params.position);
   const rotation$: BehaviorSubject<TReadonlyEuler> = new BehaviorSubject<TReadonlyEuler>(params.rotation);

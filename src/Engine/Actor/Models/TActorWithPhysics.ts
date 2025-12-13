@@ -2,5 +2,5 @@ import type { TWithMandatoryPhysicsBody } from '@/Engine/Physics';
 
 import type { TActor } from './TActor';
 
-// TODO 8.0.0. MODELS: remove (use PhysicsActorDriver instead)
+// TODO 8.0.0. MODELS: remove (use PhysicsTransformAgent instead)
 export type TActorWithPhysics = TWithMandatoryPhysicsBody<TActor>;

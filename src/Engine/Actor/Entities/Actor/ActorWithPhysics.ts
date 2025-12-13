@@ -2,7 +2,7 @@
 // import type { TPhysicsBody, TPhysicsBodyService, TWithPresetNamePhysicsBodyParams } from '@/Engine/Physics';
 import type { TActorWithPhysics } from '@/Engine/Actor/Models';
 
-// TODO 8.0.0. MODELS: remove (use PhysicsActorDriver instead)
+// TODO 8.0.0. MODELS: remove (use PhysicsTransformAgent instead)
 export function ActorWithPhysics(): TActorWithPhysics | void {
   // params: TActorParams,
   // deps: TActorWithPhysicsDependencies,
