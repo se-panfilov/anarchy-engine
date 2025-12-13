@@ -1,6 +1,7 @@
 import GUI from 'lil-gui';
 import { map, withLatestFrom } from 'rxjs';
 import { Vector3 } from 'three';
+import type { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
 import { radToDeg } from 'three/src/math/MathUtils';
 
 import type { TShowcase } from '@/App/Levels/Models';
@@ -79,6 +80,12 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
 
   physicsWorldService.getDebugRenderer(physicsLoopService).start();
 
+  const foxModelName: string = 'fox_model';
+
+  function preloadModels3d(): Promise<GLTF> {
+    return models3dService.loadAsync({ name: foxModelName, url: '/Showcase/Models/Fox/Fox.glb', options: { scale: new Vector3(1, 1, 1) } });
+  }
+
   function init(): void {
     const sceneW: TSceneWrapper | undefined = scenesService.findActive();
     if (isNotDefined(sceneW)) throw new Error('Scene is not defined');
@@ -124,7 +131,11 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
       },
       restitution: 0.9
     };
-    const sphereActor: TActor = createActor('sphere', TransformAgent.Default, grid, actorCoords, '#E91E63', sphereActorPhysics, space.services);
+
+    const foxModel3dSource: GLTF | undefined = models3dService.getResourceRegistry().findByKey(foxModelName);
+    if (isNotDefined(foxModel3dSource)) throw new Error('Fox model is not defined');
+
+    const sphereActor: TActor = createActor('sphere', foxModel3dSource, TransformAgent.Default, grid, actorCoords, '#E91E63', sphereActorPhysics, space.services);
     gui.add(mode, 'isTeleportationMode').name('Teleportation mode');
     addActorFolderGui(gui, sphereActor);
 
@@ -132,7 +143,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
       sphereText.setText(`x: ${v.x.toFixed(2)} y: ${v.y.toFixed(2)} z: ${v.z.toFixed(2)}`);
     });
 
-    createRepeaterActor(sphereActor, { x: 0, y: 0, z: 4 }, grid, gui, space.services);
+    createRepeaterActor(sphereActor, sphereActor.model3d, { x: 0, y: 0, z: 4 }, grid, gui, space.services);
 
     const intersectionsWatcher: TIntersectionsWatcher = startIntersections(space.services);
 
@@ -160,8 +171,9 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     console.log('Memory usage:', getMemoryUsage());
   }
 
-  function start(): void {
+  async function start(): Promise<void> {
     engine.start();
+    await preloadModels3d();
     void init();
   }
 

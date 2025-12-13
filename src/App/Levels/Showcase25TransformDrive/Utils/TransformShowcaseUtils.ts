@@ -6,6 +6,7 @@ import { Euler, Vector3 } from 'three';
 import { Line2 } from 'three/examples/jsm/lines/Line2';
 import { LineGeometry } from 'three/examples/jsm/lines/LineGeometry';
 import { LineMaterial } from 'three/examples/jsm/lines/LineMaterial';
+import type { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
 import type { Vector3Like } from 'three/src/math/Vector3';
 
 import type {
@@ -26,11 +27,12 @@ import type {
   TWithPresetNamePhysicsBodyParams,
   TWithTransformDrive
 } from '@/Engine';
-import { isNotDefined, MaterialType, PrimitiveModel3dType, TransformAgent } from '@/Engine';
+import { isNotDefined, MaterialType, TransformAgent } from '@/Engine';
 import { meters } from '@/Engine/Measurements/Utils';
 
 export function createActor(
   name: string,
+  model3d: GLTF | TModel3d,
   agent: TransformAgent,
   grid: TSpatialGridWrapper,
   position: Vector3,
@@ -40,16 +42,22 @@ export function createActor(
 ): TActor {
   const material: TMaterialWrapper = materialService.create({ name: `${name}_material`, type: MaterialType.Standard, options: { color } });
 
-  const model: TModel3d = models3dService.create({
-    name: `${name}_model`,
-    model3dSource: PrimitiveModel3dType.Sphere,
-    materialSource: material,
-    options: { radius: 0.7 },
-    castShadow: true,
-    receiveShadow: true,
-    position: position.clone(),
-    rotation: new Euler(0, 0, 0)
-  });
+  let model: TModel3d;
+
+  if ((model3d as TModel3d).id) {
+    model = model3d as TModel3d;
+  } else {
+    model = models3dService.create({
+      name: `${name}_model`,
+      model3dSource: model3d as GLTF,
+      materialSource: material,
+      options: { radius: 0.7 },
+      castShadow: true,
+      receiveShadow: true,
+      position: position.clone(),
+      rotation: new Euler(0, 0, 0)
+    });
+  }
 
   return actorService.create({
     name: `${name}_actor`,
@@ -58,13 +66,14 @@ export function createActor(
     agent,
     position: position.clone(),
     rotation: new Euler(0, 0, 0),
+    scale: new Vector3(0.025, 0.025, 0.025),
     spatial: { grid, isAutoUpdate: true }
     // collisions: { isAutoUpdate: name === 'sphere' }
   });
 }
 
-export function createRepeaterActor(actor: TActor, offset: Vector3Like, grid: TSpatialGridWrapper, gui: GUI, services: TSpaceServices, color: string = '#1ebae9'): Subscription {
-  const repeaterActor: TActor = createActor('repeater', TransformAgent.Connected, grid, actor.drive.getPosition().clone().add(offset), color, undefined, services);
+export function createRepeaterActor(actor: TActor, model3d: TModel3d, offset: Vector3Like, grid: TSpatialGridWrapper, gui: GUI, services: TSpaceServices, color: string = '#1ebae9'): Subscription {
+  const repeaterActor: TActor = createActor('repeater', model3d, TransformAgent.Connected, grid, actor.drive.getPosition().clone().add(offset), color, undefined, services);
 
   //"repeaterActor" is connected with "positionConnector" (from "connected" agent) to "sphereActor" position
   const subj$: Subscription = attachConnectorToSubj(repeaterActor, actor.drive.position$, offset);
