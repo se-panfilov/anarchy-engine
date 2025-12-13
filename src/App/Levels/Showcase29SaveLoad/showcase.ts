@@ -8,6 +8,7 @@ import { spaceAnimationsData } from '@/App/Levels/Showcase29SaveLoad/spaceAnimat
 import { spaceBasicData } from '@/App/Levels/Showcase29SaveLoad/spaceBasic';
 import { spaceCameraData } from '@/App/Levels/Showcase29SaveLoad/spaceCamera';
 import { spaceCustomModelsData } from '@/App/Levels/Showcase29SaveLoad/spaceCustomModels';
+import { spaceFogData } from '@/App/Levels/Showcase29SaveLoad/spaceFog';
 import { spaceFpsControlsData } from '@/App/Levels/Showcase29SaveLoad/spaceFpsControls';
 import { spaceLightData } from '@/App/Levels/Showcase29SaveLoad/spaceLight/spaceLight';
 import { spaceMaterialsData } from '@/App/Levels/Showcase29SaveLoad/spaceMaterials';
@@ -24,7 +25,6 @@ import { createContainersDivs, setContainerVisibility } from './utils';
 
 let subscriptions: Record<string, Subscription> = {};
 
-// TODO 15-0-0: E2E: Fog
 // TODO 15-0-0: E2E: Audio3d (with debug renderer)
 // TODO 15-0-0: E2E: Physics
 // TODO 15-0-0: E2E: Spatial
@@ -39,6 +39,7 @@ const spacesData: ReadonlyArray<TSpacesData> = [
   spaceBasicData,
   spaceCameraData,
   spaceCustomModelsData,
+  spaceFogData,
   spaceFpsControlsData,
   spaceLightData,
   spaceMaterialsData,
@@ -49,7 +50,7 @@ const spacesData: ReadonlyArray<TSpacesData> = [
 ];
 
 // const initialSpaceDataName: string = spaceBasicData.name;
-const initialSpaceDataName: string = spaceParticlesData.name;
+const initialSpaceDataName: string = spaceFogData.name;
 
 const spacesInMemoryData: Array<TSpacesData> = [];
 
