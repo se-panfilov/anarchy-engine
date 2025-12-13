@@ -9,5 +9,5 @@ export type TLocale = Readonly<{
   englishName: TEnglishName;
   nativeName: TNativeName;
   direction: 'ltr' | 'rtl';
-  font?: string; // Optional set a specific font for the locale
+  font?: string; // Optional. To let the app change font depending on lang/locale
 }>;

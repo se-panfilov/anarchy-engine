@@ -66,12 +66,17 @@ export function TranslationService(initialLocale: TLocale, defaultLocale: TLocal
       concatMap((locale: TLocale) => from(loadLocale(locale)).pipe(map((): [TLocale, IntlShape<string>] => [locale, getIntl(locale)])))
     )
     .subscribe(([locale, intl]: [TLocale, IntlShape<string>]): void => {
-      document?.documentElement?.setAttribute?.('lang', intl.locale);
-      document?.documentElement?.setAttribute?.('dir', locale.direction);
+      const html: HTMLElement | undefined = document?.documentElement;
+      html?.setAttribute?.('lang', intl.locale);
+      html?.setAttribute?.('dir', locale.direction);
 
-      const body: HTMLBodyElement | null = document?.querySelector('body');
-      // eslint-disable-next-line functional/immutable-data
-      if (isDefined(locale.font) && isDefined(body)) body.style.fontFamily = locale.font;
+      // This allows to change the font depending on the locale.
+      // To have effect, you should define in related @fontFaces and add variable, e.g.:
+      //:root {
+      //   --anarchy-i18n-font: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+      // }
+      // body { font-family: var(--anarchy-i18n-font); }
+      if (isDefined(locale.font)) html?.style?.setProperty('--anarchy-i18n-font', locale.font);
 
       return void intl$.next(intl);
     });
