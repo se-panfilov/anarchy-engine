@@ -1,4 +1,7 @@
-import type { TActorService, TActorWrapperAsync, TIntersectionsWatcher, TSceneWrapper } from '@/Engine';
+import type { Mesh, Object3D } from 'three';
+
+import type { TActorService, TActorWrapperAsync, TIntersectionEvent, TIntersectionsWatcher, TSceneWrapper } from '@/Engine';
+import { collisionsService } from '@/Engine/Collisions';
 import type { TSpatialGridService, TSpatialGridWrapper } from '@/Engine/Spatial';
 import { isNotDefined } from '@/Engine/Utils';
 
@@ -45,23 +48,21 @@ export async function enableCollisions(
   mouseLineIntersectionsWatcher.addActor(boxActor4W);
   mouseLineIntersectionsWatcher.addActor(boxActor5W);
   mouseLineIntersectionsWatcher.addActor(boxActor6W);
+  mouseLineIntersectionsWatcher.addActor(boxActor7W);
 
-  mouseLineIntersectionsWatcher.value$.subscribe((value) => {
+  mouseLineIntersectionsWatcher.value$.subscribe((value: TIntersectionEvent): void => {
     grid._debugHighlightObjects(sceneW, value.point.x, value.point.z);
   });
 
   grid._debugVisualizeCells(sceneW);
-  // setTimeout(() => {
-  // spatialGridService.grid._debugHighlightObjects(new Vector2(5, 16), cameraW, sceneW, grid);
-  // }, 1500);
 
-  // sceneW.entity.traverse((object: Object3D): void => {
-  //   if ((object as Mesh).isMesh) {
-  //     // collisionsService.initializeRaycastBvh(object as Mesh);
-  //     spatialGridService.addObjectToGrid(object);
-  //     // collisionsService.visualizeRaycastBvh(object as Mesh, actorService.getScene().entity);
-  //   }
-  // });
+  // TODO (S.Panfilov) replace with get all actors from actors registry (or not all)
+  sceneW.entity.traverse((object: Object3D): void => {
+    if ((object as Mesh).isMesh) {
+      collisionsService.raycast.initializeRaycastBvh(object as Mesh);
+      collisionsService.raycast.visualizeRaycastBvh(object as Mesh, actorService.getScene().entity);
+    }
+  });
 
-  // spatialGridService.visualizeRBush(spatialGridService.getSpatialGrid(), sceneW.entity);
+  // collisionsService.raycast.visualizeRaycastBvh(grid, sceneW.entity);
 }

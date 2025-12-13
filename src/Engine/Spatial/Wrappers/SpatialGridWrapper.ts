@@ -1,3 +1,4 @@
+import type { BBox } from 'rbush';
 import RBush from 'rbush';
 import type { Mesh, Object3D, Vector3 } from 'three';
 import { Box3 } from 'three';
@@ -118,8 +119,12 @@ export function SpatialGridWrapper(params: TSpatialGridParams): TSpatialGridWrap
     addActor.call(this, actorW);
   }
 
-  function findCells(x: number, z: number): ReadonlyArray<TSpatialCell> {
+  function findCellsForPoint(x: number, z: number): ReadonlyArray<TSpatialCell> {
     return entity.search({ minX: x, minY: z, maxX: x, maxY: z });
+  }
+
+  function findCellsForBox<T extends BBox>(box: T): ReadonlyArray<TSpatialCell> {
+    return entity.search(box);
   }
 
   function findCellById(id: TSpatialCellId): TSpatialCell | undefined {
@@ -171,7 +176,8 @@ export function SpatialGridWrapper(params: TSpatialGridParams): TSpatialGridWrap
     getAllItems,
     getAllInCell,
     getAllInCellByCellId,
-    findCells,
+    findCellsForPoint,
+    findCellsForBox,
     findCellById,
     removeFromGrid,
     clearGrid,

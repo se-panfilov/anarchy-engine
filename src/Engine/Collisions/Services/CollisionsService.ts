@@ -1,49 +1,68 @@
+import type { Intersection } from 'three';
+import { Box3, Raycaster } from 'three';
+
 import type { TActorWrapperAsync } from '@/Engine/Actor/Models';
 import type { TCollisionCheckResult, TCollisionsService, TRaycastBvhService } from '@/Engine/Collisions/Models';
+import type { TSpatialCell, TSpatialGridWrapper } from '@/Engine/Spatial';
 
 import { RaycastBvhService } from './RaycastBvhService';
 
 export function CollisionsService(): TCollisionsService {
   const bvhService: TRaycastBvhService = RaycastBvhService();
 
-  // const spatialGrid = spatialGridService.createSpatialGrid();
+  function checkCollision(actorW: TActorWrapperAsync, radius: number, spatialGrid: TSpatialGridWrapper): TCollisionCheckResult | undefined {
+    const actorBox: Box3 = new Box3().setFromObject(actorW.entity);
+    const queryBox = {
+      minX: actorBox.min.x - radius,
+      minY: actorBox.min.y - radius,
+      minZ: actorBox.min.z - radius,
+      maxX: actorBox.max.x + radius,
+      maxY: actorBox.max.y + radius,
+      maxZ: actorBox.max.z + radius
+    };
 
-  function checkCollision(actorW: TActorWrapperAsync, radius: number): TCollisionCheckResult | null {
-    // TODO (S.Panfilov) DEBUG: turned off
-    // const actorBox: Box3 = new Box3().setFromObject(actorW.entity);
-    // const queryBox = {
-    //   minX: actorBox.min.x - radius,
-    //   minY: actorBox.min.y - radius,
-    //   minZ: actorBox.min.z - radius,
-    //   maxX: actorBox.max.x + radius,
-    //   maxY: actorBox.max.y + radius,
-    //   maxZ: actorBox.max.z + radius
-    // };
-    //
-    // const candidates = spatialGrid.search(queryBox);
-    // // eslint-disable-next-line functional/no-loop-statements
-    // for (const candidate of candidates) {
-    //   if (candidate.object !== actorW.entity) {
-    //     const raycaster: Raycaster = new Raycaster();
-    //
-    //     // raycaster.set(actorW.entity.position, actorW.kinematic.getAzimuth());
-    //     raycaster.set(actorW.entity.position, actorW.kinematic.getLinearDirection());
-    //
-    //     const intersects: Array<Intersection> = [];
-    //     bvhService.raycastWithBvh(candidate.object as Mesh, raycaster, intersects);
-    //
-    //     if (intersects.length > 0) {
-    //       const intersect = intersects[0];
-    //       return {
-    //         object: candidate.object,
-    //         distance: intersect.distance,
-    //         collisionPoint: intersect.point,
-    //         bulletPosition: actorW.entity.position.clone()
-    //       };
-    //     }
-    //   }
-    // }
-    return null;
+    const cells: ReadonlyArray<TSpatialCell> = spatialGrid.findCellsForBox(queryBox);
+    console.log(cells);
+    // const cells: ReadonlyArray<TSpatialCell> = spatialGrid.entity.search(queryBox);
+    // eslint-disable-next-line functional/no-loop-statements
+    for (const cell of cells) {
+      // eslint-disable-next-line functional/no-loop-statements
+      for (const object of cell.objects) {
+        // if (object.id !== actorW.id) {
+        //   const intersection: Intersection = bvhService.raycastWithBvh(object as Mesh, actorW.entity);
+        //   if (intersection.distance < radius) {
+        //     return {
+        //       object,
+        //       distance: intersection.distance,
+        //       collisionPoint: intersection.point,
+        //       bulletPosition: actorW.entity.position.clone()
+        //     };
+        //   }
+        // }
+        ////
+        if (object.id !== actorW.id) {
+          const raycaster: Raycaster = new Raycaster();
+
+          // raycaster.set(actorW.entity.position, actorW.kinematic.getAzimuth());
+          raycaster.set(actorW.entity.position, actorW.kinematic.getLinearDirection());
+
+          const intersects: Array<Intersection> = [];
+          bvhService.raycastWithBvh(object.entity, raycaster, intersects);
+
+          if (intersects.length > 0) {
+            const intersect = intersects[0];
+            return {
+              object: object.entity,
+              distance: intersect.distance,
+              collisionPoint: intersect.point,
+              bulletPosition: actorW.entity.position.clone()
+            };
+          }
+        }
+        ////
+      }
+    }
+    return undefined;
   }
 
   return {

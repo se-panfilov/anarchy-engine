@@ -37,7 +37,7 @@ export function initGui(mouseLineIntersectionsWatcher: TIntersectionsWatcher, sp
     // eslint-disable-next-line functional/immutable-data
     mouse.objectName = intersection.object.name;
     // eslint-disable-next-line functional/immutable-data
-    cell.id = grid.findCells(intersection.point.x, intersection.point.z)[0]?.id;
+    cell.id = grid.findCellsForPoint(intersection.point.x, intersection.point.z)[0]?.id;
     // eslint-disable-next-line functional/immutable-data
     actor.name = actorService.getRegistry().findById(mouse.wrapperId)?.name ?? '';
     // eslint-disable-next-line functional/immutable-data

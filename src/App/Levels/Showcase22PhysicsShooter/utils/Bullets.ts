@@ -1,7 +1,7 @@
 import { nanoid } from 'nanoid';
 import { Vector3 } from 'three';
 
-import type { TActorParams, TActorService, TActorWrapperAsync, TRadians, TWithCoordsXYZ } from '@/Engine';
+import type { TActorParams, TActorService, TActorWrapperAsync, TRadians, TSpatialGridWrapper, TWithCoordsXYZ } from '@/Engine';
 import { ActorType, collisionsService, EulerWrapper, isDefined, MaterialType, mpsSpeed, Vector3Wrapper } from '@/Engine';
 import { meters } from '@/Engine/Measurements/Utils';
 
@@ -14,7 +14,7 @@ export type TBullet = TActorWrapperAsync &
     setActive: (act: boolean) => void;
     isActive: () => boolean;
     reset: () => void;
-    update: (delta: number) => void;
+    update: (delta: number, spatialGrid: TSpatialGridWrapper) => void;
   }>;
 
 export function getBulletsPool(count: number, actorService: TActorService): ReadonlyArray<Promise<TBullet>> {
@@ -37,6 +37,7 @@ export function getBulletsPool(count: number, actorService: TActorService): Read
           rotation: EulerWrapper({ x: 0, y: 1.57, z: 0 }),
           castShadow: false,
           isKinematicAutoUpdate: true,
+          isSpatialAutoUpdate: true,
           kinematic: {
             linearSpeed: meters(5)
           },
@@ -71,24 +72,19 @@ export async function BulletAsync(params: TActorParams, actorService: TActorServ
     setActive(false);
     // eslint-disable-next-line functional/immutable-data
     actor.entity.visible = false;
-    collisionsService.updateObjectInGrid(actor.entity);
   }
 
-  function update(delta: number): void {
+  function update(delta: number, spatialGrid: TSpatialGridWrapper): void {
     if (isActive()) {
       const azimuthRadians: TRadians = actor.kinematic.getLinearAzimuthRad();
       const elevationRadians: TRadians = actor.kinematic.getLinearElevationRad();
       const vectorDirection: Vector3 = new Vector3(Math.cos(elevationRadians) * Math.cos(azimuthRadians), Math.sin(elevationRadians), Math.cos(elevationRadians) * Math.sin(azimuthRadians));
       actor.kinematic.setLinearDirection(vectorDirection);
 
-      // TODO (S.Panfilov) this is a very naive implementation of gravity (a real bullet flying in more complex half parabola)
-      // eslint-disable-next-line functional/immutable-data
-      // actor.entity.position.y = actor.entity.position.y - mpsSpeed(fallSpeed, delta);
-
       setDistanceTraveled(getDistanceTraveled() + mpsSpeed(actor.kinematic.getLinearSpeed(), delta));
 
-      const collisionCheckRadius: number = meters(5);
-      const collision = collisionsService.checkCollision(actor, collisionCheckRadius);
+      const collisionCheckRadius: number = 0; //meters(5); set radius make sens for explosions and etc
+      const collision = collisionsService.checkCollision(actor, collisionCheckRadius, spatialGrid);
       if (collision) {
         console.log('Hit detected', collision);
         // reset(actor);
@@ -124,6 +120,6 @@ export function shoot(actorPosition: TWithCoordsXYZ, toAngle: TRadians, elevatio
   }
 }
 
-export function updateBullets(bullets: ReadonlyArray<TBullet>, delta: number): void {
-  bullets.forEach((bullet: TBullet): void => bullet.update(delta));
+export function updateBullets(bullets: ReadonlyArray<TBullet>, delta: number, spatialGrid: TSpatialGridWrapper): void {
+  bullets.forEach((bullet: TBullet): void => bullet.update(delta, spatialGrid));
 }

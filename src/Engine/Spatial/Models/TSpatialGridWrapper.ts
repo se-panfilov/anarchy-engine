@@ -1,3 +1,4 @@
+import type { BBox } from 'rbush';
 import type { ColorRepresentation } from 'three';
 
 import type { TWrapper } from '@/Engine/Abstract';
@@ -17,7 +18,8 @@ export type TSpatialGridWrapper = TWrapper<TSpatialGrid> &
     getAllItems: () => ReadonlyArray<TSpatialCell>;
     getAllInCell: (x: number, z: number) => ReadonlyArray<TActorWrapperAsync>;
     getAllInCellByCellId: (cellId: TSpatialCellId) => ReadonlyArray<TActorWrapperAsync>;
-    findCells: (x: number, z: number) => ReadonlyArray<TSpatialCell>;
+    findCellsForPoint: (x: number, z: number) => ReadonlyArray<TSpatialCell>;
+    findCellsForBox: <T extends BBox>(box: T) => ReadonlyArray<TSpatialCell>;
     findCellById: (id: TSpatialCellId) => TSpatialCell | undefined;
     removeFromGrid: (actorW: TActorWrapperAsync) => void;
     clearGrid: () => TSpatialGrid;

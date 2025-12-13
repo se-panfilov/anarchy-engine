@@ -15,6 +15,7 @@ import type {
   TRadians,
   TSpace,
   TSpaceConfig,
+  TSpatialGridWrapper,
   TWithCoordsXYZ
 } from '@/Engine';
 import { buildSpaceFromConfig, Engine, get3DAzimuthRad, isDefined, isNotDefined, KeysExtra } from '@/Engine';
@@ -87,11 +88,13 @@ export function showcase(canvas: TAppCanvas): TShowcase {
     //move bouncing sphere to target practice
     moveActorBounce(sphereActorW);
 
+    const spatialGrid: TSpatialGridWrapper | undefined = spatialGridService.getRegistry().findByName('main_grid');
+    if (isNotDefined(spatialGrid)) throw new Error(`Cannot find "main_grid" spatial grid`);
     initGui(mouseLineIntersectionsWatcher, spatialGridService, actorService);
 
     loopService.tick$.subscribe((delta): void => {
       cameraFollowingActor(cameraW, heroW);
-      updateBullets(bullets, delta.delta);
+      updateBullets(bullets, delta.delta, spatialGrid);
 
       // TODO (S.Panfilov) this should be updated only if coords or angle are changed
       if (isDefined(mouseLineIntersections.point)) {
