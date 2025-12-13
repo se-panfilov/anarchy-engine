@@ -243,6 +243,7 @@ export const JsRules = {
         '[S-s]plitscreen[s]?',
         '[S-s]vg[s]?',
         '[T-t]ritanopia',
+        '[U-u]nmount[ed]?',
         '[U-u]nobserve[d]?',
         '[U-u]ntrack[ed]?',
         '[U-u]ppercase',
