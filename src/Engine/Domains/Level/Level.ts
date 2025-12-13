@@ -22,13 +22,14 @@ import type { IRendererFactory, IRendererRegistry, IRendererWrapper } from '@/En
 import { RendererFactory, RendererModes, RendererRegistry, RendererTag } from '@/Engine/Domains/Renderer';
 import type { ISceneConfig, ISceneFactory, ISceneRegistry, ISceneWrapper } from '@/Engine/Domains/Scene';
 import { SceneFactory, SceneRegistry, SceneTag } from '@/Engine/Domains/Scene';
-import type { ITextConfig, ITextFactory, ITextRegistry, ITextWrapper } from '@/Engine/Domains/Text';
+import type { IText2dRenderer, ITextConfig, ITextFactory, ITextRegistry, ITextWrapper } from '@/Engine/Domains/Text';
 import { initText2dRenderer, TextFactory, TextRegistry } from '@/Engine/Domains/Text';
 import type { IDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
 import { withTags } from '@/Engine/Mixins/Generic/WithTags';
 import { screenService } from '@/Engine/Services';
 import { isDefined, isNotDefined, isValidLevelConfig } from '@/Engine/Utils';
+import { CSS2DObject } from 'three/examples/jsm/renderers/CSS2DRenderer';
 
 export function buildLevelFromConfig(canvas: IAppCanvas, config: ILevelConfig): ILevel {
   if (!isValidLevelConfig(config)) throw new Error('Failed to launch a level: invalid data format');
@@ -58,7 +59,7 @@ export function buildLevelFromConfig(canvas: IAppCanvas, config: ILevelConfig): 
   messages$.next(`Actors (${actors.length}) created`);
 
   //build texts
-  initText2dRenderer(ambientContext.container.getAppContainer(), ambientContext.screenSizeWatcher);
+  const text2dRenderer: IText2dRenderer = initText2dRenderer(ambientContext.container.getAppContainer(), ambientContext.screenSizeWatcher);
   const textFactory: ITextFactory = TextFactory();
   const textRegistry: ITextRegistry = TextRegistry();
   const textAddedSubscription: Subscription = textRegistry.added$.subscribe((text: ITextWrapper) => scene.addText(text));
@@ -129,6 +130,36 @@ export function buildLevelFromConfig(canvas: IAppCanvas, config: ILevelConfig): 
       if (controls.entity.enableDamping) controls.entity.update(delta);
     });
   });
+
+  // TODO (S.Panfilov) debug/////////////////////////////////
+  const elem2: HTMLElement = document.createElement('div');
+  document.body.appendChild(elem2);
+  // eslint-disable-next-line functional/immutable-data
+  elem2.textContent = 'DEBUG!';
+  const ent2: CSS2DObject = new CSS2DObject(elem2);
+  scene.entity.add(ent2);
+  let elapsed: number = 1;
+  setInterval((): void => {
+    const x: number = Math.sin(elapsed) * 5;
+    const z: number = Math.cos(elapsed) * 5;
+    ent2.position.set(x, 0, z);
+    elapsed += 0.01;
+  }, 100);
+
+  setInterval(() => console.log('ent2', ent2.position), 100);
+
+  // TODO (S.Panfilov) CWP
+  // call this inside tick!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  standardLoopService.tick$.subscribe((): void => {
+    const activeCamera: ICameraWrapper | undefined = cameraRegistry.getUniqByTag(CameraTag.Active);
+    if (isNotDefined(activeCamera)) {
+      console.error('No active camera');
+      return;
+    }
+    // labelRenderer.render(scene, camera);
+    text2dRenderer.renderer.render(scene.entity, activeCamera.entity);
+  });
+  // TODO (S.Panfilov) debug/////////////////////////////////
 
   const destroyable: IDestroyable = destroyableMixin();
   const builtMixin: IWithBuilt = withBuiltMixin();

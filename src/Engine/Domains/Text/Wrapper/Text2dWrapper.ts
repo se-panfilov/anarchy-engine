@@ -14,7 +14,6 @@ export function Text2dWrapper(params: ITextParams): ITextWrapper {
   const element: HTMLElement = document.createElement(params.elementType || 'div');
   // eslint-disable-next-line functional/immutable-data
   element.textContent = params.text;
-
   const entity: CSS2DObject = new CSS2DObject(element);
 
   const result = {
