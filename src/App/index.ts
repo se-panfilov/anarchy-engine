@@ -1,15 +1,15 @@
 import '@App/style.css';
 
+import sceneConfig from '@App/Scenes/debug-scene.config.json';
 import { ActorTag, CameraTag } from '@Engine/Constants';
 import { ambientContext } from '@Engine/Context';
 import type { IAppCanvas, ILaunchedScene, ISceneLauncher, IVector3 } from '@Engine/Models';
 import type { IFactories } from '@Engine/Pool';
 import { FactoriesPool } from '@Engine/Pool/FactoriesPool';
-import { SceneLauncher } from '@Engine/SceneLauncher';
-import sceneConfig from '@App/Scenes/debug-scene.config.json';
 import { IntersectionsService } from '@Engine/Services';
 import { isNotDefined, isValidSceneConfig } from '@Engine/Utils';
-import { IActorWrapper, ICameraWrapper } from '@Engine/Wrappers';
+import type { IActorWrapper, ICameraWrapper } from '@Engine/Wrappers';
+import { SceneLauncher } from 'src/Engine/Launcher';
 
 const canvas: IAppCanvas | null = document.querySelector('#app');
 if (isNotDefined(canvas)) throw new Error('Canvas is not defined');

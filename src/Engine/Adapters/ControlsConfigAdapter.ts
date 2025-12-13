@@ -1,7 +1,6 @@
-import type { IAppCanvas, IControlsParams } from '@Engine/Models';
+import type { IAppCanvas, IControlsConfig, IControlsParams } from '@Engine/Models';
 import { IControlsType } from '@Engine/Models';
 import type { ICameraRegistry } from '@Engine/Registries';
-import type { IControlsConfig } from '@Engine/SceneLauncher/Models';
 import { isNotDefined } from '@Engine/Utils';
 import type { ICameraWrapper } from '@Engine/Wrappers';
 

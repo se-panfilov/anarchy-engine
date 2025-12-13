@@ -1,8 +1,7 @@
 import { controlsAdapter } from '@Engine/Adapters';
 import type { IControlsFactory, IControlsFactoryParams, ICreateControlsFn } from '@Engine/Factories';
 import { AbstractDestroyableFactory } from '@Engine/Factories/AbstractFactory/AbstractDestroyableFactory';
-import type { IControlsParams } from '@Engine/Models';
-import type { IControlsConfig } from '@Engine/SceneLauncher/Models';
+import type { IControlsConfig, IControlsParams } from '@Engine/Models';
 import type { IControlsWrapper } from '@Engine/Wrappers';
 import { ControlsWrapper } from '@Engine/Wrappers';
 

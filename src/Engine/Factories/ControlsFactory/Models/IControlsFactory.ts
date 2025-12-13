@@ -1,5 +1,4 @@
-import type { IControlsParams, IDestroyableFactory } from '@Engine/Models';
-import type { IControlsConfig } from '@Engine/SceneLauncher/Models';
+import type { IControlsConfig, IControlsParams, IDestroyableFactory } from '@Engine/Models';
 import type { IControlsWrapper } from '@Engine/Wrappers';
 import type { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 

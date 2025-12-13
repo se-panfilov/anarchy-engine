@@ -1,6 +1,5 @@
 import type { ICreateFN } from '@Engine/Factories/AbstractFactory/Models';
-import type { IFactory, IWrapper } from '@Engine/Models';
-import type { IAbstractConfig } from '@Engine/SceneLauncher/Models';
+import type { IAbstractConfig, IFactory, IWrapper } from '@Engine/Models';
 import { isNotDefined } from '@Engine/Utils';
 import { nanoid } from 'nanoid';
 

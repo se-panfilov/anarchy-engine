@@ -1,5 +1,5 @@
 import type { ICameraParams } from '@Engine/Models';
-import type { IVector3dConfig } from '@Engine/SceneLauncher/Models/IVector3dConfig';
+import type { IVector3dConfig } from '@Engine/Models/IVector3dConfig';
 
 export type ICameraConfig = Omit<ICameraParams, 'lookAt' | 'position'> &
   Readonly<{

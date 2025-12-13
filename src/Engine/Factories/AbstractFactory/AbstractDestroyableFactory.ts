@@ -1,7 +1,6 @@
 import { AbstractFactory } from '@Engine/Factories';
 import type { ICreateFN } from '@Engine/Factories/AbstractFactory/Models';
-import type { IDestroyableFactory, IWrapper } from '@Engine/Models';
-import type { IAbstractConfig } from '@Engine/SceneLauncher/Models';
+import type { IAbstractConfig, IDestroyableFactory, IWrapper } from '@Engine/Models';
 import { cleanObject } from '@Engine/Utils';
 
 export function AbstractDestroyableFactory<T extends IWrapper<ENT>, ENT, PRMS, C extends IAbstractConfig>(

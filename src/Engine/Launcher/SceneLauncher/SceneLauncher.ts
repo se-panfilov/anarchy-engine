@@ -1,10 +1,9 @@
 import { CameraTag, LoopTag, RendererTag } from '@Engine/Constants';
-import type { IAppCanvas, ILaunchedScene, ISceneLauncher } from '@Engine/Models';
+import type { IAppCanvas, ILaunchedScene, ISceneConfig, ISceneLauncher } from '@Engine/Models';
 import type { IDestroyableFactories, ILocalFactoryPool, IRegistryPool } from '@Engine/Pool';
 import { RegistryPool } from '@Engine/Pool';
 import { LocalFactoriesPool } from '@Engine/Pool/LocalFactoriesPool';
 import type { IFactories, IRegistries } from '@Engine/Pool/Models';
-import type { ISceneConfig } from '@Engine/SceneLauncher/Models';
 import { addToRegistry, isNotDefined } from '@Engine/Utils';
 import type { ICameraWrapper, ILoopWrapper, IRendererWrapper, ISceneWrapper } from '@Engine/Wrappers';
 import { BehaviorSubject } from 'rxjs';
