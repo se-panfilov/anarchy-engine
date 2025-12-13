@@ -3,7 +3,7 @@ import type { TFromGuiEvent, TToGuiEvent } from '@Showcases/Shared';
 import type { Observable, Subject, Subscription } from 'rxjs';
 
 export type TEventsService = Readonly<{
-  emitActionEvent: (payload?: TFromGuiActionPayload) => void;
+  emitActionEvent: (payload: TFromGuiActionPayload) => void;
   emitCloseGui: () => void;
   emitEvent: (event: TFromGuiEvent) => void | never;
   setFromGuiBus: (fromGuiBus$: Subject<TFromGuiEvent>) => void;

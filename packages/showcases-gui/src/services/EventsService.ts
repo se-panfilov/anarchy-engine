@@ -23,7 +23,7 @@ function EventsService(): TEventsService {
     return fromGuiBus$.next(event);
   }
 
-  const emitActionEvent = (payload?: TFromGuiActionPayload): void => emitEvent(createFromGuiActionEvent(payload));
+  const emitActionEvent = (payload: TFromGuiActionPayload): void => emitEvent(createFromGuiActionEvent(payload));
   const emitCloseGui = (): void => emitEvent({ type: CloseGui });
 
   function startListeningAppEvents(): Subscription {
