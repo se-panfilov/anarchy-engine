@@ -31,7 +31,7 @@ export function showcase(canvas: IAppCanvas): IShowcase {
     const actorParams5: IActorParams = { ...actorDefaultParams, position: Vector3Wrapper({ x: 2, y: 0, z: 0 }) };
 
     // eslint-disable-next-line @typescript-eslint/no-misused-promises
-    [actorParams1, actorParams2, actorParams3, actorParams4, actorParams5].forEach(actorService.createAsync);
+    [actorParams1, actorParams2, actorParams3, actorParams4, actorParams5].forEach((actor: IActorParams) => actorService.createAsync(actor));
 
     const camera: ICameraWrapper = cameraService.create({
       position: Vector3Wrapper({ x: 0, y: 0, z: 3 }),
