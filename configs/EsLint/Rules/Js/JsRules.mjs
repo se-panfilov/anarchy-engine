@@ -177,6 +177,7 @@ export const JsRules = {
         '[E-e]num[s]?',
         '[F-f]ormatter[s]?',
         '[F-f]sm',
+        '[H-h]ref[s]?',
         '[K-k]eyframe[s]?',
         '[M-m]in[s]?',
         '[M-m]onospace',
