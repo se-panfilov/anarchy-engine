@@ -17,9 +17,14 @@ export type TActorConfig = Omit<TActorProps, 'material'> &
     type: ActorType;
     castShadow: boolean;
     physics?: TWithPresetNamePhysicsBodyConfig;
+  }> &
+  Readonly<{
     kinematic?: TKinematicDataConfig;
-    spatial?: TSpatialDataConfig;
     isKinematicAutoUpdate?: boolean;
+  }> &
+  Readonly<{
+    spatial?: TSpatialDataConfig;
+    isSpatialAutoUpdate?: boolean;
   }> &
   TObject3DPropConfig &
   TWithReadonlyTags;

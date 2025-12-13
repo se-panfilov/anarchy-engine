@@ -258,6 +258,18 @@
         "renderOrder": {
           "type": "number"
         },
+        "spatial": {
+          "$ref": "#/definitions/TSpatialDataConfig"
+        },
+        "isSpatialAutoUpdate": {
+          "type": "boolean"
+        },
+        "kinematic": {
+          "$ref": "#/definitions/TKinematicDataConfig"
+        },
+        "isKinematicAutoUpdate": {
+          "type": "boolean"
+        },
         "material": {
           "$ref": "#/definitions/TMaterialPackConfig%3CTMaterialTexturePack%3E"
         },
@@ -266,15 +278,6 @@
         },
         "physics": {
           "$ref": "#/definitions/TWithPresetNamePhysicsBodyConfig"
-        },
-        "kinematic": {
-          "$ref": "#/definitions/TKinematicDataConfig"
-        },
-        "spatial": {
-          "$ref": "#/definitions/TSpatialDataConfig"
-        },
-        "isKinematicAutoUpdate": {
-          "type": "boolean"
         },
         "width": {
           "type": "number"
@@ -314,6 +317,67 @@
         }
       },
       "required": ["castShadow", "material", "position", "tags", "type"]
+    },
+    "TSpatialDataConfig": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "gridName": {
+          "type": "string"
+        },
+        "updatePriority": {
+          "$ref": "#/definitions/SpatialUpdatePriority"
+        }
+      }
+    },
+    "SpatialUpdatePriority": {
+      "type": "number",
+      "enum": [5, 4, 3, 2, 1, 0]
+    },
+    "TKinematicDataConfig": {
+      "$ref": "#/definitions/TOptional%3CTKinematicData%3E"
+    },
+    "TOptional<TKinematicData>": {
+      "type": "object",
+      "properties": {
+        "linearSpeed": {
+          "type": "number"
+        },
+        "linearDirection": {
+          "$ref": "#/definitions/Vector3"
+        },
+        "angularSpeed": {
+          "type": "number"
+        },
+        "angularDirection": {
+          "$ref": "#/definitions/Vector3"
+        }
+      },
+      "additionalProperties": false
+    },
+    "Vector3": {
+      "type": "object",
+      "properties": {
+        "x": {
+          "type": "number",
+          "default": 0
+        },
+        "y": {
+          "type": "number",
+          "default": 0
+        },
+        "z": {
+          "type": "number",
+          "default": 0
+        },
+        "isVector3": {
+          "type": "boolean",
+          "const": true
+        }
+      },
+      "required": ["x", "y", "z", "isVector3"],
+      "additionalProperties": false,
+      "description": "3D vector.\n\nsee  {@link  https://github.com/mrdoob/three.js/blob/master/src/math/Vector3.js }"
     },
     "TMaterialPackConfig<TMaterialTexturePack>": {
       "type": "object",
@@ -2316,67 +2380,6 @@
       },
       "required": ["halfHeight", "radius", "borderRadius"],
       "additionalProperties": false
-    },
-    "TKinematicDataConfig": {
-      "$ref": "#/definitions/TOptional%3CTKinematicData%3E"
-    },
-    "TOptional<TKinematicData>": {
-      "type": "object",
-      "properties": {
-        "linearSpeed": {
-          "type": "number"
-        },
-        "linearDirection": {
-          "$ref": "#/definitions/Vector3"
-        },
-        "angularSpeed": {
-          "type": "number"
-        },
-        "angularDirection": {
-          "$ref": "#/definitions/Vector3"
-        }
-      },
-      "additionalProperties": false
-    },
-    "Vector3": {
-      "type": "object",
-      "properties": {
-        "x": {
-          "type": "number",
-          "default": 0
-        },
-        "y": {
-          "type": "number",
-          "default": 0
-        },
-        "z": {
-          "type": "number",
-          "default": 0
-        },
-        "isVector3": {
-          "type": "boolean",
-          "const": true
-        }
-      },
-      "required": ["x", "y", "z", "isVector3"],
-      "additionalProperties": false,
-      "description": "3D vector.\n\nsee  {@link  https://github.com/mrdoob/three.js/blob/master/src/math/Vector3.js }"
-    },
-    "TSpatialDataConfig": {
-      "type": "object",
-      "additionalProperties": false,
-      "properties": {
-        "gridName": {
-          "type": "string"
-        },
-        "updatePriority": {
-          "$ref": "#/definitions/SpatialUpdatePriority"
-        }
-      }
-    },
-    "SpatialUpdatePriority": {
-      "type": "number",
-      "enum": [5, 4, 3, 2, 1, 0]
     },
     "TCameraConfig": {
       "type": "object",

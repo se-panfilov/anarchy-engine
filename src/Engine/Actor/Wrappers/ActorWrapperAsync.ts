@@ -27,9 +27,9 @@ export async function ActorWrapperAsync(params: TActorParams, { materialTextureS
 
   // TODO (S.Panfilov) debug
   //WIP: position subject
-  // position$.subscribe((newPosition) => {
-  //   if (actorW.getName() === 'sphere') console.log(`Position changed to: x=${newPosition.x}, y=${newPosition.y}, z=${newPosition.z}`);
-  // });
+  position$.subscribe((newPosition) => {
+    if (actorW.getName() === 'sphere') console.log(`Position changed to: x=${newPosition.x}, y=${newPosition.y}, z=${newPosition.z}`);
+  });
   //END WIP: position subject
 
   const actorW = {
