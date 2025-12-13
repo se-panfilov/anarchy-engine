@@ -16,7 +16,7 @@ import type {
 } from '@/Engine/Intersections/Models';
 import type { TLoopService } from '@/Engine/Loop';
 import type { TDisposable } from '@/Engine/Mixins';
-import { withFactoryService, withRegistryService } from '@/Engine/Mixins';
+import { withFactoryService, withRegistryService, withSerializeAllEntities } from '@/Engine/Mixins';
 import type { TMouseService } from '@/Engine/Mouse';
 
 export function IntersectionsWatcherService(factory: TIntersectionsWatcherFactory, registry: TIntersectionsWatcherRegistry): TIntersectionsWatcherService {
@@ -39,7 +39,7 @@ export function IntersectionsWatcherService(factory: TIntersectionsWatcherFactor
   const withRegistry: TIntersectionsWatcherServiceWithRegistry = withRegistryService(registry);
 
   // eslint-disable-next-line functional/immutable-data
-  return Object.assign(abstractService, withFactory, withRegistry, {
+  return Object.assign(abstractService, withFactory, withRegistry, withSerializeAllEntities<TIntersectionsWatcherConfig, undefined>(registry), {
     create,
     createFromList,
     createFromConfig

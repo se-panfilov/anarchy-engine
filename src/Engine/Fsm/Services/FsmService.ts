@@ -4,6 +4,7 @@ import type { TAbstractService } from '@/Engine/Abstract';
 import { AbstractService } from '@/Engine/Abstract';
 import type { FsmEventsStrategy } from '@/Engine/Fsm/Constants';
 import type {
+  TFsmConfig,
   TFsmInstanceFactory,
   TFsmInstanceRegistry,
   TFsmInstanceService,
@@ -72,6 +73,10 @@ export function FsmService(instanceFactory: TFsmInstanceFactory, sourceFactory: 
     createInstanceFromList: instanceService.createFromList,
     getSourceRegistry: (): TFsmSourceRegistry => sourceRegistry,
     getInstanceRegistry: (): TFsmInstanceRegistry => instanceRegistry,
-    getFactory: (): TFsmInstanceFactory => instanceFactory
+    getFactory: (): TFsmInstanceFactory => instanceFactory,
+    // TODO 15-0-0: Return type might be not TFsmConfig, but something else, check it
+    serializeAllEntities: (): ReadonlyArray<TFsmConfig> => instanceService.serializeAllEntities(),
+    // TODO 15-0-0: Return type might be not TFsmConfig, but something else, check it
+    serializeAllResources: (): ReadonlyArray<TFsmConfig> => sourceService.serializeAllResources()
   });
 }

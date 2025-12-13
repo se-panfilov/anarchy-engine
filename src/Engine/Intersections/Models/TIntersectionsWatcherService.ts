@@ -1,4 +1,4 @@
-import type { TEntitiesService } from '@/Engine/Abstract';
+import type { TSerializableEntitiesService } from '@/Engine/Abstract';
 import type { TActorService } from '@/Engine/Actor';
 import type { TCameraService } from '@/Engine/Camera';
 import type { TLoopService } from '@/Engine/Loop';
@@ -16,7 +16,7 @@ export type TIntersectionsWatcherServiceWithCreateFromConfig = Omit<TWithCreateF
 export type TIntersectionsWatcherServiceWithFactory = TWithFactoryService<TIntersectionsWatcher, TIntersectionsWatcherParams, undefined, TIntersectionsWatcherFactory>;
 export type TIntersectionsWatcherServiceWithRegistry = TWithRegistryService<TIntersectionsWatcherRegistry>;
 
-export type TIntersectionsWatcherService = TEntitiesService &
+export type TIntersectionsWatcherService = TSerializableEntitiesService<TIntersectionsWatcherConfig> &
   TIntersectionsWatcherServiceWithCreate &
   TIntersectionsWatcherServiceWithCreateFromConfig &
   Readonly<{

@@ -1,4 +1,4 @@
-import type { TEntitiesService } from '@/Engine/Abstract';
+import type { TSerializableEntitiesService } from '@/Engine/Abstract';
 import type { TWithCreateFromConfigService, TWithCreateService, TWithFactoryService, TWithRegistryService, TWithSceneGetterService } from '@/Engine/Mixins';
 
 import type { TAbstractLightWrapper } from './TAbstractLightWrapper';
@@ -14,4 +14,9 @@ export type TLightServiceWithCreateFromConfig = TWithCreateFromConfigService<TAn
 export type TLightServiceWithFactory = TWithFactoryService<TAbstractLightWrapper<TLight>, TLightParams, TLightServiceDependencies, TLightFactory>;
 export type TLightServiceWithRegistry = TWithRegistryService<TLightRegistry>;
 
-export type TLightService = TEntitiesService & TLightServiceWithCreate & TLightServiceWithCreateFromConfig & TLightServiceWithFactory & TLightServiceWithRegistry & TWithSceneGetterService;
+export type TLightService = TSerializableEntitiesService<TAnyLightConfig> &
+  TLightServiceWithCreate &
+  TLightServiceWithCreateFromConfig &
+  TLightServiceWithFactory &
+  TLightServiceWithRegistry &
+  TWithSceneGetterService;

@@ -1,4 +1,4 @@
-import type { TEntitiesService } from '@/Engine/Abstract';
+import type { TSerializableEntitiesService, TSerializableResourceService } from '@/Engine/Abstract';
 import type { FsmEventsStrategy } from '@/Engine/Fsm/Constants';
 import type { TFsmConfig, TFsmInstanceRegistry, TFsmParams, TFsmSource, TFsmStates, TFsmWrapper } from '@/Engine/Fsm/Models';
 import type { TWithFactoryService } from '@/Engine/Mixins';
@@ -8,7 +8,10 @@ import type { TFsmSourceRegistry } from './TFsmSourceRegistry';
 
 export type TFsmServiceWithFactory = TWithFactoryService<TFsmWrapper, TFsmParams, undefined, TFsmInstanceFactory>;
 
-export type TFsmService = TEntitiesService &
+// TODO 15-0-0: Return type might be not TFsmConfig, but something else, check it
+export type TFsmService = TSerializableEntitiesService<TFsmConfig> &
+  // TODO 15-0-0: Return type might be not TFsmConfig, but something else, check it
+  TSerializableResourceService<TFsmConfig> &
   TFsmServiceWithFactory &
   Readonly<{
     create: (params: TFsmParams, force?: boolean) => TFsmWrapper | never;
