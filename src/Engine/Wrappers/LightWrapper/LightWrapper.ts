@@ -1,11 +1,10 @@
 import { AbstractWrapper } from '@Engine/Wrappers';
-import type { AmbientLight, DirectionalLight } from 'three';
 import { getAccessors } from './Accessors';
 import { getLight } from './utils';
-import type { ILightParams } from '@Engine/Models';
+import type { IAmbientLight, IDirectionalLight, ILightParams } from '@Engine/Models';
 import type { ILightWrapper } from './Models';
 
 export function LightWrapper(params: ILightParams): ILightWrapper {
-  const entity: AmbientLight | DirectionalLight = getLight(params);
+  const entity: IAmbientLight | IDirectionalLight = getLight(params);
   return { ...AbstractWrapper(entity), ...getAccessors(entity), entity };
 }

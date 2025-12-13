@@ -1,10 +1,10 @@
-import type { Vector3, Vector2 } from 'three';
+import type { IVector2, IVector3 } from '@Engine/Models';
 
 export type ILightAccessors = Readonly<{
-  setPosition: (x: number, y: number, z: number) => Vector3;
+  setPosition: (x: number, y: number, z: number) => IVector3;
   setCastShadow: (value: boolean) => boolean;
-  setControls: (x: number, y: number, z: number) => Vector3;
-  setShadowMapSize: (x: number, y: number) => Vector2;
+  setControls: (x: number, y: number, z: number) => IVector3;
+  setShadowMapSize: (x: number, y: number) => IVector2;
   setFar: (value: number) => number;
   setNormalBias: (val: number) => number;
 }>;

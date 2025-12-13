@@ -48,7 +48,7 @@ const loop = (): void => {
 
 loop();
 
-function onMouseClick({ x, y, z }: Vector3, event: MouseEvent): void {
+function onMouseClick({ x, y, z }: IVector3, event: MouseEvent): void {
   event.preventDefault();
   const sphere = new Mesh(new SphereGeometry(1, 32, 32), new MeshToonMaterial({ color: new Color('#5EDCAE') }));
   sphere.position.set(x, y, z);
