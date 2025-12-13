@@ -68,12 +68,7 @@ export function createActor(
     position: position.clone(),
     rotation: new Euler(0, 0, 0),
     scale: new Vector3(0.025, 0.025, 0.025),
-    spatial: { grid, isAutoUpdate: true },
-    kinematic: {
-      state: {
-        forwardAxis: ForwardAxis.Z
-      }
-    }
+    spatial: { grid, isAutoUpdate: true }
     // collisions: { isAutoUpdate: name === 'sphere' }
   });
 }
@@ -318,7 +313,14 @@ export function createLine(color: ColorRepresentation, width: number): Line2 {
   return new Line2(geometry, material);
 }
 
-export function createReactiveLineFromActor(color: ColorRepresentation, actor: TActor, intersectionsWatcher: TIntersectionsWatcher): { line: Line2; sub$: Subscription } {
+export function createReactiveLineFromActor(
+  color: ColorRepresentation,
+  actor: TActor,
+  intersectionsWatcher: TIntersectionsWatcher
+): {
+  line: Line2;
+  sub$: Subscription;
+} {
   const line: Line2 = createLine(color, 0.1);
 
   const sub$: Subscription = combineLatest([intersectionsWatcher.value$, actor.drive.position$]).subscribe(([intersection, position]: [TIntersectionEvent, TReadonlyVector3]): void => {
