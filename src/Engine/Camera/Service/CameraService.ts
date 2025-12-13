@@ -2,9 +2,7 @@ import type { ICameraRegistry, ICameraService, ICameraWrapper } from '@/Engine/C
 
 export function CameraService(): ICameraService {
   function setActiveCamera(cameraId: string, cameraRegistry: ICameraRegistry): void {
-    cameraRegistry.forEach((camera: ICameraWrapper) => {
-      camera.setActive(camera.id === cameraId);
-    });
+    cameraRegistry.forEach((camera: ICameraWrapper) => camera.setActive(camera.id === cameraId));
   }
 
   function getActiveCamera(cameraRegistry: ICameraRegistry): ICameraWrapper | undefined {

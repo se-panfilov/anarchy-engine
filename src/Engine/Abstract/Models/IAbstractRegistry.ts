@@ -21,5 +21,8 @@ export type IAbstractRegistry<T extends IRegistrable> = Readonly<{
   isEmpty: () => boolean;
   remove: (id: string) => void;
   removed$: Observable<T>;
+  getLength: () => number;
+  forEach: (callback: (entity: T) => void) => void;
+  find: (callback: (entity: T) => boolean) => T | undefined;
 }> &
   IDestroyable;

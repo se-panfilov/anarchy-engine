@@ -6,7 +6,7 @@ import type { IAbstractRegistry } from '@/Engine/Abstract/Models';
 import type { LookUpStrategy } from '@/Engine/Abstract/Registry/Constants';
 import type { IDestroyable, IMultitonRegistrable, IRegistrable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
-import { getAll, getAllEntitiesWithTag, getAllEntitiesWithTags, getUniqEntityWithTag, getUniqEntityWithTags, isDestroyable, isNotDefined } from '@/Engine/Utils';
+import { findInMap, getAll, getAllEntitiesWithTag, getAllEntitiesWithTags, getUniqEntityWithTag, getUniqEntityWithTags, isDestroyable, isNotDefined } from '@/Engine/Utils';
 
 export function AbstractRegistry<T extends IRegistrable | IMultitonRegistrable>(type: RegistryType): IAbstractRegistry<T> {
   const id: string = type + '_registry_' + nanoid();
@@ -62,6 +62,10 @@ export function AbstractRegistry<T extends IRegistrable | IMultitonRegistrable>(
   const getUniqByTags = (tags: ReadonlyArray<string>, strategy: LookUpStrategy): T | undefined | never => getUniqEntityWithTags(tags, registry, strategy);
   const getUniqByTag = (tag: string): T | undefined | never => getUniqEntityWithTag(tag, registry);
 
+  const getLength = (): number => registry.size;
+  const forEach = (callback: (entity: T) => void): void => registry.forEach(callback);
+  const find = (callback: (entity: T) => boolean): T | undefined => findInMap(registry, callback);
+
   return {
     id,
     type,
@@ -79,6 +83,9 @@ export function AbstractRegistry<T extends IRegistrable | IMultitonRegistrable>(
     isEmpty,
     registry,
     remove,
+    getLength,
+    forEach,
+    find,
     ...destroyable
   };
 }
