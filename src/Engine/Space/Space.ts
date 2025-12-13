@@ -1,13 +1,21 @@
-import { merge, Subscription } from 'rxjs';
-import { ReplaySubject } from 'rxjs';
+import type { Subscription } from 'rxjs';
+import { merge, ReplaySubject } from 'rxjs';
 
+import { CommonTag } from '@/Engine/Abstract';
+import type { IActorAsyncRegistry, IActorConfig, IActorFactory, IActorParams, IActorWrapperAsync } from '@/Engine/Actor';
+import { ActorAsyncRegistry, ActorFactory } from '@/Engine/Actor';
 import type { IAppCanvas } from '@/Engine/App';
 import type { ICameraConfig, ICameraFactory, ICameraRegistry, ICameraService, ICameraWrapper } from '@/Engine/Camera';
 import { CameraFactory, CameraRegistry, CameraService } from '@/Engine/Camera';
+import { ambientContext } from '@/Engine/Context';
 import type { IControlsFactory, IControlsRegistry, IOrbitControlsConfig, IOrbitControlsWrapper } from '@/Engine/Controls';
 import { ControlsFactory, ControlsRegistry } from '@/Engine/Controls';
 import type { IDataTexture, IEnvMapService } from '@/Engine/EnvMap';
 import { EnvMapService } from '@/Engine/EnvMap';
+import type { IFogConfig, IFogFactory, IFogRegistry, IFogService, IFogWrapper } from '@/Engine/Fog';
+import { FogFactory, FogRegistry, FogService } from '@/Engine/Fog';
+import type { IAbstractLightWrapper, ILight, ILightConfig, ILightFactory, ILightRegistry } from '@/Engine/Light';
+import { LightFactory, LightRegistry } from '@/Engine/Light';
 import type { ILoopTimes } from '@/Engine/Loop';
 import { standardLoopService } from '@/Engine/Loop';
 import type { IDestroyable } from '@/Engine/Mixins';
@@ -21,17 +29,9 @@ import { screenService } from '@/Engine/Services';
 import { withBuiltMixin } from '@/Engine/Space/Mixin';
 import type { ISpace, ISpaceConfig, ISpaceFactories, ISpaceRegistries, ISpaceRenderer, ISpaceServices, IWithBuilt } from '@/Engine/Space/Models';
 import { getBoolValue, setInitialActiveCamera } from '@/Engine/Space/SpaceHelper';
-import { isDefined, isDestroyable, isNotDefined, validLevelConfig } from '@/Engine/Utils';
-import { CommonTag } from '@/Engine/Abstract';
-import type { IActorAsyncRegistry, IActorConfig, IActorFactory, IActorParams, IActorWrapperAsync } from '@/Engine/Actor';
-import { ActorAsyncRegistry, ActorFactory } from '@/Engine/Actor';
-import { initText2dRenderer, initText3dRenderer, isText2dWrapper, isText3dWrapper, Text2dRegistry, Text3dRegistry, TextFactory } from '@/Engine/Text';
 import type { IText2dRegistry, IText2dRenderer, IText3dRegistry, IText3dRenderer, ITextAnyWrapper, ITextConfig, ITextFactory } from '@/Engine/Text';
-import { ambientContext } from '@/Engine/Context';
-import type { IAbstractLightWrapper, ILight, ILightConfig, ILightFactory, ILightRegistry } from '@/Engine/Light';
-import { LightFactory, LightRegistry } from '@/Engine/Light';
-import type { IFogConfig, IFogFactory, IFogRegistry, IFogService, IFogWrapper } from '@/Engine/Fog';
-import { FogFactory, FogRegistry, FogService } from '@/Engine/Fog';
+import { initText2dRenderer, initText3dRenderer, isText2dWrapper, isText3dWrapper, Text2dRegistry, Text3dRegistry, TextFactory } from '@/Engine/Text';
+import { isDefined, isDestroyable, isNotDefined, validLevelConfig } from '@/Engine/Utils';
 
 export function buildSpaceFromConfig(canvas: IAppCanvas, config: ISpaceConfig): ISpace {
   const { isValid, errors } = validLevelConfig(config);
@@ -166,17 +166,17 @@ export function buildSpaceFromConfig(canvas: IAppCanvas, config: ISpaceConfig): 
 
     const controlsFactory: IControlsFactory = ControlsFactory();
     const controlsRegistry: IControlsRegistry = ControlsRegistry();
-    const controlsService: IControlsService = ControlsService(controlsFactory, controlsRegistry, cameraRegistry, canvas);
+    const controlsService: IControlsService = ControlsService(controlsFactory, controlsRegistry, registries.cameraRegistry, canvas);
 
     // TODO (S.Panfilov) move this into the service
     controlsFactory.entityCreated$.subscribe((wrapper: IOrbitControlsWrapper): void => controlsRegistry.add(wrapper));
     ////
 
     // TODO (S.Panfilov) use service
-    controls.forEach(
-      (control: IOrbitControlsConfig): IOrbitControlsWrapper =>
-        controlsFactory.create(controlsFactory.configToParams({ ...control, tags: [...control.tags, CommonTag.FromConfig] }, { cameraRegistry, canvas }))
-    );
+    controls.forEach((control: IOrbitControlsConfig): IOrbitControlsWrapper => {
+      if (isNotDefined(registries.cameraRegistry)) throw new Error(`Cannot find camera registry for controls (${control.type}) initialization`);
+      return controlsFactory.create(controlsFactory.configToParams({ ...control, tags: [...control.tags, CommonTag.FromConfig] }, { cameraRegistry: registries.cameraRegistry, canvas }));
+    });
 
     factories = { ...factories, controlsFactory };
     registries = { ...registries, controlsRegistry };
@@ -213,11 +213,6 @@ export function buildSpaceFromConfig(canvas: IAppCanvas, config: ISpaceConfig): 
     const fogFactory: IFogFactory = FogFactory();
     const fogRegistry: IFogRegistry = FogRegistry();
     const fogService: IFogService = FogService(fogFactory, fogRegistry, scene);
-
-    // TODO (S.Panfilov) move this into the service
-    fogRegistry.added$.subscribe((fog: IFogWrapper) => scene.setFog(fog));
-    fogFactory.entityCreated$.subscribe((fog: IFogWrapper): void => fogRegistry.add(fog));
-    ////
 
     // TODO (S.Panfilov) use service
     fogs.forEach((fog: IFogConfig): IFogWrapper => fogFactory.create(fogFactory.configToParams({ ...fog, tags: [...fog.tags, CommonTag.FromConfig] })));

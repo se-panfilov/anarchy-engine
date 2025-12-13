@@ -1,5 +1,5 @@
-import type { IText2dRenderer, IText3dRenderer } from '@/Engine/Text';
 import type { IRendererWrapper } from '@/Engine/Renderer';
+import type { IText2dRenderer, IText3dRenderer } from '@/Engine/Text';
 
 export type ISpaceRenderer = {
   text2dRenderer?: IText2dRenderer;
