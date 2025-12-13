@@ -19,15 +19,18 @@ const settings: TAppSettings = {
   }
 };
 
-//Enable error tracking
-BrowserTrackingService(
-  {
-    dsn: runtimeEnv.VITE_SENTRY_DSN,
-    environment: __PLATFORM_MODE__,
-    release: import.meta.env.__APP_VERSION__
-  },
-  __BUILD_META_INFO__
-);
+// TODO DESKTOP: Eventually should be applied only for production builds (distinct by platforms)
+if (__PLATFORM_MODE__ !== 'e2e') {
+  //Enable error tracking
+  BrowserTrackingService(
+    {
+      dsn: runtimeEnv.VITE_SENTRY_DSN,
+      environment: __PLATFORM_MODE__,
+      release: import.meta.env.__APP_VERSION__
+    },
+    __BUILD_META_INFO__
+  );
+}
 
 // TODO DESKTOP: DEBUG ERROR
 // (window as any).myUndefinedFunction();
