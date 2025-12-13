@@ -32,15 +32,14 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
       }
       isClickBlocked = true;
 
-      const numberOfPoints: number = 36;
-      const numberOfCircles: number = 1;
-      const startAngle: number = 0;
+      const numberOfPoints: number = 6;
+      const numberOfCircles: number = 0.3;
+      const startAngle: number = 100;
+      const radius: number = 15;
       const angleArray: ReadonlyArray<number> = generateAnglesForCircle(numberOfPoints, numberOfCircles, startAngle);
-      console.log(angleArray);
 
-      const path: ReadonlyArray<IWithCoordsXZ> = createCirclePathXZ(angleArray, 10, { x: 0, z: 0 });
-      console.log(path);
-      void standardMoverService.goByPath(actor, path, { ...animationParams, easing: Easing.Linear });
+      const path: ReadonlyArray<IWithCoordsXZ> = createCirclePathXZ(angleArray, radius, { x: 0, z: 0 });
+      void standardMoverService.goByPath(actor, path, { ...animationParams, easing: Easing.EaseInBounce });
     });
   }
 
