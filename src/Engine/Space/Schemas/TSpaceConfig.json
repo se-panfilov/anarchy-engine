@@ -3125,10 +3125,13 @@
     "RawIntegrationParameters": {
       "type": "object",
       "properties": {
-        "dt": {
+        "contact_erp": {
           "type": "number"
         },
-        "erp": {
+        "contact_natural_frequency": {
+          "type": "number"
+        },
+        "dt": {
           "type": "number"
         },
         "lengthUnit": {
@@ -3157,8 +3160,9 @@
         }
       },
       "required": [
+        "contact_erp",
+        "contact_natural_frequency",
         "dt",
-        "erp",
         "lengthUnit",
         "maxCcdSubsteps",
         "minIslandSize",
