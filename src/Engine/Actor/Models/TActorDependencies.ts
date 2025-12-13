@@ -3,5 +3,11 @@ import type { TPhysicsBodyService } from '@/Engine/Physics';
 
 export type TActorDependencies = Readonly<{
   materialTextureService: TMaterialTextureService;
-  physicsBodyService: TPhysicsBodyService;
 }>;
+
+export type TActorWithPhysicsDependencies = TActorDependencies &
+  Readonly<{
+    physicsBodyService: TPhysicsBodyService;
+  }>;
+
+export type TActorServiceDependencies = TActorDependencies & TActorWithPhysicsDependencies;

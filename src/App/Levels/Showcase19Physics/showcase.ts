@@ -6,6 +6,7 @@ import { LineMaterial } from 'three/examples/jsm/lines/LineMaterial';
 import type { TShowcase } from '@/App/Levels/Models';
 import type {
   TActorWrapperAsync,
+  TActorWrapperWithPhysicsAsync,
   TAppCanvas,
   TCameraWrapper,
   TEngine,
@@ -14,8 +15,7 @@ import type {
   TSceneWrapper,
   TSpace,
   TSpaceConfig,
-  TWithCoordsXYZ,
-  TWithMandatoryPhysicsBody
+  TWithCoordsXYZ
 } from '@/Engine';
 import {
   buildSpaceFromConfig,
@@ -71,11 +71,11 @@ export function showcase(canvas: TAppCanvas): TShowcase {
   let forcePower: number = 0;
 
   async function init(): Promise<void> {
-    const ballActorW: TWithMandatoryPhysicsBody<TActorWrapperAsync> | TActorWrapperAsync | undefined = await ballActorPromise;
+    const ballActorW: TActorWrapperWithPhysicsAsync | TActorWrapperAsync | undefined = await ballActorPromise;
     if (isNotDefined(ballActorW)) throw new Error(`Cannot find "ball" actor`);
     if (!isActorHasPhysicsBody(ballActorW)) throw new Error(`"ball" actor is not a physic actor`);
 
-    const surfaceActorW: TWithMandatoryPhysicsBody<TActorWrapperAsync> | TActorWrapperAsync | undefined = await surfaceActorPromise;
+    const surfaceActorW: TActorWrapperWithPhysicsAsync | TActorWrapperAsync | undefined = await surfaceActorPromise;
     if (isNotDefined(surfaceActorW)) throw new Error(`Cannot find "surfaceActor" actor`);
     if (!isActorHasPhysicsBody(surfaceActorW)) throw new Error(`"surfaceActor" actor is not a physic actor`);
 

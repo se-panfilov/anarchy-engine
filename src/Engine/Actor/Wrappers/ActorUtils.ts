@@ -4,8 +4,6 @@ import { ActorType } from '@/Engine/Actor/Constants';
 import type { TActorDependencies, TActorParams } from '@/Engine/Actor/Models';
 import type { TMaterials, TMaterialWrapper } from '@/Engine/Material';
 import { meters } from '@/Engine/Measurements/Utils';
-import type { TPhysicsBodyFacade, TWithPresetNamePhysicsBodyParams } from '@/Engine/Physics';
-import { isPhysicsBodyParamsComplete } from '@/Engine/Physics';
 import type { TMesh } from '@/Engine/ThreeLib';
 import { isDefined } from '@/Engine/Utils';
 
@@ -36,12 +34,4 @@ function createCube({ width, height, depth, widthSegments, heightSegments, depth
   const h: number | undefined = isDefined(height) ? meters(height) : undefined;
   const d: number | undefined = isDefined(depth) ? meters(depth) : undefined;
   return new Mesh(new BoxGeometry(w, h, d, widthSegments, heightSegments, depthSegments), material);
-}
-
-export function createPhysicsBody(physics: TWithPresetNamePhysicsBodyParams, { physicsBodyService }: Pick<TActorDependencies, 'physicsBodyService'>): TPhysicsBodyFacade {
-  const { presetName, ...rest } = physics;
-  if (isDefined(presetName)) return physicsBodyService.createWithPresetName(physics, presetName);
-  if (!isPhysicsBodyParamsComplete(rest))
-    throw new Error('Cannot create physics body: params are lacking of mandatory fields (mandatory fields must be set or a preset with such fields must be provided)');
-  return physicsBodyService.create(rest);
 }

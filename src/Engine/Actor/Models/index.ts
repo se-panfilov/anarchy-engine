@@ -7,3 +7,4 @@ export * from './TActorProps';
 export * from './TActorService';
 export * from './TActorWithPhysicsWrapperAsync';
 export * from './TActorWrapperAsync';
+export * from './TActorWrapperWithPhysicsAsync';
