@@ -1,0 +1,146 @@
+{
+  "canvasSelector": "#app",
+  "entities": {
+    "renderers": [{ "name": "main", "mode": "webgl2", "isActive": true, "alpha": true }],
+    "actors": [],
+    "audio": [],
+    "cameras": [
+      {
+        "far": 10000,
+        "fov": 45,
+        "isActive": true,
+        "name": "main",
+        "near": 1,
+        "position": {
+          "x": 3,
+          "y": 20,
+          "z": 35
+        },
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        }
+      }
+    ],
+    "controls": [],
+    "envMaps": [],
+    "fogs": [],
+    "fsm": [],
+    "intersections": [],
+    "lights": [
+      {
+        "name": "ambient_light",
+        "color": "#ffffff",
+        "intensity": 0.5,
+        "position": {
+          "x": 0.25,
+          "y": 2,
+          "z": 2.25
+        },
+        "type": "AmbientLight"
+      }
+    ],
+    "models3d": [],
+    "particles": [],
+    "physics": {},
+    "spatialGrids": [
+      {
+        "cellSize": 10,
+        "centerX": 0,
+        "centerZ": 0,
+        "mapHeight": 100,
+        "mapWidth": 100,
+        "name": "main_grid"
+      }
+    ],
+    "texts": [
+      {
+        "name": "text_2d",
+        "cssProps": {
+          "color": "#ff0000",
+          "fontFamily": "\"Roboto\", sans-serif",
+          "fontSize": "4rem"
+        },
+        "position": {
+          "x": -20,
+          "y": 2,
+          "z": 2
+        },
+        "rotation": {
+          "x": -1.57,
+          "y": 0,
+          "z": 0
+        },
+        "text": "Roboto",
+        "type": "text_2d"
+      },
+      {
+        "name": "text_3d_1",
+        "cssProps": {
+          "color": "#ff0000",
+          "fontFamily": "\"Roboto\", sans-serif",
+          "fontSize": "0.2rem"
+        },
+        "position": {
+          "x": -25,
+          "y": -18,
+          "z": 18
+        },
+        "rotation": {
+          "x": -1.57,
+          "y": 0,
+          "z": 0
+        },
+        "text": "Roboto",
+        "type": "text_3d"
+      },
+      {
+        "name": "text_3d_2",
+        "cssProps": {
+          "color": "#000000",
+          "fontFamily": "\"RubikDoodleTriangles\", sans-serif",
+          "fontSize": "16rem"
+        },
+        "position": {
+          "x": 8,
+          "y": 10,
+          "z": 2
+        },
+        "rotation": {
+          "x": -1.57,
+          "y": 0,
+          "z": 0
+        },
+        "text": "Roboto",
+        "type": "text_3d_texture"
+      }
+    ]
+  },
+  "name": "spaceTexts",
+  "resources": {
+    "animations": [],
+    "audio": [],
+    "envMaps": [],
+    "materials": [
+      {
+        "name": "surface_material",
+        "options": {
+          "color": "#5EDCAE"
+        },
+        "type": "MeshStandardMaterial"
+      }
+    ],
+    "models3d": [],
+    "textures": []
+  },
+  "scenes": [
+    {
+      "isActive": true,
+      "name": "showcase",
+      "tags": []
+    }
+  ],
+  "tags": [],
+  "version": "1.0.0"
+}
