@@ -1,12 +1,12 @@
 import type { TAnyCamera, TAnyCameraWrapper } from '@/Engine/Camera';
-import type { TControlsConfig, TControlsServiceDependencies, TControlsWrapper, TFpsControlsWrapper, TOrbitControlsConfigOptions, TOrbitControlsWrapper } from '@/Engine/Controls/Models';
+import type { TAnyControlsWrapper, TControlsConfig, TControlsServiceDependencies, TFpsControlsWrapper, TOrbitControlsConfigOptions, TOrbitControlsWrapper } from '@/Engine/Controls/Models';
 import type { TFpsControlsConfigOptions } from '@/Engine/Controls/Models/TFpsControlsConfigOptions';
 import { isFpsControls, isOrbitControls } from '@/Engine/Controls/Utils';
 import { extractSerializableRegistrableFields } from '@/Engine/Mixins';
 import type { TWriteable } from '@/Engine/Utils';
 import { filterOutEmptyFields, isNotDefined, vector3ToXyz } from '@/Engine/Utils';
 
-export function controlsToConfig(entity: TControlsWrapper, { cameraService }: TControlsServiceDependencies): TControlsConfig {
+export function controlsToConfig(entity: TAnyControlsWrapper, { cameraService }: TControlsServiceDependencies): TControlsConfig {
   const camera: TAnyCamera | undefined = entity.entity.object as TAnyCamera;
   if (isNotDefined(camera)) throw new Error(`[Serialization] Controls: camera not found for entity with name: "${entity.name}", (id: "${entity.id}")`);
 

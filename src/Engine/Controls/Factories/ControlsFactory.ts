@@ -2,10 +2,10 @@ import type { TReactiveFactory } from '@/Engine/Abstract';
 import { FactoryType, ReactiveFactory } from '@/Engine/Abstract';
 import { configToParams } from '@/Engine/Controls/Adapters';
 import { ControlsType } from '@/Engine/Controls/Constants';
-import type { TControlsFactory, TControlsParams, TControlsWrapper, TFpsControlsParams, TOrbitControlsParams } from '@/Engine/Controls/Models';
+import type { TAnyControlsWrapper, TControlsFactory, TControlsParams, TFpsControlsParams, TOrbitControlsParams } from '@/Engine/Controls/Models';
 import { FpsControlsWrapper, OrbitControlsWrapper } from '@/Engine/Controls/Wrappers';
 
-function create(params: TControlsParams): TControlsWrapper | never {
+function create(params: TControlsParams): TAnyControlsWrapper | never {
   switch (params.type) {
     case ControlsType.FirstPersonControls:
       return FpsControlsWrapper(params as TFpsControlsParams);
@@ -17,7 +17,7 @@ function create(params: TControlsParams): TControlsWrapper | never {
 }
 
 export function ControlsFactory(): TControlsFactory {
-  const factory: TReactiveFactory<TControlsWrapper, TControlsParams> = ReactiveFactory(FactoryType.Controls, create);
+  const factory: TReactiveFactory<TAnyControlsWrapper, TControlsParams> = ReactiveFactory(FactoryType.Controls, create);
   // eslint-disable-next-line functional/immutable-data
   return Object.assign(factory, { configToParams });
 }
