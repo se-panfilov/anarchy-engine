@@ -1,6 +1,6 @@
 import { Color } from 'three';
 
-import type { IAbstractEntityWithWrapperId } from '@/Engine/Abstract/Models';
+import type { IAbstractAsyncRegistry, IAbstractEntityWithWrapperId, IAbstractRegistry } from '@/Engine/Abstract/Models';
 import type { IColorWrapper } from '@/Engine/Color';
 import type { IDestroyable, IRegistrable, IWithPosition2dProperty, IWithPosition3dProperty, IWithPosition4dProperty, IWithPositionProperty } from '@/Engine/Mixins';
 import type { IVector2, IVector2Wrapper, IVector3, IVector3Wrapper, IVector4, IVector4Wrapper } from '@/Engine/Vector';
@@ -46,3 +46,8 @@ export const isVector4Wrapper = (obj: IVector2Wrapper | IVector3Wrapper | IVecto
 export const isEntityWith2dPosition = (obj: IWithPositionProperty): obj is IWithPosition2dProperty => isVector2(obj.position as IVector2);
 export const isEntityWith3dPosition = (obj: IWithPositionProperty): obj is IWithPosition3dProperty => isVector3(obj.position as IVector3);
 export const isEntityWith4dPosition = (obj: IWithPositionProperty): obj is IWithPosition4dProperty => isVector4(obj.position as IVector4);
+
+export const isAsyncRegistry = (registry: IAbstractRegistry<any> | IAbstractAsyncRegistry<any>): registry is IAbstractAsyncRegistry<any> =>
+  isDefined((registry as IAbstractAsyncRegistry<any>).getUniqWithSomeTagAsync) &&
+  isDefined((registry as IAbstractAsyncRegistry<any>).getUniqWithEveryTagAsync) &&
+  isDefined((registry as IAbstractAsyncRegistry<any>).getUniqByTagAsync);

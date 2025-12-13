@@ -1,1 +1,1 @@
-export * from './ActorRegistry';
+export * from './ActorAsyncRegistry';

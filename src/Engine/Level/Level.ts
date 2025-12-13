@@ -2,8 +2,8 @@ import type { Subscription } from 'rxjs';
 import { merge, ReplaySubject } from 'rxjs';
 
 import { CommonTag } from '@/Engine/Abstract';
-import type { IActorConfig, IActorFactory, IActorRegistry, IActorWrapper } from '@/Engine/Actor';
-import { ActorFactory, ActorRegistry, ActorTag } from '@/Engine/Actor';
+import type { IActorAsyncRegistry, IActorConfig, IActorFactory, IActorWrapper } from '@/Engine/Actor';
+import { ActorAsyncRegistry, ActorFactory, ActorTag } from '@/Engine/Actor';
 import type { IAppCanvas } from '@/Engine/App';
 import type { ICameraConfig, ICameraFactory, ICameraRegistry, ICameraWrapper } from '@/Engine/Camera';
 import { CameraFactory, CameraRegistry, CameraTag } from '@/Engine/Camera';
@@ -53,7 +53,7 @@ export function buildLevelFromConfig(canvas: IAppCanvas, config: ILevelConfig): 
 
   //build actors
   const actorFactory: IActorFactory = ActorFactory();
-  const actorRegistry: IActorRegistry = ActorRegistry();
+  const actorRegistry: IActorAsyncRegistry = ActorAsyncRegistry();
   const actorAddedSubscription: Subscription = actorRegistry.added$.subscribe((actor: IActorWrapper) => scene.addActor(actor));
   const actorEntityCreatedSubscription: Subscription = actorFactory.entityCreated$.subscribe((actor: IActorWrapper): void => actorRegistry.add(actor));
   // eslint-disable-next-line @typescript-eslint/no-misused-promises

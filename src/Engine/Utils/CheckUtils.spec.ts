@@ -6,6 +6,7 @@ import type { IDestroyable, IRegistrable, IWithPosition2dProperty, IWithPosition
 import { Vector2Wrapper, Vector3Wrapper, Vector4Wrapper } from '@/Engine/Vector';
 
 import {
+  isAsyncRegistry,
   isColorWrapper,
   isDefined,
   isDestroyable,
@@ -397,6 +398,28 @@ describe('CheckUtils', () => {
 
     it('should return "true" for entity with 4d position', () => {
       expect(isEntityWith4dPosition(entity4d)).toBe(true);
+    });
+  });
+
+  describe('isAsyncRegistry', () => {
+    it('should return "true" if it is an async registry', () => {
+      const registry: any = {
+        getUniqWithSomeTagAsync: vi.fn(),
+        getUniqWithEveryTagAsync: vi.fn(),
+        getUniqByTagAsync: vi.fn()
+      };
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+      expect(isAsyncRegistry(registry)).toBe(true);
+    });
+
+    it('should return "false" if it is a registry', () => {
+      const registry: any = {
+        getUniqWithSomeTag: vi.fn(),
+        getUniqWithEveryTag: vi.fn(),
+        getUniqByTag: vi.fn()
+      };
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+      expect(isAsyncRegistry(registry)).toBe(false);
     });
   });
 });

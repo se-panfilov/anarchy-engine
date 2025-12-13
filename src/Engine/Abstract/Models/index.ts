@@ -1,3 +1,4 @@
+export * from './IAbstractAsyncRegistry';
 export * from './IAbstractEntityWithWrapperId';
 export * from './IAbstractPool';
 export * from './IAbstractRegistry';

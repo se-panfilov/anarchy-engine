@@ -1,4 +1,4 @@
-import type { IActorFactory, IActorRegistry } from '@/Engine/Actor';
+import type { IActorAsyncRegistry, IActorFactory } from '@/Engine/Actor';
 import type { ICameraFactory, ICameraRegistry } from '@/Engine/Camera';
 import type { IControlsFactory, IControlsRegistry } from '@/Engine/Controls';
 import type { IIntersectionsWatcherFactory, IIntersectionsWatcherRegistry } from '@/Engine/Intersections';
@@ -8,7 +8,7 @@ import type { ISceneFactory, ISceneRegistry } from '@/Engine/Scene';
 import type { IText2dRegistry, IText3dRegistry, ITextFactory } from '@/Engine/Text';
 
 export type ILevelEntities = {
-  actorRegistry: IActorRegistry;
+  actorRegistry: IActorAsyncRegistry;
   actorFactory: IActorFactory;
   text2dRegistry: IText2dRegistry;
   text3dRegistry: IText3dRegistry;
