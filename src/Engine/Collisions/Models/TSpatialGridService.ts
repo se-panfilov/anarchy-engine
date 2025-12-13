@@ -1,8 +1,7 @@
 import type RBush from 'rbush';
-import type { ColorRepresentation, Vector2 } from 'three';
+import type { ColorRepresentation } from 'three';
 
 import type { TActorWrapperAsync } from '@/Engine/Actor';
-import type { TCameraWrapper } from '@/Engine/Camera';
 import type { TSpatialCell, TSpatialCellId } from '@/Engine/Collisions/Models';
 import type { TSceneWrapper } from '@/Engine/Scene';
 
@@ -19,5 +18,5 @@ export type TSpatialGridService = Readonly<{
   moveToNewCell: (x: number, y: number, tree: RBush<TSpatialCell>, actorW: TActorWrapperAsync) => void;
   updateActorsCells: (actorsW: ReadonlyArray<TActorWrapperAsync>, tree: RBush<TSpatialCell>) => void;
   _debugVisualizeCells: (tree: RBush<TSpatialCell>, sceneW: TSceneWrapper, color?: ColorRepresentation, wireframe?: boolean) => void;
-  _debugHighlightObjects: (position: Vector2, camera: TCameraWrapper, scene: TSceneWrapper, tree: RBush<TSpatialCell>) => void;
+  _debugHighlightObjects: (tree: RBush<TSpatialCell>, sceneW: TSceneWrapper, x: number, z: number) => void;
 }>;
