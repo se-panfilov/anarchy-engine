@@ -15,20 +15,16 @@ export function Driver(): TPlatformDriver {
     throw new Error('[WEB] closeApp is not supported on this platform');
   }
 
+  // TODO DESKTOP: Replace everywhere: should be getBrowserVersion
   function getChromeVersion(): string {
-    console.log('XXX [WEB]', 'getChromeVersion');
-    return 'XXX [WEB] mocked chrome version';
+    const userAgent = navigator.userAgent;
+    const chromeMatch = userAgent.match(/Chrome\/([0-9.]+)/);
+    return chromeMatch ? chromeMatch[1] : 'Chrome not detected';
   }
 
-  function getNodeVersion(): string {
-    console.log('XXX [WEB]', 'getNodeVersion');
-    return 'XXX [WEB] mocked node version';
-  }
+  const getNodeVersion = (): string => 'N/A';
 
-  function getPlatformVersion(): string {
-    console.log('XXX [WEB]', 'getPlatformVersion');
-    return 'XXX [WEB] mocked platform version';
-  }
+  const getPlatformVersion = (): string => 'N/A';
 
   function getWrappedAppVersion(): Promise<string> {
     console.log('XXX [WEB]', 'getWrappedAppVersion');
