@@ -10,9 +10,9 @@
   ],
   "license": "MIT",
   "scripts": {
-    "clean:all": "rimraf packages/**/package-lock.json -g && rimraf packages/**/node_modules -g && rimraf packages/**/dist -g && rimraf apps/**/package-lock.json -g && rimraf apps/**/node_modules -g && rimraf apps/**/dist -g",
+    "clean:all": "rimraf packages/**/package-lock.json -g  packages/**/node_modules -g  packages/**/dist -g  apps/**/package-lock.json -g  apps/**/node_modules -g  apps/**/dist -g  ./node_modules  ./package-lock.json ",
     "clean:all-metadate": "npm run e2e:clean-metadate --workspace=packages/e2e && npm run sanitize-assets --workspace=apps/showcases",
-    "clean:all:restore": "find packages -type d -name node_modules -prune -false -o -type f -name package-lock.json -exec git add {} +\n",
+    "clean:all:restore": "git add ./package-lock.json && find packages -type d -name node_modules -prune -false -o -type f -name package-lock.json -exec git add {} +\n",
     "clean:install:all": "npm install && cd ./apps/showcases/desktop && npm install && cd ../mobile && npm install",
     "clean:reinstall": "npm run clean:all && npm run clean:install:all && npm run clean:all:restore",
     "gitleaks:ci": "gitleaks detect --config=.gitleaks.toml --source=. --no-git --redact --report-format=json --report-path=reports/gitleaks-ci.json --verbose",

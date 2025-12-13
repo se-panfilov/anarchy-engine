@@ -18,7 +18,7 @@
     "typescript": "5.8.3"
   },
   "build": {
-    "appId": "com.yourdomain.mygame",
+    "appId": "com.anarcy.showcases.demo.desktop",
     "productName": "MyGame",
     "directories": {
       "output": "dist",
