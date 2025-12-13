@@ -8,16 +8,19 @@
   "scripts": {
     "before:release": "npm run clean:reinstall && npm run before:release:check && npm run generate:license-report && npm run generate:all-licenses-list && npm run sanitize-assets",
     "before:release:check": "npm run ts:check && npm run prettier:check && npm run lint",
-    "build": "rimraf dist-desktop dist-mobile dist-web && vite build",
+    "build": "rimraf dist && vite build",
+    "e2e": "playwright test",
     "generate:all-licenses-list": "yarn licenses generate-disclaimer > THIRD_PARTY_LICENSES_FULL.txt",
     "generate:license-report": "npm install -g license-report && license-report --only=prod --output=markdown --department.value='Game Engine' --relatedTo.value='Runtime dependencies' --exclude=anarchy_engine_shared > THIRD_PARTY_LICENSES.md",
     "lint": "eslint ./src",
     "lint:fix": "npm run lint -- --fix",
     "prettier": "prettier --write .",
     "prettier:check": "prettier --check .",
+    "preview": "vite preview",
     "sanitize-assets": "node ../../packages/shared/ScriptUtils/SanitizeAssets.js",
     "start:dev": "vite --mode dev",
     "start:e2e": "vite --mode e2e --port 5073 --logLevel error",
+    "test:unit": "vitest",
     "ts:check": "vue-tsc --noEmit"
   },
   "dependencies": {
@@ -28,8 +31,11 @@
     "vue": "3.5.18"
   },
   "devDependencies": {
+    "@playwright/test": "1.54.1",
+    "@types/node": "22.16.5",
     "@vitejs/plugin-vue": "6.0.1",
     "@vitejs/plugin-vue-jsx": "5.0.1",
+    "@vue/test-utils": "2.4.6",
     "eslint-plugin-vue": "10.4.0",
     "sass-embedded": "1.89.2",
     "vue-tsc": "3.0.5"
