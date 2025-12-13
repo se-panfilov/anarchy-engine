@@ -23,6 +23,7 @@ const desktopAppSettings: TDesktopAppConfig = {
 // TODO DESKTOP: CSP hits: sometimes cannot load fonts
 // TODO DESKTOP: Windows: make sure we can build the project (done, but re-check)
 // TODO DESKTOP: Linux: make sure we can build the project
+// TODO DESKTOP: Looks like in showcases-desktop/dist assets from showcases-core/dist-desktop duplicated (in assets folder and in the root)
 
 const filesService: TFilesService = FilesService(app);
 const desktopAppService: TDesktopAppService = DesktopAppService(app, { filesService });
