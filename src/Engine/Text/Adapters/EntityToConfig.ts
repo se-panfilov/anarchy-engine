@@ -7,6 +7,8 @@ export function textToConfig(entity: TTextAnyWrapper): TTextConfig {
   // TODO 15-0-0: implement
   // TODO 15-0-0: Check if we need distinct adapters for each type of text
 
+  const json = entity.entity.toJSON().object;
+
   return filterOutEmptyFields({
     ...extractRegistrableFields(entity),
     ...drive.serialize()

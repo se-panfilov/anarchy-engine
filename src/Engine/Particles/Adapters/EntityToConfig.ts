@@ -5,6 +5,7 @@ import { filterOutEmptyFields } from '@/Engine/Utils';
 export function particlesToConfig(entity: TParticlesWrapper): TParticlesConfig {
   const { drive } = entity;
   // TODO 15-0-0: implement
+  const json = entity.entity.toJSON().object;
 
   return filterOutEmptyFields({
     ...extractRegistrableFields(entity),

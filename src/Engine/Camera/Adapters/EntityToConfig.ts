@@ -27,7 +27,6 @@ export function cameraToConfig(entity: TCameraWrapper, { audioService }: Pick<TC
     audioListener: getAudioListenerName(json, audioService),
     ...extractRegistrableFields(entity),
     ...drive.serialize()
-    // TODO 15-0-0: fix any
   });
 }
 

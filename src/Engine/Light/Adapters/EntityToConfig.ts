@@ -7,6 +7,8 @@ export function lightToConfig<T extends TLight>(entity: TAbstractLightWrapper<T>
   // TODO 15-0-0: implement
   // TODO 15-0-0: implement distinct adapters for AbstractLightWrapper, AmbientLightWrapper,DirectionalLightWrapper, HemisphereLightWrapper, PointLightWrapper, RectAreaLightWrapper, SpotLightWrapper,
 
+  const json = entity.entity.toJSON().object;
+
   return filterOutEmptyFields({
     ...extractRegistrableFields(entity),
     ...drive.serialize()
