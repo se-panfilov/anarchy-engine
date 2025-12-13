@@ -40,7 +40,7 @@ SOFTWARE.
 
 ---
 
-## @asamuzakjp/dom-selector@6.6.2
+## @asamuzakjp/dom-selector@6.7.2
 
 **License:** MIT
 
@@ -1367,7 +1367,7 @@ SOFTWARE.
 
 ---
 
-## anarchy-shared@1.4.1
+## anarchy-shared@1.4.2
 
 **License:** MIT
 
@@ -4509,7 +4509,7 @@ SOFTWARE.
 
 ---
 
-## showcases-shared@1.4.1
+## showcases-shared@1.4.2
 
 **License:** MIT
 

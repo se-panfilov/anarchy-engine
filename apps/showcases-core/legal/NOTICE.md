@@ -23,7 +23,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @asamuzakjp/dom-selector@6.6.2
+## @asamuzakjp/dom-selector@6.7.2
 
 **License(s):** MIT
 
@@ -1207,7 +1207,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## anarchy-shared@1.4.1
+## anarchy-shared@1.4.2
 
 **License(s):** MIT
 
@@ -1215,7 +1215,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## anarchy-tracking@1.3.0
+## anarchy-tracking@1.4.0
 
 **License(s):** MIT
 
@@ -1981,11 +1981,11 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## resolve@1.22.10
+## resolve@1.22.11
 
 **License(s):** MIT
 
-**Repository:** git://github.com/browserify/resolve.git
+**Repository:** ssh://github.com/browserify/resolve.git
 
 **Attribution:** Copyright (c) 2012 James Halliday
 
@@ -2093,7 +2093,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## showcases-shared@1.4.1
+## showcases-shared@1.4.2
 
 **License(s):** MIT
 

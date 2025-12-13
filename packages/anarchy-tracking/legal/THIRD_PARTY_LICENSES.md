@@ -9820,11 +9820,11 @@ SOFTWARE.
 
 ---
 
-## resolve@1.22.10
+## resolve@1.22.11
 
 **License:** MIT
 
-**Repository:** git://github.com/browserify/resolve.git
+**Repository:** ssh://github.com/browserify/resolve.git
 
 **Publisher:** James Halliday <mail@substack.net>
 

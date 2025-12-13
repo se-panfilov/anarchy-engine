@@ -1009,11 +1009,11 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## resolve@1.22.10
+## resolve@1.22.11
 
 **License(s):** MIT
 
-**Repository:** git://github.com/browserify/resolve.git
+**Repository:** ssh://github.com/browserify/resolve.git
 
 **Attribution:** Copyright (c) 2012 James Halliday
 

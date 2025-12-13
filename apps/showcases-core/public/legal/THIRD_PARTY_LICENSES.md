@@ -40,7 +40,7 @@ SOFTWARE.
 
 ---
 
-## @asamuzakjp/dom-selector@6.6.2
+## @asamuzakjp/dom-selector@6.7.2
 
 **License:** MIT
 
@@ -10328,7 +10328,7 @@ SOFTWARE.
 
 ---
 
-## anarchy-shared@1.4.1
+## anarchy-shared@1.4.2
 
 **License:** MIT
 
@@ -10358,7 +10358,7 @@ SOFTWARE.
 
 ---
 
-## anarchy-tracking@1.3.0
+## anarchy-tracking@1.4.0
 
 **License:** MIT
 
@@ -14071,11 +14071,11 @@ SOFTWARE.
 
 ---
 
-## resolve@1.22.10
+## resolve@1.22.11
 
 **License:** MIT
 
-**Repository:** git://github.com/browserify/resolve.git
+**Repository:** ssh://github.com/browserify/resolve.git
 
 **Publisher:** James Halliday <mail@substack.net>
 
@@ -14663,7 +14663,7 @@ SOFTWARE.
 
 ---
 
-## showcases-shared@1.4.1
+## showcases-shared@1.4.2
 
 **License:** MIT
 
