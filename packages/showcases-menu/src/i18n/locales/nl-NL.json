@@ -16,5 +16,8 @@
   "main-menu.home.button.new-game.text": "Nieuw Spel",
   "main-menu.home.button.load-game.text": "Laad Spel",
   "main-menu.home.button.settings.text": "Instellingen",
-  "main-menu.home.button.close-menu.text": "Sluit Menu"
+  "main-menu.home.button.close-menu.text": "Sluit Menu",
+  "main-menu.settings.button.graphics.text": "Grafisch",
+  "main-menu.settings.button.audio.text": "Audio",
+  "main-menu.settings.button.localization.text": "Taal"
 }

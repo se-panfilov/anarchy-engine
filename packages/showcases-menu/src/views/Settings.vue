@@ -12,23 +12,27 @@ const menuRouterStore = useRouterStore();
 
 const viewTitleText: ShallowRef<string> = $t('main-menu.settings.view.title');
 
+const graphicsButtonText: ShallowRef<string> = $t('main-menu.settings.button.graphics.text');
+const audioButtonText: ShallowRef<string> = $t('main-menu.settings.button.audio.text');
+const localizationButtonText: ShallowRef<string> = $t('main-menu.settings.button.localization.text');
+
 const navOptions: ReadonlyArray<TVueNavOption> = [
   {
     id: 0,
     name: 'graphics',
-    label: 'Graphics',
+    label: graphicsButtonText,
     action: () => menuRouterStore.go(Routes.Graphics)
   },
   {
     id: 1,
     name: 'audio',
-    label: 'Audio',
+    label: audioButtonText,
     action: () => menuRouterStore.go(Routes.Audio)
   },
   {
     id: 2,
     name: 'controls',
-    label: 'Localization',
+    label: localizationButtonText,
     action: () => menuRouterStore.go(Routes.Localization)
   }
 ];

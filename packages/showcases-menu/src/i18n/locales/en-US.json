@@ -16,5 +16,8 @@
   "main-menu.home.button.new-game.text": "New Game",
   "main-menu.home.button.load-game.text": "Load Game",
   "main-menu.home.button.settings.text": "Settings",
-  "main-menu.home.button.close-menu.text": "Close Menu"
+  "main-menu.home.button.close-menu.text": "Close Menu",
+  "main-menu.settings.button.graphics.text": "Graphics",
+  "main-menu.settings.button.audio.text": "Audio",
+  "main-menu.settings.button.localization.text": "Localization"
 }

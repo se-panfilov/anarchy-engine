@@ -18,7 +18,6 @@ const loadGameButtonText: ShallowRef<string> = $t('main-menu.home.button.load-ga
 const settingsButtonText: ShallowRef<string> = $t('main-menu.home.button.settings.text');
 const closeMenuButtonText: ShallowRef<string> = $t('main-menu.home.button.close-menu.text');
 
-// TODO DESKTOP: replace stings with $t refs
 const navOptions: ReadonlyArray<TVueNavOption> = [
   {
     id: 0,
