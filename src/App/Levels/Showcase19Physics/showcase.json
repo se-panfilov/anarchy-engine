@@ -427,7 +427,7 @@
     "presets": [
       {
         "name": "wall_physics",
-        "type": "static",
+        "type": "fixed",
         "collisionShape": "cuboid",
         "mass": 1,
         "restitution": 0.7,
@@ -446,7 +446,7 @@
       {
         "name": "box_physics",
         "type": "dynamic",
-        "collisionShape": "box",
+        "collisionShape": "cuboid",
         "mass": 1,
         "restitution": 0.7,
         "friction": 0.5,
