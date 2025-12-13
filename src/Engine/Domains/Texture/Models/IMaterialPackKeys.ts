@@ -35,3 +35,14 @@ export type IPhongMaterialPackKeys = keyof IMeshPhongMaterialPick;
 export type IPhysicalMaterialPackKeys = keyof IMeshPhysicalMaterialPick;
 export type IToonMaterialPackKeys = keyof IMeshToonMaterialPick;
 export type IStandardMaterialPackKeys = keyof IMeshStandardMaterialPick;
+
+export type IMaterialPackKeys =
+  | IBasicMaterialPackKeys
+  | IDepthMaterialPackKeys
+  | IDistanceMaterialPackKeys
+  | INormalMaterialPackKeys
+  | IMatcapMaterialPackKeys
+  | ILamberMaterialPackKeys
+  | IPhysicalMaterialPackKeys
+  | IToonMaterialPackKeys
+  | IStandardMaterialPackKeys;

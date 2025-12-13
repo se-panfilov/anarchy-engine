@@ -1,4 +1,4 @@
-import type { ITexturePack } from '@/Engine/Domains/Texture';
+import type { IMaterialTexturePack } from '@/Engine/Domains/Texture';
 import type { IObject3DParams } from '@/Engine/Domains/ThreeLib';
 import type { IMovableXYZ, IRotatable, IScalable, IWithObject3d, IWithTexturesActor } from '@/Engine/Mixins';
 import { isDefined } from '@/Engine/Utils/index';
@@ -16,8 +16,8 @@ export function applyPosition(obj: IMovableXYZ, position?: IVector3Wrapper): voi
   if (isDefined(position)) obj.setPosition(position.getX(), position.getY(), position.getZ());
 }
 
-export function applyTexturePack(obj: IWithTexturesActor, texturePack: ITexturePack): Promise<void> {
-  return obj.loadTexturePack({ ...texturePack });
+export function applyTexturePack(obj: IWithTexturesActor, pack: IMaterialTexturePack): Promise<void> {
+  return obj.loadTexturePack({ ...pack });
 }
 
 export function applyRotation(obj: IRotatable, rotation?: IEulerWrapper): void {

@@ -1,8 +1,8 @@
 import type { MeshBasicMaterialParameters } from 'three';
 
-import type { ITexturePack } from '@/Engine/Domains/Texture';
+import type { IMaterialTexturePack } from '@/Engine/Domains/Texture';
 
 export type IWithTexturesActor = {
   useTextureAsMaterial: (maps: MeshBasicMaterialParameters) => void;
-  loadTexturePack: (texturePack: ITexturePack) => Promise<void>;
+  loadTexturePack: (texturePack: IMaterialTexturePack) => Promise<void>;
 };

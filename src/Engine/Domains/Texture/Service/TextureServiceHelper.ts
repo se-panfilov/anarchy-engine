@@ -1,14 +1,14 @@
 import type { ColorSpace, MagnificationTextureFilter, MinificationTextureFilter } from 'three';
 import { LinearFilter, NearestFilter, SRGBColorSpace } from 'three';
 
-import type { ITexture, ITexturePackKeys, ITextureParams } from '@/Engine/Domains/Texture/Models';
+import type { IMaterialPackKeys, ITexture, ITextureParams } from '@/Engine/Domains/Texture/Models';
 import type { IWriteable } from '@/Engine/Utils';
 import { isDefined, isNotDefined } from '@/Engine/Utils';
 
 export const getMagFilter = (magFilter?: MagnificationTextureFilter): MagnificationTextureFilter => (isDefined(magFilter) ? magFilter : LinearFilter);
 export const getMinFilter = (minFilter?: MinificationTextureFilter): MinificationTextureFilter => (isDefined(minFilter) ? minFilter : NearestFilter);
 
-export const applyColorSpace = (name: ITexturePackKeys, texture: IWriteable<ITexture>, params?: ITextureParams): void => {
+export const applyColorSpace = (name: IMaterialPackKeys, texture: IWriteable<ITexture>, params?: ITextureParams): void => {
   let defaultColorSpace: ColorSpace;
 
   if (name === 'map' || name === 'matcap') {
