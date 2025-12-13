@@ -7,6 +7,7 @@ export type * from './TModel3dOptions';
 export type * from './TModel3dParams';
 export type * from './TModel3dRawToModel3dConnectionRegistry';
 export type * from './TModel3dResourceConfig';
+export type * from './TModel3dSerializeResourcesDependencies';
 export type * from './TModels3dFactory';
 export type * from './TModels3dLoader';
 export type * from './TModels3dMetaInfoRegistry';

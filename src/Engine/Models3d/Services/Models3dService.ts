@@ -13,6 +13,7 @@ import type {
   TModel3dConfigToParamsDependencies,
   TModel3dParams,
   TModel3dResourceConfig,
+  TModel3dSerializeResourcesDependencies,
   TModel3dServiceWithCreate,
   TModel3dServiceWithCreateFromConfig,
   TModel3dServiceWithFactory,
@@ -68,7 +69,7 @@ export function Models3dService(
     withCreateFromConfigService,
     withFactory,
     withRegistry,
-    withSerializeAllResources<TModel3dResourceConfig, undefined>(resourcesRegistry),
+    withSerializeAllResources<TModel3dResourceConfig, TModel3dSerializeResourcesDependencies>(resourcesRegistry, { metaInfoRegistry }),
     withSerializeAllEntities<TModel3dConfig, Pick<TModel3dConfigToParamsDependencies, 'animationsResourceAsyncRegistry' | 'model3dResourceAsyncRegistry'>>(registry, {
       animationsResourceAsyncRegistry,
       model3dResourceAsyncRegistry: resourcesRegistry

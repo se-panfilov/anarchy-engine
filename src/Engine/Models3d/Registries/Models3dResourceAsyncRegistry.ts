@@ -1,28 +1,20 @@
 import type { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
 
 import { AbstractSimpleAsyncRegistry, RegistryType } from '@/Engine/Abstract';
-import type { TModels3dResourceAsyncRegistry } from '@/Engine/Models3d/Models';
+import type { TModel3dResourceConfig, TModel3dSerializeResourcesDependencies, TModels3dResourceAsyncRegistry } from '@/Engine/Models3d/Models';
+import { isNotDefined } from '@/Engine/Utils';
 
-// TODO 15-0-0: CWP: make models3d serializable (all resources must save an "url" somewhere, so we can use it for serialization)
-// export const Models3dResourceAsyncRegistry = (): TModels3dResourceAsyncRegistry => AbstractSimpleAsyncRegistry<GLTF>(RegistryType.Model3dRaw);
-export const Models3dResourceAsyncRegistry = (): TModels3dResourceAsyncRegistry => {
-  const registry = AbstractSimpleAsyncRegistry<GLTF>(RegistryType.Model3dRaw);
-
-  // TODO 15-0-0: fix any
-  // eslint-disable-next-line functional/immutable-data
-  registry.serialize = (dependencies?: Record<string, any> | undefined): void => {
-    // return map((value: T): S => {
-
-    console.log('XXX Specific serialize', dependencies);
-
-    // TODO 15-0-0: fix any
-    return registry.map((value: GLTF): ReadonlyArray<any> => {
-      console.log('XXX1', value);
-      // if (isDefined(value.serialize)) return value.serialize(dependencies as D);
-
-      return value;
-    });
-  };
+export function Models3dResourceAsyncRegistry(): TModels3dResourceAsyncRegistry {
+  const registry = Object.assign(AbstractSimpleAsyncRegistry<GLTF>(RegistryType.Model3dRaw), {
+    serialize: ({ metaInfoRegistry }: TModel3dSerializeResourcesDependencies): ReadonlyArray<TModel3dResourceConfig> => {
+      return registry.map((_value: GLTF, key: string | undefined): TModel3dResourceConfig => {
+        if (isNotDefined(key)) throw new Error(`[Models3dResourceAsyncRegistry]: Cannot serialize model resource: key "${key}" is not found`);
+        const result: TModel3dResourceConfig | undefined = metaInfoRegistry.findByKey(key);
+        if (isNotDefined(result)) throw new Error(`[Models3dResourceAsyncRegistry]: Cannot serialize model resource: meta info is not found for the resource with name "${key}"`);
+        return result;
+      });
+    }
+  });
 
   return registry;
-};
+}
