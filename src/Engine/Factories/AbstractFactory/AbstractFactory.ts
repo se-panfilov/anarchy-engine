@@ -1,6 +1,6 @@
 import { Subject } from 'rxjs';
 import { nanoid } from 'nanoid';
-import type { ReactiveWrapper, Factory } from '@Engine/Models';
+import type { Factory, ReactiveWrapper } from '@Engine/Models';
 import type { AbstractConfig } from '@Engine/Launcher/Models';
 import { isNotDefined } from '@Engine/Utils';
 import type { CreateFN } from '@Engine/Factories/AbstractFactory/Models';
@@ -10,7 +10,7 @@ export function AbstractFactory<T extends ReactiveWrapper<ENT>, ENT, PRMS>(
   create: CreateFN<T, PRMS>,
   adapterFn?: (config: AbstractConfig) => PRMS
 ): Factory<T, ENT, PRMS> {
-  const id: string = type + '_' + nanoid();
+  const id: string = type + '_factory_' + nanoid();
   const latest$: Subject<T> = new Subject<T>();
   const create$: Subject<PRMS> = new Subject<PRMS>();
   const createFromConfig$: Subject<AbstractConfig> = new Subject<AbstractConfig>();
@@ -38,7 +38,7 @@ export function AbstractFactory<T extends ReactiveWrapper<ENT>, ENT, PRMS>(
       return id;
     },
     get type(): string {
-      return type;
+      return type + '_factory';
     },
     get latest$(): Subject<T> {
       return latest$;
