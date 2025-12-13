@@ -9,10 +9,12 @@
   "license": "MIT",
   "scripts": {
     "build": "npm run prebuild:ts && npm run prebuild:preload",
-    "build:all": "rimraf dist && rimraf game-dist && npm run copy:game-dist && npm run build && electron-builder",
+    "build:all": "reload:game-dist && npm run build && electron-builder",
+    "clean": "rimraf dist && rimraf game-dist",
     "copy:game-dist": "node ../../../packages/shared/ScriptUtils/CopyDir.js -- from=../dist to=game-dist",
     "prebuild:preload": "tsc -p tsconfig.preload.json",
     "prebuild:ts": "tsc",
+    "reload:game-dist": "npm run clean && npm run copy:game-dist",
     "start": "npm run build && electron ."
   },
   "devDependencies": {
