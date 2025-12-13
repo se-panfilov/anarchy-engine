@@ -21,8 +21,9 @@ import type {
   TSpatialGridService,
   TSpatialGridWrapper
 } from '@Engine';
-import { getTags, isDefined, isNotDefined, LoopUpdatePriority, MaterialType, metersPerSecond, mpsSpeed, PrimitiveModel3dType, TransformAgent } from '@Engine';
+import { getTags, LoopUpdatePriority, MaterialType, metersPerSecond, mpsSpeed, PrimitiveModel3dType, TransformAgent } from '@Engine';
 import { meters } from '@Engine/Measurements/Utils';
+import { isDefined, isNotDefined } from '@Shared/Utils';
 import { nanoid } from 'nanoid';
 import type { Observable } from 'rxjs';
 import { withLatestFrom } from 'rxjs';

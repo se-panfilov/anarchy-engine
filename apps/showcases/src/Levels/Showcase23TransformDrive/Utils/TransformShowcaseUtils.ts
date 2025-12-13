@@ -18,8 +18,9 @@ import type {
   TWithConnectedTransformAgent,
   TWithTransformDrive
 } from '@Engine';
-import { ForwardAxis, isDefined, isNotDefined, MaterialType, metersPerSecond, TransformAgent } from '@Engine';
+import { ForwardAxis, MaterialType, metersPerSecond, TransformAgent } from '@Engine';
 import { meters } from '@Engine/Measurements/Utils';
+import { isDefined, isNotDefined } from '@Shared/Utils';
 import type GUI from 'lil-gui';
 import type { Subscription } from 'rxjs';
 import { combineLatest, distinctUntilChanged, map } from 'rxjs';
