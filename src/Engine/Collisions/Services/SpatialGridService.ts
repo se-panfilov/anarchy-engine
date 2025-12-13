@@ -1,5 +1,5 @@
 import RBush from 'rbush';
-import type { LineSegments, Vector2, Vector3 } from 'three';
+import type { ColorRepresentation, LineSegments, Vector2, Vector3 } from 'three';
 import { BoxGeometry, Mesh, MeshBasicMaterial, Raycaster } from 'three';
 
 import type { TActorWrapperAsync } from '@/Engine/Actor';
@@ -11,18 +11,18 @@ import { isDefined, isNotDefined } from '@/Engine/Utils';
 
 // TODO (S.Panfilov) CWP we need factories and registries for trees, perhaps.
 export function SpatialGridService(): TSpatialGridService {
-  function createBoundingBox(minX: number, minY: number, maxX: number, maxY: number): Mesh {
+  function createBoundingBox(minX: number, minY: number, maxX: number, maxY: number, color: ColorRepresentation = '#00ff00', wireframe: boolean = true): Mesh {
     const geometry: BoxGeometry = new BoxGeometry(maxX - minX, 1, maxY - minY);
-    const material: MeshBasicMaterial = new MeshBasicMaterial({ color: 0x00ff00, wireframe: true });
+    const material: MeshBasicMaterial = new MeshBasicMaterial({ color, wireframe });
     const box: Mesh = new Mesh(geometry, material);
     box.position.set((minX + maxX) / 2, 0.5, (minY + maxY) / 2);
     return box;
   }
 
   //this visualization is for debugging purposes only
-  function _debugVisualizeSpatialCells(tree: RBush<TSpatialCell>, sceneW: TSceneWrapper): void {
+  function _debugVisualizeSpatialCells(tree: RBush<TSpatialCell>, sceneW: TSceneWrapper, color: ColorRepresentation = '#00ff00', wireframe: boolean = true): void {
     tree.all().forEach((cell: TSpatialCell): void => {
-      const box: Mesh = createBoundingBox(cell.minX, cell.minY, cell.maxX, cell.maxY);
+      const box: Mesh = createBoundingBox(cell.minX, cell.minY, cell.maxX, cell.maxY, color, wireframe);
       sceneW.entity.add(box);
     });
   }
@@ -97,14 +97,23 @@ export function SpatialGridService(): TSpatialGridService {
     }
   }
 
-  function createSpatialGrid(mapWidth: number, mapHeight: number, cellSize: number): RBush<TSpatialCell> {
+  function createSpatialGrid(mapWidth: number, mapHeight: number, cellSize: number, centerX: number, centerZ: number): RBush<TSpatialCell> {
+    const startX: number = centerX - Math.floor(mapWidth / cellSize / 2) * cellSize;
+    const startZ: number = centerZ - Math.floor(mapHeight / cellSize / 2) * cellSize;
+
     const tree: RBush<TSpatialCell> = new RBush();
 
     // eslint-disable-next-line functional/no-loop-statements
-    for (let x: number = 0; x < mapWidth; x += cellSize) {
+    for (let x = 0; x < mapWidth; x += cellSize) {
       // eslint-disable-next-line functional/no-loop-statements
-      for (let y: number = 0; y < mapHeight; y += cellSize) {
-        const cell: TSpatialCell = { minX: x, minY: y, maxX: x + cellSize, maxY: y + cellSize, objects: [] };
+      for (let z = 0; z < mapHeight; z += cellSize) {
+        const cell: TSpatialCell = {
+          minX: startX + x,
+          minY: startZ + z,
+          maxX: startX + x + cellSize,
+          maxY: startZ + z + cellSize,
+          objects: []
+        };
         tree.insert(cell);
       }
     }

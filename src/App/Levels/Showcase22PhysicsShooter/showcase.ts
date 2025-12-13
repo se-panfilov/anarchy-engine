@@ -49,7 +49,7 @@ export function showcase(canvas: TAppCanvas): TShowcase {
     // const gridSize: Vector3 = new Box3().setFromObject(surface?.entity).getSize(new Vector3());
     // initGridHelper(actorService, gridSize.x, gridSize.z);
 
-    const blocks = await buildTower(actorService, { x: 0, z: 0 }, 10, 10, 20);
+    const blocks = await buildTower(actorService, { x: 10, z: 0 }, 10, 10, 20);
     // const blocks2 = await buildTower(actorService, { x: 20, z: 0 }, 5, 5, 15);
     // await buildTower(actorService, { x: 0, z: 30 }, 6, 7, 18);
     // await buildTower(actorService, { x: 17, z: 30 }, 7, 7, 35);

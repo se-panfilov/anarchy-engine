@@ -54,6 +54,19 @@
       "position": { "x": 10, "y": 2, "z": 10 },
       "castShadow": true,
       "tags": []
+    },
+    {
+      "name": "map_center",
+      "type": "cube",
+      "width": 0.3,
+      "height": 100,
+      "depth": 0.3,
+      "widthSegments": 1,
+      "heightSegments": 1,
+      "material": { "type": "standard", "params": { "color": "#FF1E63" } },
+      "position": { "x": 0, "y": 2, "z": 0 },
+      "castShadow": true,
+      "tags": []
     }
   ],
   "intersections": [],

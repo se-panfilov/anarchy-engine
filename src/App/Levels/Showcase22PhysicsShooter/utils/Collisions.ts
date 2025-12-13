@@ -9,7 +9,7 @@ export function enableCollisions(scene: TSceneWrapper, collisionsService: TColli
   // TODO (S.Panfilov) CWP 4. make sure raycasting is working inside the grid only
   // TODO (S.Panfilov) CWP 5. make bullets and actors can travel among grids
 
-  const spatialGrid = collisionsService.createSpatialGrid(100, 100, 10);
+  const spatialGrid = collisionsService.createSpatialGrid(200, 200, 10, 0, 0);
   collisionsService._debugVisualizeSpatialCells(spatialGrid, scene);
 
   // scene.entity.traverse((object: Object3D): void => {
