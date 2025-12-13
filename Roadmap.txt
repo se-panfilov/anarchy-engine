@@ -34,15 +34,15 @@ Done:
 - 17.5.0 Intersections watchers split to camera-mouse based and origin-direction based
 - 17.5.1 Replaced Object.assign with mergeAll (a fix for a broken TS types merging)
 - 18.0.x Monorepo: Split apps and engine
-- 18.1.x Configurable Space (added options)
+- 19.0.x Reduce package size (prod build)
 
 Roadmap:
-- 19.0.x Desktop/Mobile app builds (POC level)
-- 20.0.x Reduce package size (prod build)
-- 21.0.x Create a npm package
-- 22.x.x Load managers domain for resource loaders (audio, animations, envMaps, materials, models3d, textures, etc.)
-- 23.x.x Postprocessing
-- 24.0.x Shaders
+- 20.0.x Configurable Space (added options)
+- 11.0.x Desktop/Mobile app builds (POC level)
+- 22.0.x Create a npm package
+- 23.x.x Load managers domain for resource loaders (audio, animations, envMaps, materials, models3d, textures, etc.)
+- 24.x.x Postprocessing
+- 25.0.x Shaders
 
 Thoughts:
 - Maybe: Replace all arrays (with no allowed duplicates) with Maps (for performance)?;
