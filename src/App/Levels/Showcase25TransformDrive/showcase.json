@@ -80,6 +80,7 @@
       {
         "name": "surface_actor",
         "model3dSource": "surface_model",
+        "agent": "physical",
         "physics": {
           "presetName": "wall_physics",
           "shapeParams": {

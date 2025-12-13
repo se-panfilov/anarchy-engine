@@ -42,6 +42,7 @@ export function PhysicsTransformAgent(params: TPhysicsTransformAgentParams, { ph
 
   //apply the latest position/rotation to the physics body on activation
   const onActivated$Sub: Subscription = abstractTransformAgent.onActivated$.subscribe(({ position, rotation }: TReadonlyTransform): void => {
+    if (isNotDefined(physicsBody$.value)) physicsBody$.next(createPhysicsBody(adaptedParams, physicsBodyService));
     applyLatestTransform(physicsBody$.value?.getRigidBody(), position, rotation);
   });
 
@@ -59,8 +60,6 @@ export function PhysicsTransformAgent(params: TPhysicsTransformAgentParams, { ph
     rotationQuaternion$,
     physicsBody$
   };
-
-  physicsBody$.next(createPhysicsBody(adaptedParams, physicsBodyService));
 
   let previousPhysicsBodyType: RigidBodyTypesNames = physicsBody$.value?.getPhysicsBodyType() ?? RigidBodyTypesNames.Fixed;
 
