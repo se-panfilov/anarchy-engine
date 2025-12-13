@@ -1,6 +1,6 @@
 import type { RigidBody } from '@dimforge/rapier3d';
 import type { Vector } from '@dimforge/rapier3d/math';
-import { Vector3 } from 'three';
+import { Euler, Quaternion, Vector3 } from 'three';
 
 import type { TKinematicData } from '@/Engine/Kinematic';
 import type { TRadians } from '@/Engine/Math';
@@ -10,9 +10,9 @@ import type { TPhysicsBody } from '@/Engine/Physics/Models';
 import { isNotDefined } from '@/Engine/Utils';
 
 export function getPushCoordsFrom3dAzimuth(azimuth: TRadians, elevation: TRadians, force: number): Vector3 {
-  const x = force * Math.cos(elevation) * Math.sin(azimuth);
-  const y = force * Math.sin(elevation);
-  const z = force * Math.cos(elevation) * Math.cos(azimuth);
+  const x: number = force * Math.cos(elevation) * Math.sin(azimuth);
+  const y: number = force * Math.sin(elevation);
+  const z: number = force * Math.cos(elevation) * Math.cos(azimuth);
 
   return new Vector3(x, y, z);
 }
@@ -38,7 +38,8 @@ export function getKinematicDataFromPhysics(body: TPhysicsBody): TKinematicData 
   const linearVelocity: Vector3 = new Vector3(linVel.x, linVel.y, linVel.z);
 
   const angVel: Vector = rigidBody.angvel();
-  const angularVelocity: Vector3 = new Vector3(angVel.x, angVel.y, angVel.z);
+  // TODO 8.0.0. MODELS: check if this still working after replacing Euler with Quaternion
+  const angularVelocity: Quaternion = new Quaternion().setFromEuler(new Euler(angVel.x, angVel.y, angVel.z));
 
   return {
     linearSpeed: getSpeedFromLinearVelocity(linearVelocity),

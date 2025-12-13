@@ -1,4 +1,4 @@
-import { Vector3 } from 'three';
+import { Quaternion, Vector3 } from 'three';
 
 import { metersPerSecond } from '@/Engine/Distance';
 import type { TKinematicData, TKinematicParams } from '@/Engine/Kinematic/Models';
@@ -27,7 +27,7 @@ export function getKinematicWithDefaults(kinematic: TKinematicParams | undefined
     linearSpeed: metersPerSecond(kinematic?.linearSpeed ?? 0),
     linearDirection: kinematic?.linearDirection ?? new Vector3(),
     angularSpeed: metersPerSecond(kinematic?.angularSpeed ?? 0),
-    angularDirection: kinematic?.angularDirection ?? new Vector3()
+    angularDirection: kinematic?.angularDirection ?? new Quaternion()
   };
 }
 

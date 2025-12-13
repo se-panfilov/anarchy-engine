@@ -1,10 +1,11 @@
-import type { Vector2, Vector2Like, Vector4, Vector4Like } from 'three';
+import type { Euler, Quaternion, QuaternionLike, Vector2, Vector2Like, Vector4, Vector4Like } from 'three';
 import { Color } from 'three';
 import type { Vector3, Vector3Like } from 'three/src/math/Vector3';
 
 import type { TAbstractAsyncRegistry, TAbstractEntityRegistry, TWithUserData, TWithWrapperId, TWithWrapperIdEntity } from '@/Engine/Abstract/Models';
 import type { TColorWrapper } from '@/Engine/Color';
 import type { TDestroyable, TRegistrable, TWithPosition2dProperty, TWithPosition3dProperty, TWithPosition4dProperty, TWithPositionProperty } from '@/Engine/Mixins';
+import type { TEulerLike } from '@/Engine/ThreeLib';
 
 import { isObject } from './ObjectUtils';
 
@@ -34,12 +35,15 @@ export function isWithWrapperId<T extends TWithUserData>(obj: unknown): obj is T
   return isDefined(obj) && isObject(obj) && isDefined((obj as TWithWrapperIdEntity<T>).userData) && isDefined((obj as TWithWrapperIdEntity<T>).userData.wrapperId);
 }
 
-export const isVector2Like = (obj: Vector2 | Vector3 | Vector4 | Vector2Like | Vector3Like | Vector4Like): obj is Vector2Like =>
-  isDefined(obj.x) && isDefined(obj.x) && isNotDefined((obj as Vector3).z) && isNotDefined((obj as Vector4).w);
-export const isVector3Like = (obj: Vector2 | Vector3 | Vector4 | Vector2Like | Vector3Like | Vector4Like): obj is Vector3Like =>
-  isDefined(obj.x) && isDefined(obj.x) && isDefined((obj as Vector3).z) && isNotDefined((obj as Vector4).w);
-export const isVector4Like = (obj: Vector2 | Vector3 | Vector4 | Vector2Like | Vector3Like | Vector4Like): obj is Vector4Like =>
-  isDefined(obj.x) && isDefined(obj.x) && isDefined((obj as Vector4).z) && isDefined((obj as Vector4).w);
+type TMetrics = Vector2 | Vector3 | Vector4 | Vector2Like | Vector3Like | Vector4Like | Quaternion | Euler | QuaternionLike | TEulerLike;
+export const isVector2Like = (obj: TMetrics): obj is Vector2Like => isDefined(obj.x) && isDefined(obj.x) && isNotDefined((obj as Vector3).z) && isNotDefined((obj as Vector4).w);
+export const isVector3Like = (obj: TMetrics): obj is Vector3Like => isDefined(obj.x) && isDefined(obj.x) && isDefined((obj as Vector3).z) && isNotDefined((obj as Vector4).w);
+export const isVector4Like = (obj: TMetrics): obj is Vector4Like => isDefined(obj.x) && isDefined(obj.x) && isDefined((obj as Vector4).z) && isDefined((obj as Vector4).w);
+
+// TODO add unit tests
+export const isQuaternionLike = (obj: TMetrics): obj is QuaternionLike => isVector4Like(obj as Vector4);
+// TODO add unit tests
+export const isEulerLike = (obj: TMetrics): obj is Euler => isVector3Like(obj as Vector3);
 
 export const isEntityWith2dPosition = (obj: TWithPositionProperty): obj is TWithPosition2dProperty => isVector2Like(obj.position as Vector2);
 export const isEntityWith3dPosition = (obj: TWithPositionProperty): obj is TWithPosition3dProperty => isVector3Like(obj.position as Vector3);

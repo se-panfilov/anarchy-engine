@@ -3,6 +3,7 @@ import type { TCollisionsLoopService } from '@/Engine/Collisions';
 import { CollisionsUpdatePriority } from '@/Engine/Collisions';
 import type { TControlsRegistry, TOrbitControlsWrapper } from '@/Engine/Controls';
 import type { TKinematicLoopService } from '@/Engine/Kinematic';
+import type { TMilliseconds } from '@/Engine/Math';
 import type { TPhysicsLoopService } from '@/Engine/Physics';
 import type { TRendererWrapper } from '@/Engine/Renderer';
 import type { TSceneWrapper } from '@/Engine/Scene';
@@ -15,7 +16,7 @@ let currentSpatialPriorityCounter: number = SpatialUpdatePriority.ASAP;
 let currentCollisionsPriorityCounter: number = CollisionsUpdatePriority.ASAP;
 
 export function spaceLoop(
-  delta: number,
+  delta: TMilliseconds,
   activeCamera: TCameraWrapper | undefined,
   renderer: TRendererWrapper,
   activeScene: TSceneWrapper,

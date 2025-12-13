@@ -1,6 +1,6 @@
 import GUI from 'lil-gui';
 import { BehaviorSubject, combineLatest, map, withLatestFrom } from 'rxjs';
-import { Euler, Vector3 } from 'three';
+import { Euler, Quaternion, Vector3 } from 'three';
 import type { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
 import { degToRad, radToDeg } from 'three/src/math/MathUtils';
 
@@ -254,7 +254,7 @@ function rotateActorTo(actor: TActor, rotation: Euler, agent: TransformAgent): v
     case TransformAgent.Kinematic:
       // actor.drive.kinematic.setAngularAzimuth(radians(rotationXYZ.y));
       // return actor.drive.kinematic.setAngularSpeed(metersPerSecond(5));
-      return actor.drive.kinematic.rotateTo(new Vector3(rotationXYZ.x, rotationXYZ.y, rotationXYZ.z), metersPerSecond(5));
+      return actor.drive.kinematic.rotateTo(new Quaternion().setFromEuler(new Euler(rotationXYZ.x, rotationXYZ.y, rotationXYZ.z)), metersPerSecond(5), 1); //actor.model3d.getParams().radius);
     case TransformAgent.Connected:
       // no need to do anything here, cause already connected
       return undefined;

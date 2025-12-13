@@ -38,10 +38,33 @@ export const getAzimuthRadFromDirection = (direction: Vector3Like): TRadians => 
   if (azimuth < 0) (azimuth as number) += 2 * Math.PI;
   return azimuth;
 };
+
+// TODO add unit tests
+export const getAzimutFromQuaternionDirection = (quaternion: QuaternionLike): TRadians => {
+  const { x, y, z, w } = quaternion;
+
+  // Calculate azimuth using the quaternion components
+  const sinY: number = 2 * (w * y + z * x);
+  const cosY: number = 1 - 2 * (x * x + y * y);
+
+  let azimuth: TRadians = Math.atan2(sinY, cosY) as TRadians;
+
+  // Normalize azimuth to range [0, 2π]
+  if (azimuth < 0) (azimuth as number) += 2 * Math.PI;
+
+  return azimuth;
+};
+
 // TODO add unit tests
 export const getAzimuthDegFromDirection = (direction: Vector3Like): TDegrees => radToDeg(getAzimuthRadFromDirection(direction)) as TDegrees;
 // TODO add unit tests
 export const getElevationFromDirection = (direction: Vector3Like): TRadians => Math.atan2(direction.y, Math.sqrt(direction.x ** 2 + direction.z ** 2)) as TRadians;
+// TODO add unit tests
+export const getElevationFromQuaternionDirection = (quaternion: QuaternionLike): TRadians => {
+  const { x, y, z, w } = quaternion;
+  return Math.asin(2 * (w * x - y * z)) as TRadians;
+};
+
 // TODO add unit tests
 export const getDirectionFromLinearVelocity = (linearVelocity: Vector3): Vector3 => linearVelocity.clone().normalize();
 // TODO add unit tests
@@ -58,10 +81,10 @@ export const getLinearVelocity = (speed: TMetersPerSecond, azimuth: TRadians, el
   new Vector3(speed * Math.cos(elevation) * Math.cos(azimuth), speed * Math.sin(elevation), speed * Math.cos(elevation) * Math.sin(azimuth));
 
 // TODO add unit tests
-export const getSpeedFromAngularVelocity = (angularVelocity: Vector3): TMetersPerSecond => metersPerSecond(angularVelocity.length());
+export const getSpeedFromAngularVelocity = (angularVelocity: Quaternion): TMetersPerSecond => metersPerSecond(angularVelocity.length());
 
 // TODO add unit tests
-export const getDirectionFromAngularVelocity = (angularVelocity: Vector3): Vector3 => angularVelocity.clone().normalize();
+export const getDirectionFromAngularVelocity = (angularVelocity: Quaternion): Quaternion => angularVelocity.clone().normalize();
 
 // TODO add unit tests
 export function get3DAzimuth(center: Vector3Like, point: Vector3Like): { azimuth: TRadians; elevation: TRadians } {
