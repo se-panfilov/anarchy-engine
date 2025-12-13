@@ -258,7 +258,7 @@ export function KinematicTransformAgent(params: TKinematicTransformAgentParams, 
       return getAzimutFromQuaternionDirection(agent.data.angularDirection);
     },
     setAngularAzimuth(azimuthRad: TRadians): void {
-      const elevation = this.getAngularElevation();
+      const elevation = agent.getAngularElevation();
       const quaternion = new Quaternion().setFromEuler(new Euler(elevation, azimuthRad, 0, 'ZYX'));
       agent.data.angularDirection.copy(quaternion);
     },
@@ -266,12 +266,12 @@ export function KinematicTransformAgent(params: TKinematicTransformAgentParams, 
       return getElevationFromQuaternionDirection(agent.data.angularDirection);
     },
     setAngularElevation(elevationRad: TRadians): void {
-      const azimuth: TRadians = this.getAngularAzimuth();
+      const azimuth: TRadians = agent.getAngularAzimuth();
       const quaternion: Quaternion = new Quaternion().setFromEuler(new Euler(elevationRad, azimuth, 0, 'ZYX'));
       agent.data.angularDirection.copy(quaternion);
 
       // This approach could lead to bugs, if the quaternion is not normalized
-      // const azimuth: TRadians = this.getAngularAzimuth();
+      // const azimuth: TRadians = agent.getAngularAzimuth();
       //
       // const sinElevation: TRadians = Math.sin(elevationRad) as TRadians;
       // const cosElevation: TRadians = Math.cos(elevationRad) as TRadians;
