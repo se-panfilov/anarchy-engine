@@ -3,7 +3,6 @@ import type { TWithFactoryService, TWithRegistryService } from '@/Mixins';
 import type { TransformAgent } from '@/TransformDrive/Constants';
 import type { TOptional } from '@/Utils';
 
-import type { TTransformDriveSerializedData } from '.';
 import type { TAbstractTransformAgent } from './TAbstractTransformAgent';
 import type { TGetTransformAgentsOptions, TGetTransformAgentsParams } from './TGetTransformAgentsParams';
 import type { TTransformAgents } from './TTransformAgents';
@@ -12,6 +11,7 @@ import type { TTransformDriveFactory } from './TTransformDriveFactory';
 import type { TTransformDriveFactoryParams } from './TTransformDriveFactoryParams';
 import type { TTransformDriveParams } from './TTransformDriveParams';
 import type { TTransformDriveRegistry } from './TTransformDriveRegistry';
+import type { TTransformDriveSerializedData } from './TTransformDriveSerializedData';
 
 export type TCreateFromServiceTransformDriveFn<T, P1, P2> = (params: P1, agents: P2) => T;
 
