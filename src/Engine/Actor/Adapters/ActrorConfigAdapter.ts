@@ -10,7 +10,7 @@ export function configToParams(config: TActorConfig): TActorParams {
 
   return {
     ...rest,
-    physics: physics ? configToOptionalParamsBody(physics) : {},
+    physics: physics ? configToOptionalParamsBody(physics) : undefined,
     material: { type: materialType, params: { ...restMaterialParams }, textures: material.textures } satisfies TMaterialPackParams<TMaterialTexturePack>,
     ...configToParamsObject3d({ position, rotation, scale, layers, animations })
   };
