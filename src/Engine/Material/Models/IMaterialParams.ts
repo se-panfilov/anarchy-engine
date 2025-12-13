@@ -240,8 +240,8 @@ export type IPointsMaterialParams = IAbstractMaterialParams &
     map?: ITexture | null;
     alphaMap?: ITexture | null;
     size: number;
-    sizeAttenuation: boolean;
-    fog: boolean;
+    sizeAttenuation?: boolean;
+    fog?: boolean;
   }>;
 
 export type IMaterialParams =
