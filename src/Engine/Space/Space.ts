@@ -7,6 +7,7 @@ import type { TIntersectionsWatcher } from '@/Engine/Intersections';
 import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
 import { withTagsMixin } from '@/Engine/Mixins/Generics';
+import type { TModel3dFacade } from '@/Engine/Models3d';
 import { RendererModes } from '@/Engine/Renderer';
 import type { TScenesService, TSceneWrapper } from '@/Engine/Scene';
 import { screenService } from '@/Engine/Services';
@@ -19,7 +20,7 @@ import { isDefined, isDestroyable, isNotDefined } from '@/Engine/Utils';
 // TODO SPACE: we need a space service, and factory, to create from config, and to create from the code.
 
 // TODO LOGGER: add a logger globally (not only for errors, but I'd like to know, which service with which id did what).
-export function buildSpaceFromConfig(canvas: TAppCanvas, config: TSpaceConfig): TSpace {
+export async function buildSpaceFromConfig(canvas: TAppCanvas, config: TSpaceConfig): Promise<TSpace> {
   const { isValid, errors } = validSpaceConfig(config);
   if (!isValid) {
     // TODO LOGGER: should be forwarded to the errors hub (which is not implemented yet)
@@ -69,7 +70,8 @@ export function buildSpaceFromConfig(canvas: TAppCanvas, config: TSpaceConfig): 
   }
   if (isDefined(physics.presets)) physicsPresetService.addPresetsFromConfig(physics.presets);
 
-  void models3dService.loadFromConfigAsync(models3d);
+  const models: ReadonlyArray<Promise<TModel3dFacade>> = models3dService.loadFromConfigAsync(models3d);
+  await Promise.all(models);
 
   cameraService.createFromConfig(cameras);
   actorService.createFromConfig(actors);

@@ -35,8 +35,8 @@ import { meters } from '@/Engine/Measurements/Utils';
 
 import spaceConfig from './showcase.json';
 
-export function showcase(canvas: TAppCanvas): TShowcase {
-  const space: TSpace = buildSpaceFromConfig(canvas, spaceConfig as TSpaceConfig);
+export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
+  const space: TSpace = await buildSpaceFromConfig(canvas, spaceConfig as TSpaceConfig);
   const engine: TEngine = Engine(space);
   const { keyboardService } = engine.services;
   const { actorService, cameraService, intersectionsWatcherService, loopService, mouseService, textService, physicsWorldService } = space.services;

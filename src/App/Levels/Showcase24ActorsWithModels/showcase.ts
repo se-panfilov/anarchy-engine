@@ -1,11 +1,11 @@
 import type { TShowcase } from '@/App/Levels/Models';
-import type { TAppCanvas, TEngine, TModel3dLoadOptions, TSpace, TSpaceConfig, TVector3Wrapper } from '@/Engine';
-import { buildSpaceFromConfig, Engine, Vector3Wrapper } from '@/Engine';
+import type { TActorWrapperAsync, TAppCanvas, TEngine, TSpace, TSpaceConfig } from '@/Engine';
+import { buildSpaceFromConfig, Engine } from '@/Engine';
 
 import spaceConfig from './showcase.json';
 
-export function showcase(canvas: TAppCanvas): TShowcase {
-  const space: TSpace = buildSpaceFromConfig(canvas, spaceConfig as TSpaceConfig);
+export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
+  const space: TSpace = await buildSpaceFromConfig(canvas, spaceConfig as TSpaceConfig);
   const engine: TEngine = Engine(space);
   const { models3dService } = space.services;
 

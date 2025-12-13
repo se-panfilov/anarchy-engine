@@ -6,13 +6,13 @@ import type { TWithPresetNamePhysicsBodyConfig } from '@/Engine/Physics';
 import type { TSpatialDataConfig } from '@/Engine/Spatial';
 import type { TObject3DPropConfig } from '@/Engine/ThreeLib';
 
-import type { TActorModel3dConfig } from './TActorModel3dConfig';
 import type { TActorProps } from './TActorProps';
 
 export type TActorConfig = Omit<TActorProps, 'material'> &
   Readonly<{
     material: TMaterialPackConfig<TMaterialTexturePack>;
-    model3d: TActorModel3dConfig;
+    // TODO check name match model's in config
+    model3dName?: string;
   }> &
   Readonly<{
     physics?: TWithPresetNamePhysicsBodyConfig;

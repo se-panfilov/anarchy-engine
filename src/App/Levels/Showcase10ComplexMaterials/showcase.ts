@@ -9,10 +9,10 @@ import { buildSpaceFromConfig, Engine, EulerWrapper, isDefined, isNotDefined, Ke
 
 import spaceConfig from './showcase.json';
 
-export function showcase(canvas: TAppCanvas): TShowcase {
+export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
   const gui: GUI = new GUI();
 
-  const space: TSpace = buildSpaceFromConfig(canvas, spaceConfig as TSpaceConfig);
+  const space: TSpace = await buildSpaceFromConfig(canvas, spaceConfig as TSpaceConfig);
   const { textService } = space.services;
 
   const engine: TEngine = Engine(space);

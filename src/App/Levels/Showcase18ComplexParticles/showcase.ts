@@ -8,9 +8,9 @@ import { configToParams as particlesConfigToParams } from '@/Engine/Particles/Ad
 
 import spaceConfig from './showcase.json';
 
-export function showcase(canvas: TAppCanvas): TShowcase {
+export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
   const gui: GUI = new GUI();
-  const space: TSpace = buildSpaceFromConfig(canvas, spaceConfig as TSpaceConfig);
+  const space: TSpace = await buildSpaceFromConfig(canvas, spaceConfig as TSpaceConfig);
   const engine: TEngine = Engine(space);
   const { particlesService, loopService } = space.services;
 

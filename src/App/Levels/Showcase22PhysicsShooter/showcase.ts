@@ -38,8 +38,8 @@ import {
   updateBullets
 } from './utils';
 
-export function showcase(canvas: TAppCanvas): TShowcase {
-  const space: TSpace = buildSpaceFromConfig(canvas, spaceConfig as TSpaceConfig);
+export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
+  const space: TSpace = await buildSpaceFromConfig(canvas, spaceConfig as TSpaceConfig);
   const engine: TEngine = Engine(space);
   const { keyboardService } = engine.services;
   const { physicsLoopService, cameraService, actorService, lightService, loopService, mouseService, intersectionsWatcherService, spatialGridService } = space.services;
