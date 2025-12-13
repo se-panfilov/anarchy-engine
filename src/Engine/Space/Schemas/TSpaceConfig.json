@@ -1891,6 +1891,12 @@
             }
           ]
         },
+        "animationsSource": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
         "materialSource": {
           "type": "string"
         }
