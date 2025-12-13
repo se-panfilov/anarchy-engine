@@ -1,6 +1,7 @@
 import type { TWrapper } from '@/Engine/Abstract';
+import type { TWithKinematic } from '@/Engine/Kinematic';
 import type { TWithMaterial } from '@/Engine/Material';
-import type { TMovable3dXYZ, TRotatable, TScalable, TWithKinematic, TWithObject3d, TWithTagsMixin } from '@/Engine/Mixins';
+import type { TMovable3dXYZ, TRotatable, TScalable, TWithObject3d, TWithTagsMixin } from '@/Engine/Mixins';
 import type { TWithOptionalPhysicsBody } from '@/Engine/Physics';
 import type { TWithTextures } from '@/Engine/Texture';
 import type { TMesh } from '@/Engine/ThreeLib';

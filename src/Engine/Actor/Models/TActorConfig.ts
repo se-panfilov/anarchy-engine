@@ -1,7 +1,8 @@
 import type { ActorType } from '@/Engine/Actor/Constants';
+import type { TKinematicInfo } from '@/Engine/Kinematic';
 import type { TMaterialPackConfig, TMaterialTexturePack } from '@/Engine/MaterialTexturePack';
 import type { TWithReadonlyTags } from '@/Engine/Mixins';
-import type { TKinematicInfo, TWithPresetNamePhysicsBodyConfig } from '@/Engine/Physics';
+import type { TWithPresetNamePhysicsBodyConfig } from '@/Engine/Physics';
 import type { TObject3DPropConfig } from '@/Engine/ThreeLib';
 
 import type { TActorProps } from './TActorProps';

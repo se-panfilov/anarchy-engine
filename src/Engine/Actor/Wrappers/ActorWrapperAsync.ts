@@ -2,9 +2,10 @@ import type { Subscription } from 'rxjs';
 
 import { AbstractWrapper, WrapperType } from '@/Engine/Abstract';
 import type { TActorDependencies, TActorParams, TActorWrapperAsync } from '@/Engine/Actor/Models';
+import { withKinematic } from '@/Engine/Kinematic';
 import type { TWithMaterial } from '@/Engine/Material';
 import { withMaterial } from '@/Engine/Material';
-import { scalableMixin, withKinematic, withMoveBy3dMixin, withObject3d, withRotationByXyzMixin } from '@/Engine/Mixins';
+import { scalableMixin, withMoveBy3dMixin, withObject3d, withRotationByXyzMixin } from '@/Engine/Mixins';
 import { withTextures } from '@/Engine/Texture';
 import type { TMesh } from '@/Engine/ThreeLib';
 import { applyObject3dParams, applyPosition, applyRotation, applyScale, isDefined } from '@/Engine/Utils';

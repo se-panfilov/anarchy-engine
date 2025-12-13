@@ -1,4 +1,3 @@
-export * from './TKinematicInfo';
 export * from './TPhysicsBodyConfig';
 export * from './TPhysicsBodyFacade';
 export * from './TPhysicsBodyFacadeEntities';

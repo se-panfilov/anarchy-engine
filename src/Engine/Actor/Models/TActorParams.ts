@@ -1,5 +1,6 @@
+import type { TKinematicInfo } from '@/Engine/Kinematic';
 import type { TWithReadonlyTags } from '@/Engine/Mixins';
-import type { TKinematicInfo, TWithPresetNamePhysicsBodyParams } from '@/Engine/Physics';
+import type { TWithPresetNamePhysicsBodyParams } from '@/Engine/Physics';
 import type { TObject3DParams } from '@/Engine/ThreeLib';
 
 import type { TActorProps } from './TActorProps';

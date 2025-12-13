@@ -2,10 +2,11 @@ import type { RigidBody } from '@dimforge/rapier3d';
 import type { Vector } from '@dimforge/rapier3d/math';
 import Decimal from 'decimal.js';
 
+import type { TKinematicInfo } from '@/Engine/Kinematic';
 import { cos, degToRad, sin } from '@/Engine/Math';
 import type { TWithCoordsXYZ } from '@/Engine/Mixins';
 import { VelocityType } from '@/Engine/Physics/Constants';
-import type { TKinematicInfo, TPhysicsBodyFacade } from '@/Engine/Physics/Models';
+import type { TPhysicsBodyFacade } from '@/Engine/Physics/Models';
 import { isNotDefined } from '@/Engine/Utils';
 import type { TVector3Wrapper } from '@/Engine/Vector';
 

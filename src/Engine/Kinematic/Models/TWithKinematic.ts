@@ -1,4 +1,5 @@
-import type { TKinematicInfo } from '@/Engine/Physics/Models';
+import type { TKinematicAccessors } from './TKinematicAccessors';
+import type { TKinematicInfo } from './TKinematicInfo';
 
 export type TWithKinematic = {
   kinematic: TKinematicInfo & TKinematicAccessors;
@@ -8,10 +9,3 @@ export type TWithKinematic = {
   doKinematicRotation: (delta: number) => void;
   isKinematicAutoUpdate: boolean;
 };
-
-export type TKinematicAccessors = Readonly<{
-  getSpeed: () => number;
-  getAzimuth: () => number;
-  getElevation: () => number;
-  setLinearVelocity: (speed: number, azimuth: number, elevation: number) => void;
-}>;
