@@ -1,3 +1,6 @@
+// TODO DESKTOP: LEGAL: Actually, we can use constants here (GENERIC, DISCLAIMER, EULA, PRIVACY, SECURITY) and other values (Software, Project, etc.)
+// TODO DESKTOP: LEGAL: Array is ok, but Object would be easier to extend
+
 export default [
   {
     type: 'GENERIC',
@@ -55,6 +58,9 @@ export default [
       // educational and research — for educational and research editions.
       USAGE_SCOPE: 'personal and commercial',
       IS_GAME: false, //If it's game, add game-specific messages, e.g. no cheating, etc.
+
+      //SECURITY
+      HAS_OFFICIAL_CHANNELS_LIST: false,
 
       //GDPR
       SUPPORT_EMAILS_RETAIN_PERIOD_MONTH: 24,

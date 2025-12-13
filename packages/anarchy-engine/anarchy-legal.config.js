@@ -1,8 +1,19 @@
 import base from '../../anarchy-legal-base.config.js.js';
 
+const baseGenerics = base.find(({ type }) => type === 'GENERIC');
+const newWithoutGenerics = [...base.filter(({ type }) => type !== 'GENERIC')];
+
 //Non-Commercial configuration for legal docs
 export default [
-  ...base,
+  ...newWithoutGenerics,
+  {
+    ...baseGenerics,
+    messages: {
+      ...baseGenerics.messages,
+
+      PRODUCT_TERM: 'Project'
+    }
+  },
   {
     type: 'DISCLAIMER'
   },

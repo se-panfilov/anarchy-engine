@@ -5,7 +5,10 @@
 
 ## Scope
 
-This policy covers the **open-source code** in \***\*. It is provided for community coordination only and **does not create service levels (SLAs), warranties, or contractual obligations**. Third-party binaries or downstream products are **out of scope\*\*.
+This policy applies to the open-source project **showcases-shared** (the “Project”). It is provided for community coordination only and **does not create service levels (SLAs), warranties, or contractual obligations**.
+It covers the Project’s **source code** and our **officially published release artifacts** (e.g., package registries, release archives, or documentation sites) that **we** publish. It does **not** cover third-party repackaging, unofficial builds, downstream products, hosting-platform infrastructure, or **commercial editions**.
+
+**Technical identifiers (optional):** showcases-shared.
 
 ## Reporting (CVD)
 
@@ -20,7 +23,8 @@ This is a volunteer-maintained project. We’ll make a **good-faith effort** to 
 
 - Avoid accessing, modifying, or exfiltrating data you do not own; minimize impact and stop testing if you encounter personal data.
 - Do not perform tests that degrade availability for others (e.g., volumetric DoS).
-- Only test assets reasonably within this repository’s scope; third-party platforms and distribution channels are out of scope.
+- Test only assets we publish through our **official channels** and that are reasonably within this Project’s scope.
+- Vulnerabilities in **third-party platform infrastructure** (e.g., registry/hosting/CDN systems) are **out of scope** unless they result **directly** from our published code or configuration.
 - Comply with applicable law and third-party terms.
 
 ## Version Support
@@ -29,15 +33,16 @@ We generally address issues on **main** and the **latest stable** release. Older
 
 ## Advisories
 
-If warranted, we will publish a security note or advisory in the repository (e.g., \***\*, release notes, or the advisories section). There is **no SLA\*\*.
+If warranted, we will publish a security note or advisory in the repository or adjacent project materials (e.g., `SECURITY` or `CHANGELOG`, release notes, or the advisories section). There is **no SLA**.
+Copies of public content may also appear in mirrors, forks, caches, or package registries controlled by others; **we do not control those third-party copies**.
 
 ## In / Out of Scope
 
-- **In scope:** issues that materially impact the confidentiality, integrity, or availability of the code in this repository or its documented update/build mechanisms.
-- **Out of scope:** social engineering, physical attacks, denial-of-service on third-party platforms, vulnerabilities in third-party stores or OS kernels not packaged with this project, issues in unofficial forks or repackaged distributions.
+- **In scope:** issues that materially impact the confidentiality, integrity, or availability of the Project’s code or its documented build/update mechanisms, as **we** publish them.
+- **Out of scope:** social engineering, physical attacks, denial-of-service on third-party platforms, vulnerabilities in hosting/store/kernel infrastructure not packaged with the Project, issues in **unofficial forks**, repackaged distributions, or downstream products.
 
 ## Safe Harbor
 
-We welcome good-faith research that avoids privacy violations and service disruption. If you comply with this policy and act in good faith, we **do not intend** to pursue legal action **solely** for your security research on this project. This policy does not authorize unlawful activity or override third-party terms, and it does not protect actions that cause harm or data loss.
+We welcome good-faith research that avoids privacy violations and service disruption. If you comply with this policy and act in good faith, we **do not intend** to pursue legal action **solely** for your security research on this Project. This policy does not authorize unlawful activity or override third-party terms, and it does not protect actions that cause harm or data loss.
 
 **Governing Law:** subject to mandatory law, matters under this policy are handled under **The Netherlands/Amsterdam**.
