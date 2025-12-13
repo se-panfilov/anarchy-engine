@@ -1,7 +1,7 @@
 import type { TShowcase } from '@/App/Levels/Models';
 import type {
-  TActorRegistry,
   TActor,
+  TActorRegistry,
   TAppCanvas,
   TCameraWrapper,
   TEngine,

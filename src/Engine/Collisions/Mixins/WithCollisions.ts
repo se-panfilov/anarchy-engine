@@ -1,7 +1,7 @@
 import type { Subscription } from 'rxjs';
 import { filter, Subject } from 'rxjs';
 
-import type { TActorParams, TActor } from '@/Engine/Actor';
+import type { TActor, TActorParams } from '@/Engine/Actor';
 import { CollisionsUpdatePriority } from '@/Engine/Collisions/Constants';
 import type { TCollisionCheckResult, TCollisionsData, TCollisionsLoopService, TCollisionsService, TWithCollisions } from '@/Engine/Collisions/Models';
 import type { TSpatialCellWrapper } from '@/Engine/Spatial';

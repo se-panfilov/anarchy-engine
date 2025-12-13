@@ -6,9 +6,9 @@ import { Points } from 'three/src/objects/Points';
 
 import { createFlashLight } from '@/App/Levels/Showcase22PhysicsShooter/utils/Light';
 import type {
+  TActor,
   TActorParams,
   TActorService,
-  TActor,
   TCollisionCheckResult,
   TLightService,
   TMaterialService,

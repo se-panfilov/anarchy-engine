@@ -1,4 +1,4 @@
-import type { TActorDependencies, TActorWithPhysicsDependencies, TActor, TActorWrapperWithPhysics } from '@/Engine/Actor/Models';
+import type { TActor, TActorDependencies, TActorWithPhysicsDependencies, TActorWrapperWithPhysics } from '@/Engine/Actor/Models';
 import { isDefined } from '@/Engine/Utils';
 
 export const isActorHasPhysicsBody = (actor: TActor | TActorWrapperWithPhysics): actor is TActorWrapperWithPhysics => isDefined(actor.physicsBody);

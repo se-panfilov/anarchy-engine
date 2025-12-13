@@ -2,7 +2,7 @@ import GUI from 'lil-gui';
 import { withLatestFrom } from 'rxjs';
 
 import type { TShowcase } from '@/App/Levels/Models';
-import type { TActorRegistry, TActor, TAppCanvas, TCameraWrapper, TEngine, TIntersectionEvent, TIntersectionsWatcher, TMouseWatcherEvent, TMoverService, TSpace, TSpaceConfig } from '@/Engine';
+import type { TActor, TActorRegistry, TAppCanvas, TCameraWrapper, TEngine, TIntersectionEvent, TIntersectionsWatcher, TMouseWatcherEvent, TMoverService, TSpace, TSpaceConfig } from '@/Engine';
 import { defaultMoverServiceConfig, Easing, Engine, isNotDefined, KeyCode, LookUpStrategy, mpsSpeed, spaceService } from '@/Engine';
 import { MoverService } from '@/Engine/Services/MoverService/MoverService';
 

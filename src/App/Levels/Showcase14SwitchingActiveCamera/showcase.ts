@@ -1,7 +1,7 @@
 import GUI from 'lil-gui';
 
 import type { TShowcase } from '@/App/Levels/Models';
-import type { TActorRegistry, TActor, TAppCanvas, TCameraRegistry, TCameraWrapper, TEngine, TSpace, TSpaceConfig } from '@/Engine';
+import type { TActor, TActorRegistry, TAppCanvas, TCameraRegistry, TCameraWrapper, TEngine, TSpace, TSpaceConfig } from '@/Engine';
 import { Engine, isNotDefined, spaceService } from '@/Engine';
 
 import spaceConfig from './showcase.json';

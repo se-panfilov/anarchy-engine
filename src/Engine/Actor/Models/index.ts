@@ -1,4 +1,5 @@
 export * from './TActor';
+export * from './TActor';
 export * from './TActorConfig';
 export * from './TActorConfigToParamsDependencies';
 export * from './TActorDependencies';
@@ -9,7 +10,6 @@ export * from './TActorProps';
 export * from './TActorRegistry';
 export * from './TActorService';
 export * from './TActorWithPhysicsWrapper';
-export * from './TActor';
 export * from './TActorWrapperWithPhysics';
 export * from './TModel3dFacadeToActorConnectionRegistry';
 export * from './TParamsFromConfigActor';

@@ -6,7 +6,7 @@ import { Euler } from 'three';
 import { Vector3 } from 'three/src/math/Vector3';
 
 import type { TShowcase } from '@/App/Levels/Models';
-import type { TActorRegistry, TActor, TAppCanvas, TControlsRegistry, TEngine, TOrbitControlsWrapper, TRegistryPack, TSpace, TSpaceConfig } from '@/Engine';
+import type { TActor, TActorRegistry, TAppCanvas, TControlsRegistry, TEngine, TOrbitControlsWrapper, TRegistryPack, TSpace, TSpaceConfig } from '@/Engine';
 import { Engine, isDefined, isNotDefined, KeyCode, LookUpStrategy, spaceService, TextType } from '@/Engine';
 
 import spaceConfig from './showcase.json';

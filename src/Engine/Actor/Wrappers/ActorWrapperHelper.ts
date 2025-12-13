@@ -1,4 +1,4 @@
-import type { TActorParams, TActor } from '@/Engine/Actor/Models';
+import type { TActor, TActorParams } from '@/Engine/Actor/Models';
 import type { TSpatialGridService, TSpatialGridWrapper } from '@/Engine/Spatial';
 import { isNotDefined } from '@/Engine/Utils';
 

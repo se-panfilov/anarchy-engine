@@ -1,7 +1,7 @@
 import type { TReactiveFactoryWithDependencies } from '@/Engine/Abstract';
 import { FactoryType, ReactiveFactoryWithDependencies } from '@/Engine/Abstract';
 import { configToParams } from '@/Engine/Actor/Adapters';
-import type { TActorDependencies, TActorFactory, TActorParams, TActorServiceDependencies, TActorWithPhysicsDependencies, TActor, TActorWrapperWithPhysics } from '@/Engine/Actor/Models';
+import type { TActor, TActorDependencies, TActorFactory, TActorParams, TActorServiceDependencies, TActorWithPhysicsDependencies, TActorWrapperWithPhysics } from '@/Engine/Actor/Models';
 import { isBodyServiceDependency } from '@/Engine/Actor/Utils';
 import { Actor, ActorWrapperWithPhysics } from '@/Engine/Actor/Wrappers';
 import { isDefined } from '@/Engine/Utils';
