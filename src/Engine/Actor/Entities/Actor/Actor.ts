@@ -1,5 +1,5 @@
 import { nanoid } from 'nanoid';
-import type { Subscription } from 'rxjs';
+import type { BehaviorSubject, Subscription } from 'rxjs';
 import { distinctUntilChanged, tap } from 'rxjs';
 import type { Vector3 } from 'three';
 
@@ -12,6 +12,7 @@ import { withCollisions } from '@/Engine/Collisions';
 import type { TFsmWrapper } from '@/Engine/Fsm';
 import type { TModel3d } from '@/Engine/Models3d';
 import { withSpatial, withUpdateSpatialCell } from '@/Engine/Spatial';
+import type { TReadonlyVector3 } from '@/Engine/ThreeLib';
 import type { TDriveToTargetConnector } from '@/Engine/TransformDrive';
 import { DriveToTargetConnector } from '@/Engine/TransformDrive';
 import { isDefined, isEqualOrSimilarByXyzCoords } from '@/Engine/Utils';
@@ -30,7 +31,6 @@ export function Actor(
 
   // TODO CWP:
   // TODO 8.0.0. MODELS: Close all todoes with tag 10.0.0
-  // TODO 8.0.0. MODELS: Check all "mixins consumers" (a mixin should return a new object, which should be used in the entity)
 
   const entities: TActorEntities = {
     // TODO ACTOR: state encapsulate AI (connection)
@@ -44,6 +44,12 @@ export function Actor(
   };
 
   const actor: TActor = AbstractEntity(entities, EntityType.Actor, { ...params, id });
+
+  const positionSub$: Subscription = onDistinctPositionChange(
+    drive.position$,
+    (position: Vector3): void => actor.updateSpatialCells(position),
+    params.spatial.performance?.noiseThreshold ?? 0.0000001
+  );
 
   actor.destroy$.subscribe((): void => {
     //Remove model3d registration
@@ -62,30 +68,32 @@ export function Actor(
     Object.values(entities.states).forEach((value: TFsmWrapper): void => value.destroy$.next());
   });
 
-  const spatialNoiseThreshold: number = params.spatial.performance?.noiseThreshold ?? 0.0000001;
-  const prevValue: Float32Array = new Float32Array([0, 0, 0]);
-  // TODO 8.0.0. MODELS: Can we move updateSpatialCells somewhere? (in mixin?)
-  // TODO 10.0.0. LOOPS: Position/rotations/scale should have an own loop independent from frame rate (driven by time)
-  const positionSub$: Subscription = drive.position$
-    .pipe(
-      distinctUntilChanged((_prev: Vector3, curr: Vector3): boolean => isEqualOrSimilarByXyzCoords(prevValue[0], prevValue[1], prevValue[2], curr.x, curr.y, curr.z, spatialNoiseThreshold)),
-      tap((value: Vector3): void => {
-        // eslint-disable-next-line functional/immutable-data
-        prevValue[0] = value.x;
-        // eslint-disable-next-line functional/immutable-data
-        prevValue[1] = value.y;
-        // eslint-disable-next-line functional/immutable-data
-        prevValue[2] = value.z;
-      })
-    )
-    // I'm not sure if we need to update spatial cells as well on rotation or scale is change
-    .subscribe((position: Vector3): void => actor.updateSpatialCells(position));
-
   applySpatialGrid(params, actor, spatialGridService);
-
   startCollisions(actor);
 
   model3dToActorConnectionRegistry.addModel3d(model3d, actor);
 
   return actor;
+}
+
+function onDistinctPositionChange(position$: BehaviorSubject<TReadonlyVector3>, fn: (position: Vector3) => void, noiseThreshold?: number): Subscription {
+  const prevValue: Float32Array = new Float32Array([0, 0, 0]);
+
+  // TODO 10.0.0. LOOPS: Position/rotations/scale should have an own loop independent from frame rate (driven by time)
+  return (
+    position$
+      .pipe(
+        distinctUntilChanged((_prev: Vector3, curr: Vector3): boolean => isEqualOrSimilarByXyzCoords(prevValue[0], prevValue[1], prevValue[2], curr.x, curr.y, curr.z, noiseThreshold ?? 0)),
+        tap((value: Vector3): void => {
+          // eslint-disable-next-line functional/immutable-data
+          prevValue[0] = value.x;
+          // eslint-disable-next-line functional/immutable-data
+          prevValue[1] = value.y;
+          // eslint-disable-next-line functional/immutable-data
+          prevValue[2] = value.z;
+        })
+      )
+      // I'm not sure if we need to update spatial cells as well on rotation or scale is change
+      .subscribe(fn)
+  );
 }
