@@ -1,3 +1,3 @@
-import type { TActive, TWithNameRequired, TWithReadonlyTags } from '@/Engine/Mixins';
+import type { TActive, TWithName, TWithReadonlyTags } from '@/Engine/Mixins';
 
-export type TEnvMapProps = TActive & TWithNameRequired & TWithReadonlyTags;
+export type TEnvMapProps = TActive & TWithName & TWithReadonlyTags;

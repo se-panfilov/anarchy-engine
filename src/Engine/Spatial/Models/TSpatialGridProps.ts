@@ -1,4 +1,4 @@
-import type { TWithName } from '@/Engine/Mixins';
+import type { TWithNameOptional } from '@/Engine/Mixins';
 
 export type TSpatialGridProps = Readonly<{
   mapWidth: number;
@@ -7,4 +7,4 @@ export type TSpatialGridProps = Readonly<{
   centerX: number;
   centerZ: number;
 }> &
-  TWithName;
+  TWithNameOptional;

@@ -1,4 +1,4 @@
-import type { TWithName, TWithReadonlyTags } from '@/Engine/Mixins';
+import type { TWithNameOptional, TWithReadonlyTags } from '@/Engine/Mixins';
 import type { TransformAgent } from '@/Engine/TransformDrive/Constants';
 
 export type TActorProps = Readonly<{
@@ -6,5 +6,5 @@ export type TActorProps = Readonly<{
   driveUpdateDelay?: number;
   driveCoordsThreshold?: number;
 }> &
-  TWithName &
+  TWithNameOptional &
   TWithReadonlyTags;

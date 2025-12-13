@@ -4,7 +4,7 @@ import type { TAbstractResourceConfig } from '@/Engine/Abstract';
 import type { TActorConfig } from '@/Engine/Actor';
 import type { TCameraConfig } from '@/Engine/Camera';
 import type { TControlsConfig } from '@/Engine/Controls';
-import type { TWithName, TWithReadonlyTags } from '@/Engine/Mixins';
+import type { TWithNameOptional, TWithReadonlyTags } from '@/Engine/Mixins';
 import type { TModel3dResourceConfig } from '@/Engine/Models3d';
 import { isPrimitiveModel3dResourceConfig } from '@/Engine/Models3d';
 import type { TPhysicsPresetConfig, TWithPresetNamePhysicsBodyConfig } from '@/Engine/Physics';
@@ -150,8 +150,8 @@ function validateData({ name, version, scenes, resources, entities, tags }: TSpa
   return { isValid: errors.length === 0, errors };
 }
 
-const validateNames = (entities: ReadonlyArray<TWithName>): boolean => entities.every(validateName);
-const validateName = (entity: TWithName): boolean => validateField(entity, 'name');
+const validateNames = (entities: ReadonlyArray<TWithNameOptional>): boolean => entities.every(validateName);
+const validateName = (entity: TWithNameOptional): boolean => validateField(entity, 'name');
 const validateCameraNames = (entities: ReadonlyArray<Readonly<{ cameraName: string }>>): boolean => entities.every(validateCameraName);
 const validateCameraName = (entity: Readonly<{ cameraName: string }>): boolean => validateField(entity, 'cameraName');
 const validatePresetName = (entity: Readonly<{ presetName: string }>): boolean => validateField(entity, 'presetName');

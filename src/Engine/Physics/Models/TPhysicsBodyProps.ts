@@ -1,4 +1,4 @@
-import type { TWithName } from '@/Engine/Mixins';
+import type { TWithNameOptional } from '@/Engine/Mixins';
 import type { CollisionShape, RigidBodyTypesNames } from '@/Engine/Physics/Constants';
 
 import type { TPhysicsShapeParams } from './TPhysicsShapeParams';
@@ -12,4 +12,4 @@ export type TPhysicsBodyProps = Readonly<{
   friction?: number;
   collisionGroups?: number;
 }> &
-  Required<TWithName>;
+  Required<TWithNameOptional>;

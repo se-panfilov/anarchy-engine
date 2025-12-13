@@ -1,3 +1,3 @@
-import type { TWithNameRequired } from '@/Engine/Mixins';
+import type { TWithName } from '@/Engine/Mixins';
 
-export type TParticlesProps = TWithNameRequired;
+export type TParticlesProps = TWithName;

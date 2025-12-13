@@ -1,8 +1,8 @@
-import type { TWithName } from '@/Engine/Mixins';
+import type { TWithNameOptional } from '@/Engine/Mixins';
 
 export type TIntersectionsWatcherProps = Readonly<{
   cameraName: string;
   actorNames: ReadonlyArray<string>;
   isAutoStart: boolean;
 }> &
-  TWithName;
+  TWithNameOptional;

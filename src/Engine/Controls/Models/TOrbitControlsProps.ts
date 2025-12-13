@@ -1,6 +1,6 @@
 import type { Vector3 } from 'three/src/math/Vector3';
 
-import type { TActive, TWithName } from '@/Engine/Mixins';
+import type { TActive, TWithNameOptional } from '@/Engine/Mixins';
 
 export type TOrbitControlsProps = Readonly<{
   enabled?: boolean;
@@ -30,5 +30,5 @@ export type TOrbitControlsProps = Readonly<{
   autoRotate?: boolean;
   autoRotateSpeed?: number;
 }> &
-  TWithName &
+  TWithNameOptional &
   TActive;

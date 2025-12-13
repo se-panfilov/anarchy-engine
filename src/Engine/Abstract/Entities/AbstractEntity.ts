@@ -2,12 +2,12 @@ import { nanoid } from 'nanoid';
 
 import type { EntityType } from '@/Engine/Abstract';
 import type { TEntity } from '@/Engine/Abstract/Models';
-import type { TDestroyable, TRegistrable, TWithName, TWithNameAndNameAccessorsMixin, TWithTagsMixin } from '@/Engine/Mixins';
+import type { TDestroyable, TRegistrable, TWithNameAndNameAccessorsMixin, TWithNameOptional, TWithTagsMixin } from '@/Engine/Mixins';
 import { destroyableMixin, withNameAndNameAccessorsMixin } from '@/Engine/Mixins';
 import { withTagsMixin } from '@/Engine/Mixins/Generics';
 import { isDefined } from '@/Engine/Utils';
 
-type TEntityParams = Readonly<{ tags?: ReadonlyArray<string> } & TWithName>;
+type TEntityParams = Readonly<{ tags?: ReadonlyArray<string> } & TWithNameOptional>;
 
 export function AbstractEntity<T extends Record<string, any>>(entities: T, type: EntityType | string, params?: TEntityParams): TEntity<T> {
   const id: string = type + '_' + nanoid();

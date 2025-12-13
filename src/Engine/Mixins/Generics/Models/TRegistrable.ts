@@ -1,7 +1,7 @@
-import type { TWithName, TWithTagsMixin } from '@/Engine/Mixins';
+import type { TWithNameOptional, TWithTagsMixin } from '@/Engine/Mixins';
 
 export type TRegistrable = Readonly<{
   id: string;
 }> &
-  TWithName &
+  TWithNameOptional &
   TWithTagsMixin;

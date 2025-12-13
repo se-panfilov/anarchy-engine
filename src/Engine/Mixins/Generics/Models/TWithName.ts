@@ -1,10 +1,10 @@
 import type { TWriteable } from '@/Engine/Utils';
 
-export type TWithName = Readonly<{ name?: string }>;
-export type TWithNameRequired = Required<TWithName>;
+export type TWithNameOptional = Readonly<{ name?: string }>;
+export type TWithName = Required<TWithNameOptional>;
 export type TWithNameAccessors = Readonly<{
   getName: () => string | undefined;
   setName: (name: string) => void;
 }>;
 
-export type TWithNameAndNameAccessorsMixin = TWriteable<TWithName> & TWithNameAccessors;
+export type TWithNameAndNameAccessorsMixin = TWriteable<TWithNameOptional> & TWithNameAccessors;
