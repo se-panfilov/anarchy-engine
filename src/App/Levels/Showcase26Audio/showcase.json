@@ -118,9 +118,9 @@
       {
         "type": "FirstPersonControls",
         "cameraName": "main_camera",
-        "lookSpeed": 0.1,
-        "movementSpeed": 5,
-        "lookVertical": true,
+        "lookSpeed": 0.7,
+        "movementSpeed": 3,
+        "lookVertical": false,
         "isActive": true
       }
     ],

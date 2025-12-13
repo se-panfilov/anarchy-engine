@@ -29,8 +29,8 @@ function getOrbitControlsParams(config: TOrbitControlsConfig, { camera, canvas }
   return result;
 }
 
-function getFpsControlsParams(config: TFpsControlsConfig, { camera }: TAdditionalControlsConfigParams): TFpsControlsParams {
+function getFpsControlsParams(config: TFpsControlsConfig, { camera, canvas }: TAdditionalControlsConfigParams): TFpsControlsParams {
   if (config.type !== ControlsType.FirstPersonControls) throw new Error(`Cannot create controls of unknown type "${config.type}"`);
 
-  return { ...config, camera };
+  return { ...config, camera, canvas };
 }

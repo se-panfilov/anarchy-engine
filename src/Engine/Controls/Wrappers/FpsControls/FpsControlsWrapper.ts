@@ -9,7 +9,7 @@ import type { TMilliseconds } from '@/Engine/Math';
 import { withActiveMixin } from '@/Engine/Mixins';
 
 export function FpsControlsWrapper(params: TFpsControlsParams): TFpsControlsWrapper {
-  const entity: FirstPersonControls = new FirstPersonControls(params.camera.entity);
+  const entity: FirstPersonControls = new FirstPersonControls(params.camera.entity, params.canvas);
 
   const update = (delta: TMilliseconds): void => entity.update(delta);
   const getType = (): ControlsType => params.type;
