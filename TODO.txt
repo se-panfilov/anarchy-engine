@@ -42,3 +42,5 @@ Bugs and issues:
 Also:
 - Make stats enable/disable configurable via url params (?debug=true)
 - Screenshot testing is interesting, but it's a part of an app, not engine
+- Maybe split space config into "resources" (such as models, materials), and "entities" (such as actors, lights, cameras)?
+Might be separate or a single file (splitted by sections)
