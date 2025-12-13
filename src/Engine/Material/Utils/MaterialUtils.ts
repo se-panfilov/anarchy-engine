@@ -9,8 +9,8 @@ export function isPointsMaterial<T extends Material | ReadonlyArray<Material>>(m
 }
 
 export function buildMaterial(params: TMaterialParams): TMaterials {
-  const { type, ...rest } = params;
+  const { type, options } = params;
   const MaterialConstructor: TTypeOfMaterials = MaterialMap[type];
   if (isNotDefined(MaterialConstructor)) throw new Error(`Unsupported material type: ${type}`);
-  return new MaterialConstructor({ ...rest });
+  return new MaterialConstructor(options);
 }

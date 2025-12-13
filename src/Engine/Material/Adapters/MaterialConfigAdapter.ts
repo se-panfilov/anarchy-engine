@@ -18,7 +18,9 @@ export function configToParams(config: TMaterialConfig): TMaterialParams {
   let options: TMaterialParamsOptions = {} as TMaterialParamsOptions;
 
   if (isDefined(config.options)) {
-    const { blending, blendDst, blendEquation, blendSrc, side, format, stencilFunc, stencilFail, stencilZFail, stencilZPass, combine, depthPacking, normalMapType } = config.options;
+    const { blending, blendDst, blendEquation, blendSrc, side, format, stencilFunc, stencilFail, stencilZFail, stencilZPass, combine, depthPacking, normalMapType, ...rest } = config.options;
+
+    options = { ...rest };
 
     if (isDefined(blending)) options = { ...options, blending: BlendingMap[blending] };
     if (isDefined(blendDst)) options = { ...options, blendDst: BlendingDstFactorMap[blendDst] };
