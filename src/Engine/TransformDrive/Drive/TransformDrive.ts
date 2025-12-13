@@ -24,9 +24,6 @@ export function TransformDrive(params: TTransformDriveParams, agents: TTransform
 
   const agentSub$: Subscription = agent$.subscribe((agent: TransformAgent): void => activeAgent$.next(agents[agent]));
 
-  // TODO 8.0.0. MODELS: Make sure agents updates position values after "teleportation" (drive.position$.next())
-  // TODO 8.0.0. MODELS: Check also rotation and scale
-
   const position$: BehaviorSubject<Vector3> = new BehaviorSubject<Vector3>(activeAgent$.value.position$.value);
   const rotation$: BehaviorSubject<Euler> = new BehaviorSubject<Euler>(activeAgent$.value.rotation$.value);
   const scale$: BehaviorSubject<Vector3> = new BehaviorSubject<Vector3>(activeAgent$.value.scale$.value);
