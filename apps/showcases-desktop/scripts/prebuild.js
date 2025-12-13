@@ -1,9 +1,7 @@
 import { execSync } from 'node:child_process';
 import path from 'node:path';
-import fs from 'node:fs';
 import { normalizeMode, resolveDryRun, resolveMode } from './utils/mode.js';
-import { config as dotenvConfig } from 'dotenv';
-import { expand as dotenvExpand } from 'dotenv-expand';
+import { loadModeEnv } from './utils/env.js';
 
 const argv = process.argv.slice(2);
 const mode = resolveMode(argv);
@@ -15,42 +13,7 @@ process.env.NODE_ENV = normalizeMode(mode);
 if (dryRun) process.env.DRY_RUN = '1';
 
 // Load .env files for composite modes to augment Vite's built-in loading
-const root = process.cwd();
-const loadEnvFile = (file) => {
-  const full = path.resolve(root, file);
-  if (!fs.existsSync(full)) return false;
-  const result = dotenvConfig({ path: full, override: true });
-  if (result.parsed) dotenvExpand({ parsed: result.parsed });
-  return true;
-};
-
-const buildEnvChain = (m) => {
-  const chain = ['.env', '.env.local'];
-  const tokens = String(m).split('.').filter(Boolean);
-  const first = tokens[0]?.toLowerCase();
-  const firstAlias = first === 'dev' ? 'development' : first === 'prod' ? 'production' : undefined;
-
-  const seqs = [tokens];
-  if (firstAlias && firstAlias !== first) {
-    seqs.push([firstAlias, ...tokens.slice(1)]);
-  }
-
-  for (const seq of seqs) {
-    const accum = [];
-    for (const p of seq) {
-      accum.push(p);
-      const key = accum.join('.');
-      chain.push(`.env.${key}`);
-      chain.push(`.env.${key}.local`);
-    }
-  }
-
-  // Deduplicate while preserving order
-  return Array.from(new Set(chain));
-};
-
-const chain = buildEnvChain(mode);
-for (const file of chain) loadEnvFile(file);
+loadModeEnv(mode);
 
 const run = (cmd, opts = {}) => {
   const prefix = opts.cwd ? `(cwd=${opts.cwd}) ` : '';
