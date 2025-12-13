@@ -8,6 +8,7 @@ export type IIntersectionsService = Readonly<{
   buildWatcher: (camera: Readonly<ICameraWrapper>) => IIntersectionsWatcher;
   addActorsToWatcher: (watcherId: string, actors: ReadonlyArray<IActorWrapperAsync>) => void;
   start: (watcherId: string) => IIntersectionsWatcher;
+  stop: (watcherId: string) => IIntersectionsWatcher;
 }> &
   IWithFactoryService<IIntersectionsWatcherFactory> &
   IWithRegistryService<IIntersectionsWatcherRegistry> &
