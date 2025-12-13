@@ -1,8 +1,8 @@
-import { platformApiChannel } from '@Desktop/Constants';
 import { appCrashHandler, appWindowAllClosedHandler, windowNavigateHandler, windowSecondInstanceHandler } from '@Desktop/EventHandlers';
 import type { TDesktopAppConfig } from '@Desktop/Models';
 import { handleAppRequest, WindowService } from '@Desktop/Services';
 import { getDisplayInfo, hideMenuBar, noZoom, turnOffMenuBarAndHotkeys } from '@Desktop/Utils';
+import { platformApiChannel } from '@ShowcasesShared';
 import type { BrowserWindow } from 'electron';
 import { app, ipcMain } from 'electron';
 
