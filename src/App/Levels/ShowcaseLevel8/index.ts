@@ -1,7 +1,7 @@
 import { combineLatest } from 'rxjs';
 
 import type { IShowcase } from '@/App/Levels/Models';
-import type { IActorWrapper, IAppCanvas, ILevel, ILevelConfig, ITexture, ITexturePack, ITextureUploadPromises } from '@/Engine';
+import type { IActorWrapper, IAppCanvas, ILevel, ILevelConfig, ITexturePack, ITextureUploaded, ITextureUploadPromises } from '@/Engine';
 import { ambientContext, buildLevelFromConfig, CameraTag, getRotationByCos, getRotationBySin, isDefined, isNotDefined, textureService } from '@/Engine';
 
 import levelConfig from './showcase-level-8.config.json';
@@ -14,13 +14,14 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
   const pack: ITexturePack = { map: { url: '/ShowcaseLevel8/Door_Wood/Door_Wood_001_basecolor.jpg' } };
   const textures: ITextureUploadPromises = textureService.load(pack);
 
-  async function start(): Promise<void> {
+  function start(): void {
     level.start();
     const { actorRegistry } = level.entities;
     const actor: IActorWrapper | undefined = actorRegistry.getUniqByTag('central_actor');
     if (isNotDefined(actor)) throw new Error('Actor is not found');
-    const map: ITexture = await textures.map;
-    actor.useTexture({ map });
+
+    //apply textures async, without blocking the main thread (game might be started before textures are loaded)
+    void textures.all().then((textures: ITextureUploaded): void => actor.useTexture({ ...textures }));
     initCameraRotation(level, actor);
   }
 
