@@ -8,4 +8,5 @@ export type IPointLightProps = IAbstractLightProps &
     intensity?: number;
     distance?: number;
     decay?: number;
+    castShadow?: boolean;
   }>;

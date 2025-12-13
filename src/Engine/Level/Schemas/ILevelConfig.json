@@ -2839,7 +2839,7 @@
           "type": "number"
         }
       },
-      "required": ["castShadow", "color", "position", "tags", "type"]
+      "required": ["color", "position", "tags", "type"]
     },
     "LightShadowConfig": {
       "type": "object",

@@ -8,6 +8,5 @@ export type IAbstractLightProps = Readonly<{
   type: LightType;
   color: Color;
   intensity?: number;
-  castShadow: boolean;
   shadow?: ILightShadowParams;
 }>;

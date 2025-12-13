@@ -6,4 +6,5 @@ export type IDirectionalLightProps = IAbstractLightProps &
   Readonly<{
     color: Color;
     intensity?: number;
+    castShadow?: boolean;
   }>;

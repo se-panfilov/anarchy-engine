@@ -646,7 +646,7 @@
     {
       "type": "Directional",
       "color": "#ffffff",
-      "intensity": 1,
+      "intensity": 0,
       "castShadow": true,
       "shadow": {
         "mapSize": { "x": 1024, "y": 1024 },
@@ -658,17 +658,20 @@
     },
     {
       "type": "Hemisphere",
-      "color": "#0000ff",
-      "groundColor": "#ff0000",
+      "color": "#9999ff",
+      "groundColor": "#ff007b",
       "intensity": 1,
-      "castShadow": true,
-      "shadow": {
-        "mapSize": { "x": 1024, "y": 1024 },
-        "camera": { "far": 15 },
-        "normalBias": 0.05
-      },
       "position": { "x": 0.25, "y": 2, "z": 2.25 },
       "tags": ["hemisphere"]
+    },
+    {
+      "type": "RectArea",
+      "color": "#0000ff",
+      "width": 3,
+      "height": 3,
+      "intensity": 0,
+      "position": { "x": 0.25, "y": 2, "z": 2.25 },
+      "tags": ["rect_area"]
     }
   ],
   "controls": [

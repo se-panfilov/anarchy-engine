@@ -1,7 +1,7 @@
 import GUI from 'lil-gui';
 
 import type { IShowcase } from '@/App/Levels/Models';
-import type { IAppCanvas, IDirectionalLightWrapper, IHemisphereLightWrapper, ILevel, ILevelConfig } from '@/Engine';
+import type { IAppCanvas, IDirectionalLightWrapper, IHemisphereLightWrapper, ILevel, ILevelConfig, IRectAreaLightWrapper } from '@/Engine';
 import { buildLevelFromConfig, envMapService, isNotDefined } from '@/Engine';
 
 import levelConfig from './showcase-12-light.json';
@@ -32,6 +32,16 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
     hemisphereFolder.addColor(hemisphereLight.entity, 'color');
     hemisphereFolder.addColor(hemisphereLight.entity, 'groundColor');
     hemisphereFolder.add(hemisphereLight.entity, 'intensity').min(0).max(10).step(0.1);
+
+    const rectAreaLight: IRectAreaLightWrapper | undefined = lightRegistry.getUniqByTag('rect_area') as IRectAreaLightWrapper | undefined;
+    if (isNotDefined(rectAreaLight)) throw new Error('Rect area light not found');
+    const rectAreaFolder: GUI = gui.addFolder('RectArea light');
+    rectAreaFolder.add(rectAreaLight.entity.position, 'x').min(-50).max(50).step(0.5);
+    rectAreaFolder.add(rectAreaLight.entity.position, 'y').min(-50).max(50).step(0.5);
+    rectAreaFolder.add(rectAreaLight.entity.position, 'z').min(-50).max(50).step(0.5);
+    rectAreaFolder.add(rectAreaLight.entity, 'width').min(0).max(50).step(0.5);
+    rectAreaFolder.add(rectAreaLight.entity, 'height').min(0).max(50).step(0.5);
+    rectAreaFolder.add(rectAreaLight.entity, 'intensity').min(0).max(10).step(0.1);
   }
 
   function start(): void {
