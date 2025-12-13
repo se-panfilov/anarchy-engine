@@ -1,10 +1,10 @@
 import { nanoid } from 'nanoid';
 import { Subject } from 'rxjs';
 
+import type { RegistryType } from '@/Engine/Domains/Abstract/Constants';
 import type { IAbstractRegistry } from '@/Engine/Domains/Abstract/Models';
 import type { IDestroyable, IMultitonRegistrable, IRegistrable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
-import type { RegistryType } from '@/Engine/Registries';
 import { getAll, getAllEntitiesWithEveryTag, getAllEntitiesWithSomeTag, isDestroyable, isNotDefined } from '@/Engine/Utils';
 
 export function AbstractRegistry<T extends IRegistrable | IMultitonRegistrable>(type: RegistryType): IAbstractRegistry<T> {

@@ -1,7 +1,7 @@
 import type { Observable } from 'rxjs';
 
+import type { RegistryType } from '@/Engine/Domains/Abstract/Constants';
 import type { IDestroyable, IRegistrable } from '@/Engine/Mixins';
-import type { RegistryType } from '@/Engine/Registries';
 
 export type IAbstractRegistry<T extends IRegistrable> = Readonly<{
   id: string;
