@@ -1053,7 +1053,7 @@
     },
     "ActorDriver": {
       "type": "string",
-      "enum": ["kinematic", "physical", ""]
+      "enum": ["kinematic", "physical", "instant"]
     },
     "TCameraConfig": {
       "type": "object",
