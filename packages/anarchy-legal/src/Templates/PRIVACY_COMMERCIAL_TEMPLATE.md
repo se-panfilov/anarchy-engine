@@ -1,7 +1,7 @@
 # Privacy Policy — {{PACKAGE_NAME}}
 
 **Effective date:** {{EFFECTIVE_DATE}}
-**Controller:** {{PACKAGE_AUTHOR}} — Contact: {{PRIVACY_EMAIL}}
+**Controller:** {{LEGAL_ENTITY_NAME}} — Contact: {{PRIVACY_EMAIL}}
 
 ## 1. Summary
 

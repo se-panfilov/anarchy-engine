@@ -1,7 +1,7 @@
 # End User License Agreement (EULA) — {{PACKAGE_NAME}}
 
 **Effective date:** {{EFFECTIVE_DATE}}
-**Publisher/Developer (Licensor):** {{PACKAGE_AUTHOR}}
+**Publisher/Developer (Licensor):** {{LEGAL_ENTITY_NAME}}
 **Support/Legal Contact:** {{SUPPORT_EMAIL}} / {{LEGAL_EMAIL}}
 
 ## 1. License Grant
@@ -10,7 +10,7 @@ Subject to this EULA, Licensor grants you a **personal, non-exclusive, non-trans
 
 ## 2. Ownership
 
-The Game is licensed, not sold. {{PACKAGE_AUTHOR}} and its licensors retain all title and IP rights. **Open-source components** are licensed under their respective terms.
+The Game is licensed, not sold. {{LEGAL_ENTITY_NAME}} and its licensors retain all title and IP rights. **Open-source components** are licensed under their respective terms.
 
 ## 3. Permitted Use & Restrictions
 

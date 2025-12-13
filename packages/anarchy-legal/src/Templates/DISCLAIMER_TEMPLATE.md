@@ -4,7 +4,7 @@
 
 **No Warranty.** The Software is provided **“AS IS,” without warranty of any kind**, express or implied, including but not limited to **implied warranties of merchantability, fitness for a particular purpose, and non-infringement**, **to the maximum extent permitted by applicable law**.
 
-**Limitation of Liability.** To the fullest extent permitted by law, {{PACKAGE_AUTHOR}} and contributors shall **not** be liable for any damages (including direct, indirect, incidental, special, exemplary, or consequential) arising from the use of, inability to use, or performance of the Software, even if advised of the possibility of such damages.
+**Limitation of Liability.** To the fullest extent permitted by law, {{LEGAL_ENTITY_NAME}} and contributors shall **not** be liable for any damages (including direct, indirect, incidental, special, exemplary, or consequential) arising from the use of, inability to use, or performance of the Software, even if advised of the possibility of such damages.
 **Nothing in this disclaimer excludes or limits liability where such exclusion or limitation is unlawful**, including liability for **death or personal injury caused by negligence**, **fraud**, or **wilful misconduct**. **Statutory consumer rights are not affected.**
 
 ## Regulatory Compliance Notice
@@ -13,7 +13,7 @@ This repository is an **open-source project** and **is not, by itself, a product
 
 If **you** incorporate the Software into a **commercial product** or otherwise **place a product on the market**, **you** are solely responsible for ensuring that **your product** complies with applicable law (including **product safety and cybersecurity** rules such as the EU **Cyber Resilience Act**), **consumer protection**, and **information security** requirements. Nothing herein constitutes legal advice.
 
-Where {{PACKAGE_AUTHOR}} distributes **commercial binaries** of {{PACKAGE_NAME}}, security support is handled as described in `SECURITY.md` (see **Security Support Period**).
+Where {{LEGAL_ENTITY_NAME}} distributes **commercial binaries** of {{PACKAGE_NAME}}, security support is handled as described in `SECURITY.md` (see **Security Support Period**).
 
 ## Export Controls and Sanctions
 

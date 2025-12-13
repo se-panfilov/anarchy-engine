@@ -1,7 +1,7 @@
 # Privacy Notice — {{PACKAGE_NAME}} (Open Source Repository)
 
 **Effective date:** {{EFFECTIVE_DATE}}
-**Controller:** {{PACKAGE_AUTHOR}} — Contact: {{PRIVACY_EMAIL}}
+**Controller:** {{LEGAL_ENTITY_NAME}} — Contact: {{PRIVACY_EMAIL}}
 
 ## 1. Scope
 
