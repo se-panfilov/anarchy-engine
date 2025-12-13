@@ -1,25 +1,20 @@
 import type { RigidBody } from '@dimforge/rapier3d';
 import type { Vector } from '@dimforge/rapier3d/math';
-import Decimal from 'decimal.js';
 import { Vector3 } from 'three';
 
 import type { TKinematicData } from '@/Engine/Kinematic';
-import type { TDegrees } from '@/Engine/Math';
-import { cosPrecise, degToRadPrecise, getDirectionFromAngularVelocity, getDirectionFromLinearVelocity, getSpeedFromAngularVelocity, getSpeedFromLinearVelocity, sinPrecise } from '@/Engine/Math';
+import type { TRadians } from '@/Engine/Math';
+import { getDirectionFromAngularVelocity, getDirectionFromLinearVelocity, getSpeedFromAngularVelocity, getSpeedFromLinearVelocity } from '@/Engine/Math';
 import { VelocityType } from '@/Engine/Physics/Constants';
 import type { TPhysicsBody } from '@/Engine/Physics/Models';
 import { isNotDefined } from '@/Engine/Utils';
 
-export function getPushCoordsFrom3dAzimuthDeg(azimuthDeg: TDegrees, elevationDeg: TDegrees, force: number): Vector3 {
-  const azimuthDecimal: Decimal = degToRadPrecise(azimuthDeg);
-  const elevationDecimal: Decimal = degToRadPrecise(elevationDeg);
-  const forceDecimal: Decimal = new Decimal(force);
+export function getPushCoordsFrom3dAzimuthDeg(azimuth: TRadians, elevation: TRadians, force: number): Vector {
+  const x: number = force * Math.cos(elevation) * Math.cos(azimuth);
+  const y: number = force * Math.sin(elevation);
+  const z: number = force * Math.cos(elevation) * Math.sin(azimuth);
 
-  const x: Decimal = forceDecimal.times(cosPrecise(elevationDecimal)).times(cosPrecise(azimuthDecimal));
-  const y: Decimal = forceDecimal.times(sinPrecise(elevationDecimal));
-  const z: Decimal = forceDecimal.times(cosPrecise(elevationDecimal)).times(sinPrecise(azimuthDecimal));
-
-  return new Vector3(x.toNumber(), y.toNumber(), z.toNumber());
+  return { x, y, z };
 }
 
 export function movePhysicsDynamicObjectByVelocity(rigidBody: RigidBody, type: VelocityType, vector3: Vector3 | Vector, shouldWakeUp: boolean = true): void | never {

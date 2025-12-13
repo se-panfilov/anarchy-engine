@@ -17,17 +17,18 @@ export const radiansToDegreesPrecise = (radians: TRadians): Decimal => new Decim
 
 // TODO add unit tests
 export function getHorizontalAzimuthDeg(x: number, z: number, point: Vector3Like): TDegrees {
-  const dx: Decimal = new Decimal(point.x).minus(x);
-  const dz: Decimal = new Decimal(point.z).minus(z);
+  return radToDeg(getHorizontalAzimuthRad(x, z, point)) as TDegrees;
+}
 
-  let azimuth: Decimal = Decimal.atan2(dz, dx).times(180).div(Math.PI);
+export function getHorizontalAzimuthRad(x: number, z: number, point: Vector3Like): TRadians {
+  const dx: number = point.x - x;
+  const dz: number = point.z - z;
 
-  azimuth = azimuth.plus(90).neg().plus(180);
+  let azimuthRad: number = Math.atan2(dz, dx);
+  azimuthRad = -azimuthRad + Math.PI / 2;
+  azimuthRad = euclideanModulo(azimuthRad, Math.PI * 2);
 
-  if (azimuth.isNegative()) azimuth = azimuth.plus(360);
-  if (azimuth.gte(360)) azimuth = azimuth.minus(360);
-
-  return azimuth.toNumber() as TDegrees;
+  return azimuthRad as TRadians;
 }
 
 // TODO add unit tests

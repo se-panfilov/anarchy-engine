@@ -5,12 +5,12 @@ import { LineMaterial } from 'three/examples/jsm/lines/LineMaterial';
 
 import type { TShowcase } from '@/App/Levels/Models';
 import { addGizmo } from '@/App/Levels/Utils';
-import type { TActor, TAppCanvas, TCameraWrapper, TEngine, TIntersectionEvent, TIntersectionsWatcher, TSceneWrapper, TSpace, TSpaceConfig } from '@/Engine';
+import type { TActor, TAppCanvas, TCameraWrapper, TEngine, TIntersectionEvent, TIntersectionsWatcher, TRadians, TSceneWrapper, TSpace, TSpaceConfig } from '@/Engine';
 import {
   ambientContext,
   Engine,
   getDistancePrecisely,
-  getHorizontalAzimuthDeg,
+  getHorizontalAzimuthRad,
   getPushCoordsFrom3dAzimuthDeg,
   isActorHasPhysicsBody,
   isDefined,
@@ -19,7 +19,7 @@ import {
   spaceService,
   TextType
 } from '@/Engine';
-import { degrees, meters } from '@/Engine/Measurements/Utils';
+import { meters, radians } from '@/Engine/Measurements/Utils';
 
 import spaceConfig from './showcase.json';
 
@@ -40,7 +40,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     const line: Line2 = createLine();
     sceneWrapper.entity.add(line);
 
-    let azimuth: number = 0;
+    let azimuth: TRadians = radians(0);
     let forcePower: number = 0;
 
     const ballActor: TActor | undefined = actorAsyncRegistry.findByName('sphere_actor');
@@ -56,7 +56,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
 
     mouseService.clickLeftRelease$.subscribe(() => {
       // TODO CWP: 8.0.0. MODELS: Perhaps, "applyImpulse" (and similar functions) should be available via physical drive
-      ballActor.drive.physical.physicsBody$.value?.getRigidBody()?.applyImpulse(getPushCoordsFrom3dAzimuthDeg(degrees(azimuth), degrees(0), forcePower * 10.5), true);
+      ballActor.drive.physical.physicsBody$.value?.getRigidBody()?.applyImpulse(getPushCoordsFrom3dAzimuthDeg(azimuth, radians(0), forcePower * 10.5), true);
     });
 
     keyboardService.onKey(KeysExtra.Space).pressed$.subscribe((): void => {
@@ -96,7 +96,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     loopService.tick$.subscribe(() => {
       if (isDefined(mouseLineIntersectionsCoords)) {
         const ballCoords: Vector3 = ballActor.drive.getPosition();
-        azimuth = getHorizontalAzimuthDeg(ballCoords.x, ballCoords.z, mouseLineIntersectionsCoords);
+        azimuth = getHorizontalAzimuthRad(ballCoords.x, ballCoords.z, mouseLineIntersectionsCoords);
         azimuthText.setText(`Azimuth: ${azimuth.toFixed(2)}`);
         forcePowerText.setText(`Force: ${forcePower.toFixed(2)}`);
         forcePower = getDistancePrecisely(ballActor.drive.getPosition(), mouseLineIntersectionsCoords).toNumber();
