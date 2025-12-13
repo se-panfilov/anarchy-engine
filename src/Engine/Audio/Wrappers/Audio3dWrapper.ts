@@ -13,7 +13,7 @@ import type { TReadonlyVector3 } from '@/Engine/ThreeLib';
 import type { TDriveToTargetConnector } from '@/Engine/TransformDrive';
 import { DriveToTargetConnector } from '@/Engine/TransformDrive';
 
-export function Audio3dWrapper(params: TAudio3dParams, { audioLoop }: TAudioWrapperDependencies): TAudio3dWrapper {
+export function Audio3dWrapper(params: TAudio3dParams, { audioLoop, transformDriveService }: TAudioWrapperDependencies): TAudio3dWrapper {
   const { performance } = params;
   const wrapper: TAbstractAudioWrapper<PositionalAudio> = AbstractAudioWrapper(params, createPositionalAudio as TAudioCreateFn<PositionalAudio>);
   const listener$: BehaviorSubject<AudioListener | undefined> = new BehaviorSubject<AudioListener | undefined>(params.listener);
@@ -21,7 +21,7 @@ export function Audio3dWrapper(params: TAudio3dParams, { audioLoop }: TAudioWrap
   const updatePriority: LoopUpdatePriority = performance?.updatePriority ?? LoopUpdatePriority.LOW;
   const noiseThreshold: TMeters = performance?.noiseThreshold ?? meters(0.01);
 
-  const drive: TAudio3dTransformDrive = Audio3dTransformDrive(params, wrapper.id);
+  const drive: TAudio3dTransformDrive = Audio3dTransformDrive(params, { transformDriveService }, wrapper.id);
   const driveToTargetConnector: TDriveToTargetConnector = DriveToTargetConnector(drive, wrapper.entity);
 
   const sourcePositionUpdate$: Observable<TReadonlyVector3> = onAudioPositionUpdate(drive.position$, noiseThreshold);

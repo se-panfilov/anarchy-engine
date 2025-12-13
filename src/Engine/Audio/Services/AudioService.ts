@@ -13,6 +13,7 @@ import type {
   TAudioRegistry,
   TAudioResourceAsyncRegistry,
   TAudioService,
+  TAudioServiceDependencies,
   TAudioServiceWithCreate,
   TAudioServiceWithCreateFromConfig,
   TAudioServiceWithFactory,
@@ -28,6 +29,7 @@ export function AudioService(
   registry: TAudioRegistry,
   audioResourceAsyncRegistry: TAudioResourceAsyncRegistry,
   audioListenersRegistry: TAudioListenersRegistry,
+  dependencies: TAudioServiceDependencies,
   { audioLoop }: TSpaceLoops
 ): TAudioService {
   const audioLoader: TAudioLoader = AudioLoader(audioResourceAsyncRegistry);
@@ -39,7 +41,7 @@ export function AudioService(
   // Currently we have only one listener, but more could be added in the future
   audioListenersRegistry.add(Listeners.Main, new AudioListener());
 
-  const withCreateService: TAudioServiceWithCreate = withCreateServiceMixin(factory, { audioLoop });
+  const withCreateService: TAudioServiceWithCreate = withCreateServiceMixin(factory, { audioLoop, ...dependencies });
   const withCreateFromConfigService: TAudioServiceWithCreateFromConfig = withCreateFromConfigServiceMixin(withCreateService.create, factory.configToParams, {
     audioResourceAsyncRegistry,
     audioListenersRegistry

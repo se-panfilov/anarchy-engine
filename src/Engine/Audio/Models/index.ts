@@ -22,6 +22,7 @@ export type * from './TAudioRegistry';
 export type * from './TAudioResourceAsyncRegistry';
 export type * from './TAudioResourceConfig';
 export type * from './TAudioService';
+export type * from './TAudioServiceDependencies';
 export type * from './TAudioWrapper';
 export type * from './TAudioWrapperDependencies';
 export type * from './TDebugAudioRenderer';

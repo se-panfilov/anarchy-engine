@@ -6,5 +6,5 @@ import type { TAnyAudioWrapper } from './TAnyAudioWrapper';
 import type { TAudioConfigToParamsDependencies } from './TAudioConfigToParamsDependencies';
 import type { TAudioWrapperDependencies } from './TAudioWrapperDependencies';
 
-export type TAudioFactory = TReactiveFactory<TAnyAudioWrapper, TAnyAudioParams, Pick<TAudioWrapperDependencies, 'audioLoop'>> &
+export type TAudioFactory = TReactiveFactory<TAnyAudioWrapper, TAnyAudioParams, TAudioWrapperDependencies> &
   TParamsFromConfigWithDependencies<TAnyAudioConfig, TAnyAudioParams, TAudioConfigToParamsDependencies>;
