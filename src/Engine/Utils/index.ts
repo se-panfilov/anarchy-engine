@@ -1,3 +1,4 @@
-export * from './lib/AsyncHelper';
-export * from './lib/Checkers';
-export * from './lib/WebGLUtils';
+export * from './AsyncHelper';
+export * from './Checkers';
+export * from './Mouse';
+export * from './WebGLUtils';

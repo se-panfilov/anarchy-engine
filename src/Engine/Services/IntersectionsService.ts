@@ -1,9 +1,8 @@
+import { getNormalizedMousePosition, isNotDefined } from '@Engine/Utils';
 import { Raycaster, Vector3 } from 'three';
-import { Object3D } from 'three/src/core/Object3D';
 import type { CameraWrapper } from '@Engine/Wrappers';
-import { getNormalizedMousePosition } from '@Engine/Utils/lib/Mouse';
 import type { MousePosition } from '@Engine/Models';
-import { isNotDefined } from '@Engine/Utils';
+import { Object3D } from 'three/src/core/Object3D';
 
 export interface IntersectionsService {
   readonly getIntersection: (
