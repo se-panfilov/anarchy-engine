@@ -4505,7 +4505,7 @@
           "$ref": "#/definitions/StencilFuncName"
         },
         "stencilFail": {
-          "$ref": "#/definitions/StencilOpName"
+          "$ref": "#/definitions/StencilFailName"
         },
         "stencilZFail": {
           "$ref": "#/definitions/StencilOpName"
@@ -4674,6 +4674,10 @@
       "type": "string",
       "enum": ["AlwaysStencilFunc", "EqualStencilFunc", "GreaterEqualStencilFunc", "GreaterStencilFunc", "LessEqualStencilFunc", "LessStencilFunc", "NeverStencilFunc", "NotEqualStencilFunc"]
     },
+    "StencilFailName": {
+      "type": "string",
+      "enum": ["DecrementStencilOp", "DecrementWrapStencilOp", "IncrementStencilOp", "IncrementWrapStencilOp", "InvertStencilOp", "KeepStencilOp", "ReplaceStencilOp", "ZeroStencilOp"]
+    },
     "StencilOpName": {
       "type": "string",
       "enum": ["DecrementStencilOp", "DecrementWrapStencilOp", "IncrementStencilOp", "IncrementWrapStencilOp", "InvertStencilOp", "KeepStencilOp", "ReplaceStencilOp", "ZeroStencilOp"]
@@ -4772,7 +4776,7 @@
           "$ref": "#/definitions/StencilFuncName"
         },
         "stencilFail": {
-          "$ref": "#/definitions/StencilOpName"
+          "$ref": "#/definitions/StencilFailName"
         },
         "stencilZFail": {
           "$ref": "#/definitions/StencilOpName"
@@ -4961,7 +4965,7 @@
           "$ref": "#/definitions/StencilFuncName"
         },
         "stencilFail": {
-          "$ref": "#/definitions/StencilOpName"
+          "$ref": "#/definitions/StencilFailName"
         },
         "stencilZFail": {
           "$ref": "#/definitions/StencilOpName"
@@ -5132,7 +5136,7 @@
           "$ref": "#/definitions/StencilFuncName"
         },
         "stencilFail": {
-          "$ref": "#/definitions/StencilOpName"
+          "$ref": "#/definitions/StencilFailName"
         },
         "stencilZFail": {
           "$ref": "#/definitions/StencilOpName"
@@ -5306,7 +5310,7 @@
           "$ref": "#/definitions/StencilFuncName"
         },
         "stencilFail": {
-          "$ref": "#/definitions/StencilOpName"
+          "$ref": "#/definitions/StencilFailName"
         },
         "stencilZFail": {
           "$ref": "#/definitions/StencilOpName"
@@ -5483,7 +5487,7 @@
           "$ref": "#/definitions/StencilFuncName"
         },
         "stencilFail": {
-          "$ref": "#/definitions/StencilOpName"
+          "$ref": "#/definitions/StencilFailName"
         },
         "stencilZFail": {
           "$ref": "#/definitions/StencilOpName"
@@ -5663,7 +5667,7 @@
           "$ref": "#/definitions/StencilFuncName"
         },
         "stencilFail": {
-          "$ref": "#/definitions/StencilOpName"
+          "$ref": "#/definitions/StencilFailName"
         },
         "stencilZFail": {
           "$ref": "#/definitions/StencilOpName"
@@ -5873,7 +5877,7 @@
           "$ref": "#/definitions/StencilFuncName"
         },
         "stencilFail": {
-          "$ref": "#/definitions/StencilOpName"
+          "$ref": "#/definitions/StencilFailName"
         },
         "stencilZFail": {
           "$ref": "#/definitions/StencilOpName"
@@ -6089,7 +6093,7 @@
           "$ref": "#/definitions/StencilFuncName"
         },
         "stencilFail": {
-          "$ref": "#/definitions/StencilOpName"
+          "$ref": "#/definitions/StencilFailName"
         },
         "stencilZFail": {
           "$ref": "#/definitions/StencilOpName"
@@ -6290,7 +6294,7 @@
           "$ref": "#/definitions/StencilFuncName"
         },
         "stencilFail": {
-          "$ref": "#/definitions/StencilOpName"
+          "$ref": "#/definitions/StencilFailName"
         },
         "stencilZFail": {
           "$ref": "#/definitions/StencilOpName"
@@ -6497,7 +6501,7 @@
           "$ref": "#/definitions/StencilFuncName"
         },
         "stencilFail": {
-          "$ref": "#/definitions/StencilOpName"
+          "$ref": "#/definitions/StencilFailName"
         },
         "stencilZFail": {
           "$ref": "#/definitions/StencilOpName"
@@ -6766,7 +6770,7 @@
           "$ref": "#/definitions/StencilFuncName"
         },
         "stencilFail": {
-          "$ref": "#/definitions/StencilOpName"
+          "$ref": "#/definitions/StencilFailName"
         },
         "stencilZFail": {
           "$ref": "#/definitions/StencilOpName"
