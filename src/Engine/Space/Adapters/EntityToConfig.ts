@@ -3,7 +3,6 @@ import type { SpaceSchemaVersion } from '@/Engine/Space/Constants';
 import type { TSpace, TSpaceConfig, TSpaceConfigEntities, TSpaceConfigResources, TSpaceServices } from '@/Engine/Space/Models';
 import { filterOutEmptyFields, isDefined } from '@/Engine/Utils';
 
-// TODO 15-0-0: Space can be created in a runtime, so "entities" field could contain something (when create from config, it's empty)
 export function spaceToConfig(
   entity: TSpace,
   {
