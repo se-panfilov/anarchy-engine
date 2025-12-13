@@ -6,7 +6,7 @@ import { guiPinia } from '@Showcases/GUI/stores/CreatePinia';
 import { useGuiButtonStore } from '@Showcases/GUI/stores/GuiButtonsStore';
 import { FromGuiActionEvents, ToGuiEvents } from '@Showcases/Shared';
 
-const { MiniMap, Settings, Inventory } = GuiActionType;
+const { Attack, Defense, MiniMap, Settings, Inventory } = GuiActionType;
 const { SettingsToggle } = FromGuiActionEvents;
 
 export function KeyActionsService(): TKeyActionsService {
@@ -23,12 +23,12 @@ export function KeyActionsService(): TKeyActionsService {
 
   function performActions({ type, value }: TGuiActionPayload): void {
     switch (type) {
-      // case Attack:
-      //   console.log('Attack', value);
-      //   break;
-      // case Defense:
-      //   console.log('Defense', value);
-      //   break;
+      case Attack:
+        // console.log('Attack', value);
+        break;
+      case Defense:
+        // console.log('Defense', value);
+        break;
       case Inventory:
         console.log('XXX Inventory', value);
         break;
