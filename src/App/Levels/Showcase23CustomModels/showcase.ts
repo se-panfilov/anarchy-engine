@@ -27,7 +27,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
   const cloneName: string = 'fox_gltf_clone_1';
   const originalCompressedName: string = 'fox_glb_config_original';
 
-  function beforeResourcesLoaded(config: TSpaceConfig, { models3dService, scenesService }: TSpaceServices): void {
+  function beforeResourcesLoaded(_config: TSpaceConfig, { models3dService, scenesService }: TSpaceServices): void {
     const models3dRegistry: TModel3dRegistry = models3dService.getRegistry();
     const models3dResourceRegistry: TModel3dResourceAsyncRegistry = models3dService.getResourceRegistry();
     const sceneW: TSceneWrapper | undefined = scenesService.findActive();
