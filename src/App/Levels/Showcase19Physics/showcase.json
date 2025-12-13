@@ -405,7 +405,8 @@
           "type": "dynamic",
           "collisionShape": "cuboid"
         }
-      ]
+      ],
+      "isAutoUpdate": true
     },
     "texts": [],
     "cameras": [

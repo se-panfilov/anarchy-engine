@@ -60,8 +60,8 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     const surface: TActor | undefined = actorService.getRegistry().findByName('surface');
     if (isNotDefined(surface)) throw new Error(`Cannot find "surface" actor`);
 
-    const sphereActorW: TActor | undefined = actorService.getRegistry().findByName('sphere');
-    if (isNotDefined(sphereActorW)) throw new Error(`Cannot find "sphere" actor`);
+    const sphereActor: TActor | undefined = actorService.getRegistry().findByName('sphere');
+    if (isNotDefined(sphereActor)) throw new Error(`Cannot find "sphere" actor`);
 
     const spatialGrid: TSpatialGridWrapper | undefined = spatialGridService.getRegistry().findByName('main_grid');
     if (isNotDefined(spatialGrid)) throw new Error(`Cannot find "main_grid" spatial grid`);
@@ -86,7 +86,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
       name: 'mouse_line_intersections_watcher',
       isAutoStart: true,
       camera: cameraW,
-      actors: [...blocks, ...blocks2, ...blocks3, surface, sphereActorW],
+      actors: [...blocks, ...blocks2, ...blocks3, surface, sphereActor],
       position$: mouseService.position$,
       tags: []
     });
@@ -107,7 +107,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     };
 
     //move bouncing sphere to target practice
-    moveActorBounce(sphereActorW, 4.3, 210, 5000);
+    moveActorBounce(sphereActor, 4.3, 210, 5000);
 
     const targetActor1W: TActor | undefined = actorService.getRegistry().findByName('target_1');
     if (isNotDefined(targetActor1W)) throw new Error(`Cannot find "target_1" actor`);

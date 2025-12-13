@@ -9,62 +9,62 @@ export function enableCollisions(mouseLineIntersectionsWatcher: TIntersectionsWa
   const registry = actorService.getRegistry();
   const { findByName, findAllByTag } = registry;
 
-  const sphereActorW: TActor | undefined = findByName('sphere');
-  const boxActor1W: TActor | undefined = findByName('box_static_1');
-  const boxActor2W: TActor | undefined = findByName('box_static_2');
-  const boxActor3W: TActor | undefined = findByName('box_static_3');
-  const boxActor4W: TActor | undefined = findByName('box_static_4');
-  const boxActor5W: TActor | undefined = findByName('box_static_5');
-  const boxActor6W: TActor | undefined = findByName('box_static_6');
-  const boxActor7W: TActor | undefined = findByName('box_static_7');
-  const targetActor1W: TActor | undefined = findByName('target_1');
-  const targetActor2W: TActor | undefined = findByName('target_2');
-  const targetActor3W: TActor | undefined = findByName('target_3');
+  const sphereActor: TActor | undefined = findByName('sphere');
+  const boxActor1: TActor | undefined = findByName('box_static_1');
+  const boxActor2: TActor | undefined = findByName('box_static_2');
+  const boxActor3: TActor | undefined = findByName('box_static_3');
+  const boxActor4: TActor | undefined = findByName('box_static_4');
+  const boxActor5: TActor | undefined = findByName('box_static_5');
+  const boxActor6: TActor | undefined = findByName('box_static_6');
+  const boxActor7: TActor | undefined = findByName('box_static_7');
+  const targetActor1: TActor | undefined = findByName('target_1');
+  const targetActor2: TActor | undefined = findByName('target_2');
+  const targetActor3: TActor | undefined = findByName('target_3');
 
   if (
-    isNotDefined(sphereActorW) ||
-    isNotDefined(boxActor1W) ||
-    isNotDefined(boxActor2W) ||
-    isNotDefined(boxActor3W) ||
-    isNotDefined(boxActor4W) ||
-    isNotDefined(boxActor5W) ||
-    isNotDefined(boxActor6W) ||
-    isNotDefined(boxActor7W) ||
-    isNotDefined(targetActor1W) ||
-    isNotDefined(targetActor2W) ||
-    isNotDefined(targetActor3W)
+    isNotDefined(sphereActor) ||
+    isNotDefined(boxActor1) ||
+    isNotDefined(boxActor2) ||
+    isNotDefined(boxActor3) ||
+    isNotDefined(boxActor4) ||
+    isNotDefined(boxActor5) ||
+    isNotDefined(boxActor6) ||
+    isNotDefined(boxActor7) ||
+    isNotDefined(targetActor1) ||
+    isNotDefined(targetActor2) ||
+    isNotDefined(targetActor3)
   )
     throw new Error(`Cannot find actors`);
-  grid.addActor(sphereActorW);
-  grid.addActor(boxActor1W);
-  grid.addActor(boxActor2W);
-  grid.addActor(boxActor3W);
-  grid.addActor(boxActor4W);
-  grid.addActor(boxActor5W);
-  grid.addActor(boxActor6W);
-  grid.addActor(boxActor7W);
-  grid.addActor(targetActor1W);
-  grid.addActor(targetActor2W);
-  grid.addActor(targetActor3W);
+  grid.addActor(sphereActor);
+  grid.addActor(boxActor1);
+  grid.addActor(boxActor2);
+  grid.addActor(boxActor3);
+  grid.addActor(boxActor4);
+  grid.addActor(boxActor5);
+  grid.addActor(boxActor6);
+  grid.addActor(boxActor7);
+  grid.addActor(targetActor1);
+  grid.addActor(targetActor2);
+  grid.addActor(targetActor3);
 
-  collisionsService.bvh.createBvhForActor(sphereActorW);
-  // collisionsService.bvh.createBvhForActor(targetActor1W);
-  // collisionsService.bvh.createBvhForActor(targetActor2W);
-  // collisionsService.bvh.createBvhForActor(targetActor3W);
+  collisionsService.bvh.createBvhForActor(sphereActor);
+  // collisionsService.bvh.createBvhForActor(targetActor1);
+  // collisionsService.bvh.createBvhForActor(targetActor2);
+  // collisionsService.bvh.createBvhForActor(targetActor3);
 
   const physicsBlocksList: ReadonlyArray<TActor> = findAllByTag('physics_block');
   physicsBlocksList.forEach((blockW: TActor) => grid.addActor(blockW));
 
-  mouseLineIntersectionsWatcher.addActor(boxActor1W);
-  mouseLineIntersectionsWatcher.addActor(boxActor2W);
-  mouseLineIntersectionsWatcher.addActor(boxActor3W);
-  mouseLineIntersectionsWatcher.addActor(boxActor4W);
-  mouseLineIntersectionsWatcher.addActor(boxActor5W);
-  mouseLineIntersectionsWatcher.addActor(boxActor6W);
-  mouseLineIntersectionsWatcher.addActor(boxActor7W);
-  mouseLineIntersectionsWatcher.addActor(targetActor1W);
-  mouseLineIntersectionsWatcher.addActor(targetActor2W);
-  mouseLineIntersectionsWatcher.addActor(targetActor3W);
+  mouseLineIntersectionsWatcher.addActor(boxActor1);
+  mouseLineIntersectionsWatcher.addActor(boxActor2);
+  mouseLineIntersectionsWatcher.addActor(boxActor3);
+  mouseLineIntersectionsWatcher.addActor(boxActor4);
+  mouseLineIntersectionsWatcher.addActor(boxActor5);
+  mouseLineIntersectionsWatcher.addActor(boxActor6);
+  mouseLineIntersectionsWatcher.addActor(boxActor7);
+  mouseLineIntersectionsWatcher.addActor(targetActor1);
+  mouseLineIntersectionsWatcher.addActor(targetActor2);
+  mouseLineIntersectionsWatcher.addActor(targetActor3);
 
   // mouseLineIntersectionsWatcher.value$.subscribe((value: TIntersectionEvent): void => {
   //   grid._debugHighlightObjects(sceneW, value.point.x, value.point.z);

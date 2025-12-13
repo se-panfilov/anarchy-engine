@@ -43,32 +43,32 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     let azimuth: number = 0;
     let forcePower: number = 0;
 
-    const ballActorW: TActor | undefined = actorAsyncRegistry.findByName('sphere_actor');
-    if (isNotDefined(ballActorW)) throw new Error(`Cannot find "ball" actor`);
-    if (!isActorHasPhysicsBody(ballActorW)) throw new Error(`"ball" actor is not a physic actor`);
+    const ballActor: TActor | undefined = actorAsyncRegistry.findByName('sphere_actor');
+    if (isNotDefined(ballActor)) throw new Error(`Cannot find "ball" actor`);
+    if (!isActorHasPhysicsBody(ballActor)) throw new Error(`"ball" actor is not a physic actor`);
 
-    const surfaceActorW: TActor | undefined = actorAsyncRegistry.findByName('surface_actor');
-    if (isNotDefined(surfaceActorW)) throw new Error(`Cannot find "surfaceActor" actor`);
-    if (!isActorHasPhysicsBody(surfaceActorW)) throw new Error(`"surfaceActor" actor is not a physic actor`);
+    const surfaceActor: TActor | undefined = actorAsyncRegistry.findByName('surface_actor');
+    if (isNotDefined(surfaceActor)) throw new Error(`Cannot find "surfaceActor" actor`);
+    if (!isActorHasPhysicsBody(surfaceActor)) throw new Error(`"surfaceActor" actor is not a physic actor`);
 
     const cameraW: TCameraWrapper | undefined = cameraService.findActive();
     if (isNotDefined(cameraW)) throw new Error(`Cannot find active camera`);
 
     mouseService.clickLeftRelease$.subscribe(() => {
       // TODO CWP: 8.0.0. MODELS: Perhaps, "applyImpulse" (and similar functions) should be available via physical drive
-      ballActorW.drive.physical.physicsBody$.value?.getRigidBody()?.applyImpulse(getPushCoordsFrom3dAzimuthDeg(azimuth, 0, forcePower * 10.5), true);
+      ballActor.drive.physical.physicsBody$.value?.getRigidBody()?.applyImpulse(getPushCoordsFrom3dAzimuthDeg(azimuth, 0, forcePower * 10.5), true);
     });
 
     keyboardService.onKey(KeysExtra.Space).pressed$.subscribe((): void => {
       // TODO CWP: 8.0.0. MODELS: Perhaps, "applyImpulse" (and similar functions) should be available via physical drive
-      ballActorW.drive.physical.physicsBody$.value?.getRigidBody()?.applyImpulse({ x: 0, y: 20, z: 0 }, true);
+      ballActor.drive.physical.physicsBody$.value?.getRigidBody()?.applyImpulse({ x: 0, y: 20, z: 0 }, true);
     });
 
     const mouseLineIntersectionsWatcher: TIntersectionsWatcher = intersectionsWatcherService.create({
       name: 'mouse_line_intersections_watcher',
       isAutoStart: true,
       camera: cameraW,
-      actors: [surfaceActorW],
+      actors: [surfaceActor],
       position$: mouseService.position$,
       tags: []
     });
@@ -98,11 +98,11 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
 
     loopService.tick$.subscribe(() => {
       if (isDefined(mouseLineIntersectionsCoords)) {
-        const ballCoords: Vector3 = ballActorW.drive.getPosition();
+        const ballCoords: Vector3 = ballActor.drive.getPosition();
         azimuth = getHorizontalAzimuthDeg(ballCoords.x, ballCoords.z, mouseLineIntersectionsCoords);
         azimuthText.setText(`Azimuth: ${azimuth.toFixed(2)}`);
         forcePowerText.setText(`Force: ${forcePower.toFixed(2)}`);
-        forcePower = getDistancePrecisely(ballActorW.drive.getPosition(), mouseLineIntersectionsCoords).toNumber();
+        forcePower = getDistancePrecisely(ballActor.drive.getPosition(), mouseLineIntersectionsCoords).toNumber();
         line.geometry.setPositions([ballCoords.x, ballCoords.y, ballCoords.z, mouseLineIntersectionsCoords.x, mouseLineIntersectionsCoords.y, mouseLineIntersectionsCoords.z]);
         line.computeLineDistances();
       }
@@ -117,6 +117,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
   return { start, space };
 }
 
+// TODO LINES: refactor this with lines domain
 function createLine(): Line2 {
   const material = new LineMaterial({
     color: '#E91E63',
