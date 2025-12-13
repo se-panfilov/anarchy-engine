@@ -315,23 +315,23 @@
         "scale": {
           "$ref": "#/definitions/Vector3Like"
         },
-        "model3dSource": {
-          "type": "string"
-        },
-        "physics": {
-          "$ref": "#/definitions/TPhysicsBodyConfig"
+        "collisions": {
+          "$ref": "#/definitions/TCollisionsDataConfig"
         },
         "kinematic": {
           "$ref": "#/definitions/TKinematicConfig"
         },
-        "spatial": {
-          "$ref": "#/definitions/TSpatialDataConfig"
-        },
-        "collisions": {
-          "$ref": "#/definitions/TCollisionsDataConfig"
-        },
         "model3dSettings": {
           "$ref": "#/definitions/TActorModel3dSettingsConfig"
+        },
+        "model3dSource": {
+          "type": "string"
+        },
+        "physicBodyName": {
+          "type": "string"
+        },
+        "spatial": {
+          "$ref": "#/definitions/TSpatialDataConfig"
         },
         "states": {
           "$ref": "#/definitions/TActorStatesConfig"
@@ -351,695 +351,22 @@
       },
       "required": ["model3dSource", "name", "position", "spatial"]
     },
-    "TPhysicsBodyConfig": {
+    "TCollisionsDataConfig": {
       "type": "object",
       "additionalProperties": false,
       "properties": {
-        "position": {
-          "$ref": "#/definitions/Vector3Like"
-        },
-        "rotation": {
-          "$ref": "#/definitions/QuaternionLike"
-        },
-        "type": {
-          "$ref": "#/definitions/RigidBodyTypesNames"
-        },
-        "collisionShape": {
-          "$ref": "#/definitions/CollisionShape"
-        },
-        "shapeParams": {
-          "$ref": "#/definitions/TPhysicsShapeParams"
-        },
-        "mass": {
-          "type": "number"
-        },
-        "restitution": {
-          "type": "number"
-        },
-        "friction": {
-          "type": "number"
-        },
-        "collisionGroups": {
-          "type": "number"
-        },
-        "isSleep": {
+        "isAutoUpdate": {
           "type": "boolean"
         },
-        "name": {
-          "type": "string"
-        },
-        "tags": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
+        "updatePriority": {
+          "$ref": "#/definitions/LoopUpdatePriority"
         }
       },
-      "required": ["collisionShape", "name", "shapeParams", "type"]
+      "required": ["isAutoUpdate"]
     },
-    "RigidBodyTypesNames": {
-      "type": "string",
-      "enum": ["dynamic", "fixed", "kinematicPositionBased", "kinematicVelocityBased"]
-    },
-    "CollisionShape": {
-      "type": "string",
-      "enum": [
-        "ball",
-        "cuboid",
-        "capsule",
-        "segment",
-        "polyline",
-        "triangle",
-        "trimesh",
-        "heightfield",
-        "compound",
-        "convexPolyhedron",
-        "cylinder",
-        "cone",
-        "roundCuboid",
-        "roundTriangle",
-        "roundCylinder",
-        "roundCone",
-        "roundConvexPolyhedron",
-        "halfSpace"
-      ]
-    },
-    "TPhysicsShapeParams": {
-      "anyOf": [
-        {
-          "$ref": "#/definitions/TPhysicsShapeBallParams"
-        },
-        {
-          "$ref": "#/definitions/TPhysicsShapeHalfSpaceParams"
-        },
-        {
-          "$ref": "#/definitions/TPhysicsShapeCuboidParams"
-        },
-        {
-          "$ref": "#/definitions/TPhysicsShapeRoundCuboidParams"
-        },
-        {
-          "$ref": "#/definitions/TPhysicsShapeCapsuleParams"
-        },
-        {
-          "$ref": "#/definitions/TPhysicsShapeRoundCapsuleParams"
-        },
-        {
-          "$ref": "#/definitions/TPhysicsShapeSegmentParams"
-        },
-        {
-          "$ref": "#/definitions/TPhysicsShapeTriangleParams"
-        },
-        {
-          "$ref": "#/definitions/TPhysicsShapeRoundTriangleParams"
-        },
-        {
-          "$ref": "#/definitions/TPhysicsShapePolylineParams"
-        },
-        {
-          "$ref": "#/definitions/TPhysicsShapeTriMeshParams"
-        },
-        {
-          "$ref": "#/definitions/TPhysicsShapeConvexPolyhedronParams"
-        },
-        {
-          "$ref": "#/definitions/TPhysicsShapeRoundConvexPolyhedronParams"
-        },
-        {
-          "$ref": "#/definitions/TPhysicsShapeHeightfieldParams"
-        },
-        {
-          "$ref": "#/definitions/TPhysicsShapeCylinderParams"
-        },
-        {
-          "$ref": "#/definitions/TPhysicsShapeRoundCylinderParams"
-        },
-        {
-          "$ref": "#/definitions/TPhysicsShapeConeParams"
-        },
-        {
-          "$ref": "#/definitions/TPhysicsShapeRoundConeParams"
-        }
-      ]
-    },
-    "TPhysicsShapeBallParams": {
-      "type": "object",
-      "properties": {
-        "radius": {
-          "type": "number"
-        }
-      },
-      "additionalProperties": false
-    },
-    "TPhysicsShapeHalfSpaceParams": {
-      "type": "object",
-      "properties": {
-        "normal": {
-          "$ref": "#/definitions/Vector"
-        }
-      },
-      "required": ["normal"],
-      "additionalProperties": false
-    },
-    "Vector": {
-      "type": "object",
-      "properties": {
-        "x": {
-          "type": "number"
-        },
-        "y": {
-          "type": "number"
-        },
-        "z": {
-          "type": "number"
-        }
-      },
-      "required": ["x", "y", "z"],
-      "additionalProperties": false
-    },
-    "TPhysicsShapeCuboidParams": {
-      "type": "object",
-      "properties": {
-        "hx": {
-          "type": "number"
-        },
-        "hy": {
-          "type": "number"
-        },
-        "hz": {
-          "type": "number"
-        }
-      },
-      "required": ["hx", "hy", "hz"],
-      "additionalProperties": false
-    },
-    "TPhysicsShapeRoundCuboidParams": {
-      "type": "object",
-      "properties": {
-        "hx": {
-          "type": "number"
-        },
-        "hy": {
-          "type": "number"
-        },
-        "hz": {
-          "type": "number"
-        },
-        "borderRadius": {
-          "type": "number"
-        }
-      },
-      "required": ["hx", "hy", "hz", "borderRadius"],
-      "additionalProperties": false
-    },
-    "TPhysicsShapeCapsuleParams": {
-      "type": "object",
-      "properties": {
-        "halfHeight": {
-          "type": "number"
-        },
-        "radius": {
-          "type": "number"
-        }
-      },
-      "required": ["halfHeight", "radius"],
-      "additionalProperties": false
-    },
-    "TPhysicsShapeRoundCapsuleParams": {
-      "type": "object",
-      "properties": {
-        "halfHeight": {
-          "type": "number"
-        },
-        "radius": {
-          "type": "number"
-        },
-        "borderRadius": {
-          "type": "number"
-        }
-      },
-      "required": ["halfHeight", "radius", "borderRadius"],
-      "additionalProperties": false
-    },
-    "TPhysicsShapeSegmentParams": {
-      "type": "object",
-      "properties": {
-        "a": {
-          "$ref": "#/definitions/Vector"
-        },
-        "b": {
-          "$ref": "#/definitions/Vector"
-        }
-      },
-      "required": ["a", "b"],
-      "additionalProperties": false
-    },
-    "TPhysicsShapeTriangleParams": {
-      "type": "object",
-      "properties": {
-        "a": {
-          "$ref": "#/definitions/Vector"
-        },
-        "b": {
-          "$ref": "#/definitions/Vector"
-        },
-        "c": {
-          "$ref": "#/definitions/Vector"
-        }
-      },
-      "required": ["a", "b", "c"],
-      "additionalProperties": false
-    },
-    "TPhysicsShapeRoundTriangleParams": {
-      "type": "object",
-      "properties": {
-        "a": {
-          "$ref": "#/definitions/Vector"
-        },
-        "b": {
-          "$ref": "#/definitions/Vector"
-        },
-        "c": {
-          "$ref": "#/definitions/Vector"
-        },
-        "borderRadius": {
-          "type": "number"
-        }
-      },
-      "required": ["a", "b", "c", "borderRadius"],
-      "additionalProperties": false
-    },
-    "TPhysicsShapePolylineParams": {
-      "type": "object",
-      "properties": {
-        "vertices": {
-          "type": "object",
-          "properties": {
-            "BYTES_PER_ELEMENT": {
-              "type": "number"
-            },
-            "buffer": {
-              "type": "object",
-              "properties": {
-                "byteLength": {
-                  "type": "number"
-                }
-              },
-              "required": ["byteLength"],
-              "additionalProperties": false
-            },
-            "byteLength": {
-              "type": "number"
-            },
-            "byteOffset": {
-              "type": "number"
-            },
-            "length": {
-              "type": "number"
-            }
-          },
-          "required": ["BYTES_PER_ELEMENT", "buffer", "byteLength", "byteOffset", "length"],
-          "additionalProperties": {
-            "type": "number"
-          }
-        },
-        "indices": {
-          "type": "object",
-          "properties": {
-            "BYTES_PER_ELEMENT": {
-              "type": "number"
-            },
-            "buffer": {
-              "type": "object",
-              "properties": {
-                "byteLength": {
-                  "type": "number"
-                }
-              },
-              "required": ["byteLength"],
-              "additionalProperties": false
-            },
-            "byteLength": {
-              "type": "number"
-            },
-            "byteOffset": {
-              "type": "number"
-            },
-            "length": {
-              "type": "number"
-            }
-          },
-          "required": ["BYTES_PER_ELEMENT", "buffer", "byteLength", "byteOffset", "length"],
-          "additionalProperties": {
-            "type": "number"
-          }
-        }
-      },
-      "required": ["vertices"],
-      "additionalProperties": false
-    },
-    "TPhysicsShapeTriMeshParams": {
-      "type": "object",
-      "properties": {
-        "vertices": {
-          "type": "object",
-          "properties": {
-            "BYTES_PER_ELEMENT": {
-              "type": "number"
-            },
-            "buffer": {
-              "type": "object",
-              "properties": {
-                "byteLength": {
-                  "type": "number"
-                }
-              },
-              "required": ["byteLength"],
-              "additionalProperties": false
-            },
-            "byteLength": {
-              "type": "number"
-            },
-            "byteOffset": {
-              "type": "number"
-            },
-            "length": {
-              "type": "number"
-            }
-          },
-          "required": ["BYTES_PER_ELEMENT", "buffer", "byteLength", "byteOffset", "length"],
-          "additionalProperties": {
-            "type": "number"
-          }
-        },
-        "indices": {
-          "type": "object",
-          "properties": {
-            "BYTES_PER_ELEMENT": {
-              "type": "number"
-            },
-            "buffer": {
-              "type": "object",
-              "properties": {
-                "byteLength": {
-                  "type": "number"
-                }
-              },
-              "required": ["byteLength"],
-              "additionalProperties": false
-            },
-            "byteLength": {
-              "type": "number"
-            },
-            "byteOffset": {
-              "type": "number"
-            },
-            "length": {
-              "type": "number"
-            }
-          },
-          "required": ["BYTES_PER_ELEMENT", "buffer", "byteLength", "byteOffset", "length"],
-          "additionalProperties": {
-            "type": "number"
-          }
-        },
-        "flags": {
-          "$ref": "#/definitions/TriMeshFlags"
-        }
-      },
-      "required": ["vertices", "indices"],
-      "additionalProperties": false
-    },
-    "TriMeshFlags": {
+    "LoopUpdatePriority": {
       "type": "number",
-      "enum": [4, 8, 16, 32, 64, 144]
-    },
-    "TPhysicsShapeConvexPolyhedronParams": {
-      "type": "object",
-      "properties": {
-        "vertices": {
-          "type": "object",
-          "properties": {
-            "BYTES_PER_ELEMENT": {
-              "type": "number"
-            },
-            "buffer": {
-              "type": "object",
-              "properties": {
-                "byteLength": {
-                  "type": "number"
-                }
-              },
-              "required": ["byteLength"],
-              "additionalProperties": false
-            },
-            "byteLength": {
-              "type": "number"
-            },
-            "byteOffset": {
-              "type": "number"
-            },
-            "length": {
-              "type": "number"
-            }
-          },
-          "required": ["BYTES_PER_ELEMENT", "buffer", "byteLength", "byteOffset", "length"],
-          "additionalProperties": {
-            "type": "number"
-          }
-        },
-        "indices": {
-          "anyOf": [
-            {
-              "type": "object",
-              "properties": {
-                "BYTES_PER_ELEMENT": {
-                  "type": "number"
-                },
-                "buffer": {
-                  "type": "object",
-                  "properties": {
-                    "byteLength": {
-                      "type": "number"
-                    }
-                  },
-                  "required": ["byteLength"],
-                  "additionalProperties": false
-                },
-                "byteLength": {
-                  "type": "number"
-                },
-                "byteOffset": {
-                  "type": "number"
-                },
-                "length": {
-                  "type": "number"
-                }
-              },
-              "required": ["BYTES_PER_ELEMENT", "buffer", "byteLength", "byteOffset", "length"],
-              "additionalProperties": {
-                "type": "number"
-              }
-            },
-            {
-              "type": "null"
-            }
-          ]
-        }
-      },
-      "required": ["vertices"],
-      "additionalProperties": false
-    },
-    "TPhysicsShapeRoundConvexPolyhedronParams": {
-      "type": "object",
-      "properties": {
-        "vertices": {
-          "type": "object",
-          "properties": {
-            "BYTES_PER_ELEMENT": {
-              "type": "number"
-            },
-            "buffer": {
-              "type": "object",
-              "properties": {
-                "byteLength": {
-                  "type": "number"
-                }
-              },
-              "required": ["byteLength"],
-              "additionalProperties": false
-            },
-            "byteLength": {
-              "type": "number"
-            },
-            "byteOffset": {
-              "type": "number"
-            },
-            "length": {
-              "type": "number"
-            }
-          },
-          "required": ["BYTES_PER_ELEMENT", "buffer", "byteLength", "byteOffset", "length"],
-          "additionalProperties": {
-            "type": "number"
-          }
-        },
-        "indices": {
-          "anyOf": [
-            {
-              "type": "object",
-              "properties": {
-                "BYTES_PER_ELEMENT": {
-                  "type": "number"
-                },
-                "buffer": {
-                  "type": "object",
-                  "properties": {
-                    "byteLength": {
-                      "type": "number"
-                    }
-                  },
-                  "required": ["byteLength"],
-                  "additionalProperties": false
-                },
-                "byteLength": {
-                  "type": "number"
-                },
-                "byteOffset": {
-                  "type": "number"
-                },
-                "length": {
-                  "type": "number"
-                }
-              },
-              "required": ["BYTES_PER_ELEMENT", "buffer", "byteLength", "byteOffset", "length"],
-              "additionalProperties": {
-                "type": "number"
-              }
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "borderRadius": {
-          "type": "number"
-        }
-      },
-      "required": ["vertices", "borderRadius"],
-      "additionalProperties": false
-    },
-    "TPhysicsShapeHeightfieldParams": {
-      "type": "object",
-      "properties": {
-        "nrows": {
-          "type": "number"
-        },
-        "ncols": {
-          "type": "number"
-        },
-        "heights": {
-          "type": "object",
-          "properties": {
-            "BYTES_PER_ELEMENT": {
-              "type": "number"
-            },
-            "buffer": {
-              "type": "object",
-              "properties": {
-                "byteLength": {
-                  "type": "number"
-                }
-              },
-              "required": ["byteLength"],
-              "additionalProperties": false
-            },
-            "byteLength": {
-              "type": "number"
-            },
-            "byteOffset": {
-              "type": "number"
-            },
-            "length": {
-              "type": "number"
-            }
-          },
-          "required": ["BYTES_PER_ELEMENT", "buffer", "byteLength", "byteOffset", "length"],
-          "additionalProperties": {
-            "type": "number"
-          }
-        },
-        "scale": {
-          "$ref": "#/definitions/Vector"
-        },
-        "flags": {
-          "$ref": "#/definitions/HeightFieldFlags"
-        }
-      },
-      "required": ["nrows", "ncols", "heights", "scale"],
-      "additionalProperties": false
-    },
-    "HeightFieldFlags": {
-      "type": "number",
-      "const": 1
-    },
-    "TPhysicsShapeCylinderParams": {
-      "type": "object",
-      "properties": {
-        "halfHeight": {
-          "type": "number"
-        },
-        "radius": {
-          "type": "number"
-        }
-      },
-      "required": ["halfHeight", "radius"],
-      "additionalProperties": false
-    },
-    "TPhysicsShapeRoundCylinderParams": {
-      "type": "object",
-      "properties": {
-        "halfHeight": {
-          "type": "number"
-        },
-        "radius": {
-          "type": "number"
-        },
-        "borderRadius": {
-          "type": "number"
-        }
-      },
-      "required": ["halfHeight", "radius", "borderRadius"],
-      "additionalProperties": false
-    },
-    "TPhysicsShapeConeParams": {
-      "type": "object",
-      "properties": {
-        "halfHeight": {
-          "type": "number"
-        },
-        "radius": {
-          "type": "number"
-        }
-      },
-      "required": ["halfHeight", "radius"],
-      "additionalProperties": false
-    },
-    "TPhysicsShapeRoundConeParams": {
-      "type": "object",
-      "properties": {
-        "halfHeight": {
-          "type": "number"
-        },
-        "radius": {
-          "type": "number"
-        },
-        "borderRadius": {
-          "type": "number"
-        }
-      },
-      "required": ["halfHeight", "radius", "borderRadius"],
-      "additionalProperties": false
+      "enum": [0, 1, 2, 3, 4, 5]
     },
     "TKinematicConfig": {
       "type": "object",
@@ -1141,39 +468,6 @@
       },
       "required": ["positionThreshold", "rotationThreshold"]
     },
-    "TSpatialDataConfig": {
-      "type": "object",
-      "additionalProperties": false,
-      "properties": {
-        "isAutoUpdate": {
-          "type": "boolean"
-        },
-        "grid": {
-          "type": "string"
-        },
-        "updatePriority": {
-          "$ref": "#/definitions/LoopUpdatePriority"
-        }
-      },
-      "required": ["grid", "isAutoUpdate"]
-    },
-    "LoopUpdatePriority": {
-      "type": "number",
-      "enum": [0, 1, 2, 3, 4, 5]
-    },
-    "TCollisionsDataConfig": {
-      "type": "object",
-      "additionalProperties": false,
-      "properties": {
-        "isAutoUpdate": {
-          "type": "boolean"
-        },
-        "updatePriority": {
-          "$ref": "#/definitions/LoopUpdatePriority"
-        }
-      },
-      "required": ["isAutoUpdate"]
-    },
     "TActorModel3dSettingsConfig": {
       "type": "object",
       "additionalProperties": false,
@@ -1195,6 +489,22 @@
           "$ref": "#/definitions/Vector3Like"
         }
       }
+    },
+    "TSpatialDataConfig": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "isAutoUpdate": {
+          "type": "boolean"
+        },
+        "grid": {
+          "type": "string"
+        },
+        "updatePriority": {
+          "$ref": "#/definitions/LoopUpdatePriority"
+        }
+      },
+      "required": ["grid", "isAutoUpdate"]
     },
     "TActorStatesConfig": {
       "type": "object",
@@ -6499,20 +5809,20 @@
         "kinematic": {
           "$ref": "#/definitions/TKinematicConfig"
         },
-        "physics": {
-          "$ref": "#/definitions/TPhysicsBodyConfig"
-        },
-        "text": {
+        "physicBodyName": {
           "type": "string"
-        },
-        "type": {
-          "$ref": "#/definitions/TextType"
         },
         "cssProps": {
           "$ref": "#/definitions/TTextCssProps"
         },
         "elementType": {
           "type": "string"
+        },
+        "text": {
+          "type": "string"
+        },
+        "type": {
+          "$ref": "#/definitions/TextType"
         },
         "agent": {
           "$ref": "#/definitions/TransformAgent"
@@ -6528,10 +5838,6 @@
         }
       },
       "required": ["name", "position", "text", "type"]
-    },
-    "TextType": {
-      "type": "string",
-      "enum": ["text_2d", "text_3d", "text_3d_texture"]
     },
     "TTextCssProps": {
       "type": "object",
@@ -7990,6 +7296,10 @@
     "TextFontWeight": {
       "type": "string",
       "enum": ["bold", "normal"]
+    },
+    "TextType": {
+      "type": "string",
+      "enum": ["text_2d", "text_3d", "text_3d_texture"]
     },
     "TControlsConfig": {
       "anyOf": [
