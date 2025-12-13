@@ -6,6 +6,7 @@ import Navigation from '@Menu/components/Navigation.vue';
 import SettingsGroup from '@Menu/components/SettingsGroup.vue';
 import View from '@Menu/components/View.vue';
 import ViewActions from '@Menu/components/ViewActions.vue';
+import ViewForm from '@Menu/components/ViewForm.vue';
 import type { TDropdownOption } from '@Menu/models';
 import { useSettingsStore } from '@Menu/stores/SettingsStore';
 import type { TGraphicsSettings } from '@Shared/Showcase';
@@ -42,15 +43,13 @@ const options = computed((): ReadonlyArray<TDropdownOption<{ width: number; heig
 
 <template>
   <View class="graphics" title="Graphics">
-    <form name="audio" @submit.prevent="save(state)">
+    <ViewForm name="graphics" class="graphics__view-form" @submit="save(state)">
       <SettingsGroup title="Main Graphics Settings">
         <Checkbox v-model="state.isFullScreen" class="graphics__setting -fullscreen" label="Fullscreen" />
         <Dropdown v-model="state.resolution" :options="options" class="graphics__setting -resolution" label="Resolution" />
       </SettingsGroup>
       <ViewActions @reset="reset()" />
       <Navigation class="settings__navigation" :back-btn="true" />
-    </form>
+    </ViewForm>
   </View>
 </template>
-
-<style scoped lang="scss"></style>

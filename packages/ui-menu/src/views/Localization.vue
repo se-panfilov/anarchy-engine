@@ -5,6 +5,7 @@ import Navigation from '@Menu/components/Navigation.vue';
 import SettingsGroup from '@Menu/components/SettingsGroup.vue';
 import View from '@Menu/components/View.vue';
 import ViewActions from '@Menu/components/ViewActions.vue';
+import ViewForm from '@Menu/components/ViewForm.vue';
 import { Languages } from '@Menu/constants';
 import type { TDropdownOption } from '@Menu/models';
 import { useSettingsStore } from '@Menu/stores/SettingsStore';
@@ -35,14 +36,12 @@ const options = computed((): ReadonlyArray<TDropdownOption<Languages>> => {
 
 <template>
   <View class="localization" title="Localization">
-    <form name="audio" @submit.prevent="save(state)">
+    <ViewForm name="localization" class="localization__view-form" @submit="save(state)">
       <SettingsGroup title="Main Localization Settings">
         <Dropdown v-model="state.language" :options="options" class="localization__setting -resolution" label="Resolution" />
       </SettingsGroup>
       <ViewActions @reset="reset()" />
       <Navigation class="settings__navigation" :back-btn="true" />
-    </form>
+    </ViewForm>
   </View>
 </template>
-
-<style scoped lang="scss"></style>
