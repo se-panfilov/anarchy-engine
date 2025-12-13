@@ -1,5 +1,5 @@
 import { isEmpty } from 'lodash-es';
-import type { MaterialJSON, MeshBasicMaterial, MeshDepthMaterial, MeshLambertMaterial, MeshPhongMaterial, MeshPhysicalMaterial, MeshStandardMaterial, PointsMaterial } from 'three';
+import type { MaterialJSON, MeshBasicMaterial, MeshDepthMaterial, MeshLambertMaterial, MeshMatcapMaterial, MeshPhongMaterial, MeshPhysicalMaterial, MeshStandardMaterial, PointsMaterial } from 'three';
 
 import { serializeColorWhenPossible } from '@/Engine/Color';
 import type { MaterialType } from '@/Engine/Material/Constants';
@@ -46,14 +46,15 @@ export function materialToConfig(entity: TMaterialWrapper, { textureResourceRegi
   });
 }
 
-// TODO 15-0-0: All this options should apply on config load
 function getMaterialOptions({ entity }: TMaterialWrapper): TOptional<TMaterialConfigOptions> | undefined {
-  // Should more or less match threejs's MaterialParameters type
   return filterOutEmptyFields(
     nullsToUndefined({
       alphaHash: entity.alphaHash,
       alphaTest: entity.alphaTest,
       alphaToCoverage: entity.alphaToCoverage,
+      anisotropy: (entity as MeshPhysicalMaterial).anisotropy,
+      anisotropyRotation: (entity as MeshPhysicalMaterial).anisotropyRotation,
+      aoMapIntensity: (entity as MeshPhongMaterial).aoMapIntensity,
       attenuationColor: serializeColorWhenPossible((entity as MeshPhysicalMaterial).attenuationColor),
       attenuationDistance: (entity as MeshPhysicalMaterial).attenuationDistance,
       blendAlpha: entity.blendAlpha,
@@ -65,27 +66,42 @@ function getMaterialOptions({ entity }: TMaterialWrapper): TOptional<TMaterialCo
       blendSrc: getOptionName(entity.blendSrc, { ...BlendingSrcFactorMap, ...BlendingDstFactorMap }, 'blendSrc'),
       blendSrcAlpha: entity.blendSrcAlpha,
       blending: getOptionName(entity.blending, BlendingMap, 'blending'),
+      bumpScale: (entity as MeshPhongMaterial).bumpScale,
       clearcoat: (entity as MeshPhysicalMaterial).clearcoat,
-      clearcoatRoughness: (entity as MeshPhysicalMaterial).clearcoatRoughness,
       clearcoatNormalScale: isDefined((entity as MeshPhysicalMaterial).clearcoatNormalScale) ? vector2ToXy((entity as MeshPhysicalMaterial).clearcoatNormalScale) : undefined,
+      clearcoatRoughness: (entity as MeshPhysicalMaterial).clearcoatRoughness,
       clipIntersection: entity.clipIntersection,
       clipShadows: entity.clipShadows,
       clippingPlanes: entity.clippingPlanes,
       color: serializeColorWhenPossible((entity as MeshBasicMaterial).color),
       colorWrite: entity.colorWrite,
       combine: isDefined((entity as MeshBasicMaterial).combine) ? getOptionName((entity as MeshBasicMaterial).combine, CombineMap, 'combine') : undefined,
+      dashSize: (entity as any).dashSize,
       depthFunc: entity.depthFunc,
       depthPacking: isDefined((entity as MeshDepthMaterial).depthPacking) ? getOptionName((entity as MeshDepthMaterial).depthPacking, DepthPackingStrategiesMap, 'depthPacking') : undefined,
       depthTest: entity.depthTest,
       depthWrite: entity.depthWrite,
+      displacementBias: (entity as MeshPhongMaterial).displacementBias,
+      displacementScale: (entity as MeshPhongMaterial).displacementScale,
       dithering: entity.dithering,
       emissive: serializeColorWhenPossible((entity as MeshLambertMaterial).emissive),
       emissiveIntensity: (entity as MeshLambertMaterial).emissiveIntensity,
       envMapIntensity: (entity as MeshStandardMaterial).envMapIntensity,
+      // envMapRotation: (entity as MeshPhongMaterial).envMapRotation,
+      farDistance: (entity as any).farDistance,
       flatShading: (entity as MeshStandardMaterial).flatShading,
+      fog: (entity as MeshPhongMaterial).fog,
       forceSinglePass: entity.forceSinglePass,
+      gapSize: (entity as any).gapSize,
       ior: (entity as MeshPhysicalMaterial).ior,
+      iridescence: (entity as MeshPhysicalMaterial).iridescence,
+      iridescenceIOR: (entity as MeshPhysicalMaterial).iridescenceIOR,
+      iridescenceThicknessRange: (entity as MeshPhysicalMaterial).iridescenceThicknessRange,
+      lightMapIntensity: (entity as MeshPhongMaterial).lightMapIntensity,
+      linewidth: (entity as any).linewidth,
+      matcap: (entity as MeshMatcapMaterial).matcap,
       metalness: (entity as MeshStandardMaterial).metalness,
+      nearDistance: (entity as any).nearDistance,
       normalMapType: getOptionName((entity as MeshStandardMaterial).normalMapType, NormalMapTypesMap, 'normalMapType'),
       normalScale: isDefined((entity as MeshStandardMaterial).normalScale) ? vector2ToXy((entity as any).normalScale) : undefined,
       opacity: entity.opacity,
@@ -94,14 +110,17 @@ function getMaterialOptions({ entity }: TMaterialWrapper): TOptional<TMaterialCo
       polygonOffsetUnits: entity.polygonOffsetUnits,
       precision: entity.precision,
       premultipliedAlpha: entity.premultipliedAlpha,
+      referencePosition: (entity as any).referencePosition,
       reflectivity: (entity as MeshPhysicalMaterial).reflectivity,
       refractionRatio: (entity as MeshBasicMaterial).refractionRatio,
       rotation: isDefined((entity as any).rotation) ? eulerToXyz((entity as any).rotation) : undefined,
       roughness: (entity as MeshStandardMaterial).roughness,
+      scale: (entity as any).scale,
       shadowSide: entity.shadowSide,
       sheen: (entity as MeshPhysicalMaterial).sheen,
       sheenColor: serializeColorWhenPossible((entity as MeshPhysicalMaterial).sheenColor),
       sheenRoughness: (entity as MeshPhysicalMaterial).sheenRoughness,
+      shininess: (entity as MeshPhongMaterial).shininess,
       side: getOptionName(entity.side, SideMap, 'side'),
       size: (entity as PointsMaterial).size,
       sizeAttenuation: (entity as PointsMaterial).sizeAttenuation,
@@ -118,9 +137,14 @@ function getMaterialOptions({ entity }: TMaterialWrapper): TOptional<TMaterialCo
       stencilZPass: getOptionName(entity.stencilZPass, StencilOpMap, 'stencilZPass'),
       thickness: (entity as MeshPhysicalMaterial).thickness,
       toneMapped: entity.toneMapped,
+      transmission: (entity as MeshPhysicalMaterial).transmission,
       transparent: entity.transparent,
       vertexColors: entity.vertexColors,
-      visible: entity.visible
+      visible: entity.visible,
+      wireframe: (entity as MeshPhongMaterial).wireframe,
+      // wireframeLinecap: (entity as MeshPhongMaterial).wireframeLinecap
+      // wireframeLinejoin: (entity as MeshPhongMaterial).wireframeLinejoin
+      wireframeLinewidth: (entity as MeshPhongMaterial).wireframeLinewidth
     })
   );
 }
