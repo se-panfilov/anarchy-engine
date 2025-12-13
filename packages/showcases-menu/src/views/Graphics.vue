@@ -8,7 +8,7 @@ import ViewActions from '@Menu/components/ViewActions.vue';
 import ViewForm from '@Menu/components/ViewForm.vue';
 import { useSettingsStore } from '@Menu/stores/SettingsStore';
 import type { TWriteable } from '@Shared/Utils';
-import type { TDropdownOption, TGraphicsSettings } from '@ShowcasesShared';
+import type { TDropdownOption, TGraphicsSettings } from '@Showcases/Shared';
 import { computed, reactive } from 'vue';
 
 const emit = defineEmits(['reset', 'save']);

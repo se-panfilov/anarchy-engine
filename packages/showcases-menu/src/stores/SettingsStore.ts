@@ -1,6 +1,6 @@
 import { Languages } from '@Menu/constants';
 import type { TDeepWriteable } from '@Shared/Utils';
-import type { TAudioSettings, TDebugSettings, TGraphicsSettings, TInternalSettings, TLocalizationSettings, TResolution, TShowcaseGameSettings } from '@ShowcasesShared';
+import type { TAudioSettings, TDebugSettings, TGraphicsSettings, TInternalSettings, TLocalizationSettings, TResolution, TShowcaseGameSettings } from '@Showcases/Shared';
 import { defineStore } from 'pinia';
 import { computed, reactive } from 'vue';
 

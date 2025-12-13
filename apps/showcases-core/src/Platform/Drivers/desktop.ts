@@ -1,5 +1,5 @@
-import type { TShowcaseGameSettings } from '@ShowcasesShared';
-import { platformApiName } from '@ShowcasesShared';
+import type { TShowcaseGameSettings } from '@Showcases/Shared';
+import { platformApiName } from '@Showcases/Shared';
 
 import type { TPlatformDriver } from '@/Models';
 

@@ -29,7 +29,7 @@ export default defineConfig(({ mode, command }: ConfigEnv): UserConfig => {
       alias: {
         ...sharedAliases,
         '@Public': path.resolve(__dirname, './public'),
-        '@ShowcasesShared': path.resolve(__dirname, '../../packages/showcases-shared/src')
+        '@Showcases/Shared': path.resolve(__dirname, '../../packages/showcases-shared/src')
       }
     },
     plugins: [

@@ -1,4 +1,4 @@
-import type { FromMenuEvents, ToMenuEvents } from '@ShowcasesShared/Constants';
+import type { FromMenuEvents, ToMenuEvents } from '@Showcases/Shared/Constants';
 
 export type TFromMenuEvent = {
   type: FromMenuEvents;

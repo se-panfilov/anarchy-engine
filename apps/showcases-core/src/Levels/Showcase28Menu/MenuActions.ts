@@ -1,6 +1,6 @@
 import { isNotDefined } from '@Shared/Utils';
-import type { TFromMenuEvent, TShowcaseGameSettings, TToMenuEvent } from '@ShowcasesShared';
-import { FromMenuEvents, ToMenuEvents } from '@ShowcasesShared';
+import type { TFromMenuEvent, TShowcaseGameSettings, TToMenuEvent } from '@Showcases/Shared';
+import { FromMenuEvents, ToMenuEvents } from '@Showcases/Shared';
 import type { Observable, Subject } from 'rxjs';
 
 import { closeMainMenu, loadSettings, saveSettings } from '@/Levels/Showcase28Menu/MainMenuService';

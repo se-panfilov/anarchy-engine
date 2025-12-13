@@ -1,5 +1,5 @@
 import { initMenuApp } from '@Menu/main';
-import type { TFromMenuEvent, TToMenuEvent } from '@ShowcasesShared';
+import type { TFromMenuEvent, TToMenuEvent } from '@Showcases/Shared';
 import { Subject } from 'rxjs';
 
 const fromMenuBus$: Subject<TFromMenuEvent> = new Subject<TFromMenuEvent>();

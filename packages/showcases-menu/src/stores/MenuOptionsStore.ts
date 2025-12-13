@@ -1,5 +1,5 @@
 import type { TDeepWriteable } from '@Shared/Utils';
-import type { TMenuOptions } from '@ShowcasesShared';
+import type { TMenuOptions } from '@Showcases/Shared';
 import { defineStore } from 'pinia';
 import { computed, reactive } from 'vue';
 

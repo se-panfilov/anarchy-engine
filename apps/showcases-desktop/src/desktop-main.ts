@@ -3,7 +3,7 @@ import { appCrashHandler, appWindowAllClosedHandler, windowNavigateHandler, wind
 import type { TDesktopAppConfig } from '@Desktop/Models';
 import { handleAppRequest, SettingsService, WindowService } from '@Desktop/Services';
 import { getDisplayInfo, hideMenuBar, noZoom, turnOffMenuBarAndHotkeys } from '@Desktop/Utils';
-import { platformApiChannel } from '@ShowcasesShared';
+import { platformApiChannel } from '@Showcases/Shared';
 import type { BrowserWindow, IpcMainInvokeEvent } from 'electron';
 import { app, ipcMain } from 'electron';
 

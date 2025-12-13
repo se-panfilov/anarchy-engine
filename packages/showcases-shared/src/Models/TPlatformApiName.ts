@@ -1,3 +1,3 @@
-import type { platformApiName } from '@ShowcasesShared/Constants';
+import type { platformApiName } from '@Showcases/Shared/Constants';
 
 export type TPlatformApiName = typeof platformApiName;

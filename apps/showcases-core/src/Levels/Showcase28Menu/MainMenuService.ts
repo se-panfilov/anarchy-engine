@@ -1,5 +1,5 @@
 import { isNotDefined } from '@Shared/Utils';
-import type { TShowcaseGameSettings } from '@ShowcasesShared';
+import type { TShowcaseGameSettings } from '@Showcases/Shared';
 
 import { platformApiService } from '@/Services';
 

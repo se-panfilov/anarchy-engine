@@ -1,4 +1,4 @@
-import type { TShowcaseGameSettings } from '@ShowcasesShared';
+import type { TShowcaseGameSettings } from '@Showcases/Shared';
 
 import type { TPlatformDriver } from '@/Models';
 

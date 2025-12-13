@@ -1,4 +1,4 @@
-import type { TPlatformApiName, TShowcasesDesktopApi } from '@ShowcasesShared';
+import type { TPlatformApiName, TShowcasesDesktopApi } from '@Showcases/Shared';
 
 // Keep this line. Otherwise, the file will not be recognized as a script, not as a declaration file
 export {};

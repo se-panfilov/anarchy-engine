@@ -5,7 +5,7 @@ import { Routes } from '@Menu/constants';
 import { eventsService } from '@Menu/services';
 import { useMenuOptionsStore } from '@Menu/stores/MenuOptionsStore';
 import { useRouterStore } from '@Menu/stores/RouterStore';
-import type { TNavOption } from '@ShowcasesShared';
+import type { TNavOption } from '@Showcases/Shared';
 
 const menuRouterStore = useRouterStore();
 

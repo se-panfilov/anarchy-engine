@@ -1,7 +1,7 @@
 import { PlatformActions } from '@Desktop/Constants';
 import type { THandleRequestDependencies } from '@Desktop/Models';
 import { isPlatformAction } from '@Desktop/Utils';
-import { isSettings } from '@ShowcasesShared';
+import { isSettings } from '@Showcases/Shared';
 import type { IpcMainInvokeEvent } from 'electron';
 
 // TODO DESKTOP: any

@@ -1,8 +1,8 @@
 import type { TEventsService } from '@Menu/models';
 import { useSettingsStore } from '@Menu/stores/SettingsStore';
 import { isNotDefined } from '@Shared/Utils';
-import type { TFromMenuEvent, TShowcaseGameSettings, TToMenuEvent } from '@ShowcasesShared';
-import { FromMenuEvents, isSettings, ToMenuEvents } from '@ShowcasesShared';
+import type { TFromMenuEvent, TShowcaseGameSettings, TToMenuEvent } from '@Showcases/Shared';
+import { FromMenuEvents, isSettings, ToMenuEvents } from '@Showcases/Shared';
 import type { Observable, Subject, Subscription } from 'rxjs';
 import { toRaw } from 'vue';
 

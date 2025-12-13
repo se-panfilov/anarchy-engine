@@ -1,7 +1,7 @@
 import { eventsService } from '@Menu/services';
 import { useMenuOptionsStore } from '@Menu/stores/MenuOptionsStore';
 import { isDefined } from '@Shared/Utils';
-import type { TFromMenuEvent, TMenuOptions, TToMenuEvent } from '@ShowcasesShared';
+import type { TFromMenuEvent, TMenuOptions, TToMenuEvent } from '@Showcases/Shared';
 import { createPinia } from 'pinia';
 import type { Observable, Subject } from 'rxjs';
 import type { App as VueApp } from 'vue';

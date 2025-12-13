@@ -3,8 +3,8 @@ import * as path from 'node:path';
 
 import { AllowedFolders } from '@Desktop/Constants';
 import type { TSettingsService } from '@Desktop/Models';
-import type { TShowcaseGameSettings } from '@ShowcasesShared';
-import { isSettings } from '@ShowcasesShared';
+import type { TShowcaseGameSettings } from '@Showcases/Shared';
+import { isSettings } from '@Showcases/Shared';
 import type { App } from 'electron';
 
 export function SettingsService(app: App): TSettingsService {
