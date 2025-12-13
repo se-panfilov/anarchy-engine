@@ -1,6 +1,6 @@
 import type { IShowcase } from '@/App/Levels/Models';
-import type { IActorWrapper, IAppCanvas, ILevel, ILevelConfig } from '@/Engine';
-import { ambientContext, buildLevelFromConfig, isNotDefined } from '@/Engine';
+import type { IActorParams, IActorWrapper, IAppCanvas, ILevel, ILevelConfig } from '@/Engine';
+import { ActorType, ambientContext, buildLevelFromConfig, forEachEnum, Vector3Wrapper } from '@/Engine';
 import type { IAnimationParams } from '@/Engine/Services';
 import { Easing, standardMoverService } from '@/Engine/Services';
 
@@ -12,12 +12,7 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
 
   function start(): void {
     level.start();
-    const { actorRegistry } = level.entities;
-
-    const topActor: IActorWrapper | undefined = actorRegistry.getUniqByTag('top_actor');
-    const centralActor: IActorWrapper | undefined = actorRegistry.getUniqByTag('central_actor');
-    const bottomActor: IActorWrapper | undefined = actorRegistry.getUniqByTag('bottom_actor');
-    if (isNotDefined(topActor) || isNotDefined(centralActor) || isNotDefined(bottomActor)) throw new Error('Actors are not defined');
+    const { actorRegistry, actorFactory } = level.entities;
 
     let isClickBlocked: boolean = false;
 
@@ -25,6 +20,28 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
       duration: 2000,
       direction: 'alternate'
     };
+
+    const boxActorTag: string = 'box';
+
+    const actorTemplate: IActorParams = {
+      type: ActorType.cube,
+      width: 1,
+      height: 1,
+      position: Vector3Wrapper({ x: -20, y: 2, z: -2 }),
+      castShadow: true,
+      materialParams: { color: '#5177ff' },
+      tags: [boxActorTag]
+    };
+
+    const positionZ = -30;
+    const gap = 2;
+    forEachEnum(Easing, (easing: string | number, key: string | number, i: number): void => {
+      actorFactory.create({
+        ...actorTemplate,
+        position: Vector3Wrapper({ x: -20, y: 2, z: positionZ + gap * i }),
+        tags: [...actorTemplate.tags, String(easing)]
+      });
+    });
 
     ambientContext.mouseClickWatcher.value$.subscribe(() => {
       if (isClickBlocked) {
@@ -35,11 +52,10 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
       console.log('click is ready', !isClickBlocked);
       isClickBlocked = true;
 
-      void standardMoverService.goToPosition(topActor, { x: 20 }, { ...animationParams, easing: Easing.EaseInCirc }).then(() => {
-        isClickBlocked = false;
+      actorRegistry.getAllWithSomeTag([boxActorTag]).forEach((actor: IActorWrapper) => {
+        const easing = actor.getTags()[1] as Easing;
+        void standardMoverService.goToPosition(actor, { x: 20 }, { ...animationParams, easing });
       });
-      void standardMoverService.goToPosition(centralActor, { x: 20 }, { ...animationParams, easing: Easing.Linear });
-      void standardMoverService.goToPosition(bottomActor, { x: 20 }, { ...animationParams, easing: Easing.EaseInOutQuad });
     });
   }
 
