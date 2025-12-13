@@ -3,30 +3,33 @@
 **Effective date:** {{EFFECTIVE_DATE}}
 **Controller:** {{LEGAL_ENTITY_NAME}} — Contact: {{PRIVACY_EMAIL}}
 
-## 1. Scope
+**Scope / Identification.** This notice applies to the **open-source repository** for **{{PACKAGE_NAME}}** (hosted on or mirrored to **{{SOURCE_HOSTING_PLATFORM}}**). We do **not** operate a consumer service through this repository.
 
-This notice covers **the open-source repository** for {{PACKAGE_NAME}}. We do **not** operate a consumer service through this repository.
+**CPRA (California):** we **do not sell or share** personal information for cross-context behavioral advertising.
 
-## 2. Repository Interactions
+## 1. Repository Interactions
 
-If you open issues, pull requests, or discussions, the content you submit (including profile data) is **public** on **{{SOURCE_HOSTING_PLATFORM}}** and processed under that platform’s privacy policy. We may process this public information to maintain the project.
-**Legal basis:** our **legitimate interests** in operating and improving the OSS project.
-**Retention:** issue/PR history is retained as part of the public project record.
+If you open issues, pull requests, or discussions, the content you submit (including your profile/handle and any attachments) becomes **public** on **{{SOURCE_HOSTING_PLATFORM}}** and is processed under that platform’s privacy policy. We may process this **public** information to operate, maintain, and improve the project.
+**Legal basis:** our **legitimate interests** in running the OSS project.
+**Retention:** issue/PR/discussion history is retained as part of the **public project record**. Edits/deletions are handled through the platform’s features; historical records (e.g., git history) may persist.
 
-## 3. Communications
+## 2. Communications
 
-If you email **{{SUPPORT_EMAIL}}**, we process your email address and message to respond.
-**Retention:** **{{SUPPORT_EMAILS_RETAIN_PERIOD_MONTH}}**, unless longer retention is required by law.
+If you email **{{SUPPORT_EMAIL}}**, we process your **email address**, **message content**, and any information you provide to respond.
+**Legal basis:** our **legitimate interests** in responding to inquiries (or your **consent**, where applicable).
+**Retention:** **{{SUPPORT_EMAILS_RETAIN_PERIOD_MONTH}} months** from the date of our **last interaction in the support thread** (or ticket closure), then deletion or **irreversible anonymization**, unless longer retention is required by law or to establish, exercise, or defend **legal claims**.
 
-## 4. Processors & Transfers
+## 3. Processors & Transfers
 
-We may use email/CI hosting providers as processors with appropriate safeguards (including recognized cross-border transfer mechanisms where applicable).
+We may use service providers (e.g., email or CI hosting) as **processors**, bound by data-processing terms and our instructions. Where personal data is transferred outside your jurisdiction, we rely on recognized transfer mechanisms (e.g., **Standard Contractual Clauses**) where required by law.
 
-## 5. Your Rights
+## 4. Your Rights
 
-Where applicable, you may request **access, rectification, erasure, restriction, objection,** or **portability** at **{{PRIVACY_EMAIL}}**. You may also contact your local supervisory authority.
+Where applicable, you may request **access**, **rectification**, **erasure**, **restriction**, **objection**, or **portability** at **{{PRIVACY_EMAIL}}**. You may also contact your local supervisory authority. We may request reasonable information to **verify your identity** before acting on a request and will respond **within timelines required by applicable law**.
 
-We will respond **within timelines required by applicable law**.
+## 5. Security
+
+We apply appropriate technical and organizational measures proportionate to the limited personal data we handle in connection with the repository (e.g., encrypted transport, access controls, limited retention). We do **not** use automated decision-making that produces legal or similarly significant effects.
 
 ## 6. Children
 
@@ -34,10 +37,20 @@ This project is intended for developers and is **not** directed to children.
 
 ## 7. Changes
 
-We may update this notice by committing changes to the repository.
+We may update this notice by committing changes to the repository (the commit history indicates the effective date of each version). Material updates may also be summarized in the repository’s release notes or documentation.
 
 ## Governing Language
 
-This agreement is drafted in English. Translations may be provided for convenience. In consumer markets where local-language versions are required by law for clarity and fairness, the local-language version controls to the extent required by applicable law; otherwise, the English version controls.
+This **notice** is drafted in English. Translations may be provided for convenience. In markets where local-language versions are required by law for clarity and fairness, the local-language version controls to the extent required by applicable law; otherwise, the English version controls.
 
 **Contact:** {{PRIVACY_EMAIL}}
+
+{{#HAS_DPO}}
+**Data Protection Officer:** {{DPO_EMAIL}}
+{{/HAS_DPO}}
+{{#HAS_EU_REP}}
+**EU Representative:** {{EU_REPRESENTATIVE_CONTACT}}
+{{/HAS_EU_REP}}
+{{#HAS_CHINA_REP}}
+**China Representative:** {{CHINA_REPRESENTATIVE_CONTACT}}
+{{/HAS_CHINA_REP}}
