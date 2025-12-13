@@ -119,10 +119,9 @@ const resolveWorkspaceFromArg = (arg: string, workspaces: ReadonlyMap<string, TW
 
 // ---------------------- Parse THIRD_PARTY_LICENSES.md ----------------------
 
-// we split by '---' fences produced by our generator
+// split by '---' fences produced by our generator; keep chunks with any heading
 const splitEntriesFromMarkdown = (md: string): ReadonlyArray<string> => {
   const parts = md.split(/\r?\n---\r?\n/g);
-  // keep only chunks that contain any "## <something>" heading (later we validate)
   return parts.filter((chunk) => /^##\s+.+/m.test(chunk));
 };
 
@@ -130,7 +129,7 @@ const splitEntriesFromMarkdown = (md: string): ReadonlyArray<string> => {
 const parseHeaderLine = (chunk: string): { name: string; version: string } | undefined => {
   const m = /^##\s+(.+?)\s*$/m.exec(chunk);
   if (!m) return undefined;
-  const full = m[1].trim(); // e.g. "@babel/core@7.27.1" or "lodash@4.17.21"
+  const full = m[1].trim(); // e.g. "@babel/core@7.27.1"
   const at = full.lastIndexOf('@');
   if (at <= 0 || at === full.length - 1) return undefined;
   const name = full.slice(0, at).trim();
@@ -272,7 +271,7 @@ const renderNotice = (wsName: string, entries: ReadonlyArray<TParsedEntry>, incl
 
   if (entries.length === 0) {
     lines.push(`**Note:** No third-party components were detected for this workspace at generation time.`);
-    lines.push(`This file is generated from \`THIRD_PARTY_LICENSES.md\`. If that file lists no packages, there are no third-party notices to include.`, ``);
+    lines.push(`This file is generated from an attribution source file (e.g., THIRD_PARTY_LICENSES.md).`, ``);
   }
 
   for (const e of entries) {
@@ -299,11 +298,12 @@ const renderNotice = (wsName: string, entries: ReadonlyArray<TParsedEntry>, incl
 const main = async (): Promise<void> => {
   const argv = await yargs(hideBin(process.argv))
     .scriptName('anarchy-legal:notice')
-    .usage('$0 --workspace <name|path> [--source <THIRD_PARTY_LICENSES.md>] [--out <NOTICE.md>] [--include-upstream-notices] [--max-upstream-notice-kb <N>] [--audit] [--strict] [--debug]')
+    .usage('$0 --workspace <name|path> [--source <path>] [--source-name <file>] [--out <NOTICE.md>] [--include-upstream-notices] [--max-upstream-notice-kb <N>] [--audit] [--strict] [--debug]')
     .option('workspace', { type: 'string', demandOption: true, describe: 'Target workspace (name or path relative to monorepo root)' })
-    .option('source', { type: 'string', describe: 'Path to THIRD_PARTY_LICENSES.md. Default: <workspace>/THIRD_PARTY_LICENSES.md' })
+    .option('source', { type: 'string', describe: 'Path to the input attribution file (default is <workspace>/<source-name>)' })
+    .option('source-name', { type: 'string', default: 'THIRD_PARTY_LICENSES.md', describe: 'File name inside the workspace to read from when --source is not provided' })
     .option('out', { type: 'string', describe: 'Path to output NOTICE.md. Default: <workspace>/NOTICE.md' })
-    .option('include-upstream-notices', { type: 'boolean', default: false, describe: 'Also read upstream NOTICE files from dependency install paths (if present in THIRD_PARTY_LICENSES.md)' })
+    .option('include-upstream-notices', { type: 'boolean', default: false, describe: 'Also read upstream NOTICE files from dependency install paths (if present in source)' })
     .option('max-upstream-notice-kb', { type: 'number', default: 128, describe: 'Max size per upstream NOTICE to read (kilobytes)' })
     .option('audit', { type: 'boolean', default: false, describe: 'Print a diff between headings in source and parsed entries' })
     .option('strict', { type: 'boolean', default: false, describe: 'With --audit, exit with code 2 if mismatches found' })
@@ -333,7 +333,8 @@ const main = async (): Promise<void> => {
   dlog('target workspace:', ws.name, ws.dir);
 
   // Source & Out paths
-  const defaultSource = path.join(ws.dir, 'THIRD_PARTY_LICENSES.md');
+  const sourceName = String(argv['source-name'] || 'THIRD_PARTY_LICENSES.md');
+  const defaultSource = path.join(ws.dir, sourceName);
   const srcPath = argv.source ? (path.isAbsolute(argv.source) ? argv.source : path.resolve(process.cwd(), argv.source)) : defaultSource;
   const outPath = argv.out ? (path.isAbsolute(argv.out) ? argv.out : path.resolve(process.cwd(), argv.out)) : path.join(ws.dir, 'NOTICE.md');
 
@@ -341,12 +342,8 @@ const main = async (): Promise<void> => {
   dlog('out:', outPath);
 
   if (!(await exists(srcPath))) {
-    console.warn(`[warn] THIRD_PARTY_LICENSES.md not found at: ${srcPath}`);
-    const md = renderNotice(ws.name, [], false);
-    await fs.mkdir(path.dirname(outPath), { recursive: true });
-    await fs.writeFile(outPath, md, 'utf8');
-    console.log(`✔ NOTICE.md written (empty) -> ${outPath}`);
-    return;
+    console.error(`✖ Source file not found: ${srcPath}`);
+    process.exit(1);
   }
 
   const src = await fs.readFile(srcPath, 'utf8');
