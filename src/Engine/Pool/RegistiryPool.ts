@@ -3,11 +3,12 @@ import { ActorRegistry } from '@Engine/Domains/Actor';
 import type { ICameraWrapper } from '@Engine/Domains/Camera';
 import { CameraRegistry } from '@Engine/Domains/Camera';
 import { ControlsRegistry } from '@Engine/Domains/Controls';
+import { IntersectionsWatcherRegistry } from '@Engine/Domains/Intersections';
 import type { ILightWrapper } from '@Engine/Domains/Light';
 import { LightRegistry } from '@Engine/Domains/Light';
 import type { ISceneWrapper } from '@Engine/Domains/Scene';
 import { DestroyablePool } from '@Engine/Pool/Mixins/DestroyablePool';
-import { IntersectionsWatcherRegistry, MouseClicksWatcherRegistry, MousePositionWatcherRegistry, ScreenSizeWatcherRegistry } from '@Engine/Registries';
+import { MouseClicksWatcherRegistry, MousePositionWatcherRegistry, ScreenSizeWatcherRegistry } from '@Engine/Registries';
 import { isNotDefined } from '@Engine/Utils';
 
 import type { IDestroyablePool, IRegistries, IRegistryPool } from './Models';

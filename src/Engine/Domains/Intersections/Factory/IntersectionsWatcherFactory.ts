@@ -1,11 +1,10 @@
 import { AbstractFactory } from '@Engine/Domains/Abstract';
+import type { IIntersectionsWatcher } from '@Engine/Domains/Intersections';
+import { IntersectionsWatcherRegistry } from '@Engine/Domains/Intersections';
 import type { IIntersectionsParams } from '@Engine/Models';
-import type { IIntersectionsWatcherRegistry } from '@Engine/Registries';
-import { IntersectionsWatcherRegistry } from '@Engine/Registries';
-import type { IIntersectionsWatcher } from '@Engine/Watchers';
 import { IntersectionsWatcher } from '@Engine/Watchers';
 
-import type { IIntersectionsWatcherFactory } from './Models';
+import type { IIntersectionsWatcherFactory, IIntersectionsWatcherRegistry } from '../Models';
 
 export function IntersectionsWatcherFactory(): IIntersectionsWatcherFactory {
   const registry: IIntersectionsWatcherRegistry = IntersectionsWatcherRegistry();

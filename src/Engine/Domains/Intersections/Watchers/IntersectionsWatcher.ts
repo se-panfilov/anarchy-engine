@@ -9,7 +9,7 @@ import type { IMousePositionWatcher } from '@Engine/Watchers';
 import type { IVector3 } from '@Engine/Wrappers';
 import { Raycaster } from 'three';
 
-import type { IIntersectionsWatcher } from './Models';
+import type { IIntersectionsWatcher } from '../Models';
 
 export function IntersectionsWatcher(
   actors: ReadonlyArray<IActorWrapper>,
