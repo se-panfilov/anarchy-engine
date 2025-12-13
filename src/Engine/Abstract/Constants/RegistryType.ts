@@ -3,6 +3,7 @@ export enum RegistryType {
   Camera = 'camera',
   Controls = 'controls',
   EnvMap = 'env_map',
+  EnvMapTexture = 'env_map_texture',
   Fog = 'fog',
   IntersectionsWatcher = 'intersections_watcher',
   KeyboardRecord = 'keyboard_record',

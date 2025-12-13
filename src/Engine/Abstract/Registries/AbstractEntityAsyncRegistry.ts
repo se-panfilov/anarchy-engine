@@ -8,7 +8,7 @@ import { getAsyncUniqEntityByNameAsync, getAsyncUniqEntityWithTag, getUniqEntity
 
 import { AbstractEntityRegistry } from './AbstractEntityRegistry';
 
-export function AbstractAsyncRegistry<T extends TRegistrable | TMultitonRegistrable>(type: RegistryType): TAbstractAsyncRegistry<T> {
+export function AbstractEntityAsyncRegistry<T extends TRegistrable | TMultitonRegistrable>(type: RegistryType): TAbstractAsyncRegistry<T> {
   const abstractRegistry: TAbstractEntityRegistry<T> = AbstractEntityRegistry<T>(type);
 
   const findByTagsAsync = (tags: ReadonlyArray<string>, strategy: LookUpStrategy): Promise<T | undefined> => getUniqEntityWithTagsAsync<T>(tags, abstractRegistry, strategy);

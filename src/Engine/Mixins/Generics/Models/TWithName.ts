@@ -1,6 +1,7 @@
 import type { TWriteable } from '@/Engine/Utils';
 
 export type TWithName = Readonly<{ name?: string }>;
+export type TWithNameRequired = Required<TWithName>;
 export type TWithNameAccessors = Readonly<{
   getName: () => string | undefined;
   setName: (name: string) => void;

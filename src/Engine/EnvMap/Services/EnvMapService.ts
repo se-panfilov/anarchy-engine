@@ -1,27 +1,26 @@
 import { EnvMapLoader } from '@/Engine/EnvMap/Loader';
-import type { TEnvMapAsyncRegistry, TEnvMapConfig, TEnvMapFactory, TEnvMapLoader, TEnvMapParams, TEnvMapService, TEnvMapWrapperAsync } from '@/Engine/EnvMap/Models';
+import type { TEnvMapConfig, TEnvMapFactory, TEnvMapLoader, TEnvMapParams, TEnvMapRegistry, TEnvMapService, TEnvMapTextureAsyncRegistry, TEnvMapWrapper } from '@/Engine/EnvMap/Models';
 import type { TDestroyable, TWithActiveMixinResult } from '@/Engine/Mixins';
 import { destroyableMixin, withActiveEntityServiceMixin } from '@/Engine/Mixins';
 import type { TSceneWrapper } from '@/Engine/Scene';
 import { isDefined } from '@/Engine/Utils';
 
-export function EnvMapService(factory: TEnvMapFactory, registry: TEnvMapAsyncRegistry, sceneW: TSceneWrapper): TEnvMapService {
-  registry.added$.subscribe((wrapper: TEnvMapWrapperAsync): void => {
+export function EnvMapService(factory: TEnvMapFactory, registry: TEnvMapRegistry, resourcesRegistry: TEnvMapTextureAsyncRegistry, sceneW: TSceneWrapper): TEnvMapService {
+  registry.added$.subscribe((wrapper: TEnvMapWrapper): void => {
     if (wrapper.isActive()) withActive.active$.next(wrapper);
   });
 
-  factory.entityCreated$.subscribe((wrapper: TEnvMapWrapperAsync): void => registry.add(wrapper));
+  factory.entityCreated$.subscribe((wrapper: TEnvMapWrapper): void => registry.add(wrapper));
 
-  const withActive: TWithActiveMixinResult<TEnvMapWrapperAsync> = withActiveEntityServiceMixin<TEnvMapWrapperAsync>(registry);
-  const envMapLoader: TEnvMapLoader = EnvMapLoader(registry);
+  const withActive: TWithActiveMixinResult<TEnvMapWrapper> = withActiveEntityServiceMixin<TEnvMapWrapper>(registry);
+  const envMapLoader: TEnvMapLoader = EnvMapLoader(resourcesRegistry);
 
-  const createAsync = (params: TEnvMapParams): Promise<TEnvMapWrapperAsync> => factory.createAsync(params, { envMapLoader });
-  const createFromConfigAsync = (envMaps: ReadonlyArray<TEnvMapConfig>): Promise<ReadonlyArray<TEnvMapWrapperAsync>> => {
-    // eslint-disable-next-line @typescript-eslint/no-misused-promises
-    return Promise.all(envMaps.map((config: TEnvMapConfig): Promise<TEnvMapWrapperAsync> => factory.createAsync(factory.configToParams(config, { envMapLoader }))));
+  const create = (params: TEnvMapParams): TEnvMapWrapper => factory.create(params, { resourcesRegistry });
+  const createFromConfig = (envMaps: ReadonlyArray<TEnvMapConfig>): void => {
+    envMaps.forEach((config: TEnvMapConfig): TEnvMapWrapper => factory.create(factory.configToParams(config, { resourcesRegistry })));
   };
 
-  withActive.active$.subscribe((wrapper: TEnvMapWrapperAsync | undefined): void => {
+  withActive.active$.subscribe((wrapper: TEnvMapWrapper | undefined): void => {
     if (isDefined(wrapper)) {
       sceneW.setBackground(wrapper.entity);
       sceneW.setEnvironmentMap(wrapper.entity);
@@ -39,13 +38,17 @@ export function EnvMapService(factory: TEnvMapFactory, registry: TEnvMapAsyncReg
   });
 
   return {
-    createAsync,
-    createFromConfigAsync,
+    create,
+    createFromConfig,
+    loadAsync: envMapLoader.loadAsync,
+    loadFromConfigAsync: envMapLoader.loadFromConfigAsync,
     setActive: withActive.setActive,
     findActive,
     active$: withActive.active$.asObservable(),
     getFactory: (): TEnvMapFactory => factory,
-    getRegistry: (): TEnvMapAsyncRegistry => registry,
+    getRegistry: (): TEnvMapRegistry => registry,
+    // TODO 9.0.0. RESOURCES: add getResourceRegistry registry to the rest or resources services
+    getResourceRegistry: (): TEnvMapTextureAsyncRegistry => resourcesRegistry,
     getScene: (): TSceneWrapper => sceneW,
     ...destroyable
   };
