@@ -3,6 +3,7 @@ import type { TCollisionsDataConfig } from '@/Engine/Collisions';
 import type { TFsmWrapper } from '@/Engine/Fsm';
 import { extractSerializableRegistrableFields } from '@/Engine/Mixins';
 import type { TModel3d, TModels3dRegistry } from '@/Engine/Models3d';
+import type { TWithPresetNamePhysicsBodyConfig, TWithPresetNamePhysicsBodyParams } from '@/Engine/Physics';
 import type { TSpatialDataConfig } from '@/Engine/Spatial';
 import { filterOutEmptyFields, isNotDefined } from '@/Engine/Utils';
 
@@ -20,7 +21,7 @@ export function actorToConfig(entity: TActor, { models3dService }: TActorEntityT
 
   return filterOutEmptyFields({
     model3dSource,
-    // physics?: TWithPresetNamePhysicsBodyConfig,
+    physics: getPhysics(entity),
     // kinematic?: TKinematicConfig,
     spatial: getSpatial(entity),
     collisions: getCollisions(entity),
@@ -55,4 +56,18 @@ function getCollisions(entity: TActor): TCollisionsDataConfig | undefined {
   const { updatePriority } = entity.collisions.data;
 
   return { isAutoUpdate: entity.collisions.autoUpdate$.value, updatePriority };
+}
+
+function getPhysics(entity: TActor): TWithPresetNamePhysicsBodyConfig | undefined {
+  const physicsSettings: TWithPresetNamePhysicsBodyParams | undefined = entity.getPhysicsSettings();
+  if (isNotDefined(physicsSettings)) return undefined;
+
+  console.log('XXX physicsSettings', physicsSettings);
+  return {
+    ...physicsSettings
+
+    // TODO 15-0-0: must use latest values from a physical body
+    // position
+    // rotation
+  };
 }

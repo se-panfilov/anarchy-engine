@@ -6,21 +6,13 @@ import type { Vector3, Vector3Like } from 'three';
 import { AbstractEntity, EntityType } from '@/Engine/Abstract';
 import { actorToConfig } from '@/Engine/Actor/Adapters';
 import { withActorStates } from '@/Engine/Actor/Mixins';
-import type {
-  TActor,
-  TActorConfig,
-  TActorDependencies,
-  TActorEntities,
-  TActorEntityToConfigDependencies,
-  TActorModel3dSettingsConfig,
-  TActorParams,
-  TActorTransformDrive
-} from '@/Engine/Actor/Models';
+import type { TActor, TActorConfig, TActorDependencies, TActorEntities, TActorEntityToConfigDependencies, TActorModel3dSettings, TActorParams, TActorTransformDrive } from '@/Engine/Actor/Models';
 import { ActorTransformDrive } from '@/Engine/Actor/TransformDrive';
 import { applySpatialGrid, startCollisions } from '@/Engine/Actor/Utils';
 import { withCollisions } from '@/Engine/Collisions';
 import type { TFsmWrapper } from '@/Engine/Fsm';
 import type { TModel3d } from '@/Engine/Models3d';
+import type { TWithPresetNamePhysicsBodyParams } from '@/Engine/Physics';
 import type { TSpatialLoop } from '@/Engine/Spatial';
 import { withSpatial, withUpdateSpatialCell } from '@/Engine/Spatial';
 import type { TReadonlyVector3 } from '@/Engine/ThreeLib';
@@ -55,7 +47,8 @@ export function Actor(
 
   const actor: TActor = Object.assign(AbstractEntity(entities, EntityType.Actor, { name: params.name, tags: params.tags, id }), {
     serialize: (dependencies: TActorEntityToConfigDependencies): TActorConfig => actorToConfig(actor, dependencies),
-    getModel3dSettings: (): TActorModel3dSettingsConfig | undefined => params.model3dSettings
+    getModel3dSettings: (): TActorModel3dSettings | undefined => params.model3dSettings,
+    getPhysicsSettings: (): TWithPresetNamePhysicsBodyParams | undefined => params.physics
   });
 
   const spatialLoop: TSpatialLoop = loopService.getSpatialLoop();
