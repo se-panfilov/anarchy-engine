@@ -3,7 +3,7 @@ import { ColliderDesc, RigidBodyDesc } from '@dimforge/rapier3d';
 
 import { coordsXYZToMeters, meters } from '@/Engine/Measurements/Utils';
 import type { TWithCoordsXYZ } from '@/Engine/Mixins';
-import { CollisionShape } from '@/Engine/Physics/Constants';
+import { CollisionShape, RigidBodyTypesNames } from '@/Engine/Physics/Constants';
 import type {
   TAllPhysicsShapeParams,
   TPhysicsBodyFacadeEntities,
@@ -24,14 +24,22 @@ import type { TOptional } from '@/Engine/Utils';
 import { isDefined, isNotDefined } from '@/Engine/Utils';
 
 export function createPhysicsBody(params: TPhysicsBodyParams, world: World): TPhysicsBodyFacadeEntities {
-  const rigidBodyDesc: RigidBodyDesc = RigidBodyDesc[params.type]();
-  if (isDefined(params.position)) rigidBodyDesc.setTranslation(params.position.getX(), params.position.getY(), params.position.getZ());
-  if (isDefined(params.rotation)) rigidBodyDesc.setRotation(params.rotation.getCoords());
-  const rigidBody: RigidBody = world.createRigidBody(rigidBodyDesc);
-  const colliderDesc: ColliderDesc = getColliderDesc(params);
-  const collider: Collider = world.createCollider(colliderDesc, rigidBody);
-
-  return { rigidBody, rigidBodyDesc, colliderDesc, collider };
+  //Fixed objects (e.g. "ground" or "walls") usually don't need a rigid body (they might, but might bugs might appear)
+  if (params.type === RigidBodyTypesNames.Fixed) {
+    const colliderDesc: ColliderDesc = getColliderDesc(params);
+    const collider: Collider = world.createCollider(colliderDesc);
+    if (isDefined(params.position)) colliderDesc.setTranslation(params.position.getX(), params.position.getY(), params.position.getZ());
+    if (isDefined(params.rotation)) colliderDesc.setRotation(params.rotation.getCoords());
+    return { rigidBody: undefined, rigidBodyDesc: undefined, colliderDesc, collider };
+  } else {
+    const rigidBodyDesc: RigidBodyDesc = RigidBodyDesc[params.type]();
+    if (isDefined(params.position)) rigidBodyDesc.setTranslation(params.position.getX(), params.position.getY(), params.position.getZ());
+    if (isDefined(params.rotation)) rigidBodyDesc.setRotation(params.rotation.getCoords());
+    const rigidBody: RigidBody = world.createRigidBody(rigidBodyDesc);
+    const colliderDesc: ColliderDesc = getColliderDesc(params);
+    const collider: Collider = world.createCollider(colliderDesc, rigidBody);
+    return { rigidBody, rigidBodyDesc, colliderDesc, collider };
+  }
 }
 
 // TODO (S.Panfilov) add unit tests

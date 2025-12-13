@@ -1,8 +1,8 @@
 import type { Collider, ColliderDesc, RigidBody, RigidBodyDesc } from '@dimforge/rapier3d';
 
 export type TWithPhysicsBodyFacadeEntities = Readonly<{
-  getRigidBody: () => RigidBody;
-  getRigidBodyDesc: () => RigidBodyDesc;
+  getRigidBody: () => RigidBody | undefined;
+  getRigidBodyDesc: () => RigidBodyDesc | undefined;
   getColliderDesc: () => ColliderDesc;
   getCollider: () => Collider;
 }>;
