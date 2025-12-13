@@ -22,8 +22,8 @@ export function Audio3dWrapper({ sound, volume, position, name, performance }: T
   // TODO 11.0.0: should use decibels instead of number?
   const volume$: BehaviorSubject<number> = new BehaviorSubject<number>(volume);
 
-  const updatePriority: LoopUpdatePriority = performance.updatePriority ?? LoopUpdatePriority.LOW;
-  const noiseThreshold: TMeters = performance?.noiseThreshold ?? 0.000001;
+  const updatePriority: LoopUpdatePriority = performance?.updatePriority ?? LoopUpdatePriority.LOW;
+  const noiseThreshold: TMeters = performance?.noiseThreshold ?? meters(0.000001);
 
   // TODO 11.0.0: should use decibels instead of number?
   const volumeSub: Subscription = volume$.pipe(distinctUntilChanged()).subscribe((volume: number): void => entity.volume(volume));
