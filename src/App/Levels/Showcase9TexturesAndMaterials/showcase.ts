@@ -42,7 +42,7 @@ function initCameraRotation(space: TSpace, model3d: TModel3d | undefined, mouseS
 
   const { screenSizeWatcher } = ambientContext;
   const prevValue: Float32Array = new Float32Array([0, 0, 0, 0]); // [x, y, wight, height]
-  combineLatest([mouseService.position$, screenSizeWatcher.latest$])
+  combineLatest([mouseService.position$, screenSizeWatcher.value$])
     .pipe(
       distinctUntilChanged((_previous: [Vector2Like, TScreenSizeValues], [currPosition, currScreenSize]: [Vector2Like, TScreenSizeValues]): boolean => {
         return prevValue[0] === currPosition.x && prevValue[1] === currPosition.y && prevValue[2] === currScreenSize.width && prevValue[3] === currScreenSize.height;

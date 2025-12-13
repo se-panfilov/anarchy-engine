@@ -41,7 +41,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     });
 
     const { screenSizeWatcher } = ambientContext;
-    combineLatest([mouseService.position$, screenSizeWatcher.latest$]).subscribe(([coords, { width, height }]): void => {
+    combineLatest([mouseService.position$, screenSizeWatcher.value$]).subscribe(([coords, { width, height }]): void => {
       if (isNotDefined(camera)) return;
       const xRatio: number = coords.x / width - 0.5;
       const yRatio: number = -(coords.y / height - 0.5);
