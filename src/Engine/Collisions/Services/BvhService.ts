@@ -1,4 +1,4 @@
-import type { BufferGeometry, Intersection, Raycaster } from 'three';
+import type { BufferGeometry, Intersection, Mesh, Raycaster } from 'three';
 import type { MeshBVH } from 'three-mesh-bvh';
 import { acceleratedRaycast, computeBoundsTree, disposeBoundsTree, MeshBVHHelper } from 'three-mesh-bvh';
 
@@ -25,9 +25,8 @@ export function BvhService(): TBvhService {
   // this highlight is for debugging purposes only
   function _debugVisualizeBvhForScene(sceneW: TSceneWrapper, depth: number = 10): void {
     sceneW.entity.traverse((object) => {
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-      if ((object as any).isMesh) {
-        const bvhHelper: MeshBVHHelper = new MeshBVHHelper(object, depth);
+      if ((object as Mesh).isMesh) {
+        const bvhHelper: MeshBVHHelper = new MeshBVHHelper(object as Mesh, depth);
         sceneW.entity.add(bvhHelper);
       }
     });
