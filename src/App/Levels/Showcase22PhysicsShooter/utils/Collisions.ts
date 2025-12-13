@@ -14,7 +14,6 @@ export async function enableCollisions(
   // TODO (S.Panfilov) CWP 5. make bullets and actors can travel among grids
   // TODO (S.Panfilov) CWP 6. add checks for spatial config (name, etc)
   // TODO (S.Panfilov) CWP 7. make sure actors are added properly via config (grid property should work, "cell" might be need to be removed )
-  // TODO (S.Panfilov) CWP 9. check how it works when an actor is bigger than a cell
 
   const grid: TSpatialGridWrapper | undefined = spatialGridService.getRegistry().findByName('main_grid');
   if (isNotDefined(grid)) throw new Error(`Cannot find "main_grid" spatial grid`);
@@ -49,9 +48,6 @@ export async function enableCollisions(
   mouseLineIntersectionsWatcher.addActor(boxActor6W);
 
   mouseLineIntersectionsWatcher.value$.subscribe((value) => {
-    const objects = grid.getAllInCell(value.point.x, value.point.z);
-    // TODO (S.Panfilov) CWP Actor's position should be observable. When actors move, check if need to update grid
-    // console.log(objects.map((actorW: TActorWrapperAsync) => actorW.name));
     grid._debugHighlightObjects(sceneW, value.point.x, value.point.z);
   });
 

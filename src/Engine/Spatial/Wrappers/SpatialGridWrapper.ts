@@ -139,7 +139,8 @@ export function SpatialGridWrapper(params: TSpatialGridParams): TSpatialGridWrap
     });
   }
 
-  //this highlight is for debugging purposes only (only adds outlines to scene, might not remove them afterward!!!)
+  //this highlight is for debugging purposes only (only adds outlines to scene, might not remove them afterward!!!).
+  // Also doesn't represent actor's rotation, so the outline might not be accurate for rotated objects
   function _debugHighlightObjects(sceneW: TSceneWrapper, x: number, z: number, color: ColorRepresentation = '#0000ff'): void {
     _debugOutlines.forEach((outline: Line2): void => void sceneW.entity.remove(outline));
     _debugOutlines = [];
