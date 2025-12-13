@@ -203,6 +203,7 @@ export function SpatialGridWrapper(params: TSpatialGridParams): TSpatialGridWrap
     _debugVisualizeCells,
     _debugHighlightObjects,
     updateActorCell,
+    getParams: (): TSpatialGridParams => params,
     update$: update$.asObservable(),
     serialize: (): TSpatialGridConfig => entityToConfigSpatialGrid(result)
   });

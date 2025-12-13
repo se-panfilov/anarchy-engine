@@ -5,7 +5,7 @@ import type { TWrapper } from '@/Engine/Abstract';
 import type { TActor } from '@/Engine/Actor';
 import type { TDestroyable } from '@/Engine/Mixins';
 import type { TSceneWrapper } from '@/Engine/Scene';
-import type { TSpatialCellId, TSpatialCellWrapper } from '@/Engine/Spatial';
+import type { TSpatialCellId, TSpatialCellWrapper, TSpatialGridParams } from '@/Engine/Spatial';
 
 import type { TSpatialGrid } from './TSpatialGrid';
 
@@ -23,6 +23,7 @@ export type TSpatialGridWrapper = TWrapper<TSpatialGrid> &
     removeFromGrid: (actor: TActor) => void;
     clearGrid: () => void;
     updateActorCell: (actor: TActor) => void;
+    getParams: () => TSpatialGridParams;
     _debugVisualizeCells: (sceneW: TSceneWrapper, color?: ColorRepresentation, wireframe?: boolean) => void;
     _debugHighlightObjects: (sceneW: TSceneWrapper, x: number, z: number) => void;
     update$: Observable<TSpatialCellWrapper>;

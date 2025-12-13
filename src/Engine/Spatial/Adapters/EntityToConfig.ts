@@ -3,15 +3,12 @@ import { extractSerializableRegistrableFields } from '@/Engine/Mixins';
 import type { TSpatialCellId, TSpatialCellSerializedData, TSpatialCellWrapper, TSpatialGridConfig, TSpatialGridWrapper } from '@/Engine/Spatial/Models';
 import { filterOutEmptyFields } from '@/Engine/Utils';
 
+// TODO 15-0-0: validate
 export function entityToConfigSpatialGrid(entity: TSpatialGridWrapper): TSpatialGridConfig {
-  // const { mapWidth, mapHeight, cellSize, centerX, centerZ} = entity;
-  // TODO 15-0-0: implement
-
   return filterOutEmptyFields({
+    ...entity.getParams(),
     ...extractSerializableRegistrableFields(entity)
-    // mapWidth, mapHeight, cellSize, centerX, centerZ
-    // TODO 15-0-0: fix any
-  }) as any;
+  });
 }
 
 export function entityToConfigSpatialCell(entity: TSpatialCellWrapper): TSpatialCellSerializedData {
