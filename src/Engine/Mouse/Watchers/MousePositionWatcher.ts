@@ -6,7 +6,7 @@ import type { TAbstractWatcherWithState } from '@/Engine/Abstract';
 import { AbstractWatcherWithState, WatcherType } from '@/Engine/Abstract';
 import type { TMouseEvent, TMouseLoop, TMousePositionWatcher, TMousePositionWatcherParams } from '@/Engine/Mouse/Models';
 import { getNormalizedMousePosition } from '@/Engine/Mouse/Utils';
-import { isEqualOrSimilarByXyCoords } from '@/Engine/Utils';
+import { isDefined, isEqualOrSimilarByXyCoords } from '@/Engine/Utils';
 
 export function MousePositionWatcher({ container, tags, performance }: TMousePositionWatcherParams, mouseLoop: TMouseLoop): TMousePositionWatcher {
   const containerIdTag: string = `container_id_${container.id}`;
@@ -59,8 +59,8 @@ export function MousePositionWatcher({ container, tags, performance }: TMousePos
     getValue: (): Vector2Like => ({ ...abstractWatcher.value$.value }),
     valueNormalized$: abstractWatcher.value$.pipe(
       withLatestFrom(container.viewportRect$),
-      filter(([, rect]: [Vector2Like, DOMRect | undefined]): boolean => rect !== undefined),
-      map(([coords, rect]: [Vector2Like, DOMRect | undefined]): Vector2Like => getNormalizedMousePosition(coords, rect!))
+      filter(([, rect]: [Vector2Like, DOMRect | undefined]): boolean => isDefined(rect)),
+      map(([coords, rect]: [Vector2Like, DOMRect | undefined]): Vector2Like => getNormalizedMousePosition(coords, rect as DOMRect))
     ),
     key: containerIdTag
   });
