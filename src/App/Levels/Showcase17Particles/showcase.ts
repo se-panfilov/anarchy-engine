@@ -9,7 +9,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
   const engine: TEngine = Engine(space);
   const { particlesService } = space.services;
 
-  async function init(): Promise<void> {
+  function init(): void {
     const count: number = 50000;
     const positions: Float32Array = new Float32Array(count * 3);
     const colors: Float32Array = new Float32Array(count * 3);

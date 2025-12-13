@@ -2,7 +2,7 @@ import { combineLatest } from 'rxjs';
 
 import type { TShowcase } from '@/App/Levels/Models';
 import type { TActorRegistry, TActorWrapper, TAppCanvas, TCameraWrapper, TEngine, TMouseService, TSpace, TSpaceConfig } from '@/Engine';
-import { ambientContext, buildSpaceFromConfig, Engine, getRotationByCos, getRotationBySin, isDefined, isNotDefined } from '@/Engine';
+import { ambientContext, buildSpaceFromConfig, Engine, getRotationByCos, getRotationBySin, isDefined, isNotDefined, spaceService } from '@/Engine';
 
 import spaceConfig from './showcase.json';
 

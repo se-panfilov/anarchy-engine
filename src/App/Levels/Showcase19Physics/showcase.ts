@@ -6,7 +6,6 @@ import { LineMaterial } from 'three/examples/jsm/lines/LineMaterial';
 import type { TShowcase } from '@/App/Levels/Models';
 import type { TActorWrapper, TAppCanvas, TCameraWrapper, TEngine, TIntersectionEvent, TIntersectionsWatcher, TSceneWrapper, TSpace, TSpaceConfig, TWithCoordsXYZ } from '@/Engine';
 import {
-  buildSpaceFromConfig,
   Engine,
   EulerWrapper,
   getDistancePrecisely,
@@ -16,6 +15,7 @@ import {
   isDefined,
   isNotDefined,
   KeysExtra,
+  spaceService,
   TextType,
   Vector3Wrapper
 } from '@/Engine';
