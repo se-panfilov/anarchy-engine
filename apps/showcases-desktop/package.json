@@ -35,6 +35,7 @@
     "generate:legal:files": "npm run -w anarchy-legal generate:files -- --workspace apps/showcases-desktop --out ../../apps/showcases-desktop",
     "generate:legal:notice": "npm run -w anarchy-legal generate:notice -- --audit --strict --workspace apps/showcases-desktop --source ../../apps/showcases-desktop/legal/THIRD_PARTY_LICENSES.md --out ../../apps/showcases-desktop/legal/NOTICE.md",
     "generate:legal:sbom": "npm sbom --sbom-format=cyclonedx --package-lock-only --omit=dev > ./compliance/sbom/sbom.cdx.json",
+    "copy:legal-to-assets": "node ../../packages/anarchy-shared/ScriptUtils/CopyDir.js from=./legal to=./assets/legal",
     "lint": "eslint ./src",
     "lint:fix": "npm run lint -- --fix",
     "prebuild": "vite build && vite build --config vite.preload.config.ts",
