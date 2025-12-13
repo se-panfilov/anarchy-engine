@@ -8,8 +8,8 @@ export function RendererService(factory: IRendererFactory, registry: IRendererRe
 
   const create = (params: IRendererParams): IRendererWrapper => factory.create(params);
 
-  const setActiveRenderer = (rendererId: string): void => setActiveWrappedEntity(registry, rendererId);
-  const findActiveRenderer = (): IRendererWrapper | undefined => findActiveWrappedEntity(registry);
+  const setActive = (rendererId: string): void => setActiveWrappedEntity(registry, rendererId);
+  const findActive = (): IRendererWrapper | undefined => findActiveWrappedEntity(registry);
 
   const destroyable: IDestroyable = destroyableMixin();
   destroyable.destroyed$.subscribe(() => {
@@ -19,8 +19,8 @@ export function RendererService(factory: IRendererFactory, registry: IRendererRe
 
   return {
     create,
-    setActiveRenderer,
-    findActiveRenderer,
+    setActive,
+    findActive,
     getFactory: (): IRendererFactory => factory,
     getRegistry: (): IRendererRegistry => registry,
     ...destroyable

@@ -1,4 +1,3 @@
-import type { IAbstractEntityRegistry, IProtectedRegistry, IReactiveFactory, IWrapper } from '@/Engine/Abstract';
 import type { ISceneWrapper } from '@/Engine/Scene';
 
 // export type IAbstractSpaceService<E, C, P> = Readonly<{
@@ -10,6 +9,8 @@ import type { ISceneWrapper } from '@/Engine/Scene';
 //   getRegistry: () => IProtectedRegistry<IAbstractEntityRegistry<IWrapper<E>>>;
 // }> &
 //   IDestroyable;
+
+// TODO (S.Panfilov) CWP use these mixins
 
 export type IWithCreateService<W, P> = Readonly<{
   create: (params: P) => W;

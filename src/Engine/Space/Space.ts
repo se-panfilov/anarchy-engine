@@ -32,7 +32,7 @@ export function buildSpaceFromConfig(canvas: IAppCanvas, config: ISpaceConfig): 
   let activeScene: ISceneWrapper;
   const services: ISpaceServices = initServices(canvas, (scenesService: IScenesService): ISceneWrapper | never => {
     scenesService.createFromConfig(scenes);
-    const scene: ISceneWrapper | undefined = scenesService.findActiveScene();
+    const scene: ISceneWrapper | undefined = scenesService.findActive();
     if (isNotDefined(scene)) throw new Error(`Cannot find an active scene for space "${name}" during space's services initialization.`);
     activeScene = scene;
     return activeScene;

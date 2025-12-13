@@ -17,8 +17,8 @@ export function ControlService(factory: IControlsFactory, registry: IControlsReg
     });
   };
 
-  const setActiveControls = (controlsId: string): void => setActiveWrappedEntity(registry, controlsId);
-  const findActiveControls = (): IControlsWrapper | undefined => findActiveWrappedEntity(registry);
+  const setActive = (controlsId: string): void => setActiveWrappedEntity(registry, controlsId);
+  const findActive = (): IControlsWrapper | undefined => findActiveWrappedEntity(registry);
 
   const destroyable: IDestroyable = destroyableMixin();
   destroyable.destroyed$.subscribe(() => {
@@ -29,8 +29,8 @@ export function ControlService(factory: IControlsFactory, registry: IControlsReg
   return {
     create,
     createFromConfig,
-    setActiveControls,
-    findActiveControls,
+    setActive,
+    findActive,
     getFactory: (): IControlsFactory => factory,
     getRegistry: (): IControlsRegistry => registry,
     ...destroyable

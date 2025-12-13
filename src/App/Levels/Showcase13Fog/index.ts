@@ -18,7 +18,7 @@ export function showcase(canvas: IAppCanvas): IShowcase {
     if (isNotDefined(scene)) throw new Error('Scene not found');
     if (isNotDefined(scene.entity.fog)) throw new Error("Scene's fog not found");
 
-    rendererService.findActiveRenderer()?.entity.setClearColor(scene.entity.fog.color);
+    rendererService.findActive()?.entity.setClearColor(scene.entity.fog.color);
 
     // Create fog via service
     // FogService().create({ color: ColorWrapper('#00ff00').entity, near: 1, far: 100, tags: [] });
