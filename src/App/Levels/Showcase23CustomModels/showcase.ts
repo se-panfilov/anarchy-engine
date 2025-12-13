@@ -19,42 +19,51 @@ export function showcase(canvas: TAppCanvas): TShowcase {
     const urlGLB: string = '/Showcase/models/fox/Fox.glb';
 
     //origin gltf model
-    let runAnimationGltf: AnimationAction | undefined = undefined;
+    let runActionGltf: AnimationAction | undefined = undefined;
     const nameGltf: string = 'fox_gltf_original';
     let mixerGltf: AnimationMixer | undefined = undefined;
 
+    //original glb model
+    let runActionGlb: AnimationAction | undefined = undefined;
+    let mixerGLB: AnimationMixer | undefined = undefined;
+
     //cloned gltf model
-    let runAnimationGltfClone: AnimationAction | undefined = undefined;
+    let runActionGltfClone: AnimationAction | undefined = undefined;
     const nameGltfClone: string = 'fox_gltf_clone';
     let mixerGltfClone: AnimationMixer | undefined = undefined;
 
-    //original glb model
-    let runAnimationGlb: AnimationAction | undefined = undefined;
-    let mixerGLB: AnimationMixer | undefined = undefined;
+    //created from pack gltf model
+    let runActionGltfClonePack: AnimationAction | undefined = undefined;
+    const nameGltfClonePack: string = 'fox_gltf_clone_pack';
+    let mixerGltfClonePack: AnimationMixer | undefined = undefined;
 
     models3dService.added$.subscribe((facade: TModel3dFacade): void => {
-      // TODO (S.Panfilov) CWP animations of a cloned model are not playing
       const actions: TAnimationActions = facade.getActions();
       if (facade.getUrl() === urlGLTF && facade.getName() === nameGltf) {
-        runAnimationGltf = actions['Run'];
+        runActionGltf = actions['Run'];
         mixerGltf = facade.getMixer();
       }
 
+      if (facade.getUrl() === urlGLB) {
+        runActionGlb = actions['Run'];
+        mixerGLB = facade.getMixer();
+      }
+
       if (facade.getUrl() === urlGLTF && facade.getName() === nameGltfClone) {
-        runAnimationGltfClone = actions['Run'];
+        runActionGltfClone = actions['Run'];
         mixerGltfClone = facade.getMixer();
       }
 
-      if (facade.getUrl() === urlGLB) {
-        runAnimationGlb = actions['Run'];
-        mixerGLB = facade.getMixer();
+      if (facade.getUrl() === urlGLTF && facade.getName() === nameGltfClonePack) {
+        runActionGltfClonePack = actions['Run'];
+        mixerGltfClonePack = facade.getMixer();
       }
     });
 
     const modelsList: ReadonlyArray<TModel3dFacade> = await Promise.all(
       models3dService.loadAsync([
         //gltf model
-        { url: urlGLTF, name: nameGltf, scale, position: Vector3Wrapper({ x: -5, y: 0, z: 0 }), options, tags: [] }
+        { url: urlGLTF, name: nameGltf, scale, position: Vector3Wrapper({ x: -10, y: 0, z: 0 }), options, tags: [] }
         //glb model (draco compressed), won't be loaded, cause already loaded from json config
         // { url: urlGLB, scale, position: Vector3Wrapper({ x: 0, y: 0, z: 0 }), options, tags: [] }
       ])
@@ -63,32 +72,34 @@ export function showcase(canvas: TAppCanvas): TShowcase {
     const foxGltfOriginal: TModel3dFacade | undefined = modelsList.find((model: TModel3dFacade): boolean => model.getName() === nameGltf);
     if (isNotDefined(foxGltfOriginal)) throw new Error(`Fox GLTF("${nameGltf}") model is not defined`);
 
-    // const foxGltfClone: TModel3dFacade = models3dService.clone(foxGltfOriginal, {
-    //   name: nameGltfClone,
-    //   options: { shouldAddToRegistry: true, shouldAddToScene: true, isForce: false },
-    //   position: Vector3Wrapper({ x: 0, y: 0, z: 5 })
-    // });
-
-    const pack = foxGltfOriginal.getPack();
-    const foxGltfClone: TModel3dFacade = models3dService.createFromPack({
-      ...pack,
+    //could be cloned from original model
+    models3dService.clone(foxGltfOriginal, {
       name: nameGltfClone,
-      // options: { shouldAddToRegistry: true, shouldAddToScene: true, isForce: false },
-      position: Vector3Wrapper({ x: 0, y: 0, z: 5 })
+      position: Vector3Wrapper({ x: 5, y: 0, z: 0 })
+    });
+
+    //or could be created from pack
+    models3dService.createFromPack({
+      ...foxGltfOriginal.getPack(),
+      name: nameGltfClonePack,
+      position: Vector3Wrapper({ x: 10, y: 0, z: 0 })
     });
 
     // TODO (S.Panfilov) CWP make animation play via service, so we don't need loop and tick everywhere
-    keyboardService.onKey(KeyCode.One).pressed$.subscribe((): void => void runAnimationGltf?.play());
-    keyboardService.onKey(KeyCode.One).released$.subscribe((): void => void runAnimationGltf?.stop());
-    keyboardService.onKey(KeyCode.Two).pressed$.subscribe((): void => void runAnimationGlb?.play());
-    keyboardService.onKey(KeyCode.Two).released$.subscribe((): void => void runAnimationGlb?.stop());
-    keyboardService.onKey(KeyCode.Three).pressed$.subscribe((): void => void runAnimationGltfClone?.play());
-    keyboardService.onKey(KeyCode.Three).released$.subscribe((): void => void runAnimationGltfClone?.stop());
+    keyboardService.onKey(KeyCode.One).pressed$.subscribe((): void => void runActionGltf?.play());
+    keyboardService.onKey(KeyCode.One).released$.subscribe((): void => void runActionGltf?.stop());
+    keyboardService.onKey(KeyCode.Two).pressed$.subscribe((): void => void runActionGlb?.play());
+    keyboardService.onKey(KeyCode.Two).released$.subscribe((): void => void runActionGlb?.stop());
+    keyboardService.onKey(KeyCode.Three).pressed$.subscribe((): void => void runActionGltfClone?.play());
+    keyboardService.onKey(KeyCode.Three).released$.subscribe((): void => void runActionGltfClone?.stop());
+    keyboardService.onKey(KeyCode.Four).pressed$.subscribe((): void => void runActionGltfClonePack?.play());
+    keyboardService.onKey(KeyCode.Four).released$.subscribe((): void => void runActionGltfClonePack?.stop());
 
     loopService.tick$.subscribe(({ delta }) => {
-      if (runAnimationGltf && mixerGltf) mixerGltf.update(delta);
-      if (runAnimationGlb && mixerGLB) mixerGLB.update(delta);
-      if (runAnimationGltfClone && mixerGltfClone) mixerGltfClone.update(delta);
+      if (runActionGltf && mixerGltf) mixerGltf.update(delta);
+      if (runActionGlb && mixerGLB) mixerGLB.update(delta);
+      if (runActionGltfClone && mixerGltfClone) mixerGltfClone.update(delta);
+      if (runActionGltfClonePack && mixerGltfClonePack) mixerGltfClonePack.update(delta);
     });
   }
 
