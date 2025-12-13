@@ -26,7 +26,7 @@ export function DesktopPreloadTrackingService(options?: Record<string, any>, met
   });
 
   if (isDefined(metaData)) setTags(metaData);
-  const { platform, arch } = parseDistName(metaData?.dist);
+  const { platform, arch } = parseDistName(options?.dist);
   setTags({
     layer: 'electron-preload',
     initLayer: 'electron-preload',

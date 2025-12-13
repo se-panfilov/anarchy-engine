@@ -26,7 +26,7 @@ export function DesktopTrackingService(options?: ElectronMainOptions, metaData?:
   });
 
   if (isDefined(metaData)) setTags(metaData);
-  const { platform, arch } = parseDistName(metaData?.dist);
+  const { platform, arch } = parseDistName(options?.dist);
   setTags({
     layer: 'electron-main',
     errorTracker: 'DesktopTrackingService',

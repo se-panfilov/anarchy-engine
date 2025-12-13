@@ -26,7 +26,7 @@ export function BrowserTrackingService(options?: BrowserOptions, metaData?: TMet
   });
 
   if (isDefined(metaData)) setTags(metaData);
-  const { platform, arch } = parseDistName(metaData?.dist);
+  const { platform, arch } = parseDistName(options?.dist);
   setTags({
     layer: 'web',
     errorTracker: 'BrowserTrackingService',
