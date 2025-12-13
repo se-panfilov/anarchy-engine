@@ -29,7 +29,7 @@ function validateJsonSchema(config: TSpaceConfig): TSchemaValidationResult {
   return { isValid, errors: validate.errors };
 }
 
-function validateData({ name, actors, cameras, scenes, spatialGrids, controls, intersections, lights, fogs, texts, tags, physics }: TSpaceConfig): TSchemaValidationResult {
+function validateData({ name, actors, cameras, scenes, spatialGrids, controls, intersections, lights, models3d, fogs, texts, tags, physics }: TSpaceConfig): TSchemaValidationResult {
   let errors: ReadonlyArray<string> = [];
 
   //must be defined
@@ -63,6 +63,8 @@ function validateData({ name, actors, cameras, scenes, spatialGrids, controls, i
   const isEveryPhysicsPresetNameValid: boolean = validateNames(physics.presets ?? []);
   const isEveryActorsPhysicsPresetNameValid: boolean = validatePresetNames(actors);
   const isEverySpatialGridNameValid: boolean = validateNames(spatialGrids);
+  const isEveryModel3dNameValid: boolean = validateNames(models3d);
+
   //tags
   const isConfigTagsValid: boolean = validateTags(tags);
   const isEverySceneTagsValid: boolean = validateTagsForEveryEntity(scenes);
@@ -74,6 +76,7 @@ function validateData({ name, actors, cameras, scenes, spatialGrids, controls, i
   const isEveryFogTagsValid: boolean = validateTagsForEveryEntity(fogs);
   const isEveryTextTagsValid: boolean = validateTagsForEveryEntity(texts);
   const isEveryControlsTagsValid: boolean = validateTagsForEveryEntity(controls);
+  const isEveryModels3dTagsValid: boolean = validateTagsForEveryEntity(models3d);
 
   //Adding errors
   if (isNoScenesDefined) errors = [...errors, 'No scenes are defined'];
@@ -87,6 +90,7 @@ function validateData({ name, actors, cameras, scenes, spatialGrids, controls, i
   if (!isConfigNameValid) errors = [...errors, 'Space config name must be defined and contain only letters, numbers and underscores'];
   if (!isEverySceneNameValid) errors = [...errors, 'Scene names must be defined and contain only letters, numbers and underscores'];
   if (!isEverySpatialGridNameValid) errors = [...errors, 'SpatialGrids names must be defined and contain only letters, numbers and underscores'];
+  if (!isEveryModel3dNameValid) errors = [...errors, 'Models3d names must be defined and contain only letters, numbers and underscores'];
   if (!isEveryActorNameValid) errors = [...errors, 'Actor names must be defined and contain only letters, numbers and underscores'];
   if (!isEveryCameraNameValid) errors = [...errors, 'Camera names must be defined and contain only letters, numbers and underscores'];
   if (!isEveryIntersectionNameValid) errors = [...errors, 'Intersection names must be defined and contain only letters, numbers and underscores'];
@@ -109,6 +113,7 @@ function validateData({ name, actors, cameras, scenes, spatialGrids, controls, i
   if (!isEveryFogTagsValid) errors = [...errors, 'Fog tags must contain only letters, numbers and underscores'];
   if (!isEveryTextTagsValid) errors = [...errors, 'Text tags must contain only letters, numbers and underscores'];
   if (!isEveryControlsTagsValid) errors = [...errors, 'Controls tags must contain only letters, numbers and underscores'];
+  if (!isEveryModels3dTagsValid) errors = [...errors, 'Models3d tags must contain only letters, numbers and underscores'];
 
   //presets
   if (!isAllActorsHasPhysicsPreset) errors = [...errors, 'Not every actor has a defined physics preset (check actors presetName against physics presets names)'];
@@ -136,7 +141,7 @@ const validateActorNamesForEveryEntity = (entities: ReadonlyArray<Readonly<{ act
 const validateActorNames = (entity: Readonly<{ actorNames: ReadonlyArray<string> }>): boolean => validateArrayField(entity, 'actorNames');
 
 const validateTagsForEveryEntity = (entities: ReadonlyArray<TWithReadonlyTags>): boolean => entities.every((e: TWithReadonlyTags): boolean => validateTags(e.tags));
-const validateTags = (tags: ReadonlyArray<string>): boolean => tags.every(validate);
+const validateTags = (tags: ReadonlyArray<string> | undefined): boolean => (tags ? tags.every(validate) : true);
 
 // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
 const validateField = <T extends Record<string, any>>(obj: T, field: keyof T): boolean => validate(obj[field]);

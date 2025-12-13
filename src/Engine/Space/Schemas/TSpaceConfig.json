@@ -91,7 +91,7 @@
       }
     }
   },
-  "required": ["actors", "cameras", "controls", "envMaps", "fogs", "intersections", "lights", "models3d", "name", "particles", "physics", "scenes", "spatialGrids", "tags", "texts", "version"],
+  "required": ["actors", "cameras", "controls", "envMaps", "fogs", "intersections", "lights", "models3d", "name", "particles", "physics", "scenes", "spatialGrids", "texts", "version"],
   "definitions": {
     "SpaceSchemaVersion": {
       "type": "string",
@@ -150,7 +150,7 @@
           "type": "boolean"
         }
       },
-      "required": ["isActive", "tags"]
+      "required": ["isActive"]
     },
     "TEuler3dConfig": {
       "type": "object",
@@ -219,7 +219,7 @@
           "type": "number"
         }
       },
-      "required": ["cellSize", "centerX", "centerZ", "mapHeight", "mapWidth", "tags"]
+      "required": ["cellSize", "centerX", "centerZ", "mapHeight", "mapWidth"]
     },
     "TActorConfig": {
       "type": "object",
@@ -319,7 +319,7 @@
           "type": "string"
         }
       },
-      "required": ["castShadow", "material", "model3d", "position", "spatial", "tags"]
+      "required": ["castShadow", "material", "model3d", "position", "spatial"]
     },
     "TCollisionsDataConfig": {
       "type": "object",
@@ -1716,8 +1716,7 @@
         "colorSpace": {
           "$ref": "#/definitions/ColorSpace"
         }
-      },
-      "required": ["tags"]
+      }
     },
     "Mapping": {
       "type": "number",
@@ -2043,15 +2042,6 @@
         "name": {
           "type": "string"
         },
-        "position": {
-          "$ref": "#/definitions/TWithCoordsXYZ"
-        },
-        "scale": {
-          "$ref": "#/definitions/TWithCoordsXYZ"
-        },
-        "rotation": {
-          "$ref": "#/definitions/TEuler3dConfig"
-        },
         "tags": {
           "type": "array",
           "items": {
@@ -2059,7 +2049,7 @@
           }
         }
       },
-      "required": ["position", "tags", "url"]
+      "required": ["url"]
     },
     "TOptional<TModel3dLoadOptions>": {
       "type": "object",
@@ -2142,7 +2132,7 @@
           "type": "boolean"
         }
       },
-      "required": ["isActive", "position", "tags"]
+      "required": ["isActive", "position"]
     },
     "TModel3dConfig": {
       "type": "object",
@@ -2180,7 +2170,7 @@
           "type": "string"
         }
       },
-      "required": ["options", "position", "tags", "url"]
+      "required": ["options", "position", "url"]
     },
     "TModel3dLoadOptions": {
       "type": "object",
@@ -2224,7 +2214,7 @@
           "type": "boolean"
         }
       },
-      "required": ["actorNames", "cameraName", "isAutoStart", "tags"]
+      "required": ["actorNames", "cameraName", "isAutoStart"]
     },
     "TAnyLightConfig": {
       "anyOf": [
@@ -2310,7 +2300,7 @@
           "type": "string"
         }
       },
-      "required": ["color", "position", "tags", "type"]
+      "required": ["color", "position", "type"]
     },
     "TLightShadowConfig": {
       "type": "object",
@@ -2416,7 +2406,7 @@
           }
         }
       },
-      "required": ["color", "groundColor", "position", "tags", "type"]
+      "required": ["color", "groundColor", "position", "type"]
     },
     "TDirectionalLightConfig": {
       "type": "object",
@@ -2477,7 +2467,7 @@
           "type": "string"
         }
       },
-      "required": ["color", "position", "tags", "type"]
+      "required": ["color", "position", "type"]
     },
     "TDirectionalLightShadowConfig": {
       "type": "object",
@@ -2584,7 +2574,7 @@
           "type": "number"
         }
       },
-      "required": ["color", "position", "tags", "type"]
+      "required": ["color", "position", "type"]
     },
     "TRectAreaLightConfig": {
       "$ref": "#/definitions/TAbstractLightConfig%3CTRectAreaLightProps%3E"
@@ -2654,7 +2644,7 @@
           "type": "number"
         }
       },
-      "required": ["color", "height", "position", "tags", "type", "width"]
+      "required": ["color", "height", "position", "type", "width"]
     },
     "TSpotLightConfig": {
       "$ref": "#/definitions/TAbstractLightConfig%3CTSpotLightProps%3E"
@@ -2730,7 +2720,7 @@
           "type": "number"
         }
       },
-      "required": ["color", "position", "tags", "type"]
+      "required": ["color", "position", "type"]
     },
     "TParticlesConfig": {
       "type": "object",
@@ -2782,7 +2772,7 @@
           "type": "string"
         }
       },
-      "required": ["material", "position", "tags"]
+      "required": ["material", "position"]
     },
     "TPhysicsConfig": {
       "type": "object",
@@ -3027,7 +3017,7 @@
           "type": "string"
         }
       },
-      "required": ["color", "tags"]
+      "required": ["color"]
     },
     "TTextConfig": {
       "type": "object",
@@ -3101,7 +3091,7 @@
           "type": "string"
         }
       },
-      "required": ["position", "tags", "text", "type"]
+      "required": ["position", "text", "type"]
     },
     "TextType": {
       "type": "string",
@@ -4695,7 +4685,7 @@
           "type": "boolean"
         }
       },
-      "required": ["cameraName", "isActive", "tags", "type"]
+      "required": ["cameraName", "isActive", "type"]
     },
     "ControlsType": {
       "type": "string",

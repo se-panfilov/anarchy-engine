@@ -1,5 +1,3 @@
-import { Vector3 } from 'three';
-
 import type { TShowcase } from '@/App/Levels/Models';
 import type { TAppCanvas, TEngine, TModel3dLoadOptions, TModel3dLoadResult, TSceneWrapper, TSpace, TSpaceConfig, TVector3Wrapper } from '@/Engine';
 import { buildSpaceFromConfig, Engine, isNotDefined, Vector3Wrapper } from '@/Engine';
@@ -19,15 +17,12 @@ export function showcase(canvas: TAppCanvas): TShowcase {
     await Promise.all(
       models3dService.loadAsync([
         //gltf model
-        { url: '/Showcase/models/fox/Fox.gltf', scale, options },
+        { url: '/Showcase/models/fox/Fox.gltf', scale, position: Vector3Wrapper({ x: -5, y: 0, z: 0 }), options, tags: [] },
         //glb model (draco compressed)
-        { url: '/Showcase/models/fox/Fox.glb', scale, options }
+        { url: '/Showcase/models/fox/Fox.glb', scale, position: Vector3Wrapper({ x: -5, y: 0, z: 0 }), options, tags: [] }
       ])
     ).then((result: ReadonlyArray<TModel3dLoadResult>) => {
-      let step: number = -5;
       result.forEach((r: TModel3dLoadResult) => {
-        r.model.position.set(step, 0, 0);
-        step += 5;
         activeScene.addModel(r.model);
       });
     });

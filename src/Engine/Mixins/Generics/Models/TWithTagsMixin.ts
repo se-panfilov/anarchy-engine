@@ -8,5 +8,5 @@ export type TWithTagsMixin = Readonly<{
 }>;
 
 export type TWithReadonlyTags = Readonly<{
-  tags: ReadonlyArray<string>;
+  tags?: ReadonlyArray<string>;
 }>;

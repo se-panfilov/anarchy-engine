@@ -43,7 +43,7 @@ export function showcase(canvas: TAppCanvas): TShowcase {
       void actorService.createAsync({
         ...actorTemplate,
         position: Vector3Wrapper({ x: -20, y: 2, z: positionZ + gap * i }),
-        tags: [...actorTemplate.tags, String(easing)]
+        tags: [...(actorTemplate.tags ?? []), String(easing)]
       });
 
       textService.create({
@@ -54,7 +54,7 @@ export function showcase(canvas: TAppCanvas): TShowcase {
         },
         position: Vector3Wrapper({ x: -32, y: 2, z: positionZ - 1 + gap * i }),
         rotation: EulerWrapper({ x: -1.57, y: 0, z: 0 }),
-        tags: [...actorTemplate.tags, String(easing)]
+        tags: [...(actorTemplate.tags ?? []), String(easing)]
       });
     });
 
