@@ -27,9 +27,9 @@
   "dependencies": {
     "anarchy_engine": "*",
     "anarchy_engine_shared": "*",
-    "playwright": "1.54.1"
+    "playwright": "1.53.1"
   },
   "devDependencies": {
-    "@playwright/test": "1.54.1"
+    "@playwright/test": "1.53.1"
   }
 }

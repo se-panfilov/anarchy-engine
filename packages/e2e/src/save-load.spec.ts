@@ -37,7 +37,7 @@ const scenes: ReadonlyArray<string> = [
 test.describe('Space save/load persistence', (): void => {
   const thresholds = {
     // threshold: 0.01,
-    timeout: 30000,
+    // timeout: 30000,
     maxDiffPixelRatio: 0.01
   };
 
