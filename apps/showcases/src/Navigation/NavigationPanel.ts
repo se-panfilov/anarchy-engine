@@ -1,6 +1,6 @@
 import { routerConfig } from '@/router';
 
-export function addNavigationPanel(container: HTMLElement, onNavigate: (path: string) => void): void {
+export function addNavigationPanel(container: HTMLElement): void {
   const navPanel: HTMLElement = document.createElement('nav');
   // eslint-disable-next-line functional/immutable-data
   navPanel.className = 'navigation-panel -dev';
@@ -18,17 +18,17 @@ export function addNavigationPanel(container: HTMLElement, onNavigate: (path: st
       option.value = routerConfigKey;
       // eslint-disable-next-line functional/immutable-data
       option.textContent = routerConfig[routerConfigKey];
-
-      option.addEventListener('click', (event) => {
-        event.preventDefault();
-        onNavigate(routerConfigKey);
-      });
       selectBox.appendChild(option);
     }
   }
 
   navPanel.appendChild(selectBox);
   container.appendChild(navPanel);
+
+  selectBox.addEventListener('change', (event: Event): void => {
+    // eslint-disable-next-line functional/immutable-data,spellcheck/spell-checker
+    window.location.pathname = (event?.target as any)?.value;
+  });
 
   // eslint-disable-next-line functional/immutable-data
   navPanel.style.zIndex = '10000';
@@ -37,5 +37,5 @@ export function addNavigationPanel(container: HTMLElement, onNavigate: (path: st
   // eslint-disable-next-line functional/immutable-data
   navPanel.style.bottom = '0';
   // eslint-disable-next-line functional/immutable-data
-  navPanel.style.left = '0';
+  navPanel.style.right = '0';
 }

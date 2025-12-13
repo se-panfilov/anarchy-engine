@@ -29,4 +29,4 @@ const settings: TAppSettings = {
 
 setBrowserSafeguards(window);
 
-void route(settings).then((): void => addNavigationPanel(document.body, () => 123));
+void route(settings).then((): void => addNavigationPanel(document.body));
