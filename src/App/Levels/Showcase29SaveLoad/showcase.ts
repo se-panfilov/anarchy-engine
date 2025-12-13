@@ -7,12 +7,13 @@ import { Color, Euler, Quaternion, Vector3 } from 'three';
 
 import { addBtn, addDropdown } from '@/App/Levels/Utils';
 import type { TCameraWrapper, THemisphereLightWrapper, TModel3d, TPointLightWrapper, TRegistryPack, TSpace, TSpaceConfig, TSpaceRegistry, TSpotLightWrapper, TWriteable } from '@/Engine';
-import { isNotDefined, spaceService } from '@/Engine';
+import { eulerToXyz, isNotDefined, spaceService, vector3ToXyz } from '@/Engine';
 
 import spaceBasicConfig from './spaceBasic.json';
 import spaceCameraConfig from './spaceCamera.json';
 import spaceCustomModelsConfig from './spaceCustomModels.json';
 import spaceLightConfig from './spaceLight.json';
+import spaceMaterialsConfig from './SpaceMaterials.json';
 import spaceTextsConfig from './spaceTexts.json';
 import type { TSpacesData } from './utils';
 import { changeText, createContainersDivs, setContainerVisibility } from './utils';
@@ -22,6 +23,7 @@ const customModelsCase: TSpaceConfig = spaceCustomModelsConfig as TSpaceConfig;
 const textsCase: TSpaceConfig = spaceTextsConfig as TSpaceConfig;
 const cameraCase: TSpaceConfig = spaceCameraConfig as TSpaceConfig;
 const lightCase: TSpaceConfig = spaceLightConfig as TSpaceConfig;
+const materialsCase: TSpaceConfig = spaceMaterialsConfig as TSpaceConfig;
 
 const getContainer = (canvasSelector: string): string => canvasSelector.split('#')[1].trim();
 
@@ -30,7 +32,6 @@ const subscriptions: Record<string, Subscription> = {};
 // TODO 15-0-0: E2E: OrbitControls
 // TODO 15-0-0: E2E: FpsControls
 // TODO 15-0-0: E2E: FpsControls
-// TODO 15-0-0: E2E: Materials
 // TODO 15-0-0: E2E: Fog
 // TODO 15-0-0: E2E: Intersections
 // TODO 15-0-0: E2E: Particles
@@ -135,6 +136,19 @@ const spacesData: ReadonlyArray<TSpacesData> = [
       (spotlight.entity as TWriteable<SpotLight>).intensity = 5;
       // eslint-disable-next-line functional/immutable-data
       (spotlight.entity as TWriteable<SpotLight>).angle = 28.8;
+    }
+  },
+  {
+    name: materialsCase.name,
+    config: materialsCase,
+    container: getContainer(materialsCase.canvasSelector),
+    onChange: (space: TSpace): void => {
+      // TODO debug
+      const camera: TCameraWrapper | undefined = space.services.cameraService.findActive();
+      if (isNotDefined(camera)) throw new Error(`[Showcase]: Camera is not found`);
+      console.log('XXX camera position', vector3ToXyz(camera.entity.position));
+      console.log('XXX camera rotation', eulerToXyz(camera.entity.rotation));
+      console.log('XXX implement');
     }
   }
 ];
