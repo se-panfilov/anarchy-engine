@@ -27,11 +27,6 @@ export function ContainerDecorator(container: TAppGlobalContainer | HTMLElement)
 
   const screenSizeRectSub$: Subscription = resize$.subscribe((): void => viewportRect$.next(getViewportRect()));
 
-  setInterval(() => {
-    // console.log('XXX', observeContainerRectSub.closed, observeContainerRectSub.isStopped);
-    // console.log('XXX', container);
-  }, 200);
-
   const destroyable: TDestroyable = destroyableMixin();
 
   const destroySub$: Subscription = destroyable.destroy$.subscribe((): void => {
