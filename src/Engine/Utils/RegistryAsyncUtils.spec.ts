@@ -1,8 +1,8 @@
 import { firstValueFrom } from 'rxjs';
 import { expect } from 'vitest';
 
-import type { IAbstractAsyncRegistry, IAbstractEntityRegistry, RegistryType } from '@/Engine/Abstract';
-import { AbstractAsyncRegistry, AbstractEntityRegistry, LookUpStrategy } from '@/Engine/Abstract';
+import type { IAbstractAsyncRegistry, RegistryType } from '@/Engine/Abstract';
+import { AbstractAsyncRegistry, LookUpStrategy } from '@/Engine/Abstract';
 import type { IRegistrable } from '@/Engine/Mixins';
 import { withTagsMixin } from '@/Engine/Mixins';
 
@@ -24,6 +24,7 @@ const mockEntity4: IRegistrable = { id: 'mockEntityId4', name: 'mockEntity4' } a
 const mockEntity5: IRegistrable = { id: 'mockEntityId5', name: 'mockEntity5' } as unknown as IRegistrable;
 const mockEntity6: IRegistrable = { id: 'mockEntityId6', name: 'mockEntity6' } as unknown as IRegistrable;
 
+// TODO (S.Panfilov)  can we speed up this test?
 describe('RegistryAsyncUtils', () => {
   const waitingTime: number = 500;
 
@@ -631,6 +632,8 @@ describe('RegistryAsyncUtils', () => {
           const name: string = 'sam';
           const registry: IAbstractAsyncRegistry<IRegistrable> = AbstractAsyncRegistry<IRegistrable>('mockEntity' as RegistryType);
 
+          const expectedResult: IRegistrable = { ...obj9Uniq2, name };
+
           registry.add(obj1AB);
           registry.add({ ...obj9Uniq2, name });
           setTimeout(() => registry.add(obj2B), 50);
@@ -640,7 +643,7 @@ describe('RegistryAsyncUtils', () => {
 
           // check
           const result: IRegistrable = await subscription$;
-          expect(result).toEqual(obj9Uniq2);
+          expect(result).toEqual(expectedResult);
         }, 1000);
       });
     });
@@ -650,6 +653,7 @@ describe('RegistryAsyncUtils', () => {
         // setup
         const name: string = 'pete';
         const registry: IAbstractAsyncRegistry<IRegistrable> = AbstractAsyncRegistry<IRegistrable>('mockEntity' as RegistryType);
+        const expectedResult: IRegistrable = { ...obj9Uniq2, name };
 
         // execute
         const subscription$ = firstValueFrom(getUniqEntityByName$(name, registry));
@@ -660,7 +664,7 @@ describe('RegistryAsyncUtils', () => {
 
         // check
         const result: IRegistrable = await subscription$;
-        expect(result).toEqual(obj9Uniq2);
+        expect(result).toEqual(expectedResult);
       }, 1000);
     });
   });

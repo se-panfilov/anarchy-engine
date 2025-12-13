@@ -4,15 +4,7 @@ import type { RegistryType } from '@/Engine/Abstract/Constants';
 import type { IAbstractAsyncRegistry, IAbstractEntityRegistry } from '@/Engine/Abstract/Models';
 import type { LookUpStrategy } from '@/Engine/Abstract/Registry/Constants';
 import type { IMultitonRegistrable, IRegistrable } from '@/Engine/Mixins';
-import {
-  getAsyncUniqEntityByNameAsync,
-  getAsyncUniqEntityWithTag,
-  getUniqEntityByName$,
-  getUniqEntityWithTag$,
-  getUniqEntityWithTags$,
-  getUniqEntityWithTagsAsync,
-  omitInObjectWithoutMutation
-} from '@/Engine/Utils';
+import { getAsyncUniqEntityByNameAsync, getAsyncUniqEntityWithTag, getUniqEntityByName$, getUniqEntityWithTag$, getUniqEntityWithTags$, getUniqEntityWithTagsAsync } from '@/Engine/Utils';
 
 import { AbstractEntityRegistry } from './AbstractEntityRegistry';
 
@@ -28,7 +20,7 @@ export function AbstractAsyncRegistry<T extends IRegistrable | IMultitonRegistra
   const findByName$ = (name: string): Observable<T> => getUniqEntityByName$(name, abstractRegistry);
 
   return {
-    ...omitInObjectWithoutMutation(abstractRegistry, ['findByTags', 'findByTag', 'findByName']),
+    ...abstractRegistry,
     findByTagsAsync,
     findByTags$,
     findByTagAsync,
