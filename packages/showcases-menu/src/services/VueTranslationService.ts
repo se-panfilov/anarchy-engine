@@ -10,7 +10,7 @@ import { onBeforeUnmount, onMounted, shallowRef } from 'vue';
 
 // TODO DESKTOP: extract this service to shared package: has to be reused in UI level
 export function VueTranslationService(localesMapping: TLocalesMapping = locales): TVueTranslationService {
-  // TODO DESKTOP: this initialization has to be the same as in the app, so we need a storage layer
+  // TODO DESKTOP: this initialization has to be the same as in the app (and UI), so we need a storage layer
   const i18n: TTranslationService = TranslationService(ShowcasesLocales['en-US'], ShowcasesFallbackLocale, localesMapping);
 
   const isReadyPromise: Promise<void> = new Promise<void>((resolve, reject): void => {

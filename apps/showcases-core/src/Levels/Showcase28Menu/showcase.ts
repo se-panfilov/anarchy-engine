@@ -60,6 +60,9 @@ export function showcase(space: TSpace): void {
     isMouseOverMenuCube = !!value;
   });
 
+  // TODO DESKTOP: this initialization has to be the same as in the menu (and UI), so we need a storage layer
+  const translationService: TTranslationService = TranslationService(ShowcasesLocales['en-US'], ShowcasesFallbackLocale, locales);
+
   mouseService.clickLeftRelease$.pipe(filter((): boolean => isMouseOverMenuCube)).subscribe((): void => openMenu$.next(true));
 
   openMenu$.pipe().subscribe(mainMenuService.openMainMenu);
