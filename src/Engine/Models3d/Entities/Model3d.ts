@@ -1,7 +1,8 @@
+import type { TEntity } from '@/Engine/Abstract';
 import { AbstractEntity, EntityType } from '@/Engine/Abstract';
 import { withObject3d } from '@/Engine/Mixins';
 import { withModel3dEntities } from '@/Engine/Models3d/Mixins';
-import type { TModel3d, TModel3dDependencies, TModel3dEntities, TModel3dParams } from '@/Engine/Models3d/Models';
+import type { TModel3d, TModel3dDependencies, TModel3dEntities, TModel3dParams, TWithModel3dEntities } from '@/Engine/Models3d/Models';
 import { applyObject3dParamsToModel3d, applyPositionToModel3d, applyRotationToModel3d, applyScaleToModel3d, createModels3dEntities, isModel3dAlreadyInUse } from '@/Engine/Models3d/Utils';
 import type { TOptional } from '@/Engine/Utils';
 import { disposeGltf, isDefined } from '@/Engine/Utils';
@@ -9,7 +10,7 @@ import { disposeGltf, isDefined } from '@/Engine/Utils';
 export function Model3d(params: TModel3dParams, { animationsService, model3dRawToModel3dConnectionRegistry }: TModel3dDependencies): TModel3d {
   const shouldForceClone: boolean = params.forceClone ?? isModel3dAlreadyInUse(params.model3dSource, model3dRawToModel3dConnectionRegistry);
   const entities: TModel3dEntities = createModels3dEntities({ ...params, forceClone: shouldForceClone }, animationsService);
-  const abstract = AbstractEntity(withModel3dEntities(entities), EntityType.Model3d, params);
+  const abstract: TEntity<TWithModel3dEntities> = AbstractEntity(withModel3dEntities(entities), EntityType.Model3d, params);
 
   const getParams = (): TModel3dParams => ({ ...params });
 
@@ -32,12 +33,7 @@ export function Model3d(params: TModel3dParams, { animationsService, model3dRawT
 
   model3dRawToModel3dConnectionRegistry.addModel3d(abstract.getRawModel3d(), abstract as TModel3d);
 
-  const result = {
-    ...withObject3d(abstract.getRawModel3d()),
-    ...abstract,
-    getParams,
-    _clone
-  };
-
-  return result;
+  const preResult = withObject3d(abstract.getRawModel3d());
+  // eslint-disable-next-line functional/immutable-data
+  return Object.assign(preResult, abstract, { getParams, _clone });
 }
