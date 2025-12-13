@@ -1,10 +1,9 @@
 import type { IOrthographicCamera } from '@/Engine/Camera';
 import type { ILight, ILightAccessors } from '@/Engine/Light/Models';
+import { isAmbientLight, isHemisphereLight, isRectAreaLight } from '@/Engine/Light/Utils';
 import type { IWriteable } from '@/Engine/Utils';
 import type { IVector2Wrapper, IVector3Wrapper } from '@/Engine/Vector';
 import { Vector2Wrapper, Vector3Wrapper } from '@/Engine/Vector';
-
-import { isAmbientLight, isHemisphereLight, isRectAreaLight } from './utils';
 
 // TODO (S.Panfilov) spit generic accessors into separate accessors, e.g. IAmbientLightAccessors, IDirectionalLightAccessors, etc.
 // eslint-disable-next-line functional/prefer-immutable-types
