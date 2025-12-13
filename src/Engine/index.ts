@@ -17,6 +17,6 @@ export * from './Domains/Scene';
 export * from './Domains/Screen';
 export * from './Domains/ThreeLib';
 export * from './Registries';
-export { default as LevelConfigSchema } from './Schemas/ILevelConfig.json';
+export * from './Schemas';
 export * from './Utils';
 export * from './Wrappers';
