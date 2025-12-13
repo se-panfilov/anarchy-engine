@@ -11,6 +11,7 @@ let appEventsSub$: Subscription | undefined;
 
 // TODO DESKTOP: add a script to sort json lines
 // TODO DESKTOP: Localization should be applied in the UI (not only in the threejs and menu)
+// TODO DESKTOP: Fix unit tests for Menu package
 
 onMounted((): void => {
   appEventsSub$ = eventsService.startListeningAppEvents();
