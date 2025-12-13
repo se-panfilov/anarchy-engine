@@ -14,7 +14,8 @@
     "noUnusedParameters": true,
     "paths": {
       "@/*": ["./src/*"],
-      "@shared/*": ["./shared/*"]
+      "@shared/*": ["./shared/*"],
+      "@public/*": ["./public/*"]
       //      "@App/*": ["./src/App/*"],
       //      "@Engine/*": ["./src/Engine/*"]
     },
