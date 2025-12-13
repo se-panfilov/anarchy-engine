@@ -40,7 +40,7 @@ export function buildLevelFromConfig(canvas: IAppCanvas, config: ILevelConfig): 
   // TODO (S.Panfilov) refactor this maybe with command/strategy pattern?
   const sceneFactory: ISceneFactory = SceneFactory();
   const sceneRegistry: ISceneRegistry = SceneRegistry();
-  const sceneEntityCreatedSubscription: Subscription = sceneFactory.entityCreated$.subscribe((instance: ISceneWrapper): void => sceneRegistry.add(instance));
+  const sceneEntityCreatedSubscription: Subscription = sceneFactory.entityCreated$.subscribe((scene: ISceneWrapper): void => sceneRegistry.add(scene));
   scenes.forEach((scene: ISceneConfig): ISceneWrapper => sceneFactory.create(sceneFactory.getParams({ ...scene, tags: [...scene.tags, CommonTags.FromConfig] })));
 
   const scene: ISceneWrapper | undefined = sceneRegistry.getUniqByTag(SceneTag.Current);
@@ -49,18 +49,18 @@ export function buildLevelFromConfig(canvas: IAppCanvas, config: ILevelConfig): 
   const actorFactory: IActorFactory = ActorFactory();
   const actorRegistry: IActorRegistry = ActorRegistry();
   const actorAddedSubscription: Subscription = actorRegistry.added$.subscribe((actor: IActorWrapper) => scene.addActor(actor));
-  const actorEntityCreatedSubscription: Subscription = actorFactory.entityCreated$.subscribe((instance: IActorWrapper): void => actorRegistry.add(instance));
+  const actorEntityCreatedSubscription: Subscription = actorFactory.entityCreated$.subscribe((actor: IActorWrapper): void => actorRegistry.add(actor));
   actors.forEach((actor: IActorConfig): IActorWrapper => actorFactory.create(actorFactory.getParams({ ...actor, tags: [...actor.tags, CommonTags.FromConfig] })));
 
   const cameraFactory: ICameraFactory = CameraFactory();
   const cameraRegistry: ICameraRegistry = CameraRegistry();
   const cameraAddedSubscription: Subscription = cameraRegistry.added$.subscribe((camera: ICameraWrapper) => scene.addCamera(camera));
-  const cameraEntityCreatedSubscription: Subscription = cameraFactory.entityCreated$.subscribe((instance: ICameraWrapper): void => cameraRegistry.add(instance));
+  const cameraEntityCreatedSubscription: Subscription = cameraFactory.entityCreated$.subscribe((camera: ICameraWrapper): void => cameraRegistry.add(camera));
   cameras.forEach((camera: ICameraConfig): ICameraWrapper => cameraFactory.create(cameraFactory.getParams({ ...camera, tags: [...camera.tags, CommonTags.FromConfig] })));
 
   const controlsFactory: IControlsFactory = ControlsFactory();
   const controlsRegistry: IControlsRegistry = ControlsRegistry();
-  const controlsEntityCreatedSubscription: Subscription = controlsFactory.entityCreated$.subscribe((instance: IOrbitControlsWrapper): void => controlsRegistry.add(instance));
+  const controlsEntityCreatedSubscription: Subscription = controlsFactory.entityCreated$.subscribe((controls: IOrbitControlsWrapper): void => controlsRegistry.add(controls));
   controls.forEach(
     (control: IControlsConfig): IOrbitControlsWrapper => controlsFactory.create(controlsFactory.getParams({ ...control, tags: [...control.tags, CommonTags.FromConfig] }, { cameraRegistry, canvas }))
   );
@@ -79,17 +79,17 @@ export function buildLevelFromConfig(canvas: IAppCanvas, config: ILevelConfig): 
   const lightFactory: ILightFactory = LightFactory();
   const lightRegistry: ILightRegistry = LightRegistry();
   const lightAddedSubscription: Subscription = lightRegistry.added$.subscribe((light: ILightWrapper) => scene.addLight(light));
-  const lightEntityCreatedSubscription: Subscription = lightFactory.entityCreated$.subscribe((instance: ILightWrapper): void => lightRegistry.add(instance));
+  const lightEntityCreatedSubscription: Subscription = lightFactory.entityCreated$.subscribe((light: ILightWrapper): void => lightRegistry.add(light));
   lights.forEach((light: ILightConfig): ILightWrapper => lightFactory.create(lightFactory.getParams({ ...light, tags: [...light.tags, CommonTags.FromConfig] })));
 
   const rendererFactory: IRendererFactory = RendererFactory();
   const rendererRegistry: IRendererRegistry = RendererRegistry();
-  const rendererEntityCreatedSubscription: Subscription = rendererFactory.entityCreated$.subscribe((instance: IRendererWrapper): void => rendererRegistry.add(instance));
+  const rendererEntityCreatedSubscription: Subscription = rendererFactory.entityCreated$.subscribe((renderer: IRendererWrapper): void => rendererRegistry.add(renderer));
   const renderer: IRendererWrapper = rendererFactory.create({ canvas, tags: [RendererTag.Main], mode: RendererModes.WebGL2 });
 
   const loopFactory: ILoopFactory = LoopFactory();
   const loopRegistry: ILoopRegistry = LoopRegistry();
-  const loopEntityCreatedSubscription: Subscription = loopFactory.entityCreated$.subscribe((instance: ILoopWrapper): void => loopRegistry.add(instance));
+  const loopEntityCreatedSubscription: Subscription = loopFactory.entityCreated$.subscribe((loop: ILoopWrapper): void => loopRegistry.add(loop));
   const loop: ILoopWrapper = loopFactory.create({ tags: [LoopTag.Main, CommonTags.FromConfig] });
 
   destroyed$.subscribe(() => {
