@@ -9,18 +9,18 @@ export const rewriteFramesIntegrationBrowser = (): Integration =>
       const f: StackFrame = { ...(frame as any) } as any;
       if (!f.filename) return f;
 
-      const name = String(f.filename).replace(/\\/g, '/');
+      const name: string = String(f.filename).replace(/\\/g, '/');
       // already normalized
       if (name.startsWith('app:///')) return f;
 
       // Try to cut to the first "/dist/" occurrence so we get app:///dist/...
-      const m = name.match(/^file:\/+.*?(\/dist\/.*)$/);
+      const m: RegExpMatchArray | null = name.match(/^file:\/+.*?(\/dist\/.*)$/);
       if (m) {
         // eslint-disable-next-line functional/immutable-data
         (f as any).filename = `app:///${m[1].replace(/^\/+/, '')}`;
         if (f.abs_path) {
-          const abs = String(f.abs_path).replace(/\\/g, '/');
-          const mm = abs.match(/^file:\/+.*?(\/dist\/.*)$/);
+          const abs: string = String(f.abs_path).replace(/\\/g, '/');
+          const mm: RegExpMatchArray | null = abs.match(/^file:\/+.*?(\/dist\/.*)$/);
           if (mm) {
             // eslint-disable-next-line functional/immutable-data
             (f as any).abs_path = `app:///${mm[1].replace(/^\/+/, '')}`;
