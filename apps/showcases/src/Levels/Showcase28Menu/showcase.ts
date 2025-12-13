@@ -50,6 +50,7 @@ export function showcase(space: TSpace): void {
 
   const watcherMenuCube: TIntersectionsCameraWatcher = intersectionsWatcherService.getCameraWatcher('watcher_menu_cube');
 
+  // TODO DESKTOP: Implement also UI (health, ammo, etc.) and make sure it is not under the menu
   let isMouseOverMenuCube: boolean = false;
   watcherMenuCube.value$.subscribe((value: TIntersectionEvent): void => {
     isMouseOverMenuCube = !!value;
