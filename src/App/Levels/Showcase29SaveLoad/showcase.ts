@@ -4,12 +4,12 @@ import { asRecord, isNotDefined, spaceService } from '@/Engine';
 
 import space from './space.json';
 
-const spaceAlphaConfig: TSpaceConfig = space as TSpaceConfig;
+const spaceBasicConfig: TSpaceConfig = space as TSpaceConfig;
 
 export function start(): void {
-  const spaces: Record<string, TSpace> = asRecord('name', spaceService.createFromConfig([spaceAlphaConfig]));
-  const space: TSpace = spaces[spaceAlphaConfig.name];
-  if (isNotDefined(space)) throw new Error(`Showcase: Space "${spaceAlphaConfig.name}" is not defined`);
+  const spaces: Record<string, TSpace> = asRecord('name', spaceService.createFromConfig([spaceBasicConfig]));
+  const space: TSpace = spaces[spaceBasicConfig.name];
+  if (isNotDefined(space)) throw new Error(`Showcase: Space "${spaceBasicConfig.name}" is not defined`);
 
   createButtons(undefined, space, true, true);
 
