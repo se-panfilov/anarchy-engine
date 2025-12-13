@@ -8,8 +8,12 @@ export async function launchPackagedElectronApp(): Promise<TDesktopAppLaunchResu
   const executablePath: string | undefined = process.env.DESKTOP_E2E_APP_PATH;
   if (!executablePath) throw new Error('DESKTOP_E2E_APP_PATH env variable is required for packaged Electron tests');
 
+  const args = [`--width=${VIEWPORT.width}`, `--height=${VIEWPORT.height}`, '--fullscreen=false'];
+  console.log('[E2E] Desktop app launched with args:', args.join(','));
+
   const electronApp: ElectronApplication = await electron.launch({
     executablePath,
+    args,
     env: {
       ...process.env,
       // Optional flag for your main process to enable E2E mode
@@ -18,7 +22,7 @@ export async function launchPackagedElectronApp(): Promise<TDesktopAppLaunchResu
   });
 
   const page: Page = await electronApp.firstWindow();
-  await page.setViewportSize(VIEWPORT);
+  // await page.waitForLoadState('domcontentloaded');
 
   return { electronApp, page };
 }
