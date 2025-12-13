@@ -12,6 +12,7 @@ export type TLoop = TAbstractLoop<TDelta> &
     type: LoopType;
     triggerMode: LoopTrigger;
     trigger: TLoopTriggerFn | number;
+    isParallelMode: boolean;
     start: () => void;
     stop: () => void;
     enabled$: BehaviorSubject<boolean>;

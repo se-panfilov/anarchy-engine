@@ -8,22 +8,32 @@ import { enableFPSCounter } from '@/Engine/Loop/Utils';
 import type { TMilliseconds } from '@/Engine/Math';
 import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
-import { isDefined } from '@/Engine/Utils';
+import { isDefined, isNotDefined } from '@/Engine/Utils';
 
 import { DeltaCalculator } from './DeltaCalculator';
 
 // TODO 10.0.0. LOOPS: Refactor Loop to use web workers to prevent suppression of setInterval (and etc) in background tabs
-export function Loop({ name, type, trigger, showDebugInfo, maxPriority }: TLoopParams): TLoop {
+export function Loop({ name, type, trigger, showDebugInfo, maxPriority, isParallelMode }: TLoopParams): TLoop | never {
   const id: string = `${nanoid()}_${type}`;
   const enabled$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   const tick$: Subject<TDelta> = new Subject<TDelta>();
   const initialPriority: number = maxPriority ?? LoopUpdatePriority.ASAP;
   const priority$: BehaviorSubject<number> = new BehaviorSubject<number>(initialPriority);
 
+  let worker: Worker | null = null;
   const isTriggerFn: boolean = typeof trigger === 'function';
-  const deltaCalc: TDeltaCalculator = DeltaCalculator(isTriggerFn);
+  if (isParallelMode && isTriggerFn) throw new Error('Loop: Trigger function is not supported in parallel mode, only interval is supported');
+
+  const deltaCalc: TDeltaCalculator | null = isParallelMode ? null : DeltaCalculator(isTriggerFn);
 
   if (showDebugInfo) enableFPSCounter(tick$);
+
+  if (isParallelMode) {
+    worker = new Worker(new URL('./Loop.worker.ts', import.meta.url), { type: 'module' });
+    // TODO 10.0.0. LOOPS: fix any
+    // eslint-disable-next-line functional/immutable-data
+    worker.onmessage = ({ data }: MessageEvent<any>): void => tick$.next(data.delta);
+  }
 
   const loopSub$: Subscription = tick$
     .pipe(
@@ -33,10 +43,13 @@ export function Loop({ name, type, trigger, showDebugInfo, maxPriority }: TLoopP
     .subscribe(([, priority]: [TMilliseconds, number]): void => priority$.next(priority === 0 ? initialPriority : priority - 1));
 
   const tickSub$: Subscription = enabled$
-    .pipe(switchMap((isEnabled: boolean): Subject<TDelta> | Observable<never> => (isEnabled && isTriggerFn ? tick$ : EMPTY)))
-    .subscribe((): number | void => (trigger as TLoopTriggerFn)((): void => tick$.next(deltaCalc.update())));
+    .pipe(switchMap((isEnabled: boolean): Subject<TDelta> | Observable<never> => (isEnabled && !isParallelMode && isTriggerFn ? tick$ : EMPTY)))
+    .subscribe((): number | void => (trigger as TLoopTriggerFn)((): void => tick$.next(deltaCalc!.update())));
 
-  const runInterval = (): number => setInterval((): void => tick$.next(deltaCalc.update()), trigger as number) as unknown as number;
+  const runInterval = (): number | never => {
+    if (isParallelMode || isNotDefined(deltaCalc)) throw new Error('Loop: must not use "runInterval" in parallel mode (use worker instead)');
+    return setInterval((): void => tick$.next(deltaCalc.update()), trigger as number) as unknown as number;
+  };
 
   let intervalId: number | undefined;
 
@@ -45,10 +58,15 @@ export function Loop({ name, type, trigger, showDebugInfo, maxPriority }: TLoopP
       if (isTriggerFn) {
         tick$.next(0);
       } else {
-        intervalId = runInterval();
+        // TODO 10.0.0. LOOPS use constants for actions
+        if (isParallelMode && isDefined(worker)) worker.postMessage({ loopId: id, interval: trigger, action: 'stop' });
+        if (!isParallelMode) intervalId = runInterval();
       }
     } else {
-      deltaCalc.reset();
+      deltaCalc?.reset();
+      console.log('XXX2', 'stop?', id);
+      // TODO 10.0.0. LOOPS use constants for actions
+      if (isParallelMode && isDefined(worker)) worker.postMessage({ loopId: id, interval: trigger, action: 'stop' });
       if (isDefined(intervalId)) clearInterval(intervalId);
     }
   });
@@ -69,7 +87,9 @@ export function Loop({ name, type, trigger, showDebugInfo, maxPriority }: TLoopP
 
     if (isDefined(intervalId)) clearInterval(intervalId);
 
-    deltaCalc.destroy();
+    worker?.terminate();
+    worker = null;
+    deltaCalc?.destroy();
   });
 
   return {
@@ -78,6 +98,7 @@ export function Loop({ name, type, trigger, showDebugInfo, maxPriority }: TLoopP
     tick$,
     type,
     triggerMode: isTriggerFn ? LoopTrigger.Function : LoopTrigger.Interval,
+    isParallelMode: isParallelMode ?? false,
     trigger,
     start: (): void => void enabled$.next(true),
     stop: (): void => void enabled$.next(false),

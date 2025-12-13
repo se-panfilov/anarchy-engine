@@ -9,4 +9,6 @@ export type TLoopParams = Readonly<{
   trigger: TLoopTriggerFn | number;
   maxPriority?: number;
   showDebugInfo?: boolean;
+  //In parallel mode, we run the loop in a web worker (useful for CPU-intensive tasks and to prevent setInterval suppression in background tabs)
+  isParallelMode?: boolean;
 }>;
