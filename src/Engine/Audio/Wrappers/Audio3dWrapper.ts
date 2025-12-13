@@ -54,7 +54,7 @@ export function Audio3dWrapper(params: TAudio3dParams, { loopService }: TAudio3d
     const refDistance = 1;
     return Math.max(0, 1 / (1 + Math.pow(distance / refDistance, 2)));
   }
-  entity.pos();
+
   const wrapper: TWrapper<Howl> = AbstractWrapper(entity, WrapperType.Audio3d, params);
   const drive: TAudio3dTransformDrive = Audio3dTransformDrive(params, wrapper.id);
   const driveToTargetConnector: TDriveToTargetConnector = DriveToAudio3dConnector(drive, entity);
