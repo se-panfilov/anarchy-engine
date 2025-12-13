@@ -27,18 +27,18 @@
 
 ## C. Essential requirements (CRA) — evidence map
 
-- **Secure development & change control:** see **SECURITY** (CVD inbox TBD until market release), repo policies, dependency pinning/signing (short note).
+- **Secure development & change control:** see **SECURITY** (contact as listed in `./legal/SECURITY.*`), repo policies, dependency pinning/signing (short note).
 - **Vulnerability handling & updates:** see **SECURITY** (delivery via distribution channels; **no SLA/cadence**).
 - **Default configuration / hardening:** minimal permissions; sandboxing/OS-policies where applicable (short note).
 - **Data protection by design/default:** **no personal data by default**; optional features/diagnostics → **PRIVACY** (DPIA/ROPA only if such features are enabled).
-- **Accessibility (EAA):** basic info & contact TBD until market release (or “N/A”).
-- **Security support period:** as declared in **SUPPORT.md** (“Support Period Policy (CRA)”): the **shorter** of (i) the **declared expected lifetime** per **major version** and (ii) **five (5) years** from the initial commercial release. See **SECURITY** for update delivery.
+- **Accessibility (EAA):** basic info & contact **TBD until market release** (or “N/A”).
+- **Security support period:** as declared in **SUPPORT.md** (Support Period Policy): the **shorter** of the **declared expected lifetime** per **major version** and **five (5) years** from initial commercial release.
 
 ## D. Risk assessment (summary)
 
-- **Threat model / attack surface:** short summary (offline, local execution; main vectors: supply chain, integrity of bundles).
+- **Threat model / attack surface:** offline, local execution; main vectors: supply chain, integrity of bundles, update mechanism.
 - **Third-party components risk:** addressed via **SBOM** + updates.
-- **Residual risks / limitations:** brief list (e.g., modding at user’s risk; untrusted plugins not supported).
+- **Residual risks / limitations:** modding at user’s risk; untrusted plugins not supported; execution on outdated browsers/OS may reduce protections.
 
 ## E. Testing & verification (summary)
 
@@ -48,7 +48,7 @@
 
 ## F. SBOM
 
-- **Location & format:** ./legal/sbom/ (e.g., `./legal/sbom/`, CycloneDX JSON).
+- **Location & format:** **`./legal/sbom/` (CycloneDX JSON)**.
 - **Generation:** brief (tool, pipeline step).
 
 ## G. Labels, notices & marking
@@ -58,8 +58,9 @@
 
 ## H. Lifecycle & post-market (summary)
 
-- **End-of-support:** how users are notified (e.g., release notes / in-product notice, if present).
-- **Post-market monitoring:** mailbox intake; watch store feedback/issue tracker; criteria of “substantial change” (one-liner).
+- **End-of-support:** users notified via release notes and/or in-product notice (if present).
+- **Post-market monitoring:** intake via Security/Support mailboxes; watch store feedback/issue tracker.
+- **Substantial change (screening):** change that impacts **attack surface**, **cryptography**, **update mechanism**, **network capabilities**, or **data processing** may require reassessment.
 - **Export controls:** see **EULA/DISCLAIMER** (short pointer).
 
 ## I. Document history
