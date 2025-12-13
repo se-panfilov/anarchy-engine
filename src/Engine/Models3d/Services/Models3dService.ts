@@ -19,6 +19,7 @@ import type {
   TModel3dPrimitiveParams,
   TModels3dAsyncRegistry,
   TModels3dService,
+  TModels3dServiceDependencies,
   TPerformLoadResult
 } from '@/Engine/Models3d/Models';
 import { createPrimitiveModel3dPack, isPrimitive, isPrimitiveFacade } from '@/Engine/Models3d/Utils';
@@ -27,7 +28,7 @@ import type { TSceneWrapper } from '@/Engine/Scene';
 import type { TOptional } from '@/Engine/Utils';
 import { isDefined, isNotDefined } from '@/Engine/Utils';
 
-export function Models3dService(registry: TModels3dAsyncRegistry, animationsService: TAnimationsService, sceneW: TSceneWrapper): TModels3dService {
+export function Models3dService(registry: TModels3dAsyncRegistry, { animationsService, materialService }: TModels3dServiceDependencies, sceneW: TSceneWrapper): TModels3dService {
   const models3dLoader = new GLTFLoader();
   const dracoLoader = new DRACOLoader();
   dracoLoader.setDecoderPath('/three/examples/jsm/libs/draco/');
@@ -74,9 +75,10 @@ export function Models3dService(registry: TModels3dAsyncRegistry, animationsServ
     return [...loadFromConfigAsync(complexModelsConfigs), ...createPrimitiveFromConfig(primitiveModelsConfigs)];
   }
 
-  const loadFromConfigAsync = (config: ReadonlyArray<TModel3dComplexConfig>): ReadonlyArray<Promise<TModel3dComplexFacade>> => loadAsync(config.map(model3dConfigComplexToParams));
+  const loadFromConfigAsync = (config: ReadonlyArray<TModel3dComplexConfig>): ReadonlyArray<Promise<TModel3dComplexFacade>> =>
+    loadAsync(config.map((c) => model3dConfigComplexToParams(c, { materialService })));
   const createPrimitiveFromConfig = (config: ReadonlyArray<TModel3dPrimitiveConfig>): ReadonlyArray<Promise<TModel3dPrimitiveFacade>> =>
-    createPrimitiveAsync(config.map(model3dConfigPrimitiveToParams));
+    createPrimitiveAsync(config.map((c) => model3dConfigPrimitiveToParams(c, { materialService })));
 
   function loadAsync(model3dList: ReadonlyArray<TModel3dComplexParams>): ReadonlyArray<Promise<TModel3dComplexFacade>> {
     let promises: ReadonlyArray<Promise<TModel3dComplexFacade>> = [];

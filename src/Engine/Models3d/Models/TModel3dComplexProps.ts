@@ -1,4 +1,4 @@
-import type { TMaterialPackParams, TMaterialTexturePack } from '@/Engine/MaterialTexturePack';
+import type { TMaterialWrapper } from '@/Engine/Material';
 import type { TObject3DParams, TObject3DProps } from '@/Engine/ThreeLib';
 
 import type { TModel3dLoadOptions } from './TModel3dLoadOptions';
@@ -7,7 +7,7 @@ export type TModel3dComplexProps = Readonly<{
   url: string;
   options: TModel3dLoadOptions;
   // TODO MODELS: override model's material is this field is set
-  material?: TMaterialPackParams<TMaterialTexturePack>;
+  material?: TMaterialWrapper;
 }> &
   // TODO MODELS: apply all TObject3DProps
   // We're not ready to add animations like this, so omit them for now

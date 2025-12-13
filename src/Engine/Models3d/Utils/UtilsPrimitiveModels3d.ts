@@ -17,10 +17,10 @@ export function createPrimitiveModel3dPack(params: TModel3dPrimitiveParams): TMo
     primitive,
     options: { shouldAddToScene: false, shouldAddToRegistry: true, isForce: false }
   };
-  // TODO MODELS: fix material type
-  if (primitive.type === PrimitiveModel3dType.Plane) return { ...pre, model: createPlane(primitive, material.entity) };
-  else if (primitive.type === PrimitiveModel3dType.Sphere) return { ...pre, model: createSphere(primitive, material.entity) };
-  else if (primitive.type === PrimitiveModel3dType.Cube) return { ...pre, model: createCube(primitive, material.entity) };
+
+  if (primitive.type === PrimitiveModel3dType.Plane) return { ...pre, model: createPlane(primitive, params.material.entity) };
+  else if (primitive.type === PrimitiveModel3dType.Sphere) return { ...pre, model: createSphere(primitive, params.material.entity) };
+  else if (primitive.type === PrimitiveModel3dType.Cube) return { ...pre, model: createCube(primitive, params.material.entity) };
   throw new Error(`Unknown primitive model type: "${primitive.type}"`);
 }
 

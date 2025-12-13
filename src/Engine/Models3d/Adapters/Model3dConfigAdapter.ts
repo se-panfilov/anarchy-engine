@@ -1,32 +1,29 @@
-import { configToParams as materialConfigToParams } from '@/Engine/Material/Adapters';
-import type { TMaterialPackParams, TMaterialTexturePack } from '@/Engine/MaterialTexturePack';
-import type { TModel3dComplexConfig, TModel3dComplexParams, TModel3dPrimitiveConfig, TModel3dPrimitiveParams } from '@/Engine/Models3d/Models';
+import type { TMaterialWrapper } from '@/Engine/Material';
+import type { TModel3dComplexConfig, TModel3dComplexParams, TModel3dConfigToParamsDependencies, TModel3dPrimitiveConfig, TModel3dPrimitiveParams } from '@/Engine/Models3d/Models';
 import { isPrimitive } from '@/Engine/Models3d/Utils';
 import { configToParamsObject3d } from '@/Engine/ThreeLib';
 import { isDefined, isNotDefined } from '@/Engine/Utils';
 
-export function model3dConfigToParams(config: TModel3dComplexConfig | TModel3dPrimitiveConfig): TModel3dComplexParams | TModel3dPrimitiveParams {
-  const { position, rotation, material, scale, ...rest } = config;
+export function model3dConfigToParams(
+  config: TModel3dComplexConfig | TModel3dPrimitiveConfig,
+  { materialService }: TModel3dConfigToParamsDependencies
+): TModel3dComplexParams | TModel3dPrimitiveParams {
+  const { position, rotation, material: materialConfig, scale, ...rest } = config;
 
-  let materialParams: TMaterialPackParams<TMaterialTexturePack> | undefined;
-  if (isDefined(material)) {
-    const { type: materialType, ...restMaterialParams } = materialConfigToParams({ ...material.params, type: material.type });
-    materialParams = { type: materialType, params: { ...restMaterialParams }, textures: material.textures } satisfies TMaterialPackParams<TMaterialTexturePack>;
-  }
-
-  if (isPrimitive(config) && isNotDefined(materialParams)) throw new Error(`Model3dConfigAdapter: Material must be defined for primitive model, but it is not.`);
+  if (isPrimitive(config) && isNotDefined(materialConfig)) throw new Error(`Model3dConfigAdapter: Material must be defined for primitive model, but it is not.`);
+  const material = (isDefined(materialConfig) ? materialService.getMaterialWithOverrides(materialConfig) : undefined) as TMaterialWrapper;
 
   return {
     ...rest,
-    material: materialParams as TMaterialPackParams<TMaterialTexturePack>,
+    material,
     ...configToParamsObject3d({ position, rotation, scale })
   };
 }
 
-export function model3dConfigComplexToParams(config: TModel3dComplexConfig): TModel3dComplexParams {
-  return model3dConfigToParams(config) as TModel3dComplexParams;
+export function model3dConfigComplexToParams(config: TModel3dComplexConfig, deps: TModel3dConfigToParamsDependencies): TModel3dComplexParams {
+  return model3dConfigToParams(config, deps) as TModel3dComplexParams;
 }
 
-export function model3dConfigPrimitiveToParams(config: TModel3dPrimitiveConfig): TModel3dPrimitiveParams {
-  return model3dConfigToParams(config) as TModel3dPrimitiveParams;
+export function model3dConfigPrimitiveToParams(config: TModel3dPrimitiveConfig, deps: TModel3dConfigToParamsDependencies): TModel3dPrimitiveParams {
+  return model3dConfigToParams(config, deps) as TModel3dPrimitiveParams;
 }

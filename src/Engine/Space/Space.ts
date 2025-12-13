@@ -69,6 +69,16 @@ export async function buildSpaceFromConfig(canvas: TAppCanvas, config: TSpaceCon
   }
   if (isDefined(physics.presets)) physicsPresetService.addPresetsFromConfig(physics.presets);
 
+  // TODO CWP !!!
+  // TODO MODELS: all materials should be load and waited before the models are created.
+  //let materialParams: TMaterialPackParams<TMaterialTexturePack> | undefined;
+  //   if (isDefined(material)) {
+  //     const { type: materialType, ...restMaterialParams } = materialConfigToParams({ ...material.params, type: material.type });
+  //     materialParams = { type: materialType, params: { ...restMaterialParams }, textures: material.textures } satisfies TMaterialPackParams<TMaterialTexturePack>;
+  //   }
+  //
+  //   if (isPrimitive(config) && isNotDefined(materialParams)) throw new Error(`Model3dConfigAdapter: Material must be defined for primitive model, but it is not.`);
+
   await Promise.all(models3dService.createFromConfigAsync(models3d));
 
   cameraService.createFromConfig(cameras);
