@@ -13,29 +13,29 @@ export async function enableCollisions(
   // TODO (S.Panfilov) CWP 4. make sure raycasting is working inside the grid only
   // TODO (S.Panfilov) CWP 5. make bullets and actors can travel among grids
 
-  const grid = spatialGridService.create(200, 200, 10, 0, 0);
+  const grid = spatialGridService.create({ mapWidth: 200, mapHeight: 200, cellSize: 10, centerX: 0, centerZ: 0, tags: [] });
 
-  // spatialGridService.grid.addToGridBulk(grid, actorService.getRegistry().getAll());
+  // spatialGridService.grid.addToGridBulk(actorService.getRegistry().getAll());
   const sphereActorW: TActorWrapperAsync | undefined = await actorService.getRegistry().findByNameAsync('sphere');
   if (isNotDefined(sphereActorW)) throw new Error(`Cannot find "sphere" actor`);
-  spatialGridService.addActorToGrid(grid, sphereActorW);
+  grid.addActorToGrid(sphereActorW);
 
   const boxActor1W: TActorWrapperAsync | undefined = await actorService.getRegistry().findByNameAsync('box_static1');
   const boxActor2W: TActorWrapperAsync | undefined = await actorService.getRegistry().findByNameAsync('box_static2');
   const boxActor3W: TActorWrapperAsync | undefined = await actorService.getRegistry().findByNameAsync('box_static3');
   if (isNotDefined(boxActor1W) || isNotDefined(boxActor2W) || isNotDefined(boxActor3W)) throw new Error(`Cannot find "box_static" actors`);
-  spatialGridService.addActorToGrid(grid, boxActor1W);
-  spatialGridService.addActorToGrid(grid, boxActor2W);
-  spatialGridService.addActorToGrid(grid, boxActor3W);
+  grid.addActorToGrid(boxActor1W);
+  grid.addActorToGrid(boxActor2W);
+  grid.addActorToGrid(boxActor3W);
 
   mouseLineIntersectionsWatcher.value$.subscribe((value) => {
-    const objects = spatialGridService.getAllInCell(grid, value.point.x, value.point.z);
+    const objects = grid.getAllInCell(value.point.x, value.point.z);
     // TODO (S.Panfilov) CWP Actor's position should be observable. When actors move, check if need to update grid
     console.log(objects.map((actorW: TActorWrapperAsync) => actorW.name));
-    spatialGridService._debugHighlightObjects(grid, sceneW, value.point.x, value.point.z);
+    grid._debugHighlightObjects(sceneW, value.point.x, value.point.z);
   });
 
-  spatialGridService._debugVisualizeCells(grid, sceneW);
+  grid._debugVisualizeCells(sceneW);
   // setTimeout(() => {
   // spatialGridService.grid._debugHighlightObjects(new Vector2(5, 16), cameraW, sceneW, grid);
   // }, 1500);

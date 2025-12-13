@@ -15,10 +15,7 @@ import { applyObject3dParams, applyPosition, applyRotation, applyScale, isDefine
 
 import { createActorMesh } from './ActorUtils';
 
-export async function ActorWrapperAsync(
-  params: TActorParams,
-  { materialTextureService, kinematicLoopService, spatialLoopService, spatialGridService }: TActorDependencies
-): Promise<TActorWrapperAsync> {
+export async function ActorWrapperAsync(params: TActorParams, { materialTextureService, kinematicLoopService, spatialLoopService }: TActorDependencies): Promise<TActorWrapperAsync> {
   // TODO (S.Panfilov) AWAIT: could speed up by not awaiting mesh to be build
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   const entity: TMesh = await createActorMesh(params, { materialTextureService });
@@ -77,7 +74,7 @@ export async function ActorWrapperAsync(
   applyRotation(actorW, params.rotation);
   // TODO (S.Panfilov) CWP Should be guaranteed that spatial grid is build before in Space
   // TODO (S.Panfilov) CWP space should have configurable spatial (from json)
-  if (params.spatial?.grid) spatialGridService.addActorToGrid(params.spatial.grid, actorW);
+  if (params.spatial?.grid) params.spatial?.grid.addActorToGrid(actorW);
   if (isDefined(params.scale)) applyScale(actorW, params.scale);
   applyObject3dParams(actorW, params);
 

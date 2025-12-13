@@ -1,8 +1,7 @@
-import type { TSpatialConfigToParamsDependencies, TSpatialDataConfig, TSpatialDataParams } from '@/Engine/Spatial/Models';
+import type { TSpatialGridConfig, TSpatialGridParams } from '@/Engine/Spatial/Models';
 
-export function configToParams(config: TSpatialDataConfig, { spatialGridRegistry }: TSpatialConfigToParamsDependencies): TSpatialDataParams {
+export function configToParams(config: TSpatialGridConfig): TSpatialGridParams {
   return {
-    ...config,
-    grid: config.gridName ? spatialGridRegistry.findByName(config.gridName) : undefined
+    ...config
   };
 }

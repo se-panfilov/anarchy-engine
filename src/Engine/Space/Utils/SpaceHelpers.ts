@@ -24,7 +24,7 @@ import type { TSceneFactory, TSceneRegistry, TScenesService, TSceneWrapper } fro
 import { SceneFactory, SceneRegistry, ScenesService } from '@/Engine/Scene';
 import type { TSpaceServices } from '@/Engine/Space/Models';
 import type { TSpatialGridService, TSpatialLoopService } from '@/Engine/Spatial';
-import { SpatialGridService, SpatialLoopService } from '@/Engine/Spatial';
+import { SpatialGridFactory, SpatialGridRegistry, SpatialGridService, SpatialLoopService } from '@/Engine/Spatial';
 import { Text2dRegistry, Text2dRendererRegistry, Text3dRegistry, Text3dRendererRegistry, TextFactory, TextService } from '@/Engine/Text';
 import { textureService } from '@/Engine/Texture';
 import { isNotDefined } from '@/Engine/Utils';
@@ -45,7 +45,7 @@ export function initEntitiesServices(scene: TSceneWrapper, canvas: TAppCanvas): 
   const physicsLoopService: TPhysicsLoopService = PhysicsLoopService(physicsWorldService);
   const kinematicLoopService: TKinematicLoopService = KinematicLoopService();
   const spatialLoopService: TSpatialLoopService = SpatialLoopService();
-  const spatialGridService: TSpatialGridService = SpatialGridService();
+  const spatialGridService: TSpatialGridService = SpatialGridService(SpatialGridFactory(), SpatialGridRegistry());
   const loopService: TLoopService = LoopService();
 
   return {

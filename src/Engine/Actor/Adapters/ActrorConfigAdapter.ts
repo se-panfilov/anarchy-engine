@@ -2,7 +2,7 @@ import type { TActorConfig, TActorConfigToParamsDependencies, TActorParams } fro
 import { configToParams as materialConfigToParams } from '@/Engine/Material/Adapters';
 import type { TMaterialPackParams, TMaterialTexturePack } from '@/Engine/MaterialTexturePack';
 import { configToOptionalParamsBody } from '@/Engine/Physics';
-import { configToParams as configToParamsSpatial } from '@/Engine/Spatial';
+import { configToParamsSpatialData } from '@/Engine/Spatial';
 import { configToParamsObject3d } from '@/Engine/ThreeLib';
 import { isDefined } from '@/Engine/Utils';
 
@@ -10,7 +10,7 @@ export function configToParams(config: TActorConfig, dependencies: TActorConfigT
   const { position, rotation, layers, animations, scale, material, physics, spatial, ...rest } = config;
   const { type: materialType, ...restMaterialParams } = materialConfigToParams({ ...material.params, type: material.type });
 
-  const spatialParams = isDefined(spatial) ? configToParamsSpatial(spatial, dependencies) : undefined;
+  const spatialParams = isDefined(spatial) ? configToParamsSpatialData(spatial, dependencies) : undefined;
 
   return {
     ...rest,

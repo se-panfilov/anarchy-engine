@@ -1,5 +1,5 @@
 import type { TSpatialGridRegistry } from './TSpatialGridRegistry';
 
-export type TSpatialConfigToParamsDependencies = Readonly<{
+export type TSpatialConfigToParamsSpatialDataDependencies = Readonly<{
   spatialGridRegistry: TSpatialGridRegistry;
 }>;
