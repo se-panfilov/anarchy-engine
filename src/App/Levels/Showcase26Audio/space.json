@@ -163,7 +163,6 @@
       {
         "color": "#A0A0A0",
         "far": 35,
-        "type": "PerspectiveCamera",
         "name": "main_fog",
         "near": 10
       }
