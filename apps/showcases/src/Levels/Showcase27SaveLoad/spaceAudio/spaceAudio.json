@@ -144,7 +144,7 @@
     "audio": [
       {
         "name": "gunshot_sound",
-        "url": "/resources/Audio/357-magnum-revolver-gunshot.mp3"
+        "url": "resources/Audio/357-magnum-revolver-gunshot.mp3"
       }
     ],
     "envMaps": [],

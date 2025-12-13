@@ -308,26 +308,26 @@
     "audio": [
       {
         "name": "persimmon_music",
-        "url": "/resources/Audio/Pierce Murphy - Persimmon.mp3"
+        "url": "resources/Audio/Pierce Murphy - Persimmon.mp3"
       },
       {
         "name": "monster_sound",
-        "url": "/resources/Audio/girl_singing.mp3"
+        "url": "resources/Audio/girl_singing.mp3"
       },
       {
         "name": "gunshot_sound",
-        "url": "/resources/Audio/357-magnum-revolver-gunshot.mp3"
+        "url": "resources/Audio/357-magnum-revolver-gunshot.mp3"
       }
     ],
     "envMaps": [],
     "models3d": [
       {
         "name": "mutant_model",
-        "url": "/resources/Models/Mutant/Mutant.glb"
+        "url": "resources/Models/Mutant/Mutant.glb"
       },
       {
         "name": "medea_model",
-        "url": "/resources/Models/Medea/medea.glb"
+        "url": "resources/Models/Medea/medea.glb"
       }
     ],
     "textures": []

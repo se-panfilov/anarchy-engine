@@ -213,13 +213,13 @@
     "models3d": [
       {
         "name": "fox_glb",
-        "url": "/resources/Models/Fox/Fox.glb"
+        "url": "resources/Models/Fox/Fox.glb"
       }
     ],
     "textures": [
       {
         "name": "particles_alpha_map_texture",
-        "url": "/resources/particles/4.png"
+        "url": "resources/particles/4.png"
       }
     ]
   },

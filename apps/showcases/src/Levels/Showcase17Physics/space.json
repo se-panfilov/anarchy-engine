@@ -687,62 +687,62 @@
     "envMaps": [
       {
         "name": "shanghai_bund_hdr",
-        "url": "/resources/hdr/shanghai_bund_4k.hdr"
+        "url": "resources/hdr/shanghai_bund_4k.hdr"
       }
     ],
     "models3d": [],
     "textures": [
       {
         "name": "metal_bump_map_texture",
-        "url": "/resources/Brushed_Metal/MetalSteelBrushed001_BUMP_1K_METALNESS.png"
+        "url": "resources/Brushed_Metal/MetalSteelBrushed001_BUMP_1K_METALNESS.png"
       },
       {
         "name": "metal_map_texture",
-        "url": "/resources/Brushed_Metal/MetalSteelBrushed001_COL_1K_METALNESS.png"
+        "url": "resources/Brushed_Metal/MetalSteelBrushed001_COL_1K_METALNESS.png"
       },
       {
         "name": "metal_normal_map_texture",
-        "url": "/resources/Brushed_Metal/MetalSteelBrushed001_NRM_1K_METALNESS.png"
+        "url": "resources/Brushed_Metal/MetalSteelBrushed001_NRM_1K_METALNESS.png"
       },
       {
         "name": "metal_displacement_map_texture",
-        "url": "/resources/Brushed_Metal/MetalSteelBrushed001_DISP_1K_METALNESS.png"
+        "url": "resources/Brushed_Metal/MetalSteelBrushed001_DISP_1K_METALNESS.png"
       },
       {
         "name": "metal_metalness_map_texture",
-        "url": "/resources/Brushed_Metal/MetalSteelBrushed001_BUMP16_1K_METALNESS.png"
+        "url": "resources/Brushed_Metal/MetalSteelBrushed001_BUMP16_1K_METALNESS.png"
       },
       {
         "name": "metal_roughness_map_texture",
-        "url": "/resources/Brushed_Metal/MetalSteelBrushed001_ROUGHNESS_1K_METALNESS.png"
+        "url": "resources/Brushed_Metal/MetalSteelBrushed001_ROUGHNESS_1K_METALNESS.png"
       },
       {
         "name": "wood_ao_map_texture",
-        "url": "/resources/Door_Wood/Door_Wood_001_ambientOcclusion.jpg"
+        "url": "resources/Door_Wood/Door_Wood_001_ambientOcclusion.jpg"
       },
       {
         "name": "wood_map_texture",
-        "url": "/resources/Door_Wood/Door_Wood_001_basecolor.jpg"
+        "url": "resources/Door_Wood/Door_Wood_001_basecolor.jpg"
       },
       {
         "name": "wood_normal_map_texture",
-        "url": "/resources/Door_Wood/Door_Wood_001_normal.jpg"
+        "url": "resources/Door_Wood/Door_Wood_001_normal.jpg"
       },
       {
         "name": "wood_displacement_map_texture",
-        "url": "/resources/Door_Wood/Door_Wood_001_height.png"
+        "url": "resources/Door_Wood/Door_Wood_001_height.png"
       },
       {
         "name": "wood_alpha_map_texture",
-        "url": "/resources/Door_Wood/Door_Wood_001_opacity.jpg"
+        "url": "resources/Door_Wood/Door_Wood_001_opacity.jpg"
       },
       {
         "name": "wood_metalness_map_texture",
-        "url": "/resources/Door_Wood/Door_Wood_001_metallic.jpg"
+        "url": "resources/Door_Wood/Door_Wood_001_metallic.jpg"
       },
       {
         "name": "wood_roughness_map_texture",
-        "url": "/resources/Door_Wood/Door_Wood_001_roughness.jpg"
+        "url": "resources/Door_Wood/Door_Wood_001_roughness.jpg"
       }
     ]
   },

@@ -194,7 +194,7 @@
     "animations": [
       {
         "name": "dance_anim",
-        "url": "/resources/Models/Solder/animations/samba.glb"
+        "url": "resources/Models/Solder/animations/samba.glb"
       }
     ],
     "audio": [],
@@ -202,7 +202,7 @@
     "models3d": [
       {
         "name": "solder_model",
-        "url": "/resources/Models/Solder/Solder.glb"
+        "url": "resources/Models/Solder/Solder.glb"
       }
     ],
     "textures": []

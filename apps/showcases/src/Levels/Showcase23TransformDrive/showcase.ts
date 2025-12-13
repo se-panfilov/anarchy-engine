@@ -102,7 +102,7 @@ export async function showcase(space: TSpace): Promise<void> {
   const foxModelName: string = 'fox_model';
 
   function preloadModels3d(): Promise<GLTF> {
-    return models3dService.loadAsync({ name: foxModelName, url: '/resources/Models/Fox/Fox.glb', options: { scale: new Vector3(1, 1, 1) } });
+    return models3dService.loadAsync({ name: foxModelName, url: 'resources/Models/Fox/Fox.glb', options: { scale: new Vector3(1, 1, 1) } });
   }
 
   await preloadModels3d();

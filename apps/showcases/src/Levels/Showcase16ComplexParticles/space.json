@@ -122,7 +122,7 @@
     "textures": [
       {
         "name": "particles_ao_map_texture",
-        "url": "/resources/particles/4.png"
+        "url": "resources/particles/4.png"
       }
     ]
   },

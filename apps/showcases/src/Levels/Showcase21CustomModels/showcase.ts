@@ -56,7 +56,7 @@ export async function showcase(space: TSpace): Promise<void> {
   const { animationsService, keyboardService, models3dService } = space.services;
 
   //gltf model
-  await models3dService.loadAsync({ name: originalName, url: '/resources/Models/Fox/Fox.gltf', options: { scale } });
+  await models3dService.loadAsync({ name: originalName, url: 'resources/Models/Fox/Fox.gltf', options: { scale } });
 
   //Let's clone the original model (which was loaded from the code)
   const modelOriginal: TModel3d = models3dService.getRegistry().getByName(originalName);

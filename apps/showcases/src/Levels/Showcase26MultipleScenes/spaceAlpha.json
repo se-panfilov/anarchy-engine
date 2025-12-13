@@ -228,7 +228,7 @@
     "textures": [
       {
         "name": "particles_alpha_map_texture",
-        "url": "/resources/particles/8.png"
+        "url": "resources/particles/8.png"
       }
     ]
   },
