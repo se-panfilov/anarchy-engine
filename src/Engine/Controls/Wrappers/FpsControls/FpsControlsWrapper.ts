@@ -34,7 +34,7 @@ export function FpsControlsWrapper(params: TFpsControlsParams): TFpsControlsWrap
 
   const isEnable = (): boolean => entity.enabled;
 
-  const result = Object.assign(AbstractWrapper(entity, WrapperType.Controls, params), {
+  const result = Object.assign(AbstractWrapper(entity, WrapperType.Controls, { name: params.name }), {
     update,
     enable,
     disable,

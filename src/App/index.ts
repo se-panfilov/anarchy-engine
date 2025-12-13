@@ -1,13 +1,13 @@
 import '@/App/style.css';
 
-// import { start } from '@/App/Levels/Showcase1MovingActors';
+import { start } from '@/App/Levels/Showcase1MovingActors';
 // import { start } from '@/App/Levels/Showcase2TopDown';
 // import { start } from '@/App/Levels/Showcase3CameraFlying';
 // import { start } from '@/App/Levels/Showcase4AnimejsSimple';
 // import { start } from '@/App/Levels/Showcase5AnimejsComplex';
 // import { start } from '@/App/Levels/Showcase6Fullscreen';
 // import { start } from '@/App/Levels/Showcase7Text2d';
-import { start } from '@/App/Levels/Showcase8Text3d';
+// import { start } from '@/App/Levels/Showcase8Text3d';
 // import { start } from '@/App/Levels/Showcase9TexturesAndMaterials';
 // import { start } from '@/App/Levels/Showcase10ComplexMaterials';
 // import { start } from '@/App/Levels/Showcase11KeyboardAndMouse';

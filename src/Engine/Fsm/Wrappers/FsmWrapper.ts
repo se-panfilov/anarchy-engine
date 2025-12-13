@@ -27,7 +27,7 @@ export function FsmWrapper(params: TFsmParams): TFsmWrapper {
   const strategy$: BehaviorSubject<FsmEventsStrategy> = new BehaviorSubject<FsmEventsStrategy>(params.strategy ?? FsmEventsStrategy.SkipPending);
   const strategyOperator$: BehaviorSubject<TStrategyType> = new BehaviorSubject<TStrategyType>(getStrategyOperator(strategy$.value));
 
-  const wrapper: TAbstractWrapper<TFsmMachine> = AbstractWrapper(entity, WrapperType.Fsm, params);
+  const wrapper: TAbstractWrapper<TFsmMachine> = AbstractWrapper(entity, WrapperType.Fsm, { name: params.name });
 
   strategy$.pipe(takeUntil(wrapper.destroy$)).subscribe((strategy: FsmEventsStrategy): void => strategyOperator$.next(getStrategyOperator(strategy)));
 

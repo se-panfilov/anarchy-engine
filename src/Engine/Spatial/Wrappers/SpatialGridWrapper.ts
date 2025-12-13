@@ -41,7 +41,7 @@ export function SpatialGridWrapper(params: TSpatialGridParams): TSpatialGridWrap
     return grid;
   }
 
-  const wrapper: TAbstractWrapper<TSpatialGrid> = AbstractWrapper(entity, WrapperType.SpatialGrid, params);
+  const wrapper: TAbstractWrapper<TSpatialGrid> = AbstractWrapper(entity, WrapperType.SpatialGrid, { name: params.name });
 
   function getBoundingBox(mesh: Mesh | Group | Object3D): Box3 {
     const box: Box3 = new Box3();

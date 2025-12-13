@@ -3,7 +3,8 @@ import { extractSerializableRegistrableFields } from '@/Engine/Mixins';
 import { filterOutEmptyFields } from '@/Engine/Utils';
 
 export function controlsToConfig(entity: TControlsWrapper): TControlsConfig {
-  // TODO 15-0-0: implement
+  // TODO 15-0-0: implement Orbit
+  // TODO 15-0-0: implement FPS
   console.log('XXX entity', entity);
   // TODO 15-0-0: implement adapters for FpsControls, OrbitControls
 
