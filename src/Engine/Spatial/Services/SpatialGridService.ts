@@ -5,10 +5,11 @@ import type { Line2 } from 'three/examples/jsm/lines/Line2';
 
 import type { TActorWrapperAsync } from '@/Engine/Actor';
 import type { TSpatialCell, TSpatialCellId, TSpatialGridService } from '@/Engine/Collisions/Models';
-import { createOutline } from '@/Engine/Collisions/Services/SpatialHelper';
 import type { TWithCoordsXZ } from '@/Engine/Mixins';
 import type { TSceneWrapper } from '@/Engine/Scene';
 import { isDefined, isNotDefined } from '@/Engine/Utils';
+
+import { createOutline } from './SpatialHelper';
 
 // TODO (S.Panfilov) Maybe we need factories and registries for grids. Well, at least to manage trees.
 export function SpatialGridService(): TSpatialGridService {

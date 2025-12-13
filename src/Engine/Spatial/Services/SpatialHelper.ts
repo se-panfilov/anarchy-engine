@@ -117,6 +117,7 @@ export function removeOutlines(scene: TSceneWrapper): void {
   scene.entity.traverse((object): void => {
     if (object.userData.outline) {
       scene.entity.remove(object.userData.outline);
+      // eslint-disable-next-line functional/immutable-data
       delete object.userData.outline;
     }
   });

@@ -2,13 +2,14 @@ import { Subject } from 'rxjs';
 import type { Mesh } from 'three';
 import { Euler } from 'three';
 
-import type { TWithReactiveRotation } from '@/Engine/Mixins/Generics/Models';
+import type { SpatialUpdatePriority } from '@/Engine/Spatial/Constants';
+import type { TWithReactiveRotation } from '@/Engine/Spatial/Models';
 
 export function withReactiveRotation(entity: Mesh): TWithReactiveRotation {
   const rotation$: Subject<Euler> = new Subject<Euler>();
   let prevRotation: Euler = new Euler();
 
-  function update(priority: TSpatialUpdatePriority): void {
+  function update(priority: SpatialUpdatePriority): void {
     if (prevRotation.equals(entity.rotation)) return;
     if (!entity.spatial.priority < priority) return;
 
