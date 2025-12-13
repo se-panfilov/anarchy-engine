@@ -1,12 +1,12 @@
 export enum FromGuiEvents {
-  CloseGui = 'gui:close',
-  Action = 'gui:action'
+  CloseGui = 'from:gui:close',
+  Action = 'from:gui:action'
 }
 
 export enum ToGuiEvents {
-  KeyAction = 'gui:key_action'
+  KeyAction = 'to:gui:key_action'
 }
 
 export enum FromGuiActionEvents {
-  SettingsToggle = 'gui:settings:toggle'
+  SettingsToggle = 'from:gui:settings:toggle'
 }
