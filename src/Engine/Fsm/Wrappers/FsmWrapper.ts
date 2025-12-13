@@ -2,10 +2,11 @@ import type { Subscription } from 'rxjs';
 import { BehaviorSubject, concatMap, exhaustMap, filter, mergeMap, switchMap, takeUntil } from 'rxjs';
 import { StateMachine, t } from 'typescript-fsm';
 
-import type { TWrapper } from '@/Engine/Abstract';
+import type { TAbstractWrapper } from '@/Engine/Abstract';
 import { AbstractWrapper, WrapperType } from '@/Engine/Abstract';
+import { entityToConfig } from '@/Engine/Fsm/Adapters';
 import { FsmEventsStrategy } from '@/Engine/Fsm/Constants';
-import type { TFsmEvents, TFsmMachine, TFsmParams, TFsmStates, TFsmWrapper } from '@/Engine/Fsm/Models';
+import type { TFsmConfig, TFsmEvents, TFsmMachine, TFsmParams, TFsmStates, TFsmWrapper } from '@/Engine/Fsm/Models';
 
 type TStrategyType = typeof concatMap | typeof exhaustMap | typeof switchMap | typeof mergeMap;
 
@@ -26,7 +27,7 @@ export function FsmWrapper(params: TFsmParams): TFsmWrapper {
   const strategy$: BehaviorSubject<FsmEventsStrategy> = new BehaviorSubject<FsmEventsStrategy>(params.strategy ?? FsmEventsStrategy.SkipPending);
   const strategyOperator$: BehaviorSubject<TStrategyType> = new BehaviorSubject<TStrategyType>(getStrategyOperator(strategy$.value));
 
-  const wrapper: TWrapper<TFsmMachine> = AbstractWrapper(entity, WrapperType.Fsm, params);
+  const wrapper: TAbstractWrapper<TFsmMachine> = AbstractWrapper(entity, WrapperType.Fsm, params);
 
   strategy$.pipe(takeUntil(wrapper.destroy$)).subscribe((strategy: FsmEventsStrategy): void => strategyOperator$.next(getStrategyOperator(strategy)));
 
@@ -73,12 +74,15 @@ export function FsmWrapper(params: TFsmParams): TFsmWrapper {
   });
 
   // eslint-disable-next-line functional/immutable-data
-  return Object.assign(wrapper, {
+  const result = Object.assign(wrapper, {
     entity,
     type: params.type,
     changed$: changed$.asObservable(),
     send$,
     strategy$,
-    getState
+    getState,
+    serialize: (): TFsmConfig => entityToConfig(result)
   });
+
+  return result;
 }

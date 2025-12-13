@@ -10,7 +10,7 @@ import type { TAbstractWrapper } from '@/Engine/Abstract';
 import { AbstractWrapper, WrapperType } from '@/Engine/Abstract';
 import type { TActor } from '@/Engine/Actor';
 import type { TSceneWrapper } from '@/Engine/Scene';
-import { entityToConfig } from '@/Engine/Spatial/Adapters/EntityToConfig';
+import { entityToConfigSpatialGrid } from '@/Engine/Spatial/Adapters/EntityToConfig';
 import type { TSpatialCellId, TSpatialCellParams, TSpatialCellWrapper, TSpatialGrid, TSpatialGridConfig, TSpatialGridParams, TSpatialGridWrapper } from '@/Engine/Spatial/Models';
 import { createBoundingBox, createOutline } from '@/Engine/Spatial/Services/SpatialHelper';
 import { SpatialCellWrapper } from '@/Engine/Spatial/Wrappers/SpatialCellWrapper';
@@ -201,7 +201,7 @@ export function SpatialGridWrapper(params: TSpatialGridParams): TSpatialGridWrap
     _debugHighlightObjects,
     updateActorCell,
     update$: update$.asObservable(),
-    serialize: (): TSpatialGridConfig => entityToConfig(result)
+    serialize: (): TSpatialGridConfig => entityToConfigSpatialGrid(result)
   });
 
   return result;

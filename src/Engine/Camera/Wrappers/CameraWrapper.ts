@@ -2,8 +2,10 @@ import type { Subscription } from 'rxjs';
 import { takeUntil } from 'rxjs';
 import { PerspectiveCamera, Vector3 } from 'three';
 
+import type { TAbstractWrapper } from '@/Engine/Abstract';
 import { AbstractWrapper, WrapperType } from '@/Engine/Abstract';
-import type { TCameraAccessors, TCameraParams, TCameraTransformDrive, TCameraWrapper, TCameraWrapperDependencies, TPerspectiveCamera } from '@/Engine/Camera/Models';
+import { entityToConfig } from '@/Engine/Camera/Adapters';
+import type { TCamera, TCameraAccessors, TCameraConfig, TCameraParams, TCameraTransformDrive, TCameraWrapper, TCameraWrapperDependencies, TPerspectiveCamera } from '@/Engine/Camera/Models';
 import { CameraTransformDrive } from '@/Engine/Camera/TransformDrive';
 import { withActiveMixin, withObject3d } from '@/Engine/Mixins';
 import type { TDriveToTargetConnector } from '@/Engine/TransformDrive';
@@ -21,7 +23,7 @@ export function CameraWrapper(params: TCameraParams, { container, transformDrive
   const accessors: TCameraAccessors = getAccessors(entity);
   accessors.setAspect(width / height);
 
-  const wrapper = AbstractWrapper(entity, WrapperType.Camera, params);
+  const wrapper: TAbstractWrapper<TCamera> = AbstractWrapper(entity, WrapperType.Camera, params);
   const drive: TCameraTransformDrive = CameraTransformDrive(params, { transformDriveService }, wrapper.id);
   const driveToTargetConnector: TDriveToTargetConnector = DriveToTargetConnector(drive, entity);
 
@@ -33,7 +35,8 @@ export function CameraWrapper(params: TCameraParams, { container, transformDrive
     driveToTargetConnector,
     entity,
     ...withObject3d(entity),
-    ...withActiveMixin()
+    ...withActiveMixin(),
+    serialize: (): TCameraConfig => entityToConfig(result)
   });
 
   applyObject3dParams(result, params);

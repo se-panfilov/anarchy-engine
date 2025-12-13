@@ -1,12 +1,14 @@
 import type { Subscription } from 'rxjs';
 import { BufferAttribute, BufferGeometry, Points } from 'three';
 
+import type { TAbstractWrapper } from '@/Engine/Abstract';
 import { AbstractWrapper, WrapperType } from '@/Engine/Abstract';
 import type { TColor } from '@/Engine/Color';
 import type { TWithMaterial } from '@/Engine/Material';
 import { isPointsMaterial, withMaterial } from '@/Engine/Material';
 import { withObject3d } from '@/Engine/Mixins';
-import type { TParticlesParams, TParticlesServiceDependencies, TParticlesTransformDrive, TParticlesWrapper } from '@/Engine/Particles/Models';
+import { entityToConfig } from '@/Engine/Particles/Adapters';
+import type { TParticlesConfig, TParticlesParams, TParticlesServiceDependencies, TParticlesTransformDrive, TParticlesWrapper } from '@/Engine/Particles/Models';
 import { ParticlesTransformDrive } from '@/Engine/Particles/TransformDrive';
 import type { TBufferGeometry, TPoints } from '@/Engine/ThreeLib';
 import type { TDriveToTargetConnector } from '@/Engine/TransformDrive';
@@ -31,7 +33,7 @@ export function ParticlesWrapper(params: TParticlesParams, dependencies: TPartic
   const setIndividualPositions = (positions: Float32Array): void => void geometry.setAttribute('position', new BufferAttribute(positions, 3));
   const getIndividualPositions = (): Float32Array => geometry.getAttribute('position').array as Float32Array;
 
-  const wrapper = AbstractWrapper(entity, WrapperType.Particles, params);
+  const wrapper: TAbstractWrapper<TPoints> = AbstractWrapper(entity, WrapperType.Particles, params);
   const drive: TParticlesTransformDrive = ParticlesTransformDrive(params, dependencies, wrapper.id);
   const driveToTargetConnector: TDriveToTargetConnector = DriveToTargetConnector(drive, entity);
 
@@ -47,7 +49,8 @@ export function ParticlesWrapper(params: TParticlesParams, dependencies: TPartic
     getIndividualMaterialColors,
     setIndividualPositions,
     getIndividualPositions,
-    entity
+    entity,
+    serialize: (): TParticlesConfig => entityToConfig(result)
   });
 
   applyObject3dParams(result, params);

@@ -1,10 +1,12 @@
 import type { Subscription } from 'rxjs';
 import { LinearFilter, Mesh, MeshBasicMaterial, PlaneGeometry, Texture } from 'three';
 
+import type { TAbstractWrapper } from '@/Engine/Abstract';
 import { AbstractWrapper } from '@/Engine/Abstract';
 import { withObject3d } from '@/Engine/Mixins';
+import { entityToConfig } from '@/Engine/Text/Adapters';
 import type { TextType } from '@/Engine/Text/Constants';
-import type { TTextParams, TTextServiceDependencies, TTextTextureWrapper, TTextTransformDrive } from '@/Engine/Text/Models';
+import type { TTextConfig, TTextParams, TTextServiceDependencies, TTextTextureWrapper, TTextTransformDrive } from '@/Engine/Text/Models';
 import { TextTransformDrive } from '@/Engine/Text/TransformDrive';
 import { getWrapperTypeByTextType } from '@/Engine/Text/Wrappers/TextWrapperHelper';
 import type { TDriveToTargetConnector } from '@/Engine/TransformDrive';
@@ -69,7 +71,7 @@ export function createTextTextureWrapper(params: TTextParams, type: TextType, de
     entity.geometry = new PlaneGeometry(newGeometryWidth, newGeometryHeight);
   }
 
-  const wrapper = AbstractWrapper(entity, getWrapperTypeByTextType(type), params);
+  const wrapper: TAbstractWrapper<Mesh> = AbstractWrapper(entity, getWrapperTypeByTextType(type), params);
   const drive: TTextTransformDrive = TextTransformDrive(params, dependencies, wrapper.id);
   const driveToTargetConnector: TDriveToTargetConnector = DriveToTargetConnector(drive, entity);
 
@@ -80,7 +82,8 @@ export function createTextTextureWrapper(params: TTextParams, type: TextType, de
     driveToTargetConnector,
     ...withObject3d(entity),
     getElement: () => canvas,
-    setText
+    setText,
+    serialize: (): TTextConfig => entityToConfig(result)
   });
 
   setText(params.text);

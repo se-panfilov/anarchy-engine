@@ -3,11 +3,12 @@ import { distinctUntilChanged } from 'rxjs';
 import type { WebGLRendererParameters } from 'three';
 import { PCFShadowMap, WebGLRenderer } from 'three';
 
-import type { TWrapper } from '@/Engine/Abstract';
+import type { TAbstractWrapper } from '@/Engine/Abstract';
 import { AbstractWrapper, WrapperType } from '@/Engine/Abstract';
 import { withActiveMixin } from '@/Engine/Mixins';
+import { entityToConfig } from '@/Engine/Renderer/Adapters';
 import { RendererModes } from '@/Engine/Renderer/Constants';
-import type { TRendererAccessors, TRendererParams, TRendererWrapper, TRendererWrapperDependencies } from '@/Engine/Renderer/Models';
+import type { TRendererAccessors, TRendererConfig, TRendererParams, TRendererWrapper, TRendererWrapperDependencies } from '@/Engine/Renderer/Models';
 import type { TWriteable } from '@/Engine/Utils';
 import { isNotDefined, isWebGL2Available, isWebGLAvailable } from '@/Engine/Utils';
 
@@ -55,7 +56,7 @@ export function RendererWrapper(params: TRendererParams, { container }: TRendere
       setValues(entity, rect, container.getRatio());
     });
 
-  const wrapper: TWrapper<WebGLRenderer> = AbstractWrapper(entity, WrapperType.Renderer, params);
+  const wrapper: TAbstractWrapper<WebGLRenderer> = AbstractWrapper(entity, WrapperType.Renderer, params);
 
   const destroySub$: Subscription = wrapper.destroy$.subscribe((): void => {
     entity.dispose();
@@ -67,7 +68,7 @@ export function RendererWrapper(params: TRendererParams, { container }: TRendere
   });
 
   // eslint-disable-next-line functional/immutable-data
-  const result = Object.assign(wrapper, accessors, withActiveMixin(), entity);
+  const result = Object.assign(wrapper, accessors, withActiveMixin(), entity, { serialize: (): TRendererConfig => entityToConfig(result) });
 
   result._setActive(params.isActive, true);
 

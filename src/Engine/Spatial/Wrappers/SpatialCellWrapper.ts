@@ -1,7 +1,9 @@
 import type { Subscription } from 'rxjs';
 import { Subject } from 'rxjs';
 
-import type { TWrapper } from '@/Engine/Abstract';
+import type { TSpatialCellSerializedData } from '@/Engine';
+import { entityToConfigSpatialCell } from '@/Engine';
+import type { TAbstractWrapper } from '@/Engine/Abstract';
 import { AbstractWrapper, WrapperType } from '@/Engine/Abstract';
 import type { TActor } from '@/Engine/Actor';
 import type { TSpatialCell, TSpatialCellParams, TSpatialCellWrapper } from '@/Engine/Spatial/Models';
@@ -17,7 +19,7 @@ export function SpatialCellWrapper(params: TSpatialCellParams): TSpatialCellWrap
     objects: []
   };
 
-  const wrapper: TWrapper<TSpatialCell> = AbstractWrapper(entity, WrapperType.SpatialCell);
+  const wrapper: TAbstractWrapper<TSpatialCell> = AbstractWrapper(entity, WrapperType.SpatialCell);
   const update$: Subject<TSpatialCell> = new Subject<TSpatialCell>();
 
   const sub$: Subscription = wrapper.destroy$.subscribe((): void => {
@@ -53,7 +55,7 @@ export function SpatialCellWrapper(params: TSpatialCellParams): TSpatialCellWrap
   };
 
   // eslint-disable-next-line functional/immutable-data
-  return Object.assign(wrapper, {
+  const result = Object.assign(wrapper, {
     name: params.name ?? entity.id,
     // eslint-disable-next-line no-restricted-syntax
     get minX(): number {
@@ -75,6 +77,9 @@ export function SpatialCellWrapper(params: TSpatialCellParams): TSpatialCellWrap
     addObject,
     getObjects,
     removeObject,
-    update$: update$.asObservable()
+    update$: update$.asObservable(),
+    serialize: (): TSpatialCellSerializedData => entityToConfigSpatialCell(result)
   });
+
+  return result;
 }

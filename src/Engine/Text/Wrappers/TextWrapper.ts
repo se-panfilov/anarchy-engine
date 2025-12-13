@@ -4,11 +4,12 @@ import type { Subscription } from 'rxjs';
 import { CSS2DObject } from 'three/examples/jsm/renderers/CSS2DRenderer';
 import { CSS3DObject } from 'three/examples/jsm/renderers/CSS3DRenderer';
 
-import type { TWrapper } from '@/Engine/Abstract';
+import type { TAbstractWrapper } from '@/Engine/Abstract';
 import { AbstractWrapper } from '@/Engine/Abstract';
 import { withObject3d } from '@/Engine/Mixins';
+import { entityToConfig } from '@/Engine/Text/Adapters';
 import { RelatedEntityAttribute, TextCssClass, TextType } from '@/Engine/Text/Constants';
-import type { TTextParams, TTextServiceDependencies, TTextTransformDrive, TTextWrapper } from '@/Engine/Text/Models';
+import type { TTextConfig, TTextParams, TTextServiceDependencies, TTextTransformDrive, TTextWrapper } from '@/Engine/Text/Models';
 import { TextTransformDrive } from '@/Engine/Text/TransformDrive';
 import { getCssAccessors } from '@/Engine/Text/Wrappers/Accessors';
 import { applyHtmlElementParams, getWrapperTypeByTextType } from '@/Engine/Text/Wrappers/TextWrapperHelper';
@@ -22,7 +23,7 @@ export function createTextWrapper<T extends CSS2DObject | CSS3DObject>(params: T
   element.textContent = params.text;
   const entity: T = createText(type, element) as T;
 
-  const wrapper: TWrapper<T> = AbstractWrapper(entity, getWrapperTypeByTextType(type), params);
+  const wrapper: TAbstractWrapper<T> = AbstractWrapper(entity, getWrapperTypeByTextType(type), params);
   const drive: TTextTransformDrive = TextTransformDrive(params, dependencies, wrapper.id);
   const driveToTargetConnector: TDriveToTargetConnector = DriveToTargetConnector(drive, entity);
 
@@ -33,7 +34,8 @@ export function createTextWrapper<T extends CSS2DObject | CSS3DObject>(params: T
     driveToTargetConnector,
     ...getCssAccessors(element),
     ...withObject3d(entity),
-    getElement: (): HTMLElement => element
+    getElement: (): HTMLElement => element,
+    serialize: (): TTextConfig => entityToConfig(result)
   });
 
   element.setAttribute(RelatedEntityAttribute, result.id.toString());

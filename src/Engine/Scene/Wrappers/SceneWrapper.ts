@@ -2,7 +2,7 @@ import type { Subscription } from 'rxjs';
 import type { CubeTexture } from 'three';
 import { Scene } from 'three';
 
-import type { TWrapper } from '@/Engine/Abstract';
+import type { TAbstractWrapper } from '@/Engine/Abstract';
 import { AbstractWrapper, WrapperType } from '@/Engine/Abstract';
 import type { TActor } from '@/Engine/Actor';
 import type { TCameraWrapper } from '@/Engine/Camera';
@@ -15,7 +15,8 @@ import type { TDestroyable } from '@/Engine/Mixins';
 import { withActiveMixin, withObject3d } from '@/Engine/Mixins';
 import type { TModel3d } from '@/Engine/Models3d';
 import type { TParticlesWrapper } from '@/Engine/Particles';
-import type { TSceneObject, TSceneParams, TSceneWrapper } from '@/Engine/Scene/Models';
+import { entityToConfig } from '@/Engine/Scene/Adapters';
+import type { TSceneConfig, TSceneObject, TSceneParams, TSceneWrapper } from '@/Engine/Scene/Models';
 import type { TTextAnyWrapper } from '@/Engine/Text';
 import type { TTexture } from '@/Engine/Texture';
 import type { TWriteable } from '@/Engine/Utils';
@@ -26,7 +27,7 @@ export function SceneWrapper(params: TSceneParams): TSceneWrapper {
 
   if (isDefined(params.background)) setBackground(params.background);
 
-  const wrapper: TWrapper<Scene> = AbstractWrapper(entity, WrapperType.Scene, params);
+  const wrapper: TAbstractWrapper<Scene> = AbstractWrapper(entity, WrapperType.Scene, params);
 
   const add = (obj: TSceneObject): void => void entity.add(obj);
   const addCamera = (camera: TCameraWrapper): void => add(camera.entity);
@@ -71,7 +72,8 @@ export function SceneWrapper(params: TSceneParams): TSceneWrapper {
     getEnvironmentMap,
     ...withObject3d(entity),
     ...withActiveMixin(),
-    entity
+    entity,
+    serialize: (): TSceneConfig => entityToConfig(result)
   });
 
   const destroySub$: Subscription = result.destroy$.subscribe((): void => {

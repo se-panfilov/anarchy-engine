@@ -1,8 +1,9 @@
 import type { Subscription } from 'rxjs';
 
-import type { TWrapper } from '@/Engine/Abstract';
+import type { TAbstractWrapper } from '@/Engine/Abstract';
 import { AbstractWrapper } from '@/Engine/Abstract';
-import type { TAbstractLightWrapper, TLight, TLightParams, TLightServiceDependencies, TLightTransformDrive } from '@/Engine/Light/Models';
+import { entityToConfig } from '@/Engine/Light/Adapters';
+import type { TAbstractLightConfig, TAbstractLightWrapper, TLight, TLightParams, TLightServiceDependencies, TLightTransformDrive } from '@/Engine/Light/Models';
 import { LightTransformDrive } from '@/Engine/Light/TransformDrive';
 import { getWrapperType } from '@/Engine/Light/Utils';
 import { applyShadowParams } from '@/Engine/Light/Wrappers/LightWrapperHelper';
@@ -12,7 +13,7 @@ import { DriveToTargetConnector } from '@/Engine/TransformDrive';
 import { applyObject3dParams } from '@/Engine/Utils';
 
 export function AbstractLightWrapper<T extends TLight>(entity: T, params: TLightParams, dependencies: TLightServiceDependencies): TAbstractLightWrapper<T> {
-  const wrapper: TWrapper<T> = AbstractWrapper(entity, getWrapperType(entity), params);
+  const wrapper: TAbstractWrapper<T> = AbstractWrapper(entity, getWrapperType(entity), params);
   const drive: TLightTransformDrive = LightTransformDrive(params, dependencies, wrapper.id);
   const driveToTargetConnector: TDriveToTargetConnector = DriveToTargetConnector(drive, entity);
 
@@ -21,7 +22,8 @@ export function AbstractLightWrapper<T extends TLight>(entity: T, params: TLight
     drive,
     driveToTargetConnector,
     ...withObject3d(entity),
-    entity
+    entity,
+    serialize: (): TAbstractLightConfig<T> => entityToConfig(result)
   });
 
   const destroySub$: Subscription = result.destroy$.subscribe((): void => {
