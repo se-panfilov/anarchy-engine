@@ -40,9 +40,15 @@ export function InstantTransformAgent(params: TTransformAgentParams): TInstantTr
     position$,
     rotation$,
     scale$,
-    ...withMoveBy3dMixin(proxyPositionObj),
-    ...withRotationMixin(proxyRotationObj),
-    ...withScaleMixin(proxyScaleObj),
+
+    // TODO CWP
+    // TODO 8.0.0. MODELS: Split instant agent into "Connector" and "Legacy" agents
+    // TODO 8.0.0. MODELS: Add "Default" agent
+    // TODO 8.0.0. MODELS: TransformDrive with "Default" agent should allow only p/r/s.next() methods
+
+    // ...withMoveBy3dMixin(proxyPositionObj),
+    // ...withRotationMixin(proxyRotationObj),
+    // ...withScaleMixin(proxyScaleObj),
     ...withMutablePositionConnector(position$),
     ...withMutableRotationConnector(rotation$),
     ...withMutableScaleConnector(scale$)

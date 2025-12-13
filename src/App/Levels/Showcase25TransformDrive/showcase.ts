@@ -87,6 +87,9 @@ function moveActorTo(actor: TActor, position: Vector3, agent: TransformAgent, is
   if (isTeleportationMode) return actor.drive.position$.next(position);
 
   switch (agent) {
+    case TransformAgent.Default:
+      actor.drive.position$.next(position);
+      return undefined;
     case TransformAgent.Kinematic:
       // TODO (S.Panfilov) 8.0.0. MODELS: Implement Kinematic movement
       return undefined;

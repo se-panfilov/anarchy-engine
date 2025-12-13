@@ -8,6 +8,7 @@ import { destroyableMixin } from '@/Engine/Mixins';
 import { TransformAgent } from '@/Engine/TransformDrive/Constants';
 import { ProtectedTransformAgentFacade } from '@/Engine/TransformDrive/Facades';
 import type { TAbstractTransformAgent, TProtectedTransformAgentFacade, TProtectedTransformAgents, TTransformAgents, TTransformDrive, TTransformDriveParams } from '@/Engine/TransformDrive/Models';
+import { isNotDefined } from '@/Engine/Utils';
 
 // TODO 8.0.0. MODELS: Update this comments
 // TransformDrive is an entity to move/rotate/scale other entities
@@ -17,20 +18,24 @@ import type { TAbstractTransformAgent, TProtectedTransformAgentFacade, TProtecte
 // - Kinematic agent is a mode that moves actor by angular velocity and linear velocity (vectors). Useful when you need to know the direction (e.g. bullet, car) of the object. Recommended way for NPCs.
 // - Physical agent is a mode when model3d reads values from a physical body. Requires setup of physics. Recommended for environmental objects (e.g. physical bricks in a wall).
 // - Also: with every mode you can do position$.next() to "teleport" the object to the new position
-export function TransformDrive(params: TTransformDriveParams, agents: TTransformAgents): TTransformDrive {
+export function TransformDrive(params: TTransformDriveParams, agents: TTransformAgents): TTransformDrive | never {
+  const activeAgent: TransformAgent = params.activeAgent ?? TransformAgent.Default;
+
+  if (isNotDefined(agents[activeAgent])) throw new Error(`Agent "${activeAgent}" is not defined`);
+
   //We don't want to expose these BehaviorSubjects, because they're vulnerable to external changes without .next()
-  const position$: BehaviorSubject<Vector3> = new BehaviorSubject<Vector3>(agents[params.activeAgent].position$.value);
+  const position$: BehaviorSubject<Vector3> = new BehaviorSubject<Vector3>(agents[activeAgent].position$.value);
   const positionRep$: ReplaySubject<Vector3> = new ReplaySubject<Vector3>(1);
-  const rotation$: BehaviorSubject<Euler> = new BehaviorSubject<Euler>(agents[params.activeAgent].rotation$.value);
+  const rotation$: BehaviorSubject<Euler> = new BehaviorSubject<Euler>(agents[activeAgent].rotation$.value);
   const rotationRep$: ReplaySubject<Euler> = new ReplaySubject<Euler>(1);
-  const scale$: BehaviorSubject<Vector3> = new BehaviorSubject<Vector3>(agents[params.activeAgent].scale$.value);
+  const scale$: BehaviorSubject<Vector3> = new BehaviorSubject<Vector3>(agents[activeAgent].scale$.value);
   const scaleRep$: ReplaySubject<Vector3> = new ReplaySubject<Vector3>(1);
 
   position$.subscribe(positionRep$);
   rotation$.subscribe(rotationRep$);
   scale$.subscribe(scaleRep$);
 
-  const agent$: BehaviorSubject<TransformAgent> = new BehaviorSubject<TransformAgent>(params.activeAgent ?? TransformAgent.Instant);
+  const agent$: BehaviorSubject<TransformAgent> = new BehaviorSubject<TransformAgent>(activeAgent);
 
   const destroyable: TDestroyable = destroyableMixin();
 

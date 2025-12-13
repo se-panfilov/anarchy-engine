@@ -1,7 +1,7 @@
 import type { TransformAgent } from '@/Engine/TransformDrive/Constants';
 
 export type TTransformDriveParams = Readonly<{
-  activeAgent: TransformAgent;
+  activeAgent?: TransformAgent;
   updateDelay?: number;
   noiseThreshold?: number;
 }>;

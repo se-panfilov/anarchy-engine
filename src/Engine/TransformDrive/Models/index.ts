@@ -1,4 +1,5 @@
 export * from './TAbstractTransformAgent';
+export * from './TDefaultTransformAgent';
 export * from './TDriveToModel3dConnector';
 export * from './TInstantTransformAgent';
 export * from './TKinematicTransformAgent';
@@ -9,6 +10,7 @@ export * from './TTransformAgentParams';
 export * from './TTransformAgents';
 export * from './TTransformDrive';
 export * from './TTransformDriveParams';
+export * from './TWithDefaultProtectedAgent';
 export * from './TWithInstantProtectedAgent';
 export * from './TWithKinematicProtectedAgent';
 export * from './TWithMutablePositionConnector';

@@ -16,7 +16,7 @@ import { InstantTransformAgent, KinematicTransformAgent, PhysicsTransformAgent, 
 
 export function ActorTransformDrive(params: TActorParams, kinematicLoopService: TKinematicLoopService): TTransformDrive {
   const transformAgents: TTransformAgents = getTransformAgents(params, kinematicLoopService);
-  const driveParams: TTransformDriveParams = { activeAgent: params.agent ?? TransformAgent.Instant };
+  const driveParams: TTransformDriveParams = { activeAgent: params.agent };
   return TransformDrive(driveParams, transformAgents);
 }
 
