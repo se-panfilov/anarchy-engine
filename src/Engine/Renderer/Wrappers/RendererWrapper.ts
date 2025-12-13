@@ -17,6 +17,7 @@ import { getAccessors } from './Accessors';
 
 export function RendererWrapper(params: TRendererParams, screenSizeWatcher: Readonly<TScreenSizeWatcher>): TRendererWrapper {
   const maxPixelRatio: number = params.maxPixelRatio ?? 2;
+  const screenSizeUpdateDelay: number = params.performance?.screenSizeUpdateDelay ?? 4;
   if (isNotDefined(params.canvas)) throw new Error(`Canvas is not defined`);
   if (!isWebGLAvailable()) throw new Error('WebGL is not supported by this device');
   const isWebGL2: boolean = params.mode === RendererModes.WebGL2;
@@ -55,8 +56,7 @@ export function RendererWrapper(params: TRendererParams, screenSizeWatcher: Read
   // TODO 9.2.0 ACTIVE: This could be done only in active$ renderer and applied in onActive hook
   const screenSize$: Subscription = screenSizeWatcher.value$
     .pipe(
-      // TODO 8.0.0. MODELS: add performance option
-      sampleTime(4),
+      sampleTime(screenSizeUpdateDelay),
       distinctUntilChanged((prev: TScreenSizeValues, curr: TScreenSizeValues): boolean => prev.width === curr.width && prev.height === curr.height)
     )
     .subscribe((params: TScreenSizeValues): void => setValues(entity, params));

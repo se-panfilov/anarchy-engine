@@ -1,6 +1,7 @@
 export * from './TRendererAccessors';
 export * from './TRendererFactory';
 export * from './TRendererParams';
+export * from './TRendererPerformanceOptions';
 export * from './TRendererRegistry';
 export * from './TRendererService';
 export * from './TRendererWrapper';

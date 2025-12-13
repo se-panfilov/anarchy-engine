@@ -39,7 +39,6 @@ export function getTextRenderer<T extends CSS2DRenderer | CSS3DRenderer>(
 
   const screenSize$: Subscription = screenSizeWatcher.value$
     .pipe(
-      // TODO 8.0.0. MODELS: add performance option
       sampleTime(4),
       distinctUntilChanged((prev: TScreenSizeValues, curr: TScreenSizeValues): boolean => prev.width === curr.width && prev.height === curr.height)
     )
