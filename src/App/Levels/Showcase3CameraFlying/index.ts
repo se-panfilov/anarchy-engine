@@ -2,17 +2,17 @@ import { combineLatest } from 'rxjs';
 
 import type { IShowcase } from '@/App/Levels/Models';
 import type { IActorWrapperAsync, IAppCanvas, ICameraWrapper, ISpace, ISpaceConfig } from '@/Engine';
-import { ambientContext, buildLevelFromConfig, getRotationByCos, getRotationBySin, isNotDefined, mouseService } from '@/Engine';
+import { ambientContext, buildSpaceFromConfig, getRotationByCos, getRotationBySin, isNotDefined, mouseService } from '@/Engine';
 
 import spaceConfig from './showcase-3-camera-flying.config.json';
 
 //Showcase 3: Camera flying around the central actor
-export function showcaseLevel(canvas: IAppCanvas): IShowcase {
-  const level: ISpace = buildLevelFromConfig(canvas, spaceConfig as ISpaceConfig);
+export function showcase(canvas: IAppCanvas): IShowcase {
+  const space: ISpace = buildSpaceFromConfig(canvas, spaceConfig as ISpaceConfig);
 
   function start(): void {
-    level.start();
-    const { actorRegistry, cameraRegistry } = level.entities;
+    space.start();
+    const { actorRegistry, cameraRegistry } = space.entities;
 
     const camera: ICameraWrapper | undefined = cameraRegistry.getActiveCamera();
 
@@ -35,5 +35,5 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
     });
   }
 
-  return { start, level };
+  return { start, space };
 }

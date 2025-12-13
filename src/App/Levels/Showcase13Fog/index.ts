@@ -2,15 +2,15 @@ import GUI from 'lil-gui';
 
 import type { IShowcase } from '@/App/Levels/Models';
 import type { IAppCanvas, ISpace, ISpaceConfig, ISceneWrapper } from '@/Engine';
-import { buildLevelFromConfig, isNotDefined, RendererTag } from '@/Engine';
+import { buildSpaceFromConfig, isNotDefined, RendererTag } from '@/Engine';
 
 import spaceConfig from './showcase-13-fog.json';
 
 //Showcase 13: Fog
-export function showcaseLevel(canvas: IAppCanvas): IShowcase {
+export function showcase(canvas: IAppCanvas): IShowcase {
   const gui: GUI = new GUI();
-  const level: ISpace = buildLevelFromConfig(canvas, spaceConfig as ISpaceConfig);
-  const { scenesRegistry, rendererRegistry } = level.entities;
+  const space: ISpace = buildSpaceFromConfig(canvas, spaceConfig as ISpaceConfig);
+  const { scenesRegistry, rendererRegistry } = space.entities;
 
   function init(): void {
     const scene: ISceneWrapper | undefined = scenesRegistry.findByTag('current');
@@ -28,9 +28,9 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
   }
 
   function start(): void {
-    level.start();
+    space.start();
     void init();
   }
 
-  return { start, level };
+  return { start, space };
 }

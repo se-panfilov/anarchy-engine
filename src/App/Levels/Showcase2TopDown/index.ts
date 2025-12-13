@@ -2,17 +2,17 @@ import { combineLatest } from 'rxjs';
 
 import type { IShowcase } from '@/App/Levels/Models';
 import type { IActorParams, IAppCanvas, ICameraWrapper, ISpace, ISpaceConfig } from '@/Engine';
-import { ActorType, ambientContext, buildLevelFromConfig, EulerWrapper, isNotDefined, MaterialType, mouseService, Vector3Wrapper } from '@/Engine';
+import { ActorType, ambientContext, buildSpaceFromConfig, EulerWrapper, isNotDefined, MaterialType, mouseService, Vector3Wrapper } from '@/Engine';
 
 import spaceConfig from './showcase-2-top-down.config.json';
 
 //Showcase 2: Top-down controls with dynamic actors and camera creation
-export function showcaseLevel(canvas: IAppCanvas): IShowcase {
-  const level: ISpace = buildLevelFromConfig(canvas, spaceConfig as ISpaceConfig);
+export function showcase(canvas: IAppCanvas): IShowcase {
+  const space: ISpace = buildSpaceFromConfig(canvas, spaceConfig as ISpaceConfig);
 
   function start(): void {
-    level.start();
-    const { actorFactory, cameraFactory } = level.entities;
+    space.start();
+    const { actorFactory, cameraFactory } = space.entities;
 
     const actorDefaultParams: IActorParams = {
       type: ActorType.cube,
@@ -50,5 +50,5 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
     });
   }
 
-  return { start, level };
+  return { start, space };
 }

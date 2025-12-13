@@ -1,18 +1,18 @@
 import type { IShowcase } from '@/App/Levels/Models';
 import type { IActorParams, IActorWrapperAsync, IAppCanvas, ISpace, ISpaceConfig } from '@/Engine';
-import { ActorType, buildLevelFromConfig, EulerWrapper, forEachEnum, LookUpStrategy, MaterialType, mouseService, TextType, Vector3Wrapper } from '@/Engine';
+import { ActorType, buildSpaceFromConfig, EulerWrapper, forEachEnum, LookUpStrategy, MaterialType, mouseService, TextType, Vector3Wrapper } from '@/Engine';
 import type { IAnimationParams } from '@/Engine/Services';
 import { Easing, standardMoverService } from '@/Engine/Services';
 
 import spaceConfig from './showcase-4-animejs-simple.config.json';
 
 //Showcase 4: Anime.js simple animations (easing, etc.)
-export function showcaseLevel(canvas: IAppCanvas): IShowcase {
-  const level: ISpace = buildLevelFromConfig(canvas, spaceConfig as ISpaceConfig);
+export function showcase(canvas: IAppCanvas): IShowcase {
+  const space: ISpace = buildSpaceFromConfig(canvas, spaceConfig as ISpaceConfig);
 
   function start(): void {
-    level.start();
-    const { actorRegistry, actorFactory, textFactory } = level.entities;
+    space.start();
+    const { actorRegistry, actorFactory, textFactory } = space.entities;
 
     let isClickBlocked: boolean = false;
 
@@ -70,5 +70,5 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
     });
   }
 
-  return { start, level };
+  return { start, space };
 }

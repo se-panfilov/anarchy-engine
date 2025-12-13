@@ -4,15 +4,15 @@ import { RectAreaLightHelper } from 'three/examples/jsm/helpers/RectAreaLightHel
 
 import type { IShowcase } from '@/App/Levels/Models';
 import type { IAppCanvas, IDirectionalLightWrapper, IHemisphereLightWrapper, ISpace, ISpaceConfig, IPointLightWrapper, IRectAreaLightWrapper, ISceneWrapper, ISpotLightWrapper } from '@/Engine';
-import { buildLevelFromConfig, isNotDefined } from '@/Engine';
+import { buildSpaceFromConfig, isNotDefined } from '@/Engine';
 
 import spaceConfig from './showcase-12-light.json';
 
 //Showcase 12: Light
-export function showcaseLevel(canvas: IAppCanvas): IShowcase {
+export function showcase(canvas: IAppCanvas): IShowcase {
   const gui: GUI = new GUI();
-  const level: ISpace = buildLevelFromConfig(canvas, spaceConfig as ISpaceConfig);
-  const { lightRegistry, scenesRegistry } = level.entities;
+  const space: ISpace = buildSpaceFromConfig(canvas, spaceConfig as ISpaceConfig);
+  const { lightRegistry, scenesRegistry } = space.entities;
 
   // void envMapService.load('/Showcase/hdr/urban_alley_01_4k.hdr');
 
@@ -92,9 +92,9 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
   }
 
   function start(): void {
-    level.start();
+    space.start();
     void init();
   }
 
-  return { start, level };
+  return { start, space };
 }

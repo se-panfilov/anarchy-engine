@@ -3,15 +3,15 @@ import { withLatestFrom } from 'rxjs';
 
 import type { IShowcase } from '@/App/Levels/Models';
 import type { IActorWrapperAsync, IAppCanvas, ICameraWrapper, IIntersectionEvent, IIntersectionsWatcher, ISpace, ISpaceConfig, IMouseWatcherEvent } from '@/Engine';
-import { buildLevelFromConfig, Easing, intersectionsService, isNotDefined, keyboardService, KeyCode, LookUpStrategy, mouseService, standardMoverService } from '@/Engine';
+import { buildSpaceFromConfig, Easing, intersectionsService, isNotDefined, keyboardService, KeyCode, LookUpStrategy, mouseService, standardMoverService } from '@/Engine';
 
 import spaceConfig from './showcase-11-keyboard-and-mouse.json';
 
 //Showcase 11: Keyboard and Mouse
-export function showcaseLevel(canvas: IAppCanvas): IShowcase {
+export function showcase(canvas: IAppCanvas): IShowcase {
   const gui: GUI = new GUI();
-  const level: ISpace = buildLevelFromConfig(canvas, spaceConfig as ISpaceConfig);
-  const { actorRegistry, cameraRegistry } = level.entities;
+  const space: ISpace = buildSpaceFromConfig(canvas, spaceConfig as ISpaceConfig);
+  const { actorRegistry, cameraRegistry } = space.entities;
 
   async function init(): Promise<void> {
     const actorKeyboard: IActorWrapperAsync = await actorRegistry.findByTagAsync('keyboard');
@@ -87,9 +87,9 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
   }
 
   function start(): void {
-    level.start();
+    space.start();
     void init();
   }
 
-  return { start, level };
+  return { start, space };
 }

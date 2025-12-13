@@ -1,7 +1,7 @@
 import Ajv from 'ajv';
 
-import type { ISpaceConfig } from '@/Engine/Level';
-import ISpaceConfigSchema from '@/Engine/Level/Schemas/ISpaceConfig.json';
+import type { ISpaceConfig } from '@/Engine/Space';
+import ISpaceConfigSchema from '@/Engine/Space/Schemas/ISpaceConfig.json';
 
 const ajv: Ajv = new Ajv();
 

@@ -2,7 +2,7 @@ import type { IActorConfig } from '@/Engine/Actor';
 import type { ICameraConfig } from '@/Engine/Camera';
 import type { IOrbitControlsConfig } from '@/Engine/Controls';
 import type { IFogConfig } from '@/Engine/Fog';
-import type { SpaceSchemaVersion } from '@/Engine/Level/Constants';
+import type { SpaceSchemaVersion } from '@/Engine/Space/Constants';
 import type { ILightConfig } from '@/Engine/Light';
 import type { IWithReadonlyTags } from '@/Engine/Mixins';
 import type { ISceneConfig } from '@/Engine/Scene';

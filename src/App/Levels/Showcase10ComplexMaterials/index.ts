@@ -5,16 +5,16 @@ import type { MeshPhysicalMaterial, MeshStandardMaterial } from 'three';
 
 import type { IShowcase } from '@/App/Levels/Models';
 import type { IActorWrapperAsync, IAppCanvas, ISpace, ISpaceConfig, IOrbitControlsWrapper, IVector3Wrapper } from '@/Engine';
-import { buildLevelFromConfig, envMapService, EulerWrapper, isDefined, isNotDefined, keyboardService, KeyCode, LookUpStrategy, TextType, Vector3Wrapper } from '@/Engine';
+import { buildSpaceFromConfig, envMapService, EulerWrapper, isDefined, isNotDefined, keyboardService, KeyCode, LookUpStrategy, TextType, Vector3Wrapper } from '@/Engine';
 
 import spaceConfig from './showcase-10-complex-materials.config.json';
 
 //Showcase 10: Complex Materials
-export function showcaseLevel(canvas: IAppCanvas): IShowcase {
+export function showcase(canvas: IAppCanvas): IShowcase {
   const gui: GUI = new GUI();
 
-  const level: ISpace = buildLevelFromConfig(canvas, spaceConfig as ISpaceConfig);
-  const { textFactory, actorRegistry, controlsRegistry } = level.entities;
+  const space: ISpace = buildSpaceFromConfig(canvas, spaceConfig as ISpaceConfig);
+  const { textFactory, actorRegistry, controlsRegistry } = space.entities;
 
   const currentActor$: Subject<IActorWrapperAsync> = new Subject();
 
@@ -165,8 +165,8 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
   }
 
   function start(): void {
-    level.start();
+    space.start();
   }
 
-  return { start, level };
+  return { start, space };
 }

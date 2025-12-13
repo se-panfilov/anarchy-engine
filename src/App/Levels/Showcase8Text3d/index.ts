@@ -2,14 +2,14 @@ import './fonts.css';
 
 import type { IShowcase } from '@/App/Levels/Models';
 import type { IAnimationParams, IAppCanvas, ISpace, ISpaceConfig, IText3dWrapper, IWithCoordsXZ } from '@/Engine';
-import { buildLevelFromConfig, createCirclePathXZ, Easing, EulerWrapper, generateAnglesForCircle, mouseService, standardMoverService, TextType, Vector3Wrapper } from '@/Engine';
+import { buildSpaceFromConfig, createCirclePathXZ, Easing, EulerWrapper, generateAnglesForCircle, mouseService, standardMoverService, TextType, Vector3Wrapper } from '@/Engine';
 
 import spaceConfig from './showcase-8-text-3d.config.json';
 
 //Showcase 8: Text 3d
-export function showcaseLevel(canvas: IAppCanvas): IShowcase {
-  const level: ISpace = buildLevelFromConfig(canvas, spaceConfig as ISpaceConfig);
-  const { textFactory } = level.entities;
+export function showcase(canvas: IAppCanvas): IShowcase {
+  const space: ISpace = buildSpaceFromConfig(canvas, spaceConfig as ISpaceConfig);
+  const { textFactory } = space.entities;
 
   textFactory.create({
     type: TextType.Text3d,
@@ -84,5 +84,5 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
     }, 1000);
   });
 
-  return { start: level.start, level };
+  return { start: space.start, space };
 }

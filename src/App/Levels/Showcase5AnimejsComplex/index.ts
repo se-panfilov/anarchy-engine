@@ -1,15 +1,15 @@
 import type { IShowcase } from '@/App/Levels/Models';
 import type { IActorWrapperAsync, IAnimationParams, IAppCanvas, ISpace, ISpaceConfig, IText2dWrapper, ITextAnyWrapper, IWithCoordsXZ } from '@/Engine';
-import { buildLevelFromConfig, createCirclePathXZ, Easing, EulerWrapper, generateAnglesForCircle, isNotDefined, mouseService, standardMoverService, TextType, Vector3Wrapper } from '@/Engine';
+import { buildSpaceFromConfig, createCirclePathXZ, Easing, EulerWrapper, generateAnglesForCircle, isNotDefined, mouseService, standardMoverService, TextType, Vector3Wrapper } from '@/Engine';
 
 import spaceConfig from './showcase-5-animejs-complex.config.json';
 
 //Showcase 5: Anime.js animation with complex path and easing
-export function showcaseLevel(canvas: IAppCanvas): IShowcase {
-  const level: ISpace = buildLevelFromConfig(canvas, spaceConfig as ISpaceConfig);
+export function showcase(canvas: IAppCanvas): IShowcase {
+  const space: ISpace = buildSpaceFromConfig(canvas, spaceConfig as ISpaceConfig);
 
   async function init(): Promise<void> {
-    const { actorRegistry, cameraRegistry, controlsRegistry, text2dRegistry, textFactory } = level.entities;
+    const { actorRegistry, cameraRegistry, controlsRegistry, text2dRegistry, textFactory } = space.entities;
 
     controlsRegistry.getAll()[0]?.entity.target.set(6, 0, 0);
     cameraRegistry.getAll()[0]?.setPosition(Vector3Wrapper({ x: 6, y: 30, z: 0 }));
@@ -95,9 +95,9 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
   }
 
   function start(): void {
-    level.start();
+    space.start();
     void init();
   }
 
-  return { start, level };
+  return { start, space };
 }

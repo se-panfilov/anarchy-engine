@@ -1,6 +1,6 @@
 import { Subject } from 'rxjs';
 
-import type { IWithBuilt } from '@/Engine/Level/Models';
+import type { IWithBuilt } from '@/Engine/Space/Models';
 
 export function withBuiltMixin(): IWithBuilt {
   const built$: Subject<void> = new Subject<void>();

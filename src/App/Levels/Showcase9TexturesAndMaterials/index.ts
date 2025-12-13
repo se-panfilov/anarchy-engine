@@ -2,13 +2,13 @@ import { combineLatest } from 'rxjs';
 
 import type { IShowcase } from '@/App/Levels/Models';
 import type { IActorWrapperAsync, IAppCanvas, ICameraWrapper, ISpace, ISpaceConfig } from '@/Engine';
-import { ambientContext, buildLevelFromConfig, getRotationByCos, getRotationBySin, isDefined, isNotDefined, mouseService } from '@/Engine';
+import { ambientContext, buildSpaceFromConfig, getRotationByCos, getRotationBySin, isDefined, isNotDefined, mouseService } from '@/Engine';
 
 import spaceConfig from './showcase-9-textures-and-materials.config.json';
 
 //Showcase 9: Textures & Materials
-export function showcaseLevel(canvas: IAppCanvas): IShowcase {
-  const level: ISpace = buildLevelFromConfig(canvas, spaceConfig as ISpaceConfig);
+export function showcase(canvas: IAppCanvas): IShowcase {
+  const space: ISpace = buildSpaceFromConfig(canvas, spaceConfig as ISpaceConfig);
 
   // Load texture dynamically
   // const pack: IBasicMaterialTexturePack = {
@@ -17,26 +17,26 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
   // };
 
   async function init(): Promise<void> {
-    const { actorRegistry } = level.entities;
+    const { actorRegistry } = space.entities;
     const actor: IActorWrapperAsync | undefined = await actorRegistry.findByTagAsync('central_actor');
     if (isNotDefined(actor)) throw new Error('Actor is not found');
 
     //apply textures async, without blocking the main thread (game might be started before textures are loaded)
     // void actor.loadAndApplyMaterialTexturePack(pack);
-    initCameraRotation(level, actor);
+    initCameraRotation(space, actor);
   }
 
   function start(): void {
-    level.start();
+    space.start();
     void init();
   }
 
-  return { start, level };
+  return { start, space };
 }
 
 // This is mostly a copy of Showcase 3 (camera rotation)
-function initCameraRotation(level: ISpace, actor: IActorWrapperAsync | undefined): void {
-  const { cameraRegistry } = level.entities;
+function initCameraRotation(space: ISpace, actor: IActorWrapperAsync | undefined): void {
+  const { cameraRegistry } = space.entities;
 
   const camera: ICameraWrapper | undefined = cameraRegistry.getActiveCamera();
 

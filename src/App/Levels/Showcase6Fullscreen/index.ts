@@ -1,13 +1,13 @@
 import type { IShowcase } from '@/App/Levels/Models';
 import type { IActorWrapperAsync, IAppCanvas, ISpace, ISpaceConfig } from '@/Engine';
-import { buildLevelFromConfig, mouseService, screenService, standardLoopService } from '@/Engine';
+import { buildSpaceFromConfig, mouseService, screenService, standardLoopService } from '@/Engine';
 
 import spaceConfig from './showcase-7-fullscreen.config.json';
 
 //Showcase 6: Go fullscreen
-export function showcaseLevel(canvas: IAppCanvas): IShowcase {
-  const level: ISpace = buildLevelFromConfig(canvas, spaceConfig as ISpaceConfig);
-  const { actorRegistry } = level.entities;
+export function showcase(canvas: IAppCanvas): IShowcase {
+  const space: ISpace = buildSpaceFromConfig(canvas, spaceConfig as ISpaceConfig);
+  const { actorRegistry } = space.entities;
 
   async function init(): Promise<void> {
     const actor: IActorWrapperAsync = await actorRegistry.findByTagAsync('sphere');
@@ -24,9 +24,9 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
   }
 
   function start(): void {
-    level.start();
+    space.start();
     void init();
   }
 
-  return { start, level };
+  return { start, space };
 }
