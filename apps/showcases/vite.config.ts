@@ -8,6 +8,7 @@ import { visualizer } from 'rollup-plugin-visualizer';
 import wasm from 'vite-plugin-wasm';
 
 export default defineConfig({
+  base: './',
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
