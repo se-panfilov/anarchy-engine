@@ -31,6 +31,7 @@
     "build:dev:win:app:x64": "npm run pack -- --mode=dev.win dir --x64",
     "build:dev:win:nsis:arm64": "npm run pack -- --mode=dev.win nsis --arm64",
     "build:dev:win:nsis:x64": "npm run pack -- --mode=dev.win nsis --x64",
+    "build:e2e:mac:app:arm64": "npm run pack -- --mode=e2e.mac dir --arm64",
     "build:electron": "electron-builder",
     "build:prepare": "node ./scripts/prebuild.js",
     "build:prod:linux:app:arm64": "npm run pack -- --mode=prod.linux dir --arm64",
