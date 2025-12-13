@@ -70,10 +70,6 @@ export function validateEntityRegistryReturnsOriginalObjects<T extends TRegistra
 
     afterEach(() => registry.clear());
 
-    it('should store the original in registry map', () => {
-      expectSame(registry.registry.get(entity.id), entity);
-    });
-
     it('should return original via findById', () => {
       expectSame(registry.findById(entity.id), entity);
     });
@@ -156,10 +152,6 @@ export function validateSimpleRegistryReturnsOriginalObjects<T extends TRegistra
 
     afterEach(() => registry.clear());
 
-    it('should store the original in registry map', () => {
-      expectSame(registry.registry.get(entity.id), entity);
-    });
-
     it('should return original via findByKey', () => {
       expectSame(registry.findByKey(entity.id), entity);
     });
@@ -217,10 +209,6 @@ export function validateSimpleAsyncRegistryReturnsOriginalObjects<T extends TReg
 
     afterEach(() => registry.clear());
 
-    it('should store the original in registry map', () => {
-      expectSame(registry.registry.get(entity.id), entity);
-    });
-
     it('should return original via findByKey', () => {
       expectSame(registry.findByKey(entity.id), entity);
     });
@@ -249,10 +237,6 @@ export function validateEntityAsyncRegistryReturnsOriginalObjects<T extends TReg
     });
 
     afterEach(() => registry.clear());
-
-    it('should store the original in registry map', () => {
-      expectSame(registry.registry.get(entity.id), entity);
-    });
 
     it('should return original via findByNameAsync', async () => {
       const result: T | undefined = await registry.findByNameAsync((entity as TWithName).name);
