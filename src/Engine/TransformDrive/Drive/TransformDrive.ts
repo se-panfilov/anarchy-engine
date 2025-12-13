@@ -83,7 +83,6 @@ export function TransformDrive<T extends Partial<Record<TransformAgent, TAbstrac
 
   activeAgent$.subscribe((agent: TAbstractTransformAgent): void => activeAgentRep$.next(ProtectedTransformAgentFacade(agent)));
 
-  // TODO 8.0.0. MODELS: Make sure we have no performance issue here, cause "filter" might be really highloaded
   // Update values of the active agent when drive.position$.next() is called from an external code
   position$.pipe(filter((value: Vector3): boolean => value !== activeAgent$.value.position$.value)).subscribe((value: Vector3): void => activeAgent$.value.position$.next(value));
   rotation$.pipe(filter((value: Quaternion): boolean => value !== activeAgent$.value.rotation$.value)).subscribe((value: Quaternion): void => activeAgent$.value.rotation$.next(value));
