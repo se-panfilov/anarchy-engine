@@ -10,9 +10,13 @@ export default {
       STORE_DISCLOSURES: false
     }
   },
-  DISCLAIMER: { template: 'DISCLAIMER_TEMPLATE' },
-  EULA: { template: 'EULA_COMMERCIAL_TEMPLATE', relativeOutput: './legal' },
+
+  //Root
   NOTICE: { template: 'NOTICE_SLIM_TEMPLATE' },
+
+  //LEGAL folder (include in a package/binary)
+  DISCLAIMER: { template: 'DISCLAIMER_TEMPLATE', relativeOutput: './legal' },
+  EULA: { template: 'EULA_COMMERCIAL_TEMPLATE', relativeOutput: './legal' },
   PRIVACY: { template: 'PRIVACY_COMMERCIAL_TEMPLATE', relativeOutput: './legal' },
   SECURITY: { template: 'SECURITY_COMMERCIAL_TEMPLATE', relativeOutput: './legal' }
 };

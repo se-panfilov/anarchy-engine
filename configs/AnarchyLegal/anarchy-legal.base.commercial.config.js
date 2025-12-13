@@ -9,15 +9,22 @@ export default {
       SHOW_TECH_IDENTIFIERS: true
     }
   },
-  // TODO DESKTOP: LEGAL: looks like DISCLAIMER generation is broken. Fix and check for the rest.
-  DISCLAIMER: { template: 'DISCLAIMER_TEMPLATE' },
-  EULA: { template: 'EULA_COMMERCIAL_TEMPLATE', relativeOutput: './legal' },
-  EU_DECLARATION_OF_CONFORMITY: { template: 'EU_DECLARATION_OF_CONFORMITY_COMMERCIAL_TEMPLATE', relativeOutput: './compliance' },
-  INSTRUCTIONS: { template: 'INSTRUCTIONS_TEMPLATE', relativeOutput: './legal' },
+
+  //Root
   NOTICE: { template: 'NOTICE_SLIM_TEMPLATE' },
+
+  //LEGAL folder (include in a package/binary)
+  DISCLAIMER: { template: 'DISCLAIMER_TEMPLATE', relativeOutput: './legal' },
+  EULA: { template: 'EULA_COMMERCIAL_TEMPLATE', relativeOutput: './legal' },
+  INSTRUCTIONS: { template: 'INSTRUCTIONS_TEMPLATE', relativeOutput: './legal' },
   PRIVACY: { template: 'PRIVACY_COMMERCIAL_TEMPLATE', relativeOutput: './legal' },
   SECURITY: { template: 'SECURITY_COMMERCIAL_TEMPLATE', relativeOutput: './legal' },
   SUPPORT: { template: 'SUPPORT_COMMERCIAL_TEMPLATE', relativeOutput: './legal' },
-  TECHNICAL_DOCUMENTATION: { template: 'TECHNICAL_DOCUMENTATION_COMMERCIAL_TEMPLATE' },
-  VULN_HANDLING: { template: 'VULN_HANDLING_COMMERCIAL_TEMPLATE' }
+
+  //
+  EU_DECLARATION_OF_CONFORMITY: { template: 'EU_DECLARATION_OF_CONFORMITY_COMMERCIAL_TEMPLATE', relativeOutput: './compliance' },
+
+  //COMPLIANCE folder (do not include in a package/binary)
+  TECHNICAL_DOCUMENTATION: { template: 'TECHNICAL_DOCUMENTATION_COMMERCIAL_TEMPLATE', relativeOutput: './compliance' },
+  VULN_HANDLING: { template: 'VULN_HANDLING_COMMERCIAL_TEMPLATE', relativeOutput: './compliance' }
 };
