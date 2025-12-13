@@ -1,6 +1,6 @@
 import type { IShowcase } from '@/App/Levels/Models';
-import type { IAppCanvas, ILevel, ILevelConfig } from '@/Engine';
-import { buildLevelFromConfig, EulerWrapper, Vector3Wrapper } from '@/Engine';
+import type { IAnimationParams, IAppCanvas, ILevel, ILevelConfig, ITextWrapper, IWithCoordsXZ } from '@/Engine';
+import { ambientContext, buildLevelFromConfig, createCirclePathXZ, Easing, EulerWrapper, generateAnglesForCircle, standardMoverService, Vector3Wrapper } from '@/Engine';
 
 import levelConfig from './showcase-level-7.config.json';
 
@@ -29,7 +29,7 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
     tags: []
   });
 
-  textFactory.create({
+  const floatingText: ITextWrapper = textFactory.create({
     text: 'LongCang',
     position: Vector3Wrapper({ x: -10, y: 8, z: -8 }),
     rotation: EulerWrapper({ x: -1.57, y: 0, z: 0 }),
@@ -39,7 +39,7 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
     tags: []
   });
 
-  textFactory.create({
+  const floatingText2: ITextWrapper = textFactory.create({
     text: 'VarelaRound',
     position: Vector3Wrapper({ x: -15, y: 6, z: -14 }),
     rotation: EulerWrapper({ x: -1.57, y: 0, z: 0 }),
@@ -49,9 +49,25 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
     tags: []
   });
 
-  function start(): void {
-    level.start();
-  }
+  const numberOfPoints: number = 160;
+  const numberOfCircles: number = 1;
+  const startAngle: number = 100;
+  const radius: number = 15;
+  const circlePathXZ: ReadonlyArray<IWithCoordsXZ> = createCirclePathXZ(generateAnglesForCircle(numberOfPoints, numberOfCircles, startAngle), radius, { x: 0, z: 0 });
+  const circlePathXZ2: ReadonlyArray<IWithCoordsXZ> = createCirclePathXZ(generateAnglesForCircle(numberOfPoints, numberOfCircles, startAngle - 20), radius + 3, { x: -4, z: 0 });
 
-  return { start, level };
+  const animationParams: IAnimationParams = {
+    duration: 2000,
+    direction: 'normal',
+    loop: true
+  };
+
+  ambientContext.mouseClickWatcher.value$.subscribe(() => {
+    void standardMoverService.goByPath(floatingText, circlePathXZ, { ...animationParams, easing: Easing.Linear });
+    setTimeout(() => {
+      void standardMoverService.goByPath(floatingText2, circlePathXZ2, { ...animationParams, easing: Easing.Linear });
+    }, 1000);
+  });
+
+  return { start: level.start, level };
 }
