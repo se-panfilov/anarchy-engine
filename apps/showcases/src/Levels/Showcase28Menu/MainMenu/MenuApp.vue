@@ -9,3 +9,12 @@ import MenuNavigation from '@/Levels/Showcase28Menu/MainMenu/Components/MenuNavi
     <MenuRouterView class="main-menu__view" />
   </div>
 </template>
+
+<style scoped lang="scss">
+.main-menu {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 100%;
+}
+</style>
