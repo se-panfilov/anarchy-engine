@@ -26,7 +26,6 @@ self.onmessage = (event: MessageEvent<TLoopWorkerStopRequestData | TLoopWorkerSt
 
 function startLoop(deltaCalc: TDeltaCalculator, interval: number, loopId: string): number {
   if (deltaCalc.isPaused) deltaCalc.resume();
-
   return setInterval((): void => {
     const delta: TMilliseconds = deltaCalc.update();
     self.postMessage({ delta, loopId } satisfies TLoopWorkerResponseData);

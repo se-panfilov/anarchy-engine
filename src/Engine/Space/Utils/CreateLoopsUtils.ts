@@ -18,6 +18,9 @@ export function createLoops({ create }: TLoopService): TSpaceLoops {
   // TODO 10.0.0. LOOPS: showDebugInfo is hardcoded here, should be configurable
   const { Render, Intersections, Spatial, Mouse, Text, Kinematic, Collisions, Controls, Transform, Keyboard, Physical } = LoopType;
 
+  // You could use testTickRate() to test the tick rate of the loop in the main stream and in "parallel mode" (in the worker),
+  // cause usually loops in workers fires a way faster due to the fact that the worker is not blocked by the main thread (rendering and etc)
+  // TL;DR: If use parallel mode, set the "trigger" time higher.
   return {
     renderLoop: create({ name: getMainLoopNameByType(Render), type: Render, trigger: requestAnimationFrame, showDebugInfo: true }) as TRenderLoop,
     physicalLoop: create({ name: getMainLoopNameByType(Physical), type: Physical, trigger: milliseconds(16), isParallelMode: false }) as TPhysicalLoop,
