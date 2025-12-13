@@ -20,10 +20,11 @@ import type { IText2dRenderer, IText3dRenderer } from '@/Engine/Text';
 import { initText2dRenderer, initText3dRenderer } from '@/Engine/Text';
 import { isDestroyable, isNotDefined, validLevelConfig } from '@/Engine/Utils';
 
+// TODO (S.Panfilov) LOGGER: add a logger globally (not only for errors, but I'd like to know, which service with which id did what).
 export function buildSpaceFromConfig(canvas: IAppCanvas, config: ISpaceConfig): ISpace {
   const { isValid, errors } = validLevelConfig(config);
   if (!isValid) {
-    // TODO (S.Panfilov) should be forwarded to the errors hub (which is not implemented yet)
+    // TODO (S.Panfilov) LOGGER: should be forwarded to the errors hub (which is not implemented yet)
     console.error(errors);
     throw new Error('Failed to launch a space: invalid data format');
   }
@@ -67,7 +68,6 @@ export function buildSpaceFromConfig(canvas: IAppCanvas, config: ISpaceConfig): 
   //build intersections
   // TODO (S.Panfilov) CWP
   // TODO (S.Panfilov) turn off intersections watcher for inactive cameras (then turn on again on active)
-  // TODO (S.Panfilov) we need a normal logging from services (which service with which id do what)
   // TODO (S.Panfilov) add validation for intersections config (names, uniq, patterns, etc)
   // TODO (S.Panfilov) stop watching actors after all the intersections are ready
   void intersectionsWatcherService.createFromConfigAsync(intersections, mouseService, cameraService, actorService);
