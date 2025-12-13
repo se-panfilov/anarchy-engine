@@ -4,7 +4,7 @@ import { Subject } from 'rxjs';
 import type { IGameKey, IKeyboardRegistry, IKeyboardRegistryValues, IKeyboardService, IKeyCombo, IKeySubscription } from '@/Engine/Keyboard/Models';
 import { KeyboardRegistry } from '@/Engine/Keyboard/Registry';
 import type { ILoopService } from '@/Engine/Loop';
-import { isNotDefined } from '@/Engine/Utils';
+import { isDefined, isNotDefined } from '@/Engine/Utils';
 
 export function KeyboardService(loopService: ILoopService): IKeyboardService {
   const keyboardRegistry: IKeyboardRegistry = KeyboardRegistry();
@@ -37,40 +37,36 @@ export function KeyboardService(loopService: ILoopService): IKeyboardService {
     if (isNotDefined(subjects)) throw new Error(`Key ${key} is not found in registry`);
     const { pressed$, pressing$, released$ } = subjects;
 
-    // merge(
-    //   pressed$
-    //     .pipe(
-    //       switchMap(() => interval(100).pipe(
-    //         tap(() => pressing$.next()),
-    //         takeUntil(released$))
-    //       )
-    //     ),
-    //   released$
-    // ).subscribe();
+    let pressedKey: IGameKey | IKeyCombo | undefined = undefined;
 
-    // TODO (S.Panfilov)
-    // console.log('loopService', loopService);
-    // loopService.tick$.subscribe((delta) => {
-    //if (isPressed) pressing.next();
-    // console.log('tick$', delta);
-    // });
+    loopService.tick$.subscribe((delta) => {
+      // TODO (S.Panfilov) pass delta to pressing
+      if (isDefined(pressedKey)) pressing$.next(pressedKey);
+    });
 
     pressing$.next(key);
 
     if (isCombo) {
       bindKeyCombo(key, {
-        onPressed: () => pressed$.next(key),
-        // onPressedWithRepeat: () => pressing$.next(key),
-        onReleased: () => released$.next(key)
+        onPressed: () => {
+          pressedKey = key;
+          pressed$.next(key);
+        },
+        onReleased: () => {
+          pressedKey = undefined;
+          released$.next(key);
+        }
       });
     } else {
       bindKey(key, {
-        onPressed: () => pressed$.next(key),
-        // onPressedWithRepeat: () => {
-        //   console.log(key);
-        //   pressing$.next(key)
-        // },
-        onReleased: () => released$.next(key)
+        onPressed: () => {
+          pressedKey = key;
+          pressed$.next(key);
+        },
+        onReleased: () => {
+          pressedKey = undefined;
+          released$.next(key);
+        }
       });
     }
 
