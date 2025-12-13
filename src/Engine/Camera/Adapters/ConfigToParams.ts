@@ -5,7 +5,7 @@ import type { TAudioService } from '@/Engine/Audio';
 import type { TAnyCameraParams, TCameraServiceDependencies, TCommonCameraConfig } from '@/Engine/Camera/Models';
 import type { TShadowCameraConfig, TShadowCameraParams } from '@/Engine/Light';
 import { configToParamsObject3d } from '@/Engine/ThreeLib';
-import { isDefined, isNotDefined } from '@/Engine/Utils';
+import { isDefined, isNotDefined, omitInObjectWithoutMutation } from '@/Engine/Utils';
 
 export function configToParams(config: TCommonCameraConfig, { audioService }: TCameraServiceDependencies): TAnyCameraParams | never {
   let listener: AudioListener | undefined;
@@ -15,13 +15,13 @@ export function configToParams(config: TCommonCameraConfig, { audioService }: TC
   }
 
   return {
-    ...configToParamsAudioListener(config, audioService),
-    ...configToParamsCameraOnly(config)
+    ...configToParamsCameraOnly(config),
+    ...configToParamsAudioListener(config, audioService)
   };
 }
 
 export function configToParamsCameraOnly(config: TCommonCameraConfig): Omit<TAnyCameraParams, 'audioListener'> {
-  const { position, rotation, scale, layers, name, isActive, type } = config;
+  const { position, rotation, scale, layers, name, isActive, type } = omitInObjectWithoutMutation(config, ['audioListener']);
 
   return {
     name,
@@ -33,7 +33,9 @@ export function configToParamsCameraOnly(config: TCommonCameraConfig): Omit<TAny
 }
 
 export function configToParamsCameraOptionsOnly(config: TCommonCameraConfig | TShadowCameraConfig): TShadowCameraParams {
-  const { scale, layers, lookAt, up, ...rest } = config;
+  const { scale, layers, lookAt, up, ...rest } = omitInObjectWithoutMutation(config, ['audioListener' as any, 'audioListener', 'position', 'rotation', 'name', 'isActive', 'type']) as
+    | TCommonCameraConfig
+    | TShadowCameraConfig;
 
   return {
     ...rest,
@@ -44,12 +46,12 @@ export function configToParamsCameraOptionsOnly(config: TCommonCameraConfig | TS
 }
 
 function configToParamsAudioListener(config: TCommonCameraConfig, audioService: TAudioService): Pick<TAnyCameraParams, 'audioListener'> {
-  let listener: AudioListener | undefined;
+  let audioListener: AudioListener | undefined;
   if (isDefined(config.audioListener)) {
-    listener = audioService.getListenersRegistry().getByKey(config.audioListener);
+    audioListener = audioService.getListenersRegistry().getByKey(config.audioListener);
   }
 
   return {
-    audioListener: listener
+    audioListener
   };
 }
