@@ -25,11 +25,6 @@ import { LightFactory, LightRegistry } from '@/Engine/Domains/Light';
 import type { IDestroyable } from '@/Engine/Domains/Mixins';
 import { destroyableMixin } from '@/Engine/Domains/Mixins';
 
-// TODO (S.Panfilov) CWP All factories should be self-registrable (maybe pass a registry as a param there?)
-// TODO (S.Panfilov) Registries' destroy() should kill all registered instances
-
-// TODO (S.Panfilov) CWP 2. maybe add relations to all wrappers during the level build?
-
 export function buildLevelFromConfig(canvas: IAppCanvas, config: ILevelConfig): ILevel {
   if (!isValidLevelConfig(config)) throw new Error('Failed to launch a level: invalid data format');
   const { name, actors, cameras, lights, controls, scenes, tags } = config;
