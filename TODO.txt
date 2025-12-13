@@ -26,14 +26,16 @@ Done:
 - 14.0.5 Mouse position detection adjusted to the canvas size when
 - 14.0.7 Replaced ScreenService with ContainerDecorator
 - 15.0.0 Save/Load configs (serialization)
+- 16.0.0 Dotenv config
+- 17.0.0 E2E tests
 
 Roadmap:
-- 16.0.x Split apps and engine (and add config for an app to set up engine)
-- 17.0.x npm package and a repo for the engine
-- 18.0.x Building app (desktop/mobile) (might be not a part of an engine)
-- 19.x.x Load managers domain for resource loaders (audio, animations, envMaps, materials, models3d, textures, etc.)
-- 20.x.x Postprocessing
-- 21.0.x Shaders
+- 18.0.x Split apps and engine (and add config for an app to set up engine)
+- 19.0.x npm package and a repo for the engine
+- 20.0.x Building app (desktop/mobile) (might be not a part of an engine)
+- 21.x.x Load managers domain for resource loaders (audio, animations, envMaps, materials, models3d, textures, etc.)
+- 22.x.x Postprocessing
+- 23.0.x Shaders
 
 Thoughts:
 - Maybe: Split data entities from functional entities (check ECS approach);
