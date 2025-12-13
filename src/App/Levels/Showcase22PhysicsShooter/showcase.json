@@ -8,311 +8,401 @@
       "isActive": true
     }
   ],
-  "spatialGrids": [
-    {
-      "name": "main_grid",
-      "mapWidth": 200,
-      "mapHeight": 200,
-      "cellSize": 10,
-      "centerX": 0,
-      "centerZ": 0,
-      "tags": []
-    }
-  ],
-  "actors": [
-    {
-      "name": "surface",
-      "model3d": {
-        "url": "plane"
-      },
-      "width": 200,
-      "height": 200,
-      "widthSegments": 1,
-      "heightSegments": 1,
-      "material": { "type": "standard", "params": { "color": "#8E8E8E" } },
-      "physics": {
-        "presetName": "box_physics",
-        "shapeParams": {
-          "hx": 100,
-          "hy": 0.025,
-          "hz": 100
-        },
-        "position": { "x": 0, "y": -0.025, "z": 0 },
-        "rotation": { "x": 0, "y": 0, "z": 0, "w": 1 }
-      },
-      "position": { "x": 0, "y": 0, "z": 0 },
-      "rotation": { "x": -1.57, "y": 0, "z": 0 },
-      "castShadow": false,
-      "receiveShadow": true,
-      "spatial": { "grid": "main_grid", "isAutoUpdate": false },
-      "tags": []
-    },
-    {
-      "name": "hero",
-      "model3d": {
-        "url": "cube"
-      },
-      "height": 1.9,
-      "width": 0.2,
-      "depth": 0.5,
-      "widthSegments": 1,
-      "heightSegments": 1,
-      "kinematic": { "isAutoUpdate": true },
-      "material": { "type": "standard", "params": { "color": "#8EFEFE" } },
-      "position": { "x": 18, "y": 1, "z": 12 },
-      "castShadow": true,
-      "spatial": { "grid": "main_grid", "isAutoUpdate": true },
-      "tags": []
-    },
-    {
-      "name": "sphere",
-      "model3d": {
-        "url": "sphere"
-      },
-      "radius": 3,
-      "material": { "type": "standard", "params": { "color": "#E91E63" } },
-      "position": { "x": 6, "y": 2, "z": 12 },
-      "castShadow": true,
-      "spatial": { "grid": "main_grid", "isAutoUpdate": true },
-      "tags": []
-    },
-    {
-      "name": "box_static_1",
-      "model3d": {
-        "url": "cube"
-      },
-      "width": 2,
-      "height": 4,
-      "depth": 2,
-      "widthSegments": 1,
-      "heightSegments": 1,
-      "material": { "type": "standard", "params": { "color": "#FF9800" } },
-      "position": { "x": 24, "y": 2, "z": 14 },
-      "castShadow": true,
-      "spatial": { "grid": "main_grid", "isAutoUpdate": false },
-      "tags": []
-    },
-    {
-      "name": "box_static_2",
-      "model3d": {
-        "url": "cube"
-      },
-      "width": 1,
-      "height": 2,
-      "depth": 1,
-      "widthSegments": 1,
-      "heightSegments": 1,
-      "material": { "type": "standard", "params": { "color": "#FF00FF" } },
-      "position": { "x": 26, "y": 1, "z": 17 },
-      "castShadow": true,
-      "spatial": { "grid": "main_grid", "isAutoUpdate": false },
-      "tags": []
-    },
-    {
-      "name": "box_static_3",
-      "model3d": {
-        "url": "cube"
-      },
-      "width": 1,
-      "height": 2,
-      "depth": 1,
-      "widthSegments": 1,
-      "heightSegments": 1,
-      "material": { "type": "standard", "params": { "color": "#FFFF00" } },
-      "position": { "x": 23, "y": 2, "z": 22 },
-      "castShadow": true,
-      "spatial": { "grid": "main_grid", "isAutoUpdate": false },
-      "tags": []
-    },
-    {
-      "name": "box_static_4",
-      "model3d": {
-        "url": "cube"
-      },
-      "width": 0.3,
-      "height": 2,
-      "depth": 0.3,
-      "widthSegments": 1,
-      "heightSegments": 1,
-      "material": { "type": "standard", "params": { "color": "#FF00FF" } },
-      "position": { "x": 32, "y": 1, "z": 20 },
-      "castShadow": true,
-      "spatial": { "grid": "main_grid", "isAutoUpdate": false },
-      "tags": []
-    },
-    {
-      "name": "box_static_5",
-      "model3d": {
-        "url": "cube"
-      },
-      "width": 0.3,
-      "height": 2,
-      "depth": 0.3,
-      "widthSegments": 1,
-      "heightSegments": 1,
-      "material": { "type": "standard", "params": { "color": "#FF0FF0" } },
-      "position": { "x": 40, "y": 1, "z": 20 },
-      "castShadow": true,
-      "spatial": { "grid": "main_grid", "isAutoUpdate": false },
-      "tags": []
-    },
-    {
-      "name": "box_static_6",
-      "model3d": {
-        "url": "cube"
-      },
-      "width": 3,
-      "height": 2,
-      "depth": 9,
-      "widthSegments": 1,
-      "heightSegments": 1,
-      "material": { "type": "standard", "params": { "color": "#FF0FF0" } },
-      "position": { "x": 14, "y": 1, "z": 28 },
-      "castShadow": true,
-      "spatial": { "grid": "main_grid", "isAutoUpdate": false },
-      "tags": []
-    },
-    {
-      "name": "box_static_7",
-      "model3d": {
-        "url": "cube"
-      },
-      "width": 5,
-      "height": 2,
-      "depth": 8,
-      "widthSegments": 1,
-      "heightSegments": 1,
-      "material": { "type": "standard", "params": { "color": "#0FF0F0" } },
-      "position": { "x": 1, "y": 1, "z": 30 },
-      "rotation": { "x": 0, "y": 0.9, "z": 0 },
-      "castShadow": true,
-      "spatial": { "grid": "main_grid", "isAutoUpdate": false },
-      "tags": []
-    },
-    {
-      "name": "target_1",
-      "model3d": {
-        "url": "cube"
-      },
-      "width": 0.5,
-      "height": 4,
-      "depth": 2,
-      "widthSegments": 1,
-      "heightSegments": 1,
-      "material": { "type": "standard", "params": { "color": "#000FFF" } },
-      "position": { "x": -6, "y": 0, "z": 8.5 },
-      "rotation": { "x": 0, "y": 0, "z": 0 },
-      "castShadow": true,
-      "spatial": { "grid": "main_grid", "isAutoUpdate": true },
-      "tags": []
-    },
-    {
-      "name": "target_2",
-      "model3d": {
-        "url": "cube"
-      },
-      "width": 0.5,
-      "height": 4,
-      "depth": 2,
-      "widthSegments": 1,
-      "heightSegments": 1,
-      "material": { "type": "standard", "params": { "color": "#FF00FF" } },
-      "position": { "x": -15, "y": 0, "z": 8.5 },
-      "rotation": { "x": 0, "y": 0, "z": 0 },
-      "castShadow": true,
-      "spatial": { "grid": "main_grid", "isAutoUpdate": true },
-      "tags": []
-    },
-    {
-      "name": "target_3",
-      "model3d": {
-        "url": "cube"
-      },
-      "width": 0.5,
-      "height": 4,
-      "depth": 2,
-      "widthSegments": 1,
-      "heightSegments": 1,
-      "material": { "type": "standard", "params": { "color": "#FFF000" } },
-      "position": { "x": -22, "y": 0, "z": 8.5 },
-      "rotation": { "x": 0, "y": 0, "z": 0 },
-      "castShadow": true,
-      "spatial": { "grid": "main_grid", "isAutoUpdate": true },
-      "tags": []
-    },
-    {
-      "name": "map_center",
-      "model3d": {
-        "url": "cube"
-      },
-      "width": 0.3,
-      "height": 100,
-      "depth": 0.3,
-      "widthSegments": 1,
-      "heightSegments": 1,
-      "material": { "type": "standard", "params": { "color": "#FF1E63" } },
-      "position": { "x": 0, "y": 2, "z": 0 },
-      "castShadow": true,
-      "spatial": { "grid": "main_grid", "isAutoUpdate": false },
-      "tags": []
-    }
-  ],
-  "models3d": [],
-  "intersections": [],
-  "physics": {
-    "global": {
-      "gravity": { "x": 0, "y": -9.81, "z": 0 }
-    },
-    "presets": [
+  "resources": {
+    "textures": [],
+    "envMaps": [],
+    "materials": [
+      { "name": "surface_material", "type": "standard", "options": { "color": "#8E8E8E" } },
+      { "name": "hero_material", "type": "standard", "options": { "color": "#8EFEFE" } },
+      { "name": "sphere_material", "type": "standard", "options": { "color": "#E91E63" } },
+      { "name": "box_1_material", "type": "standard", "options": { "color": "#FF9800" } },
+      { "name": "box_2_material", "type": "standard", "options": { "color": "#FF00FF" } },
+      { "name": "box_3_material", "type": "standard", "options": { "color": "#FFFF00" } },
+      { "name": "box_4_material", "type": "standard", "options": { "color": "#FF00FF" } },
+      { "name": "box_5_material", "type": "standard", "options": { "color": "#FF0FF0" } },
+      { "name": "box_6_material", "type": "standard", "options": { "color": "#FF0FF0" } },
+      { "name": "box_7_material", "type": "standard", "options": { "color": "#0FF0F0" } },
+      { "name": "target_1_material", "type": "standard", "options": { "color": "#000FFF" } },
+      { "name": "target_2_material", "type": "standard", "options": { "color": "#FF00FF" } },
+      { "name": "target_3_material", "type": "standard", "options": { "color": "#FFF000" } },
+      { "name": "map_center_material", "type": "standard", "options": { "color": "#FF1E63" } }
+    ],
+    "models3d": []
+  },
+  "entities": {
+    "spatialGrids": [
       {
-        "name": "box_physics",
-        "type": "fixed",
-        "collisionShape": "cuboid",
-        "mass": 1,
-        "friction": 0.5,
-        "restitution": 0
+        "name": "main_grid",
+        "mapWidth": 200,
+        "mapHeight": 200,
+        "cellSize": 10,
+        "centerX": 0,
+        "centerZ": 0,
+        "tags": []
       }
     ],
-    "isAutoUpdate": true
-  },
-  "texts": [],
-  "cameras": [
-    {
-      "fov": 45,
-      "name": "main",
-      "near": 1,
-      "far": 10000,
-      "position": { "x": 10, "y": 60, "z": 10 },
-      "rotation": { "x": -1.57, "y": 0, "z": -1.57 },
-      "tags": [],
-      "isActive": true
-    }
-  ],
-  "lights": [
-    {
-      "type": "Directional",
-      "color": "#ffffff",
-      "intensity": 2,
-      "castShadow": true,
-      "shadow": {
-        "mapSize": { "x": 512, "y": 512 },
-        "camera": { "far": 150, "left": -35, "right": 35, "top": 10, "bottom": -10 },
-        "normalBias": 0.05
+    "models3d": [
+      {
+        "name": "surface_model",
+        "model3dSource": "plane",
+        "materialSource": "surface_material",
+        "options": {
+          "width": 200,
+          "height": 200,
+          "widthSegments": 1,
+          "heightSegments": 1
+        },
+        "castShadow": false,
+        "receiveShadow": true
       },
-      "position": { "x": 40, "y": 4, "z": 40 },
-      "tags": ["directional"]
-    }
-  ],
-  "controls": [],
-  "envMaps": [],
-  "particles": [],
-  "fogs": [
-    {
-      "color": "#454b55",
-      "near": 1,
-      "far": 100,
-      "tags": []
-    }
-  ],
+      {
+        "name": "hero_model",
+        "model3dSource": "cube",
+        "materialSource": "hero_material",
+        "options": {
+          "height": 1.9,
+          "width": 0.2,
+          "depth": 0.5,
+          "widthSegments": 1,
+          "heightSegments": 1
+        },
+        "castShadow": true,
+        "receiveShadow": true
+      },
+      {
+        "name": "sphere_1_model",
+        "model3dSource": "sphere",
+        "materialSource": "sphere_material",
+        "options": { "radius": 3 },
+        "castShadow": true,
+        "receiveShadow": true
+      },
+      {
+        "name": "box_1_model",
+        "model3dSource": "cube",
+        "materialSource": "box_1_material",
+        "options": {
+          "width": 2,
+          "height": 4,
+          "depth": 2,
+          "widthSegments": 1,
+          "heightSegments": 1
+        },
+        "castShadow": true,
+        "receiveShadow": true
+      },
+      {
+        "name": "box_2_model",
+        "model3dSource": "cube",
+        "materialSource": "box_2_material",
+        "options": {
+          "width": 1,
+          "height": 2,
+          "depth": 1,
+          "widthSegments": 1,
+          "heightSegments": 1
+        },
+        "castShadow": true,
+        "receiveShadow": true
+      },
+      {
+        "name": "box_3_model",
+        "model3dSource": "cube",
+        "materialSource": "box_3_material",
+        "options": {
+          "width": 1,
+          "height": 2,
+          "depth": 1,
+          "widthSegments": 1,
+          "heightSegments": 1
+        },
+        "castShadow": true,
+        "receiveShadow": true
+      },
+      {
+        "name": "box_4_model",
+        "model3dSource": "cube",
+        "materialSource": "box_4_material",
+        "options": {
+          "width": 0.3,
+          "height": 2,
+          "depth": 0.3,
+          "widthSegments": 1,
+          "heightSegments": 1
+        },
+        "castShadow": true,
+        "receiveShadow": true
+      },
+      {
+        "name": "box_5_model",
+        "model3dSource": "cube",
+        "materialSource": "box_5_material",
+        "options": {
+          "width": 0.3,
+          "height": 2,
+          "depth": 0.3,
+          "widthSegments": 1,
+          "heightSegments": 1
+        },
+        "castShadow": true,
+        "receiveShadow": true
+      },
+      {
+        "name": "box_6_model",
+        "model3dSource": "cube",
+        "materialSource": "box_6_material",
+        "options": {
+          "width": 3,
+          "height": 2,
+          "depth": 9,
+          "widthSegments": 1,
+          "heightSegments": 1
+        },
+        "castShadow": true,
+        "receiveShadow": true
+      },
+      {
+        "name": "box_7_model",
+        "model3dSource": "cube",
+        "materialSource": "box_7_material",
+        "options": {
+          "width": 5,
+          "height": 2,
+          "depth": 8,
+          "widthSegments": 1,
+          "heightSegments": 1
+        },
+        "castShadow": true,
+        "receiveShadow": true
+      },
+      {
+        "name": "target_1_model",
+        "model3dSource": "cube",
+        "materialSource": "target_1_material",
+        "options": {
+          "width": 0.5,
+          "height": 4,
+          "depth": 2,
+          "widthSegments": 1,
+          "heightSegments": 1
+        },
+        "castShadow": true,
+        "receiveShadow": true
+      },
+      {
+        "name": "target_2_model",
+        "model3dSource": "cube",
+        "materialSource": "target_2_material",
+        "options": {
+          "width": 0.5,
+          "height": 4,
+          "depth": 2,
+          "widthSegments": 1,
+          "heightSegments": 1
+        },
+        "castShadow": true,
+        "receiveShadow": true
+      },
+      {
+        "name": "target_3_model",
+        "model3dSource": "cube",
+        "materialSource": "target_3_material",
+        "options": {
+          "width": 0.5,
+          "height": 4,
+          "depth": 2,
+          "widthSegments": 1,
+          "heightSegments": 1
+        },
+        "castShadow": true,
+        "receiveShadow": true
+      },
+      {
+        "name": "map_center_model",
+        "model3dSource": "cube",
+        "materialSource": "map_center_material",
+        "options": {
+          "width": 0.3,
+          "height": 100,
+          "depth": 0.3,
+          "widthSegments": 1,
+          "heightSegments": 1
+        },
+        "castShadow": true,
+        "receiveShadow": true
+      }
+    ],
+    "actors": [
+      {
+        "name": "surface",
+        "model3dSource": "surface_model",
+        "physics": {
+          "presetName": "box_physics",
+          "shapeParams": {
+            "hx": 100,
+            "hy": 0.025,
+            "hz": 100
+          },
+          "position": { "x": 0, "y": -0.025, "z": 0 },
+          "rotation": { "x": 0, "y": 0, "z": 0, "w": 1 }
+        },
+        "position": { "x": 0, "y": 0, "z": 0 },
+        "rotation": { "x": -1.57, "y": 0, "z": 0 },
+        "castShadow": false,
+        "receiveShadow": true,
+        "spatial": { "grid": "main_grid", "isAutoUpdate": false }
+      },
+      {
+        "name": "hero",
+        "model3dSource": "hero_model",
+        "kinematic": { "isAutoUpdate": true },
+        "position": { "x": 18, "y": 1, "z": 12 },
+        "spatial": { "grid": "main_grid", "isAutoUpdate": true }
+      },
+      {
+        "name": "sphere",
+        "model3dSource": "sphere_1_model",
+        "kinematic": { "isAutoUpdate": true },
+        "position": { "x": 6, "y": 2, "z": 12 },
+        "spatial": { "grid": "main_grid", "isAutoUpdate": true }
+      },
+      {
+        "name": "box_static_1",
+        "model3dSource": "box_1_model",
+        "kinematic": { "isAutoUpdate": true },
+        "position": { "x": 24, "y": 2, "z": 14 },
+        "spatial": { "grid": "main_grid", "isAutoUpdate": false }
+      },
+      {
+        "name": "box_static_2",
+        "model3dSource": "box_2_model",
+        "kinematic": { "isAutoUpdate": true },
+        "position": { "x": 26, "y": 1, "z": 17 },
+        "spatial": { "grid": "main_grid", "isAutoUpdate": false }
+      },
+      {
+        "name": "box_static_3",
+        "model3dSource": "box_3_model",
+        "kinematic": { "isAutoUpdate": true },
+        "position": { "x": 23, "y": 2, "z": 22 },
+        "spatial": { "grid": "main_grid", "isAutoUpdate": false }
+      },
+      {
+        "name": "box_static_4",
+        "model3dSource": "box_4_model",
+        "kinematic": { "isAutoUpdate": true },
+        "position": { "x": 32, "y": 1, "z": 20 },
+        "spatial": { "grid": "main_grid", "isAutoUpdate": false }
+      },
+      {
+        "name": "box_static_5",
+        "model3dSource": "box_5_model",
+        "kinematic": { "isAutoUpdate": true },
+        "position": { "x": 40, "y": 1, "z": 20 },
+        "spatial": { "grid": "main_grid", "isAutoUpdate": false }
+      },
+      {
+        "name": "box_static_6",
+        "model3dSource": "box_6_model",
+        "kinematic": { "isAutoUpdate": true },
+        "position": { "x": 14, "y": 1, "z": 28 },
+        "spatial": { "grid": "main_grid", "isAutoUpdate": false }
+      },
+      {
+        "name": "box_static_7",
+        "model3dSource": "box_7_model",
+        "kinematic": { "isAutoUpdate": true },
+        "position": { "x": 14, "y": 1, "z": 28 },
+        "spatial": { "grid": "main_grid", "isAutoUpdate": false }
+      },
+      {
+        "name": "target_1",
+        "model3dSource": "target_1_model",
+        "kinematic": { "isAutoUpdate": true },
+        "position": { "x": -6, "y": 0, "z": 8.5 },
+        "rotation": { "x": 0, "y": 0, "z": 0 },
+        "spatial": { "grid": "main_grid", "isAutoUpdate": false }
+      },
+      {
+        "name": "target_2",
+        "model3dSource": "target_2_model",
+        "kinematic": { "isAutoUpdate": true },
+        "position": { "x": -15, "y": 0, "z": 8.5 },
+        "rotation": { "x": 0, "y": 0, "z": 0 },
+        "spatial": { "grid": "main_grid", "isAutoUpdate": false }
+      },
+      {
+        "name": "target_3",
+        "model3dSource": "target_3_model",
+        "kinematic": { "isAutoUpdate": true },
+        "position": { "x": -22, "y": 0, "z": 8.5 },
+        "rotation": { "x": 0, "y": 0, "z": 0 },
+        "spatial": { "grid": "main_grid", "isAutoUpdate": false }
+      },
+      {
+        "name": "map_center",
+        "model3dSource": "map_center_model",
+        "kinematic": { "isAutoUpdate": true },
+        "position": { "x": 0, "y": 2, "z": 0 },
+        "spatial": { "grid": "main_grid", "isAutoUpdate": false }
+      }
+    ],
+    "intersections": [],
+    "physics": {
+      "global": {
+        "gravity": { "x": 0, "y": -9.81, "z": 0 }
+      },
+      "presets": [
+        {
+          "name": "box_physics",
+          "type": "fixed",
+          "collisionShape": "cuboid",
+          "mass": 1,
+          "friction": 0.5,
+          "restitution": 0
+        }
+      ],
+      "isAutoUpdate": true
+    },
+    "texts": [],
+    "cameras": [
+      {
+        "fov": 45,
+        "name": "main",
+        "near": 1,
+        "far": 10000,
+        "position": { "x": 10, "y": 60, "z": 10 },
+        "rotation": { "x": -1.57, "y": 0, "z": -1.57 },
+        "tags": [],
+        "isActive": true
+      }
+    ],
+    "lights": [
+      {
+        "type": "Directional",
+        "color": "#FFFFFF",
+        "intensity": 2,
+        "castShadow": true,
+        "shadow": {
+          "mapSize": { "x": 512, "y": 512 },
+          "camera": { "far": 150, "left": -35, "right": 35, "top": 10, "bottom": -10 },
+          "normalBias": 0.05
+        },
+        "position": { "x": 40, "y": 4, "z": 40 },
+        "tags": ["directional"]
+      }
+    ],
+    "controls": [],
+    "envMaps": [],
+    "particles": [],
+    "fogs": [
+      {
+        "color": "#454b55",
+        "near": 1,
+        "far": 100,
+        "tags": []
+      }
+    ]
+  },
   "tags": []
 }
