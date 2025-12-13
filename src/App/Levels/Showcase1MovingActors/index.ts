@@ -1,6 +1,6 @@
 import type { IShowcase } from '@/App/Levels/Models';
 import type { IActorWrapper, IAppCanvas, IIntersectionsWatcher, ILevel, ILevelConfig, IVector3 } from '@/Engine';
-import { ActorTag, ambientContext, buildLevelFromConfig, CommonTag, isNotDefined, LookUpStrategy, standardLoopService } from '@/Engine';
+import { ActorTag, ambientContext, buildLevelFromConfig, CommonTag, isNotDefined, standardLoopService } from '@/Engine';
 
 import levelConfig from './showcase-1-moving-actors.config.json';
 
@@ -8,6 +8,16 @@ import levelConfig from './showcase-1-moving-actors.config.json';
 export function showcaseLevel(canvas: IAppCanvas): IShowcase {
   const level: ILevel = buildLevelFromConfig(canvas, levelConfig as ILevelConfig);
   const { intersectionsWatcherRegistry, actorRegistry } = level.entities;
+
+  async function init(): Promise<void> {
+    const actor: IActorWrapper = await actorRegistry.getUniqByTagAsync(ActorTag.Intersectable);
+    actor.setY(2);
+
+    standardLoopService.tick$.subscribe(({ elapsedTime }) => {
+      actor.setX(Math.sin(elapsedTime) * 8);
+      actor.setZ(Math.cos(elapsedTime) * 8);
+    });
+  }
 
   function start(): void {
     level.start();
@@ -24,13 +34,7 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
     });
     //END: just debug
 
-    const actor: IActorWrapper = actorRegistry.getAllByTags([ActorTag.Intersectable], LookUpStrategy.Some)[0];
-    actor.setY(2);
-
-    standardLoopService.tick$.subscribe(({ elapsedTime }) => {
-      actor.setX(Math.sin(elapsedTime) * 8);
-      actor.setZ(Math.cos(elapsedTime) * 8);
-    });
+    void init();
   }
 
   return { start, level };
