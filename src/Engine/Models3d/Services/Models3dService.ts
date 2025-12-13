@@ -33,7 +33,7 @@ export function Models3dService(
     models3d.map((config: TModel3dConfig): TModel3d => create(factory.configToParams(config, { materialRegistry, model3dResourceAsyncRegistry: resourcesRegistry })));
 
   function clone(model3d: TModel3d, overrides?: TOptional<TModel3dParams>): TModel3d {
-    const cloned = model3d._clone(overrides);
+    const cloned: TModel3d = model3d._clone(overrides);
     registry.add(cloned);
     return cloned;
   }

@@ -9,11 +9,11 @@ import { isDefined } from '@/Engine/Utils';
 export function Model3d(params: TModel3dParams, { animationsService, model3dRawToModel3dConnectionRegistry }: TModel3dDependencies): TModel3d {
   const entities: TModel3dEntities = createModels3dEntities(params, animationsService);
 
-  const isModelAlreadyInUse: boolean = isDefined(model3dRawToModel3dConnectionRegistry.findByModel3d(entities.model3dSource));
+  const isModel3dAlreadyInUse: boolean = isDefined(model3dRawToModel3dConnectionRegistry.findByModel3d(entities.model3dSource));
 
   // At the moment we don't allow Model3d to re-use the same model3d resource (raw), because it might lead to unexpected behavior.
   // However, it might be nothing wrong with it, so we can remove the exception throwing and cloning the resource model3d instead (inside "createModels3dEntities()").
-  if (isModelAlreadyInUse)
+  if (isModel3dAlreadyInUse)
     throw new Error(`Model3d Trying to create Model3d around a raw model3d resource that is already in use by another Model3d. Might be a mistake. Consider cloning the source instead.`);
 
   const abstract = AbstractEntity(withModel3dEntities(entities), EntityType.Model3d, params);
@@ -31,7 +31,7 @@ export function Model3d(params: TModel3dParams, { animationsService, model3dRawT
   if (isDefined(params.position)) applyPositionToModel3d(entities.model3dSource, params.position);
   applyObject3dParamsToModel3d(entities.model3dSource, params);
 
-  abstract.destroy$.subscribe(() => {
+  abstract.destroy$.subscribe((): void => {
     model3dRawToModel3dConnectionRegistry.removeByModel3d(entities.model3dSource);
     // TODO 8.0.0. MODELS: implement the removal of the model from the scene and destroy of the models (and unload the resources)
   });
