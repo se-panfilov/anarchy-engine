@@ -133,7 +133,7 @@ export function Audio3dWrapper(params: TAudio3dParams, { audioLoop }: TAudioWrap
     seek$,
     loop$,
     isPlaying: (): boolean => entity.isPlaying,
-    getDuration: (): number | undefined => entity.duration,
+    getDuration: (): number | undefined => entity.buffer?.duration,
     stop: (): void => void entity.stop(),
     volume$,
     listener$,

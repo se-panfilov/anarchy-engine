@@ -39,7 +39,8 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
         const currentLoop: boolean = bgMusic.loop$.getValue();
         bgMusic.loop$.next(!currentLoop);
       },
-      volume: 1
+      volume: 1,
+      progress: 0
     };
 
     bgMusicFolder.add(state, 'playBgMusic').name('Play background music');
