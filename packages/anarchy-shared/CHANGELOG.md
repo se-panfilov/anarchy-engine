@@ -2,3 +2,4 @@
 - 1.1.0 Added more shared utils
 - 1.2.0 More Object utils
 - 1.3.0 Vite plugin: emit json
+- 1.4.0 Json validation utils
