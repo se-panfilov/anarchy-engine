@@ -3,7 +3,7 @@ import { isDefined } from '@Anarchy/Shared/Utils';
 
 export const hasKey = (key: TGameKey, keys: TKeysState): boolean => keys.has(key);
 export const hasNoKey = (key: TGameKey, keys: TKeysState): boolean => !hasKey(key, keys);
-export const isKeyInEvent = (key: TGameKey, event: TKeysEvent): boolean => Boolean(event && event.event?.code === key);
+export const isKeyInEvent = (key: TGameKey, event: TKeysEvent | undefined): boolean => Boolean(event && event.event?.code === key);
 export const isPressEvent = (event: TKeysEvent): boolean => isDefined(event.pressed);
 export const isReleaseEvent = (event: TKeysEvent): boolean => isDefined(event.released);
 

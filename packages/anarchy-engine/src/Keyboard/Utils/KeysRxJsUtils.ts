@@ -13,5 +13,5 @@ export const onKey = (key: TGameKey): OperatorFunction<TKeysEvent, TKeysEvent> =
 };
 
 export const onKeyReleased = (key: TGameKey): OperatorFunction<TKeysEvent, TKeysEvent> => {
-  return (source: Observable<TKeysEvent>): Observable<TKeysEvent> => source.pipe(filter((event: TKeysEvent): boolean => isKeyInEvent(key, event.event) && event.released === key));
+  return (source: Observable<TKeysEvent>): Observable<TKeysEvent> => source.pipe(filter((event: TKeysEvent): boolean => isKeyInEvent(key, event) && event.released === key));
 };
