@@ -19,9 +19,8 @@ async function parseContent(content: string | undefined): Promise<string> {
 
 watch(
   () => props.content,
-  async (newContent) => {
-    const parsed = await parseContent(newContent);
-    state.parsedContent = parsed;
+  async (newContent): Promise<void> => {
+    state.parsedContent = await parseContent(newContent);
   },
   { immediate: true }
 );
