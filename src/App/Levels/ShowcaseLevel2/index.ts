@@ -27,6 +27,7 @@ export function showcaseLevel2(canvas: IAppCanvas): IShowcase {
     const initialCamera: ICameraWrapper = cameraFactory.create({
       position: Vector3Wrapper({ x: 2, y: 2, z: 2 }),
       rotation: EulerWrapper({ x: 0, y: 0, z: 0 }),
+      lookAt: Vector3Wrapper({ x: 0, y: 0, z: 0 }),
       tags: [cameraTag]
     });
 
@@ -49,8 +50,9 @@ export function showcaseLevel2(canvas: IAppCanvas): IShowcase {
 
       // console.log('camera rotation', cameraRegistry.getAll()[0].entity.rotation);
       camera.setX(xRatio);
+      // camera.setX(x * 3);
       camera.setY(yRatio);
-      camera.lookAt(Vector3Wrapper({ x: 0, y: 0, z: 0 }));
+      // camera.lookAt(Vector3Wrapper({ x: 0, y: 0, z: 0 }));
 
       // const xRatio: number = x / width - 0.5;
       // const yRatio: number = -(y / height - 0.5);

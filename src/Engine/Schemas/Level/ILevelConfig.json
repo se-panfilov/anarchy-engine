@@ -228,6 +228,9 @@
         "position": {
           "$ref": "#/definitions/IVector3dConfig"
         },
+        "lookAt": {
+          "$ref": "#/definitions/IVector3dConfig"
+        },
         "fov": {
           "type": "number"
         },

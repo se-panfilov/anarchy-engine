@@ -10,12 +10,9 @@ import { withTags } from '@/Engine/Mixins/Generic/WithTags';
 export function AbstractWatcher<T>(type: WatcherType | string, tags: ReadonlyArray<string> = []): IAbstractWatcher<T> {
   const id: string = type + '_' + nanoid();
   const value$: Subject<T> = new Subject<T>();
-
   const destroyable: IDestroyable = destroyableMixin();
 
-  destroyable.destroyed$.subscribe((): void => {
-    value$.complete();
-  });
+  destroyable.destroyed$.subscribe((): void => value$.complete());
 
   return {
     id,

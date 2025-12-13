@@ -8,5 +8,6 @@ export type ICameraParams = Readonly<{
   far?: number;
   position: IVector3Wrapper;
   rotation: IEulerWrapper;
+  lookAt?: IVector3Wrapper;
 }> &
   IWithReadonlyTags<CameraTag>;
