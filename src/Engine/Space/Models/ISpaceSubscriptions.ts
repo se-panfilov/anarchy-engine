@@ -1,6 +1,7 @@
 import type { Subscription } from 'rxjs';
 
 export type ISpaceSubscriptions = Readonly<{
+  sceneCreated$: Subscription;
   actorCreated$: Subscription;
   actorAdded$: Subscription;
   textCreated$: Subscription;

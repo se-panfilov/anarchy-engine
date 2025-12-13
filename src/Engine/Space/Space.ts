@@ -20,6 +20,7 @@ import type { ISceneWrapper } from '@/Engine/Scene';
 import { SceneTag } from '@/Engine/Scene';
 import { screenService } from '@/Engine/Services';
 import { initActorsEntityPipe, initCamerasEntityPipe, initFogsEntityPipe, initLightsEntityPipe, initScenesEntityPipe, initTextsEntityPipe } from '@/Engine/Space/EntityPipes';
+import { initControlsEntityPipe } from '@/Engine/Space/EntityPipes/ControlsEntityPipe';
 import { withBuiltMixin } from '@/Engine/Space/Mixin';
 import type { ISpace, ISpaceConfig, ISpaceEntities, ISpaceSubscriptions, IWithBuilt } from '@/Engine/Space/Models';
 import { isSpaceInitializationConfig, setInitialActiveCamera } from '@/Engine/Space/SpaceHelper';
@@ -42,25 +43,26 @@ export function buildSpaceFromConfig(canvas: IAppCanvas, config: ISpaceConfig): 
     // TODO (S.Panfilov) move somewhere?
     screenService.setCanvas(canvas);
 
-    const entities: ISpaceEntities = {};
-    const subscriptions: ISpaceSubscriptions = {};
-    let isScenesReady: boolean = false;
+    let entities: Partial<ISpaceEntities> = {};
+    let subscriptions: ISpaceSubscriptions = {};
+    let scene: ISceneWrapper | undefined = undefined;
 
     //build scenes
     if (isScenesInit) {
       const { sceneCreated$, sceneFactory, sceneRegistry } = initScenesEntityPipe(scenes);
       messages$.next(`Scenes (${scenes.length}) created`);
-      const scene: ISceneWrapper | undefined = sceneRegistry.findByTag(SceneTag.Current);
+      scene = sceneRegistry.findByTag(SceneTag.Current);
       if (isNotDefined(scene)) throw new Error(`Cannot find the current scene for space "${name}" during the space building.`);
       entities = { ...entities, sceneFactory, sceneRegistry };
       subscriptions = { ...subscriptions, sceneCreated$ };
-      isScenesReady = true;
     }
 
     //build actors
-    if (isActorsInit && isScenesReady) {
+    if (isActorsInit) {
+      if (isNotDefined(scene)) throw new Error('Scene should be initialized for actors initialization');
+
       const actorsMessage$: ReplaySubject<IActorWrapperAsync> = new ReplaySubject<IActorWrapperAsync>();
-      const { actorAdded$, actorCreated$, actorFactory, actorRegistry } = initActorsEntityPipe(scenes, actors, actorsMessage$);
+      const { actorAdded$, actorCreated$, actorFactory, actorRegistry } = initActorsEntityPipe(scene, actors, actorsMessage$);
       entities = { ...entities, actorFactory, actorRegistry };
       subscriptions = { ...subscriptions, actorAdded$, actorCreated$ };
       // TODO (S.Panfilov) implement:
@@ -69,7 +71,9 @@ export function buildSpaceFromConfig(canvas: IAppCanvas, config: ISpaceConfig): 
     }
 
     //build texts
-    if (isTextsInit && isScenesReady) {
+    if (isTextsInit) {
+      if (isNotDefined(scene)) throw new Error('Scene should be initialized for texts initialization');
+
       const { textAdded$, textCreated$, textFactory, text2dRegistry, text3dRegistry, text2dRenderer, text3dRenderer } = initTextsEntityPipe(scene, texts);
       entities = { ...entities, textFactory, text2dRegistry, text3dRegistry, text2dRenderer, text3dRenderer };
       subscriptions = { ...subscriptions, textAdded$, textCreated$ };
@@ -77,45 +81,57 @@ export function buildSpaceFromConfig(canvas: IAppCanvas, config: ISpaceConfig): 
     }
 
     //build cameras
-    if (isCamerasInit && isScenesReady) {
-      const { cameraAdded$, cameraCreated$, cameraFactory, cameraRegistry } = initCamerasEntityPipe(scenes, cameras);
+    if (isCamerasInit) {
+      if (isNotDefined(scene)) throw new Error('Scene should be initialized for cameras initialization');
+
+      const { cameraAdded$, cameraCreated$, cameraFactory, cameraRegistry } = initCamerasEntityPipe(scene, cameras);
       entities = { ...entities, cameraFactory, cameraRegistry };
       subscriptions = { ...subscriptions, cameraAdded$, cameraCreated$ };
       messages$.next(`Cameras (${cameras.length}) created`);
     }
 
     //build controls
-    const controlsFactory: IControlsFactory = ControlsFactory();
-    const controlsRegistry: IControlsRegistry = ControlsRegistry();
-    const controlsCreated$: Subscription = controlsFactory.entityCreated$.subscribe((controls: IOrbitControlsWrapper): void => controlsRegistry.add(controls));
-    controls.forEach(
-      (control: IOrbitControlsConfig): IOrbitControlsWrapper =>
-        controlsFactory.create(controlsFactory.configToParams({ ...control, tags: [...control.tags, CommonTag.FromConfig] }, { cameraRegistry, canvas }))
-    );
-    messages$.next(`Controls (${controls.length}) created`);
+    if (isCamerasInit) {
+      if (isNotDefined(scene)) throw new Error('Scene should be initialized for controls initialization');
+      if (isNotDefined(isCamerasInit)) throw new Error('Camera initialization should be "true" for controls initialization');
+      if (isNotDefined(entities.cameraRegistry)) throw new Error('Cannot find camera registry for controls initialization');
+
+      const { controlsCreated$, controlsFactory, controlsRegistry } = initControlsEntityPipe(entities.cameraRegistry, canvas, controls);
+      entities = { ...entities, controlsFactory, controlsRegistry };
+      subscriptions = { ...subscriptions, controlsCreated$ };
+      messages$.next(`Controls (${controls.length}) created`);
+    }
 
     //build lights
-    if (isLightsInit && isScenesReady) {
-      const { lightAdded$, lightCreated$, lightFactory, lightRegistry } = initLightsEntityPipe(scenes, lights);
+    if (isLightsInit) {
+      if (isNotDefined(scene)) throw new Error('Scene should be initialized for lights initialization');
+
+      const { lightAdded$, lightCreated$, lightFactory, lightRegistry } = initLightsEntityPipe(scene, lights);
       entities = { ...entities, lightFactory, lightRegistry };
       subscriptions = { ...subscriptions, lightAdded$, lightCreated$ };
       messages$.next(`Lights (${lights.length}) created`);
     }
 
     //build fogs
-    if (isFogsInit && isScenesReady) {
-      const { fogAdded$, fogCreated$, fogFactory, fogRegistry } = initFogsEntityPipe(scenes, fogs);
+    if (isFogsInit) {
+      if (isNotDefined(scene)) throw new Error('Scene should be initialized for fogs initialization');
+
+      const { fogAdded$, fogCreated$, fogFactory, fogRegistry } = initFogsEntityPipe(scene, fogs);
       entities = { ...entities, fogFactory, fogRegistry };
       subscriptions = { ...subscriptions, fogAdded$, fogCreated$ };
       messages$.next(`Fogs (${fogs.length}) created`);
     }
 
     //env maps
-    envMapService.added$.subscribe((texture: IDataTexture): void => {
-      scene.setBackground(texture);
-      scene.setEnvironmentMap(texture);
-      messages$.next(`Env map added: "${texture.id}"`);
-    });
+    if (isEnvMapsInit) {
+      if (isNotDefined(scene)) throw new Error('Scene should be initialized for fogs initialization');
+
+      envMapService.added$.subscribe((texture: IDataTexture): void => {
+        scene.setBackground(texture);
+        scene.setEnvironmentMap(texture);
+        messages$.next(`Env map added: "${texture.id}"`);
+      });
+    }
 
     //build renderer
     const rendererFactory: IRendererFactory = RendererFactory();

@@ -5,13 +5,15 @@ import type { IFogFactory, IFogRegistry } from '@/Engine/Fog';
 import type { ILightFactory, ILightRegistry } from '@/Engine/Light';
 import type { IRendererFactory, IRendererRegistry } from '@/Engine/Renderer';
 import type { ISceneFactory, ISceneRegistry } from '@/Engine/Scene';
-import type { IText2dRegistry, IText3dRegistry, ITextFactory } from '@/Engine/Text';
+import type { IText2dRegistry, IText2dRenderer, IText3dRegistry, IText3dRenderer, ITextFactory } from '@/Engine/Text';
 
 export type ISpaceEntities = {
   actorRegistry: IActorAsyncRegistry;
   actorFactory: IActorFactory;
   text2dRegistry: IText2dRegistry;
+  text2dRenderer: IText2dRenderer;
   text3dRegistry: IText3dRegistry;
+  text3dRenderer: IText3dRenderer;
   textFactory: ITextFactory;
   cameraRegistry: ICameraRegistry;
   cameraFactory: ICameraFactory;
@@ -21,8 +23,8 @@ export type ISpaceEntities = {
   fogFactory: IFogFactory;
   controlsRegistry: IControlsRegistry;
   controlsFactory: IControlsFactory;
-  scenesRegistry: ISceneRegistry;
-  scenesFactory: ISceneFactory;
+  sceneRegistry: ISceneRegistry;
+  sceneFactory: ISceneFactory;
   rendererRegistry: IRendererRegistry;
   rendererFactory: IRendererFactory;
 };
