@@ -1,5 +1,5 @@
 import type { TActor, TFsmStates, TFsmWrapper, TModel3d, TSpaceServices } from '@Engine';
-import { isNotDefined } from '@Engine';
+import { isNotDefined } from '@Shared/Utils';
 import { distinctUntilChanged } from 'rxjs';
 import type { AnimationAction } from 'three';
 

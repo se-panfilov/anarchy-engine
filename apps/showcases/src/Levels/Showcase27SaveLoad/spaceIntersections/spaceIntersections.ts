@@ -1,5 +1,5 @@
 import type { TActor, TIntersectionEvent, TIntersectionsCameraWatcher, TIntersectionsDirectionWatcher, TSpace, TSpaceConfig } from '@Engine';
-import { isNotDefined } from '@Engine';
+import { isNotDefined } from '@Shared/Utils';
 import { BehaviorSubject, skip } from 'rxjs';
 import type { Mesh, MeshStandardMaterial } from 'three';
 import type { Line2 } from 'three/examples/jsm/lines/Line2';

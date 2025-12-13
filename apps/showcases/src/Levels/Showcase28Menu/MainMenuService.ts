@@ -1,4 +1,4 @@
-import { isNotDefined } from '@Engine';
+import { isNotDefined } from '@Shared/Utils';
 import type { TShowcaseGameSettings } from '@ShowcasesShared';
 
 import { platformApiService } from '@/Services';
