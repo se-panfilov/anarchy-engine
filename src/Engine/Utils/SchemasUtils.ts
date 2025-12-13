@@ -4,15 +4,15 @@ import ISceneConfigSchema from '@Engine/Schemas/ISceneConfig.json';
 
 const ajv: Ajv = new Ajv(); // options can be passed, e.g. {allErrors: true}
 
-const schema = {
-  type: 'object',
-  properties: {
-    foo: { type: 'integer' },
-    bar: { type: 'string' }
-  },
-  required: ['foo'],
-  additionalProperties: false
-};
+// const schema = {
+//   type: 'object',
+//   properties: {
+//     foo: { type: 'integer' },
+//     bar: { type: 'string' }
+//   },
+//   required: ['foo'],
+//   additionalProperties: false
+// };
 
 console.log(ISceneConfigSchema);
 
