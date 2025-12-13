@@ -1,6 +1,7 @@
 import type { Subscription } from 'rxjs';
 import { distinctUntilChanged } from 'rxjs';
 import type { AnimationAction } from 'three';
+import { Vector3 } from 'three';
 
 import type { TActor, TFsmStates, TModel3d, TSpace, TSpaceConfig } from '@/Engine';
 import { isNotDefined } from '@/Engine';
@@ -54,13 +55,12 @@ export const spaceActorData: TSpacesData = {
           throw new Error(`Unknown state: ${String(state)}`);
       }
     });
-
-    // solder.states.animationsFsm?.send$.next(TPose);
   },
   onChange: (space: TSpace): void => {
     const solder: TActor | undefined = space.services.actorService.getRegistry().findByName('solder_actor_1');
     if (isNotDefined(solder)) throw new Error('[Showcase]: Solder actor not found');
     solder.states.animationsFsm?.send$.next(Idle);
+    solder.drive.position$.next(new Vector3(-0.5, 0, 0.3));
   },
   onUnload: (_space: TSpace, subscriptions?: Record<string, Subscription>): void | never => {
     if (isNotDefined(subscriptions)) throw new Error(`[Showcase]: Subscriptions is not defined`);
