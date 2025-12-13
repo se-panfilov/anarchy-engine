@@ -17,6 +17,7 @@ export default defineConfig({
   ],
   worker: {
     // keep "format" as default value (not "es") if you want to use "topLevelAwait" plugin
+    //@ts-expect-error
     plugins: [wasm(), topLevelAwait()]
   },
   build: {
