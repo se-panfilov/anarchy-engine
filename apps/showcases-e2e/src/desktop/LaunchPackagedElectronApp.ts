@@ -1,10 +1,6 @@
 import type { ElectronApplication, Page } from '@playwright/test';
 import { _electron as electron } from '@playwright/test';
-
-type TDesktopAppLaunchResult = Readonly<{
-  electronApp: ElectronApplication;
-  page: Page;
-}>;
+import type { TDesktopAppLaunchResult } from '@Showcases/E2E/Models';
 
 const VIEWPORT = { width: 800, height: 600 };
 
