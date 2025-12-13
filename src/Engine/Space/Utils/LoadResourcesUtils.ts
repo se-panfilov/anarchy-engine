@@ -12,7 +12,7 @@ export async function loadResources(resources: TSpaceConfigResources, { models3d
 
   // Technically, materials are more "entities" rather than "resources":
   //   They are not loaded from anywhere (should be created instead) and depend on textures.
-  //   However, materials (and textures) should be fully ready before models.
+  //   However, materials (and textures) should be fully ready before models3d.
   materialService.createFromConfig(materials);
 
   await Promise.all([
