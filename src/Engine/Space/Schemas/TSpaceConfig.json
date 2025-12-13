@@ -180,7 +180,7 @@
         "intersections": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/TIntersectionsWatcherConfig"
+            "$ref": "#/definitions/TAnyIntersectionsWatcherConfig"
           }
         },
         "lights": {
@@ -914,7 +914,17 @@
       },
       "required": ["isActive", "name", "texture"]
     },
-    "TIntersectionsWatcherConfig": {
+    "TAnyIntersectionsWatcherConfig": {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/TIntersectionsCameraWatcherConfig"
+        },
+        {
+          "$ref": "#/definitions/TIntersectionsDirectionWatcherConfig"
+        }
+      ]
+    },
+    "TIntersectionsCameraWatcherConfig": {
       "type": "object",
       "additionalProperties": false,
       "properties": {
@@ -959,6 +969,43 @@
         }
       },
       "additionalProperties": false
+    },
+    "TIntersectionsDirectionWatcherConfig": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "origin": {
+          "$ref": "#/definitions/Vector3Like"
+        },
+        "direction": {
+          "$ref": "#/definitions/Vector3Like"
+        },
+        "actorNames": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "isAutoStart": {
+          "type": "boolean"
+        },
+        "intersectionsLoop": {
+          "type": "string"
+        },
+        "performance": {
+          "$ref": "#/definitions/TIntersectionsWatcherPerformanceOptions"
+        },
+        "name": {
+          "type": "string"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": ["actorNames", "direction", "isAutoStart", "name", "origin"]
     },
     "TAnyLightConfig": {
       "anyOf": [
