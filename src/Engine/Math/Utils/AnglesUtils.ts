@@ -1,7 +1,6 @@
-import type { EulerOrder, QuaternionLike } from 'three';
+import type { EulerOrder, QuaternionLike, Vector3Like } from 'three';
 import { Euler, Quaternion, Vector3 } from 'three';
 import { degToRad, euclideanModulo, radToDeg } from 'three/src/math/MathUtils';
-import type { Vector3Like } from 'three/src/math/Vector3';
 
 import { metersPerSecond, radiansPerSecond } from '@/Engine/Distance';
 import { ForwardAxis } from '@/Engine/Kinematic/Constants';

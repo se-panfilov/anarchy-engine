@@ -1,5 +1,4 @@
-import type { QuaternionLike } from 'three';
-import type { Vector3Like } from 'three/src/math/Vector3';
+import type { QuaternionLike, Vector3Like } from 'three';
 
 import type { TEulerLike } from '@/Engine/ThreeLib';
 

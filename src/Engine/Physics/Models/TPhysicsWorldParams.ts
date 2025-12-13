@@ -13,7 +13,7 @@ import type {
   RawRigidBodySet,
   RawSerializationPipeline
 } from '@dimforge/rapier3d-compat/rapier_wasm3d';
-import type { Vector3Like } from 'three/src/math/Vector3';
+import type { Vector3Like } from 'three';
 
 export type TPhysicsWorldParams = Readonly<{
   gravity?: Vector3Like;

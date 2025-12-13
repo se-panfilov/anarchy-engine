@@ -1,6 +1,5 @@
-import { CameraHelper, DirectionalLightHelper, Euler, Vector2 } from 'three';
+import { CameraHelper, DirectionalLightHelper, Euler, Vector2, Vector3 } from 'three';
 import type { Color } from 'three/src/math/Color';
-import { Vector3 } from 'three/src/math/Vector3';
 
 import type { TDirectionalLightWrapper, TLightService, TPointLightWrapper } from '@/Engine';
 import { isNotDefined, LightType } from '@/Engine';

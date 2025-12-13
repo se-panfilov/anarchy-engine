@@ -1,8 +1,7 @@
 import type { Subscription } from 'rxjs';
 import { BehaviorSubject, combineLatest, distinctUntilChanged, EMPTY, map, scan, switchMap, takeWhile, withLatestFrom } from 'rxjs';
-import type { QuaternionLike } from 'three';
+import type { QuaternionLike, Vector3Like } from 'three';
 import { Quaternion, Vector3 } from 'three';
-import type { Vector3Like } from 'three/src/math/Vector3';
 
 import type { TMeters, TRadians } from '@/Engine/Math';
 import { meters, radians } from '@/Engine/Measurements';

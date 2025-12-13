@@ -1,6 +1,5 @@
-import type { Euler, Quaternion, QuaternionLike, Vector2, Vector2Like, Vector4, Vector4Like } from 'three';
+import type { Euler, Quaternion, QuaternionLike, Vector2, Vector2Like, Vector3, Vector3Like, Vector4, Vector4Like } from 'three';
 import { Color } from 'three';
-import type { Vector3, Vector3Like } from 'three/src/math/Vector3';
 
 import type { TAbstractAsyncRegistry, TAbstractEntityRegistry, TWithUserData, TWithWrapperId, TWithWrapperIdEntity } from '@/Engine/Abstract/Models';
 import type { TColorWrapper } from '@/Engine/Color';

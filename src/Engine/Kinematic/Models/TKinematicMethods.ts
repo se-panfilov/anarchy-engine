@@ -1,5 +1,4 @@
-import type { Quaternion, QuaternionLike, Vector3 } from 'three';
-import type { Vector3Like } from 'three/src/math/Vector3';
+import type { Quaternion, QuaternionLike, Vector3, Vector3Like } from 'three';
 
 import type { ForwardAxis } from '@/Engine/Kinematic/Constants';
 import type { TMeters, TMetersPerSecond, TRadians, TRadiansPerSecond } from '@/Engine/Math';

@@ -1,6 +1,5 @@
 import type { Subscription } from 'rxjs';
-import type { Quaternion } from 'three';
-import type { Vector3 } from 'three/src/math/Vector3';
+import type { Quaternion, Vector3 } from 'three';
 
 import type { TWithPosition3dProperty, TWithQuaternionRotationProperty, TWithScaleProperty } from '@/Engine/Mixins';
 import type { TReadonlyQuaternion, TReadonlyVector3 } from '@/Engine/ThreeLib';
@@ -25,7 +24,7 @@ export function DefaultTransformAgent(params: TTransformAgentParams): TDefaultTr
   const rotationObj: TWithQuaternionRotationProperty = { rotation: abstractTransformAgent.rotation$.value.clone() };
   const scaleObj: TWithScaleProperty = { scale: abstractTransformAgent.scale$.value.clone() };
 
-  const proxyPositionObj: TWithPosition3dProperty = updateSubjOnChange(positionObj, 'position', abstractTransformAgent.position$, (value: TReadonlyVector3): TReadonlyVector3 => value.clone());
+  const proxyPositionObj: TWithPosition3dProperty = updateSubjOnChange(positionObj, 'position', abstractTransformAgent.position$, (value: TReadVeonlyVector3): TReadonlyVector3 => value.clone());
   const proxyRotationObj: TWithQuaternionRotationProperty = updateSubjOnChange(
     rotationObj,
     'rotation',

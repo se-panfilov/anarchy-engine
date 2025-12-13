@@ -1,9 +1,9 @@
 import type { Vector3 } from 'three';
 import { Raycaster } from 'three';
 
-import type { TReadonlyVector3 } from '@/Engine';
 import type { TActor } from '@/Engine/Actor/Models';
 import type { TBvhService, TCollisionCheckResult, TCollisionsService } from '@/Engine/Collisions/Models';
+import type { TReadonlyVector3 } from '@/Engine/ThreeLib';
 
 import { BvhService } from './BvhService';
 

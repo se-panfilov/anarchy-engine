@@ -1,13 +1,12 @@
 import type GUI from 'lil-gui';
 import type { Observable, Subject, Subscription } from 'rxjs';
 import { combineLatest, distinctUntilChanged, map } from 'rxjs';
-import type { ColorRepresentation } from 'three';
+import type { ColorRepresentation, Vector3Like } from 'three';
 import { Euler, Quaternion, Vector3 } from 'three';
 import { Line2 } from 'three/examples/jsm/lines/Line2';
 import { LineGeometry } from 'three/examples/jsm/lines/LineGeometry';
 import { LineMaterial } from 'three/examples/jsm/lines/LineMaterial';
 import type { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
-import type { Vector3Like } from 'three/src/math/Vector3';
 
 import type {
   KeyCode,

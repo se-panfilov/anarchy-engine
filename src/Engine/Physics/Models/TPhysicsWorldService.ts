@@ -1,5 +1,5 @@
 import type { World } from '@dimforge/rapier3d';
-import type { Vector3 } from 'three/src/math/Vector3';
+import type { Vector3 } from 'three';
 
 import type { TDestroyable } from '@/Engine/Mixins';
 import type { TPhysicalLoop } from '@/Engine/Physics';

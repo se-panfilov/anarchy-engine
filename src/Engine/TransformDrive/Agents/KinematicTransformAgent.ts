@@ -1,8 +1,7 @@
 import type { Observable, Subscription } from 'rxjs';
 import { BehaviorSubject, combineLatest, EMPTY, switchMap } from 'rxjs';
-import type { QuaternionLike } from 'three';
+import type { QuaternionLike, Vector3Like } from 'three';
 import { Object3D, Quaternion, Vector3 } from 'three';
-import type { Vector3Like } from 'three/src/math/Vector3';
 
 import { metersPerSecond } from '@/Engine/Distance';
 import { ForwardAxis } from '@/Engine/Kinematic/Constants';

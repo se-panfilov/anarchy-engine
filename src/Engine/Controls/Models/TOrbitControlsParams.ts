@@ -1,4 +1,4 @@
-import type { Vector3 } from 'three/src/math/Vector3';
+import type { Vector3 } from 'three';
 
 import type { TAppCanvas } from '@/Engine/App';
 import type { TActive, TWithNameOptional, TWithTags } from '@/Engine/Mixins';

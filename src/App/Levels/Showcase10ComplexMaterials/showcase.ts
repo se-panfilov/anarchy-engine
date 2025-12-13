@@ -2,8 +2,7 @@ import type { Controller } from 'lil-gui';
 import GUI from 'lil-gui';
 import { BehaviorSubject, combineLatest, startWith, Subject } from 'rxjs';
 import type { Mesh, MeshPhysicalMaterial, MeshStandardMaterial } from 'three';
-import { Euler } from 'three';
-import { Vector3 } from 'three/src/math/Vector3';
+import { Euler, Vector3 } from 'three';
 
 import type { TShowcase } from '@/App/Levels/Models';
 import { addGizmo } from '@/App/Levels/Utils';

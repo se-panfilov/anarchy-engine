@@ -1,8 +1,7 @@
 import { nanoid } from 'nanoid';
 import type { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { distinctUntilChanged, sample, tap } from 'rxjs';
-import type { Vector3 } from 'three';
-import type { Vector3Like } from 'three/src/math/Vector3';
+import type { Vector3, Vector3Like } from 'three';
 
 import { AbstractEntity, EntityType } from '@/Engine/Abstract';
 import { withActorStates } from '@/Engine/Actor/Mixins';

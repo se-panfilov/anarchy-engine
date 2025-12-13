@@ -1,7 +1,6 @@
 import type { Vector } from '@dimforge/rapier3d/math';
 import type { Vector4 } from 'three';
-import { Quaternion } from 'three';
-import { Vector3 } from 'three/src/math/Vector3';
+import { Quaternion, Vector3 } from 'three';
 
 export function withCoordsToVector(position?: Vector3 | Vector, rotation?: Vector4): Readonly<{ position: Vector3; rotation: Quaternion }> {
   return {

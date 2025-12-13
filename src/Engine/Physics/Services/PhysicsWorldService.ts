@@ -1,6 +1,6 @@
 import { World } from '@dimforge/rapier3d';
 import type { Subscription } from 'rxjs';
-import type { Vector3 } from 'three/src/math/Vector3';
+import type { Vector3 } from 'three';
 
 import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';

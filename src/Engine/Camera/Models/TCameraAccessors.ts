@@ -1,4 +1,4 @@
-import type { Vector3 } from 'three/src/math/Vector3';
+import type { Vector3 } from 'three';
 
 export type TCameraAccessors = Readonly<{
   lookAt: (vector3: Vector3) => void;

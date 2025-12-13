@@ -1,4 +1,4 @@
-import type { Vector3 } from 'three/src/math/Vector3';
+import type { Vector3 } from 'three';
 
 import type { TWithPosition3d, TWithPosition3dProperty } from '@/Engine/Mixins/GameObjects/Models';
 
