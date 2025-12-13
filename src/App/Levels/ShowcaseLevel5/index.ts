@@ -17,11 +17,13 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
 
     const redActor: IActorWrapper | undefined = actorRegistry.getUniqByTag('red');
     const blueActor: IActorWrapper | undefined = actorRegistry.getUniqByTag('blue');
-    if (isNotDefined(redActor) || isNotDefined(blueActor)) throw new Error('Actors are not defined');
+    const greenActor: IActorWrapper | undefined = actorRegistry.getUniqByTag('green');
+    if (isNotDefined(redActor) || isNotDefined(blueActor) || isNotDefined(greenActor)) throw new Error('Actors are not defined');
 
     const redText: ITextWrapper | undefined = textRegistry.getUniqByTag('red');
     const blueText: ITextWrapper | undefined = textRegistry.getUniqByTag('blue');
-    if (isNotDefined(redText) || isNotDefined(blueText)) throw new Error('Texts are not defined');
+    const greenText: ITextWrapper | undefined = textRegistry.getUniqByTag('green');
+    if (isNotDefined(redText) || isNotDefined(blueText) || isNotDefined(greenText)) throw new Error('Texts are not defined');
 
     let isClickBlocked: boolean = false;
 
@@ -37,10 +39,12 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
     const angleArray: ReadonlyArray<number> = generateAnglesForCircle(numberOfPoints, numberOfCircles, startAngle);
 
     const redPath: ReadonlyArray<IWithCoordsXZ> = createCirclePathXZ(angleArray, radius, { x: 0, z: 0 });
-    const bluePath: ReadonlyArray<IWithCoordsXZ> = createCirclePathXZ(angleArray, radius - 2, { x: 0, z: 0 });
+    const greenPath: ReadonlyArray<IWithCoordsXZ> = createCirclePathXZ(angleArray, radius - 2, { x: 0, z: 0 });
+    const bluePath: ReadonlyArray<IWithCoordsXZ> = createCirclePathXZ(angleArray, radius - 4, { x: 0, z: 0 });
 
     standardMoverService.followTarget(redText, redActor, { x: 1 });
     standardMoverService.followTarget(blueText, blueActor, { x: 1 });
+    standardMoverService.followTarget(greenText, greenActor, { x: 1 });
 
     ambientContext.mouseClickWatcher.value$.subscribe(() => {
       if (isClickBlocked) {
@@ -51,7 +55,8 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
 
       void Promise.all([
         standardMoverService.goByPath(redActor, redPath, { ...animationParams, easing: Easing.Linear }).then(() => console.log('red done')),
-        standardMoverService.goByPath(blueActor, bluePath, { ...animationParams, easing: Easing.EaseInCirc }).then(() => console.log('blue done'))
+        standardMoverService.goByPath(greenActor, greenPath, { ...animationParams, easing: Easing.EaseInCirc }).then(() => console.log('green done')),
+        standardMoverService.goByPath(blueActor, bluePath, { ...animationParams, easing: Easing.EaseInBack }).then(() => console.log('blue done'))
       ]).then(() => (isClickBlocked = false));
     });
   }

@@ -33,7 +33,16 @@
       "type": "cube",
       "width": 1,
       "height": 1,
-      "position": { "x": -20, "y": 2, "z": 0 },
+      "position": { "x": -20, "y": 2, "z": 4 },
+      "castShadow": true,
+      "materialParams": { "color": "#00ff00" },
+      "tags": ["actor", "green"]
+    },
+    {
+      "type": "cube",
+      "width": 1,
+      "height": 1,
+      "position": { "x": -20, "y": 2, "z": 6 },
       "castShadow": true,
       "materialParams": { "color": "#0000ff" },
       "tags": ["actor", "blue"]
@@ -49,8 +58,16 @@
       "tags": ["actor", "red", "linear"]
     },
     {
-      "text": "EaseInCirc",
+      "text": "EaseInBack",
       "position": { "x": -20, "y": 2, "z": 0 },
+      "rotation": { "x": -1.57, "y": 0, "z": 0 },
+      "color": "#00ff00",
+      "fontSize": 1,
+      "tags": ["actor", "green", "EaseInBack"]
+    },
+    {
+      "text": "EaseInCirc",
+      "position": { "x": -20, "y": 2, "z": -2 },
       "rotation": { "x": -1.57, "y": 0, "z": 0 },
       "color": "#0000ff",
       "fontSize": 1,
