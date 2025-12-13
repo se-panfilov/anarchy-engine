@@ -11,6 +11,7 @@
   "actors": [
     {
       "name": "surface",
+      "type": "plane",
       "width": 20,
       "height": 20,
       "widthSegments": 1,
@@ -38,7 +39,14 @@
           "roughnessMap": { "url": "/Showcase/Brushed_Metal/MetalSteelBrushed001_ROUGHNESS_1K_METALNESS.png" }
         }
       },
-      "type": "plane",
+      "physics": {
+        "preset": "wall_physics",
+        "width": 20,
+        "height": 20,
+        "deep": 1,
+        "position": { "x": 0, "y": 0, "z": 0 },
+        "rotation": { "x": -1.57, "y": 0, "z": 0 }
+      },
       "position": { "x": 0, "y": 0, "z": 0 },
       "rotation": { "x": -1.57, "y": 0, "z": 0 },
       "castShadow": false,
@@ -46,6 +54,7 @@
     },
     {
       "name": "wall_left",
+      "type": "cube",
       "height": 20,
       "width": 1,
       "depth": 5,
@@ -74,7 +83,14 @@
           "roughnessMap": { "url": "/Showcase/Brushed_Metal/MetalSteelBrushed001_ROUGHNESS_1K_METALNESS.png" }
         }
       },
-      "type": "cube",
+      "physics": {
+        "preset": "wall_physics",
+        "height": 20,
+        "width": 1,
+        "depth": 5,
+        "position": { "x": -10.5, "y": 0, "z": 0 },
+        "rotation": { "x": -1.57, "y": 0, "z": 0 }
+      },
       "position": { "x": -10.5, "y": 0, "z": 0 },
       "rotation": { "x": -1.57, "y": 0, "z": 0 },
       "castShadow": true,
@@ -82,6 +98,7 @@
     },
     {
       "name": "wall_right",
+      "type": "cube",
       "height": 20,
       "width": 1,
       "depth": 5,
@@ -110,7 +127,14 @@
           "roughnessMap": { "url": "/Showcase/Brushed_Metal/MetalSteelBrushed001_ROUGHNESS_1K_METALNESS.png" }
         }
       },
-      "type": "cube",
+      "physics": {
+        "preset": "wall_physics",
+        "height": 20,
+        "width": 1,
+        "depth": 5,
+        "position": { "x": 10.5, "y": 0, "z": 0 },
+        "rotation": { "x": -1.57, "y": 0, "z": 0 }
+      },
       "position": { "x": 10.5, "y": 0, "z": 0 },
       "rotation": { "x": -1.57, "y": 0, "z": 0 },
       "castShadow": true,
@@ -118,6 +142,7 @@
     },
     {
       "name": "wall_front",
+      "type": "cube",
       "height": 22,
       "width": 1,
       "depth": 5,
@@ -146,7 +171,14 @@
           "roughnessMap": { "url": "/Showcase/Brushed_Metal/MetalSteelBrushed001_ROUGHNESS_1K_METALNESS.png" }
         }
       },
-      "type": "cube",
+      "physics": {
+        "preset": "wall_physics",
+        "height": 22,
+        "width": 1,
+        "depth": 5,
+        "position": { "x": 0, "y": 0, "z": -10.5 },
+        "rotation": { "x": -1.57, "y": 0, "z": -1.57 }
+      },
       "position": { "x": 0, "y": 0, "z": -10.5 },
       "rotation": { "x": -1.57, "y": 0, "z": -1.57 },
       "castShadow": true,
@@ -154,6 +186,7 @@
     },
     {
       "name": "wall_back",
+      "type": "cube",
       "height": 22,
       "width": 1,
       "depth": 5,
@@ -182,7 +215,14 @@
           "roughnessMap": { "url": "/Showcase/Brushed_Metal/MetalSteelBrushed001_ROUGHNESS_1K_METALNESS.png" }
         }
       },
-      "type": "cube",
+      "physics": {
+        "preset": "wall_physics",
+        "height": 22,
+        "width": 1,
+        "depth": 5,
+        "position": { "x": 0, "y": 0, "z": 10.5 },
+        "rotation": { "x": -1.57, "y": 0, "z": -1.57 }
+      },
       "position": { "x": 0, "y": 0, "z": 10.5 },
       "rotation": { "x": -1.57, "y": 0, "z": -1.57 },
       "castShadow": true,
@@ -207,12 +247,18 @@
           "thickness": 0.5
         }
       },
+      "physics": {
+        "preset": "ball_physics",
+        "radius": 1,
+        "position": { "x": 0, "y": 6, "z": 0 }
+      },
       "position": { "x": 0, "y": 6, "z": 0 },
       "castShadow": true,
       "tags": []
     },
     {
       "name": "obstacle_1",
+      "type": "cube",
       "height": 4,
       "width": 1,
       "depth": 1,
@@ -241,7 +287,14 @@
           "roughnessMap": { "url": "/Showcase/Brushed_Metal/MetalSteelBrushed001_ROUGHNESS_1K_METALNESS.png" }
         }
       },
-      "type": "cube",
+      "physics": {
+        "preset": "box_physics",
+        "height": 4,
+        "width": 1,
+        "depth": 1,
+        "position": { "x": -4, "y": 2, "z": 2 },
+        "rotation": { "x": -1.57, "y": 0, "z": 0 }
+      },
       "position": { "x": -4, "y": 2, "z": 2 },
       "rotation": { "x": -1.57, "y": 0, "z": 0 },
       "castShadow": true,
@@ -249,6 +302,7 @@
     },
     {
       "name": "obstacle_2",
+      "type": "cube",
       "height": 4,
       "width": 1,
       "depth": 1,
@@ -269,7 +323,14 @@
           "thickness": 0.5
         }
       },
-      "type": "cube",
+      "physics": {
+        "preset": "box_physics",
+        "height": 4,
+        "width": 1,
+        "depth": 1,
+        "position": { "x": 4, "y": 2, "z": 1 },
+        "rotation": { "x": -1.57, "y": 0, "z": 0 }
+      },
       "position": { "x": 4, "y": 2, "z": 1 },
       "rotation": { "x": -1.57, "y": 0, "z": 0 },
       "castShadow": true,
@@ -293,6 +354,11 @@
           "ior": 1.5,
           "thickness": 0.5
         }
+      },
+      "physics": {
+        "preset": "ball_physics",
+        "radius": 1,
+        "position": { "x": 1, "y": 8, "z": -4 }
       },
       "position": { "x": 1, "y": 8, "z": -4 },
       "castShadow": true,
@@ -325,12 +391,53 @@
           "roughnessMap": { "url": "/Showcase/Brushed_Metal/MetalSteelBrushed001_ROUGHNESS_1K_METALNESS.png" }
         }
       },
+      "physics": {
+        "preset": "ball_physics",
+        "radius": 1,
+        "position": { "x": 2, "y": 12, "z": -4 }
+      },
       "position": { "x": 2, "y": 12, "z": -4 },
       "castShadow": true,
       "tags": []
     }
   ],
   "intersections": [],
+  "physics": {
+    "global": {
+      "gravity": { "x": 0, "y": -9.81, "z": 0 },
+      "timeStep": 0.016666666666666666,
+      "maxVelocityIterations": 4,
+      "maxPositionIterations": 3,
+      "solverType": "PGS",
+      "enableCCD": false
+    },
+    "presets": {
+      "wall_physics": {
+        "type": "static",
+        "collisionShape": "box",
+        "mass": 1,
+        "restitution": 0.7,
+        "friction": 0.5,
+        "collisionGroups": 1
+      },
+      "ball_physics": {
+        "type": "dynamic",
+        "collisionShape": "ball",
+        "mass": 1,
+        "restitution": 0.7,
+        "friction": 0.5,
+        "collisionGroups": 1
+      },
+      "box_physics": {
+        "type": "dynamic",
+        "collisionShape": "box",
+        "mass": 1,
+        "restitution": 0.7,
+        "friction": 0.5,
+        "collisionGroups": 1
+      }
+    }
+  },
   "texts": [],
   "cameras": [
     {
