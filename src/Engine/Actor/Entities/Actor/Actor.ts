@@ -1,10 +1,9 @@
 import type { Subscription } from 'rxjs';
 import { distinctUntilChanged } from 'rxjs';
-import { ActorDrive } from 'src/Engine/Actor/Drive';
 import type { Vector3 } from 'three';
 
 import { AbstractEntity, EntityType } from '@/Engine/Abstract';
-import { DriveToModel3dConnector } from '@/Engine/Actor/Drive';
+import { ActorDrive, DriveToModel3dConnector } from '@/Engine/Actor/Drive';
 import type { TActor, TActorDependencies, TActorDriveMixin, TActorEntities, TActorParams, TDriveToModel3dConnector } from '@/Engine/Actor/Models';
 import { applySpatialGrid, startCollisions } from '@/Engine/Actor/Utils';
 import { withCollisions } from '@/Engine/Collisions';
