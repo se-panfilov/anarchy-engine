@@ -54,7 +54,7 @@ const spacesData: ReadonlyArray<TSpacesData> = [
       const model3d: TModel3d | undefined = space.services.models3dService.getRegistry().findByName('fox_glb_config_original');
       if (isNotDefined(model3d)) throw new Error(`[Showcase]: Model3d is not found`);
       // eslint-disable-next-line functional/immutable-data
-      model3d.getRawModel3d().position.x += 10;
+      model3d.getRawModel3d().position.x += 5;
       // eslint-disable-next-line functional/immutable-data
       model3d.getRawModel3d().rotation.y = 1.57;
     },

@@ -12,7 +12,7 @@ test.beforeEach(async ({ page }) => {
   await page.goto(GAME_URL);
 });
 
-const scenes = ['SpaceBasic', 'SpaceCustomModels'];
+const scenes: ReadonlyArray<string> = ['SpaceBasic', 'SpaceCustomModels'];
 
 test.describe('Space save/load persistence', () => {
   const thresholds = {
