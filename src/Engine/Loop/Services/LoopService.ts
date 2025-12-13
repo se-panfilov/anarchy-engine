@@ -13,7 +13,6 @@ import { destroyableMixin } from '@/Engine/Mixins';
 import type { TMouseLoop } from '@/Engine/Mouse';
 import type { TPhysicalLoop } from '@/Engine/Physics';
 import type { TRenderLoop } from '@/Engine/Space';
-import type { SpaceLoopNames } from '@/Engine/Space/Constants';
 import type { TSpatialLoop } from '@/Engine/Spatial';
 import type { TTextLoop } from '@/Engine/Text';
 import type { TTransformLoop } from '@/Engine/TransformDrive';
@@ -32,7 +31,7 @@ export function LoopService(factory: TLoopFactory, registry: TLoopRegistry): TLo
     factorySub$.unsubscribe();
   });
 
-  function getLoop(name: string | SpaceLoopNames | undefined, type: LoopType): TLoop | never {
+  function getLoop(name: string | undefined, type: LoopType): TLoop | never {
     const searchName: string = name ?? getMainLoopNameByType(type);
     const loop: TLoop | undefined = registry.find((loop: TLoop): boolean => loop.name === searchName);
     // If no name is provided, return the main loop
