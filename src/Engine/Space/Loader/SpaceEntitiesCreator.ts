@@ -44,8 +44,7 @@ export function createEntities(entities: TSpaceConfigEntities, services: TSpaceS
   fogService.createFromConfig(fogs);
   spatialGridService.createFromConfig(spatialGrids);
 
-  // TODO 9.0.0. RESOURCES: a wrong place for this: particles should load textures async in resource loader and do the sync part here
-  particlesService.createFromConfigAsync(particles);
+  particlesService.createFromConfig(particles);
 
   intersectionsWatcherService.createFromConfig(intersections, mouseService, cameraService, actorService);
 

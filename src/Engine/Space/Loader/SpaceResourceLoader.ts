@@ -6,13 +6,14 @@ export async function loadResources(resources: TSpaceConfigResources, { models3d
 
   //no need to wait for a loading here
   const envMapTexturePromise: Promise<ReadonlyArray<TEnvMapTexture>> = envMapService.loadFromConfigAsync(envMapTextures);
-  // TODO CWP!!!
-  // TODO 9.0.0. RESOURCES: Particles should be refactored to be sync (they uses materials with textures)
 
   // textures should be loaded before materials
   await textureService.loadFromConfigAsync(textures);
   //materials and textures should be fully loaded before models
   materialService.createFromConfig(materials);
 
+  // TODO CWP!!!
+  // TODO 9.0.0. RESOURCES: Fix models3d loading (here resources loading only)
+  //  Use materials which are already loaded when it's needed)
   await Promise.all([models3dService.loadFromConfigAsync(models3d), envMapTexturePromise]);
 }

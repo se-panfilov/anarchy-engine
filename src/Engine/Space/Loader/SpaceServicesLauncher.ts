@@ -34,7 +34,6 @@ import { SpatialGridFactory, SpatialGridRegistry, SpatialGridService, SpatialLoo
 import { Text2dRegistry, Text2dRendererRegistry, Text3dRegistry, Text3dRendererRegistry, TextFactory, TextService } from '@/Engine/Text';
 import type { TTextureService } from '@/Engine/Texture';
 import { TextureService } from '@/Engine/Texture';
-import { TextureFactory } from '@/Engine/Texture/Factories';
 import { TextureAsyncRegistry } from '@/Engine/Texture/Registries/TextureAsyncRegistry';
 import { isNotDefined } from '@/Engine/Utils';
 
@@ -47,7 +46,7 @@ export function initSceneService(): TScenesService {
 
 export function initEntitiesServices(sceneW: TSceneWrapper, canvas: TAppCanvas): Omit<TSpaceServices, 'scenesService'> {
   const materialService: TMaterialService = MaterialService(MaterialFactory(), MaterialRegistry());
-  const textureService: TTextureService = TextureService(TextureFactory(), TextureAsyncRegistry());
+  const textureService: TTextureService = TextureService(TextureAsyncRegistry());
   const materialTextureService: TMaterialTextureService = MaterialTextureService(materialService, { textureService });
   const physicsPresetService: TPhysicsPresetsService = PhysicsPresetsService(PhysicsPresetRegistry());
   const physicsWorldService: TPhysicsWorldService = PhysicsWorldService(sceneW);
