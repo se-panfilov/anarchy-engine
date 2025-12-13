@@ -8,7 +8,6 @@ export * from './ObjectUtils';
 export * from './RegistryAsyncUtils';
 export * from './RegistryUtils';
 export * from './RotationUtils';
-export * from './SchemasUtils';
 export * from './StringUtils';
 export * from './TypesUtils';
 export * from './WebGLUtils';

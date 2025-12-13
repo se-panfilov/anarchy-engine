@@ -6,14 +6,13 @@ import type { TWithName, TWithReadonlyTags } from '@/Engine/Mixins';
 import type { TSceneConfig } from '@/Engine/Scene';
 import type { TSpaceConfig } from '@/Engine/Space';
 import TSpaceConfigSchema from '@/Engine/Space/Schemas/TSpaceConfig.json';
-
-import { isDefined } from './CheckUtils';
+import { isDefined } from '@/Engine/Utils';
 
 const ajv: Ajv = new Ajv();
 
 type TSchemaValidationResult = Readonly<{ isValid: boolean; errors: ReadonlyArray<any> | null | undefined }>;
 
-export function validLevelConfig(config: TSpaceConfig): TSchemaValidationResult {
+export function validSpaceConfig(config: TSpaceConfig): TSchemaValidationResult {
   const jsonResult = validateJsonSchema(config);
   const dataResult = validateData(config);
   const jsonErrors: ReadonlyArray<any> = jsonResult.errors ?? [];

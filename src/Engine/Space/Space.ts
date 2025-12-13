@@ -11,14 +11,15 @@ import type { TScenesService, TSceneWrapper } from '@/Engine/Scene';
 import { screenService } from '@/Engine/Services';
 import { withBuiltMixin } from '@/Engine/Space/Mixins';
 import type { TSpace, TSpaceConfig, TSpaceServices, TWithBuilt } from '@/Engine/Space/Models';
-import { initServices } from '@/Engine/Space/SpaceHelpers';
-import { isDefined, isDestroyable, isNotDefined, validLevelConfig } from '@/Engine/Utils';
+import { initServices } from '@/Engine/Space/Utils';
+import { validSpaceConfig } from '@/Engine/Space/Validators';
+import { isDefined, isDestroyable, isNotDefined } from '@/Engine/Utils';
 
 // TODO (S.Panfilov) SPACE: we need a space service, and factory, to create from config, and to create from the code.
 
 // TODO (S.Panfilov) LOGGER: add a logger globally (not only for errors, but I'd like to know, which service with which id did what).
 export function buildSpaceFromConfig(canvas: TAppCanvas, config: TSpaceConfig): TSpace {
-  const { isValid, errors } = validLevelConfig(config);
+  const { isValid, errors } = validSpaceConfig(config);
   if (!isValid) {
     // TODO (S.Panfilov) LOGGER: should be forwarded to the errors hub (which is not implemented yet)
     console.error(errors);
