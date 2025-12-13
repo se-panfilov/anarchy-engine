@@ -111,7 +111,8 @@ export function showcase(canvas: TAppCanvas): TShowcase {
       // TODO this should be updated only if coords or angle are changed
       if (isDefined(mouseLineIntersections.point)) {
         const heroCoords: TWithCoordsXYZ = heroW.getPosition().getCoords();
-        fromHeroAngles = get3DAzimuthRad(heroCoords, mouseLineIntersections.point);
+        const azimuth3d = get3DAzimuthRad(heroCoords, mouseLineIntersections.point);
+        fromHeroAngles = { ...azimuth3d, elevation: azimuth3d.elevation >= 0 ? azimuth3d.elevation : 0 };
         // TODO could make some use of mouseLineIntersectionsWatcher.latest$ instead of mouseLineIntersections
         line.geometry.setPositions([heroCoords.x, heroCoords.y, heroCoords.z, mouseLineIntersections.point.x, mouseLineIntersections.point.y, mouseLineIntersections.point.z]);
         line.computeLineDistances();
