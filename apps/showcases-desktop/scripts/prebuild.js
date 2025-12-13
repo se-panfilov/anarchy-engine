@@ -28,7 +28,7 @@ console.log(`[prebuild] mode: ${mode}`);
 
 // 0) Build showcases-core for desktop first (needed for assets copied by Vite static copy)
 const coreDir = path.resolve(process.cwd(), '../showcases-core');
-const coreMode = normalizeMode(mode) === 'development' ? 'dev' : 'production';
+const coreMode = normalizeMode(mode) === 'development' ? 'dev' : 'prod';
 const coreScript = `build:${coreMode}:desktop`;
 run(`npm run ${coreScript}`, { cwd: coreDir });
 

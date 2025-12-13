@@ -36,7 +36,7 @@ Args:
   --dist-name [name]      Sentry "dist" value (e.g., "darwin-arm64", "win32-x64", "web"). Also read from <VITE_DIST_NAME> or dist-info.json.
   --sentry-dist [name]    Alias of --dist-name.
   --mode [name]           Build mode (e.g., production).
-  --no-dev-guard          Disable protection that blocks upload when mode != "production".
+  --no-dev-guard          Disable protection that blocks upload when mode != "production" || mode !== "prod.
   --no-detect-base        Do not read Vite "base"; always use "~/" when --url-prefix is not provided.
   --dry-run               Print planned commands instead of executing.
   -h, --help              Show this help.
@@ -178,8 +178,8 @@ function runSentryCli(args, env, dryRun) {
 
   // Dev-guard (default ON)
   if (argv.devGuard) {
-    if (!mode.startsWith('production')) {
-      console.error(`DEV-GUARD: mode="${mode || '(empty)'}" is not "production". Use --mode production or --no-dev-guard to bypass.`);
+    if (!mode.startsWith('prod')) {
+      console.error(`DEV-GUARD: mode="${mode || '(empty)'}" is not "production" or "prod". Use --mode production or --no-dev-guard to bypass.`);
       process.exit(2);
     }
     const maps = ensureMapsExist(distAbs);
