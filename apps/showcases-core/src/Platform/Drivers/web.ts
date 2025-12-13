@@ -16,7 +16,7 @@ export function Driver(): TPlatformDriver {
 
   const getNodeVersion = (): string => 'N/A';
 
-  const getPlatformVersion = (): string => 'N/A';
+  const getPlatformVersion = (): string => import.meta.env.__APP_VERSION__;
 
   const getWrappedAppVersion = (): Promise<string> => Promise.resolve('N/A');
 
