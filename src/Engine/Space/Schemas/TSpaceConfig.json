@@ -63,13 +63,13 @@
           "type": "number"
         },
         "rotation": {
-          "$ref": "#/definitions/TWithCoordsXYZ"
+          "$ref": "#/definitions/Vector3Like"
         },
         "scale": {
-          "$ref": "#/definitions/TWithCoordsXYZ"
+          "$ref": "#/definitions/Vector3Like"
         },
         "position": {
-          "$ref": "#/definitions/TWithCoordsXYZ"
+          "$ref": "#/definitions/Vector3Like"
         },
         "background": {
           "type": "string"
@@ -83,21 +83,21 @@
       },
       "required": ["isActive"]
     },
-    "TWithCoordsXYZ": {
+    "Vector3Like": {
       "type": "object",
-      "additionalProperties": false,
       "properties": {
-        "z": {
+        "x": {
           "type": "number"
         },
         "y": {
           "type": "number"
         },
-        "x": {
+        "z": {
           "type": "number"
         }
       },
-      "required": ["x", "y", "z"]
+      "required": ["x", "y", "z"],
+      "additionalProperties": false
     },
     "TSpaceConfigEntities": {
       "type": "object",
@@ -211,13 +211,13 @@
       "additionalProperties": false,
       "properties": {
         "position": {
-          "$ref": "#/definitions/TWithCoordsXYZ"
+          "$ref": "#/definitions/Vector3Like"
         },
         "rotation": {
-          "$ref": "#/definitions/TWithCoordsXYZ"
+          "$ref": "#/definitions/Vector3Like"
         },
         "scale": {
-          "$ref": "#/definitions/TWithCoordsXYZ"
+          "$ref": "#/definitions/Vector3Like"
         },
         "model3dSource": {
           "type": "string"
@@ -269,10 +269,10 @@
           "$ref": "#/definitions/RigidBodyTypesNames"
         },
         "position": {
-          "$ref": "#/definitions/TWithCoordsXYZ"
+          "$ref": "#/definitions/Vector3Like"
         },
         "rotation": {
-          "$ref": "#/definitions/TWithCoordsXYZW"
+          "$ref": "#/definitions/QuaternionLike"
         },
         "collisionShape": {
           "$ref": "#/definitions/CollisionShape"
@@ -307,24 +307,24 @@
       "type": "string",
       "enum": ["dynamic", "fixed", "kinematicPositionBased", "kinematicVelocityBased"]
     },
-    "TWithCoordsXYZW": {
+    "QuaternionLike": {
       "type": "object",
-      "additionalProperties": false,
       "properties": {
-        "w": {
-          "type": "number"
-        },
-        "z": {
+        "x": {
           "type": "number"
         },
         "y": {
           "type": "number"
         },
-        "x": {
+        "z": {
+          "type": "number"
+        },
+        "w": {
           "type": "number"
         }
       },
-      "required": ["w", "x", "y", "z"]
+      "required": ["x", "y", "z", "w"],
+      "additionalProperties": false
     },
     "CollisionShape": {
       "type": "string",
@@ -1118,13 +1118,13 @@
           "type": "number"
         },
         "position": {
-          "$ref": "#/definitions/TWithCoordsXYZ"
+          "$ref": "#/definitions/Vector3Like"
         },
         "rotation": {
-          "$ref": "#/definitions/TWithCoordsXYZ"
+          "$ref": "#/definitions/Vector3Like"
         },
         "scale": {
-          "$ref": "#/definitions/TWithCoordsXYZ"
+          "$ref": "#/definitions/Vector3Like"
         },
         "visible": {
           "type": "boolean"
@@ -1142,7 +1142,7 @@
           "type": "number"
         },
         "lookAt": {
-          "$ref": "#/definitions/TWithCoordsXYZ"
+          "$ref": "#/definitions/Vector3Like"
         },
         "fov": {
           "type": "number"
@@ -1254,13 +1254,13 @@
           "type": "number"
         },
         "position": {
-          "$ref": "#/definitions/TWithCoordsXYZ"
+          "$ref": "#/definitions/Vector3Like"
         },
         "rotation": {
-          "$ref": "#/definitions/TWithCoordsXYZ"
+          "$ref": "#/definitions/Vector3Like"
         },
         "scale": {
-          "$ref": "#/definitions/TWithCoordsXYZ"
+          "$ref": "#/definitions/Vector3Like"
         },
         "visible": {
           "type": "boolean"
@@ -1303,7 +1303,7 @@
       "additionalProperties": false,
       "properties": {
         "mapSize": {
-          "$ref": "#/definitions/TWithCoordsXY"
+          "$ref": "#/definitions/Vector2Like"
         },
         "camera": {
           "type": "object",
@@ -1323,18 +1323,18 @@
       },
       "required": ["camera", "mapSize", "normalBias"]
     },
-    "TWithCoordsXY": {
+    "Vector2Like": {
       "type": "object",
-      "additionalProperties": false,
       "properties": {
-        "y": {
+        "x": {
           "type": "number"
         },
-        "x": {
+        "y": {
           "type": "number"
         }
       },
-      "required": ["x", "y"]
+      "required": ["x", "y"],
+      "additionalProperties": false
     },
     "LightType": {
       "type": "string",
@@ -1384,13 +1384,13 @@
           "type": "number"
         },
         "position": {
-          "$ref": "#/definitions/TWithCoordsXYZ"
+          "$ref": "#/definitions/Vector3Like"
         },
         "rotation": {
-          "$ref": "#/definitions/TWithCoordsXYZ"
+          "$ref": "#/definitions/Vector3Like"
         },
         "scale": {
-          "$ref": "#/definitions/TWithCoordsXYZ"
+          "$ref": "#/definitions/Vector3Like"
         },
         "tags": {
           "type": "array",
@@ -1415,13 +1415,13 @@
           "type": "number"
         },
         "position": {
-          "$ref": "#/definitions/TWithCoordsXYZ"
+          "$ref": "#/definitions/Vector3Like"
         },
         "rotation": {
-          "$ref": "#/definitions/TWithCoordsXYZ"
+          "$ref": "#/definitions/Vector3Like"
         },
         "scale": {
-          "$ref": "#/definitions/TWithCoordsXYZ"
+          "$ref": "#/definitions/Vector3Like"
         },
         "visible": {
           "type": "boolean"
@@ -1464,7 +1464,7 @@
       "additionalProperties": false,
       "properties": {
         "mapSize": {
-          "$ref": "#/definitions/TWithCoordsXY"
+          "$ref": "#/definitions/Vector2Like"
         },
         "camera": {
           "type": "object",
@@ -1513,13 +1513,13 @@
           "type": "number"
         },
         "position": {
-          "$ref": "#/definitions/TWithCoordsXYZ"
+          "$ref": "#/definitions/Vector3Like"
         },
         "rotation": {
-          "$ref": "#/definitions/TWithCoordsXYZ"
+          "$ref": "#/definitions/Vector3Like"
         },
         "scale": {
-          "$ref": "#/definitions/TWithCoordsXYZ"
+          "$ref": "#/definitions/Vector3Like"
         },
         "visible": {
           "type": "boolean"
@@ -1580,13 +1580,13 @@
           "type": "number"
         },
         "position": {
-          "$ref": "#/definitions/TWithCoordsXYZ"
+          "$ref": "#/definitions/Vector3Like"
         },
         "rotation": {
-          "$ref": "#/definitions/TWithCoordsXYZ"
+          "$ref": "#/definitions/Vector3Like"
         },
         "scale": {
-          "$ref": "#/definitions/TWithCoordsXYZ"
+          "$ref": "#/definitions/Vector3Like"
         },
         "visible": {
           "type": "boolean"
@@ -1647,13 +1647,13 @@
           "type": "number"
         },
         "position": {
-          "$ref": "#/definitions/TWithCoordsXYZ"
+          "$ref": "#/definitions/Vector3Like"
         },
         "rotation": {
-          "$ref": "#/definitions/TWithCoordsXYZ"
+          "$ref": "#/definitions/Vector3Like"
         },
         "scale": {
-          "$ref": "#/definitions/TWithCoordsXYZ"
+          "$ref": "#/definitions/Vector3Like"
         },
         "visible": {
           "type": "boolean"
@@ -1708,13 +1708,13 @@
       "additionalProperties": false,
       "properties": {
         "position": {
-          "$ref": "#/definitions/TWithCoordsXYZ"
+          "$ref": "#/definitions/Vector3Like"
         },
         "scale": {
-          "$ref": "#/definitions/TWithCoordsXYZ"
+          "$ref": "#/definitions/Vector3Like"
         },
         "rotation": {
-          "$ref": "#/definitions/TWithCoordsXYZ"
+          "$ref": "#/definitions/Vector3Like"
         },
         "options": {
           "$ref": "#/definitions/TModel3dOptions"
@@ -1834,13 +1834,13 @@
           "type": "number"
         },
         "position": {
-          "$ref": "#/definitions/TWithCoordsXYZ"
+          "$ref": "#/definitions/Vector3Like"
         },
         "rotation": {
-          "$ref": "#/definitions/TWithCoordsXYZ"
+          "$ref": "#/definitions/Vector3Like"
         },
         "scale": {
-          "$ref": "#/definitions/TWithCoordsXYZ"
+          "$ref": "#/definitions/Vector3Like"
         },
         "visible": {
           "type": "boolean"
@@ -1892,7 +1892,7 @@
       "additionalProperties": false,
       "properties": {
         "gravity": {
-          "$ref": "#/definitions/TWithCoordsXYZ"
+          "$ref": "#/definitions/Vector3Like"
         },
         "rawIntegrationParameters": {
           "$ref": "#/definitions/RawIntegrationParameters"
@@ -2047,10 +2047,10 @@
           "$ref": "#/definitions/RigidBodyTypesNames"
         },
         "position": {
-          "$ref": "#/definitions/TWithCoordsXYZ"
+          "$ref": "#/definitions/Vector3Like"
         },
         "rotation": {
-          "$ref": "#/definitions/TWithCoordsXYZW"
+          "$ref": "#/definitions/QuaternionLike"
         },
         "collisionShape": {
           "$ref": "#/definitions/CollisionShape"
@@ -2120,13 +2120,13 @@
           "type": "number"
         },
         "position": {
-          "$ref": "#/definitions/TWithCoordsXYZ"
+          "$ref": "#/definitions/Vector3Like"
         },
         "rotation": {
-          "$ref": "#/definitions/TWithCoordsXYZ"
+          "$ref": "#/definitions/Vector3Like"
         },
         "scale": {
-          "$ref": "#/definitions/TWithCoordsXYZ"
+          "$ref": "#/definitions/Vector3Like"
         },
         "visible": {
           "type": "boolean"
@@ -2144,7 +2144,7 @@
           "type": "number"
         },
         "center": {
-          "$ref": "#/definitions/TWithCoordsXY"
+          "$ref": "#/definitions/Vector2Like"
         },
         "kinematic": {
           "$ref": "#/definitions/TKinematicDataConfig"
@@ -3655,10 +3655,10 @@
           "type": "string"
         },
         "target": {
-          "$ref": "#/definitions/TWithCoordsXYZ"
+          "$ref": "#/definitions/Vector3Like"
         },
         "cursor": {
-          "$ref": "#/definitions/TWithCoordsXYZ"
+          "$ref": "#/definitions/Vector3Like"
         },
         "enabled": {
           "type": "boolean"
