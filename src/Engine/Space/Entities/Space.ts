@@ -14,14 +14,14 @@ import { CreateEntitiesStrategy } from '@/Engine/Space/Constants';
 import type { TSpace, TSpaceBaseServices, TSpaceCanvas, TSpaceHooks, TSpaceLoops, TSpaceParams, TSpaceParts, TSpaceServices } from '@/Engine/Space/Models';
 import { buildBaseServices, buildEntitiesServices, createEntities } from '@/Engine/Space/Utils';
 import { createLoops } from '@/Engine/Space/Utils/CreateLoopsUtils';
-import { findDomElement, findOrCreateCanvas, isCanvasElement, isDefined, isDestroyable, isNotDefined } from '@/Engine/Utils';
+import { findDomElement, getOrCreateCanvasFromSelector, isCanvasElement, isDefined, isDestroyable, isNotDefined } from '@/Engine/Utils';
 
 export function Space(params: TSpaceParams, hooks?: TSpaceHooks): TSpace {
   const { canvasId, version, name, tags } = params;
   const built$: BehaviorSubject<TSpace | undefined> = new BehaviorSubject<TSpace | undefined>(undefined);
   const start$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
-  const canvas: TSpaceCanvas = findOrCreateCanvas(canvasId);
+  const canvas: TSpaceCanvas = getOrCreateCanvasFromSelector(canvasId);
 
   const { services, loops } = initSpaceServices(canvas, params);
   hooks?.afterAllServicesInitialized?.(canvas, services, loops, params);

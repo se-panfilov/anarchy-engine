@@ -3,13 +3,23 @@ import { combineLatest } from 'rxjs';
 import { Clock } from 'three';
 
 import type { TActor, TActorRegistry, TActorService, TMilliseconds, TSpace, TSpaceConfig, TTransformLoop } from '@/Engine';
-import { asRecord, isDefined, isNotDefined, spaceService } from '@/Engine';
+import { asRecord, findDomElement, isDefined, isNotDefined, spaceService } from '@/Engine';
 
 import spaceAlphaConfigJson from './spaceAlpha.json';
 import spaceBetaConfigJson from './spaceBeta.json';
 
 const spaceAlphaConfig: TSpaceConfig = spaceAlphaConfigJson as TSpaceConfig;
 const spaceBetaConfig: TSpaceConfig = spaceBetaConfigJson as TSpaceConfig;
+
+function addStylesToDivs(): void {
+  const leftContainer: HTMLElement | null = findDomElement('#left_container');
+  const rightContainer: HTMLElement | null = findDomElement('#right_container');
+
+  // eslint-disable-next-line functional/immutable-data
+  if (isDefined(leftContainer)) leftContainer.style = 'position: fixed; left: 0; right: 50%; top: 0; outline: none;';
+  // eslint-disable-next-line functional/immutable-data
+  if (isDefined(rightContainer)) rightContainer.style = 'position: fixed; left: 50%; right: 0; top: 0; outline: none;';
+}
 
 export function start(): void {
   const spaces: Record<string, TSpace> = asRecord('name', spaceService.createFromConfig([spaceAlphaConfig, spaceBetaConfig]));
@@ -34,6 +44,7 @@ export function start(): void {
 let currentSpaceId: string | undefined = undefined;
 
 export function showcase(space: TSpace): void {
+  addStylesToDivs();
   switch (space.name) {
     case spaceAlphaConfig.name:
       runAlpha(space);

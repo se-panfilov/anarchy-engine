@@ -14,6 +14,8 @@ import { genericEntityCleanUp, isDefined } from '@/Engine/Utils';
 // TODO 14-0-0: Test partial destroy of entities
 // TODO 14-0-0: Implement whole scene destroy (reload the page or destroy the canvas or smth)
 // TODO 14-0-0: Start implementing Multiple scenes support (14.x.x) (maybe with an url param?)
+// TODO 14-0-0: Rename canvasId -> canvasSelector
+// TODO 14-0-0: Validate canvasSelector strings (only allowed characters)
 
 export function AbstractEntity<T extends Record<string, any>, P extends TEntityParams>(entities: T, type: EntityType | string, params?: P): TEntity<T> {
   const id: string = isDefined(params?.id) ? params.id : type + '_' + nanoid();

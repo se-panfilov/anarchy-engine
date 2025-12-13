@@ -1,5 +1,5 @@
 {
-  "canvasId": "#app_beta",
+  "canvasId": "#right_container > #app_beta",
   "entities": {
     "actors": [
       {
