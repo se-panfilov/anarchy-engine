@@ -2,15 +2,18 @@
 
 ## Application: showcases-core
 
-Production dependencies (including transition dependencies): 73
+Production dependencies (including transition dependencies): 72
 
 ---
 
 ## @babel/helper-string-parser@7.27.1
 
 **License:** MIT
+
 **Repository:** https://github.com/babel/babel.git
+
 **URL:** https://babel.dev/docs/en/next/babel-helper-string-parser
+
 **Publisher:** The Babel Team (https://babel.dev/team)
 
 MIT License
@@ -41,7 +44,9 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 ## @babel/helper-validator-identifier@7.27.1
 
 **License:** MIT
+
 **Repository:** https://github.com/babel/babel.git
+
 **Publisher:** The Babel Team (https://babel.dev/team)
 
 MIT License
@@ -72,8 +77,11 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 ## @babel/parser@7.28.3
 
 **License:** MIT
+
 **Repository:** https://github.com/babel/babel.git
+
 **URL:** https://babel.dev/docs/en/next/babel-parser
+
 **Publisher:** The Babel Team (https://babel.dev/team)
 
 Copyright (C) 2012-2014 by various contributors (see AUTHORS)
@@ -101,8 +109,11 @@ THE SOFTWARE.
 ## @babel/types@7.28.2
 
 **License:** MIT
+
 **Repository:** https://github.com/babel/babel.git
+
 **URL:** https://babel.dev/docs/en/next/babel-types
+
 **Publisher:** The Babel Team (https://babel.dev/team)
 
 MIT License
@@ -133,7 +144,9 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 ## @dimforge/rapier3d@0.17.3
 
 **License:** Apache-2.0
+
 **Repository:** https://github.com/dimforge/rapier.js
+
 **URL:** https://rapier.rs
 
 Apache License
@@ -343,8 +356,11 @@ limitations under the License.
 ## @formatjs/ecma402-abstract@2.3.4
 
 **License:** MIT
+
 **Repository:** git@github.com:formatjs/formatjs.git
+
 **URL:** https://github.com/formatjs/formatjs
+
 **Publisher:** Long Ho <holevietlong@gmail.com
 
 MIT License
@@ -362,8 +378,11 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 ## @formatjs/fast-memoize@2.2.7
 
 **License:** MIT
+
 **Repository:** formatjs/formatjs.git
+
 **URL:** https://github.com/formatjs/formatjs#readme
+
 **Publisher:** Long Ho <holevietlong@gmail.com>
 
 MIT License
@@ -381,6 +400,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 ## @formatjs/icu-messageformat-parser@2.11.2
 
 **License:** MIT
+
 **Repository:** https://github.com/formatjs/formatjs.git
 
 MIT License
@@ -398,6 +418,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 ## @formatjs/icu-skeleton-parser@1.8.14
 
 **License:** MIT
+
 **Repository:** https://github.com/formatjs/formatjs.git
 
 MIT License
@@ -415,8 +436,11 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 ## @formatjs/intl@3.1.6
 
 **License:** MIT
+
 **Repository:** git@github.com:formatjs/formatjs.git
+
 **URL:** https://formatjs.github.io
+
 **Publisher:** Long Ho <holevietlong@gmail.com>
 
 MIT License
@@ -434,8 +458,11 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 ## @formatjs/intl-localematcher@0.6.1
 
 **License:** MIT
+
 **Repository:** formatjs/formatjs.git
+
 **URL:** https://github.com/formatjs/formatjs#readme
+
 **Publisher:** Long Ho <holevietlong@gmail.com>
 
 MIT License
@@ -453,8 +480,11 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 ## @jridgewell/sourcemap-codec@1.5.5
 
 **License:** MIT
+
 **Repository:** git+https://github.com/jridgewell/sourcemaps.git
+
 **URL:** https://github.com/jridgewell/sourcemaps/tree/main/packages/sourcemap-codec
+
 **Publisher:** Justin Ridgewell <justin@ridgewell.name>
 
 Copyright 2024 Justin Ridgewell <justin@ridgewell.name>
@@ -482,7 +512,9 @@ SOFTWARE.
 ## @rwh/keystrokes@1.5.6
 
 **License:** MIT
+
 **Repository:** github:RobertWHurst/Keystrokes
+
 **Publisher:** Robert Hurst <robertwhurst@gmail.com>
 
 MIT License
@@ -512,8 +544,11 @@ SOFTWARE.
 ## @vue/compiler-core@3.5.18
 
 **License:** MIT
+
 **Repository:** git+https://github.com/vuejs/core.git
+
 **URL:** https://github.com/vuejs/core/tree/main/packages/compiler-core#readme
+
 **Publisher:** Evan You
 
 The MIT License (MIT)
@@ -543,8 +578,11 @@ THE SOFTWARE.
 ## @vue/compiler-dom@3.5.18
 
 **License:** MIT
+
 **Repository:** git+https://github.com/vuejs/core.git
+
 **URL:** https://github.com/vuejs/core/tree/main/packages/compiler-dom#readme
+
 **Publisher:** Evan You
 
 The MIT License (MIT)
@@ -574,8 +612,11 @@ THE SOFTWARE.
 ## @vue/compiler-sfc@3.5.18
 
 **License:** MIT
+
 **Repository:** git+https://github.com/vuejs/core.git
+
 **URL:** https://github.com/vuejs/core/tree/main/packages/compiler-sfc#readme
+
 **Publisher:** Evan You
 
 The MIT License (MIT)
@@ -605,8 +646,11 @@ THE SOFTWARE.
 ## @vue/compiler-ssr@3.5.18
 
 **License:** MIT
+
 **Repository:** git+https://github.com/vuejs/core.git
+
 **URL:** https://github.com/vuejs/core/tree/main/packages/compiler-ssr#readme
+
 **Publisher:** Evan You
 
 The MIT License (MIT)
@@ -636,7 +680,9 @@ THE SOFTWARE.
 ## @vue/devtools-api@7.7.7
 
 **License:** MIT
+
 **Repository:** git+https://github.com/vuejs/devtools.git
+
 **Publisher:** webfansplz
 
 MIT License
@@ -666,7 +712,9 @@ SOFTWARE.
 ## @vue/devtools-kit@7.7.7
 
 **License:** MIT
+
 **Repository:** git+https://github.com/vuejs/devtools.git
+
 **Publisher:** webfansplz
 
 MIT License
@@ -696,7 +744,9 @@ SOFTWARE.
 ## @vue/devtools-shared@7.7.7
 
 **License:** MIT
+
 **Repository:** git+https://github.com/vuejs/devtools.git
+
 **Publisher:** webfansplz
 
 MIT License
@@ -726,8 +776,11 @@ SOFTWARE.
 ## @vue/reactivity@3.5.18
 
 **License:** MIT
+
 **Repository:** git+https://github.com/vuejs/core.git
+
 **URL:** https://github.com/vuejs/core/tree/main/packages/reactivity#readme
+
 **Publisher:** Evan You
 
 The MIT License (MIT)
@@ -757,8 +810,11 @@ THE SOFTWARE.
 ## @vue/runtime-core@3.5.18
 
 **License:** MIT
+
 **Repository:** git+https://github.com/vuejs/core.git
+
 **URL:** https://github.com/vuejs/core/tree/main/packages/runtime-core#readme
+
 **Publisher:** Evan You
 
 The MIT License (MIT)
@@ -788,8 +844,11 @@ THE SOFTWARE.
 ## @vue/runtime-dom@3.5.18
 
 **License:** MIT
+
 **Repository:** git+https://github.com/vuejs/core.git
+
 **URL:** https://github.com/vuejs/core/tree/main/packages/runtime-dom#readme
+
 **Publisher:** Evan You
 
 The MIT License (MIT)
@@ -819,8 +878,11 @@ THE SOFTWARE.
 ## @vue/server-renderer@3.5.18
 
 **License:** MIT
+
 **Repository:** git+https://github.com/vuejs/core.git
+
 **URL:** https://github.com/vuejs/core/tree/main/packages/server-renderer#readme
+
 **Publisher:** Evan You
 
 The MIT License (MIT)
@@ -850,8 +912,11 @@ THE SOFTWARE.
 ## @vue/shared@3.5.18
 
 **License:** MIT
+
 **Repository:** git+https://github.com/vuejs/core.git
+
 **URL:** https://github.com/vuejs/core/tree/main/packages/shared#readme
+
 **Publisher:** Evan You
 
 The MIT License (MIT)
@@ -881,8 +946,11 @@ THE SOFTWARE.
 ## ajv@8.17.1
 
 **License:** MIT
+
 **Repository:** ajv-validator/ajv
+
 **URL:** https://ajv.js.org
+
 **Publisher:** Evgeny Poberezkin
 
 The MIT License (MIT)
@@ -912,6 +980,7 @@ SOFTWARE.
 ## anarchy-engine@20.3.1
 
 **License:** MIT
+
 **Publisher:** S. Panfilov
 
 MIT License
@@ -941,6 +1010,7 @@ SOFTWARE.
 ## anarchy-i18n@1.1.0
 
 **License:** MIT
+
 **Publisher:** S. Panfilov
 
 MIT License
@@ -970,6 +1040,7 @@ SOFTWARE.
 ## anarchy-shared@1.1.0
 
 **License:** MIT
+
 **Publisher:** S. Panfilov
 
 MIT License
@@ -999,8 +1070,11 @@ SOFTWARE.
 ## birpc@2.5.0
 
 **License:** MIT
+
 **Repository:** git+https://github.com/antfu/birpc.git
+
 **URL:** https://github.com/antfu/birpc#readme
+
 **Publisher:** Anthony Fu <anthonyfu117@hotmail.com>
 
 MIT License
@@ -1030,8 +1104,11 @@ SOFTWARE.
 ## copy-anything@3.0.5
 
 **License:** MIT
+
 **Repository:** git+https://github.com/mesqueeb/copy-anything.git
+
 **URL:** https://github.com/mesqueeb/copy-anything#readme
+
 **Publisher:** Luca Ban - Mesqueeb
 
 MIT License
@@ -1061,7 +1138,9 @@ SOFTWARE.
 ## csstype@3.1.3
 
 **License:** MIT
+
 **Repository:** https://github.com/frenic/csstype
+
 **Publisher:** Fredrik Nicol <fredrik.nicol@gmail.com>
 
 Copyright (c) 2017-2018 Fredrik Nicol
@@ -1089,6 +1168,7 @@ SOFTWARE.
 ## date-fns@4.1.0
 
 **License:** MIT
+
 **Repository:** https://github.com/date-fns/date-fns
 
 MIT License
@@ -1118,7 +1198,9 @@ SOFTWARE.
 ## decimal.js@10.6.0
 
 **License:** MIT
+
 **Repository:** https://github.com/MikeMcl/decimal.js.git
+
 **Publisher:** Michael Mclaughlin <M8ch88l@gmail.com>
 
 The MIT Licence.
@@ -1149,7 +1231,9 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 ## entities@4.5.0
 
 **License:** BSD-2-Clause
+
 **Repository:** git://github.com/fb55/entities.git
+
 **Publisher:** Felix Boehm <me@feedic.com>
 
 Copyright (c) Felix Böhm
@@ -1169,7 +1253,9 @@ EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ## estree-walker@2.0.2
 
 **License:** MIT
+
 **Repository:** https://github.com/Rich-Harris/estree-walker
+
 **Publisher:** Rich Harris
 
 Copyright (c) 2015-20 [these people](https://github.com/Rich-Harris/estree-walker/graphs/contributors)
@@ -1185,8 +1271,11 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 ## fast-deep-equal@3.1.3
 
 **License:** MIT
+
 **Repository:** git+https://github.com/epoberezkin/fast-deep-equal.git
+
 **URL:** https://github.com/epoberezkin/fast-deep-equal#readme
+
 **Publisher:** Evgeny Poberezkin
 
 MIT License
@@ -1216,8 +1305,11 @@ SOFTWARE.
 ## fast-uri@3.0.6
 
 **License:** BSD-3-Clause
+
 **Repository:** git+https://github.com/fastify/fast-uri.git
+
 **URL:** https://github.com/fastify/fast-uri
+
 **Publisher:** Vincent Le Goff <vince.legoff@gmail.com> (https://github.com/zekth)
 
 Copyright (c) 2021 The Fastify Team
@@ -1256,6 +1348,7 @@ The complete list of contributors can be found at:
 ## hookable@5.5.3
 
 **License:** MIT
+
 **Repository:** unjs/hookable
 
 The MIT License (MIT)
@@ -1285,8 +1378,11 @@ SOFTWARE.
 ## intl-messageformat@10.7.16
 
 **License:** BSD-3-Clause
+
 **Repository:** git@github.com:formatjs/formatjs.git
+
 **URL:** https://github.com/formatjs/formatjs
+
 **Publisher:** Eric Ferraiuolo <eferraiuolo@gmail.com>
 
 Copyright (c) 2023, Oath Inc.
@@ -1328,8 +1424,11 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ## is-what@4.1.16
 
 **License:** MIT
+
 **Repository:** git+https://github.com/mesqueeb/is-what.git
+
 **URL:** https://github.com/mesqueeb/is-what#readme
+
 **Publisher:** Luca Ban - Mesqueeb
 
 MIT License
@@ -1359,8 +1458,11 @@ SOFTWARE.
 ## json-schema-traverse@1.0.0
 
 **License:** MIT
+
 **Repository:** git+https://github.com/epoberezkin/json-schema-traverse.git
+
 **URL:** https://github.com/epoberezkin/json-schema-traverse#readme
+
 **Publisher:** Evgeny Poberezkin
 
 MIT License
@@ -1390,7 +1492,9 @@ SOFTWARE.
 ## lil-gui@0.20.0
 
 **License:** MIT
+
 **URL:** https://lil-gui.georgealways.com
+
 **Publisher:** George Michael Brower
 
 MIT License
@@ -1420,8 +1524,11 @@ SOFTWARE.
 ## lodash-es@4.17.21
 
 **License:** MIT
+
 **Repository:** lodash/lodash
+
 **URL:** https://lodash.com/custom-builds
+
 **Publisher:** John-David Dalton <john.david.dalton@gmail.com>
 
 Copyright OpenJS Foundation and other contributors <https://openjsf.org/>
@@ -1477,7 +1584,9 @@ terms above.
 ## magic-string@0.30.17
 
 **License:** MIT
+
 **Repository:** https://github.com/rich-harris/magic-string
+
 **Publisher:** Rich Harris
 
 Copyright 2018 Rich Harris
@@ -1493,7 +1602,9 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 ## mitt@3.0.1
 
 **License:** MIT
+
 **Repository:** developit/mitt
+
 **URL:** https://github.com/developit/mitt
 
 MIT License
@@ -1523,7 +1634,9 @@ SOFTWARE.
 ## nanoid@3.3.11
 
 **License:** MIT
+
 **Repository:** ai/nanoid
+
 **Publisher:** Andrey Sitnik <andrey@sitnik.ru>
 
 The MIT License (MIT)
@@ -1552,7 +1665,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 ## nanoid@5.1.5
 
 **License:** MIT
+
 **Repository:** ai/nanoid
+
 **Publisher:** Andrey Sitnik <andrey@sitnik.ru>
 
 The MIT License (MIT)
@@ -1581,6 +1696,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 ## perfect-debounce@1.0.0
 
 **License:** MIT
+
 **Repository:** unjs/perfect-debounce
 
 MIT License
@@ -1610,7 +1726,9 @@ SOFTWARE.
 ## picocolors@1.1.1
 
 **License:** ISC
+
 **Repository:** alexeyraspopov/picocolors
+
 **Publisher:** Alexey Raspopov
 
 ISC License
@@ -1634,8 +1752,11 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 ## pinia@3.0.3
 
 **License:** MIT
+
 **Repository:** git+https://github.com/vuejs/pinia.git
+
 **URL:** https://pinia.vuejs.org
+
 **Publisher:** Eduardo San Martin Morote <posva13@gmail.com>
 
 The MIT License (MIT)
@@ -1665,8 +1786,11 @@ SOFTWARE.
 ## postcss@8.5.6
 
 **License:** MIT
+
 **Repository:** postcss/postcss
+
 **URL:** https://postcss.org/
+
 **Publisher:** Andrey Sitnik <andrey@sitnik.ru>
 
 The MIT License (MIT)
@@ -1695,7 +1819,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 ## quickselect@3.0.0
 
 **License:** ISC
+
 **Repository:** github:mourner/quickselect
+
 **Publisher:** Vladimir Agafonkin
 
 ISC License
@@ -1719,8 +1845,11 @@ THIS SOFTWARE.
 ## rbush@4.0.1
 
 **License:** MIT
+
 **Repository:** git://github.com/mourner/rbush.git
+
 **URL:** https://github.com/mourner/rbush
+
 **Publisher:** Volodymyr Agafonkin
 
 MIT License
@@ -1750,7 +1879,9 @@ THE SOFTWARE.
 ## require-from-string@2.0.2
 
 **License:** MIT
+
 **Repository:** floatdrop/require-from-string
+
 **Publisher:** Vsevolod Strukchinsky <floatdrop@gmail.com>
 
 The MIT License (MIT)
@@ -1780,8 +1911,11 @@ THE SOFTWARE.
 ## rfdc@1.4.1
 
 **License:** MIT
+
 **Repository:** git+https://github.com/davidmarkclements/rfdc.git
+
 **URL:** https://github.com/davidmarkclements/rfdc#readme
+
 **Publisher:** David Mark Clements <david.clements@nearform.com>
 
 Copyright 2019 "David Mark Clements <david.mark.clements@gmail.com>"
@@ -1805,8 +1939,11 @@ IN THE SOFTWARE.
 ## rxjs@7.8.2
 
 **License:** Apache-2.0
+
 **Repository:** https://github.com/reactivex/rxjs.git
+
 **URL:** https://rxjs.dev
+
 **Publisher:** Ben Lesh <ben@benlesh.com>
 
 Apache License
@@ -2016,8 +2153,11 @@ limitations under the License.
 ## sanitize.css@13.0.0
 
 **License:** CC0-1.0
+
 **Repository:** csstools/sanitize.css
+
 **URL:** https://github.com/csstools/sanitize.css#readme
+
 **Publisher:** Jonathan Neal <jonathantneal@hotmail.com>
 
 # CC0 1.0 Universal
@@ -2131,38 +2271,10 @@ http://creativecommons.org/publicdomain/zero/1.0/.
 
 ---
 
-## showcases-core@2.7.3
-
-**License:** MIT
-**Publisher:** S. Panfilov
-
-MIT License
-
-Copyright (c) 2025 Sergei Panfilov
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-
----
-
 ## showcases-menu@1.5.5
 
 **License:** MIT
+
 **Publisher:** S. Panfilov
 
 MIT License
@@ -2192,6 +2304,7 @@ SOFTWARE.
 ## showcases-shared@1.0.6
 
 **License:** MIT
+
 **Publisher:** S. Panfilov
 
 MIT License
@@ -2221,8 +2334,11 @@ SOFTWARE.
 ## source-map-js@1.2.1
 
 **License:** BSD-3-Clause
+
 **Repository:** 7rulnik/source-map-js
+
 **URL:** https://github.com/7rulnik/source-map-js
+
 **Publisher:** Valentin 7rulnik Semirulnik <v7rulnik@gmail.com>
 
 Copyright (c) 2009-2011, Mozilla Foundation and contributors
@@ -2258,8 +2374,11 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ## speakingurl@14.0.1
 
 **License:** BSD-3-Clause
+
 **Repository:** git+https://github.com/pid/speakingurl.git
+
 **URL:** http://pid.github.io/speakingurl/
+
 **Publisher:** Sascha Droste <pid@posteo.net> (https://twitter.com/SaschaDroste)
 
 The BSD 3-Clause License (BSD3)
@@ -2280,8 +2399,11 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 ## stats.js@0.17.0
 
 **License:** MIT
+
 **Repository:** https://github.com/mrdoob/stats.js.git
+
 **URL:** https://github.com/mrdoob/stats.js
+
 **Publisher:** mrdoob
 
 The MIT License
@@ -2311,7 +2433,9 @@ THE SOFTWARE.
 ## superjson@2.2.2
 
 **License:** MIT
+
 **Repository:** https://github.com/blitz-js/superjson
+
 **Publisher:** Simon Knott <info@simonknott.de>
 
 MIT License
@@ -2341,8 +2465,11 @@ SOFTWARE.
 ## three@0.178.0
 
 **License:** MIT
+
 **Repository:** https://github.com/mrdoob/three.js
+
 **URL:** https://threejs.org/
+
 **Publisher:** mrdoob
 
 The MIT License
@@ -2372,8 +2499,11 @@ THE SOFTWARE.
 ## three-mesh-bvh@0.9.1
 
 **License:** MIT
+
 **Repository:** git+https://github.com/gkjohnson/three-mesh-bvh.git
+
 **URL:** https://github.com/gkjohnson/three-mesh-bvh#readme
+
 **Publisher:** Garrett Johnson <garrett.kjohnson@gmail.com>
 
 MIT License
@@ -2403,8 +2533,11 @@ SOFTWARE.
 ## three-viewport-gizmo@2.2.0
 
 **License:** MIT
+
 **Repository:** git+https://github.com/Fennec-hub/three-viewport-gizmo.git
+
 **URL:** https://github.com/Fennec-hub/three-viewport-gizmo#readme
+
 **Publisher:** Fennec
 
 MIT License
@@ -2434,8 +2567,11 @@ SOFTWARE.
 ## ts-key-enum@3.0.13
 
 **License:** MIT
+
 **Repository:** git+https://gitlab.com/nfriend/ts-key-enum.git
+
 **URL:** https://gitlab.com/nfriend/ts-key-enum#readme
+
 **Publisher:** Nathan Friend <hello@nathanfriend.io>
 
 MIT License
@@ -2465,8 +2601,11 @@ SOFTWARE.
 ## tslib@2.8.1
 
 **License:** 0BSD
+
 **Repository:** https://github.com/Microsoft/tslib.git
+
 **URL:** https://www.typescriptlang.org/
+
 **Publisher:** Microsoft Corp.
 
 Copyright (c) Microsoft Corporation.
@@ -2487,8 +2626,11 @@ PERFORMANCE OF THIS SOFTWARE.
 ## typescript@5.8.3
 
 **License:** Apache-2.0
+
 **Repository:** https://github.com/microsoft/TypeScript.git
+
 **URL:** https://www.typescriptlang.org/
+
 **Publisher:** Microsoft Corp.
 
 Apache License
@@ -2552,8 +2694,11 @@ END OF TERMS AND CONDITIONS
 ## typescript-fsm@1.6.0
 
 **License:** Apache 2.0
+
 **Repository:** https://github.com/eram/typescript-fsm.git
+
 **URL:** https://github.com/eram/typescript-fsm#readme
+
 **Publisher:** eram@weblegions.com
 
 MIT License
@@ -2583,8 +2728,11 @@ SOFTWARE.
 ## vue@3.5.18
 
 **License:** MIT
+
 **Repository:** git+https://github.com/vuejs/core.git
+
 **URL:** https://github.com/vuejs/core/tree/main/packages/vue#readme
+
 **Publisher:** Evan You
 
 The MIT License (MIT)

@@ -2,14 +2,16 @@
 
 ## Application: anarchy-engine
 
-Production dependencies (including transition dependencies): 20
+Production dependencies (including transition dependencies): 19
 
 ---
 
 ## @dimforge/rapier3d@0.17.3
 
 **License:** Apache-2.0
+
 **Repository:** https://github.com/dimforge/rapier.js
+
 **URL:** https://rapier.rs
 
 Apache License
@@ -219,7 +221,9 @@ limitations under the License.
 ## @rwh/keystrokes@1.5.6
 
 **License:** MIT
+
 **Repository:** github:RobertWHurst/Keystrokes
+
 **Publisher:** Robert Hurst <robertwhurst@gmail.com>
 
 MIT License
@@ -249,8 +253,11 @@ SOFTWARE.
 ## ajv@8.17.1
 
 **License:** MIT
+
 **Repository:** ajv-validator/ajv
+
 **URL:** https://ajv.js.org
+
 **Publisher:** Evgeny Poberezkin
 
 The MIT License (MIT)
@@ -277,38 +284,10 @@ SOFTWARE.
 
 ---
 
-## anarchy-engine@20.3.1
-
-**License:** MIT
-**Publisher:** S. Panfilov
-
-MIT License
-
-Copyright (c) 2025 Sergei Panfilov
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-
----
-
 ## anarchy-shared@1.1.0
 
 **License:** MIT
+
 **Publisher:** S. Panfilov
 
 MIT License
@@ -338,6 +317,7 @@ SOFTWARE.
 ## date-fns@4.1.0
 
 **License:** MIT
+
 **Repository:** https://github.com/date-fns/date-fns
 
 MIT License
@@ -367,8 +347,11 @@ SOFTWARE.
 ## fast-deep-equal@3.1.3
 
 **License:** MIT
+
 **Repository:** git+https://github.com/epoberezkin/fast-deep-equal.git
+
 **URL:** https://github.com/epoberezkin/fast-deep-equal#readme
+
 **Publisher:** Evgeny Poberezkin
 
 MIT License
@@ -398,8 +381,11 @@ SOFTWARE.
 ## fast-uri@3.0.6
 
 **License:** BSD-3-Clause
+
 **Repository:** git+https://github.com/fastify/fast-uri.git
+
 **URL:** https://github.com/fastify/fast-uri
+
 **Publisher:** Vincent Le Goff <vince.legoff@gmail.com> (https://github.com/zekth)
 
 Copyright (c) 2021 The Fastify Team
@@ -438,8 +424,11 @@ The complete list of contributors can be found at:
 ## json-schema-traverse@1.0.0
 
 **License:** MIT
+
 **Repository:** git+https://github.com/epoberezkin/json-schema-traverse.git
+
 **URL:** https://github.com/epoberezkin/json-schema-traverse#readme
+
 **Publisher:** Evgeny Poberezkin
 
 MIT License
@@ -469,8 +458,11 @@ SOFTWARE.
 ## lodash-es@4.17.21
 
 **License:** MIT
+
 **Repository:** lodash/lodash
+
 **URL:** https://lodash.com/custom-builds
+
 **Publisher:** John-David Dalton <john.david.dalton@gmail.com>
 
 Copyright OpenJS Foundation and other contributors <https://openjsf.org/>
@@ -526,7 +518,9 @@ terms above.
 ## nanoid@5.1.5
 
 **License:** MIT
+
 **Repository:** ai/nanoid
+
 **Publisher:** Andrey Sitnik <andrey@sitnik.ru>
 
 The MIT License (MIT)
@@ -555,7 +549,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 ## quickselect@3.0.0
 
 **License:** ISC
+
 **Repository:** github:mourner/quickselect
+
 **Publisher:** Vladimir Agafonkin
 
 ISC License
@@ -579,8 +575,11 @@ THIS SOFTWARE.
 ## rbush@4.0.1
 
 **License:** MIT
+
 **Repository:** git://github.com/mourner/rbush.git
+
 **URL:** https://github.com/mourner/rbush
+
 **Publisher:** Volodymyr Agafonkin
 
 MIT License
@@ -610,7 +609,9 @@ THE SOFTWARE.
 ## require-from-string@2.0.2
 
 **License:** MIT
+
 **Repository:** floatdrop/require-from-string
+
 **Publisher:** Vsevolod Strukchinsky <floatdrop@gmail.com>
 
 The MIT License (MIT)
@@ -640,8 +641,11 @@ THE SOFTWARE.
 ## rxjs@7.8.2
 
 **License:** Apache-2.0
+
 **Repository:** https://github.com/reactivex/rxjs.git
+
 **URL:** https://rxjs.dev
+
 **Publisher:** Ben Lesh <ben@benlesh.com>
 
 Apache License
@@ -851,8 +855,11 @@ limitations under the License.
 ## three@0.178.0
 
 **License:** MIT
+
 **Repository:** https://github.com/mrdoob/three.js
+
 **URL:** https://threejs.org/
+
 **Publisher:** mrdoob
 
 The MIT License
@@ -882,8 +889,11 @@ THE SOFTWARE.
 ## three-mesh-bvh@0.9.1
 
 **License:** MIT
+
 **Repository:** git+https://github.com/gkjohnson/three-mesh-bvh.git
+
 **URL:** https://github.com/gkjohnson/three-mesh-bvh#readme
+
 **Publisher:** Garrett Johnson <garrett.kjohnson@gmail.com>
 
 MIT License
@@ -913,8 +923,11 @@ SOFTWARE.
 ## ts-key-enum@3.0.13
 
 **License:** MIT
+
 **Repository:** git+https://gitlab.com/nfriend/ts-key-enum.git
+
 **URL:** https://gitlab.com/nfriend/ts-key-enum#readme
+
 **Publisher:** Nathan Friend <hello@nathanfriend.io>
 
 MIT License
@@ -944,8 +957,11 @@ SOFTWARE.
 ## tslib@2.8.1
 
 **License:** 0BSD
+
 **Repository:** https://github.com/Microsoft/tslib.git
+
 **URL:** https://www.typescriptlang.org/
+
 **Publisher:** Microsoft Corp.
 
 Copyright (c) Microsoft Corporation.
@@ -966,8 +982,11 @@ PERFORMANCE OF THIS SOFTWARE.
 ## typescript-fsm@1.6.0
 
 **License:** Apache 2.0
+
 **Repository:** https://github.com/eram/typescript-fsm.git
+
 **URL:** https://github.com/eram/typescript-fsm#readme
+
 **Publisher:** eram@weblegions.com
 
 MIT License

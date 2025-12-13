@@ -2,15 +2,18 @@
 
 ## Application: anarchy-i18n
 
-Production dependencies (including transition dependencies): 12
+Production dependencies (including transition dependencies): 11
 
 ---
 
 ## @formatjs/ecma402-abstract@2.3.4
 
 **License:** MIT
+
 **Repository:** git@github.com:formatjs/formatjs.git
+
 **URL:** https://github.com/formatjs/formatjs
+
 **Publisher:** Long Ho <holevietlong@gmail.com
 
 MIT License
@@ -28,8 +31,11 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 ## @formatjs/fast-memoize@2.2.7
 
 **License:** MIT
+
 **Repository:** formatjs/formatjs.git
+
 **URL:** https://github.com/formatjs/formatjs#readme
+
 **Publisher:** Long Ho <holevietlong@gmail.com>
 
 MIT License
@@ -47,6 +53,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 ## @formatjs/icu-messageformat-parser@2.11.2
 
 **License:** MIT
+
 **Repository:** https://github.com/formatjs/formatjs.git
 
 MIT License
@@ -64,6 +71,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 ## @formatjs/icu-skeleton-parser@1.8.14
 
 **License:** MIT
+
 **Repository:** https://github.com/formatjs/formatjs.git
 
 MIT License
@@ -81,8 +89,11 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 ## @formatjs/intl@3.1.6
 
 **License:** MIT
+
 **Repository:** git@github.com:formatjs/formatjs.git
+
 **URL:** https://formatjs.github.io
+
 **Publisher:** Long Ho <holevietlong@gmail.com>
 
 MIT License
@@ -100,8 +111,11 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 ## @formatjs/intl-localematcher@0.6.1
 
 **License:** MIT
+
 **Repository:** formatjs/formatjs.git
+
 **URL:** https://github.com/formatjs/formatjs#readme
+
 **Publisher:** Long Ho <holevietlong@gmail.com>
 
 MIT License
@@ -116,39 +130,12 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 ---
 
-## anarchy-i18n@1.1.0
-
-**License:** MIT
-**Publisher:** S. Panfilov
-
-MIT License
-
-Copyright (c) 2025 Sergei Panfilov
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-
----
-
 ## decimal.js@10.6.0
 
 **License:** MIT
+
 **Repository:** https://github.com/MikeMcl/decimal.js.git
+
 **Publisher:** Michael Mclaughlin <M8ch88l@gmail.com>
 
 The MIT Licence.
@@ -179,8 +166,11 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 ## intl-messageformat@10.7.16
 
 **License:** BSD-3-Clause
+
 **Repository:** git@github.com:formatjs/formatjs.git
+
 **URL:** https://github.com/formatjs/formatjs
+
 **Publisher:** Eric Ferraiuolo <eferraiuolo@gmail.com>
 
 Copyright (c) 2023, Oath Inc.
@@ -222,8 +212,11 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ## rxjs@7.8.2
 
 **License:** Apache-2.0
+
 **Repository:** https://github.com/reactivex/rxjs.git
+
 **URL:** https://rxjs.dev
+
 **Publisher:** Ben Lesh <ben@benlesh.com>
 
 Apache License
@@ -433,8 +426,11 @@ limitations under the License.
 ## tslib@2.8.1
 
 **License:** 0BSD
+
 **Repository:** https://github.com/Microsoft/tslib.git
+
 **URL:** https://www.typescriptlang.org/
+
 **Publisher:** Microsoft Corp.
 
 Copyright (c) Microsoft Corporation.
@@ -455,8 +451,11 @@ PERFORMANCE OF THIS SOFTWARE.
 ## typescript@5.8.3
 
 **License:** Apache-2.0
+
 **Repository:** https://github.com/microsoft/TypeScript.git
+
 **URL:** https://www.typescriptlang.org/
+
 **Publisher:** Microsoft Corp.
 
 Apache License
