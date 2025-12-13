@@ -6,6 +6,7 @@ export enum RegistryType {
   KeyboardRecord = 'keyboard_record',
   Light = 'light',
   Fog = 'fog',
+  Particles = 'particles',
   MouseClickWatcher = 'mouse_click_watcher',
   MousePositionWatcher = 'mouse_position_watcher',
   Renderer = 'renderer',

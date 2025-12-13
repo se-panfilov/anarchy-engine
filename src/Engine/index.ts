@@ -19,6 +19,7 @@ export * from './Material';
 export * from './Measurements';
 export * from './Mixins';
 export * from './Mouse';
+export * from './Particles';
 export * from './Renderer';
 export * from './Scene';
 export * from './Screen';
