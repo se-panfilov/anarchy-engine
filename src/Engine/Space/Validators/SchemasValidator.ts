@@ -30,6 +30,8 @@ const ajv: Ajv = new Ajv();
 
 type TSchemaValidationResult = Readonly<{ isValid: boolean; errors: ReadonlyArray<any> | null | undefined }>;
 
+// TODO 15-0-0: add validation of the same name of entities in every categories (materials, models, etc.)
+// TODO 15-0-0: check if "physicsBodyName" of actor has related physics body.
 export function validSpaceConfig(config: TSpaceConfig): TSchemaValidationResult {
   const jsonResult = validateJsonSchema(config);
   const dataResult = validateData(config);

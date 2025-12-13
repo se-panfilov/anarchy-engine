@@ -205,13 +205,6 @@
         "type": "MeshStandardMaterial"
       },
       {
-        "name": "cube_physics_material",
-        "options": {
-          "color": "#FF9800"
-        },
-        "type": "MeshStandardMaterial"
-      },
-      {
         "name": "cube_kinematic_material",
         "options": {
           "color": "#9C27B0"
@@ -266,17 +259,6 @@
         "material": "cube_connected_material",
         "model3dSource": "cube",
         "name": "cube_connected_model",
-        "options": {
-          "depth": 4,
-          "height": 1,
-          "width": 1
-        }
-      },
-      {
-        "castShadow": true,
-        "material": "cube_physics_material",
-        "model3dSource": "cube",
-        "name": "cube_physics_model",
         "options": {
           "depth": 4,
           "height": 1,

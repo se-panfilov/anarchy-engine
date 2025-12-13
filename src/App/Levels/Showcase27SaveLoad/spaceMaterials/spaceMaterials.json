@@ -35,8 +35,8 @@
         "tags": ["standard", "metal"]
       },
       {
-        "model3dSource": "sphere_physical_metal",
-        "name": "sphere_physical_metal_actor",
+        "model3dSource": "sphere_physics_metal",
+        "name": "sphere_physics_metal_actor",
         "position": {
           "x": 2,
           "y": 2,
@@ -46,7 +46,7 @@
           "grid": "main_grid",
           "isAutoUpdate": false
         },
-        "tags": ["physical", "metal"]
+        "tags": ["physics", "metal"]
       },
       {
         "model3dSource": "sphere_basic_metal",
@@ -133,8 +133,8 @@
         "tags": ["standard", "wood"]
       },
       {
-        "model3dSource": "cube_physical_wood",
-        "name": "cube_physical_wood_actor",
+        "model3dSource": "cube_physics_wood",
+        "name": "cube_physics_wood_actor",
         "position": {
           "x": 2,
           "y": 0,
@@ -144,7 +144,7 @@
           "grid": "main_grid",
           "isAutoUpdate": false
         },
-        "tags": ["physical", "wood"]
+        "tags": ["physics", "wood"]
       },
       {
         "model3dSource": "cube_basic_wood",
@@ -231,8 +231,8 @@
         "tags": ["standard", "glass"]
       },
       {
-        "model3dSource": "sphere_physical_glass",
-        "name": "sphere_physical_glass_actor",
+        "model3dSource": "sphere_physics_glass",
+        "name": "sphere_physics_glass_actor",
         "position": {
           "x": 2,
           "y": -2,
@@ -242,7 +242,7 @@
           "grid": "main_grid",
           "isAutoUpdate": false
         },
-        "tags": ["physical", "glass"]
+        "tags": ["physics", "glass"]
       },
       {
         "model3dSource": "sphere_basic_glass",
@@ -329,8 +329,8 @@
         "tags": ["standard", "textile"]
       },
       {
-        "model3dSource": "sphere_physical_textile",
-        "name": "sphere_physical_textile_actor",
+        "model3dSource": "sphere_physics_textile",
+        "name": "sphere_physics_textile_actor",
         "position": {
           "x": 2,
           "y": -4,
@@ -340,7 +340,7 @@
           "grid": "main_grid",
           "isAutoUpdate": false
         },
-        "tags": ["physical", "textile"]
+        "tags": ["physics", "textile"]
       },
       {
         "model3dSource": "sphere_basic_textile",
@@ -496,7 +496,7 @@
           "thickness": 0,
           "transmission": 0
         },
-        "tags": ["physical", "metal"],
+        "tags": ["physics", "metal"],
         "textures": {
           "bumpMap": "metal_steel_brushed_bump_map",
           "displacementMap": "metal_steel_brushed_displacement_map",
@@ -524,7 +524,7 @@
         "type": "MeshStandardMaterial"
       },
       {
-        "name": "physical_metal",
+        "name": "physics_metal",
         "options": {
           "clearcoat": 1,
           "clearcoatRoughness": 0.12,
@@ -537,7 +537,7 @@
           "thickness": 0,
           "transmission": 0
         },
-        "tags": ["physical", "metal"],
+        "tags": ["physics", "metal"],
         "textures": {
           "bumpMap": "metal_steel_brushed_bump_map",
           "displacementMap": "metal_steel_brushed_displacement_map",
@@ -630,11 +630,11 @@
         "type": "MeshStandardMaterial"
       },
       {
-        "name": "physical_wood",
+        "name": "physics_wood",
         "options": {
           "displacementScale": 0.1
         },
-        "tags": ["physical", "wood"],
+        "tags": ["physics", "wood"],
         "textures": {
           "alphaMap": "wood_alpha_map",
           "aoMap": "wood_ao_map",
@@ -725,7 +725,7 @@
         "type": "MeshStandardMaterial"
       },
       {
-        "name": "physical_glass",
+        "name": "physics_glass",
         "options": {
           "clearcoat": 0.8,
           "clearcoatRoughness": 0.09,
@@ -738,7 +738,7 @@
           "thickness": 0.5,
           "transmission": 0.77
         },
-        "tags": ["physical", "glass"],
+        "tags": ["physics", "glass"],
         "type": "MeshPhysicalMaterial"
       },
       {
@@ -794,11 +794,11 @@
         "type": "MeshStandardMaterial"
       },
       {
-        "name": "physical_textile",
+        "name": "physics_textile",
         "options": {
           "displacementScale": 0.1
         },
-        "tags": ["physical", "textile"],
+        "tags": ["physics", "textile"],
         "textures": {
           "aoMap": "carpet_ao_map",
           "displacementMap": "carpet_displacement_map",
@@ -913,9 +913,9 @@
       },
       {
         "castShadow": true,
-        "material": "physical_metal",
+        "material": "physics_metal",
         "model3dSource": "sphere",
-        "name": "sphere_physical_metal",
+        "name": "sphere_physics_metal",
         "options": {
           "height": 1,
           "heightSegments": 64,
@@ -923,7 +923,7 @@
           "width": 1,
           "widthSegments": 64
         },
-        "tags": ["sphere", "physical", "metal"]
+        "tags": ["sphere", "physics", "metal"]
       },
       {
         "castShadow": true,
@@ -1010,16 +1010,16 @@
       },
       {
         "castShadow": true,
-        "material": "physical_wood",
+        "material": "physics_wood",
         "model3dSource": "cube",
-        "name": "cube_physical_wood",
+        "name": "cube_physics_wood",
         "options": {
           "height": 1,
           "heightSegments": 64,
           "width": 1,
           "widthSegments": 64
         },
-        "tags": ["cube", "physical", "wood"]
+        "tags": ["cube", "physics", "wood"]
       },
       {
         "castShadow": true,
@@ -1102,9 +1102,9 @@
       },
       {
         "castShadow": true,
-        "material": "physical_glass",
+        "material": "physics_glass",
         "model3dSource": "sphere",
-        "name": "sphere_physical_glass",
+        "name": "sphere_physics_glass",
         "options": {
           "height": 1,
           "heightSegments": 64,
@@ -1112,7 +1112,7 @@
           "width": 1,
           "widthSegments": 64
         },
-        "tags": ["sphere", "physical", "glass"]
+        "tags": ["sphere", "physics", "glass"]
       },
       {
         "castShadow": true,
@@ -1200,9 +1200,9 @@
       },
       {
         "castShadow": true,
-        "material": "physical_textile",
+        "material": "physics_textile",
         "model3dSource": "sphere",
-        "name": "sphere_physical_textile",
+        "name": "sphere_physics_textile",
         "options": {
           "height": 1,
           "heightSegments": 64,
@@ -1210,7 +1210,7 @@
           "width": 1,
           "widthSegments": 64
         },
-        "tags": ["sphere", "physical", "textile"]
+        "tags": ["sphere", "physics", "textile"]
       },
       {
         "castShadow": true,
