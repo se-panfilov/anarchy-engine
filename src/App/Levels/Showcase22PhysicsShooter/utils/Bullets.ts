@@ -1,3 +1,4 @@
+import type { RigidBody } from '@dimforge/rapier3d';
 import { nanoid } from 'nanoid';
 import type { Observable } from 'rxjs';
 import type { Mesh } from 'three';
@@ -86,7 +87,7 @@ export async function BulletAsync(params: TActorParams, actorService: TActorServ
     (actorW.entity as Mesh).visible = false;
   }
 
-  actorW.collisions.value$.subscribe((): void => reset());
+  actorW.collisions.value$.subscribe(reset);
 
   function update(delta: number): void {
     if (isActive()) {
@@ -152,4 +153,16 @@ export function createHitEffect(position: Vector3, sceneW: TSceneWrapper): void 
   sceneW.entity.add(particleSystem);
   // TODO setTimout/setInterval is not a good idea (cause the game might be "on pause", e.g. when tab is not active)
   setTimeout(() => sceneW.entity.remove(particleSystem), 500);
+}
+
+export function applyExplosionImpulse(actorW: TActorWrapperAsync, collisionPoint: Vector3, explosionForce: number): void {
+  const body: RigidBody | undefined = actorW.physicsBody?.getRigidBody();
+  if (isNotDefined(body)) return;
+
+  const bodyPosition = new Vector3(body.translation().x, body.translation().y, body.translation().z);
+
+  const direction = new Vector3().subVectors(bodyPosition, collisionPoint).normalize();
+  const impulse = direction.multiplyScalar(explosionForce);
+
+  body.applyImpulseAtPoint({ x: impulse.x, y: impulse.y, z: impulse.z }, { x: collisionPoint.x, y: collisionPoint.y, z: collisionPoint.z }, true);
 }

@@ -24,7 +24,19 @@ import { meters } from '@/Engine/Measurements/Utils';
 
 import spaceConfig from './showcase.json';
 import type { TBullet } from './utils';
-import { buildTower, cameraFollowingActor, createHitEffect, createLine, getBulletsPool, initGui, moveActorBounce, shoot, startMoveActorWithKeyboard, updateBullets } from './utils';
+import {
+  applyExplosionImpulse,
+  buildTower,
+  cameraFollowingActor,
+  createHitEffect,
+  createLine,
+  getBulletsPool,
+  initGui,
+  moveActorBounce,
+  shoot,
+  startMoveActorWithKeyboard,
+  updateBullets
+} from './utils';
 
 export function showcase(canvas: TAppCanvas): TShowcase {
   const space: TSpace = buildSpaceFromConfig(canvas, spaceConfig as TSpaceConfig);
@@ -65,6 +77,7 @@ export function showcase(canvas: TAppCanvas): TShowcase {
       b.hit$.subscribe((hit: TCollisionCheckResult): void => {
         console.log('hit', hit);
         createHitEffect(hit.collisionPoint, sceneW);
+        applyExplosionImpulse(hit.object, hit.collisionPoint, 10);
       });
     });
 

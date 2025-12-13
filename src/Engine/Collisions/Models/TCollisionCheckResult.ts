@@ -1,7 +1,9 @@
-import type { Object3D, Vector3 } from 'three';
+import type { Vector3 } from 'three';
+
+import type { TActorWrapperAsync } from '@/Engine/Actor';
 
 export type TCollisionCheckResult = Readonly<{
-  object: Object3D;
+  object: TActorWrapperAsync;
   distance: number;
   collisionPoint: Vector3;
   bulletPosition: Vector3;

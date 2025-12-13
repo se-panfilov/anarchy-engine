@@ -45,7 +45,7 @@ export function CollisionsService(): TCollisionsService {
           const intersect = intersects[0];
           if (intersect.distance <= radius) {
             return {
-              object: object.entity,
+              object,
               distance: intersect.distance,
               collisionPoint: intersect.point,
               bulletPosition: actorW.entity.position.clone()
