@@ -109,6 +109,7 @@
         "refDistance": 1
       },
       {
+        "agent": "connected",
         "audioSource": "gunshot_sound",
         "maxDistance": 4,
         "name": "gunshot_2",

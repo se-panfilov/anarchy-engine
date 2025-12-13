@@ -8,7 +8,7 @@ import { isDefined, isEqualOrSimilarByXyzCoords, isNotDefined } from '@/Engine/U
 
 export const isAudio3dConfig = (config: TAnyAudioConfig): config is TAudio3dConfig => isDefined((config as TAudio3dConfig).position);
 export const isAudio3dParams = (config: TAnyAudioParams): config is TAudio3dParams => isDefined((config as TAudio3dParams).position);
-export const isAudio3dWrapper = (wrapper: TAnyAudioWrapper): wrapper is TAudio3dWrapper => isDefined((wrapper as TAudio3dWrapper).position$);
+export const isAudio3dWrapper = (wrapper: TAnyAudioWrapper): wrapper is TAudio3dWrapper => isDefined((wrapper as TAudio3dWrapper).drive);
 
 export function seekAudio(entity: TAnyAudio, time: number, shouldPlay: boolean): void {
   if (!entity.buffer) return;

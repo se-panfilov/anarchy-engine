@@ -24,7 +24,7 @@ import type {
   TSpaceLoops,
   TSpaceServices
 } from '@/Engine';
-import { DebugAudioRenderer, Engine, isAudio3dWrapper, isDefined, isNotDefined, spaceService, TransformAgent } from '@/Engine';
+import { DebugAudioRenderer, Engine, isAudio3dWrapper, isDefined, isNotDefined, spaceService } from '@/Engine';
 
 import spaceConfig from './showcase.json';
 
@@ -180,8 +180,6 @@ function initMovingCube(actorName: string, sound: TAudio3dWrapper, { actorServic
   const clock: Clock = new Clock();
   const center: TReadonlyVector3 = actor.drive.position$.value.clone();
   const radius = 3;
-
-  sound.drive.agent$.next(TransformAgent.Connected);
 
   //Keep in mind that setInterval/setTimeout could be slowdown in background tabs, don't use it for production (or use in web workers)
   setInterval((): void => sound.play$.next(true), 500);
