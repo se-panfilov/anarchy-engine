@@ -1,9 +1,8 @@
 import { toBool } from '@Shared/Utils';
-import { object, optional, string } from 'valibot';
+import { object, optional } from 'valibot';
 
 export const runtimeSchema = object({
   VITE_BUILD_COMPRESSION: toBool,
-  PORT: optional(string()),
   VITE_BUILD_MINIFIED: toBool,
   VITE_BUILD_SOURCEMAPS: toBool,
   VITE_APP_SHOW_DEBUG_INFO: toBool,
