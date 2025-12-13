@@ -3120,7 +3120,7 @@ SOFTWARE.
 
 -----
 
-The following software may be included in this product: anarchy_engine, anarchy_engine_shared, anarchy_engine_showcases, anarchy_engine_ui_menu, workspace-aggregator-f05ea4a2-f9ca-4b50-92e2-3cbccbd03728. This software contains the following license and notice below:
+The following software may be included in this product: anarchy_engine, anarchy_engine_shared, anarchy_engine_showcases, anarchy_engine_ui_menu, workspace-aggregator-e5227402-7e54-4ca6-89ec-44fc0d62748c. This software contains the following license and notice below:
 
 MIT License
 
@@ -10955,7 +10955,7 @@ The following software may be included in this product: meshoptimizer. A copy of
 
 MIT License
 
-Copyright (c) 2016-2024 Arseny Kapoulkine
+Copyright (c) 2016-2022 Arseny Kapoulkine
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -10981,7 +10981,7 @@ The following software may be included in this product: meshoptimizer. A copy of
 
 MIT License
 
-Copyright (c) 2016-2022 Arseny Kapoulkine
+Copyright (c) 2016-2024 Arseny Kapoulkine
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
