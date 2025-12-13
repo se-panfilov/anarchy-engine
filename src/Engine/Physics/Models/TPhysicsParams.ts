@@ -1,5 +1,8 @@
-import type { TPhysicsGlobalParams } from './TPhysicsGlobalParams';
+import type { TPhysicsBodyParams } from '@/Engine/Physics';
+
+import type { TPhysicsWorldParams } from './TPhysicsWorldParams';
 
 export type TPhysicsParams = Readonly<{
-  global?: TPhysicsGlobalParams;
+  global?: TPhysicsWorldParams;
+  bodies?: ReadonlyArray<TPhysicsBodyParams>;
 }>;

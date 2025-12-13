@@ -1,5 +1,8 @@
-import type { TPhysicsGlobalConfig } from './TPhysicsGlobalConfig';
+import type { TPhysicsBodyConfig } from '@/Engine/Physics';
+
+import type { TPhysicsWorldConfig } from './TPhysicsWorldConfig';
 
 export type TPhysicsConfig = Readonly<{
-  global?: TPhysicsGlobalConfig;
+  global?: TPhysicsWorldConfig;
+  bodies?: ReadonlyArray<TPhysicsBodyConfig>;
 }>;

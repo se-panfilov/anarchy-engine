@@ -6,8 +6,9 @@ import type { Vector3 } from 'three';
 import type { TAbstractService } from '@/Engine/Abstract';
 import { AbstractService } from '@/Engine/Abstract';
 import { withSceneGetterService } from '@/Engine/Mixins';
+import { physicWorldToConfig } from '@/Engine/Physics';
 import { STANDARD_GRAVITY } from '@/Engine/Physics/Constants';
-import type { TPhysicalLoop, TPhysicsDebugRenderer, TPhysicsWorldParams, TPhysicsWorldService } from '@/Engine/Physics/Models';
+import type { TPhysicalLoop, TPhysicsDebugRenderer, TPhysicsWorldConfig, TPhysicsWorldParams, TPhysicsWorldService } from '@/Engine/Physics/Models';
 import { PhysicsDebugRenderer } from '@/Engine/Physics/Renderers';
 import type { TSceneWrapper } from '@/Engine/Scene';
 import type { TSpaceLoops } from '@/Engine/Space';
@@ -89,6 +90,10 @@ export function PhysicsWorldService(scene: TSceneWrapper, { physicalLoop }: TSpa
       if (isNotDefined(world)) throw new Error('[PhysicsWorldService]: Physical world is not defined');
       return world;
     },
-    setGravity
+    setGravity,
+    serializeWorld: (): TPhysicsWorldConfig | never => {
+      if (isNotDefined(world)) throw new Error('Cannot serialize world: world is not defined');
+      return physicWorldToConfig(world);
+    }
   });
 }

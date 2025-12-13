@@ -1,11 +1,9 @@
-import type { Collider, RigidBody } from '@dimforge/rapier3d';
+import type { Collider, RigidBody, World } from '@dimforge/rapier3d';
 
-import type { TPhysicsBody, TPhysicsBodyConfig } from '@/Engine/Physics/Models';
+import type { TPhysicsBody, TPhysicsBodyConfig, TPhysicsWorldConfig } from '@/Engine/Physics/Models';
 import { filterOutEmptyFields, isDefined } from '@/Engine/Utils';
 
-export function physicsToConfig(entity: TPhysicsBody): TPhysicsBodyConfig {
-  // TODO 15-0-0: Add adapters for Physics World also
-
+export function physicBodyToConfig(entity: TPhysicsBody): TPhysicsBodyConfig {
   const rigidBody: RigidBody | undefined = entity.getRigidBody();
   const collider: Collider | undefined = rigidBody?.collider(0);
 
@@ -43,4 +41,24 @@ export function physicsToConfig(entity: TPhysicsBody): TPhysicsBodyConfig {
     type: entity.getPhysicsBodyType(),
     shapeParams: entity.getShapeParams()
   });
+}
+
+export function physicWorldToConfig(world: World): TPhysicsWorldConfig {
+  return {
+    gravity: world.gravity,
+    rawIntegrationParameters: world.integrationParameters.raw,
+    rawIslands: world.islands.raw,
+    rawBroadPhase: world.broadPhase.raw,
+    rawNarrowPhase: world.narrowPhase.raw,
+    rawBodies: world.bodies.raw,
+    rawColliders: world.colliders.raw,
+    rawImpulseJoints: world.impulseJoints.raw,
+    rawMultibodyJoints: world.multibodyJoints.raw,
+    // eslint-disable-next-line spellcheck/spell-checker
+    rawCCDSolver: world.ccdSolver.raw,
+    rawQueryPipeline: world.queryPipeline.raw,
+    rawPhysicsPipeline: world.physicsPipeline.raw,
+    rawSerializationPipeline: world.serializationPipeline.raw,
+    rawDebugRenderPipeline: world.debugRenderPipeline.raw
+  };
 }

@@ -20,10 +20,12 @@ export function spaceToConfig(
     materialService,
     models3dService,
     particlesService,
+    physicsBodyService,
+    physicsWorldService,
     rendererService,
+    scenesService,
     spatialGridService,
     textService,
-    scenesService,
     textureService
   }: TSpaceServices
 ): TSpaceConfig {
@@ -41,8 +43,8 @@ export function spaceToConfig(
     models3d: models3dService.serializeAllEntities(),
     particles: particlesService.serializeAllEntities(),
     physics: {
-      // TODO 15-0-0: Implement physicsWorldService.serializeAllEntities()
-      // global: physicsWorldService.serializeAllEntities(),
+      global: physicsWorldService.serializeWorld(),
+      bodies: physicsBodyService.serializeAllEntities()
     },
     renderers: rendererService.serializeAllEntities(),
     spatialGrids: spatialGridService.serializeAllEntities(),

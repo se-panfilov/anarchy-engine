@@ -31,7 +31,7 @@ export function getPushCoordsFrom3dAzimuth(azimuth: TRadians, elevation: TRadian
 }
 
 export function movePhysicsDynamicObjectByVelocity(rigidBody: RigidBody, type: VelocityType, vector3: Vector3 | Vector, shouldWakeUp: boolean = true): void | never {
-  if (!rigidBody.isDynamic()) throw new Error(`Cannot move physics object with velocity: rigid body is not dynamic`);
+  if (!rigidBody.isDynamic()) throw new Error(`Cannot move physic object with velocity: rigid body is not dynamic`);
 
   const { x, y, z } = vector3;
   switch (type) {
@@ -40,7 +40,7 @@ export function movePhysicsDynamicObjectByVelocity(rigidBody: RigidBody, type: V
     case VelocityType.Angular:
       return rigidBody.setAngvel({ x, y, z }, shouldWakeUp);
     default:
-      throw new Error(`Cannot move physics object with velocity: velocity type is invalid: ${type}`);
+      throw new Error(`Cannot move physic object with velocity: velocity type is invalid: ${type}`);
   }
 }
 

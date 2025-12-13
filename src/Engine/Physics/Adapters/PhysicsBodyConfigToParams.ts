@@ -15,6 +15,6 @@ export function configToParamsBody(config: TPhysicsBodyConfig): TPhysicsBodyPara
     ...withCoordsToVector(position, new Vector4(rotation?.x, rotation?.y, rotation?.z, rotation?.w))
   };
 
-  if (!isPhysicsBodyParamsComplete(result)) throw new Error('Cannot create physics body: params are lacking of mandatory fields');
+  if (!isPhysicsBodyParamsComplete(result)) throw new Error('Cannot create physic body: params are lacking of mandatory fields');
   return result;
 }
