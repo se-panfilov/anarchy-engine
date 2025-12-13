@@ -31,9 +31,9 @@ try {
 } catch (e) {
   console.warn('Could not get packages versions for error tracking', e);
 }
+
 //Allow tracking for production (only Electron part, web part should be tracked separately)
-// TODO DESKTOP: Add mode check
-if (__PLATFORM_MODE__.startsWith('production')) ElectronErrorTrackingService().start(packagesVersions);
+ElectronErrorTrackingService().start(packagesVersions);
 
 const windowService: TWindowService = WindowService();
 const settingsService: TSettingsService = SettingsService(app, { filesService, windowService });
