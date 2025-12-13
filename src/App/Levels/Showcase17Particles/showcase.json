@@ -17,7 +17,7 @@
       "heightSegments": 1,
       "material": { "type": "standard", "params": { "color": "#5EDCAE" } },
       "type": "plane",
-      "position": { "x": 0, "y": 2, "z": 0 },
+      "position": { "x": 0, "y": -4, "z": 0 },
       "rotation": { "x": -1.57, "y": 0, "z": 0 },
       "castShadow": false,
       "tags": []
@@ -28,7 +28,7 @@
       "width": 1,
       "height": 1,
       "radius": 0.7,
-      "position": { "x": 2, "y": 4, "z": 0 },
+      "position": { "x": 0, "y": 0, "z": 0 },
       "widthSegments": 64,
       "heightSegments": 64,
       "castShadow": true,
