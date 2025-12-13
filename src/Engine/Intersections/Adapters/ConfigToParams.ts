@@ -12,6 +12,7 @@ import type {
   TIntersectionsDirectionWatcherParams,
   TIntersectionsLoop
 } from '@/Engine/Intersections/Models';
+import { isIntersectionsCameraWatcherConfig, isIntersectionsDirectionWatcherConfig } from '@/Engine/Intersections/Utils';
 import type { TLoopService } from '@/Engine/Loop';
 import type { TMouseService } from '@/Engine/Mouse';
 import { isNotDefined } from '@/Engine/Utils';
@@ -23,17 +24,21 @@ export function configToParams(
   actorsService: TActorService,
   loopService: TLoopService
 ): TAnyIntersectionsWatcherParams | never {
-  const camera: TAnyCameraWrapper = cameraService.getRegistry().getByName(config.cameraName);
+  const params: TAbstractIntersectionsWatcherParams = configToParamsAbstractIntersectionsWatcher(config, actorsService, loopService);
 
-  const abstractParams: TAnyIntersectionsWatcherParams = configToParamsAbstractIntersectionsWatcher(config, mouseService, actorsService, loopService);
+  let result: TAnyIntersectionsWatcherParams;
+  if (isIntersectionsDirectionWatcherConfig(config)) {
+    result = { ...params, ...configToParamsIntersectionsDirectionWatcher(config) };
+  } else if (isIntersectionsCameraWatcherConfig(config)) {
+    result = { ...params, ...configToParamsIntersectionsCameraWatcher(config, mouseService, cameraService) };
+  } else {
+    throw new Error(`[Intersections] configToParams: Unknown intersections watcher config type for "${(config as TAnyIntersectionsWatcherConfig).name}".`);
+  }
+
+  return result;
 }
 
-function configToParamsAbstractIntersectionsWatcher(
-  config: TAnyIntersectionsWatcherConfig,
-  mouseService: TMouseService,
-  actorsService: TActorService,
-  loopService: TLoopService
-): TAnyIntersectionsWatcherParams {
+function configToParamsAbstractIntersectionsWatcher(config: TAnyIntersectionsWatcherConfig, actorsService: TActorService, loopService: TLoopService): TAbstractIntersectionsWatcherParams {
   const actors: ReadonlyArray<TActor> = config.actorNames.map((name: string): TActor => actorsService.getRegistry().getByName(name));
 
   const intersectionsLoop: TIntersectionsLoop | undefined = loopService.getIntersectionsLoop(config.intersectionsLoop);
