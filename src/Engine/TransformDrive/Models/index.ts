@@ -22,6 +22,7 @@ export type * from './TTransformDriveFactoryParams';
 export type * from './TTransformDriveParams';
 export type * from './TTransformDrivePerformanceOptions';
 export type * from './TTransformDriveRegistry';
+export type * from './TTransformDriveSerializedData';
 export type * from './TTransformDriveService';
 export type * from './TTransformDriveServiceDependencies';
 export type * from './TTransformLoop';
