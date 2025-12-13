@@ -1,2 +1,1 @@
-export * from './ILaunchedScene';
-export * from './ISceneLauncher';
+export * from './IBuiltGame';

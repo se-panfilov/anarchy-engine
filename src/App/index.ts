@@ -4,16 +4,16 @@ import sceneConfig from '@App/Scenes/debug-scene.config.json';
 import type { IIntersectionsWatcher } from '@Engine/Domains/Intersections';
 import { IntersectionsWatcherFactory } from '@Engine/Domains/Intersections';
 
-import type { IActorWrapper, IAppCanvas, ICameraWrapper, ILaunchedScene, ISceneConfig, IVector3 } from '@/Engine';
-import { ActorTag, ambientContext, CameraTag, isNotDefined, SceneLauncher } from '@/Engine';
+import type { IActorWrapper, IAppCanvas, IBuiltGame, ICameraWrapper, ISceneConfig, IVector3 } from '@/Engine';
+import { ActorTag, ambientContext, buildGame, CameraTag, isNotDefined } from '@/Engine';
 
 const canvas: IAppCanvas | null = ambientContext.container.getCanvasElement('#app');
-const { registries }: ILaunchedScene = SceneLauncher().launch(sceneConfig as ISceneConfig, canvas, factories);
-const { actorRegistry, cameraRegistry }: IRegistries = registries;
+const game: IBuiltGame = buildGame(sceneConfig as ISceneConfig, canvas);
+game.start();
 
-const clickableActors: ReadonlyArray<IActorWrapper> = actorRegistry.getAllWithEveryTag([ActorTag.Intersectable]);
+const clickableActors: ReadonlyArray<IActorWrapper> = game.actors.initial.registry.getAllWithEveryTag([ActorTag.Intersectable]);
 const cameraTag: CameraTag = CameraTag.Initial;
-const camera: ICameraWrapper | undefined = cameraRegistry.getUniqByTag(cameraTag);
+const camera: ICameraWrapper | undefined = game.camera.initial.registry.getUniqByTag(cameraTag);
 
 if (isNotDefined(camera)) throw new Error(`Cannot init intersection service: camera with tag "${cameraTag}" is not defined`);
 const intersectionsWatcher: IIntersectionsWatcher = IntersectionsWatcherFactory().create({ actors: clickableActors, camera, positionWatcher: ambientContext.mousePositionWatcher });
