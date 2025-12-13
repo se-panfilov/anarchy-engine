@@ -1,4 +1,3 @@
-// filepath: /Users/splswrd/work/three/apps/showcases-desktop/scripts/utils/mode.js
 // Small helpers to parse and normalize build/run modes across scripts.
 
 // Extracts mode from argv supporting "--mode <val>" and "--mode=<val>"
@@ -28,4 +27,14 @@ export function resolveMode(argv = [], env = process.env) {
   const npmMode = env.npm_config_mode;
   const nodeEnv = env.NODE_ENV;
   return normalizeMode(argMode || envMode || npmMode || nodeEnv || 'production');
+}
+
+// Detects a dry-run flag in argv.
+export function parseDryRunArg(argv = []) {
+  return argv.some((a) => a === '--dry-run' || a === '--dryrun' || a === '--dry');
+}
+
+// Resolves whether to run in dry-run mode from argv and environment.
+export function resolveDryRun(argv = [], env = process.env) {
+  return env.DRY_RUN === '1' || parseDryRunArg(argv);
 }

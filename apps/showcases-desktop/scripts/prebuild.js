@@ -1,12 +1,15 @@
 import { execSync } from 'node:child_process';
 import path from 'node:path';
-import { normalizeMode, resolveMode } from './utils/mode.js';
+import { normalizeMode, resolveDryRun, resolveMode } from './utils/mode.js';
 
-const mode = resolveMode(process.argv.slice(2));
+const argv = process.argv.slice(2);
+const mode = resolveMode(argv);
+const dryRun = resolveDryRun(argv);
 
 // Ensure children see MODE and NODE_ENV aligned with the chosen mode
 process.env.MODE = mode;
 process.env.NODE_ENV = mode;
+if (dryRun) process.env.DRY_RUN = '1';
 
 const run = (cmd, opts = {}) => {
   const prefix = opts.cwd ? `(cwd=${opts.cwd}) ` : '';
