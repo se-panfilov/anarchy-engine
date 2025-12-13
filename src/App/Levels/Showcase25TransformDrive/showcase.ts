@@ -2,7 +2,7 @@ import GUI from 'lil-gui';
 import { BehaviorSubject, combineLatest, map, withLatestFrom } from 'rxjs';
 import { Euler, Quaternion, Vector3 } from 'three';
 import type { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
-import { radToDeg } from 'three/src/math/MathUtils';
+import { degToRad, radToDeg } from 'three/src/math/MathUtils';
 
 import type { TShowcase } from '@/App/Levels/Models';
 import { addGizmo, getMemoryUsage } from '@/App/Levels/Utils';
@@ -192,7 +192,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
         azimuthText.setText(`Azimuth: ${azimuth.toFixed(2)}, Elevation: ${elevation.toFixed(2)}`);
 
         //rotation is for a "default" agent, for "kinematic" agent we will use target position (vector) to look at
-        const rotation: Quaternion = new Quaternion().setFromEuler(new Euler(0, azimuth, 0, 'YXZ'));
+        const rotation: Quaternion = new Quaternion().setFromEuler(new Euler(degToRad(elevation * -1), degToRad(azimuth), 0, 'YXZ'));
         rotateActorTo(sphereActor, point, rotation, agent);
       });
 
@@ -236,6 +236,7 @@ function moveActorTo(actor: TActor, position: Vector3, agent: TransformAgent, is
       return actor.drive.default.setPosition(position);
     case TransformAgent.Kinematic:
       // return actor.drive.kinematic.setLinearSpeed(metersPerSecond(5));
+      // return actor.drive.kinematic.moveTo(position, KinematicSpeed.Instant);
       return actor.drive.kinematic.moveTo(position, metersPerSecond(5));
     case TransformAgent.Connected:
       // no need to do anything here, cause already connected
@@ -254,8 +255,10 @@ function rotateActorTo(actor: TActor, lookToTarget: Vector3, rotation: Quaternio
     case TransformAgent.Default:
       return actor.drive.default.setRotation(rotation);
     case TransformAgent.Kinematic:
-      return actor.drive.kinematic.lookAt(lookToTarget, metersPerSecond(5), meters(1));
-    // return actor.drive.kinematic.rotateTo(rotation, metersPerSecond(5), meters(1));
+      actor.drive.kinematic.setRadius(meters(1));
+      return actor.drive.kinematic.lookAt(lookToTarget, metersPerSecond(5));
+    // return actor.drive.kinematic.lookAt(lookToTarget, KinematicSpeed.Instant);
+    // return actor.drive.kinematic.rotateTo(rotation, metersPerSecond(5));
     case TransformAgent.Connected:
       // no need to do anything here, cause already connected
       return undefined;
