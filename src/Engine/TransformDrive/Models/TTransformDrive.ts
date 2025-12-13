@@ -1,6 +1,6 @@
 import type { BehaviorSubject, ReplaySubject } from 'rxjs';
 
-import type { TDestroyable, TNoSpread, TWithId, TSerializable, TWithName } from '@/Engine/Mixins';
+import type { TDestroyable, TNoSpread, TSerializable, TWithId, TWithName } from '@/Engine/Mixins';
 import type { TReadonlyQuaternion, TReadonlyVector3 } from '@/Engine/ThreeLib';
 import type { TransformAgent } from '@/Engine/TransformDrive/Constants';
 import type { TTransformDriveSerializedData } from '@/Engine/TransformDrive/Models/TTransformDriveSerializedData';
