@@ -18,21 +18,23 @@ Done:
 - 11.0.x Sounds/Music
 
 Roadmap:
-- 12.0.x GUI
-- 13.0.x Registries refactoring (explicitly register/not register entities)
-- 14.0.x Lines domain
-- 15.0.x Deletion and resource dispose (memory management)
-- 16.x.x Save/Load
-- 17.x.x Load managers domain for resource loaders (audio, animations, envMaps, materials, models3d, textures, etc.)
-- 18.0.0 Multiple scenes full support (unload/load scenes one after another)
-- 19.0.x Split apps and engine (and add config for an app to set up engine)
-- 20.0.x Building app (desktop/mobile) (might be not a part of an engine)
-- 21.0.x Shaders
-- 22.x.x Postprocessing
-- 23.0.x Refactor withActive entities (use active$) (camera, renderer, etc)
-- 24.0.x Logging
-- 25.0.x Performance improvements (make sure materials and env maps are async)
-- 26.0.x npm package and a repo
+- 12.0.x Registries refactoring (explicitly register/not register entities)
+- 13.0.x Lines domain
+- 14.0.x Deletion and resource dispose (memory management)
+- 15.x.x Save/Load
+- 16.x.x Load managers domain for resource loaders (audio, animations, envMaps, materials, models3d, textures, etc.)
+- 17.0.0 Multiple scenes full support (unload/load scenes one after another)
+- 18.0.x Split apps and engine (and add config for an app to set up engine)
+- 10.0.x Building app (desktop/mobile) (might be not a part of an engine)
+- 20.0.x Shaders
+- 21.x.x Postprocessing
+- 22.0.x Refactor withActive entities (use active$) (camera, renderer, etc)
+- 23.0.x Logging
+- 24.0.x Performance improvements (make sure materials and env maps are async)
+- 25.0.x npm package and a repo
+
+Won't be implemented soon:
+- GUI/UI/HUD/Menus: Leave it to the app (don't want to build a generic solution)
 
 Global Refactoring:
 - It feels like env map is not async at all (check for extra "await", and compare with vanilla env map loading)
