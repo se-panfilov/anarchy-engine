@@ -61,6 +61,7 @@ export function TextureService(): ITextureService {
 
     Object.entries(pack).forEach(([key, packParams]: [string, ITexturePackParams | MaterialType]): void => {
       if (isMaterialType(packParams)) return;
+      // TODO (S.Panfilov) CWP do not load texture if already loaded
 
       const { url, params }: ITexturePackParams = packParams;
       const p: Promise<ITexture> = textureLoader.loadAsync(url).then((texture: IWriteable<ITexture>): ITexture => {
