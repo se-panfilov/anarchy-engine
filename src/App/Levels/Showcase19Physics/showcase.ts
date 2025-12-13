@@ -1,10 +1,10 @@
-import type { Vector } from '@dimforge/rapier3d';
+import type { Collider, RigidBody, Vector } from '@dimforge/rapier3d';
 import { ColliderDesc, RigidBodyDesc, World } from '@dimforge/rapier3d';
 import type { Scene } from 'three';
 import { BufferAttribute, BufferGeometry, LineBasicMaterial, LineSegments } from 'three';
 
 import type { TShowcase } from '@/App/Levels/Models';
-import type { TAppCanvas, TEngine, TSpace, TSpaceConfig } from '@/Engine';
+import type { TAppCanvas, TEngine, TSceneWrapper, TSpace, TSpaceConfig } from '@/Engine';
 import { buildSpaceFromConfig, Engine } from '@/Engine';
 
 import spaceConfig from './showcase.json';
@@ -16,22 +16,22 @@ export function showcase(canvas: TAppCanvas): TShowcase {
   const { actorService } = space.services;
 
   const gravity = { x: 0.0, y: -9.81, z: 0.0 };
-  const world = new World(gravity);
+  const world: World = new World(gravity);
 
-  const sceneWrapper = actorService.getScene();
-  const rapierDebugRenderer = new RapierDebugRenderer(sceneWrapper.entity, world);
+  const sceneWrapper: TSceneWrapper = actorService.getScene();
+  const rapierDebugRenderer: RapierDebugRenderer = new RapierDebugRenderer(sceneWrapper.entity, world);
 
   // Create the ground
-  const groundColliderDesc = ColliderDesc.cuboid(10.0, 0.1, 10.0);
+  const groundColliderDesc: ColliderDesc = ColliderDesc.cuboid(10.0, 0.1, 10.0);
   world.createCollider(groundColliderDesc);
 
   // Create a dynamic rigid-body.
-  const rigidBodyDesc = RigidBodyDesc.dynamic().setTranslation(0.0, 1.0, 0.0);
-  const rigidBody = world.createRigidBody(rigidBodyDesc);
+  const rigidBodyDesc: RigidBodyDesc = RigidBodyDesc.dynamic().setTranslation(0.0, 1.0, 0.0);
+  const rigidBody: RigidBody = world.createRigidBody(rigidBodyDesc);
 
   // Create a cuboid collider attached to the dynamic rigidBody.
-  const colliderDesc = ColliderDesc.cuboid(0.5, 0.5, 0.5);
-  const collider = world.createCollider(colliderDesc, rigidBody);
+  const colliderDesc: ColliderDesc = ColliderDesc.cuboid(0.5, 0.5, 0.5);
+  const collider: Collider = world.createCollider(colliderDesc, rigidBody);
 
   loopService.tick$.subscribe(({ delta }) => {
     // Ste the simulation forward.
