@@ -7,6 +7,7 @@ import type { TFpsControlsParamsOptions } from './TFpsControlsParamsOptions';
 export type TFpsControlsParams = TBaseControlsParams &
   Readonly<{
     options?: TFpsControlsParamsOptions;
+    enabled?: boolean;
     canvas: TSpaceCanvas;
   }> &
   TWithName &

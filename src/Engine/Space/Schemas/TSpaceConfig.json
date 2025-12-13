@@ -7863,6 +7863,9 @@
         "type": {
           "$ref": "#/definitions/ControlsType"
         },
+        "enabled": {
+          "type": "boolean"
+        },
         "name": {
           "type": "string"
         },
