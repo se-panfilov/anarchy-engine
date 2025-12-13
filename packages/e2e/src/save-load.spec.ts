@@ -1,4 +1,4 @@
-import type { Locator } from '@playwright/test';
+import type { Locator, TestInfo } from '@playwright/test';
 import { expect, test } from '@playwright/test';
 import fs from 'fs';
 import type { Page } from 'playwright';
@@ -15,45 +15,47 @@ test.beforeEach(async ({ page }) => {
 });
 
 const scenes: ReadonlyArray<string> = [
-  // 'SpaceActor',
+  'SpaceActor',
   'SpaceAnimations',
-  // 'SpaceAudio',
-  'SpaceBasic'
-  // 'SpaceCamera',
-  // 'SpaceCustomModels',
-  // 'SpaceFog',
-  // 'SpaceFpsControls',
-  // 'SpaceIntersections',
-  // 'SpaceLight',
-  // 'SpaceMaterials',
-  // 'SpaceOrbitControls',
-  // 'SpaceParticles',
-  // 'SpacePhysics',
-  // 'SpaceSpatial',
-  // 'SpaceTexts',
-  // 'SpaceTransformDrive'
+  'SpaceAudio',
+  'SpaceBasic',
+  'SpaceCamera',
+  'SpaceCustomModels',
+  'SpaceFog',
+  'SpaceFpsControls',
+  'SpaceIntersections',
+  'SpaceLight',
+  'SpaceMaterials',
+  'SpaceOrbitControls',
+  'SpaceParticles',
+  'SpacePhysics',
+  'SpaceSpatial',
+  'SpaceTexts',
+  'SpaceTransformDrive'
 ];
 
-test.describe('Space save/load persistence', () => {
+test.describe('Space save/load persistence', (): void => {
   const thresholds = {
     // threshold: 0.01,
+    timeout: 30000,
     maxDiffPixelRatio: 0.01
   };
 
   scenes.forEach((sceneName: string): void => {
-    test(`Plain space load: [${sceneName}]`, async ({ page }) => {
+    test(`Plain space load: [${sceneName}]`, async ({ page }): Promise<void> => {
       const spaceSelect: Locator = page.getByLabel('Spaces');
       await expect(spaceSelect).toBeVisible();
       await page.getByLabel('Spaces').selectOption(sceneName);
-      await expect(page.locator('canvas')).toHaveScreenshot(`${sceneName}-1-default.png`);
+      await waitUntilReady('AFTER_SELECT', page);
+      await expect(page.locator('canvas')).toHaveScreenshot(`${sceneName}-1-default.png`, thresholds);
     });
 
-    test(`Load, Save, Load: [${sceneName}]`, async ({ page }, testInfo) => {
+    test(`Load, Save, Load: [${sceneName}]`, async ({ page }, testInfo: TestInfo): Promise<void> => {
       const canvas: Locator = page.locator('canvas');
       await page.getByLabel('Spaces').selectOption(sceneName);
       await waitUntilReady('WAIT_PAGE_LOAD', page);
 
-      const bufferA = await canvas.screenshot();
+      const bufferA: Buffer<ArrayBufferLike> = await canvas.screenshot();
 
       await page.getByRole('button', { name: 'Save' }).click();
       await waitUntilReady('CLICKED_SAVE', page);
@@ -62,7 +64,7 @@ test.describe('Space save/load persistence', () => {
       await page.getByRole('button', { name: 'Load' }).click();
       await waitUntilReady('CLICKED_LOAD', page);
 
-      const bufferB = await canvas.screenshot();
+      const bufferB: Buffer<ArrayBufferLike> = await canvas.screenshot();
 
       const snapshotName: string = `${sceneName}-2-compare-same.png`;
       const snapshotPath: string = testInfo.snapshotPath(snapshotName);
@@ -75,7 +77,7 @@ test.describe('Space save/load persistence', () => {
       expect(bufferB).toMatchSnapshot(snapshotName, thresholds);
     });
 
-    test(`Load, Change, Save, Load changed: [${sceneName}]`, async ({ page }, testInfo) => {
+    test(`Load, Change, Save, Load changed: [${sceneName}]`, async ({ page }, testInfo: TestInfo): Promise<void> => {
       const canvas: Locator = page.locator('canvas');
       await page.getByLabel('Spaces').selectOption(sceneName);
 
@@ -84,7 +86,7 @@ test.describe('Space save/load persistence', () => {
       await page.getByRole('button', { name: 'Change' }).click();
       await waitUntilReady('CLICKED_CHANGE', page);
 
-      const bufferA = await canvas.screenshot();
+      const bufferA: Buffer<ArrayBufferLike> = await canvas.screenshot();
 
       await page.getByRole('button', { name: 'Save' }).click();
       await waitUntilReady('CLICKED_SAVE', page);
@@ -92,7 +94,7 @@ test.describe('Space save/load persistence', () => {
       await page.getByRole('button', { name: 'Load' }).click();
       await waitUntilReady('CLICKED_LOAD', page);
 
-      const bufferB = await canvas.screenshot();
+      const bufferB: Buffer<ArrayBufferLike> = await canvas.screenshot();
 
       const snapshotName: string = `${sceneName}-3-compare-changed.png`;
       const snapshotPath: string = testInfo.snapshotPath(snapshotName);
@@ -110,11 +112,12 @@ test.describe('Space save/load persistence', () => {
 export async function waitUntilReady(actionName: string, page: Page, timeout: number = 1000): Promise<void> {
   await page.waitForFunction(
     ({ actionName }): boolean | undefined => {
-      console.log(`[E2E] is ${actionName} ready: `, (window as any)._isReady);
+      console.log(`[E2E] is ${actionName} ready:  ${(window as any)._isReady}. Is Renderer ready: ${(window as any)._isRendererReady}`);
       const body: HTMLBodyElement | null = document.querySelector('body');
       const loaded: boolean = !!body?.classList.contains('ready');
       const isReady: boolean = !!(window as any)._isReady;
-      return loaded && isReady;
+      const isRendererReady: boolean = !!(window as any)._isRendererReady;
+      return loaded && isReady && isRendererReady;
     },
     { timeout, actionName }
   );
