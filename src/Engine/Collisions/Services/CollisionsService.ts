@@ -21,6 +21,7 @@ export function CollisionsService(): TCollisionsService {
       maxZ: actorBox.max.z + radius
     };
 
+    // TODO (S.Panfilov) CWP something is wrong with this box. And actually, why it's a box? Who is an actor? A bullet or a target?
     const cells: ReadonlyArray<TSpatialCell> = spatialGrid.findCellsForBox(queryBox);
     console.log(cells);
     // const cells: ReadonlyArray<TSpatialCell> = spatialGrid.entity.search(queryBox);
