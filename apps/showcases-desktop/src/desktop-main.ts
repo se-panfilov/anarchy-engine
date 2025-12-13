@@ -12,8 +12,6 @@ const desktopAppSettings: TDesktopAppConfig = {
   isOpenDevTools: true
 };
 
-// TODO DESKTOP: Save/Load with files?
-// TODO DESKTOP: Save/Load app's settings (screen resolution, fullscreen mode, etc.)
 // TODO DESKTOP: Steam integration (manifest, cloud_sync.vdf, cloud saves, achievements, layer, etc.)
 // TODO DESKTOP: Other integrations (epic, gog, etc.)
 // TODO DESKTOP: Add getting game's and engine's versions in preload.ts
