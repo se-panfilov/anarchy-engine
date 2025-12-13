@@ -2,6 +2,7 @@ import { isEqual } from 'lodash-es';
 
 import type { TAbstractService } from '@/Engine/Abstract';
 import { AbstractService } from '@/Engine/Abstract';
+import type { FsmEventsStrategy } from '@/Engine/Fsm/Constants';
 import type {
   TFsmInstanceFactory,
   TFsmInstanceRegistry,
@@ -51,10 +52,12 @@ export function FsmService(instanceFactory: TFsmInstanceFactory, sourceFactory: 
     return isEqual(params, sourceParams);
   }
 
-  function createInstanceBySourceName(sourceName: string, currentState?: TFsmStates): TFsmWrapper | never {
-    const source: TFsmSource | undefined = sourceService.getRegistry().findByKey(sourceName);
+  function createInstanceBySourceName(sourceName: string, currentState?: TFsmStates, strategy?: FsmEventsStrategy): TFsmWrapper | never {
+    let source: TFsmSource | undefined = sourceService.getRegistry().findByKey(sourceName);
     if (isNotDefined(source)) throw new Error(`FsmService. Can't create a fsm instance by a source name "${sourceName}": fsm source not found`);
-    return instanceService.create({ ...source, currentState });
+    if (isDefined(currentState)) source = { ...source, currentState };
+    if (isDefined(strategy)) source = { ...source, strategy };
+    return instanceService.create(source);
   }
 
   // eslint-disable-next-line functional/immutable-data

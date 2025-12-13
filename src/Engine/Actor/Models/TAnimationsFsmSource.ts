@@ -1,3 +1,3 @@
-import type { TFsmStates } from '@/Engine/Fsm';
+import type { FsmEventsStrategy, TFsmStates } from '@/Engine/Fsm';
 
-export type TAnimationsFsmSource = Readonly<{ name: string; currentState?: TFsmStates }>;
+export type TAnimationsFsmSource = Readonly<{ name: string; currentState?: TFsmStates; strategy?: FsmEventsStrategy }>;

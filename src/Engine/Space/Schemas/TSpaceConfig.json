@@ -1185,6 +1185,9 @@
         },
         "currentState": {
           "$ref": "#/definitions/TFsmStates"
+        },
+        "strategy": {
+          "$ref": "#/definitions/FsmEventsStrategy"
         }
       },
       "required": ["name"],
@@ -1192,6 +1195,10 @@
     },
     "TFsmStates": {
       "type": ["string", "number"]
+    },
+    "FsmEventsStrategy": {
+      "type": "string",
+      "enum": ["strict_queue", "skip_pending", "replace_pending", "run_parallel"]
     },
     "TransformAgent": {
       "type": "string",
@@ -1259,6 +1266,12 @@
         },
         "agent": {
           "$ref": "#/definitions/TransformAgent"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
         }
       },
       "required": ["audioSource", "name", "position"]
@@ -1321,6 +1334,12 @@
         },
         "agent": {
           "$ref": "#/definitions/TransformAgent"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
         }
       },
       "required": ["audioSource", "name"]
@@ -2558,10 +2577,6 @@
     "FsmType": {
       "type": "string",
       "const": "Animation"
-    },
-    "FsmEventsStrategy": {
-      "type": "string",
-      "enum": ["strict_queue", "skip_pending", "replace_pending", "run_parallel"]
     },
     "TTextConfig": {
       "type": "object",

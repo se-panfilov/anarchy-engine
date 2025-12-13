@@ -82,7 +82,8 @@ export function FsmWrapper(params: TFsmParams): TFsmWrapper {
     strategy$,
     getState,
     getInitial: (): TFsmStates => params.initial,
-    serialize: (): TFsmConfig => fsmToConfig(result)
+    serialize: (): TFsmConfig => fsmToConfig(result),
+    getTransitions: (): ReadonlyArray<readonly [TFsmStates, TFsmEvents, TFsmStates]> => params.transitions
   });
 
   return result;

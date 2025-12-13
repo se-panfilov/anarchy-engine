@@ -2,7 +2,7 @@ import type { BehaviorSubject, Observable } from 'rxjs';
 
 import type { TWrapper } from '@/Engine/Abstract';
 import type { FsmEventsStrategy, FsmType } from '@/Engine/Fsm/Constants';
-import type { TFsmStates } from '@/Engine/Fsm/Models';
+import type { TFsmEvents, TFsmStates } from '@/Engine/Fsm/Models';
 
 import type { TFsmMachine } from './TFsmMachine';
 
@@ -14,4 +14,5 @@ export type TFsmWrapper = TWrapper<TFsmMachine> &
     strategy$: BehaviorSubject<FsmEventsStrategy>;
     getState: () => TFsmStates;
     getInitial: () => TFsmStates;
+    getTransitions: () => ReadonlyArray<readonly [TFsmStates, TFsmEvents, TFsmStates]>;
   }>;
