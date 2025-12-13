@@ -1,6 +1,6 @@
 import { PositionalAudio } from 'three';
 
-import type { TAudio3dConfig, TAudio3dParams, TAudioConfig, TAudioFadeParams, TAudioParams } from '@/Engine/Audio/Models';
+import type { TAudio3dConfig, TAudio3dParams, TAudioConfig, TAudioParams } from '@/Engine/Audio/Models';
 import { isNotDefined } from '@/Engine/Utils';
 
 export const isAudio3dConfig = (config: TAudioConfig | TAudio3dConfig): config is TAudio3dConfig => (config as TAudio3dConfig).position !== undefined;
@@ -25,15 +25,6 @@ export function resumeAudio(entity: PositionalAudio): void {
   // entity.pausedAt = null;
 }
 
-// TODO 11.0.0: fadeAudio if seekAudio is working
-export function fadeAudio(audio: PositionalAudio, { to, duration }: TAudioFadeParams): void {
-  const gainNode = audio.gain;
-  gainNode.gain.cancelScheduledValues(audio.context.currentTime);
-  gainNode.gain.setValueAtTime(gainNode.gain.value, audio.context.currentTime);
-  gainNode.gain.linearRampToValueAtTime(to, audio.context.currentTime + duration);
-}
-
-// TODO 11.0.0: check if seekAudio is working
 export function seekAudio(entity: PositionalAudio, time: number): void {
   if (!entity.buffer) return;
   entity.stop();

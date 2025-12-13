@@ -4,9 +4,9 @@ import type { AudioListener, PositionalAudio } from 'three';
 
 import type { TWrapper } from '@/Engine/Abstract';
 import { AbstractWrapper, WrapperType } from '@/Engine/Abstract';
-import type { TAudio3dParams, TAudio3dTransformDrive, TAudio3dWrapper, TAudioFadeParams, TAudioWrapperDependencies } from '@/Engine/Audio/Models';
+import type { TAudio3dParams, TAudio3dTransformDrive, TAudio3dWrapper, TAudioWrapperDependencies } from '@/Engine/Audio/Models';
 import { Audio3dTransformDrive } from '@/Engine/Audio/TransformDrive';
-import { createPositionalAudion, fadeAudio, pauseAudio, resumeAudio, seekAudio } from '@/Engine/Audio/Utils';
+import { createPositionalAudion, pauseAudio, resumeAudio, seekAudio } from '@/Engine/Audio/Utils';
 import { LoopUpdatePriority } from '@/Engine/Loop';
 import type { TMeters } from '@/Engine/Math';
 import { meters } from '@/Engine/Measurements';
@@ -25,7 +25,6 @@ export function Audio3dWrapper(params: TAudio3dParams, { audioLoop }: TAudioWrap
 
   const play$: Subject<boolean> = new Subject<boolean>();
   const pause$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(params.pause ?? false);
-  const fade$: Subject<TAudioFadeParams> = new Subject<TAudioFadeParams>();
   const speed$: BehaviorSubject<number> = new BehaviorSubject<number>(params.speed ?? 1);
   const seek$: BehaviorSubject<number> = new BehaviorSubject<number>(params.seek ?? 0);
   const loop$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(params.loop ?? false);
@@ -56,10 +55,6 @@ export function Audio3dWrapper(params: TAudio3dParams, { audioLoop }: TAudioWrap
       if (isPause) pauseAudio(entity);
       else resumeAudio(entity);
     });
-
-  const fadeSub$: Subscription = fade$
-    .pipe(distinctUntilChanged((prev: TAudioFadeParams, curr: TAudioFadeParams): boolean => prev.to === curr.to && prev.duration === curr.duration))
-    .subscribe((fadeParams: TAudioFadeParams): void => fadeAudio(entity, fadeParams));
 
   const speedSub$: Subscription = speed$
     .pipe(
@@ -102,7 +97,6 @@ export function Audio3dWrapper(params: TAudio3dParams, { audioLoop }: TAudioWrap
     destroySub$.unsubscribe();
     playSub$.unsubscribe();
     pauseSub$.unsubscribe();
-    fadeSub$.unsubscribe();
     driveToTargetConnector.destroy$.next();
     volumeSub$.unsubscribe();
     updateVolumeSub$.unsubscribe();
@@ -118,8 +112,6 @@ export function Audio3dWrapper(params: TAudio3dParams, { audioLoop }: TAudioWrap
     listener$.unsubscribe();
     pause$.complete();
     pause$.unsubscribe();
-    fade$.complete();
-    fade$.unsubscribe();
     speed$.complete();
     speed$.unsubscribe();
     seek$.complete();
@@ -137,7 +129,6 @@ export function Audio3dWrapper(params: TAudio3dParams, { audioLoop }: TAudioWrap
     drive,
     play$,
     pause$,
-    fade$,
     speed$,
     seek$,
     loop$,

@@ -34,7 +34,12 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
       seekMinus: (): void => {
         const currentTime: number = bgMusic.seek$.getValue();
         bgMusic.seek$.next(currentTime - 10);
-      }
+      },
+      loop: (): void => {
+        const currentLoop: boolean = bgMusic.loop$.getValue();
+        bgMusic.loop$.next(!currentLoop);
+      },
+      volume: 1
     };
 
     bgMusicFolder.add(state, 'playBgMusic').name('Play background music');
@@ -43,6 +48,13 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     bgMusicFolder.add(state, 'stopBgMusic').name('Stop background music');
     bgMusicFolder.add(state, 'seekPlus').name('Seek +10s');
     bgMusicFolder.add(state, 'seekMinus').name('Seek -10s');
+    bgMusicFolder.add(state, 'loop').name('loop');
+    bgMusicFolder
+      .add(state, 'volume', 0, 1)
+      .name('Volume')
+      .onChange((value: number): void => {
+        bgMusic.volume$.next(value);
+      });
   }
 
   function start(): void {

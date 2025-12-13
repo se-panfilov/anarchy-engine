@@ -8,7 +8,6 @@ export type * from './TAudioBasicParams';
 export type * from './TAudioConfig';
 export type * from './TAudioConfigToParamsDependencies';
 export type * from './TAudioFactory';
-export type * from './TAudioFadeParams';
 export type * from './TAudioListenersRegistry';
 export type * from './TAudioLoader';
 export type * from './TAudioLoop';

@@ -6,13 +6,11 @@ import type { TReadonlyVector3 } from '@/Engine/ThreeLib';
 import type { TWithTransformDrive } from '@/Engine/TransformDrive';
 
 import type { TAudio3dTransformAgents } from './TAudio3dTransformAgents';
-import type { TAudioFadeParams } from './TAudioFadeParams';
 
 export type TAudio3dWrapper = TWrapper<PositionalAudio> &
   Readonly<{
     play$: Subject<boolean>;
     pause$: BehaviorSubject<boolean>;
-    fade$: Subject<TAudioFadeParams>;
     speed$: BehaviorSubject<number>;
     seek$: BehaviorSubject<number>;
     loop$: BehaviorSubject<boolean>;
