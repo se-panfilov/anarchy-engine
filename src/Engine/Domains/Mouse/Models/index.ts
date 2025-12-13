@@ -4,6 +4,7 @@ export * from './IMouseClicksWatcherRegistry';
 export * from './IMouseClickWatcherParams';
 export * from './IMouseEvent';
 export * from './IMousePosition';
+export * from './IMousePositionAccessors';
 export * from './IMousePositionWatcher';
 export * from './IMousePositionWatcherFactory';
 export * from './IMousePositionWatcherParams';

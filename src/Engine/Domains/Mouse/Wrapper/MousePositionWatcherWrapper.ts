@@ -1,8 +1,8 @@
 import { AbstractWrapper } from '@Engine/Domains/Abstract';
+import { getAccessors } from '@Engine/Domains/Mouse/Wrapper/Accessors';
 
 import type { IMousePositionWatcher, IMousePositionWatcherParams, IMousePositionWatcherWrapper } from '../Models';
 import { createMousePositionWatcher } from './MousePositionWatcherUtils';
-import { getAccessors } from '@Engine/Domains/Actor/Wrapper/Accessors';
 
 export function MousePositionWatcherWrapper(params: IMousePositionWatcherParams): IMousePositionWatcherWrapper {
   const entity: IMousePositionWatcher = createMousePositionWatcher(params);
