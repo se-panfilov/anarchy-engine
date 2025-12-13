@@ -1,5 +1,5 @@
-import type { TKeyboardService, TMouseService } from '@Anarchy/Engine';
-import { KeyCode } from '@Anarchy/Engine';
+import type { TKeyboardService, TKeysEvent, TMouseService } from '@Anarchy/Engine';
+import { isPressEvent, KeyCode } from '@Anarchy/Engine';
 import { isKeyInEvent } from '@Anarchy/Engine/Keyboard/Utils/KeysUtils';
 import type { TToGuiEvent } from '@Showcases/Shared';
 import type { Subject } from 'rxjs';
@@ -8,7 +8,7 @@ import { createToGuiActionEvent } from 'showcases-gui/src/events';
 
 export function initGuiEvents(keyboardService: TKeyboardService, mouseService: TMouseService, toGuiEventsBus$: Subject<TToGuiEvent>): void {
   const { clickLeftRelease$, clickLeftPress$, clickRightPress$, clickRightRelease$ } = mouseService;
-  const { pressed$, released$ } = keyboardService;
+  const { keys$ } = keyboardService;
 
   const { Attack, Defense, MiniMap, Inventory, Settings } = GuiActionType;
 
@@ -22,15 +22,9 @@ export function initGuiEvents(keyboardService: TKeyboardService, mouseService: T
   const openSettings = (open: boolean): void => toGuiEventsBus$.next(createToGuiActionEvent(Settings, open));
   const openMiniMap = (open: boolean): void => toGuiEventsBus$.next(createToGuiActionEvent(MiniMap, open));
 
-  pressed$.subscribe((event: KeyboardEvent): void => {
-    if (isKeyInEvent(KeyCode.I, event)) openInventory(true);
-    if (isKeyInEvent(KeyCode.M, event)) openMiniMap(true);
-    if (isKeyInEvent(KeyCode.Escape, event)) openSettings(true);
-  });
-
-  released$.subscribe((event: KeyboardEvent): void => {
-    if (isKeyInEvent(KeyCode.I, event)) openInventory(false);
-    if (isKeyInEvent(KeyCode.M, event)) openMiniMap(false);
-    if (isKeyInEvent(KeyCode.Escape, event)) openSettings(false);
+  keys$.subscribe((event: TKeysEvent): void => {
+    if (isKeyInEvent(KeyCode.I, event)) openInventory(isPressEvent(event));
+    if (isKeyInEvent(KeyCode.M, event)) openMiniMap(isPressEvent(event));
+    if (isKeyInEvent(KeyCode.Escape, event)) openSettings(isPressEvent(event));
   });
 }
