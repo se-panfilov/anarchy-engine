@@ -48,6 +48,7 @@ export const JsRules = {
         'Num',
         'Offscreen',
         'PDF',
+        'Pii',
         'Premultiplied',
         'Rect',
         'Registrable',
