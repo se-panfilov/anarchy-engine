@@ -128,23 +128,27 @@ async function loadWorkspaces(rootDir: string): Promise<ReadonlyMap<string, TWor
   const patterns: string[] = Array.isArray(rootPkg.workspaces) ? rootPkg.workspaces : (rootPkg.workspaces?.packages ?? []);
   if (!patterns.length) throw new Error(`No workspaces patterns in ${path.join(rootDir, 'package.json')}`);
   const dirs = await globby(patterns, { cwd: rootDir, absolute: true, onlyDirectories: true, gitignore: true, ignore: ['**/node_modules/**', '**/dist/**', '**/dist-*/**', '**/.*/**'] });
-  const entries: Array<[string, TWorkspaceInfo]> = [];
-  for (const dir of dirs) {
-    const pkgPath = path.join(dir, 'package.json');
-    if (!(await exists(pkgPath))) continue;
-    const pkg = await readJson<Record<string, unknown>>(pkgPath);
-    const name = typeof pkg.name === 'string' ? pkg.name : undefined;
-    if (!name) continue;
-    entries.push([name, { name, dir, pkgPath }]);
-  }
+  const entries = (
+    await Promise.all(
+      dirs.map(async (dir): Promise<[string, TWorkspaceInfo] | undefined> => {
+        const pkgPath = path.join(dir, 'package.json');
+        if (!(await exists(pkgPath))) return undefined;
+        const pkg = await readJson<{ name: string; version?: string; dependencies?: Record<string, string>; devDependencies?: Record<string, string>; optionalDependencies?: Record<string, string> }>(
+          pkgPath
+        );
+        const name = typeof pkg.name === 'string' ? pkg.name : undefined;
+        return name ? ([name, { name, dir, pkgPath, pkg }] as const) : undefined;
+      })
+    )
+  ).filter(Boolean) as Array<[string, TWorkspaceInfo]>;
   return new Map(entries);
 }
 
 function resolveWorkspaceFromArg(arg: string, workspaces: ReadonlyMap<string, TWorkspaceInfo>, rootDir: string): Readonly<{ ws: TWorkspaceInfo }> {
   const byName = workspaces.get(arg);
   if (byName) return { ws: byName };
-  const asPath = path.isAbsolute(arg) ? arg : path.join(rootDir, arg);
-  const norm = path.resolve(asPath);
+  const asPath: string = path.isAbsolute(arg) ? arg : path.join(rootDir, arg);
+  const norm: string = path.resolve(asPath);
   for (const w of workspaces.values()) {
     if (path.resolve(w.dir) === norm) return { ws: w };
   }
@@ -173,9 +177,9 @@ function parseHeaderLine(chunk: string): { name: string; version: string } | und
 }
 
 function parseOneEntry(chunk: string): TParsedEntry | undefined {
-  const hdr = parseHeaderLine(chunk);
-  if (!hdr) return undefined;
-  const { name, version } = hdr;
+  const header = parseHeaderLine(chunk);
+  if (!header) return undefined;
+  const { name, version } = header;
   const id = `${name}@${version}`;
 
   const field = (label: string): string | undefined => {
@@ -190,12 +194,12 @@ function parseOneEntry(chunk: string): TParsedEntry | undefined {
     .map((s) => s.trim())
     .filter(Boolean);
 
-  const repository = field('Repository');
-  const url = field('URL');
+  const repository: string | undefined = field('Repository');
+  const url: string | undefined = field('URL');
   const publisher = field('Publisher')
     ?.replace(/\s+<[^>]+>\s*$/, '')
     .trim();
-  const pth = field('Path');
+  const path: string | undefined = field('Path');
 
   // License text: tail after the first blank line following the header+KV area
   let licenseText: string | undefined = undefined;
@@ -234,7 +238,7 @@ function parseOneEntry(chunk: string): TParsedEntry | undefined {
     repository: repository ?? undefined,
     url: url ?? undefined,
     publisher: publisher ?? undefined,
-    path: pth ?? undefined,
+    path: path ?? undefined,
     licenseText,
     inferredCopyright
   };
@@ -242,13 +246,12 @@ function parseOneEntry(chunk: string): TParsedEntry | undefined {
 
 function parseThirdPartyMarkdown(md: string): ReadonlyArray<TParsedEntry> {
   const chunks = splitEntriesFromMarkdown(md);
-  const out: TParsedEntry[] = [];
-  for (const ch of chunks) {
+  const entries = chunks.flatMap((ch) => {
     const e = parseOneEntry(ch);
-    if (e) out.push(e);
-  }
-  out.sort((a, b) => (a.name === b.name ? a.version.localeCompare(b.version) : a.name.localeCompare(b.name)));
-  return out;
+    return e ? [e] : [];
+  });
+  const sorted = entries.toSorted((a, b) => (a.name === b.name ? a.version.localeCompare(b.version) : a.name.localeCompare(b.name)));
+  return sorted;
 }
 
 // for audit: collect every heading id present in the source file
@@ -296,33 +299,27 @@ async function loadUpstreamNotice(dir: string, maxBytes: number): Promise<string
 // ---------------------- Render NOTICE.md ----------------------
 
 function renderNotice(wsName: string, entries: ReadonlyArray<TParsedEntry>, includeUpstream: boolean): string {
-  const lines: string[] = [];
-  lines.push(`# NOTICE
+  const header: ReadonlyArray<string> = [`# NOTICE`, ``, `## Application: ${wsName}`, ``, `Components listed: ${entries.length}`, ``];
 
-## Application: ${wsName}
+  const note: ReadonlyArray<string> = entries.length === 0 ? [`**Note:** No third-party components were detected.`] : [];
 
-Components listed: ${entries.length}
-`);
+  const blocks: ReadonlyArray<ReadonlyArray<string>> = entries.map((e) => {
+    const base: string[] = [
+      `---`,
+      ``,
+      `## ${e.name}@${e.version}`,
+      `**License(s):** ${e.licenses.length ? e.licenses.join(', ') : 'UNKNOWN'}`,
+      ...(e.repository ? [`**Repository:** ${e.repository}`] : []),
+      ...(e.url ? [`**URL:** ${e.url}`] : []),
+      ...(e.inferredCopyright ? [`**Attribution:** ${e.inferredCopyright}`] : []),
+      ``
+    ];
+    const upstream: ReadonlyArray<string> = includeUpstream && e.upstreamNotice ? [`**Upstream NOTICE:**`, ...e.upstreamNotice.split(/\r?\n/).map((ln) => `> ${ln}`), ``] : [];
+    return [...base, ...upstream];
+  });
 
-  if (entries.length === 0) {
-    lines.push(`**Note:** No third-party components were detected.`);
-  }
-
-  for (const e of entries) {
-    lines.push(`---`, ``);
-    lines.push(`## ${e.name}@${e.version}`);
-    lines.push(`**License(s):** ${e.licenses.length ? e.licenses.join(', ') : 'UNKNOWN'}`);
-    if (e.repository) lines.push(`**Repository:** ${e.repository}`);
-    if (e.url) lines.push(`**URL:** ${e.url}`);
-    if (e.inferredCopyright) lines.push(`**Attribution:** ${e.inferredCopyright}`);
-    lines.push(``);
-    if (includeUpstream && e.upstreamNotice) {
-      lines.push(`**Upstream NOTICE:**`);
-      lines.push(...e.upstreamNotice.split(/\r?\n/).map((ln) => `> ${ln}`));
-      lines.push(``);
-    }
-  }
-  return lines.join('\n\n');
+  const allLines = [...header, ...note, ...blocks.flat()];
+  return allLines.join('\n\n');
 }
 
 // ---------------------- Main ----------------------
@@ -387,27 +384,27 @@ async function main(): Promise<void> {
   debugLog('parsed entries:', entries.length);
 
   // Optional upstream NOTICE load
-  if (argv['include-upstream-notices']) {
+  const finalEntries: ReadonlyArray<TParsedEntry> = await (async () => {
+    if (!argv['include-upstream-notices']) return entries;
     const maxBytes = Math.max(1, Math.floor(Number(argv['max-upstream-notice-kb']) || 128)) * 1024;
-    let filled = 0;
-    for (let i = 0; i < entries.length; i++) {
-      const e = entries[i];
-      if (!e.path) continue;
-      const u = await loadUpstreamNotice(e.path, maxBytes);
-      if (u) {
-        (entries as any)[i] = { ...e, upstreamNotice: u };
-        filled++;
-      }
-    }
-    debugLog('upstream notices loaded:', filled);
-  }
+    const withUpstream = await Promise.all(
+      entries.map(async (e) => {
+        if (!e.path) return e;
+        const u = await loadUpstreamNotice(e.path, maxBytes);
+        return u ? { ...e, upstreamNotice: u } : e;
+      })
+    );
+    const filledCount = withUpstream.filter((e) => Boolean(e.upstreamNotice)).length;
+    debugLog('upstream notices loaded:', filledCount);
+    return withUpstream;
+  })();
 
   // Audit report
   if (argv.audit) {
-    const parsedIds = new Set(entries.map((e) => e.id));
-    const missing: string[] = [];
-    for (const id of declaredIds) if (!parsedIds.has(id)) missing.push(id);
-    missing.sort();
+    const parsedIds = new Set(finalEntries.map((e) => e.id));
+    const missing = Array.from(declaredIds)
+      .filter((id) => !parsedIds.has(id))
+      .toSorted();
 
     console.log(`NOTICE audit:
   headings in source:  ${declaredIds.size}

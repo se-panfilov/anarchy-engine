@@ -29,7 +29,7 @@ export function LegalFilesService(): TLegalFilesService {
 
   // ---------------------- Utils ----------------------
 
-  const readJson = async <T extends Record<string, unknown>>(p: string): Promise<T> => JSON.parse(await fs.readFile(p, 'utf8')) as T;
+  const readJson = async <T = any>(p: string): Promise<T> => JSON.parse(await fs.readFile(p, 'utf8')) as T;
 
   const exists = async (p: string): Promise<boolean> => {
     try {
@@ -52,15 +52,23 @@ export function LegalFilesService(): TLegalFilesService {
       gitignore: true,
       ignore: ['**/node_modules/**', '**/dist/**', '**/dist-*/**', '**/.*/**']
     });
-    const entries: Array<[string, TWorkspaceInfo]> = [];
-    for (const dir of dirs) {
-      const pkgPath: string = path.join(dir, 'package.json');
-      if (!(await exists(pkgPath))) continue;
-      const pkg: Record<string, unknown> = await readJson<Record<string, unknown>>(pkgPath);
-      const name: string | undefined = typeof pkg.name === 'string' ? pkg.name : undefined;
-      if (!name) continue;
-      entries.push([name, { name, dir, pkgPath, pkg }]);
-    }
+    const entries = (
+      await Promise.all(
+        dirs.map(async (dir): Promise<[string, TWorkspaceInfo] | undefined> => {
+          const pkgPath: string = path.join(dir, 'package.json');
+          if (!(await exists(pkgPath))) return undefined;
+          const pkg = await readJson<{
+            name: string;
+            version?: string;
+            dependencies?: Record<string, string>;
+            devDependencies?: Record<string, string>;
+            optionalDependencies?: Record<string, string>;
+          }>(pkgPath);
+          const name: string | undefined = typeof pkg.name === 'string' ? pkg.name : undefined;
+          return name ? ([name, { name, dir, pkgPath, pkg }] as const) : undefined;
+        })
+      )
+    ).filter(Boolean) as Array<[string, TWorkspaceInfo]>;
     return new Map(entries);
   }
 
@@ -99,8 +107,8 @@ export function LegalFilesService(): TLegalFilesService {
     // 3) first match <TYPE>_*_TEMPLATE.md (alphabetically)
     const pattern: string = path.join(templatesDir, `${docType}_*${TEMPLATE_EXT}`);
     const found: string[] = await globby([pattern], { absolute: true });
-    found.sort();
-    return found[0];
+    const [first] = found.toSorted();
+    return first;
   }
 
   // ---------------------- Placeholder rendering ----------------------
@@ -203,7 +211,7 @@ export function LegalFilesService(): TLegalFilesService {
 
   // Build final map for a given doc type
   function buildPlaceholderValues(
-    docType: TLegalDocumentType,
+    _docType: TLegalDocumentType,
     tplText: string,
     pkg: Readonly<Record<string, unknown>>,
     generic: TTemplateMessages | undefined,
@@ -261,8 +269,10 @@ export function LegalFilesService(): TLegalFilesService {
     const tplText: string = await fs.readFile(tplPath, 'utf8');
     const values = buildPlaceholderValues(docType, tplText, i.ws.pkg, genericConfig?.messages, specificConfig?.messages);
 
-    const missing: string[] = [];
-    const rendered: string = renderTemplate(tplText, values, (name: string): number => missing.push(name));
+    let missing: string[] = [];
+    const rendered: string = renderTemplate(tplText, values, (name: string): void => {
+      missing = [...missing, name];
+    });
     if (missing.length) {
       console.warn(`[warn] ${docType}: ${missing.length} placeholders had no value: ${missing.slice(0, 10).join(', ')}${missing.length > 10 ? '…' : ''}`);
     }
@@ -329,17 +339,18 @@ export function LegalFilesService(): TLegalFilesService {
 
     // Types
     const typesSet: ReadonlySet<TLegalDocumentType> = (() => {
-      if (!argv.types) return new Set(Object.values(LegalDocumentType));
+      const allTypes = Object.values(LegalDocumentType) as ReadonlyArray<TLegalDocumentType>;
+      if (!argv.types) return new Set(allTypes);
       const parts: string[] = String(argv.types)
         .split(',')
         .map((s) => s.trim().toUpperCase())
         .filter(Boolean);
       const set = new Set<TLegalDocumentType>();
       for (const p of parts) {
-        if (Object.values(LegalDocumentType).includes(p)) set.add(p);
-        else console.warn(`[warn] Unknown doc type "${p}" ignored. Known: ${Object.values(LegalDocumentType).join(', ')}`);
+        if ((allTypes as ReadonlyArray<string>).includes(p)) set.add(p as TLegalDocumentType);
+        else console.warn(`[warn] Unknown doc type "${p}" ignored. Known: ${allTypes.join(', ')}`);
       }
-      return set.size ? set : new Set(Object.values(LegalDocumentType));
+      return set.size ? set : new Set(allTypes);
     })();
 
     // Read config (optional)
