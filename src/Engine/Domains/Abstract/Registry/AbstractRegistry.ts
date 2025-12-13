@@ -58,6 +58,10 @@ export function AbstractRegistry<T extends IRegistrable | IMultitonRegistrable>(
     return result[0];
   }
 
+  function getAll(): ReadonlyArray<T> {
+    return Array.from(registry.values());
+  }
+
   function getUniqWithEveryTag(tags: ReadonlyArray<string>): T | undefined | never {
     const result: ReadonlyArray<T> = getAllEntitiesWithEveryTag(tags, registry);
     if (result.length > 1) throw new Error(`Entity with tags "${tags.toString()}" is not uniq in "${name}"`);
@@ -84,6 +88,7 @@ export function AbstractRegistry<T extends IRegistrable | IMultitonRegistrable>(
     add,
     replace,
     getById,
+    getAll,
     getAllWithEveryTag: (tags: ReadonlyArray<string>): ReadonlyArray<T> => getAllEntitiesWithEveryTag(tags, registry),
     getAllWithSomeTag: (tags: ReadonlyArray<string>): ReadonlyArray<T> => getAllEntitiesWithSomeTag(tags, registry),
     getUniqWithSomeTag,
