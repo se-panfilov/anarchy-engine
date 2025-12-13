@@ -37,6 +37,7 @@ function getCommonCameraConfig(entity: TAnyCameraWrapper, audioService: TAudioSe
 
   return {
     name: entity.name,
+    type: entity.getType(),
     near: json.near,
     far: json.far,
     up,
