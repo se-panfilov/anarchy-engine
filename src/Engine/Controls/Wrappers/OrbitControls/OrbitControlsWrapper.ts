@@ -5,6 +5,7 @@ import { AbstractWrapper, WrapperType } from '@/Engine/Abstract';
 import { controlsToConfig } from '@/Engine/Controls/Adapters';
 import type { ControlsType } from '@/Engine/Controls/Constants';
 import type { TControlsServiceDependencies, TOrbitControlsConfig, TOrbitControlsParams, TOrbitControlsWrapper } from '@/Engine/Controls/Models';
+import { updateCameraTransformDriveOnChange } from '@/Engine/Controls/Utils';
 import { getOrbitControlsAccessors } from '@/Engine/Controls/Wrappers/OrbitControls/OrbitControlsAccessors';
 import { applyOrbitControlsParams } from '@/Engine/Controls/Wrappers/OrbitControls/OrbitControlsWrapperHelper';
 import type { TMilliseconds } from '@/Engine/Math';
@@ -68,6 +69,7 @@ export function OrbitControlsWrapper(params: TOrbitControlsParams): TOrbitContro
   result.enable();
   result.update(0);
   result._setActive(params.isActive, true);
+  updateCameraTransformDriveOnChange(result, params.camera);
 
   return result;
 }
