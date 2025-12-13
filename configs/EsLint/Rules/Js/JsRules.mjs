@@ -250,6 +250,7 @@ export const JsRules = {
         '[S-s]erializable',
         '[S-s]etter[s]?',
         '[S-s]hader[s]?',
+        '[S-s]igil[s]?',
         '[S-s]plitscreen[s]?',
         '[S-s]vg[s]?',
         '[T-t]ritanopia',
