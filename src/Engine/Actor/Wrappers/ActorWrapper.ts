@@ -12,7 +12,7 @@ import type { TSpatialLoopServiceValue } from '@/Engine/Spatial';
 import { withReactivePosition, withReactiveRotation, withSpatial, withUpdateSpatialCell } from '@/Engine/Spatial';
 import { applyPosition, applyRotation, applyScale, isDefined } from '@/Engine/Utils';
 
-// TODO 8.0.0. MODELS: shall we refactor TActorWrapper to TModel3dFacade?
+// TODO 8.0.0. MODELS: shall we refactor TActorWrapper to TActorFacade?
 export function ActorWrapper(
   params: TActorParams,
   { kinematicLoopService, spatialLoopService, spatialGridService, collisionsLoopService, collisionsService, models3dService, model3dFacadeToActorConnectionRegistry }: TActorDependencies
@@ -21,19 +21,18 @@ export function ActorWrapper(
   const entity: TModel3dFacade = isModelAlreadyInUse ? models3dService.clone(params.model3dSource) : params.model3dSource;
   const model3d: Group | Mesh | Object3D = entity.getModel3d();
 
-  // TODO 8.0.0. MODELS: options such as "castShadow", "receiveShadow" and etc might be not needed here
-
   const { value$: position$, update: updatePosition } = withReactivePosition(model3d);
   const { value$: rotation$, update: updateRotation } = withReactiveRotation(model3d);
 
   const actorW: TActorWrapper = {
     ...AbstractWrapper(entity, WrapperType.Actor, params),
 
-    // TODO CWP find out which of these mixins are not needed here
     // TODO 8.0.0. MODELS: perhaps move these mixins to Model3dFacade
     ...withMoveBy3dMixin(model3d),
     ...withRotationByXyzMixin(model3d),
     ...scalableMixin(model3d),
+
+    // TODO CWP Refactor add "withModel3d" mixin and make it facade
 
     ...withKinematic(params),
     ...withSpatial(params),

@@ -9,7 +9,7 @@ import { isDefined } from '@/Engine/Utils';
 
 type TFacadeParams = Readonly<{ tags?: ReadonlyArray<string> } & TWithName>;
 
-export function AbstractFacade<T extends Record<string, () => any>>(getters: T, type: FacadeType | string, params?: TFacadeParams): TFacade<T> {
+export function AbstractFacade<T extends Record<string, any>>(entities: T, type: FacadeType | string, params?: TFacadeParams): TFacade<T> {
   const id: string = type + '_' + nanoid();
 
   const withNameAndNameAccessors: TWithNameAndNameAccessorsMixin = withNameAndNameAccessorsMixin();
@@ -18,7 +18,7 @@ export function AbstractFacade<T extends Record<string, () => any>>(getters: T, 
 
   const partialResult: T & TRegistrable & TWithTagsMixin & TDestroyable = {
     id,
-    ...getters,
+    ...entities,
     ...withTags,
     ...destroyable
   };
