@@ -69,10 +69,15 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
   actorRegistry.added$.subscribe((actor: IActorWrapperAsync) => {
     const isMetalness: boolean = isDefined((actor.entity.material as MeshStandardMaterial).metalness);
     const isRoughness: boolean = isDefined((actor.entity.material as MeshStandardMaterial).roughness);
-    const hasTunableProps = isMetalness || isRoughness;
+    const isAoMap: boolean = isDefined((actor.entity.material as MeshStandardMaterial).aoMap);
+    const isDisplacementMap: boolean = isDefined((actor.entity.material as MeshStandardMaterial).displacementMap);
+    const hasTunableProps: boolean = isMetalness || isRoughness || isAoMap || isDisplacementMap;
+
     if (hasTunableProps) gui.addFolder(actor.getTags()[0]);
     if (isMetalness) gui.add(actor.entity.material, 'metalness').min(0).max(1).step(0.0001);
     if (isRoughness) gui.add(actor.entity.material, 'roughness').min(0).max(1).step(0.0001);
+    if (isAoMap) gui.add(actor.entity.material, 'aoMapIntensity').min(0).max(1).step(0.0001);
+    if (isDisplacementMap) gui.add(actor.entity.material, 'displacementScale').min(0).max(1).step(0.0001);
   });
 
   function start(): void {
