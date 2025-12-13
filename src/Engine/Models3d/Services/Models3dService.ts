@@ -11,6 +11,7 @@ import { Model3dType } from '@/Engine/Models3d/Constants';
 import type { TModel3dConfig, TModel3dFacade, TModel3dPack, TModel3dParams, TModels3dAsyncRegistry, TModels3dService, TPerformLoadResult } from '@/Engine/Models3d/Models';
 import { Model3dFacade } from '@/Engine/Models3d/Wrappers';
 import type { TSceneWrapper } from '@/Engine/Scene';
+import type { TOptional } from '@/Engine/Utils';
 import { isDefined } from '@/Engine/Utils';
 
 export function Models3dService(registry: TModels3dAsyncRegistry, animationsService: TAnimationsService, sceneW: TSceneWrapper): TModels3dService {
@@ -73,8 +74,8 @@ export function Models3dService(registry: TModels3dAsyncRegistry, animationsServ
     return promises;
   }
 
-  function clone(model3dFacade: TModel3dFacade, shouldAddToRegistry: boolean): TModel3dFacade {
-    const cloned = model3dFacade._clone();
+  function clone(model3dFacade: TModel3dFacade, shouldAddToRegistry: boolean, overrides?: TOptional<TModel3dPack>): TModel3dFacade {
+    const cloned = model3dFacade._clone(overrides);
     if (shouldAddToRegistry) registry.add(cloned);
     added$.next(cloned);
     return cloned;

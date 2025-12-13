@@ -4,6 +4,7 @@ import type { TAnimationsService } from '@/Engine/Animations';
 import type { TDestroyable } from '@/Engine/Mixins';
 import type { TModel3dConfig, TModel3dFacade, TModel3dPack, TModels3dAsyncRegistry, TPerformLoadResult } from '@/Engine/Models3d/Models';
 import type { TWithRegistryService, TWithSceneGetterService } from '@/Engine/Space';
+import type { TOptional } from '@/Engine/Utils';
 
 import type { TModel3dParams } from './TModel3dParams';
 
@@ -14,7 +15,7 @@ export type TModels3dService = Readonly<{
   getAnimationService: () => TAnimationsService;
   added$: Observable<TModel3dFacade>;
   loaded$: Observable<TPerformLoadResult>;
-  clone: (model3dFacade: TModel3dFacade, shouldAddToRegistry: boolean) => TModel3dFacade;
+  clone: (model3dFacade: TModel3dFacade, shouldAddToRegistry: boolean, overrides?: TOptional<TModel3dPack>) => TModel3dFacade;
 }> &
   TWithRegistryService<TModels3dAsyncRegistry> &
   TWithSceneGetterService &

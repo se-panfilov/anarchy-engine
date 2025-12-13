@@ -2039,6 +2039,9 @@
             }
           ]
         },
+        "name": {
+          "type": "string"
+        },
         "tags": {
           "type": "array",
           "items": {
@@ -2140,6 +2143,9 @@
           "items": {
             "type": "string"
           }
+        },
+        "name": {
+          "type": "string"
         },
         "position": {
           "$ref": "#/definitions/TWithCoordsXYZ"

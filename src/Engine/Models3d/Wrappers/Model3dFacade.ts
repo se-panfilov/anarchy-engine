@@ -6,6 +6,7 @@ import type { TAnimationsPack, TAnimationsService } from '@/Engine/Animations/Mo
 import { withModel3dFacadeEntities } from '@/Engine/Models3d/Mixins';
 import type { TModel3dFacade, TModel3dPack, TModels3dFacadeParams } from '@/Engine/Models3d/Models';
 import { applyPosition, applyRotation, applyScale } from '@/Engine/Models3d/Services/Models3dServiceHelper';
+import type { TOptional } from '@/Engine/Utils';
 import { isDefined } from '@/Engine/Utils';
 
 import { createModels3dEntities } from './Model3dFacadeUtils';
@@ -15,13 +16,13 @@ export function Model3dFacade(params: TModels3dFacadeParams, animationsService: 
 
   // TODO (S.Panfilov) CWP test this method, if it works correctly (animations are played for cloned model)
   // Be aware that this clone method doesn't save the facade to the registry, use clone() method of the service instead
-  function _clone(): TModel3dFacade {
+  function _clone(overrides?: TOptional<TModel3dPack>): TModel3dFacade {
     const model = entities.model.clone();
     const animations: TAnimationsPack = {};
     // eslint-disable-next-line functional/immutable-data
     Object.entries(entities.animations).forEach(([key, value]: [string, AnimationClip]): void => void (animations[key] = value.clone()));
     const { mixer, actions } = animationsService.createActions(model, animations);
-    return Model3dFacade({ ...entities, model, animations, mixer, actions }, animationsService);
+    return Model3dFacade({ ...entities, model, animations, mixer, actions, ...overrides }, animationsService);
   }
 
   //apply model params
