@@ -1,29 +1,36 @@
 import type { Material } from 'three';
-import { BufferAttribute, BufferGeometry } from 'three';
+import { BufferGeometry, Points } from 'three';
 
 import { materialService } from '@/Engine/Material';
 import type { IParticlesParams } from '@/Engine/Particles/Models';
 import { textureService } from '@/Engine/Texture';
-import type { IBufferGeometry } from '@/Engine/ThreeLib';
+import type { IBufferGeometry, IPoints } from '@/Engine/ThreeLib';
 import { isDefined } from '@/Engine/Utils';
 
-export async function createParticles(params: IParticlesParams): Promise<IBufferGeometry> | never {
+export async function createParticles(params: IParticlesParams): Promise<IPoints> | never {
   const material: Material = await getMaterial(params);
 
-  const particlesGeometry: IBufferGeometry = new BufferGeometry();
-  const count: number = 50000;
+  const geometry: IBufferGeometry = new BufferGeometry();
 
-  // TODO (S.Panfilov) should be set via methods of the particular wrapper, not via config/params
-  // const positions: Float32Array = new Float32Array(count * 3);
-  // const colors: Float32Array = new Float32Array(count * 3);
+  //   material.then((material: PointsMaterial): void => {
+  //     // eslint-disable-next-line functional/immutable-data
+  //     material.size = 0.1
+  //     // eslint-disable-next-line functional/immutable-data
+  //     material.sizeAttenuation = true
   //
-  // for(let i = 0; i < count * 3; i++)
-  // {
-  //   positions[i] = (Math.random() - 0.5) * 10
-  //   colors[i] = Math.random()
-  // }
+  //     material.color = new Color('#ff88cc')
+  //
+  //     material.transparent = true
+  //     material.alphaMap = particleTexture
+  // // material.alphaTest = 0.01
+  // // material.depthTest = false
+  //     material.depthWrite = false
+  //     material.blending = AdditiveBlending
+  //
+  //     material.vertexColors = true
+  //   });
 
-  return particlesGeometry;
+  return new Points(geometry, material);
 }
 
 async function getMaterial(params: IParticlesParams): Promise<Material> {
