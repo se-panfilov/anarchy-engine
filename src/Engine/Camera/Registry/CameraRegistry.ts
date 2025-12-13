@@ -1,4 +1,6 @@
-import { AbstractRegistry, RegistryFacade, RegistryType } from '@/Engine/Abstract';
-import type { ICameraRegistry, ICameraWrapper } from '@/Engine/Camera/Models';
+import { RegistryFacade } from '@/Engine/Abstract';
+import type { ICameraRegistry } from '@/Engine/Camera/Models';
 
-export const CameraRegistry = (): ICameraRegistry => RegistryFacade(AbstractRegistry<ICameraWrapper>(RegistryType.Camera));
+import { AbstractCameraRegistry } from './AbstractCameraRegistry';
+
+export const CameraRegistry = (): ICameraRegistry => RegistryFacade(AbstractCameraRegistry());

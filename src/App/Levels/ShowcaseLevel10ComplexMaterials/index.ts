@@ -3,7 +3,7 @@ import { BehaviorSubject, Subject } from 'rxjs';
 
 import type { IShowcase } from '@/App/Levels/Models';
 import type { IActorWrapper, IAppCanvas, ICameraWrapper, ILevel, ILevelConfig, IOrbitControlsWrapper, IVector3Wrapper } from '@/Engine';
-import { ambientContext, buildLevelFromConfig, CameraTag, envMapService, EulerWrapper, isNotDefined, TextType, Vector3Wrapper } from '@/Engine';
+import { ambientContext, buildLevelFromConfig, envMapService, EulerWrapper, isNotDefined, TextType, Vector3Wrapper } from '@/Engine';
 
 import levelConfig from './showcase-10-complex-materials.config.json';
 
@@ -15,7 +15,7 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
 
   const level: ILevel = buildLevelFromConfig(canvas, levelConfig as ILevelConfig);
   const { textFactory, actorRegistry, cameraRegistry, controlsRegistry } = level.entities;
-  const camera: ICameraWrapper | undefined = cameraRegistry.getUniqByTag(CameraTag.Active);
+  const camera: ICameraWrapper | undefined = cameraRegistry.getActiveCamera();
   if (isNotDefined(camera)) throw new Error('Camera is not found');
 
   const materials: ReadonlyArray<string> = ['standard', 'basic', 'phong', 'lambert', 'toon', 'physical', 'matcap'];

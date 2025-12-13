@@ -1,3 +1,4 @@
+export * from './IAbstractCameraRegistry';
 export * from './ICameraAccessors';
 export * from './ICameraConfig';
 export * from './ICameraFactory';

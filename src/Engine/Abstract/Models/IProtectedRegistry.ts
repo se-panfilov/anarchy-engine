@@ -1,5 +1,1 @@
-import type { IAbstractAsyncRegistry, IAbstractRegistry } from '@/Engine/Abstract';
-import type { IRegistrable } from '@/Engine/Mixins/Generic/Models';
-
-export type IProtectedRegistry<T extends IRegistrable, R extends IAbstractRegistry<T>> = Readonly<Omit<R, 'registry'>>;
-export type IProtectedAsyncRegistry<T extends IRegistrable, R extends IAbstractAsyncRegistry<T>> = Readonly<Omit<R, 'registry'>>;
+export type IProtectedRegistry<T extends { registry: Map<string, any> }> = Readonly<Omit<T, 'registry'>>;
