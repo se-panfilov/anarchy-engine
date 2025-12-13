@@ -15,7 +15,9 @@
       "position": { "x": 0, "y": 0, "z": 0 },
       "castShadow": true,
       "materialParams": { "color": "#5177ff" },
-      "texturePack": { "map": { "url": "/ShowcaseLevel8/Door_Wood/Door_Wood_001_basecolor.jpg" } },
+      "texturePack": {
+        "map": { "url": "/ShowcaseLevel8/Door_Wood/Door_Wood_001_basecolor.jpg" }
+      },
       "tags": ["central_actor"]
     }
   ],
