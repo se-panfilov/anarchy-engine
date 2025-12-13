@@ -19,8 +19,18 @@ export default defineConfig({
     dts({
       exclude: ['**/*.spec.ts', '**/*.test.ts', 'vite.config.ts']
     }),
-    compression({ algorithm: 'gzip' }),
-    compression({ algorithm: 'brotliCompress', ext: '.br' })
+    compression({
+      ext: '.gz',
+      algorithm: 'gzip',
+      deleteOriginFile: false,
+      filter: (file) => /\.(js|css|map|wasm)$/.test(file)
+    }),
+    compression({
+      ext: '.br',
+      algorithm: 'brotliCompress',
+      deleteOriginFile: false,
+      filter: (file) => /\.(js|css|map|wasm)$/.test(file)
+    })
   ],
   worker: {
     format: 'es',
