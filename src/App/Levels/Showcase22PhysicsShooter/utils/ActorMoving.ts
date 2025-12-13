@@ -4,17 +4,17 @@ import { Vector3 } from 'three';
 import type { TActorWrapperAsync, TIntersectionEvent, TIntersectionsWatcher, TKeyboardService } from '@/Engine';
 import { KeyCode } from '@/Engine';
 
-type TMoveKeys = Readonly<{ W: boolean; A: boolean; S: boolean; D: boolean }>;
+type TMoveKeys = Readonly<{ Forward: boolean; Left: boolean; Right: boolean; Backward: boolean }>;
 
 export function startMoveActorWithKeyboard(actorW: TActorWrapperAsync, keyboardService: TKeyboardService, mouseLineIntersectionsWatcher: TIntersectionsWatcher): void {
   const speed: number = 15;
   let direction: Vector3 = new Vector3();
-  let keyStates: TMoveKeys = { W: false, A: false, S: false, D: false };
+  let keyStates: TMoveKeys = { Forward: false, Left: false, Right: false, Backward: false };
 
-  keyboardService.onKey(KeyCode.W).pressed$.subscribe((): void => void (keyStates = { ...keyStates, W: true }));
-  keyboardService.onKey(KeyCode.A).pressed$.subscribe((): void => void (keyStates = { ...keyStates, A: true }));
-  keyboardService.onKey(KeyCode.S).pressed$.subscribe((): void => void (keyStates = { ...keyStates, S: true }));
-  keyboardService.onKey(KeyCode.D).pressed$.subscribe((): void => void (keyStates = { ...keyStates, D: true }));
+  keyboardService.onKey(KeyCode.W).pressed$.subscribe((): void => void (keyStates = { ...keyStates, Forward: true }));
+  keyboardService.onKey(KeyCode.A).pressed$.subscribe((): void => void (keyStates = { ...keyStates, Left: true }));
+  keyboardService.onKey(KeyCode.S).pressed$.subscribe((): void => void (keyStates = { ...keyStates, Right: true }));
+  keyboardService.onKey(KeyCode.D).pressed$.subscribe((): void => void (keyStates = { ...keyStates, Backward: true }));
 
   // keyboardService.onKey(KeyCode.W).released$.subscribe((): void => void (keyStates = { ...keyStates, W: false }));
   // keyboardService.onKey(KeyCode.A).released$.subscribe((): void => void (keyStates = { ...keyStates, A: false }));
