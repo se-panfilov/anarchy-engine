@@ -10,6 +10,12 @@ export function moveableMixin(entity: IWithPosition): IMovable {
   const setY = (y: number): number => (entity.position.y = y);
   // eslint-disable-next-line functional/immutable-data
   const setZ = (z: number): number => (entity.position.z = z);
+  // eslint-disable-next-line functional/immutable-data
+  const addX = (x: number): number => (entity.position.x += x);
+  // eslint-disable-next-line functional/immutable-data
+  const addY = (y: number): number => (entity.position.y += y);
+  // eslint-disable-next-line functional/immutable-data
+  const addZ = (z: number): number => (entity.position.z += z);
 
-  return { setPosition, setX, setY, setZ };
+  return { setPosition, addX, addY, addZ, setX, setY, setZ };
 }
