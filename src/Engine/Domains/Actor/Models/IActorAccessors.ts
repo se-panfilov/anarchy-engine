@@ -1,9 +1,7 @@
-import type { IVector3 } from '@/Engine/Wrappers';
+import type { IMovable, IRotatable } from '@/Engine/Domains/Mixins';
 
-export type IActorAccessors = Readonly<{
-  setPosition: (x: number, y: number, z: number) => IVector3;
-  setX: (x: number) => number;
-  setY: (y: number) => number;
-  setZ: (z: number) => number;
-  setCastShadow: (value: boolean) => boolean;
-}>;
+export type IActorAccessors = IMovable &
+  IRotatable &
+  Readonly<{
+    setCastShadow: (value: boolean) => boolean;
+  }>;

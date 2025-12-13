@@ -1,15 +1,17 @@
 import type { IOrthographicCamera } from '@Engine/Domains/Camera';
 import type { IWriteable } from '@Engine/Utils';
-import type { IVector2, IVector3 } from '@Engine/Wrappers';
+import type { IVector2Wrapper, IVector3Wrapper } from '@Engine/Wrappers';
+import { Vector2Wrapper, Vector3Wrapper } from '@Engine/Wrappers';
+
+import { moveableMixin } from '@/Engine/Domains/Mixins';
 
 import type { IAmbientLight, IDirectionalLight, ILightAccessors } from '../Models';
 
 // eslint-disable-next-line functional/prefer-immutable-types
 export function getAccessors(entity: IWriteable<IAmbientLight | IDirectionalLight>): ILightAccessors {
-  const setPosition = (x: number, y: number, z: number): IVector3 => entity.position.set(x, y, z);
   // eslint-disable-next-line functional/immutable-data
   const setCastShadow = (value: boolean): boolean => (entity.castShadow = value);
-  const setControls = (x: number, y: number, z: number): IVector3 => entity.position.set(x, y, z);
+  const setControls = (x: number, y: number, z: number): IVector3Wrapper => Vector3Wrapper(entity.position.set(x, y, z));
 
   function setFar(far: number): number | never {
     if (isAmbientLight(entity)) throw new Error('Cannot call "setFar" for IAmbientLight');
@@ -17,10 +19,10 @@ export function getAccessors(entity: IWriteable<IAmbientLight | IDirectionalLigh
     return ((entity.shadow.camera as IWriteable<IOrthographicCamera>).far = far);
   }
 
-  function setShadowMapSize(x: number, y: number): IVector2 {
+  function setShadowMapSize(x: number, y: number): IVector2Wrapper | never {
     if (isAmbientLight(entity)) throw new Error('Cannot call "setShadowMapSize" for IAmbientLight');
     // eslint-disable-next-line functional/immutable-data
-    return entity.shadow.mapSize.set(x, y);
+    return Vector2Wrapper(entity.shadow.mapSize.set(x, y));
   }
 
   function setNormalBias(val: number): number {
@@ -29,7 +31,7 @@ export function getAccessors(entity: IWriteable<IAmbientLight | IDirectionalLigh
     return (entity.shadow.normalBias = val);
   }
 
-  return { setPosition, setCastShadow, setControls, setFar, setShadowMapSize, setNormalBias };
+  return { ...moveableMixin(entity), setCastShadow, setControls, setFar, setShadowMapSize, setNormalBias };
 }
 
 // function isDirectionalLight(light: IAmbientLight | IDirectionalLight): light is IDirectionalLight {
