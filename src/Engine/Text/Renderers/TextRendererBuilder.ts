@@ -1,5 +1,6 @@
 import { nanoid } from 'nanoid';
 import type { Subscription } from 'rxjs';
+import { distinctUntilChanged, sampleTime } from 'rxjs';
 import type { CSS2DRenderer } from 'three/examples/jsm/renderers/CSS2DRenderer';
 import type { CSS3DRenderer } from 'three/examples/jsm/renderers/CSS3DRenderer';
 
@@ -36,7 +37,13 @@ export function getTextRenderer<T extends CSS2DRenderer | CSS3DRenderer>(
   //init with the values which came before the start of the subscription
   updateSize(screenSizeWatcher.latest$.value);
 
-  const screenSize$: Subscription = screenSizeWatcher.value$.subscribe(updateSize);
+  const screenSize$: Subscription = screenSizeWatcher.value$
+    .pipe(
+      // TODO 8.0.0. MODELS: add performance option
+      sampleTime(4),
+      distinctUntilChanged((prev: TScreenSizeValues, curr: TScreenSizeValues): boolean => prev.width === curr.width && prev.height === curr.height)
+    )
+    .subscribe(updateSize);
 
   const destroyable: TDestroyable = destroyableMixin();
   const destroySub$: Subscription = destroyable.destroy$.subscribe((): void => {
