@@ -1,1 +1,1 @@
-export * from './TextureRegistry';
+export * from './TextureAsyncRegistry';

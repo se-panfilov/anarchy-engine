@@ -35,7 +35,7 @@ import { Text2dRegistry, Text2dRendererRegistry, Text3dRegistry, Text3dRendererR
 import type { TTextureService } from '@/Engine/Texture';
 import { TextureService } from '@/Engine/Texture';
 import { TextureFactory } from '@/Engine/Texture/Factories';
-import { TextureAsyncRegistry } from '@/Engine/Texture/Registries/TextureRegistry';
+import { TextureAsyncRegistry } from '@/Engine/Texture/Registries/TextureAsyncRegistry';
 import { isNotDefined } from '@/Engine/Utils';
 
 export function initSceneService(): TScenesService {
