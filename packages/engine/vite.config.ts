@@ -3,6 +3,7 @@ import { defineConfig } from 'vite';
 import dts from 'vite-plugin-dts';
 import path from 'path';
 import wasm from 'vite-plugin-wasm';
+import { visualizer } from 'rollup-plugin-visualizer';
 
 export default defineConfig({
   resolve: {
@@ -28,6 +29,7 @@ export default defineConfig({
     sourcemap: true,
     rollupOptions: {
       //  external: ['three', 'rxjs'] — If you want to exclude some dependencies from the bundle
+      plugins: [visualizer({ open: false })]
     },
     outDir: 'dist',
     emptyOutDir: true
