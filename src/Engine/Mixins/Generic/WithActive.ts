@@ -1,6 +1,6 @@
 import type { IWithActive } from '@/Engine/Mixins/Generic/Models';
 
-export function withActive<T>(entity: T, isActive: boolean): IWithActive<T> {
+export function adjustWthActive<T>(entity: T, isActive: boolean): IWithActive<T> {
   // eslint-disable-next-line functional/immutable-data
   (entity as IWithActive<IWithActive<T>>).isActive = isActive;
 
