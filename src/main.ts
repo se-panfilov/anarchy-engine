@@ -4,7 +4,6 @@ import { SceneManager } from '@Engine/Managers/SceneManager';
 import { LoopManager } from '@Engine/Managers/LoopManager';
 import { CameraManager } from '@Engine/Managers/CameraManager';
 import { LightManager } from '@Engine/Managers/LightManager';
-import { InputManager } from '@Engine/Managers/InputManager';
 import { ActorManager } from '@Engine/Managers/ActorManager';
 import { ControlManager } from '@Engine/Managers/ControlManager';
 import { DeviceWatcher } from '@Engine/Watchers/DeviceWatcher';
@@ -24,7 +23,7 @@ const actorManager = new ActorManager();
 const cameraManager = new CameraManager();
 const lightManager = new LightManager();
 const controlManager = new ControlManager();
-const inputManager = new InputManager();
+// const inputManager = new InputManager();
 const loopManager = new LoopManager();
 const sceneManager = new SceneManager();
 const rendererManager = new RendererManager();
@@ -43,9 +42,9 @@ const actorParams: Partial<ActorParams> = {
   heightSegments: 32,
   materialParams: { color: new Color('#5EDCAE') }
 };
-const sphereParams: ActorParams = { ...actorParams, type: 'sphere' };
+// const sphereParams: ActorParams = { ...actorParams, type: 'sphere' };
 const planeParams: ActorParams = { ...actorParams, type: 'plane' };
-const sphereActor = actorManager.create(sphereParams);
+// const sphereActor = actorManager.create(sphereParams);
 const planeActor = actorManager.create(planeParams);
 
 const params: CameraParams = {
@@ -77,9 +76,12 @@ const wrappedDirectionalLight = lightManager.create({
   color: '#ffffff',
   intensity: 1
 });
+// eslint-disable-next-line functional/immutable-data
 wrappedDirectionalLight.entity.castShadow = true;
 wrappedDirectionalLight.entity.shadow.mapSize.set(1024, 1024);
+// eslint-disable-next-line functional/immutable-data
 (wrappedDirectionalLight.entity.shadow.camera as OrthographicCamera).far = 15;
+// eslint-disable-next-line functional/immutable-data
 wrappedDirectionalLight.entity.shadow.normalBias = 0.05;
 wrappedDirectionalLight.entity.position.set(0.25, 2, 2.25);
 

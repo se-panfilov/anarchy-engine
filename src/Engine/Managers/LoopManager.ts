@@ -6,7 +6,7 @@ import { CameraWrapper } from '@Engine/Wrappers/CameraWrapper';
 import { isNotDefined } from '@Engine/Utils';
 
 export class LoopManager extends AbstractManager<LoopWrapper> {
-  public create(): any {
+  public create(): LoopWrapper {
     const wrapper = new LoopWrapper();
     this.list$.next([...this.list$.value, wrapper]);
     return wrapper;

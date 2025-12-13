@@ -13,7 +13,7 @@ const loopWrapper = (
   scene: SceneWrapper,
   camera: CameraWrapper
 ): (() => void) => {
-  const loop = () => {
+  const loop = (): void => {
     // (fpsGraph as any).begin();
     fn(renderer, scene, camera);
 
@@ -30,8 +30,7 @@ export class LoopWrapper extends AbstractWrapper<LoopFn> {
   constructor() {
     super();
 
-    this.entity = (renderer: RendererWrapper, scene: SceneWrapper, camera: CameraWrapper) => {
-      console.log('Loop is in progress');
+    this.entity = (renderer: RendererWrapper, scene: SceneWrapper, camera: CameraWrapper): void => {
       renderer.entity.render(scene.entity, camera.entity);
     };
   }

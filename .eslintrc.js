@@ -38,6 +38,7 @@ module.exports = {
     'functional/no-expression-statements': 'off',
     'functional/no-throw-statements': 'off',
     'functional/no-throw-statement': 'off',
+    'functional/no-let': 'off',
     'functional/no-mixed-type': 'off',
     'functional/no-conditional-statement': 'off', // TODO (S.Panfilov) temp off (don't get this rule tbh)
     'functional/no-class': 'off', // TODO (S.Panfilov) temp off (would be great to not use classes)
