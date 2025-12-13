@@ -6,4 +6,5 @@ export type IMouseWatcherEvent = Readonly<{
   button: number;
   x: number;
   y: number;
+  deltaY: number | undefined;
 }>;

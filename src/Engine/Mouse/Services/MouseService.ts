@@ -48,10 +48,6 @@ export function MouseService(container: IGlobalContainerDecorator): IMouseServic
   const doubleClick$: Subject<IMouseWatcherEvent> = new Subject<IMouseWatcherEvent>();
   const doubleLeftClick$: Subject<IMouseWatcherEvent> = new Subject<IMouseWatcherEvent>();
   const doubleRightClick$: Subject<IMouseWatcherEvent> = new Subject<IMouseWatcherEvent>();
-  const doubleMiddleClick$: Subject<IMouseWatcherEvent> = new Subject<IMouseWatcherEvent>();
-  const doubleBackClick$: Subject<IMouseWatcherEvent> = new Subject<IMouseWatcherEvent>();
-  const doubleForwardClick$: Subject<IMouseWatcherEvent> = new Subject<IMouseWatcherEvent>();
-  const doubleExtraClick$: Subject<IMouseWatcherEvent> = new Subject<IMouseWatcherEvent>();
 
   const wheel$: Subject<IMouseWatcherEvent> = new Subject<IMouseWatcherEvent>();
   const wheelUp$: Subject<IMouseWatcherEvent> = new Subject<IMouseWatcherEvent>();
@@ -73,15 +69,9 @@ export function MouseService(container: IGlobalContainerDecorator): IMouseServic
 
   doubleClick$.pipe(filter((event: IMouseWatcherEvent): boolean => event.value === MouseButtonValue.Left)).subscribe((event: IMouseWatcherEvent) => doubleLeftClick$.next(event));
   doubleClick$.pipe(filter((event: IMouseWatcherEvent): boolean => event.value === MouseButtonValue.Right)).subscribe((event: IMouseWatcherEvent) => doubleRightClick$.next(event));
-  doubleClick$.pipe(filter((event: IMouseWatcherEvent): boolean => event.value === MouseButtonValue.Middle)).subscribe((event: IMouseWatcherEvent) => doubleMiddleClick$.next(event));
-  doubleClick$.pipe(filter((event: IMouseWatcherEvent): boolean => event.value === MouseButtonValue.Back)).subscribe((event: IMouseWatcherEvent) => doubleBackClick$.next(event));
-  doubleClick$.pipe(filter((event: IMouseWatcherEvent): boolean => event.value === MouseButtonValue.Forward)).subscribe((event: IMouseWatcherEvent) => doubleForwardClick$.next(event));
-  doubleClick$.pipe(filter((event: IMouseWatcherEvent): boolean => event.value === MouseButtonValue.Extra)).subscribe((event: IMouseWatcherEvent) => doubleExtraClick$.next(event));
 
   wheel$.pipe(filter((event: IMouseWatcherEvent): boolean => event.value === MouseWheelValue.WheelUp)).subscribe((event: IMouseWatcherEvent) => wheelUp$.next(event));
   wheel$.pipe(filter((event: IMouseWatcherEvent): boolean => event.value === MouseWheelValue.WheelDown)).subscribe((event: IMouseWatcherEvent) => wheelDown$.next(event));
-
-  // TODO (S.Panfilov) CWP wheel event doesnt fired
 
   mouseClickWatcher.value$.subscribe((event: IMouseWatcherEvent): void => {
     if (event.type === MouseEventType.MouseDown) clickPress$.next(event);
@@ -110,10 +100,6 @@ export function MouseService(container: IGlobalContainerDecorator): IMouseServic
     doubleClick$: doubleClick$.asObservable(),
     doubleLeftClick$: doubleLeftClick$.asObservable(),
     doubleRightClick$: doubleRightClick$.asObservable(),
-    doubleMiddleClick$: doubleMiddleClick$.asObservable(),
-    doubleBackClick$: doubleBackClick$.asObservable(),
-    doubleForwardClick$: doubleForwardClick$.asObservable(),
-    doubleExtraClick$: doubleExtraClick$.asObservable(),
 
     wheel$: wheel$.asObservable(),
     wheelUp$: wheelUp$.asObservable(),

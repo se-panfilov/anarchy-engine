@@ -23,10 +23,6 @@ export type IMouseService = {
   doubleClick$: Observable<IMouseWatcherEvent>;
   doubleLeftClick$: Observable<IMouseWatcherEvent>;
   doubleRightClick$: Observable<IMouseWatcherEvent>;
-  doubleMiddleClick$: Observable<IMouseWatcherEvent>;
-  doubleBackClick$: Observable<IMouseWatcherEvent>;
-  doubleForwardClick$: Observable<IMouseWatcherEvent>;
-  doubleExtraClick$: Observable<IMouseWatcherEvent>;
 
   wheel$: Observable<IMouseWatcherEvent>;
   wheelUp$: Observable<IMouseWatcherEvent>;

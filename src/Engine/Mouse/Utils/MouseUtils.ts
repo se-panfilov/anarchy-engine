@@ -1,3 +1,4 @@
+import { isNotDefined } from '@/Engine';
 import type { IMousePosition, IMouseWatcherEvent } from '@/Engine/Mouse';
 import { MouseButtonValue, MouseEventType, MouseWheelValue } from '@/Engine/Mouse';
 import type { IVector2, IVector3 } from '@/Engine/Vector';
@@ -13,7 +14,7 @@ export function getNormalizedMousePosition(position: IMousePosition | IVector3 |
   }).entity;
 }
 
-export function getMouseButtonValue(button: number): MouseButtonValue {
+export function getMouseButtonValue({ button }: MouseEvent | WheelEvent): MouseButtonValue {
   switch (button) {
     case 0:
       return MouseButtonValue.Left;
@@ -30,8 +31,8 @@ export function getMouseButtonValue(button: number): MouseButtonValue {
   }
 }
 
-export function getMouseEventType(e: MouseEvent | WheelEvent): MouseEventType | never {
-  switch (e.type) {
+export function getMouseEventType(event: MouseEvent | WheelEvent): MouseEventType | never {
+  switch (event.type) {
     case 'mouseup':
       return MouseEventType.MouseUp;
     case 'mousedown':
@@ -41,15 +42,18 @@ export function getMouseEventType(e: MouseEvent | WheelEvent): MouseEventType | 
     case 'wheel':
       return MouseEventType.Wheel;
     default:
-      throw new Error(`Unknown mouse event type: ${e.type}`);
+      throw new Error(`Unknown mouse event type: ${event.type}`);
   }
 }
 
-export const getMouseWheelValue = (button: number): MouseWheelValue => (button === 0 ? MouseWheelValue.WheelUp : MouseWheelValue.WheelDown);
+export function getMouseWheelValue(event: MouseEvent | WheelEvent): MouseWheelValue | never {
+  if (isNotDefined((event as WheelEvent).deltaY)) throw new Error('Mouse wheel event does not have deltaY property');
+  return (event as WheelEvent).deltaY < 0 ? MouseWheelValue.WheelUp : MouseWheelValue.WheelDown;
+}
 
-export function getMouseWatcherEvent(e: MouseEvent | WheelEvent): IMouseWatcherEvent {
-  const type: MouseEventType = getMouseEventType(e);
-  const value: MouseButtonValue | MouseWheelValue = type === MouseEventType.Wheel ? getMouseWheelValue(e.button) : getMouseButtonValue(e.button);
+export function getMouseWatcherEvent(event: MouseEvent | WheelEvent): IMouseWatcherEvent {
+  const type: MouseEventType = getMouseEventType(event);
+  const value: MouseButtonValue | MouseWheelValue = type === MouseEventType.Wheel ? getMouseWheelValue(event) : getMouseButtonValue(event);
 
-  return { type, value, button: e.button, x: e.clientX, y: e.clientY };
+  return { type, value, button: event.button, x: event.clientX, y: event.clientY, deltaY: (event as WheelEvent)?.deltaY };
 }

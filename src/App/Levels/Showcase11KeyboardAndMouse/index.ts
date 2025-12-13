@@ -19,6 +19,12 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
     mouseService.clickBackRelease$.subscribe((event: IMouseWatcherEvent): void => console.log('click back', event));
     mouseService.clickForwardRelease$.subscribe((event: IMouseWatcherEvent): void => console.log('click forward', event));
     mouseService.clickExtraRelease$.subscribe((event: IMouseWatcherEvent): void => console.log('click extra', event));
+
+    mouseService.doubleLeftClick$.subscribe((event: IMouseWatcherEvent): void => console.log('double click left', event));
+    mouseService.doubleRightClick$.subscribe((event: IMouseWatcherEvent): void => console.log('double click right', event));
+
+    mouseService.wheelUp$.subscribe((event: IMouseWatcherEvent): void => console.log('wheel up', event));
+    mouseService.wheelDown$.subscribe((event: IMouseWatcherEvent): void => console.log('wheel down', event));
   }
 
   function start(): void {
