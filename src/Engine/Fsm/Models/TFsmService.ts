@@ -8,7 +8,7 @@ import type { TFsmSourceRegistry } from './TFsmSourceRegistry';
 
 export type TFsmServiceWithFactory = TWithFactoryService<TFsmWrapper, TFsmParams, undefined, TFsmInstanceFactory>;
 
-export type TFsmService = TSerializableEntitiesService<TFsmConfig> &
+export type TFsmService = TSerializableEntitiesService<TFsmWrapper, TFsmConfig> &
   TSerializableResourceService<TFsmConfig> &
   TFsmServiceWithFactory &
   Readonly<{

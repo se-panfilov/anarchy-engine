@@ -96,6 +96,7 @@ export function TextService(
         ...(text3dRegistry.serialize() as ReadonlyArray<TTextConfig>),
         ...(text3dTextureRegistry.serialize() as ReadonlyArray<TTextConfig>)
       ];
-    }
+    },
+    serializeEntity: (entity: TTextAnyWrapper): TTextConfig => entity.serialize()
   });
 }

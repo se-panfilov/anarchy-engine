@@ -3,6 +3,7 @@ import type { Subscription } from 'rxjs';
 import type { TAbstractService } from '@/Engine/Abstract';
 import { AbstractService } from '@/Engine/Abstract';
 import type {
+  TFsmConfig,
   TFsmSource,
   TFsmSourceFactory,
   TFsmSourceRegistry,
@@ -13,7 +14,7 @@ import type {
   TFsmSourceServiceWithRegistry
 } from '@/Engine/Fsm/Models';
 import type { TDisposable } from '@/Engine/Mixins';
-import { withCreateFromConfigServiceMixin, withCreateServiceMixin, withFactoryService, withRegistryService } from '@/Engine/Mixins';
+import { withCreateFromConfigServiceMixin, withCreateServiceMixin, withFactoryService, withRegistryService, withSerializableEntities } from '@/Engine/Mixins';
 import { mergeAll } from '@/Engine/Utils';
 
 export function FsmSourceService(factory: TFsmSourceFactory, registry: TFsmSourceRegistry): TFsmSourceService {
@@ -26,5 +27,5 @@ export function FsmSourceService(factory: TFsmSourceFactory, registry: TFsmSourc
   const withFactory: TFsmSourceServiceWithFactory = withFactoryService(factory);
   const withRegistry: TFsmSourceServiceWithRegistry = withRegistryService(registry);
 
-  return mergeAll(abstractService, withCreateService, withCreateFromConfigService, withFactory, withRegistry);
+  return mergeAll(abstractService, withCreateService, withCreateFromConfigService, withFactory, withRegistry, withSerializableEntities<TFsmSource, TFsmConfig>(registry));
 }

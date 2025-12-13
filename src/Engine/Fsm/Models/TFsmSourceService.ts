@@ -1,3 +1,4 @@
+import type { TSerializableEntitiesService } from '@/Engine/Abstract';
 import type { TWithCreateFromConfigService, TWithCreateService, TWithFactoryService, TWithRegistryService } from '@/Engine/Mixins';
 
 import type { TFsmConfig } from './TFsmConfig';
@@ -11,4 +12,8 @@ export type TFsmSourceServiceWithCreateFromConfig = TWithCreateFromConfigService
 export type TFsmSourceServiceWithFactory = TWithFactoryService<TFsmSource, TFsmParams, undefined, TFsmSourceFactory>;
 export type TFsmSourceServiceWithRegistry = TWithRegistryService<TFsmSourceRegistry>;
 
-export type TFsmSourceService = TFsmSourceServiceWithCreate & TFsmSourceServiceWithCreateFromConfig & TFsmSourceServiceWithFactory & TFsmSourceServiceWithRegistry;
+export type TFsmSourceService = TSerializableEntitiesService<TFsmSource, TFsmConfig> &
+  TFsmSourceServiceWithCreate &
+  TFsmSourceServiceWithCreateFromConfig &
+  TFsmSourceServiceWithFactory &
+  TFsmSourceServiceWithRegistry;

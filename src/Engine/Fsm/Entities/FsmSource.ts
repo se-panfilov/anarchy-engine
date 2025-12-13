@@ -1,13 +1,17 @@
 import { nanoid } from 'nanoid';
 
-import type { TFsmParams, TFsmSource } from '@/Engine/Fsm/Models';
+import type { TFsmConfig, TFsmParams, TFsmSource } from '@/Engine/Fsm/Models';
+import { omitInObjectWithoutMutation } from '@/Engine/Utils';
 
 export function FsmSource(params: TFsmParams): TFsmSource {
   const id: string = params.type + '_fsm_' + nanoid();
 
-  return {
+  const result = {
     id,
     ...params,
-    tags: params.tags || []
+    tags: params.tags || [],
+    serialize: (): TFsmConfig => omitInObjectWithoutMutation(result, ['id', 'tags', 'serialize'])
   };
+
+  return result;
 }

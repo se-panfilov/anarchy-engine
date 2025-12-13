@@ -21,7 +21,7 @@ export type TTextServiceWithCreate = TWithCreateService<TTextAnyWrapper, TTextPa
 export type TTextServiceWithCreateFromConfig = TWithCreateFromConfigService<TTextConfig, TTextAnyWrapper>;
 export type TTextServiceWithFactory = TWithFactoryService<TTextAnyWrapper, TTextParams, TTextServiceDependencies, TTextFactory>;
 
-export type TTextService = TSerializableEntitiesService<TTextConfig> &
+export type TTextService = TSerializableEntitiesService<TTextAnyWrapper, TTextConfig> &
   TTextServiceWithCreate &
   TTextServiceWithCreateFromConfig &
   TTextServiceWithFactory &

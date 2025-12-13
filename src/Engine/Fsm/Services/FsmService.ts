@@ -74,6 +74,7 @@ export function FsmService(instanceFactory: TFsmInstanceFactory, sourceFactory: 
     getInstanceRegistry: (): TFsmInstanceRegistry => instanceRegistry,
     getSourceRegistry: (): TFsmSourceRegistry => sourceRegistry,
     serializeAllEntities: (): ReadonlyArray<TFsmConfig> => instanceService.serializeAllEntities(),
-    serializeAllResources: (): ReadonlyArray<TFsmConfig> => sourceService.serializeAllEntities()
+    serializeAllResources: (): ReadonlyArray<TFsmConfig> => sourceService.serializeAllEntities(),
+    serializeEntity: (entity: TFsmWrapper): TFsmConfig => instanceService.serializeEntity(entity)
   });
 }
