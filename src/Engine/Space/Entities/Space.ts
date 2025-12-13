@@ -1,5 +1,5 @@
-import type { Observable, Subscription } from 'rxjs';
-import { BehaviorSubject, distinctUntilChanged, skip, Subject } from 'rxjs';
+import type { Subscription } from 'rxjs';
+import { BehaviorSubject, distinctUntilChanged, filter } from 'rxjs';
 
 import type { TAbstractService } from '@/Engine/Abstract';
 import { AbstractEntity, EntityType } from '@/Engine/Abstract';
@@ -35,7 +35,7 @@ export function Space(params: TSpaceParams, hooks?: TSpaceHooks): TSpace {
   const parts: TSpaceParts = {
     services,
     loops,
-    built$: built$.asObservable(), //.pipe(skip(1)) as Observable<TSpace>,
+    built$: built$.pipe(filter(isDefined)),
     start$
   };
 
