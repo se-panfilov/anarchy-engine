@@ -8,7 +8,7 @@ export const FunctionalRules = {
     }
   ],
   'functional/no-expression-statement': 'off',
-  'functional/immutable-data': ['error', { ignoreMapsAndSets: true }],
+  'functional/immutable-data': ['error', { ignoreMapsAndSets: true, ignoreAccessorPattern: ['**.state'] }],
   'functional/prefer-readonly-type': 'off', //deprecated
   'functional/prefer-immutable-types': 'off', //broken in the latest eslint
   // 'functional/prefer-immutable-types': [

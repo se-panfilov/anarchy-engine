@@ -1,12 +1,9 @@
 <script setup lang="ts" generic="T">
-type TOptions<T> = Readonly<{
-  value: T;
-  label: string;
-}>;
+import type { TDropdownOption } from '@/Levels/Showcase28Menu/MainMenu/Models';
 
 const props = defineProps<{
   label: string;
-  options: ReadonlyArray<TOptions<T>>;
+  options: ReadonlyArray<TDropdownOption<T>>;
 }>();
 
 const modelValue = defineModel<T>();

@@ -1,13 +1,15 @@
 <script setup lang="ts">
-import MenuViewActions from '@/Levels/Showcase28Menu/MainMenu/Components/MenuViewActions.vue';
+import type { TWriteable } from '@Engine';
+import { computed, reactive } from 'vue';
+
 import MenuSettingsGroup from '@/Levels/Showcase28Menu/MainMenu/Components/MenuSettingsGroup.vue';
 import MenuView from '@/Levels/Showcase28Menu/MainMenu/Components/MenuView.vue';
+import MenuViewActions from '@/Levels/Showcase28Menu/MainMenu/Components/MenuViewActions.vue';
 import SettingsCheckboxComponent from '@/Levels/Showcase28Menu/MainMenu/Components/SettingsCheckboxComponent.vue';
 import SettingsDropdownComponent from '@/Levels/Showcase28Menu/MainMenu/Components/SettingsDropdownComponent.vue';
-import { computed, reactive } from 'vue';
+import type { TDropdownOption } from '@/Levels/Showcase28Menu/MainMenu/Models';
 import { useSettingsStore } from '@/Levels/Showcase28Menu/MainMenu/Stores/SettingsStore';
-import { TGraphicsSettings, TResolution } from '@/Levels/Showcase28Menu/Models';
-import type { TWriteable } from '@Engine';
+import type { TGraphicsSettings } from '@/Levels/Showcase28Menu/Models';
 
 const emit = defineEmits(['cancel', 'save']);
 
@@ -18,19 +20,20 @@ const state: TWriteable<TGraphicsSettings> = reactive({
   resolution: settingsStore.graphics.resolution
 });
 
-function cancel() {
+function cancel(): void {
   state.isFullScreen = settingsStore.graphics.isFullScreen;
   state.resolution = settingsStore.graphics.resolution;
 
   emit('cancel');
 }
 
-function save(payload: TGraphicsSettings) {
+function save(payload: TGraphicsSettings): void {
+  // eslint-disable-next-line functional/immutable-data
   settingsStore.graphics = { ...payload };
   emit('save');
 }
 
-const options = computed(() => {
+const options = computed((): ReadonlyArray<TDropdownOption<{ width: number; height: number }>> => {
   return settingsStore.getAvailableResolutions().map((resolution) => ({
     value: resolution,
     label: `${resolution.width}x${resolution.height}`

@@ -11,11 +11,7 @@ const props = withDefaults(
   }
 );
 
-const [modelValue] = defineModel<number>({
-  set(value) {
-    return Number(value);
-  }
-});
+const [modelValue] = defineModel<number>({ set: Number });
 </script>
 
 <template>

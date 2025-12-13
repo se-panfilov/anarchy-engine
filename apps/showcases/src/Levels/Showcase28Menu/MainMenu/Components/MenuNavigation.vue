@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { useMenuRouterStore } from '@/Levels/Showcase28Menu/MainMenu/Stores/MenuRouterStore';
 import { MenuRoutes } from '@/Levels/Showcase28Menu/MainMenu/Constants';
+import { useMenuRouterStore } from '@/Levels/Showcase28Menu/MainMenu/Stores/MenuRouterStore';
 import { closeMainMenu } from '@/Levels/Showcase28Menu/MainMenuService';
 
 // TODO DESKTOP: test i18n (for desktop also)

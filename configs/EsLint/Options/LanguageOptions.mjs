@@ -11,15 +11,7 @@ export const languageOptions = {
   parserOptions: {
     parser: eslintTs.parser,
     project: ['./tsconfig.json'],
-    sourceType: 'module'
-  }
-};
-
-// TODO DESKTOP: do we need this?
-export const vueLanguageOptions = {
-  ...languageOptions,
-  parserOptions: {
-    ...languageOptions.parserOptions,
+    sourceType: 'module',
     extraFileExtensions: ['.vue']
   }
 };

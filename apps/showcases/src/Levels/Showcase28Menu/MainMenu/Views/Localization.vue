@@ -1,13 +1,15 @@
 <script setup lang="ts">
-import { TLocalizationSettings } from '@/Levels/Showcase28Menu/Models';
-import SettingsDropdownComponent from '@/Levels/Showcase28Menu/MainMenu/Components/SettingsDropdownComponent.vue';
-import MenuViewActions from '@/Levels/Showcase28Menu/MainMenu/Components/MenuViewActions.vue';
-import MenuSettingsGroup from '@/Levels/Showcase28Menu/MainMenu/Components/MenuSettingsGroup.vue';
-import MenuView from '@/Levels/Showcase28Menu/MainMenu/Components/MenuView.vue';
-import { useSettingsStore } from '@/Levels/Showcase28Menu/MainMenu/Stores/SettingsStore';
 import type { TWriteable } from '@Engine';
 import { computed, reactive } from 'vue';
+
+import MenuSettingsGroup from '@/Levels/Showcase28Menu/MainMenu/Components/MenuSettingsGroup.vue';
+import MenuView from '@/Levels/Showcase28Menu/MainMenu/Components/MenuView.vue';
+import MenuViewActions from '@/Levels/Showcase28Menu/MainMenu/Components/MenuViewActions.vue';
+import SettingsDropdownComponent from '@/Levels/Showcase28Menu/MainMenu/Components/SettingsDropdownComponent.vue';
 import { Languages } from '@/Levels/Showcase28Menu/MainMenu/Constants';
+import type { TDropdownOption } from '@/Levels/Showcase28Menu/MainMenu/Models';
+import { useSettingsStore } from '@/Levels/Showcase28Menu/MainMenu/Stores/SettingsStore';
+import type { TLocalizationSettings } from '@/Levels/Showcase28Menu/Models';
 
 const emit = defineEmits(['cancel', 'save']);
 const settingsStore = useSettingsStore();
@@ -16,17 +18,18 @@ const state: TWriteable<TLocalizationSettings> = reactive({
   language: settingsStore.localization.language
 });
 
-function cancel() {
+function cancel(): void {
   state.language = settingsStore.localization.language;
   emit('cancel');
 }
 
-function save(payload: TLocalizationSettings) {
+function save(payload: TLocalizationSettings): void {
+  // eslint-disable-next-line functional/immutable-data
   settingsStore.localization = { ...payload };
   emit('save');
 }
 
-const options = computed(() => {
+const options = computed((): ReadonlyArray<TDropdownOption<Languages>> => {
   return Object.values(Languages).map((language) => ({ value: language, label: language }));
 });
 </script>

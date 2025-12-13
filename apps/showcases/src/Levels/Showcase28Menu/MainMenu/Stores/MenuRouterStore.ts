@@ -12,14 +12,12 @@ export const useMenuRouterStore = defineStore('menuRouterStore', () => {
   const currRoute: ComputedRef<MenuRoutes> = computed(() => state.history[state.history.length - 1]);
 
   function go(to: MenuRoutes): void {
-    // eslint-disable-next-line functional/immutable-data
     state.history = [...state.history, to];
   }
 
   const prevRoute: ComputedRef<MenuRoutes> = computed((): MenuRoutes => (state.history.length > 1 ? state.history[state.history.length - 2] : MenuRoutes.Home));
 
   function goBack(): void {
-    // eslint-disable-next-line functional/immutable-data
     if (state.history.length > 1) state.history = state.history.slice(0, -1);
   }
 

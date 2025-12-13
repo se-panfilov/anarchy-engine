@@ -115,7 +115,6 @@ export function showcase(space: TSpace): void {
   function moveCameraToActor(actor: TActor): void {
     state.controllers.forEach((controller: GUI | Controller): void => controller.destroy());
 
-    // eslint-disable-next-line functional/immutable-data
     state.controllers = addGuiToActor(actor);
     const position: TReadonlyVector3 = actor.drive.position$.value;
     const orbitControls: TAnyControlsWrapper = controlsRegistry.getByName('orbit_controls');

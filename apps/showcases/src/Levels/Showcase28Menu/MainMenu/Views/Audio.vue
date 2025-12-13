@@ -1,12 +1,13 @@
 <script setup lang="ts">
+import type { TWriteable } from '@Engine';
 import { reactive } from 'vue';
-import MenuViewActions from '@/Levels/Showcase28Menu/MainMenu/Components/MenuViewActions.vue';
+
 import MenuSettingsGroup from '@/Levels/Showcase28Menu/MainMenu/Components/MenuSettingsGroup.vue';
-import SettingsRangeComponent from '@/Levels/Showcase28Menu/MainMenu/Components/SettingsRangeComponent.vue';
 import MenuView from '@/Levels/Showcase28Menu/MainMenu/Components/MenuView.vue';
+import MenuViewActions from '@/Levels/Showcase28Menu/MainMenu/Components/MenuViewActions.vue';
+import SettingsRangeComponent from '@/Levels/Showcase28Menu/MainMenu/Components/SettingsRangeComponent.vue';
 import { useSettingsStore } from '@/Levels/Showcase28Menu/MainMenu/Stores/SettingsStore';
 import type { TAudioSettings } from '@/Levels/Showcase28Menu/Models';
-import type { TWriteable } from '@Engine';
 
 const emit = defineEmits(['cancel', 'save']);
 
@@ -14,12 +15,13 @@ const settingsStore = useSettingsStore();
 
 const state: TWriteable<TAudioSettings> = reactive({ masterVolume: settingsStore.audio.masterVolume });
 
-function cancel() {
+function cancel(): void {
   state.masterVolume = settingsStore.audio.masterVolume;
   emit('cancel');
 }
 
-function save(payload: TAudioSettings) {
+function save(payload: TAudioSettings): void {
+  // eslint-disable-next-line functional/immutable-data
   settingsStore.audio = { ...payload };
   emit('save');
 }

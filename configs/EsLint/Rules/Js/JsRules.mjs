@@ -186,6 +186,7 @@ export const JsRules = {
         '[C-c]cd',
         '[C-c]enter',
         '[C-c]oef',
+        '[C-c]heckbox',
         '[C-c]ollider[s]?',
         '[C-c]olor[s]?',
         '[C-c]oord[s]?[0-9]?',

@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import MenuRouterView from '@/Levels/Showcase28Menu/MainMenu/Components/MenuRouterView.vue';
-import MenuNavigation from '@/Levels/Showcase28Menu/MainMenu/Components/MenuNavigation.vue';
 import './styles/menu-styles.scss';
+
+import MenuNavigation from '@/Levels/Showcase28Menu/MainMenu/Components/MenuNavigation.vue';
+import MenuRouterView from '@/Levels/Showcase28Menu/MainMenu/Components/MenuRouterView.vue';
 </script>
 
 <template>

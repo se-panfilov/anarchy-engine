@@ -6,7 +6,6 @@ export const VueConfig = [
   ...pluginVue.configs['flat/recommended'],
   {
     files: ['*.vue', '**/*.vue'],
-    // TODO DESKTOP: do we need this?
     languageOptions: {
       parserOptions: {
         parser: eslintTs.parser
