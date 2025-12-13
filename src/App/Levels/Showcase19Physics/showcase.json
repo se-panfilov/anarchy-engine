@@ -46,8 +46,8 @@
     },
     {
       "name": "wall_left",
-      "width": 1,
       "height": 20,
+      "width": 1,
       "depth": 5,
       "widthSegments": 1,
       "heightSegments": 1,
@@ -82,8 +82,8 @@
     },
     {
       "name": "wall_right",
-      "width": 1,
       "height": 20,
+      "width": 1,
       "depth": 5,
       "widthSegments": 1,
       "heightSegments": 1,
@@ -118,8 +118,8 @@
     },
     {
       "name": "wall_front",
-      "width": 1,
       "height": 22,
+      "width": 1,
       "depth": 5,
       "widthSegments": 1,
       "heightSegments": 1,
@@ -154,8 +154,8 @@
     },
     {
       "name": "wall_back",
-      "width": 1,
       "height": 22,
+      "width": 1,
       "depth": 5,
       "widthSegments": 1,
       "heightSegments": 1,
@@ -213,9 +213,9 @@
     },
     {
       "name": "obstacle_1",
+      "height": 4,
       "width": 1,
-      "height": 1,
-      "depth": 4,
+      "depth": 1,
       "widthSegments": 1,
       "heightSegments": 1,
       "material": {
@@ -249,9 +249,9 @@
     },
     {
       "name": "obstacle_2",
+      "height": 4,
       "width": 1,
-      "height": 1,
-      "depth": 4,
+      "depth": 1,
       "widthSegments": 1,
       "heightSegments": 1,
       "material": {
