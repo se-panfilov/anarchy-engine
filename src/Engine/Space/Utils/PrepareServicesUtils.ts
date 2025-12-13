@@ -41,8 +41,12 @@ import { TextureService } from '@/Engine/Texture';
 import { TextureAsyncRegistry } from '@/Engine/Texture/Registries/TextureAsyncRegistry';
 import { isNotDefined } from '@/Engine/Utils';
 
-export function getActiveScene(spaceName: string, scenes: ReadonlyArray<TSceneConfig>, scenesService: TScenesService): TSceneWrapper {
+export function getActiveSceneFromConfig(spaceName: string, scenes: ReadonlyArray<TSceneConfig>, scenesService: TScenesService): TSceneWrapper {
   scenesService.createFromConfig(scenes);
+  return getActiveScene(spaceName, scenesService);
+}
+
+export function getActiveScene(spaceName: string, scenesService: TScenesService): TSceneWrapper {
   const sceneW: TSceneWrapper | undefined = scenesService.findActive();
   if (isNotDefined(sceneW)) throw new Error(`Cannot find an active scene for space "${spaceName}" during space's services initialization.`);
   const activeSceneW: TSceneWrapper = sceneW;

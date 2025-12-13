@@ -8,8 +8,8 @@ import type { TSpaceParamsEntities } from './TSpaceParamsEntities';
 export type TSpaceParams = Readonly<{
   version: SpaceSchemaVersion;
   canvas: TAppCanvas;
-  entities: TSpaceParamsEntities;
   scenes: ReadonlyArray<TSceneParams>;
+  entities?: TSpaceParamsEntities;
 }> &
   TWithName &
   TWithTags;

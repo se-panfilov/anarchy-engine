@@ -54,7 +54,7 @@ function initSpaceServices(params: TSpaceParams, hooks?: TSpaceHooks): { service
   screenService.setCanvas(params.canvas);
   hooks?.beforeBaseServicesBuilt?.(params.canvas, params);
   const baseServices: TSpaceBaseServices = buildBaseServices();
-  const sceneW: TSceneWrapper = getActiveScene(params.name, params.scenes, baseServices.scenesService);
+  const sceneW: TSceneWrapper = getActiveScene(params.name, baseServices.scenesService);
   hooks?.beforeLoopsCreated?.(params);
   const loops: TSpaceLoops = createLoops(baseServices.loopService);
   hooks?.beforeEntitiesServicesBuilt?.(params.canvas, params);

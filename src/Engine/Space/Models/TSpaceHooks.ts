@@ -2,7 +2,7 @@ import type { TAppCanvas } from '@/Engine/App';
 import type { TSpaceConfig, TSpaceLoops, TSpaceParams, TSpaceServices } from '@/Engine/Space/Models';
 
 export type TSpaceHooks = {
-  beforeParamsValidation?: (params: TSpaceParams) => void;
+  beforeConfigValidation?: (config: TSpaceConfig) => void;
   beforeBaseServicesBuilt?: (canvas: TAppCanvas, params: TSpaceParams) => void;
   beforeLoopsCreated?: (params: TSpaceParams) => void;
   beforeEntitiesServicesBuilt?: (canvas: TAppCanvas, params: TSpaceParams) => void;
