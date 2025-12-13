@@ -2946,7 +2946,6 @@
           "$ref": "#/definitions/RawDebugRenderPipeline"
         }
       },
-      "required": ["gravity"],
       "additionalProperties": false
     },
     "RawIntegrationParameters": {

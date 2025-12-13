@@ -17,7 +17,7 @@ import type {
 import type { TWithCoordsXYZ } from '@/Engine/Mixins';
 
 export type TPhysicsWorldParams = Readonly<{
-  gravity: TWithCoordsXYZ;
+  gravity?: TWithCoordsXYZ;
   rawIntegrationParameters?: RawIntegrationParameters;
   rawIslands?: RawIslandManager;
   rawBroadPhase?: RawBroadPhase;

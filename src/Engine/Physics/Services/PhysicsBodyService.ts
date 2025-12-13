@@ -3,6 +3,7 @@ import { World } from '@dimforge/rapier3d';
 import type { TLoopService } from '@/Engine/Loop';
 import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
+import { STANDARD_GRAVITY } from '@/Engine/Physics/Constants';
 import type {
   TPhysicsBodyFacade,
   TPhysicsBodyFactory,
@@ -66,7 +67,7 @@ export function PhysicsBodyService(factory: TPhysicsBodyFactory, registry: TPhys
     rawDebugRenderPipeline
   }: TPhysicsWorldParams): World {
     world = new World(
-      gravity,
+      gravity ?? STANDARD_GRAVITY,
       rawIntegrationParameters,
       rawIslands,
       rawBroadPhase,
