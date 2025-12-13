@@ -8,7 +8,6 @@ import { ActorTransformDrive } from '@/Engine/Actor/TransformDrive';
 import { applySpatialGrid, startCollisions } from '@/Engine/Actor/Utils';
 import { withCollisions } from '@/Engine/Collisions';
 import type { TModel3d } from '@/Engine/Models3d';
-import { withModel3d } from '@/Engine/Models3d';
 import type { TSpatialLoopServiceValue } from '@/Engine/Spatial';
 import { withSpatial, withUpdateSpatialCell } from '@/Engine/Spatial';
 import type { TDriveToModel3dConnector, TTransformDrive } from '@/Engine/TransformDrive';
@@ -45,7 +44,7 @@ export function Actor(
 
   const entities: TActorEntities = {
     drive,
-    ...withModel3d(model3d),
+    model3d,
     ...withSpatial(params),
     ...withCollisions(params, collisionsService, collisionsLoopService),
     ...withUpdateSpatialCell()

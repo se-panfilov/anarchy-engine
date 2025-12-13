@@ -46,7 +46,7 @@ export function IntersectionsWatcher({ position$, isAutoStart, tags, name, ...re
         const intersection: TIntersectionEvent | undefined = getIntersection(
           new Vector2(position.coords.x, position.coords.y),
           camera,
-          actors.map((a: TActor): TRawModel3d => a.model3d.model3d.getRawModel3d())
+          actors.map((a: TActor): TRawModel3d => a.model3d.getRawModel3d())
         );
         // TODO 8.0.0. MODELS: check if this works while mouse not moving, but the scene is moving
         // console.log('XXX 111', position);

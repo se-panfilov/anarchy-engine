@@ -29,7 +29,7 @@ export function SceneWrapper(params: TSceneParams): TSceneWrapper {
   const add = (obj: TSceneObject): void => void entity.add(obj);
   const addCamera = (camera: TCameraWrapper): void => add(camera.entity);
   const addModel3d = (model3d: TModel3d): void => add(model3d.getRawModel3d());
-  const addActor = (actor: TActor): void => addModel3d(actor.model3d.model3d);
+  const addActor = (actor: TActor): void => addModel3d(actor.model3d);
   const addLight = <T extends TLight>(light: Readonly<TAbstractLightWrapper<T>>): void => add(light.entity);
   const addParticles = (particles: Readonly<TParticlesWrapper>): void => add(particles.entity);
 

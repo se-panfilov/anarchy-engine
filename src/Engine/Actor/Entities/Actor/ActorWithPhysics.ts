@@ -30,7 +30,7 @@ export function ActorWithPhysics(): TActorWithPhysics | void {
 //   const vector: Vector = rigidBody.translation();
 //   actorPhysicalW.setPosition(new Vector3(vector.x, vector.y, vector.z));
 //   const { x, y, z, w }: Rotation = rigidBody.rotation();
-//   actorPhysicalW.model3d.model3d.getRawModel3d().quaternion.set(x, y, z, w);
+//   actorPhysicalW.model3d.getRawModel3d().quaternion.set(x, y, z, w);
 // }
 //
 // function updateMovementInfo(actorPhysicalW: TActorWithPhysics, physicsBodyService: TPhysicsBodyService): void | never {
