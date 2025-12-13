@@ -629,7 +629,8 @@
       "far": 10000,
       "position": { "x": 0, "y": 4, "z": 4 },
       "rotation": { "x": 0, "y": 0, "z": 0 },
-      "tags": ["initial"]
+      "tags": [],
+      "isActive": true
     }
   ],
   "lights": [
@@ -661,7 +662,8 @@
       "cameraTag": "initial",
       "enableDamping": true,
       "autoRotate": false,
-      "tags": ["orbit"]
+      "tags": ["orbit"],
+      "isActive": true
     }
   ],
   "envMaps": [],

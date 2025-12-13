@@ -12,7 +12,7 @@ export function showcase(canvas: IAppCanvas): IShowcase {
 
   function start(): void {
     space.start();
-    const { actorFactory, cameraFactory } = space.entities;
+    const { actorFactory, cameraFactory } = space.factories;
 
     const actorDefaultParams: IActorParams = {
       type: ActorType.cube,

@@ -7,7 +7,7 @@ import spaceConfig from './showcase-7-fullscreen.config.json';
 //Showcase 6: Go fullscreen
 export function showcase(canvas: IAppCanvas): IShowcase {
   const space: ISpace = buildSpaceFromConfig(canvas, spaceConfig as ISpaceConfig);
-  const { actorRegistry } = space.entities;
+  const { actorRegistry } = space.registries;
 
   async function init(): Promise<void> {
     const actor: IActorWrapperAsync = await actorRegistry.findByTagAsync('sphere');

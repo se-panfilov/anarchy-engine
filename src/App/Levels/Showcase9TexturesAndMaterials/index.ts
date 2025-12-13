@@ -17,7 +17,7 @@ export function showcase(canvas: IAppCanvas): IShowcase {
   // };
 
   async function init(): Promise<void> {
-    const { actorRegistry } = space.entities;
+    const { actorRegistry } = space.registries;
     const actor: IActorWrapperAsync | undefined = await actorRegistry.findByTagAsync('central_actor');
     if (isNotDefined(actor)) throw new Error('Actor is not found');
 
@@ -36,9 +36,9 @@ export function showcase(canvas: IAppCanvas): IShowcase {
 
 // This is mostly a copy of Showcase 3 (camera rotation)
 function initCameraRotation(space: ISpace, actor: IActorWrapperAsync | undefined): void {
-  const { cameraRegistry } = space.entities;
+  const { cameraRegistry } = space.registries;
 
-  const camera: ICameraWrapper | undefined = cameraRegistry.getActiveCamera();
+  const camera: ICameraWrapper | undefined = cameraService.getActiveCamera();
 
   const { screenSizeWatcher } = ambientContext;
   combineLatest([mouseService.position$, screenSizeWatcher.latest$]).subscribe(([{ x, y }, { width, height }]): void => {

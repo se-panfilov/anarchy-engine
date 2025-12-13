@@ -9,7 +9,8 @@ export function showcase(canvas: IAppCanvas): IShowcase {
   const space: ISpace = buildSpaceFromConfig(canvas, spaceConfig as ISpaceConfig);
 
   async function init(): Promise<void> {
-    const { actorRegistry, cameraRegistry, controlsRegistry, text2dRegistry, textFactory } = space.entities;
+    const { actorRegistry, cameraRegistry, controlsRegistry, text2dRegistry } = space.registries;
+    const { textFactory } = space.factories;
 
     controlsRegistry.getAll()[0]?.entity.target.set(6, 0, 0);
     cameraRegistry.getAll()[0]?.setPosition(Vector3Wrapper({ x: 6, y: 30, z: 0 }));

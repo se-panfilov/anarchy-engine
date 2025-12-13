@@ -35,7 +35,8 @@
       "far": 10000,
       "position": { "x": 0, "y": 0, "z": 3 },
       "rotation": { "x": 0, "y": 0, "z": 0 },
-      "tags": ["initial"]
+      "tags": [],
+      "isActive": true
     }
   ],
   "lights": [

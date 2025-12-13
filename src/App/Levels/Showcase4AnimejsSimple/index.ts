@@ -12,7 +12,8 @@ export function showcase(canvas: IAppCanvas): IShowcase {
 
   function start(): void {
     space.start();
-    const { actorRegistry, actorFactory, textFactory } = space.entities;
+    const { actorRegistry } = space.registries;
+    const { actorFactory, textFactory } = space.factories;
 
     let isClickBlocked: boolean = false;
 

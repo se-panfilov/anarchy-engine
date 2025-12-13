@@ -14,7 +14,8 @@ export function showcase(canvas: IAppCanvas): IShowcase {
   const gui: GUI = new GUI();
 
   const space: ISpace = buildSpaceFromConfig(canvas, spaceConfig as ISpaceConfig);
-  const { textFactory, actorRegistry, controlsRegistry } = space.entities;
+  const { textFactory } = space.factories;
+  const { actorRegistry, controlsRegistry } = space.registries;
 
   const currentActor$: Subject<IActorWrapperAsync> = new Subject();
 

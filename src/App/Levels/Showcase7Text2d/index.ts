@@ -9,7 +9,7 @@ import spaceConfig from './showcase-7-text-2d.config.json';
 //Showcase 7: Text 2d
 export function showcase(canvas: IAppCanvas): IShowcase {
   const space: ISpace = buildSpaceFromConfig(canvas, spaceConfig as ISpaceConfig);
-  const { textFactory } = space.entities;
+  const { textFactory } = space.factories;
 
   textFactory.create({
     type: TextType.Text2d,

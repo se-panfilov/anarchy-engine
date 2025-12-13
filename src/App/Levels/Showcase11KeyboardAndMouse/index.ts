@@ -3,7 +3,7 @@ import { withLatestFrom } from 'rxjs';
 
 import type { IShowcase } from '@/App/Levels/Models';
 import type { IActorWrapperAsync, IAppCanvas, ICameraWrapper, IIntersectionEvent, IIntersectionsWatcher, IMouseWatcherEvent, ISpace, ISpaceConfig } from '@/Engine';
-import { buildSpaceFromConfig, Easing, intersectionsService, isNotDefined, keyboardService, KeyCode, LookUpStrategy, mouseService, standardMoverService } from '@/Engine';
+import { buildSpaceFromConfig, Easing, isNotDefined, keyboardService, KeyCode, LookUpStrategy, mouseService, standardMoverService } from '@/Engine';
 
 import spaceConfig from './showcase-11-keyboard-and-mouse.json';
 
@@ -11,7 +11,10 @@ import spaceConfig from './showcase-11-keyboard-and-mouse.json';
 export function showcase(canvas: IAppCanvas): IShowcase {
   const gui: GUI = new GUI();
   const space: ISpace = buildSpaceFromConfig(canvas, spaceConfig as ISpaceConfig);
-  const { actorRegistry, cameraRegistry } = space.entities;
+  const { cameraService, intersectionsService } = space.services;
+  const { actorRegistry, cameraRegistry } = space.registries;
+  if (isNotDefined(actorRegistry)) throw new Error('Actor registry is not defined');
+  if (isNotDefined(cameraRegistry)) throw new Error('Camera registry is not defined');
   const { findByTagAsync, findByTagsAsync } = actorRegistry;
   const { onKey } = keyboardService;
 
@@ -81,7 +84,7 @@ export function showcase(canvas: IAppCanvas): IShowcase {
   }
 
   async function startIntersections(): Promise<IIntersectionsWatcher> {
-    const camera: ICameraWrapper | undefined = cameraRegistry.getActiveCamera();
+    const camera: ICameraWrapper | undefined = cameraService.findActiveCamera();
     if (isNotDefined(camera)) throw new Error('Camera is not defined');
     const intersectionsWatcher: IIntersectionsWatcher = intersectionsService.buildWatcher(camera);
 

@@ -32,7 +32,8 @@
       "position": { "x": 0, "y": 80, "z": 0 },
       "rotation": { "x": 0, "y": 0, "z": 0 },
       "lookAt": { "x": 0, "y": -90, "z": 0 },
-      "tags": ["initial"]
+      "tags": [],
+      "isActive": true
     }
   ],
   "lights": [

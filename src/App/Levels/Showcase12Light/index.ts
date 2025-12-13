@@ -12,7 +12,7 @@ import spaceConfig from './showcase-12-light.json';
 export function showcase(canvas: IAppCanvas): IShowcase {
   const gui: GUI = new GUI();
   const space: ISpace = buildSpaceFromConfig(canvas, spaceConfig as ISpaceConfig);
-  const { lightRegistry, scenesRegistry } = space.entities;
+  const { lightRegistry, scenesRegistry } = space.registries;
 
   // void envMapService.load('/Showcase/hdr/urban_alley_01_4k.hdr');
 
