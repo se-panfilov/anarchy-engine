@@ -4,7 +4,7 @@ import { CameraFactory, CameraRegistry, CameraTag } from '@Engine/Domains/Camera
 import type { ILoopFactory, ILoopRegistry, ILoopWrapper } from '@Engine/Domains/Loop';
 import { LoopFactory, LoopRegistry, LoopTag } from '@Engine/Domains/Loop';
 import type { IRendererFactory, IRendererRegistry, IRendererWrapper } from '@Engine/Domains/Renderer';
-import { RendererFactory, RendererRegistry, RendererTag } from '@Engine/Domains/Renderer';
+import { RendererFactory, RendererModes, RendererRegistry, RendererTag } from '@Engine/Domains/Renderer';
 import type { ILevelConfig, ISceneWrapper } from '@Engine/Domains/Scene';
 import { SceneFactory } from '@Engine/Domains/Scene';
 import type { ILevel } from '@Engine/Launcher';
@@ -58,7 +58,7 @@ export function buildLevelFromConfig(canvas: IAppCanvas, config: ILevelConfig): 
   const rendererFactory: IRendererFactory = RendererFactory();
   const rendererRegistry: IRendererRegistry = RendererRegistry();
   rendererFactory.entityCreated$.subscribe((instance: IRendererWrapper): void => rendererRegistry.add(instance));
-  const renderer: IRendererWrapper = rendererFactory.create({ canvas, tags: [RendererTag.Main] });
+  const renderer: IRendererWrapper = rendererFactory.create({ canvas, tags: [RendererTag.Main], mode: RendererModes.WebGL2 });
 
   const loopFactory: ILoopFactory = LoopFactory();
   const loopRegistry: ILoopRegistry = LoopRegistry();
