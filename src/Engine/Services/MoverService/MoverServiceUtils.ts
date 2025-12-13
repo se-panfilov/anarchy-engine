@@ -7,8 +7,6 @@ import type {
   TAnimationParams,
   TFullKeyframeDestination,
   TKeyframeDestination,
-  TMovableEntityWrapper,
-  TMovableWithModel3dFacade,
   TMoveableByTick,
   TMoveByPathFn,
   TMoveByPathFnParams,
@@ -17,8 +15,7 @@ import type {
   TMoveFnParams,
   TStopMoveCb
 } from '@/Engine/Services/MoverService/Models';
-import type { TOptional } from '@/Engine/Utils';
-import { createDeferredPromise, isDefined } from '@/Engine/Utils';
+import { createDeferredPromise } from '@/Engine/Utils';
 
 export function performMove(moveFn: TMoveFn | TMoveByPathFn, loopService: TLoopService, params: Omit<TMoveFnParams, 'complete'> | Omit<TMoveByPathFnParams, 'complete'>): Promise<void> {
   const { promise, resolve } = createDeferredPromise();
@@ -73,12 +70,4 @@ export function getAnimationWrapperForComplexPathAnimation(baseAnimation: anime.
     duration: animationParams.duration,
     update: () => baseAnimation.seek(baseAnimation.duration * (baseAnimation.progress / 100))
   });
-}
-
-export function isMovableEntityWrapper(obj: TMovableWithModel3dFacade | TMovableEntityWrapper): obj is TMovableEntityWrapper {
-  return isDefined((obj as TMovableEntityWrapper).getPosition);
-}
-
-export function isMovableModel3dFacade(obj: TMovableWithModel3dFacade | TMovableEntityWrapper): obj is TMovableWithModel3dFacade {
-  return isDefined((obj as TOptional<TMovableWithModel3dFacade>)?.entity?.getModel3d()?.position);
 }
