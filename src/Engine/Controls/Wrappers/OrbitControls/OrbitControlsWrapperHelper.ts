@@ -5,7 +5,6 @@ export function applyOrbitControlsParams(wrapper: TOrbitControlsWrapper, options
   if (isNotDefined(options)) return;
 
   if (isDefined(options.enableDamping)) wrapper.setDamping(options.enableDamping);
-  if (isDefined(options.target)) wrapper.setTarget(options.target);
   if (isDefined(options.autoRotate)) wrapper.setAutoRotate(options.autoRotate);
   if (isDefined(options.minDistance)) wrapper.setMinDistance(options.minDistance);
   if (isDefined(options.maxDistance)) wrapper.setMaxDistance(options.maxDistance);

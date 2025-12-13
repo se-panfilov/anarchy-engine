@@ -3,7 +3,7 @@ import type { Vector3Like } from 'three';
 import type { TOrbitControlsConfigOptions } from './TOrbitControlsConfigOptions';
 import type { TOrbitControlsParams } from './TOrbitControlsParams';
 
-export type TOrbitControlsConfig = Omit<TOrbitControlsParams, 'options' | 'canvas' | 'camera'> &
+export type TOrbitControlsConfig = Omit<TOrbitControlsParams, 'options' | 'canvas' | 'camera' | 'target'> &
   Readonly<{
     options?: TOrbitControlsConfigOptions;
     cameraName: string;

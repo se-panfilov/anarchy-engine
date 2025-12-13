@@ -30,6 +30,7 @@ function getOrbitControlsParams(config: TOrbitControlsConfig, { camera, canvas }
     ...rest,
     options: paramsOptions,
     camera,
+    target: isDefined(config.target) ? new Vector3().copy(config.target) : new Vector3(),
     canvas
   };
 }
@@ -37,10 +38,9 @@ function getOrbitControlsParams(config: TOrbitControlsConfig, { camera, canvas }
 function getOptionsFromConfig(options: TOrbitControlsConfigOptions | undefined): TOrbitControlsParamsOptions {
   if (isNotDefined(options)) return {};
 
-  const { target, cursor, ...rest } = options;
+  const { cursor, ...rest } = options;
 
   let result: TOrbitControlsParamsOptions = { ...rest };
-  if (isDefined(target)) result = { ...result, target: new Vector3(target.x, target.y, target.z) };
   if (isDefined(cursor)) result = { ...result, cursor: new Vector3(cursor.x, cursor.y, cursor.z) };
 
   return result;

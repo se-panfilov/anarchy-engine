@@ -23,7 +23,6 @@ export type TOrbitControlsParamsOptions = Readonly<{
   panSpeed?: number;
   rotateSpeed?: number;
   screenSpacePanning?: boolean;
-  target?: Vector3;
   zoomSpeed?: number;
   zoomToCursor?: boolean;
 }>;
