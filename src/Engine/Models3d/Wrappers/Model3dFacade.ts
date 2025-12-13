@@ -7,13 +7,14 @@ import type { TOptional } from '@/Engine/Utils';
 import { isDefined } from '@/Engine/Utils';
 
 export function Model3dFacade(params: TModel3dParams, { animationsService }: TModel3dFacadeDependencies): TModel3dFacade {
-  const entities: TModel3dEntities = createModels3dEntities(params, animationsService);
+  const shouldCloneModel3d: boolean = false;
+  const entities: TModel3dEntities = createModels3dEntities(params, animationsService, shouldCloneModel3d);
   const facade = AbstractFacade(withModel3dFacadeEntities(entities), FacadeType.Model3d, params);
 
   const getParams = (): TModel3dParams => ({ ...params });
 
   // IMPORTANT!!!: This clone() doesn't save the facade to the registry. Consider using of clone() the models3d service instead.
-  const _clone = (overrides: TOptional<TModel3dParams> = {}): TModel3dFacade => Model3dFacade({ ...getParams(), shouldCloneModel: true, ...overrides }, { animationsService });
+  const _clone = (overrides: TOptional<TModel3dParams> = {}): TModel3dFacade => Model3dFacade({ ...getParams(), ...overrides }, { animationsService });
 
   // TODO 8.0.0. MODELS: apply all the params from object3d (can we do it in a more generic way?)
   // TODO 8.0.0. MODELS: Remove duplication: extract applying of params to utils

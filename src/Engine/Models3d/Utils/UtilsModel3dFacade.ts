@@ -5,7 +5,7 @@ import type { TAnimationsService } from '@/Engine/Animations/Models';
 import type { TModel3dEntities, TModel3dParams } from '@/Engine/Models3d/Models';
 import { createPrimitiveModel3d, isPrimitiveModel3dSource } from '@/Engine/Models3d/Utils';
 
-export function createModels3dEntities(params: TModel3dParams, animationsService: TAnimationsService): TModel3dEntities {
+export function createModels3dEntities(params: TModel3dParams, animationsService: TAnimationsService, shouldCloneModel: boolean): TModel3dEntities {
   let model3dSource: Object3D;
   let animationsSource: ReadonlyArray<AnimationClip> = [];
 
@@ -13,7 +13,7 @@ export function createModels3dEntities(params: TModel3dParams, animationsService
     model3dSource = createPrimitiveModel3d(params);
   } else {
     animationsSource = params.model3dSource.animations;
-    model3dSource = params.shouldCloneModel ? SkeletonUtils.clone(params.model3dSource.scene) : params.model3dSource.scene;
+    model3dSource = shouldCloneModel ? SkeletonUtils.clone(params.model3dSource.scene) : params.model3dSource.scene;
   }
   const { actions, mixer } = animationsService.createActions(model3dSource, animationsSource);
 

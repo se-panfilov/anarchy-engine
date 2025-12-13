@@ -1694,10 +1694,10 @@
         "model3dSource": {
           "anyOf": [
             {
-              "$ref": "#/definitions/PrimitiveModel3dType"
+              "type": "string"
             },
             {
-              "type": "string"
+              "$ref": "#/definitions/PrimitiveModel3dType"
             }
           ]
         },
