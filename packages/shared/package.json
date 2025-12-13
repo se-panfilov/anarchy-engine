@@ -4,6 +4,7 @@
   "private": true,
   "version": "1.0.0",
   "type": "module",
+  "sideEffects": false,
   "license": "MIT",
   "scripts": {
     "before:release": "npm run clean:reinstall && npm run before:release:check && npm run generate:license-report && npm run generate:all-licenses-list",
