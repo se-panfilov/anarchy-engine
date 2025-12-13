@@ -10,9 +10,9 @@ import type { TPhysicsBody } from '@/Engine/Physics/Models';
 import { isNotDefined } from '@/Engine/Utils';
 
 export function getPushCoordsFrom3dAzimuthDeg(azimuth: TRadians, elevation: TRadians, force: number): Vector {
-  const x: number = force * Math.cos(elevation) * Math.cos(azimuth);
+  const z: number = force * Math.cos(elevation) * Math.cos(azimuth);
   const y: number = force * Math.sin(elevation);
-  const z: number = force * Math.cos(elevation) * Math.sin(azimuth);
+  const x: number = force * Math.cos(elevation) * Math.sin(azimuth);
 
   return { x, y, z };
 }
