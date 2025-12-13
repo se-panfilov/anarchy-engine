@@ -23,9 +23,9 @@ export function showcase(canvas: TAppCanvas): TShowcase {
     await Promise.all(
       models3dService.loadAsync([
         //gltf model
-        { url: '/Showcase/models/fox/Fox.gltf', name: nameGltfOriginal, scale, position: Vector3Wrapper({ x: -10, y: 0, z: 0 }), options, tags: [] }
+        { url: '/Showcase/Models/Fox/Fox.gltf', name: nameGltfOriginal, scale, position: Vector3Wrapper({ x: -10, y: 0, z: 0 }), options, tags: [] }
         //glb model (draco compressed), won't be loaded, cause already loaded from json config
-        // { url: '/Showcase/models/fox/Fox.glb, nameGlb: urlGlb, scale, position: Vector3Wrapper({ x: 0, y: 0, z: 0 }), options, tags: [] }
+        // { url: '/Showcase/Models/Fox/Fox.glb, nameGlb: urlGlb, scale, position: Vector3Wrapper({ x: 0, y: 0, z: 0 }), options, tags: [] }
       ])
     );
 

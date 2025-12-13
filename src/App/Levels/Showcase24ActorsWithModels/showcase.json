@@ -1,0 +1,102 @@
+{
+  "name": "showcase",
+  "version": "1.0.0",
+  "scenes": [
+    {
+      "name": "showcase",
+      "tags": [],
+      "isActive": true
+    }
+  ],
+  "spatialGrids": [
+    {
+      "name": "main_grid",
+      "mapWidth": 60,
+      "mapHeight": 40,
+      "cellSize": 10,
+      "centerX": 0,
+      "centerZ": 0,
+      "tags": []
+    }
+  ],
+  "actors": [
+    {
+      "name": "surface",
+      "width": 60,
+      "height": 40,
+      "widthSegments": 1,
+      "heightSegments": 1,
+      "material": { "type": "standard", "params": { "color": "#5EDCAE" } },
+      "model3d": {
+        "url": "plane"
+      },
+      "position": { "x": 0, "y": 0, "z": 0 },
+      "rotation": { "x": -1.57, "y": 0, "z": 0 },
+      "castShadow": false,
+      "receiveShadow": true,
+      "spatial": { "grid": "main_grid", "isAutoUpdate": false },
+      "tags": []
+    }
+  ],
+  "models3d": [
+    {
+      "name": "solder_model",
+      "url": "/Showcase/Models/Solder/Solder.glb",
+      "position": { "x": 0, "y": 0, "z": 0 },
+      "options": {
+        "shouldAddToScene": false,
+        "shouldAddToRegistry": true
+      },
+      "tags": []
+    }
+  ],
+  "physics": {},
+  "intersections": [],
+  "texts": [],
+  "cameras": [
+    {
+      "fov": 45,
+      "name": "main",
+      "near": 1,
+      "far": 100,
+      "position": { "x": -0.58, "y": 1.9, "z": -1.93 },
+      "rotation": { "x": 0, "y": 0, "z": 0 },
+      "tags": [],
+      "isActive": true
+    }
+  ],
+  "lights": [
+    {
+      "type": "Directional",
+      "color": "#ffffff",
+      "intensity": 0.5,
+      "castShadow": true,
+      "position": { "x": -3, "y": 10, "z": -10 },
+      "shadow": {
+        "mapSize": { "x": 1024, "y": 1024 },
+        "normalBias": 0.05,
+        "camera": {
+          "top": 2,
+          "bottom": -2,
+          "left": -2,
+          "right": 2,
+          "near": 0.1,
+          "far": 40
+        }
+      }
+    }
+  ],
+  "controls": [
+    {
+      "type": "OrbitControls",
+      "cameraName": "main",
+      "target": { "x": 0, "y": 1, "z": 0 },
+      "enableDamping": true,
+      "isActive": true
+    }
+  ],
+  "envMaps": [],
+  "particles": [],
+  "fogs": [],
+  "tags": []
+}

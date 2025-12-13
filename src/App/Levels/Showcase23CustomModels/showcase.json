@@ -41,7 +41,7 @@
   "models3d": [
     {
       "name": "fox_glb_config_original",
-      "url": "/Showcase/models/fox/Fox.glb",
+      "url": "/Showcase/Models/Fox/Fox.glb",
       "scale": { "x": 0.025, "y": 0.025, "z": 0.025 },
       "position": { "x": 5, "y": 0, "z": 0 },
       "options": {
