@@ -4,7 +4,7 @@ import { Vector3 } from 'three/src/math/Vector3';
 
 import type { TActor } from '@/Engine/Actor';
 import type { TAbstractIntersectionsWatcher, TIntersectionEvent, TIntersectionsDirectionWatcher, TIntersectionsDirectionWatcherParams } from '@/Engine/Intersections/Models';
-import { getOriginAndDirection } from '@/Engine/Intersections/Utils';
+import { getChangedOriginAndDirection } from '@/Engine/Intersections/Utils';
 import { AbstractIntersectionsWatcher } from '@/Engine/Intersections/Watchers/AbstractIntersectionsWatcher';
 import type { TMilliseconds } from '@/Engine/Math';
 import type { TRawModel3d } from '@/Engine/Models3d';
@@ -36,7 +36,7 @@ export function IntersectionsDirectionWatcher(params: TIntersectionsDirectionWat
         // TODO 15-0-0: implement a support of shouldUseDistinct and test it
         // getOriginAndDirection(tmpOrigin, tmpDirection, prevOrigin, prevDirection, origin$.value.clone(), direction$.value.clone(), threshold)
         shouldUseDistinct
-          ? getOriginAndDirection(tmpOrigin, tmpDirection, prevOrigin, prevDirection, origin$.value.clone(), direction$.value.clone(), threshold)
+          ? getChangedOriginAndDirection(tmpOrigin, tmpDirection, prevOrigin, prevDirection, origin$.value.clone(), direction$.value.clone(), threshold)
           : { origin: origin$.value.clone(), direction: direction$.value.clone() }
       ),
       filter(isDefined)

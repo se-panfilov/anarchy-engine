@@ -35,7 +35,7 @@ export function isIntersectionsCameraWatcher(watcher: TIntersectionsCameraWatche
   return isDefined((watcher as TIntersectionsCameraWatcher).getCamera);
 }
 
-export function getOriginAndDirection(
+export function getChangedOriginAndDirection(
   tmpOrigin: Float32Array,
   tmpDirection: Float32Array,
   prevOrigin: Float32Array,
