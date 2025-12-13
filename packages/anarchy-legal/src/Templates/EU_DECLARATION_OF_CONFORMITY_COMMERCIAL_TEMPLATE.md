@@ -9,6 +9,8 @@
 {{/HAS_EU_REP}}
 **Contact (regulatory):** {{LEGAL_EMAIL}}
 
+> **We, {{LEGAL_ENTITY_NAME}}, declare under our sole responsibility** that the object of this declaration described below is in conformity with the relevant Union legislation identified herein.
+
 ## Product Identification
 
 - **Product name:** {{PRODUCT_DISPLAY_NAME}}{{TRADEMARK_SYMBOL}} (the “{{PRODUCT_TERM}}”)
@@ -16,18 +18,18 @@
 - **Technical identifiers:** `{{PACKAGE_NAME}}`
   {{/SHOW_TECH_IDENTIFIERS}}
 - **Type / model:** {{PRODUCT_MODEL_CODE}} (product family of {{PRODUCT_DISPLAY_NAME}}{{TRADEMARK_SYMBOL}})
-- **Version covered by this Declaration:** {{CONFORMITY_SERIES}} (baseline {{BASELINE_VERSION}} dated {{BASELINE_EFFECTIVE_DATE}}). Subsequent **minor/patch** updates within this series are **covered** by this Declaration **provided** they do **not introduce substantial changes** that could adversely affect compliance with essential requirements. Build identifiers (e.g., commit/tag) for released binaries are recorded in the **Technical Documentation** (Annex A).
 - **Intended use:** Standalone software (product with digital elements) operating **offline** by default; no personal-data processing by default.
 
-**Versioning / Series covered by this Declaration.**
+## Versioning / Series Covered by this Declaration
 
-- Conformity series: {{CONFORMITY_SERIES}} (baseline {{BASELINE_VERSION}} dated {{BASELINE_EFFECTIVE_DATE}};.
-- Subsequent minor/patch releases within this series are covered provided they do not introduce substantial changes affecting conformity.
-- Internal pre-release builds prior to {{BASELINE_VERSION}} were not placed on the market and are outside the scope of this Declaration.
+- **Conformity series:** {{CONFORMITY_SERIES}} (baseline **{{BASELINE_VERSION}}**, dated **{{BASELINE_EFFECTIVE_DATE}}**).
+- Subsequent **minor/patch** releases **within this series** are covered **provided** they do **not** introduce **substantial changes** that could adversely affect compliance with essential requirements.
+- Internal pre-release builds prior to **{{BASELINE_VERSION}}** were **not** placed on the market and fall **outside** the scope of this Declaration.
+- Build identifiers for released binaries are recorded in the **Technical Documentation**.
 
 ## Applicable Union Legislation
 
-The {{PRODUCT_TERM}} has been assessed for conformity with the **EU Cyber Resilience Act (CRA)** and applicable Union legislation for products with digital elements. Where applicable, conformity is demonstrated by internal control and/or third-party assessment as indicated below.
+The {{PRODUCT_TERM}} has been assessed for conformity with the **EU Cyber Resilience Act (CRA)** and other applicable Union legislation for products with digital elements. Conformity is demonstrated by internal control and/or third-party assessment as indicated below.
 
 {{#HAS_NOTIFIED_BODY}}
 
@@ -45,13 +47,13 @@ The {{PRODUCT_TERM}} has been assessed for conformity with the **EU Cyber Resili
 - {{.}}
   {{/HARMONISED_STANDARDS_LIST}}
   {{^HARMONISED_STANDARDS_LIST}}
-  _None applied; conformity established via internal control and documentation referenced in the Technical File._
+  _None applied; conformity established via internal control and documentation referenced in the Technical Documentation._
   {{/HARMONISED_STANDARDS_LIST}}
 
 ## Essential Requirements — Summary of Compliance
 
-- **Secure development & vulnerability handling:** Implemented as described in `SECURITY` and **Incident Response / Vulnerability Handling Plan**.
-- **Security support period:** The shorter of (i) the declared expected lifetime for the relevant major version (**{{SECURITY_SUPPORT_PERIOD_MONTH}} months**) and (ii) **five (5) years** from its initial commercial release.
+- **Secure development & vulnerability handling:** Implemented as described in `SECURITY` and the **Incident Response / Vulnerability Handling Plan**.
+- **Security support period:** The shorter of **(i)** the declared expected lifetime for the relevant major version (**{{SECURITY_SUPPORT_PERIOD_MONTH}} months**) and **(ii)** **five (5) years** from its initial commercial release.
 - **Updates:** Delivered via distribution channels in use from time to time; no specific cadence guaranteed.
 - **Personal data protection:** No collection by default; if optional features are enabled, processing follows the **Privacy Policy**.
 - **Accessibility (EAA):** Information on accessibility and contact: {{ACCESSIBILITY_CONTACT}}.
@@ -64,7 +66,7 @@ The manufacturer declares that the {{PRODUCT_TERM}} conforms to the applicable r
 
 ## Technical Documentation
 
-Technical Documentation is maintained by the manufacturer and will be made available to competent authorities upon request.
+**Technical Documentation** is maintained by the manufacturer and will be made available to competent authorities upon request. The Declaration and Technical Documentation are retained for at least **ten (10) years** from the date the last unit within the above series is placed on the market.
 
 **Place/Date:**
 
