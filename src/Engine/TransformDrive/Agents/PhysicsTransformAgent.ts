@@ -1,20 +1,22 @@
-import type { RigidBody, Rotation, Vector } from '@dimforge/rapier3d';
 import type { Subject, Subscription } from 'rxjs';
-import { BehaviorSubject, combineLatest, distinctUntilChanged, filter, map, switchMap, takeWhile, withLatestFrom } from 'rxjs';
+import { BehaviorSubject, combineLatest, distinctUntilChanged, filter, map, scan, switchMap, takeWhile, withLatestFrom } from 'rxjs';
 import { Euler, Quaternion, Vector3 } from 'three';
 
-import type { TPhysicsBody, TPhysicsBodyService, TWithPresetNamePhysicsBodyParams } from '@/Engine/Physics';
-import { isPhysicsBodyParamsComplete, RigidBodyTypesNames } from '@/Engine/Physics';
+import type { TPhysicsBody } from '@/Engine/Physics';
+import { RigidBodyTypesNames } from '@/Engine/Physics';
 import type { TReadonlyEuler, TReadonlyQuaternion } from '@/Engine/ThreeLib';
 import { TransformAgent } from '@/Engine/TransformDrive/Constants';
 import type {
   TAbstractTransformAgent,
+  TAccumulatedRigidBodyTransformData,
   TPhysicsAgentDependencies,
   TPhysicsTransformAgent,
   TPhysicsTransformAgentInternalParams,
   TPhysicsTransformAgentParams,
-  TReadonlyTransform
+  TReadonlyTransform,
+  TRigidBodyTransformData
 } from '@/Engine/TransformDrive/Models';
+import { applyLatestTransform, createPhysicsBody, getPhysicalBodyTransform } from '@/Engine/TransformDrive/Utils';
 import { isDefined, isNotDefined } from '@/Engine/Utils';
 
 import { AbstractTransformAgent } from './AbstractTransformAgent';
@@ -96,36 +98,37 @@ export function PhysicsTransformAgent(params: TPhysicsTransformAgentParams, { ph
     .pipe(
       // TODO 8.0.0. MODELS: does this pipe turn on and turn off watching tick$? Check everywhere (cause looks like it's turn it on, but not off)
       filter(([isEnabled, isAutoUpdate]: ReadonlyArray<boolean>): boolean => isEnabled && isAutoUpdate),
-      switchMap((): Subject<void> => physicsLoopService.tick$)
-      // TODO 8.0.0. MODELS: perhaps distinctUntilChanged is needed here
+      switchMap((): Subject<void> => physicsLoopService.tick$),
+      map((): TRigidBodyTransformData => getPhysicalBodyTransform(agent)),
+      scan(
+        (prev: TAccumulatedRigidBodyTransformData, curr: TRigidBodyTransformData): TAccumulatedRigidBodyTransformData => {
+          return {
+            prevPosition: prev.currPosition,
+            currPosition: curr.position,
+            prevRotation: prev.currRotation,
+            currRotation: curr.rotation
+          };
+        },
+        {
+          prevPosition: undefined,
+          currPosition: undefined,
+          prevRotation: undefined,
+          currRotation: undefined
+        } satisfies TAccumulatedRigidBodyTransformData
+      )
     )
-    .subscribe((): void => {
-      const { position, rotation } = getPhysicalBodyTransform(agent);
-      if (isDefined(position)) agent.position$.next(new Vector3(position.x, position.y, position.z));
-      if (isDefined(rotation)) rotationQuaternion$.next(new Quaternion(rotation.x, rotation.y, rotation.z, rotation.w));
+    .subscribe(({ prevPosition, currPosition, prevRotation, currRotation }) => {
+      if (isDefined(currPosition) && (!prevPosition || currPosition.x !== prevPosition.x || currPosition.y !== prevPosition.y || currPosition.z !== prevPosition.z)) {
+        agent.position$.next(new Vector3(currPosition.x, currPosition.y, currPosition.z));
+      }
+
+      if (
+        isDefined(currRotation) &&
+        (!prevRotation || currRotation.x !== prevRotation.x || currRotation.y !== prevRotation.y || currRotation.z !== prevRotation.z || currRotation.w !== prevRotation.w)
+      ) {
+        rotationQuaternion$.next(new Quaternion(currRotation.x, currRotation.y, currRotation.z, currRotation.w));
+      }
     });
 
   return agent;
-}
-
-function getPhysicalBodyTransform<T extends { physicsBody$: BehaviorSubject<TPhysicsBody | undefined> }>(obj: T): { position?: Vector; rotation?: Rotation } | never {
-  if (isNotDefined(obj.physicsBody$.value)) return {};
-  if (obj.physicsBody$.value.getPhysicsBodyType() === RigidBodyTypesNames.Fixed) return {};
-  const rigidBody: RigidBody | undefined = obj.physicsBody$.value.getRigidBody();
-  if (isNotDefined(rigidBody)) throw new Error('Cannot update Actor with Physics: rigidBody is missing');
-
-  return { position: rigidBody.translation(), rotation: rigidBody.rotation() };
-}
-
-function createPhysicsBody(physics: TWithPresetNamePhysicsBodyParams, physicsBodyService: TPhysicsBodyService): TPhysicsBody | undefined {
-  const { presetName, ...rest } = physics;
-  if (isDefined(presetName)) return physicsBodyService.createWithPresetName(physics, presetName);
-  if (!isPhysicsBodyParamsComplete(rest)) return undefined;
-  return physicsBodyService.create(rest);
-}
-
-function applyLatestTransform(rigidBody: RigidBody | undefined, position: Vector3, rotation: Euler): void {
-  if (isNotDefined(rigidBody)) return;
-  rigidBody.setTranslation(position, false);
-  rigidBody.setRotation(new Quaternion().setFromEuler(rotation), false);
 }
