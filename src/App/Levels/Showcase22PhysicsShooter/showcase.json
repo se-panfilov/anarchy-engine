@@ -64,7 +64,7 @@
       "widthSegments": 1,
       "heightSegments": 1,
       "material": { "type": "standard", "params": { "color": "#FF9800" } },
-      "position": { "x": 24, "y": 0, "z": 14 },
+      "position": { "x": 24, "y": 1, "z": 14 },
       "castShadow": true,
       "tags": []
     },
@@ -90,7 +90,7 @@
       "widthSegments": 1,
       "heightSegments": 1,
       "material": { "type": "standard", "params": { "color": "#FFFF00" } },
-      "position": { "x": 23, "y": 0, "z": 22 },
+      "position": { "x": 23, "y": 2, "z": 22 },
       "castShadow": true,
       "tags": []
     },

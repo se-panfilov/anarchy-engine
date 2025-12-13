@@ -76,7 +76,7 @@ export function showcase(canvas: TAppCanvas): TShowcase {
     let mouseLineIntersections: TIntersectionEvent = { point: new Vector3(), distance: 0 } as Intersection;
     mouseLineIntersectionsWatcher.value$.subscribe((intersection: TIntersectionEvent): void => void (mouseLineIntersections = intersection));
 
-    const line: Line2 = createLine();
+    const line: Line2 = createLine('#E91E63', 0.1);
     actorService.getScene().entity.add(line);
 
     let fromHeroAngles: Readonly<{ azimuth: TRadians; elevation: TRadians }> = {

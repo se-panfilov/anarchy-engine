@@ -1,6 +1,7 @@
 import RBush from 'rbush';
-import type { ColorRepresentation, LineSegments } from 'three';
+import type { ColorRepresentation, Object3D } from 'three';
 import { Mesh, MeshBasicMaterial, PlaneGeometry } from 'three';
+import type { Line2 } from 'three/examples/jsm/lines/Line2';
 
 import type { TActorWrapperAsync } from '@/Engine/Actor';
 import type { TSpatialCell, TSpatialCellId, TSpatialGridService } from '@/Engine/Collisions/Models';
@@ -29,20 +30,28 @@ export function SpatialGridService(): TSpatialGridService {
     });
   }
 
-  let outlines: LineSegments[] = [];
+  let _debugOutlines: Array<Line2> = [];
+  let _debugOutlinesIds: Array<number> = [];
 
-  //this highlight is for debugging purposes only
+  //this highlight is for debugging purposes only (only adds outlines to scene, might not remove them afterwards!!!)
   function _debugHighlightObjects(tree: RBush<TSpatialCell>, sceneW: TSceneWrapper, x: number, z: number): void {
-    outlines.forEach((outline: LineSegments): void => void sceneW.entity.remove(outline));
-    outlines = [];
+    _debugOutlines.forEach((outline: Line2): void => void sceneW.entity.remove(outline));
+    _debugOutlines = [];
+    _debugOutlinesIds.forEach((id: number): void => {
+      const obj: Object3D | undefined = sceneW.entity.getObjectById(id);
+      if (isDefined(obj)) sceneW.entity.remove(obj);
+    });
+    _debugOutlinesIds = [];
 
     const actorsWrapperList: ReadonlyArray<TActorWrapperAsync> = getAllInCell(tree, x, z);
 
     actorsWrapperList.forEach((actorW: TActorWrapperAsync): void => {
-      const outline = createOutline(actorW);
+      const outline: Line2 = createOutline(actorW, '#ff0000', 0.1);
       sceneW.entity.add(outline);
       // eslint-disable-next-line functional/immutable-data
-      outlines.push(outline);
+      _debugOutlines.push(outline);
+      // eslint-disable-next-line functional/immutable-data
+      _debugOutlinesIds.push(outline.id);
     });
   }
 

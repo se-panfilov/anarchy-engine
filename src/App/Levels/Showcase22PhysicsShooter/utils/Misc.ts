@@ -4,10 +4,10 @@ import { LineMaterial } from 'three/examples/jsm/lines/LineMaterial';
 
 import { meters } from '@/Engine/Measurements/Utils';
 
-export function createLine(): Line2 {
+export function createLine(color: string, width: number): Line2 {
   const material = new LineMaterial({
-    color: '#E91E63',
-    linewidth: meters(0.1),
+    color,
+    linewidth: meters(width),
     worldUnits: true,
     alphaToCoverage: true
   });
