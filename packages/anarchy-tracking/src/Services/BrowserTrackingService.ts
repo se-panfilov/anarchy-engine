@@ -42,7 +42,7 @@ export function BrowserTrackingService(options?: BrowserOptions, metaData?: Reco
       if (isDefined(event.breadcrumbs)) event.breadcrumbs = undefined;
 
       // eslint-disable-next-line functional/immutable-data
-      (event as any).tags = { ...event.tags, ...metaData };
+      (event as any).tags = { ...event.tags, ...metaData, errorTracker: 'BrowserTrackingService' };
 
       return scrubUserPathsBrowser(event);
     },
