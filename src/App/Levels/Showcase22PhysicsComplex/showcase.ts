@@ -15,6 +15,7 @@ import type {
   TSceneWrapper,
   TSpace,
   TSpaceConfig,
+  TWithCoordsXY,
   TWithCoordsXYZ
 } from '@/Engine';
 import {
@@ -66,34 +67,22 @@ export function showcase(canvas: TAppCanvas): TShowcase {
     const divisions: number = 200;
     const gridHelper: GridHelper = new GridHelper(size, divisions);
     sceneWrapper.entity.add(gridHelper);
+    /////////////////////
 
-    const blocks = await buildTower(actorService, 10, 10, 20);
+    await buildTower(actorService, 10, 10, 20);
 
-    let mouseLineIntersectionsCoords: Vector3 | undefined = undefined;
-
-    const mouse = new Vector2();
     const raycaster = new Raycaster();
     const plane = new Plane(new Vector3(0, 1, 0), 0); // XZ plane
     const planeNormal = new Vector3(0, 1, 0); // Normal vector of the XZ plane
 
-    let angle = 0;
+    let heroADC: THeroADC = {
+      angle: 0,
+      distance: 0,
+      coords: undefined
+    };
 
     mouseService.position$.subscribe(({ normalizedCoords }): void => {
-      // Convert mouse coordinates to normalized device coordinates (-1 to +1)
-      // eslint-disable-next-line functional/immutable-data
-      mouse.x = normalizedCoords.x;
-      // eslint-disable-next-line functional/immutable-data
-      mouse.y = normalizedCoords.y;
-
-      raycaster.setFromCamera(mouse, (cameraService.findActive() as TCameraWrapper)?.entity);
-
-      const intersects = raycaster.ray.intersectPlane(plane, new Vector3());
-      if (intersects) {
-        const point = intersects;
-        angle = planeNormal.angleTo(raycaster.ray.direction);
-        // const distance = point.distanceTo(heroW.getPosition().getCoords());
-        mouseLineIntersectionsCoords = new Vector3(point.x, 2, point.z);
-      }
+      heroADC = getADCFromActor(heroW, normalizedCoords, raycaster, cameraW, plane, planeNormal);
     });
 
     const line: Line2 = createLine();
@@ -102,16 +91,16 @@ export function showcase(canvas: TAppCanvas): TShowcase {
     loopService.tick$.subscribe(() => {
       // cameraFollowingActor(cameraW, heroW);
 
-      if (isDefined(mouseLineIntersectionsCoords)) {
+      if (isDefined(heroADC.coords)) {
         const heroCoords: TWithCoordsXYZ = heroW.getPosition().getCoords();
-        line.geometry.setPositions([heroCoords.x, heroCoords.y, heroCoords.z, mouseLineIntersectionsCoords.x, mouseLineIntersectionsCoords.y, mouseLineIntersectionsCoords.z]);
+        line.geometry.setPositions([heroCoords.x, heroCoords.y, heroCoords.z, heroADC.coords.x, heroADC.coords.y, heroADC.coords.z]);
         line.computeLineDistances();
       }
     });
 
     mouseService.clickLeftRelease$.subscribe((): void => {
       if (isNotDefined(heroW)) throw new Error(`Cannot find "hero" actor`);
-      heroW.physicsBody?.getRigidBody()?.applyImpulse(getPushCoordsFrom3dAzimuth(angle, 2, 100), true);
+      heroW.physicsBody?.getRigidBody()?.applyImpulse(getPushCoordsFrom3dAzimuth(heroADC.angle, 2, 100), true);
     });
 
     physicsLoopService.shouldAutoUpdate(true);
@@ -212,4 +201,23 @@ function cameraFollowingActor(cameraW: TCameraWrapper, actorW: TActorWrapperAsyn
   const actorCoords: TWithCoordsXYZ = actorW.getPosition().getCoords();
   cameraW.setPosition(Vector3Wrapper({ x: actorCoords.x, y: actorCoords.y + 10, z: actorCoords.z + 10 }));
   cameraW.lookAt(Vector3Wrapper(actorCoords));
+}
+
+type THeroADC = Readonly<{ angle: number; distance: number; coords: Vector3 | undefined }>;
+
+function getADCFromActor(actor: TActorWrapperAsync, normalizedCoords: TWithCoordsXY, raycaster: Raycaster, cameraW: TCameraWrapper, plane: Plane, planeNormal: Vector3): THeroADC {
+  raycaster.setFromCamera(new Vector2(normalizedCoords.x, normalizedCoords.y), cameraW.entity);
+  let result = { angle: 0, distance: 0, coords: new Vector3() };
+
+  const intersects: Vector3 | null = raycaster.ray.intersectPlane(plane, new Vector3());
+  if (intersects) {
+    const point: Vector3 = intersects;
+    result = {
+      angle: planeNormal.angleTo(raycaster.ray.direction),
+      distance: point.distanceTo(actor.getPosition().getCoords()),
+      coords: new Vector3(point.x, 2, point.z)
+    };
+  }
+
+  return result;
 }
