@@ -27,9 +27,10 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
 
   function init(): void {
     addGizmo(space.services, ambientContext.screenSizeWatcher, { placement: 'bottom-left' });
+    const fadeDuration = 0.3;
 
-    const solder1AnimFsm: TFsmWrapper = initSolder1('solder_actor_1', space.services);
-    const solder2AnimFsm: TFsmWrapper = initSolder2('solder_actor_2', space.services);
+    const solder1AnimFsm: TFsmWrapper = initSolder1('solder_actor_1', fadeDuration, space.services);
+    const solder2AnimFsm: TFsmWrapper = initSolder2('solder_actor_2', fadeDuration, space.services);
 
     onKey(KeyCode.W).pressing$.subscribe((): void => {
       const action = isKeyPressed(KeysExtra.Shift) ? 'Run' : 'Walk';
@@ -51,14 +52,12 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
   return { start, space };
 }
 
-function initSolder1(actorName: string, { animationsService, fsmService, actorService }: TSpaceServices): TFsmWrapper {
-  const fadeDuration = 0.3;
+function initSolder1(actorName: string, fadeDuration: number, { animationsService, fsmService, actorService }: TSpaceServices): TFsmWrapper {
+  const actor: TActor | undefined = actorService.getRegistry().findByName(actorName);
+  if (isNotDefined(actor)) throw new Error(`Actor "${actorName}" is not found`);
 
-  const solderActor: TActor | undefined = actorService.getRegistry().findByName(actorName);
-  if (isNotDefined(solderActor)) throw new Error(`Actor "${actorName}" is not found`);
-
-  const solderModel3d: TModel3d = solderActor.model3d;
-  const actions = animationsService.startAutoUpdateMixer(solderModel3d).actions;
+  const model3d: TModel3d = actor.model3d;
+  const actions = animationsService.startAutoUpdateMixer(model3d).actions;
 
   enum AnimationActions {
     Run = 'Run',
@@ -88,9 +87,9 @@ function initSolder1(actorName: string, { animationsService, fsmService, actorSe
     ]
   });
 
-  solderActor.setAnimationsFsm(solderAnimFsm);
+  actor.setAnimationsFsm(solderAnimFsm);
 
-  const { animationsFsm } = solderActor.states;
+  const { animationsFsm } = actor.states;
   if (isNotDefined(animationsFsm)) throw new Error('Animations FSM is not defined');
 
   animationsFsm.changed$.pipe(distinctUntilChanged()).subscribe((state: TFsmStates): void => {
@@ -118,18 +117,16 @@ function initSolder1(actorName: string, { animationsService, fsmService, actorSe
   return animationsFsm;
 }
 
-function initSolder2(actorName: string, { animationsService, actorService }: TSpaceServices): TFsmWrapper {
-  const fadeDuration = 0.3;
+function initSolder2(actorName: string, fadeDuration: number, { animationsService, actorService }: TSpaceServices): TFsmWrapper {
+  const actor: TActor | undefined = actorService.getRegistry().findByName(actorName);
+  if (isNotDefined(actor)) throw new Error(`Actor "${actorName}" is not found`);
 
-  const solderActor: TActor | undefined = actorService.getRegistry().findByName(actorName);
-  if (isNotDefined(solderActor)) throw new Error(`Actor "${actorName}" is not found`);
-
-  const solderModel3d: TModel3d = solderActor.model3d;
-  const actions = animationsService.startAutoUpdateMixer(solderModel3d).actions;
+  const model3d: TModel3d = actor.model3d;
+  const actions = animationsService.startAutoUpdateMixer(model3d).actions;
 
   const idleAction: AnimationAction = actions['Idle'];
 
-  const { animationsFsm } = solderActor.states;
+  const { animationsFsm } = actor.states;
   if (isNotDefined(animationsFsm)) throw new Error('Animations FSM is not defined');
 
   animationsFsm.changed$.pipe(distinctUntilChanged()).subscribe((state: TFsmStates): void => {
