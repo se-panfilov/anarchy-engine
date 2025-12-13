@@ -19,7 +19,6 @@ export function SettingsService(app: App, filesService: TFilesService): TSetting
     } catch {
       console.log(`[DESKTOP] Settings file ("${appSettingsFileName}") not found in : ${userDataFolder}. Applying default settings.`);
       const settings: TShowcaseGameSettings = buildDefaultSettings();
-      // TODO DESKTOP: save settings broken in production mode. Fix
       await saveAppSettings(settings);
       return settings;
     }

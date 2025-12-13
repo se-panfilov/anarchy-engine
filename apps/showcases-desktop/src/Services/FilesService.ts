@@ -9,7 +9,6 @@ import type { FileHandle } from 'fs/promises';
 import { nanoid } from 'nanoid';
 import { join } from 'path';
 
-// TODO DESKTOP: Finalize this service, use it in SettingsService and DocsService. Test all methods
 export function FilesService(app: App): TFilesService {
   const encoding: BufferEncoding = 'utf-8';
 
