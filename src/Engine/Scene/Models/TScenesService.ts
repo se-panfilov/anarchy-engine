@@ -1,4 +1,4 @@
-import type { TEntitiesService } from '@/Engine/Abstract';
+import type { TSerializableEntitiesService } from '@/Engine/Abstract';
 import type { TWithActiveAccessorsService, TWithCreateFromConfigService, TWithCreateService, TWithFactoryService, TWithRegistryService } from '@/Engine/Mixins';
 
 import type { TSceneConfig } from './TSceneConfig';
@@ -12,7 +12,7 @@ export type TScenesServiceWithCreateFromConfig = TWithCreateFromConfigService<TS
 export type TScenesServiceWithFactory = TWithFactoryService<TSceneWrapper, TSceneParams, undefined, TSceneFactory>;
 export type TScenesServiceWithRegistry = TWithRegistryService<TSceneRegistry>;
 
-export type TScenesService = TEntitiesService &
+export type TScenesService = TSerializableEntitiesService<TSceneConfig> &
   TScenesServiceWithCreate &
   TScenesServiceWithCreateFromConfig &
   TScenesServiceWithFactory &

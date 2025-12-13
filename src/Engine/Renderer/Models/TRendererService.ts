@@ -1,4 +1,4 @@
-import type { TEntitiesService } from '@/Engine/Abstract';
+import type { TSerializableEntitiesService } from '@/Engine/Abstract';
 import type { TWithActiveAccessorsService, TWithCreateFromConfigService, TWithCreateService, TWithFactoryService, TWithRegistryService } from '@/Engine/Mixins';
 
 import type { TRendererConfig } from './TRendererConfig';
@@ -13,7 +13,7 @@ export type TRendererServiceWithCreateFromConfig = TWithCreateFromConfigService<
 export type TRendererServiceWithFactory = TWithFactoryService<TRendererWrapper, TRendererParams, TRendererWrapperDependencies, TRendererFactory>;
 export type TRendererServiceWithRegistry = TWithRegistryService<TRendererRegistry>;
 
-export type TRendererService = TEntitiesService &
+export type TRendererService = TSerializableEntitiesService<TRendererConfig> &
   TRendererServiceWithCreate &
   TRendererServiceWithCreateFromConfig &
   TWithActiveAccessorsService<TRendererWrapper> &

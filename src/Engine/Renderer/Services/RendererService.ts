@@ -3,9 +3,10 @@ import type { Subscription } from 'rxjs';
 import type { TAbstractService, TRegistryPack } from '@/Engine/Abstract';
 import { AbstractService } from '@/Engine/Abstract';
 import type { TDisposable, TWithActiveMixinResult } from '@/Engine/Mixins';
-import { withActiveEntityServiceMixin, withCreateFromConfigServiceMixin, withCreateServiceMixin, withFactoryService, withRegistryService } from '@/Engine/Mixins';
+import { withActiveEntityServiceMixin, withCreateFromConfigServiceMixin, withCreateServiceMixin, withFactoryService, withRegistryService, withSerializeAllEntities } from '@/Engine/Mixins';
 import { renderLoopEffect } from '@/Engine/Renderer/Loop';
 import type {
+  TRendererConfig,
   TRendererFactory,
   TRendererRegistry,
   TRendererService,
@@ -51,7 +52,7 @@ export function RendererService(
   });
 
   // eslint-disable-next-line functional/immutable-data
-  return Object.assign(abstractService, withCreateService, withCreateFromConfigService, withFactory, withRegistry, {
+  return Object.assign(abstractService, withCreateService, withCreateFromConfigService, withFactory, withRegistry, withSerializeAllEntities<TRendererConfig, undefined>(registry), {
     setActive: withActive.setActive,
     findActive: withActive.findActive,
     active$: withActive.active$
