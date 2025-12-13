@@ -1,5 +1,5 @@
 import { ActorWrapper } from '@Engine/Wrappers/ActorWrapper';
-import { AbstractFactory } from '@Engine/Managers/AbstractFactory';
+import { AbstractFactory } from '@Engine/Factories/AbstractFactory';
 import type { Factory } from '@Engine/Models/Factory';
 import type { ActorParams } from '@Engine/Models/ActorParams';
 

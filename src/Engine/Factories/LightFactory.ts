@@ -1,5 +1,5 @@
 import { LightWrapper } from '@Engine/Wrappers/LightWrapper';
-import { AbstractFactory } from '@Engine/Managers/AbstractFactory';
+import { AbstractFactory } from '@Engine/Factories/AbstractFactory';
 import type { LightParams } from '@Engine/Models/LightParams';
 import type { Factory } from '@Engine/Models/Factory';
 

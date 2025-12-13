@@ -1,5 +1,5 @@
 import { CameraWrapper } from '@Engine/Wrappers/CameraWrapper';
-import { AbstractFactory } from '@Engine/Managers/AbstractFactory';
+import { AbstractFactory } from '@Engine/Factories/AbstractFactory';
 import type { Factory } from '@Engine/Models/Factory';
 import type { CameraParams } from '@Engine/Models/CameraParams';
 
