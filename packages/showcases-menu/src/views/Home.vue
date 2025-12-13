@@ -18,6 +18,7 @@ const newGameButtonText: ShallowRef<string> = $t('main-menu.home.button.new-game
 const loadGameButtonText: ShallowRef<string> = $t('main-menu.home.button.load-game.text');
 const settingsButtonText: ShallowRef<string> = $t('main-menu.home.button.settings.text');
 const closeMenuButtonText: ShallowRef<string> = $t('main-menu.home.button.close-menu.text');
+const exitAppButtonText: ShallowRef<string> = $t('main-menu.home.button.exit-app.text');
 const legalButtonText: ShallowRef<string> = $t('main-menu.home.button.legal.text');
 
 const navOptions: ReadonlyArray<TVueNavOption> = [
@@ -48,8 +49,14 @@ const navOptions: ReadonlyArray<TVueNavOption> = [
   },
   {
     id: 4,
-    name: 'credits',
+    name: 'close-menu',
     label: closeMenuButtonText,
+    action: () => eventsService.emitCloseMenu()
+  },
+  {
+    id: 5,
+    name: 'exit-app',
+    label: exitAppButtonText,
     condition: useMenuOptionsStore().showExitBtn,
     action: () => eventsService.emitCloseMenu()
   }

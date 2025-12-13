@@ -1,16 +1,18 @@
 <script setup lang="ts">
+import { isNotDefined } from '@Anarchy/Shared/Utils';
 import { NavDirection, NavStyle } from '@Showcases/Menu/components/Navigation/constants';
 import type { TVueNavOption } from '@Showcases/Menu/models';
 import { vueTranslationService } from '@Showcases/Menu/services';
 import { useRouterStore } from '@Showcases/Menu/stores/RouterStore';
-import type { ShallowRef } from 'vue';
+import type { ComputedRef, ShallowRef } from 'vue';
+import { computed } from 'vue';
 
 const { $t } = vueTranslationService;
 
 // TODO DESKTOP: add version to html body
 // TODO DESKTOP: add init event with version and platform
 
-withDefaults(
+const props = withDefaults(
   defineProps<{
     options?: ReadonlyArray<TVueNavOption>;
     backBtn?: boolean;
@@ -25,13 +27,21 @@ withDefaults(
   }
 );
 
+const filteredOptions: ComputedRef<ReadonlyArray<TVueNavOption>> = computed(
+  (): ReadonlyArray<TVueNavOption> =>
+    props.options?.filter((option) => {
+      if (isNotDefined(option.condition)) return true;
+      return option.condition;
+    }) ?? []
+);
+
 const backButtonText: ShallowRef<string> = $t('main-menu.navigation.back-button.text');
 </script>
 
 <template>
   <div class="navigation" :class="`--style-${style}`">
     <ul class="navigation__list" :class="`--${direction}`">
-      <li v-for="option in options" :key="option.id" :class="`navigation__list-item --${option.name}`">
+      <li v-for="option in filteredOptions" :key="option.id" :class="`navigation__list-item --${option.name}`">
         <button type="button" class="navigation__button" :disabled="option.disabled" @click="option.action()">
           {{ option.label }}
         </button>
