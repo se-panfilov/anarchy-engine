@@ -34,7 +34,7 @@ app.whenReady().then(async (): Promise<void> => {
   const win: BrowserWindow = windowService.createWindow(initialWindowSize.width, initialWindowSize.height, desktopAppSettings);
 
   //Note: Do not "await" before window creation (cause problems in production – invisible window)
-  const settings: TShowcaseGameSettings = await settingsService.loadAppSettings();
+  const settings: TShowcaseGameSettings = await settingsService.readAppSettings();
 
   windowReadyToShow(win, settings, windowService);
   appWindowAllClosedHandler(app);

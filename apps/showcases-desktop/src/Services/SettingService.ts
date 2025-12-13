@@ -11,16 +11,15 @@ import type { App } from 'electron';
 // TODO DESKTOP: Add protection (allowed files list, name/extension checks, sanitization, etc)
 export function SettingsService(app: App, { filesService, windowService }: TSettingsServiceDependencies): TSettingsService {
   const userDataFolder: AllowedSystemFolders = AllowedSystemFolders.UserData;
-  const appSettingsFileName: string = 'user-config.json';
+  const appSettingsFileName: string = 'app-settings.json';
 
-  // TODO DESKTOP: rename load/save to read/write
-  const loadAppSettings = async (): Promise<TShowcaseGameSettings> => {
+  const readAppSettings = async (): Promise<TShowcaseGameSettings> => {
     try {
       return await filesService.readFileAsJson(appSettingsFileName, userDataFolder, isSettings);
     } catch {
       console.log(`[DESKTOP] Settings file ("${appSettingsFileName}") not found in : ${userDataFolder}. Applying default settings.`);
       const settings: TShowcaseGameSettings = buildDefaultSettings();
-      await saveAppSettings(settings);
+      await writeAppSettings(settings);
       return settings;
     }
   };
@@ -50,7 +49,7 @@ export function SettingsService(app: App, { filesService, windowService }: TSett
 
   const getPreferredLocales = (): ReadonlyArray<TLocaleId> => Array.from(new Set([...app.getPreferredSystemLanguages(), app.getLocale()] as ReadonlyArray<TLocaleId>));
 
-  async function saveAppSettings(settings: TShowcaseGameSettings): Promise<void> {
+  async function writeAppSettings(settings: TShowcaseGameSettings): Promise<void> {
     if (!isSettings(settings)) throw new Error('[DESKTOP] Attempted to save invalid app settings');
     await filesService.writeFile(appSettingsFileName, userDataFolder, JSON.stringify(settings, null, 2));
     console.log(`[DESKTOP] Saved settings file ("${appSettingsFileName}") in : ${userDataFolder}`);
@@ -72,7 +71,7 @@ export function SettingsService(app: App, { filesService, windowService }: TSett
     applyPlatformSettings,
     detectResolution,
     getPreferredLocales,
-    loadAppSettings,
-    saveAppSettings
+    readAppSettings,
+    writeAppSettings
   };
 }
