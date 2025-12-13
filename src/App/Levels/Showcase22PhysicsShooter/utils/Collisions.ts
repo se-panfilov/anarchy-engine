@@ -11,8 +11,6 @@ export async function enableCollisions(
   // TODO (S.Panfilov) CWP 2. Visualize raycasting
   // TODO (S.Panfilov) CWP 3. Fix collision detection
   // TODO (S.Panfilov) CWP 4. make sure raycasting is working inside the grid only
-  // TODO (S.Panfilov) CWP 5. make sure that bullets can travel among grids and do raycasting
-  // TODO (S.Panfilov) CWP 6. make sure actors are added properly via config (grid property should work, "cell" might be need to be removed )
 
   const grid: TSpatialGridWrapper | undefined = spatialGridService.getRegistry().findByName('main_grid');
   if (isNotDefined(grid)) throw new Error(`Cannot find "main_grid" spatial grid`);
@@ -39,6 +37,9 @@ export async function enableCollisions(
   grid.addActor(boxActor6W);
   grid.addActor(boxActor7W);
 
+  const physicsBlocksList: ReadonlyArray<TActorWrapperAsync> = actorService.getRegistry().findAllByTag('physics_block');
+  physicsBlocksList.forEach((blockW: TActorWrapperAsync) => grid.addActor(blockW));
+
   mouseLineIntersectionsWatcher.addActor(boxActor1W);
   mouseLineIntersectionsWatcher.addActor(boxActor2W);
   mouseLineIntersectionsWatcher.addActor(boxActor3W);
@@ -52,14 +53,4 @@ export async function enableCollisions(
   });
 
   grid._debugVisualizeCells(sceneW);
-
-  // TODO (S.Panfilov) replace with get all actors from actors registry (or not all)
-  // sceneW.entity.traverse((object: Object3D): void => {
-  //   if ((object as Mesh).isMesh) {
-  //     collisionsService.raycast.initializeRaycastBvh(object as Mesh);
-  //     collisionsService.raycast.visualizeRaycastBvh(object as Mesh, actorService.getScene().entity);
-  //   }
-  // });
-
-  // collisionsService.raycast.visualizeRaycastBvh(grid, sceneW.entity);
 }

@@ -32,7 +32,7 @@ export async function buildTower(actorService: TActorService, startCoords: TWith
       },
       position: block.position,
       castShadow: true,
-      tags: []
+      tags: ['physics_block']
     }) as Promise<TActorWrapperWithPhysicsAsync>;
   });
 
