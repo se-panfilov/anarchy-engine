@@ -91,21 +91,21 @@ export function LegalFilesService(): TLegalFilesService {
 
   // ---------------------- Templates ----------------------
 
-  const TEMPLATE_EXT = '.md';
+  const TEMPLATE_EXT: string = '.md';
   const DEFAULT_TEMPLATE_BASENAME = (t: TDocType): string => `${t}_TEMPLATE`;
 
   async function findTemplateFile(templatesDir: string, docType: TDocType, desiredBase?: string): Promise<string | undefined> {
     // 1) exact by desiredBase
     if (desiredBase) {
-      const exact = path.join(templatesDir, `${desiredBase}${TEMPLATE_EXT}`);
+      const exact: string = path.join(templatesDir, `${desiredBase}${TEMPLATE_EXT}`);
       if (await exists(exact)) return exact;
     }
     // 2) default <TYPE>_TEMPLATE.md
     const def = path.join(templatesDir, `${DEFAULT_TEMPLATE_BASENAME(docType)}${TEMPLATE_EXT}`);
     if (await exists(def)) return def;
     // 3) first match <TYPE>_*_TEMPLATE.md (alphabetically)
-    const pattern = path.join(templatesDir, `${docType}_*${TEMPLATE_EXT}`);
-    const found = await globby([pattern], { absolute: true });
+    const pattern: string = path.join(templatesDir, `${docType}_*${TEMPLATE_EXT}`);
+    const found: string[] = await globby([pattern], { absolute: true });
     found.sort();
     return found[0];
   }
@@ -113,15 +113,15 @@ export function LegalFilesService(): TLegalFilesService {
   // ---------------------- Placeholder rendering ----------------------
 
   // Very small mustache-like renderer: only {{NAME}} (no sections/conditions)
-  const PLACEHOLDER_RE = /{{\s*([A-Z0-9_]+)\s*}}/g;
+  const PLACEHOLDER_RE: RegExp = /{{\s*([A-Z0-9_]+)\s*}}/g;
 
   function formatDate(dateStr: string, fmt: string): string {
-    const d = dateStr === 'now' ? new Date() : new Date(dateStr);
+    const d: Date = dateStr === 'now' ? new Date() : new Date(dateStr);
     // naive pad helper
     const pad2 = (n: number): string => String(n).padStart(2, '0');
-    const YYYY = String(d.getFullYear());
-    const MM = pad2(d.getMonth() + 1);
-    const DD = pad2(d.getDate());
+    const YYYY: string = String(d.getFullYear());
+    const MM: string = pad2(d.getMonth() + 1);
+    const DD: string = pad2(d.getDate());
     return fmt.replace(/YYYY/g, YYYY).replace(/MM/g, MM).replace(/DD/g, DD);
   }
 
@@ -137,7 +137,7 @@ export function LegalFilesService(): TLegalFilesService {
 
   // Extract placeholders present in a template text
   function collectPlaceholders(tpl: string): ReadonlySet<string> {
-    const names = new Set<string>();
+    const names: Set<string> = new Set<string>();
     let m: RegExpExecArray | null;
     while ((m = PLACEHOLDER_RE.exec(tpl))) names.add(m[1]);
     return names;
@@ -146,7 +146,7 @@ export function LegalFilesService(): TLegalFilesService {
   // PACKAGE_* resolution from package.json
   function packagePlaceholder(key: string, pkg: Readonly<Record<string, unknown>>): string | undefined {
     // key is suffix after "PACKAGE_", e.g. NAME, VERSION, AUTHOR, AUTHORS, LICENSE, REPOSITORY, HOMEPAGE, BUGS_URL, DESCRIPTION
-    const k = key.toUpperCase();
+    const k: string = key.toUpperCase();
 
     const str = (v: unknown): string | undefined => (typeof v === 'string' ? v : undefined);
     const arrStr = (v: unknown): string | undefined => (Array.isArray(v) ? (v as unknown[]).map((x) => (typeof x === 'string' ? x : JSON.stringify(x))).join(', ') : undefined);
@@ -155,9 +155,9 @@ export function LegalFilesService(): TLegalFilesService {
       if (!a) return undefined;
       if (typeof a === 'string') return a;
       if (typeof a === 'object') {
-        const n = str((a as any).name) ?? '';
-        const e = str((a as any).email);
-        const w = str((a as any).url);
+        const n: string = str((a as any).name) ?? '';
+        const e: string | undefined = str((a as any).email);
+        const w: string | undefined = str((a as any).url);
         return [n, e ? `<${e}>` : '', w ? `(${w})` : ''].filter(Boolean).join(' ').trim();
       }
       return undefined;
@@ -177,7 +177,7 @@ export function LegalFilesService(): TLegalFilesService {
       case 'REPOSITORY': {
         const repo = (pkg as any).repository;
         if (typeof repo === 'string') return repo;
-        const url = str(repo?.url);
+        const url: string | undefined = str(repo?.url);
         return url ?? undefined;
       }
       case 'BUGS_URL': {
@@ -194,7 +194,7 @@ export function LegalFilesService(): TLegalFilesService {
         return arrStr((pkg as any).keywords);
       default:
         // if someone uses {{PACKAGE_FOO_BAR}}, try naive lowercased lookup "foo_bar" then "fooBar"
-        const lowered = key.toLowerCase();
+        const lowered: string = key.toLowerCase();
         const direct = (pkg as any)[lowered];
         if (typeof direct === 'string') return direct;
         return undefined;
@@ -209,14 +209,14 @@ export function LegalFilesService(): TLegalFilesService {
     generic: TMessages | undefined,
     specific: TMessages | undefined
   ): Readonly<Record<string, string>> {
-    const names = collectPlaceholders(tplText);
+    const names: ReadonlySet<string> = collectPlaceholders(tplText);
     const out: Record<string, string> = {};
 
     // 1) Package-derived for PACKAGE_*
     for (const name of names) {
       if (name.startsWith('PACKAGE_')) {
-        const suffix = name.slice('PACKAGE_'.length);
-        const v = packagePlaceholder(suffix, pkg);
+        const suffix: string = name.slice('PACKAGE_'.length);
+        const v: string | undefined = packagePlaceholder(suffix, pkg);
         if (v !== undefined) out[name] = v;
       }
     }
@@ -248,27 +248,27 @@ export function LegalFilesService(): TLegalFilesService {
   // ---------------------- Main rendering pipeline ----------------------
 
   async function generateForType(i: TRenderInput, docType: TDocType): Promise<void> {
-    const cfgGeneric = pickEntry(i.config, 'GENERIC');
-    const cfgSpecific = pickEntry(i.config, docType);
-    const desiredBase = cfgSpecific?.template;
+    const cfgGeneric: TConfigEntry | undefined = pickEntry(i.config, 'GENERIC');
+    const cfgSpecific: TConfigEntry | undefined = pickEntry(i.config, docType);
+    const desiredBase: string | undefined = cfgSpecific?.template;
 
-    const tplPath = await findTemplateFile(i.templatesDir, docType, desiredBase);
+    const tplPath: string | undefined = await findTemplateFile(i.templatesDir, docType, desiredBase);
     if (!tplPath) {
       console.warn(`[warn] No template found for ${docType}. Skipping.`);
       return;
     }
 
-    const tplText = await fs.readFile(tplPath, 'utf8');
+    const tplText: string = await fs.readFile(tplPath, 'utf8');
     const values = buildPlaceholderValues(docType, tplText, i.ws.pkg, cfgGeneric?.messages, cfgSpecific?.messages);
 
     const missing: string[] = [];
-    const rendered = renderTemplate(tplText, values, (name) => missing.push(name));
+    const rendered: string = renderTemplate(tplText, values, (name) => missing.push(name));
     if (missing.length) {
       console.warn(`[warn] ${docType}: ${missing.length} placeholders had no value: ${missing.slice(0, 10).join(', ')}${missing.length > 10 ? '…' : ''}`);
     }
 
-    const outName = `${docType}.md`;
-    const outPath = path.join(i.outDir, outName);
+    const outName: string = `${docType}.md`;
+    const outPath: string = path.join(i.outDir, outName);
     await fs.mkdir(path.dirname(outPath), { recursive: true });
     await fs.writeFile(outPath, rendered, 'utf8');
     console.log(`✔ ${docType}.md written -> ${outPath}`);
@@ -298,8 +298,8 @@ export function LegalFilesService(): TLegalFilesService {
     isDebug = Boolean(argv.debug);
     repoUtilsService.setDebugMode(isDebug);
 
-    const scriptDir = path.dirname(fileURLToPath(import.meta.url));
-    const startCandidates = [process.env.INIT_CWD, process.cwd(), scriptDir].filter(Boolean) as string[];
+    const scriptDir: string = path.dirname(fileURLToPath(import.meta.url));
+    const startCandidates: string[] = [process.env.INIT_CWD, process.cwd(), scriptDir].filter(Boolean) as string[];
 
     // Find monorepo root
     let rootDir: string | undefined;
@@ -314,22 +314,22 @@ export function LegalFilesService(): TLegalFilesService {
     if (!rootDir) throw new Error(`Failed to find monorepo root from: ${startCandidates.join(', ')}`);
 
     // Load workspaces and resolve target
-    const workspaces = await loadWorkspaces(rootDir);
+    const workspaces: ReadonlyMap<string, TWorkspaceInfo> = await loadWorkspaces(rootDir);
     const ws = resolveWorkspaceFromArg(String(argv.workspace), workspaces, rootDir);
     debugLog(isDebug, 'target workspace:', ws.name, ws.dir);
 
     // Resolve templates dir
-    const templatesDir = argv.templates ? (path.isAbsolute(argv.templates) ? argv.templates : path.resolve(process.cwd(), argv.templates)) : path.resolve(scriptDir, '../../src/Templates');
+    const templatesDir: string = argv.templates ? (path.isAbsolute(argv.templates) ? argv.templates : path.resolve(process.cwd(), argv.templates)) : path.resolve(scriptDir, '../../src/Templates');
     debugLog(isDebug, 'templates dir:', templatesDir);
 
     // Resolve out dir
-    const outDir = path.isAbsolute(argv.out as string) ? (argv.out as string) : path.resolve(process.cwd(), String(argv.out));
+    const outDir: string = path.isAbsolute(argv.out as string) ? (argv.out as string) : path.resolve(process.cwd(), String(argv.out));
     debugLog(isDebug, 'out dir:', outDir);
 
     // Types
     const typesSet: ReadonlySet<TDocType> = (() => {
       if (!argv.types) return new Set(DOC_TYPES);
-      const parts = String(argv.types)
+      const parts: string[] = String(argv.types)
         .split(',')
         .map((s) => s.trim().toUpperCase())
         .filter(Boolean);
@@ -342,7 +342,7 @@ export function LegalFilesService(): TLegalFilesService {
     })();
 
     // Read config (optional)
-    const config = await readConfig(ws.dir);
+    const config: ReadonlyArray<TConfigEntry> = await readConfig(ws.dir);
     if (config.length)
       debugLog(
         isDebug,
