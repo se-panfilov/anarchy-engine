@@ -3084,7 +3084,7 @@ SOFTWARE.
 
 ---
 
-## showcases-shared@1.3.4
+## showcases-shared@1.4.0
 
 **License:** MIT
 

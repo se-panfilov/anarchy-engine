@@ -3330,7 +3330,7 @@ SOFTWARE.
 
 ---
 
-## showcases-menu@1.7.4
+## showcases-menu@1.7.5
 
 **License:** MIT
 
@@ -3360,7 +3360,7 @@ SOFTWARE.
 
 ---
 
-## showcases-shared@1.3.4
+## showcases-shared@1.4.0
 
 **License:** MIT
 
