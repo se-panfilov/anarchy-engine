@@ -14,4 +14,5 @@ export type * from './TModels3dResourceAsyncRegistry';
 export type * from './TModels3dService';
 export type * from './TModels3dServiceDependencies';
 export type * from './TRawModel3d';
+export type * from './TWithModel3d';
 export type * from './TWithModel3dEntities';

@@ -2,7 +2,7 @@ import type { Material, Object3D } from 'three';
 import { Mesh, Texture } from 'three';
 
 import { hasTransformDrive } from '@/Engine/TransformDrive/Utils';
-import { hasGeometry, hasMaterial, isNotDefined } from '@/Engine/Utils';
+import { hasGeometry, hasMaterial, isDefined, isNotDefined } from '@/Engine/Utils';
 
 export function disposeGltf(gltf: Object3D | null): void {
   if (!gltf) return;
@@ -14,20 +14,11 @@ export function disposeGltf(gltf: Object3D | null): void {
       if (child.geometry) (child as any).geometry?.dispose();
 
       const materials: ReadonlyArray<Material> = Array.isArray(child.material) ? child.material : [child.material];
-      materials.forEach((material: Material | null): void => {
-        if (!material) return;
-
-        Object.values(material).forEach((value) => {
-          if (value instanceof Texture) {
-            value.dispose();
-          }
-        });
-
-        material.dispose();
-      });
+      disposeMaterialDeep(materials);
     }
   });
 
+  // TODO 13-0-0: remove user data and children as functions and call them in abstract entities?
   // eslint-disable-next-line functional/immutable-data
   gltf.userData = {};
   // eslint-disable-next-line functional/immutable-data
@@ -45,17 +36,28 @@ export function destroyMaterialInEntity(entity: unknown): void {
   if (!hasMaterial(entity)) return;
   if (isNotDefined(entity.material)) return;
 
-  // Dispose material if exists
-  if (Array.isArray(entity.material)) {
-    entity.material.forEach((mat: unknown): void => (mat as any).dispose?.());
-  } else {
-    entity.material.dispose?.();
-  }
+  const materials = Array.isArray(entity.material) ? entity.material : [entity.material];
+  disposeMaterialDeep(materials);
 
-  entity.material.map.dispose();
-
+  // TODO 13-0-0: not sure if it's needed to set to null
   // eslint-disable-next-line functional/immutable-data
   entity.material = null;
+}
+
+export function disposeMaterialDeep(material: Material | ReadonlyArray<Material> | undefined | null): void {
+  if (!material) return;
+
+  const materials = Array.isArray(material) ? material : [material];
+
+  materials.forEach((material: Material | null): void => {
+    if (!material) return;
+
+    Object.values(material).forEach((value: any): void => {
+      if (value instanceof Texture) value.dispose();
+    });
+
+    material.dispose();
+  });
 }
 
 export function destroyGeometryInEntity(entity: unknown): void {
@@ -65,4 +67,19 @@ export function destroyGeometryInEntity(entity: unknown): void {
   entity.geometry?.dispose?.();
   // eslint-disable-next-line functional/immutable-data
   entity.geometry = null;
+}
+
+export function removeFromParent(entity: any): void {
+  if (isDefined(entity.removeFromParent)) return entity.removeFromParent();
+  entity.parent.remove(entity);
+}
+
+export function stopParenting(entity: any): void {
+  if (typeof entity.traverse === 'function') {
+    entity.children?.forEach((child: any): void => {
+      child.traverse((descendant: any): void => {
+        if (descendant.parent?.remove) descendant.parent.remove(descendant);
+      });
+    });
+  }
 }
