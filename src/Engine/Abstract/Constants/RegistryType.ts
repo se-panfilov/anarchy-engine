@@ -35,5 +35,6 @@ export enum RegistryType {
   Text3d = 'text_3d',
   Text3dTexture = 'text_3d_texture',
   TextRenderer = 'text_renderer',
-  Texture = 'texture'
+  Texture = 'texture',
+  TransformDrive = 'transform_drive'
 }

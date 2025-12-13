@@ -24,5 +24,6 @@ export enum FactoryType {
   Space = 'space_factory',
   SpatialGrid = 'spatial_grid_factory',
   Text = 'text_factory',
-  Texture = 'texture_factory'
+  Texture = 'texture_factory',
+  TransformDrive = 'transform_drive_factory'
 }
