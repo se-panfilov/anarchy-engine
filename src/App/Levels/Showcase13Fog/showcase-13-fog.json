@@ -78,6 +78,13 @@
     }
   ],
   "envMaps": [],
-  "fogs": [],
+  "fogs": [
+    {
+      "color": "#353CA7",
+      "near": 1,
+      "far": 100,
+      "tags": []
+    }
+  ],
   "tags": ["build-in"]
 }
