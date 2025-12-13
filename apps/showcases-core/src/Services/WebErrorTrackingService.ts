@@ -1,6 +1,9 @@
+import { isDefined } from '@Anarchy/Shared/Utils';
 import type { TMetaData, TTrackingService } from '@Anarchy/Tracking';
 import { BrowserTrackingService } from '@Anarchy/Tracking/Services/BrowserTrackingService';
 import type { BrowserOptions } from '@sentry/browser';
+import type { TShowcaseAnonymizedGameSettings } from '@Showcases/Shared';
+import { getAnonymizedSettings } from '@Showcases/Shared';
 
 import { runtimeEnv } from '@/env';
 import type { TWebErrorTrackingService } from '@/Models';
@@ -30,8 +33,10 @@ export function WebErrorTrackingService(): TWebErrorTrackingService {
 
     // TODO DESKTOP: Do the same at the Desktop app level
     const dynamicDataGetters = (): Record<string, any> => ({
-      // TODO DESKTOP: Anonymize this data
-      settings: platformApiService.getCachedAppSettings()
+      settings: (): TShowcaseAnonymizedGameSettings => {
+        const settings = platformApiService.getCachedAppSettings();
+        return isDefined(settings) ? getAnonymizedSettings(settings) : {};
+      }
       // TODO DESKTOP: And some "state of the game" (current level, quest, etc)
       // game: ...
     });
