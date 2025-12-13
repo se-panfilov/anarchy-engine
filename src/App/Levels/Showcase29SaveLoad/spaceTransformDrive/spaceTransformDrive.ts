@@ -44,25 +44,20 @@ export const spaceTransformDriveData: TSpacesData = {
   },
   onChange: async (space: TSpace): Promise<void> => {
     addAwait('onChange', spaceTransformDriveData.awaits$);
-    console.log('XXX1 change start');
     const { e2eName } = getQueryParams();
 
     if (isDefined(e2eName) && e2eName === 'continuous-move') {
       await performContinuousMoveSaveLoadTest(space);
     } else {
       await performNormalSaveLoadTest(space);
-      console.log('XXX4 normal test done');
     }
 
     isOriginalSceneLoaded = false;
-    console.log('XXX5 change almost end');
     removeAwait('onChange', spaceTransformDriveData.awaits$);
-    console.log('XXX6 change end');
   }
 };
 
 async function performNormalSaveLoadTest(space: TSpace): Promise<void> {
-  console.log('XXX2 normal test start');
   const defaultActor: TActor | undefined = space.services.actorService.getRegistry().findByName('cube_default_actor');
   if (isNotDefined(defaultActor)) throw new Error('[Showcase]: Actor "cube_default_actor" not found');
   const kinematicActor: TActor | undefined = space.services.actorService.getRegistry().findByName('cube_kinematic_actor');
@@ -73,7 +68,6 @@ async function performNormalSaveLoadTest(space: TSpace): Promise<void> {
     kinematicActor.drive.kinematic.moveTo(new Vector3(0, 2, 0), metersPerSecond(0.05));
     kinematicActor.drive.kinematic.lookAt(new Vector3(0, 2, 0), metersPerSecond(0.00003));
   }
-  console.log('XXX3 normal test almost done');
 
   return doKinematicSteps(space, 100, 15);
 }

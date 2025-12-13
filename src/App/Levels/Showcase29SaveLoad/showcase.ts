@@ -96,7 +96,6 @@ function loadSpace(name: string | undefined, source: ReadonlyArray<TSpacesData>)
   subscriptions[`awaits$_${space.name}`] = spaceData.awaits$.subscribe((awaitsSet: ReadonlySet<string>): void => {
     // eslint-disable-next-line functional/immutable-data
     (window as any)._isReady = awaitsSet.size === 0;
-    console.log('XXX [Showcase] window._isReady', (window as any)._isReady);
   });
 
   currentSpaceName = space.name;
