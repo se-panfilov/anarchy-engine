@@ -32,7 +32,7 @@
     "envMapTextures": [],
     "materials": [
       {
-        "name": "StandardMetal",
+        "name": "standard_metal",
         "type": "standard",
         "params": {
           "displacementScale": 0
@@ -48,7 +48,7 @@
         "tags": ["standard", "metal"]
       },
       {
-        "name": "PhysicalMetal",
+        "name": "physical_metal",
         "type": "physical",
         "params": {
           "clearcoat": 1,
@@ -63,7 +63,7 @@
           "thickness": 0
         },
         "textures": {
-          "bumpMap": "MetalSteelBrushedBumpMap",
+          "bumpMap": "metal_steel_brushed_bump_map",
           "map": "MetalSteelBrushedMap",
           "normalMap": "MetalSteelBrushedNormalMap",
           "displacementMap": "MetalSteelBrushedDisplacementMap",
@@ -73,7 +73,7 @@
         "tags": ["physical", "metal"]
       },
       {
-        "name": "BasicMetal",
+        "name": "basic_metal",
         "type": "basic",
         "textures": {
           "map": "MetalSteelBrushedMap"
@@ -81,7 +81,7 @@
         "tags": ["basic", "metal"]
       },
       {
-        "name": "PhongMetal",
+        "name": "phong_metal",
         "type": "phong",
         "params": {
           "displacementScale": 0.1
@@ -95,7 +95,7 @@
         "tags": ["phong", "metal"]
       },
       {
-        "name": "LambertMetal",
+        "name": "lambert_metal",
         "type": "lambert",
         "params": {
           "displacementScale": 0.1
@@ -109,7 +109,7 @@
         "tags": ["lambert", "metal"]
       },
       {
-        "name": "ToonMetal",
+        "name": "toon_metal",
         "type": "toon",
         "params": {
           "displacementScale": 0.1
@@ -123,7 +123,7 @@
         "tags": ["toon", "metal"]
       },
       {
-        "name": "MatcapMetal",
+        "name": "matcap_metal",
         "type": "matcap",
         "params": {
           "displacementScale": 0.1
@@ -137,7 +137,7 @@
         "tags": ["matcap", "metal"]
       },
       {
-        "name": "StandardWood",
+        "name": "standard_wood",
         "type": "standard",
         "params": {
           "displacementScale": 0.1
@@ -154,7 +154,7 @@
         "tags": ["standard", "wood"]
       },
       {
-        "name": "PhysicalWood",
+        "name": "physical_wood",
         "type": "physical",
         "params": {
           "displacementScale": 0.1
@@ -171,7 +171,7 @@
         "tags": ["physical", "wood"]
       },
       {
-        "name": "BasicWood",
+        "name": "basic_wood",
         "type": "basic",
         "textures": {
           "aoMap": "WoodAoMap",
@@ -181,7 +181,7 @@
         "tags": ["basic", "wood"]
       },
       {
-        "name": "PhongWood",
+        "name": "phong_wood",
         "type": "phong",
         "params": {
           "displacementScale": 0.1
@@ -196,7 +196,7 @@
         "tags": ["phong", "wood"]
       },
       {
-        "name": "LambertWood",
+        "name": "lambert_wood",
         "type": "lambert",
         "params": {
           "displacementScale": 0.1
@@ -211,7 +211,7 @@
         "tags": ["lambert", "wood"]
       },
       {
-        "name": "ToonWood",
+        "name": "toon_wood",
         "type": "toon",
         "params": {
           "displacementScale": 0.1
@@ -226,7 +226,7 @@
         "tags": ["toon", "wood"]
       },
       {
-        "name": "MatcapWood",
+        "name": "matcap_wood",
         "type": "matcap",
         "params": {
           "displacementScale": 0.1
@@ -240,7 +240,7 @@
         "tags": ["matcap", "wood"]
       },
       {
-        "name": "StandardGlass",
+        "name": "standard_glass",
         "type": "standard",
         "params": {
           "metalness": 0,
@@ -249,7 +249,7 @@
         "tags": ["standard", "glass"]
       },
       {
-        "name": "PhysicalGlass",
+        "name": "physical_glass",
         "type": "physical",
         "params": {
           "clearcoat": 0.8,
@@ -266,12 +266,12 @@
         "tags": ["physical", "glass"]
       },
       {
-        "name": "BasicGlass",
+        "name": "basic_glass",
         "type": "basic",
         "tags": ["basic", "glass"]
       },
       {
-        "name": "PhongGlass",
+        "name": "phong_glass",
         "type": "phong",
         "params": {
           "displacementScale": 0.1
@@ -279,7 +279,7 @@
         "tags": ["phong", "glass"]
       },
       {
-        "name": "LambertGlass",
+        "name": "lambert_glass",
         "type": "lambert",
         "params": {
           "displacementScale": 0.1
@@ -287,7 +287,7 @@
         "tags": ["lambert", "glass"]
       },
       {
-        "name": "ToonGlass",
+        "name": "toon_glass",
         "type": "toon",
         "params": {
           "displacementScale": 0.1
@@ -295,7 +295,7 @@
         "tags": ["toon", "glass"]
       },
       {
-        "name": "MatcapGlass",
+        "name": "matcap_glass",
         "type": "matcap",
         "params": {
           "displacementScale": 0.1
@@ -303,7 +303,7 @@
         "tags": ["matcap", "glass"]
       },
       {
-        "name": "StandardTextile",
+        "name": "standard_textile",
         "type": "standard",
         "params": {
           "displacementScale": 0.1
@@ -318,7 +318,7 @@
         "tags": ["standard", "textile"]
       },
       {
-        "name": "PhysicalTextile",
+        "name": "physical_textile",
         "type": "physical",
         "params": {
           "displacementScale": 0.1
@@ -333,7 +333,7 @@
         "tags": ["physical", "textile"]
       },
       {
-        "name": "BasicTextile",
+        "name": "basic_textile",
         "type": "basic",
         "textures": {
           "aoMap": "CarpetAoMap",
@@ -342,7 +342,7 @@
         "tags": ["basic", "textile"]
       },
       {
-        "name": "PhongTextile",
+        "name": "phong_textile",
         "type": "phong",
         "params": {
           "displacementScale": 0.1
@@ -356,7 +356,7 @@
         "tags": ["phong", "textile"]
       },
       {
-        "name": "LambertTextile",
+        "name": "lambert_textile",
         "type": "lambert",
         "params": {
           "displacementScale": 0.1
@@ -370,7 +370,7 @@
         "tags": ["lambert", "textile"]
       },
       {
-        "name": "ToonTextile",
+        "name": "toon_textile",
         "type": "toon",
         "params": {
           "displacementScale": 0.1
@@ -384,7 +384,7 @@
         "tags": ["toon", "textile"]
       },
       {
-        "name": "MatcapTextile",
+        "name": "matcap_textile",
         "type": "matcap",
         "params": {
           "displacementScale": 0.1
@@ -397,7 +397,36 @@
         "tags": ["matcap", "textile"]
       }
     ],
-    "models3d": []
+    "models3d": [
+      { "name": "sphere_standard_metal", "url": "sphere", "material": "standard_metal", "tags": ["sphere", "standard", "metal"] },
+      { "name": "sphere_physical_metal", "url": "sphere", "material": "physical_metal", "tags": ["sphere", "physical", "metal"] },
+      { "name": "sphere_basic_metal", "url": "sphere", "material": "basic_metal", "tags": ["sphere", "basic", "metal"] },
+      { "name": "sphere_phong_metal", "url": "sphere", "material": "phong_metal", "tags": ["sphere", "phong", "metal"] },
+      { "name": "sphere_lambert_metal", "url": "sphere", "material": "lambert_metal", "tags": ["sphere", "lambert", "metal"] },
+      { "name": "sphere_toon_metal", "url": "sphere", "material": "toon_metal", "tags": ["sphere", "toon", "metal"] },
+      { "name": "sphere_matcap_metal", "url": "sphere", "material": "matcap_metal", "tags": ["sphere", "matcap", "metal"] },
+      { "name": "cube_standard_wood", "url": "cube", "material": "standard_wood", "tags": ["cube", "standard", "wood"] },
+      { "name": "cube_physical_wood", "url": "cube", "material": "physical_wood", "tags": ["cube", "physical", "wood"] },
+      { "name": "cube_basic_wood", "url": "cube", "material": "basic_wood", "tags": ["cube", "basic", "wood"] },
+      { "name": "cube_phong_wood", "url": "cube", "material": "phong_wood", "tags": ["cube", "phong", "wood"] },
+      { "name": "cube_lambert_wood", "url": "cube", "material": "lambert_wood", "tags": ["cube", "lambert", "wood"] },
+      { "name": "cube_toon_wood", "url": "cube", "material": "toon_wood", "tags": ["cube", "toon", "wood"] },
+      { "name": "cube_matcap_wood", "url": "cube", "material": "matcap_wood", "tags": ["cube", "matcap", "wood"] },
+      { "name": "sphere_standard_glass", "url": "sphere", "material": "standard_glass", "tags": ["sphere", "standard", "glass"] },
+      { "name": "sphere_physical_glass", "url": "sphere", "material": "physical_glass", "tags": ["sphere", "physical", "glass"] },
+      { "name": "sphere_basic_glass", "url": "sphere", "material": "basic_glass", "tags": ["sphere", "basic", "glass"] },
+      { "name": "sphere_phong_glass", "url": "sphere", "material": "phong_glass", "tags": ["sphere", "phong", "glass"] },
+      { "name": "sphere_lambert_glass", "url": "sphere", "material": "lambert_glass", "tags": ["sphere", "lambert", "glass"] },
+      { "name": "sphere_toon_glass", "url": "sphere", "material": "toon_glass", "tags": ["sphere", "toon", "glass"] },
+      { "name": "sphere_matcap_glass", "url": "sphere", "material": "matcap_glass", "tags": ["sphere", "matcap", "glass"] },
+      { "name": "sphere_standard_textile", "url": "sphere", "material": "standard_textile", "tags": ["sphere", "standard", "textile"] },
+      { "name": "sphere_physical_textile", "url": "sphere", "material": "physical_textile", "tags": ["sphere", "physical", "textile"] },
+      { "name": "sphere_basic_textile", "url": "sphere", "material": "basic_textile", "tags": ["sphere", "basic", "textile"] },
+      { "name": "sphere_phong_textile", "url": "sphere", "material": "phong_textile", "tags": ["sphere", "phong", "textile"] },
+      { "name": "sphere_lambert_textile", "url": "sphere", "material": "lambert_textile", "tags": ["sphere", "lambert", "textile"] },
+      { "name": "sphere_toon_textile", "url": "sphere", "material": "toon_textile", "tags": ["sphere", "toon", "textile"] },
+      { "name": "sphere_matcap_textile", "url": "sphere", "material": "matcap_textile", "tags": ["sphere", "matcap", "textile"] }
+    ]
   },
   "entities": {
     "spatialGrids": [
@@ -586,7 +615,7 @@
         "spatial": { "grid": "main_grid", "isAutoUpdate": false }
       },
       {
-        "model3d": "sphere_standard_glass",
+        "model3d": "sphere_physical_glass",
         "width": 1,
         "height": 1,
         "radius": 0.7,
