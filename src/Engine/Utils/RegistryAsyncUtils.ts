@@ -12,15 +12,7 @@ export function getUniqEntityWithTagsAsync<T extends IRegistrable>(
   // TODO (S.Panfilov) should be set from default config
   waitingTime: number = 3000
 ): Promise<T | undefined> {
-  return getValueAsync<T>(
-    registry,
-    (entity: T): boolean => {
-      const entityTags: ReadonlyArray<string> = entity.getTags();
-      return entityTags.length > 0 && entityTags[strategy]((tag: string) => tags.includes(tag));
-    },
-    undefined,
-    waitingTime
-  );
+  return getValueAsync<T>(registry, (entity: T): boolean => tags[strategy]((tag: string) => entity.hasTag(tag)), undefined, waitingTime);
 }
 
 // TODO (S.Panfilov) all waiting times should be set from default config
