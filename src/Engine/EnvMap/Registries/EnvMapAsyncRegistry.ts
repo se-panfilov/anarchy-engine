@@ -1,4 +1,4 @@
 import { AbstractSimpleAsyncRegistry, RegistryFacade, RegistryType } from '@/Engine/Abstract';
-import type { TDataTexture, TEnvMapAsyncRegistry } from '@/Engine/EnvMap/Models';
+import type { TEnvMapAsyncRegistry, TEnvMapWrapperAsync } from '@/Engine/EnvMap/Models';
 
-export const EnvMapAsyncRegistry = (): TEnvMapAsyncRegistry => RegistryFacade(AbstractSimpleAsyncRegistry<TDataTexture>(RegistryType.EnvMap));
+export const EnvMapAsyncRegistry = (): TEnvMapAsyncRegistry => RegistryFacade(AbstractSimpleAsyncRegistry<TEnvMapWrapperAsync>(RegistryType.EnvMap));

@@ -9,9 +9,9 @@ export function ParticlesService(factory: TParticlesFactory, registry: TParticle
   factory.entityCreated$.subscribe((wrapper: TParticlesWrapperAsync): void => registry.add(wrapper));
 
   const createAsync = (params: TParticlesParams): Promise<TParticlesWrapperAsync> => factory.createAsync(params, { materialTextureService });
-  const createFromConfig = (particles: ReadonlyArray<TParticlesConfig>): void => {
+  const createFromConfigAsync = (particles: ReadonlyArray<TParticlesConfig>): Promise<ReadonlyArray<TParticlesWrapperAsync>> => {
     // eslint-disable-next-line @typescript-eslint/no-misused-promises
-    particles.forEach((config: TParticlesConfig): Promise<TParticlesWrapperAsync> => factory.createAsync(factory.configToParams(config), { materialTextureService }));
+    return Promise.all(particles.map((config: TParticlesConfig): Promise<TParticlesWrapperAsync> => factory.createAsync(factory.configToParams(config), { materialTextureService })));
   };
 
   const destroyable: TDestroyable = destroyableMixin();
@@ -22,7 +22,7 @@ export function ParticlesService(factory: TParticlesFactory, registry: TParticle
 
   return {
     createAsync,
-    createFromConfig,
+    createFromConfigAsync,
     getFactory: (): TParticlesFactory => factory,
     getRegistry: (): TParticlesAsyncRegistry => registry,
     getScene: (): TSceneWrapper => scene,

@@ -6,7 +6,7 @@ import type { TActorWrapper } from '@/Engine/Actor';
 import type { TCameraWrapper } from '@/Engine/Camera';
 import type { TColor } from '@/Engine/Color';
 import { ColorWrapper } from '@/Engine/Color';
-import type { TDataTexture } from '@/Engine/EnvMap';
+import type { TEnvMap } from '@/Engine/EnvMap';
 import type { TFogWrapper } from '@/Engine/Fog';
 import type { TAbstractLightWrapper, TLight } from '@/Engine/Light';
 import { withActiveMixin, withObject3d } from '@/Engine/Mixins';
@@ -36,7 +36,7 @@ export function SceneWrapper(params: TSceneParams): TSceneWrapper {
   // eslint-disable-next-line functional/immutable-data
   const setFog = (fog: Readonly<TFogWrapper>): void => void (entity.fog = fog.entity);
 
-  function setBackground(color: string | TColor | TTexture | TCubeTexture | TDataTexture): void {
+  function setBackground(color: string | TColor | TTexture | TCubeTexture | TEnvMap): void {
     let background: string | TColor | TTexture | TCubeTexture | null = null;
     if (isString(color)) background = ColorWrapper(color).entity;
     else background = color;
@@ -48,7 +48,7 @@ export function SceneWrapper(params: TSceneParams): TSceneWrapper {
   const getBackground = (): TColor | TTexture | TCubeTexture | null => entity.background;
 
   // eslint-disable-next-line functional/immutable-data
-  const setEnvironmentMap = (texture: TDataTexture | TTexture): void => void (entity.environment = texture);
+  const setEnvironmentMap = (texture: TEnvMap | TTexture): void => void (entity.environment = texture);
 
   const getEnvironmentMap = (): TTexture | null => entity.environment;
 
