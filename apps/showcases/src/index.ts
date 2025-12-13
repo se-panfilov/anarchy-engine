@@ -1,5 +1,7 @@
 import '@/style.css';
 
+import { setBrowserSafeguards } from '@Engine';
+
 import { runtimeEnv } from '@/env';
 // import { start } from '@/Levels/Showcase1MovingActors';
 // import { start } from '@/Levels/Showcase2TopDown';
@@ -40,5 +42,7 @@ const settings: TAppSettings = {
     // }
   }
 };
+
+setBrowserSafeguards(window);
 
 void start(settings);

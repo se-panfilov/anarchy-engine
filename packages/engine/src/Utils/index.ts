@@ -1,5 +1,6 @@
 export * from './ArrayUtils';
 export * from './AsyncUtils';
+export * from './BrowserSettingsUtils';
 export * from './CheckUtils';
 export * from './CoordsUtils';
 export * from './CssUtils';
