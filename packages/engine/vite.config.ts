@@ -12,7 +12,12 @@ export default defineConfig({
       '@shared': path.resolve(__dirname, '../shared')
     }
   },
-  plugins: [wasm(), dts()],
+  plugins: [
+    wasm(),
+    dts({
+      exclude: ['**/*.spec.ts', '**/*.test.ts']
+    })
+  ],
   worker: {
     format: 'es',
     //@ts-expect-error
@@ -28,6 +33,7 @@ export default defineConfig({
     target: 'esnext',
     sourcemap: true,
     rollupOptions: {
+      external: (id: string): boolean => id.endsWith('.spec.ts') || id.endsWith('.test.ts'),
       //  external: ['three', 'rxjs'] — If you want to exclude some dependencies from the bundle
       plugins: [visualizer({ open: false })]
     },
