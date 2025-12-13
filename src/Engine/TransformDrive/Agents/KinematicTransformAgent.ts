@@ -152,6 +152,102 @@ export function KinematicTransformAgent(params: TKinematicTransformAgentParams, 
     setLinearDirection(direction: Vector3Like): void {
       agent.data.state.linearDirection.copy(direction);
     },
+    getLinearAzimuth(): TRadians {
+      return getAzimuthElevationFromVector(agent.data.state.linearDirection, agent.data.state.forwardAxis).azimuth;
+    },
+    setLinearAzimuth(azimuthRad: TRadians): void {
+      // TODO v1
+      const { forwardAxis } = agent.data.state;
+      const currentDir: Vector3 = agent.data.state.linearDirection.clone();
+
+      const { elevation } = getAzimuthElevationFromVector(currentDir, forwardAxis);
+      const totalLength: number = currentDir.length() || 1;
+
+      let newX: number, newZ: number;
+      const horizontalScale: number = Math.cos(elevation) * totalLength;
+
+      if (forwardAxis === 'Z') {
+        newX = Math.sin(azimuthRad) * horizontalScale;
+        newZ = Math.cos(azimuthRad) * horizontalScale;
+      } else {
+        // 'X'
+        newX = Math.cos(azimuthRad) * horizontalScale;
+        newZ = Math.sin(azimuthRad) * horizontalScale;
+      }
+
+      const newY = Math.sin(elevation) * totalLength;
+      agent.data.state.linearDirection.set(newX, newY, newZ).normalize();
+
+      // An alternative approach (better calculations with edge cases). Uses vector projection instead of trigonometry (If chose this approach, makes sense to make setLinearAzimuth using the same approach)
+      // const current = agent.data.state.linearDirection;
+      // const currentY = current.y; // сохраняем текущий вертикальный компонент
+      // // Вычисляем текущую горизонтальную длину.
+      // const horizontalMag = Math.sqrt(current.x * current.x + current.z * current.z);
+      // let newX: number, newZ: number;
+      // if (agent.data.state.forwardAxis === 'Z') {
+      //   newX = Math.sin(azimuthRad) * horizontalMag;
+      //   newZ = Math.cos(azimuthRad) * horizontalMag;
+      // } else {
+      //   // forwardAxis === 'X'
+      //   newX = Math.cos(azimuthRad) * horizontalMag;
+      //   newZ = Math.sin(azimuthRad) * horizontalMag;
+      // }
+      // // Обновляем только компоненты X и Z; Y остаётся прежним.
+      // agent.data.state.linearDirection.set(newX, currentY, newZ);
+      // // Если вы ожидаете, что linearDirection всегда нормализован, можно вызвать normalize(),
+      // // но это может скорректировать Y, если горизонтальная часть мала.
+      // // agent.data.state.linearDirection.normalize();
+    },
+    getLinearElevation(): TRadians {
+      return getElevationFromDirection(agent.data.state.linearDirection);
+    },
+    setLinearElevation(elevationRad: TRadians): void {
+      const { forwardAxis } = agent.data.state;
+      const currentDir = agent.data.state.linearDirection.clone();
+
+      const { azimuth } = getAzimuthElevationFromVector(currentDir, forwardAxis);
+      const totalLength: number = currentDir.length() || 1;
+
+      const horizontalScale: number = Math.cos(elevationRad) * totalLength;
+      let newX: number, newZ: number;
+
+      if (forwardAxis === 'Z') {
+        newX = Math.sin(azimuth) * horizontalScale;
+        newZ = Math.cos(azimuth) * horizontalScale;
+      } else {
+        newX = Math.cos(azimuth) * horizontalScale;
+        newZ = Math.sin(azimuth) * horizontalScale;
+      }
+
+      const newY = Math.sin(elevationRad) * totalLength;
+
+      agent.data.state.linearDirection.set(newX, newY, newZ).normalize();
+
+      // An alternative approach (better calculations with edge cases). Uses vector projection instead of trigonometry (If chose this approach, makes sense to make setLinearAzimuth using the same approach)
+      // const current = agent.data.state.linearDirection;
+      // const horizontal = new Vector3(current.x, 0, current.z);
+      // const h = horizontal.length();
+      //
+      // let horizontalDir: Vector3;
+      // if (h > 1e-6) {
+      //   horizontalDir = horizontal.clone().normalize();
+      // } else {
+      //   horizontalDir = agent.data.state.forwardAxis === 'Z' ? new Vector3(0, 0, 1) : new Vector3(1, 0, 0);
+      // }
+      //
+      // // Approach 1 (absolute): Set the vector as in spherical coordinates with the given elevation.
+      // // horizontal component will be cos(elevation), and vertical sin(elevation).
+      // const newHorizontalMag = Math.cos(elevationRad);
+      // const newHorizontal = horizontalDir.multiplyScalar(newHorizontalMag);
+      // const newY = Math.sin(elevationRad);
+      // agent.data.state.linearDirection.set(newHorizontal.x, newY, newHorizontal.z);
+      //
+      // // Approach 2 (additive): If you want to "add" vertical movement
+      // // оставив горизонтальную длину, можно сделать так:
+      // // const newY = current.y + Math.tan(elevationRad) * h;
+      // // agent.data.state.linearDirection.set(current.x, newY, current.z);
+      // // agent.data.state.linearDirection.normalize();
+    },
     resetLinear(resetSpeed: boolean, resetDirection: boolean): void {
       if (resetSpeed) agent.setLinearSpeed(0);
       if (resetDirection) agent.setLinearDirection(new Vector3());

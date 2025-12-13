@@ -9,7 +9,7 @@ import type { TDegrees, TMetersPerSecond, TRadians } from '@/Engine/Math';
 import type { TEulerLike } from '@/Engine/ThreeLib';
 import { isEulerLike, isQuaternionLike } from '@/Engine/Utils';
 
-export function getHorizontalAzimuth(x: number, z: number, point: Vector3Like, forwardAxis: 'X' | 'Z' = 'X'): TRadians {
+export function getHorizontalAzimuth(x: number, z: number, point: Vector3Like, forwardAxis: 'X' | 'Z'): TRadians {
   const dx: number = point.x - x;
   const dz: number = point.z - z;
 
@@ -41,7 +41,7 @@ export function getAzimuthElevationFromQuaternion(q: Quaternion): { azimuth: TRa
   return { azimuth, elevation };
 }
 
-export function getAzimuthElevationFromVector(v: Vector3Like, forwardAxis: 'X' | 'Z' = 'X'): { azimuth: TRadians; elevation: TRadians } {
+export function getAzimuthElevationFromVector(v: Vector3Like, forwardAxis: 'X' | 'Z'): { azimuth: TRadians; elevation: TRadians } {
   let azimuth: TRadians;
 
   if (forwardAxis === 'Z') {
