@@ -1,27 +1,28 @@
 import { bindKey, unbindKey } from '@rwh/keystrokes';
 import { Subject } from 'rxjs';
 
+import type { IKeyboardRegistry, IKeyboardRegistryValues, IKeyboardService, IKeySubscription } from '@/Engine/Keyboard/Models';
+import { KeyboardRegistry } from '@/Engine/Keyboard/Registry';
 import { isNotDefined } from '@/Engine/Utils';
-import type { IKeyboardRegistryValues, IKeySubscription } from '@/Engine/Keyboard/Models';
 
-export function KeyboardService() {
-  const registry: Map<string, IKeyboardRegistryValues> = new Map();
+export function KeyboardService(): IKeyboardService {
+  const keyboardRegistry: IKeyboardRegistry = KeyboardRegistry();
 
   // TODO (S.Panfilov) combo
   function onKey(key: string): IKeySubscription {
-    if (!registry.has(key)) {
+    if (!keyboardRegistry.getByKey(key)) {
       const pressed$: Subject<string> = new Subject();
       const pressing$: Subject<string> = new Subject();
       const released$: Subject<string> = new Subject();
 
-      registry.set(key, { pressed$, pressing$, released$ });
+      keyboardRegistry.add(key, { pressed$, pressing$, released$ });
     }
 
     return bind(key);
   }
 
   function bind(key: string): IKeySubscription {
-    const subjects = registry.get(key);
+    const subjects: IKeyboardRegistryValues | undefined = keyboardRegistry.getByKey(key);
     if (isNotDefined(subjects)) throw new Error(`Key ${key} is not found in registry`);
     const { pressed$, pressing$, released$ } = subjects;
 
@@ -40,17 +41,13 @@ export function KeyboardService() {
   // TODO (S.Panfilov) combo
   function removeKeyBinding(key: string): void {
     unbindKey(key);
-    registry.get(key)?.pressed$.complete();
-    registry.get(key)?.pressing$.complete();
-    registry.get(key)?.released$.complete();
-    registry.delete(key);
+    const subjects: IKeyboardRegistryValues | undefined = keyboardRegistry.getByKey(key);
+    if (isNotDefined(subjects)) throw new Error(`Cannot remove key "${key}": it's not in the registry`);
+    subjects.pressed$.complete();
+    subjects.pressing$.complete();
+    subjects.released$.complete();
+    keyboardRegistry.remove(key);
   }
-
-  // function watchKeyCombo(key: string): Observable<string> {
-  //   const subj: Subject<string> = new Subject()
-  //   bindKeyCombo(key, () => subj.next(key))
-  //   return subj;
-  // }
 
   return {
     onKey,

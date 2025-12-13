@@ -1,4 +1,5 @@
 export * from './AbstractAsyncRegistry';
-export * from './AbstractRegistry';
+export * from './AbstractEntityRegistry';
+export * from './AbstractSimpleRegistry';
 export * from './Constants';
 export * from './Mixin';

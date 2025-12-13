@@ -1,5 +1,5 @@
-import type { IAbstractRegistry, IProtectedRegistry } from '@/Engine/Abstract';
+import type { IAbstractEntityRegistry, IProtectedRegistry } from '@/Engine/Abstract';
 
 import type { IMousePositionWatcher } from './IMousePositionWatcher';
 
-export type IMousePositionWatcherRegistry = IProtectedRegistry<IAbstractRegistry<IMousePositionWatcher>>;
+export type IMousePositionWatcherRegistry = IProtectedRegistry<IAbstractEntityRegistry<IMousePositionWatcher>>;

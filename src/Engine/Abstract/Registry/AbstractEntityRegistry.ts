@@ -2,13 +2,13 @@ import { nanoid } from 'nanoid';
 import { Subject } from 'rxjs';
 
 import type { RegistryType } from '@/Engine/Abstract/Constants';
-import type { IAbstractRegistry } from '@/Engine/Abstract/Models';
+import type { IAbstractEntityRegistry } from '@/Engine/Abstract/Models';
 import type { LookUpStrategy } from '@/Engine/Abstract/Registry/Constants';
 import type { IDestroyable, IMultitonRegistrable, IRegistrable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
 import { findInMap, getAll, getAllEntitiesWithTag, getAllEntitiesWithTags, getUniqEntityWithTag, getUniqEntityWithTags, isDestroyable, isNotDefined } from '@/Engine/Utils';
 
-export function AbstractRegistry<T extends IRegistrable | IMultitonRegistrable>(type: RegistryType): IAbstractRegistry<T> {
+export function AbstractEntityRegistry<T extends IRegistrable | IMultitonRegistrable>(type: RegistryType): IAbstractEntityRegistry<T> {
   const id: string = type + '_registry_' + nanoid();
   const registry: Map<string, T> = new Map();
   const added$: Subject<T> = new Subject<T>();

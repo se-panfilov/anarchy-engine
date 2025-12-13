@@ -1,11 +1,11 @@
 import type { Observable, Subscription } from 'rxjs';
 import { filter, take } from 'rxjs';
 
-import type { IAbstractRegistry } from '@/Engine/Abstract';
+import type { IAbstractEntityRegistry } from '@/Engine/Abstract';
 import type { IMultitonRegistrable, IRegistrable } from '@/Engine/Mixins';
 import { createDeferredPromise, isDefined } from '@/Engine/Utils';
 
-export function subscribeToValue<T extends IRegistrable | IMultitonRegistrable>(reg: IAbstractRegistry<T>, filterFn: (entity: T) => boolean, stopCb?: (stop: () => void) => void): Promise<T> {
+export function subscribeToValue<T extends IRegistrable | IMultitonRegistrable>(reg: IAbstractEntityRegistry<T>, filterFn: (entity: T) => boolean, stopCb?: (stop: () => void) => void): Promise<T> {
   const { resolve, promise, reject } = createDeferredPromise<T>();
 
   const destroySub$: Subscription = reg.destroyed$.subscribe(() => {
@@ -31,6 +31,6 @@ export function subscribeToValue<T extends IRegistrable | IMultitonRegistrable>(
   return promise;
 }
 
-export function subscribeToValue$<T extends IRegistrable | IMultitonRegistrable>(reg: IAbstractRegistry<T>, filterFn: (entity: T) => boolean): Observable<T> {
+export function subscribeToValue$<T extends IRegistrable | IMultitonRegistrable>(reg: IAbstractEntityRegistry<T>, filterFn: (entity: T) => boolean): Observable<T> {
   return reg.added$.pipe(filter(filterFn), take(1));
 }
