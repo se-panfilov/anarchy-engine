@@ -2,11 +2,11 @@ import './style.css';
 
 import type { Subscription } from 'rxjs';
 
-import { addDropdown } from '@/App/Levels/Utils';
+import { addBtn, addDropdown } from '@/App/Levels/Utils';
 import type { TModel3d, TRegistryPack, TSpace, TSpaceConfig, TSpaceRegistry } from '@/Engine';
 import { isNotDefined, spaceService } from '@/Engine';
 
-import space from './space.json';
+import space from './spaceBasic.json';
 import spaceCustomModels from './spaceCustomModels.json';
 import spaceTexts from './spaceTexts.json';
 import type { TSpacesData } from './utils';
@@ -21,14 +21,30 @@ const getContainer = (canvasSelector: string): string => canvasSelector.split('#
 const subscriptions: Record<string, Subscription> = {};
 
 const spacesData: ReadonlyArray<TSpacesData> = [
-  { name: spaceBasicConfig.name, config: spaceBasicConfig, container: getContainer(spaceBasicConfig.canvasSelector) },
+  {
+    name: spaceBasicConfig.name,
+    config: spaceBasicConfig,
+    container: getContainer(spaceBasicConfig.canvasSelector),
+    onCreate: (space: TSpace): void => {
+      const sub$: Subscription = space.services.models3dService.getRegistry().added$.subscribe(({ value: model3dSource }: TRegistryPack<TModel3d>): void => {
+        if (model3dSource.name === 'surface_model') space.services.scenesService.findActive()?.addModel3d(model3dSource);
+      });
+      // eslint-disable-next-line functional/immutable-data
+      subscriptions[spaceCustomModelsConfig.name] = sub$;
+    },
+    onChange: (space: TSpace): void => {
+      space.services.actorService.getRegistry().findByName('sphere_actor')?.drive.default.setX(10);
+    },
+    onUnload: (): void => {
+      subscriptions[spaceCustomModelsConfig.name].unsubscribe();
+    }
+  },
   {
     name: spaceCustomModelsConfig.name,
     config: spaceCustomModelsConfig,
     container: getContainer(spaceCustomModelsConfig.canvasSelector),
-    init: (space: TSpace): void => {
-      const sub$: Subscription = space.services.models3dService.getRegistry().added$.subscribe(({ key, value: model3dSource }: TRegistryPack<TModel3d>): void => {
-        console.log(`Model "${model3dSource.name}" is created (${key})`);
+    onCreate: (space: TSpace): void => {
+      const sub$: Subscription = space.services.models3dService.getRegistry().added$.subscribe(({ value: model3dSource }: TRegistryPack<TModel3d>): void => {
         space.services.scenesService.findActive()?.addModel3d(model3dSource);
       });
       // eslint-disable-next-line functional/immutable-data
@@ -65,7 +81,7 @@ function loadSpace(name: string): void {
   if (isNotDefined(space)) throw new Error(`[Showcase]: Cannot create the space "${name}"`);
 
   currentSpaceName = space.name;
-  spaceData.init?.(space);
+  spaceData.onCreate?.(space);
   space.start$.next(true);
   setContainerVisibility(name, true, spacesData);
 }
@@ -98,5 +114,16 @@ export function createForm(containerId: string | undefined, isTop: boolean, isRi
     { right, top }
   );
   // addBtn(`Download`, containerId, (): void => download(space), { right, top });
+  addBtn(`Change`, containerId, (): void => {
+    if (isNotDefined(currentSpaceName)) return;
+
+    const spaceData: TSpacesData | undefined = spacesData.find((s: TSpacesData): boolean => s.name === currentSpaceName);
+    if (isNotDefined(spaceData)) throw new Error(`[Showcase]: Space data is not found for space "${currentSpaceName}"`);
+
+    const space: TSpace | undefined = spaceRegistry.findByName(currentSpaceName);
+    if (isNotDefined(space)) throw new Error(`[Showcase]: Cannot find the space "${currentSpaceName}"`);
+
+    spaceData.onChange?.(space);
+  });
   // addBtn(`Load`, containerId, (): void => space.start$.next(false));
 }

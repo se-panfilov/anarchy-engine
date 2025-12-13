@@ -5,7 +5,8 @@ export type TSpacesData = Readonly<{
   name: string;
   config: TSpaceConfig;
   container: string;
-  init?: (space: TSpace) => void;
+  onCreate?: (space: TSpace) => void;
+  onChange?: (space: TSpace) => void;
   onUnload?: (space: TSpace) => void;
 }>;
 
