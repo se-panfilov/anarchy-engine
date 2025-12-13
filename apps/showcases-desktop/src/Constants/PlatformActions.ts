@@ -3,5 +3,5 @@ export enum PlatformActions {
   LoadAppSettings = 'app:settings:load',
   LoadLegalDocs = 'app:docs:legal:load',
   AppRestart = 'app:restart',
-  AppClose = 'app:close'
+  AppExit = 'app:exit'
 }

@@ -4,19 +4,19 @@ import { platformApiChannel, platformApiName } from '@Showcases/Shared';
 import { PlatformActions } from './src/Constants';
 import type { TLegalDoc } from 'showcases-shared';
 
-const { SaveAppSettings, LoadAppSettings, LoadLegalDocs } = PlatformActions;
+const { AppExit, SaveAppSettings, LoadAppSettings, LoadLegalDocs } = PlatformActions;
 
 declare const __DESKTOP_APP_VERSION__: string;
 
 const mapping: TShowcasesDesktopApi = {
   chrome: (): string => process.versions.chrome,
-  closeApp: (): void => ipcRenderer.send(platformApiChannel, 'closeApp'),
+  closeApp: (): Promise<void> => ipcRenderer.invoke(platformApiChannel, AppExit),
   desktopAppVersion: async (): Promise<string> => __DESKTOP_APP_VERSION__,
   electron: (): string => process.versions.electron,
   loadAppSettings: (): Promise<TShowcaseGameSettings> => ipcRenderer.invoke(platformApiChannel, LoadAppSettings),
   loadLegalDocs: (options: TLoadDocPayload): Promise<TLegalDoc> => ipcRenderer.invoke(platformApiChannel, LoadLegalDocs, options),
   node: (): string => process.versions.node,
-  restartApp: (args?: ReadonlyArray<string>): void => ipcRenderer.send(platformApiChannel, 'restartApp', args),
+  restartApp: (args?: ReadonlyArray<string>): Promise<void> => ipcRenderer.invoke(platformApiChannel, 'restartApp', args),
   saveAppSettings: (settings: TShowcaseGameSettings): Promise<void> => ipcRenderer.invoke(platformApiChannel, SaveAppSettings, settings)
 };
 
