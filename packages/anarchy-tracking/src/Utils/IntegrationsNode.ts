@@ -2,7 +2,8 @@ import { toPosix } from '@Anarchy/Shared/Utils';
 import type { StackFrame } from '@sentry/core';
 import { rewriteFramesIntegration } from '@sentry/core';
 
-export const rewriteFramesIntegrationNode = (options?) => {
+//Important: if you use this, then upload source maps with --url-prefix "app:///"
+export const rewriteFramesIntegrationNode = (options?: any): any => {
   let root = options?.root;
 
   try {

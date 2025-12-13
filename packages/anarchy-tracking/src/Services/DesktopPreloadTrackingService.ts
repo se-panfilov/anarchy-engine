@@ -52,8 +52,9 @@ export function DesktopPreloadTrackingService(options?: Record<string, any>, met
 
       return scrubUserPathsBrowser(event as any) as ErrorEvent;
     },
+    // integrations: [rewriteFramesIntegrationBrowser()],
     tracesSampleRate: 0,
-    //Important: make sure this is false if you want Anonymous reports (no IPs, etc.).
+    //Important: make sure this is false if you want anonymous reports (no IPs, etc. for GDPR and similar acts).
     sendDefaultPii: false
   };
 
