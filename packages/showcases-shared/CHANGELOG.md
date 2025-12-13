@@ -1,3 +1,4 @@
 - 1.0.0 Initial
 - 1.1.0 Allow change fonts on locale change
 - 1.2.0 Added fonts and font-faces presets
+- 1.3.0 Extracted i18n to a separate package

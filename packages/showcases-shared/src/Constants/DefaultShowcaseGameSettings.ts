@@ -1,7 +1,5 @@
 import type { TShowcaseGameSettings } from '@Showcases/Shared/Models';
 
-import { ShowcasesLocales } from './ShowcasesLocales';
-
 export const DefaultShowcaseGameSettings: TShowcaseGameSettings = {
   graphics: {
     // isFullScreen: false,
