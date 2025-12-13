@@ -6,12 +6,12 @@ import type { TAbstractLoop, TAbstractReadonlyLoopWith } from '@/Engine/Abstract
 import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
 import { STANDARD_GRAVITY } from '@/Engine/Physics/Constants';
-import type { TPhysicsDebugRenderer, TPhysicsWorldParams, TPhysicsWorldService } from '@/Engine/Physics/Models';
+import type { TPhysicalWorldServiceDependencies, TPhysicsDebugRenderer, TPhysicsWorldParams, TPhysicsWorldService } from '@/Engine/Physics/Models';
 import { PhysicsDebugRenderer } from '@/Engine/Physics/Renderers';
 import type { TSceneWrapper } from '@/Engine/Scene';
 import { isNotDefined } from '@/Engine/Utils';
 
-export function PhysicsWorldService(scene: TSceneWrapper): TPhysicsWorldService {
+export function PhysicsWorldService(scene: TSceneWrapper, { physicalLoop }: TPhysicalWorldServiceDependencies): TPhysicsWorldService {
   let world: World | undefined;
 
   function createWorld({
@@ -49,6 +49,9 @@ export function PhysicsWorldService(scene: TSceneWrapper): TPhysicsWorldService 
     return world;
   }
 
+  // Auto-update world on every tick of the physical loop
+  const loopSub$: Subscription = physicalLoop.tick$.subscribe((): void => world?.step());
+
   const getDebugRenderer = (loopService: TAbstractLoop<unknown> | TAbstractReadonlyLoopWith<unknown>): TPhysicsDebugRenderer => {
     if (isNotDefined(world)) throw new Error('Cannot get debug renderer: world is not defined');
     return PhysicsDebugRenderer(scene, world, loopService);
@@ -64,6 +67,7 @@ export function PhysicsWorldService(scene: TSceneWrapper): TPhysicsWorldService 
   const destroySub$: Subscription = destroyable.destroy$.subscribe((): void => {
     destroySub$.unsubscribe();
 
+    loopSub$?.unsubscribe();
     world?.free();
   });
 
