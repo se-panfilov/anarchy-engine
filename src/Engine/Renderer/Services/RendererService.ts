@@ -23,7 +23,7 @@ export function RendererService(
   factory: TRendererFactory,
   registry: TRendererRegistry,
   { renderLoop }: TSpaceLoops,
-  { cameraService, screenService }: TRendererServiceDependencies,
+  { cameraService, container }: TRendererServiceDependencies,
   scene: TSceneWrapper
 ): TRendererService {
   const withActive: TWithActiveMixinResult<TRendererWrapper> = withActiveEntityServiceMixin<TRendererWrapper>(registry);
@@ -36,8 +36,8 @@ export function RendererService(
   const disposable: ReadonlyArray<TDisposable> = [registry, factory, factorySub$, registrySub$];
   const abstractService: TAbstractService = AbstractService(disposable);
 
-  const withCreateService: TRendererServiceWithCreate = withCreateServiceMixin(factory, { screenService });
-  const withCreateFromConfigService: TRendererServiceWithCreateFromConfig = withCreateFromConfigServiceMixin(withCreateService.create, factory.configToParams, { cameraService, screenService });
+  const withCreateService: TRendererServiceWithCreate = withCreateServiceMixin(factory, { container });
+  const withCreateFromConfigService: TRendererServiceWithCreateFromConfig = withCreateFromConfigServiceMixin(withCreateService.create, factory.configToParams, { cameraService, container });
   const withFactory: TRendererServiceWithFactory = withFactoryService(factory);
   const withRegistry: TRendererServiceWithRegistry = withRegistryService(registry);
 

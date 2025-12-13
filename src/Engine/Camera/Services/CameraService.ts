@@ -1,5 +1,5 @@
-import type { Observable, Subscription } from 'rxjs';
-import { distinctUntilChanged, EMPTY, switchMap, takeUntil } from 'rxjs';
+import type { Subscription } from 'rxjs';
+import { distinctUntilChanged, takeUntil } from 'rxjs';
 
 import type { TAbstractService, TRegistryPack } from '@/Engine/Abstract';
 import { AbstractService } from '@/Engine/Abstract';
@@ -17,8 +17,7 @@ import type {
 import type { TDisposable, TWithActiveMixinResult } from '@/Engine/Mixins';
 import { withActiveEntityServiceMixin, withCreateFromConfigServiceMixin, withCreateServiceMixin, withFactoryService, withRegistryService, withSceneGetterService } from '@/Engine/Mixins';
 import type { TSceneWrapper } from '@/Engine/Scene';
-import type { TScreenSizeValues, TScreenSizeWatcher } from '@/Engine/Screen';
-import { isDefined, isNotDefined } from '@/Engine/Utils';
+import { isNotDefined } from '@/Engine/Utils';
 
 export function CameraService(factory: TCameraFactory, registry: TCameraRegistry, scene: TSceneWrapper, dependencies: TCameraServiceDependencies): TCameraService {
   const withActive: TWithActiveMixinResult<TCameraWrapper> = withActiveEntityServiceMixin<TCameraWrapper>(registry);
@@ -35,13 +34,12 @@ export function CameraService(factory: TCameraFactory, registry: TCameraRegistry
 
   // TODO 9.2.0 ACTIVE: This could be moved in active$ camera and applied in onActive hook
   function startUpdatingCamerasAspect(shouldUpdateOnlyActiveCamera: boolean = false): void {
-    dependencies.screenService.watchers.default$
+    dependencies.container.resize$
       .pipe(
-        switchMap((screenSizeWatcher: TScreenSizeWatcher | undefined): Observable<TScreenSizeValues> => (isDefined(screenSizeWatcher) ? screenSizeWatcher.value$ : EMPTY)),
-        distinctUntilChanged((prev: TScreenSizeValues, curr: TScreenSizeValues): boolean => prev.width === curr.width && prev.height === curr.height),
+        distinctUntilChanged((prev: DOMRect, curr: DOMRect): boolean => prev.width === curr.width && prev.height === curr.height),
         takeUntil(abstractService.destroy$)
       )
-      .subscribe((params: TScreenSizeValues): void => {
+      .subscribe((params: DOMRect): void => {
         if (shouldUpdateOnlyActiveCamera) {
           const activeCamera: TCameraWrapper | undefined = findActive();
           if (isNotDefined(activeCamera)) throw new Error('Cannot find an active camera during the aspect update.');

@@ -8,7 +8,6 @@ import type { TIntersectionsWatcher } from '@/Engine/Intersections';
 import type { TLoop } from '@/Engine/Loop';
 import type { TMouseClickWatcher, TMousePositionWatcher } from '@/Engine/Mouse';
 import type { TSceneWrapper } from '@/Engine/Scene';
-import type { TScreenSizeWatcher } from '@/Engine/Screen';
 import { CreateEntitiesStrategy } from '@/Engine/Space/Constants';
 import type { TSpace, TSpaceBaseServices, TSpaceCanvas, TSpaceHooks, TSpaceLoops, TSpaceParams, TSpaceParts, TSpaceServices } from '@/Engine/Space/Models';
 import { buildBaseServices, buildEntitiesServices, createEntities, createLoops } from '@/Engine/Space/Utils';
@@ -106,10 +105,7 @@ function initSpaceServices(
 } {
   hooks?.beforeBaseServicesBuilt?.(canvas, params);
   const baseServices: TSpaceBaseServices = buildBaseServices();
-  baseServices.screenService.setCanvas(canvas);
-  const screenSizeWatcher: TScreenSizeWatcher = baseServices.screenService.watchers.create({ container });
-
-  screenSizeWatcher.start$.next();
+  container.canvas$.next(canvas);
 
   baseServices.scenesService.createFromList(params.scenes);
   const sceneW: TSceneWrapper | undefined = baseServices.scenesService.findActive();
@@ -124,9 +120,8 @@ function initSpaceServices(
   return { services, loops };
 }
 
-function stopWatchers({ intersectionsWatcherService, screenService, mouseService }: TSpaceServices): void {
+function stopWatchers({ intersectionsWatcherService, mouseService }: TSpaceServices): void {
   mouseService.getMouseClickWatcherRegistry().forEach((watcher: TMouseClickWatcher): void => watcher.stop$.next());
   mouseService.getMousePositionWatcherRegistry().forEach((watcher: TMousePositionWatcher): void => watcher.stop$.next());
-  screenService.watchers.getRegistry().forEach((watcher: TScreenSizeWatcher): void => watcher.stop$.next());
   intersectionsWatcherService.getRegistry().forEach((watcher: TIntersectionsWatcher): void => void (watcher.isStarted && watcher.stop$.next()));
 }

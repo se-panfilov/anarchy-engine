@@ -1,14 +1,17 @@
 import { nanoid } from 'nanoid';
 import type { Subscription } from 'rxjs';
-import { BehaviorSubject, Subject } from 'rxjs';
+import { BehaviorSubject, distinctUntilChanged, skip, Subject, switchMap } from 'rxjs';
 
 import type { TAppGlobalContainer, TContainerDecorator } from '@/Engine/Global/Models';
 import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
-import { getWindowFromDomElement, isDefined, isNotDefined, observeContainerRect } from '@/Engine/Utils';
+import type { TSpaceCanvas } from '@/Engine/Space';
+import { exitFullScreen, getWindowFromDomElement, goFullScreen, isDefined, isFullScreen, isNotDefined, observeContainerRect } from '@/Engine/Utils';
 
 export function ContainerDecorator(container: TAppGlobalContainer | HTMLElement): TContainerDecorator {
   const resize$: Subject<DOMRect> = new Subject<DOMRect>();
+  const canvas$: BehaviorSubject<TSpaceCanvas | undefined> = new BehaviorSubject<TSpaceCanvas | undefined>(undefined);
+  const fullScreen$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   //If App launched in a div (not fullscreen), we need to get relative coords for mouse position, so we need this rect.
   const viewportRect$: BehaviorSubject<DOMRect | undefined> = new BehaviorSubject<DOMRect | undefined>(getViewportRect());
@@ -27,6 +30,18 @@ export function ContainerDecorator(container: TAppGlobalContainer | HTMLElement)
 
   const screenSizeRectSub$: Subscription = resize$.subscribe((): void => viewportRect$.next(getViewportRect()));
 
+  const fullScreenSub$: Subscription = fullScreen$
+    .pipe(
+      skip(1),
+      distinctUntilChanged(),
+      switchMap((isFullScreen: boolean): Promise<void> => (isFullScreen ? goFullScreen(canvas$.value) : exitFullScreen(getAppContainer())))
+    )
+    .subscribe({
+      error: (err: any): never => {
+        throw new Error('Container: Failed to toggle fullscreen', err);
+      }
+    });
+
   const destroyable: TDestroyable = destroyableMixin();
 
   const destroySub$: Subscription = destroyable.destroy$.subscribe((): void => {
@@ -35,8 +50,11 @@ export function ContainerDecorator(container: TAppGlobalContainer | HTMLElement)
     destroySub$.unsubscribe();
     screenSizeRectSub$.unsubscribe();
     observeContainerRectSub.unsubscribe();
+    fullScreenSub$.unsubscribe();
 
     resize$.complete();
+    canvas$.complete();
+    fullScreen$.complete();
     viewportRect$.complete();
   });
 
@@ -49,9 +67,12 @@ export function ContainerDecorator(container: TAppGlobalContainer | HTMLElement)
       startWatch: (type: string, cb: () => void): void => container.addEventListener(type, cb),
       stopWatch: (type: string, cb: () => void): void => container.removeEventListener(type, cb),
       getAppContainer,
+      canvas$,
       getElement: (): TAppGlobalContainer | HTMLElement => container,
       resize$: resize$.asObservable(),
-      viewportRect$
+      viewportRect$,
+      fullScreen$,
+      isFullScreen: (): boolean => isFullScreen(getAppContainer())
     },
     destroyable
   );

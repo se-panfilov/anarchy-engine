@@ -12,6 +12,7 @@ export * from './RegistryAsyncUtils';
 export * from './RegistryUtils';
 export * from './RotationUtils';
 export * from './RxJsUtils';
+export * from './ScreenUtils';
 export * from './StringUtils';
 export * from './TagsUtils';
 export * from './TransformUtils';

@@ -1,7 +1,7 @@
-import type { TScreenService } from '@/Engine/Screen';
+import type { TContainerDecorator } from '@/Engine/Global';
 import type { TTransformDriveService } from '@/Engine/TransformDrive';
 
 export type TCameraWrapperDependencies = Readonly<{
-  screenService: TScreenService;
+  container: TContainerDecorator;
   transformDriveService: TTransformDriveService;
 }>;

@@ -1,5 +1,5 @@
-import type { Observable, Subscription } from 'rxjs';
-import { distinctUntilChanged, EMPTY, switchMap } from 'rxjs';
+import type { Subscription } from 'rxjs';
+import { distinctUntilChanged } from 'rxjs';
 import type { WebGLRendererParameters } from 'three';
 import { PCFShadowMap, WebGLRenderer } from 'three';
 
@@ -8,13 +8,12 @@ import { AbstractWrapper, WrapperType } from '@/Engine/Abstract';
 import { withActiveMixin } from '@/Engine/Mixins';
 import { RendererModes } from '@/Engine/Renderer/Constants';
 import type { TRendererAccessors, TRendererParams, TRendererWrapper, TRendererWrapperDependencies } from '@/Engine/Renderer/Models';
-import type { TScreenSizeValues, TScreenSizeWatcher } from '@/Engine/Screen';
 import type { TWriteable } from '@/Engine/Utils';
-import { isDefined, isNotDefined, isWebGL2Available, isWebGLAvailable } from '@/Engine/Utils';
+import { isNotDefined, isWebGL2Available, isWebGLAvailable } from '@/Engine/Utils';
 
 import { getAccessors } from './Accessors';
 
-export function RendererWrapper(params: TRendererParams, { screenService }: TRendererWrapperDependencies): TRendererWrapper {
+export function RendererWrapper(params: TRendererParams, { container }: TRendererWrapperDependencies): TRendererWrapper {
   const maxPixelRatio: number = params.maxPixelRatio ?? 2;
   if (isNotDefined(params.canvas)) throw new Error(`Canvas is not defined`);
   if (!isWebGLAvailable()) throw new Error('WebGL is not supported by this device');
@@ -42,27 +41,17 @@ export function RendererWrapper(params: TRendererParams, { screenService }: TRen
   accessors.setShadowMapEnabled(params.isShadowMapEnabled ?? true);
   accessors.setShadowMapType(PCFShadowMap);
 
-  function setValues(entity: TWriteable<WebGLRenderer>, { width, height, ratio }: TScreenSizeValues): void {
+  function setValues(entity: TWriteable<WebGLRenderer>, { width, height }: DOMRect, ratio: number): void {
     if (isNotDefined(entity)) return;
     accessors.setSize(width, height);
     accessors.setPixelRatio(ratio, maxPixelRatio);
   }
 
   // TODO 9.2.0 ACTIVE: This could be done only in active$ renderer and applied in onActive hook
-  const screenSizeSub$: Subscription = screenService.watchers.default$
-    .pipe(
-      switchMap((screenSizeWatcher: TScreenSizeWatcher | undefined): Observable<TScreenSizeValues> => (isDefined(screenSizeWatcher) ? screenSizeWatcher.value$ : EMPTY)),
-      distinctUntilChanged((prev: TScreenSizeValues, curr: TScreenSizeValues): boolean => prev.width === curr.width && prev.height === curr.height)
-    )
-    .subscribe((params: TScreenSizeValues): void => {
-      setValues(entity, { ...params, ...getWidthAndHeight(options.canvas as HTMLCanvasElement, params) });
-    });
-
-  const screenSizeWatcherSubscription: Subscription = screenService.watchers.default$
-    .pipe(switchMap((screenSizeWatcher: TScreenSizeWatcher | undefined): Observable<void> => (isDefined(screenSizeWatcher) ? screenSizeWatcher.destroy$ : EMPTY)))
-    .subscribe((): void => {
-      screenSizeSub$.unsubscribe();
-      screenSizeWatcherSubscription.unsubscribe();
+  const screenSizeSub$: Subscription = container.viewportRect$
+    .pipe(distinctUntilChanged((prev: DOMRect | undefined, curr: DOMRect | undefined): boolean => prev.width === curr.width && prev.height === curr.height))
+    .subscribe((rect: DOMRect | undefined): void => {
+      setValues(entity, rect, container.getRatio());
     });
 
   const wrapper: TWrapper<WebGLRenderer> = AbstractWrapper(entity, WrapperType.Renderer, params);
@@ -74,7 +63,6 @@ export function RendererWrapper(params: TRendererParams, { screenService }: TRen
 
     destroySub$.unsubscribe();
     screenSizeSub$.unsubscribe();
-    screenSizeWatcherSubscription.unsubscribe();
   });
 
   // eslint-disable-next-line functional/immutable-data
@@ -83,11 +71,4 @@ export function RendererWrapper(params: TRendererParams, { screenService }: TRen
   result._setActive(params.isActive, true);
 
   return result;
-}
-
-function getWidthAndHeight(canvas: HTMLCanvasElement, params: TScreenSizeValues): Pick<TScreenSizeValues, 'width' | 'height'> {
-  const width: number = canvas.parentElement?.clientWidth ? canvas.parentElement?.clientWidth : params.width;
-  const height: number = canvas.parentElement?.clientHeight ? canvas.parentElement?.clientHeight : params.height;
-
-  return { width, height };
 }

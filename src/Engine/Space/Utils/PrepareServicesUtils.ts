@@ -32,8 +32,6 @@ import { PhysicsBodyFactory, PhysicsBodyRegistry, PhysicsBodyService, PhysicsPre
 import { RendererFactory, RendererRegistry, RendererService } from '@/Engine/Renderer';
 import type { TScenesService, TSceneWrapper } from '@/Engine/Scene';
 import { SceneFactory, SceneRegistry, ScenesService } from '@/Engine/Scene';
-import type { TScreenService } from '@/Engine/Screen';
-import { ScreenService, ScreenSizeWatcherFactory, ScreenSizeWatcherRegistry } from '@/Engine/Screen';
 import type { TSpaceCanvas } from '@/Engine/Space';
 import type { TSpaceBaseServices, TSpaceLoops, TSpaceServices } from '@/Engine/Space/Models';
 import type { TSpatialGridService } from '@/Engine/Spatial';
@@ -47,9 +45,8 @@ import { TransformDriveFactory, TransformDriveRegistry, TransformDriveService } 
 export function buildBaseServices(): TSpaceBaseServices {
   const scenesService: TScenesService = ScenesService(SceneFactory(), SceneRegistry());
   const loopService: TLoopService = LoopService(LoopFactory(), LoopRegistry());
-  const screenService: TScreenService = ScreenService(ScreenSizeWatcherFactory(), ScreenSizeWatcherRegistry());
 
-  return { loopService, scenesService, screenService };
+  return { loopService, scenesService };
 }
 
 export function buildEntitiesServices(
@@ -57,7 +54,7 @@ export function buildEntitiesServices(
   canvas: TSpaceCanvas,
   container: TContainerDecorator,
   loops: TSpaceLoops,
-  { loopService, scenesService, screenService }: TSpaceBaseServices
+  { loopService, scenesService }: TSpaceBaseServices
 ): TSpaceServices {
   const textureService: TTextureService = TextureService(TextureAsyncRegistry());
   const materialService: TMaterialService = MaterialService(MaterialFactory(), MaterialRegistry(), { textureService });
@@ -80,7 +77,7 @@ export function buildEntitiesServices(
     physicsBodyService
   });
   const audioService: TAudioService = AudioService(AudioFactory(), AudioRegistry(), AudioResourceAsyncRegistry(), AudioListenersRegistry(), { transformDriveService }, loops);
-  const cameraService: TCameraService = CameraService(CameraFactory(), CameraRegistry(), sceneW, { audioService, transformDriveService, screenService });
+  const cameraService: TCameraService = CameraService(CameraFactory(), CameraRegistry(), sceneW, { audioService, transformDriveService, container });
 
   return {
     actorService: ActorService(
@@ -102,7 +99,6 @@ export function buildEntitiesServices(
     controlsService: ControlService(ControlsFactory(), ControlsRegistry(), loops, canvas),
     collisionsService,
     scenesService,
-    screenService,
     envMapService: EnvMapService(EnvMapFactory(), EnvMapRegistry(), EnvMapTextureAsyncRegistry(), sceneW),
     fogService: FogService(FogFactory(), FogRegistry(), sceneW),
     fsmService,
@@ -118,7 +114,7 @@ export function buildEntitiesServices(
     physicsBodyService,
     physicsWorldService,
     physicsPresetService,
-    rendererService: RendererService(RendererFactory(), RendererRegistry(), loops, { cameraService, screenService }, sceneW),
+    rendererService: RendererService(RendererFactory(), RendererRegistry(), loops, { cameraService, container }, sceneW),
     spatialGridService,
     textService: TextService(
       TextFactory(),

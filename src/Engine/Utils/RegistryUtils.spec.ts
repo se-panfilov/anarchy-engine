@@ -4,10 +4,10 @@ import { expect } from 'vitest';
 import { LookUpStrategy } from '@/Engine/Abstract/Registries';
 import type { TCameraRegistry, TCameraWrapper } from '@/Engine/Camera';
 import { CameraRegistry, CameraWrapper } from '@/Engine/Camera';
+import type { TContainerDecorator } from '@/Engine/Global';
 import type { TRegistrable } from '@/Engine/Mixins';
 import type { TSceneRegistry, TSceneWrapper } from '@/Engine/Scene';
 import { SceneRegistry, SceneWrapper } from '@/Engine/Scene';
-import type { TScreenService } from '@/Engine/Screen';
 import type { TTransformDriveService } from '@/Engine/TransformDrive';
 
 import { getAllEntitiesWithTag, getAllEntitiesWithTags, getUniqEntityWithTag, getUniqEntityWithTags, setActiveWrappedEntity, shouldHaveTags } from './RegistryUtils';
@@ -180,12 +180,12 @@ describe('RegistryUtils', () => {
     });
 
     it('should set "isActive" to "true" for an entity in a registry', () => {
-      const screenService: TScreenService = { name: 'mock-screen-service' } as unknown as TScreenService;
+      const container: TContainerDecorator = { name: 'mock-container' } as unknown as TContainerDecorator;
       const transformDriveService: TTransformDriveService = { name: 'mock-transform-drive-service' } as unknown as TTransformDriveService;
       const mockObj: TCameraWrapper = CameraWrapper(
         { name: 'mock-camera', isActive: false, position: new Vector3(), rotation: new Euler() },
         {
-          screenService,
+          container,
           transformDriveService
         }
       );

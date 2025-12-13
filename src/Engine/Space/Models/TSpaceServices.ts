@@ -18,7 +18,6 @@ import type { TParticlesService } from '@/Engine/Particles';
 import type { TPhysicsBodyService, TPhysicsPresetsService, TPhysicsWorldService } from '@/Engine/Physics';
 import type { TRendererService } from '@/Engine/Renderer';
 import type { TScenesService } from '@/Engine/Scene';
-import type { TScreenService } from '@/Engine/Screen';
 import type { TSpatialGridService } from '@/Engine/Spatial';
 import type { TTextService } from '@/Engine/Text';
 import type { TTextureService } from '@/Engine/Texture';
@@ -47,7 +46,6 @@ export type TSpaceServices = Readonly<{
   physicsWorldService: TPhysicsWorldService;
   rendererService: TRendererService;
   scenesService: TScenesService;
-  screenService: TScreenService;
   spatialGridService: TSpatialGridService;
   textService: TTextService;
   textureService: TTextureService;

@@ -3,9 +3,8 @@ import type { WebGLRenderer } from 'three';
 import type { TThreeJsRendererParamsAccessors } from '@/Engine/Renderer/Models';
 
 export function withThreeJsRendererParamsAccessors(entity: WebGLRenderer): TThreeJsRendererParamsAccessors {
-  // eslint-disable-next-line functional/immutable-data
-  const setCanvas = (canvas: HTMLCanvasElement): void => void (entity.domElement = canvas);
-  const getCanvas = (): HTMLCanvasElement => entity.domElement;
+  // const setCanvas = (canvas: HTMLCanvasElement): void => void (entity.domElement = canvas);
+  // const getCanvas = (): HTMLCanvasElement => entity.domElement;
 
   // const setContext = (context: WebGLRenderingContext): void => void (entity.context = context);
   const getContext = (): WebGLRenderingContext => entity.getContext();
@@ -41,8 +40,8 @@ export function withThreeJsRendererParamsAccessors(entity: WebGLRenderer): TThre
   // const isFailIfMajorPerformanceCaveat = (): boolean => entity.failIfMajorPerformanceCaveat;
 
   return {
-    setCanvas,
-    getCanvas,
+    // setCanvas,
+    // getCanvas,
     // setContext,
     getContext
     // setPrecision,

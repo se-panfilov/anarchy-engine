@@ -1,5 +1,5 @@
-import type { TScreenService } from '@/Engine/Screen';
+import type { TContainerDecorator } from '@/Engine/Global';
 
 export type TRendererWrapperDependencies = Readonly<{
-  screenService: TScreenService;
+  container: TContainerDecorator;
 }>;

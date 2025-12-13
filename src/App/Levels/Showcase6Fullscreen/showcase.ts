@@ -17,7 +17,7 @@ export function start(): void {
 }
 
 export function showcase(space: TSpace): void {
-  const { actorService, models3dService, mouseService, scenesService, screenService } = space.services;
+  const { actorService, models3dService, mouseService, scenesService } = space.services;
   const { transformLoop } = space.loops;
   const models3dRegistry: TModels3dRegistry = models3dService.getRegistry();
   const actorRegistry: TActorRegistry = actorService.getRegistry();
@@ -36,8 +36,8 @@ export function showcase(space: TSpace): void {
   if (isNotDefined(actor)) throw new Error('Actor is not found');
   actor.drive.default.setY(2);
 
-  mouseService.clickLeftRelease$.subscribe(() => {
-    void screenService.toggleFullScreen();
+  mouseService.clickLeftRelease$.subscribe((): void => {
+    void space.container.fullScreen$.next(!space.container.fullScreen$.value);
   });
 
   const clock: Clock = new Clock();

@@ -1,6 +1,6 @@
 export type TThreeJsRendererParamsAccessors = Readonly<{
-  setCanvas: (canvas: HTMLCanvasElement) => void;
-  getCanvas: () => HTMLCanvasElement;
+  // setCanvas: (canvas: HTMLCanvasElement) => void;
+  // getCanvas: () => HTMLCanvasElement;
   // setContext: (context: WebGLRenderingContext) => void;
   getContext: () => WebGLRenderingContext;
   // setPrecision: (precision: string) => void;

@@ -21,7 +21,7 @@ export function start(): void {
 }
 
 export function showcase(space: TSpace): void {
-  const { actorService, cameraService, intersectionsWatcherService, keyboardService, mouseService, textService, physicsWorldService, screenService } = space.services;
+  const { actorService, cameraService, intersectionsWatcherService, keyboardService, mouseService, textService, physicsWorldService } = space.services;
   const { physicalLoop, intersectionsLoop } = space.loops;
 
   const actorAsyncRegistry = actorService.getRegistry();

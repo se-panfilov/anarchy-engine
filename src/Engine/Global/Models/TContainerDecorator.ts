@@ -2,6 +2,7 @@ import type { BehaviorSubject, Observable } from 'rxjs';
 
 import type { TAppGlobalContainer } from '@/Engine/Global';
 import type { TDestroyable, TNoSpread, TWithId } from '@/Engine/Mixins';
+import type { TSpaceCanvas } from '@/Engine/Space';
 
 export type TContainerDecorator = Readonly<{
   getWidth: () => number;
@@ -12,6 +13,8 @@ export type TContainerDecorator = Readonly<{
   getAppContainer: () => TAppGlobalContainer | never;
   getElement: () => TAppGlobalContainer | HTMLElement;
   resize$: Observable<DOMRect>;
+  canvas$: BehaviorSubject<TSpaceCanvas | undefined>;
+  fullScreen$: BehaviorSubject<boolean>;
   viewportRect$: BehaviorSubject<DOMRect | undefined>;
 }> &
   TWithId &

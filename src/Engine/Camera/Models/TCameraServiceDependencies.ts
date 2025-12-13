@@ -1,9 +1,9 @@
 import type { TAudioService } from '@/Engine/Audio';
-import type { TScreenService } from '@/Engine/Screen';
+import type { TContainerDecorator } from '@/Engine/Global';
 import type { TTransformDriveService } from '@/Engine/TransformDrive';
 
 export type TCameraServiceDependencies = Readonly<{
   audioService: TAudioService;
-  screenService: TScreenService;
+  container: TContainerDecorator;
   transformDriveService: TTransformDriveService;
 }>;
