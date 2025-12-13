@@ -1,6 +1,6 @@
 import type { Observable } from 'rxjs';
 
-import type { IDestroyable } from '@/Engine';
+import type { IDestroyable } from '@/Engine/Mixins';
 
 import type { IMousePosition } from './IMousePosition';
 import type { IMouseWatcherEvent } from './IMouseWatcherEvent';

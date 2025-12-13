@@ -1,11 +1,12 @@
+import { expect } from 'vitest';
+
 import { LookUpStrategy } from '@/Engine/Abstract/Registry';
 import type { IRegistrable } from '@/Engine/Mixins';
 import { withTags } from '@/Engine/Mixins/Generic/WithTags';
-
-import { findActiveWrappedEntity, getAllEntitiesWithTag, getAllEntitiesWithTags, getUniqEntityWithTag, getUniqEntityWithTags, setActiveWrappedEntity } from './RegistryUtils';
-import { expect } from 'vitest';
 import type { ISceneRegistry, ISceneWrapper } from '@/Engine/Scene';
 import { SceneRegistry, SceneWrapper } from '@/Engine/Scene';
+
+import { findActiveWrappedEntity, getAllEntitiesWithTag, getAllEntitiesWithTags, getUniqEntityWithTag, getUniqEntityWithTags, setActiveWrappedEntity } from './RegistryUtils';
 
 describe('RegistryUtils', () => {
   const tagA: string = 'tagA';
