@@ -1,4 +1,4 @@
-import { Box3, GridHelper, Plane, Raycaster, Vector2, Vector3 } from 'three';
+import { Box3, GridHelper, MathUtils, Plane, Raycaster, Vector2, Vector3 } from 'three';
 import { Line2 } from 'three/examples/jsm/lines/Line2';
 import { LineGeometry } from 'three/examples/jsm/lines/LineGeometry';
 import { LineMaterial } from 'three/examples/jsm/lines/LineMaterial';
@@ -43,7 +43,7 @@ export function showcase(canvas: TAppCanvas): TShowcase {
   const space: TSpace = buildSpaceFromConfig(canvas, spaceConfig as TSpaceConfig);
   const engine: TEngine = Engine(space);
   const { keyboardService } = engine.services;
-  const { physicsLoopService, cameraService, controlsService, actorService, loopService, intersectionsWatcherService } = space.services;
+  const { physicsLoopService, cameraService, actorService, loopService, intersectionsWatcherService } = space.services;
 
   async function init(): Promise<void> {
     // physicsWorldService.getDebugRenderer(loopService).start();
@@ -69,6 +69,10 @@ export function showcase(canvas: TAppCanvas): TShowcase {
     // await buildTower(actorService, { x: 17, z: 30 }, 7, 7, 35);
     // await buildTower(actorService, { x: -15, z: -15 }, 10, 7, 15);
 
+    // TODO (S.Panfilov) temp
+    const bullets: ReadonlyArray<TBullet> = await Promise.all(getBulletsPool(5, actorService));
+    actorService.getScene().entity.add(...bullets.map((b: TBullet) => b.entity));
+
     const raycaster: Raycaster = new Raycaster();
     const plane: Plane = new Plane(new Vector3(0, 1, 0), 0); // XZ plane
     const planeNormal: Vector3 = new Vector3(0, 1, 0); // Normal vector of the XZ plane
@@ -86,8 +90,9 @@ export function showcase(canvas: TAppCanvas): TShowcase {
     const line: Line2 = createLine();
     actorService.getScene().entity.add(line);
 
-    loopService.tick$.subscribe(() => {
+    loopService.tick$.subscribe((delta) => {
       cameraFollowingActor(cameraW, heroW);
+      updateBullets(bullets, delta.delta);
 
       if (isDefined(heroADC.coords)) {
         const heroCoords: TWithCoordsXYZ = heroW.getPosition().getCoords();
@@ -98,7 +103,7 @@ export function showcase(canvas: TAppCanvas): TShowcase {
 
     mouseService.clickLeftRelease$.subscribe((): void => {
       if (isNotDefined(heroW)) throw new Error(`Cannot find "hero" actor`);
-      // heroW.physicsBody?.getRigidBody()?.applyImpulse(getPushCoordsFrom3dAzimuth(heroADC.angle, 2, 100), true);
+      shoot(heroW.getPosition().getCoords(), heroADC.coords, heroADC.angle, heroADC.distance, bullets);
     });
 
     physicsLoopService.shouldAutoUpdate(true);
@@ -201,7 +206,7 @@ function createLine(): Line2 {
 function cameraFollowingActor(cameraW: TCameraWrapper, actorW: TActorWrapperAsync): void {
   const actorCoords: TWithCoordsXYZ = actorW.getPosition().getCoords();
   // const cameraCoords: TWithCoordsXYZ = cameraW.getPosition().getCoords();
-  cameraW.setPosition(Vector3Wrapper({ x: actorCoords.x, y: actorCoords.y + 50, z: actorCoords.z + 10 }));
+  cameraW.setPosition(Vector3Wrapper({ x: actorCoords.x, y: actorCoords.y + 45, z: actorCoords.z + 10 }));
   cameraW.lookAt(Vector3Wrapper(actorCoords));
 }
 
@@ -234,4 +239,111 @@ function startMoveActorWithKeyboard(actor: TActorWrapperAsync, onKey: (key: TGam
 function initGridHelper(actorService: TActorService, size: number, divisions: number): void {
   const gridHelper: GridHelper = new GridHelper(size, divisions, '#03A062', '#03A062');
   actorService.getScene().entity.add(gridHelper);
+}
+
+function getBulletsPool(count: number, actorService: TActorService): ReadonlyArray<Promise<TBullet>> {
+  let bullets: ReadonlyArray<Promise<TBullet>> = [];
+
+  // eslint-disable-next-line functional/no-loop-statements
+  for (let i: number = 0; i < count; i++) {
+    // const bulletGeometry: SphereGeometry = new SphereGeometry(0.1, 8, 8);
+    // const bulletMaterial = new MeshBasicMaterial({ color: 0xff0000 });
+    //
+    // const bullet = new Mesh(bulletGeometry, bulletMaterial);
+    // bullet.active = false;
+    // bullets.push(bullet);
+
+    bullets = [
+      ...bullets,
+      BulletAsync(
+        {
+          name: `bullet_${i}`,
+          type: ActorType.Sphere,
+          radius: 1,
+          material: { type: MaterialType.Standard, params: { color: '#FF0000' } },
+          // physics: {
+          //   type: RigidBodyTypesNames.Dynamic,
+          //   collisionShape: CollisionShape.Sphere,
+          //   mass: 1,
+          //   friction: 0.5,
+          //   restitution: 0,
+          //   shapeParams: { radius: 0.1 },
+          //   position: { x: 0, y: 0, z: 0 }
+          // },
+          position: Vector3Wrapper({ x: 0, y: 0, z: 0 }),
+          castShadow: false,
+          tags: []
+        },
+        actorService
+      )
+    ];
+  }
+
+  return bullets;
+}
+
+type TBullet = TActorWrapperAsync &
+  Readonly<{
+    setDirection: (azimuth: number) => void;
+    getDirection: () => number;
+    setDistanceTraveled: (dist: number) => void;
+    getDistanceTraveled: () => number;
+    setActive: (act: boolean) => void;
+    getActive: () => boolean;
+  }>;
+
+async function BulletAsync(params: TActorParams, actorService: TActorService): Promise<TBullet> {
+  const actor: TActorWrapperAsync = await actorService.createAsync(params);
+  let direction: number = 0;
+  let distanceTraveled: number = 0;
+  let active: boolean = false;
+
+  return {
+    ...actor,
+    setDirection: (azimuth: number): void => void (direction = azimuth),
+    getDirection: (): number => direction,
+    setDistanceTraveled: (dist: number): void => void (distanceTraveled = dist),
+    getDistanceTraveled: (): number => distanceTraveled,
+    setActive: (act: boolean): void => void (active = act),
+    getActive: (): boolean => active
+  };
+}
+
+function shoot(actorPosition: TWithCoordsXYZ, toCoords, toAngle: number, toDistance, bullets: ReadonlyArray<TBullet>): void {
+  const bullet: TBullet | undefined = bullets.find((b: TBullet) => !b.getActive());
+  if (isDefined(bullet)) {
+    bullet.setPosition(Vector3Wrapper(actorPosition));
+    // bullet.setDirection(toAngle);
+    bullet.setDirection(toAngle);
+    console.log(toAngle);
+
+    // bullet.direction = new Vector3();
+    // camera.getWorldDirection(bullet.direction);
+    // bullet.direction.normalize();
+    bullet.setDistanceTraveled(0);
+    bullet.setActive(true);
+  }
+}
+
+function updateBullets(bullets: ReadonlyArray<TBullet>, delta: number): void {
+  const bulletSpeed: number = 10;
+
+  bullets.forEach((bullet: TBullet): void => {
+    if (bullet.getActive()) {
+      const direction: number = bullet.getDirection();
+      // console.log('direction', direction);
+      const azimuthRadians = MathUtils.degToRad(direction);
+      const vectorDirection = new Vector3(Math.cos(azimuthRadians), 0, Math.sin(azimuthRadians));
+      bullet.entity.position.add(vectorDirection.clone().multiplyScalar(bulletSpeed * delta));
+      bullet.setDistanceTraveled(bullet.getDistanceTraveled() + bulletSpeed * delta);
+
+      // const collision = checkCollision(bullet);
+      // if (collision) {
+      //   console.log('Hit detected', collision);
+      //   resetBullet(bullet);
+      // } else if (bullet.distanceTraveled > maxDistance) {
+      //   resetBullet(bullet);
+      // }
+    }
+  });
 }
