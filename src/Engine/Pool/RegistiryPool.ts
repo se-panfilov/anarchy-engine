@@ -1,5 +1,5 @@
 import { DestroyablePool } from '@Engine/Pool/DestroyablePool';
-import { ActorRegistry, CameraRegistry, ControlsRegistry, LightRegistry, MouseClicksWatcherRegistry, ScreenSizeWatcherRegistry } from '@Engine/Registries';
+import { ActorRegistry, CameraRegistry, ControlsRegistry, LightRegistry, MouseClicksWatcherRegistry, ScreenSizeWatcherRegistry, MousePositionWatcherRegistry } from '@Engine/Registries';
 import { isNotDefined } from '@Engine/Utils';
 import type { IActorWrapper, ICameraWrapper, ILightWrapper, ISceneWrapper } from '@Engine/Wrappers';
 

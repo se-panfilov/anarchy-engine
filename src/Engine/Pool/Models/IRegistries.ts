@@ -1,5 +1,4 @@
-import type { IActorRegistry, ICameraRegistry, IControlsRegistry, ILightRegistry, IMouseClicksWatcherRegistry, IScreenSizeWatcherRegistry } from '@Engine/Registries';
-import { MousePositionWatcherFactory } from '@Engine/Factories';
+import type { IActorRegistry, ICameraRegistry, IControlsRegistry, ILightRegistry, IMouseClicksWatcherRegistry, IScreenSizeWatcherRegistry, IMousePositionWatcherRegistry } from '@Engine/Registries';
 
 export type IRegistries = Readonly<{
   actorRegistry: IActorRegistry;
