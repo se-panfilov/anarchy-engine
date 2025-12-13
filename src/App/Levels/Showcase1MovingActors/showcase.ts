@@ -32,7 +32,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     const planeModel3dF: TModel3dFacade | undefined = models3dRegistry.findByName('surface_model');
     if (isNotDefined(planeModel3dF)) throw new Error('Plane model is not defined');
 
-    sceneW?.addModel3d(planeModel3dF.getModel());
+    sceneW.addModel3d(planeModel3dF.getModel());
 
     const actor: TActorWrapper | undefined = actorRegistry.findByName('sphere_actor');
     if (isNotDefined(actor)) throw new Error('Actor is not defined');
@@ -45,16 +45,16 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     });
   }
 
-  function watchIntersections(actors: ReadonlyArray<TActorWrapper>): void {
+  function watchIntersections(actors: ReadonlyArray<TActorWrapper>): TIntersectionsWatcher {
     const camera: TCameraWrapper | undefined = cameraService.findActive();
     if (isNotDefined(camera)) throw new Error('Camera is not defined');
 
-    const intersectionsWatcher: TIntersectionsWatcher = intersectionsWatcherService.create({ camera, actors, position$: mouseService.position$, isAutoStart: true, tags: [] });
+    const intersectionsWatcher: TIntersectionsWatcher = intersectionsWatcherService.create({ camera, actors, position$: mouseService.position$, isAutoStart: true });
 
     intersectionsWatcher.value$.subscribe((obj: TIntersectionEvent): void => console.log('intersect obj', obj));
     mouseService.clickLeftRelease$.subscribe((): void => console.log('int click:'));
 
-    intersectionsWatcher.start();
+    return intersectionsWatcher.start();
   }
 
   function start(): void {
