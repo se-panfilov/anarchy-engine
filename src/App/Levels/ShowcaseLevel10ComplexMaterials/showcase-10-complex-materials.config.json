@@ -16,7 +16,6 @@
       "castShadow": true,
       "material": {
         "type": "standard",
-        "params": { "color": "#5177ff" },
         "textures": {
           "aoMap": { "url": "/Showcase/Door_Wood/Door_Wood_001_ambientOcclusion.jpg" },
           "map": { "url": "/Showcase/Door_Wood/Door_Wood_001_basecolor.jpg" },
@@ -36,7 +35,6 @@
       "castShadow": true,
       "material": {
         "type": "basic",
-        "params": { "color": "#5177ff" },
         "textures": {
           "aoMap": { "url": "/Showcase/Door_Wood/Door_Wood_001_ambientOcclusion.jpg" },
           "map": { "url": "/Showcase/Door_Wood/Door_Wood_001_basecolor.jpg" },
@@ -53,7 +51,6 @@
       "castShadow": true,
       "material": {
         "type": "phong",
-        "params": { "color": "#5177ff" },
         "textures": {
           "aoMap": { "url": "/Showcase/Door_Wood/Door_Wood_001_ambientOcclusion.jpg" },
           "map": { "url": "/Showcase/Door_Wood/Door_Wood_001_basecolor.jpg" },
@@ -71,7 +68,6 @@
       "castShadow": true,
       "material": {
         "type": "lambert",
-        "params": { "color": "#5177ff" },
         "textures": {
           "aoMap": { "url": "/Showcase/Door_Wood/Door_Wood_001_ambientOcclusion.jpg" },
           "map": { "url": "/Showcase/Door_Wood/Door_Wood_001_basecolor.jpg" },
@@ -89,7 +85,6 @@
       "castShadow": true,
       "material": {
         "type": "toon",
-        "params": { "color": "#5177ff" },
         "textures": {
           "aoMap": { "url": "/Showcase/Door_Wood/Door_Wood_001_ambientOcclusion.jpg" },
           "map": { "url": "/Showcase/Door_Wood/Door_Wood_001_basecolor.jpg" },
@@ -107,7 +102,6 @@
       "castShadow": true,
       "material": {
         "type": "physical",
-        "params": { "color": "#5177ff" },
         "textures": {
           "aoMap": { "url": "/Showcase/Door_Wood/Door_Wood_001_ambientOcclusion.jpg" },
           "map": { "url": "/Showcase/Door_Wood/Door_Wood_001_basecolor.jpg" },

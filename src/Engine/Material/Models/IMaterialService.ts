@@ -25,44 +25,46 @@ import type {
   IToonTextureUploaded
 } from '@/Engine/Texture/Models';
 
+import type { IMaterialParams } from './IMaterialParams';
+
 export type IBasicMaterialService = {
-  buildMaterial: (type: MaterialType, mt: IBasicTextureUploaded) => MeshBasicMaterial;
+  buildMaterial: (type: MaterialType, params?: IMaterialParams, textures?: IBasicTextureUploaded) => MeshBasicMaterial;
 };
 
 export type IDepthMaterialService = {
-  buildMaterial: (type: MaterialType, mt: IDepthTextureUploaded) => MeshDepthMaterial;
+  buildMaterial: (type: MaterialType, params?: IMaterialParams, textures?: IDepthTextureUploaded) => MeshDepthMaterial;
 };
 
 export type IDistanceMaterialService = {
-  buildMaterial: (type: MaterialType, mt: IDistanceTextureUploaded) => MeshDistanceMaterial;
+  buildMaterial: (type: MaterialType, params?: IMaterialParams, textures?: IDistanceTextureUploaded) => MeshDistanceMaterial;
 };
 
 export type INormalMaterialService = {
-  buildMaterial: (type: MaterialType, mt: INormalTextureUploaded) => MeshNormalMaterial;
+  buildMaterial: (type: MaterialType, params?: IMaterialParams, textures?: INormalTextureUploaded) => MeshNormalMaterial;
 };
 
 export type IMatcapMaterialService = {
-  buildMaterial: (type: MaterialType, mt: IMatcapTextureUploaded) => MeshMatcapMaterial;
+  buildMaterial: (type: MaterialType, params?: IMaterialParams, textures?: IMatcapTextureUploaded) => MeshMatcapMaterial;
 };
 
 export type ILambertMaterialService = {
-  buildMaterial: (type: MaterialType, mt: ILambertTextureUploaded) => MeshLambertMaterial;
+  buildMaterial: (type: MaterialType, params?: IMaterialParams, textures?: ILambertTextureUploaded) => MeshLambertMaterial;
 };
 
 export type IPhongMaterialService = {
-  buildMaterial: (type: MaterialType, mt: IPhongTextureUploaded) => MeshPhongMaterial;
+  buildMaterial: (type: MaterialType, params?: IMaterialParams, textures?: IPhongTextureUploaded) => MeshPhongMaterial;
 };
 
 export type IPhysicalMaterialService = {
-  buildMaterial: (type: MaterialType, mt: IPhysicalTextureUploaded) => MeshPhysicalMaterial;
+  buildMaterial: (type: MaterialType, params?: IMaterialParams, textures?: IPhysicalTextureUploaded) => MeshPhysicalMaterial;
 };
 
 export type IToonMaterialService = {
-  buildMaterial: (type: MaterialType, mt: IToonTextureUploaded) => MeshToonMaterial;
+  buildMaterial: (type: MaterialType, params?: IMaterialParams, textures?: IToonTextureUploaded) => MeshToonMaterial;
 };
 
 export type IStandardMaterialService = {
-  buildMaterial: (type: MaterialType, mt: IStandardTextureUploaded) => MeshStandardMaterial;
+  buildMaterial: (type: MaterialType, params?: IMaterialParams, textures?: IStandardTextureUploaded) => MeshStandardMaterial;
 };
 
 export type IMaterialService =

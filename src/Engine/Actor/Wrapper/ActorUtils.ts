@@ -1,5 +1,5 @@
 import type { Material } from 'three';
-import { BoxGeometry, Mesh, MeshBasicMaterial, PlaneGeometry, SphereGeometry } from 'three';
+import { BoxGeometry, Mesh, PlaneGeometry, SphereGeometry } from 'three';
 
 import { ActorType } from '@/Engine/Actor/Constants';
 import type { IActorParams, IMesh } from '@/Engine/Actor/Models';
@@ -19,9 +19,7 @@ export async function createActor(params: IActorParams): Promise<IMesh> | never 
 async function getMaterial(params: IActorParams): Promise<Material> {
   let textures;
   if (isDefined(params.material.textures)) textures = await textureService.load(params.material).all();
-  let material: Material;
-  if (isDefined(textures)) material = materialService.buildMaterial(params.material.type, textures);
-  else material = new MeshBasicMaterial(params.material.params);
+  const material: Material = materialService.buildMaterial(params.material.type, params.material.params, textures);
 
   return material;
 }
