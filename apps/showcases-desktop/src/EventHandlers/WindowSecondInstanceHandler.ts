@@ -6,7 +6,7 @@ export function windowSecondInstanceHandler(app: App, win: BrowserWindow): void 
 
   const gotTheLock: boolean = app.requestSingleInstanceLock();
 
-  // TODO DESKTOP: Test this on windows
+  // TODO DESKTOP: Test this on Windows
   //Allow only one instance of the app to run
   if (!gotTheLock) {
     app.quit(); // Close the second instance of the app
