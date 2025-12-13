@@ -110,7 +110,48 @@
         "name": "main_grid"
       }
     ],
-    "texts": []
+    "texts": [
+      {
+        "name": "some_3d_text",
+        "cssProps": {
+          "color": "#ff0000",
+          "fontFamily": "\"Roboto\", sans-serif",
+          "fontSize": "0.2rem"
+        },
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "rotation": {
+          "x": -1.57,
+          "y": 0,
+          "z": 0
+        },
+        "text": "some 3d text",
+        "type": "text_3d"
+      },
+      {
+        "name": "some_2d_text",
+        "cssProps": {
+          "color": "#ff0000",
+          "fontFamily": "\"Roboto\", sans-serif",
+          "fontSize": "1rem"
+        },
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "rotation": {
+          "x": -1.57,
+          "y": 0,
+          "z": 0
+        },
+        "text": "some 2d text",
+        "type": "text_2d"
+      }
+    ]
   },
   "name": "showcase_space_beta",
   "resources": {
