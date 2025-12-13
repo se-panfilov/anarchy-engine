@@ -28,10 +28,12 @@ export default defineConfig(({ mode, command }: ConfigEnv): UserConfig => {
     base: './',
     resolve: {
       alias: {
+        ...sharedAliases,
         '@': path.resolve(__dirname, './src'),
         '@Public': path.resolve(__dirname, './public'),
         '@ShowcasesShared': path.resolve(__dirname, '../../packages/showcases-shared/src'),
-        ...sharedAliases
+
+        'platform:api': platform === 'electron' ? '/src/platform/drivers/electron.ts' : platform === 'mobile' ? '/src/platform/drivers/mobile.ts' : '/src/platform/drivers/web.ts'
       }
     },
     plugins: [
