@@ -5,16 +5,9 @@
   "version": "1.0.0",
   "type": "module",
   "license": "MIT",
-  "files": [
-    "dist",
-    "src",
-    "LICENSE",
-    "README.md",
-    "DISCLAIMER.md",
-    "THIRD_PARTY_LICENSES.md",
-    "THIRD_PARTY_LICENSES_FULL.txt"
-  ],
   "scripts": {
+    "before:release:check": "npm run ts:check && npm run prettier:check && npm run lint",
+    "before:release": "npm run clean:reinstall && npm run before:release:check && npm run generate:license-report && npm run generate:all-licenses-list",
     "prettier": "prettier --write .",
     "prettier:check": "prettier --check .",
     "prettier:changed": "git diff --name-only --diff-filter=ACMRTUXB HEAD | grep -E '\\.(ts|tsx|js|json|css|md)$' | xargs prettier --write",
@@ -26,5 +19,10 @@
   "dependencies": {
     "valibot": "1.1.0"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "fast-glob": "3.3.3",
+    "sharp": "0.34.2",
+    "svgo": "4.0.0",
+    "ts-json-schema-generator": "2.4.0"
+  }
 }

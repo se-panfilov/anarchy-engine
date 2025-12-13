@@ -15,8 +15,28 @@
     "clean:reinstall": "npm run clean:all && npm install && git add ./package-lock.json"
   },
   "devDependencies": {
+    "@eslint/js": "9.29.0",
+    "@types/node": "24.0.4",
+    "@typescript-eslint/eslint-plugin": "8.35.0",
+    "@typescript-eslint/parser": "8.35.0",
+    "@vitest/coverage-v8": "3.2.4",
+    "@vitest/ui": "3.2.4",
+    "dotenv": "16.5.0",
+    "eslint": "9.29.0",
+    "eslint-plugin-functional": "9.0.2",
+    "eslint-plugin-import": "2.32.0",
+    "eslint-plugin-simple-import-sort": "12.1.1",
+    "eslint-plugin-sort-export-all": "2.1.0",
+    "eslint-plugin-spellcheck": "0.0.20",
+    "jsdom": "26.1.0",
     "lefthook": "1.11.16",
+    "prettier": "3.6.0",
     "pretty-quick": "4.2.2",
-    "rimraf": "6.0.1"
+    "rimraf": "6.0.1",
+    "typescript": "5.8.3",
+    "typescript-eslint": "8.35.0",
+    "vite": "6.3.5",
+    "vite-plugin-wasm": "3.4.1",
+    "vitest": "3.2.4"
   }
 }
