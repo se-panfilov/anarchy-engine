@@ -5,6 +5,8 @@ import type { Observable, Subject } from 'rxjs';
 
 import type { TEventsService, TEventsServiceDependencies } from '@/Levels/Showcase28Menu/Models';
 
+// TODO DESKTOP: Web version should save/read settings from cookie/localStorage
+// TODO DESKTOP: Async events here should trigger a global loader (we need to implement one)
 export function EventsService({ mainMenuService, appService, settingsService }: TEventsServiceDependencies): TEventsService {
   function handleFromMenuEvents(fromMenuEventsBus$: Observable<TFromMenuEvent>, toMenuEventsBus$: Subject<TToMenuEvent>): void {
     let settings: TShowcaseGameSettings | undefined;
@@ -22,15 +24,12 @@ export function EventsService({ mainMenuService, appService, settingsService }: 
         case FromMenuEvents.SaveSettings: {
           if (isNotDefined(event.payload)) throw new Error(`[Showcase]: No settings provided for saving`);
           if (!isSettings(event.payload)) throw new Error('[Showcase]: Attempted to save invalid app settings');
-          //Better to validate the payload type here
-          // TODO DESKTOP: this code is async, hmm... What should we do with the UI?
           await saveSettings(event.payload as TShowcaseGameSettings);
           isRestartNeeded = settingsService.applyAppSettings(event.payload);
           if (isRestartNeeded) appService.restartApp();
           break;
         }
         case FromMenuEvents.LoadSettings: {
-          // TODO DESKTOP: this code is async, hmm... What should we do with the UI?
           try {
             settings = await loadSettings();
           } catch (error) {
@@ -45,8 +44,6 @@ export function EventsService({ mainMenuService, appService, settingsService }: 
           break;
         }
         case FromMenuEvents.LoadLegalDocs: {
-          // TODO DESKTOP: this code is async, hmm... What should we do with the UI?
-
           if (isNotDefined(event.payload)) throw new Error(`[Showcase]: No legal docs params provided`);
           if (!isLoadDocPayload(event.payload)) throw new Error(`[Showcase]: payload is not valid legal docs params: ${event.payload}`);
           try {
