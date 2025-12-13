@@ -1,4 +1,4 @@
-import type { TColorWrapper } from '@Engine/Color/Models';
+import type { TColorWrapper } from '@Anarchy/Engine/Color/Models';
 import { isNotDefined } from '@Shared/Utils';
 import type { Color, ColorRepresentation } from 'three';
 

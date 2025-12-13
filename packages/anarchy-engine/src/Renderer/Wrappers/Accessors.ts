@@ -1,5 +1,5 @@
-import { withThreeJsRendererParamsAccessors, withThreeJsRendererPropsAccessors } from '@Engine/Renderer/Mixins';
-import type { TRendererAccessors } from '@Engine/Renderer/Models';
+import { withThreeJsRendererParamsAccessors, withThreeJsRendererPropsAccessors } from '@Anarchy/Engine/Renderer/Mixins';
+import type { TRendererAccessors } from '@Anarchy/Engine/Renderer/Models';
 import type { WebGLRenderer } from 'three';
 
 export function getAccessors(entity: WebGLRenderer): TRendererAccessors {

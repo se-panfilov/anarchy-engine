@@ -1,4 +1,4 @@
-import type { TAbstractLightWrapper, TDirectionalLight, TDirectionalLightParams, TLightServiceDependencies } from '@Engine/Light/Models';
+import type { TAbstractLightWrapper, TDirectionalLight, TDirectionalLightParams, TLightServiceDependencies } from '@Anarchy/Engine/Light/Models';
 import { DirectionalLight } from 'three';
 
 import { AbstractLightWrapper } from './AbstractLightWrapper';

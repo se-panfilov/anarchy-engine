@@ -1,6 +1,6 @@
-import type { TKinematicParams } from '@Engine/Kinematic';
-import type { TPhysicsBody } from '@Engine/Physics';
-import type { TReadonlyEuler, TReadonlyQuaternion, TReadonlyVector3 } from '@Engine/ThreeLib';
+import type { TKinematicParams } from '@Anarchy/Engine/Kinematic';
+import type { TPhysicsBody } from '@Anarchy/Engine/Physics';
+import type { TReadonlyEuler, TReadonlyQuaternion, TReadonlyVector3 } from '@Anarchy/Engine/ThreeLib';
 import type { TOptional } from '@Shared/Utils';
 
 export type TGetTransformAgentsParams = Readonly<{

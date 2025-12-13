@@ -1,8 +1,8 @@
-import type { TAbstractService, TRegistryPack } from '@Engine/Abstract';
-import { AbstractService } from '@Engine/Abstract';
-import type { TDisposable, TWithActiveMixinResult } from '@Engine/Mixins';
-import { withActiveEntityServiceMixin, withCreateFromConfigServiceMixin, withCreateServiceMixin, withFactoryService, withRegistryService, withSerializableEntities } from '@Engine/Mixins';
-import { renderLoopEffect } from '@Engine/Renderer/Loop';
+import type { TAbstractService, TRegistryPack } from '@Anarchy/Engine/Abstract';
+import { AbstractService } from '@Anarchy/Engine/Abstract';
+import type { TDisposable, TWithActiveMixinResult } from '@Anarchy/Engine/Mixins';
+import { withActiveEntityServiceMixin, withCreateFromConfigServiceMixin, withCreateServiceMixin, withFactoryService, withRegistryService, withSerializableEntities } from '@Anarchy/Engine/Mixins';
+import { renderLoopEffect } from '@Anarchy/Engine/Renderer/Loop';
 import type {
   TRendererConfig,
   TRendererFactory,
@@ -14,10 +14,10 @@ import type {
   TRendererServiceWithFactory,
   TRendererServiceWithRegistry,
   TRendererWrapper
-} from '@Engine/Renderer/Models';
-import type { TSceneWrapper } from '@Engine/Scene';
-import type { TSpaceLoops } from '@Engine/Space';
-import { mergeAll } from '@Engine/Utils';
+} from '@Anarchy/Engine/Renderer/Models';
+import type { TSceneWrapper } from '@Anarchy/Engine/Scene';
+import type { TSpaceLoops } from '@Anarchy/Engine/Space';
+import { mergeAll } from '@Anarchy/Engine/Utils';
 import type { Subscription } from 'rxjs';
 
 export function RendererService(

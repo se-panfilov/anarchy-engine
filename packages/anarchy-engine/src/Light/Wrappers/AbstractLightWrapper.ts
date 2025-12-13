@@ -1,15 +1,15 @@
-import type { TAbstractWrapper } from '@Engine/Abstract';
-import { AbstractWrapper } from '@Engine/Abstract';
-import { lightToConfig } from '@Engine/Light/Adapters';
-import type { LightType } from '@Engine/Light/Constants';
-import type { TAbstractLightConfig, TAbstractLightWrapper, TAnyLight, TLightParams, TLightServiceDependencies, TLightTransformDrive } from '@Engine/Light/Models';
-import { LightTransformDrive } from '@Engine/Light/TransformDrive';
-import { getWrapperType } from '@Engine/Light/Utils';
-import { applyShadowParams } from '@Engine/Light/Wrappers/LightWrapperHelper';
-import { withObject3d } from '@Engine/Mixins';
-import type { TDriveToTargetConnector } from '@Engine/TransformDrive';
-import { DriveToTargetConnector } from '@Engine/TransformDrive';
-import { applyObject3dParams } from '@Engine/Utils';
+import type { TAbstractWrapper } from '@Anarchy/Engine/Abstract';
+import { AbstractWrapper } from '@Anarchy/Engine/Abstract';
+import { lightToConfig } from '@Anarchy/Engine/Light/Adapters';
+import type { LightType } from '@Anarchy/Engine/Light/Constants';
+import type { TAbstractLightConfig, TAbstractLightWrapper, TAnyLight, TLightParams, TLightServiceDependencies, TLightTransformDrive } from '@Anarchy/Engine/Light/Models';
+import { LightTransformDrive } from '@Anarchy/Engine/Light/TransformDrive';
+import { getWrapperType } from '@Anarchy/Engine/Light/Utils';
+import { applyShadowParams } from '@Anarchy/Engine/Light/Wrappers/LightWrapperHelper';
+import { withObject3d } from '@Anarchy/Engine/Mixins';
+import type { TDriveToTargetConnector } from '@Anarchy/Engine/TransformDrive';
+import { DriveToTargetConnector } from '@Anarchy/Engine/TransformDrive';
+import { applyObject3dParams } from '@Anarchy/Engine/Utils';
 import type { Subscription } from 'rxjs';
 
 export function AbstractLightWrapper<T extends TAnyLight>(entity: T, params: TLightParams, dependencies: TLightServiceDependencies): TAbstractLightWrapper<T> {

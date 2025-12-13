@@ -1,6 +1,6 @@
-import type { TMeters, TRadians } from '@Engine/Math';
-import { getAzimuthFromDirection, getElevationFromDirection } from '@Engine/Math';
-import type { TReadonlyVector3 } from '@Engine/ThreeLib';
+import type { TMeters, TRadians } from '@Anarchy/Engine/Math';
+import { getAzimuthFromDirection, getElevationFromDirection } from '@Anarchy/Engine/Math';
+import type { TReadonlyVector3 } from '@Anarchy/Engine/ThreeLib';
 import { Vector3 } from 'three';
 
 type TTempCoords = Readonly<{

@@ -1,5 +1,5 @@
-import type { TAbstractService } from '@Engine/Abstract';
-import type { TActor } from '@Engine/Actor/Models';
+import type { TAbstractService } from '@Anarchy/Engine/Abstract';
+import type { TActor } from '@Anarchy/Engine/Actor/Models';
 
 import type { TBvhService } from './TBvhService';
 import type { TCollisionCheckResult } from './TCollisionCheckResult';

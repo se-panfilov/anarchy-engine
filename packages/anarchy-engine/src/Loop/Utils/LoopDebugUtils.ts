@@ -1,4 +1,4 @@
-import type { TLoop } from '@Engine/Loop/Models';
+import type { TLoop } from '@Anarchy/Engine/Loop/Models';
 import type { Subscription } from 'rxjs';
 
 //calculate tick rate (useful to compare the same tick rate in the main stream and in the worker, cause in worker could be a way faster, and in the main stream could be slowed down by the browser)

@@ -1,6 +1,6 @@
-import type { TAnimationStateParams } from '@Engine/Animations';
-import { applyAnimationActionProperties } from '@Engine/Animations';
-import type { TModel3d, TModel3dParams } from '@Engine/Models3d/Models';
+import type { TAnimationStateParams } from '@Anarchy/Engine/Animations';
+import { applyAnimationActionProperties } from '@Anarchy/Engine/Animations';
+import type { TModel3d, TModel3dParams } from '@Anarchy/Engine/Models3d/Models';
 import { isDefined } from '@Shared/Utils';
 import type { AnimationAction } from 'three';
 

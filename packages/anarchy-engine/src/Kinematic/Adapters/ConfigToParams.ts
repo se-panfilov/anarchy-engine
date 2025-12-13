@@ -1,5 +1,5 @@
-import type { TKinematicConfig, TKinematicParams } from '@Engine/Kinematic/Models';
-import { toQuaternion } from '@Engine/Math';
+import type { TKinematicConfig, TKinematicParams } from '@Anarchy/Engine/Kinematic/Models';
+import { toQuaternion } from '@Anarchy/Engine/Math';
 import { isDefined } from '@Shared/Utils';
 import { Quaternion, Vector3 } from 'three';
 

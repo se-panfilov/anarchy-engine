@@ -1,5 +1,5 @@
-import type { TWithTags } from '@Engine/Mixins';
-import type { TObject3DParams, TObject3DPropConfig } from '@Engine/ThreeLib';
+import type { TWithTags } from '@Anarchy/Engine/Mixins';
+import type { TObject3DParams, TObject3DPropConfig } from '@Anarchy/Engine/ThreeLib';
 import type { Color, Vector2Like } from 'three';
 
 import type { TAmbientLightParams } from './TAmbientLightParams';

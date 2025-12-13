@@ -1,6 +1,6 @@
-import type { TWithName, TWithTags } from '@Engine/Mixins';
-import type { CollisionShape, RigidBodyTypesNames } from '@Engine/Physics/Constants';
-import type { TReadonlyQuaternion, TReadonlyVector3 } from '@Engine/ThreeLib';
+import type { TWithName, TWithTags } from '@Anarchy/Engine/Mixins';
+import type { CollisionShape, RigidBodyTypesNames } from '@Anarchy/Engine/Physics/Constants';
+import type { TReadonlyQuaternion, TReadonlyVector3 } from '@Anarchy/Engine/ThreeLib';
 
 import type { TPhysicsShapeParams } from './TPhysicsShapeParams';
 

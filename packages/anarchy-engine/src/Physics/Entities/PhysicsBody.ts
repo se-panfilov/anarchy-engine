@@ -1,10 +1,10 @@
 import type { RigidBodyType, World } from '@dimforge/rapier3d';
-import { AbstractEntity, EntityType } from '@Engine/Abstract';
-import { physicsBodyToConfig } from '@Engine/Physics/Adapters';
-import type { CollisionShape, RigidBodyTypesNames } from '@Engine/Physics/Constants';
-import { RigidBodyTypesMap } from '@Engine/Physics/Constants';
-import { withPhysicsBodyEntities } from '@Engine/Physics/Mixins';
-import type { TPhysicsBody, TPhysicsBodyConfig, TPhysicsBodyEntities, TPhysicsBodyParams, TPhysicsDependencies, TPhysicsShapeParams } from '@Engine/Physics/Models';
+import { AbstractEntity, EntityType } from '@Anarchy/Engine/Abstract';
+import { physicsBodyToConfig } from '@Anarchy/Engine/Physics/Adapters';
+import type { CollisionShape, RigidBodyTypesNames } from '@Anarchy/Engine/Physics/Constants';
+import { RigidBodyTypesMap } from '@Anarchy/Engine/Physics/Constants';
+import { withPhysicsBodyEntities } from '@Anarchy/Engine/Physics/Mixins';
+import type { TPhysicsBody, TPhysicsBodyConfig, TPhysicsBodyEntities, TPhysicsBodyParams, TPhysicsDependencies, TPhysicsShapeParams } from '@Anarchy/Engine/Physics/Models';
 import type { TWriteable } from '@Shared/Utils';
 import { isDefined, isNotDefined } from '@Shared/Utils';
 import type { Subscription } from 'rxjs';

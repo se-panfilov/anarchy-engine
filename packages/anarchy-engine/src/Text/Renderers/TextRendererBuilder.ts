@@ -1,10 +1,10 @@
-import type { TContainerDecorator } from '@Engine/Global';
-import type { TDestroyable } from '@Engine/Mixins';
-import { destroyableMixin } from '@Engine/Mixins';
-import type { TextCssClass, TextRendererType } from '@Engine/Text/Constants';
-import { RelatedEntityAttribute } from '@Engine/Text/Constants';
-import type { TTextRenderer } from '@Engine/Text/Models';
-import { isAppGlobalContainer } from '@Engine/Utils';
+import type { TContainerDecorator } from '@Anarchy/Engine/Global';
+import type { TDestroyable } from '@Anarchy/Engine/Mixins';
+import { destroyableMixin } from '@Anarchy/Engine/Mixins';
+import type { TextCssClass, TextRendererType } from '@Anarchy/Engine/Text/Constants';
+import { RelatedEntityAttribute } from '@Anarchy/Engine/Text/Constants';
+import type { TTextRenderer } from '@Anarchy/Engine/Text/Models';
+import { isAppGlobalContainer } from '@Anarchy/Engine/Utils';
 import { nanoid } from 'nanoid';
 import type { Subscription } from 'rxjs';
 import { distinctUntilChanged } from 'rxjs';

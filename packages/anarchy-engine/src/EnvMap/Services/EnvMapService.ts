@@ -1,6 +1,6 @@
-import type { TAbstractService, TRegistryPack } from '@Engine/Abstract';
-import { AbstractService } from '@Engine/Abstract';
-import { EnvMapLoader } from '@Engine/EnvMap/Loader';
+import type { TAbstractService, TRegistryPack } from '@Anarchy/Engine/Abstract';
+import { AbstractService } from '@Anarchy/Engine/Abstract';
+import { EnvMapLoader } from '@Anarchy/Engine/EnvMap/Loader';
 import type {
   TEnvMapConfig,
   TEnvMapConfigToParamsDependencies,
@@ -17,8 +17,8 @@ import type {
   TEnvMapServiceWithRegistry,
   TEnvMapTextureAsyncRegistry,
   TEnvMapWrapper
-} from '@Engine/EnvMap/Models';
-import type { TDisposable, TWithActiveMixinResult } from '@Engine/Mixins';
+} from '@Anarchy/Engine/EnvMap/Models';
+import type { TDisposable, TWithActiveMixinResult } from '@Anarchy/Engine/Mixins';
 import {
   withActiveEntityServiceMixin,
   withCreateFromConfigServiceMixin,
@@ -28,9 +28,9 @@ import {
   withSceneGetterService,
   withSerializableEntities,
   withSerializeAllResources
-} from '@Engine/Mixins';
-import type { TSceneWrapper } from '@Engine/Scene';
-import { mergeAll } from '@Engine/Utils';
+} from '@Anarchy/Engine/Mixins';
+import type { TSceneWrapper } from '@Anarchy/Engine/Scene';
+import { mergeAll } from '@Anarchy/Engine/Utils';
 import { isDefined } from '@Shared/Utils';
 import type { Subscription } from 'rxjs';
 

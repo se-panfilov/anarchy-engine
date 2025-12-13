@@ -1,4 +1,4 @@
-import type { TPhysicsBody, TPhysicsBodyParams } from '@Engine/Physics';
+import type { TPhysicsBody, TPhysicsBodyParams } from '@Anarchy/Engine/Physics';
 import type { TWithMandatoryField } from '@Shared/Utils';
 
 import type { TTransformAgentParams } from './TTransformAgentParams';

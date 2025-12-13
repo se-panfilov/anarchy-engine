@@ -1,4 +1,4 @@
-import type { TAbstractLightWrapper, TLightServiceDependencies, TSpotLight, TSpotLightParams } from '@Engine/Light/Models';
+import type { TAbstractLightWrapper, TLightServiceDependencies, TSpotLight, TSpotLightParams } from '@Anarchy/Engine/Light/Models';
 import { SpotLight } from 'three';
 
 import { AbstractLightWrapper } from './AbstractLightWrapper';

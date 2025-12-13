@@ -1,4 +1,4 @@
-import type { TParamsFromConfig, TReactiveFactory } from '@Engine/Abstract';
+import type { TParamsFromConfig, TReactiveFactory } from '@Anarchy/Engine/Abstract';
 
 import type { TPhysicsBody } from './TPhysicsBody';
 import type { TPhysicsBodyConfig } from './TPhysicsBodyConfig';

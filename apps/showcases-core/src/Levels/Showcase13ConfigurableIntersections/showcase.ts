@@ -1,5 +1,5 @@
-import type { TAnyCameraWrapper, TCameraRegistry, TIntersectionEvent, TIntersectionsCameraWatcher, TSpace, TSpaceConfig } from '@Engine';
-import { spaceService } from '@Engine';
+import type { TAnyCameraWrapper, TCameraRegistry, TIntersectionEvent, TIntersectionsCameraWatcher, TSpace, TSpaceConfig } from '@Anarchy/Engine';
+import { spaceService } from '@Anarchy/Engine';
 import { asRecord, isNotDefined } from '@Shared/Utils';
 import GUI from 'lil-gui';
 

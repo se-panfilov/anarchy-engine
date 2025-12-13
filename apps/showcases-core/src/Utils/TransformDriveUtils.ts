@@ -1,4 +1,4 @@
-import type { TReadonlyQuaternion, TReadonlyVector3, TWithTransformDrive } from '@Engine';
+import type { TReadonlyQuaternion, TReadonlyVector3, TWithTransformDrive } from '@Anarchy/Engine';
 import type { Observable, Subject, Subscription } from 'rxjs';
 import type { Vector3Like } from 'three';
 

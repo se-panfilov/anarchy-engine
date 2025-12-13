@@ -1,5 +1,5 @@
-import type { TWithCreateService } from '@Engine/Mixins/Services/Models';
-import type { TExtractDeps, TExtractEntity, TExtractParams } from '@Engine/Mixins/Services/Utils';
+import type { TWithCreateService } from '@Anarchy/Engine/Mixins/Services/Models';
+import type { TExtractDeps, TExtractEntity, TExtractParams } from '@Anarchy/Engine/Mixins/Services/Utils';
 
 export function withCreateServiceMixin<
   F extends {

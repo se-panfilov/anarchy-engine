@@ -1,4 +1,4 @@
-import type { TPhysicsBodyParams } from '@Engine/Physics/Models';
+import type { TPhysicsBodyParams } from '@Anarchy/Engine/Physics/Models';
 import type { TOptional } from '@Shared/Utils';
 import { isDefined } from '@Shared/Utils';
 

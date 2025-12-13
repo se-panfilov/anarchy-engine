@@ -1,5 +1,5 @@
-import type { TAnyCameraWrapper } from '@Engine/Camera/Models';
-import type { ControlsType } from '@Engine/Controls/Constants';
+import type { TAnyCameraWrapper } from '@Anarchy/Engine/Camera/Models';
+import type { ControlsType } from '@Anarchy/Engine/Controls/Constants';
 
 export type TBaseControlsParams = Readonly<{
   type: ControlsType;

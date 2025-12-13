@@ -1,8 +1,8 @@
-import type { TAbstractService } from '@Engine/Abstract';
-import { AbstractService } from '@Engine/Abstract';
-import type { TActor } from '@Engine/Actor/Models';
-import type { TBvhService, TCollisionCheckResult, TCollisionsService } from '@Engine/Collisions/Models';
-import type { TReadonlyVector3 } from '@Engine/ThreeLib';
+import type { TAbstractService } from '@Anarchy/Engine/Abstract';
+import { AbstractService } from '@Anarchy/Engine/Abstract';
+import type { TActor } from '@Anarchy/Engine/Actor/Models';
+import type { TBvhService, TCollisionCheckResult, TCollisionsService } from '@Anarchy/Engine/Collisions/Models';
+import type { TReadonlyVector3 } from '@Anarchy/Engine/ThreeLib';
 import type { Vector3 } from 'three';
 import { Raycaster } from 'three';
 

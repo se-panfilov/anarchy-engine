@@ -1,6 +1,6 @@
-import type { TAbstractService } from '@Engine/Abstract/Models';
-import type { TDestroyable, TDisposable } from '@Engine/Mixins';
-import { destroyableMixin } from '@Engine/Mixins';
+import type { TAbstractService } from '@Anarchy/Engine/Abstract/Models';
+import type { TDestroyable, TDisposable } from '@Anarchy/Engine/Mixins';
+import { destroyableMixin } from '@Anarchy/Engine/Mixins';
 import type { Subscription } from 'rxjs';
 
 export function AbstractService<T extends TDisposable>(disposable?: ReadonlyArray<T>): TAbstractService {

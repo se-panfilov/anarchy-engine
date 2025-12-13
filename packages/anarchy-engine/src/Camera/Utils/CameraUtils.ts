@@ -1,6 +1,6 @@
-import { CameraType } from '@Engine/Camera/Constants';
-import type { TOrthographicCamera, TOrthographicCameraParams, TOrthographicCameraWrapper, TPerspectiveCamera, TPerspectiveCameraParams, TPerspectiveCameraWrapper } from '@Engine/Camera/Models';
-import type { TShadowCameraParams } from '@Engine/Light';
+import { CameraType } from '@Anarchy/Engine/Camera/Constants';
+import type { TOrthographicCamera, TOrthographicCameraParams, TOrthographicCameraWrapper, TPerspectiveCamera, TPerspectiveCameraParams, TPerspectiveCameraWrapper } from '@Anarchy/Engine/Camera/Models';
+import type { TShadowCameraParams } from '@Anarchy/Engine/Light';
 import type { TWriteable } from '@Shared/Utils';
 import { isDefined } from '@Shared/Utils';
 

@@ -1,4 +1,4 @@
-import type { TDestroyable } from '@Engine/Mixins';
+import type { TDestroyable } from '@Anarchy/Engine/Mixins';
 import type { Observable } from 'rxjs';
 
 import type { TAbstractResourceConfig } from './TAbstractResourceConfig';

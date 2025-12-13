@@ -1,4 +1,4 @@
-import type { TWithTags } from '@Engine/Mixins';
+import type { TWithTags } from '@Anarchy/Engine/Mixins';
 import type { TWriteable } from '@Shared/Utils';
 import { omitInArray } from '@Shared/Utils';
 

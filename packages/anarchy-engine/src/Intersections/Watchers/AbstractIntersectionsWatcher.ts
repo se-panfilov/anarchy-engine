@@ -1,7 +1,7 @@
-import type { TAbstractWatcher } from '@Engine/Abstract';
-import { AbstractWatcher, WatcherType } from '@Engine/Abstract';
-import type { TActor } from '@Engine/Actor';
-import { intersectionsToConfig } from '@Engine/Intersections/Adapters';
+import type { TAbstractWatcher } from '@Anarchy/Engine/Abstract';
+import { AbstractWatcher, WatcherType } from '@Anarchy/Engine/Abstract';
+import type { TActor } from '@Anarchy/Engine/Actor';
+import { intersectionsToConfig } from '@Anarchy/Engine/Intersections/Adapters';
 import type {
   TAbstractIntersectionsWatcher,
   TAnyIntersectionsWatcher,
@@ -9,8 +9,8 @@ import type {
   TAnyIntersectionsWatcherParams,
   TIntersectionEvent,
   TIntersectionsLoop
-} from '@Engine/Intersections/Models';
-import type { TRawModel3d } from '@Engine/Models3d';
+} from '@Anarchy/Engine/Intersections/Models';
+import type { TRawModel3d } from '@Anarchy/Engine/Models3d';
 import type { TWriteable } from '@Shared/Utils';
 import { isDefined, isNotDefined } from '@Shared/Utils';
 import type { Subscription } from 'rxjs';

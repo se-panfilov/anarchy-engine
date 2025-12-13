@@ -1,6 +1,6 @@
-import type { TWrapper } from '@Engine/Abstract';
-import type { TextType } from '@Engine/Text/Constants';
-import type { TAbstractTextWrapper } from '@Engine/Text/Models/TAbstractTextWrapper';
+import type { TWrapper } from '@Anarchy/Engine/Abstract';
+import type { TextType } from '@Anarchy/Engine/Text/Constants';
+import type { TAbstractTextWrapper } from '@Anarchy/Engine/Text/Models/TAbstractTextWrapper';
 import type { Mesh } from 'three';
 
 import type { TTextCssProps } from './TTextCssProps';

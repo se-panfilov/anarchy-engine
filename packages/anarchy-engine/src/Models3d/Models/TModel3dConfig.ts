@@ -1,6 +1,6 @@
-import type { TAnimationStateConfig } from '@Engine/Animations';
-import type { PrimitiveModel3dType } from '@Engine/Models3d/Constants';
-import type { TObject3DPropConfig } from '@Engine/ThreeLib';
+import type { TAnimationStateConfig } from '@Anarchy/Engine/Animations';
+import type { PrimitiveModel3dType } from '@Anarchy/Engine/Models3d/Constants';
+import type { TObject3DPropConfig } from '@Anarchy/Engine/ThreeLib';
 import type { TOptional } from '@Shared/Utils';
 
 import type { TModel3dParams } from './TModel3dParams';

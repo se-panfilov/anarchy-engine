@@ -1,5 +1,5 @@
-import type { TModel3d, TOrbitControlsWrapper, TSceneWrapper, TSpace } from '@Engine';
-import { TextType } from '@Engine';
+import type { TModel3d, TOrbitControlsWrapper, TSceneWrapper, TSpace } from '@Anarchy/Engine';
+import { TextType } from '@Anarchy/Engine';
 import { isDefined } from '@Shared/Utils';
 import { Clock, Euler, Vector3 } from 'three';
 

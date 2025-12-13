@@ -1,5 +1,5 @@
-import type { TWithMaterial } from '@Engine/Material/Models';
-import type { TRawModel3d } from '@Engine/Models3d';
+import type { TWithMaterial } from '@Anarchy/Engine/Material/Models';
+import type { TRawModel3d } from '@Anarchy/Engine/Models3d';
 import type { TWriteable } from '@Shared/Utils';
 import { isDefined } from '@Shared/Utils';
 import type { Group, Material, Mesh, Object3D } from 'three';

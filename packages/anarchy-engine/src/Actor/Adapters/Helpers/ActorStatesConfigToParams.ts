@@ -1,5 +1,5 @@
-import type { TActorConfigToParamsDependencies, TActorStates, TActorStatesConfig, TAnimationsFsmSource } from '@Engine/Actor/Models';
-import type { TFsmWrapper } from '@Engine/Fsm';
+import type { TActorConfigToParamsDependencies, TActorStates, TActorStatesConfig, TAnimationsFsmSource } from '@Anarchy/Engine/Actor/Models';
+import type { TFsmWrapper } from '@Anarchy/Engine/Fsm';
 import { isNotDefined } from '@Shared/Utils';
 
 export function actorStatesConfigToParams(states: TActorStatesConfig, dependencies: TActorConfigToParamsDependencies): TActorStates {

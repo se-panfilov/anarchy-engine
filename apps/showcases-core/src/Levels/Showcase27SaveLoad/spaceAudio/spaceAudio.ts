@@ -1,5 +1,5 @@
-import type { TAudio3dWrapper, TDebugAudioRenderer, TSpace, TSpaceConfig } from '@Engine';
-import { DebugAudioRenderer } from '@Engine';
+import type { TAudio3dWrapper, TDebugAudioRenderer, TSpace, TSpaceConfig } from '@Anarchy/Engine';
+import { DebugAudioRenderer } from '@Anarchy/Engine';
 import { BehaviorSubject } from 'rxjs';
 
 import type { TSpacesData } from '../ShowcaseTypes';

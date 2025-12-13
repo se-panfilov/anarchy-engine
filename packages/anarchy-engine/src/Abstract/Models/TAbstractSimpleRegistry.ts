@@ -1,5 +1,5 @@
-import type { RegistryType } from '@Engine/Abstract/Constants';
-import type { TDestroyable, TNoSpread, TWithId } from '@Engine/Mixins';
+import type { RegistryType } from '@Anarchy/Engine/Abstract/Constants';
+import type { TDestroyable, TNoSpread, TWithId } from '@Anarchy/Engine/Mixins';
 import type { Observable } from 'rxjs';
 
 import type { TRegistryPack } from './TRegistryPack';

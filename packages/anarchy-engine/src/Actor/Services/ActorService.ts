@@ -1,5 +1,5 @@
-import type { TAbstractService, TRegistryPack } from '@Engine/Abstract';
-import { AbstractService } from '@Engine/Abstract';
+import type { TAbstractService, TRegistryPack } from '@Anarchy/Engine/Abstract';
+import { AbstractService } from '@Anarchy/Engine/Abstract';
 import type {
   TActor,
   TActorConfig,
@@ -12,12 +12,12 @@ import type {
   TActorServiceWithFactory,
   TActorServiceWithRegistry,
   TModel3dToActorConnectionRegistry
-} from '@Engine/Actor/Models';
-import type { TDisposable } from '@Engine/Mixins';
-import { withFactoryService, withRegistryService, withSceneGetterService, withSerializableEntities } from '@Engine/Mixins';
-import type { TSceneWrapper } from '@Engine/Scene';
-import type { TSpatialGridRegistry } from '@Engine/Spatial';
-import { mergeAll } from '@Engine/Utils';
+} from '@Anarchy/Engine/Actor/Models';
+import type { TDisposable } from '@Anarchy/Engine/Mixins';
+import { withFactoryService, withRegistryService, withSceneGetterService, withSerializableEntities } from '@Anarchy/Engine/Mixins';
+import type { TSceneWrapper } from '@Anarchy/Engine/Scene';
+import type { TSpatialGridRegistry } from '@Anarchy/Engine/Spatial';
+import { mergeAll } from '@Anarchy/Engine/Utils';
 import type { Subscription } from 'rxjs';
 
 export function ActorService(factory: TActorFactory, registry: TActorRegistry, actorServiceDependencies: TActorServiceDependencies, scene: TSceneWrapper): TActorService {

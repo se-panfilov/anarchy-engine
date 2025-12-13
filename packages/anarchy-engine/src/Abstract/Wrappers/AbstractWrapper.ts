@@ -1,9 +1,9 @@
-import type { TAbstractWrapper, TWithUserData, TWithWrapperId, TWithWrapperIdEntity, WrapperType } from '@Engine/Abstract';
-import { withNoWrapperIdMixin, withWrapperIdMixin } from '@Engine/Abstract';
-import type { TDestroyable, TRegistrable, TWithEntity, TWithName } from '@Engine/Mixins';
-import { destroyableMixin, withNameAndNameAccessorsMixin } from '@Engine/Mixins';
-import type { TWithTags } from '@Engine/Mixins/Generics/Models/TWithTags';
-import { genericEntityCleanUp, isWithUserData, isWithWrapperIdAccessors, mergeAll } from '@Engine/Utils';
+import type { TAbstractWrapper, TWithUserData, TWithWrapperId, TWithWrapperIdEntity, WrapperType } from '@Anarchy/Engine/Abstract';
+import { withNoWrapperIdMixin, withWrapperIdMixin } from '@Anarchy/Engine/Abstract';
+import type { TDestroyable, TRegistrable, TWithEntity, TWithName } from '@Anarchy/Engine/Mixins';
+import { destroyableMixin, withNameAndNameAccessorsMixin } from '@Anarchy/Engine/Mixins';
+import type { TWithTags } from '@Anarchy/Engine/Mixins/Generics/Models/TWithTags';
+import { genericEntityCleanUp, isWithUserData, isWithWrapperIdAccessors, mergeAll } from '@Anarchy/Engine/Utils';
 import { isDefined } from '@Shared/Utils';
 import { nanoid } from 'nanoid';
 import type { Subscription } from 'rxjs';

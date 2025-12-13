@@ -1,4 +1,4 @@
-import type { TWithPosition3d, TWithPosition3dProperty } from '@Engine/Mixins/GameObjects/Models';
+import type { TWithPosition3d, TWithPosition3dProperty } from '@Anarchy/Engine/Mixins/GameObjects/Models';
 import type { Vector3 } from 'three';
 
 export function withPosition3dMixin(entity: TWithPosition3dProperty): TWithPosition3d {

@@ -1,5 +1,5 @@
-import type { TAnyCameraWrapper, TAnyControlsWrapper, TContainerDecorator, TOrbitControlsWrapper, TRendererWrapper, TSpaceLoops, TSpaceServices } from '@Engine';
-import { ControlsType } from '@Engine';
+import type { TAnyCameraWrapper, TAnyControlsWrapper, TContainerDecorator, TOrbitControlsWrapper, TRendererWrapper, TSpaceLoops, TSpaceServices } from '@Anarchy/Engine';
+import { ControlsType } from '@Anarchy/Engine';
 import type { GizmoOptions } from 'three-viewport-gizmo';
 import { ViewportGizmo } from 'three-viewport-gizmo';
 

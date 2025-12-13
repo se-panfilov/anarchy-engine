@@ -1,9 +1,9 @@
-import type { TReactiveFactory } from '@Engine/Abstract';
-import { FactoryType, ReactiveFactory } from '@Engine/Abstract';
-import { configToParams } from '@Engine/Intersections/Adapters';
-import type { TAnyIntersectionsWatcher, TAnyIntersectionsWatcherParams, TIntersectionsWatcherFactory } from '@Engine/Intersections/Models';
-import { isIntersectionsCameraWatcherParams, isIntersectionsDirectionWatcherParams } from '@Engine/Intersections/Utils';
-import { IntersectionsCameraWatcher, IntersectionsDirectionWatcher } from '@Engine/Intersections/Watchers';
+import type { TReactiveFactory } from '@Anarchy/Engine/Abstract';
+import { FactoryType, ReactiveFactory } from '@Anarchy/Engine/Abstract';
+import { configToParams } from '@Anarchy/Engine/Intersections/Adapters';
+import type { TAnyIntersectionsWatcher, TAnyIntersectionsWatcherParams, TIntersectionsWatcherFactory } from '@Anarchy/Engine/Intersections/Models';
+import { isIntersectionsCameraWatcherParams, isIntersectionsDirectionWatcherParams } from '@Anarchy/Engine/Intersections/Utils';
+import { IntersectionsCameraWatcher, IntersectionsDirectionWatcher } from '@Anarchy/Engine/Intersections/Watchers';
 
 function create(params: TAnyIntersectionsWatcherParams): TAnyIntersectionsWatcher | never {
   if (isIntersectionsCameraWatcherParams(params)) return IntersectionsCameraWatcher(params);

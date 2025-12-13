@@ -1,12 +1,12 @@
-import type { TAbstractService } from '@Engine/Abstract';
-import { AbstractService } from '@Engine/Abstract';
-import type { TKinematicLoop } from '@Engine/Kinematic';
-import { toQuaternion } from '@Engine/Math';
-import type { TDisposable } from '@Engine/Mixins';
-import { withFactoryService, withRegistryService, withSerializableEntities } from '@Engine/Mixins';
-import type { TPhysicsLoop } from '@Engine/Physics';
-import { TransformAgent } from '@Engine/TransformDrive/Constants';
-import { ConnectedTransformAgent, DefaultTransformAgent, PhysicsTransformAgent } from '@Engine/TransformDrive/Entities';
+import type { TAbstractService } from '@Anarchy/Engine/Abstract';
+import { AbstractService } from '@Anarchy/Engine/Abstract';
+import type { TKinematicLoop } from '@Anarchy/Engine/Kinematic';
+import { toQuaternion } from '@Anarchy/Engine/Math';
+import type { TDisposable } from '@Anarchy/Engine/Mixins';
+import { withFactoryService, withRegistryService, withSerializableEntities } from '@Anarchy/Engine/Mixins';
+import type { TPhysicsLoop } from '@Anarchy/Engine/Physics';
+import { TransformAgent } from '@Anarchy/Engine/TransformDrive/Constants';
+import { ConnectedTransformAgent, DefaultTransformAgent, PhysicsTransformAgent } from '@Anarchy/Engine/TransformDrive/Entities';
 import type {
   TAbstractTransformAgent,
   TGetTransformAgentsOptions,
@@ -23,9 +23,9 @@ import type {
   TTransformDriveServiceDependencies,
   TTransformDriveServiceWithFactory,
   TTransformDriveServiceWithRegistry
-} from '@Engine/TransformDrive/Models';
-import { getKinematicTransformAgent } from '@Engine/TransformDrive/Utils';
-import { mergeAll } from '@Engine/Utils';
+} from '@Anarchy/Engine/TransformDrive/Models';
+import { getKinematicTransformAgent } from '@Anarchy/Engine/TransformDrive/Utils';
+import { mergeAll } from '@Anarchy/Engine/Utils';
 import type { TOptional, TWriteable } from '@Shared/Utils';
 import { isDefined } from '@Shared/Utils';
 import type { Subscription } from 'rxjs';

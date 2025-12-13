@@ -1,4 +1,4 @@
-import type { TWithRotation, TWithRotationProperty } from '@Engine/Mixins/GameObjects/Models';
+import type { TWithRotation, TWithRotationProperty } from '@Anarchy/Engine/Mixins/GameObjects/Models';
 import { Euler } from 'three';
 
 export function withRotationMixin(entity: TWithRotationProperty): TWithRotation {

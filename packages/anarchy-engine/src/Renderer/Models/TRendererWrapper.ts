@@ -1,5 +1,5 @@
-import type { TWrapper } from '@Engine/Abstract';
-import type { TWithActiveMixin } from '@Engine/Mixins';
+import type { TWrapper } from '@Anarchy/Engine/Abstract';
+import type { TWithActiveMixin } from '@Anarchy/Engine/Mixins';
 import type { BehaviorSubject } from 'rxjs';
 import type { WebGLRenderer } from 'three';
 

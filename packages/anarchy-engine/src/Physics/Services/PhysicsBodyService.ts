@@ -1,7 +1,7 @@
-import type { TAbstractService } from '@Engine/Abstract';
-import { AbstractService } from '@Engine/Abstract';
-import type { TDisposable } from '@Engine/Mixins';
-import { withCreateFromConfigServiceMixin, withCreateServiceMixin, withFactoryService, withRegistryService, withSerializableEntities } from '@Engine/Mixins';
+import type { TAbstractService } from '@Anarchy/Engine/Abstract';
+import { AbstractService } from '@Anarchy/Engine/Abstract';
+import type { TDisposable } from '@Anarchy/Engine/Mixins';
+import { withCreateFromConfigServiceMixin, withCreateServiceMixin, withFactoryService, withRegistryService, withSerializableEntities } from '@Anarchy/Engine/Mixins';
 import type {
   TPhysicsBody,
   TPhysicsBodyConfig,
@@ -13,9 +13,9 @@ import type {
   TPhysicsBodyServiceWithFactory,
   TPhysicsBodyServiceWithRegistry,
   TPhysicsWorldService
-} from '@Engine/Physics/Models';
-import { getKinematicDataFromPhysics } from '@Engine/Physics/Utils';
-import { mergeAll } from '@Engine/Utils';
+} from '@Anarchy/Engine/Physics/Models';
+import { getKinematicDataFromPhysics } from '@Anarchy/Engine/Physics/Utils';
+import { mergeAll } from '@Anarchy/Engine/Utils';
 import type { Subscription } from 'rxjs';
 
 export function PhysicsBodyService(factory: TPhysicsBodyFactory, registry: TPhysicsBodyRegistry, physicsWorldService: TPhysicsWorldService): TPhysicsBodyService {

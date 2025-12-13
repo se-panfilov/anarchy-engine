@@ -1,4 +1,4 @@
-import type { TDestroyable } from '@Engine/Mixins/Generics/Models';
+import type { TDestroyable } from '@Anarchy/Engine/Mixins/Generics/Models';
 import { Subject } from 'rxjs';
 
 export function destroyableMixin(): TDestroyable {

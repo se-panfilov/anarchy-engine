@@ -1,19 +1,19 @@
-import type { TActorParams } from '@Engine/Actor';
-import type { TAnyAudioParams } from '@Engine/Audio';
-import type { TAnyCameraParams } from '@Engine/Camera';
-import type { TControlsParams } from '@Engine/Controls';
-import type { TEnvMapParams } from '@Engine/EnvMap';
-import type { TFogParams } from '@Engine/Fog';
-import type { TFsmParams } from '@Engine/Fsm';
-import type { TAnyIntersectionsWatcherParams } from '@Engine/Intersections';
-import type { TAnyLightParams } from '@Engine/Light';
-import type { TMaterialParams } from '@Engine/Material';
-import type { TModel3dParams } from '@Engine/Models3d';
-import type { TParticlesParams } from '@Engine/Particles';
-import type { TPhysicsParams } from '@Engine/Physics';
-import type { TRendererParams } from '@Engine/Renderer';
-import type { TSpatialGridParams } from '@Engine/Spatial';
-import type { TTextParams } from '@Engine/Text';
+import type { TActorParams } from '@Anarchy/Engine/Actor';
+import type { TAnyAudioParams } from '@Anarchy/Engine/Audio';
+import type { TAnyCameraParams } from '@Anarchy/Engine/Camera';
+import type { TControlsParams } from '@Anarchy/Engine/Controls';
+import type { TEnvMapParams } from '@Anarchy/Engine/EnvMap';
+import type { TFogParams } from '@Anarchy/Engine/Fog';
+import type { TFsmParams } from '@Anarchy/Engine/Fsm';
+import type { TAnyIntersectionsWatcherParams } from '@Anarchy/Engine/Intersections';
+import type { TAnyLightParams } from '@Anarchy/Engine/Light';
+import type { TMaterialParams } from '@Anarchy/Engine/Material';
+import type { TModel3dParams } from '@Anarchy/Engine/Models3d';
+import type { TParticlesParams } from '@Anarchy/Engine/Particles';
+import type { TPhysicsParams } from '@Anarchy/Engine/Physics';
+import type { TRendererParams } from '@Anarchy/Engine/Renderer';
+import type { TSpatialGridParams } from '@Anarchy/Engine/Spatial';
+import type { TTextParams } from '@Anarchy/Engine/Text';
 
 export type TSpaceParamsEntities = Readonly<{
   actors?: ReadonlyArray<TActorParams>;

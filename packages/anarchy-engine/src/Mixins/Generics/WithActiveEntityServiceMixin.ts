@@ -1,6 +1,6 @@
-import type { TAbstractEntityRegistry } from '@Engine/Abstract/Models';
-import type { TRegistrable, TWithActiveMixin, TWithActiveMixinResult } from '@Engine/Mixins/Generics/Models';
-import { setActiveWrappedEntity } from '@Engine/Utils';
+import type { TAbstractEntityRegistry } from '@Anarchy/Engine/Abstract/Models';
+import type { TRegistrable, TWithActiveMixin, TWithActiveMixinResult } from '@Anarchy/Engine/Mixins/Generics/Models';
+import { setActiveWrappedEntity } from '@Anarchy/Engine/Utils';
 import { BehaviorSubject } from 'rxjs';
 
 export function withActiveEntityServiceMixin<W extends TWithActiveMixin & TRegistrable>(registry: TAbstractEntityRegistry<W>): TWithActiveMixinResult<W> {

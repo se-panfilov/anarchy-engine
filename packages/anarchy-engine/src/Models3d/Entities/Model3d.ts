@@ -1,9 +1,9 @@
-import type { TAbstractEntity } from '@Engine/Abstract';
-import { AbstractEntity, EntityType } from '@Engine/Abstract';
-import { withObject3d } from '@Engine/Mixins';
-import { model3dToConfig } from '@Engine/Models3d/Adapters';
-import { withModel3dEntities } from '@Engine/Models3d/Mixins';
-import type { TModel3d, TModel3dConfig, TModel3dConfigToParamsDependencies, TModel3dDependencies, TModel3dEntities, TModel3dParams, TWithModel3dEntities } from '@Engine/Models3d/Models';
+import type { TAbstractEntity } from '@Anarchy/Engine/Abstract';
+import { AbstractEntity, EntityType } from '@Anarchy/Engine/Abstract';
+import { withObject3d } from '@Anarchy/Engine/Mixins';
+import { model3dToConfig } from '@Anarchy/Engine/Models3d/Adapters';
+import { withModel3dEntities } from '@Anarchy/Engine/Models3d/Mixins';
+import type { TModel3d, TModel3dConfig, TModel3dConfigToParamsDependencies, TModel3dDependencies, TModel3dEntities, TModel3dParams, TWithModel3dEntities } from '@Anarchy/Engine/Models3d/Models';
 import {
   applyAnimationsState,
   applyObject3dParamsToModel3d,
@@ -12,8 +12,8 @@ import {
   applyScaleToModel3d,
   createModels3dEntities,
   isModel3dAlreadyInUse
-} from '@Engine/Models3d/Utils';
-import { applyObject3dParams, destroyModel3dAnimationEntities, disposeGltf, mergeAll } from '@Engine/Utils';
+} from '@Anarchy/Engine/Models3d/Utils';
+import { applyObject3dParams, destroyModel3dAnimationEntities, disposeGltf, mergeAll } from '@Anarchy/Engine/Utils';
 import { isDefined } from '@Shared/Utils';
 import type { Subscription } from 'rxjs';
 

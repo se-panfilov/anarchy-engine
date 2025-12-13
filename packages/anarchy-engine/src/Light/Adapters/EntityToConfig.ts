@@ -1,7 +1,7 @@
-import type { TCommonCameraParams } from '@Engine/Camera';
-import { getCommonCameraConfig, getOrthographicCameraOnlyConfig, getPerspectiveCameraOnlyConfig, isOrthographicCameraParams, isPerspectiveCameraParams } from '@Engine/Camera';
-import { serializeColor } from '@Engine/Color';
-import { LightType } from '@Engine/Light/Constants';
+import type { TCommonCameraParams } from '@Anarchy/Engine/Camera';
+import { getCommonCameraConfig, getOrthographicCameraOnlyConfig, getPerspectiveCameraOnlyConfig, isOrthographicCameraParams, isPerspectiveCameraParams } from '@Anarchy/Engine/Camera';
+import { serializeColor } from '@Anarchy/Engine/Color';
+import { LightType } from '@Anarchy/Engine/Light/Constants';
 import type {
   TAbstractLightConfig,
   TAbstractLightWrapper,
@@ -23,9 +23,9 @@ import type {
   TSpotLightConfig,
   TSpotLightParams,
   TSpotLightWrapper
-} from '@Engine/Light/Models';
-import { extractSerializableRegistrableFields } from '@Engine/Mixins';
-import { vector2ToXy } from '@Engine/Utils';
+} from '@Anarchy/Engine/Light/Models';
+import { extractSerializableRegistrableFields } from '@Anarchy/Engine/Mixins';
+import { vector2ToXy } from '@Anarchy/Engine/Utils';
 import type { TWriteable } from '@Shared/Utils';
 import { filterOutEmptyFields, isDefined, isNotDefined } from '@Shared/Utils';
 import type { DirectionalLightShadow, Object3DJSONObject, PointLightShadow, SpotLightShadow, Vector2Like } from 'three';

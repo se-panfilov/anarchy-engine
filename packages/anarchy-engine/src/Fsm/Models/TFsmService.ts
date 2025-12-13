@@ -1,7 +1,7 @@
-import type { TSerializableEntitiesService, TSerializableResourceService } from '@Engine/Abstract';
-import type { FsmEventsStrategy } from '@Engine/Fsm/Constants';
-import type { TFsmConfig, TFsmInstanceRegistry, TFsmParams, TFsmSource, TFsmStates, TFsmWrapper } from '@Engine/Fsm/Models';
-import type { TWithFactoryService } from '@Engine/Mixins';
+import type { TSerializableEntitiesService, TSerializableResourceService } from '@Anarchy/Engine/Abstract';
+import type { FsmEventsStrategy } from '@Anarchy/Engine/Fsm/Constants';
+import type { TFsmConfig, TFsmInstanceRegistry, TFsmParams, TFsmSource, TFsmStates, TFsmWrapper } from '@Anarchy/Engine/Fsm/Models';
+import type { TWithFactoryService } from '@Anarchy/Engine/Mixins';
 
 import type { TFsmInstanceFactory } from './TFsmInstanceFactory';
 import type { TFsmSourceRegistry } from './TFsmSourceRegistry';

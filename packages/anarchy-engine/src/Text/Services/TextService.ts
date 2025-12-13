@@ -1,11 +1,11 @@
-import type { TAbstractService, TRegistryPack } from '@Engine/Abstract';
-import { AbstractService } from '@Engine/Abstract';
-import type { TContainerDecorator } from '@Engine/Global';
-import type { TDisposable } from '@Engine/Mixins';
-import { withCreateFromConfigServiceMixin, withCreateServiceMixin, withFactoryService, withSceneGetterService } from '@Engine/Mixins';
-import type { TSceneWrapper } from '@Engine/Scene';
-import type { TSpaceLoops } from '@Engine/Space';
-import { textLoopEffect } from '@Engine/Text/Loop';
+import type { TAbstractService, TRegistryPack } from '@Anarchy/Engine/Abstract';
+import { AbstractService } from '@Anarchy/Engine/Abstract';
+import type { TContainerDecorator } from '@Anarchy/Engine/Global';
+import type { TDisposable } from '@Anarchy/Engine/Mixins';
+import { withCreateFromConfigServiceMixin, withCreateServiceMixin, withFactoryService, withSceneGetterService } from '@Anarchy/Engine/Mixins';
+import type { TSceneWrapper } from '@Anarchy/Engine/Scene';
+import type { TSpaceLoops } from '@Anarchy/Engine/Space';
+import { textLoopEffect } from '@Anarchy/Engine/Text/Loop';
 import type {
   TText2dRegistry,
   TText2dRenderer,
@@ -22,11 +22,11 @@ import type {
   TTextServiceWithCreate,
   TTextServiceWithCreateFromConfig,
   TTextServiceWithFactory
-} from '@Engine/Text/Models';
-import { initText2dRenderer, initText3dRenderer } from '@Engine/Text/Renderers';
-import styles from '@Engine/Text/Styles/font-elements.css?inline';
-import { isText2dWrapper, isText3dTextureWrapper, isText3dWrapper } from '@Engine/Text/Utils';
-import { injectStyle, mergeAll } from '@Engine/Utils';
+} from '@Anarchy/Engine/Text/Models';
+import { initText2dRenderer, initText3dRenderer } from '@Anarchy/Engine/Text/Renderers';
+import styles from '@Anarchy/Engine/Text/Styles/font-elements.css?inline';
+import { isText2dWrapper, isText3dTextureWrapper, isText3dWrapper } from '@Anarchy/Engine/Text/Utils';
+import { injectStyle, mergeAll } from '@Anarchy/Engine/Utils';
 import type { Subscription } from 'rxjs';
 import { BehaviorSubject, merge } from 'rxjs';
 

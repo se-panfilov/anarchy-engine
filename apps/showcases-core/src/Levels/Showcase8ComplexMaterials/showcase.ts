@@ -21,8 +21,8 @@ import type {
   TWithSheenRoughness,
   TWithThickness,
   TWithTransmission
-} from '@Engine';
-import { ControlsType, getTags, isOrbitControls, KeyCode, LookUpStrategy, spaceService, TextType } from '@Engine';
+} from '@Anarchy/Engine';
+import { ControlsType, getTags, isOrbitControls, KeyCode, LookUpStrategy, spaceService, TextType } from '@Anarchy/Engine';
 import { asRecord, isDefined, isNotDefined } from '@Shared/Utils';
 import type { Controller } from 'lil-gui';
 import GUI from 'lil-gui';

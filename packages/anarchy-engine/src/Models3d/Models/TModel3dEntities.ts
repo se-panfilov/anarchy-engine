@@ -1,4 +1,4 @@
-import type { TAnimationActions } from '@Engine/Animations';
+import type { TAnimationActions } from '@Anarchy/Engine/Animations';
 import type { AnimationMixer } from 'three';
 
 import type { TModel3dParams } from './TModel3dParams';

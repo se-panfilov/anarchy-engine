@@ -1,9 +1,9 @@
-import type { TActor, TActorConfig, TActorEntityToConfigDependencies, TActorStates } from '@Engine/Actor/Models';
-import type { TCollisionsDataConfig } from '@Engine/Collisions';
-import type { TFsmConfig, TFsmWrapper } from '@Engine/Fsm';
-import { extractSerializableRegistrableFields } from '@Engine/Mixins';
-import type { TModel3d, TModels3dRegistry } from '@Engine/Models3d';
-import type { TSpatialDataConfig } from '@Engine/Spatial';
+import type { TActor, TActorConfig, TActorEntityToConfigDependencies, TActorStates } from '@Anarchy/Engine/Actor/Models';
+import type { TCollisionsDataConfig } from '@Anarchy/Engine/Collisions';
+import type { TFsmConfig, TFsmWrapper } from '@Anarchy/Engine/Fsm';
+import { extractSerializableRegistrableFields } from '@Anarchy/Engine/Mixins';
+import type { TModel3d, TModels3dRegistry } from '@Anarchy/Engine/Models3d';
+import type { TSpatialDataConfig } from '@Anarchy/Engine/Spatial';
 import { filterOutEmptyFields, isNotDefined } from '@Shared/Utils';
 
 export function actorToConfig(entity: TActor, { models3dService }: TActorEntityToConfigDependencies): TActorConfig {

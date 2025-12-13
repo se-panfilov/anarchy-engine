@@ -1,4 +1,4 @@
-import type { TWithPosition2d, TWithPosition2dProperty } from '@Engine/Mixins/GameObjects/Models';
+import type { TWithPosition2d, TWithPosition2dProperty } from '@Anarchy/Engine/Mixins/GameObjects/Models';
 import { Vector2 } from 'three';
 
 export function withPosition2dMixin(entity: TWithPosition2dProperty): TWithPosition2d {

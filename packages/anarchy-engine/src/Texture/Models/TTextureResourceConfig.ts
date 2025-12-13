@@ -1,4 +1,4 @@
-import type { TAbstractResourceConfig } from '@Engine/Abstract';
+import type { TAbstractResourceConfig } from '@Anarchy/Engine/Abstract';
 
 import type { TTextureOptions } from './TTextureOptions';
 

@@ -1,6 +1,6 @@
-import type { TSerializableEntitiesService } from '@Engine/Abstract';
-import type { TWithCreateFromConfigService, TWithCreateService, TWithFactoryService, TWithRegistryService } from '@Engine/Mixins';
-import type { TSpaceSettings } from '@Engine/Space';
+import type { TSerializableEntitiesService } from '@Anarchy/Engine/Abstract';
+import type { TWithCreateFromConfigService, TWithCreateService, TWithFactoryService, TWithRegistryService } from '@Anarchy/Engine/Mixins';
+import type { TSpaceSettings } from '@Anarchy/Engine/Space';
 
 import type { TSpace } from './TSpace';
 import type { TSpaceConfig } from './TSpaceConfig';

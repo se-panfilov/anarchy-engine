@@ -1,4 +1,4 @@
-import type { TMilliseconds } from '@Engine/Math';
+import type { TMilliseconds } from '@Anarchy/Engine/Math';
 import type { Clock } from 'three';
 
 export type TDeltaCalculator = Readonly<{

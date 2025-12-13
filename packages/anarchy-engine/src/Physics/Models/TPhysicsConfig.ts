@@ -1,4 +1,4 @@
-import type { TPhysicsBodyConfig } from '@Engine/Physics';
+import type { TPhysicsBodyConfig } from '@Anarchy/Engine/Physics';
 
 import type { TPhysicsWorldConfig } from './TPhysicsWorldConfig';
 

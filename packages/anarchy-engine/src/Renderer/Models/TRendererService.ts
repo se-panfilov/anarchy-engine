@@ -1,5 +1,5 @@
-import type { TSerializableEntitiesService } from '@Engine/Abstract';
-import type { TWithActiveAccessorsService, TWithCreateFromConfigService, TWithCreateService, TWithFactoryService, TWithRegistryService } from '@Engine/Mixins';
+import type { TSerializableEntitiesService } from '@Anarchy/Engine/Abstract';
+import type { TWithActiveAccessorsService, TWithCreateFromConfigService, TWithCreateService, TWithFactoryService, TWithRegistryService } from '@Anarchy/Engine/Mixins';
 
 import type { TRendererConfig } from './TRendererConfig';
 import type { TRendererFactory } from './TRendererFactory';

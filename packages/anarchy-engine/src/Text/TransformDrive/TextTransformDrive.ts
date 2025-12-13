@@ -1,5 +1,5 @@
-import type { TTextParams, TTextServiceDependencies, TTextTransformAgents, TTextTransformDrive } from '@Engine/Text/Models';
-import type { TTransformDriveParams } from '@Engine/TransformDrive';
+import type { TTextParams, TTextServiceDependencies, TTextTransformAgents, TTextTransformDrive } from '@Anarchy/Engine/Text/Models';
+import type { TTransformDriveParams } from '@Anarchy/Engine/TransformDrive';
 
 export function TextTransformDrive(params: TTextParams, { transformDriveService }: Pick<TTextServiceDependencies, 'transformDriveService'>, relatedEntityId: string): TTextTransformDrive {
   const transformAgents: TTextTransformAgents = transformDriveService.getTransformAgents(params, {

@@ -1,5 +1,5 @@
-import { serializeColorWhenPossible } from '@Engine/Color';
-import type { MaterialType } from '@Engine/Material/Constants';
+import { serializeColorWhenPossible } from '@Anarchy/Engine/Color';
+import type { MaterialType } from '@Anarchy/Engine/Material/Constants';
 import {
   BlendEquationMap,
   BlendingDstFactorMap,
@@ -12,7 +12,7 @@ import {
   StencilFailMap,
   StencilFuncMap,
   StencilOpMap
-} from '@Engine/Material/Constants';
+} from '@Anarchy/Engine/Material/Constants';
 import type {
   TAnyMaterialWrapper,
   TMaterialConfig,
@@ -21,10 +21,10 @@ import type {
   TMaterialEntityToConfigDependencies,
   TMaterialParamsTextures,
   TMaterials
-} from '@Engine/Material/Models';
-import { eulerToXyzIfPossible, getOptionNameIfPossible, vector2ToXyIfPossible } from '@Engine/Material/Utils';
-import { extractSerializableRegistrableFields } from '@Engine/Mixins';
-import type { TTexture, TTextureAsyncRegistry } from '@Engine/Texture';
+} from '@Anarchy/Engine/Material/Models';
+import { eulerToXyzIfPossible, getOptionNameIfPossible, vector2ToXyIfPossible } from '@Anarchy/Engine/Material/Utils';
+import { extractSerializableRegistrableFields } from '@Anarchy/Engine/Mixins';
+import type { TTexture, TTextureAsyncRegistry } from '@Anarchy/Engine/Texture';
 import type { TOptional } from '@Shared/Utils';
 import { filterOutEmptyFields, nullsToUndefined } from '@Shared/Utils';
 import { isEmpty } from 'lodash-es';

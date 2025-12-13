@@ -1,6 +1,6 @@
-import type { TWithName, TWithTags } from '@Engine/Mixins';
-import type { TSceneParams } from '@Engine/Scene';
-import type { SpaceSchemaVersion } from '@Engine/Space/Constants';
+import type { TWithName, TWithTags } from '@Anarchy/Engine/Mixins';
+import type { TSceneParams } from '@Anarchy/Engine/Scene';
+import type { SpaceSchemaVersion } from '@Anarchy/Engine/Space/Constants';
 
 import type { TSpaceParamsEntities } from './TSpaceParamsEntities';
 

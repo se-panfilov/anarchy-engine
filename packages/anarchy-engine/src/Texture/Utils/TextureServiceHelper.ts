@@ -1,4 +1,4 @@
-import type { TTexture, TTextureOptions } from '@Engine/Texture/Models';
+import type { TTexture, TTextureOptions } from '@Anarchy/Engine/Texture/Models';
 import type { TWriteable } from '@Shared/Utils';
 import { isDefined, isNotDefined } from '@Shared/Utils';
 import type { MagnificationTextureFilter, MinificationTextureFilter } from 'three';

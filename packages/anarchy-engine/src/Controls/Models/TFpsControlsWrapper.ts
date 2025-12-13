@@ -1,8 +1,8 @@
-import type { TWrapper } from '@Engine/Abstract';
-import type { TAnyCameraWrapper } from '@Engine/Camera';
-import type { ControlsType } from '@Engine/Controls/Constants';
-import type { TMilliseconds } from '@Engine/Math';
-import type { TWithActiveMixin } from '@Engine/Mixins';
+import type { TWrapper } from '@Anarchy/Engine/Abstract';
+import type { TAnyCameraWrapper } from '@Anarchy/Engine/Camera';
+import type { ControlsType } from '@Anarchy/Engine/Controls/Constants';
+import type { TMilliseconds } from '@Anarchy/Engine/Math';
+import type { TWithActiveMixin } from '@Anarchy/Engine/Mixins';
 import type { Euler, EventDispatcher, Quaternion } from 'three';
 import type { FirstPersonControls } from 'three/examples/jsm/controls/FirstPersonControls';
 

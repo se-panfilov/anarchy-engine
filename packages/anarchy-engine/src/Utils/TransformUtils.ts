@@ -1,4 +1,4 @@
-import type { TEulerLike, TEulerString } from '@Engine/ThreeLib';
+import type { TEulerLike, TEulerString } from '@Anarchy/Engine/ThreeLib';
 import type { Vector2Like, Vector3Like, Vector4Like } from 'three';
 
 export function isEqualOrSimilarNumbers(prev: number, curr: number, threshold: number = 0): boolean {

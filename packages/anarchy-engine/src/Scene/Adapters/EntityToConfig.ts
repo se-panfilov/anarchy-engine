@@ -1,7 +1,7 @@
-import type { TColor } from '@Engine/Color';
-import { serializeColor } from '@Engine/Color';
-import { extractSerializableRegistrableFields } from '@Engine/Mixins';
-import type { TSceneConfig, TSceneWrapper } from '@Engine/Scene/Models';
+import type { TColor } from '@Anarchy/Engine/Color';
+import { serializeColor } from '@Anarchy/Engine/Color';
+import { extractSerializableRegistrableFields } from '@Anarchy/Engine/Mixins';
+import type { TSceneConfig, TSceneWrapper } from '@Anarchy/Engine/Scene/Models';
 import { filterOutEmptyFields, isDefined } from '@Shared/Utils';
 
 export function sceneToConfig(entity: TSceneWrapper): TSceneConfig {

@@ -1,10 +1,10 @@
-import type { TAbstractService } from '@Engine/Abstract';
-import { AbstractService } from '@Engine/Abstract';
-import type { TAnimationsResourceAsyncRegistry, TAnimationsService } from '@Engine/Animations';
-import type { TMaterialRegistry, TMaterialService } from '@Engine/Material';
-import type { TDisposable } from '@Engine/Mixins';
-import { withCreateFromConfigServiceMixin, withCreateServiceMixin, withFactoryService, withRegistryService, withSerializableEntities, withSerializeAllResources } from '@Engine/Mixins';
-import { Models3dLoader } from '@Engine/Models3d/Loaders';
+import type { TAbstractService } from '@Anarchy/Engine/Abstract';
+import { AbstractService } from '@Anarchy/Engine/Abstract';
+import type { TAnimationsResourceAsyncRegistry, TAnimationsService } from '@Anarchy/Engine/Animations';
+import type { TMaterialRegistry, TMaterialService } from '@Anarchy/Engine/Material';
+import type { TDisposable } from '@Anarchy/Engine/Mixins';
+import { withCreateFromConfigServiceMixin, withCreateServiceMixin, withFactoryService, withRegistryService, withSerializableEntities, withSerializeAllResources } from '@Anarchy/Engine/Mixins';
+import { Models3dLoader } from '@Anarchy/Engine/Models3d/Loaders';
 import type {
   TModel3d,
   TModel3dConfig,
@@ -24,9 +24,9 @@ import type {
   TModels3dResourceAsyncRegistry,
   TModels3dService,
   TModels3dServiceDependencies
-} from '@Engine/Models3d/Models';
-import type { TSpaceSettings } from '@Engine/Space';
-import { mergeAll } from '@Engine/Utils';
+} from '@Anarchy/Engine/Models3d/Models';
+import type { TSpaceSettings } from '@Anarchy/Engine/Space';
+import { mergeAll } from '@Anarchy/Engine/Utils';
 import type { TOptional } from '@Shared/Utils';
 import type { Subscription } from 'rxjs';
 

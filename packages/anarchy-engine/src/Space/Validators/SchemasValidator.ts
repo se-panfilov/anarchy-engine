@@ -1,17 +1,17 @@
-import type { TAbstractResourceConfig } from '@Engine/Abstract';
-import type { TActorConfig } from '@Engine/Actor';
-import type { TAnyAudioConfig, TAudioResourceConfig } from '@Engine/Audio';
-import type { TAnyCameraConfig } from '@Engine/Camera';
-import type { TControlsConfig } from '@Engine/Controls';
-import type { TAnyIntersectionsWatcherConfig } from '@Engine/Intersections';
-import { isIntersectionsCameraWatcherConfig } from '@Engine/Intersections';
-import type { TActive, TWithName, TWithNameOptional, TWithTags } from '@Engine/Mixins';
-import type { TModel3dConfig, TModel3dResourceConfig } from '@Engine/Models3d';
-import type { TPhysicsBodyConfig, TPhysicsConfig } from '@Engine/Physics';
-import type { TSceneConfig } from '@Engine/Scene/Models';
-import { SpaceSchemaVersion } from '@Engine/Space/Constants';
-import type { TSpaceConfig, TSpaceConfigEntities, TSpaceConfigResources } from '@Engine/Space/Models';
-import TSpaceConfigSchema from '@Engine/Space/Schemas/TSpaceConfig.json';
+import type { TAbstractResourceConfig } from '@Anarchy/Engine/Abstract';
+import type { TActorConfig } from '@Anarchy/Engine/Actor';
+import type { TAnyAudioConfig, TAudioResourceConfig } from '@Anarchy/Engine/Audio';
+import type { TAnyCameraConfig } from '@Anarchy/Engine/Camera';
+import type { TControlsConfig } from '@Anarchy/Engine/Controls';
+import type { TAnyIntersectionsWatcherConfig } from '@Anarchy/Engine/Intersections';
+import { isIntersectionsCameraWatcherConfig } from '@Anarchy/Engine/Intersections';
+import type { TActive, TWithName, TWithNameOptional, TWithTags } from '@Anarchy/Engine/Mixins';
+import type { TModel3dConfig, TModel3dResourceConfig } from '@Anarchy/Engine/Models3d';
+import type { TPhysicsBodyConfig, TPhysicsConfig } from '@Anarchy/Engine/Physics';
+import type { TSceneConfig } from '@Anarchy/Engine/Scene/Models';
+import { SpaceSchemaVersion } from '@Anarchy/Engine/Space/Constants';
+import type { TSpaceConfig, TSpaceConfigEntities, TSpaceConfigResources } from '@Anarchy/Engine/Space/Models';
+import TSpaceConfigSchema from '@Anarchy/Engine/Space/Schemas/TSpaceConfig.json';
 import {
   validate,
   validateActorNamesForEveryEntity,
@@ -26,7 +26,7 @@ import {
   validateNoSameName,
   validateTags,
   validateTagsForEveryEntity
-} from '@Engine/Space/Utils';
+} from '@Anarchy/Engine/Space/Utils';
 import { isDefined } from '@Shared/Utils';
 import Ajv from 'ajv';
 import { isArray } from 'lodash-es';

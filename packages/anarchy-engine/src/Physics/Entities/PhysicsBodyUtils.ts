@@ -1,7 +1,7 @@
 import type { Collider, RigidBody, TriMeshFlags, World } from '@dimforge/rapier3d';
 import { ColliderDesc, RigidBodyDesc } from '@dimforge/rapier3d';
-import { coordsXYZToMeters, meters } from '@Engine/Measurements/Utils';
-import { CollisionShape, RigidBodyTypesNames } from '@Engine/Physics/Constants';
+import { coordsXYZToMeters, meters } from '@Anarchy/Engine/Measurements/Utils';
+import { CollisionShape, RigidBodyTypesNames } from '@Anarchy/Engine/Physics/Constants';
 import type {
   TAllPhysicsShapeParams,
   TPhysicsBodyEntities,
@@ -17,7 +17,7 @@ import type {
   TPhysicsShapeRoundTriangleParams,
   TPhysicsShapeTriangleParams,
   TPhysicsShapeTriMeshParams
-} from '@Engine/Physics/Models';
+} from '@Anarchy/Engine/Physics/Models';
 import type { TOptional } from '@Shared/Utils';
 import { isDefined, isNotDefined } from '@Shared/Utils';
 import type { Vector3 } from 'three';

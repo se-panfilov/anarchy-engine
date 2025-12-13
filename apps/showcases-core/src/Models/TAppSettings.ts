@@ -1,4 +1,4 @@
-import type { TSpaceSettings } from '@Engine';
+import type { TSpaceSettings } from '@Anarchy/Engine';
 
 export type TAppSettings = Readonly<{
   loopsDebugInfo: boolean;

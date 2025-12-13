@@ -1,4 +1,4 @@
-import type { TAbstractLightWrapper, TAmbientLight, TAmbientLightParams, TLightServiceDependencies } from '@Engine/Light/Models';
+import type { TAbstractLightWrapper, TAmbientLight, TAmbientLightParams, TLightServiceDependencies } from '@Anarchy/Engine/Light/Models';
 import { AmbientLight } from 'three';
 
 import { AbstractLightWrapper } from './AbstractLightWrapper';

@@ -1,4 +1,4 @@
-import type { TWithReactivePosition } from '@Engine/Spatial/Models';
+import type { TWithReactivePosition } from '@Anarchy/Engine/Spatial/Models';
 import { Subject } from 'rxjs';
 import type { Group, Mesh, Object3D } from 'three';
 import { Vector3 } from 'three';

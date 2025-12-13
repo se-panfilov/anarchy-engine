@@ -14,8 +14,8 @@ import type {
   TSpaceConfig,
   TSpaceLoops,
   TSpaceServices
-} from '@Engine';
-import { DebugAudioRenderer, isAudio3dWrapper, spaceService } from '@Engine';
+} from '@Anarchy/Engine';
+import { DebugAudioRenderer, isAudio3dWrapper, spaceService } from '@Anarchy/Engine';
 import { asRecord, isDefined, isNotDefined } from '@Shared/Utils';
 import GUI from 'lil-gui';
 import { distinctUntilChanged } from 'rxjs';

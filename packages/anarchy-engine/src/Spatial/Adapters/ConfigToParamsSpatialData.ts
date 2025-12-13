@@ -1,4 +1,4 @@
-import type { TSpatialConfigToParamsSpatialDataDependencies, TSpatialDataConfig, TSpatialDataParams } from '@Engine/Spatial/Models';
+import type { TSpatialConfigToParamsSpatialDataDependencies, TSpatialDataConfig, TSpatialDataParams } from '@Anarchy/Engine/Spatial/Models';
 
 export function configToParamsSpatialData(config: TSpatialDataConfig, { spatialGridRegistry }: TSpatialConfigToParamsSpatialDataDependencies): TSpatialDataParams {
   return {

@@ -1,8 +1,8 @@
-import type { TAbstractService } from '@Engine/Abstract';
-import { AbstractService } from '@Engine/Abstract';
-import type { TDisposable } from '@Engine/Mixins';
-import { withCreateServiceMixin, withFactoryService, withRegistryService, withSerializableEntities } from '@Engine/Mixins';
-import { SpaceFactory } from '@Engine/Space/Factories';
+import type { TAbstractService } from '@Anarchy/Engine/Abstract';
+import { AbstractService } from '@Anarchy/Engine/Abstract';
+import type { TDisposable } from '@Anarchy/Engine/Mixins';
+import { withCreateServiceMixin, withFactoryService, withRegistryService, withSerializableEntities } from '@Anarchy/Engine/Mixins';
+import { SpaceFactory } from '@Anarchy/Engine/Space/Factories';
 import type {
   TSpace,
   TSpaceConfig,
@@ -13,10 +13,10 @@ import type {
   TSpaceServiceWithFactory,
   TSpaceServiceWithRegistry,
   TSpaceSettings
-} from '@Engine/Space/Models';
-import { SpaceRegistry } from '@Engine/Space/Registries';
-import { validateConfig, validateSpacesDoNotUseSameCanvas } from '@Engine/Space/Validators';
-import { mergeAll } from '@Engine/Utils';
+} from '@Anarchy/Engine/Space/Models';
+import { SpaceRegistry } from '@Anarchy/Engine/Space/Registries';
+import { validateConfig, validateSpacesDoNotUseSameCanvas } from '@Anarchy/Engine/Space/Validators';
+import { mergeAll } from '@Anarchy/Engine/Utils';
 import type { Subscription } from 'rxjs';
 
 export function SpaceService(factory: TSpaceFactory, registry: TSpaceRegistry): TSpaceService {

@@ -1,4 +1,4 @@
-import type { TAbstractLightWrapper, TLightServiceDependencies, TRectAreaLight, TRectAreaLightParams } from '@Engine/Light/Models';
+import type { TAbstractLightWrapper, TLightServiceDependencies, TRectAreaLight, TRectAreaLightParams } from '@Anarchy/Engine/Light/Models';
 import { RectAreaLight } from 'three';
 
 import { AbstractLightWrapper } from './AbstractLightWrapper';

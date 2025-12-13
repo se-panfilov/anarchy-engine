@@ -1,4 +1,4 @@
-import type { TAbstractMetaInfoRegistry } from '@Engine/Abstract';
+import type { TAbstractMetaInfoRegistry } from '@Anarchy/Engine/Abstract';
 
 import type { TEnvMapResourceConfig } from './TEnvMapResourceConfig';
 

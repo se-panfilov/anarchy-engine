@@ -1,6 +1,6 @@
-import { CreateEntitiesStrategy, SpaceEvents } from '@Engine/Space/Constants';
-import type { TSpace, TSpaceConfig, TSpaceParams, TSpaceRegistry, TSpaceSettings } from '@Engine/Space/Models';
-import { createEntities, loadResourcesFromConfig } from '@Engine/Space/Utils';
+import { CreateEntitiesStrategy, SpaceEvents } from '@Anarchy/Engine/Space/Constants';
+import type { TSpace, TSpaceConfig, TSpaceParams, TSpaceRegistry, TSpaceSettings } from '@Anarchy/Engine/Space/Models';
+import { createEntities, loadResourcesFromConfig } from '@Anarchy/Engine/Space/Utils';
 import type { TWriteable } from '@Shared/Utils';
 import { isDefined } from '@Shared/Utils';
 import type { Observable, Subscription } from 'rxjs';

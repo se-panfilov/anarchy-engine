@@ -1,5 +1,5 @@
-import type { LoopUpdatePriority } from '@Engine/Loop/Constants';
-import { LoopTrigger, LoopWorkerActions, MaxTicks } from '@Engine/Loop/Constants';
+import type { LoopUpdatePriority } from '@Anarchy/Engine/Loop/Constants';
+import { LoopTrigger, LoopWorkerActions, MaxTicks } from '@Anarchy/Engine/Loop/Constants';
 import type {
   TDelta,
   TDeltaCalculator,
@@ -10,9 +10,9 @@ import type {
   TLoopWorkerResponseData,
   TLoopWorkerStartRequestData,
   TLoopWorkerStopRequestData
-} from '@Engine/Loop/Models';
-import type { TDestroyable } from '@Engine/Mixins';
-import { destroyableMixin } from '@Engine/Mixins';
+} from '@Anarchy/Engine/Loop/Models';
+import type { TDestroyable } from '@Anarchy/Engine/Mixins';
+import { destroyableMixin } from '@Anarchy/Engine/Mixins';
 import { isDefined, isNotDefined } from '@Shared/Utils';
 import { nanoid } from 'nanoid';
 import type { Observable, Subscription } from 'rxjs';

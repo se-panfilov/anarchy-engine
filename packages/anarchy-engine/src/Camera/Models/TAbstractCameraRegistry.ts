@@ -1,4 +1,4 @@
-import type { TAbstractEntityRegistry } from '@Engine/Abstract/Models';
+import type { TAbstractEntityRegistry } from '@Anarchy/Engine/Abstract/Models';
 
 import type { TAnyCameraWrapper } from './TAnyCameraWrapper';
 

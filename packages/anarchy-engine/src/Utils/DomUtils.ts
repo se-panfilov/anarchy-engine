@@ -1,6 +1,6 @@
-import { ambientContext } from '@Engine/Context';
-import type { TAppGlobalContainer, TContainerDecorator } from '@Engine/Global';
-import { ContainerDecorator } from '@Engine/Global';
+import { ambientContext } from '@Anarchy/Engine/Context';
+import type { TAppGlobalContainer, TContainerDecorator } from '@Anarchy/Engine/Global';
+import { ContainerDecorator } from '@Anarchy/Engine/Global';
 import { isDefined, isNotDefined } from '@Shared/Utils';
 import type { Subscriber } from 'rxjs';
 import { distinctUntilChanged, fromEvent, map, merge, Observable, startWith } from 'rxjs';

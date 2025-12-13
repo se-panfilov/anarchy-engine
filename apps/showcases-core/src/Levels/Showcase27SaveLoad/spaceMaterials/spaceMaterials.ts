@@ -1,4 +1,4 @@
-import type { TMaterialConfigOptions, TPhysicalMaterialWrapper, TSpace, TSpaceConfig } from '@Engine';
+import type { TMaterialConfigOptions, TPhysicalMaterialWrapper, TSpace, TSpaceConfig } from '@Anarchy/Engine';
 import { isNotDefined } from '@Shared/Utils';
 import { BehaviorSubject } from 'rxjs';
 

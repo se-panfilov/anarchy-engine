@@ -1,6 +1,6 @@
-import type { TActor } from '@Engine/Actor';
-import type { TSpatialCell, TSpatialCellWrapper, TSpatialGridWrapper, TWithUpdateSpatialCell } from '@Engine/Spatial/Models';
-import type { TReadonlyVector3 } from '@Engine/ThreeLib';
+import type { TActor } from '@Anarchy/Engine/Actor';
+import type { TSpatialCell, TSpatialCellWrapper, TSpatialGridWrapper, TWithUpdateSpatialCell } from '@Anarchy/Engine/Spatial/Models';
+import type { TReadonlyVector3 } from '@Anarchy/Engine/ThreeLib';
 import { isDefined, isNotDefined } from '@Shared/Utils';
 
 export function withUpdateSpatialCell(): TWithUpdateSpatialCell {

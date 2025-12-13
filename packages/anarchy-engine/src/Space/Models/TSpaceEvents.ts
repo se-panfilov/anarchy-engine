@@ -1,5 +1,5 @@
-import type { TSpaceLoops, TSpaceServices } from '@Engine/Space';
-import type { SpaceEvents } from '@Engine/Space/Constants';
+import type { TSpaceLoops, TSpaceServices } from '@Anarchy/Engine/Space';
+import type { SpaceEvents } from '@Anarchy/Engine/Space/Constants';
 
 import type { TSpaceCanvas } from './TSpaceCanvas';
 import type { TSpaceConfig } from './TSpaceConfig';

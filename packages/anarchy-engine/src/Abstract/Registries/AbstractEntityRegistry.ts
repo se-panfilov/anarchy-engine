@@ -1,11 +1,11 @@
-import type { RegistryType } from '@Engine/Abstract/Constants';
-import type { TAbstractEntityRegistry, TWithBaseAccessorsRegistry, TWithReactiveRegistry } from '@Engine/Abstract/Models';
-import type { LookUpStrategy } from '@Engine/Abstract/Registries/Constants';
-import { withBaseAccessorsRegistry } from '@Engine/Abstract/Registries/Mixin';
-import { withReactiveRegistry } from '@Engine/Abstract/Registries/Mixin/Registry/WithReactiveRegistry';
-import type { TDestroyable, TMultitonRegistrable, TRegistrable } from '@Engine/Mixins';
-import { destroyableMixin } from '@Engine/Mixins';
-import { getAllEntitiesWithNames, getAllEntitiesWithTag, getAllEntitiesWithTags, getUniqEntityWithTag, getUniqEntityWithTags, mergeAll } from '@Engine/Utils';
+import type { RegistryType } from '@Anarchy/Engine/Abstract/Constants';
+import type { TAbstractEntityRegistry, TWithBaseAccessorsRegistry, TWithReactiveRegistry } from '@Anarchy/Engine/Abstract/Models';
+import type { LookUpStrategy } from '@Anarchy/Engine/Abstract/Registries/Constants';
+import { withBaseAccessorsRegistry } from '@Anarchy/Engine/Abstract/Registries/Mixin';
+import { withReactiveRegistry } from '@Anarchy/Engine/Abstract/Registries/Mixin/Registry/WithReactiveRegistry';
+import type { TDestroyable, TMultitonRegistrable, TRegistrable } from '@Anarchy/Engine/Mixins';
+import { destroyableMixin } from '@Anarchy/Engine/Mixins';
+import { getAllEntitiesWithNames, getAllEntitiesWithTag, getAllEntitiesWithTags, getUniqEntityWithTag, getUniqEntityWithTags, mergeAll } from '@Anarchy/Engine/Utils';
 import { findInMap, findKeyWithValue, isNotDefined } from '@Shared/Utils';
 import { nanoid } from 'nanoid';
 

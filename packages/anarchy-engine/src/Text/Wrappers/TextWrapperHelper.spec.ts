@@ -1,5 +1,5 @@
-import { WrapperType } from '@Engine/Abstract';
-import { TextType } from '@Engine/Text';
+import { WrapperType } from '@Anarchy/Engine/Abstract';
+import { TextType } from '@Anarchy/Engine/Text';
 import { describe, expect, it } from 'vitest';
 
 import { getWrapperTypeByTextType } from './TextWrapperHelper';

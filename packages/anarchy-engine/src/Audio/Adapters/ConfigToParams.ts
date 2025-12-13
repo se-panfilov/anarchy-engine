@@ -1,6 +1,6 @@
-import { Listeners } from '@Engine/Audio/Constants';
-import type { TAnyAudioConfig, TAnyAudioParams, TAudio3dConfig, TAudio3dParams, TAudioConfigToParamsDependencies, TAudioResourceAsyncRegistry } from '@Engine/Audio/Models';
-import { isAudio3dConfig } from '@Engine/Audio/Utils';
+import { Listeners } from '@Anarchy/Engine/Audio/Constants';
+import type { TAnyAudioConfig, TAnyAudioParams, TAudio3dConfig, TAudio3dParams, TAudioConfigToParamsDependencies, TAudioResourceAsyncRegistry } from '@Anarchy/Engine/Audio/Models';
+import { isAudio3dConfig } from '@Anarchy/Engine/Audio/Utils';
 import type { TWriteable } from '@Shared/Utils';
 import { Vector3 } from 'three';
 

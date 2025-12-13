@@ -1,7 +1,7 @@
-import type { LightType } from '@Engine/Light/Constants';
-import type { TWithName, TWithTags } from '@Engine/Mixins';
-import type { TObject3DParams } from '@Engine/ThreeLib';
-import type { TWithTransformAgentParam } from '@Engine/TransformDrive';
+import type { LightType } from '@Anarchy/Engine/Light/Constants';
+import type { TWithName, TWithTags } from '@Anarchy/Engine/Mixins';
+import type { TObject3DParams } from '@Anarchy/Engine/ThreeLib';
+import type { TWithTransformAgentParam } from '@Anarchy/Engine/TransformDrive';
 import type { Color } from 'three';
 
 import type { TLightShadowParams } from './TLightShadowParams';

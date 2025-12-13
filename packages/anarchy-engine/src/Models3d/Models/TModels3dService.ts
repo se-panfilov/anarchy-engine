@@ -1,6 +1,6 @@
-import type { TSerializableEntitiesService, TSerializableResourceService } from '@Engine/Abstract';
-import type { TAnimationsService } from '@Engine/Animations';
-import type { TMaterialService } from '@Engine/Material';
+import type { TSerializableEntitiesService, TSerializableResourceService } from '@Anarchy/Engine/Abstract';
+import type { TAnimationsService } from '@Anarchy/Engine/Animations';
+import type { TMaterialService } from '@Anarchy/Engine/Material';
 import type {
   TWithCreateFromConfigService,
   TWithCreateService,
@@ -9,7 +9,7 @@ import type {
   TWithRegistryService,
   TWithResourcesMetaInfoRegistryService,
   TWithResourcesRegistryService
-} from '@Engine/Mixins';
+} from '@Anarchy/Engine/Mixins';
 import type {
   TModel3d,
   TModel3dConfig,
@@ -20,7 +20,7 @@ import type {
   TModels3dRegistry,
   TModels3dResourceAsyncRegistry,
   TModels3dServiceDependencies
-} from '@Engine/Models3d/Models';
+} from '@Anarchy/Engine/Models3d/Models';
 import type { TOptional } from '@Shared/Utils';
 import type { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
 

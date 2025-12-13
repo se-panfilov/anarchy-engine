@@ -1,6 +1,6 @@
-import type { RegistryType, TAbstractAsyncEntityRegistry, TAbstractEntityRegistry, TAbstractResourceAsyncRegistry, TAbstractSimpleRegistry, TRegistryPack } from '@Engine/Abstract';
-import { AbstractEntityAsyncRegistry, AbstractEntityRegistry, AbstractResourceAsyncRegistry, AbstractSimpleRegistry, LookUpStrategy } from '@Engine/Abstract';
-import type { TRegistrable } from '@Engine/Mixins';
+import type { RegistryType, TAbstractAsyncEntityRegistry, TAbstractEntityRegistry, TAbstractResourceAsyncRegistry, TAbstractSimpleRegistry, TRegistryPack } from '@Anarchy/Engine/Abstract';
+import { AbstractEntityAsyncRegistry, AbstractEntityRegistry, AbstractResourceAsyncRegistry, AbstractSimpleRegistry, LookUpStrategy } from '@Anarchy/Engine/Abstract';
+import type { TRegistrable } from '@Anarchy/Engine/Mixins';
 import { firstValueFrom } from 'rxjs';
 import { beforeEach, describe, expect, it } from 'vitest';
 

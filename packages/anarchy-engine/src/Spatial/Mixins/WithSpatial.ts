@@ -1,9 +1,9 @@
-import type { TActorParams } from '@Engine/Actor';
-import { LoopUpdatePriority } from '@Engine/Loop';
-import type { TDestroyable } from '@Engine/Mixins';
-import { destroyableMixin } from '@Engine/Mixins';
-import type { TSpatialCellWrapper, TSpatialGridWrapper } from '@Engine/Spatial';
-import type { TSpatialData, TWithSpatial } from '@Engine/Spatial/Models';
+import type { TActorParams } from '@Anarchy/Engine/Actor';
+import { LoopUpdatePriority } from '@Anarchy/Engine/Loop';
+import type { TDestroyable } from '@Anarchy/Engine/Mixins';
+import { destroyableMixin } from '@Anarchy/Engine/Mixins';
+import type { TSpatialCellWrapper, TSpatialGridWrapper } from '@Anarchy/Engine/Spatial';
+import type { TSpatialData, TWithSpatial } from '@Anarchy/Engine/Spatial/Models';
 import type { TWriteable } from '@Shared/Utils';
 import type { Subscription } from 'rxjs';
 import { BehaviorSubject, Subject } from 'rxjs';

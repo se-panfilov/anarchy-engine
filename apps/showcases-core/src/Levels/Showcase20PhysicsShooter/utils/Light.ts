@@ -1,5 +1,5 @@
-import type { TDirectionalLightWrapper, TLightService, TPointLightWrapper } from '@Engine';
-import { LightType } from '@Engine';
+import type { TDirectionalLightWrapper, TLightService, TPointLightWrapper } from '@Anarchy/Engine';
+import { LightType } from '@Anarchy/Engine';
 import { CameraHelper, DirectionalLightHelper, Euler, Vector2, Vector3 } from 'three';
 import type { Color } from 'three/src/math/Color';
 

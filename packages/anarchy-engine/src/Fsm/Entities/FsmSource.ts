@@ -1,4 +1,4 @@
-import type { TFsmConfig, TFsmParams, TFsmSource } from '@Engine/Fsm/Models';
+import type { TFsmConfig, TFsmParams, TFsmSource } from '@Anarchy/Engine/Fsm/Models';
 import { omitInObjectWithoutMutation } from '@Shared/Utils';
 import { nanoid } from 'nanoid';
 

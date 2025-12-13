@@ -1,5 +1,5 @@
-import { extractSerializableRegistrableFields } from '@Engine/Mixins';
-import type { TRendererConfig, TRendererParams, TRendererWrapper } from '@Engine/Renderer/Models';
+import { extractSerializableRegistrableFields } from '@Anarchy/Engine/Mixins';
+import type { TRendererConfig, TRendererParams, TRendererWrapper } from '@Anarchy/Engine/Renderer/Models';
 import { filterOutEmptyFields } from '@Shared/Utils';
 
 export function rendererToConfig(entity: TRendererWrapper): TRendererConfig {

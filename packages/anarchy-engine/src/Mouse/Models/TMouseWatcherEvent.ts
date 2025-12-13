@@ -1,4 +1,4 @@
-import type { MouseButtonValue, MouseEventType, MouseWheelValue } from '@Engine/Mouse/Constants';
+import type { MouseButtonValue, MouseEventType, MouseWheelValue } from '@Anarchy/Engine/Mouse/Constants';
 
 export type TMouseWatcherEvent = Readonly<{
   type: MouseEventType;

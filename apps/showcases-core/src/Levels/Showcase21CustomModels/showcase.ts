@@ -1,5 +1,5 @@
-import type { TModel3d, TModels3dRegistry, TModels3dResourceAsyncRegistry, TRegistryPack, TSceneWrapper, TSpace, TSpaceAnyEvent, TSpaceConfig, TSpaceServices } from '@Engine';
-import { KeyCode, SpaceEvents, spaceService } from '@Engine';
+import type { TModel3d, TModels3dRegistry, TModels3dResourceAsyncRegistry, TRegistryPack, TSceneWrapper, TSpace, TSpaceAnyEvent, TSpaceConfig, TSpaceServices } from '@Anarchy/Engine';
+import { KeyCode, SpaceEvents, spaceService } from '@Anarchy/Engine';
 import { asRecord, isNotDefined } from '@Shared/Utils';
 import type { AnimationAction } from 'three';
 import { Euler, Vector3 } from 'three';

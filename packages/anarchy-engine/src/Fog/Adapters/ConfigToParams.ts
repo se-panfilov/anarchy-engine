@@ -1,4 +1,4 @@
-import type { TFogConfig, TFogParams } from '@Engine/Fog/Models';
+import type { TFogConfig, TFogParams } from '@Anarchy/Engine/Fog/Models';
 import { Color } from 'three';
 
 export function configToParams(config: TFogConfig): TFogParams {

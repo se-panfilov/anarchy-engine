@@ -1,4 +1,4 @@
-import type { TSpace, TSpaceConfig } from '@Engine';
+import type { TSpace, TSpaceConfig } from '@Anarchy/Engine';
 import { BehaviorSubject } from 'rxjs';
 
 import type { TSpacesData } from '../ShowcaseTypes';

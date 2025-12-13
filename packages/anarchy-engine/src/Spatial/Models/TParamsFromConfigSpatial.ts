@@ -1,4 +1,4 @@
-import type { TParamsFromConfig } from '@Engine/Abstract';
+import type { TParamsFromConfig } from '@Anarchy/Engine/Abstract';
 
 import type { TSpatialGridConfig } from './TSpatialGridConfig';
 import type { TSpatialGridParams } from './TSpatialGridParams';

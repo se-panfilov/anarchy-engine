@@ -1,4 +1,4 @@
-import type { TFogWrapper, TSpace, TSpaceConfig } from '@Engine';
+import type { TFogWrapper, TSpace, TSpaceConfig } from '@Anarchy/Engine';
 import type { TWriteable } from '@Shared/Utils';
 import { BehaviorSubject } from 'rxjs';
 import type { Fog } from 'three';

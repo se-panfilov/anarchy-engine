@@ -1,4 +1,4 @@
-import type { TActor, TIntersectionEvent, TIntersectionsCameraWatcher, TIntersectionsDirectionWatcher, TSpace, TSpaceConfig } from '@Engine';
+import type { TActor, TIntersectionEvent, TIntersectionsCameraWatcher, TIntersectionsDirectionWatcher, TSpace, TSpaceConfig } from '@Anarchy/Engine';
 import { isNotDefined } from '@Shared/Utils';
 import { BehaviorSubject, skip } from 'rxjs';
 import type { Mesh, MeshStandardMaterial } from 'three';

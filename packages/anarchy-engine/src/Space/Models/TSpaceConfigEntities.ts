@@ -1,19 +1,19 @@
-import type { TActorConfig } from '@Engine/Actor';
-import type { TAnyAudioConfig } from '@Engine/Audio';
-import type { TAnyCameraConfig } from '@Engine/Camera';
-import type { TControlsConfig } from '@Engine/Controls';
-import type { TEnvMapConfig } from '@Engine/EnvMap';
-import type { TFogConfig } from '@Engine/Fog';
-import type { TFsmConfig } from '@Engine/Fsm';
-import type { TAnyIntersectionsWatcherConfig } from '@Engine/Intersections';
-import type { TAnyLightConfig } from '@Engine/Light';
-import type { TMaterialConfig } from '@Engine/Material';
-import type { TModel3dConfig } from '@Engine/Models3d';
-import type { TParticlesConfig } from '@Engine/Particles';
-import type { TPhysicsConfig } from '@Engine/Physics';
-import type { TRendererConfig } from '@Engine/Renderer';
-import type { TSpatialGridConfig } from '@Engine/Spatial';
-import type { TTextConfig } from '@Engine/Text';
+import type { TActorConfig } from '@Anarchy/Engine/Actor';
+import type { TAnyAudioConfig } from '@Anarchy/Engine/Audio';
+import type { TAnyCameraConfig } from '@Anarchy/Engine/Camera';
+import type { TControlsConfig } from '@Anarchy/Engine/Controls';
+import type { TEnvMapConfig } from '@Anarchy/Engine/EnvMap';
+import type { TFogConfig } from '@Anarchy/Engine/Fog';
+import type { TFsmConfig } from '@Anarchy/Engine/Fsm';
+import type { TAnyIntersectionsWatcherConfig } from '@Anarchy/Engine/Intersections';
+import type { TAnyLightConfig } from '@Anarchy/Engine/Light';
+import type { TMaterialConfig } from '@Anarchy/Engine/Material';
+import type { TModel3dConfig } from '@Anarchy/Engine/Models3d';
+import type { TParticlesConfig } from '@Anarchy/Engine/Particles';
+import type { TPhysicsConfig } from '@Anarchy/Engine/Physics';
+import type { TRendererConfig } from '@Anarchy/Engine/Renderer';
+import type { TSpatialGridConfig } from '@Anarchy/Engine/Spatial';
+import type { TTextConfig } from '@Anarchy/Engine/Text';
 
 export type TSpaceConfigEntities = Readonly<{
   spatialGrids: ReadonlyArray<TSpatialGridConfig>;

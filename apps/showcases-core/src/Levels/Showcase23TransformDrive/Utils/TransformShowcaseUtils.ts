@@ -17,9 +17,9 @@ import type {
   TSpatialGridWrapper,
   TWithConnectedTransformAgent,
   TWithTransformDrive
-} from '@Engine';
-import { ForwardAxis, MaterialType, metersPerSecond, TransformAgent } from '@Engine';
-import { meters } from '@Engine/Measurements/Utils';
+} from '@Anarchy/Engine';
+import { ForwardAxis, MaterialType, metersPerSecond, TransformAgent } from '@Anarchy/Engine';
+import { meters } from '@Anarchy/Engine/Measurements/Utils';
 import { isDefined, isNotDefined } from '@Shared/Utils';
 import type GUI from 'lil-gui';
 import type { Subscription } from 'rxjs';

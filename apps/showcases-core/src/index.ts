@@ -1,6 +1,6 @@
 import '@/style.scss';
 
-import { setBrowserSafeguards } from '@Engine';
+import { setBrowserSafeguards } from '@Anarchy/Engine';
 
 import { runtimeEnv } from '@/env';
 import type { TAppSettings } from '@/Models/TAppSettings';

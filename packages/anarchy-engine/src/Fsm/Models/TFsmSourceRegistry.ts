@@ -1,4 +1,4 @@
-import type { TAbstractSimpleRegistry } from '@Engine/Abstract/Models';
+import type { TAbstractSimpleRegistry } from '@Anarchy/Engine/Abstract/Models';
 
 import type { TFsmSource } from './TFsmSource';
 

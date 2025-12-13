@@ -1,3 +1,3 @@
-import type { TMilliseconds } from '@Engine/Math/Types';
+import type { TMilliseconds } from '@Anarchy/Engine/Math/Types';
 
 export type TDelta = TMilliseconds;

@@ -1,4 +1,4 @@
-import type { TAbstractLightWrapper, TLightServiceDependencies, TPointLight, TPointLightParams } from '@Engine/Light/Models';
+import type { TAbstractLightWrapper, TLightServiceDependencies, TPointLight, TPointLightParams } from '@Anarchy/Engine/Light/Models';
 import { PointLight } from 'three';
 
 import { AbstractLightWrapper } from './AbstractLightWrapper';

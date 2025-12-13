@@ -8,8 +8,8 @@ import type {
   TShadowOrthographicCameraParams,
   TShadowPerspectiveCameraParams,
   TSpotLight
-} from '@Engine/Light/Models';
-import { isDirectionalLight, isPointLight, isSpotLight } from '@Engine/Light/Utils';
+} from '@Anarchy/Engine/Light/Models';
+import { isDirectionalLight, isPointLight, isSpotLight } from '@Anarchy/Engine/Light/Utils';
 import type { TWriteable } from '@Shared/Utils';
 import { isDefined, isNotDefined } from '@Shared/Utils';
 import { Vector3 } from 'three';

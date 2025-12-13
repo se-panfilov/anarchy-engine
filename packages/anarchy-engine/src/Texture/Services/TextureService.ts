@@ -1,10 +1,10 @@
-import type { TAbstractService } from '@Engine/Abstract';
-import { AbstractService } from '@Engine/Abstract';
-import type { TDisposable } from '@Engine/Mixins';
-import { withSerializeAllResources } from '@Engine/Mixins';
-import { TexturesLoader } from '@Engine/Texture/Loaders';
-import type { TTextureAsyncRegistry, TTextureMetaInfoRegistry, TTextureResourceConfig, TTextureSerializeResourcesDependencies, TTextureService, TTexturesLoader } from '@Engine/Texture/Models';
-import { mergeAll } from '@Engine/Utils';
+import type { TAbstractService } from '@Anarchy/Engine/Abstract';
+import { AbstractService } from '@Anarchy/Engine/Abstract';
+import type { TDisposable } from '@Anarchy/Engine/Mixins';
+import { withSerializeAllResources } from '@Anarchy/Engine/Mixins';
+import { TexturesLoader } from '@Anarchy/Engine/Texture/Loaders';
+import type { TTextureAsyncRegistry, TTextureMetaInfoRegistry, TTextureResourceConfig, TTextureSerializeResourcesDependencies, TTextureService, TTexturesLoader } from '@Anarchy/Engine/Texture/Models';
+import { mergeAll } from '@Anarchy/Engine/Utils';
 
 export function TextureService(resourcesRegistry: TTextureAsyncRegistry, metaInfoRegistry: TTextureMetaInfoRegistry): TTextureService {
   const texturesLoader: TTexturesLoader = TexturesLoader(resourcesRegistry, metaInfoRegistry);

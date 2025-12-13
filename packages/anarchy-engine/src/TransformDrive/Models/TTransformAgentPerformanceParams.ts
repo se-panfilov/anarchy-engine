@@ -1,4 +1,4 @@
-import type { TMeters, TRadians } from '@Engine/Math';
+import type { TMeters, TRadians } from '@Anarchy/Engine/Math';
 
 export type TTransformAgentPerformanceParams = Readonly<{
   positionNoiseThreshold?: TMeters;

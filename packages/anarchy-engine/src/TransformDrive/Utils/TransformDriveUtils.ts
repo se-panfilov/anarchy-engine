@@ -1,7 +1,7 @@
-import type { TReadonlyQuaternion, TReadonlyVector3 } from '@Engine/ThreeLib';
-import type { TransformAgent } from '@Engine/TransformDrive/Constants';
-import type { TAbstractTransformAgent, TTransformDriveCompatibleEntity, TWithTransformDrive } from '@Engine/TransformDrive/Models';
-import { isEqualOrSimilarByXyzCoords } from '@Engine/Utils';
+import type { TReadonlyQuaternion, TReadonlyVector3 } from '@Anarchy/Engine/ThreeLib';
+import type { TransformAgent } from '@Anarchy/Engine/TransformDrive/Constants';
+import type { TAbstractTransformAgent, TTransformDriveCompatibleEntity, TWithTransformDrive } from '@Anarchy/Engine/TransformDrive/Models';
+import { isEqualOrSimilarByXyzCoords } from '@Anarchy/Engine/Utils';
 import { isDefined } from '@Shared/Utils';
 import type { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { distinctUntilChanged, EMPTY, switchMap, tap } from 'rxjs';

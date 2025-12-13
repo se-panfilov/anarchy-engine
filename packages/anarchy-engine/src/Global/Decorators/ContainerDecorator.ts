@@ -1,8 +1,8 @@
-import type { TAppGlobalContainer, TContainerDecorator } from '@Engine/Global/Models';
-import type { TDestroyable } from '@Engine/Mixins';
-import { destroyableMixin } from '@Engine/Mixins';
-import type { TSpaceCanvas } from '@Engine/Space';
-import { exitFullScreen, getWindowFromDomElement, goFullScreen, isFullScreen, observeContainerRect } from '@Engine/Utils';
+import type { TAppGlobalContainer, TContainerDecorator } from '@Anarchy/Engine/Global/Models';
+import type { TDestroyable } from '@Anarchy/Engine/Mixins';
+import { destroyableMixin } from '@Anarchy/Engine/Mixins';
+import type { TSpaceCanvas } from '@Anarchy/Engine/Space';
+import { exitFullScreen, getWindowFromDomElement, goFullScreen, isFullScreen, observeContainerRect } from '@Anarchy/Engine/Utils';
 import { isDefined, isNotDefined } from '@Shared/Utils';
 import { nanoid } from 'nanoid';
 import type { Subscription } from 'rxjs';

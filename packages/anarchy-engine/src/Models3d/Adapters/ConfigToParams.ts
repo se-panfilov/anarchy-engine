@@ -1,8 +1,8 @@
-import type { TAnimations, TAnimationsResourceAsyncRegistry } from '@Engine/Animations';
-import type { PrimitiveModel3dType } from '@Engine/Models3d/Constants';
-import type { TModel3dConfig, TModel3dConfigToParamsDependencies, TModel3dParams, TModels3dResourceAsyncRegistry } from '@Engine/Models3d/Models';
-import { isPrimitiveModel3dData } from '@Engine/Models3d/Utils';
-import { configToParamsObject3d } from '@Engine/ThreeLib';
+import type { TAnimations, TAnimationsResourceAsyncRegistry } from '@Anarchy/Engine/Animations';
+import type { PrimitiveModel3dType } from '@Anarchy/Engine/Models3d/Constants';
+import type { TModel3dConfig, TModel3dConfigToParamsDependencies, TModel3dParams, TModels3dResourceAsyncRegistry } from '@Anarchy/Engine/Models3d/Models';
+import { isPrimitiveModel3dData } from '@Anarchy/Engine/Models3d/Utils';
+import { configToParamsObject3d } from '@Anarchy/Engine/ThreeLib';
 import { isDefined, isNotDefined } from '@Shared/Utils';
 import type { AnimationClip } from 'three';
 import type { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';

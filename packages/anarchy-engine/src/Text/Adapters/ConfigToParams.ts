@@ -1,6 +1,6 @@
-import { kinematicConfigToParams } from '@Engine/Kinematic';
-import type { TTextConfig, TTextParams, TTextServiceDependencies } from '@Engine/Text/Models';
-import { configToParamsObject3d } from '@Engine/ThreeLib';
+import { kinematicConfigToParams } from '@Anarchy/Engine/Kinematic';
+import type { TTextConfig, TTextParams, TTextServiceDependencies } from '@Anarchy/Engine/Text/Models';
+import { configToParamsObject3d } from '@Anarchy/Engine/ThreeLib';
 import { isDefined } from '@Shared/Utils';
 import { Vector2 } from 'three';
 

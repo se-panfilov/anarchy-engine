@@ -1,5 +1,5 @@
-import type { TSceneWrapper, TSpace, TSpaceConfig } from '@Engine';
-import { spaceService } from '@Engine';
+import type { TSceneWrapper, TSpace, TSpaceConfig } from '@Anarchy/Engine';
+import { spaceService } from '@Anarchy/Engine';
 import { asRecord, isNotDefined } from '@Shared/Utils';
 import GUI from 'lil-gui';
 import type { Fog } from 'three';

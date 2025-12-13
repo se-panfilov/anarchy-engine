@@ -1,7 +1,7 @@
-import type { TWrapper } from '@Engine/Abstract';
-import type { TActor } from '@Engine/Actor';
-import type { TWithName } from '@Engine/Mixins';
-import type { TSpatialCell } from '@Engine/Spatial';
+import type { TWrapper } from '@Anarchy/Engine/Abstract';
+import type { TActor } from '@Anarchy/Engine/Actor';
+import type { TWithName } from '@Anarchy/Engine/Mixins';
+import type { TSpatialCell } from '@Anarchy/Engine/Spatial';
 import type { Observable } from 'rxjs';
 
 export type TSpatialCellWrapper = Omit<TWrapper<TSpatialCell>, 'name'> &

@@ -1,10 +1,10 @@
-import type { RegistryType } from '@Engine/Abstract/Constants';
-import type { TAbstractSimpleRegistry, TWithBaseAccessorsRegistry, TWithReactiveRegistry } from '@Engine/Abstract/Models';
-import { withBaseAccessorsRegistry } from '@Engine/Abstract/Registries/Mixin';
-import { withReactiveRegistry } from '@Engine/Abstract/Registries/Mixin/Registry/WithReactiveRegistry';
-import type { TDestroyable } from '@Engine/Mixins';
-import { destroyableMixin } from '@Engine/Mixins';
-import { mergeAll } from '@Engine/Utils';
+import type { RegistryType } from '@Anarchy/Engine/Abstract/Constants';
+import type { TAbstractSimpleRegistry, TWithBaseAccessorsRegistry, TWithReactiveRegistry } from '@Anarchy/Engine/Abstract/Models';
+import { withBaseAccessorsRegistry } from '@Anarchy/Engine/Abstract/Registries/Mixin';
+import { withReactiveRegistry } from '@Anarchy/Engine/Abstract/Registries/Mixin/Registry/WithReactiveRegistry';
+import type { TDestroyable } from '@Anarchy/Engine/Mixins';
+import { destroyableMixin } from '@Anarchy/Engine/Mixins';
+import { mergeAll } from '@Anarchy/Engine/Utils';
 import { findKeyWithValue, isNotDefined } from '@Shared/Utils';
 import { nanoid } from 'nanoid';
 

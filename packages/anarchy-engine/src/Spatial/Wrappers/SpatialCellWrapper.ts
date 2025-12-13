@@ -1,8 +1,8 @@
-import type { TAbstractWrapper } from '@Engine/Abstract';
-import { AbstractWrapper, WrapperType } from '@Engine/Abstract';
-import type { TActor } from '@Engine/Actor';
-import { entityToConfigSpatialCell } from '@Engine/Spatial/Adapters';
-import type { TSpatialCell, TSpatialCellParams, TSpatialCellSerializedData, TSpatialCellWrapper } from '@Engine/Spatial/Models';
+import type { TAbstractWrapper } from '@Anarchy/Engine/Abstract';
+import { AbstractWrapper, WrapperType } from '@Anarchy/Engine/Abstract';
+import type { TActor } from '@Anarchy/Engine/Actor';
+import { entityToConfigSpatialCell } from '@Anarchy/Engine/Spatial/Adapters';
+import type { TSpatialCell, TSpatialCellParams, TSpatialCellSerializedData, TSpatialCellWrapper } from '@Anarchy/Engine/Spatial/Models';
 import type { Subscription } from 'rxjs';
 import { Subject } from 'rxjs';
 

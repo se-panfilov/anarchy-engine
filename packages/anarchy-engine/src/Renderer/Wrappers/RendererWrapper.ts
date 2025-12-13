@@ -1,10 +1,10 @@
-import type { TAbstractWrapper } from '@Engine/Abstract';
-import { AbstractWrapper, WrapperType } from '@Engine/Abstract';
-import { withActiveMixin } from '@Engine/Mixins';
-import { rendererToConfig } from '@Engine/Renderer/Adapters';
-import { RendererModes } from '@Engine/Renderer/Constants';
-import type { TRendererAccessors, TRendererConfig, TRendererParams, TRendererWrapper, TRendererWrapperDependencies } from '@Engine/Renderer/Models';
-import { mergeAll } from '@Engine/Utils';
+import type { TAbstractWrapper } from '@Anarchy/Engine/Abstract';
+import { AbstractWrapper, WrapperType } from '@Anarchy/Engine/Abstract';
+import { withActiveMixin } from '@Anarchy/Engine/Mixins';
+import { rendererToConfig } from '@Anarchy/Engine/Renderer/Adapters';
+import { RendererModes } from '@Anarchy/Engine/Renderer/Constants';
+import type { TRendererAccessors, TRendererConfig, TRendererParams, TRendererWrapper, TRendererWrapperDependencies } from '@Anarchy/Engine/Renderer/Models';
+import { mergeAll } from '@Anarchy/Engine/Utils';
 import type { TWriteable } from '@Shared/Utils';
 import { isNotDefined, isWebGL2Available, isWebGLAvailable } from '@Shared/Utils';
 import type { Subscription } from 'rxjs';

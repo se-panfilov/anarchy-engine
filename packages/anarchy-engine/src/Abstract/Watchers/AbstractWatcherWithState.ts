@@ -1,5 +1,5 @@
-import type { WatcherType } from '@Engine/Abstract/Constants';
-import type { TAbstractWatcher, TAbstractWatcherWithState } from '@Engine/Abstract/Models';
+import type { WatcherType } from '@Anarchy/Engine/Abstract/Constants';
+import type { TAbstractWatcher, TAbstractWatcherWithState } from '@Anarchy/Engine/Abstract/Models';
 import type { Subscription } from 'rxjs';
 import { BehaviorSubject } from 'rxjs';
 

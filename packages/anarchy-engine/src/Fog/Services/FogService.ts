@@ -1,5 +1,5 @@
-import type { TAbstractService, TRegistryPack } from '@Engine/Abstract';
-import { AbstractService } from '@Engine/Abstract';
+import type { TAbstractService, TRegistryPack } from '@Anarchy/Engine/Abstract';
+import { AbstractService } from '@Anarchy/Engine/Abstract';
 import type {
   TFogConfig,
   TFogFactory,
@@ -10,11 +10,11 @@ import type {
   TFogServiceWithFactory,
   TFogServiceWithRegistry,
   TFogWrapper
-} from '@Engine/Fog/Models';
-import type { TDisposable } from '@Engine/Mixins';
-import { withCreateFromConfigServiceMixin, withCreateServiceMixin, withFactoryService, withRegistryService, withSceneGetterService, withSerializableEntities } from '@Engine/Mixins';
-import type { TSceneWrapper } from '@Engine/Scene';
-import { mergeAll } from '@Engine/Utils';
+} from '@Anarchy/Engine/Fog/Models';
+import type { TDisposable } from '@Anarchy/Engine/Mixins';
+import { withCreateFromConfigServiceMixin, withCreateServiceMixin, withFactoryService, withRegistryService, withSceneGetterService, withSerializableEntities } from '@Anarchy/Engine/Mixins';
+import type { TSceneWrapper } from '@Anarchy/Engine/Scene';
+import { mergeAll } from '@Anarchy/Engine/Utils';
 import type { Subscription } from 'rxjs';
 
 export function FogService(factory: TFogFactory, registry: TFogRegistry, scene: TSceneWrapper): TFogService {

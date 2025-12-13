@@ -1,4 +1,4 @@
-import type { TWithReactiveRotation } from '@Engine/Spatial/Models';
+import type { TWithReactiveRotation } from '@Anarchy/Engine/Spatial/Models';
 import { Subject } from 'rxjs';
 import type { Group, Mesh, Object3D } from 'three';
 import { Euler } from 'three';

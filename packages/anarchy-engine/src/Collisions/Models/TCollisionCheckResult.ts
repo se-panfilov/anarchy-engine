@@ -1,4 +1,4 @@
-import type { TActor } from '@Engine/Actor';
+import type { TActor } from '@Anarchy/Engine/Actor';
 import type { Vector3 } from 'three';
 
 export type TCollisionCheckResult = Readonly<{

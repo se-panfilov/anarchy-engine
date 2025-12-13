@@ -1,12 +1,12 @@
-import { LookUpStrategy } from '@Engine/Abstract/Registries';
-import type { TAudioService } from '@Engine/Audio';
-import type { TAnyCameraWrapper, TCameraRegistry, TPerspectiveCameraWrapper } from '@Engine/Camera';
-import { CameraRegistry, CameraType, PerspectiveCameraWrapper } from '@Engine/Camera';
-import type { TContainerDecorator } from '@Engine/Global';
-import type { TRegistrable } from '@Engine/Mixins';
-import type { TSceneRegistry, TSceneWrapper } from '@Engine/Scene';
-import { SceneRegistry, SceneWrapper } from '@Engine/Scene';
-import type { TTransformDriveService } from '@Engine/TransformDrive';
+import { LookUpStrategy } from '@Anarchy/Engine/Abstract/Registries';
+import type { TAudioService } from '@Anarchy/Engine/Audio';
+import type { TAnyCameraWrapper, TCameraRegistry, TPerspectiveCameraWrapper } from '@Anarchy/Engine/Camera';
+import { CameraRegistry, CameraType, PerspectiveCameraWrapper } from '@Anarchy/Engine/Camera';
+import type { TContainerDecorator } from '@Anarchy/Engine/Global';
+import type { TRegistrable } from '@Anarchy/Engine/Mixins';
+import type { TSceneRegistry, TSceneWrapper } from '@Anarchy/Engine/Scene';
+import { SceneRegistry, SceneWrapper } from '@Anarchy/Engine/Scene';
+import type { TTransformDriveService } from '@Anarchy/Engine/TransformDrive';
 import { Euler, Vector3 } from 'three';
 import { describe, expect, it } from 'vitest';
 

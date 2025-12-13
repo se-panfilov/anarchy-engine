@@ -1,7 +1,7 @@
-import type { RegistryType } from '@Engine/Abstract/Constants';
-import type { TAbstractResourceAsyncRegistry } from '@Engine/Abstract/Models';
-import { createMockEntity, validateSimpleAsyncRegistryReturnsOriginalObjects } from '@Engine/Abstract/Registries/ValidateRegistryOriginalsTestSuite';
-import type { TRegistrable } from '@Engine/Mixins';
+import type { RegistryType } from '@Anarchy/Engine/Abstract/Constants';
+import type { TAbstractResourceAsyncRegistry } from '@Anarchy/Engine/Abstract/Models';
+import { createMockEntity, validateSimpleAsyncRegistryReturnsOriginalObjects } from '@Anarchy/Engine/Abstract/Registries/ValidateRegistryOriginalsTestSuite';
+import type { TRegistrable } from '@Anarchy/Engine/Mixins';
 import { describe } from 'vitest';
 
 import { AbstractResourceAsyncRegistry } from './AbstractResourceAsyncRegistry';

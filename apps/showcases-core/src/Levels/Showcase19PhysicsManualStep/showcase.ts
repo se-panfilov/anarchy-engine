@@ -1,5 +1,5 @@
-import type { TActor, TMilliseconds, TSpace, TSpaceConfig } from '@Engine';
-import { KeysExtra, spaceService } from '@Engine';
+import type { TActor, TMilliseconds, TSpace, TSpaceConfig } from '@Anarchy/Engine';
+import { KeysExtra, spaceService } from '@Anarchy/Engine';
 import { asRecord, isNotDefined } from '@Shared/Utils';
 import { Clock } from 'three';
 

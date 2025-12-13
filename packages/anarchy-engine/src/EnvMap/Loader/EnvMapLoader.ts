@@ -1,6 +1,6 @@
-import { AbstractLoader, LoaderType } from '@Engine/Abstract';
-import { EnvMapMappingTypesMap, EnvMapMappingTypesName } from '@Engine/EnvMap/Constants';
-import type { TEnvMapLoader, TEnvMapMetaInfoRegistry, TEnvMapResourceConfig, TEnvMapTexture, TEnvMapTextureAsyncRegistry } from '@Engine/EnvMap/Models';
+import { AbstractLoader, LoaderType } from '@Anarchy/Engine/Abstract';
+import { EnvMapMappingTypesMap, EnvMapMappingTypesName } from '@Anarchy/Engine/EnvMap/Constants';
+import type { TEnvMapLoader, TEnvMapMetaInfoRegistry, TEnvMapResourceConfig, TEnvMapTexture, TEnvMapTextureAsyncRegistry } from '@Anarchy/Engine/EnvMap/Models';
 import type { TWriteable } from '@Shared/Utils';
 import { isDefined } from '@Shared/Utils';
 import { EquirectangularReflectionMapping } from 'three';

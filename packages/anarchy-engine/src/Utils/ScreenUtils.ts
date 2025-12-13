@@ -1,5 +1,5 @@
-import type { TAppGlobalContainer } from '@Engine/Global';
-import type { TSpaceCanvas } from '@Engine/Space';
+import type { TAppGlobalContainer } from '@Anarchy/Engine/Global';
+import type { TSpaceCanvas } from '@Anarchy/Engine/Space';
 import { isNotDefined } from '@Shared/Utils';
 
 export function isFullScreen(container: TAppGlobalContainer | undefined): boolean {

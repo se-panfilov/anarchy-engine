@@ -1,5 +1,5 @@
-import type { TIntersectionEvent, TIntersectionsCameraWatcher, TModel3d, TModels3dRegistry, TSceneWrapper, TSpace, TSpaceConfig, TText3dWrapper } from '@Engine';
-import { spaceService } from '@Engine';
+import type { TIntersectionEvent, TIntersectionsCameraWatcher, TModel3d, TModels3dRegistry, TSceneWrapper, TSpace, TSpaceConfig, TText3dWrapper } from '@Anarchy/Engine';
+import { spaceService } from '@Anarchy/Engine';
 import { asRecord, isNotDefined } from '@Shared/Utils';
 import { filter, Subject } from 'rxjs';
 import { initMenuApp } from 'showcases-menu/src/main';

@@ -1,4 +1,4 @@
-import type { TActive, TWithName, TWithTags } from '@Engine/Mixins';
+import type { TActive, TWithName, TWithTags } from '@Anarchy/Engine/Mixins';
 
 import type { TEnvMapTexture } from './TEnvMapTexture';
 

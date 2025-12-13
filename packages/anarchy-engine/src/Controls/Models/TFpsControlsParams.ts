@@ -1,5 +1,5 @@
-import type { TActive, TWithName, TWithTags } from '@Engine/Mixins';
-import type { TSpaceCanvas } from '@Engine/Space';
+import type { TActive, TWithName, TWithTags } from '@Anarchy/Engine/Mixins';
+import type { TSpaceCanvas } from '@Anarchy/Engine/Space';
 
 import type { TBaseControlsParams } from './TBaseControlsParams';
 import type { TFpsControlsParamsOptions } from './TFpsControlsParamsOptions';

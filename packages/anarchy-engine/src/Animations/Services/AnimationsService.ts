@@ -1,6 +1,6 @@
-import type { TAbstractService } from '@Engine/Abstract';
-import { AbstractService } from '@Engine/Abstract';
-import { AnimationsLoader } from '@Engine/Animations/Loader';
+import type { TAbstractService } from '@Anarchy/Engine/Abstract';
+import { AbstractService } from '@Anarchy/Engine/Abstract';
+import { AnimationsLoader } from '@Anarchy/Engine/Animations/Loader';
 import type {
   TAnimationActions,
   TAnimationActionsPack,
@@ -11,13 +11,13 @@ import type {
   TAnimationsSerializeResourcesDependencies,
   TAnimationsService,
   TModel3dAnimations
-} from '@Engine/Animations/Models';
-import type { TDelta } from '@Engine/Loop';
-import type { TDisposable } from '@Engine/Mixins';
-import { withSerializeAllResources } from '@Engine/Mixins';
-import type { TModel3d, TRawModel3d } from '@Engine/Models3d';
-import type { TSpaceLoops, TSpaceSettings } from '@Engine/Space';
-import { mergeAll } from '@Engine/Utils';
+} from '@Anarchy/Engine/Animations/Models';
+import type { TDelta } from '@Anarchy/Engine/Loop';
+import type { TDisposable } from '@Anarchy/Engine/Mixins';
+import { withSerializeAllResources } from '@Anarchy/Engine/Mixins';
+import type { TModel3d, TRawModel3d } from '@Anarchy/Engine/Models3d';
+import type { TSpaceLoops, TSpaceSettings } from '@Anarchy/Engine/Space';
+import { mergeAll } from '@Anarchy/Engine/Utils';
 import type { TWriteable } from '@Shared/Utils';
 import { isDefined, isNotDefined } from '@Shared/Utils';
 import type { Observable, Subscription } from 'rxjs';

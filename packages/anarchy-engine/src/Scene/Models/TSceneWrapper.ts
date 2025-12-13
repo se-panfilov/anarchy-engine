@@ -1,5 +1,5 @@
-import type { TWrapper } from '@Engine/Abstract';
-import type { TWithActiveMixin, TWithObject3d } from '@Engine/Mixins';
+import type { TWrapper } from '@Anarchy/Engine/Abstract';
+import type { TWithActiveMixin, TWithObject3d } from '@Anarchy/Engine/Mixins';
 import type { Scene } from 'three';
 
 import type { TSceneAccessors } from './TSceneAccessors';

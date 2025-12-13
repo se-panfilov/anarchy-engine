@@ -1,6 +1,6 @@
-import type { TDestroyable, TNoSpread, TSerializable, TWithId } from '@Engine/Mixins';
-import type { TReadonlyQuaternion, TReadonlyVector3 } from '@Engine/ThreeLib';
-import type { TransformAgent } from '@Engine/TransformDrive/Constants';
+import type { TDestroyable, TNoSpread, TSerializable, TWithId } from '@Anarchy/Engine/Mixins';
+import type { TReadonlyQuaternion, TReadonlyVector3 } from '@Anarchy/Engine/ThreeLib';
+import type { TransformAgent } from '@Anarchy/Engine/TransformDrive/Constants';
 import type { BehaviorSubject, Subject } from 'rxjs';
 
 import type { TReadonlyTransform } from './TReadonlyTransform';

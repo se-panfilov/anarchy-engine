@@ -1,4 +1,4 @@
-import type { TActor } from '@Engine/Actor';
+import type { TActor } from '@Anarchy/Engine/Actor';
 import type {
   TAbstractIntersectionsWatcherConfig,
   TAnyIntersectionsWatcher,
@@ -8,11 +8,11 @@ import type {
   TIntersectionsDirectionWatcher,
   TIntersectionsDirectionWatcherConfig,
   TIntersectionsWatcher
-} from '@Engine/Intersections/Models';
-import type { TIntersectionsWatcherConfig } from '@Engine/Intersections/Models/TIntersectionsWatcherConfig';
-import { isIntersectionsCameraWatcher, isIntersectionsDirectionWatcher } from '@Engine/Intersections/Utils';
-import { extractSerializableRegistrableFields } from '@Engine/Mixins';
-import { vector3ToXyz } from '@Engine/Utils';
+} from '@Anarchy/Engine/Intersections/Models';
+import type { TIntersectionsWatcherConfig } from '@Anarchy/Engine/Intersections/Models/TIntersectionsWatcherConfig';
+import { isIntersectionsCameraWatcher, isIntersectionsDirectionWatcher } from '@Anarchy/Engine/Intersections/Utils';
+import { extractSerializableRegistrableFields } from '@Anarchy/Engine/Mixins';
+import { vector3ToXyz } from '@Anarchy/Engine/Utils';
 import { filterOutEmptyFields } from '@Shared/Utils';
 
 export function intersectionsToConfig(entity: TAnyIntersectionsWatcher): TAnyIntersectionsWatcherConfig {

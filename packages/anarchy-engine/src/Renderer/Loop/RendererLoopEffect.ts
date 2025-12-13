@@ -1,8 +1,8 @@
-import type { TAnyCameraWrapper, TCameraService } from '@Engine/Camera';
-import type { TMilliseconds } from '@Engine/Math';
-import type { TRendererWrapper } from '@Engine/Renderer';
-import type { TSceneWrapper } from '@Engine/Scene';
-import type { TRenderLoop } from '@Engine/Space';
+import type { TAnyCameraWrapper, TCameraService } from '@Anarchy/Engine/Camera';
+import type { TMilliseconds } from '@Anarchy/Engine/Math';
+import type { TRendererWrapper } from '@Anarchy/Engine/Renderer';
+import type { TSceneWrapper } from '@Anarchy/Engine/Scene';
+import type { TRenderLoop } from '@Anarchy/Engine/Space';
 import { isNotDefined } from '@Shared/Utils';
 import type { BehaviorSubject, Subscription } from 'rxjs';
 import { withLatestFrom } from 'rxjs';

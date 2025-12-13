@@ -1,7 +1,7 @@
-import type { LoaderType } from '@Engine/Abstract/Constants';
-import type { TAbstractLoadedResourcePack, TAbstractLoader, TAbstractOnLoadFunction, TAbstractResourceAsyncRegistry, TAbstractResourceConfig, TAbstractSimpleRegistry } from '@Engine/Abstract/Models';
-import type { TDestroyable } from '@Engine/Mixins';
-import { destroyableMixin } from '@Engine/Mixins';
+import type { LoaderType } from '@Anarchy/Engine/Abstract/Constants';
+import type { TAbstractLoadedResourcePack, TAbstractLoader, TAbstractOnLoadFunction, TAbstractResourceAsyncRegistry, TAbstractResourceConfig, TAbstractSimpleRegistry } from '@Anarchy/Engine/Abstract/Models';
+import type { TDestroyable } from '@Anarchy/Engine/Mixins';
+import { destroyableMixin } from '@Anarchy/Engine/Mixins';
 import type { TWriteable } from '@Shared/Utils';
 import { isDefined, isNotDefined } from '@Shared/Utils';
 import { nanoid } from 'nanoid';

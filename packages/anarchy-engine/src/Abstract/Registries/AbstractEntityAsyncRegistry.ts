@@ -1,8 +1,8 @@
-import type { RegistryType } from '@Engine/Abstract/Constants';
-import type { TAbstractAsyncEntityRegistry, TAbstractEntityRegistry } from '@Engine/Abstract/Models';
-import type { LookUpStrategy } from '@Engine/Abstract/Registries/Constants';
-import type { TMultitonRegistrable, TRegistrable } from '@Engine/Mixins';
-import { getAsyncUniqEntityByNameAsync, getAsyncUniqEntityWithTag, getUniqEntityByName$, getUniqEntityWithTag$, getUniqEntityWithTags$, getUniqEntityWithTagsAsync } from '@Engine/Utils';
+import type { RegistryType } from '@Anarchy/Engine/Abstract/Constants';
+import type { TAbstractAsyncEntityRegistry, TAbstractEntityRegistry } from '@Anarchy/Engine/Abstract/Models';
+import type { LookUpStrategy } from '@Anarchy/Engine/Abstract/Registries/Constants';
+import type { TMultitonRegistrable, TRegistrable } from '@Anarchy/Engine/Mixins';
+import { getAsyncUniqEntityByNameAsync, getAsyncUniqEntityWithTag, getUniqEntityByName$, getUniqEntityWithTag$, getUniqEntityWithTags$, getUniqEntityWithTagsAsync } from '@Anarchy/Engine/Utils';
 import { isNotDefined } from '@Shared/Utils';
 import type { Observable } from 'rxjs';
 

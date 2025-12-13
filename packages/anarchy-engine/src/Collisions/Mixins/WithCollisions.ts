@@ -1,10 +1,10 @@
-import type { TActor, TActorParams } from '@Engine/Actor';
-import type { TCollisionCheckResult, TCollisionsData, TCollisionsLoop, TCollisionsService, TWithCollisions } from '@Engine/Collisions/Models';
-import { LoopUpdatePriority } from '@Engine/Loop';
-import type { TMilliseconds } from '@Engine/Math';
-import type { TDestroyable } from '@Engine/Mixins';
-import { destroyableMixin } from '@Engine/Mixins';
-import type { TSpatialCellWrapper } from '@Engine/Spatial';
+import type { TActor, TActorParams } from '@Anarchy/Engine/Actor';
+import type { TCollisionCheckResult, TCollisionsData, TCollisionsLoop, TCollisionsService, TWithCollisions } from '@Anarchy/Engine/Collisions/Models';
+import { LoopUpdatePriority } from '@Anarchy/Engine/Loop';
+import type { TMilliseconds } from '@Anarchy/Engine/Math';
+import type { TDestroyable } from '@Anarchy/Engine/Mixins';
+import { destroyableMixin } from '@Anarchy/Engine/Mixins';
+import type { TSpatialCellWrapper } from '@Anarchy/Engine/Spatial';
 import type { TWriteable } from '@Shared/Utils';
 import { isDefined, removeDuplicates } from '@Shared/Utils';
 import type { Observable, Subscription } from 'rxjs';

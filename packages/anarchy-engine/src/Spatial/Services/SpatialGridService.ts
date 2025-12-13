@@ -1,10 +1,10 @@
-import type { TAbstractService } from '@Engine/Abstract';
-import { AbstractService } from '@Engine/Abstract';
-import type { TDisposable } from '@Engine/Mixins';
-import { withCreateServiceMixin, withSerializableEntities } from '@Engine/Mixins';
-import { withCreateFromConfigServiceMixin } from '@Engine/Mixins/Services/WithCreateFromConfigService';
-import { withFactoryService } from '@Engine/Mixins/Services/WithFactoryService';
-import { withRegistryService } from '@Engine/Mixins/Services/WithRegistryService';
+import type { TAbstractService } from '@Anarchy/Engine/Abstract';
+import { AbstractService } from '@Anarchy/Engine/Abstract';
+import type { TDisposable } from '@Anarchy/Engine/Mixins';
+import { withCreateServiceMixin, withSerializableEntities } from '@Anarchy/Engine/Mixins';
+import { withCreateFromConfigServiceMixin } from '@Anarchy/Engine/Mixins/Services/WithCreateFromConfigService';
+import { withFactoryService } from '@Anarchy/Engine/Mixins/Services/WithFactoryService';
+import { withRegistryService } from '@Anarchy/Engine/Mixins/Services/WithRegistryService';
 import type {
   TSpatialGridConfig,
   TSpatialGridFactory,
@@ -15,8 +15,8 @@ import type {
   TSpatialGridServiceWithFactory,
   TSpatialGridServiceWithRegistry,
   TSpatialGridWrapper
-} from '@Engine/Spatial/Models';
-import { mergeAll } from '@Engine/Utils';
+} from '@Anarchy/Engine/Spatial/Models';
+import { mergeAll } from '@Anarchy/Engine/Utils';
 import type { Subscription } from 'rxjs';
 
 export function SpatialGridService(factory: TSpatialGridFactory, registry: TSpatialGridRegistry): TSpatialGridService {

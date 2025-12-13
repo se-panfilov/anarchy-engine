@@ -1,6 +1,6 @@
 import type { Vector } from '@dimforge/rapier3d/math';
-import type { TDegrees, TMeters, TMilliseconds, TRadians, TSeconds } from '@Engine/Math/Types';
-import { HOUR, METER, MINUTE, SECOND } from '@Engine/Measurements/Constants';
+import type { TDegrees, TMeters, TMilliseconds, TRadians, TSeconds } from '@Anarchy/Engine/Math/Types';
+import { HOUR, METER, MINUTE, SECOND } from '@Anarchy/Engine/Measurements/Constants';
 import { Vector3 } from 'three';
 
 // TODO CONFIG: values of meters/hours, etc should be configurable

@@ -1,5 +1,5 @@
-import type { TConnectedTransformAgent, TDefaultTransformAgent } from '@Engine/TransformDrive';
-import type { TransformAgent } from '@Engine/TransformDrive/Constants';
+import type { TConnectedTransformAgent, TDefaultTransformAgent } from '@Anarchy/Engine/TransformDrive';
+import type { TransformAgent } from '@Anarchy/Engine/TransformDrive/Constants';
 
 export type TLightTransformAgents = Readonly<{
   [TransformAgent.Connected]: TConnectedTransformAgent;

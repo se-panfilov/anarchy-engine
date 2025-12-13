@@ -1,5 +1,5 @@
-import type { TFsmStates, TFsmWrapper, TSpace } from '@Engine';
-import { KeyCode, KeysExtra } from '@Engine';
+import type { TFsmStates, TFsmWrapper, TSpace } from '@Anarchy/Engine';
+import { KeyCode, KeysExtra } from '@Anarchy/Engine';
 import { distinctUntilChanged } from 'rxjs';
 import { Clock } from 'three';
 

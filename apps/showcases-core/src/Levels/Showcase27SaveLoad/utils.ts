@@ -1,5 +1,5 @@
-import type { TModel3d, TSpace, TSpaceConfig, TText2dRegistry, TText2dWrapper, TText3dRegistry, TText3dTextureRegistry, TText3dTextureWrapper, TText3dWrapper } from '@Engine';
-import { createDomElement, TextType } from '@Engine';
+import type { TModel3d, TSpace, TSpaceConfig, TText2dRegistry, TText2dWrapper, TText3dRegistry, TText3dTextureRegistry, TText3dTextureWrapper, TText3dWrapper } from '@Anarchy/Engine';
+import { createDomElement, TextType } from '@Anarchy/Engine';
 import { isNotDefined } from '@Shared/Utils';
 import type { BehaviorSubject } from 'rxjs';
 import { Euler, Vector3 } from 'three';

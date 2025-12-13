@@ -1,4 +1,4 @@
-import type { TFpsControlsParamsOptions, TFpsControlsWrapper } from '@Engine/Controls/Models';
+import type { TFpsControlsParamsOptions, TFpsControlsWrapper } from '@Anarchy/Engine/Controls/Models';
 import { isDefined, isNotDefined } from '@Shared/Utils';
 
 export function applyFpsControlsParams(wrapper: TFpsControlsWrapper, params: TFpsControlsParamsOptions | undefined): void {

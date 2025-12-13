@@ -1,8 +1,8 @@
-import type { TAnimationsResourceConfig } from '@Engine/Animations';
-import type { TAudioResourceConfig } from '@Engine/Audio';
-import type { TEnvMapResourceConfig } from '@Engine/EnvMap';
-import type { TModel3dResourceConfig } from '@Engine/Models3d';
-import type { TTextureResourceConfig } from '@Engine/Texture';
+import type { TAnimationsResourceConfig } from '@Anarchy/Engine/Animations';
+import type { TAudioResourceConfig } from '@Anarchy/Engine/Audio';
+import type { TEnvMapResourceConfig } from '@Anarchy/Engine/EnvMap';
+import type { TModel3dResourceConfig } from '@Anarchy/Engine/Models3d';
+import type { TTextureResourceConfig } from '@Anarchy/Engine/Texture';
 
 export type TSpaceConfigResources = Readonly<{
   animations: ReadonlyArray<TAnimationsResourceConfig>;

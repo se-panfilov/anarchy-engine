@@ -10,8 +10,8 @@ import type {
   TSpace,
   TSpaceConfig,
   TSpotLightWrapper
-} from '@Engine';
-import { spaceService } from '@Engine';
+} from '@Anarchy/Engine';
+import { spaceService } from '@Anarchy/Engine';
 import { asRecord, isNotDefined } from '@Shared/Utils';
 import GUI from 'lil-gui';
 import { CameraHelper, DirectionalLightHelper, HemisphereLightHelper, PointLightHelper, SpotLightHelper } from 'three';

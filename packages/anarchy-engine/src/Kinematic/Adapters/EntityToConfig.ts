@@ -1,6 +1,6 @@
-import type { TKinematicConfig, TKinematicConfigTarget } from '@Engine/Kinematic/Models';
-import type { TKinematicTransformAgent } from '@Engine/TransformDrive';
-import { eulerToXyz, quaternionToXyzw, vector3ToXyz } from '@Engine/Utils';
+import type { TKinematicConfig, TKinematicConfigTarget } from '@Anarchy/Engine/Kinematic/Models';
+import type { TKinematicTransformAgent } from '@Anarchy/Engine/TransformDrive';
+import { eulerToXyz, quaternionToXyzw, vector3ToXyz } from '@Anarchy/Engine/Utils';
 import { filterOutEmptyFields, isDefined } from '@Shared/Utils';
 import { Euler } from 'three';
 

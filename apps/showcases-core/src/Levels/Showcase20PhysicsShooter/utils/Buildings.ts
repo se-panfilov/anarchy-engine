@@ -11,8 +11,8 @@ import type {
   TPhysicsBody,
   TPhysicsBodyService,
   TSpatialGridWrapper
-} from '@Engine';
-import { CollisionShape, MaterialType, meters, PrimitiveModel3dType, RigidBodyTypesNames, TransformAgent } from '@Engine';
+} from '@Anarchy/Engine';
+import { CollisionShape, MaterialType, meters, PrimitiveModel3dType, RigidBodyTypesNames, TransformAgent } from '@Anarchy/Engine';
 import type { Vector3Like } from 'three';
 import { Euler, Quaternion, Vector3 } from 'three';
 

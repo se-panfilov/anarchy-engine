@@ -1,4 +1,4 @@
-import type { TThreeJsRendererPropsAccessors } from '@Engine/Renderer/Models';
+import type { TThreeJsRendererPropsAccessors } from '@Anarchy/Engine/Renderer/Models';
 import type { ShadowMapType, WebGLRenderer } from 'three';
 
 export function withThreeJsRendererPropsAccessors(entity: WebGLRenderer): TThreeJsRendererPropsAccessors {

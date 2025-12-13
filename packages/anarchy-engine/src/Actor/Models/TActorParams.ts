@@ -1,11 +1,11 @@
-import type { TCollisionsDataParams } from '@Engine/Collisions';
-import type { TKinematicParams } from '@Engine/Kinematic';
-import type { TWithName, TWithTags } from '@Engine/Mixins';
-import type { TModel3d } from '@Engine/Models3d';
-import type { TPhysicsBody } from '@Engine/Physics';
-import type { TSpatialDataParams } from '@Engine/Spatial';
-import type { TObject3DParams } from '@Engine/ThreeLib';
-import type { TWithTransformAgentParam } from '@Engine/TransformDrive';
+import type { TCollisionsDataParams } from '@Anarchy/Engine/Collisions';
+import type { TKinematicParams } from '@Anarchy/Engine/Kinematic';
+import type { TWithName, TWithTags } from '@Anarchy/Engine/Mixins';
+import type { TModel3d } from '@Anarchy/Engine/Models3d';
+import type { TPhysicsBody } from '@Anarchy/Engine/Physics';
+import type { TSpatialDataParams } from '@Anarchy/Engine/Spatial';
+import type { TObject3DParams } from '@Anarchy/Engine/ThreeLib';
+import type { TWithTransformAgentParam } from '@Anarchy/Engine/TransformDrive';
 import type { TOptional } from '@Shared/Utils';
 
 import type { TActorModel3dSettings } from './TActorModel3dSettings';

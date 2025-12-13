@@ -1,7 +1,7 @@
-import { WrapperType } from '@Engine/Abstract';
-import type { TextCssClass } from '@Engine/Text/Constants';
-import { TextType } from '@Engine/Text/Constants';
-import type { TElementWithCssAccessors, TTextCssProps } from '@Engine/Text/Models';
+import { WrapperType } from '@Anarchy/Engine/Abstract';
+import type { TextCssClass } from '@Anarchy/Engine/Text/Constants';
+import { TextType } from '@Anarchy/Engine/Text/Constants';
+import type { TElementWithCssAccessors, TTextCssProps } from '@Anarchy/Engine/Text/Models';
 import type { TValueOf } from '@Shared/Utils';
 import { isDefined, isString } from '@Shared/Utils';
 

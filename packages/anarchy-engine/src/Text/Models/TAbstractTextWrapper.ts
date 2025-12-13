@@ -1,5 +1,5 @@
-import type { TWithObject3d, TWithTags } from '@Engine/Mixins';
-import type { TWithTransformDrive } from '@Engine/TransformDrive';
+import type { TWithObject3d, TWithTags } from '@Anarchy/Engine/Mixins';
+import type { TWithTransformDrive } from '@Anarchy/Engine/TransformDrive';
 
 import type { TTextTransformAgents } from './TTextTransformAgents';
 

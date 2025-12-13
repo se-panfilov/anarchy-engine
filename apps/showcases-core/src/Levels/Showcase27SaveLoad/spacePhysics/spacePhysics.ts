@@ -1,5 +1,5 @@
 import type { RigidBody, Vector, World } from '@dimforge/rapier3d';
-import type { TSpace, TSpaceConfig } from '@Engine';
+import type { TSpace, TSpaceConfig } from '@Anarchy/Engine';
 import { BehaviorSubject } from 'rxjs';
 import { Vector3 } from 'three/src/math/Vector3';
 

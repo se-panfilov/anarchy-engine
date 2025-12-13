@@ -1,4 +1,4 @@
-import type { TObject3DParams, TObject3DPropConfig } from '@Engine/ThreeLib/Models';
+import type { TObject3DParams, TObject3DPropConfig } from '@Anarchy/Engine/ThreeLib/Models';
 import { isDefined } from '@Shared/Utils';
 import { Euler, Vector3 } from 'three';
 

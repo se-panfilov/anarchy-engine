@@ -1,4 +1,4 @@
-import type { TAbstractResourceAsyncRegistry } from '@Engine/Abstract';
-import type { TEnvMapTexture } from '@Engine/EnvMap/Models';
+import type { TAbstractResourceAsyncRegistry } from '@Anarchy/Engine/Abstract';
+import type { TEnvMapTexture } from '@Anarchy/Engine/EnvMap/Models';
 
 export type TEnvMapTextureAsyncRegistry = TAbstractResourceAsyncRegistry<TEnvMapTexture>;

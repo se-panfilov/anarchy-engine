@@ -1,5 +1,5 @@
-import type { TConfigToParamsWithDependenciesFn } from '@Engine/Abstract';
-import type { TAnyCreateFn, TWithCreateFromConfigService } from '@Engine/Mixins/Services/Models';
+import type { TConfigToParamsWithDependenciesFn } from '@Anarchy/Engine/Abstract';
+import type { TAnyCreateFn, TWithCreateFromConfigService } from '@Anarchy/Engine/Mixins/Services/Models';
 
 export function withCreateFromConfigServiceMixin<T, C, P, D, O extends Record<string, any> | undefined = undefined>(
   create: TAnyCreateFn<T, P, O>,

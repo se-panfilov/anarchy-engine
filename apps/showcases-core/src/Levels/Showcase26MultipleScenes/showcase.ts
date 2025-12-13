@@ -1,5 +1,5 @@
-import type { TSpace, TSpaceConfig } from '@Engine';
-import { spaceService } from '@Engine';
+import type { TSpace, TSpaceConfig } from '@Anarchy/Engine';
+import { spaceService } from '@Anarchy/Engine';
 import { asRecord, isNotDefined } from '@Shared/Utils';
 import { combineLatest, Observable, Subscription } from 'rxjs';
 

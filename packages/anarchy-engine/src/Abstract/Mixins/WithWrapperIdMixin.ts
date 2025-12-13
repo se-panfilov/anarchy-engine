@@ -1,4 +1,4 @@
-import type { TWithUserData, TWithWrapperId } from '@Engine/Abstract/Models';
+import type { TWithUserData, TWithWrapperId } from '@Anarchy/Engine/Abstract/Models';
 import type { TWriteable } from '@Shared/Utils';
 import { isNotDefined } from '@Shared/Utils';
 

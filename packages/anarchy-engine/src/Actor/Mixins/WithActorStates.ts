@@ -1,5 +1,5 @@
-import type { TActorParams, TActorStates, TWithActorStates } from '@Engine/Actor/Models';
-import type { TFsmWrapper } from '@Engine/Fsm';
+import type { TActorParams, TActorStates, TWithActorStates } from '@Anarchy/Engine/Actor/Models';
+import type { TFsmWrapper } from '@Anarchy/Engine/Fsm';
 import type { TWriteable } from '@Shared/Utils';
 import { isDefined } from '@Shared/Utils';
 

@@ -1,8 +1,8 @@
-import type { TAbstractService } from '@Engine/Abstract';
-import { AbstractService } from '@Engine/Abstract';
-import type { TGameKey, TKeyboardLoop, TKeyboardPressingEvent, TKeyboardRegistry, TKeyboardRegistryValues, TKeyboardService, TKeyCombo, TKeySubscription } from '@Engine/Keyboard/Models';
-import { KeyboardRegistry } from '@Engine/Keyboard/Registries';
-import type { TDelta } from '@Engine/Loop';
+import type { TAbstractService } from '@Anarchy/Engine/Abstract';
+import { AbstractService } from '@Anarchy/Engine/Abstract';
+import type { TGameKey, TKeyboardLoop, TKeyboardPressingEvent, TKeyboardRegistry, TKeyboardRegistryValues, TKeyboardService, TKeyCombo, TKeySubscription } from '@Anarchy/Engine/Keyboard/Models';
+import { KeyboardRegistry } from '@Anarchy/Engine/Keyboard/Registries';
+import type { TDelta } from '@Anarchy/Engine/Loop';
 import { bindKey, bindKeyCombo, checkKey, checkKeyCombo, unbindKey, unbindKeyCombo } from '@rwh/keystrokes';
 import { isDefined, isNotDefined } from '@Shared/Utils';
 import type { Subscription } from 'rxjs';

@@ -1,5 +1,5 @@
-import type { TDeltaCalculator } from '@Engine/Loop/Models';
-import type { TMilliseconds } from '@Engine/Math';
+import type { TDeltaCalculator } from '@Anarchy/Engine/Loop/Models';
+import type { TMilliseconds } from '@Anarchy/Engine/Math';
 import { isDefined } from '@Shared/Utils';
 import { Clock } from 'three';
 

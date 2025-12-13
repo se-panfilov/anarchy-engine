@@ -1,5 +1,5 @@
-import type { TEntity } from '@Engine/Abstract';
-import type { TContainerDecorator } from '@Engine/Global';
+import type { TEntity } from '@Anarchy/Engine/Abstract';
+import type { TContainerDecorator } from '@Anarchy/Engine/Global';
 import type { Observable, Subject } from 'rxjs';
 
 import type { TSpaceCanvas } from './TSpaceCanvas';

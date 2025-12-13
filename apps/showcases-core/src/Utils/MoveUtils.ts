@@ -1,4 +1,4 @@
-import type { TActor, TActorRegistry, TActorService, TMilliseconds, TTransformLoop } from '@Engine';
+import type { TActor, TActorRegistry, TActorService, TMilliseconds, TTransformLoop } from '@Anarchy/Engine';
 import type { Subscription } from 'rxjs';
 import type { Clock } from 'three';
 

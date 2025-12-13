@@ -1,12 +1,12 @@
 import type { Collider, RigidBody, Shape } from '@dimforge/rapier3d';
 import { Ball, Capsule, Cuboid, Cylinder } from '@dimforge/rapier3d';
 import type { Vector } from '@dimforge/rapier3d/math';
-import type { TKinematicState } from '@Engine/Kinematic';
-import { ForwardAxis } from '@Engine/Kinematic';
-import type { TMeters, TRadians } from '@Engine/Math';
-import { getDirectionFromAngularVelocity, getDirectionFromLinearVelocity, getSpeedFromAngularVelocity, getSpeedFromLinearVelocity } from '@Engine/Math';
-import { VelocityType } from '@Engine/Physics/Constants';
-import type { TPhysicsBody } from '@Engine/Physics/Models';
+import type { TKinematicState } from '@Anarchy/Engine/Kinematic';
+import { ForwardAxis } from '@Anarchy/Engine/Kinematic';
+import type { TMeters, TRadians } from '@Anarchy/Engine/Math';
+import { getDirectionFromAngularVelocity, getDirectionFromLinearVelocity, getSpeedFromAngularVelocity, getSpeedFromLinearVelocity } from '@Anarchy/Engine/Math';
+import { VelocityType } from '@Anarchy/Engine/Physics/Constants';
+import type { TPhysicsBody } from '@Anarchy/Engine/Physics/Models';
 import { isNotDefined } from '@Shared/Utils';
 import { Euler, Quaternion, Vector3 } from 'three';
 

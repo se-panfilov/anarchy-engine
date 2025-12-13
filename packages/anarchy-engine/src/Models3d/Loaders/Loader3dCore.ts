@@ -1,6 +1,6 @@
-import type { LoaderType, TAbstractLoader, TAbstractMetaInfoRegistry, TAbstractResourceAsyncRegistry, TAbstractResourceConfig } from '@Engine/Abstract';
-import { AbstractLoader } from '@Engine/Abstract';
-import type { TDracoLoaderSettings } from '@Engine/ThreeLib';
+import type { LoaderType, TAbstractLoader, TAbstractMetaInfoRegistry, TAbstractResourceAsyncRegistry, TAbstractResourceConfig } from '@Anarchy/Engine/Abstract';
+import { AbstractLoader } from '@Anarchy/Engine/Abstract';
+import type { TDracoLoaderSettings } from '@Anarchy/Engine/ThreeLib';
 import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 

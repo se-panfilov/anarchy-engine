@@ -1,4 +1,4 @@
-import type { TSpace } from '@Engine';
+import type { TSpace } from '@Anarchy/Engine';
 import { Clock } from 'three';
 
 import { moveByCircle } from '@/Utils/MoveUtils';

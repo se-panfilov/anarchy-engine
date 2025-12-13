@@ -1,4 +1,4 @@
-import type { TMovableXY, TWithPosition2dProperty } from '@Engine/Mixins/GameObjects/Models';
+import type { TMovableXY, TWithPosition2dProperty } from '@Anarchy/Engine/Mixins/GameObjects/Models';
 
 import { withMoveByXMixin } from './WithMoveByXMixin';
 import { withMoveByYMixin } from './WithMoveByYMixin';

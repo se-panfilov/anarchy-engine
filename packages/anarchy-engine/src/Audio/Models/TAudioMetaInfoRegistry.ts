@@ -1,4 +1,4 @@
-import type { TAbstractSimpleRegistry } from '@Engine/Abstract';
+import type { TAbstractSimpleRegistry } from '@Anarchy/Engine/Abstract';
 
 import type { TAudioResourceConfig } from './TAudioResourceConfig';
 

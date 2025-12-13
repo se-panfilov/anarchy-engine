@@ -1,4 +1,4 @@
-import type { TActorService } from '@Engine';
+import type { TActorService } from '@Anarchy/Engine';
 import { GridHelper } from 'three';
 
 export function initGridHelper(actorService: TActorService, size: number, divisions: number): void {

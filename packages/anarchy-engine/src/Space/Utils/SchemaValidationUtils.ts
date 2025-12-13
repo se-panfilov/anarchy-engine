@@ -1,10 +1,10 @@
-import type { TAbstractResourceConfig } from '@Engine/Abstract';
-import type { TActorConfig } from '@Engine/Actor';
-import type { TAnyAudioConfig, TAudioResourceConfig } from '@Engine/Audio';
-import type { TWithName, TWithNameOptional, TWithTags } from '@Engine/Mixins';
-import type { TModel3dConfig, TModel3dResourceConfig } from '@Engine/Models3d';
-import { isPrimitiveModel3dResourceConfig, isPrimitiveModel3dSource } from '@Engine/Models3d';
-import type { TPhysicsBodyConfig, TPhysicsConfig } from '@Engine/Physics';
+import type { TAbstractResourceConfig } from '@Anarchy/Engine/Abstract';
+import type { TActorConfig } from '@Anarchy/Engine/Actor';
+import type { TAnyAudioConfig, TAudioResourceConfig } from '@Anarchy/Engine/Audio';
+import type { TWithName, TWithNameOptional, TWithTags } from '@Anarchy/Engine/Mixins';
+import type { TModel3dConfig, TModel3dResourceConfig } from '@Anarchy/Engine/Models3d';
+import { isPrimitiveModel3dResourceConfig, isPrimitiveModel3dSource } from '@Anarchy/Engine/Models3d';
+import type { TPhysicsBodyConfig, TPhysicsConfig } from '@Anarchy/Engine/Physics';
 import { findDuplicateString, isDefined, isNotDefined } from '@Shared/Utils';
 
 export const validateNames = (entities: ReadonlyArray<TWithNameOptional>): boolean => entities.every(validateName);

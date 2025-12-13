@@ -1,4 +1,4 @@
-import type { TNoSpread } from '@Engine/Mixins';
+import type { TNoSpread } from '@Anarchy/Engine/Mixins';
 import type { Subject } from 'rxjs';
 
 export type TAbstractLoop<T> = Readonly<{

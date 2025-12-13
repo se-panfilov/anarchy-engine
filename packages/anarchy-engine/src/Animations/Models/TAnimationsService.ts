@@ -1,7 +1,7 @@
-import type { TSerializableResourceService } from '@Engine/Abstract';
-import type { TDelta } from '@Engine/Loop';
-import type { TWithLoadResourcesAsyncService, TWithResourcesMetaInfoRegistryService, TWithResourcesRegistryService } from '@Engine/Mixins';
-import type { TModel3d, TRawModel3d } from '@Engine/Models3d';
+import type { TSerializableResourceService } from '@Anarchy/Engine/Abstract';
+import type { TDelta } from '@Anarchy/Engine/Loop';
+import type { TWithLoadResourcesAsyncService, TWithResourcesMetaInfoRegistryService, TWithResourcesRegistryService } from '@Anarchy/Engine/Mixins';
+import type { TModel3d, TRawModel3d } from '@Anarchy/Engine/Models3d';
 import type { Observable } from 'rxjs';
 import type { AnimationClip, AnimationMixer } from 'three';
 

@@ -3,8 +3,8 @@
   "compilerOptions": {
     "paths": {
       "@Public/*": ["packages/showcases-menu/public/*"],
-      "@Engine/*": ["packages/anarchy-engine/src/*"],
-      "@Engine": ["packages/anarchy-engine/src/index.ts"],
+      "@Anarchy/Engine/*": ["packages/anarchy-engine/src/*"],
+      "@Anarchy/Engine": ["packages/anarchy-engine/src/index.ts"],
       "@Shared/*": ["packages/anarchy-shared/src/*"],
       "@Shared": ["packages/anarchy-shared/src/index.ts"],
       "@AnarchyI18n/*": ["packages/anarchy-i18n/src/*"],

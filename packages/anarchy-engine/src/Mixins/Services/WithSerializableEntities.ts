@@ -1,6 +1,6 @@
-import type { TAbstractEntityRegistry, TAbstractSimpleRegistry } from '@Engine/Abstract';
-import type { TSerializable } from '@Engine/Mixins';
-import type { TWithSerializableEntities } from '@Engine/Mixins/Services/Models';
+import type { TAbstractEntityRegistry, TAbstractSimpleRegistry } from '@Anarchy/Engine/Abstract';
+import type { TSerializable } from '@Anarchy/Engine/Mixins';
+import type { TWithSerializableEntities } from '@Anarchy/Engine/Mixins/Services/Models';
 
 export function withSerializableEntities<E extends TSerializable<any>, C extends Record<string, any>, D extends Record<string, any> | undefined = undefined>(
   registry: TAbstractSimpleRegistry<any> | TAbstractEntityRegistry<any>,

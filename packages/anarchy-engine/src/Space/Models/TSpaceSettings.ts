@@ -1,5 +1,5 @@
-import type { TLoopsSettings } from '@Engine/Loop/Models';
-import type { TThreeJsSettings } from '@Engine/ThreeLib';
+import type { TLoopsSettings } from '@Anarchy/Engine/Loop/Models';
+import type { TThreeJsSettings } from '@Anarchy/Engine/ThreeLib';
 import type { TOptional } from '@Shared/Utils';
 
 export type TSpaceSettings = Readonly<{

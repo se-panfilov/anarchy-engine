@@ -1,5 +1,5 @@
-import type { TFsmStates, TFsmWrapper, TModels3dResourceAsyncRegistry, TRegistryPack, TSpace, TSpaceAnyEvent, TSpaceConfig, TSpaceServices } from '@Engine';
-import { KeyCode, KeysExtra, SpaceEvents, spaceService } from '@Engine';
+import type { TFsmStates, TFsmWrapper, TModels3dResourceAsyncRegistry, TRegistryPack, TSpace, TSpaceAnyEvent, TSpaceConfig, TSpaceServices } from '@Anarchy/Engine';
+import { KeyCode, KeysExtra, SpaceEvents, spaceService } from '@Anarchy/Engine';
 import { asRecord, isNotDefined } from '@Shared/Utils';
 import { distinctUntilChanged } from 'rxjs';
 import type { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';

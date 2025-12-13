@@ -1,6 +1,6 @@
-import { AbstractLoader, LoaderType } from '@Engine/Abstract';
-import type { TTexture, TTextureAsyncRegistry, TTextureMetaInfoRegistry, TTextureResourceConfig, TTexturesLoader } from '@Engine/Texture/Models';
-import { applyColorSpace, applyFilters, applyTextureParams } from '@Engine/Texture/Utils';
+import { AbstractLoader, LoaderType } from '@Anarchy/Engine/Abstract';
+import type { TTexture, TTextureAsyncRegistry, TTextureMetaInfoRegistry, TTextureResourceConfig, TTexturesLoader } from '@Anarchy/Engine/Texture/Models';
+import { applyColorSpace, applyFilters, applyTextureParams } from '@Anarchy/Engine/Texture/Utils';
 import type { TWriteable } from '@Shared/Utils';
 import { isDefined, isNotDefined } from '@Shared/Utils';
 import { TextureLoader } from 'three';

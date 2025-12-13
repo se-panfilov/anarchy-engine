@@ -1,5 +1,5 @@
-import type { TActor, TActorRegistry, TAnyCameraWrapper, TAudio3dWrapper, TIntersectionEvent, TIntersectionsCameraWatcher, TMouseWatcherEvent, TSceneWrapper, TSpace } from '@Engine';
-import { DebugAudioRenderer, metersPerSecond } from '@Engine';
+import type { TActor, TActorRegistry, TAnyCameraWrapper, TAudio3dWrapper, TIntersectionEvent, TIntersectionsCameraWatcher, TMouseWatcherEvent, TSceneWrapper, TSpace } from '@Anarchy/Engine';
+import { DebugAudioRenderer, metersPerSecond } from '@Anarchy/Engine';
 import { isNotDefined } from '@Shared/Utils';
 import { withLatestFrom } from 'rxjs';
 import { Clock, Vector3 } from 'three';

@@ -5,8 +5,8 @@ import type {
   TIntersectionsDirectionWatcher,
   TIntersectionsDirectionWatcherConfig,
   TIntersectionsDirectionWatcherParams
-} from '@Engine/Intersections/Models';
-import type { TReadonlyVector2, TReadonlyVector3 } from '@Engine/ThreeLib';
+} from '@Anarchy/Engine/Intersections/Models';
+import type { TReadonlyVector2, TReadonlyVector3 } from '@Anarchy/Engine/ThreeLib';
 import { isDefined, isNotDefined } from '@Shared/Utils';
 import { Vector2, Vector3 } from 'three';
 

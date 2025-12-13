@@ -1,4 +1,4 @@
-import type { TAbstractEntityRegistry } from '@Engine/Abstract';
+import type { TAbstractEntityRegistry } from '@Anarchy/Engine/Abstract';
 
 import type { TAnyAudioWrapper } from './TAnyAudioWrapper';
 

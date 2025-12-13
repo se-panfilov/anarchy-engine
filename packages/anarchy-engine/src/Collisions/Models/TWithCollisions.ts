@@ -1,4 +1,4 @@
-import type { TDestroyable } from '@Engine/Mixins';
+import type { TDestroyable } from '@Anarchy/Engine/Mixins';
 import type { BehaviorSubject, Observable } from 'rxjs';
 
 import type { TCollisionCheckResult } from './TCollisionCheckResult';

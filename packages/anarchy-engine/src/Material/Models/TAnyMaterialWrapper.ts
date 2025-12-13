@@ -1,4 +1,4 @@
-import type { TWrapper } from '@Engine/Abstract';
+import type { TWrapper } from '@Anarchy/Engine/Abstract';
 import type {
   LineBasicMaterial,
   LineDashedMaterial,

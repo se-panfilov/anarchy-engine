@@ -1,4 +1,4 @@
-import type { TDriveToTargetConnector, TTransformDriveCompatibleEntity } from '@Engine/TransformDrive';
+import type { TDriveToTargetConnector, TTransformDriveCompatibleEntity } from '@Anarchy/Engine/TransformDrive';
 
 import type { TTransformDrive } from './TTransformDrive';
 

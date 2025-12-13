@@ -1,6 +1,6 @@
-import type { TWrapper } from '@Engine/Abstract';
-import type { FsmEventsStrategy, FsmType } from '@Engine/Fsm/Constants';
-import type { TFsmEvents, TFsmStates } from '@Engine/Fsm/Models';
+import type { TWrapper } from '@Anarchy/Engine/Abstract';
+import type { FsmEventsStrategy, FsmType } from '@Anarchy/Engine/Fsm/Constants';
+import type { TFsmEvents, TFsmStates } from '@Anarchy/Engine/Fsm/Models';
 import type { BehaviorSubject, Observable } from 'rxjs';
 
 import type { TFsmMachine } from './TFsmMachine';

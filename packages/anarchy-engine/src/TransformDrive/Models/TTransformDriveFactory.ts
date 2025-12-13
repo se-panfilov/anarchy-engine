@@ -1,4 +1,4 @@
-import type { TReactiveFactory } from '@Engine/Abstract';
+import type { TReactiveFactory } from '@Anarchy/Engine/Abstract';
 
 import type { TTransformDrive, TTransformDriveCompatibleEntity } from './TTransformDrive';
 import type { TTransformDriveFactoryParams } from './TTransformDriveFactoryParams';

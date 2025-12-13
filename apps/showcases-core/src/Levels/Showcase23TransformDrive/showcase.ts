@@ -20,7 +20,7 @@ import type {
   TSpatialGridWrapper,
   TText3dWrapper,
   TTextAnyWrapper
-} from '@Engine';
+} from '@Anarchy/Engine';
 import {
   CollisionShape,
   ControlsType,
@@ -40,7 +40,7 @@ import {
   spaceService,
   TextType,
   TransformAgent
-} from '@Engine';
+} from '@Anarchy/Engine';
 import { asRecord, isNotDefined } from '@Shared/Utils';
 import GUI from 'lil-gui';
 import { BehaviorSubject, combineLatest, map, withLatestFrom } from 'rxjs';

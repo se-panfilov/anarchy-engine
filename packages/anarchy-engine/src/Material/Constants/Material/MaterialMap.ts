@@ -1,4 +1,4 @@
-import type { TTypeOfMaterials } from '@Engine/Material/Models';
+import type { TTypeOfMaterials } from '@Anarchy/Engine/Material/Models';
 import {
   LineBasicMaterial,
   LineDashedMaterial,

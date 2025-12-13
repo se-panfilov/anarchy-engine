@@ -1,6 +1,6 @@
-import type { TActor, TAnyCameraWrapper, TIntersectionEvent, TIntersectionsCameraWatcher, TRadians, TReadonlyVector3, TSceneWrapper, TSpace, TSpaceConfig, TTextAnyWrapper } from '@Engine';
-import { ForwardAxis, getDistance, getHorizontalAzimuth, getPushCoordsFrom3dAzimuth, isActorHasPhysicsBody, KeysExtra, spaceService, TextType } from '@Engine';
-import { meters, radians } from '@Engine/Measurements/Utils';
+import type { TActor, TAnyCameraWrapper, TIntersectionEvent, TIntersectionsCameraWatcher, TRadians, TReadonlyVector3, TSceneWrapper, TSpace, TSpaceConfig, TTextAnyWrapper } from '@Anarchy/Engine';
+import { ForwardAxis, getDistance, getHorizontalAzimuth, getPushCoordsFrom3dAzimuth, isActorHasPhysicsBody, KeysExtra, spaceService, TextType } from '@Anarchy/Engine';
+import { meters, radians } from '@Anarchy/Engine/Measurements/Utils';
 import { asRecord, isDefined, isNotDefined } from '@Shared/Utils';
 import { Euler, Vector3 } from 'three';
 import { Line2 } from 'three/examples/jsm/lines/Line2';

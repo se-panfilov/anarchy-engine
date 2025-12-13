@@ -1,7 +1,7 @@
-import type { TAbstractWrapper } from '@Engine/Abstract';
-import { AbstractWrapper, WrapperType } from '@Engine/Abstract';
-import { cameraToConfig } from '@Engine/Camera/Adapters';
-import type { CameraType } from '@Engine/Camera/Constants';
+import type { TAbstractWrapper } from '@Anarchy/Engine/Abstract';
+import { AbstractWrapper, WrapperType } from '@Anarchy/Engine/Abstract';
+import { cameraToConfig } from '@Anarchy/Engine/Camera/Adapters';
+import type { CameraType } from '@Anarchy/Engine/Camera/Constants';
 import type {
   TAnyCamera,
   TCameraTransformDrive,
@@ -12,13 +12,13 @@ import type {
   TPerspectiveCameraConfig,
   TPerspectiveCameraParams,
   TPerspectiveCameraWrapper
-} from '@Engine/Camera/Models';
-import { CameraTransformDrive } from '@Engine/Camera/TransformDrive';
-import { applyPerspectiveCameraParams } from '@Engine/Camera/Utils';
-import { withActiveMixin, withObject3d } from '@Engine/Mixins';
-import type { TDriveToTargetConnector } from '@Engine/TransformDrive';
-import { DriveToTargetConnector } from '@Engine/TransformDrive';
-import { applyObject3dParams, mergeAll } from '@Engine/Utils';
+} from '@Anarchy/Engine/Camera/Models';
+import { CameraTransformDrive } from '@Anarchy/Engine/Camera/TransformDrive';
+import { applyPerspectiveCameraParams } from '@Anarchy/Engine/Camera/Utils';
+import { withActiveMixin, withObject3d } from '@Anarchy/Engine/Mixins';
+import type { TDriveToTargetConnector } from '@Anarchy/Engine/TransformDrive';
+import { DriveToTargetConnector } from '@Anarchy/Engine/TransformDrive';
+import { applyObject3dParams, mergeAll } from '@Anarchy/Engine/Utils';
 import type { TOptional, TWriteable } from '@Shared/Utils';
 import { isDefined } from '@Shared/Utils';
 import type { Subscription } from 'rxjs';

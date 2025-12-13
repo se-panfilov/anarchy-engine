@@ -1,11 +1,11 @@
-import type { TAbstractService } from '@Engine/Abstract';
-import { AbstractService } from '@Engine/Abstract';
-import type { TFsmConfig, TFsmInstanceServiceWithCreate, TFsmInstanceServiceWithFactory, TFsmInstanceServiceWithRegistry } from '@Engine/Fsm';
-import type { TFsmInstanceFactory, TFsmInstanceRegistry, TFsmWrapper } from '@Engine/Fsm/Models';
-import type { TFsmInstanceService } from '@Engine/Fsm/Models/TFsmInstanceService';
-import type { TDisposable } from '@Engine/Mixins';
-import { withCreateServiceMixin, withFactoryService, withRegistryService, withSerializableEntities } from '@Engine/Mixins';
-import { mergeAll } from '@Engine/Utils';
+import type { TAbstractService } from '@Anarchy/Engine/Abstract';
+import { AbstractService } from '@Anarchy/Engine/Abstract';
+import type { TFsmConfig, TFsmInstanceServiceWithCreate, TFsmInstanceServiceWithFactory, TFsmInstanceServiceWithRegistry } from '@Anarchy/Engine/Fsm';
+import type { TFsmInstanceFactory, TFsmInstanceRegistry, TFsmWrapper } from '@Anarchy/Engine/Fsm/Models';
+import type { TFsmInstanceService } from '@Anarchy/Engine/Fsm/Models/TFsmInstanceService';
+import type { TDisposable } from '@Anarchy/Engine/Mixins';
+import { withCreateServiceMixin, withFactoryService, withRegistryService, withSerializableEntities } from '@Anarchy/Engine/Mixins';
+import { mergeAll } from '@Anarchy/Engine/Utils';
 import type { Subscription } from 'rxjs';
 
 export function FsmInstanceService(factory: TFsmInstanceFactory, registry: TFsmInstanceRegistry): TFsmInstanceService {

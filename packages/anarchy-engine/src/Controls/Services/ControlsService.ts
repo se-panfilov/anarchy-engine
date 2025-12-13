@@ -1,7 +1,7 @@
-import type { TAbstractService, TRegistryPack } from '@Engine/Abstract';
-import { AbstractService } from '@Engine/Abstract';
-import type { TAbstractCameraRegistry, TAnyCameraWrapper } from '@Engine/Camera';
-import { controlsLoopEffect } from '@Engine/Controls/Loop';
+import type { TAbstractService, TRegistryPack } from '@Anarchy/Engine/Abstract';
+import { AbstractService } from '@Anarchy/Engine/Abstract';
+import type { TAbstractCameraRegistry, TAnyCameraWrapper } from '@Anarchy/Engine/Camera';
+import { controlsLoopEffect } from '@Anarchy/Engine/Controls/Loop';
 import type {
   TAnyControlsWrapper,
   TControlsConfig,
@@ -12,11 +12,11 @@ import type {
   TControlsServiceDependencies,
   TControlsServiceWithFactory,
   TControlsServiceWithRegistry
-} from '@Engine/Controls/Models';
-import type { TDisposable, TWithActiveMixinResult } from '@Engine/Mixins';
-import { withActiveEntityServiceMixin, withFactoryService, withRegistryService, withSerializableEntities } from '@Engine/Mixins';
-import type { TSpaceCanvas, TSpaceLoops } from '@Engine/Space';
-import { mergeAll } from '@Engine/Utils';
+} from '@Anarchy/Engine/Controls/Models';
+import type { TDisposable, TWithActiveMixinResult } from '@Anarchy/Engine/Mixins';
+import { withActiveEntityServiceMixin, withFactoryService, withRegistryService, withSerializableEntities } from '@Anarchy/Engine/Mixins';
+import type { TSpaceCanvas, TSpaceLoops } from '@Anarchy/Engine/Space';
+import { mergeAll } from '@Anarchy/Engine/Utils';
 import type { Subscription } from 'rxjs';
 
 export function ControlService(

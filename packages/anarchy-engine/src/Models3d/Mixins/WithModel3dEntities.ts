@@ -1,5 +1,5 @@
-import type { TAnimationActions } from '@Engine/Animations/Models';
-import type { TModel3dEntities, TRawModel3d, TWithModel3dEntities } from '@Engine/Models3d/Models';
+import type { TAnimationActions } from '@Anarchy/Engine/Animations/Models';
+import type { TModel3dEntities, TRawModel3d, TWithModel3dEntities } from '@Anarchy/Engine/Models3d/Models';
 import type { TWriteable } from '@Shared/Utils';
 import { isNotDefined } from '@Shared/Utils';
 import type { AnimationAction, AnimationClip, AnimationMixer } from 'three';

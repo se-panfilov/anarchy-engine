@@ -1,9 +1,9 @@
-import { meters, radians } from '@Engine/Measurements';
-import type { TDestroyable } from '@Engine/Mixins';
-import { destroyableMixin } from '@Engine/Mixins';
-import type { TReadonlyQuaternion, TReadonlyVector3 } from '@Engine/ThreeLib';
-import { transformDriveToConfig } from '@Engine/TransformDrive/Adapters';
-import { TransformAgent } from '@Engine/TransformDrive/Constants';
+import { meters, radians } from '@Anarchy/Engine/Measurements';
+import type { TDestroyable } from '@Anarchy/Engine/Mixins';
+import { destroyableMixin } from '@Anarchy/Engine/Mixins';
+import type { TReadonlyQuaternion, TReadonlyVector3 } from '@Anarchy/Engine/ThreeLib';
+import { transformDriveToConfig } from '@Anarchy/Engine/TransformDrive/Adapters';
+import { TransformAgent } from '@Anarchy/Engine/TransformDrive/Constants';
 import type {
   TAbstractTransformAgent,
   TTransformDrive,
@@ -11,8 +11,8 @@ import type {
   TTransformDriveParams,
   TTransformDrivePerformanceOptions,
   TTransformDriveSerializedData
-} from '@Engine/TransformDrive/Models';
-import { getDynamicAgents, updateFromActiveAgent } from '@Engine/TransformDrive/Utils';
+} from '@Anarchy/Engine/TransformDrive/Models';
+import { getDynamicAgents, updateFromActiveAgent } from '@Anarchy/Engine/TransformDrive/Utils';
 import { isNotDefined } from '@Shared/Utils';
 import { nanoid } from 'nanoid';
 import type { Observable, Subscription } from 'rxjs';

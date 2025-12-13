@@ -1,8 +1,8 @@
-import type { TWrapper } from '@Engine/Abstract';
-import type { TActor } from '@Engine/Actor';
-import type { TDestroyable } from '@Engine/Mixins';
-import type { TSceneWrapper } from '@Engine/Scene';
-import type { TSpatialCellId, TSpatialCellWrapper, TSpatialGridParams } from '@Engine/Spatial';
+import type { TWrapper } from '@Anarchy/Engine/Abstract';
+import type { TActor } from '@Anarchy/Engine/Actor';
+import type { TDestroyable } from '@Anarchy/Engine/Mixins';
+import type { TSceneWrapper } from '@Anarchy/Engine/Scene';
+import type { TSpatialCellId, TSpatialCellWrapper, TSpatialGridParams } from '@Anarchy/Engine/Spatial';
 import type { Observable } from 'rxjs';
 import type { ColorRepresentation } from 'three';
 

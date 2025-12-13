@@ -1,6 +1,6 @@
-import type { ForwardAxis } from '@Engine/Kinematic/Constants';
-import type { TMeters, TMetersPerSecond, TRadiansPerSecond } from '@Engine/Math/Types';
-import type { TEulerLike } from '@Engine/ThreeLib';
+import type { ForwardAxis } from '@Anarchy/Engine/Kinematic/Constants';
+import type { TMeters, TMetersPerSecond, TRadiansPerSecond } from '@Anarchy/Engine/Math/Types';
+import type { TEulerLike } from '@Anarchy/Engine/ThreeLib';
 import type { Quaternion, Vector3, Vector3Like } from 'three';
 
 export type TKinematicState = Readonly<{

@@ -1,8 +1,8 @@
-import type { TAnimationStateParams } from '@Engine/Animations';
-import type { TAnyMaterialWrapper } from '@Engine/Material';
-import type { TWithName, TWithTags } from '@Engine/Mixins';
-import type { PrimitiveModel3dType } from '@Engine/Models3d/Constants';
-import type { TObject3DParams } from '@Engine/ThreeLib';
+import type { TAnimationStateParams } from '@Anarchy/Engine/Animations';
+import type { TAnyMaterialWrapper } from '@Anarchy/Engine/Material';
+import type { TWithName, TWithTags } from '@Anarchy/Engine/Mixins';
+import type { PrimitiveModel3dType } from '@Anarchy/Engine/Models3d/Constants';
+import type { TObject3DParams } from '@Anarchy/Engine/ThreeLib';
 import type { AnimationClip } from 'three';
 import type { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
 

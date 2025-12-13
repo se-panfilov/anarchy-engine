@@ -1,4 +1,4 @@
-import type { TSerializable } from '@Engine/Mixins';
+import type { TSerializable } from '@Anarchy/Engine/Mixins';
 
 import type { TAbstractEntity } from './TAbstractEntity';
 

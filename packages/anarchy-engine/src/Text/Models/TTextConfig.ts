@@ -1,5 +1,5 @@
-import type { TKinematicConfig } from '@Engine/Kinematic';
-import type { TObject3DParams, TObject3DPropConfig } from '@Engine/ThreeLib';
+import type { TKinematicConfig } from '@Anarchy/Engine/Kinematic';
+import type { TObject3DParams, TObject3DPropConfig } from '@Anarchy/Engine/ThreeLib';
 import type { Vector2Like } from 'three';
 
 import type { TTextParams } from './TTextParams';

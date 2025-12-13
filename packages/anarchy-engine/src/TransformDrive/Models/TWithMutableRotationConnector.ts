@@ -1,4 +1,4 @@
-import type { TEulerLike } from '@Engine/ThreeLib';
+import type { TEulerLike } from '@Anarchy/Engine/ThreeLib';
 import type { TWriteable } from '@Shared/Utils';
 import type { QuaternionLike } from 'three';
 

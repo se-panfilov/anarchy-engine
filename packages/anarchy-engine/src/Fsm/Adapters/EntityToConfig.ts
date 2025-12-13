@@ -1,5 +1,5 @@
-import type { TFsmConfig, TFsmWrapper } from '@Engine/Fsm/Models';
-import { extractSerializableRegistrableFields } from '@Engine/Mixins';
+import type { TFsmConfig, TFsmWrapper } from '@Anarchy/Engine/Fsm/Models';
+import { extractSerializableRegistrableFields } from '@Anarchy/Engine/Mixins';
 import { filterOutEmptyFields } from '@Shared/Utils';
 
 export function fsmToConfig(entity: TFsmWrapper): TFsmConfig {

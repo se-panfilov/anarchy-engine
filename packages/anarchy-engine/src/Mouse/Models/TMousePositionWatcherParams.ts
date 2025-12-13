@@ -1,5 +1,5 @@
-import type { TContainerDecorator } from '@Engine/Global';
-import type { TWithTags } from '@Engine/Mixins';
+import type { TContainerDecorator } from '@Anarchy/Engine/Global';
+import type { TWithTags } from '@Anarchy/Engine/Mixins';
 
 import type { TMousePositionPerformanceOptions } from './TMousePositionPerformanceOptions';
 

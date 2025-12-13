@@ -1,9 +1,9 @@
-import type { TAbstractEntity } from '@Engine/Abstract';
-import type { TAnyAudio } from '@Engine/Audio';
-import type { TAnyMaterialWrapper, TMaterials } from '@Engine/Material';
-import type { TWithModel3d, TWithModel3dEntities } from '@Engine/Models3d';
-import { hasTransformDrive } from '@Engine/TransformDrive/Utils';
-import { hasGeometry, hasMaterial, isWrapper } from '@Engine/Utils';
+import type { TAbstractEntity } from '@Anarchy/Engine/Abstract';
+import type { TAnyAudio } from '@Anarchy/Engine/Audio';
+import type { TAnyMaterialWrapper, TMaterials } from '@Anarchy/Engine/Material';
+import type { TWithModel3d, TWithModel3dEntities } from '@Anarchy/Engine/Models3d';
+import { hasTransformDrive } from '@Anarchy/Engine/TransformDrive/Utils';
+import { hasGeometry, hasMaterial, isWrapper } from '@Anarchy/Engine/Utils';
 import { isDefined, isNotDefined } from '@Shared/Utils';
 import type { AnimationAction, AnimationClip, Material, Object3D, PositionalAudio } from 'three';
 import { Mesh, Texture } from 'three';

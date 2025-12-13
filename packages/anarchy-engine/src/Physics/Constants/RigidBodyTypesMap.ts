@@ -1,5 +1,5 @@
 import { RigidBodyType } from '@dimforge/rapier3d';
-import { RigidBodyTypesNames } from '@Engine/Physics/Constants/RigidBodyTypeNames';
+import { RigidBodyTypesNames } from '@Anarchy/Engine/Physics/Constants/RigidBodyTypeNames';
 
 const { Dynamic, Fixed, KinematicVelocityBased, KinematicPositionBased } = RigidBodyType;
 

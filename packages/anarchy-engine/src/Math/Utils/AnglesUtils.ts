@@ -1,8 +1,8 @@
-import { metersPerSecond, radiansPerSecond } from '@Engine/Distance';
-import { ForwardAxis } from '@Engine/Kinematic/Constants';
-import type { TDegrees, TMetersPerSecond, TRadians, TRadiansPerSecond } from '@Engine/Math';
-import type { TEulerLike } from '@Engine/ThreeLib';
-import { isEulerLike, isQuaternionLike } from '@Engine/Utils';
+import { metersPerSecond, radiansPerSecond } from '@Anarchy/Engine/Distance';
+import { ForwardAxis } from '@Anarchy/Engine/Kinematic/Constants';
+import type { TDegrees, TMetersPerSecond, TRadians, TRadiansPerSecond } from '@Anarchy/Engine/Math';
+import type { TEulerLike } from '@Anarchy/Engine/ThreeLib';
+import { isEulerLike, isQuaternionLike } from '@Anarchy/Engine/Utils';
 import type { EulerOrder, QuaternionLike, Vector3Like } from 'three';
 import { Euler, Quaternion, Vector3 } from 'three';
 import { degToRad, euclideanModulo, radToDeg } from 'three/src/math/MathUtils';

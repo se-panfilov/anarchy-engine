@@ -1,4 +1,4 @@
-import type { TElementWithCssAccessors } from '@Engine/Text/Models';
+import type { TElementWithCssAccessors } from '@Anarchy/Engine/Text/Models';
 import type { TWriteable } from '@Shared/Utils';
 import { camelToKebab } from '@Shared/Utils';
 

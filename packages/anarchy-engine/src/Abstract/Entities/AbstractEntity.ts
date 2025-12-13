@@ -1,8 +1,8 @@
-import type { EntityType } from '@Engine/Abstract/Constants';
-import type { TAbstractEntity, TEntityParams } from '@Engine/Abstract/Models';
-import type { TDestroyable, TNoSpread, TRegistrable, TWithName } from '@Engine/Mixins';
-import { destroyableMixin, withNameAndNameAccessorsMixin } from '@Engine/Mixins';
-import { genericEntityCleanUp, mergeAll } from '@Engine/Utils';
+import type { EntityType } from '@Anarchy/Engine/Abstract/Constants';
+import type { TAbstractEntity, TEntityParams } from '@Anarchy/Engine/Abstract/Models';
+import type { TDestroyable, TNoSpread, TRegistrable, TWithName } from '@Anarchy/Engine/Mixins';
+import { destroyableMixin, withNameAndNameAccessorsMixin } from '@Anarchy/Engine/Mixins';
+import { genericEntityCleanUp, mergeAll } from '@Anarchy/Engine/Utils';
 import { isDefined, isNotDefined } from '@Shared/Utils';
 import { nanoid } from 'nanoid';
 import type { Subscription } from 'rxjs';

@@ -1,6 +1,6 @@
-import type { TWatcher } from '@Engine/Abstract';
-import type { TActor } from '@Engine/Actor';
-import type { TRawModel3d } from '@Engine/Models3d';
+import type { TWatcher } from '@Anarchy/Engine/Abstract';
+import type { TActor } from '@Anarchy/Engine/Actor';
+import type { TRawModel3d } from '@Anarchy/Engine/Models3d';
 import type { Raycaster } from 'three';
 
 import type { TIntersectionEvent } from './TIntersectionEvent';

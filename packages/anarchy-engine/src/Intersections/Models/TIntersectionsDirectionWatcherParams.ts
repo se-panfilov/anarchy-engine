@@ -1,4 +1,4 @@
-import type { TReadonlyVector3 } from '@Engine/ThreeLib';
+import type { TReadonlyVector3 } from '@Anarchy/Engine/ThreeLib';
 
 import type { TAbstractIntersectionsWatcherParams } from './TAbstractIntersectionsWatcherParams';
 

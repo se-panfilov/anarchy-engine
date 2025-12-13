@@ -1,4 +1,4 @@
-import type { TAbstractService } from '@Engine/Abstract';
+import type { TAbstractService } from '@Anarchy/Engine/Abstract';
 
 import type { TGameKey } from './TGameKey';
 import type { TKeyCombo } from './TKeyCombo';

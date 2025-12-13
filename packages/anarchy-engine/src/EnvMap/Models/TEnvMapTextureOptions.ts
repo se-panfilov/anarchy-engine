@@ -1,4 +1,4 @@
-import type { EnvMapMappingTypesName } from '@Engine/EnvMap/Constants';
+import type { EnvMapMappingTypesName } from '@Anarchy/Engine/EnvMap/Constants';
 
 export type TEnvMapTextureOptions = Readonly<{
   mapping?: EnvMapMappingTypesName;

@@ -10,8 +10,8 @@ import type {
   StencilFailName,
   StencilFuncName,
   StencilOpName
-} from '@Engine/Material/Constants';
-import type { TEulerLike } from '@Engine/ThreeLib';
+} from '@Anarchy/Engine/Material/Constants';
+import type { TEulerLike } from '@Anarchy/Engine/ThreeLib';
 import type { Vector2Like } from 'three';
 
 import type {

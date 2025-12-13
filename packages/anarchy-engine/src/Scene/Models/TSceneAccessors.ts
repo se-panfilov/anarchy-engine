@@ -1,13 +1,13 @@
-import type { TActor } from '@Engine/Actor';
-import type { TAnyCameraWrapper } from '@Engine/Camera';
-import type { TColor } from '@Engine/Color';
-import type { TEnvMapTexture } from '@Engine/EnvMap';
-import type { TFogWrapper } from '@Engine/Fog';
-import type { TAbstractLightWrapper, TAnyLight } from '@Engine/Light';
-import type { TModel3d } from '@Engine/Models3d';
-import type { TParticlesWrapper } from '@Engine/Particles';
-import type { TTextAnyWrapper } from '@Engine/Text';
-import type { TTexture } from '@Engine/Texture';
+import type { TActor } from '@Anarchy/Engine/Actor';
+import type { TAnyCameraWrapper } from '@Anarchy/Engine/Camera';
+import type { TColor } from '@Anarchy/Engine/Color';
+import type { TEnvMapTexture } from '@Anarchy/Engine/EnvMap';
+import type { TFogWrapper } from '@Anarchy/Engine/Fog';
+import type { TAbstractLightWrapper, TAnyLight } from '@Anarchy/Engine/Light';
+import type { TModel3d } from '@Anarchy/Engine/Models3d';
+import type { TParticlesWrapper } from '@Anarchy/Engine/Particles';
+import type { TTextAnyWrapper } from '@Anarchy/Engine/Text';
+import type { TTexture } from '@Anarchy/Engine/Texture';
 import type { CubeTexture } from 'three';
 
 export type TSceneAccessors = Readonly<{

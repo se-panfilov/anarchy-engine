@@ -1,4 +1,4 @@
-import type { TActor, TFsmStates, TFsmWrapper, TModel3d, TSpaceServices } from '@Engine';
+import type { TActor, TFsmStates, TFsmWrapper, TModel3d, TSpaceServices } from '@Anarchy/Engine';
 import { isNotDefined } from '@Shared/Utils';
 import { distinctUntilChanged } from 'rxjs';
 import type { AnimationAction } from 'three';

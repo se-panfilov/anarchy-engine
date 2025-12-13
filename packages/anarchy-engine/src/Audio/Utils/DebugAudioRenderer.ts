@@ -1,7 +1,7 @@
-import type { TAudio3dWrapper, TDebugAudioRenderer } from '@Engine/Audio/Models';
-import type { TLoop } from '@Engine/Loop';
-import type { TMilliseconds } from '@Engine/Math';
-import type { TSceneWrapper } from '@Engine/Scene';
+import type { TAudio3dWrapper, TDebugAudioRenderer } from '@Anarchy/Engine/Audio/Models';
+import type { TLoop } from '@Anarchy/Engine/Loop';
+import type { TMilliseconds } from '@Anarchy/Engine/Math';
+import type { TSceneWrapper } from '@Anarchy/Engine/Scene';
 import { isDefined } from '@Shared/Utils';
 import type { Observable } from 'rxjs';
 import { BehaviorSubject, EMPTY, switchMap } from 'rxjs';

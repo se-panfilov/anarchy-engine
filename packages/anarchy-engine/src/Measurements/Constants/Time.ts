@@ -1,4 +1,4 @@
-import type { TMilliseconds } from '@Engine/Math/Types';
+import type { TMilliseconds } from '@Anarchy/Engine/Math/Types';
 
 export const MILLISECOND: TMilliseconds = 1 as TMilliseconds;
 export const SECOND: TMilliseconds = 1000 as TMilliseconds;

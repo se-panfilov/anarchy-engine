@@ -1,4 +1,4 @@
-import type { TAnimationStateConfig } from '@Engine/Animations/Models';
+import type { TAnimationStateConfig } from '@Anarchy/Engine/Animations/Models';
 import { filterOutEmptyFields } from '@Shared/Utils';
 import type { AnimationAction } from 'three';
 

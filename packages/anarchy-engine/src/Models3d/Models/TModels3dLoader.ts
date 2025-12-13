@@ -1,4 +1,4 @@
-import type { TAbstractLoader } from '@Engine/Abstract';
+import type { TAbstractLoader } from '@Anarchy/Engine/Abstract';
 import type { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
 
 import type { TModel3dResourceConfig } from './TModel3dResourceConfig';

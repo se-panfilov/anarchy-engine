@@ -1,4 +1,4 @@
-import type { TAbstractLoader } from '@Engine/Abstract';
+import type { TAbstractLoader } from '@Anarchy/Engine/Abstract';
 
 import type { TTexture } from './TTexture';
 import type { TTextureAsyncRegistry } from './TTextureAsyncRegistry';

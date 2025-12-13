@@ -1,6 +1,6 @@
-import type { TAbstractService } from '@Engine/Abstract';
-import { AbstractService } from '@Engine/Abstract';
-import type { FsmEventsStrategy } from '@Engine/Fsm/Constants';
+import type { TAbstractService } from '@Anarchy/Engine/Abstract';
+import { AbstractService } from '@Anarchy/Engine/Abstract';
+import type { FsmEventsStrategy } from '@Anarchy/Engine/Fsm/Constants';
 import type {
   TFsmConfig,
   TFsmInstanceFactory,
@@ -14,8 +14,8 @@ import type {
   TFsmSourceService,
   TFsmStates,
   TFsmWrapper
-} from '@Engine/Fsm/Models';
-import type { TDisposable } from '@Engine/Mixins';
+} from '@Anarchy/Engine/Fsm/Models';
+import type { TDisposable } from '@Anarchy/Engine/Mixins';
 import { isDefined } from '@Shared/Utils';
 import { isEqual } from 'lodash-es';
 

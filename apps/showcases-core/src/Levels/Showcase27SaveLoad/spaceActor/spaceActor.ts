@@ -1,4 +1,4 @@
-import type { TActor, TFsmStates, TModel3d, TSpace, TSpaceConfig } from '@Engine';
+import type { TActor, TFsmStates, TModel3d, TSpace, TSpaceConfig } from '@Anarchy/Engine';
 import { isNotDefined } from '@Shared/Utils';
 import type { Subscription } from 'rxjs';
 import { BehaviorSubject, distinctUntilChanged } from 'rxjs';

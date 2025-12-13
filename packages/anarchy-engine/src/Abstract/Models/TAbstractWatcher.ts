@@ -1,5 +1,5 @@
-import type { WatcherType } from '@Engine/Abstract';
-import type { TDestroyable, TNoSpread, TRegistrable, TWithNameAndNameAccessorsMixin } from '@Engine/Mixins';
+import type { WatcherType } from '@Anarchy/Engine/Abstract';
+import type { TDestroyable, TNoSpread, TRegistrable, TWithNameAndNameAccessorsMixin } from '@Anarchy/Engine/Mixins';
 import type { BehaviorSubject, Subject } from 'rxjs';
 
 export type TAbstractWatcher<T> = Readonly<{

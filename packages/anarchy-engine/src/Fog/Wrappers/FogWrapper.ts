@@ -1,7 +1,7 @@
-import type { TAbstractWrapper } from '@Engine/Abstract';
-import { AbstractWrapper, WrapperType } from '@Engine/Abstract';
-import { fogToConfig } from '@Engine/Fog/Adapters';
-import type { TFog, TFogConfig, TFogParams, TFogWrapper } from '@Engine/Fog/Models';
+import type { TAbstractWrapper } from '@Anarchy/Engine/Abstract';
+import { AbstractWrapper, WrapperType } from '@Anarchy/Engine/Abstract';
+import { fogToConfig } from '@Anarchy/Engine/Fog/Adapters';
+import type { TFog, TFogConfig, TFogParams, TFogWrapper } from '@Anarchy/Engine/Fog/Models';
 import { Fog } from 'three';
 
 export function FogWrapper(params: TFogParams): TFogWrapper {

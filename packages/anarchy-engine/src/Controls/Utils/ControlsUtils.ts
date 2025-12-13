@@ -1,7 +1,7 @@
-import type { TAnyCameraWrapper } from '@Engine/Camera';
-import { ControlsType } from '@Engine/Controls/Constants';
-import type { TAnyControlsWrapper, TFpsControlsWrapper, TOrbitControlsWrapper } from '@Engine/Controls/Models';
-import type { TMilliseconds } from '@Engine/Math';
+import type { TAnyCameraWrapper } from '@Anarchy/Engine/Camera';
+import { ControlsType } from '@Anarchy/Engine/Controls/Constants';
+import type { TAnyControlsWrapper, TFpsControlsWrapper, TOrbitControlsWrapper } from '@Anarchy/Engine/Controls/Models';
+import type { TMilliseconds } from '@Anarchy/Engine/Math';
 import type { Subscription } from 'rxjs';
 import type { Controls } from 'three';
 import { EventDispatcher, Quaternion } from 'three';

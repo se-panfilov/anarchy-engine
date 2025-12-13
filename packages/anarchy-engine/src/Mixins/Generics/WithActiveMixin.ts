@@ -1,4 +1,4 @@
-import type { TWithActiveMixin } from '@Engine/Mixins/Generics/Models';
+import type { TWithActiveMixin } from '@Anarchy/Engine/Mixins/Generics/Models';
 import type { TWriteable } from '@Shared/Utils';
 
 export function withActiveMixin(): TWithActiveMixin {

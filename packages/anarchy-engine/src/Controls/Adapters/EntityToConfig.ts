@@ -1,9 +1,9 @@
-import type { TAnyCamera, TAnyCameraWrapper } from '@Engine/Camera';
-import type { TAnyControlsWrapper, TControlsConfig, TControlsServiceDependencies, TFpsControlsWrapper, TOrbitControlsConfigOptions, TOrbitControlsWrapper } from '@Engine/Controls/Models';
-import type { TFpsControlsConfigOptions } from '@Engine/Controls/Models/TFpsControlsConfigOptions';
-import { isFpsControls, isOrbitControls } from '@Engine/Controls/Utils';
-import { extractSerializableRegistrableFields } from '@Engine/Mixins';
-import { vector3ToXyz } from '@Engine/Utils';
+import type { TAnyCamera, TAnyCameraWrapper } from '@Anarchy/Engine/Camera';
+import type { TAnyControlsWrapper, TControlsConfig, TControlsServiceDependencies, TFpsControlsWrapper, TOrbitControlsConfigOptions, TOrbitControlsWrapper } from '@Anarchy/Engine/Controls/Models';
+import type { TFpsControlsConfigOptions } from '@Anarchy/Engine/Controls/Models/TFpsControlsConfigOptions';
+import { isFpsControls, isOrbitControls } from '@Anarchy/Engine/Controls/Utils';
+import { extractSerializableRegistrableFields } from '@Anarchy/Engine/Mixins';
+import { vector3ToXyz } from '@Anarchy/Engine/Utils';
 import type { TWriteable } from '@Shared/Utils';
 import { filterOutEmptyFields, isNotDefined } from '@Shared/Utils';
 

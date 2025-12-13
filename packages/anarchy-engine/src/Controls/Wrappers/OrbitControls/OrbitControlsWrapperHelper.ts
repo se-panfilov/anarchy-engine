@@ -1,4 +1,4 @@
-import type { TOrbitControlsParamsOptions, TOrbitControlsWrapper } from '@Engine/Controls/Models';
+import type { TOrbitControlsParamsOptions, TOrbitControlsWrapper } from '@Anarchy/Engine/Controls/Models';
 import { isDefined, isNotDefined } from '@Shared/Utils';
 
 export function applyOrbitControlsParams(wrapper: TOrbitControlsWrapper, options: TOrbitControlsParamsOptions | undefined): void {

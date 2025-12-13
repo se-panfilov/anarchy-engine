@@ -1,7 +1,7 @@
-import type { TAbstractService, TRegistryPack } from '@Engine/Abstract';
-import { AbstractService } from '@Engine/Abstract';
-import type { TDisposable, TWithActiveMixinResult } from '@Engine/Mixins';
-import { withActiveEntityServiceMixin, withCreateFromConfigServiceMixin, withCreateServiceMixin, withFactoryService, withRegistryService, withSerializableEntities } from '@Engine/Mixins';
+import type { TAbstractService, TRegistryPack } from '@Anarchy/Engine/Abstract';
+import { AbstractService } from '@Anarchy/Engine/Abstract';
+import type { TDisposable, TWithActiveMixinResult } from '@Anarchy/Engine/Mixins';
+import { withActiveEntityServiceMixin, withCreateFromConfigServiceMixin, withCreateServiceMixin, withFactoryService, withRegistryService, withSerializableEntities } from '@Anarchy/Engine/Mixins';
 import type {
   TSceneConfig,
   TSceneFactory,
@@ -12,8 +12,8 @@ import type {
   TScenesServiceWithFactory,
   TScenesServiceWithRegistry,
   TSceneWrapper
-} from '@Engine/Scene';
-import { mergeAll } from '@Engine/Utils';
+} from '@Anarchy/Engine/Scene';
+import { mergeAll } from '@Anarchy/Engine/Utils';
 import type { Subscription } from 'rxjs';
 
 export function ScenesService(factory: TSceneFactory, registry: TSceneRegistry): TScenesService {

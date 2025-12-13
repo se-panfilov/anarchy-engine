@@ -1,7 +1,7 @@
-import { AbstractWrapper, WrapperType } from '@Engine/Abstract';
-import { colorToConfig } from '@Engine/Color/Adapters';
-import type { TColor, TColorParams, TColorWrapper } from '@Engine/Color/Models';
-import { isColorWrapper } from '@Engine/Utils';
+import { AbstractWrapper, WrapperType } from '@Anarchy/Engine/Abstract';
+import { colorToConfig } from '@Anarchy/Engine/Color/Adapters';
+import type { TColor, TColorParams, TColorWrapper } from '@Anarchy/Engine/Color/Models';
+import { isColorWrapper } from '@Anarchy/Engine/Utils';
 import type { ColorRepresentation } from 'three';
 import { Color } from 'three';
 

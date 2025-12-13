@@ -1,8 +1,8 @@
-import type { TReactiveFactory } from '@Engine/Abstract';
-import { FactoryType, ReactiveFactory } from '@Engine/Abstract';
-import { configToParams } from '@Engine/Space/Adapters';
-import { Space, SpaceFromConfig } from '@Engine/Space/Entities';
-import type { TSpace, TSpaceFactory, TSpaceFactoryDependencies, TSpaceParams, TSpaceSettings } from '@Engine/Space/Models';
+import type { TReactiveFactory } from '@Anarchy/Engine/Abstract';
+import { FactoryType, ReactiveFactory } from '@Anarchy/Engine/Abstract';
+import { configToParams } from '@Anarchy/Engine/Space/Adapters';
+import { Space, SpaceFromConfig } from '@Anarchy/Engine/Space/Entities';
+import type { TSpace, TSpaceFactory, TSpaceFactoryDependencies, TSpaceParams, TSpaceSettings } from '@Anarchy/Engine/Space/Models';
 import { isDefined } from '@Shared/Utils';
 
 function create(params: TSpaceParams, { config, registry }: TSpaceFactoryDependencies, settings?: TSpaceSettings): TSpace | never {

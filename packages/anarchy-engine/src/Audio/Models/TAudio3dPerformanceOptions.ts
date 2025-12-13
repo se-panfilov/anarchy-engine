@@ -1,4 +1,4 @@
-import type { TMeters } from '@Engine/Math';
+import type { TMeters } from '@Anarchy/Engine/Math';
 
 import type { TAudioPerformanceOptions } from './TAudioPerformanceOptions';
 

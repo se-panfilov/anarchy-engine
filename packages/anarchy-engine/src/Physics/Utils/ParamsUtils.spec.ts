@@ -1,5 +1,5 @@
-import type { TPhysicsBodyParams } from '@Engine/Physics';
-import { CollisionShape, RigidBodyTypesNames } from '@Engine/Physics';
+import type { TPhysicsBodyParams } from '@Anarchy/Engine/Physics';
+import { CollisionShape, RigidBodyTypesNames } from '@Anarchy/Engine/Physics';
 import type { TOptional } from '@Shared/Utils';
 import { Quaternion } from 'three';
 import { Vector3 } from 'three/src/math/Vector3';

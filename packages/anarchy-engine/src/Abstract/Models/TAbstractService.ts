@@ -1,3 +1,3 @@
-import type { TDestroyable, TNoSpread } from '@Engine/Mixins';
+import type { TDestroyable, TNoSpread } from '@Anarchy/Engine/Mixins';
 
 export type TAbstractService = TDestroyable & TNoSpread;

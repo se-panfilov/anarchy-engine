@@ -1,4 +1,4 @@
-import type { TParamsFromConfigWithDependencies, TReactiveFactory } from '@Engine/Abstract';
+import type { TParamsFromConfigWithDependencies, TReactiveFactory } from '@Anarchy/Engine/Abstract';
 
 import type { TEnvMapConfig } from './TEnvMapConfig';
 import type { TEnvMapConfigToParamsDependencies } from './TEnvMapConfigToParamsDependencies';

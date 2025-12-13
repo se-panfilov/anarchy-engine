@@ -1,4 +1,4 @@
-import type { TAnimationStateParams } from '@Engine/Animations/Models';
+import type { TAnimationStateParams } from '@Anarchy/Engine/Animations/Models';
 import { isDefined } from '@Shared/Utils';
 import type { AnimationAction } from 'three';
 

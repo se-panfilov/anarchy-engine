@@ -1,14 +1,14 @@
-import type { TAudioLoop } from '@Engine/Audio';
-import type { TCollisionsLoop } from '@Engine/Collisions';
-import type { TControlsLoop } from '@Engine/Controls';
-import type { TIntersectionsLoop } from '@Engine/Intersections';
-import type { TKeyboardLoop } from '@Engine/Keyboard';
-import type { TKinematicLoop } from '@Engine/Kinematic';
-import type { TMouseLoop } from '@Engine/Mouse';
-import type { TPhysicsLoop } from '@Engine/Physics';
-import type { TSpatialLoop } from '@Engine/Spatial';
-import type { TTextLoop } from '@Engine/Text';
-import type { TTransformLoop } from '@Engine/TransformDrive';
+import type { TAudioLoop } from '@Anarchy/Engine/Audio';
+import type { TCollisionsLoop } from '@Anarchy/Engine/Collisions';
+import type { TControlsLoop } from '@Anarchy/Engine/Controls';
+import type { TIntersectionsLoop } from '@Anarchy/Engine/Intersections';
+import type { TKeyboardLoop } from '@Anarchy/Engine/Keyboard';
+import type { TKinematicLoop } from '@Anarchy/Engine/Kinematic';
+import type { TMouseLoop } from '@Anarchy/Engine/Mouse';
+import type { TPhysicsLoop } from '@Anarchy/Engine/Physics';
+import type { TSpatialLoop } from '@Anarchy/Engine/Spatial';
+import type { TTextLoop } from '@Anarchy/Engine/Text';
+import type { TTransformLoop } from '@Anarchy/Engine/TransformDrive';
 
 import type { TRenderLoop } from './TRenderLoop';
 

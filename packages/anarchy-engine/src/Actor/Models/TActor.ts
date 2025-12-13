@@ -1,5 +1,5 @@
-import type { TEntity } from '@Engine/Abstract';
-import type { TPhysicsBody } from '@Engine/Physics';
+import type { TEntity } from '@Anarchy/Engine/Abstract';
+import type { TPhysicsBody } from '@Anarchy/Engine/Physics';
 
 import type { TActorConfig } from './TActorConfig';
 import type { TActorConfigToParamsDependencies } from './TActorConfigToParamsDependencies';

@@ -1,6 +1,6 @@
-import { serializeColor } from '@Engine/Color';
-import type { TFogConfig, TFogWrapper } from '@Engine/Fog/Models';
-import { extractSerializableRegistrableFields } from '@Engine/Mixins';
+import { serializeColor } from '@Anarchy/Engine/Color';
+import type { TFogConfig, TFogWrapper } from '@Anarchy/Engine/Fog/Models';
+import { extractSerializableRegistrableFields } from '@Anarchy/Engine/Mixins';
 import { filterOutEmptyFields } from '@Shared/Utils';
 import type { FogJSON } from 'three';
 

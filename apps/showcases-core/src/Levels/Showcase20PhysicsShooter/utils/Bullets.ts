@@ -20,9 +20,9 @@ import type {
   TSceneWrapper,
   TSpatialGridService,
   TSpatialGridWrapper
-} from '@Engine';
-import { getTags, LoopUpdatePriority, MaterialType, metersPerSecond, mpsSpeed, PrimitiveModel3dType, TransformAgent } from '@Engine';
-import { meters } from '@Engine/Measurements/Utils';
+} from '@Anarchy/Engine';
+import { getTags, LoopUpdatePriority, MaterialType, metersPerSecond, mpsSpeed, PrimitiveModel3dType, TransformAgent } from '@Anarchy/Engine';
+import { meters } from '@Anarchy/Engine/Measurements/Utils';
 import { isDefined, isNotDefined } from '@Shared/Utils';
 import { nanoid } from 'nanoid';
 import type { Observable } from 'rxjs';

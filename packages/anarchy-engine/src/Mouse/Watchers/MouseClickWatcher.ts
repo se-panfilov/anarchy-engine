@@ -1,8 +1,8 @@
-import type { TAbstractWatcher } from '@Engine/Abstract';
-import { AbstractWatcher, WatcherType } from '@Engine/Abstract';
-import { MouseEventType } from '@Engine/Mouse/Constants';
-import type { TMouseClickWatcher, TMouseClickWatcherParams, TMouseWatcherEvent } from '@Engine/Mouse/Models';
-import { getMouseWatcherEvent } from '@Engine/Mouse/Utils';
+import type { TAbstractWatcher } from '@Anarchy/Engine/Abstract';
+import { AbstractWatcher, WatcherType } from '@Anarchy/Engine/Abstract';
+import { MouseEventType } from '@Anarchy/Engine/Mouse/Constants';
+import type { TMouseClickWatcher, TMouseClickWatcherParams, TMouseWatcherEvent } from '@Anarchy/Engine/Mouse/Models';
+import { getMouseWatcherEvent } from '@Anarchy/Engine/Mouse/Utils';
 import { distinctUntilChanged, takeUntil } from 'rxjs';
 
 export function MouseClickWatcher({ container, tags }: TMouseClickWatcherParams): TMouseClickWatcher {

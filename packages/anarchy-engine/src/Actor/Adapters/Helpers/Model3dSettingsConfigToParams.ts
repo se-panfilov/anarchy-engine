@@ -1,5 +1,5 @@
-import type { TActorModel3dSettings, TActorModel3dSettingsConfig } from '@Engine/Actor/Models';
-import { toQuaternion } from '@Engine/Math';
+import type { TActorModel3dSettings, TActorModel3dSettingsConfig } from '@Anarchy/Engine/Actor/Models';
+import { toQuaternion } from '@Anarchy/Engine/Math';
 import { isDefined } from '@Shared/Utils';
 import { Vector3 } from 'three';
 

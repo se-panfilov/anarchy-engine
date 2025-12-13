@@ -1,4 +1,4 @@
-import type { TAnyCameraWrapper } from '@Engine/Camera';
+import type { TAnyCameraWrapper } from '@Anarchy/Engine/Camera';
 
 import type { TIntersectionsWatcher } from './TIntersectionsWatcher';
 

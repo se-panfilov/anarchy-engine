@@ -1,9 +1,9 @@
-import type { TWrapper } from '@Engine/Abstract';
-import type { TAnyCameraWrapper } from '@Engine/Camera';
-import type { ControlsType } from '@Engine/Controls/Constants';
-import type { TMilliseconds } from '@Engine/Math';
-import type { TWithActiveMixin } from '@Engine/Mixins';
-import type { TReadonlyVector3 } from '@Engine/ThreeLib';
+import type { TWrapper } from '@Anarchy/Engine/Abstract';
+import type { TAnyCameraWrapper } from '@Anarchy/Engine/Camera';
+import type { ControlsType } from '@Anarchy/Engine/Controls/Constants';
+import type { TMilliseconds } from '@Anarchy/Engine/Math';
+import type { TWithActiveMixin } from '@Anarchy/Engine/Mixins';
+import type { TReadonlyVector3 } from '@Anarchy/Engine/ThreeLib';
 import type { Euler, Quaternion, Vector3 } from 'three';
 import type { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 

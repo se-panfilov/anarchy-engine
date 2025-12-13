@@ -1,4 +1,4 @@
-import type { TWithName, TWithNameAndNameAccessorsMixin } from '@Engine/Mixins/Generics/Models';
+import type { TWithName, TWithNameAndNameAccessorsMixin } from '@Anarchy/Engine/Mixins/Generics/Models';
 import type { TWriteable } from '@Shared/Utils';
 
 export function withNameAndNameAccessorsMixin<T extends TWriteable<TWithName>>(entity: T): TWithNameAndNameAccessorsMixin {

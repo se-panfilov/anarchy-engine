@@ -1,5 +1,5 @@
-import type { TWithPosition4d, TWithPosition4dProperty } from '@Engine/Mixins/GameObjects/Models';
-import { isVector4Like } from '@Engine/Utils';
+import type { TWithPosition4d, TWithPosition4dProperty } from '@Anarchy/Engine/Mixins/GameObjects/Models';
+import { isVector4Like } from '@Anarchy/Engine/Utils';
 import type { Vector4Like } from 'three';
 import { Vector4 } from 'three';
 

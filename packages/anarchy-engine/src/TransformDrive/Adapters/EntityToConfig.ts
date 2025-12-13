@@ -1,6 +1,6 @@
-import { ignoreDefaultStateKinematic } from '@Engine/Kinematic';
-import type { TTransformDrive, TTransformDriveSerializedData } from '@Engine/TransformDrive/Models';
-import { eulerToXyz, vector3ToXyz } from '@Engine/Utils';
+import { ignoreDefaultStateKinematic } from '@Anarchy/Engine/Kinematic';
+import type { TTransformDrive, TTransformDriveSerializedData } from '@Anarchy/Engine/TransformDrive/Models';
+import { eulerToXyz, vector3ToXyz } from '@Anarchy/Engine/Utils';
 import { Euler } from 'three';
 
 export function transformDriveToConfig(drive: TTransformDrive<any>): TTransformDriveSerializedData {

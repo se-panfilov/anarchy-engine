@@ -1,6 +1,6 @@
-import type { TAnyMaterialWrapper } from '@Engine/Material';
-import { extractSerializableRegistrableFields } from '@Engine/Mixins';
-import type { TParticlesConfig, TParticlesConfigToParamsDependencies, TParticlesWrapper } from '@Engine/Particles/Models';
+import type { TAnyMaterialWrapper } from '@Anarchy/Engine/Material';
+import { extractSerializableRegistrableFields } from '@Anarchy/Engine/Mixins';
+import type { TParticlesConfig, TParticlesConfigToParamsDependencies, TParticlesWrapper } from '@Anarchy/Engine/Particles/Models';
 import { filterOutEmptyFields } from '@Shared/Utils';
 
 export function particlesToConfig(entity: TParticlesWrapper, { materialRegistry }: TParticlesConfigToParamsDependencies): TParticlesConfig {

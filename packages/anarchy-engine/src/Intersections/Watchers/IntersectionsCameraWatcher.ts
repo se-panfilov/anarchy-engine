@@ -1,16 +1,16 @@
-import type { TAnyCameraWrapper } from '@Engine/Camera';
+import type { TAnyCameraWrapper } from '@Anarchy/Engine/Camera';
 import type {
   TAbstractIntersectionsWatcher,
   TIntersectionEvent,
   TIntersectionsCameraWatcher,
   TIntersectionsCameraWatcherParams,
   TIntersectionsWatcherPerformanceOptions
-} from '@Engine/Intersections/Models';
-import { getChangedPosition } from '@Engine/Intersections/Utils';
-import { AbstractIntersectionsWatcher } from '@Engine/Intersections/Watchers/AbstractIntersectionsWatcher';
-import type { TMilliseconds } from '@Engine/Math';
-import type { TSceneObject } from '@Engine/Scene';
-import type { TReadonlyVector2 } from '@Engine/ThreeLib';
+} from '@Anarchy/Engine/Intersections/Models';
+import { getChangedPosition } from '@Anarchy/Engine/Intersections/Utils';
+import { AbstractIntersectionsWatcher } from '@Anarchy/Engine/Intersections/Watchers/AbstractIntersectionsWatcher';
+import type { TMilliseconds } from '@Anarchy/Engine/Math';
+import type { TSceneObject } from '@Anarchy/Engine/Scene';
+import type { TReadonlyVector2 } from '@Anarchy/Engine/ThreeLib';
 import type { TWriteable } from '@Shared/Utils';
 import { isDefined, isNotDefined } from '@Shared/Utils';
 import type { Observable, Subscription } from 'rxjs';

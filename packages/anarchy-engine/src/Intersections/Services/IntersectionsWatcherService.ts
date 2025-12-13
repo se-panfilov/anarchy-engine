@@ -1,7 +1,7 @@
-import type { TAbstractService } from '@Engine/Abstract';
-import { AbstractService } from '@Engine/Abstract';
-import type { TActorService } from '@Engine/Actor';
-import type { TCameraService } from '@Engine/Camera';
+import type { TAbstractService } from '@Anarchy/Engine/Abstract';
+import { AbstractService } from '@Anarchy/Engine/Abstract';
+import type { TActorService } from '@Anarchy/Engine/Actor';
+import type { TCameraService } from '@Anarchy/Engine/Camera';
 import type {
   TAnyIntersectionsWatcher,
   TAnyIntersectionsWatcherConfig,
@@ -13,13 +13,13 @@ import type {
   TIntersectionsWatcherService,
   TIntersectionsWatcherServiceWithFactory,
   TIntersectionsWatcherServiceWithRegistry
-} from '@Engine/Intersections/Models';
-import { isIntersectionsCameraWatcher, isIntersectionsDirectionWatcher } from '@Engine/Intersections/Utils';
-import type { TLoopService } from '@Engine/Loop';
-import type { TDisposable } from '@Engine/Mixins';
-import { withFactoryService, withRegistryService, withSerializableEntities } from '@Engine/Mixins';
-import type { TMouseService } from '@Engine/Mouse';
-import { mergeAll } from '@Engine/Utils';
+} from '@Anarchy/Engine/Intersections/Models';
+import { isIntersectionsCameraWatcher, isIntersectionsDirectionWatcher } from '@Anarchy/Engine/Intersections/Utils';
+import type { TLoopService } from '@Anarchy/Engine/Loop';
+import type { TDisposable } from '@Anarchy/Engine/Mixins';
+import { withFactoryService, withRegistryService, withSerializableEntities } from '@Anarchy/Engine/Mixins';
+import type { TMouseService } from '@Anarchy/Engine/Mouse';
+import { mergeAll } from '@Anarchy/Engine/Utils';
 import { isDefined } from '@Shared/Utils';
 import type { Subscription } from 'rxjs';
 

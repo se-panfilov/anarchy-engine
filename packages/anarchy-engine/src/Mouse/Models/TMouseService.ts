@@ -1,4 +1,4 @@
-import type { TAbstractService } from '@Engine/Abstract';
+import type { TAbstractService } from '@Anarchy/Engine/Abstract';
 import type { Observable } from 'rxjs';
 import type { Vector2Like } from 'three';
 

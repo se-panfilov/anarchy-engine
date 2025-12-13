@@ -1,5 +1,5 @@
-import type { TSerializableEntitiesService } from '@Engine/Abstract';
-import type { TWithCreateFromConfigService, TWithCreateService, TWithFactoryService, TWithRegistryService } from '@Engine/Mixins';
+import type { TSerializableEntitiesService } from '@Anarchy/Engine/Abstract';
+import type { TWithCreateFromConfigService, TWithCreateService, TWithFactoryService, TWithRegistryService } from '@Anarchy/Engine/Mixins';
 
 import type { TSpatialGridConfig } from './TSpatialGridConfig';
 import type { TSpatialGridFactory } from './TSpatialGridFactory';

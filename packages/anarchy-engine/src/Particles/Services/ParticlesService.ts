@@ -1,8 +1,8 @@
-import type { TAbstractService, TRegistryPack } from '@Engine/Abstract';
-import { AbstractService } from '@Engine/Abstract';
-import type { TMaterialRegistry } from '@Engine/Material';
-import type { TDisposable } from '@Engine/Mixins';
-import { withCreateFromConfigServiceMixin, withCreateServiceMixin, withFactoryService, withRegistryService, withSceneGetterService, withSerializableEntities } from '@Engine/Mixins';
+import type { TAbstractService, TRegistryPack } from '@Anarchy/Engine/Abstract';
+import { AbstractService } from '@Anarchy/Engine/Abstract';
+import type { TMaterialRegistry } from '@Anarchy/Engine/Material';
+import type { TDisposable } from '@Anarchy/Engine/Mixins';
+import { withCreateFromConfigServiceMixin, withCreateServiceMixin, withFactoryService, withRegistryService, withSceneGetterService, withSerializableEntities } from '@Anarchy/Engine/Mixins';
 import type {
   TParticlesConfig,
   TParticlesConfigToParamsDependencies,
@@ -15,9 +15,9 @@ import type {
   TParticlesServiceWithFactory,
   TParticlesServiceWithRegistry,
   TParticlesWrapper
-} from '@Engine/Particles/Models';
-import type { TSceneWrapper } from '@Engine/Scene';
-import { mergeAll } from '@Engine/Utils';
+} from '@Anarchy/Engine/Particles/Models';
+import type { TSceneWrapper } from '@Anarchy/Engine/Scene';
+import { mergeAll } from '@Anarchy/Engine/Utils';
 import type { Subscription } from 'rxjs';
 
 export function ParticlesService(factory: TParticlesFactory, registry: TParticlesRegistry, dependencies: TParticlesServiceDependencies, scene: TSceneWrapper): TParticlesService {

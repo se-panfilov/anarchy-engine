@@ -1,5 +1,5 @@
-import type { TRawModel3d } from '@Engine/Models3d/Models';
-import type { TEulerLike, TObject3DParams, TObject3DPropConfig } from '@Engine/ThreeLib';
+import type { TRawModel3d } from '@Anarchy/Engine/Models3d/Models';
+import type { TEulerLike, TObject3DParams, TObject3DPropConfig } from '@Anarchy/Engine/ThreeLib';
 import { isDefined } from '@Shared/Utils';
 import type { Group, Mesh, Object3D, Object3DEventMap, Vector3Like } from 'three';
 import { Euler } from 'three';

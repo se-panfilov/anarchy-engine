@@ -1,5 +1,5 @@
-import type { TWithName, TWithTags } from '@Engine/Mixins';
-import type { TWithTransformAgentParam } from '@Engine/TransformDrive';
+import type { TWithName, TWithTags } from '@Anarchy/Engine/Mixins';
+import type { TWithTransformAgentParam } from '@Anarchy/Engine/TransformDrive';
 import type { AudioListener, Vector3Like } from 'three';
 
 import type { TAudioPerformanceOptions } from './TAudioPerformanceOptions';

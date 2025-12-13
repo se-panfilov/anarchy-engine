@@ -1,12 +1,12 @@
-import type { TAbstractService, TRegistryPack } from '@Engine/Abstract';
-import { AbstractEntity, EntityType } from '@Engine/Abstract';
-import type { TContainerDecorator } from '@Engine/Global';
-import type { TAnyIntersectionsWatcher } from '@Engine/Intersections';
-import type { TLoop } from '@Engine/Loop';
-import type { TMouseClickWatcher, TMousePositionWatcher } from '@Engine/Mouse';
-import type { TSceneWrapper } from '@Engine/Scene';
-import { spaceToConfig } from '@Engine/Space/Adapters';
-import { CreateEntitiesStrategy, SpaceEvents } from '@Engine/Space/Constants';
+import type { TAbstractService, TRegistryPack } from '@Anarchy/Engine/Abstract';
+import { AbstractEntity, EntityType } from '@Anarchy/Engine/Abstract';
+import type { TContainerDecorator } from '@Anarchy/Engine/Global';
+import type { TAnyIntersectionsWatcher } from '@Anarchy/Engine/Intersections';
+import type { TLoop } from '@Anarchy/Engine/Loop';
+import type { TMouseClickWatcher, TMousePositionWatcher } from '@Anarchy/Engine/Mouse';
+import type { TSceneWrapper } from '@Anarchy/Engine/Scene';
+import { spaceToConfig } from '@Anarchy/Engine/Space/Adapters';
+import { CreateEntitiesStrategy, SpaceEvents } from '@Anarchy/Engine/Space/Constants';
 import type {
   TSpace,
   TSpaceAnyEvent,
@@ -19,9 +19,9 @@ import type {
   TSpaceRegistry,
   TSpaceServices,
   TSpaceSettings
-} from '@Engine/Space/Models';
-import { buildBaseServices, buildEntitiesServices, createEntities, createLoops } from '@Engine/Space/Utils';
-import { findDomElement, getCanvasContainer, getOrCreateCanvasFromSelector, isCanvasElement, isDestroyable, mergeAll } from '@Engine/Utils';
+} from '@Anarchy/Engine/Space/Models';
+import { buildBaseServices, buildEntitiesServices, createEntities, createLoops } from '@Anarchy/Engine/Space/Utils';
+import { findDomElement, getCanvasContainer, getOrCreateCanvasFromSelector, isCanvasElement, isDestroyable, mergeAll } from '@Anarchy/Engine/Utils';
 import { isDefined, isNotDefined } from '@Shared/Utils';
 import type { Subscription } from 'rxjs';
 import { BehaviorSubject, distinctUntilChanged, filter, skip, Subject } from 'rxjs';

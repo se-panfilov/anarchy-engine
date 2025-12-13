@@ -1,5 +1,5 @@
-import type { TOrbitControlsAccessors } from '@Engine/Controls/Models';
-import type { TReadonlyVector3 } from '@Engine/ThreeLib';
+import type { TOrbitControlsAccessors } from '@Anarchy/Engine/Controls/Models';
+import type { TReadonlyVector3 } from '@Anarchy/Engine/ThreeLib';
 import type { TWriteable } from '@Shared/Utils';
 import type { Vector3 } from 'three';
 import type { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';

@@ -1,4 +1,4 @@
-import type { TParamsFromConfigWithDependencies, TReactiveFactory } from '@Engine/Abstract';
+import type { TParamsFromConfigWithDependencies, TReactiveFactory } from '@Anarchy/Engine/Abstract';
 
 import type { TAnyAudioConfig } from './TAnyAudioConfig';
 import type { TAnyAudioParams } from './TAnyAudioParams';

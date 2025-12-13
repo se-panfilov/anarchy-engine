@@ -1,4 +1,4 @@
-import type { TWithName, TWithTags } from '@Engine/Mixins';
+import type { TWithName, TWithTags } from '@Anarchy/Engine/Mixins';
 import type { Color } from 'three';
 
 export type TFogParams = Readonly<{

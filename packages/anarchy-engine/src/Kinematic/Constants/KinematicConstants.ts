@@ -1,7 +1,7 @@
-import type { TKinematicConfigState, TKinematicState, TKinematicTarget } from '@Engine/Kinematic';
-import { ForwardAxis } from '@Engine/Kinematic';
-import type { TMeters } from '@Engine/Math';
-import { eulerToXyz, vector3ToXyz } from '@Engine/Utils';
+import type { TKinematicConfigState, TKinematicState, TKinematicTarget } from '@Anarchy/Engine/Kinematic';
+import { ForwardAxis } from '@Anarchy/Engine/Kinematic';
+import type { TMeters } from '@Anarchy/Engine/Math';
+import { eulerToXyz, vector3ToXyz } from '@Anarchy/Engine/Utils';
 import { Euler, Quaternion, Vector3 } from 'three';
 
 export enum KinematicSpeed {

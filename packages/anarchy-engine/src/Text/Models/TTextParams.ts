@@ -1,9 +1,9 @@
-import type { TKinematicParams } from '@Engine/Kinematic';
-import type { TWithName, TWithTags } from '@Engine/Mixins';
-import type { TPhysicsBody } from '@Engine/Physics';
-import type { TextType } from '@Engine/Text/Constants';
-import type { TObject3DParams } from '@Engine/ThreeLib';
-import type { TWithTransformAgentParam } from '@Engine/TransformDrive';
+import type { TKinematicParams } from '@Anarchy/Engine/Kinematic';
+import type { TWithName, TWithTags } from '@Anarchy/Engine/Mixins';
+import type { TPhysicsBody } from '@Anarchy/Engine/Physics';
+import type { TextType } from '@Anarchy/Engine/Text/Constants';
+import type { TObject3DParams } from '@Anarchy/Engine/ThreeLib';
+import type { TWithTransformAgentParam } from '@Anarchy/Engine/TransformDrive';
 import type { Vector2 } from 'three';
 
 import type { TTextCssProps } from './TTextCssProps';

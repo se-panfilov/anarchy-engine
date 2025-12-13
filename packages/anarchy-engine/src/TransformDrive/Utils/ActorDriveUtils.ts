@@ -1,4 +1,4 @@
-import type { TVector3OrEuler, TVector4OrQuaternion } from '@Engine/ThreeLib';
+import type { TVector3OrEuler, TVector4OrQuaternion } from '@Anarchy/Engine/ThreeLib';
 import type { TWriteable } from '@Shared/Utils';
 import type { Subject } from 'rxjs';
 

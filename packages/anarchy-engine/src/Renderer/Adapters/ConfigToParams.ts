@@ -1,5 +1,5 @@
-import type { TRendererConfig, TRendererParams, TRendererServiceDependencies } from '@Engine/Renderer/Models';
-import type { TSpaceCanvas } from '@Engine/Space';
+import type { TRendererConfig, TRendererParams, TRendererServiceDependencies } from '@Anarchy/Engine/Renderer/Models';
+import type { TSpaceCanvas } from '@Anarchy/Engine/Space';
 import { isNotDefined } from '@Shared/Utils';
 
 export function configToParams(config: TRendererConfig, { container }: TRendererServiceDependencies): TRendererParams | never {

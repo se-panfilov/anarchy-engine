@@ -1,6 +1,6 @@
-import type { TWithBaseAccessorsRegistry } from '@Engine/Abstract/Models';
-import type { TSerializable } from '@Engine/Mixins';
-import { asArray } from '@Engine/Utils';
+import type { TWithBaseAccessorsRegistry } from '@Anarchy/Engine/Abstract/Models';
+import type { TSerializable } from '@Anarchy/Engine/Mixins';
+import { asArray } from '@Anarchy/Engine/Utils';
 import { findInMap, findKeyInMap, isDefined, isNotDefined } from '@Shared/Utils';
 
 export function withBaseAccessorsRegistry<T>(registry: Map<string, T>): TWithBaseAccessorsRegistry<T> {

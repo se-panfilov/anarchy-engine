@@ -1,7 +1,7 @@
 import '@Public/resources/fonts.css';
 
-import type { TModel3d, TModels3dRegistry, TSceneWrapper, TSpace, TSpaceConfig } from '@Engine';
-import { spaceService, TextType, TransformAgent } from '@Engine';
+import type { TModel3d, TModels3dRegistry, TSceneWrapper, TSpace, TSpaceConfig } from '@Anarchy/Engine';
+import { spaceService, TextType, TransformAgent } from '@Anarchy/Engine';
 import { asRecord, isNotDefined } from '@Shared/Utils';
 import { Euler, Vector3 } from 'three';
 

@@ -1,4 +1,4 @@
-import type { TReadonlyVector3 } from '@Engine/ThreeLib';
+import type { TReadonlyVector3 } from '@Anarchy/Engine/ThreeLib';
 import type { Vector3 } from 'three';
 
 export type TOrbitControlsAccessors = {

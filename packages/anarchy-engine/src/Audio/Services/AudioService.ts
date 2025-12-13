@@ -1,7 +1,7 @@
-import type { TAbstractService } from '@Engine/Abstract';
-import { AbstractService } from '@Engine/Abstract';
-import { Listeners } from '@Engine/Audio/Constants';
-import { AudioLoader } from '@Engine/Audio/Loader';
+import type { TAbstractService } from '@Anarchy/Engine/Abstract';
+import { AbstractService } from '@Anarchy/Engine/Abstract';
+import { Listeners } from '@Anarchy/Engine/Audio/Constants';
+import { AudioLoader } from '@Anarchy/Engine/Audio/Loader';
 import type {
   TAnyAudioConfig,
   TAnyAudioWrapper,
@@ -20,11 +20,11 @@ import type {
   TAudioServiceWithCreateFromConfig,
   TAudioServiceWithFactory,
   TAudioServiceWithRegistry
-} from '@Engine/Audio/Models';
-import type { TDisposable } from '@Engine/Mixins';
-import { withCreateFromConfigServiceMixin, withCreateServiceMixin, withFactoryService, withRegistryService, withSerializableEntities, withSerializeAllResources } from '@Engine/Mixins';
-import type { TSpaceLoops } from '@Engine/Space';
-import { mergeAll } from '@Engine/Utils';
+} from '@Anarchy/Engine/Audio/Models';
+import type { TDisposable } from '@Anarchy/Engine/Mixins';
+import { withCreateFromConfigServiceMixin, withCreateServiceMixin, withFactoryService, withRegistryService, withSerializableEntities, withSerializeAllResources } from '@Anarchy/Engine/Mixins';
+import type { TSpaceLoops } from '@Anarchy/Engine/Space';
+import { mergeAll } from '@Anarchy/Engine/Utils';
 import type { Subscription } from 'rxjs';
 import { AudioListener } from 'three';
 

@@ -1,7 +1,7 @@
-import type { TAbstractSimpleRegistry } from '@Engine/Abstract';
-import { AbstractSimpleRegistry, RegistryType } from '@Engine/Abstract';
-import type { TActor, TModel3dToActorConnectionRegistry, TModel3dToActorConnectionRegistryExtension } from '@Engine/Actor/Models';
-import type { TModel3d } from '@Engine/Models3d';
+import type { TAbstractSimpleRegistry } from '@Anarchy/Engine/Abstract';
+import { AbstractSimpleRegistry, RegistryType } from '@Anarchy/Engine/Abstract';
+import type { TActor, TModel3dToActorConnectionRegistry, TModel3dToActorConnectionRegistryExtension } from '@Anarchy/Engine/Actor/Models';
+import type { TModel3d } from '@Anarchy/Engine/Models3d';
 import type { TWriteable } from '@Shared/Utils';
 import { isNotDefined } from '@Shared/Utils';
 

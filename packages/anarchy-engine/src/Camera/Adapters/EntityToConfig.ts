@@ -1,4 +1,4 @@
-import type { TAudioService } from '@Engine/Audio';
+import type { TAudioService } from '@Anarchy/Engine/Audio';
 import type {
   TAnyCameraConfig,
   TAnyCameraWrapper,
@@ -8,12 +8,12 @@ import type {
   TOrthographicCameraParams,
   TPerspectiveCameraOnlyConfig,
   TPerspectiveCameraParams
-} from '@Engine/Camera/Models';
-import type { TOrthographicCameraOnlyConfig } from '@Engine/Camera/Models/TOrthographicCameraConfig';
-import { isOrthographicCameraWrapper, isPerspectiveCameraWrapper } from '@Engine/Camera/Utils';
-import type { TShadowCameraParams } from '@Engine/Light';
-import { extractSerializableRegistrableFields } from '@Engine/Mixins';
-import { isVector3Like } from '@Engine/Utils';
+} from '@Anarchy/Engine/Camera/Models';
+import type { TOrthographicCameraOnlyConfig } from '@Anarchy/Engine/Camera/Models/TOrthographicCameraConfig';
+import { isOrthographicCameraWrapper, isPerspectiveCameraWrapper } from '@Anarchy/Engine/Camera/Utils';
+import type { TShadowCameraParams } from '@Anarchy/Engine/Light';
+import { extractSerializableRegistrableFields } from '@Anarchy/Engine/Mixins';
+import { isVector3Like } from '@Anarchy/Engine/Utils';
 import { filterOutEmptyFields, isDefined } from '@Shared/Utils';
 import type { AudioListener, OrthographicCameraJSONObject, PerspectiveCameraJSONObject, Vector3Like } from 'three';
 

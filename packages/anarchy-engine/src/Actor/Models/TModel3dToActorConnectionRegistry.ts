@@ -1,5 +1,5 @@
-import type { TAbstractSimpleRegistry } from '@Engine/Abstract';
-import type { TModel3d } from '@Engine/Models3d';
+import type { TAbstractSimpleRegistry } from '@Anarchy/Engine/Abstract';
+import type { TModel3d } from '@Anarchy/Engine/Models3d';
 
 import type { TActor } from './TActor';
 

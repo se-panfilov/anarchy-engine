@@ -1,6 +1,6 @@
-import type { TAnyMaterialWrapper } from '@Engine/Material';
-import type { TParticlesConfig, TParticlesConfigToParamsDependencies, TParticlesParams } from '@Engine/Particles/Models';
-import { configToParamsObject3d } from '@Engine/ThreeLib';
+import type { TAnyMaterialWrapper } from '@Anarchy/Engine/Material';
+import type { TParticlesConfig, TParticlesConfigToParamsDependencies, TParticlesParams } from '@Anarchy/Engine/Particles/Models';
+import { configToParamsObject3d } from '@Anarchy/Engine/ThreeLib';
 
 export function configToParams(config: TParticlesConfig, { materialRegistry }: TParticlesConfigToParamsDependencies): TParticlesParams | never {
   const { position, rotation, layers, scale, ...rest } = config;

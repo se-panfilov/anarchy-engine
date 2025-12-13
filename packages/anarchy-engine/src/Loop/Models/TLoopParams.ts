@@ -1,4 +1,4 @@
-import type { LoopType } from '@Engine/Loop/Constants';
+import type { LoopType } from '@Anarchy/Engine/Loop/Constants';
 
 import type { TLoopTriggerFn } from './TLoopTriggerFn';
 

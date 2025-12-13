@@ -1,9 +1,9 @@
-import { actorStatesConfigToParams, model3dSettingsConfigToParams } from '@Engine/Actor/Adapters/Helpers';
-import type { TActorConfig, TActorConfigToParamsDependencies, TActorParams } from '@Engine/Actor/Models';
-import { kinematicConfigToParams } from '@Engine/Kinematic';
-import type { TModel3d } from '@Engine/Models3d';
-import { configToParamsSpatialData } from '@Engine/Spatial';
-import { configToParamsObject3d } from '@Engine/ThreeLib';
+import { actorStatesConfigToParams, model3dSettingsConfigToParams } from '@Anarchy/Engine/Actor/Adapters/Helpers';
+import type { TActorConfig, TActorConfigToParamsDependencies, TActorParams } from '@Anarchy/Engine/Actor/Models';
+import { kinematicConfigToParams } from '@Anarchy/Engine/Kinematic';
+import type { TModel3d } from '@Anarchy/Engine/Models3d';
+import { configToParamsSpatialData } from '@Anarchy/Engine/Spatial';
+import { configToParamsObject3d } from '@Anarchy/Engine/ThreeLib';
 import { isDefined } from '@Shared/Utils';
 
 export function configToParams(config: TActorConfig, dependencies: TActorConfigToParamsDependencies): TActorParams {
