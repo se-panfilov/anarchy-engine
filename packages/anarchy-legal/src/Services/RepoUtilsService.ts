@@ -88,7 +88,7 @@ export function RepoUtilsService(isDebug: boolean): TRepoUtilsService {
     const entries: Array<[string, TWorkspaceInfo]> = (
       await Promise.all(
         dirs.map(async (dir: string): Promise<[string, TWorkspaceInfo] | undefined> => {
-          const pkgPath = path.join(dir, 'package.json');
+          const pkgPath: string = path.join(dir, 'package.json');
           if (!(await exists(pkgPath))) return undefined;
           const pkg = await readJson<TWorkspaceInfo['pkg']>(pkgPath);
           if (!pkg.name) return undefined;
@@ -128,7 +128,7 @@ export function RepoUtilsService(isDebug: boolean): TRepoUtilsService {
 
     if (isDebug) {
       console.log('[debug] workspace graph:');
-      graph.forEach((v, k) => console.log('  ', k, '->', [...v].join(', ') || '∅'));
+      graph.forEach((v: ReadonlySet<string>, k: string) => console.log('  ', k, '->', [...v].join(', ') || '∅'));
     }
     return graph;
   }
