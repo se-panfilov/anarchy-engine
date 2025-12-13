@@ -1,8 +1,7 @@
 import { isDefined, isNotDefined } from '@Engine/Utils';
+import type { TWriteable } from '@Shared/Utils/TypesUtils';
 import type { Observable, Subject } from 'rxjs';
 import { defer, finalize } from 'rxjs';
-
-import type { TWriteable } from './TypesUtils';
 
 export function updateSubjOnChange<T extends Record<K, V>, K extends keyof T, V>(obj: T, fieldName: K, subj$: Subject<T[K]>, beforeApplyFn?: (v: T[K]) => T[K]): T {
   return new Proxy(obj, {

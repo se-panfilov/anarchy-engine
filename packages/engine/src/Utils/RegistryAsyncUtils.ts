@@ -1,9 +1,9 @@
 import type { LookUpStrategy, TAbstractAsyncEntityRegistry, TAbstractEntityRegistry, TAbstractResourceAsyncRegistry, TAbstractSimpleRegistry, TRegistryPack } from '@Engine/Abstract';
 import type { TMultitonRegistrable, TRegistrable } from '@Engine/Mixins';
+import { createDeferredPromise } from '@Shared/Utils/AsyncUtils';
 import type { Observable, Subscription } from 'rxjs';
 import { BehaviorSubject, catchError, filter, map, of, take, takeUntil, timeout } from 'rxjs';
 
-import { createDeferredPromise } from './AsyncUtils';
 import { isDefined } from './CheckUtils';
 import { shouldHaveTags } from './RegistryUtils';
 import { hasTag } from './TagsUtils';

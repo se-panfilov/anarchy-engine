@@ -2,24 +2,13 @@ import type { TAbstractAsyncEntityRegistry, TAbstractEntityRegistry, TWithUserDa
 import type { TColorWrapper } from '@Engine/Color';
 import type { TDestroyable, TWithPosition2dProperty, TWithPosition3dProperty, TWithPosition4dProperty, TWithPositionProperty } from '@Engine/Mixins';
 import type { TEulerLike } from '@Engine/ThreeLib';
+import { isDefined, isNotDefined, isObject } from '@Shared/Utils';
 import type { BufferGeometry, Euler, Material, Quaternion, QuaternionLike, Vector2, Vector2Like, Vector3, Vector3Like, Vector4, Vector4Like } from 'three';
 import { Color } from 'three';
-
-import { isObject } from './ObjectUtils';
-
-export const isDefined = <T>(value: T | undefined | null): value is T => <T>value !== undefined && <T>value !== null;
-
-export const isAllDefined = <T>(values: ReadonlyArray<T | undefined | null>): values is ReadonlyArray<T> => !values.some(isNotDefined);
-
-export const isNotDefined = <T>(value: T | undefined | null): value is undefined | null => !isDefined<T>(value);
-
-export const isAllNotDefined = <T>(values: ReadonlyArray<T | undefined | null>): values is ReadonlyArray<undefined | null> => values.every(isNotDefined);
 
 export function isDestroyable(obj: unknown): obj is TDestroyable {
   return isDefined((obj as TDestroyable).destroy$);
 }
-
-export const isString = (value: unknown): value is string => typeof value === 'string';
 
 export const isColorWrapper = (obj: unknown): obj is TColorWrapper => isDefined((obj as TColorWrapper).entity) && (obj as TColorWrapper).entity instanceof Color;
 
@@ -47,8 +36,6 @@ export const isEntityWith4dPosition = (obj: TWithPositionProperty): obj is TWith
 
 export const isAsyncEntityRegistry = (registry: TAbstractEntityRegistry<any> | TAbstractAsyncEntityRegistry<any>): registry is TAbstractAsyncEntityRegistry<any> =>
   isDefined((registry as TAbstractAsyncEntityRegistry<any>).findByTagsAsync) && isDefined((registry as TAbstractAsyncEntityRegistry<any>).findByTagAsync);
-
-export const isBoolean = (value: unknown): value is boolean => typeof value === 'boolean';
 
 export const hasMaterial = (entity: unknown): entity is { material?: Material | Array<Material> | null } => isDefined((entity as any).material);
 

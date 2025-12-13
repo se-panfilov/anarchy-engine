@@ -1,6 +1,5 @@
+import { findInMap } from '@Shared/Utils/MapUtils';
 import { describe, expect, it } from 'vitest';
-
-import { findInMap } from './MapUtils';
 
 describe('MapUtils', () => {
   const map: Map<string, number> = new Map<string, number>();

@@ -1,3 +1,5 @@
+import type { TDeferredPromise } from '@Shared/Models';
+
 export function createDeferredPromise<T>(): TDeferredPromise<T> {
   let resolve: (value: T | PromiseLike<T>) => void;
   let reject: (reason?: any) => void;
@@ -13,9 +15,3 @@ export function createDeferredPromise<T>(): TDeferredPromise<T> {
     promise
   };
 }
-
-export type TDeferredPromise<T> = Readonly<{
-  resolve: (value: T | PromiseLike<T>) => void;
-  reject: (reason?: any) => void;
-  promise: Promise<T>;
-}>;

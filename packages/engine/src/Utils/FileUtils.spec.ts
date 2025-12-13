@@ -1,6 +1,5 @@
+import { getFileExtension, getHumanReadableMemorySize } from '@Shared/Utils/FileUtils';
 import { describe, expect, it } from 'vitest';
-
-import { getFileExtension, getHumanReadableMemorySize } from './FileUtils';
 
 describe('FileUtils', () => {
   describe('getHumanReadableFileSize', () => {
