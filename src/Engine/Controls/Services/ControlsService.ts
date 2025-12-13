@@ -3,12 +3,14 @@ import type { Subscription } from 'rxjs';
 import type { TRegistryPack } from '@/Engine/Abstract';
 import type { TAppCanvas } from '@/Engine/App';
 import type { TCameraRegistry, TCameraWrapper } from '@/Engine/Camera';
+import { controlsLoopEffect } from '@/Engine/Controls/Loop';
 import type { TControlsConfig, TControlsFactory, TControlsParams, TControlsRegistry, TControlsService, TControlsWrapper } from '@/Engine/Controls/Models';
 import type { TDestroyable, TWithActiveMixinResult } from '@/Engine/Mixins';
 import { destroyableMixin, withActiveEntityServiceMixin } from '@/Engine/Mixins';
+import type { TSpaceLoops } from '@/Engine/Space';
 import { isNotDefined } from '@/Engine/Utils';
 
-export function ControlService(factory: TControlsFactory, registry: TControlsRegistry, canvas: TAppCanvas): TControlsService {
+export function ControlService(factory: TControlsFactory, registry: TControlsRegistry, { controlsLoop }: TSpaceLoops, canvas: TAppCanvas): TControlsService {
   const withActive: TWithActiveMixinResult<TControlsWrapper> = withActiveEntityServiceMixin<TControlsWrapper>(registry);
   const registrySub$: Subscription = registry.added$.subscribe(({ value }: TRegistryPack<TControlsWrapper>): void => {
     if (value.isActive()) withActive.active$.next(value);
@@ -24,12 +26,15 @@ export function ControlService(factory: TControlsFactory, registry: TControlsReg
     });
   };
 
+  const loopSub$: Subscription = controlsLoopEffect(controlsLoop, registry);
+
   const destroyable: TDestroyable = destroyableMixin();
   const destroySub$: Subscription = destroyable.destroy$.subscribe((): void => {
     destroySub$.unsubscribe();
 
     registrySub$.unsubscribe();
     factorySub$.unsubscribe();
+    loopSub$.unsubscribe();
 
     factory.destroy$.next();
     registry.destroy$.next();

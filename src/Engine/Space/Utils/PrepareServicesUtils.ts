@@ -3,6 +3,7 @@ import { ActorFactory, ActorRegistry, ActorService, Model3dToActorConnectionRegi
 import type { TAnimationsService } from '@/Engine/Animations';
 import { AnimationsResourceAsyncRegistry, AnimationsService } from '@/Engine/Animations';
 import type { TAppCanvas } from '@/Engine/App';
+import type { TCameraService } from '@/Engine/Camera';
 import { CameraFactory, CameraRegistry, CameraService } from '@/Engine/Camera';
 import type { TCollisionsService } from '@/Engine/Collisions';
 import { CollisionsService } from '@/Engine/Collisions';
@@ -73,6 +74,7 @@ export function buildEntitiesServices(sceneW: TSceneWrapper, canvas: TAppCanvas,
     model3dRawToModel3dConnectionRegistry
   });
   const fsmService: TFsmService = FsmService(FsmInstanceFactory(), FsmSourceFactory(), FsmInstanceRegistry(), FsmSourceRegistry());
+  const cameraService: TCameraService = CameraService(CameraFactory(), CameraRegistry(), sceneW);
 
   return {
     actorService: ActorService(
@@ -89,8 +91,8 @@ export function buildEntitiesServices(sceneW: TSceneWrapper, canvas: TAppCanvas,
       },
       sceneW
     ),
-    cameraService: CameraService(CameraFactory(), CameraRegistry(), sceneW),
-    controlsService: ControlService(ControlsFactory(), ControlsRegistry(), canvas),
+    cameraService,
+    controlsService: ControlService(ControlsFactory(), ControlsRegistry(), loops, canvas),
     collisionsService,
     scenesService,
     envMapService: EnvMapService(EnvMapFactory(), EnvMapRegistry(), EnvMapTextureAsyncRegistry(), sceneW),
@@ -107,7 +109,7 @@ export function buildEntitiesServices(sceneW: TSceneWrapper, canvas: TAppCanvas,
     physicsBodyService,
     physicsWorldService,
     physicsPresetService,
-    rendererService: RendererService(RendererFactory(), RendererRegistry()),
+    rendererService: RendererService(RendererFactory(), RendererRegistry(), loops, { cameraService }, sceneW),
     spatialGridService,
     textService: TextService(
       TextFactory(),
@@ -116,7 +118,8 @@ export function buildEntitiesServices(sceneW: TSceneWrapper, canvas: TAppCanvas,
       Text3dTextureRegistry(),
       Text2dRendererRegistry(),
       Text3dRendererRegistry(),
-      { loopService, physicsBodyService },
+      loops,
+      { loopService, physicsBodyService, cameraService },
       sceneW
     ),
     textureService

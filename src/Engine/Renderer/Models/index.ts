@@ -3,6 +3,7 @@ export type * from './TRendererFactory';
 export type * from './TRendererParams';
 export type * from './TRendererRegistry';
 export type * from './TRendererService';
+export type * from './TRendererServiceDependencies';
 export type * from './TRendererWrapper';
 export type * from './TThreeJsRendererParamsAccessors';
 export type * from './TThreeJsRendererPropsAccessors';

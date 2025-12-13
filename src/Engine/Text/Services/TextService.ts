@@ -7,6 +7,8 @@ import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
 import type { TSceneWrapper } from '@/Engine/Scene';
 import type { TScreenSizeWatcher } from '@/Engine/Screen';
+import type { TSpaceLoops } from '@/Engine/Space';
+import { textLoopEffect } from '@/Engine/Text/Loop';
 import type {
   TText2dRegistry,
   TText2dRenderer,
@@ -32,6 +34,7 @@ export function TextService(
   text3dTextureRegistry: TText3dTextureRegistry,
   text2dRendererRegistry: TText2dRendererRegistry,
   text3dRendererRegistry: TText3dRendererRegistry,
+  { textLoop }: TSpaceLoops,
   dependencies: TTextDependencies,
   scene: TSceneWrapper
 ): TTextService {
@@ -47,10 +50,13 @@ export function TextService(
   const create = (params: TTextParams): TTextAnyWrapper => factory.create(params, dependencies);
   const createFromConfig = (texts: ReadonlyArray<TTextConfig>): ReadonlyArray<TTextAnyWrapper> => texts.map((text: TTextConfig): TTextAnyWrapper => create(factory.configToParams(text)));
 
+  const loopSub$: Subscription = textLoopEffect(textLoop, text2dRegistry, text3dRegistry, text2dRendererRegistry, text3dRendererRegistry, scene, dependencies.cameraService);
+
   const destroyable: TDestroyable = destroyableMixin();
   const destroySub$: Subscription = destroyable.destroy$.subscribe((): void => {
     destroySub$.unsubscribe();
     factorySub$.unsubscribe();
+    loopSub$.unsubscribe();
 
     factory.destroy$.next();
     text2dRegistry.destroy$.next();

@@ -1,5 +1,6 @@
 export * from './Constants';
 export * from './Factories';
+export * from './Loop';
 export * from './Mixins';
 export type * from './Models';
 export * from './Registries';

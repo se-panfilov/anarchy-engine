@@ -24,10 +24,10 @@ export function RendererWrapper(params: TRendererParams, screenSizeWatcher: Read
 
   let options: WebGLRendererParameters = {
     canvas: params.canvas,
-    alpha: false, //until we have a reason to use it (off for a better performance)
-    antialias: true,
-    stencil: false, //until we have a reason to use it (off for a better performance)
-    depth: false //until we have a reason to use it (off for a better performance)
+    alpha: params.alpha ?? false, //until we have a reason to use it (off for a better performance)
+    antialias: params.antialias ?? true,
+    stencil: params.stencil ?? false, //until we have a reason to use it (off for a better performance)
+    depth: params.depth ?? false //until we have a reason to use it (off for a better performance)
   };
 
   if (isWebGL2) {
@@ -57,7 +57,7 @@ export function RendererWrapper(params: TRendererParams, screenSizeWatcher: Read
     .pipe(distinctUntilChanged((prev: TScreenSizeValues, curr: TScreenSizeValues): boolean => prev.width === curr.width && prev.height === curr.height))
     .subscribe((params: TScreenSizeValues): void => setValues(entity, params));
 
-  const screenSizeWatcherSubscription: Subscription = screenSizeWatcher.destroy$.subscribe(() => {
+  const screenSizeWatcherSubscription: Subscription = screenSizeWatcher.destroy$.subscribe((): void => {
     screenSize$.unsubscribe();
     screenSizeWatcherSubscription.unsubscribe();
   });
