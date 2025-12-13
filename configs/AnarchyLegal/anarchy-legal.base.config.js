@@ -18,6 +18,7 @@ export default {
       PRODUCT_TERM: 'Software', //E.g. 'Software', 'Product', 'Game', etc.
       STORE_DISCLOSURES: true,
       LEGAL_FOLDER: './legal/',
+      SBOM_LOCATION: './legal/sbom/',
       PATH_TO_CE_MARK: 'ce-mark.png',
 
       //DATA COLLECTION
