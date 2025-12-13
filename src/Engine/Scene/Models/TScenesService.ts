@@ -1,5 +1,5 @@
 import type { TAbstractService } from '@/Engine/Abstract';
-import type { TWithActiveAccessorsService, TWithCreateFromConfigService, TWithCreateService, TWithFactoryService, TWithRegistryService } from '@/Engine/Space';
+import type { TWithActiveAccessorsService, TWithCreateFromConfigService, TWithCreateService, TWithFactoryService, TWithRegistryService } from '@/Engine/Mixins';
 
 import type { TSceneConfig } from './TSceneConfig';
 import type { TSceneFactory } from './TSceneFactory';

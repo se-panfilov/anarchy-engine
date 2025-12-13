@@ -1,5 +1,5 @@
 import type { TAbstractService } from '@/Engine/Abstract';
-import type { TWithCreateService, TWithFactoryService, TWithRegistryService } from '@/Engine/Space';
+import type { TWithCreateService, TWithFactoryService, TWithRegistryService } from '@/Engine/Mixins';
 
 import type { TFsmInstanceFactory } from './TFsmInstanceFactory';
 import type { TFsmInstanceRegistry } from './TFsmInstanceRegistry';

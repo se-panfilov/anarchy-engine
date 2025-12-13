@@ -1,6 +1,6 @@
 import type { TAbstractService } from '@/Engine/Abstract';
 import type { TKinematicState } from '@/Engine/Kinematic';
-import type { TWithCreateFromConfigService, TWithCreateService, TWithFactoryService, TWithRegistryService } from '@/Engine/Space';
+import type { TWithCreateFromConfigService, TWithCreateService, TWithFactoryService, TWithRegistryService } from '@/Engine/Mixins';
 import type { TOptional } from '@/Engine/Utils';
 
 import type { TPhysicsBody } from './TPhysicsBody';

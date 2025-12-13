@@ -1,5 +1,5 @@
 import type { TEntity } from '@/Engine/Abstract';
 
-import type { TSpaceEntities } from './TSpaceEntities';
+import type { TSpaceParts } from './TSpaceParts';
 
-export type TSpace = TEntity<TSpaceEntities>;
+export type TSpace = TEntity<TSpaceParts>;

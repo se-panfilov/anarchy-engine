@@ -9,7 +9,7 @@ import type {
   TWithRegistryService,
   TWithResourcesRegistryService,
   TWithSceneGetterService
-} from '@/Engine/Space';
+} from '@/Engine/Mixins';
 
 export type TEnvMapService = TAbstractService &
   TWithCreateService<TEnvMapWrapper, TEnvMapParams> &

@@ -6,9 +6,8 @@ import type { TAppCanvas } from '@/Engine/App';
 import type { TCameraRegistry, TCameraWrapper } from '@/Engine/Camera';
 import { controlsLoopEffect } from '@/Engine/Controls/Loop';
 import type { TControlsConfig, TControlsFactory, TControlsParams, TControlsRegistry, TControlsService, TControlsWrapper } from '@/Engine/Controls/Models';
-import type { TDisposable, TWithActiveMixinResult } from '@/Engine/Mixins';
+import type { TDisposable, TSpaceLoops, TWithActiveMixinResult } from '@/Engine/Mixins';
 import { withActiveEntityServiceMixin } from '@/Engine/Mixins';
-import type { TSpaceLoops } from '@/Engine/Space';
 import { isNotDefined } from '@/Engine/Utils';
 
 export function ControlService(factory: TControlsFactory, registry: TControlsRegistry, { controlsLoop }: TSpaceLoops, canvas: TAppCanvas): TControlsService {

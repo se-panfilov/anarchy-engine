@@ -1,7 +1,6 @@
 import type { Subscription } from 'rxjs';
 import { BehaviorSubject, exhaustMap } from 'rxjs';
 
-import { RendererModes } from '@/Engine/Renderer';
 import type { TSpace, TSpaceConfig, TSpaceHooks, TSpaceParams } from '@/Engine/Space/Models';
 import { createEntitiesFromConfig, loadResourcesFromConfig } from '@/Engine/Space/Utils';
 
@@ -20,10 +19,10 @@ export function SpaceFromConfig(params: TSpaceParams, config: TSpaceConfig, hook
       })
     )
     .subscribe((): void => {
-      space.services.rendererService.create({ canvas: params.canvas, mode: RendererModes.WebGL2, isActive: true });
-      hooks?.beforeEntitiesCreatedFromConfig?.(config, space.services, space.loops);
+      hooks?.beforeEntitiesCreated?.(config, space.services, space.loops);
       createEntitiesFromConfig(config.entities, space.services);
-      hooks?.afterEntitiesCreatedFromConfig?.(config, space.services, space.loops);
+      hooks?.afterEntitiesCreated?.(config, space.services, space.loops);
+
       builtFromConfig$.next(true);
       builtFromConfig$.complete();
       builtFromConfig$.unsubscribe();

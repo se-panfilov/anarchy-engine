@@ -1,5 +1,5 @@
 import type { TAbstractService } from '@/Engine/Abstract';
-import type { TWithActiveAccessorsService, TWithCreateFromConfigService, TWithCreateService, TWithFactoryService, TWithRegistryService, TWithSceneGetterService } from '@/Engine/Space';
+import type { TWithActiveAccessorsService, TWithCreateFromConfigService, TWithCreateService, TWithFactoryService, TWithRegistryService, TWithSceneGetterService } from '@/Engine/Mixins';
 
 import type { TCameraConfig } from './TCameraConfig';
 import type { TCameraFactory } from './TCameraFactory';

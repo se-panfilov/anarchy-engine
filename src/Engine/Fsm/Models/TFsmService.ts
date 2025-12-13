@@ -1,6 +1,6 @@
 import type { TAbstractService } from '@/Engine/Abstract';
 import type { TFsmConfig, TFsmInstanceRegistry, TFsmParams, TFsmSource, TFsmWrapper } from '@/Engine/Fsm/Models';
-import type { TWithFactoryService } from '@/Engine/Space';
+import type { TWithFactoryService } from '@/Engine/Mixins';
 
 import type { TFsmInstanceFactory } from './TFsmInstanceFactory';
 import type { TFsmSourceRegistry } from './TFsmSourceRegistry';

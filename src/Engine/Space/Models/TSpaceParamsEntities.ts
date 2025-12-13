@@ -14,18 +14,18 @@ import type { TSpatialGridParams } from '@/Engine/Spatial';
 import type { TTextParams } from '@/Engine/Text';
 
 export type TSpaceParamsEntities = Readonly<{
-  spatialGrids?: ReadonlyArray<TSpatialGridParams>;
   actors?: ReadonlyArray<TActorParams>;
   audio?: ReadonlyArray<TAnyAudioParams>;
   cameras?: ReadonlyArray<TCameraParams>;
+  controls?: ReadonlyArray<TControlsParams>;
   envMaps?: ReadonlyArray<TEnvMapParams>;
+  fogs?: ReadonlyArray<TFogParams>;
+  fsm?: ReadonlyArray<TFsmParams>;
   intersections?: ReadonlyArray<TIntersectionsWatcherParams>;
   lights?: ReadonlyArray<TAnyLightParams>;
   models3d?: ReadonlyArray<TModel3dParams>;
   particles?: ReadonlyArray<TParticlesParams>;
   physics?: TPhysicsParams;
-  fogs?: ReadonlyArray<TFogParams>;
-  fsm?: ReadonlyArray<TFsmParams>;
+  spatialGrids?: ReadonlyArray<TSpatialGridParams>;
   texts?: ReadonlyArray<TTextParams>;
-  controls?: ReadonlyArray<TControlsParams>;
 }>;

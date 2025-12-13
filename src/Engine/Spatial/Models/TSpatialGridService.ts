@@ -1,5 +1,5 @@
 import type { TAbstractService } from '@/Engine/Abstract';
-import type { TWithCreateFromConfigService, TWithCreateService, TWithFactoryService, TWithRegistryService } from '@/Engine/Space';
+import type { TWithCreateFromConfigService, TWithCreateService, TWithFactoryService, TWithRegistryService } from '@/Engine/Mixins';
 
 import type { TSpatialGridConfig } from './TSpatialGridConfig';
 import type { TSpatialGridFactory } from './TSpatialGridFactory';
@@ -10,5 +10,5 @@ import type { TSpatialGridWrapper } from './TSpatialGridWrapper';
 export type TSpatialGridService = TAbstractService &
   TWithCreateService<TSpatialGridWrapper, TSpatialGridParams> &
   TWithCreateFromConfigService<TSpatialGridConfig, TSpatialGridWrapper> &
-  TWithFactoryService<TSpatialGridFactory> &
+  TWithFactoryService<TSpatialGridWrapper, TSpatialGridParams, undefined, TSpatialGridFactory, undefined> &
   TWithRegistryService<TSpatialGridRegistry>;

@@ -1,7 +1,7 @@
 import type { AudioListener } from 'three';
 
 import type { TAbstractService } from '@/Engine/Abstract';
-import type { TWithCreateFromConfigService, TWithCreateService, TWithFactoryService, TWithLoadResourcesAsyncService, TWithRegistryService, TWithResourcesRegistryService } from '@/Engine/Space';
+import type { TWithCreateFromConfigService, TWithCreateService, TWithFactoryService, TWithLoadResourcesAsyncService, TWithRegistryService, TWithResourcesRegistryService } from '@/Engine/Mixins';
 
 import type { TAnyAudioConfig } from './TAnyAudioConfig';
 import type { TAnyAudioParams } from './TAnyAudioParams';

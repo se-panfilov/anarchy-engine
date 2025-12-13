@@ -8,6 +8,6 @@ export type TSpaceHooks = {
   beforeEntitiesServicesBuilt?: (canvas: TAppCanvas, params: TSpaceParams) => void;
   afterAllServicesInitialized?: (canvas: TAppCanvas, services: TSpaceServices, loops: TSpaceLoops, params: TSpaceParams) => void;
   beforeResourcesLoaded?: (config: TSpaceConfig, services: TSpaceServices, loops: TSpaceLoops) => void;
-  beforeEntitiesCreatedFromConfig?: (config: TSpaceConfig, services: TSpaceServices, loops: TSpaceLoops) => void;
-  afterEntitiesCreatedFromConfig?: (config: TSpaceConfig, services: TSpaceServices, loops: TSpaceLoops) => void;
+  beforeEntitiesCreated?: (data: TSpaceConfig | TSpaceParams, services: TSpaceServices, loops: TSpaceLoops) => void;
+  afterEntitiesCreated?: (data: TSpaceConfig | TSpaceParams, services: TSpaceServices, loops: TSpaceLoops) => void;
 };

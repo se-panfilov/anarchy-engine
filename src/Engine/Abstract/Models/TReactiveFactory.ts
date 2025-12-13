@@ -14,6 +14,11 @@ export type TReactiveFactoryWithDependenciesAndHooks<T, P, D, H extends TAbstrac
     create: TCreateEntityFactoryWithDependenciesAndHooksFn<T, P, D, H>;
   }>;
 
+export type TReactiveFactoryWithHooks<T, P, H extends TAbstractHooks> = Omit<TFactory<T, P>, 'create'> &
+  Readonly<{
+    create: TCreateEntityFactoryWithHooksFn<T, P, H>;
+  }>;
+
 export type TReactiveFactory<T, P> = TFactory<T, P> &
   TDestroyable &
   Readonly<{

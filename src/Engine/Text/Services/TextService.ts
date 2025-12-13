@@ -4,10 +4,9 @@ import { BehaviorSubject, merge } from 'rxjs';
 import type { TAbstractService, TRegistryPack } from '@/Engine/Abstract';
 import { AbstractService } from '@/Engine/Abstract';
 import type { TAppGlobalContainer } from '@/Engine/Global';
-import type { TDisposable } from '@/Engine/Mixins';
+import type { TDisposable, TSpaceLoops } from '@/Engine/Mixins';
 import type { TSceneWrapper } from '@/Engine/Scene';
 import type { TScreenSizeWatcher } from '@/Engine/Screen';
-import type { TSpaceLoops } from '@/Engine/Space';
 import { textLoopEffect } from '@/Engine/Text/Loop';
 import type {
   TText2dRegistry,

@@ -1,5 +1,5 @@
 import type { TAbstractService } from '@/Engine/Abstract';
-import type { TWithLoadResourcesAsyncService, TWithResourcesRegistryService } from '@/Engine/Space';
+import type { TWithLoadResourcesAsyncService, TWithResourcesRegistryService } from '@/Engine/Mixins';
 import type { TTexture, TTextureResourceConfig } from '@/Engine/Texture';
 
 import type { TTextureAsyncRegistry } from './TTextureAsyncRegistry';

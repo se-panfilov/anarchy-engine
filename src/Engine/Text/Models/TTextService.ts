@@ -2,8 +2,8 @@ import type { Observable } from 'rxjs';
 
 import type { TAbstractService } from '@/Engine/Abstract';
 import type { TAppGlobalContainer } from '@/Engine/Global';
+import type { TWithCreateFromConfigService, TWithCreateService, TWithFactoryService, TWithSceneGetterService } from '@/Engine/Mixins';
 import type { TScreenSizeWatcher } from '@/Engine/Screen';
-import type { TWithCreateFromConfigService, TWithCreateService, TWithFactoryService, TWithSceneGetterService } from '@/Engine/Space';
 
 import type { TText2dRegistry } from './TText2dRegistry';
 import type { TText2dRenderer } from './TText2dRenderer';

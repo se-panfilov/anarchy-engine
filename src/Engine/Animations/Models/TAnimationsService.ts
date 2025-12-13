@@ -3,8 +3,8 @@ import type { AnimationClip, AnimationMixer } from 'three';
 
 import type { TAbstractService } from '@/Engine/Abstract';
 import type { TDelta } from '@/Engine/Loop';
+import type { TWithLoadResourcesAsyncService, TWithResourcesRegistryService } from '@/Engine/Mixins';
 import type { TModel3d, TRawModel3d } from '@/Engine/Models3d';
-import type { TWithLoadResourcesAsyncService, TWithResourcesRegistryService } from '@/Engine/Space';
 
 import type { TAnimationActionsPack } from './TAnimationActionsPack';
 import type { TAnimations } from './TAnimations';

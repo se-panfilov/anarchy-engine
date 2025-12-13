@@ -4,12 +4,13 @@ import { BehaviorSubject } from 'rxjs';
 import type { TAbstractService } from '@/Engine/Abstract';
 import { AbstractEntity, EntityType } from '@/Engine/Abstract';
 import type { TLoop } from '@/Engine/Loop';
+import { RendererModes } from '@/Engine/Renderer';
 import type { TSceneWrapper } from '@/Engine/Scene';
 import { screenService } from '@/Engine/Services';
-import type { TSpace, TSpaceBaseServices, TSpaceEntities, TSpaceHooks, TSpaceLoops, TSpaceParams, TSpaceServices } from '@/Engine/Space/Models';
-import { buildBaseServices, buildEntitiesServices, getActiveScene } from '@/Engine/Space/Utils';
+import type { TSpace, TSpaceBaseServices, TSpaceHooks, TSpaceLoops, TSpaceParams, TSpaceParts, TSpaceServices } from '@/Engine/Space/Models';
+import { buildBaseServices, buildEntitiesServices, createEntitiesFromParams, getActiveScene } from '@/Engine/Space/Utils';
 import { createLoops } from '@/Engine/Space/Utils/CreateLoopsUtils';
-import { isDestroyable } from '@/Engine/Utils';
+import { isDefined, isDestroyable } from '@/Engine/Utils';
 
 export function Space(params: TSpaceParams, hooks?: TSpaceHooks): TSpace {
   const { canvas, version, name, tags } = params;
@@ -18,17 +19,23 @@ export function Space(params: TSpaceParams, hooks?: TSpaceHooks): TSpace {
   const { services, loops } = initSpaceServices(params, hooks);
   hooks?.afterAllServicesInitialized?.(canvas, services, loops, params);
 
-  // TODO 13-0-0: if we add entities via params, we have to add them to related registries
+  services.rendererService.create({ canvas: params.canvas, mode: RendererModes.WebGL2, isActive: true });
 
-  const entities: TSpaceEntities = {
+  if (isDefined(params.entities) && Object.values(params.entities).length > 0) {
+    hooks?.beforeEntitiesCreated?.(params, services, loops);
+    createEntitiesFromParams(params.entities, services);
+    hooks?.afterEntitiesCreated?.(params, services, loops);
+  }
+
+  const parts: TSpaceParts = {
     services,
     loops,
     built$
   };
 
-  const space: TSpace = AbstractEntity(entities, EntityType.Space, { version, name, tags });
+  const space: TSpace = AbstractEntity(parts, EntityType.Space, { version, name, tags });
 
-  // TODO 13-0-0: Add possibility to drop while canvas on destroy
+  // TODO 13-0-0: Add possibility to drop the whole canvas on destroy
 
   const destroySub$: Subscription = space.destroy$.subscribe((): void => {
     destroySub$.unsubscribe();
@@ -40,17 +47,18 @@ export function Space(params: TSpaceParams, hooks?: TSpaceHooks): TSpace {
   });
 
   // eslint-disable-next-line functional/immutable-data
-  const result = Object.assign(space, entities);
+  const result = Object.assign(space, parts);
 
   built$.next(true);
 
   return result;
 }
 
+// TODO 13-0-0: Find a better place for this function
 function initSpaceServices(params: TSpaceParams, hooks?: TSpaceHooks): { services: TSpaceServices; loops: TSpaceLoops } {
   // TODO 13-0-0: remove?
   // hooks?.beforeConfigValidation?.(params);
-  // validateConfig(config);
+  // validateConfig(params);
   screenService.setCanvas(params.canvas);
   hooks?.beforeBaseServicesBuilt?.(params.canvas, params);
   const baseServices: TSpaceBaseServices = buildBaseServices();
