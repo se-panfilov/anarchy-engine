@@ -6,13 +6,15 @@ import type {
   TActorRegistry,
   TActorWrapper,
   TAppCanvas,
-  TCameraRegistry,
   TCameraWrapper,
   TEngine,
   TIntersectionEvent,
   TIntersectionsWatcher,
+  TModel3dFacade,
+  TModel3dRegistry,
   TMouseWatcherEvent,
   TMoverService,
+  TSceneWrapper,
   TSpace,
   TSpaceConfig
 } from '@/Engine';
@@ -27,13 +29,19 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
   const engine: TEngine = Engine(space);
   const { keyboardService } = engine.services;
 
-  const { actorService, cameraService, intersectionsWatcherService, loopService, mouseService } = space.services;
+  const { actorService, cameraService, intersectionsWatcherService, loopService, mouseService, scenesService, models3dService } = space.services;
   const actorRegistry: TActorRegistry = actorService.getRegistry();
-  const cameraRegistry: TCameraRegistry = cameraService.getRegistry();
-  if (isNotDefined(actorRegistry)) throw new Error('Actor registry is not defined');
-  if (isNotDefined(cameraRegistry)) throw new Error('Camera registry is not defined');
   const { findByName, findByTag, findByTags } = actorRegistry;
   const { onKey } = keyboardService;
+
+  const sceneW: TSceneWrapper | undefined = scenesService.findActive();
+  if (isNotDefined(sceneW)) throw new Error('Scene is not defined');
+
+  const models3dRegistry: TModel3dRegistry = models3dService.getRegistry();
+  const planeModel3dF: TModel3dFacade | undefined = models3dRegistry.findByName('surface_model');
+  if (isNotDefined(planeModel3dF)) throw new Error('Plane model is not defined');
+
+  sceneW.addModel3d(planeModel3dF.getModel());
 
   function init(): void {
     const actorKeyboard: TActorWrapper | undefined = findByTag('keyboard');
@@ -117,7 +125,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
   function startIntersections(): TIntersectionsWatcher {
     const camera: TCameraWrapper | undefined = cameraService.findActive();
     if (isNotDefined(camera)) throw new Error('Camera is not defined');
-    const actor: TActorWrapper | undefined = findByName('surface');
+    const actor: TActorWrapper | undefined = findByName('surface_actor');
     if (isNotDefined(actor)) throw new Error('Actor is not defined');
 
     return intersectionsWatcherService.create({ actors: [actor], camera, isAutoStart: true, position$: mouseService.position$, tags: [] });

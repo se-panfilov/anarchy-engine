@@ -8,337 +8,328 @@
       "isActive": true
     }
   ],
-  "spatialGrids": [
-    {
-      "name": "main_grid",
-      "mapWidth": 60,
-      "mapHeight": 40,
-      "cellSize": 10,
-      "centerX": 0,
-      "centerZ": 0,
-      "tags": []
-    }
-  ],
-  "actors": [
-    {
-      "name": "surface",
-      "width": 60,
-      "height": 40,
-      "widthSegments": 10,
-      "heightSegments": 10,
-      "material": { "type": "toon", "params": { "color": "#5EDCAE" } },
-      "model3d": {
-        "url": "plane"
+  "resources": {
+    "textures": [],
+    "envMaps": [],
+    "materials": [
+      { "name": "surface_material", "type": "toon", "options": { "color": "#5EDCAE" } },
+      { "name": "sphere_keyboard_material", "type": "toon", "options": { "color": "#E91E63" } },
+      { "name": "sphere_mouse_material", "type": "toon", "options": { "color": "#E91ED8" } },
+      { "name": "keys_material", "type": "toon", "options": { "color": "#373739" } }
+    ],
+    "models3d": []
+  },
+  "entities": {
+    "spatialGrids": [
+      {
+        "name": "main_grid",
+        "mapWidth": 60,
+        "mapHeight": 40,
+        "cellSize": 10,
+        "centerX": 0,
+        "centerZ": 0,
+        "tags": []
+      }
+    ],
+    "models3d": [
+      {
+        "name": "surface_model",
+        "model3dSource": "plane",
+        "materialSource": "surface_material",
+        "options": {
+          "width": 60,
+          "height": 40,
+          "widthSegments": 1,
+          "heightSegments": 1
+        },
+        "castShadow": false,
+        "receiveShadow": true,
+        "position": { "x": 0, "y": 2, "z": 0 },
+        "rotation": { "x": -1.57, "y": 0, "z": 0 }
       },
-      "position": { "x": 0, "y": 2, "z": 0 },
-      "rotation": { "x": -1.57, "y": 0, "z": 0 },
-      "castShadow": false,
-      "spatial": { "grid": "main_grid", "isAutoUpdate": false },
-      "tags": []
-    },
-    {
-      "model3d": {
-        "url": "sphere"
+      {
+        "name": "sphere_keyboard_model",
+        "model3dSource": "sphere",
+        "materialSource": "sphere_keyboard_material",
+        "options": { "radius": 1 },
+        "castShadow": true
       },
-      "radius": 1,
-      "material": { "type": "toon", "params": { "color": "#E91E63" } },
-      "position": { "x": -2, "y": 2, "z": 0 },
-      "castShadow": true,
-      "spatial": { "grid": "main_grid", "isAutoUpdate": false },
-      "tags": ["keyboard"]
-    },
-    {
-      "model3d": {
-        "url": "sphere"
+      {
+        "name": "sphere_mouse_model",
+        "model3dSource": "sphere",
+        "materialSource": "sphere_mouse_material",
+        "options": { "radius": 1 },
+        "castShadow": true
       },
-      "radius": 1,
-      "material": { "type": "toon", "params": { "color": "#E91ED8" } },
-      "position": { "x": 4, "y": 2, "z": 0 },
-      "castShadow": true,
-      "spatial": { "grid": "main_grid", "isAutoUpdate": false },
-      "tags": ["mouse"]
-    },
-    {
-      "model3d": {
-        "url": "cube"
+      {
+        "name": "key_model",
+        "model3dSource": "cube",
+        "materialSource": "keys_material",
+        "options": {
+          "width": 2,
+          "height": 2,
+          "depth": 2
+        },
+        "castShadow": true
+      }
+    ],
+    "actors": [
+      {
+        "name": "surface_actor",
+        "model3dEntity": "surface_model",
+        "position": { "x": 0, "y": 2, "z": 0 },
+        "castShadow": false,
+        "receiveShadow": true,
+        "spatial": { "grid": "main_grid", "isAutoUpdate": true },
+        "tags": ["surface"]
       },
-      "width": 2,
-      "height": 2,
-      "depth": 2,
-      "material": { "type": "toon", "params": { "color": "#373739" } },
-      "position": { "x": -19, "y": 2, "z": 9 },
-      "castShadow": true,
-      "spatial": { "grid": "main_grid", "isAutoUpdate": false },
-      "tags": ["key", "W"]
-    },
-    {
-      "model3d": {
-        "url": "cube"
+      {
+        "name": "sphere_keyboard_actor",
+        "model3dEntity": "sphere_keyboard_model",
+        "position": { "x": -2, "y": 2, "z": 0 },
+        "castShadow": true,
+        "spatial": { "grid": "main_grid", "isAutoUpdate": true },
+        "tags": ["keyboard"]
       },
-      "width": 2,
-      "height": 2,
-      "depth": 2,
-      "material": { "type": "toon", "params": { "color": "#373739" } },
-      "position": { "x": -22, "y": 2, "z": 12 },
-      "castShadow": true,
-      "spatial": { "grid": "main_grid", "isAutoUpdate": false },
-      "tags": ["key", "A"]
-    },
-    {
-      "model3d": {
-        "url": "cube"
+      {
+        "name": "sphere_mouse_actor",
+        "model3dEntity": "sphere_mouse_model",
+        "position": { "x": 4, "y": 2, "z": 0 },
+        "castShadow": true,
+        "spatial": { "grid": "main_grid", "isAutoUpdate": true },
+        "tags": ["mouse"]
       },
-      "width": 2,
-      "height": 2,
-      "depth": 2,
-      "material": { "type": "toon", "params": { "color": "#373739" } },
-      "position": { "x": -19, "y": 2, "z": 12 },
-      "castShadow": true,
-      "spatial": { "grid": "main_grid", "isAutoUpdate": false },
-      "tags": ["key", "S"]
-    },
-    {
-      "model3d": {
-        "url": "cube"
+      {
+        "name": "key_w_model",
+        "model3dEntity": "key_model",
+        "position": { "x": -19, "y": 2, "z": 9 },
+        "castShadow": true,
+        "spatial": { "grid": "main_grid", "isAutoUpdate": false },
+        "tags": ["key", "W"]
       },
-      "width": 2,
-      "height": 2,
-      "depth": 2,
-      "material": { "type": "toon", "params": { "color": "#373739" } },
-      "position": { "x": -16, "y": 2, "z": 12 },
-      "castShadow": true,
-      "spatial": { "grid": "main_grid", "isAutoUpdate": false },
-      "tags": ["key", "D"]
-    },
-    {
-      "model3d": {
-        "url": "cube"
+      {
+        "name": "key_a_model",
+        "model3dEntity": "key_model",
+        "position": { "x": -22, "y": 2, "z": 12 },
+        "castShadow": true,
+        "spatial": { "grid": "main_grid", "isAutoUpdate": false },
+        "tags": ["key", "A"]
       },
-      "width": 2,
-      "height": 2,
-      "depth": 3,
-      "material": { "type": "toon", "params": { "color": "#373739" } },
-      "position": { "x": -12, "y": 2, "z": 9 },
-      "castShadow": true,
-      "spatial": { "grid": "main_grid", "isAutoUpdate": false },
-      "tags": ["mkey", "Left"]
-    },
-    {
-      "model3d": {
-        "url": "cube"
+      {
+        "name": "key_s_model",
+        "model3dEntity": "key_model",
+        "position": { "x": -19, "y": 2, "z": 12 },
+        "castShadow": true,
+        "spatial": { "grid": "main_grid", "isAutoUpdate": false },
+        "tags": ["key", "S"]
       },
-      "width": 1,
-      "height": 1,
-      "depth": 1,
-      "material": { "type": "toon", "params": { "color": "#373739" } },
-      "position": { "x": -10, "y": 2, "z": 10 },
-      "castShadow": true,
-      "spatial": { "grid": "main_grid", "isAutoUpdate": false },
-      "tags": ["mkey", "Middle"]
-    },
-    {
-      "model3d": {
-        "url": "cube"
+      {
+        "name": "key_d_model",
+        "model3dEntity": "key_model",
+        "position": { "x": -16, "y": 2, "z": 12 },
+        "castShadow": true,
+        "spatial": { "grid": "main_grid", "isAutoUpdate": false },
+        "tags": ["key", "D"]
       },
-      "width": 2,
-      "height": 2,
-      "depth": 3,
-      "material": { "type": "toon", "params": { "color": "#373739" } },
-      "position": { "x": -8, "y": 2, "z": 9 },
-      "castShadow": true,
-      "spatial": { "grid": "main_grid", "isAutoUpdate": false },
-      "tags": ["mkey", "Right"]
-    },
-    {
-      "model3d": {
-        "url": "cube"
+      {
+        "name": "mkey_left_model",
+        "model3dEntity": "key_model",
+        "position": { "x": -12, "y": 2, "z": 9 },
+        "castShadow": true,
+        "spatial": { "grid": "main_grid", "isAutoUpdate": false },
+        "tags": ["mkey", "Left"]
       },
-      "width": 1,
-      "height": 1,
-      "depth": 1,
-      "material": { "type": "toon", "params": { "color": "#373739" } },
-      "position": { "x": -12, "y": 2, "z": 12 },
-      "castShadow": true,
-      "spatial": { "grid": "main_grid", "isAutoUpdate": false },
-      "tags": ["mkey", "Forward"]
-    },
-    {
-      "model3d": {
-        "url": "cube"
+      {
+        "name": "mkey_middle_model",
+        "model3dEntity": "key_model",
+        "position": { "x": -10, "y": 2, "z": 10 },
+        "castShadow": true,
+        "spatial": { "grid": "main_grid", "isAutoUpdate": false },
+        "tags": ["mkey", "Middle"]
       },
-      "width": 1,
-      "height": 1,
-      "depth": 1,
-      "material": { "type": "toon", "params": { "color": "#373739" } },
-      "position": { "x": -12, "y": 2, "z": 14 },
-      "castShadow": true,
-      "spatial": { "grid": "main_grid", "isAutoUpdate": false },
-      "tags": ["mkey", "Back"]
-    },
-    {
-      "model3d": {
-        "url": "cube"
+      {
+        "name": "mkey_right_model",
+        "model3dEntity": "key_model",
+        "position": { "x": -8, "y": 2, "z": 9 },
+        "castShadow": true,
+        "spatial": { "grid": "main_grid", "isAutoUpdate": false },
+        "tags": ["mkey", "Right"]
       },
-      "width": 1,
-      "height": 1,
-      "depth": 1,
-      "material": { "type": "toon", "params": { "color": "#373739" } },
-      "position": { "x": -12, "y": 2, "z": 16 },
-      "castShadow": true,
-      "spatial": { "grid": "main_grid", "isAutoUpdate": false },
-      "tags": ["mkey", "Extra"]
-    }
-  ],
-  "models3d": [],
-  "intersections": [],
-  "physics": {},
-  "texts": [
-    {
-      "type": "3d",
-      "text": "W",
-      "position": { "x": -19, "y": 3, "z": 9 },
-      "rotation": { "x": -1.57, "y": 0, "z": 0 },
-      "cssProps": {
-        "color": "#ff0000",
-        "fontSize": "0.1rem"
+      {
+        "name": "mkey_forward_model",
+        "model3dEntity": "key_model",
+        "position": { "x": -12, "y": 2, "z": 12 },
+        "castShadow": true,
+        "spatial": { "grid": "main_grid", "isAutoUpdate": false },
+        "tags": ["mkey", "Forward"]
       },
-      "tags": ["text", "key", "W"]
-    },
-    {
-      "type": "3d",
-      "text": "A",
-      "position": { "x": -22, "y": 3, "z": 12 },
-      "rotation": { "x": -1.57, "y": 0, "z": 0 },
-      "cssProps": {
-        "color": "#ff0000",
-        "fontSize": "0.1rem"
+      {
+        "name": "mkey_back_model",
+        "model3dEntity": "key_model",
+        "position": { "x": -12, "y": 2, "z": 14 },
+        "castShadow": true,
+        "spatial": { "grid": "main_grid", "isAutoUpdate": false },
+        "tags": ["mkey", "Back"]
       },
-      "tags": ["text", "key", "A"]
-    },
-    {
-      "type": "3d",
-      "text": "S",
-      "position": { "x": -19, "y": 3, "z": 12 },
-      "rotation": { "x": -1.57, "y": 0, "z": 0 },
-      "cssProps": {
-        "color": "#ff0000",
-        "fontSize": "0.1rem"
+      {
+        "name": "mkey_extra_model",
+        "model3dEntity": "key_model",
+        "position": { "x": -12, "y": 2, "z": 16 },
+        "castShadow": true,
+        "spatial": { "grid": "main_grid", "isAutoUpdate": false },
+        "tags": ["mkey", "Extra"]
+      }
+    ],
+    "intersections": [],
+    "physics": {},
+    "texts": [
+      {
+        "type": "3d",
+        "text": "W",
+        "position": { "x": -19, "y": 3, "z": 9 },
+        "rotation": { "x": -1.57, "y": 0, "z": 0 },
+        "cssProps": {
+          "color": "#ff0000",
+          "fontSize": "0.1rem"
+        },
+        "tags": ["text", "key", "W"]
       },
-      "tags": ["text", "key", "S"]
-    },
-    {
-      "type": "3d",
-      "text": "D",
-      "position": { "x": -16, "y": 3, "z": 12 },
-      "rotation": { "x": -1.57, "y": 0, "z": 0 },
-      "cssProps": {
-        "color": "#ff0000",
-        "fontSize": "0.1rem"
+      {
+        "type": "3d",
+        "text": "A",
+        "position": { "x": -22, "y": 3, "z": 12 },
+        "rotation": { "x": -1.57, "y": 0, "z": 0 },
+        "cssProps": {
+          "color": "#ff0000",
+          "fontSize": "0.1rem"
+        },
+        "tags": ["text", "key", "A"]
       },
-      "tags": ["text", "key", "D"]
-    },
-    {
-      "type": "3d",
-      "text": "L",
-      "position": { "x": -12, "y": 3, "z": 9 },
-      "rotation": { "x": -1.57, "y": 0, "z": 0 },
-      "cssProps": {
-        "color": "#ff0000",
-        "fontSize": "0.1rem"
+      {
+        "type": "3d",
+        "text": "S",
+        "position": { "x": -19, "y": 3, "z": 12 },
+        "rotation": { "x": -1.57, "y": 0, "z": 0 },
+        "cssProps": {
+          "color": "#ff0000",
+          "fontSize": "0.1rem"
+        },
+        "tags": ["text", "key", "S"]
       },
-      "tags": ["text", "mkey", "Left"]
-    },
-    {
-      "type": "3d",
-      "text": "R",
-      "position": { "x": -8, "y": 3, "z": 9 },
-      "rotation": { "x": -1.57, "y": 0, "z": 0 },
-      "cssProps": {
-        "color": "#ff0000",
-        "fontSize": "0.1rem"
+      {
+        "type": "3d",
+        "text": "D",
+        "position": { "x": -16, "y": 3, "z": 12 },
+        "rotation": { "x": -1.57, "y": 0, "z": 0 },
+        "cssProps": {
+          "color": "#ff0000",
+          "fontSize": "0.1rem"
+        },
+        "tags": ["text", "key", "D"]
       },
-      "tags": ["text", "mkey", "Right"]
-    },
-    {
-      "type": "3d",
-      "text": "Back",
-      "position": { "x": -10, "y": 2, "z": 14 },
-      "rotation": { "x": -1.57, "y": 0, "z": 0 },
-      "cssProps": {
-        "color": "#ff0000",
-        "fontSize": "0.1rem"
+      {
+        "type": "3d",
+        "text": "L",
+        "position": { "x": -12, "y": 3, "z": 9 },
+        "rotation": { "x": -1.57, "y": 0, "z": 0 },
+        "cssProps": {
+          "color": "#ff0000",
+          "fontSize": "0.1rem"
+        },
+        "tags": ["text", "mkey", "Left"]
       },
-      "tags": ["text", "mkey", "Back"]
-    },
-    {
-      "type": "3d",
-      "text": "Forward",
-      "position": { "x": -9, "y": 2, "z": 12 },
-      "rotation": { "x": -1.57, "y": 0, "z": 0 },
-      "cssProps": {
-        "color": "#ff0000",
-        "fontSize": "0.1rem"
+      {
+        "type": "3d",
+        "text": "R",
+        "position": { "x": -8, "y": 3, "z": 9 },
+        "rotation": { "x": -1.57, "y": 0, "z": 0 },
+        "cssProps": {
+          "color": "#ff0000",
+          "fontSize": "0.1rem"
+        },
+        "tags": ["text", "mkey", "Right"]
       },
-      "tags": ["text", "mkey", "Forward"]
-    },
-    {
-      "type": "3d",
-      "text": "Extra",
-      "position": { "x": -10, "y": 2, "z": 16 },
-      "rotation": { "x": -1.57, "y": 0, "z": 0 },
-      "cssProps": {
-        "color": "#ff0000",
-        "fontSize": "0.1rem"
+      {
+        "type": "3d",
+        "text": "Back",
+        "position": { "x": -10, "y": 2, "z": 14 },
+        "rotation": { "x": -1.57, "y": 0, "z": 0 },
+        "cssProps": {
+          "color": "#ff0000",
+          "fontSize": "0.1rem"
+        },
+        "tags": ["text", "mkey", "Back"]
       },
-      "tags": ["text", "mkey", "Extra"]
-    }
-  ],
-  "cameras": [
-    {
-      "fov": 45,
-      "name": "main",
-      "near": 1,
-      "far": 10000,
-      "position": { "x": 3, "y": 20, "z": 35 },
-      "rotation": { "x": 0, "y": 0, "z": 0 },
-      "tags": [],
-      "isActive": true
-    }
-  ],
-  "lights": [
-    {
-      "type": "Ambient",
-      "color": "#ffffff",
-      "intensity": 0.5,
-      "castShadow": false,
-      "position": { "x": 0.25, "y": 2, "z": 2.25 },
-      "tags": []
-    },
-    {
-      "type": "Directional",
-      "color": "#ffffff",
-      "intensity": 1,
-      "castShadow": true,
-      "shadow": {
-        "mapSize": { "x": 1024, "y": 1024 },
-        "camera": { "far": 15 },
-        "normalBias": 0.05
+      {
+        "type": "3d",
+        "text": "Forward",
+        "position": { "x": -9, "y": 2, "z": 12 },
+        "rotation": { "x": -1.57, "y": 0, "z": 0 },
+        "cssProps": {
+          "color": "#ff0000",
+          "fontSize": "0.1rem"
+        },
+        "tags": ["text", "mkey", "Forward"]
       },
-      "position": { "x": 0.25, "y": 2, "z": 2.25 },
-      "tags": []
-    }
-  ],
-  "controls": [
-    {
-      "type": "OrbitControls",
-      "cameraName": "main",
-      "enableDamping": true,
-      "tags": [],
-      "isActive": true
-    }
-  ],
-  "envMaps": [],
-  "particles": [],
-  "fogs": [],
+      {
+        "type": "3d",
+        "text": "Extra",
+        "position": { "x": -10, "y": 2, "z": 16 },
+        "rotation": { "x": -1.57, "y": 0, "z": 0 },
+        "cssProps": {
+          "color": "#ff0000",
+          "fontSize": "0.1rem"
+        },
+        "tags": ["text", "mkey", "Extra"]
+      }
+    ],
+    "cameras": [
+      {
+        "fov": 45,
+        "name": "main",
+        "near": 1,
+        "far": 10000,
+        "position": { "x": 3, "y": 20, "z": 35 },
+        "rotation": { "x": 0, "y": 0, "z": 0 },
+        "tags": [],
+        "isActive": true
+      }
+    ],
+    "lights": [
+      {
+        "type": "Ambient",
+        "color": "#ffffff",
+        "intensity": 0.5,
+        "castShadow": false,
+        "position": { "x": 0.25, "y": 2, "z": 2.25 },
+        "tags": []
+      },
+      {
+        "type": "Directional",
+        "color": "#ffffff",
+        "intensity": 1,
+        "castShadow": true,
+        "shadow": {
+          "mapSize": { "x": 1024, "y": 1024 },
+          "camera": { "far": 15 },
+          "normalBias": 0.05
+        },
+        "position": { "x": 0.25, "y": 2, "z": 2.25 },
+        "tags": []
+      }
+    ],
+    "controls": [
+      {
+        "type": "OrbitControls",
+        "cameraName": "main",
+        "enableDamping": true,
+        "tags": [],
+        "isActive": true
+      }
+    ],
+    "envMaps": [],
+    "particles": [],
+    "fogs": []
+  },
   "tags": []
 }
