@@ -43,6 +43,8 @@ export function Actor(
 
   // TODO 8.0.0. MODELS: Add a showcase with runtime switch between agents (check spatial and collisions)
 
+  // TODO 8.0.0. MODELS: Make sure that on creation of Actor we apply actor's position$/rotation$/scale$ to model3d
+
   // const { value$: position$, update: updatePosition } = withReactivePosition(model3d);
   // const { value$: rotation$, update: updateRotation } = withReactiveRotation(model3d);
 

@@ -49,14 +49,16 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
 
     sceneW.addModel3d(planeModel3dF);
 
-    const sphereActor: TActor = createActor('sphere', grid, new Vector3(0, 2, 0), space.services);
-    const repeaterActor: TActor = createActor('repeater', grid, new Vector3(0, 6, 0), space.services);
+    const repeaterOffset: number = 4;
+    const actorCoords = new Vector3(0, 2, 0);
+    const sphereActor: TActor = createActor('sphere', grid, actorCoords, space.services);
+    const repeaterActor: TActor = createActor('repeater', grid, actorCoords.clone().add({ x: 0, y: repeaterOffset, z: 0 }), space.services);
 
     sphereActor.drive.position$.subscribe((position: Vector3): void => {
       // eslint-disable-next-line functional/immutable-data
       repeaterActor.drive.instant.positionConnector.x = position.x;
       // eslint-disable-next-line functional/immutable-data
-      repeaterActor.drive.instant.positionConnector.y = position.y + 4;
+      repeaterActor.drive.instant.positionConnector.y = position.y + repeaterOffset;
       // eslint-disable-next-line functional/immutable-data
       repeaterActor.drive.instant.positionConnector.z = position.z;
     });
