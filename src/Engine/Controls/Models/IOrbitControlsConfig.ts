@@ -6,7 +6,7 @@ import type { IOrbitControlsProps } from './IOrbitControlsProps';
 export type IOrbitControlsConfig = Omit<IOrbitControlsProps, 'target' | 'cursor'> &
   Readonly<{
     type: ControlsType;
-    relatedCameraConfigId: string;
+    relatedCameraName: string;
     target?: { x: number; y: number; z: number };
     cursor?: { x: number; y: number; z: number };
   }> &

@@ -8,11 +8,20 @@ import { IntersectionsService, IntersectionsWatcherFactory, IntersectionsWatcher
 import { LightFactory, LightRegistry, LightService } from '@/Engine/Light';
 import { LoopService } from '@/Engine/Loop';
 import { RendererFactory, RendererRegistry, RendererService } from '@/Engine/Renderer';
-import type { ISceneWrapper } from '@/Engine/Scene';
+import type { ISceneFactory, ISceneRegistry, IScenesService, ISceneWrapper } from '@/Engine/Scene';
+import { SceneFactory, SceneRegistry, ScenesService } from '@/Engine/Scene';
 import type { ISpaceServices } from '@/Engine/Space/Models';
 import { Text2dRegistry, Text3dRegistry, TextFactory, TextService } from '@/Engine/Text';
+import { isNotDefined } from '@/Engine/Utils';
 
-export function initSceneServices(scene: ISceneWrapper, canvas: IAppCanvas): Omit<ISpaceServices, 'scenesService'> {
+export function initSceneService(): IScenesService {
+  const sceneFactory: ISceneFactory = SceneFactory();
+  const sceneRegistry: ISceneRegistry = SceneRegistry();
+
+  return ScenesService(sceneFactory, sceneRegistry);
+}
+
+export function initEntitiesServices(scene: ISceneWrapper, canvas: IAppCanvas): Omit<ISpaceServices, 'scenesService'> {
   return {
     actorService: ActorService(ActorFactory(), ActorAsyncRegistry(), scene),
     cameraService: CameraService(CameraFactory(), CameraRegistry(), scene),
@@ -24,5 +33,17 @@ export function initSceneServices(scene: ISceneWrapper, canvas: IAppCanvas): Omi
     textService: TextService(TextFactory(), Text2dRegistry(), Text3dRegistry(), scene),
     intersectionsService: IntersectionsService(IntersectionsWatcherFactory(), IntersectionsWatcherRegistry()),
     controlsService: ControlService(ControlsFactory(), ControlsRegistry(), canvas)
+  };
+}
+
+export function initServices(canvas: IAppCanvas, buildScenesFn: (scenesService: IScenesService) => ISceneWrapper): ISpaceServices | never {
+  const scenesService: IScenesService = initSceneService();
+  const scene: ISceneWrapper = buildScenesFn(scenesService);
+
+  if (isNotDefined(scene)) throw new Error(`Cannot find the active scene for space during the services initialization.`);
+
+  return {
+    scenesService,
+    ...initEntitiesServices(scene, canvas)
   };
 }

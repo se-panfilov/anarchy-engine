@@ -1,10 +1,9 @@
 import type { Observable } from 'rxjs';
 
-import type { IDestroyable, IWithMessages, IWithTags } from '@/Engine/Mixins';
+import type { IDestroyable, IWithTags } from '@/Engine/Mixins';
 import type { ISpaceServices, IWithBuilt } from '@/Engine/Space';
 
 export type ISpace = IDestroyable &
-  IWithMessages &
   Omit<IWithBuilt, 'built$'> &
   IWithTags<string> &
   Readonly<{
