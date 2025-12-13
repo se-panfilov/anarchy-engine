@@ -1,5 +1,5 @@
 import type { IDestroyable } from '@/Engine/Mixins';
-import type { IWithActiveAccessorsService, IWithCreateService, IWithFactoryService, IWithRegistryService, IWithSceneGetterService } from '@/Engine/Space';
+import type { IWithActiveAccessorsService, IWithCreateService, IWithFactoryService, IWithRegistryService } from '@/Engine/Space';
 
 import type { IRendererFactory } from './IRendererFactory';
 import type { IRendererParams } from './IRendererParams';
@@ -10,5 +10,4 @@ export type IRendererService = IWithCreateService<IRendererWrapper, IRendererPar
   IWithActiveAccessorsService<IRendererWrapper> &
   IWithFactoryService<IRendererFactory> &
   IWithRegistryService<IRendererRegistry> &
-  IWithSceneGetterService &
   IDestroyable;

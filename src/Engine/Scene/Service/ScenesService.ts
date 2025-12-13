@@ -9,7 +9,7 @@ export function ScenesService(factory: ISceneFactory, registry: ISceneRegistry):
   const create = (params: ISceneParams): ISceneWrapper => factory.create(params);
   const createFromConfig = (scenes: ReadonlyArray<ISceneConfig>): void => scenes.forEach((config: ISceneConfig): ISceneWrapper => factory.create(factory.configToParams(config)));
 
-  const setActive = (scene: ISceneWrapper): void => setActiveWrappedEntity(registry, scene.id);
+  const setActive = (id: string): void => setActiveWrappedEntity(registry, id);
   const findActive = (): ISceneWrapper | undefined => findActiveWrappedEntity(registry);
 
   const destroyable: IDestroyable = destroyableMixin();

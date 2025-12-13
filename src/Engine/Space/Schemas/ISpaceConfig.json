@@ -14,16 +14,6 @@
     "version": {
       "$ref": "#/definitions/SpaceSchemaVersion"
     },
-    "initSpace": {
-      "anyOf": [
-        {
-          "type": "boolean"
-        },
-        {
-          "$ref": "#/definitions/ISpaceInitializationConfig"
-        }
-      ]
-    },
     "scenes": {
       "type": "array",
       "items": {
@@ -63,7 +53,7 @@
     "controls": {
       "type": "array",
       "items": {
-        "$ref": "#/definitions/IOrbitControlsConfig"
+        "$ref": "#/definitions/IControlsConfig"
       }
     },
     "envMaps": {
@@ -73,49 +63,11 @@
       }
     }
   },
-  "required": ["actors", "cameras", "controls", "envMaps", "fogs", "initSpace", "lights", "name", "scenes", "tags", "texts", "version"],
+  "required": ["actors", "cameras", "controls", "envMaps", "fogs", "lights", "name", "scenes", "tags", "texts", "version"],
   "definitions": {
     "SpaceSchemaVersion": {
       "type": "string",
       "const": "1.0.0"
-    },
-    "ISpaceInitializationConfig": {
-      "type": "object",
-      "properties": {
-        "isScenesInit": {
-          "type": "boolean"
-        },
-        "isActorsInit": {
-          "type": "boolean"
-        },
-        "isCamerasInit": {
-          "type": "boolean"
-        },
-        "isLightsInit": {
-          "type": "boolean"
-        },
-        "isFogsInit": {
-          "type": "boolean"
-        },
-        "isTextsInit": {
-          "type": "boolean"
-        },
-        "isControlsInit": {
-          "type": "boolean"
-        },
-        "isEnvMapsInit": {
-          "type": "boolean"
-        },
-        "isRendererInit": {
-          "type": "boolean"
-        },
-        "isLoopInit": {
-          "type": "boolean"
-        },
-        "isInitIntersections": {
-          "type": "boolean"
-        }
-      }
     },
     "ISceneConfig": {
       "type": "object",
@@ -162,11 +114,11 @@
         "background": {
           "type": "string"
         },
-        "isActive": {
-          "type": "boolean"
-        },
         "name": {
           "type": "string"
+        },
+        "isActive": {
+          "type": "boolean"
         }
       },
       "required": ["isActive", "name", "tags"]
@@ -4427,6 +4379,9 @@
       "type": "string",
       "enum": ["normal", "bold"]
     },
+    "IControlsConfig": {
+      "$ref": "#/definitions/IOrbitControlsConfig"
+    },
     "IOrbitControlsConfig": {
       "type": "object",
       "properties": {
@@ -4445,6 +4400,9 @@
         },
         "type": {
           "$ref": "#/definitions/ControlsType"
+        },
+        "relatedCameraName": {
+          "type": "string"
         },
         "target": {
           "type": "object",
@@ -4552,7 +4510,7 @@
           "type": "boolean"
         }
       },
-      "required": ["isActive", "tags", "type"]
+      "required": ["isActive", "relatedCameraName", "tags", "type"]
     },
     "ControlsTag": {
       "type": "string",

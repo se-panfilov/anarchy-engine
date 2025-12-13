@@ -1,5 +1,5 @@
 import type { IDestroyable } from '@/Engine/Mixins';
-import type { IWithActiveAccessorsService, IWithCreateFromConfigService, IWithCreateService, IWithFactoryService, IWithRegistryService, IWithSceneGetterService } from '@/Engine/Space';
+import type { IWithActiveAccessorsService, IWithCreateFromConfigService, IWithCreateService, IWithFactoryService, IWithRegistryService } from '@/Engine/Space';
 
 import type { ISceneConfig } from './ISceneConfig';
 import type { ISceneFactory } from './ISceneFactory';
@@ -12,5 +12,4 @@ export type IScenesService = IWithCreateService<ISceneWrapper, ISceneParams> &
   IWithActiveAccessorsService<ISceneWrapper> &
   IWithFactoryService<ISceneFactory> &
   IWithRegistryService<ISceneRegistry> &
-  IWithSceneGetterService &
   IDestroyable;

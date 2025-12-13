@@ -1,6 +1,6 @@
 import type { ICameraRegistry } from '@/Engine/Camera';
 import type { IDestroyable } from '@/Engine/Mixins';
-import type { IWithActiveAccessorsService, IWithCreateService, IWithFactoryService, IWithRegistryService, IWithSceneGetterService } from '@/Engine/Space';
+import type { IWithActiveAccessorsService, IWithCreateService, IWithFactoryService, IWithRegistryService } from '@/Engine/Space';
 
 import type { IControlsConfig } from './IControlsConfig';
 import type { IControlsFactory } from './IControlsFactory';
@@ -15,5 +15,4 @@ export type IControlsService = IWithCreateService<IControlsWrapper, IControlsPar
   IWithActiveAccessorsService<IControlsWrapper> &
   IWithFactoryService<IControlsFactory> &
   IWithRegistryService<IControlsRegistry> &
-  IWithSceneGetterService &
   IDestroyable;

@@ -38,7 +38,7 @@ export function buildSpaceFromConfig(canvas: IAppCanvas, config: ISpaceConfig): 
     return activeScene;
   });
 
-  const { cameraService, controlsService, lightService, loopService, fogService, envMapService, intersectionsService, textService, rendererService } = services;
+  const { cameraService, controlsService, lightService, loopService, fogService, envMapService, textService, rendererService } = services;
 
   cameraService.createFromConfig(cameras);
   services.actorService.createFromConfig(actors);
