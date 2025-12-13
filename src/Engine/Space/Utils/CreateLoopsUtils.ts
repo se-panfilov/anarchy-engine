@@ -16,14 +16,13 @@ import { SpatialUpdatePriority } from '@/Engine/Spatial';
 import type { TTextLoop } from '@/Engine/Text';
 import type { TTransformLoop } from '@/Engine/TransformDrive';
 
-// TODO 10.0.0. LOOPS: get rid of autoUpdate$ (and isAutoUpdate in config, guess)
-
 export function createLoops({ create }: TLoopService): TSpaceLoops {
-  const { RenderMain, IntersectionsMain, SpatialMain, MouseMain, TextMain, KinematicMain, CollisionsMain, ControlsMain, TransformMain, KeyboardMain, PhysicalMain } = SpaceLoopNames;
-  const { Render, Intersections, Spatial, Mouse, Text, Kinematic, Collisions, Controls, Transform, Keyboard, Physical } = LoopType;
   // TODO 10.0.0. LOOPS: 16ms is hardcoded here, should be configurable
   // TODO 10.0.0. LOOPS: showDebugInfo is hardcoded here, should be configurable
   // TODO 10.0.0. LOOPS: Make sure to make use of all of these loops
+  const { RenderMain, IntersectionsMain, SpatialMain, MouseMain, TextMain, KinematicMain, CollisionsMain, ControlsMain, TransformMain, KeyboardMain, PhysicalMain } = SpaceLoopNames;
+  const { Render, Intersections, Spatial, Mouse, Text, Kinematic, Collisions, Controls, Transform, Keyboard, Physical } = LoopType;
+
   return {
     renderLoop: create({ name: RenderMain, type: Render, trigger: requestAnimationFrame, showDebugInfo: true }) as TRenderLoop,
     physicalLoop: create({ name: PhysicalMain, type: Physical, trigger: milliseconds(16) }) as TPhysicalLoop,
