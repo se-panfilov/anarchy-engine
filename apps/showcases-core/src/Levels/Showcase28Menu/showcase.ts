@@ -8,8 +8,8 @@ import { initMenuApp } from 'showcases-menu/src/main';
 
 import { runtimeEnv } from '@/env';
 import { fromGuiEventsBus$, fromMenuEventsBus$, toGuiEventsBus$, toMenuEventsBus$ } from '@/Levels/Showcase28Menu/EventsBus';
-import type { TAppService, TEventsService, TMainMenuService, TSettingsService } from '@/Levels/Showcase28Menu/Models';
-import { AppService, EventsService, MainMenuService, SettingsService } from '@/Levels/Showcase28Menu/Services';
+import type { TAppService, TEventsService, TGuiService, TMainMenuService, TSettingsService } from '@/Levels/Showcase28Menu/Models';
+import { AppService, EventsService, GuiService, MainMenuService, SettingsService } from '@/Levels/Showcase28Menu/Services';
 import type { TAppSettings } from '@/Models';
 import { addGizmo } from '@/Utils';
 
@@ -39,6 +39,7 @@ export function showcase(space: TSpace): void {
   sceneW.addModel3d(planeModel3d);
 
   const mainMenuService: TMainMenuService = MainMenuService();
+  const guiService: TGuiService = GuiService();
   const appService: TAppService = AppService();
   const settingsService: TSettingsService = SettingsService();
   settingsService.isFirstRun().then((isFirstRun: boolean): void => {
@@ -66,6 +67,7 @@ export function showcase(space: TSpace): void {
   });
 
   mouseService.clickLeftRelease$.pipe(filter((): boolean => isMouseOverMenuCube)).subscribe((): void => openMenu$.next(true));
+  guiService.openGui();
 
   openMenu$.pipe().subscribe(mainMenuService.openMainMenu);
 
