@@ -6,7 +6,6 @@ export enum WrapperType {
   CubeTexture = 'cube_texture_wrapper',
   Input = 'input_wrapper',
   Light = 'light_wrapper',
-  Loop = 'loop_wrapper',
   Renderer = 'renderer_wrapper',
   Scene = 'scene_wrapper',
   Texture = 'texture_wrapper',
