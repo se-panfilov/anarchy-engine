@@ -1,7 +1,7 @@
 import type { Observable, Subscription } from 'rxjs';
 import { BehaviorSubject, combineLatest, EMPTY, switchMap } from 'rxjs';
 import type { QuaternionLike } from 'three';
-import { Euler, Object3D, Quaternion, Vector3 } from 'three';
+import { Object3D, Quaternion, Vector3 } from 'three';
 import type { Vector3Like } from 'three/src/math/Vector3';
 
 import type { TKinematicData, TKinematicState, TKinematicTarget, TKinematicWritableData } from '@/Engine/Kinematic/Models';
@@ -174,7 +174,7 @@ export function KinematicTransformAgent(params: TKinematicTransformAgentParams, 
 
     if (isRotationReached(agent.data.target, agent.rotation$.value, agent.data.state)) return;
 
-    const rotationStep: number = agent.data.state.angularSpeed * delta;
+    const rotationStep: TRadians = (agent.data.state.angularSpeed * delta) as TRadians;
     const stepRotation: Quaternion | undefined = getStepRotation(agent, rotationStep);
     if (isNotDefined(stepRotation)) return;
 
@@ -195,6 +195,31 @@ export function KinematicTransformAgent(params: TKinematicTransformAgentParams, 
   return agent;
 }
 
+function getStepRotation(agent: TKinematicTransformAgent, rotationStep: TRadians): Quaternion | undefined {
+  if (isNotDefined(agent.data.target?.rotation)) return undefined;
+
+  const currentRotation: Quaternion = agent.rotation$.value.clone().normalize();
+  const targetNormalized: Quaternion = agent.data.target.rotation.clone().normalize();
+
+  // Compute relative rotation
+  const qRelative: Quaternion = currentRotation.clone().invert().multiply(targetNormalized);
+
+  // Clamp w to avoid floating-point errors outside [-1,1]
+  const clampedW: number = Math.min(Math.max(qRelative.w, -1), 1);
+  const angle: TRadians = (2 * Math.acos(clampedW)) as TRadians;
+
+  // Compute rotation axis
+  const sinHalfAngle: number = Math.sqrt(1 - clampedW * clampedW);
+  const axis: Vector3 = sinHalfAngle > 1e-6 ? new Vector3(qRelative.x, qRelative.y, qRelative.z).divideScalar(sinHalfAngle).normalize() : new Vector3(0, 1, 0);
+
+  // Fix for shortest rotation path
+  const correctedAngle: number = angle > Math.PI ? angle - 2 * Math.PI : angle;
+  const stepAngle: number = Math.sign(correctedAngle) * Math.min(Math.abs(correctedAngle), rotationStep);
+
+  return stepAngle !== 0 ? new Quaternion().setFromAxisAngle(axis, stepAngle) : undefined;
+}
+
+// Fallback implementation for getStepRotation based on Euler angles
 // function getStepRotation(agent: TKinematicTransformAgent, rotationStep: number): Quaternion | undefined {
 //   if (!agent.data.target?.rotation) return undefined;
 //
@@ -214,32 +239,6 @@ export function KinematicTransformAgent(params: TKinematicTransformAgentParams, 
 //
 //   return new Quaternion().setFromEuler(stepEuler);
 // }
-
-function getStepRotation(agent: TKinematicTransformAgent, rotationStep: TRadians): Quaternion | undefined {
-  const targetRotation = agent.data.target?.rotation?.clone();
-  if (!targetRotation) return undefined;
-  const currentRotation = agent.rotation$.value.clone().normalize();
-  targetRotation.normalize();
-
-  const qRelative = currentRotation.clone().invert().multiply(targetRotation).normalize();
-  const { x, y, z, w } = qRelative;
-  const angle = 2 * Math.acos(Math.min(Math.max(w, -1), 1)); // clamp w для безопасности
-
-  const axis = new Vector3(x, y, z);
-  const sinHalfAngle = Math.sqrt(1 - w * w);
-
-  if (sinHalfAngle > 1e-6) {
-    axis.divideScalar(sinHalfAngle).normalize();
-  } else {
-    axis.set(0, 1, 0);
-  }
-
-  const useNegativeAngle = angle > Math.PI;
-  const correctedAngle = useNegativeAngle ? angle - 2 * Math.PI : angle;
-  const stepAngle = Math.sign(correctedAngle) * Math.min(Math.abs(correctedAngle), rotationStep);
-
-  return new Quaternion().setFromAxisAngle(axis, stepAngle).normalize();
-}
 
 function isPointReached(target: TKinematicTarget | undefined, position: Vector3, state: TKinematicState): boolean {
   if (isNotDefined(target)) return false;
