@@ -14,7 +14,7 @@ import type {
   TLightServiceWithRegistry
 } from '@/Engine/Light/Models';
 import type { TDisposable } from '@/Engine/Mixins';
-import { withCreateFromConfigServiceMixin, withCreateServiceMixin, withFactoryService, withRegistryService } from '@/Engine/Mixins';
+import { withCreateFromConfigServiceMixin, withCreateServiceMixin, withFactoryService, withRegistryService, withSceneGetterService } from '@/Engine/Mixins';
 import type { TSceneWrapper } from '@/Engine/Scene';
 
 export function LightService(factory: TLightFactory, registry: TLightRegistry, scene: TSceneWrapper): TLightService {
@@ -29,7 +29,5 @@ export function LightService(factory: TLightFactory, registry: TLightRegistry, s
   const withRegistry: TLightServiceWithRegistry = withRegistryService(registry);
 
   // eslint-disable-next-line functional/immutable-data
-  return Object.assign(abstractService, withCreateService, withCreateFromConfigService, withFactory, withRegistry, {
-    getScene: (): TSceneWrapper => scene
-  });
+  return Object.assign(abstractService, withCreateService, withCreateFromConfigService, withFactory, withRegistry, withSceneGetterService(scene));
 }

@@ -5,7 +5,7 @@ import type { TAbstractService, TRegistryPack } from '@/Engine/Abstract';
 import { AbstractService } from '@/Engine/Abstract';
 import type { TAppGlobalContainer } from '@/Engine/Global';
 import type { TDisposable } from '@/Engine/Mixins';
-import { withCreateFromConfigServiceMixin, withCreateServiceMixin, withFactoryService } from '@/Engine/Mixins';
+import { withCreateFromConfigServiceMixin, withCreateServiceMixin, withFactoryService, withSceneGetterService } from '@/Engine/Mixins';
 import type { TSceneWrapper } from '@/Engine/Scene';
 import type { TScreenSizeWatcher } from '@/Engine/Screen';
 import type { TSpaceLoops } from '@/Engine/Space';
@@ -81,8 +81,7 @@ export function TextService(
   });
 
   // eslint-disable-next-line functional/immutable-data
-  return Object.assign(abstractService, withCreateService, withCreateFromConfigService, withFactory, {
-    getScene: (): TSceneWrapper => scene,
+  return Object.assign(abstractService, withCreateService, withCreateFromConfigService, withFactory, withSceneGetterService(scene), {
     createText2dRenderer,
     createText3dRenderer,
     getRegistries: () => ({ text2dRegistry, text3dRegistry, text3dTextureRegistry }),

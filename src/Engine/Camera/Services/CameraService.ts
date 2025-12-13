@@ -16,7 +16,7 @@ import type {
 } from '@/Engine/Camera/Models';
 import { ambientContext } from '@/Engine/Context';
 import type { TDisposable, TWithActiveMixinResult } from '@/Engine/Mixins';
-import { withActiveEntityServiceMixin, withCreateFromConfigServiceMixin, withCreateServiceMixin, withFactoryService, withRegistryService } from '@/Engine/Mixins';
+import { withActiveEntityServiceMixin, withCreateFromConfigServiceMixin, withCreateServiceMixin, withFactoryService, withRegistryService, withSceneGetterService } from '@/Engine/Mixins';
 import type { TSceneWrapper } from '@/Engine/Scene';
 import type { TScreenSizeValues } from '@/Engine/Screen';
 import { isNotDefined } from '@/Engine/Utils';
@@ -77,11 +77,10 @@ export function CameraService(
   });
 
   // eslint-disable-next-line functional/immutable-data
-  return Object.assign(abstractService, withCreateService, withCreateFromConfigService, withRegistry, withFactory, {
+  return Object.assign(abstractService, withCreateService, withCreateFromConfigService, withRegistry, withFactory, withSceneGetterService(scene), {
     setActive: withActive.setActive,
     findActive,
     active$: withActive.active$,
-    startUpdatingCamerasAspect,
-    getScene: (): TSceneWrapper => scene
+    startUpdatingCamerasAspect
   });
 }

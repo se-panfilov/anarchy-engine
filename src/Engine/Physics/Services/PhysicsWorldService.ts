@@ -4,6 +4,7 @@ import type { Vector3 } from 'three';
 
 import type { TAbstractService } from '@/Engine/Abstract';
 import { AbstractService } from '@/Engine/Abstract';
+import { withSceneGetterService } from '@/Engine/Mixins';
 import { STANDARD_GRAVITY } from '@/Engine/Physics/Constants';
 import type { TPhysicalLoop, TPhysicsDebugRenderer, TPhysicsWorldParams, TPhysicsWorldService } from '@/Engine/Physics/Models';
 import { PhysicsDebugRenderer } from '@/Engine/Physics/Renderers';
@@ -80,11 +81,10 @@ export function PhysicsWorldService(scene: TSceneWrapper, { physicalLoop }: TSpa
   });
 
   // eslint-disable-next-line functional/immutable-data
-  return Object.assign(abstractService, {
+  return Object.assign(abstractService, withSceneGetterService(scene), {
     createWorld,
     getDebugRenderer,
     getWorld: (): World | undefined => world,
-    setGravity,
-    getScene: (): TSceneWrapper => scene
+    setGravity
   });
 }

@@ -4,7 +4,7 @@ import type { TAbstractService, TRegistryPack } from '@/Engine/Abstract';
 import { AbstractService } from '@/Engine/Abstract';
 import type { TMaterialRegistry, TMaterialService } from '@/Engine/Material';
 import type { TDisposable } from '@/Engine/Mixins';
-import { withCreateFromConfigServiceMixin, withCreateServiceMixin, withFactoryService, withRegistryService } from '@/Engine/Mixins';
+import { withCreateFromConfigServiceMixin, withCreateServiceMixin, withFactoryService, withRegistryService, withSceneGetterService } from '@/Engine/Mixins';
 import type {
   TParticlesFactory,
   TParticlesRegistry,
@@ -31,7 +31,5 @@ export function ParticlesService(factory: TParticlesFactory, registry: TParticle
   const withRegistry: TParticlesServiceWithRegistry = withRegistryService(registry);
 
   // eslint-disable-next-line functional/immutable-data
-  return Object.assign(abstractService, withCreateService, withCreateFromConfigService, withFactory, withRegistry, {
-    getScene: (): TSceneWrapper => scene
-  });
+  return Object.assign(abstractService, withCreateService, withCreateFromConfigService, withFactory, withRegistry, withSceneGetterService(scene));
 }

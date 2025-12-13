@@ -16,7 +16,7 @@ import type {
   TEnvMapWrapper
 } from '@/Engine/EnvMap/Models';
 import type { TDisposable, TWithActiveMixinResult } from '@/Engine/Mixins';
-import { withActiveEntityServiceMixin, withCreateFromConfigServiceMixin, withCreateServiceMixin, withFactoryService, withRegistryService } from '@/Engine/Mixins';
+import { withActiveEntityServiceMixin, withCreateFromConfigServiceMixin, withCreateServiceMixin, withFactoryService, withRegistryService, withSceneGetterService } from '@/Engine/Mixins';
 import type { TSceneWrapper } from '@/Engine/Scene';
 import { isDefined } from '@/Engine/Utils';
 
@@ -54,13 +54,12 @@ export function EnvMapService(factory: TEnvMapFactory, registry: TEnvMapRegistry
   });
 
   // eslint-disable-next-line functional/immutable-data
-  return Object.assign(abstractService, withCreateService, withCreateFromConfigService, withFactory, withRegistry, {
+  return Object.assign(abstractService, withCreateService, withCreateFromConfigService, withFactory, withRegistry, withSceneGetterService(sceneW), {
     loadAsync: envMapLoader.loadAsync,
     loadFromConfigAsync: envMapLoader.loadFromConfigAsync,
     setActive: withActive.setActive,
     findActive,
     active$: withActive.active$,
-    getResourceRegistry: (): TEnvMapTextureAsyncRegistry => resourcesRegistry,
-    getScene: (): TSceneWrapper => sceneW
+    getResourceRegistry: (): TEnvMapTextureAsyncRegistry => resourcesRegistry
   });
 }
