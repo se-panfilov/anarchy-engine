@@ -1,5 +1,4 @@
 import { AbstractEntityRegistry, RegistryFacade, RegistryType } from '@/Engine/Abstract';
 import type { TAnyAudioWrapper, TAudioRegistry } from '@/Engine/Audio/Models';
 
-// TODO 11.0.0: Do we need connect audio wrapper to audio connection registry?
 export const AudioRegistry = (): TAudioRegistry => RegistryFacade(AbstractEntityRegistry<TAnyAudioWrapper>(RegistryType.Audio));
