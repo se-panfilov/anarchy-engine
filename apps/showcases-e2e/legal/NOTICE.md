@@ -5,7 +5,7 @@
 This product includes third-party components. Their **licenses and attributions** are listed below.
 For the **full license texts**, see `THIRD_PARTY_LICENSES.md`.
 
-Components listed: 22
+Components listed: 23
 
 ## 1) Mandatory Attributions (verbatim)
 
@@ -45,7 +45,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## anarchy-engine@20.3.4
+## anarchy-engine@21.0.0
 
 **License(s):** MIT
 
@@ -53,7 +53,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## anarchy-shared@1.1.4
+## anarchy-shared@1.1.5
 
 **License(s):** MIT
 
@@ -92,6 +92,18 @@ The following notices are reproduced as provided by the respective licensors (e.
 **URL:** https://github.com/fastify/fast-uri
 
 **Attribution:** Copyright (c) 2011-2021, Gary Court until https://github.com/garycourt/uri-js/commit/a1acf730b4bba3f1097c9f52e7d9d3aba8cdcaae
+
+---
+
+## fsevents@2.3.2
+
+**License(s):** MIT
+
+**Repository:** https://github.com/fsevents/fsevents.git
+
+**URL:** https://github.com/fsevents/fsevents
+
+**Attribution:** Copyright (C) 2010-2020 by Philipp Dunkel, Ben Noordhuis, Elan Shankar, Paul Miller
 
 ---
 

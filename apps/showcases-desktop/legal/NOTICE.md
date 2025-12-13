@@ -321,7 +321,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## anarchy-engine@20.3.4
+## anarchy-engine@21.0.0
 
 **License(s):** MIT
 
@@ -337,7 +337,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## anarchy-shared@1.1.4
+## anarchy-shared@1.1.5
 
 **License(s):** MIT
 
@@ -689,7 +689,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## showcases-core@2.9.1
+## showcases-core@2.9.2
 
 **License(s):** MIT
 
