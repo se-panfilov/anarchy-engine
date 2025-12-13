@@ -5,6 +5,7 @@ import { Clock } from 'three';
 import type { TDelta, TDeltaCalculator, TLoop } from '@/Engine/Loop/Models';
 import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
+import { isDefined } from '@/Engine/Utils';
 
 import { DeltaCalculator } from './DeltaCalculator';
 
@@ -23,9 +24,21 @@ export function Loop(trigger: TTriggerFn | number): TLoop {
     .pipe(switchMap((isEnabled: boolean): Subject<TDelta> | Observable<never> => (isEnabled && isTriggerFn ? tick$ : EMPTY)))
     .subscribe((): number | void => (trigger as TTriggerFn)((): void => tick$.next(deltaCalc.update())));
 
+  const runInterval = (): number => setInterval((): void => tick$.next(deltaCalc.update()), trigger as number) as unknown as number;
+
+  let intervalId: number = runInterval();
+
   const enableSub$: Subscription = enabled$.subscribe((isEnabled: boolean): void => {
-    if (isEnabled) tick$.next(0);
-    else deltaCalc.reset();
+    if (isEnabled) {
+      if (isTriggerFn) {
+        tick$.next(0);
+      } else {
+        intervalId = runInterval();
+      }
+    } else {
+      deltaCalc.reset();
+      if (isDefined(intervalId)) clearInterval(intervalId);
+    }
   });
 
   const destroyable: TDestroyable = destroyableMixin();
@@ -38,6 +51,8 @@ export function Loop(trigger: TTriggerFn | number): TLoop {
     tick$.unsubscribe();
     enabled$.complete();
     enabled$.unsubscribe();
+
+    if (isDefined(intervalId)) clearInterval(intervalId);
 
     // TODO DESTROY: destroy deltaCalc
   });
