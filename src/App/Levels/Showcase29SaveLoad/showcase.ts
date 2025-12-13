@@ -2,7 +2,6 @@ import '@public/Showcase/fonts.css';
 import './style.css';
 
 import type { Subscription } from 'rxjs';
-import { BehaviorSubject, map } from 'rxjs';
 
 import { spaceActorData } from '@/App/Levels/Showcase29SaveLoad/spaceActor';
 import { spaceAnimationsData } from '@/App/Levels/Showcase29SaveLoad/spaceAnimations';
@@ -55,7 +54,6 @@ const spacesInMemoryData: Array<TSpacesData> = [];
 let currentSpaceName: string | undefined;
 
 //Flags for E2E tests
-const activeAsyncTasksCounter$: BehaviorSubject<number> = new BehaviorSubject<number>(0);
 // eslint-disable-next-line functional/immutable-data
 (window as any)._isReady = false;
 
@@ -95,15 +93,10 @@ function loadSpace(name: string | undefined, source: ReadonlyArray<TSpacesData>)
   subscriptions[`start$_${space.name}`] = space.start$.subscribe((isStarted: boolean): void => setSpaceReady(isStarted));
 
   // eslint-disable-next-line functional/immutable-data
-  subscriptions[`activeAsyncTasksCounter$_${space.name}`] = activeAsyncTasksCounter$.subscribe((value: number): void => {
+  subscriptions[`awaits$_${space.name}`] = spaceData.awaits$.subscribe((awaitsSet: ReadonlySet<string>): void => {
     // eslint-disable-next-line functional/immutable-data
-    (window as any)._isReady = value <= 0;
-  });
-
-  // eslint-disable-next-line functional/immutable-data
-  subscriptions[`awaits$_${space.name}`] = spaceData.awaits$.pipe(map((s): boolean => s.size === 0)).subscribe((isReady: boolean): void => {
-    const count: number = isReady ? activeAsyncTasksCounter$.value - 1 : activeAsyncTasksCounter$.value + 1;
-    activeAsyncTasksCounter$.next(count > 0 ? count : 0);
+    (window as any)._isReady = awaitsSet.size === 0;
+    console.log('XXX [Showcase] window._isReady', (window as any)._isReady);
   });
 
   currentSpaceName = space.name;
@@ -121,7 +114,7 @@ function unloadSpace(name: string | undefined, spaceRegistry: TSpaceRegistry): v
   Object.values(subscriptions).forEach((sub: Subscription): void => sub.unsubscribe());
   if (isNotDefined(spaceData)) throw new Error(`[Showcase]: Space data is not found for space "${name}"`);
   spaceData.onUnload?.(space, subscriptions);
-  spaceData.awaits$.complete();
+
   setSpaceReady(false);
   subscriptions = {};
   space.drop();

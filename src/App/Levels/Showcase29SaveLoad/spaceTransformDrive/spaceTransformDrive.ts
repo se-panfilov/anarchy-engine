@@ -87,6 +87,8 @@ async function performContinuousMoveSaveLoadTest(space: TSpace): Promise<void> {
 
   // The first step: move kinematic actors (50 ticks), then Save, Load and click again...
   if (continuousStepCounter === 0) {
+    addAwait('continuous_move_0', spaceTransformDriveData.awaits$);
+    removeAwait('continuous_move_0', spaceTransformDriveData.awaits$);
     defaultActor.drive.default.addZ(4);
     kinematicActor.drive.kinematic.moveTo(new Vector3(0, 2, 0), metersPerSecond(0.05));
     kinematicActor.drive.kinematic.lookAt(new Vector3(0, 2, 0), metersPerSecond(0.00001));
@@ -95,7 +97,9 @@ async function performContinuousMoveSaveLoadTest(space: TSpace): Promise<void> {
 
   //The second step: ...click after loaded the space. Actors should continue to move (120 ticks more)
   if (continuousStepCounter === 1) {
+    addAwait('continuous_move_1', spaceTransformDriveData.awaits$);
     await doKinematicSteps(space, 110, 10);
+    removeAwait('continuous_move_1', spaceTransformDriveData.awaits$);
   }
 
   continuousStepCounter += 1;
