@@ -2,12 +2,13 @@ import anime from 'animejs';
 
 import type { IActorWrapper } from '@/Engine/Domains/Actor';
 import type { ILoopService } from '@/Engine/Domains/Loop';
+import type { IMovableXYZ, IWithCoordsXYZ, IWithPosition } from '@/Engine/Mixins';
 import { defaultMoverServiceConfig } from '@/Engine/Services/MoverService/Constants';
-import type { IAnimationParams, IKeyframeDestination, IMoverServiceConfig } from '@/Engine/Services/MoverService/Models';
+import type { IAnimationParams, IFollowTargetParams, IKeyframeDestination, IMoverServiceConfig } from '@/Engine/Services/MoverService/Models';
 import type { IMoveDestination } from '@/Engine/Services/MoverService/Models/IMoveDestination';
 import type { IMoverService } from '@/Engine/Services/MoverService/Models/IMoverService';
 import { getAccumulatedKeyframes, performMove, prepareDestination } from '@/Engine/Services/MoverService/MoverServiceUtils';
-import { byPathMove, goStraightMove } from '@/Engine/Services/MoverService/MoveSet';
+import { byPathMove, followTarget, goStraightMove } from '@/Engine/Services/MoverService/MoveSet';
 
 export function MoverService(loopService: ILoopService, { suspendWhenDocumentHidden }: IMoverServiceConfig = defaultMoverServiceConfig): IMoverService {
   // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access,functional/immutable-data
@@ -19,6 +20,9 @@ export function MoverService(loopService: ILoopService, { suspendWhenDocumentHid
     },
     goByPath: (actor: IActorWrapper, path: ReadonlyArray<IKeyframeDestination>, animationParams: IAnimationParams): Promise<void> => {
       return performMove(byPathMove, loopService, { actor, path: getAccumulatedKeyframes(path, actor), animationParams });
+    },
+    followTarget: (obj: IMovableXYZ, target: IWithPosition, offset?: Partial<IWithCoordsXYZ>): void => {
+      performMove(followTarget, loopService, { obj, target, offset } satisfies IFollowTargetParams);
     }
   };
 }

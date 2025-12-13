@@ -1,8 +1,9 @@
 import anime from 'animejs';
 
 import { defaultAnimationParams, Easing } from '@/Engine/Services/MoverService/Constants';
-import type { IMoveByPathFn, IMoveByPathFnParams, IMoveFn, IMoveFnParams } from '@/Engine/Services/MoverService/Models';
+import type { followTargetFn, IFollowTargetParams, IMoveByPathFn, IMoveByPathFnParams, IMoveFn, IMoveFnParams } from '@/Engine/Services/MoverService/Models';
 import { getAnimationWrapperForComplexPathAnimation } from '@/Engine/Services/MoverService/MoverServiceUtils';
+import type { IVector3Wrapper } from '@/Engine/Wrappers';
 
 export const goStraightMove: IMoveFn = ({ actor, destination, animationParams, complete }: IMoveFnParams): anime.AnimeInstance => {
   return anime({
@@ -30,4 +31,16 @@ export const byPathMove: IMoveByPathFn = ({ actor, path, animationParams, comple
     }),
     animationParams
   );
+};
+
+// This function doesn't care about framerate (and delta time) because the position depends on the target
+export const followTarget: followTargetFn = ({ obj, target, offset }: IFollowTargetParams): any => {
+  return {
+    tick: (): void => {
+      const position: IVector3Wrapper = target.getPosition();
+      obj.setX(position.getX() + (offset?.x ?? 0));
+      obj.setY(position.getY() + (offset?.y ?? 0));
+      obj.setZ(position.getZ() + (offset?.z ?? 0));
+    }
+  };
 };

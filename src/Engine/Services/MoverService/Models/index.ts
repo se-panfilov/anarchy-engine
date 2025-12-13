@@ -1,4 +1,5 @@
 export * from './IAnimationParams';
+export * from './IFollowTargetParams';
 export * from './IFullKeyframeDestination';
 export * from './IKeyframeDestination';
 export * from './IMoveByPathFnParams';
