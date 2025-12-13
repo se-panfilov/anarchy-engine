@@ -15,14 +15,13 @@ export function Driver(): TPlatformDriver {
     return Promise.resolve({} as any);
   }
 
-  // TODO DESKTOP: make sure this method is working
   async function loadLegalDocs({ name }: TLoadDocPayload): Promise<TLegalDoc> {
     const legalFolder: string = `${import.meta.env.BASE_URL}public/legal/`;
     const originBase: string = `${window.location.origin}${legalFolder}`;
-    const res: Response = await fetch(`${originBase}${name}.md`);
+    const response: Response = await fetch(`${originBase}${name}.md`);
 
-    if (!res.ok) throw new Error(`Failed to load legal doc "${name}" from ${res.url}: ${res.status} ${res.statusText}`);
-    const result: string = await res.text();
+    if (!response.ok) throw new Error(`Failed to load legal doc "${name}" from ${response.url}: ${response.status} ${response.statusText}`);
+    const result: string = await response.text();
     // TODO DESKTOP: sanitize result here
     return { name, content: result };
   }
