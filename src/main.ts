@@ -36,23 +36,26 @@ sceneManager.setCurrent(scene);
 // sceneManager.attachTo(lightManager, scene);
 // sceneManager.attachTo(inputManager, scene);
 
-const actorParams: Partial<ActorParams> = {
-  width: 1,
-  height: 32,
-  heightSegments: 32,
-  materialParams: { color: new Color('#5EDCAE') }
-};
-// const sphereParams: ActorParams = { ...actorParams, type: 'sphere' };
 const planeParams: ActorParams = {
-  ...actorParams,
   width: 60,
   height: 40,
   widthSegments: 10,
   heightSegments: 10,
+  materialParams: { color: new Color('#5EDCAE') },
   type: 'plane'
 };
-// const sphereActor = actorManager.create(sphereParams);
+
 const planeActor = actorManager.create(planeParams);
+
+// const sphereParams: ActorParams = {
+//   width: 1,
+//   height: 32,
+//   heightSegments: 32,
+//   materialParams: { color: new Color('#E91E63') },
+//   type: 'sphere'
+// };
+//
+// const sphereActor = actorManager.create(sphereParams);
 
 const params: CameraParams = {
   width: deviceWatcher.size$.value.width,
@@ -63,7 +66,7 @@ const params: CameraParams = {
 };
 const wrappedCamera = cameraManager.create(params, deviceWatcher);
 cameraManager.setCurrent(wrappedCamera);
-wrappedCamera.setPosition(3, 2, 15);
+wrappedCamera.setPosition(3, 20, 35);
 wrappedCamera.lookAt(0, 0, 0);
 
 deviceWatcher.start();
@@ -97,6 +100,7 @@ wrappedDirectionalLight.entity.position.set(0.25, 2, 2.25);
 // inputManager.initMousePointer().addIntersectionPointer().onClick(onMouseClick);
 
 if (isNotDefined(sceneManager.current$.value)) throw new Error('Current scene is not set');
+// sceneManager.current$.value.entity.add(sphereActor.entity);
 sceneManager.current$.value.entity.add(planeActor.entity);
 sceneManager.current$.value.entity.add(wrappedCamera.entity);
 sceneManager.current$.value.entity.add(ambientLight.entity);

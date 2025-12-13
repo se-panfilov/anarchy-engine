@@ -9,6 +9,15 @@ export class ActorWrapper extends AbstractWrapper<Mesh> {
     super();
     this.entity = createActor(params);
   }
+
+  setPosition(x: number, y: number, z: number): void {
+    this.entity.position.set(x, y, z);
+  }
+
+  setCastShadow(value: boolean): void {
+    // eslint-disable-next-line functional/immutable-data
+    this.entity.castShadow = value;
+  }
 }
 
 function createActor(params: ActorParams): Mesh {
