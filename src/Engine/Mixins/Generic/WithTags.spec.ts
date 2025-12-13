@@ -1,9 +1,7 @@
-import { describe } from 'vitest';
-
 import type { IWithTags } from '@/Engine/Mixins/Generic/Models';
 import { withTags } from '@/Engine/Mixins/Generic/WithTags';
 
-describe('Test withTags function', () => {
+describe('withTags mixin', () => {
   const tag1: string = 'newTag1';
   const tag2: string = 'newTag2';
   const tag3: string = 'newTag3';

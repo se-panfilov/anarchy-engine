@@ -3,3 +3,4 @@ export * from './IMultitonRegistrable';
 export * from './IRegistrable';
 export * from './IWithMessages';
 export * from './IWithTags';
+export * from './IWithActive';
