@@ -1,10 +1,14 @@
 import { BehaviorSubject, Subject } from 'rxjs';
 import { nanoid } from 'nanoid';
-import type { Manager } from '../Models/Manager';
+import type { Manager } from './Models/Manager';
 import { MousePointerWrapper } from '@Engine/Pointer';
 import type { WrappedMousePointer } from '@Engine/Pointer/lib/models/WrappedMousePointer';
 
-export function InputManager(): Manager {
+interface IInputManager extends Manager {
+  readonly initMousePointer: () => WrappedMousePointer;
+}
+
+export function InputManager(): IInputManager {
   const destroyed$ = new Subject<void>();
   const inputs$ = new BehaviorSubject<WrappedInput | undefined>(undefined);
 

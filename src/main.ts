@@ -1,6 +1,11 @@
 import './style.css';
 import { Color, Mesh, MeshToonMaterial, SphereGeometry, Vector3 } from 'three';
-import { ActorManager, CameraManager, InputManager, LightManager, LoopManager, SceneManager } from '@Engine/Managers';
+import { SceneManager } from '@Engine/Managers/SceneManager';
+import { LoopManager } from '@Engine/Managers/LoopManager';
+import { CameraManager } from '@Engine/Managers/CameraManager';
+import { LightManager } from '@Engine/Managers/LightManager';
+import { InputManager } from '@Engine/Managers/InputManager';
+import { ActorManager } from '@Engine/Managers/ActorManager';
 
 const actorManager = ActorManager();
 const cameraManager = CameraManager();
@@ -20,10 +25,21 @@ sceneManager.currentScene.attachInputManager(inputManager);
 actorManager.addActor('sphere');
 actorManager.addActor('plane');
 
-cameraManager.createCamera().setAsCurrent().setPosition(3, 2, 15).lookAt(0, 0, 0).setControls('OrbitControls');
+const camera = cameraManager.createCamera();
+cameraManager.setCurrentCamera(camera);
+camera.setPosition(3, 2, 15).lookAt(0, 0, 0).setControls('OrbitControls');
 
-lightManager.addAmbientLight();
-lightManager.addDirectionalLight();
+lightManager.createAmbientLight({ type: 'ambient', color: 0xffffff, intensity: 0.5 });
+const wrappedDirectionalLight = lightManager.createDirectionalLight({
+  type: 'directional',
+  color: '#ffffff',
+  intensity: 1
+});
+wrappedDirectionalLight.light.castShadow = true;
+wrappedDirectionalLight.light.shadow.mapSize.set(1024, 1024);
+wrappedDirectionalLight.light.shadow.camera.far = 15;
+wrappedDirectionalLight.light.shadow.normalBias = 0.05;
+wrappedDirectionalLight.light.position.set(0.25, 2, 2.25);
 
 inputManager.initMousePointer().addIntersectionPointer().onClick(onMouseClick);
 

@@ -1,8 +1,12 @@
 import { Subject } from 'rxjs';
 import { nanoid } from 'nanoid';
-import type { Manager } from '../Models/Manager';
+import type { Manager } from './Models/Manager';
 
-export function LoopManager(): Manager {
+interface ILoopManager extends Manager {
+  readonly start: () => void;
+}
+
+export function LoopManager(): ILoopManager {
   const destroyed$ = new Subject<void>();
 
   function start(): void {}
