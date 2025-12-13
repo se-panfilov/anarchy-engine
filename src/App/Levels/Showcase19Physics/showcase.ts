@@ -19,7 +19,7 @@ import {
   spaceService,
   TextType
 } from '@/Engine';
-import { meters } from '@/Engine/Measurements/Utils';
+import { degrees, meters } from '@/Engine/Measurements/Utils';
 
 import spaceConfig from './showcase.json';
 
@@ -56,7 +56,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
 
     mouseService.clickLeftRelease$.subscribe(() => {
       // TODO CWP: 8.0.0. MODELS: Perhaps, "applyImpulse" (and similar functions) should be available via physical drive
-      ballActor.drive.physical.physicsBody$.value?.getRigidBody()?.applyImpulse(getPushCoordsFrom3dAzimuthDeg(azimuth, 0, forcePower * 10.5), true);
+      ballActor.drive.physical.physicsBody$.value?.getRigidBody()?.applyImpulse(getPushCoordsFrom3dAzimuthDeg(degrees(azimuth), degrees(0), forcePower * 10.5), true);
     });
 
     keyboardService.onKey(KeysExtra.Space).pressed$.subscribe((): void => {

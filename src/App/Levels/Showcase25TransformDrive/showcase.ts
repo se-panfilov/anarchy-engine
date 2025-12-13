@@ -1,6 +1,6 @@
 import GUI from 'lil-gui';
 import { map, withLatestFrom } from 'rxjs';
-import { Vector3 } from 'three';
+import { Euler, Vector3 } from 'three';
 import type { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
 import { radToDeg } from 'three/src/math/MathUtils';
 
@@ -10,6 +10,7 @@ import type {
   TActor,
   TAppCanvas,
   TCameraWrapper,
+  TDegrees,
   TEngine,
   TIntersectionEvent,
   TIntersectionsWatcher,
@@ -19,6 +20,7 @@ import type {
   TOrbitControlsWrapper,
   TParticlesWrapper,
   TPointLightWrapper,
+  TRadians,
   TRendererWrapper,
   TSceneWrapper,
   TSpace,
@@ -185,11 +187,19 @@ function moveActorTo(actor: TActor, position: Vector3, agent: TransformAgent, is
   if (isTeleportationMode) return actor.drive.position$.next(position);
 
   let forcePower: number = 1;
-  const azimuth: number = getMouseAzimuthAndElevation(position, actor.drive.getPosition()).azimuth;
+  const azimuth: TRadians = getMouseAzimuthAndElevation(position, actor.drive.getPosition()).azimuth;
+  const azimuthEuler: Euler = new Euler(0, azimuth, 0, 'YXZ');
+  // const azimuthEuler: Euler = new Euler(0, degToRad(180), 0, 'YXZ');
+  console.log(azimuthEuler);
+
+  // For debug reasons: here is how we can rotate the model3d without TransformDrive
+  // actor.model3d.getRawModel3d().rotation.set(0, degToRad(-90), 0);
 
   switch (agent) {
     case TransformAgent.Default:
-      return actor.drive.default.setPosition(position);
+      actor.drive.default.setPosition(position);
+      // return actor.drive.default.setRotation(new Euler(0, azimuth, 0, 'YXZ'));
+      return actor.drive.default.setRotation(new Euler(0, azimuth, 0, 'YXZ'));
     case TransformAgent.Kinematic:
       actor.drive.kinematic.setLinearAzimuthRad(azimuth);
       return actor.drive.kinematic.setLinearSpeed(meters(5));
@@ -198,7 +208,7 @@ function moveActorTo(actor: TActor, position: Vector3, agent: TransformAgent, is
       return undefined;
     case TransformAgent.Physical:
       forcePower = getDistancePrecisely(actor.drive.getPosition(), position).toNumber();
-      actor.drive.physical.physicsBody$.value?.getRigidBody()?.applyImpulse(getPushCoordsFrom3dAzimuthDeg(radToDeg(azimuth), 0, forcePower * 1.5), true);
+      actor.drive.physical.physicsBody$.value?.getRigidBody()?.applyImpulse(getPushCoordsFrom3dAzimuthDeg(radToDeg(azimuth) as TDegrees, 0 as TDegrees, forcePower * 1.5), true);
       return undefined;
     default:
       throw new Error(`Unknown agent: ${agent}`);

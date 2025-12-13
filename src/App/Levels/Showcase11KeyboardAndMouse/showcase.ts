@@ -7,7 +7,7 @@ import { createReactiveLineFromActor } from '@/App/Levels/Showcase25TransformDri
 import { addGizmo } from '@/App/Levels/Utils';
 import type { TActor, TActorRegistry, TAppCanvas, TCameraWrapper, TEngine, TIntersectionEvent, TIntersectionsWatcher, TMouseWatcherEvent, TMoverService, TSpace, TSpaceConfig } from '@/Engine';
 import { ambientContext, defaultMoverServiceConfig, Easing, Engine, getMouseAzimuthAndElevation, isNotDefined, KeyCode, LookUpStrategy, mpsSpeed, spaceService, TransformAgent } from '@/Engine';
-import { meters } from '@/Engine/Measurements/Utils';
+import { meters, radians } from '@/Engine/Measurements/Utils';
 import { MoverService } from '@/Engine/Services/MoverService/MoverService';
 
 import spaceConfig from './showcase.json';
@@ -105,7 +105,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
         const position: Vector3 = intersection.point.clone().add(new Vector3(0, 0, 0));
         const azimuth: number = getMouseAzimuthAndElevation(position, actorMouse.drive.getPosition()).azimuth;
 
-        actorMouse.drive.kinematic.setLinearAzimuthRad(azimuth);
+        actorMouse.drive.kinematic.setLinearAzimuthRad(radians(azimuth));
         actorMouse.drive.kinematic.setLinearSpeed(meters(5));
       }
     });

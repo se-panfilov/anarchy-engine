@@ -1,1 +1,1 @@
-export type TDegrees = number;
+export type TDegrees = number & { __brand: 'degrees' };

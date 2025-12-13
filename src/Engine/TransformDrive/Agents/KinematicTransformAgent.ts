@@ -93,7 +93,7 @@ export function KinematicTransformAgent(params: TKinematicTransformAgentParams, 
       return getAzimuthRadFromDirection(agent.data.linearDirection);
     },
     setLinearAzimuthDeg(azimuthDeg: TDegrees): void {
-      const azimuthRadians: TDegrees = degToRad(azimuthDeg);
+      const azimuthRadians: TRadians = degToRad(azimuthDeg) as TRadians;
       agent.setLinearAzimuthRad(azimuthRadians);
     },
     setLinearAzimuthRad(azimuthRad: TRadians): void {
@@ -107,7 +107,7 @@ export function KinematicTransformAgent(params: TKinematicTransformAgentParams, 
       return getElevationRadFromDirection(agent.data.linearDirection);
     },
     setLinearElevationDeg(elevationDeg: TDegrees): void {
-      agent.setLinearElevationRad(degToRad(elevationDeg));
+      agent.setLinearElevationRad(degToRad(elevationDeg) as TRadians);
     },
     setLinearElevationRad(elevationRad: TRadians): void {
       const currentAzimuth: number = Math.atan2(agent.data.linearDirection.z, agent.data.linearDirection.x);
@@ -149,7 +149,7 @@ export function KinematicTransformAgent(params: TKinematicTransformAgentParams, 
       return getAzimuthRadFromDirection(agent.data.angularDirection);
     },
     setAngularAzimuthDeg(azimuthDeg: TDegrees): void {
-      agent.setAngularAzimuthRad(degToRad(azimuthDeg));
+      agent.setAngularAzimuthRad(degToRad(azimuthDeg) as TRadians);
     },
     setAngularAzimuthRad(azimuthRad: TRadians): void {
       const lengthXZ: number = Math.sqrt(agent.data.angularDirection.x ** 2 + agent.data.angularDirection.z ** 2) || 1;
@@ -162,7 +162,7 @@ export function KinematicTransformAgent(params: TKinematicTransformAgentParams, 
       return getElevationRadFromDirection(agent.data.angularDirection);
     },
     setAngularElevationDeg(elevationDeg: TDegrees): void {
-      agent.setAngularElevationRad(degToRad(elevationDeg));
+      agent.setAngularElevationRad(degToRad(elevationDeg) as TRadians);
     },
     setAngularElevationRad(elevationRad: TRadians): void {
       const currentAzimuth: number = Math.atan2(agent.data.angularDirection.z, agent.data.angularDirection.x);
@@ -199,7 +199,7 @@ export function KinematicTransformAgent(params: TKinematicTransformAgentParams, 
     if (agent.data.angularSpeed <= 0) return;
 
     const normalizedAngularDirection: TReadonlyVector3 = agent.data.angularDirection.clone().normalize();
-    const angle: TRadians = agent.data.angularSpeed * delta;
+    const angle: TRadians = (agent.data.angularSpeed * delta) as TRadians;
     const quaternion: TReadonlyQuaternion = new Quaternion().setFromAxisAngle(normalizedAngularDirection, angle);
     rotationQuaternion$.next(rotationQuaternion$.value.clone().multiply(quaternion));
   }

@@ -23,7 +23,7 @@ import type {
   TSpatialGridWrapper
 } from '@/Engine';
 import { isDefined, isNotDefined, MaterialType, mpsSpeed, PrimitiveModel3dType, SpatialUpdatePriority, TransformAgent } from '@/Engine';
-import { meters } from '@/Engine/Measurements/Utils';
+import { meters, radians } from '@/Engine/Measurements/Utils';
 
 export const BULLET_TAG = 'bullet';
 
@@ -119,8 +119,8 @@ export function BulletAsync(params: TActorParams, actorService: TActorService): 
 
   function reset(): void {
     actor.drive.position$.next(new Vector3(0, 0, 0));
-    actor.drive.kinematic.setLinearAzimuthRad(0);
-    actor.drive.kinematic.setLinearElevationRad(0);
+    actor.drive.kinematic.setLinearAzimuthRad(radians(0));
+    actor.drive.kinematic.setLinearElevationRad(radians(0));
     actor.drive.kinematic.setLinearSpeed(0);
     setDistanceTraveled(0);
     setActive(false);

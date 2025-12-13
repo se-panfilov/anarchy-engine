@@ -22,6 +22,7 @@ import type {
   TSpatialGridWrapper
 } from '@/Engine';
 import { Engine, get3DAzimuthRad, isDefined, isNotDefined, KeysExtra, spaceService } from '@/Engine';
+import { radians } from '@/Engine/Measurements/Utils';
 
 import spaceConfig from './showcase.json';
 import type { TBullet } from './utils';
@@ -125,8 +126,8 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     actorService.getScene().entity.add(line);
 
     const fromHeroAngles: { azimuth: TRadians; elevation: TRadians } = {
-      azimuth: 0,
-      elevation: 0
+      azimuth: radians(0),
+      elevation: radians(0)
     };
 
     //move bouncing sphere to target practice
@@ -164,7 +165,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
         // eslint-disable-next-line functional/immutable-data
         fromHeroAngles.azimuth = azimuth3d.azimuth;
         // eslint-disable-next-line functional/immutable-data
-        fromHeroAngles.elevation = azimuth3d.elevation >= 0 ? azimuth3d.elevation : 0;
+        fromHeroAngles.elevation = (azimuth3d.elevation as number) >= 0 ? azimuth3d.elevation : radians(0);
         // TODO could make some use of mouseLineIntersectionsWatcher.latest$ instead of mouseLineIntersections
         line.geometry.setPositions([heroCoords.x, heroCoords.y, heroCoords.z, mouseLineIntersections.point.x, mouseLineIntersections.point.y, mouseLineIntersections.point.z]);
         line.computeLineDistances();

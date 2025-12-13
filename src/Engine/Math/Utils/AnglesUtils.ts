@@ -24,29 +24,29 @@ export function getHorizontalAzimuthDeg(x: number, z: number, point: Vector3Like
 
   if (azimuth.isNegative()) azimuth = azimuth.plus(360);
 
-  return azimuth.toNumber();
+  return azimuth.toNumber() as TDegrees;
 }
 
 // TODO add unit tests
 export const getAzimuthRadFromDirection = (direction: Vector3Like): TRadians => {
-  let azimuth: TRadians = Math.atan2(direction.z, direction.x);
-  if (azimuth < 0) azimuth += 2 * Math.PI;
+  let azimuth: TRadians = Math.atan2(direction.z, direction.x) as TRadians;
+  if (azimuth < 0) (azimuth as number) += 2 * Math.PI;
   return azimuth;
 };
 // TODO add unit tests
-export const getAzimuthDegFromDirection = (direction: Vector3Like): TDegrees => radToDeg(getAzimuthRadFromDirection(direction));
+export const getAzimuthDegFromDirection = (direction: Vector3Like): TDegrees => radToDeg(getAzimuthRadFromDirection(direction)) as TDegrees;
 // TODO add unit tests
-export const getElevationRadFromDirection = (direction: Vector3Like): TRadians => Math.atan2(direction.y, Math.sqrt(direction.x ** 2 + direction.z ** 2));
+export const getElevationRadFromDirection = (direction: Vector3Like): TRadians => Math.atan2(direction.y, Math.sqrt(direction.x ** 2 + direction.z ** 2)) as TRadians;
 // TODO add unit tests
-export const getElevationDegFromDirection = (direction: Vector3Like): TDegrees => radToDeg(getElevationRadFromDirection(direction));
+export const getElevationDegFromDirection = (direction: Vector3Like): TDegrees => radToDeg(getElevationRadFromDirection(direction)) as TDegrees;
 // TODO add unit tests
 export const getDirectionFromLinearVelocity = (linearVelocity: Vector3): Vector3 => linearVelocity.clone().normalize();
 // TODO add unit tests
 export const getSpeedFromLinearVelocity = (linearVelocity: Vector3): number => linearVelocity.length();
 // TODO add unit tests
 export const getLinearVelocityByDeg = (speed: number, azimuth: TDegrees, elevation: TDegrees): Vector3 => {
-  const azimuthRad: TRadians = degToRad(azimuth);
-  const elevationRad: TRadians = degToRad(elevation);
+  const azimuthRad: TRadians = degToRad(azimuth) as TRadians;
+  const elevationRad: TRadians = degToRad(elevation) as TRadians;
   return new Vector3(speed * Math.cos(elevationRad) * Math.cos(azimuthRad), speed * Math.sin(elevationRad), speed * Math.cos(elevationRad) * Math.sin(azimuthRad));
 };
 
@@ -74,8 +74,8 @@ export function get3DAzimuthDeg(center: Vector3Like, point: Vector3Like): { azim
   const elevation: Decimal = Decimal.atan2(dy, horizontalDistance).times(180).div(Math.PI);
 
   return {
-    azimuth: azimuth.toNumber(),
-    elevation: elevation.toNumber()
+    azimuth: azimuth.toNumber() as TDegrees,
+    elevation: elevation.toNumber() as TDegrees
   };
 }
 
@@ -93,8 +93,8 @@ export function get3DAzimuthRad(center: Vector3Like, point: Vector3Like): { azim
   const elevation: Decimal = Decimal.atan2(dy, horizontalDistance);
 
   return {
-    azimuth: azimuth.toNumber(),
-    elevation: elevation.toNumber()
+    azimuth: azimuth.toNumber() as TRadians,
+    elevation: elevation.toNumber() as TRadians
   };
 }
 

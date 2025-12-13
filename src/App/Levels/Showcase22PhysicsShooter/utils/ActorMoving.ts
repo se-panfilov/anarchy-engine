@@ -2,7 +2,7 @@ import { BehaviorSubject, combineLatest, map, Subject } from 'rxjs';
 
 import type { TActor, TIntersectionEvent, TIntersectionsWatcher, TKeyboardService, TRadians } from '@/Engine';
 import { getMouseAzimuthAndElevation, KeyCode } from '@/Engine';
-import { meters } from '@/Engine/Measurements/Utils';
+import { degrees, meters, radians } from '@/Engine/Measurements/Utils';
 
 type TMoveKeysState = { Forward: boolean; Left: boolean; Right: boolean; Backward: boolean };
 type TIntersectionDirection = Readonly<{ azimuth: TRadians; elevation: TRadians }>;
@@ -25,7 +25,7 @@ export function startMoveActorWithKeyboard(actor: TActor, keyboardService: TKeyb
 
   combineLatest([keyStates$, intersectionDirection$]).subscribe(([keyStates, { azimuth }]: [TMoveKeysState, TIntersectionDirection]): void => {
     actor.drive.kinematic.setLinearSpeed(getActorMoveSpeed(keyStates, 5, 4, 3));
-    actor.drive.kinematic.setLinearAzimuthRad(azimuth + getActorMoveAzimuthRad(keyStates));
+    actor.drive.kinematic.setLinearAzimuthRad(radians(azimuth + getActorMoveAzimuthRad(keyStates)));
   });
 }
 
@@ -57,32 +57,32 @@ function getActorMoveAzimuthRad(keyStates: TMoveKeysState): TRadians {
   const { Forward, Backward, Left, Right } = keyStates;
 
   //just forward
-  if (Forward && !Backward && !Left && !Right) return 0; //0 degrees
+  if (Forward && !Backward && !Left && !Right) return radians(0); //0 degrees
   //just backward
-  if (!Forward && Backward && !Left && !Right) return Math.PI; //180 degrees
+  if (!Forward && Backward && !Left && !Right) return radians(Math.PI); //180 degrees
   //just left
-  if (!Forward && !Backward && Left && !Right) return -Math.PI / 2; //-90 degrees
+  if (!Forward && !Backward && Left && !Right) return radians(-Math.PI / 2); //-90 degrees
   //just right
-  if (!Forward && !Backward && !Left && Right) return Math.PI / 2; //90 degrees
+  if (!Forward && !Backward && !Left && Right) return radians(Math.PI / 2); //90 degrees
 
   //forward and left
-  if (Forward && !Backward && Left && !Right) return -Math.PI / 4; //-45 degrees
+  if (Forward && !Backward && Left && !Right) return radians(-Math.PI / 4); //-45 degrees
   //forward and right
-  if (Forward && !Backward && !Left && Right) return Math.PI / 4; //45 degrees
+  if (Forward && !Backward && !Left && Right) return radians(Math.PI / 4); //45 degrees
   //backward and left
-  if (!Forward && Backward && Left && !Right) return (5 * Math.PI) / 4; //225 degrees
+  if (!Forward && Backward && Left && !Right) return radians((5 * Math.PI) / 4); //225 degrees
   //backward and right
-  if (!Forward && Backward && !Left && Right) return (3 * Math.PI) / 4; //135 degrees
+  if (!Forward && Backward && !Left && Right) return radians((3 * Math.PI) / 4); //135 degrees
 
-  return 0;
+  return radians(0);
 }
 
 export function moveActorBounce(actor: TActor, speedMPS: number, azimuthDeg: number, duration: number): void {
   actor.drive.kinematic.autoUpdate$.next(true);
   actor.drive.kinematic.setLinearSpeed(meters(speedMPS));
-  actor.drive.kinematic.setLinearAzimuthDeg(azimuthDeg);
+  actor.drive.kinematic.setLinearAzimuthDeg(degrees(azimuthDeg));
   // TODO setTimout/setInterval is not a good idea (cause the game might be "on pause", e.g. when tab is not active)
   setInterval((): void => {
-    actor.drive.kinematic.setLinearAzimuthDeg(actor.drive.kinematic.getLinearAzimuthDeg() + 180);
+    actor.drive.kinematic.setLinearAzimuthDeg(degrees(actor.drive.kinematic.getLinearAzimuthDeg() + 180));
   }, duration);
 }
