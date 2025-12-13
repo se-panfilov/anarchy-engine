@@ -31,13 +31,13 @@ export function buildSpaceFromConfig(canvas: TAppCanvas, config: TSpaceConfig): 
 
   screenService.setCanvas(canvas);
 
-  let activeScene: TSceneWrapper;
+  let activeSceneW: TSceneWrapper;
   const services: TSpaceServices = initServices(canvas, (scenesService: TScenesService): TSceneWrapper | never => {
     scenesService.createFromConfig(scenes);
-    const scene: TSceneWrapper | undefined = scenesService.findActive();
-    if (isNotDefined(scene)) throw new Error(`Cannot find an active scene for space "${name}" during space's services initialization.`);
-    activeScene = scene;
-    return activeScene;
+    const sceneW: TSceneWrapper | undefined = scenesService.findActive();
+    if (isNotDefined(sceneW)) throw new Error(`Cannot find an active scene for space "${name}" during space's services initialization.`);
+    activeSceneW = sceneW;
+    return activeSceneW;
   });
 
   const {
@@ -79,8 +79,8 @@ export function buildSpaceFromConfig(canvas: TAppCanvas, config: TSpaceConfig): 
   particlesService.createFromConfig(particles);
 
   envMapService.added$.subscribe(({ texture }: TAddedTexturePack): void => {
-    activeScene.setBackground(texture);
-    activeScene.setEnvironmentMap(texture);
+    activeSceneW.setBackground(texture);
+    activeSceneW.setEnvironmentMap(texture);
   });
 
   void envMapService.loadFromConfigAsync(envMaps);

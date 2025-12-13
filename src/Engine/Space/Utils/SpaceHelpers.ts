@@ -93,12 +93,12 @@ export function initEntitiesServices(scene: TSceneWrapper, canvas: TAppCanvas): 
 
 export function initServices(canvas: TAppCanvas, buildScenesFn: (scenesService: TScenesService) => TSceneWrapper): TSpaceServices | never {
   const scenesService: TScenesService = initSceneService();
-  const scene: TSceneWrapper = buildScenesFn(scenesService);
+  const sceneW: TSceneWrapper = buildScenesFn(scenesService);
 
-  if (isNotDefined(scene)) throw new Error(`Cannot find the active scene for space during the services initialization.`);
+  if (isNotDefined(sceneW)) throw new Error(`Cannot find the active scene for space during the services initialization.`);
 
   return {
     scenesService,
-    ...initEntitiesServices(scene, canvas)
+    ...initEntitiesServices(sceneW, canvas)
   };
 }
