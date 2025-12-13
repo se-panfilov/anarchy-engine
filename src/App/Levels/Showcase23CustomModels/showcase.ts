@@ -39,7 +39,9 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     //Adding models3d to the scene
     models3dResourceRegistry.added$.subscribe(({ key: name, value: model3dSource }: TRegistryPack<GLTF>): void => {
       console.log(`Model "${name}" is loaded`);
-      models3dService.create({ name, model3dSource });
+
+      //Preventing creating the same model twice (it's already created once config is loaded)
+      if (name !== 'fox_glb') models3dService.create({ name, model3dSource });
     });
 
     models3dRegistry.added$.subscribe(({ key, value: model3dSource }: TRegistryPack<TModel3dFacade>): void => {
