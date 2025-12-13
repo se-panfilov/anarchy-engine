@@ -28,8 +28,6 @@ export function startMoveActorWithKeyboard(actor: TActor, keyboardService: TKeyb
   combineLatest([keyStates$, intersectionDirection$]).subscribe(([keyStates, { azimuth }]: [TMoveKeysState, TIntersectionDirection]): void => {
     actor.drive.kinematic.setLinearSpeed(getActorMoveSpeed(keyStates, 5, 4, 3));
     actor.drive.kinematic.setLinearAzimuthRad(azimuth + getActorMoveAzimuthRad(keyStates));
-    // actor.drive.kinematic.setAngularSpeed(5);
-    // actor.drive.kinematic.setAngularAzimuthRad(baseAzimuthRad);
   });
 }
 
