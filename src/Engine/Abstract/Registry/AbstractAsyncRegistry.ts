@@ -6,7 +6,7 @@ import { AbstractRegistry } from '@/Engine/Abstract';
 import type { RegistryType } from '@/Engine/Abstract/Constants';
 import type { IAbstractAsyncRegistry } from '@/Engine/Abstract/Models';
 import type { IMultitonRegistrable, IRegistrable } from '@/Engine/Mixins';
-import { isDefined } from '@/Engine/Utils';
+import { isDefined, omitInObjectWithoutMutation } from '@/Engine/Utils';
 
 import { subscribeToValue, subscribeToValue$ } from './AbstractAsyncRegistryHelper';
 
@@ -45,7 +45,7 @@ export function AbstractAsyncRegistry<T extends IRegistrable | IMultitonRegistra
   }
 
   return {
-    ...abstractRegistry,
+    ...omitInObjectWithoutMutation(abstractRegistry, ['getUniqByTags', 'getUniqByTag']),
     getUniqByTagsAsync,
     getUniqByTags$,
     getUniqByTagAsync,
