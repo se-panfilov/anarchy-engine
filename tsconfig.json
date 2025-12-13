@@ -15,7 +15,8 @@
     "paths": {
       "@Engine/*": ["packages/engine/src/*"],
       "@Engine": ["packages/engine/src/index.ts"],
-      "@Shared/*": ["packages/shared/*"]
+      "@Shared/*": ["packages/shared/src/*"],
+      "@Shared": ["packages/shared/src/index.ts"]
     },
     "resolveJsonModule": true,
     "skipLibCheck": true,

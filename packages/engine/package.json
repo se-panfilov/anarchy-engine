@@ -37,6 +37,7 @@
     "unit:watch": "vitest"
   },
   "dependencies": {
+    "anarchy_engine_shared": "*",
     "@dimforge/rapier3d": "0.17.3",
     "@rwh/keystrokes": "1.5.6",
     "ajv": "8.17.1",
