@@ -14,11 +14,11 @@ export function showcaseLevel1(canvas: IAppCanvas): void {
   intersectionsWatcher.value$.subscribe((obj: IVector3): void => {
     console.log('intersect obj', obj);
   });
-  //END: just debug
 
   ambientContext.mouseClickWatcher.value$.subscribe((): void => {
     console.log('int click:');
   });
+  //END: just debug
 
   // START Experiment1: animations ---------------
   const actor: IActorWrapper = level.actor.registry.initial.getAllWithSomeTag([ActorTag.Intersectable])[0];

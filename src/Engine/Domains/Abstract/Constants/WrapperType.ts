@@ -11,5 +11,6 @@ export enum WrapperType {
   Scene = 'scene_wrapper',
   Texture = 'texture_wrapper',
   Vector2 = 'vector2_wrapper',
-  Vector3 = 'vector3_wrapper'
+  Vector3 = 'vector3_wrapper',
+  Euler = 'euler_wrapper'
 }

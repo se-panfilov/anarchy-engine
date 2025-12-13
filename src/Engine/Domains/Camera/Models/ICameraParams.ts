@@ -1,4 +1,4 @@
-import type { IVector3 } from '@Engine/Wrappers';
+import type { IEuler, IVector3 } from '@Engine/Wrappers';
 
 import type { CommonTags } from '@/Engine/Domains/Abstract';
 import type { CameraTag } from '@/Engine/Domains/Camera/Constants';
@@ -7,7 +7,7 @@ export type ICameraParams = Readonly<{
   fov?: number;
   near?: number;
   far?: number;
-  rotation: IVector3;
   position: IVector3;
+  rotation: IEuler;
   tags: ReadonlyArray<CameraTag | CommonTags | string>;
 }>;
