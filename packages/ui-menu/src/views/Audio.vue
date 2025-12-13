@@ -28,11 +28,13 @@ function save(payload: TAudioSettings): void {
 
 <template>
   <View class="audio" title="Audio">
-    <SettingsGroup class="main-menu-view__group" title="Main Audio Settings">
-      <Range v-model="state.masterVolume" :min="0" :max="100" class="main-menu-view__setting -masterVolume" label="Master Volume" />
-    </SettingsGroup>
-    <ViewActions @reset="reset()" @save="save(state)" />
-    <Navigation class="settings__navigation" :back-btn="true" />
+    <form name="audio" @submit.prevent="save(state)">
+      <SettingsGroup class="main-menu-view__group" title="Main Audio Settings">
+        <Range v-model="state.masterVolume" :min="0" :max="100" class="main-menu-view__setting -masterVolume" label="Master Volume" />
+      </SettingsGroup>
+      <ViewActions @reset="reset()" />
+      <Navigation class="settings__navigation" :back-btn="true" />
+    </form>
   </View>
 </template>
 

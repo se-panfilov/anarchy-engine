@@ -42,12 +42,14 @@ const options = computed((): ReadonlyArray<TDropdownOption<{ width: number; heig
 
 <template>
   <View class="graphics" title="Graphics">
-    <SettingsGroup class="main-menu-view__group" title="Main Graphics Settings">
-      <Checkbox v-model="state.isFullScreen" class="main-menu-view__setting -fullscreen" label="Fullscreen" />
-      <Dropdown v-model="state.resolution" :options="options" class="main-menu-view__setting -resolution" label="Resolution" />
-    </SettingsGroup>
-    <ViewActions @reset="reset()" @save="save(state)" />
-    <Navigation class="settings__navigation" :back-btn="true" />
+    <form name="audio" @submit.prevent="save(state)">
+      <SettingsGroup class="main-menu-view__group" title="Main Graphics Settings">
+        <Checkbox v-model="state.isFullScreen" class="main-menu-view__setting -fullscreen" label="Fullscreen" />
+        <Dropdown v-model="state.resolution" :options="options" class="main-menu-view__setting -resolution" label="Resolution" />
+      </SettingsGroup>
+      <ViewActions @reset="reset()" />
+      <Navigation class="settings__navigation" :back-btn="true" />
+    </form>
   </View>
 </template>
 
