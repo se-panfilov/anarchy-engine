@@ -23,7 +23,6 @@ import spaceConfigJson from './space.json';
 
 const spaceConfig: TSpaceConfig = spaceConfigJson as TSpaceConfig;
 
-// TODO 18-0-0: Broken app
 export function start(flags: TAppFlags): void {
   const spaces: Record<string, TSpace> = asRecord('name', spaceService.createFromConfig([spaceConfig], flags));
   const space: TSpace = spaces[spaceConfig.name];

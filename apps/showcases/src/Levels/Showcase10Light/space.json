@@ -560,7 +560,7 @@
           "normalMap": "metal_steel_brushed_normal_map",
           "roughnessMap": "metal_steel_brushed_roughness_map"
         },
-        "type": "MeshphysicsMaterial"
+        "type": "MeshPhysicalMaterial"
       },
       {
         "name": "standard_metal",
@@ -601,7 +601,7 @@
           "normalMap": "metal_steel_brushed_normal_map",
           "roughnessMap": "metal_steel_brushed_roughness_map"
         },
-        "type": "MeshphysicsMaterial"
+        "type": "MeshPhysicalMaterial"
       },
       {
         "name": "basic_metal",
@@ -699,7 +699,7 @@
           "normalMap": "wood_normal_map",
           "roughnessMap": "wood_roughness_map"
         },
-        "type": "MeshphysicsMaterial"
+        "type": "MeshPhysicalMaterial"
       },
       {
         "name": "basic_wood",
@@ -794,7 +794,7 @@
           "transmission": 0.77
         },
         "tags": ["physics", "glass"],
-        "type": "MeshphysicsMaterial"
+        "type": "MeshPhysicalMaterial"
       },
       {
         "name": "basic_glass",
@@ -861,7 +861,7 @@
           "normalMap": "carpet_normal_map",
           "roughnessMap": "carpet_roughness_map"
         },
-        "type": "MeshphysicsMaterial"
+        "type": "MeshPhysicalMaterial"
       },
       {
         "name": "basic_textile",

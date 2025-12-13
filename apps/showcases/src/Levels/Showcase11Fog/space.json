@@ -116,7 +116,7 @@
           "thickness": 0.5,
           "transmission": 0.77
         },
-        "type": "MeshphysicsMaterial"
+        "type": "MeshPhysicalMaterial"
       }
     ],
     "models3d": [
