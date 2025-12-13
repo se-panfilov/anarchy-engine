@@ -1,9 +1,10 @@
-// import GUI from 'lil-gui';
+import GUI from 'lil-gui';
 import { BehaviorSubject, Subject } from 'rxjs';
+import type { MeshStandardMaterial } from 'three';
 
 import type { IShowcase } from '@/App/Levels/Models';
 import type { IActorWrapperAsync, IAppCanvas, ILevel, ILevelConfig, IOrbitControlsWrapper, IVector3Wrapper } from '@/Engine';
-import { ambientContext, buildLevelFromConfig, envMapService, EulerWrapper, isNotDefined, TextType, Vector3Wrapper } from '@/Engine';
+import { ambientContext, buildLevelFromConfig, envMapService, EulerWrapper, isDefined, isNotDefined, TextType, Vector3Wrapper } from '@/Engine';
 
 import levelConfig from './showcase-10-complex-materials.config.json';
 
@@ -11,7 +12,7 @@ const { mouseClickWatcher } = ambientContext;
 
 //Showcase 10: Complex Materials
 export function showcaseLevel(canvas: IAppCanvas): IShowcase {
-  // const gui = new GUI();
+  const gui = new GUI();
 
   const level: ILevel = buildLevelFromConfig(canvas, levelConfig as ILevelConfig);
   const { textFactory, actorRegistry, controlsRegistry } = level.entities;
@@ -63,19 +64,17 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
     console.log('envMap', envMap);
   });
 
+  actorRegistry.added$.subscribe((actor: IActorWrapperAsync) => {
+    const isMetalness: boolean = isDefined((actor.entity.material as MeshStandardMaterial).metalness);
+    const isRoughness: boolean = isDefined((actor.entity.material as MeshStandardMaterial).roughness);
+    const hasTunableProps = isMetalness || isRoughness;
+    if (hasTunableProps) gui.addFolder(actor.getTags()[0]);
+    if (isMetalness) gui.add(actor.entity.material, 'metalness').min(0).max(1).step(0.0001);
+    if (isRoughness) gui.add(actor.entity.material, 'roughness').min(0).max(1).step(0.0001);
+  });
+
   function start(): void {
     level.start();
-
-    // const actor = actorRegistry.getUniqByTagAsync('standard');
-    // console.log('111', actor);
-    // console.log('standard', actor);
-    // console.log('standard entity', actor?.entity);
-    // console.log('standard entity', actor?.entity.material);
-    // setTimeout(() => {
-    //   console.log('standard entity material', actor?.entity.material);
-    //   gui.add(actor.entity.material, 'metalness').min(0).max(1).step(0.0001)
-    //   // gui.add(material, 'roughness').min(0).max(1).step(0.0001)
-    // }, 1000)
   }
 
   return { start, level };
