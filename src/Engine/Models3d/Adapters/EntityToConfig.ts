@@ -9,7 +9,10 @@ import { isPrimitiveModel3dSource } from '@/Engine/Models3d/Utils';
 import { filterOutEmptyFields, isDefined, isNotDefined } from '@/Engine/Utils';
 
 // TODO 15-0-0: validate result
-export function model3dToConfig(entity: TModel3d, { animationsResourceAsyncRegistry, model3dResourceAsyncRegistry }: TModel3dConfigToParamsDependencies): TModel3dConfig {
+export function model3dToConfig(
+  entity: TModel3d,
+  { animationsResourceAsyncRegistry, model3dResourceAsyncRegistry }: Pick<TModel3dConfigToParamsDependencies, 'animationsResourceAsyncRegistry' | 'model3dResourceAsyncRegistry'>
+): TModel3dConfig {
   const rawModel3d: TRawModel3d = entity.getRawModel3d();
 
   const params: TModel3dParams = entity.getParams();

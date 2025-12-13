@@ -5,6 +5,7 @@ import { AbstractService } from '@/Engine/Abstract';
 import { EnvMapLoader } from '@/Engine/EnvMap/Loader';
 import type {
   TEnvMapConfig,
+  TEnvMapConfigToParamsDependencies,
   TEnvMapFactory,
   TEnvMapLoader,
   TEnvMapRegistry,
@@ -73,7 +74,7 @@ export function EnvMapService(factory: TEnvMapFactory, registry: TEnvMapRegistry
     withRegistry,
     withSceneGetterService(sceneW),
     withSerializeAllResources<TEnvMapResourceConfig, undefined>(resourcesRegistry),
-    withSerializeAllEntities<TEnvMapConfig, undefined>(registry),
+    withSerializeAllEntities<TEnvMapConfig, TEnvMapConfigToParamsDependencies>(registry, { resourcesRegistry }),
     {
       loadAsync: envMapLoader.loadAsync,
       loadFromConfigAsync: envMapLoader.loadFromConfigAsync,

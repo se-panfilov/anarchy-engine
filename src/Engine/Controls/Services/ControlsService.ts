@@ -61,7 +61,7 @@ export function ControlService(
   });
 
   // eslint-disable-next-line functional/immutable-data
-  return Object.assign(abstractService, withFactory, withRegistry, withSerializeAllEntities<TControlsConfig, undefined>(registry), {
+  return Object.assign(abstractService, withFactory, withRegistry, withSerializeAllEntities<TControlsConfig, TControlsServiceDependencies>(registry, { cameraService }), {
     create,
     createFromList,
     createFromConfig,

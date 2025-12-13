@@ -10,6 +10,7 @@ import { Models3dLoader } from '@/Engine/Models3d/Loaders';
 import type {
   TModel3d,
   TModel3dConfig,
+  TModel3dConfigToParamsDependencies,
   TModel3dParams,
   TModel3dResourceConfig,
   TModel3dServiceWithCreate,
@@ -66,7 +67,10 @@ export function Models3dService(
     withFactory,
     withRegistry,
     withSerializeAllResources<TModel3dResourceConfig, undefined>(resourcesRegistry),
-    withSerializeAllEntities<TModel3dConfig, undefined>(registry),
+    withSerializeAllEntities<TModel3dConfig, Pick<TModel3dConfigToParamsDependencies, 'animationsResourceAsyncRegistry' | 'model3dResourceAsyncRegistry'>>(registry, {
+      animationsResourceAsyncRegistry,
+      model3dResourceAsyncRegistry: resourcesRegistry
+    }),
     {
       loadAsync: model3dLoader.loadAsync,
       loadFromConfigAsync: model3dLoader.loadFromConfigAsync,

@@ -7,6 +7,7 @@ import type { TDisposable } from '@/Engine/Mixins';
 import { withCreateFromConfigServiceMixin, withCreateServiceMixin, withFactoryService, withRegistryService, withSceneGetterService, withSerializeAllEntities } from '@/Engine/Mixins';
 import type {
   TParticlesConfig,
+  TParticlesConfigToParamsDependencies,
   TParticlesFactory,
   TParticlesRegistry,
   TParticlesService,
@@ -39,7 +40,7 @@ export function ParticlesService(factory: TParticlesFactory, registry: TParticle
     withCreateFromConfigService,
     withFactory,
     withRegistry,
-    withSerializeAllEntities<TParticlesConfig, undefined>(registry),
+    withSerializeAllEntities<TParticlesConfig, TParticlesConfigToParamsDependencies>(registry, { materialRegistry }),
     withSceneGetterService(scene)
   );
 }

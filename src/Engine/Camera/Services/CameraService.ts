@@ -13,7 +13,8 @@ import type {
   TCameraServiceWithCreateFromConfig,
   TCameraServiceWithFactory,
   TCameraServiceWithRegistry,
-  TCameraWrapper
+  TCameraWrapper,
+  TCameraWrapperDependencies
 } from '@/Engine/Camera/Models';
 import type { TDisposable, TWithActiveMixinResult } from '@/Engine/Mixins';
 import {
@@ -79,7 +80,7 @@ export function CameraService(factory: TCameraFactory, registry: TCameraRegistry
     withRegistry,
     withFactory,
     withSceneGetterService(scene),
-    withSerializeAllEntities<TCameraConfig, undefined>(registry),
+    withSerializeAllEntities<TCameraConfig, Pick<TCameraWrapperDependencies, 'audioService'>>(registry, { audioService: dependencies.audioService }),
     {
       setActive: withActive.setActive,
       findActive,

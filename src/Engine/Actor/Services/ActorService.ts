@@ -39,9 +39,16 @@ export function ActorService(factory: TActorFactory, registry: TActorRegistry, a
   const withRegistry: TActorServiceWithRegistry = withRegistryService(registry);
 
   // eslint-disable-next-line functional/immutable-data
-  return Object.assign(abstractService, withFactory, withRegistry, withSceneGetterService(scene), withSerializeAllEntities<TActorConfig, TActorEntityToConfigDependencies>(registry), {
-    create,
-    createFromList,
-    createFromConfig
-  });
+  return Object.assign(
+    abstractService,
+    withFactory,
+    withRegistry,
+    withSceneGetterService(scene),
+    withSerializeAllEntities<TActorConfig, TActorEntityToConfigDependencies>(registry, actorServiceDependencies),
+    {
+      create,
+      createFromList,
+      createFromConfig
+    }
+  );
 }
