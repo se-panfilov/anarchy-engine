@@ -1,5 +1,5 @@
 import type { TAnimationStateParams } from '@Engine/Animations/Models';
-import { isDefined } from '@Engine/Utils';
+import { isDefined } from '@Shared/Utils';
 import type { AnimationAction } from 'three';
 
 export function applyAnimationActionProperties(action: AnimationAction, { enabled, weight, loop, repetitions, clampWhenFinished, timeScale, time, paused }: TAnimationStateParams): void {

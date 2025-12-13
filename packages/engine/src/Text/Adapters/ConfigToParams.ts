@@ -1,7 +1,7 @@
 import { kinematicConfigToParams } from '@Engine/Kinematic';
 import type { TTextConfig, TTextParams, TTextServiceDependencies } from '@Engine/Text/Models';
 import { configToParamsObject3d } from '@Engine/ThreeLib';
-import { isDefined } from '@Engine/Utils';
+import { isDefined } from '@Shared/Utils';
 import { Vector2 } from 'three';
 
 export function configToParams(config: TTextConfig, dependencies: TTextServiceDependencies): TTextParams {

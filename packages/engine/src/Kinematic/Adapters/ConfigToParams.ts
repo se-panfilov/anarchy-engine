@@ -1,6 +1,6 @@
 import type { TKinematicConfig, TKinematicParams } from '@Engine/Kinematic/Models';
 import { toQuaternion } from '@Engine/Math';
-import { isDefined } from '@Engine/Utils';
+import { isDefined } from '@Shared/Utils';
 import { Quaternion, Vector3 } from 'three';
 
 export function configToParams(config: TKinematicConfig): TKinematicParams {

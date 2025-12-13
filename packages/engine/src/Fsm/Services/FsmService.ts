@@ -16,7 +16,7 @@ import type {
   TFsmWrapper
 } from '@Engine/Fsm/Models';
 import type { TDisposable } from '@Engine/Mixins';
-import { isDefined } from '@Engine/Utils';
+import { isDefined } from '@Shared/Utils';
 import { isEqual } from 'lodash-es';
 
 import { FsmInstanceService } from './FsmInstanceService';

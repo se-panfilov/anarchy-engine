@@ -15,7 +15,7 @@ import type {
   TSpotLight,
   TSpotLightParams
 } from '@Engine/Light/Models';
-import { isDefined } from '@Engine/Utils';
+import { isDefined } from '@Shared/Utils';
 
 export function getWrapperType(light: TAnyLight): WrapperType | never {
   if (isAmbientLight(light)) return WrapperType.AmbientLight;

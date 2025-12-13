@@ -2,7 +2,7 @@ import type { WatcherType } from '@Engine/Abstract/Constants';
 import type { TAbstractWatcher } from '@Engine/Abstract/Models';
 import type { TDestroyable } from '@Engine/Mixins';
 import { destroyableMixin, withNameAndNameAccessorsMixin } from '@Engine/Mixins';
-import { isDefined } from '@Engine/Utils';
+import { isDefined } from '@Shared/Utils';
 import { nanoid } from 'nanoid';
 import type { Subscription } from 'rxjs';
 import { BehaviorSubject, Subject } from 'rxjs';

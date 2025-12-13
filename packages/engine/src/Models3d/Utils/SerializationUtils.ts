@@ -1,7 +1,7 @@
 import type { TAnimationStateParams } from '@Engine/Animations';
 import { applyAnimationActionProperties } from '@Engine/Animations';
 import type { TModel3d, TModel3dParams } from '@Engine/Models3d/Models';
-import { isDefined } from '@Engine/Utils';
+import { isDefined } from '@Shared/Utils';
 import type { AnimationAction } from 'three';
 
 export function applyAnimationsState(model3d: TModel3d, params: TModel3dParams): void {

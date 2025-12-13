@@ -1,7 +1,7 @@
 import type { TWithMaterial } from '@Engine/Material/Models';
 import type { TRawModel3d } from '@Engine/Models3d';
-import { isDefined } from '@Engine/Utils';
 import type { TWriteable } from '@Shared/Utils';
+import { isDefined } from '@Shared/Utils';
 import type { Group, Material, Mesh, Object3D } from 'three';
 import type { Points } from 'three/src/objects/Points';
 

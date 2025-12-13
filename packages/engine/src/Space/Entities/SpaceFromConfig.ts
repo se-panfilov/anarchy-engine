@@ -1,8 +1,8 @@
 import { CreateEntitiesStrategy, SpaceEvents } from '@Engine/Space/Constants';
 import type { TSpace, TSpaceConfig, TSpaceParams, TSpaceRegistry, TSpaceSettings } from '@Engine/Space/Models';
 import { createEntities, loadResourcesFromConfig } from '@Engine/Space/Utils';
-import { isDefined } from '@Engine/Utils';
 import type { TWriteable } from '@Shared/Utils';
+import { isDefined } from '@Shared/Utils';
 import type { Observable, Subscription } from 'rxjs';
 import { BehaviorSubject, exhaustMap, filter, takeUntil } from 'rxjs';
 

@@ -3,7 +3,7 @@ import { destroyableMixin } from '@Engine/Mixins';
 import type { TReadonlyQuaternion, TReadonlyVector3 } from '@Engine/ThreeLib';
 import type { TransformAgent } from '@Engine/TransformDrive/Constants';
 import type { TAbstractTransformAgent, TReadonlyTransform, TSerializedTransform, TTransformAgentParams } from '@Engine/TransformDrive/Models';
-import { isDefined } from '@Engine/Utils';
+import { isDefined } from '@Shared/Utils';
 import { nanoid } from 'nanoid';
 import type { Subscription } from 'rxjs';
 import { BehaviorSubject, Subject } from 'rxjs';

@@ -8,7 +8,7 @@ import { meters } from '@Engine/Measurements';
 import type { TReadonlyVector3 } from '@Engine/ThreeLib';
 import type { TDriveToTargetConnector } from '@Engine/TransformDrive';
 import { DriveToTargetConnector } from '@Engine/TransformDrive';
-import { isDefined } from '@Engine/Utils';
+import { isDefined } from '@Shared/Utils';
 import type { Observable, Subscription } from 'rxjs';
 import { BehaviorSubject, distinctUntilChanged, filter, sample, takeUntil } from 'rxjs';
 import type { AudioListener, PositionalAudio, Vector3Like } from 'three';

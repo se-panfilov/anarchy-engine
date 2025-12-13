@@ -1,7 +1,7 @@
 import type { TAbstractWrapper } from '@Engine/Abstract';
 import type { TWithObject3d } from '@Engine/Mixins';
 import type { TObject3DParams } from '@Engine/ThreeLib';
-import { isDefined } from '@Engine/Utils/index';
+import { isDefined } from '@Shared/Utils';
 import type { Vector2 } from 'three';
 import type { CSS2DObject } from 'three/examples/jsm/renderers/CSS2DRenderer';
 

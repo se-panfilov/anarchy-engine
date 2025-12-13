@@ -1,6 +1,6 @@
 import type { TActorModel3dSettings, TActorModel3dSettingsConfig } from '@Engine/Actor/Models';
 import { toQuaternion } from '@Engine/Math';
-import { isDefined } from '@Engine/Utils';
+import { isDefined } from '@Shared/Utils';
 import { Vector3 } from 'three';
 
 export function model3dSettingsConfigToParams(settings: TActorModel3dSettingsConfig): TActorModel3dSettings {

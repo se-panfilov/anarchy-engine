@@ -1,6 +1,6 @@
-import { isDefined } from '@Engine';
 import { eventsService } from '@Menu/services';
 import { useMenuOptionsStore } from '@Menu/stores/MenuOptionsStore';
+import { isDefined } from '@Shared/Utils';
 import type { TMenuEvent, TMenuOptions } from '@ShowcasesShared';
 import { createPinia } from 'pinia';
 import type { Subject } from 'rxjs';

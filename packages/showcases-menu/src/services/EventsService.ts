@@ -1,5 +1,5 @@
-import { isNotDefined } from '@Engine';
 import type { TEventsService } from '@Menu/models';
+import { isNotDefined } from '@Shared/Utils';
 import type { TMenuEvent, TShowcaseGameSettings } from '@ShowcasesShared';
 import { MenuEvents } from '@ShowcasesShared';
 import type { Subject } from 'rxjs';

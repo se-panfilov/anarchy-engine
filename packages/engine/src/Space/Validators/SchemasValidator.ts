@@ -27,7 +27,7 @@ import {
   validateTags,
   validateTagsForEveryEntity
 } from '@Engine/Space/Utils';
-import { isDefined } from '@Engine/Utils';
+import { isDefined } from '@Shared/Utils';
 import Ajv from 'ajv';
 import { isArray } from 'lodash-es';
 

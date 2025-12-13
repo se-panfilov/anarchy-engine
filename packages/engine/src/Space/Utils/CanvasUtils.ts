@@ -1,6 +1,6 @@
 import type { TContainerDecorator } from '@Engine/Global';
 import type { TMilliseconds } from '@Engine/Math';
-import { isDefined } from '@Engine/Utils';
+import { isDefined } from '@Shared/Utils';
 
 export function waitForCanvasGetSize(container: TContainerDecorator, timeoutMs: TMilliseconds = 10_000 as TMilliseconds): Promise<void> {
   return new Promise((resolve, reject): void => {

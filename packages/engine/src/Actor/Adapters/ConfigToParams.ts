@@ -4,7 +4,7 @@ import { kinematicConfigToParams } from '@Engine/Kinematic';
 import type { TModel3d } from '@Engine/Models3d';
 import { configToParamsSpatialData } from '@Engine/Spatial';
 import { configToParamsObject3d } from '@Engine/ThreeLib';
-import { isDefined } from '@Engine/Utils';
+import { isDefined } from '@Shared/Utils';
 
 export function configToParams(config: TActorConfig, dependencies: TActorConfigToParamsDependencies): TActorParams {
   const { position, rotation, scale, physicsBodyName, spatial, states, model3dSource, kinematic, model3dSettings, ...rest } = config;

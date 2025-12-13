@@ -2,7 +2,7 @@ import type { TAudio3dWrapper, TDebugAudioRenderer } from '@Engine/Audio/Models'
 import type { TLoop } from '@Engine/Loop';
 import type { TMilliseconds } from '@Engine/Math';
 import type { TSceneWrapper } from '@Engine/Scene';
-import { isDefined } from '@Engine/Utils';
+import { isDefined } from '@Shared/Utils';
 import type { Observable } from 'rxjs';
 import { BehaviorSubject, EMPTY, switchMap } from 'rxjs';
 import { Mesh, MeshBasicMaterial, SphereGeometry } from 'three';
