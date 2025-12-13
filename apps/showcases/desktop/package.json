@@ -2,17 +2,18 @@
   "name": "anarchy_engine_showcases_desktop",
   "author": "S. Panfilov",
   "private": true,
-  "version": "1.0.1",
+  "version": "1.2.0",
   "description": "Desktop application for Anarchy Engine showcases",
   "main": "dist/electron-main.js",
   "type": "module",
   "license": "MIT",
   "scripts": {
-    "start": "electron .",
-    "build": "tsc",
-    "build:preload": "tsc -p tsconfig.preload.json",
-    "build:all": "rimraf dist && rimraf game-dist && npm run copy:game-dist && npm run build && npm run build:preload && electron-builder",
-    "copy:game-dist": "node ../../../packages/shared/ScriptUtils/CopyDir.js -- from=../dist to=game-dist"
+    "build": "npm run prebuild:ts && prebuild:preload",
+    "build:all": "rimraf dist && rimraf game-dist && npm run copy:game-dist && npm run build && electron-builder",
+    "copy:game-dist": "node ../../../packages/shared/ScriptUtils/CopyDir.js -- from=../dist to=game-dist",
+    "prebuild:preload": "tsc -p tsconfig.preload.json",
+    "prebuild:ts": "tsc",
+    "start": "npm run build && electron ."
   },
   "devDependencies": {
     "electron": "37.2.1",
