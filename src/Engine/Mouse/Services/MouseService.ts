@@ -26,14 +26,14 @@ export function MouseService(container: TGlobalContainerDecorator, { mouseLoop }
   const mouseClickWatcherFactory: TMouseClickWatcherFactory = MouseClickWatcherFactory();
   const mouseClickWatcherRegistry: TMouseClickWatcherRegistry = MouseClickWatcherRegistry();
   mouseClickWatcherFactory.entityCreated$.subscribe((watcher: TMouseClickWatcher) => mouseClickWatcherRegistry.add(watcher));
-  const mouseClickWatcher: TMouseClickWatcher = mouseClickWatcherFactory.create({ container, tags: [WatcherTag.Initial, WatcherTag.Global] }, undefined, undefined);
+  const mouseClickWatcher: TMouseClickWatcher = mouseClickWatcherFactory.create({ container, tags: [WatcherTag.Initial, WatcherTag.Global] }, undefined);
   mouseClickWatcher.start$.next();
 
   const mousePositionWatcherFactory: TMousePositionWatcherFactory = MousePositionWatcherFactory();
   const mousePositionWatcherRegistry: TMousePositionWatcherRegistry = MousePositionWatcherRegistry();
 
   mousePositionWatcherFactory.entityCreated$.subscribe((watcher: TMousePositionWatcher): void => mousePositionWatcherRegistry.add(watcher));
-  const mousePositionWatcher: TMousePositionWatcher = mousePositionWatcherFactory.create({ container, tags: [WatcherTag.Initial, WatcherTag.Global] }, { mouseLoop }, undefined);
+  const mousePositionWatcher: TMousePositionWatcher = mousePositionWatcherFactory.create({ container, tags: [WatcherTag.Initial, WatcherTag.Global] }, { mouseLoop });
   mousePositionWatcher.start$.next();
 
   const clickPress$: Subject<TMouseWatcherEvent> = new Subject<TMouseWatcherEvent>();

@@ -10,7 +10,7 @@ import type { TCameraWrapper } from './TCameraWrapper';
 
 export type TCameraServiceWithCreate = TWithCreateService<TCameraWrapper, TCameraParams>;
 export type TCameraServiceWithCreateFromConfig = TWithCreateFromConfigService<TCameraConfig, TCameraWrapper>;
-export type TCameraServiceWithFactory = TWithFactoryService<TCameraWrapper, TCameraParams, TCameraServiceDependencies, TCameraFactory, undefined>;
+export type TCameraServiceWithFactory = TWithFactoryService<TCameraWrapper, TCameraParams, TCameraServiceDependencies, TCameraFactory>;
 export type TCameraServiceWithRegistry = TWithRegistryService<TCameraRegistry>;
 
 export type TCameraService = TAbstractService &

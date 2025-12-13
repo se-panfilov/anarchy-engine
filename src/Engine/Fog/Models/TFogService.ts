@@ -9,7 +9,7 @@ import type { TFogWrapper } from './TFogWrapper';
 
 export type TFogServiceWithCreate = TWithCreateService<TFogWrapper, TFogParams>;
 export type TFogServiceWithCreateFromConfig = TWithCreateFromConfigService<TFogConfig, TFogWrapper>;
-export type TFogServiceWithFactory = TWithFactoryService<TFogWrapper, TFogParams, undefined, TFogFactory, undefined>;
+export type TFogServiceWithFactory = TWithFactoryService<TFogWrapper, TFogParams, undefined, TFogFactory>;
 export type TFogServiceWithRegistry = TWithRegistryService<TFogRegistry>;
 
 export type TFogService = TAbstractService & TFogServiceWithCreate & TFogServiceWithCreateFromConfig & TFogServiceWithFactory & TFogServiceWithRegistry & TWithSceneGetterService;

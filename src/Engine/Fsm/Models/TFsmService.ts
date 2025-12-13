@@ -5,7 +5,7 @@ import type { TWithFactoryService } from '@/Engine/Mixins';
 import type { TFsmInstanceFactory } from './TFsmInstanceFactory';
 import type { TFsmSourceRegistry } from './TFsmSourceRegistry';
 
-export type TFsmServiceWithFactory = TWithFactoryService<TFsmWrapper, TFsmParams, undefined, TFsmInstanceFactory, undefined>;
+export type TFsmServiceWithFactory = TWithFactoryService<TFsmWrapper, TFsmParams, undefined, TFsmInstanceFactory>;
 
 export type TFsmService = TAbstractService &
   TFsmServiceWithFactory &

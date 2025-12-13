@@ -24,7 +24,7 @@ export function SpatialGridService(factory: TSpatialGridFactory, registry: TSpat
   const abstractService: TAbstractService = AbstractService(disposable);
 
   const withCreateService: TSpatialGridServiceWithCreate = withCreateServiceMixin(factory, undefined);
-  const withCreateFromConfigService: TSpatialGridServiceWithCreateFromConfig = withCreateFromConfigServiceMixin(withCreateService.create, factory.configToParams);
+  const withCreateFromConfigService: TSpatialGridServiceWithCreateFromConfig = withCreateFromConfigServiceMixin(withCreateService.create, factory.configToParams, undefined);
   const withFactory: TSpatialGridServiceWithFactory = withFactoryService(factory);
   const withRegistry: TSpatialGridServiceWithRegistry = withRegistryService(registry);
 

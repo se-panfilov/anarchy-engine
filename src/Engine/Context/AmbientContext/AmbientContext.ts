@@ -10,7 +10,7 @@ const container: TGlobalContainerDecorator = ContainerDecorator(window);
 const screenSizeWatcherFactory: TScreenSizeWatcherFactory = ScreenSizeWatcherFactory();
 const screenSizeWatcherRegistry: TScreenSizeWatcherRegistry = ScreenSizeWatcherRegistry();
 screenSizeWatcherFactory.entityCreated$.subscribe((watcher: TScreenSizeWatcher): void => screenSizeWatcherRegistry.add(watcher));
-const screenSizeWatcher: TScreenSizeWatcher = screenSizeWatcherFactory.create({ container, tags: [WatcherTag.Initial, WatcherTag.Global] }, undefined, undefined);
+const screenSizeWatcher: TScreenSizeWatcher = screenSizeWatcherFactory.create({ container, tags: [WatcherTag.Initial, WatcherTag.Global] }, undefined);
 screenSizeWatcher.start$.next();
 
 export const ambientContext: TAmbientContext = {

@@ -51,8 +51,8 @@ export function TextService(
   const disposable: ReadonlyArray<TDisposable> = [text2dRegistry, text3dRegistry, text3dTextureRegistry, text2dRendererRegistry, text3dRendererRegistry, factory, factorySub$];
   const abstractService: TAbstractService = AbstractService(disposable);
 
-  const withCreateService: TTextServiceWithCreate = withCreateServiceMixin(factory, undefined);
-  const withCreateFromConfigService: TTextServiceWithCreateFromConfig = withCreateFromConfigServiceMixin(withCreateService.create, factory.configToParams);
+  const withCreateService: TTextServiceWithCreate = withCreateServiceMixin(factory, dependencies);
+  const withCreateFromConfigService: TTextServiceWithCreateFromConfig = withCreateFromConfigServiceMixin(withCreateService.create, factory.configToParams, undefined);
   const withFactory: TTextServiceWithFactory = withFactoryService(factory);
 
   const activeText2dRenderer: BehaviorSubject<TText2dRenderer | undefined> = new BehaviorSubject<TText2dRenderer | undefined>(undefined);

@@ -22,8 +22,7 @@ export type TModel3dServiceWithFactory = TWithFactoryService<
   TModel3d,
   TModel3dParams,
   Pick<TModels3dServiceDependencies, 'animationsService' | 'model3dRawToModel3dConnectionRegistry'>,
-  TModels3dFactory,
-  undefined
+  TModels3dFactory
 >;
 export type TModel3dServiceWithRegistry = TWithRegistryService<TModels3dRegistry>;
 

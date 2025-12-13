@@ -7,7 +7,7 @@ import type { TRendererRegistry } from './TRendererRegistry';
 import type { TRendererWrapper } from './TRendererWrapper';
 
 export type TRendererServiceWithCreate = TWithCreateService<TRendererWrapper, TRendererParams>;
-export type TRendererServiceWithFactory = TWithFactoryService<TRendererWrapper, TRendererParams, undefined, TRendererFactory, undefined>;
+export type TRendererServiceWithFactory = TWithFactoryService<TRendererWrapper, TRendererParams, undefined, TRendererFactory>;
 export type TRendererServiceWithRegistry = TWithRegistryService<TRendererRegistry>;
 
 export type TRendererService = TAbstractService & TRendererServiceWithCreate & TWithActiveAccessorsService<TRendererWrapper> & TRendererServiceWithFactory & TRendererServiceWithRegistry;

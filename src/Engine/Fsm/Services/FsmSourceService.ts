@@ -21,7 +21,7 @@ export function FsmSourceService(factory: TFsmSourceFactory, registry: TFsmSourc
   const abstractService: TAbstractService = AbstractService(disposable);
 
   const withCreateService: TFsmSourceServiceWithCreate = withCreateServiceMixin(factory, undefined);
-  const withCreateFromConfigService: TFsmSourceServiceWithCreateFromConfig = withCreateFromConfigServiceMixin(withCreateService.create, factory.configToParams);
+  const withCreateFromConfigService: TFsmSourceServiceWithCreateFromConfig = withCreateFromConfigServiceMixin(withCreateService.create, factory.configToParams, undefined);
   const withFactory: TFsmSourceServiceWithFactory = withFactoryService(factory);
   const withRegistry: TFsmSourceServiceWithRegistry = withRegistryService(registry);
 

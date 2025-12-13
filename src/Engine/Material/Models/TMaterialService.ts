@@ -9,7 +9,7 @@ import type { TMaterialWrapper } from './TMaterialWrapper';
 
 export type TMaterialServiceWithCreate = TWithCreateService<TMaterialWrapper, TMaterialParams>;
 export type TMaterialServiceWithCreateFromConfig = TWithCreateFromConfigService<TMaterialConfig, TMaterialWrapper>;
-export type TMaterialServiceWithFactory = TWithFactoryService<TMaterialWrapper, TMaterialParams, undefined, TMaterialFactory, undefined>;
+export type TMaterialServiceWithFactory = TWithFactoryService<TMaterialWrapper, TMaterialParams, undefined, TMaterialFactory>;
 export type TMaterialServiceWithRegistry = TWithRegistryService<TMaterialRegistry>;
 
 export type TMaterialService = TAbstractService & TMaterialServiceWithCreate & TMaterialServiceWithCreateFromConfig & TMaterialServiceWithFactory & TMaterialServiceWithRegistry;

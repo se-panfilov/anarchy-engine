@@ -10,7 +10,7 @@ import type { TControlsWrapper } from './TControlsWrapper';
 
 export type TControlsServiceWithCreate = TWithCreateService<TControlsWrapper, TControlsParams>;
 export type TControlsServiceWithCreateFromConfig = Omit<TWithCreateFromConfigService<TControlsConfig, TControlsWrapper>, 'createFromConfig'>;
-export type TControlsServiceWithFactory = TWithFactoryService<TControlsWrapper, TControlsParams, undefined, TControlsFactory, undefined>;
+export type TControlsServiceWithFactory = TWithFactoryService<TControlsWrapper, TControlsParams, undefined, TControlsFactory>;
 export type TControlsServiceWithRegistry = TWithRegistryService<TControlsRegistry>;
 
 export type TControlsService = TAbstractService &

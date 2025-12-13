@@ -14,7 +14,7 @@ export function FogService(factory: TFogFactory, registry: TFogRegistry, scene: 
   const abstractService: TAbstractService = AbstractService(disposable);
 
   const withCreateService: TFogServiceWithCreate = withCreateServiceMixin(factory, undefined);
-  const withCreateFromConfigService: TFogServiceWithCreateFromConfig = withCreateFromConfigServiceMixin(withCreateService.create, factory.configToParams);
+  const withCreateFromConfigService: TFogServiceWithCreateFromConfig = withCreateFromConfigServiceMixin(withCreateService.create, factory.configToParams, undefined);
   const withFactory: TFogServiceWithFactory = withFactoryService(factory);
   const withRegistry: TFogServiceWithRegistry = withRegistryService(registry);
 

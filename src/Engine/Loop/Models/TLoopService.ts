@@ -20,7 +20,7 @@ import type { TLoopParams } from './TLoopParams';
 import type { TLoopRegistry } from './TLoopRegistry';
 
 export type TLoopServiceWithCreate = TWithCreateService<TLoop, TLoopParams>;
-export type TLoopServiceWithFactory = TWithFactoryService<TLoop, TLoopParams, undefined, TLoopFactory, undefined>;
+export type TLoopServiceWithFactory = TWithFactoryService<TLoop, TLoopParams, undefined, TLoopFactory>;
 export type TLoopServiceWithRegistry = TWithRegistryService<TLoopRegistry>;
 
 export type TLoopService = TAbstractService &

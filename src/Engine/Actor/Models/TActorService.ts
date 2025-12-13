@@ -10,7 +10,7 @@ import type { TActorRegistry } from './TActorRegistry';
 
 export type TActorServiceWithCreate = TWithCreateService<TActor, TActorParams>;
 export type TActorServiceWithCreateFromConfig = TWithCreateFromConfigService<TActorConfig, TActor>;
-export type TActorServiceWithFactory = TWithFactoryService<TActor, TActorParams, TActorServiceDependencies, TActorFactory, undefined>;
+export type TActorServiceWithFactory = TWithFactoryService<TActor, TActorParams, TActorServiceDependencies, TActorFactory>;
 export type TActorServiceWithRegistry = TWithRegistryService<TActorRegistry>;
 
 export type TActorService = TAbstractService & TActorServiceWithCreate & TActorServiceWithCreateFromConfig & TActorServiceWithFactory & TActorServiceWithRegistry & TWithSceneGetterService;

@@ -13,7 +13,7 @@ import type { TIntersectionsWatcherRegistry } from './TIntersectionsWatcherRegis
 
 export type TIntersectionsWatcherServiceWithCreate = TWithCreateService<TIntersectionsWatcher, TIntersectionsWatcherParams>;
 export type TIntersectionsWatcherServiceWithCreateFromConfig = Omit<TWithCreateFromConfigService<TIntersectionsWatcherConfig, TIntersectionsWatcher>, 'createFromConfig'>;
-export type TIntersectionsWatcherServiceWithFactory = TWithFactoryService<TIntersectionsWatcher, TIntersectionsWatcherParams, undefined, TIntersectionsWatcherFactory, undefined>;
+export type TIntersectionsWatcherServiceWithFactory = TWithFactoryService<TIntersectionsWatcher, TIntersectionsWatcherParams, undefined, TIntersectionsWatcherFactory>;
 export type TIntersectionsWatcherServiceWithRegistry = TWithRegistryService<TIntersectionsWatcherRegistry>;
 
 export type TIntersectionsWatcherService = TAbstractService &

@@ -20,7 +20,7 @@ import type { TTextParams } from './TTextParams';
 
 export type TTextServiceWithCreate = TWithCreateService<TTextAnyWrapper, TTextParams>;
 export type TTextServiceWithCreateFromConfig = TWithCreateFromConfigService<TTextConfig, TTextAnyWrapper>;
-export type TTextServiceWithFactory = TWithFactoryService<TTextAnyWrapper, TTextParams, TTextDependencies, TTextFactory, undefined>;
+export type TTextServiceWithFactory = TWithFactoryService<TTextAnyWrapper, TTextParams, TTextDependencies, TTextFactory>;
 
 export type TTextService = TAbstractService &
   TTextServiceWithCreate &

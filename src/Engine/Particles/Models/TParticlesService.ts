@@ -9,7 +9,7 @@ import type { TParticlesWrapper } from './TParticlesWrapper';
 
 export type TParticlesServiceWithCreate = TWithCreateService<TParticlesWrapper, TParticlesParams>;
 export type TParticlesServiceWithCreateFromConfig = TWithCreateFromConfigService<TParticlesConfig, TParticlesWrapper>;
-export type TParticlesServiceWithFactory = TWithFactoryService<TParticlesWrapper, TParticlesParams, undefined, TParticlesFactory, undefined>;
+export type TParticlesServiceWithFactory = TWithFactoryService<TParticlesWrapper, TParticlesParams, undefined, TParticlesFactory>;
 export type TParticlesServiceWithRegistry = TWithRegistryService<TParticlesRegistry>;
 
 export type TParticlesService = TAbstractService &

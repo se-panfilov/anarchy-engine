@@ -13,7 +13,7 @@ import type { TWithPresetNamePhysicsBodyConfig } from './TWithPresetNamePhysicsB
 
 export type TPhysicsBodyServiceWithCreate = TWithCreateService<TPhysicsBody, TPhysicsBodyParams>;
 export type TPhysicsBodyServiceWithCreateFromConfig = TWithCreateFromConfigService<TWithPresetNamePhysicsBodyConfig, TPhysicsBody>;
-export type TPhysicsBodyServiceWithFactory = TWithFactoryService<TPhysicsBody, TPhysicsBodyParams, TPhysicsDependencies, TPhysicsBodyFactory, undefined>;
+export type TPhysicsBodyServiceWithFactory = TWithFactoryService<TPhysicsBody, TPhysicsBodyParams, TPhysicsDependencies, TPhysicsBodyFactory>;
 export type TPhysicsBodyServiceWithRegistry = TWithRegistryService<TPhysicsBodyRegistry>;
 
 export type TPhysicsBodyService = TAbstractService &

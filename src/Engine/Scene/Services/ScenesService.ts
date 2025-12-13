@@ -27,7 +27,7 @@ export function ScenesService(factory: TSceneFactory, registry: TSceneRegistry):
   const abstractService: TAbstractService = AbstractService(disposable);
 
   const withCreateService: TScenesServiceWithCreate = withCreateServiceMixin(factory, undefined);
-  const withCreateFromConfigService: TScenesServiceWithCreateFromConfig = withCreateFromConfigServiceMixin(withCreateService.create, factory.configToParams);
+  const withCreateFromConfigService: TScenesServiceWithCreateFromConfig = withCreateFromConfigServiceMixin(withCreateService.create, factory.configToParams, undefined);
   const withFactory: TScenesServiceWithFactory = withFactoryService(factory);
   const withRegistry: TScenesServiceWithRegistry = withRegistryService(registry);
 

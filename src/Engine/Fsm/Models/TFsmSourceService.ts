@@ -9,7 +9,7 @@ import type { TFsmSourceRegistry } from './TFsmSourceRegistry';
 
 export type TFsmSourceServiceWithCreate = TWithCreateService<TFsmSource, TFsmParams>;
 export type TFsmSourceServiceWithCreateFromConfig = TWithCreateFromConfigService<TFsmConfig, TFsmSource>;
-export type TFsmSourceServiceWithFactory = TWithFactoryService<TFsmSource, TFsmParams, undefined, TFsmSourceFactory, undefined>;
+export type TFsmSourceServiceWithFactory = TWithFactoryService<TFsmSource, TFsmParams, undefined, TFsmSourceFactory>;
 export type TFsmSourceServiceWithRegistry = TWithRegistryService<TFsmSourceRegistry>;
 
 export type TFsmSourceService = TAbstractService & TFsmSourceServiceWithCreate & TFsmSourceServiceWithCreateFromConfig & TFsmSourceServiceWithFactory & TFsmSourceServiceWithRegistry;

@@ -24,7 +24,7 @@ export function LightService(factory: TLightFactory, registry: TLightRegistry, s
   const abstractService: TAbstractService = AbstractService(disposable);
 
   const withCreateService: TLightServiceWithCreate = withCreateServiceMixin(factory, undefined);
-  const withCreateFromConfigService: TLightServiceWithCreateFromConfig = withCreateFromConfigServiceMixin(withCreateService.create, factory.configToParams);
+  const withCreateFromConfigService: TLightServiceWithCreateFromConfig = withCreateFromConfigServiceMixin(withCreateService.create, factory.configToParams, undefined);
   const withFactory: TLightServiceWithFactory = withFactoryService(factory);
   const withRegistry: TLightServiceWithRegistry = withRegistryService(registry);
 

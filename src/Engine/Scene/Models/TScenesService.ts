@@ -9,7 +9,7 @@ import type { TSceneWrapper } from './TSceneWrapper';
 
 export type TScenesServiceWithCreate = TWithCreateService<TSceneWrapper, TSceneParams>;
 export type TScenesServiceWithCreateFromConfig = TWithCreateFromConfigService<TSceneConfig, TSceneWrapper>;
-export type TScenesServiceWithFactory = TWithFactoryService<TSceneWrapper, TSceneParams, undefined, TSceneFactory, undefined>;
+export type TScenesServiceWithFactory = TWithFactoryService<TSceneWrapper, TSceneParams, undefined, TSceneFactory>;
 export type TScenesServiceWithRegistry = TWithRegistryService<TSceneRegistry>;
 
 export type TScenesService = TAbstractService &

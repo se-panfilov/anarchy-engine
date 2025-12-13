@@ -10,7 +10,7 @@ import type { TLightRegistry } from './TLightRegistry';
 
 export type TLightServiceWithCreate = TWithCreateService<TAbstractLightWrapper<TLight>, TLightParams>;
 export type TLightServiceWithCreateFromConfig = TWithCreateFromConfigService<TAnyLightConfig, TAbstractLightWrapper<TLight>>;
-export type TLightServiceWithFactory = TWithFactoryService<TAbstractLightWrapper<TLight>, TLightParams, undefined, TLightFactory, undefined>;
+export type TLightServiceWithFactory = TWithFactoryService<TAbstractLightWrapper<TLight>, TLightParams, undefined, TLightFactory>;
 export type TLightServiceWithRegistry = TWithRegistryService<TLightRegistry>;
 
 export type TLightService = TAbstractService & TLightServiceWithCreate & TLightServiceWithCreateFromConfig & TLightServiceWithFactory & TLightServiceWithRegistry & TWithSceneGetterService;

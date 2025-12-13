@@ -34,10 +34,10 @@ export function FsmService(instanceFactory: TFsmInstanceFactory, sourceFactory: 
         throw new Error(
           `FsmService. Can't create a fsm instance with name ${params.name}: Source already existed, but params are different. Maybe an accident. (Params should be the same, or use "force")`
         );
-      return instanceFactory.create(source, undefined, undefined);
+      return instanceFactory.create(source, undefined);
     }
-    source = sourceFactory.create(params, undefined, undefined);
-    return instanceFactory.create(source, undefined, undefined);
+    source = sourceFactory.create(params, undefined);
+    return instanceFactory.create(source, undefined);
   }
 
   function createFromList(paramsList: ReadonlyArray<TFsmParams>, force: boolean = false): ReadonlyArray<TFsmWrapper> {

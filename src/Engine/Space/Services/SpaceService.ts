@@ -32,7 +32,7 @@ export function SpaceService(factory: TSpaceFactory, registry: TSpaceRegistry): 
     });
   };
 
-  const withCreateService: TSpaceServiceWithCreate = withCreateServiceMixin(factory);
+  const withCreateService: TSpaceServiceWithCreate = withCreateServiceMixin(factory, undefined);
   const withFactory: TSpaceServiceWithFactory = withFactoryService(factory);
   const withRegistry: TSpaceServiceWithRegistry = withRegistryService(registry);
 
