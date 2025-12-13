@@ -42,9 +42,9 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
       void standardMoverService.goToPosition(topActor, { x: 20 }, { ...animationParams, easing: 'easeInCirc' }).then(() => {
         isClickBlocked = false;
       });
-      // void standardMoverService.goToPosition(centralActor, { x: 20 }, { ...animationParams, easing: 'linear' });
+      void standardMoverService.goToPosition(centralActor, { x: 20 }, { ...animationParams, easing: 'linear' });
       // void standardMoverService.goToPosition(bottomActor, { x: 20 }, { ...animationParams, easing: 'easeInOutQuad' });
-      void standardMoverService.goByPath(bottomActor, [{ x: 20 }], { ...animationParams, easing: 'linear' });
+      void standardMoverService.goByPath(bottomActor, [{ x: 10 }, { z: -10 }, { x: -20 }, { z: 2 }], { ...animationParams, easing: 'linear' });
     });
   }
 

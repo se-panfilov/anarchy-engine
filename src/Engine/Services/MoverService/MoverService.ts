@@ -6,7 +6,7 @@ import { defaultMoverServiceConfig } from '@/Engine/Services/MoverService/Consta
 import type { IAnimationParams, IKeyframeDestination, IMoverServiceConfig } from '@/Engine/Services/MoverService/Models';
 import type { IMoveDestination } from '@/Engine/Services/MoverService/Models/IMoveDestination';
 import type { IMoverService } from '@/Engine/Services/MoverService/Models/IMoverService';
-import { performMove, prepareDestination, preparePathList } from '@/Engine/Services/MoverService/MoverServiceUtils';
+import { getAccumulatedKeyframes, performMove, prepareDestination } from '@/Engine/Services/MoverService/MoverServiceUtils';
 import { byPathMove, goStraightMove } from '@/Engine/Services/MoverService/MoveSet';
 
 export function MoverService(loopService: ILoopService, { suspendWhenDocumentHidden }: IMoverServiceConfig = defaultMoverServiceConfig): IMoverService {
@@ -18,7 +18,7 @@ export function MoverService(loopService: ILoopService, { suspendWhenDocumentHid
       return performMove(goStraightMove, loopService, { actor, destination: prepareDestination(destination, actor), animationParams });
     },
     goByPath: (actor: IActorWrapper, path: ReadonlyArray<IKeyframeDestination>, animationParams: IAnimationParams): Promise<void> => {
-      return performMove(byPathMove, loopService, { actor, path: preparePathList(path, actor), animationParams });
+      return performMove(byPathMove, loopService, { actor, path: getAccumulatedKeyframes(path, actor), animationParams });
     }
   };
 }

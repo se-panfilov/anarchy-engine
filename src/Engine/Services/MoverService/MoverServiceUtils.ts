@@ -17,8 +17,23 @@ export function performMove(moveFn: IMoveFn | IMoveByPathFn, loopService: ILoopS
   return promise.then(() => tickSubscription.unsubscribe());
 }
 
+// Do not use this function for complex paths (with more than 1 point), it might not work as expected when partial coords are provided.
 export function addMissingCoords<T extends IKeyframeDestination | IMoveDestination>(destination: T, actor: IActorWrapper): IKeyframeDestination | Required<IMoveDestination> {
   return { ...destination, x: destination.x ?? actor.getX(), y: destination.y ?? actor.getY(), z: destination.z ?? actor.getZ() };
+}
+
+export function getAccumulatedKeyframes(path: ReadonlyArray<IKeyframeDestination>, actor: IActorWrapper): ReadonlyArray<IFullKeyframeDestination> {
+  return path.reduce((acc: ReadonlyArray<IFullKeyframeDestination>, destination: IKeyframeDestination, index: number) => {
+    const prevDestination: IKeyframeDestination | undefined = acc[index - 1];
+    const prevX: number = prevDestination?.x ?? actor.getX();
+    const prevY: number = prevDestination?.y ?? actor.getY();
+    const prevZ: number = prevDestination?.z ?? actor.getZ();
+    const x: number = destination.x ?? prevX;
+    const y: number = destination.y ?? prevY;
+    const z: number = destination.z ?? prevZ;
+    const newDestination: IFullKeyframeDestination = { ...destination, x, y, z };
+    return [...acc, newDestination];
+  }, []);
 }
 
 export function prepareDestination(destination: IMoveDestination, actor: IActorWrapper): Required<IMoveDestination> {
