@@ -5,8 +5,8 @@ export const enUs: TLocale = {
   id: 'en-US',
   languageCode: 'en',
   regionCode: 'US',
-  englishName: 'English (United States)',
-  nativeName: 'English (United States)',
+  englishName: 'English',
+  nativeName: 'English',
   dir: 'ltr'
 };
 
@@ -14,8 +14,8 @@ export const nlNl: TLocale = {
   id: 'nl-NL',
   languageCode: 'nl',
   regionCode: 'NL',
-  englishName: 'Dutch (Netherlands)',
-  nativeName: 'Nederlands (Nederland)',
+  englishName: 'Dutch',
+  nativeName: 'Nederlands',
   dir: 'ltr'
 };
 
@@ -23,8 +23,8 @@ export const ruRu: TLocale = {
   id: 'ru-RU',
   languageCode: 'ru',
   regionCode: 'RU',
-  englishName: 'Russian (Russia)',
-  nativeName: 'русский (Россия)',
+  englishName: 'Russian',
+  nativeName: 'русский',
   dir: 'ltr'
 };
 
@@ -32,8 +32,8 @@ export const arSa: TLocale = {
   id: 'ar-SA',
   languageCode: 'ar',
   regionCode: 'SA',
-  englishName: 'Arabic (Saudi Arabia)',
-  nativeName: 'العربية (المملكة العربية السعودية)',
+  englishName: 'Arabic',
+  nativeName: 'العربية',
   dir: 'rtl'
 };
 
@@ -42,7 +42,7 @@ export const zhHansCn: TLocale = {
   languageCode: 'zh',
   regionCode: 'CN',
   scriptCode: 'Hans',
-  englishName: 'Chinese (Simplified, China)',
-  nativeName: '中文 (简体, 中国)',
+  englishName: 'Chinese (Simplified)',
+  nativeName: '中文 (简体)',
   dir: 'ltr'
 };

@@ -103,8 +103,8 @@ const buildEnglishName = (id, parts) => {
   const lang = dn.en.language.of(parts.language) || parts.language;
   const bits = [];
   if (parts.script) bits.push(dn.en.script.of(parts.script) || parts.script);
-  if (parts.region) bits.push(dn.en.region.of(parts.region) || parts.region);
-  return bits.length ? `${lang} (${bits.join(', ')})` : lang;
+  // if (parts.region) bits.push(dn.en.region.of(parts.region) || parts.region);
+  return (bits.length ? `${lang} (${bits.join(', ')})` : lang).trim();
 };
 
 const buildNativeName = (id, parts) => {
@@ -127,14 +127,14 @@ const buildNativeName = (id, parts) => {
     } catch {}
     bits.push(s || parts.script);
   }
-  if (parts.region) {
-    let r;
-    try {
-      r = dn.any(id, 'region').of(parts.region);
-    } catch {}
-    bits.push(r || parts.region);
-  }
-  return bits.length ? `${langName} (${bits.join(', ')})` : langName;
+  // if (parts.region) {
+  //   let r;
+  //   try {
+  //     r = dn.any(id, 'region').of(parts.region);
+  //   } catch {}
+  //   bits.push(r || parts.region);
+  // }
+  return (bits.length ? `${langName} (${bits.join(', ')})` : langName).trim();
 };
 
 const toTsLiteral = (obj) => JSON.stringify(obj, null, 2);
