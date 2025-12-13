@@ -4,6 +4,7 @@ import type { Observable } from 'rxjs';
 import type { IActorFactory, IActorRegistry } from '@/Engine/Domains/Actor';
 import type { ICameraFactory, ICameraRegistry } from '@/Engine/Domains/Camera';
 import type { IControlsFactory, IControlsRegistry } from '@/Engine/Domains/Controls';
+import type { IIntersectionsWatcherFactory, IIntersectionsWatcherRegistry } from '@/Engine/Domains/Intersections';
 import type { LevelTag } from '@/Engine/Domains/Level';
 import type { ILightFactory, ILightRegistry } from '@/Engine/Domains/Light';
 import type { IReactiveDestroyable } from '@/Engine/Domains/Mixins';
@@ -14,11 +15,13 @@ export type ILevel = IReactiveDestroyable &
   Readonly<{
     name: string;
     start: () => ILoopWrapper;
+    stop: () => void;
     built$: Observable<void>;
     actor: DomainTools<IActorFactory, IActorRegistry>;
     camera: DomainTools<ICameraFactory, ICameraRegistry>;
     light: DomainTools<ILightFactory, ILightRegistry>;
     controls: DomainTools<IControlsFactory, IControlsRegistry>;
+    intersectionsWatcher: DomainTools<IIntersectionsWatcherFactory, IIntersectionsWatcherRegistry>;
     loop: DomainTools<ILoopFactory, ILoopRegistry>;
     scenes: DomainTools<ISceneFactory, ISceneRegistry>;
     renderer: DomainTools<IRendererFactory, IRendererRegistry>;

@@ -1,5 +1,5 @@
-import type { IActorWrapper, IAppCanvas, ICameraWrapper, IIntersectionsWatcher, ILevel, ILevelConfig, ILoopWrapper, IVector3 } from '@/Engine';
-import { ActorTag, ambientContext, buildLevelFromConfig, CameraTag, IntersectionsWatcherFactory, isNotDefined, LoopTag } from '@/Engine';
+import type { IActorWrapper, IAppCanvas, ILevel, ILevelConfig, ILoopWrapper, IVector3 } from '@/Engine';
+import { ActorTag, ambientContext, buildLevelFromConfig, isNotDefined, LoopTag } from '@/Engine';
 
 import levelConfig from './showcase-level-1.config.json';
 
@@ -7,18 +7,9 @@ export function showcaseLevel1(canvas: IAppCanvas): void {
   const level: ILevel = buildLevelFromConfig(canvas, levelConfig as ILevelConfig);
   level.start();
 
-  const clickableActors: ReadonlyArray<IActorWrapper> = level.actor.registry.initial.getAllWithEveryTag([ActorTag.Intersectable]);
-  const cameraTag: CameraTag = CameraTag.Initial;
-  const camera: ICameraWrapper | undefined = level.camera.registry.initial.getUniqByTag(cameraTag);
-
-  if (isNotDefined(camera)) throw new Error(`Cannot init intersection service: camera with tag "${cameraTag}" is not defined`);
-  const intersectionsWatcher: IIntersectionsWatcher = IntersectionsWatcherFactory().create({ actors: clickableActors, camera, positionWatcher: ambientContext.mousePositionWatcher });
-
-  intersectionsWatcher.value$.subscribe((obj: IVector3): void => {
+  level.intersectionsWatcher.registry.initial.getAll()[0].value$.subscribe((obj: IVector3): void => {
     console.log('intersect obj', obj);
   });
-
-  intersectionsWatcher.start();
 
   ambientContext.mouseClickWatcher.value$.subscribe((): void => {
     console.log('int click:');

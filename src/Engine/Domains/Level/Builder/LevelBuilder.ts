@@ -11,16 +11,19 @@ import { isNotDefined, isValidLevelConfig } from '@Engine/Utils';
 import type { Subscription } from 'rxjs';
 import { Subject } from 'rxjs';
 
+import { ambientContext } from '@/Engine/Context';
 import type { IActorConfig, IActorFactory, IActorRegistry, IActorWrapper } from '@/Engine/Domains/Actor';
-import { ActorFactory, ActorRegistry } from '@/Engine/Domains/Actor';
+import { ActorFactory, ActorRegistry, ActorTag } from '@/Engine/Domains/Actor';
 import type { IControlsConfig, IControlsFactory, IControlsRegistry, IOrbitControlsWrapper } from '@/Engine/Domains/Controls';
 import { ControlsFactory, ControlsRegistry } from '@/Engine/Domains/Controls';
+import type { IIntersectionsWatcher, IIntersectionsWatcherFactory, IIntersectionsWatcherRegistry } from '@/Engine/Domains/Intersections';
+import { IntersectionsWatcherFactory, IntersectionsWatcherRegistry } from '@/Engine/Domains/Intersections';
 import type { ILightConfig, ILightFactory, ILightRegistry, ILightWrapper } from '@/Engine/Domains/Light';
 import { LightFactory, LightRegistry } from '@/Engine/Domains/Light';
 
 import type { ILevel, ILevelConfig } from '../Models';
 
-// TODO (S.Panfilov) CWP All factories should be self-registrable
+// TODO (S.Panfilov) CWP All factories should be self-registrable (maybe pass a registry as a param there?)
 // TODO (S.Panfilov) Registries' destroy() should kill all registered instances
 
 // TODO (S.Panfilov) CWP 2. Add relations to all wrappers during the level build
@@ -58,6 +61,17 @@ export function buildLevelFromConfig(canvas: IAppCanvas, config: ILevelConfig): 
   const controlsRegistry: IControlsRegistry = ControlsRegistry();
   const controlsEntityCreatedSubscription: Subscription = controlsFactory.entityCreated$.subscribe((instance: IOrbitControlsWrapper): void => controlsRegistry.add(instance));
   controls.forEach((control: IControlsConfig): IOrbitControlsWrapper => controlsFactory.create(controlsFactory.getParams(control, { cameraRegistry, canvas })));
+
+  const clickableActors: ReadonlyArray<IActorWrapper> = actorRegistry.getAllWithEveryTag([ActorTag.Intersectable]);
+  const camera: ICameraWrapper | undefined = cameraRegistry.getUniqByTag(CameraTag.Initial);
+  if (isNotDefined(camera)) throw new Error(`Cannot init intersection service: camera with tag "${CameraTag.Initial}" is not defined`);
+
+  const intersectionsWatcherFactory: IIntersectionsWatcherFactory = IntersectionsWatcherFactory();
+  const intersectionsWatcherRegistry: IIntersectionsWatcherRegistry = IntersectionsWatcherRegistry();
+  const intersectionsWatcherEntityCreatedSubscription: Subscription = intersectionsWatcherFactory.entityCreated$.subscribe((instance: IIntersectionsWatcher): void =>
+    intersectionsWatcherRegistry.add(instance)
+  );
+  const intersectionsWatcher: IIntersectionsWatcher = intersectionsWatcherFactory.create({ actors: clickableActors, camera, positionWatcher: ambientContext.mousePositionWatcher });
 
   const lightFactory: ILightFactory = LightFactory();
   const lightRegistry: ILightRegistry = LightRegistry();
@@ -100,6 +114,10 @@ export function buildLevelFromConfig(canvas: IAppCanvas, config: ILevelConfig): 
     controlsFactory.destroy();
     controlsRegistry.destroy();
 
+    intersectionsWatcherEntityCreatedSubscription.unsubscribe();
+    intersectionsWatcherFactory.destroy();
+    intersectionsWatcherRegistry.destroy();
+
     loopEntityCreatedSubscription.unsubscribe();
     loopFactory.destroy();
     loopRegistry.destroy();
@@ -126,8 +144,14 @@ export function buildLevelFromConfig(canvas: IAppCanvas, config: ILevelConfig): 
     destroy,
     isDestroyed,
     start(): ILoopWrapper {
+      intersectionsWatcher.start();
       loop.start(renderer, scene, initialCamera, controlsRegistry);
       return loop;
+    },
+    stop(): void {
+      intersectionsWatcher.stop();
+      // TODO (S.Panfilov)
+      // loop.stop(renderer, scene, initialCamera, controlsRegistry);
     },
     built$,
     destroyed$,
@@ -146,6 +170,10 @@ export function buildLevelFromConfig(canvas: IAppCanvas, config: ILevelConfig): 
     controls: {
       factory: { initial: controlsFactory },
       registry: { initial: controlsRegistry }
+    },
+    intersectionsWatcher: {
+      factory: { initial: intersectionsWatcherFactory },
+      registry: { initial: intersectionsWatcherRegistry }
     },
     loop: {
       factory: { initial: loopFactory },
