@@ -41,7 +41,7 @@ export function Actor(
   // TODO 8.0.0. MODELS: Make sure it works with the Instant agent (set)
   // TODO 8.0.0. MODELS: Make sure it works with the Instant agent (connector)
 
-  // TODO 8.0.0. MODELS: Add a showcase with runtime switch between agents
+  // TODO 8.0.0. MODELS: Add a showcase with runtime switch between agents (check spatial and collisions)
 
   // const { value$: position$, update: updatePosition } = withReactivePosition(model3d);
   // const { value$: rotation$, update: updateRotation } = withReactiveRotation(model3d);

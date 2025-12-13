@@ -3,6 +3,7 @@ import { Scene } from 'three';
 
 import type { TWrapper } from '@/Engine/Abstract';
 import { AbstractWrapper, WrapperType } from '@/Engine/Abstract';
+import type { TActor } from '@/Engine/Actor';
 import type { TCameraWrapper } from '@/Engine/Camera';
 import type { TColor } from '@/Engine/Color';
 import { ColorWrapper } from '@/Engine/Color';
@@ -10,7 +11,7 @@ import type { TEnvMapTexture } from '@/Engine/EnvMap';
 import type { TFogWrapper } from '@/Engine/Fog';
 import type { TAbstractLightWrapper, TLight } from '@/Engine/Light';
 import { withActiveMixin, withObject3d } from '@/Engine/Mixins';
-import type { TRawModel3d } from '@/Engine/Models3d';
+import type { TModel3d } from '@/Engine/Models3d';
 import type { TParticlesWrapper } from '@/Engine/Particles';
 import type { TSceneObject, TSceneParams, TSceneWrapper } from '@/Engine/Scene/Models';
 import type { TTextAnyWrapper } from '@/Engine/Text';
@@ -27,7 +28,8 @@ export function SceneWrapper(params: TSceneParams): TSceneWrapper {
 
   const add = (obj: TSceneObject): void => void entity.add(obj);
   const addCamera = (camera: TCameraWrapper): void => add(camera.entity);
-  const addModel3d = (model3d: TRawModel3d): void => add(model3d);
+  const addModel3d = (model3d: TModel3d): void => add(model3d.getRawModel3d());
+  const addActor = (actor: TActor): void => addModel3d(actor.model3d.model3d);
   const addLight = <T extends TLight>(light: Readonly<TAbstractLightWrapper<T>>): void => add(light.entity);
   const addParticles = (particles: Readonly<TParticlesWrapper>): void => add(particles.entity);
 
@@ -57,6 +59,7 @@ export function SceneWrapper(params: TSceneParams): TSceneWrapper {
     addCamera,
     addLight,
     addModel3d,
+    addActor,
     setFog,
     addText,
     addParticles,
