@@ -33,7 +33,6 @@ export function Models3dService(models3dRegistry: TModels3dAsyncRegistry, models
   });
 
   // TODO (S.Panfilov) 6.5 CWP make sure animations works
-  // TODO (S.Panfilov) 7. CWP if model already existed, animations are also might be loaded, so return them, instead of an empty array
   // TODO (S.Panfilov) 8. CWP implement models load via actor (merge branch and create a new one before doing this)
   function performLoad({ url, options }: TModel3dParams): Promise<TPerformLoadResult> {
     if ([...Object.values(Model3dType)].includes(url as Model3dType)) throw new Error(`Trying to load a primitive(e.g. cube, sphere, etc.) as an imported model: ${url}`);
