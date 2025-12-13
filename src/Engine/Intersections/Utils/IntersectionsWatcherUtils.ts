@@ -8,7 +8,7 @@ import type {
   TIntersectionsDirectionWatcherConfig,
   TIntersectionsDirectionWatcherParams
 } from '@/Engine/Intersections/Models';
-import type { TReadonlyVector3 } from '@/Engine/ThreeLib';
+import type { TReadonlyVector2, TReadonlyVector3 } from '@/Engine/ThreeLib';
 import { isDefined } from '@/Engine/Utils';
 
 export function isIntersectionsDirectionWatcherConfig(config: TIntersectionsCameraWatcherConfig | TIntersectionsDirectionWatcherConfig): config is TIntersectionsDirectionWatcherConfig {
@@ -71,5 +71,22 @@ export function getChangedOriginAndDirection(
   return {
     origin: new Vector3(tmpOrigin[0], tmpOrigin[1], tmpOrigin[2]) as TReadonlyVector3,
     direction: new Vector3(tmpDirection[0], tmpDirection[1], tmpDirection[2]) as TReadonlyVector3
+  };
+}
+
+export function getChangedPosition(tmp: Float32Array, prev: Float32Array, position: TReadonlyVector2, threshold: number): Readonly<{ position: TReadonlyVector2 }> | undefined {
+  // eslint-disable-next-line functional/immutable-data
+  tmp[0] = position.x;
+  // eslint-disable-next-line functional/immutable-data
+  tmp[1] = position.y;
+
+  const changed: boolean = Math.abs(tmp[0] - prev[0]) > threshold || Math.abs(tmp[1] - prev[1]) > threshold;
+
+  if (!changed) return undefined;
+
+  prev.set(tmp);
+
+  return {
+    position: new Vector2(tmp[0], tmp[1]) as TReadonlyVector2
   };
 }

@@ -9,6 +9,7 @@ export type * from './TPlaneGeometryParams';
 export type * from './TPoints';
 export type * from './TReadonlyEuler';
 export type * from './TReadonlyQuaternion';
+export type * from './TReadonlyVector2';
 export type * from './TReadonlyVector3';
 export type * from './TSphereGeometryParams';
 export type * from './TVector3OrEuler';
