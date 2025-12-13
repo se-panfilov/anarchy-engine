@@ -1,19 +1,27 @@
-// TODO (S.Panfilov) these functions (isWebGLAvailable, isWebGL2Available) should remove created canvas after the check.
-// TODO (S.Panfilov) window, document, and canvas should come from the global context
 export function isWebGLAvailable(): boolean {
+  let canvas: HTMLCanvasElement | undefined = undefined;
+
   try {
-    const canvas = document.createElement('canvas');
+    if (!window || !document) return false;
+    canvas = document.createElement('canvas');
+    if (!canvas) return false;
     return !!(window.WebGLRenderingContext && (canvas.getContext('webgl') || canvas.getContext('experimental-webgl')));
   } catch (e) {
     return false;
+  } finally {
+    canvas = undefined;
   }
 }
 
 export function isWebGL2Available(): boolean {
+  let canvas: HTMLCanvasElement | undefined = undefined;
+
   try {
-    const canvas = document.createElement('canvas');
+    if (!window || !document) return false;
+    canvas = document.createElement('canvas');
+    if (!canvas) return false;
     return !!(window.WebGL2RenderingContext && canvas.getContext('webgl2'));
-  } catch (e) {
-    return false;
+  } finally {
+    canvas = undefined;
   }
 }
