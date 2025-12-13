@@ -37,6 +37,7 @@ Done:
 - 18.0.x Monorepo: Split apps and engine
 - 19.0.x Reduce package size (prod build)
 - 20.0.x Configurable Space (added options)
+- 20.1.x Inline css for Text3d/Text2d
 
 Roadmap:
 - 21.0.x Create a npm package

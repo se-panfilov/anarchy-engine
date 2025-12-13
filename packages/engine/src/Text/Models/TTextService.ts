@@ -25,6 +25,7 @@ export type TTextService = TSerializableEntitiesService<TTextAnyWrapper, TTextCo
   TTextServiceWithCreateFromConfig &
   TTextServiceWithFactory &
   Readonly<{
+    injectStyle: () => void;
     getRegistries: () => { text2dRegistry: TText2dRegistry; text3dRegistry: TText3dRegistry; text3dTextureRegistry: TText3dTextureRegistry };
     createText2dRenderer: (container: TContainerDecorator) => TText2dRenderer;
     createText3dRenderer: (container: TContainerDecorator) => TText3dRenderer;

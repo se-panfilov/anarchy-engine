@@ -149,6 +149,8 @@ function initSpaceServices(
   events$.next({ name: SpaceEvents.BeforeEntitiesServicesBuilt, args: { canvas, params } });
   const services: TSpaceServices = buildEntitiesServices(sceneW, canvas, container, loops, baseServices);
 
+  services.textService.injectStyle();
+
   return { services, loops };
 }
 

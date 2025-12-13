@@ -1,5 +1,3 @@
-import '@Engine/Text/Styles/font-elements.css';
-
 import type { TAbstractWrapper } from '@Engine/Abstract';
 import { AbstractWrapper } from '@Engine/Abstract';
 import { withObject3d } from '@Engine/Mixins';

@@ -134,3 +134,15 @@ export function observeResize(
     }
   };
 }
+
+export function injectStyle(css: string, id: string): void {
+  if (document.getElementById(id)) return;
+
+  const tag: HTMLStyleElement = document.createElement('style');
+  // eslint-disable-next-line functional/immutable-data
+  tag.id = id;
+  // eslint-disable-next-line functional/immutable-data
+  tag.textContent = css;
+  const appContainer: TAppGlobalContainer = ambientContext.globalContainer.getAppContainer();
+  appContainer.document.head.appendChild(tag);
+}

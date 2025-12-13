@@ -24,8 +24,9 @@ import type {
   TTextServiceWithFactory
 } from '@Engine/Text/Models';
 import { initText2dRenderer, initText3dRenderer } from '@Engine/Text/Renderers';
+import styles from '@Engine/Text/Styles/font-elements.css?inline';
 import { isText2dWrapper, isText3dTextureWrapper, isText3dWrapper } from '@Engine/Text/Utils';
-import { mergeAll } from '@Engine/Utils';
+import { injectStyle, mergeAll } from '@Engine/Utils';
 import type { Subscription } from 'rxjs';
 import { BehaviorSubject, merge } from 'rxjs';
 
@@ -81,6 +82,7 @@ export function TextService(
   });
 
   return mergeAll(abstractService, withCreateService, withCreateFromConfigService, withFactory, withSceneGetterService(scene), {
+    injectStyle: (): void => injectStyle(styles, 'anarchy-engine-text-styles'),
     createText2dRenderer,
     createText3dRenderer,
     getRegistries: () => ({ text2dRegistry, text3dRegistry, text3dTextureRegistry }),
