@@ -1,4 +1,4 @@
-export * from './Adapters';
+export { configToParams as spaceConfigToParams } from './Adapters';
 export * from './Constants';
 export * from './Entities';
 export * from './Factories';

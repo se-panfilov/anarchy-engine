@@ -2,14 +2,19 @@ import type { BufferGeometry, Group, Intersection, Mesh, Object3D, Raycaster } f
 import type { MeshBVH } from 'three-mesh-bvh';
 import { acceleratedRaycast, computeBoundsTree, disposeBoundsTree, MeshBVHHelper } from 'three-mesh-bvh';
 
+import type { TAbstractService } from '@/Engine/Abstract';
+import { AbstractService } from '@/Engine/Abstract';
 import type { TActor } from '@/Engine/Actor';
 import type { TBvhOptions, TBvhService } from '@/Engine/Collisions/Models';
 import type { TRawModel3d } from '@/Engine/Models3d';
 import type { TSceneWrapper } from '@/Engine/Scene';
 
 export function BvhService(): TBvhService {
+  const abstractService: TAbstractService = AbstractService();
+
   const computeBVHBoundsTree = (geometry: BufferGeometry, options?: TBvhOptions): MeshBVH => computeBoundsTree.call(geometry, options);
   const disposeBVHBoundsTree = (geometry: BufferGeometry): void => disposeBoundsTree.call(geometry);
+
   function raycastWithBvh(actor: TActor, raycaster: Raycaster, intersects: Array<Intersection>): void {
     processEntity(actor.model3d.getRawModel3d(), (mesh) => {
       acceleratedRaycast.call(mesh, raycaster, intersects);
@@ -38,14 +43,15 @@ export function BvhService(): TBvhService {
     });
   }
 
-  return {
+  // eslint-disable-next-line functional/immutable-data
+  return Object.assign(abstractService, {
     computeBVHBoundsTree,
     disposeBVHBoundsTree,
     raycastWithBvh,
     createBvhForActor,
     _debugVisualizeBvhForActor,
     _debugVisualizeBvhForScene
-  };
+  });
 }
 
 function processEntity(entity: TRawModel3d, callback: (mesh: Mesh) => void): void {

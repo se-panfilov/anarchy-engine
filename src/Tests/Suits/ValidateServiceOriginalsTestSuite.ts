@@ -1,8 +1,7 @@
 import { afterEach, expect, it } from 'vitest';
 
 import type { TAbstractService } from '@/Engine/Abstract';
-import type { TRegistrable } from '@/Engine/Mixins';
-import type { TWithCreateService, TWithFactoryService, TWithRegistryService } from '@/Engine/Space/Models';
+import type { TRegistrable, TWithCreateService, TWithFactoryService, TWithRegistryService } from '@/Engine/Mixins';
 import type { TWriteable } from '@/Engine/Utils';
 
 //Validates if it's exactly the same object (original), not a copy of the object.
@@ -12,7 +11,7 @@ function expectSame<T>(a: T | undefined, b: T | undefined): void {
   expect(a).toEqual(b);
 }
 
-type TAnyMockService<T, P> = TAbstractService & TWithCreateService<T, P> & TWithFactoryService<any> & TWithRegistryService<any>;
+type TAnyMockService<T, P> = TAbstractService & TWithCreateService<T, P> & TWithFactoryService<any, any, any, any, any> & TWithRegistryService<any>;
 
 export function validateCommonServiceBehavior<T extends TRegistrable, P>(
   getData: () => Promise<{
