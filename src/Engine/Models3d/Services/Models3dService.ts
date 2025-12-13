@@ -1,5 +1,6 @@
 import { Subject } from 'rxjs';
 import type { AnimationClip, Group } from 'three';
+// import * as DracoDecoder from 'three/examples/jsm/libs/draco/draco_decoder.wasm';
 import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader';
 import type { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
@@ -12,8 +13,10 @@ import { isDefined } from '@/Engine/Utils';
 export function Models3dService(models3dRegistry: TModels3dAsyncRegistry, models3dAnimationsRegistry: TModels3dAnimationsAsyncRegistry, sceneW: TSceneWrapper): TModels3dService {
   const models3dLoader = new GLTFLoader();
   const dracoLoader = new DRACOLoader();
-  // TODO enable dracoPath
-  // dracoLoader.setDecoderPath(dracoPath);
+  // TODO (S.Panfilov) CWP test if draco loader is actually working
+  dracoLoader.setDecoderPath('/three/examples/jsm/libs/draco/');
+  dracoLoader.setDecoderConfig({ type: 'wasm' });
+  dracoLoader.preload();
   models3dLoader.setDRACOLoader(dracoLoader);
   const added$: Subject<TModel3dLoadResult> = new Subject<TModel3dLoadResult>();
 
