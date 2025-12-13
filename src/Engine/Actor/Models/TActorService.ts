@@ -7,6 +7,7 @@ import type { TActorServiceDependencies } from './TActorDependencies';
 import type { TActorFactory } from './TActorFactory';
 import type { TActorParams } from './TActorParams';
 import type { TActorRegistry } from './TActorRegistry';
+import type { TModel3dToActorConnectionRegistry } from './TModel3dToActorConnectionRegistry';
 
 export type TActorServiceWithCreate = TWithCreateService<TActor, TActorParams>;
 export type TActorServiceWithCreateFromConfig = TWithCreateFromConfigService<TActorConfig, TActor>;
@@ -18,4 +19,7 @@ export type TActorService = TActorServiceWithCreate &
   TActorServiceWithFactory &
   TActorServiceWithRegistry &
   TSerializableEntitiesService<TActor, TActorConfig> &
-  TWithSceneGetterService;
+  TWithSceneGetterService &
+  Readonly<{
+    getModel3dToActorConnectionRegistry: () => TModel3dToActorConnectionRegistry;
+  }>;

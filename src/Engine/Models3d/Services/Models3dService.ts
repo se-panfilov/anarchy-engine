@@ -12,6 +12,7 @@ import type {
   TModel3dConfig,
   TModel3dConfigToParamsDependencies,
   TModel3dParams,
+  TModel3dRawToModel3dConnectionRegistry,
   TModel3dResourceConfig,
   TModel3dSerializeResourcesDependencies,
   TModel3dServiceWithCreate,
@@ -81,6 +82,7 @@ export function Models3dService(
       getMetaInfoRegistry: (): TModels3dMetaInfoRegistry => metaInfoRegistry,
       getAnimationsService: (): TAnimationsService => animationsService,
       getMaterialService: (): TMaterialService => materialService,
+      getModel3dRawToModel3dConnectionRegistry: (): TModel3dRawToModel3dConnectionRegistry => model3dRawToModel3dConnectionRegistry,
       clone
     }
   );

@@ -16,6 +16,7 @@ import type {
   TModel3d,
   TModel3dConfig,
   TModel3dParams,
+  TModel3dRawToModel3dConnectionRegistry,
   TModel3dResourceConfig,
   TModels3dFactory,
   TModels3dRegistry,
@@ -46,5 +47,6 @@ export type TModels3dService = TModel3dServiceWithCreate &
   Readonly<{
     getAnimationsService: () => TAnimationsService;
     getMaterialService: () => TMaterialService;
+    getModel3dRawToModel3dConnectionRegistry: () => TModel3dRawToModel3dConnectionRegistry;
     clone: (model3d: TModel3d, overrides?: TOptional<TModel3dParams>) => TModel3d;
   }>;

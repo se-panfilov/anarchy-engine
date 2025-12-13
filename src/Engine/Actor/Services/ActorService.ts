@@ -12,7 +12,8 @@ import type {
   TActorService,
   TActorServiceDependencies,
   TActorServiceWithFactory,
-  TActorServiceWithRegistry
+  TActorServiceWithRegistry,
+  TModel3dToActorConnectionRegistry
 } from '@/Engine/Actor/Models';
 import type { TDisposable } from '@/Engine/Mixins';
 import { withFactoryService, withRegistryService, withSceneGetterService, withSerializableEntities } from '@/Engine/Mixins';
@@ -55,7 +56,8 @@ export function ActorService(factory: TActorFactory, registry: TActorRegistry, a
     {
       create,
       createFromList,
-      createFromConfig
+      createFromConfig,
+      getModel3dToActorConnectionRegistry: (): TModel3dToActorConnectionRegistry => actorServiceDependencies.model3dToActorConnectionRegistry
     }
   );
 }
