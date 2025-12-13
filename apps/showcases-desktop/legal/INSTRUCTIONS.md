@@ -11,7 +11,8 @@
 ## 1) What this Software is
 
 - **Software:** interactive entertainment software and its platform-specific client applications, intended for personal use in non-safety-critical environments.
-  Operates **offline** by default; any online features, if offered, are **opt-in**. No personal data collection during offline use (see **Privacy Policy** for details).
+
+Operates **offline** by default; any online features, if offered, are **opt-in**. No personal data collection during offline use (see **Privacy Policy** for details).
 
 **Supported platforms (indicative):** Windows 10/11 (64-bit), macOS 12+ (Intel/Apple Silicon), and mainstream Linux x86_64 distributions (e.g., Ubuntu 20.04+), subject to GPU/driver support for WebGL 2 / hardware acceleration.
 
@@ -123,7 +124,7 @@ All legal documents are provided **offline** in this folder (canonical filenames
 - **Primary License** — `LICENSE`
 - **EU Declaration of Conformity** — `EU_DECLARATION_OF_CONFORMITY.pdf`
 - **CE mark image** — `ce-mark.png`
-- **Software Bill of Materials** — `sbom/`
+- **Software Bill of Materials** — `./legal/sbom/ `
 
 > External links are avoided where possible so that required information remains available offline within the distribution.
 

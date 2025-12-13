@@ -14,7 +14,7 @@
 
 This repository is an **open-source project** and **is not, by itself, a product placed on any market**. Publishing this repository does **not** make Sergei Aleksandrovich Panfilov a “manufacturer” under product-safety or cybersecurity regimes.
 
-If **you** incorporate the Software into a **commercial product** or otherwise **place a product on the market**, **you** are solely responsible for ensuring that **your product** complies with applicable law (including **product safety and cybersecurity** rules such as the EU **Cyber Resilience Act**), **privacy/data-protection** (e.g., **GDPR/UK-GDPR, LGPD, PIPEDA, Australia Privacy Act, PIPL**), **consumer protection**, and **export/sanctions** requirements.
+If **you** incorporate the Software into a **commercial product** or otherwise **place a product on the market**, **you** are solely responsible for ensuring that **your product** complies with applicable law (including **product safety and cybersecurity** rules such as the EU **Cyber Resilience Act**), **privacy/data-protection** (e.g., **GDPR/UK-GDPR, CPRA, LGPD, PIPEDA, Australia Privacy Act, PIPL**), **consumer protection**, and **export/sanctions** requirements.
 
 Where Sergei Aleksandrovich Panfilov distributes **commercial binaries** of showcases-core, security support is handled as described in `SECURITY` (see **Security Support Period**).
 
@@ -30,9 +30,9 @@ The Software may be subject to **export control, re-export, and sanctions** laws
 
 The Software may include or interface with **third-party open-source components**. Such components are licensed under their **own** terms. **If there is a conflict between this disclaimer/EULA and an OSS license for a specific component, the OSS license controls for that component.** See `NOTICE` / `THIRD_PARTY_LICENSES`.
 
-## Accessibility (EAA and other regimes)
+## Accessibility (EAA and similar)
 
-Where required by applicable law (e.g., the **EU Accessibility Act**), we aim to address **accessibility feedback** for distributed binaries **within reasonable and proportionate limits**. You may send accessibility requests to **TBD until market release**. This section **does not** create service levels or guarantees.
+Where required by applicable law (e.g., the **EU Accessibility Act**), we aim to address **accessibility feedback** for distributed binaries **within reasonable and proportionate limits**. Contact: **TBD until market release**. This section **does not** create service levels or guarantees.
 
 ## Security and Support
 
