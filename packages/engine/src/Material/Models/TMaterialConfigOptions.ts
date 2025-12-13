@@ -6,14 +6,13 @@ import type {
   CombineName,
   DepthPackingStrategiesName,
   NormalMapTypesName,
-  PixelFormatName,
   SideName,
   StencilFailName,
   StencilFuncName,
   StencilOpName
 } from '@Engine/Material/Constants';
 import type { TEulerLike } from '@Engine/ThreeLib';
-import type { Vector2Like, Vector3Like } from 'three';
+import type { Vector2Like } from 'three';
 
 import type {
   TBasicMaterialParamsOptions,
@@ -45,11 +44,9 @@ type TOmitParamsOnlyFields<T> = Omit<
   | 'combine'
   | 'depthPacking'
   | 'envMapRotation'
-  | 'format'
   | 'matcap'
   | 'normalMapType'
   | 'normalScale'
-  | 'referencePosition'
   | 'side'
   | 'stencilFail'
   | 'stencilFunc'
@@ -87,7 +84,7 @@ type TOmitParamsOnlyFields<T> = Omit<
 
 export type TBasicMaterialConfigOptions = TOmitParamsOnlyFields<TBasicMaterialParamsOptions> & TMaterialConfigFields;
 export type TDepthMaterialConfigOptions = TOmitParamsOnlyFields<TDepthMaterialParamsOptions> & TMaterialConfigFields;
-export type TDistanceMaterialConfigOptions = TOmitParamsOnlyFields<TWithReferencePositionConfig<TDistanceMaterialParamsOptions>> & TMaterialConfigFields;
+export type TDistanceMaterialConfigOptions = TOmitParamsOnlyFields<TDistanceMaterialParamsOptions> & TMaterialConfigFields;
 export type TLambertMaterialConfigOptions = TOmitParamsOnlyFields<TWithNormalScaleConfig<TLambertMaterialParamsOptions>> & TMaterialConfigFields;
 export type TLineBasicMaterialConfigOptions = TOmitParamsOnlyFields<TLineBasicMaterialParamsOptions> & TMaterialConfigFields;
 export type TLineDashedMaterialConfigOptions = TOmitParamsOnlyFields<TLineDashedMaterialParamsOptions> & TMaterialConfigFields;
@@ -129,10 +126,10 @@ export type TMaterialConfigFields = Readonly<{
   combine?: CombineName;
   depthPacking?: DepthPackingStrategiesName;
   envMapRotation?: TEulerLike;
-  format?: PixelFormatName;
+  // format?: PixelFormatName;
   normalMapType?: NormalMapTypesName;
   normalScale?: Vector2Like;
-  referencePosition?: Vector3Like;
+  // referencePosition?: Vector3Like;
   side?: SideName;
   stencilFail?: StencilFailName;
   stencilFunc?: StencilFuncName;
@@ -140,6 +137,5 @@ export type TMaterialConfigFields = Readonly<{
   stencilZPass?: StencilOpName;
 }>;
 
-type TWithReferencePositionConfig<T> = Omit<T, 'referencePosition'> & Readonly<{ referencePosition?: Vector3Like }>;
 type TWithNormalScaleConfig<T> = Omit<T, 'normalScale'> & Readonly<{ normalScale?: Vector2Like }>;
 type TWithClearCoatNormalScaleConfig<T> = Omit<T, 'clearcoatNormalScale'> & Readonly<{ clearcoatNormalScale?: Vector2Like }>;

@@ -22,7 +22,7 @@ import type {
   TMaterialParamsTextures,
   TMaterials
 } from '@Engine/Material/Models';
-import { eulerToXyzIfPossible, getOptionNameIfPossible, vector2ToXyIfPossible, vector3ToXyzIfPossible } from '@Engine/Material/Utils';
+import { eulerToXyzIfPossible, getOptionNameIfPossible, vector2ToXyIfPossible } from '@Engine/Material/Utils';
 import { extractSerializableRegistrableFields } from '@Engine/Mixins';
 import type { TTexture, TTextureAsyncRegistry } from '@Engine/Texture';
 import type { TOptional } from '@Engine/Utils';
@@ -32,7 +32,6 @@ import type {
   LineDashedMaterial,
   MeshBasicMaterial,
   MeshDepthMaterial,
-  MeshDistanceMaterialParameters,
   MeshLambertMaterial,
   MeshMatcapMaterial,
   MeshPhongMaterial,
@@ -96,7 +95,7 @@ function getMaterialOptions({ entity }: TAnyMaterialWrapper): TOptional<TMateria
       emissiveIntensity: (entity as MeshLambertMaterial).emissiveIntensity,
       envMapIntensity: (entity as MeshStandardMaterial).envMapIntensity,
       envMapRotation: eulerToXyzIfPossible((entity as MeshPhongMaterial).envMapRotation),
-      farDistance: (entity as MeshDistanceMaterialParameters).farDistance,
+      // farDistance: (entity as MeshDistanceMaterialParameters).farDistance,
       flatShading: (entity as MeshStandardMaterial).flatShading,
       fog: (entity as MeshPhongMaterial).fog,
       forceSinglePass: entity.forceSinglePass,
@@ -109,7 +108,7 @@ function getMaterialOptions({ entity }: TAnyMaterialWrapper): TOptional<TMateria
       linewidth: (entity as LineDashedMaterial).linewidth,
       matcap: (entity as MeshMatcapMaterial).matcap,
       metalness: (entity as MeshStandardMaterial).metalness,
-      nearDistance: (entity as MeshDistanceMaterialParameters).nearDistance,
+      // nearDistance: (entity as MeshDistanceMaterialParameters).nearDistance,
       normalMapType: getOptionNameIfPossible((entity as MeshStandardMaterial).normalMapType, NormalMapTypesMap, 'normalMapType'),
       normalScale: vector2ToXyIfPossible((entity as MeshStandardMaterial).normalScale),
       opacity: entity.opacity,
@@ -118,7 +117,7 @@ function getMaterialOptions({ entity }: TAnyMaterialWrapper): TOptional<TMateria
       polygonOffsetUnits: entity.polygonOffsetUnits,
       precision: entity.precision,
       premultipliedAlpha: entity.premultipliedAlpha,
-      referencePosition: vector3ToXyzIfPossible((entity as MeshDistanceMaterialParameters).referencePosition),
+      // referencePosition: vector3ToXyzIfPossible((entity as MeshDistanceMaterialParameters).referencePosition),
       reflectivity: (entity as MeshPhysicalMaterial).reflectivity,
       refractionRatio: (entity as MeshBasicMaterial).refractionRatio,
       rotation: (entity as SpriteNodeMaterial).rotation,
