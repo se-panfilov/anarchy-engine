@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { isNotDefined } from '@Anarchy/Shared/Utils';
+import { vueTranslationService } from '@Showcases/i18n';
 import { NavDirection, NavStyle } from '@Showcases/Menu/components/Navigation/constants';
 import type { TVueNavOption } from '@Showcases/Menu/models';
-import { vueTranslationService } from '@Showcases/Menu/services';
 import { useRouterStore } from '@Showcases/Menu/stores/RouterStore';
 import type { ComputedRef, ShallowRef } from 'vue';
 import { computed } from 'vue';
