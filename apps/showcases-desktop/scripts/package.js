@@ -1,6 +1,8 @@
 import { loadModeEnv, parseBoolEnv, parseListEnv } from 'anarchy-shared/ScriptUtils/EnvUtils.js';
 import { normalizeMode, resolveDryRun, resolveMode } from 'anarchy-shared/ScriptUtils/ModeUtils.js';
 import { execSync } from 'node:child_process';
+import { mkdirSync, writeFileSync } from 'node:fs';
+import path from 'node:path';
 
 const argv = process.argv.slice(2);
 const mode = resolveMode(argv);
@@ -37,16 +39,35 @@ const envPlatforms = parseListEnv(process.env.PACK_PLATFORMS || process.env.PACK
 const envArchs = parseListEnv(process.env.PACK_ARCHS || process.env.PACK_ARCH);
 const envDir = parseBoolEnv(process.env.PACK_DIR, false);
 
+// Extract explicit target tokens (e.g., dmg, nsis, AppImage) from remaining CLI args
+const explicitTargets = cliArgs.filter((a) => !a.startsWith('-'));
+
+// Helper: parse platforms/archs from CLI flags
+const parsePlatformsFromCli = () => {
+  const out = [];
+  if (cliArgs.includes('--mac')) out.push('mac');
+  if (cliArgs.includes('--win')) out.push('win');
+  if (cliArgs.includes('--linux')) out.push('linux');
+  return out;
+};
+const parseArchsFromCli = () => {
+  const out = [];
+  if (cliArgs.includes('--x64')) out.push('x64');
+  if (cliArgs.includes('--arm64')) out.push('arm64');
+  if (cliArgs.includes('--universal')) out.push('universal');
+  return out;
+};
+
 // Final resolution with precedence: CLI > ENV > MODE > OS defaults
 const resolvedPlatforms = hasPlatformFlags
-  ? []
+  ? parsePlatformsFromCli()
   : envPlatforms.length > 0
     ? envPlatforms
     : modePlatform
       ? [modePlatform]
       : [process.platform === 'darwin' ? 'mac' : process.platform === 'win32' ? 'win' : 'linux'];
 
-const resolvedArchs = hasArchFlags ? [] : envArchs.length > 0 ? envArchs : modeArchs.length > 0 ? modeArchs : [process.arch === 'arm64' ? 'arm64' : 'x64'];
+const resolvedArchs = hasArchFlags ? parseArchsFromCli() : envArchs.length > 0 ? envArchs : modeArchs.length > 0 ? modeArchs : [process.arch === 'arm64' ? 'arm64' : 'x64'];
 
 const resolvedDir = hasDirFlag ? undefined : envDir; // undefined means don't add any flag; true -> add --dir
 
@@ -74,6 +95,39 @@ if (!dryRun) cleanCmd = 'npm run clean:prebuild && ';
 
 // Prebuild for the selected mode
 run(`${cleanCmd}node ./scripts/prebuild.js --mode=${mode}${dryRun ? ' --dry-run' : ''}`);
+
+// === Write dist-info.json early for downstream tools (e.g., Sentry sourcemaps) ===
+try {
+  // Resolve output directory from electron-builder config default ("dist") relative to this workspace
+  const outDir = path.resolve(process.cwd(), 'dist');
+  mkdirSync(outDir, { recursive: true });
+
+  // Use the resolved sets (include CLI flags if present)
+  const platforms = resolvedPlatforms;
+  const archs = resolvedArchs;
+
+  const installers = explicitTargets.length > 0 ? explicitTargets : resolvedDir ? ['dir'] : [];
+
+  const primaryPlatform = platforms[0];
+  const primaryArch = archs[0];
+  const distName = `${primaryPlatform}-${primaryArch}`;
+
+  const info = {
+    mode,
+    platforms,
+    archs,
+    installers,
+    platform: primaryPlatform,
+    arch: primaryArch,
+    distName
+  };
+
+  const infoPath = path.join(outDir, 'dist-info.json');
+  writeFileSync(infoPath, JSON.stringify(info, null, 2));
+  console.log(`[package] wrote ${path.relative(process.cwd(), infoPath)} → ${distName}`);
+} catch (err) {
+  console.warn('[package] WARN: failed to write dist-info.json', err);
+}
 
 // Package with electron-builder and merged args
 const ebCmd = `npm run build:electron -- ${ebArgs}`.trim();
