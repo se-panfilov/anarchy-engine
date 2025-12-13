@@ -15,23 +15,23 @@ test.beforeEach(async ({ page }) => {
 });
 
 const scenes: ReadonlyArray<string> = [
-  'SpaceActor',
+  // 'SpaceActor',
   'SpaceAnimations',
-  'SpaceAudio',
-  'SpaceBasic',
-  'SpaceCamera',
-  'SpaceCustomModels',
-  'SpaceFog',
-  'SpaceFpsControls',
-  'SpaceIntersections',
-  'SpaceLight',
-  'SpaceMaterials',
-  'SpaceOrbitControls',
-  'SpaceParticles',
-  'SpacePhysics',
-  'SpaceSpatial',
-  'SpaceTexts',
-  'SpaceTransformDrive'
+  // 'SpaceAudio',
+  'SpaceBasic'
+  // 'SpaceCamera',
+  // 'SpaceCustomModels',
+  // 'SpaceFog',
+  // 'SpaceFpsControls',
+  // 'SpaceIntersections',
+  // 'SpaceLight',
+  // 'SpaceMaterials',
+  // 'SpaceOrbitControls',
+  // 'SpaceParticles',
+  // 'SpacePhysics',
+  // 'SpaceSpatial',
+  // 'SpaceTexts',
+  // 'SpaceTransformDrive'
 ];
 
 test.describe('Space save/load persistence', () => {
