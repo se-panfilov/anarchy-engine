@@ -109,8 +109,6 @@ export function onlyLightShadowToConfig<T extends TLight>(
   const shadow: TLightShadowParams | TDirectionalLightShadowParams | undefined = lightConfig.shadow;
   if (isNotDefined(shadow)) return {};
 
-  console.log('XXX shadow', shadow.camera);
-
   return filterOutEmptyFields({
     shadow: {
       ...shadow,
