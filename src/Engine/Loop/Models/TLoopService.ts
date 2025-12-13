@@ -1,17 +1,10 @@
-// import type { BehaviorSubject } from 'rxjs';
-
-import type { TAbstractReadonlyLoopServiceWith } from '@/Engine/Abstract';
+import type { TMilliseconds } from '@/Engine/Math';
 import type { TDestroyable } from '@/Engine/Mixins';
 
-import type { TDelta } from './TDelta';
+import type { TLoop } from './TLoop';
 
-export type TLoopService = TAbstractReadonlyLoopServiceWith<TDelta> &
-  Readonly<{
-    start: () => void;
-    stop: () => void;
-    setBeforeEveryTick: (fn: (times: TDelta) => void) => void;
-    isLooping: () => boolean;
-    // setBeforeEveryTick: (fn: (times: TDelta) => void) => void;
-    // enabled$: BehaviorSubject<boolean>;
-  }> &
+export type TLoopService = Readonly<{
+  createRenderLoop: () => TLoop;
+  createIntervalLoop: (interval: TMilliseconds) => TLoop;
+}> &
   TDestroyable;
