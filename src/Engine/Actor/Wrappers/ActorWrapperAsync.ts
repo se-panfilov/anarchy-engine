@@ -2,6 +2,7 @@ import type { Subscription } from 'rxjs';
 
 import { AbstractWrapper, WrapperType } from '@/Engine/Abstract';
 import type { TActorDependencies, TActorParams, TActorWrapperAsync } from '@/Engine/Actor/Models';
+import { withSpatialCell } from '@/Engine/Collisions/Mixins';
 import { withKinematic } from '@/Engine/Kinematic';
 import type { TWithMaterial } from '@/Engine/Material';
 import { withMaterial } from '@/Engine/Material';
@@ -28,6 +29,7 @@ export async function ActorWrapperAsync(params: TActorParams, { materialTextureS
     ...withMaterialEntity,
     ...withTextures(withMaterialEntity, materialTextureService),
     ...withKinematic(params),
+    ...withSpatialCell(),
     entity
   };
 

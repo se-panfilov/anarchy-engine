@@ -1,49 +1,58 @@
 import RBush from 'rbush';
-import type { Object3D, Scene } from 'three';
-import { Box3, Box3Helper, Vector3 } from 'three';
+import { BoxGeometry, Mesh, MeshBasicMaterial } from 'three';
 
-import type { TBoundingBox, TSpatialGridService } from '@/Engine/Collisions/Models';
+import type { TActorWrapperAsync } from '@/Engine/Actor';
+import type { TSpatialCell, TSpatialGridService } from '@/Engine/Collisions/Models';
+import type { TSceneWrapper } from '@/Engine/Scene';
+import { isNotDefined } from '@/Engine/Utils';
 
+// TODO (S.Panfilov) CWP we need factories and registries for trees, perhaps.
 export function SpatialGridService(): TSpatialGridService {
-  const spatialGrid = new RBush<TBoundingBox>();
-
-  function toBoundingBox(object: Object3D): TBoundingBox {
-    const box: Box3 = new Box3().setFromObject(object);
-    return {
-      minX: box.min.x,
-      minY: box.min.y,
-      minZ: box.min.z,
-      maxX: box.max.x,
-      maxY: box.max.y,
-      maxZ: box.max.z,
-      object: object
-    };
+  function createBoundingBox(minX: number, minY: number, maxX: number, maxY: number): Mesh {
+    const geometry: BoxGeometry = new BoxGeometry(maxX - minX, 1, maxY - minY);
+    const material: MeshBasicMaterial = new MeshBasicMaterial({ color: 0x00ff00, wireframe: true });
+    const box: Mesh = new Mesh(geometry, material);
+    box.position.set((minX + maxX) / 2, 0.5, (minY + maxY) / 2);
+    return box;
   }
 
-  const addObjectToGrid = (object: Object3D): void => void spatialGrid.insert(toBoundingBox(object));
-
-  const removeObjectFromGrid = (object: Object3D): void => void spatialGrid.remove(toBoundingBox(object), (a, b): boolean => a.object === b.object);
-
-  function updateObjectInGrid(object: Object3D): void {
-    removeObjectFromGrid(object);
-    addObjectToGrid(object);
-  }
-
-  function visualizeRBush(grid: RBush<TBoundingBox>, scene: Scene): void {
-    const items = grid.all();
-    items.forEach((item): void => {
-      const box: Box3 = new Box3(new Vector3(item.minX, item.minY, item.minZ), new Vector3(item.maxX, item.maxY, item.maxZ));
-
-      const helper: Box3Helper = new Box3Helper(box, 0xffff00);
-      scene.add(helper);
+  //this visualization is for debugging purposes only
+  function visualizeSpatialCells(tree: RBush<TSpatialCell>, scene: TSceneWrapper): void {
+    tree.all().forEach((cell: TSpatialCell): void => {
+      const box: Mesh = createBoundingBox(cell.minX, cell.minY, cell.maxX, cell.maxY);
+      scene.entity.add(box);
     });
   }
 
+  function addObjectToSpatialCell(x: number, y: number, object: TActorWrapperAsync, tree: RBush<TSpatialCell>): void {
+    const cells: ReadonlyArray<TSpatialCell> = tree.search({ minX: x, minY: y, maxX: x, maxY: y });
+    // eslint-disable-next-line functional/no-loop-statements
+    for (const cell of cells) {
+      if (isNotDefined(cell.objects.find((o: TActorWrapperAsync): boolean => o.id === object.id))) {
+        // eslint-disable-next-line functional/immutable-data
+        cell.objects.push(object);
+      }
+    }
+  }
+
+  function createSpatialGrid(mapWidth: number, mapHeight: number, cellSize: number): RBush<TSpatialCell> {
+    const tree: RBush<TSpatialCell> = new RBush();
+
+    // eslint-disable-next-line functional/no-loop-statements
+    for (let x: number = 0; x < mapWidth; x += cellSize) {
+      // eslint-disable-next-line functional/no-loop-statements
+      for (let y: number = 0; y < mapHeight; y += cellSize) {
+        const cell: TSpatialCell = { minX: x, minY: y, maxX: x + cellSize, maxY: y + cellSize, objects: [] };
+        tree.insert(cell);
+      }
+    }
+
+    return tree;
+  }
+
   return {
-    addObjectToGrid,
-    removeObjectFromGrid,
-    updateObjectInGrid,
-    visualizeRBush,
-    getSpatialGrid: (): RBush<TBoundingBox> => spatialGrid
+    createSpatialGrid,
+    addObjectToSpatialCell,
+    visualizeSpatialCells
   };
 }
