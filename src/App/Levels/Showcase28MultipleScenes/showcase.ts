@@ -1,8 +1,8 @@
 import { combineLatest, Observable, Subscription } from 'rxjs';
-import { Clock } from 'three';
+import { Clock, Vector3 } from 'three';
 
 import { moveByCircle } from '@/App/Levels/Utils/MoveUtils';
-import type { TActor, TActorRegistry, TKeyboardPressingEvent, TSpace, TSpaceConfig, TSpaceServices } from '@/Engine';
+import type { TActor, TActorRegistry, TKeyboardPressingEvent, TOrbitControlsWrapper, TSpace, TSpaceConfig, TSpaceServices } from '@/Engine';
 import { asRecord, createDomElement, isDefined, isNotDefined, KeyCode, metersPerSecond, mpsSpeed, spaceService } from '@/Engine';
 
 import spaceAlphaConfigJson from './spaceAlpha.json';
@@ -105,7 +105,10 @@ export function runAlpha(space: TSpace): void {
 export function runBeta(space: TSpace): void {
   moveByCircle('box_actor', space.services.actorService, space.loops.transformLoop, new Clock());
   space.start$.next(true);
+  const controls: TOrbitControlsWrapper | undefined = space.services.controlsService.findActive() as TOrbitControlsWrapper | undefined;
+  if (isDefined(controls)) controls.setTarget(new Vector3(0, 0, 0));
 }
+
 export function runGamma(space: TSpace): void {
   moveByCircle('box_actor', space.services.actorService, space.loops.transformLoop, new Clock());
   space.start$.next(true);
