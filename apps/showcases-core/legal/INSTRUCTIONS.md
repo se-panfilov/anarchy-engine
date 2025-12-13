@@ -10,7 +10,7 @@
 
 ## 1) What this Software is
 
-- Software: (high-level, non-marketing description).
+- Software: Interactive entertainment software (videogame) and its platform-specific client applications, intended for personal use in non-safety-critical environments. Operates offline by default; any online features, if offered, are optional. No personal data collection by the client..
 - Works **offline** by design. Any optional online features (if present) are **opt-in** and described in the **Privacy Policy**.
 
 ---

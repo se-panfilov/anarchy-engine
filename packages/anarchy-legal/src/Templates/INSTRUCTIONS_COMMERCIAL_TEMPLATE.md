@@ -20,7 +20,7 @@
 
 ## 1) What this {{PRODUCT_TERM}} is
 
-- {{PRODUCT_TERM}}: {{PRODUCT_SHORT_PURPOSE}} (high-level, non-marketing description).
+- {{PRODUCT_TERM}}: {{PRODUCT_SHORT_PURPOSE}}.
 - Works **offline** by design. Any optional online features (if present) are **opt-in** and described in the **Privacy Policy**.
 
 {{#SUPPORTED_PLATFORMS}}
