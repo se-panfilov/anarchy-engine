@@ -5698,6 +5698,12 @@
         "rotation": {
           "$ref": "#/definitions/TEulerLike"
         },
+        "angularVelocity": {
+          "$ref": "#/definitions/Vector3Like"
+        },
+        "linearVelocity": {
+          "$ref": "#/definitions/Vector3Like"
+        },
         "collisionGroups": {
           "type": "number"
         },
@@ -5706,6 +5712,12 @@
         },
         "friction": {
           "type": "number"
+        },
+        "gravityScale": {
+          "type": "number"
+        },
+        "isSensor": {
+          "type": "boolean"
         },
         "isSleep": {
           "type": "boolean"
@@ -5718,6 +5730,9 @@
         },
         "shapeParams": {
           "$ref": "#/definitions/TPhysicsShapeParams"
+        },
+        "solverGroups": {
+          "type": "number"
         },
         "type": {
           "$ref": "#/definitions/RigidBodyTypesNames"
