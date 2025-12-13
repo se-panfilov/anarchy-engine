@@ -43,11 +43,10 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
         tags: [...actorTemplate.tags, String(easing)]
       });
 
-      // TODO (S.Panfilov) add font size
       textFactory.create({
         text: String(easing),
-        fontSize: 1,
-        position: Vector3Wrapper({ x: -30, y: 2, z: positionZ - 0.5 + gap * i }),
+        fontSize: 1.2,
+        position: Vector3Wrapper({ x: -32, y: 2, z: positionZ - 1 + gap * i }),
         rotation: EulerWrapper({ x: -1.57, y: 0, z: 0 }),
         tags: [...actorTemplate.tags, String(easing)]
       });
