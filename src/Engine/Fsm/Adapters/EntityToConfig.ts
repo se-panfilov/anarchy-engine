@@ -11,5 +11,5 @@ export function fsmToConfig(entity: TFsmWrapper): TFsmConfig {
     type: entity.type,
     strategy: entity.strategy$.value,
     ...extractSerializableRegistrableFields(entity)
-  }) as any;
+  });
 }
