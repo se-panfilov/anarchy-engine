@@ -8,5 +8,4 @@ export * from './IAbstractWrapperFactory';
 export * from './ICreateFN';
 export * from './IDestroyableFactory';
 export * from './IDestroyableFromConfigFactory';
-export * from './IFactory';
 export * from './IWrapper';

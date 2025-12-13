@@ -6,7 +6,7 @@ import { ControlsRegistry } from '@Engine/Domains/Controls';
 import type { ILightWrapper } from '@Engine/Domains/Light';
 import { LightRegistry } from '@Engine/Domains/Light';
 import type { ISceneWrapper } from '@Engine/Domains/Scene';
-import { DestroyablePool } from '@Engine/Pool/DestroyablePool';
+import { DestroyablePool } from '@Engine/Pool/Mixins/DestroyablePool';
 import { IntersectionsWatcherRegistry, MouseClicksWatcherRegistry, MousePositionWatcherRegistry, ScreenSizeWatcherRegistry } from '@Engine/Registries';
 import { isNotDefined } from '@Engine/Utils';
 

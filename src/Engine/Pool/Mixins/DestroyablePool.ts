@@ -2,7 +2,7 @@ import type { IDestroyable } from '@Engine/Mixins';
 import { AbstractPool } from '@Engine/Pool/AbstractPool';
 import { cleanObject, isNotDefined } from '@Engine/Utils';
 
-import type { IDestroyablePool } from './Models';
+import type { IDestroyablePool } from '../Models';
 
 export function DestroyablePool<T extends Record<string, IDestroyable>>(pool: T): IDestroyablePool<T> {
   const destroyablePool: IDestroyablePool<T> = { ...AbstractPool<T>(pool), destroy };
