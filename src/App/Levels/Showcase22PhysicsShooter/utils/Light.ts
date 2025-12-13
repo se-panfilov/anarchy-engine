@@ -5,7 +5,7 @@ import type { TDirectionalLightWrapper, TLightService, TPointLightWrapper } from
 import { isNotDefined, LightType } from '@/Engine';
 
 export function initLight(lightService: TLightService): void {
-  const directionalLight: TDirectionalLightWrapper | undefined = lightService.getRegistry().findByTag('directional') as TDirectionalLightWrapper | undefined;
+  const directionalLight: TDirectionalLightWrapper | undefined = lightService.getRegistry().findByName('directional_light') as TDirectionalLightWrapper | undefined;
   if (isNotDefined(directionalLight)) throw new Error(`Cannot find "directional_light" light`);
   const directionalLightHelper: DirectionalLightHelper = new DirectionalLightHelper(directionalLight.entity, 3);
   const directionalLightCameraHelper: CameraHelper = new CameraHelper(directionalLight.entity.shadow.camera);
