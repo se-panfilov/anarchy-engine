@@ -7,9 +7,10 @@ export const sizes = {
   height: window.innerHeight
 };
 
-export const camera = new PerspectiveCamera(VERTICAL_FIELD_OF_VIEW, sizes.width / sizes.height);
+export const camera = new PerspectiveCamera(VERTICAL_FIELD_OF_VIEW, sizes.width / sizes.height, 1, 10000);
 
 camera.position.set(3, 2, 15);
+camera.lookAt(0, 0, 0);
 
 // const cameraPosPane = pane.addFolder({
 //   title: 'Camera Position',
@@ -30,5 +31,3 @@ camera.position.set(3, 2, 15);
 // cameraRotationPane.addInput(camera.rotation, 'z', { min: 0, max: 360, step: 0.1 });
 
 // cameraPosPane.addInput(camera, 'fov', { min: 0, max: 2000, step: 1 });
-
-console.log(camera);
