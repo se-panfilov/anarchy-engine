@@ -8,7 +8,8 @@ const baseConfig = {
   tsconfig: './tsconfig.json',
   type: '*', // Or <type-name> if you want to generate schema for that one type only,
   topRef: false,
-  minify: isMinify ?? false
+  minify: isMinify ?? false,
+  noTypeCheck: true
 };
 
 function generate(config) {
