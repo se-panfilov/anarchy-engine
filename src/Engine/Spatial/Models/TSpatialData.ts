@@ -1,10 +1,10 @@
-import type { SpatialUpdatePriority } from '@/Engine/Spatial/Constants';
+import type { LoopUpdatePriority } from '@/Engine/Loop';
 
 import type { TSpatialCellWrapper } from './TSpatialCellWrapper';
 import type { TSpatialGridWrapper } from './TSpatialGridWrapper';
 
 export type TSpatialData = Readonly<{
-  updatePriority: SpatialUpdatePriority;
+  updatePriority: LoopUpdatePriority;
   grid: TSpatialGridWrapper | undefined;
   cells: ReadonlyArray<TSpatialCellWrapper>;
 }>;

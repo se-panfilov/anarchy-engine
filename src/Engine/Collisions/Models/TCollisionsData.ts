@@ -1,5 +1,5 @@
-import type { CollisionsUpdatePriority } from '@/Engine/Collisions/Constants';
+import type { LoopUpdatePriority } from '@/Engine/Loop';
 
 export type TCollisionsData = Readonly<{
-  updatePriority: CollisionsUpdatePriority;
+  updatePriority: LoopUpdatePriority;
 }>;

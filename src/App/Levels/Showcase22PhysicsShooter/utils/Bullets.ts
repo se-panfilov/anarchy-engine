@@ -27,7 +27,7 @@ import type {
   TSpatialGridService,
   TSpatialGridWrapper
 } from '@/Engine';
-import { getTags, isDefined, isNotDefined, MaterialType, metersPerSecond, mpsSpeed, PrimitiveModel3dType, SpatialUpdatePriority, TransformAgent } from '@/Engine';
+import { getTags, isDefined, isNotDefined, LoopUpdatePriority, MaterialType, metersPerSecond, mpsSpeed, PrimitiveModel3dType, TransformAgent } from '@/Engine';
 import { meters } from '@/Engine/Measurements/Utils';
 
 export const BULLET_TAG = 'bullet';
@@ -86,7 +86,7 @@ export function getBulletsPool(
           position: new Vector3(),
           rotation: new Euler(0, 1.57, 0),
           agent: TransformAgent.Kinematic,
-          spatial: { grid, isAutoUpdate: true, updatePriority: SpatialUpdatePriority.ASAP },
+          spatial: { grid, isAutoUpdate: true, updatePriority: LoopUpdatePriority.ASAP },
           collisions: { isAutoUpdate: true },
           kinematic: {
             state: {

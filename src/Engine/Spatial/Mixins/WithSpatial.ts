@@ -2,10 +2,10 @@ import type { Subscription } from 'rxjs';
 import { BehaviorSubject, Subject } from 'rxjs';
 
 import type { TActorParams } from '@/Engine/Actor';
+import { LoopUpdatePriority } from '@/Engine/Loop';
 import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
 import type { TSpatialCellWrapper, TSpatialGridWrapper } from '@/Engine/Spatial';
-import { SpatialUpdatePriority } from '@/Engine/Spatial';
 import type { TSpatialData, TWithSpatial } from '@/Engine/Spatial/Models';
 import type { TWriteable } from '@/Engine/Utils';
 
@@ -18,7 +18,7 @@ export function withSpatial(params: TActorParams): TWithSpatial {
   const result: TWithSpatial = {
     spatial: {
       data: {
-        updatePriority: params.spatial.updatePriority ?? SpatialUpdatePriority.LOW,
+        updatePriority: params.spatial.updatePriority ?? LoopUpdatePriority.LOW,
         grid: params.spatial.grid || undefined,
         cells: []
       },
@@ -29,11 +29,11 @@ export function withSpatial(params: TActorParams): TWithSpatial {
       getData(): TSpatialData {
         return this.data;
       },
-      setSpatialUpdatePriority(value: SpatialUpdatePriority): void {
+      setSpatialUpdatePriority(value: LoopUpdatePriority): void {
         // eslint-disable-next-line functional/immutable-data
         (this.data as TWriteable<TSpatialData>).updatePriority = value;
       },
-      getSpatialUpdatePriority(): SpatialUpdatePriority {
+      getSpatialUpdatePriority(): LoopUpdatePriority {
         return this.data.updatePriority;
       },
       setGrid(grid: TSpatialGridWrapper): void {

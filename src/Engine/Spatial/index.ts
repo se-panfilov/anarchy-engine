@@ -1,5 +1,4 @@
 export * from './Adapters';
-export * from './Constants';
 export * from './Factories';
 export * from './Mixins';
 export type * from './Models';

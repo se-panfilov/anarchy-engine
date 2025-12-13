@@ -1125,12 +1125,12 @@
           "type": "string"
         },
         "updatePriority": {
-          "$ref": "#/definitions/SpatialUpdatePriority"
+          "$ref": "#/definitions/LoopUpdatePriority"
         }
       },
       "required": ["grid", "isAutoUpdate"]
     },
-    "SpatialUpdatePriority": {
+    "LoopUpdatePriority": {
       "type": "number",
       "enum": [5, 4, 3, 2, 1, 0]
     },
@@ -1142,14 +1142,10 @@
           "type": "boolean"
         },
         "updatePriority": {
-          "$ref": "#/definitions/CollisionsUpdatePriority"
+          "$ref": "#/definitions/LoopUpdatePriority"
         }
       },
       "required": ["isAutoUpdate"]
-    },
-    "CollisionsUpdatePriority": {
-      "type": "number",
-      "enum": [5, 4, 3, 2, 1, 0]
     },
     "TActorModel3dSettingsConfig": {
       "type": "object",

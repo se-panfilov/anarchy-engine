@@ -1,4 +1,4 @@
-export enum CollisionsUpdatePriority {
+export enum LoopUpdatePriority {
   ASAP = 5, //e.g. fast bullets
   HIGH = 4, // e.g. slow bullets (rockets, etc), or vehicles
   MEDIUM = 3, // e.g. player & NPCs

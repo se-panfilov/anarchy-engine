@@ -2,8 +2,8 @@ import type { Observable, Subscription } from 'rxjs';
 import { BehaviorSubject, EMPTY, filter, Subject, switchMap, withLatestFrom } from 'rxjs';
 
 import type { TActor, TActorParams } from '@/Engine/Actor';
-import { CollisionsUpdatePriority } from '@/Engine/Collisions/Constants';
 import type { TCollisionCheckResult, TCollisionsData, TCollisionsLoop, TCollisionsService, TWithCollisions } from '@/Engine/Collisions/Models';
+import { LoopUpdatePriority } from '@/Engine/Loop';
 import type { TMilliseconds } from '@/Engine/Math';
 import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
@@ -44,7 +44,7 @@ export function withCollisions(params: TActorParams, collisionsService: TCollisi
   return {
     collisions: {
       data: {
-        updatePriority: params.collisions?.updatePriority ?? CollisionsUpdatePriority.LOW
+        updatePriority: params.collisions?.updatePriority ?? LoopUpdatePriority.LOW
       },
       start(actor: TActor): void {
         const collisionsInterpolationLengthMultiplier: number = 4;
@@ -52,9 +52,9 @@ export function withCollisions(params: TActorParams, collisionsService: TCollisi
           .pipe(
             switchMap((isAutoUpdate: boolean): Subject<TMilliseconds> | Observable<never> => (isAutoUpdate ? collisionsLoop.tick$ : EMPTY)),
             withLatestFrom(collisionsLoop.priority$),
-            filter(([, priority]: [TMilliseconds, CollisionsUpdatePriority]): boolean => priority >= this.getCollisionsUpdatePriority())
+            filter(([, priority]: [TMilliseconds, LoopUpdatePriority]): boolean => priority >= this.getCollisionsUpdatePriority())
           )
-          .subscribe(([delta]: [TMilliseconds, CollisionsUpdatePriority]): void => {
+          .subscribe(([delta]: [TMilliseconds, LoopUpdatePriority]): void => {
             // TODO should be possible to check collisions against another grid
             const collision: TCollisionCheckResult | undefined = collisionsService.checkCollisions(actor, getActorsToCheck(actor), collisionsInterpolationLengthMultiplier, delta);
             if (isDefined(collision)) value$.next(collision);
@@ -66,14 +66,14 @@ export function withCollisions(params: TActorParams, collisionsService: TCollisi
       getData(): TCollisionsData {
         return this.data;
       },
-      setCollisionsUpdatePriority(value: CollisionsUpdatePriority): void {
+      setCollisionsUpdatePriority(value: LoopUpdatePriority): void {
         // eslint-disable-next-line functional/immutable-data
         (this.data as TWriteable<TCollisionsData>).updatePriority = value;
       },
       setCollisionsFilterFn(fn: (actor: TActor) => boolean): void {
         filterFn = fn;
       },
-      getCollisionsUpdatePriority(): CollisionsUpdatePriority {
+      getCollisionsUpdatePriority(): LoopUpdatePriority {
         return this.data.updatePriority;
       },
       ...destroyable,

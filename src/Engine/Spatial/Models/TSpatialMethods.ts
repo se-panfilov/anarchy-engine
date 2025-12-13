@@ -1,12 +1,12 @@
-import type { SpatialUpdatePriority } from '@/Engine/Spatial/Constants';
+import type { LoopUpdatePriority } from '@/Engine/Loop';
 
 import type { TSpatialCellWrapper } from './TSpatialCellWrapper';
 import type { TSpatialData } from './TSpatialData';
 import type { TSpatialGridWrapper } from './TSpatialGridWrapper';
 
 export type TSpatialMethods = Readonly<{
-  setSpatialUpdatePriority: (priority: SpatialUpdatePriority) => void;
-  getSpatialUpdatePriority: () => SpatialUpdatePriority;
+  setSpatialUpdatePriority: (priority: LoopUpdatePriority) => void;
+  getSpatialUpdatePriority: () => LoopUpdatePriority;
   setData: (data: TSpatialData) => void;
   getData: () => TSpatialData;
   setGrid: (grid: TSpatialGridWrapper) => void;

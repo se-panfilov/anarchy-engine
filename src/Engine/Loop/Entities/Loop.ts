@@ -2,8 +2,7 @@ import { nanoid } from 'nanoid';
 import type { Observable, Subscription } from 'rxjs';
 import { BehaviorSubject, distinctUntilChanged, EMPTY, Subject, switchMap, takeWhile, withLatestFrom } from 'rxjs';
 
-import { CollisionsUpdatePriority } from '@/Engine';
-import { LoopTrigger } from '@/Engine/Loop/Constants';
+import { LoopTrigger, LoopUpdatePriority } from '@/Engine/Loop/Constants';
 import type { TDelta, TDeltaCalculator, TLoop, TLoopParams, TLoopTriggerFn } from '@/Engine/Loop/Models';
 import { enableFPSCounter } from '@/Engine/Loop/Utils';
 import type { TMilliseconds } from '@/Engine/Math';
@@ -18,7 +17,7 @@ export function Loop({ name, type, trigger, showDebugInfo, maxPriority }: TLoopP
   const id: string = `${nanoid()}_${type}`;
   const enabled$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   const tick$: Subject<TDelta> = new Subject<TDelta>();
-  const initialPriority: number = maxPriority ?? CollisionsUpdatePriority.ASAP;
+  const initialPriority: number = maxPriority ?? LoopUpdatePriority.ASAP;
   const priority$: BehaviorSubject<number> = new BehaviorSubject<number>(initialPriority);
 
   const isTriggerFn: boolean = typeof trigger === 'function';
