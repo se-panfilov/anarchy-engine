@@ -1,5 +1,5 @@
 import type { IAbstractWatcher } from '@Engine/Domains/Abstract';
-import { AbstractWatcher } from '@Engine/Domains/Abstract';
+import { AbstractWatcher, WatcherType } from '@Engine/Domains/Abstract';
 import type { IActorWrapper } from '@Engine/Domains/Actor';
 import type { ICameraWrapper } from '@Engine/Domains/Camera';
 import type { IMousePosition } from '@Engine/Domains/Mouse';
@@ -11,7 +11,7 @@ import { Raycaster } from 'three';
 import type { IIntersectionsWatcher, IIntersectionsWatcherParams } from '@/Engine/Domains/Intersections/Models';
 
 export function IntersectionsWatcher({ actors, camera, positionWatcher, tags = [] }: IIntersectionsWatcherParams): IIntersectionsWatcher {
-  const abstractWatcher: IAbstractWatcher<IVector3> = AbstractWatcher('intersection_watcher', tags);
+  const abstractWatcher: IAbstractWatcher<IVector3> = AbstractWatcher(WatcherType.IntersectionWatcher, tags);
   let raycaster: Readonly<Raycaster> | undefined = new Raycaster();
 
   function start(): IIntersectionsWatcher {
