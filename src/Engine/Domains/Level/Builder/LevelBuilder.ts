@@ -5,9 +5,8 @@ import type { ILoopFactory, ILoopRegistry, ILoopWrapper } from '@Engine/Domains/
 import { LoopFactory, LoopRegistry, LoopTag } from '@Engine/Domains/Loop';
 import type { IRendererFactory, IRendererRegistry, IRendererWrapper } from '@Engine/Domains/Renderer';
 import { RendererFactory, RendererModes, RendererRegistry, RendererTag } from '@Engine/Domains/Renderer';
-import type { ILevelConfig, ISceneWrapper } from '@Engine/Domains/Scene';
+import type { ISceneWrapper } from '@Engine/Domains/Scene';
 import { SceneFactory } from '@Engine/Domains/Scene';
-import type { ILevel } from '@Engine/Launcher';
 import { isNotDefined, isValidLevelConfig } from '@Engine/Utils';
 import { Subject } from 'rxjs';
 
@@ -17,6 +16,8 @@ import type { IControlsConfig, IControlsFactory, IControlsRegistry, IOrbitContro
 import { ControlsFactory, ControlsRegistry } from '@/Engine/Domains/Controls';
 import type { ILightConfig, ILightFactory, ILightRegistry, ILightWrapper } from '@/Engine/Domains/Light';
 import { LightFactory, LightRegistry } from '@/Engine/Domains/Light';
+
+import type { ILevel, ILevelConfig } from '../Models';
 
 // TODO (S.Panfilov) CWP All factorKies should be self-registrable
 // TODO (S.Panfilov) Registries' destroy() should kill all registered instances

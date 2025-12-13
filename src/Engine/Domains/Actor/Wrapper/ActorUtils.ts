@@ -1,10 +1,12 @@
-import { Mesh, MeshToonMaterial, PlaneGeometry, SphereGeometry } from 'three';
+import { BoxGeometry, Mesh, MeshToonMaterial, PlaneGeometry, SphereGeometry } from 'three';
 
+import { ActorType } from '../Constants';
 import type { IActorParams, IMesh } from '../Models';
 
 export function createActor(params: IActorParams): IMesh | never {
-  if (params.type === 'plane') return createPlane(params);
-  if (params.type === 'sphere') return createSphere(params);
+  if (params.type === ActorType.plane) return createPlane(params);
+  if (params.type === ActorType.sphere) return createSphere(params);
+  if (params.type === ActorType.cube) return createCube(params);
   throw new Error('Cannot create Actor: unknown actor type');
 }
 
@@ -24,6 +26,16 @@ function createPlane({ width, height, widthSegments, heightSegments, materialPar
 function createSphere({ radius, widthSegments, heightSegments, materialParams, position, castShadow }: IActorParams): IMesh {
   // const sphere = new Mesh(new SphereGeometry(1, 32, 32), new MeshToonMaterial({ color: new Color('#5EDCAE') }));
   const sphere = new Mesh(new SphereGeometry(radius, widthSegments, heightSegments), new MeshToonMaterial(materialParams));
+  sphere.position.set(position.x, position.y, position.z);
+  // eslint-disable-next-line functional/immutable-data
+  sphere.castShadow = castShadow;
+
+  return sphere;
+}
+
+function createCube({ width, height, depth, widthSegments, heightSegments, depthSegments, materialParams, position, castShadow }: IActorParams): IMesh {
+  // const sphere = new Mesh(new SphereGeometry(1, 32, 32), new MeshToonMaterial({ color: new Color('#5EDCAE') }));
+  const sphere = new Mesh(new BoxGeometry(width, height, depth, widthSegments, heightSegments, depthSegments), new MeshToonMaterial(materialParams));
   sphere.position.set(position.x, position.y, position.z);
   // eslint-disable-next-line functional/immutable-data
   sphere.castShadow = castShadow;

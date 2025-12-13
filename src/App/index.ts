@@ -4,8 +4,8 @@ import levelConfig from '@App/Levels/debug-level.config.json';
 import type { IIntersectionsWatcher } from '@Engine/Domains/Intersections';
 import { IntersectionsWatcherFactory } from '@Engine/Domains/Intersections';
 
-import type { IActorWrapper, IAppCanvas, ICameraWrapper, ILevel, ILevelConfig, ILoopWrapper, IVector3 } from '@/Engine';
-import { ActorTag, ambientContext, buildLevelFromConfig, CameraTag, isNotDefined, LoopTag } from '@/Engine';
+import type { IActorParams, IActorWrapper, IAppCanvas, ICameraWrapper, ILevel, ILevelConfig, ILoopWrapper, IVector3 } from '@/Engine';
+import { ActorTag, ActorType, ambientContext, buildLevelFromConfig, CameraTag, isNotDefined, LoopTag, Vector3Wrapper } from '@/Engine';
 
 const canvas: IAppCanvas | null = ambientContext.container.getCanvasElement('#app');
 if (isNotDefined(canvas)) throw new Error('Canvas is not defined');
@@ -25,7 +25,7 @@ intersectionsWatcher.value$.subscribe((obj: IVector3): void => {
 
 intersectionsWatcher.start();
 
-// TODO (S.Panfilov) experiments with animations
+// START Experiment1: animations ---------------
 const actor = level.actor.registry.initial.getAllWithSomeTag([ActorTag.Intersectable])[0];
 actor.setY(2);
 const loop: ILoopWrapper | undefined = level.loop.registry.initial.getUniqByTag(LoopTag.Main);
@@ -41,7 +41,16 @@ function moveActor(): void {
 }
 
 moveActor();
-// TODO (S.Panfilov) END experiments with animations
+// END Experiment1: animations ---------------
+
+// START Experiment1: animations ---------------
+level.actor.factory.initial.create({
+  type: ActorType.cube,
+  position: Vector3Wrapper({ x: 2, y: 2, z: 2 }).entity,
+  castShadow: true,
+  tags: [ActorTag.Intersectable]
+} satisfies IActorParams);
+// END Experiment1: animations ---------------
 
 ambientContext.mouseClicksWatcher.value$.subscribe((): void => {
   console.log('int click:');

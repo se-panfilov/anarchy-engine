@@ -1,3 +1,3 @@
-export enum SceneTag {
+export enum LevelTag {
   BuildIn = 'build-in'
 }

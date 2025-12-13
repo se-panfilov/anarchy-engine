@@ -20,11 +20,11 @@ function writeSchema(outputPath, schemaString) {
   });
 }
 
-function generateSceneConfigSchema() {
-  const config = { ...baseConfig, path: './src/Engine/Launcher/Models/ISceneConfig.ts' };
+function generateLevelConfigSchema() {
+  const config = { ...baseConfig, path: './src/Engine/Domains/Level/Models/ILevelConfig.ts' };
   const schemaString = generate(config);
   const outputPath = './src/Engine/Schemas/ISceneConfig.json';
   writeSchema(outputPath, schemaString);
 }
 
-generateSceneConfigSchema();
+generateLevelConfigSchema();
