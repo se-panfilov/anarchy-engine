@@ -100,7 +100,7 @@ export function startIntersections({ actorService, cameraService, intersectionsW
   const boxActor: TActor | undefined = actorService.getRegistry().findByName('box_actor');
   if (isNotDefined(boxActor)) throw new Error('Actor is not defined');
 
-  return intersectionsWatcherService.create({ actors: [surfaceActor, boxActor], camera, isAutoStart: true, position$: mouseService.position$, tags: [] });
+  return intersectionsWatcherService.create({ actors: [surfaceActor, boxActor], camera, isAutoStart: true, position$: mouseService.position$ });
 }
 
 export function changeActorActiveAgent(actor: TActor, key: KeyCode | KeysExtra, keyboardService: TKeyboardService): Subscription {

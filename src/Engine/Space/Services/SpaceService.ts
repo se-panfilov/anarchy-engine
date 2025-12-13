@@ -27,7 +27,7 @@ export function SpaceService(): TSpaceService {
     hooks?.beforeResourcesLoaded?.(config, services);
     await loadResources(config.resources, services);
     hooks?.afterResourcesLoaded?.(config, services);
-    services.rendererService.create({ canvas, tags: [], mode: RendererModes.WebGL2, isActive: true });
+    services.rendererService.create({ canvas, mode: RendererModes.WebGL2, isActive: true });
     hooks?.beforeEntitiesCreated?.(config, services);
     createEntities(config.entities, services);
     hooks?.afterEntitiesCreated?.(config, services);

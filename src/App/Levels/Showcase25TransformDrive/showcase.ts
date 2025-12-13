@@ -1,5 +1,5 @@
 import GUI from 'lil-gui';
-import { map, withLatestFrom } from 'rxjs';
+import { combineLatest, map, withLatestFrom } from 'rxjs';
 import { Euler, Vector3 } from 'three';
 import type { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
 import { radToDeg } from 'three/src/math/MathUtils';
@@ -27,9 +27,22 @@ import type {
   TSpaceConfig,
   TSpatialGridWrapper,
   TText3dWrapper,
+  TTextAnyWrapper,
   TWithPresetNamePhysicsBodyParams
 } from '@/Engine';
-import { ambientContext, Engine, getDistancePrecisely, getMouseAzimuthAndElevation, getPushCoordsFrom3dAzimuthDeg, isNotDefined, KeysExtra, spaceService, TransformAgent } from '@/Engine';
+import {
+  ambientContext,
+  Engine,
+  getDistancePrecisely,
+  getHorizontalAzimuthDeg,
+  getMouseAzimuthAndElevation,
+  getPushCoordsFrom3dAzimuthDeg,
+  isNotDefined,
+  KeysExtra,
+  spaceService,
+  TextType,
+  TransformAgent
+} from '@/Engine';
 import { meters } from '@/Engine/Measurements/Utils';
 
 import spaceConfig from './showcase.json';
@@ -141,8 +154,8 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     gui.add(mode, 'isTeleportationMode').name('Teleportation mode');
     addActorFolderGui(gui, sphereActor);
 
-    sphereActor.drive.position$.subscribe((v: Vector3): void => {
-      sphereText.setText(`x: ${v.x.toFixed(2)} y: ${v.y.toFixed(2)} z: ${v.z.toFixed(2)}`);
+    combineLatest([sphereActor.drive.position$, sphereActor.drive.rotation$]).subscribe(([p, r]: [Vector3, Euler]): void => {
+      sphereText.setText(`x: ${p.x.toFixed(2)} y: ${p.y.toFixed(2)} z: ${p.z.toFixed(2)}, Rotation: ${radToDeg(r.y)}`);
     });
 
     createRepeaterActor(sphereActor, sphereActor.model3d, { x: 0, y: 0, z: 4 }, grid, gui, space.services);
@@ -158,6 +171,19 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
 
     const { line } = createReactiveLineFromActor('#E91E63', sphereActor, intersectionsWatcher);
     sceneW.entity.add(line);
+
+    const azimuthText: TTextAnyWrapper = textService.create({
+      text: 'Azimuth...',
+      type: TextType.Text3d,
+      cssProps: { fontSize: '0.05rem' },
+      position: new Vector3(3, 0.3, 6),
+      rotation: new Euler(-1.57, 0, 0)
+    });
+
+    intersectionsWatcher.value$.pipe(withLatestFrom(sphereActor.drive.position$)).subscribe(([v, actorPosition]: [TIntersectionEvent, Vector3]): void => {
+      const azimuth: TDegrees = getHorizontalAzimuthDeg(actorPosition.x, actorPosition.z, v.point);
+      azimuthText.setText(`Azimuth: ${azimuth.toFixed(2)}`);
+    });
 
     clickLeftRelease$
       .pipe(withLatestFrom(intersectionsWatcher.value$, sphereActor.drive.agent$))
@@ -188,9 +214,9 @@ function moveActorTo(actor: TActor, position: Vector3, agent: TransformAgent, is
 
   let forcePower: number = 1;
   const azimuth: TRadians = getMouseAzimuthAndElevation(position, actor.drive.getPosition()).azimuth;
-  const azimuthEuler: Euler = new Euler(0, azimuth, 0, 'YXZ');
-  // const azimuthEuler: Euler = new Euler(0, degToRad(180), 0, 'YXZ');
-  console.log(azimuthEuler);
+
+  // TODO 8.0.0. MODELS: model3d looking in tne not exact direction as I want
+  // const azimuthEuler: Euler = new Euler(0, azimuth, 0, 'YXZ');
 
   // For debug reasons: here is how we can rotate the model3d without TransformDrive
   // actor.model3d.getRawModel3d().rotation.set(0, degToRad(-90), 0);
