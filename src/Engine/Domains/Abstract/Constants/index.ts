@@ -1,2 +1,2 @@
-export * from './WatcherTags';
+export * from './WatcherTag';
 export * from './WrapperType';
