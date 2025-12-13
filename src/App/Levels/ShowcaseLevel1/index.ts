@@ -4,7 +4,7 @@ import { ActorTag, ambientContext, buildLevelFromConfig, CommonTag, isNotDefined
 
 import levelConfig from './showcase-level-1.config.json';
 
-//Showcase 3: Moving actor with intersections & reading data from config
+//Showcase 1: Moving actor with intersections & reading data from config
 export function showcaseLevel(canvas: IAppCanvas): IShowcase {
   const level: ILevel = buildLevelFromConfig(canvas, levelConfig as ILevelConfig);
   const { intersectionsWatcherRegistry, actorRegistry } = level.entities;

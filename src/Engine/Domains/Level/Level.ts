@@ -27,11 +27,14 @@ import { TextFactory, TextRegistry } from '@/Engine/Domains/Text';
 import type { IDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
 import { withTags } from '@/Engine/Mixins/Generic/WithTags';
+import { screenService } from '@/Engine/Services';
 import { isDefined, isNotDefined, isValidLevelConfig } from '@/Engine/Utils';
 
 export function buildLevelFromConfig(canvas: IAppCanvas, config: ILevelConfig): ILevel {
   if (!isValidLevelConfig(config)) throw new Error('Failed to launch a level: invalid data format');
   const { name, actors, cameras, lights, texts, controls, scenes, tags } = config;
+
+  screenService.setCanvas(canvas);
 
   const messages$: ReplaySubject<string> = new ReplaySubject<string>();
 

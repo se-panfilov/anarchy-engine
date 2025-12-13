@@ -1,4 +1,5 @@
 import type { IAppCanvas } from '@/Engine/Domains/App';
+import type { IAppGlobalContainer } from '@/Engine/Domains/Global';
 
 export type IGlobalContainerDecorator = Readonly<{
   id: string;
@@ -8,4 +9,5 @@ export type IGlobalContainerDecorator = Readonly<{
   startWatch: (type: string, cb: (...args: ReadonlyArray<never>) => void) => void;
   stopWatch: (type: string, cb: (...args: ReadonlyArray<never>) => void) => void;
   getCanvasElement: (selector: string) => IAppCanvas | null;
+  getAppContainer: () => IAppGlobalContainer;
 }>;

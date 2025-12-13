@@ -6,23 +6,12 @@ import type { IAppGlobalContainer, IGlobalContainerDecorator } from '@/Engine/Do
 export function ContainerDecorator(container: IAppGlobalContainer): IGlobalContainerDecorator {
   return {
     id: nanoid(),
-    getWidth(): number {
-      return container.innerWidth;
-    },
-    getHeight(): number {
-      return container.innerHeight;
-    },
-    getRatio(): number {
-      return container.devicePixelRatio || 1;
-    },
-    startWatch(type: string, cb: () => void): void {
-      return container.addEventListener(type, cb);
-    },
-    stopWatch(type: string, cb: () => void): void {
-      return container.removeEventListener(type, cb);
-    },
-    getCanvasElement(selector: string): IAppCanvas | null {
-      return container.document.querySelector(selector);
-    }
+    getWidth: (): number => container.innerWidth,
+    getHeight: (): number => container.innerHeight,
+    getRatio: (): number => container.devicePixelRatio || 1,
+    startWatch: (type: string, cb: () => void): void => container.addEventListener(type, cb),
+    stopWatch: (type: string, cb: () => void): void => container.removeEventListener(type, cb),
+    getCanvasElement: (selector: string): IAppCanvas | null => container.document.querySelector(selector),
+    getAppContainer: (): IAppGlobalContainer => container
   };
 }

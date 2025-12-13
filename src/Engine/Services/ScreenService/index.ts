@@ -1,2 +1,2 @@
-export * from './MoverService';
+export * from './Models';
 export * from './ScreenService';
