@@ -20,12 +20,12 @@ export const MaterialMap: Readonly<Record<MaterialType, TTypeOfMaterials>> = {
   [MaterialType.Basic]: MeshBasicMaterial,
   [MaterialType.Depth]: MeshDepthMaterial,
   [MaterialType.Distance]: MeshDistanceMaterial,
-  [MaterialType.Normal]: MeshNormalMaterial,
-  [MaterialType.Matcap]: MeshMatcapMaterial,
   [MaterialType.Lambert]: MeshLambertMaterial,
+  [MaterialType.Matcap]: MeshMatcapMaterial,
+  [MaterialType.Normal]: MeshNormalMaterial,
   [MaterialType.Phong]: MeshPhongMaterial,
   [MaterialType.Physical]: MeshPhysicalMaterial,
-  [MaterialType.Toon]: MeshToonMaterial,
+  [MaterialType.Points]: PointsMaterial,
   [MaterialType.Standard]: MeshStandardMaterial,
-  [MaterialType.Points]: PointsMaterial
+  [MaterialType.Toon]: MeshToonMaterial
 };

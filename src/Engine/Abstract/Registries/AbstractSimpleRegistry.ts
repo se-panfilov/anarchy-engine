@@ -39,20 +39,20 @@ export function AbstractSimpleRegistry<T>(type: RegistryType): TAbstractSimpleRe
 
   return {
     id,
-    type,
-    added$: added$.asObservable(),
-    replaced$: replaced$.asObservable(),
-    removed$: removed$.asObservable(),
     add,
-    replace,
+    added$: added$.asObservable(),
+    find,
     findByKey,
+    forEach,
     getAll,
+    getLength,
     isEmpty,
     registry,
     remove,
-    getLength,
-    forEach,
-    find,
+    removed$: removed$.asObservable(),
+    replace,
+    replaced$: replaced$.asObservable(),
+    type,
     ...destroyable
   };
 }

@@ -1,4 +1,4 @@
 export enum TextOverflowWrap {
-  Normal = 'normal',
-  BreakWord = 'break-word'
+  BreakWord = 'break-word',
+  Normal = 'normal'
 }

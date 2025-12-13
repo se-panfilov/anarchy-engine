@@ -1,6 +1,6 @@
 export enum TextAlign {
-  Left = 'left',
-  Right = 'right',
   Center = 'center',
-  Justify = 'justify'
+  Justify = 'justify',
+  Left = 'left',
+  Right = 'right'
 }

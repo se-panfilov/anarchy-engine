@@ -1,4 +1,4 @@
 export enum NormalMapTypesName {
-  TangentSpaceNormalMap = 'TangentSpaceNormalMap',
-  ObjectSpaceNormalMap = 'ObjectSpaceNormalMap'
+  ObjectSpaceNormalMap = 'ObjectSpaceNormalMap',
+  TangentSpaceNormalMap = 'TangentSpaceNormalMap'
 }

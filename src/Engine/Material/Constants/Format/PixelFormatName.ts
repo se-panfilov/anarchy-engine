@@ -1,14 +1,14 @@
 export enum PixelFormatName {
   AlphaFormat = 'AlphaFormat',
-  RGBFormat = 'RGBFormat',
-  RGBAFormat = 'RGBAFormat',
-  LuminanceFormat = 'LuminanceFormat',
-  LuminanceAlphaFormat = 'LuminanceAlphaFormat',
   DepthFormat = 'DepthFormat',
   DepthStencilFormat = 'DepthStencilFormat',
-  RedFormat = 'RedFormat',
-  RedIntegerFormat = 'RedIntegerFormat',
+  LuminanceAlphaFormat = 'LuminanceAlphaFormat',
+  LuminanceFormat = 'LuminanceFormat',
+  RGBAFormat = 'RGBAFormat',
+  RGBAIntegerFormat = 'RGBAIntegerFormat',
+  RGBFormat = 'RGBFormat',
   RGFormat = 'RGFormat',
   RGIntegerFormat = 'RGIntegerFormat',
-  RGBAIntegerFormat = 'RGBAIntegerFormat'
+  RedFormat = 'RedFormat',
+  RedIntegerFormat = 'RedIntegerFormat'
 }

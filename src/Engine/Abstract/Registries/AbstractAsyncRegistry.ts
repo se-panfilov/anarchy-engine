@@ -21,11 +21,11 @@ export function AbstractAsyncRegistry<T extends TRegistrable | TMultitonRegistra
 
   return {
     ...abstractRegistry,
-    findByTagsAsync,
-    findByTags$,
-    findByTagAsync,
-    findByTag$,
+    findByName$,
     findByNameAsync,
-    findByName$
+    findByTag$,
+    findByTagAsync,
+    findByTags$,
+    findByTagsAsync
   };
 }

@@ -14,7 +14,7 @@ export function AbstractSimpleAsyncRegistry<T>(type: RegistryType): TAbstractSim
 
   return {
     ...abstractSimpleAsyncRegistry,
-    findByKeyAsync,
-    findByKey$
+    findByKey$,
+    findByKeyAsync
   };
 }

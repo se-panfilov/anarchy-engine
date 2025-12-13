@@ -1,4 +1,4 @@
 export enum TextTag {
-  UI = 'ui',
-  Action = 'action'
+  Action = 'action',
+  UI = 'ui'
 }

@@ -4,12 +4,12 @@ import { AlwaysStencilFunc, EqualStencilFunc, GreaterEqualStencilFunc, GreaterSt
 import { StencilFuncName } from './StencilFuncName';
 
 export const StencilFuncMap: Readonly<Record<StencilFuncName, StencilFunc>> = {
-  [StencilFuncName.NeverStencilFunc]: NeverStencilFunc,
-  [StencilFuncName.LessStencilFunc]: LessStencilFunc,
+  [StencilFuncName.AlwaysStencilFunc]: AlwaysStencilFunc,
   [StencilFuncName.EqualStencilFunc]: EqualStencilFunc,
-  [StencilFuncName.LessEqualStencilFunc]: LessEqualStencilFunc,
-  [StencilFuncName.GreaterStencilFunc]: GreaterStencilFunc,
-  [StencilFuncName.NotEqualStencilFunc]: NotEqualStencilFunc,
   [StencilFuncName.GreaterEqualStencilFunc]: GreaterEqualStencilFunc,
-  [StencilFuncName.AlwaysStencilFunc]: AlwaysStencilFunc
+  [StencilFuncName.GreaterStencilFunc]: GreaterStencilFunc,
+  [StencilFuncName.LessEqualStencilFunc]: LessEqualStencilFunc,
+  [StencilFuncName.LessStencilFunc]: LessStencilFunc,
+  [StencilFuncName.NeverStencilFunc]: NeverStencilFunc,
+  [StencilFuncName.NotEqualStencilFunc]: NotEqualStencilFunc
 };

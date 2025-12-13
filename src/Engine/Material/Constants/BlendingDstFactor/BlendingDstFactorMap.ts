@@ -19,18 +19,18 @@ import {
 import { BlendingDstFactorName } from './BlendingDstFactorName';
 
 export const BlendingDstFactorMap: Readonly<Record<BlendingDstFactorName, BlendingDstFactor>> = {
-  [BlendingDstFactorName.ZeroFactor]: ZeroFactor,
+  [BlendingDstFactorName.ConstantAlphaFactor]: ConstantAlphaFactor,
+  [BlendingDstFactorName.ConstantColorFactor]: ConstantColorFactor,
+  [BlendingDstFactorName.DstAlphaFactor]: DstAlphaFactor,
+  [BlendingDstFactorName.DstColorFactor]: DstColorFactor,
   [BlendingDstFactorName.OneFactor]: OneFactor,
-  [BlendingDstFactorName.SrcColorFactor]: SrcColorFactor,
+  [BlendingDstFactorName.OneMinusConstantAlphaFactor]: OneMinusConstantAlphaFactor,
+  [BlendingDstFactorName.OneMinusConstantColorFactor]: OneMinusConstantColorFactor,
+  [BlendingDstFactorName.OneMinusDstAlphaFactor]: OneMinusDstAlphaFactor,
+  [BlendingDstFactorName.OneMinusDstColorFactor]: OneMinusDstColorFactor,
+  [BlendingDstFactorName.OneMinusSrcAlphaFactor]: OneMinusSrcAlphaFactor,
   [BlendingDstFactorName.OneMinusSrcColorFactor]: OneMinusSrcColorFactor,
   [BlendingDstFactorName.SrcAlphaFactor]: SrcAlphaFactor,
-  [BlendingDstFactorName.OneMinusSrcAlphaFactor]: OneMinusSrcAlphaFactor,
-  [BlendingDstFactorName.DstAlphaFactor]: DstAlphaFactor,
-  [BlendingDstFactorName.OneMinusDstAlphaFactor]: OneMinusDstAlphaFactor,
-  [BlendingDstFactorName.DstColorFactor]: DstColorFactor,
-  [BlendingDstFactorName.OneMinusDstColorFactor]: OneMinusDstColorFactor,
-  [BlendingDstFactorName.ConstantColorFactor]: ConstantColorFactor,
-  [BlendingDstFactorName.OneMinusConstantColorFactor]: OneMinusConstantColorFactor,
-  [BlendingDstFactorName.ConstantAlphaFactor]: ConstantAlphaFactor,
-  [BlendingDstFactorName.OneMinusConstantAlphaFactor]: OneMinusConstantAlphaFactor
+  [BlendingDstFactorName.SrcColorFactor]: SrcColorFactor,
+  [BlendingDstFactorName.ZeroFactor]: ZeroFactor
 };

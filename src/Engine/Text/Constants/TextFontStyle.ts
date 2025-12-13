@@ -1,4 +1,4 @@
 export enum TextFontStyle {
-  Normal = 'normal',
-  Italic = 'italic'
+  Italic = 'italic',
+  Normal = 'normal'
 }

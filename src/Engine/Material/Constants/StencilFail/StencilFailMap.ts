@@ -4,12 +4,12 @@ import { DecrementStencilOp, DecrementWrapStencilOp, IncrementStencilOp, Increme
 import { StencilFailName } from './StencilFailName';
 
 export const StencilFailMap: Readonly<Record<StencilFailName, StencilOp>> = {
-  [StencilFailName.ZeroStencilOp]: ZeroStencilOp,
+  [StencilFailName.DecrementStencilOp]: DecrementStencilOp,
+  [StencilFailName.DecrementWrapStencilOp]: DecrementWrapStencilOp,
+  [StencilFailName.IncrementStencilOp]: IncrementStencilOp,
+  [StencilFailName.IncrementWrapStencilOp]: IncrementWrapStencilOp,
+  [StencilFailName.InvertStencilOp]: InvertStencilOp,
   [StencilFailName.KeepStencilOp]: KeepStencilOp,
   [StencilFailName.ReplaceStencilOp]: ReplaceStencilOp,
-  [StencilFailName.IncrementStencilOp]: IncrementStencilOp,
-  [StencilFailName.DecrementStencilOp]: DecrementStencilOp,
-  [StencilFailName.IncrementWrapStencilOp]: IncrementWrapStencilOp,
-  [StencilFailName.DecrementWrapStencilOp]: DecrementWrapStencilOp,
-  [StencilFailName.InvertStencilOp]: InvertStencilOp
+  [StencilFailName.ZeroStencilOp]: ZeroStencilOp
 };

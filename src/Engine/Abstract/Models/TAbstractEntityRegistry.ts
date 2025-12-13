@@ -6,14 +6,14 @@ import type { TAbstractSimpleRegistry } from './TAbstractSimpleRegistry';
 export type TAbstractEntityRegistry<T extends TRegistrable> = Omit<TAbstractSimpleRegistry<T>, 'add' | 'replace' | 'remove' | 'findByKey'> &
   Readonly<{
     add: (entity: T) => void;
-    replace: (entity: T) => void;
-    remove: (id: string) => void;
+    find: (predicate: (value: T, key: string) => boolean) => T | undefined;
+    findAllByTag: (tag: string) => ReadonlyArray<T>;
+    findAllByTags: (tags: ReadonlyArray<string>, strategy: LookUpStrategy) => ReadonlyArray<T>;
     findById: (id: string) => T | undefined;
     findByName: (name: string) => T | undefined;
-    find: (predicate: (value: T, key: string) => boolean) => T | undefined;
-    findAllByTags: (tags: ReadonlyArray<string>, strategy: LookUpStrategy) => ReadonlyArray<T>;
-    findAllByTag: (tag: string) => ReadonlyArray<T>;
-    findByTags: (tags: ReadonlyArray<string>, strategy: LookUpStrategy) => T | undefined | never;
     findByTag: (tag: string) => T | undefined | never;
+    findByTags: (tags: ReadonlyArray<string>, strategy: LookUpStrategy) => T | undefined | never;
+    remove: (id: string) => void;
+    replace: (entity: T) => void;
   }> &
   TDestroyable;

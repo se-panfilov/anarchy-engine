@@ -1,5 +1,5 @@
 export enum CombineName {
-  MultiplyOperation = 'MultiplyOperation',
+  AddOperation = 'AddOperation',
   MixOperation = 'MixOperation',
-  AddOperation = 'AddOperation'
+  MultiplyOperation = 'MultiplyOperation'
 }

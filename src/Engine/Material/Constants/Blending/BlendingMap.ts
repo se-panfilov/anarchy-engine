@@ -4,10 +4,10 @@ import { AdditiveBlending, CustomBlending, MultiplyBlending, NoBlending, NormalB
 import { BlendingName } from './BlendingName';
 
 export const BlendingMap: Readonly<Record<BlendingName, Blending>> = {
-  [BlendingName.Normal]: NormalBlending,
   [BlendingName.Additive]: AdditiveBlending,
-  [BlendingName.Subtractive]: SubtractiveBlending,
-  [BlendingName.Multiply]: MultiplyBlending,
   [BlendingName.Custom]: CustomBlending,
-  [BlendingName.None]: NoBlending
+  [BlendingName.Multiply]: MultiplyBlending,
+  [BlendingName.None]: NoBlending,
+  [BlendingName.Normal]: NormalBlending,
+  [BlendingName.Subtractive]: SubtractiveBlending
 };

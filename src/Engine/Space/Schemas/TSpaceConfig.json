@@ -253,7 +253,7 @@
     },
     "ActorType": {
       "type": "string",
-      "enum": ["sphere", "plane", "cube"]
+      "enum": ["cube", "plane", "sphere"]
     },
     "TMaterialPackConfig<TMaterialTexturePack>": {
       "type": "object",
@@ -583,7 +583,7 @@
     },
     "MaterialType": {
       "type": "string",
-      "enum": ["basic", "depth", "distance", "normal", "matcap", "lambert", "phong", "physical", "toon", "standard", "points"]
+      "enum": ["basic", "depth", "distance", "lambert", "matcap", "normal", "phong", "physical", "points", "standard", "toon"]
     },
     "ColorRepresentation": {
       "anyOf": [
@@ -636,30 +636,30 @@
     },
     "BlendingName": {
       "type": "string",
-      "enum": ["NormalBlending", "AdditiveBlending", "SubtractiveBlending", "MultiplyBlending", "CustomBlending", "NoBlending"]
+      "enum": ["AdditiveBlending", "CustomBlending", "MultiplyBlending", "NoBlending", "NormalBlending", "SubtractiveBlending"]
     },
     "BlendingDstFactorName": {
       "type": "string",
       "enum": [
-        "ZeroFactor",
+        "ConstantAlphaFactor",
+        "ConstantColorFactor",
+        "DstAlphaFactor",
+        "DstColorFactor",
         "OneFactor",
-        "SrcColorFactor",
+        "OneMinusConstantAlphaFactor",
+        "OneMinusConstantColorFactor",
+        "OneMinusDstAlphaFactor",
+        "OneMinusDstColorFactor",
+        "OneMinusSrcAlphaFactor",
         "OneMinusSrcColorFactor",
         "SrcAlphaFactor",
-        "OneMinusSrcAlphaFactor",
-        "DstAlphaFactor",
-        "OneMinusDstAlphaFactor",
-        "DstColorFactor",
-        "OneMinusDstColorFactor",
-        "ConstantColorFactor",
-        "OneMinusConstantColorFactor",
-        "ConstantAlphaFactor",
-        "OneMinusConstantAlphaFactor"
+        "SrcColorFactor",
+        "ZeroFactor"
       ]
     },
     "BlendEquationName": {
       "type": "string",
-      "enum": ["AddEquation", "SubtractEquation", "ReverseSubtractEquation", "MinEquation", "MaxEquation"]
+      "enum": ["AddEquation", "MaxEquation", "MinEquation", "ReverseSubtractEquation", "SubtractEquation"]
     },
     "BlendingSrcFactorName": {
       "type": "string",
@@ -667,36 +667,36 @@
     },
     "SideName": {
       "type": "string",
-      "enum": ["FrontSide", "BackSide", "DoubleSide"]
+      "enum": ["BackSide", "DoubleSide", "FrontSide"]
     },
     "PixelFormatName": {
       "type": "string",
       "enum": [
         "AlphaFormat",
-        "RGBFormat",
-        "RGBAFormat",
-        "LuminanceFormat",
-        "LuminanceAlphaFormat",
         "DepthFormat",
         "DepthStencilFormat",
-        "RedFormat",
-        "RedIntegerFormat",
+        "LuminanceAlphaFormat",
+        "LuminanceFormat",
+        "RGBAFormat",
+        "RGBAIntegerFormat",
+        "RGBFormat",
         "RGFormat",
         "RGIntegerFormat",
-        "RGBAIntegerFormat"
+        "RedFormat",
+        "RedIntegerFormat"
       ]
     },
     "StencilFuncName": {
       "type": "string",
-      "enum": ["NeverStencilFunc", "LessStencilFunc", "EqualStencilFunc", "LessEqualStencilFunc", "GreaterStencilFunc", "NotEqualStencilFunc", "GreaterEqualStencilFunc", "AlwaysStencilFunc"]
+      "enum": ["AlwaysStencilFunc", "EqualStencilFunc", "GreaterEqualStencilFunc", "GreaterStencilFunc", "LessEqualStencilFunc", "LessStencilFunc", "NeverStencilFunc", "NotEqualStencilFunc"]
     },
     "StencilOpName": {
       "type": "string",
-      "enum": ["ZeroStencilOp", "KeepStencilOp", "ReplaceStencilOp", "IncrementStencilOp", "DecrementStencilOp", "IncrementWrapStencilOp", "DecrementWrapStencilOp", "InvertStencilOp"]
+      "enum": ["DecrementStencilOp", "DecrementWrapStencilOp", "IncrementStencilOp", "IncrementWrapStencilOp", "InvertStencilOp", "KeepStencilOp", "ReplaceStencilOp", "ZeroStencilOp"]
     },
     "CombineName": {
       "type": "string",
-      "enum": ["MultiplyOperation", "MixOperation", "AddOperation"]
+      "enum": ["AddOperation", "MixOperation", "MultiplyOperation"]
     },
     "DepthPackingStrategiesName": {
       "type": "string",
@@ -704,7 +704,7 @@
     },
     "NormalMapTypesName": {
       "type": "string",
-      "enum": ["TangentSpaceNormalMap", "ObjectSpaceNormalMap"]
+      "enum": ["ObjectSpaceNormalMap", "TangentSpaceNormalMap"]
     },
     "TVector3": {
       "type": "object",
@@ -1756,7 +1756,7 @@
     },
     "LightType": {
       "type": "string",
-      "enum": ["Ambient", "Directional", "Point", "Hemisphere", "RectArea", "Spot"]
+      "enum": ["Ambient", "Directional", "Hemisphere", "Point", "RectArea", "Spot"]
     },
     "THemisphereLightConfig": {
       "type": "object",
@@ -3693,7 +3693,7 @@
     },
     "TextAlign": {
       "type": "string",
-      "enum": ["left", "right", "center", "justify"]
+      "enum": ["center", "justify", "left", "right"]
     },
     "TextDirection": {
       "type": "string",
@@ -3701,7 +3701,7 @@
     },
     "TextOverflowWrap": {
       "type": "string",
-      "enum": ["normal", "break-word"]
+      "enum": ["break-word", "normal"]
     },
     "TextWhiteSpace": {
       "type": "string",
@@ -3709,11 +3709,11 @@
     },
     "TextFontStyle": {
       "type": "string",
-      "enum": ["normal", "italic"]
+      "enum": ["italic", "normal"]
     },
     "TextFontWeight": {
       "type": "string",
-      "enum": ["normal", "bold"]
+      "enum": ["bold", "normal"]
     },
     "TControlsConfig": {
       "$ref": "#/definitions/TOrbitControlsConfig"

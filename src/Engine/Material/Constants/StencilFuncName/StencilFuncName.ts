@@ -1,10 +1,10 @@
 export enum StencilFuncName {
-  NeverStencilFunc = 'NeverStencilFunc',
-  LessStencilFunc = 'LessStencilFunc',
+  AlwaysStencilFunc = 'AlwaysStencilFunc',
   EqualStencilFunc = 'EqualStencilFunc',
-  LessEqualStencilFunc = 'LessEqualStencilFunc',
-  GreaterStencilFunc = 'GreaterStencilFunc',
-  NotEqualStencilFunc = 'NotEqualStencilFunc',
   GreaterEqualStencilFunc = 'GreaterEqualStencilFunc',
-  AlwaysStencilFunc = 'AlwaysStencilFunc'
+  GreaterStencilFunc = 'GreaterStencilFunc',
+  LessEqualStencilFunc = 'LessEqualStencilFunc',
+  LessStencilFunc = 'LessStencilFunc',
+  NeverStencilFunc = 'NeverStencilFunc',
+  NotEqualStencilFunc = 'NotEqualStencilFunc'
 }

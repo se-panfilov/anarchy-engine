@@ -1,4 +1,4 @@
 export enum TextFontWeight {
-  Normal = 'normal',
-  Bold = 'bold'
+  Bold = 'bold',
+  Normal = 'normal'
 }

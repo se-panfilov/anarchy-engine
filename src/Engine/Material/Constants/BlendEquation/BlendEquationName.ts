@@ -1,7 +1,7 @@
 export enum BlendEquationName {
   AddEquation = 'AddEquation',
-  SubtractEquation = 'SubtractEquation',
-  ReverseSubtractEquation = 'ReverseSubtractEquation',
+  MaxEquation = 'MaxEquation',
   MinEquation = 'MinEquation',
-  MaxEquation = 'MaxEquation'
+  ReverseSubtractEquation = 'ReverseSubtractEquation',
+  SubtractEquation = 'SubtractEquation'
 }

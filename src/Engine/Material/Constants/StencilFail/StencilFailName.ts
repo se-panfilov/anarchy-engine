@@ -1,10 +1,10 @@
 export enum StencilFailName {
-  ZeroStencilOp = 'ZeroStencilOp',
+  DecrementStencilOp = 'DecrementStencilOp',
+  DecrementWrapStencilOp = 'DecrementWrapStencilOp',
+  IncrementStencilOp = 'IncrementStencilOp',
+  IncrementWrapStencilOp = 'IncrementWrapStencilOp',
+  InvertStencilOp = 'InvertStencilOp',
   KeepStencilOp = 'KeepStencilOp',
   ReplaceStencilOp = 'ReplaceStencilOp',
-  IncrementStencilOp = 'IncrementStencilOp',
-  DecrementStencilOp = 'DecrementStencilOp',
-  IncrementWrapStencilOp = 'IncrementWrapStencilOp',
-  DecrementWrapStencilOp = 'DecrementWrapStencilOp',
-  InvertStencilOp = 'InvertStencilOp'
+  ZeroStencilOp = 'ZeroStencilOp'
 }

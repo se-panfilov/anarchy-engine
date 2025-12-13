@@ -4,7 +4,7 @@ import { AddOperation, MixOperation, MultiplyOperation } from 'three';
 import { CombineName } from './CombineName';
 
 export const CombineMap: Readonly<Record<CombineName, Combine>> = {
-  [CombineName.MultiplyOperation]: MultiplyOperation,
+  [CombineName.AddOperation]: AddOperation,
   [CombineName.MixOperation]: MixOperation,
-  [CombineName.AddOperation]: AddOperation
+  [CombineName.MultiplyOperation]: MultiplyOperation
 };

@@ -1,4 +1,4 @@
 export enum WatcherTag {
-  Initial = 'initial',
-  Global = 'global'
+  Global = 'global',
+  Initial = 'initial'
 }

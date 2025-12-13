@@ -1,5 +1,5 @@
 export enum ActorType {
-  sphere = 'sphere',
+  cube = 'cube',
   plane = 'plane',
-  cube = 'cube'
+  sphere = 'sphere'
 }

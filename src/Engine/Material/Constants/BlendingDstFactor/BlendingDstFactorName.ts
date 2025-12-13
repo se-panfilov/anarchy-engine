@@ -1,16 +1,16 @@
 export enum BlendingDstFactorName {
-  ZeroFactor = 'ZeroFactor',
+  ConstantAlphaFactor = 'ConstantAlphaFactor',
+  ConstantColorFactor = 'ConstantColorFactor',
+  DstAlphaFactor = 'DstAlphaFactor',
+  DstColorFactor = 'DstColorFactor',
   OneFactor = 'OneFactor',
-  SrcColorFactor = 'SrcColorFactor',
+  OneMinusConstantAlphaFactor = 'OneMinusConstantAlphaFactor',
+  OneMinusConstantColorFactor = 'OneMinusConstantColorFactor',
+  OneMinusDstAlphaFactor = 'OneMinusDstAlphaFactor',
+  OneMinusDstColorFactor = 'OneMinusDstColorFactor',
+  OneMinusSrcAlphaFactor = 'OneMinusSrcAlphaFactor',
   OneMinusSrcColorFactor = 'OneMinusSrcColorFactor',
   SrcAlphaFactor = 'SrcAlphaFactor',
-  OneMinusSrcAlphaFactor = 'OneMinusSrcAlphaFactor',
-  DstAlphaFactor = 'DstAlphaFactor',
-  OneMinusDstAlphaFactor = 'OneMinusDstAlphaFactor',
-  DstColorFactor = 'DstColorFactor',
-  OneMinusDstColorFactor = 'OneMinusDstColorFactor',
-  ConstantColorFactor = 'ConstantColorFactor',
-  OneMinusConstantColorFactor = 'OneMinusConstantColorFactor',
-  ConstantAlphaFactor = 'ConstantAlphaFactor',
-  OneMinusConstantAlphaFactor = 'OneMinusConstantAlphaFactor'
+  SrcColorFactor = 'SrcColorFactor',
+  ZeroFactor = 'ZeroFactor'
 }

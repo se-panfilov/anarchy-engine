@@ -1,5 +1,5 @@
 export enum SideName {
-  FrontSide = 'FrontSide',
   BackSide = 'BackSide',
-  DoubleSide = 'DoubleSide'
+  DoubleSide = 'DoubleSide',
+  FrontSide = 'FrontSide'
 }

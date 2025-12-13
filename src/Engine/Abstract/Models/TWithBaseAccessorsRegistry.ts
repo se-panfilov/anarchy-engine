@@ -1,7 +1,7 @@
 export type TWithBaseAccessorsRegistry<T> = {
-  isEmpty: () => boolean;
-  getLength: () => number;
-  forEach: (callback: (entity: T) => void) => void;
   find: (predicate: (entity: T, key: string) => boolean) => T | undefined;
+  forEach: (callback: (entity: T) => void) => void;
   getAll: () => ReadonlyArray<T>;
+  getLength: () => number;
+  isEmpty: () => boolean;
 };
