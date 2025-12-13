@@ -13,10 +13,11 @@ import type {
   RawRigidBodySet,
   RawSerializationPipeline
 } from '@dimforge/rapier3d-compat/rapier_wasm3d';
-import type { Vector3 } from 'three';
+
+import type { TWithCoordsXYZ } from '@/Engine/Mixins';
 
 export type TPhysicsWorldParams = Readonly<{
-  gravity?: Vector3;
+  gravity?: TWithCoordsXYZ;
   rawIntegrationParameters?: RawIntegrationParameters;
   rawIslands?: RawIslandManager;
   rawBroadPhase?: RawBroadPhase;

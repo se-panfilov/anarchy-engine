@@ -1802,16 +1802,11 @@
       "additionalProperties": false
     },
     "TPhysicsGlobalConfig": {
-      "$ref": "#/definitions/TPhysicsGlobalProps"
-    },
-    "TPhysicsGlobalProps": {
-      "$ref": "#/definitions/TPhysicsWorldParams"
-    },
-    "TPhysicsWorldParams": {
       "type": "object",
+      "additionalProperties": false,
       "properties": {
         "gravity": {
-          "$ref": "#/definitions/Vector3"
+          "$ref": "#/definitions/TWithCoordsXYZ"
         },
         "rawIntegrationParameters": {
           "$ref": "#/definitions/RawIntegrationParameters"
@@ -1853,7 +1848,7 @@
           "$ref": "#/definitions/RawDebugRenderPipeline"
         }
       },
-      "additionalProperties": false
+      "required": ["gravity"]
     },
     "RawIntegrationParameters": {
       "type": "object",
