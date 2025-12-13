@@ -2,17 +2,17 @@ import { BoxGeometry, Mesh, PlaneGeometry, SphereGeometry } from 'three';
 
 import type { TMaterials } from '@/Engine/Material';
 import { meters } from '@/Engine/Measurements/Utils';
-import type { TModel3dPack, TModel3dPrimitiveParams, TPrimitiveProps } from '@/Engine/Models3d';
+import type { TModel3dPrimitivePack, TModel3dPrimitiveParams, TPrimitiveProps } from '@/Engine/Models3d';
 import { PrimitiveModel3dType } from '@/Engine/Models3d';
 import { isDefined } from '@/Engine/Utils';
 
-export function createPrimitiveModel3dPack(params: TModel3dPrimitiveParams): TModel3dPack | never {
+export function createPrimitiveModel3dPack(params: TModel3dPrimitiveParams): TModel3dPrimitivePack | never {
   const { primitive, material } = params;
   if (!isDefined(primitive)) throw new Error(`Primitive model type is not defined`);
 
-  const pre: Omit<TModel3dPack, 'model'> = {
-    url: '',
-    animations: [],
+  const pre: Omit<TModel3dPrimitivePack, 'model'> = {
+    ...params,
+    primitive,
     options: { shouldAddToScene: false, shouldAddToRegistry: true, isForce: false }
   };
   if (primitive.type === PrimitiveModel3dType.Plane) return { ...pre, model: createPlane(primitive, material.entity) };

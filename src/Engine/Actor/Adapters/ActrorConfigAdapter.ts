@@ -15,6 +15,6 @@ export function configToParams(config: TActorConfig, dependencies: TActorConfigT
     model3d,
     spatial: configToParamsSpatialData(spatial, dependencies),
     physics: physics ? configToOptionalParamsBody(physics) : undefined,
-    ...configToParamsObject3d({ position, rotation, scale, layers, animations })
+    ...configToParamsObject3d({ position, rotation, scale })
   };
 }
