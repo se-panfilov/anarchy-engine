@@ -64,6 +64,7 @@ function EventsService(): TEventsService {
   }
 
   function handleToMenuEvents(event: TToMenuEvent): void {
+    console.log('XXX event.type', event.type);
     switch (event.type) {
       case ToMenuEvents.SettingsLoaded: {
         console.log('[EventsService]: Settings loaded:', event.payload);

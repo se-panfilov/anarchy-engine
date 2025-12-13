@@ -4,6 +4,7 @@ import { vueTranslationService } from '@Showcases/Menu/services';
 import type { TAudioSettings, TDebugSettings, TGraphicsSettings, TInternalSettings, TLocalizationSettings, TResolution, TShowcaseGameSettings, TShowcaseLocaleIds } from '@Showcases/Shared';
 import { ShowcasesLocales } from '@Showcases/Shared';
 import { defineStore } from 'pinia';
+import type { ComputedRef } from 'vue';
 import { computed, reactive, watch } from 'vue';
 
 export const useSettingsStore = defineStore('settingsStore', () => {
@@ -70,6 +71,8 @@ export const useSettingsStore = defineStore('settingsStore', () => {
   const setInternal = (newInternal: Partial<TInternalSettings>): void => void Object.assign(state.internal, { ...newInternal });
   const setState = (newState: Partial<TShowcaseGameSettings>): void => void Object.assign(state, { ...newState });
 
+  const getLocaleId: ComputedRef<TShowcaseLocaleIds> = computed(() => state.localization.locale.id as TShowcaseLocaleIds);
+
   return {
     state: computed(() => state),
     setState,
@@ -80,6 +83,7 @@ export const useSettingsStore = defineStore('settingsStore', () => {
     localization,
     setLocalization,
     setLocaleById,
+    getLocaleId,
     debug,
     setDebug,
     internal,
