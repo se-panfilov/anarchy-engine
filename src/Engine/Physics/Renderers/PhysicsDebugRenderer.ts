@@ -8,7 +8,7 @@ import type { TPhysicalLoop, TPhysicsDebugRenderer } from '@/Engine/Physics/Mode
 import type { TSceneWrapper } from '@/Engine/Scene/Models';
 
 export function PhysicsDebugRenderer(sceneW: TSceneWrapper, world: World, loop: TPhysicalLoop): TPhysicsDebugRenderer {
-  const mesh = new LineSegments(new BufferGeometry(), new LineBasicMaterial({ color: 0xffffff, vertexColors: true }));
+  let mesh = new LineSegments(new BufferGeometry(), new LineBasicMaterial({ color: 0xffffff, vertexColors: true }));
   // eslint-disable-next-line functional/immutable-data
   mesh.frustumCulled = false;
   sceneW.entity.add(mesh);
@@ -34,6 +34,9 @@ export function PhysicsDebugRenderer(sceneW: TSceneWrapper, world: World, loop: 
   const destroySub$: Subscription = destroyable.destroy$.subscribe((): void => {
     destroySub$.unsubscribe();
 
+    mesh.geometry.dispose();
+    mesh.material.dispose();
+    mesh = null as any;
     loopSubscription$.unsubscribe();
   });
 
