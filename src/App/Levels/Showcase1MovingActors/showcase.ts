@@ -13,8 +13,8 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
   const { actorService, cameraService, intersectionsWatcherService, loopService, mouseService } = space.services;
   const actorRegistry: TActorRegistry = actorService.getRegistry();
 
-  async function init(): Promise<void> {
-    const actor: TActorWrapper | undefined = await actorRegistry.findByTagAsync('intersectable');
+  function init(): void {
+    const actor: TActorWrapper | undefined = actorRegistry.findByTag('intersectable');
     if (isNotDefined(actor)) throw new Error('Actor is not defined');
     actor.setY(2);
 

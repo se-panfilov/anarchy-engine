@@ -11,18 +11,14 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
 
   const actorAsyncRegistry = actorService.getRegistry();
 
-  async function init(): Promise<void> {
-    const actor1Promise: Promise<TActorWrapper | undefined> = actorAsyncRegistry.findByNameAsync('actor_1');
-    const actor2Promise: Promise<TActorWrapper | undefined> = actorAsyncRegistry.findByNameAsync('actor_2');
-    const actor3Promise: Promise<TActorWrapper | undefined> = actorAsyncRegistry.findByNameAsync('actor_3');
-
-    const actor1W: TActorWrapperWithPhysics | TActorWrapper | undefined = await actor1Promise;
+  function init(): void {
+    const actor1W: TActorWrapperWithPhysics | TActorWrapper | undefined = actorAsyncRegistry.findByName('actor_1');
     if (isNotDefined(actor1W)) throw new Error(`Cannot find "actor_1" actor`);
 
-    const actor2W: TActorWrapperWithPhysics | TActorWrapper | undefined = await actor2Promise;
+    const actor2W: TActorWrapperWithPhysics | TActorWrapper | undefined = actorAsyncRegistry.findByName('actor_2');
     if (isNotDefined(actor2W)) throw new Error(`Cannot find "actor_2" actor`);
 
-    const actor3W: TActorWrapperWithPhysics | TActorWrapper | undefined = await actor3Promise;
+    const actor3W: TActorWrapperWithPhysics | TActorWrapper | undefined = actorAsyncRegistry.findByName('actor_3');
     if (isNotDefined(actor3W)) throw new Error(`Cannot find "actor_3" actor`);
 
     const cameraW: TCameraWrapper | undefined = cameraService.findActive();

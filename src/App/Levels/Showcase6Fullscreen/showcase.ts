@@ -11,8 +11,8 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
   const { actorService, loopService, mouseService } = space.services;
   const actorRegistry: TActorRegistry = actorService.getRegistry();
 
-  async function init(): Promise<void> {
-    const actor: TActorWrapper | undefined = await actorRegistry.findByTagAsync('sphere');
+  function init(): void {
+    const actor: TActorWrapper | undefined = actorRegistry.findByTag('sphere');
     if (isNotDefined(actor)) throw new Error('Actor not found');
     actor.setY(2);
 

@@ -9,8 +9,8 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
   const engine: TEngine = Engine(space);
   const { actorService } = space.services;
 
-  async function init(): Promise<void> {
-    const actorW: TActorWrapper = await actorService.createAsync(params);
+  function init(): void {
+    const actorW: TActorWrapper = actorService.create(params);
   }
 
   // TODO debug light

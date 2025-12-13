@@ -34,8 +34,8 @@ export type TBullet = TActorWrapper &
     hit$: Observable<TCollisionCheckResult>;
   }>;
 
-export function getBulletsPool(count: number, actorService: TActorService, spatialGridService: TSpatialGridService): ReadonlyArray<Promise<TBullet>> {
-  let bullets: ReadonlyArray<Promise<TBullet>> = [];
+export function getBulletsPool(count: number, actorService: TActorService, spatialGridService: TSpatialGridService): ReadonlyArray<TBullet> {
+  let bullets: ReadonlyArray<TBullet> = [];
   const grid: TSpatialGridWrapper | undefined = spatialGridService.getRegistry().findByName('main_grid');
   if (isNotDefined(grid)) throw new Error(`Failed to create bullet: Cannot find "main_grid" spatial grid`);
 
@@ -71,8 +71,8 @@ export function getBulletsPool(count: number, actorService: TActorService, spati
   return bullets;
 }
 
-export async function BulletAsync(params: TActorParams, actorService: TActorService): Promise<TBullet> {
-  const actorW: TActorWrapper = await actorService.createAsync(params);
+export function BulletAsync(params: TActorParams, actorService: TActorService): TBullet {
+  const actorW: TActorWrapper = actorService.create(params);
   let distanceTraveled: number = 0;
   const maxDistance: number = 50;
   let active: boolean = false;

@@ -4,19 +4,7 @@ import { LineGeometry } from 'three/examples/jsm/lines/LineGeometry';
 import { LineMaterial } from 'three/examples/jsm/lines/LineMaterial';
 
 import type { TShowcase } from '@/App/Levels/Models';
-import type {
-  TActorWrapper,
-  TActorWrapperWithPhysics,
-  TAppCanvas,
-  TCameraWrapper,
-  TEngine,
-  TIntersectionEvent,
-  TIntersectionsWatcher,
-  TSceneWrapper,
-  TSpace,
-  TSpaceConfig,
-  TWithCoordsXYZ
-} from '@/Engine';
+import type { TActorWrapper, TAppCanvas, TCameraWrapper, TEngine, TIntersectionEvent, TIntersectionsWatcher, TSceneWrapper, TSpace, TSpaceConfig, TWithCoordsXYZ } from '@/Engine';
 import {
   buildSpaceFromConfig,
   Engine,
@@ -44,10 +32,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
   const actorAsyncRegistry = actorService.getRegistry();
   const sceneWrapper: TSceneWrapper = actorService.getScene();
 
-  const ballActorPromise: Promise<TActorWrapper | undefined> = actorAsyncRegistry.findByNameAsync('ball');
-  const surfaceActorPromise: Promise<TActorWrapper | undefined> = actorAsyncRegistry.findByNameAsync('surface');
-
-  async function init(): Promise<void> {
+  function init(): void {
     physicsWorldService.getDebugRenderer(loopService).start();
 
     const line: Line2 = createLine();
@@ -56,11 +41,11 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     let azimuth: number = 0;
     let forcePower: number = 0;
 
-    const ballActorW: TActorWrapperWithPhysics | TActorWrapper | undefined = await ballActorPromise;
+    const ballActorW: TActorWrapper | undefined = actorAsyncRegistry.findByName('ball');
     if (isNotDefined(ballActorW)) throw new Error(`Cannot find "ball" actor`);
     if (!isActorHasPhysicsBody(ballActorW)) throw new Error(`"ball" actor is not a physic actor`);
 
-    const surfaceActorW: TActorWrapperWithPhysics | TActorWrapper | undefined = await surfaceActorPromise;
+    const surfaceActorW: TActorWrapper | undefined = actorAsyncRegistry.findByName('surface');
     if (isNotDefined(surfaceActorW)) throw new Error(`Cannot find "surfaceActor" actor`);
     if (!isActorHasPhysicsBody(surfaceActorW)) throw new Error(`"surfaceActor" actor is not a physic actor`);
 

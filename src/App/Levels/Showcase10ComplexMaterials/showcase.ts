@@ -39,8 +39,8 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     currentMaterial$.pipe(startWith(materials[0])),
     currentMaterialType$.pipe(startWith(materialType[3]))
     // eslint-disable-next-line @typescript-eslint/no-misused-promises
-  ]).subscribe(async ([material, type]: ReadonlyArray<string>): Promise<void> => {
-    const actor: TActorWrapper | undefined = await actorRegistry.findByTagsAsync([material, type], LookUpStrategy.Every);
+  ]).subscribe(([material, type]: ReadonlyArray<string>): void => {
+    const actor: TActorWrapper | undefined = actorRegistry.findByTags([material, type], LookUpStrategy.Every);
     if (isNotDefined(actor)) throw new Error(`Actor with tag "${material}" is not found`);
     currentActor$.next(actor);
   });

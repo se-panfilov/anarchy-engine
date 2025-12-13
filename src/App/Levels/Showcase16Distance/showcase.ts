@@ -14,13 +14,13 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
   const cameraRegistry: TCameraRegistry = cameraService.getRegistry();
   if (isNotDefined(actorRegistry)) throw new Error('Actor registry is not defined');
   if (isNotDefined(cameraRegistry)) throw new Error('Camera registry is not defined');
-  const { findByNameAsync } = actorRegistry;
+  const { findByName } = actorRegistry;
   const { onKey } = keyboardService;
 
   const { clickLeftRelease$ } = mouseService;
 
-  async function init(): Promise<void> {
-    const car: TActorWrapper | undefined = await findByNameAsync('car');
+  function init(): void {
+    const car: TActorWrapper | undefined = findByName('car');
     if (isNotDefined(car)) throw new Error('Actor "car" is not defined');
 
     let isMove: boolean = false;

@@ -33,9 +33,9 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     controlsRegistry.getAll()[0]?.entity.target.set(6, 0, 0);
     cameraRegistry.getAll()[0]?.setPosition(Vector3Wrapper({ x: 6, y: 30, z: 0 }));
 
-    const redActor: TActorWrapper | undefined = await actorRegistry.findByTagAsync('red');
-    const blueActor: TActorWrapper | undefined = await actorRegistry.findByTagAsync('blue');
-    const greenActor: TActorWrapper | undefined = await actorRegistry.findByTagAsync('green');
+    const redActor: TActorWrapper | undefined = actorRegistry.findByTag('red');
+    const blueActor: TActorWrapper | undefined = actorRegistry.findByTag('blue');
+    const greenActor: TActorWrapper | undefined = actorRegistry.findByTag('green');
     if (isNotDefined(redActor) || isNotDefined(blueActor) || isNotDefined(greenActor)) throw new Error('Actors are not defined');
 
     const redText: TText2dWrapper | undefined = text2dRegistry.findByTag('red');

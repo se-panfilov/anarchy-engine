@@ -10,10 +10,10 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
   const { keyboardService } = engine.services;
   const { actorService, loopService, physicsWorldService, physicsLoopService } = space.services;
 
-  async function init(): Promise<void> {
+  function init(): void {
     physicsWorldService.getDebugRenderer(loopService).start();
 
-    const actor: TActorWrapper | undefined = await actorService.getRegistry().findByNameAsync('actor_6');
+    const actor: TActorWrapper | undefined = actorService.getRegistry().findByName('actor_6');
     if (isNotDefined(actor)) throw new Error('Non-physical actor not found');
 
     //run/stop physics loop

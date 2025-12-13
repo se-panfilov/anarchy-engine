@@ -15,8 +15,8 @@ export async function buildTower(
 
   console.log('number of blocks:', blocks.length);
 
-  const result = blocks.map((block: TBuidingBlock): Promise<TActorWrapperWithPhysics> => {
-    return actorService.createAsync({
+  const result = blocks.map((block: TBuidingBlock): TActorWrapperWithPhysics => {
+    return actorService.create({
       name: `block_${block.position.getX()}_${block.position.getY()}_${block.position.getZ()}`,
       model3d: { url: PrimitiveModel3dType.Cube },
       width: block.width,
@@ -41,7 +41,7 @@ export async function buildTower(
       castShadow: true,
       spatial: { isAutoUpdate: true, grid },
       tags: ['physics_block']
-    }) as Promise<TActorWrapperWithPhysics>;
+    }) as TActorWrapperWithPhysics;
   });
 
   return await Promise.all(result);
