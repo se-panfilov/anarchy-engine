@@ -1,18 +1,18 @@
 import type { Subscription } from 'rxjs';
 import { BehaviorSubject } from 'rxjs';
-import type { Euler } from 'three';
 import { Vector3 } from 'three';
 
 import type { TActorParams, TInstantActorDriver } from '@/Engine/Actor/Models';
 import type { TDestroyable, TWithPosition3dProperty, TWithRotationProperty, TWithScaleProperty } from '@/Engine/Mixins';
 import { destroyableMixin, withMoveBy3dMixin, withRotationMixin, withScaleMixin } from '@/Engine/Mixins';
+import type { TReadonlyEuler, TReadonlyVector3 } from '@/Engine/ThreeLib';
 import type { TWithUndefined } from '@/Engine/Utils';
 import { updateSubjOnChange } from '@/Engine/Utils';
 
 export function InstantActorDriver(params: TActorParams): TInstantActorDriver {
-  const position$: BehaviorSubject<Vector3> = new BehaviorSubject<Vector3>(params.position);
-  const rotation$: BehaviorSubject<Euler> = new BehaviorSubject<Euler>(params.rotation);
-  const scale$: BehaviorSubject<Vector3 | undefined> = new BehaviorSubject<Vector3 | undefined>(params.scale);
+  const position$: BehaviorSubject<TReadonlyVector3> = new BehaviorSubject<TReadonlyVector3>(params.position);
+  const rotation$: BehaviorSubject<TReadonlyEuler> = new BehaviorSubject<TReadonlyEuler>(params.rotation);
+  const scale$: BehaviorSubject<TReadonlyVector3 | undefined> = new BehaviorSubject<TReadonlyVector3 | undefined>(params.scale);
 
   const destroyable: TDestroyable = destroyableMixin();
   const destroySub$: Subscription = destroyable.destroy$.subscribe((): void => {
@@ -32,13 +32,13 @@ export function InstantActorDriver(params: TActorParams): TInstantActorDriver {
   const rotationObj: TWithRotationProperty = { rotation: rotation$.value.clone() };
   const scaleObj: TWithScaleProperty = { scale: scale$.value?.clone() ?? new Vector3(1, 1, 1) };
 
-  const proxyTransformObj: TWithPosition3dProperty = updateSubjOnChange(positionObj, 'position', position$, (value: Vector3): Vector3 => value.clone());
-  const proxyRotationObj: TWithRotationProperty = updateSubjOnChange(rotationObj, 'rotation', rotation$, (value: Euler): Euler => value.clone());
+  const proxyTransformObj: TWithPosition3dProperty = updateSubjOnChange(positionObj, 'position', position$, (value: TReadonlyVector3): TReadonlyVector3 => value.clone());
+  const proxyRotationObj: TWithRotationProperty = updateSubjOnChange(rotationObj, 'rotation', rotation$, (value: TReadonlyEuler): TReadonlyEuler => value.clone());
   const proxyScaleObj: TWithScaleProperty = updateSubjOnChange(
     scaleObj as TWithUndefined<TWithScaleProperty>,
     'scale',
     scale$,
-    (value: Vector3 | undefined): Vector3 | undefined => value?.clone() ?? undefined
+    (value: TReadonlyVector3 | undefined): TReadonlyVector3 | undefined => value?.clone() ?? undefined
   ) as TWithScaleProperty;
 
   return {

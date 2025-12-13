@@ -9,17 +9,18 @@ import type { TDegrees, TRadians } from '@/Engine/Math';
 import { getAzimuthDegFromDirection, getAzimuthRadFromDirection, getElevationDegFromDirection, getElevationRadFromDirection } from '@/Engine/Math';
 import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
+import type { TReadonlyEuler, TReadonlyQuaternion, TReadonlyVector3 } from '@/Engine/ThreeLib';
 import type { TWriteable } from '@/Engine/Utils';
 
 export function KinematicActorDriver(params: TActorParams, kinematicLoopService: TKinematicLoopService): TKinematicActorDriver {
   let _isAutoUpdate: boolean = params.kinematic?.isAutoUpdate ?? false;
   let _isEnabled: boolean = _isAutoUpdate;
-  const position$: BehaviorSubject<Vector3> = new BehaviorSubject<Vector3>(params.position);
-  const rotationQuaternion$: BehaviorSubject<Quaternion> = new BehaviorSubject<Quaternion>(new Quaternion().setFromEuler(params.rotation));
-  const rotation$: BehaviorSubject<Euler> = new BehaviorSubject<Euler>(params.rotation);
-  const scale$: BehaviorSubject<Vector3 | undefined> = new BehaviorSubject<Vector3 | undefined>(params.scale);
+  const position$: BehaviorSubject<TReadonlyVector3> = new BehaviorSubject<TReadonlyVector3>(params.position);
+  const rotationQuaternion$: BehaviorSubject<TReadonlyQuaternion> = new BehaviorSubject<TReadonlyQuaternion>(new Quaternion().setFromEuler(params.rotation));
+  const rotation$: BehaviorSubject<TReadonlyEuler> = new BehaviorSubject<TReadonlyEuler>(params.rotation);
+  const scale$: BehaviorSubject<TReadonlyVector3 | undefined> = new BehaviorSubject<TReadonlyVector3 | undefined>(params.scale);
 
-  const rotationQuaternionSub$: Subscription = rotationQuaternion$.pipe(map((q: Quaternion): Euler => new Euler().setFromQuaternion(q))).subscribe(rotation$);
+  const rotationQuaternionSub$: Subscription = rotationQuaternion$.pipe(map((q: TReadonlyQuaternion): TReadonlyEuler => new Euler().setFromQuaternion(q))).subscribe(rotation$);
 
   let kinematicSub$: Subscription | undefined = undefined;
 
@@ -70,11 +71,11 @@ export function KinematicActorDriver(params: TActorParams, kinematicLoopService:
     getData(): TKinematicData {
       return this.data;
     },
-    adjustDataByLinearVelocity(linearVelocity: Vector3): void {
+    adjustDataByLinearVelocity(linearVelocity: TReadonlyVector3): void {
       this.setLinearSpeed(linearVelocity.length());
       this.setLinearDirection(linearVelocity.clone().normalize());
     },
-    adjustDataFromAngularVelocity(angularVelocity: Vector3): void {
+    adjustDataFromAngularVelocity(angularVelocity: TReadonlyVector3): void {
       this.setAngularSpeed(angularVelocity.length());
       this.setAngularDirection(angularVelocity.clone().normalize());
     },
@@ -91,10 +92,10 @@ export function KinematicActorDriver(params: TActorParams, kinematicLoopService:
       // eslint-disable-next-line functional/immutable-data
       (this.data as TWriteable<TKinematicData>).linearSpeed = speed;
     },
-    getLinearDirection(): Vector3 {
+    getLinearDirection(): TReadonlyVector3 {
       return this.data.linearDirection;
     },
-    setLinearDirection(direction: Vector3): void {
+    setLinearDirection(direction: TReadonlyVector3): void {
       this.data.linearDirection.copy(direction);
     },
     setLinearDirectionFromParamsDeg(azimuthDeg: TDegrees, elevationDeg: TDegrees): void {
@@ -147,10 +148,10 @@ export function KinematicActorDriver(params: TActorParams, kinematicLoopService:
       // eslint-disable-next-line functional/immutable-data
       (this.data as TWriteable<TKinematicData>).angularSpeed = speed;
     },
-    getAngularDirection(): Vector3 {
+    getAngularDirection(): TReadonlyVector3 {
       return this.data.angularDirection;
     },
-    setAngularDirection(direction: Vector3): void {
+    setAngularDirection(direction: TReadonlyVector3): void {
       this.data.angularDirection.copy(direction);
     },
     setAngularDirectionFromParamsDeg(azimuthDeg: TDegrees, elevationDeg: TDegrees): void {
@@ -208,17 +209,17 @@ export function KinematicActorDriver(params: TActorParams, kinematicLoopService:
   function doKinematicMove(delta: number): void {
     if (!driver.isEnabled()) return;
     if (driver.data.linearSpeed <= 0) return;
-    const normalizedDirection: Vector3 = driver.data.linearDirection.clone().normalize();
-    const displacement: Vector3 = normalizedDirection.multiplyScalar(driver.data.linearSpeed * delta);
+    const normalizedDirection: TReadonlyVector3 = driver.data.linearDirection.clone().normalize();
+    const displacement: TReadonlyVector3 = normalizedDirection.multiplyScalar(driver.data.linearSpeed * delta);
     position$.next(position$.value.clone().add(displacement));
   }
 
   function doKinematicRotation(delta: number): void {
     if (!driver.isEnabled()) return;
     if (driver.data.angularSpeed <= 0) return;
-    const normalizedAngularDirection: Vector3 = driver.data.angularDirection.clone().normalize();
+    const normalizedAngularDirection: TReadonlyVector3 = driver.data.angularDirection.clone().normalize();
     const angle: TRadians = driver.data.angularSpeed * delta;
-    const quaternion: Quaternion = new Quaternion().setFromAxisAngle(normalizedAngularDirection, angle);
+    const quaternion: TReadonlyQuaternion = new Quaternion().setFromAxisAngle(normalizedAngularDirection, angle);
     rotationQuaternion$.next(rotationQuaternion$.value.clone().multiply(quaternion));
   }
 

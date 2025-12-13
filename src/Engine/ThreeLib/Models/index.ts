@@ -7,4 +7,7 @@ export * from './TObject3DPropConfig';
 export * from './TObject3DProps';
 export * from './TPlaneGeometryProps';
 export * from './TPoints';
+export * from './TReadonlyEuler';
+export * from './TReadonlyQuaternion';
+export * from './TReadonlyVector3';
 export * from './TSphereGeometryProps';

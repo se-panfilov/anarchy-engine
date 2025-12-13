@@ -1,11 +1,11 @@
 import type { BehaviorSubject } from 'rxjs';
-import type { Euler, Vector3 } from 'three';
 
 import type { TDestroyable } from '@/Engine/Mixins';
+import type { TReadonlyEuler, TReadonlyVector3 } from '@/Engine/ThreeLib';
 
 export type TAbstractDriver = Readonly<{
-  position$: BehaviorSubject<Vector3>;
-  rotation$: BehaviorSubject<Euler>;
-  scale$: BehaviorSubject<Vector3 | undefined>;
+  position$: BehaviorSubject<TReadonlyVector3>;
+  rotation$: BehaviorSubject<TReadonlyEuler>;
+  scale$: BehaviorSubject<TReadonlyVector3 | undefined>;
 }> &
   TDestroyable;

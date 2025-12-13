@@ -1,17 +1,17 @@
 import type { Subscription } from 'rxjs';
 import { BehaviorSubject } from 'rxjs';
-import type { Euler, Vector3 } from 'three';
 
 import type { TActorParams } from '@/Engine/Actor';
 import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
 import type { TPhysicsActorDriver } from '@/Engine/Physics/Models';
+import type { TReadonlyEuler, TReadonlyVector3 } from '@/Engine/ThreeLib';
 
 // TODO 8.0.0. MODELS: This is a placeholder for PhysicsActorDrive
 export function PhysicsActorDriver(params: TActorParams): TPhysicsActorDriver {
-  const position$: BehaviorSubject<Vector3> = new BehaviorSubject<Vector3>(params.position);
-  const rotation$: BehaviorSubject<Euler> = new BehaviorSubject<Euler>(params.rotation);
-  const scale$: BehaviorSubject<Vector3 | undefined> = new BehaviorSubject<Vector3 | undefined>(params.scale);
+  const position$: BehaviorSubject<TReadonlyVector3> = new BehaviorSubject<TReadonlyVector3>(params.position);
+  const rotation$: BehaviorSubject<TReadonlyEuler> = new BehaviorSubject<TReadonlyEuler>(params.rotation);
+  const scale$: BehaviorSubject<TReadonlyVector3 | undefined> = new BehaviorSubject<TReadonlyVector3 | undefined>(params.scale);
 
   const destroyable: TDestroyable = destroyableMixin();
   const destroySub$: Subscription = destroyable.destroy$.subscribe((): void => {
