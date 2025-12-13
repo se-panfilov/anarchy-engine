@@ -93,13 +93,10 @@ function validateData({ name, actors, cameras, scenes, controls, lights, fogs, t
   return { isValid: errors.length === 0, errors };
 }
 
-// TODO (S.Panfilov) add unit tests
 const validateNames = (entities: ReadonlyArray<IWithName>): boolean => entities.every((e: IWithName): boolean => validateName(e.name));
 
-// TODO (S.Panfilov) add unit tests
 const validateName = (name: string | undefined): boolean => (isDefined(name) ? name.length > 0 && /^[A-z0-9_]+$/gm.test(name) : true);
 
-// TODO (S.Panfilov) add unit tests
 const validateTags = (tags: ReadonlyArray<string>): boolean => tags.every(validateName);
 
 const validateTagsForEveryEntity = (entities: ReadonlyArray<IWithReadonlyTags>): boolean => entities.every((e: IWithReadonlyTags): boolean => validateTags(e.tags));
