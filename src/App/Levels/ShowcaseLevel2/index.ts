@@ -12,9 +12,10 @@ export function showcaseLevel2(canvas: IAppCanvas): IShowcase {
 
   function start(): void {
     level.start();
+    const { actorFactory, cameraRegistry } = level.entities;
 
     // START Experiment1: custom controls ---------------
-    level.factory.actor.create({
+    actorFactory.create({
       type: ActorType.cube,
       position: Vector3Wrapper({ x: 0, y: 0, z: 0 }),
       castShadow: true,
@@ -24,7 +25,6 @@ export function showcaseLevel2(canvas: IAppCanvas): IShowcase {
 
     const { mousePositionWatcher, screenSizeWatcher } = ambientContext;
     combineLatest([mousePositionWatcher.value$, screenSizeWatcher.latest$]).subscribe(([{ x, y }, { width, height }]): void => {
-      const { camera } = level.registry;
       const xRatio = x / width;
       const yRatio = -(y / height);
       // const xAngle = xRatio * Math.PI * 2;
@@ -35,10 +35,10 @@ export function showcaseLevel2(canvas: IAppCanvas): IShowcase {
       // camera.getAll()[0].entity.position.setY(yPosition);
       // TODO (S.Panfilov) CWP Camera is always a PerspectiveCamera, is that right?
 
-      console.log('camera rotation', camera.getAll()[0].entity.rotation);
-      camera.getAll()[0].entity.position.setX(xRatio);
-      camera.getAll()[0].entity.position.setY(yRatio);
-      camera.getAll()[0].entity.lookAt(new Vector3(0, 0, 0));
+      // console.log('camera rotation', cameraRegistry.getAll()[0].entity.rotation);
+      cameraRegistry.getAll()[0].entity.position.setX(xRatio);
+      cameraRegistry.getAll()[0].entity.position.setY(yRatio);
+      cameraRegistry.getAll()[0].entity.lookAt(new Vector3(0, 0, 0));
 
       // const xRatio: number = x / width - 0.5;
       // const yRatio: number = -(y / height - 0.5);

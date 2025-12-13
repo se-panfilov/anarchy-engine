@@ -8,16 +8,7 @@
     }
   ],
   "actors": [],
-  "cameras": [
-    {
-      "fov": 45,
-      "near": 1,
-      "far": 10000,
-      "position": { "x": 2, "y": 2, "z": 2 },
-      "rotation": { "x": 0, "y": 0, "z": 0 },
-      "tags": ["initial"]
-    }
-  ],
+  "cameras": [],
   "lights": [
     {
       "type": "ambient",

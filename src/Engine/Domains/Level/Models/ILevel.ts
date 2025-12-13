@@ -1,7 +1,8 @@
 import type { Observable } from 'rxjs';
 
 import type { CommonTag } from '@/Engine/Domains/Abstract';
-import type { ILevelFactory, ILevelRegistry, IWithBuilt, LevelTag } from '@/Engine/Domains/Level';
+import type { IWithBuilt, LevelTag } from '@/Engine/Domains/Level';
+import type { ILevelEntities } from '@/Engine/Domains/Level/Models';
 import type { ILoopWrapper } from '@/Engine/Domains/Loop';
 import type { IDestroyable, IWithMessages } from '@/Engine/Mixins';
 
@@ -12,8 +13,7 @@ export type ILevel = IDestroyable &
     name: string;
     start: () => ILoopWrapper;
     stop: () => void;
-    registry: ILevelRegistry;
-    factory: ILevelFactory;
+    entities: ILevelEntities;
     tags: ReadonlyArray<LevelTag | CommonTag | string>;
     built$: Observable<void>;
     isBuilt: () => boolean;

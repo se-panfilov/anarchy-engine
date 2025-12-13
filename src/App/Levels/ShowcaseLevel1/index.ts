@@ -6,14 +6,14 @@ import levelConfig from './showcase-level-1.config.json';
 
 export function showcaseLevel1(canvas: IAppCanvas): IShowcase {
   const level: ILevel = buildLevelFromConfig(canvas, levelConfig as ILevelConfig);
+  const { intersectionsWatcherRegistry, actorRegistry, loopRegistry } = level.entities;
 
   function start(): void {
-    const level: ILevel = buildLevelFromConfig(canvas, levelConfig as ILevelConfig);
     level.start();
 
     //START: just debug
     console.log(level);
-    const intersectionsWatcher: IIntersectionsWatcher | undefined = level.registry.intersectionsWatcher.getUniqByTag(CommonTag.FromConfig);
+    const intersectionsWatcher: IIntersectionsWatcher | undefined = intersectionsWatcherRegistry.getUniqByTag(CommonTag.FromConfig);
     if (isNotDefined(intersectionsWatcher)) throw new Error(`Cannot get "intersectionsWatcher" with tag "${CommonTag.FromConfig}"`);
     intersectionsWatcher.value$.subscribe((obj: IVector3): void => {
       console.log('intersect obj', obj);
@@ -25,9 +25,9 @@ export function showcaseLevel1(canvas: IAppCanvas): IShowcase {
     //END: just debug
 
     // START Experiment1: animations ---------------
-    const actor: IActorWrapper = level.registry.actor.getAllWithSomeTag([ActorTag.Intersectable])[0];
+    const actor: IActorWrapper = actorRegistry.getAllWithSomeTag([ActorTag.Intersectable])[0];
     actor.setY(2);
-    const loop: ILoopWrapper | undefined = level.registry.loop.getUniqByTag(LoopTag.Main);
+    const loop: ILoopWrapper | undefined = loopRegistry.getUniqByTag(LoopTag.Main);
 
     function moveActor(): void {
       requestAnimationFrame((): void => {

@@ -138,6 +138,8 @@ export function buildLevelFromConfig(canvas: IAppCanvas, config: ILevelConfig): 
     rendererEntityCreatedSubscription.unsubscribe();
     rendererFactory.destroy();
     rendererRegistry.destroy();
+
+    messages$.complete();
   });
 
   builtMixin.build();
@@ -147,32 +149,32 @@ export function buildLevelFromConfig(canvas: IAppCanvas, config: ILevelConfig): 
     start(): ILoopWrapper {
       if (isDefined(intersectionsWatcher)) intersectionsWatcher.start();
       loop.start(renderer, scene, controlsRegistry, initialCamera);
+      messages$.next(`Level started`);
       return loop;
     },
     stop(): void {
       if (isDefined(intersectionsWatcher)) intersectionsWatcher.stop();
       // TODO (S.Panfilov) implement stop
       // loop.stop(renderer, scene, initialCamera, controlsRegistry);
+      messages$.next(`Level stopped`);
     },
-    registry: {
-      actor: actorRegistry,
-      camera: cameraRegistry,
-      light: lightRegistry,
-      controls: controlsRegistry,
-      intersectionsWatcher: intersectionsWatcherRegistry,
-      loop: loopRegistry,
-      scenes: sceneRegistry,
-      renderer: rendererRegistry
-    },
-    factory: {
-      actor: actorFactory,
-      camera: cameraFactory,
-      light: lightFactory,
-      controls: controlsFactory,
-      intersectionsWatcher: intersectionsWatcherFactory,
-      loop: loopFactory,
-      scenes: sceneFactory,
-      renderer: rendererFactory
+    entities: {
+      actorRegistry: actorRegistry,
+      actorFactory: actorFactory,
+      cameraRegistry: cameraRegistry,
+      cameraFactory: cameraFactory,
+      lightRegistry: lightRegistry,
+      lightFactory: lightFactory,
+      controlsRegistry: controlsRegistry,
+      controlsFactory: controlsFactory,
+      intersectionsWatcherRegistry: intersectionsWatcherRegistry,
+      intersectionsWatcherFactory: intersectionsWatcherFactory,
+      loopRegistry: loopRegistry,
+      loopFactory: loopFactory,
+      scenesRegistry: sceneRegistry,
+      scenesFactory: sceneFactory,
+      rendererRegistry: rendererRegistry,
+      rendererFactory: rendererFactory
     },
     tags,
     ...builtMixin,
