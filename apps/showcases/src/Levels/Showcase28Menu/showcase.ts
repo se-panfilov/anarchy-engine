@@ -1,5 +1,6 @@
 import type { TIntersectionEvent, TIntersectionsCameraWatcher, TModel3d, TModels3dRegistry, TSceneWrapper, TSpace, TSpaceConfig, TText3dWrapper } from '@Engine';
 import { asRecord, isNotDefined, spaceService } from '@Engine';
+import { distinctUntilChanged, filter, Subject } from 'rxjs';
 
 import type { TAppSettings } from '@/Models';
 import { addGizmo } from '@/Utils';
@@ -17,9 +18,10 @@ export function start(settings: TAppSettings): void {
 }
 
 export function showcase(space: TSpace): void {
-  const { models3dService, scenesService, textService, intersectionsWatcherService } = space.services;
+  const { models3dService, scenesService, textService, intersectionsWatcherService, mouseService } = space.services;
   const models3dRegistry: TModels3dRegistry = models3dService.getRegistry();
   const sceneW: TSceneWrapper = scenesService.getActive();
+  const openMenu$: Subject<boolean> = new Subject<boolean>();
 
   addGizmo(space.services, space.container, space.loops, { placement: 'bottom-left' });
 
@@ -32,8 +34,16 @@ export function showcase(space: TSpace): void {
 
   const watcherMenuCube: TIntersectionsCameraWatcher = intersectionsWatcherService.getCameraWatcher('watcher_menu_cube');
 
-  let i = 0;
-  watcherMenuCube.value$.subscribe((value: TIntersectionEvent): void => console.log('redWatcher', i++, value));
+  let isMouseOverMenuCube: boolean = false;
+  watcherMenuCube.value$.subscribe((value: TIntersectionEvent): void => {
+    isMouseOverMenuCube = !!value;
+  });
+
+  mouseService.clickLeftRelease$.pipe(filter((): boolean => isMouseOverMenuCube)).subscribe((): void => openMenu$.next(true));
+
+  openMenu$.pipe(distinctUntilChanged()).subscribe((): void => {
+    console.log('TODO: Open menu');
+  });
 
   space.start$.next(true);
 }

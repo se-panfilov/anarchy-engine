@@ -69,6 +69,8 @@
         "actorNames": ["cube_actor"],
         "cameraName": "main",
         "isAutoStart": true,
+        "triggerNoIntersections": true,
+        "isDistinct": true,
         "name": "watcher_menu_cube",
         "performance": {
           "noiseThreshold": 0.01,
