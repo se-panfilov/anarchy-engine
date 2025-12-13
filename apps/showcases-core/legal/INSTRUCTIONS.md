@@ -4,7 +4,7 @@
 **Publisher/Developer:** Sergei Aleksandrovich Panfilov
 **Support contact:** TBD until market release
 
-> This document provides basic use, safety, and compliance information for **TBD until market release** (the “Software”). It does **not** create service levels, warranties, or contractual obligations. For license terms, see **EULA** shipped in `./legal/EULA.*`. For privacy, see **Privacy Policy** in `./legal/PRIVACY.*`. For security and updates, see **Security Policy** in `./legal/SECURITY.*`.
+> This document provides basic use, safety, and compliance information for **TBD until market release** (the “Software”). It does **not** create service levels, warranties, or contractual obligations. For license terms, see **EULA** (`EULA.*`). For privacy, see **Privacy Policy** (`PRIVACY.*`). For security and updates, see **Security Policy** (`SECURITY.*`).
 
 ---
 
@@ -30,26 +30,26 @@
 - We may provide **updates** (patches, bug fixes, content changes). Updates can be delivered through the same channels you used to obtain the Software or as replacement files in the package.
 - Some updates may be required to continue using certain features.
 - Release notes / advisories may be included within the product, inside the update package, or provided via the distribution channel (no fixed location/cadence guaranteed).
-- Security maintenance periods are described in the **Security Policy** (in `./legal/`).
+- Security maintenance periods are described in the **Security Policy**.
 
 ---
 
 ## 4) Safety & Acceptable Use (summary)
 
 - Do **not** use the Software for unlawful purposes or to distribute malware, cheats, or tools that degrade others’ experience or security.
-- Avoid use in **safety-critical** contexts where failure could cause injury, environmental, or property damage. See the **Disclaimer** in `./legal/DISCLAIMER.*`.
+- Avoid use in **safety-critical** contexts where failure could cause injury, environmental, or property damage. See the **Disclaimer** (in this folder).
 
 ---
 
 ## 5) CE Marking (EU)
 
-Below is the CE mark included with this package for electronic placement in accompanying materials:
+Below is the CE mark included for electronic placement in these instructions:
 
 ![CE Mark](./images/ce-mark.png 'CE')
 
 - The CE mark indicates conformity of the Software with applicable EU legislation (including cybersecurity/product-safety rules where relevant).
-- The CE mark may also **appear inside the product** (for example, in an “About / Legal” view, installer screen, splash, or other compliance section) **depending on build and language**.
-- The **EU Declaration of Conformity** is provided in this package at: `./legal/EU_DECLARATION_OF_CONFORMITY.pdf`.
+- The CE mark may also **appear inside the product** (for example, in an “About / Legal” view, installer screen, splash, or another compliance section) **depending on build and language**.
+- The **EU Declaration of Conformity** is included here as: `EU_DECLARATION_OF_CONFORMITY.pdf`.
 
 > Placement of the mark within UI may vary across versions and locales; electronic display in these instructions satisfies the electronic marking modality.
 
@@ -59,7 +59,7 @@ Below is the CE mark included with this package for electronic placement in acco
 
 - The Software does **not** collect personal data during offline use.
 - Optional online features (if any) are **opt-in**.
-- Details, including any optional crash reporting, are described in `./legal/PRIVACY.*`.
+- Details, including any optional crash reporting, are described in **Privacy Policy**.
 
 ---
 
@@ -87,15 +87,17 @@ Below is the CE mark included with this package for electronic placement in acco
 
 ## 10) Legal & Compliance (where to find)
 
-All legal documents are provided **offline** with this package in `./legal/`:
+All legal documents are provided **offline** in this folder (canonical filenames in backticks):
 
-- **EULA** — license terms for end users
-- **Privacy Policy** — data protection information
-- **Security Policy** — coordinated vulnerability disclosure & updates
-- **Disclaimer**, **NOTICE**, **THIRD_PARTY_LICENSES**, **LICENSE**
-- **EU_DECLARATION_OF_CONFORMITY.pdf** — signed EU Declaration
-- **ce-mark.png** — CE mark image
-- **sbom/** (if provided) — software bill of materials
+- **End User License Agreement** — `EULA.md`
+- **Privacy Policy** — `PRIVACY.md`
+- **Security Policy** — `SECURITY.md`
+- **Disclaimer** — `DISCLAIMER.md`
+- **Third-Party Notices** — `NOTICE.md` and `THIRD_PARTY_LICENSES.md`
+- **Primary License** — `LICENSE`
+- **EU Declaration of Conformity** — `EU_DECLARATION_OF_CONFORMITY.pdf`
+- **CE mark image** — `./images/ce-mark.png`
+- **Software Bill of Materials** — `sbom/`
 
 > External links are avoided where possible so that required information remains available offline within the distribution.
 
@@ -103,7 +105,7 @@ All legal documents are provided **offline** with this package in `./legal/`:
 
 ## 11) Export Controls (summary)
 
-Use, export, and re-export must comply with applicable **export-control** and **sanctions** laws. See the **Disclaimer** / **EULA** in `./legal/` for details.
+Use, export, and re-export must comply with applicable **export-control** and **sanctions** laws. See **Disclaimer** / **EULA**.
 
 ---
 
