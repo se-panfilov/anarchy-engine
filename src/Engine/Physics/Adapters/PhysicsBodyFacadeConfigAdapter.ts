@@ -1,6 +1,6 @@
-import type { TPhysicsBodyFacadeConfig, TPhysicsBodyFacadeParams } from '@/Engine/Physics/Models';
+import type { TPhysicsBodyConfig, TPhysicsBodyParams } from '@/Engine/Physics/Models';
 
-export function configToParamsBodyFacade(config: TPhysicsBodyFacadeConfig): TPhysicsBodyFacadeParams {
+export function configToParamsBodyFacade(config: TPhysicsBodyConfig): TPhysicsBodyParams {
   const { type, ...rest } = config;
 
   return {

@@ -4,7 +4,7 @@ import { ActorType } from '@/Engine/Actor/Constants';
 import type { TActorDependencies, TActorParams } from '@/Engine/Actor/Models';
 import type { TMaterials, TMaterialWrapper } from '@/Engine/Material';
 import { meters } from '@/Engine/Measurements/Utils';
-import type { TPhysicsBodyFacade, TPhysicsPresetParams, TPhysicsPresetRegistry, TWithPhysicsPresetParams } from '@/Engine/Physics';
+import type { TPhysicsBodyFacade, TPhysicsBodyParams, TPhysicsPresetRegistry, TWithPresetPhysicsBodyParams } from '@/Engine/Physics';
 import type { TMesh } from '@/Engine/ThreeLib';
 import { isDefined, isNotDefined } from '@/Engine/Utils';
 
@@ -38,19 +38,19 @@ function createCube({ width, height, depth, widthSegments, heightSegments, depth
 }
 
 export function createPhysicsBody(
-  physics: TWithPhysicsPresetParams,
+  physics: TWithPresetPhysicsBodyParams,
   { physicsBodyFacadeService, physicsPresetService }: Pick<TActorDependencies, 'physicsBodyFacadeService' | 'physicsPresetService'>
 ): TPhysicsBodyFacade {
-  const { preset, ...rest } = physics;
-  let presetFromRegistry: TPhysicsPresetParams | undefined;
-  if (isDefined(preset)) {
+  const { presetName, ...rest } = physics;
+  let presetFromRegistry: TPhysicsBodyParams | undefined;
+  if (isDefined(presetName)) {
     const physicsPresetRegistry: TPhysicsPresetRegistry = physicsPresetService.getRegistry();
     // TODO (S.Panfilov) findByKey?
-    presetFromRegistry = physicsPresetRegistry.findByKey(preset);
-    if (isNotDefined(presetFromRegistry)) throw new Error(`Physics preset not found: ${preset}`);
+    presetFromRegistry = physicsPresetRegistry.findByKey(presetName);
+    if (isNotDefined(presetFromRegistry)) throw new Error(`Physics preset not found: ${presetName}`);
   }
 
-  let fullParams: TPhysicsPresetParams = { ...rest };
+  let fullParams: TPhysicsBodyParams = { ...rest };
   if (isDefined(presetFromRegistry)) fullParams = { ...fullParams, ...presetFromRegistry };
 
   // TODO (S.Panfilov) CWP here we build somehow (we need a factory and a registry),

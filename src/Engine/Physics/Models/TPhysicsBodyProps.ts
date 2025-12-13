@@ -3,7 +3,7 @@ import type { CollisionShape, RigidBodyTypesNames } from '@/Engine/Physics/Const
 
 import type { TPhysicsShapeParams } from './TPhysicsShapeParams';
 
-export type TPhysicsPresetProps = Readonly<{
+export type TPhysicsBodyProps = Readonly<{
   type: RigidBodyTypesNames;
   collisionShape: CollisionShape;
   shapeParams: TPhysicsShapeParams;

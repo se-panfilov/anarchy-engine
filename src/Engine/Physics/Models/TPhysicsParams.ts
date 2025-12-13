@@ -1,7 +1,7 @@
+import type { TPhysicsBodyParams } from './TPhysicsBodyParams';
 import type { TPhysicsGlobalParams } from './TPhysicsGlobalParams';
-import type { TPhysicsPresetParams } from './TPhysicsPresetParams';
 
 export type TPhysicsParams = Readonly<{
   global: TPhysicsGlobalParams;
-  presets: ReadonlyArray<TPhysicsPresetParams>;
+  presets: ReadonlyArray<TPhysicsBodyParams>;
 }>;

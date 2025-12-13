@@ -1,10 +1,10 @@
 import { AbstractWrapper, FacadeType } from '@/Engine/Abstract';
 import { withPhysicsBodyFacadeEntities } from '@/Engine/Physics/Mixins';
-import type { TPhysicsBodyFacade, TPhysicsBodyFacadeEntities, TPhysicsFacadeDependencies, TPhysicsPresetParams } from '@/Engine/Physics/Models';
+import type { TPhysicsBodyFacade, TPhysicsBodyFacadeEntities, TPhysicsBodyParams, TPhysicsFacadeDependencies } from '@/Engine/Physics/Models';
 
 import { createPhysicsBody } from './PhysicsBodyUtils';
 
-export function PhysicsBodyFacade(params: TPhysicsPresetParams, { world }: TPhysicsFacadeDependencies): TPhysicsBodyFacade {
+export function PhysicsBodyFacade(params: TPhysicsBodyParams, { world }: TPhysicsFacadeDependencies): TPhysicsBodyFacade {
   const entities: TPhysicsBodyFacadeEntities = createPhysicsBody(params, world);
 
   const result = {

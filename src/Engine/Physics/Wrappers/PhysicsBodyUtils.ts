@@ -7,7 +7,7 @@ import { CollisionShape } from '@/Engine/Physics/Constants';
 import type {
   TAllPhysicsShapeParams,
   TPhysicsBodyFacadeEntities,
-  TPhysicsPresetParams,
+  TPhysicsBodyParams,
   TPhysicsShapeBallParams,
   TPhysicsShapeCapsuleParams,
   TPhysicsShapeConeParams,
@@ -23,7 +23,7 @@ import type {
 import type { TOptional } from '@/Engine/Utils';
 import { isDefined, isNotDefined } from '@/Engine/Utils';
 
-export function createPhysicsBody(params: TPhysicsPresetParams, world: World): TPhysicsBodyFacadeEntities {
+export function createPhysicsBody(params: TPhysicsBodyParams, world: World): TPhysicsBodyFacadeEntities {
   const rigidBodyDesc: RigidBodyDesc = RigidBodyDesc[params.type]();
   if (isDefined(params.position)) rigidBodyDesc.setTranslation(params.position.getX(), params.position.getY(), params.position.getZ());
   if (isDefined(params.rotation)) rigidBodyDesc.setRotation(params.rotation.toQuaternion());
@@ -35,7 +35,7 @@ export function createPhysicsBody(params: TPhysicsPresetParams, world: World): T
 }
 
 // TODO (S.Panfilov) add unit tests
-export function getColliderDesc(params: TPhysicsPresetParams): ColliderDesc | never {
+export function getColliderDesc(params: TPhysicsBodyParams): ColliderDesc | never {
   const { collisionShape, shapeParams } = params;
   const { a, b, c, borderRadius, nrows, ncols, heights, scale, halfHeight, flags, radius, hx, hy, hz, vertices, indices } = paramsToMeters(shapeParams);
 

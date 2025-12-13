@@ -1,6 +1,6 @@
-import type { TPhysicsPresetConfig, TPhysicsPresetParams } from '@/Engine/Physics/Models';
+import type { TPhysicsBodyConfig, TPhysicsBodyParams } from '@/Engine/Physics/Models';
 
-export function configToParamsPreset(config: TPhysicsPresetConfig): TPhysicsPresetParams {
+export function configToParamsPreset(config: TPhysicsBodyConfig): TPhysicsBodyParams {
   const { type, ...rest } = config;
 
   return {

@@ -3,12 +3,12 @@ import { World } from '@dimforge/rapier3d';
 import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
 import type {
+  TPhysicsBodyConfig,
   TPhysicsBodyFacade,
-  TPhysicsBodyFacadeConfig,
   TPhysicsBodyFacadeFactory,
-  TPhysicsBodyFacadeParams,
   TPhysicsBodyFacadeRegistry,
   TPhysicsBodyFacadeService,
+  TPhysicsBodyParams,
   TPhysicsDebugRenderer,
   TPhysicsWorldParams
 } from '@/Engine/Physics/Models';
@@ -21,9 +21,9 @@ export function PhysicsBodyFacadeService(factory: TPhysicsBodyFacadeFactory, reg
   let world: World | undefined;
   factory.entityCreated$.subscribe((coordinator: TPhysicsBodyFacade): void => registry.add(coordinator));
 
-  const create = (params: TPhysicsBodyFacadeParams): TPhysicsBodyFacade => factory.create(params);
-  const createFromConfig = (physics: ReadonlyArray<TPhysicsBodyFacadeConfig>): void => {
-    physics.forEach((config: TPhysicsBodyFacadeConfig): TPhysicsBodyFacade => factory.create(factory.configToParams(config)));
+  const create = (params: TPhysicsBodyParams): TPhysicsBodyFacade => factory.create(params);
+  const createFromConfig = (physics: ReadonlyArray<TPhysicsBodyConfig>): void => {
+    physics.forEach((config: TPhysicsBodyConfig): TPhysicsBodyFacade => factory.create(factory.configToParams(config)));
   };
 
   function createWorld({
