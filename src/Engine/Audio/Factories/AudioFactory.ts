@@ -1,13 +1,12 @@
-import type { Howl } from 'howler';
-
 import type { TReactiveFactoryWithDependencies } from '@/Engine/Abstract';
 import { FactoryType, ReactiveFactoryWithDependencies } from '@/Engine/Abstract';
 import { configToParams } from '@/Engine/Audio/Adapters';
-import { Audio } from '@/Engine/Audio/Entities';
-import type { TAudioFactory, TAudioParams, TAudioServiceDependencies } from '@/Engine/Audio/Models';
+import type { TAudio3dWrapper, TAudioFactory, TAudioParams, TAudioServiceDependencies } from '@/Engine/Audio/Models';
+import { Audio3dWrapper } from '@/Engine/Audio/Wrappers';
 
-const factory: TReactiveFactoryWithDependencies<Howl, TAudioParams, Pick<TAudioServiceDependencies, 'animationsService' | 'AudioRawToAudioConnectionRegistry'>> = ReactiveFactoryWithDependencies(
-  FactoryType.Audio,
-  Audio
-);
+const factory: TReactiveFactoryWithDependencies<
+  TAudio3dWrapper,
+  TAudioParams,
+  Pick<TAudioServiceDependencies, 'animationsService' | 'AudioRawToAudioConnectionRegistry'>
+> = ReactiveFactoryWithDependencies(FactoryType.Audio, Audio3dWrapper);
 export const AudioFactory = (): TAudioFactory => ({ ...factory, configToParams });

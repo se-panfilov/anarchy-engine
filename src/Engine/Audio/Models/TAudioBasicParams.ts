@@ -1,10 +1,11 @@
-import type { TWithNameOptional, TWithTags } from '@/Engine/Mixins';
+import type { TWithName } from '@/Engine/Mixins';
+import type { TObject3DParams } from '@/Engine/ThreeLib';
 import type { TWithTransformAgentParam } from '@/Engine/TransformDrive';
 
 import type { TAudioPerformanceOptions } from './TAudioPerformanceOptions';
 
 export type TAudioBasicParams = Readonly<{
-  sound: Howl;
+  audioSource: Howl;
   volume: number;
   name: string;
   loop?: boolean;
@@ -15,5 +16,5 @@ export type TAudioBasicParams = Readonly<{
   performance?: TAudioPerformanceOptions;
 }> &
   TWithTransformAgentParam &
-  TWithNameOptional &
-  TWithTags;
+  Pick<TObject3DParams, 'position'> &
+  TWithName;
