@@ -1,3 +1,5 @@
-export type TWithSerializeEntity<C extends Record<string, any>, D extends Record<string, any> | undefined = undefined> = Readonly<{
-  serializeEntity: (dependencies?: D) => C;
+import type { TSerializable } from '@/Engine/Mixins/Generics/Models';
+
+export type TWithSerializeEntity<E extends TSerializable<any, any>, C extends Record<string, any>> = Readonly<{
+  serializeEntity: (entity: E) => C;
 }>;
