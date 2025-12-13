@@ -8,7 +8,6 @@ import { destroyableMixin, withNameAndNameAccessorsMixin } from '@/Engine/Mixins
 import { genericEntityCleanUp, isDefined, mergeAll } from '@/Engine/Utils';
 
 // TODO 14-0-0: Make sure we are destroying Intersections
-
 export function AbstractEntity<T extends Record<string, any>, P extends TEntityParams>(entities: T, type: EntityType | string, params?: P): TAbstractEntity<T> {
   const id: string = isDefined(params?.id) ? params.id : type + '_' + nanoid();
 
