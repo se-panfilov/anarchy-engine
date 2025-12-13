@@ -1,7 +1,5 @@
-import type { TRegistryPack } from '@/Engine/Abstract';
 import { ambientContext } from '@/Engine/Context';
 import type { TAppGlobalContainer, TGlobalContainerDecorator } from '@/Engine/Global';
-import type { TIntersectionsWatcher } from '@/Engine/Intersections';
 import type { TScreenSizeWatcher } from '@/Engine/Screen';
 import { CreateEntitiesStrategy } from '@/Engine/Space/Constants';
 import type { TSpaceConfigEntities, TSpaceParamsEntities, TSpaceServices } from '@/Engine/Space/Models';
@@ -18,14 +16,6 @@ export function createEntities(entities: TSpaceConfigEntities | TSpaceParamsEnti
     default:
       throw new Error(`Space: Unknown entities creation strategy: ${strategy}`);
   }
-
-  // TODO 14-0-0: Move this into Space
-  services.intersectionsWatcherService.getRegistry().added$.subscribe(({ value }: TRegistryPack<TIntersectionsWatcher>): void => {
-    if (value.isAutoStart && !value.isStarted) value.start$.next();
-  });
-
-  // TODO 14-0-0: Move this into Space
-  services.screenService.watchers.getRegistry().added$.subscribe(({ value }: TRegistryPack<TScreenSizeWatcher>): void => value.start$.next());
 }
 
 // TODO a lot of code duplication here, but doesn't worth to refactor right now

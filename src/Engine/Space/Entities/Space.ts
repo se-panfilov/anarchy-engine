@@ -1,7 +1,7 @@
 import type { Subscription } from 'rxjs';
-import { BehaviorSubject, distinctUntilChanged, filter } from 'rxjs';
+import { BehaviorSubject, distinctUntilChanged, filter, skip } from 'rxjs';
 
-import type { TAbstractService } from '@/Engine/Abstract';
+import type { TAbstractService, TRegistryPack } from '@/Engine/Abstract';
 import { AbstractEntity, EntityType } from '@/Engine/Abstract';
 import type { TAppCanvas } from '@/Engine/App';
 import { ambientContext } from '@/Engine/Context';
@@ -31,6 +31,11 @@ export function Space(params: TSpaceParams, hooks?: TSpaceHooks): TSpace {
     hooks?.beforeEntitiesCreated?.(params, services, loops);
     createEntities(params.entities, services, CreateEntitiesStrategy.Params);
     hooks?.afterEntitiesCreated?.(params, services, loops);
+
+    // TODO 14-0-0: Find a better place for this
+    services.intersectionsWatcherService.getRegistry().added$.subscribe(({ value }: TRegistryPack<TIntersectionsWatcher>): void => {
+      if (value.isAutoStart && !value.isStarted) value.start$.next();
+    });
   }
 
   const parts: TSpaceParts = {
@@ -42,7 +47,7 @@ export function Space(params: TSpaceParams, hooks?: TSpaceHooks): TSpace {
 
   const space: TSpace = AbstractEntity(parts, EntityType.Space, { version, name, tags });
 
-  start$.pipe(distinctUntilChanged()).subscribe((value: boolean): void => {
+  start$.pipe(skip(1), distinctUntilChanged()).subscribe((value: boolean): void => {
     if (value) return Object.values(space.loops).forEach((loop: TLoop): void => loop.start());
 
     //stop
@@ -85,7 +90,9 @@ function initSpaceServices(canvas: TAppCanvas, params: TSpaceParams, hooks?: TSp
   const baseServices: TSpaceBaseServices = buildBaseServices();
   baseServices.screenService.setCanvas(canvas);
   const container: TGlobalContainerDecorator = ambientContext.container;
-  baseServices.screenService.watchers.create({ container });
+  const screenSizeWatcher: TScreenSizeWatcher = baseServices.screenService.watchers.create({ container });
+
+  screenSizeWatcher.start$.next();
 
   baseServices.scenesService.createFromList(params.scenes);
   const sceneW: TSceneWrapper | undefined = baseServices.scenesService.findActive();
