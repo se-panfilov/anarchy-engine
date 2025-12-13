@@ -1,6 +1,6 @@
 import { nanoid } from 'nanoid';
-import type { BehaviorSubject, Subscription } from 'rxjs';
-import { distinctUntilChanged, tap } from 'rxjs';
+import type { BehaviorSubject, Observable, Subscription } from 'rxjs';
+import { distinctUntilChanged, sample, tap } from 'rxjs';
 import type { Vector3 } from 'three';
 
 import { AbstractEntity, EntityType } from '@/Engine/Abstract';
@@ -11,6 +11,7 @@ import { applySpatialGrid, startCollisions } from '@/Engine/Actor/Utils';
 import { withCollisions } from '@/Engine/Collisions';
 import type { TFsmWrapper } from '@/Engine/Fsm';
 import type { TModel3d } from '@/Engine/Models3d';
+import type { TSpatialLoop } from '@/Engine/Spatial';
 import { withSpatial, withUpdateSpatialCell } from '@/Engine/Spatial';
 import type { TReadonlyVector3 } from '@/Engine/ThreeLib';
 import type { TDriveToTargetConnector } from '@/Engine/TransformDrive';
@@ -39,10 +40,10 @@ export function Actor(params: TActorParams, { spatialGridService, physicsBodySer
 
   const actor: TActor = AbstractEntity(entities, EntityType.Actor, { ...params, id });
 
-  const positionSub$: Subscription = onDistinctPositionChange(
-    drive.position$,
-    (position: Vector3): void => actor.updateSpatialCells(position),
-    params.spatial.performance?.noiseThreshold ?? 0.0000001
+  const positionChangeSub$: Subscription = spatialPositionUpdate(loopService.getSpatialLoop(), drive.position$, params.spatial.performance?.noiseThreshold ?? 0.000001).subscribe(
+    (position: TReadonlyVector3): void => {
+      actor.updateSpatialCells(position);
+    }
   );
 
   actor.destroy$.subscribe((): void => {
@@ -50,7 +51,7 @@ export function Actor(params: TActorParams, { spatialGridService, physicsBodySer
     model3dToActorConnectionRegistry.removeByModel3d(model3d);
 
     //Finish subscriptions
-    positionSub$?.unsubscribe();
+    positionChangeSub$?.unsubscribe();
 
     // Destroy related entities
     driveToTargetConnector.destroy$.next();
@@ -70,24 +71,19 @@ export function Actor(params: TActorParams, { spatialGridService, physicsBodySer
   return actor;
 }
 
-function onDistinctPositionChange(position$: BehaviorSubject<TReadonlyVector3>, fn: (position: Vector3) => void, noiseThreshold?: number): Subscription {
+function spatialPositionUpdate(spatialLoop: TSpatialLoop, position$: BehaviorSubject<TReadonlyVector3>, noiseThreshold?: number): Observable<Readonly<Vector3>> {
   const prevValue: Float32Array = new Float32Array([0, 0, 0]);
 
-  // TODO 10.0.0. LOOPS: Position/rotations/scale should have an own loop independent from frame rate (driven by time)
-  return (
-    position$
-      .pipe(
-        distinctUntilChanged((_prev: Vector3, curr: Vector3): boolean => isEqualOrSimilarByXyzCoords(prevValue[0], prevValue[1], prevValue[2], curr.x, curr.y, curr.z, noiseThreshold ?? 0)),
-        tap((value: Vector3): void => {
-          // eslint-disable-next-line functional/immutable-data
-          prevValue[0] = value.x;
-          // eslint-disable-next-line functional/immutable-data
-          prevValue[1] = value.y;
-          // eslint-disable-next-line functional/immutable-data
-          prevValue[2] = value.z;
-        })
-      )
-      // I'm not sure if we need to update spatial cells as well on rotation or scale is change
-      .subscribe(fn)
+  return position$.pipe(
+    distinctUntilChanged((_prev: Vector3, curr: Vector3): boolean => isEqualOrSimilarByXyzCoords(prevValue[0], prevValue[1], prevValue[2], curr.x, curr.y, curr.z, noiseThreshold ?? 0)),
+    tap((value: Vector3): void => {
+      // eslint-disable-next-line functional/immutable-data
+      prevValue[0] = value.x;
+      // eslint-disable-next-line functional/immutable-data
+      prevValue[1] = value.y;
+      // eslint-disable-next-line functional/immutable-data
+      prevValue[2] = value.z;
+    }),
+    sample(spatialLoop.tick$)
   );
 }

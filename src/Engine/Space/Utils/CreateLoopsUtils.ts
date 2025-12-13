@@ -29,7 +29,6 @@ export function createLoops({ create }: TLoopService): TSpaceLoops {
     physicalLoop: create({ name: PhysicalMain, type: Physical, trigger: milliseconds(16) }) as TPhysicalLoop,
     collisionsLoop: create({ name: CollisionsMain, type: Collisions, trigger: milliseconds(16), maxPriority: CollisionsUpdatePriority.ASAP }) as TCollisionsLoop,
     kinematicLoop: create({ name: KinematicMain, type: Kinematic, trigger: milliseconds(16) }) as TKinematicLoop,
-    // TODO 10.0.0. LOOPS: do we use spatial loop?
     spatialLoop: create({ name: SpatialMain, type: Spatial, trigger: milliseconds(16), maxPriority: SpatialUpdatePriority.ASAP }) as TSpatialLoop,
     transformLoop: create({ name: TransformMain, type: Transform, trigger: milliseconds(16) }) as TTransformLoop,
     textLoop: create({ name: TextMain, type: Text, trigger: milliseconds(16) }) as TTextLoop,
