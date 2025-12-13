@@ -40,7 +40,6 @@ export function createMouseDebugOverlay(container: HTMLElement): void {
 // const idx = setInterval(() => {
 //   if (container) {
 //     createMouseDebugOverlay(container);
-//     console.log('XXX overlay!');
 //     clearInterval(idx);
 //   } else {
 //     container = document.querySelector('#right_bottom_container')!;
