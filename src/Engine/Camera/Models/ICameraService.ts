@@ -10,5 +10,6 @@ export type ICameraService = Readonly<{
   createFromConfig: (cameras: ReadonlyArray<ICameraConfig>) => void;
   setActiveCamera: (cameraId: string) => void;
   findActiveCamera: (cameraRegistry: ICameraRegistry) => ICameraWrapper | undefined;
+  startUpdatingCamerasAspect: (isOnlyActive: boolean) => void;
 }> &
   IDestroyable;

@@ -4,10 +4,31 @@ import { destroyableMixin } from '@/Engine/Mixins';
 import type { ISceneWrapper } from '@/Engine/Scene';
 import { findActiveWrappedEntity, setActiveWrappedEntity } from '@/Engine/Utils';
 import { CommonTag } from '@/Engine/Abstract';
+import type { Subscription } from 'rxjs';
+import type { IScreenSizeValues } from '@/Engine/Screen';
+import { ambientContext } from '@/Engine/Context';
 
-export function CameraService(factory: ICameraFactory, registry: ICameraRegistry, scene: ISceneWrapper): ICameraService {
+export function CameraService(factory: ICameraFactory, registry: ICameraRegistry, scene: ISceneWrapper, isUpdateCamerasAspect: boolean = true): ICameraService {
   registry.added$.subscribe((wrapper: ICameraWrapper): void => scene.addCamera(wrapper));
   factory.entityCreated$.subscribe((wrapper: ICameraWrapper): void => registry.add(wrapper));
+
+  let screenSize$: Subscription | undefined = undefined;
+
+  function startUpdatingCamerasAspect(isOnlyActive: boolean = false): void {
+    const cameras: ReadonlyArray<ICameraWrapper> = registry.getAll();
+    screenSize$ = ambientContext.screenSizeWatcher.value$.subscribe((params: IScreenSizeValues): void => {
+      cameras.forEach((camera: ICameraWrapper): void => {
+        if ((isOnlyActive && camera.isActive) || !isOnlyActive) camera.setAspect(params.width / params.height);
+      });
+    });
+  }
+
+  if (isUpdateCamerasAspect) startUpdatingCamerasAspect(false);
+
+  const screenSizeDestroy$: Subscription = ambientContext.screenSizeWatcher.destroyed$.subscribe(() => {
+    screenSize$?.unsubscribe();
+    screenSizeDestroy$.unsubscribe();
+  });
 
   const create = (params: ICameraParams): ICameraWrapper => factory.create(params);
   const createFromConfig = (cameras: ReadonlyArray<ICameraConfig>): void =>
@@ -20,6 +41,8 @@ export function CameraService(factory: ICameraFactory, registry: ICameraRegistry
   destroyable.destroyed$.subscribe(() => {
     factory.destroy();
     registry.destroy();
+    screenSize$?.unsubscribe();
+    screenSizeDestroy$.unsubscribe();
   });
 
   return {
@@ -27,6 +50,7 @@ export function CameraService(factory: ICameraFactory, registry: ICameraRegistry
     createFromConfig,
     setActiveCamera,
     findActiveCamera,
+    startUpdatingCamerasAspect,
     ...destroyable
   };
 }
