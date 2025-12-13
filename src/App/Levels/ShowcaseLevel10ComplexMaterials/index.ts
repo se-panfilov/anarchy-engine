@@ -46,7 +46,7 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
     });
   }
 
-  keyboardService.onKey('a').pressing$.subscribe((): void => {
+  keyboardService.onKey('@KeyW').pressing$.subscribe((): void => {
     currentMaterialIndex$.next((currentMaterialIndex$.value + 1) % materials.length);
   });
 
