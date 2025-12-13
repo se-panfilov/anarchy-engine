@@ -1,4 +1,5 @@
-import type { TMenuEvent } from '@ShowcasesShared';
+import type { TFromMenuEvent, TToMenuEvent } from '@ShowcasesShared';
 import { Subject } from 'rxjs';
 
-export const menuEventsBus$: Subject<TMenuEvent> = new Subject<TMenuEvent>();
+export const fromMenuEventsBus$: Subject<TFromMenuEvent> = new Subject<TFromMenuEvent>();
+export const toMenuEventsBus$: Subject<TToMenuEvent> = new Subject<TToMenuEvent>();

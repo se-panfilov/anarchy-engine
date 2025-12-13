@@ -1,28 +1,40 @@
 import { isNotDefined } from '@Shared/Utils';
-import type { TMenuEvent, TShowcaseGameSettings } from '@ShowcasesShared';
-import { MenuEvents } from '@ShowcasesShared';
-import type { Observable } from 'rxjs';
+import type { TFromMenuEvent, TShowcaseGameSettings, TToMenuEvent } from '@ShowcasesShared';
+import { FromMenuEvents, ToMenuEvents } from '@ShowcasesShared';
+import type { Observable, Subject } from 'rxjs';
 
 import { closeMainMenu, loadSettings, saveSettings } from '@/Levels/Showcase28Menu/MainMenuService';
 
-export function handleMenuEvents(menuEventsBus$: Observable<TMenuEvent>): void {
-  menuEventsBus$.subscribe((event: TMenuEvent): void => {
+export function handleFromMenuEvents(fromMenuEventsBus$: Observable<TFromMenuEvent>, toMenuEventsBus$: Subject<TToMenuEvent>): void {
+  let settings: TShowcaseGameSettings | undefined;
+
+  fromMenuEventsBus$.subscribe(async (event: TFromMenuEvent): Promise<void> => {
     switch (event.type) {
-      case MenuEvents.CloseMenu: {
+      case FromMenuEvents.CloseMenu: {
         closeMainMenu();
         break;
       }
-      case MenuEvents.SaveSettings: {
+      case FromMenuEvents.SaveSettings: {
         if (isNotDefined(event.payload)) throw new Error(`[Showcase]: No settings provided for saving`);
         //Better to validate the payload type here
         // TODO DESKTOP: this code is async, hmm... What should we do with the UI?
         saveSettings(event.payload as TShowcaseGameSettings);
         break;
       }
-      case MenuEvents.LoadSettings: {
+      case FromMenuEvents.LoadSettings: {
         // TODO DESKTOP: this code is async, hmm... What should we do with the UI?
         // TODO DESKTOP: should pass the settings  to the menu level to use them as defaults
-        loadSettings();
+        try {
+          settings = await loadSettings();
+        } catch (error) {
+          throw new Error(`[Showcase]: Failed to load settings: ${error}`);
+        }
+        if (isNotDefined(settings)) throw new Error(`[Showcase]: Failed to load settings: ${settings}`);
+
+        toMenuEventsBus$.next({
+          type: ToMenuEvents.SettingsLoaded,
+          payload: settings
+        });
         break;
       }
       default: {

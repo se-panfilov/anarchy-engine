@@ -6,8 +6,8 @@ import { initMenuApp } from 'showcases_menu/src/main';
 
 import { runtimeEnv } from '@/env';
 import { openMainMenu } from '@/Levels/Showcase28Menu/MainMenuService';
-import { handleMenuEvents } from '@/Levels/Showcase28Menu/MenuActions';
-import { menuEventsBus$ } from '@/Levels/Showcase28Menu/MenuEventsBus';
+import { handleFromMenuEvents } from '@/Levels/Showcase28Menu/MenuActions';
+import { fromMenuEventsBus$, toMenuEventsBus$ } from '@/Levels/Showcase28Menu/MenuEventsBus';
 import type { TAppSettings } from '@/Models';
 import { addGizmo } from '@/Utils';
 
@@ -41,10 +41,10 @@ export function showcase(space: TSpace): void {
   sceneW.addText(text3d);
 
   //Subscribe the menu app's events (clicks, etc.).
-  handleMenuEvents(menuEventsBus$);
+  handleFromMenuEvents(fromMenuEventsBus$.asObservable(), toMenuEventsBus$);
 
   // Init the menu app.
-  initMenuApp('#menu', menuEventsBus$, {
+  initMenuApp('#menu', fromMenuEventsBus$, toMenuEventsBus$.asObservable(), {
     showExitBtn: runtimeEnv.VITE_SHOW_EXIT_GAME_MENU_BTN
   });
 

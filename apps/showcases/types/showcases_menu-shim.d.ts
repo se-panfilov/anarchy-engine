@@ -1,6 +1,6 @@
-import type { TMenuEvent, TMenuOptions } from '@ShowcasesShared';
-import type { Subject } from 'rxjs';
+import type { TFromMenuEvent, TMenuOptions, TToMenuEvent } from '@ShowcasesShared';
+import type { Observable, Subject } from 'rxjs';
 
 //Suppress TS check for showcases-menu app (assume it's always "any")
-export const initMenuApp: (id: string, bus: Subject<TMenuEvent>, options?: TMenuOptions) => void;
+export const initMenuApp: (id: string, fromMenuEventsBus$: Subject<TFromMenuEvent>, toMenuEventsBus$: Observable<TToMenuEvent>, options?: TMenuOptions) => void;
 export default {};
