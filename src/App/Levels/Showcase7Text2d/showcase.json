@@ -105,7 +105,8 @@
     ],
     "envMaps": [],
     "particles": [],
-    "fogs": []
+    "fogs": [],
+    "fsm": []
   },
   "tags": []
 }

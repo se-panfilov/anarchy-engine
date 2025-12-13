@@ -975,7 +975,8 @@
     ],
     "envMaps": [{ "name": "urban_alley_env_map", "texture": "urban_alley_hdr", "isActive": true }],
     "particles": [],
-    "fogs": []
+    "fogs": [],
+    "fsm": []
   },
   "tags": []
 }
