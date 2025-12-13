@@ -15,21 +15,21 @@ export function SettingsService(filesService: TFilesService): TSettingsService {
   //  Use defaults from the main app? (or send partial settings, what were detected by the desktop app)
   const loadAppSettings = async (): Promise<TShowcaseGameSettings | undefined> => {
     if (!fs.existsSync(filesService.getPathToFile(appSettingsFileName, userDataFolder))) {
-      console.log(`[DESKTOP]: Settings file ("${appSettingsFileName}") not found in : ${userDataFolder}`);
+      console.log(`[DESKTOP] Settings file ("${appSettingsFileName}") not found in : ${userDataFolder}`);
       return undefined;
     }
     return filesService.readFileAsJson(appSettingsFileName, userDataFolder, isSettings);
   };
 
   async function saveAppSettings(settings: TShowcaseGameSettings): Promise<void> {
-    if (!isSettings(settings)) throw new Error('[DESKTOP]: Attempted to save invalid app settings');
+    if (!isSettings(settings)) throw new Error('[DESKTOP] Attempted to save invalid app settings');
     await filesService.writeFile(appSettingsFileName, userDataFolder, JSON.stringify(settings, null, 2));
-    console.log(`[DESKTOP]: Saved settings file ("${appSettingsFileName}") in : ${userDataFolder}`);
+    console.log(`[DESKTOP] Saved settings file ("${appSettingsFileName}") in : ${userDataFolder}`);
   }
 
   // TODO DESKTOP: Maybe split TShowcaseGameSettings into app and platform settings
   function applyPlatformSettings(platformSettings: TShowcaseGameSettings): boolean {
-    console.log('[DESKTOP]: (NOT IMPLEMENTED) Applying platform settings:', platformSettings);
+    console.log('[DESKTOP] (NOT IMPLEMENTED) Applying platform settings:', platformSettings);
     // TODO DESKTOP: Apply platform-level settings (resolution, etc.)
     // TODO DESKTOP: return true if app restart is needed
     return false;
