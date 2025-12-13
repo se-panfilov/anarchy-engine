@@ -20,28 +20,19 @@ export function AbstractAsyncRegistry<T extends IRegistrable | IMultitonRegistra
 
   function findByTags$(tags: ReadonlyArray<string>, strategy: LookUpStrategy): Observable<T> {
     const result: T | undefined = abstractRegistry.findByTags(tags, strategy);
-    if (isDefined(result)) {
-      const subj$: BehaviorSubject<T> = new BehaviorSubject(result);
-      return subj$.asObservable();
-    }
+    if (isDefined(result)) new BehaviorSubject(result).asObservable();
     return subscribeToValue$<T>(abstractRegistry, (entity: T): boolean => entity.getTags()[strategy]((tag: string) => tags.includes(tag)));
   }
 
   function findByTag$(tag: string): Observable<T> {
     const result: T | undefined = abstractRegistry.findByTag(tag);
-    if (isDefined(result)) {
-      const subj$: BehaviorSubject<T> = new BehaviorSubject(result);
-      return subj$.asObservable();
-    }
+    if (isDefined(result)) new BehaviorSubject(result).asObservable();
     return subscribeToValue$<T>(abstractRegistry, (entity: T): boolean => entity.hasTag(tag));
   }
 
   function findByName$(name: string): Observable<T> {
     const result: T | undefined = abstractRegistry.findByName(name);
-    if (isDefined(result)) {
-      const subj$: BehaviorSubject<T> = new BehaviorSubject(result);
-      return subj$.asObservable();
-    }
+    if (isDefined(result)) new BehaviorSubject(result).asObservable();
     return subscribeToValue$<T>(abstractRegistry, (entity: T): boolean => entity.name === name);
   }
 

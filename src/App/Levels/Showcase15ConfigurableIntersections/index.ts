@@ -14,14 +14,18 @@ export function showcase(canvas: IAppCanvas): IShowcase {
   const cameraRegistry: ICameraRegistry = cameraService.getRegistry();
   const { clickLeftRelease$ } = mouseService;
 
-  async function init(): Promise<void> {
-    const redWatcher: IIntersectionsWatcher | undefined = await intersectionsWatcherService.getRegistry().findByNameAsync('watcher_red');
-    if (isNotDefined(redWatcher)) throw new Error('Cannot find red watcher');
-    const blueWatcher: IIntersectionsWatcher | undefined = await intersectionsWatcherService.getRegistry().findByNameAsync('watcher_blue');
-    if (isNotDefined(blueWatcher)) throw new Error('Cannot find blue watcher');
+  function init(): void {
+    setTimeout(async () => {
+      console.log('before find');
+      const redWatcher: IIntersectionsWatcher | undefined = await intersectionsWatcherService.getRegistry().findByNameAsync('watcher_red');
+      console.log('after find');
+      if (isNotDefined(redWatcher)) throw new Error('Cannot find red watcher');
+      const blueWatcher: IIntersectionsWatcher | undefined = await intersectionsWatcherService.getRegistry().findByNameAsync('watcher_blue');
+      if (isNotDefined(blueWatcher)) throw new Error('Cannot find blue watcher');
 
-    redWatcher.value$.subscribe((value) => console.log('red watcher', value));
-    blueWatcher.value$.subscribe((value) => console.log('blue watcher', value));
+      redWatcher.value$.subscribe((value) => console.log('red watcher', value));
+      blueWatcher.value$.subscribe((value) => console.log('blue watcher', value));
+    }, 500);
 
     let cameraFolder: GUI | undefined;
     let cameraName: string = 'camera_red';
