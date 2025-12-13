@@ -748,7 +748,7 @@
     },
     "TriMeshFlags": {
       "type": "number",
-      "enum": [4, 8, 16, 32, 64, 152],
+      "enum": [4, 8, 16, 32, 64, 144],
       "description": "Flags controlling the behavior of the triangle mesh creation and of some operations involving triangle meshes."
     },
     "TPhysicsShapeConvexPolyhedronParams": {

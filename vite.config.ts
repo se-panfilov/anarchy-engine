@@ -11,6 +11,7 @@ export default defineConfig({
   },
   plugins: [wasm()],
   worker: {
+    format: 'es',
     //@ts-expect-error
     plugins: [wasm()]
   },
