@@ -2,7 +2,8 @@ import { nanoid } from 'nanoid';
 import type { Observable, Subscription } from 'rxjs';
 import { BehaviorSubject, distinctUntilChanged, EMPTY, Subject, switchMap, takeWhile } from 'rxjs';
 
-import { LoopTrigger, LoopUpdatePriority, LoopWorkerActions, MaxTicks } from '@/Engine/Loop/Constants';
+import type { LoopUpdatePriority } from '@/Engine/Loop/Constants';
+import { LoopTrigger, LoopWorkerActions, MaxTicks } from '@/Engine/Loop/Constants';
 import type { TDelta, TDeltaCalculator, TLoop, TLoopParams, TLoopTriggerFn, TLoopWorkerResponseData, TLoopWorkerStartRequestData, TLoopWorkerStopRequestData } from '@/Engine/Loop/Models';
 import { enableFPSCounter } from '@/Engine/Loop/Utils';
 import type { TDestroyable } from '@/Engine/Mixins';
@@ -36,7 +37,7 @@ export function Loop({ name, type, trigger, showDebugInfo, maxPriority, isParall
   });
 
   function shouldUpdateWithPriority(priority: LoopUpdatePriority): boolean {
-    const period: number = 1 << (LoopUpdatePriority.ASAP - priority);
+    const period: number = 1 << priority;
     return (tickCounter & (period - 1)) === 0;
   }
 

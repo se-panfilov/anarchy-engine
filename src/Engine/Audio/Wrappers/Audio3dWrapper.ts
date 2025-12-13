@@ -103,9 +103,7 @@ export function Audio3dWrapper(params: TAudio3dParams, { audioLoop }: TAudioWrap
       sample(audioLoop.tick$),
       filter((): boolean => audioLoop.shouldUpdateWithPriority(updatePriority))
     )
-    .subscribe((position: TReadonlyVector3): void => {
-      entity.position.copy(position);
-    });
+    .subscribe((position: TReadonlyVector3): void => void entity.position.copy(position));
 
   const wrapper: TWrapper<PositionalAudio> = AbstractWrapper(entity, WrapperType.Audio3d, params);
   const drive: TAudio3dTransformDrive = Audio3dTransformDrive(params, wrapper.id);
