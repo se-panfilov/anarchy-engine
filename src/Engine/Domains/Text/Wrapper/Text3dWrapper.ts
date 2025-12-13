@@ -3,7 +3,7 @@ import '@/Engine/Domains/Text/Styles/font-elements.css';
 import { CSS3DObject } from 'three/examples/jsm/renderers/CSS3DRenderer';
 
 import { AbstractWrapper, WrapperType } from '@/Engine/Domains/Abstract';
-import { RelatedEntityAttribute } from '@/Engine/Domains/Text/Constants';
+import { RelatedEntityAttribute, TextType } from '@/Engine/Domains/Text/Constants';
 import type { IText3dWrapper, ITextParams } from '@/Engine/Domains/Text/Models';
 import { getElement2dAccessors } from '@/Engine/Domains/Text/Wrapper/Accessors';
 import { applyElement2dParams } from '@/Engine/Domains/Text/Wrapper/TextWrapperHelper';
@@ -17,6 +17,7 @@ export function Text3dWrapper(params: ITextParams): IText3dWrapper {
   const entity: CSS3DObject = new CSS3DObject(element);
 
   const result = {
+    type: TextType.Text3d,
     ...AbstractWrapper(entity, WrapperType.Text3d, params),
     // TODO (S.Panfilov) getElement2dAccessors?
     ...getElement2dAccessors(element),

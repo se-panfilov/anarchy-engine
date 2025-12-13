@@ -3,7 +3,7 @@ import '@/Engine/Domains/Text/Styles/font-elements.css';
 import { CSS2DObject } from 'three/examples/jsm/renderers/CSS2DRenderer';
 
 import { AbstractWrapper, WrapperType } from '@/Engine/Domains/Abstract';
-import { RelatedEntityAttribute } from '@/Engine/Domains/Text/Constants';
+import { RelatedEntityAttribute, TextType } from '@/Engine/Domains/Text/Constants';
 import type { IText2dWrapper, ITextParams } from '@/Engine/Domains/Text/Models';
 import { getElement2dAccessors } from '@/Engine/Domains/Text/Wrapper/Accessors';
 import { applyElement2dParams } from '@/Engine/Domains/Text/Wrapper/TextWrapperHelper';
@@ -17,6 +17,7 @@ export function Text2dWrapper(params: ITextParams): IText2dWrapper {
   const entity: CSS2DObject = new CSS2DObject(element);
 
   const result = {
+    type: TextType.Text2d,
     ...AbstractWrapper(entity, WrapperType.Text2d, params),
     ...getElement2dAccessors(element),
     ...withMoveByXyzMixin(entity),

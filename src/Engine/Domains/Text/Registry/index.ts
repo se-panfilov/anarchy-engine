@@ -1,1 +1,2 @@
-export * from './TextRegistry';
+export * from './Text2dRegistry';
+export * from './Text3dRegistry';

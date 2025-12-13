@@ -1,5 +1,5 @@
 import type { Subscription } from 'rxjs';
-import { ReplaySubject } from 'rxjs';
+import { merge, ReplaySubject } from 'rxjs';
 
 import { ambientContext } from '@/Engine/Context';
 import { CommonTag } from '@/Engine/Domains/Abstract';
@@ -22,8 +22,8 @@ import type { IRendererFactory, IRendererRegistry, IRendererWrapper } from '@/En
 import { RendererFactory, RendererModes, RendererRegistry, RendererTag } from '@/Engine/Domains/Renderer';
 import type { ISceneConfig, ISceneFactory, ISceneRegistry, ISceneWrapper } from '@/Engine/Domains/Scene';
 import { SceneFactory, SceneRegistry, SceneTag } from '@/Engine/Domains/Scene';
-import type { IText2dRenderer, IText3dRenderer, ITextAnyWrapper, ITextConfig, ITextFactory, ITextRegistry } from '@/Engine/Domains/Text';
-import { initText2dRenderer, initText3dRenderer, TextFactory, TextRegistry } from '@/Engine/Domains/Text';
+import type { IText2dRegistry, IText2dRenderer, IText3dRegistry, IText3dRenderer, ITextAnyWrapper, ITextConfig, ITextFactory } from '@/Engine/Domains/Text';
+import { initText2dRenderer, initText3dRenderer, isText2dWrapper, isText3dWrapper, Text2dRegistry, Text3dRegistry, TextFactory } from '@/Engine/Domains/Text';
 import type { IDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
 import { withTags } from '@/Engine/Mixins/Generic/WithTags';
@@ -61,9 +61,13 @@ export function buildLevelFromConfig(canvas: IAppCanvas, config: ILevelConfig): 
   const text2dRenderer: IText2dRenderer = initText2dRenderer(ambientContext.container.getAppContainer(), ambientContext.screenSizeWatcher);
   const text3dRenderer: IText3dRenderer = initText3dRenderer(ambientContext.container.getAppContainer(), ambientContext.screenSizeWatcher);
   const textFactory: ITextFactory = TextFactory();
-  const textRegistry: ITextRegistry = TextRegistry();
-  const textAddedSubscription: Subscription = textRegistry.added$.subscribe((text: ITextAnyWrapper) => scene.addText(text));
-  const textEntityCreatedSubscription: Subscription = textFactory.entityCreated$.subscribe((text: ITextAnyWrapper): void => textRegistry.add(text));
+  const text2dRegistry: IText2dRegistry = Text2dRegistry();
+  const text3dRegistry: IText3dRegistry = Text3dRegistry();
+  const textAddedSubscription: Subscription = merge(text2dRegistry.added$, text3dRegistry.added$).subscribe((text: ITextAnyWrapper) => scene.addText(text));
+  const textEntityCreatedSubscription: Subscription = textFactory.entityCreated$.subscribe((text: ITextAnyWrapper): void => {
+    if (isText2dWrapper(text)) text2dRegistry.add(text);
+    if (isText3dWrapper(text)) text3dRegistry.add(text);
+  });
   texts.forEach((text: ITextConfig): ITextAnyWrapper => textFactory.create(textFactory.configToParams({ ...text, tags: [...text.tags, CommonTag.FromConfig] })));
   messages$.next(`Texts (${texts.length}) created`);
 
@@ -152,7 +156,7 @@ export function buildLevelFromConfig(canvas: IAppCanvas, config: ILevelConfig): 
     textEntityCreatedSubscription.unsubscribe();
     textFactory.destroy();
     textAddedSubscription.unsubscribe();
-    textRegistry.destroy();
+    text2dRegistry.destroy();
 
     cameraEntityCreatedSubscription.unsubscribe();
     cameraFactory.destroy();
@@ -199,7 +203,7 @@ export function buildLevelFromConfig(canvas: IAppCanvas, config: ILevelConfig): 
     entities: {
       actorRegistry: actorRegistry,
       actorFactory: actorFactory,
-      textRegistry: textRegistry,
+      textRegistry: text2dRegistry,
       textFactory: textFactory,
       cameraRegistry: cameraRegistry,
       cameraFactory: cameraFactory,

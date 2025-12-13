@@ -1,1 +1,1 @@
-export * from './Text2dConfigAdapter';
+export * from './TextConfigAdapter';
