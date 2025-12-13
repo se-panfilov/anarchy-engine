@@ -2,12 +2,12 @@ import { Fog } from 'three';
 
 import type { TWrapper } from '@/Engine/Abstract';
 import { AbstractWrapper, WrapperType } from '@/Engine/Abstract';
-import type { IFog, IFogParams, IFogWrapper } from '@/Engine/Fog/Models';
+import type { TFog, TFogParams, TFogWrapper } from '@/Engine/Fog/Models';
 
-export function FogWrapper(params: IFogParams): IFogWrapper {
-  const entity: IFog = new Fog(params.color, params.near, params.far);
+export function FogWrapper(params: TFogParams): TFogWrapper {
+  const entity: TFog = new Fog(params.color, params.near, params.far);
 
-  const wrapper: TWrapper<IFog> = AbstractWrapper(entity, WrapperType.Fog, params);
+  const wrapper: TWrapper<TFog> = AbstractWrapper(entity, WrapperType.Fog, params);
 
   function destroy(): void {
     // TODO (S.Panfilov) implement destroy

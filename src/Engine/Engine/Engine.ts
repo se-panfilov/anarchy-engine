@@ -4,7 +4,7 @@ import type { TEngine } from '@/Engine/Engine/Models';
 import type { TIntersectionsWatcher } from '@/Engine/Intersections';
 import type { TKeyboardService } from '@/Engine/Keyboard';
 import { KeyboardService } from '@/Engine/Keyboard';
-import type { TLoopService, ILoopTimes } from '@/Engine/Loop';
+import type { TLoopTimes, TLoopService } from '@/Engine/Loop';
 import { LoopService } from '@/Engine/Loop';
 import type { IRendererWrapper } from '@/Engine/Renderer';
 import type { TSceneWrapper } from '@/Engine/Scene';
@@ -37,7 +37,7 @@ export function Engine(space: TSpace): TEngine {
     if (isNotDefined(renderer)) throw new Error('Cannot find an active renderer');
 
     cameraService.active$.subscribe((wrapper: TCameraWrapper | undefined): void => void (camera = wrapper));
-    loopService.tick$.subscribe(({ delta }: ILoopTimes): void => spaceLoop(delta, camera, renderer, activeScene, text2dRegistry, text3dRegistry, text2dRenderer, text3dRenderer, controlsRegistry));
+    loopService.tick$.subscribe(({ delta }: TLoopTimes): void => spaceLoop(delta, camera, renderer, activeScene, text2dRegistry, text3dRegistry, text2dRenderer, text3dRenderer, controlsRegistry));
     loopService.start();
   }
 

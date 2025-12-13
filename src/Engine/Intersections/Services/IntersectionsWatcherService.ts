@@ -1,29 +1,29 @@
 import type { TActorService } from '@/Engine/Actor';
 import type { TCameraService } from '@/Engine/Camera';
 import type {
-  IIntersectionsWatcherAsyncRegistry,
-  IIntersectionsWatcherConfig,
-  IIntersectionsWatcherFactory,
-  IIntersectionsWatcherParams,
-  IIntersectionsWatcherService,
+  TIntersectionsWatcherAsyncRegistry,
+  TIntersectionsWatcherConfig,
+  TIntersectionsWatcherFactory,
+  TIntersectionsWatcherParams,
+  TIntersectionsWatcherService,
   TIntersectionsWatcher
 } from '@/Engine/Intersections/Models';
 import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
-import type { IMouseService } from '@/Engine/Mouse';
+import type { TMouseService } from '@/Engine/Mouse';
 
-export function IntersectionsWatcherService(factory: IIntersectionsWatcherFactory, registry: IIntersectionsWatcherAsyncRegistry): IIntersectionsWatcherService {
+export function IntersectionsWatcherService(factory: TIntersectionsWatcherFactory, registry: TIntersectionsWatcherAsyncRegistry): TIntersectionsWatcherService {
   factory.entityCreated$.subscribe((watcher: TIntersectionsWatcher): void => registry.add(watcher));
 
-  const create = (params: IIntersectionsWatcherParams): TIntersectionsWatcher => factory.create(params);
+  const create = (params: TIntersectionsWatcherParams): TIntersectionsWatcher => factory.create(params);
   const createFromConfigAsync = (
-    configs: ReadonlyArray<IIntersectionsWatcherConfig>,
-    mouseService: IMouseService,
+    configs: ReadonlyArray<TIntersectionsWatcherConfig>,
+    mouseService: TMouseService,
     cameraService: TCameraService,
     actorService: TActorService
   ): Promise<ReadonlyArray<TIntersectionsWatcher>> => {
     return Promise.all(
-      configs.map((config: IIntersectionsWatcherConfig): Promise<TIntersectionsWatcher> => factory.configToParamsAsync(config, mouseService, cameraService, actorService).then(factory.create))
+      configs.map((config: TIntersectionsWatcherConfig): Promise<TIntersectionsWatcher> => factory.configToParamsAsync(config, mouseService, cameraService, actorService).then(factory.create))
     );
   };
 
@@ -36,8 +36,8 @@ export function IntersectionsWatcherService(factory: IIntersectionsWatcherFactor
   return {
     create,
     createFromConfigAsync,
-    getFactory: (): IIntersectionsWatcherFactory => factory,
-    getRegistry: (): IIntersectionsWatcherAsyncRegistry => registry,
+    getFactory: (): TIntersectionsWatcherFactory => factory,
+    getRegistry: (): TIntersectionsWatcherAsyncRegistry => registry,
     ...destroyable
   };
 }

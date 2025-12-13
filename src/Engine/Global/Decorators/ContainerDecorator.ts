@@ -1,9 +1,9 @@
 import { nanoid } from 'nanoid';
 
 import type { TAppCanvas } from '@/Engine/App';
-import type { IAppGlobalContainer, TGlobalContainerDecorator } from '@/Engine/Global/Models';
+import type { TAppGlobalContainer, TGlobalContainerDecorator } from '@/Engine/Global/Models';
 
-export function ContainerDecorator(container: IAppGlobalContainer): TGlobalContainerDecorator {
+export function ContainerDecorator(container: TAppGlobalContainer): TGlobalContainerDecorator {
   return {
     id: nanoid(),
     getWidth: (): number => container.innerWidth,
@@ -12,6 +12,6 @@ export function ContainerDecorator(container: IAppGlobalContainer): TGlobalConta
     startWatch: (type: string, cb: () => void): void => container.addEventListener(type, cb),
     stopWatch: (type: string, cb: () => void): void => container.removeEventListener(type, cb),
     getCanvasElement: (selector: string): TAppCanvas | null => container.document.querySelector(selector),
-    getAppContainer: (): IAppGlobalContainer => container
+    getAppContainer: (): TAppGlobalContainer => container
   };
 }

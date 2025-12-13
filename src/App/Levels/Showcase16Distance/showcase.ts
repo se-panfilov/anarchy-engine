@@ -1,5 +1,5 @@
 import type { TShowcase } from '@/App/Levels/Models';
-import type { TCameraRegistry, TActorAsyncRegistry, TActorWrapperAsync, TAppCanvas, TEngine, TSpace, TSpaceConfig } from '@/Engine';
+import type { TActorAsyncRegistry, TActorWrapperAsync, TAppCanvas, TCameraRegistry, TEngine, TSpace, TSpaceConfig } from '@/Engine';
 import { buildSpaceFromConfig, Engine, isNotDefined, KeyCode, mouseService, mpsSpeed } from '@/Engine';
 
 import spaceConfig from './showcase.json';

@@ -1,15 +1,15 @@
 import type { TActorService, TActorWrapperAsync } from '@/Engine/Actor';
 import type { TCameraService, TCameraWrapper } from '@/Engine/Camera';
-import type { IIntersectionsWatcherConfig, IIntersectionsWatcherParams } from '@/Engine/Intersections/Models';
-import type { IMouseService } from '@/Engine/Mouse';
+import type { TIntersectionsWatcherConfig, TIntersectionsWatcherParams } from '@/Engine/Intersections/Models';
+import type { TMouseService } from '@/Engine/Mouse';
 import { isNotDefined } from '@/Engine/Utils';
 
 export async function configToParamsAsync(
-  config: IIntersectionsWatcherConfig,
-  mouseService: IMouseService,
+  config: TIntersectionsWatcherConfig,
+  mouseService: TMouseService,
   cameraService: TCameraService,
   actorsService: TActorService
-): Promise<IIntersectionsWatcherParams> {
+): Promise<TIntersectionsWatcherParams> {
   const camera: TCameraWrapper | undefined = cameraService.getRegistry().findByName(config.cameraName);
   if (isNotDefined(camera)) throw new Error(`configToParams: Cannot find camera "${config.cameraName}" for intersections watcher "${config.name}".`);
   const actorsPromises: ReadonlyArray<Promise<TActorWrapperAsync | undefined>> = config.actorNames.map(

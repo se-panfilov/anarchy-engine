@@ -2,7 +2,7 @@ import type { ColorSpace, MagnificationTextureFilter, MinificationTextureFilter 
 import { LinearFilter, NearestFilter, SRGBColorSpace } from 'three';
 
 import { MaterialType } from '@/Engine/Material';
-import type { IMaterialPackKeys, IMaterialPackParams, TMaterialTexturePack, ITexturePackParams } from '@/Engine/MaterialTexturePack';
+import type { IMaterialPackKeys, IMaterialPackParams, ITexturePackParams, TMaterialTexturePack } from '@/Engine/MaterialTexturePack';
 import type { ITexture, ITextureParams } from '@/Engine/Texture/Models';
 import type { TWriteable } from '@/Engine/Utils';
 import { isDefined, isNotDefined } from '@/Engine/Utils';

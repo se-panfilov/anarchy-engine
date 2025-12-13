@@ -5,8 +5,8 @@ import type { TWithActiveAccessorsService, TWithCreateFromConfigService, TWithCr
 import type { TControlsConfig } from './TControlsConfig';
 import type { TControlsFactory } from './TControlsFactory';
 import type { TControlsParams } from './TControlsParams';
-import type { TControlsWrapper } from './TControlsWrapper';
 import type { TControlsRegistry } from './TControlsRegistry';
+import type { TControlsWrapper } from './TControlsWrapper';
 
 export type TControlsService = TWithCreateService<TControlsWrapper, TControlsParams> &
   Omit<TWithCreateFromConfigService<TControlsConfig>, 'createFromConfig'> &

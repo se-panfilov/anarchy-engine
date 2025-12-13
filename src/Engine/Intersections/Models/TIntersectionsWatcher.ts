@@ -2,9 +2,9 @@ import type { TWatcher } from '@/Engine/Abstract';
 import type { TActorWrapperAsync } from '@/Engine/Actor';
 import type { TCameraWrapper } from '@/Engine/Camera';
 
-import type { IIntersectionEvent } from './IIntersectionEvent';
+import type { TIntersectionEvent } from './TIntersectionEvent';
 
-export type TIntersectionsWatcher = Omit<TWatcher<IIntersectionEvent>, 'start' | 'stop'> &
+export type TIntersectionsWatcher = Omit<TWatcher<TIntersectionEvent>, 'start' | 'stop'> &
   Readonly<{
     addActors: (actorWrappers: ReadonlyArray<TActorWrapperAsync>) => void;
     addActor: (actorWrapper: TActorWrapperAsync) => void;

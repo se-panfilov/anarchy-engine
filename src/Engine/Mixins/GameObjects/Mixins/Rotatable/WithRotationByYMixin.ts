@@ -1,4 +1,4 @@
-import type { TRotatableY, IWithRotationProperty } from '@/Engine/Mixins/GameObjects/Models';
+import type { IWithRotationProperty, TRotatableY } from '@/Engine/Mixins/GameObjects/Models';
 
 import { withRotationMixin } from './WithRotationMixin';
 

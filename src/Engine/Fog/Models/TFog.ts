@@ -1,3 +1,3 @@
 import type { Fog } from 'three';
 
-export type IFog = Readonly<Fog>;
+export type TFog = Readonly<Fog>;

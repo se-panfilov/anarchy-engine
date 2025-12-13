@@ -1,7 +1,6 @@
 import type { TShowcase } from '@/App/Levels/Models';
 import type {
   IAnimationParams,
-  TCameraRegistry,
   IMoverService,
   IText2dWrapper,
   ITextAnyWrapper,
@@ -9,6 +8,7 @@ import type {
   TActorAsyncRegistry,
   TActorWrapperAsync,
   TAppCanvas,
+  TCameraRegistry,
   TControlsRegistry,
   TEngine,
   TSpace,

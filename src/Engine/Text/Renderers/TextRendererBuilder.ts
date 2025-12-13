@@ -3,7 +3,7 @@ import type { Subscription } from 'rxjs';
 import type { CSS2DRenderer } from 'three/examples/jsm/renderers/CSS2DRenderer';
 import type { CSS3DRenderer } from 'three/examples/jsm/renderers/CSS3DRenderer';
 
-import type { IAppGlobalContainer } from '@/Engine/Global';
+import type { TAppGlobalContainer } from '@/Engine/Global';
 import type { IScreenSizeValues, TScreenSizeWatcher } from '@/Engine/Screen';
 import type { TextCssClass, TextRendererType } from '@/Engine/Text/Constants';
 import { RelatedEntityAttribute } from '@/Engine/Text/Constants';
@@ -13,7 +13,7 @@ export function getTextRenderer<T extends CSS2DRenderer | CSS3DRenderer>(
   renderer: T,
   cssClass: TextCssClass,
   type: TextRendererType,
-  container: IAppGlobalContainer,
+  container: TAppGlobalContainer,
   screenSizeWatcher: Readonly<TScreenSizeWatcher>
 ): ITextRenderer<T> {
   const id: string = 'text_renderer_' + nanoid();

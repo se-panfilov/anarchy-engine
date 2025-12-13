@@ -8,13 +8,13 @@ import type {
   IMatcapMaterialTexturePack,
   IMaterialPackKeys,
   IMaterialPackParams,
-  TMaterialTexturePack,
   INormalMaterialTexturePack,
   IPhongMaterialTexturePack,
   IPhysicalMaterialTexturePack,
   IStandardMaterialTexturePack,
   ITexturePackParams,
-  IToonMaterialTexturePack
+  IToonMaterialTexturePack,
+  TMaterialTexturePack
 } from '@/Engine/MaterialTexturePack';
 import type {
   IBasicTextureUploaded,

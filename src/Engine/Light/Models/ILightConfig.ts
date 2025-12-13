@@ -1,6 +1,6 @@
 import type { Color } from 'three/src/math/Color';
 
-import type { TWithReadonlyTags, TWithCoordsXY } from '@/Engine/Mixins';
+import type { TWithCoordsXY, TWithReadonlyTags } from '@/Engine/Mixins';
 import type { TObject3DPropConfig } from '@/Engine/ThreeLib';
 
 import type { IAmbientLightProps } from './IAmbientLightProps';

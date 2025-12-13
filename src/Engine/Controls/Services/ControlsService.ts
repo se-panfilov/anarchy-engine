@@ -1,6 +1,6 @@
 import type { TAppCanvas } from '@/Engine/App';
 import type { TCameraRegistry, TCameraWrapper } from '@/Engine/Camera';
-import type { TControlsConfig, TControlsFactory, TControlsParams, TControlsService, TControlsWrapper, TControlsRegistry } from '@/Engine/Controls/Models';
+import type { TControlsConfig, TControlsFactory, TControlsParams, TControlsRegistry, TControlsService, TControlsWrapper } from '@/Engine/Controls/Models';
 import type { IWithActiveMixinResult, TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin, withActiveEntityServiceMixin } from '@/Engine/Mixins';
 import { isNotDefined } from '@/Engine/Utils';

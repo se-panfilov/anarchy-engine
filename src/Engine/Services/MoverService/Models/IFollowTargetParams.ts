@@ -1,4 +1,4 @@
-import type { IMovable3dXYZ, TWithCoordsXYZ, IWithPosition3d } from '@/Engine/Mixins';
+import type { IMovable3dXYZ, IWithPosition3d, TWithCoordsXYZ } from '@/Engine/Mixins';
 
 export type IFollowTargetParams = Readonly<{
   obj: IMovable3dXYZ;

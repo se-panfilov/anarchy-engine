@@ -3,14 +3,14 @@ import { withLatestFrom } from 'rxjs';
 
 import type { TShowcase } from '@/App/Levels/Models';
 import type {
-  TCameraRegistry,
-  TCameraWrapper,
-  IIntersectionEvent,
+  TIntersectionEvent,
   IMouseWatcherEvent,
   IMoverService,
   TActorAsyncRegistry,
   TActorWrapperAsync,
   TAppCanvas,
+  TCameraRegistry,
+  TCameraWrapper,
   TEngine,
   TIntersectionsWatcher,
   TSpace,
@@ -84,7 +84,7 @@ export function showcase(canvas: TAppCanvas): TShowcase {
     gui.add(coordsUI, 'x').listen();
     gui.add(coordsUI, 'z').listen();
 
-    intersectionsWatcher.value$.subscribe((intersection: IIntersectionEvent): void => {
+    intersectionsWatcher.value$.subscribe((intersection: TIntersectionEvent): void => {
       // eslint-disable-next-line functional/immutable-data
       coordsUI.x = intersection.point.x;
       // eslint-disable-next-line functional/immutable-data
@@ -96,7 +96,7 @@ export function showcase(canvas: TAppCanvas): TShowcase {
 
     const moverService: IMoverService = MoverService(engine.services.loopService, defaultMoverServiceConfig);
 
-    clickLeftRelease$.pipe(withLatestFrom(intersectionsWatcher.value$)).subscribe(([, intersection]: [IMouseWatcherEvent, IIntersectionEvent]): void => {
+    clickLeftRelease$.pipe(withLatestFrom(intersectionsWatcher.value$)).subscribe(([, intersection]: [IMouseWatcherEvent, TIntersectionEvent]): void => {
       void moverService.goToPosition(actorMouse, { x: intersection.point.x, z: intersection.point.z }, { duration: 1000, easing: Easing.EaseInCubic });
     });
 

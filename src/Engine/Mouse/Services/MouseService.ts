@@ -14,12 +14,12 @@ import type {
   IMousePositionWatcher,
   IMousePositionWatcherFactory,
   IMousePositionWatcherRegistry,
-  IMouseService,
+  TMouseService,
   IMouseWatcherEvent
 } from '@/Engine/Mouse/Models';
 import { MouseClickWatcherRegistry, MousePositionWatcherRegistry } from '@/Engine/Mouse/Registries';
 
-export function MouseService(container: TGlobalContainerDecorator): IMouseService {
+export function MouseService(container: TGlobalContainerDecorator): TMouseService {
   const mouseClickWatcherFactory: IMouseClickWatcherFactory = MouseClickWatcherFactory();
   const mouseClickWatcherRegistry: IMouseClickWatcherRegistry = MouseClickWatcherRegistry();
   mouseClickWatcherFactory.entityCreated$.subscribe((watcher: IMouseClickWatcher) => mouseClickWatcherRegistry.add(watcher));
@@ -174,4 +174,4 @@ export function MouseService(container: TGlobalContainerDecorator): IMouseServic
   };
 }
 
-export const mouseService: IMouseService = MouseService(ambientContext.container);
+export const mouseService: TMouseService = MouseService(ambientContext.container);

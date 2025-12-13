@@ -7,7 +7,7 @@ import type { TCameraWrapper } from '@/Engine/Camera';
 import type { TColor } from '@/Engine/Color';
 import { ColorWrapper } from '@/Engine/Color';
 import type { TDataTexture } from '@/Engine/EnvMap';
-import type { IFogWrapper } from '@/Engine/Fog';
+import type { TFogWrapper } from '@/Engine/Fog';
 import type { IAbstractLightWrapper, ILight } from '@/Engine/Light';
 import { withActiveMixin, withObject3d } from '@/Engine/Mixins';
 import type { IParticlesWrapperAsync } from '@/Engine/Particles';
@@ -33,7 +33,7 @@ export function SceneWrapper(params: ISceneParams): TSceneWrapper {
   const addText = (text: Readonly<ITextAnyWrapper>): void => add(text.entity);
 
   // eslint-disable-next-line functional/immutable-data
-  const setFog = (fog: Readonly<IFogWrapper>): void => void (entity.fog = fog.entity);
+  const setFog = (fog: Readonly<TFogWrapper>): void => void (entity.fog = fog.entity);
 
   function setBackground(color: string | TColor | ITexture | ICubeTexture | TDataTexture): void {
     let background: string | TColor | ITexture | ICubeTexture | null = null;

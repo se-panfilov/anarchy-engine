@@ -9,12 +9,12 @@ import type {
   ILambertMaterialTexturePack,
   IMatcapMaterialTexturePack,
   IMaterialPackParams,
-  TMaterialTexturePack,
   INormalMaterialTexturePack,
   IPhongMaterialTexturePack,
   IPhysicalMaterialTexturePack,
   IStandardMaterialTexturePack,
-  IToonMaterialTexturePack
+  IToonMaterialTexturePack,
+  TMaterialTexturePack
 } from '@/Engine/MaterialTexturePack';
 import type { IMovable3dXYZ, IRotatable, IScalable, IWithObject3d } from '@/Engine/Mixins';
 import type { IWithTextures } from '@/Engine/Texture';

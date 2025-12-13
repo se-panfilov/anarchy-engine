@@ -1,4 +1,4 @@
-import type { TWithCoordsXYZ, IWithPosition3d } from '@/Engine/Mixins';
+import type { IWithPosition3d, TWithCoordsXYZ } from '@/Engine/Mixins';
 import type { IMovableEntityWrapper, IStopMoveCb } from '@/Engine/Services/MoverService/Models';
 import type { IAnimationParams } from '@/Engine/Services/MoverService/Models/IAnimationParams';
 

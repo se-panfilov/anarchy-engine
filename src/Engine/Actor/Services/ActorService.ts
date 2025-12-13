@@ -1,4 +1,4 @@
-import type { TActorConfig, TActorFactory, TActorParams, TActorService, TActorAsyncRegistry, TActorWrapperAsync } from '@/Engine/Actor/Models';
+import type { TActorAsyncRegistry, TActorConfig, TActorFactory, TActorParams, TActorService, TActorWrapperAsync } from '@/Engine/Actor/Models';
 import type { TMaterialTextureService } from '@/Engine/MaterialTexturePack';
 import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';

@@ -1,5 +1,5 @@
 import { RegistryType } from '@/Engine/Abstract/Constants';
 import { AbstractEntityRegistry, RegistryFacade } from '@/Engine/Abstract/Registries';
-import type { IFogRegistry, IFogWrapper } from '@/Engine/Fog/Models';
+import type { TFogRegistry, TFogWrapper } from '@/Engine/Fog/Models';
 
-export const FogRegistry = (): IFogRegistry => RegistryFacade(AbstractEntityRegistry<IFogWrapper>(RegistryType.Fog));
+export const FogRegistry = (): TFogRegistry => RegistryFacade(AbstractEntityRegistry<TFogWrapper>(RegistryType.Fog));

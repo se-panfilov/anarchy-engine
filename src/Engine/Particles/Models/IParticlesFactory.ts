@@ -1,4 +1,4 @@
-import type { TParamsFromConfig, TAsyncReactiveFactory } from '@/Engine/Abstract';
+import type { TAsyncReactiveFactory, TParamsFromConfig } from '@/Engine/Abstract';
 import type { TDestroyable } from '@/Engine/Mixins';
 
 import type { IParticlesConfig } from './IParticlesConfig';

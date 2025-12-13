@@ -5,9 +5,9 @@ import type { TCameraWrapper } from '@/Engine/Camera';
 import type { TWithReadonlyTags } from '@/Engine/Mixins';
 import type { IMousePosition } from '@/Engine/Mouse';
 
-import type { IIntersectionsWatcherProps } from './IIntersectionsWatcherProps';
+import type { TIntersectionsWatcherProps } from './TIntersectionsWatcherProps';
 
-export type IIntersectionsWatcherParams = Omit<IIntersectionsWatcherProps, 'cameraName' | 'actorNames'> &
+export type TIntersectionsWatcherParams = Omit<TIntersectionsWatcherProps, 'cameraName' | 'actorNames'> &
   Readonly<{
     camera: TCameraWrapper;
     actors: ReadonlyArray<TActorWrapperAsync>;

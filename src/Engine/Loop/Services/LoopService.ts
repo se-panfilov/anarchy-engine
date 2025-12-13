@@ -1,14 +1,14 @@
 import { Subject } from 'rxjs';
 import { Clock } from 'three';
 
-import type { TLoopService, ILoopTimes } from '@/Engine/Loop/Models';
+import type { TLoopTimes, TLoopService } from '@/Engine/Loop/Models';
 import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
 
 type ILoopServiceState = { isLooping: boolean };
 
 export function LoopService(): TLoopService {
-  const tick$: Subject<ILoopTimes> = new Subject<ILoopTimes>();
+  const tick$: Subject<TLoopTimes> = new Subject<TLoopTimes>();
   const state: ILoopServiceState = {
     isLooping: false
   };
@@ -38,7 +38,7 @@ export function LoopService(): TLoopService {
   };
 }
 
-function getLoopFn(tick$: Subject<ILoopTimes>, state: ILoopServiceState): (time: number) => void {
+function getLoopFn(tick$: Subject<TLoopTimes>, state: ILoopServiceState): (time: number) => void {
   const clock: Clock = new Clock();
   let lastElapsedTime: number = 0;
 

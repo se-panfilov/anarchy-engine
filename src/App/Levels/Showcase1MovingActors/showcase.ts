@@ -1,7 +1,7 @@
 import { filter } from 'rxjs';
 
 import type { TShowcase } from '@/App/Levels/Models';
-import type { TCameraWrapper, IIntersectionEvent, TActorAsyncRegistry, TActorWrapperAsync, TAppCanvas, TEngine, TIntersectionsWatcher, TSpace, TSpaceConfig } from '@/Engine';
+import type { TIntersectionEvent, TActorAsyncRegistry, TActorWrapperAsync, TAppCanvas, TCameraWrapper, TEngine, TIntersectionsWatcher, TSpace, TSpaceConfig } from '@/Engine';
 import { buildSpaceFromConfig, Engine, isNotDefined, mouseService } from '@/Engine';
 
 import spaceConfig from './showcase.json';
@@ -33,7 +33,7 @@ export function showcase(canvas: TAppCanvas): TShowcase {
 
     actorRegistry.added$.pipe(filter((a: TActorWrapperAsync) => a.hasTag('intersectable'))).subscribe((actor: TActorWrapperAsync): void => intersectionsWatcher.addActor(actor));
 
-    intersectionsWatcher.value$.subscribe((obj: IIntersectionEvent): void => {
+    intersectionsWatcher.value$.subscribe((obj: TIntersectionEvent): void => {
       console.log('intersect obj', obj);
     });
 

@@ -1,16 +1,16 @@
-import type { IGameKey } from './IGameKey';
-import type { IKeyCombo } from './IKeyCombo';
-import type { IKeySubscription } from './IKeySubscription';
+import type { TGameKey } from './TGameKey';
+import type { TKeyCombo } from './TKeyCombo';
+import type { TKeySubscription } from './TKeySubscription';
 
 export type TKeyboardService = Readonly<{
-  onKey: (key: IGameKey) => IKeySubscription;
-  onKeyCombo: (combo: IKeyCombo) => IKeySubscription;
-  removeKeyBinding: (key: IGameKey) => void;
-  removeKeyComboBinding: (combo: IKeyCombo) => void;
-  pauseKeyBinding: (key: IGameKey) => void;
-  pauseKeyComboBinding: (combo: IKeyCombo) => void;
-  resumeKeyBinding: (key: IGameKey) => void;
-  resumeKeyComboBinding: (combo: IKeyCombo) => void;
-  isKeyPressed: (key: IGameKey) => boolean;
-  isKeyComboPressed: (combo: IKeyCombo) => boolean;
+  onKey: (key: TGameKey) => TKeySubscription;
+  onKeyCombo: (combo: TKeyCombo) => TKeySubscription;
+  removeKeyBinding: (key: TGameKey) => void;
+  removeKeyComboBinding: (combo: TKeyCombo) => void;
+  pauseKeyBinding: (key: TGameKey) => void;
+  pauseKeyComboBinding: (combo: TKeyCombo) => void;
+  resumeKeyBinding: (key: TGameKey) => void;
+  resumeKeyComboBinding: (combo: TKeyCombo) => void;
+  isKeyPressed: (key: TGameKey) => boolean;
+  isKeyComboPressed: (combo: TKeyCombo) => boolean;
 }>;

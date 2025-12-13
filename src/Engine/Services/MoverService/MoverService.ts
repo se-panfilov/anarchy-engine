@@ -1,7 +1,7 @@
 import anime from 'animejs';
 
 import type { TLoopService } from '@/Engine/Loop';
-import type { TWithCoordsXYZ, IWithPosition3d } from '@/Engine/Mixins';
+import type { IWithPosition3d, TWithCoordsXYZ } from '@/Engine/Mixins';
 import { defaultMoverServiceConfig } from '@/Engine/Services/MoverService/Constants';
 import type { IAnimationParams, IFollowTargetParams, IKeyframeDestination, IMovableEntityWrapper, IMoverServiceConfig, IStopMoveCb } from '@/Engine/Services/MoverService/Models';
 import type { IMoveDestination } from '@/Engine/Services/MoverService/Models/IMoveDestination';

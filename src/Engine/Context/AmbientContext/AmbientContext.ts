@@ -1,7 +1,7 @@
 import { WatcherTag } from '@/Engine/Abstract';
 import type { TGlobalContainerDecorator } from '@/Engine/Global';
 import { ContainerDecorator } from '@/Engine/Global';
-import type { TScreenSizeWatcher, IScreenSizeWatcherFactory, IScreenSizeWatcherRegistry } from '@/Engine/Screen';
+import type { IScreenSizeWatcherFactory, IScreenSizeWatcherRegistry, TScreenSizeWatcher } from '@/Engine/Screen';
 import { ScreenSizeWatcherFactory, ScreenSizeWatcherRegistry } from '@/Engine/Screen';
 
 import type { TAmbientContext } from './Models';

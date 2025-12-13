@@ -1,6 +1,6 @@
 import type { TAppCanvas } from '@/Engine/App';
 import { ambientContext } from '@/Engine/Context';
-import type { IAppGlobalContainer } from '@/Engine/Global';
+import type { TAppGlobalContainer } from '@/Engine/Global';
 import type { IScreenService } from '@/Engine/Services/ScreenService/Models';
 import { isNotDefined } from '@/Engine/Utils';
 
@@ -20,7 +20,7 @@ export function ScreenService(): IScreenService {
   };
 }
 
-export function isFullScreen(container: IAppGlobalContainer | undefined): boolean {
+export function isFullScreen(container: TAppGlobalContainer | undefined): boolean {
   if (isNotDefined(container)) throw new Error('Container (window?) is not defined');
   if (isNotDefined(container.document)) throw new Error('Container (document?) is not defined');
 
@@ -37,7 +37,7 @@ export function goFullScreen(canvas: TAppCanvas | undefined): Promise<void> | ne
   throw new Error('Fullscreen is not supported');
 }
 
-export function exitFullScreen(container: IAppGlobalContainer | undefined): Promise<void> | never {
+export function exitFullScreen(container: TAppGlobalContainer | undefined): Promise<void> | never {
   if (isNotDefined(container)) throw new Error('Container (window?) is not defined');
   if (isNotDefined(container.document)) throw new Error('Container (document?) is not defined');
   return container.document.exitFullscreen();

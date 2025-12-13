@@ -1,0 +1,15 @@
+import type { TDestroyable } from '@/Engine/Mixins';
+import type { TWithCreateFromConfigService, TWithCreateService, TWithFactoryService, TWithRegistryService, TWithSceneGetterService } from '@/Engine/Space';
+
+import type { TFogConfig } from './TFogConfig';
+import type { TFogFactory } from './TFogFactory';
+import type { TFogParams } from './TFogParams';
+import type { TFogRegistry } from './TFogRegistry';
+import type { TFogWrapper } from './TFogWrapper';
+
+export type TFogService = TWithCreateService<TFogWrapper, TFogParams> &
+  TWithCreateFromConfigService<TFogConfig> &
+  TWithFactoryService<TFogFactory> &
+  TWithRegistryService<TFogRegistry> &
+  TWithSceneGetterService &
+  TDestroyable;

@@ -5,7 +5,7 @@ import type { TDestroyable } from '@/Engine/Mixins';
 import type { IMousePosition } from './IMousePosition';
 import type { IMouseWatcherEvent } from './IMouseWatcherEvent';
 
-export type IMouseService = Readonly<{
+export type TMouseService = Readonly<{
   clickPress$: Observable<IMouseWatcherEvent>;
   clickLeftPress$: Observable<IMouseWatcherEvent>;
   clickRightPress$: Observable<IMouseWatcherEvent>;

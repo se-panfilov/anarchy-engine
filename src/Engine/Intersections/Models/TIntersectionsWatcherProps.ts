@@ -1,6 +1,6 @@
 import type { IWithName } from '@/Engine/Mixins';
 
-export type IIntersectionsWatcherProps = Readonly<{
+export type TIntersectionsWatcherProps = Readonly<{
   cameraName: string;
   actorNames: ReadonlyArray<string>;
   isAutoStart: boolean;

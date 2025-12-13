@@ -1,7 +1,7 @@
 import { combineLatest } from 'rxjs';
 
 import type { TShowcase } from '@/App/Levels/Models';
-import type { TActorParams, TCameraWrapper, TAppCanvas, TEngine, TSpace, TSpaceConfig } from '@/Engine';
+import type { TActorParams, TAppCanvas, TCameraWrapper, TEngine, TSpace, TSpaceConfig } from '@/Engine';
 import { ActorType, ambientContext, buildSpaceFromConfig, Engine, EulerWrapper, isNotDefined, MaterialType, mouseService, Vector3Wrapper } from '@/Engine';
 
 import spaceConfig from './showcase.json';

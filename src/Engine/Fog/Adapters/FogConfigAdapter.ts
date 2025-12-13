@@ -1,8 +1,8 @@
 import { Color } from 'three';
 
-import type { IFogConfig, IFogParams } from '@/Engine/Fog/Models';
+import type { TFogConfig, TFogParams } from '@/Engine/Fog/Models';
 
-export function configToParams(config: IFogConfig): IFogParams {
+export function configToParams(config: TFogConfig): TFogParams {
   const { color, ...rest } = config;
 
   return {

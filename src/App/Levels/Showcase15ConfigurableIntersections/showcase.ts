@@ -1,7 +1,7 @@
 import GUI from 'lil-gui';
 
 import type { TShowcase } from '@/App/Levels/Models';
-import type { TCameraRegistry, TCameraWrapper, IIntersectionEvent, TAppCanvas, TEngine, TIntersectionsWatcher, TSpace, TSpaceConfig } from '@/Engine';
+import type { TIntersectionEvent, TAppCanvas, TCameraRegistry, TCameraWrapper, TEngine, TIntersectionsWatcher, TSpace, TSpaceConfig } from '@/Engine';
 import { buildSpaceFromConfig, Engine, isNotDefined, mouseService } from '@/Engine';
 
 import spaceConfig from './showcase.json';
@@ -20,11 +20,11 @@ export function showcase(canvas: TAppCanvas): TShowcase {
     intersectionsWatcherService.getRegistry().findByName$('watcher_blue').subscribe(onBlueWatcher);
 
     function onRedWatcher(redWatcher: TIntersectionsWatcher): void {
-      redWatcher.value$.subscribe((value: IIntersectionEvent) => console.log('redWatcher', value));
+      redWatcher.value$.subscribe((value: TIntersectionEvent) => console.log('redWatcher', value));
     }
 
     function onBlueWatcher(blueWatcher: TIntersectionsWatcher): void {
-      blueWatcher.value$.subscribe((value: IIntersectionEvent) => console.log('blueWatcher', value));
+      blueWatcher.value$.subscribe((value: TIntersectionEvent) => console.log('blueWatcher', value));
     }
 
     let cameraFolder: GUI | undefined;

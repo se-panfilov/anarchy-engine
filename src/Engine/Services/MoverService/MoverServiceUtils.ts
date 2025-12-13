@@ -1,7 +1,7 @@
 import anime from 'animejs';
 import type { Subscription } from 'rxjs';
 
-import type { TLoopService, ILoopTimes } from '@/Engine/Loop';
+import type { TLoopTimes, TLoopService } from '@/Engine/Loop';
 import type { IMovable3dXYZ } from '@/Engine/Mixins';
 import type {
   IAnimationParams,
@@ -21,13 +21,13 @@ export function performMove(moveFn: IMoveFn | IMoveByPathFn, loopService: TLoopS
   const { promise, resolve } = createDeferredPromise();
   // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
   const move = moveFn({ ...params, complete: resolve } as any);
-  const tickSubscription: Subscription = loopService.tick$.subscribe(({ frameTime }: ILoopTimes): void => move.tick(frameTime));
+  const tickSubscription: Subscription = loopService.tick$.subscribe(({ frameTime }: TLoopTimes): void => move.tick(frameTime));
   return promise.then(() => tickSubscription.unsubscribe());
 }
 
 export function performMoveUntil<F extends (params: P) => IMoveableByTick, P>(moveFn: F, loopService: TLoopService, params: P): IStopMoveCb {
   let move: IMoveableByTick | undefined = moveFn(params);
-  const tickSubscription: Subscription = loopService.tick$.subscribe(({ frameTime }: ILoopTimes): void => move?.tick(frameTime));
+  const tickSubscription: Subscription = loopService.tick$.subscribe(({ frameTime }: TLoopTimes): void => move?.tick(frameTime));
 
   return (): void => {
     tickSubscription.unsubscribe();
