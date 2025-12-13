@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import './styles/menu-styles.scss';
-
 import MenuNavigation from 'packages/MainMenu/Components/MenuNavigation.vue';
 import MenuRouterView from 'packages/MainMenu/Components/MenuRouterView.vue';
 </script>
