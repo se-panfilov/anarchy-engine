@@ -1,7 +1,8 @@
 import type { Observable, Subscription } from 'rxjs';
 import { BehaviorSubject, combineLatest, EMPTY, switchMap } from 'rxjs';
 import type { QuaternionLike } from 'three';
-import { Quaternion, Vector3 } from 'three';
+import { Euler, Quaternion, Vector3 } from 'three';
+import { radToDeg } from 'three/src/math/MathUtils';
 import type { Vector3Like } from 'three/src/math/Vector3';
 
 import type { TKinematicData, TKinematicState, TKinematicTarget, TKinematicWritableData } from '@/Engine/Kinematic/Models';
@@ -84,23 +85,136 @@ export function KinematicTransformAgent(params: TKinematicTransformAgentParams, 
       agent.setLinearSpeed(speed);
       return undefined;
     },
+    lookAt(targetPosition: Vector3, speed: TMetersPerSecond, radius: TMeters): void | never {
+      if (speed < 0) throw new Error('Speed must be greater than 0 to calculate angular speed.');
+      if (speed === 0) return agent.setAngularSpeed(0);
+      if (radius <= 0) throw new Error('Radius must be greater than 0 to calculate angular speed.');
+
+      const angularSpeed: TMetersPerSecond = (speed / radius) as TMetersPerSecond;
+      const currentPos = agent.position$.value;
+
+      if (currentPos.distanceToSquared(targetPosition) < 1e-12) return undefined;
+      const direction = new Vector3().subVectors(targetPosition, currentPos).normalize();
+      const forward = new Vector3(0, 0, 1);
+      // const targetRotation = new Quaternion().setFromUnitVectors(forward, direction);
+
+      const euler = getLookAtEuler(agent.position$.value, targetPosition);
+      console.log('XXX1', radToDeg(euler.x), radToDeg(euler.y), radToDeg(euler.z));
+      // TODO debug
+      const targetRotation = new Quaternion().setFromEuler(getLookAtEuler(agent.position$.value, targetPosition));
+
+      function getLookAtEuler(currentPosition: Vector3, targetPosition: Vector3): Euler {
+        const direction = new Vector3().subVectors(targetPosition, currentPosition).normalize();
+        const yaw = Math.atan2(direction.x, direction.z); // Азимут (по Y)
+        const pitch = Math.asin(direction.y); // Угол наклона (по X)
+        return new Euler(pitch, yaw, 0, 'YXZ'); // 'YXZ' учитывает, что сначала идёт наклон, потом поворот
+      }
+
+      return agent.rotateTo(targetRotation, angularSpeed, radius);
+
+      // TODO debug
+      // return agent.rotateTo(new Quaternion(-0.03249683454126656, 0.8379150212015493, 0.050191339367435285, 0.5425156241456166), angularSpeed, radius);
+      // return agent.rotateTo(new Quaternion(-0.006081307355407782, 0.9722270324534193, 0.02542147116485208, 0.23257550144304018), angularSpeed, radius);
+    },
     // lookAt(targetPosition: Vector3, speed: TMetersPerSecond, radius: TMeters): void {
     //   if (speed < 0) throw new Error('Speed must be greater than 0 to calculate angular speed.');
     //   if (speed === 0) return agent.setAngularSpeed(0);
     //   if (radius <= 0) throw new Error('Radius must be greater than 0 to calculate angular speed.');
     //   const angularSpeed: TMetersPerSecond = (speed / radius) as TMetersPerSecond;
     //
+    //   const lookAtMatrix = new Matrix4().lookAt(agent.position$.value, targetPosition, new Vector3(0, 1, 0));
+    //   const targetRotation = new Quaternion().setFromRotationMatrix(lookAtMatrix);
+    //
     //   // eslint-disable-next-line functional/immutable-data
-    //   agent.data.target.position = targetPosition;
+    //   agent.data.target.rotation = targetRotation;
     //
     //   // Calculate angle to the target using dot product
-    //   const dot: number = agent.data.state.linearDirection.dot(targetPosition.clone().sub(abstractTransformAgent.position$.value).normalize());
+    //   const dot: number = agent.data.state.angularDirection.dot(targetRotation);
     //   const angleToTarget: number = Math.acos(2 * dot * dot - 1);
     //   if (angleToTarget < agent.data.target.rotationThreshold) return agent.setAngularSpeed(0);
     //
-    //   agent.setAngularDirection(targetPosition.clone().sub(abstractTransformAgent.position$.value).normalize());
     //   agent.setAngularSpeed(angularSpeed);
     //
+    //   return undefined;
+    // },
+    // Rotates agent to "look" at the target position (e.g. mouse click position, other actor, etc.)
+    // lookAt(targetPosition: Vector3, speed: TMetersPerSecond, radius: TMeters): void | never {
+    //   if (speed < 0) throw new Error('Speed must be greater than 0 to calculate angular speed.');
+    //   if (speed === 0) return agent.setAngularSpeed(0);
+    //   if (radius <= 0) throw new Error('Radius must be greater than 0 to calculate angular speed.');
+    //
+    //   // Создаём временный объект для правильного расчёта кватерниона
+    //   const tempObject = new Object3D();
+    //   tempObject.position.copy(abstractTransformAgent.position$.value);
+    //
+    //   // Устанавливаем направление "вверх" по Y-оси
+    //   tempObject.up.set(0, 1, 0);
+    //
+    //   // Вычисляем целевое вращение
+    //   tempObject.lookAt(targetPosition);
+    //   const targetRotation = tempObject.quaternion.clone().normalize();
+    //
+    //   // Используем существующую логику поворота
+    //   agent.rotateTo(targetRotation, speed, radius);
+    //
+    //   return undefined;
+    // },
+    // lookAt(targetPosition: Vector3, speed: TMetersPerSecond, radius: TMeters): void | never {
+    //   if (speed < 0) throw new Error('Speed must be greater than 0 to calculate angular speed.');
+    //   if (speed === 0) return agent.setAngularSpeed(0);
+    //   if (radius <= 0) throw new Error('Radius must be greater than 0 to calculate angular speed.');
+    //   const angularSpeed: TMetersPerSecond = (speed / radius) as TMetersPerSecond;
+    //
+    //   const currentPos = agent.position$.value;
+    //   const distSq = currentPos.distanceToSquared(targetPosition);
+    //   if (distSq < 1e-12) {
+    //     // Нечего смотреть, цель совпадает с агентом
+    //     return undefined;
+    //   }
+    //
+    //   // Создаем матрицу вида. ВНИМАНИЕ: решите, что у вас "нос" - +Z или -Z
+    //   // Если агент должен смотреть вдоль -Z, оставляйте lookAt(agentPos, targetPos, up).
+    //   // Если агент должен смотреть вдоль +Z, меняйте порядок eye/target или домножайте на Math.PI.
+    //
+    //   // Пример, если нужно, чтобы +Z агента "смотрел" на targetPosition:
+    //   const lookAtMatrix = new Matrix4().lookAt(
+    //     targetPosition, // 1) "eye"
+    //     currentPos, // 2) "target"
+    //     new Vector3(0, 1, 0) // 3) "up"
+    //   );
+    //
+    //   // Иногда нужно повернуть на π (180 градусов) вокруг Y, если получается "задом наперёд":
+    //   // lookAtMatrix.multiply(new Matrix4().makeRotationY(Math.PI));
+    //
+    //   const targetRotation = new Quaternion().setFromRotationMatrix(lookAtMatrix);
+    //
+    //   // Можно посмотреть, какой угол в Эйлерах получился, для отладки:
+    //   // console.log('Debug eulers:', new Euler().setFromQuaternion(targetRotation, 'YXZ').toVector3());
+    //
+    //   // Используем ваш rotateTo c `targetRotation`.
+    //   agent.rotateTo(targetRotation, angularSpeed, radius);
+    //   return undefined;
+    // },
+    // Rotates agent as provided Quaternion (useful when you want to rotate as someone else already rotated)
+    // rotateTo(targetRotation: Quaternion, speed: TMetersPerSecond, radius: TMeters): void | never {
+    //   if (speed < 0) throw new Error('Speed must be greater than 0 to calculate angular speed.');
+    //   if (speed === 0) return agent.setAngularSpeed(0);
+    //   if (radius <= 0) throw new Error('Radius must be greater than 0 to calculate angular speed.');
+    //   // const angularSpeed: TRadiansPerSecond = (speed / radius) as TRadiansPerSecond;
+    //   const angularSpeed: number = speed / radius;
+    //
+    //   // Используем встроенный метод для расчёта угла
+    //   const angleToTarget = abstractTransformAgent.rotation$.value.angleTo(targetRotation);
+    //
+    //   if (angleToTarget < agent.data.target.rotationThreshold) return agent.setAngularSpeed(0);
+    //
+    //   // Устанавливаем направление вращения
+    //   const relativeRotation = targetRotation.clone().multiply(abstractTransformAgent.rotation$.value.clone().invert());
+    //   agent.setAngularDirection(relativeRotation);
+    //
+    //   agent.setAngularSpeed(angularSpeed);
+    //   // eslint-disable-next-line functional/immutable-data
+    //   agent.data.target.rotation = targetRotation;
     //   return undefined;
     // },
     rotateTo(targetRotation: Quaternion, speed: TMetersPerSecond, radius: TMeters): void | never {
@@ -113,9 +227,9 @@ export function KinematicTransformAgent(params: TKinematicTransformAgentParams, 
       agent.data.target.rotation = targetRotation;
 
       // Calculate angle to the target using dot product
-      const dot: number = agent.rotation$.value.dot(targetRotation);
-      const angleToTarget: number = Math.acos(2 * dot * dot - 1);
-      if (angleToTarget < agent.data.target.rotationThreshold) return agent.setAngularSpeed(0);
+      // const dot: number = agent.rotation$.value.dot(targetRotation);
+      // const angleToTarget: number = Math.acos(2 * dot * dot - 1);
+      // if (angleToTarget < agent.data.target.rotationThreshold) return agent.setAngularSpeed(0);
 
       // agent.setAngularDirection(targetRotation);
       agent.setAngularSpeed(angularSpeed);
@@ -178,10 +292,12 @@ export function KinematicTransformAgent(params: TKinematicTransformAgentParams, 
   // TODO 8.0.0. MODELS: Implement infinite rotation when no target (undefined)
   function doKinematicRotation(delta: TMilliseconds): void {
     if (agent.data.state.angularSpeed <= 0) return;
+
+    // TODO debug
     if (isRotationReached(agent.data.target, agent.rotation$.value, agent.data.state)) return;
 
     const rotationStep: number = agent.data.state.angularSpeed * delta;
-    const stepRotation: Quaternion | undefined = getStepRotation(rotationStep);
+    const stepRotation: Quaternion | undefined = getStepRotation(agent, rotationStep);
     if (isNotDefined(stepRotation)) return;
 
     agent.data.state.angularDirection.multiply(stepRotation).normalize();
@@ -198,33 +314,86 @@ export function KinematicTransformAgent(params: TKinematicTransformAgentParams, 
       doKinematicMove(delta);
     });
 
-  function getStepRotation(rotationStep: number): Quaternion | undefined {
-    if (isNotDefined(agent.data.target.rotation)) return undefined;
-    // Calculate the relative rotation (difference between current and target)
-    const relativeRotation: Quaternion = agent.data.target.rotation.clone().multiply(agent.data.state.angularDirection.clone().invert());
-
-    // Extract the axis and angle of rotation from the relative rotation
-    const axis = new Vector3();
-    relativeRotation.normalize();
-
-    // Compute the angle and axis of the relative rotation
-    const angleToTarget: TRadians = (2 * Math.acos(relativeRotation.w)) as TRadians;
-    const scaleFactor = Math.sqrt(1 - relativeRotation.w * relativeRotation.w);
-
-    if (scaleFactor > 1e-6) {
-      axis.set(relativeRotation.x / scaleFactor, relativeRotation.y / scaleFactor, relativeRotation.z / scaleFactor).normalize();
-    } else {
-      // If scaleFactor is too small, fallback to a default axis
-      axis.set(1, 0, 0);
-    }
-
-    // Avoid division by zero if the angle is too small
-    if (angleToTarget < 1e-6) return undefined;
-
-    return new Quaternion().setFromAxisAngle(axis, Math.min(rotationStep, angleToTarget));
-  }
-
   return agent;
+}
+
+// function getStepRotation(agent: TKinematicTransformAgent, rotationStep: number): Quaternion | undefined {
+//   if (!agent.data.target?.rotation) return undefined;
+//
+//   // Вычисляем относительное вращение (target * current⁻¹)
+//   const relativeRotation = agent.data.target.rotation.clone().multiply(agent.rotation$.value.clone().invert());
+//
+//   // Вычисляем угол поворота
+//   const angleToTarget: TRadians = (2 * Math.acos(Math.max(-1, Math.min(1, relativeRotation.w)))) as TRadians;
+//
+//   // Если угол слишком мал, можно остановиться
+//   if (angleToTarget < 1e-6) return undefined;
+//
+//   // Вычисляем ось вращения
+//   const axis = new Vector3(relativeRotation.x, relativeRotation.y, relativeRotation.z);
+//   const scaleFactor = Math.sqrt(1 - relativeRotation.w * relativeRotation.w);
+//
+//   if (scaleFactor > 1e-6) {
+//     axis.divideScalar(scaleFactor).normalize();
+//   } else {
+//     // Если ось вращения не определена, выбираем направление, максимально близкое к требуемому
+//     axis.set(1, 0, 0);
+//   }
+//
+//   // Ограничиваем шаг вращения, чтобы не проскочить цель
+//   const stepAngle = Math.min(rotationStep, angleToTarget);
+//
+//   return new Quaternion().setFromAxisAngle(axis, stepAngle);
+// }
+
+// function getStepRotation(agent: TKinematicTransformAgent, rotationStep: number): Quaternion | undefined {
+//   if (!agent.data.target?.rotation) return undefined;
+//
+//   // 🔹 Получаем текущий и целевой кватернион
+//   const currentRotation = agent.rotation$.value;
+//   const targetRotation = agent.data.target.rotation;
+//
+//   // 🔹 Вычисляем относительное вращение (разницу между текущим и целевым)
+//   const relativeRotation = new Quaternion().copy(targetRotation).multiply(currentRotation.clone().invert());
+//
+//   // 🔹 Получаем угол вращения между кватернионами
+//   const angleToTarget = 2 * Math.acos(Math.max(-1, Math.min(1, relativeRotation.w))); // Защита от артефактов
+//   if (angleToTarget < 1e-6) return undefined; // Если угол очень мал — уже на месте
+//
+//   // 🔹 Нормализуем направление оси (если угол мал, может быть проблема)
+//   const axis = new Vector3(relativeRotation.x, relativeRotation.y, relativeRotation.z);
+//   if (axis.lengthSq() < 1e-6) return undefined; // Малый вектор — вращения нет
+//   axis.normalize();
+//
+//   // 🔹 Ограничиваем шаг вращения
+//   const stepFactor = Math.min(1, rotationStep / angleToTarget);
+//   const stepRotation = new Quaternion().setFromAxisAngle(axis, angleToTarget * stepFactor);
+//
+//   return stepRotation;
+// }
+
+function getStepRotation(agent: TKinematicTransformAgent, rotationStep: number): Quaternion | undefined {
+  if (!agent.data.target?.rotation) return undefined;
+
+  // Получаем текущий и целевой поворот в формате Euler (YXZ — порядок three.js)
+  const currentEuler = new Euler().setFromQuaternion(agent.rotation$.value, 'YXZ');
+  const targetEuler = new Euler().setFromQuaternion(agent.data.target.rotation, 'YXZ');
+
+  // Вычисляем разницу углов
+  const deltaX = targetEuler.x - currentEuler.x;
+  const deltaY = targetEuler.y - currentEuler.y;
+  const deltaZ = targetEuler.z - currentEuler.z;
+
+  // Ограничиваем шаг вращения, чтобы не проскочить цель
+  const stepEuler = new Euler(
+    Math.sign(deltaX) * Math.min(rotationStep, Math.abs(deltaX)),
+    Math.sign(deltaY) * Math.min(rotationStep, Math.abs(deltaY)),
+    Math.sign(deltaZ) * Math.min(rotationStep, Math.abs(deltaZ)),
+    'YXZ'
+  );
+
+  // Преобразуем обратно в кватернион
+  return new Quaternion().setFromEuler(stepEuler);
 }
 
 function isPointReached(target: TKinematicTarget | undefined, position: Vector3, state: TKinematicState): boolean {
