@@ -1,1 +1,2 @@
-export * from './AppToPlatformMessagesConstants';
+export * from './PlatformMessagesConstants';
+export * from './PlatformActions';

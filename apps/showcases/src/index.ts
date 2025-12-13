@@ -47,7 +47,9 @@ const settings: TAppSettings = {
 // TODO DESKTOP: Implement save/load via platformApi
 // TODO DESKTOP: debug
 console.log('XXX platformApi', window.platformApi);
-window.platformApi.chrome();
+console.log('chrome', window.platformApi.chrome());
+console.log('node', window.platformApi.node());
+console.log('electron', window.platformApi.electron());
 window.platformApi.desktopAppVersion().then(console.log);
 
 setBrowserSafeguards(window);
