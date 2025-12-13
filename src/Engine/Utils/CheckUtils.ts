@@ -11,8 +11,16 @@ export function isDefined<T>(value: T | undefined | null): value is T {
   return <T>value !== undefined && <T>value !== null;
 }
 
+export function isAllDefined<T>(values: ReadonlyArray<T | undefined | null>): values is ReadonlyArray<T> {
+  return values.every(isDefined);
+}
+
 export function isNotDefined<T>(value: T | undefined | null): value is undefined | null {
   return !isDefined<T>(value);
+}
+
+export function isAllNotDefined<T>(values: ReadonlyArray<T | undefined | null>): values is ReadonlyArray<undefined | null> {
+  return values.every(isNotDefined);
 }
 
 export function isRegistrable(obj: unknown): obj is TRegistrable {
