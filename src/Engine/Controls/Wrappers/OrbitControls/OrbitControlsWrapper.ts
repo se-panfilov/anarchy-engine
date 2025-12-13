@@ -1,6 +1,7 @@
 import { Vector3 } from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
+import type { TReadonlyVector3 } from '@/Engine';
 import { AbstractWrapper, WrapperType } from '@/Engine/Abstract';
 import type { ControlsType } from '@/Engine/Controls/Constants';
 import type { TOrbitControlsParams, TOrbitControlsWrapper } from '@/Engine/Controls/Models';
@@ -35,7 +36,7 @@ export function OrbitControlsWrapper(params: TOrbitControlsParams): TOrbitContro
 
   const isEnable = (): boolean => entity.enabled;
 
-  function moveToTargetSmoothly(position: Vector3): void {
+  function moveToTargetSmoothly(position: TReadonlyVector3 | Vector3): void {
     const currentPolarAngle: number = entity.getPolarAngle();
     const currentAzimuthalAngle: number = entity.getAzimuthalAngle();
     const currentDistance: number = entity.getDistance();

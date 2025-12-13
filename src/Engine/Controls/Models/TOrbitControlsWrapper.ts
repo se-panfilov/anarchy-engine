@@ -5,6 +5,7 @@ import type { TWrapper } from '@/Engine/Abstract';
 import type { ControlsType } from '@/Engine/Controls/Constants';
 import type { TMilliseconds } from '@/Engine/Math';
 import type { TWithActiveMixin } from '@/Engine/Mixins';
+import type { TReadonlyVector3 } from '@/Engine/ThreeLib';
 
 import type { TOrbitControlsAccessors } from './TOrbitControlsAccessors';
 
@@ -15,7 +16,7 @@ export type TOrbitControlsWrapper = TWrapper<OrbitControls> &
     enable: () => void;
     isEnable: () => boolean;
     disable: () => void;
-    moveToTargetSmoothly: (position: Vector3) => void;
+    moveToTargetSmoothly: (position: TReadonlyVector3 | Vector3) => void;
     getType: () => ControlsType;
   }> &
   TWithActiveMixin;

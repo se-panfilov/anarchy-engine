@@ -5,7 +5,7 @@ import { LineMaterial } from 'three/examples/jsm/lines/LineMaterial';
 
 import type { TShowcase } from '@/App/Levels/Models';
 import { addGizmo } from '@/App/Levels/Utils';
-import type { TActor, TAppCanvas, TCameraWrapper, TEngine, TIntersectionEvent, TIntersectionsWatcher, TRadians, TSceneWrapper, TSpace, TSpaceConfig } from '@/Engine';
+import type { TActor, TAppCanvas, TCameraWrapper, TEngine, TIntersectionEvent, TIntersectionsWatcher, TRadians, TReadonlyVector3, TSceneWrapper, TSpace, TSpaceConfig } from '@/Engine';
 import {
   ambientContext,
   Engine,
@@ -96,7 +96,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
 
     physicalLoop.tick$.subscribe(() => {
       if (isDefined(mouseLineIntersectionsCoords)) {
-        const ballCoords: Vector3 = ballActor.drive.position$.value;
+        const ballCoords: TReadonlyVector3 = ballActor.drive.position$.value;
         azimuth = getHorizontalAzimuth(ballCoords.x, ballCoords.z, mouseLineIntersectionsCoords, ForwardAxis.Z);
         azimuthText.setText(`Azimuth: ${azimuth.toFixed(2)}`);
         forcePowerText.setText(`Force: ${forcePower.toFixed(2)}`);

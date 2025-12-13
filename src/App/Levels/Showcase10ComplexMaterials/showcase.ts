@@ -13,6 +13,7 @@ import type {
   TControlsRegistry,
   TControlsWrapper,
   TEngine,
+  TReadonlyVector3,
   TRegistryPack,
   TSpace,
   TSpaceConfig,
@@ -73,7 +74,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
 
   function addTextToActor(pack: TRegistryPack<TActor>): void {
     const actor: TActor = pack.value;
-    const position: Vector3 = actor.drive.position$.value;
+    const position: TReadonlyVector3 = actor.drive.position$.value;
     const { x, y, z } = position;
 
     textService.create({
@@ -110,7 +111,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
 
     // eslint-disable-next-line functional/immutable-data
     state.controllers = addGuiToActor(actor);
-    const position: Vector3 = actor.drive.position$.value;
+    const position: TReadonlyVector3 = actor.drive.position$.value;
     const orbitControls: TControlsWrapper | undefined = controlsRegistry.findByTag('orbit');
     if (isNotDefined(orbitControls)) throw new Error('Orbit controls are not found');
     if (!isOrbitControls(orbitControls)) throw new Error(`Active controls are not of type "${ControlsType.OrbitControls}", but ${orbitControls.getType()}`);

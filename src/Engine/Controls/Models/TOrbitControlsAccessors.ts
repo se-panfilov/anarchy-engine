@@ -1,9 +1,11 @@
 import type { Vector3 } from 'three';
 
+import type { TReadonlyVector3 } from '@/Engine';
+
 export type TOrbitControlsAccessors = {
   setDamping: (isEnabled: boolean) => void;
   getDamping: () => boolean;
-  setTarget: (target: Vector3) => void;
+  setTarget: (target: TReadonlyVector3 | Vector3) => void;
   setAutoRotate: (isEnabled: boolean) => void;
   getAutoRotate: () => boolean;
   setMinDistance: (minDistance: number) => void;

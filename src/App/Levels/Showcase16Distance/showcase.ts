@@ -3,7 +3,7 @@ import { Vector3 } from 'three';
 
 import type { TShowcase } from '@/App/Levels/Models';
 import { addGizmo } from '@/App/Levels/Utils';
-import type { TActor, TActorRegistry, TAppCanvas, TCameraRegistry, TEngine, TMetersPerSecond, TMilliseconds, TSpace, TSpaceConfig } from '@/Engine';
+import type { TActor, TActorRegistry, TAppCanvas, TCameraRegistry, TEngine, TMetersPerSecond, TMilliseconds, TReadonlyVector3, TSpace, TSpaceConfig } from '@/Engine';
 import { ambientContext, Engine, isNotDefined, KeysExtra, meters, metersPerSecond, mpsSpeed, spaceService, TransformAgent } from '@/Engine';
 
 import spaceConfig from './showcase.json';
@@ -37,8 +37,8 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     let isMove: boolean = false;
     let isTimerStarted: boolean = false;
 
-    const sphereCoords: Vector3 = sphere.drive.position$.value;
-    sphere.drive.position$.subscribe((position: Vector3): Vector3 => sphereCoords.copy(position));
+    const sphereCoords: Vector3 = sphere.drive.position$.value.clone();
+    sphere.drive.position$.subscribe((position: TReadonlyVector3): TReadonlyVector3 => sphereCoords.copy(position));
     gui.add(sphereCoords, 'x').listen();
     gui.add(sphereCoords, 'y').listen();
     gui.add(sphereCoords, 'z').listen();
@@ -54,7 +54,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
       }
     });
 
-    sphere.drive.position$.subscribe((position: Vector3): void => {
+    sphere.drive.position$.subscribe((position: TReadonlyVector3): void => {
       if (position.z <= -50) {
         console.timeEnd('move');
         isMove = false;
