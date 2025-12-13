@@ -194,6 +194,9 @@ export function MouseService(
     wheelDown$.unsubscribe();
 
     mergeSub$.unsubscribe();
+
+    mouseClickWatcherRegistry.destroy$.next();
+    mousePositionWatcherRegistry.destroy$.next();
   });
 
   // eslint-disable-next-line functional/immutable-data

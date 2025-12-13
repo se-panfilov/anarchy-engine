@@ -48,8 +48,8 @@ export function AbstractTransformAgent(params: TTransformAgentParams, type: Tran
     onActivated$.unsubscribe();
     onDeactivated$.complete();
     onDeactivated$.unsubscribe();
-    destroyable.destroy$.complete();
-    destroyable.destroy$.unsubscribe();
+    // destroyable.destroy$.complete();
+    // destroyable.destroy$.unsubscribe();
     relatedDriveId$.complete();
     relatedDriveId$.unsubscribe();
   });

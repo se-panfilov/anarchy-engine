@@ -1,4 +1,3 @@
-import type { Subscription } from 'rxjs';
 import { Fog } from 'three';
 
 import type { TWrapper } from '@/Engine/Abstract';
@@ -10,15 +9,6 @@ export function FogWrapper(params: TFogParams): TFogWrapper {
 
   const wrapper: TWrapper<TFog> = AbstractWrapper(entity, WrapperType.Fog, params);
 
-  const destroySub$: Subscription = wrapper.destroy$.subscribe((): void => {
-    destroySub$.unsubscribe();
-
-    // TODO DESTROY: implement destroy
-    throw new Error('Fog destroy not implemented');
-  });
-
   // eslint-disable-next-line functional/immutable-data
-  return Object.assign(wrapper, {
-    entity
-  });
+  return Object.assign(wrapper, { entity });
 }

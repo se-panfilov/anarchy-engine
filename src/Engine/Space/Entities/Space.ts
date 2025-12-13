@@ -71,7 +71,7 @@ export function Space(params: TSpaceParams, hooks?: TSpaceHooks): TSpace {
     if (isNotDefined(space)) throw new Error('Engine is not started yet (space is not defined)');
     Object.values(space.loops).forEach((loop: TLoop): void => loop.stop());
 
-    stopWatchers(space.services, false);
+    stopWatchers(space.services);
 
     return undefined;
   });
@@ -79,8 +79,6 @@ export function Space(params: TSpaceParams, hooks?: TSpaceHooks): TSpace {
   // TODO 14-0-0: Add possibility to drop the whole canvas on destroy
   const destroySub$: Subscription = space.destroy$.subscribe((): void => {
     destroySub$.unsubscribe();
-
-    stopWatchers(space.services, true);
 
     built$.complete();
     built$.unsubscribe();
@@ -125,13 +123,9 @@ function initSpaceServices(
   return { services, loops };
 }
 
-function stopWatchers({ intersectionsWatcherService, screenService, mouseService }: TSpaceServices, shouldDestroy: boolean): void {
-  mouseService.getMouseClickWatcherRegistry().forEach((watcher: TMouseClickWatcher): void => (shouldDestroy ? watcher.destroy$.next() : watcher.stop$.next()));
-  mouseService.getMousePositionWatcherRegistry().forEach((watcher: TMousePositionWatcher): void => (shouldDestroy ? watcher.destroy$.next() : watcher.stop$.next()));
-  screenService.watchers.getRegistry().forEach((watcher: TScreenSizeWatcher): void => (shouldDestroy ? watcher.destroy$.next() : watcher.stop$.next()));
-  intersectionsWatcherService.getRegistry().forEach((watcher: TIntersectionsWatcher): void => {
-    if (shouldDestroy) return watcher.destroy$.next();
-    if (watcher.isStarted) return watcher.stop$.next();
-    return undefined;
-  });
+function stopWatchers({ intersectionsWatcherService, screenService, mouseService }: TSpaceServices): void {
+  mouseService.getMouseClickWatcherRegistry().forEach((watcher: TMouseClickWatcher): void => watcher.stop$.next());
+  mouseService.getMousePositionWatcherRegistry().forEach((watcher: TMousePositionWatcher): void => watcher.stop$.next());
+  screenService.watchers.getRegistry().forEach((watcher: TScreenSizeWatcher): void => watcher.stop$.next());
+  intersectionsWatcherService.getRegistry().forEach((watcher: TIntersectionsWatcher): void => void (watcher.isStarted && watcher.stop$.next()));
 }
