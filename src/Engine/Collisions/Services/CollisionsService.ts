@@ -45,14 +45,13 @@ export function CollisionsService(): TCollisionsService {
       // }
       ////
       if (object.id !== actorW.id) {
-        // TODO (S.Panfilov) why we need this raycaster?
         const raycaster: Raycaster = new Raycaster();
 
         // raycaster.set(actorW.entity.position, actorW.kinematic.getAzimuth());
         raycaster.set(actorW.entity.position, actorW.kinematic.getLinearDirection());
 
         const intersects: Array<Intersection> = [];
-        raycastBvhService.raycastWithBvh(object.entity, raycaster, intersects);
+        raycastBvhService.raycastWithBvh(object, raycaster, intersects);
 
         if (intersects.length > 0) {
           const intersect = intersects[0];
