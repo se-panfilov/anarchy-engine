@@ -16,5 +16,6 @@ export function applyHtmlElementParams(wrapper: TElementWithCssAccessors, cssPro
 export function getWrapperTypeByTextType(type: TextType): WrapperType {
   if (type === TextType.Text2d) return WrapperType.Text2d;
   if (type === TextType.Text3d) return WrapperType.Text3d;
+  if (type === TextType.Text3dTexture) return WrapperType.Text3dTexture;
   throw new Error(`Cannot get wrapper type: Unknown text type "${String(type)}"`);
 }

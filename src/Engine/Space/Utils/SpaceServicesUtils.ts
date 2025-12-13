@@ -30,7 +30,7 @@ import { SceneFactory, SceneRegistry, ScenesService } from '@/Engine/Scene';
 import type { TSpaceServices } from '@/Engine/Space/Models';
 import type { TSpatialGridService, TSpatialLoopService } from '@/Engine/Spatial';
 import { SpatialGridFactory, SpatialGridRegistry, SpatialGridService, SpatialLoopService } from '@/Engine/Spatial';
-import { Text2dRegistry, Text2dRendererRegistry, Text3dRegistry, Text3dRendererRegistry, TextFactory, TextService } from '@/Engine/Text';
+import { Text2dRegistry, Text2dRendererRegistry, Text3dRegistry, Text3dRendererRegistry, Text3dTextureRegistry, TextFactory, TextService } from '@/Engine/Text';
 import type { TTextureService } from '@/Engine/Texture';
 import { TextureService } from '@/Engine/Texture';
 import { TextureAsyncRegistry } from '@/Engine/Texture/Registries/TextureAsyncRegistry';
@@ -125,7 +125,7 @@ export function initEntitiesServices(sceneW: TSceneWrapper, canvas: TAppCanvas):
     rendererService: RendererService(RendererFactory(), RendererRegistry()),
     spatialLoopService,
     spatialGridService,
-    textService: TextService(TextFactory(), Text2dRegistry(), Text3dRegistry(), Text2dRendererRegistry(), Text3dRendererRegistry(), sceneW),
+    textService: TextService(TextFactory(), Text2dRegistry(), Text3dRegistry(), Text3dTextureRegistry(), Text2dRendererRegistry(), Text3dRendererRegistry(), sceneW),
     textureService
   };
 }

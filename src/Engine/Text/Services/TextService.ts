@@ -13,6 +13,7 @@ import type {
   TText3dRegistry,
   TText3dRenderer,
   TText3dRendererRegistry,
+  TText3dTextureRegistry,
   TTextAnyWrapper,
   TTextConfig,
   TTextFactory,
@@ -20,20 +21,24 @@ import type {
   TTextService
 } from '@/Engine/Text/Models';
 import { initText2dRenderer, initText3dRenderer } from '@/Engine/Text/Renderers';
-import { isText2dWrapper, isText3dWrapper } from '@/Engine/Text/Utils';
+import { isText2dWrapper, isText3dTextureWrapper, isText3dWrapper } from '@/Engine/Text/Utils';
 
 export function TextService(
   factory: TTextFactory,
   text2dRegistry: TText2dRegistry,
   text3dRegistry: TText3dRegistry,
+  text3dTextureRegistry: TText3dTextureRegistry,
   text2dRendererRegistry: TText2dRendererRegistry,
   text3dRendererRegistry: TText3dRendererRegistry,
   scene: TSceneWrapper
 ): TTextService {
-  merge(text2dRegistry.added$, text3dRegistry.added$).subscribe(({ value }: TRegistryPack<TTextAnyWrapper>) => scene.addText(value));
+  merge(text2dRegistry.added$, text3dRegistry.added$, text3dTextureRegistry.added$).subscribe(({ value }: TRegistryPack<TTextAnyWrapper>) => scene.addText(value));
   factory.entityCreated$.subscribe((text: TTextAnyWrapper): void => {
     if (isText2dWrapper(text)) text2dRegistry.add(text);
-    if (isText3dWrapper(text)) text3dRegistry.add(text);
+    else if (isText3dWrapper(text)) text3dRegistry.add(text);
+    else if (isText3dTextureWrapper(text)) text3dTextureRegistry.add(text);
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+    else throw new Error(`TextService. EntityCreated: Unknown text type "${(text as any).type ? (text as any).type : ''}"`);
   });
 
   const create = (params: TTextParams): TTextAnyWrapper => factory.create(params);
@@ -44,6 +49,7 @@ export function TextService(
     factory.destroy();
     text2dRegistry.destroy();
     text3dRegistry.destroy();
+    text3dTextureRegistry.destroy();
     text2dRendererRegistry.destroy();
     text3dRendererRegistry.destroy();
   });
@@ -67,7 +73,7 @@ export function TextService(
     getScene: (): TSceneWrapper => scene,
     createText2dRenderer,
     createText3dRenderer,
-    getRegistries: () => ({ text2dRegistry, text3dRegistry }),
+    getRegistries: () => ({ text2dRegistry, text3dRegistry, text3dTextureRegistry }),
     getRendererRegistries: () => ({ text2dRendererRegistry, text3dRendererRegistry }),
     ...destroyable
   };

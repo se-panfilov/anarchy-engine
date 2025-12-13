@@ -1,4 +1,5 @@
 export enum TextType {
-  Text2d = '2d',
-  Text3d = '3d'
+  Text2d = 'text_2d',
+  Text3d = 'text_3d',
+  Text3dTexture = 'text_3d_texture'
 }

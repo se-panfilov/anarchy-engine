@@ -6,6 +6,8 @@ export * from './TText2dWrapper';
 export * from './TText3dRegistry';
 export * from './TText3dRenderer';
 export * from './TText3dRendererRegistry';
+export * from './TText3dTextureRegistry';
+export * from './TText3dTextureWrapper';
 export * from './TText3dWrapper';
 export * from './TTextAnyRenderer';
 export * from './TTextAnyWrapper';
