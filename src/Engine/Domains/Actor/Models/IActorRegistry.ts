@@ -1,4 +1,4 @@
 import type { IProtectedRegistry } from '@Engine/Models';
-import type { IActorWrapper } from '@Engine/Wrappers';
+import { IActorWrapper } from '@Engine/Domains/Actor/Models';
 
 export type IActorRegistry = IProtectedRegistry<IActorWrapper>;

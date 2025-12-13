@@ -1,5 +1,4 @@
 import type { ICreateFN } from '@Engine/Factories';
-import type { IActorParams } from '@Engine/Models';
-import type { IActorWrapper } from '@Engine/Wrappers';
+import type { IActorWrapper, IActorParams } from '@Engine/Domains/Actor/Models';
 
 export type ICreateActorFn = ICreateFN<IActorWrapper, IActorParams>;

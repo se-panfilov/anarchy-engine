@@ -1,10 +1,6 @@
-import { actorAdapter } from '@Engine/Adapters';
-import type { IActorParams } from '@Engine/Models';
-import { ActorWrapper } from '@Engine/Wrappers';
-import type { IActorWrapper } from '@Engine/Wrappers/ActorWrapper';
-
-import { AbstractFromConfigWrapperFactory } from '../AbstractFactory';
-import type { IActorFactory, ICreateActorFn } from './Models';
+import type { IActorFactory, IActorParams, IActorWrapper, ICreateActorFn } from '@Engine/Domains/Actor/Models';
+import { actorAdapter, ActorWrapper } from '@Engine/Domains/Actor';
+import { AbstractFromConfigWrapperFactory } from '@/Engine';
 
 const create: ICreateActorFn = (params: IActorParams): IActorWrapper => ActorWrapper(params);
 export const ActorFactory = (): IActorFactory => AbstractFromConfigWrapperFactory('actor', create, actorAdapter);
