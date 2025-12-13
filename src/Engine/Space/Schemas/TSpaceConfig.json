@@ -2262,7 +2262,7 @@
           }
         }
       },
-      "required": ["options", "position", "primitive"]
+      "required": ["options", "primitive"]
     },
     "TIntersectionsWatcherConfig": {
       "type": "object",
