@@ -32,9 +32,14 @@ export function InstantActorDriver(params: TActorParams): TInstantActorDriver {
   const rotationObj: TWithRotationProperty = { rotation: rotation$.value.clone() };
   const scaleObj: TWithScaleProperty = { scale: scale$.value?.clone() ?? new Vector3(1, 1, 1) };
 
-  const proxyTransformObj: TWithPosition3dProperty = updateSubjOnChange(positionObj, 'position', position$);
-  const proxyRotationObj: TWithRotationProperty = updateSubjOnChange(rotationObj, 'rotation', rotation$);
-  const proxyScaleObj: TWithScaleProperty = updateSubjOnChange(scaleObj as TWithUndefined<TWithScaleProperty>, 'scale', scale$) as TWithScaleProperty;
+  const proxyTransformObj: TWithPosition3dProperty = updateSubjOnChange(positionObj, 'position', position$, (value: Vector3): Vector3 => value.clone());
+  const proxyRotationObj: TWithRotationProperty = updateSubjOnChange(rotationObj, 'rotation', rotation$, (value: Euler): Euler => value.clone());
+  const proxyScaleObj: TWithScaleProperty = updateSubjOnChange(
+    scaleObj as TWithUndefined<TWithScaleProperty>,
+    'scale',
+    scale$,
+    (value: Vector3 | undefined): Vector3 | undefined => value?.clone() ?? undefined
+  ) as TWithScaleProperty;
 
   return {
     ...destroyable,
