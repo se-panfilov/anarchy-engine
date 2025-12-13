@@ -974,6 +974,9 @@
         "text": {
           "type": "string"
         },
+        "type": {
+          "$ref": "#/definitions/TextType"
+        },
         "backgroundColor": {
           "type": "string"
         },
@@ -1020,11 +1023,15 @@
           "type": "string"
         }
       },
-      "required": ["fontSize", "position", "tags", "text"]
+      "required": ["fontSize", "position", "tags", "text", "type"]
     },
     "TextTag": {
       "type": "string",
       "enum": ["ui", "action"]
+    },
+    "TextType": {
+      "type": "string",
+      "enum": ["2d", "3d"]
     },
     "TextAlign": {
       "type": "string",
