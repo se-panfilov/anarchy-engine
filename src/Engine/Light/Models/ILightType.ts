@@ -1,1 +1,1 @@
-export type ILightType = 'ambient' | 'directional';
+export type ILightType = 'ambient' | 'directional' | 'point';

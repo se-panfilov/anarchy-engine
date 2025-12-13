@@ -8,5 +8,7 @@ export type ILightProps = Readonly<{
   color: Color;
   intensity?: number;
   castShadow: boolean;
+  distance?: number;
+  decay?: number;
   shadow?: ILightShadowParams;
 }>;

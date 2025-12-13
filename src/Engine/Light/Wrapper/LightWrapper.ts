@@ -1,5 +1,5 @@
 import { AbstractWrapper, WrapperType } from '@/Engine/Abstract';
-import type { IAmbientLight, IDirectionalLight, ILightParams, ILightWrapper } from '@/Engine/Light/Models';
+import { IAmbientLight, IDirectionalLight, ILightParams, ILightWrapper, IPointLight } from '@/Engine/Light/Models';
 import { withMoveBy3dMixin, withObject3d, withRotationByXyzMixin } from '@/Engine/Mixins';
 import { applyObject3dParams, applyPosition, applyRotation } from '@/Engine/Utils';
 
@@ -7,7 +7,7 @@ import { getAccessors } from './Accessors';
 import { getLight } from './utils';
 
 export function LightWrapper(params: ILightParams): ILightWrapper {
-  const entity: IAmbientLight | IDirectionalLight = getLight(params);
+  const entity: IAmbientLight | IDirectionalLight | IPointLight = getLight(params);
 
   const result = {
     ...AbstractWrapper(entity, WrapperType.Light, params),

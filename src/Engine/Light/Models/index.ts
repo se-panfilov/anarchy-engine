@@ -9,3 +9,4 @@ export * from './ILightRegistry';
 export * from './ILightShadowParams';
 export * from './ILightType';
 export * from './ILightWrapper';
+export * from './IPointLight';
