@@ -31,8 +31,8 @@ export function ScreenSizeWatcherService(factory: TScreenSizeWatcherFactory, reg
   const destroySub$: Subscription = abstractService.destroy$.subscribe((): void => {
     destroySub$.unsubscribe();
 
-    default$.unsubscribe();
     default$.complete();
+    default$.unsubscribe();
   });
 
   // eslint-disable-next-line functional/immutable-data
