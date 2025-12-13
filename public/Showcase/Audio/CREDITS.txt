@@ -2,10 +2,14 @@
 
 The following audio files are used in this project under the Creative Commons Attribution (CC-BY) license:
 
- - "Persimmon" by Pierce Murphy – https://freemusicarchive.org/music/Pierce_Murphy/fellow-traveler/persimmon/ (Licensed under CC-BY)
+Licensed under CC-BY:
+ - "Persimmon" (Pierce Murphy - Persimmon.mp3) by Pierce Murphy – https://freemusicarchive.org/music/Pierce_Murphy/fellow-traveler/persimmon/
 
- - "sample-vocals" (girl_singing) by iiRTJJF2023Freesound – https://freesound.org/people/iiRTJJF2023Freesound/sounds/720444/ (Licensed under COMMONS)
+Licensed under CCO:
+ - "sample-vocals" (girl_singing.mp3) by iiRTJJF2023Freesound – https://freesound.org/people/iiRTJJF2023Freesound/sounds/720444/
+ - "357 Magnum Revolver Gunshot" (357-magnum-revolver-gunshot.mp3) by Shark_Anthony – https://freesound.org/people/Shark_Anthony/sounds/683186/
 
+---
 
 Full CC-BY license: https://creativecommons.org/licenses/by/4.0/
 Full CCO license: https://creativecommons.org/publicdomain/zero/1.0/

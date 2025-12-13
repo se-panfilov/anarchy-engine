@@ -16,6 +16,7 @@ export function withActorStates(params: TActorParams): TWithActorStates {
 
   return {
     states,
-    setAnimationsFsm
+    setAnimationsFsm,
+    getAnimationsFsm: (): TFsmWrapper | undefined => states.animationsFsm
   };
 }

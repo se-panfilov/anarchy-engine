@@ -33,6 +33,8 @@ export function DebugAudioRenderer(source: TAudio3dWrapper, sceneW: TSceneWrappe
     if (isDefined(source.entity.parent)) {
       // refSphere.position.copy(source.entity.parent.position);
       maxSphere.position.copy(source.entity.parent.position);
+    } else {
+      maxSphere.position.copy(source.entity.position);
     }
   });
 

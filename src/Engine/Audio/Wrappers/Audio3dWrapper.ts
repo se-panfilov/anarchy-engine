@@ -14,39 +14,42 @@ import type { TDriveToTargetConnector } from '@/Engine/TransformDrive';
 import { DriveToTargetConnector } from '@/Engine/TransformDrive';
 
 export function Audio3dWrapper(params: TAudio3dParams, { audioLoop }: TAudioWrapperDependencies): TAudio3dWrapper {
-  const { position, performance } = params;
+  const { performance } = params;
   const wrapper: TAbstractAudioWrapper<PositionalAudio> = AbstractAudioWrapper(params, createPositionalAudio as TAudioCreateFn<PositionalAudio>);
-  const position$: BehaviorSubject<TReadonlyVector3> = new BehaviorSubject<TReadonlyVector3>(position);
   const listener$: BehaviorSubject<AudioListener | undefined> = new BehaviorSubject<AudioListener | undefined>(params.listener);
 
   const updatePriority: LoopUpdatePriority = performance?.updatePriority ?? LoopUpdatePriority.LOW;
   const noiseThreshold: TMeters = performance?.noiseThreshold ?? meters(0.01);
 
-  const sourcePositionUpdate$: Observable<TReadonlyVector3> = onAudioPositionUpdate(position$, noiseThreshold);
+  const drive: TAudio3dTransformDrive = Audio3dTransformDrive(params, wrapper.id);
+  const driveToTargetConnector: TDriveToTargetConnector = DriveToTargetConnector(drive, wrapper.entity);
+
+  const sourcePositionUpdate$: Observable<TReadonlyVector3> = onAudioPositionUpdate(drive.position$, noiseThreshold);
 
   const updateVolumeSub$: Subscription = sourcePositionUpdate$
     .pipe(
-      sample(audioLoop.tick$),
-      filter((): boolean => audioLoop.shouldUpdateWithPriority(updatePriority))
+      sample(audioLoop.tick$)
+      // TODO 11-0-0: this filter doesn't work properly
+      // filter((): boolean => {
+      //   console.log('XXX update', updatePriority, audioLoop.shouldUpdateWithPriority(updatePriority));
+      //   return audioLoop.shouldUpdateWithPriority(updatePriority);
+      // })
     )
-    .subscribe((position: TReadonlyVector3): void => void wrapper.entity.position.copy(position));
-
-  const drive: TAudio3dTransformDrive = Audio3dTransformDrive(params, wrapper.id);
-  const driveToTargetConnector: TDriveToTargetConnector = DriveToTargetConnector(drive, wrapper.entity);
+    .subscribe((position: TReadonlyVector3): void => {
+      void wrapper.entity.position.copy(position);
+      wrapper.entity.updateMatrix();
+      wrapper.entity.updateMatrixWorld(true);
+    });
 
   const destroySub$: Subscription = wrapper.destroy$.subscribe((): void => {
     destroySub$.unsubscribe();
     driveToTargetConnector.destroy$.next();
     updateVolumeSub$.unsubscribe();
-
-    position$.complete();
-    position$.unsubscribe();
   });
 
   return {
     ...wrapper,
     drive,
-    listener$,
-    position$
+    listener$
   };
 }

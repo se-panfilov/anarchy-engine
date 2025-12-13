@@ -38,6 +38,33 @@
           "grid": "main_grid",
           "isAutoUpdate": true
         }
+      },
+      {
+        "agent": "default",
+        "model3dSource": "medea_entity",
+        "name": "medea",
+        "position": {
+          "x": 5,
+          "y": 0,
+          "z": 4
+        },
+        "rotation": {
+          "x": 0,
+          "y": 3.14,
+          "z": 0
+        },
+        "scale": {
+          "x": 7,
+          "y": 7,
+          "z": 7
+        },
+        "spatial": {
+          "grid": "main_grid",
+          "isAutoUpdate": true
+        },
+        "states": {
+          "animationsFsmSource": "shoot_anim_fsm"
+        }
       }
     ],
     "audio": [
@@ -47,8 +74,30 @@
       },
       {
         "audioSource": "monster_sound",
-        "maxDistance": 10,
+        "maxDistance": 7,
         "name": "monster_singing",
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "refDistance": 1
+      },
+      {
+        "audioSource": "gunshot_sound",
+        "maxDistance": 3,
+        "name": "gunshot_1",
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "refDistance": 1
+      },
+      {
+        "audioSource": "gunshot_sound",
+        "maxDistance": 4,
+        "name": "gunshot_2",
         "position": {
           "x": 0,
           "y": 0,
@@ -95,7 +144,17 @@
         "near": 10
       }
     ],
-    "fsm": [],
+    "fsm": [
+      {
+        "initial": "Idle",
+        "name": "shoot_anim_fsm",
+        "transitions": [
+          ["Idle", "Shoot", "Shoot"],
+          ["Shoot", "Idle", "Idle"]
+        ],
+        "type": "animation"
+      }
+    ],
     "intersections": [],
     "lights": [
       {
@@ -171,6 +230,16 @@
           "y": 0,
           "z": 0
         }
+      },
+      {
+        "castShadow": true,
+        "model3dSource": "medea_model",
+        "name": "medea_entity",
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        }
       }
     ],
     "particles": [],
@@ -198,6 +267,10 @@
       {
         "name": "monster_sound",
         "url": "/Showcase/Audio/girl_singing.mp3"
+      },
+      {
+        "name": "gunshot_sound",
+        "url": "/Showcase/Audio/357-magnum-revolver-gunshot.mp3"
       }
     ],
     "envMaps": [],
@@ -222,6 +295,10 @@
       {
         "name": "mutant_model",
         "url": "/Showcase/Models/Mutant/Mutant.glb"
+      },
+      {
+        "name": "medea_model",
+        "url": "/Showcase/Models/Medea/medea.glb"
       }
     ],
     "textures": []
