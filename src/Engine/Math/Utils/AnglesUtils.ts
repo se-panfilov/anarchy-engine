@@ -62,7 +62,7 @@ export const getAzimuthFromDirection = (direction: Vector3Like): TRadians => {
 };
 
 // TODO add unit tests
-export const getAzimutFromQuaternionDirection = (quaternion: QuaternionLike): TRadians => {
+export const getAzimuthFromQuaternionDirection = (quaternion: QuaternionLike): TRadians => {
   const { x, y, z, w } = quaternion;
 
   // Calculate azimuth using the quaternion components

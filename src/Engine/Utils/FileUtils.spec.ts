@@ -87,7 +87,7 @@ describe('FileUtils', () => {
     });
 
     it('should return an extension of a file with multiple dots', () => {
-      expect(getFileExtension('roro.r__.87-65.mono')).toBe('mono');
+      expect(getFileExtension('rumble__.87-65.mono')).toBe('mono');
     });
 
     it('should return "undefined" for a file with no extension', () => {

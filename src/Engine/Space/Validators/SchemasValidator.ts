@@ -95,7 +95,7 @@ function validateData({ name, version, scenes, resources, entities, tags }: TSpa
   const isEveryTextureTagsValid: boolean = validateTagsForEveryEntity(textures);
 
   //urls
-  const isEveryModels3dUrlValid: boolean = validateModel3dileUrls(models3dResources);
+  const isEveryModels3dUrlValid: boolean = validateModel3dFileUrls(models3dResources);
   const isEveryEnvMapsUrlValid: boolean = validateFileUrls(envMaps);
   const isEveryTextureUrlValid: boolean = validateFileUrls(textures);
 
@@ -211,7 +211,7 @@ function validateAllAudioEntityHasValidResource(entities: ReadonlyArray<TAnyAudi
   });
 }
 
-function validateModel3dileUrls(configs: ReadonlyArray<TModel3dResourceConfig>): boolean {
+function validateModel3dFileUrls(configs: ReadonlyArray<TModel3dResourceConfig>): boolean {
   return configs.every((config: TModel3dResourceConfig): boolean => {
     if (isPrimitiveModel3dResourceConfig(config)) return true;
     return validateFileUrl(config.url);

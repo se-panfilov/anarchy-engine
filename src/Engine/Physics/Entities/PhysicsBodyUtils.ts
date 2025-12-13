@@ -123,7 +123,7 @@ export function getColliderDesc(params: TPhysicsBodyParams): ColliderDesc | neve
 export function paramsToMeters(params: TPhysicsShapeParams): TOptional<TAllPhysicsShapeParams> {
   const vertices: Float32Array | undefined = (params as TPhysicsShapePolylineParams).vertices;
   const indices: Uint32Array | undefined = (params as TPhysicsShapePolylineParams).indices;
-  // "flags" as undefined to suppress a buf with TS
+  // "flags" as undefined to suppress a bug with TS
   const flags: TriMeshFlags | undefined = (params as TPhysicsShapeTriMeshParams).flags as undefined;
   const heights: Float32Array | undefined = (params as TPhysicsShapeHeightfieldParams).heights;
   const nrows: number | undefined = (params as TPhysicsShapeHeightfieldParams).nrows;

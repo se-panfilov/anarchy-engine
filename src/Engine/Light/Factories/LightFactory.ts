@@ -13,7 +13,7 @@ function create(params: TLightParams): TLightWrapper | never {
   if (params.type === LightType.Hemisphere && isHemisphereLightParams(params)) return HemisphereLightWrapper(params);
   if (params.type === LightType.RectArea && isRectAreaLightParams(params)) return RectAreaLightWrapper(params);
   if (params.type === LightType.Spot && isSpotLightParams(params)) return SpotLightWrapper(params);
-  throw new Error(`Unsupported light type: "${params.type}" or invalid params (doest not match the light type)`);
+  throw new Error(`Unsupported light type: "${params.type}" or invalid params (does not match the light type)`);
 }
 
 const factory: TReactiveFactory<TLightWrapper, TLightParams> = ReactiveFactory(FactoryType.Light, create);

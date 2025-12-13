@@ -13,7 +13,7 @@ describe('camelToKebab', () => {
   it('leaves strings without uppercase letters unchanged', () => {
     expect(camelToKebab('kebab')).toBe('kebab');
     expect(camelToKebab('Kebab')).toBe('kebab');
-    expect(camelToKebab('Kebab-abab')).toBe('kebab-abab');
+    expect(camelToKebab('Kebab-one')).toBe('kebab-one');
   });
 
   it('handles strings with numbers correctly', () => {

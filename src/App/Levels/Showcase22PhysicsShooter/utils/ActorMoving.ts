@@ -86,7 +86,7 @@ export function moveActorBounce(actor: TActor, speed: TMetersPerSecond, azimuth:
   actor.drive.kinematic.autoUpdate$.next(true);
   actor.drive.kinematic.setLinearSpeed(speed);
   actor.drive.kinematic.setLinearAzimuth(azimuth);
-  // TODO setTimout/setInterval is not a good idea (cause the game might be "on pause", e.g. when tab is not active)
+  // TODO setTimeout/setInterval is not a good idea (cause the game might be "on pause", e.g. when tab is not active)
   setInterval((): void => {
     actor.drive.kinematic.setLinearAzimuth(radians(actor.drive.kinematic.getLinearAzimuth() + degToRad(180)));
   }, duration);

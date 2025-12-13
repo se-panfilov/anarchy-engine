@@ -6,7 +6,7 @@ type TMockEntity = {
   _setActive: (isActive: boolean, isFromService: boolean) => void;
 };
 
-describe('adjustWthActive', () => {
+describe('adjustWithActive', () => {
   it('should set "isActive" to "true" when mixin added during entity creation', (): void => {
     const entity = { name: 'mock-entity', ...withActiveMixin() };
     expect(entity.isActive()).toBe(false);

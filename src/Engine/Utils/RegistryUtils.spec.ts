@@ -141,7 +141,7 @@ describe('RegistryUtils', () => {
 
     describe('LookUpStrategy "some"', () => {
       it('should return an uniq object that contains at least one tag tag', () => {
-        expect(getUniqEntityWithTags([tagUniq2, 'asdsd', 'eeee'], registry, LookUpStrategy.Some)).toEqual(obj9Uniq2);
+        expect(getUniqEntityWithTags([tagUniq2, 'some_whatever', 'other_whatever'], registry, LookUpStrategy.Some)).toEqual(obj9Uniq2);
       });
     });
   });

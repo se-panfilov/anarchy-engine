@@ -17,7 +17,7 @@ describe('DateTimeUtils', () => {
       expect(getDuration(50, 'en')).toBe('50 minutes');
     });
 
-    it('should return "1 hour and 40 minutes" for 99 mins', () => {
+    it('should return "1 hour and 40 minutes" for 99 minutes', () => {
       expect(getDuration(99, 'en')).toBe('1 hour and 39 minutes');
     });
 
@@ -25,7 +25,7 @@ describe('DateTimeUtils', () => {
       expect(getDuration(242, 'en')).toBe('4 hours and 2 minutes');
     });
 
-    it('should return "26 hour and 4 minutes" for 8921 mins', () => {
+    it('should return "26 hour and 4 minutes" for 8921 minutes', () => {
       expect(getDuration(8921, 'en')).toBe('148 hours and 41 minutes');
     });
 

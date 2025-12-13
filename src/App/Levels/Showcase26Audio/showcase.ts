@@ -143,7 +143,7 @@ function initMusicWithControls(name: string, folderName: string, gui: GUI, { aud
     seekPlus: (): void => audioW.seek$.next(audioW.seek$.getValue() + 10),
     seekMinus: (): void => audioW.seek$.next(audioW.seek$.getValue() - 10),
     loop: (): void => audioW.loop$.next(!audioW.loop$.getValue()),
-    toggleDebugRendrer: (): void => debugAudioRenderer?.enabled$.next(!debugAudioRenderer?.enabled$.value),
+    toggleDebugRenderer: (): void => debugAudioRenderer?.enabled$.next(!debugAudioRenderer?.enabled$.value),
     volume: 1,
     speed: 1,
     progress: 0
@@ -168,7 +168,7 @@ function initMusicWithControls(name: string, folderName: string, gui: GUI, { aud
     .onChange((value: number): void => {
       audioW.speed$.next(value);
     });
-  if (isDebugRendererEnabled) folder.add(state, 'toggleDebugRendrer').name('Debug renderer');
+  if (isDebugRendererEnabled) folder.add(state, 'toggleDebugRenderer').name('Debug renderer');
 
   return audioW;
 }

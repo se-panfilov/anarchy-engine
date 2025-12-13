@@ -86,7 +86,7 @@ describe('CheckUtils', () => {
   describe('isAllDefined', () => {
     it('should return "true" if value is "string"', () => {
       expect(isAllDefined(['value'])).toBe(true);
-      expect(isAllDefined(['value', 'sadsad'])).toBe(true);
+      expect(isAllDefined(['value', 'some_value'])).toBe(true);
     });
 
     it('should return "true" if value is an empty"string"', () => {
@@ -216,7 +216,7 @@ describe('CheckUtils', () => {
   describe('isAllNotDefined', () => {
     it('should return "false" if value is "string"', () => {
       expect(isAllNotDefined(['value'])).toBe(false);
-      expect(isAllNotDefined(['value', 'sadsad'])).toBe(false);
+      expect(isAllNotDefined(['value', 'some_value'])).toBe(false);
     });
 
     it('should return "false" if value is an empty"string"', () => {
@@ -291,7 +291,7 @@ describe('CheckUtils', () => {
   });
 
   describe('isDestroyable', () => {
-    it('should return "true" if "destroy" and "destriyed$" is defined', () => {
+    it('should return "true" if "destroy" and "destroyed$" is defined', () => {
       const obj: TDestroyable = { destroy$: new Subject<void>(), isDestroyed: (): boolean => false };
       expect(isDestroyable(obj)).toBe(true);
     });

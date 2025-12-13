@@ -110,7 +110,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
       if (isClickBlocked) {
         redActor.model3d.setVisible(false);
         notification.setVisible(true);
-        // TODO setTimout/setInterval is not a good idea (cause the game might be "on pause", e.g. when tab is not active)
+        // TODO setTimeout/setInterval is not a good idea (cause the game might be "on pause", e.g. when tab is not active)
         setTimeout(() => notification.setVisible(false), 1000);
         return;
       }

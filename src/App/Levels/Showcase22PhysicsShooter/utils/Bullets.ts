@@ -173,7 +173,7 @@ export function prepareShooting(
   let idx: ReturnType<typeof setTimeout> | number = 0;
   mouseService.clickLeftPress$.pipe(withLatestFrom(intersectionsWatcher.value$)).subscribe(([, intersection]: [TMouseWatcherEvent, TIntersectionEvent]): void => {
     shoot(actor.drive.position$.value, intersection.point, shootingParams.speed, bullets);
-    // TODO setTimout/setInterval is not a good idea (cause the game might be "on pause", e.g. when tab is not active)
+    // TODO setTimeout/setInterval is not a good idea (cause the game might be "on pause", e.g. when tab is not active)
     idx = setInterval((): void => {
       shoot(actor.drive.position$.value, intersection.point, shootingParams.speed, bullets);
     }, shootingParams.cooldownMs);
@@ -221,7 +221,7 @@ export function createHitEffect(position: Vector3, sceneW: TSceneWrapper, lightS
   const lightW: TPointLightWrapper = createFlashLight(lightService, position, new Color('#ff0000'), 100, 50);
 
   sceneW.entity.add(particleSystem);
-  // TODO setTimout/setInterval is not a good idea (cause the game might be "on pause", e.g. when tab is not active)
+  // TODO setTimeout/setInterval is not a good idea (cause the game might be "on pause", e.g. when tab is not active)
   setTimeout((): void => {
     sceneW.entity.remove(particleSystem);
     sceneW.entity.remove(lightW.entity);

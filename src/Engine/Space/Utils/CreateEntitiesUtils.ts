@@ -31,7 +31,7 @@ export function createEntities(entities: TSpaceConfigEntities, services: TSpaceS
   // better to create FSMs before any other entities
   fsmService.createSourceFromConfig(fsm);
 
-  //spatial gids should be created before actors
+  //spatial grids should be created before actors
   spatialGridService.createFromConfig(spatialGrids);
   fogService.createFromConfig(fogs);
   envMapService.createFromConfig(envMaps);
