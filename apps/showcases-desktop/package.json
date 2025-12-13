@@ -21,13 +21,9 @@
     "build:mac:dmg": "npm run build -- --mac dmg && npm run clean:postbuild",
     "build:win:app": "npm run build -- --win --dir && npm run clean:postbuild",
     "build:win:nsis": "npm run build -- --win nsis && npm run clean:postbuild",
-    "generate:versions-file": "node ../../packages/shared/ScriptUtils/GenerateVersionsFile.js  --out=src/Generated/versions.ts",
-    "clean": "rimraf dist",
     "clean:postbuild": "rimraf dist/electron-main.js dist/electron-main.js.map dist/preload.js dist/preload.js.map dist/dist-desktop",
-    "prebuild": "npm run prebuild:ts && npm run prebuild:preload",
-    "prebuild:preload": "vite build --config vite.preload.config.ts",
-    "prebuild:ts": "npm run generate:versions-file && vite build",
-    "reload-and-prebuild": "npm run clean && npm run prebuild",
+    "prebuild": "vite build && vite build --config vite.preload.config.ts",
+    "reload-and-prebuild": "rimraf dist && npm run prebuild",
     "start": "npm run reload-and-prebuild && electron ."
   },
   "devDependencies": {
@@ -57,7 +53,8 @@
     "files": [
       "dist/dist-desktop/**",
       "dist/electron-main.js",
-      "dist/preload.js"
+      "dist/preload.js",
+      "!dist/package.json"
     ],
     "asar": true,
     "mac": {

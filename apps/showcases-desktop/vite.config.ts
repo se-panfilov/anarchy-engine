@@ -1,10 +1,14 @@
 import copy from 'rollup-plugin-copy';
 import { defineConfig } from 'vite';
 import path from 'path';
+import { version } from './package.json';
 
 // Frankly, we can build electron-main.ts without Vite (just with tsc).
 // But imports are such a pain, so it's easier to use a bundler.
 export default defineConfig({
+  define: {
+    __APP_VERSION__: JSON.stringify(version)
+  },
   resolve: {
     alias: {
       '@Desktop': path.resolve(__dirname, './src')

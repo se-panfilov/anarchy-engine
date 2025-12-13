@@ -1,6 +1,8 @@
 import path, { resolve } from 'path';
 import { defineConfig } from 'vite';
 import tsconfigPaths from 'vite-tsconfig-paths';
+import { version } from './package.json';
+
 const tsconfigPath: string = resolve(__dirname, 'tsconfig.preload.json');
 
 // We need vite for preload.ts, when we want to use imports.
@@ -8,6 +10,9 @@ const tsconfigPath: string = resolve(__dirname, 'tsconfig.preload.json');
 // And it hardly supports imports (and node modules such as path, fs, etc.).
 // So the recommended way is to use a bundler for preload.ts.
 export default defineConfig({
+  define: {
+    __APP_VERSION__: JSON.stringify(version)
+  },
   plugins: [tsconfigPaths({ projects: [tsconfigPath] })],
   resolve: {
     alias: {

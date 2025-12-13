@@ -28,11 +28,7 @@ const isOpenDevTools: boolean = true;
 // TODO DESKTOP: Add .env files for different platforms (macos, windows, linux).
 
 function getIndexHtmlPath(): string {
-  // const path: string = app.isPackaged ? join(app.getAppPath(), 'dist', 'index.html') : join(__dirname, '../../showcases', 'dist-desktop', 'index.html');
-  // const path: string = app.isPackaged ? join(app.getAppPath(), 'showcases/dist/index.html') : join(__dirname, 'dist-desktop/index.html');
-  // const path: string = join(__dirname, 'dist-desktop/index.html');
   const path: string = join(__dirname, 'dist-desktop', 'index.html');
-  console.log('XXX path', app.isPackaged, path);
 
   if (!existsSync(path)) {
     const errMsg: string = `[Desktop Main] index.html not found at: ${path}`;
