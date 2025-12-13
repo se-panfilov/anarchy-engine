@@ -23,7 +23,7 @@ import type {
 import type { TOptional } from '@/Engine/Utils';
 import { isDefined, isNotDefined } from '@/Engine/Utils';
 
-export function createPhysicsBody(params: TPhysicsBodyParams, world: World): TPhysicsBodyEntities {
+export function createPhysicsBodyEntities(params: TPhysicsBodyParams, world: World): TPhysicsBodyEntities {
   //Fixed objects (e.g. "ground" or "walls") usually don't need a rigid body (they might, but might bugs might appear)
   if (params.type === RigidBodyTypesNames.Fixed) {
     const colliderDesc: ColliderDesc = getColliderDesc(params);

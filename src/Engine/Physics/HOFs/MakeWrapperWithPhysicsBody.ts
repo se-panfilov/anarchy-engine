@@ -4,6 +4,7 @@ import { isPhysicsBodyParamsComplete } from '@/Engine/Physics';
 import type { TWriteable } from '@/Engine/Utils';
 import { isDefined } from '@/Engine/Utils';
 
+// TODO 8.0.0. MODELS: remove?
 export function makeWrapperWithPhysicsBody<T extends TWrapper<any> & TWithOptionalPhysicsBody>(
   wrapper: T,
   physics: TWithPresetNamePhysicsBodyParams,
