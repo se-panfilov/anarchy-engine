@@ -1,0 +1,134 @@
+{
+  "canvasSelector": "#right_container #app_beta",
+  "entities": {
+    "renderers": [{ "mode": "webgl2", "isActive": true, "alpha": true }],
+    "actors": [
+      {
+        "model3dSource": "box_model",
+        "name": "box_actor",
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "spatial": {
+          "grid": "main_grid",
+          "isAutoUpdate": true
+        }
+      },
+      {
+        "model3dSource": "move_model_right",
+        "name": "move_actor_right",
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "spatial": {
+          "grid": "main_grid",
+          "isAutoUpdate": true
+        }
+      }
+    ],
+    "audio": [],
+    "cameras": [
+      {
+        "far": 10000,
+        "fov": 45,
+        "isActive": true,
+        "name": "main",
+        "near": 1,
+        "position": {
+          "x": 0,
+          "y": 30,
+          "z": 0
+        },
+        "rotation": {
+          "x": -1.57,
+          "y": 0,
+          "z": 0
+        }
+      }
+    ],
+    "controls": [],
+    "envMaps": [],
+    "fogs": [],
+    "fsm": [],
+    "intersections": [],
+    "lights": [],
+    "models3d": [
+      {
+        "castShadow": false,
+        "materialSource": "box_material",
+        "model3dSource": "cube",
+        "name": "box_model",
+        "options": {
+          "depth": 1,
+          "height": 1,
+          "heightSegments": 1,
+          "width": 1,
+          "widthSegments": 1
+        }
+      },
+      {
+        "castShadow": false,
+        "materialSource": "move_material",
+        "model3dSource": "cube",
+        "name": "move_model_right",
+        "options": {
+          "depth": 1,
+          "height": 1,
+          "heightSegments": 1,
+          "width": 1,
+          "widthSegments": 1
+        }
+      }
+    ],
+    "particles": [],
+    "physics": {},
+    "spatialGrids": [
+      {
+        "cellSize": 10,
+        "centerX": 0,
+        "centerZ": 0,
+        "mapHeight": 100,
+        "mapWidth": 100,
+        "name": "main_grid"
+      }
+    ],
+    "texts": []
+  },
+  "name": "showcase_space_beta",
+  "resources": {
+    "animations": [],
+    "audio": [],
+    "envMaps": [],
+    "materials": [
+      {
+        "name": "box_material",
+        "options": {
+          "color": "#4638DF"
+        },
+        "type": "basic"
+      },
+      {
+        "name": "move_material",
+        "options": {
+          "color": "#e66a36"
+        },
+        "type": "basic"
+      }
+    ],
+    "models3d": [],
+    "textures": []
+  },
+  "scenes": [
+    {
+      "isActive": true,
+      "name": "showcase_scene",
+      "tags": []
+    }
+  ],
+  "tags": [],
+  "version": "1.0.0"
+}
