@@ -5,7 +5,7 @@ import type { Euler, Vector3 } from 'three';
 import { FacadeType } from '@/Engine/Abstract';
 import { AbstractFacade } from '@/Engine/Abstract/Wrappers/AbstractFacade';
 import { ActorDrive } from '@/Engine/Actor/Constants';
-import type { TActorDependencies, TActorFacade, TActorFacadeEntities, TActorParams } from '@/Engine/Actor/Models';
+import type { TActor, TActorDependencies, TActorFacadeEntities, TActorParams } from '@/Engine/Actor/Models';
 import { applySpatialGrid, startCollisions } from '@/Engine/Actor/Wrappers/ActorWrapperHelper';
 import { withCollisions } from '@/Engine/Collisions';
 import { withKinematic } from '@/Engine/Kinematic';
@@ -17,13 +17,13 @@ import { applyPosition, applyRotation, applyScale, isDefined } from '@/Engine/Ut
 
 // TODO 8.0.0. MODELS: Why we call it facades? Just Actor. Just Model3d (however, we need an abstract "class" for it)
 // TODO 8.0.0. MODELS: shall we refactor TActorWrapper to TActorFacade?
-export function ActorFacade(
+export function Actor(
   params: TActorParams,
   { kinematicLoopService, spatialLoopService, spatialGridService, collisionsLoopService, collisionsService, models3dService, model3dFacadeToActorConnectionRegistry }: TActorDependencies
-): TActorFacade {
+): TActor {
   // TODO 8.0.0. MODELS: Actor should be driven either by kinematic or physics or none (direct applying of position)
   // TODO 8.0.0. MODELS: Allow to switch "drive" it in runtime
-  let drive: ActorDrive = ActorDrive.KINEMATIC;
+  let drive: ActorDrive = ActorDrive.Kinematic;
 
   const setDrive = (mode: ActorDrive): string => (drive = mode);
   const getDrive = (): ActorDrive => drive;

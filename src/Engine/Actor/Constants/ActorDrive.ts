@@ -1,5 +1,5 @@
 export enum ActorDrive {
-  KINEMATIC = 'KINEMATIC',
-  PHYSICAL = 'PHYSICAL',
-  NONE = ''
+  Kinematic = 'Kinematic',
+  Physical = 'Physical',
+  None = ''
 }
