@@ -12,7 +12,9 @@ export function createDeferredPromise<T>(): DeferredPromise<T> {
   );
 
   return {
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     resolve: resolve!,
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     reject: reject!,
     promise
   };
