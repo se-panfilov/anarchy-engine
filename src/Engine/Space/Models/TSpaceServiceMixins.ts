@@ -1,5 +1,6 @@
 import type { Observable } from 'rxjs';
 
+import type { TAbstractResourceConfig } from '@/Engine/Abstract';
 import type { TWithCreateAsync } from '@/Engine/Mixins';
 import type { TSceneWrapper } from '@/Engine/Scene';
 
@@ -40,11 +41,11 @@ export type TWithSceneGetterService = Readonly<{
 }>;
 
 export type TWithLoadResourcesService<T> = Readonly<{
-  load: (url: string, isForce?: boolean, ...rest: any) => T;
-  loadFromConfig: (urls: ReadonlyArray<string>) => ReadonlyArray<T>;
+  load: (config: TAbstractResourceConfig, ...rest: any) => T;
+  loadFromConfig: (configs: ReadonlyArray<TAbstractResourceConfig>) => ReadonlyArray<T>;
 }>;
 
 export type TWithLoadResourcesAsyncService<T> = Readonly<{
-  loadAsync: (url: string, isForce?: boolean, ...rest: any) => Promise<T>;
-  loadFromConfigAsync: (urls: ReadonlyArray<string>) => Promise<ReadonlyArray<T>>;
+  loadAsync: (config: TAbstractResourceConfig, ...rest: any) => Promise<T>;
+  loadFromConfigAsync: (configs: ReadonlyArray<TAbstractResourceConfig>) => Promise<ReadonlyArray<T>>;
 }>;

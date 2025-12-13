@@ -1,20 +1,22 @@
 import { Subject } from 'rxjs';
 import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader';
 
+import type { TAbstractResourceConfig } from '@/Engine/Abstract';
 import type { TEnvMapLoader, TEnvMapTexture, TEnvMapTextureAsyncRegistry } from '@/Engine/EnvMap/Models';
 import type { TWriteable } from '@/Engine/Utils';
 import { isDefined } from '@/Engine/Utils';
 
+// TODO 9.0.0. RESOURCES: shall we create an abstract loader? (for all resources?)
 // TODO 9.0.0. RESOURCES: add loaders folder for textures, materials, models3d
 export function EnvMapLoader(registry: TEnvMapTextureAsyncRegistry): TEnvMapLoader {
   const envMapLoader: RGBELoader = new RGBELoader();
   const loaded$: Subject<TEnvMapTexture> = new Subject<TEnvMapTexture>();
 
-  function loadFromConfigAsync(urls: ReadonlyArray<string>): Promise<ReadonlyArray<TEnvMapTexture>> {
-    return Promise.all(urls.map((texture: string): Promise<TEnvMapTexture> => loadAsync(texture)));
+  function loadFromConfigAsync(configs: ReadonlyArray<TAbstractResourceConfig>): Promise<ReadonlyArray<TEnvMapTexture>> {
+    return Promise.all(configs.map((config: TAbstractResourceConfig): Promise<TEnvMapTexture> => loadAsync(config)));
   }
 
-  function loadAsync(url: string, isForce: boolean = false): Promise<TEnvMapTexture> {
+  function loadAsync({ url, isForce, name }: TAbstractResourceConfig): Promise<TEnvMapTexture> {
     if (!isForce) {
       // TODO 9.0.0. RESOURCES: use findByKey(name) everywhere in loaders, instead of having registries with uniq urls (we need to have a way to load multiple entities with the same texture)
       const texture: TEnvMapTexture | undefined = registry.findByKey(name);

@@ -33,6 +33,7 @@ export function EnvMapService(factory: TEnvMapFactory, registry: TEnvMapRegistry
   destroyable.destroyed$.subscribe(() => {
     // TODO DESTROY: We need a way to unload env maps, tho
     registry.destroy();
+    resourcesRegistry.destroy();
     withActive.active$.unsubscribe();
     withActive.active$.complete();
   });
