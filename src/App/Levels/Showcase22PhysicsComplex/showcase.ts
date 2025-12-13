@@ -12,6 +12,8 @@ import type {
   TAppCanvas,
   TCameraWrapper,
   TEngine,
+  TGameKey,
+  TKeySubscription,
   TSceneWrapper,
   TSpace,
   TSpaceConfig,
@@ -43,7 +45,6 @@ export function showcase(canvas: TAppCanvas): TShowcase {
   const engine: TEngine = Engine(space);
   const { keyboardService } = engine.services;
   const { physicsLoopService, cameraService, controlsService, actorService, loopService, intersectionsWatcherService } = space.services;
-  const { onKey } = keyboardService;
 
   async function init(): Promise<void> {
     // physicsWorldService.getDebugRenderer(loopService).start();
@@ -55,10 +56,7 @@ export function showcase(canvas: TAppCanvas): TShowcase {
     const heroW: TActorWrapperWithPhysicsAsync | TActorWrapperAsync | undefined = await actorService.getRegistry().findByNameAsync('hero');
     if (isNotDefined(heroW)) throw new Error(`Cannot find "hero" actor`);
 
-    onKey(KeyCode.W).pressing$.subscribe(({ delta }): void => void heroW.addZ(mpsSpeed(-10, delta.delta)));
-    onKey(KeyCode.A).pressing$.subscribe(({ delta }): void => void heroW.addX(mpsSpeed(-10, delta.delta)));
-    onKey(KeyCode.S).pressing$.subscribe(({ delta }): void => void heroW.addZ(mpsSpeed(10, delta.delta)));
-    onKey(KeyCode.D).pressing$.subscribe(({ delta }): void => void heroW.addX(mpsSpeed(10, delta.delta)));
+    startMoveActorWithKeyboard(heroW, keyboardService.onKey);
 
     const sceneWrapper: TSceneWrapper = actorService.getScene();
 
@@ -220,4 +218,11 @@ function getADCFromActor(actor: TActorWrapperAsync, normalizedCoords: TWithCoord
   }
 
   return result;
+}
+
+function startMoveActorWithKeyboard(actor: TActorWrapperAsync, onKey: (key: TGameKey) => TKeySubscription): void {
+  onKey(KeyCode.W).pressing$.subscribe(({ delta }): void => void actor.addZ(mpsSpeed(-10, delta.delta)));
+  onKey(KeyCode.A).pressing$.subscribe(({ delta }): void => void actor.addX(mpsSpeed(-10, delta.delta)));
+  onKey(KeyCode.S).pressing$.subscribe(({ delta }): void => void actor.addZ(mpsSpeed(10, delta.delta)));
+  onKey(KeyCode.D).pressing$.subscribe(({ delta }): void => void actor.addX(mpsSpeed(10, delta.delta)));
 }
