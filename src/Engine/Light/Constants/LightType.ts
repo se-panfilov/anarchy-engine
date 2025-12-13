@@ -1,5 +1,6 @@
 export enum LightType {
   Ambient = 'Ambient',
   Directional = 'Directional',
-  Point = 'Point'
+  Point = 'Point',
+  Hemisphere = 'Hemisphere'
 }
