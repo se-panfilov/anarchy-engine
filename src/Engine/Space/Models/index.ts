@@ -1,3 +1,4 @@
+export type * from './TCreateEntitiesStrategy';
 export type * from './TRenderLoop';
 export type * from './TSpace';
 export type * from './TSpaceBaseServices';

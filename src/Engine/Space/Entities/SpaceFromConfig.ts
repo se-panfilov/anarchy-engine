@@ -1,8 +1,9 @@
 import type { Subscription } from 'rxjs';
 import { BehaviorSubject, exhaustMap } from 'rxjs';
 
+import { CreateEntitiesStrategy } from '@/Engine/Space/Constants';
 import type { TSpace, TSpaceConfig, TSpaceHooks, TSpaceParams } from '@/Engine/Space/Models';
-import { createEntitiesFromConfig, loadResourcesFromConfig } from '@/Engine/Space/Utils';
+import { createEntities, loadResourcesFromConfig } from '@/Engine/Space/Utils';
 
 import { Space } from './Space';
 
@@ -20,7 +21,7 @@ export function SpaceFromConfig(params: TSpaceParams, config: TSpaceConfig, hook
     )
     .subscribe((): void => {
       hooks?.beforeEntitiesCreated?.(config, space.services, space.loops);
-      createEntitiesFromConfig(config.entities, space.services);
+      createEntities(config.entities, space.services, CreateEntitiesStrategy.Configs);
       hooks?.afterEntitiesCreated?.(config, space.services, space.loops);
 
       builtFromConfig$.next(true);

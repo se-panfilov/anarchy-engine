@@ -1,10 +1,10 @@
 import type { TRegistryPack } from '@/Engine/Abstract';
 import { ambientContext } from '@/Engine/Context';
 import type { TIntersectionsWatcher } from '@/Engine/Intersections';
-import type { TSpaceConfigEntities, TSpaceParamsEntities, TSpaceServices } from '@/Engine/Space/Models';
+import type { TCreateEntitiesStrategy, TSpaceConfigEntities, TSpaceParamsEntities, TSpaceServices } from '@/Engine/Space/Models';
 import { isDefined } from '@/Engine/Utils';
 
-export function createEntitiesFromConfig(entities: TSpaceConfigEntities, services: TSpaceServices): void {
+export function createEntities(entities: TSpaceConfigEntities | TSpaceParamsEntities, services: TSpaceServices, strategy: TCreateEntitiesStrategy): void {
   const { actors, audio, cameras, spatialGrids, controls, intersections, lights, models3d, envMaps, fogs, fsm, texts, physics, particles } = entities;
 
   const {
@@ -28,85 +28,30 @@ export function createEntitiesFromConfig(entities: TSpaceConfigEntities, service
   } = services;
 
   // better to create FSMs before any other entities
-  fsmService.createSourceFromConfig(fsm);
+  fsmService[strategy.fsm](fsm);
 
   //spatial grids should be created before actors
-  spatialGridService.createFromConfig(spatialGrids);
-  fogService.createFromConfig(fogs);
-  envMapService.createFromConfig(envMaps);
-  models3dService.createFromConfig(models3d);
-  audioService.createFromConfig(audio);
-
-  if (isDefined(physics.global)) physicsWorldService.createWorld(physics.global);
-  if (isDefined(physics.presets)) physicsPresetService.addPresetsFromConfig(physics.presets);
-
-  cameraService.createFromConfig(cameras);
-  actorService.createFromConfig(actors);
-
-  textService.createText2dRenderer(ambientContext.container.getAppContainer(), ambientContext.screenSizeWatcher);
-  textService.createText3dRenderer(ambientContext.container.getAppContainer(), ambientContext.screenSizeWatcher);
-  textService.createFromConfig(texts);
-
-  controlsService.createFromConfig(controls, cameraService.getRegistry());
-  lightService.createFromConfig(lights);
-  particlesService.createFromConfig(particles);
-
-  intersectionsWatcherService.createFromConfig(intersections, mouseService, cameraService, actorService, loopService);
-
-  // TODO Not the best place for this, perhaps better to do it in a wrapper (or service?)
-  intersectionsWatcherService.getRegistry().added$.subscribe(({ value }: TRegistryPack<TIntersectionsWatcher>): void => {
-    if (value.isAutoStart && !value.isStarted) value.start$.next();
-  });
-}
-
-export function createEntitiesFromParams(entities: TSpaceParamsEntities, services: TSpaceServices): void {
-  const { actors, audio, cameras, spatialGrids, controls, intersections, lights, models3d, envMaps, fogs, fsm, texts, physics, particles } = entities;
-
-  const {
-    actorService,
-    audioService,
-    cameraService,
-    controlsService,
-    envMapService,
-    fogService,
-    fsmService,
-    intersectionsWatcherService,
-    lightService,
-    loopService,
-    models3dService,
-    mouseService,
-    particlesService,
-    physicsPresetService,
-    physicsWorldService,
-    spatialGridService,
-    textService
-  } = services;
-
-  // better to create FSMs before any other entities
-  fsmService.createSourceFromList(fsm);
-
-  //spatial grids should be created before actors
-  if (isDefined(spatialGrids)) spatialGridService.createFromList(spatialGrids);
-  fogService.createFromList(fogs);
-  envMapService.createFromList(envMaps);
-  models3dService.createFromList(models3d);
-  audioService.createFromList(audio);
+  if (isDefined(spatialGrids)) spatialGridService[strategy.spatialGrids](spatialGrids);
+  fogService[strategy.fogs](fogs);
+  envMapService[strategy.envMaps](envMaps);
+  models3dService[strategy.models3d](models3d);
+  audioService[strategy.audio](audio);
 
   if (isDefined(physics?.global)) physicsWorldService.createWorld(physics.global);
-  if (isDefined(physics?.presets)) physicsPresetService.addPresets(physics.presets);
+  if (isDefined(physics?.presets)) physicsPresetService[strategy.physicsPresets](physics.presets);
 
-  cameraService.createFromList(cameras);
-  actorService.createFromList(actors);
+  cameraService[strategy.cameras](cameras);
+  actorService[strategy.actors](actors);
 
   textService.createText2dRenderer(ambientContext.container.getAppContainer(), ambientContext.screenSizeWatcher);
   textService.createText3dRenderer(ambientContext.container.getAppContainer(), ambientContext.screenSizeWatcher);
-  textService.createFromList(texts);
+  textService[strategy.texts](texts);
 
-  controlsService.createFromList(controls, cameraService.getRegistry());
-  lightService.createFromList(lights);
-  particlesService.createFromList(particles);
+  controlsService[strategy.controls](controls, cameraService.getRegistry());
+  lightService[strategy.lights](lights);
+  particlesService[strategy.particles](particles);
 
-  intersectionsWatcherService.createFromList(intersections, mouseService, cameraService, actorService, loopService);
+  intersectionsWatcherService[strategy.intersections](intersections, mouseService, cameraService, actorService, loopService);
 
   // TODO Not the best place for this, perhaps better to do it in a wrapper (or service?)
   intersectionsWatcherService.getRegistry().added$.subscribe(({ value }: TRegistryPack<TIntersectionsWatcher>): void => {

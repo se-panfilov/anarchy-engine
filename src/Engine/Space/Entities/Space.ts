@@ -7,8 +7,9 @@ import type { TLoop } from '@/Engine/Loop';
 import { RendererModes } from '@/Engine/Renderer';
 import type { TSceneWrapper } from '@/Engine/Scene';
 import { screenService } from '@/Engine/Services';
+import { CreateEntitiesStrategy } from '@/Engine/Space/Constants';
 import type { TSpace, TSpaceBaseServices, TSpaceHooks, TSpaceLoops, TSpaceParams, TSpaceParts, TSpaceServices } from '@/Engine/Space/Models';
-import { buildBaseServices, buildEntitiesServices, createEntitiesFromParams, getActiveScene } from '@/Engine/Space/Utils';
+import { buildBaseServices, buildEntitiesServices, createEntities, getActiveScene } from '@/Engine/Space/Utils';
 import { createLoops } from '@/Engine/Space/Utils/CreateLoopsUtils';
 import { isDefined, isDestroyable } from '@/Engine/Utils';
 
@@ -23,7 +24,7 @@ export function Space(params: TSpaceParams, hooks?: TSpaceHooks): TSpace {
 
   if (isDefined(params.entities) && Object.values(params.entities).length > 0) {
     hooks?.beforeEntitiesCreated?.(params, services, loops);
-    createEntitiesFromParams(params.entities, services);
+    createEntities(params.entities, services, CreateEntitiesStrategy.Params);
     hooks?.afterEntitiesCreated?.(params, services, loops);
   }
 
@@ -56,9 +57,6 @@ export function Space(params: TSpaceParams, hooks?: TSpaceHooks): TSpace {
 
 // TODO 13-0-0: Find a better place for this function
 function initSpaceServices(params: TSpaceParams, hooks?: TSpaceHooks): { services: TSpaceServices; loops: TSpaceLoops } {
-  // TODO 13-0-0: remove?
-  // hooks?.beforeConfigValidation?.(params);
-  // validateConfig(params);
   screenService.setCanvas(params.canvas);
   hooks?.beforeBaseServicesBuilt?.(params.canvas, params);
   const baseServices: TSpaceBaseServices = buildBaseServices();
