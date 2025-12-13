@@ -41,15 +41,16 @@ module.exports = {
     ],
     'functional/no-expression-statement': 'off',
     'functional/prefer-readonly-type': 'off', //deprecated
-    'functional/prefer-immutable-types': [
-      'error',
-      {
-        enforcement: 'None',
-        parameters: {
-          enforcement: 'ReadonlyShallow'
-        }
-      }
-    ],
+    'functional/prefer-immutable-types': 'off', //broken in the latest eslint
+    // 'functional/prefer-immutable-types': [
+    //   'error',
+    //   {
+    //     enforcement: 'None',
+    //     parameters: {
+    //       enforcement: 'ReadonlyShallow'
+    //     }
+    //   }
+    // ],
     'functional/no-expression-statements': 'off',
     'functional/no-throw-statements': 'off',
     'functional/no-throw-statement': 'off',

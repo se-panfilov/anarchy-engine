@@ -8,7 +8,7 @@ import type { ILaunchedScene } from './ILaunchedScene';
 
 export type ISceneLauncher = Readonly<{
   prepare: (canvas: IAppCanvas) => void;
-  launch: (sceneConfig: ISceneConfig | unknown, canvas: IAppCanvas, factories: IFactories) => ILaunchedScene;
+  launch: (sceneConfig: ISceneConfig, canvas: IAppCanvas, factories: IFactories) => ILaunchedScene;
   prepared$: BehaviorSubject<boolean>;
   launched$: BehaviorSubject<boolean>;
   destroyed$: BehaviorSubject<boolean>;

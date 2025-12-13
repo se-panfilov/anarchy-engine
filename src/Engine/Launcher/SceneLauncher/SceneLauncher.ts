@@ -42,7 +42,7 @@ export function SceneLauncher(): ISceneLauncher {
     prepared$.next(true);
   }
 
-  function launch(sceneConfig: ISceneConfig | unknown, canvas: IAppCanvas, factories: IFactories): ILaunchedScene {
+  function launch(sceneConfig: ISceneConfig, canvas: IAppCanvas, factories: IFactories): ILaunchedScene {
     if (!isValidSceneConfig(sceneConfig)) throw new Error('Failed to launch a scene: invalid data format');
     const { name: sceneName, actors, cameras, lights, controls, tags: sceneTags } = sceneConfig;
     if (!prepared$.value) prepare(canvas);

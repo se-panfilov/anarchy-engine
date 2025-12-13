@@ -4,7 +4,7 @@ import Ajv from 'ajv';
 
 const ajv: Ajv = new Ajv();
 
-export function isValidSceneConfig(config: ISceneConfig | unknown): config is ISceneConfig {
+export function isValidSceneConfig(config: ISceneConfig): config is ISceneConfig {
   const validate = ajv.compile(ISceneConfigSchema);
   return validate(config);
 }
