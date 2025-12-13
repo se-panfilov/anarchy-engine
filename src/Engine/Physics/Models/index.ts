@@ -1,7 +1,6 @@
 export * from './TPhysicsBodyFacade';
 export * from './TPhysicsBodyFacadeEntities';
 export * from './TPhysicsBodyFactory';
-export * from './TPhysicsBodyParams';
 export * from './TPhysicsBodyRegistry';
 export * from './TPhysicsConfig';
 export * from './TPhysicsDebugRenderer';
@@ -16,6 +15,7 @@ export * from './TPhysicsPresetProps';
 export * from './TPhysicsPresetRegistry';
 export * from './TPhysicsProps';
 export * from './TPhysicsService';
+export * from './TPhysicsShapeParams';
 export * from './TPhysicsWorldParams';
 export * from './TWithPhysicsBody';
 export * from './TWithPhysicsBodyFacadeEntities';

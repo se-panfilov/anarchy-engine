@@ -5,20 +5,20 @@ import { coordsXYZToMeters, meters } from '@/Engine/Measurements/Utils';
 import type { TWithCoordsXYZ } from '@/Engine/Mixins';
 import { CollisionShape } from '@/Engine/Physics/Constants';
 import type {
-  TAllPhysicsBodyParams,
-  TPhysicsBodyBallParams,
-  TPhysicsBodyCapsuleParams,
-  TPhysicsBodyConeParams,
-  TPhysicsBodyCuboidParams,
+  TAllPhysicsShapeParams,
   TPhysicsBodyFacadeEntities,
-  TPhysicsBodyHalfSpaceParams,
-  TPhysicsBodyHeightfieldParams,
-  TPhysicsBodyParams,
-  TPhysicsBodyPolylineParams,
-  TPhysicsBodyRoundTriangleParams,
-  TPhysicsBodyTriangleParams,
-  TPhysicsBodyTriMeshParams,
-  TPhysicsPresetParams
+  TPhysicsPresetParams,
+  TPhysicsShapeBallParams,
+  TPhysicsShapeCapsuleParams,
+  TPhysicsShapeConeParams,
+  TPhysicsShapeCuboidParams,
+  TPhysicsShapeHalfSpaceParams,
+  TPhysicsShapeHeightfieldParams,
+  TPhysicsShapeParams,
+  TPhysicsShapePolylineParams,
+  TPhysicsShapeRoundTriangleParams,
+  TPhysicsShapeTriangleParams,
+  TPhysicsShapeTriMeshParams
 } from '@/Engine/Physics/Models';
 import type { TOptional } from '@/Engine/Utils';
 import { isDefined, isNotDefined } from '@/Engine/Utils';
@@ -106,26 +106,26 @@ export function getColliderDesc(params: TPhysicsPresetParams): ColliderDesc | ne
   }
 }
 
-export function paramsToMeters(params: TPhysicsBodyParams): TOptional<TAllPhysicsBodyParams> {
-  const vertices: Float32Array | undefined = (params as TPhysicsBodyPolylineParams).vertices;
-  const indices: Uint32Array | undefined = (params as TPhysicsBodyPolylineParams).indices;
+export function paramsToMeters(params: TPhysicsShapeParams): TOptional<TAllPhysicsShapeParams> {
+  const vertices: Float32Array | undefined = (params as TPhysicsShapePolylineParams).vertices;
+  const indices: Uint32Array | undefined = (params as TPhysicsShapePolylineParams).indices;
   // "flags" as undefined to suppress a buf with TS
-  const flags: TriMeshFlags | undefined = (params as TPhysicsBodyTriMeshParams).flags as undefined;
-  const heights: Float32Array | undefined = (params as TPhysicsBodyHeightfieldParams).heights;
-  const nrows: number | undefined = (params as TPhysicsBodyHeightfieldParams).nrows;
-  const ncols: number | undefined = (params as TPhysicsBodyHeightfieldParams).ncols;
+  const flags: TriMeshFlags | undefined = (params as TPhysicsShapeTriMeshParams).flags as undefined;
+  const heights: Float32Array | undefined = (params as TPhysicsShapeHeightfieldParams).heights;
+  const nrows: number | undefined = (params as TPhysicsShapeHeightfieldParams).nrows;
+  const ncols: number | undefined = (params as TPhysicsShapeHeightfieldParams).ncols;
 
-  const a: TWithCoordsXYZ | undefined = isDefined((params as TPhysicsBodyTriangleParams).a) ? coordsXYZToMeters((params as TPhysicsBodyTriangleParams).a) : undefined;
-  const b: TWithCoordsXYZ | undefined = isDefined((params as TPhysicsBodyTriangleParams).b) ? coordsXYZToMeters((params as TPhysicsBodyTriangleParams).b) : undefined;
-  const c: TWithCoordsXYZ | undefined = isDefined((params as TPhysicsBodyTriangleParams).c) ? coordsXYZToMeters((params as TPhysicsBodyTriangleParams).c) : undefined;
-  const borderRadius: number | undefined = (params as TPhysicsBodyRoundTriangleParams).borderRadius ? meters((params as TPhysicsBodyRoundTriangleParams).borderRadius) : undefined;
-  const halfHeight: number | undefined = (params as TPhysicsBodyCapsuleParams).halfHeight ? meters((params as TPhysicsBodyCapsuleParams).halfHeight) : undefined;
-  const radius: number | undefined = (params as TPhysicsBodyBallParams).radius ? meters((params as TPhysicsBodyConeParams).radius) : undefined;
-  const hx: number | undefined = (params as TPhysicsBodyCuboidParams).hx ? meters((params as TPhysicsBodyCuboidParams).hx) : undefined;
-  const hy: number | undefined = (params as TPhysicsBodyCuboidParams).hy ? meters((params as TPhysicsBodyCuboidParams).hy) : undefined;
-  const hz: number | undefined = (params as TPhysicsBodyCuboidParams).hz ? meters((params as TPhysicsBodyCuboidParams).hz) : undefined;
-  const scale: TWithCoordsXYZ | undefined = (params as TPhysicsBodyHeightfieldParams).scale ? coordsXYZToMeters((params as TPhysicsBodyHeightfieldParams).scale) : undefined;
-  const normal: TWithCoordsXYZ | undefined = (params as TPhysicsBodyHalfSpaceParams).normal ? coordsXYZToMeters((params as TPhysicsBodyHalfSpaceParams).normal) : undefined;
+  const a: TWithCoordsXYZ | undefined = isDefined((params as TPhysicsShapeTriangleParams).a) ? coordsXYZToMeters((params as TPhysicsShapeTriangleParams).a) : undefined;
+  const b: TWithCoordsXYZ | undefined = isDefined((params as TPhysicsShapeTriangleParams).b) ? coordsXYZToMeters((params as TPhysicsShapeTriangleParams).b) : undefined;
+  const c: TWithCoordsXYZ | undefined = isDefined((params as TPhysicsShapeTriangleParams).c) ? coordsXYZToMeters((params as TPhysicsShapeTriangleParams).c) : undefined;
+  const borderRadius: number | undefined = (params as TPhysicsShapeRoundTriangleParams).borderRadius ? meters((params as TPhysicsShapeRoundTriangleParams).borderRadius) : undefined;
+  const halfHeight: number | undefined = (params as TPhysicsShapeCapsuleParams).halfHeight ? meters((params as TPhysicsShapeCapsuleParams).halfHeight) : undefined;
+  const radius: number | undefined = (params as TPhysicsShapeBallParams).radius ? meters((params as TPhysicsShapeConeParams).radius) : undefined;
+  const hx: number | undefined = (params as TPhysicsShapeCuboidParams).hx ? meters((params as TPhysicsShapeCuboidParams).hx) : undefined;
+  const hy: number | undefined = (params as TPhysicsShapeCuboidParams).hy ? meters((params as TPhysicsShapeCuboidParams).hy) : undefined;
+  const hz: number | undefined = (params as TPhysicsShapeCuboidParams).hz ? meters((params as TPhysicsShapeCuboidParams).hz) : undefined;
+  const scale: TWithCoordsXYZ | undefined = (params as TPhysicsShapeHeightfieldParams).scale ? coordsXYZToMeters((params as TPhysicsShapeHeightfieldParams).scale) : undefined;
+  const normal: TWithCoordsXYZ | undefined = (params as TPhysicsShapeHalfSpaceParams).normal ? coordsXYZToMeters((params as TPhysicsShapeHalfSpaceParams).normal) : undefined;
 
   return { a, b, c, borderRadius, nrows, ncols, normal, heights, scale, halfHeight, flags, radius, hx, hy, hz, vertices, indices };
 }

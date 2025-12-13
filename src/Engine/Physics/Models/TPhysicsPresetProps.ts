@@ -1,12 +1,12 @@
 import type { TWithName } from '@/Engine/Mixins';
 import type { CollisionShape, RigidBodyTypesNames } from '@/Engine/Physics/Constants';
 
-import type { TPhysicsBodyParams } from './TPhysicsBodyParams';
+import type { TPhysicsShapeParams } from './TPhysicsShapeParams';
 
 export type TPhysicsPresetProps = Readonly<{
   type: RigidBodyTypesNames;
   collisionShape: CollisionShape;
-  shapeParams: TPhysicsBodyParams;
+  shapeParams: TPhysicsShapeParams;
   mass?: number;
   restitution?: number;
   friction?: number;
