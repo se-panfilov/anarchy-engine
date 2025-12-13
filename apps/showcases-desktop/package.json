@@ -14,6 +14,7 @@
   "type": "module",
   "license": "MIT",
   "scripts": {
+    "after:release": "npm run tracking:sourcemaps:web:production",
     "before:release": "npm run before:release:check && npm run sanitize-assets",
     "before:release:check": "npm run ts:check && npm run check:circular-dependencies && npm run lint",
     "build:dev:all": "npm run build:mac -- --mode=dev && npm run build:win -- --mode=dev && npm run build:linux -- --mode=dev",
