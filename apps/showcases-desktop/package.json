@@ -65,6 +65,9 @@
     "sanitize-assets": "node ../../packages/anarchy-shared/ScriptUtils/SanitizeAssets.js ./assets",
     "start:dev": "node ./scripts/start.js --mode=dev",
     "start:prod": "node ./scripts/start.js --mode=production",
+    "tracking:sourcemaps:web:dev": "node ../../packages/anarchy-tracking/ScriptUtils/UploadSourcemaps.js ./dist --mode dev --no-dev-guard",
+    "tracking:sourcemaps:web:production": "node ../../packages/anarchy-tracking/ScriptUtils/UploadSourcemaps.js ./dist --mode production",
+    "tracking:sourcemaps:web:production:dry": "node ../../packages/anarchy-tracking/ScriptUtils/UploadSourcemaps.js ./dist --mode production --dry-run",
     "ts:check": "tsc --noEmit",
     "ts:check:watch": "tsc --watch --noEmit"
   },
