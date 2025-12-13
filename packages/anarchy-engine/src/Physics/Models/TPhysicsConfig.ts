@@ -1,5 +1,4 @@
-import type { TPhysicsBodyConfig } from '@Anarchy/Engine/Physics';
-
+import type { TPhysicsBodyConfig } from './TPhysicsBodyConfig';
 import type { TPhysicsWorldConfig } from './TPhysicsWorldConfig';
 
 export type TPhysicsConfig = Readonly<{
