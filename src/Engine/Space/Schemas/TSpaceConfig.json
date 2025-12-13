@@ -2520,7 +2520,7 @@
           "$ref": "#/definitions/TKinematicConfig"
         },
         "physics": {
-          "$ref": "#/definitions/TWithPresetNamePhysicsBodyParams"
+          "$ref": "#/definitions/TWithPresetNamePhysicsBodyConfig"
         },
         "text": {
           "type": "string"
@@ -2548,107 +2548,6 @@
         }
       },
       "required": ["position", "text", "type"]
-    },
-    "TWithPresetNamePhysicsBodyParams": {
-      "type": "object",
-      "additionalProperties": false,
-      "properties": {
-        "presetName": {
-          "type": "string"
-        },
-        "type": {
-          "$ref": "#/definitions/RigidBodyTypesNames"
-        },
-        "collisionShape": {
-          "$ref": "#/definitions/CollisionShape"
-        },
-        "shapeParams": {
-          "$ref": "#/definitions/TPhysicsShapeParams"
-        },
-        "mass": {
-          "type": "number"
-        },
-        "restitution": {
-          "type": "number"
-        },
-        "friction": {
-          "type": "number"
-        },
-        "collisionGroups": {
-          "type": "number"
-        },
-        "position": {
-          "$ref": "#/definitions/TReadonlyVector3"
-        },
-        "rotation": {
-          "$ref": "#/definitions/TReadonlyQuaternion"
-        },
-        "isSleep": {
-          "type": "boolean"
-        },
-        "name": {
-          "type": "string"
-        },
-        "tags": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        }
-      }
-    },
-    "TReadonlyVector3": {
-      "type": "object",
-      "properties": {
-        "x": {
-          "type": "number",
-          "default": 0
-        },
-        "y": {
-          "type": "number",
-          "default": 0
-        },
-        "z": {
-          "type": "number",
-          "default": 0
-        },
-        "isVector3": {
-          "type": "boolean",
-          "const": true
-        }
-      },
-      "required": ["x", "y", "z", "isVector3"],
-      "additionalProperties": false
-    },
-    "TReadonlyQuaternion": {
-      "type": "object",
-      "properties": {
-        "x": {
-          "type": "number",
-          "default": 0
-        },
-        "y": {
-          "type": "number",
-          "default": 0
-        },
-        "z": {
-          "type": "number",
-          "default": 0
-        },
-        "w": {
-          "type": "number",
-          "default": 1
-        },
-        "isQuaternion": {
-          "type": "boolean",
-          "const": true
-        },
-        "_onChangeCallback": {
-          "$comment": "() => void"
-        }
-      },
-      "required": ["x", "y", "z", "w", "isQuaternion", "_onChangeCallback"],
-      "additionalProperties": false
     },
     "TextType": {
       "type": "string",
