@@ -1,6 +1,12 @@
-import type { LoaderType, TAbstractLoadedResourcePack, TAbstractOnLoadFunction, TAbstractResourceAsyncRegistry, TAbstractResourceConfig, TAbstractSimpleRegistry } from '@Anarchy/Engine/Abstract';
+import type { LoaderType } from '@Anarchy/Engine/Abstract/Constants';
 import type { TDestroyable, TNoSpread, TWithId } from '@Anarchy/Engine/Mixins';
 import type { Observable } from 'rxjs';
+
+import type { TAbstractLoadedResourcePack } from './TAbstractLoadedResourcePack';
+import type { TAbstractOnLoadFunction } from './TAbstractOnLoadFunction';
+import type { TAbstractResourceAsyncRegistry } from './TAbstractResourceAsyncRegistry';
+import type { TAbstractResourceConfig } from './TAbstractResourceConfig';
+import type { TAbstractSimpleRegistry } from './TAbstractSimpleRegistry';
 
 export type TAbstractLoader<T, RC extends TAbstractResourceConfig, R extends TAbstractResourceAsyncRegistry<T>, M extends TAbstractSimpleRegistry<RC>> = Readonly<{
   type: LoaderType;

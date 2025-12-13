@@ -1,5 +1,6 @@
-import type { TAbstractWrapper, TWithUserData, TWithWrapperId, TWithWrapperIdEntity, WrapperType } from '@Anarchy/Engine/Abstract';
+import type { WrapperType } from '@Anarchy/Engine/Abstract/Constants';
 import { withNoWrapperIdMixin, withWrapperIdMixin } from '@Anarchy/Engine/Abstract/Mixins';
+import type { TAbstractWrapper, TWithUserData, TWithWrapperId, TWithWrapperIdEntity } from '@Anarchy/Engine/Abstract/Models';
 import type { TDestroyable, TRegistrable, TWithEntity, TWithName } from '@Anarchy/Engine/Mixins';
 import { destroyableMixin, withNameAndNameAccessorsMixin } from '@Anarchy/Engine/Mixins';
 import type { TWithTags } from '@Anarchy/Engine/Mixins/Generics/Models/TWithTags';
