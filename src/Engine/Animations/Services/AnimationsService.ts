@@ -3,13 +3,13 @@ import { Subject } from 'rxjs';
 import type { AnimationClip } from 'three';
 import { AnimationMixer } from 'three';
 
-import type { TSpaceLoops } from '@/Engine';
 import { AnimationsLoader } from '@/Engine/Animations/Loader';
 import type { TAnimationActions, TAnimationActionsPack, TAnimationsLoader, TAnimationsResourceAsyncRegistry, TAnimationsService, TModel3dAnimations } from '@/Engine/Animations/Models';
 import type { TDelta } from '@/Engine/Loop';
 import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
 import type { TModel3d, TRawModel3d } from '@/Engine/Models3d';
+import type { TSpaceLoops } from '@/Engine/Space';
 import type { TWriteable } from '@/Engine/Utils';
 import { isDefined, isNotDefined } from '@/Engine/Utils';
 
