@@ -2,14 +2,24 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-import type { TLegalFilesService, TWorkspaceInfo } from '@Anarchy/Legal';
+import type { TLegalFilesService, TRepoUtilsService, TWorkspaceInfo } from '@Anarchy/Legal';
 // eslint-disable-next-line spellcheck/spell-checker
 import { globby } from 'globby';
 // eslint-disable-next-line spellcheck/spell-checker
 import yargs from 'yargs';
 import { hideBin } from 'yargs/helpers';
 
+import { RepoUtilsService } from './RepoUtilsService.ts';
+
 export function LegalFilesService(): TLegalFilesService {
+  let isDebug: boolean = false;
+  const repoUtilsService: TRepoUtilsService = RepoUtilsService();
+  const {
+    debugLog
+    // findMonorepoRoot,
+    // resolveWorkspaceFromArg
+  } = repoUtilsService;
+
   const DOC_TYPES = ['DISCLAIMER', 'EULA', 'PRIVACY', 'SECURITY'] as const;
   type TDocType = (typeof DOC_TYPES)[number];
 
@@ -37,11 +47,6 @@ export function LegalFilesService(): TLegalFilesService {
   }>;
 
   // ---------------------- Utils ----------------------
-
-  let isDebug: boolean = false;
-  const debugLog = (...args: ReadonlyArray<unknown>): void => {
-    if (isDebug) console.log('[debug]', ...args);
-  };
 
   const readJson = async <T extends Record<string, unknown>>(p: string): Promise<T> => JSON.parse(await fs.readFile(p, 'utf8')) as T;
 
@@ -336,6 +341,7 @@ export function LegalFilesService(): TLegalFilesService {
       .parseAsync();
 
     isDebug = Boolean(argv.debug);
+    repoUtilsService.setDebugMode(isDebug);
 
     const scriptDir = path.dirname(fileURLToPath(import.meta.url));
     const startCandidates = [process.env.INIT_CWD, process.cwd(), scriptDir].filter(Boolean) as string[];
@@ -347,7 +353,7 @@ export function LegalFilesService(): TLegalFilesService {
         rootDir = await findMonorepoRoot(c);
         break;
       } catch (e) {
-        debugLog('no root from', c, ':', (e as Error).message);
+        debugLog(isDebug, 'no root from', c, ':', (e as Error).message);
       }
     }
     if (!rootDir) throw new Error(`Failed to find monorepo root from: ${startCandidates.join(', ')}`);
@@ -355,15 +361,15 @@ export function LegalFilesService(): TLegalFilesService {
     // Load workspaces and resolve target
     const workspaces = await loadWorkspaces(rootDir);
     const { ws } = resolveWorkspaceFromArg(String(argv.workspace), workspaces, rootDir);
-    debugLog('target workspace:', ws.name, ws.dir);
+    debugLog(isDebug, 'target workspace:', ws.name, ws.dir);
 
     // Resolve templates dir
     const templatesDir = argv.templates ? (path.isAbsolute(argv.templates) ? argv.templates : path.resolve(process.cwd(), argv.templates)) : path.resolve(scriptDir, '../../src/Templates');
-    debugLog('templates dir:', templatesDir);
+    debugLog(isDebug, 'templates dir:', templatesDir);
 
     // Resolve out dir
     const outDir = path.isAbsolute(argv.out as string) ? (argv.out as string) : path.resolve(process.cwd(), String(argv.out));
-    debugLog('out dir:', outDir);
+    debugLog(isDebug, 'out dir:', outDir);
 
     // Types
     const typesSet: ReadonlySet<TDocType> = (() => {
@@ -384,10 +390,11 @@ export function LegalFilesService(): TLegalFilesService {
     const config = await readConfig(ws.dir);
     if (config.length)
       debugLog(
+        isDebug,
         'config entries:',
         config.map((c) => c.type)
       );
-    else debugLog('config: <none>');
+    else debugLog(isDebug, 'config: <none>');
 
     // Go
     await generateAll({ ws, outDir, templatesDir, types: typesSet, config });
