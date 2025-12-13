@@ -10,7 +10,7 @@ export function AnimationsService(registry: TAnimationsAsyncRegistry): TAnimatio
   const added$: Subject<TModel3dAnimations> = new Subject<TModel3dAnimations>();
 
   added$.subscribe(({ url, pack }: TModel3dAnimations): void => {
-    Object.entries(pack).forEach(([name, clip]: [string, TAnimationsPack]): void => {
+    Object.entries(pack).forEach(([name, clip]: [string, AnimationClip]): void => {
       const old = registry.findByKey(url);
       const newValue = { ...old, [name]: clip };
       isDefined(old) ? registry.replace(url, newValue) : registry.add(url, newValue);
