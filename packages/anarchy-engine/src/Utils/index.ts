@@ -1,6 +1,7 @@
 export * from './BrowserSettingsUtils';
 export * from './CheckUtils';
 export * from './CoordsUtils';
+export * from './DateTimeUtils';
 export * from './DestroyUtils';
 export * from './DomUtils';
 export * from './EntityUtils';
