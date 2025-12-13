@@ -4,32 +4,8 @@
 2. Add CE-mark to the product's Legal/About screen
 3. For web version add ./well-known/security.txt with the content of `./legal/SECURITY.md` (CVD) to the root of the web server.
 
-In the root folder (every app):
+Checklist:
 
-- README.md
-- LICENSE
-- CHANGELOG.md
-- NOTICE
-
-**in the ./legal folder**:
-
-- EULA.md (+ archive/2025-08-21_EULA.pdf on every release)
-- PRIVACY.md (+ archive/2025-08-21_Privacy.pdf).
-- SECURITY.md
-- DISCLAIMER.md
-- EU_DECLARATION_OF_CONFORMITY.pdf (PDF!!!!)
-- INSTRUCTIONS.md
-- SUPPORT.md
-- NOTICE
-- THIRD_PARTY_LICENSES
-- ce-mark.png
-- sbom/cyclonedx.json
-
-**in the ./compliance folder**:
-
-- EU_DECLARATION_OF_CONFORMITY.md
-- TECHNICAL_DOCUMENTATION.md
-- VULN_HANDLING.md
-
-Other:
-/.well-known/security.txt (a copy of CVD from SECURITY)
+- Legal/About screen with CE mark;
+- Legal docs are available via main menu in a game;
+- Legal docs are provided via binary
