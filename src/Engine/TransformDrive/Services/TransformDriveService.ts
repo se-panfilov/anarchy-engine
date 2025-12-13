@@ -9,7 +9,7 @@ import type { TDisposable } from '@/Engine/Mixins';
 import { withFactoryService, withRegistryService, withSerializeAllEntities } from '@/Engine/Mixins';
 import type { TPhysicalLoop } from '@/Engine/Physics';
 import { TransformAgent } from '@/Engine/TransformDrive/Constants';
-import { ConnectedTransformAgent, DefaultTransformAgent } from '@/Engine/TransformDrive/Entities';
+import { ConnectedTransformAgent, DefaultTransformAgent, PhysicsTransformAgent } from '@/Engine/TransformDrive/Entities';
 import type {
   TAbstractTransformAgent,
   TGetTransformAgentsOptions,
@@ -27,7 +27,7 @@ import type {
   TTransformDriveServiceWithFactory,
   TTransformDriveServiceWithRegistry
 } from '@/Engine/TransformDrive/Models';
-import { getKinematicTransformAgent, getPhysicsTransformAgent } from '@/Engine/TransformDrive/Utils';
+import { getKinematicTransformAgent } from '@/Engine/TransformDrive/Utils';
 import type { TOptional, TWriteable } from '@/Engine/Utils';
 import { isDefined } from '@/Engine/Utils';
 
@@ -74,7 +74,7 @@ export function TransformDriveService(factory: TTransformDriveFactory, registry:
     if (hasPhysics && isDefined(physicBody)) {
       const physicalLoop: TPhysicalLoop = loopService.getPhysicalLoop();
       // eslint-disable-next-line functional/immutable-data
-      result[TransformAgent.Physical] = getPhysicsTransformAgent(agentParams, physicBody, { physicalLoop });
+      result[TransformAgent.Physical] = PhysicsTransformAgent({ ...agentParams, physicBody }, { physicalLoop });
     }
 
     // eslint-disable-next-line functional/immutable-data
