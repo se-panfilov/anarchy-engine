@@ -1,3 +1,3 @@
 export * from './Mixins';
 export * from './Models';
-export * from './Wrapper';
+export * from './Wrappers';

@@ -1,2 +1,2 @@
-export * from './GameObject';
-export * from './Generic';
+export * from './GameObjects';
+export * from './Generics';

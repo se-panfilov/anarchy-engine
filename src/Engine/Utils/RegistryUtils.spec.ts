@@ -1,10 +1,10 @@
 import { expect } from 'vitest';
 
-import { LookUpStrategy } from '@/Engine/Abstract/Registry';
+import { LookUpStrategy } from 'src/Engine/Abstract/Registries';
 import type { ICameraRegistry, ICameraWrapper } from '@/Engine/Camera';
 import { CameraRegistry, CameraWrapper } from '@/Engine/Camera';
 import type { IRegistrable } from '@/Engine/Mixins';
-import { withTagsMixin } from '@/Engine/Mixins/Generic/WithTagsMixin';
+import { withTagsMixin } from '@/Engine/Mixins/Generics/WithTagsMixin';
 import type { ISceneRegistry, ISceneWrapper } from '@/Engine/Scene';
 import { SceneRegistry, SceneWrapper } from '@/Engine/Scene';
 

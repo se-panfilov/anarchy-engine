@@ -1,4 +1,4 @@
-import type { LookUpStrategy } from '@/Engine/Abstract/Registry/Constants';
+import type { LookUpStrategy } from '@/Engine/Abstract/Registries/Constants';
 import type { IDestroyable, IRegistrable } from '@/Engine/Mixins';
 
 import type { IAbstractSimpleRegistry } from './IAbstractSimpleRegistry';

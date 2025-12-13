@@ -1,4 +1,4 @@
-export * from './Factory';
+export * from './Factories';
 export * from './Models';
-export * from './Registry';
-export * from './Watcher';
+export * from './Registries';
+export * from './Watchers';
