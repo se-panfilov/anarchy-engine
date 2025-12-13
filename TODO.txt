@@ -17,6 +17,7 @@ To be done:
 Global Refactoring:
 - extract materials from actors, keep there an alias to a material to be able to reuse the same material
 - feels like env map is not async at all (check for extra "await", and compare with vanila env map loading)
+- "tags" should be optional everywhere
 
 Also:
 - should I add physics updates to the global loop? (like all physics objects in a registry should update attached actors?)

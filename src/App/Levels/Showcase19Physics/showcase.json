@@ -406,9 +406,6 @@
     "global": {
       "gravity": { "x": 0, "y": -9.81, "z": 0 },
       "timeStep": 0.016666666666666666,
-      "maxVelocityIterations": 4,
-      "maxPositionIterations": 3,
-      "solverType": "PGS",
       "enableCCD": false
     },
     "presets": {
@@ -474,7 +471,7 @@
       "isActive": true
     }
   ],
-  "envMaps": ["/Showcase/hdr/shanghai_bund_4k.hdr"],
+  "envMaps": [],
   "particles": [],
   "fogs": [],
   "tags": []
