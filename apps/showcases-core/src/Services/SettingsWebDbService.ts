@@ -3,27 +3,22 @@ import { isNotDefined, patchObject } from '@Anarchy/Shared/Utils';
 import type { TShowcaseGameSettings } from '@Showcases/Shared';
 import { isPartialSettings } from '@Showcases/Shared';
 
-import type { TSettingsRow, TSettingsWebDb, TSettingsWebDbService, TWebDbService } from '@/Models';
+import { SettingsId, SettingsWebDbVersion } from '@/Constants';
+import type { TSettingsWebDb, TSettingsWebDbService, TWebDbService } from '@/Models';
 
 import { WebDbService } from './WebDbService';
-
-export const SettingsWebDbVersion = 1 as const;
-export const schemaVersion = 1 as const;
-
-// Just a convention, meaning "there is only one row" (for other entities, e.g. "save games", multiple rows might be needed)
-export const id: TSettingsRow['id'] = 'singleton';
 
 export function SettingsWebDbService(): TSettingsWebDbService {
   const webDb: TWebDbService = WebDbService();
   const dbName: string = 'SettingsWebDb';
   const db: TSettingsWebDb = webDb.createDb(dbName);
+  const id = SettingsId;
 
-  db.version(SettingsWebDbVersion).stores({ settings: 'id' });
-  const table = db.table<TSettingsRow, TSettingsRow['id']>('settings');
+  db.version(SettingsWebDbVersion).stores({ settings: '' });
+  const table = db.table<TShowcaseGameSettings>('settings');
 
   async function findSettings(): Promise<TShowcaseGameSettings | undefined> {
-    const row: TSettingsRow | undefined = await table.get(id);
-    return row?.value ?? undefined;
+    return (await table.get(id)) ?? undefined;
   }
 
   async function getSettings(): Promise<TShowcaseGameSettings> | never {
@@ -33,7 +28,7 @@ export function SettingsWebDbService(): TSettingsWebDbService {
   }
 
   async function setSettings(value: TShowcaseGameSettings): Promise<void> {
-    await table.put({ id, value, schemaVersion });
+    await table.put(value, id);
   }
 
   async function updateSettings(patch: TDeepPartial<TShowcaseGameSettings>): Promise<TShowcaseGameSettings> | never {
@@ -44,7 +39,7 @@ export function SettingsWebDbService(): TSettingsWebDbService {
       if (isNotDefined(current)) throw new Error(`[APP][SettingsWebDbService]: No settings found in the database "${dbName}", cannot update settings`);
       const value: TShowcaseGameSettings = patchObject(current, patch);
 
-      await table.put({ id, value, schemaVersion });
+      await table.put(value, id);
       return value;
     });
   }

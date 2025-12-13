@@ -9,10 +9,4 @@ export type TSettingsWebDbService = Readonly<{
   updateSettings: (patch: TDeepPartial<TShowcaseGameSettings>) => Promise<TShowcaseGameSettings> | never;
 }>;
 
-export type TSettingsRow = Readonly<{
-  id: 'singleton';
-  value: TShowcaseGameSettings;
-  schemaVersion: number;
-}>;
-
-export type TSettingsWebDb = Dexie & Readonly<{ settings: EntityTable<TSettingsRow, 'id'> }>;
+export type TSettingsWebDb = Dexie & Readonly<{ settings: EntityTable<TShowcaseGameSettings> }>;
