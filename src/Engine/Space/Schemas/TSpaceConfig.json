@@ -2104,22 +2104,10 @@
     "RawIntegrationParameters": {
       "type": "object",
       "properties": {
-        "contact_erp": {
-          "type": "number"
-        },
-        "contact_natural_frequency": {
-          "type": "number"
-        },
         "dt": {
           "type": "number"
         },
-        "lengthUnit": {
-          "type": "number"
-        },
-        "maxCcdSubsteps": {
-          "type": "number"
-        },
-        "minIslandSize": {
+        "contact_erp": {
           "type": "number"
         },
         "normalizedAllowedLinearError": {
@@ -2128,28 +2116,36 @@
         "normalizedPredictionDistance": {
           "type": "number"
         },
+        "numSolverIterations": {
+          "type": "number"
+        },
         "numAdditionalFrictionIterations": {
           "type": "number"
         },
         "numInternalPgsIterations": {
           "type": "number"
         },
-        "numSolverIterations": {
+        "minIslandSize": {
+          "type": "number"
+        },
+        "maxCcdSubsteps": {
+          "type": "number"
+        },
+        "lengthUnit": {
           "type": "number"
         }
       },
       "required": [
-        "contact_erp",
-        "contact_natural_frequency",
         "dt",
-        "lengthUnit",
-        "maxCcdSubsteps",
-        "minIslandSize",
+        "contact_erp",
         "normalizedAllowedLinearError",
         "normalizedPredictionDistance",
+        "numSolverIterations",
         "numAdditionalFrictionIterations",
         "numInternalPgsIterations",
-        "numSolverIterations"
+        "minIslandSize",
+        "maxCcdSubsteps",
+        "lengthUnit"
       ],
       "additionalProperties": false
     },

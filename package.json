@@ -2,7 +2,7 @@
   "name": "anarchy_engine",
   "author": "S. Panfilov",
   "private": true,
-  "version": "10.2.0",
+  "version": "11.0.0",
   "type": "module",
   "license": "MIT",
   "scripts": {
@@ -27,14 +27,14 @@
     "clean:reinstall": "npm run clean:all && npm install && git add ./package-lock.json"
   },
   "dependencies": {
-    "@dimforge/rapier3d": "0.14.0",
+    "@dimforge/rapier3d": "0.15.0",
     "@rwh/keystrokes": "1.5.6",
     "ajv": "8.17.1",
     "animejs": "3.2.2",
     "date-fns": "4.1.0",
     "lil-gui": "0.20.0",
     "lodash-es": "4.17.21",
-    "nanoid": "5.1.2",
+    "nanoid": "5.1.3",
     "rbush": "4.0.1",
     "rxjs": "7.8.2",
     "sanitize.css": "13.0.0",
@@ -46,8 +46,8 @@
     "typescript-fsm": "1.5.3"
   },
   "devDependencies": {
-    "@dimforge/rapier3d-compat": "0.14.0",
-    "@eslint/js": "9.21.0",
+    "@dimforge/rapier3d-compat": "0.15.0",
+    "@eslint/js": "9.22.0",
     "@types/animejs": "3.1.13",
     "@types/date-fns": "2.6.3",
     "@types/lodash-es": "4.17.12",
@@ -56,9 +56,9 @@
     "@types/three": "0.174.0",
     "@typescript-eslint/eslint-plugin": "8.26.0",
     "@typescript-eslint/parser": "8.26.0",
-    "@vitest/coverage-v8": "3.0.7",
-    "@vitest/ui": "3.0.7",
-    "eslint": "9.21.0",
+    "@vitest/coverage-v8": "3.0.8",
+    "@vitest/ui": "3.0.8",
+    "eslint": "9.22.0",
     "eslint-plugin-functional": "9.0.1",
     "eslint-plugin-import": "2.31.0",
     "eslint-plugin-simple-import-sort": "12.1.1",
@@ -71,10 +71,10 @@
     "ts-json-schema-generator": "2.3.0",
     "typescript": "5.8.2",
     "typescript-eslint": "8.26.0",
-    "vite": "6.2.0",
+    "vite": "6.2.1",
     "vite-plugin-top-level-await": "1.5.0",
     "vite-plugin-wasm": "3.4.1",
-    "vitest": "3.0.7"
+    "vitest": "3.0.8"
   },
   "husky": {
     "hooks": {
