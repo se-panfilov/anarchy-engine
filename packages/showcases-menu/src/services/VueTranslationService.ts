@@ -9,7 +9,7 @@ import type { ShallowRef } from 'vue';
 import { onBeforeUnmount, onMounted, shallowRef } from 'vue';
 
 export function VueTranslationService(localesMapping: TLocalesMapping<Locales> = locales): TVueTranslationService {
-  const i18n: TTranslationService<Locales> = TranslationService<Locales>(Locales.en, Locales.en, localesMapping);
+  const i18n: TTranslationService<Locales> = TranslationService<Locales>(Locales.EN, Locales.EN, localesMapping);
 
   const isReadyPromise: Promise<void> = new Promise<void>((resolve, reject): void => {
     const subscription$: Subscription = i18n.ready$.pipe(filter((isReady: boolean): boolean => isReady)).subscribe({

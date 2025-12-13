@@ -14,7 +14,7 @@ const { $t } = vueTranslationService;
 
 // TODO DESKTOP: DEBUG CODE
 setInterval(() => {
-  vueTranslationService.locale$.next(vueTranslationService.locale$.value === Locales.nl ? Locales.en : Locales.nl);
+  vueTranslationService.locale$.next(vueTranslationService.locale$.value === Locales.NL ? Locales.EN : Locales.NL);
 }, 1500);
 
 const translated = $t('menu.start');
