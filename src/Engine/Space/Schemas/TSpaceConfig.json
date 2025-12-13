@@ -3798,11 +3798,11 @@
         "options": {
           "$ref": "#/definitions/TMaterialConfigOptions"
         },
-        "type": {
-          "$ref": "#/definitions/MaterialType"
-        },
         "textures": {
           "$ref": "#/definitions/TMaterialTexturePack"
+        },
+        "type": {
+          "$ref": "#/definitions/MaterialType"
         },
         "name": {
           "type": "string"
@@ -3906,9 +3906,6 @@
         "alphaMap": {
           "type": ["string", "null"]
         },
-        "type": {
-          "$ref": "#/definitions/MaterialType"
-        },
         "alphaHash": {
           "type": "boolean"
         },
@@ -4010,8 +4007,7 @@
         "userData": {
           "type": "object"
         }
-      },
-      "required": ["type"]
+      }
     },
     "BlendingName": {
       "type": "string",
@@ -4084,10 +4080,6 @@
     "NormalMapTypesName": {
       "type": "string",
       "enum": ["ObjectSpaceNormalMap", "TangentSpaceNormalMap"]
-    },
-    "MaterialType": {
-      "type": "string",
-      "enum": ["basic", "depth", "distance", "lambert", "matcap", "normal", "phong", "physical", "points", "standard", "toon"]
     },
     "ColorRepresentation": {
       "anyOf": [
@@ -4193,9 +4185,6 @@
         },
         "alphaMap": {
           "type": ["string", "null"]
-        },
-        "type": {
-          "$ref": "#/definitions/MaterialType"
         },
         "alphaHash": {
           "type": "boolean"
@@ -4328,8 +4317,7 @@
         "wireframeLinejoin": {
           "type": "string"
         }
-      },
-      "required": ["type"]
+      }
     },
     "TDepthMaterialConfigOptions": {
       "type": "object",
@@ -4386,9 +4374,6 @@
         },
         "alphaMap": {
           "type": ["string", "null"]
-        },
-        "type": {
-          "$ref": "#/definitions/MaterialType"
         },
         "alphaHash": {
           "type": "boolean"
@@ -4503,8 +4488,7 @@
         "wireframeLinewidth": {
           "type": "number"
         }
-      },
-      "required": ["type"]
+      }
     },
     "TDistanceMaterialConfigOptions": {
       "type": "object",
@@ -4561,9 +4545,6 @@
         },
         "alphaMap": {
           "type": ["string", "null"]
-        },
-        "type": {
-          "$ref": "#/definitions/MaterialType"
         },
         "alphaHash": {
           "type": "boolean"
@@ -4681,8 +4662,7 @@
         "referencePosition": {
           "$ref": "#/definitions/TVector3"
         }
-      },
-      "required": ["type"]
+      }
     },
     "TVector3": {
       "type": "object",
@@ -4762,9 +4742,6 @@
         },
         "alphaMap": {
           "type": ["string", "null"]
-        },
-        "type": {
-          "$ref": "#/definitions/MaterialType"
         },
         "alphaHash": {
           "type": "boolean"
@@ -4885,8 +4862,7 @@
         "wireframeLinewidth": {
           "type": "number"
         }
-      },
-      "required": ["type"]
+      }
     },
     "TVector2": {
       "type": "object",
@@ -4968,9 +4944,6 @@
         },
         "alphaMap": {
           "type": ["string", "null"]
-        },
-        "type": {
-          "$ref": "#/definitions/MaterialType"
         },
         "alphaHash": {
           "type": "boolean"
@@ -5094,8 +5067,7 @@
         "flatShading": {
           "type": "boolean"
         }
-      },
-      "required": ["type"]
+      }
     },
     "TLambertMaterialConfigOptions": {
       "type": "object",
@@ -5152,9 +5124,6 @@
         },
         "alphaMap": {
           "type": ["string", "null"]
-        },
-        "type": {
-          "$ref": "#/definitions/MaterialType"
         },
         "alphaHash": {
           "type": "boolean"
@@ -5308,8 +5277,7 @@
         "fog": {
           "type": "boolean"
         }
-      },
-      "required": ["type"]
+      }
     },
     "TPhongMaterialConfigOptions": {
       "type": "object",
@@ -5366,9 +5334,6 @@
         },
         "alphaMap": {
           "type": ["string", "null"]
-        },
-        "type": {
-          "$ref": "#/definitions/MaterialType"
         },
         "alphaHash": {
           "type": "boolean"
@@ -5528,8 +5493,7 @@
         "flatShading": {
           "type": "boolean"
         }
-      },
-      "required": ["type"]
+      }
     },
     "TToonMaterialConfigOptions": {
       "type": "object",
@@ -5586,9 +5550,6 @@
         },
         "alphaMap": {
           "type": ["string", "null"]
-        },
-        "type": {
-          "$ref": "#/definitions/MaterialType"
         },
         "alphaHash": {
           "type": "boolean"
@@ -5733,8 +5694,7 @@
         "fog": {
           "type": "boolean"
         }
-      },
-      "required": ["type"]
+      }
     },
     "TStandardMaterialConfigOptions": {
       "type": "object",
@@ -5791,9 +5751,6 @@
         },
         "alphaMap": {
           "type": ["string", "null"]
-        },
-        "type": {
-          "$ref": "#/definitions/MaterialType"
         },
         "alphaHash": {
           "type": "boolean"
@@ -5944,8 +5901,7 @@
         "flatShading": {
           "type": "boolean"
         }
-      },
-      "required": ["type"]
+      }
     },
     "TPhysicalMaterialConfigOptions": {
       "type": "object",
@@ -6002,9 +5958,6 @@
         },
         "alphaMap": {
           "type": ["string", "null"]
-        },
-        "type": {
-          "$ref": "#/definitions/MaterialType"
         },
         "alphaHash": {
           "type": "boolean"
@@ -6217,8 +6170,7 @@
         "anisotropyRotation": {
           "type": "number"
         }
-      },
-      "required": ["type"]
+      }
     },
     "TPointsMaterialConfigOptions": {
       "type": "object",
@@ -6275,9 +6227,6 @@
         },
         "alphaMap": {
           "type": ["string", "null"]
-        },
-        "type": {
-          "$ref": "#/definitions/MaterialType"
         },
         "alphaHash": {
           "type": "boolean"
@@ -6393,7 +6342,7 @@
           "type": "boolean"
         }
       },
-      "required": ["color", "type"]
+      "required": ["color"]
     },
     "TMaterialTexturePack": {
       "anyOf": [
@@ -6725,6 +6674,10 @@
         }
       },
       "additionalProperties": false
+    },
+    "MaterialType": {
+      "type": "string",
+      "enum": ["basic", "depth", "distance", "lambert", "matcap", "normal", "phong", "physical", "points", "standard", "toon"]
     },
     "TModel3dResourceConfig": {
       "type": "object",

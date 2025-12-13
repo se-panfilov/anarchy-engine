@@ -12,20 +12,19 @@ import type {
   TStandardMaterialPropsOptions,
   TToonMaterialPropsOptions
 } from './TMaterialPropsOptions';
-import type { TWithMaterialType } from './TWithMaterialType';
 
-export type TAbstractMaterialParamsOptions = TAbstractMaterialPropsOptions & TWithMaterialType;
-export type TBasicMaterialParamsOptions = TBasicMaterialPropsOptions & TWithMaterialType;
-export type TDepthMaterialParamsOptions = TDepthMaterialPropsOptions & TWithMaterialType;
-export type TDistanceMaterialParamsOptions = TDistanceMaterialPropsOptions & TWithMaterialType;
-export type TNormalMaterialParamsOptions = TNormalMaterialPropsOptions & TWithMaterialType;
-export type TMatcapMaterialParamsOptions = TMatcapMaterialPropsOptions & TWithMaterialType;
-export type TLambertMaterialParamsOptions = TLambertMaterialPropsOptions & TWithMaterialType;
-export type TPhongMaterialParamsOptions = TPhongMaterialPropsOptions & TWithMaterialType;
-export type TToonMaterialParamsOptions = TToonMaterialPropsOptions & TWithMaterialType;
-export type TStandardMaterialParamsOptions = TStandardMaterialPropsOptions & TWithMaterialType;
-export type TPhysicalMaterialParamsOptions = TPhysicalMaterialPropsOptions & TWithMaterialType;
-export type TPointsMaterialParamsOptions = TPointsMaterialPropsOptions & TWithMaterialType;
+export type TAbstractMaterialParamsOptions = TAbstractMaterialPropsOptions;
+export type TBasicMaterialParamsOptions = TBasicMaterialPropsOptions;
+export type TDepthMaterialParamsOptions = TDepthMaterialPropsOptions;
+export type TDistanceMaterialParamsOptions = TDistanceMaterialPropsOptions;
+export type TNormalMaterialParamsOptions = TNormalMaterialPropsOptions;
+export type TMatcapMaterialParamsOptions = TMatcapMaterialPropsOptions;
+export type TLambertMaterialParamsOptions = TLambertMaterialPropsOptions;
+export type TPhongMaterialParamsOptions = TPhongMaterialPropsOptions;
+export type TToonMaterialParamsOptions = TToonMaterialPropsOptions;
+export type TStandardMaterialParamsOptions = TStandardMaterialPropsOptions;
+export type TPhysicalMaterialParamsOptions = TPhysicalMaterialPropsOptions;
+export type TPointsMaterialParamsOptions = TPointsMaterialPropsOptions;
 
 export type TMaterialParamsOptions =
   | TAbstractMaterialParamsOptions
