@@ -11,9 +11,10 @@ export function textToConfig(entity: TTextAnyWrapper): TTextConfig {
     type: entity.type,
     cssProps: extractInlineStyles((entity as TText2dWrapper).getElement()),
     elementType: (entity as TText2dWrapper).getElement()?.tagName,
+    // TODO 15-0-0: implement
     center: undefined,
-    kinematic: undefined,
-    physics: undefined,
+    physics: drive.physical?.serialize(),
+    kinematic: drive.kinematic?.serialize(),
     receiveShadow: entity.getReceiveShadow(),
     frustumCulled: entity.getFrustumCulled(),
     renderOrder: entity.getRenderOrder(),
