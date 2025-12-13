@@ -93,4 +93,4 @@ export function KeyboardService(): IKeyboardService {
   };
 }
 
-export const keyboardService = KeyboardService();
+export const keyboardService: IKeyboardService = KeyboardService();
