@@ -4,16 +4,18 @@ import type { TSpaceConfigResources, TSpaceServices } from '@/Engine/Space/Model
 export async function loadResources(resources: TSpaceConfigResources, { models3dService, envMapService, materialService, textureService }: TSpaceServices): Promise<void> {
   const { models3d, envMapTextures, materials, textures } = resources;
 
-  //no need to wait for a loading here
+  // EnvMaps could be loaded async, no need to wait
   const envMapTexturePromise: Promise<ReadonlyArray<TEnvMapTexture>> = envMapService.loadFromConfigAsync(envMapTextures);
 
-  // textures should be loaded before materials
+  // Textures should be loaded before materials and models
   await textureService.loadFromConfigAsync(textures);
-  //materials and textures should be fully loaded before models
+
+  // Technically, materials are more "entities" rather than "resources":
+  //   They are not loaded from anywhere (should be created instead) and depend on textures.
+  //   However, materials (and textures) should be fully ready before models.
   materialService.createFromConfig(materials);
 
-  // TODO CWP!!!
-  // TODO 9.0.0. RESOURCES: Fix models3d loading (here resources loading only)
-  //  Use materials which are already loaded when it's needed)
+  // Models3d could be considered both "entities" and "resources"
+  //   because primitives models (e.g. "cube") aren't loaded from anywhere, but complex models does.
   await Promise.all([models3dService.loadFromConfigAsync(models3d), envMapTexturePromise]);
 }
