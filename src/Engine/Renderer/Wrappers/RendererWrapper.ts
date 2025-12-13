@@ -49,8 +49,9 @@ export function RendererWrapper(params: TRendererParams, { container }: TRendere
 
   // TODO 9.2.0 ACTIVE: This could be done only in active$ renderer and applied in onActive hook
   const screenSizeSub$: Subscription = container.viewportRect$
-    .pipe(distinctUntilChanged((prev: DOMRect | undefined, curr: DOMRect | undefined): boolean => prev.width === curr.width && prev.height === curr.height))
+    .pipe(distinctUntilChanged((prev: DOMRect | undefined, curr: DOMRect | undefined): boolean => prev?.width === curr?.width && prev?.height === curr?.height))
     .subscribe((rect: DOMRect | undefined): void => {
+      if (isNotDefined(rect)) return;
       setValues(entity, rect, container.getRatio());
     });
 
