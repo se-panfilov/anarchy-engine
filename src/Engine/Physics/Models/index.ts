@@ -21,6 +21,7 @@ export * from './TPhysicsProps';
 export * from './TPhysicsService';
 export * from './TPhysicsShapeParams';
 export * from './TPhysicsWorldParams';
+export * from './TPhysicsWorldService';
 export * from './TWithPhysicsBody';
 export * from './TWithPhysicsBodyFacadeEntities';
 export * from './TWithPresetNamePhysicsBodyConfig';

@@ -7,7 +7,7 @@ import spaceConfig from './showcase.json';
 export function showcase(canvas: TAppCanvas): TShowcase {
   const space: TSpace = buildSpaceFromConfig(canvas, spaceConfig as TSpaceConfig);
   const engine: TEngine = Engine(space);
-  const { actorService, cameraService, loopService, physicsBodyService } = space.services;
+  const { actorService, cameraService, loopService, physicsWorldService } = space.services;
 
   const actorAsyncRegistry = actorService.getRegistry();
 
@@ -15,7 +15,7 @@ export function showcase(canvas: TAppCanvas): TShowcase {
   const actor2Promise: Promise<TActorWrapperAsync | undefined> = actorAsyncRegistry.findByNameAsync('actor_2');
   const actor3Promise: Promise<TActorWrapperAsync | undefined> = actorAsyncRegistry.findByNameAsync('actor_3');
 
-  // physicsBodyService.getDebugRenderer(loopService).start();
+  // physicsWorldService.getDebugRenderer(loopService).start();
 
   async function init(): Promise<void> {
     const actor1W: TActorWrapperWithPhysicsAsync | TActorWrapperAsync | undefined = await actor1Promise;
@@ -38,12 +38,12 @@ export function showcase(canvas: TAppCanvas): TShowcase {
     cameraW.lookAt(Vector3Wrapper(actor1Position.getCoords()));
     cameraW.setY(actor1Position.getY());
 
-    physicsBodyService.getDebugRenderer(loopService).start();
+    physicsWorldService.getDebugRenderer(loopService).start();
 
     // TODO (S.Panfilov) extract physics world update to the main loop
     loopService.tick$.subscribe(() => {
       // TODO (S.Panfilov) debug: this should not be done here, but instead in the service (with an option to manual update)
-      // const world = physicsBodyService.getWorld();
+      // const world = physicsWorldService.getWorld();
       // if (isNotDefined(world)) throw new Error(`Cannot find physics world`);
       // world.step();
 

@@ -17,7 +17,7 @@ import { isNotDefined } from '@/Engine/Utils';
 export function Engine(space: TSpace): TEngine {
   const keyboardService: TKeyboardService = KeyboardService(space.services.loopService);
 
-  const { cameraService, rendererService, scenesService, textService, controlsService, physicsBodyService } = space.services;
+  const { cameraService, rendererService, scenesService, textService, controlsService, physicsWorldService } = space.services;
   const activeScene: TSceneWrapper | undefined = scenesService.findActive();
 
   const { text2dRegistry, text3dRegistry } = textService.getRegistries();
@@ -37,7 +37,7 @@ export function Engine(space: TSpace): TEngine {
     if (isNotDefined(renderer)) throw new Error('Engine: Cannot find an active renderer');
 
     cameraService.active$.subscribe((wrapper: TCameraWrapper | undefined): void => void (camera = wrapper));
-    const world: World | undefined = physicsBodyService.getWorld();
+    const world: World | undefined = physicsWorldService.getWorld();
 
     space.services.loopService.setBeforeEveryTick(({ delta }: TLoopTimes): void => {
       spaceLoop(delta, camera, renderer, activeScene, text2dRegistry, text3dRegistry, text2dRenderer, text3dRenderer, controlsRegistry, world);

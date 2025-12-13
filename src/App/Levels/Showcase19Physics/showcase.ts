@@ -40,7 +40,7 @@ export function showcase(canvas: TAppCanvas): TShowcase {
   const space: TSpace = buildSpaceFromConfig(canvas, spaceConfig as TSpaceConfig);
   const engine: TEngine = Engine(space);
   const { keyboardService } = engine.services;
-  const { actorService, cameraService, intersectionsWatcherService, loopService, textService, physicsBodyService } = space.services;
+  const { actorService, cameraService, intersectionsWatcherService, loopService, textService, physicsWorldService } = space.services;
 
   const actorAsyncRegistry = actorService.getRegistry();
   const sceneWrapper: TSceneWrapper = actorService.getScene();
@@ -52,7 +52,7 @@ export function showcase(canvas: TAppCanvas): TShowcase {
   // const obstacle3ActorPromise: Promise<TActorWrapperAsync | undefined> = actorAsyncRegistry.findByNameAsync('obstacle_3');
   // const obstacle4ActorPromise: Promise<TActorWrapperAsync | undefined> = actorAsyncRegistry.findByNameAsync('obstacle_4');
 
-  physicsBodyService.getDebugRenderer(loopService).start();
+  physicsWorldService.getDebugRenderer(loopService).start();
 
   // const ballRigidBodyDesc = RigidBodyDesc.dynamic().setTranslation(0, 6, 0);
   // const ballRigidBody = world.createRigidBody(ballRigidBodyDesc);
@@ -146,7 +146,7 @@ export function showcase(canvas: TAppCanvas): TShowcase {
     // TODO (S.Panfilov) extract physics world update to the main loop
     loopService.tick$.subscribe(() => {
       // TODO (S.Panfilov) debug: this should not be done here, but instead in the service (with an option to manual update)
-      // const world = physicsBodyService.getWorld();
+      // const world = physicsWorldService.getWorld();
       // if (isNotDefined(world)) throw new Error(`Cannot find physics world`);
       // world.step();
 

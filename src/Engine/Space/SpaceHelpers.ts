@@ -13,8 +13,8 @@ import { MaterialFactory, MaterialRegistry, MaterialService } from '@/Engine/Mat
 import type { TMaterialTextureService } from '@/Engine/MaterialTexturePack';
 import { MaterialTextureService } from '@/Engine/MaterialTexturePack';
 import { ParticlesAsyncRegistry, ParticlesFactory, ParticlesService } from '@/Engine/Particles';
-import type { TPhysicsBodyService, TPhysicsPresetsService } from '@/Engine/Physics';
-import { PhysicsBodyFactory, PhysicsBodyRegistry, PhysicsBodyService, PhysicsPresetRegistry, PhysicsPresetsService } from '@/Engine/Physics';
+import type { TPhysicsBodyService, TPhysicsPresetsService, TPhysicsWorldService } from '@/Engine/Physics';
+import { PhysicsBodyFactory, PhysicsBodyRegistry, PhysicsBodyService, PhysicsPresetRegistry, PhysicsPresetsService, PhysicsWorldService } from '@/Engine/Physics';
 import { RendererFactory, RendererRegistry, RendererService } from '@/Engine/Renderer';
 import type { TSceneFactory, TSceneRegistry, TScenesService, TSceneWrapper } from '@/Engine/Scene';
 import { SceneFactory, SceneRegistry, ScenesService } from '@/Engine/Scene';
@@ -34,7 +34,8 @@ export function initEntitiesServices(scene: TSceneWrapper, canvas: TAppCanvas): 
   const materialService: TMaterialService = MaterialService(MaterialFactory(), MaterialRegistry());
   const materialTextureService: TMaterialTextureService = MaterialTextureService(materialService, textureService);
   const physicsPresetService: TPhysicsPresetsService = PhysicsPresetsService(PhysicsPresetRegistry());
-  const physicsBodyService: TPhysicsBodyService = PhysicsBodyService(PhysicsBodyFactory(), PhysicsBodyRegistry(), physicsPresetService, scene);
+  const physicsWorldService: TPhysicsWorldService = PhysicsWorldService(scene);
+  const physicsBodyService: TPhysicsBodyService = PhysicsBodyService(PhysicsBodyFactory(), PhysicsBodyRegistry(), physicsPresetService, physicsWorldService);
   const loopService: TLoopService = LoopService();
 
   return {
@@ -50,6 +51,7 @@ export function initEntitiesServices(scene: TSceneWrapper, canvas: TAppCanvas): 
     materialTextureService,
     particlesService: ParticlesService(ParticlesFactory(), ParticlesAsyncRegistry(), materialTextureService, scene),
     physicsBodyService,
+    physicsWorldService,
     physicsPresetService,
     rendererService: RendererService(RendererFactory(), RendererRegistry()),
     textService: TextService(TextFactory(), Text2dRegistry(), Text3dRegistry(), Text2dRendererRegistry(), Text3dRendererRegistry(), scene)

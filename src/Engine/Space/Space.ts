@@ -47,13 +47,13 @@ export function buildSpaceFromConfig(canvas: TAppCanvas, config: TSpaceConfig): 
     intersectionsWatcherService,
     lightService,
     particlesService,
-    physicsBodyService,
+    physicsWorldService,
     physicsPresetService,
     rendererService,
     textService
   } = services;
 
-  if (isDefined(physics.global)) physicsBodyService.createWorld(physics.global);
+  if (isDefined(physics.global)) physicsWorldService.createWorld(physics.global);
   if (isDefined(physics.presets)) physicsPresetService.addPresetsFromConfig(physics.presets);
 
   cameraService.createFromConfig(cameras);
