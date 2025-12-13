@@ -1,6 +1,5 @@
 import type { Subscription } from 'rxjs';
 
-import { CommonTag } from '@/Engine/Abstract';
 import type { ICameraConfig, ICameraFactory, ICameraParams, ICameraRegistry, ICameraService, ICameraWrapper } from '@/Engine/Camera/Models';
 import { ambientContext } from '@/Engine/Context';
 import type { IDestroyable } from '@/Engine/Mixins';
@@ -32,8 +31,7 @@ export function CameraService(factory: ICameraFactory, registry: ICameraRegistry
   });
 
   const create = (params: ICameraParams): ICameraWrapper => factory.create(params);
-  const createFromConfig = (cameras: ReadonlyArray<ICameraConfig>): void =>
-    cameras.forEach((config: ICameraConfig): ICameraWrapper => factory.create(factory.configToParams({ ...config, tags: [...config.tags, CommonTag.FromConfig] })));
+  const createFromConfig = (cameras: ReadonlyArray<ICameraConfig>): void => cameras.forEach((config: ICameraConfig): ICameraWrapper => factory.create(factory.configToParams(config)));
 
   const setActiveCamera = (cameraId: string): void => setActiveWrappedEntity(registry, cameraId);
   const findActiveCamera = (): ICameraWrapper | undefined => findActiveWrappedEntity(registry);

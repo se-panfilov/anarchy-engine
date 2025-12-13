@@ -1,6 +1,5 @@
 import { merge } from 'rxjs';
 
-import { CommonTag } from '@/Engine/Abstract';
 import type { IDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
 import type { ISceneWrapper } from '@/Engine/Scene';

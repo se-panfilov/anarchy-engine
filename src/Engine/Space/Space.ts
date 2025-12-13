@@ -1,7 +1,6 @@
 import type { Subscription } from 'rxjs';
 import { ReplaySubject } from 'rxjs';
 
-import { CommonTag } from '@/Engine/Abstract';
 import type { IActorAsyncRegistry, IActorFactory, IActorService } from '@/Engine/Actor';
 import { ActorAsyncRegistry, ActorFactory, ActorService } from '@/Engine/Actor';
 import type { IAppCanvas } from '@/Engine/App';
@@ -12,7 +11,7 @@ import type { IControlsFactory, IControlsRegistry, IControlsService, IOrbitContr
 import { ControlService, ControlsFactory, ControlsRegistry } from '@/Engine/Controls';
 import type { IDataTexture, IEnvMapService } from '@/Engine/EnvMap';
 import { EnvMapService } from '@/Engine/EnvMap';
-import type { IFogConfig, IFogFactory, IFogRegistry, IFogService, IFogWrapper } from '@/Engine/Fog';
+import type { IFogFactory, IFogRegistry, IFogService } from '@/Engine/Fog';
 import { FogFactory, FogRegistry, FogService } from '@/Engine/Fog';
 import type { ILightFactory, ILightRegistry, ILightService } from '@/Engine/Light';
 import { LightFactory, LightRegistry, LightService } from '@/Engine/Light';
@@ -173,8 +172,7 @@ export function buildSpaceFromConfig(canvas: IAppCanvas, config: ISpaceConfig): 
     const fogRegistry: IFogRegistry = FogRegistry();
     const fogService: IFogService = FogService(fogFactory, fogRegistry, scene);
 
-    // TODO (S.Panfilov) use service
-    fogs.forEach((fog: IFogConfig): IFogWrapper => fogFactory.create(fogFactory.configToParams({ ...fog, tags: [...fog.tags, CommonTag.FromConfig] })));
+    fogService.createFromConfig(fogs);
 
     factories = { ...factories, fogFactory };
     registries = { ...registries, fogRegistry };

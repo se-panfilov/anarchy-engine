@@ -1,4 +1,3 @@
-import { CommonTag } from '@/Engine/Abstract';
 import type { IActorAsyncRegistry, IActorConfig, IActorFactory, IActorParams, IActorService, IActorWrapperAsync } from '@/Engine/Actor/Models';
 import type { IDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
@@ -11,10 +10,7 @@ export function ActorService(factory: IActorFactory, registry: IActorAsyncRegist
   const createAsync = (params: IActorParams): Promise<IActorWrapperAsync> => factory.createAsync(params);
   const createFromConfig = (actors: ReadonlyArray<IActorConfig>): void => {
     // eslint-disable-next-line @typescript-eslint/no-misused-promises
-    actors.forEach((config: IActorConfig): Promise<IActorWrapperAsync> => {
-      const params: IActorParams = factory.configToParams({ ...config, tags: [...config.tags, CommonTag.FromConfig] });
-      return factory.createAsync(params);
-    });
+    actors.forEach((config: IActorConfig): Promise<IActorWrapperAsync> => factory.createAsync(factory.configToParams(config)));
   };
 
   const destroyable: IDestroyable = destroyableMixin();

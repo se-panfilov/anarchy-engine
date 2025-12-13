@@ -1,5 +1,5 @@
-import type { IVector3 } from '@/Engine/Vector';
 import type { IActive } from '@/Engine';
+import type { IVector3 } from '@/Engine/Vector';
 
 export type IOrbitControlsProps = Readonly<{
   enabled?: boolean;

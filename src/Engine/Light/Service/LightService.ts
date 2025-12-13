@@ -1,4 +1,3 @@
-import { CommonTag } from '@/Engine/Abstract';
 import type { IAbstractLightWrapper, ILight, ILightConfig, ILightFactory, ILightParams, ILightRegistry, ILightService } from '@/Engine/Light/Models';
 import type { IDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
@@ -9,8 +8,7 @@ export function LightService(factory: ILightFactory, registry: ILightRegistry, s
   factory.entityCreated$.subscribe((wrapper: IAbstractLightWrapper<ILight>): void => registry.add(wrapper));
 
   const create = (params: ILightParams): IAbstractLightWrapper<ILight> => factory.create(params);
-  const createFromConfig = (lights: ReadonlyArray<ILightConfig>): void =>
-    lights.forEach((config: ILightConfig): IAbstractLightWrapper<ILight> => factory.create(factory.configToParams({ ...config, tags: [...config.tags, CommonTag.FromConfig] })));
+  const createFromConfig = (lights: ReadonlyArray<ILightConfig>): void => lights.forEach((config: ILightConfig): IAbstractLightWrapper<ILight> => factory.create(factory.configToParams(config)));
 
   const destroyable: IDestroyable = destroyableMixin();
   destroyable.destroyed$.subscribe(() => {

@@ -20,7 +20,7 @@ export function showcase(canvas: IAppCanvas): IShowcase {
     rendererRegistry.findActiveRenderer()?.entity.setClearColor(scene.entity.fog.color);
 
     // Create fog via service
-    // FogService().createFog({ color: ColorWrapper('#00ff00').entity, near: 1, far: 100, tags: [] });
+    // FogService().create({ color: ColorWrapper('#00ff00').entity, near: 1, far: 100, tags: [] });
 
     gui.addColor(scene.entity.fog, 'color');
     gui.add(scene.entity.fog, 'near').min(0).max(1).step(0.1);

@@ -1,27 +1,26 @@
-import type { CommonTag } from '@/Engine/Abstract';
 import type { IWithTags } from '@/Engine/Mixins/Generic/Models';
 import { omitInArray } from '@/Engine/Utils';
 
-export function withTags<T>(tagsList: ReadonlyArray<T | CommonTag | string> = []): IWithTags<T> {
-  const state: { tags: ReadonlyArray<T | CommonTag | string> } = { tags: [...tagsList] };
+export function withTags<T>(tagsList: ReadonlyArray<T | string> = []): IWithTags<T> {
+  const state: { tags: ReadonlyArray<T | string> } = { tags: [...tagsList] };
 
   return {
-    setTags(tagsList: ReadonlyArray<T | CommonTag | string>): void {
+    setTags(tagsList: ReadonlyArray<T | string>): void {
       // eslint-disable-next-line functional/immutable-data
       state.tags = [...tagsList];
     },
-    addTag(tag: T | CommonTag | string): void {
+    addTag(tag: T | string): void {
       // eslint-disable-next-line functional/immutable-data
       state.tags = [...state.tags, tag];
     },
-    removeTag(tag: T | CommonTag | string): void {
+    removeTag(tag: T | string): void {
       // eslint-disable-next-line functional/immutable-data
       state.tags = omitInArray(state.tags, tag);
     },
-    hasTag(tag: T | CommonTag | string): boolean {
+    hasTag(tag: T | string): boolean {
       return state.tags.includes(tag);
     },
-    getTags(): ReadonlyArray<T | CommonTag | string> {
+    getTags(): ReadonlyArray<T | string> {
       return state.tags;
     },
     clearTags(): void {

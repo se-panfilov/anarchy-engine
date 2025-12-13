@@ -1,4 +1,3 @@
-import { CommonTag } from '@/Engine/Abstract';
 import type { IAppCanvas } from '@/Engine/App';
 import type { ICameraRegistry } from '@/Engine/Camera';
 import type { IControlsConfig, IControlsFactory, IControlsParams, IControlsRegistry, IControlsService, IControlsWrapper } from '@/Engine/Controls/Models';
@@ -13,7 +12,7 @@ export function ControlService(factory: IControlsFactory, registry: IControlsReg
   const createFromConfig = (controls: ReadonlyArray<IControlsConfig>): void => {
     controls.forEach((control: IControlsConfig): IControlsWrapper => {
       if (isNotDefined(cameraRegistry)) throw new Error(`Cannot find camera registry for controls (${control.type}) initialization`);
-      return factory.create(factory.configToParams({ ...control, tags: [...control.tags, CommonTag.FromConfig] }, { cameraRegistry, canvas }));
+      return factory.create(factory.configToParams(control, { cameraRegistry, canvas }));
     });
   };
 
