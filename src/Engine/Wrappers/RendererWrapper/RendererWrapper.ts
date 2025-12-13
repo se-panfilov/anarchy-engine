@@ -19,7 +19,6 @@ export function RendererWrapper({ canvas }: RendererParams, deviceWatcher: IDevi
   entity.physicallyCorrectLights = true;
 
   deviceWatcher.value$.subscribe(({ width, height, ratio }: ScreenParams): void => {
-    console.log(222, { width, height, ratio });
     if (isNotDefined(entity)) return;
     entity.setSize(width, height);
     entity.setPixelRatio(Math.min(ratio, 2));

@@ -79,12 +79,11 @@ export async function launch(sceneConfig: SceneConfig): Promise<void> {
     }
   );
 
-  // TODO (S.Panfilov) CWP
-  // debug the scene to make sure no errors and it's fully rendering
-  // and fix this loop
+  // TODO (S.Panfilov) CWP deviceWatcher resize doesn't trigger on start
+
+  // TODO (S.Panfilov) CWP fix this loop
   combineLatest([loopFactory.latest$, rendererFactory.latest$, sceneFactory.latest$, cameraFactory.latest$]).subscribe(
-    ([loop, renderer, scene, camera]: [ILoopWrapper, IRendererWrapper, ISceneWrapper, ICameraWrapper]) => {
-      console.log('111');
+    ([loop, renderer, scene, camera]: [ILoopWrapper, IRendererWrapper, ISceneWrapper, ICameraWrapper]): void => {
       loop.start(renderer, scene, camera);
       console.log(loop);
     }

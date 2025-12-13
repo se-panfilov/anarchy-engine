@@ -8,7 +8,11 @@ export function DeviceWatcher(): IDeviceWatcher {
 
   // TODO (S.Panfilov) window should be global?
   const onResize = (): void =>
-    value$.next({ width: window.innerWidth, height: window.innerHeight, ratio: window.devicePixelRatio || 1 });
+    value$.next({
+      width: window.innerWidth,
+      height: window.innerHeight,
+      ratio: window.devicePixelRatio || 1
+    });
 
   // TODO (S.Panfilov) window should be global?
   const start = (): void => window.addEventListener('resize', onResize);
