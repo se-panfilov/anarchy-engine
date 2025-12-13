@@ -8,10 +8,6 @@ export async function enableCollisions(
   mouseLineIntersectionsWatcher: TIntersectionsWatcher,
   spatialGridService: TSpatialGridService
 ): Promise<void> {
-  // TODO (S.Panfilov) CWP 2. Visualize raycasting
-  // TODO (S.Panfilov) CWP 3. Fix collision detection
-  // TODO (S.Panfilov) CWP 4. make sure raycasting is working inside the grid only
-
   const grid: TSpatialGridWrapper | undefined = spatialGridService.getRegistry().findByName('main_grid');
   if (isNotDefined(grid)) throw new Error(`Cannot find "main_grid" spatial grid`);
 

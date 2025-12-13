@@ -33,10 +33,10 @@ export function CollisionsService(): TCollisionsService {
     // eslint-disable-next-line functional/no-loop-statements
     for (const object of actorsToCheck) {
       // if (object.id !== actorW.id) {
-      //   const intersection: Intersection = raycastBvhService.raycastWithBvh(object as Mesh, actorW.entity);
+      //   const intersection: Intersection = raycastBvhService.raycastWithBvh(object.entity, actorW.entity);
       //   if (intersection.distance < radius) {
       //     return {
-      //       object,
+      //       object: object.entity,
       //       distance: intersection.distance,
       //       collisionPoint: intersection.point,
       //       bulletPosition: actorW.entity.position.clone()
