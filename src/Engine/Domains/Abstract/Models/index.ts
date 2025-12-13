@@ -4,6 +4,7 @@ export * from './IAbstractRegistry';
 export * from './IAbstractWatcher';
 export * from './IAbstractWatcherWithState';
 export * from './IFactory';
+export * from './IHtmlElementStyleDeclaration';
 export * from './IMultitonWatcher';
 export * from './IMultitonWatcherWithState';
 export * from './IReactiveFactory';
