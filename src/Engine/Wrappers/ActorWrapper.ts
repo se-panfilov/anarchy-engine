@@ -1,6 +1,6 @@
 import { Mesh, MeshToonMaterial, PlaneGeometry, SphereGeometry } from 'three';
 import { AbstractWrapper } from '@Engine/Wrappers/AbstractWrapper';
-import type { MeshToonMaterialParameters } from 'three/src/materials/MeshToonMaterial';
+import type { ActorParams } from '@Engine/Models/ActorParams';
 
 export class ActorWrapper extends AbstractWrapper<Mesh> {
   public entity: Mesh;
@@ -49,14 +49,4 @@ function createSphere({ radius, widthSegments, heightSegments, materialParams }:
   sphere.castShadow = true;
 
   return sphere;
-}
-
-export interface ActorParams {
-  readonly type: 'sphere' | 'plane';
-  readonly width?: number;
-  readonly height?: number;
-  readonly radius?: number;
-  readonly widthSegments?: number;
-  readonly heightSegments?: number;
-  readonly materialParams?: MeshToonMaterialParameters;
 }

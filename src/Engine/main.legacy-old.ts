@@ -6,6 +6,8 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { startWatchResize } from './Watchers/Device/ResizeWatcher';
 import { deviceSize$ } from './Store/DeviceSize';
 
+// TODO (S.Panfilov) this file is just an example, should be removed
+
 const scene = new Scene();
 scene.add(sphere);
 scene.add(plane);

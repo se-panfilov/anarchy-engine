@@ -2,6 +2,7 @@ import { PerspectiveCamera } from 'three';
 import { AbstractWrapper } from '@Engine/Wrappers/AbstractWrapper';
 import { isNotDefined } from '@Engine/Utils';
 import { DeviceWatcher } from '@Engine/Watchers/DeviceWatcher';
+import type { CameraParams } from '@Engine/Models/CameraParams';
 
 export class CameraWrapper extends AbstractWrapper<PerspectiveCamera> {
   public entity: PerspectiveCamera;
@@ -35,12 +36,4 @@ export class CameraWrapper extends AbstractWrapper<PerspectiveCamera> {
     if (isNotDefined(this.entity)) throw new Error(`Wrapper "${this.id}" has no defined entity`);
     this.entity.position.set(x, y, z);
   }
-}
-
-export interface CameraParams {
-  readonly width: number;
-  readonly height: number;
-  readonly fov?: number;
-  readonly near?: number;
-  readonly far?: number;
 }

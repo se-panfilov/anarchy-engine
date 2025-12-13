@@ -1,6 +1,6 @@
 import { AmbientLight, DirectionalLight } from 'three';
-import type { ColorRepresentation } from 'three/src/utils';
 import { AbstractWrapper } from '@Engine/Wrappers/AbstractWrapper';
+import type { LightParams } from '@Engine/Models/LightParams';
 
 export class LightWrapper extends AbstractWrapper<AmbientLight | DirectionalLight> {
   public entity: AmbientLight | DirectionalLight;
@@ -20,10 +20,4 @@ function getLight({ type, color, intensity }: LightParams): AmbientLight | Direc
     default:
       throw new Error('Unknown light type');
   }
-}
-
-export interface LightParams {
-  readonly type: 'ambient' | 'directional';
-  readonly color: ColorRepresentation;
-  readonly intensity?: number;
 }
