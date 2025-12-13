@@ -42,37 +42,37 @@ test.describe('Desktop app Menu/GUI text tests', () => {
     const { page } = context;
     await resetTranslations(page);
 
-    await openSettings(page);
+    await openMenu(page);
 
     await expect(page).toHaveScreenshot('settings-open.png', { fullPage: true });
   });
-  //
-  // test('Open menu with language toggle', async () => {
-  //   const { page } = context;
-  //
-  //   await openSettings(page);
-  //   await toggleLanguage(page);
-  //
-  //   await expect(page).toHaveScreenshot('settings-open-language-toggled.png', { fullPage: true });
-  // });
+
+  test('Open menu with language toggle', async () => {
+    const { page } = context;
+    await resetTranslations(page);
+
+    await toggleLanguage(page);
+    await openMenu(page);
+
+    await expect(page).toHaveScreenshot('settings-open-language-toggled.png', { fullPage: true });
+  });
 });
 
-export async function waitUntilReady(actionName: string, page: Page, timeout: number = 30_000): Promise<void> {
-  await page.waitForFunction(
-    ({ actionName }): boolean | undefined => {
-      console.log(`[E2E] is ${actionName} ready: `, (window as any)._isReady);
-      const body: HTMLBodyElement | null = document.querySelector('body');
-      const loaded: boolean = !!body?.classList.contains('ready');
-      const isReady: boolean = !!(window as any)._isReady;
-      return loaded && isReady;
-    },
-    { timeout, actionName }
-  );
-}
+async function openMenu(page: Page): Promise<void> {
+  const settingsButtonEn: Locator = page.getByRole('button', { name: 'Settings' });
+  const settingsButtonNl: Locator = page.getByRole('button', { name: 'Instellingen' });
 
-async function openSettings(page: Page): Promise<void> {
-  const settingsButton = page.getByRole('button', { name: 'Settings' });
-  await settingsButton.click();
+  if (await settingsButtonEn.count()) {
+    await settingsButtonEn.click();
+    return;
+  }
+
+  if (await settingsButtonNl.count()) {
+    await settingsButtonNl.click();
+    return;
+  }
+
+  throw new Error('Settings toggle button not found');
 }
 
 async function toggleLanguage(page: Page): Promise<void> {
@@ -93,8 +93,25 @@ async function toggleLanguage(page: Page): Promise<void> {
   throw new Error('Language toggle button not found');
 }
 
+async function closeMenu(page: Page): Promise<void> {
+  const closeMenuEn: Locator = page.getByRole('button', { name: 'Close Menu' });
+  // eslint-disable-next-line spellcheck/spell-checker
+  const closeMenuNl: Locator = page.getByRole('button', { name: 'Sluit Menu' });
+
+  if (await closeMenuEn.count()) {
+    await closeMenuEn.click();
+    return;
+  }
+
+  if (await closeMenuNl.count()) {
+    await closeMenuNl.click();
+    return;
+  }
+}
+
 async function resetTranslations(page: Page): Promise<void> {
   const languageButtonEn: Locator = page.getByRole('button', { name: 'Lang' });
   const isVisible: boolean = await languageButtonEn.isVisible();
   if (!isVisible) await toggleLanguage(page);
+  await closeMenu(page);
 }
