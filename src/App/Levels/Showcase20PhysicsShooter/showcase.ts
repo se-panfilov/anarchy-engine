@@ -3,8 +3,8 @@ import { Vector3 } from 'three';
 import type { Line2 } from 'three/examples/jsm/lines/Line2';
 import { degToRad } from 'three/src/math/MathUtils';
 
-import { enableCollisions } from '@/App/Levels/Showcase22PhysicsShooter/utils/Collisions';
-import { initLight } from '@/App/Levels/Showcase22PhysicsShooter/utils/Light';
+import { enableCollisions } from '@/App/Levels/Showcase20PhysicsShooter/utils/Collisions';
+import { initLight } from '@/App/Levels/Showcase20PhysicsShooter/utils/Light';
 import type {
   TActor,
   TAnyCameraWrapper,

@@ -1,7 +1,7 @@
 import type { Vector3Like } from 'three';
 import { Euler, Vector3 } from 'three';
 
-import { BULLET_TARGET_TAG } from '@/App/Levels/Showcase22PhysicsShooter/utils/Bullets';
+import { BULLET_TARGET_TAG } from '@/App/Levels/Showcase20PhysicsShooter/utils/Bullets';
 import type { TActor, TActorService, TBoxGeometryParams, TMaterialService, TMaterialWrapper, TMeters, TModel3d, TModels3dService, TObject3DParams, TSpatialGridWrapper } from '@/Engine';
 import { CollisionShape, MaterialType, meters, PrimitiveModel3dType, RigidBodyTypesNames, TransformAgent } from '@/Engine';
 

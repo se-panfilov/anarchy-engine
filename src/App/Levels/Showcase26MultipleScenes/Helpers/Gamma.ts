@@ -1,7 +1,7 @@
 import { distinctUntilChanged } from 'rxjs';
 import { Clock } from 'three';
 
-import { initSolder1, initSolder2 } from '@/App/Levels/Showcase24ActorsWithModels/Utils';
+import { initSolder1, initSolder2 } from '@/App/Levels/Showcase22ActorsWithModels/Utils';
 import { moveByCircle } from '@/App/Levels/Utils/MoveUtils';
 import type { TFsmStates, TFsmWrapper, TSpace } from '@/Engine';
 import { KeyCode, KeysExtra } from '@/Engine';

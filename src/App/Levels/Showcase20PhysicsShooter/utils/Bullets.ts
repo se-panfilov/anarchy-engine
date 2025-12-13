@@ -5,7 +5,7 @@ import { withLatestFrom } from 'rxjs';
 import { BufferAttribute, BufferGeometry, Color, Euler, PointsMaterial, Vector3 } from 'three';
 import { Points } from 'three/src/objects/Points';
 
-import { createFlashLight } from '@/App/Levels/Showcase22PhysicsShooter/utils/Light';
+import { createFlashLight } from '@/App/Levels/Showcase20PhysicsShooter/utils/Light';
 import type {
   TActor,
   TActorParams,

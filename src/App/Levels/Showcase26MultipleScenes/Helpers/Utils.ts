@@ -1,4 +1,4 @@
-import type { TSubscriptionsData } from '@/App/Levels/Showcase28MultipleScenes/Helpers/TSubscriptionsData';
+import type { TSubscriptionsData } from '@/App/Levels/Showcase26MultipleScenes/Helpers/TSubscriptionsData';
 import { addBtn } from '@/App/Levels/Utils';
 import type { TActor, TActorRegistry, TKeyboardPressingEvent, TParticlesWrapper, TSpace, TSpaceServices } from '@/Engine';
 import { createDomElement, KeyCode, metersPerSecond, mpsSpeed } from '@/Engine';
