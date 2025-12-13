@@ -7,7 +7,7 @@ import type {
   TIntersectionsDirectionWatcherParams
 } from '@Engine/Intersections/Models';
 import type { TReadonlyVector2, TReadonlyVector3 } from '@Engine/ThreeLib';
-import { isDefined, isNotDefined } from '@Engine/Utils';
+import { isDefined, isNotDefined } from '@Shared/Utils';
 import { Vector2, Vector3 } from 'three';
 
 export function isIntersectionsDirectionWatcherConfig(config: TIntersectionsCameraWatcherConfig | TIntersectionsDirectionWatcherConfig): config is TIntersectionsDirectionWatcherConfig {

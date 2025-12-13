@@ -6,7 +6,7 @@ import { RigidBodyTypesMap } from '@Engine/Physics/Constants';
 import { withPhysicsBodyEntities } from '@Engine/Physics/Mixins';
 import type { TPhysicsBody, TPhysicsBodyConfig, TPhysicsBodyEntities, TPhysicsBodyParams, TPhysicsDependencies, TPhysicsShapeParams } from '@Engine/Physics/Models';
 import type { TWriteable } from '@Engine/Utils';
-import { isDefined, isNotDefined } from '@Engine/Utils';
+import { isDefined, isNotDefined } from '@Shared/Utils';
 import type { Subscription } from 'rxjs';
 
 import { createPhysicsBodyEntities } from './PhysicsBodyUtils';

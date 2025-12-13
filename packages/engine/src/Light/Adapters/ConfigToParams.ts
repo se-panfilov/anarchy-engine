@@ -1,7 +1,7 @@
 import { configToParamsCameraOptionsOnly } from '@Engine/Camera/Adapters/ConfigToParams';
 import type { TAnyLightConfig, TLightParams, TLightShadowConfig, TLightShadowParams, TShadowCameraConfig, TShadowCameraParams } from '@Engine/Light/Models';
 import { configToParamsObject3d } from '@Engine/ThreeLib';
-import { isDefined, isNotDefined } from '@Engine/Utils';
+import { isDefined, isNotDefined } from '@Shared/Utils';
 import { Color, Vector2 } from 'three';
 
 export function configToParams(config: TAnyLightConfig): TLightParams {

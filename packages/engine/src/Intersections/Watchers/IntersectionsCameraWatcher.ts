@@ -12,7 +12,7 @@ import type { TMilliseconds } from '@Engine/Math';
 import type { TSceneObject } from '@Engine/Scene';
 import type { TReadonlyVector2 } from '@Engine/ThreeLib';
 import type { TWriteable } from '@Engine/Utils';
-import { isDefined, isNotDefined } from '@Engine/Utils';
+import { isDefined, isNotDefined } from '@Shared/Utils';
 import type { Observable, Subscription } from 'rxjs';
 import { distinctUntilChanged, EMPTY, filter, map, switchMap } from 'rxjs';
 import type { Vector2Like } from 'three';

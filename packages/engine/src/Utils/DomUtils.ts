@@ -1,7 +1,7 @@
 import { ambientContext } from '@Engine/Context';
 import type { TAppGlobalContainer, TContainerDecorator } from '@Engine/Global';
 import { ContainerDecorator } from '@Engine/Global';
-import { isDefined, isNotDefined } from '@Engine/Utils';
+import { isDefined, isNotDefined } from '@Shared/Utils';
 import type { Subscriber } from 'rxjs';
 import { distinctUntilChanged, fromEvent, map, merge, Observable, startWith } from 'rxjs';
 

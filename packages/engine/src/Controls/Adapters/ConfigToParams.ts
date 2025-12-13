@@ -11,7 +11,7 @@ import type {
   TOrbitControlsParams,
   TOrbitControlsParamsOptions
 } from '@Engine/Controls/Models';
-import { isDefined, isNotDefined } from '@Engine/Utils';
+import { isDefined, isNotDefined } from '@Shared/Utils';
 import { Vector3 } from 'three';
 
 export const configToParams: TGetParamsFn<TControlsParams, TControlsConfig> = (config: TControlsConfig, additional: TAdditionalControlsConfigParams): TControlsParams | never => {

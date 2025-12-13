@@ -2,7 +2,7 @@ import { AbstractLoader, LoaderType } from '@Engine/Abstract';
 import type { TTexture, TTextureAsyncRegistry, TTextureMetaInfoRegistry, TTextureResourceConfig, TTexturesLoader } from '@Engine/Texture/Models';
 import { applyColorSpace, applyFilters, applyTextureParams } from '@Engine/Texture/Utils';
 import type { TWriteable } from '@Engine/Utils';
-import { isDefined, isNotDefined } from '@Engine/Utils';
+import { isDefined, isNotDefined } from '@Shared/Utils';
 import { TextureLoader } from 'three';
 
 export function TexturesLoader(registry: TTextureAsyncRegistry, metaInfoRegistry: TTextureMetaInfoRegistry): TTexturesLoader {

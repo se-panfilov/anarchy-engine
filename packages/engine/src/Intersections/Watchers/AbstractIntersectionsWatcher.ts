@@ -12,7 +12,7 @@ import type {
 } from '@Engine/Intersections/Models';
 import type { TRawModel3d } from '@Engine/Models3d';
 import type { TWriteable } from '@Engine/Utils';
-import { isDefined, isNotDefined } from '@Engine/Utils';
+import { isDefined, isNotDefined } from '@Shared/Utils';
 import type { Subscription } from 'rxjs';
 import { Raycaster } from 'three';
 

@@ -1,7 +1,7 @@
 import type { TActor } from '@Engine/Actor';
 import type { TSpatialCell, TSpatialCellWrapper, TSpatialGridWrapper, TWithUpdateSpatialCell } from '@Engine/Spatial/Models';
 import type { TReadonlyVector3 } from '@Engine/ThreeLib';
-import { isDefined, isNotDefined } from '@Engine/Utils';
+import { isDefined, isNotDefined } from '@Shared/Utils';
 
 export function withUpdateSpatialCell(): TWithUpdateSpatialCell {
   let prevCells: ReadonlyArray<Pick<TSpatialCell, 'maxX' | 'maxY' | 'minX' | 'minY'>> = [];

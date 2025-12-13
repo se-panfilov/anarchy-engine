@@ -3,7 +3,7 @@ import type { TAbstractLoadedResourcePack, TAbstractLoader, TAbstractOnLoadFunct
 import type { TDestroyable } from '@Engine/Mixins';
 import { destroyableMixin } from '@Engine/Mixins';
 import type { TWriteable } from '@Engine/Utils';
-import { isDefined, isNotDefined } from '@Engine/Utils';
+import { isDefined, isNotDefined } from '@Shared/Utils';
 import { nanoid } from 'nanoid';
 import type { Subscription } from 'rxjs';
 import { Subject } from 'rxjs';

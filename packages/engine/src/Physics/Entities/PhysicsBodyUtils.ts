@@ -19,7 +19,7 @@ import type {
   TPhysicsShapeTriMeshParams
 } from '@Engine/Physics/Models';
 import type { TOptional } from '@Engine/Utils';
-import { isDefined, isNotDefined } from '@Engine/Utils';
+import { isDefined, isNotDefined } from '@Shared/Utils';
 import type { Vector3 } from 'three';
 
 export function createPhysicsBodyEntities(params: TPhysicsBodyParams, world: World): TPhysicsBodyEntities {

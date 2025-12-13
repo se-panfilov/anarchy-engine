@@ -6,7 +6,7 @@ import { entityToConfigSpatialGrid } from '@Engine/Spatial/Adapters/EntityToConf
 import type { TSpatialCellId, TSpatialCellParams, TSpatialCellWrapper, TSpatialGrid, TSpatialGridConfig, TSpatialGridParams, TSpatialGridWrapper } from '@Engine/Spatial/Models';
 import { createBoundingBox, createOutline } from '@Engine/Spatial/Services/SpatialHelper';
 import { SpatialCellWrapper } from '@Engine/Spatial/Wrappers/SpatialCellWrapper';
-import { isDefined, isNotDefined } from '@Engine/Utils';
+import { isDefined, isNotDefined } from '@Shared/Utils';
 import RBush from 'rbush';
 import type { Subscription } from 'rxjs';
 import { Subject } from 'rxjs';

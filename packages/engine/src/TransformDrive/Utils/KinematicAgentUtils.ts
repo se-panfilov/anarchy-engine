@@ -4,7 +4,7 @@ import type { TMeters, TRadians } from '@Engine/Math';
 import type { TReadonlyQuaternion, TReadonlyVector3 } from '@Engine/ThreeLib';
 import type { TKinematicSpeed, TKinematicTransformAgent } from '@Engine/TransformDrive/Models';
 import type { TWriteable } from '@Engine/Utils';
-import { isDefined, isNotDefined } from '@Engine/Utils';
+import { isDefined, isNotDefined } from '@Shared/Utils';
 import { Quaternion, Vector3 } from 'three';
 
 export function getStepRotation(agent: TKinematicTransformAgent, rotationStep: TRadians, infinite: boolean): Quaternion | undefined {
