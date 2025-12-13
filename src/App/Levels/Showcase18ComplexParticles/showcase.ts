@@ -13,7 +13,7 @@ export function showcase(canvas: TAppCanvas): TShowcase {
   const engine: TEngine = Engine(space);
   const { particlesService } = space.services;
 
-  const particlesName: string = 'bubbles';
+  const particlesName: string = 'stars';
 
   const particlesConfig: TParticlesConfig | undefined = (spaceConfig.particles as ReadonlyArray<TParticlesConfig>).find((p: TParticlesConfig): boolean => p.name === particlesName);
   if (isNotDefined(particlesConfig)) throw new Error(`Particles "${particlesName}" not found`);

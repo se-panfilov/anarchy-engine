@@ -51,7 +51,7 @@
   "envMaps": [],
   "particles": [
     {
-      "name": "bubbles",
+      "name": "stars",
       "position": { "x": 0, "y": 0, "z": 0 },
       "material": {
         "type": "points",
@@ -64,7 +64,7 @@
           "vertexColors": true
         },
         "textures": {
-          "alphaMap": { "url": "/Showcase/particles/2.png" }
+          "alphaMap": { "url": "/Showcase/particles/4.png" }
         }
       },
       "tags": []
