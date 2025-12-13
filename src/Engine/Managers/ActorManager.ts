@@ -1,6 +1,6 @@
-import type { ActorParams } from '@Engine/Wrappers/ActorWrapper';
 import { ActorWrapper } from '@Engine/Wrappers/ActorWrapper';
 import { AbstractManager } from '@Engine/Managers/AbstractManager';
+import type { ActorParams } from '@Engine/Models/ActorParams';
 
 export class ActorManager extends AbstractManager<ActorWrapper> {
   public create(params: ActorParams): ActorWrapper {

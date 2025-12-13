@@ -16,65 +16,81 @@ export async function launch(sceneConfig: SceneConfig): Promise<void> {
   const { name, actors, cameras, lights } = sceneConfig;
   const { promise, resolve } = createDeferredPromise<void>();
 
-  // watch device resize
-  // TODO (S.Panfilov)
+  // create scene/////////////////////
+  const sceneManager = new SceneManager();
+  const scene: SceneWrapper = sceneManager.create(name);
+  ////////////////////////////////////
 
-  // create actors
+  // create actors/////////////////////
   const actorManager = new ActorManager();
+  const cameraManager = new CameraManager();
+  const lightManager = new LightManager();
+  const rendererManager = new RendererManager();
+
+  // add actors to scene/////////////////////
+  actorManager.list$.subscribe((actor) => {
+    console.log(actor);
+    // scene.addActor()
+  });
+  ////////////////////////////////////
 
   actors.forEach((config: ActorConfig) => {
     const params: ActorParams = actorAdapter(config);
     const actor: ActorWrapper = actorManager.create(params);
+    actor.setPosition(config.position.x, config.position.y, config.position.z);
+    actor.setCastShadow(config.castShadow);
   });
+  ////////////////////////////////////
 
-  // create scene
-  const sceneManager = new SceneManager();
-  const scene: SceneWrapper = sceneManager.create(name);
+  // create camera/////////////////////
 
-  // add actors to scene
+  // cameras.forEach((config: CameraConfig) => {
+  //   // TODO (S.Panfilov) deviceWatcher should be DI
+  //   const camera: CameraWrapper = cameraManager.create(config.params, deviceWatcher);
+  //   camera.lookAt(config.lookAt.x, config.lookAt.y, config.lookAt.z);
+  //   camera.setPosition(config.position.x, config.position.y, config.position.z);
+  // });
+  //
+  // // add camera to scene/////////////////////
+  // // TODO (S.Panfilov)
+  // ////////////////////////////////////
+  //
+  // // create renderer/////////////////////
+  // // TODO (S.Panfilov) deviceWatcher should be DI, and canvas also (cause it's global)
+  // const renderer = rendererManager.create(canvas, deviceWatcher);
+  // ////////////////////////////////////
+  //
+  // //create lights/////////////////////
+  //
+  // lights.forEach((config: LightConfig) => {
+  //   const params: LightParams = lightAdapter(config);
+  //   const light: ActorWrapper = lightManager.create(params);
+  // });
+  // ////////////////////////////////////
+
+  // add lights to scene/////////////////////
   // TODO (S.Panfilov)
+  ////////////////////////////////////
 
-  // create camera
-  const cameraManager = new CameraManager();
-  cameras.forEach((config: CameraConfig) => {
-    // TODO (S.Panfilov) deviceWatcher should be DI
-    const camera: CameraWrapper = cameraManager.create(config.params, deviceWatcher);
-    camera.lookAt(config.lookAt);
-    camera.setPosition(config.position);
-  });
-
-  // add camera to scene
+  // create controls (needs camera, renderer)/////////////////////
   // TODO (S.Panfilov)
+  ////////////////////////////////////
 
-  // create renderer
-  const rendererManager = new RendererManager();
-  // TODO (S.Panfilov) deviceWatcher should be DI, and canvas also (cause it's global)
-  const renderer = rendererManager.create(canvas, deviceWatcher);
-
-  //create lights
-  const lightManager = new LightManager();
-  lights.forEach((config: LightConfig) => {
-    const params: LightParams = lightAdapter(config);
-    const light: ActorWrapper = lightManager.create(params);
-  });
-
-  // add lights to scene
+  // create mouse pointer/////////////////////
   // TODO (S.Panfilov)
+  ////////////////////////////////////
 
-  // create controls (needs camera, renderer)
+  // create intersection pointer (mouse pointer, camera, scene)/////////////////////
   // TODO (S.Panfilov)
+  ////////////////////////////////////
 
-  // create mouse pointer
+  // listen clicks by intersection pointer/////////////////////
   // TODO (S.Panfilov)
+  ////////////////////////////////////
 
-  // create intersection pointer (mouse pointer, camera, scene)
+  // start loop (renderer, scene, camera)/////////////////////
   // TODO (S.Panfilov)
-
-  // listen clicks by intersection pointer
-  // TODO (S.Panfilov)
-
-  // start loop (renderer, scene, camera)
-  // TODO (S.Panfilov)
+  ////////////////////////////////////
 
   resolve();
 

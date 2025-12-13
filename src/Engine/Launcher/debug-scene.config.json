@@ -2,18 +2,26 @@
   "name": "Test scene 01",
   "actors": [
     {
-      "width": 60,
-      "height": 40,
-      "widthSegments": 10,
-      "heightSegments": 10,
-      "materialParams": { "color": "#5EDCAE" },
-      "type": "plane"
+      "params": {
+        "width": 60,
+        "height": 40,
+        "widthSegments": 10,
+        "heightSegments": 10,
+        "materialParams": { "color": "#5EDCAE" },
+        "type": "plane"
+      },
+      "position": { "x": 0, "y": 2, "z": 0 },
+      "castShadow": false
     },
     {
-      "type": "sphere",
-      "width": 32,
-      "height": 32,
-      "materialParams": { "color": "#E91E63" }
+      "params": {
+        "type": "sphere",
+        "width": 32,
+        "height": 32,
+        "materialParams": { "color": "#E91E63" }
+      },
+      "position": { "x": 0, "y": 2, "z": 0 },
+      "castShadow": true
     }
   ],
   "cameras": [
