@@ -11,7 +11,12 @@ import type {
   TStandardMaterialTexturePack,
   TToonMaterialTexturePack
 } from '@/Engine/MaterialTexturePack/Models';
+import type { TDestroyable } from '@/Engine/Mixins';
+import type { TWithCreateFromConfigService, TWithFactoryService, TWithRegistryService } from '@/Engine/Space';
 
+import type { TTextureAsyncRegistry } from './TTextureAsyncRegistry';
+import type { TTextureConfig } from './TTextureConfig';
+import type { TTextureFactory } from './TTextureFactory';
 import type {
   TBasicTextureUploadPromises,
   TDepthTextureUploadPromises,
@@ -47,7 +52,7 @@ export type TPhysicalMaterialTextureService = TWithPhysicalMaterialTextureLoader
 export type TToonMaterialTextureService = TWithToonMaterialTextureLoader;
 export type TStandardMaterialTextureService = TWithStandardMaterialTextureLoader;
 
-export type TTextureService =
+export type TTextureService = (
   | TBasicMaterialTextureService
   | TDepthMaterialTextureService
   | TDistanceMaterialTextureService
@@ -57,4 +62,9 @@ export type TTextureService =
   | TPhongMaterialTextureService
   | TPhysicalMaterialTextureService
   | TToonMaterialTextureService
-  | TStandardMaterialTextureService;
+  | TStandardMaterialTextureService
+) &
+  TWithCreateFromConfigService<TTextureConfig> &
+  TWithFactoryService<TTextureFactory> &
+  TWithRegistryService<TTextureAsyncRegistry> &
+  TDestroyable;

@@ -33,6 +33,8 @@ import type { TSpatialGridService, TSpatialLoopService } from '@/Engine/Spatial'
 import { SpatialGridFactory, SpatialGridRegistry, SpatialGridService, SpatialLoopService } from '@/Engine/Spatial';
 import { Text2dRegistry, Text2dRendererRegistry, Text3dRegistry, Text3dRendererRegistry, TextFactory, TextService } from '@/Engine/Text';
 import { TextureService, textureService } from '@/Engine/Texture';
+import { TextureFactory } from '@/Engine/Texture/Factories/TextureFactory';
+import { TextureAsyncRegistry } from '@/Engine/Texture/Registries/TextureRegistry';
 import { isNotDefined } from '@/Engine/Utils';
 
 export function initSceneService(): TScenesService {
@@ -99,7 +101,7 @@ export function initEntitiesServices(sceneW: TSceneWrapper, canvas: TAppCanvas):
     spatialLoopService,
     spatialGridService,
     textService: TextService(TextFactory(), Text2dRegistry(), Text3dRegistry(), Text2dRendererRegistry(), Text3dRendererRegistry(), sceneW),
-    textureService: TextureService()
+    textureService: TextureService(TextureFactory(), TextureAsyncRegistry())
   };
 }
 

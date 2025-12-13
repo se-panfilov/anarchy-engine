@@ -36,6 +36,8 @@ import type {
   TStandardTextureUploaded,
   TStandardTextureUploadPromises,
   TTexture,
+  TTextureAsyncRegistry,
+  TTextureFactory,
   TTextureService,
   TTextureUploaded,
   TTextureUploadPromises,
@@ -46,7 +48,7 @@ import { applyColorSpace, applyFilters, applyTextureParams } from '@/Engine/Text
 import type { TWriteable } from '@/Engine/Utils';
 import { isNotDefined } from '@/Engine/Utils';
 
-export function TextureService(): TTextureService {
+export function TextureService(factory: TTextureFactory, registry: TTextureAsyncRegistry): TTextureService {
   const textureLoader: TextureLoader = new TextureLoader();
 
   function load(m: TMaterialPackParams<TBasicMaterialTexturePack>): TBasicTextureUploadPromises;
@@ -64,7 +66,7 @@ export function TextureService(): TTextureService {
     if (isNotDefined(m.textures)) return { ...promises, all };
 
     Object.entries(m.textures).forEach(([key, packParams]: [string, TTexturePackParams]): void => {
-      // TODO do not load texture if already loaded to the scene
+      // TODO 9.0.0. RESOURCES: Do not load texture if already loaded to the scene (check registry)
       const { url, params }: TTexturePackParams = packParams;
       const p: Promise<TTexture> = textureLoader.loadAsync(url).then((texture: TWriteable<TTexture>): TTexture => {
         applyTextureParams(texture, params);
