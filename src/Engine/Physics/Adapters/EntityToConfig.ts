@@ -1,6 +1,5 @@
 import type { Collider, RigidBody } from '@dimforge/rapier3d';
 
-import { extractSerializableRegistrableFields } from '@/Engine/Mixins';
 import type { TPhysicsBody, TPhysicsBodyConfig } from '@/Engine/Physics/Models';
 import { filterOutEmptyFields, isDefined } from '@/Engine/Utils';
 
@@ -40,6 +39,6 @@ export function physicsToConfig(entity: TPhysicsBody): TPhysicsBodyConfig {
     collisionShape: entity.getPhysicsBodyShape(),
     ...rigidBodySettings,
     ...colliderSettings,
-    ...extractSerializableRegistrableFields(entity)
+    presetName: entity.name
   });
 }
