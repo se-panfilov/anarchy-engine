@@ -6,6 +6,7 @@ export type TWithKinematic = {
   getKinematicInfo: () => TKinematicInfo;
   doKinematicMove: (delta: number) => void;
   doKinematicRotation: (delta: number) => void;
+  isKinematicAutoUpdate: boolean;
 };
 
 export type TKinematicAccessors = Readonly<{

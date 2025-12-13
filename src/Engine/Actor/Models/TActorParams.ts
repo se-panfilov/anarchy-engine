@@ -11,5 +11,6 @@ export type TActorParams = TActorProps &
   }> &
   Readonly<{
     kinematic?: TKinematicInfo;
+    isKinematicAutoUpdate?: boolean;
   }> &
   TWithReadonlyTags;

@@ -30,6 +30,7 @@ export function withKinematic(params: TActorParams): TWithKinematic {
         })
       );
     },
+    isKinematicAutoUpdate: params.isKinematicAutoUpdate ?? true,
     doKinematicRotation(delta: number): void {
       // TODO (S.Panfilov) set or add values?
       (this as TWriteable<TWithKinematic> & TWithRotation).setRotation(this.kinematic.angularVelocity.x * delta, this.kinematic.angularVelocity.y * delta, this.kinematic.angularVelocity.z * delta);

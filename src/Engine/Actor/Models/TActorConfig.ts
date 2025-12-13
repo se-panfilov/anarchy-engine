@@ -13,6 +13,7 @@ export type TActorConfig = Omit<TActorProps, 'material'> &
     castShadow: boolean;
     physics?: TWithPresetNamePhysicsBodyConfig;
     kinematic?: TKinematicInfo;
+    isKinematicAutoUpdate?: boolean;
   }> &
   TObject3DPropConfig &
   TWithReadonlyTags;

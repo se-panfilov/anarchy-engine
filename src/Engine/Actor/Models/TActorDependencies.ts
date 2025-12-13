@@ -3,6 +3,7 @@ import type { TPhysicsBodyService, TPhysicsLoopService } from '@/Engine/Physics'
 
 export type TActorDependencies = Readonly<{
   materialTextureService: TMaterialTextureService;
+  kinematicLoopService: TKinematicLoopService;
 }>;
 
 export type TActorWithPhysicsDependencies = TActorDependencies &
