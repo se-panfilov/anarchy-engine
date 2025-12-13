@@ -16,13 +16,13 @@ export function IntersectionsService(factory: IIntersectionsWatcherFactory, regi
   }
 
   function addActorsToWatcher(watcherId: string, actors: ReadonlyArray<IActorWrapperAsync>): void {
-    const watcher: IIntersectionsWatcher | undefined = registry.getById(watcherId);
+    const watcher: IIntersectionsWatcher | undefined = registry.findById(watcherId);
     if (isNotDefined(watcher)) throw new Error(`Intersections service: cannot add actors to watcher: watcher with id ${watcherId} is not defined`);
     watcher.addActors(actors);
   }
 
   function start(watcherId: string): IIntersectionsWatcher {
-    const watcher: IIntersectionsWatcher | undefined = registry.getById(watcherId);
+    const watcher: IIntersectionsWatcher | undefined = registry.findById(watcherId);
     if (isNotDefined(watcher)) throw new Error(`Intersections service: cannot start watcher: watcher with id ${watcherId} is not defined`);
     return watcher.start();
   }

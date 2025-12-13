@@ -5,7 +5,7 @@ import type { IAbstractEntityRegistry, IWithBaseAccessorsRegistry, IWithReactive
 import type { LookUpStrategy } from '@/Engine/Abstract/Registry/Constants';
 import { withBaseAccessorsRegistry } from '@/Engine/Abstract/Registry/Mixin';
 import { withReactiveRegistry } from '@/Engine/Abstract/Registry/Mixin/Registry/WithReactiveRegistry';
-import type { IDestroyable, IMultitonRegistrable, IRegistrable } from '@/Engine/Mixins';
+import type { IDestroyable, IMultitonRegistrable, IRegistrable, IWithConfigId } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
 import { getAllEntitiesWithTag, getAllEntitiesWithTags, getUniqEntityWithTag, getUniqEntityWithTags, isNotDefined } from '@/Engine/Utils';
 
@@ -35,7 +35,15 @@ export function AbstractEntityRegistry<T extends IRegistrable | IMultitonRegistr
     replaced$.next(entity);
   }
 
-  const getById = (id: string): T | undefined => registry.get(id);
+  const findById = (id: string): T | undefined => registry.get(id);
+
+  const findByConfigId = <TC extends T & IWithConfigId>(id: string): TC | undefined => {
+    // eslint-disable-next-line functional/no-loop-statements
+    for (const [, value] of registry.entries()) {
+      if ((value as unknown as TC).configId === id) return value as unknown as TC;
+    }
+    return undefined;
+  };
 
   function remove(id: string): void | never {
     const entity: T | undefined = registry.get(id);
@@ -58,7 +66,8 @@ export function AbstractEntityRegistry<T extends IRegistrable | IMultitonRegistr
     removed$: removed$.asObservable(),
     add,
     replace,
-    getById,
+    findById,
+    findByConfigId,
     getAll,
     findAllByTags: findAllByTags,
     findAllByTag: findAllByTag,

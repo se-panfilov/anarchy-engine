@@ -1,3 +1,4 @@
+import type { ICameraRegistry } from '@/Engine/Camera';
 import type { IDestroyable } from '@/Engine/Mixins';
 
 import type { IControlsConfig } from './IControlsConfig';
@@ -8,7 +9,7 @@ import type { IControlsWrapper } from './IControlsWrapper';
 
 export type IControlsService = Readonly<{
   create: (params: IControlsParams) => IControlsWrapper;
-  createFromConfig: (controls: ReadonlyArray<IControlsConfig>) => void;
+  createFromConfig: (controls: ReadonlyArray<IControlsConfig>, camerasRegistry: ICameraRegistry) => void;
   setActiveControls: (controlsId: string) => void;
   findActiveControls: () => IControlsWrapper | undefined;
   getFactory: () => IControlsFactory;

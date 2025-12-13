@@ -1,6 +1,6 @@
 import type { IActorConfig } from '@/Engine/Actor';
 import type { ICameraConfig } from '@/Engine/Camera';
-import type { IOrbitControlsConfig } from '@/Engine/Controls';
+import type { IControlsConfig } from '@/Engine/Controls';
 import type { IFogConfig } from '@/Engine/Fog';
 import type { ILightConfig } from '@/Engine/Light';
 import type { IWithReadonlyTags } from '@/Engine/Mixins';
@@ -17,7 +17,7 @@ export type ISpaceConfig = Readonly<{
   lights: ReadonlyArray<ILightConfig>;
   fogs: ReadonlyArray<IFogConfig>;
   texts: ReadonlyArray<ITextConfig>;
-  controls: ReadonlyArray<IOrbitControlsConfig>;
+  controls: ReadonlyArray<IControlsConfig>;
   envMaps: ReadonlyArray<string>;
 }> &
   IWithReadonlyTags<string>;

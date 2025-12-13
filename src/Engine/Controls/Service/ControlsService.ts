@@ -1,16 +1,17 @@
 import type { IAppCanvas } from '@/Engine/App';
-import type { ICameraWrapper } from '@/Engine/Camera';
+import type { ICameraRegistry, ICameraWrapper } from '@/Engine/Camera';
 import type { IControlsConfig, IControlsFactory, IControlsParams, IControlsRegistry, IControlsService, IControlsWrapper } from '@/Engine/Controls/Models';
 import type { IDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
 import { findActiveWrappedEntity, isNotDefined, setActiveWrappedEntity } from '@/Engine/Utils';
 
-export function ControlService(factory: IControlsFactory, registry: IControlsRegistry, camera: ICameraWrapper, canvas: IAppCanvas): IControlsService {
+export function ControlService(factory: IControlsFactory, registry: IControlsRegistry, canvas: IAppCanvas): IControlsService {
   factory.entityCreated$.subscribe((wrapper: IControlsWrapper): void => registry.add(wrapper));
 
   const create = (params: IControlsParams): IControlsWrapper => factory.create(params);
-  const createFromConfig = (controls: ReadonlyArray<IControlsConfig>): void => {
+  const createFromConfig = (controls: ReadonlyArray<IControlsConfig>, camerasRegistry: ICameraRegistry): void => {
     controls.forEach((control: IControlsConfig): IControlsWrapper => {
+      const camera: ICameraWrapper | undefined = camerasRegistry.findByConfigId(control.relatedCameraConfigId);
       if (isNotDefined(camera)) throw new Error(`Cannot find camera for controls (${control.type}) initialization`);
       return create(factory.configToParams(control, { camera, canvas }));
     });

@@ -1,4 +1,4 @@
-import type { IWithCoordsXY, IWithReadonlyTags } from '@/Engine/Mixins';
+import type { IWithConfigId, IWithCoordsXY, IWithReadonlyTags } from '@/Engine/Mixins';
 import type { IObject3DPropConfig } from '@/Engine/ThreeLib';
 
 import type { IAbstractLightProps } from './IAbstractLightProps';
@@ -9,6 +9,7 @@ export type ILightConfig = Omit<IAbstractLightProps, 'color' | 'shadow'> &
     color: string;
     shadow?: LightShadowConfig;
   }> &
+  IWithConfigId &
   IObject3DPropConfig &
   IWithReadonlyTags<string>;
 
