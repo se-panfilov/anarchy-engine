@@ -1,6 +1,9 @@
+import type { TNoSpread } from '@/Engine/Mixins';
+
 import type { TRegistrable } from './TRegistrable';
 
-export type TMultitonRegistrable = TRegistrable &
-  Readonly<{
-    key: string;
-  }>;
+export type TMultitonRegistrable = Readonly<{
+  key: string;
+}> &
+  TRegistrable &
+  TNoSpread;

@@ -1,7 +1,7 @@
 import type { Observable } from 'rxjs';
 
 import type { RegistryType } from '@/Engine/Abstract/Constants';
-import type { TDestroyable, TWithId } from '@/Engine/Mixins';
+import type { TDestroyable, TNoSpread, TWithId } from '@/Engine/Mixins';
 
 import type { TRegistryPack } from './TRegistryPack';
 import type { TWithBaseAccessorsRegistry } from './TWithBaseAccessorsRegistry';
@@ -23,4 +23,5 @@ export type TAbstractSimpleRegistry<T> = TWithBaseAccessorsRegistry<T> &
     type: RegistryType | string;
   }> &
   TWithId &
-  TDestroyable;
+  TDestroyable &
+  TNoSpread;

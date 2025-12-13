@@ -1,7 +1,7 @@
 import type { Observable } from 'rxjs';
 
 import type { LoaderType, TAbstractLoadedResourcePack, TAbstractOnLoadFunction, TAbstractResourceConfig } from '@/Engine/Abstract';
-import type { TDestroyable, TWithId } from '@/Engine/Mixins';
+import type { TDestroyable, TNoSpread, TWithId } from '@/Engine/Mixins';
 
 export type TAbstractLoader<T, C extends TAbstractResourceConfig> = Readonly<{
   type: LoaderType;
@@ -12,4 +12,5 @@ export type TAbstractLoader<T, C extends TAbstractResourceConfig> = Readonly<{
   loaded$: Observable<TAbstractLoadedResourcePack<T, C>>;
 }> &
   TWithId &
-  TDestroyable;
+  TDestroyable &
+  TNoSpread;

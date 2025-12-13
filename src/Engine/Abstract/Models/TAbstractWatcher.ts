@@ -1,7 +1,7 @@
 import type { Subject } from 'rxjs';
 
 import type { WatcherType } from '@/Engine/Abstract';
-import type { TDestroyable, TRegistrable, TWithNameAndNameAccessorsMixin } from '@/Engine/Mixins';
+import type { TDestroyable, TNoSpread, TRegistrable, TWithNameAndNameAccessorsMixin } from '@/Engine/Mixins';
 
 export type TAbstractWatcher<T> = Readonly<{
   type: WatcherType | string;
@@ -9,4 +9,5 @@ export type TAbstractWatcher<T> = Readonly<{
 }> &
   TWithNameAndNameAccessorsMixin &
   TRegistrable &
-  TDestroyable;
+  TDestroyable &
+  TNoSpread;
