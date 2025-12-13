@@ -18,7 +18,8 @@
       { "name": "blue_material", "type": "standard", "options": { "color": "#0000ff" } }
     ],
     "animations": [],
-    "models3d": []
+    "models3d": [],
+    "audio": []
   },
   "entities": {
     "spatialGrids": [
@@ -202,7 +203,8 @@
     "envMaps": [],
     "particles": [],
     "fogs": [],
-    "fsm": []
+    "fsm": [],
+    "audio": []
   },
   "tags": []
 }

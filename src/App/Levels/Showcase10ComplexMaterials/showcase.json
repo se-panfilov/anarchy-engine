@@ -356,7 +356,8 @@
       }
     ],
     "animations": [],
-    "models3d": []
+    "models3d": [],
+    "audio": []
   },
   "entities": {
     "models3d": [
@@ -977,7 +978,8 @@
     "envMaps": [{ "name": "urban_alley_env_map", "texture": "urban_alley_hdr", "isActive": true }],
     "particles": [],
     "fogs": [],
-    "fsm": []
+    "fsm": [],
+    "audio": []
   },
   "tags": []
 }

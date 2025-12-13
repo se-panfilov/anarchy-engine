@@ -16,7 +16,8 @@
       { "name": "sphere_material", "type": "toon", "options": { "color": "#E91E63" } }
     ],
     "animations": [],
-    "models3d": []
+    "models3d": [],
+    "audio": []
   },
   "entities": {
     "spatialGrids": [
@@ -112,7 +113,8 @@
     "envMaps": [],
     "particles": [],
     "fogs": [],
-    "fsm": []
+    "fsm": [],
+    "audio": []
   },
   "tags": []
 }

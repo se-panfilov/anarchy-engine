@@ -16,6 +16,7 @@
       { "name": "sphere_material", "type": "standard", "options": { "color": "#E91E63" } }
     ],
     "models3d": [{ "name": "mutant_model", "url": "/Showcase/Models/Mutant/Mutant.glb" }],
+    "audio": [],
     "animations": []
   },
   "entities": {
@@ -133,7 +134,8 @@
         "far": 35
       }
     ],
-    "fsm": []
+    "fsm": [],
+    "audio": []
   },
   "tags": []
 }

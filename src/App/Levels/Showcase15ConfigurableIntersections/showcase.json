@@ -19,7 +19,8 @@
       { "name": "cube_blue_2_material", "type": "standard", "options": { "color": "#4013a4" } }
     ],
     "animations": [],
-    "models3d": []
+    "models3d": [],
+    "audio": []
   },
   "entities": {
     "spatialGrids": [
@@ -185,7 +186,8 @@
     "envMaps": [],
     "particles": [],
     "fogs": [],
-    "fsm": []
+    "fsm": [],
+    "audio": []
   },
   "tags": []
 }

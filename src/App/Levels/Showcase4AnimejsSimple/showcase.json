@@ -13,7 +13,8 @@
     "envMaps": [],
     "materials": [{ "name": "plane_material", "type": "standard", "options": { "color": "#5ddc9a" } }],
     "animations": [],
-    "models3d": []
+    "models3d": [],
+    "audio": []
   },
   "entities": {
     "spatialGrids": [
@@ -94,7 +95,8 @@
     "envMaps": [],
     "particles": [],
     "fogs": [],
-    "fsm": []
+    "fsm": [],
+    "audio": []
   },
   "tags": []
 }

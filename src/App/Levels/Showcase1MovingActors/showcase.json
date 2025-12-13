@@ -15,8 +15,9 @@
       { "name": "surface_material", "type": "standard", "options": { "color": "#5EDCAE" } },
       { "name": "sphere_material", "type": "standard", "options": { "color": "#E91E63" } }
     ],
-    "animations": [],
-    "models3d": []
+    "models3d": [],
+    "audio": [],
+    "animations": []
   },
   "entities": {
     "spatialGrids": [
@@ -120,7 +121,8 @@
     "envMaps": [],
     "particles": [],
     "fogs": [],
-    "fsm": []
+    "fsm": [],
+    "audio": []
   },
   "tags": []
 }

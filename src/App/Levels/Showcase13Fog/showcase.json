@@ -31,7 +31,8 @@
       }
     ],
     "animations": [],
-    "models3d": []
+    "models3d": [],
+    "audio": []
   },
   "entities": {
     "spatialGrids": [
@@ -129,7 +130,8 @@
         "tags": []
       }
     ],
-    "fsm": []
+    "fsm": [],
+    "audio": []
   },
   "tags": []
 }

@@ -13,7 +13,8 @@
     "envMaps": [],
     "materials": [{ "name": "surface_material", "type": "standard", "options": { "color": "#5EDCAE" } }],
     "animations": [],
-    "models3d": []
+    "models3d": [],
+    "audio": []
   },
   "entities": {
     "models3d": [
@@ -107,7 +108,8 @@
     "envMaps": [],
     "particles": [],
     "fogs": [],
-    "fsm": []
+    "fsm": [],
+    "audio": []
   },
   "tags": []
 }

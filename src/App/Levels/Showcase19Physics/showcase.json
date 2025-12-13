@@ -100,7 +100,8 @@
       }
     ],
     "animations": [],
-    "models3d": []
+    "models3d": [],
+    "audio": []
   },
   "entities": {
     "spatialGrids": [
@@ -447,7 +448,8 @@
     "envMaps": [{ "name": "shanghai_bund_env_map", "texture": "shanghai_bund_hdr", "isActive": true }],
     "particles": [],
     "fogs": [],
-    "fsm": []
+    "fsm": [],
+    "audio": []
   },
   "tags": []
 }

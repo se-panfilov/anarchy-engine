@@ -27,7 +27,8 @@
       { "name": "target_3_material", "type": "standard", "options": { "color": "#FFF000" } }
     ],
     "animations": [],
-    "models3d": []
+    "models3d": [],
+    "audio": []
   },
   "entities": {
     "spatialGrids": [
@@ -403,7 +404,8 @@
         "tags": []
       }
     ],
-    "fsm": []
+    "fsm": [],
+    "audio": []
   },
   "tags": []
 }

@@ -16,6 +16,7 @@
       { "name": "sphere_material", "type": "standard", "options": { "color": "#E91E63" } }
     ],
     "models3d": [{ "name": "solder_model", "url": "/Showcase/Models/Solder/Solder.glb" }],
+    "audio": [],
     "animations": [{ "name": "dance_anim", "url": "/Showcase/Models/Solder/animations/samba.glb" }]
   },
   "entities": {
@@ -160,7 +161,8 @@
           ["Dance", "Idle", "Idle"]
         ]
       }
-    ]
+    ],
+    "audio": []
   },
   "tags": []
 }

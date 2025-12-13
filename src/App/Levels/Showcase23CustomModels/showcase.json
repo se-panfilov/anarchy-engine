@@ -13,6 +13,7 @@
     "envMaps": [],
     "materials": [{ "name": "surface_material", "type": "standard", "options": { "color": "#5EDCAE" } }],
     "models3d": [{ "name": "fox_glb", "url": "/Showcase/Models/Fox/Fox.glb" }],
+    "audio": [],
     "animations": []
   },
   "entities": {
@@ -122,7 +123,8 @@
     "envMaps": [],
     "particles": [],
     "fogs": [],
-    "fsm": []
+    "fsm": [],
+    "audio": []
   },
   "tags": []
 }
