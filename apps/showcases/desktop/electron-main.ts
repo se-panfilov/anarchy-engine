@@ -17,6 +17,7 @@ const isOpenDevTools: boolean = true;
 // TODO DESKTOP: Detect resolution and set window size accordingly
 // TODO DESKTOP: Add canvas.requestPointerLock(); on a Space level
 // TODO DESKTOP: Error forwarding to a file
+// TODO DESKTOP: Fix Electron Security Warning (Insecure Content-Security-Policy) https://www.electronjs.org/docs/latest/tutorial/security
 
 function getIndexHtmlPath(): string {
   const path: string = app.isPackaged ? join(app.getAppPath(), 'dist-app', 'index.html') : join(__dirname, '..', 'dist-app', 'index.html');
@@ -110,17 +111,4 @@ app.whenReady().then((): void => {
 
   // No new windows via window.open
   win.webContents.setWindowOpenHandler(() => ({ action: 'deny' }));
-
-  // window.addEventListener('dragover', (e) => e.preventDefault());
-  // window.addEventListener('drop', (e) => e.preventDefault());
-  // window.addEventListener('contextmenu', (e) => e.preventDefault());
-
-  // * {
-  //     user-select: none;
-  //    // cursor: none;
-  //   }
-
-  //body {
-  //   -webkit-app-region: no-drag;
-  // }
 });
