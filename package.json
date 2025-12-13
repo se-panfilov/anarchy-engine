@@ -34,8 +34,8 @@
   },
   "devDependencies": {
     "@types/animejs": "3.1.12",
-    "@types/node": "20.12.11",
-    "@types/three": "0.164.0",
+    "@types/node": "20.12.12",
+    "@types/three": "0.164.1",
     "@typescript-eslint/eslint-plugin": "7.10.0",
     "@typescript-eslint/parser": "7.10.0",
     "@vitest/coverage-v8": "1.6.0",
