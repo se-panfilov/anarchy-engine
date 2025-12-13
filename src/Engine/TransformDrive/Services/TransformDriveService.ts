@@ -22,7 +22,9 @@ export function TransformDriveService(factory: TTransformDriveFactory, registry:
   const disposable: ReadonlyArray<TDisposable> = [registry, factory, factorySub$];
   const abstractService: TAbstractService = AbstractService(disposable);
 
-  const create = <T extends Partial<Record<TransformAgent, TAbstractTransformAgent>>>(params: TTransformDriveParams, agents: T): TTransformDrive<T> => factory.create({ params, agents });
+  const create = <T extends Partial<Record<TransformAgent, TAbstractTransformAgent>>>(params: TTransformDriveParams, agents: T): TTransformDrive<T> => {
+    return factory.create({ params, agents }, undefined) as TTransformDrive<T>;
+  };
   const createFromList = <T extends Partial<Record<TransformAgent, TAbstractTransformAgent>>>(
     paramsList: ReadonlyArray<TTransformDriveParams>,
     agentsList: ReadonlyArray<T>
