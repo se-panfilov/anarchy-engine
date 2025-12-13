@@ -53,7 +53,7 @@ export function enableCollisions(mouseLineIntersectionsWatcher: TIntersectionsWa
   // collisionsService.bvh.createBvhForActor(targetActor3);
 
   const physicsBlocksList: ReadonlyArray<TActor> = findAllByTag('physics_block');
-  physicsBlocksList.forEach((blockW: TActor) => grid.addActor(blockW));
+  physicsBlocksList.forEach((blockW: TActor): void => grid.addActor(blockW));
 
   mouseLineIntersectionsWatcher.addActor(boxActor1);
   mouseLineIntersectionsWatcher.addActor(boxActor2);

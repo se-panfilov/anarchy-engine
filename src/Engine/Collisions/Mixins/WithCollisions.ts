@@ -20,6 +20,8 @@ export function withCollisions(params: TActorParams, collisionsService: TCollisi
   const destroySub$: Subscription = destroyable.destroy$.subscribe((): void => {
     destroySub$.unsubscribe();
 
+    autoUpdate$.complete();
+    autoUpdate$.unsubscribe();
     value$.complete();
     value$.unsubscribe();
     collisionsLoopServiceSub$.unsubscribe();
@@ -29,7 +31,7 @@ export function withCollisions(params: TActorParams, collisionsService: TCollisi
   function getActorsToCheck(actor: TActor): ReadonlyArray<TActor> {
     const cells: ReadonlyArray<TSpatialCellWrapper> = actor.spatial.getSpatialCells();
     if (cells.length > 0) {
-      const objects = actor.spatial.getSpatialCells().flatMap((cell: TSpatialCellWrapper): ReadonlyArray<TActor> => cell.getObjects());
+      const objects: ReadonlyArray<TActor> = actor.spatial.getSpatialCells().flatMap((cell: TSpatialCellWrapper): ReadonlyArray<TActor> => cell.getObjects());
       return isDefined(filterFn) ? objects.filter(filterFn) : objects;
     }
     return [];

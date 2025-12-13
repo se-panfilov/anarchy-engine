@@ -372,7 +372,7 @@
         "intensity": 2,
         "castShadow": true,
         "shadow": {
-          "mapSize": { "x": 512, "y": 512 },
+          "mapSize": { "x": 1024, "y": 1024 },
           "camera": { "far": 150, "left": -35, "right": 35, "top": 10, "bottom": -10 },
           "normalBias": 0.05
         },
