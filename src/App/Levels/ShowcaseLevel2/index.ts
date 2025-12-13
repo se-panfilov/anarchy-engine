@@ -35,8 +35,8 @@ export function showcaseLevel2(canvas: IAppCanvas): IShowcase {
 
     const { mousePositionWatcher, screenSizeWatcher } = ambientContext;
     combineLatest([mousePositionWatcher.value$, screenSizeWatcher.latest$]).subscribe(([{ x, y }, { width, height }]): void => {
-      const xRatio = x / width;
-      const yRatio = -(y / height);
+      const xRatio: number = x / width;
+      const yRatio: number = -(y / height);
       // const xAngle = xRatio * Math.PI * 2;
       // const yAngle = yRatio * Math.PI * 2;
       // const xPosition = Math.sin(xAngle) * 5;
