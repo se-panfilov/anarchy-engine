@@ -20,6 +20,9 @@ export function Driver(): TPlatformDriver {
 
   const getWrappedAppVersion = (): Promise<string> => Promise.resolve('N/A');
 
+  const getPackagesVersions = (): Promise<Record<string, string>> => __BUILD_META_INFO__;
+
+  // TODO DESKTOP: check that we not calling this method twice
   async function getAppSettings(): Promise<TShowcaseGameSettings> {
     const settings: TShowcaseGameSettings | undefined = await settingsWebDbService.findSettings();
     if (isDefined(settings)) return settings;
@@ -79,6 +82,7 @@ export function Driver(): TPlatformDriver {
     getBrowserInfo,
     getLegalDocs,
     getNodeVersion,
+    getPackagesVersions,
     getPlatformVersion,
     getPreferredLocales,
     getWrappedAppVersion,

@@ -11,6 +11,7 @@ export function Driver(): TPlatformDriver {
   const getBrowserInfo = (): TBrowserInfo => window[platformApiName].getBrowserInfo();
   const getLegalDocs = (options: TLoadDocPayload): Promise<TLegalDoc> => window[platformApiName].getLegalDocs(options);
   const getNodeVersion = (): string => window[platformApiName].node();
+  const getPackagesVersions = (): Promise<Record<string, string>> => window[platformApiName].getPackagesVersions();
   const getPlatformVersion = (): string => window[platformApiName].electron();
   const getPreferredLocales = (): Promise<ReadonlyArray<TLocaleId>> => window[platformApiName].getPreferredLocales();
   const getWrappedAppVersion = (): Promise<string> => window[platformApiName].desktopAppVersion();
@@ -24,6 +25,7 @@ export function Driver(): TPlatformDriver {
     getBrowserInfo,
     getLegalDocs,
     getNodeVersion,
+    getPackagesVersions,
     getPlatformVersion,
     getPreferredLocales,
     getWrappedAppVersion,

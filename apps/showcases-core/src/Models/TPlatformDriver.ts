@@ -8,6 +8,7 @@ export type TPlatformDriver = Readonly<{
   getBrowserInfo: () => TBrowserInfo;
   getLegalDocs: (options: TLoadDocPayload) => Promise<TLegalDoc>;
   getNodeVersion: () => string;
+  getPackagesVersions: () => Promise<Record<string, string>>;
   getPlatformVersion: () => string;
   getPreferredLocales: () => Promise<ReadonlyArray<TLocaleId>>;
   getWrappedAppVersion: () => Promise<string>;
