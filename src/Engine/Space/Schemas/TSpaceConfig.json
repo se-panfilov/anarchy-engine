@@ -3969,15 +3969,19 @@
       "enum": ["bold", "normal"]
     },
     "TControlsConfig": {
-      "$ref": "#/definitions/TOrbitControlsConfig"
+      "anyOf": [
+        {
+          "$ref": "#/definitions/TOrbitControlsConfig"
+        },
+        {
+          "$ref": "#/definitions/TFpsControlsConfig"
+        }
+      ]
     },
     "TOrbitControlsConfig": {
       "type": "object",
       "additionalProperties": false,
       "properties": {
-        "type": {
-          "$ref": "#/definitions/ControlsType"
-        },
         "cameraName": {
           "type": "string"
         },
@@ -3986,6 +3990,9 @@
         },
         "cursor": {
           "$ref": "#/definitions/Vector3Like"
+        },
+        "type": {
+          "$ref": "#/definitions/ControlsType"
         },
         "enabled": {
           "type": "boolean"
@@ -4076,7 +4083,88 @@
     },
     "ControlsType": {
       "type": "string",
-      "const": "OrbitControls"
+      "enum": ["OrbitControls", "FirstPersonControls"]
+    },
+    "TFpsControlsConfig": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "cameraName": {
+          "type": "string"
+        },
+        "type": {
+          "$ref": "#/definitions/ControlsType"
+        },
+        "movementSpeed": {
+          "type": "number"
+        },
+        "lookSpeed": {
+          "type": "number"
+        },
+        "lookVertical": {
+          "type": "boolean"
+        },
+        "autoForward": {
+          "type": "boolean"
+        },
+        "activeLook": {
+          "type": "boolean"
+        },
+        "heightSpeed": {
+          "type": "boolean"
+        },
+        "heightCoef": {
+          "type": "number"
+        },
+        "heightMin": {
+          "type": "number"
+        },
+        "heightMax": {
+          "type": "number"
+        },
+        "constrainVertical": {
+          "type": "boolean"
+        },
+        "verticalMin": {
+          "type": "number"
+        },
+        "verticalMax": {
+          "type": "number"
+        },
+        "mouseDragOn": {
+          "type": "boolean"
+        },
+        "name": {
+          "type": "string"
+        },
+        "isActive": {
+          "type": "boolean"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "activeLook",
+        "autoForward",
+        "cameraName",
+        "constrainVertical",
+        "heightCoef",
+        "heightMax",
+        "heightMin",
+        "heightSpeed",
+        "isActive",
+        "lookSpeed",
+        "lookVertical",
+        "mouseDragOn",
+        "movementSpeed",
+        "type",
+        "verticalMax",
+        "verticalMin"
+      ]
     },
     "TSpaceConfigResources": {
       "type": "object",

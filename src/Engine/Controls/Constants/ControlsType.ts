@@ -1,3 +1,4 @@
 export enum ControlsType {
-  OrbitControls = 'OrbitControls'
+  OrbitControls = 'OrbitControls',
+  FirstPersonControls = 'FirstPersonControls'
 }

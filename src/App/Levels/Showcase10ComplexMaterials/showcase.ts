@@ -12,8 +12,8 @@ import type {
   TActorRegistry,
   TAppCanvas,
   TControlsRegistry,
+  TControlsWrapper,
   TEngine,
-  TOrbitControlsWrapper,
   TRegistryPack,
   TSpace,
   TSpaceConfig,
@@ -32,7 +32,7 @@ import type {
   TWithThickness,
   TWithTransmission
 } from '@/Engine';
-import { ambientContext, Engine, getTags, isDefined, isNotDefined, KeyCode, LookUpStrategy, spaceService, TextType } from '@/Engine';
+import { ambientContext, ControlsType, Engine, getTags, isDefined, isNotDefined, isOrbitControls, KeyCode, LookUpStrategy, spaceService, TextType } from '@/Engine';
 
 import spaceConfig from './showcase.json';
 
@@ -112,8 +112,9 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     // eslint-disable-next-line functional/immutable-data
     state.controllers = addGuiToActor(actor);
     const position: Vector3 = actor.drive.position$.value;
-    const orbitControls: TOrbitControlsWrapper | undefined = controlsRegistry.findByTag('orbit');
+    const orbitControls: TControlsWrapper | undefined = controlsRegistry.findByTag('orbit');
     if (isNotDefined(orbitControls)) throw new Error('Orbit controls are not found');
+    if (!isOrbitControls(orbitControls)) throw new Error(`Active controls are not of type "${ControlsType.OrbitControls}", but ${orbitControls.getType()}`);
     orbitControls.setDamping(true);
     orbitControls.moveToTargetSmoothly(position);
   }

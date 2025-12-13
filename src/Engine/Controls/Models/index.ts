@@ -1,12 +1,16 @@
 export type * from './TAdditionalControlsConfigParams';
+export type * from './TBaseControlsParams';
 export type * from './TControlsConfig';
 export type * from './TControlService';
 export type * from './TControlsFactory';
-export type * from './TControlsFactoryParams';
 export type * from './TControlsLoop';
 export type * from './TControlsParams';
 export type * from './TControlsRegistry';
 export type * from './TControlsWrapper';
+export type * from './TFpsControlsAccessors';
+export type * from './TFpsControlsConfig';
+export type * from './TFpsControlsParams';
+export type * from './TFpsControlsWrapper';
 export type * from './TOrbitControlsAccessors';
 export type * from './TOrbitControlsConfig';
 export type * from './TOrbitControlsParams';

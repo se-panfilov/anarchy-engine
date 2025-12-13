@@ -10,6 +10,7 @@ import type {
   TAppCanvas,
   TCameraRegistry,
   TControlsRegistry,
+  TControlsWrapper,
   TEngine,
   TMeters,
   TMoverService,
@@ -19,7 +20,7 @@ import type {
   TText2dWrapper,
   TTextAnyWrapper
 } from '@/Engine';
-import { ambientContext, createCirclePathXZ, defaultMoverServiceConfig, Easing, Engine, generateAnglesForCircle, isNotDefined, spaceService, TextType } from '@/Engine';
+import { ambientContext, ControlsType, createCirclePathXZ, defaultMoverServiceConfig, Easing, Engine, generateAnglesForCircle, isNotDefined, isOrbitControls, spaceService, TextType } from '@/Engine';
 import { meters, radians } from '@/Engine/Measurements/Utils';
 import { MoverService } from '@/Engine/Services/MoverService/MoverService';
 
@@ -39,7 +40,10 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
 
     addGizmo(space.services, ambientContext.screenSizeWatcher, space.loops, { placement: 'bottom-left' });
 
-    controlsRegistry.getAll()[0]?.entity.target.set(6, 0, 0);
+    const orbitControls: TControlsWrapper | undefined = controlsRegistry.getAll()[0];
+    if (isNotDefined(orbitControls)) throw new Error('Orbit controls are not defined');
+    if (!isOrbitControls(orbitControls)) throw new Error(`Active controls are not of type "${ControlsType.OrbitControls}", but ${orbitControls.getType()}`);
+    orbitControls.entity.target.set(6, 0, 0);
     cameraRegistry.getAll()[0]?.drive.position$.next(new Vector3(6, 30, 0));
 
     const redActor: TActor | undefined = actorRegistry.findByTag('red');

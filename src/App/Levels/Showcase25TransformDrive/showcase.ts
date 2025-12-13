@@ -10,6 +10,7 @@ import type {
   TActor,
   TAppCanvas,
   TCameraWrapper,
+  TControlsWrapper,
   TDegrees,
   TEngine,
   TIntersectionEvent,
@@ -17,7 +18,6 @@ import type {
   TModel3d,
   TModels3dRegistry,
   TMouseWatcherEvent,
-  TOrbitControlsWrapper,
   TParticlesWrapper,
   TPointLightWrapper,
   TRadians,
@@ -32,6 +32,7 @@ import type {
 } from '@/Engine';
 import {
   ambientContext,
+  ControlsType,
   degrees,
   Engine,
   ForwardAxis,
@@ -41,6 +42,7 @@ import {
   getMouseAzimuthAndElevation,
   getPushCoordsFrom3dAzimuth,
   isNotDefined,
+  isOrbitControls,
   KeysExtra,
   meters,
   metersPerSecond,
@@ -109,8 +111,9 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     const camera: TCameraWrapper | undefined = cameraService.findActive();
     if (isNotDefined(camera)) throw new Error('Camera is not defined');
 
-    const controls: TOrbitControlsWrapper | undefined = controlsService.findActive();
+    const controls: TControlsWrapper | undefined = controlsService.findActive();
     if (isNotDefined(controls)) throw new Error('Controls are not defined');
+    if (!isOrbitControls(controls)) throw new Error(`Active controls are not of type "${ControlsType.OrbitControls}", but ${controls.getType()}`);
 
     const light: TPointLightWrapper | undefined = lightService.getRegistry().findByName('point_light') as TPointLightWrapper | undefined;
     if (isNotDefined(light)) throw new Error('Light is not defined');

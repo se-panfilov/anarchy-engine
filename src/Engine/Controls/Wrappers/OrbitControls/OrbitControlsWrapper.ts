@@ -2,6 +2,7 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { Vector3 } from 'three/src/math/Vector3';
 
 import { AbstractWrapper, WrapperType } from '@/Engine/Abstract';
+import type { ControlsType } from '@/Engine/Controls/Constants';
 import type { TOrbitControlsParams, TOrbitControlsWrapper } from '@/Engine/Controls/Models';
 import { getOrbitControlsAccessors } from '@/Engine/Controls/Wrappers/OrbitControls/OrbitControlsAccessors';
 import { applyOrbitControlsParams } from '@/Engine/Controls/Wrappers/OrbitControls/OrbitControlsWrapperHelper';
@@ -15,6 +16,8 @@ export function OrbitControlsWrapper(params: TOrbitControlsParams): TOrbitContro
     entity.update();
   }
   const update = (): boolean => entity.update();
+
+  const getType = (): ControlsType => params.type;
 
   function enable(): void {
     // eslint-disable-next-line functional/immutable-data
@@ -49,6 +52,7 @@ export function OrbitControlsWrapper(params: TOrbitControlsParams): TOrbitContro
     enable,
     disable,
     isEnable,
+    getType,
     ...getOrbitControlsAccessors(entity),
     ...withActiveMixin(),
     moveToTargetSmoothly,
