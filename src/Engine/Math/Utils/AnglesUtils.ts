@@ -26,9 +26,13 @@ export function getHorizontalAzimuth(center: TWithCoordsXZ, point: TWithCoordsXZ
   return azimuth.toNumber();
 }
 
+// TODO (S.Panfilov) add unit tests
 export const getAzimuthByLinearVelocity = (linearVelocity: Vector): number => Math.atan2(linearVelocity.z, linearVelocity.x) * (180 / Math.PI);
+// TODO (S.Panfilov) add unit tests
 export const getElevationByLinearVelocity = (linearVelocity: Vector): number => Math.atan2(linearVelocity.y, Math.sqrt(linearVelocity.x ** 2 + linearVelocity.z ** 2)) * (180 / Math.PI);
+// TODO (S.Panfilov) add unit tests
 export const getSpeedByLinearVelocity = (linearVelocity: Vector): number => Math.sqrt(linearVelocity.x ** 2 + linearVelocity.y ** 2 + linearVelocity.z ** 2);
+// TODO (S.Panfilov) add unit tests
 export const getLinearVelocity = (speed: number, azimuth: number, elevation: number): Vector => ({
   x: speed * Math.cos(elevation) * Math.cos(azimuth),
   y: speed * Math.sin(elevation),
