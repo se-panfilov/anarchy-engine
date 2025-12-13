@@ -60,10 +60,15 @@ export function Actor(
     model3d.destroy$.next();
     entities.spatial.destroy$.next();
     entities.collisions?.destroy$.next();
+
+    //stop fsm
+    entities.states.animationsFsm?.stop();
+    // TODO 9-3-0 STATE: unsubscribe from ActorFsm's subscriptions
   });
 
   const spatialNoiseThreshold: number = params.spatial.performance?.noiseThreshold ?? 0.0000001;
   const prevValue: Float32Array = new Float32Array([0, 0, 0]);
+  // TODO 8.0.0. MODELS: Can we move updateSpatialCells somewhere? (in mixin?)
   // TODO 10.0.0. LOOPS: Position/rotations/scale should have an own loop independent from frame rate (driven by time)
   const positionSub$: Subscription = drive.position$
     .pipe(

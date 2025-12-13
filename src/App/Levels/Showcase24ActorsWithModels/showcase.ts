@@ -52,38 +52,44 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     if (isNotDefined(solderActor)) throw new Error('Solder actor is not found');
     solderActor.setAnimationsFsm(solderAnimFsm);
 
+    // idleAction.play();
+    // walkAction.play();
+
+    if (isNotDefined(solderActor.states.animationsFsm)) throw new Error('Animations FSM is not defined');
+
     solderActor.states.animationsFsm.subscribe((state) => {
-      console.log('XXX state', state);
+      console.log('XXX state', state.value);
       if (state.matches('idle')) {
-        idleAction.play();
-        walkAction.stop();
-        runAction.stop();
+        if (!idleAction.isRunning()) idleAction.play();
+        // walkAction.stop();
+        // runAction.stop();
+        walkAction.crossFadeTo(idleAction, fadeDuration, true);
       } else if (state.matches('walk')) {
-        walkAction.play();
-        idleAction.stop();
-        runAction.stop();
+        if (!walkAction.isRunning()) walkAction.play();
+        // idleAction.stop();
+        // runAction.stop();
         // if (!idleAction.isRunning()) idleAction.play();
         // if (!walkAction.isRunning()) walkAction.play();
-        // idleAction.crossFadeTo(walkAction, fadeDuration, true);
+        idleAction.crossFadeTo(walkAction, fadeDuration, true);
       } else if (state.matches('run')) {
-        runAction.play();
-        idleAction.stop();
-        walkAction.stop();
+        // runAction.play();
+        // idleAction.stop();
+        // walkAction.stop();
       }
     });
 
     onKey(KeyCode.W).pressed$.subscribe((): void => {
       if (isKeyPressed(KeysExtra.Shift)) return;
-      solderActor.states.animationsFsm.send({ type: 'WALK' });
-    });
-    //
-    onKeyCombo(`${KeyCode.W} + ${KeysExtra.Shift}`).pressed$.subscribe((): void => {
-      console.log('XXX Combo');
-      solderActor.states.animationsFsm.send({ type: 'RUN' });
+      solderActor.states.animationsFsm?.send({ type: 'WALK' });
     });
 
+    // onKeyCombo(`${KeyCode.W} + ${KeysExtra.Shift}`).pressed$.subscribe((): void => {
+    //   console.log('XXX Combo');
+    //   solderActor.states.animationsFsm.send({ type: 'RUN' });
+    // });
+
     onKey(KeyCode.W).released$.subscribe((): void => {
-      solderActor.states.animationsFsm.send({ type: 'IDLE' });
+      solderActor.states.animationsFsm?.send({ type: 'IDLE' });
     });
   }
 
