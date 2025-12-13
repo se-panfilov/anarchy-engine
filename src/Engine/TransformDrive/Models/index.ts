@@ -12,6 +12,7 @@ export * from './TProtectedTransformAgentFacade';
 export * from './TReadonlyTransform';
 export * from './TRigidBodyTransformData';
 export * from './TTransformAgentParams';
+export * from './TTransformAgentPerformanceParams';
 export * from './TTransformAgents';
 export * from './TTransformDrive';
 export * from './TTransformDriveParams';

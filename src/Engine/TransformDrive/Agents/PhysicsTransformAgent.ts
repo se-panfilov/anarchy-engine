@@ -1,6 +1,8 @@
 import type { Subject, Subscription } from 'rxjs';
 import { BehaviorSubject, combineLatest, distinctUntilChanged, filter, map, scan, switchMap, takeWhile, withLatestFrom } from 'rxjs';
+import type { QuaternionLike } from 'three';
 import { Euler, Quaternion, Vector3 } from 'three';
+import type { Vector3Like } from 'three/src/math/Vector3';
 
 import type { TPhysicsBody } from '@/Engine/Physics';
 import { RigidBodyTypesNames } from '@/Engine/Physics';
@@ -17,7 +19,7 @@ import type {
   TRigidBodyTransformData
 } from '@/Engine/TransformDrive/Models';
 import { applyLatestTransform, createPhysicsBody, getPhysicalBodyTransform } from '@/Engine/TransformDrive/Utils';
-import { isDefined, isNotDefined } from '@/Engine/Utils';
+import { isDefined, isEqualOrSimilarVector3Like, isEqualOrSimilarVector4Like, isNotDefined } from '@/Engine/Utils';
 
 import { AbstractTransformAgent } from './AbstractTransformAgent';
 
@@ -25,6 +27,8 @@ import { AbstractTransformAgent } from './AbstractTransformAgent';
 // of the transform from any external source (e.g. position$.next()).
 // So, once physics object is set, better not to touch it from the outside.
 export function PhysicsTransformAgent(params: TPhysicsTransformAgentParams, { physicsBodyService, physicsLoopService }: TPhysicsAgentDependencies): TPhysicsTransformAgent {
+  const noiseThreshold: number = params.performance?.noiseThreshold ?? 0.001;
+
   const adaptedParams: TPhysicsTransformAgentInternalParams = { ...params, rotation: new Quaternion().setFromEuler(params.rotation) };
   const abstractTransformAgent: TAbstractTransformAgent = AbstractTransformAgent(params, TransformAgent.Physical);
 
@@ -117,18 +121,23 @@ export function PhysicsTransformAgent(params: TPhysicsTransformAgentParams, { ph
         } satisfies TAccumulatedRigidBodyTransformData
       )
     )
-    .subscribe(({ prevPosition, currPosition, prevRotation, currRotation }) => {
-      if (isDefined(currPosition) && (!prevPosition || currPosition.x !== prevPosition.x || currPosition.y !== prevPosition.y || currPosition.z !== prevPosition.z)) {
+    .subscribe(({ prevPosition, currPosition, prevRotation, currRotation }: TAccumulatedRigidBodyTransformData): void => {
+      if (shouldUpdatePosition(prevPosition, currPosition, noiseThreshold)) {
+        console.log('XXX update!');
         agent.position$.next(new Vector3(currPosition.x, currPosition.y, currPosition.z));
       }
-
-      if (
-        isDefined(currRotation) &&
-        (!prevRotation || currRotation.x !== prevRotation.x || currRotation.y !== prevRotation.y || currRotation.z !== prevRotation.z || currRotation.w !== prevRotation.w)
-      ) {
-        rotationQuaternion$.next(new Quaternion(currRotation.x, currRotation.y, currRotation.z, currRotation.w));
-      }
+      if (shouldUpdateRotation(prevRotation, currRotation, noiseThreshold)) rotationQuaternion$.next(new Quaternion(currRotation.x, currRotation.y, currRotation.z, currRotation.w));
     });
 
   return agent;
+}
+
+function shouldUpdatePosition(prevPosition: Vector3Like | undefined, currPosition: Vector3Like | undefined, threshold: number): currPosition is Vector3Like {
+  if (isNotDefined(currPosition)) return false;
+  return isDefined(prevPosition) ? !isEqualOrSimilarVector3Like(currPosition, prevPosition, threshold) : true;
+}
+
+function shouldUpdateRotation(prevRotation: QuaternionLike | undefined, currRotation: QuaternionLike | undefined, threshold: number): currRotation is QuaternionLike {
+  if (isNotDefined(currRotation)) return false;
+  return isDefined(prevRotation) ? !isEqualOrSimilarVector4Like(currRotation, prevRotation, threshold) : true;
 }
