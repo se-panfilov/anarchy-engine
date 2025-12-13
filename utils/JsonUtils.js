@@ -1,16 +1,19 @@
 import fs from 'fs';
 import tsj from 'ts-json-schema-generator';
 
+const isMinify = process.argv.includes('--minify');
+
 /** @type {import('ts-json-schema-generator/dist/src/Config').Config} */
 const baseConfig = {
   tsconfig: './tsconfig.json',
   type: '*', // Or <type-name> if you want to generate schema for that one type only,
-  topRef: false
+  topRef: false,
+  minify: isMinify ?? false
 };
 
 function generate(config) {
   const schema = tsj.createGenerator(config).createSchema(config.type);
-  return JSON.stringify(schema, null, 2);
+  return JSON.stringify(schema, null, isMinify ? null : 2);
 }
 
 function writeSchema(outputPath, schemaString) {

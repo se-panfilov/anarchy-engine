@@ -13,6 +13,7 @@
     "prettier": "prettier --write .",
     "prettier:staged": "pretty-quick --staged",
     "generate:schemas": "node ./utils/JsonUtils.js",
+    "generate:schemas:minify": "node ./utils/JsonUtils.js --minify",
     "ts:check": "tsc --noEmit",
     "ts:check:watch": "tsc --watch --noEmit",
     "unit": "vitest run",
