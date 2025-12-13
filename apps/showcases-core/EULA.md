@@ -1,24 +1,16 @@
-# End User License Agreement (EULA) — {{PACKAGE_NAME}}
+# End User License Agreement (EULA) — showcases-core
 
-**Effective date:** {{EFFECTIVE_DATE}}
+**Effective date:** TBD until market release
 
 _This EULA applies to copies acquired on or after the Effective date. For earlier copies, the version bundled with that copy governs until you update._
 
-**Licensor (Developer):** {{LEGAL_ENTITY_NAME}}
+**Licensor (Developer):** Sergei Aleksandrovich Panfilov
 
-**Support/Legal Contact:** {{SUPPORT_EMAIL}} / {{LEGAL_EMAIL}}
-
-{{#HAS_EU_REP}}
-**EU Representative:** {{EU_REPRESENTATIVE_CONTACT}}
-
-{{/HAS_EU_REP}}
-{{#HAS_CHINA_REP}}
-**China Representative (PIPL):** {{CHINA_REPRESENTATIVE_CONTACT}}
-{{/HAS_CHINA_REP}}
+**Support/Legal Contact:** TBD until market release / TBD until market release
 
 ## Defined Terms
 
-**“Distribution Channels”** means any store, marketplace, platform, launcher, website, installer, physical media, or other mechanism used now or in the future to distribute {{PACKAGE_NAME}}, regardless of provider.
+**“Distribution Channels”** means any store, marketplace, platform, launcher, website, installer, physical media, or other mechanism used now or in the future to distribute showcases-core, regardless of provider.
 
 **“Consumer”** means an individual acting wholly or mainly outside their trade, business, craft or profession.
 
@@ -30,11 +22,11 @@ If any term (including any limitation or exclusion of liability) is found invali
 
 ## 1. License Grant
 
-Subject to this EULA, Licensor grants you a personal, non-exclusive, non-transferable, revocable license to install and use {{PACKAGE_NAME}} on devices you own or control for {{USAGE_SCOPE}} purposes.
+Subject to this EULA, Licensor grants you a personal, non-exclusive, non-transferable, revocable license to install and use showcases-core on devices you own or control for purposes.
 
 ## 2. Ownership
 
-The Game is licensed, not sold. {{LEGAL_ENTITY_NAME}} and its licensors retain all title and IP rights. **Open-source components** are licensed under their respective terms.
+The Game is licensed, not sold. Sergei Aleksandrovich Panfilov and its licensors retain all title and IP rights. **Open-source components** are licensed under their respective terms.
 
 ## 3. Permitted Use & Restrictions
 
@@ -45,7 +37,7 @@ You **may not**:
 - reverse engineer, decompile, or disassemble the Game **except to the extent permitted by applicable law**;
 - use the Game in safety-critical contexts or for unlawful purposes.
 
-**Modding (if supported).** See **{{MODDING_GUIDELINES_URL}}**. Mods must not include illegal content, infringe rights, or harm security/performance.
+**Modding (if supported).** See \*\*\*\*. Mods must not include illegal content, infringe rights, or harm security/performance.
 
 ## 4. Updates
 
@@ -65,12 +57,7 @@ Where UGC features exist, you remain responsible for your content. You grant Lic
 
 ## 7. Children & Age Ratings
 
-{{#IS_CHILD_DIRECTED}}
-This Game is **directed to children**. We implement measures required by applicable law (e.g., **parental consent/notice** where necessary). By using online features (if any), you confirm that **parental consent** has been provided where required. See **Privacy Policy** for details.
-{{/IS_CHILD_DIRECTED}}
-{{^IS_CHILD_DIRECTED}}
-This Game is not directed to children below the age requiring parental consent under applicable law (e.g., EU {{EU_CHILD_CONSENT_AGE}}, US {{US_CHILD_AGE}}{{#REGION_CN}}, China {{CN_CHILD_AGE}}{{/REGION_CN}}). We do not knowingly collect personal data from such children.
-{{/IS_CHILD_DIRECTED}}
+This Game is not directed to children below the age requiring parental consent under applicable law (e.g., EU 16, US 13, China 14). We do not knowingly collect personal data from such children.
 
 ## 8. Term & Termination
 
@@ -87,7 +74,7 @@ To the fullest extent permitted by law, Licensor shall **not** be liable for any
 
 ## 10A. Liability Cap (Business Users Only)
 
-This clause applies **only** to Business Users. To the extent permitted by applicable law, the Licensor’s aggregate liability for all claims relating to the Game shall not exceed **{{LIABILITY_CAP_AMOUNT}}**.
+This clause applies **only** to Business Users. To the extent permitted by applicable law, the Licensor’s aggregate liability for all claims relating to the Game shall not exceed \*\*\*\*.
 Nothing in this clause applies to Consumers, nor does it limit liability where such limitation is unlawful (including for death or personal injury caused by negligence, fraud or wilful misconduct).
 
 ## 11. Export Controls & Sanctions
@@ -96,19 +83,19 @@ You must comply with applicable **export, re-export, and sanctions** laws. You m
 
 ## 12. Open-Source Components (OSS Precedence)
 
-The Game includes **open-source software**. **To the extent of any conflict between this EULA and the license terms of an OSS component, the OSS license controls for that component.** Third-party notices and licenses are provided in `NOTICE` / `THIRD_PARTY_LICENSES.md` or at **{{THIRD_PARTY_NOTICES_URL}}**.
+The Game includes **open-source software**. **To the extent of any conflict between this EULA and the license terms of an OSS component, the OSS license controls for that component.** Third-party notices and licenses are provided in `NOTICE` / `THIRD_PARTY_LICENSES.md` or at \*\*\*\*.
 
 ## 13. Governing Law & Consumer Rights
 
-This EULA is governed by the laws of **{{GOVERNING_LAW_COUNTRY}}** with venue in **{{GOVERNING_VENUE}}**.
+This EULA is governed by the laws of **The Netherlands** with venue in **Amsterdam**.
 If you are a consumer, **mandatory consumer protection laws of your country of residence remain applicable**.
 
 ## 14. Changes
 
-We may update this EULA. Material changes will be communicated via **{{EULA_UPDATE_COMMUNICATION}}**. Continued use after the effective date constitutes acceptance.
+We may update this EULA. Material changes will be communicated via \*\*\*\*. Continued use after the effective date constitutes acceptance.
 
 ## Governing Language
 
 This agreement is drafted in English. Translations may be provided for convenience. In consumer markets where local-language versions are required by law for clarity and fairness, the local-language version controls to the extent required by applicable law; otherwise, the English version controls.
 
-**Contact:** {{LEGAL_EMAIL}}
+**Contact:** TBD until market release
