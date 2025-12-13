@@ -1,9 +1,9 @@
 import type { Subscription } from 'rxjs';
 import { distinctUntilChanged } from 'rxjs';
+import { ActorDrive } from 'src/Engine/Actor/Drive';
 import type { Vector3 } from 'three';
 
 import { AbstractEntity, EntityType } from '@/Engine/Abstract';
-import { ActorDriveMixin } from '@/Engine/Actor/Mixins';
 import type { TActor, TActorDependencies, TActorDriveMixin, TActorEntities, TActorParams, TDriveToModel3dConnector } from '@/Engine/Actor/Models';
 import { applySpatialGrid, startCollisions } from '@/Engine/Actor/Utils';
 import { withCollisions } from '@/Engine/Collisions';
@@ -22,7 +22,7 @@ export function Actor(
   const isModelAlreadyInUse: boolean = isDefined(model3dToActorConnectionRegistry.findByModel3d(params.model3dSource));
   const model3d: TModel3d = isModelAlreadyInUse ? models3dService.clone(params.model3dSource) : params.model3dSource;
 
-  const drive: TActorDriveMixin = ActorDriveMixin(params, { kinematicLoopService });
+  const drive: TActorDriveMixin = ActorDrive(params, { kinematicLoopService });
   const driveToModel3dConnector: TDriveToModel3dConnector = DriveToModel3dConnector(drive, model3d);
 
   const positionSub$: Subscription = drive.position$.pipe(distinctUntilChanged((prev: Vector3, curr: Vector3): boolean => prev.equals(curr))).subscribe((position: Vector3): void => {

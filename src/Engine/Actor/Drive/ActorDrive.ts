@@ -13,7 +13,7 @@ import { destroyableMixin } from '@/Engine/Mixins';
 import type { TPhysicsActorDriver } from '@/Engine/Physics';
 import { PhysicsActorDriver } from '@/Engine/Physics';
 
-export function ActorDriveMixin(params: TActorParams, { kinematicLoopService }: Pick<TActorDependencies, 'kinematicLoopService'>): TActorDriveMixin {
+export function ActorDrive(params: TActorParams, { kinematicLoopService }: Pick<TActorDependencies, 'kinematicLoopService'>): TActorDriveMixin {
   //We don't want to expose these BehaviorSubjects, because they're vulnerable to external changes without .next()
   const position$: BehaviorSubject<Vector3> = new BehaviorSubject<Vector3>(params.position);
   const positionRep$: ReplaySubject<Vector3> = new ReplaySubject<Vector3>(1);
