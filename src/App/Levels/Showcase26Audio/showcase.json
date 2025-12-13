@@ -63,6 +63,7 @@
         "fov": 45,
         "isActive": true,
         "name": "main_camera",
+        "audioListener": "main_listener",
         "near": 1,
         "position": {
           "x": -0.58,
