@@ -30,9 +30,9 @@ export function getKinematicWithDefaults(kinematic: TKinematicDataParams | undef
   };
 }
 
-export function getPhysicsTransformAgent(params: TTransformAgentParams, physics: TWithPresetNamePhysicsBodyParams, dependencies: TPhysicsAgentDependencies): TPhysicsTransformAgent {
+export function getPhysicsTransformAgent(params: TTransformAgentParams, physics: TWithPresetNamePhysicsBodyParams | undefined, dependencies: TPhysicsAgentDependencies): TPhysicsTransformAgent {
   const agentParams: TTransformAgentParams = { position: params.position, rotation: params.rotation, scale: params.scale ?? new Vector3(1, 1, 1) };
-  const omittedPhysics: Omit<TWithPresetNamePhysicsBodyParams, 'position' | 'rotation'> = omitInObjectWithoutMutation(physics, ['position', 'rotation']);
+  const omittedPhysics: Omit<TWithPresetNamePhysicsBodyParams, 'position' | 'rotation'> = omitInObjectWithoutMutation(physics ?? {}, ['position', 'rotation']);
   //We are ignoring physical body's position and rotation, because we are setting them in agentParams (actor)
   const physicalData: TPhysicsTransformAgentParams = { ...omittedPhysics, ...agentParams };
   return PhysicsTransformAgent(physicalData, dependencies);
