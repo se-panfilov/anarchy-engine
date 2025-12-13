@@ -16,9 +16,6 @@ import type { ColorRepresentation } from 'three/src/math/Color';
 
 import type { IVector2, IVector3 } from '@/Engine/Vector';
 
-// TODO (S.Panfilov) CWP add properties by material type
-// TODO (S.Panfilov) debug "color?: string" is a placeholder. Should contain actual material properties
-
 export type IAbstractMaterialParams = Readonly<{
   alphaHash?: boolean;
   alphaTest?: number;
