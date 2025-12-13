@@ -12,8 +12,8 @@ const spaceAlphaConfig: TSpaceConfig = spaceAlphaConfigJson as TSpaceConfig;
 const spaceBetaConfig: TSpaceConfig = spaceBetaConfigJson as TSpaceConfig;
 
 function createContainersDivs(): void {
-  createDomElement('div', undefined, undefined, 'left_container', 'position: fixed; left: 0; right: 50%; top: 0; outline: none;');
-  createDomElement('div', undefined, undefined, 'right_container', 'position: fixed; left: 50%; right: 0; top: 0; outline: none;');
+  createDomElement('div', undefined, undefined, 'left_container', 'position: fixed; left: 0; right: 50%; top: 0; bottom: 0; outline: none;');
+  createDomElement('div', undefined, undefined, 'right_container', 'position: fixed; left: 50%; right: 0; top: 0; bottom: 0; outline: none;');
 }
 
 export function start(): void {
@@ -56,6 +56,10 @@ export function showcase(space: TSpace): void {
 }
 
 export function runAlpha(space: TSpace): void {
+  // const container = space.getCanvasElement().parentElement!;
+  // const width = container.clientWidth;
+  // const height = container.clientHeight;
+  // space.services.rendererService.findActive()?.setSize(width, height);
   moveCircle('sphere_actor', space.services.actorService, space.loops.transformLoop, new Clock());
 }
 

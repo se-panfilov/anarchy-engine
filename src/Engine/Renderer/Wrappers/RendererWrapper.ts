@@ -79,7 +79,7 @@ export function RendererWrapper(params: TRendererParams, { screenService }: TRen
   });
 
   // eslint-disable-next-line functional/immutable-data
-  const result = Object.assign(wrapper, { ...accessors, ...withActiveMixin(), entity });
+  const result = Object.assign(wrapper, accessors, withActiveMixin(), entity);
 
   result._setActive(params.isActive, true);
 
