@@ -10,14 +10,8 @@ export default {
       STORE_DISCLOSURES: false
     }
   },
-  DISCLAIMER: {},
-  EULA: {
-    template: 'EULA_NON_COMMERCIAL_TEMPLATE'
-  },
-  PRIVACY: {
-    template: 'PRIVACY_NON_COMMERCIAL_TEMPLATE'
-  },
-  SECURITY: {
-    template: 'SECURITY_NON_COMMERCIAL_TEMPLATE'
-  }
+  DISCLAIMER: { template: 'DISCLAIMER_TEMPLATE' },
+  EULA: { template: 'EULA_NON_COMMERCIAL_TEMPLATE' },
+  PRIVACY: { template: 'PRIVACY_NON_COMMERCIAL_TEMPLATE' },
+  SECURITY: { template: 'SECURITY_NON_COMMERCIAL_TEMPLATE' }
 };
