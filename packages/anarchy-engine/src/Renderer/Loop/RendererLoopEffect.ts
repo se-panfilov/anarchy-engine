@@ -1,6 +1,6 @@
 import type { TAnyCameraWrapper, TCameraService } from '@Anarchy/Engine/Camera';
 import type { TMilliseconds } from '@Anarchy/Engine/Math';
-import type { TRendererWrapper } from '@Anarchy/Engine/Renderer';
+import type { TRendererWrapper } from '@Anarchy/Engine/Renderer/Models';
 import type { TSceneWrapper } from '@Anarchy/Engine/Scene';
 import type { TRenderLoop } from '@Anarchy/Engine/Space';
 import { isNotDefined } from '@Anarchy/Shared/Utils';

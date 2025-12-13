@@ -12,7 +12,7 @@ import type {
   TScenesServiceWithFactory,
   TScenesServiceWithRegistry,
   TSceneWrapper
-} from '@Anarchy/Engine/Scene';
+} from '@Anarchy/Engine/Scene/Models';
 import { mergeAll } from '@Anarchy/Engine/Utils';
 import type { Subscription } from 'rxjs';
 
