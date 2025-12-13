@@ -15,6 +15,9 @@ export default [
       TRADEMARK_SYMBOL: '', //Empty by default. Possible '™' (no obligations, just an indication it's a trademark) or '®' (registered trademark, which requires registration in the country of use).
       PRODUCT_TERM: 'Software', //E.g. 'Software', 'Product', 'Game', etc.
 
+      //DATA COLLECTION
+      CRASH_OPT_IN: false,
+
       //B2B
       LIABILITY_CAP_AMOUNT: 'the total fees paid by that Business User to the Licensor for the Software in the 12 months immediately preceding the event giving rise to the claim',
 

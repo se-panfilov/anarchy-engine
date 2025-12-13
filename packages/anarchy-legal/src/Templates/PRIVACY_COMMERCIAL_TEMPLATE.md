@@ -16,7 +16,7 @@ We do **not** collect personal data through the {{PRODUCT_TERM}}. Purchasing, do
 - **No telemetry or analytics** are collected by the {{PRODUCT_TERM}}.
 - **No crash reports** are sent by default.
   {{#CRASH_OPT_IN}}
-  If you **opt in**, the {{PRODUCT_TERM}} may send **anonymous** crash reports limited to technical diagnostics (no direct identifiers). You can withdraw consent at any time via an in-product option (where available) or by contacting us.
+  If you **opt in**, the {{PRODUCT_TERM}} may send crash reports consisting of **anonymous technical diagnostics** (no direct identifiers, no content). Reports are used solely to investigate and fix issues and are retained only for the period necessary for that purpose, after which they are deleted or **irreversibly anonymized**. You can withdraw consent at any time via an in-product option (where available) or by contacting us. **Legal basis:** your **consent**.
   {{/CRASH_OPT_IN}}
 - The {{PRODUCT_TERM}} operates locally (offline). Any optional online features will be **opt-in** and documented here.
 
