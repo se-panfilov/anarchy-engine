@@ -12,6 +12,5 @@ export * from './TActorService';
 export * from './TActorTransformAgents';
 export * from './TActorTransformDrive';
 export * from './TActorTransformDriveDependencies';
-export * from './TActorWithPhysics';
 export * from './TModel3dToActorConnectionRegistry';
 export * from './TParamsFromConfigActor';

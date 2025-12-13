@@ -1,6 +1,6 @@
 import { Euler, Vector3 } from 'three';
 
-import type { TActorService, TActorWithPhysics, TBoxGeometryProps, TMaterialService, TModel3d, TModels3dService, TObject3DParams, TSpatialGridWrapper, TWithCoordsXZ } from '@/Engine';
+import type { TActor, TActorService, TBoxGeometryProps, TMaterialService, TModel3d, TModels3dService, TObject3DParams, TSpatialGridWrapper, TWithCoordsXZ } from '@/Engine';
 import { CollisionShape, MaterialType, PrimitiveModel3dType, RigidBodyTypesNames } from '@/Engine';
 
 export type TBuidingBlock = Required<Pick<TBoxGeometryProps, 'height' | 'width' | 'depth'>> & Required<Pick<TObject3DParams, 'position'>>;
@@ -14,13 +14,13 @@ export async function buildTower(
   cols: number,
   levels: number,
   grid: TSpatialGridWrapper
-): Promise<ReadonlyArray<TActorWithPhysics>> {
+): Promise<ReadonlyArray<TActor>> {
   const blocks: ReadonlyArray<TBuidingBlock> = getBlocks(startCoords, rows, cols, levels);
 
   console.log('number of blocks:', blocks.length);
   const materialW = materialService.create({ name: 'building_block_material', type: MaterialType.Standard, options: { color: '#8FAA8F' } });
 
-  const result: ReadonlyArray<TActorWithPhysics> = blocks.map((block: TBuidingBlock): TActorWithPhysics => {
+  const result: ReadonlyArray<TActor> = blocks.map((block: TBuidingBlock): TActor => {
     const model3d: TModel3d = models3dService.create({
       name: `block_${block.position.x}_${block.position.y}_${block.position.z}_model3d`,
       model3dSource: PrimitiveModel3dType.Cube,
@@ -60,7 +60,7 @@ export async function buildTower(
       rotation: new Euler(),
       spatial: { isAutoUpdate: true, grid },
       tags: ['physics_block']
-    }) as TActorWithPhysics;
+    });
   });
 
   return await Promise.all(result);

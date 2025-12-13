@@ -7,7 +7,6 @@ import { enableCollisions } from '@/App/Levels/Showcase22PhysicsShooter/utils/Co
 import { initLight } from '@/App/Levels/Showcase22PhysicsShooter/utils/Light';
 import type {
   TActor,
-  TActorWithPhysics,
   TAppCanvas,
   TCameraWrapper,
   TCollisionCheckResult,
@@ -55,10 +54,10 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     const cameraW: TCameraWrapper | undefined = cameraService.findActive();
     if (isNotDefined(cameraW)) throw new Error(`Cannot find active camera`);
 
-    const heroW: TActorWithPhysics | TActor | undefined = actorService.getRegistry().findByName('hero');
+    const heroW: TActor | undefined = actorService.getRegistry().findByName('hero');
     if (isNotDefined(heroW)) throw new Error(`Cannot find "hero" actor`);
 
-    const surface: TActorWithPhysics | TActor | undefined = actorService.getRegistry().findByName('surface');
+    const surface: TActor | undefined = actorService.getRegistry().findByName('surface');
     if (isNotDefined(surface)) throw new Error(`Cannot find "surface" actor`);
 
     const sphereActorW: TActor | undefined = actorService.getRegistry().findByName('sphere');
