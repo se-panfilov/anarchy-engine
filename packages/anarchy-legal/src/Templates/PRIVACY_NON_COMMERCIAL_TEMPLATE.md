@@ -1,4 +1,4 @@
-# Privacy Notice — {{PACKAGE_NAME}} (Open Source)
+# Privacy Notice — {{PACKAGE_NAME}}
 
 **Effective date:** {{EFFECTIVE_DATE}}
 
