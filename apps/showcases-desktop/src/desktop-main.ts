@@ -32,6 +32,7 @@ try {
   console.warn('Could not get packages versions for error tracking', e);
 }
 
+// TODO DESKTOP: Add source upload for desktop releases
 //Allow tracking for production (only Electron part, web part should be tracked separately)
 ElectronErrorTrackingService().start(packagesVersions);
 
