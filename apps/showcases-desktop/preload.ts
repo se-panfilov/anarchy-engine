@@ -8,6 +8,8 @@ import type { TBrowserInfo } from 'anarchy-shared/src/Models';
 
 const { AppExit, AppRestart, GetAppSettings, GetBrowserInfo, GetLegalDocs, GetPackagesVersions, GetPreferredLocales, SetAppSettings, UpdateAppSettings } = PlatformActions;
 
+// TODO DESKTOP: Should we also add Sentry here?
+
 const mapping: TShowcasesDesktopApi = {
   closeApp: (): Promise<void> => ipcRenderer.invoke(platformApiChannel, AppExit),
   desktopAppVersion: async (): Promise<string> => __DESKTOP_APP_VERSION__,
