@@ -5,24 +5,26 @@ import { MousePointerWrapper } from '@Engine/Pointer';
 import type { WrappedMousePointer } from '@Engine/Pointer/lib/models/WrappedMousePointer';
 
 interface IInputManager extends Manager {
-  readonly initMousePointer: () => WrappedMousePointer;
+  readonly create: () => void;
+  readonly setCurrent: (pointer: WrappedMousePointer) => void;
+  readonly current$: BehaviorSubject<WrappedInput | undefined>;
+  readonly list$: BehaviorSubject<ReadonlyArray<WrappedInput>>;
 }
 
 export function InputManager(): IInputManager {
+  const current$ = new BehaviorSubject<WrappedInput | undefined>(undefined);
+  const list$ = new BehaviorSubject<ReadonlyArray<WrappedInput>>([]);
   const destroyed$ = new Subject<void>();
-  const inputs$ = new BehaviorSubject<WrappedInput | undefined>(undefined);
 
-  function initMousePointer(): WrappedMousePointer {
-    const pointer = MousePointerWrapper();
-    inputs$.next(pointer);
-    return pointer;
-  }
+  const create = (): void => list$.next([...list$.value, MousePointerWrapper()]);
+  const setCurrent = (pointer: WrappedMousePointer): void => current$.next(pointer);
 
   function destroy() {
-    inputs$.complete();
+    current$.complete();
+    list$.complete();
     destroyed$.next();
     destroyed$.complete();
   }
 
-  return { id: `input_manager_${nanoid()}`, initMousePointer, inputs$, destroy, destroyed$ };
+  return { id: `input_manager_${nanoid()}`, create, setCurrent, current$, list$, destroy, destroyed$ };
 }

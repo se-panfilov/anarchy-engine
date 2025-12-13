@@ -25,9 +25,9 @@ sceneManager.currentScene.attachInputManager(inputManager);
 actorManager.addActor('sphere');
 actorManager.addActor('plane');
 
-const camera = cameraManager.createCamera();
-cameraManager.setCurrentCamera(camera);
-camera.setPosition(3, 2, 15).lookAt(0, 0, 0).setControls('OrbitControls');
+const wrappedCamera = cameraManager.createCamera();
+cameraManager.setCurrentCamera(wrappedCamera);
+wrappedCamera.camera.setPosition(3, 2, 15).lookAt(0, 0, 0).setControls('OrbitControls');
 
 lightManager.createAmbientLight({ type: 'ambient', color: 0xffffff, intensity: 0.5 });
 const wrappedDirectionalLight = lightManager.createDirectionalLight({

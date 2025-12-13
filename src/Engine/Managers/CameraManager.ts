@@ -6,26 +6,27 @@ import type { WrappedCamera } from '@Engine/Camera/Models/WrappedCamera';
 import type { CameraParams } from '@Engine/Camera/Models/CameraParams';
 
 interface ICameraManager extends Manager {
-  readonly createCamera: (params: CameraParams) => WrappedCamera;
-  readonly setCurrentCamera: (camera: WrappedCamera) => WrappedCamera;
-  readonly cameras$: BehaviorSubject<WrappedCamera | undefined>;
+  readonly create: (params: CameraParams) => void;
+  readonly setCurrent: (camera: WrappedCamera) => void;
+  readonly current$: BehaviorSubject<WrappedCamera | undefined>;
+  readonly list$: BehaviorSubject<ReadonlyArray<WrappedCamera>>;
 }
 
 export function CameraManager(): ICameraManager {
+  const current$ = new BehaviorSubject<WrappedCamera | undefined>(undefined);
+  const list$ = new BehaviorSubject<ReadonlyArray<WrappedCamera>>([]);
   const destroyed$ = new Subject<void>();
-  const cameras$ = new BehaviorSubject<WrappedCamera | undefined>(undefined);
 
-  const createCamera = (params: CameraParams): void => cameras$.next(CameraWrapper(params));
-
-  function setAsCurrent(): void {
-    // TODO (S.Panfilov)
-  }
+  const create = (params: CameraParams): void => list$.next([...list$.value, CameraWrapper(params)]);
+  // TODO (S.Panfilov) maybe check if the entity in the list (also same for all managers)
+  const setCurrent = (camera: WrappedCamera): void => current$.next(camera);
 
   function destroy() {
-    cameras$.complete();
+    current$.complete();
+    list$.complete();
     destroyed$.next();
     destroyed$.complete();
   }
 
-  return { id: `camera_manager_${nanoid()}`, createCamera, cameras$, destroy, destroyed$ };
+  return { id: `camera_manager_${nanoid()}`, create, setCurrent, current$, list$, destroy, destroyed$ };
 }
