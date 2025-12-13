@@ -1,4 +1,4 @@
-import type { TAppGlobalContainer, TContainerDecorator } from '@/Engine/Global';
+import type { TContainerDecorator } from '@/Engine/Global';
 import type { TScreenSizeWatcher } from '@/Engine/Screen';
 import { CreateEntitiesStrategy } from '@/Engine/Space/Constants';
 import type { TSpaceConfigEntities, TSpaceParamsEntities, TSpaceServices } from '@/Engine/Space/Models';
@@ -43,8 +43,6 @@ export function createEntitiesFromConfigs(entities: TSpaceConfigEntities, servic
     textService
   } = services;
 
-  const appContainer: TAppGlobalContainer = container.getAppContainer();
-
   rendererService.createFromConfig(renderers);
 
   const screenSizeWatcher: TScreenSizeWatcher | undefined = screenService.watchers.default$.value;
@@ -66,8 +64,8 @@ export function createEntitiesFromConfigs(entities: TSpaceConfigEntities, servic
   cameraService.createFromConfig(cameras);
   actorService.createFromConfig(actors);
 
-  textService.createText2dRenderer(appContainer, screenSizeWatcher);
-  textService.createText3dRenderer(appContainer, screenSizeWatcher);
+  textService.createText2dRenderer(container, screenSizeWatcher);
+  textService.createText3dRenderer(container, screenSizeWatcher);
   textService.createFromConfig(texts);
 
   controlsService.createFromConfig(controls, cameraService.getRegistry());
@@ -100,8 +98,6 @@ export function createEntitiesFromParams(entities: TSpaceParamsEntities, service
     textService
   } = services;
 
-  const appContainer: TAppGlobalContainer = container.getAppContainer();
-
   if (isDefined(renderers)) rendererService.createFromList(renderers);
 
   const screenSizeWatcher: TScreenSizeWatcher | undefined = screenService.watchers.default$.value;
@@ -123,8 +119,8 @@ export function createEntitiesFromParams(entities: TSpaceParamsEntities, service
   if (isDefined(cameras)) cameraService.createFromList(cameras);
   if (isDefined(actors)) actorService.createFromList(actors);
 
-  textService.createText2dRenderer(appContainer, screenSizeWatcher);
-  textService.createText3dRenderer(appContainer, screenSizeWatcher);
+  textService.createText2dRenderer(container, screenSizeWatcher);
+  textService.createText3dRenderer(container, screenSizeWatcher);
   if (isDefined(texts)) textService.createFromList(texts);
 
   if (isDefined(controls)) controlsService.createFromList(controls);

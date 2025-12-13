@@ -4,23 +4,30 @@ import { distinctUntilChanged } from 'rxjs';
 import type { CSS2DRenderer } from 'three/examples/jsm/renderers/CSS2DRenderer';
 import type { CSS3DRenderer } from 'three/examples/jsm/renderers/CSS3DRenderer';
 
-import type { TAppGlobalContainer } from '@/Engine/Global';
+import type { TAppGlobalContainer, TContainerDecorator } from '@/Engine/Global';
 import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
 import type { TScreenSizeValues, TScreenSizeWatcher } from '@/Engine/Screen';
 import type { TextCssClass, TextRendererType } from '@/Engine/Text/Constants';
 import { RelatedEntityAttribute } from '@/Engine/Text/Constants';
 import type { TTextRenderer } from '@/Engine/Text/Models';
+import { isDefined } from '@/Engine/Utils';
 
 export function getTextRenderer<T extends CSS2DRenderer | CSS3DRenderer>(
   renderer: T,
   cssClass: TextCssClass,
   type: TextRendererType,
-  container: TAppGlobalContainer,
+  container: TAppGlobalContainer | TContainerDecorator,
   screenSizeWatcher: Readonly<TScreenSizeWatcher>
 ): TTextRenderer<T> {
   const id: string = 'text_renderer_' + nanoid();
-  renderer.setSize(container.innerWidth, container.innerHeight);
+
+  if (isAppGlobalContainer(container)) {
+    renderer.setSize(container.innerWidth, container.innerHeight);
+  } else {
+    renderer.setSize(container.getWidth(), container.getHeight());
+  }
+
   // eslint-disable-next-line functional/immutable-data
   renderer.domElement.style.position = 'absolute';
   // eslint-disable-next-line functional/immutable-data
@@ -30,7 +37,11 @@ export function getTextRenderer<T extends CSS2DRenderer | CSS3DRenderer>(
   // eslint-disable-next-line functional/immutable-data
   renderer.domElement.className = cssClass;
   renderer.domElement.setAttribute(RelatedEntityAttribute, id);
-  container.document.body.appendChild(renderer.domElement);
+  if (isAppGlobalContainer(container)) {
+    container.document.body.appendChild(renderer.domElement);
+  } else {
+    (container.getElement() as HTMLElement)?.appendChild(renderer.domElement);
+  }
 
   const updateSize = ({ width, height }: TScreenSizeValues): void => renderer.setSize(width, height);
 
@@ -46,11 +57,22 @@ export function getTextRenderer<T extends CSS2DRenderer | CSS3DRenderer>(
     destroySub$.unsubscribe();
 
     screenSize$.unsubscribe();
-    container.document.body.removeChild(renderer.domElement);
+    // TODO 14-0-0: remove renderer element both on destroy$ and on drop
+
+    if (isAppGlobalContainer(container)) {
+      container.document.body.removeChild(renderer.domElement);
+    } else {
+      (container.getElement() as HTMLElement)?.removeChild(renderer.domElement);
+    }
+
     renderer.domElement.remove();
     // eslint-disable-next-line functional/immutable-data
     renderer.domElement = null as any;
   });
 
   return { id, type, renderer, updateSize, ...destroyable };
+}
+
+function isAppGlobalContainer(container: TAppGlobalContainer | TContainerDecorator): container is TAppGlobalContainer {
+  return isDefined((container as TAppGlobalContainer).document);
 }

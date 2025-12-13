@@ -3,7 +3,7 @@ import { BehaviorSubject, merge } from 'rxjs';
 
 import type { TAbstractService, TRegistryPack } from '@/Engine/Abstract';
 import { AbstractService } from '@/Engine/Abstract';
-import type { TAppGlobalContainer } from '@/Engine/Global';
+import type { TAppGlobalContainer, TContainerDecorator } from '@/Engine/Global';
 import type { TDisposable } from '@/Engine/Mixins';
 import { withCreateFromConfigServiceMixin, withCreateServiceMixin, withFactoryService, withSceneGetterService } from '@/Engine/Mixins';
 import type { TSceneWrapper } from '@/Engine/Scene';
@@ -40,7 +40,7 @@ export function TextService(
   dependencies: TTextDependencies,
   scene: TSceneWrapper
 ): TTextService {
-  merge(text2dRegistry.added$, text3dRegistry.added$, text3dTextureRegistry.added$).subscribe(({ value }: TRegistryPack<TTextAnyWrapper>) => scene.addText(value));
+  merge(text2dRegistry.added$, text3dRegistry.added$, text3dTextureRegistry.added$).subscribe(({ value }: TRegistryPack<TTextAnyWrapper>): void => scene.addText(value));
   const factorySub$: Subscription = factory.entityCreated$.subscribe((text: TTextAnyWrapper): void => {
     if (isText2dWrapper(text)) text2dRegistry.add(text);
     else if (isText3dWrapper(text)) text3dRegistry.add(text);
@@ -57,7 +57,7 @@ export function TextService(
 
   const activeText2dRenderer: BehaviorSubject<TText2dRenderer | undefined> = new BehaviorSubject<TText2dRenderer | undefined>(undefined);
 
-  function createText2dRenderer(container: TAppGlobalContainer, screenSizeWatcher: Readonly<TScreenSizeWatcher>): TText2dRenderer {
+  function createText2dRenderer(container: TAppGlobalContainer | TContainerDecorator, screenSizeWatcher: Readonly<TScreenSizeWatcher>): TText2dRenderer {
     const renderer: TText2dRenderer = initText2dRenderer(container, screenSizeWatcher);
     text2dRendererRegistry.add(renderer.id, renderer);
     if (text2dRendererRegistry.getLength() === 1) activeText2dRenderer.next(renderer);
@@ -66,7 +66,7 @@ export function TextService(
 
   const activeText3dRenderer: BehaviorSubject<TText3dRenderer | undefined> = new BehaviorSubject<TText3dRenderer | undefined>(undefined);
 
-  function createText3dRenderer(container: TAppGlobalContainer, screenSizeWatcher: Readonly<TScreenSizeWatcher>): TText3dRenderer {
+  function createText3dRenderer(container: TAppGlobalContainer | TContainerDecorator, screenSizeWatcher: Readonly<TScreenSizeWatcher>): TText3dRenderer {
     const renderer: TText3dRenderer = initText3dRenderer(container, screenSizeWatcher);
     text3dRendererRegistry.add(renderer.id, renderer);
     if (text3dRendererRegistry.getLength() === 1) activeText3dRenderer.next(renderer);
