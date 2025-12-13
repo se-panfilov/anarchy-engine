@@ -12,15 +12,13 @@ export function AbstractRegistry<T extends IWrapper<unknown>>(name: RegistryName
   const removed$: Subject<T> = new Subject<T>();
 
   function add(entity: T): void | never {
-    if (registry.has(entity.id))
-      throw new Error(`Cannot add an entity with id "${entity.id}" to registry ${id}: already exist`);
+    if (registry.has(entity.id)) throw new Error(`Cannot add an entity with id "${entity.id}" to registry ${id}: already exist`);
     registry.set(entity.id, entity);
     added$.next(entity);
   }
 
   function replace(entity: T): void | never {
-    if (registry.has(entity.id))
-      throw new Error(`Cannot replace an entity with id "${entity.id}" in registry ${id}: not exist`);
+    if (registry.has(entity.id)) throw new Error(`Cannot replace an entity with id "${entity.id}" in registry ${id}: not exist`);
     registry.set(entity.id, entity);
     replaced$.next(entity);
   }

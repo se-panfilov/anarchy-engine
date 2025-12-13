@@ -1,5 +1,5 @@
 import { CameraTag, LoopTag, RendererTag } from '@Engine/Constants';
-import type { IAppCanvas, ISceneLauncher, IStartedScene } from '@Engine/Models';
+import type { IAppCanvas, ILaunchedScene, ISceneLauncher } from '@Engine/Models';
 import type { IDestroyableFactories, ILocalFactoryPool, IRegistryPool } from '@Engine/Pool';
 import { RegistryPool } from '@Engine/Pool';
 import { LocalFactoriesPool } from '@Engine/Pool/LocalFactoriesPool';
@@ -32,7 +32,7 @@ export function SceneLauncher(sceneConfig: ISceneConfig, canvas: IAppCanvas, fac
     prepared$.next(true);
   }
 
-  function launch(): IStartedScene {
+  function launch(): ILaunchedScene {
     if (!prepared$.value) prepare();
 
     const { actorFactory, cameraFactory, lightFactory, rendererFactory, sceneFactory, loopFactory } = factories;
@@ -56,7 +56,7 @@ export function SceneLauncher(sceneConfig: ISceneConfig, canvas: IAppCanvas, fac
     loop.start(renderer, scene, initialCamera);
 
     launched$.next(true);
-    return { loop, renderer, registryPool, factories: localFactories };
+    return { loop, renderer, registries, factories: localFactories };
   }
 
   function destroy(): void {

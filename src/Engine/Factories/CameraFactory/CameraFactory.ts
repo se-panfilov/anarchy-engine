@@ -7,6 +7,5 @@ import { CameraWrapper } from '@Engine/Wrappers';
 import { AbstractFactory } from '../AbstractFactory';
 import type { ICameraFactory, ICreateCameraFn } from './Models';
 
-const create: ICreateCameraFn = (params: ICameraParams): ICameraWrapper =>
-  CameraWrapper(params, ambientContext.screenSizeWatcher);
+const create: ICreateCameraFn = (params: ICameraParams): ICameraWrapper => CameraWrapper(params, ambientContext.screenSizeWatcher);
 export const CameraFactory = (): ICameraFactory => AbstractFactory('camera', create, cameraAdapter);

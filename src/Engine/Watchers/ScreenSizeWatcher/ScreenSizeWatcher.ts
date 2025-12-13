@@ -5,10 +5,7 @@ import type { IScreenSizeWatcher } from '@Engine/Watchers/ScreenSizeWatcher/Mode
 
 export function ScreenSizeWatcher(container: IGlobalContainerDecorator): IScreenSizeWatcher {
   const initialValue: IScreenParams = { width: 0, height: 0, ratio: 0 };
-  const abstractWatcher: IAbstractWatcherWithState<IScreenParams> = AbstractWatcherWithState(
-    'screen-size',
-    initialValue
-  );
+  const abstractWatcher: IAbstractWatcherWithState<IScreenParams> = AbstractWatcherWithState('screen-size', initialValue);
 
   const onResize = (): void =>
     abstractWatcher.value$.next({

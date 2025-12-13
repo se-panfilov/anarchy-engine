@@ -1,9 +1,9 @@
-import type { IDestroyableFactories, IRegistryPool } from '@Engine/Pool';
+import type { IDestroyableFactories, IRegistries } from '@Engine/Pool';
 import type { ILoopWrapper, IRendererWrapper } from '@Engine/Wrappers';
 
-export type IStartedScene = Readonly<{
+export type ILaunchedScene = Readonly<{
   loop: ILoopWrapper;
   renderer: IRendererWrapper;
-  registryPool: IRegistryPool;
+  registries: IRegistries;
   factories: IDestroyableFactories;
 }>;
