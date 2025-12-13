@@ -64,7 +64,7 @@ export function Models3dService(
   // TODO 9.0.0. RESOURCES: remove?
   // function loadOrCreateFromConfigAsync(config: ReadonlyArray<TModel3dResourceConfig>): Promise<ReadonlyArray<TModel3dFacade | GLTF>> {
   //   const promisesList: ReadonlyArray<Promise<TModel3dFacade | GLTF>> = config.map((c: TModel3dResourceConfig): Promise<TModel3dFacade | GLTF> => {
-  //     if (isPrimitiveModel3dConfig(c)) {
+  //     if (isPrimitiveModel3dData(c)) {
   //       return Promise.resolve(create(factory.configToParams(c, { materialService })));
   //     } else {
   //       return model3dLoader.loadAsync(c);

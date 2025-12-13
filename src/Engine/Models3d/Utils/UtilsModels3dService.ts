@@ -13,6 +13,15 @@ export function applyCastShadowToModel3d(model: Group | Mesh | Object3D, castSha
 
   model.traverse((object: Mesh | Group | Object3D<Object3DEventMap>) => {
     // eslint-disable-next-line functional/immutable-data
-    if (isDefined(object.castShadow)) object.castShadow = true;
+    if (isDefined(object.castShadow)) object.castShadow = castShadow;
+  });
+}
+
+export function applyReceiveShadowToModel3d(model: Group | Mesh | Object3D, receiveShadow: boolean = false): void {
+  if (!receiveShadow) return;
+
+  model.traverse((object: Mesh | Group | Object3D<Object3DEventMap>) => {
+    // eslint-disable-next-line functional/immutable-data
+    if (isDefined(object.receiveShadow)) object.receiveShadow = receiveShadow;
   });
 }
