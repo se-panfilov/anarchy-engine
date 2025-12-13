@@ -76,7 +76,7 @@ export function destroyGeometryInEntity(entity: unknown): void {
 
 export function removeFromParent(entity: any): void {
   if (isDefined(entity.removeFromParent)) return entity.removeFromParent();
-  return entity.parent.remove(entity);
+  return entity.parent?.remove(entity);
 }
 
 export function stopParenting(entity: any): void {
