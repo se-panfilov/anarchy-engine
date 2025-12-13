@@ -2,7 +2,7 @@ import { combineLatest } from 'rxjs';
 import { Vector3 } from 'three';
 
 import type { IShowcase } from '@/App/Levels/Models';
-import type { IAppCanvas, ICameraWrapper, ILevel, ILevelConfig } from '@/Engine';
+import { IAppCanvas, ICameraWrapper, ILevel, ILevelConfig, isNotDefined } from '@/Engine';
 import { ActorType, ambientContext, buildLevelFromConfig, CameraTag, EulerWrapper, Vector3Wrapper } from '@/Engine';
 
 import levelConfig from './showcase-level-2.config.json';
@@ -44,6 +44,9 @@ export function showcaseLevel2(canvas: IAppCanvas): IShowcase {
       // camera.getAll()[0].entity.position.setX(xPosition);
       // camera.getAll()[0].entity.position.setY(yPosition);
       // TODO (S.Panfilov) CWP Camera is always a PerspectiveCamera, is that right?
+
+      const camera = cameraRegistry.getUniqByTag(cameraTag);
+      if (isNotDefined(camera)) return;
 
       // console.log('camera rotation', cameraRegistry.getAll()[0].entity.rotation);
       cameraRegistry.getUniqByTag(cameraTag)?.entity.position.setX(xRatio);
