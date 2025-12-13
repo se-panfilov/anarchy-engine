@@ -6,10 +6,10 @@ import type { ILightWrapper } from '@Engine/Domains/Light';
 import type { IWriteable } from '@Engine/Utils';
 import { Scene } from 'three';
 
-import type { IScene, ISceneObject, ISceneParams, ISceneWrapper } from '../Models';
+import type { ISceneObject, ISceneParams, ISceneWrapper } from '../Models';
 
 export function SceneWrapper(params: ISceneParams): ISceneWrapper {
-  const entity: IWriteable<IScene> = new Scene();
+  const entity: IWriteable<Scene> = new Scene();
 
   // eslint-disable-next-line functional/immutable-data
   entity.name = params.name;

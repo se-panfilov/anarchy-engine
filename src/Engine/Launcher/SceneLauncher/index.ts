@@ -1,2 +1,2 @@
-export * from './GameBuilder';
+export * from './LevelBuilder';
 export * from './Models';

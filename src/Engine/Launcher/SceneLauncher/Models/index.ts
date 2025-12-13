@@ -1,1 +1,1 @@
-export * from './IBuiltGame';
+export * from './ILevel';

@@ -5,10 +5,10 @@ import type { ILoopFactory, ILoopRegistry, ILoopWrapper } from '@Engine/Domains/
 import { LoopFactory, LoopRegistry, LoopTag } from '@Engine/Domains/Loop';
 import type { IRendererFactory, IRendererRegistry, IRendererWrapper } from '@Engine/Domains/Renderer';
 import { RendererFactory, RendererRegistry, RendererTag } from '@Engine/Domains/Renderer';
-import type { ISceneConfig, ISceneWrapper } from '@Engine/Domains/Scene';
+import type { ILevelConfig, ISceneWrapper } from '@Engine/Domains/Scene';
 import { SceneFactory } from '@Engine/Domains/Scene';
-import type { IBuiltGame } from '@Engine/Launcher';
-import { isNotDefined, isValidSceneConfig } from '@Engine/Utils';
+import type { ILevel } from '@Engine/Launcher';
+import { isNotDefined, isValidLevelConfig } from '@Engine/Utils';
 import { Subject } from 'rxjs';
 
 import type { IActorConfig, IActorFactory, IActorRegistry, IActorWrapper } from '@/Engine/Domains/Actor';
@@ -18,18 +18,18 @@ import { ControlsFactory, ControlsRegistry } from '@/Engine/Domains/Controls';
 import type { ILightConfig, ILightFactory, ILightRegistry, ILightWrapper } from '@/Engine/Domains/Light';
 import { LightFactory, LightRegistry } from '@/Engine/Domains/Light';
 
-// TODO (S.Panfilov) CWP All factories should be self-registrable
-// TODO (S.Panfilov) Registries' destroy() should kill all registred instances
+// TODO (S.Panfilov) CWP All factorKies should be self-registrable
+// TODO (S.Panfilov) Registries' destroy() should kill all registered instances
 
-export function buildGame(sceneConfig: ISceneConfig, canvas: IAppCanvas): IBuiltGame {
+export function buildLevelFromConfig(canvas: IAppCanvas, config: ILevelConfig): ILevel {
   const built$: Subject<void> = new Subject<void>();
   const destroyed$: Subject<void> = new Subject<void>();
   let isDestroyed: boolean = false;
 
-  if (!isValidSceneConfig(sceneConfig)) throw new Error('Failed to launch a scene: invalid data format');
-  const { name: sceneName, actors, cameras, lights, controls, tags } = sceneConfig;
+  if (!isValidLevelConfig(config)) throw new Error('Failed to launch a level: invalid data format');
+  const { name, actors, cameras, lights, controls, tags } = config;
 
-  const scene: ISceneWrapper = SceneFactory().create({ name: sceneName, tags });
+  const scene: ISceneWrapper = SceneFactory().create({ name, tags });
 
   // TODO (S.Panfilov) refactor this maybe with command/strategy pattern?
   const actorFactory: IActorFactory = ActorFactory();
@@ -101,7 +101,7 @@ export function buildGame(sceneConfig: ISceneConfig, canvas: IAppCanvas): IBuilt
   });
 
   const initialCamera: ICameraWrapper | undefined = cameraRegistry.getUniqByTag(CameraTag.Initial);
-  if (isNotDefined(initialCamera)) throw new Error(`Cannot start the main loop for the scene ${sceneName}: initial camera is not defined`);
+  if (isNotDefined(initialCamera)) throw new Error(`Cannot start the main loop for the level ${name}: initial camera is not defined`);
 
   built$.next();
 

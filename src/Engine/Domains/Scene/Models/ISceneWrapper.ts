@@ -2,11 +2,11 @@ import type { IWrapper } from '@Engine/Domains/Abstract';
 import type { IActorWrapper } from '@Engine/Domains/Actor';
 import type { ICameraWrapper } from '@Engine/Domains/Camera';
 import type { ILightWrapper } from '@Engine/Domains/Light';
+import type { Scene } from 'three';
 
-import type { IScene } from './IScene';
 import type { ISceneObject } from './ISceneObject';
 
-export type ISceneWrapper = IWrapper<IScene> &
+export type ISceneWrapper = IWrapper<Scene> &
   Readonly<{
     add: (obj: ISceneObject) => void;
     addActor: (actor: Readonly<IActorWrapper>) => void;

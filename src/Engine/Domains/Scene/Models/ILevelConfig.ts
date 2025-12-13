@@ -5,7 +5,7 @@ import type { ILightConfig } from '@Engine/Domains/Light';
 
 import type { SceneTag } from '../Constants';
 
-export type ISceneConfig = Readonly<{
+export type ILevelConfig = Readonly<{
   name: string;
   actors: ReadonlyArray<IActorConfig>;
   cameras: ReadonlyArray<ICameraConfig>;

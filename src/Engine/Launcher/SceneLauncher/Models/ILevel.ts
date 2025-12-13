@@ -8,7 +8,7 @@ import type { ILightFactory, ILightRegistry } from '@/Engine/Domains/Light';
 import type { IReactiveDestroyable } from '@/Engine/Domains/Mixins';
 import type { IRendererFactory, IRendererRegistry } from '@/Engine/Domains/Renderer';
 
-export type IBuiltGame = IReactiveDestroyable &
+export type ILevel = IReactiveDestroyable &
   Readonly<{
     start: () => ILoopWrapper;
     built$: Subject<void>;

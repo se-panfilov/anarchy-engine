@@ -2,17 +2,34 @@ import type { IWrapper } from '@Engine/Domains/Abstract';
 import { AbstractWrapper } from '@Engine/Domains/Abstract';
 import type { IScreenParams, IScreenSizeWatcher } from '@Engine/Domains/Screen';
 import type { IWriteable } from '@Engine/Utils';
-import { isNotDefined, isWebGLAvailable } from '@Engine/Utils';
+import { isNotDefined, isWebGL2Available, isWebGLAvailable } from '@Engine/Utils';
+import type { WebGLRendererParameters } from 'three';
 import { PCFShadowMap, WebGLRenderer } from 'three';
 
+import { RendererModes } from '../Constants';
 import type { IRendererParams, IRendererWrapper } from '../Models';
 
 // TODO (S.Panfilov) Should we provide delta here?
 export function RendererWrapper(params: IRendererParams, screenSizeWatcher: Readonly<IScreenSizeWatcher>): IRendererWrapper {
   if (isNotDefined(params.canvas)) throw new Error(`Canvas is not defined`);
   if (!isWebGLAvailable()) throw new Error('WebGL is not supported by this device');
+  const isWebGL2: boolean = params.mode === RendererModes.WebGL2;
+  if (isWebGL2 && !isWebGL2Available()) throw new Error('WebGL2 is not supported by this device');
 
-  const entity: WebGLRenderer = new WebGLRenderer({ canvas: params.canvas });
+  let options: WebGLRendererParameters = {
+    canvas: params.canvas,
+    alpha: true,
+    antialias: true,
+    stencil: true
+  };
+
+  if (isWebGL2) {
+    const context: WebGL2RenderingContext | null = (options.canvas as HTMLCanvasElement).getContext(RendererModes.WebGL2);
+    if (isNotDefined(context)) throw new Error(`WebGL2 context is not defined, however mode is set to ${RendererModes.WebGL2}`);
+    options = { ...options, context };
+  }
+
+  const entity: WebGLRenderer = new WebGLRenderer(options);
   // eslint-disable-next-line functional/immutable-data
   entity.shadowMap.enabled = true;
   // eslint-disable-next-line functional/immutable-data
