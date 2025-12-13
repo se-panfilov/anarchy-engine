@@ -267,8 +267,7 @@ Components listed: ${entries.length}
 `);
 
   if (entries.length === 0) {
-    lines.push(`**Note:** No third-party components were detected for this workspace at generation time.`);
-    lines.push(`This file is generated from an attribution source file (e.g., THIRD_PARTY_LICENSES.md).`, ``);
+    lines.push(`**Note:** No third-party components were detected.`);
   }
 
   for (const e of entries) {
