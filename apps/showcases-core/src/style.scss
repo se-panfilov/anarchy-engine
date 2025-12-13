@@ -1,4 +1,7 @@
 @use 'anarchy-shared/src/assets/constants' as anarchy_constants;
+//Adds dynamic font-family (changed on locale/lang change)
+@use 'anarchy-i18n/src/assets/_i18n.scss';
+@use 'showcases-shared/src/assets/_fonts';
 @import url(sanitize.css);
 
 body,
@@ -7,8 +10,6 @@ html {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  // TODO DESKTOP: add font family
-  //font-family: ???
   font-size: anarchy_constants.$base-font-size;
   font-style: normal;
   font-weight: normal;
