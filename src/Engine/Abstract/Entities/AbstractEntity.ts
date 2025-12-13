@@ -7,13 +7,7 @@ import type { TDestroyable, TNoSpread, TRegistrable, TWithNameAndNameAccessorsMi
 import { destroyableMixin, withNameAndNameAccessorsMixin } from '@/Engine/Mixins';
 import { genericEntityCleanUp, isDefined } from '@/Engine/Utils';
 
-// TODO 14-0-0: Implement destroy showcase
-// TODO 14-0-0: Check destroy in registries
-// TODO 14-0-0: Stop loops
-// TODO 14-0-0: Build destroy chain Space -> Services -> registries -> entities -> sub-entities
-// TODO 14-0-0: Test partial destroy of entities
 // TODO 14-0-0: Implement whole scene destroy (reload the page or destroy the canvas or smth)
-// TODO 14-0-0: Start implementing Multiple scenes support (14.x.x) (maybe with an url param?)
 // TODO 14-0-0: Validate canvasSelector strings (only allowed characters)
 // TODO 14-0-0: When destroying the space (canvas), make sure to unsubscribe all Observables and event listeners
 // TODO 14-0-0: Check destroy with Text
