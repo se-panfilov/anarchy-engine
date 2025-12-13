@@ -9,6 +9,7 @@ interface ViteTypeOptions {
 interface ImportMetaEnv {
   VITE_BUILD_COMPRESSION: string;
   VITE_BUILD_MINIFY_MANUAL: string;
+  VITE_BUILD_MINIFY_MANGLE: string;
 }
 
 interface ImportMeta {
