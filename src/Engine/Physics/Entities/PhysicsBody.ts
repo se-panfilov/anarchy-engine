@@ -1,11 +1,13 @@
 import type { RigidBodyType } from '@dimforge/rapier3d';
+import type { Subscription } from 'rxjs';
 
 import { AbstractEntity, EntityType } from '@/Engine/Abstract';
 import type { CollisionShape, RigidBodyTypesNames } from '@/Engine/Physics/Constants';
 import { RigidBodyTypesMap } from '@/Engine/Physics/Constants';
 import { withPhysicsBodyEntities } from '@/Engine/Physics/Mixins';
 import type { TPhysicsBody, TPhysicsBodyEntities, TPhysicsBodyParams, TPhysicsDependencies } from '@/Engine/Physics/Models';
-import { isNotDefined } from '@/Engine/Utils';
+import type { TWriteable } from '@/Engine/Utils';
+import { isDefined, isNotDefined } from '@/Engine/Utils';
 
 import { createPhysicsBodyEntities } from './PhysicsBodyUtils';
 
@@ -16,6 +18,17 @@ export function PhysicsBody(params: TPhysicsBodyParams, { world }: TPhysicsDepen
   if (isSleep) entities.rigidBody?.sleep();
 
   const abstract = AbstractEntity(withPhysicsBodyEntities(entities), EntityType.PhysicsBody, params);
+
+  const destroySub$: Subscription = abstract.destroy$.subscribe((): void => {
+    if (isDefined(entities.rigidBody)) world.removeRigidBody(entities.rigidBody);
+    // eslint-disable-next-line functional/immutable-data
+    (entities as TWriteable<TPhysicsBodyEntities>).rigidBody = null as any;
+    if (isDefined(entities.collider)) world.removeCollider(entities.collider, false);
+    // eslint-disable-next-line functional/immutable-data
+    (entities as TWriteable<TPhysicsBodyEntities>).collider = null as any;
+
+    destroySub$.unsubscribe();
+  });
 
   // eslint-disable-next-line functional/immutable-data
   return Object.assign(abstract, {

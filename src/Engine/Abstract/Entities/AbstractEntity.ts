@@ -14,6 +14,7 @@ export function AbstractEntity<T extends Record<string, any>>(entities: T, type:
   const destroyable: TDestroyable = destroyableMixin();
 
   const destroySub$: Subscription = destroyable.destroy$.subscribe((): void => {
+    // TODO 13-0-0: Do the same things that AbstractWrapper does
     destroySub$.unsubscribe();
     destroyable.destroy$.complete();
     destroyable.destroy$.unsubscribe();

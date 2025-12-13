@@ -76,6 +76,7 @@ export function PhysicsWorldService(scene: TSceneWrapper, { physicalLoop }: TSpa
 
     loopSub$?.unsubscribe();
     world?.free();
+    world = null as any;
   });
 
   return {
