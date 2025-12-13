@@ -1,6 +1,5 @@
 import type { TCollisionsDataParams } from '@/Engine/Collisions';
 import type { TKinematicDataParams } from '@/Engine/Kinematic';
-import type { TWithReadonlyTags } from '@/Engine/Mixins';
 import type { TModel3dFacade } from '@/Engine/Models3d';
 import type { TWithPresetNamePhysicsBodyParams } from '@/Engine/Physics';
 import type { TSpatialDataParams } from '@/Engine/Spatial';
@@ -24,5 +23,4 @@ export type TActorParams = TActorProps &
   Readonly<{
     collisions?: TCollisionsDataParams;
   }> &
-  Pick<TObject3DParams, 'position' | 'rotation' | 'scale'> &
-  TWithReadonlyTags;
+  Pick<TObject3DParams, 'position' | 'rotation' | 'scale'>;

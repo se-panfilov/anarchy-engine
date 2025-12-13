@@ -12,7 +12,7 @@ import { scalableMixin, withMoveBy3dMixin, withObject3d, withRotationByXyzMixin 
 import type { TModel3dFacade } from '@/Engine/Models3d';
 import type { TSpatialLoopServiceValue } from '@/Engine/Spatial';
 import { withReactivePosition, withReactiveRotation, withSpatial, withUpdateSpatialCell } from '@/Engine/Spatial';
-import { applyObject3dParams, applyPosition, applyRotation, applyScale, isDefined } from '@/Engine/Utils';
+import { applyPosition, applyRotation, applyScale, isDefined } from '@/Engine/Utils';
 
 export function ActorWrapper(
   params: TActorParams,
@@ -79,7 +79,6 @@ export function ActorWrapper(
   applyPosition(actorW, params.position);
   applyRotation(actorW, params.rotation);
   if (isDefined(params.scale)) applyScale(actorW, params.scale);
-  applyObject3dParams(actorW, params);
   applySpatialGrid(params, actorW, spatialGridService);
   startCollisions(actorW);
 

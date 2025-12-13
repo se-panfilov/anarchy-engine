@@ -1,7 +1,3 @@
-import type { TWithName } from '@/Engine/Mixins';
+import type { TWithName, TWithReadonlyTags } from '@/Engine/Mixins';
 
-export type TActorProps = Readonly<{
-  castShadow?: boolean;
-  receiveShadow?: boolean;
-}> &
-  TWithName;
+export type TActorProps = TWithName & TWithReadonlyTags;
