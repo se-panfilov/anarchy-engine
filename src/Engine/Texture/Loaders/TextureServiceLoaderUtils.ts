@@ -1,12 +1,9 @@
-import { TextureLoader } from 'three';
-
 import type {
   TBasicMaterialTexturePack,
   TDepthMaterialTexturePack,
   TDistanceMaterialTexturePack,
   TLambertMaterialTexturePack,
   TMatcapMaterialTexturePack,
-  TMaterialPackKeys,
   TMaterialPackParams,
   TMaterialTexturePack,
   TNormalMaterialTexturePack,
@@ -34,23 +31,22 @@ import type {
   TPhysicalTextureUploadPromises,
   TStandardTextureUploaded,
   TStandardTextureUploadPromises,
-  TTexture,
   TTextureAsyncRegistry,
   TTextureLoadedPack,
   TTexturePackParams,
-  TTextureService,
   TTextureUploaded,
   TTextureUploadPromises,
   TToonTextureUploaded,
   TToonTextureUploadPromises
 } from '@/Engine/Texture/Models';
-import { applyColorSpace, applyFilters, applyTextureParams } from '@/Engine/Texture/Services/TextureServiceHelper';
-import type { TWriteable } from '@/Engine/Utils';
-import { isDefined, isNotDefined } from '@/Engine/Utils';
+import { isNotDefined } from '@/Engine/Utils';
 
-export function TextureServiceLoaderUtils(registry: TTextureAsyncRegistry): Pick<TTextureService, 'load' | 'loadList' | 'loadMaterialPack'> {
-  const textureLoader: TextureLoader = new TextureLoader();
-
+// TODO 9.0.0. RESOURCES: This "TextureServiceLoaderUtils" utils should be killed
+export function TextureServiceLoaderUtils(registry: TTextureAsyncRegistry): void {
+  // TODO 9.0.0. RESOURCES: material should be "created" instead of "loaded" with the textures
+  //  which is already pre-loaded and stored in the registry.
+  //  So, "loadMaterialPack" should ba changed to "createMaterialPack", "all" is not needed.
+  //  Also, move it to the "Material" domain.
   function loadMaterialPack(m: TMaterialPackParams<TBasicMaterialTexturePack>): TBasicTextureUploadPromises;
   function loadMaterialPack(m: TMaterialPackParams<TDepthMaterialTexturePack>): TDepthTextureUploadPromises;
   function loadMaterialPack(m: TMaterialPackParams<TDistanceMaterialTexturePack>): TDistanceTextureUploadPromises;
@@ -93,30 +89,4 @@ export function TextureServiceLoaderUtils(registry: TTextureAsyncRegistry): Pick
 
     return { ...promises, all };
   }
-
-  // TODO 9.0.0. RESOURCES: add isForce param to load the texture anyway
-  // TODO 9.0.0. RESOURCES: should be possible to load the same texture with different params (and store them separately in registry)
-  // TODO 9.0.0. RESOURCES: colorSpace, should be able to set via params/config
-  function load({ url, params }: TTexturePackParams, colorSpace?: TMaterialPackKeys): Promise<TTextureLoadedPack> {
-    const texture = registry.findByKey(url);
-    // TODO 9.0.0. RESOURCES: check if this is working and we return already loaded texture
-    if (isDefined(texture)) return Promise.resolve({ url, texture });
-
-    return textureLoader.loadAsync(url).then((texture: TWriteable<TTexture>): TTextureLoadedPack => {
-      applyTextureParams(texture, params);
-      if (isDefined(colorSpace)) applyColorSpace(colorSpace as TMaterialPackKeys, texture, params);
-      applyFilters(texture, params);
-      return { url, texture };
-    });
-  }
-
-  function loadList(packs: ReadonlyArray<TTexturePackParams>): ReadonlyArray<Promise<TTextureLoadedPack>> {
-    return packs.map((pack: TTexturePackParams): Promise<TTextureLoadedPack> => load(pack));
-  }
-
-  return {
-    load,
-    loadList,
-    loadMaterialPack
-  };
 }
