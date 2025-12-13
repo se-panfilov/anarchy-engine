@@ -18,7 +18,7 @@ async function getServiceAndParams(spaceService: TSpaceService, canvas: TAppCanv
   (mockConfig.resources as TWriteable<TSpaceConfigResources>).materials = [mockMaterialConfig];
   // eslint-disable-next-line functional/immutable-data
   (mockConfig.entities as TWriteable<TSpaceConfigEntities>).models3d = [mockModel3dConfig];
-  const space: TSpace = await spaceService.buildSpaceFromConfig(canvas, mockConfig);
+  const space: TSpace = spaceService.createFromConfig(canvas, mockConfig);
   const dependencies: TActorConfigToParamsDependencies = {
     models3dService: space.services.models3dService,
     fsmService: space.services.fsmService,

@@ -9,8 +9,8 @@ import type { TSpaceHooks } from './TSpaceHooks';
 import type { TSpaceParams } from './TSpaceParams';
 import type { TSpaceRegistry } from './TSpaceRegistry';
 
-export type TSpaceServiceWithCreate = TWithCreateService<TSpace, TSpaceParams>;
-export type TSpaceServiceWithCreateFromConfig = TWithCreateFromConfigService<TSpaceConfig, TSpace>;
+export type TSpaceServiceWithCreate = TWithCreateService<TSpace, TSpaceParams, TSpaceHooks>;
+export type TSpaceServiceWithCreateFromConfig = TWithCreateFromConfigService<TSpaceConfig, TSpace, TSpaceHooks>;
 export type TSpaceServiceWithFactory = TWithFactoryService<TSpace, TSpaceParams, TSpaceConfigAsDependency, TSpaceFactory, TSpaceHooks>;
 export type TSpaceServiceWithRegistry = TWithRegistryService<TSpaceRegistry>;
 
