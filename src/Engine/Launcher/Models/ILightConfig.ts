@@ -15,6 +15,6 @@ export type ILightConfig = Omit<ILightParams, 'color' | 'position' | 'shadow'> &
 export type LightShadowConfig = Omit<ILightShadowParams, 'mapSize'> &
   Readonly<{
     mapSize: IVector2dConfig;
-    camera: Readonly<{ far: number }>;
+    camera: { far: number };
     normalBias: number;
   }>;

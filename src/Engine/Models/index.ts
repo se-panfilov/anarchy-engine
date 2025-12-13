@@ -8,6 +8,7 @@ export * from './IFactory';
 export * from './IInputParams';
 export * from './ILightParams';
 export * from './ILoopParams';
+export * from './IMouseEvent';
 export * from './IMousePosition';
 export * from './IProtectedRegistry';
 export * from './IRendererParams';

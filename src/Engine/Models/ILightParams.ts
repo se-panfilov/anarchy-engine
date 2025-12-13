@@ -12,7 +12,7 @@ export type ILightParams = Readonly<{
 
 export type ILightShadowParams = Readonly<{
   mapSize: Vector2;
-  camera: Readonly<{ far: number }>;
+  camera: { far: number };
   normalBias: number;
 }>;
 

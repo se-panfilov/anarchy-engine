@@ -2,7 +2,7 @@ import type { Vector2, Vector3 } from 'three';
 import type { IMousePosition } from '@Engine/Models';
 
 // TODO (S.Panfilov) I don't like this being a distinct function, also don't really get why I might need that normalization
-export function getNormalizedMousePosition(position: IMousePosition | Vector3 | Vector2): IMousePosition {
+export function getNormalizedMousePosition(position: Readonly<IMousePosition | Vector3 | Vector2>): IMousePosition {
   const { x, y } = position;
 
   return {

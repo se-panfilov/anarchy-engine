@@ -9,19 +9,19 @@ export type IntersectionsService = Readonly<{
     position: IMousePosition,
     cameraWrapper: ICameraWrapper,
     obj: ReadonlyArray<Object3D>
-  ) => Vector3 | undefined | never;
+  ) => Readonly<Vector3> | undefined | never;
   destroy: () => void;
   reset: () => void;
 }>;
 
 export function IntersectionsService(): IntersectionsService {
-  let raycaster: Raycaster | undefined = new Raycaster();
+  let raycaster: Readonly<Raycaster> | undefined = new Raycaster();
 
   function getIntersection(
     position: IMousePosition,
     cameraWrapper: ICameraWrapper,
     obj: ReadonlyArray<Object3D>
-  ): Vector3 | undefined | never {
+  ): Readonly<Vector3> | undefined | never {
     if (isNotDefined(raycaster))
       throw new Error('Intersections service: cannot get intersection: a raycaster is not defined.');
     raycaster.setFromCamera(getNormalizedMousePosition(position), cameraWrapper.entity);
