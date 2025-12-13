@@ -26,6 +26,7 @@ const isOpenDevTools: boolean = true;
 // TODO DESKTOP: Maybe move desktop app to the apps/showcases level?
 // TODO DESKTOP: Can we avoid copying of dist-desktop to dist-app? (check paths in asar)
 // TODO DESKTOP: add "sanitize assets" script for desktop/assets and mobile/assets
+// TODO DESKTOP: We need e2e eventually
 
 function getIndexHtmlPath(): string {
   const path: string = app.isPackaged ? join(app.getAppPath(), 'dist-app', 'index.html') : join(__dirname, '..', 'dist-app', 'index.html');
