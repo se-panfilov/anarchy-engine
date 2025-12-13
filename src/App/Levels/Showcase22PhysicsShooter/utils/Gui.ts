@@ -1,9 +1,9 @@
 import GUI from 'lil-gui';
 
-import type { TIntersectionEvent, TIntersectionsWatcher, TSpatialGridService, TSpatialGridWrapper } from '@/Engine';
+import type { TActorService, TIntersectionEvent, TIntersectionsWatcher, TSpatialGridService, TSpatialGridWrapper } from '@/Engine';
 import { isNotDefined } from '@/Engine';
 
-export function initGui(mouseLineIntersectionsWatcher: TIntersectionsWatcher, spatialGridService: TSpatialGridService): void {
+export function initGui(mouseLineIntersectionsWatcher: TIntersectionsWatcher, spatialGridService: TSpatialGridService, actorService: TActorService): void {
   const gui: GUI = new GUI();
   const grid: TSpatialGridWrapper | undefined = spatialGridService.getRegistry().findByName('main_grid');
   if (isNotDefined(grid)) throw new Error(`Cannot find "main_grid" spatial grid`);
@@ -19,6 +19,7 @@ export function initGui(mouseLineIntersectionsWatcher: TIntersectionsWatcher, sp
   };
 
   const cell = { id: '' };
+  const actor = { name: '' };
 
   mouseLineIntersectionsWatcher.value$.subscribe((intersection: TIntersectionEvent) => {
     // eslint-disable-next-line functional/immutable-data
@@ -37,10 +38,13 @@ export function initGui(mouseLineIntersectionsWatcher: TIntersectionsWatcher, sp
     mouse.objectName = intersection.object.name;
     // eslint-disable-next-line functional/immutable-data
     cell.id = grid.findCells(intersection.point.x, intersection.point.z)[0]?.id;
+    // eslint-disable-next-line functional/immutable-data
+    actor.name = actorService.getRegistry().findById(mouse.wrapperId)?.name;
   });
 
   const mouseFolderGui: GUI = gui.addFolder('Mouse');
-  const gridFolderGui: GUI = gui.addFolder('Mouse');
+  const gridFolderGui: GUI = gui.addFolder('Grid');
+  const actorFolderGui: GUI = gui.addFolder('Actor');
   mouseFolderGui.add(mouse, 'x').listen();
   mouseFolderGui.add(mouse, 'y').listen();
   mouseFolderGui.add(mouse, 'z').listen();
@@ -49,4 +53,5 @@ export function initGui(mouseLineIntersectionsWatcher: TIntersectionsWatcher, sp
   mouseFolderGui.add(mouse, 'wrapperId').listen();
   mouseFolderGui.add(mouse, 'objectName').listen();
   gridFolderGui.add(cell, 'id').listen();
+  actorFolderGui.add(actor, 'name').listen();
 }

@@ -87,7 +87,7 @@ export function showcase(canvas: TAppCanvas): TShowcase {
     //move bouncing sphere to target practice
     moveActorBounce(sphereActorW);
 
-    initGui(mouseLineIntersectionsWatcher, spatialGridService);
+    initGui(mouseLineIntersectionsWatcher, spatialGridService, actorService);
 
     loopService.tick$.subscribe((delta): void => {
       cameraFollowingActor(cameraW, heroW);
