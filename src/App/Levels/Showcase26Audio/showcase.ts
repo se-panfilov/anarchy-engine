@@ -7,7 +7,6 @@ import type {
   TActor,
   TAnyAudioWrapper,
   TAudio3dWrapper,
-  TCameraWrapper,
   TDebugAudioRenderer,
   TFsmStates,
   TFsmWrapper,
@@ -39,12 +38,10 @@ export function start(): void {
 export function showcase(space: TSpace): void {
   const gui: GUI = new GUI();
 
-  const { scenesService, audioService, cameraService } = space.services;
+  const { scenesService, audioService } = space.services;
   const { audioLoop } = space.loops;
   const mainListener: AudioListener | undefined = audioService.getMainListener();
 
-  const camera: TCameraWrapper | undefined = cameraService.findActive();
-  if (isNotDefined(camera)) throw new Error('Active camera listener is not found');
   if (isNotDefined(mainListener)) throw new Error('Main audio listener is not found');
 
   const scene: TSceneWrapper | undefined = scenesService.findActive();

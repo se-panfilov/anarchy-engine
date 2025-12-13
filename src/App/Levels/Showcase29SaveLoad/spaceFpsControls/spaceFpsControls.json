@@ -7,32 +7,32 @@
         "name": "sphere_actor",
         "position": {
           "x": 0,
-          "y": 4,
+          "y": 2.2,
           "z": 0
         },
         "spatial": {
           "grid": "main_grid",
-          "isAutoUpdate": true
+          "isAutoUpdate": false
         }
       }
     ],
     "audio": [],
     "cameras": [
       {
-        "far": 10000,
+        "far": 100,
         "fov": 45,
         "isActive": true,
-        "name": "main",
+        "name": "main_camera",
         "near": 1,
         "position": {
-          "x": 3,
-          "y": 20,
-          "z": 35
+          "x": -1,
+          "y": 2,
+          "z": 8
         },
         "rotation": {
-          "x": -0.519146114246523,
-          "y": 0.07428390319893977,
-          "z": 0.04238351982512054
+          "x": 0,
+          "y": 0,
+          "z": 0
         }
       }
     ],
@@ -43,8 +43,8 @@
         "isActive": true,
         "options": {
           "lookSpeed": 0.05,
-          "lookVertical": false,
-          "movementSpeed": 3
+          "lookVertical": true,
+          "movementSpeed": 2
         },
         "type": "FirstPersonControls"
       }
@@ -86,7 +86,7 @@
       {
         "name": "surface_material",
         "options": {
-          "color": "#9ACEFF"
+          "color": "#B2CB3F"
         },
         "type": "MeshStandardMaterial"
       },

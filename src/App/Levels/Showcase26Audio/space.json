@@ -1,7 +1,6 @@
 {
   "canvasSelector": "#app",
   "entities": {
-    "renderers": [{ "name": "main", "mode": "webgl2", "isActive": true }],
     "actors": [
       {
         "agent": "default",
@@ -65,7 +64,9 @@
           "isAutoUpdate": false
         },
         "states": {
-          "animationsFsmSource": { "name": "shoot_anim_fsm" }
+          "animationsFsmSource": {
+            "name": "shoot_anim_fsm"
+          }
         }
       },
       {
@@ -145,9 +146,9 @@
     ],
     "controls": [
       {
-        "name": "fps_controls",
         "cameraName": "main_camera",
         "isActive": true,
+        "name": "fps_controls",
         "options": {
           "lookSpeed": 0.05,
           "lookVertical": false,
@@ -159,9 +160,9 @@
     "envMaps": [],
     "fogs": [
       {
-        "name": "main_fog",
         "color": "#A0A0A0",
         "far": 35,
+        "name": "main_fog",
         "near": 10
       }
     ],
@@ -179,10 +180,10 @@
     "intersections": [],
     "lights": [
       {
-        "name": "directional_light",
         "castShadow": true,
         "color": "#ffffff",
         "intensity": 3,
+        "name": "directional_light",
         "position": {
           "x": -3,
           "y": 10,
@@ -206,10 +207,10 @@
         "type": "DirectionalLight"
       },
       {
-        "name": "ambient_light",
         "color": "#ffffff",
         "groundColor": "#8D8D8D",
         "intensity": 3,
+        "name": "ambient_light",
         "position": {
           "x": 0,
           "y": 20,
@@ -280,6 +281,13 @@
     ],
     "particles": [],
     "physics": {},
+    "renderers": [
+      {
+        "isActive": true,
+        "mode": "webgl2",
+        "name": "main"
+      }
+    ],
     "spatialGrids": [
       {
         "cellSize": 10,
