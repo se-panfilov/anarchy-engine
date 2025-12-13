@@ -6,6 +6,7 @@ export function getNormalizedMousePosition(position: IMousePosition | Vector3 | 
   const { x, y } = position;
 
   return {
+    // TODO (S.Panfilov) replace window with "container" from AmbientContext
     x: (x / window.innerWidth) * 2 - 1,
     y: -(y / window.innerHeight) * 2 + 1
   };
