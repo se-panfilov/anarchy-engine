@@ -39,7 +39,9 @@
     "unit:coverage:ui": "vitest --ui",
     "unit:watch": "vitest"
   },
-  "dependencies": {},
+  "dependencies": {
+    "bowser": "2.12.1"
+  },
   "devDependencies": {
     "fast-glob": "3.3.3",
     "fs-extra": "11.3.2",
