@@ -1,32 +1,34 @@
-# Privacy Policy — {{PACKAGE_NAME}}
+# Privacy Policy — {{PRODUCT_DISPLAY_NAME}}{{TRADEMARK_SYMBOL}}
 
 **Effective date:** {{EFFECTIVE_DATE}}
 **Controller:** {{LEGAL_ENTITY_NAME}} — Contact: {{PRIVACY_EMAIL}}
 
+**Scope / Identification.** This policy applies to **{{PRODUCT_DISPLAY_NAME}}{{TRADEMARK_SYMBOL}}** (the “{{PRODUCT_TERM}}”){{#SHOW_TECH_IDENTIFIERS}} and related distributions under the following technical identifiers: {{PACKAGE_NAME}}{{/SHOW_TECH_IDENTIFIERS}}.
+
 ## 1. Summary
 
-We do **not** collect personal data through the **offline** game client. Purchasing, downloading, installation, account, or entitlement functions (if any) are handled by the Distribution Channels you use and are subject to their own terms and privacy policies, which we do not control.
+We do **not** collect personal data through the {{PRODUCT_TERM}}. Purchasing, downloading, installation, account, or entitlement functions (if any) are handled by the distribution channels you use and are subject to their own terms and privacy policies, which we do not control.
 
 **CPRA:** we **do not sell or share** personal information for cross-context behavioral advertising.
 
-## 2. {{PRODUCT_TERM}} Client
+## 2. The {{PRODUCT_TERM}}
 
-- **No telemetry or analytics** are collected by the client.
+- **No telemetry or analytics** are collected by the {{PRODUCT_TERM}}.
 - **No crash reports** are sent by default.
   {{#CRASH_OPT_IN}}
-  If you **opt in**, the client may send **anonymous** crash reports limited to technical diagnostics (no direct identifiers). You can withdraw consent at any time in settings.
+  If you **opt in**, the {{PRODUCT_TERM}} may send **anonymous** crash reports limited to technical diagnostics (no direct identifiers). You can withdraw consent at any time via an in-product option (where available) or by contacting us.
   {{/CRASH_OPT_IN}}
-- The {{PRODUCT_TERM}} runs offline. Any optional online features will be **opt-in** and documented here.
+- The {{PRODUCT_TERM}} operates locally (offline). Any optional online features will be **opt-in** and documented here.
 
-## 3. Distribution Channels
+## 3. Distribution channels
 
-Your chosen Distribution Channels may process personal data necessary to provide their services (e.g., account or entitlement management). We receive only the minimal information needed to enable access to the {{PRODUCT_TERM}} (if applicable). For details on their processing, consult the terms and privacy documentation of the relevant provider.
+Your chosen distribution channels may process personal data necessary to provide their services (e.g., account or entitlement management). We receive only the minimal information needed to enable access to the {{PRODUCT_TERM}} (if applicable). For details on their processing, consult the terms and privacy documentation of the relevant provider.
 
 ## 4. Customer Support
 
 If you contact us at **{{SUPPORT_EMAIL}}**, we process your **email address**, **message content**, and any information you provide to respond.
 **Legal basis:** our **legitimate interests** in responding to inquiries (or your consent where applicable).
-**Retention:** **{{SUPPORT_EMAILS_RETAIN_PERIOD_MONTH}}**, then deletion or anonymization unless longer retention is required by law.
+**Retention:** **{{SUPPORT_EMAILS_RETAIN_PERIOD_MONTH}} months**, then deletion or anonymization unless longer retention is required by law.
 
 ## 5. Processors
 
@@ -34,13 +36,11 @@ We may use service providers (e.g., email hosting) as **processors** bound by da
 
 ## 6. International Transfers
 
-Where data is transferred outside your jurisdiction, we rely on applicable transfer mechanisms (e.g., **standard contractual clauses** or other lawful safeguards), where required.
+Where data is transferred outside your jurisdiction, we rely on applicable transfer mechanisms (e.g., **Standard Contractual Clauses** or other lawful safeguards), where required.
 
 ## 7. Your Rights
 
-Subject to law, you may request **access**, **rectification**, **erasure**, **restriction**, **objection**, or **portability** at **{{PRIVACY_EMAIL}}**. You may also lodge a complaint with your local supervisory authority (e.g., the Dutch **Autoriteit Persoonsgegevens**).
-
-We will respond **within timelines required by applicable law**.
+Subject to law, you may request **access**, **rectification**, **erasure**, **restriction**, **objection**, or **portability** at **{{PRIVACY_EMAIL}}**. You may also lodge a complaint with your local supervisory authority (e.g., the Dutch **Autoriteit Persoonsgegevens**). We may request reasonable information to **verify your identity** before acting on a request. We will respond **within timelines required by applicable law**.
 
 ## 8. Children
 
@@ -53,15 +53,15 @@ This {{PRODUCT_TERM}} is **not directed** to children below the age requiring pa
 
 ## 9. Security
 
-We apply appropriate technical and organizational measures proportionate to the limited data we handle (e.g., encrypted transport, access controls, limited retention).
+We apply appropriate technical and organizational measures proportionate to the limited personal data we handle (e.g., encrypted transport, access controls, limited retention). We do **not** use automated decision-making that produces legal or similarly significant effects.
 
 ## 10. Changes
 
-We may update this policy. Material changes will be communicated via **{{EULA_UPDATE_COMMUNICATION}}**.
+We may update this policy. Material changes may be communicated **within the product or the update package** (for example, via an in-product notice or release notes included with the distribution), or via the applicable distribution channel.
 
 ## Governing Language
 
-This agreement is drafted in English. Translations may be provided for convenience. In consumer markets where local-language versions are required by law for clarity and fairness, the local-language version controls to the extent required by applicable law; otherwise, the English version controls.
+This policy is drafted in English. Translations may be provided for convenience. In consumer markets where local-language versions are required by law for clarity and fairness, the local-language version controls to the extent required by applicable law; otherwise, the English version controls.
 
 **Contact:** {{PRIVACY_EMAIL}}
 
