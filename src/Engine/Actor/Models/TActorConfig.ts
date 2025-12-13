@@ -3,12 +3,14 @@ import type { TKinematicData } from '@/Engine/Kinematic';
 import type { TMaterialPackConfig, TMaterialTexturePack } from '@/Engine/MaterialTexturePack';
 import type { TWithReadonlyTags } from '@/Engine/Mixins';
 import type { TWithPresetNamePhysicsBodyConfig } from '@/Engine/Physics';
+import type { TSpatialData } from '@/Engine/Spatial';
 import type { TObject3DPropConfig } from '@/Engine/ThreeLib';
 import type { TOptional } from '@/Engine/Utils';
 
 import type { TActorProps } from './TActorProps';
 
 export type TKinematicDataConfig = TOptional<TKinematicData>;
+export type TSpatialDataConfig = TOptional<Omit<TSpatialData, 'cell'>>;
 
 export type TActorConfig = Omit<TActorProps, 'material'> &
   Readonly<{
@@ -17,6 +19,7 @@ export type TActorConfig = Omit<TActorProps, 'material'> &
     castShadow: boolean;
     physics?: TWithPresetNamePhysicsBodyConfig;
     kinematic?: TKinematicDataConfig;
+    spatial?: TSpatialDataConfig;
     isKinematicAutoUpdate?: boolean;
   }> &
   TObject3DPropConfig &
