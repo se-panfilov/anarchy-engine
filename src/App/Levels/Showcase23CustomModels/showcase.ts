@@ -14,18 +14,21 @@ export function showcase(canvas: TAppCanvas): TShowcase {
     const options: TModel3dLoadOptions = { shouldSaveToRegistry: true, shouldAddToScene: true, isForce: false };
     const scale: number = 0.025;
 
-    //gltf model
-    await models3dService.loadAsync({ url: '/Showcase/models/fox/Fox.gltf', options }).then((result: TModel3dLoadResult) => {
-      result.model.scale.set(scale, scale, scale);
-      result.model.position.set(-10, 0, 0);
-      activeScene.addModel(result.model);
-    });
-
-    //glb model (draco compressed)
-    await models3dService.loadAsync({ url: '/Showcase/models/fox/Fox.glb', options }).then((result: TModel3dLoadResult) => {
-      result.model.scale.set(scale, scale, scale);
-      result.model.position.set(10, 0, 0);
-      activeScene.addModel(result.model);
+    await Promise.all(
+      models3dService.loadAsync([
+        //gltf model
+        { url: '/Showcase/models/fox/Fox.gltf', options },
+        //glb model (draco compressed)
+        { url: '/Showcase/models/fox/Fox.glb', options }
+      ])
+    ).then((result: ReadonlyArray<TModel3dLoadResult>) => {
+      let step: number = -5;
+      result.forEach((r: TModel3dLoadResult) => {
+        r.model.scale.set(scale, scale, scale);
+        r.model.position.set(step, 0, 0);
+        step += 5;
+        activeScene.addModel(r.model);
+      });
     });
   }
 

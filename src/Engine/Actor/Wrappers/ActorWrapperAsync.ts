@@ -29,8 +29,13 @@ export async function ActorWrapperAsync(
     shouldAddToScene: params.model3d.options?.shouldAddToScene ?? false,
     isForce: params.model3d.options?.isForce ?? false
   };
-  // TODO AWAIT: could speed up by not awaiting mesh to be build
-  const model3dLoadResult: TModel3dLoadResult = isPrimitiveModel3d ? await createActorModel3d(params, { materialTextureService }) : await models3dService.loadAsync({ ...params.model3d, options });
+  // TODO AWAIT: could speed up by not awaiting mesh to be build?
+  const model3dLoadResultList: ReadonlyArray<Promise<TModel3dLoadResult>> = isPrimitiveModel3d
+    ? [createActorModel3d(params, { materialTextureService })]
+    : models3dService.loadAsync([{ ...params.model3d, options }]);
+  if (model3dLoadResultList.length === 0) throw new Error(`Model3d not loaded: ${params.model3d.url}`);
+  if (model3dLoadResultList.length > 1) throw new Error(`Model3d loaded more than one model: ${params.model3d.url}`);
+  const model3dLoadResult: TModel3dLoadResult = await model3dLoadResultList[0];
   const entity: Mesh | Group = model3dLoadResult.model;
 
   const withMaterialEntity: TWithMaterial = withMaterial(entity);

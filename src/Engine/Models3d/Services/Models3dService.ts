@@ -27,15 +27,16 @@ export function Models3dService(models3dRegistry: TModels3dAsyncRegistry, models
   });
 
   // TODO (S.Panfilov) 1. CWP implement loading of array of models (loadAsync)
-  // TODO (S.Panfilov) 2. CWP fix loadFromConfigAsync
-  // TODO (S.Panfilov) 3. CWP load some models from showcase.json
-  // TODO (S.Panfilov) 4. CWP add validation rules for models3ds (in config)
-  // TODO (S.Panfilov) 5. CWP implement models load via actor (merge branch and create a new one before doing this)
-  function loadFromConfigAsync(models3ds: ReadonlyArray<string>): ReadonlyArray<Promise<Mesh>> {
-    return models3ds.map((url: string): Promise<Mesh> => loadAsync(url));
-  }
+  // TODO (S.Panfilov) 2. CWP test if we can reuse model that was loaded once (should be separate instances)
+  // TODO (S.Panfilov) 3. CWP fix loadFromConfigAsync
+  // TODO (S.Panfilov) 4. CWP load some models from showcase.json
+  // TODO (S.Panfilov) 5. CWP add validation rules for models3ds (in config)
+  // TODO (S.Panfilov) 6. CWP implement models load via actor (merge branch and create a new one before doing this)
+  // function loadFromConfigAsync(models3ds: ReadonlyArray<string>): ReadonlyArray<Promise<Mesh>> {
+  //   return models3ds.map((url: string): Promise<Mesh> => loadAsync(url));
+  // }
 
-  function loadAsync({ url, options }: TModel3dParams): Promise<TModel3dLoadResult> {
+  function loadModelAsync({ url, options }: TModel3dParams): Promise<TModel3dLoadResult> {
     if ([...Object.values(Model3dType)].includes(url as Model3dType)) throw new Error(`Trying to load a primitive(e.g. cube, sphere, etc.) as an imported model: ${url}`);
 
     if (!options.isForce) {
@@ -44,17 +45,34 @@ export function Models3dService(models3dRegistry: TModels3dAsyncRegistry, models
       if (isDefined(model)) return Promise.resolve({ url, model, animations: animations ?? [], options });
     }
 
-    return models3dLoader.loadAsync(url).then((gltf: GLTF): TModel3dLoadResult => {
-      const result: TModel3dLoadResult = { url, model: gltf.scene, animations: gltf.animations, options };
-      added$.next(result);
+    return models3dLoader.loadAsync(url).then((gltf: GLTF): TModel3dLoadResult => ({ url, model: gltf.scene, animations: gltf.animations, options }));
+  }
 
-      return result;
+  function loadAsync(model3dList: ReadonlyArray<TModel3dParams>): ReadonlyArray<Promise<TModel3dLoadResult>> {
+    let promises: ReadonlyArray<Promise<TModel3dLoadResult>> = [];
+
+    model3dList.forEach((m: TModel3dParams): void => {
+      // TODO implement loading only if the model is already loaded to the scene (not the same as too the registry)
+      const p: Promise<TModel3dLoadResult> = loadModelAsync(m).then((result: TModel3dLoadResult): TModel3dLoadResult => {
+        //adjust model before adding to scene and registries
+        // TODO debug
+        // if (isDefined(m.scale)) applyScale(result.model, m.scale);
+
+        added$.next(result);
+
+        return result;
+      });
+
+      // eslint-disable-next-line @typescript-eslint/no-floating-promises
+      promises = [...promises, p];
     });
+
+    return promises;
   }
 
   return {
     loadAsync,
-    loadFromConfigAsync,
+    // loadFromConfigAsync,
     added$: added$.asObservable()
   };
 }
