@@ -1,6 +1,7 @@
 export type * from './TActive';
 export type * from './TDestroyable';
 export type * from './TMultitonRegistrable';
+export type * from './TNoSpread';
 export type * from './TRegistrable';
 export type * from './TWithActiveMixin';
 export type * from './TWithActiveMixinResult';
