@@ -2,7 +2,7 @@ import type { TCamera, TCameraWrapper } from '@/Engine/Camera';
 import type { TControlsConfig, TControlsServiceDependencies, TControlsWrapper, TFpsControlsConfig, TFpsControlsWrapper, TOrbitControlsConfig, TOrbitControlsWrapper } from '@/Engine/Controls/Models';
 import { isFpsControls, isOrbitControls } from '@/Engine/Controls/Utils';
 import { extractSerializableRegistrableFields } from '@/Engine/Mixins';
-import { filterOutEmptyFields, isNotDefined } from '@/Engine/Utils';
+import { filterOutEmptyFields, isNotDefined, vector3ToXyz } from '@/Engine/Utils';
 
 export function controlsToConfig(entity: TControlsWrapper, { cameraService }: TControlsServiceDependencies): TControlsConfig {
   const camera: TCamera | undefined = entity.entity.object as TCamera;
@@ -53,8 +53,8 @@ function getOrbitControlsFields(entity: TOrbitControlsWrapper): Omit<TOrbitContr
     keyPanSpeed: entity.getKeyPanSpeed(),
     autoRotate: entity.getAutoRotate(),
     autoRotateSpeed: entity.getAutoRotateSpeed(),
-    target: entity.entity.target.clone(),
-    cursor: entity.entity.cursor.clone()
+    target: vector3ToXyz(entity.entity.target.clone()),
+    cursor: vector3ToXyz(entity.entity.cursor.clone())
   });
 }
 
