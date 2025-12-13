@@ -33,7 +33,7 @@
   },
   "devDependencies": {
     "@types/animejs": "3.1.12",
-    "@types/node": "20.11.28",
+    "@types/node": "20.12.11",
     "@types/three": "0.163.0",
     "@typescript-eslint/eslint-plugin": "7.7.0",
     "@typescript-eslint/parser": "7.7.0",
