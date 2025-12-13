@@ -1,5 +1,5 @@
-import type { IVector2Wrapper } from '@/Engine';
 import type { TextAlign, TextDirection, TextFontStyle, TextFontWeight, TextOverflowWrap, TextWhiteSpace } from '@/Engine/Domains/Text';
+import type { IVector2Wrapper } from '@/Engine/Wrappers';
 
 export type ITextProps = Readonly<{
   text: string;

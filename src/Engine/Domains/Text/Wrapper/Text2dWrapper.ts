@@ -20,7 +20,8 @@ export function Text2dWrapper(params: ITextParams): ITextWrapper {
     ...withMoveByXyzMixin(entity),
     ...withRotationByXyzMixin(entity),
     ...scalableMixin(entity),
-    ...withObject3d(entity)
+    ...withObject3d(entity),
+    getElement: () => element
   };
 
   applyElement2dParams(result, params);
