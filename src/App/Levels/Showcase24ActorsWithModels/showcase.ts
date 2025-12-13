@@ -22,7 +22,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
 
   const { keyboardService } = engine.services;
   const { animationsService, models3dService } = space.services;
-  const { onKey, isKeyPressed } = keyboardService;
+  const { onKey, onKeyCombo, isKeyPressed } = keyboardService;
 
   function init(): void {
     addGizmo(space.services, ambientContext.screenSizeWatcher, { placement: 'bottom-left' });
@@ -34,39 +34,40 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     const runAction = actions['Run'];
     const walkAction = actions['Walk'];
     const idleAction = actions['Idle'];
-    // const tPoseAction = actions['TPose'];
+    const tPoseAction = actions['TPose'];
+
+    const fadeDuration = 0.3;
+
+    // tPoseAction.play();
+    idleAction.play();
+    walkAction.play();
+    walkAction.weight = 0;
+    idleAction.weight = 1;
+    // tPoseAction.crossFadeTo(idleAction, fadeDuration, true);
+    tPoseAction.stop();
+
+    let runModifier: boolean = false;
+    onKey(KeysExtra.Shift).pressed$.subscribe((): void => void (runModifier = true));
+    onKey(KeysExtra.Shift).released$.subscribe((): void => void (runModifier = false));
 
     onKey(KeyCode.W).pressed$.subscribe((): void => {
-      if (idleAction.isRunning()) idleAction.stop();
+      if (isKeyPressed(KeysExtra.Shift)) return;
+      console.log('XXX Single');
+      if (!idleAction.isRunning()) idleAction.play();
+      if (!walkAction.isRunning()) walkAction.play();
+      idleAction.crossFadeTo(walkAction, fadeDuration, true);
     });
 
-    onKey(KeyCode.W).pressing$.subscribe((): void => {
-      if (isKeyPressed(KeysExtra.Shift)) {
-        if (runAction.isRunning()) return;
-        runAction.play();
-        walkAction.stop();
-      } else {
-        if (walkAction.isRunning()) return;
-        walkAction?.play();
-        runAction.stop();
-      }
-    });
+    // onKeyCombo(`${KeyCode.W} + ${KeysExtra.Shift}`).pressed$.subscribe((): void => {
+    //   console.log('XXX Combo');
+    //   // runAction.play();
+    //   // idleAction.crossFadeTo(runAction, fadeDuration, true);
+    // });
 
     onKey(KeyCode.W).released$.subscribe((): void => {
-      idleAction.play();
-      if (walkAction.isRunning()) walkAction.stop();
-      if (runAction.isRunning()) runAction.stop();
+      // walkAction.crossFadeTo(idleAction, fadeDuration, true);
     });
   }
-
-  // TODO debug light
-  // const dirLightW: TDirectionalLightWrapper = lightService.getRegistry().findByName('dir_light') as unknown as TDirectionalLightWrapper;
-  // scenesService.findActive()?.entity.add(new CameraHelper(dirLightW.entity.shadow.camera));
-
-  // TODO debug camera coords
-  // setInterval(() => {
-  //   console.log(cameraService.findActive()?.getPosition().getCoords());
-  // }, 3000);
 
   function start(): void {
     engine.start();
@@ -75,3 +76,58 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
 
   return { start, space };
 }
+
+// TODO debug
+// function prepareCrossFade(startAction, endAction, defaultDuration) {
+//   // Switch default / custom crossfade duration (according to the user's choice)
+//
+//   const duration = setCrossFadeDuration(defaultDuration);
+//
+//   // Make sure that we don't go on in singleStepMode, and that all actions are unpaused
+//
+//   singleStepMode = false;
+//   unPauseAllActions();
+//
+//   // If the current action is 'idle' (duration 4 sec), execute the crossfade immediately;
+//   // else wait until the current action has finished its current loop
+//
+//   if (startAction === idleAction) {
+//     executeCrossFade(startAction, endAction, duration);
+//   } else {
+//     synchronizeCrossFade(startAction, endAction, duration);
+//   }
+// }
+//
+// function setCrossFadeDuration(defaultDuration) {
+//   // Switch default crossfade duration <-> custom crossfade duration
+//
+//   if (settings['use default duration']) {
+//     return defaultDuration;
+//   } else {
+//     return settings['set custom duration'];
+//   }
+// }
+//
+// function executeCrossFade(startAction, endAction, duration) {
+//   // Not only the start action, but also the end action must get a weight of 1 before fading
+//   // (concerning the start action this is already guaranteed in this place)
+//
+//   setWeight(endAction, 1);
+//   endAction.time = 0;
+//
+//   // Crossfade with warping - you can also try without warping by setting the third parameter to false
+//
+//   startAction.crossFadeTo(endAction, duration, true);
+// }
+//
+// function setWeight(action, weight) {
+//   action.enabled = true;
+//   action.setEffectiveTimeScale(1);
+//   action.setEffectiveWeight(weight);
+// }
+//
+// function unPauseAllActions() {
+//   actions.forEach(function (action) {
+//     action.paused = false;
+//   });
+// }
