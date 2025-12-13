@@ -12,3 +12,6 @@ To be done:
 - 7.x.x npm package and a repo
 - 8.x.x Shaders
 - 9.x.x Save/Load
+
+Also:
+- extract materials from actors, keep there an alias to a material to be able to reuse the same material
