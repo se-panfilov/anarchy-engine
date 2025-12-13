@@ -71,8 +71,7 @@ export async function BulletAsync(params: TActorParams, actorService: TActorServ
 
   const collisionCheckRadius: number = 1; //meters(5); set radius make sens for explosions and etc
 
-  // TODO (S.Panfilov) debug sceneW
-  const collisionWatcher = collisionsService.createCollisionsWatcher(actorW, collisionCheckRadius, actorService.getScene());
+  const collisionWatcher = collisionsService.createCollisionsWatcher(actorW, collisionCheckRadius);
   collisionWatcher.value$.subscribe((collision: TCollisionEvent): void => {
     if (isDefined(collision)) {
       console.log('Collision detected', collision);

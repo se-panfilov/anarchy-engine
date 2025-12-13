@@ -3,45 +3,13 @@ import { Subject } from 'rxjs';
 import type { TActorParams, TActorWrapperAsync } from '@/Engine/Actor';
 import { CollisionsUpdatePriority } from '@/Engine/Collisions/Constants';
 import type { TCollisionCheckResult, TCollisionsData, TCollisionsLoopService, TCollisionsService, TWithCollisions } from '@/Engine/Collisions/Models';
-import type { TSceneWrapper } from '@/Engine/Scene';
 import type { TSpatialCellWrapper } from '@/Engine/Spatial';
 import type { TWriteable } from '@/Engine/Utils';
 import { isDefined } from '@/Engine/Utils';
 
-// TODO (S.Panfilov) debug sceneW
-export function withCollisions(params: TActorParams, collisionsService: TCollisionsService, collisionLoopService: TCollisionsLoopService, sceneW: TSceneWrapper): TWithCollisions {
+export function withCollisions(params: TActorParams, collisionsService: TCollisionsService, collisionLoopService: TCollisionsLoopService): TWithCollisions {
   let _isAutoUpdate: boolean = params.isCollisionsAutoUpdate ?? false;
   const value$: Subject<TCollisionCheckResult> = new Subject<TCollisionCheckResult>();
-  // const cellSubs$: ReadonlyArray<Subscription> = [];
-
-  // function unsubscribeFromCells(): void {
-  //   cellSubs$.forEach((s: Subscription): void => s.unsubscribe());
-  //   cellSubs$ = [];
-  // }
-  //
-  // function subscribeToCells(cells: ReadonlyArray<TSpatialCellWrapper>): void {
-  //   cellSubs$ = cells.map((cell: TSpatialCellWrapper): Subscription => {
-  //     return cell.update$.subscribe(({ objects }: TSpatialCell): void => {
-  //       actorsToCheck = objects.filter((a: TActorWrapperAsync): boolean => a.id !== actorW.id);
-  //     });
-  //   });
-  // }
-
-  // TODO (S.Panfilov) What if bullet is not in the grid? Should be still possible to get actors from a grid anyway (could have if/else and 2 checks for bullet in grid and not in grid)
-  // TODO (S.Panfilov) Also remember that bullet could be bigger than 1 cell
-  // TODO (S.Panfilov) test this code (should not produce memory leaks)
-  // let actorSub$: Subscription | undefined = actorW.spatial.cellsChanged$.subscribe((cells: ReadonlyArray<TSpatialCellWrapper>): void => {
-  //   if (isDefined(actorSub$)) actorSub$.unsubscribe();
-  //
-  //   unsubscribeFromCells();
-  //   subscribeToCells(cells);
-  // });
-
-  // collisionLoopService.tick$.subscribe((): void => {
-  //   // TODO (S.Panfilov) debug sceneW
-  //   const collision: TCollisionCheckResult | undefined = collisionsService.checkCollisions(actorW, radius, actorsToCheck, sceneW);
-  //   if (isDefined(collision)) value$.next(collision);
-  // });
 
   // TODO (S.Panfilov) test this code (should work)
   function getActorsToCheck(actorW: TActorWrapperAsync): ReadonlyArray<TActorWrapperAsync> {
@@ -62,8 +30,7 @@ export function withCollisions(params: TActorParams, collisionsService: TCollisi
       },
       start(actorW: TActorWrapperAsync): void {
         collisionLoopService.tick$.subscribe((): void => {
-          // TODO (S.Panfilov) debug sceneW
-          const collision: TCollisionCheckResult | undefined = collisionsService.checkCollisions(actorW, this.data.radius, getActorsToCheck(actorW), sceneW);
+          const collision: TCollisionCheckResult | undefined = collisionsService.checkCollisions(actorW, this.data.radius, getActorsToCheck(actorW));
           if (isDefined(collision)) value$.next(collision);
         });
       },

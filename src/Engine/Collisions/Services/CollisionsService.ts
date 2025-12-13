@@ -3,7 +3,6 @@ import { Box3, Raycaster } from 'three';
 
 import type { TActorWrapperAsync } from '@/Engine/Actor/Models';
 import type { TCollisionCheckResult, TCollisionsService, TRaycastBvhService } from '@/Engine/Collisions/Models';
-import type { TSceneWrapper } from '@/Engine/Scene';
 import { createBoundingBox } from '@/Engine/Spatial/Services/SpatialHelper';
 
 import { RaycastBvhService } from './RaycastBvhService';
@@ -14,8 +13,7 @@ export function CollisionsService(): TCollisionsService {
   // TODO (S.Panfilov) debug box
   let box: any;
 
-  // TODO (S.Panfilov) debug sceneW
-  function checkCollisions(actorW: TActorWrapperAsync, radius: number, actorsToCheck: ReadonlyArray<TActorWrapperAsync>, sceneW: TSceneWrapper): TCollisionCheckResult | undefined {
+  function checkCollisions(actorW: TActorWrapperAsync, radius: number, actorsToCheck: ReadonlyArray<TActorWrapperAsync>): TCollisionCheckResult | undefined {
     const actorBox: Box3 = new Box3().setFromObject(actorW.entity);
     const queryBox = {
       minX: actorBox.min.x - radius,
@@ -27,9 +25,9 @@ export function CollisionsService(): TCollisionsService {
     };
 
     // TODO (S.Panfilov) debug
-    if (box) sceneW.entity.remove(box);
+    if (box) (window as any).sceneW.entity.remove(box);
     box = createBoundingBox(queryBox.minX, queryBox.minZ, queryBox.maxX, queryBox.maxZ, 'red');
-    sceneW.entity.add(box);
+    (window as any).sceneW.entity.add(box);
 
     // eslint-disable-next-line functional/no-loop-statements
     for (const object of actorsToCheck) {

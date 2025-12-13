@@ -40,8 +40,7 @@ export async function ActorWrapperAsync(
     ...withTextures(withMaterialEntity, materialTextureService),
     ...withKinematic(params),
     ...withSpatial(params),
-    // TODO (S.Panfilov) debug sceneW
-    ...withCollisions(params, collisionsService, collisionLoopService, sceneW),
+    ...withCollisions(params, collisionsService, collisionLoopService),
     ...withUpdateSpatialCell(),
     position$: position$.asObservable(),
     rotation$: rotation$.asObservable(),
@@ -80,10 +79,7 @@ export async function ActorWrapperAsync(
   applySpatialGrid(params, actorW, spatialGridService);
   startCollisions(actorW);
 
-  position$.subscribe((newPosition: Vector3): void => {
-    // TODO (S.Panfilov) debug "if" clause
-    if (actorW.name === 'sphere') actorW.updateSpatialCells(newPosition);
-  });
+  position$.subscribe((newPosition: Vector3): void => actorW.updateSpatialCells(newPosition));
 
   return actorW;
 }

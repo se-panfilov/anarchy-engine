@@ -7,7 +7,6 @@ export function configToParamsObject3d(config: Partial<TObject3DPropConfig>): TO
   const { position, rotation, scale } = config;
   return {
     ...config,
-    // TODO (S.Panfilov) debug (wtf is layers?)
     // layers: config.layers ? (new Layers()).set(config.layers) : undefined,
     layers: undefined,
 
