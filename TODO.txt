@@ -18,12 +18,11 @@ Roadmap:
 - 9.4.x Logging
 - 10.0.x Deletion (memory management)
 - 11.0.0 Multiple scenes full support (unload/load scenes)
-- 11.1.x Building app (desktop/mobile) (might be not a part of an engine)
-- 11.2.x Testing (screenshot tests)
 - 12.0.x Split apps and engine
-- 12.1.x Performance improvements (make sure actors, materials and env maps are async)
-- 12.2.x Extract materials form actors
-- 12.3.x npm package and a repo
+- 12.1.x Building app (desktop/mobile) (might be not a part of an engine)
+- 12.2.x Performance improvements (make sure actors, materials and env maps are async)
+- 12.3.x Extract materials form actors
+- 12.4.x npm package and a repo
 - 13.0.x Presets in configs (actors, materials, texts, models, physics, intersections, cameras, lights, controls, etc)
 - 14.0.x Shaders
 - 15.x.x Save/Load
@@ -42,3 +41,4 @@ Bugs and issues:
 
 Also:
 - Make stats enable/disable configurable via url params (?debug=true)
+- Screenshot testing is interesting, but it's a part of an app, not engine
