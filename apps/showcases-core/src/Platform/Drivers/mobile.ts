@@ -60,6 +60,12 @@ export function Driver(): TPlatformDriver {
     console.log('XXX [MOBILE]', 'getPreferredLocales');
     return Promise.resolve({} as any);
   }
+
+  function getReleaseName(version: string): Promise<string> {
+    console.log('XXX [MOBILE]', 'getReleaseName');
+    return Promise.resolve('getReleaseName' + version);
+  }
+
   function getPackagesVersions(): Promise<Record<string, string>> {
     console.log('XXX [MOBILE]', 'getPackagesVersions');
     return Promise.resolve({} as any);
@@ -74,6 +80,7 @@ export function Driver(): TPlatformDriver {
     getPackagesVersions,
     getPlatformVersion,
     getPreferredLocales,
+    getReleaseName,
     getWrappedAppVersion,
     restartApp,
     setAppSettings,

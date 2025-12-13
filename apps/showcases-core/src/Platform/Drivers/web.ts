@@ -73,6 +73,9 @@ export function Driver(): TPlatformDriver {
     return settingsWebDbService.setSettings(settings);
   }
 
+  // TODO DESKTOP: Implement getReleaseName
+  const getReleaseName = (version: string): Promise<string> => Promise.resolve('TODODODODODODO' + version);
+
   return {
     closeApp,
     getAppSettings,
@@ -82,6 +85,7 @@ export function Driver(): TPlatformDriver {
     getPackagesVersions,
     getPlatformVersion,
     getPreferredLocales,
+    getReleaseName,
     getWrappedAppVersion,
     restartApp,
     setAppSettings,

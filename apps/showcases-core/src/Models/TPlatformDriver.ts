@@ -11,6 +11,7 @@ export type TPlatformDriver = Readonly<{
   getPackagesVersions: () => Promise<Record<string, string>>;
   getPlatformVersion: () => string;
   getPreferredLocales: () => Promise<ReadonlyArray<TLocaleId>>;
+  getReleaseName: (version: string) => Promise<string>;
   getWrappedAppVersion: () => Promise<string>;
   restartApp: (args?: ReadonlyArray<string>) => void;
   setAppSettings: (settings: TShowcaseGameSettings) => Promise<void>;

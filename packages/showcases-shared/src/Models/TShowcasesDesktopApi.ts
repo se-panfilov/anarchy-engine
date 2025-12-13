@@ -13,6 +13,7 @@ export type TShowcasesDesktopApi = Readonly<{
   getLegalDocs: (options: TLoadDocPayload) => Promise<TLegalDoc>;
   getPackagesVersions: () => Promise<Record<string, string>>;
   getPreferredLocales: () => Promise<ReadonlyArray<TLocaleId>>;
+  getReleaseName: (version: string) => Promise<string>;
   node: () => string;
   restartApp: () => void;
   setAppSettings: (settings: TShowcaseGameSettings) => Promise<void>;
