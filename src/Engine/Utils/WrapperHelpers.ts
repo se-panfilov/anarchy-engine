@@ -1,3 +1,5 @@
+import type { CSS2DObject } from 'three/examples/jsm/renderers/CSS2DRenderer';
+
 import type {
   IBasicMaterialTexturePack,
   IDepthMaterialTexturePack,
@@ -15,7 +17,7 @@ import type {
 import type { IObject3DParams } from '@/Engine/Domains/ThreeLib';
 import type { IMovableXYZ, IRotatable, IScalable, IWithObject3d } from '@/Engine/Mixins';
 import { isDefined } from '@/Engine/Utils/index';
-import type { IEulerWrapper, IVector3Wrapper } from '@/Engine/Wrappers';
+import type { IEulerWrapper, IVector2Wrapper, IVector3Wrapper } from '@/Engine/Wrappers';
 
 export function applyObject3dParams(obj: IWithObject3d, { visible, castShadow, receiveShadow, frustumCulled, renderOrder }: Partial<IObject3DParams>): void {
   if (isDefined(visible)) obj.setVisible(visible);
@@ -27,6 +29,13 @@ export function applyObject3dParams(obj: IWithObject3d, { visible, castShadow, r
 
 export function applyPosition(obj: IMovableXYZ, position?: IVector3Wrapper): void {
   if (isDefined(position)) obj.setPosition(position.getX(), position.getY(), position.getZ());
+}
+
+export function applyCenter(obj: CSS2DObject, center?: IVector2Wrapper): void {
+  if (isDefined(center)) obj.center.set(center.getX(), center.getY());
+}
+export function applyLayers(obj: CSS2DObject, layers: number = 0): void {
+  if (isDefined(layers)) obj.layers.set(layers);
 }
 
 export function applyTexturePack(obj: IWithTexturesActor, pack: IBasicMaterialTexturePack): Promise<void>;

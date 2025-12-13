@@ -1,77 +1,25 @@
-import type { ITextAccessors, ITextProps } from '@/Engine/Domains/Text/Models';
+import { TEXT_CSS_CLASS } from '@/Engine/Domains/Text/Constants';
+import type { IElement2dAccessors, ITextProps } from '@/Engine/Domains/Text/Models';
 import { isDefined } from '@/Engine/Utils';
 
-export function applyTextParams(
-  entityWithAccessors: ITextAccessors,
-  {
-    text,
-    fontSize,
-    color,
-    font,
-    maxWidth,
-    lineHeight,
-    letterSpacing,
-    textAlign,
-    material,
-    anchorX,
-    anchorY,
-    clipRect,
-    depthOffset,
-    direction,
-    overflowWrap,
-    whiteSpace,
-    outlineWidth,
-    outlineOffsetX,
-    outlineOffsetY,
-    outlineColor,
-    outlineOpacity,
-    strokeWidth,
-    strokeColor,
-    strokeOpacity,
-    curveRadius,
-    fillOpacity,
-    fontStyle,
-    fontWeight,
-    glyphGeometryDetail,
-    gpuAccelerateSDF,
-    outlineBlur,
-    sdfGlyphSize,
-    textIndent,
-    unicodeFontsUrl
-  }: ITextProps
+export function applyElement2dParams(
+  element: IElement2dAccessors,
+  { backgroundColor, className, text, fontSize, color, font, maxWidth, lineHeight, letterSpacing, textAlign, direction, overflowWrap, whiteSpace, fontStyle, fontWeight }: ITextProps
 ): void {
-  entityWithAccessors.setText(text);
-  if (isDefined(fontSize)) entityWithAccessors.setFontSize(fontSize);
-  if (isDefined(color)) entityWithAccessors.setColor(color);
-  if (isDefined(font)) entityWithAccessors.setFont(font);
-  if (isDefined(maxWidth)) entityWithAccessors.setMaxWidth(maxWidth);
-  if (isDefined(lineHeight)) entityWithAccessors.setLineHeight(lineHeight);
-  if (isDefined(letterSpacing)) entityWithAccessors.setLetterSpacing(letterSpacing);
-  if (isDefined(textAlign)) entityWithAccessors.setTextAlign(textAlign);
-  if (isDefined(material)) entityWithAccessors.setMaterial(material);
-  if (isDefined(anchorX)) entityWithAccessors.setAnchorX(anchorX);
-  if (isDefined(anchorY)) entityWithAccessors.setAnchorY(anchorY);
-  if (isDefined(clipRect)) entityWithAccessors.setClipRect(clipRect);
-  if (isDefined(depthOffset)) entityWithAccessors.setDepthOffset(depthOffset);
-  if (isDefined(direction)) entityWithAccessors.setDirection(direction);
-  if (isDefined(overflowWrap)) entityWithAccessors.setOverflowWrap(overflowWrap);
-  if (isDefined(whiteSpace)) entityWithAccessors.setWhiteSpace(whiteSpace);
-  if (isDefined(outlineWidth)) entityWithAccessors.setOutlineWidth(outlineWidth);
-  if (isDefined(outlineOffsetX)) entityWithAccessors.setOutlineOffsetX(outlineOffsetX);
-  if (isDefined(outlineOffsetY)) entityWithAccessors.setOutlineOffsetY(outlineOffsetY);
-  if (isDefined(outlineColor)) entityWithAccessors.setOutlineColor(outlineColor);
-  if (isDefined(outlineOpacity)) entityWithAccessors.setOutlineOpacity(outlineOpacity);
-  if (isDefined(strokeWidth)) entityWithAccessors.setStrokeWidth(strokeWidth);
-  if (isDefined(strokeColor)) entityWithAccessors.setStrokeColor(strokeColor);
-  if (isDefined(strokeOpacity)) entityWithAccessors.setStrokeOpacity(strokeOpacity);
-  if (isDefined(curveRadius)) entityWithAccessors.setCurveRadius(curveRadius);
-  if (isDefined(fillOpacity)) entityWithAccessors.setFillOpacity(fillOpacity);
-  if (isDefined(fontStyle)) entityWithAccessors.setFontStyle(fontStyle);
-  if (isDefined(fontWeight)) entityWithAccessors.setFontWeight(fontWeight);
-  if (isDefined(glyphGeometryDetail)) entityWithAccessors.setGlyphGeometryDetail(glyphGeometryDetail);
-  if (isDefined(gpuAccelerateSDF)) entityWithAccessors.setGpuAccelerateSDF(gpuAccelerateSDF);
-  if (isDefined(outlineBlur)) entityWithAccessors.setOutlineBlur(outlineBlur);
-  if (isDefined(sdfGlyphSize)) entityWithAccessors.setSdfGlyphSize(sdfGlyphSize);
-  if (isDefined(textIndent)) entityWithAccessors.setTextIndent(textIndent);
-  if (isDefined(unicodeFontsUrl)) entityWithAccessors.setUnicodeFontsUrl(unicodeFontsUrl);
+  element.setText(text);
+  element.setClassName(TEXT_CSS_CLASS.CSS_2D_CLASS);
+  if (isDefined(backgroundColor)) element.setBackgroundColor(backgroundColor ?? 'transparent');
+  if (isDefined(className)) element.appendClassName(className);
+  if (isDefined(fontSize)) element.setFontSize(fontSize);
+  if (isDefined(color)) element.setColor(color);
+  if (isDefined(font)) element.setFont(font);
+  if (isDefined(maxWidth)) element.setMaxWidth(maxWidth);
+  if (isDefined(lineHeight)) element.setLineHeight(lineHeight);
+  if (isDefined(letterSpacing)) element.setLetterSpacing(letterSpacing);
+  if (isDefined(textAlign)) element.setTextAlign(textAlign);
+  if (isDefined(direction)) element.setDirection(direction);
+  if (isDefined(overflowWrap)) element.setOverflowWrap(overflowWrap);
+  if (isDefined(whiteSpace)) element.setWhiteSpace(whiteSpace);
+  if (isDefined(fontStyle)) element.setFontStyle(fontStyle);
+  if (isDefined(fontWeight)) element.setFontWeight(fontWeight);
 }

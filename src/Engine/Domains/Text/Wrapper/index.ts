@@ -1,1 +1,1 @@
-export * from './TextWrapper';
+export * from './Text2dWrapper';

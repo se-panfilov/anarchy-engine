@@ -23,7 +23,7 @@ import { RendererFactory, RendererModes, RendererRegistry, RendererTag } from '@
 import type { ISceneConfig, ISceneFactory, ISceneRegistry, ISceneWrapper } from '@/Engine/Domains/Scene';
 import { SceneFactory, SceneRegistry, SceneTag } from '@/Engine/Domains/Scene';
 import type { ITextConfig, ITextFactory, ITextRegistry, ITextWrapper } from '@/Engine/Domains/Text';
-import { TextFactory, TextRegistry } from '@/Engine/Domains/Text';
+import { init2dTextRenderer, TextFactory, TextRegistry } from '@/Engine/Domains/Text';
 import type { IDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
 import { withTags } from '@/Engine/Mixins/Generic/WithTags';
@@ -58,6 +58,7 @@ export function buildLevelFromConfig(canvas: IAppCanvas, config: ILevelConfig): 
   messages$.next(`Actors (${actors.length}) created`);
 
   //build texts
+  init2dTextRenderer(ambientContext.container.getAppContainer());
   const textFactory: ITextFactory = TextFactory();
   const textRegistry: ITextRegistry = TextRegistry();
   const textAddedSubscription: Subscription = textRegistry.added$.subscribe((text: ITextWrapper) => scene.addText(text));
