@@ -1,11 +1,11 @@
-import { AbstractManager } from '@Engine/Managers/AbstractManager';
+import { AbstractFactory } from '@Engine/Managers/AbstractFactory';
 import { LoopWrapper } from '@Engine/Wrappers/LoopWrapper';
 import type { RendererWrapper } from '@Engine/Wrappers/RendererWrapper';
 import { SceneWrapper } from '@Engine/Wrappers/SceneWrapper';
 import { CameraWrapper } from '@Engine/Wrappers/CameraWrapper';
 import { isNotDefined } from '@Engine/Utils';
 
-export class LoopManager extends AbstractManager<LoopWrapper> {
+export class LoopManager extends AbstractFactory<LoopWrapper> {
   public create(): LoopWrapper {
     const wrapper = new LoopWrapper();
     this.list$.next([...this.list$.value, wrapper]);

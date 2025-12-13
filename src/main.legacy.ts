@@ -4,7 +4,7 @@ import { SceneManager } from '@Engine/Managers/SceneManager';
 import { LoopManager } from '@Engine/Managers/LoopManager';
 import { CameraManager } from '@Engine/Managers/CameraManager';
 import { LightManager } from '@Engine/Managers/LightManager';
-import { ActorManager } from '@Engine/Managers/ActorManager';
+import { ActorFactory } from '@Engine/Managers/ActorFactory';
 import { ControlsManager } from '@Engine/Managers/ControlsManager';
 import { DeviceWatcher } from '@Engine/Watchers/DeviceWatcher';
 import { isNotDefined } from '@Engine/Utils';
@@ -32,7 +32,7 @@ const deviceWatcher = new DeviceWatcher({
   ratio: window.devicePixelRatio || 1
 });
 
-const actorManager = new ActorManager();
+const actorManager = new ActorFactory();
 const cameraManager = new CameraManager();
 const lightManager = new LightManager();
 const controlsManager = new ControlsManager();

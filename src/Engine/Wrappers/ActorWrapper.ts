@@ -2,22 +2,21 @@ import { Mesh, MeshToonMaterial, PlaneGeometry, SphereGeometry } from 'three';
 import { AbstractWrapper } from '@Engine/Wrappers/AbstractWrapper';
 import type { ActorParams } from '@Engine/Models/ActorParams';
 
-export class ActorWrapper extends AbstractWrapper<Mesh> {
-  public entity: Mesh;
+export function ActorWrapper(params: ActorParams): AbstractWrapper<Mesh> {
+  const entity: Mesh = createActor(params);
 
-  constructor(params: ActorParams) {
-    super();
-    this.entity = createActor(params);
+  const abstractWrapper = AbstractWrapper(entity);
+
+  function setPosition(x: number, y: number, z: number): void {
+    entity.position.set(x, y, z);
   }
 
-  setPosition(x: number, y: number, z: number): void {
-    this.entity.position.set(x, y, z);
-  }
-
-  setCastShadow(value: boolean): void {
+  function setCastShadow(value: boolean): void {
     // eslint-disable-next-line functional/immutable-data
-    this.entity.castShadow = value;
+    entity.castShadow = value;
   }
+
+  return { ...abstractWrapper, entity, setPosition, setCastShadow };
 }
 
 function createActor(params: ActorParams): Mesh {

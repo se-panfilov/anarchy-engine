@@ -1,8 +1,8 @@
-import { Subject } from 'rxjs';
+import type { Subject } from 'rxjs';
 
-export interface Entity {
+export interface Entity<T> {
   readonly id: string;
-  readonly entity: unknown | undefined;
+  readonly entity: T | undefined;
   readonly destroy: () => void;
   readonly destroyed$: Subject<void>;
 }

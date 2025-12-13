@@ -1,4 +1,4 @@
-import { ActorManager } from '@Engine/Managers/ActorManager';
+import { ActorFactory } from '@Engine/Managers/ActorFactory';
 import type { ActorConfig, CameraConfig, LightConfig, SceneConfig } from '@Engine/Launcher/Models';
 import { createDeferredPromise } from '@Engine/Utils';
 import { actorAdapter, lightAdapter } from '@Engine/Launcher/ConfigToParamAdapters';
@@ -22,7 +22,7 @@ export async function launch(sceneConfig: SceneConfig): Promise<void> {
   ////////////////////////////////////
 
   // create actors/////////////////////
-  const actorManager = new ActorManager();
+  const actorManager = new ActorFactory();
   const cameraManager = new CameraManager();
   const lightManager = new LightManager();
   const rendererManager = new RendererManager();
