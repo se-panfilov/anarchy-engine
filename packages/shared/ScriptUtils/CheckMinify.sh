@@ -52,12 +52,14 @@ else
   echo "⚠️ Brotli file not found: $BR_FILE"
 fi
 
-npx --yes source-map-explorer "$JS_FILE" "$MAP_FILE" --only-mapped > /dev/null 2>&1
-if [[ $? -ne 0 ]]; then
-  echo "❌ Source map doesn't match JS file"
-  exit 1
+echo "🔍 Checking sourcemap integrity..."
+npx --yes source-map-explorer "$JS_FILE" "$MAP_FILE" --no-open
+
+if [ $? -eq 0 ]; then
+  echo "✅ Sourcemap check passed: $JS_FILE"
 else
-  echo "✅ Source map is valid"
+  echo "❌ Sourcemap check failed: $JS_FILE"
+  exit 1
 fi
 
 echo "🎉 All checks passed"
