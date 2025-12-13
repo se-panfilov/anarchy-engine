@@ -1,3 +1,5 @@
+import { isEqual } from 'lodash-es';
+
 export function cleanObject<T extends Record<string, unknown>>(obj: T): void {
   Object.keys(obj).forEach((key: keyof T): void => {
     // eslint-disable-next-line functional/immutable-data, @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-assignment
@@ -30,4 +32,8 @@ export const omitInObjectWithMutation = <T extends Record<string, unknown>, K ex
   // eslint-disable-next-line functional/immutable-data
   keys.forEach((key: K) => delete obj[key]);
   return obj;
+};
+
+export const isObjectsEqual = (obj1: Record<string, any>, obj2: Record<string, any>): boolean => {
+  return isEqual(obj1, obj2);
 };

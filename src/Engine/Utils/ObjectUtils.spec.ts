@@ -1,4 +1,4 @@
-import { omitInObjectWithMutation, omitInObjectWithoutMutation } from './ObjectUtils';
+import { isObjectsEqual, omitInObjectWithMutation, omitInObjectWithoutMutation } from './ObjectUtils';
 
 describe('ObjectUtils', () => {
   describe('omitInObjectWithoutMutation', () => {
@@ -50,6 +50,62 @@ describe('ObjectUtils', () => {
 
       expect(result).toEqual(expectedResult);
       expect(obj).toEqual(result);
+    });
+  });
+
+  describe('isObjectsEqual', () => {
+    it('should return "true" for two empty objects', () => {
+      const obj1 = {};
+      const obj2 = {};
+      expect(isObjectsEqual(obj1, obj2)).toBe(true);
+    });
+
+    it('should return "true" for two objects with the same properties and values', () => {
+      const obj1 = { a: 1, b: 2, c: 3 };
+      const obj2 = { a: 1, b: 2, c: 3 };
+      expect(isObjectsEqual(obj1, obj2)).toBe(true);
+    });
+
+    it('should return "false" for two objects with different properties', () => {
+      const obj1 = { a: 1, b: 2, c: 3 };
+      const obj2 = { a: 1, b: 2, d: 4 };
+      expect(isObjectsEqual(obj1, obj2)).toBe(false);
+    });
+
+    it('should return "false" for two objects with the same properties but different values', () => {
+      const obj1 = { a: 1, b: 2, c: 3 };
+      const obj2 = { a: 1, b: 2, c: 4 };
+      expect(isObjectsEqual(obj1, obj2)).toBe(false);
+    });
+
+    it('should return "true" for two objects with properties in different order', () => {
+      const obj1 = { a: 1, b: 2, c: 3 };
+      const obj2 = { c: 3, b: 2, a: 1 };
+      expect(isObjectsEqual(obj1, obj2)).toBe(true);
+    });
+
+    it('should return "false" for objects with nested properties that has different values', () => {
+      const obj1 = { a: 1, b: { x: 10, y: 20 } };
+      const obj2 = { a: 1, b: { x: 10, y: 30 } };
+      expect(isObjectsEqual(obj1, obj2)).toBe(false);
+    });
+
+    it('should return "false" for objects with nested properties that are different', () => {
+      const obj1 = { a: 1, b: { x: 10, y: 20 } };
+      const obj2 = { a: 1, b: { x: 10, z: 30 } };
+      expect(isObjectsEqual(obj1, obj2)).toBe(false);
+    });
+
+    it('should return "true" for objects with nested properties that are the same', () => {
+      const obj1 = { a: 1, b: { x: 10, y: 20 } };
+      const obj2 = { a: 1, b: { x: 10, y: 20 } };
+      expect(isObjectsEqual(obj1, obj2)).toBe(true);
+    });
+
+    it('should return "true" for objects with nested properties that are the same but different order', () => {
+      const obj1 = { a: 1, b: { x: 10, y: 20 } };
+      const obj2 = { a: 1, b: { y: 20, x: 10 } };
+      expect(isObjectsEqual(obj1, obj2)).toBe(true);
     });
   });
 });
