@@ -2,7 +2,7 @@ import { expect } from 'vitest';
 
 import { LookUpStrategy } from '@/Engine/Abstract/Registry';
 import type { IRegistrable } from '@/Engine/Mixins';
-import { withTags } from '@/Engine/Mixins/Generic/WithTags';
+import { withTagsMixin } from '@/Engine/Mixins/Generic/WithTagsMixin';
 import type { ISceneRegistry, ISceneWrapper } from '@/Engine/Scene';
 import { SceneRegistry, SceneWrapper } from '@/Engine/Scene';
 
@@ -17,15 +17,15 @@ describe('RegistryUtils', () => {
   const tagUniq1: string = 'tagUniq1';
   const tagUniq2: string = 'tagUniq2';
 
-  const obj1AB: IRegistrable = { id: '1', ...withTags([tagA, tagB]) };
-  const obj2B: IRegistrable = { id: '2', ...withTags([tagB]) };
-  const obj3CD: IRegistrable = { id: '3', ...withTags([tagC, tagD]) };
-  const obj4BE: IRegistrable = { id: '4', ...withTags([tagB, tagE]) };
-  const obj5None: IRegistrable = { id: '5', ...withTags([]) };
-  const obj6ABE: IRegistrable = { id: '6', ...withTags([tagA, tagB, tagE]) };
-  const obj7EB: IRegistrable = { id: '7', ...withTags([tagE, tagB]) };
-  const obj8Uniq1: IRegistrable = { id: '8', ...withTags([tagUniq1]) };
-  const obj9Uniq2: IRegistrable = { id: '9', ...withTags([tagD, tagUniq2, tagC, tagE]) };
+  const obj1AB: IRegistrable = { id: '1', ...withTagsMixin([tagA, tagB]) };
+  const obj2B: IRegistrable = { id: '2', ...withTagsMixin([tagB]) };
+  const obj3CD: IRegistrable = { id: '3', ...withTagsMixin([tagC, tagD]) };
+  const obj4BE: IRegistrable = { id: '4', ...withTagsMixin([tagB, tagE]) };
+  const obj5None: IRegistrable = { id: '5', ...withTagsMixin([]) };
+  const obj6ABE: IRegistrable = { id: '6', ...withTagsMixin([tagA, tagB, tagE]) };
+  const obj7EB: IRegistrable = { id: '7', ...withTagsMixin([tagE, tagB]) };
+  const obj8Uniq1: IRegistrable = { id: '8', ...withTagsMixin([tagUniq1]) };
+  const obj9Uniq2: IRegistrable = { id: '9', ...withTagsMixin([tagD, tagUniq2, tagC, tagE]) };
 
   const registry: Map<string, IRegistrable> = new Map();
   registry.set('obj1AB', obj1AB);

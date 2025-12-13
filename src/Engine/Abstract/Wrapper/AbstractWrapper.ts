@@ -5,7 +5,7 @@ import { withWrapperId } from '@/Engine/Abstract';
 import type { IWrapper } from '@/Engine/Abstract/Models';
 import type { IWithName } from '@/Engine/Mixins';
 import { destroyableMixin, withNameAndNameAccessors } from '@/Engine/Mixins';
-import { withTags } from '@/Engine/Mixins/Generic';
+import { withTagsMixin } from '@/Engine/Mixins/Generic';
 import { isDefined, isWithUserData, IWithWrapperIdAccessors } from '@/Engine/Utils';
 
 type IWrapperParams = Readonly<{ tags: ReadonlyArray<string> } & IWithName>;
@@ -18,7 +18,7 @@ export function AbstractWrapper<T>(entity: T, type: WrapperType | string, params
   let result = {
     id,
     entity,
-    ...withTags(params ? params.tags : []),
+    ...withTagsMixin(params ? params.tags : []),
     ...destroyableMixin()
   };
 

@@ -5,7 +5,7 @@ import type { WatcherType } from '@/Engine/Abstract/Constants';
 import type { IAbstractWatcher } from '@/Engine/Abstract/Models';
 import type { IDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
-import { withTags } from '@/Engine/Mixins/Generic';
+import { withTagsMixin } from '@/Engine/Mixins/Generic';
 
 export function AbstractWatcher<T>(type: WatcherType | string, tags: ReadonlyArray<string> = []): IAbstractWatcher<T> {
   const id: string = type + '_' + nanoid();
@@ -18,7 +18,7 @@ export function AbstractWatcher<T>(type: WatcherType | string, tags: ReadonlyArr
     id,
     type,
     value$,
-    ...withTags(tags),
+    ...withTagsMixin(tags),
     ...destroyable
   };
 }

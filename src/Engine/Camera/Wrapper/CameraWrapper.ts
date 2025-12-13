@@ -4,7 +4,7 @@ import { AbstractWrapper, WrapperType } from '@/Engine/Abstract';
 import type { ICameraAccessors, ICameraParams, ICameraWrapper, IPerspectiveCamera } from '@/Engine/Camera/Models';
 import { ambientContext } from '@/Engine/Context';
 import { withActiveMixin, withMoveBy3dMixin, withObject3d, withRotationByXyzMixin } from '@/Engine/Mixins';
-import { withTags } from '@/Engine/Mixins/Generic';
+import { withTagsMixin } from '@/Engine/Mixins/Generic';
 import type { IWriteable } from '@/Engine/Utils';
 import { applyObject3dParams, applyPosition, applyRotation, isDefined } from '@/Engine/Utils';
 
@@ -27,7 +27,7 @@ export function CameraWrapper(params: ICameraParams): ICameraWrapper {
     ...withRotationByXyzMixin(entity),
     ...withObject3d(entity),
     ...withActiveMixin,
-    ...withTags(tags)
+    ...withTagsMixin(tags)
   };
 
   applyPosition(result, params.position);

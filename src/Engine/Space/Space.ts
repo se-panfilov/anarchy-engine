@@ -5,7 +5,7 @@ import type { IDataTexture } from '@/Engine/EnvMap';
 import type { ILoopTimes } from '@/Engine/Loop';
 import type { IDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
-import { withTags } from '@/Engine/Mixins/Generic';
+import { withTagsMixin } from '@/Engine/Mixins/Generic';
 import type { IRendererWrapper } from '@/Engine/Renderer';
 import { RendererModes } from '@/Engine/Renderer';
 import type { IScenesService, ISceneWrapper } from '@/Engine/Scene';
@@ -95,6 +95,6 @@ export function buildSpaceFromConfig(canvas: IAppCanvas, config: ISpaceConfig): 
     ...builtMixin,
     built$: builtMixin.built$.asObservable(),
     ...destroyable,
-    ...withTags(tags)
+    ...withTagsMixin(tags)
   };
 }
