@@ -5,7 +5,6 @@ import type { TTextureResourceConfig } from '@/Engine/Texture';
 
 export type TSpaceConfigResources = Readonly<{
   envMapTextures: ReadonlyArray<TEnvMapResourceConfig>;
-  // TODO 9.0.0. RESOURCES: Guess "materials" should use strings to use textures.
   materials: ReadonlyArray<TMaterialConfig>;
   models3d: ReadonlyArray<TModel3dResourceConfig>;
   textures: ReadonlyArray<TTextureResourceConfig>;
