@@ -316,8 +316,9 @@ export function KinematicTransformAgent(params: TKinematicTransformAgentParams, 
 
     if (isPointReached(agent.data.target, abstractTransformAgent.position$.value, agent.data.state)) return;
 
+    const safeDelta: TMilliseconds = delta > 0 ? delta : (1 as TMilliseconds);
     linearDirection.copy(agent.data.state.linearDirection).normalize();
-    displacement.copy(linearDirection).multiplyScalar(agent.data.state.linearSpeed * delta);
+    displacement.copy(linearDirection).multiplyScalar(agent.data.state.linearSpeed * safeDelta);
 
     abstractTransformAgent.position$.next(abstractTransformAgent.position$.value.clone().add(displacement));
   }
@@ -325,10 +326,12 @@ export function KinematicTransformAgent(params: TKinematicTransformAgentParams, 
   function doKinematicRotation(delta: TMilliseconds): void {
     if (agent.data.state.angularSpeed <= 0) return;
 
-    const rotationStep: TRadians = (agent.data.state.angularSpeed * delta) as TRadians;
+    const safeDelta: TMilliseconds = delta > 0 ? delta : (1 as TMilliseconds);
+    const rotationStep: TRadians = (agent.data.state.angularSpeed * safeDelta) as TRadians;
 
     if (!agent.data.state.isInfiniteRotation && isRotationReached(agent.data.target, agent.rotation$.value, agent.data.state)) return;
     const stepRotation: Quaternion | undefined = getStepRotation(agent, rotationStep, agent.data.state.isInfiniteRotation);
+
     if (isNotDefined(stepRotation)) return;
 
     agent.data.state.angularDirection.multiply(stepRotation).normalize();

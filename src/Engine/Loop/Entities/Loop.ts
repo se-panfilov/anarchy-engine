@@ -28,7 +28,7 @@ export function Loop({ name, type, trigger, showDebugInfo, maxPriority, isParall
   const tick$: Subject<TDelta> = new Subject<TDelta>();
   let tickCounter: number = 0;
 
-  //We need an additional variable to make sure that the tick$ is not called after the destroy$
+  //An additional variable to make sure that the tick$ is not called after the destroy$
   let isDestroyed: boolean = false;
 
   let worker: Worker | null = null;
