@@ -10,14 +10,18 @@ export function Model3dPrimitiveFacade(params: TModel3dPrimitiveFacadeParams): T
   const entities: TModel3dPrimitiveEntities = createModels3dPrimitiveEntities(params);
   const facade = AbstractFacade(withModel3dPrimitiveFacadeEntities(entities), FacadeType.Model3d, params);
 
+  // TODO CWP Remove duplication: extract getPack to utils
   const getPack = (): TModel3dPrimitivePack => ({ ...entities, clonedFrom: facade.id });
 
+  // TODO CWP Remove duplication: extract _clone to utils
   // Be aware that this clone method doesn't save the facade to the registry, use clone() method of the service instead
   function _clone(overrides: TOptional<TModel3dPrimitivePack> = {}): TModel3dPrimitiveFacade {
     const _overrides = omitInObjectWithoutMutation(overrides, ['clonedFrom']);
     return Model3dPrimitiveFacade({ ...getPack(), clonedFrom: facade.id, ..._overrides });
   }
 
+  // TODO CWP apply all the params form object3d
+  // TODO CWP Remove duplication: extract applying of params to utils
   //applying model's params
   if (isDefined(params.scale)) applyScale(entities.model, params.scale);
   if (isDefined(params.rotation)) applyRotation(entities.model, params.rotation);
