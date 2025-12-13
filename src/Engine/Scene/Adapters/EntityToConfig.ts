@@ -7,7 +7,7 @@ import { filterOutEmptyFields } from '@/Engine/Utils';
 export function sceneToConfig(entity: TSceneWrapper): TSceneConfig {
   return filterOutEmptyFields({
     // TODO we cannot serialize other backgrounds than Color at the moment
-    background: (entity.getBackground() as TColor).getHexString(),
+    background: '#' + (entity.getBackground() as TColor).getHexString(),
     isActive: entity.isActive(),
     ...extractSerializableRegistrableFields(entity)
   });

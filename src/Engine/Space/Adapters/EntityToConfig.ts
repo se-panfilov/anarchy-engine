@@ -25,6 +25,7 @@ export function spaceToConfig(
     rendererService,
     spatialGridService,
     textService,
+    scenesService,
     textureService
   }: TSpaceServices
 ): TSpaceConfig {
@@ -67,8 +68,7 @@ export function spaceToConfig(
     version: entity.version as SpaceSchemaVersion,
     entities,
     resources,
-    // TODO 15-0-0: implement
-    // scenes: entity.scenes,
+    scenes: scenesService.serializeAllEntities(),
     ...extractSerializableRegistrableFields(entity)
   });
 }
