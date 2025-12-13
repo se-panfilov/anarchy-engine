@@ -10,7 +10,7 @@ export function EnvMapService(): TEnvMapService {
   const added$: Subject<TDataTexture> = new Subject<TDataTexture>();
 
   function loadFromConfigAsync(envMaps: ReadonlyArray<string>): ReadonlyArray<Promise<TDataTexture>> {
-    return envMaps.map((url: string): Promise<TDataTexture> => load(url));
+    return envMaps.map((url: string): Promise<TDataTexture> => loadAsync(url));
   }
 
   function loadAsync(url: string): Promise<TDataTexture> {
