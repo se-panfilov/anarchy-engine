@@ -1,8 +1,8 @@
-import type { IEuler, IVector3 } from '@/Engine/Wrappers';
+import type { IEulerWrapper, IVector3Wrapper } from '@/Engine/Wrappers';
 
 export type ICameraAccessors = Readonly<{
-  setPosition: (x: number, y: number, z: number) => IVector3;
-  setRotation: (x: number, y: number, z: number) => IEuler;
+  setPosition: (x: number, y: number, z: number) => IVector3Wrapper;
+  setRotation: (x: number, y: number, z: number) => IEulerWrapper;
   setCastShadow: (value: boolean) => boolean;
-  setControls: (x: number, y: number, z: number) => IVector3;
+  setControls: (x: number, y: number, z: number) => IVector3Wrapper;
 }>;

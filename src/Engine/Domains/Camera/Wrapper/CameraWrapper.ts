@@ -11,8 +11,8 @@ export function CameraWrapper(params: ICameraParams, screenSizeWatcher: Readonly
   const { fov = 45, near = 1, far = 10000, rotation, position, tags }: ICameraParams = params;
   // TODO (S.Panfilov) Test this: aspect is 0 fot now, but should be set by screenSizeWatcher
   const entity: IWriteable<IPerspectiveCamera> = new PerspectiveCamera(fov, 0, near, far);
-  entity.rotation.set(rotation.x, rotation.y, rotation.z);
-  entity.position.set(position.x, position.y, position.z);
+  entity.rotation.set(rotation.entity.x, rotation.entity.y, rotation.entity.z);
+  entity.position.set(position.entity.x, position.entity.y, position.entity.z);
 
   // eslint-disable-next-line functional/prefer-immutable-types
   function setValues(entity: IWriteable<IPerspectiveCamera>, { width, height }: IScreenSizeValues): void {
