@@ -16,7 +16,5 @@
     "skipLibCheck": true,
     "types": ["node", "vite/client", "three"]
   },
-  "include": [
-    "src"
-  ]
+  "include": ["src"]
 }
