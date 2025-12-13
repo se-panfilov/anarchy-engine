@@ -9,19 +9,45 @@ export const getAll = <T>(registry: ReadonlyMap<string, T>): ReadonlyArray<T> =>
 
 export function getAllEntitiesWithTags<T extends TRegistrable>(tagList: ReadonlyArray<string>, registry: ReadonlyMap<string, T>, strategy: LookUpStrategy): ReadonlyArray<T> {
   if (tagList.length === 0) return [];
-  return Array.from(registry.values()).filter((obj: T): boolean => shouldHaveTags(obj, tagList, strategy));
+
+  const result: Array<T> = [];
+
+  // eslint-disable-next-line functional/no-loop-statements
+  for (const entity of registry.values()) {
+    // eslint-disable-next-line functional/immutable-data
+    if (shouldHaveTags(entity, tagList, strategy)) result.push(entity);
+  }
+
+  return result;
 }
 
 export function getAllEntitiesWithTag<T extends TRegistrable>(tag: string, registry: ReadonlyMap<string, T>): ReadonlyArray<T> {
-  return Array.from(registry.values()).filter((obj: T): boolean => hasTag(obj, tag));
+  const result: Array<T> = [];
+
+  // eslint-disable-next-line functional/no-loop-statements
+  for (const entity of registry.values()) {
+    // eslint-disable-next-line functional/immutable-data
+    if (hasTag(entity, tag)) result.push(entity);
+  }
+
+  return result;
 }
 
 export function getUniqEntityWithTags<T extends TRegistrable>(tagList: ReadonlyArray<string>, registry: ReadonlyMap<string, T>, strategy: LookUpStrategy): T | undefined {
-  return Array.from(registry.values()).find((obj: T): boolean => shouldHaveTags(obj, tagList, strategy));
+  // eslint-disable-next-line functional/no-loop-statements
+  for (const entity of registry.values()) {
+    if (shouldHaveTags(entity, tagList, strategy)) return entity;
+  }
+
+  return undefined;
 }
 
 export function getUniqEntityWithTag<T extends TRegistrable>(tag: string, registry: ReadonlyMap<string, T>): T | undefined {
-  return Array.from(registry.values()).find((obj: T): boolean => hasTag(obj, tag));
+  // eslint-disable-next-line functional/no-loop-statements
+  for (const entity of registry.values()) {
+    if (hasTag(entity, tag)) return entity;
+  }
+  return undefined;
 }
 
 export function setActiveWrappedEntity<E extends TWithActiveMixin & TRegistrable>(registry: TProtectedRegistry<TAbstractEntityRegistry<E>>, id: string): E | never {
