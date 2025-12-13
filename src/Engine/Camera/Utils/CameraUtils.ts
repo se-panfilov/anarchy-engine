@@ -1,6 +1,6 @@
-import type { TShadowCameraParams } from '@/Engine';
 import { CameraType } from '@/Engine/Camera/Constants';
 import type { TOrthographicCamera, TOrthographicCameraParams, TOrthographicCameraWrapper, TPerspectiveCamera, TPerspectiveCameraParams, TPerspectiveCameraWrapper } from '@/Engine/Camera/Models';
+import type { TShadowCameraParams } from '@/Engine/Light';
 import type { TWriteable } from '@/Engine/Utils';
 import { isDefined } from '@/Engine/Utils';
 

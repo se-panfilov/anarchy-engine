@@ -1,6 +1,5 @@
 import type { AudioListener, OrthographicCameraJSONObject, PerspectiveCameraJSONObject, Vector3Like } from 'three';
 
-import type { TShadowCameraParams } from '@/Engine';
 import type { TAudioService } from '@/Engine/Audio';
 import type {
   TAnyCameraConfig,
@@ -14,6 +13,7 @@ import type {
 } from '@/Engine/Camera/Models';
 import type { TOrthographicCameraOnlyConfig } from '@/Engine/Camera/Models/TOrthographicCameraConfig';
 import { isOrthographicCameraWrapper, isPerspectiveCameraWrapper } from '@/Engine/Camera/Utils';
+import type { TShadowCameraParams } from '@/Engine/Light';
 import { extractSerializableRegistrableFields } from '@/Engine/Mixins';
 import { filterOutEmptyFields, isDefined, isVector3Like } from '@/Engine/Utils';
 
