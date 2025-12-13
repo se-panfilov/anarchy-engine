@@ -2,7 +2,7 @@ import { actorStatesConfigToParams, model3dSettingsConfigToParams } from '@/Engi
 import type { TActorConfig, TActorConfigToParamsDependencies, TActorParams } from '@/Engine/Actor/Models';
 import { kinematicConfigToParams } from '@/Engine/Kinematic';
 import type { TModel3d } from '@/Engine/Models3d';
-import { configToOptionalParamsBody } from '@/Engine/Physics';
+import { configToParamsBody } from '@/Engine/Physics';
 import { configToParamsSpatialData } from '@/Engine/Spatial';
 import { configToParamsObject3d } from '@/Engine/ThreeLib';
 
@@ -16,7 +16,7 @@ export function configToParams(config: TActorConfig, dependencies: TActorConfigT
     ...rest,
     model3dSource: model3d,
     spatial: configToParamsSpatialData(spatial, dependencies),
-    physics: physics ? configToOptionalParamsBody(physics) : undefined,
+    physics: physics ? configToParamsBody(physics) : undefined,
     kinematic: kinematic ? kinematicConfigToParams(kinematic) : undefined,
     model3dSettings: model3dSettings ? model3dSettingsConfigToParams(model3dSettings) : undefined,
     states: states ? actorStatesConfigToParams(states, dependencies) : undefined,

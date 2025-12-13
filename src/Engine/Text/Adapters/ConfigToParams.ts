@@ -1,7 +1,7 @@
 import { Vector2 } from 'three';
 
 import { kinematicConfigToParams } from '@/Engine/Kinematic';
-import { configToOptionalParamsBody } from '@/Engine/Physics';
+import { configToParamsBody } from '@/Engine/Physics';
 import type { TTextConfig, TTextParams } from '@/Engine/Text/Models';
 import { configToParamsObject3d } from '@/Engine/ThreeLib';
 import { isDefined } from '@/Engine/Utils';
@@ -11,7 +11,7 @@ export function configToParams(config: TTextConfig): TTextParams {
 
   let result: TTextParams = {
     ...rest,
-    physics: physics ? configToOptionalParamsBody(physics) : undefined,
+    physics: physics ? configToParamsBody(physics) : undefined,
     ...configToParamsObject3d({ position, rotation, scale, layers }),
     kinematic: kinematic ? kinematicConfigToParams(kinematic) : undefined
   };
