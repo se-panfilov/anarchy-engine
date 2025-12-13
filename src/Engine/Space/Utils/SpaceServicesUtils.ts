@@ -47,9 +47,10 @@ export async function prepareServices(spaceName: string, canvas: TAppCanvas, sce
       // TODO debug (window as any).sceneW
       // (window as any).sceneW = sceneW;
 
-      resolve({ services, activeSceneW });
       return activeSceneW;
     });
+
+    resolve({ services, activeSceneW });
   });
 
   return p;
