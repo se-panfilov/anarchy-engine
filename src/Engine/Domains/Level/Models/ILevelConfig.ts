@@ -17,5 +17,6 @@ export type ILevelConfig = Readonly<{
   lights: ReadonlyArray<ILightConfig>;
   texts: ReadonlyArray<ITextConfig>;
   controls: ReadonlyArray<IControlsConfig>;
+  envMaps: ReadonlyArray<string>;
 }> &
   IWithReadonlyTags<LevelTag>;
