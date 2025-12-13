@@ -1,5 +1,5 @@
 import type { Observable, Subscription } from 'rxjs';
-import { BehaviorSubject, distinctUntilChanged, filter, ReplaySubject, sampleTime, switchMap } from 'rxjs';
+import { BehaviorSubject, distinctUntilChanged, ReplaySubject, sampleTime, switchMap } from 'rxjs';
 import type { Euler, Vector3 } from 'three';
 
 import { isEqualOrSimilar } from '@/Engine/Actor/Utils';
@@ -15,8 +15,8 @@ export function TransformDrive(params: TTransformDriveParams, agents: TTransform
   const positionRep$: ReplaySubject<Vector3> = new ReplaySubject<Vector3>(1);
   const rotation$: BehaviorSubject<Euler> = new BehaviorSubject<Euler>(agents[params.activeAgent].rotation$.value);
   const rotationRep$: ReplaySubject<Euler> = new ReplaySubject<Euler>(1);
-  const scale$: BehaviorSubject<Vector3 | undefined> = new BehaviorSubject<Vector3 | undefined>(agents[params.activeAgent].scale$.value);
-  const scaleRep$: ReplaySubject<Vector3 | undefined> = new ReplaySubject<Vector3 | undefined>(1);
+  const scale$: BehaviorSubject<Vector3> = new BehaviorSubject<Vector3>(agents[params.activeAgent].scale$.value);
+  const scaleRep$: ReplaySubject<Vector3> = new ReplaySubject<Vector3>(1);
 
   position$.subscribe(positionRep$);
   rotation$.subscribe(rotationRep$);
@@ -47,8 +47,7 @@ export function TransformDrive(params: TTransformDriveParams, agents: TTransform
 
   const scaleSub$: Subscription = agent$
     .pipe(
-      switchMap((drive: TransformAgent): Observable<Vector3 | undefined> => agents[drive as keyof TTransformAgents].scale$),
-      filter((value: Vector3 | undefined): value is Vector3 => value !== undefined),
+      switchMap((drive: TransformAgent): Observable<Vector3> => agents[drive as keyof TTransformAgents].scale$),
       distinctUntilChanged((prev: Vector3, curr: Vector3): boolean => isEqualOrSimilar(prev, curr, threshold)),
       sampleTime(delay)
     )
@@ -62,7 +61,7 @@ export function TransformDrive(params: TTransformDriveParams, agents: TTransform
     rotation$: rotationRep$,
     getRotation: (): Euler => rotation$.value.clone(),
     scale$: scaleRep$,
-    getScale: (): Vector3 | undefined => scale$.value?.clone(),
+    getScale: (): Vector3 => scale$.value.clone(),
     ...getDynamicAgents(agents)
   };
 

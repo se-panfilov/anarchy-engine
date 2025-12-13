@@ -7,5 +7,5 @@ export type TProtectedTransformAgentFacade<T extends TAbstractTransformAgent> = 
   Readonly<{
     position$: Observable<Vector3>;
     rotation$: Observable<Euler>;
-    scale$: Observable<Vector3 | undefined>;
+    scale$: Observable<Vector3>;
   }>;

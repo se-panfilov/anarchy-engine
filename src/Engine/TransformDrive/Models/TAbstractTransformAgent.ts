@@ -6,6 +6,6 @@ import type { TReadonlyEuler, TReadonlyVector3 } from '@/Engine/ThreeLib';
 export type TAbstractTransformAgent = Readonly<{
   position$: BehaviorSubject<TReadonlyVector3>;
   rotation$: BehaviorSubject<TReadonlyEuler>;
-  scale$: BehaviorSubject<TReadonlyVector3 | undefined>;
+  scale$: BehaviorSubject<TReadonlyVector3>;
 }> &
   TDestroyable;

@@ -9,5 +9,5 @@ export type TActor = TEntity<TActorEntities> &
   Readonly<{
     position$: ReplaySubject<Vector3>;
     rotation$: ReplaySubject<Euler>;
-    scale$: ReplaySubject<Vector3 | undefined>;
+    scale$: ReplaySubject<Vector3>;
   }>;

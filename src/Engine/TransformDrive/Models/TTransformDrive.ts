@@ -14,8 +14,8 @@ export type TTransformDrive = Readonly<{
   getPosition: () => Vector3;
   rotation$: ReplaySubject<Euler>;
   getRotation: () => Euler;
-  scale$: ReplaySubject<Vector3 | undefined>;
-  getScale: () => Vector3 | undefined;
+  scale$: ReplaySubject<Vector3>;
+  getScale: () => Vector3;
 }> &
   TWithKinematicProtectedAgent &
   TWithPhysicsProtectedAgent &

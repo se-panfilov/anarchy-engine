@@ -10,7 +10,7 @@ import type { TPhysicsTransformAgent, TTransformAgentParams } from '@/Engine/Tra
 export function PhysicsTransformAgent(params: TTransformAgentParams): TPhysicsTransformAgent {
   const position$: BehaviorSubject<TReadonlyVector3> = new BehaviorSubject<TReadonlyVector3>(params.position);
   const rotation$: BehaviorSubject<TReadonlyEuler> = new BehaviorSubject<TReadonlyEuler>(params.rotation);
-  const scale$: BehaviorSubject<TReadonlyVector3 | undefined> = new BehaviorSubject<TReadonlyVector3 | undefined>(params.scale);
+  const scale$: BehaviorSubject<TReadonlyVector3> = new BehaviorSubject<TReadonlyVector3>(params.scale);
 
   const destroyable: TDestroyable = destroyableMixin();
   const destroySub$: Subscription = destroyable.destroy$.subscribe((): void => {

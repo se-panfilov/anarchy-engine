@@ -2,11 +2,10 @@ import type { TWithCollisions } from '@/Engine/Collisions';
 import type { TWithModel3d } from '@/Engine/Models3d';
 import type { TWithOptionalPhysicsBody } from '@/Engine/Physics';
 import type { TWithSpatial, TWithUpdateSpatialCell } from '@/Engine/Spatial/Models';
-
-import type { TActorDrive } from './TActorDrive';
+import type { TTransformDrive } from '@/Engine/TransformDrive';
 
 export type TActorEntities = Readonly<{
-  drive: TActorDrive;
+  drive: TTransformDrive;
 }> &
   TWithModel3d &
   TWithOptionalPhysicsBody &
