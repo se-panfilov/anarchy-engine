@@ -3,7 +3,7 @@ import type { TModel3dFacade } from '@/Engine/Models3d';
 
 import type { TActorWrapper } from './TActorWrapper';
 
-export type TActorToModel3dConnectionRegistryExtension = Readonly<{
+export type TModel3dToActorConnectionRegistryExtension = Readonly<{
   addModel3d: (model3d: TModel3dFacade, actor: TActorWrapper) => void;
   addModel3dId: (model3dId: string, actorId: string) => void;
   findByModel3dId: (id: string) => string | undefined;
@@ -16,4 +16,4 @@ export type TActorToModel3dConnectionRegistryExtension = Readonly<{
   removeByModel3d: (model3d: TModel3dFacade) => void;
 }>;
 
-export type TActorToModel3dConnectionRegistry = TProtectedRegistry<TAbstractSimpleRegistry<string>> & TActorToModel3dConnectionRegistryExtension;
+export type TModel3dToActorConnectionRegistry = TProtectedRegistry<TAbstractSimpleRegistry<string>> & TModel3dToActorConnectionRegistryExtension;

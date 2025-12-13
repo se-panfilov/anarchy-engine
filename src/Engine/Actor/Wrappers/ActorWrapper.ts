@@ -16,9 +16,9 @@ import { applyObject3dParams, applyPosition, applyRotation, applyScale, isDefine
 
 export function ActorWrapper(
   params: TActorParams,
-  { kinematicLoopService, spatialLoopService, spatialGridService, collisionsLoopService, collisionsService, models3dService, actorToModel3dConnectionRegistry }: TActorDependencies
+  { kinematicLoopService, spatialLoopService, spatialGridService, collisionsLoopService, collisionsService, models3dService, Model3dToActorConnectionRegistry }: TActorDependencies
 ): TActorWrapper {
-  const isModelAlreadyInUse: boolean = isDefined(actorToModel3dConnectionRegistry.findByModel3d(params.model3dSource));
+  const isModelAlreadyInUse: boolean = isDefined(Model3dToActorConnectionRegistry.findByModel3d(params.model3dSource));
   const model3dF: TModel3dFacade = isModelAlreadyInUse ? models3dService.clone(params.model3dSource) : params.model3dSource;
   const entity: Group | Mesh | Object3D = model3dF.getModel();
 
@@ -73,7 +73,7 @@ export function ActorWrapper(
     rotation$.complete();
     actorW.spatial.destroy();
     actorW.collisions?.destroy();
-    actorToModel3dConnectionRegistry.removeByModel3d(model3dF);
+    Model3dToActorConnectionRegistry.removeByModel3d(model3dF);
   });
 
   applyPosition(actorW, params.position);
@@ -85,7 +85,7 @@ export function ActorWrapper(
 
   position$.subscribe((newPosition: Vector3): void => actorW.updateSpatialCells(newPosition));
 
-  actorToModel3dConnectionRegistry.addModel3d(model3dF, actorW);
+  Model3dToActorConnectionRegistry.addModel3d(model3dF, actorW);
 
   return actorW;
 }

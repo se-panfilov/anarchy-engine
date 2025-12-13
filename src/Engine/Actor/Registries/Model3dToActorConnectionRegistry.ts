@@ -1,13 +1,12 @@
 import type { TAbstractSimpleRegistry } from '@/Engine/Abstract';
 import { AbstractSimpleRegistry, RegistryFacade, RegistryType } from '@/Engine/Abstract';
-import type { TActorToModel3dConnectionRegistry, TActorToModel3dConnectionRegistryExtension, TActorWrapper } from '@/Engine/Actor/Models';
+import type { TActorWrapper, TModel3dToActorConnectionRegistry, TModel3dToActorConnectionRegistryExtension } from '@/Engine/Actor/Models';
 import type { TModel3dFacade } from '@/Engine/Models3d';
 import type { TWriteable } from '@/Engine/Utils';
 
-const registry: TWriteable<TAbstractSimpleRegistry<string>> & TWriteable<TActorToModel3dConnectionRegistryExtension> = AbstractSimpleRegistry<string>(RegistryType.ActorsModels3d) as TWriteable<
-  TAbstractSimpleRegistry<string>
-> &
-  TWriteable<TActorToModel3dConnectionRegistryExtension>;
+const registry: TWriteable<TAbstractSimpleRegistry<string>> & TWriteable<TModel3dToActorConnectionRegistryExtension> = AbstractSimpleRegistry<string>(
+  RegistryType.Models3dToActorConnection
+) as TWriteable<TAbstractSimpleRegistry<string>> & TWriteable<TModel3dToActorConnectionRegistryExtension>;
 
 // eslint-disable-next-line functional/immutable-data
 registry.addModel3d = (model3d: TModel3dFacade, actor: TActorWrapper): void => registry.add(model3d.getModel().uuid, actor.id);
@@ -31,4 +30,4 @@ registry.removeByModel3dId = (model3dId: string): void => registry.remove(model3
 // eslint-disable-next-line functional/immutable-data
 registry.removeByModel3d = (model3d: TModel3dFacade): void => registry.remove(model3d.getModel().uuid);
 
-export const ActorToModel3dConnectionRegistry = (): TActorToModel3dConnectionRegistry => RegistryFacade(registry);
+export const Model3dToActorConnectionRegistry = (): TModel3dToActorConnectionRegistry => RegistryFacade(registry);

@@ -1,2 +1,2 @@
 export * from './ActorRegistry';
-export * from './ActorToModel3dConnectionRegistry';
+export * from './Model3dToActorConnectionRegistry';
