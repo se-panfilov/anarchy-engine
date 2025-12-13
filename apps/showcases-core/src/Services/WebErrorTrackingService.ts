@@ -6,7 +6,9 @@ import type { TWebErrorTrackingService } from '@/Models';
 import { platformApiService } from '@/Services/PlatformApiService';
 
 export function WebErrorTrackingService(): TWebErrorTrackingService {
-  async function start(): Promise<TTrackingService> {
+  async function start(): Promise<TTrackingService | undefined> {
+    if (!runtimeEnv.VITE_SENTRY_DSN) return undefined;
+
     return BrowserTrackingService(
       {
         dsn: runtimeEnv.VITE_SENTRY_DSN,

@@ -3,10 +3,12 @@ import { DesktopTrackingService } from '@Anarchy/Tracking';
 import type { TElectronErrorTrackingService } from '@Showcases/Desktop/Models';
 
 export function ElectronErrorTrackingService(): TElectronErrorTrackingService {
-  function start(packagesVersions: Record<string, string>): TTrackingService {
+  function start(packagesVersions: Record<string, string>): TTrackingService | undefined {
+    if (!import.meta.env.VITE_SENTRY_DSN) return undefined;
+
     return DesktopTrackingService(
       {
-        dsn: runtimeEnv.VITE_SENTRY_DSN,
+        dsn: import.meta.env.VITE_SENTRY_DSN,
         environment: __PLATFORM_MODE__,
         release: __DESKTOP_APP_VERSION__
       },
