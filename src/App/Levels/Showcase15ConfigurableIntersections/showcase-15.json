@@ -56,7 +56,7 @@
       "tags": []
     },
     {
-      "name": "actor_blue_",
+      "name": "actor_blue_2",
       "type": "cube",
       "width": 2,
       "height": 2,
@@ -71,19 +71,16 @@
   ],
   "intersections": [
     {
-      "cameraName": "red",
-      "actorNames": ["actor_red_1", "actor_red_2"]
-    },
-    {
-      "cameraName": "blue",
-      "actorNames": ["actor_blue_1", "actor_blue_2"]
+      "name": "red_watcher",
+      "cameraName": "camera_red",
+      "actorNames": ["actor_red_1"]
     }
   ],
   "texts": [],
   "cameras": [
     {
       "fov": 45,
-      "name": "red",
+      "name": "camera_red",
       "near": 1,
       "far": 10000,
       "position": { "x": 3, "y": 20, "z": 35 },
@@ -93,7 +90,7 @@
     },
     {
       "fov": 45,
-      "name": "blue",
+      "name": "camera_blue",
       "near": 1,
       "far": 10000,
       "position": { "x": 45, "y": 20, "z": 5.5 },
@@ -128,7 +125,7 @@
   "controls": [
     {
       "type": "OrbitControls",
-      "cameraName": "red",
+      "cameraName": "camera_red",
       "enableDamping": true,
       "tags": [],
       "isActive": true

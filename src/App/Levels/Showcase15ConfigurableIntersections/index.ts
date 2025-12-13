@@ -1,7 +1,7 @@
 import GUI from 'lil-gui';
 
 import type { IShowcase } from '@/App/Levels/Models';
-import type { IAppCanvas, ICameraRegistry, ICameraWrapper, ISpace, ISpaceConfig } from '@/Engine';
+import type { IAppCanvas, ICameraRegistry, ICameraWrapper, IIntersectionsWatcher, ISpace, ISpaceConfig } from '@/Engine';
 import { buildSpaceFromConfig, isNotDefined, mouseService } from '@/Engine';
 
 import spaceConfig from './showcase-15.json';
@@ -10,21 +10,30 @@ import spaceConfig from './showcase-15.json';
 export function showcase(canvas: IAppCanvas): IShowcase {
   const gui: GUI = new GUI();
   const space: ISpace = buildSpaceFromConfig(canvas, spaceConfig as ISpaceConfig);
-  const { cameraService } = space.services;
+  const { cameraService, intersectionsService } = space.services;
   const cameraRegistry: ICameraRegistry = cameraService.getRegistry();
   const { clickLeftRelease$ } = mouseService;
 
   function init(): void {
+    // TODO (S.Panfilov) should be async
+    console.log(intersectionsService.getRegistry().getAll());
+    const redWatcher: IIntersectionsWatcher | undefined = intersectionsService.getRegistry().findByName('red_watcher');
+    if (isNotDefined(redWatcher)) throw new Error('Cannot find red watcher');
+    // const blueWatcher: IIntersectionsWatcher | undefined = intersectionsService.getRegistry().findByName('blue_watcher');
+    // if (isNotDefined(blueWatcher)) throw new Error('Cannot find blue watcher');
+
+    redWatcher.value$.subscribe((value) => console.log('red watcher', value));
+
     let cameraFolder: GUI | undefined;
-    let cameraName: string = 'red';
+    let cameraName: string = 'camera_red';
     clickLeftRelease$.subscribe((): void => {
       const camera: ICameraWrapper | undefined = cameraRegistry.findByName(cameraName);
-      console.log(cameraName, cameraService.findActive()?.name, cameraName === cameraService.findActive()?.name);
+      // console.log(cameraName, cameraService.findActive()?.name, cameraName === cameraService.findActive()?.name);
       if (isNotDefined(camera)) throw new Error(`Cannot switch camera: camera ("${cameraName}") not found`);
       cameraFolder = resetGui(cameraFolder, camera);
 
       cameraService.setActive(camera.id);
-      cameraName = cameraName === 'red' ? 'blue' : 'red';
+      cameraName = cameraName === 'camera_red' ? 'camera_blue' : 'camera_red';
     });
   }
 

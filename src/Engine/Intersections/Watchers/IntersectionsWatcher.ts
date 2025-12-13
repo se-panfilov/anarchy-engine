@@ -16,6 +16,7 @@ export function IntersectionsWatcher({ position$, tags = [] }: IIntersectionsWat
   let raycaster: Readonly<Raycaster> | undefined = new Raycaster();
   let actors: ReadonlyArray<IWithWrapperIdEntity<IMesh>> = [];
   let camera: Readonly<ICameraWrapper> | undefined;
+  let isWatching: boolean = false;
 
   const addActors = (actorWrappers: ReadonlyArray<IActorWrapperAsync>): void => void (actors = [...actors, ...unWrapEntities(actorWrappers)] as ReadonlyArray<IWithWrapperIdEntity<IMesh>>);
   const addActor = (actorWrapper: IActorWrapperAsync): void => void (actors = [...actors, actorWrapper.entity as IWithWrapperIdEntity<IMesh>]);
@@ -35,11 +36,13 @@ export function IntersectionsWatcher({ position$, tags = [] }: IIntersectionsWat
       const intersection: IIntersectionEvent | undefined = getIntersection(position, camera, [...actors]);
       if (isDefined(intersection)) abstractWatcher.value$.next(intersection);
     });
+    isWatching = true;
     return result;
   }
 
   function stop(): IIntersectionsWatcher {
     mousePos$?.unsubscribe();
+    isWatching = false;
     return result;
   }
 
@@ -66,7 +69,8 @@ export function IntersectionsWatcher({ position$, tags = [] }: IIntersectionsWat
     removeActors,
     removeActor,
     start,
-    stop
+    stop,
+    isWatching
   };
 
   return result;

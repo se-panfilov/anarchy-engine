@@ -15,4 +15,5 @@ export type IIntersectionsWatcher = Omit<IWatcher<IIntersectionEvent>, 'start' |
     getCamera: () => ICameraWrapper | undefined;
     start: () => IIntersectionsWatcher;
     stop: () => IIntersectionsWatcher;
+    isWatching: boolean;
   }>;
