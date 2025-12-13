@@ -22,7 +22,9 @@ export async function launch(sceneConfig: SceneConfig): Promise<void> {
   ////////////////////////////////////
 
   // create actors/////////////////////
-  const actorManager = new ActorFactory();
+  ActorFactory().latest$.subscribe(scene.addActor);
+  CameraFactory().latest$.subscribe(scene.addCamera);
+
   const cameraManager = new CameraManager();
   const lightManager = new LightManager();
   const rendererManager = new RendererManager();

@@ -1,25 +1,7 @@
+import { ActorParams } from '@Engine/Models/ActorParams';
 import { Mesh, MeshToonMaterial, PlaneGeometry, SphereGeometry } from 'three';
-import { AbstractWrapper } from '@Engine/Wrappers/AbstractWrapper';
-import type { ActorParams } from '@Engine/Models/ActorParams';
 
-export function ActorWrapper(params: ActorParams): AbstractWrapper<Mesh> {
-  const entity: Mesh = createActor(params);
-
-  const abstractWrapper = AbstractWrapper(entity);
-
-  function setPosition(x: number, y: number, z: number): void {
-    entity.position.set(x, y, z);
-  }
-
-  function setCastShadow(value: boolean): void {
-    // eslint-disable-next-line functional/immutable-data
-    entity.castShadow = value;
-  }
-
-  return { ...abstractWrapper, entity, setPosition, setCastShadow };
-}
-
-function createActor(params: ActorParams): Mesh {
+export function createActor(params: ActorParams): Mesh | never {
   if (params.type === 'plane') return createPlane(params);
   if (params.type === 'sphere') return createSphere(params);
   throw new Error('Cannot create Actor: unknown actor type');

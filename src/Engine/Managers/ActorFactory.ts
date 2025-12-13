@@ -3,10 +3,6 @@ import { AbstractFactory } from '@Engine/Managers/AbstractFactory';
 import type { Factory } from '@Engine/Models/Factory';
 import type { ActorParams } from '@Engine/Models/ActorParams';
 
-export function ActorFactory(): Factory<ActorWrapper, ActorParams> {
-  return AbstractFactory(create);
-}
+const create = (params: ActorParams): ReturnType<typeof ActorWrapper> => ActorWrapper(params);
 
-function create(params: ActorParams): ActorWrapper {
-  return ActorWrapper(params);
-}
+export const ActorFactory = (): Factory<ReturnType<typeof ActorWrapper>, ActorParams> => AbstractFactory(create);

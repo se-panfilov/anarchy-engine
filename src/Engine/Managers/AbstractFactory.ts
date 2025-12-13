@@ -3,7 +3,7 @@ import { nanoid } from 'nanoid';
 import type { Factory } from '../Models/Factory';
 import type { Entity } from '@Engine/Models/Entity';
 
-export function AbstractFactory<T extends Entity, R extends Record<string, any>>(
+export function AbstractFactory<T extends Entity<unknown>, R extends Record<string, any>>(
   create: (params: R) => T
 ): Factory<T, R> {
   let id: string = nanoid();

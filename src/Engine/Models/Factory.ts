@@ -1,7 +1,7 @@
 import type { Subject } from 'rxjs';
 import type { Entity } from '@Engine/Models/Entity';
 
-export interface Factory<T extends Entity, R extends Record<string, any>> {
+export interface Factory<T extends Entity<unknown>, R extends Record<string, any>> {
   readonly id: string;
   readonly create: (...params: any) => T;
   readonly latest$: Subject<T>;
