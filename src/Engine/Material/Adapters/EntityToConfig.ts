@@ -10,12 +10,13 @@ import type {
   TMaterialConfigTextures,
   TMaterialEntityToConfigDependencies,
   TMaterialParamsTextures,
+  TMaterials,
   TMaterialWrapper
 } from '@/Engine/Material/Models';
 import { getOptionName } from '@/Engine/Material/Utils';
 import { extractSerializableRegistrableFields } from '@/Engine/Mixins';
-import type { TTextureAsyncRegistry } from '@/Engine/Texture';
-import { filterOutEmptyFields, nullsToUndefined } from '@/Engine/Utils';
+import type { TTexture, TTextureAsyncRegistry } from '@/Engine/Texture';
+import { filterOutEmptyFields, isNotDefined, nullsToUndefined } from '@/Engine/Utils';
 
 // TODO 15-0-0: validate if "textures" are match
 // TODO 15-0-0: materials options are does not match
@@ -90,12 +91,13 @@ function getMaterialOptions({ entity }: TMaterialWrapper): TAllMaterialConfigOpt
   );
 }
 
-function getMaterialTextures({ entity }: TMaterialWrapper, textureResourceRegistry: TTextureAsyncRegistry): TMaterialConfigTextures | undefined {
+function getMaterialTextures({ entity }: TMaterialWrapper, textureResourceRegistry: TTextureAsyncRegistry): TMaterialConfigTextures | undefined | never {
   const maps: TMaterialParamsTextures = getMaps(entity);
   const mapsKeys: { [key: string]: string } = {};
 
-  Object.entries(maps).forEach(([key, value]) => {
+  Object.entries(maps).forEach(([key, value]: [string, TTexture]): void | never => {
     const textureName: string | undefined = textureResourceRegistry.findKeyByValue(value);
+    if (isNotDefined(textureName)) throw new Error(`[Serialization] Cannot find a texture with name "${value}" in the registry.`);
     // eslint-disable-next-line functional/immutable-data
     mapsKeys[key] = textureName;
   });
@@ -103,7 +105,7 @@ function getMaterialTextures({ entity }: TMaterialWrapper, textureResourceRegist
   return mapsKeys;
 }
 
-function getMaps(entity: TMaterialWrapper): TMaterialParamsTextures {
+function getMaps(entity: TMaterials): TMaterialParamsTextures {
   return filterOutEmptyFields(
     Object.entries(entity).reduce((acc: TMaterialParamsTextures, [key, value]: [string, string]): TMaterialParamsTextures => {
       // eslint-disable-next-line functional/immutable-data
