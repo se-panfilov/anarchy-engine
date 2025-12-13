@@ -8,9 +8,7 @@ export function EnvMapWrapper(params: TEnvMapParams): TEnvMapWrapper {
 
   const result = {
     ...AbstractWrapper(entity, WrapperType.EnvMap),
-    // entity,
     getName: (): string => params.name,
-    // TODO 9.0.0. RESOURCES: test that switch of active env maps is actually working
     ...withActiveMixin()
   };
 

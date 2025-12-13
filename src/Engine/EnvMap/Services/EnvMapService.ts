@@ -48,7 +48,6 @@ export function EnvMapService(factory: TEnvMapFactory, registry: TEnvMapRegistry
     active$: withActive.active$.asObservable(),
     getFactory: (): TEnvMapFactory => factory,
     getRegistry: (): TEnvMapRegistry => registry,
-    // TODO 9.0.0. RESOURCES: add getResourceRegistry registry to the rest or resources services
     getResourceRegistry: (): TEnvMapTextureAsyncRegistry => resourcesRegistry,
     getScene: (): TSceneWrapper => sceneW,
     ...destroyable
