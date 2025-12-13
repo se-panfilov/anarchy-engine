@@ -31,11 +31,76 @@
       },
       {
         "agent": "default",
-        "model3dSource": "sphere_model",
-        "name": "sphere_default_actor",
+        "model3dSource": "cube_model",
+        "name": "cube_default_actor",
+        "position": {
+          "x": -4,
+          "y": 2,
+          "z": 0
+        },
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "spatial": {
+          "grid": "main_grid",
+          "isAutoUpdate": true
+        }
+      },
+      {
+        "agent": "connected",
+        "model3dSource": "cube_model",
+        "name": "cube_connected_actor",
         "position": {
           "x": 0,
-          "y": 1,
+          "y": 2,
+          "z": 0
+        },
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "spatial": {
+          "grid": "main_grid",
+          "isAutoUpdate": true
+        }
+      },
+      {
+        "agent": "physical",
+        "model3dSource": "cube_model",
+        "name": "cube_physical_actor",
+        "physics": {
+          "presetName": "box_physics",
+          "shapeParams": {
+            "hx": 0.5,
+            "hy": 2,
+            "hz": 0.5
+          }
+        },
+        "position": {
+          "x": 4,
+          "y": 2,
+          "z": 0
+        },
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "spatial": {
+          "grid": "main_grid",
+          "isAutoUpdate": true
+        }
+      },
+      {
+        "agent": "kinematic",
+        "model3dSource": "cube_model",
+        "name": "cube_kinematic_actor",
+        "position": {
+          "x": 8,
+          "y": 2,
           "z": 0
         },
         "rotation": {
@@ -124,7 +189,7 @@
         "type": "MeshStandardMaterial"
       },
       {
-        "name": "sphere_material",
+        "name": "cube_material",
         "options": {
           "color": "#E91E63"
         },
@@ -157,11 +222,13 @@
       },
       {
         "castShadow": true,
-        "material": "sphere_material",
-        "model3dSource": "sphere",
-        "name": "sphere_model",
+        "material": "cube_material",
+        "model3dSource": "cube",
+        "name": "cube_model",
         "options": {
-          "radius": 1
+          "depth": 4,
+          "height": 1,
+          "width": 1
         }
       }
     ],
@@ -181,8 +248,9 @@
           "type": "fixed"
         },
         {
-          "collisionShape": "ball",
-          "name": "ball_physics",
+          "collisionShape": "cuboid",
+          "name": "box_physics",
+          "restitution": 0.1,
           "type": "dynamic"
         }
       ]
