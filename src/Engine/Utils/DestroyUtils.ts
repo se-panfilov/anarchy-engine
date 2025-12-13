@@ -81,8 +81,8 @@ export function removeFromParent(entity: any): void {
 
 export function stopParenting(entity: any): void {
   if (typeof entity.traverse === 'function') {
-    entity.children?.forEach((child: any): void => {
-      child.traverse((descendant: any): void => {
+    entity.children?.forEach((child: any | undefined): void => {
+      child?.traverse((descendant: any): void => {
         if (descendant.parent?.remove) descendant.parent.remove(descendant);
       });
     });

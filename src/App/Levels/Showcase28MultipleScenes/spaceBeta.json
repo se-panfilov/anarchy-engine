@@ -76,6 +76,21 @@
           "width": 1,
           "widthSegments": 1
         }
+      },
+      {
+        "model3dSource": "fox_glb",
+        "name": "fox_model_3d",
+        "position": {
+          "x": 5,
+          "y": 0,
+          "z": 0
+        },
+        "scale": {
+          "x": 0.025,
+          "y": 0.025,
+          "z": 0.025
+        },
+        "tags": []
       }
     ],
     "particles": [],
@@ -106,7 +121,12 @@
         "type": "basic"
       }
     ],
-    "models3d": [],
+    "models3d": [
+      {
+        "name": "fox_glb",
+        "url": "/Showcase/Models/Fox/Fox.glb"
+      }
+    ],
     "textures": []
   },
   "scenes": [

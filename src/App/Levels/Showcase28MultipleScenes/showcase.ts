@@ -2,7 +2,7 @@ import { combineLatest, Observable, Subscription } from 'rxjs';
 import { Clock, Vector3 } from 'three';
 
 import { moveByCircle } from '@/App/Levels/Utils/MoveUtils';
-import type { TActor, TActorRegistry, TKeyboardPressingEvent, TOrbitControlsWrapper, TSpace, TSpaceConfig, TSpaceServices } from '@/Engine';
+import type { TActor, TActorRegistry, TKeyboardPressingEvent, TModel3d, TOrbitControlsWrapper, TSceneWrapper, TSpace, TSpaceConfig, TSpaceServices } from '@/Engine';
 import { asRecord, createDomElement, isDefined, isNotDefined, KeyCode, metersPerSecond, mpsSpeed, spaceService } from '@/Engine';
 
 import spaceAlphaConfigJson from './spaceAlpha.json';
@@ -107,6 +107,14 @@ export function runBeta(space: TSpace): void {
   space.start$.next(true);
   const controls: TOrbitControlsWrapper | undefined = space.services.controlsService.findActive() as TOrbitControlsWrapper | undefined;
   if (isDefined(controls)) controls.setTarget(new Vector3(0, 0, 0));
+
+  const foxModelName: string = 'fox_model_3d';
+
+  const foxActor: TModel3d | undefined = space.services.models3dService.getRegistry().findByName(foxModelName);
+  if (isNotDefined(foxActor)) throw new Error(`Model "${foxModelName}" is not defined`);
+  const sceneW: TSceneWrapper | undefined = space.services.scenesService.findActive();
+  if (isNotDefined(sceneW)) throw new Error('Scene is not defined');
+  sceneW.addModel3d(foxActor);
 }
 
 export function runGamma(space: TSpace): void {
