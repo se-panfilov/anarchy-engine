@@ -27,16 +27,22 @@ export const spaceAnimationsData: TSpacesData = {
   container: getContainer(config.canvasSelector),
   awaits$: new BehaviorSubject<ReadonlySet<string>>(new Set()),
   onSpaceReady(space: TSpace): void {
-    initSolder1('solder_actor_1', space);
+    addAwait('onSpaceReady', spaceAnimationsData.awaits$);
+    initRunningSolder('solder_actor_1', space);
+    initDancingSolder('solder_actor_2', space);
+    setTimeout((): void => {
+      removeAwait('onSpaceReady', spaceAnimationsData.awaits$);
+    }, fadeDuration);
   },
   onChange: (space: TSpace): void => {
     addAwait('onChange', spaceAnimationsData.awaits$);
-    changeSolder1('solder_actor_1', space);
+    changeRunningSolder('solder_actor_1', space);
+    changeDancingSolder('solder_actor_2', space);
     removeAwait('onChange', spaceAnimationsData.awaits$);
   }
 };
 
-function initSolder1(actorName: string, space: TSpace): void {
+function initRunningSolder(actorName: string, space: TSpace): void {
   const solder: TActor | undefined = space.services.actorService.getRegistry().findByName(actorName);
   if (isNotDefined(solder)) throw new Error(`[Showcase]: Can't create actor: "${actorName}": not found`);
 
@@ -51,7 +57,7 @@ function initSolder1(actorName: string, space: TSpace): void {
   idleAction.paused = true;
 }
 
-function changeSolder1(actorName: string, space: TSpace): void {
+function changeRunningSolder(actorName: string, space: TSpace): void {
   const solder: TActor | undefined = space.services.actorService.getRegistry().findByName(actorName);
   if (isNotDefined(solder)) throw new Error(`[Showcase]: Can't update actor: "${actorName}": not found`);
 
@@ -60,6 +66,33 @@ function changeSolder1(actorName: string, space: TSpace): void {
 
   idleAction.fadeOut(fadeDuration);
   playAnimationUntilFrame(solder.model3d.getMixer(), runAction, 15, 30);
+}
+
+function initDancingSolder(actorName: string, space: TSpace): void {
+  const solder: TActor | undefined = space.services.actorService.getRegistry().findByName(actorName);
+  if (isNotDefined(solder)) throw new Error(`[Showcase]: Can't create actor: "${actorName}": not found`);
+
+  const actions = space.services.animationsService.startAutoUpdateMixer(solder.model3d).actions;
+
+  const idleAction: AnimationAction = actions[Idle];
+  const danceAction: AnimationAction = actions['Armature|mixamo.com|Layer0'];
+
+  danceAction.fadeOut(fadeDuration);
+  idleAction.reset().fadeIn(fadeDuration).play();
+  // eslint-disable-next-line functional/immutable-data
+  idleAction.paused = true;
+}
+
+function changeDancingSolder(actorName: string, space: TSpace): void {
+  const solder: TActor | undefined = space.services.actorService.getRegistry().findByName(actorName);
+  if (isNotDefined(solder)) throw new Error(`[Showcase]: Can't update actor: "${actorName}": not found`);
+
+  const idleAction: AnimationAction = solder.model3d.actions[Idle];
+  const danceAction: AnimationAction = solder.model3d.actions['Armature|mixamo.com|Layer0'];
+
+  idleAction.fadeOut(fadeDuration);
+  playAnimationUntilFrame(solder.model3d.getMixer(), danceAction, 15, 30);
+  solder.drive.default.setY(solder.drive.position$.value.y + 1.9);
 }
 
 export function playAnimationUntilFrame(mixer: AnimationMixer, action: AnimationAction, targetFrame: number, animationFps: number = 30, step: number = 1 / 60, maxSteps: number = 10000): void {
