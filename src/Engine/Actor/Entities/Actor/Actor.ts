@@ -37,6 +37,7 @@ export function Actor(
   // TODO 8.0.0. MODELS: Finish Actor's implementation, make sure it works with the KinematicDriver
   // TODO 8.0.0. MODELS: In ActorDriver implement external change of position$/rotation$/scale$ and make sure it works
   // TODO 8.0.0. MODELS: Implement PhysicsDriver
+  // TODO 8.0.0. MODELS: Connect Physics body with the PhysicsDriver
   // TODO 8.0.0. MODELS: Make sure it works with the Physics
   // TODO 8.0.0. MODELS: Make sure external change of position$/rotation$/scale$ works with the PhysicsDriver
   // TODO 8.0.0. MODELS: Make spatial is working
