@@ -1,6 +1,6 @@
 import type { Observable, Subscription } from 'rxjs';
-import { BehaviorSubject, filter, sample, takeUntil } from 'rxjs';
-import type { AudioListener, PositionalAudio } from 'three';
+import { BehaviorSubject, distinctUntilChanged, filter, sample, takeUntil } from 'rxjs';
+import type { AudioListener, PositionalAudio, Vector3Like } from 'three';
 
 import type { TAbstractAudioWrapper, TAudio3dParams, TAudio3dTransformDrive, TAudio3dWrapper, TAudioCreateFn, TAudioWrapperDependencies } from '@/Engine/Audio/Models';
 import { Audio3dTransformDrive } from '@/Engine/Audio/TransformDrive';
@@ -12,11 +12,22 @@ import { meters } from '@/Engine/Measurements';
 import type { TReadonlyVector3 } from '@/Engine/ThreeLib';
 import type { TDriveToTargetConnector } from '@/Engine/TransformDrive';
 import { DriveToTargetConnector } from '@/Engine/TransformDrive';
+import { isDefined } from '@/Engine/Utils';
 
 export function Audio3dWrapper(params: TAudio3dParams, { audioLoop, transformDriveService }: TAudioWrapperDependencies): TAudio3dWrapper {
   const { performance } = params;
+  const directionalCone$: BehaviorSubject<Vector3Like | undefined> = new BehaviorSubject<Vector3Like | undefined>(params.directionalCone);
   const wrapper: TAbstractAudioWrapper<PositionalAudio> = AbstractAudioWrapper(params, createPositionalAudio as TAudioCreateFn<PositionalAudio>);
   const listener$: BehaviorSubject<AudioListener | undefined> = new BehaviorSubject<AudioListener | undefined>(params.listener);
+
+  directionalCone$
+    .pipe(
+      takeUntil(wrapper.destroy$),
+      distinctUntilChanged((prev: Vector3Like | undefined, curr: Vector3Like | undefined): boolean => prev?.x === curr?.x && prev?.y === curr?.y && prev?.z === curr?.z)
+    )
+    .subscribe((directionalCone: Vector3Like | undefined): void => {
+      if (isDefined(directionalCone)) wrapper.entity.setDirectionalCone(directionalCone.x, directionalCone.y, directionalCone.z);
+    });
 
   const updatePriority: LoopUpdatePriority = performance?.updatePriority ?? LoopUpdatePriority.LOW;
   const noiseThreshold: TMeters = performance?.noiseThreshold ?? meters(0.01);
@@ -47,6 +58,7 @@ export function Audio3dWrapper(params: TAudio3dParams, { audioLoop, transformDri
   return Object.assign(wrapper, {
     drive,
     driveToTargetConnector,
-    listener$
+    listener$,
+    directionalCone$
   });
 }

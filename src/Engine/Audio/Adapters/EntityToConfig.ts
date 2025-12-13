@@ -5,7 +5,17 @@ export function audioToConfig(entity: TAnyAudioWrapper): TAnyAudioConfig {
   const { name, volume$, loop$, speed$, pause$, seek$ } = entity;
   // TODO 15-0-0: implement
 
-  const audio3dConfig: TAudio3dConfig = isAudio3dWrapper(entity) ? { ...entity.drive.serialize() } : ({} as any);
+  const audio3dConfig: TAudio3dConfig = isAudio3dWrapper(entity)
+    ? {
+        refDistance: entity.entity.getRefDistance(),
+        rolloffFactor: entity.entity.getRolloffFactor(),
+        maxDistance: entity.entity.getMaxDistance(),
+        directionalCone: entity.directionalCone$.value,
+        distanceModel: entity.entity.getDistanceModel(),
+        ...entity.drive.serialize()
+      }
+    : ({} as any);
+
   return {
     ...audio3dConfig,
     name,
@@ -15,15 +25,8 @@ export function audioToConfig(entity: TAnyAudioWrapper): TAnyAudioConfig {
     pause: pause$.value,
     seek: seek$.value
 
-    //   refDistance?: number;
-    //   rolloffFactor?: number;
-    //   distanceModel?: 'linear' | 'inverse' | 'exponential';
-    //   maxDistance?: number;
-    //   directionalCone?: Vector3Like;
     //   performance?: TAudioPerformanceOptions;
     //   audioSource: string;
     //   listener?: string;
-
-    // TODO 15-0-0: fix any
-  } as any;
+  };
 }

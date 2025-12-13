@@ -29,7 +29,6 @@ export function createPositionalAudio(audioSource: AudioBuffer, params: TAudio3d
   if (params.rolloffFactor) audio.setRolloffFactor(params.rolloffFactor);
   audio.setDistanceModel(params.distanceModel ?? 'linear');
   if (params.maxDistance) audio.setMaxDistance(params.maxDistance);
-  if (params.directionalCone) audio.setDirectionalCone(params.directionalCone.x, params.directionalCone.y, params.directionalCone.z);
   return audio;
 }
 
