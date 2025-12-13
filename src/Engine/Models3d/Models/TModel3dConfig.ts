@@ -1,3 +1,4 @@
+import type { TAnimationsConfig } from '@/Engine/Animations';
 import type { PrimitiveModel3dType } from '@/Engine/Models3d/Constants';
 import type { TObject3DPropConfig } from '@/Engine/ThreeLib';
 import type { TOptional } from '@/Engine/Utils';
@@ -8,6 +9,7 @@ export type TModel3dConfig = Omit<TModel3dParams, 'scale' | 'position' | 'rotati
   Readonly<{
     model3dSource: string | PrimitiveModel3dType;
     animationsSource?: ReadonlyArray<string>;
+    animationsState?: ReadonlyArray<TAnimationsConfig>;
     material?: string;
   }> &
   TOptional<Pick<TObject3DPropConfig, 'position' | 'scale' | 'rotation'>>;

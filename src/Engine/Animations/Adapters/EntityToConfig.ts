@@ -1,9 +1,10 @@
 import type { AnimationAction } from 'three';
 
+import type { TAnimationsConfig } from '@/Engine/Animations/Models';
+
 // TODO 15-0-0: validate
 // TODO 15-0-0: implement
-// TODO 15-0-0: any
-export function animationActionToConfig(entity: AnimationAction): any {
+export function animationActionToConfig(entity: AnimationAction): TAnimationsConfig {
   // export function animationActionToConfig(entity: AnimationAction): TAnimationActionConfigConfig {
   // TODO perhaps we need a relation to the actor here
   return {

@@ -5968,6 +5968,12 @@
             "type": "string"
           }
         },
+        "animationsState": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/TAnimationsConfig"
+          }
+        },
         "material": {
           "type": "string"
         },
@@ -6010,6 +6016,40 @@
     "PrimitiveModel3dType": {
       "type": "string",
       "enum": ["cube", "plane", "sphere"]
+    },
+    "TAnimationsConfig": {
+      "type": "object",
+      "properties": {
+        "clipName": {
+          "type": "string"
+        },
+        "time": {
+          "type": "number"
+        },
+        "weight": {
+          "type": "number"
+        },
+        "loop": {
+          "type": "number"
+        },
+        "repetitions": {
+          "type": "number"
+        },
+        "clampWhenFinished": {
+          "type": "boolean"
+        },
+        "timeScale": {
+          "type": "number"
+        },
+        "enabled": {
+          "type": "boolean"
+        },
+        "paused": {
+          "type": "boolean"
+        }
+      },
+      "required": ["clipName", "time", "weight", "loop", "repetitions", "clampWhenFinished", "timeScale", "enabled", "paused"],
+      "additionalProperties": false
     },
     "TModel3dOptions": {
       "$ref": "#/definitions/TOptional%3CTPrimitiveModel3dParams%3E"

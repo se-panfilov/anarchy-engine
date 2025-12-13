@@ -1,6 +1,8 @@
-import type { AnimationClip } from 'three';
+import type { AnimationAction, AnimationClip } from 'three';
 import type { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
 
+import type { TAnimationsConfig } from '@/Engine/Animations';
+import { animationActionToConfig } from '@/Engine/Animations';
 import type { TAnimations, TAnimationsResourceAsyncRegistry } from '@/Engine/Animations/Models';
 import { extractSerializableRegistrableFields } from '@/Engine/Mixins';
 import type { PrimitiveModel3dType } from '@/Engine/Models3d/Constants';
@@ -25,6 +27,7 @@ export function model3dToConfig(
     model3dSource,
     material,
     animationsSource: getAllAnimationsSource(entity, animationsResourceAsyncRegistry),
+    animationsState: serializeActiveAnimations(entity),
     options: params.options,
     forceClone: entity.forceClone,
     castShadow: rawModel3d.castShadow,
@@ -54,4 +57,13 @@ function getAllAnimationsSource(entity: TModel3d, animationsResourceAsyncRegistr
     .filter(isDefined);
 
   return animationsSource.length > 0 ? animationsSource : undefined;
+}
+
+function serializeActiveAnimations(entity: TModel3d): ReadonlyArray<TAnimationsConfig> {
+  const MIN_WEIGHT = 1e-3;
+  return Object.values(entity.actions)
+    .filter((action: AnimationAction): boolean => {
+      return action.isRunning() || (action.enabled && action.weight > MIN_WEIGHT);
+    })
+    .map(animationActionToConfig);
 }
