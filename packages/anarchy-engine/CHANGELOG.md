@@ -33,25 +33,26 @@
 - 17.4.0 Better physics serialization/deserialization
 - 17.5.0 Intersections watchers split to camera-mouse based and origin-direction based
 - 17.5.1 Replaced Object.assign with mergeAll (a fix for a broken TS types merging)
-- 18.0.x Monorepo: Split apps and engine
-- 19.0.x Reduce package size (prod build)
-- 20.0.x Configurable Space (added options)
-- 20.1.x Inline css for Text3d/Text2d
-- 20.2.x Configurable DracoLoader path (for Desktop app)
-- 20.3.x Extracted some code to shared package (utils, types, etc.)
+- 18.0.0 Monorepo: Split apps and engine
+- 19.0.0 Reduce package size (prod build)
+- 20.0.0 Configurable Space (added options)
+- 20.1.0 Inline css for Text3d/Text2d
+- 20.2.0 Configurable DracoLoader path (for Desktop app)
+- 20.3.0 Extracted some code to shared package (utils, types, etc.)
+- 21.0.0 Texts now support translations (i18n)
 
 Roadmap:
 
-- 21.0.x Create a npm package
-- 22.x.x Load managers domain for resource loaders (audio, animations, envMaps, materials, models3d, textures, etc.)
-- 23.x.x Postprocessing
-- 24.0.x Shaders
-- 25.0.x Modules: distinct engine/rapier from engine/core. Bonus: Make possible to load engine/rapier in async way
+- 22.0.x Create a npm package
+- 23.x.x Load managers domain for resource loaders (audio, animations, envMaps, materials, models3d, textures, etc.)
+- 24.x.x Postprocessing
+- 25.0.x Shaders
+- 26.0.x Modules: distinct engine/rapier from engine/core. Bonus: Make possible to load engine/rapier in async way
 
 Thoughts:
 
 - Maybe: Add a possibility to run E2E tests against minified code (prod). Cause minification could break things;
-- Maybe: Replace all arrays (with no allowed duplicates) with Maps (for performance)?;
+- Maybe: Replace all no-duplicates arrays with Maps (for performance)?;
 - Maybe: Try to replace spread operator with Object.assign everywhere (for performance and make sure that we are not creating new objects)? Check with AbstractEntity first;
 - Maybe: Add domain for timers (based on web workers);
 - Maybe: Add domain for lines;
