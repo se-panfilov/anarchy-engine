@@ -1,5 +1,5 @@
 import type { IShowcase } from '@/App/Levels/Models';
-import type { IActorParams, IActorWrapperAsync, IAppCanvas, IMoverService, ISpace, ISpaceConfig } from '@/Engine';
+import type { IActorAsyncRegistry, IActorParams, IActorWrapperAsync, IAppCanvas, IMoverService, ISpace, ISpaceConfig } from '@/Engine';
 import { ActorType, buildSpaceFromConfig, defaultMoverServiceConfig, EulerWrapper, forEachEnum, LookUpStrategy, MaterialType, mouseService, TextType, Vector3Wrapper } from '@/Engine';
 import type { IAnimationParams } from '@/Engine/Services';
 import { Easing } from '@/Engine/Services';
@@ -13,8 +13,8 @@ export function showcase(canvas: IAppCanvas): IShowcase {
 
   function start(): void {
     space.start();
-    const { actorRegistry } = space.registries;
     const { actorService, textService, loopService } = space.services;
+    const actorRegistry: IActorAsyncRegistry = actorService.getRegistry();
 
     let isClickBlocked: boolean = false;
 

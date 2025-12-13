@@ -1,5 +1,19 @@
 import type { IShowcase } from '@/App/Levels/Models';
-import type { IActorWrapperAsync, IAnimationParams, IAppCanvas, IMoverService, ISpace, ISpaceConfig, IText2dWrapper, ITextAnyWrapper, IWithCoordsXZ } from '@/Engine';
+import type {
+  IActorAsyncRegistry,
+  IActorWrapperAsync,
+  IAnimationParams,
+  IAppCanvas,
+  ICameraRegistry,
+  IControlsRegistry,
+  IMoverService,
+  ISpace,
+  ISpaceConfig,
+  IText2dWrapper,
+  ITextAnyWrapper,
+  ITextFactory,
+  IWithCoordsXZ
+} from '@/Engine';
 import { buildSpaceFromConfig, createCirclePathXZ, defaultMoverServiceConfig, Easing, EulerWrapper, generateAnglesForCircle, isNotDefined, mouseService, TextType, Vector3Wrapper } from '@/Engine';
 import { MoverService } from '@/Engine/Services/MoverService/MoverService';
 
@@ -10,9 +24,11 @@ export function showcase(canvas: IAppCanvas): IShowcase {
   const space: ISpace = buildSpaceFromConfig(canvas, spaceConfig as ISpaceConfig);
 
   async function init(): Promise<void> {
-    const { actorRegistry, cameraRegistry, controlsRegistry, text2dRegistry } = space.registries;
-    const { textFactory } = space.factories;
-    const { textService, loopService } = space.services;
+    const { actorService, cameraService, controlsService, textService, loopService } = space.services;
+    const actorRegistry: IActorAsyncRegistry = actorService.getRegistry();
+    const cameraRegistry: ICameraRegistry = cameraService.getRegistry();
+    const controlsRegistry: IControlsRegistry = controlsService.getRegistry();
+    const { text2dRegistry } = textService.getRegistries();
 
     controlsRegistry.getAll()[0]?.entity.target.set(6, 0, 0);
     cameraRegistry.getAll()[0]?.setPosition(Vector3Wrapper({ x: 6, y: 30, z: 0 }));
