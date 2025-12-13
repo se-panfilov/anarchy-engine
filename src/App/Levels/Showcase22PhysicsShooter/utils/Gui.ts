@@ -16,7 +16,6 @@ export function initGui(mouseLineIntersectionsWatcher: TIntersectionsWatcher): v
   };
 
   mouseLineIntersectionsWatcher.value$.subscribe((intersection: TIntersectionEvent) => {
-    console.log(intersection);
     // eslint-disable-next-line functional/immutable-data
     mouse.x = intersection.point.x;
     // eslint-disable-next-line functional/immutable-data
@@ -33,11 +32,12 @@ export function initGui(mouseLineIntersectionsWatcher: TIntersectionsWatcher): v
     mouse.objectName = intersection.object.name;
   });
 
-  gui.add(mouse, 'x').listen();
-  gui.add(mouse, 'y').listen();
-  gui.add(mouse, 'z').listen();
-  gui.add(mouse, 'distance').listen();
-  gui.add(mouse, 'objectId').listen();
-  gui.add(mouse, 'wrapperId').listen();
-  gui.add(mouse, 'objectName').listen();
+  const mouseFolderGui: GUI = gui.addFolder('Mouse');
+  mouseFolderGui.add(mouse, 'x').listen();
+  mouseFolderGui.add(mouse, 'y').listen();
+  mouseFolderGui.add(mouse, 'z').listen();
+  mouseFolderGui.add(mouse, 'distance').listen();
+  mouseFolderGui.add(mouse, 'objectId').listen();
+  mouseFolderGui.add(mouse, 'wrapperId').listen();
+  mouseFolderGui.add(mouse, 'objectName').listen();
 }
