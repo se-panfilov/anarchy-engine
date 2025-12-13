@@ -23,7 +23,7 @@ function getIndexHtmlPath(): string {
   const path: string = app.isPackaged ? join(app.getAppPath(), 'dist-app', 'index.html') : join(__dirname, '..', 'dist-app', 'index.html');
 
   if (!existsSync(path)) {
-    const errMsg: string = `[Main] index.html not found at: ${path}`;
+    const errMsg: string = `[Desktop Main] index.html not found at: ${path}`;
     console.error(errMsg);
     dialog.showErrorBox('Startup Error', errMsg);
     app.quit();
@@ -87,14 +87,14 @@ app.whenReady().then((): void => {
 
   // TODO DESKTOP: Make sure navigation isn't working (also from mouse extra buttons)
   win.webContents.on('will-navigate', (event, url): void => {
-    console.log(`[NAVIGATION] navigation to {event.url} `);
+    console.log(`[Desktop Main] navigation to {event.url} `);
 
     // event.preventDefault(); // Prevent navigation to other pages
 
     // Prevent drag and drop navigation
     if (url !== win.webContents.getURL()) {
       event.preventDefault();
-      console.log(`[NAVIGATION] navigation by drag and drop prevented`);
+      console.log(`[Desktop Main] navigation by drag and drop prevented`);
     }
   });
 
@@ -107,7 +107,7 @@ app.whenReady().then((): void => {
 
   // No zooming
   win.webContents.setVisualZoomLevelLimits(1, 1).catch((err: any): void => {
-    console.log('[Main] Error setting zoom level limits:');
+    console.log('[Desktop Main] Error setting zoom level limits:');
     console.error(err);
   });
 
