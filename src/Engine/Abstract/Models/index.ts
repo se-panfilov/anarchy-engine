@@ -27,6 +27,7 @@ export type * from './TReactiveFactory';
 export type * from './TRegistryPack';
 export type * from './TSerializableEntitiesService';
 export type * from './TSerializableResourceService';
+export type * from './TWatcher';
 export type * from './TWithBaseAccessorsRegistry';
 export type * from './TWithReactiveRegistry';
 export type * from './TWithUserData';

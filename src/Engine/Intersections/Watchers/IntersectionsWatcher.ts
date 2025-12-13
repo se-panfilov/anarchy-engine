@@ -7,7 +7,8 @@ import type { TAbstractWatcher } from '@/Engine/Abstract';
 import { AbstractWatcher, WatcherType } from '@/Engine/Abstract';
 import type { TActor } from '@/Engine/Actor';
 import type { TAnyCameraWrapper } from '@/Engine/Camera';
-import type { TIntersectionEvent, TIntersectionsWatcher, TIntersectionsWatcherParams } from '@/Engine/Intersections/Models';
+import { intersectionsToConfig } from '@/Engine/Intersections/Adapters';
+import type { TIntersectionEvent, TIntersectionsWatcher, TIntersectionsWatcherConfig, TIntersectionsWatcherParams } from '@/Engine/Intersections/Models';
 import type { TRawModel3d } from '@/Engine/Models3d';
 import type { TSceneObject } from '@/Engine/Scene';
 import type { TWriteable } from '@/Engine/Utils';
@@ -94,7 +95,8 @@ export function IntersectionsWatcher({ position$, isAutoStart, tags, name, perfo
     removeActors,
     removeActor,
     isStarted: false,
-    isAutoStart
+    isAutoStart,
+    serialize: (): TIntersectionsWatcherConfig => intersectionsToConfig(result)
   });
 
   setCamera(rest.camera);

@@ -1,10 +1,10 @@
-import type { TAbstractWatcher } from '@/Engine/Abstract';
+import type { TWatcher } from '@/Engine/Abstract';
 import type { TActor } from '@/Engine/Actor';
 import type { TAnyCameraWrapper } from '@/Engine/Camera';
 
 import type { TIntersectionEvent } from './TIntersectionEvent';
 
-export type TIntersectionsWatcher = TAbstractWatcher<TIntersectionEvent> &
+export type TIntersectionsWatcher = TWatcher<TIntersectionEvent> &
   Readonly<{
     addActors: (actors: ReadonlyArray<TActor>) => void;
     addActor: (actor: TActor) => void;
