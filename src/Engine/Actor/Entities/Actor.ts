@@ -3,7 +3,7 @@ import { combineLatest, Subject } from 'rxjs';
 import { Euler, Vector3 } from 'three';
 
 import { AbstractEntity, EntityType } from '@/Engine/Abstract';
-import type { ActorDrive } from '@/Engine/Actor/Constants';
+import { ActorDrive } from '@/Engine/Actor/Constants';
 import type { TActor, TActorDependencies, TActorEntities, TActorParams } from '@/Engine/Actor/Models';
 import { applySpatialGrid, startCollisions } from '@/Engine/Actor/Utils';
 import { withCollisions } from '@/Engine/Collisions';
@@ -18,20 +18,54 @@ export function Actor(
   params: TActorParams,
   { kinematicLoopService, spatialLoopService, spatialGridService, collisionsLoopService, collisionsService, models3dService, model3dToActorConnectionRegistry }: TActorDependencies
 ): TActor {
-  // TODO 8.0.0. MODELS: Allow to switch "drive" it in runtime
-  let drive: ActorDrive = params.drive;
-
-  const setDrive = (mode: ActorDrive): string => (drive = mode);
-  const getDrive = (): ActorDrive => drive;
-
   const position$: Subject<Vector3> = new Subject<Vector3>();
   const rotation$: Subject<Euler> = new Subject<Euler>();
   const scale$: Subject<Vector3> = new Subject<Vector3>();
-
-  // TODO 8.0.0. MODELS: position$, rotation$, scale$ should update related model3d values
+  const drive$: Subject<ActorDrive> = new Subject<ActorDrive>();
 
   const isModelAlreadyInUse: boolean = isDefined(model3dToActorConnectionRegistry.findByModel3d(params.model3dSource));
   const model3d: TModel3d = isModelAlreadyInUse ? models3dService.clone(params.model3dSource) : params.model3dSource;
+
+  drive$.subscribe((drive: ActorDrive): void => {
+    if (drive === ActorDrive.Kinematic) {
+      // TODO 8.0.0. MODELS: implement
+      // stopPhysicsDrive();
+      startKinematicDrive();
+    } else if (drive === ActorDrive.Physical) {
+      stopKinematicDrive();
+      // TODO 8.0.0. MODELS: implement
+      // startPhysicsDrive();
+    } else {
+      // TODO 8.0.0. MODELS: implement
+      // stopKinematicDrive();
+      // stopPhysicsDrive();
+    }
+  });
+
+  drive$.next(params.drive);
+
+  // TODO CWP The Actor flow is the following:
+  //  Case "Kinematic":
+  //  Kinematic mixin should have position$ and rotation$ (which piped to return Vector3 and Euler)
+  //  "doKinematicMove", "doKinematicRotation" should update Kinematic's position$ and rotation$
+  //  Actor is subscribed to Kinematic's position$ and rotation$
+  //  Model3d is subscribed to Actor's position$/rotation$/scale$
+  //  When Actor's position$/rotation$/scale$ updated, Model3d updates its position/rotation/scale
+  //  External update of Actor's position$/rotation$ is forbidden (scale$ is allowed)
+  //  Kinematic mixin should have "teleport" method which updates Kinematic's position$ and rotation$ immediately (if rotation is set, also update angle, and the speed should be set to 0)
+  //  --
+  //  Case "Physics":
+  //  Physics mixin should have position$ and rotation$ (not sure if we need to  pipe them to return Vector3 and Euler)
+  //  Actor is subscribed to Physics's position$, rotation$ (and maybe scale$)
+  //  Model3d is subscribed to Actor's position$/rotation$/scale$
+  //  When Actor's position$/rotation$/scale$ updated, Model3d updates its position/rotation/scale
+  //  External update of Actor's position$/rotation$/scale$ is forbidden
+  //  Physics mixin should have "teleport" method which updates Physics's position$ and rotation$ immediately (and scale$?). Check with Rapier docs
+  //  --
+  //  Case "None":
+  //  External update of Actor's position$/rotation$/scale$ is allowed (do nothing with Kinematic/Physics)
+
+  // TODO 8.0.0. MODELS: position$, rotation$, scale$ should update related model3d values
 
   // const { value$: position$, update: updatePosition } = withReactivePosition(model3d);
   // const { value$: rotation$, update: updateRotation } = withReactiveRotation(model3d);
@@ -79,7 +113,9 @@ export function Actor(
   let oldRotation: Euler = new Euler();
   let oldScale: Vector3 = new Vector3();
 
+  // TODO 8.0.0. MODELS: perhaps do this only once (without "if"'s), then just read this value from kinematic/physics and throw error if the drive is not None
   combineLatest([position$, rotation$, scale$]).subscribe(([position, rotation, scale]: [Vector3, Euler, Vector3]): void => {
+    // TODO 8.0.0. MODELS: if drive is Physics, should also apply these props to the rigid body
     if (!position.equals(oldPosition)) {
       oldPosition = position;
       applyPosition(entities, position);
@@ -115,10 +151,9 @@ export function Actor(
 
   return {
     ...abstract,
-    setDrive,
-    getDrive,
     position$,
     rotation$,
-    scale$
+    scale$,
+    drive$
   };
 }

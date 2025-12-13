@@ -4,7 +4,7 @@ import type { Subscription } from 'rxjs';
 import { Vector3 } from 'three';
 
 import type { TActor, TActorParams, TActorWithPhysics, TActorWithPhysicsDependencies } from '@/Engine/Actor/Models';
-import type { TPhysicsBodyFacade, TPhysicsBodyService, TWithPresetNamePhysicsBodyParams } from '@/Engine/Physics';
+import type { TPhysicsBody, TPhysicsBodyService, TWithPresetNamePhysicsBodyParams } from '@/Engine/Physics';
 import { makeWrapperWithPhysicsBody, RigidBodyTypesNames } from '@/Engine/Physics';
 import { isNotDefined } from '@/Engine/Utils';
 
@@ -14,7 +14,7 @@ import { Actor } from './Actor';
 export function ActorWithPhysics(
   params: TActorParams,
   deps: TActorWithPhysicsDependencies,
-  customCreatePhysicsBodyFn?: (physics: TWithPresetNamePhysicsBodyParams, physicsBodyService: TPhysicsBodyService, additionalParams?: Record<string, any>) => TPhysicsBodyFacade,
+  customCreatePhysicsBodyFn?: (physics: TWithPresetNamePhysicsBodyParams, physicsBodyService: TPhysicsBodyService, additionalParams?: Record<string, any>) => TPhysicsBody,
   additionalParams?: Record<string, any>
 ): TActorWithPhysics | never {
   if (isNotDefined(params.physics)) throw new Error('Cannot create Actor with Physics: physics params are missing');
