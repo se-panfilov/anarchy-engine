@@ -28,14 +28,14 @@ Usage:
                            [--mode production] [--no-dev-guard] [--no-detect-base] [--dry-run]
 
 Args:
-  --dist <path>           Build output directory (default: "dist").
-  --release <name>        Release name. Defaults to $RELEASE or "<VITE_RELEASE_NAME_PREFIX>@$npm_package_version".
-  --org <slug>            Override Sentry org (else .sentryclirc).
-  --project <slug>        Override Sentry project (else .sentryclirc).
-  --url-prefix <prefix>   upload-sourcemaps urlPrefix (e.g., "~/" or "app:///dist").
-  --dist-name <name>      Sentry "dist" value (e.g., "darwin-arm64", "win32-x64", "web"). Also read from <VITE_DIST_NAME> or dist-info.json.
-  --sentry-dist <name>    Alias of --dist-name.
-  --mode <name>           Build mode (e.g., production).
+  --dist [path]           Build output directory (default: "dist").
+  --release [name]        Release name. Defaults to $RELEASE or "<VITE_RELEASE_NAME_PREFIX>@$npm_package_version".
+  --org [slug]            Override Sentry org (else .sentryclirc).
+  --project [slug]        Override Sentry project (else .sentryclirc).
+  --url-prefix [prefix]   upload-sourcemaps urlPrefix (e.g., "~/" or "app:///dist").
+  --dist-name [name]      Sentry "dist" value (e.g., "darwin-arm64", "win32-x64", "web"). Also read from <VITE_DIST_NAME> or dist-info.json.
+  --sentry-dist [name]    Alias of --dist-name.
+  --mode [name]           Build mode (e.g., production).
   --no-dev-guard          Disable protection that blocks upload when mode != "production".
   --no-detect-base        Do not read Vite "base"; always use "~/" when --url-prefix is not provided.
   --dry-run               Print planned commands instead of executing.

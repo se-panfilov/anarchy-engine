@@ -25,9 +25,10 @@ const cliArgs = argv.filter((a, i, arr) => {
 });
 
 const hasAny = (list) => list.some((f) => cliArgs.includes(f));
-const hasPlatformFlags = hasAny(['--mac', '--win', '--linux']);
-const hasArchFlags = hasAny(['--x64', '--arm64', '--universal']);
-const hasDirFlag = hasAny(['--dir']);
+const platformFlags = ['--mac', '--win', '--linux'];
+const archFlags = ['--x64', '--arm64', '--universal'];
+const hasPlatformFlags = hasAny(platformFlags);
+const hasArchFlags = hasAny(archFlags);
 
 // Derive defaults from MODE tokens if env not set and CLI not overriding
 const tokens = String(mode).toLowerCase().split('.').filter(Boolean);
@@ -39,8 +40,9 @@ const envPlatforms = parseListEnv(process.env.PACK_PLATFORMS || process.env.PACK
 const envArchs = parseListEnv(process.env.PACK_ARCHS || process.env.PACK_ARCH);
 const envDir = parseBoolEnv(process.env.PACK_DIR, false);
 
-// Extract explicit target tokens (e.g., dmg, nsis, AppImage) from remaining CLI args
+// Extract explicit target tokens (e.g., dmg, nsis, AppImage, dir) from remaining CLI args
 const explicitTargets = cliArgs.filter((a) => !a.startsWith('-'));
+const hasDirTokenInCli = cliArgs.includes('--dir') || explicitTargets.includes('dir');
 
 // Helper: parse platforms/archs from CLI flags
 const parsePlatformsFromCli = () => {
@@ -69,15 +71,17 @@ const resolvedPlatforms = hasPlatformFlags
 
 const resolvedArchs = hasArchFlags ? parseArchsFromCli() : envArchs.length > 0 ? envArchs : modeArchs.length > 0 ? modeArchs : [process.arch === 'arm64' ? 'arm64' : 'x64'];
 
-const resolvedDir = hasDirFlag ? undefined : envDir; // undefined means don't add any flag; true -> add --dir
-
-// Synthesize args from resolution
+// Synthesize args from resolution (dedup platform/arch/dir)
 const envArgs = [];
 for (const p of resolvedPlatforms) envArgs.push(`--${p}`);
 for (const a of resolvedArchs) envArgs.push(`--${a}`);
-if (resolvedDir) envArgs.push('--dir');
+const shouldAddDirFromEnv = envDir && !hasDirTokenInCli;
+if (hasDirTokenInCli || shouldAddDirFromEnv) envArgs.push('--dir');
 
-const ebArgs = [...envArgs, ...cliArgs].join(' ').trim();
+// Remove platform/arch/dir flags from CLI to avoid duplicates and rely on synthesized flags above
+const filteredCli = cliArgs.filter((a) => !platformFlags.includes(a) && !archFlags.includes(a) && a !== '--dir' && a !== 'dir');
+
+const ebArgs = [...envArgs, ...filteredCli].join(' ').trim();
 
 const run = (cmd, opts = {}) => {
   if (process.env.DRY_RUN === '1') {
@@ -106,7 +110,10 @@ try {
   const platforms = resolvedPlatforms;
   const archs = resolvedArchs;
 
-  const installers = explicitTargets.length > 0 ? explicitTargets : resolvedDir ? ['dir'] : [];
+  // Effective installers: start with explicit tokens; add 'dir' if either CLI specified it or env adds it
+  const installers = [...explicitTargets];
+  if (hasDirTokenInCli || shouldAddDirFromEnv) installers.push('dir');
+  const installersDedup = Array.from(new Set(installers));
 
   const primaryPlatform = platforms[0];
   const primaryArch = archs[0];
@@ -116,7 +123,7 @@ try {
     mode,
     platforms,
     archs,
-    installers,
+    installers: installersDedup,
     platform: primaryPlatform,
     arch: primaryArch,
     distName
