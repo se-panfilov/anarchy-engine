@@ -1,6 +1,6 @@
-import type { TAbstractEntityRegistry } from '@/Engine/Abstract/Models';
-import type { LookUpStrategy } from '@/Engine/Abstract/Registries';
-import type { TRegistrable, TWithActiveMixin } from '@/Engine/Mixins';
+import type { TAbstractEntityRegistry } from '@/Abstract/Models';
+import type { LookUpStrategy } from '@/Abstract/Registries';
+import type { TRegistrable, TWithActiveMixin } from '@/Mixins';
 
 import { isNotDefined } from './CheckUtils';
 import { hasTag } from './TagsUtils';

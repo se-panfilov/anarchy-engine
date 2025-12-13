@@ -1,5 +1,5 @@
-import { AbstractEntityRegistry, RegistryType } from '@/Engine/Abstract';
-import type { TSpace, TSpaceRegistry } from '@/Engine/Space/Models';
+import { AbstractEntityRegistry, RegistryType } from '@/Abstract';
+import type { TSpace, TSpaceRegistry } from '@/Space/Models';
 
 export function SpaceRegistry(): TSpaceRegistry {
   return AbstractEntityRegistry<TSpace>(RegistryType.Space);

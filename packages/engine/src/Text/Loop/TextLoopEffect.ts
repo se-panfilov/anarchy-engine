@@ -1,11 +1,11 @@
 import type { BehaviorSubject, Subscription } from 'rxjs';
 import { withLatestFrom } from 'rxjs';
 
-import type { TAnyCameraWrapper, TCameraService } from '@/Engine/Camera';
-import type { TMilliseconds } from '@/Engine/Math';
-import type { TSceneWrapper } from '@/Engine/Scene';
-import type { TText2dRegistry, TText2dRenderer, TText3dRegistry, TText3dRenderer, TTextLoop } from '@/Engine/Text/Models';
-import { isNotDefined } from '@/Engine/Utils';
+import type { TAnyCameraWrapper, TCameraService } from '@/Camera';
+import type { TMilliseconds } from '@/Math';
+import type { TSceneWrapper } from '@/Scene';
+import type { TText2dRegistry, TText2dRenderer, TText3dRegistry, TText3dRenderer, TTextLoop } from '@/Text/Models';
+import { isNotDefined } from '@/Utils';
 
 export function textLoopEffect(
   loop: TTextLoop,

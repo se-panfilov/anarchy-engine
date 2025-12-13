@@ -1,7 +1,7 @@
-import { LoopWorkerActions } from '@/Engine/Loop/Constants';
-import type { TDeltaCalculator, TLoopWorkerResponseData, TLoopWorkerStartRequestData, TLoopWorkerStopRequestData } from '@/Engine/Loop/Models';
-import type { TMilliseconds } from '@/Engine/Math';
-import { isDefined } from '@/Engine/Utils/CheckUtils';
+import { LoopWorkerActions } from '@/Loop/Constants';
+import type { TDeltaCalculator, TLoopWorkerResponseData, TLoopWorkerStartRequestData, TLoopWorkerStopRequestData } from '@/Loop/Models';
+import type { TMilliseconds } from '@/Math';
+import { isDefined } from '@/Utils/CheckUtils';
 
 import { DeltaCalculator } from './DeltaCalculator';
 

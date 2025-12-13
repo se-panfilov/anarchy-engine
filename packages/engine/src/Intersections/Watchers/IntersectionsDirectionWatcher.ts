@@ -6,20 +6,20 @@ import { LineGeometry } from 'three/examples/jsm/lines/LineGeometry';
 import { LineMaterial } from 'three/examples/jsm/lines/LineMaterial';
 import { Vector3 } from 'three/src/math/Vector3';
 
-import type { TContainerDecorator } from '@/Engine/Global';
+import type { TContainerDecorator } from '@/Global';
 import type {
   TAbstractIntersectionsWatcher,
   TIntersectionEvent,
   TIntersectionsDirectionWatcher,
   TIntersectionsDirectionWatcherParams,
   TIntersectionsWatcherPerformanceOptions
-} from '@/Engine/Intersections/Models';
-import { getChangedOriginAndDirection } from '@/Engine/Intersections/Utils';
-import { AbstractIntersectionsWatcher } from '@/Engine/Intersections/Watchers/AbstractIntersectionsWatcher';
-import type { TMilliseconds } from '@/Engine/Math';
-import type { TSceneObject } from '@/Engine/Scene';
-import type { TReadonlyVector3 } from '@/Engine/ThreeLib';
-import { isDefined, isNotDefined } from '@/Engine/Utils';
+} from '@/Intersections/Models';
+import { getChangedOriginAndDirection } from '@/Intersections/Utils';
+import { AbstractIntersectionsWatcher } from '@/Intersections/Watchers/AbstractIntersectionsWatcher';
+import type { TMilliseconds } from '@/Math';
+import type { TSceneObject } from '@/Scene';
+import type { TReadonlyVector3 } from '@/ThreeLib';
+import { isDefined, isNotDefined } from '@/Utils';
 
 export function IntersectionsDirectionWatcher(params: TIntersectionsDirectionWatcherParams): TIntersectionsDirectionWatcher {
   const { performance, intersectionsLoop } = params;

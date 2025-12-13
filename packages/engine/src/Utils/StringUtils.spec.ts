@@ -1,3 +1,5 @@
+import { describe, expect, it } from 'vitest';
+
 import { camelToKebab, kebabToCamel } from './StringUtils';
 
 describe('StringUtils', () => {

@@ -1,8 +1,8 @@
 import type { Subscription } from 'rxjs';
 
-import type { TAbstractService, TRegistryPack } from '@/Engine/Abstract';
-import { AbstractService } from '@/Engine/Abstract';
-import { EnvMapLoader } from '@/Engine/EnvMap/Loader';
+import type { TAbstractService, TRegistryPack } from '@/Abstract';
+import { AbstractService } from '@/Abstract';
+import { EnvMapLoader } from '@/EnvMap/Loader';
 import type {
   TEnvMapConfig,
   TEnvMapConfigToParamsDependencies,
@@ -19,8 +19,8 @@ import type {
   TEnvMapServiceWithRegistry,
   TEnvMapTextureAsyncRegistry,
   TEnvMapWrapper
-} from '@/Engine/EnvMap/Models';
-import type { TDisposable, TWithActiveMixinResult } from '@/Engine/Mixins';
+} from '@/EnvMap/Models';
+import type { TDisposable, TWithActiveMixinResult } from '@/Mixins';
 import {
   withActiveEntityServiceMixin,
   withCreateFromConfigServiceMixin,
@@ -30,9 +30,9 @@ import {
   withSceneGetterService,
   withSerializableEntities,
   withSerializeAllResources
-} from '@/Engine/Mixins';
-import type { TSceneWrapper } from '@/Engine/Scene';
-import { isDefined, mergeAll } from '@/Engine/Utils';
+} from '@/Mixins';
+import type { TSceneWrapper } from '@/Scene';
+import { isDefined, mergeAll } from '@/Utils';
 
 export function EnvMapService(
   factory: TEnvMapFactory,

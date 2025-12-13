@@ -1,7 +1,7 @@
 import type { BehaviorSubject } from 'rxjs';
 
-import type { TKinematicConfig, TKinematicData, TKinematicMethods } from '@/Engine/Kinematic';
-import type { TSerializable } from '@/Engine/Mixins';
+import type { TKinematicConfig, TKinematicData, TKinematicMethods } from '@/Kinematic';
+import type { TSerializable } from '@/Mixins';
 
 import type { TAbstractTransformAgent } from './TAbstractTransformAgent';
 

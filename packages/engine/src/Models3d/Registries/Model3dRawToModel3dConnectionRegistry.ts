@@ -1,8 +1,8 @@
-import type { TAbstractSimpleRegistry } from '@/Engine/Abstract';
-import { AbstractSimpleRegistry, RegistryType } from '@/Engine/Abstract';
-import type { TRawModel3d } from '@/Engine/Models3d';
-import type { TModel3d, TModel3dRawToModel3dConnectionRegistry, TModel3dRawToModel3dConnectionRegistryExtension } from '@/Engine/Models3d/Models';
-import type { TWriteable } from '@/Engine/Utils';
+import type { TAbstractSimpleRegistry } from '@/Abstract';
+import { AbstractSimpleRegistry, RegistryType } from '@/Abstract';
+import type { TRawModel3d } from '@/Models3d';
+import type { TModel3d, TModel3dRawToModel3dConnectionRegistry, TModel3dRawToModel3dConnectionRegistryExtension } from '@/Models3d/Models';
+import type { TWriteable } from '@/Utils';
 
 export const Model3dRawToModel3dConnectionRegistry = (): TModel3dRawToModel3dConnectionRegistry => {
   const registry: TWriteable<TAbstractSimpleRegistry<string>> & TWriteable<TModel3dRawToModel3dConnectionRegistryExtension> = AbstractSimpleRegistry<string>(

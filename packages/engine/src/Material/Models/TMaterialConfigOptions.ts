@@ -13,8 +13,8 @@ import type {
   StencilFailName,
   StencilFuncName,
   StencilOpName
-} from '@/Engine/Material/Constants';
-import type { TEulerLike } from '@/Engine/ThreeLib';
+} from '@/Material/Constants';
+import type { TEulerLike } from '@/ThreeLib';
 
 import type {
   TBasicMaterialParamsOptions,

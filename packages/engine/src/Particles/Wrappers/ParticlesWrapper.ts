@@ -1,20 +1,20 @@
 import type { Subscription } from 'rxjs';
 import { BufferAttribute, BufferGeometry, Points } from 'three';
 
-import type { TAbstractWrapper } from '@/Engine/Abstract';
-import { AbstractWrapper, WrapperType } from '@/Engine/Abstract';
-import type { TColor } from '@/Engine/Color';
-import type { TWithMaterial } from '@/Engine/Material';
-import { isPointsMaterial, withMaterial } from '@/Engine/Material';
-import { withObject3d } from '@/Engine/Mixins';
-import { particlesToConfig } from '@/Engine/Particles/Adapters';
-import type { TParticlesConfig, TParticlesParams, TParticlesServiceDependencies, TParticlesTransformDrive, TParticlesWrapper } from '@/Engine/Particles/Models';
-import { ParticlesTransformDrive } from '@/Engine/Particles/TransformDrive';
-import type { TBufferGeometry, TPoints } from '@/Engine/ThreeLib';
-import type { TDriveToTargetConnector } from '@/Engine/TransformDrive';
-import { DriveToTargetConnector } from '@/Engine/TransformDrive';
-import type { TWriteable } from '@/Engine/Utils';
-import { applyObject3dParams } from '@/Engine/Utils';
+import type { TAbstractWrapper } from '@/Abstract';
+import { AbstractWrapper, WrapperType } from '@/Abstract';
+import type { TColor } from '@/Color';
+import type { TWithMaterial } from '@/Material';
+import { isPointsMaterial, withMaterial } from '@/Material';
+import { withObject3d } from '@/Mixins';
+import { particlesToConfig } from '@/Particles/Adapters';
+import type { TParticlesConfig, TParticlesParams, TParticlesServiceDependencies, TParticlesTransformDrive, TParticlesWrapper } from '@/Particles/Models';
+import { ParticlesTransformDrive } from '@/Particles/TransformDrive';
+import type { TBufferGeometry, TPoints } from '@/ThreeLib';
+import type { TDriveToTargetConnector } from '@/TransformDrive';
+import { DriveToTargetConnector } from '@/TransformDrive';
+import type { TWriteable } from '@/Utils';
+import { applyObject3dParams } from '@/Utils';
 
 export function ParticlesWrapper(params: TParticlesParams, dependencies: TParticlesServiceDependencies): TParticlesWrapper {
   let geometry: TBufferGeometry = new BufferGeometry();

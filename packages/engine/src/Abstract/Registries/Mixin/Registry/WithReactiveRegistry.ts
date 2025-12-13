@@ -1,9 +1,9 @@
 import type { Subscription } from 'rxjs';
 import { Subject } from 'rxjs';
 
-import type { TRegistryPack, TWithReactiveRegistry } from '@/Engine/Abstract/Models';
-import type { TDestroyable } from '@/Engine/Mixins';
-import { isDestroyable } from '@/Engine/Utils';
+import type { TRegistryPack, TWithReactiveRegistry } from '@/Abstract/Models';
+import type { TDestroyable } from '@/Mixins';
+import { isDestroyable } from '@/Utils';
 
 export function withReactiveRegistry<T>(registry: Map<string, T>, destroyable: TDestroyable): TWithReactiveRegistry<T> {
   const added$: Subject<TRegistryPack<T>> = new Subject<TRegistryPack<T>>();

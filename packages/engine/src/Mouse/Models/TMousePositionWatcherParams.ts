@@ -1,5 +1,5 @@
-import type { TContainerDecorator } from '@/Engine/Global';
-import type { TWithTags } from '@/Engine/Mixins';
+import type { TContainerDecorator } from '@/Global';
+import type { TWithTags } from '@/Mixins';
 
 import type { TMousePositionPerformanceOptions } from './TMousePositionPerformanceOptions';
 

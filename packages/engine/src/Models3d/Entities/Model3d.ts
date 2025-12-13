@@ -1,11 +1,11 @@
 import type { Subscription } from 'rxjs';
 
-import type { TAbstractEntity } from '@/Engine/Abstract';
-import { AbstractEntity, EntityType } from '@/Engine/Abstract';
-import { withObject3d } from '@/Engine/Mixins';
-import { model3dToConfig } from '@/Engine/Models3d/Adapters';
-import { withModel3dEntities } from '@/Engine/Models3d/Mixins';
-import type { TModel3d, TModel3dConfig, TModel3dConfigToParamsDependencies, TModel3dDependencies, TModel3dEntities, TModel3dParams, TWithModel3dEntities } from '@/Engine/Models3d/Models';
+import type { TAbstractEntity } from '@/Abstract';
+import { AbstractEntity, EntityType } from '@/Abstract';
+import { withObject3d } from '@/Mixins';
+import { model3dToConfig } from '@/Models3d/Adapters';
+import { withModel3dEntities } from '@/Models3d/Mixins';
+import type { TModel3d, TModel3dConfig, TModel3dConfigToParamsDependencies, TModel3dDependencies, TModel3dEntities, TModel3dParams, TWithModel3dEntities } from '@/Models3d/Models';
 import {
   applyAnimationsState,
   applyObject3dParamsToModel3d,
@@ -14,8 +14,8 @@ import {
   applyScaleToModel3d,
   createModels3dEntities,
   isModel3dAlreadyInUse
-} from '@/Engine/Models3d/Utils';
-import { applyObject3dParams, destroyModel3dAnimationEntities, disposeGltf, isDefined, mergeAll } from '@/Engine/Utils';
+} from '@/Models3d/Utils';
+import { applyObject3dParams, destroyModel3dAnimationEntities, disposeGltf, isDefined, mergeAll } from '@/Utils';
 
 export function Model3d(params: TModel3dParams, { animationsService, model3dRawToModel3dConnectionRegistry }: TModel3dDependencies): TModel3d {
   const shouldForceClone: boolean = params.forceClone ?? isModel3dAlreadyInUse(params.model3dSource, model3dRawToModel3dConnectionRegistry);

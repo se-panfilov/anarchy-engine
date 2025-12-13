@@ -1,4 +1,4 @@
-import type { TAbstractLoader } from '@/Engine/Abstract';
+import type { TAbstractLoader } from '@/Abstract';
 
 import type { TAudioMetaInfoRegistry } from './TAudioMetaInfoRegistry';
 import type { TAudioResourceAsyncRegistry } from './TAudioResourceAsyncRegistry';

@@ -1,5 +1,5 @@
-import type { TSerializableEntitiesService } from '@/Engine/Abstract';
-import type { TWithCreateService, TWithFactoryService, TWithRegistryService } from '@/Engine/Mixins';
+import type { TSerializableEntitiesService } from '@/Abstract';
+import type { TWithCreateService, TWithFactoryService, TWithRegistryService } from '@/Mixins';
 
 import type { TFsmConfig } from './TFsmConfig';
 import type { TFsmInstanceFactory } from './TFsmInstanceFactory';

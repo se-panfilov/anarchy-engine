@@ -1,11 +1,11 @@
 import type { Observable, Subscription } from 'rxjs';
 import { BehaviorSubject, exhaustMap, filter, takeUntil } from 'rxjs';
 
-import { CreateEntitiesStrategy } from '@/Engine/Space/Constants';
-import type { TSpace, TSpaceConfig, TSpaceHooks, TSpaceParams, TSpaceRegistry } from '@/Engine/Space/Models';
-import { createEntities, loadResourcesFromConfig } from '@/Engine/Space/Utils';
-import type { TWriteable } from '@/Engine/Utils';
-import { isDefined } from '@/Engine/Utils';
+import { CreateEntitiesStrategy } from '@/Space/Constants';
+import type { TSpace, TSpaceConfig, TSpaceHooks, TSpaceParams, TSpaceRegistry } from '@/Space/Models';
+import { createEntities, loadResourcesFromConfig } from '@/Space/Utils';
+import type { TWriteable } from '@/Utils';
+import { isDefined } from '@/Utils';
 
 import { Space } from './Space';
 

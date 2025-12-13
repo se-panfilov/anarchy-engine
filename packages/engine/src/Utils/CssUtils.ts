@@ -1,5 +1,5 @@
-import { CssUnits } from '@/Engine/Global';
-import { isNotDefined } from '@/Engine/Utils/CheckUtils';
+import { CssUnits } from '@/Global';
+import { isNotDefined } from '@/Utils/CheckUtils';
 
 export function getBaseTextSize(): number {
   return parseFloat(getComputedStyle(document.documentElement).fontSize);

@@ -1,9 +1,9 @@
 import type { Subscription } from 'rxjs';
 
-import type { TAbstractService } from '@/Engine/Abstract';
-import { AbstractService } from '@/Engine/Abstract';
-import type { TActorService } from '@/Engine/Actor';
-import type { TCameraService } from '@/Engine/Camera';
+import type { TAbstractService } from '@/Abstract';
+import { AbstractService } from '@/Abstract';
+import type { TActorService } from '@/Actor';
+import type { TCameraService } from '@/Camera';
 import type {
   TAnyIntersectionsWatcher,
   TAnyIntersectionsWatcherConfig,
@@ -15,13 +15,13 @@ import type {
   TIntersectionsWatcherService,
   TIntersectionsWatcherServiceWithFactory,
   TIntersectionsWatcherServiceWithRegistry
-} from '@/Engine/Intersections/Models';
-import { isIntersectionsCameraWatcher, isIntersectionsDirectionWatcher } from '@/Engine/Intersections/Utils';
-import type { TLoopService } from '@/Engine/Loop';
-import type { TDisposable } from '@/Engine/Mixins';
-import { withFactoryService, withRegistryService, withSerializableEntities } from '@/Engine/Mixins';
-import type { TMouseService } from '@/Engine/Mouse';
-import { isDefined, mergeAll } from '@/Engine/Utils';
+} from '@/Intersections/Models';
+import { isIntersectionsCameraWatcher, isIntersectionsDirectionWatcher } from '@/Intersections/Utils';
+import type { TLoopService } from '@/Loop';
+import type { TDisposable } from '@/Mixins';
+import { withFactoryService, withRegistryService, withSerializableEntities } from '@/Mixins';
+import type { TMouseService } from '@/Mouse';
+import { isDefined, mergeAll } from '@/Utils';
 
 export function IntersectionsWatcherService(factory: TIntersectionsWatcherFactory, registry: TIntersectionsWatcherRegistry): TIntersectionsWatcherService {
   const factorySub$: Subscription = factory.entityCreated$.subscribe((watcher: TAnyIntersectionsWatcher): void => registry.add(watcher));

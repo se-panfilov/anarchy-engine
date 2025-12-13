@@ -1,7 +1,7 @@
 import { Vector3 } from 'three/src/math/Vector3';
 
-import type { TActor, TActorService } from '@/Engine/Actor';
-import type { TAnyCameraWrapper, TCameraService } from '@/Engine/Camera';
+import type { TActor, TActorService } from '@/Actor';
+import type { TAnyCameraWrapper, TCameraService } from '@/Camera';
 import type {
   TAbstractIntersectionsWatcherParams,
   TAnyIntersectionsWatcherConfig,
@@ -11,11 +11,11 @@ import type {
   TIntersectionsDirectionWatcherConfig,
   TIntersectionsDirectionWatcherParams,
   TIntersectionsLoop
-} from '@/Engine/Intersections/Models';
-import { isIntersectionsCameraWatcherConfig, isIntersectionsDirectionWatcherConfig } from '@/Engine/Intersections/Utils';
-import type { TLoopService } from '@/Engine/Loop';
-import type { TMouseService } from '@/Engine/Mouse';
-import { isNotDefined } from '@/Engine/Utils';
+} from '@/Intersections/Models';
+import { isIntersectionsCameraWatcherConfig, isIntersectionsDirectionWatcherConfig } from '@/Intersections/Utils';
+import type { TLoopService } from '@/Loop';
+import type { TMouseService } from '@/Mouse';
+import { isNotDefined } from '@/Utils';
 
 export function configToParams(
   config: TAnyIntersectionsWatcherConfig,

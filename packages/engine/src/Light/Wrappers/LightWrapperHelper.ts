@@ -10,10 +10,10 @@ import type {
   TShadowOrthographicCameraParams,
   TShadowPerspectiveCameraParams,
   TSpotLight
-} from '@/Engine/Light/Models';
-import { isDirectionalLight, isPointLight, isSpotLight } from '@/Engine/Light/Utils';
-import type { TWriteable } from '@/Engine/Utils';
-import { isDefined, isNotDefined } from '@/Engine/Utils';
+} from '@/Light/Models';
+import { isDirectionalLight, isPointLight, isSpotLight } from '@/Light/Utils';
+import type { TWriteable } from '@/Utils';
+import { isDefined, isNotDefined } from '@/Utils';
 
 export function applyShadowParams<T extends TAnyLight, P extends TLightParams>(params: P, entity: TWriteable<T>): void {
   // eslint-disable-next-line functional/immutable-data

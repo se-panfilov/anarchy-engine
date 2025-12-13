@@ -1,4 +1,4 @@
-import type { TMeters } from '@/Engine/Math/Types';
+import type { TMeters } from '@/Math/Types';
 
 export type TBoxGeometryParams = Readonly<{
   width?: TMeters;

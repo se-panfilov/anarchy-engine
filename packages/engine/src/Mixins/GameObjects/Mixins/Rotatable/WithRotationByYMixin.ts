@@ -1,4 +1,4 @@
-import type { TRotatableY, TWithQuaternionRotationProperty, TWithRotationProperty } from '@/Engine/Mixins/GameObjects/Models';
+import type { TRotatableY, TWithQuaternionRotationProperty, TWithRotationProperty } from '@/Mixins/GameObjects/Models';
 
 export function withRotationByYMixin(entity: TWithRotationProperty): TRotatableY {
   const setRotationY = (y: number): void => void entity.rotation.set(y, entity.rotation.y, entity.rotation.z);

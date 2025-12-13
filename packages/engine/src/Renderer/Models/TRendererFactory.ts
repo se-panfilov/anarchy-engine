@@ -1,4 +1,4 @@
-import type { TParamsFromConfigWithDependencies, TReactiveFactory } from '@/Engine/Abstract';
+import type { TParamsFromConfigWithDependencies, TReactiveFactory } from '@/Abstract';
 
 import type { TRendererConfig } from './TRendererConfig';
 import type { TRendererParams } from './TRendererParams';

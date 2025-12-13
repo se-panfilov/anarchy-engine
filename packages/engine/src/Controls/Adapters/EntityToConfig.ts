@@ -1,10 +1,10 @@
-import type { TAnyCamera, TAnyCameraWrapper } from '@/Engine/Camera';
-import type { TAnyControlsWrapper, TControlsConfig, TControlsServiceDependencies, TFpsControlsWrapper, TOrbitControlsConfigOptions, TOrbitControlsWrapper } from '@/Engine/Controls/Models';
-import type { TFpsControlsConfigOptions } from '@/Engine/Controls/Models/TFpsControlsConfigOptions';
-import { isFpsControls, isOrbitControls } from '@/Engine/Controls/Utils';
-import { extractSerializableRegistrableFields } from '@/Engine/Mixins';
-import type { TWriteable } from '@/Engine/Utils';
-import { filterOutEmptyFields, isNotDefined, vector3ToXyz } from '@/Engine/Utils';
+import type { TAnyCamera, TAnyCameraWrapper } from '@/Camera';
+import type { TAnyControlsWrapper, TControlsConfig, TControlsServiceDependencies, TFpsControlsWrapper, TOrbitControlsConfigOptions, TOrbitControlsWrapper } from '@/Controls/Models';
+import type { TFpsControlsConfigOptions } from '@/Controls/Models/TFpsControlsConfigOptions';
+import { isFpsControls, isOrbitControls } from '@/Controls/Utils';
+import { extractSerializableRegistrableFields } from '@/Mixins';
+import type { TWriteable } from '@/Utils';
+import { filterOutEmptyFields, isNotDefined, vector3ToXyz } from '@/Utils';
 
 export function controlsToConfig(entity: TAnyControlsWrapper, { cameraService }: TControlsServiceDependencies): TControlsConfig {
   const camera: TAnyCamera | undefined = entity.entity.object as TAnyCamera;

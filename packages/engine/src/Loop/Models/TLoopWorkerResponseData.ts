@@ -1,4 +1,4 @@
-import type { TMilliseconds } from '@/Engine/Math';
+import type { TMilliseconds } from '@/Math';
 
 export type TLoopWorkerResponseData = Readonly<{
   delta: TMilliseconds;

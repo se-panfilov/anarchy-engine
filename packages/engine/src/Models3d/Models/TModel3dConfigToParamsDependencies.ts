@@ -1,5 +1,5 @@
-import type { TAnimationsResourceAsyncRegistry } from '@/Engine/Animations';
-import type { TMaterialRegistry } from '@/Engine/Material';
+import type { TAnimationsResourceAsyncRegistry } from '@/Animations';
+import type { TMaterialRegistry } from '@/Material';
 
 import type { TModels3dResourceAsyncRegistry } from './TModels3dResourceAsyncRegistry';
 

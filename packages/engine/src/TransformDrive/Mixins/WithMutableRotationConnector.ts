@@ -1,8 +1,8 @@
 import type { BehaviorSubject } from 'rxjs';
 
-import type { TVector3OrEuler, TVector4OrQuaternion } from '@/Engine/ThreeLib';
-import type { TWithMutableRotationConnector } from '@/Engine/TransformDrive/Models';
-import { getXyzUpdateProxy, getXyzwUpdateProxy } from '@/Engine/TransformDrive/Utils';
+import type { TVector3OrEuler, TVector4OrQuaternion } from '@/ThreeLib';
+import type { TWithMutableRotationConnector } from '@/TransformDrive/Models';
+import { getXyzUpdateProxy, getXyzwUpdateProxy } from '@/TransformDrive/Utils';
 
 export function withMutableRotationConnector<T1 extends TVector3OrEuler, T2 extends TVector4OrQuaternion>(rotation$: BehaviorSubject<T1 | T2>): TWithMutableRotationConnector {
   return {

@@ -1,6 +1,6 @@
 import type { Vector2Like, Vector3Like, Vector4Like } from 'three';
 
-import type { TEulerLike, TEulerString } from '@/Engine/ThreeLib';
+import type { TEulerLike, TEulerString } from '@/ThreeLib';
 
 export function isEqualOrSimilarNumbers(prev: number, curr: number, threshold: number = 0): boolean {
   return Math.abs(curr - prev) <= threshold;

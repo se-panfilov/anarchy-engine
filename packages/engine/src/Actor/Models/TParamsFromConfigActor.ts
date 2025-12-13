@@ -1,4 +1,4 @@
-import type { TParamsFromConfig } from '@/Engine/Abstract';
+import type { TParamsFromConfig } from '@/Abstract';
 
 import type { TActorConfig } from './TActorConfig';
 import type { TActorConfigToParamsDependencies } from './TActorConfigToParamsDependencies';

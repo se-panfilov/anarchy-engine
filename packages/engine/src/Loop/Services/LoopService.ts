@@ -1,25 +1,25 @@
 import type { Subscription } from 'rxjs';
 
-import type { TAbstractService } from '@/Engine/Abstract';
-import { AbstractService } from '@/Engine/Abstract';
-import type { TAudioLoop } from '@/Engine/Audio';
-import type { TCollisionsLoop } from '@/Engine/Collisions';
-import type { TControlsLoop } from '@/Engine/Controls';
-import type { TIntersectionsLoop } from '@/Engine/Intersections';
-import type { TKeyboardLoop } from '@/Engine/Keyboard';
-import type { TKinematicLoop } from '@/Engine/Kinematic';
-import { LoopType } from '@/Engine/Loop/Constants';
-import type { TLoop, TLoopFactory, TLoopRegistry, TLoopService, TLoopServiceWithCreate, TLoopServiceWithFactory, TLoopServiceWithRegistry } from '@/Engine/Loop/Models';
-import { getMainLoopNameByType } from '@/Engine/Loop/Utils';
-import type { TDisposable } from '@/Engine/Mixins';
-import { withCreateServiceMixin, withFactoryService, withRegistryService } from '@/Engine/Mixins';
-import type { TMouseLoop } from '@/Engine/Mouse';
-import type { TPhysicsLoop } from '@/Engine/Physics';
-import type { TRenderLoop } from '@/Engine/Space';
-import type { TSpatialLoop } from '@/Engine/Spatial';
-import type { TTextLoop } from '@/Engine/Text';
-import type { TTransformLoop } from '@/Engine/TransformDrive';
-import { mergeAll } from '@/Engine/Utils';
+import type { TAbstractService } from '@/Abstract';
+import { AbstractService } from '@/Abstract';
+import type { TAudioLoop } from '@/Audio';
+import type { TCollisionsLoop } from '@/Collisions';
+import type { TControlsLoop } from '@/Controls';
+import type { TIntersectionsLoop } from '@/Intersections';
+import type { TKeyboardLoop } from '@/Keyboard';
+import type { TKinematicLoop } from '@/Kinematic';
+import { LoopType } from '@/Loop/Constants';
+import type { TLoop, TLoopFactory, TLoopRegistry, TLoopService, TLoopServiceWithCreate, TLoopServiceWithFactory, TLoopServiceWithRegistry } from '@/Loop/Models';
+import { getMainLoopNameByType } from '@/Loop/Utils';
+import type { TDisposable } from '@/Mixins';
+import { withCreateServiceMixin, withFactoryService, withRegistryService } from '@/Mixins';
+import type { TMouseLoop } from '@/Mouse';
+import type { TPhysicsLoop } from '@/Physics';
+import type { TRenderLoop } from '@/Space';
+import type { TSpatialLoop } from '@/Spatial';
+import type { TTextLoop } from '@/Text';
+import type { TTransformLoop } from '@/TransformDrive';
+import { mergeAll } from '@/Utils';
 
 export function LoopService(factory: TLoopFactory, registry: TLoopRegistry): TLoopService {
   const factorySub$: Subscription = factory.entityCreated$.subscribe((wrapper: TLoop): void => registry.add(wrapper));

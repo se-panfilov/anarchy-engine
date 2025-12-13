@@ -1,7 +1,7 @@
 import type { AnimationAction } from 'three';
 
-import type { TAnimationStateConfig } from '@/Engine/Animations/Models';
-import { filterOutEmptyFields } from '@/Engine/Utils';
+import type { TAnimationStateConfig } from '@/Animations/Models';
+import { filterOutEmptyFields } from '@/Utils';
 
 export function animationActionToConfig(entity: AnimationAction): TAnimationStateConfig {
   return filterOutEmptyFields({

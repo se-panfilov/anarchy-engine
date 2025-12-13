@@ -1,3 +1,3 @@
-import type { TAbstractResourceConfig } from '@/Engine/Abstract';
+import type { TAbstractResourceConfig } from '@/Abstract';
 
 export type TAudioResourceConfig = TAbstractResourceConfig;

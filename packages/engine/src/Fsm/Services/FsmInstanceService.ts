@@ -1,13 +1,13 @@
 import type { Subscription } from 'rxjs';
 
-import type { TAbstractService } from '@/Engine/Abstract';
-import { AbstractService } from '@/Engine/Abstract';
-import type { TFsmConfig, TFsmInstanceServiceWithCreate, TFsmInstanceServiceWithFactory, TFsmInstanceServiceWithRegistry } from '@/Engine/Fsm';
-import type { TFsmInstanceFactory, TFsmInstanceRegistry, TFsmWrapper } from '@/Engine/Fsm/Models';
-import type { TFsmInstanceService } from '@/Engine/Fsm/Models/TFsmInstanceService';
-import type { TDisposable } from '@/Engine/Mixins';
-import { withCreateServiceMixin, withFactoryService, withRegistryService, withSerializableEntities } from '@/Engine/Mixins';
-import { mergeAll } from '@/Engine/Utils';
+import type { TAbstractService } from '@/Abstract';
+import { AbstractService } from '@/Abstract';
+import type { TFsmConfig, TFsmInstanceServiceWithCreate, TFsmInstanceServiceWithFactory, TFsmInstanceServiceWithRegistry } from '@/Fsm';
+import type { TFsmInstanceFactory, TFsmInstanceRegistry, TFsmWrapper } from '@/Fsm/Models';
+import type { TFsmInstanceService } from '@/Fsm/Models/TFsmInstanceService';
+import type { TDisposable } from '@/Mixins';
+import { withCreateServiceMixin, withFactoryService, withRegistryService, withSerializableEntities } from '@/Mixins';
+import { mergeAll } from '@/Utils';
 
 export function FsmInstanceService(factory: TFsmInstanceFactory, registry: TFsmInstanceRegistry): TFsmInstanceService {
   const factorySub$: Subscription = factory.entityCreated$.subscribe((fsm: TFsmWrapper): void => registry.add(fsm));

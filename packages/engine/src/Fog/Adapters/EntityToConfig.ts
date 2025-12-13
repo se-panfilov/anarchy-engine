@@ -1,9 +1,9 @@
 import type { FogJSON } from 'three';
 
-import { serializeColor } from '@/Engine/Color';
-import type { TFogConfig, TFogWrapper } from '@/Engine/Fog/Models';
-import { extractSerializableRegistrableFields } from '@/Engine/Mixins';
-import { filterOutEmptyFields } from '@/Engine/Utils';
+import { serializeColor } from '@/Color';
+import type { TFogConfig, TFogWrapper } from '@/Fog/Models';
+import { extractSerializableRegistrableFields } from '@/Mixins';
+import { filterOutEmptyFields } from '@/Utils';
 
 export function fogToConfig(entity: TFogWrapper): TFogConfig {
   const json: FogJSON = entity.entity.toJSON();

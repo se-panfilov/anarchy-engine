@@ -1,12 +1,12 @@
 import type { Euler, Quaternion, Vector3 } from 'three';
 import type { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
-import type { TWrapper } from '@/Engine/Abstract';
-import type { TAnyCameraWrapper } from '@/Engine/Camera';
-import type { ControlsType } from '@/Engine/Controls/Constants';
-import type { TMilliseconds } from '@/Engine/Math';
-import type { TWithActiveMixin } from '@/Engine/Mixins';
-import type { TReadonlyVector3 } from '@/Engine/ThreeLib';
+import type { TWrapper } from '@/Abstract';
+import type { TAnyCameraWrapper } from '@/Camera';
+import type { ControlsType } from '@/Controls/Constants';
+import type { TMilliseconds } from '@/Math';
+import type { TWithActiveMixin } from '@/Mixins';
+import type { TReadonlyVector3 } from '@/ThreeLib';
 
 import type { TControlsServiceDependencies } from './TControlsServiceDependencies';
 import type { TOrbitControlsAccessors } from './TOrbitControlsAccessors';

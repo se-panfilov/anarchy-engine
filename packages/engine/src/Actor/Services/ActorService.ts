@@ -1,7 +1,7 @@
 import type { Subscription } from 'rxjs';
 
-import type { TAbstractService, TRegistryPack } from '@/Engine/Abstract';
-import { AbstractService } from '@/Engine/Abstract';
+import type { TAbstractService, TRegistryPack } from '@/Abstract';
+import { AbstractService } from '@/Abstract';
 import type {
   TActor,
   TActorConfig,
@@ -14,12 +14,12 @@ import type {
   TActorServiceWithFactory,
   TActorServiceWithRegistry,
   TModel3dToActorConnectionRegistry
-} from '@/Engine/Actor/Models';
-import type { TDisposable } from '@/Engine/Mixins';
-import { withFactoryService, withRegistryService, withSceneGetterService, withSerializableEntities } from '@/Engine/Mixins';
-import type { TSceneWrapper } from '@/Engine/Scene';
-import type { TSpatialGridRegistry } from '@/Engine/Spatial';
-import { mergeAll } from '@/Engine/Utils';
+} from '@/Actor/Models';
+import type { TDisposable } from '@/Mixins';
+import { withFactoryService, withRegistryService, withSceneGetterService, withSerializableEntities } from '@/Mixins';
+import type { TSceneWrapper } from '@/Scene';
+import type { TSpatialGridRegistry } from '@/Spatial';
+import { mergeAll } from '@/Utils';
 
 export function ActorService(factory: TActorFactory, registry: TActorRegistry, actorServiceDependencies: TActorServiceDependencies, scene: TSceneWrapper): TActorService {
   const registrySub$: Subscription = registry.added$.subscribe(({ value }: TRegistryPack<TActor>): void => scene.addActor(value));

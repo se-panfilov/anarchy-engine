@@ -1,4 +1,4 @@
-import type { TFsmWrapper } from '@/Engine/Fsm';
+import type { TFsmWrapper } from '@/Fsm';
 
 import type { TActorStates } from './TActorStates';
 

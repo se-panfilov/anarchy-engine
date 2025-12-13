@@ -1,4 +1,4 @@
-import type { TMultitonWatcher } from '@/Engine/Abstract';
+import type { TMultitonWatcher } from '@/Abstract';
 
 import type { TMouseWatcherEvent } from './TMouseWatcherEvent';
 

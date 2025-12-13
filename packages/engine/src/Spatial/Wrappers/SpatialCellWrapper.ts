@@ -1,11 +1,11 @@
 import type { Subscription } from 'rxjs';
 import { Subject } from 'rxjs';
 
-import type { TAbstractWrapper } from '@/Engine/Abstract';
-import { AbstractWrapper, WrapperType } from '@/Engine/Abstract';
-import type { TActor } from '@/Engine/Actor';
-import { entityToConfigSpatialCell } from '@/Engine/Spatial/Adapters';
-import type { TSpatialCell, TSpatialCellParams, TSpatialCellSerializedData, TSpatialCellWrapper } from '@/Engine/Spatial/Models';
+import type { TAbstractWrapper } from '@/Abstract';
+import { AbstractWrapper, WrapperType } from '@/Abstract';
+import type { TActor } from '@/Actor';
+import { entityToConfigSpatialCell } from '@/Spatial/Adapters';
+import type { TSpatialCell, TSpatialCellParams, TSpatialCellSerializedData, TSpatialCellWrapper } from '@/Spatial/Models';
 
 export function SpatialCellWrapper(params: TSpatialCellParams): TSpatialCellWrapper {
   const entity: TSpatialCell = {
@@ -33,7 +33,6 @@ export function SpatialCellWrapper(params: TSpatialCellParams): TSpatialCellWrap
   const findObject = (id: string): TActor | undefined => entity.objects.find((o: TActor): boolean => o.id === id);
 
   function addObject(object: TActor): void {
-    // eslint-disable-next-line functional/immutable-data
     entity.objects.push(object);
     // eslint-disable-next-line functional/immutable-data
     entity.version++;
@@ -46,7 +45,6 @@ export function SpatialCellWrapper(params: TSpatialCellParams): TSpatialCellWrap
     const index: number = getObjects().indexOf(actor);
     if (index === -1) throw new Error(`Cannot remove actor (id: "${actor.id}", name: "${actor.name}") from spatial cell (id: "${entity.id}"). Such actor is not in the cell`);
 
-    // eslint-disable-next-line functional/immutable-data
     entity.objects.splice(index, 1);
     // eslint-disable-next-line functional/immutable-data
     entity.version++;

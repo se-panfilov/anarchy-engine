@@ -1,5 +1,5 @@
-import type { TConfigToParamsWithDependenciesFn } from '@/Engine/Abstract';
-import type { TCreateFromServiceFn, TWithCreateFromConfigService } from '@/Engine/Mixins/Services/Models';
+import type { TConfigToParamsWithDependenciesFn } from '@/Abstract';
+import type { TCreateFromServiceFn, TWithCreateFromConfigService } from '@/Mixins/Services/Models';
 
 export function withCreateFromConfigServiceMixin<T, C, P, D>(
   create: TCreateFromServiceFn<T, P>,

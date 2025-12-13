@@ -1,4 +1,4 @@
-import type { TSpaceCanvas, TWriteable } from '@/Engine';
+import type { TSpaceCanvas, TWriteable } from '@';
 
 export function getMockCanvas(): TSpaceCanvas {
   const canvas: TWriteable<TSpaceCanvas> = document.createElement('canvas');

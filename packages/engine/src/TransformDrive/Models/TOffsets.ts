@@ -1,6 +1,6 @@
 import type { Quaternion, Vector3 } from 'three';
 
-import type { TReadonlyQuaternion, TReadonlyVector3 } from '@/Engine/ThreeLib';
+import type { TReadonlyQuaternion, TReadonlyVector3 } from '@/ThreeLib';
 
 export type TOffsets = Readonly<{
   positionOffset?: Vector3 | TReadonlyVector3;

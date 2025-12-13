@@ -1,10 +1,10 @@
 import { distinctUntilChanged, takeUntil } from 'rxjs';
 
-import type { TAbstractWatcher } from '@/Engine/Abstract';
-import { AbstractWatcher, WatcherType } from '@/Engine/Abstract';
-import { MouseEventType } from '@/Engine/Mouse/Constants';
-import type { TMouseClickWatcher, TMouseClickWatcherParams, TMouseWatcherEvent } from '@/Engine/Mouse/Models';
-import { getMouseWatcherEvent } from '@/Engine/Mouse/Utils';
+import type { TAbstractWatcher } from '@/Abstract';
+import { AbstractWatcher, WatcherType } from '@/Abstract';
+import { MouseEventType } from '@/Mouse/Constants';
+import type { TMouseClickWatcher, TMouseClickWatcherParams, TMouseWatcherEvent } from '@/Mouse/Models';
+import { getMouseWatcherEvent } from '@/Mouse/Utils';
 
 export function MouseClickWatcher({ container, tags }: TMouseClickWatcherParams): TMouseClickWatcher {
   const containerIdTag: string = `container_id_${container.id}`;

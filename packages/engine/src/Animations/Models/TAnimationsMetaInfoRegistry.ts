@@ -1,4 +1,4 @@
-import type { TAbstractMetaInfoRegistry } from '@/Engine/Abstract';
+import type { TAbstractMetaInfoRegistry } from '@/Abstract';
 
 import type { TAnimationsResourceConfig } from './TAnimationsResourceConfig';
 

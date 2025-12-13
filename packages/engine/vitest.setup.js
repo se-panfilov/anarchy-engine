@@ -1,8 +1,8 @@
 import { vi } from 'vitest';
 
 //Mock "isWebGLAvailable" and "isWebGL2Available" globally (webgl is not available in unit tests)
-vi.mock('@/Engine/Utils', async () => {
-  const actual = await vi.importActual('@/Engine/Utils');
+vi.mock('@/Utils', async () => {
+  const actual = await vi.importActual('@/Utils');
   return {
     ...actual,
     isWebGLAvailable: () => true,

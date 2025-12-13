@@ -5,8 +5,8 @@ import { LineGeometry } from 'three/examples/jsm/lines/LineGeometry';
 import { LineMaterial } from 'three/examples/jsm/lines/LineMaterial';
 import type { ColorRepresentation } from 'three/src/math/Color';
 
-import type { TActor } from '@/Engine/Actor';
-import { meters } from '@/Engine/Measurements/Utils';
+import type { TActor } from '@/Actor';
+import { meters } from '@/Measurements/Utils';
 
 export function createLine(color: ColorRepresentation, width: number, positions: Array<number>): Line2 {
   const material = new LineMaterial({

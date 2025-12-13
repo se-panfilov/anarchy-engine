@@ -1,8 +1,8 @@
 import { isEqual } from 'lodash-es';
 
-import type { TAbstractService } from '@/Engine/Abstract';
-import { AbstractService } from '@/Engine/Abstract';
-import type { FsmEventsStrategy } from '@/Engine/Fsm/Constants';
+import type { TAbstractService } from '@/Abstract';
+import { AbstractService } from '@/Abstract';
+import type { FsmEventsStrategy } from '@/Fsm/Constants';
 import type {
   TFsmConfig,
   TFsmInstanceFactory,
@@ -16,9 +16,9 @@ import type {
   TFsmSourceService,
   TFsmStates,
   TFsmWrapper
-} from '@/Engine/Fsm/Models';
-import type { TDisposable } from '@/Engine/Mixins';
-import { isDefined } from '@/Engine/Utils';
+} from '@/Fsm/Models';
+import type { TDisposable } from '@/Mixins';
+import { isDefined } from '@/Utils';
 
 import { FsmInstanceService } from './FsmInstanceService';
 import { FsmSourceService } from './FsmSourceService';

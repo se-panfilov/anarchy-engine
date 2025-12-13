@@ -2,11 +2,11 @@ import type { EulerOrder, QuaternionLike, Vector3Like } from 'three';
 import { Euler, Quaternion, Vector3 } from 'three';
 import { degToRad, euclideanModulo, radToDeg } from 'three/src/math/MathUtils';
 
-import { metersPerSecond, radiansPerSecond } from '@/Engine/Distance';
-import { ForwardAxis } from '@/Engine/Kinematic/Constants';
-import type { TDegrees, TMetersPerSecond, TRadians, TRadiansPerSecond } from '@/Engine/Math';
-import type { TEulerLike } from '@/Engine/ThreeLib';
-import { isEulerLike, isQuaternionLike } from '@/Engine/Utils';
+import { metersPerSecond, radiansPerSecond } from '@/Distance';
+import { ForwardAxis } from '@/Kinematic/Constants';
+import type { TDegrees, TMetersPerSecond, TRadians, TRadiansPerSecond } from '@/Math';
+import type { TEulerLike } from '@/ThreeLib';
+import { isEulerLike, isQuaternionLike } from '@/Utils';
 
 export function getHorizontalAzimuth(x: number, z: number, point: Vector3Like, forwardAxis: ForwardAxis): TRadians {
   const dx: number = point.x - x;

@@ -1,9 +1,9 @@
 import type { Subscription } from 'rxjs';
 
-import type { TAbstractService } from '@/Engine/Abstract';
-import { AbstractService } from '@/Engine/Abstract';
-import type { TDisposable } from '@/Engine/Mixins';
-import { withCreateFromConfigServiceMixin, withCreateServiceMixin, withFactoryService, withRegistryService, withSerializableEntities } from '@/Engine/Mixins';
+import type { TAbstractService } from '@/Abstract';
+import { AbstractService } from '@/Abstract';
+import type { TDisposable } from '@/Mixins';
+import { withCreateFromConfigServiceMixin, withCreateServiceMixin, withFactoryService, withRegistryService, withSerializableEntities } from '@/Mixins';
 import type {
   TPhysicsBody,
   TPhysicsBodyConfig,
@@ -15,9 +15,9 @@ import type {
   TPhysicsBodyServiceWithFactory,
   TPhysicsBodyServiceWithRegistry,
   TPhysicsWorldService
-} from '@/Engine/Physics/Models';
-import { getKinematicDataFromPhysics } from '@/Engine/Physics/Utils';
-import { mergeAll } from '@/Engine/Utils';
+} from '@/Physics/Models';
+import { getKinematicDataFromPhysics } from '@/Physics/Utils';
+import { mergeAll } from '@/Utils';
 
 export function PhysicsBodyService(factory: TPhysicsBodyFactory, registry: TPhysicsBodyRegistry, physicsWorldService: TPhysicsWorldService): TPhysicsBodyService {
   const factorySub$: Subscription = factory.entityCreated$.subscribe((body: TPhysicsBody): void => registry.add(body));

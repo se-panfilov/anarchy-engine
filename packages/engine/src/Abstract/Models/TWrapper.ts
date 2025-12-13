@@ -1,4 +1,4 @@
-import type { TAbstractWrapper } from '@/Engine/Abstract';
-import type { TSerializable } from '@/Engine/Mixins';
+import type { TAbstractWrapper } from '@/Abstract';
+import type { TSerializable } from '@/Mixins';
 
 export type TWrapper<T> = TAbstractWrapper<T> & TSerializable<any>;

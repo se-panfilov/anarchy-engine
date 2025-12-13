@@ -1,4 +1,4 @@
-import type { TKinematicLoop } from '@/Engine/Kinematic';
+import type { TKinematicLoop } from '@/Kinematic';
 
 export type TKinematicAgentDependencies = Readonly<{
   kinematicLoop: TKinematicLoop;

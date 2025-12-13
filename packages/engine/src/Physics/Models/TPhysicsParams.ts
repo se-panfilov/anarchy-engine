@@ -1,4 +1,4 @@
-import type { TPhysicsBodyParams } from '@/Engine/Physics';
+import type { TPhysicsBodyParams } from '@/Physics';
 
 import type { TPhysicsWorldParams } from './TPhysicsWorldParams';
 

@@ -1,3 +1,5 @@
+import { describe, expect, it } from 'vitest';
+
 import { mergeAll, omitInObjectWithMutation, omitInObjectWithoutMutation } from './ObjectUtils';
 
 describe('ObjectUtils', () => {

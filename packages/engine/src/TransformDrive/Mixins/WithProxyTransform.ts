@@ -1,6 +1,6 @@
-import type { TMovableXYZ, TQuaternionRotatable, TScaleMixin, TWithPosition3dProperty, TWithQuaternionRotationProperty, TWithScaleProperty } from '@/Engine/Mixins';
-import { withMoveBy3dMixin, withQuaternionRotationByXyzMixin, withScaleMixin } from '@/Engine/Mixins';
-import type { TAbstractTransformAgent } from '@/Engine/TransformDrive/Models';
+import type { TMovableXYZ, TQuaternionRotatable, TScaleMixin, TWithPosition3dProperty, TWithQuaternionRotationProperty, TWithScaleProperty } from '@/Mixins';
+import { withMoveBy3dMixin, withQuaternionRotationByXyzMixin, withScaleMixin } from '@/Mixins';
+import type { TAbstractTransformAgent } from '@/TransformDrive/Models';
 
 export function withProxyTransform(
   abstractTransformAgent: TAbstractTransformAgent,

@@ -1,4 +1,4 @@
-import type { CameraType, TAnyCameraConfig } from '@/Engine/Camera';
+import type { CameraType, TAnyCameraConfig } from '@/Camera';
 
 export type TShadowCameraConfig = Omit<TAnyCameraConfig, 'audioListener' | 'position' | 'rotation' | 'name' | 'isActive' | 'type'> &
   Readonly<{

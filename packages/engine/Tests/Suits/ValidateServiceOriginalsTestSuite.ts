@@ -1,8 +1,8 @@
 import { afterEach, expect, it } from 'vitest';
 
-import type { TAbstractService } from '@/Engine/Abstract';
-import type { TRegistrable, TWithCreateService, TWithFactoryService, TWithRegistryService } from '@/Engine/Mixins';
-import type { TWriteable } from '@/Engine/Utils';
+import type { TAbstractService } from '@/Abstract';
+import type { TRegistrable, TWithCreateService, TWithFactoryService, TWithRegistryService } from '@/Mixins';
+import type { TWriteable } from '@/Utils';
 
 //Validates if it's exactly the same object (original), not a copy of the object.
 function expectSame<T>(a: T | undefined, b: T | undefined): void {

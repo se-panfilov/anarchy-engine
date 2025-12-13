@@ -1,6 +1,6 @@
 import type { QuaternionLike, Vector3Like } from 'three';
 
-import type { TEulerLike } from '@/Engine/ThreeLib';
+import type { TEulerLike } from '@/ThreeLib';
 
 import type { TObject3DParams } from './TObject3DParams';
 

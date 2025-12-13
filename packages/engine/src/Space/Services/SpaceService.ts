@@ -1,24 +1,14 @@
 import type { Subscription } from 'rxjs';
 
-import type { TAbstractService } from '@/Engine/Abstract';
-import { AbstractService } from '@/Engine/Abstract';
-import type { TDisposable } from '@/Engine/Mixins';
-import { withCreateServiceWithHooksMixin, withFactoryService, withRegistryService, withSerializableEntities } from '@/Engine/Mixins';
-import { SpaceFactory } from '@/Engine/Space/Factories';
-import type {
-  TSpace,
-  TSpaceConfig,
-  TSpaceFactory,
-  TSpaceHooks,
-  TSpaceRegistry,
-  TSpaceService,
-  TSpaceServiceWithCreate,
-  TSpaceServiceWithFactory,
-  TSpaceServiceWithRegistry
-} from '@/Engine/Space/Models';
-import { SpaceRegistry } from '@/Engine/Space/Registries';
-import { validateConfig, validateSpacesDoNotUseSameCanvas } from '@/Engine/Space/Validators';
-import { mergeAll } from '@/Engine/Utils';
+import type { TAbstractService } from '@/Abstract';
+import { AbstractService } from '@/Abstract';
+import type { TDisposable } from '@/Mixins';
+import { withCreateServiceWithHooksMixin, withFactoryService, withRegistryService, withSerializableEntities } from '@/Mixins';
+import { SpaceFactory } from '@/Space/Factories';
+import type { TSpace, TSpaceConfig, TSpaceFactory, TSpaceHooks, TSpaceRegistry, TSpaceService, TSpaceServiceWithCreate, TSpaceServiceWithFactory, TSpaceServiceWithRegistry } from '@/Space/Models';
+import { SpaceRegistry } from '@/Space/Registries';
+import { validateConfig, validateSpacesDoNotUseSameCanvas } from '@/Space/Validators';
+import { mergeAll } from '@/Utils';
 
 export function SpaceService(factory: TSpaceFactory, registry: TSpaceRegistry): TSpaceService {
   const factorySub$: Subscription = factory.entityCreated$.subscribe((space: TSpace): void => {

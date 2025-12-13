@@ -1,4 +1,4 @@
-import type { TMultitonRegistrable } from '@/Engine/Mixins';
+import type { TMultitonRegistrable } from '@/Mixins';
 
 import type { TAbstractProtectedWatcherWithState } from './TAbstractProtectedWatcherWithState';
 

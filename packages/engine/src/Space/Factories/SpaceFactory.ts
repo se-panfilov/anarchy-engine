@@ -1,9 +1,9 @@
-import type { TReactiveFactory } from '@/Engine/Abstract';
-import { FactoryType, ReactiveFactory } from '@/Engine/Abstract';
-import { configToParams } from '@/Engine/Space/Adapters';
-import { Space, SpaceFromConfig } from '@/Engine/Space/Entities';
-import type { TSpace, TSpaceFactory, TSpaceFactoryDependencies, TSpaceParams } from '@/Engine/Space/Models';
-import { isDefined } from '@/Engine/Utils';
+import type { TReactiveFactory } from '@/Abstract';
+import { FactoryType, ReactiveFactory } from '@/Abstract';
+import { configToParams } from '@/Space/Adapters';
+import { Space, SpaceFromConfig } from '@/Space/Entities';
+import type { TSpace, TSpaceFactory, TSpaceFactoryDependencies, TSpaceParams } from '@/Space/Models';
+import { isDefined } from '@/Utils';
 
 function create(params: TSpaceParams, { config, hooks, registry }: TSpaceFactoryDependencies): TSpace | never {
   if (isDefined(config) && Object.keys.length !== 0) return SpaceFromConfig(params, config, registry, hooks);

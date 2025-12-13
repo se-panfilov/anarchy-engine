@@ -1,5 +1,5 @@
-import type { TActor } from '@/Engine/Actor';
-import type { TWithName, TWithTags } from '@/Engine/Mixins';
+import type { TActor } from '@/Actor';
+import type { TWithName, TWithTags } from '@/Mixins';
 
 import type { TIntersectionsLoop } from './TIntersectionsLoop';
 import type { TIntersectionsWatcherPerformanceOptions } from './TIntersectionsWatcherPerformanceOptions';

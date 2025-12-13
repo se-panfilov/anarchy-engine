@@ -1,5 +1,5 @@
-import type { TSerializableEntitiesService } from '@/Engine/Abstract';
-import type { TWithCreateFromConfigService, TWithCreateService, TWithFactoryService, TWithRegistryService, TWithSceneGetterService } from '@/Engine/Mixins';
+import type { TSerializableEntitiesService } from '@/Abstract';
+import type { TWithCreateFromConfigService, TWithCreateService, TWithFactoryService, TWithRegistryService, TWithSceneGetterService } from '@/Mixins';
 
 import type { TFogConfig } from './TFogConfig';
 import type { TFogFactory } from './TFogFactory';

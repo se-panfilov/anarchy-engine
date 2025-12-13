@@ -1,9 +1,9 @@
 import { Color, Vector2 } from 'three';
 
-import { configToParamsCameraOptionsOnly } from '@/Engine/Camera/Adapters/ConfigToParams';
-import type { TAnyLightConfig, TLightParams, TLightShadowConfig, TLightShadowParams, TShadowCameraConfig, TShadowCameraParams } from '@/Engine/Light/Models';
-import { configToParamsObject3d } from '@/Engine/ThreeLib';
-import { isDefined, isNotDefined } from '@/Engine/Utils';
+import { configToParamsCameraOptionsOnly } from '@/Camera/Adapters/ConfigToParams';
+import type { TAnyLightConfig, TLightParams, TLightShadowConfig, TLightShadowParams, TShadowCameraConfig, TShadowCameraParams } from '@/Light/Models';
+import { configToParamsObject3d } from '@/ThreeLib';
+import { isDefined, isNotDefined } from '@/Utils';
 
 export function configToParams(config: TAnyLightConfig): TLightParams {
   const { position, rotation, scale, layers, color, shadow, ...rest } = config;

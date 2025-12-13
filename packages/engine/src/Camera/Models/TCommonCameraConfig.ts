@@ -1,7 +1,7 @@
 import type { Vector3Like } from 'three';
 
-import type { Listeners } from '@/Engine/Audio';
-import type { TObject3DParams, TObject3DPropConfig } from '@/Engine/ThreeLib';
+import type { Listeners } from '@/Audio';
+import type { TObject3DParams, TObject3DPropConfig } from '@/ThreeLib';
 
 import type { TCommonCameraParams } from './TCommonCameraParams';
 

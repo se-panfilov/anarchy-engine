@@ -3,23 +3,23 @@ import type { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { distinctUntilChanged, filter, sample, takeUntil, tap } from 'rxjs';
 import type { Vector3, Vector3Like } from 'three';
 
-import { AbstractEntity, EntityType } from '@/Engine/Abstract';
-import { actorToConfig } from '@/Engine/Actor/Adapters';
-import { withActorStates } from '@/Engine/Actor/Mixins';
-import type { TActor, TActorConfig, TActorDependencies, TActorEntities, TActorEntityToConfigDependencies, TActorModel3dSettings, TActorParams, TActorTransformDrive } from '@/Engine/Actor/Models';
-import { ActorTransformDrive } from '@/Engine/Actor/TransformDrive';
-import { applySpatialGrid, startCollisions } from '@/Engine/Actor/Utils';
-import { withCollisions } from '@/Engine/Collisions';
-import type { TFsmWrapper } from '@/Engine/Fsm';
-import type { TModel3d } from '@/Engine/Models3d';
-import type { TPhysicsBody } from '@/Engine/Physics';
-import type { TSpatialLoop } from '@/Engine/Spatial';
-import { withSpatial, withUpdateSpatialCell } from '@/Engine/Spatial';
-import type { TReadonlyVector3 } from '@/Engine/ThreeLib';
-import type { TDriveToTargetConnector } from '@/Engine/TransformDrive';
-import { DriveToTargetConnector } from '@/Engine/TransformDrive';
-import type { TWriteable } from '@/Engine/Utils';
-import { isDefined, isEqualOrSimilarByXyzCoords, mergeAll } from '@/Engine/Utils';
+import { AbstractEntity, EntityType } from '@/Abstract';
+import { actorToConfig } from '@/Actor/Adapters';
+import { withActorStates } from '@/Actor/Mixins';
+import type { TActor, TActorConfig, TActorDependencies, TActorEntities, TActorEntityToConfigDependencies, TActorModel3dSettings, TActorParams, TActorTransformDrive } from '@/Actor/Models';
+import { ActorTransformDrive } from '@/Actor/TransformDrive';
+import { applySpatialGrid, startCollisions } from '@/Actor/Utils';
+import { withCollisions } from '@/Collisions';
+import type { TFsmWrapper } from '@/Fsm';
+import type { TModel3d } from '@/Models3d';
+import type { TPhysicsBody } from '@/Physics';
+import type { TSpatialLoop } from '@/Spatial';
+import { withSpatial, withUpdateSpatialCell } from '@/Spatial';
+import type { TReadonlyVector3 } from '@/ThreeLib';
+import type { TDriveToTargetConnector } from '@/TransformDrive';
+import { DriveToTargetConnector } from '@/TransformDrive';
+import type { TWriteable } from '@/Utils';
+import { isDefined, isEqualOrSimilarByXyzCoords, mergeAll } from '@/Utils';
 
 export function Actor(
   params: TActorParams,

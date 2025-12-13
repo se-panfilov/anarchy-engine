@@ -1,5 +1,5 @@
-import type { TParticlesParams, TParticlesServiceDependencies, TParticlesTransformAgents, TParticlesTransformDrive } from '@/Engine/Particles/Models';
-import type { TTransformDriveParams } from '@/Engine/TransformDrive';
+import type { TParticlesParams, TParticlesServiceDependencies, TParticlesTransformAgents, TParticlesTransformDrive } from '@/Particles/Models';
+import type { TTransformDriveParams } from '@/TransformDrive';
 
 export function ParticlesTransformDrive(
   params: TParticlesParams,

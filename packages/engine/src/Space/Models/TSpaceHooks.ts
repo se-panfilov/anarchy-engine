@@ -1,5 +1,5 @@
-import type { TSpaceCanvas } from '@/Engine/Space';
-import type { TSpaceConfig, TSpaceLoops, TSpaceParams, TSpaceServices } from '@/Engine/Space/Models';
+import type { TSpaceCanvas } from '@/Space';
+import type { TSpaceConfig, TSpaceLoops, TSpaceParams, TSpaceServices } from '@/Space/Models';
 
 export type TSpaceHooks = {
   beforeConfigValidation?: (config: TSpaceConfig) => void;

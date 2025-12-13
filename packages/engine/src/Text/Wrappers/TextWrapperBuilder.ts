@@ -1,5 +1,5 @@
-import { TextType } from '@/Engine/Text/Constants';
-import type { TTextAnyWrapper, TTextParams, TTextServiceDependencies } from '@/Engine/Text/Models';
+import { TextType } from '@/Text/Constants';
+import type { TTextAnyWrapper, TTextParams, TTextServiceDependencies } from '@/Text/Models';
 
 import { Text2dWrapper } from './Text2dWrapper';
 import { Text3dTextureWrapper } from './Text3dTextureWrapper';

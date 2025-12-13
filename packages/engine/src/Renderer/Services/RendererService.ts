@@ -1,10 +1,10 @@
 import type { Subscription } from 'rxjs';
 
-import type { TAbstractService, TRegistryPack } from '@/Engine/Abstract';
-import { AbstractService } from '@/Engine/Abstract';
-import type { TDisposable, TWithActiveMixinResult } from '@/Engine/Mixins';
-import { withActiveEntityServiceMixin, withCreateFromConfigServiceMixin, withCreateServiceMixin, withFactoryService, withRegistryService, withSerializableEntities } from '@/Engine/Mixins';
-import { renderLoopEffect } from '@/Engine/Renderer/Loop';
+import type { TAbstractService, TRegistryPack } from '@/Abstract';
+import { AbstractService } from '@/Abstract';
+import type { TDisposable, TWithActiveMixinResult } from '@/Mixins';
+import { withActiveEntityServiceMixin, withCreateFromConfigServiceMixin, withCreateServiceMixin, withFactoryService, withRegistryService, withSerializableEntities } from '@/Mixins';
+import { renderLoopEffect } from '@/Renderer/Loop';
 import type {
   TRendererConfig,
   TRendererFactory,
@@ -16,10 +16,10 @@ import type {
   TRendererServiceWithFactory,
   TRendererServiceWithRegistry,
   TRendererWrapper
-} from '@/Engine/Renderer/Models';
-import type { TSceneWrapper } from '@/Engine/Scene';
-import type { TSpaceLoops } from '@/Engine/Space';
-import { mergeAll } from '@/Engine/Utils';
+} from '@/Renderer/Models';
+import type { TSceneWrapper } from '@/Scene';
+import type { TSpaceLoops } from '@/Space';
+import { mergeAll } from '@/Utils';
 
 export function RendererService(
   factory: TRendererFactory,

@@ -1,5 +1,5 @@
-import type { TReactiveFactory } from '@/Engine/Abstract';
-import type { TMousePositionWatcher, TMousePositionWatcherDependencies } from '@/Engine/Mouse/Models';
+import type { TReactiveFactory } from '@/Abstract';
+import type { TMousePositionWatcher, TMousePositionWatcherDependencies } from '@/Mouse/Models';
 
 import type { TMousePositionWatcherParams } from './TMousePositionWatcherParams';
 

@@ -1,4 +1,4 @@
-import type { TParamsFromConfigWithDependencies, TReactiveFactory } from '@/Engine/Abstract';
+import type { TParamsFromConfigWithDependencies, TReactiveFactory } from '@/Abstract';
 
 import type { TAnyCameraWrapper } from './TAnyCameraWrapper';
 import type { TCameraServiceDependencies } from './TCameraServiceDependencies';

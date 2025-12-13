@@ -1,4 +1,4 @@
-import type { TSpatialGridConfig } from '@/Engine/Spatial';
+import type { TSpatialGridConfig } from '@/Spatial';
 
 export const mockSpatialGridName: string = 'mock_grid';
 

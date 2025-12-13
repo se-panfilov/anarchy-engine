@@ -1,6 +1,6 @@
-import type { TMeters } from '@/Engine/Math';
-import type { TModel3dConfig } from '@/Engine/Models3d';
-import { PrimitiveModel3dType } from '@/Engine/Models3d';
+import type { TMeters } from '@/Math';
+import type { TModel3dConfig } from '@/Models3d';
+import { PrimitiveModel3dType } from '@/Models3d';
 
 import { mockMaterialName } from './MockMaterialConfig';
 

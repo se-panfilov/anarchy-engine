@@ -1,17 +1,17 @@
 import type { Subscription } from 'rxjs';
 
-import type { TAbstractWrapper } from '@/Engine/Abstract';
-import { AbstractWrapper } from '@/Engine/Abstract';
-import { lightToConfig } from '@/Engine/Light/Adapters';
-import type { LightType } from '@/Engine/Light/Constants';
-import type { TAbstractLightConfig, TAbstractLightWrapper, TAnyLight, TLightParams, TLightServiceDependencies, TLightTransformDrive } from '@/Engine/Light/Models';
-import { LightTransformDrive } from '@/Engine/Light/TransformDrive';
-import { getWrapperType } from '@/Engine/Light/Utils';
-import { applyShadowParams } from '@/Engine/Light/Wrappers/LightWrapperHelper';
-import { withObject3d } from '@/Engine/Mixins';
-import type { TDriveToTargetConnector } from '@/Engine/TransformDrive';
-import { DriveToTargetConnector } from '@/Engine/TransformDrive';
-import { applyObject3dParams } from '@/Engine/Utils';
+import type { TAbstractWrapper } from '@/Abstract';
+import { AbstractWrapper } from '@/Abstract';
+import { lightToConfig } from '@/Light/Adapters';
+import type { LightType } from '@/Light/Constants';
+import type { TAbstractLightConfig, TAbstractLightWrapper, TAnyLight, TLightParams, TLightServiceDependencies, TLightTransformDrive } from '@/Light/Models';
+import { LightTransformDrive } from '@/Light/TransformDrive';
+import { getWrapperType } from '@/Light/Utils';
+import { applyShadowParams } from '@/Light/Wrappers/LightWrapperHelper';
+import { withObject3d } from '@/Mixins';
+import type { TDriveToTargetConnector } from '@/TransformDrive';
+import { DriveToTargetConnector } from '@/TransformDrive';
+import { applyObject3dParams } from '@/Utils';
 
 export function AbstractLightWrapper<T extends TAnyLight>(entity: T, params: TLightParams, dependencies: TLightServiceDependencies): TAbstractLightWrapper<T> {
   const wrapper: TAbstractWrapper<T> = AbstractWrapper(entity, getWrapperType(entity), params);

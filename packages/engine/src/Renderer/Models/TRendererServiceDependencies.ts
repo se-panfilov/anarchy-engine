@@ -1,5 +1,5 @@
-import type { TCameraService } from '@/Engine/Camera';
-import type { TContainerDecorator } from '@/Engine/Global';
+import type { TCameraService } from '@/Camera';
+import type { TContainerDecorator } from '@/Global';
 
 export type TRendererServiceDependencies = Readonly<{
   cameraService: TCameraService;

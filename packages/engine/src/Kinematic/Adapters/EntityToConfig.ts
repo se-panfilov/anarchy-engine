@@ -1,8 +1,8 @@
 import { Euler } from 'three';
 
-import type { TKinematicConfig, TKinematicConfigTarget } from '@/Engine/Kinematic/Models';
-import type { TKinematicTransformAgent } from '@/Engine/TransformDrive';
-import { eulerToXyz, filterOutEmptyFields, isDefined, quaternionToXyzw, vector3ToXyz } from '@/Engine/Utils';
+import type { TKinematicConfig, TKinematicConfigTarget } from '@/Kinematic/Models';
+import type { TKinematicTransformAgent } from '@/TransformDrive';
+import { eulerToXyz, filterOutEmptyFields, isDefined, quaternionToXyzw, vector3ToXyz } from '@/Utils';
 
 export function kinematicToConfig(entity: TKinematicTransformAgent): TKinematicConfig {
   const { linearSpeed, linearDirection, angularSpeed, angularDirection, radius, forwardAxis, isInfiniteRotation } = entity.data.state;

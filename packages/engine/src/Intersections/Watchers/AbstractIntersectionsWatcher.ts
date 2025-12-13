@@ -1,10 +1,10 @@
 import type { Subscription } from 'rxjs';
 import { Raycaster } from 'three';
 
-import type { TAbstractWatcher } from '@/Engine/Abstract';
-import { AbstractWatcher, WatcherType } from '@/Engine/Abstract';
-import type { TActor } from '@/Engine/Actor';
-import { intersectionsToConfig } from '@/Engine/Intersections/Adapters';
+import type { TAbstractWatcher } from '@/Abstract';
+import { AbstractWatcher, WatcherType } from '@/Abstract';
+import type { TActor } from '@/Actor';
+import { intersectionsToConfig } from '@/Intersections/Adapters';
 import type {
   TAbstractIntersectionsWatcher,
   TAnyIntersectionsWatcher,
@@ -12,10 +12,10 @@ import type {
   TAnyIntersectionsWatcherParams,
   TIntersectionEvent,
   TIntersectionsLoop
-} from '@/Engine/Intersections/Models';
-import type { TRawModel3d } from '@/Engine/Models3d';
-import type { TWriteable } from '@/Engine/Utils';
-import { isDefined, isNotDefined } from '@/Engine/Utils';
+} from '@/Intersections/Models';
+import type { TRawModel3d } from '@/Models3d';
+import type { TWriteable } from '@/Utils';
+import { isDefined, isNotDefined } from '@/Utils';
 
 export function AbstractIntersectionsWatcher({ isAutoStart, tags, name, intersectionsLoop, far, ...rest }: TAnyIntersectionsWatcherParams): TAbstractIntersectionsWatcher {
   const abstractWatcher: TAbstractWatcher<TIntersectionEvent> = AbstractWatcher<TIntersectionEvent>(WatcherType.IntersectionWatcher, name, tags);

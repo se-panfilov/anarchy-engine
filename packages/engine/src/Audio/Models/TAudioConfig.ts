@@ -1,4 +1,4 @@
-import type { TObject3DParams } from '@/Engine/ThreeLib';
+import type { TObject3DParams } from '@/ThreeLib';
 
 import type { TAudioParams } from './TAudioParams';
 

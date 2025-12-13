@@ -1,5 +1,5 @@
-import { AbstractSimpleRegistry, RegistryType } from '@/Engine/Abstract';
-import type { TKeyboardRegistry, TKeyboardRegistryValues } from '@/Engine/Keyboard/Models';
+import { AbstractSimpleRegistry, RegistryType } from '@/Abstract';
+import type { TKeyboardRegistry, TKeyboardRegistryValues } from '@/Keyboard/Models';
 
 export function KeyboardRegistry(): TKeyboardRegistry {
   return AbstractSimpleRegistry<TKeyboardRegistryValues>(RegistryType.KeyboardRecord);

@@ -1,12 +1,12 @@
 import type { Subscription } from 'rxjs';
 
-import type { TAbstractService } from '@/Engine/Abstract';
-import { AbstractService } from '@/Engine/Abstract';
-import type { TDisposable } from '@/Engine/Mixins';
-import { withCreateServiceMixin, withSerializableEntities } from '@/Engine/Mixins';
-import { withCreateFromConfigServiceMixin } from '@/Engine/Mixins/Services/WithCreateFromConfigService';
-import { withFactoryService } from '@/Engine/Mixins/Services/WithFactoryService';
-import { withRegistryService } from '@/Engine/Mixins/Services/WithRegistryService';
+import type { TAbstractService } from '@/Abstract';
+import { AbstractService } from '@/Abstract';
+import type { TDisposable } from '@/Mixins';
+import { withCreateServiceMixin, withSerializableEntities } from '@/Mixins';
+import { withCreateFromConfigServiceMixin } from '@/Mixins/Services/WithCreateFromConfigService';
+import { withFactoryService } from '@/Mixins/Services/WithFactoryService';
+import { withRegistryService } from '@/Mixins/Services/WithRegistryService';
 import type {
   TSpatialGridConfig,
   TSpatialGridFactory,
@@ -17,8 +17,8 @@ import type {
   TSpatialGridServiceWithFactory,
   TSpatialGridServiceWithRegistry,
   TSpatialGridWrapper
-} from '@/Engine/Spatial/Models';
-import { mergeAll } from '@/Engine/Utils';
+} from '@/Spatial/Models';
+import { mergeAll } from '@/Utils';
 
 export function SpatialGridService(factory: TSpatialGridFactory, registry: TSpatialGridRegistry): TSpatialGridService {
   const factorySub$: Subscription = factory.entityCreated$.subscribe((spatialGrid: TSpatialGridWrapper): void => registry.add(spatialGrid));

@@ -1,7 +1,7 @@
 import type { BehaviorSubject } from 'rxjs';
 
-import type { TSerializable } from '@/Engine/Mixins';
-import type { TPhysicsBody, TPhysicsBodyConfig } from '@/Engine/Physics';
+import type { TSerializable } from '@/Mixins';
+import type { TPhysicsBody, TPhysicsBodyConfig } from '@/Physics';
 
 import type { TAbstractTransformAgent } from './TAbstractTransformAgent';
 

@@ -1,8 +1,8 @@
 import type { Quaternion, Vector3, Vector3Like } from 'three';
 
-import type { ForwardAxis } from '@/Engine/Kinematic/Constants';
-import type { TMeters, TMetersPerSecond, TRadiansPerSecond } from '@/Engine/Math/Types';
-import type { TEulerLike } from '@/Engine/ThreeLib';
+import type { ForwardAxis } from '@/Kinematic/Constants';
+import type { TMeters, TMetersPerSecond, TRadiansPerSecond } from '@/Math/Types';
+import type { TEulerLike } from '@/ThreeLib';
 
 export type TKinematicState = Readonly<{
   linearSpeed: TMetersPerSecond;

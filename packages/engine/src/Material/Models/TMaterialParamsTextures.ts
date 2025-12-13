@@ -1,4 +1,4 @@
-import type { TTexture } from '@/Engine/Texture';
+import type { TTexture } from '@/Texture';
 
 import type {
   TBasicMaterialTextureKeys,

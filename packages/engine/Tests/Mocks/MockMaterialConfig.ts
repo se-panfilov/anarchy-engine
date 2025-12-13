@@ -1,5 +1,5 @@
-import type { TMaterialConfig } from '@/Engine/Material';
-import { MaterialType } from '@/Engine/Material';
+import type { TMaterialConfig } from '@/Material';
+import { MaterialType } from '@/Material';
 
 export const mockMaterialName = 'mock_material';
 

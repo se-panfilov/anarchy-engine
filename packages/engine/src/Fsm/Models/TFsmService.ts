@@ -1,7 +1,7 @@
-import type { TSerializableEntitiesService, TSerializableResourceService } from '@/Engine/Abstract';
-import type { FsmEventsStrategy } from '@/Engine/Fsm/Constants';
-import type { TFsmConfig, TFsmInstanceRegistry, TFsmParams, TFsmSource, TFsmStates, TFsmWrapper } from '@/Engine/Fsm/Models';
-import type { TWithFactoryService } from '@/Engine/Mixins';
+import type { TSerializableEntitiesService, TSerializableResourceService } from '@/Abstract';
+import type { FsmEventsStrategy } from '@/Fsm/Constants';
+import type { TFsmConfig, TFsmInstanceRegistry, TFsmParams, TFsmSource, TFsmStates, TFsmWrapper } from '@/Fsm/Models';
+import type { TWithFactoryService } from '@/Mixins';
 
 import type { TFsmInstanceFactory } from './TFsmInstanceFactory';
 import type { TFsmSourceRegistry } from './TFsmSourceRegistry';

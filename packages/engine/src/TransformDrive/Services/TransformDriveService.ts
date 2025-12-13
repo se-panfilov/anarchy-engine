@@ -1,15 +1,15 @@
 import type { Subscription } from 'rxjs';
 import { Quaternion, Vector3 } from 'three';
 
-import type { TAbstractService } from '@/Engine/Abstract';
-import { AbstractService } from '@/Engine/Abstract';
-import type { TKinematicLoop } from '@/Engine/Kinematic';
-import { toQuaternion } from '@/Engine/Math';
-import type { TDisposable } from '@/Engine/Mixins';
-import { withFactoryService, withRegistryService, withSerializableEntities } from '@/Engine/Mixins';
-import type { TPhysicsLoop } from '@/Engine/Physics';
-import { TransformAgent } from '@/Engine/TransformDrive/Constants';
-import { ConnectedTransformAgent, DefaultTransformAgent, PhysicsTransformAgent } from '@/Engine/TransformDrive/Entities';
+import type { TAbstractService } from '@/Abstract';
+import { AbstractService } from '@/Abstract';
+import type { TKinematicLoop } from '@/Kinematic';
+import { toQuaternion } from '@/Math';
+import type { TDisposable } from '@/Mixins';
+import { withFactoryService, withRegistryService, withSerializableEntities } from '@/Mixins';
+import type { TPhysicsLoop } from '@/Physics';
+import { TransformAgent } from '@/TransformDrive/Constants';
+import { ConnectedTransformAgent, DefaultTransformAgent, PhysicsTransformAgent } from '@/TransformDrive/Entities';
 import type {
   TAbstractTransformAgent,
   TGetTransformAgentsOptions,
@@ -26,10 +26,10 @@ import type {
   TTransformDriveServiceDependencies,
   TTransformDriveServiceWithFactory,
   TTransformDriveServiceWithRegistry
-} from '@/Engine/TransformDrive/Models';
-import { getKinematicTransformAgent } from '@/Engine/TransformDrive/Utils';
-import type { TOptional, TWriteable } from '@/Engine/Utils';
-import { isDefined, mergeAll } from '@/Engine/Utils';
+} from '@/TransformDrive/Models';
+import { getKinematicTransformAgent } from '@/TransformDrive/Utils';
+import type { TOptional, TWriteable } from '@/Utils';
+import { isDefined, mergeAll } from '@/Utils';
 
 export function TransformDriveService(factory: TTransformDriveFactory, registry: TTransformDriveRegistry, { loopService }: TTransformDriveServiceDependencies): TTransformDriveService {
   const factorySub$: Subscription = factory.entityCreated$.subscribe((entity: TTransformDrive<TTransformDriveCompatibleEntity>): void => registry.add(entity));

@@ -1,4 +1,4 @@
-import type { TTextureAsyncRegistry } from '@/Engine/Texture';
+import type { TTextureAsyncRegistry } from '@/Texture';
 
 export type TMaterialEntityToConfigDependencies = Readonly<{
   textureResourceRegistry: TTextureAsyncRegistry;

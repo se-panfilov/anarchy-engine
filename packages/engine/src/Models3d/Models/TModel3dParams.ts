@@ -1,11 +1,11 @@
 import type { AnimationClip } from 'three';
 import type { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
 
-import type { TAnimationStateParams } from '@/Engine/Animations';
-import type { TAnyMaterialWrapper } from '@/Engine/Material';
-import type { TWithName, TWithTags } from '@/Engine/Mixins';
-import type { PrimitiveModel3dType } from '@/Engine/Models3d/Constants';
-import type { TObject3DParams } from '@/Engine/ThreeLib';
+import type { TAnimationStateParams } from '@/Animations';
+import type { TAnyMaterialWrapper } from '@/Material';
+import type { TWithName, TWithTags } from '@/Mixins';
+import type { PrimitiveModel3dType } from '@/Models3d/Constants';
+import type { TObject3DParams } from '@/ThreeLib';
 
 import type { TModel3dOptions } from './TModel3dOptions';
 

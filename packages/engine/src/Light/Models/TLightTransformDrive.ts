@@ -1,4 +1,4 @@
-import type { TTransformDrive } from '@/Engine/TransformDrive';
+import type { TTransformDrive } from '@/TransformDrive';
 
 import type { TLightTransformAgents } from './TLightTransformAgents';
 

@@ -1,4 +1,4 @@
-import type { TSpatialGridConfig, TSpatialGridParams } from '@/Engine/Spatial/Models';
+import type { TSpatialGridConfig, TSpatialGridParams } from '@/Spatial/Models';
 
 export function configToParamsSpatial(config: TSpatialGridConfig): TSpatialGridParams {
   return {

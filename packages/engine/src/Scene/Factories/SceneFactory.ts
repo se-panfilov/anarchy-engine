@@ -1,8 +1,8 @@
-import type { TReactiveFactory } from '@/Engine/Abstract';
-import { FactoryType, ReactiveFactory } from '@/Engine/Abstract';
-import { configToParams } from '@/Engine/Scene/Adapters';
-import type { TSceneFactory, TSceneParams, TSceneWrapper } from '@/Engine/Scene/Models';
-import { SceneWrapper } from '@/Engine/Scene/Wrappers';
+import type { TReactiveFactory } from '@/Abstract';
+import { FactoryType, ReactiveFactory } from '@/Abstract';
+import { configToParams } from '@/Scene/Adapters';
+import type { TSceneFactory, TSceneParams, TSceneWrapper } from '@/Scene/Models';
+import { SceneWrapper } from '@/Scene/Wrappers';
 
 export function SceneFactory(): TSceneFactory {
   const factory: TReactiveFactory<TSceneWrapper, TSceneParams> = ReactiveFactory(FactoryType.Scene, SceneWrapper);

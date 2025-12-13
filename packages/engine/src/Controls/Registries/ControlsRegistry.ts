@@ -1,6 +1,6 @@
-import { RegistryType } from '@/Engine/Abstract/Constants';
-import { AbstractEntityRegistry } from '@/Engine/Abstract/Registries';
-import type { TAnyControlsWrapper, TControlsRegistry } from '@/Engine/Controls/Models';
+import { RegistryType } from '@/Abstract/Constants';
+import { AbstractEntityRegistry } from '@/Abstract/Registries';
+import type { TAnyControlsWrapper, TControlsRegistry } from '@/Controls/Models';
 
 export function ControlsRegistry(): TControlsRegistry {
   return AbstractEntityRegistry<TAnyControlsWrapper>(RegistryType.Controls);

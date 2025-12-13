@@ -1,4 +1,4 @@
-import type { TParamsFromConfigWithDependencies, TReactiveFactory } from '@/Engine/Abstract';
+import type { TParamsFromConfigWithDependencies, TReactiveFactory } from '@/Abstract';
 
 import type { TParticlesConfig } from './TParticlesConfig';
 import type { TParticlesConfigToParamsDependencies } from './TParticlesConfigToParamsDependencies';

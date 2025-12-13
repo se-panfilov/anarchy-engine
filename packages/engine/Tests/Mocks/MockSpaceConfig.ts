@@ -1,5 +1,5 @@
-import type { TSpaceConfig } from '@/Engine/Space';
-import { SpaceSchemaVersion } from '@/Engine/Space';
+import type { TSpaceConfig } from '@/Space';
+import { SpaceSchemaVersion } from '@/Space';
 
 import { mockSpatialGridConfig } from './MockSpatialGridConfig';
 

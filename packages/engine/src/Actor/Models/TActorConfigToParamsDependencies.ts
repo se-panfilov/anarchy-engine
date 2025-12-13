@@ -1,7 +1,7 @@
-import type { TFsmService } from '@/Engine/Fsm';
-import type { TModels3dService } from '@/Engine/Models3d';
-import type { TPhysicsBodyService } from '@/Engine/Physics';
-import type { TSpatialGridRegistry } from '@/Engine/Spatial';
+import type { TFsmService } from '@/Fsm';
+import type { TModels3dService } from '@/Models3d';
+import type { TPhysicsBodyService } from '@/Physics';
+import type { TSpatialGridRegistry } from '@/Spatial';
 
 export type TActorConfigToParamsDependencies = Readonly<{
   fsmService: TFsmService;

@@ -3,14 +3,14 @@ import { distinctUntilChanged } from 'rxjs';
 import type { WebGLRendererParameters } from 'three';
 import { PCFShadowMap, WebGLRenderer } from 'three';
 
-import type { TAbstractWrapper } from '@/Engine/Abstract';
-import { AbstractWrapper, WrapperType } from '@/Engine/Abstract';
-import { withActiveMixin } from '@/Engine/Mixins';
-import { rendererToConfig } from '@/Engine/Renderer/Adapters';
-import { RendererModes } from '@/Engine/Renderer/Constants';
-import type { TRendererAccessors, TRendererConfig, TRendererParams, TRendererWrapper, TRendererWrapperDependencies } from '@/Engine/Renderer/Models';
-import type { TWriteable } from '@/Engine/Utils';
-import { isNotDefined, isWebGL2Available, isWebGLAvailable, mergeAll } from '@/Engine/Utils';
+import type { TAbstractWrapper } from '@/Abstract';
+import { AbstractWrapper, WrapperType } from '@/Abstract';
+import { withActiveMixin } from '@/Mixins';
+import { rendererToConfig } from '@/Renderer/Adapters';
+import { RendererModes } from '@/Renderer/Constants';
+import type { TRendererAccessors, TRendererConfig, TRendererParams, TRendererWrapper, TRendererWrapperDependencies } from '@/Renderer/Models';
+import type { TWriteable } from '@/Utils';
+import { isNotDefined, isWebGL2Available, isWebGLAvailable, mergeAll } from '@/Utils';
 
 import { getAccessors } from './Accessors';
 

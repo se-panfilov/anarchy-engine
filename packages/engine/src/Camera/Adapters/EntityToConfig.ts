@@ -1,6 +1,6 @@
 import type { AudioListener, OrthographicCameraJSONObject, PerspectiveCameraJSONObject, Vector3Like } from 'three';
 
-import type { TAudioService } from '@/Engine/Audio';
+import type { TAudioService } from '@/Audio';
 import type {
   TAnyCameraConfig,
   TAnyCameraWrapper,
@@ -10,12 +10,12 @@ import type {
   TOrthographicCameraParams,
   TPerspectiveCameraOnlyConfig,
   TPerspectiveCameraParams
-} from '@/Engine/Camera/Models';
-import type { TOrthographicCameraOnlyConfig } from '@/Engine/Camera/Models/TOrthographicCameraConfig';
-import { isOrthographicCameraWrapper, isPerspectiveCameraWrapper } from '@/Engine/Camera/Utils';
-import type { TShadowCameraParams } from '@/Engine/Light';
-import { extractSerializableRegistrableFields } from '@/Engine/Mixins';
-import { filterOutEmptyFields, isDefined, isVector3Like } from '@/Engine/Utils';
+} from '@/Camera/Models';
+import type { TOrthographicCameraOnlyConfig } from '@/Camera/Models/TOrthographicCameraConfig';
+import { isOrthographicCameraWrapper, isPerspectiveCameraWrapper } from '@/Camera/Utils';
+import type { TShadowCameraParams } from '@/Light';
+import { extractSerializableRegistrableFields } from '@/Mixins';
+import { filterOutEmptyFields, isDefined, isVector3Like } from '@/Utils';
 
 // Sometimes Camera's "drive" might hold old values (position, rotation), cause controls might not update it (they are update values directly)
 export function cameraToConfig(entity: TAnyCameraWrapper, { audioService }: Pick<TCameraWrapperDependencies, 'audioService'>): TAnyCameraConfig {

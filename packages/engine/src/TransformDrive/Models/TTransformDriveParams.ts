@@ -1,4 +1,4 @@
-import type { TransformAgent } from '@/Engine/TransformDrive/Constants';
+import type { TransformAgent } from '@/TransformDrive/Constants';
 
 import type { TTransformDrivePerformanceOptions } from './TTransformDrivePerformanceOptions';
 

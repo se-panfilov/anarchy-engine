@@ -1,9 +1,9 @@
 import type { BufferGeometry, Intersection, Raycaster } from 'three';
 import type { MeshBVH } from 'three-mesh-bvh';
 
-import type { TAbstractService } from '@/Engine/Abstract';
-import type { TActor } from '@/Engine/Actor';
-import type { TSceneWrapper } from '@/Engine/Scene';
+import type { TAbstractService } from '@/Abstract';
+import type { TActor } from '@/Actor';
+import type { TSceneWrapper } from '@/Scene';
 
 import type { TBvhOptions } from './TBvhOptions';
 

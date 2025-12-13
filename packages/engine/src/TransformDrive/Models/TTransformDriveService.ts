@@ -1,9 +1,9 @@
-import type { TSerializableEntitiesService } from '@/Engine/Abstract';
-import type { TWithFactoryService, TWithRegistryService } from '@/Engine/Mixins';
-import type { TransformAgent } from '@/Engine/TransformDrive/Constants';
-import type { TOptional } from '@/Engine/Utils';
+import type { TSerializableEntitiesService } from '@/Abstract';
+import type { TWithFactoryService, TWithRegistryService } from '@/Mixins';
+import type { TransformAgent } from '@/TransformDrive/Constants';
+import type { TOptional } from '@/Utils';
 
-import type { TTransformDriveSerializedData } from './index';
+import type { TTransformDriveSerializedData } from '.';
 import type { TAbstractTransformAgent } from './TAbstractTransformAgent';
 import type { TGetTransformAgentsOptions, TGetTransformAgentsParams } from './TGetTransformAgentsParams';
 import type { TTransformAgents } from './TTransformAgents';

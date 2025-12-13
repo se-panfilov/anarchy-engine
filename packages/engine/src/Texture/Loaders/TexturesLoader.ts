@@ -1,10 +1,10 @@
 import { TextureLoader } from 'three';
 
-import { AbstractLoader, LoaderType } from '@/Engine/Abstract';
-import type { TTexture, TTextureAsyncRegistry, TTextureMetaInfoRegistry, TTextureResourceConfig, TTexturesLoader } from '@/Engine/Texture/Models';
-import { applyColorSpace, applyFilters, applyTextureParams } from '@/Engine/Texture/Utils';
-import type { TWriteable } from '@/Engine/Utils';
-import { isDefined, isNotDefined } from '@/Engine/Utils';
+import { AbstractLoader, LoaderType } from '@/Abstract';
+import type { TTexture, TTextureAsyncRegistry, TTextureMetaInfoRegistry, TTextureResourceConfig, TTexturesLoader } from '@/Texture/Models';
+import { applyColorSpace, applyFilters, applyTextureParams } from '@/Texture/Utils';
+import type { TWriteable } from '@/Utils';
+import { isDefined, isNotDefined } from '@/Utils';
 
 export function TexturesLoader(registry: TTextureAsyncRegistry, metaInfoRegistry: TTextureMetaInfoRegistry): TTexturesLoader {
   const textureLoader: TextureLoader = new TextureLoader();

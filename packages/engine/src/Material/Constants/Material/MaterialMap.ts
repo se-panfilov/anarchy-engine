@@ -18,7 +18,7 @@ import {
   SpriteMaterial
 } from 'three';
 
-import type { TTypeOfMaterials } from '@/Engine/Material/Models';
+import type { TTypeOfMaterials } from '@/Material/Models';
 
 import { MaterialType } from './MaterialType';
 

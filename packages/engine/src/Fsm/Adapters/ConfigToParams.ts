@@ -1,4 +1,4 @@
-import type { TFsmConfig, TFsmEvents, TFsmParams, TFsmSource } from '@/Engine/Fsm/Models';
+import type { TFsmConfig, TFsmEvents, TFsmParams, TFsmSource } from '@/Fsm/Models';
 
 export function configToParamsFsm(config: TFsmConfig): TFsmParams | never {
   if (hasFunctions(config)) throw new Error('Config must not contains functions');

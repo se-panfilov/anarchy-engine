@@ -3,9 +3,9 @@ import { Subject } from 'rxjs';
 import type { AnimationClip } from 'three';
 import { AnimationMixer } from 'three';
 
-import type { TAbstractService } from '@/Engine/Abstract';
-import { AbstractService } from '@/Engine/Abstract';
-import { AnimationsLoader } from '@/Engine/Animations/Loader';
+import type { TAbstractService } from '@/Abstract';
+import { AbstractService } from '@/Abstract';
+import { AnimationsLoader } from '@/Animations/Loader';
 import type {
   TAnimationActions,
   TAnimationActionsPack,
@@ -16,14 +16,14 @@ import type {
   TAnimationsSerializeResourcesDependencies,
   TAnimationsService,
   TModel3dAnimations
-} from '@/Engine/Animations/Models';
-import type { TDelta } from '@/Engine/Loop';
-import type { TDisposable } from '@/Engine/Mixins';
-import { withSerializeAllResources } from '@/Engine/Mixins';
-import type { TModel3d, TRawModel3d } from '@/Engine/Models3d';
-import type { TSpaceLoops } from '@/Engine/Space';
-import type { TWriteable } from '@/Engine/Utils';
-import { isDefined, isNotDefined, mergeAll } from '@/Engine/Utils';
+} from '@/Animations/Models';
+import type { TDelta } from '@/Loop';
+import type { TDisposable } from '@/Mixins';
+import { withSerializeAllResources } from '@/Mixins';
+import type { TModel3d, TRawModel3d } from '@/Models3d';
+import type { TSpaceLoops } from '@/Space';
+import type { TWriteable } from '@/Utils';
+import { isDefined, isNotDefined, mergeAll } from '@/Utils';
 
 export function AnimationsService(resourcesRegistry: TAnimationsResourceAsyncRegistry, metaInfoRegistry: TAnimationsMetaInfoRegistry, { renderLoop }: TSpaceLoops): TAnimationsService {
   const animationsLoader: TAnimationsLoader = AnimationsLoader(resourcesRegistry, metaInfoRegistry);

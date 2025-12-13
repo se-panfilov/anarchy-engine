@@ -1,14 +1,14 @@
 import type { RigidBodyType, World } from '@dimforge/rapier3d';
 import type { Subscription } from 'rxjs';
 
-import { AbstractEntity, EntityType } from '@/Engine/Abstract';
-import { physicsBodyToConfig } from '@/Engine/Physics/Adapters';
-import type { CollisionShape, RigidBodyTypesNames } from '@/Engine/Physics/Constants';
-import { RigidBodyTypesMap } from '@/Engine/Physics/Constants';
-import { withPhysicsBodyEntities } from '@/Engine/Physics/Mixins';
-import type { TPhysicsBody, TPhysicsBodyConfig, TPhysicsBodyEntities, TPhysicsBodyParams, TPhysicsDependencies, TPhysicsShapeParams } from '@/Engine/Physics/Models';
-import type { TWriteable } from '@/Engine/Utils';
-import { isDefined, isNotDefined } from '@/Engine/Utils';
+import { AbstractEntity, EntityType } from '@/Abstract';
+import { physicsBodyToConfig } from '@/Physics/Adapters';
+import type { CollisionShape, RigidBodyTypesNames } from '@/Physics/Constants';
+import { RigidBodyTypesMap } from '@/Physics/Constants';
+import { withPhysicsBodyEntities } from '@/Physics/Mixins';
+import type { TPhysicsBody, TPhysicsBodyConfig, TPhysicsBodyEntities, TPhysicsBodyParams, TPhysicsDependencies, TPhysicsShapeParams } from '@/Physics/Models';
+import type { TWriteable } from '@/Utils';
+import { isDefined, isNotDefined } from '@/Utils';
 
 import { createPhysicsBodyEntities } from './PhysicsBodyUtils';
 

@@ -1,8 +1,8 @@
 import type { Subscription } from 'rxjs';
 
-import type { TAbstractService } from '@/Engine/Abstract/Models';
-import type { TDestroyable, TDisposable } from '@/Engine/Mixins';
-import { destroyableMixin } from '@/Engine/Mixins';
+import type { TAbstractService } from '@/Abstract/Models';
+import type { TDestroyable, TDisposable } from '@/Mixins';
+import { destroyableMixin } from '@/Mixins';
 
 export function AbstractService<T extends TDisposable>(disposable?: ReadonlyArray<T>): TAbstractService {
   const destroyable: TDestroyable = destroyableMixin();

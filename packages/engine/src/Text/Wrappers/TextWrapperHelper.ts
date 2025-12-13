@@ -1,9 +1,9 @@
-import { WrapperType } from '@/Engine/Abstract';
-import type { TextCssClass } from '@/Engine/Text/Constants';
-import { TextType } from '@/Engine/Text/Constants';
-import type { TElementWithCssAccessors, TTextCssProps } from '@/Engine/Text/Models';
-import type { TValueOf } from '@/Engine/Utils';
-import { isDefined, isString } from '@/Engine/Utils';
+import { WrapperType } from '@/Abstract';
+import type { TextCssClass } from '@/Text/Constants';
+import { TextType } from '@/Text/Constants';
+import type { TElementWithCssAccessors, TTextCssProps } from '@/Text/Models';
+import type { TValueOf } from '@/Utils';
+import { isDefined, isString } from '@/Utils';
 
 export function applyHtmlElementParams(wrapper: TElementWithCssAccessors, cssProps: TTextCssProps, className: TextCssClass): void {
   Object.keys(cssProps).forEach((paramName: string): void => {

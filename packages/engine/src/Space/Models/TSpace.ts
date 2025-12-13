@@ -1,7 +1,7 @@
 import type { Observable } from 'rxjs';
 
-import type { TEntity } from '@/Engine/Abstract';
-import type { TContainerDecorator } from '@/Engine/Global';
+import type { TEntity } from '@/Abstract';
+import type { TContainerDecorator } from '@/Global';
 
 import type { TSpaceCanvas } from './TSpaceCanvas';
 import type { TSpaceParts } from './TSpaceParts';

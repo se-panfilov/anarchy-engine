@@ -2,10 +2,10 @@ import type { Subscription } from 'rxjs';
 import type { Controls } from 'three';
 import { EventDispatcher, Quaternion } from 'three';
 
-import type { TAnyCameraWrapper } from '@/Engine/Camera';
-import { ControlsType } from '@/Engine/Controls/Constants';
-import type { TAnyControlsWrapper, TFpsControlsWrapper, TOrbitControlsWrapper } from '@/Engine/Controls/Models';
-import type { TMilliseconds } from '@/Engine/Math';
+import type { TAnyCameraWrapper } from '@/Camera';
+import { ControlsType } from '@/Controls/Constants';
+import type { TAnyControlsWrapper, TFpsControlsWrapper, TOrbitControlsWrapper } from '@/Controls/Models';
+import type { TMilliseconds } from '@/Math';
 
 export const isOrbitControls = (controls: TOrbitControlsWrapper | TAnyControlsWrapper): controls is TOrbitControlsWrapper => controls.getType() === ControlsType.OrbitControls;
 export const isFpsControls = (controls: TFpsControlsWrapper | TAnyControlsWrapper): controls is TFpsControlsWrapper => controls.getType() === ControlsType.FirstPersonControls;

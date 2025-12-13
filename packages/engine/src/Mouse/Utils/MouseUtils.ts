@@ -1,8 +1,8 @@
 import type { Vector2Like } from 'three';
 
-import type { TMouseWatcherEvent } from '@/Engine/Mouse';
-import { MouseButtonValue, MouseEventType, MouseWheelValue } from '@/Engine/Mouse';
-import { isNotDefined } from '@/Engine/Utils';
+import type { TMouseWatcherEvent } from '@/Mouse';
+import { MouseButtonValue, MouseEventType, MouseWheelValue } from '@/Mouse';
+import { isNotDefined } from '@/Utils';
 
 export const getNormalizedMousePosition = ({ x, y }: Vector2Like, rect: DOMRect): Vector2Like => ({ x: (x / rect.width) * 2 - 1, y: -((y / rect.height) * 2 - 1) });
 

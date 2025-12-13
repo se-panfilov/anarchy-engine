@@ -1,7 +1,7 @@
 import type { WebGLRenderer } from 'three';
 
-import { withThreeJsRendererParamsAccessors, withThreeJsRendererPropsAccessors } from '@/Engine/Renderer/Mixins';
-import type { TRendererAccessors } from '@/Engine/Renderer/Models';
+import { withThreeJsRendererParamsAccessors, withThreeJsRendererPropsAccessors } from '@/Renderer/Mixins';
+import type { TRendererAccessors } from '@/Renderer/Models';
 
 export function getAccessors(entity: WebGLRenderer): TRendererAccessors {
   const setSize = (width: number, height: number): void => void entity.setSize(width, height);

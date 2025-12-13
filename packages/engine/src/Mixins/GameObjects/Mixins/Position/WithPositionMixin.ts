@@ -1,5 +1,5 @@
-import type { TWithPosition, TWithPositionProperty } from '@/Engine/Mixins/GameObjects/Models';
-import { isEntityWith2dPosition, isEntityWith3dPosition, isEntityWith4dPosition } from '@/Engine/Utils';
+import type { TWithPosition, TWithPositionProperty } from '@/Mixins/GameObjects/Models';
+import { isEntityWith2dPosition, isEntityWith3dPosition, isEntityWith4dPosition } from '@/Utils';
 
 import { withPosition2dMixin } from './WithPosition2dMixin';
 import { withPosition3dMixin } from './WithPosition3dMixin';

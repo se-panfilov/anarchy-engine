@@ -1,10 +1,10 @@
 import type { DirectionalLightShadow, Object3DJSONObject, PointLightShadow, SpotLightShadow, Vector2Like } from 'three';
 import { Vector2 } from 'three';
 
-import type { TCommonCameraParams } from '@/Engine/Camera';
-import { getCommonCameraConfig, getOrthographicCameraOnlyConfig, getPerspectiveCameraOnlyConfig, isOrthographicCameraParams, isPerspectiveCameraParams } from '@/Engine/Camera';
-import { serializeColor } from '@/Engine/Color';
-import { LightType } from '@/Engine/Light/Constants';
+import type { TCommonCameraParams } from '@/Camera';
+import { getCommonCameraConfig, getOrthographicCameraOnlyConfig, getPerspectiveCameraOnlyConfig, isOrthographicCameraParams, isPerspectiveCameraParams } from '@/Camera';
+import { serializeColor } from '@/Color';
+import { LightType } from '@/Light/Constants';
 import type {
   TAbstractLightConfig,
   TAbstractLightWrapper,
@@ -26,10 +26,10 @@ import type {
   TSpotLightConfig,
   TSpotLightParams,
   TSpotLightWrapper
-} from '@/Engine/Light/Models';
-import { extractSerializableRegistrableFields } from '@/Engine/Mixins';
-import type { TWriteable } from '@/Engine/Utils';
-import { filterOutEmptyFields, isDefined, isNotDefined, vector2ToXy } from '@/Engine/Utils';
+} from '@/Light/Models';
+import { extractSerializableRegistrableFields } from '@/Mixins';
+import type { TWriteable } from '@/Utils';
+import { filterOutEmptyFields, isDefined, isNotDefined, vector2ToXy } from '@/Utils';
 
 export function lightToConfig<T extends TAnyLight>(entity: TAbstractLightWrapper<T>): TDirectionalLightConfig | THemisphereLightConfig | TRectAreaLightConfig | TAmbientLightConfig | TSpotLightConfig {
   const { drive } = entity;

@@ -1,10 +1,10 @@
 import type { BufferGeometry, Euler, Material, Quaternion, QuaternionLike, Vector2, Vector2Like, Vector3, Vector3Like, Vector4, Vector4Like } from 'three';
 import { Color } from 'three';
 
-import type { TAbstractAsyncEntityRegistry, TAbstractEntityRegistry, TWithUserData, TWithWrapperId, TWithWrapperIdEntity } from '@/Engine/Abstract/Models';
-import type { TColorWrapper } from '@/Engine/Color';
-import type { TDestroyable, TWithPosition2dProperty, TWithPosition3dProperty, TWithPosition4dProperty, TWithPositionProperty } from '@/Engine/Mixins';
-import type { TEulerLike } from '@/Engine/ThreeLib';
+import type { TAbstractAsyncEntityRegistry, TAbstractEntityRegistry, TWithUserData, TWithWrapperId, TWithWrapperIdEntity } from '@/Abstract/Models';
+import type { TColorWrapper } from '@/Color';
+import type { TDestroyable, TWithPosition2dProperty, TWithPosition3dProperty, TWithPosition4dProperty, TWithPositionProperty } from '@/Mixins';
+import type { TEulerLike } from '@/ThreeLib';
 
 import { isObject } from './ObjectUtils';
 

@@ -1,7 +1,7 @@
 import type { Vector3 } from 'three';
 
-import type { TActive, TWithName, TWithTags } from '@/Engine/Mixins';
-import type { TSpaceCanvas } from '@/Engine/Space';
+import type { TActive, TWithName, TWithTags } from '@/Mixins';
+import type { TSpaceCanvas } from '@/Space';
 
 import type { TBaseControlsParams } from './TBaseControlsParams';
 import type { TOrbitControlsParamsOptions } from './TOrbitControlsParamsOptions';

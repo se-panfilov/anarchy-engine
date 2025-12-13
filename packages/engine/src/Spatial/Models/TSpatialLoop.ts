@@ -1,3 +1,3 @@
-import type { TLoop } from '@/Engine/Loop/Models';
+import type { TLoop } from '@/Loop/Models';
 
 export type TSpatialLoop = TLoop & { __brand: 'spatial_loop' };

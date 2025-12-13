@@ -1,5 +1,5 @@
-import type { TLoopService } from '@/Engine/Loop';
-import type { TPhysicsBodyService } from '@/Engine/Physics';
+import type { TLoopService } from '@/Loop';
+import type { TPhysicsBodyService } from '@/Physics';
 
 export type TTextTransformDriveDependencies = Readonly<{
   physicsBodyService: TPhysicsBodyService;

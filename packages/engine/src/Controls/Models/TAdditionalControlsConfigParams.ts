@@ -1,4 +1,4 @@
-import type { TAnyCameraWrapper } from '@/Engine/Camera';
-import type { TSpaceCanvas } from '@/Engine/Space';
+import type { TAnyCameraWrapper } from '@/Camera';
+import type { TSpaceCanvas } from '@/Space';
 
 export type TAdditionalControlsConfigParams = { camera: TAnyCameraWrapper; canvas: TSpaceCanvas };

@@ -1,19 +1,19 @@
-import type { TActorParams } from '@/Engine/Actor';
-import type { TAnyAudioParams } from '@/Engine/Audio';
-import type { TAnyCameraParams } from '@/Engine/Camera';
-import type { TControlsParams } from '@/Engine/Controls';
-import type { TEnvMapParams } from '@/Engine/EnvMap';
-import type { TFogParams } from '@/Engine/Fog';
-import type { TFsmParams } from '@/Engine/Fsm';
-import type { TAnyIntersectionsWatcherParams } from '@/Engine/Intersections';
-import type { TAnyLightParams } from '@/Engine/Light';
-import type { TMaterialParams } from '@/Engine/Material';
-import type { TModel3dParams } from '@/Engine/Models3d';
-import type { TParticlesParams } from '@/Engine/Particles';
-import type { TPhysicsParams } from '@/Engine/Physics';
-import type { TRendererParams } from '@/Engine/Renderer';
-import type { TSpatialGridParams } from '@/Engine/Spatial';
-import type { TTextParams } from '@/Engine/Text';
+import type { TActorParams } from '@/Actor';
+import type { TAnyAudioParams } from '@/Audio';
+import type { TAnyCameraParams } from '@/Camera';
+import type { TControlsParams } from '@/Controls';
+import type { TEnvMapParams } from '@/EnvMap';
+import type { TFogParams } from '@/Fog';
+import type { TFsmParams } from '@/Fsm';
+import type { TAnyIntersectionsWatcherParams } from '@/Intersections';
+import type { TAnyLightParams } from '@/Light';
+import type { TMaterialParams } from '@/Material';
+import type { TModel3dParams } from '@/Models3d';
+import type { TParticlesParams } from '@/Particles';
+import type { TPhysicsParams } from '@/Physics';
+import type { TRendererParams } from '@/Renderer';
+import type { TSpatialGridParams } from '@/Spatial';
+import type { TTextParams } from '@/Text';
 
 export type TSpaceParamsEntities = Readonly<{
   actors?: ReadonlyArray<TActorParams>;

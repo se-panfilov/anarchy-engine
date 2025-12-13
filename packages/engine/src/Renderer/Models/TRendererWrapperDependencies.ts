@@ -1,4 +1,4 @@
-import type { TContainerDecorator } from '@/Engine/Global';
+import type { TContainerDecorator } from '@/Global';
 
 export type TRendererWrapperDependencies = Readonly<{
   container: TContainerDecorator;

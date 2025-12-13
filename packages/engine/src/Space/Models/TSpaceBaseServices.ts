@@ -1,4 +1,4 @@
-import type { TLoopService } from '@/Engine/Loop';
-import type { TScenesService } from '@/Engine/Scene';
+import type { TLoopService } from '@/Loop';
+import type { TScenesService } from '@/Scene';
 
 export type TSpaceBaseServices = Readonly<{ loopService: TLoopService; scenesService: TScenesService }>;

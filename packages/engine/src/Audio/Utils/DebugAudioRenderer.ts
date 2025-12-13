@@ -2,11 +2,11 @@ import type { Observable } from 'rxjs';
 import { BehaviorSubject, EMPTY, switchMap } from 'rxjs';
 import { Mesh, MeshBasicMaterial, SphereGeometry } from 'three';
 
-import type { TAudio3dWrapper, TDebugAudioRenderer } from '@/Engine/Audio/Models';
-import type { TLoop } from '@/Engine/Loop';
-import type { TMilliseconds } from '@/Engine/Math';
-import type { TSceneWrapper } from '@/Engine/Scene';
-import { isDefined } from '@/Engine/Utils';
+import type { TAudio3dWrapper, TDebugAudioRenderer } from '@/Audio/Models';
+import type { TLoop } from '@/Loop';
+import type { TMilliseconds } from '@/Math';
+import type { TSceneWrapper } from '@/Scene';
+import { isDefined } from '@/Utils';
 
 export function DebugAudioRenderer(source: TAudio3dWrapper, sceneW: TSceneWrapper, loop: TLoop): TDebugAudioRenderer {
   const enabled$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);

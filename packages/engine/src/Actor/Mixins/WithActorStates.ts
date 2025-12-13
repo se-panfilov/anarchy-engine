@@ -1,7 +1,7 @@
-import type { TActorParams, TActorStates, TWithActorStates } from '@/Engine/Actor/Models';
-import type { TFsmWrapper } from '@/Engine/Fsm';
-import type { TWriteable } from '@/Engine/Utils';
-import { isDefined } from '@/Engine/Utils';
+import type { TActorParams, TActorStates, TWithActorStates } from '@/Actor/Models';
+import type { TFsmWrapper } from '@/Fsm';
+import type { TWriteable } from '@/Utils';
+import { isDefined } from '@/Utils';
 
 export function withActorStates(params: TActorParams): TWithActorStates {
   const states: TWriteable<TActorStates> = params.states ?? {};

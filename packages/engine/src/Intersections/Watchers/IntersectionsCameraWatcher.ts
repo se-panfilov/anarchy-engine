@@ -3,21 +3,21 @@ import { distinctUntilChanged, EMPTY, filter, map, switchMap } from 'rxjs';
 import type { Vector2Like } from 'three';
 import { Vector2 } from 'three';
 
-import type { TAnyCameraWrapper } from '@/Engine/Camera';
+import type { TAnyCameraWrapper } from '@/Camera';
 import type {
   TAbstractIntersectionsWatcher,
   TIntersectionEvent,
   TIntersectionsCameraWatcher,
   TIntersectionsCameraWatcherParams,
   TIntersectionsWatcherPerformanceOptions
-} from '@/Engine/Intersections/Models';
-import { getChangedPosition } from '@/Engine/Intersections/Utils';
-import { AbstractIntersectionsWatcher } from '@/Engine/Intersections/Watchers/AbstractIntersectionsWatcher';
-import type { TMilliseconds } from '@/Engine/Math';
-import type { TSceneObject } from '@/Engine/Scene';
-import type { TReadonlyVector2 } from '@/Engine/ThreeLib';
-import type { TWriteable } from '@/Engine/Utils';
-import { isDefined, isNotDefined } from '@/Engine/Utils';
+} from '@/Intersections/Models';
+import { getChangedPosition } from '@/Intersections/Utils';
+import { AbstractIntersectionsWatcher } from '@/Intersections/Watchers/AbstractIntersectionsWatcher';
+import type { TMilliseconds } from '@/Math';
+import type { TSceneObject } from '@/Scene';
+import type { TReadonlyVector2 } from '@/ThreeLib';
+import type { TWriteable } from '@/Utils';
+import { isDefined, isNotDefined } from '@/Utils';
 
 export function IntersectionsCameraWatcher(params: TIntersectionsCameraWatcherParams): TIntersectionsCameraWatcher {
   const { position$, performance, intersectionsLoop } = params;

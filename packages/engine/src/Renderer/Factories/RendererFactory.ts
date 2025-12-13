@@ -1,8 +1,8 @@
-import type { TReactiveFactory } from '@/Engine/Abstract';
-import { FactoryType, ReactiveFactory } from '@/Engine/Abstract';
-import { configToParams } from '@/Engine/Renderer/Adapters';
-import type { TRendererFactory, TRendererParams, TRendererWrapper, TRendererWrapperDependencies } from '@/Engine/Renderer/Models';
-import { RendererWrapper } from '@/Engine/Renderer/Wrappers';
+import type { TReactiveFactory } from '@/Abstract';
+import { FactoryType, ReactiveFactory } from '@/Abstract';
+import { configToParams } from '@/Renderer/Adapters';
+import type { TRendererFactory, TRendererParams, TRendererWrapper, TRendererWrapperDependencies } from '@/Renderer/Models';
+import { RendererWrapper } from '@/Renderer/Wrappers';
 
 export function RendererFactory(): TRendererFactory {
   const factory: TReactiveFactory<TRendererWrapper, TRendererParams, TRendererWrapperDependencies> = ReactiveFactory(FactoryType.Renderer, RendererWrapper);

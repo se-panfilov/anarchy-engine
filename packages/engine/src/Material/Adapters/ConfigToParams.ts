@@ -12,11 +12,11 @@ import {
   PixelFormatMap,
   SideMap,
   StencilOpMap
-} from '@/Engine/Material/Constants';
-import { StencilFuncMap } from '@/Engine/Material/Constants/StencilFuncName';
-import type { TMaterialConfig, TMaterialConfigToParamsDependencies, TMaterialParams, TMaterialParamsOptions, TMaterialParamsTextures } from '@/Engine/Material/Models';
-import type { TTexture } from '@/Engine/Texture';
-import { isDefined } from '@/Engine/Utils';
+} from '@/Material/Constants';
+import { StencilFuncMap } from '@/Material/Constants/StencilFuncName';
+import type { TMaterialConfig, TMaterialConfigToParamsDependencies, TMaterialParams, TMaterialParamsOptions, TMaterialParamsTextures } from '@/Material/Models';
+import type { TTexture } from '@/Texture';
+import { isDefined } from '@/Utils';
 
 export function configToParams(config: TMaterialConfig, { textureService }: TMaterialConfigToParamsDependencies): TMaterialParams {
   let options: TMaterialParamsOptions = {} as TMaterialParamsOptions;

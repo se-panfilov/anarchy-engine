@@ -1,8 +1,8 @@
 import { CSS2DRenderer } from 'three/examples/jsm/renderers/CSS2DRenderer';
 
-import type { TContainerDecorator } from '@/Engine/Global';
-import { TextCssClass, TextRendererType } from '@/Engine/Text/Constants';
-import type { TText2dRenderer } from '@/Engine/Text/Models';
+import type { TContainerDecorator } from '@/Global';
+import { TextCssClass, TextRendererType } from '@/Text/Constants';
+import type { TText2dRenderer } from '@/Text/Models';
 
 import { getTextRenderer } from './TextRendererBuilder';
 

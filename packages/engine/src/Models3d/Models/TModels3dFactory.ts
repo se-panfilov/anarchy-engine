@@ -1,4 +1,4 @@
-import type { TParamsFromConfigWithDependencies, TReactiveFactory } from '@/Engine/Abstract';
+import type { TParamsFromConfigWithDependencies, TReactiveFactory } from '@/Abstract';
 
 import type { TModel3d } from './TModel3d';
 import type { TModel3dConfig } from './TModel3dConfig';

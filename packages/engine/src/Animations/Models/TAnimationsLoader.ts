@@ -1,4 +1,4 @@
-import type { TAbstractLoader } from '@/Engine/Abstract';
+import type { TAbstractLoader } from '@/Abstract';
 
 import type { TAnimations } from './TAnimations';
 import type { TAnimationsMetaInfoRegistry } from './TAnimationsMetaInfoRegistry';

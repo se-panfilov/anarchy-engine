@@ -1,4 +1,4 @@
-import type { TParamsFromConfig, TReactiveFactory } from '@/Engine/Abstract';
+import type { TParamsFromConfig, TReactiveFactory } from '@/Abstract';
 
 import type { TSpace } from './TSpace';
 import type { TSpaceConfig } from './TSpaceConfig';

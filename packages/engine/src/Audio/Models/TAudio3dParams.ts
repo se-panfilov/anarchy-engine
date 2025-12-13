@@ -1,4 +1,4 @@
-import type { TReadonlyVector3 } from '@/Engine/ThreeLib';
+import type { TReadonlyVector3 } from '@/ThreeLib';
 
 import type { TAudio3dPerformanceOptions } from './TAudio3dPerformanceOptions';
 import type { TAudioParams } from './TAudioParams';

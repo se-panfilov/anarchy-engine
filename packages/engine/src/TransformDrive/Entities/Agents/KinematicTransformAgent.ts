@@ -3,17 +3,17 @@ import { BehaviorSubject, combineLatest, EMPTY, switchMap } from 'rxjs';
 import type { QuaternionLike, Vector3Like } from 'three';
 import { Object3D, Quaternion, Vector3 } from 'three';
 
-import { metersPerSecond } from '@/Engine/Distance';
-import { DefaultIsAutoUpdate, DefaultKinematicState, DefaultKinematicTarget, kinematicToConfig } from '@/Engine/Kinematic';
-import { ForwardAxis } from '@/Engine/Kinematic/Constants';
-import type { TKinematicConfig, TKinematicData, TKinematicWritableData } from '@/Engine/Kinematic/Models';
-import type { TMeters, TMetersPerSecond, TMilliseconds, TRadians, TRadiansPerSecond } from '@/Engine/Math';
-import { getAzimuthElevationFromVector, getElevationFromDirection } from '@/Engine/Math';
-import type { TReadonlyQuaternion, TReadonlyVector3 } from '@/Engine/ThreeLib';
-import { TransformAgent } from '@/Engine/TransformDrive/Constants';
-import type { TAbstractTransformAgent, TKinematicAgentDependencies, TKinematicSpeed, TKinematicTransformAgent, TKinematicTransformAgentParams } from '@/Engine/TransformDrive/Models';
-import { getStepRotation, isInstant, isPointReached, isRotationReached, moveInstantly, rotateInstantly } from '@/Engine/TransformDrive/Utils';
-import { isDefined, isNotDefined } from '@/Engine/Utils';
+import { metersPerSecond } from '@/Distance';
+import { DefaultIsAutoUpdate, DefaultKinematicState, DefaultKinematicTarget, kinematicToConfig } from '@/Kinematic';
+import { ForwardAxis } from '@/Kinematic/Constants';
+import type { TKinematicConfig, TKinematicData, TKinematicWritableData } from '@/Kinematic/Models';
+import type { TMeters, TMetersPerSecond, TMilliseconds, TRadians, TRadiansPerSecond } from '@/Math';
+import { getAzimuthElevationFromVector, getElevationFromDirection } from '@/Math';
+import type { TReadonlyQuaternion, TReadonlyVector3 } from '@/ThreeLib';
+import { TransformAgent } from '@/TransformDrive/Constants';
+import type { TAbstractTransformAgent, TKinematicAgentDependencies, TKinematicSpeed, TKinematicTransformAgent, TKinematicTransformAgentParams } from '@/TransformDrive/Models';
+import { getStepRotation, isInstant, isPointReached, isRotationReached, moveInstantly, rotateInstantly } from '@/TransformDrive/Utils';
+import { isDefined, isNotDefined } from '@/Utils';
 
 import { AbstractTransformAgent } from './AbstractTransformAgent';
 

@@ -1,5 +1,5 @@
-import type { TParamsFromConfig, TReactiveFactory } from '@/Engine/Abstract';
-import type { TFsmConfig, TFsmParams } from '@/Engine/Fsm/Models';
+import type { TParamsFromConfig, TReactiveFactory } from '@/Abstract';
+import type { TFsmConfig, TFsmParams } from '@/Fsm/Models';
 
 import type { TFsmSource } from './TFsmSource';
 

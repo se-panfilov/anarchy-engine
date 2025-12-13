@@ -1,7 +1,7 @@
 import { nanoid } from 'nanoid';
 
-import type { TFsmConfig, TFsmParams, TFsmSource } from '@/Engine/Fsm/Models';
-import { omitInObjectWithoutMutation } from '@/Engine/Utils';
+import type { TFsmConfig, TFsmParams, TFsmSource } from '@/Fsm/Models';
+import { omitInObjectWithoutMutation } from '@/Utils';
 
 export function FsmSource(params: TFsmParams): TFsmSource {
   const id: string = params.type + '_fsm_' + nanoid();

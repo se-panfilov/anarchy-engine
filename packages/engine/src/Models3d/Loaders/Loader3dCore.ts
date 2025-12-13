@@ -1,8 +1,8 @@
 import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 
-import type { LoaderType, TAbstractLoader, TAbstractMetaInfoRegistry, TAbstractResourceAsyncRegistry, TAbstractResourceConfig } from '@/Engine/Abstract';
-import { AbstractLoader } from '@/Engine/Abstract';
+import type { LoaderType, TAbstractLoader, TAbstractMetaInfoRegistry, TAbstractResourceAsyncRegistry, TAbstractResourceConfig } from '@/Abstract';
+import { AbstractLoader } from '@/Abstract';
 
 export function Loader3dCore<T, RC extends TAbstractResourceConfig>(
   registry: TAbstractResourceAsyncRegistry<T>,

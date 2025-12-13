@@ -1,4 +1,4 @@
-import type { TSerializable } from '@/Engine/Mixins';
+import type { TSerializable } from '@/Mixins';
 
 import type { TCameraWrapper } from './TCameraWrapper';
 import type { TPerspectiveCamera } from './TPerspectiveCamera';

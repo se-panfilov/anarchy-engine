@@ -1,10 +1,10 @@
 import type { Subscription } from 'rxjs';
 import { AudioListener } from 'three';
 
-import type { TAbstractService } from '@/Engine/Abstract';
-import { AbstractService } from '@/Engine/Abstract';
-import { Listeners } from '@/Engine/Audio/Constants';
-import { AudioLoader } from '@/Engine/Audio/Loader';
+import type { TAbstractService } from '@/Abstract';
+import { AbstractService } from '@/Abstract';
+import { Listeners } from '@/Audio/Constants';
+import { AudioLoader } from '@/Audio/Loader';
 import type {
   TAnyAudioConfig,
   TAnyAudioWrapper,
@@ -23,11 +23,11 @@ import type {
   TAudioServiceWithCreateFromConfig,
   TAudioServiceWithFactory,
   TAudioServiceWithRegistry
-} from '@/Engine/Audio/Models';
-import type { TDisposable } from '@/Engine/Mixins';
-import { withCreateFromConfigServiceMixin, withCreateServiceMixin, withFactoryService, withRegistryService, withSerializableEntities, withSerializeAllResources } from '@/Engine/Mixins';
-import type { TSpaceLoops } from '@/Engine/Space';
-import { mergeAll } from '@/Engine/Utils';
+} from '@/Audio/Models';
+import type { TDisposable } from '@/Mixins';
+import { withCreateFromConfigServiceMixin, withCreateServiceMixin, withFactoryService, withRegistryService, withSerializableEntities, withSerializeAllResources } from '@/Mixins';
+import type { TSpaceLoops } from '@/Space';
+import { mergeAll } from '@/Utils';
 
 // TODO Audio: Maybe implement "Sound Perception Manager" for NPCs to react to a sound (if they are in a radius)
 export function AudioService(

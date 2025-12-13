@@ -1,10 +1,10 @@
 import type { Subscription } from 'rxjs';
 
-import type { TAbstractService, TRegistryPack } from '@/Engine/Abstract';
-import { AbstractService } from '@/Engine/Abstract';
-import type { TMaterialRegistry } from '@/Engine/Material';
-import type { TDisposable } from '@/Engine/Mixins';
-import { withCreateFromConfigServiceMixin, withCreateServiceMixin, withFactoryService, withRegistryService, withSceneGetterService, withSerializableEntities } from '@/Engine/Mixins';
+import type { TAbstractService, TRegistryPack } from '@/Abstract';
+import { AbstractService } from '@/Abstract';
+import type { TMaterialRegistry } from '@/Material';
+import type { TDisposable } from '@/Mixins';
+import { withCreateFromConfigServiceMixin, withCreateServiceMixin, withFactoryService, withRegistryService, withSceneGetterService, withSerializableEntities } from '@/Mixins';
 import type {
   TParticlesConfig,
   TParticlesConfigToParamsDependencies,
@@ -17,9 +17,9 @@ import type {
   TParticlesServiceWithFactory,
   TParticlesServiceWithRegistry,
   TParticlesWrapper
-} from '@/Engine/Particles/Models';
-import type { TSceneWrapper } from '@/Engine/Scene';
-import { mergeAll } from '@/Engine/Utils';
+} from '@/Particles/Models';
+import type { TSceneWrapper } from '@/Scene';
+import { mergeAll } from '@/Utils';
 
 export function ParticlesService(factory: TParticlesFactory, registry: TParticlesRegistry, dependencies: TParticlesServiceDependencies, scene: TSceneWrapper): TParticlesService {
   const registrySub$: Subscription = registry.added$.subscribe(({ value }: TRegistryPack<TParticlesWrapper>): void => scene.addParticles(value));

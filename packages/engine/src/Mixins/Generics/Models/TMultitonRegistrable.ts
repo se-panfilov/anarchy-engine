@@ -1,4 +1,4 @@
-import type { TNoSpread } from '@/Engine/Mixins';
+import type { TNoSpread } from '@/Mixins';
 
 import type { TRegistrable } from './TRegistrable';
 

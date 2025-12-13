@@ -1,4 +1,4 @@
-import type { TSceneWrapper } from '@/Engine/Scene';
+import type { TSceneWrapper } from '@/Scene';
 
 export type TWithSceneGetterService = Readonly<{
   getScene: () => TSceneWrapper;

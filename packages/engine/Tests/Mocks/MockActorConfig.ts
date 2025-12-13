@@ -1,4 +1,4 @@
-import type { TActorConfig } from '@/Engine/Actor';
+import type { TActorConfig } from '@/Actor';
 
 import { mockModel3dName } from './MockModel3dConfig';
 import { mockSpatialGridName } from './MockSpatialGridConfig';

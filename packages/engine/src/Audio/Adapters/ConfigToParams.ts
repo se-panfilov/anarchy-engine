@@ -1,9 +1,9 @@
 import { Vector3 } from 'three';
 
-import { Listeners } from '@/Engine/Audio/Constants';
-import type { TAnyAudioConfig, TAnyAudioParams, TAudio3dConfig, TAudio3dParams, TAudioConfigToParamsDependencies, TAudioResourceAsyncRegistry } from '@/Engine/Audio/Models';
-import { isAudio3dConfig } from '@/Engine/Audio/Utils';
-import type { TWriteable } from '@/Engine/Utils';
+import { Listeners } from '@/Audio/Constants';
+import type { TAnyAudioConfig, TAnyAudioParams, TAudio3dConfig, TAudio3dParams, TAudioConfigToParamsDependencies, TAudioResourceAsyncRegistry } from '@/Audio/Models';
+import { isAudio3dConfig } from '@/Audio/Utils';
+import type { TWriteable } from '@/Utils';
 
 export function configToParams(config: TAnyAudioConfig, { audioResourceAsyncRegistry, audioListenersRegistry }: TAudioConfigToParamsDependencies): TAnyAudioParams {
   const { position, ...rest } = config as TAudio3dConfig;

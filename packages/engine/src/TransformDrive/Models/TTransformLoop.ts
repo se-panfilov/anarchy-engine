@@ -1,3 +1,3 @@
-import type { TLoop } from '@/Engine/Loop';
+import type { TLoop } from '@/Loop';
 
 export type TTransformLoop = TLoop & { __brand: 'transform_loop' };

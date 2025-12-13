@@ -1,10 +1,10 @@
 import { Euler, Quaternion } from 'three';
 import { Vector3 } from 'three/src/math/Vector3';
 
-import type { TPhysicsBodyConfig, TPhysicsBodyParams } from '@/Engine/Physics/Models';
-import { isPhysicsBodyParamsComplete } from '@/Engine/Physics/Utils';
-import type { TOptional } from '@/Engine/Utils';
-import { isDefined } from '@/Engine/Utils';
+import type { TPhysicsBodyConfig, TPhysicsBodyParams } from '@/Physics/Models';
+import { isPhysicsBodyParamsComplete } from '@/Physics/Utils';
+import type { TOptional } from '@/Utils';
+import { isDefined } from '@/Utils';
 
 export function configToParamsBody(config: TPhysicsBodyConfig): TPhysicsBodyParams | never {
   const { position, rotation, angularVelocity, linearVelocity, ...rest } = config;

@@ -1,6 +1,6 @@
 import type { Vector3 } from 'three';
 
-import type { TReadonlyVector3 } from '@/Engine/ThreeLib';
+import type { TReadonlyVector3 } from '@/ThreeLib';
 
 export type TOrbitControlsAccessors = {
   setDamping: (isEnabled: boolean) => void;

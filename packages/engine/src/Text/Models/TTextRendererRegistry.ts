@@ -1,4 +1,4 @@
-import type { TAbstractSimpleRegistry } from '@/Engine/Abstract/Models';
+import type { TAbstractSimpleRegistry } from '@/Abstract/Models';
 
 import type { TTextAnyRenderer } from './TTextAnyRenderer';
 

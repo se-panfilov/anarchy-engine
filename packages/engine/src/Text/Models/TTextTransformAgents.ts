@@ -1,3 +1,3 @@
-import type { TTransformAgents } from '@/Engine/TransformDrive';
+import type { TTransformAgents } from '@/TransformDrive';
 
 export type TTextTransformAgents = TTransformAgents;

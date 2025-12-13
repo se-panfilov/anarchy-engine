@@ -1,6 +1,6 @@
-import type { TElementWithCssAccessors } from '@/Engine/Text/Models';
-import type { TWriteable } from '@/Engine/Utils';
-import { camelToKebab } from '@/Engine/Utils';
+import type { TElementWithCssAccessors } from '@/Text/Models';
+import type { TWriteable } from '@/Utils';
+import { camelToKebab } from '@/Utils';
 
 export function getCssAccessors(element: TWriteable<HTMLElement>): TElementWithCssAccessors {
   // eslint-disable-next-line functional/immutable-data

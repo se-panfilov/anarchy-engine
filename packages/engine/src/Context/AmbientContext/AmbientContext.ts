@@ -1,4 +1,4 @@
-import { ContainerDecorator } from '@/Engine/Global';
+import { ContainerDecorator } from '@/Global';
 
 import type { TAmbientContext } from './Models';
 

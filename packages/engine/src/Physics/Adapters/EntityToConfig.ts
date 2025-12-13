@@ -2,9 +2,9 @@ import type { Collider, RigidBody, Rotation, World } from '@dimforge/rapier3d';
 import type { Vector3Like } from 'three';
 import { Euler, Quaternion } from 'three';
 
-import type { TPhysicsBody, TPhysicsBodyConfig, TPhysicsWorldConfig } from '@/Engine/Physics/Models';
-import type { TEulerLike } from '@/Engine/ThreeLib';
-import { eulerToXyz, filterOutEmptyFields, isDefined, vector3ToXyz } from '@/Engine/Utils';
+import type { TPhysicsBody, TPhysicsBodyConfig, TPhysicsWorldConfig } from '@/Physics/Models';
+import type { TEulerLike } from '@/ThreeLib';
+import { eulerToXyz, filterOutEmptyFields, isDefined, vector3ToXyz } from '@/Utils';
 
 export function physicsBodyToConfig(entity: TPhysicsBody): TPhysicsBodyConfig {
   const rigidBody: RigidBody | undefined = entity.getRigidBody();

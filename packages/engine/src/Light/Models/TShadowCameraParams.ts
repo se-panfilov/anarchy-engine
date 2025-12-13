@@ -1,4 +1,4 @@
-import type { CameraType, TAnyCameraParams, TOrthographicCameraParams, TPerspectiveCameraParams } from '@/Engine/Camera';
+import type { CameraType, TAnyCameraParams, TOrthographicCameraParams, TPerspectiveCameraParams } from '@/Camera';
 
 export type TShadowCameraParams = Omit<TAnyCameraParams, 'audioListener' | 'position' | 'rotation' | 'name' | 'isActive' | 'type'> &
   Readonly<{

@@ -1,5 +1,5 @@
-import type { TSerializableEntitiesService } from '@/Engine/Abstract';
-import type { TWithActiveAccessorsService, TWithCreateFromConfigService, TWithCreateService, TWithFactoryService, TWithRegistryService, TWithSceneGetterService } from '@/Engine/Mixins';
+import type { TSerializableEntitiesService } from '@/Abstract';
+import type { TWithActiveAccessorsService, TWithCreateFromConfigService, TWithCreateService, TWithFactoryService, TWithRegistryService, TWithSceneGetterService } from '@/Mixins';
 
 import type { TAnyCameraConfig } from './TAnyCameraConfig';
 import type { TAnyCameraParams } from './TAnyCameraParams';

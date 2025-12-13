@@ -1,4 +1,4 @@
-import type { TOptional } from '@/Engine/Utils';
+import type { TOptional } from '@/Utils';
 
 import type { TKinematicDataConfig } from './TKinematicDataConfig';
 

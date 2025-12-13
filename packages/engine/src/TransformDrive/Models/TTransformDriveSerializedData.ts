@@ -1,8 +1,8 @@
 import type { Vector3Like } from 'three';
 
-import type { TKinematicConfig } from '@/Engine/Kinematic';
-import type { TEulerLike } from '@/Engine/ThreeLib';
-import type { TransformAgent } from '@/Engine/TransformDrive/Constants';
+import type { TKinematicConfig } from '@/Kinematic';
+import type { TEulerLike } from '@/ThreeLib';
+import type { TransformAgent } from '@/TransformDrive/Constants';
 
 export type TTransformDriveSerializedData = Readonly<{
   physicsBodyName?: string;

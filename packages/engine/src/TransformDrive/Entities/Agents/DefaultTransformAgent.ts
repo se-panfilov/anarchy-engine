@@ -1,12 +1,12 @@
 import type { Subject, Subscription } from 'rxjs';
 import type { Quaternion, Vector3 } from 'three';
 
-import type { TWithPosition3dProperty, TWithQuaternionRotationProperty, TWithScaleProperty } from '@/Engine/Mixins';
-import type { TReadonlyQuaternion, TReadonlyVector3 } from '@/Engine/ThreeLib';
-import { TransformAgent } from '@/Engine/TransformDrive/Constants';
-import { withProxyTransform } from '@/Engine/TransformDrive/Mixins';
-import type { TAbstractTransformAgent, TDefaultTransformAgent, TTransformAgentParams } from '@/Engine/TransformDrive/Models';
-import { updateSubjOnChange } from '@/Engine/Utils';
+import type { TWithPosition3dProperty, TWithQuaternionRotationProperty, TWithScaleProperty } from '@/Mixins';
+import type { TReadonlyQuaternion, TReadonlyVector3 } from '@/ThreeLib';
+import { TransformAgent } from '@/TransformDrive/Constants';
+import { withProxyTransform } from '@/TransformDrive/Mixins';
+import type { TAbstractTransformAgent, TDefaultTransformAgent, TTransformAgentParams } from '@/TransformDrive/Models';
+import { updateSubjOnChange } from '@/Utils';
 
 import { AbstractTransformAgent } from './AbstractTransformAgent';
 

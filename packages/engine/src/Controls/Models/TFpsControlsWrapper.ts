@@ -1,11 +1,11 @@
 import type { Euler, EventDispatcher, Quaternion } from 'three';
 import type { FirstPersonControls } from 'three/examples/jsm/controls/FirstPersonControls';
 
-import type { TWrapper } from '@/Engine/Abstract';
-import type { TAnyCameraWrapper } from '@/Engine/Camera';
-import type { ControlsType } from '@/Engine/Controls/Constants';
-import type { TMilliseconds } from '@/Engine/Math';
-import type { TWithActiveMixin } from '@/Engine/Mixins';
+import type { TWrapper } from '@/Abstract';
+import type { TAnyCameraWrapper } from '@/Camera';
+import type { ControlsType } from '@/Controls/Constants';
+import type { TMilliseconds } from '@/Math';
+import type { TWithActiveMixin } from '@/Mixins';
 
 import type { TControlsServiceDependencies } from './TControlsServiceDependencies';
 import type { TFpsControlsAccessors } from './TFpsControlsAccessors';

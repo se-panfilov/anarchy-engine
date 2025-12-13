@@ -1,5 +1,5 @@
-import type { TKilometers, TKilometersPerHour, TMeters, TMetersPerSecond, TMilliseconds, TRadians, TRadiansPerSecond } from '@/Engine/Math/Types';
-import { HOUR, SECOND } from '@/Engine/Measurements';
+import type { TKilometers, TKilometersPerHour, TMeters, TMetersPerSecond, TMilliseconds, TRadians, TRadiansPerSecond } from '@/Math/Types';
+import { HOUR, SECOND } from '@/Measurements';
 
 //move with speed in meters per second
 export const mpsSpeed = (mps: TMetersPerSecond, delta: TMilliseconds): TMetersPerSecond => (mps * delta) as TMetersPerSecond;

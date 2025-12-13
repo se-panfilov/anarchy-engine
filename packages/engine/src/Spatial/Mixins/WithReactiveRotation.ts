@@ -2,7 +2,7 @@ import { Subject } from 'rxjs';
 import type { Group, Mesh, Object3D } from 'three';
 import { Euler } from 'three';
 
-import type { TWithReactiveRotation } from '@/Engine/Spatial/Models';
+import type { TWithReactiveRotation } from '@/Spatial/Models';
 
 export function withReactiveRotation(entity: Mesh | Group | Object3D): TWithReactiveRotation {
   const rotation$: Subject<Euler> = new Subject<Euler>();

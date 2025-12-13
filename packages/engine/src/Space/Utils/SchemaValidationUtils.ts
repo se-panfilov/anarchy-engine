@@ -1,11 +1,11 @@
-import type { TAbstractResourceConfig } from '@/Engine/Abstract';
-import type { TActorConfig } from '@/Engine/Actor';
-import type { TAnyAudioConfig, TAudioResourceConfig } from '@/Engine/Audio';
-import type { TWithName, TWithNameOptional, TWithTags } from '@/Engine/Mixins';
-import type { TModel3dConfig, TModel3dResourceConfig } from '@/Engine/Models3d';
-import { isPrimitiveModel3dResourceConfig, isPrimitiveModel3dSource } from '@/Engine/Models3d';
-import type { TPhysicsBodyConfig, TPhysicsConfig } from '@/Engine/Physics';
-import { findDuplicateString, isDefined, isNotDefined } from '@/Engine/Utils';
+import type { TAbstractResourceConfig } from '@/Abstract';
+import type { TActorConfig } from '@/Actor';
+import type { TAnyAudioConfig, TAudioResourceConfig } from '@/Audio';
+import type { TWithName, TWithNameOptional, TWithTags } from '@/Mixins';
+import type { TModel3dConfig, TModel3dResourceConfig } from '@/Models3d';
+import { isPrimitiveModel3dResourceConfig, isPrimitiveModel3dSource } from '@/Models3d';
+import type { TPhysicsBodyConfig, TPhysicsConfig } from '@/Physics';
+import { findDuplicateString, isDefined, isNotDefined } from '@/Utils';
 
 export const validateNames = (entities: ReadonlyArray<TWithNameOptional>): boolean => entities.every(validateName);
 export const validateName = (entity: TWithNameOptional): boolean => validateField(entity, 'name');

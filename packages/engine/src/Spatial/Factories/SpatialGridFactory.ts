@@ -1,8 +1,8 @@
-import type { TReactiveFactory } from '@/Engine/Abstract';
-import { FactoryType, ReactiveFactory } from '@/Engine/Abstract';
-import { configToParamsSpatial as configToParams } from '@/Engine/Spatial/Adapters';
-import type { TSpatialGridFactory, TSpatialGridParams, TSpatialGridWrapper } from '@/Engine/Spatial/Models';
-import { SpatialGridWrapper } from '@/Engine/Spatial/Wrappers';
+import type { TReactiveFactory } from '@/Abstract';
+import { FactoryType, ReactiveFactory } from '@/Abstract';
+import { configToParamsSpatial as configToParams } from '@/Spatial/Adapters';
+import type { TSpatialGridFactory, TSpatialGridParams, TSpatialGridWrapper } from '@/Spatial/Models';
+import { SpatialGridWrapper } from '@/Spatial/Wrappers';
 
 export function SpatialGridFactory(): TSpatialGridFactory {
   const factory: TReactiveFactory<TSpatialGridWrapper, TSpatialGridParams> = ReactiveFactory(FactoryType.SpatialGrid, SpatialGridWrapper);

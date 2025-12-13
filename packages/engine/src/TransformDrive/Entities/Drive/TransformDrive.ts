@@ -2,12 +2,12 @@ import { nanoid } from 'nanoid';
 import type { Observable, Subscription } from 'rxjs';
 import { BehaviorSubject, distinctUntilChanged, filter, map, merge, ReplaySubject } from 'rxjs';
 
-import { meters, radians } from '@/Engine/Measurements';
-import type { TDestroyable } from '@/Engine/Mixins';
-import { destroyableMixin } from '@/Engine/Mixins';
-import type { TReadonlyQuaternion, TReadonlyVector3 } from '@/Engine/ThreeLib';
-import { transformDriveToConfig } from '@/Engine/TransformDrive/Adapters';
-import { TransformAgent } from '@/Engine/TransformDrive/Constants';
+import { meters, radians } from '@/Measurements';
+import type { TDestroyable } from '@/Mixins';
+import { destroyableMixin } from '@/Mixins';
+import type { TReadonlyQuaternion, TReadonlyVector3 } from '@/ThreeLib';
+import { transformDriveToConfig } from '@/TransformDrive/Adapters';
+import { TransformAgent } from '@/TransformDrive/Constants';
 import type {
   TAbstractTransformAgent,
   TTransformDrive,
@@ -15,9 +15,9 @@ import type {
   TTransformDriveParams,
   TTransformDrivePerformanceOptions,
   TTransformDriveSerializedData
-} from '@/Engine/TransformDrive/Models';
-import { getDynamicAgents, updateFromActiveAgent } from '@/Engine/TransformDrive/Utils';
-import { isNotDefined } from '@/Engine/Utils';
+} from '@/TransformDrive/Models';
+import { getDynamicAgents, updateFromActiveAgent } from '@/TransformDrive/Utils';
+import { isNotDefined } from '@/Utils';
 
 // TransformDrive is an entity to move/rotate/scale other entities
 // TransformDrive could use different "agents" (modes) which can be switched in runtime:

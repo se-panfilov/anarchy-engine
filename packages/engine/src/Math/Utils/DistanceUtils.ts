@@ -1,4 +1,4 @@
-import type { TReadonlyVector3 } from '@/Engine/ThreeLib';
+import type { TReadonlyVector3 } from '@/ThreeLib';
 
 export function getDistance(pointA: TReadonlyVector3, pointB: TReadonlyVector3): number {
   const dx: number = pointB.x - pointA.x;

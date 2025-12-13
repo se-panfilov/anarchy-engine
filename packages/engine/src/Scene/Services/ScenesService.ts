@@ -1,9 +1,9 @@
 import type { Subscription } from 'rxjs';
 
-import type { TAbstractService, TRegistryPack } from '@/Engine/Abstract';
-import { AbstractService } from '@/Engine/Abstract';
-import type { TDisposable, TWithActiveMixinResult } from '@/Engine/Mixins';
-import { withActiveEntityServiceMixin, withCreateFromConfigServiceMixin, withCreateServiceMixin, withFactoryService, withRegistryService, withSerializableEntities } from '@/Engine/Mixins';
+import type { TAbstractService, TRegistryPack } from '@/Abstract';
+import { AbstractService } from '@/Abstract';
+import type { TDisposable, TWithActiveMixinResult } from '@/Mixins';
+import { withActiveEntityServiceMixin, withCreateFromConfigServiceMixin, withCreateServiceMixin, withFactoryService, withRegistryService, withSerializableEntities } from '@/Mixins';
 import type {
   TSceneConfig,
   TSceneFactory,
@@ -14,8 +14,8 @@ import type {
   TScenesServiceWithFactory,
   TScenesServiceWithRegistry,
   TSceneWrapper
-} from '@/Engine/Scene';
-import { mergeAll } from '@/Engine/Utils';
+} from '@/Scene';
+import { mergeAll } from '@/Utils';
 
 export function ScenesService(factory: TSceneFactory, registry: TSceneRegistry): TScenesService {
   const withActive: TWithActiveMixinResult<TSceneWrapper> = withActiveEntityServiceMixin<TSceneWrapper>(registry);

@@ -1,18 +1,18 @@
 import type { Subscription } from 'rxjs';
 import { BehaviorSubject, distinctUntilChanged, filter, skip } from 'rxjs';
 
-import type { TAbstractService, TRegistryPack } from '@/Engine/Abstract';
-import { AbstractEntity, EntityType } from '@/Engine/Abstract';
-import type { TContainerDecorator } from '@/Engine/Global';
-import type { TAnyIntersectionsWatcher } from '@/Engine/Intersections';
-import type { TLoop } from '@/Engine/Loop';
-import type { TMouseClickWatcher, TMousePositionWatcher } from '@/Engine/Mouse';
-import type { TSceneWrapper } from '@/Engine/Scene';
-import { spaceToConfig } from '@/Engine/Space/Adapters';
-import { CreateEntitiesStrategy } from '@/Engine/Space/Constants';
-import type { TSpace, TSpaceBaseServices, TSpaceCanvas, TSpaceConfig, TSpaceHooks, TSpaceLoops, TSpaceParams, TSpaceParts, TSpaceRegistry, TSpaceServices } from '@/Engine/Space/Models';
-import { buildBaseServices, buildEntitiesServices, createEntities, createLoops } from '@/Engine/Space/Utils';
-import { findDomElement, getCanvasContainer, getOrCreateCanvasFromSelector, isCanvasElement, isDefined, isDestroyable, isNotDefined } from '@/Engine/Utils';
+import type { TAbstractService, TRegistryPack } from '@/Abstract';
+import { AbstractEntity, EntityType } from '@/Abstract';
+import type { TContainerDecorator } from '@/Global';
+import type { TAnyIntersectionsWatcher } from '@/Intersections';
+import type { TLoop } from '@/Loop';
+import type { TMouseClickWatcher, TMousePositionWatcher } from '@/Mouse';
+import type { TSceneWrapper } from '@/Scene';
+import { spaceToConfig } from '@/Space/Adapters';
+import { CreateEntitiesStrategy } from '@/Space/Constants';
+import type { TSpace, TSpaceBaseServices, TSpaceCanvas, TSpaceConfig, TSpaceHooks, TSpaceLoops, TSpaceParams, TSpaceParts, TSpaceRegistry, TSpaceServices } from '@/Space/Models';
+import { buildBaseServices, buildEntitiesServices, createEntities, createLoops } from '@/Space/Utils';
+import { findDomElement, getCanvasContainer, getOrCreateCanvasFromSelector, isCanvasElement, isDefined, isDestroyable, isNotDefined } from '@/Utils';
 
 export function Space(params: TSpaceParams, registry: TSpaceRegistry, hooks?: TSpaceHooks): TSpace {
   const { canvasSelector, version, name, tags } = params;

@@ -1,6 +1,6 @@
 import { DirectionalLight } from 'three';
 
-import type { TAbstractLightWrapper, TDirectionalLight, TDirectionalLightParams, TLightServiceDependencies } from '@/Engine/Light/Models';
+import type { TAbstractLightWrapper, TDirectionalLight, TDirectionalLightParams, TLightServiceDependencies } from '@/Light/Models';
 
 import { AbstractLightWrapper } from './AbstractLightWrapper';
 

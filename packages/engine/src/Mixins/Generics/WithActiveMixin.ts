@@ -1,5 +1,5 @@
-import type { TWithActiveMixin } from '@/Engine/Mixins/Generics/Models';
-import type { TWriteable } from '@/Engine/Utils';
+import type { TWithActiveMixin } from '@/Mixins/Generics/Models';
+import type { TWriteable } from '@/Utils';
 
 export function withActiveMixin(): TWithActiveMixin {
   return {

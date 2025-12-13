@@ -1,5 +1,5 @@
-import type { LookUpStrategy } from '@/Engine/Abstract/Registries/Constants';
-import type { TDestroyable, TRegistrable } from '@/Engine/Mixins';
+import type { LookUpStrategy } from '@/Abstract/Registries/Constants';
+import type { TDestroyable, TRegistrable } from '@/Mixins';
 
 import type { TAbstractSimpleRegistry } from './TAbstractSimpleRegistry';
 

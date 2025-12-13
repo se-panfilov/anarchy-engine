@@ -1,6 +1,6 @@
 import type { AudioListener } from 'three';
 
-import type { TSerializableEntitiesService, TSerializableResourceService } from '@/Engine/Abstract';
+import type { TSerializableEntitiesService, TSerializableResourceService } from '@/Abstract';
 import type {
   TWithCreateFromConfigService,
   TWithCreateService,
@@ -9,7 +9,7 @@ import type {
   TWithRegistryService,
   TWithResourcesMetaInfoRegistryService,
   TWithResourcesRegistryService
-} from '@/Engine/Mixins';
+} from '@/Mixins';
 
 import type { TAnyAudioConfig } from './TAnyAudioConfig';
 import type { TAnyAudioParams } from './TAnyAudioParams';

@@ -1,4 +1,4 @@
-import type { TWithName, TWithTags } from '@/Engine/Mixins';
+import type { TWithName, TWithTags } from '@/Mixins';
 
 export type TAbstractResourceConfig = Readonly<{
   url: string;

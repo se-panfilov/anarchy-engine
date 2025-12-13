@@ -1,6 +1,6 @@
 import type { BehaviorSubject, Observable } from 'rxjs';
 
-import type { TDestroyable } from '@/Engine/Mixins';
+import type { TDestroyable } from '@/Mixins';
 
 import type { TCollisionCheckResult } from './TCollisionCheckResult';
 import type { TCollisionsData } from './TCollisionsData';

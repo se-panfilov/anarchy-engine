@@ -1,5 +1,5 @@
-import type { TActor } from '@/Engine/Actor';
-import type { LoopUpdatePriority } from '@/Engine/Loop';
+import type { TActor } from '@/Actor';
+import type { LoopUpdatePriority } from '@/Loop';
 
 import type { TCollisionsData } from './TCollisionsData';
 

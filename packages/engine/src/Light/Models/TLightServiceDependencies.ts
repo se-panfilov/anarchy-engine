@@ -1,4 +1,4 @@
-import type { TTransformDriveService } from '@/Engine/TransformDrive';
+import type { TTransformDriveService } from '@/TransformDrive';
 
 export type TLightServiceDependencies = Readonly<{
   transformDriveService: TTransformDriveService;

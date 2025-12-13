@@ -1,6 +1,6 @@
 import type { AnimationAction, AnimationClip, AnimationMixer } from 'three';
 
-import type { TAnimationActions } from '@/Engine/Animations/Models';
+import type { TAnimationActions } from '@/Animations/Models';
 
 import type { TModel3dEntities } from './TModel3dEntities';
 import type { TRawModel3d } from './TRawModel3d';

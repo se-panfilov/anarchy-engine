@@ -1,8 +1,8 @@
 import type { Observable, Subscription } from 'rxjs';
 import Stats from 'stats.js';
 
-import type { TLoop } from '@/Engine/Loop/Models';
-import type { TMilliseconds } from '@/Engine/Math';
+import type { TLoop } from '@/Loop/Models';
+import type { TMilliseconds } from '@/Math';
 
 export function enableFPSCounter(tick$: Observable<TMilliseconds>): Subscription {
   // TODO DEBUG: make stats enable/disable configurable via url params (?debug=true)

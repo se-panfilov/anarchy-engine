@@ -1,5 +1,5 @@
-import type { TSerializableEntitiesService } from '@/Engine/Abstract';
-import type { TWithActiveAccessorsService, TWithCreateFromConfigService, TWithCreateService, TWithFactoryService, TWithRegistryService } from '@/Engine/Mixins';
+import type { TSerializableEntitiesService } from '@/Abstract';
+import type { TWithActiveAccessorsService, TWithCreateFromConfigService, TWithCreateService, TWithFactoryService, TWithRegistryService } from '@/Mixins';
 
 import type { TRendererConfig } from './TRendererConfig';
 import type { TRendererFactory } from './TRendererFactory';

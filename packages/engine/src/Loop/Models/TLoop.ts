@@ -1,8 +1,8 @@
 import type { BehaviorSubject } from 'rxjs';
 
-import type { TAbstractLoop } from '@/Engine/Abstract';
-import type { LoopTrigger, LoopType, LoopUpdatePriority } from '@/Engine/Loop/Constants';
-import type { TDestroyable, TRegistrable, TWithName } from '@/Engine/Mixins';
+import type { TAbstractLoop } from '@/Abstract';
+import type { LoopTrigger, LoopType, LoopUpdatePriority } from '@/Loop/Constants';
+import type { TDestroyable, TRegistrable, TWithName } from '@/Mixins';
 
 import type { TDelta } from './TDelta';
 import type { TLoopTriggerFn } from './TLoopTriggerFn';

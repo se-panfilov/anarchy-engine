@@ -1,7 +1,7 @@
-import type { TActor } from '@/Engine/Actor';
-import { extractSerializableRegistrableFields } from '@/Engine/Mixins';
-import type { TSpatialCellId, TSpatialCellSerializedData, TSpatialCellWrapper, TSpatialGridConfig, TSpatialGridWrapper } from '@/Engine/Spatial/Models';
-import { filterOutEmptyFields } from '@/Engine/Utils';
+import type { TActor } from '@/Actor';
+import { extractSerializableRegistrableFields } from '@/Mixins';
+import type { TSpatialCellId, TSpatialCellSerializedData, TSpatialCellWrapper, TSpatialGridConfig, TSpatialGridWrapper } from '@/Spatial/Models';
+import { filterOutEmptyFields } from '@/Utils';
 
 export function entityToConfigSpatialGrid(entity: TSpatialGridWrapper): TSpatialGridConfig {
   return filterOutEmptyFields({

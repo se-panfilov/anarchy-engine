@@ -1,12 +1,12 @@
 import type { AnimationAction, AnimationClip, Material, Object3D, PositionalAudio } from 'three';
 import { Mesh, Texture } from 'three';
 
-import type { TAbstractEntity } from '@/Engine/Abstract';
-import type { TAnyAudio } from '@/Engine/Audio';
-import type { TAnyMaterialWrapper, TMaterials } from '@/Engine/Material';
-import type { TWithModel3d, TWithModel3dEntities } from '@/Engine/Models3d';
-import { hasTransformDrive } from '@/Engine/TransformDrive/Utils';
-import { hasGeometry, hasMaterial, isDefined, isNotDefined, isWrapper } from '@/Engine/Utils';
+import type { TAbstractEntity } from '@/Abstract';
+import type { TAnyAudio } from '@/Audio';
+import type { TAnyMaterialWrapper, TMaterials } from '@/Material';
+import type { TWithModel3d, TWithModel3dEntities } from '@/Models3d';
+import { hasTransformDrive } from '@/TransformDrive/Utils';
+import { hasGeometry, hasMaterial, isDefined, isNotDefined, isWrapper } from '@/Utils';
 
 export function disposeGltf(gltf: Object3D | null): void {
   if (!gltf) return;

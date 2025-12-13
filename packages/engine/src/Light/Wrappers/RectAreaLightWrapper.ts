@@ -1,6 +1,6 @@
 import { RectAreaLight } from 'three';
 
-import type { TAbstractLightWrapper, TLightServiceDependencies, TRectAreaLight, TRectAreaLightParams } from '@/Engine/Light/Models';
+import type { TAbstractLightWrapper, TLightServiceDependencies, TRectAreaLight, TRectAreaLightParams } from '@/Light/Models';
 
 import { AbstractLightWrapper } from './AbstractLightWrapper';
 

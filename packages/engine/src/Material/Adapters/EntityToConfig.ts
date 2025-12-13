@@ -13,8 +13,8 @@ import type {
 import type { MeshDistanceMaterialParameters } from 'three/src/materials/MeshDistanceMaterial';
 import type { SpriteNodeMaterial } from 'three/src/materials/nodes/NodeMaterials';
 
-import { serializeColorWhenPossible } from '@/Engine/Color';
-import type { MaterialType } from '@/Engine/Material/Constants';
+import { serializeColorWhenPossible } from '@/Color';
+import type { MaterialType } from '@/Material/Constants';
 import {
   BlendEquationMap,
   BlendingDstFactorMap,
@@ -27,7 +27,7 @@ import {
   StencilFailMap,
   StencilFuncMap,
   StencilOpMap
-} from '@/Engine/Material/Constants';
+} from '@/Material/Constants';
 import type {
   TAnyMaterialWrapper,
   TMaterialConfig,
@@ -36,12 +36,12 @@ import type {
   TMaterialEntityToConfigDependencies,
   TMaterialParamsTextures,
   TMaterials
-} from '@/Engine/Material/Models';
-import { eulerToXyzIfPossible, getOptionNameIfPossible, vector2ToXyIfPossible, vector3ToXyzIfPossible } from '@/Engine/Material/Utils';
-import { extractSerializableRegistrableFields } from '@/Engine/Mixins';
-import type { TTexture, TTextureAsyncRegistry } from '@/Engine/Texture';
-import type { TOptional } from '@/Engine/Utils';
-import { filterOutEmptyFields, nullsToUndefined } from '@/Engine/Utils';
+} from '@/Material/Models';
+import { eulerToXyzIfPossible, getOptionNameIfPossible, vector2ToXyIfPossible, vector3ToXyzIfPossible } from '@/Material/Utils';
+import { extractSerializableRegistrableFields } from '@/Mixins';
+import type { TTexture, TTextureAsyncRegistry } from '@/Texture';
+import type { TOptional } from '@/Utils';
+import { filterOutEmptyFields, nullsToUndefined } from '@/Utils';
 
 export function materialToConfig(entity: TAnyMaterialWrapper, { textureResourceRegistry }: TMaterialEntityToConfigDependencies): TMaterialConfig {
   const options: TMaterialConfigOptions | undefined = getMaterialOptions(entity);

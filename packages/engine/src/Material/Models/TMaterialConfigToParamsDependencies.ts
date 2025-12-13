@@ -1,4 +1,4 @@
-import type { TTextureService } from '@/Engine/Texture';
+import type { TTextureService } from '@/Texture';
 
 export type TMaterialConfigToParamsDependencies = Readonly<{
   textureService: TTextureService;

@@ -1,4 +1,4 @@
-import type { TAbstractEntityRegistry } from '@/Engine/Abstract/Models';
+import type { TAbstractEntityRegistry } from '@/Abstract/Models';
 
 import type { TMousePositionWatcher } from './TMousePositionWatcher';
 

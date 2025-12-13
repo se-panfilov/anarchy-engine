@@ -1,11 +1,11 @@
 import type { AudioListener } from 'three';
 import { Vector3 } from 'three';
 
-import type { TAudioService } from '@/Engine/Audio';
-import type { TAnyCameraParams, TCameraServiceDependencies, TCommonCameraConfig } from '@/Engine/Camera/Models';
-import type { TShadowCameraConfig, TShadowCameraParams } from '@/Engine/Light';
-import { configToParamsObject3d } from '@/Engine/ThreeLib';
-import { isDefined, isNotDefined, omitInObjectWithoutMutation } from '@/Engine/Utils';
+import type { TAudioService } from '@/Audio';
+import type { TAnyCameraParams, TCameraServiceDependencies, TCommonCameraConfig } from '@/Camera/Models';
+import type { TShadowCameraConfig, TShadowCameraParams } from '@/Light';
+import { configToParamsObject3d } from '@/ThreeLib';
+import { isDefined, isNotDefined, omitInObjectWithoutMutation } from '@/Utils';
 
 export function configToParams(config: TCommonCameraConfig, { audioService }: TCameraServiceDependencies): TAnyCameraParams | never {
   let listener: AudioListener | undefined;

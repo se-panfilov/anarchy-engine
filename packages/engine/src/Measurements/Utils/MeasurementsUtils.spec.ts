@@ -1,3 +1,5 @@
+import { describe, expect, it } from 'vitest';
+
 import { centimetersToMeters, hoursToMS, kilometersToMeters, meters, minutesToMS, secondsToMS } from './MeasurementsUtils';
 
 describe('MeasurementsUtils', () => {

@@ -1,21 +1,21 @@
-import '@/Engine/Text/Styles/font-elements.css';
+import '@/Text/Styles/font-elements.css';
 
 import type { Subscription } from 'rxjs';
 import { CSS2DObject } from 'three/examples/jsm/renderers/CSS2DRenderer';
 import { CSS3DObject } from 'three/examples/jsm/renderers/CSS3DRenderer';
 
-import type { TAbstractWrapper } from '@/Engine/Abstract';
-import { AbstractWrapper } from '@/Engine/Abstract';
-import { withObject3d } from '@/Engine/Mixins';
-import { textToConfig } from '@/Engine/Text/Adapters';
-import { RelatedEntityAttribute, TextCssClass, TextType } from '@/Engine/Text/Constants';
-import type { TTextConfig, TTextParams, TTextServiceDependencies, TTextTransformDrive, TTextWrapper } from '@/Engine/Text/Models';
-import { TextTransformDrive } from '@/Engine/Text/TransformDrive';
-import { getCssAccessors } from '@/Engine/Text/Wrappers/Accessors';
-import { applyHtmlElementParams, getWrapperTypeByTextType } from '@/Engine/Text/Wrappers/TextWrapperHelper';
-import type { TDriveToTargetConnector } from '@/Engine/TransformDrive';
-import { DriveToTargetConnector } from '@/Engine/TransformDrive';
-import { applyCenter, applyObject3dParams, isDefined } from '@/Engine/Utils';
+import type { TAbstractWrapper } from '@/Abstract';
+import { AbstractWrapper } from '@/Abstract';
+import { withObject3d } from '@/Mixins';
+import { textToConfig } from '@/Text/Adapters';
+import { RelatedEntityAttribute, TextCssClass, TextType } from '@/Text/Constants';
+import type { TTextConfig, TTextParams, TTextServiceDependencies, TTextTransformDrive, TTextWrapper } from '@/Text/Models';
+import { TextTransformDrive } from '@/Text/TransformDrive';
+import { getCssAccessors } from '@/Text/Wrappers/Accessors';
+import { applyHtmlElementParams, getWrapperTypeByTextType } from '@/Text/Wrappers/TextWrapperHelper';
+import type { TDriveToTargetConnector } from '@/TransformDrive';
+import { DriveToTargetConnector } from '@/TransformDrive';
+import { applyCenter, applyObject3dParams, isDefined } from '@/Utils';
 
 export function createTextWrapper<T extends CSS2DObject | CSS3DObject>(params: TTextParams, type: TextType, dependencies: TTextServiceDependencies): TTextWrapper<T> {
   let element: HTMLElement = document.createElement(params.elementType || 'div');

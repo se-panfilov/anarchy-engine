@@ -1,4 +1,4 @@
-import type { TPhysicsLoop } from '@/Engine/Physics';
+import type { TPhysicsLoop } from '@/Physics';
 
 export type TPhysicsAgentDependencies = Readonly<{
   physicsLoop: TPhysicsLoop;

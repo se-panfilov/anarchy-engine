@@ -1,6 +1,6 @@
 import { SpotLight } from 'three';
 
-import type { TAbstractLightWrapper, TLightServiceDependencies, TSpotLight, TSpotLightParams } from '@/Engine/Light/Models';
+import type { TAbstractLightWrapper, TLightServiceDependencies, TSpotLight, TSpotLightParams } from '@/Light/Models';
 
 import { AbstractLightWrapper } from './AbstractLightWrapper';
 

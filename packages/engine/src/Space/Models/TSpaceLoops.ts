@@ -1,14 +1,14 @@
-import type { TAudioLoop } from '@/Engine/Audio';
-import type { TCollisionsLoop } from '@/Engine/Collisions';
-import type { TControlsLoop } from '@/Engine/Controls';
-import type { TIntersectionsLoop } from '@/Engine/Intersections';
-import type { TKeyboardLoop } from '@/Engine/Keyboard';
-import type { TKinematicLoop } from '@/Engine/Kinematic';
-import type { TMouseLoop } from '@/Engine/Mouse';
-import type { TPhysicsLoop } from '@/Engine/Physics';
-import type { TSpatialLoop } from '@/Engine/Spatial';
-import type { TTextLoop } from '@/Engine/Text';
-import type { TTransformLoop } from '@/Engine/TransformDrive';
+import type { TAudioLoop } from '@/Audio';
+import type { TCollisionsLoop } from '@/Collisions';
+import type { TControlsLoop } from '@/Controls';
+import type { TIntersectionsLoop } from '@/Intersections';
+import type { TKeyboardLoop } from '@/Keyboard';
+import type { TKinematicLoop } from '@/Kinematic';
+import type { TMouseLoop } from '@/Mouse';
+import type { TPhysicsLoop } from '@/Physics';
+import type { TSpatialLoop } from '@/Spatial';
+import type { TTextLoop } from '@/Text';
+import type { TTransformLoop } from '@/TransformDrive';
 
 import type { TRenderLoop } from './TRenderLoop';
 

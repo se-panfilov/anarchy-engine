@@ -22,12 +22,12 @@ export default defineConfig({
       entry: path.resolve(__dirname, 'src/index.ts'),
       name: 'AnarchyEngine',
       fileName: (format): string => `anarchy-engine.${format}.js`,
-      formats: ['es', 'cjs']
+      formats: ['es']
     },
     target: 'esnext',
     sourcemap: true,
     rollupOptions: {
-      // external: ['three', ...] — If you want to exclude some dependencies from the bundle
+      //  external: ['three', 'rxjs'] — If you want to exclude some dependencies from the bundle
     },
     outDir: 'dist',
     emptyOutDir: true

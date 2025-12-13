@@ -1,5 +1,5 @@
-import type { TPhysicsBody, TPhysicsBodyParams } from '@/Engine/Physics';
-import type { TWithMandatoryField } from '@/Engine/Utils';
+import type { TPhysicsBody, TPhysicsBodyParams } from '@/Physics';
+import type { TWithMandatoryField } from '@/Utils';
 
 import type { TTransformAgentParams } from './TTransformAgentParams';
 

@@ -2,12 +2,12 @@ import type { BufferGeometry, Group, Intersection, Mesh, Object3D, Raycaster } f
 import type { MeshBVH } from 'three-mesh-bvh';
 import { acceleratedRaycast, computeBoundsTree, disposeBoundsTree, MeshBVHHelper } from 'three-mesh-bvh';
 
-import type { TAbstractService } from '@/Engine/Abstract';
-import { AbstractService } from '@/Engine/Abstract';
-import type { TActor } from '@/Engine/Actor';
-import type { TBvhOptions, TBvhService } from '@/Engine/Collisions/Models';
-import type { TRawModel3d } from '@/Engine/Models3d';
-import type { TSceneWrapper } from '@/Engine/Scene';
+import type { TAbstractService } from '@/Abstract';
+import { AbstractService } from '@/Abstract';
+import type { TActor } from '@/Actor';
+import type { TBvhOptions, TBvhService } from '@/Collisions/Models';
+import type { TRawModel3d } from '@/Models3d';
+import type { TSceneWrapper } from '@/Scene';
 
 export function BvhService(): TBvhService {
   const abstractService: TAbstractService = AbstractService();

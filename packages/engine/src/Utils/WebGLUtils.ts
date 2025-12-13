@@ -1,4 +1,4 @@
-import type { TSpaceCanvas } from '@/Engine/Space';
+import type { TSpaceCanvas } from '@/Space';
 
 export function isWebGLAvailable(): boolean {
   let canvas: TSpaceCanvas | undefined = undefined;

@@ -3,7 +3,7 @@ import type { Subscription } from 'rxjs';
 import { firstValueFrom } from 'rxjs';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 
-import type { TRegistrable, TWithName } from '@/Engine/Mixins';
+import type { TRegistrable, TWithName } from '@/Mixins';
 
 import type { TAbstractAsyncEntityRegistry, TAbstractEntityRegistry, TAbstractResourceAsyncRegistry, TAbstractSimpleRegistry, TRegistryPack } from '../Models';
 import { LookUpStrategy } from './Constants';
