@@ -31,6 +31,7 @@ Done:
 - 17.0.1 clean up metadata in assets
 - 17.2.0 Get rid of animejs in the engine
 - 17.4.0 Better physics serizlization/deserialization
+- 17.5.0 Intersections watchers split to camera-mouse based and origin-direction based
 
 Roadmap:
 - 18.0.x Split apps and engine (and add config for an app to set up engine)
@@ -41,6 +42,7 @@ Roadmap:
 - 23.0.x Shaders
 
 Thoughts:
+- Maybe: Replace all arrays (with no allowed duplicates) with Maps (for performance)?;
 - Maybe: Try to replace spread operator with Object.assign everywhere (for performance and make sure that we are not creating new objects)? Check with AbstractEntity first;
 - Maybe: Add domain for timers (based on web workers);
 - Maybe: Add domain for lines;
