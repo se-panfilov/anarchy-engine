@@ -1,3 +1,3 @@
-# three
+# Anarchy engine
 
-A framework for three.js
+A framework around three.js for game development.
