@@ -45,9 +45,11 @@ export const useSettingsStore = defineStore('settingsStore', () => {
   const setLocalization = (newLocalization: Partial<TLocalizationSettings>): void => void Object.assign(state.localization, { ...newLocalization });
   const setDebug = (newDebug: Partial<TDebugSettings>): void => void Object.assign(state.debug, { ...newDebug });
   const setInternal = (newInternal: Partial<TInternalSettings>): void => void Object.assign(state.internal, { ...newInternal });
+  const setState = (newState: Partial<TShowcaseGameSettings>): void => void Object.assign(state, { ...newState });
 
   return {
     state: computed(() => state),
+    setState,
     graphics,
     setGraphics,
     audio,
