@@ -137,8 +137,6 @@ function runSentryCli(args, env, dryRun) {
     process.exit(0);
   }
 
-  console.log('XXX argv', argv);
-
   const mode = parseModeArg(process.argv);
   loadModeEnv(mode, process.cwd());
 
