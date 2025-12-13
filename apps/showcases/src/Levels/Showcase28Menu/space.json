@@ -64,69 +64,40 @@
     "envMaps": [],
     "fogs": [],
     "fsm": [],
-    "intersections": [],
-    "lights": [
+    "intersections": [
       {
-        "color": "#FFFFFF",
-        "intensity": 0.5,
-        "name": "ambient_light",
-        "position": {
-          "x": 0.25,
-          "y": 2,
-          "z": 2.25
-        },
-        "type": "AmbientLight"
-      },
-      {
-        "castShadow": true,
-        "color": "#FFFFFF",
-        "intensity": 1.5,
-        "name": "directional_light",
-        "position": {
-          "x": 0.25,
-          "y": 15,
-          "z": 2.25
-        },
-        "shadow": {
-          "camera": {
-            "bottom": -50,
-            "far": 40,
-            "left": -50,
-            "near": 0.1,
-            "right": 50,
-            "top": 50,
-            "type": "OrthographicCamera"
-          },
-          "mapSize": {
-            "x": 4096,
-            "y": 4096
-          },
-          "normalBias": 0.05
-        },
-        "type": "DirectionalLight"
+        "actorNames": ["cube_actor"],
+        "cameraName": "main",
+        "isAutoStart": true,
+        "name": "watcher_menu_cube",
+        "performance": {
+          "noiseThreshold": 0.01,
+          "shouldReactOnlyOnChange": true
+        }
       }
     ],
+    "lights": [],
     "materials": [
       {
         "name": "surface_material",
         "options": {
           "color": "#5EDCAE"
         },
-        "type": "MeshStandardMaterial"
+        "type": "MeshBasicMaterial"
       },
       {
         "name": "sphere_material",
         "options": {
           "color": "#d7d200"
         },
-        "type": "MeshStandardMaterial"
+        "type": "MeshBasicMaterial"
       },
       {
         "name": "cube_material",
         "options": {
           "color": "#E91E63"
         },
-        "type": "MeshStandardMaterial"
+        "type": "MeshBasicMaterial"
       }
     ],
     "models3d": [

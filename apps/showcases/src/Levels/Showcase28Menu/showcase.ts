@@ -1,4 +1,4 @@
-import type { TModel3d, TModels3dRegistry, TSceneWrapper, TSpace, TSpaceConfig, TText3dWrapper } from '@Engine';
+import type { TIntersectionEvent, TIntersectionsCameraWatcher, TModel3d, TModels3dRegistry, TSceneWrapper, TSpace, TSpaceConfig, TText3dWrapper } from '@Engine';
 import { asRecord, isNotDefined, spaceService } from '@Engine';
 
 import type { TAppSettings } from '@/Models';
@@ -17,7 +17,7 @@ export function start(settings: TAppSettings): void {
 }
 
 export function showcase(space: TSpace): void {
-  const { models3dService, scenesService, textService } = space.services;
+  const { models3dService, scenesService, textService, intersectionsWatcherService } = space.services;
   const models3dRegistry: TModels3dRegistry = models3dService.getRegistry();
   const sceneW: TSceneWrapper = scenesService.getActive();
 
@@ -29,6 +29,11 @@ export function showcase(space: TSpace): void {
 
   sceneW.addModel3d(planeModel3d);
   sceneW.addText(text3d);
+
+  const watcherMenuCube: TIntersectionsCameraWatcher = intersectionsWatcherService.getCameraWatcher('watcher_menu_cube');
+
+  let i = 0;
+  watcherMenuCube.value$.subscribe((value: TIntersectionEvent): void => console.log('redWatcher', i++, value));
 
   space.start$.next(true);
 }
