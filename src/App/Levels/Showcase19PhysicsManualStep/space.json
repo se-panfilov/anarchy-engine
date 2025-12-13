@@ -364,13 +364,14 @@
     ],
     "particles": [],
     "physics": {
-      "global": {
+      "world": {
         "gravity": {
           "x": 0,
           "y": -9.81,
           "z": 0
         }
-      }
+      },
+      "bodies": []
     },
     "renderers": [
       {

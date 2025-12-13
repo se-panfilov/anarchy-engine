@@ -28,6 +28,7 @@ export function PhysicsTransformAgent(params: TPhysicsTransformAgentParams, { ph
   const positionNoiseThreshold: TMeters = params.performance?.positionNoiseThreshold ?? meters(0.0000001);
   const rotationNoiseThreshold: TRadians = params.performance?.rotationNoiseThreshold ?? radians(0.0000001);
 
+  // TODO 15-0-0: Remove?
   // const adaptedParams: TPhysicsTransformAgentInternalParams = {
   //   ...params,
   //   rotation: isEulerLike(params.rotation) ? new Quaternion().setFromEuler(params.rotation) : params.rotation
