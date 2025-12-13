@@ -9,6 +9,7 @@ export * from './TPhysicsAgentDependencies';
 export * from './TPhysicsTransformAgent';
 export * from './TPhysicsTransformAgentParams';
 export * from './TProtectedTransformAgentFacade';
+export * from './TReadonlyTransform';
 export * from './TTransformAgentParams';
 export * from './TTransformAgents';
 export * from './TTransformDrive';

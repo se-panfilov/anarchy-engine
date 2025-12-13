@@ -1,8 +1,8 @@
-import type { TReadonlyEuler, TReadonlyVector3 } from '@/Engine/ThreeLib';
+import type { TReadonlyTransform } from './TReadonlyTransform';
 
-export type TTransformAgentParams = Readonly<{
-  position: TReadonlyVector3;
-  rotation: TReadonlyEuler;
-  scale: TReadonlyVector3;
-  enabled?: boolean;
-}>;
+export type TTransformAgentParams = TReadonlyTransform &
+  Readonly<{
+    onActivated?: () => void;
+    onDeactivated?: () => void;
+    enabled?: boolean;
+  }>;

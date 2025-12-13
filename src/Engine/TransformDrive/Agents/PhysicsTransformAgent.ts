@@ -16,6 +16,14 @@ export function PhysicsTransformAgent(params: TPhysicsTransformAgentParams, { ph
   const adaptedParams: TPhysicsTransformAgentInternalParams = { ...params, rotation: new Quaternion().setFromEuler(params.rotation) };
   const abstractTransformAgent: TAbstractTransformAgent = AbstractTransformAgent(params, TransformAgent.Physical);
 
+  const onDeactivated$Sub: Subscription = abstractTransformAgent.onDeactivated$.subscribe((): void => {
+    isDefined(params.onDeactivated)
+      ? params.onDeactivated()
+      : console.warn(
+          'PhysicsTransformAgent: onDeactivated is not defined. The physics body remains at the position it was the moment of deactivation. Please handle this (remove, move to a safe place), cause if left it as is could produce unexpected behavior.'
+        );
+  });
+
   const rotationQuaternion$: BehaviorSubject<TReadonlyQuaternion> = new BehaviorSubject<TReadonlyQuaternion>(
     new Quaternion(adaptedParams.rotation.x, adaptedParams.rotation.y, adaptedParams.rotation.z, adaptedParams.rotation.w)
   );
@@ -63,6 +71,7 @@ export function PhysicsTransformAgent(params: TPhysicsTransformAgentParams, { ph
     physicsSub$?.unsubscribe();
     enabledSub$.unsubscribe();
     prevBodyTypeSub.unsubscribe();
+    onDeactivated$Sub.unsubscribe();
 
     abstractTransformAgent.destroy$.next();
     physicsBody$.complete();

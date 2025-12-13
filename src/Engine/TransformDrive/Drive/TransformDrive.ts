@@ -1,5 +1,5 @@
 import type { Subscription } from 'rxjs';
-import { BehaviorSubject, distinctUntilChanged, ReplaySubject, sampleTime, switchMap } from 'rxjs';
+import { BehaviorSubject, distinctUntilChanged, pairwise, ReplaySubject, sampleTime, switchMap } from 'rxjs';
 import type { Euler, Vector3 } from 'three';
 
 import type { TDestroyable } from '@/Engine/Mixins';
@@ -35,15 +35,23 @@ export function TransformDrive<T extends Partial<Record<TransformAgent, TAbstrac
   const rotation$: BehaviorSubject<Euler> = new BehaviorSubject<Euler>(activeAgent$.value.rotation$.value);
   const scale$: BehaviorSubject<Vector3> = new BehaviorSubject<Vector3>(activeAgent$.value.scale$.value);
 
-  const activeAgentSub$: Subscription = activeAgent$.subscribe((activeAgent: TAbstractTransformAgent): void => {
+  // TODO 8.0.0. MODELS: check if pairwise works correctly here (prev value behaves as expected)
+  const activeAgentSub$: Subscription = activeAgent$.pipe(pairwise()).subscribe(([prevAgent, newAgent]: [TAbstractTransformAgent, TAbstractTransformAgent]): void => {
+    const position: Vector3 = position$.value;
+    const rotation: Euler = rotation$.value;
+    const scale: Vector3 = scale$.value;
+
+    prevAgent.onDeactivated$.next({ position, rotation, scale });
     Object.values(agents).forEach((agent: TAbstractTransformAgent): void => {
-      agent.enabled$.next(agent.type === activeAgent.type);
+      const isActiveAgent: boolean = agent.type === newAgent.type;
+      agent.enabled$.next(isActiveAgent);
 
       //when we change the active agent, we need to update the values of the agent
-      agent.position$.next(position$.value);
-      agent.rotation$.next(rotation$.value);
-      agent.scale$.next(scale$.value);
+      agent.position$.next(position);
+      agent.rotation$.next(rotation);
+      agent.scale$.next(scale);
     });
+    newAgent.onActivated$.next({ position, rotation, scale });
   });
 
   //We don't expose these BehaviorSubjects, because they're vulnerable to external changes without .next() (e.g. "position.value = ...")
