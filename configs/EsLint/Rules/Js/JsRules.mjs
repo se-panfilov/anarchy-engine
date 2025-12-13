@@ -242,6 +242,7 @@ export const JsRules = {
         '[V-v]arela[Round]?',
         '[V-v]el',
         '[V-v]sync',
+        '[V-v]ue',
         '[W-w]ebgl[0-9]?',
         '[W-w]ebgpu[0-9]?',
         '[W-w]ebkit',
