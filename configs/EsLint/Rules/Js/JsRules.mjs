@@ -194,6 +194,7 @@ export const JsRules = {
         '[C-c]olor[s]?',
         '[C-c]oord[s]?[0-9]?',
         '[C-c]ors',
+        '[D-d]arvin',
         '[D-d]estroyable',
         '[D-d]euteranopia',
         '[D-d]iv[s]?',
