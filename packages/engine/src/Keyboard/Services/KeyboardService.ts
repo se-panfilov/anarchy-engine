@@ -57,22 +57,22 @@ export function KeyboardService(keyboardLoop: TKeyboardLoop): TKeyboardService {
 
     if (isCombo) {
       bindKeyCombo(key, {
-        onPressed: () => {
+        onPressed: (): void => {
           pressedKey = key;
           pressed$.next(key);
         },
-        onReleased: () => {
+        onReleased: (): void => {
           pressedKey = undefined;
           released$.next(key);
         }
       });
     } else {
       bindKey(key, {
-        onPressed: () => {
+        onPressed: (): void => {
           pressedKey = key;
           pressed$.next(key);
         },
-        onReleased: () => {
+        onReleased: (): void => {
           pressedKey = undefined;
           released$.next(key);
         }
