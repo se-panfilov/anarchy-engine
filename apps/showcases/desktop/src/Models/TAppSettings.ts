@@ -38,7 +38,7 @@ export type TLocalizationSettings = Readonly<{
 export type TControlsSettings = Readonly<{
   mouseSensitivity: number;
   invertY: boolean;
-  keybindings: Record<string, string>; // TODO DESKTOP: keybindings should have a specific type.
+  keybindings: Record<string, string>; // TODO keybindings should have a specific type.
 }>;
 
 export type TAccessibilitySettings = Readonly<{
