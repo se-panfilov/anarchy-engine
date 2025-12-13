@@ -1,4 +1,5 @@
 import { distinctUntilChanged } from 'rxjs';
+import type { AnimationAction } from 'three';
 import type { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
 
 import type { TShowcase } from '@/App/Levels/Models';
@@ -44,10 +45,10 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
 
     const { Run, Walk, Idle } = AnimationActions;
 
-    const runAction = actions[Run];
-    const walkAction = actions[Walk];
-    const idleAction = actions[Idle];
-    // const tPoseAction = actions['TPose'];
+    const runAction: AnimationAction = actions[Run];
+    const walkAction: AnimationAction = actions[Walk];
+    const idleAction: AnimationAction = actions[Idle];
+    // const tPoseAction: AnimationAction = actions['TPose'];
 
     const solderAnimFsm: TAnimationsFsmWrapper = animationsFsmService.create({
       initial: Idle,
@@ -69,7 +70,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     const { animationsFsm } = solderActor.states;
     if (isNotDefined(animationsFsm)) throw new Error('Animations FSM is not defined');
 
-    solderAnimFsm.changed$.pipe(distinctUntilChanged()).subscribe((state): void => {
+    solderAnimFsm.changed$.pipe(distinctUntilChanged()).subscribe((state: string | number | symbol): void => {
       if (state === Idle) {
         walkAction.fadeOut(fadeDuration);
         runAction.fadeOut(fadeDuration);
