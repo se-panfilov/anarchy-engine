@@ -1,4 +1,3 @@
-import type { RigidBodyType, World } from '@dimforge/rapier3d';
 import { AbstractEntity, EntityType } from '@Anarchy/Engine/Abstract';
 import { physicsBodyToConfig } from '@Anarchy/Engine/Physics/Adapters';
 import type { CollisionShape, RigidBodyTypesNames } from '@Anarchy/Engine/Physics/Constants';
@@ -7,6 +6,7 @@ import { withPhysicsBodyEntities } from '@Anarchy/Engine/Physics/Mixins';
 import type { TPhysicsBody, TPhysicsBodyConfig, TPhysicsBodyEntities, TPhysicsBodyParams, TPhysicsDependencies, TPhysicsShapeParams } from '@Anarchy/Engine/Physics/Models';
 import type { TWriteable } from '@Anarchy/Shared/Utils';
 import { isDefined, isNotDefined } from '@Anarchy/Shared/Utils';
+import type { RigidBodyType, World } from '@dimforge/rapier3d';
 import type { Subscription } from 'rxjs';
 
 import { createPhysicsBodyEntities } from './PhysicsBodyUtils';

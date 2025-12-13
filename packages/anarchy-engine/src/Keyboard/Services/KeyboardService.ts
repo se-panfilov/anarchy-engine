@@ -3,8 +3,8 @@ import { AbstractService } from '@Anarchy/Engine/Abstract';
 import type { TGameKey, TKeyboardLoop, TKeyboardPressingEvent, TKeyboardRegistry, TKeyboardRegistryValues, TKeyboardService, TKeyCombo, TKeySubscription } from '@Anarchy/Engine/Keyboard/Models';
 import { KeyboardRegistry } from '@Anarchy/Engine/Keyboard/Registries';
 import type { TDelta } from '@Anarchy/Engine/Loop';
-import { bindKey, bindKeyCombo, checkKey, checkKeyCombo, unbindKey, unbindKeyCombo } from '@rwh/keystrokes';
 import { isDefined, isNotDefined } from '@Anarchy/Shared/Utils';
+import { bindKey, bindKeyCombo, checkKey, checkKeyCombo, unbindKey, unbindKeyCombo } from '@rwh/keystrokes';
 import type { Subscription } from 'rxjs';
 import { filter, map, Subject } from 'rxjs';
 

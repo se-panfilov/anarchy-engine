@@ -1,4 +1,3 @@
-import { World } from '@dimforge/rapier3d';
 import type { TAbstractService } from '@Anarchy/Engine/Abstract';
 import { AbstractService } from '@Anarchy/Engine/Abstract';
 import { withSceneGetterService } from '@Anarchy/Engine/Mixins';
@@ -10,6 +9,7 @@ import type { TSceneWrapper } from '@Anarchy/Engine/Scene';
 import type { TSpaceLoops } from '@Anarchy/Engine/Space';
 import { mergeAll } from '@Anarchy/Engine/Utils';
 import { isNotDefined } from '@Anarchy/Shared/Utils';
+import { World } from '@dimforge/rapier3d';
 import type { Subscription } from 'rxjs';
 import { takeUntil } from 'rxjs';
 import type { Vector3 } from 'three';

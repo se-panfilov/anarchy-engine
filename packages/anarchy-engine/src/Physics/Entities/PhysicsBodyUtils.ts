@@ -1,5 +1,3 @@
-import type { Collider, RigidBody, TriMeshFlags, World } from '@dimforge/rapier3d';
-import { ColliderDesc, RigidBodyDesc } from '@dimforge/rapier3d';
 import { coordsXYZToMeters, meters } from '@Anarchy/Engine/Measurements/Utils';
 import { CollisionShape, RigidBodyTypesNames } from '@Anarchy/Engine/Physics/Constants';
 import type {
@@ -20,6 +18,8 @@ import type {
 } from '@Anarchy/Engine/Physics/Models';
 import type { TOptional } from '@Anarchy/Shared/Utils';
 import { isDefined, isNotDefined } from '@Anarchy/Shared/Utils';
+import type { Collider, RigidBody, TriMeshFlags, World } from '@dimforge/rapier3d';
+import { ColliderDesc, RigidBodyDesc } from '@dimforge/rapier3d';
 import type { Vector3 } from 'three';
 
 export function createPhysicsBodyEntities(params: TPhysicsBodyParams, world: World): TPhysicsBodyEntities {

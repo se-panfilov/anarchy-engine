@@ -1,4 +1,3 @@
-import type { RigidBody } from '@dimforge/rapier3d';
 import type {
   TActor,
   TActorParams,
@@ -24,6 +23,7 @@ import type {
 import { getTags, LoopUpdatePriority, MaterialType, metersPerSecond, mpsSpeed, PrimitiveModel3dType, TransformAgent } from '@Anarchy/Engine';
 import { meters } from '@Anarchy/Engine/Measurements/Utils';
 import { isDefined, isNotDefined } from '@Anarchy/Shared/Utils';
+import type { RigidBody } from '@dimforge/rapier3d';
 import { nanoid } from 'nanoid';
 import type { Observable } from 'rxjs';
 import { withLatestFrom } from 'rxjs';

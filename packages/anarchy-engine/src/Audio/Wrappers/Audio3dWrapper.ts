@@ -1,4 +1,12 @@
-import type { TAbstractAudioWrapper, TAudio3dParams, TAudio3dPerformanceOptions, TAudio3dTransformDrive, TAudio3dWrapper, TAudioCreateFn, TAudioWrapperDependencies } from '@Anarchy/Engine/Audio/Models';
+import type {
+  TAbstractAudioWrapper,
+  TAudio3dParams,
+  TAudio3dPerformanceOptions,
+  TAudio3dTransformDrive,
+  TAudio3dWrapper,
+  TAudioCreateFn,
+  TAudioWrapperDependencies
+} from '@Anarchy/Engine/Audio/Models';
 import { Audio3dTransformDrive } from '@Anarchy/Engine/Audio/TransformDrive';
 import { createPositionalAudio, onAudioPositionUpdate } from '@Anarchy/Engine/Audio/Utils';
 import { AbstractAudioWrapper } from '@Anarchy/Engine/Audio/Wrappers/AbstractAudioWrapper';

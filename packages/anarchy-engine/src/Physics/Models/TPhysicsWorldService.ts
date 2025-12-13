@@ -1,7 +1,7 @@
-import type { World } from '@dimforge/rapier3d';
 import type { TAbstractService } from '@Anarchy/Engine/Abstract';
 import type { TWithSceneGetterService } from '@Anarchy/Engine/Mixins';
 import type { TPhysicsLoop, TPhysicsWorldConfig } from '@Anarchy/Engine/Physics';
+import type { World } from '@dimforge/rapier3d';
 import type { Vector3 } from 'three';
 
 import type { TPhysicsDebugRenderer } from './TPhysicsDebugRenderer';

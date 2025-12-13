@@ -1,7 +1,16 @@
 import { AbstractEntity, EntityType } from '@Anarchy/Engine/Abstract';
 import { actorToConfig } from '@Anarchy/Engine/Actor/Adapters';
 import { withActorStates } from '@Anarchy/Engine/Actor/Mixins';
-import type { TActor, TActorConfig, TActorDependencies, TActorEntities, TActorEntityToConfigDependencies, TActorModel3dSettings, TActorParams, TActorTransformDrive } from '@Anarchy/Engine/Actor/Models';
+import type {
+  TActor,
+  TActorConfig,
+  TActorDependencies,
+  TActorEntities,
+  TActorEntityToConfigDependencies,
+  TActorModel3dSettings,
+  TActorParams,
+  TActorTransformDrive
+} from '@Anarchy/Engine/Actor/Models';
 import { ActorTransformDrive } from '@Anarchy/Engine/Actor/TransformDrive';
 import { applySpatialGrid, startCollisions } from '@Anarchy/Engine/Actor/Utils';
 import { withCollisions } from '@Anarchy/Engine/Collisions';

@@ -1,5 +1,12 @@
 import type { LoaderType } from '@Anarchy/Engine/Abstract/Constants';
-import type { TAbstractLoadedResourcePack, TAbstractLoader, TAbstractOnLoadFunction, TAbstractResourceAsyncRegistry, TAbstractResourceConfig, TAbstractSimpleRegistry } from '@Anarchy/Engine/Abstract/Models';
+import type {
+  TAbstractLoadedResourcePack,
+  TAbstractLoader,
+  TAbstractOnLoadFunction,
+  TAbstractResourceAsyncRegistry,
+  TAbstractResourceConfig,
+  TAbstractSimpleRegistry
+} from '@Anarchy/Engine/Abstract/Models';
 import type { TDestroyable } from '@Anarchy/Engine/Mixins';
 import { destroyableMixin } from '@Anarchy/Engine/Mixins';
 import type { TWriteable } from '@Anarchy/Shared/Utils';
