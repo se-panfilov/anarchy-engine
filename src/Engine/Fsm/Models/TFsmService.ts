@@ -7,7 +7,7 @@ import type { TFsmSourceRegistry } from './TFsmSourceRegistry';
 
 export type TFsmService = TWithFactoryService<TFsmInstanceFactory> &
   Readonly<{
-    create: (params: TFsmParams) => TFsmWrapper;
+    create: (params: TFsmParams, force?: boolean) => TFsmWrapper | never;
     createInstanceBySourceName: (sourceName: string) => TFsmWrapper | never;
     createSource: (source: TFsmParams) => TFsmSource;
     createSourceFromConfig: (fsm: ReadonlyArray<TFsmParams>) => ReadonlyArray<TFsmSource>;
