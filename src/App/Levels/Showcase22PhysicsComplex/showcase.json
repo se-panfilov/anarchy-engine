@@ -1,0 +1,91 @@
+{
+  "name": "showcase",
+  "version": "1.0.0",
+  "scenes": [
+    {
+      "name": "showcase",
+      "tags": [],
+      "isActive": true
+    }
+  ],
+  "actors": [
+    {
+      "name": "surface",
+      "type": "plane",
+      "width": 24,
+      "height": 24,
+      "widthSegments": 1,
+      "heightSegments": 1,
+      "material": { "type": "standard", "params": { "color": "#8E8E8E" } },
+      "physics": {
+        "presetName": "wall_physics",
+        "shapeParams": {
+          "hx": 12,
+          "hy": 0.025,
+          "hz": 12
+        },
+        "position": { "x": 0, "y": -0.025, "z": 0 },
+        "rotation": { "x": 0, "y": 0, "z": 0, "w": 1 }
+      },
+      "position": { "x": 0, "y": 0, "z": 0 },
+      "rotation": { "x": -1.57, "y": 0, "z": 0 },
+      "castShadow": false,
+      "tags": []
+    }
+  ],
+  "intersections": [],
+  "physics": {
+    "global": {
+      "gravity": { "x": 0, "y": -9.81, "z": 0 }
+    },
+    "presets": [
+      {
+        "name": "wall_physics",
+        "type": "fixed",
+        "collisionShape": "cuboid"
+      }
+    ],
+    "isAutoUpdate": true
+  },
+  "texts": [],
+  "cameras": [
+    {
+      "fov": 45,
+      "name": "main",
+      "near": 1,
+      "far": 10000,
+      "position": { "x": 3, "y": 20, "z": 30 },
+      "rotation": { "x": 0, "y": 0, "z": 0 },
+      "tags": [],
+      "isActive": true
+    }
+  ],
+  "lights": [
+    {
+      "type": "Directional",
+      "color": "#ffffff",
+      "intensity": 1,
+      "castShadow": true,
+      "shadow": {
+        "mapSize": { "x": 1024, "y": 1024 },
+        "camera": { "far": 15 },
+        "normalBias": 0.05
+      },
+      "position": { "x": 0.25, "y": 2, "z": 2.25 },
+      "tags": []
+    }
+  ],
+  "controls": [
+    {
+      "type": "OrbitControls",
+      "cameraName": "main",
+      "enableDamping": true,
+      "tags": [],
+      "isActive": true
+    }
+  ],
+  "envMaps": [],
+  "particles": [],
+  "fogs": [],
+  "tags": []
+}
