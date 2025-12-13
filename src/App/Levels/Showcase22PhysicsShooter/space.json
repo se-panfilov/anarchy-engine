@@ -33,9 +33,6 @@
       },
       {
         "agent": "kinematic",
-        "kinematic": {
-          "isAutoUpdate": true
-        },
         "model3dSource": "hero_model",
         "name": "hero",
         "position": {
@@ -50,9 +47,6 @@
       },
       {
         "agent": "kinematic",
-        "kinematic": {
-          "isAutoUpdate": true
-        },
         "model3dSource": "sphere_1_model",
         "name": "sphere",
         "position": {
@@ -68,9 +62,6 @@
       },
       {
         "agent": "default",
-        "kinematic": {
-          "isAutoUpdate": true
-        },
         "model3dSource": "box_1_model",
         "name": "box_static_1",
         "position": {
@@ -86,9 +77,6 @@
       },
       {
         "agent": "default",
-        "kinematic": {
-          "isAutoUpdate": true
-        },
         "model3dSource": "box_2_model",
         "name": "box_static_2",
         "position": {
@@ -104,9 +92,6 @@
       },
       {
         "agent": "default",
-        "kinematic": {
-          "isAutoUpdate": true
-        },
         "model3dSource": "box_3_model",
         "name": "box_static_3",
         "position": {
@@ -122,9 +107,6 @@
       },
       {
         "agent": "default",
-        "kinematic": {
-          "isAutoUpdate": true
-        },
         "model3dSource": "box_4_model",
         "name": "box_static_4",
         "position": {
@@ -140,9 +122,6 @@
       },
       {
         "agent": "default",
-        "kinematic": {
-          "isAutoUpdate": true
-        },
         "model3dSource": "box_5_model",
         "name": "box_static_5",
         "position": {
@@ -158,9 +137,6 @@
       },
       {
         "agent": "default",
-        "kinematic": {
-          "isAutoUpdate": true
-        },
         "model3dSource": "box_6_model",
         "name": "box_static_6",
         "position": {
@@ -176,9 +152,6 @@
       },
       {
         "agent": "default",
-        "kinematic": {
-          "isAutoUpdate": true
-        },
         "model3dSource": "box_7_model",
         "name": "box_static_7",
         "position": {
@@ -199,9 +172,6 @@
       },
       {
         "agent": "kinematic",
-        "kinematic": {
-          "isAutoUpdate": true
-        },
         "model3dSource": "target_1_model",
         "name": "target_1",
         "position": {
@@ -222,9 +192,6 @@
       },
       {
         "agent": "kinematic",
-        "kinematic": {
-          "isAutoUpdate": true
-        },
         "model3dSource": "target_2_model",
         "name": "target_2",
         "position": {
@@ -245,9 +212,6 @@
       },
       {
         "agent": "kinematic",
-        "kinematic": {
-          "isAutoUpdate": true
-        },
         "model3dSource": "target_3_model",
         "name": "target_3",
         "position": {
