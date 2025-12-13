@@ -35,7 +35,7 @@ export function AbstractWrapper<T extends TWithUserData>(entity: T, type: Wrappe
     genericEntityCleanUp(entity);
 
     destroyableSub$.unsubscribe();
-    result.destroy$.complete();
+    // result.destroy$.complete();
   });
 
   //apply params

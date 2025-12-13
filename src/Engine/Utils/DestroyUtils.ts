@@ -158,7 +158,13 @@ export function genericEntityCleanUp(entity: any): void {
   destroyMaterialInEntity(entity);
 
   // Clear children if possible
-  (entity as any).clear?.();
+  (entity as any).destroy$?.next();
+
+  //Not the best solution, but for some entities (e.g., spatial grids), we need to call .clear() after destroy$.next() kinda done,
+  setTimeout((): void => {
+    // Clear children if possible
+    (entity as any).clear?.();
+  }, 10);
 
   // Dispose itself if possible
   (entity as any).dispose?.();
