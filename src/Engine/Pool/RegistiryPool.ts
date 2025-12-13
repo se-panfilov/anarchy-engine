@@ -1,5 +1,5 @@
 import { DestroyablePool } from '@Engine/Pool/DestroyablePool';
-import { ActorRegistry, CameraRegistry, ControlsRegistry, LightRegistry, MouseClicksWatcherRegistry } from '@Engine/Registries';
+import { ActorRegistry, CameraRegistry, ControlsRegistry, LightRegistry, MouseClicksWatcherRegistry, ScreenSizeWatcherRegistry } from '@Engine/Registries';
 import { isNotDefined } from '@Engine/Utils';
 import type { IActorWrapper, ICameraWrapper, ILightWrapper, ISceneWrapper } from '@Engine/Wrappers';
 
@@ -11,7 +11,10 @@ export function RegistryPool(): IRegistryPool {
     cameraRegistry: CameraRegistry(),
     lightRegistry: LightRegistry(),
     controlsRegistry: ControlsRegistry(),
-    mouseClicksWatcherRegistry: MouseClicksWatcherRegistry()
+    // TODO (S.Panfilov) is this registration needed?
+    mouseClicksWatcherRegistry: MouseClicksWatcherRegistry(),
+    screenSizeWatcherRegistry: ScreenSizeWatcherRegistry(),
+    mousePositionWatcherRegistry: MousePositionWatcherRegistry()
   });
 
   function startAddSubscription(scene: ISceneWrapper): void {

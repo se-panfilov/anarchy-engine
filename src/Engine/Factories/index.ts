@@ -6,5 +6,7 @@ export * from './InputFactory';
 export * from './LightFactory';
 export * from './LoopFactory';
 export * from './MouseClicksWatcherFactory';
+export * from './MousePositionWatcherFactory';
 export * from './RendererFactory';
 export * from './SceneFactory';
+export * from './ScreenSizeWatcherFactory';
