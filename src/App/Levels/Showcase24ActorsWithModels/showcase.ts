@@ -30,7 +30,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
   function init(): void {
     addGizmo(space.services, { placement: 'bottom-left' });
 
-    // const actor: TActorWrapper = actorService.create(params);
+    // const actor: TActor = actorService.create(params);
   }
 
   // TODO debug light

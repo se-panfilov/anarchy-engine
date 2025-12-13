@@ -168,9 +168,9 @@ export function SpatialGridWrapper(params: TSpatialGridParams): TSpatialGridWrap
     });
     _debugOutlinesIds = [];
 
-    const actorsWrapperList: ReadonlyArray<TActor> = getAllInCell(x, z);
+    const actorsList: ReadonlyArray<TActor> = getAllInCell(x, z);
 
-    actorsWrapperList.forEach((actor: TActor): void => {
+    actorsList.forEach((actor: TActor): void => {
       const outline: Line2 = createOutline(actor, color, 0.1);
       sceneW.entity.add(outline);
       // eslint-disable-next-line functional/immutable-data

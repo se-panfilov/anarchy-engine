@@ -20,11 +20,11 @@ export function IntersectionsWatcher({ position$, isAutoStart, tags, name, perfo
   let actors: ReadonlyArray<TActor> = [];
   let camera: Readonly<TCameraWrapper> | undefined;
 
-  const addActors = (actorWrappers: ReadonlyArray<TActor>): void => void (actors = [...actors, ...actorWrappers]);
-  const addActor = (actorWrapper: TActor): void => void (actors = [...actors, actorWrapper]);
+  const addActors = (actorsList: ReadonlyArray<TActor>): void => void (actors = [...actors, ...actorsList]);
+  const addActor = (actor: TActor): void => void (actors = [...actors, actor]);
   const getActors = (): ReadonlyArray<TActor> => actors;
-  const removeActors = (actorWrapperIds: ReadonlyArray<string>): void => void (actors = actors.filter((actor: TActor): boolean => !actorWrapperIds.includes(actor.id)));
-  const removeActor = (actorWrapperId: string): void => void (actors = actors.filter((actor: TActor): boolean => actorWrapperId !== actor.id));
+  const removeActors = (actorIds: ReadonlyArray<string>): void => void (actors = actors.filter((actor: TActor): boolean => !actorIds.includes(actor.id)));
+  const removeActor = (actorId: string): void => void (actors = actors.filter((actor: TActor): boolean => actorId !== actor.id));
 
   const setCamera = (cam: TCameraWrapper): void => void (camera = cam);
   const getCamera = (): TCameraWrapper | undefined => camera;
