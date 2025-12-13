@@ -1,3 +1,5 @@
+import type { TUnionToIntersection } from './TypesUtils';
+
 export function cleanObject<T extends Record<string, unknown>>(obj: T): void {
   Object.keys(obj).forEach((key: keyof T): void => {
     // eslint-disable-next-line functional/immutable-data
@@ -34,4 +36,36 @@ export const omitInObjectWithMutation = <T extends Record<string, unknown>, K ex
 
 export function filterOutEmptyFields<T extends Record<string, unknown>>(obj: T): T {
   return Object.fromEntries(Object.entries(obj).filter(([, value]: [string, unknown]): boolean => value !== undefined && value !== null && value !== Infinity && value !== -Infinity)) as T;
+}
+
+export type TMergeBuilder<T> = {
+  with: <B extends object>(next: B) => TMergeBuilder<T & B>;
+  done: () => T;
+};
+
+// This is a type-safe equivalent of Object.assign (which can lose type information with more than 2-3 arguments).
+// Avoid usage with getters/setters (they will become regular properties).
+export function mergeChain<A extends object>(initial: A): TMergeBuilder<A> {
+  return {
+    with<B extends object>(next: B): TMergeBuilder<A & B> {
+      // eslint-disable-next-line functional/immutable-data
+      Object.assign(initial, next);
+      return mergeChain(initial as A & B);
+    },
+    done(): A {
+      return initial;
+    }
+  };
+}
+
+// This is a type-safe equivalent of Object.assign (which can lose type information with more than 2-3 arguments).
+// Avoid usage with getters/setters (they will become regular properties).
+export function mergeAll<T extends readonly [object, ...object[]]>(...args: T): TUnionToIntersection<T[number]> {
+  const target = args[0];
+  // eslint-disable-next-line functional/no-loop-statements
+  for (let i: number = 1; i < args.length; i++) {
+    // eslint-disable-next-line functional/immutable-data
+    Object.assign(target, args[i]);
+  }
+  return target as TUnionToIntersection<T[number]>;
 }

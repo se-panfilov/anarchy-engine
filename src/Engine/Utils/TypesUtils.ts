@@ -36,3 +36,5 @@ export function nullsToUndefined<T extends Record<string, any>>(obj: T): TNullTo
   }
   return result;
 }
+
+export type TUnionToIntersection<U> = (U extends any ? (k: U) => void : never) extends (k: infer I) => void ? I : never;
