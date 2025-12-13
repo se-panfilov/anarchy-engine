@@ -3,26 +3,17 @@ import './assets/style.scss';
 
 import { eventsService } from '@Showcases/GUI/services';
 import Bottom from '@Showcases/GUI/views/Bottom.vue';
-import type { TInputShieldService } from '@Showcases/Shared';
-import { InputShieldService } from '@Showcases/Shared';
 import type { Subscription } from 'rxjs';
-import { onMounted, onUnmounted, ref } from 'vue';
+import { onMounted, onUnmounted } from 'vue';
 
 let appEventsSub$: Subscription | undefined;
-
-const root = ref<HTMLElement | null>(null);
-const inputShieldService: TInputShieldService = InputShieldService(() => root.value);
 
 onMounted((): void => {
   appEventsSub$ = eventsService.startListeningAppEvents();
   // eventsService.emitGetCurrentGui();
-  inputShieldService.start();
 });
 
-onUnmounted((): void => {
-  appEventsSub$?.unsubscribe();
-  inputShieldService.start();
-});
+onUnmounted((): void => appEventsSub$?.unsubscribe());
 
 // function some(): void {
 // eventsService.emitSetGuiSettings(useSettingsStore().state);
@@ -30,7 +21,7 @@ onUnmounted((): void => {
 </script>
 
 <template>
-  <div ref="root" class="gui">
+  <div class="gui">
     <Bottom class="gui__item -bottom" />
   </div>
 </template>
