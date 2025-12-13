@@ -19,6 +19,7 @@ const fadeDuration = 0.3;
 
 const { Idle, Run } = AnimationActions;
 
+// TODO 15-0-0: Test separately loaded animation
 export const spaceAnimationsData: TSpacesData = {
   name: config.name,
   config: config,
