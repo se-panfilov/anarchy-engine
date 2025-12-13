@@ -1,8 +1,8 @@
 import type { TOptional } from '@/Engine/Utils';
 
-import type { TKinematicData } from './TKinematicData';
+import type { TKinematicDataConfig } from './TKinematicDataConfig';
 
-export type TKinematicConfig = TOptional<TKinematicData> &
+export type TKinematicConfig = TOptional<TKinematicDataConfig> &
   Readonly<{
     isAutoUpdate: boolean;
   }>;
