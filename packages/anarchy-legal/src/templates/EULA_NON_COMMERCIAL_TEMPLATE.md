@@ -1,4 +1,4 @@
-# End User License Terms — [FRAMEWORK NAME] (Open Source)
+# End User License Terms — {{PACKAGE_NAME}} (Open Source)
 
 **Effective date:** {{EFFECTIVE_DATE}}
 This repository is provided under the **{{PLATFORM_LICENSE}}** (see `LICENSE`). The following clarifications apply to the open-source codebase:
