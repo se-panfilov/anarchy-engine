@@ -6,3 +6,4 @@ export * from './TModel3dProps';
 export * from './TModels3dAnimationsAsyncRegistry';
 export * from './TModels3dAsyncRegistry';
 export * from './TModels3dService';
+export * from './TPerformLoadResult';

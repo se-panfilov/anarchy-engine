@@ -65,7 +65,6 @@ function validateData({ name, actors, cameras, scenes, spatialGrids, controls, i
   const isEveryPhysicsPresetNameValid: boolean = validateNames(physics.presets ?? []);
   const isEveryActorsPhysicsPresetNameValid: boolean = validatePresetNames(actors);
   const isEverySpatialGridNameValid: boolean = validateNames(spatialGrids);
-  const isEveryModel3dNameValid: boolean = validateNames(models3d);
 
   //tags
   const isConfigTagsValid: boolean = validateTags(tags);
@@ -95,7 +94,6 @@ function validateData({ name, actors, cameras, scenes, spatialGrids, controls, i
   if (!isConfigNameValid) errors = [...errors, 'Space config name must be defined and contain only letters, numbers and underscores'];
   if (!isEverySceneNameValid) errors = [...errors, 'Scene names must be defined and contain only letters, numbers and underscores'];
   if (!isEverySpatialGridNameValid) errors = [...errors, 'SpatialGrids names must be defined and contain only letters, numbers and underscores'];
-  if (!isEveryModel3dNameValid) errors = [...errors, 'Models3d names must be defined and contain only letters, numbers and underscores'];
   if (!isEveryActorNameValid) errors = [...errors, 'Actor names must be defined and contain only letters, numbers and underscores'];
   if (!isEveryCameraNameValid) errors = [...errors, 'Camera names must be defined and contain only letters, numbers and underscores'];
   if (!isEveryIntersectionNameValid) errors = [...errors, 'Intersection names must be defined and contain only letters, numbers and underscores'];

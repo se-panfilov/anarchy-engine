@@ -1,5 +1,4 @@
 import type { TEulerWrapper } from '@/Engine/Euler';
-import type { TWithName } from '@/Engine/Mixins';
 import type { Model3dType } from '@/Engine/Models3d/Constants';
 import type { TVector3Wrapper } from '@/Engine/Vector';
 
@@ -9,7 +8,6 @@ export type TModel3dProps = Readonly<{
   url: string | Model3dType;
   options: TModel3dLoadOptions;
 }> &
-  TWithName &
   Readonly<{
     position?: TVector3Wrapper;
     rotation?: TEulerWrapper;

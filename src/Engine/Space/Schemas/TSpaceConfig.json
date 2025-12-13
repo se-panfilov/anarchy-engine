@@ -2039,9 +2039,6 @@
             }
           ]
         },
-        "name": {
-          "type": "string"
-        },
         "tags": {
           "type": "array",
           "items": {
@@ -2165,9 +2162,6 @@
         },
         "options": {
           "$ref": "#/definitions/TModel3dLoadOptions"
-        },
-        "name": {
-          "type": "string"
         }
       },
       "required": ["options", "position", "url"]
