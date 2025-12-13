@@ -14,7 +14,7 @@
   "type": "module",
   "license": "MIT",
   "scripts": {
-    "after:release": "npm run tracking:sourcemaps:web:production",
+    "after:release": "npm run tracking:sourcemaps:production",
     "before:release": "npm run before:release:check && npm run sanitize-assets",
     "before:release:check": "npm run ts:check && npm run check:circular-dependencies && npm run lint",
     "build:dev:all": "npm run build:mac -- --mode=dev && npm run build:win -- --mode=dev && npm run build:linux -- --mode=dev",
@@ -66,9 +66,9 @@
     "sanitize-assets": "node ../../packages/anarchy-shared/ScriptUtils/SanitizeAssets.js ./assets",
     "start:dev": "node ./scripts/start.js --mode=dev",
     "start:prod": "node ./scripts/start.js --mode=production",
-    "tracking:sourcemaps:dev": "node ../../packages/anarchy-tracking/ScriptUtils/UploadSourcemaps.js ./dist --mode dev --no-dev-guard",
-    "tracking:sourcemaps:production": "node ../../packages/anarchy-tracking/ScriptUtils/UploadSourcemaps.js ./dist --mode production",
-    "tracking:sourcemaps:production:dry": "node ../../packages/anarchy-tracking/ScriptUtils/UploadSourcemaps.js ./dist --mode production --dry-run",
+    "tracking:sourcemaps:dev": "node ../../packages/anarchy-tracking/ScriptUtils/UploadSourcemaps.js ./dist --url-prefix app:///dist/ --mode dev --no-dev-guard",
+    "tracking:sourcemaps:production": "node ../../packages/anarchy-tracking/ScriptUtils/UploadSourcemaps.js ./dist --url-prefix app:///dist/ --mode production",
+    "tracking:sourcemaps:production:dry": "node ../../packages/anarchy-tracking/ScriptUtils/UploadSourcemaps.js ./dist --url-prefix app:///dist/ --mode production --dry-run",
     "ts:check": "tsc --noEmit",
     "ts:check:watch": "tsc --watch --noEmit"
   },
