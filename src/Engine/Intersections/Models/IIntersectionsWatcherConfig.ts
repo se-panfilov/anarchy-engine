@@ -1,9 +1,5 @@
-import type { IWithName, IWithReadonlyTags } from '@/Engine/Mixins';
+import type { IWithReadonlyTags } from '@/Engine/Mixins';
 
-export type IIntersectionsWatcherConfig = Readonly<{
-  cameraName: string;
-  actorNames: ReadonlyArray<string>;
-  isAutoStart: boolean;
-}> &
-  IWithName &
-  IWithReadonlyTags;
+import type { IIntersectionsWatcherProps } from './IIntersectionsWatcherProps';
+
+export type IIntersectionsWatcherConfig = IIntersectionsWatcherProps & IWithReadonlyTags;

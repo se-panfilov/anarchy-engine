@@ -1,3 +1,4 @@
+import type { ICameraService } from '@/Engine/Camera';
 import type {
   IIntersectionsWatcher,
   IIntersectionsWatcherConfig,
@@ -8,13 +9,14 @@ import type {
 } from '@/Engine/Intersections/Models';
 import type { IDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
+import type { IMouseService } from '@/Engine/Mouse';
 
 export function IntersectionsWatcherService(factory: IIntersectionsWatcherFactory, registry: IIntersectionsWatcherRegistry): IIntersectionsWatcherService {
-  factory.entityCreated$.subscribe((fog: IIntersectionsWatcher): void => registry.add(fog));
+  factory.entityCreated$.subscribe((watcher: IIntersectionsWatcher): void => registry.add(watcher));
 
   const create = (params: IIntersectionsWatcherParams): IIntersectionsWatcher => factory.create(params);
-  const createFromConfig = (fogs: ReadonlyArray<IIntersectionsWatcherConfig>): void =>
-    fogs.forEach((fog: IIntersectionsWatcherConfig): IIntersectionsWatcher => factory.create(factory.configToParams(fog)));
+  const createFromConfig = (configs: ReadonlyArray<IIntersectionsWatcherConfig>, mouseService: IMouseService, cameraService: ICameraService): void =>
+    configs.forEach((config: IIntersectionsWatcherConfig): IIntersectionsWatcher => factory.create(factory.configToParams(config, mouseService, cameraService)));
 
   const destroyable: IDestroyable = destroyableMixin();
   destroyable.destroyed$.subscribe(() => {

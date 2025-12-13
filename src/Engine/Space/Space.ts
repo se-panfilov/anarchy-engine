@@ -95,7 +95,14 @@ export function buildSpaceFromConfig(canvas: IAppCanvas, config: ISpaceConfig): 
   return {
     name,
     start(): void {
-      void intersectionsWatcherPromisesList.forEach((promise: Promise<IIntersectionsWatcher>): void => void promise.then((watcher: IIntersectionsWatcher) => watcher.start()));
+      void intersectionsWatcherPromisesList.forEach(
+        (promise: Promise<IIntersectionsWatcher>): void =>
+          void promise.then((watcher: IIntersectionsWatcher) => {
+            // TODO (S.Panfilov) debug
+            console.log(watcher.getActors());
+            if (watcher.isAutoStart && !watcher.isStarted) watcher.start();
+          })
+      );
       loopService.start();
     },
     stop(): void {

@@ -11,7 +11,7 @@ import { getNormalizedMousePosition } from '@/Engine/Mouse';
 import type { ISceneObject } from '@/Engine/Scene';
 import { isDefined, isNotDefined, unWrapEntities } from '@/Engine/Utils';
 
-export function IntersectionsWatcher({ position$, isAutoStart, tags = [] }: IIntersectionsWatcherParams): IIntersectionsWatcher {
+export function IntersectionsWatcher({ position$, isAutoStart, tags }: IIntersectionsWatcherParams): IIntersectionsWatcher {
   const abstractWatcher: IAbstractWatcher<IIntersectionEvent> = AbstractWatcher(WatcherType.IntersectionWatcher, tags);
   let raycaster: Readonly<Raycaster> | undefined = new Raycaster();
   let actors: ReadonlyArray<IActorWrapperAsync> = [];

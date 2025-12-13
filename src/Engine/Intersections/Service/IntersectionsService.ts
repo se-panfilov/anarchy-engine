@@ -17,6 +17,8 @@ import { isNotDefined } from '@/Engine/Utils';
 export function IntersectionsService(factory: IIntersectionsWatcherFactory, registry: IIntersectionsWatcherRegistry): IIntersectionsService {
   const intersectionsWatcherService: IIntersectionsWatcherService = IntersectionsWatcherService(factory, registry);
 
+  // TODO (S.Panfilov) CWP dow we need this service at all?
+
   function buildWatcher(camera: Readonly<ICameraWrapper>): IIntersectionsWatcher {
     const watcher: IIntersectionsWatcher = intersectionsWatcherService.create({ position$: mouseService.position$ });
     watcher.setCamera(camera);
