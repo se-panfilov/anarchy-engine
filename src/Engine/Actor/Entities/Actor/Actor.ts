@@ -33,14 +33,12 @@ export function Actor(
   // TODO 8.0.0. MODELS: Connect Physics body with the PhysicsAgent
   // TODO 8.0.0. MODELS: Make sure external change of position$/rotation$/scale$ works with the PhysicsAgent
 
-  // TODO 8.0.0. MODELS: Make spatial is working
-  // TODO 8.0.0. MODELS: Make collisions are working
+  // TODO 8.0.0. MODELS: Make spatial working
+  // TODO 8.0.0. MODELS: Make collisions working
 
-  // TODO 8.0.0. MODELS: Make sure it works with the Kinematic agent
-  // TODO 8.0.0. MODELS: Make sure it works with the Physics agent
-  // TODO 8.0.0. MODELS: Make sure it works with the Connected agent
-
-  // TODO 8.0.0. MODELS: Add a showcase with runtime switch between agents (check spatial and collisions)
+  // TODO 8.0.0. MODELS: Add a showcase with runtime switch between agents
+  // TODO 8.0.0. MODELS: In showcase validate also rotation and scale
+  // TODO 8.0.0. MODELS: In showcase check spatial and collisions
 
   // TODO 8.0.0. MODELS: Make sure that on creation of Actor we apply actor's position$/rotation$/scale$ to model3d
 
@@ -61,12 +59,7 @@ export function Actor(
     entities.updateSpatialCells(position);
   });
 
-  const actor: TActor = {
-    ...AbstractEntity(entities, EntityType.Actor, params),
-    position$: drive.position$,
-    rotation$: drive.rotation$,
-    scale$: drive.scale$
-  };
+  const actor: TActor = AbstractEntity(entities, EntityType.Actor, params);
 
   const spatialSub$: Subscription = spatialLoopService.tick$.subscribe(({ priority }: TSpatialLoopServiceValue): void => {
     if (!entities.spatial.isAutoUpdate()) return;
