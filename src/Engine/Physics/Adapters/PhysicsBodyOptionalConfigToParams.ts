@@ -1,10 +1,11 @@
 import { Vector4 } from 'three';
 
 import type { TPhysicsBodyConfig, TPhysicsBodyParams } from '@/Engine/Physics/Models';
+import type { TOptional } from '@/Engine/Utils';
 
 import { withCoordsToVector } from './Utils';
 
-export function configToOptionalParamsBody(config: TPhysicsBodyConfig): TPhysicsBodyParams {
+export function configToOptionalParamsBody(config: TPhysicsBodyConfig): TOptional<TPhysicsBodyParams> {
   const { position, rotation, ...rest } = config;
 
   return {
