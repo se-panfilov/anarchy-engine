@@ -6,10 +6,9 @@ import View from '@Menu/components/View.vue';
 import ViewActions from '@Menu/components/ViewActions.vue';
 import ViewForm from '@Menu/components/ViewForm.vue';
 import { useSettingsStore } from '@Menu/stores/SettingsStore';
+import type { TAudioSettings } from '@ShowcasesShared';
 import type { TWriteable } from 'anarchy_engine/src';
 import { reactive } from 'vue';
-
-import type { TAudioSettings } from '@ShowcasesShared';
 
 const emit = defineEmits(['reset', 'save']);
 
