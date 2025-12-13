@@ -23,17 +23,21 @@ export function _debugTracked<T>(source$: Observable<T>, name = 'Unnamed'): Obse
   if (isNotDefined((window as any)._subscriptionsCreated)) (window as any)._subscriptionsCreated = 0;
   // eslint-disable-next-line functional/immutable-data
   if (isNotDefined((window as any)._subscriptionsFinalized)) (window as any)._subscriptionsFinalized = 0;
+  // eslint-disable-next-line functional/immutable-data
+  if (isNotDefined((window as any)._subscriptionsList)) (window as any)._subscriptionsList = new Map<string, Observable<T>>();
 
-  return defer(() => {
+  return defer((): Observable<T> => {
     // eslint-disable-next-line functional/immutable-data
     (window as any)._subscriptionsCreated++;
     // console.log(`[${name}] subscribed (${(window as any)._subscriptionsCreated} total)`);
+    (window as any)._subscriptionsList.set(name, source$);
 
     return source$.pipe(
-      finalize(() => {
+      finalize((): void => {
         // eslint-disable-next-line functional/immutable-data
         (window as any)._subscriptionsFinalized++;
         // console.log(`[${name}] finalized (${(window as any)._subscriptionsFinalized} total)`);
+        (window as any)._subscriptionsList.delete(name);
       })
     );
   });
