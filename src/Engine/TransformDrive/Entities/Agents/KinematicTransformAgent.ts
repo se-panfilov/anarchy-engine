@@ -52,10 +52,10 @@ export function KinematicTransformAgent(params: TKinematicTransformAgentParams, 
         isInfiniteRotation: params.state.isInfiniteRotation ?? false
       },
       target: {
-        positionThreshold: 0.01,
-        position: undefined,
-        rotationThreshold: 0.0001,
-        rotation: undefined
+        positionThreshold: params.target?.positionThreshold ?? 0.01,
+        position: params.target?.position?.clone() ?? undefined,
+        rotationThreshold: params.target?.rotationThreshold ?? 0.0001,
+        rotation: params.target?.rotation?.clone() ?? undefined
       }
     },
     setData({ state, target }: TKinematicData): void {

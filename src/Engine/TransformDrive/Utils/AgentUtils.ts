@@ -34,6 +34,12 @@ export function getKinematicWithDefaults(kinematic: TOptional<TKinematicParams> 
       radius: kinematic?.state?.radius ?? DEFAULT_RADIUS,
       forwardAxis: ForwardAxis.X,
       isInfiniteRotation: false
+    },
+    target: {
+      positionThreshold: kinematic?.target?.positionThreshold ?? 0.01,
+      position: kinematic?.target?.position ?? undefined,
+      rotationThreshold: kinematic?.target?.rotationThreshold ?? 0.0001,
+      rotation: kinematic?.target?.rotation ?? undefined
     }
   };
 }
