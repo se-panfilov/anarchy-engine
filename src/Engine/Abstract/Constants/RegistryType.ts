@@ -8,6 +8,7 @@ export enum RegistryType {
   KeyboardRecord = 'keyboard_record',
   Light = 'light',
   Material = 'material',
+  Models3d = 'models_3d',
   MouseClickWatcher = 'mouse_click_watcher',
   MousePositionWatcher = 'mouse_position_watcher',
   Particles = 'particles',

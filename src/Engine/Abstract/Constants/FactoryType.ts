@@ -7,6 +7,7 @@ export enum FactoryType {
   Light = 'light_factory',
   Material = 'material_factory',
   MouseClickWatcher = 'mouse_click_watcher_factory',
+  Models3d = 'models_3d_factory',
   MousePositionWatcher = 'mouse_position_watcher_factory',
   Particles = 'particles_factory',
   PhysicsBody = 'physics_body_factory',
