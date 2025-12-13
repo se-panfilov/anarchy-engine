@@ -41,7 +41,7 @@ export function buildSpaceFromConfig(canvas: IAppCanvas, config: ISpaceConfig): 
     return activeScene;
   });
 
-  const { cameraService, lightService, fogService, envMapService, textService, rendererService } = services;
+  const { cameraService, controlsService, lightService, fogService, envMapService, textService, rendererService } = services;
 
   cameraService.createFromConfig(cameras);
   services.actorService.createFromConfig(actors);
@@ -50,7 +50,7 @@ export function buildSpaceFromConfig(canvas: IAppCanvas, config: ISpaceConfig): 
   const text3dRenderer: IText3dRenderer = initText3dRenderer(ambientContext.container.getAppContainer(), ambientContext.screenSizeWatcher);
   textService.createFromConfig(texts);
 
-  services.controlsService.createFromConfig(controls, cameraService.getRegistry());
+  controlsService.createFromConfig(controls, cameraService.getRegistry());
   lightService.createFromConfig(lights);
 
   //build intersections
@@ -66,6 +66,9 @@ export function buildSpaceFromConfig(canvas: IAppCanvas, config: ISpaceConfig): 
 
   const renderer: IRendererWrapper = rendererService.create({ canvas, tags: [], mode: RendererModes.WebGL2, isActive: true });
   const loopService: ILoopService = LoopService();
+
+  const { text2dRegistry, text3dRegistry } = textService.getRegistries();
+  const controlsRegistry = controlsService.getRegistry();
 
   const loopTick$: Subscription = loopService.tick$.subscribe(({ delta }: ILoopTimes): void => {
     const activeCamera: ICameraWrapper | undefined = cameraService?.findActiveCamera();
