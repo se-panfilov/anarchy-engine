@@ -1,4 +1,4 @@
-export interface IVector2dConfig {
-  readonly x: number;
-  readonly y: number;
-}
+export type IVector2dConfig = Readonly<{
+  x: number;
+  y: number;
+}>;

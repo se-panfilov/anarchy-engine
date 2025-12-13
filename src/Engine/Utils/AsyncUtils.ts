@@ -20,9 +20,9 @@ export function createDeferredPromise<T>(): DeferredPromise<T> {
   };
 }
 
-export interface DeferredPromise<T> {
-  readonly resolve: (value: T | PromiseLike<T>) => void;
+export type DeferredPromise<T> = Readonly<{
+  resolve: (value: T | PromiseLike<T>) => void;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  readonly reject: (reason?: any) => void;
-  readonly promise: Promise<T>;
-}
+  reject: (reason?: any) => void;
+  promise: Promise<T>;
+}>;

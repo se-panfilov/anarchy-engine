@@ -1,14 +1,15 @@
 import type { IActorType, IActorParams } from '@Engine/Models';
 import type { IVector3dConfig } from './IVector3dConfig';
 
-export interface IActorConfig extends Omit<IActorParams, 'materialParams' | 'position'> {
-  readonly type: IActorType;
-  readonly width: number;
-  readonly height: number;
-  readonly materialParams: ActorMaterialConfig;
-  readonly position: IVector3dConfig;
-  readonly castShadow: boolean;
-}
+export type IActorConfig = Omit<IActorParams, 'materialParams' | 'position'> &
+  Readonly<{
+    type: IActorType;
+    width: number;
+    height: number;
+    materialParams: ActorMaterialConfig;
+    position: IVector3dConfig;
+    castShadow: boolean;
+  }>;
 
 export type ActorMaterialConfig = Readonly<{
   color: string;

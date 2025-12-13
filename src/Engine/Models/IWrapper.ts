@@ -1,4 +1,4 @@
-export interface IWrapper<T> {
+export type IWrapper<T> = Readonly<{
   id: string;
   entity: T;
-}
+}>;
