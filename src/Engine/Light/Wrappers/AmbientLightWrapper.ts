@@ -1,10 +1,10 @@
 import { AmbientLight } from 'three';
 
-import type { TAbstractLightWrapper, TAmbientLight, TAmbientLightParams } from '@/Engine/Light/Models';
+import type { TAbstractLightWrapper, TAmbientLight, TAmbientLightParams, TLightServiceDependencies } from '@/Engine/Light/Models';
 
 import { AbstractLightWrapper } from './AbstractLightWrapper';
 
-export function AmbientLightWrapper(params: TAmbientLightParams): TAbstractLightWrapper<TAmbientLight> {
+export function AmbientLightWrapper(params: TAmbientLightParams, dependencies: TLightServiceDependencies): TAbstractLightWrapper<TAmbientLight> {
   const entity: TAmbientLight = new AmbientLight(params.color, params.intensity);
-  return AbstractLightWrapper(entity, params);
+  return AbstractLightWrapper(entity, params, dependencies);
 }

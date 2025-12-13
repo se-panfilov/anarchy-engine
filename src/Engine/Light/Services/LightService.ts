@@ -8,6 +8,7 @@ import type {
   TLightFactory,
   TLightRegistry,
   TLightService,
+  TLightServiceDependencies,
   TLightServiceWithCreate,
   TLightServiceWithCreateFromConfig,
   TLightServiceWithFactory,
@@ -17,13 +18,13 @@ import type { TDisposable } from '@/Engine/Mixins';
 import { withCreateFromConfigServiceMixin, withCreateServiceMixin, withFactoryService, withRegistryService, withSceneGetterService } from '@/Engine/Mixins';
 import type { TSceneWrapper } from '@/Engine/Scene';
 
-export function LightService(factory: TLightFactory, registry: TLightRegistry, scene: TSceneWrapper): TLightService {
+export function LightService(factory: TLightFactory, registry: TLightRegistry, dependencies: TLightServiceDependencies, scene: TSceneWrapper): TLightService {
   const registrySub$: Subscription = registry.added$.subscribe(({ value }: TRegistryPack<TAbstractLightWrapper<TLight>>) => scene.addLight(value));
   const factorySub$: Subscription = factory.entityCreated$.subscribe((wrapper: TAbstractLightWrapper<TLight>): void => registry.add(wrapper));
   const disposable: ReadonlyArray<TDisposable> = [registry, factory, registrySub$, factorySub$];
   const abstractService: TAbstractService = AbstractService(disposable);
 
-  const withCreateService: TLightServiceWithCreate = withCreateServiceMixin(factory, undefined);
+  const withCreateService: TLightServiceWithCreate = withCreateServiceMixin(factory, dependencies);
   const withCreateFromConfigService: TLightServiceWithCreateFromConfig = withCreateFromConfigServiceMixin(withCreateService.create, factory.configToParams, undefined);
   const withFactory: TLightServiceWithFactory = withFactoryService(factory);
   const withRegistry: TLightServiceWithRegistry = withRegistryService(registry);

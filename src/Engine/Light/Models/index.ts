@@ -17,6 +17,7 @@ export type * from './TLightFactory';
 export type * from './TLightParams';
 export type * from './TLightRegistry';
 export type * from './TLightService';
+export type * from './TLightServiceDependencies';
 export type * from './TLightShadowParams';
 export type * from './TLightTransformAgents';
 export type * from './TLightTransformDrive';

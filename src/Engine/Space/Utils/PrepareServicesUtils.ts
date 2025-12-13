@@ -108,7 +108,7 @@ export function buildEntitiesServices(
     fsmService,
     intersectionsWatcherService: IntersectionsWatcherService(IntersectionsWatcherFactory(), IntersectionsWatcherRegistry()),
     keyboardService: KeyboardService(loops.keyboardLoop),
-    lightService: LightService(LightFactory(), LightRegistry(), sceneW),
+    lightService: LightService(LightFactory(), LightRegistry(), { transformDriveService }, sceneW),
     loopService,
     materialService,
     models3dService,
