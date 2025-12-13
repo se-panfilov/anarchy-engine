@@ -8,13 +8,15 @@ import type { TOptional } from '@/Engine/Utils';
 
 import type { TActorProps } from './TActorProps';
 
+export type TKinematicDataConfig = TOptional<TKinematicData>;
+
 export type TActorConfig = Omit<TActorProps, 'material'> &
   Readonly<{
     material: TMaterialPackConfig<TMaterialTexturePack>;
     type: ActorType;
     castShadow: boolean;
     physics?: TWithPresetNamePhysicsBodyConfig;
-    kinematic?: TOptional<TKinematicData>;
+    kinematic?: TKinematicDataConfig;
     isKinematicAutoUpdate?: boolean;
   }> &
   TObject3DPropConfig &

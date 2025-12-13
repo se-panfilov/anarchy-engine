@@ -6,13 +6,15 @@ import type { TOptional } from '@/Engine/Utils';
 
 import type { TActorProps } from './TActorProps';
 
+export type TKinematicDataParams = TOptional<TKinematicData>;
+
 export type TActorParams = TActorProps &
   TObject3DParams &
   Readonly<{
     physics?: TWithPresetNamePhysicsBodyParams;
   }> &
   Readonly<{
-    kinematic?: TOptional<TKinematicData>;
+    kinematic?: TKinematicDataParams;
     isKinematicAutoUpdate?: boolean;
   }> &
   TWithReadonlyTags;

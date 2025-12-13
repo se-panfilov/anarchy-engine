@@ -231,7 +231,7 @@
           "$ref": "#/definitions/TWithPresetNamePhysicsBodyConfig"
         },
         "kinematic": {
-          "$ref": "#/definitions/TKinematicData"
+          "$ref": "#/definitions/TKinematicDataConfig"
         },
         "isKinematicAutoUpdate": {
           "type": "boolean"
@@ -2277,7 +2277,10 @@
       "required": ["halfHeight", "radius", "borderRadius"],
       "additionalProperties": false
     },
-    "TKinematicData": {
+    "TKinematicDataConfig": {
+      "$ref": "#/definitions/TOptional%3CTKinematicData%3E"
+    },
+    "TOptional<TKinematicData>": {
       "type": "object",
       "properties": {
         "linearSpeed": {
@@ -2293,7 +2296,6 @@
           "$ref": "#/definitions/Vector3"
         }
       },
-      "required": ["linearSpeed", "linearDirection", "angularSpeed", "angularDirection"],
       "additionalProperties": false
     },
     "Vector3": {

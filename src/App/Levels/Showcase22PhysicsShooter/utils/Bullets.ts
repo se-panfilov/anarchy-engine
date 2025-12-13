@@ -79,8 +79,6 @@ export async function BulletAsync(params: TActorParams, actorService: TActorServ
       const azimuthRadians: TRadians = actor.kinematic.getLinearAzimuthRad();
       const elevationRadians: TRadians = actor.kinematic.getLinearElevationRad();
       const vectorDirection: Vector3 = new Vector3(Math.cos(elevationRadians) * Math.cos(azimuthRadians), Math.sin(elevationRadians), Math.cos(elevationRadians) * Math.sin(azimuthRadians));
-      // const vectorDirection: Vector3 = new Vector3(Math.cos(azimuthRadians), elevationRadians, Math.sin(azimuthRadians));
-      // actor.entity.position.add(vectorDirection.clone().multiplyScalar(mpsSpeed(actor.kinematic.getLinearSpeed(), delta)));
       actor.kinematic.setLinearDirection(vectorDirection);
 
       // TODO (S.Panfilov) this is a very naive implementation of gravity (a real bullet flying in more complex half parabola)
