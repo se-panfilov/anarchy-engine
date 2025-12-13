@@ -653,7 +653,7 @@
         "camera": { "far": 15 },
         "normalBias": 0.05
       },
-      "position": { "x": 0.25, "y": 2, "z": 2.25 },
+      "position": { "x": 0.25, "y": 6, "z": 2.25 },
       "tags": ["directional"]
     },
     {
@@ -661,7 +661,7 @@
       "color": "#9999ff",
       "groundColor": "#ff007b",
       "intensity": 1,
-      "position": { "x": 0.25, "y": 2, "z": 2.25 },
+      "position": { "x": 0.25, "y": 2, "z": 6 },
       "tags": ["hemisphere"]
     },
     {
@@ -670,7 +670,7 @@
       "width": 3,
       "height": 3,
       "intensity": 0,
-      "position": { "x": 0.25, "y": 2, "z": 2.25 },
+      "position": { "x": 6.5, "y": 2, "z": 2.25 },
       "tags": ["rect_area"]
     },
     {
@@ -679,7 +679,7 @@
       "intensity": 14,
       "distance": 23,
       "decay": 4.5,
-      "position": { "x": 6, "y": 2, "z": 2.25 },
+      "position": { "x": 10, "y": 2, "z": 2.25 },
       "tags": ["point"]
     },
     {
