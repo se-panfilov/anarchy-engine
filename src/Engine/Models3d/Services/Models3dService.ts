@@ -24,7 +24,7 @@ import { createPrimitiveModel3dPack, isPrimitive, isPrimitiveFacade } from '@/En
 import { Model3dComplexFacade, Model3dPrimitiveFacade } from '@/Engine/Models3d/Wrappers';
 import type { TSceneWrapper } from '@/Engine/Scene';
 import type { TOptional } from '@/Engine/Utils';
-import { isDefined } from '@/Engine/Utils';
+import { isDefined, isNotDefined } from '@/Engine/Utils';
 
 export function Models3dService(registry: TModels3dAsyncRegistry, animationsService: TAnimationsService, sceneW: TSceneWrapper): TModels3dService {
   const models3dLoader = new GLTFLoader();
@@ -93,6 +93,15 @@ export function Models3dService(registry: TModels3dAsyncRegistry, animationsServ
     return params.map((p: TModel3dPrimitiveParams): Promise<TModel3dPrimitiveFacade> => Promise.resolve(createFromPack(createPrimitiveModel3dPack(p)) as TModel3dPrimitiveFacade));
   }
 
+  // TODO CWP test if model can be found by preset name
+  // TODO CWP test if overrides are working
+  function findModel3dAndOverride(name: string, overrides?: TOptional<TModel3dPack>): TModel3dFacade | undefined {
+    const model3d: TModel3dFacade | undefined = registry.findByName(name);
+    if (isNotDefined(model3d)) return undefined;
+
+    return clone(model3d, overrides);
+  }
+
   const destroyable: TDestroyable = destroyableMixin();
   destroyable.destroyed$.subscribe(() => {
     registry.destroy();
@@ -110,6 +119,7 @@ export function Models3dService(registry: TModels3dAsyncRegistry, animationsServ
     createFromPack,
     createPrimitiveAsync,
     createPrimitiveFromConfig,
+    findModel3dAndOverride,
     added$: added$.asObservable(),
     loaded$: loaded$.asObservable(),
     getRegistry: (): TModels3dAsyncRegistry => registry,

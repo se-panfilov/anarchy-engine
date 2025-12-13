@@ -5,10 +5,11 @@ import { configToParamsObject3d } from '@/Engine/ThreeLib';
 import { isDefined, isNotDefined } from '@/Engine/Utils';
 
 export function configToParams(config: TActorConfig, dependencies: TActorConfigToParamsDependencies): TActorParams {
-  const { position, rotation, scale, physics, spatial, model3dName, ...rest } = config;
+  const { position, rotation, scale, physics, spatial, model3d: model3dConfig, ...rest } = config;
+  const { presetName, ...restModel3d } = model3dConfig;
 
-  const model3d = isDefined(model3dName) ? dependencies.models3dRegistry.findByName(model3dName) : undefined;
-  if (isNotDefined(model3d)) throw new Error(`Actor. ConfigToParams: Model3d "${model3dName}" not found, while actor initialization`);
+  const model3d = isDefined(presetName) ? dependencies.models3dService.findModel3dAndOverride(presetName, restModel3d) : undefined;
+  if (isNotDefined(model3d)) throw new Error(`Actor. ConfigToParams: Model3d "${presetName}" not found, while actor initialization`);
 
   return {
     ...rest,
