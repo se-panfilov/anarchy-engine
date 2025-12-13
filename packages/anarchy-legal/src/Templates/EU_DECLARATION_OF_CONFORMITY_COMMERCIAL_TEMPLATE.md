@@ -59,6 +59,8 @@ The manufacturer declares that the {{PRODUCT_TERM}} conforms to the applicable r
 
 The Technical File is maintained by the manufacturer and made available to competent authorities upon request. See `TECHNICAL_DOCUMENTATION` (location: {{TECH_DOC_LOCATION}}).
 
-**Place/Date:** {{DOC_PLACE}}, {{DOC_DATE}}
-**Name/Function:** {{SIGNATORY_NAME}}, {{SIGNATORY_FUNCTION}}
-**Signature:** \***\*\*\*\*\***\_\_\***\*\*\*\*\***
+**Place/Date:**
+
+**Name/Function:**
+
+**Signature:**

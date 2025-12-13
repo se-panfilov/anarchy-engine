@@ -51,3 +51,8 @@ export const ShowcasesSystemRequirements = {
 - **Display:** 1280×720`
   }
 };
+
+export const ShowcasesSoftwareFamilyName = 'anarchy-showcases';
+
+//The brand name of the product (registered trademark)
+export const ShowcasesDisplayName = 'TBD until market release';

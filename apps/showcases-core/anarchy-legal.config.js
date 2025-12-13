@@ -1,5 +1,5 @@
 import commercialBase from '../../configs/AnarchyLegal/anarchy-legal.base.commercial.config.js';
-import { ShowcasesSupportedPlatforms, ShowcasesSystemRequirements } from '../../packages/showcases-shared/src/Legal/ShowcasesLegalConstants.js';
+import { ShowcasesSoftwareFamilyName, ShowcasesSupportedPlatforms, ShowcasesSystemRequirements } from '../../packages/showcases-shared/src/Legal/ShowcasesLegalConstants.js'; //Commercial configuration for legal docs
 
 //Commercial configuration for legal docs
 export default {
@@ -14,7 +14,8 @@ export default {
 
       SUPPORTED_PLATFORMS: ShowcasesSupportedPlatforms.Web,
       MIN_SYSTEM_REQUIREMENTS: ShowcasesSystemRequirements.Web.Minimum,
-      REC_SYSTEM_REQUIREMENTS: ShowcasesSystemRequirements.Web.Recommended
+      REC_SYSTEM_REQUIREMENTS: ShowcasesSystemRequirements.Web.Recommended,
+      PRODUCT_TYPE_OR_MODEL: ShowcasesSoftwareFamilyName
     }
   }
 };

@@ -8,7 +8,7 @@
 
 - **Product name:** TBD until market release (the “Software”)
 - **Technical identifiers:** `showcases-core`
-- **Type / model / version:** — version
+- **Type / model / version:** Anarchy-Showcases — version
 - **Intended use:** Standalone software (product with digital elements) operating **offline** by default; no personal-data processing by default.
 
 ## Applicable Union Legislation
@@ -37,6 +37,8 @@ The manufacturer declares that the Software conforms to the applicable requireme
 
 The Technical File is maintained by the manufacturer and made available to competent authorities upon request. See `TECHNICAL_DOCUMENTATION` (location: ).
 
-**Place/Date:** ,
-**Name/Function:** ,
-**Signature:** \***\*\*\*\*\***\_\_\***\*\*\*\*\***
+**Place/Date:**
+
+**Name/Function:**
+
+**Signature:**
