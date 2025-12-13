@@ -6,27 +6,31 @@ import type { TLoop } from '@Engine/Loop';
 import type { TMouseClickWatcher, TMousePositionWatcher } from '@Engine/Mouse';
 import type { TSceneWrapper } from '@Engine/Scene';
 import { spaceToConfig } from '@Engine/Space/Adapters';
-import { CreateEntitiesStrategy } from '@Engine/Space/Constants';
-import type { TSpace, TSpaceBaseServices, TSpaceCanvas, TSpaceConfig, TSpaceLoops, TSpaceParams, TSpaceParts, TSpaceRegistry, TSpaceServices } from '@Engine/Space/Models';
+import { CreateEntitiesStrategy, SpaceEvents } from '@Engine/Space/Constants';
+import type { TSpace, TSpaceAnyEvent, TSpaceBaseServices, TSpaceCanvas, TSpaceConfig, TSpaceLoops, TSpaceParams, TSpaceParts, TSpaceRegistry, TSpaceServices } from '@Engine/Space/Models';
 import { buildBaseServices, buildEntitiesServices, createEntities, createLoops } from '@Engine/Space/Utils';
-import { findDomElement, getCanvasContainer, getOrCreateCanvasFromSelector, isCanvasElement, isDefined, isDestroyable, isNotDefined } from '@Engine/Utils';
+import { findDomElement, getCanvasContainer, getOrCreateCanvasFromSelector, isCanvasElement, isDefined, isDestroyable, isNotDefined, mergeAll } from '@Engine/Utils';
 import type { Subscription } from 'rxjs';
-import { BehaviorSubject, distinctUntilChanged, filter, skip } from 'rxjs';
+import { BehaviorSubject, distinctUntilChanged, filter, skip, Subject } from 'rxjs';
 
 export function Space(params: TSpaceParams, registry: TSpaceRegistry): TSpace {
   const { canvasSelector, version, name, tags } = params;
   const built$: BehaviorSubject<TSpace | undefined> = new BehaviorSubject<TSpace | undefined>(undefined);
   const start$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  const events$: Subject<TSpaceAnyEvent> = new Subject<TSpaceAnyEvent>();
   const serializationInProgress$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   const canvas: TSpaceCanvas = getOrCreateCanvasFromSelector(canvasSelector);
   const container: TContainerDecorator = getCanvasContainer(canvas);
 
-  const { services, loops } = initSpaceServices(canvas, container, params);
+  const { services, loops } = initSpaceServices(canvas, container, params, events$);
+  events$.next({ name: SpaceEvents.AfterAllServicesInitialized, args: { canvas, services, loops, params } });
 
   let entitiesCreationPromise: Promise<void> = Promise.resolve();
   if (isDefined(params.entities) && Object.values(params.entities).length > 0) {
+    events$.next({ name: SpaceEvents.BeforeEntitiesCreated, args: { params, services, loops } });
     entitiesCreationPromise = createEntities(params.entities, services, container, CreateEntitiesStrategy.Params).then((): void => {
+      events$.next({ name: SpaceEvents.AfterEntitiesCreated, args: { params, services, loops } });
       // TODO 14-0-0: Find a better place for this
       services.intersectionsWatcherService.getRegistry().added$.subscribe(({ value }: TRegistryPack<TAnyIntersectionsWatcher>): void => {
         if (value.isAutoStart && !value.isStarted) value.enabled$.next(true);
@@ -53,7 +57,7 @@ export function Space(params: TSpaceParams, registry: TSpaceRegistry): TSpace {
     canvas.remove();
   }
 
-  const space: TSpace = Object.assign(
+  const space: TSpace = mergeAll(
     AbstractEntity(parts, EntityType.Space, {
       version,
       name,
@@ -72,7 +76,8 @@ export function Space(params: TSpaceParams, registry: TSpaceRegistry): TSpace {
         serializationInProgress$.next(false);
         return config;
       }
-    }
+    },
+    { events$ }
   );
 
   start$.pipe(skip(1), distinctUntilChanged()).subscribe((value: boolean): void => {
@@ -112,17 +117,23 @@ export function Space(params: TSpaceParams, registry: TSpaceRegistry): TSpace {
 function initSpaceServices(
   canvas: TSpaceCanvas,
   container: TContainerDecorator,
-  params: TSpaceParams
+  params: TSpaceParams,
+  events$: Subject<TSpaceAnyEvent>
 ): {
   services: TSpaceServices;
   loops: TSpaceLoops;
 } {
+  events$.next({ name: SpaceEvents.BeforeBaseServicesBuilt, args: { canvas, params } });
   const baseServices: TSpaceBaseServices = buildBaseServices();
   container.canvas$.next(canvas);
 
   baseServices.scenesService.createFromList(params.scenes);
   const sceneW: TSceneWrapper = baseServices.scenesService.getActive();
-  const loops: TSpaceLoops = createLoops(baseServices.loopService, params.options, params.flags);
+
+  events$.next({ name: SpaceEvents.BeforeLoopsCreated, args: { params } });
+  const loops: TSpaceLoops = createLoops(baseServices.loopService, params.settings, params.flags);
+
+  events$.next({ name: SpaceEvents.BeforeEntitiesServicesBuilt, args: { canvas, params } });
   const services: TSpaceServices = buildEntitiesServices(sceneW, canvas, container, loops, baseServices);
 
   return { services, loops };

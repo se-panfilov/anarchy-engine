@@ -1,5 +1,5 @@
-import type { TFsmStates, TFsmWrapper, TModels3dResourceAsyncRegistry, TRegistryPack, TSpace, TSpaceConfig, TSpaceFlags, TSpaceServices } from '@Engine';
-import { asRecord, isNotDefined, KeyCode, KeysExtra, spaceService } from '@Engine';
+import type { TFsmStates, TFsmWrapper, TModels3dResourceAsyncRegistry, TRegistryPack, TSpace, TSpaceAnyEvent, TSpaceConfig, TSpaceFlags, TSpaceServices } from '@Engine';
+import { asRecord, isNotDefined, KeyCode, KeysExtra, SpaceEvents, spaceService } from '@Engine';
 import { distinctUntilChanged } from 'rxjs';
 import type { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
 
@@ -18,9 +18,12 @@ function beforeResourcesLoaded(_config: TSpaceConfig, { models3dService }: TSpac
 }
 
 export function start(flags: TSpaceFlags): void {
-  const spaces: Record<string, TSpace> = asRecord('name', spaceService.createFromConfig([spaceConfig], { hooks: { beforeResourcesLoaded }, flags }));
+  const spaces: Record<string, TSpace> = asRecord('name', spaceService.createFromConfig([spaceConfig]));
   const space: TSpace = spaces[spaceConfig.name];
   if (isNotDefined(space)) throw new Error(`Showcase "${spaceConfig.name}": Space is not defined`);
+  space.events$.subscribe((event: TSpaceAnyEvent): void => {
+    if (event.name === SpaceEvents.BeforeResourcesLoaded) beforeResourcesLoaded(event.args.config, event.args.services);
+  });
 
   space.built$.subscribe(showcase);
 }

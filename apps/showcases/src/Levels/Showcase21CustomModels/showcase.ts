@@ -1,5 +1,5 @@
-import type { TModel3d, TModels3dRegistry, TModels3dResourceAsyncRegistry, TRegistryPack, TSceneWrapper, TSpace, TSpaceConfig, TSpaceFlags, TSpaceServices } from '@Engine';
-import { asRecord, isNotDefined, KeyCode, spaceService } from '@Engine';
+import type { TModel3d, TModels3dRegistry, TModels3dResourceAsyncRegistry, TRegistryPack, TSceneWrapper, TSpace, TSpaceAnyEvent, TSpaceConfig, TSpaceFlags, TSpaceServices } from '@Engine';
+import { asRecord, isNotDefined, KeyCode, SpaceEvents, spaceService } from '@Engine';
 import type { AnimationAction } from 'three';
 import { Euler, Vector3 } from 'three';
 import type { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
@@ -30,8 +30,11 @@ function beforeResourcesLoaded(_config: TSpaceConfig, { models3dService, scenesS
 }
 
 export function start(flags: TSpaceFlags): void {
-  const spaces: Record<string, TSpace> = asRecord('name', spaceService.createFromConfig([spaceConfig], { hooks: { beforeResourcesLoaded }, flags }));
+  const spaces: Record<string, TSpace> = asRecord('name', spaceService.createFromConfig([spaceConfig]));
   const space: TSpace = spaces[spaceConfig.name];
+  space.events$.subscribe((event: TSpaceAnyEvent): void => {
+    if (event.name === SpaceEvents.BeforeResourcesLoaded) beforeResourcesLoaded(event.args.config, event.args.services);
+  });
 
   if (isNotDefined(space)) throw new Error(`Showcase "${spaceConfig.name}": Space is not defined`);
 

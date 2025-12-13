@@ -1,8 +1,9 @@
 import type { TEntity } from '@Engine/Abstract';
 import type { TContainerDecorator } from '@Engine/Global';
-import type { Observable } from 'rxjs';
+import type { Observable, Subject } from 'rxjs';
 
 import type { TSpaceCanvas } from './TSpaceCanvas';
+import type { TSpaceAnyEvent } from './TSpaceEvents';
 import type { TSpaceParts } from './TSpaceParts';
 
 export type TSpace = TEntity<
@@ -14,5 +15,6 @@ export type TSpace = TEntity<
       version: string;
       serializationInProgress$: Observable<boolean>;
       drop: () => void;
+      events$: Subject<TSpaceAnyEvent>;
     }>
 >;

@@ -1,4 +1,4 @@
-import { CreateEntitiesStrategy } from '@Engine/Space/Constants';
+import { CreateEntitiesStrategy, SpaceEvents } from '@Engine/Space/Constants';
 import type { TSpace, TSpaceConfig, TSpaceParams, TSpaceRegistry } from '@Engine/Space/Models';
 import { createEntities, loadResourcesFromConfig } from '@Engine/Space/Utils';
 import type { TWriteable } from '@Engine/Utils';
@@ -19,8 +19,13 @@ export function SpaceFromConfig(params: TSpaceParams, config: TSpaceConfig, regi
   oldBuilt$
     .pipe(
       exhaustMap(async (): Promise<unknown> => {
+        space.events$.next({ name: SpaceEvents.BeforeResourcesLoaded, args: { config, services: space.services, loops: space.loops } });
         await loadResourcesFromConfig(config.resources, space.services);
+
+        space.events$.next({ name: SpaceEvents.BeforeEntitiesCreated, args: { config, services: space.services, loops: space.loops } });
         await createEntities(config.entities, space.services, space.container, CreateEntitiesStrategy.Config);
+        space.events$.next({ name: SpaceEvents.AfterEntitiesCreated, args: { config, services: space.services, loops: space.loops } });
+
         return;
       }),
       takeUntil(space.destroy$)

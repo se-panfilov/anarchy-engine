@@ -9,16 +9,16 @@ import { getMainLoopNameByType, LOOPS_DEFAULT_SETTINGS, LoopType, LoopUpdatePrio
 import { milliseconds } from '@Engine/Measurements';
 import type { TMouseLoop } from '@Engine/Mouse';
 import type { TPhysicsLoop } from '@Engine/Physics';
-import type { TRenderLoop, TSpaceFlags, TSpaceLoops, TSpaceOptions } from '@Engine/Space/Models';
+import type { TRenderLoop, TSpaceFlags, TSpaceLoops, TSpaceSettings } from '@Engine/Space/Models';
 import type { TSpatialLoop } from '@Engine/Spatial';
 import type { TTextLoop } from '@Engine/Text';
 import type { TTransformLoop } from '@Engine/TransformDrive';
 
-export function createLoops({ create }: TLoopService, options: TSpaceOptions | undefined, flags?: TSpaceFlags): TSpaceLoops {
+export function createLoops({ create }: TLoopService, spaceSettings: TSpaceSettings | undefined, flags?: TSpaceFlags): TSpaceLoops {
   const { Audio, Render, Intersections, Spatial, Mouse, Text, Kinematic, Collisions, Controls, Transform, Keyboard, Physics } = LoopType;
 
   const showDebugInfo: boolean = flags?.loopsDebugInfo ?? false;
-  const settings: TLoopsSettings = { ...LOOPS_DEFAULT_SETTINGS, ...options?.loopsSettings };
+  const settings: TLoopsSettings = { ...LOOPS_DEFAULT_SETTINGS, ...spaceSettings?.loopsSettings };
 
   const {
     audioLoopStep,
