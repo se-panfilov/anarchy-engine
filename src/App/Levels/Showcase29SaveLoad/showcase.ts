@@ -78,7 +78,10 @@ function loadSpace(name: string | undefined, source: ReadonlyArray<TSpacesData>)
   if (isNotDefined(space)) throw new Error(`[Showcase]: Cannot create the space "${name}"`);
 
   // eslint-disable-next-line functional/immutable-data
-  subscriptions[`built$_${space.name}`] = space.built$.subscribe((): void => spaceData.onSpaceReady?.(space, subscriptions));
+  subscriptions[`built$_${space.name}`] = space.built$.subscribe((): void => {
+    spaceData.onSpaceReady?.(space, subscriptions);
+    spaceData.onCreate?.(space, subscriptions);
+  });
 
   // eslint-disable-next-line functional/immutable-data
   subscriptions[`serializationInProgress$_${space.name}`] = space.serializationInProgress$.subscribe((isInProgress: boolean): void => setSpaceReady(!isInProgress));
@@ -96,7 +99,6 @@ function loadSpace(name: string | undefined, source: ReadonlyArray<TSpacesData>)
     .subscribe((isAwaiting: boolean): void => setAwaiting(isAwaiting));
 
   currentSpaceName = space.name;
-  spaceData.onCreate?.(space, subscriptions);
   space.start$.next(true);
   setContainerVisibility(name, true, spacesData);
 }
