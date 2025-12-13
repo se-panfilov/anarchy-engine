@@ -10,6 +10,7 @@
 - 2.8.0 App close/restart
 - 2.9.0 App close/restart
 - 2.10.0 Manage "First Run" state
+- 2.11.0 IndexedDB for settings (web)
 
 Roadmap:
 
