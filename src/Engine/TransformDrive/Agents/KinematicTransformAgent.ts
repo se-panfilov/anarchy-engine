@@ -224,8 +224,8 @@ export function KinematicTransformAgent(params: TKinematicTransformAgentParams, 
   }
 
   kinematicSub$ = kinematicLoopService.tick$.pipe(takeWhile((): boolean => agent.isEnabled() && agent.isAutoUpdate())).subscribe((delta: number): void => {
-    doKinematicMove(delta);
     doKinematicRotation(delta);
+    doKinematicMove(delta);
   });
 
   return agent;

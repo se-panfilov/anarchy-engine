@@ -65,8 +65,6 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
 
     const intersectionsWatcher: TIntersectionsWatcher = startIntersections(space.services);
 
-    sphereActor.drive.kinematic.setLinearSpeed(meters(5));
-
     const { line } = createReactiveLineFromActor('#E91E63', sphereActor, intersectionsWatcher);
     sceneW.entity.add(line);
 
@@ -89,24 +87,22 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
   return { start, space };
 }
 
-// TODO (S.Panfilov) 8.0.0. MODELS: would be nice to implement rotation and scale as well
+// TODO 8.0.0. MODELS: would be nice to implement rotation and scale as well
 function moveActorTo(actor: TActor, position: Vector3, agent: TransformAgent, isTeleportationMode: boolean): void | never {
   if (isTeleportationMode) return actor.drive.position$.next(position);
 
+  // TODO 8.0.0. MODELS: When we do "actor.drive.position$.next(position)" or change the agent, all other agents should update their position/rotation/scale
   switch (agent) {
     case TransformAgent.Default:
-      actor.drive.position$.next(position);
-      return undefined;
+      return actor.drive.position$.next(position);
     case TransformAgent.Kinematic:
-      // TODO (S.Panfilov) 8.0.0. MODELS: Implement Kinematic movement
-      const directionToMouse = getMouseAzimuthAndElevation(position, actor.drive.getPosition());
-      actor.drive.kinematic.setLinearAzimuthRad(directionToMouse.azimuth);
-      return undefined;
+      actor.drive.kinematic.setLinearAzimuthRad(getMouseAzimuthAndElevation(position, actor.drive.getPosition()).azimuth);
+      return actor.drive.kinematic.setLinearSpeed(meters(5));
     case TransformAgent.Connected:
-      // TODO not needed, cause we track mouse position all the time
+      // no need to do anything here, cause already connected
       return undefined;
     case TransformAgent.Physical:
-      // TODO (S.Panfilov) 8.0.0. MODELS: Implement Physics movement
+      // TODO 8.0.0. MODELS: Implement Physics movement
       return undefined;
     default:
       throw new Error(`Unknown agent: ${agent}`);

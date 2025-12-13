@@ -122,7 +122,7 @@ export function createReactiveLineFromActor(color: ColorRepresentation, actor: T
   const line: Line2 = createLine(color, 0.1);
 
   const sub$: Subscription = combineLatest([intersectionsWatcher.value$, actor.drive.position$]).subscribe(([intersection, position]: [TIntersectionEvent, Vector3]): void => {
-    line.geometry.setPositions([position.x, position.y, position.z, intersection.point.x, intersection.point.y, 1]);
+    line.geometry.setPositions([position.x, position.y, position.z, intersection.point.x, intersection.point.y, intersection.point.z]);
     line.computeLineDistances();
   });
 
