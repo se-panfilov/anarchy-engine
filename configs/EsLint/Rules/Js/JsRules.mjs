@@ -207,9 +207,10 @@ export const JsRules = {
       ],
       skipWordIfMatch: [
         '[A-a]ccessor[s]?',
-        '[A-a]nonymization[s]?',
         '[A-a]ng',
+        '[A-a]nonymization[s]?',
         '[A-a]rial',
+        '[A-a]sar',
         '[A-a]zimuthal',
         '[B-b]ool',
         '[C-c]alc',
