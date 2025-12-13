@@ -11,12 +11,13 @@ const windowWidth: number = 1280;
 const isOpenDevTools: boolean = true;
 
 // TODO CWP
-// TODO DESKTOP: Save/Load with files?
-// TODO DESKTOP: Can we avoid copying of dist-desktop to dist-app? (check paths in asar)
-// TODO DESKTOP: Save/Load app's settings (screen resolution, fullscreen mode, etc.)
 // TODO DESKTOP: Detect resolution and set window size accordingly
-// TODO DESKTOP: Add canvas.requestPointerLock(); on a Space level
+// TODO DESKTOP: Save/Load with files?
+// TODO DESKTOP: Save/Load app's settings (screen resolution, fullscreen mode, etc.)
+// TODO DESKTOP: Steam integration (cloud saves, achievements, layer, etc.)
 // TODO DESKTOP: Error forwarding to a file (with versions)
+// TODO DESKTOP: Can we avoid copying of dist-desktop to dist-app? (check paths in asar)
+// TODO DESKTOP: Add canvas.requestPointerLock(); on a Space level
 // TODO DESKTOP: Fix Electron Security Warning (Insecure Content-Security-Policy) https://www.electronjs.org/docs/latest/tutorial/security
 
 function getIndexHtmlPath(): string {
