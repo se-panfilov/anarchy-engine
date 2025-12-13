@@ -19,12 +19,12 @@ export default defineConfig({
       all: true,
       reportsDirectory: './reports/coverage',
       include: ['src/**/*'],
-      exclude: ['coverage', 'utils/', 'public', 'vite.config.ts', '.eslintrc.js', 'src/vite-env.d.ts', 'src/App/DeveloperPanel/*'],
+      exclude: ['src/**/index.ts', 'coverage', 'utils/', 'public', 'vite.config.ts', '.eslintrc.js', 'src/vite-env.d.ts', 'src/App/DeveloperPanel/*'],
       thresholds: {
-        statements: 0.5,
-        branches: 0.5,
-        functions: 0.5,
-        lines: 0.5
+        statements: 56,
+        branches: 69,
+        functions: 37,
+        lines: 54
       }
     }
   }
