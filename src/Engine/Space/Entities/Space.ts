@@ -14,8 +14,6 @@ import { buildBaseServices, buildEntitiesServices, createEntities } from '@/Engi
 import { createLoops } from '@/Engine/Space/Utils/CreateLoopsUtils';
 import { isDefined, isDestroyable, isNotDefined } from '@/Engine/Utils';
 
-// TODO CWP
-// TODO 14-0-0: Do not create global entities (e.g. global mouse watcher). Should be local to space
 export function Space(params: TSpaceParams, hooks?: TSpaceHooks): TSpace {
   const { canvas, version, name, tags } = params;
   const built$: BehaviorSubject<TSpace | undefined> = new BehaviorSubject<TSpace | undefined>(undefined);
