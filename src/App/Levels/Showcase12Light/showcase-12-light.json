@@ -1,0 +1,678 @@
+{
+  "name": "Showcase 12 Light",
+  "version": "1.0.0",
+  "scenes": [
+    {
+      "name": "Showcase 12 Light",
+      "tags": ["current"]
+    }
+  ],
+  "actors": [
+    {
+      "width": 60,
+      "height": 40,
+      "widthSegments": 10,
+      "heightSegments": 10,
+      "material": { "type": "toon", "params": { "color": "#5EDCAE" } },
+      "type": "plane",
+      "position": { "x": 0, "y": 0, "z": 0 },
+      "rotation": { "x": -1.57, "y": 0, "z": 0 },
+      "castShadow": false,
+      "tags": ["surface"]
+    },
+    {
+      "type": "sphere",
+      "width": 1,
+      "height": 1,
+      "radius": 0.7,
+      "position": { "x": 0, "y": 2, "z": 2 },
+      "widthSegments": 64,
+      "heightSegments": 64,
+      "castShadow": true,
+      "material": {
+        "type": "standard",
+        "params": {
+          "displacementScale": 0
+        },
+        "textures": {
+          "bumpMap": { "url": "/Showcase/Brushed_Metal/MetalSteelBrushed001_BUMP_1K_METALNESS.png" },
+          "map": { "url": "/Showcase/Brushed_Metal/MetalSteelBrushed001_COL_1K_METALNESS.png" },
+          "normalMap": { "url": "/Showcase/Brushed_Metal/MetalSteelBrushed001_NRM_1K_METALNESS.png" },
+          "displacementMap": { "url": "/Showcase/Brushed_Metal/MetalSteelBrushed001_DISP_1K_METALNESS.png" },
+          "metalnessMap": { "url": "/Showcase/Brushed_Metal/MetalSteelBrushed001_BUMP16_1K_METALNESS.png" },
+          "roughnessMap": { "url": "/Showcase/Brushed_Metal/MetalSteelBrushed001_ROUGHNESS_1K_METALNESS.png" }
+        }
+      },
+      "tags": ["standard", "metal"]
+    },
+    {
+      "type": "sphere",
+      "width": 1,
+      "height": 1,
+      "radius": 0.7,
+      "position": { "x": 2, "y": 2, "z": 2 },
+      "widthSegments": 64,
+      "heightSegments": 64,
+      "castShadow": true,
+      "material": {
+        "type": "physical",
+        "params": {
+          "clearcoat": 1,
+          "clearcoatRoughness": 0.12,
+          "displacementScale": 0,
+          "metalness": 0.97,
+          "roughness": 0.8,
+          "iridescence": 0.655,
+          "iridescenceIOR": 1.86,
+          "transmission": 0,
+          "ior": 2.5,
+          "thickness": 0
+        },
+        "textures": {
+          "bumpMap": { "url": "/Showcase/Brushed_Metal/MetalSteelBrushed001_BUMP_1K_METALNESS.png" },
+          "map": { "url": "/Showcase/Brushed_Metal/MetalSteelBrushed001_COL_1K_METALNESS.png" },
+          "normalMap": { "url": "/Showcase/Brushed_Metal/MetalSteelBrushed001_NRM_1K_METALNESS.png" },
+          "displacementMap": { "url": "/Showcase/Brushed_Metal/MetalSteelBrushed001_DISP_1K_METALNESS.png" },
+          "metalnessMap": { "url": "/Showcase/Brushed_Metal/MetalSteelBrushed001_BUMP16_1K_METALNESS.png" },
+          "roughnessMap": { "url": "/Showcase/Brushed_Metal/MetalSteelBrushed001_ROUGHNESS_1K_METALNESS.png" }
+        }
+      },
+      "tags": ["physical", "metal"]
+    },
+    {
+      "type": "sphere",
+      "width": 1,
+      "height": 1,
+      "radius": 0.7,
+      "position": { "x": 4, "y": 2, "z": 2 },
+      "widthSegments": 64,
+      "heightSegments": 64,
+      "castShadow": true,
+      "material": {
+        "type": "basic",
+        "textures": {
+          "map": { "url": "/Showcase/Brushed_Metal/MetalSteelBrushed001_COL_1K_METALNESS.png" }
+        }
+      },
+      "tags": ["basic", "metal"]
+    },
+    {
+      "type": "sphere",
+      "width": 1,
+      "height": 1,
+      "radius": 0.7,
+      "position": { "x": 6, "y": 2, "z": 2 },
+      "widthSegments": 64,
+      "heightSegments": 64,
+      "castShadow": true,
+      "material": {
+        "type": "phong",
+        "params": {
+          "displacementScale": 0.1
+        },
+        "textures": {
+          "bumpMap": { "url": "/Showcase/Brushed_Metal/MetalSteelBrushed001_BUMP_1K_METALNESS.png" },
+          "map": { "url": "/Showcase/Brushed_Metal/MetalSteelBrushed001_COL_1K_METALNESS.png" },
+          "normalMap": { "url": "/Showcase/Brushed_Metal/MetalSteelBrushed001_NRM_1K_METALNESS.png" },
+          "displacementMap": { "url": "/Showcase/Brushed_Metal/MetalSteelBrushed001_DISP_1K_METALNESS.png" }
+        }
+      },
+      "tags": ["phong", "metal"]
+    },
+    {
+      "type": "sphere",
+      "width": 1,
+      "height": 1,
+      "radius": 0.7,
+      "position": { "x": 8, "y": 2, "z": 2 },
+      "widthSegments": 64,
+      "heightSegments": 64,
+      "castShadow": true,
+      "material": {
+        "type": "lambert",
+        "params": {
+          "displacementScale": 0.1
+        },
+        "textures": {
+          "bumpMap": { "url": "/Showcase/Brushed_Metal/MetalSteelBrushed001_BUMP_1K_METALNESS.png" },
+          "map": { "url": "/Showcase/Brushed_Metal/MetalSteelBrushed001_COL_1K_METALNESS.png" },
+          "normalMap": { "url": "/Showcase/Brushed_Metal/MetalSteelBrushed001_NRM_1K_METALNESS.png" },
+          "displacementMap": { "url": "/Showcase/Brushed_Metal/MetalSteelBrushed001_DISP_1K_METALNESS.png" }
+        }
+      },
+      "tags": ["lambert", "metal"]
+    },
+    {
+      "type": "sphere",
+      "width": 1,
+      "height": 1,
+      "radius": 0.7,
+      "position": { "x": 10, "y": 2, "z": 2 },
+      "widthSegments": 64,
+      "heightSegments": 64,
+      "castShadow": true,
+      "material": {
+        "type": "toon",
+        "params": {
+          "displacementScale": 0.1
+        },
+        "textures": {
+          "bumpMap": { "url": "/Showcase/Brushed_Metal/MetalSteelBrushed001_BUMP_1K_METALNESS.png" },
+          "map": { "url": "/Showcase/Brushed_Metal/MetalSteelBrushed001_COL_1K_METALNESS.png" },
+          "normalMap": { "url": "/Showcase/Brushed_Metal/MetalSteelBrushed001_NRM_1K_METALNESS.png" },
+          "displacementMap": { "url": "/Showcase/Brushed_Metal/MetalSteelBrushed001_DISP_1K_METALNESS.png" }
+        }
+      },
+      "tags": ["toon", "metal"]
+    },
+    {
+      "type": "sphere",
+      "width": 1,
+      "height": 1,
+      "radius": 0.7,
+      "position": { "x": 12, "y": 2, "z": 2 },
+      "widthSegments": 64,
+      "heightSegments": 64,
+      "castShadow": true,
+      "material": {
+        "type": "matcap",
+        "params": {
+          "displacementScale": 0.1
+        },
+        "textures": {
+          "bumpMap": { "url": "/Showcase/Brushed_Metal/MetalSteelBrushed001_BUMP_1K_METALNESS.png" },
+          "map": { "url": "/Showcase/Brushed_Metal/MetalSteelBrushed001_COL_1K_METALNESS.png" },
+          "normalMap": { "url": "/Showcase/Brushed_Metal/MetalSteelBrushed001_NRM_1K_METALNESS.png" },
+          "displacementMap": { "url": "/Showcase/Brushed_Metal/MetalSteelBrushed001_DISP_1K_METALNESS.png" }
+        }
+      },
+      "tags": ["matcap", "metal"]
+    },
+    {
+      "type": "cube",
+      "width": 1,
+      "height": 1,
+      "position": { "x": 0, "y": 2, "z": 0 },
+      "widthSegments": 64,
+      "heightSegments": 64,
+      "castShadow": true,
+      "material": {
+        "type": "standard",
+        "params": {
+          "displacementScale": 0.1
+        },
+        "textures": {
+          "aoMap": { "url": "/Showcase/Door_Wood/Door_Wood_001_ambientOcclusion.jpg" },
+          "map": { "url": "/Showcase/Door_Wood/Door_Wood_001_basecolor.jpg" },
+          "normalMap": { "url": "/Showcase/Door_Wood/Door_Wood_001_normal.jpg" },
+          "displacementMap": { "url": "/Showcase/Door_Wood/Door_Wood_001_height.png" },
+          "alphaMap": { "url": "/Showcase/Door_Wood/Door_Wood_001_opacity.jpg" },
+          "metalnessMap": { "url": "/Showcase/Door_Wood/Door_Wood_001_metallic.jpg" },
+          "roughnessMap": { "url": "/Showcase/Door_Wood/Door_Wood_001_roughness.jpg" }
+        }
+      },
+      "tags": ["standard", "wood"]
+    },
+    {
+      "type": "cube",
+      "width": 1,
+      "height": 1,
+      "position": { "x": 2, "y": 2, "z": 0 },
+      "widthSegments": 64,
+      "heightSegments": 64,
+      "castShadow": true,
+      "material": {
+        "type": "physical",
+        "params": {
+          "displacementScale": 0.1
+        },
+        "textures": {
+          "aoMap": { "url": "/Showcase/Door_Wood/Door_Wood_001_ambientOcclusion.jpg" },
+          "map": { "url": "/Showcase/Door_Wood/Door_Wood_001_basecolor.jpg" },
+          "normalMap": { "url": "/Showcase/Door_Wood/Door_Wood_001_normal.jpg" },
+          "displacementMap": { "url": "/Showcase/Door_Wood/Door_Wood_001_height.png" },
+          "alphaMap": { "url": "/Showcase/Door_Wood/Door_Wood_001_opacity.jpg" },
+          "metalnessMap": { "url": "/Showcase/Door_Wood/Door_Wood_001_metallic.jpg" },
+          "roughnessMap": { "url": "/Showcase/Door_Wood/Door_Wood_001_roughness.jpg" }
+        }
+      },
+      "tags": ["physical", "wood"]
+    },
+    {
+      "type": "cube",
+      "width": 1,
+      "height": 1,
+      "position": { "x": 4, "y": 2, "z": 0 },
+      "widthSegments": 64,
+      "heightSegments": 64,
+      "castShadow": true,
+      "material": {
+        "type": "basic",
+        "textures": {
+          "aoMap": { "url": "/Showcase/Door_Wood/Door_Wood_001_ambientOcclusion.jpg" },
+          "map": { "url": "/Showcase/Door_Wood/Door_Wood_001_basecolor.jpg" },
+          "alphaMap": { "url": "/Showcase/Door_Wood/Door_Wood_001_opacity.jpg" }
+        }
+      },
+      "tags": ["basic", "wood"]
+    },
+    {
+      "type": "cube",
+      "width": 1,
+      "height": 1,
+      "position": { "x": 6, "y": 2, "z": 0 },
+      "widthSegments": 64,
+      "heightSegments": 64,
+      "castShadow": true,
+      "material": {
+        "type": "phong",
+        "params": {
+          "displacementScale": 0.1
+        },
+        "textures": {
+          "aoMap": { "url": "/Showcase/Door_Wood/Door_Wood_001_ambientOcclusion.jpg" },
+          "map": { "url": "/Showcase/Door_Wood/Door_Wood_001_basecolor.jpg" },
+          "normalMap": { "url": "/Showcase/Door_Wood/Door_Wood_001_normal.jpg" },
+          "displacementMap": { "url": "/Showcase/Door_Wood/Door_Wood_001_height.png" },
+          "alphaMap": { "url": "/Showcase/Door_Wood/Door_Wood_001_opacity.jpg" }
+        }
+      },
+      "tags": ["phong", "wood"]
+    },
+    {
+      "type": "cube",
+      "width": 1,
+      "height": 1,
+      "position": { "x": 8, "y": 2, "z": 0 },
+      "widthSegments": 64,
+      "heightSegments": 64,
+      "castShadow": true,
+      "material": {
+        "type": "lambert",
+        "params": {
+          "displacementScale": 0.1
+        },
+        "textures": {
+          "aoMap": { "url": "/Showcase/Door_Wood/Door_Wood_001_ambientOcclusion.jpg" },
+          "map": { "url": "/Showcase/Door_Wood/Door_Wood_001_basecolor.jpg" },
+          "normalMap": { "url": "/Showcase/Door_Wood/Door_Wood_001_normal.jpg" },
+          "displacementMap": { "url": "/Showcase/Door_Wood/Door_Wood_001_height.png" },
+          "alphaMap": { "url": "/Showcase/Door_Wood/Door_Wood_001_opacity.jpg" }
+        }
+      },
+      "tags": ["lambert", "wood"]
+    },
+    {
+      "type": "cube",
+      "width": 1,
+      "height": 1,
+      "position": { "x": 10, "y": 2, "z": 0 },
+      "widthSegments": 64,
+      "heightSegments": 64,
+      "castShadow": true,
+      "material": {
+        "type": "toon",
+        "params": {
+          "displacementScale": 0.1
+        },
+        "textures": {
+          "aoMap": { "url": "/Showcase/Door_Wood/Door_Wood_001_ambientOcclusion.jpg" },
+          "map": { "url": "/Showcase/Door_Wood/Door_Wood_001_basecolor.jpg" },
+          "normalMap": { "url": "/Showcase/Door_Wood/Door_Wood_001_normal.jpg" },
+          "displacementMap": { "url": "/Showcase/Door_Wood/Door_Wood_001_height.png" },
+          "alphaMap": { "url": "/Showcase/Door_Wood/Door_Wood_001_opacity.jpg" }
+        }
+      },
+      "tags": ["toon", "wood"]
+    },
+    {
+      "type": "cube",
+      "width": 1,
+      "height": 1,
+      "position": { "x": 12, "y": 2, "z": 0 },
+      "widthSegments": 64,
+      "heightSegments": 64,
+      "castShadow": true,
+      "material": {
+        "type": "matcap",
+        "params": {
+          "displacementScale": 0.1
+        },
+        "textures": {
+          "map": { "url": "/Showcase/Door_Wood/Door_Wood_001_basecolor.jpg" },
+          "normalMap": { "url": "/Showcase/Door_Wood/Door_Wood_001_normal.jpg" },
+          "displacementMap": { "url": "/Showcase/Door_Wood/Door_Wood_001_height.png" },
+          "alphaMap": { "url": "/Showcase/Door_Wood/Door_Wood_001_opacity.jpg" }
+        }
+      },
+      "tags": ["matcap", "wood"]
+    },
+    {
+      "type": "sphere",
+      "width": 1,
+      "height": 1,
+      "radius": 0.7,
+      "position": { "x": 0, "y": 2, "z": -2 },
+      "widthSegments": 64,
+      "heightSegments": 64,
+      "castShadow": true,
+      "material": {
+        "type": "standard",
+        "params": {
+          "metalness": 0,
+          "roughness": 0
+        }
+      },
+      "tags": ["standard", "glass"]
+    },
+    {
+      "type": "sphere",
+      "width": 1,
+      "height": 1,
+      "radius": 0.7,
+      "position": { "x": 2, "y": 2, "z": -2 },
+      "widthSegments": 64,
+      "heightSegments": 64,
+      "castShadow": true,
+      "material": {
+        "type": "physical",
+        "params": {
+          "clearcoat": 0.8,
+          "clearcoatRoughness": 0.09,
+          "displacementScale": 0.1,
+          "metalness": 0,
+          "roughness": 0,
+          "iridescence": 0,
+          "iridescenceIOR": 1.38,
+          "transmission": 0.77,
+          "ior": 1.26,
+          "thickness": 0.5
+        }
+      },
+      "tags": ["physical", "glass"]
+    },
+    {
+      "type": "sphere",
+      "width": 1,
+      "height": 1,
+      "radius": 0.7,
+      "position": { "x": 4, "y": 2, "z": -2 },
+      "widthSegments": 64,
+      "heightSegments": 64,
+      "castShadow": true,
+      "material": {
+        "type": "basic"
+      },
+      "tags": ["basic", "glass"]
+    },
+    {
+      "type": "sphere",
+      "width": 1,
+      "height": 1,
+      "radius": 0.7,
+      "position": { "x": 6, "y": 2, "z": -2 },
+      "widthSegments": 64,
+      "heightSegments": 64,
+      "castShadow": true,
+      "material": {
+        "type": "phong",
+        "params": {
+          "displacementScale": 0.1
+        }
+      },
+      "tags": ["phong", "glass"]
+    },
+    {
+      "type": "sphere",
+      "width": 1,
+      "height": 1,
+      "radius": 0.7,
+      "position": { "x": 8, "y": 2, "z": -2 },
+      "widthSegments": 64,
+      "heightSegments": 64,
+      "castShadow": true,
+      "material": {
+        "type": "lambert",
+        "params": {
+          "displacementScale": 0.1
+        }
+      },
+      "tags": ["lambert", "glass"]
+    },
+    {
+      "type": "sphere",
+      "width": 1,
+      "height": 1,
+      "radius": 0.7,
+      "position": { "x": 10, "y": 2, "z": -2 },
+      "widthSegments": 64,
+      "heightSegments": 64,
+      "castShadow": true,
+      "material": {
+        "type": "toon",
+        "params": {
+          "displacementScale": 0.1
+        }
+      },
+      "tags": ["toon", "glass"]
+    },
+    {
+      "type": "sphere",
+      "width": 1,
+      "height": 1,
+      "radius": 0.7,
+      "position": { "x": 12, "y": 2, "z": -2 },
+      "widthSegments": 64,
+      "heightSegments": 64,
+      "castShadow": true,
+      "material": {
+        "type": "matcap",
+        "params": {
+          "displacementScale": 0.1
+        }
+      },
+      "tags": ["matcap", "glass"]
+    },
+    {
+      "type": "sphere",
+      "width": 1,
+      "height": 1,
+      "radius": 0.7,
+      "position": { "x": 0, "y": 2, "z": -4 },
+      "widthSegments": 64,
+      "heightSegments": 64,
+      "castShadow": true,
+      "material": {
+        "type": "standard",
+        "params": {
+          "displacementScale": 0.1
+        },
+        "textures": {
+          "aoMap": { "url": "/Showcase/Dirty_Carpet/dirty_carpet_ao_1k.jpg" },
+          "map": { "url": "/Showcase/Dirty_Carpet/dirty_carpet_diff_1k.jpg" },
+          "normalMap": { "url": "/Showcase/Dirty_Carpet/dirty_carpet_nor_dx_1k.jpg" },
+          "displacementMap": { "url": "/Showcase/Dirty_Carpet/dirty_carpet_disp_1k.png" },
+          "roughnessMap": { "url": "/Showcase/Dirty_Carpet/dirty_carpet_rough_1k.jpg" }
+        }
+      },
+      "tags": ["standard", "textile"]
+    },
+    {
+      "type": "sphere",
+      "width": 1,
+      "height": 1,
+      "radius": 0.7,
+      "position": { "x": 2, "y": 2, "z": -4 },
+      "widthSegments": 64,
+      "heightSegments": 64,
+      "castShadow": true,
+      "material": {
+        "type": "physical",
+        "params": {
+          "displacementScale": 0.1
+        },
+        "textures": {
+          "aoMap": { "url": "/Showcase/Dirty_Carpet/dirty_carpet_ao_1k.jpg" },
+          "map": { "url": "/Showcase/Dirty_Carpet/dirty_carpet_diff_1k.jpg" },
+          "normalMap": { "url": "/Showcase/Dirty_Carpet/dirty_carpet_nor_dx_1k.jpg" },
+          "displacementMap": { "url": "/Showcase/Dirty_Carpet/dirty_carpet_disp_1k.png" },
+          "roughnessMap": { "url": "/Showcase/Dirty_Carpet/dirty_carpet_rough_1k.jpg" }
+        }
+      },
+      "tags": ["physical", "textile"]
+    },
+    {
+      "type": "sphere",
+      "width": 1,
+      "height": 1,
+      "radius": 0.7,
+      "position": { "x": 4, "y": 2, "z": -4 },
+      "widthSegments": 64,
+      "heightSegments": 64,
+      "castShadow": true,
+      "material": {
+        "type": "basic",
+        "textures": {
+          "aoMap": { "url": "/Showcase/Dirty_Carpet/dirty_carpet_ao_1k.jpg" },
+          "map": { "url": "/Showcase/Dirty_Carpet/dirty_carpet_diff_1k.jpg" }
+        }
+      },
+      "tags": ["basic", "textile"]
+    },
+    {
+      "type": "sphere",
+      "width": 1,
+      "height": 1,
+      "radius": 0.7,
+      "position": { "x": 6, "y": 2, "z": -4 },
+      "widthSegments": 64,
+      "heightSegments": 64,
+      "castShadow": true,
+      "material": {
+        "type": "phong",
+        "params": {
+          "displacementScale": 0.1
+        },
+        "textures": {
+          "aoMap": { "url": "/Showcase/Dirty_Carpet/dirty_carpet_ao_1k.jpg" },
+          "map": { "url": "/Showcase/Dirty_Carpet/dirty_carpet_diff_1k.jpg" },
+          "normalMap": { "url": "/Showcase/Dirty_Carpet/dirty_carpet_nor_dx_1k.jpg" },
+          "displacementMap": { "url": "/Showcase/Dirty_Carpet/dirty_carpet_disp_1k.png" }
+        }
+      },
+      "tags": ["phong", "textile"]
+    },
+    {
+      "type": "sphere",
+      "width": 1,
+      "height": 1,
+      "radius": 0.7,
+      "position": { "x": 8, "y": 2, "z": -4 },
+      "widthSegments": 64,
+      "heightSegments": 64,
+      "castShadow": true,
+      "material": {
+        "type": "lambert",
+        "params": {
+          "displacementScale": 0.1
+        },
+        "textures": {
+          "aoMap": { "url": "/Showcase/Dirty_Carpet/dirty_carpet_ao_1k.jpg" },
+          "map": { "url": "/Showcase/Dirty_Carpet/dirty_carpet_diff_1k.jpg" },
+          "normalMap": { "url": "/Showcase/Dirty_Carpet/dirty_carpet_nor_dx_1k.jpg" },
+          "displacementMap": { "url": "/Showcase/Dirty_Carpet/dirty_carpet_disp_1k.png" }
+        }
+      },
+      "tags": ["lambert", "textile"]
+    },
+    {
+      "type": "sphere",
+      "width": 1,
+      "height": 1,
+      "radius": 0.7,
+      "position": { "x": 10, "y": 2, "z": -4 },
+      "widthSegments": 64,
+      "heightSegments": 64,
+      "castShadow": true,
+      "material": {
+        "type": "toon",
+        "params": {
+          "displacementScale": 0.1
+        },
+        "textures": {
+          "aoMap": { "url": "/Showcase/Dirty_Carpet/dirty_carpet_ao_1k.jpg" },
+          "map": { "url": "/Showcase/Dirty_Carpet/dirty_carpet_diff_1k.jpg" },
+          "normalMap": { "url": "/Showcase/Dirty_Carpet/dirty_carpet_nor_dx_1k.jpg" },
+          "displacementMap": { "url": "/Showcase/Dirty_Carpet/dirty_carpet_disp_1k.png" }
+        }
+      },
+      "tags": ["toon", "textile"]
+    },
+    {
+      "type": "sphere",
+      "width": 1,
+      "height": 1,
+      "radius": 0.7,
+      "position": { "x": 12, "y": 2, "z": -4 },
+      "widthSegments": 64,
+      "heightSegments": 64,
+      "castShadow": true,
+      "material": {
+        "type": "matcap",
+        "params": {
+          "displacementScale": 0.1
+        },
+        "textures": {
+          "map": { "url": "/Showcase/Dirty_Carpet/dirty_carpet_diff_1k.jpg" },
+          "normalMap": { "url": "/Showcase/Dirty_Carpet/dirty_carpet_nor_dx_1k.jpg" },
+          "displacementMap": { "url": "/Showcase/Dirty_Carpet/dirty_carpet_disp_1k.png" }
+        }
+      },
+      "tags": ["matcap", "textile"]
+    }
+  ],
+  "texts": [],
+  "cameras": [
+    {
+      "fov": 45,
+      "near": 1,
+      "far": 10000,
+      "position": { "x": 3, "y": 20, "z": 35 },
+      "rotation": { "x": 0, "y": 0, "z": 0 },
+      "tags": ["initial"]
+    }
+  ],
+  "lights": [
+    {
+      "type": "Ambient",
+      "color": "#ffffff",
+      "intensity": 0.5,
+      "castShadow": false,
+      "position": { "x": 0.25, "y": 2, "z": 2.25 },
+      "tags": []
+    },
+    {
+      "type": "Directional",
+      "color": "#ffffff",
+      "intensity": 1,
+      "castShadow": true,
+      "shadow": {
+        "mapSize": { "x": 1024, "y": 1024 },
+        "camera": { "far": 15 },
+        "normalBias": 0.05
+      },
+      "position": { "x": 0.25, "y": 2, "z": 2.25 },
+      "tags": []
+    }
+  ],
+  "controls": [
+    {
+      "type": "OrbitControls",
+      "cameraTag": "initial",
+      "enableDamping": true,
+      "tags": []
+    }
+  ],
+  "envMaps": [],
+  "tags": ["build-in"]
+}
