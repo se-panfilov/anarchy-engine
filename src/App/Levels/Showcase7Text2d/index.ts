@@ -1,26 +1,8 @@
 import './fonts.css';
 
 import type { IShowcase } from '@/App/Levels/Models';
-import type {
-  buildSpaceFromConfig,
-  createCirclePathXZ,
-  defaultMoverServiceConfig,
-  Easing,
-  Engine,
-  EulerWrapper,
-  generateAnglesForCircle,
-  IAnimationParams,
-  IAppCanvas,
-  IEngine,
-  IMoverService,
-  ISpace,
-  ISpaceConfig,
-  ITextAnyWrapper,
-  IWithCoordsXZ,
-  mouseService,
-  TextType,
-  Vector3Wrapper
-} from '@/Engine';
+import type { IAnimationParams, IAppCanvas, IEngine, IMoverService, ISpace, ISpaceConfig, ITextAnyWrapper, IWithCoordsXZ } from '@/Engine';
+import { buildSpaceFromConfig, createCirclePathXZ, defaultMoverServiceConfig, Easing, Engine, EulerWrapper, generateAnglesForCircle, mouseService, TextType, Vector3Wrapper } from '@/Engine';
 import { MoverService } from '@/Engine/Services/MoverService/MoverService';
 
 import spaceConfig from './showcase-7.json';
