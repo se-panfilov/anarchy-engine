@@ -34,9 +34,10 @@ function extractInlineStyles(element: HTMLElement | undefined): Record<string, s
   const result: Record<string, string> = {};
   // eslint-disable-next-line functional/no-loop-statements
   for (let i: number = 0; i < element.style.length; i++) {
-    const prop: string = kebabToCamel(element.style[i]);
+    const prop: string = element.style[i];
+    const propName: string = kebabToCamel(prop);
     // eslint-disable-next-line functional/immutable-data
-    result[prop] = element.style.getPropertyValue(prop);
+    result[propName] = element.style.getPropertyValue(prop);
   }
   if (Object.keys(result).length === 0) return undefined;
   return result;
