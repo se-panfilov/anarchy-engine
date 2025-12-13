@@ -16,19 +16,19 @@ import type {
 } from '@/Engine/Material/Constants';
 
 import type {
-  TAbstractMaterialPropsOptions,
-  TBasicMaterialPropsOptions,
-  TDepthMaterialPropsOptions,
-  TDistanceMaterialPropsOptions,
-  TLambertMaterialPropsOptions,
-  TMatcapMaterialPropsOptions,
-  TNormalMaterialPropsOptions,
-  TPhongMaterialPropsOptions,
-  TPhysicalMaterialPropsOptions,
-  TPointsMaterialPropsOptions,
-  TStandardMaterialPropsOptions,
-  TToonMaterialPropsOptions
-} from './TMaterialPropsOptions';
+  TAbstractMaterialParamsOptions,
+  TBasicMaterialParamsOptions,
+  TDepthMaterialParamsOptions,
+  TDistanceMaterialParamsOptions,
+  TLambertMaterialParamsOptions,
+  TMatcapMaterialParamsOptions,
+  TNormalMaterialParamsOptions,
+  TPhongMaterialParamsOptions,
+  TPhysicalMaterialParamsOptions,
+  TPointsMaterialParamsOptions,
+  TStandardMaterialParamsOptions,
+  TToonMaterialParamsOptions
+} from './TMaterialParamsOptions';
 
 type TOmitParamsOnlyFields<T> = Omit<
   T,
@@ -49,18 +49,18 @@ type TOmitParamsOnlyFields<T> = Omit<
   | 'normalMapType'
 >;
 
-export type TAbstractMaterialConfigOptions = TOmitParamsOnlyFields<TAbstractMaterialPropsOptions> & TMaterialConfigFields;
-export type TBasicMaterialConfigOptions = TOmitParamsOnlyFields<TBasicMaterialPropsOptions> & TMaterialConfigFields;
-export type TDepthMaterialConfigOptions = TOmitParamsOnlyFields<TDepthMaterialPropsOptions> & TMaterialConfigFields;
-export type TDistanceMaterialConfigOptions = TOmitParamsOnlyFields<TWithReferencePositionConfig<TDistanceMaterialPropsOptions>> & TMaterialConfigFields;
-export type TNormalMaterialConfigOptions = TOmitParamsOnlyFields<TWithNormalScaleConfig<TNormalMaterialPropsOptions>> & TMaterialConfigFields;
-export type TMatcapMaterialConfigOptions = TOmitParamsOnlyFields<TWithNormalScaleConfig<TMatcapMaterialPropsOptions>> & TMaterialConfigFields;
-export type TLambertMaterialConfigOptions = TOmitParamsOnlyFields<TWithNormalScaleConfig<TLambertMaterialPropsOptions>> & TMaterialConfigFields;
-export type TPhongMaterialConfigOptions = TOmitParamsOnlyFields<TWithNormalScaleConfig<TPhongMaterialPropsOptions>> & TMaterialConfigFields;
-export type TToonMaterialConfigOptions = TOmitParamsOnlyFields<TWithNormalScaleConfig<TToonMaterialPropsOptions>> & TMaterialConfigFields;
-export type TStandardMaterialConfigOptions = TOmitParamsOnlyFields<TWithNormalScaleConfig<TStandardMaterialPropsOptions>> & TMaterialConfigFields;
-export type TPhysicalMaterialConfigOptions = TOmitParamsOnlyFields<TWithNormalScaleConfig<TWithClearCoatNormalScaleConfig<TPhysicalMaterialPropsOptions>>> & TMaterialConfigFields;
-export type TPointsMaterialConfigOptions = TOmitParamsOnlyFields<TPointsMaterialPropsOptions> & TMaterialConfigFields;
+export type TAbstractMaterialConfigOptions = TOmitParamsOnlyFields<TAbstractMaterialParamsOptions> & TMaterialConfigFields;
+export type TBasicMaterialConfigOptions = TOmitParamsOnlyFields<TBasicMaterialParamsOptions> & TMaterialConfigFields;
+export type TDepthMaterialConfigOptions = TOmitParamsOnlyFields<TDepthMaterialParamsOptions> & TMaterialConfigFields;
+export type TDistanceMaterialConfigOptions = TOmitParamsOnlyFields<TWithReferencePositionConfig<TDistanceMaterialParamsOptions>> & TMaterialConfigFields;
+export type TNormalMaterialConfigOptions = TOmitParamsOnlyFields<TWithNormalScaleConfig<TNormalMaterialParamsOptions>> & TMaterialConfigFields;
+export type TMatcapMaterialConfigOptions = TOmitParamsOnlyFields<TWithNormalScaleConfig<TMatcapMaterialParamsOptions>> & TMaterialConfigFields;
+export type TLambertMaterialConfigOptions = TOmitParamsOnlyFields<TWithNormalScaleConfig<TLambertMaterialParamsOptions>> & TMaterialConfigFields;
+export type TPhongMaterialConfigOptions = TOmitParamsOnlyFields<TWithNormalScaleConfig<TPhongMaterialParamsOptions>> & TMaterialConfigFields;
+export type TToonMaterialConfigOptions = TOmitParamsOnlyFields<TWithNormalScaleConfig<TToonMaterialParamsOptions>> & TMaterialConfigFields;
+export type TStandardMaterialConfigOptions = TOmitParamsOnlyFields<TWithNormalScaleConfig<TStandardMaterialParamsOptions>> & TMaterialConfigFields;
+export type TPhysicalMaterialConfigOptions = TOmitParamsOnlyFields<TWithNormalScaleConfig<TWithClearCoatNormalScaleConfig<TPhysicalMaterialParamsOptions>>> & TMaterialConfigFields;
+export type TPointsMaterialConfigOptions = TOmitParamsOnlyFields<TPointsMaterialParamsOptions> & TMaterialConfigFields;
 export type TMaterialConfigOptions =
   | TAbstractMaterialConfigOptions
   | TBasicMaterialConfigOptions

@@ -6,7 +6,6 @@ export type * from './TMaterialFactory';
 export type * from './TMaterialParams';
 export type * from './TMaterialParamsOptions';
 export type * from './TMaterialParamsTextures';
-export type * from './TMaterialPropsOptions';
 export type * from './TMaterialRegistry';
 export type * from './TMaterials';
 export type * from './TMaterialService';
