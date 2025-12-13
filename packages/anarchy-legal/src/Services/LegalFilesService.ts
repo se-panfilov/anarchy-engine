@@ -22,7 +22,7 @@ export function LegalFilesService(): TLegalFilesService {
   async function generate(): Promise<void> {
     // eslint-disable-next-line spellcheck/spell-checker
     const argv = await yargs(hideBin(process.argv))
-      .scriptName('anarchy-legal:files')
+      // .scriptName('anarchy-legal:files')
       .usage('$0 --workspace <name|path> --out <dir> [--templates <dir>] [--types DISCLAIMER,EULA,...] [--debug]')
       .option('workspace', { type: 'string', demandOption: true, describe: 'Target workspace (name or path relative to monorepo root)' })
       .option('out', { type: 'string', demandOption: true, describe: 'Output directory for generated files (relative to current working dir allowed)' })
@@ -70,7 +70,7 @@ export function LegalFilesService(): TLegalFilesService {
       if (!argv.types) return new Set(allTypes);
       const parts: ReadonlyArray<string> = String(argv.types)
         .split(',')
-        .map((s) => s.trim().toUpperCase())
+        .map((s: string): string => s.trim().toUpperCase())
         .filter(Boolean);
       const isKnown = (p: string): p is TLegalDocumentType => (allTypes as ReadonlyArray<string>).includes(p);
       const known = parts.filter(isKnown);
