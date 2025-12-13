@@ -1,7 +1,7 @@
 # End User License Agreement (EULA) — {{PACKAGE_NAME}}
 
 **Effective date:** {{EFFECTIVE_DATE}}
-**Publisher/Developer (Licensor):** {{LEGAL_ENTITY_NAME}}
+**Licensor (Developer):** {{LEGAL_ENTITY_NAME}}
 **Support/Legal Contact:** {{SUPPORT_EMAIL}} / {{LEGAL_EMAIL}}
 {{#HAS_EU_REP}}
 **EU Representative:** {{EU_REPRESENTATIVE_CONTACT}}
@@ -14,9 +14,17 @@
 
 **“Distribution Channels”** means any store, marketplace, platform, launcher, website, installer, physical media, or other mechanism used now or in the future to distribute {{PACKAGE_NAME}}, regardless of provider.
 
+**“Consumer”** means an individual acting wholly or mainly outside their trade, business, craft or profession.
+
+**“Business User”** means a user who is not a Consumer.
+
+## Severability
+
+If any term (including any limitation or exclusion of liability) is found invalid, unfair or unenforceable under applicable consumer protection law, the remainder remains in force and, where a term would be valid with a modification, it shall apply with the minimum modification necessary to make it valid.
+
 ## 1. License Grant
 
-Subject to this EULA, Licensor grants you a **personal, non-exclusive, non-transferable, revocable** license to install and use **{{PACKAGE_NAME}}** on devices linked to your **{{STORE_ACCOUNT}}** for **{{USAGE_SCOPE}}** purposes.
+Subject to this EULA, Licensor grants you a personal, non-exclusive, non-transferable, revocable license to install and use {{PACKAGE_NAME}} on devices you own or control for {{USAGE_SCOPE}} purposes.
 
 ## 2. Ownership
 
@@ -39,6 +47,8 @@ The Game may receive updates, patches, bug fixes, or content changes (“Updates
 
 Where we provide release notes or advisories, they may be delivered within the product, in the update package, or via the applicable Distribution Channel. No specific location or publication cadence is guaranteed.
 
+We do not commit to any service levels, availability targets, or ongoing support unless expressly agreed in a separate written agreement.
+
 ## 5. Third-Party Services
 
 Purchasing, downloading, installation, account, or entitlement functions may be provided by your chosen Distribution Channels and are subject to their own terms and privacy policies. Any online features of the Game (if offered) may rely on third-party services under their respective terms.
@@ -53,7 +63,7 @@ Where UGC features exist, you remain responsible for your content. You grant Lic
 This Game is **directed to children**. We implement measures required by applicable law (e.g., **parental consent/notice** where necessary). By using online features (if any), you confirm that **parental consent** has been provided where required. See **Privacy Policy** for details.
 {{/IS_CHILD_DIRECTED}}
 {{^IS_CHILD_DIRECTED}}
-This Game is **not directed to children below the age requiring parental consent under applicable law** (e.g., EU child consent age **{{EU_CHILD_CONSENT_AGE}}**, US **{{US_CHILD_AGE}}**). We do not knowingly collect personal data from such children.
+This Game is not directed to children below the age requiring parental consent under applicable law (e.g., EU {{EU_CHILD_CONSENT_AGE}}, US {{US_CHILD_AGE}}{{#REGION_CN}}, China {{CN_CHILD_AGE}}{{/REGION_CN}}). We do not knowingly collect personal data from such children.
 {{/IS_CHILD_DIRECTED}}
 
 ## 8. Term & Termination
@@ -68,6 +78,11 @@ The Game is provided **“AS IS”**, **to the maximum extent permitted by appli
 
 To the fullest extent permitted by law, Licensor shall **not** be liable for any indirect, incidental, special, exemplary, or consequential damages.
 **Nothing in this EULA excludes or limits liability where such exclusion or limitation is unlawful, including for death or personal injury caused by negligence, fraud, or wilful misconduct.**
+
+## 10A. Liability Cap (Business Users Only)
+
+This clause applies **only** to Business Users. To the extent permitted by applicable law, the Licensor’s aggregate liability for all claims relating to the Game shall not exceed **{{LIABILITY_CAP_AMOUNT}}**.
+Nothing in this clause applies to Consumers, nor does it limit liability where such limitation is unlawful (including for death or personal injury caused by negligence, fraud or wilful misconduct).
 
 ## 11. Export Controls & Sanctions
 
