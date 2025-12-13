@@ -6,4 +6,5 @@ export interface ICameraParams {
   readonly far?: number;
   readonly lookAt: Vector3;
   readonly position: Vector3;
+  readonly tag?: string;
 }

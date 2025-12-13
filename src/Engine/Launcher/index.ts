@@ -27,6 +27,7 @@ import type {
   IControlsWrapper,
   ILightWrapper,
   ILoopWrapper,
+  IRendererWrapper,
   ISceneWrapper
 } from '@Engine/Wrappers';
 import { MouseClicksWatcher, MousePositionWatcher } from '@Engine/Watchers';
@@ -58,31 +59,32 @@ export async function launch(sceneConfig: ISceneConfig, canvas: IAppCanvas): Pro
   //Dynamic create entities
   const scene: ISceneWrapper = sceneFactory.create({ name });
 
-  actors.forEach((config: IActorConfig) => {
+  actors.forEach((config: IActorConfig): void => {
     const actor: IActorWrapper = actorFactory.fromConfig(config);
     actorRegistry.add(actor);
     scene.addActor(actor);
   });
 
-  cameras.forEach((config: ICameraConfig) => {
+  cameras.forEach((config: ICameraConfig): void => {
     const camera: ICameraWrapper = cameraFactory.fromConfig(config);
     cameraRegistry.add(camera);
     scene.addCamera(camera);
   });
 
-  lights.forEach((config: ILightConfig) => {
+  lights.forEach((config: ILightConfig): void => {
     const light: ILightWrapper = lightFactory.fromConfig(config);
     lightRegistry.add(light);
     scene.addLight(light);
   });
 
-  controls.forEach((config: IControlsConfig) => {
+  controls.forEach((config: IControlsConfig): void => {
     const control: IControlsWrapper = controlsFactory.fromConfig(config);
-    controlsRegistry.add(control);
-    scene.addControl(control);
+    // TODO (S.Panfilov) CWP implement controlsRegistry
+    // controlsRegistry.add(control);
+    // scene.addControl(control);
   });
 
-  const renderer = rendererFactory.create({ canvas });
+  const renderer: IRendererWrapper = rendererFactory.create({ canvas });
   // create controls (needs camera, renderer)/////////////////////
   // TODO (S.Panfilov)
   ////////////////////////////////////

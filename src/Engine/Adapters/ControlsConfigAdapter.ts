@@ -14,8 +14,6 @@ export function controlsAdapter(
   if (type !== ControlsType.OrbitControls) throw new Error(`Cannot create controls of unknown type "${type}"`);
   if (isNotDefined(cameraTag)) throw new Error(`Cannot attach controls ("${type}") to undefined camera tag`);
 
-  // TODO (S.Panfilov) CWP "cameraRegistry.getByTag(cameraTag)" doesn't work, because camera is not yet created. Fix this
-
   return {
     camera: cameraRegistry.getByTag(cameraTag),
     canvas

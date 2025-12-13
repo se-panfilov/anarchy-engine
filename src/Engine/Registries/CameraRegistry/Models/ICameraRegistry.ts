@@ -4,5 +4,5 @@ import { IAbstractRegistry } from '@Engine/Models';
 
 export type ICameraRegistry = IProtectedRegistry<ICameraWrapper, IAbstractRegistry<ICameraWrapper>> &
   Readonly<{
-    getByTag: (id: string) => ICameraWrapper | never;
+    getByTag: (tag: string) => ICameraWrapper | never;
   }>;
