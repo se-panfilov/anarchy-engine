@@ -1,3 +1,5 @@
+import { LoopTag } from '@Engine/Constants';
+
 export type ILoopParams = Readonly<{
-  tag: string;
+  tags: ReadonlyArray<LoopTag | string>;
 }>;

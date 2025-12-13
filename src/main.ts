@@ -15,5 +15,4 @@ if (!isValidSceneConfig(sceneConfig)) throw new Error('Failed to load a scene: i
 
 const registryPool: IRegistriesPool = getRegistryPool();
 const factoriesPool: IFactoriesPool = getFactoriesPool({ canvas, cameraRegistry: registryPool.cameraRegistry });
-const isLaunched: boolean = await launchScene(sceneConfig, canvas, factoriesPool, registryPool);
-console.log('Launched', isLaunched);
+launchScene(sceneConfig, canvas, factoriesPool, registryPool);

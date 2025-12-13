@@ -9,7 +9,7 @@ import { PerspectiveCamera } from 'three';
 import { getAccessors } from './Accessors';
 
 export function CameraWrapper(params: ICameraParams, screenSizeWatcher: IScreenSizeWatcher): ICameraWrapper {
-  const { fov = 45, near = 1, far = 10000, lookAt, position, tag }: ICameraParams = params;
+  const { fov = 45, near = 1, far = 10000, lookAt, position, tags }: ICameraParams = params;
   // TODO (S.Panfilov) Test this: aspect is 0 fot now, but should be set by screenSizeWatcher
   const entity: Writeable<IPerspectiveCamera> = new PerspectiveCamera(fov, 0, near, far);
   entity.lookAt(lookAt.x, lookAt.y, lookAt.z);
@@ -33,5 +33,5 @@ export function CameraWrapper(params: ICameraParams, screenSizeWatcher: IScreenS
     screenSizeWatcher.destroy$.unsubscribe();
   });
 
-  return { ...AbstractWrapper(entity), ...getAccessors(entity), entity, tag };
+  return { ...AbstractWrapper(entity), ...getAccessors(entity), entity, tags };
 }

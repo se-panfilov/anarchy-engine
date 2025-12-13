@@ -7,7 +7,7 @@ export type IAbstractRegistry<T extends IWrapper<unknown>> = Readonly<{
   added$: Subject<T>;
   replace: (entity: T) => void;
   replaced$: Subject<T>;
-  registry: Map<string, T>;
+  registry: ReadonlyMap<string, T>;
   getById: (id: string) => T | undefined;
   remove: (id: string) => void;
   removed$: Subject<T>;

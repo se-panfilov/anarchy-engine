@@ -9,7 +9,7 @@ export function controlsAdapter(
   cameraRegistry: ICameraRegistry,
   canvas: IAppCanvas
 ): IControlsParams {
-  const { type, cameraTag } = config;
+  const { type, cameraTag, tags } = config;
 
   if (type !== ControlsType.OrbitControls)
     throw new Error(`Cannot create controls of unknown type "${type as string}"`);
@@ -17,6 +17,7 @@ export function controlsAdapter(
 
   return {
     camera: cameraRegistry.getByTag(cameraTag),
-    canvas
+    canvas,
+    tags
   };
 }

@@ -1,3 +1,4 @@
+import { CameraTag } from '@Engine/Constants';
 import type { IWrapper } from '@Engine/Models';
 import { IPerspectiveCamera } from '@Engine/Models';
 import type { ICameraAccessors } from '@Engine/Wrappers';
@@ -5,5 +6,5 @@ import type { ICameraAccessors } from '@Engine/Wrappers';
 export type ICameraWrapper = IWrapper<IPerspectiveCamera> &
   ICameraAccessors &
   Readonly<{
-    tag: string | undefined;
+    tags: ReadonlyArray<CameraTag>;
   }>;

@@ -7,5 +7,5 @@ export type ICameraParams = Readonly<{
   far?: number;
   lookAt: IVector3;
   position: IVector3;
-  tag: CameraTag;
+  tags: ReadonlyArray<CameraTag>;
 }>;

@@ -1,3 +1,5 @@
+import type { SceneTag } from '@Engine/Constants';
+
 import type { IActorConfig } from './IActorConfig';
 import type { ICameraConfig } from './ICameraConfig';
 import type { IControlsConfig } from './IControlsConfig';
@@ -9,4 +11,5 @@ export type ISceneConfig = Readonly<{
   cameras: ReadonlyArray<ICameraConfig>;
   lights: ReadonlyArray<ILightConfig>;
   controls: ReadonlyArray<IControlsConfig>;
+  tags: ReadonlyArray<SceneTag>;
 }>;

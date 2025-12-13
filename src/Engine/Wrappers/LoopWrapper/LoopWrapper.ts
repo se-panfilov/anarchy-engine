@@ -6,10 +6,10 @@ import type { ILoopWrapper } from './Models';
 import type { LoopFn } from './Models/LoopFn';
 import { getUtils } from './utils';
 
-export function LoopWrapper({ tag }: ILoopParams): ILoopWrapper {
+export function LoopWrapper({ tags }: ILoopParams): ILoopWrapper {
   const entity: LoopFn = (renderer: IRendererWrapper, scene: ISceneWrapper, camera: ICameraWrapper): void => {
     renderer.entity.render(scene.entity, camera.entity);
   };
 
-  return { ...AbstractWrapper(entity), ...getUtils(entity), entity, tag };
+  return { ...AbstractWrapper(entity), ...getUtils(entity), entity, tags };
 }
