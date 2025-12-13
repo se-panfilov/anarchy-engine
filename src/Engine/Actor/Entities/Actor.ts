@@ -5,7 +5,7 @@ import { Euler, Vector3 } from 'three';
 import { AbstractEntity, EntityType } from '@/Engine/Abstract';
 import type { ActorDrive } from '@/Engine/Actor/Constants';
 import type { TActor, TActorDependencies, TActorEntities, TActorParams } from '@/Engine/Actor/Models';
-import { applySpatialGrid, startCollisions } from '@/Engine/Actor/Wrappers/ActorHelper';
+import { applySpatialGrid, startCollisions } from '@/Engine/Actor/Utils';
 import { withCollisions } from '@/Engine/Collisions';
 import { withKinematic } from '@/Engine/Kinematic';
 import type { TModel3d } from '@/Engine/Models3d';
