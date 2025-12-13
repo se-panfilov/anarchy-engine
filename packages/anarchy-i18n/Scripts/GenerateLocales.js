@@ -9,7 +9,7 @@ const getArg = (flag, def) => {
 
 const CONFIG_PATH = getArg('--config', 'src/Config/locales.config.jsonc');
 const OUT_CONST_PATH = getArg('--out-const', 'src/Constants/Locales.gen.ts');
-const OUT_MODELS_PATH = getArg('--out', 'src/Models/TLocales.gen.ts');
+const OUT_MODELS_PATH = getArg('--out-models', 'src/Models/TLocales.gen.ts');
 
 const fileExists = async (p) => {
   try {
@@ -243,19 +243,20 @@ ${locales.map((locale) => `export const ${kebabToCamel(locale.id)}: TLocale =  `
 
 async function writeModels(header, locales) {
   const idsUnion = locales.map(({ id }) => `  | '${id}'`).join('\n');
-  const typesTail = `
+  const modelsStr = `
+
 // Union type of all possible BCP47 IDs
-export type TLocaleId = ${idsUnion};`;
+export type TLocaleId = ${idsUnion};
+`;
 
   await fs.mkdir(path.dirname(OUT_MODELS_PATH), { recursive: true });
-  await fs.writeFile(OUT_MODELS_PATH, header + typesTail, 'utf8');
+  await fs.writeFile(OUT_MODELS_PATH, header + modelsStr, 'utf8');
 }
 
 function toTs(locale) {
-  const json = JSON.stringify(locale)
+  return JSON.stringify(locale)
     .replace(/"([a-zA-Z0-9_]+)":/g, '$1:') // unquote keys (pretty)
     .replace(/"ltr"|\"rtl\"/g, (m) => m); // keep as strings
-  return json;
 }
 
 function kebabToCamel(input) {
