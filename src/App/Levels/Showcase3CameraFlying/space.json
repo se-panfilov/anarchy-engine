@@ -1,7 +1,7 @@
 {
   "canvasSelector": "#app",
   "entities": {
-    "renderers": [{ "mode": "webgl2", "isActive": true }],
+    "renderers": [{ "mode": "webgl2", "isActive": true, "alpha": true }],
     "actors": [
       {
         "model3dSource": "central_actor_model",

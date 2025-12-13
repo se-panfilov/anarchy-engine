@@ -1,7 +1,7 @@
 {
   "canvasSelector": "#app",
   "entities": {
-    "renderers": [{ "mode": "webgl2", "isActive": true }],
+    "renderers": [{ "mode": "webgl2", "isActive": true, "alpha": true }],
     "actors": [
       {
         "name": "sphere_standard_metal_actor",
