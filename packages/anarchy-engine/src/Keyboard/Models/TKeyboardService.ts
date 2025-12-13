@@ -1,14 +1,13 @@
 import type { TAbstractService } from '@Anarchy/Engine/Abstract';
-import type { TKeysPressingEvent } from '@Anarchy/Engine/Keyboard';
+import type { TKeysEvent } from '@Anarchy/Engine/Keyboard/Models/TKeysEvent';
 import type { Observable } from 'rxjs';
 
-import type { TGameKey } from './TGameKey';
+import type { TKeysState } from './TKeysState';
 
 export type TKeyboardService = TAbstractService &
   Readonly<{
-    combo$: Observable<ReadonlySet<TGameKey>>;
-    pressing$: Observable<TKeysPressingEvent>;
+    keys$: Observable<TKeysEvent>;
+    currentKeys: TKeysState;
     pressed$: Observable<KeyboardEvent>;
     released$: Observable<KeyboardEvent>;
-    currentKeys: ReadonlySet<TGameKey>;
   }>;
