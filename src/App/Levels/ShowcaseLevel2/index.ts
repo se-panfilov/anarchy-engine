@@ -1,9 +1,8 @@
 import { combineLatest } from 'rxjs';
-import { Vector3 } from 'three';
 
 import type { IShowcase } from '@/App/Levels/Models';
-import { IAppCanvas, ICameraWrapper, ILevel, ILevelConfig, isNotDefined } from '@/Engine';
-import { ActorType, ambientContext, buildLevelFromConfig, CameraTag, EulerWrapper, Vector3Wrapper } from '@/Engine';
+import type { IAppCanvas, ICameraWrapper, ILevel, ILevelConfig } from '@/Engine';
+import { ActorType, ambientContext, buildLevelFromConfig, CameraTag, EulerWrapper, isNotDefined, Vector3Wrapper } from '@/Engine';
 
 import levelConfig from './showcase-level-2.config.json';
 
@@ -49,9 +48,9 @@ export function showcaseLevel2(canvas: IAppCanvas): IShowcase {
       if (isNotDefined(camera)) return;
 
       // console.log('camera rotation', cameraRegistry.getAll()[0].entity.rotation);
-      cameraRegistry.getUniqByTag(cameraTag)?.entity.position.setX(xRatio);
-      cameraRegistry.getUniqByTag(cameraTag)?.entity.position.setY(yRatio);
-      cameraRegistry.getUniqByTag(cameraTag)?.entity.lookAt(new Vector3(0, 0, 0));
+      camera.setX(xRatio);
+      camera.setY(yRatio);
+      camera.lookAt(Vector3Wrapper({ x: 0, y: 0, z: 0 }));
 
       // const xRatio: number = x / width - 0.5;
       // const yRatio: number = -(y / height - 0.5);

@@ -1,5 +1,4 @@
 import { nanoid } from 'nanoid';
-import type { Observable } from 'rxjs';
 import { Subject } from 'rxjs';
 
 import type { IAbstractRegistry } from '@/Engine/Domains/Abstract/Models';
@@ -73,21 +72,11 @@ export function AbstractRegistry<T extends IRegistrable | IMultitonRegistrable>(
   }
 
   return {
-    get id(): string {
-      return id;
-    },
-    get type(): RegistryType | string {
-      return type;
-    },
-    get added$(): Observable<T> {
-      return added$.asObservable();
-    },
-    get replaced$(): Observable<T> {
-      return replaced$.asObservable();
-    },
-    get removed$(): Observable<T> {
-      return removed$.asObservable();
-    },
+    id,
+    type,
+    added$: added$.asObservable(),
+    replaced$: replaced$.asObservable(),
+    removed$: removed$.asObservable(),
     add,
     replace,
     getById,

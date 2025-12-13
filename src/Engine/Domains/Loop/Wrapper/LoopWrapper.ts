@@ -28,8 +28,6 @@ export function LoopWrapper(params: ILoopParams): ILoopWrapper {
     ...getUtils(entity),
     entity,
     tags: params.tags,
-    get delta(): number {
-      return _delta;
-    }
+    delta: _delta
   };
 }

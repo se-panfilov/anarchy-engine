@@ -5,16 +5,14 @@ import type { IAppGlobalContainer, IGlobalContainerDecorator } from '@/Engine/Do
 
 export function ContainerDecorator(container: IAppGlobalContainer): IGlobalContainerDecorator {
   return {
-    get id(): string {
-      return nanoid();
-    },
-    get width(): number {
+    id: nanoid(),
+    getWidth(): number {
       return container.innerWidth;
     },
-    get height(): number {
+    getHeight(): number {
       return container.innerHeight;
     },
-    get ratio(): number {
+    getRatio(): number {
       return container.devicePixelRatio || 1;
     },
     startWatch(type: string, cb: () => void): void {

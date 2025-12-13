@@ -9,9 +9,9 @@ export function ScreenSizeWatcher({ container, tags = [] }: IScreenSizeWatcherPa
 
   const onResize = (): void => {
     abstractWatcher.value$.next({
-      width: container.width,
-      height: container.height,
-      ratio: container.ratio
+      width: container.getWidth(),
+      height: container.getHeight(),
+      ratio: container.getRatio()
     });
   };
 

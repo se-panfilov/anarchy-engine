@@ -1,4 +1,4 @@
-import type { Observable, Subscription } from 'rxjs';
+import type { Subscription } from 'rxjs';
 import { ReplaySubject } from 'rxjs';
 
 import { ambientContext } from '@/Engine/Context';
@@ -183,8 +183,6 @@ export function buildLevelFromConfig(canvas: IAppCanvas, config: ILevelConfig): 
     built$: builtMixin.built$.asObservable(),
     ...destroyable,
     ...withTags(tags),
-    get messages$(): Observable<string> {
-      return messages$;
-    }
+    messages$: messages$.asObservable()
   };
 }

@@ -1,4 +1,3 @@
-import type { Observable } from 'rxjs';
 import { Subject } from 'rxjs';
 
 import type { IDestroyable } from '@/Engine/Mixins/Generic/Models';
@@ -16,8 +15,6 @@ export function destroyableMixin(): IDestroyable {
   return {
     destroy: (): void => destroyed$.next(),
     isDestroyed: (): boolean => isDestroyed,
-    get destroyed$(): Observable<void> {
-      return destroyed$.asObservable();
-    }
+    destroyed$: destroyed$.asObservable()
   };
 }

@@ -1,7 +1,6 @@
 *.log
 node_modules
 dist
-.eslintrc.cjs
 pnpm-lock.yaml
 package-lock.json
 vite.config.ts

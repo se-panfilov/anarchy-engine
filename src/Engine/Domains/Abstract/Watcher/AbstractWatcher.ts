@@ -18,15 +18,9 @@ export function AbstractWatcher<T>(type: WatcherType | string, tags: ReadonlyArr
   });
 
   return {
-    get id(): string {
-      return id;
-    },
-    get type(): WatcherType | string {
-      return type;
-    },
-    get value$(): Subject<T> {
-      return value$;
-    },
+    id,
+    type,
+    value$,
     ...withTags(tags),
     ...destroyable
   };

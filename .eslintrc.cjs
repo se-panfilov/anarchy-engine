@@ -71,7 +71,14 @@ module.exports = {
     'simple-import-sort/imports': 'error',
     'simple-import-sort/exports': 'error',
     '@typescript-eslint/consistent-type-exports': 'error',
-    '@typescript-eslint/consistent-type-imports': 'error'
+    '@typescript-eslint/consistent-type-imports': 'error',
+    'no-restricted-syntax': [
+      'error',
+      { selector: "MethodDefinition[kind='set']", message: 'Property setters are not allowed' },
+      { selector: "MethodDefinition[kind='get']", message: 'Property getters are not allowed' },
+      { selector: "Property[kind='set']", message: 'Property setters are not allowed in object literals' },
+      { selector: "Property[kind='get']", message: 'Property getters are not allowed in object literals' }
+    ]
   },
   overrides: [
     {
