@@ -3,3 +3,4 @@ export * from './Buildings';
 export * from './Bullets';
 export * from './Camera';
 export * from './Debug';
+export * from './Misc';

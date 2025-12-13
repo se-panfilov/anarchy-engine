@@ -1,17 +1,14 @@
 import type { Intersection } from 'three';
 import { Box3, Vector3 } from 'three';
-import { Line2 } from 'three/examples/jsm/lines/Line2';
-import { LineGeometry } from 'three/examples/jsm/lines/LineGeometry';
-import { LineMaterial } from 'three/examples/jsm/lines/LineMaterial';
+import type { Line2 } from 'three/examples/jsm/lines/Line2';
 
 import type { TShowcase } from '@/App/Levels/Models';
 import type { TActorWrapperAsync, TActorWrapperWithPhysicsAsync, TAppCanvas, TCameraWrapper, TEngine, TIntersectionEvent, TIntersectionsWatcher, TSpace, TSpaceConfig, TWithCoordsXYZ } from '@/Engine';
 import { buildSpaceFromConfig, Engine, get3DAzimuth, isDefined, isNotDefined, KeysExtra, mouseService } from '@/Engine';
-import { meters } from '@/Engine/Measurements/Utils';
 
 import spaceConfig from './showcase.json';
 import type { TBullet } from './utils';
-import { buildTower, cameraFollowingActor, getBulletsPool, initGridHelper, shoot, startMoveActorWithKeyboard, updateBullets } from './utils';
+import { buildTower, cameraFollowingActor, createLine, getBulletsPool, initGridHelper, shoot, startMoveActorWithKeyboard, updateBullets } from './utils';
 
 export function showcase(canvas: TAppCanvas): TShowcase {
   const space: TSpace = buildSpaceFromConfig(canvas, spaceConfig as TSpaceConfig);
@@ -98,17 +95,4 @@ export function showcase(canvas: TAppCanvas): TShowcase {
   }
 
   return { start, space };
-}
-
-function createLine(): Line2 {
-  const material = new LineMaterial({
-    color: '#E91E63',
-    linewidth: meters(0.1),
-    worldUnits: true,
-    alphaToCoverage: true
-  });
-  const geometry: LineGeometry = new LineGeometry();
-  geometry.setPositions([0, 0, 0, 0, 0, 0]);
-
-  return new Line2(geometry, material);
 }
