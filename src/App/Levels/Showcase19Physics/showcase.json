@@ -88,9 +88,9 @@
       "physics": {
         "presetName": "wall_physics",
         "shapeParams": {
-          "width": 20,
-          "height": 1,
-          "depth": 5
+          "hx": 20,
+          "hy": 1,
+          "hz": 5
         },
         "position": { "x": -10.5, "y": 0, "z": 0 },
         "rotation": { "x": -1.57, "y": 0, "z": 0, "w": 0 }
@@ -302,9 +302,9 @@
       "physics": {
         "presetName": "box_physics",
         "shapeParams": {
-          "width": 4,
-          "height": 1,
-          "depth": 1
+          "hx": 4,
+          "hy": 1,
+          "hz": 1
         },
         "position": { "x": -4, "y": 2, "z": 2 },
         "rotation": { "x": -1.57, "y": 0, "z": 0, "w": 0 }
@@ -340,9 +340,9 @@
       "physics": {
         "presetName": "box_physics",
         "shapeParams": {
-          "width": 4,
-          "height": 1,
-          "depth": 1
+          "hx": 4,
+          "hy": 1,
+          "hz": 1
         },
         "position": { "x": 4, "y": 2, "z": 1 },
         "rotation": { "x": -1.57, "y": 0, "z": 0, "w": 0 }
@@ -373,7 +373,9 @@
       },
       "physics": {
         "presetName": "ball_physics",
-        "radius": 1,
+        "shapeParams": {
+          "radius": 1
+        },
         "position": { "x": 1, "y": 8, "z": -4 }
       },
       "position": { "x": 1, "y": 8, "z": -4 },
@@ -409,7 +411,9 @@
       },
       "physics": {
         "presetName": "ball_physics",
-        "radius": 1,
+        "shapeParams": {
+          "radius": 1
+        },
         "position": { "x": 2, "y": 12, "z": -4 }
       },
       "position": { "x": 2, "y": 12, "z": -4 },
@@ -420,9 +424,7 @@
   "intersections": [],
   "physics": {
     "global": {
-      "gravity": { "x": 0, "y": -9.81, "z": 0 },
-      "timeStep": 0.016666666666666666,
-      "enableCCD": false
+      "gravity": { "x": 0, "y": -9.81, "z": 0 }
     },
     "presets": [
       {
