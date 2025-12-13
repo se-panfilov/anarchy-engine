@@ -1,17 +1,17 @@
 import type { TMaterialTextureService } from '@/Engine/MaterialTexturePack';
 import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
-import type { IParticlesAsyncRegistry, IParticlesConfig, IParticlesFactory, IParticlesParams, IParticlesService, TParticlesWrapperAsync } from '@/Engine/Particles/Models';
+import type { TParticlesAsyncRegistry, TParticlesConfig, TParticlesFactory, TParticlesParams, TParticlesService, TParticlesWrapperAsync } from '@/Engine/Particles/Models';
 import type { TSceneWrapper } from '@/Engine/Scene';
 
-export function ParticlesService(factory: IParticlesFactory, registry: IParticlesAsyncRegistry, materialTextureService: TMaterialTextureService, scene: TSceneWrapper): IParticlesService {
+export function ParticlesService(factory: TParticlesFactory, registry: TParticlesAsyncRegistry, materialTextureService: TMaterialTextureService, scene: TSceneWrapper): TParticlesService {
   registry.added$.subscribe((wrapper: TParticlesWrapperAsync): void => scene.addParticles(wrapper));
   factory.entityCreated$.subscribe((wrapper: TParticlesWrapperAsync): void => registry.add(wrapper));
 
-  const createAsync = (params: IParticlesParams): Promise<TParticlesWrapperAsync> => factory.createAsync(params, { materialTextureService });
-  const createFromConfig = (particles: ReadonlyArray<IParticlesConfig>): void => {
+  const createAsync = (params: TParticlesParams): Promise<TParticlesWrapperAsync> => factory.createAsync(params, { materialTextureService });
+  const createFromConfig = (particles: ReadonlyArray<TParticlesConfig>): void => {
     // eslint-disable-next-line @typescript-eslint/no-misused-promises
-    particles.forEach((config: IParticlesConfig): Promise<TParticlesWrapperAsync> => factory.createAsync(factory.configToParams(config), { materialTextureService }));
+    particles.forEach((config: TParticlesConfig): Promise<TParticlesWrapperAsync> => factory.createAsync(factory.configToParams(config), { materialTextureService }));
   };
 
   const destroyable: TDestroyable = destroyableMixin();
@@ -23,8 +23,8 @@ export function ParticlesService(factory: IParticlesFactory, registry: IParticle
   return {
     createAsync,
     createFromConfig,
-    getFactory: (): IParticlesFactory => factory,
-    getRegistry: (): IParticlesAsyncRegistry => registry,
+    getFactory: (): TParticlesFactory => factory,
+    getRegistry: (): TParticlesAsyncRegistry => registry,
     getScene: (): TSceneWrapper => scene,
     ...destroyable
   };

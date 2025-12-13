@@ -2,15 +2,15 @@ import type { ColorSpace, MagnificationTextureFilter, MinificationTextureFilter 
 import { LinearFilter, NearestFilter, SRGBColorSpace } from 'three';
 
 import { MaterialType } from '@/Engine/Material';
-import type { IMaterialPackKeys, IMaterialPackParams, ITexturePackParams, TMaterialTexturePack } from '@/Engine/MaterialTexturePack';
-import type { ITextureParams, TTexture } from '@/Engine/Texture/Models';
+import type { TMaterialPackKeys, TMaterialPackParams, TTexturePackParams, TMaterialTexturePack } from '@/Engine/MaterialTexturePack';
+import type { TTextureParams, TTexture } from '@/Engine/Texture/Models';
 import type { TWriteable } from '@/Engine/Utils';
 import { isDefined, isNotDefined } from '@/Engine/Utils';
 
 export const getMagFilter = (magFilter?: MagnificationTextureFilter): MagnificationTextureFilter => (isDefined(magFilter) ? magFilter : LinearFilter);
 export const getMinFilter = (minFilter?: MinificationTextureFilter): MinificationTextureFilter => (isDefined(minFilter) ? minFilter : NearestFilter);
 
-export const applyColorSpace = (name: IMaterialPackKeys, texture: TWriteable<TTexture>, params?: ITextureParams): void => {
+export const applyColorSpace = (name: TMaterialPackKeys, texture: TWriteable<TTexture>, params?: TTextureParams): void => {
   let defaultColorSpace: ColorSpace;
 
   if (name === 'map' || name === 'matcap') {
@@ -23,7 +23,7 @@ export const applyColorSpace = (name: IMaterialPackKeys, texture: TWriteable<TTe
   texture.colorSpace = isDefined(params?.colorSpace) ? params.colorSpace : defaultColorSpace;
 };
 
-export function applyFilters(texture: TWriteable<TTexture>, params?: ITextureParams): void {
+export function applyFilters(texture: TWriteable<TTexture>, params?: TTextureParams): void {
   if (isNotDefined(params)) return;
 
   // eslint-disable-next-line functional/immutable-data
@@ -35,7 +35,7 @@ export function applyFilters(texture: TWriteable<TTexture>, params?: ITexturePar
   if (texture.minFilter === NearestFilter) texture.generateMipmaps = false;
 }
 
-export function applyTextureParams(texture: TWriteable<TTexture>, params?: ITextureParams): void {
+export function applyTextureParams(texture: TWriteable<TTexture>, params?: TTextureParams): void {
   if (isNotDefined(params)) return;
 
   // eslint-disable-next-line functional/immutable-data
@@ -52,6 +52,6 @@ export function applyTextureParams(texture: TWriteable<TTexture>, params?: IText
   if (isDefined(params.type)) texture.type = params.type;
 }
 
-export const isMaterialType = (value: ITexturePackParams | MaterialType): value is MaterialType => Object.values(MaterialType).includes(value as MaterialType);
-export const isMaterialProps = (value: ITexturePackParams | IMaterialPackParams<TMaterialTexturePack>): value is IMaterialPackParams<TMaterialTexturePack> =>
-  (value as IMaterialPackParams<TMaterialTexturePack>).type !== undefined && isMaterialType((value as IMaterialPackParams<TMaterialTexturePack>).type);
+export const isMaterialType = (value: TTexturePackParams | MaterialType): value is MaterialType => Object.values(MaterialType).includes(value as MaterialType);
+export const isMaterialProps = (value: TTexturePackParams | TMaterialPackParams<TMaterialTexturePack>): value is TMaterialPackParams<TMaterialTexturePack> =>
+  (value as TMaterialPackParams<TMaterialTexturePack>).type !== undefined && isMaterialType((value as TMaterialPackParams<TMaterialTexturePack>).type);

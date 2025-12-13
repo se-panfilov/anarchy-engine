@@ -1,4 +1,4 @@
 import { AbstractAsyncRegistry, RegistryFacade, RegistryType } from '@/Engine/Abstract';
-import type { IParticlesAsyncRegistry, TParticlesWrapperAsync } from '@/Engine/Particles/Models';
+import type { TParticlesAsyncRegistry, TParticlesWrapperAsync } from '@/Engine/Particles/Models';
 
-export const ParticlesAsyncRegistry = (): IParticlesAsyncRegistry => RegistryFacade(AbstractAsyncRegistry<TParticlesWrapperAsync>(RegistryType.Particles));
+export const ParticlesAsyncRegistry = (): TParticlesAsyncRegistry => RegistryFacade(AbstractAsyncRegistry<TParticlesWrapperAsync>(RegistryType.Particles));

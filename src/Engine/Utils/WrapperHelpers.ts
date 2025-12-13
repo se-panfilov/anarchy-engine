@@ -8,7 +8,7 @@ import type {
   IDistanceMaterialTexturePack,
   ILambertMaterialTexturePack,
   IMatcapMaterialTexturePack,
-  IMaterialPackParams,
+  TMaterialPackParams,
   INormalMaterialTexturePack,
   IPhongMaterialTexturePack,
   IPhysicalMaterialTexturePack,
@@ -16,8 +16,8 @@ import type {
   IToonMaterialTexturePack,
   TMaterialTexturePack
 } from '@/Engine/MaterialTexturePack';
-import type { IScalable, TMovable3dXYZ, TRotatable, TWithObject3d } from '@/Engine/Mixins';
-import type { IWithTextures } from '@/Engine/Texture';
+import type { TScalable, TMovable3dXYZ, TRotatable, TWithObject3d } from '@/Engine/Mixins';
+import type { TWithTextures } from '@/Engine/Texture';
 import type { TObject3DParams } from '@/Engine/ThreeLib';
 import { isDefined } from '@/Engine/Utils/index';
 import type { TVector2Wrapper, TVector3Wrapper } from '@/Engine/Vector';
@@ -38,17 +38,17 @@ export function applyCenter(obj: CSS2DObject, center?: TVector2Wrapper): void {
   if (isDefined(center)) obj.center.set(center.getX(), center.getY());
 }
 
-export function applyTexturePack(obj: IWithTextures, pack: IMaterialPackParams<IBasicMaterialTexturePack>): Promise<Material>;
-export function applyTexturePack(obj: IWithTextures, pack: IMaterialPackParams<IDepthMaterialTexturePack>): Promise<Material>;
-export function applyTexturePack(obj: IWithTextures, pack: IMaterialPackParams<IDistanceMaterialTexturePack>): Promise<Material>;
-export function applyTexturePack(obj: IWithTextures, pack: IMaterialPackParams<INormalMaterialTexturePack>): Promise<Material>;
-export function applyTexturePack(obj: IWithTextures, pack: IMaterialPackParams<IMatcapMaterialTexturePack>): Promise<Material>;
-export function applyTexturePack(obj: IWithTextures, pack: IMaterialPackParams<ILambertMaterialTexturePack>): Promise<Material>;
-export function applyTexturePack(obj: IWithTextures, pack: IMaterialPackParams<IPhongMaterialTexturePack>): Promise<Material>;
-export function applyTexturePack(obj: IWithTextures, pack: IMaterialPackParams<IPhysicalMaterialTexturePack>): Promise<Material>;
-export function applyTexturePack(obj: IWithTextures, pack: IMaterialPackParams<IToonMaterialTexturePack>): Promise<Material>;
-export function applyTexturePack(obj: IWithTextures, pack: IMaterialPackParams<IStandardMaterialTexturePack>): Promise<Material>;
-export function applyTexturePack(obj: IWithTextures, pack: IMaterialPackParams<TMaterialTexturePack>): Promise<Material> {
+export function applyTexturePack(obj: TWithTextures, pack: TMaterialPackParams<IBasicMaterialTexturePack>): Promise<Material>;
+export function applyTexturePack(obj: TWithTextures, pack: TMaterialPackParams<IDepthMaterialTexturePack>): Promise<Material>;
+export function applyTexturePack(obj: TWithTextures, pack: TMaterialPackParams<IDistanceMaterialTexturePack>): Promise<Material>;
+export function applyTexturePack(obj: TWithTextures, pack: TMaterialPackParams<INormalMaterialTexturePack>): Promise<Material>;
+export function applyTexturePack(obj: TWithTextures, pack: TMaterialPackParams<IMatcapMaterialTexturePack>): Promise<Material>;
+export function applyTexturePack(obj: TWithTextures, pack: TMaterialPackParams<ILambertMaterialTexturePack>): Promise<Material>;
+export function applyTexturePack(obj: TWithTextures, pack: TMaterialPackParams<IPhongMaterialTexturePack>): Promise<Material>;
+export function applyTexturePack(obj: TWithTextures, pack: TMaterialPackParams<IPhysicalMaterialTexturePack>): Promise<Material>;
+export function applyTexturePack(obj: TWithTextures, pack: TMaterialPackParams<IToonMaterialTexturePack>): Promise<Material>;
+export function applyTexturePack(obj: TWithTextures, pack: TMaterialPackParams<IStandardMaterialTexturePack>): Promise<Material>;
+export function applyTexturePack(obj: TWithTextures, pack: TMaterialPackParams<TMaterialTexturePack>): Promise<Material> {
   return obj.loadAndApplyMaterialTexturePack(pack);
 }
 
@@ -56,6 +56,6 @@ export function applyRotation(obj: TRotatable, rotation?: TEulerWrapper): void {
   if (isDefined(rotation)) obj.setRotation(rotation.getRotationX(), rotation.getRotationY(), rotation.getRotationZ());
 }
 
-export function applyScale(obj: IScalable, scale?: TVector3Wrapper): void {
+export function applyScale(obj: TScalable, scale?: TVector3Wrapper): void {
   if (isDefined(scale)) obj.setScale(scale.getX(), scale.getY(), scale.getZ());
 }

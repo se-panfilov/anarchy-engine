@@ -1,10 +1,10 @@
 import type { TAsyncReactiveFactory, TCreateAsyncEntityFactoryFn } from '@/Engine/Abstract';
 import { AsyncReactiveFactory, FactoryType } from '@/Engine/Abstract';
 import { configToParams } from '@/Engine/Particles/Adapters';
-import type { IParticlesFactory, IParticlesParams, TParticlesWrapperAsync } from '@/Engine/Particles/Models';
+import type { TParticlesFactory, TParticlesParams, TParticlesWrapperAsync } from '@/Engine/Particles/Models';
 import { ParticlesWrapperAsync } from '@/Engine/Particles/Wrappers';
 
-const factory: TAsyncReactiveFactory<TParticlesWrapperAsync, IParticlesParams> = {
-  ...AsyncReactiveFactory(FactoryType.Particles, ParticlesWrapperAsync as TCreateAsyncEntityFactoryFn<TParticlesWrapperAsync, IParticlesParams>)
+const factory: TAsyncReactiveFactory<TParticlesWrapperAsync, TParticlesParams> = {
+  ...AsyncReactiveFactory(FactoryType.Particles, ParticlesWrapperAsync as TCreateAsyncEntityFactoryFn<TParticlesWrapperAsync, TParticlesParams>)
 };
-export const ParticlesFactory = (): IParticlesFactory => ({ ...factory, configToParams });
+export const ParticlesFactory = (): TParticlesFactory => ({ ...factory, configToParams });

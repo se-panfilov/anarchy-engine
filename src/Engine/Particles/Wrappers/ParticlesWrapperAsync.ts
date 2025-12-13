@@ -5,16 +5,16 @@ import type { TColor } from '@/Engine/Color';
 import type { TWithMaterial } from '@/Engine/Material';
 import { isPointsMaterial, withMaterial } from '@/Engine/Material';
 import { scalableMixin, withMoveBy3dMixin, withObject3d, withRotationByXyzMixin } from '@/Engine/Mixins';
-import type { IParticlesDependencies, IParticlesParams, TParticlesWrapperAsync } from '@/Engine/Particles/Models';
+import type { TParticlesDependencies, TParticlesParams, TParticlesWrapperAsync } from '@/Engine/Particles/Models';
 import { withTextures } from '@/Engine/Texture';
-import type { IPoints } from '@/Engine/ThreeLib';
+import type { TPoints } from '@/Engine/ThreeLib';
 import { applyObject3dParams, applyPosition, applyRotation, applyScale, isDefined } from '@/Engine/Utils';
 
 import { createParticles } from './ParticlesUtils';
 
-export async function ParticlesWrapperAsync(params: IParticlesParams, { materialTextureService }: IParticlesDependencies): Promise<TParticlesWrapperAsync> {
+export async function ParticlesWrapperAsync(params: TParticlesParams, { materialTextureService }: TParticlesDependencies): Promise<TParticlesWrapperAsync> {
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-  const entity: IPoints = await createParticles(params, materialTextureService);
+  const entity: TPoints = await createParticles(params, materialTextureService);
 
   const { material, geometry } = entity;
   if (!isPointsMaterial(material)) throw new Error('Material is not PointsMaterial or not defined');

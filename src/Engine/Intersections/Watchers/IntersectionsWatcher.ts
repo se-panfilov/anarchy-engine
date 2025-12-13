@@ -6,7 +6,7 @@ import { AbstractWatcher, WatcherType } from '@/Engine/Abstract';
 import type { TActorWrapperAsync } from '@/Engine/Actor';
 import type { TCameraWrapper } from '@/Engine/Camera';
 import type { TIntersectionEvent, TIntersectionsWatcher, TIntersectionsWatcherParams } from '@/Engine/Intersections/Models';
-import type { IMousePosition } from '@/Engine/Mouse';
+import type { TMousePosition } from '@/Engine/Mouse';
 import { getNormalizedMousePosition } from '@/Engine/Mouse';
 import type { ISceneObject } from '@/Engine/Scene';
 import type { IMesh } from '@/Engine/ThreeLib';
@@ -31,7 +31,7 @@ export function IntersectionsWatcher({ position$, isAutoStart, tags, name, ...re
   let mousePos$: Subscription | undefined;
 
   function start(): TIntersectionsWatcher {
-    mousePos$ = position$.subscribe((position: IMousePosition): void => {
+    mousePos$ = position$.subscribe((position: TMousePosition): void => {
       if (isNotDefined(camera)) throw new Error('Intersections service: cannot start: a camera is not defined');
       const intersection: TIntersectionEvent | undefined = getIntersection(position, camera, unWrapEntities(actors) as Array<IMesh>);
       if (isDefined(intersection)) abstractWatcher.value$.next(intersection);
@@ -48,7 +48,7 @@ export function IntersectionsWatcher({ position$, isAutoStart, tags, name, ...re
     return result;
   }
 
-  function getIntersection(position: IMousePosition, cameraWrapper: Readonly<TCameraWrapper>, list: Array<ISceneObject>): TIntersectionEvent | undefined | never {
+  function getIntersection(position: TMousePosition, cameraWrapper: Readonly<TCameraWrapper>, list: Array<ISceneObject>): TIntersectionEvent | undefined | never {
     if (isNotDefined(raycaster)) throw new Error('Intersections service: cannot get intersection: a raycaster is not defined');
     raycaster.setFromCamera(getNormalizedMousePosition(position), cameraWrapper.entity);
     return raycaster.intersectObjects(list)[0];

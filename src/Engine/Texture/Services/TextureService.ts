@@ -6,13 +6,13 @@ import type {
   IDistanceMaterialTexturePack,
   ILambertMaterialTexturePack,
   IMatcapMaterialTexturePack,
-  IMaterialPackKeys,
-  IMaterialPackParams,
+  TMaterialPackKeys,
+  TMaterialPackParams,
   INormalMaterialTexturePack,
   IPhongMaterialTexturePack,
   IPhysicalMaterialTexturePack,
   IStandardMaterialTexturePack,
-  ITexturePackParams,
+  TTexturePackParams,
   IToonMaterialTexturePack,
   TMaterialTexturePack
 } from '@/Engine/MaterialTexturePack';
@@ -49,26 +49,26 @@ import { isNotDefined } from '@/Engine/Utils';
 export function TextureService(): ITextureService {
   const textureLoader: TextureLoader = new TextureLoader();
 
-  function load(m: IMaterialPackParams<IBasicMaterialTexturePack>): IBasicTextureUploadPromises;
-  function load(m: IMaterialPackParams<IDepthMaterialTexturePack>): IDepthTextureUploadPromises;
-  function load(m: IMaterialPackParams<IDistanceMaterialTexturePack>): IDistanceTextureUploadPromises;
-  function load(m: IMaterialPackParams<INormalMaterialTexturePack>): INormalTextureUploadPromises;
-  function load(m: IMaterialPackParams<IMatcapMaterialTexturePack>): IMatcapTextureUploadPromises;
-  function load(m: IMaterialPackParams<ILambertMaterialTexturePack>): ILambertTextureUploadPromises;
-  function load(m: IMaterialPackParams<IPhongMaterialTexturePack>): IPhongTextureUploadPromises;
-  function load(m: IMaterialPackParams<IPhysicalMaterialTexturePack>): IPhysicalTextureUploadPromises;
-  function load(m: IMaterialPackParams<IToonMaterialTexturePack>): IToonTextureUploadPromises;
-  function load(m: IMaterialPackParams<IStandardMaterialTexturePack>): IStandardTextureUploadPromises;
-  function load(m: IMaterialPackParams<TMaterialTexturePack>): ITextureUploadPromises {
+  function load(m: TMaterialPackParams<IBasicMaterialTexturePack>): IBasicTextureUploadPromises;
+  function load(m: TMaterialPackParams<IDepthMaterialTexturePack>): IDepthTextureUploadPromises;
+  function load(m: TMaterialPackParams<IDistanceMaterialTexturePack>): IDistanceTextureUploadPromises;
+  function load(m: TMaterialPackParams<INormalMaterialTexturePack>): INormalTextureUploadPromises;
+  function load(m: TMaterialPackParams<IMatcapMaterialTexturePack>): IMatcapTextureUploadPromises;
+  function load(m: TMaterialPackParams<ILambertMaterialTexturePack>): ILambertTextureUploadPromises;
+  function load(m: TMaterialPackParams<IPhongMaterialTexturePack>): IPhongTextureUploadPromises;
+  function load(m: TMaterialPackParams<IPhysicalMaterialTexturePack>): IPhysicalTextureUploadPromises;
+  function load(m: TMaterialPackParams<IToonMaterialTexturePack>): IToonTextureUploadPromises;
+  function load(m: TMaterialPackParams<IStandardMaterialTexturePack>): IStandardTextureUploadPromises;
+  function load(m: TMaterialPackParams<TMaterialTexturePack>): ITextureUploadPromises {
     let promises: Omit<ITextureUploadPromises, 'all' | 'material'> = {};
     if (isNotDefined(m.textures)) return { ...promises, all };
 
-    Object.entries(m.textures).forEach(([key, packParams]: [string, ITexturePackParams]): void => {
+    Object.entries(m.textures).forEach(([key, packParams]: [string, TTexturePackParams]): void => {
       // TODO (S.Panfilov) do not load texture if already loaded
-      const { url, params }: ITexturePackParams = packParams;
+      const { url, params }: TTexturePackParams = packParams;
       const p: Promise<TTexture> = textureLoader.loadAsync(url).then((texture: TWriteable<TTexture>): TTexture => {
         applyTextureParams(texture, params);
-        applyColorSpace(key as IMaterialPackKeys, texture, params);
+        applyColorSpace(key as TMaterialPackKeys, texture, params);
         applyFilters(texture, params);
         return texture;
       });

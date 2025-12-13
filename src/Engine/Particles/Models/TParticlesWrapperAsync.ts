@@ -1,17 +1,17 @@
 import type { TWrapper } from '@/Engine/Abstract';
 import type { TColor } from '@/Engine/Color';
 import type { TWithMaterial } from '@/Engine/Material';
-import type { IScalable, TMovable3dXYZ, TRotatable, TWithObject3d, TWithTagsMixin } from '@/Engine/Mixins';
-import type { IWithTextures } from '@/Engine/Texture';
-import type { IPoints } from '@/Engine/ThreeLib';
+import type { TScalable, TMovable3dXYZ, TRotatable, TWithObject3d, TWithTagsMixin } from '@/Engine/Mixins';
+import type { TWithTextures } from '@/Engine/Texture';
+import type { TPoints } from '@/Engine/ThreeLib';
 
-export type TParticlesWrapperAsync = TWrapper<IPoints> &
+export type TParticlesWrapperAsync = TWrapper<TPoints> &
   TMovable3dXYZ &
   TRotatable &
-  IScalable &
+  TScalable &
   TWithObject3d &
   TWithMaterial &
-  IWithTextures &
+  TWithTextures &
   TWithTagsMixin &
   Readonly<{
     setMaterialColor: (colors: TColor) => void;

@@ -1,5 +1,5 @@
 import { RegistryType } from '@/Engine/Abstract/Constants';
 import { AbstractEntityRegistry, RegistryFacade } from '@/Engine/Abstract/Registries';
-import type { IMousePositionWatcher, IMousePositionWatcherRegistry } from '@/Engine/Mouse/Models';
+import type { TMousePositionWatcher, TMousePositionWatcherRegistry } from '@/Engine/Mouse/Models';
 
-export const MousePositionWatcherRegistry = (): IMousePositionWatcherRegistry => RegistryFacade(AbstractEntityRegistry<IMousePositionWatcher>(RegistryType.MousePositionWatcher));
+export const MousePositionWatcherRegistry = (): TMousePositionWatcherRegistry => RegistryFacade(AbstractEntityRegistry<TMousePositionWatcher>(RegistryType.MousePositionWatcher));

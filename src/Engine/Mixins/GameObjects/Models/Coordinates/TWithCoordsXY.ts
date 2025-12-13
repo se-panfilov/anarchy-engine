@@ -1,4 +1,4 @@
-import type { IWithCoordX } from './IWithCoordX';
-import type { IWithCoordY } from './IWithCoordY';
+import type { TWithCoordX } from './TWithCoordX';
+import type { TWithCoordY } from './TWithCoordY';
 
-export type TWithCoordsXY = IWithCoordX & IWithCoordY;
+export type TWithCoordsXY = TWithCoordX & TWithCoordY;

@@ -1,3 +1,3 @@
-import type { IMovableZ } from '@/Engine/Mixins';
+import type { TMovableZ } from '@/Engine/Mixins';
 
-export type TVectorWithZ = Omit<IMovableZ, 'setPosition' | 'getPosition'>;
+export type TVectorWithZ = Omit<TMovableZ, 'setPosition' | 'getPosition'>;

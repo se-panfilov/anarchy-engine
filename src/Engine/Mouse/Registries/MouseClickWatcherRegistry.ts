@@ -1,5 +1,5 @@
 import { RegistryType } from '@/Engine/Abstract/Constants';
 import { AbstractEntityRegistry, RegistryFacade } from '@/Engine/Abstract/Registries';
-import type { IMouseClickWatcher, IMouseClickWatcherRegistry } from '@/Engine/Mouse/Models';
+import type { TMouseClickWatcher, TMouseClickWatcherRegistry } from '@/Engine/Mouse/Models';
 
-export const MouseClickWatcherRegistry = (): IMouseClickWatcherRegistry => RegistryFacade(AbstractEntityRegistry<IMouseClickWatcher>(RegistryType.MouseClickWatcher));
+export const MouseClickWatcherRegistry = (): TMouseClickWatcherRegistry => RegistryFacade(AbstractEntityRegistry<TMouseClickWatcher>(RegistryType.MouseClickWatcher));

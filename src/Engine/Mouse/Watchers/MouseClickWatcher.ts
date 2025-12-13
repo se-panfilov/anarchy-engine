@@ -1,10 +1,10 @@
 import type { TAbstractWatcher } from '@/Engine/Abstract';
 import { AbstractWatcher, WatcherType } from '@/Engine/Abstract';
 import { MouseEventType } from '@/Engine/Mouse/Constants';
-import type { IMouseClickWatcher, IMouseClickWatcherParams, TMouseWatcherEvent } from '@/Engine/Mouse/Models';
+import type { TMouseClickWatcher, TMouseClickWatcherParams, TMouseWatcherEvent } from '@/Engine/Mouse/Models';
 import { getMouseWatcherEvent } from '@/Engine/Mouse/Utils';
 
-export function MouseClickWatcher({ container, tags = [] }: IMouseClickWatcherParams): IMouseClickWatcher {
+export function MouseClickWatcher({ container, tags = [] }: TMouseClickWatcherParams): TMouseClickWatcher {
   const containerIdTag: string = `container_id_${container.id}`;
   const abstractWatcher: TAbstractWatcher<TMouseWatcherEvent> = AbstractWatcher<TMouseWatcherEvent>(WatcherType.MouseClickWatcher, 'global_mouse_click_watcher', tags);
   const onMouseListener = (event: MouseEvent | WheelEvent): void => {
@@ -13,7 +13,7 @@ export function MouseClickWatcher({ container, tags = [] }: IMouseClickWatcherPa
     abstractWatcher.value$.next(e);
   };
 
-  function start(): IMouseClickWatcher {
+  function start(): TMouseClickWatcher {
     container.startWatch(MouseEventType.MouseUp, onMouseListener);
     container.startWatch(MouseEventType.MouseDown, onMouseListener);
     container.startWatch(MouseEventType.DoubleClick, onMouseListener);
@@ -21,7 +21,7 @@ export function MouseClickWatcher({ container, tags = [] }: IMouseClickWatcherPa
     return result;
   }
 
-  function stop(): IMouseClickWatcher {
+  function stop(): TMouseClickWatcher {
     container.stopWatch(MouseEventType.MouseUp, onMouseListener);
     container.stopWatch(MouseEventType.MouseDown, onMouseListener);
     container.stopWatch(MouseEventType.DoubleClick, onMouseListener);
@@ -29,7 +29,7 @@ export function MouseClickWatcher({ container, tags = [] }: IMouseClickWatcherPa
     return result;
   }
 
-  const result: IMouseClickWatcher = {
+  const result: TMouseClickWatcher = {
     ...abstractWatcher,
     value$: abstractWatcher.value$.asObservable(),
     key: containerIdTag,

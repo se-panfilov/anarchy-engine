@@ -1,5 +1,5 @@
 import { MaterialType } from '@/Engine/Material';
-import type { ITexturePackParams } from '@/Engine/MaterialTexturePack';
+import type { TTexturePackParams } from '@/Engine/MaterialTexturePack';
 import { isMaterialProps, isMaterialType } from '@/Engine/Texture/Services/TextureServiceHelper';
 
 describe('TextureServiceHelper', () => {
@@ -23,7 +23,7 @@ describe('TextureServiceHelper', () => {
     });
 
     it('should return "false" for ITexturePackParams', () => {
-      const pack: ITexturePackParams = { url: 'some', params: { tags: [] } };
+      const pack: TTexturePackParams = { url: 'some', params: { tags: [] } };
 
       // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
       expect(isMaterialType(pack)).toBe(false);
@@ -53,7 +53,7 @@ describe('TextureServiceHelper', () => {
     });
 
     it('should return "false" for ITexturePackParams', () => {
-      const pack: ITexturePackParams = { url: 'some', params: { tags: [] } };
+      const pack: TTexturePackParams = { url: 'some', params: { tags: [] } };
 
       // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
       expect(isMaterialProps(pack)).toBe(false);

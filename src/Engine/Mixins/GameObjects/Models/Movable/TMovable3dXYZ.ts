@@ -1,10 +1,10 @@
-import type { IWithPosition3d, IWithPosition4d } from '@/Engine/Mixins/GameObjects/Models/Position';
+import type { TWithPosition3d, TWithPosition4d } from '@/Engine/Mixins/GameObjects/Models/Position';
 
-import type { IMovable3dX, IMovable4dX } from './IMovableX';
-import type { IMovable3dY, IMovable4dY } from './IMovableY';
-import type { IMovable3dZ, IMovable4dZ } from './IMovableZ';
+import type { TMovable3dX, TMovable4dX } from './TMovableX';
+import type { TMovable3dY, TMovable4dY } from './TMovableY';
+import type { TMovable3dZ, TMovable4dZ } from './TMovableZ';
 
-export type TMovable3dXYZ = IWithPosition3d & IMovable3dX & IMovable3dY & IMovable3dZ;
-export type IMovable4dXYZ = IWithPosition4d & IMovable4dX & IMovable4dY & IMovable4dZ;
+export type TMovable3dXYZ = TWithPosition3d & TMovable3dX & TMovable3dY & TMovable3dZ;
+export type IMovable4dXYZ = TWithPosition4d & TMovable4dX & TMovable4dY & TMovable4dZ;
 
 export type IMovableXYZ = TMovable3dXYZ | IMovable4dXYZ;

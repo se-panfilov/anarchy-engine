@@ -1,6 +1,6 @@
-import type { IWithCoordW } from './IWithCoordW';
-import type { IWithCoordX } from './IWithCoordX';
-import type { IWithCoordY } from './IWithCoordY';
-import type { IWithCoordZ } from './IWithCoordZ';
+import type { TWithCoordW } from './TWithCoordW';
+import type { TWithCoordX } from './TWithCoordX';
+import type { TWithCoordY } from './TWithCoordY';
+import type { TWithCoordZ } from './TWithCoordZ';
 
-export type TWithCoordsXYZW = IWithCoordX & IWithCoordY & IWithCoordZ & IWithCoordW;
+export type TWithCoordsXYZW = TWithCoordX & TWithCoordY & TWithCoordZ & TWithCoordW;

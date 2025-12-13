@@ -8,28 +8,28 @@ import { destroyableMixin } from '@/Engine/Mixins';
 import { MouseButtonValue, MouseEventType, MouseWheelValue } from '@/Engine/Mouse/Constants';
 import { MouseClickWatcherFactory, MousePositionWatcherFactory } from '@/Engine/Mouse/Factories';
 import type {
-  IMouseClickWatcher,
-  IMouseClickWatcherFactory,
-  IMouseClickWatcherRegistry,
-  IMousePositionWatcher,
-  IMousePositionWatcherFactory,
-  IMousePositionWatcherRegistry,
+  TMouseClickWatcher,
+  TMouseClickWatcherFactory,
+  TMouseClickWatcherRegistry,
+  TMousePositionWatcher,
+  TMousePositionWatcherFactory,
+  TMousePositionWatcherRegistry,
   TMouseService,
   TMouseWatcherEvent
 } from '@/Engine/Mouse/Models';
 import { MouseClickWatcherRegistry, MousePositionWatcherRegistry } from '@/Engine/Mouse/Registries';
 
 export function MouseService(container: TGlobalContainerDecorator): TMouseService {
-  const mouseClickWatcherFactory: IMouseClickWatcherFactory = MouseClickWatcherFactory();
-  const mouseClickWatcherRegistry: IMouseClickWatcherRegistry = MouseClickWatcherRegistry();
-  mouseClickWatcherFactory.entityCreated$.subscribe((watcher: IMouseClickWatcher) => mouseClickWatcherRegistry.add(watcher));
-  const mouseClickWatcher: IMouseClickWatcher = mouseClickWatcherFactory.create({ container, tags: [WatcherTag.Initial, WatcherTag.Global] }).start();
+  const mouseClickWatcherFactory: TMouseClickWatcherFactory = MouseClickWatcherFactory();
+  const mouseClickWatcherRegistry: TMouseClickWatcherRegistry = MouseClickWatcherRegistry();
+  mouseClickWatcherFactory.entityCreated$.subscribe((watcher: TMouseClickWatcher) => mouseClickWatcherRegistry.add(watcher));
+  const mouseClickWatcher: TMouseClickWatcher = mouseClickWatcherFactory.create({ container, tags: [WatcherTag.Initial, WatcherTag.Global] }).start();
 
-  const mousePositionWatcherFactory: IMousePositionWatcherFactory = MousePositionWatcherFactory();
-  const mousePositionWatcherRegistry: IMousePositionWatcherRegistry = MousePositionWatcherRegistry();
+  const mousePositionWatcherFactory: TMousePositionWatcherFactory = MousePositionWatcherFactory();
+  const mousePositionWatcherRegistry: TMousePositionWatcherRegistry = MousePositionWatcherRegistry();
 
-  mousePositionWatcherFactory.entityCreated$.subscribe((watcher: IMousePositionWatcher) => mousePositionWatcherRegistry.add(watcher));
-  const mousePositionWatcher: IMousePositionWatcher = mousePositionWatcherFactory.create({ container, tags: [WatcherTag.Initial, WatcherTag.Global] }).start();
+  mousePositionWatcherFactory.entityCreated$.subscribe((watcher: TMousePositionWatcher) => mousePositionWatcherRegistry.add(watcher));
+  const mousePositionWatcher: TMousePositionWatcher = mousePositionWatcherFactory.create({ container, tags: [WatcherTag.Initial, WatcherTag.Global] }).start();
 
   const clickPress$: Subject<TMouseWatcherEvent> = new Subject<TMouseWatcherEvent>();
   const clickLeftPress$: Subject<TMouseWatcherEvent> = new Subject<TMouseWatcherEvent>();
