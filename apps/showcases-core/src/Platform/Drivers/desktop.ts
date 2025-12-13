@@ -14,8 +14,7 @@ export function Driver(): TPlatformDriver {
   const getPackagesVersions = (): Promise<Record<string, string>> => window[platformApiName].getPackagesVersions();
   const getPlatformVersion = (): string => window[platformApiName].electron();
   const getPreferredLocales = (): Promise<ReadonlyArray<TLocaleId>> => window[platformApiName].getPreferredLocales();
-  // TODO DESKTOP: Implement getReleaseName
-  const getReleaseName = (version: string): Promise<string> => Promise.resolve('TODODODODODODO' + version);
+  const getReleaseName = (version: string): Promise<string> => window[platformApiName].getReleaseName(version);
   const getWrappedAppVersion = (): Promise<string> => window[platformApiName].desktopAppVersion();
   const restartApp = (): void => window[platformApiName].restartApp();
   const setAppSettings = (settings: TShowcaseGameSettings): Promise<void> => window[platformApiName].setAppSettings(settings);
