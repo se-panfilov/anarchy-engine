@@ -5,11 +5,11 @@ import { destroyableMixin } from '@/Engine/Mixins';
 import { configToParams } from '@/Engine/Physics/Adapters';
 import type {
   TPhysicsDebugRenderer,
-  TPhysicsObjectFactory,
-  TPhysicsObjectRegistry,
+  TPhysicsFactory,
   TPhysicsPresetConfig,
   TPhysicsPresetParams,
   TPhysicsPresetRegistry,
+  TPhysicsRegistry,
   TPhysicsService,
   TPhysicsWorldParams
 } from '@/Engine/Physics/Models';
@@ -18,7 +18,7 @@ import type { TSceneWrapper } from '@/Engine/Scene';
 import { isNotDefined } from '@/Engine/Utils';
 import type { TVector3Wrapper } from '@/Engine/Vector';
 
-export function PhysicsService(factory: TPhysicsObjectFactory, physicsObjectRegistry: TPhysicsObjectRegistry, physicsPresetRegistry: TPhysicsPresetRegistry, scene: TSceneWrapper): TPhysicsService {
+export function PhysicsService(factory: TPhysicsFactory, registry: TPhysicsRegistry, physicsPresetRegistry: TPhysicsPresetRegistry, scene: TSceneWrapper): TPhysicsService {
   let world: World | undefined;
 
   function createWorld({
@@ -73,7 +73,7 @@ export function PhysicsService(factory: TPhysicsObjectFactory, physicsObjectRegi
   destroyable.destroyed$.subscribe(() => {
     // TODO (S.Panfilov) fix
     factory.destroy();
-    physicsObjectRegistry.destroy();
+    registry.destroy();
     physicsPresetRegistry.destroy();
     world.dispose(); //dispose?
     //destroy debug renderer?
@@ -86,8 +86,8 @@ export function PhysicsService(factory: TPhysicsObjectFactory, physicsObjectRegi
     getDebugRenderer,
     getWorld: (): World | undefined => world,
     setGravity,
-    getFactory: (): TPhysicsObjectFactory => factory,
-    getPhysicsObjectsRegistry: (): TPhysicsObjectRegistry => physicsObjectRegistry,
+    getFactory: (): TPhysicsFactory => factory,
+    getRegistry: (): TPhysicsRegistry => registry,
     getPresetRegistry: (): TPhysicsPresetRegistry => physicsPresetRegistry,
     getScene: (): TSceneWrapper => scene,
     ...destroyable

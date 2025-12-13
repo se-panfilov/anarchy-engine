@@ -9,6 +9,7 @@ export enum FactoryType {
   MouseClickWatcher = 'mouse_click_watcher_factory',
   MousePositionWatcher = 'mouse_position_watcher_factory',
   Particles = 'particles_factory',
+  Physics = 'physics_factory',
   Renderer = 'renderer_factory',
   Scene = 'scene_factory',
   ScreenSizeWatcher = 'screen_size_watcher_factory',

@@ -1,21 +1,22 @@
 import type { World } from '@dimforge/rapier3d';
 
 import type { TDestroyable } from '@/Engine/Mixins';
-import type { TWithCreateFromConfigService, TWithCreateService, TWithFactoryService, TWithSceneGetterService } from '@/Engine/Space';
+import type { TWithCreateFromConfigService, TWithCreateService, TWithFactoryService, TWithRegistryService, TWithSceneGetterService } from '@/Engine/Space';
 import type { TVector3Wrapper } from '@/Engine/Vector';
 
 import type { TPhysicsDebugRenderer } from './TPhysicsDebugRenderer';
-import type { TPhysicsObject } from './TPhysicsObject';
-import type { TPhysicsObjectFactory } from './TPhysicsObjectFactory';
-import type { TPhysicsObjectRegistry } from './TPhysicsObjectRegistry';
+import type { TPhysicsFactory } from './TPhysicsFactory';
 import type { TPhysicsPresetConfig } from './TPhysicsPresetConfig';
 import type { TPhysicsPresetParams } from './TPhysicsPresetParams';
 import type { TPhysicsPresetRegistry } from './TPhysicsPresetRegistry';
+import type { TPhysicsRegistry } from './TPhysicsRegistry';
 import type { TPhysicsWorldParams } from './TPhysicsWorldParams';
+import type { TPhysicsWrapper } from './TPhysicsWrapper';
 
-export type TPhysicsService = TWithCreateService<TPhysicsObject, TPhysicsPresetParams> &
+export type TPhysicsService = TWithCreateService<TPhysicsWrapper, TPhysicsPresetParams> &
   TWithCreateFromConfigService<TPhysicsPresetConfig> &
-  TWithFactoryService<TPhysicsObjectFactory> &
+  TWithFactoryService<TPhysicsFactory> &
+  TWithRegistryService<TPhysicsRegistry> &
   TDestroyable &
   TWithSceneGetterService &
   Readonly<{
@@ -24,7 +25,6 @@ export type TPhysicsService = TWithCreateService<TPhysicsObject, TPhysicsPresetP
     addPresetsFromConfig: (presets: ReadonlyArray<TPhysicsPresetConfig>) => void;
     getDebugRenderer: () => TPhysicsDebugRenderer;
     getPresetRegistry: () => TPhysicsPresetRegistry;
-    getPhysicsObjectsRegistry: () => TPhysicsObjectRegistry;
     setGravity: (vector: TVector3Wrapper) => void;
     getWorld: () => World | undefined;
   }>;
