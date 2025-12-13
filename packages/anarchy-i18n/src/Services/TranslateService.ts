@@ -1,11 +1,9 @@
+import type { TLocalesMapping, TMessages, TTranslateService } from '@Anarchy/i18n/Models';
+import { isDefined, omitInArray } from '@Anarchy/Shared/Utils';
 import type { FormatNumberOptions, IntlCache, IntlShape } from '@formatjs/intl';
 import { createIntl, createIntlCache } from '@formatjs/intl';
 import type { FormatDateOptions } from '@formatjs/intl/src/types';
-import { isDefined, omitInArray } from '@Anarchy/Shared/Utils';
 import { BehaviorSubject, concatMap, distinctUntilChanged, from, map } from 'rxjs';
-
-// TODO DESKTOP: refactor imports
-import type { TLocalesMapping, TMessages, TTranslateService } from '../Models';
 
 export function TranslateService<TLocale extends string>(initialLocale: TLocale, defaultLocale: TLocale, locales: TLocalesMapping<TLocale>): TTranslateService<TLocale> {
   const cache: IntlCache = createIntlCache();
