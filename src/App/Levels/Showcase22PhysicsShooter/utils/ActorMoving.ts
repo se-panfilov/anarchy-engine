@@ -2,7 +2,8 @@ import { BehaviorSubject, combineLatest, map, Subject } from 'rxjs';
 import type { Vector3 } from 'three';
 
 import type { TActorWrapperAsync, TIntersectionEvent, TIntersectionsWatcher, TKeyboardService, TRadians } from '@/Engine';
-import { getAzimuthRadFromDirection, getElevationRadFromDirection, KeyCode } from '@/Engine';
+import { getAzimuthRadFromDirection, getElevationRadFromDirection, KeyCode, METER } from '@/Engine';
+import { meters } from '@/Engine/Measurements/Utils';
 
 type TMoveKeysState = { Forward: boolean; Left: boolean; Right: boolean; Backward: boolean };
 type TIntersectionDirection = Readonly<{ azimuth: TRadians; elevation: TRadians }>;
@@ -91,6 +92,9 @@ function getActorMoveAzimuthRad(keyStates: TMoveKeysState): TRadians {
 
 export function moveActorBounce(actorW: TActorWrapperAsync): void {
   actorW.kinematic.setAutoUpdate(true);
-  actorW.kinematic.setLinearSpeed(2);
+  actorW.kinematic.setLinearSpeed(meters(2.3));
   actorW.kinematic.setLinearAzimuthDeg(180);
+  setInterval((): void => {
+    actorW.kinematic.setLinearAzimuthDeg(actorW.kinematic.getLinearAzimuthDeg() + 180);
+  }, 2000);
 }
