@@ -21,9 +21,7 @@ export function initText2dRenderer(container: IAppGlobalContainer, screenSizeWat
   renderer.domElement.setAttribute(RelatedEntityAttribute, id);
   container.document.body.appendChild(renderer.domElement);
 
-  function updateSize({ width, height }: IScreenSizeValues): void {
-    renderer.setSize(width, height);
-  }
+  const updateSize = ({ width, height }: IScreenSizeValues): void => renderer.setSize(width, height);
 
   //init with the values which came before the start of the subscription
   updateSize(screenSizeWatcher.latest$.value);
