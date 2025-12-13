@@ -16,8 +16,8 @@ import { withBuiltMixin } from '@/Engine/Domains/Level/Mixin';
 import type { ILevel, ILevelConfig, IWithBuilt } from '@/Engine/Domains/Level/Models';
 import type { ILightConfig, ILightFactory, ILightRegistry, ILightWrapper } from '@/Engine/Domains/Light';
 import { LightFactory, LightRegistry } from '@/Engine/Domains/Light';
-import type { ILoopFactory, ILoopRegistry, ILoopWrapper } from '@/Engine/Domains/Loop';
-import { LoopFactory, LoopRegistry, LoopTag } from '@/Engine/Domains/Loop';
+import type { ILoopTimes } from '@/Engine/Domains/Loop';
+import { standardLoopService } from '@/Engine/Domains/Loop';
 import type { IRendererFactory, IRendererRegistry, IRendererWrapper } from '@/Engine/Domains/Renderer';
 import { RendererFactory, RendererModes, RendererRegistry, RendererTag } from '@/Engine/Domains/Renderer';
 import type { ISceneConfig, ISceneFactory, ISceneRegistry, ISceneWrapper } from '@/Engine/Domains/Scene';
@@ -97,11 +97,16 @@ export function buildLevelFromConfig(canvas: IAppCanvas, config: ILevelConfig): 
   const renderer: IRendererWrapper = rendererFactory.create({ canvas, tags: [RendererTag.Main], mode: RendererModes.WebGL2 });
   messages$.next(`Renderer created`);
 
-  const loopFactory: ILoopFactory = LoopFactory();
-  const loopRegistry: ILoopRegistry = LoopRegistry();
-  const loopEntityCreatedSubscription: Subscription = loopFactory.entityCreated$.subscribe((loop: ILoopWrapper): void => loopRegistry.add(loop));
-  const loop: ILoopWrapper = loopFactory.create({ tags: [LoopTag.Main, CommonTag.FromConfig] });
-  messages$.next(`Loop created`);
+  const loopTickSubscription: Subscription = standardLoopService.tick$.subscribe(({ delta }: ILoopTimes): void => {
+    const activeCamera: ICameraWrapper | undefined = cameraRegistry.getUniqByTag(CameraTag.Active);
+    if (isDefined(activeCamera)) renderer.entity.render(scene.entity, activeCamera.entity);
+
+    // TODO (S.Panfilov) also perhaps make a controls service instead of a factory?
+    // just for control's damping
+    controlsRegistry.getAll().forEach((controls: IOrbitControlsWrapper): void => {
+      if (controls.entity.enableDamping) controls.entity.update(delta);
+    });
+  });
 
   const destroyable: IDestroyable = destroyableMixin();
   const builtMixin: IWithBuilt = withBuiltMixin();
@@ -134,13 +139,11 @@ export function buildLevelFromConfig(canvas: IAppCanvas, config: ILevelConfig): 
     intersectionsWatcherFactory.destroy();
     intersectionsWatcherRegistry.destroy();
 
-    loopEntityCreatedSubscription.unsubscribe();
-    loopFactory.destroy();
-    loopRegistry.destroy();
-
     rendererEntityCreatedSubscription.unsubscribe();
     rendererFactory.destroy();
     rendererRegistry.destroy();
+
+    loopTickSubscription.unsubscribe();
 
     messages$.complete();
   });
@@ -149,11 +152,10 @@ export function buildLevelFromConfig(canvas: IAppCanvas, config: ILevelConfig): 
 
   return {
     name,
-    start(): ILoopWrapper {
+    start(): void {
       if (isDefined(intersectionsWatcher)) intersectionsWatcher.start();
-      loop.start(renderer, scene, controlsRegistry, cameraRegistry);
+      standardLoopService.start();
       messages$.next(`Level started`);
-      return loop;
     },
     stop(): void {
       if (isDefined(intersectionsWatcher)) intersectionsWatcher.stop();
@@ -172,8 +174,6 @@ export function buildLevelFromConfig(canvas: IAppCanvas, config: ILevelConfig): 
       controlsFactory: controlsFactory,
       intersectionsWatcherRegistry: intersectionsWatcherRegistry,
       intersectionsWatcherFactory: intersectionsWatcherFactory,
-      loopRegistry: loopRegistry,
-      loopFactory: loopFactory,
       scenesRegistry: sceneRegistry,
       scenesFactory: sceneFactory,
       rendererRegistry: rendererRegistry,

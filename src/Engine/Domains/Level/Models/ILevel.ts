@@ -2,7 +2,6 @@ import type { Observable } from 'rxjs';
 
 import type { IWithBuilt, LevelTag } from '@/Engine/Domains/Level';
 import type { ILevelEntities } from '@/Engine/Domains/Level/Models';
-import type { ILoopWrapper } from '@/Engine/Domains/Loop';
 import type { IDestroyable, IWithMessages, IWithTags } from '@/Engine/Mixins';
 
 export type ILevel = IDestroyable &
@@ -11,7 +10,7 @@ export type ILevel = IDestroyable &
   IWithTags<LevelTag> &
   Readonly<{
     name: string;
-    start: () => ILoopWrapper;
+    start: () => void;
     stop: () => void;
     entities: ILevelEntities;
     built$: Observable<void>;

@@ -2,7 +2,7 @@ import type { IShowcase } from '@/App/Levels/Models';
 import type { IActorWrapper, IAppCanvas, ILevel, ILevelConfig } from '@/Engine';
 import { ambientContext, buildLevelFromConfig, isNotDefined } from '@/Engine';
 import type { IAnimationParams } from '@/Engine/Services';
-import { goToPosition, setLoopForMoveUtils } from '@/Engine/Services';
+import { standardMoverService } from '@/Engine/Services';
 
 import levelConfig from './showcase-level-4.config.json';
 
@@ -11,7 +11,7 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
   const level: ILevel = buildLevelFromConfig(canvas, levelConfig as ILevelConfig);
 
   function start(): void {
-    const loop = level.start();
+    level.start();
     const { actorRegistry, cameraRegistry, controlsRegistry } = level.entities;
 
     // TODO (S.Panfilov) we need setTarget for controls
@@ -39,14 +39,11 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
       console.log('click is ready', !isClickBlocked);
       isClickBlocked = true;
 
-      // TODO (S.Panfilov) debug!!
-      setLoopForMoveUtils(loop);
-
-      void goToPosition(topActor, { x: 20, y: topActor.getY(), z: topActor.getZ() }, { ...animationParams, easing: 'easeInCirc' }).then(() => {
+      void standardMoverService.goToPosition(topActor, { x: 20, y: topActor.getY(), z: topActor.getZ() }, { ...animationParams, easing: 'easeInCirc' }).then(() => {
         isClickBlocked = false;
       });
-      void goToPosition(centralActor, { x: 20, y: centralActor.getY(), z: centralActor.getZ() }, { ...animationParams, easing: 'linear' });
-      void goToPosition(bottomActor, { x: 20, y: bottomActor.getY(), z: bottomActor.getZ() }, { ...animationParams, easing: 'easeInOutQuad' });
+      void standardMoverService.goToPosition(centralActor, { x: 20, y: centralActor.getY(), z: centralActor.getZ() }, { ...animationParams, easing: 'linear' });
+      void standardMoverService.goToPosition(bottomActor, { x: 20, y: bottomActor.getY(), z: bottomActor.getZ() }, { ...animationParams, easing: 'easeInOutQuad' });
     });
   }
 
