@@ -1,9 +1,9 @@
 import type { IMaterialParams, IMaterialProps, IMaterialService, IMaterialWrapper } from '@/Engine/Material';
-import type { IMaterialPackProps, IMaterialTexturePack, IMaterialTextureService } from '@/Engine/MaterialTexturePack';
+import type { IMaterialPackParams, IMaterialTexturePack, IMaterialTextureService } from '@/Engine/MaterialTexturePack';
 import type { ITextureService, ITextureUploaded } from '@/Engine/Texture';
 
 export function MaterialTextureService(materialService: IMaterialService, textureService: ITextureService): IMaterialTextureService {
-  const createAsync = (pack: IMaterialPackProps<IMaterialTexturePack>): Promise<IMaterialWrapper> => {
+  const createAsync = (pack: IMaterialPackParams<IMaterialTexturePack>): Promise<IMaterialWrapper> => {
     return textureService
       .load(pack)
       .all()
