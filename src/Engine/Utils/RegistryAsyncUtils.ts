@@ -31,7 +31,6 @@ export function getAsyncUniqEntityByNameAsync<T extends TRegistrable>(
   return getEntityValueAsync<T>(registry, (entity: T): boolean => isDefined(entity) && entity.name === name, undefined, waitingTime);
 }
 
-// TODO (S.Panfilov) add unit tests
 export function getAsyncUniqEntityByKeyAsync<T>(key: string, registry: TAbstractSimpleRegistry<T> | TAbstractSimpleAsyncRegistry<T>, waitingTime: number = 3000): Promise<T | undefined> {
   return getValueAsync<T>(registry, (): boolean => isDefined(registry.findByKey(key)), undefined, waitingTime);
 }
@@ -54,7 +53,6 @@ export function getUniqEntityByName$<T extends TRegistrable>(name: string, regis
   return subscribeToEntityValue$<T>(registry, (entity: T): boolean => entity.name === name);
 }
 
-// TODO (S.Panfilov) add unit tests
 export function getUniqEntityByKey$<T>(key: string, registry: TAbstractSimpleRegistry<T> | TAbstractSimpleAsyncRegistry<T>): Observable<T> {
   const result: T | undefined = isDefined((registry as TAbstractSimpleRegistry<T>).findByKey) ? (registry as TAbstractSimpleRegistry<T>).findByKey(key) : undefined;
   if (isDefined(result)) return new BehaviorSubject(result).asObservable();

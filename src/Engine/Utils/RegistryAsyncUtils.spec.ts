@@ -7,6 +7,7 @@ import type { TRegistrable } from '@/Engine/Mixins';
 import { withTagsMixin } from '@/Engine/Mixins';
 
 import {
+  getAsyncUniqEntityByKeyAsync,
   getAsyncUniqEntityByNameAsync,
   getAsyncUniqEntityWithTag,
   getEntityValueAsync,
@@ -342,6 +343,34 @@ describe('RegistryAsyncUtils', () => {
     }, 100);
   });
 
+  describe('getAsyncUniqEntityByKeyAsync', () => {
+    it('should return an uniq object by the key', async () => {
+      const registryAsync: TAbstractSimpleAsyncRegistry<TSimpeObj> = AbstractSimpleAsyncRegistry<TSimpeObj>('simpleObj' as RegistryType);
+      setTimeout(() => registryAsync.add(simpleObj1.name, simpleObj1), 20);
+      const result: TSimpeObj | undefined = await getAsyncUniqEntityByKeyAsync(simpleObj1.name, registryAsync, waitingTime);
+      expect(result).toEqual(simpleObj1);
+    }, 100);
+
+    it('should return an uniq object by the key from Sync registry', async () => {
+      const registrySync: TAbstractSimpleRegistry<TSimpeObj> = AbstractSimpleRegistry<TSimpeObj>('simpleObj' as RegistryType);
+      setTimeout(() => registrySync.add(simpleObj1.name, simpleObj1), 20);
+      const result: TSimpeObj | undefined = await getAsyncUniqEntityByKeyAsync(simpleObj1.name, registrySync, waitingTime);
+      expect(result).toEqual(simpleObj1);
+    }, 100);
+
+    it('should return an empty array if the registryAsync is empty', async () => {
+      const result: TSimpeObj | undefined = await getAsyncUniqEntityByKeyAsync('some', AbstractAsyncRegistry<TSimpeObj>('mockEntity' as RegistryType), waitingTime);
+      expect(result).toBeUndefined();
+    }, 100);
+
+    it('should return "undefined" if the entity is not in the registryAsync', async () => {
+      const registryAsync: TAbstractSimpleAsyncRegistry<TSimpeObj> = AbstractSimpleAsyncRegistry<TSimpeObj>('mockEntity' as RegistryType);
+      registryAsync.add(simpleObj3.name, simpleObj3);
+      const result: TSimpeObj | undefined = await getAsyncUniqEntityByKeyAsync('some', registryAsync, waitingTime);
+      expect(result).toBeUndefined();
+    }, 100);
+  });
+
   describe('getEntityValueAsync', () => {
     it('should return an entity that was added sync before getting the value', async () => {
       const registryAsync: TAbstractAsyncRegistry<TRegistrable> = AbstractAsyncRegistry<TRegistrable>('mockEntity' as RegistryType);
@@ -600,7 +629,7 @@ describe('RegistryAsyncUtils', () => {
 
     it('should return an entity that was added sync before getting the value drom Sync registry', async () => {
       // setup
-      const registrySync: TAbstractEntityRegistry<TRegistrable> = AbstractEntityRegistry<TRegistrable>('simpleObj' as RegistryType);
+      const registrySync: TAbstractEntityRegistry<TRegistrable> = AbstractEntityRegistry<TRegistrable>('mockEntity' as RegistryType);
       const filterFn = (entity: TRegistrable): boolean => entity.id === mockEntity2.id;
 
       // execute
