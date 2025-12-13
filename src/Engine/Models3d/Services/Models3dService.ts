@@ -3,16 +3,14 @@ import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader';
 import type { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 
-import type { TActorParams } from '@/Engine/Actor';
-import { createPrimitiveModel3dPack } from '@/Engine/Actor/Wrappers/ActorUtils';
 import type { TAnimationsService } from '@/Engine/Animations';
-import type { TMaterialWrapper } from '@/Engine/Material';
 import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
 import { model3dConfigToParams } from '@/Engine/Models3d/Adapters';
-import type { PrimitiveModel3dType } from '@/Engine/Models3d/Constants';
 import type { TModel3dConfig, TModel3dFacade, TModel3dPack, TModel3dParams, TModels3dAsyncRegistry, TModels3dService, TPerformLoadResult } from '@/Engine/Models3d/Models';
+import { isPrimitive } from '@/Engine/Models3d/Services/Models3dServiceHelper';
 import { Model3dFacade } from '@/Engine/Models3d/Wrappers';
+import { createPrimitiveModel3dPack } from '@/Engine/Models3d/Wrappers/PrimitiveModels3dUtils';
 import type { TSceneWrapper } from '@/Engine/Scene';
 import type { TOptional } from '@/Engine/Utils';
 import { isDefined } from '@/Engine/Utils';
@@ -54,7 +52,15 @@ export function Models3dService(registry: TModels3dAsyncRegistry, animationsServ
     });
   }
 
-  const loadFromConfigAsync = (config: ReadonlyArray<TModel3dConfig>): ReadonlyArray<Promise<TModel3dFacade>> => loadAsync(config.map(model3dConfigToParams));
+  const loadFromConfigAsync = (config: ReadonlyArray<TModel3dConfig>): ReadonlyArray<Promise<TModel3dFacade>> => {
+    let primitiveModels3d: ReadonlyArray<TModel3dParams> = [];
+    let models3d: ReadonlyArray<TModel3dParams> = [];
+    config.map(model3dConfigToParams).forEach((m: TModel3dParams): void => {
+      if (isPrimitive(m)) primitiveModels3d = [...primitiveModels3d, m];
+      else models3d = [...models3d, m];
+    });
+    return [...createPrimitiveAsync(primitiveModels3d), ...loadAsync(models3d)];
+  };
 
   function loadAsync(model3dList: ReadonlyArray<TModel3dParams>): ReadonlyArray<Promise<TModel3dFacade>> {
     let promises: ReadonlyArray<Promise<TModel3dFacade>> = [];
@@ -78,9 +84,8 @@ export function Models3dService(registry: TModels3dAsyncRegistry, animationsServ
     return cloned;
   }
 
-  function createPrimitive(type: PrimitiveModel3dType, params: TActorParams, materialW: TMaterialWrapper): TModel3dFacade {
-    const pack = createPrimitiveModel3dPack(type, materialW, params);
-    return createFromPack(pack);
+  function createPrimitiveAsync(params: ReadonlyArray<TModel3dParams>): ReadonlyArray<Promise<TModel3dFacade>> {
+    return params.map((p: TModel3dParams): Promise<TModel3dFacade> => Promise.resolve(createFromPack(createPrimitiveModel3dPack(p))));
   }
 
   const destroyable: TDestroyable = destroyableMixin();
@@ -98,7 +103,7 @@ export function Models3dService(registry: TModels3dAsyncRegistry, animationsServ
     loadAsync,
     loadFromConfigAsync,
     createFromPack,
-    createPrimitive,
+    createPrimitiveAsync,
     added$: added$.asObservable(),
     loaded$: loaded$.asObservable(),
     getRegistry: (): TModels3dAsyncRegistry => registry,

@@ -1,10 +1,7 @@
 import type { Observable } from 'rxjs';
 
-import type { TActorParams } from '@/Engine/Actor';
 import type { TAnimationsService } from '@/Engine/Animations';
-import type { TMaterialWrapper } from '@/Engine/Material';
 import type { TDestroyable } from '@/Engine/Mixins';
-import type { PrimitiveModel3dType } from '@/Engine/Models3d/Constants';
 import type { TModel3dConfig, TModel3dFacade, TModel3dPack, TModels3dAsyncRegistry } from '@/Engine/Models3d/Models';
 import type { TWithRegistryService, TWithSceneGetterService } from '@/Engine/Space';
 import type { TOptional } from '@/Engine/Utils';
@@ -15,7 +12,7 @@ export type TModels3dService = Readonly<{
   loadAsync: (list: ReadonlyArray<TModel3dParams>) => ReadonlyArray<Promise<TModel3dFacade>>;
   loadFromConfigAsync: (config: ReadonlyArray<TModel3dConfig>) => ReadonlyArray<Promise<TModel3dFacade>>;
   createFromPack: (pack: TModel3dPack) => TModel3dFacade;
-  createPrimitive: (type: PrimitiveModel3dType, params: TActorParams, materialW: TMaterialWrapper) => TModel3dFacade;
+  createPrimitiveAsync: (params: ReadonlyArray<TModel3dParams>) => ReadonlyArray<Promise<TModel3dFacade>>;
   getAnimationService: () => TAnimationsService;
   added$: Observable<TModel3dFacade>;
   loaded$: Observable<TModel3dFacade>;
