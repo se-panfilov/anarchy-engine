@@ -29,7 +29,7 @@ export type TCspKeys = TFetchDirectives | TDocumentDirectives | TNavigationDirec
 
 export type TCspRulles = Partial<Record<TCspKeys, Array<string>>>;
 
-const anarchyTrackingUrl = 'https://o*.ingest.sentry.io' as const;
+const anarchyTrackingUrl = 'https://*.sentry.io' as const;
 
 export const BASE_CSP: TCspRulles = {
   'default-src': ["'self'"],
