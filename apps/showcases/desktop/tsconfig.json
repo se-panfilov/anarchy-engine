@@ -5,6 +5,8 @@
     "outDir": "dist",
     "strict": true,
     "esModuleInterop": true,
+    // TODO DESKTOP: Electron conflicts over "glob" and "minimatch" types with other packages (rimraf, etc.). So temporarily disable type checking for libraries.
+    "skipLibCheck": true,
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "lib": ["ES2020", "DOM"]
