@@ -10,22 +10,23 @@ import type {
   TModel3dResourceAsyncRegistry,
   TModels3dFactory,
   TModels3dLoader,
-  TModels3dService
+  TModels3dService,
+  TModels3dServiceDependencies
 } from '@/Engine/Models3d/Models';
 import type { TOptional } from '@/Engine/Utils';
 
 export function Models3dService(
   factory: TModels3dFactory,
   registry: TModel3dRegistry,
-  resourcesRegistry: TModel3dResourceAsyncRegistry
-  // { animationsService }: TModels3dServiceDependencies,
+  resourcesRegistry: TModel3dResourceAsyncRegistry,
+  { materialService }: TModels3dServiceDependencies
 ): TModels3dService {
   factory.entityCreated$.subscribe((wrapper: TModel3dFacade): void => registry.add(wrapper));
   const model3dLoader: TModels3dLoader = Models3dLoader(resourcesRegistry);
 
   const create = (params: TModel3dParams): TModel3dFacade => factory.create(params, { resourcesRegistry });
   const createFromConfig = (models3d: ReadonlyArray<TModel3dConfig>): void => {
-    models3d.forEach((config: TModel3dConfig): TModel3dFacade => factory.create(factory.configToParams(config, { resourcesRegistry })));
+    models3d.forEach((config: TModel3dConfig): TModel3dFacade => factory.create(factory.configToParams(config, { materialService })));
   };
 
   // function createFromPack(pack: TModel3dPack): TModel3dFacade {

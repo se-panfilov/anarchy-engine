@@ -5,7 +5,6 @@ import type { TCameraConfig } from '@/Engine/Camera';
 import type { TControlsConfig } from '@/Engine/Controls';
 import type { TWithName, TWithReadonlyTags } from '@/Engine/Mixins';
 import type { TModel3dConfig } from '@/Engine/Models3d';
-import { isPrimitive } from '@/Engine/Models3d';
 import type { TPhysicsPresetConfig, TWithPresetNamePhysicsBodyConfig } from '@/Engine/Physics';
 import type { TSceneConfig } from '@/Engine/Scene/Models';
 import { SpaceSchemaVersion } from '@/Engine/Space/Constants';

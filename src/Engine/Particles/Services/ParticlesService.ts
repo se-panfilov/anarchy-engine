@@ -11,7 +11,7 @@ export function ParticlesService(factory: TParticlesFactory, registry: TParticle
 
   const create = (params: TParticlesParams): TParticlesWrapper => factory.create(params, { materialRegistry });
   const createFromConfig = (particles: ReadonlyArray<TParticlesConfig>): void => {
-    particles.forEach((config: TParticlesConfig): TParticlesWrapper => factory.create(factory.configToParams(config), { materialRegistry }));
+    particles.forEach((config: TParticlesConfig): TParticlesWrapper => factory.create(factory.configToParams(config, { materialRegistry })));
   };
 
   const destroyable: TDestroyable = destroyableMixin();
