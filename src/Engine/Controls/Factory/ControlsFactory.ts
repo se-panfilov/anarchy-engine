@@ -4,6 +4,7 @@ import { configToParams } from '@/Engine/Controls/Adapter';
 import type { IControlsFactory, IControlsParams, IControlsWrapper, IOrbitControlsParams } from '@/Engine/Controls/Models';
 import { OrbitControlsWrapper } from '@/Engine/Controls/Wrapper';
 
+// eslint-disable-next-line functional/prefer-tacit
 function create(params: IOrbitControlsParams): IControlsWrapper {
   // TODO (S.Panfilov) Add support for other types of controls
   return OrbitControlsWrapper(params);

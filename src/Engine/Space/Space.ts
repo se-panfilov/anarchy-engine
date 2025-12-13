@@ -136,11 +136,13 @@ export function buildSpaceFromConfig(canvas: IAppCanvas, config: ISpaceConfig): 
   //build controls
   if (isControlsInit) {
     if (isNotDefined(isCamerasInit)) throw new Error('Camera initialization should be "true" for controls initialization');
-    if (isNotDefined(cameraRegistry)) throw new Error('Cannot find camera registry for controls initialization');
+    if (isNotDefined(services.cameraService)) throw new Error('Cannot find camera service for controls initialization');
+    const camera: ICameraWrapper | undefined = services.cameraService.findActiveCamera();
+    if (isNotDefined(camera)) throw new Error('Cannot find active camera for controls initialization');
 
     const controlsFactory: IControlsFactory = ControlsFactory();
     controlsRegistry = ControlsRegistry();
-    const controlsService: IControlsService = ControlService(controlsFactory, controlsRegistry, cameraRegistry, canvas);
+    const controlsService: IControlsService = ControlService(controlsFactory, controlsRegistry, camera, canvas);
 
     controlsService.createFromConfig(controls);
 
