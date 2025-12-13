@@ -234,17 +234,8 @@
         "collisions": {
           "$ref": "#/definitions/TCollisionsDataConfig"
         },
-        "tags": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "name": {
-          "type": "string"
-        },
-        "agent": {
-          "$ref": "#/definitions/TransformAgent"
+        "model3dSettings": {
+          "$ref": "#/definitions/TActorModel3dSettingsConfig"
         },
         "driveUpdateDelay": {
           "type": "number"
@@ -252,8 +243,17 @@
         "driveCoordsThreshold": {
           "type": "number"
         },
-        "model3dSettings": {
-          "$ref": "#/definitions/TActorModel3dSettings"
+        "agent": {
+          "$ref": "#/definitions/TransformAgent"
+        },
+        "name": {
+          "type": "string"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
         }
       },
       "required": ["model3dSource", "position", "spatial"]
@@ -1027,82 +1027,24 @@
       "type": "number",
       "enum": [5, 4, 3, 2, 1, 0]
     },
+    "TActorModel3dSettingsConfig": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "positionOffset": {
+          "$ref": "#/definitions/Vector3Like"
+        },
+        "rotationOffset": {
+          "$ref": "#/definitions/Vector3Like"
+        },
+        "scaleOffset": {
+          "$ref": "#/definitions/Vector3Like"
+        }
+      }
+    },
     "TransformAgent": {
       "type": "string",
       "enum": ["default", "kinematic", "physical", "connected"]
-    },
-    "TActorModel3dSettings": {
-      "type": "object",
-      "properties": {
-        "positionOffset": {
-          "$ref": "#/definitions/Vector3"
-        },
-        "rotationOffset": {
-          "$ref": "#/definitions/Euler"
-        },
-        "scaleOffset": {
-          "$ref": "#/definitions/Vector3"
-        }
-      },
-      "additionalProperties": false
-    },
-    "Vector3": {
-      "type": "object",
-      "properties": {
-        "x": {
-          "type": "number",
-          "default": 0
-        },
-        "y": {
-          "type": "number",
-          "default": 0
-        },
-        "z": {
-          "type": "number",
-          "default": 0
-        },
-        "isVector3": {
-          "type": "boolean",
-          "const": true
-        }
-      },
-      "required": ["x", "y", "z", "isVector3"],
-      "additionalProperties": false,
-      "description": "3D vector.\n\nsee  {@link  https://github.com/mrdoob/three.js/blob/master/src/math/Vector3.js }"
-    },
-    "Euler": {
-      "type": "object",
-      "properties": {
-        "x": {
-          "type": "number",
-          "default": 0
-        },
-        "y": {
-          "type": "number",
-          "default": 0
-        },
-        "z": {
-          "type": "number",
-          "default": 0
-        },
-        "order": {
-          "$ref": "#/definitions/EulerOrder",
-          "default": "THREE.Euler.DEFAULT_ORDER"
-        },
-        "isEuler": {
-          "type": "boolean",
-          "const": true
-        },
-        "_onChangeCallback": {
-          "$comment": "() => void"
-        }
-      },
-      "required": ["x", "y", "z", "order", "isEuler", "_onChangeCallback"],
-      "additionalProperties": false
-    },
-    "EulerOrder": {
-      "type": "string",
-      "enum": ["XYZ", "YXZ", "ZXY", "ZYX", "YZX", "XZY"]
     },
     "TCameraConfig": {
       "type": "object",
@@ -4693,6 +4635,30 @@
         }
       }
     },
+    "Vector3": {
+      "type": "object",
+      "properties": {
+        "x": {
+          "type": "number",
+          "default": 0
+        },
+        "y": {
+          "type": "number",
+          "default": 0
+        },
+        "z": {
+          "type": "number",
+          "default": 0
+        },
+        "isVector3": {
+          "type": "boolean",
+          "const": true
+        }
+      },
+      "required": ["x", "y", "z", "isVector3"],
+      "additionalProperties": false,
+      "description": "3D vector.\n\nsee  {@link  https://github.com/mrdoob/three.js/blob/master/src/math/Vector3.js }"
+    },
     "TNormalMaterialConfigOptions": {
       "type": "object",
       "additionalProperties": false,
@@ -6743,6 +6709,40 @@
         }
       },
       "additionalProperties": false
+    },
+    "Euler": {
+      "type": "object",
+      "properties": {
+        "x": {
+          "type": "number",
+          "default": 0
+        },
+        "y": {
+          "type": "number",
+          "default": 0
+        },
+        "z": {
+          "type": "number",
+          "default": 0
+        },
+        "order": {
+          "$ref": "#/definitions/EulerOrder",
+          "default": "THREE.Euler.DEFAULT_ORDER"
+        },
+        "isEuler": {
+          "type": "boolean",
+          "const": true
+        },
+        "_onChangeCallback": {
+          "$comment": "() => void"
+        }
+      },
+      "required": ["x", "y", "z", "order", "isEuler", "_onChangeCallback"],
+      "additionalProperties": false
+    },
+    "EulerOrder": {
+      "type": "string",
+      "enum": ["XYZ", "YXZ", "ZXY", "ZYX", "YZX", "XZY"]
     },
     "TTextureResourceConfig": {
       "type": "object",
