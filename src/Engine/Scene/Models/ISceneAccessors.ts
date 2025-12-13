@@ -7,10 +7,7 @@ import type { IAbstractLightWrapper, ILight } from '@/Engine/Light';
 import type { ITextAnyWrapper } from '@/Engine/Text';
 import type { ICubeTexture, ITexture } from '@/Engine/Texture';
 
-import type { ISceneObject } from './ISceneObject';
-
 export type ISceneAccessors = Readonly<{
-  add: (obj: ISceneObject) => void;
   addActor: (actor: Readonly<IActorWrapperAsync>) => void;
   addCamera: (camera: Readonly<ICameraWrapper>) => void;
   addLight: <T extends ILight>(light: Readonly<IAbstractLightWrapper<T>>) => void;

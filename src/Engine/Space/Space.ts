@@ -20,11 +20,11 @@ import type { ILoopTimes } from '@/Engine/Loop';
 import { standardLoopService } from '@/Engine/Loop';
 import type { IDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
-import { withTags } from '@/Engine/Mixins/Generic/WithTags';
+import { withTags } from '@/Engine/Mixins/Generic';
 import type { IRendererFactory, IRendererRegistry, IRendererWrapper } from '@/Engine/Renderer';
 import { RendererFactory, RendererModes, RendererRegistry, RendererTag } from '@/Engine/Renderer';
-import type { ISceneConfig, ISceneFactory, ISceneRegistry, ISceneWrapper } from '@/Engine/Scene';
-import { SceneFactory, SceneRegistry, SceneTag } from '@/Engine/Scene';
+import type { ISceneConfig, ISceneFactory, ISceneRegistry, IScenesService, ISceneWrapper } from '@/Engine/Scene';
+import { SceneFactory, SceneRegistry, ScenesService, SceneTag } from '@/Engine/Scene';
 import { screenService } from '@/Engine/Services';
 import { withBuiltMixin } from '@/Engine/Space/Mixin';
 import type { ISpace, ISpaceConfig, ISpaceFactories, ISpaceRegistries, ISpaceRenderer, ISpaceServices, IWithBuilt } from '@/Engine/Space/Models';
@@ -65,22 +65,18 @@ export function buildSpaceFromConfig(canvas: IAppCanvas, config: ISpaceConfig): 
   if (isScenesInit) {
     const sceneFactory: ISceneFactory = SceneFactory();
     const sceneRegistry: ISceneRegistry = SceneRegistry();
-    const sceneService: ISceneService = SceneService(sceneFactory, sceneRegistry);
-
-    // TODO (S.Panfilov) move this into the service
-    //sceneFactory.entityCreated$.subscribe((wrapper: ISceneWrapper): void => sceneRegistry.add(wrapper));
-    ////
+    const scenesService: IScenesService = ScenesService(sceneFactory, sceneRegistry);
 
     // TODO (S.Panfilov) use service
     scenes.forEach((config: ISceneConfig): ISceneWrapper => sceneFactory.create(sceneFactory.configToParams({ ...config, tags: [...config.tags, CommonTag.FromConfig] })));
 
     messages$.next(`Scenes (${scenes.length}) created`);
-    scene = sceneRegistry.findByTag(SceneTag.Current);
+    scene = sceneRegistry.findByTag(SceneTag.Active);
     if (isNotDefined(scene)) throw new Error(`Cannot find the current scene for space "${name}" during the space building.`);
 
     factories = { ...factories, sceneFactory };
     registries = { ...registries, sceneRegistry };
-    services = { ...services, sceneService };
+    services = { ...services, scenesService };
   }
 
   //build actors

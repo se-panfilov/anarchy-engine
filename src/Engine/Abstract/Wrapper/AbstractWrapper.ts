@@ -4,7 +4,7 @@ import type { IWithUserData, IWithWrapperIdEntity, WrapperType } from '@/Engine/
 import { withWrapperId } from '@/Engine/Abstract';
 import type { IWrapper } from '@/Engine/Abstract/Models';
 import { destroyableMixin } from '@/Engine/Mixins';
-import { withTags } from '@/Engine/Mixins/Generic/WithTags';
+import { withTags } from '@/Engine/Mixins/Generic';
 import { isWithUserData, IWithWrapperIdAccessors } from '@/Engine/Utils';
 
 export function AbstractWrapper<T>(entity: T, type: WrapperType | string, params?: Readonly<{ tags: ReadonlyArray<string> }>): IWrapper<T>;

@@ -1,3 +1,3 @@
 export enum SceneTag {
-  Current = 'current'
+  Active = 'active'
 }

@@ -5,7 +5,7 @@ import { AbstractWrapper, WrapperType } from '@/Engine/Abstract';
 import type { ICameraParams, ICameraWrapper, IPerspectiveCamera } from '@/Engine/Camera/Models';
 import { ambientContext } from '@/Engine/Context';
 import { withMoveBy3dMixin, withObject3d, withRotationByXyzMixin } from '@/Engine/Mixins';
-import { withTags } from '@/Engine/Mixins/Generic/WithTags';
+import { withTags } from '@/Engine/Mixins/Generic';
 import type { IScreenSizeValues, IScreenSizeWatcher } from '@/Engine/Screen';
 import type { IWriteable } from '@/Engine/Utils';
 import { applyObject3dParams, applyPosition, applyRotation, isDefined, isNotDefined } from '@/Engine/Utils';

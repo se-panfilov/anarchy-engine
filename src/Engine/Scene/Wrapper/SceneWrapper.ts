@@ -9,7 +9,7 @@ import { ColorWrapper } from '@/Engine/Color';
 import type { IDataTexture } from '@/Engine/EnvMap';
 import type { IFogWrapper } from '@/Engine/Fog';
 import type { IAbstractLightWrapper, ILight } from '@/Engine/Light';
-import { withObject3d } from '@/Engine/Mixins';
+import { withActive, withObject3d } from '@/Engine/Mixins';
 import type { ISceneObject, ISceneParams, ISceneWrapper } from '@/Engine/Scene/Models';
 import type { ITextAnyWrapper } from '@/Engine/Text';
 import type { ICubeTexture, ITexture } from '@/Engine/Texture';
@@ -25,6 +25,7 @@ export function SceneWrapper(params: ISceneParams): ISceneWrapper {
   if (isDefined(params.background)) setBackground(params.background);
 
   const wrapper: IWrapper<Scene> = AbstractWrapper(entity, WrapperType.Scene, params);
+  const isActive: boolean = false;
 
   const add = (obj: ISceneObject): void => void entity.add(obj);
   const addCamera = (camera: Readonly<ICameraWrapper>): void => add(camera.entity);
@@ -51,5 +52,22 @@ export function SceneWrapper(params: ISceneParams): ISceneWrapper {
 
   const getEnvironmentMap = (): ITexture | null => entity.environment;
 
-  return { ...wrapper, add, addActor, addCamera, addLight, setFog, addText, setBackground, getBackground, setEnvironmentMap, getEnvironmentMap, ...withObject3d(entity), entity };
+  let sceneWrapper = {
+    ...wrapper,
+    addActor,
+    addCamera,
+    addLight,
+    setFog,
+    addText,
+    setBackground,
+    getBackground,
+    setEnvironmentMap,
+    getEnvironmentMap,
+    ...withObject3d(entity),
+    entity
+  };
+
+  sceneWrapper = withActive(sceneWrapper, isActive);
+
+  return sceneWrapper;
 }

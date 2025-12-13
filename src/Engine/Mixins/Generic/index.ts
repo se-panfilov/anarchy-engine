@@ -1,4 +1,4 @@
 export * from './DestroyableMixin';
-export * from './WithTags';
-export * from './WithActive';
 export * from './Models';
+export * from './WithActive';
+export * from './WithTags';
