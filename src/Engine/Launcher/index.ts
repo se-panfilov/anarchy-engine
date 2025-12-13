@@ -18,8 +18,8 @@ import {
   RendererFactory,
   SceneFactory
 } from '@Engine/Factories';
-import type { IActorRegistry, ICameraRegistry, ILightRegistry } from '@Engine/Registries';
-import { ActorRegistry, CameraRegistry, LightRegistry } from '@Engine/Registries';
+import type { IActorRegistry, ICameraRegistry, IControlsRegistry, ILightRegistry } from '@Engine/Registries';
+import { ActorRegistry, CameraRegistry, ControlsRegistry, LightRegistry } from '@Engine/Registries';
 import { createDeferredPromise } from '@Engine/Utils';
 import type {
   IActorWrapper,
@@ -47,6 +47,7 @@ export async function launch(sceneConfig: ISceneConfig, canvas: IAppCanvas): Pro
   const actorRegistry: IActorRegistry = ActorRegistry();
   const cameraRegistry: ICameraRegistry = CameraRegistry();
   const lightRegistry: ILightRegistry = LightRegistry();
+  const controlsRegistry: IControlsRegistry = ControlsRegistry();
 
   //Factories
   const sceneFactory: ISceneFactory = SceneFactory();
@@ -80,8 +81,7 @@ export async function launch(sceneConfig: ISceneConfig, canvas: IAppCanvas): Pro
 
   controls.forEach((config: IControlsConfig): void => {
     const control: IControlsWrapper = controlsFactory.fromConfig(config);
-    // TODO (S.Panfilov) CWP implement controlsRegistry
-    // controlsRegistry.add(control);
+    controlsRegistry.add(control);
     // scene.addControl(control);
   });
 
