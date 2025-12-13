@@ -1,6 +1,6 @@
-import type { TEulerLike } from '@Anarchy/Engine/ThreeLib';
 import type { QuaternionLike, Vector3Like } from 'three';
 
+import type { TEulerLike } from './TEulerLike';
 import type { TObject3DParams } from './TObject3DParams';
 
 export type TObject3DPropConfig = Omit<TObject3DParams, 'animations' | 'position' | 'rotation' | 'scale'> &

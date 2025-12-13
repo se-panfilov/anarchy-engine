@@ -1,7 +1,6 @@
 import type { TSerializableEntitiesService } from '@Anarchy/Engine/Abstract';
 import type { TContainerDecorator } from '@Anarchy/Engine/Global';
 import type { TWithCreateFromConfigService, TWithCreateService, TWithFactoryService, TWithSceneGetterService } from '@Anarchy/Engine/Mixins';
-import type { TTextTranslationService } from '@Anarchy/Engine/Text';
 import type { Observable } from 'rxjs';
 
 import type { TText2dRegistry } from './TText2dRegistry';
@@ -16,6 +15,7 @@ import type { TTextConfig } from './TTextConfig';
 import type { TTextFactory } from './TTextFactory';
 import type { TTextParams } from './TTextParams';
 import type { TTextServiceDependencies } from './TTextServiceDependencies';
+import type { TTextTranslationService } from './TTextTranslationService';
 
 export type TTextServiceWithCreate = TWithCreateService<TTextAnyWrapper, TTextParams>;
 export type TTextServiceWithCreateFromConfig = TWithCreateFromConfigService<TTextConfig, TTextAnyWrapper>;
