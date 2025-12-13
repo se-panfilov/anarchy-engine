@@ -20,6 +20,7 @@
     "dist-web/"
   ],
   "scripts": {
+    "after:release": "npm run tracking:sourcemaps:web:production",
     "before:release": "npm run sanitize-assets && npm run build:all && npm run before:release:check",
     "before:release:check": "npm run ts:check && npm run check:circular-dependencies && npm run lint",
     "build:all": "npm run build:desktop && npm run build:mobile && npm run build:web",
@@ -41,6 +42,9 @@
     "sanitize-assets": "node ../../packages/anarchy-shared/ScriptUtils/SanitizeAssets.js ./public",
     "start:dev": "vite --mode dev --host",
     "start:e2e": "vite --mode e2e --port 5073 --logLevel error",
+    "tracking:sourcemaps:web:dev": "node ../../packages/anarchy-tracking/ScriptUtils/UploadSourcemaps.js ./dist-web --mode dev --no-dev-guard",
+    "tracking:sourcemaps:web:production": "node ../../packages/anarchy-tracking/ScriptUtils/UploadSourcemaps.js ./dist-web --mode production.web",
+    "tracking:sourcemaps:web:production:dry": "node ../../packages/anarchy-tracking/ScriptUtils/UploadSourcemaps.js ./dist-web --mode production.web --dry-run",
     "ts:check": "tsc --noEmit",
     "ts:check:watch": "tsc --watch --noEmit"
   },
