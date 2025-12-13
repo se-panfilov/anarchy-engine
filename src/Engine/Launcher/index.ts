@@ -42,19 +42,19 @@ export async function launch(sceneConfig: SceneConfig): Promise<void> {
   combineLatest([actorFactory.latest$, sceneFactory.latest$]).subscribe(([actor, scene]) => {
     if (isNotDefined(scene) || isNotDefined(actor)) return;
     actorRegistry.add$.next(actor);
-    scene.addActor(actor);
+    scene.addActor$.next(actor);
   });
 
   combineLatest([cameraFactory.latest$, sceneFactory.latest$]).subscribe(([camera, scene]) => {
     if (isNotDefined(scene) || isNotDefined(camera)) return;
     cameraRegistry.add$.next(camera);
-    scene.addCamera(camera);
+    scene.addCamera$.next(camera);
   });
 
   combineLatest([lightFactory.latest$, sceneFactory.latest$]).subscribe(([light, scene]) => {
     if (isNotDefined(scene) || isNotDefined(light)) return;
     lightRegistry.add$.next(light);
-    scene.addLight(light);
+    scene.addLight$.next(light);
   });
 
   //Dynamic create entities

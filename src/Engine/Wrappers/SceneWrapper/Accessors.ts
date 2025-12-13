@@ -1,13 +1,13 @@
 import type { ActorWrapper, CameraWrapper, LightWrapper } from '@Engine/Wrappers';
 import { Scene } from 'three';
 
-export interface SceneUtils {
+export interface Accessors {
   readonly addCamera: (camera: ReturnType<typeof CameraWrapper>) => Scene;
   readonly addActor: (actor: ReturnType<typeof ActorWrapper>) => Scene;
   readonly addLight: (actor: ReturnType<typeof LightWrapper>) => Scene;
 }
 
-export function getSceneUtils(entity: Scene): SceneUtils {
+export function getAccessors(entity: Scene): Accessors {
   const addCamera = (camera: ReturnType<typeof CameraWrapper>): Scene => entity.add(camera.entity);
   const addActor = (actor: ReturnType<typeof ActorWrapper>): Scene => entity.add(actor.entity);
   const addLight = (actor: ReturnType<typeof LightWrapper>): Scene => entity.add(actor.entity);
