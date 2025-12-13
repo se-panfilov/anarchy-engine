@@ -1,4 +1,4 @@
-import type { TFsmInstanceRegistry, TFsmParams, TFsmSource, TFsmWrapper } from '@/Engine/Fsm/Models';
+import type { TFsmConfig, TFsmInstanceRegistry, TFsmParams, TFsmSource, TFsmWrapper } from '@/Engine/Fsm/Models';
 import type { TDestroyable } from '@/Engine/Mixins';
 import type { TWithFactoryService } from '@/Engine/Space';
 
@@ -10,7 +10,7 @@ export type TFsmService = TWithFactoryService<TFsmInstanceFactory> &
     create: (params: TFsmParams, force?: boolean) => TFsmWrapper | never;
     createInstanceBySourceName: (sourceName: string) => TFsmWrapper | never;
     createSource: (source: TFsmParams) => TFsmSource;
-    createSourceFromConfig: (fsm: ReadonlyArray<TFsmParams>) => ReadonlyArray<TFsmSource>;
+    createSourceFromConfig: (fsm: ReadonlyArray<TFsmConfig>) => ReadonlyArray<TFsmSource>;
     createInstance: (source: TFsmSource) => TFsmWrapper;
     getSourceRegistry: () => TFsmSourceRegistry;
     getInstanceRegistry: () => TFsmInstanceRegistry;

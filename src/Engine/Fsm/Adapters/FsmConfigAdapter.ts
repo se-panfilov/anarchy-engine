@@ -3,7 +3,12 @@ import type { TFsmConfig, TFsmParams } from '@/Engine/Fsm/Models';
 export function configToParamsFsm(config: TFsmConfig): TFsmParams | never {
   if (hasFunctions(config)) throw new Error('Config must not contains functions');
 
-  return config;
+  if (config.transitions.every((t): boolean => t.length !== 3)) throw new Error('Transitions must be an array of 3 elements');
+
+  return {
+    ...config,
+    transitions: config.transitions as TFsmParams['transitions']
+  };
 }
 
 function hasFunctions(obj: any): boolean {

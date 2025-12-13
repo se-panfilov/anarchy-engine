@@ -7,7 +7,7 @@ import type { TFsmStates } from './TFsmStates';
 export type TFsmParams = Readonly<{
   type: FsmType | string;
   initial: TFsmStates;
-  transitions: ReadonlyArray<Readonly<[TFsmStates, TFsmEvents, TFsmStates]>>;
+  transitions: ReadonlyArray<readonly [TFsmStates, TFsmEvents, TFsmStates]>;
 }> &
   TWithName &
   TWithReadonlyTags;

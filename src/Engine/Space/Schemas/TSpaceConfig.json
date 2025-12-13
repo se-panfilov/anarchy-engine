@@ -2249,44 +2249,45 @@
       "required": ["color"]
     },
     "TFsmConfig": {
-      "$ref": "#/definitions/TFsmParams"
-    },
-    "TFsmParams": {
       "type": "object",
       "additionalProperties": false,
       "properties": {
-        "tags": {
+        "transitions": {
           "type": "array",
           "items": {
-            "type": "string"
+            "type": "array",
+            "items": {
+              "anyOf": [
+                {
+                  "$ref": "#/definitions/TFsmStates"
+                },
+                {
+                  "$ref": "#/definitions/TFsmEvents"
+                }
+              ]
+            }
           }
         },
-        "name": {
-          "type": "string"
-        },
         "type": {
-          "type": "string"
+          "anyOf": [
+            {
+              "$ref": "#/definitions/FsmType"
+            },
+            {
+              "type": "string"
+            }
+          ]
         },
         "initial": {
           "$ref": "#/definitions/TFsmStates"
         },
-        "transitions": {
+        "name": {
+          "type": "string"
+        },
+        "tags": {
           "type": "array",
           "items": {
-            "type": "object",
-            "properties": {
-              "0": {
-                "$ref": "#/definitions/TFsmStates"
-              },
-              "1": {
-                "$ref": "#/definitions/TFsmEvents"
-              },
-              "2": {
-                "$ref": "#/definitions/TFsmStates"
-              }
-            },
-            "required": ["0", "1", "2"],
-            "additionalProperties": false
+            "type": "string"
           }
         }
       },
@@ -2297,6 +2298,10 @@
     },
     "TFsmEvents": {
       "type": ["string", "number"]
+    },
+    "FsmType": {
+      "type": "string",
+      "const": "Animation"
     },
     "TTextConfig": {
       "type": "object",
