@@ -21,7 +21,9 @@ import * as dotenv from 'dotenv';
 // Load .env* files (from the folder where this script is run)
 function loadEnvFromCwd(mode) {
   const cwd = process.cwd();
-  const candidates = [join(cwd, '.env'), join(cwd, '.env.local'), join(cwd, `.env.${mode}`), join(cwd, `.env.${mode}.local`)];
+  const list = [join(cwd, '.env'), join(cwd, '.env.local'), join(cwd, `.env.${mode}`), join(cwd, `.env.${mode}.local`)];
+  console.log('Reading env files:', list.join(', \n'));
+  const candidates = list;
   for (const p of candidates) {
     if (existsSync(p)) {
       dotenv.config({ path: p });
@@ -250,7 +252,9 @@ function runSentryCli(args, env, dryRun) {
   if (res.status !== 0) process.exit(res.status);
 
   // 2) Upload files
-  const uploadArgs = ['releases', 'files', release, 'upload-sourcemaps', distAbs, '--ext', 'js', '--ext', 'mjs', '--ext', 'map', '--rewrite', '--validate', '--url-prefix', urlPrefix, ...baseArgs];
+  // СТАЛО: современная команда
+  const uploadArgs = ['sourcemaps', 'upload', distAbs, '--release', release, '--url-prefix', urlPrefix, '--ext', 'js', '--ext', 'mjs', '--ext', 'map', '--rewrite', '--validate', ...baseArgs];
+
   res = runSentryCli(uploadArgs, env, argv.dryRun);
   if (res.status !== 0) process.exit(res.status);
 

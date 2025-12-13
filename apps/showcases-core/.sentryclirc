@@ -1,4 +1,3 @@
 [defaults]
-url = https://sentry.io/
 org = anarchy-engine
 project = anarchy-showcases-web
