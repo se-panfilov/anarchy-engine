@@ -28,7 +28,7 @@ Your chosen distribution channels may process personal data necessary to provide
 
 If you contact us at **{{SUPPORT_EMAIL}}**, we process your **email address**, **message content**, and any information you provide to respond.
 **Legal basis:** our **legitimate interests** in responding to inquiries (or your consent where applicable).
-**Retention:** **{{SUPPORT_EMAILS_RETAIN_PERIOD_MONTH}} months**, then deletion or anonymization unless longer retention is required by law.
+**Retention:** **{{SUPPORT_EMAILS_RETAIN_PERIOD_MONTH}} months** from the date of our last interaction in the support thread (or ticket closure), then deletion or irreversible anonymization, unless longer retention is required by law or to establish, exercise or defend legal claims.
 
 ## 5. Processors
 

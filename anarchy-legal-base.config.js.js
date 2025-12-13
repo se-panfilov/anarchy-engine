@@ -52,6 +52,9 @@ export default [
       USAGE_SCOPE: 'personal and commercial',
       IS_GAME: false, //If it's game, add game-specific messages, e.g. no cheating, etc.
 
+      //GDPR
+      SUPPORT_EMAILS_RETAIN_PERIOD_MONTH: 24,
+
       // TBD
       SECURITY_SUPPORT_PERIOD: 'TBD until market release',
       EFFECTIVE_DATE: 'TBD until market release'
