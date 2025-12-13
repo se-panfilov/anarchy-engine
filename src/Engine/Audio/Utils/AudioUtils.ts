@@ -1,7 +1,10 @@
+import type { BehaviorSubject, Observable } from 'rxjs';
+import { distinctUntilChanged, tap } from 'rxjs';
 import { Audio, PositionalAudio } from 'three';
 
 import type { TAnyAudio, TAnyAudioConfig, TAnyAudioParams, TAudio3dConfig, TAudio3dParams, TAudioParams } from '@/Engine/Audio/Models';
-import { isNotDefined } from '@/Engine/Utils';
+import type { TReadonlyVector3 } from '@/Engine/ThreeLib';
+import { isEqualOrSimilarByXyzCoords, isNotDefined } from '@/Engine/Utils';
 
 export const isAudio3dConfig = (config: TAnyAudioConfig | TAudio3dConfig): config is TAudio3dConfig => (config as TAudio3dConfig).position !== undefined;
 export const isAudio3dParams = (config: TAnyAudioParams | TAudio3dParams): config is TAudio3dParams => (config as TAudio3dParams).position !== undefined;
@@ -36,4 +39,22 @@ export function createAudio(audioSource: AudioBuffer, params: TAudioParams): Aud
   audio.setLoop(params.loop ?? false);
   audio.setVolume(params.volume ?? 1);
   return audio;
+}
+
+export function onAudioPositionUpdate(position$: BehaviorSubject<TReadonlyVector3>, noiseThreshold?: number): Observable<TReadonlyVector3> {
+  const prevValue: Float32Array = new Float32Array([0, 0, 0]);
+
+  return position$.pipe(
+    distinctUntilChanged((_prev: TReadonlyVector3, curr: TReadonlyVector3): boolean =>
+      isEqualOrSimilarByXyzCoords(prevValue[0], prevValue[1], prevValue[2], curr.x, curr.y, curr.z, noiseThreshold ?? 0)
+    ),
+    tap((value: TReadonlyVector3): void => {
+      // eslint-disable-next-line functional/immutable-data
+      prevValue[0] = value.x;
+      // eslint-disable-next-line functional/immutable-data
+      prevValue[1] = value.y;
+      // eslint-disable-next-line functional/immutable-data
+      prevValue[2] = value.z;
+    })
+  );
 }

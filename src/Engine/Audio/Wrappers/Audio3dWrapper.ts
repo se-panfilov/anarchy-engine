@@ -1,10 +1,10 @@
 import type { Observable, Subscription } from 'rxjs';
-import { BehaviorSubject, distinctUntilChanged, filter, sample, tap } from 'rxjs';
+import { BehaviorSubject, filter, sample } from 'rxjs';
 import type { AudioListener, PositionalAudio } from 'three';
 
 import type { TAbstractAudioWrapper, TAudio3dParams, TAudio3dTransformDrive, TAudio3dWrapper, TAudioCreateFn, TAudioWrapperDependencies } from '@/Engine/Audio/Models';
 import { Audio3dTransformDrive } from '@/Engine/Audio/TransformDrive';
-import { createPositionalAudio } from '@/Engine/Audio/Utils';
+import { createPositionalAudio, onAudioPositionUpdate } from '@/Engine/Audio/Utils';
 import { AbstractAudioWrapper } from '@/Engine/Audio/Wrappers/AbstractAudioWrapper';
 import { LoopUpdatePriority } from '@/Engine/Loop';
 import type { TMeters } from '@/Engine/Math';
@@ -12,7 +12,6 @@ import { meters } from '@/Engine/Measurements';
 import type { TReadonlyVector3 } from '@/Engine/ThreeLib';
 import type { TDriveToTargetConnector } from '@/Engine/TransformDrive';
 import { DriveToTargetConnector } from '@/Engine/TransformDrive';
-import { isEqualOrSimilarByXyzCoords } from '@/Engine/Utils';
 
 export function Audio3dWrapper(params: TAudio3dParams, { audioLoop }: TAudioWrapperDependencies): TAudio3dWrapper {
   const { position, performance } = params;
@@ -23,7 +22,7 @@ export function Audio3dWrapper(params: TAudio3dParams, { audioLoop }: TAudioWrap
   const updatePriority: LoopUpdatePriority = performance?.updatePriority ?? LoopUpdatePriority.LOW;
   const noiseThreshold: TMeters = performance?.noiseThreshold ?? meters(0.01);
 
-  const sourcePositionUpdate$: Observable<TReadonlyVector3> = onPositionUpdate(position$, noiseThreshold);
+  const sourcePositionUpdate$: Observable<TReadonlyVector3> = onAudioPositionUpdate(position$, noiseThreshold);
 
   const updateVolumeSub$: Subscription = sourcePositionUpdate$
     .pipe(
@@ -50,22 +49,4 @@ export function Audio3dWrapper(params: TAudio3dParams, { audioLoop }: TAudioWrap
     listener$,
     position$
   };
-}
-
-function onPositionUpdate(position$: BehaviorSubject<TReadonlyVector3>, noiseThreshold?: number): Observable<TReadonlyVector3> {
-  const prevValue: Float32Array = new Float32Array([0, 0, 0]);
-
-  return position$.pipe(
-    distinctUntilChanged((_prev: TReadonlyVector3, curr: TReadonlyVector3): boolean =>
-      isEqualOrSimilarByXyzCoords(prevValue[0], prevValue[1], prevValue[2], curr.x, curr.y, curr.z, noiseThreshold ?? 0)
-    ),
-    tap((value: TReadonlyVector3): void => {
-      // eslint-disable-next-line functional/immutable-data
-      prevValue[0] = value.x;
-      // eslint-disable-next-line functional/immutable-data
-      prevValue[1] = value.y;
-      // eslint-disable-next-line functional/immutable-data
-      prevValue[2] = value.z;
-    })
-  );
 }
