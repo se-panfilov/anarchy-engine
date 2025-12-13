@@ -21,24 +21,12 @@ export function AbstractIntersectionsWatcher({ isAutoStart, tags, name, intersec
 
   const getIntersectionsLoop = (): TIntersectionsLoop => intersectionsLoop;
 
-  const startSub$: Subscription = abstractWatcher.start$.subscribe((): void => {
-    // eslint-disable-next-line functional/immutable-data
-    result.isStarted = true;
-  });
-
-  const stopSub$: Subscription = abstractWatcher.stop$.subscribe((): void => {
-    // eslint-disable-next-line functional/immutable-data
-    result.isStarted = false;
-  });
-
   const destroySub$: Subscription = abstractWatcher.destroy$.subscribe((): void => {
     raycaster = null as any;
     // eslint-disable-next-line functional/immutable-data
     (actors as Array<TActor>).length = 0;
 
     destroySub$.unsubscribe();
-    startSub$.unsubscribe();
-    stopSub$.unsubscribe();
   });
 
   // eslint-disable-next-line functional/immutable-data
@@ -56,7 +44,7 @@ export function AbstractIntersectionsWatcher({ isAutoStart, tags, name, intersec
   });
 
   if (rest.actors.length > 0) addActors(rest.actors);
-  if (isAutoStart) result.start$.next();
+  if (isAutoStart) result.enabled$.next(true);
 
   return result;
 }

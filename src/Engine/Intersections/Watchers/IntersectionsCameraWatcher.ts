@@ -30,7 +30,7 @@ export function IntersectionsCameraWatcher(params: TIntersectionsCameraWatcherPa
   // shouldUseDistinct might improve performance, however, won't fire an event if the mouse (position$) is not moving (and actor or scene is moving)
   const shouldUseDistinct: boolean = performance?.shouldUseDistinct ?? false;
 
-  const startSub$: Subscription = abstractIntersectionsWatcher.start$.subscribe((): void => {
+  abstractIntersectionsWatcher.enabled$.subscribe((): void => {
     const prevValue: Float32Array = new Float32Array([0, 0]);
     positionSub$ = position$
       .pipe(
@@ -53,12 +53,6 @@ export function IntersectionsCameraWatcher(params: TIntersectionsCameraWatcherPa
 
         if (isDefined(intersection)) abstractIntersectionsWatcher.value$.next(intersection);
       });
-    // eslint-disable-next-line functional/immutable-data
-    result.isStarted = true;
-  });
-
-  const stopSub$: Subscription = abstractIntersectionsWatcher.stop$.subscribe((): void => {
-    positionSub$?.unsubscribe();
   });
 
   function getIntersection(coords: Vector2Like, cameraWrapper: Readonly<TAnyCameraWrapper>, list: Array<TSceneObject>): TIntersectionEvent | undefined | never {
@@ -69,8 +63,6 @@ export function IntersectionsCameraWatcher(params: TIntersectionsCameraWatcherPa
 
   const destroySub$: Subscription = abstractIntersectionsWatcher.destroy$.subscribe((): void => {
     positionSub$?.unsubscribe();
-    startSub$.unsubscribe();
-    stopSub$.unsubscribe();
     destroySub$.unsubscribe();
   });
 
@@ -78,7 +70,6 @@ export function IntersectionsCameraWatcher(params: TIntersectionsCameraWatcherPa
   const result: TWriteable<TIntersectionsCameraWatcher> = Object.assign(abstractIntersectionsWatcher, {
     findCamera,
     getCamera,
-    isStarted: false,
     setCamera
   });
 

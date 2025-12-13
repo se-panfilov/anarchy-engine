@@ -1,6 +1,6 @@
 import { nanoid } from 'nanoid';
 import type { Subscription } from 'rxjs';
-import { Subject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 
 import type { WatcherType } from '@/Engine/Abstract/Constants';
 import type { TAbstractWatcher } from '@/Engine/Abstract/Models';
@@ -11,18 +11,13 @@ import { isDefined } from '@/Engine/Utils';
 export function AbstractWatcher<T>(type: WatcherType | string, name: string, tags: ReadonlyArray<string> = []): TAbstractWatcher<T> {
   const id: string = type + '_' + nanoid();
   const value$: Subject<T> = new Subject<T>();
-  const start$: Subject<void> = new Subject<void>();
-  const stop$: Subject<void> = new Subject<void>();
+  const enabled$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   const destroyable: TDestroyable = destroyableMixin();
 
   const destroySub$: Subscription = destroyable.destroy$.subscribe((): void => {
     destroySub$.unsubscribe();
 
-    start$.complete();
-
-    stop$.next();
-    stop$.complete();
-
+    enabled$.complete();
     value$.complete();
   });
 
@@ -33,8 +28,7 @@ export function AbstractWatcher<T>(type: WatcherType | string, name: string, tag
     type,
     tags,
     value$,
-    start$,
-    stop$
+    enabled$
   });
 
   // eslint-disable-next-line functional/immutable-data
