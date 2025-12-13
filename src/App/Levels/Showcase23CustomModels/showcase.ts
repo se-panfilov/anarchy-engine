@@ -16,10 +16,8 @@ export function showcase(canvas: TAppCanvas): TShowcase {
     const scale: TVector3Wrapper = Vector3Wrapper({ x: 0.025, y: 0.025, z: 0.025 });
     const options: TModel3dLoadOptions = { shouldAddToRegistry: true, shouldAddToScene: true, isForce: false };
     const urlGLTF: string = '/Showcase/models/fox/Fox.gltf';
-    const urlGLB: string = '/Showcase/models/fox/Fox.glb';
     let runAnimationGLTF: AnimationAction | undefined = undefined;
     let mixerGLTF: AnimationMixer | undefined = undefined;
-    let runAnimationGLB: AnimationAction | undefined = undefined;
 
     models3dService.added$.subscribe((facade: TModel3dFacade): void => {
       const actions: TAnimationActions = facade.getActions();
@@ -27,7 +25,6 @@ export function showcase(canvas: TAppCanvas): TShowcase {
         runAnimationGLTF = actions['Run'];
         mixerGLTF = facade.getMixer();
       }
-      if (facade.getUrl() === urlGLB) runAnimationGLB = actions['Run'];
     });
 
     await Promise.all(
@@ -35,15 +32,13 @@ export function showcase(canvas: TAppCanvas): TShowcase {
         //gltf model
         { url: urlGLTF, scale, position: Vector3Wrapper({ x: -5, y: 0, z: 0 }), options, tags: [] }
         //glb model (draco compressed), won't be loaded, cause already loaded from json config
-        // { url: urlGLB, scale, position: Vector3Wrapper({ x: 0, y: 0, z: 0 }), options, tags: [] }
+        // { url: '/Showcase/models/fox/Fox.glb', scale, position: Vector3Wrapper({ x: 0, y: 0, z: 0 }), options, tags: [] }
       ])
     );
 
-    keyboardService.onKey(KeyCode.W).pressed$.subscribe((): void => {
-      // TODO (S.Panfilov) CWP make animation play via service, so we don't need loop and tick everywhere
-      if (runAnimationGLTF) runAnimationGLTF.play();
-      // if (runAnimationGLB) runAnimationGLB.reset().play();
-    });
+    // TODO (S.Panfilov) CWP make animation play via service, so we don't need loop and tick everywhere
+    keyboardService.onKey(KeyCode.W).pressed$.subscribe((): void => void runAnimationGLTF?.play());
+    keyboardService.onKey(KeyCode.W).released$.subscribe((): void => void runAnimationGLTF?.stop());
 
     loopService.tick$.subscribe(({ delta }) => {
       if (runAnimationGLTF && mixerGLTF) mixerGLTF.update(delta);
