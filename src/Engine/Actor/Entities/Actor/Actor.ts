@@ -26,6 +26,7 @@ export function Actor(
   // TODO CWP:
   // TODO 8.0.0. MODELS: Make sure, rotations are working
   // TODO 8.0.0. MODELS: In showcase validate also rotation and scale
+  // TODO 8.0.0. MODELS: Rigid body immediately created (should be created only when physics drive is initialized, maybe in hook)
 
   // TODO 8.0.0. MODELS: Make sure, that collisions are working
   // TODO 8.0.0. MODELS: In showcase check spatial and collisions

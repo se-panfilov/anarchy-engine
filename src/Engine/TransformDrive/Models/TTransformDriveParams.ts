@@ -4,7 +4,5 @@ import type { TTransformDrivePerformanceOptions } from './TTransformDrivePerform
 
 export type TTransformDriveParams = Readonly<{
   activeAgent?: TransformAgent;
-  updateDelay?: number;
-  noiseThreshold?: number;
   performance?: TTransformDrivePerformanceOptions;
 }>;

@@ -1,6 +1,6 @@
 import type GUI from 'lil-gui';
 import type { Observable, Subject, Subscription } from 'rxjs';
-import { combineLatest, map } from 'rxjs';
+import { combineLatest, distinctUntilChanged, map } from 'rxjs';
 import type { ColorRepresentation } from 'three';
 import { Euler, Vector3 } from 'three';
 import { Line2 } from 'three/examples/jsm/lines/Line2';
@@ -114,7 +114,6 @@ export function connectCameraToActor(camera: TCameraWrapper, controls: TOrbitCon
     )
     .subscribe(({ position, isFollowingActor }: { position: Vector3; isFollowingActor: boolean }): void => {
       if (isFollowingActor) {
-        if (controls.isEnable()) controls.disable();
         // we can do just this, but here we want to test the "connected" agent of a camera
         // camera.drive.position$.next(position.clone().add(new Vector3(0, 10, 0)));
         camera.drive.agent$.next(TransformAgent.Connected);
@@ -125,6 +124,19 @@ export function connectCameraToActor(camera: TCameraWrapper, controls: TOrbitCon
         // eslint-disable-next-line functional/immutable-data
         camera.drive.connected.positionConnector.z = position.z;
         camera.lookAt(position);
+      }
+    });
+
+  actor.drive.position$
+    .pipe(
+      map((): { isFollowingActor: boolean } => ({
+        isFollowingActor: cameraSettings.isFollowingActor
+      })),
+      distinctUntilChanged(({ isFollowingActor: prev }, { isFollowingActor: curr }): boolean => prev === curr)
+    )
+    .subscribe(({ isFollowingActor }: { isFollowingActor: boolean }): void => {
+      if (isFollowingActor) {
+        if (controls.isEnable()) controls.disable();
       } else {
         controls.enable();
         camera.drive.agent$.next(TransformAgent.Default);
@@ -148,13 +160,27 @@ export function connectObjToActor(folderName: string, obj: TWithTransformDrive<T
       if (isFollowingActor) {
         // we can do just this, but here we want to test the "connected" agent of an obj
         // obj.drive.position$.next(position.clone().add(new Vector3(0, 4, 0)));
-        obj.drive.agent$.next(TransformAgent.Connected);
         // eslint-disable-next-line functional/immutable-data
         obj.drive.connected.positionConnector.x = position.x;
         // eslint-disable-next-line functional/immutable-data
         obj.drive.connected.positionConnector.y = position.y + 4;
         // eslint-disable-next-line functional/immutable-data
         obj.drive.connected.positionConnector.z = position.z;
+      }
+    });
+
+  actor.drive.position$
+    .pipe(
+      map((): { isFollowingActor: boolean } => ({
+        isFollowingActor: objSettings.isFollowingActor
+      })),
+      distinctUntilChanged(({ isFollowingActor: prev }, { isFollowingActor: curr }): boolean => prev === curr)
+    )
+    .subscribe(({ isFollowingActor }: { isFollowingActor: boolean }): void => {
+      if (isFollowingActor) {
+        // we can do just this, but here we want to test the "connected" agent of an obj
+        // obj.drive.position$.next(position.clone().add(new Vector3(0, 4, 0)));
+        obj.drive.agent$.next(TransformAgent.Connected);
       } else {
         obj.drive.agent$.next(TransformAgent.Default);
       }
