@@ -2,6 +2,8 @@
   "extends": "../../tsconfig.json",
   "compilerOptions": {
     "paths": {
+      "@Shared/*": ["packages/shared/src/*"],
+      "@Shared": ["packages/shared/src/index.ts"],
       "@Desktop/*": ["apps/showcases-desktop/src/*"]
     },
     "sourceMap": false,

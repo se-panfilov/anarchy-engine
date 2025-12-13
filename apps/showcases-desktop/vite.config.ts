@@ -1,6 +1,7 @@
 import copy from 'rollup-plugin-copy';
 import { defineConfig } from 'vite';
 import path from 'path';
+import { sharedAliases } from '../../vite.alias';
 import { version } from './package.json';
 
 // Frankly, we can build electron-main.ts without Vite (just with tsc).
@@ -12,7 +13,8 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      '@Desktop': path.resolve(__dirname, './src')
+      '@Desktop': path.resolve(__dirname, './src'),
+      ...sharedAliases
     }
   },
   build: {

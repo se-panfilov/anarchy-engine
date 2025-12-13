@@ -2,7 +2,7 @@
   "name": "anarchy_engine_showcases_desktop",
   "author": "S. Panfilov",
   "private": true,
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Desktop application for Anarchy Engine showcases",
   "main": "dist/electron-main.js",
   "type": "module",
@@ -27,6 +27,8 @@
     "start": "npm run reload-and-prebuild && electron ."
   },
   "devDependencies": {
+    "anarchy_engine_showcases": "*",
+    "anarchy_engine_shared": "*",
     "electron": "37.2.1",
     "electron-builder": "26.0.12",
     "electron-reloader": "1.2.3",

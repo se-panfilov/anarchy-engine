@@ -1,14 +1,14 @@
 import { contextBridge, ipcRenderer } from 'electron';
 import { PlatformActions, platformApiChannel, platformApiName } from './src/Constants';
-import { TAppSettings } from './src/Models';
+import { TGameSettings } from 'anarchy_engine_shared/src/Showcase';
 
 const { SaveAppSettings, LoadAppSettings } = PlatformActions;
 
 declare const __DESKTOP_APP_VERSION__: string;
 
 contextBridge.exposeInMainWorld(platformApiName, {
-  saveAppSettings: (settings: TAppSettings): Promise<void> => ipcRenderer.invoke(platformApiChannel, SaveAppSettings, settings),
-  loadAppSettings: (): Promise<TAppSettings> => ipcRenderer.invoke(platformApiChannel, LoadAppSettings),
+  saveAppSettings: (settings: TGameSettings): Promise<void> => ipcRenderer.invoke(platformApiChannel, SaveAppSettings, settings),
+  loadAppSettings: (): Promise<TGameSettings> => ipcRenderer.invoke(platformApiChannel, LoadAppSettings),
   node: (): string => process.versions.node,
   chrome: (): string => process.versions.chrome,
   electron: (): string => process.versions.electron,
