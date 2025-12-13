@@ -30,7 +30,21 @@ import type { TWithMaterialType } from './TWithMaterialType';
 
 type TOmitParamsOnlyFields<T> = Omit<
   T,
-  'blending' | 'blendDst' | 'blendEquation' | 'blendSrc' | 'side' | 'format' | 'stencilFunc' | 'stencilFail' | 'stencilZFail' | 'stencilZPass' | 'combine' | 'depthPacking' | 'normalMapType'
+  | 'map'
+  | 'alphaMap'
+  | 'blending'
+  | 'blendDst'
+  | 'blendEquation'
+  | 'blendSrc'
+  | 'side'
+  | 'format'
+  | 'stencilFunc'
+  | 'stencilFail'
+  | 'stencilZFail'
+  | 'stencilZPass'
+  | 'combine'
+  | 'depthPacking'
+  | 'normalMapType'
 >;
 
 export type TAbstractMaterialConfig = TOmitParamsOnlyFields<TAbstractMaterialProps> & TWithMaterialType & TMaterialConfigFields;
@@ -73,4 +87,7 @@ export type TMaterialConfigFields = Readonly<{
   combine?: CombineName;
   depthPacking?: DepthPackingStrategiesName;
   normalMapType?: NormalMapTypesName;
+  // TODO map and alphaMap should be TTexture | null, but idk what it should be in config, so I'm leaving it as string for now
+  map?: string | null;
+  alphaMap?: string | null;
 }>;

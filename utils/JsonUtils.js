@@ -9,6 +9,7 @@ const baseConfig = {
   type: '*', // Or <type-name> if you want to generate schema for that one type only,
   topRef: false,
   minify: isMinify ?? false,
+  // TODO debug, revert "noTypeCheck"
   noTypeCheck: true
 };
 

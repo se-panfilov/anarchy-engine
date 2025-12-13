@@ -1267,6 +1267,12 @@
             "normalMapType": {
               "$ref": "#/definitions/NormalMapTypesName"
             },
+            "map": {
+              "type": ["string", "null"]
+            },
+            "alphaMap": {
+              "type": ["string", "null"]
+            },
             "color": {
               "$ref": "#/definitions/ColorRepresentation"
             },
@@ -1400,26 +1406,6 @@
             },
             "anisotropyRotation": {
               "type": "number"
-            },
-            "map": {
-              "anyOf": [
-                {
-                  "$ref": "#/definitions/TTexture"
-                },
-                {
-                  "type": "null"
-                }
-              ]
-            },
-            "alphaMap": {
-              "anyOf": [
-                {
-                  "$ref": "#/definitions/TTexture"
-                },
-                {
-                  "type": "null"
-                }
-              ]
             },
             "size": {
               "type": "number"
@@ -1610,405 +1596,6 @@
       "required": ["x", "y", "width", "height", "isVector2"],
       "additionalProperties": false
     },
-    "TTexture": {
-      "type": "object",
-      "properties": {
-        "isTexture": {
-          "type": "boolean",
-          "const": true,
-          "description": "Read-only flag to check if a given object is of type  {@link  Texture } ."
-        },
-        "id": {
-          "type": "number",
-          "description": "Unique number for this  {@link  Texture }  instance."
-        },
-        "uuid": {
-          "type": "string",
-          "description": "{@link  http://en.wikipedia.org/wiki/Universally_unique_identifier UUID }  of this object instance."
-        },
-        "name": {
-          "type": "string",
-          "description": "Optional name of the object"
-        },
-        "source": {
-          "$ref": "#/definitions/Source",
-          "description": "The data definition of a texture. A reference to the data source can be shared across textures. This is often useful in context of spritesheets where multiple textures render the same data but with different  {@link  Texture }  transformations."
-        },
-        "mipmaps": {
-          "type": "array",
-          "items": {},
-          "description": "Array of user-specified mipmaps"
-        },
-        "mapping": {
-          "$ref": "#/definitions/AnyMapping",
-          "description": "How the image is applied to the object."
-        },
-        "channel": {
-          "type": "number",
-          "description": "Lets you select the uv attribute to map the texture to. `0` for `uv`, `1` for `uv1`, `2` for `uv2` and `3` for `uv3`."
-        },
-        "wrapS": {
-          "$ref": "#/definitions/Wrapping",
-          "description": "This defines how the  {@link  Texture }  is wrapped *horizontally* and corresponds to **U** in UV mapping."
-        },
-        "wrapT": {
-          "$ref": "#/definitions/Wrapping",
-          "description": "This defines how the  {@link  Texture }  is wrapped *vertically* and corresponds to **V** in UV mapping."
-        },
-        "magFilter": {
-          "$ref": "#/definitions/MagnificationTextureFilter",
-          "description": "How the  {@link  Texture }  is sampled when a texel covers more than one pixel."
-        },
-        "minFilter": {
-          "$ref": "#/definitions/MinificationTextureFilter",
-          "description": "How the  {@link  Texture }  is sampled when a texel covers less than one pixel."
-        },
-        "anisotropy": {
-          "type": "number",
-          "description": "The number of samples taken along the axis through the pixel that has the highest density of texels.",
-          "default": "_value of_ {@link THREE.Texture.DEFAULT_ANISOTROPY }. That is normally `1`."
-        },
-        "format": {
-          "$ref": "#/definitions/AnyPixelFormat",
-          "description": "These define how elements of a 2D texture, or texels, are read by shaders."
-        },
-        "type": {
-          "$ref": "#/definitions/TextureDataType",
-          "description": "This must correspond to the  {@link  Texture.format .format } ."
-        },
-        "internalFormat": {
-          "anyOf": [
-            {
-              "$ref": "#/definitions/PixelFormatGPU"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "description": "The GPU Pixel Format allows the developer to specify how the data is going to be stored on the GPU."
-        },
-        "matrix": {
-          "$ref": "#/definitions/Matrix3",
-          "description": "The uv-transform matrix for the texture."
-        },
-        "matrixAutoUpdate": {
-          "type": "boolean",
-          "description": "Whether is to update the texture's uv-transform  {@link  matrix .matrix } ."
-        },
-        "offset": {
-          "$ref": "#/definitions/Vector2",
-          "description": "How much a single repetition of the texture is offset from the beginning, in each direction **U** and **V**."
-        },
-        "repeat": {
-          "$ref": "#/definitions/Vector2",
-          "description": "How many times the texture is repeated across the surface, in each direction **U** and **V**."
-        },
-        "center": {
-          "$ref": "#/definitions/Vector2",
-          "description": "The point around which rotation occurs."
-        },
-        "rotation": {
-          "type": "number",
-          "description": "How much the texture is rotated around the center point, in radians."
-        },
-        "generateMipmaps": {
-          "type": "boolean",
-          "description": "Whether to generate mipmaps, _(if possible)_ for a texture."
-        },
-        "premultiplyAlpha": {
-          "type": "boolean",
-          "description": "If set to `true`, the alpha channel, if present, is multiplied into the color channels when the texture is uploaded to the GPU."
-        },
-        "flipY": {
-          "type": "boolean",
-          "description": "If set to `true`, the texture is flipped along the vertical axis when uploaded to the GPU."
-        },
-        "unpackAlignment": {
-          "type": "number",
-          "description": "Specifies the alignment requirements for the start of each pixel row in memory."
-        },
-        "colorSpace": {
-          "$ref": "#/definitions/ColorSpace",
-          "description": "The  {@link  Textures {@link Texture }  constants} page for details of other color spaces."
-        },
-        "isRenderTargetTexture": {
-          "type": "boolean",
-          "description": "Indicates whether a texture belongs to a render target or not"
-        },
-        "userData": {
-          "type": "object",
-          "description": "An object that can be used to store custom data about the texture."
-        },
-        "version": {
-          "type": "number",
-          "description": "This starts at `0` and counts how many times  {@link  needsUpdate .needsUpdate }  is set to `true`."
-        },
-        "pmremVersion": {
-          "type": "number",
-          "description": "Indicates whether this texture should be processed by PMREMGenerator or not (only relevant for render target textures)"
-        },
-        "onUpdate": {
-          "$comment": "() => void",
-          "description": "A callback function, called when the texture is updated _(e.g., when needsUpdate has been set to true and then the texture is used)_."
-        }
-      },
-      "required": [
-        "isTexture",
-        "id",
-        "uuid",
-        "name",
-        "source",
-        "mipmaps",
-        "mapping",
-        "channel",
-        "wrapS",
-        "wrapT",
-        "magFilter",
-        "minFilter",
-        "anisotropy",
-        "format",
-        "type",
-        "internalFormat",
-        "matrix",
-        "matrixAutoUpdate",
-        "offset",
-        "repeat",
-        "center",
-        "rotation",
-        "generateMipmaps",
-        "premultiplyAlpha",
-        "flipY",
-        "unpackAlignment",
-        "colorSpace",
-        "isRenderTargetTexture",
-        "userData",
-        "version",
-        "pmremVersion",
-        "onUpdate"
-      ],
-      "additionalProperties": false
-    },
-    "Source": {
-      "type": "object",
-      "properties": {
-        "isSource": {
-          "type": "boolean",
-          "const": true,
-          "description": "Flag to check if a given object is of type  {@link  Source } ."
-        },
-        "id": {
-          "type": "number"
-        },
-        "data": {
-          "description": "The actual data of a texture."
-        },
-        "dataReady": {
-          "type": "boolean",
-          "description": "This property is only relevant when  {@link  .needsUpdate }  is set to `true` and provides more control on how texture data should be processed. When `dataReady` is set to `false`, the engine performs the memory allocation (if necessary) but does not transfer the data into the GPU memory.",
-          "default": true
-        },
-        "uuid": {
-          "type": "string",
-          "description": "{@link  http://en.wikipedia.org/wiki/Universally_unique_identifier UUID }  of this object instance."
-        },
-        "version": {
-          "type": "number",
-          "description": "This starts at `0` and counts how many times  {@link  needsUpdate .needsUpdate }  is set to `true`."
-        }
-      },
-      "required": ["isSource", "id", "data", "dataReady", "uuid", "version"],
-      "additionalProperties": false,
-      "description": "Represents the data  {@link  Source }  of a texture."
-    },
-    "AnyMapping": {
-      "anyOf": [
-        {
-          "$ref": "#/definitions/Mapping"
-        },
-        {
-          "$ref": "#/definitions/CubeTextureMapping"
-        }
-      ],
-      "description": "Texture Mapping Modes for any type of Textures"
-    },
-    "Mapping": {
-      "type": "number",
-      "enum": [300, 303, 304],
-      "description": "Texture Mapping Modes for non-cube Textures"
-    },
-    "CubeTextureMapping": {
-      "type": "number",
-      "enum": [301, 302, 306],
-      "description": "Texture Mapping Modes for cube Textures"
-    },
-    "Wrapping": {
-      "type": "number",
-      "enum": [1000, 1001, 1002],
-      "description": "Texture Wrapping Modes"
-    },
-    "MagnificationTextureFilter": {
-      "type": "number",
-      "enum": [1003, 1006],
-      "description": "Texture Magnification Filter Modes. For use with a texture's  {@link  THREE.Texture.magFilter magFilter }  property, these define the texture magnification function to be used when the pixel being textured maps to an area less than or equal to one texture element (texel)."
-    },
-    "MinificationTextureFilter": {
-      "type": "number",
-      "enum": [1003, 1004, 1005, 1006, 1007, 1008],
-      "description": "Texture Minification Filter Modes. For use with a texture's  {@link  THREE.Texture.minFilter minFilter }  property, these define the texture minifying function that is used whenever the pixel being textured maps to an area greater than one texture element (texel)."
-    },
-    "AnyPixelFormat": {
-      "anyOf": [
-        {
-          "$ref": "#/definitions/PixelFormat"
-        },
-        {
-          "$ref": "#/definitions/DepthTexturePixelFormat"
-        },
-        {
-          "$ref": "#/definitions/CompressedPixelFormat"
-        }
-      ],
-      "description": "All Possible Texture Pixel Formats Modes. For any Type or SubType of Textures."
-    },
-    "PixelFormat": {
-      "type": "number",
-      "enum": [1021, 1022, 1023, 1024, 1025, 1026, 1027, 1028, 1029, 1030, 1031, 1033],
-      "description": "All Texture Pixel Formats Modes."
-    },
-    "DepthTexturePixelFormat": {
-      "type": "number",
-      "enum": [1026, 1027],
-      "description": "All Texture Pixel Formats Modes for  {@link  THREE.DepthTexture  } ."
-    },
-    "CompressedPixelFormat": {
-      "type": "number",
-      "enum": [
-        33776, 33777, 33778, 33779, 35840, 35841, 35842, 35843, 36196, 37492, 37496, 37808, 37809, 37810, 37811, 37812, 37813, 37814, 37815, 37816, 37817, 37818, 37819, 37820, 37821, 36492, 36494,
-        36495, 36283, 36284, 36285, 36286
-      ],
-      "description": "For use with a  {@link  THREE.CompressedTexture  } 's  {@link  THREE.CompressedTexture.format .format }  property."
-    },
-    "TextureDataType": {
-      "type": "number",
-      "enum": [1009, 1010, 1011, 1012, 1013, 1014, 1015, 1016, 1017, 1018, 1020, 35902],
-      "description": "Texture Types."
-    },
-    "PixelFormatGPU": {
-      "type": "string",
-      "enum": [
-        "ALPHA",
-        "RGB",
-        "RGBA",
-        "LUMINANCE",
-        "LUMINANCE_ALPHA",
-        "RED_INTEGER",
-        "R8",
-        "R8_SNORM",
-        "R8I",
-        "R8UI",
-        "R16I",
-        "R16UI",
-        "R16F",
-        "R32I",
-        "R32UI",
-        "R32F",
-        "RG8",
-        "RG8_SNORM",
-        "RG8I",
-        "RG8UI",
-        "RG16I",
-        "RG16UI",
-        "RG16F",
-        "RG32I",
-        "RG32UI",
-        "RG32F",
-        "RGB565",
-        "RGB8",
-        "RGB8_SNORM",
-        "RGB8I",
-        "RGB8UI",
-        "RGB16I",
-        "RGB16UI",
-        "RGB16F",
-        "RGB32I",
-        "RGB32UI",
-        "RGB32F",
-        "RGB9_E5",
-        "SRGB8",
-        "R11F_G11F_B10F",
-        "RGBA4",
-        "RGBA8",
-        "RGBA8_SNORM",
-        "RGBA8I",
-        "RGBA8UI",
-        "RGBA16I",
-        "RGBA16UI",
-        "RGBA16F",
-        "RGBA32I",
-        "RGBA32UI",
-        "RGBA32F",
-        "RGB5_A1",
-        "RGB10_A2",
-        "RGB10_A2UI",
-        "SRGB8_ALPHA8",
-        "DEPTH_COMPONENT16",
-        "DEPTH_COMPONENT24",
-        "DEPTH_COMPONENT32F",
-        "DEPTH24_STENCIL8",
-        "DEPTH32F_STENCIL8"
-      ],
-      "description": "For use with a texture's  {@link  THREE.Texture.internalFormat  }  property, these define how elements of a  {@link  THREE.Texture  } , or texels, are stored on the GPU.\n- `R8` stores the red component on 8 bits.\n- `R8_SNORM` stores the red component on 8 bits. The component is stored as normalized.\n- `R8I` stores the red component on 8 bits. The component is stored as an integer.\n- `R8UI` stores the red component on 8 bits. The component is stored as an unsigned integer.\n- `R16I` stores the red component on 16 bits. The component is stored as an integer.\n- `R16UI` stores the red component on 16 bits. The component is stored as an unsigned integer.\n- `R16F` stores the red component on 16 bits. The component is stored as floating point.\n- `R32I` stores the red component on 32 bits. The component is stored as an integer.\n- `R32UI` stores the red component on 32 bits. The component is stored as an unsigned integer.\n- `R32F` stores the red component on 32 bits. The component is stored as floating point.\n- `RG8` stores the red and green components on 8 bits each.\n- `RG8_SNORM` stores the red and green components on 8 bits each. Every component is stored as normalized.\n- `RG8I` stores the red and green components on 8 bits each. Every component is stored as an integer.\n- `RG8UI` stores the red and green components on 8 bits each. Every component is stored as an unsigned integer.\n- `RG16I` stores the red and green components on 16 bits each. Every component is stored as an integer.\n- `RG16UI` stores the red and green components on 16 bits each. Every component is stored as an unsigned integer.\n- `RG16F` stores the red and green components on 16 bits each. Every component is stored as floating point.\n- `RG32I` stores the red and green components on 32 bits each. Every component is stored as an integer.\n- `RG32UI` stores the red and green components on 32 bits. Every component is stored as an unsigned integer.\n- `RG32F` stores the red and green components on 32 bits. Every component is stored as floating point.\n- `RGB8` stores the red, green, and blue components on 8 bits each. RGB8_SNORM` stores the red, green, and blue components on 8 bits each. Every component is stored as normalized.\n- `RGB8I` stores the red, green, and blue components on 8 bits each. Every component is stored as an integer.\n- `RGB8UI` stores the red, green, and blue components on 8 bits each. Every component is stored as an unsigned integer.\n- `RGB16I` stores the red, green, and blue components on 16 bits each. Every component is stored as an integer.\n- `RGB16UI` stores the red, green, and blue components on 16 bits each. Every component is stored as an unsigned integer.\n- `RGB16F` stores the red, green, and blue components on 16 bits each. Every component is stored as floating point\n- `RGB32I` stores the red, green, and blue components on 32 bits each. Every component is stored as an integer.\n- `RGB32UI` stores the red, green, and blue components on 32 bits each. Every component is stored as an unsigned integer.\n- `RGB32F` stores the red, green, and blue components on 32 bits each. Every component is stored as floating point\n- `R11F_G11F_B10F` stores the red, green, and blue components respectively on 11 bits, 11 bits, and 10bits. Every component is stored as floating point.\n- `RGB565` stores the red, green, and blue components respectively on 5 bits, 6 bits, and 5 bits.\n- `RGB9_E5` stores the red, green, and blue components on 9 bits each.\n- `RGBA8` stores the red, green, blue, and alpha components on 8 bits each.\n- `RGBA8_SNORM` stores the red, green, blue, and alpha components on 8 bits. Every component is stored as normalized.\n- `RGBA8I` stores the red, green, blue, and alpha components on 8 bits each. Every component is stored as an integer.\n- `RGBA8UI` stores the red, green, blue, and alpha components on 8 bits. Every component is stored as an unsigned integer.\n- `RGBA16I` stores the red, green, blue, and alpha components on 16 bits. Every component is stored as an integer.\n- `RGBA16UI` stores the red, green, blue, and alpha components on 16 bits. Every component is stored as an unsigned integer.\n- `RGBA16F` stores the red, green, blue, and alpha components on 16 bits. Every component is stored as floating point.\n- `RGBA32I` stores the red, green, blue, and alpha components on 32 bits. Every component is stored as an integer.\n- `RGBA32UI` stores the red, green, blue, and alpha components on 32 bits. Every component is stored as an unsigned integer.\n- `RGBA32F` stores the red, green, blue, and alpha components on 32 bits. Every component is stored as floating point.\n- `RGB5_A1` stores the red, green, blue, and alpha components respectively on 5 bits, 5 bits, 5 bits, and 1 bit.\n- `RGB10_A2` stores the red, green, blue, and alpha components respectively on 10 bits, 10 bits, 10 bits and 2 bits.\n- `RGB10_A2UI` stores the red, green, blue, and alpha components respectively on 10 bits, 10 bits, 10 bits and 2 bits. Every component is stored as an unsigned integer.\n- `SRGB8` stores the red, green, and blue components on 8 bits each.\n- `SRGB8_ALPHA8` stores the red, green, blue, and alpha components on 8 bits each.\n- `DEPTH_COMPONENT16` stores the depth component on 16bits.\n- `DEPTH_COMPONENT24` stores the depth component on 24bits.\n- `DEPTH_COMPONENT32F` stores the depth component on 32bits. The component is stored as floating point.\n- `DEPTH24_STENCIL8` stores the depth, and stencil components respectively on 24 bits and 8 bits. The stencil component is stored as an unsigned integer.\n- `DEPTH32F_STENCIL8` stores the depth, and stencil components respectively on 32 bits and 8 bits. The depth component is stored as floating point, and the stencil component as an unsigned integer."
-    },
-    "Matrix3": {
-      "type": "object",
-      "properties": {
-        "elements": {
-          "type": "array",
-          "items": {
-            "type": "number"
-          },
-          "description": "Array with matrix values.",
-          "default": [1, 0, 0, 0, 1, 0, 0, 0, 1]
-        },
-        "isMatrix3": {
-          "type": "boolean",
-          "const": true
-        }
-      },
-      "required": ["elements", "isMatrix3"],
-      "additionalProperties": false,
-      "description": "( class Matrix3 implements Matrix<Matrix3> )"
-    },
-    "Vector2": {
-      "type": "object",
-      "properties": {
-        "x": {
-          "type": "number",
-          "default": 0
-        },
-        "y": {
-          "type": "number",
-          "default": 0
-        },
-        "width": {
-          "type": "number"
-        },
-        "height": {
-          "type": "number"
-        },
-        "isVector2": {
-          "type": "boolean",
-          "const": true
-        }
-      },
-      "required": ["x", "y", "width", "height", "isVector2"],
-      "additionalProperties": false,
-      "description": "2D vector."
-    },
-    "ColorSpace": {
-      "type": "string",
-      "enum": ["", "srgb", "srgb-linear", "display-p3", "display-p3-linear"]
-    },
     "TMaterialTexturePack": {
       "anyOf": [
         {
@@ -2125,6 +1712,40 @@
         }
       },
       "required": ["tags"]
+    },
+    "Mapping": {
+      "type": "number",
+      "enum": [300, 303, 304],
+      "description": "Texture Mapping Modes for non-cube Textures"
+    },
+    "Wrapping": {
+      "type": "number",
+      "enum": [1000, 1001, 1002],
+      "description": "Texture Wrapping Modes"
+    },
+    "MagnificationTextureFilter": {
+      "type": "number",
+      "enum": [1003, 1006],
+      "description": "Texture Magnification Filter Modes. For use with a texture's  {@link  THREE.Texture.magFilter magFilter }  property, these define the texture magnification function to be used when the pixel being textured maps to an area less than or equal to one texture element (texel)."
+    },
+    "MinificationTextureFilter": {
+      "type": "number",
+      "enum": [1003, 1004, 1005, 1006, 1007, 1008],
+      "description": "Texture Minification Filter Modes. For use with a texture's  {@link  THREE.Texture.minFilter minFilter }  property, these define the texture minifying function that is used whenever the pixel being textured maps to an area greater than one texture element (texel)."
+    },
+    "PixelFormat": {
+      "type": "number",
+      "enum": [1021, 1022, 1023, 1024, 1025, 1026, 1027, 1028, 1029, 1030, 1031, 1032, 1033],
+      "description": "All Texture Pixel Formats Modes."
+    },
+    "TextureDataType": {
+      "type": "number",
+      "enum": [1009, 1010, 1011, 1012, 1013, 1014, 1015, 1016, 1017, 1018, 1020, 35902],
+      "description": "Texture Types."
+    },
+    "ColorSpace": {
+      "type": "string",
+      "enum": ["", "srgb", "srgb-linear", "display-p3", "display-p3-linear"]
     },
     "TDepthMaterialTexturePack": {
       "type": "object",
