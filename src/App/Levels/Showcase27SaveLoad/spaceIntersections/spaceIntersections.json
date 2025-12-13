@@ -20,6 +20,58 @@
           "grid": "main_grid",
           "isAutoUpdate": true
         }
+      },
+      {
+        "model3dSource": "sphere_red_1_model",
+        "name": "sphere_red_1_actor",
+        "position": {
+          "x": -2,
+          "y": 0,
+          "z": -4
+        },
+        "spatial": {
+          "grid": "main_grid",
+          "isAutoUpdate": true
+        }
+      },
+      {
+        "model3dSource": "sphere_red_2_model",
+        "name": "sphere_red_2_actor",
+        "position": {
+          "x": 4,
+          "y": 0,
+          "z": -4
+        },
+        "spatial": {
+          "grid": "main_grid",
+          "isAutoUpdate": true
+        }
+      },
+      {
+        "model3dSource": "cube_blue_1_model",
+        "name": "cube_blue_1_actor",
+        "position": {
+          "x": -2,
+          "y": 0,
+          "z": 4
+        },
+        "spatial": {
+          "grid": "main_grid",
+          "isAutoUpdate": true
+        }
+      },
+      {
+        "model3dSource": "cube_blue_2_model",
+        "name": "cube_blue_2_actor",
+        "position": {
+          "x": 4,
+          "y": 0,
+          "z": 4
+        },
+        "spatial": {
+          "grid": "main_grid",
+          "isAutoUpdate": true
+        }
       }
     ],
     "audio": [],
@@ -28,12 +80,30 @@
         "far": 10000,
         "fov": 45,
         "isActive": true,
-        "name": "main",
+        "name": "camera_red",
         "near": 1,
         "position": {
           "x": 3,
           "y": 20,
           "z": 35
+        },
+        "rotation": {
+          "x": -0.519146114246523,
+          "y": 0.07428390319893977,
+          "z": 0.04238351982512054
+        },
+        "type": "PerspectiveCamera"
+      },
+      {
+        "far": 10000,
+        "fov": 45,
+        "isActive": false,
+        "name": "camera_blue",
+        "near": 1,
+        "position": {
+          "x": 3,
+          "y": 20,
+          "z": 45
         },
         "rotation": {
           "x": -0.519146114246523,
@@ -47,7 +117,20 @@
     "envMaps": [],
     "fogs": [],
     "fsm": [],
-    "intersections": [],
+    "intersections": [
+      {
+        "actorNames": ["sphere_red_1_actor"],
+        "cameraName": "camera_red",
+        "isAutoStart": true,
+        "name": "watcher_red"
+      },
+      {
+        "actorNames": ["cube_blue_1_actor"],
+        "cameraName": "camera_blue",
+        "isAutoStart": true,
+        "name": "watcher_blue"
+      }
+    ],
     "lights": [
       {
         "color": "#FFFFFF",
@@ -66,6 +149,34 @@
         "name": "surface_material",
         "options": {
           "color": "#FFFFFF"
+        },
+        "type": "MeshStandardMaterial"
+      },
+      {
+        "name": "sphere_red_1_material",
+        "options": {
+          "color": "#E91E63"
+        },
+        "type": "MeshStandardMaterial"
+      },
+      {
+        "name": "sphere_red_2_material",
+        "options": {
+          "color": "#9f0441"
+        },
+        "type": "MeshStandardMaterial"
+      },
+      {
+        "name": "cube_blue_1_material",
+        "options": {
+          "color": "#6a35de"
+        },
+        "type": "MeshStandardMaterial"
+      },
+      {
+        "name": "cube_blue_2_material",
+        "options": {
+          "color": "#4013a4"
         },
         "type": "MeshStandardMaterial"
       }
@@ -92,6 +203,50 @@
           "x": -1.57,
           "y": 0,
           "z": 0
+        }
+      },
+      {
+        "castShadow": false,
+        "material": "sphere_red_1_material",
+        "model3dSource": "sphere",
+        "name": "sphere_red_1_model",
+        "options": {
+          "radius": 3
+        }
+      },
+      {
+        "castShadow": false,
+        "material": "sphere_red_2_material",
+        "model3dSource": "sphere",
+        "name": "sphere_red_2_model",
+        "options": {
+          "radius": 3
+        }
+      },
+      {
+        "castShadow": false,
+        "material": "cube_blue_1_material",
+        "model3dSource": "cube",
+        "name": "cube_blue_1_model",
+        "options": {
+          "depth": 3,
+          "height": 3,
+          "heightSegments": 1,
+          "width": 3,
+          "widthSegments": 1
+        }
+      },
+      {
+        "castShadow": false,
+        "material": "cube_blue_2_material",
+        "model3dSource": "cube",
+        "name": "cube_blue_2_model",
+        "options": {
+          "depth": 3,
+          "height": 3,
+          "heightSegments": 1,
+          "width": 3,
+          "widthSegments": 1
         }
       }
     ],

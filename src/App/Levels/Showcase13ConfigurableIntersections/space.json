@@ -257,7 +257,11 @@
         "model3dSource": "cube",
         "name": "cube_blue_1_model",
         "options": {
-          "radius": 1
+          "depth": 1,
+          "height": 1,
+          "heightSegments": 1,
+          "width": 1,
+          "widthSegments": 1
         }
       },
       {
@@ -266,7 +270,11 @@
         "model3dSource": "cube",
         "name": "cube_blue_2_model",
         "options": {
-          "radius": 1
+          "depth": 1,
+          "height": 1,
+          "heightSegments": 1,
+          "width": 1,
+          "widthSegments": 1
         }
       }
     ],
