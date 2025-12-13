@@ -1,16 +1,15 @@
-import type { Key } from 'ts-key-enum';
-
+import type { IGameKey } from './IGameKey';
 import type { IKeySubscription } from './IKeySubscription';
 
 export type IKeyboardService = {
-  onKey: (key: Key) => IKeySubscription;
+  onKey: (key: IGameKey) => IKeySubscription;
   onKeyCombo: (combo: string) => IKeySubscription;
-  removeKeyBinding: (key: Key) => void;
+  removeKeyBinding: (key: IGameKey) => void;
   removeKeyComboBinding: (combo: string) => void;
-  pauseKeyBinding: (key: Key) => void;
+  pauseKeyBinding: (key: IGameKey) => void;
   pauseKeyComboBinding: (combo: string) => void;
-  resumeKeyBinding: (key: Key) => void;
+  resumeKeyBinding: (key: IGameKey) => void;
   resumeKeyComboBinding: (combo: string) => void;
-  isKeyPressed: (key: Key) => boolean;
+  isKeyPressed: (key: IGameKey) => boolean;
   isKeyComboPressed: (combo: string) => boolean;
 };

@@ -1,8 +1,9 @@
 import type { Observable } from 'rxjs';
-import type { Key } from 'ts-key-enum';
+
+import type { IGameKey } from './IGameKey';
 
 export type IKeySubscription = {
-  pressed$: Observable<Key | string>;
-  pressing$: Observable<Key | string>;
-  released$: Observable<Key | string>;
+  pressed$: Observable<IGameKey | string>;
+  pressing$: Observable<IGameKey | string>;
+  released$: Observable<IGameKey | string>;
 };

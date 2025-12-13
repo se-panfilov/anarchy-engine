@@ -1,8 +1,7 @@
 import { bindKey, bindKeyCombo, checkKey, checkKeyCombo, unbindKey, unbindKeyCombo } from '@rwh/keystrokes';
 import { Subject } from 'rxjs';
-import type { Key } from 'ts-key-enum';
 
-import type { IKeyboardRegistry, IKeyboardRegistryValues, IKeyboardService, IKeySubscription } from '@/Engine/Keyboard/Models';
+import type { IGameKey, IKeyboardRegistry, IKeyboardRegistryValues, IKeyboardService, IKeySubscription } from '@/Engine/Keyboard/Models';
 import { KeyboardRegistry } from '@/Engine/Keyboard/Registry';
 import { isNotDefined } from '@/Engine/Utils';
 
@@ -12,9 +11,9 @@ export function KeyboardService(): IKeyboardService {
   function createKeySubscriptions(key: string): IKeySubscription {
     const subscriptions: IKeyboardRegistryValues | undefined = keyboardRegistry.getByKey(key);
     if (!subscriptions) {
-      const pressed$: Subject<Key | string> = new Subject();
-      const pressing$: Subject<Key | string> = new Subject();
-      const released$: Subject<Key | string> = new Subject();
+      const pressed$: Subject<IGameKey | string> = new Subject();
+      const pressing$: Subject<IGameKey | string> = new Subject();
+      const released$: Subject<IGameKey | string> = new Subject();
 
       keyboardRegistry.add(key, { pressed$, pressing$, released$ });
       return { pressed$, pressing$, released$ };
@@ -22,7 +21,7 @@ export function KeyboardService(): IKeyboardService {
     return subscriptions;
   }
 
-  function onKey(key: Key): IKeySubscription {
+  function onKey(key: IGameKey): IKeySubscription {
     createKeySubscriptions(key);
     return bind(key, false);
   }
@@ -32,7 +31,7 @@ export function KeyboardService(): IKeyboardService {
     return bind(combo, true);
   }
 
-  function bind(key: Key | string, isCombo: boolean): IKeySubscription {
+  function bind(key: IGameKey | string, isCombo: boolean): IKeySubscription {
     const subjects: IKeyboardRegistryValues | undefined = keyboardRegistry.getByKey(key);
     if (isNotDefined(subjects)) throw new Error(`Key ${key} is not found in registry`);
     const { pressed$, pressing$, released$ } = subjects;
@@ -53,12 +52,12 @@ export function KeyboardService(): IKeyboardService {
     return { pressed$: pressed$.asObservable(), pressing$: pressing$.asObservable(), released$: released$.asObservable() };
   }
 
-  const pauseKeyBinding = (key: Key): void => unbindKey(key);
+  const pauseKeyBinding = (key: IGameKey): void => unbindKey(key);
   const pauseKeyComboBinding = (combo: string): void => unbindKeyCombo(combo);
-  const resumeKeyBinding = (key: Key): void => void bind(key, false);
+  const resumeKeyBinding = (key: IGameKey): void => void bind(key, false);
   const resumeKeyComboBinding = (combo: string): void => void bind(combo, true);
 
-  function removeBinding(key: Key | string, isCombo: boolean): void {
+  function removeBinding(key: IGameKey | string, isCombo: boolean): void {
     if (isCombo) {
       unbindKeyCombo(key);
     } else {

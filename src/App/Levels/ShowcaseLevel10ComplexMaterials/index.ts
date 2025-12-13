@@ -4,7 +4,7 @@ import type { MeshStandardMaterial } from 'three';
 
 import type { IShowcase } from '@/App/Levels/Models';
 import type { IActorWrapperAsync, IAppCanvas, ILevel, ILevelConfig, IOrbitControlsWrapper, IVector3Wrapper } from '@/Engine';
-import { buildLevelFromConfig, envMapService, EulerWrapper, isDefined, isNotDefined, keyboardService, TextType, Vector3Wrapper } from '@/Engine';
+import { buildLevelFromConfig, envMapService, EulerWrapper, isDefined, isNotDefined, keyboardService, KeyCode, TextType, Vector3Wrapper } from '@/Engine';
 
 import levelConfig from './showcase-10-complex-materials.config.json';
 
@@ -46,8 +46,12 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
     });
   }
 
-  keyboardService.onKey('@KeyW').pressing$.subscribe((): void => {
+  keyboardService.onKey(KeyCode.D).pressing$.subscribe((): void => {
     currentMaterialIndex$.next((currentMaterialIndex$.value + 1) % materials.length);
+  });
+
+  keyboardService.onKey(KeyCode.A).pressing$.subscribe((): void => {
+    currentMaterialIndex$.next((currentMaterialIndex$.value - 1 + materials.length) % materials.length);
   });
 
   function moveCameraToActor(actor: IActorWrapperAsync): void {
