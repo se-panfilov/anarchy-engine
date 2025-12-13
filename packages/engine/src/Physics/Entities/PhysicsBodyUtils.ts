@@ -18,7 +18,7 @@ import type {
   TPhysicsShapeTriangleParams,
   TPhysicsShapeTriMeshParams
 } from '@Engine/Physics/Models';
-import type { TOptional } from '@Engine/Utils';
+import type { TOptional } from '@Shared/Utils';
 import { isDefined, isNotDefined } from '@Shared/Utils';
 import type { Vector3 } from 'three';
 

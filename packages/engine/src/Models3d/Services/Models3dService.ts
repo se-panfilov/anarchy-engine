@@ -26,8 +26,8 @@ import type {
   TModels3dServiceDependencies
 } from '@Engine/Models3d/Models';
 import type { TSpaceSettings } from '@Engine/Space';
-import type { TOptional } from '@Engine/Utils';
 import { mergeAll } from '@Engine/Utils';
+import type { TOptional } from '@Shared/Utils';
 import type { Subscription } from 'rxjs';
 
 export function Models3dService(

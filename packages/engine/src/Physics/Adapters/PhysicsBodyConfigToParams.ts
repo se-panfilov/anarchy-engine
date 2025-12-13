@@ -1,6 +1,6 @@
 import type { TPhysicsBodyConfig, TPhysicsBodyParams } from '@Engine/Physics/Models';
 import { isPhysicsBodyParamsComplete } from '@Engine/Physics/Utils';
-import type { TOptional } from '@Engine/Utils';
+import type { TOptional } from '@Shared/Utils';
 import { isDefined } from '@Shared/Utils';
 import { Euler, Quaternion } from 'three';
 import { Vector3 } from 'three/src/math/Vector3';

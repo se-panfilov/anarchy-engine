@@ -1,7 +1,7 @@
 import type { TKinematicParams } from '@Engine/Kinematic';
 import type { TPhysicsBody } from '@Engine/Physics';
 import type { TReadonlyEuler, TReadonlyQuaternion, TReadonlyVector3 } from '@Engine/ThreeLib';
-import type { TOptional } from '@Engine/Utils';
+import type { TOptional } from '@Shared/Utils';
 
 export type TGetTransformAgentsParams = Readonly<{
   position: TReadonlyVector3;

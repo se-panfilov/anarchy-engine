@@ -1,5 +1,5 @@
 import type { TPhysicsBodyParams } from '@Engine/Physics/Models';
-import type { TOptional } from '@Engine/Utils';
+import type { TOptional } from '@Shared/Utils';
 import { isDefined } from '@Shared/Utils';
 
 export function isPhysicsBodyParamsComplete(params: TPhysicsBodyParams | TOptional<TPhysicsBodyParams>): params is TPhysicsBodyParams {

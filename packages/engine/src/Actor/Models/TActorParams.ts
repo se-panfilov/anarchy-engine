@@ -6,7 +6,7 @@ import type { TPhysicsBody } from '@Engine/Physics';
 import type { TSpatialDataParams } from '@Engine/Spatial';
 import type { TObject3DParams } from '@Engine/ThreeLib';
 import type { TWithTransformAgentParam } from '@Engine/TransformDrive';
-import type { TOptional } from '@Engine/Utils';
+import type { TOptional } from '@Shared/Utils';
 
 import type { TActorModel3dSettings } from './TActorModel3dSettings';
 import type { TActorStates } from './TActorStates';
