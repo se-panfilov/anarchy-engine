@@ -2,7 +2,7 @@ import './MainMenu/MenuMain';
 
 import type { TIntersectionEvent, TIntersectionsCameraWatcher, TModel3d, TModels3dRegistry, TSceneWrapper, TSpace, TSpaceConfig, TText3dWrapper } from '@Engine';
 import { asRecord, isNotDefined, spaceService } from '@Engine';
-import { distinctUntilChanged, filter, Subject } from 'rxjs';
+import { filter, Subject } from 'rxjs';
 
 import { openMainMenu } from '@/Levels/Showcase28Menu/MainMenuService';
 import type { TAppSettings } from '@/Models';
@@ -19,6 +19,7 @@ export function start(settings: TAppSettings): void {
 
   space.built$.subscribe(showcase);
 }
+
 // TODO DESKTOP: Add navigation inside the menu (based on pinia, no URL-based navigation)
 // TODO DESKTOP: Add UI elements (make sure Main Menu is over the UI elements and canvas)
 export function showcase(space: TSpace): void {
@@ -45,9 +46,7 @@ export function showcase(space: TSpace): void {
 
   mouseService.clickLeftRelease$.pipe(filter((): boolean => isMouseOverMenuCube)).subscribe((): void => openMenu$.next(true));
 
-  openMenu$.pipe(distinctUntilChanged()).subscribe((): void => {
-    openMainMenu();
-  });
+  openMenu$.pipe().subscribe((): void => openMainMenu());
 
   space.start$.next(true);
 }
