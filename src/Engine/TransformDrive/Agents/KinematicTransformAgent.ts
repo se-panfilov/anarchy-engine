@@ -37,6 +37,9 @@ export function KinematicTransformAgent(params: TKinematicTransformAgentParams, 
   const agent: Omit<TKinematicTransformAgent, 'data'> & Readonly<{ data: TKinematicWritableData }> = {
     ...abstractTransformAgent,
     data: {
+      scheduled: {
+        instantRotation: undefined
+      },
       state: {
         linearSpeed: params.state.linearSpeed ?? 0,
         linearDirection: params.state.linearDirection?.clone() ?? new Vector3(),
@@ -112,7 +115,10 @@ export function KinematicTransformAgent(params: TKinematicTransformAgentParams, 
     },
     // Rotates agent as provided Quaternion (useful when you want to rotate as someone else already rotated)
     rotateTo(targetRotation: Quaternion, speed: TKinematicSpeed): void | never {
-      if (isInstant(speed)) return rotateInstantly(agent, targetRotation);
+      if (isInstant(speed)) {
+        agent.data.scheduled.instantRotation = targetRotation;
+        return undefined;
+      }
 
       if (speed < 0) throw new Error('Speed must be greater than 0 to calculate angular speed.');
       if (speed === 0) return agent.setAngularSpeed(0);
@@ -187,6 +193,11 @@ export function KinematicTransformAgent(params: TKinematicTransformAgentParams, 
 
   // TODO 8.0.0. MODELS: Implement infinite rotation when no target (undefined)
   function doKinematicRotation(delta: TMilliseconds): void {
+    if (isDefined(agent.data.scheduled.instantRotation)) {
+      rotateInstantly(agent, agent.data.scheduled.instantRotation);
+      agent.data.scheduled.instantRotation = undefined;
+      return;
+    }
     if (agent.data.state.angularSpeed <= 0) return;
 
     if (isRotationReached(agent.data.target, agent.rotation$.value, agent.data.state)) return;
