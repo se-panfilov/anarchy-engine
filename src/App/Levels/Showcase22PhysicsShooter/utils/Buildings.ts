@@ -1,6 +1,6 @@
 import { Vector3 } from 'three';
 
-import type { TActorService, TActorWrapperWithPhysics, TBoxGeometryProps, TMaterialService, TModel3dFacade, TModels3dService, TObject3DParams, TSpatialGridWrapper } from '@/Engine';
+import type { TActorService, TActorWrapperWithPhysics, TBoxGeometryProps, TMaterialService, TModel3dFacade, TModels3dService, TObject3DParams, TSpatialGridWrapper, TWithCoordsXZ } from '@/Engine';
 import { CollisionShape, MaterialType, PrimitiveModel3dType, RigidBodyTypesNames } from '@/Engine';
 
 export type TBuidingBlock = Required<Pick<TBoxGeometryProps, 'height' | 'width' | 'depth'>> & Required<Pick<TObject3DParams, 'position'>>;
@@ -9,7 +9,7 @@ export async function buildTower(
   actorService: TActorService,
   models3dService: TModels3dService,
   materialService: TMaterialService,
-  startCoords: Vector3,
+  startCoords: TWithCoordsXZ,
   rows: number,
   cols: number,
   levels: number,
@@ -63,7 +63,7 @@ export async function buildTower(
   return await Promise.all(result);
 }
 
-function getBlocks(startCoords: Vector3, rows: number, cols: number, levels: number): ReadonlyArray<TBuidingBlock> {
+function getBlocks(startCoords: TWithCoordsXZ, rows: number, cols: number, levels: number): ReadonlyArray<TBuidingBlock> {
   let blocks: ReadonlyArray<TBuidingBlock> = [];
   // const gap: number = 0.1;
   const width: number = 1;
