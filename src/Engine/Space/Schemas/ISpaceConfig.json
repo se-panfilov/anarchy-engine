@@ -1,6 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "type": "object",
+  "additionalProperties": false,
   "properties": {
     "tags": {
       "type": "array",
@@ -77,6 +78,7 @@
     },
     "ISceneConfig": {
       "type": "object",
+      "additionalProperties": false,
       "properties": {
         "tags": {
           "type": "array",
@@ -131,6 +133,7 @@
     },
     "IEuler3dConfig": {
       "type": "object",
+      "additionalProperties": false,
       "properties": {
         "order": {
           "$ref": "#/definitions/EulerOrder"
@@ -168,6 +171,7 @@
     },
     "IActorConfig": {
       "type": "object",
+      "additionalProperties": false,
       "properties": {
         "tags": {
           "type": "array",
@@ -258,7 +262,8 @@
           "$ref": "#/definitions/IMaterialTexturePack"
         }
       },
-      "required": ["type"]
+      "required": ["type"],
+      "additionalProperties": false
     },
     "MaterialType": {
       "type": "string",
@@ -300,6 +305,7 @@
     },
     "IBasicMaterialParams": {
       "type": "object",
+      "additionalProperties": false,
       "properties": {
         "color": {
           "$ref": "#/definitions/ColorRepresentation"
@@ -495,16 +501,24 @@
           "const": true
         },
         "r": {
-          "type": "number"
+          "type": "number",
+          "description": "Red channel value between 0 and 1. Default is 1.",
+          "default": 1
         },
         "g": {
-          "type": "number"
+          "type": "number",
+          "description": "Green channel value between 0 and 1. Default is 1.",
+          "default": 1
         },
         "b": {
-          "type": "number"
+          "type": "number",
+          "description": "Blue channel value between 0 and 1. Default is 1.",
+          "default": 1
         }
       },
-      "required": ["isColor", "r", "g", "b"]
+      "required": ["isColor", "r", "g", "b"],
+      "additionalProperties": false,
+      "description": "Represents a color. See also  {@link  ColorUtils  } .\n\nsee  {@link  https://github.com/mrdoob/three.js/blob/master/src/math/Color.js src/math/Color.js }"
     },
     "Combine": {
       "type": "number",
@@ -539,11 +553,13 @@
     },
     "Side": {
       "type": "number",
-      "enum": [0, 1, 2]
+      "enum": [0, 1, 2],
+      "description": "Defines which side of faces will be rendered - front, back or both. Default is  {@link  FrontSide } ."
     },
     "PixelFormat": {
       "type": "number",
-      "enum": [1021, 1022, 1023, 1024, 1025, 1026, 1027, 1028, 1029, 1030, 1031, 1033]
+      "enum": [1021, 1022, 1023, 1024, 1025, 1026, 1027, 1028, 1029, 1030, 1031, 1033],
+      "description": "All Texture Pixel Formats Modes."
     },
     "StencilFunc": {
       "type": "number",
@@ -555,6 +571,7 @@
     },
     "IDepthMaterialParams": {
       "type": "object",
+      "additionalProperties": false,
       "properties": {
         "depthPacking": {
           "$ref": "#/definitions/DepthPackingStrategies"
@@ -717,6 +734,7 @@
     },
     "IDistanceMaterialParams": {
       "type": "object",
+      "additionalProperties": false,
       "properties": {
         "displacementScale": {
           "type": "number"
@@ -877,23 +895,28 @@
       "type": "object",
       "properties": {
         "x": {
-          "type": "number"
+          "type": "number",
+          "default": 0
         },
         "y": {
-          "type": "number"
+          "type": "number",
+          "default": 0
         },
         "z": {
-          "type": "number"
+          "type": "number",
+          "default": 0
         },
         "isVector3": {
           "type": "boolean",
           "const": true
         }
       },
-      "required": ["x", "y", "z", "isVector3"]
+      "required": ["x", "y", "z", "isVector3"],
+      "additionalProperties": false
     },
     "INormalMaterialParams": {
       "type": "object",
+      "additionalProperties": false,
       "properties": {
         "bumpScale": {
           "type": "number"
@@ -1064,10 +1087,12 @@
       "type": "object",
       "properties": {
         "x": {
-          "type": "number"
+          "type": "number",
+          "default": 0
         },
         "y": {
-          "type": "number"
+          "type": "number",
+          "default": 0
         },
         "width": {
           "type": "number"
@@ -1080,10 +1105,12 @@
           "const": true
         }
       },
-      "required": ["x", "y", "width", "height", "isVector2"]
+      "required": ["x", "y", "width", "height", "isVector2"],
+      "additionalProperties": false
     },
     "IMatcapMaterialParams": {
       "type": "object",
+      "additionalProperties": false,
       "properties": {
         "color": {
           "$ref": "#/definitions/ColorRepresentation"
@@ -1251,6 +1278,7 @@
     },
     "ILambertMaterialParams": {
       "type": "object",
+      "additionalProperties": false,
       "properties": {
         "bumpScale": {
           "type": "number"
@@ -1448,6 +1476,7 @@
     },
     "IPhongMaterialParams": {
       "type": "object",
+      "additionalProperties": false,
       "properties": {
         "color": {
           "$ref": "#/definitions/ColorRepresentation"
@@ -1654,6 +1683,7 @@
     },
     "IPhysicalMaterialParams": {
       "type": "object",
+      "additionalProperties": false,
       "properties": {
         "clearcoat": {
           "type": "number"
@@ -1910,6 +1940,7 @@
     },
     "IToonMaterialParams": {
       "type": "object",
+      "additionalProperties": false,
       "properties": {
         "color": {
           "$ref": "#/definitions/ColorRepresentation"
@@ -2098,6 +2129,7 @@
     },
     "IStandardMaterialParams": {
       "type": "object",
+      "additionalProperties": false,
       "properties": {
         "color": {
           "$ref": "#/definitions/ColorRepresentation"
@@ -2345,7 +2377,8 @@
         "lightMap": {
           "$ref": "#/definitions/ITexturePackParams"
         }
-      }
+      },
+      "additionalProperties": false
     },
     "ITexturePackParams": {
       "type": "object",
@@ -2357,10 +2390,12 @@
           "$ref": "#/definitions/ITextureParams"
         }
       },
-      "required": ["url"]
+      "required": ["url"],
+      "additionalProperties": false
     },
     "ITextureParams": {
       "type": "object",
+      "additionalProperties": false,
       "properties": {
         "tags": {
           "type": "array",
@@ -2403,23 +2438,28 @@
     },
     "Mapping": {
       "type": "number",
-      "enum": [300, 303, 304]
+      "enum": [300, 303, 304],
+      "description": "Texture Mapping Modes for non-cube Textures"
     },
     "Wrapping": {
       "type": "number",
-      "enum": [1000, 1001, 1002]
+      "enum": [1000, 1001, 1002],
+      "description": "Texture Wrapping Modes"
     },
     "MagnificationTextureFilter": {
       "type": "number",
-      "enum": [1003, 1006]
+      "enum": [1003, 1006],
+      "description": "Texture Magnification Filter Modes. For use with a texture's  {@link  THREE.Texture.magFilter magFilter }  property, these define the texture magnification function to be used when the pixel being textured maps to an area less than or equal to one texture element (texel)."
     },
     "MinificationTextureFilter": {
       "type": "number",
-      "enum": [1003, 1004, 1005, 1006, 1007, 1008]
+      "enum": [1003, 1004, 1005, 1006, 1007, 1008],
+      "description": "Texture Minification Filter Modes. For use with a texture's  {@link  THREE.Texture.minFilter minFilter }  property, these define the texture minifying function that is used whenever the pixel being textured maps to an area greater than one texture element (texel)."
     },
     "TextureDataType": {
       "type": "number",
-      "enum": [1009, 1010, 1011, 1012, 1013, 1014, 1015, 1016, 1017, 1018, 1020, 35902]
+      "enum": [1009, 1010, 1011, 1012, 1013, 1014, 1015, 1016, 1017, 1018, 1020, 35902],
+      "description": "Texture Types."
     },
     "ColorSpace": {
       "type": "string",
@@ -2437,7 +2477,8 @@
         "displacementMap": {
           "$ref": "#/definitions/ITexturePackParams"
         }
-      }
+      },
+      "additionalProperties": false
     },
     "IDistanceMaterialTexturePack": {
       "type": "object",
@@ -2448,7 +2489,8 @@
         "alphaMap": {
           "$ref": "#/definitions/ITexturePackParams"
         }
-      }
+      },
+      "additionalProperties": false
     },
     "INormalMaterialTexturePack": {
       "type": "object",
@@ -2462,7 +2504,8 @@
         "displacementMap": {
           "$ref": "#/definitions/ITexturePackParams"
         }
-      }
+      },
+      "additionalProperties": false
     },
     "IMatcapMaterialTexturePack": {
       "type": "object",
@@ -2485,7 +2528,8 @@
         "alphaMap": {
           "$ref": "#/definitions/ITexturePackParams"
         }
-      }
+      },
+      "additionalProperties": false
     },
     "ILambertMaterialTexturePack": {
       "type": "object",
@@ -2520,7 +2564,8 @@
         "envMap": {
           "$ref": "#/definitions/ITexturePackParams"
         }
-      }
+      },
+      "additionalProperties": false
     },
     "IPhongMaterialTexturePack": {
       "type": "object",
@@ -2555,7 +2600,8 @@
         "envMap": {
           "$ref": "#/definitions/ITexturePackParams"
         }
-      }
+      },
+      "additionalProperties": false
     },
     "IPhysicalMaterialTexturePack": {
       "type": "object",
@@ -2602,7 +2648,8 @@
         "clearcoatNormalMap": {
           "$ref": "#/definitions/ITexturePackParams"
         }
-      }
+      },
+      "additionalProperties": false
     },
     "IToonMaterialTexturePack": {
       "type": "object",
@@ -2634,7 +2681,8 @@
         "alphaMap": {
           "$ref": "#/definitions/ITexturePackParams"
         }
-      }
+      },
+      "additionalProperties": false
     },
     "IStandardMaterialTexturePack": {
       "type": "object",
@@ -2672,10 +2720,12 @@
         "envMap": {
           "$ref": "#/definitions/ITexturePackParams"
         }
-      }
+      },
+      "additionalProperties": false
     },
     "ICameraConfig": {
       "type": "object",
+      "additionalProperties": false,
       "properties": {
         "tags": {
           "type": "array",
@@ -2739,6 +2789,7 @@
     },
     "IIntersectionsWatcherConfig": {
       "type": "object",
+      "additionalProperties": false,
       "properties": {
         "tags": {
           "type": "array",
@@ -2766,6 +2817,7 @@
     },
     "ILightConfig": {
       "type": "object",
+      "additionalProperties": false,
       "properties": {
         "tags": {
           "type": "array",
@@ -2826,6 +2878,7 @@
     },
     "LightShadowConfig": {
       "type": "object",
+      "additionalProperties": false,
       "properties": {
         "mapSize": {
           "$ref": "#/definitions/IWithCoordsXY"
@@ -2837,7 +2890,8 @@
               "type": "number"
             }
           },
-          "required": ["far"]
+          "required": ["far"],
+          "additionalProperties": false
         },
         "normalBias": {
           "type": "number"
@@ -2864,6 +2918,7 @@
     },
     "IFogConfig": {
       "type": "object",
+      "additionalProperties": false,
       "properties": {
         "tags": {
           "type": "array",
@@ -2888,6 +2943,7 @@
     },
     "ITextConfig": {
       "type": "object",
+      "additionalProperties": false,
       "properties": {
         "tags": {
           "type": "array",
@@ -2938,7 +2994,8 @@
               "type": "number"
             }
           },
-          "required": ["x", "y"]
+          "required": ["x", "y"],
+          "additionalProperties": false
         },
         "text": {
           "type": "string"
@@ -2964,6 +3021,7 @@
     },
     "ITextCssProps": {
       "type": "object",
+      "additionalProperties": false,
       "properties": {
         "textAlign": {
           "$ref": "#/definitions/TextAlign"
@@ -4424,6 +4482,7 @@
     },
     "IOrbitControlsConfig": {
       "type": "object",
+      "additionalProperties": false,
       "properties": {
         "tags": {
           "type": "array",
@@ -4450,7 +4509,8 @@
               "type": "number"
             }
           },
-          "required": ["x", "y", "z"]
+          "required": ["x", "y", "z"],
+          "additionalProperties": false
         },
         "cursor": {
           "type": "object",
@@ -4465,7 +4525,8 @@
               "type": "number"
             }
           },
-          "required": ["x", "y", "z"]
+          "required": ["x", "y", "z"],
+          "additionalProperties": false
         },
         "enabled": {
           "type": "boolean"

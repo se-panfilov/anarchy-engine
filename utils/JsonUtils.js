@@ -1,5 +1,5 @@
 import fs from 'fs';
-import tsj from 'ts-json-schema-generator';
+import * as tsj from 'ts-json-schema-generator';
 
 const isMinify = process.argv.includes('--minify');
 

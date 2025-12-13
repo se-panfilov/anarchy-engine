@@ -2,7 +2,7 @@
   "name": "anarchy_engine",
   "author": "S. Panfilov",
   "private": true,
-  "version": "2.2.0",
+  "version": "2.2.1",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -49,7 +49,7 @@
     "jsdom": "24.0.0",
     "prettier": "3.2.5",
     "pretty-quick": "4.0.0",
-    "ts-json-schema-generator": "2.0.0",
+    "ts-json-schema-generator": "2.2.0",
     "typescript": "5.4.5",
     "vite": "5.2.11",
     "vitest": "1.6.0"
