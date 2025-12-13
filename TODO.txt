@@ -28,8 +28,7 @@ Roadmap:
 - 16.x.x Save/Load
 
 Global Refactoring:
-- extract materials from actors, keep there an alias to a material to be able to reuse the same material
-- feels like env map is not async at all (check for extra "await", and compare with vanila env map loading)
+- feels like env map is not async at all (check for extra "await", and compare with vanilla env map loading)
 - "tags" should be optional everywhere
 - Simplify positions and rotations (and scale), should be Vector3 when possible, not a wrapper probably
 - remove Vector3Wrapper, use Vector3 everywhere (same for Euler, Quaternion wrappers)
@@ -42,6 +41,3 @@ Bugs and issues:
 Also:
 - Make stats enable/disable configurable via url params (?debug=true)
 - Screenshot testing is interesting, but it's a part of an app, not engine
-- Maybe split space config into "resources" (such as models, materials), and "entities" (such as actors, lights, cameras)?
-Might be separate or a single file (splitted by sections)
-- Actors might have to be just an entity by itself, not a wrapper around a 3d model
