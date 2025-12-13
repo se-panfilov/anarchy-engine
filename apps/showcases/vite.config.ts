@@ -34,7 +34,7 @@ export default defineConfig(({ mode, command }: ConfigEnv): UserConfig => {
         '@ShowcasesShared': path.resolve(__dirname, '../../packages/showcases-shared/src'),
 
         //Virtual modules for platform API
-        'platform:api': path.resolve(__dirname, `./src/Platform/Drivers/${VITE_BUILD_PLATFORM}.ts`)
+        'platform:api': path.resolve(__dirname, `./src/Platform/Drivers/${VITE_BUILD_PLATFORM ?? 'web'}.ts`)
       }
     },
     plugins: [
