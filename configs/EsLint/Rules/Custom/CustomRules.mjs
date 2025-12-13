@@ -1,3 +1,3 @@
 export const CustomRules = {
-  'custom/object-assign-max-args': 'error'
+  'custom/object-assign-max-args': ['error', { maxArgs: 2 }]
 };

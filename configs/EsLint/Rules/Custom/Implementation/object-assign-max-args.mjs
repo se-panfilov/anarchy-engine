@@ -4,14 +4,28 @@ export default {
   meta: {
     type: 'suggestion',
     docs: {
-      description: 'Disallow Object.assign with more than 3 arguments'
+      description: 'Disallow Object.assign with more than N arguments'
     },
-    schema: [], // no options
+    schema: [
+      {
+        type: 'object',
+        properties: {
+          maxArgs: {
+            type: 'number',
+            minimum: 2
+          }
+        },
+        additionalProperties: false
+      }
+    ],
     messages: {
-      tooManyArgs: 'Avoid using Object.assign with more than 3 arguments. Split it into smaller steps.'
+      tooManyArgs: 'Avoid using Object.assign with more than {{max}} arguments. Split it into smaller steps.'
     }
   },
   create(context) {
+    const options = context.options[0] || {};
+    const maxArgs = typeof options.maxArgs === 'number' ? options.maxArgs : 3;
+
     return {
       CallExpression(node) {
         if (
@@ -22,10 +36,13 @@ export default {
           node.callee.property.name === 'assign'
         ) {
           const args = node.arguments;
-          if (args.length > 3) {
+          if (args.length > maxArgs) {
             context.report({
               node,
-              messageId: 'tooManyArgs'
+              messageId: 'tooManyArgs',
+              data: {
+                max: maxArgs
+              }
             });
           }
         }
