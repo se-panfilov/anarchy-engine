@@ -9,7 +9,7 @@ import { createOutline } from '@/Engine/Collisions/Services/SpatialHelper';
 import type { TSceneWrapper } from '@/Engine/Scene';
 import { isDefined, isNotDefined } from '@/Engine/Utils';
 
-// TODO (S.Panfilov) CWP we need factories and registries for trees, perhaps.
+// TODO (S.Panfilov) CWP we need factories and registries for grids, perhaps.
 export function SpatialGridService(): TSpatialGridService {
   function createBoundingBox(minX: number, minY: number, maxX: number, maxY: number, color: ColorRepresentation = '#00ff00', wireframe: boolean = true): Mesh {
     const geometry: BoxGeometry = new BoxGeometry(maxX - minX, 1, maxY - minY);
@@ -38,7 +38,7 @@ export function SpatialGridService(): TSpatialGridService {
 
     outlines = [];
 
-    if (position) {
+    if (isDefined(position)) {
       const raycaster: Raycaster = new Raycaster();
       raycaster.setFromCamera(position, camera.entity);
       const intersects = raycaster.intersectObject(scene.entity, true);
@@ -83,6 +83,8 @@ export function SpatialGridService(): TSpatialGridService {
     }
   }
 
+  const removeAllFromGrid = (tree: RBush<TSpatialCell>): RBush<TSpatialCell> => tree.clear();
+
   function moveToNewSpatialCell(x: number, y: number, tree: RBush<TSpatialCell>, actorW: TActorWrapperAsync): void {
     removeFromSpatialCell(actorW);
     addToSpatialCell(x, y, actorW, tree);
@@ -114,6 +116,7 @@ export function SpatialGridService(): TSpatialGridService {
           maxY: startZ + z + cellSize,
           objects: []
         };
+
         tree.insert(cell);
       }
     }
@@ -125,6 +128,7 @@ export function SpatialGridService(): TSpatialGridService {
     createSpatialGrid,
     addToSpatialCell,
     removeFromSpatialCell,
+    removeAllFromGrid,
     moveToNewSpatialCell,
     updateActorsSpatialCells,
     _debugVisualizeSpatialCells,

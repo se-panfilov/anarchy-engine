@@ -10,6 +10,7 @@ export type TSpatialGridService = Readonly<{
   createSpatialGrid: (mapWidth: number, mapHeight: number, cellSize: number, centerX: number, centerZ: number) => RBush<TSpatialCell>;
   addToSpatialCell: (x: number, y: number, actorW: TActorWrapperAsync, tree: RBush<TSpatialCell>) => void;
   removeFromSpatialCell: (actorW: TActorWrapperAsync) => void;
+  removeAllFromGrid: (tree: RBush<TSpatialCell>) => RBush<TSpatialCell>;
   moveToNewSpatialCell: (x: number, y: number, tree: RBush<TSpatialCell>, actorW: TActorWrapperAsync) => void;
   updateActorsSpatialCells: (actorsW: ReadonlyArray<TActorWrapperAsync>, tree: RBush<TSpatialCell>) => void;
   _debugVisualizeSpatialCells: (tree: RBush<TSpatialCell>, sceneW: TSceneWrapper, color?: ColorRepresentation, wireframe?: boolean) => void;
