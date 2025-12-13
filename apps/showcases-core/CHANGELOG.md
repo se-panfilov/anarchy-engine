@@ -8,11 +8,12 @@
 - 2.5.0 Added Eslint & TS check for vue files
 - 2.6.0 UI menu (vue) extracted to a separate package
 - 2.8.0 App close/restart
+- 2.9.0 App close/restart
 
 Roadmap:
 
 - 2.7.x GUI POC
 - 3.0.x Mobile Build
 - 4.0.x Steam SDK
-- 5.0.x Initial load script <500kb)
+- 5.0.x Initial load script <500kb) for mobule
 - 7.0.x Captions
