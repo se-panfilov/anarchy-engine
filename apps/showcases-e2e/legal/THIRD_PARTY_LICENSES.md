@@ -2,7 +2,7 @@
 
 ## Application: showcases-e2e
 
-Production dependencies (including transition dependencies): 22
+Production dependencies (including transition dependencies): 23
 
 ---
 
@@ -284,7 +284,7 @@ SOFTWARE.
 
 ---
 
-## anarchy-engine@20.3.3
+## anarchy-engine@20.3.4
 
 **License:** MIT
 
@@ -314,7 +314,7 @@ SOFTWARE.
 
 ---
 
-## anarchy-shared@1.1.2
+## anarchy-shared@1.1.3
 
 **License:** MIT
 
@@ -448,6 +448,14 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 The complete list of contributors can be found at:
 
 - https://github.com/garycourt/uri-js/graphs/contributors
+
+---
+
+## fsevents@2.3.2
+
+**License:** UNKNOWN
+
+_No license text file found; relying on package metadata._
 
 ---
 

@@ -2,7 +2,7 @@
   "name": "anarchy-monorepo",
   "author": "S. Panfilov",
   "private": true,
-  "version": "2.1.4",
+  "version": "2.1.5",
   "type": "module",
   "workspaces": [
     "apps/*",

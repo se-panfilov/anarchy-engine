@@ -2,7 +2,7 @@
   "name": "showcases-e2e",
   "author": "S. Panfilov",
   "private": true,
-  "version": "1.0.3",
+  "version": "1.0.4",
   "type": "module",
   "license": "MIT",
   "description": "Anarchy Showcase-E2E  – end-to-end tests for Anarchy Showcases.",
