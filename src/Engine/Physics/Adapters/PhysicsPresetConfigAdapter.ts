@@ -1,3 +1,5 @@
+import { Vector4 } from 'three';
+
 import type { TPhysicsPresetConfig, TPhysicsPresetParams } from '@/Engine/Physics/Models';
 
 import { withCoordsToVector } from './PhysicsAdapterUtils';
@@ -8,6 +10,6 @@ export function configToParamsPreset(config: TPhysicsPresetConfig): TPhysicsPres
   return {
     ...rest,
     // type: RigidBodyTypesMap[RigidBodyTypesNames[type]],
-    ...withCoordsToVector(position, rotation)
+    ...withCoordsToVector(position, new Vector4(rotation?.x, rotation?.y, rotation?.z, rotation?.w))
   };
 }

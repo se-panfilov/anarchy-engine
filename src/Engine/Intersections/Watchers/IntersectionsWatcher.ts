@@ -1,6 +1,6 @@
 import type { Subscription } from 'rxjs';
-import type { Vector2, Vector3 } from 'three';
-import { Raycaster } from 'three';
+import type { Vector3 } from 'three';
+import { Raycaster, Vector2 } from 'three';
 
 import type { TAbstractWatcher } from '@/Engine/Abstract';
 import { AbstractWatcher, WatcherType } from '@/Engine/Abstract';
@@ -34,7 +34,7 @@ export function IntersectionsWatcher({ position$, isAutoStart, tags, name, ...re
   function start(): TIntersectionsWatcher {
     mousePos$ = position$.subscribe((position: TMousePosition): void => {
       if (isNotDefined(camera)) throw new Error('Intersections service: cannot start: a camera is not defined');
-      const intersection: TIntersectionEvent | undefined = getIntersection(position.coords, camera, unWrapEntities(actors) as Array<TMesh>);
+      const intersection: TIntersectionEvent | undefined = getIntersection(new Vector2(position.coords.x, position.coords.y), camera, unWrapEntities(actors) as Array<TMesh>);
       if (isDefined(intersection)) abstractWatcher.value$.next(intersection);
     });
     // eslint-disable-next-line functional/immutable-data

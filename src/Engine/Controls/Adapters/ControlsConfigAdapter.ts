@@ -1,3 +1,5 @@
+import { Vector3 } from 'three';
+
 import type { TGetParamsFn } from '@/Engine/Abstract';
 import { ControlsType } from '@/Engine/Controls/Constants';
 import type { TAdditionalControlsConfigParams, TControlsConfig, TControlsParams } from '@/Engine/Controls/Models';
@@ -17,8 +19,8 @@ export const configToParams: TGetParamsFn<TControlsParams, TControlsConfig> = (c
     enableDamping: config.enableDamping
   };
 
-  if (isDefined(config.target)) result = { ...result, target: config.target };
-  if (isDefined(config.cursor)) result = { ...result, cursor: config.cursor };
+  if (isDefined(config.target)) result = { ...result, target: new Vector3(config.target.x, config.target.y, config.target.z) };
+  if (isDefined(config.cursor)) result = { ...result, cursor: new Vector3(config.cursor.x, config.cursor.y, config.cursor.z) };
 
   return result;
 };

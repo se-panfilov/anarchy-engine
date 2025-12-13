@@ -1,3 +1,5 @@
+import { Euler, Vector3 } from 'three';
+
 import type { TObject3DParams, TObject3DPropConfig } from '@/Engine/ThreeLib/Models';
 import { isDefined } from '@/Engine/Utils';
 
@@ -10,9 +12,9 @@ export function configToParamsObject3d(config: Partial<TObject3DPropConfig>): TO
   // TODO ANIMATIONS: animations are not supported at the moment
   // if (isDefined(config.animations)) result = { ...result, animations: config.animations };
 
-  if (isDefined(position)) result = { ...result, position };
-  if (isDefined(rotation)) result = { ...result, rotation };
-  if (isDefined(scale)) result = { ...result, scale };
+  if (isDefined(position)) result = { ...result, position: new Vector3(position.x, position.y, position.z) };
+  if (isDefined(rotation)) result = { ...result, rotation: new Euler(rotation.x, rotation.y, rotation.z) };
+  if (isDefined(scale)) result = { ...result, scale: new Vector3(scale.x, scale.y, scale.z) };
 
   return result;
 }
