@@ -1,6 +1,6 @@
 import type { TReactiveFactory } from '@/Engine/Abstract';
 import { FactoryType, ReactiveFactory } from '@/Engine/Abstract';
-import { configToParams } from '@/Engine/Camera/Adapters';
+import { configToParamsCamera } from '@/Engine/Camera/Adapters';
 import type { TAnyCameraParams, TAnyCameraWrapper, TCameraFactory, TCameraServiceDependencies } from '@/Engine/Camera/Models';
 import { isOrthographicCameraParams, isPerspectiveCameraParams } from '@/Engine/Camera/Utils';
 import { OrthographicCameraWrapper, PerspectiveCameraWrapper } from '@/Engine/Camera/Wrappers';
@@ -14,5 +14,5 @@ function create(params: TAnyCameraParams, deps: TCameraServiceDependencies): TAn
 export function CameraFactory(): TCameraFactory {
   const factory: TReactiveFactory<TAnyCameraWrapper, TAnyCameraParams, TCameraServiceDependencies> = ReactiveFactory(FactoryType.Camera, create);
   // eslint-disable-next-line functional/immutable-data
-  return Object.assign(factory, { configToParams });
+  return Object.assign(factory, { configToParams: configToParamsCamera });
 }
