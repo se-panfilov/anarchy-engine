@@ -43,7 +43,14 @@ const actorParams: Partial<ActorParams> = {
   materialParams: { color: new Color('#5EDCAE') }
 };
 // const sphereParams: ActorParams = { ...actorParams, type: 'sphere' };
-const planeParams: ActorParams = { ...actorParams, type: 'plane' };
+const planeParams: ActorParams = {
+  ...actorParams,
+  width: 60,
+  height: 40,
+  widthSegments: 10,
+  heightSegments: 10,
+  type: 'plane'
+};
 // const sphereActor = actorManager.create(sphereParams);
 const planeActor = actorManager.create(planeParams);
 
