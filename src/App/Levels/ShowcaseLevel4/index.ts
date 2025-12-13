@@ -12,11 +12,7 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
 
   function start(): void {
     level.start();
-    const { actorRegistry, cameraRegistry, controlsRegistry } = level.entities;
-
-    // TODO (S.Panfilov) we need setTarget for controls
-    controlsRegistry.getAll()[0]?.entity.target.set(6, 0, 0);
-    cameraRegistry.getAll()[0]?.setPosition(6, 30, 0);
+    const { actorRegistry } = level.entities;
 
     const topActor: IActorWrapper | undefined = actorRegistry.getUniqByTag('top_actor');
     const centralActor: IActorWrapper | undefined = actorRegistry.getUniqByTag('central_actor');
