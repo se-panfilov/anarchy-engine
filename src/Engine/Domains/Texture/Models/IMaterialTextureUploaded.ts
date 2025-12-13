@@ -1,4 +1,17 @@
 import type {
+  IWithBasicMaterialProperty,
+  IWithDepthMaterialProperty,
+  IWithDistanceMaterialProperty,
+  IWithLambertMaterialProperty,
+  IWithMatcapMaterialProperty,
+  IWithNormalMaterialProperty,
+  IWithPhongMaterialProperty,
+  IWithPhysicalMaterialProperty,
+  IWithStandardMaterialProperty,
+  IWithToonMaterialProperty
+} from '@/Engine/Domains/Material';
+
+import type {
   IBasicMaterialPackKeys,
   IDepthMaterialPackKeys,
   IDistanceMaterialPackKeys,
@@ -11,18 +24,6 @@ import type {
   IToonMaterialPackKeys
 } from './IMaterialPackKeys.ts';
 import type { ITexture } from './ITexture';
-import type {
-  IWithBasicMaterialProperty,
-  IWithDepthMaterialProperty,
-  IWithDistanceMaterialProperty,
-  IWithLambertMaterialProperty,
-  IWithMatcapMaterialProperty,
-  IWithNormalMaterialProperty,
-  IWithPhongMaterialProperty,
-  IWithPhysicalMaterialProperty,
-  IWithStandardMaterialProperty,
-  IWithToonMaterialProperty
-} from '@/Engine/Domains/Material';
 
 export type IBasicMaterialTextureUploaded = Readonly<{ [key in IBasicMaterialPackKeys]?: ITexture } & IWithBasicMaterialProperty>;
 export type IDepthMaterialTextureUploaded = Readonly<{ [key in IDepthMaterialPackKeys]?: ITexture }> & IWithDepthMaterialProperty;

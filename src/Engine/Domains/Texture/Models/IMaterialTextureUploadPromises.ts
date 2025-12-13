@@ -1,4 +1,17 @@
 import type {
+  IWithBasicMaterialProperty,
+  IWithDepthMaterialProperty,
+  IWithDistanceMaterialProperty,
+  IWithLambertMaterialProperty,
+  IWithMatcapMaterialProperty,
+  IWithNormalMaterialProperty,
+  IWithPhongMaterialProperty,
+  IWithPhysicalMaterialProperty,
+  IWithStandardMaterialProperty,
+  IWithToonMaterialProperty
+} from '@/Engine/Domains/Material';
+
+import type {
   IBasicMaterialPackKeys,
   IDepthMaterialPackKeys,
   IDistanceMaterialPackKeys,
@@ -23,18 +36,6 @@ import type {
   IToonMaterialTextureUploaded
 } from './IMaterialTextureUploaded';
 import type { ITexture } from './ITexture';
-import type {
-  IWithBasicMaterialProperty,
-  IWithDepthMaterialProperty,
-  IWithDistanceMaterialProperty,
-  IWithLambertMaterialProperty,
-  IWithMatcapMaterialProperty,
-  IWithNormalMaterialProperty,
-  IWithPhongMaterialProperty,
-  IWithPhysicalMaterialProperty,
-  IWithStandardMaterialProperty,
-  IWithToonMaterialProperty
-} from '@/Engine/Domains/Material';
 
 export type IGetAllTextures<T> = Readonly<{ all: () => Promise<T> }>;
 
