@@ -28,6 +28,15 @@ function createContainersDivs(): void {
   spacesData.forEach(({ container }) => createDomElement('div', undefined, ['container'], container));
 }
 
+function setContainerVisibility(name: string, isVisible: boolean): void {
+  const spaceData: TSpacesData | undefined = spacesData.find((s: TSpacesData): boolean => s.name === name);
+  if (isNotDefined(spaceData)) throw new Error(`[Showcase]: Space data is not found for space "${name}"`);
+  const containerElement: HTMLElement | null = document.querySelector(`#${spaceData.container}`);
+  if (isNotDefined(containerElement)) throw new Error(`[Showcase]: Cannot find the container element for showcase "${name}"`);
+  // eslint-disable-next-line functional/immutable-data
+  containerElement.style.display = isVisible ? 'block' : 'none';
+}
+
 export function start(): void {
   createContainersDivs();
 
@@ -51,15 +60,15 @@ function runSpace(name: string): void {
 
   currentSpaceName = space.name;
   space.start$.next(true);
+  setContainerVisibility(name, true);
 }
 
 function destroySpace(name: string | undefined, spaceRegistry: TSpaceRegistry): void {
   if (isNotDefined(name)) return;
-  console.log('XXX111', 111);
   const space: TSpace | undefined = spaceRegistry.findByName(name);
   if (isNotDefined(space)) throw new Error(`[Showcase]: Cannot destroy the space "${name}"`);
+  setContainerVisibility(name, false);
   space.drop();
-  // space.destroy$.next();
 }
 
 function download(space: TSpace): void {
