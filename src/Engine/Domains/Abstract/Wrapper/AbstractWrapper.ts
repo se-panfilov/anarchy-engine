@@ -6,14 +6,16 @@ import { destroyableMixin } from '@/Engine/Mixins';
 import { withTags } from '@/Engine/Mixins/Generic/WithTags';
 import { isDefined } from '@/Engine/Utils';
 
+type entityWithName = { name?: string };
+
 export function AbstractWrapper<T>(entity: T, type: WrapperType | string, params?: Readonly<{ tags: ReadonlyArray<string> }>): IWrapper<T> {
   const id: string = type + '_' + nanoid();
 
-  if (isDefined((entity as any).name)) {
+  if (isDefined((entity as entityWithName).name)) {
     // TODO (S.Panfilov) log somehow
-    if ((entity as any).name !== '' || typeof (entity as any).name !== 'string') console.warn('Entity name is not empty or not a string: ', (entity as any).name);
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-    (entity as any).name = id;
+    if ((entity as entityWithName).name !== '' || typeof (entity as entityWithName).name !== 'string') console.warn('Entity name is not empty or not a string: ', (entity as entityWithName).name);
+    // eslint-disable-next-line functional/immutable-data
+    (entity as entityWithName).name = id;
   }
 
   return {
