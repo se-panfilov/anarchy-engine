@@ -9,6 +9,7 @@ import type { TModel3dToActorConnectionRegistry } from './TModel3dToActorConnect
 export type TActorDependencies = Readonly<{
   models3dService: TModels3dService;
   kinematicLoopService: TKinematicLoopService;
+  physicsBodyService: TPhysicsBodyService;
   physicsLoopService: TPhysicsLoopService;
   spatialGridService: TSpatialGridService;
   collisionsLoopService: TCollisionsLoopService;
@@ -16,11 +17,5 @@ export type TActorDependencies = Readonly<{
   model3dToActorConnectionRegistry: TModel3dToActorConnectionRegistry;
 }>;
 
-// TODO 8.0.0. MODELS: remove (use PhysicsTransformAgent instead)
-export type TActorWithPhysicsDependencies = TActorDependencies &
-  Readonly<{
-    physicsBodyService: TPhysicsBodyService;
-    physicsLoopService: TPhysicsLoopService;
-  }>;
-
-export type TActorServiceDependencies = TActorDependencies & TActorWithPhysicsDependencies;
+// TODO 8.0.0. MODELS: do we need both "TActorDependencies" and "TActorServiceDependencies"?
+export type TActorServiceDependencies = TActorDependencies;

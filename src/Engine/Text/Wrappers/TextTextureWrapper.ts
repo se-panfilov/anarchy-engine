@@ -10,7 +10,7 @@ import type { TDriveToTargetConnector } from '@/Engine/TransformDrive';
 import { DriveToTargetConnector } from '@/Engine/TransformDrive';
 import { applyObject3dParams, isNotDefined } from '@/Engine/Utils';
 
-export function createTextTextureWrapper(params: TTextParams, type: TextType, { kinematicLoopService }: TTextDependencies): TTextTextureWrapper<Mesh> {
+export function createTextTextureWrapper(params: TTextParams, type: TextType, dependencies: TTextDependencies): TTextTextureWrapper<Mesh> {
   const canvas: HTMLCanvasElement = document.createElement('canvas');
   const context: CanvasRenderingContext2D = canvas.getContext('2d')!;
 
@@ -68,7 +68,7 @@ export function createTextTextureWrapper(params: TTextParams, type: TextType, { 
     entity.geometry = new PlaneGeometry(newGeometryWidth, newGeometryHeight);
   }
 
-  const drive: TTextTransformDrive = TextTransformDrive(params, kinematicLoopService);
+  const drive: TTextTransformDrive = TextTransformDrive(params, dependencies);
   const driveToTargetConnector: TDriveToTargetConnector = DriveToTargetConnector(drive, entity);
 
   const result: TTextTextureWrapper<Mesh> = {

@@ -14,13 +14,13 @@ import { isDefined } from '@/Engine/Utils';
 
 export function Actor(
   params: TActorParams,
-  { kinematicLoopService, spatialGridService, physicsLoopService, collisionsLoopService, collisionsService, models3dService, model3dToActorConnectionRegistry }: TActorDependencies
+  { kinematicLoopService, spatialGridService, physicsBodyService, physicsLoopService, collisionsLoopService, collisionsService, models3dService, model3dToActorConnectionRegistry }: TActorDependencies
 ): TActor {
   const isModelAlreadyInUse: boolean = isDefined(model3dToActorConnectionRegistry.findByModel3d(params.model3dSource));
   const model3d: TModel3d = isModelAlreadyInUse ? models3dService.clone(params.model3dSource) : params.model3dSource;
 
   // Init TransformDrive
-  const drive: TActorTransformDrive = ActorTransformDrive(params, { kinematicLoopService, physicsLoopService });
+  const drive: TActorTransformDrive = ActorTransformDrive(params, { kinematicLoopService, physicsBodyService, physicsLoopService });
   const driveToTargetConnector: TDriveToTargetConnector = DriveToTargetConnector(drive, model3d.getRawModel3d());
 
   // TODO CWP:
