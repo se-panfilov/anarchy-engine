@@ -16,7 +16,7 @@ export const spaceParticlesData: TSpacesData = {
   onCreate: (space: TSpace): void | never => {
     addModel3dToScene(space, 'surface_model');
 
-    const positions: Float32Array = createParticlesGrid(10000, 50);
+    const positions: Float32Array = getParticlesDeterministicPositions(10000, 50);
 
     const particles: TParticlesWrapper = space.services.particlesService.getRegistry().getByName('bubbles');
     particles.setIndividualPositions(positions);
@@ -27,7 +27,7 @@ export const spaceParticlesData: TSpacesData = {
   }
 };
 
-export function createParticlesGrid(count: number, areaSize: number): Float32Array {
+export function getParticlesDeterministicPositions(count: number, areaSize: number): Float32Array {
   // Calculate the approximate step of the grid
   const gridSize: number = Math.ceil(Math.cbrt(count)); // Number of particles per side
   const step: number = areaSize / gridSize;

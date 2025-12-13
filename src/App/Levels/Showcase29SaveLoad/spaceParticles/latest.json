@@ -1,0 +1,365 @@
+{
+  "canvasSelector": "#particles_container #app",
+  "entities": {
+    "actors": [],
+    "audio": [],
+    "cameras": [
+      {
+        "agent": "default",
+        "far": 10000,
+        "filmGauge": 35,
+        "filmOffset": 0,
+        "focus": 10,
+        "fov": 45,
+        "isActive": true,
+        "layers": 1,
+        "name": "main",
+        "near": 1,
+        "position": {
+          "x": 3,
+          "y": 20,
+          "z": 35
+        },
+        "rotation": {
+          "order": "XYZ",
+          "x": -0.5191461142465231,
+          "y": 0.0742839031989398,
+          "z": 0.04238351982512054
+        },
+        "scale": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        },
+        "type": "PerspectiveCamera",
+        "up": {
+          "x": 0,
+          "y": 1,
+          "z": 0
+        },
+        "zoom": 1
+      }
+    ],
+    "controls": [],
+    "envMaps": [],
+    "fogs": [],
+    "fsm": [],
+    "intersections": [],
+    "lights": [
+      {
+        "agent": "default",
+        "color": "#FFFFFF",
+        "intensity": 0.5,
+        "name": "ambient_light",
+        "position": {
+          "x": 0.25,
+          "y": 2,
+          "z": 2.25
+        },
+        "rotation": {
+          "order": "XYZ",
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "scale": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        },
+        "type": "AmbientLight"
+      },
+      {
+        "agent": "default",
+        "castShadow": true,
+        "color": "#FFFFFF",
+        "intensity": 1.5,
+        "name": "directional_light",
+        "position": {
+          "x": 0.25,
+          "y": 15,
+          "z": 2.25
+        },
+        "rotation": {
+          "order": "XYZ",
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "scale": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        },
+        "shadow": {
+          "camera": {
+            "bottom": -50,
+            "far": 40,
+            "layers": 1,
+            "left": -50,
+            "near": 0.1,
+            "right": 50,
+            "top": 50,
+            "type": "OrthographicCamera",
+            "up": {
+              "x": 0,
+              "y": 1,
+              "z": 0
+            },
+            "zoom": 1
+          },
+          "mapSize": {
+            "x": 4096,
+            "y": 4096
+          },
+          "normalBias": 0.05
+        },
+        "type": "DirectionalLight"
+      }
+    ],
+    "materials": [
+      {
+        "name": "surface_material",
+        "options": {
+          "alphaHash": false,
+          "alphaTest": 0,
+          "alphaToCoverage": false,
+          "aoMapIntensity": 1,
+          "blendAlpha": 0,
+          "blendColor": "#000000",
+          "blendDst": "OneMinusSrcAlphaFactor",
+          "blendEquation": "AddEquation",
+          "blendSrc": "SrcAlphaFactor",
+          "blending": "NormalBlending",
+          "bumpScale": 1,
+          "clearcoatNormalScale": {
+            "x": 0,
+            "y": 0
+          },
+          "clipIntersection": false,
+          "clipShadows": false,
+          "color": "#000000",
+          "colorWrite": true,
+          "depthFunc": 3,
+          "depthTest": true,
+          "depthWrite": true,
+          "displacementBias": 0,
+          "displacementScale": 1,
+          "dithering": false,
+          "emissive": "#000000",
+          "emissiveIntensity": 1,
+          "envMapIntensity": 1,
+          "envMapRotation": {
+            "order": "XYZ",
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "flatShading": false,
+          "fog": true,
+          "forceSinglePass": false,
+          "lightMapIntensity": 1,
+          "metalness": 0,
+          "normalMapType": "TangentSpaceNormalMap",
+          "normalScale": {
+            "x": 1,
+            "y": 1
+          },
+          "opacity": 1,
+          "polygonOffset": false,
+          "polygonOffsetFactor": 0,
+          "polygonOffsetUnits": 0,
+          "premultipliedAlpha": false,
+          "referencePosition": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "roughness": 1,
+          "side": "FrontSide",
+          "stencilFail": "KeepStencilOp",
+          "stencilFunc": "AlwaysStencilFunc",
+          "stencilFuncMask": 255,
+          "stencilRef": 0,
+          "stencilWrite": false,
+          "stencilWriteMask": 255,
+          "stencilZFail": "KeepStencilOp",
+          "stencilZPass": "KeepStencilOp",
+          "toneMapped": true,
+          "transparent": false,
+          "vertexColors": false,
+          "visible": true,
+          "wireframe": false,
+          "wireframeLinewidth": 1
+        },
+        "type": "MeshStandardMaterial"
+      },
+      {
+        "name": "particles_material",
+        "options": {
+          "alphaHash": false,
+          "alphaTest": 0,
+          "alphaToCoverage": false,
+          "blendAlpha": 0,
+          "blendColor": "#000000",
+          "blendDst": "OneMinusSrcAlphaFactor",
+          "blendEquation": "AddEquation",
+          "blendSrc": "SrcAlphaFactor",
+          "blending": "AdditiveBlending",
+          "clearcoatNormalScale": {
+            "x": 0,
+            "y": 0
+          },
+          "clipIntersection": false,
+          "clipShadows": false,
+          "color": "#E91E63",
+          "colorWrite": true,
+          "depthFunc": 3,
+          "depthTest": true,
+          "depthWrite": false,
+          "dithering": false,
+          "envMapRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "fog": true,
+          "forceSinglePass": false,
+          "normalScale": {
+            "x": 0,
+            "y": 0
+          },
+          "opacity": 1,
+          "polygonOffset": false,
+          "polygonOffsetFactor": 0,
+          "polygonOffsetUnits": 0,
+          "premultipliedAlpha": false,
+          "referencePosition": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "side": "FrontSide",
+          "size": 0.5,
+          "sizeAttenuation": true,
+          "stencilFail": "KeepStencilOp",
+          "stencilFunc": "AlwaysStencilFunc",
+          "stencilFuncMask": 255,
+          "stencilRef": 0,
+          "stencilWrite": false,
+          "stencilWriteMask": 255,
+          "stencilZFail": "KeepStencilOp",
+          "stencilZPass": "KeepStencilOp",
+          "toneMapped": true,
+          "transparent": true,
+          "vertexColors": false,
+          "visible": true
+        },
+        "textures": {
+          "alphaMap": "particles_alpha_map_texture"
+        },
+        "type": "PointsMaterial"
+      }
+    ],
+    "models3d": [
+      {
+        "animationsState": [],
+        "castShadow": false,
+        "forceClone": false,
+        "material": "surface_material",
+        "model3dSource": "plane",
+        "name": "surface_model",
+        "options": {
+          "height": 100,
+          "heightSegments": 1,
+          "width": 100,
+          "widthSegments": 1
+        },
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "receiveShadow": true,
+        "rotation": {
+          "order": "XYZ",
+          "x": -1.57,
+          "y": 0,
+          "z": 0
+        },
+        "scale": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        }
+      }
+    ],
+    "particles": [
+      {
+        "agent": "default",
+        "material": "particles_material",
+        "name": "bubbles",
+        "position": {
+          "x": 0,
+          "y": 2,
+          "z": 10
+        },
+        "rotation": {
+          "order": "XYZ",
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "scale": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        }
+      }
+    ],
+    "physics": {
+      "presets": []
+    },
+    "renderers": [
+      {
+        "alpha": true,
+        "isActive": true,
+        "isShadowMapEnabled": true,
+        "maxPixelRatio": 2,
+        "mode": "webgl2",
+        "name": "main"
+      }
+    ],
+    "spatialGrids": [
+      {
+        "cellSize": 10,
+        "centerX": 0,
+        "centerZ": 0,
+        "mapHeight": 100,
+        "mapWidth": 100,
+        "name": "main_grid"
+      }
+    ],
+    "texts": []
+  },
+  "name": "SpaceParticles",
+  "resources": {
+    "animations": [],
+    "audio": [],
+    "envMaps": [],
+    "models3d": [],
+    "textures": [
+      {
+        "name": "particles_alpha_map_texture",
+        "url": "/Showcase/particles/2.png"
+      }
+    ]
+  },
+  "scenes": [
+    {
+      "isActive": true,
+      "name": "showcase"
+    }
+  ],
+  "version": "1.0.0"
+}
