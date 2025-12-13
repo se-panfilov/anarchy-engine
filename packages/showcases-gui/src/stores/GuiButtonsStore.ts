@@ -2,7 +2,7 @@ import type { MouseButtonValue, TGameKey } from '@Anarchy/Engine';
 import { isNotDefined } from '@Anarchy/Shared/Utils';
 import { BUTTON_KEYS, GuiActionType } from '@Showcases/GUI/constants';
 import type { TGuiButtonState, TGuiButtonStoreState } from '@Showcases/GUI/models';
-import { Backpack, Map as MapIcon, Settings as SettingsIcon, Shield, Sword } from 'lucide-vue-next';
+import { Backpack, Languages, Map as MapIcon, Settings as SettingsIcon, Shield, Sword } from 'lucide-vue-next';
 import { defineStore } from 'pinia';
 import { computed, reactive } from 'vue';
 
@@ -14,7 +14,7 @@ export const useGuiButtonStore = defineStore('guiButtonsStore', () => {
     [Defense]: { id: Defense, isVisible: true, isActive: false, i18n: 'gui.bottom.button.defense.title', key: BUTTON_KEYS[Defense], icon: Shield },
     [Inventory]: { id: Inventory, isVisible: true, isActive: false, i18n: 'gui.bottom.button.inventory.title', key: BUTTON_KEYS[Inventory], icon: Backpack },
     [MiniMap]: { id: MiniMap, isVisible: true, isActive: false, i18n: 'gui.bottom.button.map.title', key: BUTTON_KEYS[MiniMap], icon: MapIcon },
-    [Language]: { id: Language, isVisible: true, isActive: false, i18n: 'gui.bottom.button.language.title', key: BUTTON_KEYS[Language], icon: SettingsIcon },
+    [Language]: { id: Language, isVisible: true, isActive: false, i18n: 'gui.bottom.button.language.title', key: BUTTON_KEYS[Language], icon: Languages },
     [Settings]: { id: Settings, isVisible: true, isActive: false, i18n: 'gui.bottom.button.settings.title', key: BUTTON_KEYS[Settings], icon: SettingsIcon }
   });
 
