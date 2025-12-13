@@ -10,7 +10,7 @@ const project = new Project({
   }
 });
 
-// TODO 18-0-0 Make sure TS morph works (folders might need to be fixed)
+// TODO 18-0-0: MONO: Make sure TS morph works (folders might need to be fixed)
 const files = project.getSourceFiles(['src/**/*.ts', 'src/**/*.tsx']);
 const BRAND_FIELD_NAME = '__noSpreadBrand';
 

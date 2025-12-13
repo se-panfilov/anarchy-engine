@@ -1,5 +1,5 @@
-// TODO 18-0-0 Make sure this rules work
-// TODO 18-0-0 The "no-restricted-imports"  rule is only for engine, exclude from other packages configs
+// TODO 18-0-0: MONO: Make sure this rules work
+// TODO 18-0-0: MONO: The "no-restricted-imports"  rule is only for engine, exclude from other packages configs
 export const JsOverrides = [
   {
     files: ['packages/engine/src/**/*'],
