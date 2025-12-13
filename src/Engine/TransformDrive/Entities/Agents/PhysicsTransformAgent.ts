@@ -12,13 +12,12 @@ import type {
   TAbstractTransformAgent,
   TPhysicsAgentDependencies,
   TPhysicsTransformAgent,
-  TPhysicsTransformAgentInternalParams,
   TPhysicsTransformAgentParams,
   TReadonlyTransform,
   TRigidBodyTransformData
 } from '@/Engine/TransformDrive/Models';
-import { applyLatestTransform, createPhysicsBody, getPhysicalBodyTransform } from '@/Engine/TransformDrive/Utils';
-import { isDefined, isEulerLike, isNotDefined } from '@/Engine/Utils';
+import { applyLatestTransform, getPhysicalBodyTransform } from '@/Engine/TransformDrive/Utils';
+import { isDefined, isNotDefined } from '@/Engine/Utils';
 
 import { AbstractTransformAgent } from './AbstractTransformAgent';
 
@@ -29,10 +28,10 @@ export function PhysicsTransformAgent(params: TPhysicsTransformAgentParams, { ph
   const positionNoiseThreshold: TMeters = params.performance?.positionNoiseThreshold ?? meters(0.0000001);
   const rotationNoiseThreshold: TRadians = params.performance?.rotationNoiseThreshold ?? radians(0.0000001);
 
-  const adaptedParams: TPhysicsTransformAgentInternalParams = {
-    ...params,
-    rotation: isEulerLike(params.rotation) ? new Quaternion().setFromEuler(params.rotation) : params.rotation
-  };
+  // const adaptedParams: TPhysicsTransformAgentInternalParams = {
+  //   ...params,
+  //   rotation: isEulerLike(params.rotation) ? new Quaternion().setFromEuler(params.rotation) : params.rotation
+  // };
   const abstractTransformAgent: TAbstractTransformAgent = AbstractTransformAgent(params, TransformAgent.Physical);
 
   const onDeactivated$Sub: Subscription = abstractTransformAgent.onDeactivated$.pipe(takeWhile((): boolean => isNotDefined(params.onDeactivated))).subscribe((): void => {
@@ -45,7 +44,8 @@ export function PhysicsTransformAgent(params: TPhysicsTransformAgentParams, { ph
 
   //apply the latest position/rotation to the physics body on activation
   const onActivated$Sub: Subscription = abstractTransformAgent.onActivated$.subscribe(({ position, rotation }: TReadonlyTransform): void => {
-    if (isNotDefined(physicsBody$.value)) physicsBody$.next(createPhysicsBody(adaptedParams, physicsBodyService));
+    // TODO 15-0-0: Does this position/rotation works? (check on reactivation)
+    if (isNotDefined(physicsBody$.value)) physicsBody$.next(physicsBodyService.getRegistry().getByName(params.name));
     applyLatestTransform(physicsBody$.value?.getRigidBody(), position, rotation);
   });
 

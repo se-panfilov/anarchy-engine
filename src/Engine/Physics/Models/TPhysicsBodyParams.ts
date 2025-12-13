@@ -5,16 +5,16 @@ import type { TReadonlyQuaternion, TReadonlyVector3 } from '@/Engine/ThreeLib';
 import type { TPhysicsShapeParams } from './TPhysicsShapeParams';
 
 export type TPhysicsBodyParams = Readonly<{
-  type: RigidBodyTypesNames;
-  collisionShape: CollisionShape;
-  shapeParams: TPhysicsShapeParams;
-  mass?: number;
-  restitution?: number;
-  friction?: number;
   collisionGroups?: number;
-  position?: TReadonlyVector3;
-  rotation?: TReadonlyQuaternion;
+  collisionShape: CollisionShape;
+  friction?: number;
   isSleep?: boolean;
+  mass?: number;
+  position: TReadonlyVector3;
+  restitution?: number;
+  rotation: TReadonlyQuaternion;
+  shapeParams: TPhysicsShapeParams;
+  type: RigidBodyTypesNames;
 }> &
   TWithName &
   TWithTags;

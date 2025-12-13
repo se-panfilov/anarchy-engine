@@ -199,17 +199,21 @@
     ],
     "particles": [],
     "physics": {
-      "world": {
-        "gravity": {
-          "x": 0,
-          "y": -9.81,
-          "z": 0
-        }
-      },
       "bodies": [
         {
           "collisionShape": "cuboid",
           "name": "surface_actor_physics",
+          "position": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "rotation": {
+            "w": 1,
+            "x": -1.57,
+            "y": 0,
+            "z": 0
+          },
           "shapeParams": {
             "hx": 50,
             "hy": 50,
@@ -220,7 +224,18 @@
         {
           "collisionShape": "cuboid",
           "name": "cube_1_physics",
+          "position": {
+            "x": -4,
+            "y": 2,
+            "z": 3
+          },
           "restitution": 0.1,
+          "rotation": {
+            "w": 1,
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
           "shapeParams": {
             "hx": 2,
             "hy": 2,
@@ -231,7 +246,18 @@
         {
           "collisionShape": "cuboid",
           "name": "cube_2_physics",
+          "position": {
+            "x": 4,
+            "y": 2,
+            "z": -4
+          },
           "restitution": 0.1,
+          "rotation": {
+            "w": 1,
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
           "shapeParams": {
             "hx": 2,
             "hy": 2,
@@ -239,7 +265,14 @@
           },
           "type": "dynamic"
         }
-      ]
+      ],
+      "world": {
+        "gravity": {
+          "x": 0,
+          "y": -9.81,
+          "z": 0
+        }
+      }
     },
     "renderers": [
       {

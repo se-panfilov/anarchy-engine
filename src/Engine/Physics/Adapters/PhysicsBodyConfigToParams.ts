@@ -1,10 +1,9 @@
-import { Vector4 } from 'three';
+import { Euler, Quaternion } from 'three';
+import { Vector3 } from 'three/src/math/Vector3';
 
 import type { TPhysicsBodyConfig, TPhysicsBodyParams } from '@/Engine/Physics/Models';
 import { isPhysicsBodyParamsComplete } from '@/Engine/Physics/Utils';
 import type { TOptional } from '@/Engine/Utils';
-
-import { withCoordsToVector } from './Utils';
 
 export function configToParamsBody(config: TPhysicsBodyConfig): TPhysicsBodyParams | never {
   const { position, rotation, ...rest } = config;
@@ -12,7 +11,8 @@ export function configToParamsBody(config: TPhysicsBodyConfig): TPhysicsBodyPara
   const result: TPhysicsBodyParams | TOptional<TPhysicsBodyParams> = {
     // type: RigidBodyTypesMap[RigidBodyTypesNames[type]],
     ...rest,
-    ...withCoordsToVector(position, new Vector4(rotation?.x, rotation?.y, rotation?.z, rotation?.w))
+    position: new Vector3(position.x, position.y, position.z),
+    rotation: new Quaternion().setFromEuler(new Euler(rotation.x, rotation.y, rotation.z, rotation.order))
   };
 
   if (!isPhysicsBodyParamsComplete(result)) throw new Error('Cannot create physic body: params are lacking of mandatory fields');
