@@ -4,7 +4,7 @@ import { isDefined } from '@Anarchy/Shared/Utils';
 import { getBrowserInfo } from '@Anarchy/Shared/Utils/DetectUtils';
 import { ShowcasesFallbackLocale, ShowcasesLocales } from '@Showcases/i18n';
 import type { TLegalDoc, TLoadDocPayload, TShowcaseGameSettings } from '@Showcases/Shared';
-import { DefaultShowcaseGameSettings } from '@Showcases/Shared';
+import { DefaultShowcaseGameSettings, sanitizeMarkDown } from '@Showcases/Shared';
 
 import type { TPlatformDriver } from '@/Models';
 import { settingsWebDbService } from '@/Services';
@@ -62,9 +62,9 @@ export function Driver(): TPlatformDriver {
     const response: Response = await fetch(`${originBase}${name}.md`);
 
     if (!response.ok) throw new Error(`Failed to load legal doc "${name}" from ${response.url}: ${response.status} ${response.statusText}`);
-    const result: string = await response.text();
-    // TODO DESKTOP: sanitize result here
-    return { name, content: result };
+    const content: string = await response.text();
+    const cleanContent: string = await sanitizeMarkDown(content);
+    return { name, content: cleanContent };
   }
 
   const restartApp = (): void => window.location.reload();

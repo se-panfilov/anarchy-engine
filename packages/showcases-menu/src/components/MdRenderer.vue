@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { isNotDefined } from '@Anarchy/Shared/Utils';
+import { sanitizeMarkDown } from '@Showcases/Shared';
 import { reactive, watch } from 'vue';
 
 const props = defineProps<{
@@ -13,8 +14,7 @@ const state = reactive({
 async function parseContent(content: string | undefined): Promise<string> {
   if (isNotDefined(content)) return '';
   const { marked } = await import('marked');
-  const DOMPurify = (await import('dompurify')).default;
-  const cleanContent = DOMPurify.sanitize(content, { USE_PROFILES: { html: true } });
+  const cleanContent: string = await sanitizeMarkDown(content);
   return marked.parse(cleanContent);
 }
 
