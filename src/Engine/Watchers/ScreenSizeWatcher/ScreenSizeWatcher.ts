@@ -3,6 +3,7 @@ import type { IGlobalContainerDecorator } from '@Engine/Global';
 import type { IScreenSizeWatcher } from '@Engine/Watchers/ScreenSizeWatcher/Models/IScreenSizeWatcher';
 import type { IScreenParams } from '@Engine/Models';
 import { BehaviorSubject, Subject } from 'rxjs';
+import { IAbstractWatcher } from '@Engine/Watchers';
 
 export function ScreenSizeWatcher(container: IGlobalContainerDecorator): IScreenSizeWatcher {
   const value$: Subject<IScreenParams> = new Subject<IScreenParams>();
@@ -28,8 +29,15 @@ export function ScreenSizeWatcher(container: IGlobalContainerDecorator): IScreen
     return result;
   }
 
+  const abstractWatcher: IAbstractWatcher<IScreenParams> = AbstractWatcher('screen-size');
+
+  abstractWatcher.destroy$.subscribe(() => {
+    latest$.complete();
+    abstractWatcher.destroy$.unsubscribe();
+  });
+
   const result: IScreenSizeWatcher = {
-    ...AbstractWatcher('screen-size'),
+    ...abstractWatcher,
     start,
     stop,
     value$,
