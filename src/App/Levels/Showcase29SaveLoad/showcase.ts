@@ -65,6 +65,8 @@ const spacesData: ReadonlyArray<TSpacesData> = [
   { name: spaceTextsConfig.name, config: spaceTextsConfig, container: getContainer(spaceTextsConfig.canvasSelector) }
 ];
 
+const spacesInMemoryData: Array<TSpacesData> = [];
+
 let currentSpaceName: string | undefined;
 
 export function start(): void {
@@ -106,6 +108,39 @@ function unloadSpace(name: string | undefined, spaceRegistry: TSpaceRegistry): v
   space.drop();
 }
 
+function saveSpaceConfigInMemory(name: string | undefined, spaceRegistry: TSpaceRegistry): void {
+  if (isNotDefined(name)) return;
+  const space: TSpace | undefined = spaceRegistry.findByName(name);
+  if (isNotDefined(space)) throw new Error(`[Showcase]: Cannot save the space "${name}"`);
+
+  const index: number = spacesInMemoryData.findIndex((s: TSpacesData): boolean => s.name === name) || spacesInMemoryData.length;
+  const config: TSpaceConfig = space.serialize();
+
+  // eslint-disable-next-line functional/immutable-data
+  spacesInMemoryData[index] = {
+    name: space.name,
+    config,
+    container: config.canvasSelector,
+    onCreate: spacesData.find((s: TSpacesData): boolean => s.name === name)?.onCreate,
+    onChange: spacesData.find((s: TSpacesData): boolean => s.name === name)?.onChange,
+    onUnload: spacesData.find((s: TSpacesData): boolean => s.name === name)?.onUnload
+  };
+}
+
+function loadSpaceConfigFromMemory(name: string | undefined, spaceRegistry: TSpaceRegistry): void {
+  if (isNotDefined(name)) return;
+  const spaceData: TSpacesData | undefined = spacesInMemoryData.find((s: TSpacesData): boolean => s.name === name);
+  if (isNotDefined(spaceData)) throw new Error(`[Showcase]: Space data is not found for space "${name}"`);
+
+  const spaces: ReadonlyArray<TSpace> = spaceService.createFromConfig([spaceData.config]);
+  const newSpace: TSpace = spaces.find((s: TSpace): boolean => s.name === name) as TSpace;
+  if (isNotDefined(newSpace)) throw new Error(`[Showcase]: Cannot create the space "${name}"`);
+
+  currentSpaceName = newSpace.name;
+  newSpace.start$.next(true);
+  setContainerVisibility(name, true, spacesData);
+}
+
 export function createForm(containerId: string | undefined, isTop: boolean, isRight: boolean, options: ReadonlyArray<string>): void {
   const top: string | undefined = isTop ? undefined : 'calc(50% + 14px)';
   const right: string | undefined = !isRight ? 'calc(50% + 14px)' : '4px';
@@ -121,7 +156,7 @@ export function createForm(containerId: string | undefined, isTop: boolean, isRi
     options,
     { right, top }
   );
-  // addBtn(`Download`, containerId, (): void => download(space), { right, top });
+
   addBtn(`Change`, containerId, (): void => {
     if (isNotDefined(currentSpaceName)) return;
 
@@ -133,5 +168,11 @@ export function createForm(containerId: string | undefined, isTop: boolean, isRi
 
     spaceData.onChange?.(space);
   });
-  // addBtn(`Load`, containerId, (): void => space.start$.next(false));
+  addBtn(`Drop`, containerId, (): void => unloadSpace(currentSpaceName, spaceRegistry));
+  addBtn(`Save`, containerId, (): void => {
+    saveSpaceConfigInMemory(currentSpaceName, spaceRegistry);
+  });
+  addBtn(`Load`, containerId, (): void => {
+    loadSpaceConfigFromMemory(currentSpaceName, spaceRegistry);
+  });
 }
