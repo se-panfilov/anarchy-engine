@@ -20,7 +20,7 @@ import type {
 import { Engine, isNotDefined, KeysExtra, spaceService, TransformAgent } from '@/Engine';
 
 import spaceConfig from './showcase.json';
-import { addActorFolderGui, changeActorActiveAgent, createActor, startIntersections } from './Utils';
+import { addActorFolderGui, changeActorActiveAgent, createActor, createRepeaterActor, startIntersections } from './Utils';
 
 export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
   const gui: GUI = new GUI();
@@ -42,24 +42,15 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     const planeModel3dF: TModel3d | undefined = models3dRegistry.findByName('surface_model');
     if (isNotDefined(planeModel3dF)) throw new Error('Plane model is not defined');
 
+    console.log('Click "space" to change actor movement mode ("agent")');
+
     sceneW.addModel3d(planeModel3dF);
 
-    const repeaterOffset: number = -4;
     const actorCoords = new Vector3(0, 2, 0);
     const sphereActor: TActor = createActor('sphere', grid, actorCoords, '#E91E63', space.services);
-    const repeaterActor: TActor = createActor('repeater', grid, actorCoords.clone().add({ x: 0, y: repeaterOffset, z: 0 }), '#1ebae9', space.services);
-
-    sphereActor.drive.position$.subscribe((position: Vector3): void => {
-      // eslint-disable-next-line functional/immutable-data
-      repeaterActor.drive.instant.positionConnector.x = position.x;
-      // eslint-disable-next-line functional/immutable-data
-      repeaterActor.drive.instant.positionConnector.y = position.y + repeaterOffset;
-      // eslint-disable-next-line functional/immutable-data
-      repeaterActor.drive.instant.positionConnector.z = position.z;
-    });
-
     addActorFolderGui(gui, sphereActor);
-    addActorFolderGui(gui, repeaterActor);
+
+    createRepeaterActor(sphereActor, { x: 0, y: -4, z: 0 }, grid, gui, space.services);
 
     const intersectionsWatcher: TIntersectionsWatcher = startIntersections(space.services);
 

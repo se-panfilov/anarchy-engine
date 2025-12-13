@@ -1,6 +1,7 @@
 import type GUI from 'lil-gui';
 import type { Subscription } from 'rxjs';
 import { Euler, Vector3 } from 'three';
+import type { Vector3Like } from 'three/src/math/Vector3';
 
 import type { KeyCode, KeysExtra, TActor, TCameraWrapper, TIntersectionsWatcher, TKeyboardService, TMaterialWrapper, TModel3d, TSpaceServices, TSpatialGridWrapper } from '@/Engine';
 import { isNotDefined, MaterialType, PrimitiveModel3dType, TransformAgent } from '@/Engine';
@@ -26,6 +27,22 @@ export function createActor(name: string, grid: TSpatialGridWrapper, position: V
     rotation: new Euler(0, 0, 0),
     spatial: { grid, isAutoUpdate: true }
   });
+}
+
+export function createRepeaterActor(actor: TActor, offset: Vector3Like, grid: TSpatialGridWrapper, gui: GUI, services: TSpaceServices, color: string = '#1ebae9'): void {
+  const repeaterActor: TActor = createActor('repeater', grid, actor.drive.getPosition().clone().add(offset), color, services);
+
+  //"repeaterActor" is connected with "positionConnector" (from "instant" agent) to "sphereActor" position
+  actor.drive.position$.subscribe((position: Vector3): void => {
+    // eslint-disable-next-line functional/immutable-data
+    repeaterActor.drive.instant.positionConnector.x = position.x + offset.x;
+    // eslint-disable-next-line functional/immutable-data
+    repeaterActor.drive.instant.positionConnector.y = position.y + offset.y;
+    // eslint-disable-next-line functional/immutable-data
+    repeaterActor.drive.instant.positionConnector.z = position.z + offset.z;
+  });
+
+  addActorFolderGui(gui, repeaterActor);
 }
 
 export function startIntersections({ actorService, cameraService, intersectionsWatcherService, mouseService }: TSpaceServices): TIntersectionsWatcher {
