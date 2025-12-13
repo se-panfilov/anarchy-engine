@@ -1,4 +1,6 @@
 import type { BehaviorSubject } from 'rxjs';
+import type { ColorRepresentation, Vector3Like } from 'three';
+import type { Line2 } from 'three/examples/jsm/lines/Line2';
 
 import type { TReadonlyVector3 } from '@/Engine/ThreeLib';
 
@@ -8,6 +10,7 @@ export type TIntersectionsDirectionWatcher = TAbstractIntersectionsWatcher &
   Readonly<{
     origin$: BehaviorSubject<TReadonlyVector3>;
     direction$: BehaviorSubject<TReadonlyVector3>;
-    targetPointToDirection: (origin: TReadonlyVector3, target: TReadonlyVector3) => TReadonlyVector3;
-    getDistanceToTargetPoint: (origin: TReadonlyVector3, target: TReadonlyVector3) => number;
+    targetPointToDirection: (origin: Vector3Like, target: Vector3Like) => TReadonlyVector3;
+    getDistanceToTargetPoint: (origin: Vector3Like, target: Vector3Like) => number;
+    _debugGetRayVisualizationLine: (length: number, color: ColorRepresentation, lineWidth: number) => Line2;
   }>;

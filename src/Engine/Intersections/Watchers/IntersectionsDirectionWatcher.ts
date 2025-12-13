@@ -1,5 +1,9 @@
 import type { Observable, Subscription } from 'rxjs';
 import { BehaviorSubject, distinctUntilChanged, EMPTY, filter, map, switchMap } from 'rxjs';
+import type { ColorRepresentation, Vector3Like } from 'three';
+import { Line2 } from 'three/examples/jsm/lines/Line2';
+import { LineGeometry } from 'three/examples/jsm/lines/LineGeometry';
+import { LineMaterial } from 'three/examples/jsm/lines/LineMaterial';
 import { Vector3 } from 'three/src/math/Vector3';
 
 import type { TActor } from '@/Engine/Actor';
@@ -56,12 +60,42 @@ export function IntersectionsDirectionWatcher(params: TIntersectionsDirectionWat
     return abstractIntersectionsWatcher.raycaster.intersectObjects(list)[0];
   }
 
-  function getDistanceToTargetPoint(origin: TReadonlyVector3, target: TReadonlyVector3): number {
+  function getDistanceToTargetPoint(origin: Vector3Like, target: Vector3Like): number {
     return new Vector3(target.x - origin.x, target.y - origin.y, target.z - origin.z).length();
   }
 
-  function targetPointToDirection(origin: TReadonlyVector3, target: TReadonlyVector3): TReadonlyVector3 {
+  function targetPointToDirection(origin: Vector3Like, target: Vector3Like): TReadonlyVector3 {
     return new Vector3(target.x - origin.x, target.y - origin.y, target.z - origin.z).normalize();
+  }
+
+  function _debugGetRayVisualizationLine(length: number = 100, color: ColorRepresentation = 0xff0000, lineWidth: number = 1): Line2 {
+    const points: Array<number> = [
+      origin$.value.x,
+      origin$.value.y,
+      origin$.value.z,
+      origin$.value.x + direction$.value.x * length,
+      origin$.value.y + direction$.value.y * length,
+      origin$.value.z + direction$.value.z * length
+    ];
+
+    const geometry = new LineGeometry();
+    geometry.setPositions(points);
+
+    const material = new LineMaterial({
+      color,
+      linewidth: lineWidth, // in world units
+      dashed: false,
+      transparent: true
+    });
+
+    material.resolution.set(window.innerWidth, window.innerHeight); // VERY important
+
+    const line = new Line2(geometry, material);
+    line.computeLineDistances();
+    // eslint-disable-next-line functional/immutable-data
+    line.name = 'RayDebugLine2';
+
+    return line;
   }
 
   const destroySub$: Subscription = abstractIntersectionsWatcher.destroy$.subscribe((): void => {
@@ -74,6 +108,7 @@ export function IntersectionsDirectionWatcher(params: TIntersectionsDirectionWat
     origin$,
     direction$,
     targetPointToDirection,
-    getDistanceToTargetPoint
+    getDistanceToTargetPoint,
+    _debugGetRayVisualizationLine
   });
 }
