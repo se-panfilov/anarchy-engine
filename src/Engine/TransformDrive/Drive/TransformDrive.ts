@@ -3,6 +3,7 @@ import type { Observable, Subscription } from 'rxjs';
 import { BehaviorSubject, distinctUntilChanged, filter, map, merge, ReplaySubject } from 'rxjs';
 import type { Quaternion, Vector3 } from 'three';
 
+import { meters, radians } from '@/Engine/Measurements';
 import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
 import type { TReadonlyQuaternion, TReadonlyVector3 } from '@/Engine/ThreeLib';
@@ -91,8 +92,8 @@ export function TransformDrive<T extends Partial<Record<TransformAgent, TAbstrac
   const destroyable: TDestroyable = destroyableMixin();
 
   const performance: Required<TTransformDrivePerformanceOptions> = {
-    positionNoiseThreshold: params.performance?.positionNoiseThreshold ?? 0.0000001,
-    rotationNoiseThreshold: params.performance?.rotationNoiseThreshold ?? 0.0000001,
+    positionNoiseThreshold: params.performance?.positionNoiseThreshold ?? meters(0.0000001),
+    rotationNoiseThreshold: params.performance?.rotationNoiseThreshold ?? radians(0.0000001),
     scaleNoiseThreshold: params.performance?.scaleNoiseThreshold ?? 0.0000001
   };
 

@@ -4,6 +4,8 @@ import type { QuaternionLike } from 'three';
 import { Quaternion, Vector3 } from 'three';
 import type { Vector3Like } from 'three/src/math/Vector3';
 
+import type { TMeters, TRadians } from '@/Engine/Math';
+import { meters, radians } from '@/Engine/Measurements';
 import type { TPhysicsBody } from '@/Engine/Physics';
 import { RigidBodyTypesNames } from '@/Engine/Physics';
 import { TransformAgent } from '@/Engine/TransformDrive/Constants';
@@ -26,7 +28,8 @@ import { AbstractTransformAgent } from './AbstractTransformAgent';
 // In principle, it's better to avoid manual setting of position/rotation for physics objects.
 // But if you have to, first change active agent to "Default", then set position/rotation, and then switch back to "Physical" agent.
 export function PhysicsTransformAgent(params: TPhysicsTransformAgentParams, { physicsBodyService, physicalLoop }: TPhysicsAgentDependencies): TPhysicsTransformAgent {
-  const noiseThreshold: number = params.performance?.noiseThreshold ?? 0.0000001;
+  const positionNoiseThreshold: TMeters = params.performance?.positionNoiseThreshold ?? meters(0.0000001);
+  const rotationNoiseThreshold: TRadians = params.performance?.rotationNoiseThreshold ?? radians(0.0000001);
 
   const adaptedParams: TPhysicsTransformAgentInternalParams = { ...params, rotation: isEulerLike(params.rotation) ? new Quaternion().setFromEuler(params.rotation) : params.rotation };
   const abstractTransformAgent: TAbstractTransformAgent = AbstractTransformAgent(params, TransformAgent.Physical);
@@ -118,19 +121,19 @@ export function PhysicsTransformAgent(params: TPhysicsTransformAgentParams, { ph
       )
     )
     .subscribe(({ prevPosition, currPosition, prevRotation, currRotation }: TAccumulatedRigidBodyTransformData): void => {
-      if (shouldUpdatePosition(prevPosition, currPosition, noiseThreshold)) agent.position$.next(new Vector3(currPosition.x, currPosition.y, currPosition.z));
-      if (shouldUpdateRotation(prevRotation, currRotation, noiseThreshold)) agent.rotation$.next(new Quaternion(currRotation.x, currRotation.y, currRotation.z, currRotation.w));
+      if (shouldUpdatePosition(prevPosition, currPosition, positionNoiseThreshold)) agent.position$.next(new Vector3(currPosition.x, currPosition.y, currPosition.z));
+      if (shouldUpdateRotation(prevRotation, currRotation, rotationNoiseThreshold)) agent.rotation$.next(new Quaternion(currRotation.x, currRotation.y, currRotation.z, currRotation.w));
     });
 
   return agent;
 }
 
-function shouldUpdatePosition(prevPosition: Vector3Like | undefined, currPosition: Vector3Like | undefined, threshold: number): currPosition is Vector3Like {
+function shouldUpdatePosition(prevPosition: Vector3Like | undefined, currPosition: Vector3Like | undefined, threshold: TMeters): currPosition is Vector3Like {
   if (isNotDefined(currPosition)) return false;
   return isDefined(prevPosition) ? !isEqualOrSimilarVector3Like(currPosition, prevPosition, threshold) : true;
 }
 
-function shouldUpdateRotation(prevRotation: QuaternionLike | undefined, currRotation: QuaternionLike | undefined, threshold: number): currRotation is QuaternionLike {
+function shouldUpdateRotation(prevRotation: QuaternionLike | undefined, currRotation: QuaternionLike | undefined, threshold: TRadians): currRotation is QuaternionLike {
   if (isNotDefined(currRotation)) return false;
   return isDefined(prevRotation) ? !isEqualOrSimilarVector4Like(currRotation, prevRotation, threshold) : true;
 }
