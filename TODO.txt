@@ -1,22 +1,22 @@
 Done:
 - 3.x.x Physics
-- 3.4.x Collision detection
 - 3.5.x Kinematic movement
+- 4.x.x Collision detection
 
 To be done:
-- 4.x.x Complex models
-- 4.x.x Lines domain
-- 5.x.x Animations
-- 6.x.x Sounds/Music
-- 6.x.x GUI
-- 6.x.x Logging
-- 7.x.x Deletion (memory management)
-- 7.x.x Building app (desktop/mobile) (might be not a part of an engine)
-- 7.x.x Testing (screenshot tests)
-- 7.x.x Split apps and engine
-- 7.x.x npm package and a repo
-- 8.x.x Shaders
-- 9.x.x Save/Load
+- 5.x.x Complex models
+- 5.1.x Lines domain
+- 6.x.x Animations
+- 7.x.x Sounds/Music
+- 7.x.x GUI
+- 7.x.x Logging
+- 8.x.x Deletion (memory management)
+- 8.x.x Building app (desktop/mobile) (might be not a part of an engine)
+- 8.x.x Testing (screenshot tests)
+- 8.x.x Split apps and engine
+- 8.x.x npm package and a repo
+- 9.x.x Shaders
+- 10.x.x Save/Load
 
 Global Refactoring:
 - extract materials from actors, keep there an alias to a material to be able to reuse the same material
