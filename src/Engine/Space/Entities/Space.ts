@@ -55,13 +55,18 @@ export function Space(params: TSpaceParams, hooks?: TSpaceHooks): TSpace {
     return getCanvasContainer(canvas);
   }
 
+  function drop(): void {
+    space.destroy$.next();
+    canvas.remove();
+  }
+
   const space: TSpace = Object.assign(
     AbstractEntity(parts, EntityType.Space, {
       version,
       name,
       tags
     }),
-    { getCanvasElement, getContainer }
+    { getCanvasElement, getContainer, drop }
   );
 
   start$.pipe(skip(1), distinctUntilChanged()).subscribe((value: boolean): void => {

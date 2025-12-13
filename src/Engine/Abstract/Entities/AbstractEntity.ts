@@ -7,9 +7,7 @@ import type { TDestroyable, TNoSpread, TRegistrable, TWithNameAndNameAccessorsMi
 import { destroyableMixin, withNameAndNameAccessorsMixin } from '@/Engine/Mixins';
 import { genericEntityCleanUp, isDefined } from '@/Engine/Utils';
 
-// TODO 14-0-0: Implement whole scene destroy (reload the page or destroy the canvas or smth)
 // TODO 14-0-0: Validate canvasSelector strings (only allowed characters)
-// TODO 14-0-0: When destroying the space (canvas), make sure to unsubscribe all Observables and event listeners
 // TODO 14-0-0: Check destroy with Text
 // TODO 14-0-0: Check destroy with Physics
 // TODO 14-0-0: Check destroy with Collisions
