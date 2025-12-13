@@ -36,7 +36,7 @@
       "name": "actor_1",
       "type": "sphere",
       "radius": 1,
-      "material": { "type": "standard", "params": { "color": "#8E8E8E" } },
+      "material": { "type": "standard", "params": { "color": "#8EFEFE" } },
       "physics": {
         "presetName": "ball_physics",
         "shapeParams": {
@@ -56,7 +56,7 @@
       "depth": 1,
       "widthSegments": 1,
       "heightSegments": 1,
-      "material": { "type": "standard", "params": { "color": "#8E8E8E" } },
+      "material": { "type": "standard", "params": { "color": "#8FAA8F" } },
       "physics": {
         "presetName": "box_physics",
         "shapeParams": {
@@ -80,7 +80,7 @@
       "depth": 1,
       "widthSegments": 1,
       "heightSegments": 1,
-      "material": { "type": "standard", "params": { "color": "#8E8E8E" } },
+      "material": { "type": "standard", "params": { "color": "#FF8E8E" } },
       "physics": {
         "presetName": "box_physics",
         "shapeParams": {
@@ -100,7 +100,7 @@
       "name": "actor_4",
       "type": "sphere",
       "radius": 1,
-      "material": { "type": "standard", "params": { "color": "#8E8E8E" } },
+      "material": { "type": "standard", "params": { "color": "#8E8EFF" } },
       "physics": {
         "presetName": "ball_physics",
         "shapeParams": {
@@ -116,7 +116,7 @@
       "name": "actor_5",
       "type": "sphere",
       "radius": 1,
-      "material": { "type": "standard", "params": { "color": "#8E8E8E" } },
+      "material": { "type": "standard", "params": { "color": "#8EFF8E" } },
       "physics": {
         "presetName": "ball_physics",
         "shapeParams": {

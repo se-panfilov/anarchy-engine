@@ -32,6 +32,9 @@ export function createPhysicsBody(params: TPhysicsBodyParams, world: World): TPh
     const collider: Collider = world.createCollider(colliderDesc);
     return { rigidBody: undefined, rigidBodyDesc: undefined, colliderDesc, collider };
   } else {
+    if ((params as any).radius === 3) {
+      debugger;
+    }
     const rigidBodyDesc: RigidBodyDesc = RigidBodyDesc[params.type]();
     if (isDefined(params.position)) rigidBodyDesc.setTranslation(params.position.getX(), params.position.getY(), params.position.getZ());
     if (isDefined(params.rotation)) rigidBodyDesc.setRotation(params.rotation.getCoords());
