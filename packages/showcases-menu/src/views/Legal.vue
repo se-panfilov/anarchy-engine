@@ -12,7 +12,7 @@ import { AllowedLegalDocNames } from '@Showcases/Shared';
 import type { ShallowRef } from 'vue';
 import { onMounted } from 'vue';
 
-const { DISCLAIMER, EULA, NOTICE, SUPPORT, PRIVACY, SECURITY, INSTRUCTIONS, THIRD_PARTY_LICENSES } = AllowedLegalDocNames;
+const { DISCLAIMER, EULA, NOTICE, SUPPORT, PRIVACY, SECURITY, THIRD_PARTY_LICENSES } = AllowedLegalDocNames;
 const legalDocsStore = useLegalDocsStore();
 const settingsStore = useSettingsStore();
 
@@ -27,7 +27,6 @@ onMounted(() => {
   if (isNotDefined(legalDocsStore.state.PRIVACY)) eventsService.emitLoadLegalDocs({ name: PRIVACY, locale });
   if (isNotDefined(legalDocsStore.state.SUPPORT)) eventsService.emitLoadLegalDocs({ name: SUPPORT, locale });
   if (isNotDefined(legalDocsStore.state.SECURITY)) eventsService.emitLoadLegalDocs({ name: SECURITY, locale });
-  if (isNotDefined(legalDocsStore.state.INSTRUCTIONS)) eventsService.emitLoadLegalDocs({ name: INSTRUCTIONS, locale });
   if (isNotDefined(legalDocsStore.state.THIRD_PARTY_LICENSES)) eventsService.emitLoadLegalDocs({ name: THIRD_PARTY_LICENSES, locale });
 });
 
@@ -39,13 +38,12 @@ const viewTitleText: ShallowRef<string> = $t('main-menu.settings.legal.view.titl
 <template>
   <View class="legal" :title="viewTitleText">
     <ViewForm name="legal" class="legal__view-form">
-      <MdRenderer class="legal__renderer -EULA" :content="legalDocsStore.state.EULA" />
-      <MdRenderer class="legal__renderer -NOTICE" :content="legalDocsStore.state.NOTICE" />
       <MdRenderer class="legal__renderer -DISCLAIMER" :content="legalDocsStore.state.DISCLAIMER" />
+      <MdRenderer class="legal__renderer -EULA" :content="legalDocsStore.state.EULA" />
       <MdRenderer class="legal__renderer -PRIVACY" :content="legalDocsStore.state.PRIVACY" />
+      <MdRenderer class="legal__renderer -NOTICE" :content="legalDocsStore.state.NOTICE" />
       <MdRenderer class="legal__renderer -SUPPORT" :content="legalDocsStore.state.SUPPORT" />
       <MdRenderer class="legal__renderer -SECURITY" :content="legalDocsStore.state.SECURITY" />
-      <MdRenderer class="legal__renderer -INSTRUCTIONS" :content="legalDocsStore.state.INSTRUCTIONS" />
       <MdRenderer class="legal__renderer -THIRD_PARTY_LICENSES" :content="legalDocsStore.state.THIRD_PARTY_LICENSES" />
       <Navigation class="settings__navigation" :back-btn="true" />
     </ViewForm>
