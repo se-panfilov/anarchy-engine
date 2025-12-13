@@ -287,10 +287,7 @@ export function validateEntityAsyncRegistryReturnsOriginalObjects<T extends TReg
 }
 
 // TODO CWP
-// TODO 12-0-0: Test async registries
-// TODO 12-0-0: Fix all failing methods
-// TODO 12-0-0: Maybe add by a test suit to every registry in the project
-// TODO 12-0-0: make sure things are working in a showcase
+// TODO 12-0-0: Add a test with adding, modifying entity from constant and check if changes appears in a registry
 // TODO 12-0-0: Add an option to skip the adding entity to the registry
 
 export function createMockEntity(): TRegistrable {

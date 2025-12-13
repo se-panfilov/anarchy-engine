@@ -19,4 +19,5 @@ registry.removeByModel3d = (model3d: TModel3d): void => registry.remove(model3d.
 // eslint-disable-next-line functional/immutable-data
 registry.getAll = (): Record<string, string> => Object.fromEntries(registry.registry.entries());
 
+// TODO 12-0-0: Add a test for this registry (for extended methods)
 export const Model3dToActorConnectionRegistry = (): TModel3dToActorConnectionRegistry => RegistryFacade(registry);
