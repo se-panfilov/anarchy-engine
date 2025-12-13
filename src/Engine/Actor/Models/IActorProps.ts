@@ -1,7 +1,6 @@
 import type { ActorType } from '@/Engine/Actor/Constants';
-import type { IMaterialPackProps } from '@/Engine/Material';
+import type { IMaterialPackProps, IMaterialTexturePack } from '@/Engine/MaterialTexturePack';
 import type { IWithName } from '@/Engine/Mixins';
-import type { IMaterialTexturePack } from '@/Engine/Texture';
 
 export type IActorProps = Readonly<{
   type: ActorType;

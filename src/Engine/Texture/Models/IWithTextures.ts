@@ -1,8 +1,6 @@
 import type { Material } from 'three';
 
-import type { IMaterialPackProps } from '@/Engine/Material';
-
-import type { IMaterialTexturePack } from './IMaterialTexturePack';
+import type { IMaterialPackProps, IMaterialTexturePack } from '@/Engine/MaterialTexturePack';
 
 export type IWithTextures = Readonly<{
   loadAndApplyMaterialTexturePack: (pack: IMaterialPackProps<IMaterialTexturePack>) => Promise<Material>;

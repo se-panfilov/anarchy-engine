@@ -1,8 +1,9 @@
 import type { Material } from 'three';
 
-import type { IMaterialPackProps, IMaterialService, IWithMaterial } from '@/Engine/Material';
+import type { IMaterialService, IWithMaterial } from '@/Engine/Material';
+import type { IMaterialPackProps, IMaterialTexturePack } from '@/Engine/MaterialTexturePack';
 import { textureService } from '@/Engine/Texture';
-import type { IMaterialTexturePack, ITextureUploaded, IWithTextures } from '@/Engine/Texture/Models';
+import type { ITextureUploaded, IWithTextures } from '@/Engine/Texture/Models';
 
 export function withTextures<T extends IWithMaterial>(entity: T, materialService: IMaterialService): IWithTextures {
   function loadAndApplyMaterialTexturePack(pack: IMaterialPackProps<IMaterialTexturePack>): Promise<Material> {

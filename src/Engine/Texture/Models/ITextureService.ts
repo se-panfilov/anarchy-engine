@@ -1,17 +1,17 @@
-import type { IMaterialPackProps } from '@/Engine/Material/Models';
-
 import type {
   IBasicMaterialTexturePack,
   IDepthMaterialTexturePack,
   IDistanceMaterialTexturePack,
   ILambertMaterialTexturePack,
   IMatcapMaterialTexturePack,
+  IMaterialPackProps,
   INormalMaterialTexturePack,
   IPhongMaterialTexturePack,
   IPhysicalMaterialTexturePack,
   IStandardMaterialTexturePack,
   IToonMaterialTexturePack
-} from './IMaterialTexturePack';
+} from '@/Engine/MaterialTexturePack/Models';
+
 import type {
   IBasicTextureUploadPromises,
   IDepthTextureUploadPromises,

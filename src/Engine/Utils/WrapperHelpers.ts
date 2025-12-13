@@ -2,22 +2,22 @@ import type { Material } from 'three';
 import type { CSS2DObject } from 'three/examples/jsm/renderers/CSS2DRenderer';
 
 import type { IEulerWrapper } from '@/Engine/Euler';
-import type { IMaterialPackProps } from '@/Engine/Material';
-import type { IMovable3dXYZ, IRotatable, IScalable, IWithObject3d } from '@/Engine/Mixins';
 import type {
   IBasicMaterialTexturePack,
   IDepthMaterialTexturePack,
   IDistanceMaterialTexturePack,
   ILambertMaterialTexturePack,
   IMatcapMaterialTexturePack,
+  IMaterialPackProps,
   IMaterialTexturePack,
   INormalMaterialTexturePack,
   IPhongMaterialTexturePack,
   IPhysicalMaterialTexturePack,
   IStandardMaterialTexturePack,
-  IToonMaterialTexturePack,
-  IWithTextures
-} from '@/Engine/Texture';
+  IToonMaterialTexturePack
+} from '@/Engine/MaterialTexturePack';
+import type { IMovable3dXYZ, IRotatable, IScalable, IWithObject3d } from '@/Engine/Mixins';
+import type { IWithTextures } from '@/Engine/Texture';
 import type { IObject3DParams } from '@/Engine/ThreeLib';
 import { isDefined } from '@/Engine/Utils/index';
 import type { IVector2Wrapper, IVector3Wrapper } from '@/Engine/Vector';
