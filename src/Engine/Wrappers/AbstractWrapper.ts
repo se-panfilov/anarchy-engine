@@ -4,11 +4,11 @@ import type { ReactiveWrapper } from '@Engine/Models';
 
 export function AbstractWrapper<T>(entity: T): ReactiveWrapper<T> {
   const id: string = nanoid();
-  const destroyed$ = new Subject<void>();
+  const destroy$ = new Subject<void>();
 
-  destroyed$.subscribe(() => {
-    destroyed$.unsubscribe();
-    destroyed$.complete();
+  destroy$.subscribe(() => {
+    destroy$.unsubscribe();
+    destroy$.complete();
   });
 
   return {
@@ -18,8 +18,8 @@ export function AbstractWrapper<T>(entity: T): ReactiveWrapper<T> {
     get entity(): T {
       return entity;
     },
-    get destroyed$(): Subject<void> {
-      return destroyed$;
+    get destroy$(): Subject<void> {
+      return destroy$;
     }
   };
 }

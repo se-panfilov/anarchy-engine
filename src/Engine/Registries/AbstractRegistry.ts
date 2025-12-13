@@ -9,7 +9,7 @@ export function AbstractRegistry<T extends ReactiveWrapper<unknown>>(): Registry
   const replace$: Subject<T> = new Subject<T>();
   const get$: Subject<string> = new Subject<string>();
   const remove$: Subject<string> = new Subject<string>();
-  const destroyed$: Subject<void> = new Subject<void>();
+  const destroy$: Subject<void> = new Subject<void>();
 
   const registry: Map<string, T> = new Map();
 
@@ -35,12 +35,12 @@ export function AbstractRegistry<T extends ReactiveWrapper<unknown>>(): Registry
     registry.delete(id);
   });
 
-  destroyed$.subscribe(() => {
+  destroy$.subscribe(() => {
     add$.complete();
     replace$.complete();
     get$.complete();
     remove$.complete();
-    destroyed$.complete();
+    destroy$.complete();
     registry.clear();
   });
 
@@ -60,8 +60,8 @@ export function AbstractRegistry<T extends ReactiveWrapper<unknown>>(): Registry
     get remove$(): Subject<string> {
       return remove$;
     },
-    get destroyed$(): Subject<void> {
-      return destroyed$;
+    get destroy$(): Subject<void> {
+      return destroy$;
     }
   };
 }

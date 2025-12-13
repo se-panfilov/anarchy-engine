@@ -25,12 +25,12 @@ export function RendererWrapper({ canvas }: RendererParams): IRendererWrapper {
     entity.setPixelRatio(Math.min(ratio, 2));
   });
 
-  deviceWatcher.destroyed$.subscribe(() => deviceWatcher.value$.unsubscribe());
+  deviceWatcher.destroy$.subscribe(() => deviceWatcher.value$.unsubscribe());
 
   const wrapper = AbstractWrapper(entity);
-  wrapper.destroyed$.subscribe(() => {
+  wrapper.destroy$.subscribe(() => {
     deviceWatcher.value$.unsubscribe();
-    wrapper.destroyed$.unsubscribe();
+    wrapper.destroy$.unsubscribe();
   });
 
   return { ...wrapper, entity };

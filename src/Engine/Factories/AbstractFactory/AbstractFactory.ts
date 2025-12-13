@@ -14,7 +14,7 @@ export function AbstractFactory<T extends ReactiveWrapper<ENT>, ENT, PRMS, C ext
   const latest$: Subject<T> = new Subject<T>();
   const create$: Subject<PRMS> = new Subject<PRMS>();
   const createFromConfig$: Subject<C> = new Subject<C>();
-  const destroyed$: Subject<void> = new Subject<void>();
+  const destroy$: Subject<void> = new Subject<void>();
 
   create$.subscribe((params: PRMS): void => latest$.next(create(params)));
 
@@ -24,13 +24,13 @@ export function AbstractFactory<T extends ReactiveWrapper<ENT>, ENT, PRMS, C ext
     create$.next(adapterFn(config));
   });
 
-  destroyed$.subscribe(() => {
+  destroy$.subscribe(() => {
     create$.unsubscribe();
     create$.complete();
     createFromConfig$.unsubscribe();
     createFromConfig$.complete();
     latest$.complete();
-    destroyed$.complete();
+    destroy$.complete();
   });
 
   return {
@@ -49,8 +49,8 @@ export function AbstractFactory<T extends ReactiveWrapper<ENT>, ENT, PRMS, C ext
     get createFromConfig$(): Subject<C> {
       return createFromConfig$;
     },
-    get destroyed$(): Subject<void> {
-      return destroyed$;
+    get destroy$(): Subject<void> {
+      return destroy$;
     }
   };
 }

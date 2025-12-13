@@ -1,5 +1,5 @@
 export * from './AbstractWrapper';
-export * from './ActorWrapper';
+export * from './ActorWrapper/ActorWrapper';
 export * from './CameraWrapper';
 export * from './ControlsWrapper';
 export * from './InputWrapper';

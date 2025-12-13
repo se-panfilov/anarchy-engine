@@ -7,5 +7,5 @@ export interface Registry<T extends ReactiveWrapper<unknown>> {
   readonly replace$: Subject<T>;
   readonly get$: Subject<string>;
   readonly remove$: Subject<string>;
-  readonly destroyed$: Subject<void>;
+  readonly destroy$: Subject<void>;
 }

@@ -8,5 +8,5 @@ export interface Factory<T extends ReactiveWrapper<ENT>, ENT, PRMS, C extends Ab
   readonly latest$: Subject<T>;
   readonly create$: Subject<PRMS>;
   readonly createFromConfig$: Subject<C>;
-  readonly destroyed$: Subject<void>;
+  readonly destroy$: Subject<void>;
 }
