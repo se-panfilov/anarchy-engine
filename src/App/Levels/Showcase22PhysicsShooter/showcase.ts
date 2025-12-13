@@ -147,7 +147,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
       updateBullets(bullets, delta.delta);
       // TODO this should be updated only if coords or angle are changed
       if (isDefined(mouseLineIntersections.point)) {
-        const heroCoords: Vector3 = hero.drive.getPosition();
+        const heroCoords: Vector3 = hero.drive.position$.value;
         // TODO could make some use of mouseLineIntersectionsWatcher.latest$ instead of mouseLineIntersections
         line.geometry.setPositions([heroCoords.x, heroCoords.y, heroCoords.z, mouseLineIntersections.point.x, mouseLineIntersections.point.y, mouseLineIntersections.point.z]);
         line.computeLineDistances();

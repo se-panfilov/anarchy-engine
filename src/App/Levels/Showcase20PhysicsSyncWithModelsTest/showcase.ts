@@ -31,7 +31,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     actor2.drive.physical.physicsBody$.value?.getRigidBody()?.addTorque({ x: -0.5, y: -0.01, z: 0.05 }, true);
     actor3.drive.physical.physicsBody$.value?.getRigidBody()?.addTorque({ x: 0.01, y: 5, z: -0.05 }, true);
 
-    const actor1Position: Vector3 = actor1.drive.getPosition();
+    const actor1Position: Vector3 = actor1.drive.position$.value;
     cameraW.lookAt(actor1Position);
     cameraW.drive.default.setY(actor1Position.y);
 
@@ -40,7 +40,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     loopService.tick$.subscribe(() => {
       // TODO CWP: 8.0.0. MODELS: Perhaps, "applyImpulse" (and similar functions) should be available via physical drive
       actor3.drive.physical.physicsBody$.value?.getRigidBody()?.setAngvel({ x: 0, y: 3, z: 1 }, true);
-      cameraW.drive.default.setY(actor1.drive.getPosition().y);
+      cameraW.drive.default.setY(actor1.drive.position$.value.y);
     });
   }
 

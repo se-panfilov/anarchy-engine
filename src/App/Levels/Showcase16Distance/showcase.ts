@@ -36,7 +36,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     let isMove: boolean = false;
     let isTimerStarted: boolean = false;
 
-    const sphereCoords: Vector3 = sphere.drive.getPosition();
+    const sphereCoords: Vector3 = sphere.drive.position$.value;
     sphere.drive.position$.subscribe((position: Vector3): Vector3 => sphereCoords.copy(position));
     gui.add(sphereCoords, 'x').listen();
     gui.add(sphereCoords, 'y').listen();
@@ -48,7 +48,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
         if (!isMove) isMove = true;
       } else {
         if (sphere.drive.getActiveAgent().type !== TransformAgent.Kinematic) sphere.drive.agent$.next(TransformAgent.Kinematic);
-        const position: Vector3 = sphere.drive.getPosition().add(new Vector3(0, 0, meters(-100)));
+        const position: Vector3 = sphere.drive.position$.value.add(new Vector3(0, 0, meters(-100)));
         sphere.drive.kinematic.moveTo(position, speed);
         console.time('move');
       }
@@ -71,7 +71,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
       }
 
       if (isMove) {
-        sphere.drive.default.setZ(sphere.drive.getPosition().z - mpsSpeed(speed, delta));
+        sphere.drive.default.setZ(sphere.drive.position$.value.z - mpsSpeed(speed, delta));
       }
     });
   }

@@ -232,7 +232,7 @@ function moveActorTo(actor: TActor, position: Vector3, agent: TransformAgent, is
   if (isTeleportationMode) return actor.drive.position$.next(position);
 
   let forcePower: number = 1;
-  const azimuth: TRadians = getMouseAzimuthAndElevation(position, actor.drive.getPosition()).azimuth;
+  const azimuth: TRadians = getMouseAzimuthAndElevation(position, actor.drive.position$.value).azimuth;
 
   switch (agent) {
     case TransformAgent.Default:
@@ -240,7 +240,7 @@ function moveActorTo(actor: TActor, position: Vector3, agent: TransformAgent, is
     case TransformAgent.Kinematic:
       // return actor.drive.kinematic.setLinearSpeed(metersPerSecond(5));
       // return actor.drive.kinematic.moveTo(position, KinematicSpeed.Instant);
-      // actor.drive.kinematic.setLinearAzimuth(getHorizontalAzimuth(actor.drive.getPosition().x, actor.drive.getPosition().z, position));
+      // actor.drive.kinematic.setLinearAzimuth(getHorizontalAzimuth(actor.drive.position$.value.x, actor.drive.position$.value.z, position));
 
       // actor.drive.kinematic.setLinearAzimuth(getAzimuthElevationFromVector(position, 'Z').azimuth);
       // actor.drive.kinematic.setLinearElevation(degToRad(45));
@@ -250,7 +250,7 @@ function moveActorTo(actor: TActor, position: Vector3, agent: TransformAgent, is
       // no need to do anything here, cause already connected
       return undefined;
     case TransformAgent.Physical:
-      forcePower = getDistance(actor.drive.getPosition(), position);
+      forcePower = getDistance(actor.drive.position$.value, position);
       actor.drive.physical.physicsBody$.value?.getRigidBody()?.applyImpulse(getPushCoordsFrom3dAzimuth(azimuth, radians(0), forcePower * 1.5, ForwardAxis.Z), true);
       return undefined;
     default:

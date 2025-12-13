@@ -46,7 +46,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     loopService.tick$.subscribe(({ elapsedTime }: TLoopTimes): void => {
       actor.drive.default.setX(Math.sin(elapsedTime) * 8);
       actor.drive.default.setZ(Math.cos(elapsedTime) * 8);
-      // actor.drive.position$.next(new Vector3(Math.sin(elapsedTime) * 8, actor.drive.getPosition().y, Math.cos(elapsedTime) * 8));
+      // actor.drive.position$.next(new Vector3(Math.sin(elapsedTime) * 8, actor.drive.position$.value.y, Math.cos(elapsedTime) * 8));
     });
   }
 

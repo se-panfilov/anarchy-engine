@@ -1,7 +1,7 @@
 import type { BehaviorSubject, ReplaySubject } from 'rxjs';
-import type { Quaternion, Vector3 } from 'three';
 
 import type { TDestroyable, TWithId } from '@/Engine/Mixins';
+import type { TReadonlyQuaternion, TReadonlyVector3 } from '@/Engine/ThreeLib';
 import type { TransformAgent } from '@/Engine/TransformDrive/Constants';
 
 import type { TAbstractTransformAgent } from './TAbstractTransformAgent';
@@ -13,11 +13,8 @@ export type TTransformDriveMandatoryFields = Readonly<{
   agent$: BehaviorSubject<TransformAgent>;
   activeAgent$: ReplaySubject<TProtectedTransformAgentFacade<TAbstractTransformAgent>>;
   getActiveAgent: () => TProtectedTransformAgentFacade<TAbstractTransformAgent>;
-  position$: ReplaySubject<Vector3>;
-  getPosition: () => Vector3;
-  rotation$: ReplaySubject<Quaternion>;
-  getRotation: () => Quaternion;
-  scale$: ReplaySubject<Vector3>;
-  getScale: () => Vector3;
+  position$: BehaviorSubject<TReadonlyVector3>;
+  rotation$: BehaviorSubject<TReadonlyQuaternion>;
+  scale$: BehaviorSubject<TReadonlyVector3>;
 }> &
   TWithId;

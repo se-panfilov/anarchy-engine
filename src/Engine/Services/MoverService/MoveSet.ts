@@ -39,7 +39,7 @@ export const byPathMove: TMoveByPathFn = ({ obj, path, animationParams, complete
 export const followTarget: TFollowTargetFn = ({ obj, target, offset }: TFollowTargetParams): TMoveableByTick => {
   return {
     tick: (): void => {
-      const position: Vector3 = (target as unknown as TWithTransformDrive<TWithDefaultTransformAgent>).drive.getPosition();
+      const position: Vector3 = (target as unknown as TWithTransformDrive<TWithDefaultTransformAgent>).drive.position$.value;
       // eslint-disable-next-line functional/immutable-data
       obj.drive.connected.positionConnector.x = position.x + (offset?.x ?? 0);
       // eslint-disable-next-line functional/immutable-data

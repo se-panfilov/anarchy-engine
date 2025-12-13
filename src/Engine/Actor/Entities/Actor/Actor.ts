@@ -27,8 +27,6 @@ export function Actor(
   const driveToTargetConnector: TDriveToTargetConnector = DriveToTargetConnector(drive, model3d.getRawModel3d(), params.model3dSettings);
 
   // TODO CWP:
-  // TODO 8.0.0. MODELS: Check if ReplaySubject is a really good solution for position$ and rotation$
-
   // TODO 8.0.0. MODELS: close all issues (todoes) with tag 8.0.0
   // TODO 8.0.0. MODELS: make sure animations are working with actors & models
 

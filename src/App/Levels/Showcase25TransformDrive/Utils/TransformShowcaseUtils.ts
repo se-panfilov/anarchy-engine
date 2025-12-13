@@ -78,7 +78,7 @@ export function createActor(
 }
 
 export function createRepeaterActor(actor: TActor, model3d: TModel3d, offset: Vector3Like, grid: TSpatialGridWrapper, gui: GUI, services: TSpaceServices, color: string = '#1ebae9'): void {
-  const repeaterActor: TActor = createActor('repeater', model3d, TransformAgent.Connected, grid, actor.drive.getPosition().clone().add(offset), color, undefined, services);
+  const repeaterActor: TActor = createActor('repeater', model3d, TransformAgent.Connected, grid, actor.drive.position$.value.clone().add(offset), color, undefined, services);
 
   //"repeaterActor" is connected with "positionConnector" (from "connected" agent) to "sphereActor" position
   attachConnectorPositionToSubj(repeaterActor, actor.drive.position$, offset);
