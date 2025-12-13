@@ -13,6 +13,20 @@ import { isNotDefined } from '@Engine/Utils';
 import { RendererManager } from '@Engine/Managers/RendererManager';
 import type { OrthographicCamera } from 'three/src/cameras/OrthographicCamera';
 
+// TODO (S.Panfilov) flow
+// create actors
+// create scene
+// add actors to scene
+// create camera
+// add camera to scene
+// watch device resize
+// create renderer
+// create controls (needs camera, renderer)
+// create mouse pointer
+// create intersection pointer (mouse pointer, camera, scene)
+// listen clicks by intersection pointer
+// start loop (renderer, scene, camera)
+
 const deviceWatcher = new DeviceWatcher({
   width: window.innerWidth,
   height: window.innerHeight,
