@@ -1,6 +1,8 @@
 import type { TAbstractService, TRegistryPack } from '@Anarchy/Engine/Abstract';
 import { AbstractEntity, EntityType } from '@Anarchy/Engine/Abstract';
+import { ambientContext } from '@Anarchy/Engine/Context';
 import type { TContainerDecorator } from '@Anarchy/Engine/Global';
+import { getCanvasContainer } from '@Anarchy/Engine/Global';
 import type { TAnyIntersectionsWatcher } from '@Anarchy/Engine/Intersections';
 import type { TLoop } from '@Anarchy/Engine/Loop';
 import type { TMouseClickWatcher, TMousePositionWatcher } from '@Anarchy/Engine/Mouse';
@@ -21,7 +23,7 @@ import type {
   TSpaceSettings
 } from '@Anarchy/Engine/Space/Models';
 import { buildBaseServices, buildEntitiesServices, createEntities, createLoops } from '@Anarchy/Engine/Space/Utils';
-import { findDomElement, getCanvasContainer, getOrCreateCanvasFromSelector, isCanvasElement, isDestroyable, mergeAll } from '@Anarchy/Engine/Utils';
+import { findDomElement, getOrCreateCanvasFromSelector, isCanvasElement, isDestroyable, mergeAll } from '@Anarchy/Engine/Utils';
 import { isDefined, isNotDefined } from '@Anarchy/Shared/Utils';
 import type { Subscription } from 'rxjs';
 import { BehaviorSubject, distinctUntilChanged, filter, skip, Subject } from 'rxjs';
@@ -33,7 +35,7 @@ export function Space(params: TSpaceParams, registry: TSpaceRegistry, settings?:
   const events$: Subject<TSpaceAnyEvent> = new Subject<TSpaceAnyEvent>();
   const serializationInProgress$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
-  const canvas: TSpaceCanvas = getOrCreateCanvasFromSelector(canvasSelector);
+  const canvas: TSpaceCanvas = getOrCreateCanvasFromSelector(ambientContext, canvasSelector);
   const container: TContainerDecorator = getCanvasContainer(canvas);
 
   const { services, loops } = initSpaceServices(canvas, container, params, settings, events$);
@@ -59,7 +61,7 @@ export function Space(params: TSpaceParams, registry: TSpaceRegistry, settings?:
   };
 
   function getCanvasElement(): TSpaceCanvas | never {
-    const result: HTMLElement | TSpaceCanvas | null = findDomElement(canvasSelector);
+    const result: HTMLElement | TSpaceCanvas | null = findDomElement(ambientContext, canvasSelector);
     if (isNotDefined(result)) throw new Error(`Space: Can't find canvas element: ${result}`);
     if (!isCanvasElement(result)) throw new Error(`Space: Element (${result}) is found, but it isn't a canvas`);
     return result;

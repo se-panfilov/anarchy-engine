@@ -1,16 +1,15 @@
-import { ambientContext } from '@Anarchy/Engine/Context';
+import type { TAmbientContext } from '@Anarchy/Engine/Context';
 import type { TAppGlobalContainer, TContainerDecorator } from '@Anarchy/Engine/Global';
-import { ContainerDecorator } from '@Anarchy/Engine/Global/Decorators';
 import { isDefined, isNotDefined } from '@Anarchy/Shared/Utils';
 import type { Subscriber } from 'rxjs';
 import { distinctUntilChanged, fromEvent, map, merge, Observable, startWith } from 'rxjs';
 
-export function findDomElement(canvasSelector: string): HTMLElement | null {
+export function findDomElement(ambientContext: TAmbientContext, canvasSelector: string): HTMLElement | null {
   const appContainer: TAppGlobalContainer = ambientContext.globalContainer.getAppContainer();
   return appContainer.document.querySelector(canvasSelector);
 }
 
-export function createDomElement(tagName: string, parent?: HTMLElement | undefined, classes?: ReadonlyArray<string>, id?: string, style?: string): HTMLElement {
+export function createDomElement(ambientContext: TAmbientContext, tagName: string, parent?: HTMLElement | undefined, classes?: ReadonlyArray<string>, id?: string, style?: string): HTMLElement {
   const appContainer: TAppGlobalContainer = ambientContext.globalContainer.getAppContainer();
   const element: HTMLElement = appContainer.document.createElement(tagName);
 
@@ -27,7 +26,7 @@ export function isCanvasElement(element: HTMLElement | unknown): element is HTML
   return element instanceof HTMLCanvasElement;
 }
 
-export function getOrCreateCanvasFromSelector(fullSelector: string): HTMLCanvasElement {
+export function getOrCreateCanvasFromSelector(ambientContext: TAmbientContext, fullSelector: string): HTMLCanvasElement {
   const trimmed: string = fullSelector.trim();
   if (!trimmed) throw new Error('Canvas selector must not be empty');
 
@@ -45,7 +44,7 @@ export function getOrCreateCanvasFromSelector(fullSelector: string): HTMLCanvasE
 
   const id: string = getIdFromSelector(canvasSelector);
   const classes: ReadonlyArray<string> = [];
-  canvas = createDomElement('canvas', undefined, classes, id) as HTMLCanvasElement;
+  canvas = createDomElement(ambientContext, 'canvas', undefined, classes, id) as HTMLCanvasElement;
   parent.appendChild(canvas);
 
   return canvas;
@@ -62,12 +61,6 @@ export function getWindowFromDomElement(element: HTMLElement | Window): TAppGlob
   if (typeof window === 'undefined') return null;
   if (element === window) return window;
   return (element as Element).ownerDocument.defaultView;
-}
-
-export function getCanvasContainer(canvas: HTMLCanvasElement): TContainerDecorator | never {
-  const parent: HTMLElement | null = canvas.parentElement;
-  if (isNotDefined(parent)) throw new Error(`Can't find canvas' parent element`);
-  return ContainerDecorator(parent);
 }
 
 export function isAppGlobalContainer(container: TAppGlobalContainer | TContainerDecorator | HTMLElement): container is TAppGlobalContainer {
@@ -135,7 +128,7 @@ export function observeResize(
   };
 }
 
-export function injectStyle(css: string, id: string): void {
+export function injectStyle(ambientContext: TAmbientContext, css: string, id: string): void {
   if (document.getElementById(id)) return;
 
   const tag: HTMLStyleElement = document.createElement('style');

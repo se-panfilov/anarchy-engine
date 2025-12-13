@@ -1,5 +1,6 @@
 import type { TAbstractService, TRegistryPack } from '@Anarchy/Engine/Abstract';
 import { AbstractService } from '@Anarchy/Engine/Abstract';
+import { ambientContext } from '@Anarchy/Engine/Context';
 import type { TContainerDecorator } from '@Anarchy/Engine/Global';
 import type { TDisposable } from '@Anarchy/Engine/Mixins';
 import { withCreateFromConfigServiceMixin, withCreateServiceMixin, withFactoryService, withSceneGetterService } from '@Anarchy/Engine/Mixins';
@@ -92,7 +93,7 @@ export function TextService(
   });
 
   return mergeAll(abstractService, withCreateService, withCreateFromConfigService, withFactory, withSceneGetterService(scene), {
-    injectStyle: (): void => injectStyle(styles, 'anarchy-engine-text-styles'),
+    injectStyle: (): void => injectStyle(ambientContext, styles, 'anarchy-engine-text-styles'),
     createText2dRenderer,
     createText3dRenderer,
     setTextTranslationService,
