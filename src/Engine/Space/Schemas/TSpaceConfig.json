@@ -4633,8 +4633,7 @@
         "referencePosition": {
           "$ref": "#/definitions/Vector3Like"
         }
-      },
-      "required": ["referencePosition"]
+      }
     },
     "TNormalMaterialConfigOptions": {
       "type": "object",
@@ -4811,8 +4810,7 @@
         "normalScale": {
           "$ref": "#/definitions/Vector2Like"
         }
-      },
-      "required": ["normalScale"]
+      }
     },
     "TMatcapMaterialConfigOptions": {
       "type": "object",
@@ -4992,8 +4990,7 @@
         "normalScale": {
           "$ref": "#/definitions/Vector2Like"
         }
-      },
-      "required": ["normalScale"]
+      }
     },
     "TLambertMaterialConfigOptions": {
       "type": "object",
@@ -5203,8 +5200,7 @@
         "normalScale": {
           "$ref": "#/definitions/Vector2Like"
         }
-      },
-      "required": ["normalScale"]
+      }
     },
     "TPhongMaterialConfigOptions": {
       "type": "object",
@@ -5420,8 +5416,7 @@
         "normalScale": {
           "$ref": "#/definitions/Vector2Like"
         }
-      },
-      "required": ["normalScale"]
+      }
     },
     "TToonMaterialConfigOptions": {
       "type": "object",
@@ -5622,8 +5617,7 @@
         "normalScale": {
           "$ref": "#/definitions/Vector2Like"
         }
-      },
-      "required": ["normalScale"]
+      }
     },
     "TStandardMaterialConfigOptions": {
       "type": "object",
@@ -5830,8 +5824,7 @@
         "normalScale": {
           "$ref": "#/definitions/Vector2Like"
         }
-      },
-      "required": ["normalScale"]
+      }
     },
     "TPhysicalMaterialConfigOptions": {
       "type": "object",
