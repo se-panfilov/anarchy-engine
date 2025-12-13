@@ -8,20 +8,21 @@ const PARAMS = {
   theme: 'dark'
 };
 
-pane.addInput(PARAMS, 'factor');
-pane.addInput(PARAMS, 'title');
-pane.addInput(PARAMS, 'color');
+pane.addBinding(PARAMS, 'factor');
+pane.addBinding(PARAMS, 'title');
+pane.addBinding(PARAMS, 'color');
 
 const f = pane.addFolder({
   title: 'Title',
   expanded: true
 });
 
-f.addInput(PARAMS, 'percentage', { min: 0, max: 100, step: 10 });
-f.addInput(PARAMS, 'theme', { options: { Dark: 'dark', Light: 'light' } });
+f.addBinding(PARAMS, 'percentage', { min: 0, max: 100, step: 10 });
+f.addBinding(PARAMS, 'theme', { options: { Dark: 'dark', Light: 'light' } });
 
-pane.addMonitor(PARAMS, 'percentage', {
+pane.addBinding(PARAMS, 'percentage', {
   view: 'graph',
   min: 0,
-  max: 100
+  max: 100,
+  readonly: true
 });
