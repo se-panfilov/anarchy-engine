@@ -8,10 +8,11 @@
         "name": "actor_1",
         "physics": {
           "collisionShape": "ball",
-          "type": "dynamic",
+          "name": "actor_1_physics",
           "shapeParams": {
             "radius": 1
-          }
+          },
+          "type": "dynamic"
         },
         "position": {
           "x": 0,
@@ -29,12 +30,12 @@
         "name": "actor_2",
         "physics": {
           "collisionShape": "cuboid",
-          "type": "dynamic",
           "shapeParams": {
             "hx": 0.5,
             "hy": 2,
             "hz": 0.5
-          }
+          },
+          "type": "dynamic"
         },
         "position": {
           "x": -4,
@@ -57,12 +58,12 @@
         "name": "actor_3",
         "physics": {
           "collisionShape": "cuboid",
-          "type": "dynamic",
           "shapeParams": {
             "hx": 0.5,
             "hy": 2,
             "hz": 0.5
-          }
+          },
+          "type": "dynamic"
         },
         "position": {
           "x": 4,

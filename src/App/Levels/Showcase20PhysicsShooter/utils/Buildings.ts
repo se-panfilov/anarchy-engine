@@ -46,6 +46,7 @@ export function buildTower(
       model3dSource: model3d,
       agent: TransformAgent.Physical,
       physics: {
+        name: `block_physics_${block.position.x}_${block.position.y}_${block.position.z}_model3d`,
         type: RigidBodyTypesNames.Dynamic,
         collisionShape: CollisionShape.Cuboid,
         mass: 1,

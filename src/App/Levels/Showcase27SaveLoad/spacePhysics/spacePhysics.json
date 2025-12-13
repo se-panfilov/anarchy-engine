@@ -8,6 +8,7 @@
         "name": "surface_actor",
         "physics": {
           "collisionShape": "cuboid",
+          "name": "surface_actor_physics",
           "shapeParams": {
             "hx": 50,
             "hy": 50,
@@ -36,6 +37,7 @@
         "name": "cube_1_actor",
         "physics": {
           "collisionShape": "cuboid",
+          "name": "cube_1_physics",
           "restitution": 0.1,
           "shapeParams": {
             "hx": 2,
@@ -65,6 +67,7 @@
         "name": "cube_2_actor",
         "physics": {
           "collisionShape": "cuboid",
+          "name": "cube_2_physics",
           "restitution": 0.1,
           "shapeParams": {
             "hx": 2,

@@ -127,6 +127,7 @@ export async function showcase(space: TSpace): Promise<void> {
 
   const actorCoords = new Vector3(0, actorsOffsetY, 0);
   const sphereActorPhysics: TPhysicsBodyParams = {
+    name: 'sphere_actor_physics',
     collisionShape: CollisionShape.Ball,
     type: RigidBodyTypesNames.Dynamic,
     shapeParams: {

@@ -8,6 +8,7 @@
         "name": "surface_actor",
         "physics": {
           "collisionShape": "cuboid",
+          "name": "surface_physics",
           "shapeParams": {
             "hx": 10,
             "hy": 10,
