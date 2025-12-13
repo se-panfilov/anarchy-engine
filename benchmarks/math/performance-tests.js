@@ -3,14 +3,16 @@ import Benchmark from 'benchmark';
 import Big from 'big.js';
 import BigNumber from 'bignumber.js';
 import Decimal from 'decimal.js';
-import { all, create } from 'mathjs';
+import { all, create, number } from 'mathjs';
 import { glMatrix, vec3 } from 'gl-matrix';
 
 //Install: npm install benchmark big.js mathjs bignumber.js decimal.js gl-matrix
 
 const math = create(all);
 
-const PI_STR = '3.1415926535897932384626433832795028841971693993751058209749445923078164062862089986280348253421170679';
+// const PI_STR = '3.1415926535897932384626433832795028841971693993751058209749445923078164062862089986280348253421170679';
+const PI_STR =
+  '3.14159265358979323846264338327950288419716939937510582097494459230781640628620899862803482534211706798214808651328230664709384460955058223172535940812848111745028410270193852110555964462294895493038196442881097566593344612847564823378678316527120190914564856692346034861045432664821339360726024914127372458700660631558817488152092096282925409171536436789259036001133053054882046652138414695194151160943305727036575959195309218611738193261179310511854807446237996274956735188575272489122793818301194912';
 const PI_BIG = new Big(PI_STR);
 const PI_BIGNUMBER = new BigNumber(PI_STR);
 const PI_DECIMAL = new Decimal(PI_STR);
@@ -76,7 +78,7 @@ function sinNativeDecimal(value) {
 }
 
 function degToRad(degrees) {
-  return degrees * (Math.PI / 180);
+  return degrees * (number(PI_STR) / 180);
 }
 
 function sinGlMatrix(degrees) {
@@ -85,6 +87,16 @@ function sinGlMatrix(degrees) {
 }
 
 function cosGlMatrix(degrees) {
+  const rad = degToRad(degrees);
+  return Math.cos(rad);
+}
+
+function sinNative(degrees) {
+  const rad = degToRad(degrees);
+  return Math.sin(rad);
+}
+
+function cosNative(degrees) {
   const rad = degToRad(degrees);
   return Math.cos(rad);
 }
@@ -207,6 +219,16 @@ function pushByAzimuthDecimalNative(azimuthDeg, elevationDeg, force) {
   return { x: x.toNumber(), y: y.toNumber(), z: z.toNumber() };
 }
 
+function pushByAzimuthNative(azimuthDeg, elevationDeg, force) {
+  const azimuth = degToRad(azimuthDeg);
+  const elevation = degToRad(elevationDeg);
+  const x = force * cosNative(elevation) * cosNative(azimuth);
+  const y = force * cosNative(elevation) * sinNative(azimuth);
+  const z = force * sinNative(elevation);
+
+  return { x, y, z };
+}
+
 const suite = new Benchmark.Suite();
 
 let bigOnce = true;
@@ -218,18 +240,19 @@ let bignumOnceGL = true;
 let decimalOnce = true;
 let decimalOnceM = true;
 let decimalOnceGL = true;
+let nativeOnce = true;
 let glOnce = true;
 
 suite
-  .add('Big.js + Math.js', () => {
-    const { x } = pushByAzimuthBigMath(90, 0, 1);
-    if (bigOnceMath) {
-      console.log('Big.js + Math.js', x);
-      bigOnceMath = false;
-    }
-  })
+  // .add('Big.js + Math.js', () => {
+  //   const { x } = pushByAzimuthBigMath(90, 0, 1);
+  //   if (bigOnceMath) {
+  //     console.log('Big.js + Math.js', x);
+  //     bigOnceMath = false;
+  //   }
+  // })
   .add('Big.js + gl-matrix', () => {
-    const { x } = pushByAzimuthBigGlMatrix(90, 45, 1);
+    const { x } = pushByAzimuthBigGlMatrix(90, 0, 1);
     if (bigOnceGL) {
       console.log('Big.js + gl-matrix', x);
       bigOnceGL = false;
@@ -242,15 +265,15 @@ suite
       bigOnce = false;
     }
   })
-  .add('Bignumber.js + Math.js', () => {
-    const { x } = pushByAzimuthBignumberMath(90, 0, 1);
-    if (bignumOnceM) {
-      console.log('Bignumber.js + Math.js', x);
-      bignumOnceM = false;
-    }
-  })
+  // .add('Bignumber.js + Math.js', () => {
+  //   const { x } = pushByAzimuthBignumberMath(90, 0, 1);
+  //   if (bignumOnceM) {
+  //     console.log('Bignumber.js + Math.js', x);
+  //     bignumOnceM = false;
+  //   }
+  // })
   .add('Bignumber.js + gl-matrix', () => {
-    const { x } = pushByAzimuthBignumberGlMatrix(90, 45, 1);
+    const { x } = pushByAzimuthBignumberGlMatrix(90, 0, 1);
     if (bignumOnceGL) {
       console.log('Bignumber.js + gl-matrix', x);
       bignumOnceGL = false;
@@ -263,15 +286,15 @@ suite
       bignumOnce = false;
     }
   })
-  .add('Decimal.js + Math.js', () => {
-    const { x } = pushByAzimuthDecimalMath(90, 0, 1);
-    if (decimalOnceM) {
-      console.log('Decimal.js + Math.js', x);
-      decimalOnceM = false;
-    }
-  })
+  // .add('Decimal.js + Math.js', () => {
+  //   const { x } = pushByAzimuthDecimalMath(90, 0, 1);
+  //   if (decimalOnceM) {
+  //     console.log('Decimal.js + Math.js', x);
+  //     decimalOnceM = false;
+  //   }
+  // })
   .add('Decimal.js + gl-matrix', () => {
-    const { x } = pushByAzimuthDecimalGlMatrix(90, 45, 1);
+    const { x } = pushByAzimuthDecimalGlMatrix(90, 0, 1);
     if (decimalOnceGL) {
       console.log('Decimal.js + gl-matrix', x);
       decimalOnceGL = false;
@@ -284,13 +307,20 @@ suite
       decimalOnce = false;
     }
   })
-  // .add('Only gl-matrix', () => {
-  //   const { x } = pushByAzimuthGlMatrix(90, 45, 1);
-  //   if (glOnce) {
-  //     console.log('Only gl-matrix', x);
-  //     glOnce = false
-  //   }
-  // })
+  .add('Native', () => {
+    const { x } = pushByAzimuthNative(90, 0, 1);
+    if (nativeOnce) {
+      console.log('Native', x);
+      nativeOnce = false;
+    }
+  })
+  .add('Only gl-matrix', () => {
+    const { x } = pushByAzimuthGlMatrix(90, 0, 1);
+    if (glOnce) {
+      console.log('Only gl-matrix', x);
+      glOnce = false;
+    }
+  })
   .on('cycle', (event) => {
     console.log(String(event.target));
   })
