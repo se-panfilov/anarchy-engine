@@ -5,19 +5,12 @@ import type { TActive, TWithName, TWithTags } from '@/Engine/Mixins';
 import type { TObject3DParams } from '@/Engine/ThreeLib';
 import type { TWithTransformAgentParam } from '@/Engine/TransformDrive';
 
-export type TCameraParams = Readonly<{
+// TODO 15-0-0: EntityToConfig should take care TOrthographicCameraParams as well
+export type TCommonCameraParams = Readonly<{
   audioListener?: AudioListener;
-  bottom?: number;
   far?: number;
-  filmGauge?: number;
-  filmOffset?: number;
-  focus?: number;
-  fov?: number;
-  left?: number;
   lookAt?: Vector3;
   near?: number;
-  right?: number;
-  top?: number;
   type?: CameraType;
   up?: Vector3;
   zoom?: number;

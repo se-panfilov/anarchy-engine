@@ -1,30 +1,71 @@
-import type { AudioListener, OrthographicCameraJSONObject, PerspectiveCameraJSONObject } from 'three';
+import type { AudioListener, OrthographicCameraJSONObject, PerspectiveCameraJSONObject, Vector3Like } from 'three';
 
 import type { TAudioService } from '@/Engine/Audio';
-import type { TCameraConfig, TCameraWrapper, TCameraWrapperDependencies } from '@/Engine/Camera/Models';
+import type {
+  TAnyCameraConfig,
+  TAnyCameraWrapper,
+  TCameraWrapperDependencies,
+  TCommonCameraConfig,
+  TOrthographicCameraWrapper,
+  TPerspectiveCameraOnlyConfig,
+  TPerspectiveCameraWrapper
+} from '@/Engine/Camera/Models';
+import type { TOrthographicCameraOnlyConfig } from '@/Engine/Camera/Models/TOrthographicCameraConfig';
+import { isOrthographicCameraWrapper, isPerspectiveCameraWrapper } from '@/Engine/Camera/Utils';
 import { extractSerializableRegistrableFields } from '@/Engine/Mixins';
 import { filterOutEmptyFields, isDefined } from '@/Engine/Utils';
 
-// TODO 15-0-0: Camera's drive might hold old values (position, rotation), cause controls might not update it (they are update values directly)
-export function cameraToConfig(entity: TCameraWrapper, { audioService }: Pick<TCameraWrapperDependencies, 'audioService'>): TCameraConfig {
+// Sometimes Camera's "drive" might hold old values (position, rotation), cause controls might not update it (they are update values directly)
+export function cameraToConfig(entity: TAnyCameraWrapper, { audioService }: Pick<TCameraWrapperDependencies, 'audioService'>): TAnyCameraConfig {
   const { drive } = entity;
 
-  const json: PerspectiveCameraJSONObject | OrthographicCameraJSONObject = entity.entity.toJSON().object;
+  let additionalConfig: TPerspectiveCameraOnlyConfig | TOrthographicCameraOnlyConfig = {};
+  if (isPerspectiveCameraWrapper(entity)) additionalConfig = getPerspectiveCameraOnlyConfig(entity);
+  if (isOrthographicCameraWrapper(entity)) additionalConfig = getOrthographicCameraOnlyConfig(entity);
 
   return filterOutEmptyFields({
-    near: json.near,
-    far: json.far,
-    fov: (json as PerspectiveCameraJSONObject).fov ?? undefined,
-    filmGauge: (json as PerspectiveCameraJSONObject).filmGauge ?? undefined,
-    filmOffset: (json as PerspectiveCameraJSONObject).filmOffset ?? undefined,
-    focus: (json as PerspectiveCameraJSONObject).focus ?? undefined,
-    layers: json.layers,
-    zoom: json.zoom,
-    isActive: entity.isActive(),
-    audioListener: getAudioListenerName(json, audioService),
+    ...getCommonCameraConfig(entity, audioService),
+    ...additionalConfig,
     ...extractSerializableRegistrableFields(entity),
     ...drive.serialize()
   });
+}
+
+function getCommonCameraConfig(entity: TAnyCameraWrapper, audioService: TAudioService): Omit<TCommonCameraConfig, 'position' | 'rotation'> {
+  const json: PerspectiveCameraJSONObject | OrthographicCameraJSONObject = entity.entity.toJSON().object;
+  const up: Vector3Like | undefined = isDefined(json.up) ? { x: (json.up as any)[0], y: (json.up as any)[1], z: (json.up as any)[2] } : undefined;
+
+  return {
+    name: entity.name,
+    near: json.near,
+    far: json.far,
+    up,
+    layers: json.layers,
+    zoom: json.zoom,
+    isActive: entity.isActive(),
+    audioListener: getAudioListenerName(json, audioService)
+  };
+}
+
+function getPerspectiveCameraOnlyConfig(entity: TPerspectiveCameraWrapper): TPerspectiveCameraOnlyConfig {
+  const json: PerspectiveCameraJSONObject = entity.entity.toJSON().object;
+  return {
+    fov: json.fov,
+    filmGauge: json.filmGauge,
+    filmOffset: json.filmOffset,
+    focus: json.focus
+  };
+}
+
+function getOrthographicCameraOnlyConfig(entity: TOrthographicCameraWrapper): TOrthographicCameraOnlyConfig {
+  const json: OrthographicCameraJSONObject = entity.entity.toJSON().object;
+
+  return {
+    left: json.left,
+    right: json.right,
+    top: json.top,
+    bottom: json.bottom
+  };
 }
 
 function getAudioListenerName(json: PerspectiveCameraJSONObject | OrthographicCameraJSONObject, audioService: TAudioService): string | undefined {

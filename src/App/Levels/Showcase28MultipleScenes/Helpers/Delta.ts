@@ -3,7 +3,7 @@ import { Clock, Vector3 } from 'three';
 
 import { createReactiveLineFromActor } from '@/App/Levels/Showcase25TransformDrive/Utils';
 import { moveByCircle } from '@/App/Levels/Utils/MoveUtils';
-import type { TActor, TActorRegistry, TAudio3dWrapper, TCameraWrapper, TIntersectionEvent, TIntersectionsWatcher, TMouseWatcherEvent, TSceneWrapper, TSpace } from '@/Engine';
+import type { TActor, TActorRegistry, TAnyCameraWrapper, TAudio3dWrapper, TIntersectionEvent, TIntersectionsWatcher, TMouseWatcherEvent, TSceneWrapper, TSpace } from '@/Engine';
 import { DebugAudioRenderer, isNotDefined, metersPerSecond } from '@/Engine';
 
 import { addParticles } from './Utils';
@@ -46,7 +46,7 @@ function initAudio(space: TSpace): void {
   });
 }
 
-function startIntersections(space: TSpace, camera: TCameraWrapper): TIntersectionsWatcher {
+function startIntersections(space: TSpace, camera: TAnyCameraWrapper): TIntersectionsWatcher {
   const { actorService, intersectionsWatcherService, mouseService } = space.services;
   const { intersectionsLoop } = space.loops;
   const surfaceActor: TActor | undefined = actorService.getRegistry().findByName('surface_actor');
@@ -67,7 +67,7 @@ function initKinematic(space: TSpace): void {
 
   const { clickLeftRelease$ } = mouseService;
 
-  const camera: TCameraWrapper | undefined = cameraService.findActive();
+  const camera: TAnyCameraWrapper | undefined = cameraService.findActive();
   if (isNotDefined(camera)) throw new Error('Camera is not defined');
 
   const intersectionsWatcher: TIntersectionsWatcher = startIntersections(space, camera);

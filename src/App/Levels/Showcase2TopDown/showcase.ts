@@ -2,7 +2,7 @@ import { combineLatest, distinctUntilChanged } from 'rxjs';
 import type { Vector2Like } from 'three';
 import { Euler, Vector3 } from 'three';
 
-import type { TActorParams, TCameraWrapper, TMaterialWrapper, TModel3d, TModels3dService, TSpace, TSpaceConfig, TSpatialGridWrapper } from '@/Engine';
+import type { TActorParams, TAnyCameraWrapper, TMaterialWrapper, TModel3d, TModels3dService, TSpace, TSpaceConfig, TSpatialGridWrapper } from '@/Engine';
 import { asRecord, isNotDefined, MaterialType, meters, PrimitiveModel3dType, spaceService } from '@/Engine';
 
 import spaceConfigJson from './space.json';
@@ -63,7 +63,7 @@ export function showcase(space: TSpace): void {
 
   [actorParams1, actorParams2, actorParams3, actorParams4, actorParams5].forEach((actor: TActorParams) => actorService.create(actor));
 
-  const camera: TCameraWrapper = cameraService.create({
+  const camera: TAnyCameraWrapper = cameraService.create({
     name: 'camera',
     position: new Vector3(0, 0, 3),
     rotation: new Euler(),

@@ -1,7 +1,7 @@
 import { combineLatest, distinctUntilChanged } from 'rxjs';
 import type { Vector2Like, Vector3 } from 'three';
 
-import type { TActor, TActorRegistry, TCameraWrapper, TSpace, TSpaceConfig } from '@/Engine';
+import type { TActor, TActorRegistry, TAnyCameraWrapper, TSpace, TSpaceConfig } from '@/Engine';
 import { asRecord, getRotationByCos, getRotationBySin, isNotDefined, spaceService } from '@/Engine';
 
 import spaceConfigJson from './space.json';
@@ -20,7 +20,7 @@ export function showcase(space: TSpace): void {
   const { actorService, cameraService, mouseService } = space.services;
   const actorRegistry: TActorRegistry = actorService.getRegistry();
 
-  const camera: TCameraWrapper | undefined = cameraService.findActive();
+  const camera: TAnyCameraWrapper | undefined = cameraService.findActive();
 
   combineLatest([mouseService.position$, space.container.viewportRect$])
     .pipe(

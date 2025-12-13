@@ -6,7 +6,7 @@ import { Raycaster, Vector2 } from 'three';
 import type { TAbstractWatcher } from '@/Engine/Abstract';
 import { AbstractWatcher, WatcherType } from '@/Engine/Abstract';
 import type { TActor } from '@/Engine/Actor';
-import type { TCameraWrapper } from '@/Engine/Camera';
+import type { TAnyCameraWrapper } from '@/Engine/Camera';
 import type { TIntersectionEvent, TIntersectionsWatcher, TIntersectionsWatcherParams } from '@/Engine/Intersections/Models';
 import type { TRawModel3d } from '@/Engine/Models3d';
 import type { TSceneObject } from '@/Engine/Scene';
@@ -17,7 +17,7 @@ export function IntersectionsWatcher({ position$, isAutoStart, tags, name, perfo
   const abstractWatcher: TAbstractWatcher<TIntersectionEvent> = AbstractWatcher<TIntersectionEvent>(WatcherType.IntersectionWatcher, name, tags);
   let raycaster: Readonly<Raycaster> | undefined = new Raycaster();
   let actors: ReadonlyArray<TActor> = [];
-  let camera: Readonly<TCameraWrapper> | undefined;
+  let camera: Readonly<TAnyCameraWrapper> | undefined;
 
   const addActors = (actorsList: ReadonlyArray<TActor>): void => void (actors = [...actors, ...actorsList]);
   const addActor = (actor: TActor): void => void (actors = [...actors, actor]);
@@ -25,8 +25,8 @@ export function IntersectionsWatcher({ position$, isAutoStart, tags, name, perfo
   const removeActors = (actorIds: ReadonlyArray<string>): void => void (actors = actors.filter((actor: TActor): boolean => !actorIds.includes(actor.id)));
   const removeActor = (actorId: string): void => void (actors = actors.filter((actor: TActor): boolean => actorId !== actor.id));
 
-  const setCamera = (cam: TCameraWrapper): void => void (camera = cam);
-  const getCamera = (): TCameraWrapper | undefined => camera;
+  const setCamera = (cam: TAnyCameraWrapper): void => void (camera = cam);
+  const getCamera = (): TAnyCameraWrapper | undefined => camera;
 
   let positionSub$: Subscription | undefined;
 
@@ -67,7 +67,7 @@ export function IntersectionsWatcher({ position$, isAutoStart, tags, name, perfo
     result.isStarted = false;
   });
 
-  function getIntersection(coords: Vector2Like, cameraWrapper: Readonly<TCameraWrapper>, list: Array<TSceneObject>): TIntersectionEvent | undefined | never {
+  function getIntersection(coords: Vector2Like, cameraWrapper: Readonly<TAnyCameraWrapper>, list: Array<TSceneObject>): TIntersectionEvent | undefined | never {
     if (isNotDefined(raycaster)) throw new Error('Intersections service: cannot get intersection: a raycaster is not defined');
     raycaster.setFromCamera(new Vector2(coords.x, coords.y), cameraWrapper.entity);
     return raycaster.intersectObjects(list)[0];

@@ -1,6 +1,6 @@
 import type { TActorConfig } from '@/Engine/Actor';
 import type { TAnyAudioConfig } from '@/Engine/Audio';
-import type { TCameraConfig } from '@/Engine/Camera';
+import type { TAnyCameraConfig } from '@/Engine/Camera';
 import type { TControlsConfig } from '@/Engine/Controls';
 import type { TEnvMapConfig } from '@/Engine/EnvMap';
 import type { TFogConfig } from '@/Engine/Fog';
@@ -19,7 +19,7 @@ export type TSpaceConfigEntities = Readonly<{
   spatialGrids: ReadonlyArray<TSpatialGridConfig>;
   actors: ReadonlyArray<TActorConfig>;
   audio: ReadonlyArray<TAnyAudioConfig>;
-  cameras: ReadonlyArray<TCameraConfig>;
+  cameras: ReadonlyArray<TAnyCameraConfig>;
   envMaps: ReadonlyArray<TEnvMapConfig>;
   intersections: ReadonlyArray<TIntersectionsWatcherConfig>;
   lights: ReadonlyArray<TAnyLightConfig>;

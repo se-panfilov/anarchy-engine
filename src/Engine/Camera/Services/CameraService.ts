@@ -4,7 +4,7 @@ import { distinctUntilChanged, takeUntil } from 'rxjs';
 import type { TAbstractService, TRegistryPack } from '@/Engine/Abstract';
 import { AbstractService } from '@/Engine/Abstract';
 import type {
-  TCameraConfig,
+  TAnyCameraWrapper,
   TCameraFactory,
   TCameraRegistry,
   TCameraService,
@@ -13,9 +13,10 @@ import type {
   TCameraServiceWithCreateFromConfig,
   TCameraServiceWithFactory,
   TCameraServiceWithRegistry,
-  TCameraWrapper,
-  TCameraWrapperDependencies
+  TCameraWrapperDependencies,
+  TCommonCameraConfig
 } from '@/Engine/Camera/Models';
+import { isOrthographicCameraWrapper, isPerspectiveCameraWrapper } from '@/Engine/Camera/Utils';
 import type { TDisposable, TWithActiveMixinResult } from '@/Engine/Mixins';
 import {
   withActiveEntityServiceMixin,
@@ -30,12 +31,12 @@ import type { TSceneWrapper } from '@/Engine/Scene';
 import { isNotDefined } from '@/Engine/Utils';
 
 export function CameraService(factory: TCameraFactory, registry: TCameraRegistry, scene: TSceneWrapper, dependencies: TCameraServiceDependencies): TCameraService {
-  const withActive: TWithActiveMixinResult<TCameraWrapper> = withActiveEntityServiceMixin<TCameraWrapper>(registry);
-  const registrySub$: Subscription = registry.added$.subscribe(({ value }: TRegistryPack<TCameraWrapper>): void => {
+  const withActive: TWithActiveMixinResult<TAnyCameraWrapper> = withActiveEntityServiceMixin<TAnyCameraWrapper>(registry);
+  const registrySub$: Subscription = registry.added$.subscribe(({ value }: TRegistryPack<TAnyCameraWrapper>): void => {
     scene.addCamera(value);
     if (value.isActive()) withActive.active$.next(value);
   });
-  const factorySub$: Subscription = factory.entityCreated$.subscribe((wrapper: TCameraWrapper): void => registry.add(wrapper));
+  const factorySub$: Subscription = factory.entityCreated$.subscribe((wrapper: TAnyCameraWrapper): void => registry.add(wrapper));
   const disposable: ReadonlyArray<TDisposable> = [registry, factory, registrySub$, factorySub$];
   const abstractService: TAbstractService = AbstractService(disposable);
 
@@ -51,11 +52,15 @@ export function CameraService(factory: TCameraFactory, registry: TCameraRegistry
       )
       .subscribe((params: DOMRect): void => {
         if (shouldUpdateOnlyActiveCamera) {
-          const activeCamera: TCameraWrapper | undefined = findActive();
+          const activeCamera: TAnyCameraWrapper | undefined = findActive();
           if (isNotDefined(activeCamera)) throw new Error('Cannot find an active camera during the aspect update.');
-          activeCamera.setAspect(params.width / params.height);
+          if (isPerspectiveCameraWrapper(activeCamera)) activeCamera.setAspect(params.width / params.height);
+          if (isOrthographicCameraWrapper(activeCamera)) activeCamera.setAspect(params.width, params.height);
         } else {
-          registry.forEach((camera: TCameraWrapper): void => camera.setAspect(params.width / params.height));
+          registry.forEach((camera: TAnyCameraWrapper): void => {
+            if (isPerspectiveCameraWrapper(camera)) camera.setAspect(params.width / params.height);
+            if (isOrthographicCameraWrapper(camera)) camera.setAspect(params.width, params.height);
+          });
         }
       });
   }
@@ -80,7 +85,7 @@ export function CameraService(factory: TCameraFactory, registry: TCameraRegistry
     withRegistry,
     withFactory,
     withSceneGetterService(scene),
-    withSerializeAllEntities<TCameraConfig, Pick<TCameraWrapperDependencies, 'audioService'>>(registry, { audioService: dependencies.audioService }),
+    withSerializeAllEntities<TCommonCameraConfig, Pick<TCameraWrapperDependencies, 'audioService'>>(registry, { audioService: dependencies.audioService }),
     {
       setActive: withActive.setActive,
       findActive,

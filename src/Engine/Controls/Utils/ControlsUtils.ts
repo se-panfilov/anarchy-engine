@@ -2,7 +2,7 @@ import type { Subscription } from 'rxjs';
 import type { Controls } from 'three';
 import { EventDispatcher, Quaternion } from 'three';
 
-import type { TCameraWrapper } from '@/Engine/Camera';
+import type { TAnyCameraWrapper } from '@/Engine/Camera';
 import { ControlsType } from '@/Engine/Controls/Constants';
 import type { TControlsWrapper, TFpsControlsWrapper, TOrbitControlsWrapper } from '@/Engine/Controls/Models';
 import type { TMilliseconds } from '@/Engine/Math';
@@ -10,7 +10,7 @@ import type { TMilliseconds } from '@/Engine/Math';
 export const isOrbitControls = (controls: TOrbitControlsWrapper | TControlsWrapper): controls is TOrbitControlsWrapper => controls.getType() === ControlsType.OrbitControls;
 export const isFpsControls = (controls: TFpsControlsWrapper | TControlsWrapper): controls is TFpsControlsWrapper => controls.getType() === ControlsType.FirstPersonControls;
 
-export function updateCameraTransformDriveOnChange(controls: TOrbitControlsWrapper | TFpsControlsWrapper, camera: TCameraWrapper): void {
+export function updateCameraTransformDriveOnChange(controls: TOrbitControlsWrapper | TFpsControlsWrapper, camera: TAnyCameraWrapper): void {
   function updateCameraDrive(): void {
     const dumpingTime: TMilliseconds = ((controls as TOrbitControlsWrapper).entity.enableDamping ? 250 : 0) as TMilliseconds; // 250 is an average dumping time for OrbitControls
     setTimeout((): void => {

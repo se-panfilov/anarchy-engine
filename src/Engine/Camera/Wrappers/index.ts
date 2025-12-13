@@ -1,1 +1,2 @@
-export * from './CameraWrapper';
+export * from './OrthographicCameraWrapper';
+export * from './PerspectiveCameraWrapper';

@@ -7,7 +7,7 @@ import { enableCollisions } from '@/App/Levels/Showcase22PhysicsShooter/utils/Co
 import { initLight } from '@/App/Levels/Showcase22PhysicsShooter/utils/Light';
 import type {
   TActor,
-  TCameraWrapper,
+  TAnyCameraWrapper,
   TCollisionCheckResult,
   TIntersectionEvent,
   TIntersectionsWatcher,
@@ -60,7 +60,7 @@ export function showcase(space: TSpace): void {
 
   initLight(lightService);
 
-  const cameraW: TCameraWrapper | undefined = cameraService.findActive();
+  const cameraW: TAnyCameraWrapper | undefined = cameraService.findActive();
   if (isNotDefined(cameraW)) throw new Error(`Cannot find active camera`);
 
   const hero: TActor | undefined = actorService.getRegistry().findByName('hero');

@@ -1,7 +1,7 @@
 import type { GizmoOptions } from 'three-viewport-gizmo';
 import { ViewportGizmo } from 'three-viewport-gizmo';
 
-import type { TCameraWrapper, TContainerDecorator, TControlsWrapper, TOrbitControlsWrapper, TRendererWrapper, TSpaceLoops, TSpaceServices } from '@/Engine';
+import type { TAnyCameraWrapper, TContainerDecorator, TControlsWrapper, TOrbitControlsWrapper, TRendererWrapper, TSpaceLoops, TSpaceServices } from '@/Engine';
 import { ControlsType, isNotDefined } from '@/Engine';
 
 export function addGizmo(
@@ -10,7 +10,7 @@ export function addGizmo(
   { renderLoop }: TSpaceLoops,
   options?: GizmoOptions
 ): void | never {
-  const camera: TCameraWrapper | undefined = cameraService.findActive();
+  const camera: TAnyCameraWrapper | undefined = cameraService.findActive();
   if (isNotDefined(camera)) throw new Error('Gizmo: Camera is not defined');
 
   const controls: TControlsWrapper | undefined = controlsService.findActive();

@@ -1,8 +1,9 @@
 import type { TParamsFromConfigWithDependencies, TReactiveFactory } from '@/Engine/Abstract';
 
-import type { TCameraConfig } from './TCameraConfig';
-import type { TCameraParams } from './TCameraParams';
+import type { TAnyCameraWrapper } from './TAnyCameraWrapper';
 import type { TCameraServiceDependencies } from './TCameraServiceDependencies';
-import type { TCameraWrapper } from './TCameraWrapper';
+import type { TCommonCameraConfig } from './TCommonCameraConfig';
+import type { TCommonCameraParams } from './TCommonCameraParams';
 
-export type TCameraFactory = TReactiveFactory<TCameraWrapper, TCameraParams, TCameraServiceDependencies> & TParamsFromConfigWithDependencies<TCameraConfig, TCameraParams, TCameraServiceDependencies>;
+export type TCameraFactory = TReactiveFactory<TAnyCameraWrapper, TCommonCameraParams, TCameraServiceDependencies> &
+  TParamsFromConfigWithDependencies<TCommonCameraConfig, TCommonCameraParams, TCameraServiceDependencies>;

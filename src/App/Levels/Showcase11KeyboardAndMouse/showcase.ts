@@ -4,7 +4,7 @@ import { Vector3 } from 'three';
 
 import { createReactiveLineFromActor } from '@/App/Levels/Showcase25TransformDrive/Utils';
 import { addGizmo } from '@/App/Levels/Utils';
-import type { TActor, TActorRegistry, TCameraWrapper, TIntersectionEvent, TIntersectionsWatcher, TKeyboardPressingEvent, TMouseWatcherEvent, TMoverService, TSpace, TSpaceConfig } from '@/Engine';
+import type { TActor, TActorRegistry, TAnyCameraWrapper, TIntersectionEvent, TIntersectionsWatcher, TKeyboardPressingEvent, TMouseWatcherEvent, TMoverService, TSpace, TSpaceConfig } from '@/Engine';
 import { asRecord, defaultMoverServiceConfig, Easing, isNotDefined, KeyCode, LookUpStrategy, metersPerSecond, mpsSpeed, spaceService, TransformAgent } from '@/Engine';
 import { MoverService } from '@/Engine/Services/MoverService/MoverService';
 
@@ -31,7 +31,7 @@ export function showcase(space: TSpace): void {
   const { findByName, findByTags } = actorRegistry;
   const { onKey } = keyboardService;
 
-  const camera: TCameraWrapper | undefined = cameraService.findActive();
+  const camera: TAnyCameraWrapper | undefined = cameraService.findActive();
   if (isNotDefined(camera)) throw new Error('Camera is not defined');
 
   addGizmo(space.services, space.container, space.loops, { placement: 'bottom-left' });
@@ -106,7 +106,14 @@ export function showcase(space: TSpace): void {
   clickLeftRelease$.pipe(withLatestFrom(intersectionsWatcher.value$)).subscribe(([, intersection]: [TMouseWatcherEvent, TIntersectionEvent]): void => {
     if (!mode.isKinematicMouseActor) {
       if (actorMouse.drive.getActiveAgent().type !== TransformAgent.Connected) actorMouse.drive.agent$.next(TransformAgent.Connected);
-      void moverService.goToPosition(actorMouse, { x: intersection.point.x, z: intersection.point.z }, { duration: 1000, easing: Easing.EaseInCubic });
+      void moverService.goToPosition(
+        actorMouse,
+        { x: intersection.point.x, z: intersection.point.z },
+        {
+          duration: 1000,
+          easing: Easing.EaseInCubic
+        }
+      );
     } else {
       if (actorMouse.drive.getActiveAgent().type !== TransformAgent.Kinematic) actorMouse.drive.agent$.next(TransformAgent.Kinematic);
       const position: Vector3 = intersection.point.clone().add(new Vector3(0, 1.5, 0));
@@ -127,11 +134,18 @@ export function showcase(space: TSpace): void {
   wheelUp$.subscribe((): void => actorMkeyMiddle.drive.default.adjustRotationByX(10));
   wheelDown$.subscribe((): void => actorMkeyMiddle.drive.default.adjustRotationByX(-10));
 
-  function startIntersections(camera: TCameraWrapper): TIntersectionsWatcher {
+  function startIntersections(camera: TAnyCameraWrapper): TIntersectionsWatcher {
     const actor: TActor | undefined = findByName('surface_actor');
     if (isNotDefined(actor)) throw new Error('Actor is not defined');
 
-    return intersectionsWatcherService.create({ name: 'intersection_watcher', actors: [actor], camera, isAutoStart: true, position$: mouseService.normalizedPosition$, intersectionsLoop });
+    return intersectionsWatcherService.create({
+      name: 'intersection_watcher',
+      actors: [actor],
+      camera,
+      isAutoStart: true,
+      position$: mouseService.normalizedPosition$,
+      intersectionsLoop
+    });
   }
 
   space.start$.next(true);

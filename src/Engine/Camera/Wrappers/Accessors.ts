@@ -96,5 +96,20 @@ export function getOrthographicCameraAccessors(entity: TWriteable<TOrthographicC
     entity.updateProjectionMatrix();
   }
 
-  return { setLeft, setRight, setTop, setBottom };
+  function setAspect(height: number, aspect: number): void {
+    const width: number = height * aspect;
+
+    // eslint-disable-next-line functional/immutable-data
+    entity.left = -width / 2;
+    // eslint-disable-next-line functional/immutable-data
+    entity.right = width / 2;
+    // eslint-disable-next-line functional/immutable-data
+    entity.top = height / 2;
+    // eslint-disable-next-line functional/immutable-data
+    entity.bottom = -height / 2;
+
+    entity.updateProjectionMatrix();
+  }
+
+  return { setAspect, setLeft, setRight, setTop, setBottom };
 }

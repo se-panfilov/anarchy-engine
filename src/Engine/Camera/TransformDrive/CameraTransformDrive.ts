@@ -1,7 +1,11 @@
-import type { TCameraParams, TCameraServiceDependencies, TCameraTransformAgents, TCameraTransformDrive } from '@/Engine/Camera/Models';
+import type { TCameraServiceDependencies, TCameraTransformAgents, TCameraTransformDrive, TCommonCameraParams } from '@/Engine/Camera/Models';
 import type { TTransformDriveParams } from '@/Engine/TransformDrive';
 
-export function CameraTransformDrive(params: TCameraParams, { transformDriveService }: Pick<TCameraServiceDependencies, 'transformDriveService'>, relatedEntityId: string): TCameraTransformDrive {
+export function CameraTransformDrive(
+  params: TCommonCameraParams,
+  { transformDriveService }: Pick<TCameraServiceDependencies, 'transformDriveService'>,
+  relatedEntityId: string
+): TCameraTransformDrive {
   const transformAgents: TCameraTransformAgents = transformDriveService.getTransformAgents(params, { hasConnected: true }) as TCameraTransformAgents;
   const driveParams: TTransformDriveParams = { activeAgent: params.agent, relatedEntityId };
 

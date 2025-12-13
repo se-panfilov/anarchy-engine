@@ -3,7 +3,7 @@ import Ajv from 'ajv';
 import type { TAbstractResourceConfig } from '@/Engine/Abstract';
 import type { TActorConfig } from '@/Engine/Actor';
 import type { TAnyAudioConfig, TAudioResourceConfig } from '@/Engine/Audio';
-import type { TCameraConfig } from '@/Engine/Camera';
+import type { TAnyCameraConfig } from '@/Engine/Camera';
 import type { TControlsConfig } from '@/Engine/Controls';
 import type { TIntersectionsWatcherConfig } from '@/Engine/Intersections';
 import type { TActive, TWithName, TWithNameOptional, TWithTags } from '@/Engine/Mixins';
@@ -119,7 +119,7 @@ function validateActiveEntities(entities: Record<string, ReadonlyArray<TActive>>
 
 function validateRelations(
   controls: ReadonlyArray<TControlsConfig>,
-  cameras: ReadonlyArray<TCameraConfig>,
+  cameras: ReadonlyArray<TAnyCameraConfig>,
   actors: ReadonlyArray<TActorConfig>,
   physics: TPhysicsConfig,
   models3dEntities: ReadonlyArray<TModel3dConfig>,
@@ -131,7 +131,7 @@ function validateRelations(
   let errors: ReadonlyArray<string> = [];
 
   if (controls.length > 0 && cameras.length === 0) errors = [...errors, 'Controls cannot be defined without at least one camera, but there are no cameras'];
-  if (!controls.every((control: TControlsConfig): boolean => cameras.some((camera: TCameraConfig): boolean => camera.name === control.cameraName)))
+  if (!controls.every((control: TControlsConfig): boolean => cameras.some((camera: TAnyCameraConfig): boolean => camera.name === control.cameraName)))
     errors = [...errors, 'Not every control has a camera'];
   if (!validateAllActorsHasPhysicsPreset(actors, physics.presets)) errors = [...errors, 'Not every actor has a defined physics preset (check actors presetName against physics presets names)'];
   if (!validateAllActorsHasModel3d(actors, models3dEntities)) errors = [...errors, 'Not every actor has a defined model3dSource (check actors model3dSource against models3d entities)'];

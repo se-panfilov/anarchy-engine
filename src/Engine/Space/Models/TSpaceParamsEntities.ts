@@ -1,6 +1,6 @@
 import type { TActorParams } from '@/Engine/Actor';
 import type { TAnyAudioParams } from '@/Engine/Audio';
-import type { TCameraParams } from '@/Engine/Camera';
+import type { TAnyCameraParams } from '@/Engine/Camera';
 import type { TControlsParams } from '@/Engine/Controls';
 import type { TEnvMapParams } from '@/Engine/EnvMap';
 import type { TFogParams } from '@/Engine/Fog';
@@ -18,7 +18,7 @@ import type { TTextParams } from '@/Engine/Text';
 export type TSpaceParamsEntities = Readonly<{
   actors?: ReadonlyArray<TActorParams>;
   audio?: ReadonlyArray<TAnyAudioParams>;
-  cameras?: ReadonlyArray<TCameraParams>;
+  cameras?: ReadonlyArray<TAnyCameraParams>;
   controls?: ReadonlyArray<TControlsParams>;
   envMaps?: ReadonlyArray<TEnvMapParams>;
   fogs?: ReadonlyArray<TFogParams>;

@@ -1,7 +1,7 @@
 import { combineLatest, distinctUntilChanged, tap } from 'rxjs';
 import type { Vector2Like, Vector3 } from 'three';
 
-import type { TCameraWrapper, TModel3d, TModels3dRegistry, TMouseService, TSceneWrapper, TSpace, TSpaceConfig } from '@/Engine';
+import type { TAnyCameraWrapper, TModel3d, TModels3dRegistry, TMouseService, TSceneWrapper, TSpace, TSpaceConfig } from '@/Engine';
 import { asRecord, getRotationByCos, getRotationBySin, isDefined, isNotDefined, spaceService } from '@/Engine';
 
 import spaceConfigJson from './space.json';
@@ -37,7 +37,7 @@ export function showcase(space: TSpace): void {
 function initCameraRotation(space: TSpace, model3d: TModel3d | undefined, mouseService: TMouseService): void {
   const { cameraService } = space.services;
 
-  const camera: TCameraWrapper | undefined = cameraService.findActive();
+  const camera: TAnyCameraWrapper | undefined = cameraService.findActive();
 
   const prevValue: Float32Array = new Float32Array([0, 0, 0, 0]); // [x, y, wight, height]
   combineLatest([mouseService.position$, space.container.viewportRect$])

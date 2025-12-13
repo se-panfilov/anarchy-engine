@@ -1,6 +1,6 @@
 import GUI from 'lil-gui';
 
-import type { TCameraRegistry, TCameraWrapper, TIntersectionEvent, TIntersectionsWatcher, TSpace, TSpaceConfig } from '@/Engine';
+import type { TAnyCameraWrapper, TCameraRegistry, TIntersectionEvent, TIntersectionsWatcher, TSpace, TSpaceConfig } from '@/Engine';
 import { asRecord, isNotDefined, spaceService } from '@/Engine';
 
 import spaceConfigJson from './space.json';
@@ -32,7 +32,7 @@ export function showcase(space: TSpace): void {
   let cameraFolder: GUI | undefined;
   let cameraName: string = 'camera_red';
   clickLeftRelease$.subscribe((): void => {
-    const camera: TCameraWrapper | undefined = cameraRegistry.findByName(cameraName);
+    const camera: TAnyCameraWrapper | undefined = cameraRegistry.findByName(cameraName);
     // console.log(cameraName, cameraService.findActive()?.name, cameraName === cameraService.findActive()?.name);
     if (isNotDefined(camera)) throw new Error(`Cannot switch camera: camera ("${cameraName}") not found`);
     cameraFolder = resetGui(gui, cameraFolder, camera);
@@ -44,7 +44,7 @@ export function showcase(space: TSpace): void {
   space.start$.next(true);
 }
 
-function resetGui(gui: GUI, folder: GUI | undefined, camera: TCameraWrapper): GUI {
+function resetGui(gui: GUI, folder: GUI | undefined, camera: TAnyCameraWrapper): GUI {
   folder?.destroy();
   folder = gui.addFolder(`Active camera ${camera.name}`);
   folder.add(camera.entity.position, 'x').min(-50).max(50).step(0.5);

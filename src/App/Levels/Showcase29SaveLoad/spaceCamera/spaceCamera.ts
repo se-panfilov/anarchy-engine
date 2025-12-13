@@ -1,6 +1,6 @@
 import { Euler, Quaternion, Vector3 } from 'three';
 
-import type { TCameraWrapper, TSpace, TSpaceConfig } from '@/Engine';
+import type { TAnyCameraWrapper, TSpace, TSpaceConfig } from '@/Engine';
 import { isNotDefined } from '@/Engine';
 
 import type { TSpacesData } from '../ShowcaseTypes';
@@ -14,7 +14,7 @@ export const spaceCameraData: TSpacesData = {
   config: config,
   container: getContainer(config.canvasSelector),
   onChange: (space: TSpace): void => {
-    const camera: TCameraWrapper | undefined = space.services.cameraService.findActive();
+    const camera: TAnyCameraWrapper | undefined = space.services.cameraService.findActive();
     if (isNotDefined(camera)) throw new Error(`[Showcase]: Camera is not found`);
 
     camera.setFov(100);

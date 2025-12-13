@@ -12,7 +12,7 @@ import type {
   KeyCode,
   KeysExtra,
   TActor,
-  TCameraWrapper,
+  TAnyCameraWrapper,
   TIntersectionEvent,
   TIntersectionsWatcher,
   TKeyboardService,
@@ -120,7 +120,7 @@ export function attachConnectorRotationToSubj(connectedActor: TActor, subj: Subj
 }
 
 export function startIntersections({ actorService, cameraService, intersectionsWatcherService, mouseService, loopService }: TSpaceServices): TIntersectionsWatcher {
-  const camera: TCameraWrapper | undefined = cameraService.findActive();
+  const camera: TAnyCameraWrapper | undefined = cameraService.findActive();
   if (isNotDefined(camera)) throw new Error('Camera is not defined');
   const surfaceActor: TActor | undefined = actorService.getRegistry().findByName('surface_actor');
   if (isNotDefined(surfaceActor)) throw new Error('Actor "surface_actor" is not defined');
@@ -147,7 +147,7 @@ export function changeActorActiveAgent(actor: TActor, key: KeyCode | KeysExtra, 
   });
 }
 
-export function connectCameraToActor(camera: TCameraWrapper, controls: TOrbitControlsWrapper, actor: TActor, gui: GUI): void {
+export function connectCameraToActor(camera: TAnyCameraWrapper, controls: TOrbitControlsWrapper, actor: TActor, gui: GUI): void {
   const cameraSettings = { isFollowingActor: false };
   const folder: GUI = gui.addFolder('Camera');
   folder.add(cameraSettings, 'isFollowingActor').name('Following mode');

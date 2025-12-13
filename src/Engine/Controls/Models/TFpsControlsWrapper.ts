@@ -2,7 +2,7 @@ import type { Euler, EventDispatcher, Quaternion } from 'three';
 import type { FirstPersonControls } from 'three/examples/jsm/controls/FirstPersonControls';
 
 import type { TWrapper } from '@/Engine/Abstract';
-import type { TCameraWrapper } from '@/Engine/Camera';
+import type { TAnyCameraWrapper } from '@/Engine/Camera';
 import type { ControlsType } from '@/Engine/Controls/Constants';
 import type { TMilliseconds } from '@/Engine/Math';
 import type { TWithActiveMixin } from '@/Engine/Mixins';
@@ -24,6 +24,6 @@ export type TFpsControlsWrapper = Omit<TWrapper<FirstPersonControls & EventDispa
     getType: () => ControlsType;
     rotateCameraBy: (rotation: Quaternion | Euler) => void;
     rotateCameraTo: (rotation: Quaternion | Euler) => void;
-    getCamera: () => TCameraWrapper;
+    getCamera: () => TAnyCameraWrapper;
   }> &
   TWithActiveMixin;

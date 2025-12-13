@@ -7,7 +7,7 @@ import { degToRad, radToDeg } from 'three/src/math/MathUtils';
 import { addGizmo, getMemoryUsage } from '@/App/Levels/Utils';
 import type {
   TActor,
-  TCameraWrapper,
+  TAnyCameraWrapper,
   TControlsWrapper,
   TDegrees,
   TIntersectionEvent,
@@ -126,7 +126,7 @@ export async function showcase(space: TSpace): Promise<void> {
   const planeModel3d: TModel3d | undefined = models3dRegistry.findByName('surface_model');
   if (isNotDefined(planeModel3d)) throw new Error('Plane model is not defined');
 
-  const camera: TCameraWrapper | undefined = cameraService.findActive();
+  const camera: TAnyCameraWrapper | undefined = cameraService.findActive();
   if (isNotDefined(camera)) throw new Error('Camera is not defined');
 
   const controls: TControlsWrapper | undefined = controlsService.findActive();

@@ -1,4 +1,4 @@
 import type { TOrthographicCamera } from './TOrthographicCamera';
 import type { TPerspectiveCamera } from './TPerspectiveCamera';
 
-export type TCamera = TPerspectiveCamera | TOrthographicCamera;
+export type TAnyCamera = TPerspectiveCamera | TOrthographicCamera;

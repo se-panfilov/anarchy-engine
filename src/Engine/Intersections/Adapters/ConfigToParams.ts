@@ -1,5 +1,5 @@
 import type { TActor, TActorService } from '@/Engine/Actor';
-import type { TCameraService, TCameraWrapper } from '@/Engine/Camera';
+import type { TAnyCameraWrapper, TCameraService } from '@/Engine/Camera';
 import type { TIntersectionsLoop, TIntersectionsWatcherConfig, TIntersectionsWatcherParams } from '@/Engine/Intersections/Models';
 import type { TLoopService } from '@/Engine/Loop';
 import type { TMouseService } from '@/Engine/Mouse';
@@ -12,7 +12,7 @@ export function configToParams(
   actorsService: TActorService,
   loopService: TLoopService
 ): TIntersectionsWatcherParams | never {
-  const camera: TCameraWrapper | undefined = cameraService.getRegistry().findByName(config.cameraName);
+  const camera: TAnyCameraWrapper | undefined = cameraService.getRegistry().findByName(config.cameraName);
   if (isNotDefined(camera)) throw new Error(`configToParams: Cannot find camera "${config.cameraName}" for intersections watcher "${config.name}".`);
   const actors: ReadonlyArray<TActor | undefined> = config.actorNames.map((name: string): TActor | undefined => actorsService.getRegistry().findByName(name));
   if (!isAllDefined(actors)) throw new Error(`configToParams: Cannot find actors for intersections watcher "${config.name}".`);

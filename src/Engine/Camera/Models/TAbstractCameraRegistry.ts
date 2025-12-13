@@ -1,5 +1,5 @@
 import type { TAbstractEntityRegistry } from '@/Engine/Abstract/Models';
 
-import type { TCameraWrapper } from './TCameraWrapper';
+import type { TAnyCameraWrapper } from './TAnyCameraWrapper';
 
-export type TAbstractCameraRegistry = TAbstractEntityRegistry<TCameraWrapper>;
+export type TAbstractCameraRegistry = TAbstractEntityRegistry<TAnyCameraWrapper>;

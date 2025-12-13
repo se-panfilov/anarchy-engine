@@ -185,7 +185,20 @@
         },
         "shadow": {
           "camera": {
-            "far": 15
+            "bottom": -5,
+            "far": 15,
+            "layers": 1,
+            "left": -5,
+            "near": 0.5,
+            "right": 5,
+            "top": 5,
+            "type": "OrthographicCamera",
+            "up": {
+              "x": 0,
+              "y": 1,
+              "z": 0
+            },
+            "zoom": 1
           },
           "mapSize": {
             "x": 1024,
@@ -237,7 +250,16 @@
         },
         "shadow": {
           "camera": {
-            "far": 25
+            "far": 20,
+            "near": 0.5,
+            "layers": 1,
+            "type": "PerspectiveCamera",
+            "up": {
+              "x": 0,
+              "y": 0,
+              "z": -1
+            },
+            "zoom": 1
           },
           "mapSize": {
             "x": 1024,

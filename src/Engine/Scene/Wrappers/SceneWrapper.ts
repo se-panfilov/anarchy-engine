@@ -5,7 +5,7 @@ import { Scene } from 'three';
 import type { TAbstractWrapper } from '@/Engine/Abstract';
 import { AbstractWrapper, WrapperType } from '@/Engine/Abstract';
 import type { TActor } from '@/Engine/Actor';
-import type { TCameraWrapper } from '@/Engine/Camera';
+import type { TAnyCameraWrapper } from '@/Engine/Camera';
 import type { TColor } from '@/Engine/Color';
 import { ColorWrapper } from '@/Engine/Color';
 import type { TEnvMapTexture } from '@/Engine/EnvMap';
@@ -30,7 +30,7 @@ export function SceneWrapper(params: TSceneParams): TSceneWrapper {
   const wrapper: TAbstractWrapper<Scene> = AbstractWrapper(entity, WrapperType.Scene, { name: params.name, tags: params.tags });
 
   const add = (obj: TSceneObject): void => void entity.add(obj);
-  const addCamera = (camera: TCameraWrapper): void => add(camera.entity);
+  const addCamera = (camera: TAnyCameraWrapper): void => add(camera.entity);
   const addModel3d = (model3d: TModel3d): void => add(model3d.getRawModel3d());
   const addActor = (actor: TActor): void => addModel3d(actor.model3d);
   const addLight = <T extends TLight>(light: Readonly<TAbstractLightWrapper<T>>): void => add(light.entity);

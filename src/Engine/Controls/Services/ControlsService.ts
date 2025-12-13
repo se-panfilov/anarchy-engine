@@ -2,7 +2,7 @@ import type { Subscription } from 'rxjs';
 
 import type { TAbstractService, TRegistryPack } from '@/Engine/Abstract';
 import { AbstractService } from '@/Engine/Abstract';
-import type { TAbstractCameraRegistry, TCameraWrapper } from '@/Engine/Camera';
+import type { TAbstractCameraRegistry, TAnyCameraWrapper } from '@/Engine/Camera';
 import { controlsLoopEffect } from '@/Engine/Controls/Loop';
 import type {
   TControlsConfig,
@@ -41,7 +41,7 @@ export function ControlService(
   const createFromList = (list: ReadonlyArray<TControlsParams>): ReadonlyArray<TControlsWrapper> => list.map(create);
   const createFromConfig = (controls: ReadonlyArray<TControlsConfig>): void => {
     controls.forEach((control: TControlsConfig): TControlsWrapper => {
-      const camera: TCameraWrapper | undefined = cameraRegistry.find((camera: TCameraWrapper): boolean => camera.getName() === control.cameraName);
+      const camera: TAnyCameraWrapper | undefined = cameraRegistry.find((camera: TAnyCameraWrapper): boolean => camera.getName() === control.cameraName);
       if (isNotDefined(camera)) throw new Error(`Cannot find camera for controls (${control.type}) initialization`);
       return create(factory.configToParams(control, { camera, canvas }));
     });

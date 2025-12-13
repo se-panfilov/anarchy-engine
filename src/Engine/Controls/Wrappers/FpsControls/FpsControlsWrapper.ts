@@ -3,7 +3,7 @@ import { MathUtils, Quaternion, Spherical, Vector3 } from 'three';
 import { FirstPersonControls } from 'three/examples/jsm/controls/FirstPersonControls';
 
 import { AbstractWrapper, WrapperType } from '@/Engine/Abstract';
-import type { TCameraWrapper } from '@/Engine/Camera';
+import type { TAnyCameraWrapper } from '@/Engine/Camera';
 import { controlsToConfig } from '@/Engine/Controls/Adapters';
 import type { ControlsType } from '@/Engine/Controls/Constants';
 import type { TControlsServiceDependencies, TFpsControlsConfig, TFpsControlsParams, TFpsControlsWrapper } from '@/Engine/Controls/Models';
@@ -85,7 +85,7 @@ export function FpsControlsWrapper(params: TFpsControlsParams): TFpsControlsWrap
     getType,
     rotateCameraBy,
     rotateCameraTo,
-    getCamera: (): TCameraWrapper => params.camera,
+    getCamera: (): TAnyCameraWrapper => params.camera,
     ...getFpsControlsAccessors(entity),
     ...withActiveMixin(),
     entity,

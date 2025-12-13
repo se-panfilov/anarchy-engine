@@ -3,7 +3,7 @@ import { Quaternion, Vector3 } from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
 import { AbstractWrapper, WrapperType } from '@/Engine/Abstract';
-import type { TCameraWrapper } from '@/Engine/Camera';
+import type { TAnyCameraWrapper } from '@/Engine/Camera';
 import { controlsToConfig } from '@/Engine/Controls/Adapters';
 import type { ControlsType } from '@/Engine/Controls/Constants';
 import type { TControlsServiceDependencies, TOrbitControlsConfig, TOrbitControlsParams, TOrbitControlsWrapper } from '@/Engine/Controls/Models';
@@ -93,7 +93,7 @@ export function OrbitControlsWrapper(params: TOrbitControlsParams): TOrbitContro
     moveToTargetSmoothly,
     rotateCameraBy,
     rotateCameraTo,
-    getCamera: (): TCameraWrapper => params.camera,
+    getCamera: (): TAnyCameraWrapper => params.camera,
     entity,
     // TODO 15-0-0: add serializer to the service to avoid dependencies passing
     serialize: (dependencies: TControlsServiceDependencies): TOrbitControlsConfig => controlsToConfig(result, dependencies) as TOrbitControlsConfig

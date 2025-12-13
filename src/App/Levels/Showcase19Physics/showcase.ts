@@ -4,7 +4,7 @@ import { LineGeometry } from 'three/examples/jsm/lines/LineGeometry';
 import { LineMaterial } from 'three/examples/jsm/lines/LineMaterial';
 
 import { addGizmo } from '@/App/Levels/Utils';
-import type { TActor, TCameraWrapper, TIntersectionEvent, TIntersectionsWatcher, TRadians, TReadonlyVector3, TSceneWrapper, TSpace, TSpaceConfig, TTextAnyWrapper } from '@/Engine';
+import type { TActor, TAnyCameraWrapper, TIntersectionEvent, TIntersectionsWatcher, TRadians, TReadonlyVector3, TSceneWrapper, TSpace, TSpaceConfig, TTextAnyWrapper } from '@/Engine';
 import { asRecord, ForwardAxis, getDistance, getHorizontalAzimuth, getPushCoordsFrom3dAzimuth, isActorHasPhysicsBody, isDefined, isNotDefined, KeysExtra, spaceService, TextType } from '@/Engine';
 import { meters, radians } from '@/Engine/Measurements/Utils';
 
@@ -45,7 +45,7 @@ export function showcase(space: TSpace): void {
   if (isNotDefined(surfaceActor)) throw new Error(`Cannot find "surfaceActor" actor`);
   if (!isActorHasPhysicsBody(surfaceActor)) throw new Error(`"surfaceActor" actor is not a physic actor`);
 
-  const cameraW: TCameraWrapper | undefined = cameraService.findActive();
+  const cameraW: TAnyCameraWrapper | undefined = cameraService.findActive();
   if (isNotDefined(cameraW)) throw new Error(`Cannot find active camera`);
 
   mouseService.clickLeftRelease$.subscribe(() => {

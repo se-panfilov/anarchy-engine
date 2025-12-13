@@ -1,4 +1,4 @@
-import type { TCamera, TCameraWrapper } from '@/Engine/Camera';
+import type { TAnyCamera, TAnyCameraWrapper } from '@/Engine/Camera';
 import type { TControlsConfig, TControlsServiceDependencies, TControlsWrapper, TFpsControlsWrapper, TOrbitControlsConfigOptions, TOrbitControlsWrapper } from '@/Engine/Controls/Models';
 import type { TFpsControlsConfigOptions } from '@/Engine/Controls/Models/TFpsControlsConfigOptions';
 import { isFpsControls, isOrbitControls } from '@/Engine/Controls/Utils';
@@ -7,10 +7,10 @@ import type { TWriteable } from '@/Engine/Utils';
 import { filterOutEmptyFields, isNotDefined, vector3ToXyz } from '@/Engine/Utils';
 
 export function controlsToConfig(entity: TControlsWrapper, { cameraService }: TControlsServiceDependencies): TControlsConfig {
-  const camera: TCamera | undefined = entity.entity.object as TCamera;
+  const camera: TAnyCamera | undefined = entity.entity.object as TAnyCamera;
 
   if (isNotDefined(camera)) throw new Error(`[Serialization] Controls: camera not found for entity with name: "${entity.name}", (id: "${entity.id}")`);
-  const cameraW: TCameraWrapper | undefined = cameraService.getRegistry().find((cameraWrapper: TCameraWrapper): boolean => cameraWrapper.entity === camera);
+  const cameraW: TAnyCameraWrapper | undefined = cameraService.getRegistry().find((cameraWrapper: TAnyCameraWrapper): boolean => cameraWrapper.entity === camera);
   if (isNotDefined(cameraW)) throw new Error(`[Serialization] Controls: camera not found for entity with name: "${entity.name}", (id: "${entity.id}")`);
 
   const result: TWriteable<TControlsConfig> = filterOutEmptyFields({

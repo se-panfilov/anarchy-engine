@@ -2,7 +2,7 @@ import type { Euler, Quaternion, Vector3 } from 'three';
 import type { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
 import type { TWrapper } from '@/Engine/Abstract';
-import type { TCameraWrapper } from '@/Engine/Camera';
+import type { TAnyCameraWrapper } from '@/Engine/Camera';
 import type { ControlsType } from '@/Engine/Controls/Constants';
 import type { TMilliseconds } from '@/Engine/Math';
 import type { TWithActiveMixin } from '@/Engine/Mixins';
@@ -25,7 +25,7 @@ export type TOrbitControlsWrapper = Omit<TWrapper<OrbitControls>, 'serialize'> &
     moveToTargetSmoothly: (position: TReadonlyVector3 | Vector3) => void;
     rotateCameraBy: (rotation: Quaternion | Euler) => void;
     rotateCameraTo: (rotation: Quaternion | Euler) => void;
-    getCamera: () => TCameraWrapper;
+    getCamera: () => TAnyCameraWrapper;
     getType: () => ControlsType;
   }> &
   TWithActiveMixin;

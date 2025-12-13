@@ -1,6 +1,6 @@
 import type { Vector3 } from 'three';
 
-import type { TActor, TCameraWrapper, TReadonlyVector3, TSpace, TSpaceConfig } from '@/Engine';
+import type { TActor, TAnyCameraWrapper, TReadonlyVector3, TSpace, TSpaceConfig } from '@/Engine';
 import { asRecord, isNotDefined, spaceService } from '@/Engine';
 
 import spaceConfigJson from './space.json';
@@ -30,7 +30,7 @@ export function showcase(space: TSpace): void {
   const actor3: TActor | undefined = actorAsyncRegistry.findByName('actor_3');
   if (isNotDefined(actor3)) throw new Error(`Cannot find "actor_3" actor`);
 
-  const cameraW: TCameraWrapper | undefined = cameraService.findActive();
+  const cameraW: TAnyCameraWrapper | undefined = cameraService.findActive();
   if (isNotDefined(cameraW)) throw new Error(`Cannot find active camera`);
 
   actor1.drive.physical.physicsBody$.value?.getRigidBody()?.addTorque({ x: -0.2, y: 0.5, z: 1 }, true);
