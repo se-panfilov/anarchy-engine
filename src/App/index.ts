@@ -1,6 +1,6 @@
 import '@/App/style.css';
 
-import { showcase } from '@/App/Levels/Showcase1MovingActors';
+// import { showcase } from '@/App/Levels/Showcase1MovingActors';
 // import { showcase } from '@/App/Levels/Showcase2TopDown';
 // import { showcase } from '@/App/Levels/Showcase3CameraFlying';
 // import { showcase } from '@/App/Levels/Showcase4AnimejsSimple';
@@ -10,7 +10,7 @@ import { showcase } from '@/App/Levels/Showcase1MovingActors';
 // import { showcase } from '@/App/Levels/Showcase8Text3d';
 // import { showcase } from '@/App/Levels/Showcase9TexturesAndMaterials';
 // import { showcase } from '@/App/Levels/Showcase10ComplexMaterials';
-// import { showcase } from '@/App/Levels/Showcase11KeyboardAndMouse';
+import { showcase } from '@/App/Levels/Showcase11KeyboardAndMouse';
 // import { showcase } from '@/App/Levels/Showcase12Light';
 // import { showcase } from '@/App/Levels/Showcase13Fog';
 // import { showcase } from '@/App/Levels/Showcase14SwitchingActiveCamera';

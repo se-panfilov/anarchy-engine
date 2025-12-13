@@ -1,5 +1,5 @@
 import { bindKey, bindKeyCombo, checkKey, checkKeyCombo, unbindKey, unbindKeyCombo } from '@rwh/keystrokes';
-import { Subject } from 'rxjs';
+import { filter, map, Subject } from 'rxjs';
 
 import type { TGameKey, TKeyboardRegistry, TKeyboardRegistryValues, TKeyboardService, TKeyCombo, TKeySubscription } from '@/Engine/Keyboard/Models';
 import { KeyboardRegistry } from '@/Engine/Keyboard/Registries';
@@ -40,9 +40,12 @@ export function KeyboardService(loopService: TLoopService): TKeyboardService {
 
     let pressedKey: TGameKey | TKeyCombo | undefined = undefined;
 
-    loopService.tick$.subscribe((delta) => {
-      if (isDefined(pressedKey)) pressing$.next({ key: pressedKey, delta });
-    });
+    loopService.tick$
+      .pipe(
+        filter((): boolean => isDefined(pressedKey)),
+        map((v: TLoopTimes): [TLoopTimes, TGameKey | TKeyCombo] => [v, pressedKey as TGameKey | TKeyCombo])
+      )
+      .subscribe(([delta, pressedKey]: [TLoopTimes, TGameKey | TKeyCombo]): void => pressing$.next({ key: pressedKey, delta }));
 
     if (isCombo) {
       bindKeyCombo(key, {
