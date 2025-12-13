@@ -655,6 +655,20 @@
       },
       "position": { "x": 0.25, "y": 2, "z": 2.25 },
       "tags": ["directional"]
+    },
+    {
+      "type": "Hemisphere",
+      "color": "#0000ff",
+      "groundColor": "#ff0000",
+      "intensity": 1,
+      "castShadow": true,
+      "shadow": {
+        "mapSize": { "x": 1024, "y": 1024 },
+        "camera": { "far": 15 },
+        "normalBias": 0.05
+      },
+      "position": { "x": 0.25, "y": 2, "z": 2.25 },
+      "tags": ["hemisphere"]
     }
   ],
   "controls": [

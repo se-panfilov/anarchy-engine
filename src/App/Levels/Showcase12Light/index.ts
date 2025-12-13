@@ -1,7 +1,8 @@
 import GUI from 'lil-gui';
 
 import type { IShowcase } from '@/App/Levels/Models';
-import { buildLevelFromConfig, envMapService, IAppCanvas, IDirectionalLightWrapper, ILevel, ILevelConfig, isNotDefined } from '@/Engine';
+import type { IAppCanvas, IDirectionalLightWrapper, IHemisphereLightWrapper, ILevel, ILevelConfig } from '@/Engine';
+import { buildLevelFromConfig, envMapService, isNotDefined } from '@/Engine';
 
 import levelConfig from './showcase-12-light.json';
 
@@ -14,6 +15,7 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
   // void envMapService.load('/Showcase/hdr/urban_alley_01_4k.hdr');
 
   function init(): void {
+    //directional light
     const directionalLight: IDirectionalLightWrapper | undefined = lightRegistry.getUniqByTag('directional') as IDirectionalLightWrapper | undefined;
     if (isNotDefined(directionalLight)) throw new Error('Directional light not found');
     const directionalFolder: GUI = gui.addFolder('Directional light');
@@ -22,6 +24,14 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
     directionalFolder.add(directionalLight.entity.position, 'z').min(-50).max(50).step(0.5);
     directionalFolder.addColor(directionalLight.entity, 'color');
     directionalFolder.add(directionalLight.entity, 'intensity').min(0).max(10).step(0.1);
+
+    //hemisphere light
+    const hemisphereLight: IHemisphereLightWrapper | undefined = lightRegistry.getUniqByTag('hemisphere') as IHemisphereLightWrapper | undefined;
+    if (isNotDefined(hemisphereLight)) throw new Error('Hemisphere light not found');
+    const hemisphereFolder: GUI = gui.addFolder('Hemisphere light');
+    hemisphereFolder.addColor(hemisphereLight.entity, 'color');
+    hemisphereFolder.addColor(hemisphereLight.entity, 'groundColor');
+    hemisphereFolder.add(hemisphereLight.entity, 'intensity').min(0).max(10).step(0.1);
   }
 
   function start(): void {
