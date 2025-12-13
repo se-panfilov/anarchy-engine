@@ -1,11 +1,10 @@
 import { isDefined } from '@Anarchy/Shared/Utils';
 import type { TTrackingService } from '@Anarchy/Tracking/Models';
-import type { EventHint } from '@sentry/browser';
-import type { ErrorEvent } from '@sentry/core';
 import type { ElectronMainOptions } from '@sentry/electron/esm/main';
-import { captureException, init } from '@sentry/electron/renderer';
+import type { ErrorEvent, EventHint } from '@sentry/electron/main';
+import { captureException, init } from '@sentry/electron/main';
 
-export function ElectronTrackingService(options?: ElectronMainOptions, metaData?: Readonly<Record<string, unknown>>): TTrackingService {
+export function DesktopTrackingService(options?: ElectronMainOptions, metaData?: Readonly<Record<string, unknown>>): TTrackingService {
   let isStarted: boolean = false;
 
   const defaultOptions: ElectronMainOptions = {
