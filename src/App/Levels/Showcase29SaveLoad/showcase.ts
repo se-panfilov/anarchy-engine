@@ -104,6 +104,8 @@ function saveSpaceConfigInMemory(name: string | undefined, spaceRegistry: TSpace
   const index: number = spacesInMemoryData.findIndex((s: TSpacesData): boolean => s.name === name);
   const config: TSpaceConfig = space.serialize();
 
+  console.log('[Serialized data]:', config);
+
   const spaceData: TSpacesData | undefined = spacesData.find((s: TSpacesData): boolean => s.name === name);
   if (isNotDefined(spaceData)) throw new Error(`[Showcase]: Space data is not found for space "${name}"`);
   const { onCreate, onChange, onUnload } = spaceData;
