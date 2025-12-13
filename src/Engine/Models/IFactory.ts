@@ -1,8 +1,8 @@
 import type { Subject } from 'rxjs';
 import type { IReactiveWrapper } from '@Engine/Models';
-import type { AbstractConfig } from '@Engine/Launcher/Models';
+import type { IAbstractConfig } from '@Engine/Launcher/Models';
 
-export interface IFactory<T extends IReactiveWrapper<ENT>, ENT, PRMS, C extends AbstractConfig> {
+export interface IFactory<T extends IReactiveWrapper<ENT>, ENT, PRMS, C extends IAbstractConfig> {
   readonly id: string;
   readonly type: string;
   readonly latest$: Subject<T>;

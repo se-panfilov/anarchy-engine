@@ -1,9 +1,9 @@
-import type { LightConfig, LightShadowConfig } from '@Engine/Launcher/Models';
+import type { ILightConfig, LightShadowConfig } from '@Engine/Launcher/Models';
 import type { ILightParams, LightShadowParams } from '@Engine/Models';
 import { Color, Vector2, Vector3 } from 'three';
 import { isNotDefined } from '@Engine/Utils';
 
-export function lightAdapter(config: LightConfig): ILightParams {
+export function lightAdapter(config: ILightConfig): ILightParams {
   const { position, color, shadow, ...rest } = config;
   return {
     ...rest,

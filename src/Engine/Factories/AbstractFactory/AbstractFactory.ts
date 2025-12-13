@@ -1,13 +1,13 @@
 import { Subject } from 'rxjs';
 import { nanoid } from 'nanoid';
 import type { IFactory, IReactiveWrapper } from '@Engine/Models';
-import type { AbstractConfig } from '@Engine/Launcher/Models';
+import type { IAbstractConfig } from '@Engine/Launcher/Models';
 import { isNotDefined } from '@Engine/Utils';
-import type { CreateFN } from '@Engine/Factories/AbstractFactory/Models';
+import type { ICreateFN } from '@Engine/Factories/AbstractFactory/Models';
 
-export function AbstractFactory<T extends IReactiveWrapper<ENT>, ENT, PRMS, C extends AbstractConfig>(
+export function AbstractFactory<T extends IReactiveWrapper<ENT>, ENT, PRMS, C extends IAbstractConfig>(
   type: string,
-  create: CreateFN<T, PRMS>,
+  create: ICreateFN<T, PRMS>,
   adapterFn?: (config: C) => PRMS
 ): IFactory<T, ENT, PRMS, C> {
   const id: string = type + '_factory_' + nanoid();

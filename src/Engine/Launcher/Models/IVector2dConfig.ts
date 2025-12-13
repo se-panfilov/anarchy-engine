@@ -1,4 +1,4 @@
-export interface Vector2dConfig {
+export interface IVector2dConfig {
   readonly x: number;
   readonly y: number;
 }

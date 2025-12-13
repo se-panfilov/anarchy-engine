@@ -1,1 +1,1 @@
-export * from './CreateFN';
+export * from './ICreateFN';

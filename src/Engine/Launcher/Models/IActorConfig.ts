@@ -1,12 +1,12 @@
 import type { IActorParams } from '@Engine/Models';
-import type { Vector3dConfig } from './Vector3dConfig';
+import type { IVector3dConfig } from './IVector3dConfig';
 
-export interface ActorConfig extends Omit<IActorParams, 'materialParams' | 'position'> {
+export interface IActorConfig extends Omit<IActorParams, 'materialParams' | 'position'> {
   readonly type: ActorType;
   readonly width: number;
   readonly height: number;
   readonly materialParams: ActorMaterialConfig;
-  readonly position: Vector3dConfig;
+  readonly position: IVector3dConfig;
   readonly castShadow: boolean;
 }
 

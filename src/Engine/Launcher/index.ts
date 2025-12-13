@@ -1,4 +1,4 @@
-import type { ActorConfig, CameraConfig, LightConfig, SceneConfig } from '@Engine/Launcher/Models';
+import type { IActorConfig, ICameraConfig, ILightConfig, ISceneConfig } from '@Engine/Launcher/Models';
 import type { IMousePosition, IRegistry, IWatcher } from '@Engine/Models';
 import type {
   IActorFactory,
@@ -29,7 +29,7 @@ import type {
 import { combineLatest } from 'rxjs';
 import { MouseClicksWatcher, MousePositionWatcher } from '@Engine/Watchers';
 
-export async function launch(sceneConfig: SceneConfig): Promise<void> {
+export async function launch(sceneConfig: ISceneConfig): Promise<void> {
   const { name, actors, cameras, lights } = sceneConfig;
   const { promise, resolve } = createDeferredPromise<void>();
 
@@ -88,9 +88,9 @@ export async function launch(sceneConfig: SceneConfig): Promise<void> {
 
   //Dynamic create entities
   sceneFactory.create$.next({ name });
-  actors.forEach((config: ActorConfig) => actorFactory.createFromConfig$.next(config));
-  cameras.forEach((config: CameraConfig) => cameraFactory.createFromConfig$.next(config));
-  lights.forEach((config: LightConfig) => lightFactory.createFromConfig$.next(config));
+  actors.forEach((config: IActorConfig) => actorFactory.createFromConfig$.next(config));
+  cameras.forEach((config: ICameraConfig) => cameraFactory.createFromConfig$.next(config));
+  lights.forEach((config: ILightConfig) => lightFactory.createFromConfig$.next(config));
 
   // TODO (S.Panfilov) canvas (or something else) should come from settings
   const canvas: HTMLElement | null = document.querySelector('#app');
