@@ -1,11 +1,12 @@
-import type { TActor, TActorConfig } from '@/Engine/Actor/Models';
+import type { TActor, TActorConfig, TActorConfigToParamsDependencies } from '@/Engine/Actor/Models';
 import { extractSerializableRegistrableFields } from '@/Engine/Mixins';
 import { filterOutEmptyFields } from '@/Engine/Utils';
 
 // TODO 15-0-0: (finish 14-0-0 tasks)
 
-export function actorToConfig(entity: TActor): TActorConfig {
-  const { tags, drive } = entity;
+// TODO 15-0-0: validate result
+export function actorToConfig(entity: TActor, { fsmService, models3dService, spatialGridRegistry }: TActorConfigToParamsDependencies): TActorConfig {
+  const { drive } = entity;
   // TODO 15-0-0: implement
 
   return filterOutEmptyFields({
@@ -24,8 +25,6 @@ export function actorToConfig(entity: TActor): TActorConfig {
     // states?: TActorStatesConfig //Can we have a generic serialization for FSM?
 
     ...extractSerializableRegistrableFields(entity),
-    ...drive.serialize(),
-    tags
-    // TODO 15-0-0: fix any
-  }) as any;
+    ...drive.serialize()
+  });
 }

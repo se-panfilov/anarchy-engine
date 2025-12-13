@@ -6,7 +6,7 @@ import type { Vector3, Vector3Like } from 'three';
 import { AbstractEntity, EntityType } from '@/Engine/Abstract';
 import { actorToConfig } from '@/Engine/Actor/Adapters';
 import { withActorStates } from '@/Engine/Actor/Mixins';
-import type { TActor, TActorConfig, TActorDependencies, TActorEntities, TActorParams, TActorTransformDrive } from '@/Engine/Actor/Models';
+import type { TActor, TActorConfig, TActorConfigToParamsDependencies, TActorDependencies, TActorEntities, TActorParams, TActorTransformDrive } from '@/Engine/Actor/Models';
 import { ActorTransformDrive } from '@/Engine/Actor/TransformDrive';
 import { applySpatialGrid, startCollisions } from '@/Engine/Actor/Utils';
 import { withCollisions } from '@/Engine/Collisions';
@@ -42,7 +42,9 @@ export function Actor(
     ...withUpdateSpatialCell()
   };
 
-  const actor: TActor = Object.assign(AbstractEntity(entities, EntityType.Actor, { ...params, id }), { serialize: (): TActorConfig => actorToConfig(actor) });
+  const actor: TActor = Object.assign(AbstractEntity(entities, EntityType.Actor, { ...params, id }), {
+    serialize: (dependencies: TActorConfigToParamsDependencies): TActorConfig => actorToConfig(actor, dependencies)
+  });
 
   const spatialLoop: TSpatialLoop = loopService.getSpatialLoop();
 
