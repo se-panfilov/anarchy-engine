@@ -1,3 +1,5 @@
+import type { Machine, MachineState } from 'robot3';
+import { createMachine, interpret, state, transition } from 'robot3';
 import type { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
 
 import type { TShowcase } from '@/App/Levels/Models';
@@ -48,52 +50,75 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     const idleAction = actions[Idle];
     // const tPoseAction = actions['TPose'];
 
-    const solderAnimFsm: TAnimationsFsmWrapper = animationsFsmService.create({
-      id: 'solder_animation_fsm',
-      initial: Idle,
-      states: {
-        [Idle]: { on: { [Walk]: Walk, [Run]: Run } },
-        [Walk]: { on: { [Idle]: Idle, [Run]: Run } },
-        [Run]: { on: { [Idle]: Idle, [Walk]: Walk } }
-      }
+    // const solderAnimFsm: TAnimationsFsmWrapper = animationsFsmService.create({
+    //   id: 'solder_animation_fsm',
+    //   initial: Idle,
+    //   states: {
+    //     [Idle]: { on: { [Walk]: Walk, [Run]: Run } },
+    //     [Walk]: { on: { [Idle]: Idle, [Run]: Run } },
+    //     [Run]: { on: { [Idle]: Idle, [Walk]: Walk } }
+    //   }
+    // });
+
+    type TDemo = {
+      red: MachineState<'next'>;
+      yellow: MachineState<'next' | 'tg'>;
+      green: MachineState<'next'>;
+    };
+
+    const solderAnimFsm: Machine<TDemo> = createMachine({
+      // inactive: state(transition('toggle', 'active')),
+      // active: state(transition('toggle', 'inactive'))
+      red: state(transition('next', 'green')),
+      yellow: state(transition('next', 'red'), transition('tg', 'green')),
+      green: state(transition('next', 'yellow'))
     });
+
+    const service = interpret(solderAnimFsm, (v) => {
+      console.log('XXX', v.machine.current);
+    });
+
+    service.send('next');
+
+    console.log(service);
 
     const solderActor: TActor | undefined = actorService.getRegistry().findByName('solder_actor_1');
     if (isNotDefined(solderActor)) throw new Error('Solder actor is not found');
-    solderActor.setAnimationsFsm(solderAnimFsm.createActorFsm());
+    // solderActor.setAnimationsFsm(solderAnimFsm.createActorFsm());
+    solderActor.setAnimationsFsm(solderAnimFsm);
 
     const { animationsFsmActor } = solderActor.states;
 
     if (isNotDefined(animationsFsmActor)) throw new Error('Animations FSM is not defined');
 
-    let prev: any = '';
-    animationsFsmActor.subscribe((state): void => {
-      if (prev === state.value) return;
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-      prev = state.value;
-
-      if (state.matches(Idle)) {
-        walkAction.fadeOut(fadeDuration);
-        runAction.fadeOut(fadeDuration);
-        idleAction.reset().fadeIn(fadeDuration).play();
-      } else if (state.matches(Walk)) {
-        idleAction.fadeOut(fadeDuration);
-        runAction.fadeOut(fadeDuration);
-        walkAction.reset().fadeIn(fadeDuration).play();
-      } else if (state.matches(Run)) {
-        idleAction.fadeOut(fadeDuration);
-        walkAction.fadeOut(fadeDuration);
-        runAction.reset().fadeIn(fadeDuration).play();
-      }
-    });
+    const prev: any = '';
+    // animationsFsmActor.subscribe((state): void => {
+    //   if (prev === state.value) return;
+    //   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+    //   prev = state.value;
+    //
+    //   if (state.matches(Idle)) {
+    //     walkAction.fadeOut(fadeDuration);
+    //     runAction.fadeOut(fadeDuration);
+    //     idleAction.reset().fadeIn(fadeDuration).play();
+    //   } else if (state.matches(Walk)) {
+    //     idleAction.fadeOut(fadeDuration);
+    //     runAction.fadeOut(fadeDuration);
+    //     walkAction.reset().fadeIn(fadeDuration).play();
+    //   } else if (state.matches(Run)) {
+    //     idleAction.fadeOut(fadeDuration);
+    //     walkAction.fadeOut(fadeDuration);
+    //     runAction.reset().fadeIn(fadeDuration).play();
+    //   }
+    // });
 
     onKey(KeyCode.W).pressing$.subscribe((): void => {
       const type = isKeyPressed(KeysExtra.Shift) ? Run : Walk;
-      if (animationsFsmActor.getSnapshot().value !== type) animationsFsmActor?.send({ type });
+      // if (animationsFsmActor.getSnapshot().value !== type) animationsFsmActor?.send({ type });
     });
 
     onKey(KeyCode.W).released$.subscribe((): void => {
-      animationsFsmActor.send({ type: Idle });
+      // animationsFsmActor.send({ type: Idle });
     });
   }
 
