@@ -4,6 +4,7 @@ import { PCFShadowMap, WebGLRenderer } from 'three';
 
 import type { IWrapper } from '@/Engine/Abstract';
 import { AbstractWrapper, WrapperType } from '@/Engine/Abstract';
+import { adjustWthActive } from '@/Engine/Mixins';
 import { RendererModes } from '@/Engine/Renderer/Constants';
 import type { IRendererAccessors, IRendererParams, IRendererWrapper } from '@/Engine/Renderer/Models';
 import type { IScreenSizeValues, IScreenSizeWatcher } from '@/Engine/Screen';
@@ -62,5 +63,9 @@ export function RendererWrapper(params: IRendererParams, screenSizeWatcher: Read
     screenSize$.unsubscribe();
   }
 
-  return { ...wrapper, ...accessors, entity, destroy };
+  let result = { ...wrapper, ...accessors, entity, destroy };
+
+  result = adjustWthActive(result, params.isActive);
+
+  return result;
 }
