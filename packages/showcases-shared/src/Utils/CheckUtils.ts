@@ -11,6 +11,16 @@ export function isSettings(settings: TShowcaseGameSettings | unknown): settings 
   return true;
 }
 
+export function isPartialSettings(settings: TShowcaseGameSettings | unknown): settings is Partial<TShowcaseGameSettings> {
+  if (isNotDefined(settings)) return false;
+  if (typeof settings !== 'object') return false;
+  if (isSettings(settings)) return true;
+  const { graphics, localization, debug, internal, audio } = settings as Partial<TShowcaseGameSettings>;
+  if (isDefined(graphics) || isDefined(audio) || isDefined(localization) || isDefined(debug) || isDefined(internal)) return true;
+
+  return false;
+}
+
 export function isLoadDocPayload(payload: TLoadDocPayload | unknown): payload is TLoadDocPayload {
   if (isNotDefined(payload)) return false;
   if (typeof payload !== 'object') return false;
