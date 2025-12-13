@@ -1,10 +1,15 @@
+import type { TMeters } from '@/Engine/Math';
 import type { TModel3dConfig } from '@/Engine/Models3d';
 import { PrimitiveModel3dType } from '@/Engine/Models3d';
 
+import { mockMaterialName } from './MockMaterialConfig';
+
 export const mockModel3dName = 'mock_model_3d';
 
-// TODO 12-0-0: Move to the right place
-export const params: TModel3dConfig = {
+export const mockModel3dConfig: TModel3dConfig = {
   name: mockModel3dName,
-  model3dSource: PrimitiveModel3dType.Sphere
+  model3dSource: PrimitiveModel3dType.Sphere,
+  materialSource: mockMaterialName,
+  castShadow: false,
+  options: { radius: 1 as TMeters }
 };

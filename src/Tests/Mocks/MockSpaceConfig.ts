@@ -3,7 +3,6 @@ import { SpaceSchemaVersion } from '@/Engine/Space';
 
 import { mockSpatialGridConfig } from './MockSpatialGridConfig';
 
-// TODO 12-0-0: Move to the right place
 export const mockConfig: TSpaceConfig = {
   entities: {
     actors: [],

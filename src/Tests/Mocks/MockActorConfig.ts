@@ -3,7 +3,6 @@ import type { TActorConfig } from '@/Engine/Actor';
 import { mockModel3dName } from './MockModel3dConfig';
 import { mockSpatialGridName } from './MockSpatialGridConfig';
 
-// TODO 12-0-0: Move to the right place
 export const mockActorConfig: TActorConfig = {
   model3dSource: mockModel3dName,
   spatial: {
