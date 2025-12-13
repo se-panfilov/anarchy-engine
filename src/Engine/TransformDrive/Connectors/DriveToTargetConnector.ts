@@ -1,8 +1,6 @@
 import type { Subscription } from 'rxjs';
 import { Euler } from 'three';
 
-import type { TDestroyable } from '@/Engine/Mixins';
-import { destroyableMixin } from '@/Engine/Mixins';
 import type { TReadonlyEuler, TReadonlyQuaternion, TReadonlyVector3 } from '@/Engine/ThreeLib';
 import type { TransformAgent } from '@/Engine/TransformDrive/Constants';
 import type { TAbstractTransformAgent, TDriveToTargetConnector, TOffsets, TTransformDrive, TWithTransforms } from '@/Engine/TransformDrive/Models';
@@ -31,8 +29,7 @@ export function DriveToTargetConnector<T extends Partial<Record<TransformAgent, 
     return target.scale.copy(scale).add(scaleOffset);
   });
 
-  const destroyable: TDestroyable = destroyableMixin();
-  const destroySub$: Subscription = destroyable.destroy$.subscribe((): void => {
+  const destroySub$: Subscription = drive.destroy$.subscribe((): void => {
     //Finish subscriptions
     destroySub$.unsubscribe();
     positionSub$.unsubscribe();
@@ -41,6 +38,6 @@ export function DriveToTargetConnector<T extends Partial<Record<TransformAgent, 
   });
 
   return {
-    ...destroyable
+    destroy$: drive.destroy$
   };
 }

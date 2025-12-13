@@ -17,7 +17,7 @@ export const isNotDefined = <T>(value: T | undefined | null): value is undefined
 export const isAllNotDefined = <T>(values: ReadonlyArray<T | undefined | null>): values is ReadonlyArray<undefined | null> => values.every(isNotDefined);
 
 export function isDestroyable(obj: unknown): obj is TDestroyable {
-  return isDefined((obj as TDestroyable).destroy$) && isDefined((obj as TDestroyable).isDestroyed);
+  return isDefined((obj as TDestroyable).destroy$);
 }
 
 export const isString = (value: unknown): value is string => typeof value === 'string';
