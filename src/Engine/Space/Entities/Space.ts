@@ -92,6 +92,11 @@ export function Space(params: TSpaceParams, registry: TSpaceRegistry, hooks?: TS
     return undefined;
   });
 
+  // eslint-disable-next-line functional/immutable-data
+  const result = Object.assign(space, parts);
+
+  entitiesCreationPromise.then(() => built$.next(result));
+
   const destroySub$: Subscription = space.destroy$.subscribe((): void => {
     destroySub$.unsubscribe();
 
@@ -103,13 +108,28 @@ export function Space(params: TSpaceParams, registry: TSpaceRegistry, hooks?: TS
     Object.values(services).forEach((service: TAbstractService): void => void (isDestroyable(service) && service.destroy$.next()));
     Object.values(loops).forEach((loop: TLoop): void => void (isDestroyable(loop) && loop.destroy$.next()));
 
+    // TODO debug
+    // setTimeout(() => {
+    //   Object.values(result.services).forEach((s: any) => {
+    //     console.log('XXX', s.getRegistry?.().asArray());
+    //     console.log('XXX L', s.getListenersRegistry?.().asArray());
+    //     console.log('XXX R', s.getResourceRegistry?.().asArray());
+    //     console.log('XXX I', s.getInstanceRegistry?.().asArray());
+    //     console.log('XXX S', s.getSourceRegistry?.().asArray());
+    //     console.log('XXX M', s.getMetaInfoRegistry?.().asArray());
+    //     console.log('XXX C', s.getModel3dToActorConnectionRegistry?.().asArray());
+    //     console.log('XXX MR', s.getModel3dRawToModel3dConnectionRegistry?.().asArray());
+    //     console.log('XXX P', s.getMousePositionWatcherRegistry?.().asArray());
+    //     console.log('XXX Cl', s.getMouseClickWatcherRegistry?.().asArray());
+    //     console.log('XXX T2', s.getRegistries?.().text2dRegistry?.asArray());
+    //     console.log('XXX T3', s.getRegistries?.().text3dRegistry?.asArray());
+    //     console.log('XXX T3T', s.getRegistries?.().text3dTextureRegistry?.asArray());
+    //     console.log('XXX T2R', s.getRendererRegistries?.().text2dRendererRegistry?.asArray());
+    //     console.log('XXX T3R', s.getRendererRegistries?.().text3dRendererRegistry?.asArray());
+    //   });
+    // }, 500);
     registry.remove(space.id);
   });
-
-  // eslint-disable-next-line functional/immutable-data
-  const result = Object.assign(space, parts);
-
-  entitiesCreationPromise.then(() => built$.next(result));
 
   return result;
 }
