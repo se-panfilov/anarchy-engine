@@ -4,6 +4,7 @@ export * from './TPhysicsGlobalConfig';
 export * from './TPhysicsGlobalParams';
 export * from './TPhysicsGlobalProps';
 export * from './TPhysicsObjectParams';
+export * from './TPhysicsObjectRegistry';
 export * from './TPhysicsParams';
 export * from './TPhysicsPresetConfig';
 export * from './TPhysicsPresetParams';

@@ -12,6 +12,7 @@ export enum RegistryType {
   MousePositionWatcher = 'mouse_position_watcher',
   Particles = 'particles',
   PhysicsPreset = 'physics_preset',
+  PhysicsObject = 'physics_object',
   Renderer = 'renderer',
   Scene = 'scene',
   ScreenSizeWatcher = 'screen_size_watcher',
