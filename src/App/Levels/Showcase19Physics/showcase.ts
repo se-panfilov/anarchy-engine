@@ -31,6 +31,7 @@ export function showcase(canvas: TAppCanvas): TShowcase {
   const colliderDesc: ColliderDesc = ColliderDesc.cuboid(0.5, 0.5, 0.5);
   const collider: Collider = world.createCollider(colliderDesc, rigidBody);
 
+  // TODO (S.Panfilov) extract physics world update to  the main loop
   loopService.tick$.subscribe(({ delta }) => {
     // Ste the simulation forward.
     world.step();
