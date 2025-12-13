@@ -1,1 +1,1 @@
-export * from './FogConfigAdapter';
+export * from './ConfigToParams';
