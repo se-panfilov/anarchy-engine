@@ -1,11 +1,12 @@
-import type { TActor, TActorConfig, TActorEntityToConfigDependencies, TActorStates } from '@/Engine/Actor/Models';
+import type { TActor, TActorConfig, TActorEntityToConfigDependencies, TActorStates, TActorTransformAgents } from '@/Engine/Actor/Models';
 import type { TCollisionsDataConfig } from '@/Engine/Collisions';
 import type { TFsmWrapper } from '@/Engine/Fsm';
 import { extractSerializableRegistrableFields } from '@/Engine/Mixins';
 import type { TModel3d, TModels3dRegistry } from '@/Engine/Models3d';
 import type { TWithPresetNamePhysicsBodyConfig, TWithPresetNamePhysicsBodyParams } from '@/Engine/Physics';
 import type { TSpatialDataConfig } from '@/Engine/Spatial';
-import { filterOutEmptyFields, isNotDefined } from '@/Engine/Utils';
+import type { TTransformDrive } from '@/Engine/TransformDrive';
+import { filterOutEmptyFields, isNotDefined, quaternionToXyzw, vector3ToXyz } from '@/Engine/Utils';
 
 // TODO 15-0-0: (finish 14-0-0 tasks)
 
@@ -21,7 +22,7 @@ export function actorToConfig(entity: TActor, { models3dService }: TActorEntityT
 
   return filterOutEmptyFields({
     model3dSource,
-    physics: getPhysics(entity),
+    physics: getPhysics(entity, drive),
     // kinematic?: TKinematicConfig,
     spatial: getSpatial(entity),
     collisions: getCollisions(entity),
@@ -58,16 +59,15 @@ function getCollisions(entity: TActor): TCollisionsDataConfig | undefined {
   return { isAutoUpdate: entity.collisions.autoUpdate$.value, updatePriority };
 }
 
-function getPhysics(entity: TActor): TWithPresetNamePhysicsBodyConfig | undefined {
+function getPhysics(entity: TActor, drive: TTransformDrive<TActorTransformAgents>): TWithPresetNamePhysicsBodyConfig | undefined {
   const physicsSettings: TWithPresetNamePhysicsBodyParams | undefined = entity.getPhysicsSettings();
   if (isNotDefined(physicsSettings)) return undefined;
 
-  console.log('XXX physicsSettings', physicsSettings);
   return {
-    ...physicsSettings
+    ...physicsSettings,
 
-    // TODO 15-0-0: must use latest values from a physical body
-    // position
-    // rotation
+    // Physics position/rotation supposed to be the same as drive's position/rotation
+    position: vector3ToXyz(drive.position$.value),
+    rotation: quaternionToXyzw(drive.rotation$.value)
   };
 }
