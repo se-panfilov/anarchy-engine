@@ -47,7 +47,6 @@
         "name": "central_actor",
         "model3dEntity": "central_actor_model",
         "position": { "x": 0, "y": 0, "z": 0 },
-        "castShadow": true,
         "spatial": { "grid": "main_grid", "isAutoUpdate": false },
         "tags": []
       }

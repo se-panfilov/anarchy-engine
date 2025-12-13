@@ -1,5 +1,5 @@
 import type { TShowcase } from '@/App/Levels/Models';
-import type { TActorParams, TActorRegistry, TActorWrapper, TAppCanvas, TEngine, TMoverService, TSpace, TSpaceConfig, TSpatialGridWrapper } from '@/Engine';
+import type { TActorParams, TActorRegistry, TActorWrapper, TAppCanvas, TEngine, TMaterialWrapper, TModel3dFacade, TMoverService, TSpace, TSpaceConfig, TSpatialGridWrapper } from '@/Engine';
 import { defaultMoverServiceConfig, Engine, EulerWrapper, forEachEnum, LookUpStrategy, MaterialType, PrimitiveModel3dType, spaceService, TextType, Vector3Wrapper } from '@/Engine';
 import type { TAnimationParams } from '@/Engine/Services';
 import { Easing } from '@/Engine/Services';
@@ -13,7 +13,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
 
   function start(): void {
     engine.start();
-    const { actorService, textService, loopService, mouseService, spatialGridService } = space.services;
+    const { actorService, textService, loopService, mouseService, spatialGridService, materialService, models3dService } = space.services;
     const actorRegistry: TActorRegistry = actorService.getRegistry();
 
     let isClickBlocked: boolean = false;
@@ -26,13 +26,20 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     const boxActorTag: string = 'box';
     const grid: TSpatialGridWrapper | undefined = spatialGridService.getRegistry().findByName('main_grid');
 
+    const materialW: TMaterialWrapper = materialService.create({ name: 'cube_material', type: MaterialType.Toon, options: { color: '#5177ff' } });
+
+    const cubeModel3dF: TModel3dFacade = models3dService.create({
+      name: 'cube_model',
+      model3dSource: PrimitiveModel3dType.Cube,
+      animationsSource: [],
+      materialSource: materialW,
+      options: { width: 1, height: 1, depth: 1 }
+    });
+
     const actorTemplate: TActorParams = {
-      model3d: { url: PrimitiveModel3dType.Cube },
-      width: 1,
-      height: 1,
+      model3dEntity: cubeModel3dF,
       position: Vector3Wrapper({ x: -20, y: 2, z: -2 }),
       castShadow: true,
-      material: { type: MaterialType.Toon, params: { color: '#5177ff' } },
       spatial: { isAutoUpdate: true, grid },
       tags: [boxActorTag]
     };

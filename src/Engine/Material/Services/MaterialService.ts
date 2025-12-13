@@ -5,6 +5,7 @@ import { destroyableMixin } from '@/Engine/Mixins';
 export function MaterialService(factory: TMaterialFactory, registry: TMaterialRegistry): TMaterialService {
   factory.entityCreated$.subscribe((wrapper: TMaterialWrapper): void => registry.add(wrapper));
 
+  // TODO 9.0.0. RESOURCES: should not create material with the same names
   const create = (params: TMaterialParams): TMaterialWrapper => factory.create(params);
   const createFromConfig = (material: ReadonlyArray<TMaterialConfig>): ReadonlyArray<TMaterialWrapper> =>
     material.map((config: TMaterialConfig): TMaterialWrapper => create(factory.configToParams(config)));

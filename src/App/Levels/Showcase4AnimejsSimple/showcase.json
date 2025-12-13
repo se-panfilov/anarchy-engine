@@ -8,77 +8,92 @@
       "isActive": true
     }
   ],
-  "spatialGrids": [
-    {
-      "name": "main_grid",
-      "mapWidth": 70,
-      "mapHeight": 70,
-      "cellSize": 10,
-      "centerX": 0,
-      "centerZ": 0,
-      "tags": []
-    }
-  ],
-  "actors": [
-    {
-      "width": 70,
-      "height": 70,
-      "widthSegments": 10,
-      "heightSegments": 10,
-      "material": { "type": "standard", "params": { "color": "#5ddc9a" } },
-      "model3d": {
-        "url": "plane"
+  "resources": {
+    "textures": [],
+    "envMaps": [],
+    "materials": [{ "name": "plane_material", "type": "standard", "options": { "color": "#5ddc9a" } }],
+    "models3d": []
+  },
+  "entities": {
+    "spatialGrids": [
+      {
+        "name": "main_grid",
+        "mapWidth": 70,
+        "mapHeight": 70,
+        "cellSize": 10,
+        "centerX": 0,
+        "centerZ": 0,
+        "tags": []
+      }
+    ],
+    "models3d": [
+      {
+        "name": "plane_model",
+        "model3dSource": "plane",
+        "materialSource": "plane_material",
+        "options": {
+          "width": 70,
+          "height": 70,
+          "widthSegments": 10,
+          "heightSegments": 10
+        },
+        "castShadow": true,
+        "receiveShadow": true
+      }
+    ],
+    "actors": [
+      {
+        "name": "plane_actor",
+        "model3dEntity": "plane_model",
+        "position": { "x": 0, "y": 0, "z": 0 },
+        "rotation": { "x": -1.57, "y": 0, "z": 0 },
+        "spatial": { "grid": "main_grid", "isAutoUpdate": false },
+        "tags": []
+      }
+    ],
+    "intersections": [],
+    "physics": {},
+    "texts": [],
+    "cameras": [
+      {
+        "fov": 45,
+        "name": "main",
+        "near": 1,
+        "far": 10000,
+        "position": { "x": 0, "y": 80, "z": 0 },
+        "rotation": { "x": 0, "y": 0, "z": 0 },
+        "lookAt": { "x": 0, "y": -90, "z": 0 },
+        "tags": [],
+        "isActive": true
+      }
+    ],
+    "lights": [
+      {
+        "type": "Ambient",
+        "color": "#ffffff",
+        "intensity": 0.5,
+        "castShadow": false,
+        "position": { "x": 0.25, "y": 2, "z": 2.25 },
+        "tags": []
       },
-      "position": { "x": 0, "y": 0, "z": 0 },
-      "rotation": { "x": -1.57, "y": 0, "z": 0 },
-      "castShadow": false,
-      "spatial": { "grid": "main_grid", "isAutoUpdate": false },
-      "tags": []
-    }
-  ],
-  "models3d": [],
-  "intersections": [],
-  "physics": {},
-  "texts": [],
-  "cameras": [
-    {
-      "fov": 45,
-      "name": "main",
-      "near": 1,
-      "far": 10000,
-      "position": { "x": 0, "y": 80, "z": 0 },
-      "rotation": { "x": 0, "y": 0, "z": 0 },
-      "lookAt": { "x": 0, "y": -90, "z": 0 },
-      "tags": [],
-      "isActive": true
-    }
-  ],
-  "lights": [
-    {
-      "type": "Ambient",
-      "color": "#ffffff",
-      "intensity": 0.5,
-      "castShadow": false,
-      "position": { "x": 0.25, "y": 2, "z": 2.25 },
-      "tags": []
-    },
-    {
-      "type": "Directional",
-      "color": "#ffffff",
-      "intensity": 0.5,
-      "castShadow": true,
-      "shadow": {
-        "mapSize": { "x": 1024, "y": 1024 },
-        "camera": { "far": 15 },
-        "normalBias": 0.05
-      },
-      "position": { "x": 0.25, "y": 2, "z": 2.25 },
-      "tags": []
-    }
-  ],
-  "controls": [],
-  "envMaps": [],
-  "particles": [],
-  "fogs": [],
+      {
+        "type": "Directional",
+        "color": "#ffffff",
+        "intensity": 0.5,
+        "castShadow": true,
+        "shadow": {
+          "mapSize": { "x": 1024, "y": 1024 },
+          "camera": { "far": 15 },
+          "normalBias": 0.05
+        },
+        "position": { "x": 0.25, "y": 2, "z": 2.25 },
+        "tags": []
+      }
+    ],
+    "controls": [],
+    "envMaps": [],
+    "particles": [],
+    "fogs": []
+  },
   "tags": []
 }
