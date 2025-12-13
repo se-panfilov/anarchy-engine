@@ -14,3 +14,14 @@ export function removeDuplicates<T extends { id: string }>(array: ReadonlyArray<
   }
   return Array.from(uniqueMap.values());
 }
+
+export function asRecord<T, K extends keyof T, V extends string | number | symbol = T[K] & (string | number | symbol)>(key: K, list: ReadonlyArray<T>): Record<V, T> {
+  return list.reduce(
+    (acc, item) => {
+      // eslint-disable-next-line functional/immutable-data
+      acc[item[key] as V] = item;
+      return acc;
+    },
+    {} as Record<V, T>
+  );
+}
