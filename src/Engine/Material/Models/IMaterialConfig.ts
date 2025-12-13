@@ -1,4 +1,16 @@
-import type { BlendingName } from '@/Engine/Material/Constants';
+import type {
+  BlendEquationName,
+  BlendingDstFactorName,
+  BlendingName,
+  BlendingSrcFactorName,
+  CombineName,
+  DepthPackingStrategiesName,
+  NormalMapTypesName,
+  PixelFormatName,
+  SideName,
+  StencilFuncName,
+  StencilOpName
+} from '@/Engine/Material/Constants';
 
 import type {
   IAbstractMaterialProps,
@@ -16,7 +28,10 @@ import type {
 } from './IMaterialProps';
 import type { IWithMaterialType } from './IWithMaterialType';
 
-type IOmitParamsOnlyFields<T> = Omit<T, 'blending' | 'BlendingDstFactor' | 'blendEquation' | 'blendSrc' | 'side' | 'format' | 'stencilFunc' | 'stencilFail' | 'stencilZFail' | 'stencilZPass' | 'combine' | 'depthPacking' | 'normalMapType'>;
+type IOmitParamsOnlyFields<T> = Omit<
+  T,
+  'blending' | 'BlendingDstFactor' | 'blendEquation' | 'blendSrc' | 'side' | 'format' | 'stencilFunc' | 'stencilFail' | 'stencilZFail' | 'stencilZPass' | 'combine' | 'depthPacking' | 'normalMapType'
+>;
 
 export type IAbstractMaterialConfig = IOmitParamsOnlyFields<IAbstractMaterialProps> & IWithMaterialType & IMaterialConfigFields;
 export type IBasicMaterialConfig = IOmitParamsOnlyFields<IBasicMaterialProps> & IWithMaterialType & IMaterialConfigFields;
