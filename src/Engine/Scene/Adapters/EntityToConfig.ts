@@ -1,4 +1,6 @@
-export function entityToConfig(entity: EEEE): CCCCC {
+import type { TSceneConfig, TSceneWrapper } from '@/Engine/Scene/Models';
+
+export function entityToConfig(entity: TSceneWrapper): TSceneConfig {
   // TODO 15-0-0: implement
 
   return {};
