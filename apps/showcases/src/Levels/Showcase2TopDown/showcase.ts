@@ -1,17 +1,21 @@
-import type { TActorParams, TAnyCameraWrapper, TAnyMaterialWrapper, TModel3d, TModels3dService, TSpace, TSpaceConfig, TSpaceFlags, TSpatialGridWrapper } from '@Engine';
+import type { TActorParams, TAnyCameraWrapper, TAnyMaterialWrapper, TModel3d, TModels3dService, TSpace, TSpaceConfig, TSpatialGridWrapper } from '@Engine';
 import { asRecord, CameraType, isNotDefined, MaterialType, meters, PrimitiveModel3dType, spaceService } from '@Engine';
 import { combineLatest, distinctUntilChanged } from 'rxjs';
 import type { Vector2Like } from 'three';
 import { Euler, Vector3 } from 'three';
 
+import type { TAppFlags } from '@/Models';
+import { enableFPSCounter } from '@/Utils';
+
 import spaceConfigJson from './space.json';
 
 const spaceConfig: TSpaceConfig = spaceConfigJson as TSpaceConfig;
 
-export function start(flags: TSpaceFlags): void {
+export function start(flags: TAppFlags): void {
   const spaces: Record<string, TSpace> = asRecord('name', spaceService.createFromConfig([spaceConfig], flags));
   const space: TSpace = spaces[spaceConfig.name];
   if (isNotDefined(space)) throw new Error(`Showcase "${spaceConfig.name}": Space is not defined`);
+  if (flags.loopsDebugInfo) enableFPSCounter(space.loops.renderLoop.tick$);
 
   space.built$.subscribe(showcase);
 }

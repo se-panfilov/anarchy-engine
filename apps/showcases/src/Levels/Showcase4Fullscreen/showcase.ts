@@ -1,17 +1,20 @@
-import type { TActor, TActorRegistry, TMilliseconds, TModel3d, TModels3dRegistry, TSceneWrapper, TSpace, TSpaceConfig, TSpaceFlags } from '@Engine';
+import type { TActor, TActorRegistry, TMilliseconds, TModel3d, TModels3dRegistry, TSceneWrapper, TSpace, TSpaceConfig } from '@Engine';
 import { asRecord, isNotDefined, spaceService } from '@Engine';
 import { Clock } from 'three';
 
-import { addGizmo } from '@/Utils';
+import type { TAppFlags } from '@/Models';
+import { addGizmo, enableFPSCounter } from '@/Utils';
 
 import spaceConfigJson from './space.json';
 
 const spaceConfig: TSpaceConfig = spaceConfigJson as TSpaceConfig;
 
-export function start(flags: TSpaceFlags): void {
+// TODO 18-0-0: Fullscreen broken!
+export function start(flags: TAppFlags): void {
   const spaces: Record<string, TSpace> = asRecord('name', spaceService.createFromConfig([spaceConfig], flags));
   const space: TSpace = spaces[spaceConfig.name];
   if (isNotDefined(space)) throw new Error(`Showcase "${spaceConfig.name}": Space is not defined`);
+  if (flags.loopsDebugInfo) enableFPSCounter(space.loops.renderLoop.tick$);
 
   space.built$.subscribe(showcase);
 }

@@ -1,7 +1,7 @@
 import '@Public/Showcase/fonts.css';
 import './style.css';
 
-import type { TSpace, TSpaceConfig, TSpaceFlags, TSpaceRegistry } from '@Engine';
+import type { TSpace, TSpaceConfig, TSpaceRegistry } from '@Engine';
 import { isNotDefined, spaceService } from '@Engine';
 import type { Subscription } from 'rxjs';
 
@@ -22,7 +22,8 @@ import { spacePhysicsData } from '@/Levels/Showcase27SaveLoad/spacePhysics';
 import { spaceSpatialData } from '@/Levels/Showcase27SaveLoad/spaceSpatial';
 import { spaceTextData } from '@/Levels/Showcase27SaveLoad/spaceTexts';
 import { spaceTransformDriveData } from '@/Levels/Showcase27SaveLoad/spaceTransformDrive';
-import { addBtn, addDropdown } from '@/Utils';
+import type { TAppFlags } from '@/Models';
+import { addBtn, addDropdown, enableFPSCounter } from '@/Utils';
 
 import type { TSpacesData } from './ShowcaseTypes';
 import { createContainersDivs, setContainerVisibility } from './utils';
@@ -59,7 +60,7 @@ let currentSpaceName: string | undefined;
 // eslint-disable-next-line functional/immutable-data
 (window as any)._isReady = false;
 
-export function start(flags: TSpaceFlags): void {
+export function start(flags: TAppFlags): void {
   createContainersDivs(spacesData);
 
   createForm(
@@ -73,7 +74,7 @@ export function start(flags: TSpaceFlags): void {
   loadSpace(spacesData.find((s: TSpacesData): boolean => s.name === initialSpaceDataName)?.name, spacesData, flags);
 }
 
-function loadSpace(name: string | undefined, source: ReadonlyArray<TSpacesData>, flags: TSpaceFlags): void {
+function loadSpace(name: string | undefined, source: ReadonlyArray<TSpacesData>, flags: TAppFlags): void {
   setSpaceReady(false);
   if (isNotDefined(name)) throw new Error('[Showcase]: Space name is not defined');
   const spaceData: TSpacesData | undefined = source.find((s: TSpacesData): boolean => s.name === name);
@@ -82,6 +83,8 @@ function loadSpace(name: string | undefined, source: ReadonlyArray<TSpacesData>,
   const spaces: ReadonlyArray<TSpace> = spaceService.createFromConfig([spaceData.config], flags);
   const space: TSpace = spaces.find((s: TSpace): boolean => s.name === name) as TSpace;
   if (isNotDefined(space)) throw new Error(`[Showcase]: Cannot create the space "${name}"`);
+
+  if (flags.loopsDebugInfo) enableFPSCounter(space.loops.renderLoop.tick$);
 
   // eslint-disable-next-line functional/immutable-data
   subscriptions[`built$_${space.name}`] = space.built$.subscribe((): void => {
@@ -148,7 +151,7 @@ function saveSpaceConfigInMemory(name: string | undefined, spaceRegistry: TSpace
   };
 }
 
-export function createForm(containerId: string | undefined, isTop: boolean, isRight: boolean, options: ReadonlyArray<string>, flags: TSpaceFlags): void {
+export function createForm(containerId: string | undefined, isTop: boolean, isRight: boolean, options: ReadonlyArray<string>, flags: TAppFlags): void {
   const top: string | undefined = isTop ? undefined : 'calc(50% + 14px)';
   const right: string | undefined = !isRight ? 'calc(50% + 14px)' : '4px';
   const spaceRegistry: TSpaceRegistry = spaceService.getRegistry();

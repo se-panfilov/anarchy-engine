@@ -1,16 +1,4 @@
-import type {
-  TActor,
-  TAnyCameraWrapper,
-  TIntersectionEvent,
-  TIntersectionsCameraWatcher,
-  TRadians,
-  TReadonlyVector3,
-  TSceneWrapper,
-  TSpace,
-  TSpaceConfig,
-  TSpaceFlags,
-  TTextAnyWrapper
-} from '@Engine';
+import type { TActor, TAnyCameraWrapper, TIntersectionEvent, TIntersectionsCameraWatcher, TRadians, TReadonlyVector3, TSceneWrapper, TSpace, TSpaceConfig, TTextAnyWrapper } from '@Engine';
 import { asRecord, ForwardAxis, getDistance, getHorizontalAzimuth, getPushCoordsFrom3dAzimuth, isActorHasPhysicsBody, isDefined, isNotDefined, KeysExtra, spaceService, TextType } from '@Engine';
 import { meters, radians } from '@Engine/Measurements/Utils';
 import { Euler, Vector3 } from 'three';
@@ -18,16 +6,18 @@ import { Line2 } from 'three/examples/jsm/lines/Line2';
 import { LineGeometry } from 'three/examples/jsm/lines/LineGeometry';
 import { LineMaterial } from 'three/examples/jsm/lines/LineMaterial';
 
-import { addGizmo } from '@/Utils';
+import type { TAppFlags } from '@/Models';
+import { addGizmo, enableFPSCounter } from '@/Utils';
 
 import spaceConfigJson from './space.json';
 
 const spaceConfig: TSpaceConfig = spaceConfigJson as TSpaceConfig;
 
-export function start(flags: TSpaceFlags): void {
+export function start(flags: TAppFlags): void {
   const spaces: Record<string, TSpace> = asRecord('name', spaceService.createFromConfig([spaceConfig], flags));
   const space: TSpace = spaces[spaceConfig.name];
   if (isNotDefined(space)) throw new Error(`Showcase "${spaceConfig.name}": Space is not defined`);
+  if (flags.loopsDebugInfo) enableFPSCounter(space.loops.renderLoop.tick$);
 
   space.built$.subscribe(showcase);
 }

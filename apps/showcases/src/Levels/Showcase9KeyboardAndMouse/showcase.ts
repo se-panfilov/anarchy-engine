@@ -1,31 +1,22 @@
-import type {
-  TActor,
-  TActorRegistry,
-  TAnyCameraWrapper,
-  TIntersectionEvent,
-  TIntersectionsCameraWatcher,
-  TKeyboardPressingEvent,
-  TMouseWatcherEvent,
-  TSpace,
-  TSpaceConfig,
-  TSpaceFlags
-} from '@Engine';
+import type { TActor, TActorRegistry, TAnyCameraWrapper, TIntersectionEvent, TIntersectionsCameraWatcher, TKeyboardPressingEvent, TMouseWatcherEvent, TSpace, TSpaceConfig } from '@Engine';
 import { asRecord, isNotDefined, KeyCode, LookUpStrategy, metersPerSecond, mpsSpeed, spaceService } from '@Engine';
 import GUI from 'lil-gui';
 import { withLatestFrom } from 'rxjs';
 import { Vector3 } from 'three';
 
 import { createReactiveLineFromActor } from '@/Levels/Showcase23TransformDrive/Utils';
-import { addGizmo } from '@/Utils';
+import type { TAppFlags } from '@/Models';
+import { addGizmo, enableFPSCounter } from '@/Utils';
 
 import spaceConfigJson from './space.json';
 
 const spaceConfig: TSpaceConfig = spaceConfigJson as TSpaceConfig;
 
-export function start(flags: TSpaceFlags): void {
+export function start(flags: TAppFlags): void {
   const spaces: Record<string, TSpace> = asRecord('name', spaceService.createFromConfig([spaceConfig], flags));
   const space: TSpace = spaces[spaceConfig.name];
   if (isNotDefined(space)) throw new Error(`Showcase "${spaceConfig.name}": Space is not defined`);
+  if (flags.loopsDebugInfo) enableFPSCounter(space.loops.renderLoop.tick$);
 
   space.built$.subscribe(showcase);
 }

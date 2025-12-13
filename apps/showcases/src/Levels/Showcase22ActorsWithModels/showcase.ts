@@ -1,9 +1,10 @@
-import type { TFsmStates, TFsmWrapper, TModels3dResourceAsyncRegistry, TRegistryPack, TSpace, TSpaceAnyEvent, TSpaceConfig, TSpaceFlags, TSpaceServices } from '@Engine';
+import type { TFsmStates, TFsmWrapper, TModels3dResourceAsyncRegistry, TRegistryPack, TSpace, TSpaceAnyEvent, TSpaceConfig, TSpaceServices } from '@Engine';
 import { asRecord, isNotDefined, KeyCode, KeysExtra, SpaceEvents, spaceService } from '@Engine';
 import { distinctUntilChanged } from 'rxjs';
 import type { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
 
-import { addGizmo } from '@/Utils';
+import type { TAppFlags } from '@/Models';
+import { addGizmo, enableFPSCounter } from '@/Utils';
 
 import spaceConfigJson from './space.json';
 import { initSolder1, initSolder2 } from './Utils';
@@ -17,13 +18,14 @@ function beforeResourcesLoaded(_config: TSpaceConfig, { models3dService }: TSpac
   models3dResourceRegistry.added$.subscribe(({ key: name, value: model3dSource }: TRegistryPack<GLTF>): void => console.log(`Model "${name}" is loaded`, model3dSource));
 }
 
-export function start(flags: TSpaceFlags): void {
+export function start(flags: TAppFlags): void {
   const spaces: Record<string, TSpace> = asRecord('name', spaceService.createFromConfig([spaceConfig], flags));
   const space: TSpace = spaces[spaceConfig.name];
   if (isNotDefined(space)) throw new Error(`Showcase "${spaceConfig.name}": Space is not defined`);
   space.events$.subscribe((event: TSpaceAnyEvent): void => {
     if (event.name === SpaceEvents.BeforeResourcesLoaded) beforeResourcesLoaded(event.args.config, event.args.services);
   });
+  if (flags.loopsDebugInfo) enableFPSCounter(space.loops.renderLoop.tick$);
 
   space.built$.subscribe(showcase);
 }

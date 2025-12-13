@@ -1,19 +1,21 @@
-import type { TMaterialConfig, TMaterialParams, TMilliseconds, TParticlesConfig, TParticlesWrapper, TSpace, TSpaceConfig, TSpaceConfigEntities, TSpaceFlags } from '@Engine';
+import type { TMaterialConfig, TMaterialParams, TMilliseconds, TParticlesConfig, TParticlesWrapper, TSpace, TSpaceConfig, TSpaceConfigEntities } from '@Engine';
 import { asRecord, isDefined, isNotDefined, spaceService } from '@Engine';
 import { configToParams as materialConfigToParams } from '@Engine/Material/Adapters';
 import GUI from 'lil-gui';
 import { BufferGeometry, Color, PointsMaterial } from 'three';
 
-import { addGizmo } from '@/Utils';
+import type { TAppFlags } from '@/Models';
+import { addGizmo, enableFPSCounter } from '@/Utils';
 
 import spaceConfigJson from './space.json';
 
 const spaceConfig: TSpaceConfig = spaceConfigJson as TSpaceConfig;
 
-export function start(flags: TSpaceFlags): void {
+export function start(flags: TAppFlags): void {
   const spaces: Record<string, TSpace> = asRecord('name', spaceService.createFromConfig([spaceConfig], flags));
   const space: TSpace = spaces[spaceConfig.name];
   if (isNotDefined(space)) throw new Error(`Showcase "${spaceConfig.name}": Space is not defined`);
+  if (flags.loopsDebugInfo) enableFPSCounter(space.loops.renderLoop.tick$);
 
   space.built$.subscribe(showcase);
 }

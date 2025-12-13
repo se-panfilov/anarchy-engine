@@ -1,10 +1,11 @@
-import type { TModel3d, TModels3dRegistry, TModels3dResourceAsyncRegistry, TRegistryPack, TSceneWrapper, TSpace, TSpaceAnyEvent, TSpaceConfig, TSpaceFlags, TSpaceServices } from '@Engine';
+import type { TModel3d, TModels3dRegistry, TModels3dResourceAsyncRegistry, TRegistryPack, TSceneWrapper, TSpace, TSpaceAnyEvent, TSpaceConfig, TSpaceServices } from '@Engine';
 import { asRecord, isNotDefined, KeyCode, SpaceEvents, spaceService } from '@Engine';
 import type { AnimationAction } from 'three';
 import { Euler, Vector3 } from 'three';
 import type { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
 
-import { addGizmo } from '@/Utils';
+import type { TAppFlags } from '@/Models';
+import { addGizmo, enableFPSCounter } from '@/Utils';
 
 import spaceConfigJson from './space.json';
 
@@ -29,7 +30,7 @@ function beforeResourcesLoaded(_config: TSpaceConfig, { models3dService, scenesS
   });
 }
 
-export function start(flags: TSpaceFlags): void {
+export function start(flags: TAppFlags): void {
   const spaces: Record<string, TSpace> = asRecord('name', spaceService.createFromConfig([spaceConfig], flags));
   const space: TSpace = spaces[spaceConfig.name];
   space.events$.subscribe((event: TSpaceAnyEvent): void => {
@@ -37,6 +38,7 @@ export function start(flags: TSpaceFlags): void {
   });
 
   if (isNotDefined(space)) throw new Error(`Showcase "${spaceConfig.name}": Space is not defined`);
+  if (flags.loopsDebugInfo) enableFPSCounter(space.loops.renderLoop.tick$);
 
   space.built$.subscribe(showcase);
 }

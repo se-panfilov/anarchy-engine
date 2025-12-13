@@ -1,7 +1,5 @@
 import '@/style.css';
 
-import type { TSpaceFlags } from '@Engine';
-
 import { runtimeEnv } from '@/env';
 // import { start } from '@/Levels/Showcase1MovingActors';
 // import { start } from '@/Levels/Showcase2TopDown';
@@ -30,8 +28,9 @@ import { runtimeEnv } from '@/env';
 // import { start } from '@/Levels/Showcase25SplitScreen';
 // import { start } from '@/Levels/Showcase26MultipleScenes';
 import { start } from '@/Levels/Showcase27SaveLoad';
+import type { TAppFlags } from '@/Models/TAppFlags';
 
-const flags: TSpaceFlags = {
+const flags: TAppFlags = {
   loopsDebugInfo: runtimeEnv.VITE_SHOW_DEBUG_INFO
 };
 

@@ -7,7 +7,6 @@ import type {
   TRegistryPack,
   TSpace,
   TSpaceConfig,
-  TSpaceFlags,
   TWithAoIntensity,
   TWithClearcoat,
   TWithClearcoatRoughness,
@@ -30,16 +29,18 @@ import { BehaviorSubject, combineLatest, startWith, Subject } from 'rxjs';
 import type { Mesh, MeshPhysicalMaterial, MeshStandardMaterial } from 'three';
 import { Euler, Vector3 } from 'three';
 
-import { addGizmo } from '@/Utils';
+import type { TAppFlags } from '@/Models';
+import { addGizmo, enableFPSCounter } from '@/Utils';
 
 import spaceConfigJson from './space.json';
 
 const spaceConfig: TSpaceConfig = spaceConfigJson as TSpaceConfig;
 
-export function start(flags: TSpaceFlags): void {
+export function start(flags: TAppFlags): void {
   const spaces: Record<string, TSpace> = asRecord('name', spaceService.createFromConfig([spaceConfig], flags));
   const space: TSpace = spaces[spaceConfig.name];
   if (isNotDefined(space)) throw new Error(`Showcase "${spaceConfig.name}": Space is not defined`);
+  if (flags.loopsDebugInfo) enableFPSCounter(space.loops.renderLoop.tick$);
 
   space.built$.subscribe(showcase);
 }
@@ -75,6 +76,7 @@ export function showcase(space: TSpace): void {
   currentActor$.subscribe(moveCameraToActor);
 
   let textCounter: number = 0;
+
   function addTextToActor(pack: TRegistryPack<TActor>): void {
     const actor: TActor = pack.value;
     const position: TReadonlyVector3 = actor.drive.position$.value;

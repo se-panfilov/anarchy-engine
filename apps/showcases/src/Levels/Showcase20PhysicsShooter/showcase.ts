@@ -11,7 +11,6 @@ import type {
   TSceneWrapper,
   TSpace,
   TSpaceConfig,
-  TSpaceFlags,
   TSpatialGridWrapper
 } from '@Engine';
 import { asRecord, isDefined, isNotDefined, KeysExtra, metersPerSecond, milliseconds, spaceService } from '@Engine';
@@ -23,6 +22,8 @@ import { degToRad } from 'three/src/math/MathUtils';
 
 import { enableCollisions } from '@/Levels/Showcase20PhysicsShooter/utils/Collisions';
 import { initLight } from '@/Levels/Showcase20PhysicsShooter/utils/Light';
+import type { TAppFlags } from '@/Models';
+import { enableFPSCounter } from '@/Utils';
 
 import spaceConfigJson from './space.json';
 import type { TBullet } from './utils';
@@ -42,10 +43,11 @@ import {
 
 const spaceConfig: TSpaceConfig = spaceConfigJson as TSpaceConfig;
 
-export function start(flags: TSpaceFlags): void {
+export function start(flags: TAppFlags): void {
   const spaces: Record<string, TSpace> = asRecord('name', spaceService.createFromConfig([spaceConfig], flags));
   const space: TSpace = spaces[spaceConfig.name];
   if (isNotDefined(space)) throw new Error(`Showcase "${spaceConfig.name}": Space is not defined`);
+  if (flags.loopsDebugInfo) enableFPSCounter(space.loops.renderLoop.tick$);
 
   space.built$.subscribe(showcase);
 }
@@ -79,9 +81,48 @@ export function showcase(space: TSpace): void {
   const spatialGrid: TSpatialGridWrapper = spatialGridService.getRegistry().getByName('main_grid');
 
   // const blocks: ReadonlyArray<TActor> = buildTower(actorService, models3dService, materialService, physicsBodyService, { x: 10, z: 0 }, 5, 5, 10, spatialGrid);
-  const blocks: ReadonlyArray<TActor> = buildTower(actorService, models3dService, materialService, physicsBodyService, { x: 10, z: 0 }, 10, 10, 20, spatialGrid);
-  const blocks2: ReadonlyArray<TActor> = buildTower(actorService, models3dService, materialService, physicsBodyService, { x: 45, z: 7 }, 6, 7, 18, spatialGrid);
-  const blocks3: ReadonlyArray<TActor> = buildTower(actorService, models3dService, materialService, physicsBodyService, { x: -15, z: -15 }, 10, 7, 15, spatialGrid);
+  const blocks: ReadonlyArray<TActor> = buildTower(
+    actorService,
+    models3dService,
+    materialService,
+    physicsBodyService,
+    {
+      x: 10,
+      z: 0
+    },
+    10,
+    10,
+    20,
+    spatialGrid
+  );
+  const blocks2: ReadonlyArray<TActor> = buildTower(
+    actorService,
+    models3dService,
+    materialService,
+    physicsBodyService,
+    {
+      x: 45,
+      z: 7
+    },
+    6,
+    7,
+    18,
+    spatialGrid
+  );
+  const blocks3: ReadonlyArray<TActor> = buildTower(
+    actorService,
+    models3dService,
+    materialService,
+    physicsBodyService,
+    {
+      x: -15,
+      z: -15
+    },
+    10,
+    7,
+    15,
+    spatialGrid
+  );
 
   const maxBulletsSameTime: number = 150;
   const bullets: ReadonlyArray<TBullet> = getBulletsPool(maxBulletsSameTime, actorService, models3dService, materialService, spatialGridService);

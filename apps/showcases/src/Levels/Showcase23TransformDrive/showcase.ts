@@ -17,7 +17,6 @@ import type {
   TSceneWrapper,
   TSpace,
   TSpaceConfig,
-  TSpaceFlags,
   TSpatialGridWrapper,
   TText3dWrapper,
   TTextAnyWrapper
@@ -50,7 +49,8 @@ import { Euler, Quaternion, Vector3 } from 'three';
 import type { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
 import { degToRad, radToDeg } from 'three/src/math/MathUtils';
 
-import { addGizmo, attachConnectorPositionToSubj, getMemoryUsage } from '@/Utils';
+import type { TAppFlags } from '@/Models';
+import { addGizmo, attachConnectorPositionToSubj, enableFPSCounter, getMemoryUsage } from '@/Utils';
 
 import spaceConfigJson from './space.json';
 import {
@@ -69,10 +69,12 @@ import {
 
 const spaceConfig: TSpaceConfig = spaceConfigJson as TSpaceConfig;
 
-export function start(flags: TSpaceFlags): void {
+// TODO 18-0-0 Showcase broken
+export function start(flags: TAppFlags): void {
   const spaces: Record<string, TSpace> = asRecord('name', spaceService.createFromConfig([spaceConfig], flags));
   const space: TSpace = spaces[spaceConfig.name];
   if (isNotDefined(space)) throw new Error(`Showcase "${spaceConfig.name}": Space is not defined`);
+  if (flags.loopsDebugInfo) enableFPSCounter(space.loops.renderLoop.tick$);
 
   space.built$.subscribe(showcase);
 }

@@ -1,8 +1,9 @@
-import type { TActor, TActorRegistry, TKeyboardPressingEvent, TSpace, TSpaceConfig, TSpaceFlags, TSpaceServices } from '@Engine';
+import type { TActor, TActorRegistry, TKeyboardPressingEvent, TSpace, TSpaceConfig, TSpaceServices } from '@Engine';
 import { asRecord, createDomElement, isNotDefined, KeyCode, metersPerSecond, mpsSpeed, spaceService } from '@Engine';
 import { combineLatest } from 'rxjs';
 import { Clock } from 'three';
 
+import type { TAppFlags } from '@/Models';
 import { moveByCircle } from '@/Utils/MoveUtils';
 
 import spaceAlphaConfigJson from './spaceAlpha.json';
@@ -16,7 +17,7 @@ function createContainersDivs(): void {
   createDomElement('div', undefined, undefined, 'right_container', 'position: fixed; left: calc(50% + 2px); right: 0; top: 0; bottom: 0; outline: none; background: oklab(0.89 -0.08 -0.05);');
 }
 
-export function start(flags: TSpaceFlags): void {
+export function start(flags: TAppFlags): void {
   createContainersDivs();
   const spaces: Record<string, TSpace> = asRecord('name', spaceService.createFromConfig([spaceAlphaConfig, spaceBetaConfig], flags));
   const spaceAlpha: TSpace = spaces[spaceAlphaConfig.name];

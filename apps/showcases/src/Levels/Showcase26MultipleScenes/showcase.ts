@@ -1,6 +1,8 @@
-import type { TSpace, TSpaceConfig, TSpaceFlags } from '@Engine';
+import type { TSpace, TSpaceConfig } from '@Engine';
 import { asRecord, isNotDefined, spaceService } from '@Engine';
 import { combineLatest, Observable, Subscription } from 'rxjs';
+
+import type { TAppFlags } from '@/Models';
 
 import type { TSubscriptionsData } from './Helpers';
 import { runAlpha, runBeta, runDelta, runGamma } from './Helpers';
@@ -22,7 +24,8 @@ const spaceBetaConfig: TSpaceConfig = spaceBetaConfigJson as TSpaceConfig;
 const spaceGammaConfig: TSpaceConfig = spaceGammaConfigJson as TSpaceConfig;
 const spaceDeltaConfig: TSpaceConfig = spaceDeltaConfigJson as TSpaceConfig;
 
-export function start(flags: TSpaceFlags): void {
+// TODO 18-0-0 showcase broken
+export function start(flags: TAppFlags): void {
   createContainersDivs();
 
   const spaces: Record<string, TSpace> = asRecord('name', spaceService.createFromConfig([spaceAlphaConfig, spaceBetaConfig, spaceGammaConfig, spaceDeltaConfig], flags));
