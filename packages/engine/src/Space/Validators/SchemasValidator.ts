@@ -192,14 +192,14 @@ function validateUrls(models3dResources: Record<string, ReadonlyArray<TModel3dRe
     const [, key] = Object.entries(configs)[0];
     const [, value] = Object.entries(configs)[1];
     const isValid: boolean = validateModel3dFileUrls(value as ReadonlyArray<TModel3dResourceConfig>);
-    if (!isValid) errors = [...errors, `Entity ("${key}") tags must contain only letters, numbers and underscores`];
+    if (!isValid) errors = [...errors, `Entity ("${key}") URLs must contain only letters, numbers and underscores`];
   });
 
   Object.entries(withFileUrls).forEach((configs): void => {
     const [, key] = Object.entries(configs)[0];
     const [, value] = Object.entries(configs)[1];
     const isValid: boolean = validateFileUrls(value as ReadonlyArray<TAbstractResourceConfig>);
-    if (!isValid) errors = [...errors, `Entity ("${key}") tags must contain only letters, numbers and underscores`];
+    if (!isValid) errors = [...errors, `Entity ("${key}") URLs must contain only letters, numbers and underscores`];
   });
 
   return errors;
