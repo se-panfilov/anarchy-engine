@@ -1,1 +1,1 @@
-export * from './ParticlesConfigAdapter';
+export * from './ConfigToParams';
