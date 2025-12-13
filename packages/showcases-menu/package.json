@@ -21,7 +21,7 @@
     "dist/"
   ],
   "scripts": {
-    "before:release": "npm run before:release:check",
+    "before:release": "npm run before:release:check && npm run generate:legal",
     "before:release:check": "npm run ts:check && npm run prettier:check && npm run lint",
     "build": "rimraf dist && vite build",
     "e2e": "playwright test",
@@ -33,7 +33,12 @@
     "sanitize-assets": "node ../anarchy-shared/ScriptUtils/SanitizeAssets.js ./public",
     "start:dev": "vite --mode dev --port 5083",
     "test:unit": "vitest",
-    "ts:check": "vue-tsc --noEmit"
+    "ts:check": "vue-tsc --noEmit",
+    "generate:legal": "npm run generate:legal:3rd-party-licenses && npm run generate:legal:notice && npm run generate:legal:files && npm run generate:legal:sbom",
+    "generate:legal:3rd-party-licenses": "npm run -w anarchy-legal generate:licenses -- --workspace packages/showcases-menu --out ../../packages/showcases-menu/legal/THIRD_PARTY_LICENSES.md",
+    "generate:legal:files": "npm run -w anarchy-legal generate:files -- --workspace packages/showcases-menu --out ../../packages/showcases-menu",
+    "generate:legal:notice": "npm run -w anarchy-legal generate:notice -- --audit --strict --workspace packages/showcases-menu --source ../../packages/showcases-menu/legal/THIRD_PARTY_LICENSES.md --out ../../packages/showcases-menu/legal/NOTICE.md",
+    "generate:legal:sbom": "npm sbom --sbom-format=cyclonedx --package-lock-only --omit=dev > ./compliance/sbom/sbom.cdx.json"
   },
   "dependencies": {
     "anarchy-engine": "*",

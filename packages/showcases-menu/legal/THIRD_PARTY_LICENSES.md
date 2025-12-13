@@ -977,7 +977,7 @@ SOFTWARE.
 
 ---
 
-## anarchy-engine@20.3.2
+## anarchy-engine@20.3.3
 
 **License:** MIT
 
@@ -1007,7 +1007,7 @@ SOFTWARE.
 
 ---
 
-## anarchy-i18n@1.1.1
+## anarchy-i18n@1.1.2
 
 **License:** MIT
 
@@ -1037,7 +1037,7 @@ SOFTWARE.
 
 ---
 
-## anarchy-shared@1.1.1
+## anarchy-shared@1.1.2
 
 **License:** MIT
 
@@ -1549,11 +1549,11 @@ terms above.
 
 ---
 
-## magic-string@0.30.17
+## magic-string@0.30.18
 
 **License:** MIT
 
-**Repository:** https://github.com/rich-harris/magic-string
+**Repository:** https://github.com/rich-harris/magic-string.git
 
 **Publisher:** Rich Harris
 
@@ -2239,7 +2239,7 @@ http://creativecommons.org/publicdomain/zero/1.0/.
 
 ---
 
-## showcases-shared@1.0.7
+## showcases-shared@1.0.8
 
 **License:** MIT
 
