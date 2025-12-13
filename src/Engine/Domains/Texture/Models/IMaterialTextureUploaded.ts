@@ -2,7 +2,7 @@ import type {
   IBasicMaterialPackKeys,
   IDepthMaterialPackKeys,
   IDistanceMaterialPackKeys,
-  ILamberMaterialPackKeys,
+  ILambertMaterialPackKeys,
   IMatcapMaterialPackKeys,
   INormalMaterialPackKeys,
   IPhongMaterialPackKeys,
@@ -11,17 +11,29 @@ import type {
   IToonMaterialPackKeys
 } from './IMaterialPackKeys.ts';
 import type { ITexture } from './ITexture';
+import type {
+  IWithBasicMaterialProperty,
+  IWithDepthMaterialProperty,
+  IWithDistanceMaterialProperty,
+  IWithLambertMaterialProperty,
+  IWithMatcapMaterialProperty,
+  IWithNormalMaterialProperty,
+  IWithPhongMaterialProperty,
+  IWithPhysicalMaterialProperty,
+  IWithStandardMaterialProperty,
+  IWithToonMaterialProperty
+} from './IWithMaterialProperty';
 
-export type IBasicMaterialTextureUploaded = { [key in IBasicMaterialPackKeys]?: ITexture };
-export type IDepthMaterialTextureUploaded = { [key in IDepthMaterialPackKeys]?: ITexture };
-export type IDistanceMaterialTextureUploaded = { [key in IDistanceMaterialPackKeys]?: ITexture };
-export type INormalMaterialTextureUploaded = { [key in INormalMaterialPackKeys]?: ITexture };
-export type IMatcapMaterialTextureUploaded = { [key in IMatcapMaterialPackKeys]?: ITexture };
-export type ILamberMaterialTextureUploaded = { [key in ILamberMaterialPackKeys]?: ITexture };
-export type IPhongMaterialTextureUploaded = { [key in IPhongMaterialPackKeys]?: ITexture };
-export type IPhysicalMaterialTextureUploaded = { [key in IPhysicalMaterialPackKeys]?: ITexture };
-export type IToonMaterialTextureUploaded = { [key in IToonMaterialPackKeys]?: ITexture };
-export type IStandardMaterialTextureUploaded = { [key in IStandardMaterialPackKeys]?: ITexture };
+export type IBasicMaterialTextureUploaded = Readonly<{ [key in IBasicMaterialPackKeys]?: ITexture } & IWithBasicMaterialProperty>;
+export type IDepthMaterialTextureUploaded = Readonly<{ [key in IDepthMaterialPackKeys]?: ITexture }> & IWithDepthMaterialProperty;
+export type IDistanceMaterialTextureUploaded = Readonly<{ [key in IDistanceMaterialPackKeys]?: ITexture } & IWithDistanceMaterialProperty>;
+export type INormalMaterialTextureUploaded = Readonly<{ [key in INormalMaterialPackKeys]?: ITexture } & IWithNormalMaterialProperty>;
+export type IMatcapMaterialTextureUploaded = Readonly<{ [key in IMatcapMaterialPackKeys]?: ITexture } & IWithMatcapMaterialProperty>;
+export type ILambertMaterialTextureUploaded = Readonly<{ [key in ILambertMaterialPackKeys]?: ITexture } & IWithLambertMaterialProperty>;
+export type IPhongMaterialTextureUploaded = Readonly<{ [key in IPhongMaterialPackKeys]?: ITexture } & IWithPhongMaterialProperty>;
+export type IPhysicalMaterialTextureUploaded = Readonly<{ [key in IPhysicalMaterialPackKeys]?: ITexture } & IWithPhysicalMaterialProperty>;
+export type IToonMaterialTextureUploaded = Readonly<{ [key in IToonMaterialPackKeys]?: ITexture } & IWithToonMaterialProperty>;
+export type IStandardMaterialTextureUploaded = Readonly<{ [key in IStandardMaterialPackKeys]?: ITexture } & IWithStandardMaterialProperty>;
 
 export type IMaterialTextureUploaded =
   | IBasicMaterialTextureUploaded
@@ -29,7 +41,7 @@ export type IMaterialTextureUploaded =
   | IDistanceMaterialTextureUploaded
   | INormalMaterialTextureUploaded
   | IMatcapMaterialTextureUploaded
-  | ILamberMaterialTextureUploaded
+  | ILambertMaterialTextureUploaded
   | IPhongMaterialTextureUploaded
   | IPhysicalMaterialTextureUploaded
   | IToonMaterialTextureUploaded

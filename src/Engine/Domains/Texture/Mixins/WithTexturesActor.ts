@@ -1,16 +1,13 @@
-import { MeshBasicMaterial } from 'three';
-import type { MeshBasicMaterialParameters } from 'three/src/materials/MeshBasicMaterial';
-
 import type { IMesh } from '@/Engine/Domains/Actor';
+import { MaterialMap } from '@/Engine/Domains/Material';
 import type {
   IBasicMaterialTexturePack,
   IDepthMaterialTexturePack,
   IDistanceMaterialTexturePack,
-  ILamberMaterialTexturePack,
+  ILambertMaterialTexturePack,
   IMatcapMaterialTexturePack,
   IMaterialTexturePack,
   IMaterialTextureUploaded,
-  IMaterialTextureUploadPromises,
   INormalMaterialTexturePack,
   IPhongMaterialTexturePack,
   IPhysicalMaterialTexturePack,
@@ -20,12 +17,16 @@ import type {
 import { textureService } from '@/Engine/Domains/Texture';
 import type { IWithTexturesActor } from '@/Engine/Mixins/GameObject/Models';
 import type { IWriteable } from '@/Engine/Utils';
+import { isNotDefined, omitInObjectWithoutMutation } from '@/Engine/Utils';
 
 export function withTexturesActor<T extends IWriteable<IMesh>>(entity: T): IWithTexturesActor {
-  function useTextureAsMaterial(maps: MeshBasicMaterialParameters): void {
-    // TODO (S.Panfilov) use proper material type
+  function useTextureAsMaterial(mt: IMaterialTextureUploaded): void {
+    const params: Omit<IMaterialTextureUploaded, 'material'> = omitInObjectWithoutMutation(mt, 'material');
+    const MaterialConstructor = MaterialMap[mt.material];
+    if (isNotDefined(MaterialConstructor)) throw new Error(`Unsupported material type: ${mt.material}`);
+
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access,functional/immutable-data
-    entity.material = new MeshBasicMaterial(maps);
+    entity.material = new MaterialConstructor(params);
   }
 
   function loadMaterialTexturePack(pack: IBasicMaterialTexturePack): Promise<void>;
@@ -33,14 +34,14 @@ export function withTexturesActor<T extends IWriteable<IMesh>>(entity: T): IWith
   function loadMaterialTexturePack(pack: IDistanceMaterialTexturePack): Promise<void>;
   function loadMaterialTexturePack(pack: INormalMaterialTexturePack): Promise<void>;
   function loadMaterialTexturePack(pack: IMatcapMaterialTexturePack): Promise<void>;
-  function loadMaterialTexturePack(pack: ILamberMaterialTexturePack): Promise<void>;
+  function loadMaterialTexturePack(pack: ILambertMaterialTexturePack): Promise<void>;
   function loadMaterialTexturePack(pack: IPhongMaterialTexturePack): Promise<void>;
   function loadMaterialTexturePack(pack: IPhysicalMaterialTexturePack): Promise<void>;
   function loadMaterialTexturePack(pack: IToonMaterialTexturePack): Promise<void>;
   function loadMaterialTexturePack(pack: IStandardMaterialTexturePack): Promise<void>;
   function loadMaterialTexturePack(pack: IMaterialTexturePack): Promise<void> {
-    const textures: IMaterialTextureUploadPromises = textureService.load(pack);
-    return textures.all().then((textures: IMaterialTextureUploaded) => useTextureAsMaterial({ ...textures }));
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+    return textureService.load(pack).all().then(useTextureAsMaterial);
   }
 
   return {

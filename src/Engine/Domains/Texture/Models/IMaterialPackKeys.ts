@@ -30,7 +30,7 @@ export type IDepthMaterialPackKeys = keyof IMeshDepthMaterialPick;
 export type IDistanceMaterialPackKeys = keyof IMeshDistanceMaterialPick;
 export type INormalMaterialPackKeys = keyof IMeshNormalMaterialPick;
 export type IMatcapMaterialPackKeys = keyof IMeshMatcapMaterialPick;
-export type ILamberMaterialPackKeys = keyof IMeshLambertMaterialPick;
+export type ILambertMaterialPackKeys = keyof IMeshLambertMaterialPick;
 export type IPhongMaterialPackKeys = keyof IMeshPhongMaterialPick;
 export type IPhysicalMaterialPackKeys = keyof IMeshPhysicalMaterialPick;
 export type IToonMaterialPackKeys = keyof IMeshToonMaterialPick;
@@ -42,7 +42,7 @@ export type IMaterialPackKeys =
   | IDistanceMaterialPackKeys
   | INormalMaterialPackKeys
   | IMatcapMaterialPackKeys
-  | ILamberMaterialPackKeys
+  | ILambertMaterialPackKeys
   | IPhysicalMaterialPackKeys
   | IToonMaterialPackKeys
   | IStandardMaterialPackKeys;

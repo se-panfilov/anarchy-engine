@@ -1,4 +1,4 @@
-export function omit<T>(array: ReadonlyArray<T>, item: T): ReadonlyArray<T> {
+export function omitInArray<T>(array: ReadonlyArray<T>, item: T): ReadonlyArray<T> {
   return array.filter((arrayItem: T): boolean => arrayItem !== item);
 }
 

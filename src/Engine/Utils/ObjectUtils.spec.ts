@@ -1,0 +1,35 @@
+import { omitInObjectWithMutation, omitInObjectWithoutMutation } from './ObjectUtils';
+
+describe('ObjectUtils', () => {
+  describe('omitInObjectWithoutMutation', () => {
+    it('should do NOT mutate the original object', () => {
+      const obj: Record<string, number> = { a: 1, b: 2, c: 3 };
+      omitInObjectWithoutMutation(obj, 'b');
+      expect(obj).toEqual({ a: 1, b: 2, c: 3 });
+    });
+
+    it('should remove a property from an object', () => {
+      const obj: Record<string, number> = { a: 1, b: 2, c: 3 };
+      const expectedResult: Record<string, number> = { a: 1, c: 3 };
+      const result: Omit<typeof obj, 'b'> = omitInObjectWithoutMutation(obj, 'b');
+
+      expect(result).toEqual(expectedResult);
+    });
+  });
+
+  describe('omitInObjectWithMutation', () => {
+    it('should do mutate the original object', () => {
+      const obj: Record<string, number> = { a: 1, b: 2, c: 3 };
+      omitInObjectWithMutation(obj, 'b');
+      expect(obj).toEqual({ a: 1, c: 3 });
+    });
+
+    it('should remove a property from an object', () => {
+      const obj: Record<string, number> = { a: 1, b: 2, c: 3 };
+      const expectedResult: Record<string, number> = { a: 1, c: 3 };
+      const result: Omit<typeof obj, 'b'> = omitInObjectWithMutation(obj, 'b');
+
+      expect(result).toEqual(expectedResult);
+    });
+  });
+});

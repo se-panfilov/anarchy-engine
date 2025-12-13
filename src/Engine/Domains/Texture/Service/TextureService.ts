@@ -11,9 +11,9 @@ import type {
   IDistanceMaterialTexturePack,
   IDistanceMaterialTextureUploaded,
   IDistanceMaterialTextureUploadPromises,
-  ILamberMaterialTexturePack,
-  ILamberMaterialTextureUploaded,
-  ILamberMaterialTextureUploadPromises,
+  ILambertMaterialTexturePack,
+  ILambertMaterialTextureUploaded,
+  ILambertMaterialTextureUploadPromises,
   IMatcapMaterialTexturePack,
   IMatcapMaterialTextureUploaded,
   IMatcapMaterialTextureUploadPromises,
@@ -51,7 +51,7 @@ export function TextureService(): ITextureService {
   function load(pack: IDistanceMaterialTexturePack): IDistanceMaterialTextureUploadPromises;
   function load(pack: INormalMaterialTexturePack): INormalMaterialTextureUploadPromises;
   function load(pack: IMatcapMaterialTexturePack): IMatcapMaterialTextureUploadPromises;
-  function load(pack: ILamberMaterialTexturePack): ILamberMaterialTextureUploadPromises;
+  function load(pack: ILambertMaterialTexturePack): ILambertMaterialTextureUploadPromises;
   function load(pack: IPhongMaterialTexturePack): IPhongMaterialTextureUploadPromises;
   function load(pack: IPhysicalMaterialTexturePack): IPhysicalMaterialTextureUploadPromises;
   function load(pack: IToonMaterialTexturePack): IToonMaterialTextureUploadPromises;
@@ -78,7 +78,7 @@ export function TextureService(): ITextureService {
     function all(): Promise<IDistanceMaterialTextureUploaded>;
     function all(): Promise<INormalMaterialTextureUploaded>;
     function all(): Promise<IMatcapMaterialTextureUploaded>;
-    function all(): Promise<ILamberMaterialTextureUploaded>;
+    function all(): Promise<ILambertMaterialTextureUploaded>;
     function all(): Promise<IPhongMaterialTextureUploaded>;
     function all(): Promise<IPhysicalMaterialTextureUploaded>;
     function all(): Promise<IToonMaterialTextureUploaded>;

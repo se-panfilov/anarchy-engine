@@ -4,7 +4,7 @@ export enum MaterialType {
   Distance = 'distance',
   Normal = 'normal',
   Matcap = 'matcap',
-  Lamber = 'lamber',
+  Lambert = 'lambert',
   Phong = 'phong',
   Physical = 'physical',
   Toon = 'toon',

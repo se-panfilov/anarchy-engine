@@ -17,3 +17,15 @@ export function isObject(obj: unknown, shouldAllowCustomObjects: boolean = false
 }
 
 export const isEmptyObject = (obj: Record<string, unknown>): boolean => Object.keys(obj).length === 0 && isObject(obj);
+
+export const omitInObjectWithoutMutation = <T extends Readonly<Record<string, unknown>>, K extends keyof T>(obj: T, key: K): Omit<T, K> => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { [key]: _, ...rest } = obj;
+  return rest;
+};
+
+export const omitInObjectWithMutation = <T extends Record<string, unknown>, K extends keyof T>(obj: T, key: K): Omit<T, K> => {
+  // eslint-disable-next-line functional/immutable-data
+  delete obj[key];
+  return obj;
+};

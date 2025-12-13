@@ -12,7 +12,7 @@ describe('TextureServiceHelper', () => {
       expect(isMaterialType(MaterialType.Distance)).toBe(true);
       expect(isMaterialType(MaterialType.Normal)).toBe(true);
       expect(isMaterialType(MaterialType.Matcap)).toBe(true);
-      expect(isMaterialType(MaterialType.Lamber)).toBe(true);
+      expect(isMaterialType(MaterialType.Lambert)).toBe(true);
       expect(isMaterialType(MaterialType.Phong)).toBe(true);
       expect(isMaterialType(MaterialType.Physical)).toBe(true);
       expect(isMaterialType(MaterialType.Toon)).toBe(true);
