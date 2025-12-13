@@ -9,7 +9,6 @@ import { DefaultShowcaseGameSettings } from '@Showcases/Shared';
 import type { TPlatformDriver } from '@/Models';
 import { settingsWebDbService } from '@/Services';
 
-// TODO DESKTOP: Make sure ALL these methods are working correctly
 export function Driver(): TPlatformDriver {
   function closeApp(): void {
     throw new Error('[WEB] closeApp is not supported on this platform');

@@ -5,7 +5,6 @@ import { platformApiName } from '@Showcases/Shared';
 
 import type { TPlatformDriver } from '@/Models';
 
-// TODO DESKTOP: Make sure ALL these methods are working correctly
 export function Driver(): TPlatformDriver {
   const closeApp = (): void => window[platformApiName].closeApp();
   const getAppSettings = (): Promise<TShowcaseGameSettings> => window[platformApiName].getAppSettings();

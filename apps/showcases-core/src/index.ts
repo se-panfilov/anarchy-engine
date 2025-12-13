@@ -18,7 +18,6 @@ const settings: TAppSettings = {
   }
 };
 
-// TODO DESKTOP: (web) Detect user locale in web and send it to the app settings (menu)
 // TODO MOBILE: Detect user locale in mobile app and send it to the app settings (menu)
 
 setBrowserSafeguards(window);

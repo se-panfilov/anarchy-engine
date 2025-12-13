@@ -5,7 +5,6 @@ import type { Observable, Subject } from 'rxjs';
 
 import type { TEventsService, TEventsServiceDependencies } from '@/Levels/Showcase28Menu/Models';
 
-// TODO DESKTOP: Web version should save/read settings from cookie/localStorage
 // TODO DESKTOP: Async events here should trigger a global loader (we need to implement one)
 export function EventsService({ mainMenuService, appService, settingsService }: TEventsServiceDependencies): TEventsService {
   function handleFromMenuEvents(fromMenuEventsBus$: Observable<TFromMenuEvent>, toMenuEventsBus$: Subject<TToMenuEvent>): void {
