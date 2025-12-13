@@ -5,4 +5,5 @@ import type { ISceneWrapper } from '@/Engine/Domains/Scene';
 
 export type ILoopUtils = Readonly<{
   start: (renderer: Readonly<IRendererWrapper>, scene: Readonly<ISceneWrapper>, controlsRegistry: IControlsRegistry, cameraRegistry: ICameraRegistry) => void;
+  stop: () => void;
 }>;

@@ -6,22 +6,29 @@ import type { ILoopUtils, LoopFn } from '@/Engine/Domains/Loop/Models';
 import type { IRendererWrapper } from '@/Engine/Domains/Renderer';
 import type { ISceneWrapper } from '@/Engine/Domains/Scene';
 
+let isRan: boolean = false;
+
 export function getUtils(entity: LoopFn): ILoopUtils {
   function start(renderer: Readonly<IRendererWrapper>, scene: Readonly<ISceneWrapper>, controlsRegistry: IControlsRegistry, cameraRegistry: ICameraRegistry): void {
-    loopWrapper(entity, renderer, scene, controlsRegistry, cameraRegistry)();
+    isRan = true;
+    requestAnimationFrame(loopWrapper(entity, renderer, scene, controlsRegistry, cameraRegistry));
   }
 
-  // TODO (S.Panfilov) implement stop loop
+  function stop(): void {
+    isRan = false;
+  }
 
-  return { start };
+  return { start, stop };
 }
 
-function loopWrapper(fn: LoopFn, renderer: Readonly<IRendererWrapper>, scene: Readonly<ISceneWrapper>, controlsRegistry: IControlsRegistry, cameraRegistry: ICameraRegistry): () => void {
+function loopWrapper(fn: LoopFn, renderer: Readonly<IRendererWrapper>, scene: Readonly<ISceneWrapper>, controlsRegistry: IControlsRegistry, cameraRegistry: ICameraRegistry): (time: number) => void {
   const clock: Clock = new Clock();
   let lastElapsedTime: number = 0;
-  const loop = (): void => {
+  const loop = (time: number): void => {
     // (fpsGraph as any).begin();
+    if (!isRan) return;
     const elapsedTime: number = clock.getElapsedTime();
+    // console.log(time, elapsedTime * 1000);
     const delta: number = elapsedTime - lastElapsedTime;
     lastElapsedTime = elapsedTime;
     fn(renderer, scene, delta, controlsRegistry, cameraRegistry);
