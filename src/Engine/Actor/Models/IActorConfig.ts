@@ -4,7 +4,7 @@ import type { IObject3DPropConfig } from '@/Engine/ThreeLib';
 
 import type { IActorProps } from './IActorProps';
 
-export type IActorConfig = Omit<IActorProps, 'materialParams'> &
+export type IActorConfig = IActorProps &
   Readonly<{
     type: ActorType;
     width: number;
