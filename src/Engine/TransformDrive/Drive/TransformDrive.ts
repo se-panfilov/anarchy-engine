@@ -11,18 +11,18 @@ import type { TAbstractTransformDriver, TProtectedTransformDriverFacade, TProtec
 
 export function TransformDrive(params: TTransformDriveParams, drivers: TTransformDrivers): TTransformDrive {
   //We don't want to expose these BehaviorSubjects, because they're vulnerable to external changes without .next()
-  const position$: BehaviorSubject<Vector3> = new BehaviorSubject<Vector3>(params.position);
+  const position$: BehaviorSubject<Vector3> = new BehaviorSubject<Vector3>(drivers[params.activeDriver].position$.value);
   const positionRep$: ReplaySubject<Vector3> = new ReplaySubject<Vector3>(1);
-  const rotation$: BehaviorSubject<Euler> = new BehaviorSubject<Euler>(params.rotation);
+  const rotation$: BehaviorSubject<Euler> = new BehaviorSubject<Euler>(drivers[params.activeDriver].rotation$.value);
   const rotationRep$: ReplaySubject<Euler> = new ReplaySubject<Euler>(1);
-  const scale$: BehaviorSubject<Vector3 | undefined> = new BehaviorSubject<Vector3 | undefined>(params.scale);
+  const scale$: BehaviorSubject<Vector3 | undefined> = new BehaviorSubject<Vector3 | undefined>(drivers[params.activeDriver].scale$.value);
   const scaleRep$: ReplaySubject<Vector3 | undefined> = new ReplaySubject<Vector3 | undefined>(1);
 
   position$.subscribe(positionRep$);
   rotation$.subscribe(rotationRep$);
   scale$.subscribe(scaleRep$);
 
-  const driver$: BehaviorSubject<TransformDriver> = new BehaviorSubject<TransformDriver>(params.driver ?? TransformDriver.Instant);
+  const driver$: BehaviorSubject<TransformDriver> = new BehaviorSubject<TransformDriver>(params.activeDriver ?? TransformDriver.Instant);
 
   const destroyable: TDestroyable = destroyableMixin();
 

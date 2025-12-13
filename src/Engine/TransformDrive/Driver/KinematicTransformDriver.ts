@@ -9,11 +9,11 @@ import { getAzimuthDegFromDirection, getAzimuthRadFromDirection, getElevationDeg
 import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
 import type { TReadonlyEuler, TReadonlyQuaternion, TReadonlyVector3 } from '@/Engine/ThreeLib';
-import type { TKinematicTransformDriver, TTransformDriveParams } from '@/Engine/TransformDrive/Models';
+import type { TKinematicTransformDriveParams, TKinematicTransformDriver } from '@/Engine/TransformDrive/Models';
 import type { TWriteable } from '@/Engine/Utils';
 
-export function KinematicTransformDriver(params: TTransformDriveParams, kinematicLoopService: TKinematicLoopService): TKinematicTransformDriver {
-  let _isAutoUpdate: boolean = params.kinematic?.isAutoUpdate ?? false;
+export function KinematicTransformDriver(params: TKinematicTransformDriveParams, kinematicLoopService: TKinematicLoopService): TKinematicTransformDriver {
+  let _isAutoUpdate: boolean = params.isAutoUpdate ?? false;
   let _isEnabled: boolean = _isAutoUpdate;
   const position$: BehaviorSubject<TReadonlyVector3> = new BehaviorSubject<TReadonlyVector3>(params.position);
   const rotationQuaternion$: BehaviorSubject<TReadonlyQuaternion> = new BehaviorSubject<TReadonlyQuaternion>(new Quaternion().setFromEuler(params.rotation));
@@ -46,10 +46,10 @@ export function KinematicTransformDriver(params: TTransformDriveParams, kinemati
   const driver = {
     ...destroyable,
     data: {
-      linearSpeed: params.kinematic?.linearSpeed ?? 0,
-      linearDirection: params.kinematic?.linearDirection ?? new Vector3(),
-      angularSpeed: params.kinematic?.angularSpeed ?? 0,
-      angularDirection: params.kinematic?.angularDirection ?? new Vector3()
+      linearSpeed: params.linearSpeed ?? 0,
+      linearDirection: params.linearDirection ?? new Vector3(),
+      angularSpeed: params.angularSpeed ?? 0,
+      angularDirection: params.angularDirection ?? new Vector3()
     },
     position$: position$,
     rotation$,

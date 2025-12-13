@@ -10,7 +10,15 @@ import type { TModel3d } from '@/Engine/Models3d';
 import { withModel3d } from '@/Engine/Models3d';
 import type { TSpatialLoopServiceValue } from '@/Engine/Spatial';
 import { withSpatial, withUpdateSpatialCell } from '@/Engine/Spatial';
-import type { TDriveToModel3dConnector, TInstantTransformDriver, TKinematicTransformDriver, TPhysicsTransformDriver, TTransformDrive, TTransformDrivers } from '@/Engine/TransformDrive';
+import type {
+  TDriveToModel3dConnector,
+  TInstantTransformDriver,
+  TKinematicTransformDriver,
+  TPhysicsTransformDriver,
+  TTransformDrive,
+  TTransformDriveParams,
+  TTransformDrivers
+} from '@/Engine/TransformDrive';
 import { DriveToModel3dConnector, TransformDrive, TransformDriver } from '@/Engine/TransformDrive';
 import { InstantTransformDriver } from '@/Engine/TransformDrive/Driver/InstantTransformDriver';
 import { KinematicTransformDriver } from '@/Engine/TransformDrive/Driver/KinematicTransformDriver';
@@ -24,11 +32,12 @@ export function Actor(
   const isModelAlreadyInUse: boolean = isDefined(model3dToActorConnectionRegistry.findByModel3d(params.model3dSource));
   const model3d: TModel3d = isModelAlreadyInUse ? models3dService.clone(params.model3dSource) : params.model3dSource;
 
-  const kinematicDriver: TKinematicTransformDriver = KinematicTransformDriver(params, kinematicLoopService);
-  const physicsDriver: TPhysicsTransformDriver = PhysicsTransformDriver(params);
-  const instantDriver: TInstantTransformDriver = InstantTransformDriver(params);
+  const driverParams: TTransformDriveParams = { ...params, driver: TransformDriver.Kinematic };
+  const kinematicDriver: TKinematicTransformDriver = KinematicTransformDriver(driverParams, kinematicLoopService);
+  const physicsDriver: TPhysicsTransformDriver = PhysicsTransformDriver(driverParams);
+  const instantDriver: TInstantTransformDriver = InstantTransformDriver(driverParams);
   const drivers: TTransformDrivers = { [TransformDriver.Kinematic]: kinematicDriver, [TransformDriver.Physical]: physicsDriver, [TransformDriver.Instant]: instantDriver };
-  const drive: TTransformDrive = TransformDrive(params, drivers);
+  const drive: TTransformDrive = TransformDrive(driverParams, drivers);
   const driveToModel3dConnector: TDriveToModel3dConnector = DriveToModel3dConnector(drive, model3d);
 
   // TODO CWP:
