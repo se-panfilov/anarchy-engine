@@ -6,10 +6,6 @@ import type { TModel3d, TModels3dRegistry } from '@/Engine/Models3d';
 import type { TSpatialDataConfig } from '@/Engine/Spatial';
 import { filterOutEmptyFields, isNotDefined } from '@/Engine/Utils';
 
-// TODO 15-0-0: (finish 14-0-0 tasks)
-// TODO 15-0-0: Make sure all registries are getting empty on destroy$
-// TODO 15-0-0: Make sure connection registries are empty on destroy$
-
 export function actorToConfig(entity: TActor, { models3dService }: TActorEntityToConfigDependencies): TActorConfig {
   const { drive } = entity;
 

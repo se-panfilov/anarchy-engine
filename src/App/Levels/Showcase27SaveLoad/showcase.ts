@@ -30,8 +30,6 @@ import { createContainersDivs, setContainerVisibility } from './utils';
 let subscriptions: Record<string, Subscription> = {};
 
 // TODO 15-0-0: Physics sync test has an issue: camera doesn't follow an actor (perhaps related to TransformDrive)
-// TODO 15-0-0: Check for memory leaks
-
 const spacesData: ReadonlyArray<TSpacesData> = [
   spaceActorData,
   spaceAnimationsData,
