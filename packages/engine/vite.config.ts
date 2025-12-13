@@ -37,7 +37,12 @@ export default defineConfig({
     sourcemap: true,
     rollupOptions: {
       external: (id: string): boolean => id.endsWith('.spec.ts') || id.endsWith('.test.ts'),
-      //  external: ['three', 'rxjs'] — If you want to exclude some dependencies from the bundle
+      //  external: ['three', 'rxjs', '@dimforge/rapier3d'] — If you want to exclude some dependencies from the bundle
+      output: {
+        manualChunks: {
+          'anarchy-rapier3d': ['@dimforge/rapier3d']
+        }
+      },
       plugins: [visualizer({ open: false })]
     },
     outDir: 'dist',
