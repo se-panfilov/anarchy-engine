@@ -46,11 +46,12 @@
   "additionalProperties": false,
   "definitions": {
     "ISceneConfig": {
-      "$ref": "#/definitions/ISceneParams"
-    },
-    "ISceneParams": {
       "type": "object",
+      "additionalProperties": false,
       "properties": {
+        "background": {
+          "type": "string"
+        },
         "name": {
           "type": "string"
         },
@@ -61,8 +62,7 @@
           }
         }
       },
-      "required": ["name", "tags"],
-      "additionalProperties": false
+      "required": ["name", "tags"]
     },
     "SceneTag": {
       "type": "string",

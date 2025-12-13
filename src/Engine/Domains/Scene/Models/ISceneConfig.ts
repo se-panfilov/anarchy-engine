@@ -1,6 +1,6 @@
 import type { ISceneParams } from '../Models';
 
-export type ISceneConfig = ISceneParams &
+export type ISceneConfig = Omit<ISceneParams, 'background'> &
   Readonly<{
     background?: string;
   }>;
