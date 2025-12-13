@@ -36,13 +36,15 @@
     "ts:check": "tsc --noEmit",
     "ts:check:watch": "tsc --watch --noEmit"
   },
+  "dependencies": {
+    "showcases-core": "*"
+  },
   "devDependencies": {
     "anarchy-shared": "*",
     "electron": "37.2.1",
     "electron-builder": "26.0.12",
     "electron-reloader": "1.2.3",
     "rollup-plugin-copy": "3.5.0",
-    "showcases-core": "*",
     "showcases-shared": "*",
     "typescript": "5.8.3",
     "vite-tsconfig-paths": "5.1.4"
