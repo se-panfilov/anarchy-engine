@@ -8,7 +8,7 @@ import { isDefined } from '@/Engine/Utils';
 
 // TODO SPACE: Maybe we need a space service, and factory, to create from config, and to create from the code.
 export function createEntities(entities: TSpaceConfigEntities, services: TSpaceServices): void {
-  const { actors, cameras, spatialGrids, controls, intersections, lights, models3d, envMaps, fogs, texts, physics, particles } = entities;
+  const { actors, cameras, spatialGrids, controls, intersections, lights, models3d, envMaps, fogs, fsm, texts, physics, particles } = entities;
 
   const {
     actorService,
@@ -16,6 +16,7 @@ export function createEntities(entities: TSpaceConfigEntities, services: TSpaceS
     controlsService,
     envMapService,
     fogService,
+    fsmService,
     intersectionsWatcherService,
     lightService,
     models3dService,
@@ -30,11 +31,9 @@ export function createEntities(entities: TSpaceConfigEntities, services: TSpaceS
 
   //spatial gids should be created before actors
   spatialGridService.createFromConfig(spatialGrids);
-
   fogService.createFromConfig(fogs);
-
+  fsmService.createFromConfig(fsm);
   envMapService.createFromConfig(envMaps);
-
   models3dService.createFromConfig(models3d);
 
   if (isDefined(physics.global)) {
@@ -52,7 +51,6 @@ export function createEntities(entities: TSpaceConfigEntities, services: TSpaceS
 
   controlsService.createFromConfig(controls, cameraService.getRegistry());
   lightService.createFromConfig(lights);
-
   particlesService.createFromConfig(particles);
 
   intersectionsWatcherService.createFromConfig(intersections, mouseService, cameraService, actorService);

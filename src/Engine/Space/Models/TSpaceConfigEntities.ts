@@ -19,11 +19,11 @@ export type TSpaceConfigEntities = Readonly<{
   envMaps: ReadonlyArray<TEnvMapConfig>;
   intersections: ReadonlyArray<TIntersectionsWatcherConfig>;
   lights: ReadonlyArray<TAnyLightConfig>;
-  fsm: ReadonlyArray<TFsmConfig>;
   models3d: ReadonlyArray<TModel3dConfig>;
   particles: ReadonlyArray<TParticlesConfig>;
   physics: TPhysicsConfig;
   fogs: ReadonlyArray<TFogConfig>;
+  fsm: ReadonlyArray<TFsmConfig>;
   texts: ReadonlyArray<TTextConfig>;
   controls: ReadonlyArray<TControlsConfig>;
 }>;
