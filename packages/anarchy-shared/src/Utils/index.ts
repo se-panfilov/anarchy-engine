@@ -5,6 +5,7 @@ export * from './CssUtils';
 export * from './EnvSchemaUtils';
 export * from './FileUtils';
 export * from './MapUtils';
+export * from './MathUtils';
 export * from './ObjectUtils';
 export * from './RxJsUtils';
 export * from './StringUtils';
