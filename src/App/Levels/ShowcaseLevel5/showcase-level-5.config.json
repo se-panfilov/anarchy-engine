@@ -16,6 +16,7 @@
       "materialParams": { "color": "#5ddc9a" },
       "type": "plane",
       "position": { "x": 0, "y": 0, "z": 0 },
+      "rotation": { "x": 0, "y": 0, "z": 0 },
       "castShadow": false,
       "tags": []
     },
@@ -42,7 +43,7 @@
     {
       "text": "Linear",
       "position": { "x": 0, "y": 2, "z": 0 },
-      "rotation": { "x": 180  , "y": 90, "z": 180 },
+      "rotation": { "x": 180, "y": 90, "z": 180 },
       "color": "#ff0000",
       "fontSize": 1,
       "tags": []
