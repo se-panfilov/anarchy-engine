@@ -4,20 +4,27 @@ Done:
 - 4.x.x Spatial grid detection
 - 5.x.x Raycasting & Collision detection
 
-To be done:
+Roadmap:
 - 6.0.x Complex models
 - 6.1.x Lines domain
 - 7.x.x Animations
+- 7.1.x Refactor Vector/TVectorWrapper (should be Vector everywhere)
 - 8.0.x Sounds/Music
-- 8.1.x GUI
-- 8.2.x Logging
+- 8.1.x Tags should be optional
+- 8.2.x GUI
+- 8.3.x Pausing (timers)
+- 8.4.x Registries refactoring (explicitly register/not register entities)
+- 8.5.x Logging
 - 9.0.x Deletion (memory management)
-- 9.1.x Building app (desktop/mobile) (might be not a part of an engine)
-- 9.2.x Testing (screenshot tests)
-- 9.3.x Split apps and engine
-- 9.4.x npm package and a repo
-- 10.x.x Shaders
-- 11.x.x Save/Load
+- 9.1.x Production build fix (WASM)
+- 9.2.x Building app (desktop/mobile) (might be not a part of an engine)
+- 9.3.x Testing (screenshot tests)
+- 10.0.x Split apps and engine
+- 10.1.x Performance improvements (make sure actors, materials and env maps are async)
+- 10.2.x Extract materials form actors
+- 10.3.x npm package and a repo
+- 11.0.x Shaders
+- 12.x.x Save/Load
 
 Global Refactoring:
 - extract materials from actors, keep there an alias to a material to be able to reuse the same material
@@ -31,6 +38,4 @@ Bugs and issues:
 - Production build is not working due to WASM integration
 
 Also:
-- Add line domain and let lines be created via config
-- BVH (Bounding Volume Hierarchies) with Grid-Based Spatial Partitioning for collision detection
 - Make stats enable/disable configurable via url params (?debug=true)
