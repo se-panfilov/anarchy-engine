@@ -1,6 +1,6 @@
 import RBush from 'rbush';
 import type { ColorRepresentation, LineSegments, Vector2, Vector3 } from 'three';
-import { BoxGeometry, Mesh, MeshBasicMaterial, Raycaster } from 'three';
+import { BoxGeometry, Mesh, MeshBasicMaterial, PlaneGeometry, Raycaster } from 'three';
 
 import type { TActorWrapperAsync } from '@/Engine/Actor';
 import type { TCameraWrapper } from '@/Engine/Camera';
@@ -13,11 +13,19 @@ import { isDefined, isNotDefined } from '@/Engine/Utils';
 // TODO (S.Panfilov) CWP we need factories and registries for grids, perhaps.
 export function SpatialGridService(): TSpatialGridService {
   function createBoundingBox(minX: number, minY: number, maxX: number, maxY: number, color: ColorRepresentation = '#00ff00', wireframe: boolean = true): Mesh {
-    const geometry: BoxGeometry = new BoxGeometry(maxX - minX, 1, maxY - minY);
+    // const geometry: BoxGeometry = new BoxGeometry(maxX - minX, 1, maxY - minY);
+    // const material: MeshBasicMaterial = new MeshBasicMaterial({ color, wireframe });
+    // const box: Mesh = new Mesh(geometry, material);
+    // box.position.set((minX + maxX) / 2, 0.5, (minY + maxY) / 2);
+    // return box;
+
+    const geometry: PlaneGeometry = new PlaneGeometry(maxX - minX, maxY - minY);
     const material: MeshBasicMaterial = new MeshBasicMaterial({ color, wireframe });
-    const box: Mesh = new Mesh(geometry, material);
-    box.position.set((minX + maxX) / 2, 0.5, (minY + maxY) / 2);
-    return box;
+    const plane: Mesh = new Mesh(geometry, material);
+    plane.position.set((minX + maxX) / 2, 0, (minY + maxY) / 2);
+    // eslint-disable-next-line functional/immutable-data
+    plane.rotation.x = -Math.PI / 2;
+    return plane;
   }
 
   //this visualization is for debugging purposes only
