@@ -13,7 +13,7 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
     const { actorRegistry, cameraRegistry, controlsRegistry, text2dRegistry, textFactory } = level.entities;
 
     controlsRegistry.getAll()[0]?.entity.target.set(6, 0, 0);
-    cameraRegistry.getAll()[0]?.setPosition(6, 30, 0);
+    cameraRegistry.getAll()[0]?.setPosition(Vector3Wrapper({ x: 6, y: 30, z: 0 }));
 
     const redActor: IActorWrapper | undefined = actorRegistry.getUniqByTag('red');
     const blueActor: IActorWrapper | undefined = actorRegistry.getUniqByTag('blue');

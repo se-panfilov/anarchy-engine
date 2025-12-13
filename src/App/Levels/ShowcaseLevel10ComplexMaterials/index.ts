@@ -1,7 +1,7 @@
 import { BehaviorSubject } from 'rxjs';
 
 import type { IShowcase } from '@/App/Levels/Models';
-import type { IActorWrapper, IAppCanvas, ICameraWrapper, ILevel, ILevelConfig, IOrbitControlsWrapper, ITextAnyWrapper, IVector3Wrapper } from '@/Engine';
+import { IActorWrapper, IAppCanvas, ICameraWrapper, ILevel, ILevelConfig, IOrbitControlsWrapper, ITextAnyWrapper, IVector3Wrapper, Vector3Wrapper } from '@/Engine';
 import { ambientContext, buildLevelFromConfig, CameraTag, isNotDefined, TextType } from '@/Engine';
 
 import levelConfig from './showcase-10-complex-materials.config.json';
@@ -45,7 +45,7 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
     const x: number = position.getX();
     const y: number = position.getY();
     const z: number = position.getZ();
-    textDescription.setPosition(x - 1.5, y + 1, z);
+    textDescription.setPosition(Vector3Wrapper({ x: x - 1.5, y: y + 1, z }));
     textDescription.setText(currentMaterial$.value + ' material');
   }
 
