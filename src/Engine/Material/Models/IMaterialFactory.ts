@@ -1,8 +1,8 @@
-import type { IAsyncReactiveFactory, IParamsFromConfig } from '@/Engine/Abstract';
+import type { IParamsFromConfig, IReactiveFactory } from '@/Engine/Abstract';
 import type { IDestroyable } from '@/Engine/Mixins';
 
 import type { IMaterialConfig } from './IMaterialConfig';
 import type { IMaterialParams } from './IMaterialParams';
-import type { IMaterialWrapperAsync } from './IMaterialWrapperAsync';
+import type { IMaterialWrapper } from './IMaterialWrapper';
 
-export type IMaterialFactory = IAsyncReactiveFactory<IMaterialWrapperAsync, IMaterialParams> & IParamsFromConfig<IMaterialConfig, IMaterialParams> & IDestroyable;
+export type IMaterialFactory = IReactiveFactory<IMaterialWrapper, IMaterialParams> & IParamsFromConfig<IMaterialConfig, IMaterialParams> & IDestroyable;

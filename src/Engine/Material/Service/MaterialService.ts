@@ -1,14 +1,14 @@
-import type { IMaterialAsyncRegistry, IMaterialConfig, IMaterialFactory, IMaterialParams, IMaterialService, IMaterialWrapperAsync } from '@/Engine/Material/Models';
+import type { IMaterialConfig, IMaterialFactory, IMaterialParams, IMaterialRegistry, IMaterialService, IMaterialWrapper } from '@/Engine/Material/Models';
 import type { IDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
 
-export function MaterialService(factory: IMaterialFactory, registry: IMaterialAsyncRegistry): IMaterialService {
-  factory.entityCreated$.subscribe((wrapper: IMaterialWrapperAsync): void => registry.add(wrapper));
+export function MaterialService(factory: IMaterialFactory, registry: IMaterialRegistry): IMaterialService {
+  factory.entityCreated$.subscribe((wrapper: IMaterialWrapper): void => registry.add(wrapper));
 
-  const createAsync = (params: IMaterialParams): Promise<IMaterialWrapperAsync> => factory.createAsync(params);
+  const create = (params: IMaterialParams): Promise<IMaterialWrapper> => factory.create(params);
   const createFromConfig = (material: ReadonlyArray<IMaterialConfig>): void => {
     // eslint-disable-next-line @typescript-eslint/no-misused-promises
-    material.forEach((config: IMaterialConfig): Promise<IMaterialWrapperAsync> => factory.createAsync(factory.configToParams(config)));
+    material.forEach((config: IMaterialConfig): Promise<IMaterialWrapper> => factory.create(factory.configToParams(config)));
   };
 
   const destroyable: IDestroyable = destroyableMixin();
@@ -18,10 +18,10 @@ export function MaterialService(factory: IMaterialFactory, registry: IMaterialAs
   });
 
   return {
-    createAsync,
+    create,
     createFromConfig,
     getFactory: (): IMaterialFactory => factory,
-    getRegistry: (): IMaterialAsyncRegistry => registry,
+    getRegistry: (): IMaterialRegistry => registry,
     ...destroyable
   };
 }

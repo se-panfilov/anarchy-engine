@@ -7,7 +7,7 @@ import { FogFactory, FogRegistry, FogService } from '@/Engine/Fog';
 import { IntersectionsWatcherFactory, IntersectionsWatcherRegistry, IntersectionsWatcherService } from '@/Engine/Intersections';
 import { LightFactory, LightRegistry, LightService } from '@/Engine/Light';
 import type { IMaterialService } from '@/Engine/Material';
-import { MaterialAsyncRegistry, MaterialFactory, MaterialService } from '@/Engine/Material';
+import { MaterialFactory, MaterialRegistry, MaterialService } from '@/Engine/Material';
 import { ParticlesAsyncRegistry, ParticlesFactory, ParticlesService } from '@/Engine/Particles';
 import { RendererFactory, RendererRegistry, RendererService } from '@/Engine/Renderer';
 import type { ISceneFactory, ISceneRegistry, IScenesService, ISceneWrapper } from '@/Engine/Scene';
@@ -24,7 +24,7 @@ export function initSceneService(): IScenesService {
 }
 
 export function initEntitiesServices(scene: ISceneWrapper, canvas: IAppCanvas): Omit<ISpaceServices, 'scenesService'> {
-  const materialService: IMaterialService = MaterialService(MaterialFactory(), MaterialAsyncRegistry());
+  const materialService: IMaterialService = MaterialService(MaterialFactory(), MaterialRegistry());
   return {
     actorService: ActorService(ActorFactory(), ActorAsyncRegistry(), materialService, scene),
     cameraService: CameraService(CameraFactory(), CameraRegistry(), scene),

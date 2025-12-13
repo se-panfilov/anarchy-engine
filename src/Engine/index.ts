@@ -16,6 +16,7 @@ export * from './Keyboard';
 export * from './Light';
 export * from './Loop';
 export * from './Material';
+export * from './MaterialTexturePack';
 export * from './Measurements';
 export * from './Mixins';
 export * from './Mouse';

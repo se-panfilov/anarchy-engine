@@ -16,18 +16,18 @@ export async function createActor(params: IActorParams, materialService: IMateri
   throw new Error('Cannot create Actor: unknown actor type');
 }
 
-function createPlane({ width, height, widthSegments, heightSegments }: IActorParams, materialWrapper: IMaterialWrapperAsync): IMesh {
+function createPlane({ width, height, widthSegments, heightSegments }: IActorParams, materialWrapper: IMaterialWrapper): IMesh {
   const w: number | undefined = isDefined(width) ? meters(width) : undefined;
   const h: number | undefined = isDefined(height) ? meters(height) : undefined;
   return new Mesh(new PlaneGeometry(w, h, widthSegments, heightSegments), materialWrapper.entity);
 }
 
-function createSphere({ radius, widthSegments, heightSegments }: IActorParams, materialWrapper: IMaterialWrapperAsync): IMesh {
+function createSphere({ radius, widthSegments, heightSegments }: IActorParams, materialWrapper: IMaterialWrapper): IMesh {
   const r: number | undefined = isDefined(radius) ? meters(radius) : undefined;
   return new Mesh(new SphereGeometry(r, widthSegments, heightSegments), materialWrapper.entity);
 }
 
-function createCube({ width, height, depth, widthSegments, heightSegments, depthSegments }: IActorParams, materialWrapper: IMaterialWrapperAsync): IMesh {
+function createCube({ width, height, depth, widthSegments, heightSegments, depthSegments }: IActorParams, materialWrapper: IMaterialWrapper): IMesh {
   const w: number | undefined = isDefined(width) ? meters(width) : undefined;
   const h: number | undefined = isDefined(height) ? meters(height) : undefined;
   return new Mesh(new BoxGeometry(w, h, depth, widthSegments, heightSegments, depthSegments), materialWrapper.entity);

@@ -5,7 +5,7 @@ import { isDefined } from '@/Engine/Utils';
 export function configToParams(config: IMaterialConfig): IMaterialParams {
   const { blending, ...rest } = config;
 
-  let params: Partial<IMaterialParams> = {};
+  let params: IMaterialParams = {} as IMaterialParams;
 
   if (isDefined(blending)) params = { ...params, blending: BlendingMap[blending] };
 

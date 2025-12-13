@@ -1,1 +1,1 @@
-export * from './MaterialWrapperAsync';
+export * from './MaterialWrapper';

@@ -1,7 +1,5 @@
 export * from './ICubeTexture';
-export * from './IMaterialTexturePack';
 export * from './ITexture';
-export * from './ITexturePackParams';
 export * from './ITextureParams';
 export * from './ITextureProps';
 export * from './ITextureService';

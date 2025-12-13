@@ -1,1 +1,1 @@
-export * from './MaterialAsyncRegistry';
+export * from './MaterialRegistry';

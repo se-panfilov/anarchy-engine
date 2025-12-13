@@ -10,8 +10,7 @@ import type {
   IPointsMaterialPackKeys,
   IStandardMaterialPackKeys,
   IToonMaterialPackKeys
-} from '@/Engine/Material';
-
+} from './IMaterialPackKeys';
 import type { ITexturePackParams } from './ITexturePackParams';
 
 export type IBasicMaterialTexturePack = Readonly<{ [key in IBasicMaterialPackKeys]?: ITexturePackParams }>;

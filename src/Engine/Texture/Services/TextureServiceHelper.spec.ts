@@ -1,6 +1,6 @@
 import { MaterialType } from '@/Engine/Material';
-import type { ITexturePackParams } from '@/Engine/Texture/Models';
-import { isIMaterialProps, isMaterialType } from '@/Engine/Texture/Services/TextureServiceHelper';
+import type { ITexturePackParams } from '@/Engine/MaterialTexturePack';
+import { isMaterialProps, isMaterialType } from '@/Engine/Texture/Services/TextureServiceHelper';
 
 describe('TextureServiceHelper', () => {
   describe('isMaterialType', () => {
@@ -29,34 +29,34 @@ describe('TextureServiceHelper', () => {
       expect(isMaterialType(pack)).toBe(false);
     });
   });
-  describe('isIMaterialProps', () => {
+  describe('isMaterialProps', () => {
     it('should return "true" if value is in MaterialType', () => {
-      expect(isIMaterialProps({ type: MaterialType.Basic })).toBe(true);
-      expect(isIMaterialProps({ type: MaterialType.Depth })).toBe(true);
-      expect(isIMaterialProps({ type: MaterialType.Distance })).toBe(true);
-      expect(isIMaterialProps({ type: MaterialType.Normal })).toBe(true);
-      expect(isIMaterialProps({ type: MaterialType.Matcap })).toBe(true);
-      expect(isIMaterialProps({ type: MaterialType.Lambert })).toBe(true);
-      expect(isIMaterialProps({ type: MaterialType.Phong })).toBe(true);
-      expect(isIMaterialProps({ type: MaterialType.Physical })).toBe(true);
-      expect(isIMaterialProps({ type: MaterialType.Toon })).toBe(true);
-      expect(isIMaterialProps({ type: MaterialType.Standard })).toBe(true);
+      expect(isMaterialProps({ type: MaterialType.Basic })).toBe(true);
+      expect(isMaterialProps({ type: MaterialType.Depth })).toBe(true);
+      expect(isMaterialProps({ type: MaterialType.Distance })).toBe(true);
+      expect(isMaterialProps({ type: MaterialType.Normal })).toBe(true);
+      expect(isMaterialProps({ type: MaterialType.Matcap })).toBe(true);
+      expect(isMaterialProps({ type: MaterialType.Lambert })).toBe(true);
+      expect(isMaterialProps({ type: MaterialType.Phong })).toBe(true);
+      expect(isMaterialProps({ type: MaterialType.Physical })).toBe(true);
+      expect(isMaterialProps({ type: MaterialType.Toon })).toBe(true);
+      expect(isMaterialProps({ type: MaterialType.Standard })).toBe(true);
     });
 
     it('should return "false" for a random value', () => {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-      expect(isIMaterialProps({ type: 'whatever' } as any)).toBe(false);
+      expect(isMaterialProps({ type: 'whatever' } as any)).toBe(false);
       // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-      expect(isIMaterialProps({} as any)).toBe(false);
+      expect(isMaterialProps({} as any)).toBe(false);
       // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-      expect(isIMaterialProps({ whatever: 'asd' } as any)).toBe(false);
+      expect(isMaterialProps({ whatever: 'asd' } as any)).toBe(false);
     });
 
     it('should return "false" for ITexturePackParams', () => {
       const pack: ITexturePackParams = { url: 'some', params: { tags: [] } };
 
       // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-      expect(isIMaterialProps(pack)).toBe(false);
+      expect(isMaterialProps(pack)).toBe(false);
     });
   });
 });
