@@ -13,6 +13,7 @@ export function AbstractFactory<T extends ReactiveWrapper<unknown>, R extends Re
   add$.subscribe((val: R): void => latest$.next(create(val)));
 
   destroyed$.subscribe(() => {
+    add$.unsubscribe();
     add$.complete();
     latest$.complete();
     destroyed$.complete();
