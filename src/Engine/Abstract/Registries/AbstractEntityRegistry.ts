@@ -14,7 +14,7 @@ export function AbstractEntityRegistry<T extends TRegistrable | TMultitonRegistr
   const registry: Map<string, T> = new Map();
 
   const destroyable: TDestroyable = destroyableMixin();
-  const { added$, replaced$, removed$ }: TWithReactiveRegistry<T> = withReactiveRegistry<T>(registry, destroyable);
+  const reactiveRegistry: TWithReactiveRegistry<T> = withReactiveRegistry<T>(registry, destroyable);
   const { isEmpty, getLength, forEach, asArray, find, getRegistryCopy, clear }: TWithBaseAccessorsRegistry<T> = withBaseAccessorsRegistry<T>(registry);
 
   function add(entity: T): void | never {
@@ -26,13 +26,13 @@ export function AbstractEntityRegistry<T extends TRegistrable | TMultitonRegistr
       });
     }
     registry.set(entity.id, entity);
-    added$.next({ key: entity.id, value: entity });
+    reactiveRegistry.added$.next({ key: entity.id, value: entity });
   }
 
   function replace(entity: T): void | never {
     if (!registry.has(entity.id)) throw new Error(`Cannot replace an entity with id "${entity.id}" in registry ${id}: not exist`);
     registry.set(entity.id, entity);
-    replaced$.next({ key: entity.id, value: entity });
+    reactiveRegistry.replaced$.next({ key: entity.id, value: entity });
   }
 
   const findById = (id: string): T | undefined => registry.get(id);
@@ -43,7 +43,7 @@ export function AbstractEntityRegistry<T extends TRegistrable | TMultitonRegistr
     const entity: T | undefined = registry.get(id);
     if (isNotDefined(entity)) throw new Error(`Cannot remove an entity with id "${id}" from registry ${id}: not exist`);
     registry.delete(id);
-    removed$.next({ key: id, value: entity });
+    reactiveRegistry.removed$.next({ key: id, value: entity });
   }
 
   const findAllByTags = (tags: ReadonlyArray<string>, strategy: LookUpStrategy): ReadonlyArray<T> => getAllEntitiesWithTags(tags, registry, strategy);
@@ -58,7 +58,7 @@ export function AbstractEntityRegistry<T extends TRegistrable | TMultitonRegistr
     {
       id,
       add,
-      added$: added$.asObservable(),
+      added$: reactiveRegistry.added$.asObservable(),
       find,
       findAllByTag: findAllByTag,
       findAllByTags: findAllByTags,
@@ -75,11 +75,12 @@ export function AbstractEntityRegistry<T extends TRegistrable | TMultitonRegistr
       clear,
       asObject,
       remove,
-      removed$: removed$.asObservable(),
+      removed$: reactiveRegistry.removed$.asObservable(),
       replace,
-      replaced$: replaced$.asObservable(),
+      replaced$: reactiveRegistry.replaced$.asObservable(),
       type
     },
+    reactiveRegistry,
     destroyable
   );
 }
