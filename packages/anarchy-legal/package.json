@@ -9,7 +9,7 @@
   "scripts": {
     "before:release": "npm run before:release:check",
     "before:release:check": "npm run ts:check && npm run prettier:check && npm run lint",
-    "generate:files": "node ./src/Generators/generate-files.ts",
+    "generate:files": "node .src/Generators/LegalFilesGenerator.ts",
     "generate:licenses": "node src/Generators/ThirdPartyLicensesGenerator.ts",
     "generate:notice": "node ./src/Generators/generate-notice.ts",
     "lint": "eslint ./src",

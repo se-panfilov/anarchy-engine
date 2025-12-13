@@ -6,7 +6,7 @@ import { LegalFilesService } from '../Services/LegalFilesService.ts';
  * Anarchy-legal — Legal docs generator.
  *
  * USAGE
- *   node packages/anarchy-legal/src/commands/generate-files.ts \
+ *   node packages/anarchy-legal/src/Generators/LegalFilesGenerator.ts \
  *     --workspace <name|path> \
  *     --out <dir> \
  *     [--templates <dir>] \

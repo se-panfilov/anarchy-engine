@@ -3,11 +3,11 @@ import type { TThirdPartyLicensesService } from '@Anarchy/Legal/Models';
 import { ThirdPartyLicensesService } from '../Services/ThirdPartyLicensesService.ts';
 
 /**
- * Anarchy-legal — Third-party licenses generator (cli.ts)
+ * Anarchy-legal — Third-party licenses generator
  * Produces THIRD_PARTY_LICENSES.md for a target workspace.
  *
  * USAGE
- *   node packages/anarchy-legal/src/cli.ts \
+ *   node packages/anarchy-legal/src/Generators/ThirdPartyLicensesGenerator.ts \
  *     --workspace <name|path> \
  *     --out <THIRD_PARTY_LICENSES.md> \
  *     [--root <dir>] \

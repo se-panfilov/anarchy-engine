@@ -2,19 +2,19 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
+import type { TWorkspaceInfo } from '@Anarchy/Legal';
 // eslint-disable-next-line spellcheck/spell-checker
 import { globby } from 'globby';
 // eslint-disable-next-line spellcheck/spell-checker
 import yargs from 'yargs';
 import { hideBin } from 'yargs/helpers';
-import { TWorkspaceInfo } from '@Anarchy/Legal';
 
 /**
  * Anarchy-legal — NOTICE generator (generate-notice.ts)
  * Builds NOTICE.md by parsing the workspace's attribution source (e.g. THIRD_PARTY_LICENSES.md).
  *
  * USAGE
- *   node packages/anarchy-legal/src/commands/generate-notice.ts \
+ *   node packages/anarchy-legal/src/Generators/generate-notice.ts \
  *     --workspace <name|path> \
  *     [--source <path>] \
  *     [--source-name <file>] \
