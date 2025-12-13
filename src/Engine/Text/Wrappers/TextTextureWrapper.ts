@@ -23,6 +23,7 @@ export function createTextTextureWrapper(params: TTextParams, type: TextType): T
   const geometry = new PlaneGeometry();
   const entity = new Mesh(geometry, material);
 
+  // TODO #191823 Text3dTextures doesn't update text values on textures on change
   function setText(newText: string): void {
     const fontSize: string = toPx(params.cssProps?.fontSize);
     const fontSizeNoUnits: number = stripUnits(fontSize);
@@ -31,8 +32,7 @@ export function createTextTextureWrapper(params: TTextParams, type: TextType): T
 
     const textMetrics: TextMetrics = context.measureText(newText);
     const padding: number = fontSizeNoUnits * 0.2;
-    const textWidth: number = Math.ceil(textMetrics.width + padding * 2 + 400);
-    // const textWidth: number = Math.ceil(textMetrics.width * 0.2);
+    const textWidth: number = Math.ceil(textMetrics.width + padding * 2);
     const textHeight: number = Math.ceil(fontSizeNoUnits + padding * 2);
 
     // eslint-disable-next-line functional/immutable-data
@@ -44,9 +44,12 @@ export function createTextTextureWrapper(params: TTextParams, type: TextType): T
     context.font = `${fontSize} Arial`;
 
     // eslint-disable-next-line functional/immutable-data
-    context.textAlign = 'left';
+    context.textAlign = 'center';
     // eslint-disable-next-line functional/immutable-data
     context.textBaseline = 'middle';
+    // eslint-disable-next-line functional/immutable-data
+    context.fillStyle = params.cssProps?.backgroundColor ?? 'rgba(0, 0, 0, 0)';
+    context.fillRect(0, 0, canvas.width, canvas.height);
 
     // eslint-disable-next-line functional/immutable-data
     context.fillStyle = params.cssProps?.color ?? '#000000';
@@ -54,9 +57,12 @@ export function createTextTextureWrapper(params: TTextParams, type: TextType): T
     // eslint-disable-next-line functional/immutable-data
     texture.needsUpdate = true;
 
+    const newGeometryWidth = canvas.width / 256;
+    const newGeometryHeight = canvas.height / 256;
+
     entity.geometry.dispose();
     // eslint-disable-next-line functional/immutable-data
-    entity.geometry = new PlaneGeometry(canvas.width / 256, canvas.height / 256);
+    entity.geometry = new PlaneGeometry(newGeometryWidth, newGeometryHeight);
   }
 
   const result: TTextTextureWrapper<Mesh> = {

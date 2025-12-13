@@ -73,7 +73,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
       text: 'Azimuth...',
       type: TextType.Text3d,
       cssProps: { fontSize: '0.05rem' },
-      position: Vector3Wrapper({ x: 3, y: 0, z: 6 }),
+      position: Vector3Wrapper({ x: 3, y: 0.3, z: 6 }),
       rotation: EulerWrapper({ x: -1.57, y: 0, z: 0 }),
       tags: []
     });
@@ -82,7 +82,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
       text: 'Force...',
       type: TextType.Text3d,
       cssProps: { fontSize: '0.05rem' },
-      position: Vector3Wrapper({ x: 3, y: 0, z: 7 }),
+      position: Vector3Wrapper({ x: 3, y: 0.3, z: 7 }),
       rotation: EulerWrapper({ x: -1.57, y: 0, z: 0 }),
       tags: []
     });
@@ -96,8 +96,8 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
       if (isDefined(mouseLineIntersectionsCoords)) {
         const ballCoords: TWithCoordsXYZ = ballActorW.getPosition().getCoords();
         azimuth = getHorizontalAzimuthDeg({ x: ballCoords.x, z: ballCoords.z }, mouseLineIntersectionsCoords);
-        azimuthText.setText(`Azimuth: ${azimuth}`);
-        forcePowerText.setText(`Force: ${forcePower}`);
+        azimuthText.setText(`Azimuth: ${azimuth.toFixed(2)}`);
+        forcePowerText.setText(`Force: ${forcePower.toFixed(2)}`);
         forcePower = getDistancePrecisely(ballActorW.getPosition().getCoords(), mouseLineIntersectionsCoords).toNumber();
         line.geometry.setPositions([ballCoords.x, ballCoords.y, ballCoords.z, mouseLineIntersectionsCoords.x, mouseLineIntersectionsCoords.y, mouseLineIntersectionsCoords.z]);
         line.computeLineDistances();

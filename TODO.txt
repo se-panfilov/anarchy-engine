@@ -37,6 +37,7 @@ Bugs and issues:
 - Registries might be a mistake: if I create "bullet" which extends "actor", the actor will be registered, not the bullet (which is unexpected)
 - Timers are the issue (the game is paused when you are not in the tab, but timers such as "setTimeout" are still running)
 - Production build is not working due to WASM integration
+- #191823 Text3dTextures doesn't update text values on textures on change
 
 Also:
 - Make stats enable/disable configurable via url params (?debug=true)
