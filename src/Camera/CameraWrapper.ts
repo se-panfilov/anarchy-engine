@@ -1,9 +1,16 @@
 import { PerspectiveCamera } from 'three';
-import { deviceSize$ } from './Store/DeviceSize';
+import { deviceSize$ } from '../Store/DeviceSize';
 import { Subject } from 'rxjs';
 import { nanoid } from 'nanoid';
+import { WrappedCamera } from './Models/WrappedCamera';
 
-export function CameraWrapper(width: number, height: number, fov: number = 45, near: number = 1, far: number = 10000) {
+export function CameraWrapper(
+  width: number,
+  height: number,
+  fov: number = 45,
+  near: number = 1,
+  far: number = 10000
+): WrappedCamera {
   let camera = new PerspectiveCamera(fov, width / height, near, far);
   const destroyed$ = new Subject<void>();
 
@@ -19,5 +26,5 @@ export function CameraWrapper(width: number, height: number, fov: number = 45, n
     destroyed$.complete();
   }
 
-  return { id: nanoid(), camera, destroy, destroyed$ };
+  return { id: `camera_wrapper_${nanoid()}`, camera, destroy, destroyed$ };
 }

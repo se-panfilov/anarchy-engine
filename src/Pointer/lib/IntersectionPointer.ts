@@ -5,12 +5,13 @@ import { MousePointer } from './MousePointer';
 import { MousePosition } from './models/MousePosition';
 import { Object3D } from 'three/src/core/Object3D';
 import { nanoid } from 'nanoid';
+import { WrappedIntersectionPointer } from './models/WrappedIntersectionPointer';
 
 export function IntersectionPointer(
   mousePointer: ReturnType<typeof MousePointer>,
   camera: Camera,
   obj: Array<Object3D>
-) {
+): WrappedIntersectionPointer {
   const position$ = new BehaviorSubject<Vector3>(new Vector3());
   const click$ = new Subject<{ readonly position: Vector3; readonly event: MouseEvent }>();
   const destroyed$ = new Subject<void>();
@@ -33,5 +34,5 @@ export function IntersectionPointer(
     destroyed$.complete();
   }
 
-  return { id: nanoid(), click$, position$, mousePointer, raycaster, destroy, destroyed$ };
+  return { id: `intersection_pointer_${nanoid()}`, click$, position$, mousePointer, raycaster, destroy, destroyed$ };
 }

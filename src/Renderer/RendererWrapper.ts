@@ -1,10 +1,11 @@
 import { PCFShadowMap, WebGL1Renderer } from 'three';
-import { deviceSize$ } from './Store/DeviceSize';
-import { isNotDefined, isWebGLAvailable } from './Utils';
+import { deviceSize$ } from '../Store/DeviceSize';
+import { isNotDefined, isWebGLAvailable } from '../Utils';
 import { Subject } from 'rxjs';
 import { nanoid } from 'nanoid';
+import { WrappedRenderer } from './Models/WrappedRenderer';
 
-export function RendererWrapper(elementId: string) {
+export function RendererWrapper(elementId: string): WrappedRenderer {
   // TODO (S.Panfilov) global?
   let canvas: HTMLElement | null = document.querySelector(elementId);
   if (isNotDefined(canvas)) throw new Error(`Cannot find element with selector "${elementId}"`);
@@ -31,5 +32,5 @@ export function RendererWrapper(elementId: string) {
     destroyed$.complete();
   }
 
-  return { id: nanoid(), renderer, destroy, destroyed$ };
+  return { id: `renderer_wrapper_${nanoid()}`, renderer, destroy, destroyed$ };
 }

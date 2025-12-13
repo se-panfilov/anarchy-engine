@@ -1,10 +1,11 @@
 import { BehaviorSubject, Subject } from 'rxjs';
 import { MousePosition } from './models/MousePosition';
 import { nanoid } from 'nanoid';
+import { WrappedMousePointer } from './models/WrappedMousePointer';
 
-export function MousePointer() {
+export function MousePointer(): WrappedMousePointer {
   const position$ = new BehaviorSubject<MousePosition>({ x: 0, y: 0 });
-  const click$ = new Subject<{ readonly position: MousePosition; event: MouseEvent }>();
+  const click$ = new Subject<{ readonly position: MousePosition; readonly event: MouseEvent }>();
   const destroyed$ = new Subject<void>();
   // let isHeld = false;
 
@@ -27,5 +28,5 @@ export function MousePointer() {
     destroyed$.complete();
   }
 
-  return { id: nanoid(), position$, click$, destroy, destroyed$ };
+  return { id: `mouse_pointer_${nanoid()}`, position$, click$, destroy, destroyed$ };
 }

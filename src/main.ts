@@ -1,14 +1,14 @@
 import './style.css';
 import { Color, Mesh, MeshToonMaterial, Scene, SphereGeometry, Vector3 } from 'three';
 import { IntersectionPointer, MousePointer } from './Pointer';
-import { RendererWrapper } from './RendererWrapper';
-import { CameraWrapper } from './CameraWrapper';
+import { RendererWrapper } from './Renderer/RendererWrapper';
+import { CameraWrapper } from './Camera/CameraWrapper';
 import { ambientLight, directionalLight } from './lights';
 import { sphere } from './sphere';
 import { plane } from './planne';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { fpsGraph } from './DeveloperPanel';
-import { startWatchResize } from './Watcherd/Device/ResizeWatcher';
+import { startWatchResize } from './Watchers/Device/ResizeWatcher';
 import { deviceSize$ } from './Store/DeviceSize';
 
 const scene = new Scene();
