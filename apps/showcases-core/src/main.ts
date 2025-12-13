@@ -20,13 +20,14 @@ const settings: TAppSettings = {
 };
 
 //Enable error tracking
-BrowserTrackingService({
-  // eslint-disable-next-line spellcheck/spell-checker
-  dsn: runtimeEnv.VITE_SENTRY_DSN,
-  environment: __PLATFORM_MODE__,
-  // TODO DESKTOP: Add buildMetaInfo to the report
-  release: import.meta.env.__APP_VERSION__
-});
+BrowserTrackingService(
+  {
+    dsn: runtimeEnv.VITE_SENTRY_DSN,
+    environment: __PLATFORM_MODE__,
+    release: import.meta.env.__APP_VERSION__
+  },
+  __BUILD_META_INFO__
+);
 
 // TODO DESKTOP: DEBUG ERROR
 (window as any).myUndefinedFunction();
