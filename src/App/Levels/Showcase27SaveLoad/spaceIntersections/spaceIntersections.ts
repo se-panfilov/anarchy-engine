@@ -1,6 +1,7 @@
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, skip } from 'rxjs';
+import type { Mesh, MeshStandardMaterial } from 'three';
 
-import type { TIntersectionEvent, TIntersectionsWatcher, TSpace, TSpaceConfig } from '@/Engine';
+import type { TActor, TIntersectionEvent, TIntersectionsWatcher, TSpace, TSpaceConfig } from '@/Engine';
 
 import type { TSpacesData } from '../ShowcaseTypes';
 import { getContainer } from '../utils';
@@ -17,10 +18,17 @@ export const spaceIntersectionsData: TSpacesData = {
     const watcherRed: TIntersectionsWatcher = space.services.intersectionsWatcherService.getRegistry().getByName('watcher_red');
     const watcherBlue: TIntersectionsWatcher = space.services.intersectionsWatcherService.getRegistry().getByName('watcher_blue');
 
-    watcherRed.value$.subscribe((value: TIntersectionEvent): void => console.log('redWatcher', value));
+    watcherRed.value$.pipe(skip(1)).subscribe((value: TIntersectionEvent): void => {
+      console.log('redWatcher', value);
+      ((value.object as Mesh).material as MeshStandardMaterial).color.set('yellow');
+    });
     watcherBlue.value$.subscribe((value: TIntersectionEvent): void => console.log('blueWatcher', value));
   },
   onChange: (space: TSpace): void => {
-    //
+    const watcherRed: TIntersectionsWatcher = space.services.intersectionsWatcherService.getRegistry().getByName('watcher_red');
+    const sphereRed2Actor: TActor = space.services.actorService.getRegistry().getByName('sphere_red_2_actor');
+    // TODO 15-0-0: Prevent adding actors multiple times (same id, same name)
+    watcherRed.addActor(sphereRed2Actor);
+    console.log('XXX actors', watcherRed.getActors());
   }
 };
