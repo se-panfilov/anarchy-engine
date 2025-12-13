@@ -7,7 +7,7 @@ export const isKeyInEvent = (key: TGameKey, keyEvent: TKeyEvent | undefined): bo
 export const isPressEvent = (keyEvent: TKeyEvent): boolean => isDefined(keyEvent.pressed);
 export const isReleaseEvent = (keyEvent: TKeyEvent): boolean => isDefined(keyEvent.released);
 
-export function isKeysPressed(keys: ReadonlyArray<TGameKey>, pressedKeys: TKeysCombo): boolean {
+export function hasKeys(keys: ReadonlyArray<TGameKey>, pressedKeys: TKeysCombo): boolean {
   // eslint-disable-next-line functional/no-loop-statements
   for (const key of keys) {
     if (!hasKey(key, pressedKeys)) return false;
