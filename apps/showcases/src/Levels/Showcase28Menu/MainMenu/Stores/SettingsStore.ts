@@ -3,6 +3,7 @@ import type { TResolution } from 'anarchy_engine_showcases_desktop/src/Models';
 import { defineStore } from 'pinia';
 import { reactive } from 'vue';
 
+import { Languages } from '@/Levels/Showcase28Menu/MainMenu/Constants';
 import type { TGameSettings } from '@/Levels/Showcase28Menu/Models';
 
 export const useSettingsStore = defineStore('settingsStore', () => {
@@ -16,8 +17,7 @@ export const useSettingsStore = defineStore('settingsStore', () => {
       masterVolume: 80
     },
     localization: {
-      // TODO DESKTOP: should be an enum
-      language: 'en'
+      language: Languages.EN
     },
     debug: {
       isDebugMode: false
