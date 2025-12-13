@@ -1,0 +1,24 @@
+import { EquirectangularReflectionMapping } from 'three';
+import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader';
+
+import type { TAbstractLoader } from '@/Engine/Abstract';
+import { AbstractLoader, LoaderType } from '@/Engine/Abstract';
+import type { TEnvMapLoader, TEnvMapResourceConfig, TEnvMapTexture, TEnvMapTextureAsyncRegistry, TEnvMapTextureParams } from '@/Engine/EnvMap/Models';
+import type { TWriteable } from '@/Engine/Utils';
+import { isDefined } from '@/Engine/Utils';
+
+export function TexturesLoader(registry: TEnvMapTextureAsyncRegistry): TEnvMapLoader {
+  const envMapLoader: RGBELoader = new RGBELoader();
+  const loader: TAbstractLoader<TEnvMapTexture, TEnvMapResourceConfig> = AbstractLoader(envMapLoader, registry, LoaderType.EnvMap);
+
+  function applyParamsOnLoaded(loaded: TWriteable<TEnvMapTexture>, p?: TEnvMapTextureParams): TEnvMapTexture {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment,functional/immutable-data
+    loaded.mapping = isDefined(p?.mapping) ? p.mapping : EquirectangularReflectionMapping;
+    return loaded;
+  }
+
+  return {
+    ...loader,
+    loadAsync: (config: TEnvMapResourceConfig): Promise<TEnvMapTexture> => loader.loadAsync(config, applyParamsOnLoaded)
+  };
+}
