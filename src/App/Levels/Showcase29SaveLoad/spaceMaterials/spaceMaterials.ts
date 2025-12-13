@@ -9,16 +9,13 @@ import spaceConfig from './spaceMaterials.json';
 
 const config: TSpaceConfig = spaceConfig as TSpaceConfig;
 
-// TODO 15-0-0: compare saved json with the original one (and check how it's loads)
-// TODO 15-0-0: in entityToConfig maybe use a mix oe entity & json values
-// TODO 15-0-0: Save should return a promise
 export const spaceMaterialsData: TSpacesData = {
   name: config.name,
   config: config,
   container: getContainer(config.canvasSelector),
   awaits$: new BehaviorSubject<ReadonlySet<string>>(new Set()),
   onChange: (space: TSpace): void => {
-    // TODO 15-0-0: test textures change
+    // TODO 15-0-0: Test textures change
 
     adjustMaterial(space, 'surface_material', {
       clearcoat: 1,

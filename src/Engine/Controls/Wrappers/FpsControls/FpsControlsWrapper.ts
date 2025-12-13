@@ -14,7 +14,6 @@ import type { TMilliseconds } from '@/Engine/Math';
 import { withActiveMixin } from '@/Engine/Mixins';
 import { isEulerLike } from '@/Engine/Utils';
 
-// TODO 15-0-0: FpsControlsWrapper is not update Camera's transform drive (need an analog of "updateCameraTransformDriveOnChange()")
 export function FpsControlsWrapper(params: TFpsControlsParams): TFpsControlsWrapper {
   const entity: FirstPersonControls = new FirstPersonControls(params.camera.entity, params.canvas);
 

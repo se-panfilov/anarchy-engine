@@ -15,7 +15,7 @@ const config: TSpaceConfig = spaceConfig as TSpaceConfig;
 let isOriginalSceneLoaded: boolean = true;
 let continuousStepCounter: number = 0;
 
-// TODO 15-0-0: add physical TD check after serialization physics will be done
+// TODO 15-0-0: Add physical TD check after serialization physics will be done
 // TODO 15-0-0: Check other entities TD (light, text, camera, particles, audio3d with debug renderer)
 export const spaceTransformDriveData: TSpacesData = {
   name: config.name,

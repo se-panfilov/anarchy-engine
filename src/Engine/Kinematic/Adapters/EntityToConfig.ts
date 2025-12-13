@@ -4,7 +4,6 @@ import type { TKinematicConfig, TKinematicConfigTarget } from '@/Engine/Kinemati
 import type { TKinematicTransformAgent } from '@/Engine/TransformDrive';
 import { eulerToXyz, filterOutEmptyFields, isDefined, quaternionToXyzw, vector3ToXyz } from '@/Engine/Utils';
 
-// TODO 15-0-0: validate
 export function kinematicToConfig(entity: TKinematicTransformAgent): TKinematicConfig {
   const { linearSpeed, linearDirection, angularSpeed, angularDirection, radius, forwardAxis, isInfiniteRotation } = entity.data.state;
 

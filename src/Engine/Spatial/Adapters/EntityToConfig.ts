@@ -3,7 +3,6 @@ import { extractSerializableRegistrableFields } from '@/Engine/Mixins';
 import type { TSpatialCellId, TSpatialCellSerializedData, TSpatialCellWrapper, TSpatialGridConfig, TSpatialGridWrapper } from '@/Engine/Spatial/Models';
 import { filterOutEmptyFields } from '@/Engine/Utils';
 
-// TODO 15-0-0: validate
 export function entityToConfigSpatialGrid(entity: TSpatialGridWrapper): TSpatialGridConfig {
   return filterOutEmptyFields({
     ...entity.getParams(),

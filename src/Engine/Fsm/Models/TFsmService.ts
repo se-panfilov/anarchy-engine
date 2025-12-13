@@ -8,9 +8,7 @@ import type { TFsmSourceRegistry } from './TFsmSourceRegistry';
 
 export type TFsmServiceWithFactory = TWithFactoryService<TFsmWrapper, TFsmParams, undefined, TFsmInstanceFactory>;
 
-// TODO 15-0-0: Return type might be not TFsmConfig, but something else, check it
 export type TFsmService = TSerializableEntitiesService<TFsmConfig> &
-  // TODO 15-0-0: Return type might be not TFsmConfig, but something else, check it
   TSerializableResourceService<TFsmConfig> &
   TFsmServiceWithFactory &
   Readonly<{

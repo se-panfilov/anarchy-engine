@@ -11,5 +11,4 @@ export type TFsmInstanceServiceWithCreate = TWithCreateService<TFsmWrapper, TFsm
 export type TFsmInstanceServiceWithFactory = TWithFactoryService<TFsmWrapper, TFsmSource, undefined, TFsmInstanceFactory>;
 export type TFsmInstanceServiceWithRegistry = TWithRegistryService<TFsmInstanceRegistry>;
 
-// TODO 15-0-0: Return type might be not TFsmConfig, but something else, check it
 export type TFsmInstanceService = TSerializableEntitiesService<TFsmConfig> & TFsmInstanceServiceWithCreate & TFsmInstanceServiceWithFactory & TFsmInstanceServiceWithRegistry;

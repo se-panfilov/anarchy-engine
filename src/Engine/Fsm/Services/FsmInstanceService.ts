@@ -17,7 +17,6 @@ export function FsmInstanceService(factory: TFsmInstanceFactory, registry: TFsmI
   const withFactory: TFsmInstanceServiceWithFactory = withFactoryService(factory);
   const withRegistry: TFsmInstanceServiceWithRegistry = withRegistryService(registry);
 
-  // TODO 15-0-0: Return type might be not TFsmConfig, but something else, check it
   // eslint-disable-next-line functional/immutable-data
   return Object.assign(abstractService, withCreateService, withFactory, withRegistry, withSerializeAllEntities<TFsmConfig, undefined>(registry));
 }

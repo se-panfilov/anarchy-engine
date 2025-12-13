@@ -3,7 +3,6 @@ import { extractSerializableRegistrableFields } from '@/Engine/Mixins';
 import type { TParticlesConfig, TParticlesConfigToParamsDependencies, TParticlesWrapper } from '@/Engine/Particles/Models';
 import { filterOutEmptyFields, isNotDefined } from '@/Engine/Utils';
 
-// TODO 15-0-0: validate result
 export function particlesToConfig(entity: TParticlesWrapper, { materialRegistry }: TParticlesConfigToParamsDependencies): TParticlesConfig {
   const { drive } = entity;
 

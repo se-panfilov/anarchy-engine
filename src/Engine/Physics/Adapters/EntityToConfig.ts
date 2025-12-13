@@ -4,9 +4,7 @@ import { extractSerializableRegistrableFields } from '@/Engine/Mixins';
 import type { TPhysicsBody, TPhysicsBodyConfig } from '@/Engine/Physics/Models';
 import { filterOutEmptyFields, isDefined } from '@/Engine/Utils';
 
-// TODO 15-0-0: validate result
 export function physicsToConfig(entity: TPhysicsBody): TPhysicsBodyConfig {
-  console.log('XXX entity', entity);
   // TODO 15-0-0: Add adapters for Physics World, and Physics presets
 
   const rigidBody: RigidBody | undefined = entity.getRigidBody();

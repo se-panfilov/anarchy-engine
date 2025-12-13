@@ -74,7 +74,6 @@ export function FsmService(instanceFactory: TFsmInstanceFactory, sourceFactory: 
     getSourceRegistry: (): TFsmSourceRegistry => sourceRegistry,
     getInstanceRegistry: (): TFsmInstanceRegistry => instanceRegistry,
     getFactory: (): TFsmInstanceFactory => instanceFactory,
-    // TODO 15-0-0: Return type might be not TFsmConfig, but something else, check it
     serializeAllEntities: (): ReadonlyArray<TFsmConfig> => instanceService.serializeAllEntities(),
     serializeAllResources: (): ReadonlyArray<TFsmConfig> => sourceService.serializeAllEntities()
   });

@@ -2,7 +2,6 @@ import type { TFsmConfig, TFsmWrapper } from '@/Engine/Fsm/Models';
 import { extractSerializableRegistrableFields } from '@/Engine/Mixins';
 import { filterOutEmptyFields } from '@/Engine/Utils';
 
-// TODO 15-0-0: validate result
 export function fsmToConfig(entity: TFsmWrapper): TFsmConfig {
   return filterOutEmptyFields({
     initial: entity.getInitial(),

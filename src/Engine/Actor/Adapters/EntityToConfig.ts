@@ -11,7 +11,6 @@ import { filterOutEmptyFields, isNotDefined } from '@/Engine/Utils';
 // TODO 15-0-0: Make sure connection registries are empty on destroy$
 // TODO 15-0-0: Space: add onUnload (onDestroy?) hook
 
-// TODO 15-0-0: validate result
 export function actorToConfig(entity: TActor, { models3dService }: TActorEntityToConfigDependencies): TActorConfig {
   const { drive } = entity;
 

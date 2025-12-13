@@ -5,7 +5,6 @@ import type { TActive, TWithName, TWithTags } from '@/Engine/Mixins';
 import type { TObject3DParams } from '@/Engine/ThreeLib';
 import type { TWithTransformAgentParam } from '@/Engine/TransformDrive';
 
-// TODO 15-0-0: EntityToConfig should take care TOrthographicCameraParams as well
 export type TCommonCameraParams = Readonly<{
   audioListener?: AudioListener;
   far?: number;

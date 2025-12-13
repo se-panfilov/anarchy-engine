@@ -23,7 +23,6 @@ import { createContainersDivs, setContainerVisibility } from './utils';
 
 let subscriptions: Record<string, Subscription> = {};
 
-// TODO 15-0-0: E2E: TransformDrive (default, connected, physics, kinematic)
 // TODO 15-0-0: E2E: Physics
 // TODO 15-0-0: E2E: Particles
 // TODO 15-0-0: E2E: Fog
@@ -47,7 +46,8 @@ const spacesData: ReadonlyArray<TSpacesData> = [
   spaceTransformDriveData
 ];
 
-const initialSpaceDataName: string = spaceBasicData.name;
+// const initialSpaceDataName: string = spaceBasicData.name;
+const initialSpaceDataName: string = spaceTransformDriveData.name;
 
 const spacesInMemoryData: Array<TSpacesData> = [];
 
