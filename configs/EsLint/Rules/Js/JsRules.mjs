@@ -190,6 +190,7 @@ export const JsRules = {
         '[R-r]eadonly',
         '[R-r]ender[er]?[s]?',
         '[S-s]chema[s]?',
+        '[U-u]ntrack[ed]?',
         '[U-u]ppercase',
         '[U-u]rl[s]?',
         '[V-v]alidator[s]?',
