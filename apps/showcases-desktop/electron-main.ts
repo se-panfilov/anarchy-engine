@@ -23,8 +23,6 @@ const isOpenDevTools: boolean = true;
 // TODO DESKTOP: TS check, lint, prettier, etc.?
 // TODO DESKTOP: npm scripts, like clean reinstall, generate licenses, before release etc?
 // TODO DESKTOP: Add readme
-// TODO DESKTOP: Maybe move desktop app to the apps/showcases level?
-// TODO DESKTOP: Can we avoid copying of dist-desktop to dist-app? (check paths in asar)
 // TODO DESKTOP: add "sanitize assets" script for desktop/assets and mobile/assets
 // TODO DESKTOP: We need e2e eventually
 // TODO DESKTOP: Add .env files for different platforms (macos, windows, linux).
