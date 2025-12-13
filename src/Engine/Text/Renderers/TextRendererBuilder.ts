@@ -4,22 +4,15 @@ import { distinctUntilChanged } from 'rxjs';
 import type { CSS2DRenderer } from 'three/examples/jsm/renderers/CSS2DRenderer';
 import type { CSS3DRenderer } from 'three/examples/jsm/renderers/CSS3DRenderer';
 
-import type { TAppGlobalContainer, TContainerDecorator } from '@/Engine/Global';
+import type { TContainerDecorator } from '@/Engine/Global';
 import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
-import type { TScreenSizeValues, TScreenSizeWatcher } from '@/Engine/Screen';
 import type { TextCssClass, TextRendererType } from '@/Engine/Text/Constants';
 import { RelatedEntityAttribute } from '@/Engine/Text/Constants';
 import type { TTextRenderer } from '@/Engine/Text/Models';
 import { isAppGlobalContainer } from '@/Engine/Utils';
 
-export function getTextRenderer<T extends CSS2DRenderer | CSS3DRenderer>(
-  renderer: T,
-  cssClass: TextCssClass,
-  type: TextRendererType,
-  container: TAppGlobalContainer | TContainerDecorator,
-  screenSizeWatcher: Readonly<TScreenSizeWatcher>
-): TTextRenderer<T> {
+export function getTextRenderer<T extends CSS2DRenderer | CSS3DRenderer>(renderer: T, cssClass: TextCssClass, type: TextRendererType, container: TContainerDecorator): TTextRenderer<T> {
   const id: string = 'text_renderer_' + nanoid();
 
   if (isAppGlobalContainer(container)) {
@@ -43,13 +36,13 @@ export function getTextRenderer<T extends CSS2DRenderer | CSS3DRenderer>(
     (container.getElement() as HTMLElement)?.appendChild(renderer.domElement);
   }
 
-  const updateSize = ({ width, height }: TScreenSizeValues): void => renderer.setSize(width, height);
+  const updateSize = ({ width, height }: DOMRect): void => renderer.setSize(width, height);
 
   //init with the values which came before the start of the subscription
-  updateSize(screenSizeWatcher.getValue());
+  // updateSize( container.resize$);
 
-  const screenSize$: Subscription = screenSizeWatcher.value$
-    .pipe(distinctUntilChanged((prev: TScreenSizeValues, curr: TScreenSizeValues): boolean => prev.width === curr.width && prev.height === curr.height))
+  const screenSize$: Subscription = container.resize$
+    .pipe(distinctUntilChanged((prev: DOMRect, curr: DOMRect): boolean => prev.width === curr.width && prev.height === curr.height))
     .subscribe(updateSize);
 
   const destroyable: TDestroyable = destroyableMixin();

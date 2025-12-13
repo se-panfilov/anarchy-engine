@@ -1,8 +1,7 @@
 import type { TContainerDecorator } from '@/Engine/Global';
-import type { TScreenSizeWatcher } from '@/Engine/Screen';
 import { CreateEntitiesStrategy } from '@/Engine/Space/Constants';
 import type { TSpaceConfigEntities, TSpaceParamsEntities, TSpaceServices } from '@/Engine/Space/Models';
-import { isDefined, isNotDefined } from '@/Engine/Utils';
+import { isDefined } from '@/Engine/Utils';
 
 export function createEntities(entities: TSpaceConfigEntities | TSpaceParamsEntities, services: TSpaceServices, container: TContainerDecorator, strategy: CreateEntitiesStrategy): void | never {
   switch (strategy) {
@@ -38,15 +37,11 @@ export function createEntitiesFromConfigs(entities: TSpaceConfigEntities, servic
     physicsPresetService,
     physicsWorldService,
     rendererService,
-    screenService,
     spatialGridService,
     textService
   } = services;
 
   rendererService.createFromConfig(renderers);
-
-  const screenSizeWatcher: TScreenSizeWatcher | undefined = screenService.watchers.default$.value;
-  if (isNotDefined(screenSizeWatcher)) throw new Error(`Space: ScreenSizeWatcher is not defined`);
 
   // better to create FSMs before any other entities
   fsmService.createSourceFromConfig(fsm);
@@ -64,8 +59,8 @@ export function createEntitiesFromConfigs(entities: TSpaceConfigEntities, servic
   cameraService.createFromConfig(cameras);
   actorService.createFromConfig(actors);
 
-  textService.createText2dRenderer(container, screenSizeWatcher);
-  textService.createText3dRenderer(container, screenSizeWatcher);
+  textService.createText2dRenderer(container);
+  textService.createText3dRenderer(container);
   textService.createFromConfig(texts);
 
   controlsService.createFromConfig(controls, cameraService.getRegistry());
@@ -93,15 +88,11 @@ export function createEntitiesFromParams(entities: TSpaceParamsEntities, service
     physicsPresetService,
     physicsWorldService,
     rendererService,
-    screenService,
     spatialGridService,
     textService
   } = services;
 
   if (isDefined(renderers)) rendererService.createFromList(renderers);
-
-  const screenSizeWatcher: TScreenSizeWatcher | undefined = screenService.watchers.default$.value;
-  if (isNotDefined(screenSizeWatcher)) throw new Error(`Space: ScreenSizeWatcher is not defined`);
 
   // better to create FSMs before any other entities
   if (isDefined(fsm)) fsmService.createSourceFromList(fsm);
@@ -119,8 +110,8 @@ export function createEntitiesFromParams(entities: TSpaceParamsEntities, service
   if (isDefined(cameras)) cameraService.createFromList(cameras);
   if (isDefined(actors)) actorService.createFromList(actors);
 
-  textService.createText2dRenderer(container, screenSizeWatcher);
-  textService.createText3dRenderer(container, screenSizeWatcher);
+  textService.createText2dRenderer(container);
+  textService.createText3dRenderer(container);
   if (isDefined(texts)) textService.createFromList(texts);
 
   if (isDefined(controls)) controlsService.createFromList(controls);

@@ -1,9 +1,8 @@
 import type { Observable } from 'rxjs';
 
 import type { TAbstractService } from '@/Engine/Abstract';
-import type { TAppGlobalContainer, TContainerDecorator } from '@/Engine/Global';
+import type { TContainerDecorator } from '@/Engine/Global';
 import type { TWithCreateFromConfigService, TWithCreateService, TWithFactoryService, TWithSceneGetterService } from '@/Engine/Mixins';
-import type { TScreenSizeWatcher } from '@/Engine/Screen';
 
 import type { TText2dRegistry } from './TText2dRegistry';
 import type { TText2dRenderer } from './TText2dRenderer';
@@ -28,8 +27,8 @@ export type TTextService = TAbstractService &
   TTextServiceWithFactory &
   Readonly<{
     getRegistries: () => { text2dRegistry: TText2dRegistry; text3dRegistry: TText3dRegistry; text3dTextureRegistry: TText3dTextureRegistry };
-    createText2dRenderer: (container: TAppGlobalContainer | TContainerDecorator, screenSizeWatcher: Readonly<TScreenSizeWatcher>) => TText2dRenderer;
-    createText3dRenderer: (container: TAppGlobalContainer | TContainerDecorator, screenSizeWatcher: Readonly<TScreenSizeWatcher>) => TText3dRenderer;
+    createText2dRenderer: (container: TContainerDecorator) => TText2dRenderer;
+    createText3dRenderer: (container: TContainerDecorator) => TText3dRenderer;
     getRendererRegistries: () => { text2dRendererRegistry: TText2dRendererRegistry; text3dRendererRegistry: TText3dRendererRegistry };
     activeText2dRenderer: Observable<TText2dRenderer | undefined>;
     activeText3dRenderer: Observable<TText3dRenderer | undefined>;

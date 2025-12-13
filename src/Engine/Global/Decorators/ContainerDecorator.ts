@@ -7,7 +7,6 @@ import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
 import { getWindowFromDomElement, isDefined, isNotDefined, observeContainerRect } from '@/Engine/Utils';
 
-// TODO 14-0-0: ContainerDecorator could fully replace ScreenSizeWatcher
 export function ContainerDecorator(container: TAppGlobalContainer | HTMLElement): TContainerDecorator {
   const resize$: Subject<DOMRect> = new Subject<DOMRect>();
 

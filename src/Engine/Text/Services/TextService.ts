@@ -3,11 +3,10 @@ import { BehaviorSubject, merge } from 'rxjs';
 
 import type { TAbstractService, TRegistryPack } from '@/Engine/Abstract';
 import { AbstractService } from '@/Engine/Abstract';
-import type { TAppGlobalContainer, TContainerDecorator } from '@/Engine/Global';
+import type { TContainerDecorator } from '@/Engine/Global';
 import type { TDisposable } from '@/Engine/Mixins';
 import { withCreateFromConfigServiceMixin, withCreateServiceMixin, withFactoryService, withSceneGetterService } from '@/Engine/Mixins';
 import type { TSceneWrapper } from '@/Engine/Scene';
-import type { TScreenSizeWatcher } from '@/Engine/Screen';
 import type { TSpaceLoops } from '@/Engine/Space';
 import { textLoopEffect } from '@/Engine/Text/Loop';
 import type {
@@ -57,8 +56,8 @@ export function TextService(
 
   const activeText2dRenderer: BehaviorSubject<TText2dRenderer | undefined> = new BehaviorSubject<TText2dRenderer | undefined>(undefined);
 
-  function createText2dRenderer(container: TAppGlobalContainer | TContainerDecorator, screenSizeWatcher: Readonly<TScreenSizeWatcher>): TText2dRenderer {
-    const renderer: TText2dRenderer = initText2dRenderer(container, screenSizeWatcher);
+  function createText2dRenderer(container: TContainerDecorator): TText2dRenderer {
+    const renderer: TText2dRenderer = initText2dRenderer(container);
     text2dRendererRegistry.add(renderer.id, renderer);
     if (text2dRendererRegistry.getLength() === 1) activeText2dRenderer.next(renderer);
     return renderer;
@@ -66,8 +65,8 @@ export function TextService(
 
   const activeText3dRenderer: BehaviorSubject<TText3dRenderer | undefined> = new BehaviorSubject<TText3dRenderer | undefined>(undefined);
 
-  function createText3dRenderer(container: TAppGlobalContainer | TContainerDecorator, screenSizeWatcher: Readonly<TScreenSizeWatcher>): TText3dRenderer {
-    const renderer: TText3dRenderer = initText3dRenderer(container, screenSizeWatcher);
+  function createText3dRenderer(container: TContainerDecorator): TText3dRenderer {
+    const renderer: TText3dRenderer = initText3dRenderer(container);
     text3dRendererRegistry.add(renderer.id, renderer);
     if (text3dRendererRegistry.getLength() === 1) activeText3dRenderer.next(renderer);
     return renderer;
