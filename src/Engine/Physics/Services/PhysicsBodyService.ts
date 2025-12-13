@@ -51,7 +51,7 @@ export function PhysicsBodyService(
   };
 
   const destroyable: TDestroyable = destroyableMixin();
-  destroyable.destroy$.subscribe(() => {
+  destroyable.destroy$.subscribe((): void => {
     factory.destroy$.next();
     registry.destroy$.next();
   });

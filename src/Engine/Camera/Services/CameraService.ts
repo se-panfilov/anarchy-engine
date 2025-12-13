@@ -44,7 +44,7 @@ export function CameraService(factory: TCameraFactory, registry: TCameraRegistry
   const createFromConfig = (cameras: ReadonlyArray<TCameraConfig>): ReadonlyArray<TCameraWrapper> => cameras.map((config: TCameraConfig): TCameraWrapper => create(factory.configToParams(config)));
 
   const destroyable: TDestroyable = destroyableMixin();
-  destroyable.destroy$.subscribe(() => {
+  destroyable.destroy$.subscribe((): void => {
     factory.destroy$.next();
     registry.destroy$.next();
     withActive.active$.complete();

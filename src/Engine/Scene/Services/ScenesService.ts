@@ -15,7 +15,7 @@ export function ScenesService(factory: TSceneFactory, registry: TSceneRegistry):
   const createFromConfig = (scenes: ReadonlyArray<TSceneConfig>): ReadonlyArray<TSceneWrapper> => scenes.map((config: TSceneConfig): TSceneWrapper => create(factory.configToParams(config)));
 
   const destroyable: TDestroyable = destroyableMixin();
-  destroyable.destroy$.subscribe(() => {
+  destroyable.destroy$.subscribe((): void => {
     factory.destroy$.next();
     registry.destroy$.next();
     withActive.active$.complete();

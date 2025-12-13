@@ -104,7 +104,7 @@ export function MouseService(container: TGlobalContainerDecorator, { loopService
   });
 
   const destroyable: TDestroyable = destroyableMixin();
-  destroyable.destroy$.subscribe(() => {
+  destroyable.destroy$.subscribe((): void => {
     clickPress$.complete();
     clickLeftPress$.complete();
     clickRightPress$.complete();

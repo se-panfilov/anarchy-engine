@@ -13,7 +13,7 @@ export function LightService(factory: TLightFactory, registry: TLightRegistry, s
     lights.map((config: TAnyLightConfig): TAbstractLightWrapper<TLight> => create(factory.configToParams(config)));
 
   const destroyable: TDestroyable = destroyableMixin();
-  destroyable.destroy$.subscribe(() => {
+  destroyable.destroy$.subscribe((): void => {
     factory.destroy$.next();
     registry.destroy$.next();
   });

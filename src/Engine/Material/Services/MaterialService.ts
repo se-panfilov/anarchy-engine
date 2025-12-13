@@ -10,7 +10,7 @@ export function MaterialService(factory: TMaterialFactory, registry: TMaterialRe
     material.map((config: TMaterialConfig): TMaterialWrapper => create(factory.configToParams(config, dependencies)));
 
   const destroyable: TDestroyable = destroyableMixin();
-  destroyable.destroy$.subscribe(() => {
+  destroyable.destroy$.subscribe((): void => {
     factory.destroy$.next();
     registry.destroy$.next();
   });
