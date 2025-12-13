@@ -1,8 +1,8 @@
 import { CommonTag } from '@/Engine/Abstract';
-import type { ISceneConfig, ISceneFactory, ISceneParams, ISceneRegistry, IScenesService, ISceneWrapper } from '@/Engine/Scene';
-import { findActiveWrappedEntity, setActiveWrappedEntity } from '@/Engine/Utils';
 import type { IDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
+import type { ISceneConfig, ISceneFactory, ISceneParams, ISceneRegistry, IScenesService, ISceneWrapper } from '@/Engine/Scene';
+import { findActiveWrappedEntity, setActiveWrappedEntity } from '@/Engine/Utils';
 
 export function ScenesService(factory: ISceneFactory, registry: ISceneRegistry): IScenesService {
   factory.entityCreated$.subscribe((wrapper: ISceneWrapper): void => registry.add(wrapper));
