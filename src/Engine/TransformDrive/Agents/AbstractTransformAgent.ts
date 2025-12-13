@@ -11,6 +11,7 @@ import { isDefined } from '@/Engine/Utils';
 
 export function AbstractTransformAgent(params: TTransformAgentParams, type: TransformAgent): TAbstractTransformAgent {
   const id: string = type + '_transform_agent_' + nanoid();
+  const relatedDriveId$: BehaviorSubject<string | undefined> = new BehaviorSubject<string | undefined>(undefined);
   // TODO 8.0.0. MODELS: enabled$ doesn't do anything by default
   const enabled$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(params.enabled ?? false);
   const position$: BehaviorSubject<TReadonlyVector3> = new BehaviorSubject<TReadonlyVector3>(params.position);
@@ -45,6 +46,8 @@ export function AbstractTransformAgent(params: TTransformAgentParams, type: Tran
     onDeactivated$.unsubscribe();
     destroyable.destroy$.complete();
     destroyable.destroy$.unsubscribe();
+    relatedDriveId$.complete();
+    relatedDriveId$.unsubscribe();
   });
 
   return {
@@ -56,6 +59,7 @@ export function AbstractTransformAgent(params: TTransformAgentParams, type: Tran
     scale$,
     enabled$,
     onActivated$,
-    onDeactivated$
+    onDeactivated$,
+    relatedDriveId$
   };
 }

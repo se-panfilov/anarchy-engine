@@ -14,6 +14,7 @@ export type TAbstractTransformAgent = Readonly<{
   enabled$: BehaviorSubject<boolean>;
   onActivated$: Subject<TReadonlyTransform>;
   onDeactivated$: Subject<TReadonlyTransform>;
+  relatedDriveId$: BehaviorSubject<string | undefined>;
 }> &
   TWithId &
   TDestroyable;

@@ -1,5 +1,6 @@
-import type { Subscription } from 'rxjs';
-import { BehaviorSubject, distinctUntilChanged, ReplaySubject } from 'rxjs';
+import { nanoid } from 'nanoid';
+import type { Observable, Subscription } from 'rxjs';
+import { BehaviorSubject, distinctUntilChanged, map, merge, ReplaySubject } from 'rxjs';
 import type { Euler, Vector3 } from 'three';
 
 import type { TDestroyable } from '@/Engine/Mixins';
@@ -24,6 +25,18 @@ import { isNotDefined } from '@/Engine/Utils';
 // - Default agent is providing almost nothing, but setters. Recommended for static objects.
 // - Also: with every mode you can do position$.next() to "teleport" the object to the new position
 export function TransformDrive<T extends Partial<Record<TransformAgent, TAbstractTransformAgent>>>(params: TTransformDriveParams, agents: T): TTransformDrive<T> | never {
+  const id: string = 'transform_drive_' + nanoid();
+
+  //All agent instances must be used only with this drive
+  const relatedDriveIdSub$: Subscription = merge(
+    ...Object.values(agents).map((agent: TAbstractTransformAgent): Observable<Readonly<{ value: string | undefined; agent: TAbstractTransformAgent }>> => {
+      agent.relatedDriveId$.next(id);
+      return agent.relatedDriveId$.pipe(map((value: string | undefined): Readonly<{ value: string | undefined; agent: TAbstractTransformAgent }> => ({ value, agent })));
+    })
+  ).subscribe(({ value, agent }: Readonly<{ value: string | undefined; agent: TAbstractTransformAgent }>): void => {
+    if (value !== id) throw new Error(`TransformDrive: Agent "${agent.type}" (${agent.id}) initialized in TransformDrive (${id}), but attempted to use in another TransformDrive (${value})`);
+  });
+
   const agent$: BehaviorSubject<TransformAgent> = new BehaviorSubject<TransformAgent>(params.activeAgent ?? TransformAgent.Default);
 
   const activeAgent: TAbstractTransformAgent | undefined = agents[agent$.value];
@@ -105,6 +118,7 @@ export function TransformDrive<T extends Partial<Record<TransformAgent, TAbstrac
 
   const result: TTransformDriveMandatoryFields = {
     ...destroyable,
+    id,
     agent$,
     activeAgent$: activeAgentRep$,
     getActiveAgent: (): TProtectedTransformAgentFacade<TAbstractTransformAgent> => activeAgent$.value,
@@ -124,6 +138,7 @@ export function TransformDrive<T extends Partial<Record<TransformAgent, TAbstrac
     scaleSub$.unsubscribe();
     agentSub$.unsubscribe();
     activeAgentSub$.unsubscribe();
+    relatedDriveIdSub$.unsubscribe();
 
     //Stop subjects
     agent$.complete();
