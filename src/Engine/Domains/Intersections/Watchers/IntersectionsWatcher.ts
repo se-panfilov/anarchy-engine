@@ -9,6 +9,7 @@ import type { IVector3 } from '@Engine/Wrappers';
 import { Raycaster } from 'three';
 
 import type { IIntersectionsWatcher, IIntersectionsWatcherParams } from '@/Engine/Domains/Intersections/Models';
+import { Subscription } from 'rxjs';
 
 export function IntersectionsWatcher({ actors, camera, positionWatcher, tags = [] }: IIntersectionsWatcherParams): IIntersectionsWatcher {
   const abstractWatcher: IAbstractWatcher<IVector3> = AbstractWatcher(WatcherType.IntersectionWatcher, tags);
@@ -35,10 +36,10 @@ export function IntersectionsWatcher({ actors, camera, positionWatcher, tags = [
     return intersectObj ? intersectObj.point : undefined;
   }
 
-  abstractWatcher.destroyed$.subscribe(() => {
+  const abstractWatcherSubscription: Subscription = abstractWatcher.destroyed$.subscribe(() => {
     raycaster = undefined;
     positionWatcher.value$.unsubscribe();
-    abstractWatcher.destroyed$.unsubscribe();
+    abstractWatcherSubscription.unsubscribe();
   });
 
   const result: IIntersectionsWatcher = {

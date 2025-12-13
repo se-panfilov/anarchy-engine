@@ -30,23 +30,11 @@ import type { ILevel, ILevelConfig } from '../Models';
 // TODO (S.Panfilov) CWP 2. maybe add relations to all wrappers during the level build?
 
 export function buildLevelFromConfig(canvas: IAppCanvas, config: ILevelConfig): ILevel {
-  let isDestroyedInternalChange: boolean = true;
-  let isBuiltInternalChange: boolean = true;
   const built$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   const destroyed$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   if (!isValidLevelConfig(config)) throw new Error('Failed to launch a level: invalid data format');
   const { name, actors, cameras, lights, controls, scenes, tags } = config;
-
-  destroyed$.subscribe((val: boolean): void => {
-    if (!isDestroyedInternalChange) throw new Error(`Level ("${name}") doesn't allow to modify "destroyed$" from outside. Attempt to set value: ${String(val)}`);
-    isDestroyedInternalChange = false;
-  });
-
-  built$.subscribe((val: boolean): void => {
-    if (!isBuiltInternalChange) throw new Error(`Level ("${name}") doesn't allow to modify "built$" from outside. Attempt to set value: ${String(val)}`);
-    isBuiltInternalChange = false;
-  });
 
   // TODO (S.Panfilov) refactor this maybe with command/strategy pattern?
   const sceneFactory: ISceneFactory = SceneFactory();
@@ -104,7 +92,6 @@ export function buildLevelFromConfig(canvas: IAppCanvas, config: ILevelConfig): 
   const loop: ILoopWrapper = loopFactory.create({ tags: [LoopTag.Main, CommonTag.FromConfig] });
 
   destroyed$.subscribe(() => {
-    built$.unsubscribe();
     built$.complete();
 
     sceneEntityCreatedSubscription.unsubscribe();
@@ -140,22 +127,15 @@ export function buildLevelFromConfig(canvas: IAppCanvas, config: ILevelConfig): 
     rendererFactory.destroy();
     rendererRegistry.destroy();
 
-    destroyed$.unsubscribe();
     destroyed$.complete();
   });
 
   const initialCamera: ICameraWrapper | undefined = cameraRegistry.getUniqByTag(CameraTag.Initial);
   if (isNotDefined(initialCamera)) throw new Error(`Cannot start the main loop for the level "${name}": initial camera is not defined`);
 
-  function markLevelAsBuilt(): void {
-    isBuiltInternalChange = true;
-    built$.next(true);
-  }
-
-  markLevelAsBuilt();
+  built$.next(true);
 
   function destroy(): void {
-    isDestroyedInternalChange = true;
     destroyed$.next(true);
   }
 
@@ -171,7 +151,6 @@ export function buildLevelFromConfig(canvas: IAppCanvas, config: ILevelConfig): 
       // TODO (S.Panfilov) implement stop
       // loop.stop(renderer, scene, initialCamera, controlsRegistry);
     },
-    built$,
     actor: {
       factory: { initial: actorFactory },
       registry: { initial: actorRegistry }
@@ -205,6 +184,10 @@ export function buildLevelFromConfig(canvas: IAppCanvas, config: ILevelConfig): 
       registry: { initial: rendererRegistry }
     },
     tags,
+    get built$(): Observable<boolean> {
+      return built$.asObservable();
+    },
+    isBuilt: (): boolean => built$.getValue(),
     destroy,
     get destroyed$(): Observable<boolean> {
       return destroyed$.asObservable();

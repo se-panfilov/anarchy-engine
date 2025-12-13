@@ -9,18 +9,10 @@ import { AbstractFactory } from './AbstractFactory';
 
 export function ReactiveFactory<T, P>(type: FactoryType | string, createEntityFn: (params: P) => T): IReactiveFactory<T, P> {
   const entityCreated$: Subject<T> = new Subject<T>();
-  let isInternalChange: boolean = true;
   const destroyed$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
-  destroyed$.subscribe((val: boolean): void => {
-    if (!isInternalChange) throw new Error(`Factory ("${type}") doesn't allow to modify "destroyed$" from outside. Attempt to set value: ${String(val)}`);
-    isInternalChange = false;
-  });
-
   function destroy(this: IReactiveFactory<T>): void {
-    isInternalChange = true;
     destroyed$.next(true);
-    destroyed$.unsubscribe();
     destroyed$.complete();
     return cleanObject(this);
   }

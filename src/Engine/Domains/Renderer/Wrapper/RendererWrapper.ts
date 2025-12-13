@@ -8,6 +8,7 @@ import { PCFShadowMap, WebGLRenderer } from 'three';
 
 import { RendererModes } from '../Constants';
 import type { IRendererParams, IRendererWrapper } from '../Models';
+import { Subscription } from 'rxjs';
 
 // TODO (S.Panfilov) Should we provide delta here?
 export function RendererWrapper(params: IRendererParams, screenSizeWatcher: Readonly<IScreenSizeWatcher>): IRendererWrapper {
@@ -47,9 +48,9 @@ export function RendererWrapper(params: IRendererParams, screenSizeWatcher: Read
 
   screenSizeWatcher.value$.subscribe((params: IScreenSizeValues): void => setValues(entity, params));
 
-  screenSizeWatcher.destroyed$.subscribe(() => {
+  const screenSizeWatcherSubscription: Subscription = screenSizeWatcher.destroyed$.subscribe(() => {
     screenSizeWatcher.value$.unsubscribe();
-    screenSizeWatcher.destroyed$.unsubscribe();
+    screenSizeWatcherSubscription.unsubscribe();
   });
 
   const wrapper: IWrapper<WebGLRenderer> = AbstractWrapper(entity, WrapperType.Renderer, params);

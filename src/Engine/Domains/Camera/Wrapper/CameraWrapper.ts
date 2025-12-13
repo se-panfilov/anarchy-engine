@@ -6,6 +6,7 @@ import { PerspectiveCamera } from 'three';
 
 import type { ICameraParams, ICameraWrapper, IPerspectiveCamera } from '../Models';
 import { getAccessors } from './Accessors';
+import { Subscription } from 'rxjs';
 
 export function CameraWrapper(params: ICameraParams, screenSizeWatcher: Readonly<IScreenSizeWatcher>): ICameraWrapper {
   const { fov = 45, near = 1, far = 10000, rotation, position, tags }: ICameraParams = params;
@@ -27,9 +28,9 @@ export function CameraWrapper(params: ICameraParams, screenSizeWatcher: Readonly
 
   screenSizeWatcher.value$.subscribe((params: IScreenSizeValues): void => setValues(entity, params));
 
-  screenSizeWatcher.destroyed$.subscribe(() => {
+  const screenSizeWatcherSubscription: Subscription = screenSizeWatcher.destroyed$.subscribe(() => {
     screenSizeWatcher.value$.unsubscribe();
-    screenSizeWatcher.destroyed$.unsubscribe();
+    screenSizeWatcherSubscription.unsubscribe();
   });
 
   return { ...AbstractWrapper(entity, WrapperType.Camera, params), ...getAccessors(entity), entity, tags };

@@ -1,5 +1,5 @@
 import type { ILoopFactory, ILoopRegistry, ILoopWrapper } from '@Engine/Domains/Loop';
-import type { BehaviorSubject } from 'rxjs';
+import type { Observable } from 'rxjs';
 
 import type { CommonTag } from '@/Engine/Domains/Abstract';
 import type { IActorFactory, IActorRegistry } from '@/Engine/Domains/Actor';
@@ -17,7 +17,6 @@ export type ILevel = IDestroyable &
     name: string;
     start: () => ILoopWrapper;
     stop: () => void;
-    built$: BehaviorSubject<boolean>;
     actor: DomainTools<IActorFactory, IActorRegistry>;
     camera: DomainTools<ICameraFactory, ICameraRegistry>;
     light: DomainTools<ILightFactory, ILightRegistry>;
@@ -27,6 +26,8 @@ export type ILevel = IDestroyable &
     scenes: DomainTools<ISceneFactory, ISceneRegistry>;
     renderer: DomainTools<IRendererFactory, IRendererRegistry>;
     tags: ReadonlyArray<LevelTag | CommonTag | string>;
+    built$: Observable<boolean>;
+    isBuilt: () => boolean;
   }>;
 
 export type DomainTools<F, R> = {

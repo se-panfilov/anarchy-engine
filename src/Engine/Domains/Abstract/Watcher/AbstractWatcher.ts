@@ -10,14 +10,9 @@ export function AbstractWatcher<T>(type: WatcherType | string, tags: ReadonlyArr
   const value$: Subject<T> = new Subject<T>();
   const destroyed$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
-  destroyed$.subscribe(() => {
-    value$.complete();
-    destroyed$.unsubscribe();
-    destroyed$.complete();
-  });
-
   function destroy(): void {
-    destroyed$.next(true);
+    value$.complete();
+    destroyed$.complete();
   }
 
   return {
