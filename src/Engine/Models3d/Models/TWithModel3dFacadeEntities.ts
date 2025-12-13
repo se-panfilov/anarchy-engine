@@ -1,15 +1,11 @@
-import type { AnimationClip, AnimationMixer, Group, Mesh, Object3D } from 'three';
-
-import type { TAnimationActions } from '@/Engine/Animations/Models';
+import type { Group, Mesh, Object3D } from 'three';
 
 import type { TModel3dLoadOptions } from './TModel3dLoadOptions';
+import type { TPrimitiveProps } from './TPrimitiveProps';
 
 export type TWithModel3dFacadeEntities = Readonly<{
-  getUrl: () => string | undefined;
+  getPrimitive: () => TPrimitiveProps;
   getModel: () => Group | Mesh | Object3D;
-  getAnimations: () => ReadonlyArray<AnimationClip>;
-  getMixer: () => AnimationMixer | undefined;
-  getActions: () => TAnimationActions;
   getOptions: () => TModel3dLoadOptions;
   getClonedFrom: () => string | undefined;
 }>;

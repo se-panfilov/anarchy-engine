@@ -5,6 +5,7 @@ export * from './TModel3dLoadOptions';
 export * from './TModel3dPack';
 export * from './TModel3dParams';
 export * from './TModel3dPrimitiveConfig';
+export * from './TModel3dPrimitiveEntities';
 export * from './TModel3dPrimitivePack';
 export * from './TModel3dPrimitiveParams';
 export * from './TModel3dProps';

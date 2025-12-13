@@ -19,7 +19,7 @@ import type {
   TPerformLoadResult
 } from '@/Engine/Models3d/Models';
 import { isPrimitive } from '@/Engine/Models3d/Services/Models3dServiceHelper';
-import { Model3dFacade } from '@/Engine/Models3d/Wrappers';
+import { Model3dFacade, Model3dPrimitiveFacade } from '@/Engine/Models3d/Wrappers';
 import { createPrimitiveModel3dPack } from '@/Engine/Models3d/Wrappers/PrimitiveModels3dUtils';
 import type { TSceneWrapper } from '@/Engine/Scene';
 import type { TOptional } from '@/Engine/Utils';
