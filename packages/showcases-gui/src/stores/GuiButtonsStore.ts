@@ -7,15 +7,23 @@ import { nanoid } from 'nanoid';
 import { defineStore } from 'pinia';
 import { computed, reactive } from 'vue';
 
-export const useGuiButtonStore = defineStore('guiButtonsStore', () => {
-  const { Attack, Map, Defense, Settings, Inventory } = GuiBottomButtons;
+const { Attack, Map, Defense, Settings, Inventory } = GuiBottomButtons;
 
+const buttonIds: Record<GuiBottomButtons, string> = {
+  [Attack]: nanoid(),
+  [Defense]: nanoid(),
+  [Inventory]: nanoid(),
+  [Map]: nanoid(),
+  [Settings]: nanoid()
+};
+
+export const useGuiButtonStore = defineStore('guiButtonsStore', () => {
   const state: TGuiButtonStoreState = reactive({
-    [Attack]: { id: nanoid(), isVisible: true, isActive: false, i18n: 'gui.bottom.button.attack.title', key: MouseButtonValue.Left, icon: Sword },
-    [Defense]: { id: nanoid(), isVisible: true, isActive: false, i18n: 'gui.bottom.button.defense.title', key: MouseButtonValue.Right, icon: Shield },
-    [Inventory]: { id: nanoid(), isVisible: true, isActive: false, i18n: 'gui.bottom.button.inventory.title', key: KeyCode.I, icon: Backpack },
-    [Map]: { id: nanoid(), isVisible: true, isActive: false, i18n: 'gui.bottom.button.map.title', key: KeyCode.M, icon: MapIcon },
-    [Settings]: { id: nanoid(), isVisible: true, isActive: false, i18n: 'gui.bottom.button.settings.title', key: KeysExtra.Escape, icon: SettingsIcon }
+    [Attack]: { id: buttonIds[Attack], isVisible: true, isActive: false, i18n: 'gui.bottom.button.attack.title', key: MouseButtonValue.Left, icon: Sword },
+    [Defense]: { id: buttonIds[Defense], isVisible: true, isActive: false, i18n: 'gui.bottom.button.defense.title', key: MouseButtonValue.Right, icon: Shield },
+    [Inventory]: { id: buttonIds[Inventory], isVisible: true, isActive: false, i18n: 'gui.bottom.button.inventory.title', key: KeyCode.I, icon: Backpack },
+    [Map]: { id: buttonIds[Map], isVisible: true, isActive: false, i18n: 'gui.bottom.button.map.title', key: KeyCode.M, icon: MapIcon },
+    [Settings]: { id: buttonIds[Settings], isVisible: true, isActive: false, i18n: 'gui.bottom.button.settings.title', key: KeysExtra.Escape, icon: SettingsIcon }
   });
 
   function setActiveButton(buttonName: GuiBottomButtons, isActive: boolean): void | never {
@@ -39,7 +47,7 @@ export const useGuiButtonStore = defineStore('guiButtonsStore', () => {
     state[buttonName].key = undefined;
   }
 
-  const buttonsList = (): ReadonlyArray<TGuiButtonState> => Object.values(state);
+  const buttonsList = computed((): ReadonlyArray<TGuiButtonState> => Object.values(state));
 
   return {
     state: computed((): TGuiButtonStoreState => state),

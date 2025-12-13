@@ -5,9 +5,7 @@ import { useGuiButtonStore } from '@Showcases/GUI/stores/GuiButtonsStore';
 import { ShowcasesLocales, vueTranslationService } from '@Showcases/i18n';
 import { Heart, Zap } from 'lucide-vue-next';
 
-const buttons = useGuiButtonStore()
-  .buttonsList()
-  .filter((button) => button.isVisible);
+const buttons = useGuiButtonStore().buttonsList.filter((button) => button.isVisible);
 
 function toggleLocale(): void {
   const newLocale = vueTranslationService.getCurrentLocale().id === ShowcasesLocales['en-US'].id ? ShowcasesLocales['nl-NL'] : ShowcasesLocales['en-US'];
