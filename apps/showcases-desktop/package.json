@@ -54,9 +54,8 @@
     "prettier:check": "prettier --check .",
     "preview": "vite preview --outDir dist-web",
     "sanitize-assets": "node ../../packages/anarchy-shared/ScriptUtils/SanitizeAssets.js ./assets",
-    "start": "node ./scripts/start.js",
-    "start:dev": "npm run start -- --mode=dev",
-    "start:prod": "npm run start -- --mode=production",
+    "start:dev": "node ./scripts/start.js --mode=dev",
+    "start:prod": "node ./scripts/start.js --mode=production",
     "ts:check": "tsc --noEmit",
     "ts:check:watch": "tsc --watch --noEmit"
   },
