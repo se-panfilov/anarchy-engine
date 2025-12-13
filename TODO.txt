@@ -2,7 +2,7 @@ Done:
 - 3.x.x Physics
 - 3.5.x Kinematic movement
 - 4.x.x Spatial grid detection
-- 5.x.x  Raycasting & Collision detection
+- 5.x.x Raycasting & Collision detection
 
 To be done:
 - 6.0.x Complex models
@@ -24,6 +24,9 @@ Global Refactoring:
 - feels like env map is not async at all (check for extra "await", and compare with vanila env map loading)
 - "tags" should be optional everywhere
 - Simplify positions and rotations (and scale), should be Vector3 when possible, not a wrapper probably
+
+Bugs and issues:
+- Registries might be a mistake: if I create "bullet" which extends "actor", the actor will be registered, not the bullet (which is unexpected)
 
 Also:
 - Add line domain and let lines be created via config
