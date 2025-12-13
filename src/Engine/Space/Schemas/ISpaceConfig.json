@@ -4531,7 +4531,7 @@
           "type": "boolean"
         }
       },
-      "required": ["isActive", "cameraName", "tags", "type"]
+      "required": ["cameraName", "isActive", "tags", "type"]
     },
     "ControlsTag": {
       "type": "string",
