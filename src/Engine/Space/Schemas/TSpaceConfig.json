@@ -327,7 +327,7 @@
         "model3dSource": {
           "type": "string"
         },
-        "physicBodyName": {
+        "physicsBodyName": {
           "type": "string"
         },
         "spatial": {
@@ -6430,7 +6430,7 @@
         "kinematic": {
           "$ref": "#/definitions/TKinematicConfig"
         },
-        "physicBodyName": {
+        "physicsBodyName": {
           "type": "string"
         },
         "cssProps": {

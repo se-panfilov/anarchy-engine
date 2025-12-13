@@ -58,9 +58,9 @@ export function getPhysicsBodyTransform(
   };
 }
 
-export function createPhysicsBody(physicBodyParams: TPhysicsBodyParams, physicsBodyService: TPhysicsBodyService): TPhysicsBody | undefined {
-  if (!isPhysicsBodyParamsComplete(physicBodyParams)) return undefined;
-  return physicsBodyService.create(physicBodyParams);
+export function createPhysicsBody(physicsBodyParams: TPhysicsBodyParams, physicsBodyService: TPhysicsBodyService): TPhysicsBody | undefined {
+  if (!isPhysicsBodyParamsComplete(physicsBodyParams)) return undefined;
+  return physicsBodyService.create(physicsBodyParams);
 }
 
 export function applyLatestTransform(rigidBody: RigidBody | undefined, position: TReadonlyVector3, rotation: TReadonlyQuaternion): void {

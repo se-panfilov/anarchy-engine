@@ -3,5 +3,5 @@ import type { TWithMandatoryField } from '@/Engine/Utils';
 
 import type { TTransformAgentParams } from './TTransformAgentParams';
 
-export type TPhysicsTransformAgentParams = TTransformAgentParams & Readonly<{ physicBody: TPhysicsBody }>;
+export type TPhysicsTransformAgentParams = TTransformAgentParams & Readonly<{ physicsBody: TPhysicsBody }>;
 export type TPhysicsTransformAgentInternalParams = Omit<TTransformAgentParams, 'rotation'> & TWithMandatoryField<TPhysicsBodyParams, 'rotation'>;

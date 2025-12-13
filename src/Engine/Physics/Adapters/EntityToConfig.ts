@@ -6,7 +6,7 @@ import type { TPhysicsBody, TPhysicsBodyConfig, TPhysicsWorldConfig } from '@/En
 import type { TEulerLike } from '@/Engine/ThreeLib';
 import { eulerToXyz, filterOutEmptyFields, isDefined, vector3ToXyz } from '@/Engine/Utils';
 
-export function physicBodyToConfig(entity: TPhysicsBody): TPhysicsBodyConfig {
+export function physicsBodyToConfig(entity: TPhysicsBody): TPhysicsBodyConfig {
   const rigidBody: RigidBody | undefined = entity.getRigidBody();
   const collider: Collider | undefined = rigidBody?.collider(0);
 

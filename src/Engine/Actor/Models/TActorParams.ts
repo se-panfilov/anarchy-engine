@@ -16,7 +16,7 @@ export type TActorParams = Readonly<{
   kinematic?: TOptional<TKinematicParams>;
   model3dSettings?: TActorModel3dSettings;
   model3dSource: TModel3d;
-  physicBody?: TPhysicsBody;
+  physicsBody?: TPhysicsBody;
   spatial: TSpatialDataParams;
   states?: TActorStates;
 }> &

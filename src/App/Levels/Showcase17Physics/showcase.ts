@@ -38,10 +38,10 @@ export function showcase(space: TSpace): void {
   let forcePower: number = 0;
 
   const ballActor: TActor = actorAsyncRegistry.getByName('sphere_actor');
-  if (!isActorHasPhysicsBody(ballActor)) throw new Error(`"ball" actor is not a physic actor`);
+  if (!isActorHasPhysicsBody(ballActor)) throw new Error(`"ball" actor is not a physics actor`);
 
   const surfaceActor: TActor = actorAsyncRegistry.getByName('surface_actor');
-  if (!isActorHasPhysicsBody(surfaceActor)) throw new Error(`"surfaceActor" actor is not a physic actor`);
+  if (!isActorHasPhysicsBody(surfaceActor)) throw new Error(`"surfaceActor" actor is not a physics actor`);
 
   const cameraW: TAnyCameraWrapper = cameraService.getActive();
 

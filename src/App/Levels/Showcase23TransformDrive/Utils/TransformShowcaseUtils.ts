@@ -46,8 +46,8 @@ export function createActor(
 
   const rotation: Euler = new Euler(0, 0, 0);
 
-  let physicBody: TPhysicsBody | undefined;
-  if (isDefined(physics)) physicBody = physicsBodyService.create({ ...physics, position, rotation: new Quaternion().setFromEuler(rotation) });
+  let physicsBody: TPhysicsBody | undefined;
+  if (isDefined(physics)) physicsBody = physicsBodyService.create({ ...physics, position, rotation: new Quaternion().setFromEuler(rotation) });
 
   let model: TModel3d;
 
@@ -69,7 +69,7 @@ export function createActor(
   return actorService.create({
     name: `${name}_actor`,
     model3dSource: model,
-    physicBody,
+    physicsBody,
     agent,
     position: position.clone(),
     rotation: new Euler(0, 0, 0),

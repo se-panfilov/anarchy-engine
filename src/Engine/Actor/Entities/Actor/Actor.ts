@@ -49,7 +49,7 @@ export function Actor(
     // TODO 15-0-0: add serializer to the service to avoid dependencies passing
     serialize: (dependencies: TActorEntityToConfigDependencies): TActorConfig => actorToConfig(actor, dependencies),
     getModel3dSettings: (): TActorModel3dSettings | undefined => params.model3dSettings,
-    getPhysicsBody: (): TPhysicsBody | undefined => params.physicBody
+    getPhysicsBody: (): TPhysicsBody | undefined => params.physicsBody
   });
 
   const spatialLoop: TSpatialLoop = loopService.getSpatialLoop();

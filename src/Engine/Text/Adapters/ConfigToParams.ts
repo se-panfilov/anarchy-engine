@@ -6,11 +6,11 @@ import { configToParamsObject3d } from '@/Engine/ThreeLib';
 import { isDefined } from '@/Engine/Utils';
 
 export function configToParams(config: TTextConfig, dependencies: TTextServiceDependencies): TTextParams {
-  const { position, center, rotation, scale, layers, physicBodyName, kinematic, ...rest } = config;
+  const { position, center, rotation, scale, layers, physicsBodyName, kinematic, ...rest } = config;
 
   let result: TTextParams = {
     ...rest,
-    physicBody: isDefined(physicBodyName) ? dependencies.physicsBodyService.getRegistry().getByName(physicBodyName) : undefined,
+    physicsBody: isDefined(physicsBodyName) ? dependencies.physicsBodyService.getRegistry().getByName(physicsBodyName) : undefined,
     ...configToParamsObject3d({ position, rotation, scale, layers }),
     kinematic: kinematic ? kinematicConfigToParams(kinematic) : undefined
   };

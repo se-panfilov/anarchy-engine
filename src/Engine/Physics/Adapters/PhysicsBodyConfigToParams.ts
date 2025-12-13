@@ -18,6 +18,6 @@ export function configToParamsBody(config: TPhysicsBodyConfig): TPhysicsBodyPara
     linearVelocity: isDefined(linearVelocity) ? new Vector3(linearVelocity.x, linearVelocity.y, linearVelocity.z) : undefined
   };
 
-  if (!isPhysicsBodyParamsComplete(result)) throw new Error('Cannot create physic body: params are lacking of mandatory fields');
+  if (!isPhysicsBodyParamsComplete(result)) throw new Error('Cannot create physics body: params are lacking of mandatory fields');
   return result;
 }

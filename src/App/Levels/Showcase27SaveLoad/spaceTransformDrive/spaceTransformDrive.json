@@ -6,7 +6,7 @@
         "agent": "physics",
         "model3dSource": "surface_model",
         "name": "surface_actor",
-        "physicBodyName": "surface_actor_physics",
+        "physicsBodyName": "surface_actor_physics",
         "position": {
           "x": 0,
           "y": 0,
@@ -83,7 +83,7 @@
         "agent": "physics",
         "model3dSource": "cube_physics_model",
         "name": "cube_physics_actor",
-        "physicBodyName": "cube_physics_physics",
+        "physicsBodyName": "cube_physics_physics",
         "position": {
           "x": 0,
           "y": 0.5,

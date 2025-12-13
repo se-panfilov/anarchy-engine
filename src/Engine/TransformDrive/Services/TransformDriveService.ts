@@ -51,7 +51,7 @@ export function TransformDriveService(factory: TTransformDriveFactory, registry:
   const withRegistry: TTransformDriveServiceWithRegistry = withRegistryService(registry);
 
   function getTransformAgents(
-    { position, rotation, scale, kinematic, physicBody }: TGetTransformAgentsParams,
+    { position, rotation, scale, kinematic, physicsBody }: TGetTransformAgentsParams,
     { hasKinematic, hasPhysics, hasConnected }: TGetTransformAgentsOptions
   ): TOptional<TTransformAgents> {
     const result: TWriteable<TOptional<TTransformAgents>> = {};
@@ -71,10 +71,10 @@ export function TransformDriveService(factory: TTransformDriveFactory, registry:
       result[TransformAgent.Kinematic] = getKinematicTransformAgent(agentParams, kinematic, { kinematicLoop });
     }
 
-    if (hasPhysics && isDefined(physicBody)) {
+    if (hasPhysics && isDefined(physicsBody)) {
       const physicsLoop: TPhysicsLoop = loopService.getPhysicsLoop();
       // eslint-disable-next-line functional/immutable-data
-      result[TransformAgent.Physics] = PhysicsTransformAgent({ ...agentParams, physicBody }, { physicsLoop });
+      result[TransformAgent.Physics] = PhysicsTransformAgent({ ...agentParams, physicsBody: physicsBody }, { physicsLoop });
     }
 
     // eslint-disable-next-line functional/immutable-data

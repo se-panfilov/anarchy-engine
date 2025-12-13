@@ -14,7 +14,7 @@ export type TTextParams = Readonly<{
   cssProps?: TTextCssProps;
   elementType?: string;
   kinematic?: TKinematicParams;
-  physicBody?: TPhysicsBody;
+  physicsBody?: TPhysicsBody;
   text: string;
   type: TextType;
 }> &

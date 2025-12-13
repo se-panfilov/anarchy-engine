@@ -7,13 +7,13 @@ import type { TActorModel3dSettingsConfig } from './TActorModel3dSettingsConfig'
 import type { TActorParams } from './TActorParams';
 import type { TActorStatesConfig } from './TActorStatesConfig';
 
-export type TActorConfig = Omit<TActorParams, 'model3dSettings' | 'model3dSource' | 'physicBody' | 'kinematic' | 'spatial' | 'collisions' | 'states' | 'position' | 'rotation' | 'scale'> &
+export type TActorConfig = Omit<TActorParams, 'model3dSettings' | 'model3dSource' | 'physicsBody' | 'kinematic' | 'spatial' | 'collisions' | 'states' | 'position' | 'rotation' | 'scale'> &
   Readonly<{
     collisions?: TCollisionsDataConfig;
     kinematic?: TKinematicConfig;
     model3dSettings?: TActorModel3dSettingsConfig;
     model3dSource: string;
-    physicBodyName?: string;
+    physicsBodyName?: string;
     spatial: TSpatialDataConfig;
     states?: TActorStatesConfig;
   }> &

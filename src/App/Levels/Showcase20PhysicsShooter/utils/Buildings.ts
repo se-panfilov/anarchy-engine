@@ -59,7 +59,7 @@ export function buildTower(
       rotation: new Euler()
     });
 
-    const physicBody: TPhysicsBody = physicsBodyService.create({
+    const physicsBody: TPhysicsBody = physicsBodyService.create({
       name: `block_physic_body_${block.position.x}_${block.position.y}_${block.position.z}_model3d`,
       type: RigidBodyTypesNames.Dynamic,
       collisionShape: CollisionShape.Cuboid,
@@ -80,7 +80,7 @@ export function buildTower(
       name: `block_${block.position.x}_${block.position.y}_${block.position.z}_actor`,
       model3dSource: model3d,
       agent: TransformAgent.Physics,
-      physicBody,
+      physicsBody,
       position: block.position,
       rotation: new Euler(),
       spatial: { isAutoUpdate: true, grid },

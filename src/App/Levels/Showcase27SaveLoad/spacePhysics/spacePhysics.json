@@ -6,7 +6,7 @@
         "agent": "physics",
         "model3dSource": "surface_model",
         "name": "surface_actor",
-        "physicBodyName": "surface_actor_physics",
+        "physicsBodyName": "surface_actor_physics",
         "position": {
           "x": 0,
           "y": 0,
@@ -26,7 +26,7 @@
         "agent": "physics",
         "model3dSource": "cube_1_model",
         "name": "cube_1_actor",
-        "physicBodyName": "cube_1_physics",
+        "physicsBodyName": "cube_1_physics",
         "position": {
           "x": -4,
           "y": 2,
@@ -46,7 +46,7 @@
         "agent": "physics",
         "model3dSource": "cube_2_model",
         "name": "cube_2_actor",
-        "physicBodyName": "cube_2_physics",
+        "physicsBodyName": "cube_2_physics",
         "position": {
           "x": 4,
           "y": 2,
