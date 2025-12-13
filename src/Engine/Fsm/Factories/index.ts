@@ -1,1 +1,1 @@
-export * from './FsmFactory';
+export * from './FsmInstanceFactory';

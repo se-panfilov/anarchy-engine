@@ -2,4 +2,4 @@ import type { TAbstractEntityRegistry, TProtectedRegistry } from '@/Engine/Abstr
 
 import type { TFsmWrapper } from './TFsmWrapper';
 
-export type TFsmRegistry = TProtectedRegistry<TAbstractEntityRegistry<TFsmWrapper>>;
+export type TFsmInstanceRegistry = TProtectedRegistry<TAbstractEntityRegistry<TFsmWrapper>>;

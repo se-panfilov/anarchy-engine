@@ -1,4 +1,5 @@
 export * from './Adapters';
+export type * from './Entities';
 export * from './Factories';
 export type * from './Models';
 export * from './Registries';

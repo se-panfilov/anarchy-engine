@@ -9,14 +9,15 @@ import type { TSpatialGridRegistry } from '@/Engine/Spatial';
 
 export function ActorService(factory: TActorFactory, registry: TActorRegistry, actorServiceDependencies: TActorServiceDependencies, scene: TSceneWrapper): TActorService {
   const registrySub$: Subscription = registry.added$.subscribe(({ value }: TRegistryPack<TActor>): void => scene.addActor(value));
-  const factorySub$: Subscription = factory.entityCreated$.subscribe((wrapper: TActor): void => registry.add(wrapper));
+  const factorySub$: Subscription = factory.entityCreated$.subscribe((actor: TActor): void => registry.add(actor));
 
   const create = (params: TActorParams): TActor => factory.create(params, actorServiceDependencies);
   const createFromConfig = (actors: ReadonlyArray<TActorConfig>): ReadonlyArray<TActor> => {
     const spatialGridRegistry: TSpatialGridRegistry = actorServiceDependencies.spatialGridService.getRegistry();
     return actors.map(
       // eslint-disable-next-line @typescript-eslint/no-misused-promises
-      (config: TActorConfig): TActor => create(factory.configToParams(config, { spatialGridRegistry, models3dService: actorServiceDependencies.models3dService }))
+      (config: TActorConfig): TActor =>
+        create(factory.configToParams(config, { spatialGridRegistry, models3dService: actorServiceDependencies.models3dService, fsmService: actorServiceDependencies.fsmService }))
     );
   };
 

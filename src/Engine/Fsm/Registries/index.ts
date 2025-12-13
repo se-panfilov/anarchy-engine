@@ -1,1 +1,2 @@
-export * from './FsmRegistry';
+export * from './FsmInstanceRegistry';
+export * from './FsmSourceRegistry';

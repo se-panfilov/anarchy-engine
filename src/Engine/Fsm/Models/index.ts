@@ -1,10 +1,15 @@
 export type * from './TFsmConfig';
 export type * from './TFsmEvents';
-export type * from './TFsmFactory';
+export type * from './TFsmInstanceFactory';
+export type * from './TFsmInstanceRegistry';
+export type * from './TFsmInstanceService';
 export type * from './TFsmMachine';
 export type * from './TFsmMachine';
 export type * from './TFsmParams';
-export type * from './TFsmRegistry';
 export type * from './TFsmService';
+export type * from './TFsmSource';
+export type * from './TFsmSourceFactory';
+export type * from './TFsmSourceRegistry';
+export type * from './TFsmSourceService';
 export type * from './TFsmStates';
 export type * from './TFsmWrapper';

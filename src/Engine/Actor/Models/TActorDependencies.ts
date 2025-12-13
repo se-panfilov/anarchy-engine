@@ -1,4 +1,5 @@
 import type { TCollisionsLoopService, TCollisionsService } from '@/Engine/Collisions';
+import type { TFsmService } from '@/Engine/Fsm';
 import type { TKinematicLoopService } from '@/Engine/Kinematic';
 import type { TModels3dService } from '@/Engine/Models3d';
 import type { TPhysicsBodyService, TPhysicsLoopService } from '@/Engine/Physics';
@@ -15,6 +16,7 @@ export type TActorDependencies = Readonly<{
   collisionsLoopService: TCollisionsLoopService;
   collisionsService: TCollisionsService;
   model3dToActorConnectionRegistry: TModel3dToActorConnectionRegistry;
+  fsmService: TFsmService;
 }>;
 
 export type TActorServiceDependencies = TActorDependencies;
