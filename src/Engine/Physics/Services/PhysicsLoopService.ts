@@ -20,9 +20,8 @@ export function PhysicsLoopService(physicsWorldService: TPhysicsWorldService): T
       const world: World | undefined = physicsWorldService.getWorld();
       if (isNotDefined(world)) return;
       world.step();
-      tick$.next();
     },
-    tick$: tick$.asObservable(),
+    tick$: tick$,
     isAutoUpdate: (): boolean => _isAutoUpdate,
     shouldAutoUpdate: (value: boolean): void => void (_isAutoUpdate = value),
     ...destroyable

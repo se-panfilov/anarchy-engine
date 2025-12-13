@@ -18,6 +18,9 @@ export function spaceLoop(
   controlsRegistry: TControlsRegistry,
   physicsLoopService: TPhysicsLoopService
 ): void {
+  const isAutoUpdatePhysicalWorld: boolean = physicsLoopService.isAutoUpdate();
+  if (isAutoUpdatePhysicalWorld) physicsLoopService.step();
+
   if (isDefined(activeCamera)) {
     renderer.entity.render(activeScene.entity, activeCamera.entity);
     // TODO (S.Panfilov) update these text renderers only when there are any text (or maybe only when it's changed)
@@ -25,7 +28,7 @@ export function spaceLoop(
     if (!text3dRegistry?.isEmpty()) text3dRenderer?.renderer.render(activeScene.entity, activeCamera.entity);
   }
 
-  if (physicsLoopService.isAutoUpdate()) physicsLoopService.step();
+  if (isAutoUpdatePhysicalWorld) physicsLoopService.tick$.next();
 
   // just for control's damping
   controlsRegistry.getAll().forEach((controls: TOrbitControlsWrapper): void => {
