@@ -43,7 +43,7 @@ export function KinematicActorDriver(params: TActorParams, kinematicLoopService:
     destroyable.destroy$.unsubscribe();
   });
 
-  const result = {
+  const driver = {
     ...destroyable,
     data: {
       linearSpeed: params.kinematic?.linearSpeed ?? 0,
@@ -204,25 +204,25 @@ export function KinematicActorDriver(params: TActorParams, kinematicLoopService:
   };
 
   function doKinematicMove(delta: number): void {
-    if (result.data.linearSpeed <= 0) return;
-    const normalizedDirection: Vector3 = result.data.linearDirection.clone().normalize();
-    const displacement: Vector3 = normalizedDirection.multiplyScalar(result.data.linearSpeed * delta);
+    if (driver.data.linearSpeed <= 0) return;
+    const normalizedDirection: Vector3 = driver.data.linearDirection.clone().normalize();
+    const displacement: Vector3 = normalizedDirection.multiplyScalar(driver.data.linearSpeed * delta);
     position$.next(position$.value.clone().add(displacement));
   }
 
   function doKinematicRotation(delta: number): void {
-    if (result.data.angularSpeed <= 0) return;
-    const normalizedAngularDirection: Vector3 = result.data.angularDirection.clone().normalize();
-    const angle: TRadians = result.data.angularSpeed * delta;
+    if (driver.data.angularSpeed <= 0) return;
+    const normalizedAngularDirection: Vector3 = driver.data.angularDirection.clone().normalize();
+    const angle: TRadians = driver.data.angularSpeed * delta;
     const quaternion: Quaternion = new Quaternion().setFromAxisAngle(normalizedAngularDirection, angle);
     rotationQuaternion$.next(rotationQuaternion$.value.clone().multiply(quaternion));
   }
 
   kinematicSub$ = kinematicLoopService.tick$.subscribe((delta: number): void => {
-    if (!result.isAutoUpdate()) return;
+    if (!driver.isAutoUpdate()) return;
     doKinematicMove(delta);
     doKinematicRotation(delta);
   });
 
-  return result;
+  return driver;
 }

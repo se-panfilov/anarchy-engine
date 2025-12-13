@@ -16,6 +16,7 @@ export type TActorDependencies = Readonly<{
   model3dToActorConnectionRegistry: TModel3dToActorConnectionRegistry;
 }>;
 
+// TODO 8.0.0. MODELS: remove (use PhysicsActorDriver instead)
 export type TActorWithPhysicsDependencies = TActorDependencies &
   Readonly<{
     physicsBodyService: TPhysicsBodyService;
