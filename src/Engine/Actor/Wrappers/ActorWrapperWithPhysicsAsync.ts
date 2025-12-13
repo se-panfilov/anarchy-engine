@@ -1,5 +1,7 @@
 import type { RigidBody, Rotation } from '@dimforge/rapier3d';
+import type { Vector } from '@dimforge/rapier3d/math';
 import type { Subscription } from 'rxjs';
+import { Mesh, Vector3 } from 'three';
 
 import type { TActorParams, TActorWithPhysicsDependencies, TActorWrapperAsync, TActorWrapperWithPhysicsAsync } from '@/Engine/Actor/Models';
 import type { TPhysicsBodyFacade, TPhysicsBodyService, TWithPresetNamePhysicsBodyParams } from '@/Engine/Physics';
@@ -17,7 +19,7 @@ export async function ActorWrapperWithPhysicsAsync(
 ): Promise<TActorWrapperWithPhysicsAsync> | never {
   if (isNotDefined(params.physics)) throw new Error('Cannot create Actor with Physics: physics params are missing');
   const actorW: TActorWrapperAsync = await ActorWrapperAsync(params, deps);
-  const actorPhysicalW = makeWrapperWithPhysicsBody(actorW, params.physics, deps.physicsBodyService, customCreatePhysicsBodyFn, additionalParams);
+  const actorPhysicalW: TActorWrapperWithPhysicsAsync = makeWrapperWithPhysicsBody(actorW, params.physics, deps.physicsBodyService, customCreatePhysicsBodyFn, additionalParams);
 
   const sub$: Subscription = deps.physicsLoopService.tick$.subscribe((): void => updateActorByPhysicalBody(actorPhysicalW));
 

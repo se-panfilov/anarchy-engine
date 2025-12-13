@@ -1,4 +1,5 @@
 import { Subject, tap } from 'rxjs';
+import Stats from 'stats.js';
 import { Clock } from 'three';
 
 import type { TLoopService, TLoopTimes } from '@/Engine/Loop/Models';
@@ -62,8 +63,12 @@ function getLoopFn(beforeTick$: Subject<TLoopTimes>, state: TLoopServiceState): 
   const clock: Clock = new Clock();
   let lastElapsedTime: number = 0;
 
+  const stats: any = new Stats();
+  stats.showPanel(0); // 0: fps, 1: ms, 2: mb, 3+: custom
+  document.body.appendChild(stats.dom);
+
   function loopFn(frameTime: number): void {
-    // (fpsGraph as any).begin();
+    stats.begin();
     if (!state.isLooping) return;
     const elapsedTime: number = clock.getElapsedTime();
     // TODO (S.Panfilov) MATH: need precision calculations??? (or not? how performant they are?)
@@ -71,7 +76,7 @@ function getLoopFn(beforeTick$: Subject<TLoopTimes>, state: TLoopServiceState): 
     lastElapsedTime = elapsedTime;
     beforeTick$.next({ delta, frameTime, elapsedTime });
 
-    // (fpsGraph as any).end();
+    stats.end();
     requestAnimationFrame(loopFn);
   }
 

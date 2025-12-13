@@ -1,9 +1,7 @@
 import type { World } from '@dimforge/rapier3d';
-import type { Vector } from '@dimforge/rapier3d/math';
-import { Vector3 } from 'three';
 
 import type { TShowcase } from '@/App/Levels/Models';
-import type { TActorService, TAppCanvas, TEngine, TSpace, TSpaceConfig } from '@/Engine';
+import type { TActorParams, TActorService, TAppCanvas, TEngine, TSpace, TSpaceConfig } from '@/Engine';
 import { ActorType, buildSpaceFromConfig, CollisionShape, Engine, isNotDefined, KeysExtra, MaterialType, RigidBodyTypesNames, Vector3Wrapper } from '@/Engine';
 
 import spaceConfig from './showcase.json';
@@ -12,12 +10,12 @@ export function showcase(canvas: TAppCanvas): TShowcase {
   const space: TSpace = buildSpaceFromConfig(canvas, spaceConfig as TSpaceConfig);
   const engine: TEngine = Engine(space);
   const { keyboardService } = engine.services;
-  const { physicsLoopService, physicsWorldService, actorService, controlsService } = space.services;
+  const { physicsLoopService, physicsWorldService, actorService, loopService, controlsService } = space.services;
 
   async function init(): Promise<void> {
-    // physicsWorldService.getDebugRenderer(loopService).start();
+    physicsWorldService.getDebugRenderer(loopService).start();
 
-    controlsService.findActive()?.entity.target.set(0, 10, 0);
+    controlsService.findActive()?.entity.target.set(0, 0, 0);
 
     const world: World | undefined = physicsWorldService.getWorld();
     if (isNotDefined(world)) throw new Error('World is not defined');
@@ -26,7 +24,9 @@ export function showcase(canvas: TAppCanvas): TShowcase {
     // world.maxPositionIterations = 1;
 
     physicsLoopService.shouldAutoUpdate(false);
-    await buildKevaTower(actorService);
+    // await buildKevaTower(actorService);
+    await buildKevaTower2(actorService, 10, 10, 20);
+
     // setInterval(() => {
     //   physicsLoopService.step();
     // }, 100);
@@ -44,113 +44,178 @@ export function showcase(canvas: TAppCanvas): TShowcase {
   return { start, space };
 }
 
-async function buildKevaTower(actorService: TActorService): Promise<void> {
-  const halfExtents: Vector3 = new Vector3(0.1, 0.5, 2.0);
-  let blockHeight: number = 0.0;
-  // These should only be set to odd values otherwise
-  // the blocks won't align in the nicest way.
-  const numyArr: ReadonlyArray<number> = [0, 3, 5, 5, 7, 9];
-  let i: number;
+// async function buildKevaTower(actorService: TActorService): Promise<void> {
+//   const halfExtents: Vector3 = new Vector3(0.1, 0.5, 2.0);
+//   let blockHeight: number = 0.0;
+//   // These should only be set to odd values otherwise
+//   // the blocks won't align in the nicest way.
+//   const numyArr: ReadonlyArray<number> = [0, 3, 5, 5, 7, 9];
+//   let i: number;
+//
+//   // eslint-disable-next-line functional/no-loop-statements
+//   for (i = 5; i >= 1; --i) {
+//     const numX: number = i;
+//     const numY: number = numyArr[i];
+//     const numZ: number = numX * 3 + 1;
+//     const blockWidth: number = numX * halfExtents.z * 2.0;
+//     await buildBlock(halfExtents, new Vector3(-blockWidth / 2.0, blockHeight, -blockWidth / 2.0), numX, numY, numZ, actorService);
+//     blockHeight += numY * halfExtents.y * 2.0 + halfExtents.x * 2.0;
+//   }
+// }
+//
+// async function buildBlock(halfExtents: Vector, shift: Vector, numX: number, numY: number, numZ: number, actorService: TActorService): Promise<void> {
+//   const half_extents_zyx: Vector = {
+//     x: halfExtents.z,
+//     y: halfExtents.y,
+//     z: halfExtents.x
+//   };
+//
+//   const dimensions: ReadonlyArray<Vector> = [halfExtents, half_extents_zyx];
+//   const blockWidth: number = 2.0 * halfExtents.z * numX;
+//   const blockHeight: number = 2.0 * halfExtents.y * numY;
+//   const spacing: number = (halfExtents.z * numX - halfExtents.x) / (numZ - 1.0);
+//
+//   let i: number;
+//   let j: number;
+//   let k: number;
+//
+//   // eslint-disable-next-line functional/no-loop-statements
+//   for (i = 0; i < numY; ++i) {
+//     [numX, numZ] = [numZ, numX];
+//     const dim: Vector = dimensions[i % 2];
+//     const y: number = dim.y * i * 2.0;
+//
+//     // eslint-disable-next-line functional/no-loop-statements
+//     for (j = 0; j < numX; ++j) {
+//       const x: number = i % 2 == 0 ? spacing * j * 2.0 : dim.x * j * 2.0;
+//       // eslint-disable-next-line functional/no-loop-statements
+//       for (k = 0; k < numZ; ++k) {
+//         // once = false;
+//         const z: number = i % 2 == 0 ? dim.z * k * 2.0 : spacing * k * 2.0;
+//         // Build the rigid body.
+//         await actorService.createAsync({
+//           name: `block-${i}-${j}`,
+//           type: ActorType.Cube,
+//           width: dim.x * 2,
+//           height: dim.y * 2,
+//           depth: dim.z * 2,
+//           material: { type: MaterialType.Standard, params: { color: '#8FAA8F' } },
+//           physics: {
+//             type: RigidBodyTypesNames.Dynamic,
+//             collisionShape: CollisionShape.Cuboid,
+//             mass: 1,
+//             friction: 0.5,
+//             restitution: 0,
+//             shapeParams: {
+//               hx: dim.x,
+//               hy: dim.y,
+//               hz: dim.z
+//             },
+//             position: Vector3Wrapper({ x: x + dim.x + shift.x, y: y + dim.y + shift.y, z: z + dim.z + shift.z })
+//           },
+//           position: Vector3Wrapper({ x: x + dim.x + shift.x, y: y + dim.y + shift.y, z: z + dim.z + shift.z }),
+//           castShadow: true,
+//           tags: []
+//         });
+//       }
+//     }
+//   }
+//
+//   // Close the top.
+//   const dim: Vector = { x: halfExtents.z, y: halfExtents.x, z: halfExtents.y };
+//
+//   // eslint-disable-next-line functional/no-loop-statements
+//   for (i = 0; i < blockWidth / (dim.x * 2.0); ++i) {
+//     // eslint-disable-next-line functional/no-loop-statements
+//     for (j = 0; j < blockWidth / (dim.z * 2.0); ++j) {
+//       // Build the rigid body.
+//       await actorService.createAsync({
+//         name: `block-${i}-${j}`,
+//         type: ActorType.Cube,
+//         width: dim.x * 2,
+//         height: dim.y * 2,
+//         depth: dim.z * 2,
+//         material: { type: MaterialType.Standard, params: { color: '#8FAA8F' } },
+//         physics: {
+//           type: RigidBodyTypesNames.Dynamic,
+//           collisionShape: CollisionShape.Cuboid,
+//           friction: 0.5,
+//           restitution: 0,
+//           shapeParams: {
+//             hx: dim.x,
+//             hy: dim.y,
+//             hz: dim.z
+//           },
+//           position: Vector3Wrapper({ x: i * dim.x * 2.0 + dim.x + shift.x, y: dim.y + shift.y + blockHeight, z: j * dim.z * 2.0 + dim.z + shift.z })
+//         },
+//         position: Vector3Wrapper({ x: i * dim.x * 2.0 + dim.x + shift.x, y: dim.y + shift.y + blockHeight, z: j * dim.z * 2.0 + dim.z + shift.z }),
+//         castShadow: true,
+//         tags: []
+//       });
+//     }
+//   }
+// }
 
-  // eslint-disable-next-line functional/no-loop-statements
-  for (i = 5; i >= 1; --i) {
-    const numX: number = i;
-    const numY: number = numyArr[i];
-    const numZ: number = numX * 3 + 1;
-    const blockWidth: number = numX * halfExtents.z * 2.0;
-    await buildBlock(halfExtents, new Vector3(-blockWidth / 2.0, blockHeight, -blockWidth / 2.0), numX, numY, numZ, actorService);
-    blockHeight += numY * halfExtents.y * 2.0 + halfExtents.x * 2.0;
-  }
+async function buildKevaTower2(actorService: TActorService, rows: number, cols: number, levels: number): Promise<void> {
+  const blocks: ReadonlyArray<Required<Pick<TActorParams, 'height' | 'width' | 'depth' | 'position'>>> = getBlocks(rows, cols, levels);
+
+  blocks.forEach((block: Required<Pick<TActorParams, 'height' | 'width' | 'depth' | 'position'>>): void => {
+    actorService.createAsync({
+      // name: `block-${i}-${j}`,
+      type: ActorType.Cube,
+      width: block.width,
+      height: block.height,
+      depth: block.depth,
+      material: { type: MaterialType.Standard, params: { color: '#8FAA8F' } },
+      physics: {
+        type: RigidBodyTypesNames.Dynamic,
+        collisionShape: CollisionShape.Cuboid,
+        mass: 1,
+        friction: 0.5,
+        restitution: 0,
+        shapeParams: {
+          hx: block.width / 2,
+          hy: block.height / 2,
+          hz: block.depth / 2
+        },
+        position: block.position
+      },
+      position: block.position,
+      castShadow: true,
+      tags: []
+    });
+  });
 }
-async function buildBlock(halfExtents: Vector, shift: Vector, numX: number, numY: number, numZ: number, actorService: TActorService): Promise<void> {
-  const half_extents_zyx: Vector = {
-    x: halfExtents.z,
-    y: halfExtents.y,
-    z: halfExtents.x
-  };
 
-  const dimensions: ReadonlyArray<Vector> = [halfExtents, half_extents_zyx];
-  const blockWidth: number = 2.0 * halfExtents.z * numX;
-  const blockHeight: number = 2.0 * halfExtents.y * numY;
-  const spacing: number = (halfExtents.z * numX - halfExtents.x) / (numZ - 1.0);
-
-  let i: number;
-  let j: number;
-  let k: number;
+function getBlocks(rows: number, cols: number, levels: number): ReadonlyArray<Required<Pick<TActorParams, 'height' | 'width' | 'depth' | 'position'>>> {
+  let blocks: ReadonlyArray<Pick<TActorParams, 'height' | 'width' | 'depth' | 'position'>> = [];
+  const gap: number = 0.1;
+  const width: number = 1;
+  const height: number = 1;
+  const depth: number = 1;
 
   // eslint-disable-next-line functional/no-loop-statements
-  for (i = 0; i < numY; ++i) {
-    [numX, numZ] = [numZ, numX];
-    const dim: Vector = dimensions[i % 2];
-    const y: number = dim.y * i * 2.0;
-
+  for (let i: number = 0; i < rows; i++) {
     // eslint-disable-next-line functional/no-loop-statements
-    for (j = 0; j < numX; ++j) {
-      const x: number = i % 2 == 0 ? spacing * j * 2.0 : dim.x * j * 2.0;
+    for (let j: number = 0; j < cols; j++) {
       // eslint-disable-next-line functional/no-loop-statements
-      for (k = 0; k < numZ; ++k) {
-        // once = false;
-        const z: number = i % 2 == 0 ? dim.z * k * 2.0 : spacing * k * 2.0;
-        // Build the rigid body.
-        await actorService.createAsync({
-          name: `block-${i}-${j}`,
-          type: ActorType.Cube,
-          width: dim.x * 2,
-          height: dim.y * 2,
-          depth: dim.z * 2,
-          material: { type: MaterialType.Standard, params: { color: '#8FAA8F' } },
-          physics: {
-            type: RigidBodyTypesNames.Dynamic,
-            collisionShape: CollisionShape.Cuboid,
-            mass: 1,
-            friction: 0.5,
-            restitution: 0,
-            shapeParams: {
-              hx: dim.x,
-              hy: dim.y,
-              hz: dim.z
-            },
-            position: Vector3Wrapper({ x: x + dim.x + shift.x, y: y + dim.y + shift.y, z: z + dim.z + shift.z })
-          },
-          position: Vector3Wrapper({ x: x + dim.x + shift.x, y: y + dim.y + shift.y, z: z + dim.z + shift.z }),
-          castShadow: true,
-          tags: []
-        });
+      for (let k: number = 0; k < levels; k++) {
+        blocks = [
+          ...blocks,
+          {
+            width,
+            height,
+            depth,
+            position: Vector3Wrapper({
+              x: i * (width + gap),
+              y: k * (height + gap),
+              z: j * (depth + gap)
+            })
+          }
+        ];
       }
     }
   }
 
-  // Close the top.
-  const dim: Vector = { x: halfExtents.z, y: halfExtents.x, z: halfExtents.y };
-
-  // eslint-disable-next-line functional/no-loop-statements
-  for (i = 0; i < blockWidth / (dim.x * 2.0); ++i) {
-    // eslint-disable-next-line functional/no-loop-statements
-    for (j = 0; j < blockWidth / (dim.z * 2.0); ++j) {
-      // Build the rigid body.
-      await actorService.createAsync({
-        name: `block-${i}-${j}`,
-        type: ActorType.Cube,
-        width: dim.x * 2,
-        height: dim.y * 2,
-        depth: dim.z * 2,
-        material: { type: MaterialType.Standard, params: { color: '#8FAA8F' } },
-        physics: {
-          type: RigidBodyTypesNames.Dynamic,
-          collisionShape: CollisionShape.Cuboid,
-          friction: 0.5,
-          restitution: 0,
-          shapeParams: {
-            hx: dim.x,
-            hy: dim.y,
-            hz: dim.z
-          },
-          position: Vector3Wrapper({ x: i * dim.x * 2.0 + dim.x + shift.x, y: dim.y + shift.y + blockHeight, z: j * dim.z * 2.0 + dim.z + shift.z })
-        },
-        position: Vector3Wrapper({ x: i * dim.x * 2.0 + dim.x + shift.x, y: dim.y + shift.y + blockHeight, z: j * dim.z * 2.0 + dim.z + shift.z }),
-        castShadow: true,
-        tags: []
-      });
-    }
-  }
+  return blocks;
 }
