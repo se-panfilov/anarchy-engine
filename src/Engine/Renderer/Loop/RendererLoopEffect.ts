@@ -13,7 +13,10 @@ export function renderLoopEffect(loop: TRenderLoop, activeRenderer$: BehaviorSub
     .pipe(withLatestFrom(activeRenderer$, cameraService.active$))
     .subscribe(([, rendererW, activeCameraW]: [TMilliseconds, TRendererWrapper | undefined, TCameraWrapper | undefined]): void => {
       if (isNotDefined(activeCameraW)) return;
-      if (isNotDefined(rendererW)) throw new Error('RenderLoopEffect: Cannot find an active renderer');
+      if (isNotDefined(rendererW)) {
+        loop.stop();
+        throw new Error('RenderLoopEffect: Cannot find an active renderer');
+      }
       rendererW.entity.render(scene.entity, activeCameraW.entity);
     });
 }
