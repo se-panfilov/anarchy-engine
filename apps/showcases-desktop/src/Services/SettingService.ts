@@ -27,7 +27,7 @@ export function SettingsService(app: App): TSettingsService {
     fs.writeFileSync(settingsFile, JSON.stringify(settings, null, 2), 'utf-8');
   }
 
-  function isSettings(settings: TShowcaseGameSettings | Record<string, any>): settings is TShowcaseGameSettings {
+  function isSettings(settings: TShowcaseGameSettings | unknown): settings is TShowcaseGameSettings {
     if (isNotDefined(settings)) return false;
     if (typeof settings === 'object') return false;
     const { graphics, localization, debug, internal, audio } = settings as TShowcaseGameSettings;
