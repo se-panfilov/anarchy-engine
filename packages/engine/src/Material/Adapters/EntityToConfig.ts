@@ -74,7 +74,7 @@ function getMaterialOptions({ entity }: TAnyMaterialWrapper): TOptional<TMateria
       blendSrcAlpha: entity.blendSrcAlpha,
       blending: getOptionNameIfPossible(entity.blending, BlendingMap, 'blending'),
       bumpScale: (entity as MeshPhongMaterial).bumpScale,
-      clearcoat: (entity as MeshPhysicalMaterial).clearcoat,
+      // clearcoat: (entity as MeshPhysicalMaterial).clearcoat,
       clearcoatNormalScale: vector2ToXyIfPossible((entity as MeshPhysicalMaterial).clearcoatNormalScale),
       clearcoatRoughness: (entity as MeshPhysicalMaterial).clearcoatRoughness,
       clipIntersection: entity.clipIntersection,

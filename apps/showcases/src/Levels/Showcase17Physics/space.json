@@ -264,8 +264,6 @@
       {
         "name": "metal_material",
         "options": {
-          "clearcoat": 1,
-          "clearcoatRoughness": 0.12,
           "displacementScale": 0,
           "ior": 2.3,
           "iridescence": 0.655,
@@ -288,8 +286,6 @@
       {
         "name": "glass_1_material",
         "options": {
-          "clearcoat": 0.8,
-          "clearcoatRoughness": 0.09,
           "displacementScale": 0.1,
           "ior": 1.26,
           "iridescence": 0,
@@ -304,8 +300,6 @@
       {
         "name": "glass_2_material",
         "options": {
-          "clearcoat": 0.8,
-          "clearcoatRoughness": 0.12,
           "displacementScale": 0.1,
           "ior": 1.5,
           "iridescence": 0,
@@ -319,9 +313,7 @@
       },
       {
         "name": "wood_material",
-        "options": {
-          "displacementScale": 0.1
-        },
+        "options": {},
         "textures": {
           "alphaMap": "wood_alpha_map_texture",
           "aoMap": "wood_ao_map_texture",

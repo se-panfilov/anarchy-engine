@@ -304,8 +304,6 @@
       {
         "name": "surface_material",
         "options": {
-          "clearcoat": 1,
-          "clearcoatRoughness": 0.12,
           "displacementScale": 0,
           "ior": 2.3,
           "iridescence": 0.655,
@@ -345,8 +343,6 @@
       {
         "name": "physical_metal",
         "options": {
-          "clearcoat": 1,
-          "clearcoatRoughness": 0.12,
           "displacementScale": 0,
           "ior": 2.3,
           "iridescence": 0.655,
@@ -441,8 +437,6 @@
       {
         "name": "physical_glass",
         "options": {
-          "clearcoat": 0.8,
-          "clearcoatRoughness": 0.09,
           "displacementScale": 0.1,
           "ior": 1.26,
           "iridescence": 0,

@@ -8,8 +8,6 @@ import type {
   TSpace,
   TSpaceConfig,
   TWithAoIntensity,
-  TWithClearcoat,
-  TWithClearcoatRoughness,
   TWithDisplacementScale,
   TWithIOR,
   TWithIridescence,
@@ -134,7 +132,7 @@ export function showcase(space: TSpace): void {
     const isAoMap: boolean = isDefined((model3d.material as MeshStandardMaterial).aoMap);
     const isDisplacementMap: boolean = isDefined((model3d.material as MeshStandardMaterial).displacementMap);
     const isNormalMap: boolean = isDefined((model3d.material as MeshStandardMaterial).normalMap);
-    const isClearCoat: boolean = isDefined((model3d.material as MeshPhysicalMaterial).clearcoat);
+    // const isClearCoat: boolean = isDefined((model3d.material as MeshPhysicalMaterial).clearcoat);
     const isSheen: boolean = isDefined((model3d.material as MeshPhysicalMaterial).sheen);
     const isIridescence: boolean = isDefined((model3d.material as MeshPhysicalMaterial).iridescence);
     const isTransmission: boolean = isDefined((model3d.material as MeshPhysicalMaterial).transmission);
@@ -189,24 +187,24 @@ export function showcase(space: TSpace): void {
           })
       ];
     }
-    if (isClearCoat) {
-      controllers = [
-        ...controllers,
-        gui
-          .add(model3d.material as TWithClearcoat, 'clearcoat')
-          .min(0)
-          .max(1)
-          .step(0.0001)
-      ];
-      controllers = [
-        ...controllers,
-        gui
-          .add(model3d.material as TWithClearcoatRoughness, 'clearcoatRoughness')
-          .min(0)
-          .max(1)
-          .step(0.0001)
-      ];
-    }
+    // if (isClearCoat) {
+    // controllers = [
+    //   ...controllers,
+    //   gui
+    //     .add(model3d.material as TWithClearcoat, 'clearcoat')
+    //     .min(0)
+    //     .max(1)
+    //     .step(0.0001)
+    // ];
+    // controllers = [
+    //   ...controllers,
+    //   gui
+    //     .add(model3d.material as TWithClearcoatRoughness, 'clearcoatRoughness')
+    //     .min(0)
+    //     .max(1)
+    //     .step(0.0001)
+    // ];
+    // }
 
     if (isSheen) {
       controllers = [
