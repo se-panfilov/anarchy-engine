@@ -9,4 +9,5 @@ export type TActor = TEntity<TActorEntities> &
   Readonly<{
     position$: Observable<Vector3>;
     rotation$: Observable<Euler>;
+    scale$: Observable<Vector3>;
   }>;

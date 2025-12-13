@@ -1,14 +1,13 @@
 import type { Subscription } from 'rxjs';
-import { BehaviorSubject, combineLatest, distinctUntilChanged } from 'rxjs';
-import type { Euler } from 'three';
-import { Vector3 } from 'three';
+import { combineLatest, distinctUntilChanged } from 'rxjs';
+import type { Euler, Vector3 } from 'three';
 
+import type { TEntity } from '@/Engine/Abstract';
 import { AbstractEntity, EntityType } from '@/Engine/Abstract';
-import type { ActorDrive } from '@/Engine/Actor/Constants';
-import type { TActor, TActorDependencies, TActorEntities, TActorParams } from '@/Engine/Actor/Models';
+import { ActorDriveMixin } from '@/Engine/Actor/Mixins';
+import type { TActor, TActorDependencies, TActorDriveMixin, TActorEntities, TActorParams } from '@/Engine/Actor/Models';
 import { applySpatialGrid, startCollisions } from '@/Engine/Actor/Utils';
 import { withCollisions } from '@/Engine/Collisions';
-import { withKinematic } from '@/Engine/Kinematic';
 import type { TModel3d } from '@/Engine/Models3d';
 import { withModel3d } from '@/Engine/Models3d';
 import type { TSpatialLoopServiceValue } from '@/Engine/Spatial';
@@ -19,40 +18,20 @@ export function Actor(
   params: TActorParams,
   { kinematicLoopService, spatialLoopService, spatialGridService, collisionsLoopService, collisionsService, models3dService, model3dToActorConnectionRegistry }: TActorDependencies
 ): TActor {
-  const position$: BehaviorSubject<Vector3> = new BehaviorSubject<Vector3>(params.position);
-  const rotation$: BehaviorSubject<Euler> = new BehaviorSubject<Euler>(params.rotation);
-  const scale$: BehaviorSubject<Vector3> = new BehaviorSubject<Vector3>(params.scale ?? new Vector3());
-  const drive$: BehaviorSubject<ActorDrive> = new BehaviorSubject<ActorDrive>(params.drive);
-
   const isModelAlreadyInUse: boolean = isDefined(model3dToActorConnectionRegistry.findByModel3d(params.model3dSource));
   const model3d: TModel3d = isModelAlreadyInUse ? models3dService.clone(params.model3dSource) : params.model3dSource;
 
-  const positionSub$: Subscription = position$
+  const drive: TActorDriveMixin = ActorDriveMixin(params, { kinematicLoopService });
+
+  const positionSub$: Subscription = drive.position$
     .pipe(distinctUntilChanged((prev: Vector3, curr: Vector3): boolean => prev.equals(curr)))
     .subscribe((position: Vector3): Vector3 => model3d.getRawModel3d().position.copy(position));
-  const rotationSub$: Subscription = rotation$
+  const rotationSub$: Subscription = drive.rotation$
     .pipe(distinctUntilChanged((prev: Euler, curr: Euler): boolean => prev.equals(curr)))
     .subscribe((rotation: Euler): Euler => model3d.getRawModel3d().rotation.copy(rotation));
-  const scaleSub$: Subscription = scale$
+  const scaleSub$: Subscription = drive.scale$
     .pipe(distinctUntilChanged((prev: Vector3, curr: Vector3): boolean => prev.equals(curr)))
     .subscribe((scale: Vector3): Vector3 => model3d.getRawModel3d().scale.copy(scale));
-
-  // TODO 8.0.0. MODELS: maybe not needed at all, cause we can check current drive in mixins
-  // drive$.subscribe((drive: ActorDrive): void => {
-  //   if (drive === ActorDrive.Kinematic) {
-  //     // TODO 8.0.0. MODELS: implement
-  //     // stopPhysicsDrive();
-  //     startKinematicDrive();
-  //   } else if (drive === ActorDrive.Physical) {
-  //     stopKinematicDrive();
-  //     // TODO 8.0.0. MODELS: implement
-  //     // startPhysicsDrive();
-  //   } else {
-  //     // TODO 8.0.0. MODELS: implement
-  //     // stopKinematicDrive();
-  //     // stopPhysicsDrive();
-  //   }
-  // });
 
   // TODO CWP The Actor flow is the following:
   //  Case "Kinematic":
@@ -81,16 +60,14 @@ export function Actor(
   // const { value$: rotation$, update: updateRotation } = withReactiveRotation(model3d);
 
   const entities: TActorEntities = {
+    drive,
     ...withModel3d(model3d),
-    // TODO 8.0.0. MODELS: Kinematic should update rotation (and position?) (if "drive" is "kinematic")
-    // TODO 8.0.0. MODELS: Physics should update position and rotation (if "drive" is "physics")
-    ...withKinematic(params, kinematicLoopService, drive$),
     ...withSpatial(params),
     ...withCollisions(params, collisionsService, collisionsLoopService),
     ...withUpdateSpatialCell()
   };
 
-  const abstract = AbstractEntity(entities, EntityType.Actor, params);
+  const abstract: TEntity<TActorEntities> = AbstractEntity(entities, EntityType.Actor, params);
 
   const spatialSub$: Subscription = spatialLoopService.tick$.subscribe(({ priority }: TSpatialLoopServiceValue): void => {
     if (!entities.spatial.isAutoUpdate()) return;
@@ -110,21 +87,10 @@ export function Actor(
     rotationSub$.unsubscribe();
     scaleSub$.unsubscribe();
 
-    //Stop subjects
-    position$.complete();
-    position$.unsubscribe();
-    rotation$.complete();
-    rotation$.unsubscribe();
-    scale$.complete();
-    scale$.unsubscribe();
-
     // Destroy related entities
     model3d.destroy$.next();
     entities.spatial.destroy$.next();
     entities.collisions?.destroy$.next();
-    entities.kinematic.destroy$.next();
-    // TODO 8.0.0. MODELS: implement destroy of physics mixin (or remoe it if not needed)
-    entities.physicsBody.destroy$.next();
   });
 
   // TODO 8.0.0. MODELS: perhaps do this only once (without "if"'s), then just read this value from kinematic/physics and throw error if the drive is not None
@@ -142,9 +108,8 @@ export function Actor(
 
   return {
     ...abstract,
-    position$,
-    rotation$,
-    scale$,
-    drive$
+    position$: drive.position$,
+    rotation$: drive.rotation$,
+    scale$: drive.scale$
   };
 }

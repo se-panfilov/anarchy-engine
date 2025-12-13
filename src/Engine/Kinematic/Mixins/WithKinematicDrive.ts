@@ -12,7 +12,7 @@ import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
 import type { TWriteable } from '@/Engine/Utils';
 
-export function withKinematic(params: TActorParams, kinematicLoopService: TKinematicLoopService, drive$: BehaviorSubject<ActorDrive>): TWithKinematic {
+export function withKinematicDrive(params: TActorParams, kinematicLoopService: TKinematicLoopService, drive$: BehaviorSubject<ActorDrive>): TWithKinematic {
   let _isAutoUpdate: boolean = (params.kinematic?.isAutoUpdate && drive$.value === ActorDrive.Kinematic) ?? false;
   const position$: BehaviorSubject<Vector3> = new BehaviorSubject<Vector3>(params.position);
   const rotation$: BehaviorSubject<Quaternion> = new BehaviorSubject<Quaternion>(new Quaternion().setFromEuler(params.rotation));
