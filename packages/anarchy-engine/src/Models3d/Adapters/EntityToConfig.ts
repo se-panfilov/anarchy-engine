@@ -1,5 +1,5 @@
 import type { TAnimationStateConfig } from '@Anarchy/Engine/Animations';
-import { animationActionToConfig } from '@Anarchy/Engine/Animations';
+import { animationActionToConfig } from '@Anarchy/Engine/Animations/Adapters';
 import type { TAnimations, TAnimationsResourceAsyncRegistry } from '@Anarchy/Engine/Animations/Models';
 import { extractSerializableRegistrableFields } from '@Anarchy/Engine/Mixins';
 import type { PrimitiveModel3dType } from '@Anarchy/Engine/Models3d/Constants';

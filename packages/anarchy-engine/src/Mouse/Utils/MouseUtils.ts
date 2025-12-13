@@ -1,5 +1,5 @@
 import type { TMouseWatcherEvent } from '@Anarchy/Engine/Mouse';
-import { MouseButtonValue, MouseEventType, MouseWheelValue } from '@Anarchy/Engine/Mouse';
+import { MouseButtonValue, MouseEventType, MouseWheelValue } from '@Anarchy/Engine/Mouse/Constants';
 import { isNotDefined } from '@Anarchy/Shared/Utils';
 import type { Vector2Like } from 'three';
 
