@@ -8,4 +8,7 @@ export type TPlatformApiOnWindow = { [K in TPlatformApiName]: TShowcasesDesktopA
 declare global {
   // eslint-disable-next-line @typescript-eslint/no-empty-object-type
   interface Window extends TPlatformApiOnWindow {}
+
+  //Constants from vite's define
+  const __BUILD_META_INFO__: Record<string, string>;
 }
