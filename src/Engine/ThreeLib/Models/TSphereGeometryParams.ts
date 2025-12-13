@@ -1,6 +1,6 @@
 import type { TMeters } from '@/Engine/Math';
 
-export type TSphereGeometryProps = Readonly<{
+export type TSphereGeometryParams = Readonly<{
   radius?: TMeters;
   widthSegments?: number;
   heightSegments?: number;

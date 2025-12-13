@@ -6,7 +6,7 @@ import type { TMeters } from '@/Engine/Math';
 import { meters } from '@/Engine/Measurements/Utils';
 import type { TModel3dConfig, TModel3dParams, TModel3dResourceConfig, TRawModel3d } from '@/Engine/Models3d';
 import { PrimitiveModel3dType } from '@/Engine/Models3d';
-import type { TBoxGeometryProps, TPlaneGeometryProps, TSphereGeometryProps } from '@/Engine/ThreeLib';
+import type { TBoxGeometryParams, TPlaneGeometryParams, TSphereGeometryParams } from '@/Engine/ThreeLib';
 import { isDefined, isNotDefined } from '@/Engine/Utils';
 
 export function createPrimitiveModel3d(params: TModel3dParams): Mesh | never {
@@ -24,18 +24,18 @@ export function createPrimitiveModel3d(params: TModel3dParams): Mesh | never {
   throw new Error(`Unknown primitive model type: "${model3dSource}"`);
 }
 
-function createPlane({ width, height, widthSegments, heightSegments }: TPlaneGeometryProps, material: TMaterials): Mesh {
+function createPlane({ width, height, widthSegments, heightSegments }: TPlaneGeometryParams, material: TMaterials): Mesh {
   const w: TMeters | undefined = isDefined(width) ? meters(width) : undefined;
   const h: TMeters | undefined = isDefined(height) ? meters(height) : undefined;
   return new Mesh(new PlaneGeometry(w, h, widthSegments, heightSegments), material);
 }
 
-function createSphere({ radius, widthSegments, heightSegments }: TSphereGeometryProps, material: TMaterials): Mesh {
+function createSphere({ radius, widthSegments, heightSegments }: TSphereGeometryParams, material: TMaterials): Mesh {
   const r: TMeters | undefined = isDefined(radius) ? meters(radius) : undefined;
   return new Mesh(new SphereGeometry(r, widthSegments, heightSegments), material);
 }
 
-function createCube({ width, height, depth, widthSegments, heightSegments, depthSegments }: TBoxGeometryProps, material: TMaterials): Mesh {
+function createCube({ width, height, depth, widthSegments, heightSegments, depthSegments }: TBoxGeometryParams, material: TMaterials): Mesh {
   const w: TMeters | undefined = isDefined(width) ? meters(width) : undefined;
   const h: TMeters | undefined = isDefined(height) ? meters(height) : undefined;
   const d: TMeters | undefined = isDefined(depth) ? meters(depth) : undefined;

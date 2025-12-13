@@ -1911,9 +1911,9 @@
       "enum": ["cube", "plane", "sphere"]
     },
     "TModel3dOptions": {
-      "$ref": "#/definitions/TOptional%3CTPrimitiveModel3dProps%3E"
+      "$ref": "#/definitions/TOptional%3CTPrimitiveModel3dParams%3E"
     },
-    "TOptional<TPrimitiveModel3dProps>": {
+    "TOptional<TPrimitiveModel3dParams>": {
       "type": "object",
       "properties": {
         "width": {

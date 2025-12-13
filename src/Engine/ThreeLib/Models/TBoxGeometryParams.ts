@@ -1,6 +1,6 @@
 import type { TMeters } from '@/Engine/Math/Types';
 
-export type TBoxGeometryProps = Readonly<{
+export type TBoxGeometryParams = Readonly<{
   width?: TMeters;
   height?: TMeters;
   depth?: TMeters;
