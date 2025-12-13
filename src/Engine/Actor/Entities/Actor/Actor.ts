@@ -1,11 +1,11 @@
 import type { Subscription } from 'rxjs';
 import { distinctUntilChanged } from 'rxjs';
-import type { Euler, Vector3 } from 'three';
+import type { Vector3 } from 'three';
 
 import type { TEntity } from '@/Engine/Abstract';
 import { AbstractEntity, EntityType } from '@/Engine/Abstract';
 import { ActorDriveMixin } from '@/Engine/Actor/Mixins';
-import type { TActor, TActorDependencies, TActorDriveMixin, TActorEntities, TActorParams } from '@/Engine/Actor/Models';
+import type { TActor, TActorDependencies, TActorDriveMixin, TActorEntities, TActorParams, TDriveToModel3dConnector } from '@/Engine/Actor/Models';
 import { applySpatialGrid, startCollisions } from '@/Engine/Actor/Utils';
 import { withCollisions } from '@/Engine/Collisions';
 import type { TModel3d } from '@/Engine/Models3d';
@@ -13,6 +13,8 @@ import { withModel3d } from '@/Engine/Models3d';
 import type { TSpatialLoopServiceValue } from '@/Engine/Spatial';
 import { withSpatial, withUpdateSpatialCell } from '@/Engine/Spatial';
 import { isDefined } from '@/Engine/Utils';
+
+import { DriveToModel3dConnector } from './Helpers';
 
 export function Actor(
   params: TActorParams,
@@ -22,27 +24,21 @@ export function Actor(
   const model3d: TModel3d = isModelAlreadyInUse ? models3dService.clone(params.model3dSource) : params.model3dSource;
 
   const drive: TActorDriveMixin = ActorDriveMixin(params, { kinematicLoopService });
+  const driveToModel3dConnector: TDriveToModel3dConnector = DriveToModel3dConnector(drive, model3d);
 
   const positionSub$: Subscription = drive.position$.pipe(distinctUntilChanged((prev: Vector3, curr: Vector3): boolean => prev.equals(curr))).subscribe((position: Vector3): void => {
-    model3d.getRawModel3d().position.copy(position);
     // TODO 8.0.0. MODELS: not sure if "updateSpatialCells()" should happen on rotation$ and scale$ changes
     entities.updateSpatialCells(position);
   });
-  const rotationSub$: Subscription = drive.rotation$
-    .pipe(distinctUntilChanged((prev: Euler, curr: Euler): boolean => prev.equals(curr)))
-    .subscribe((rotation: Euler): Euler => model3d.getRawModel3d().rotation.copy(rotation));
-  const scaleSub$: Subscription = drive.scale$
-    .pipe(distinctUntilChanged((prev: Vector3, curr: Vector3): boolean => prev.equals(curr)))
-    .subscribe((scale: Vector3): Vector3 => model3d.getRawModel3d().scale.copy(scale));
 
   // TODO CWP The Actor flow is the following:
   //  Case "Kinematic":
   //  ✅ Kinematic mixin should have position$ and rotation$ (which piped to return Vector3 and Euler)
   //  ✅ "doKinematicMove", "doKinematicRotation" should update Kinematic's position$ and rotation$
-  //  ✅ Actor is subscribed to Kinematic's position$ and rotation$
-  //  Model3d is subscribed to Actor's position$/rotation$/scale$
-  //  When Actor's position$/rotation$/scale$ updated, Model3d updates its position/rotation/scale
-  //  External update of Actor's position$/rotation$ is forbidden (scale$ is allowed)
+  //  ✅ Kinematic updates drive's position$/rotation$ on "doKinematicMove", "doKinematicRotation"
+  //  ✅ Model3d is subscribed to Drive's position$/rotation$/scale$
+  //  ✅ When Drive's position$/rotation$/scale$ updated, Model3d updates its position/rotation/scale
+  //  ✅ External update of Actor's position$/rotation$ is allowed (scale$ is allowed)
   //  Kinematic mixin should have "teleport" method which updates Kinematic's position$ and rotation$ immediately (if rotation is set, also update angle, and the speed should be set to 0)
   //  --
   //  Case "Physics":
@@ -86,10 +82,9 @@ export function Actor(
     //Finish subscriptions
     spatialSub$.unsubscribe();
     positionSub$.unsubscribe();
-    rotationSub$.unsubscribe();
-    scaleSub$.unsubscribe();
 
     // Destroy related entities
+    driveToModel3dConnector.destroy$.next();
     model3d.destroy$.next();
     entities.spatial.destroy$.next();
     entities.collisions?.destroy$.next();
