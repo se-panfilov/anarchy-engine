@@ -144,6 +144,7 @@ export const JsRules = {
         'nl',
         'nowrap',
         'nrows',
+        'nullish',
         'oklab',
         'oklch',
         'overcomplicated',
