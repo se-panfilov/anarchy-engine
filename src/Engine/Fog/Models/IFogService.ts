@@ -1,5 +1,6 @@
+import type { IFogParams } from './IFogParams';
 import type { IFogWrapper } from './IFogWrapper';
 
 export type IFogService = Readonly<{
-  createFog: () => IFogWrapper;
+  createFog: (params: IFogParams) => IFogWrapper;
 }>;

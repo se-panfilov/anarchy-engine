@@ -26,7 +26,7 @@
       "width": 1,
       "height": 1,
       "radius": 0.7,
-      "position": { "x": 2, "y": 2, "z": -2 },
+      "position": { "x": 2, "y": 6, "z": -2 },
       "widthSegments": 64,
       "heightSegments": 64,
       "castShadow": true,
@@ -78,13 +78,6 @@
     }
   ],
   "envMaps": [],
-  "fogs": [
-    {
-      "color": "#353CA7",
-      "near": 1,
-      "far": 100,
-      "tags": []
-    }
-  ],
+  "fogs": [],
   "tags": ["build-in"]
 }
