@@ -7,7 +7,6 @@ import type { TEulerLike, TObject3DParams, TObject3DPropConfig } from '@/Engine/
 import { isDefined } from '@/Engine/Utils';
 
 export const applyScaleToModel3d = (model: TRawModel3d, scale: Vector3Like): void => {
-  console.log('XXX11', model, scale);
   void model.scale.copy(scale);
 };
 export const applyRotationToModel3d = (model: TRawModel3d, rotation: TEulerLike): void => void model.rotation.copy(new Euler(rotation.x, rotation.y, rotation.z, rotation.order ?? 'XYZ'));
