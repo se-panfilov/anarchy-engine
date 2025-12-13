@@ -5,7 +5,8 @@
   "scenes": [
     {
       "name": "Showcase Scene 04 Animejs Simple",
-      "tags": ["current"]
+      "tags": [],
+      "isActive": true
     }
   ],
   "actors": [

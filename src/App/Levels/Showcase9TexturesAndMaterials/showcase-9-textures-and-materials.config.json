@@ -5,7 +5,8 @@
   "scenes": [
     {
       "name": "Showcase Scene 09 TexturesAndMaterials",
-      "tags": ["current"]
+      "tags": [],
+      "isActive": true
     }
   ],
   "actors": [

@@ -5,7 +5,8 @@
   "scenes": [
     {
       "name": "Showcase Scene 06 Fullscreen",
-      "tags": ["current"]
+      "tags": [],
+      "isActive": true
     }
   ],
   "actors": [

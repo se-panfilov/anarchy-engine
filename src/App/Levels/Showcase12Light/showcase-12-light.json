@@ -5,7 +5,8 @@
   "scenes": [
     {
       "name": "Showcase 12 Light",
-      "tags": ["current"]
+      "tags": [],
+      "isActive": true
     }
   ],
   "actors": [

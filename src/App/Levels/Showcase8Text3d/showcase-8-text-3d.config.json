@@ -5,7 +5,8 @@
   "scenes": [
     {
       "name": "Showcase Scene 08 Text3d",
-      "tags": ["current"]
+      "tags": [],
+      "isActive": true
     }
   ],
   "actors": [

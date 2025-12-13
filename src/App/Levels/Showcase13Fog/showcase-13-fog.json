@@ -5,7 +5,8 @@
   "scenes": [
     {
       "name": "Showcase 13 fog",
-      "tags": ["current"]
+      "tags": [],
+      "isActive": true
     }
   ],
   "actors": [

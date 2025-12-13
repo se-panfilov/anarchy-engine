@@ -25,7 +25,6 @@ export function SceneWrapper(params: ISceneParams): ISceneWrapper {
   if (isDefined(params.background)) setBackground(params.background);
 
   const wrapper: IWrapper<Scene> = AbstractWrapper(entity, WrapperType.Scene, params);
-  const isActive: boolean = false;
 
   const add = (obj: ISceneObject): void => void entity.add(obj);
   const addCamera = (camera: Readonly<ICameraWrapper>): void => add(camera.entity);
@@ -67,7 +66,7 @@ export function SceneWrapper(params: ISceneParams): ISceneWrapper {
     entity
   };
 
-  sceneWrapper = withActive(sceneWrapper, isActive);
+  sceneWrapper = withActive(sceneWrapper, params.isActive);
 
   return sceneWrapper;
 }

@@ -5,7 +5,8 @@
   "scenes": [
     {
       "name": "Showcase Scene 03 Camera Flying",
-      "tags": ["current"]
+      "tags": [],
+      "isActive": true
     }
   ],
   "actors": [

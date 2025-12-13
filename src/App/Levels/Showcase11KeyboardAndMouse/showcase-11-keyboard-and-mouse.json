@@ -5,7 +5,8 @@
   "scenes": [
     {
       "name": "Showcase 11 Keyboard and mouse",
-      "tags": ["current"]
+      "tags": [],
+      "isActive": true
     }
   ],
   "actors": [

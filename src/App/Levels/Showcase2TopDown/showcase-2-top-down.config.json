@@ -5,7 +5,8 @@
   "scenes": [
     {
       "name": "Showcase Scene 02 Top Down Controls",
-      "tags": ["current"]
+      "tags": [],
+      "isActive": true
     }
   ],
   "actors": [],

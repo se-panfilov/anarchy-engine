@@ -24,7 +24,7 @@ import { withTags } from '@/Engine/Mixins/Generic';
 import type { IRendererFactory, IRendererRegistry, IRendererWrapper } from '@/Engine/Renderer';
 import { RendererFactory, RendererModes, RendererRegistry, RendererTag } from '@/Engine/Renderer';
 import type { ISceneConfig, ISceneFactory, ISceneRegistry, IScenesService, ISceneWrapper } from '@/Engine/Scene';
-import { SceneFactory, SceneRegistry, ScenesService, SceneTag } from '@/Engine/Scene';
+import { SceneFactory, SceneRegistry, ScenesService } from '@/Engine/Scene';
 import { screenService } from '@/Engine/Services';
 import { withBuiltMixin } from '@/Engine/Space/Mixin';
 import type { ISpace, ISpaceConfig, ISpaceFactories, ISpaceRegistries, ISpaceRenderer, ISpaceServices, IWithBuilt } from '@/Engine/Space/Models';
@@ -71,7 +71,7 @@ export function buildSpaceFromConfig(canvas: IAppCanvas, config: ISpaceConfig): 
     scenes.forEach((config: ISceneConfig): ISceneWrapper => sceneFactory.create(sceneFactory.configToParams({ ...config, tags: [...config.tags, CommonTag.FromConfig] })));
 
     messages$.next(`Scenes (${scenes.length}) created`);
-    scene = sceneRegistry.findByTag(SceneTag.Active);
+    scene = scenesService.findActiveScene();
     if (isNotDefined(scene)) throw new Error(`Cannot find the current scene for space "${name}" during the space building.`);
 
     factories = { ...factories, sceneFactory };

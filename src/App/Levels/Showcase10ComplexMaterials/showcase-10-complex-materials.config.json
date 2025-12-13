@@ -5,7 +5,8 @@
   "scenes": [
     {
       "name": "Showcase Scene 10 Complex Materials",
-      "tags": ["current"]
+      "tags": [],
+      "isActive": true
     }
   ],
   "actors": [

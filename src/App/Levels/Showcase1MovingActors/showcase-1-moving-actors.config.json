@@ -5,7 +5,8 @@
   "scenes": [
     {
       "name": "Showcase Scene 01 Moving Actors",
-      "tags": ["current"]
+      "tags": [],
+      "isActive": true
     }
   ],
   "actors": [
