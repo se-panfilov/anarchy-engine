@@ -5,4 +5,4 @@ import type { TextTag } from '@/Engine/Domains/Text/Constants';
 import type { IElement2dAccessors } from '@/Engine/Domains/Text/Models';
 import type { IMovableXYZ, IRotatable, IScalable, IWithObject3d, IWithTags } from '@/Engine/Mixins';
 
-export type ITextWrapper = IWrapper<CSS2DObject> & Readonly<{ getElement: () => HTMLDivElement }> & IElement2dAccessors & IMovableXYZ & IRotatable & IScalable & IWithObject3d & IWithTags<TextTag>;
+export type ITextWrapper = IWrapper<CSS2DObject> & Readonly<{ getElement: () => HTMLElement }> & IElement2dAccessors & IMovableXYZ & IRotatable & IScalable & IWithObject3d & IWithTags<TextTag>;

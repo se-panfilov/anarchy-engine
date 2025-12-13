@@ -11,7 +11,7 @@ import { scalableMixin, withMoveByXyzMixin, withObject3d, withRotationByXyzMixin
 import { applyCenter, applyObject3dParams, applyPosition, applyRotation, applyScale, isDefined } from '@/Engine/Utils';
 
 export function Text2dWrapper(params: ITextParams): ITextWrapper {
-  const element: HTMLDivElement = document.createElement('div');
+  const element: HTMLElement = document.createElement(params.elementType || 'div');
   // eslint-disable-next-line functional/immutable-data
   element.textContent = params.text;
 

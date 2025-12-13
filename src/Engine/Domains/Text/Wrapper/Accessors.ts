@@ -3,7 +3,7 @@ import type { IElement2dAccessors } from '@/Engine/Domains/Text/Models';
 import type { IWriteable } from '@/Engine/Utils';
 
 // eslint-disable-next-line functional/prefer-immutable-types
-export function getElement2dAccessors(element: IWriteable<HTMLDivElement>): IElement2dAccessors {
+export function getElement2dAccessors(element: IWriteable<HTMLElement>): IElement2dAccessors {
   // eslint-disable-next-line functional/immutable-data
   const setText = (text: string): void => void (element.textContent = text);
   const getText = (): string | null => element.textContent;

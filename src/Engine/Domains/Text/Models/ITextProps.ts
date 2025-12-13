@@ -18,4 +18,5 @@ export type ITextProps = Readonly<{
   fontStyle?: TextFontStyle;
   fontWeight?: TextFontWeight;
   center?: IVector2Wrapper;
+  elementType?: string;
 }>;
