@@ -33,5 +33,5 @@ export const omitInObjectWithMutation = <T extends Record<string, unknown>, K ex
 };
 
 export function filterOutEmptyFields<T extends Record<string, unknown>>(obj: T): T {
-  return Object.fromEntries(Object.entries(obj).filter(([, value]: [string, unknown]): boolean => value !== undefined && value !== null)) as T;
+  return Object.fromEntries(Object.entries(obj).filter(([, value]: [string, unknown]): boolean => value !== undefined && value !== null && value !== Infinity && value !== -Infinity)) as T;
 }

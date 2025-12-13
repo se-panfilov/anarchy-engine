@@ -26,7 +26,7 @@ export function controlsToConfig(entity: TControlsWrapper, { cameraService }: TC
   // eslint-disable-next-line functional/immutable-data
   if (isFpsControls(entity)) Object.assign(result, getFpsControlsFields(entity as TFpsControlsWrapper));
 
-  return result;
+  return filterOutEmptyFields(result);
 }
 
 function getOrbitControlsFields(entity: TOrbitControlsWrapper): Omit<TOrbitControlsConfig, 'type' | 'isActive' | 'name' | 'cameraName'> {
