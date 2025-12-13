@@ -10,24 +10,24 @@
   ],
   "resources": {
     "textures": [
-      { "name": "MetalSteelBrushedBumpMap", "url": "/Showcase/Brushed_Metal/MetalSteelBrushed001_BUMP_1K_METALNESS.png", "tags": ["bumpMap", "metal"] },
-      { "name": "MetalSteelBrushedMap", "url": "/Showcase/Brushed_Metal/MetalSteelBrushed001_COL_1K_METALNESS.png", "tags": ["map", "metal"] },
-      { "name": "MetalSteelBrushedNormalMap", "url": "/Showcase/Brushed_Metal/MetalSteelBrushed001_NRM_1K_METALNESS.png", "tags": ["normalMap", "metal"] },
-      { "name": "MetalSteelBrushedDisplacementMap", "url": "/Showcase/Brushed_Metal/MetalSteelBrushed001_DISP_1K_METALNESS.png", "tags": ["displacementMap", "metal"] },
-      { "name": "MetalSteelBrushedMetalnessMap", "url": "/Showcase/Brushed_Metal/MetalSteelBrushed001_BUMP16_1K_METALNESS.png", "tags": ["metalnessMap", "metal"] },
-      { "name": "MetalSteelBrushedRoughnessMap", "url": "/Showcase/Brushed_Metal/MetalSteelBrushed001_ROUGHNESS_1K_METALNESS.png", "tags": ["roughnessMap", "metal"] },
-      { "name": "WoodAoMap", "url": "/Showcase/Door_Wood/Door_Wood_001_ambientOcclusion.jpg", "tags": ["aoMap", "wood"] },
-      { "name": "WoodMap", "url": "/Showcase/Door_Wood/Door_Wood_001_basecolor.jpg", "tags": ["map", "wood"] },
-      { "name": "WoodNormalMap", "url": "/Showcase/Door_Wood/Door_Wood_001_normal.jpg", "tags": ["normalMap", "wood"] },
-      { "name": "WoodDisplacementMap", "url": "/Showcase/Door_Wood/Door_Wood_001_height.png", "tags": ["displacementMap", "wood"] },
-      { "name": "WoodAlphaMap", "url": "/Showcase/Door_Wood/Door_Wood_001_opacity.jpg", "tags": ["alphaMap", "wood"] },
-      { "name": "WoodMetalnessMap", "url": "/Showcase/Door_Wood/Door_Wood_001_metallic.jpg", "tags": ["metalnessMap", "wood"] },
-      { "name": "WoodRoughnessMap", "url": "/Showcase/Door_Wood/Door_Wood_001_roughness.jpg", "tags": ["roughnessMap", "wood"] },
-      { "name": "CarpetAoMap", "url": "/Showcase/Dirty_Carpet/dirty_carpet_ao_1k.jpg", "tags": ["carpet", "aoMap"] },
-      { "name": "CarpetMap", "url": "/Showcase/Dirty_Carpet/dirty_carpet_diff_1k.jpg", "tags": ["carpet", "map"] },
-      { "name": "CarpetNormalMap", "url": "/Showcase/Dirty_Carpet/dirty_carpet_nor_dx_1k.jpg", "tags": ["carpet", "normalMap"] },
-      { "name": "CarpetDisplacementMap", "url": "/Showcase/Dirty_Carpet/dirty_carpet_disp_1k.png", "tags": ["carpet", "displacementMap"] },
-      { "name": "CarpetRoughnessMap", "url": "/Showcase/Dirty_Carpet/dirty_carpet_rough_1k.jpg", "tags": ["carpet", "roughnessMap"] }
+      { "name": "metal_steel_brushed_bump_map", "url": "/Showcase/Brushed_Metal/MetalSteelBrushed001_BUMP_1K_METALNESS.png", "tags": ["bumpMap", "metal"] },
+      { "name": "metal_steel_brushed_map", "url": "/Showcase/Brushed_Metal/MetalSteelBrushed001_COL_1K_METALNESS.png", "tags": ["map", "metal"] },
+      { "name": "metal_steel_brushed_normal_map", "url": "/Showcase/Brushed_Metal/MetalSteelBrushed001_NRM_1K_METALNESS.png", "tags": ["normalMap", "metal"] },
+      { "name": "metal_steel_brushed_displacement_map", "url": "/Showcase/Brushed_Metal/MetalSteelBrushed001_DISP_1K_METALNESS.png", "tags": ["displacementMap", "metal"] },
+      { "name": "metal_steel_brushed_metalness_map", "url": "/Showcase/Brushed_Metal/MetalSteelBrushed001_BUMP16_1K_METALNESS.png", "tags": ["metalnessMap", "metal"] },
+      { "name": "metal_steel_brushed_roughness_map", "url": "/Showcase/Brushed_Metal/MetalSteelBrushed001_ROUGHNESS_1K_METALNESS.png", "tags": ["roughnessMap", "metal"] },
+      { "name": "wood_ao_map", "url": "/Showcase/Door_Wood/Door_Wood_001_ambientOcclusion.jpg", "tags": ["aoMap", "wood"] },
+      { "name": "wood_map", "url": "/Showcase/Door_Wood/Door_Wood_001_basecolor.jpg", "tags": ["map", "wood"] },
+      { "name": "wood_normal_map", "url": "/Showcase/Door_Wood/Door_Wood_001_normal.jpg", "tags": ["normalMap", "wood"] },
+      { "name": "wood_displacement_map", "url": "/Showcase/Door_Wood/Door_Wood_001_height.png", "tags": ["displacementMap", "wood"] },
+      { "name": "wood_alpha_map", "url": "/Showcase/Door_Wood/Door_Wood_001_opacity.jpg", "tags": ["alphaMap", "wood"] },
+      { "name": "wood_metalness_map", "url": "/Showcase/Door_Wood/Door_Wood_001_metallic.jpg", "tags": ["metalnessMap", "wood"] },
+      { "name": "wood_roughness_map", "url": "/Showcase/Door_Wood/Door_Wood_001_roughness.jpg", "tags": ["roughnessMap", "wood"] },
+      { "name": "carpet_ao_map", "url": "/Showcase/Dirty_Carpet/dirty_carpet_ao_1k.jpg", "tags": ["carpet", "aoMap"] },
+      { "name": "carpet_map", "url": "/Showcase/Dirty_Carpet/dirty_carpet_diff_1k.jpg", "tags": ["carpet", "map"] },
+      { "name": "carpet_normal_map", "url": "/Showcase/Dirty_Carpet/dirty_carpet_nor_dx_1k.jpg", "tags": ["carpet", "normalMap"] },
+      { "name": "carpet_displacement_map", "url": "/Showcase/Dirty_Carpet/dirty_carpet_disp_1k.png", "tags": ["carpet", "displacementMap"] },
+      { "name": "carpet_roughness_map", "url": "/Showcase/Dirty_Carpet/dirty_carpet_rough_1k.jpg", "tags": ["carpet", "roughnessMap"] }
     ],
     "envMapTextures": [],
     "materials": [
@@ -36,12 +36,12 @@
         "type": "standard",
         "params": { "displacementScale": 0 },
         "textures": {
-          "bumpMap": "MetalSteelBrushedBumpMap",
-          "map": "MetalSteelBrushedMap",
-          "normalMap": "MetalSteelBrushedNormalMap",
-          "displacementMap": "MetalSteelBrushedDisplacementMap",
-          "metalnessMap": "MetalSteelBrushedMetalnessMap",
-          "roughnessMap": "MetalSteelBrushedRoughnessMap"
+          "bumpMap": "metal_steel_brushed_bump_map",
+          "map": "metal_steel_brushed_map",
+          "normalMap": "metal_steel_brushed_normal_map",
+          "displacementMap": "metal_steel_brushed_displacement_map",
+          "metalnessMap": "metal_steel_brushed_metalness_map",
+          "roughnessMap": "metal_steel_brushed_roughness_map"
         },
         "tags": ["standard", "metal"]
       },
@@ -62,11 +62,11 @@
         },
         "textures": {
           "bumpMap": "metal_steel_brushed_bump_map",
-          "map": "MetalSteelBrushedMap",
-          "normalMap": "MetalSteelBrushedNormalMap",
-          "displacementMap": "MetalSteelBrushedDisplacementMap",
-          "metalnessMap": "MetalSteelBrushedMetalnessMap",
-          "roughnessMap": "MetalSteelBrushedRoughnessMap"
+          "map": "metal_steel_brushed_map",
+          "normalMap": "metal_steel_brushed_normal_map",
+          "displacementMap": "metal_steel_brushed_displacement_map",
+          "metalnessMap": "metal_steel_brushed_metalness_map",
+          "roughnessMap": "metal_steel_brushed_roughness_map"
         },
         "tags": ["physical", "metal"]
       },
@@ -74,7 +74,7 @@
         "name": "basic_metal",
         "type": "basic",
         "textures": {
-          "map": "MetalSteelBrushedMap"
+          "map": "metal_steel_brushed_map"
         },
         "tags": ["basic", "metal"]
       },
@@ -83,10 +83,10 @@
         "type": "phong",
         "params": { "displacementScale": 0.1 },
         "textures": {
-          "bumpMap": "MetalSteelBrushedBumpMap",
-          "map": "MetalSteelBrushedMap",
-          "normalMap": "MetalSteelBrushedNormalMap",
-          "displacementMap": "MetalSteelBrushedDisplacementMap"
+          "bumpMap": "metal_steel_brushed_bump_map",
+          "map": "metal_steel_brushed_map",
+          "normalMap": "metal_steel_brushed_normal_map",
+          "displacementMap": "metal_steel_brushed_displacement_map"
         },
         "tags": ["phong", "metal"]
       },
@@ -95,10 +95,10 @@
         "type": "lambert",
         "params": { "displacementScale": 0.1 },
         "textures": {
-          "bumpMap": "MetalSteelBrushedBumpMap",
-          "map": "MetalSteelBrushedMap",
-          "normalMap": "MetalSteelBrushedNormalMap",
-          "displacementMap": "MetalSteelBrushedDisplacementMap"
+          "bumpMap": "metal_steel_brushed_bump_map",
+          "map": "metal_steel_brushed_map",
+          "normalMap": "metal_steel_brushed_normal_map",
+          "displacementMap": "metal_steel_brushed_displacement_map"
         },
         "tags": ["lambert", "metal"]
       },
@@ -107,10 +107,10 @@
         "type": "toon",
         "params": { "displacementScale": 0.1 },
         "textures": {
-          "bumpMap": "MetalSteelBrushedBumpMap",
-          "map": "MetalSteelBrushedMap",
-          "normalMap": "MetalSteelBrushedNormalMap",
-          "displacementMap": "MetalSteelBrushedDisplacementMap"
+          "bumpMap": "metal_steel_brushed_bump_map",
+          "map": "metal_steel_brushed_map",
+          "normalMap": "metal_steel_brushed_normal_map",
+          "displacementMap": "metal_steel_brushed_displacement_map"
         },
         "tags": ["toon", "metal"]
       },
@@ -119,10 +119,10 @@
         "type": "matcap",
         "params": { "displacementScale": 0.1 },
         "textures": {
-          "bumpMap": "MetalSteelBrushedBumpMap",
-          "map": "MetalSteelBrushedMap",
-          "normalMap": "MetalSteelBrushedNormalMap",
-          "displacementMap": "MetalSteelBrushedDisplacementMap"
+          "bumpMap": "metal_steel_brushed_bump_map",
+          "map": "metal_steel_brushed_map",
+          "normalMap": "metal_steel_brushed_normal_map",
+          "displacementMap": "metal_steel_brushed_displacement_map"
         },
         "tags": ["matcap", "metal"]
       },
@@ -131,13 +131,13 @@
         "type": "standard",
         "params": { "displacementScale": 0.1 },
         "textures": {
-          "aoMap": "WoodAoMap",
-          "map": "WoodMap",
-          "normalMap": "WoodNormalMap",
-          "displacementMap": "WoodDisplacementMap",
-          "alphaMap": "WoodAlphaMap",
-          "metalnessMap": "WoodMetalnessMap",
-          "roughnessMap": "WoodRoughnessMap"
+          "aoMap": "wood_ao_map",
+          "map": "wood_map",
+          "normalMap": "wood_normal_map",
+          "displacementMap": "wood_displacement_map",
+          "alphaMap": "wood_alpha_map",
+          "metalnessMap": "wood_metalness_map",
+          "roughnessMap": "wood_roughness_map"
         },
         "tags": ["standard", "wood"]
       },
@@ -146,13 +146,13 @@
         "type": "physical",
         "params": { "displacementScale": 0.1 },
         "textures": {
-          "aoMap": "WoodAoMap",
-          "map": "WoodMap",
-          "normalMap": "WoodNormalMap",
-          "displacementMap": "WoodDisplacementMap",
-          "alphaMap": "WoodAlphaMap",
-          "metalnessMap": "WoodMetalnessMap",
-          "roughnessMap": "WoodRoughnessMap"
+          "aoMap": "wood_ao_map",
+          "map": "wood_map",
+          "normalMap": "wood_normal_map",
+          "displacementMap": "wood_displacement_map",
+          "alphaMap": "wood_alpha_map",
+          "metalnessMap": "wood_metalness_map",
+          "roughnessMap": "wood_roughness_map"
         },
         "tags": ["physical", "wood"]
       },
@@ -160,9 +160,9 @@
         "name": "basic_wood",
         "type": "basic",
         "textures": {
-          "aoMap": "WoodAoMap",
-          "map": "WoodMap",
-          "alphaMap": "WoodAlphaMap"
+          "aoMap": "wood_ao_map",
+          "map": "wood_map",
+          "alphaMap": "wood_alpha_map"
         },
         "tags": ["basic", "wood"]
       },
@@ -171,11 +171,11 @@
         "type": "phong",
         "params": { "displacementScale": 0.1 },
         "textures": {
-          "aoMap": "WoodAoMap",
-          "map": "WoodMap",
-          "normalMap": "WoodNormalMap",
-          "displacementMap": "WoodDisplacementMap",
-          "alphaMap": "WoodAlphaMap"
+          "aoMap": "wood_ao_map",
+          "map": "wood_map",
+          "normalMap": "wood_normal_map",
+          "displacementMap": "wood_displacement_map",
+          "alphaMap": "wood_alpha_map"
         },
         "tags": ["phong", "wood"]
       },
@@ -184,11 +184,11 @@
         "type": "lambert",
         "params": { "displacementScale": 0.1 },
         "textures": {
-          "aoMap": "WoodAoMap",
-          "map": "WoodMap",
-          "normalMap": "WoodNormalMap",
-          "displacementMap": "WoodDisplacementMap",
-          "alphaMap": "WoodAlphaMap"
+          "aoMap": "wood_ao_map",
+          "map": "wood_map",
+          "normalMap": "wood_normal_map",
+          "displacementMap": "wood_displacement_map",
+          "alphaMap": "wood_alpha_map"
         },
         "tags": ["lambert", "wood"]
       },
@@ -197,11 +197,11 @@
         "type": "toon",
         "params": { "displacementScale": 0.1 },
         "textures": {
-          "aoMap": "WoodAoMap",
-          "map": "WoodMap",
-          "normalMap": "WoodNormalMap",
-          "displacementMap": "WoodDisplacementMap",
-          "alphaMap": "WoodAlphaMap"
+          "aoMap": "wood_ao_map",
+          "map": "wood_map",
+          "normalMap": "wood_normal_map",
+          "displacementMap": "wood_displacement_map",
+          "alphaMap": "wood_alpha_map"
         },
         "tags": ["toon", "wood"]
       },
@@ -210,10 +210,10 @@
         "type": "matcap",
         "params": { "displacementScale": 0.1 },
         "textures": {
-          "map": "WoodMap",
-          "normalMap": "WoodNormalMap",
-          "displacementMap": "WoodDisplacementMap",
-          "alphaMap": "WoodAlphaMap"
+          "map": "wood_map",
+          "normalMap": "wood_normal_map",
+          "displacementMap": "wood_displacement_map",
+          "alphaMap": "wood_alpha_map"
         },
         "tags": ["matcap", "wood"]
       },
@@ -277,11 +277,11 @@
         "type": "standard",
         "params": { "displacementScale": 0.1 },
         "textures": {
-          "aoMap": "CarpetAoMap",
-          "map": "CarpetMap",
-          "normalMap": "CarpetNormalMap",
-          "displacementMap": "CarpetDisplacementMap",
-          "roughnessMap": "CarpetRoughnessMap"
+          "aoMap": "carpet_ao_map",
+          "map": "carpet_map",
+          "normalMap": "carpet_normal_map",
+          "displacementMap": "carpet_displacement_map",
+          "roughnessMap": "carpet_roughness_map"
         },
         "tags": ["standard", "textile"]
       },
@@ -290,11 +290,11 @@
         "type": "physical",
         "params": { "displacementScale": 0.1 },
         "textures": {
-          "aoMap": "CarpetAoMap",
-          "map": "CarpetMap",
-          "normalMap": "CarpetNormalMap",
-          "displacementMap": "CarpetDisplacementMap",
-          "roughnessMap": "CarpetRoughnessMap"
+          "aoMap": "carpet_ao_map",
+          "map": "carpet_map",
+          "normalMap": "carpet_normal_map",
+          "displacementMap": "carpet_displacement_map",
+          "roughnessMap": "carpet_roughness_map"
         },
         "tags": ["physical", "textile"]
       },
@@ -302,8 +302,8 @@
         "name": "basic_textile",
         "type": "basic",
         "textures": {
-          "aoMap": "CarpetAoMap",
-          "map": "CarpetMap"
+          "aoMap": "carpet_ao_map",
+          "map": "carpet_map"
         },
         "tags": ["basic", "textile"]
       },
@@ -312,10 +312,10 @@
         "type": "phong",
         "params": { "displacementScale": 0.1 },
         "textures": {
-          "aoMap": "CarpetAoMap",
-          "map": "CarpetMap",
-          "normalMap": "CarpetNormalMap",
-          "displacementMap": "CarpetDisplacementMap"
+          "aoMap": "carpet_ao_map",
+          "map": "carpet_map",
+          "normalMap": "carpet_normal_map",
+          "displacementMap": "carpet_displacement_map"
         },
         "tags": ["phong", "textile"]
       },
@@ -324,10 +324,10 @@
         "type": "lambert",
         "params": { "displacementScale": 0.1 },
         "textures": {
-          "aoMap": "CarpetAoMap",
-          "map": "CarpetMap",
-          "normalMap": "CarpetNormalMap",
-          "displacementMap": "CarpetDisplacementMap"
+          "aoMap": "carpet_ao_map",
+          "map": "carpet_map",
+          "normalMap": "carpet_normal_map",
+          "displacementMap": "carpet_displacement_map"
         },
         "tags": ["lambert", "textile"]
       },
@@ -336,10 +336,10 @@
         "type": "toon",
         "params": { "displacementScale": 0.1 },
         "textures": {
-          "aoMap": "CarpetAoMap",
-          "map": "CarpetMap",
-          "normalMap": "CarpetNormalMap",
-          "displacementMap": "CarpetDisplacementMap"
+          "aoMap": "carpet_ao_map",
+          "map": "carpet_map",
+          "normalMap": "carpet_normal_map",
+          "displacementMap": "carpet_displacement_map"
         },
         "tags": ["toon", "textile"]
       },
@@ -348,9 +348,9 @@
         "type": "matcap",
         "params": { "displacementScale": 0.1 },
         "textures": {
-          "map": "CarpetMap",
-          "normalMap": "CarpetNormalMap",
-          "displacementMap": "CarpetDisplacementMap"
+          "map": "carpet_map",
+          "normalMap": "carpet_normal_map",
+          "displacementMap": "carpet_displacement_map"
         },
         "tags": ["matcap", "textile"]
       }
