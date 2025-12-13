@@ -19,7 +19,7 @@ export function AbstractWatcher<T>(type: string, tags: ReadonlyArray<string> = [
       return id;
     },
     get type(): string {
-      return type + 'watcher';
+      return type + '_watcher';
     },
     get value$(): Subject<T> {
       return value$;

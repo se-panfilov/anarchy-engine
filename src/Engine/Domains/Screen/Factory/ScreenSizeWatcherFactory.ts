@@ -5,6 +5,5 @@ import { ScreenSizeWatcher } from '@/Engine/Domains/Screen/Watcher';
 
 import type { IScreenSizeWatcher, IScreenSizeWatcherFactory, IScreenSizeWatcherParams } from '../Models';
 
-// TODO (S.Panfilov) no more auto-registration
 const factory: IReactiveFactory<IScreenSizeWatcher, IScreenSizeWatcherParams> = { ...ReactiveFactory('screen_size_watcher', ScreenSizeWatcher) };
 export const ScreenSizeWatcherFactory = (): IScreenSizeWatcherFactory => ({ ...factory });

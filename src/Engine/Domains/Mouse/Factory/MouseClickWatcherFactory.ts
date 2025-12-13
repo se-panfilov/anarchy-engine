@@ -5,6 +5,5 @@ import { MouseClickWatcher } from '@/Engine/Domains/Mouse/Watcher';
 
 import type { IMouseClickWatcher, IMouseClickWatcherFactory, IMouseClickWatcherParams } from '../Models';
 
-// TODO (S.Panfilov) no more auto-registration
 const factory: IReactiveFactory<IMouseClickWatcher, IMouseClickWatcherParams> = { ...ReactiveFactory('mouse_click_watcher', MouseClickWatcher) };
 export const MouseClickWatcherFactory = (): IMouseClickWatcherFactory => ({ ...factory });
