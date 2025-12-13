@@ -1,4 +1,6 @@
 import type { ICreateFN } from '@Engine/Domains/Abstract';
-import type { ICameraParams, ICameraWrapper } from '@Engine/Domains/Camera';
+
+import type { ICameraParams } from './ICameraParams';
+import type { ICameraWrapper } from './ICameraWrapper';
 
 export type ICreateCameraFn = ICreateFN<ICameraWrapper, ICameraParams>;

@@ -1,5 +1,6 @@
-import type { ICameraConfig, ICameraParams } from '@Engine/Domains/Camera';
 import { Vector3 } from 'three';
+
+import type { ICameraConfig, ICameraParams } from '../Models';
 
 export function cameraAdapter(config: ICameraConfig): ICameraParams {
   const { position, lookAt, ...rest } = config;

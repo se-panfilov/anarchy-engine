@@ -1,8 +1,9 @@
 import type { IAbstractRegistry } from '@Engine/Domains/Abstract';
 import { AbstractRegistry } from '@Engine/Domains/Abstract';
-import type { ICameraRegistry, ICameraWrapper } from '@Engine/Domains/Camera';
 import { RegistryFacade } from '@Engine/Mixins';
 import { RegistryName } from '@Engine/Registries';
+
+import type { ICameraRegistry, ICameraWrapper } from '../Models';
 
 export const CameraRegistry = (): ICameraRegistry => {
   const abstractRegistry: IAbstractRegistry<ICameraWrapper> = AbstractRegistry<ICameraWrapper>(RegistryName.Camera);
