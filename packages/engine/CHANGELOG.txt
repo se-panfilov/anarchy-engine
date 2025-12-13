@@ -38,6 +38,7 @@
 - 20.0.x Configurable Space (added options)
 - 20.1.x Inline css for Text3d/Text2d
 - 20.2.x Configurable DracoLoader path (for Desktop app)
+- 20.3.x Extracted some code to shared package (utils, types, etc.)
 
 Roadmap:
 - 21.0.x Create a npm package
