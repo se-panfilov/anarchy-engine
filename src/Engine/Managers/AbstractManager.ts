@@ -20,6 +20,7 @@ export abstract class AbstractManager<T extends Entity> implements Manager<T> {
     this.list$.complete();
     this.destroyed$.next();
     this.destroyed$.complete();
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, functional/immutable-data
     this.id = undefined as any;
     this.current$ = undefined as any;
     this.list$ = undefined as any;

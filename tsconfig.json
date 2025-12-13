@@ -1,26 +1,30 @@
 {
   "compilerOptions": {
-    "target": "ESNext",
-    "useDefineForClassFields": true,
-    "module": "ESNext",
-    "lib": ["ESNext", "DOM"],
-    "moduleResolution": "Node",
-    "strict": true,
-    "resolveJsonModule": true,
-    "isolatedModules": true,
+    "baseUrl": ".",
     "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "isolatedModules": true,
+    "lib": ["ESNext", "DOM"],
+    "module": "ESNext",
+    "moduleResolution": "Node",
+    "noImplicitAny": true,
     "noEmit": true,
+    "noImplicitReturns": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "noImplicitReturns": true,
-    "skipLibCheck": true,
-    "types": ["node", "vite/client", "three"],
-    "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"],
-      "@Engine/*": ["./src/Engine/*"],
-      "@App/*": ["./src/App/*"]
-    }
+      "@App/*": ["./src/App/*"],
+      "@Engine/*": ["./src/Engine/*"]
+    },
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "sourceMap": true,
+    "strict": true,
+    "strictNullChecks": true,
+    "target": "ESNext",
+    "types": ["node", "vite/client", "three"],
+    "useDefineForClassFields": true
   },
   "include": ["src"]
 }
