@@ -27,9 +27,6 @@ export function initInputActors(actorService: TActorService, keyboardService: TK
   const actorMkeyLeft: TActor = getByTags(['mkey', 'Left'], LookUpStrategy.Every);
   const actorMkeyRight: TActor = getByTags(['mkey', 'Right'], LookUpStrategy.Every);
   const actorMkeyMiddle: TActor = getByTags(['mkey', 'Middle'], LookUpStrategy.Every);
-  const actorMkeyBack: TActor = getByTags(['mkey', 'Back'], LookUpStrategy.Every);
-  const actorMkeyForward: TActor = getByTags(['mkey', 'Forward'], LookUpStrategy.Every);
-  const actorMkeyExtra: TActor = getByTags(['mkey', 'Extra'], LookUpStrategy.Every);
 
   onKey(KeyCode.W).pressing$.subscribe(({ delta }: TKeyboardPressingEvent): void => void actorKeyboard.drive.default.addZ(mpsSpeed(metersPerSecond(-10), delta)));
   onKey(KeyCode.W).pressed$.subscribe((): void => void actorKeyW.drive.default.addY(-0.2));
@@ -49,8 +46,7 @@ export function initInputActors(actorService: TActorService, keyboardService: TK
 
   const watcherSurface: TIntersectionsCameraWatcher = intersectionsWatcherService.getCameraWatcher('watcher_surface');
 
-  const { clickLeftRelease$, isLeftPressed$, isRightPressed$, isMiddlePressed$, isBackPressed$, isForwardPressed$, isExtraPressed$, doubleLeftClick$, doubleRightClick$, wheelUp$, wheelDown$ } =
-    mouseService;
+  const { clickLeftRelease$, isLeftPressed$, isRightPressed$, isMiddlePressed$, doubleLeftClick$, doubleRightClick$, wheelUp$, wheelDown$ } = mouseService;
 
   clickLeftRelease$.pipe(withLatestFrom(watcherSurface.value$)).subscribe(([, intersection]: [TMouseWatcherEvent, TIntersectionEvent]): void => {
     if (isNotDefined(intersection)) throw new Error('Intersection not defined');
@@ -61,13 +57,10 @@ export function initInputActors(actorService: TActorService, keyboardService: TK
   isLeftPressed$.subscribe((isPressed: boolean): void => void actorMkeyLeft.drive.default.addY(isPressed ? -0.2 : 0.2));
   isRightPressed$.subscribe((isPressed: boolean): void => void actorMkeyRight.drive.default.addY(isPressed ? -0.2 : 0.2));
   isMiddlePressed$.subscribe((isPressed: boolean): void => void actorMkeyMiddle.drive.default.addY(isPressed ? -0.2 : 0.2));
-  isBackPressed$.subscribe((isPressed: boolean): void => void actorMkeyBack.drive.default.addY(isPressed ? -0.2 : 0.2));
-  isForwardPressed$.subscribe((isPressed: boolean): void => void actorMkeyForward.drive.default.addY(isPressed ? -0.2 : 0.2));
-  isExtraPressed$.subscribe((isPressed: boolean): void => void actorMkeyExtra.drive.default.addY(isPressed ? -0.2 : 0.2));
 
   doubleLeftClick$.subscribe((event: TMouseWatcherEvent): void => console.log('double click left', event));
   doubleRightClick$.subscribe((event: TMouseWatcherEvent): void => console.log('double click right', event));
 
-  wheelUp$.subscribe((): void => actorMkeyMiddle.drive.default.adjustRotationByX(10));
-  wheelDown$.subscribe((): void => actorMkeyMiddle.drive.default.adjustRotationByX(-10));
+  wheelUp$.subscribe((): void => actorMkeyMiddle.drive.default.adjustRotationByX(5));
+  wheelDown$.subscribe((): void => actorMkeyMiddle.drive.default.adjustRotationByX(-5));
 }

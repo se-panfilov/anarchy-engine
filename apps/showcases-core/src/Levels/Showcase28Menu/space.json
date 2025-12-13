@@ -38,9 +38,9 @@
         "model3dSource": "sphere_keyboard_model",
         "name": "sphere_keyboard_actor",
         "position": {
-          "x": -2,
+          "x": -16,
           "y": 2,
-          "z": 0
+          "z": 2
         },
         "spatial": {
           "grid": "main_grid",
@@ -69,7 +69,7 @@
         "position": {
           "x": -19,
           "y": 2,
-          "z": 9
+          "z": -10
         },
         "spatial": {
           "grid": "main_grid",
@@ -83,7 +83,7 @@
         "position": {
           "x": -22,
           "y": 2,
-          "z": 12
+          "z": -7
         },
         "spatial": {
           "grid": "main_grid",
@@ -97,7 +97,7 @@
         "position": {
           "x": -19,
           "y": 2,
-          "z": 12
+          "z": -7
         },
         "spatial": {
           "grid": "main_grid",
@@ -111,7 +111,7 @@
         "position": {
           "x": -16,
           "y": 2,
-          "z": 12
+          "z": -7
         },
         "spatial": {
           "grid": "main_grid",
@@ -125,7 +125,7 @@
         "position": {
           "x": -12,
           "y": 2,
-          "z": 9
+          "z": -7
         },
         "spatial": {
           "grid": "main_grid",
@@ -139,7 +139,7 @@
         "position": {
           "x": -10,
           "y": 2,
-          "z": 10
+          "z": -6
         },
         "spatial": {
           "grid": "main_grid",
@@ -153,55 +153,13 @@
         "position": {
           "x": -8,
           "y": 2,
-          "z": 9
+          "z": -7
         },
         "spatial": {
           "grid": "main_grid",
           "isAutoUpdate": false
         },
         "tags": ["mkey", "Right"]
-      },
-      {
-        "model3dSource": "key_model",
-        "name": "mkey_forward_model",
-        "position": {
-          "x": -12,
-          "y": 2,
-          "z": 12
-        },
-        "spatial": {
-          "grid": "main_grid",
-          "isAutoUpdate": false
-        },
-        "tags": ["mkey", "Forward"]
-      },
-      {
-        "model3dSource": "key_model",
-        "name": "mkey_back_model",
-        "position": {
-          "x": -12,
-          "y": 2,
-          "z": 14
-        },
-        "spatial": {
-          "grid": "main_grid",
-          "isAutoUpdate": false
-        },
-        "tags": ["mkey", "Back"]
-      },
-      {
-        "model3dSource": "key_model",
-        "name": "mkey_extra_model",
-        "position": {
-          "x": -12,
-          "y": 2,
-          "z": 16
-        },
-        "spatial": {
-          "grid": "main_grid",
-          "isAutoUpdate": false
-        },
-        "tags": ["mkey", "Extra"]
       }
     ],
     "audio": [],
@@ -422,7 +380,7 @@
         "position": {
           "x": -2,
           "y": 2,
-          "z": -4
+          "z": -5
         },
         "rotation": {
           "x": -1.57,
@@ -458,7 +416,7 @@
         "position": {
           "x": -1,
           "y": 2,
-          "z": 4
+          "z": -4
         },
         "rotation": {
           "x": -1.57,
@@ -469,6 +427,126 @@
           "color": "#000000",
           "fontSize": "16rem"
         }
+      },
+      {
+        "cssProps": {
+          "color": "#FF0000",
+          "fontSize": "0.1rem"
+        },
+        "name": "text_w",
+        "position": {
+          "x": -19,
+          "y": 3,
+          "z": -10
+        },
+        "rotation": {
+          "x": -1.57,
+          "y": 0,
+          "z": 0
+        },
+        "tags": ["text", "key", "W"],
+        "text": "W",
+        "type": "text_3d"
+      },
+      {
+        "cssProps": {
+          "color": "#FF0000",
+          "fontSize": "0.1rem"
+        },
+        "name": "text_a",
+        "position": {
+          "x": -22,
+          "y": 3,
+          "z": -7
+        },
+        "rotation": {
+          "x": -1.57,
+          "y": 0,
+          "z": 0
+        },
+        "tags": ["text", "key", "A"],
+        "text": "A",
+        "type": "text_3d"
+      },
+      {
+        "cssProps": {
+          "color": "#FF0000",
+          "fontSize": "0.1rem"
+        },
+        "name": "text_s",
+        "position": {
+          "x": -19,
+          "y": 3,
+          "z": -7
+        },
+        "rotation": {
+          "x": -1.57,
+          "y": 0,
+          "z": 0
+        },
+        "tags": ["text", "key", "S"],
+        "text": "S",
+        "type": "text_3d"
+      },
+      {
+        "cssProps": {
+          "color": "#FF0000",
+          "fontSize": "0.1rem"
+        },
+        "name": "text_d",
+        "position": {
+          "x": -16,
+          "y": 3,
+          "z": -7
+        },
+        "rotation": {
+          "x": -1.57,
+          "y": 0,
+          "z": 0
+        },
+        "tags": ["text", "key", "D"],
+        "text": "D",
+        "type": "text_3d"
+      },
+      {
+        "cssProps": {
+          "color": "#FF0000",
+          "fontSize": "0.1rem"
+        },
+        "name": "text_l",
+        "position": {
+          "x": -12,
+          "y": 3,
+          "z": -7
+        },
+        "rotation": {
+          "x": -1.57,
+          "y": 0,
+          "z": 0
+        },
+        "tags": ["text", "mkey", "Left"],
+        "text": "L",
+        "type": "text_3d"
+      },
+      {
+        "cssProps": {
+          "color": "#FF0000",
+          "fontSize": "0.1rem"
+        },
+        "name": "text_r",
+        "position": {
+          "x": -8,
+          "y": 3,
+          "z": -7
+        },
+        "rotation": {
+          "x": -1.57,
+          "y": 0,
+          "z": 0
+        },
+        "tags": ["text", "mkey", "Right"],
+        "text": "R",
+        "type": "text_3d"
       }
     ]
   },
