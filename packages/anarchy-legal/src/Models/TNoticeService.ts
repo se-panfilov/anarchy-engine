@@ -1,3 +1,3 @@
 import type { TGeneratorService } from './TGeneratorService';
 
-export type TThirdPartyLicensesService = TGeneratorService;
+export type TNoticeService = TGeneratorService;

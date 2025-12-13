@@ -1,3 +1,3 @@
-export type TLegalFilesService = Readonly<{
-  generate: () => Promise<void>;
-}>;
+import type { TGeneratorService } from './TGeneratorService';
+
+export type TLegalFilesService = TGeneratorService;
