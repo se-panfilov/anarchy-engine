@@ -1,9 +1,11 @@
-import type { TAnimationsService } from '@/Engine/Animations/Models';
-import type { TModel3dPack, TModels3dFacadeParams } from '@/Engine/Models3d/Models';
-import { isDefined } from '@/Engine/Utils';
+import * as SkeletonUtils from 'three/examples/jsm/utils/SkeletonUtils';
 
-export function createModels3dEntities(params: TModels3dFacadeParams, animationsService: TAnimationsService): TModel3dPack {
-  if (isDefined(params.actions) && isDefined(params.mixer)) return { ...params } as TModel3dPack;
+import type { TAnimationsService } from '@/Engine/Animations/Models';
+import type { TModel3dEntities, TModels3dFacadeParams } from '@/Engine/Models3d/Models';
+
+export function createModels3dEntities(params: TModels3dFacadeParams, animationsService: TAnimationsService): TModel3dEntities {
+  const model = SkeletonUtils.clone(params.model);
+
   const { actions, mixer } = animationsService.createActions(params.model, params.animations ?? {});
-  return { ...params, actions, mixer };
+  return { ...params, model, actions, mixer };
 }

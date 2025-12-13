@@ -30,9 +30,7 @@ export function Models3dService(registry: TModels3dAsyncRegistry, animationsServ
     if (options.shouldAddToScene) sceneW.addModel(facade.getModel());
   });
 
-  loaded$.subscribe((facade: TModel3dFacade): void => {
-    added$.next(facade);
-  });
+  loaded$.subscribe((facade: TModel3dFacade): void => added$.next(facade));
 
   function createFromPack(pack: TModel3dPack): TModel3dFacade {
     const facade = Model3dFacade(pack, animationsService);

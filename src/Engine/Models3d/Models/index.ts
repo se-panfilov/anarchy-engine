@@ -1,4 +1,5 @@
 export * from './TModel3dConfig';
+export * from './TModel3dEntities';
 export * from './TModel3dFacade';
 export * from './TModel3dLoadOptions';
 export * from './TModel3dPack';
