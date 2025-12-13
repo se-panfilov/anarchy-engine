@@ -57,7 +57,7 @@ export function SpatialGridService(): TSpatialGridService {
 
   const addToGridBulk = (tree: RBush<TSpatialCell>, list: ReadonlyArray<TSpatialCell>): RBush<TSpatialCell> => tree.load(list);
 
-  function addToCell(x: number, z: number, actorW: TActorWrapperAsync, tree: RBush<TSpatialCell>): void {
+  function addActorToCell(x: number, z: number, actorW: TActorWrapperAsync, tree: RBush<TSpatialCell>): void {
     const cells: ReadonlyArray<TSpatialCell> = tree.search({ minX: x, minY: z, maxX: x, maxY: z });
     // eslint-disable-next-line functional/no-loop-statements
     for (const cell of cells) {
@@ -71,7 +71,7 @@ export function SpatialGridService(): TSpatialGridService {
 
   function addActorToGrid(tree: RBush<TSpatialCell>, actorW: TActorWrapperAsync): void {
     const { x, z } = actorW.getPosition().getCoords();
-    addToCell(x, z, actorW, tree);
+    addActorToCell(x, z, actorW, tree);
   }
 
   const getAllItems = (tree: RBush<TSpatialCell>): ReadonlyArray<TSpatialCell> => tree.all();
@@ -108,7 +108,8 @@ export function SpatialGridService(): TSpatialGridService {
 
   function moveToNewCell(x: number, y: number, tree: RBush<TSpatialCell>, actorW: TActorWrapperAsync): void {
     removeFromGrid(actorW);
-    addToCell(x, y, actorW, tree);
+    addActorToCell(x, y, actorW, tree);
+    // addActorToGrid(tree, actorW);
   }
 
   function updateActorsCells(actorsW: ReadonlyArray<TActorWrapperAsync>, tree: RBush<TSpatialCell>): void {
@@ -148,7 +149,7 @@ export function SpatialGridService(): TSpatialGridService {
 
   return {
     createGrid,
-    addToCell,
+    addActorToCell,
     addActorToGrid,
     addToGridBulk,
     getAllItems,

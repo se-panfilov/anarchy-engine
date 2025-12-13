@@ -7,7 +7,7 @@ import type { TSceneWrapper } from '@/Engine/Scene';
 
 export type TSpatialGridService = Readonly<{
   createGrid: (mapWidth: number, mapHeight: number, cellSize: number, centerX: number, centerZ: number) => RBush<TSpatialCell>;
-  addToCell: (x: number, y: number, actorW: TActorWrapperAsync, tree: RBush<TSpatialCell>) => void;
+  addActorToCell: (x: number, y: number, actorW: TActorWrapperAsync, tree: RBush<TSpatialCell>) => void;
   addToGridBulk: (tree: RBush<TSpatialCell>, list: ReadonlyArray<TSpatialCell>) => RBush<TSpatialCell>;
   addActorToGrid: (tree: RBush<TSpatialCell>, actorW: TActorWrapperAsync) => void;
   getAllItems: (tree: RBush<TSpatialCell>) => ReadonlyArray<TSpatialCell>;
