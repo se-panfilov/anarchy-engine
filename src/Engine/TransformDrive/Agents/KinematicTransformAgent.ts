@@ -2,17 +2,15 @@ import type { Observable, Subscription } from 'rxjs';
 import { BehaviorSubject, combineLatest, EMPTY, switchMap } from 'rxjs';
 import type { QuaternionLike } from 'three';
 import { Euler, Object3D, Quaternion, Vector3 } from 'three';
-import { radToDeg } from 'three/src/math/MathUtils';
 import type { Vector3Like } from 'three/src/math/Vector3';
 
 import { metersPerSecond } from '@/Engine/Distance';
 import type { TKinematicData, TKinematicWritableData } from '@/Engine/Kinematic/Models';
 import type { TMeters, TMetersPerSecond, TMilliseconds, TRadians, TRadiansPerSecond } from '@/Engine/Math';
-import { getAzimuthElevationFromVector, getAzimuthFromDirection, getElevationFromDirection } from '@/Engine/Math';
-import { meters } from '@/Engine/Measurements';
+import { getAzimuthElevationFromQuaternion, getAzimuthElevationFromVector, getAzimuthFromDirection, getElevationFromDirection } from '@/Engine/Math';
 import { TransformAgent } from '@/Engine/TransformDrive/Constants';
 import type { TAbstractTransformAgent, TKinematicAgentDependencies, TKinematicSpeed, TKinematicTransformAgent, TKinematicTransformAgentParams } from '@/Engine/TransformDrive/Models';
-import { getStepRotation, isInstant, isPointReached, isRotationReached, moveInstantly, rotateInstantly } from '@/Engine/TransformDrive/Utils';
+import { getStepRotationInfinite, getStepRotationToTarget, isInstant, isPointReached, isRotationReached, moveInstantly, rotateInstantly } from '@/Engine/TransformDrive/Utils';
 import { isDefined, isNotDefined } from '@/Engine/Utils';
 
 import { AbstractTransformAgent } from './AbstractTransformAgent';
@@ -49,7 +47,8 @@ export function KinematicTransformAgent(params: TKinematicTransformAgentParams, 
         angularDirection: params.state.angularDirection?.clone() ?? new Quaternion(),
         // TODO 8.0.0. MODELS: Extract forwardAxis's X and Z to constants
         // TODO 8.0.0. MODELS: the default "forwardAxis" perhaps should be "X"
-        forwardAxis: params.state.forwardAxis ?? 'Z'
+        forwardAxis: params.state.forwardAxis ?? 'Z',
+        isInfiniteRotation: params.state.isInfiniteRotation ?? false
       },
       target: {
         positionThreshold: 0.01,
@@ -60,7 +59,7 @@ export function KinematicTransformAgent(params: TKinematicTransformAgentParams, 
       }
     },
     setData({ state, target }: TKinematicData): void {
-      const { linearSpeed, linearDirection, angularSpeed, angularDirection } = state;
+      const { linearSpeed, linearDirection, angularSpeed, angularDirection, forwardAxis, isInfiniteRotation } = state;
       const { positionThreshold, position, rotationThreshold, rotation } = target ?? {};
 
       // eslint-disable-next-line functional/immutable-data
@@ -139,6 +138,8 @@ export function KinematicTransformAgent(params: TKinematicTransformAgentParams, 
 
       // eslint-disable-next-line functional/immutable-data
       agent.data.target.rotation = targetRotation.clone().normalize();
+      // eslint-disable-next-line functional/immutable-data
+      agent.data.state.isInfiniteRotation = false;
 
       agent.setAngularSpeed(angularSpeed);
       return undefined;
@@ -187,8 +188,7 @@ export function KinematicTransformAgent(params: TKinematicTransformAgentParams, 
 
       // An alternative approach (better calculations with edge cases). Uses vector projection instead of trigonometry (If chose this approach, makes sense to make setLinearAzimuth using the same approach)
       // const current = agent.data.state.linearDirection;
-      // const currentY = current.y; // сохраняем текущий вертикальный компонент
-      // // Вычисляем текущую горизонтальную длину.
+      // const currentY = current.y;
       // const horizontalMag = Math.sqrt(current.x * current.x + current.z * current.z);
       // let newX: number, newZ: number;
       // if (agent.data.state.forwardAxis === 'Z') {
@@ -199,10 +199,7 @@ export function KinematicTransformAgent(params: TKinematicTransformAgentParams, 
       //   newX = Math.cos(azimuthRad) * horizontalMag;
       //   newZ = Math.sin(azimuthRad) * horizontalMag;
       // }
-      // // Обновляем только компоненты X и Z; Y остаётся прежним.
       // agent.data.state.linearDirection.set(newX, currentY, newZ);
-      // // Если вы ожидаете, что linearDirection всегда нормализован, можно вызвать normalize(),
-      // // но это может скорректировать Y, если горизонтальная часть мала.
       // // agent.data.state.linearDirection.normalize();
     },
     getLinearElevation(): TRadians {
@@ -253,7 +250,6 @@ export function KinematicTransformAgent(params: TKinematicTransformAgentParams, 
       // agent.data.state.linearDirection.set(newHorizontal.x, newY, newHorizontal.z);
       //
       // // Approach 2 (additive): If you want to "add" vertical movement
-      // // оставив горизонтальную длину, можно сделать так:
       // // const newY = current.y + Math.tan(elevationRad) * h;
       // // agent.data.state.linearDirection.set(current.x, newY, current.z);
       // // agent.data.state.linearDirection.normalize();
@@ -283,6 +279,126 @@ export function KinematicTransformAgent(params: TKinematicTransformAgentParams, 
     setAngularDirection(direction: QuaternionLike): void {
       agent.data.state.angularDirection.copy(direction);
     },
+    getAngularAzimuth(): TRadians {
+      // TODO debug
+      // return getAzimutFromQuaternionDirection(agent.data.state.angularDirection);
+      return getAzimuthFromDirection(new Euler().setFromQuaternion(agent.data.state.angularDirection));
+    },
+    setAngularAzimuth(azimuthRad: TRadians): void {
+      // eslint-disable-next-line functional/immutable-data
+      if (isDefined(agent.data.target?.rotation)) agent.data.target.rotation = undefined;
+
+      // eslint-disable-next-line functional/immutable-data
+      agent.data.state.isInfiniteRotation = true;
+
+      // approach 1
+      // const currentRotation = agent.data.state.angularDirection.clone();
+      // const euler = new Euler().setFromQuaternion(currentRotation, 'YXZ');
+      //
+      // // eslint-disable-next-line functional/immutable-data
+      // euler.y = azimuthRad; // Y - azimuth (YXZ)
+      // agent.data.state.angularDirection.setFromEuler(euler).normalize();
+
+      // approach 2
+      // const currentQuat = agent.data.state.angularDirection.clone();
+      // const { elevation } = getAzimuthElevationFromQuaternion(currentQuat);
+      // const newQuat = quaternionFromAzimuthElevation(azimuthRad, elevation);
+      // // Update angularDirection and normalize to ensure a unit quaternion
+      // agent.data.state.angularDirection.copy(newQuat).normalize();
+
+      // approach 3
+      // const { angularDirection, forwardAxis } = agent.data.state;
+      // const euler = getEulerFromAngularDirection(angularDirection.clone(), forwardAxis);
+      //
+      // if (forwardAxis === 'Z') {
+      //   euler.y = azimuthRad; // Y-ось для Z-ориентации
+      // } else {
+      //   euler.z = azimuthRad; // Z-ось для X-ориентации
+      // }
+      //
+      // agent.data.state.angularDirection.setFromEuler(euler).normalize();
+
+      //approach 4
+      // const { angularDirection, forwardAxis } = agent.data.state;
+      //
+      // // Convert to Euler angles with proper order
+      // const euler = new Euler().setFromQuaternion(angularDirection, 'YXZ');
+      //
+      // // Modify azimuth based on forward axis
+      // if (forwardAxis === 'Z') {
+      //   euler.y = azimuthRad; // Rotate around Y axis for Z-forward
+      // } else {
+      //   euler.z = azimuthRad; // Rotate around Z axis for X-forward
+      // }
+      //
+      // // Update quaternion and normalize
+      // agent.data.state.angularDirection.setFromEuler(euler).normalize();
+
+      // approach 5
+      const currentQuat = agent.data.state.angularDirection.clone();
+      const { azimuth, elevation } = getAzimuthElevationFromQuaternion(currentQuat);
+
+      let deltaAzimuth = azimuthRad - azimuth;
+      deltaAzimuth = ((deltaAzimuth + Math.PI) % (2 * Math.PI)) - Math.PI;
+      const newAzimuth = azimuth + deltaAzimuth;
+      const newQuat = quaternionFromAzimuthElevation(newAzimuth, elevation);
+      agent.data.state.angularDirection.copy(newQuat).normalize();
+    },
+    getAngularElevation(): TRadians {
+      // TODO debug
+      // return getElevationFromQuaternionDirection(agent.data.state.angularDirection);
+      return getElevationFromDirection(agent.data.state.angularDirection);
+    },
+    setAngularElevation(elevationRad: TRadians): void {
+      // eslint-disable-next-line functional/immutable-data
+      if (isDefined(agent.data.target?.rotation)) agent.data.target.rotation = undefined;
+      // eslint-disable-next-line functional/immutable-data
+      agent.data.state.isInfiniteRotation = true;
+
+      //v1
+      // const currentRotation = agent.data.state.angularDirection.clone();
+      //
+      // const euler = new Euler().setFromQuaternion(currentRotation, 'YXZ');
+      //
+      // euler.x = elevationRad;
+
+      // agent.data.state.angularDirection.setFromEuler(euler).normalize();
+
+      // v2
+      // const azimuth: TRadians = agent.getAngularAzimuth();
+      // const quaternion: Quaternion = new Quaternion().setFromEuler(new Euler(elevationRad, azimuth, 0, 'ZYX'));
+      // agent.data.state.angularDirection.copy(quaternion);
+      // // This approach could lead to bugs, if the quaternion is not normalized
+      // // const azimuth: TRadians = agent.getAngularAzimuth();
+      //
+      // const sinElevation: TRadians = Math.sin(elevationRad) as TRadians;
+      // const cosElevation: TRadians = Math.cos(elevationRad) as TRadians;
+      //
+      // const sinAzimuth: TRadians = Math.sin(azimuth) as TRadians;
+      // const cosAzimuth: TRadians = Math.cos(azimuth) as TRadians;
+      //
+      // agent.data.state.angularDirection
+      //   .set(
+      //     cosElevation * cosAzimuth, // x
+      //     sinElevation, // y
+      //     cosElevation * sinAzimuth, // z
+      //     Math.sqrt(1 - sinElevation ** 2) // w
+      //   )
+      //   .normalize();
+
+      // v3
+      const { angularDirection } = agent.data.state;
+
+      // Convert to Euler angles with fixed order
+      const euler = new Euler().setFromQuaternion(angularDirection, 'YXZ');
+
+      // Modify elevation (X axis for vertical)
+      // eslint-disable-next-line functional/immutable-data
+      euler.x = elevationRad;
+
+      // Update quaternion and normalize
+      agent.data.state.angularDirection.setFromEuler(euler).normalize();
+    },
     resetAngular(resetSpeed: boolean, resetDirection: boolean): void {
       if (resetSpeed) agent.setAngularSpeed(0);
       if (resetDirection) agent.setAngularDirection(new Quaternion());
@@ -309,11 +425,11 @@ export function KinematicTransformAgent(params: TKinematicTransformAgentParams, 
     const rotationStep: TRadians = (agent.data.state.angularSpeed * delta) as TRadians;
 
     let stepRotation: Quaternion | undefined;
-    if (agent.data.target?.rotation) {
+    if (agent.data.state.isInfiniteRotation) {
+      stepRotation = getStepRotationInfinite(agent, rotationStep);
+    } else {
       if (isRotationReached(agent.data.target, agent.rotation$.value, agent.data.state)) return;
       stepRotation = getStepRotationToTarget(agent, rotationStep);
-    } else {
-      stepRotation = getStepRotationInfinite(agent, rotationStep);
     }
     if (isNotDefined(stepRotation)) return;
 
@@ -332,4 +448,10 @@ export function KinematicTransformAgent(params: TKinematicTransformAgentParams, 
     });
 
   return agent;
+}
+
+// TODO 8.0.0. MODELS: Extract or reove
+function quaternionFromAzimuthElevation(azimuth: TRadians, elevation: TRadians): Quaternion {
+  const euler = new Euler(elevation, azimuth, 0, 'YXZ');
+  return new Quaternion().setFromEuler(euler);
 }

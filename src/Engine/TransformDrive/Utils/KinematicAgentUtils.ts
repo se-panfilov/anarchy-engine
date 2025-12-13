@@ -52,14 +52,74 @@ export function getStepRotationToTarget(agent: TKinematicTransformAgent, rotatio
 //   return new Quaternion().setFromEuler(stepEuler);
 // }
 
+// export function getStepRotationInfinite(agent: TKinematicTransformAgent, rotationStep: TRadians): Quaternion {
+//   const angularDirection: Quaternion = agent.data.state.angularDirection;
+//   const axis = new Vector3(angularDirection.x, angularDirection.y, angularDirection.z);
+//   if (axis.lengthSq() < 1e-6) axis.set(0, 1, 0);
+//
+//   axis.normalize();
+//
+//   return new Quaternion().setFromAxisAngle(axis, rotationStep);
+// }
+
+// export function getStepRotationInfinite(agent: TKinematicTransformAgent, rotationStep: TRadians): Quaternion {
+//   const currentRotation: Quaternion = agent.rotation$.value.clone();
+//   const axis: Vector3 = new Vector3(0, 1, 0).applyQuaternion(currentRotation).normalize(); // Y axis
+//
+//   return new Quaternion().setFromAxisAngle(axis, rotationStep);
+// }
+
+// export function getStepRotationInfinite(agent: TKinematicTransformAgent, rotationStep: TRadians): Quaternion {
+//   const { angularDirection, forwardAxis } = agent.data.state;
+//
+//   const forward = new Vector3();
+//   if (forwardAxis === 'Z') {
+//     forward.set(0, 0, 1);
+//   } else {
+//     forward.set(1, 0, 0);
+//   }
+//   forward.applyQuaternion(angularDirection).normalize();
+//
+//   const rotationAxis = new Vector3(0, 1, 0); // По умолчанию вращаем вокруг Y (азимут)
+//
+//   // if (agent.data.state.isElevationChanging) {
+//   // rotationAxis.crossVectors(forward, new Vector3(0, 1, 0)).normalize();
+//   // }
+//
+//   if (rotationAxis.lengthSq() < 1e-6) {
+//     rotationAxis.set(0, 1, 0);
+//   }
+//
+//   return new Quaternion().setFromAxisAngle(rotationAxis, rotationStep);
+// }
+
+// export function getStepRotationInfinite(agent: TKinematicTransformAgent, rotationStep: TRadians): Quaternion | undefined {
+//   const { angularDirection, forwardAxis } = agent.data.state;
+//
+//   // Determine rotation axis based on movement type
+//   let axis: Vector3;
+//   const currentEuler = new Euler().setFromQuaternion(angularDirection, 'YXZ');
+//
+//   if (Math.abs(currentEuler.x) > 0.001) {
+//     // Elevation change
+//     axis = new Vector3(1, 0, 0); // X-axis for elevation
+//   } else {
+//     axis =
+//       forwardAxis === 'Z'
+//         ? new Vector3(0, 1, 0) // Y-axis for Z-forward azimuth
+//         : new Vector3(0, 0, 1); // Z-axis for X-forward azimuth
+//   }
+//
+//   // Create rotation quaternion
+//   return new Quaternion().setFromAxisAngle(axis.normalize(), rotationStep).normalize();
+// }
+
 export function getStepRotationInfinite(agent: TKinematicTransformAgent, rotationStep: TRadians): Quaternion {
-  const angularDirection: Quaternion = agent.data.state.angularDirection;
-  const axis = new Vector3(angularDirection.x, angularDirection.y, angularDirection.z);
-  if (axis.lengthSq() < 1e-6) axis.set(0, 1, 0);
-
-  axis.normalize();
-
-  return new Quaternion().setFromAxisAngle(axis, rotationStep);
+  const { angularDirection, forwardAxis } = agent.data.state;
+  if (angularDirection.equals(new Quaternion(0, 0, 0, 1))) return new Quaternion();
+  const axis = forwardAxis === 'Z' ? new Vector3(0, 1, 0) : new Vector3(0, 0, 1);
+  const sign = Math.sign(rotationStep) || 1;
+  return new Quaternion().setFromAxisAngle(axis, sign * Math.abs(rotationStep)).normalize();
 }
 
 export function isPointReached(target: TKinematicTarget | undefined, position: Vector3, state: TKinematicState): boolean {
