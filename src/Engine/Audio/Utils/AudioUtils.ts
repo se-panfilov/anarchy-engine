@@ -1,6 +1,6 @@
-import type { PositionalAudio } from 'three';
+import { PositionalAudio } from 'three';
 
-import type { TAudio3dConfig, TAudioConfig } from '@/Engine/Audio/Models';
+import type { TAudio3dConfig, TAudioConfig, TAudioParams } from '@/Engine/Audio/Models';
 
 export const isAudio3dConfig = (config: TAudioConfig | TAudio3dConfig): config is TAudio3dConfig => (config as TAudio3dConfig).position !== undefined;
 
@@ -23,20 +23,32 @@ export function resumeAudio(entity: AudioBuffer): void {
   // entity.pausedAt = null;
 }
 
-// TODO 11.0.0: implement fadeAudio
+// TODO 11.0.0: fadeAudio if seekAudio is working
 export function fadeAudio(audio: PositionalAudio, toVolume: number, duration: number): void {
-  console.warn('fadeAudio is not implemented yet');
-  // const gainNode = audio.gain;
-  // gainNode.gain.cancelScheduledValues(audio.context.currentTime);
-  // gainNode.gain.setValueAtTime(gainNode.gain.value, audio.context.currentTime);
-  // gainNode.gain.linearRampToValueAtTime(toVolume, audio.context.currentTime + duration);
+  const gainNode = audio.gain;
+  gainNode.gain.cancelScheduledValues(audio.context.currentTime);
+  gainNode.gain.setValueAtTime(gainNode.gain.value, audio.context.currentTime);
+  gainNode.gain.linearRampToValueAtTime(toVolume, audio.context.currentTime + duration);
 }
 
-// TODO 11.0.0: implement seekAudio
-export function seekAudio(entity: AudioBuffer, time: number): void {
-  console.warn('seekAudio is not implemented yet');
-  // if (!entity.buffer) return;
-  // entity.stop();
-  // entity.offset = time;
-  // entity.play();
+// TODO 11.0.0: check if seekAudio is working
+export function seekAudio(entity: PositionalAudio, time: number): void {
+  if (!entity.buffer) return;
+  entity.stop();
+  // eslint-disable-next-line functional/immutable-data
+  entity.offset = time;
+  entity.play();
+}
+
+export function createPositionalAudion(audioSource: AudioBuffer, params: TAudioParams): PositionalAudio {
+  const positionalAudio = new PositionalAudio(params.listener);
+
+  positionalAudio.setBuffer(audioSource!);
+  positionalAudio.setRefDistance(params.refDistance ?? 1);
+  positionalAudio.setVolume(params.volume);
+  if (params.rolloffFactor) positionalAudio.setRolloffFactor(params.rolloffFactor);
+  positionalAudio.setDistanceModel(params.distanceModel ?? 'linear');
+  if (params.maxDistance) positionalAudio.setMaxDistance(params.maxDistance);
+  if (params.directionalCone) positionalAudio.setDirectionalCone(params.directionalCone.x, params.directionalCone.y, params.directionalCone.z);
+  return positionalAudio;
 }

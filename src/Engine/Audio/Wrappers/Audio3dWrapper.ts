@@ -1,5 +1,6 @@
 import type { Observable, Subscription } from 'rxjs';
 import { BehaviorSubject, combineLatest, distinctUntilChanged, filter, sample, Subject, tap } from 'rxjs';
+import type { PositionalAudio } from 'three';
 import { Vector3 } from 'three';
 
 import type { TWrapper } from '@/Engine/Abstract';
@@ -7,7 +8,7 @@ import { AbstractWrapper, WrapperType } from '@/Engine/Abstract';
 import { DriveToAudio3dConnector } from '@/Engine/Audio/Connectors';
 import type { TAudio3dParams, TAudio3dTransformDrive, TAudio3dWrapper, TAudio3dWrapperDependencies, TAudioLoop } from '@/Engine/Audio/Models';
 import { Audio3dTransformDrive } from '@/Engine/Audio/TransformDrive';
-import { fadeAudio, pauseAudio, resumeAudio, seekAudio } from '@/Engine/Audio/Utils';
+import { createPositionalAudion, fadeAudio, pauseAudio, resumeAudio, seekAudio } from '@/Engine/Audio/Utils';
 import { LoopUpdatePriority } from '@/Engine/Loop';
 import type { TMeters } from '@/Engine/Math';
 import { meters } from '@/Engine/Measurements';
@@ -19,8 +20,7 @@ import { isEqualOrSimilarByXyzCoords } from '@/Engine/Utils';
 
 export function Audio3dWrapper(params: TAudio3dParams, { loopService }: TAudio3dWrapperDependencies): TAudio3dWrapper {
   const { audioSource, volume, position, performance } = params;
-  // TODO 11.0.0: AudioBuffer is a resource, but wrapper should be PositionalAudio, guess
-  const entity: AudioBuffer = audioSource;
+  const entity: PositionalAudio = createPositionalAudion(audioSource, params);
   const position$: BehaviorSubject<TReadonlyVector3> = new BehaviorSubject<TReadonlyVector3>(position);
   const listenerPosition$: BehaviorSubject<TReadonlyVector3> = new BehaviorSubject<TReadonlyVector3>(new Vector3());
 
@@ -51,7 +51,7 @@ export function Audio3dWrapper(params: TAudio3dParams, { loopService }: TAudio3d
     });
 
   const speedSub$: Subscription = speed$.pipe(distinctUntilChanged()).subscribe((speed: number): void => {
-    entity.setPlaybackRate();
+    entity.setPlaybackRate(speed);
   });
 
   const seekSub$: Subscription = seek$.pipe(distinctUntilChanged()).subscribe((seek: number): void => {
@@ -70,7 +70,7 @@ export function Audio3dWrapper(params: TAudio3dParams, { loopService }: TAudio3d
     .subscribe(([sourcePosition, listenerPos]: [TReadonlyVector3, TReadonlyVector3]): void => {
       volume$.next(calculateVolume(sourcePosition, listenerPos));
       const relativePos: TReadonlyVector3 = sourcePosition.clone().sub(listenerPos);
-      entity.pos(relativePos.x, relativePos.y, relativePos.z);
+      entity.position(relativePos);
     });
 
   function calculateVolume(sourcePosition: TReadonlyVector3, listenerPos: TReadonlyVector3): number {
