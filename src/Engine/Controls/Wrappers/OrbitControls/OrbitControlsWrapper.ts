@@ -1,7 +1,6 @@
 import { Vector3 } from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
-import type { TReadonlyVector3 } from '@/Engine';
 import { AbstractWrapper, WrapperType } from '@/Engine/Abstract';
 import type { ControlsType } from '@/Engine/Controls/Constants';
 import type { TOrbitControlsParams, TOrbitControlsWrapper } from '@/Engine/Controls/Models';
@@ -9,6 +8,7 @@ import { getOrbitControlsAccessors } from '@/Engine/Controls/Wrappers/OrbitContr
 import { applyOrbitControlsParams } from '@/Engine/Controls/Wrappers/OrbitControls/OrbitControlsWrapperHelper';
 import type { TMilliseconds } from '@/Engine/Math';
 import { withActiveMixin } from '@/Engine/Mixins';
+import type { TReadonlyVector3 } from '@/Engine/ThreeLib';
 import { isDefined } from '@/Engine/Utils';
 
 export function OrbitControlsWrapper(params: TOrbitControlsParams): TOrbitControlsWrapper {
