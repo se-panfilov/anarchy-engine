@@ -2,6 +2,7 @@
 .husky
 test
 node_modules
+reports/*
 .idea
 .tmp
 .DS_Store
