@@ -1,25 +1,29 @@
-import { ReplaySubject } from 'rxjs';
 import { TextureLoader } from 'three';
 
-import type { ITexture, ITextureParams, ITextureService } from '@/Engine/Domains/Texture/Models';
-import { applyColorSpace, applyFilters, applyTextureParams, loadTexture } from '@/Engine/Domains/Texture/Service/TextureServiceHelper';
+import type { ITexture, ITexturePack, ITextureService, IUploadTexturePromises } from '@/Engine/Domains/Texture/Models';
+import { applyColorSpace, applyFilters, applyTextureParams } from '@/Engine/Domains/Texture/Service/TextureServiceHelper';
 import type { IWriteable } from '@/Engine/Utils';
 
 export function TextureService(): ITextureService {
   const textureLoader: TextureLoader = new TextureLoader();
-  const messages$: ReplaySubject<string> = new ReplaySubject<string>();
-  const sendMessage = (message: string): void => messages$.next(message);
 
-  function load(params: ITextureParams): ITexture {
-    const texture: IWriteable<ITexture> = loadTexture(params.url, textureLoader, messages$);
-    applyTextureParams(texture, params);
-    applyColorSpace(texture, params.colorSpace);
-    applyFilters(texture, params.magFilter, params.minFilter);
+  function load(pack: ITexturePack): IUploadTexturePromises {
+    let promises: IUploadTexturePromises = {} as IUploadTexturePromises;
 
-    return texture;
+    Object.entries(pack).forEach(([key, { url, params }]): void => {
+      const p: Promise<ITexture> = textureLoader.loadAsync(url).then((texture: IWriteable<ITexture>): ITexture => {
+        applyTextureParams(texture, params);
+        applyColorSpace(texture, params);
+        applyFilters(texture, params);
+        return texture;
+      });
+      promises = { ...promises, [key]: p };
+    });
+
+    return promises;
   }
 
-  return { load, sendMessage, messages$ };
+  return { load };
 }
 
 export const textureService: ITextureService = TextureService();

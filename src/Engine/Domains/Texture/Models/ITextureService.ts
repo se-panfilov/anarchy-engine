@@ -1,10 +1,6 @@
-import type { ReplaySubject } from 'rxjs';
-
-import type { ITexture } from './ITexture';
-import type { ITextureParams } from './ITextureParams';
+import type { ITexturePack } from './ITexturePack';
+import type { IUploadTexturePromises } from './IUploadTexturePromises';
 
 export type ITextureService = {
-  load: (params: ITextureParams) => ITexture;
-  sendMessage: (message: string) => void;
-  messages$: ReplaySubject<string>;
+  load: (pack: ITexturePack) => IUploadTexturePromises;
 };

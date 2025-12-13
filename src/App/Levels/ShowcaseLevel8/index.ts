@@ -3,7 +3,7 @@ import { combineLatest } from 'rxjs';
 import type { IShowcase } from '@/App/Levels/Models';
 import type { IActorWrapper, IAppCanvas, ILevel, ILevelConfig, ITexture } from '@/Engine';
 import { ambientContext, buildLevelFromConfig, CameraTag, getRotationByCos, getRotationBySin, isDefined, isNotDefined } from '@/Engine';
-import { textureService } from '@/Engine/Domains/Texture';
+import { type ITexturePack, textureService } from '@/Engine/Domains/Texture';
 
 import levelConfig from './showcase-level-8.config.json';
 
@@ -12,7 +12,8 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
   const level: ILevel = buildLevelFromConfig(canvas, levelConfig as ILevelConfig);
 
   // TODO (S.Panfilov) CWP add loading of textures from config
-  const textures: Record<string, ITexture> = textureService.load({ door: '/ShowcaseLevel8/Door_Wood/Door_Wood_001_basecolor.jpg' });
+  const pack: ITexturePack = { map: { url: '/ShowcaseLevel8/Door_Wood/Door_Wood_001_basecolor.jpg' } };
+  const textures: Record<string, ITexture> = textureService.load(pack);
 
   function start(): void {
     level.start();
