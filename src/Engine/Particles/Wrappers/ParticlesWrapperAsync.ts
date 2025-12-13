@@ -36,6 +36,7 @@ export async function ParticlesWrapperAsync(params: TParticlesParams, { material
     ...scalableMixin(entity),
     ...withObject3d(entity),
     ...withMaterialEntity,
+    // TODO 9.0.0. RESOURCES: Check if withTextures is still suitable here
     ...withTextures(withMaterialEntity, materialTextureService),
     setMaterialColor,
     getMaterialColor,

@@ -1,5 +1,5 @@
 import type { TMaterialParams, TMaterialProps, TMaterialService, TMaterialWrapper } from '@/Engine/Material';
-import type { TMaterialPackParams, TMaterialTexturePack, TMaterialTextureService } from '@/Engine/MaterialTexturePack';
+import type { TMaterialPackConfig, TMaterialPackParams, TMaterialTexturePack, TMaterialTextureService } from '@/Engine/MaterialTexturePack';
 import type { TTextureService, TTextureUploaded } from '@/Engine/Texture';
 
 export function MaterialTextureService(materialService: TMaterialService, textureService: TTextureService): TMaterialTextureService {
@@ -13,5 +13,13 @@ export function MaterialTextureService(materialService: TMaterialService, textur
       });
   };
 
-  return { createAsync };
+  // const createFromConfigAsync = (packs: ReadonlyArray<TMaterialPackConfig<TMaterialTexturePack>>): void => {
+  //   packs.forEach((pack: TMaterialPackConfig<TMaterialTexturePack>): void => createAsync(pack));
+  // };
+  //
+  // const createFromConfigAsync = (packs: ReadonlyArray<TMaterialPackConfig<TMaterialTexturePack>>): void => {
+  //   packs.forEach((config: TMaterialPackConfig<TMaterialTexturePack>): void => factory.create(factory.configToParams(config)));
+  // };
+
+  return { createAsync, createFromConfigAsync };
 }
