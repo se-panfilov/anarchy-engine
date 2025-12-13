@@ -115,13 +115,14 @@ function saveSpaceConfigInMemory(name: string | undefined, spaceRegistry: TSpace
 
   const spaceData: TSpacesData | undefined = spacesData.find((s: TSpacesData): boolean => s.name === name);
   if (isNotDefined(spaceData)) throw new Error(`[Showcase]: Space data is not found for space "${name}"`);
-  const { onSpaceReady, onChange, onUnload, onCreate } = spaceData;
+  const { onSpaceReady, onChange, onUnload, onCreate, awaits } = spaceData;
 
   // eslint-disable-next-line functional/immutable-data
   spacesInMemoryData[index > -1 ? index : 0] = {
     name: space.name,
     config,
     container: config.canvasSelector,
+    awaits,
     onCreate,
     onSpaceReady,
     onChange,
