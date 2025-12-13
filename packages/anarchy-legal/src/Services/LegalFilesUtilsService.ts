@@ -46,33 +46,35 @@ export function LegalFilesUtilsService(repoUtilsService: TRepoUtilsService): TLe
 
       // Very light validation and narrowing
       const obj = exported as Record<string, unknown>;
-      const config: TAnarchyLegalConfig = {};
 
-      const assign = (k: 'GENERIC' | TLegalDocumentType): void => {
+      const processConfigSection = (k: 'GENERIC' | TLegalDocumentType): [string, any] | undefined => {
         const v = obj[k];
-        if (v === undefined) return;
+        if (v === undefined) return undefined;
         if (!v || typeof v !== 'object' || Array.isArray(v)) {
           console.warn(`[warn] anarchy-legal.config: section "${k}" must be an object; got ${typeof v}. Skipped.`);
-          return;
+          return undefined;
         }
         const { template, messages } = v as { template?: string; messages?: TTemplateMessages };
-        // eslint-disable-next-line functional/immutable-data
-        config[k] = {
-          ...(template ? { template } : {}),
-          ...(messages ? { messages } : {})
-        };
+        return [
+          k,
+          {
+            ...(template ? { template } : {}),
+            ...(messages ? { messages } : {})
+          }
+        ];
       };
 
-      assign('GENERIC');
-      // eslint-disable-next-line functional/no-loop-statements
-      for (const dt of Object.values(LegalDocumentType)) assign(dt);
+      // Process all sections functionally
+      const allSections = ['GENERIC' as const, ...Object.values(LegalDocumentType)];
+      const processedEntries = allSections.map(processConfigSection).filter((entry): entry is [string, any] => entry !== undefined);
+
+      const config: TAnarchyLegalConfig = Object.fromEntries(processedEntries);
 
       // Warn on unknown keys (helps catch typos)
       const known = new Set<string>(['GENERIC', ...Object.values(LegalDocumentType)]);
-      // eslint-disable-next-line functional/no-loop-statements
-      for (const k of Object.keys(obj)) {
-        if (!known.has(k)) console.warn(`[warn] anarchy-legal.config: unknown section "${k}" ignored.`);
-      }
+      Object.keys(obj)
+        .filter((k) => !known.has(k))
+        .forEach((k) => console.warn(`[warn] anarchy-legal.config: unknown section "${k}" ignored.`));
 
       debugLog(isDebug(), 'config file:', found, 'keys:', Object.keys(config));
       return config;
