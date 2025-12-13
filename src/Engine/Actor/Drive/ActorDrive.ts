@@ -2,18 +2,15 @@ import type { Observable, Subscription } from 'rxjs';
 import { BehaviorSubject, distinctUntilChanged, filter, ReplaySubject, sampleTime, switchMap } from 'rxjs';
 import type { Euler, Vector3 } from 'three';
 
+import type { TAbstractDriver, TProtectedDriverFacade } from '@/Engine/Abstract';
 import { ProtectedDriverFacade } from '@/Engine/Abstract';
 import { ActorDriver } from '@/Engine/Actor/Constants';
-import type { TActorActiveDrivers, TActorDependencies, TActorDrive, TActorParams } from '@/Engine/Actor/Models';
+import type { TActorDrive, TActorDrivers, TActorParams } from '@/Engine/Actor/Models';
 import { isEqualOrSimilar } from '@/Engine/Actor/Utils';
-import type { TKinematicActorDriver } from '@/Engine/Kinematic';
-import { KinematicActorDriver } from '@/Engine/Kinematic';
 import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
-import type { TPhysicsActorDriver } from '@/Engine/Physics';
-import { PhysicsActorDriver } from '@/Engine/Physics';
 
-export function ActorDrive(params: TActorParams, { kinematicLoopService }: Pick<TActorDependencies, 'kinematicLoopService'>): TActorDrive {
+export function ActorDrive(params: TActorParams, drivers: TActorDrivers): TActorDrive {
   //We don't want to expose these BehaviorSubjects, because they're vulnerable to external changes without .next()
   const position$: BehaviorSubject<Vector3> = new BehaviorSubject<Vector3>(params.position);
   const positionRep$: ReplaySubject<Vector3> = new ReplaySubject<Vector3>(1);
@@ -28,18 +25,14 @@ export function ActorDrive(params: TActorParams, { kinematicLoopService }: Pick<
 
   const driver$: BehaviorSubject<ActorDriver> = new BehaviorSubject<ActorDriver>(params.driver ?? ActorDriver.None);
 
-  const kinematicDriver: TKinematicActorDriver = KinematicActorDriver(params, kinematicLoopService, driver$);
-  const physicsDriver: TPhysicsActorDriver = PhysicsActorDriver(params, driver$);
-
   const destroyable: TDestroyable = destroyableMixin();
-  const availableDrives: TActorActiveDrivers = { [ActorDriver.Kinematic]: kinematicDriver, [ActorDriver.Physical]: physicsDriver };
 
   const delay: number = params.driveUpdateDelay ?? 16; // 60 FPS
   const threshold: number = params.driveCoordsThreshold ?? 0.001;
 
   const positionSub$: Subscription = driver$
     .pipe(
-      switchMap((drive: ActorDriver): Observable<Vector3> => availableDrives[drive as keyof TActorActiveDrivers].position$),
+      switchMap((drive: ActorDriver): Observable<Vector3> => drivers[drive as keyof TActorDrivers].position$),
       distinctUntilChanged((prev: Vector3, curr: Vector3): boolean => isEqualOrSimilar(prev, curr, threshold)),
       sampleTime(delay)
     )
@@ -47,7 +40,7 @@ export function ActorDrive(params: TActorParams, { kinematicLoopService }: Pick<
 
   const rotationSub$: Subscription = driver$
     .pipe(
-      switchMap((drive: ActorDriver): Observable<Euler> => availableDrives[drive as keyof TActorActiveDrivers].rotation$),
+      switchMap((drive: ActorDriver): Observable<Euler> => drivers[drive as keyof TActorDrivers].rotation$),
       distinctUntilChanged((prev: Euler, curr: Euler): boolean => isEqualOrSimilar(prev, curr, threshold)),
       sampleTime(delay)
     )
@@ -55,7 +48,7 @@ export function ActorDrive(params: TActorParams, { kinematicLoopService }: Pick<
 
   const scaleSub$: Subscription = driver$
     .pipe(
-      switchMap((drive: ActorDriver): Observable<Vector3 | undefined> => availableDrives[drive as keyof TActorActiveDrivers].scale$),
+      switchMap((drive: ActorDriver): Observable<Vector3 | undefined> => drivers[drive as keyof TActorDrivers].scale$),
       filter((value: Vector3 | undefined): value is Vector3 => value !== undefined),
       distinctUntilChanged((prev: Vector3, curr: Vector3): boolean => isEqualOrSimilar(prev, curr, threshold)),
       sampleTime(delay)
