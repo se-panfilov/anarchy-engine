@@ -6,16 +6,7 @@
         "agent": "physical",
         "model3dSource": "surface_model",
         "name": "surface_actor",
-        "physics": {
-          "name": "surface_physics",
-          "collisionShape": "cuboid",
-          "shapeParams": {
-            "hx": 10,
-            "hy": 10,
-            "hz": 0.025
-          },
-          "type": "fixed"
-        },
+        "physicBodyName": "surface_physics",
         "position": {
           "x": 0,
           "y": 0,
@@ -35,14 +26,7 @@
         "agent": "physical",
         "model3dSource": "sphere_1_model",
         "name": "sphere_1_actor",
-        "physics": {
-          "name": "sphere_1_physics",
-          "collisionShape": "ball",
-          "shapeParams": {
-            "radius": 1
-          },
-          "type": "dynamic"
-        },
+        "physicBodyName": "sphere_1_physics",
         "position": {
           "x": 0,
           "y": 6,
@@ -57,17 +41,7 @@
         "agent": "physical",
         "model3dSource": "cube_1_model",
         "name": "cube_1_actor",
-        "physics": {
-          "name": "cube_1_physics",
-          "collisionShape": "cuboid",
-          "restitution": 0.1,
-          "shapeParams": {
-            "hx": 0.5,
-            "hy": 2,
-            "hz": 0.5
-          },
-          "type": "dynamic"
-        },
+        "physicBodyName": "cube_1_physics",
         "position": {
           "x": -4,
           "y": 4,
@@ -87,17 +61,7 @@
         "agent": "physical",
         "model3dSource": "cube_2_model",
         "name": "cube_2_actor",
-        "physics": {
-          "name": "cube_2_physics",
-          "collisionShape": "cuboid",
-          "restitution": 0.1,
-          "shapeParams": {
-            "hx": 0.5,
-            "hy": 2,
-            "hz": 0.5
-          },
-          "type": "dynamic"
-        },
+        "physicBodyName": "cube_2_physics",
         "position": {
           "x": 4,
           "y": 9,
@@ -117,15 +81,7 @@
         "agent": "physical",
         "model3dSource": "sphere_2_model",
         "name": "sphere_2_actor",
-        "physics": {
-          "name": "sphere_2_physics",
-          "collisionShape": "ball",
-          "restitution": 0.9,
-          "shapeParams": {
-            "radius": 1
-          },
-          "type": "dynamic"
-        },
+        "physicBodyName": "sphere_2_physics",
         "position": {
           "x": 1,
           "y": 12,
@@ -140,15 +96,7 @@
         "agent": "physical",
         "model3dSource": "sphere_3_model",
         "name": "sphere_3_actor",
-        "physics": {
-          "name": "sphere_3_physics",
-          "collisionShape": "ball",
-          "restitution": 0.9,
-          "shapeParams": {
-            "radius": 2
-          },
-          "type": "dynamic"
-        },
+        "physicBodyName": "sphere_3_physics",
         "position": {
           "x": 1,
           "y": 12,
@@ -371,7 +319,126 @@
           "z": 0
         }
       },
-      "bodies": []
+      "bodies": [
+        {
+          "name": "surface_physics",
+          "collisionShape": "cuboid",
+          "shapeParams": {
+            "hx": 10,
+            "hy": 10,
+            "hz": 0.025
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "rotation": {
+            "x": -1.57,
+            "y": 0,
+            "z": 0
+          },
+          "type": "fixed"
+        },
+        {
+          "name": "sphere_1_physics",
+          "collisionShape": "ball",
+          "shapeParams": {
+            "radius": 1
+          },
+          "position": {
+            "x": 0,
+            "y": 6,
+            "z": 0
+          },
+          "rotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "type": "dynamic"
+        },
+        {
+          "name": "cube_1_physics",
+          "collisionShape": "cuboid",
+          "restitution": 0.1,
+          "shapeParams": {
+            "hx": 0.5,
+            "hy": 2,
+            "hz": 0.5
+          },
+          "position": {
+            "x": -4,
+            "y": 4,
+            "z": 3
+          },
+          "rotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "type": "dynamic"
+        },
+        {
+          "name": "cube_2_physics",
+          "collisionShape": "cuboid",
+          "restitution": 0.1,
+          "shapeParams": {
+            "hx": 0.5,
+            "hy": 2,
+            "hz": 0.5
+          },
+          "position": {
+            "x": 4,
+            "y": 9,
+            "z": -4
+          },
+          "rotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "type": "dynamic"
+        },
+        {
+          "name": "sphere_2_physics",
+          "collisionShape": "ball",
+          "restitution": 0.9,
+          "shapeParams": {
+            "radius": 1
+          },
+          "position": {
+            "x": 1,
+            "y": 12,
+            "z": 0
+          },
+          "rotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "type": "dynamic"
+        },
+        {
+          "name": "sphere_3_physics",
+          "collisionShape": "ball",
+          "restitution": 0.9,
+          "shapeParams": {
+            "radius": 2
+          },
+          "position": {
+            "x": 1,
+            "y": 12,
+            "z": 1
+          },
+          "rotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "type": "dynamic"
+        }
+      ]
     },
     "renderers": [
       {
