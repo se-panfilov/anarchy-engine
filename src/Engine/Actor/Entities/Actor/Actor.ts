@@ -27,8 +27,6 @@ export function Actor(
   const driveToModel3dConnector: TDriveToModel3dConnector = DriveToModel3dConnector(drive, model3d);
 
   // TODO CWP:
-  // TODO 8.0.0. MODELS: In ActorDriver implement external change of position$/rotation$/scale$ and make sure it works
-
   // TODO 8.0.0. MODELS: Implement PhysicsAgent
   // TODO 8.0.0. MODELS: Connect Physics body with the PhysicsAgent
   // TODO 8.0.0. MODELS: Make sure external change of position$/rotation$/scale$ works with the PhysicsAgent

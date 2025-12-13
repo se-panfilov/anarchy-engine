@@ -52,6 +52,11 @@ export function TransformDrive(params: TTransformDriveParams, agents: TTransform
   scale$.subscribe(scaleRep$);
   activeAgent$.subscribe((agent: TAbstractTransformAgent): void => activeAgentRep$.next(ProtectedTransformAgentFacade(agent)));
 
+  // Update values of the active agent when drive.position$.next() is called from an external code
+  positionRep$.subscribe(activeAgent$.value.position$);
+  rotationRep$.subscribe(activeAgent$.value.rotation$);
+  scaleRep$.subscribe(activeAgent$.value.scale$);
+
   const destroyable: TDestroyable = destroyableMixin();
 
   // TODO ENV: limited fps, perhaps should be configurable
@@ -112,6 +117,12 @@ export function TransformDrive(params: TTransformDriveParams, agents: TTransform
     rotation$.unsubscribe();
     scale$.complete();
     scale$.unsubscribe();
+    positionRep$.complete();
+    positionRep$.unsubscribe();
+    rotationRep$.complete();
+    rotationRep$.unsubscribe();
+    scaleRep$.complete();
+    scaleRep$.unsubscribe();
 
     Object.values(agents).forEach((agent: TProtectedTransformAgentFacade<TAbstractTransformAgent>): void => agent.destroy$.next());
   });

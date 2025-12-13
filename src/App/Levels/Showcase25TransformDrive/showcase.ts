@@ -91,7 +91,6 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
 function moveActorTo(actor: TActor, position: Vector3, agent: TransformAgent, isTeleportationMode: boolean): void | never {
   if (isTeleportationMode) return actor.drive.position$.next(position);
 
-  // TODO 8.0.0. MODELS: When we do "actor.drive.position$.next(position)" or change the agent, all other agents should update their position/rotation/scale
   switch (agent) {
     case TransformAgent.Default:
       return actor.drive.default.setPosition(position);
