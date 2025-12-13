@@ -1,10 +1,11 @@
 import type { IShowcase } from '@/App/Levels/Models';
-import type { IActorParams, IActorWrapper, IAppCanvas, ILevel, ILevelConfig } from '@/Engine';
+import { EulerWrapper, IActorParams, IActorWrapper, IAppCanvas, ILevel, ILevelConfig } from '@/Engine';
 import { ActorType, ambientContext, buildLevelFromConfig, forEachEnum, Vector3Wrapper } from '@/Engine';
 import type { IAnimationParams } from '@/Engine/Services';
 import { Easing, standardMoverService } from '@/Engine/Services';
 
 import levelConfig from './showcase-level-4.config.json';
+import { Euler } from 'three';
 
 //Showcase 4: Anime.js simple animations (easing, etc.)
 export function showcaseLevel(canvas: IAppCanvas): IShowcase {
@@ -12,7 +13,7 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
 
   function start(): void {
     level.start();
-    const { actorRegistry, actorFactory } = level.entities;
+    const { actorRegistry, actorFactory, textRegistry, textFactory } = level.entities;
 
     let isClickBlocked: boolean = false;
 
@@ -41,7 +42,18 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
         position: Vector3Wrapper({ x: -20, y: 2, z: positionZ + gap * i }),
         tags: [...actorTemplate.tags, String(easing)]
       });
+
+      // TODO (S.Panfilov) add font size
+      textFactory.create({
+        text: String(easing),
+        fontSize: 1,
+        position: Vector3Wrapper({ x: -30, y: 2, z: positionZ - 0.5 + gap * i }),
+        rotation: EulerWrapper({ x: -1.57, y: 0, z: 0 }),
+        tags: [...actorTemplate.tags, String(easing)]
+      });
     });
+
+    console.log(textRegistry.getAll());
 
     ambientContext.mouseClickWatcher.value$.subscribe(() => {
       if (isClickBlocked) {
