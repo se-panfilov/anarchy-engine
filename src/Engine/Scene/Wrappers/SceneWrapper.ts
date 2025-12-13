@@ -77,6 +77,7 @@ export function SceneWrapper(params: TSceneParams): TSceneWrapper {
   const destroySub$: Subscription = result.destroy$.subscribe((): void => {
     entity.traverse((entity: unknown): void => (entity as TDestroyable).destroy$?.next());
     entity.clear();
+    (entity.background as CubeTexture)?.dispose?.();
 
     destroySub$.unsubscribe();
   });
