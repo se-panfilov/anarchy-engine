@@ -9,8 +9,8 @@
         "physics": {
           "presetName": "wall_physics",
           "shapeParams": {
-            "hx": 10,
-            "hy": 10,
+            "hx": 50,
+            "hy": 50,
             "hz": 0.025
           }
         },

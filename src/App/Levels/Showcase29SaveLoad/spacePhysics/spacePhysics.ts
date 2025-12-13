@@ -5,7 +5,7 @@ import { Vector3 } from 'three/src/math/Vector3';
 import type { TSpace, TSpaceConfig } from '@/Engine';
 
 import type { TSpacesData } from '../ShowcaseTypes';
-import { getContainer } from '../utils';
+import { addAwait, getContainer, removeAwait } from '../utils';
 import spaceConfig from './spacePhysics.json';
 
 const config: TSpaceConfig = spaceConfig as TSpaceConfig;
@@ -15,9 +15,17 @@ export const spacePhysicsData: TSpacesData = {
   config: config,
   container: getContainer(config.canvasSelector),
   awaits$: new BehaviorSubject<ReadonlySet<string>>(new Set()),
-  // onCreate: (space: TSpace): void | never => {},
+  onCreate: (space: TSpace): void | never => {
+    space.services.physicsWorldService.getDebugRenderer(space.loops.physicalLoop).start();
+  },
   onChange: (space: TSpace): void => {
-    applyExplosion(space.services.physicsWorldService.getWorld(), new Vector3(), 10, 1000);
+    addAwait('onChange', spacePhysicsData.awaits$);
+
+    applyExplosion(space.services.physicsWorldService.getWorld(), new Vector3(), 10, 800);
+
+    setTimeout((): void => {
+      removeAwait('onChange', spacePhysicsData.awaits$);
+    }, 4000);
   }
 };
 
