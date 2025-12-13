@@ -3,6 +3,7 @@ import { Quaternion, Vector3 } from 'three';
 import { ForwardAxis } from '@/Engine/Kinematic/Constants';
 import type { TKinematicData, TKinematicParams } from '@/Engine/Kinematic/Models';
 import type { TWithPresetNamePhysicsBodyParams } from '@/Engine/Physics';
+import { DEFAULT_RADIUS } from '@/Engine/TransformDrive/Constants';
 import { KinematicTransformAgent, PhysicsTransformAgent } from '@/Engine/TransformDrive/Entities/Agents';
 import type {
   TKinematicAgentDependencies,
@@ -30,7 +31,7 @@ export function getKinematicWithDefaults(kinematic: TOptional<TKinematicParams> 
       linearDirection: kinematic?.state?.linearDirection ?? new Vector3(),
       angularSpeed: kinematic?.state?.angularSpeed ?? 0,
       angularDirection: kinematic?.state?.angularDirection ?? new Quaternion(),
-      radius: kinematic?.state?.radius ?? 0,
+      radius: kinematic?.state?.radius ?? DEFAULT_RADIUS,
       forwardAxis: ForwardAxis.X,
       isInfiniteRotation: false
     }

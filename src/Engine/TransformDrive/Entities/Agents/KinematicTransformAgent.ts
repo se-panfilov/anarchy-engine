@@ -9,7 +9,7 @@ import type { TKinematicConfig, TKinematicData, TKinematicWritableData } from '@
 import type { TMeters, TMetersPerSecond, TMilliseconds, TRadians, TRadiansPerSecond } from '@/Engine/Math';
 import { getAzimuthElevationFromVector, getElevationFromDirection } from '@/Engine/Math';
 import type { TReadonlyQuaternion, TReadonlyVector3 } from '@/Engine/ThreeLib';
-import { TransformAgent } from '@/Engine/TransformDrive/Constants';
+import { DEFAULT_RADIUS, TransformAgent } from '@/Engine/TransformDrive/Constants';
 import type { TAbstractTransformAgent, TKinematicAgentDependencies, TKinematicSpeed, TKinematicTransformAgent, TKinematicTransformAgentParams } from '@/Engine/TransformDrive/Models';
 import { getStepRotation, isInstant, isPointReached, isRotationReached, moveInstantly, rotateInstantly } from '@/Engine/TransformDrive/Utils';
 import { eulerToXyz, isDefined, isNotDefined, quaternionToXyzw, vector3ToXyz } from '@/Engine/Utils';
@@ -46,7 +46,7 @@ export function KinematicTransformAgent(params: TKinematicTransformAgentParams, 
         linearSpeed: params.state.linearSpeed ?? 0,
         linearDirection: params.state.linearDirection?.clone() ?? new Vector3(),
         angularSpeed: params.state.angularSpeed ?? 0,
-        radius: params.state.radius ?? 0,
+        radius: params.state.radius ?? DEFAULT_RADIUS,
         angularDirection: params.state.angularDirection?.clone() ?? new Quaternion(),
         forwardAxis: params.state.forwardAxis ?? ForwardAxis.X,
         isInfiniteRotation: params.state.isInfiniteRotation ?? false
@@ -118,7 +118,7 @@ export function KinematicTransformAgent(params: TKinematicTransformAgentParams, 
       agent.setLinearSpeed(speed);
       return undefined;
     },
-    // Rotates agent to "look" at the target position (e.g. mouse click position, other actor, etc.)
+    // Rotates agent to "look" at the target position (e.g., mouse click position or any other actor, etc.)
     lookAt(targetPosition: TReadonlyVector3, speed: TKinematicSpeed): void | never {
       tempObject.position.copy(abstractTransformAgent.position$.value);
       tempObject.up.set(0, 1, 0);
@@ -133,7 +133,7 @@ export function KinematicTransformAgent(params: TKinematicTransformAgentParams, 
 
       if (speed < 0) throw new Error('Speed must be greater than 0 to calculate angular speed.');
       if (speed === 0) return agent.setAngularSpeed(0);
-      if (agent.data.state.radius <= 0) throw new Error('Radius must be set and be greater than 0 to calculate angular speed.');
+      if (agent.data.state.radius === 0) throw new Error('Radius must be greater than 0 to calculate angular speed.');
       const angularSpeed: TRadiansPerSecond = (speed / agent.data.state.radius) as TRadiansPerSecond;
 
       // eslint-disable-next-line functional/immutable-data
