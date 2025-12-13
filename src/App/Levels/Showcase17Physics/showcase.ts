@@ -60,7 +60,7 @@ export function showcase(space: TSpace): void {
     actors: [surfaceActor],
     position$: mouseService.normalizedPosition$,
     intersectionsLoop
-  });
+  }) as TIntersectionsCameraWatcher;
 
   const azimuthText: TTextAnyWrapper = textService.create({
     name: 'azimuth_text',

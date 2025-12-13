@@ -101,7 +101,7 @@ export function showcase(space: TSpace): void {
     actors: [...blocks, ...blocks2, ...blocks3, surface, sphereActor],
     position$: mouseService.normalizedPosition$,
     intersectionsLoop
-  });
+  }) as TIntersectionsCameraWatcher;
 
   startMoveActorWithKeyboard(hero, keyboardService, mouseLineIntersectionsWatcher);
 

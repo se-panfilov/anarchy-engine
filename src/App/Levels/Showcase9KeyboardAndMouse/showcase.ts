@@ -110,7 +110,7 @@ export function showcase(space: TSpace): void {
       isAutoStart: true,
       position$: mouseService.normalizedPosition$,
       intersectionsLoop
-    });
+    }) as TIntersectionsCameraWatcher;
   }
 
   space.start$.next(true);

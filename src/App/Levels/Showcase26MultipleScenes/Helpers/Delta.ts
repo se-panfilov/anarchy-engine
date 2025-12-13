@@ -54,7 +54,7 @@ function startIntersections(space: TSpace, camera: TAnyCameraWrapper): TIntersec
     isAutoStart: true,
     position$: mouseService.normalizedPosition$,
     intersectionsLoop
-  });
+  }) as TIntersectionsCameraWatcher;
 }
 
 function initKinematic(space: TSpace): void {

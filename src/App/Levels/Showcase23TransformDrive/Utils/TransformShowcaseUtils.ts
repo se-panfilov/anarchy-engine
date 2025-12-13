@@ -106,7 +106,7 @@ export function startIntersections({ actorService, cameraService, intersectionsW
     isAutoStart: true,
     position$: mouseService.normalizedPosition$,
     intersectionsLoop: loopService.getIntersectionsLoop()
-  });
+  }) as TIntersectionsCameraWatcher;
 }
 
 export function changeActorActiveAgent(actor: TActor, key: KeyCode | KeysExtra, keyboardService: TKeyboardService): Subscription {
