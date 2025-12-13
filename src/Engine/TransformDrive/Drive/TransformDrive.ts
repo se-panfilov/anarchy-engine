@@ -39,6 +39,7 @@ export function TransformDrive<T extends Partial<Record<TransformAgent, TAbstrac
     Object.values(agents).forEach((agent: TAbstractTransformAgent): void => {
       agent.enabled$.next(agent.type === activeAgent.type);
 
+      //when we change the active agent, we need to update the values of the agent
       agent.position$.next(position$.value);
       agent.rotation$.next(rotation$.value);
       agent.scale$.next(scale$.value);

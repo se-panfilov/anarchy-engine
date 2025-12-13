@@ -1,4 +1,5 @@
 import type { RigidBody, Rotation, Vector } from '@dimforge/rapier3d';
+import { RigidBodyType } from '@dimforge/rapier3d/dynamics/rigid_body';
 import type { Subject, Subscription } from 'rxjs';
 import { BehaviorSubject, combineLatest, distinctUntilChanged, filter, map, switchMap, withLatestFrom } from 'rxjs';
 import { Euler, Quaternion, Vector3 } from 'three';
@@ -50,14 +51,30 @@ export function PhysicsTransformAgent(params: TPhysicsTransformAgentParams, { ph
 
   // TODO 8.0.0. MODELS: physical object doesn't move when position is changed externally
   // TODO 8.0.0. MODELS: apply rotation!!!
-  // abstractTransformAgent.position$
+  // agent.position$
   //   // .pipe(distinctUntilChanged((prev: Vector3, curr: Vector3): boolean => prev.equals(curr)))
   //   .subscribe((position: Vector3): void => {
-  //     console.log('XXX received position', position);
-  //     const coords = physicsBody$.value?.getRigidBody()?.translation();
+  //     // const coords = physicsBody$.value?.getRigidBody()?.translation();
   //     // if (position.x === coords?.x && position.y === coords?.y && position.z === coords?.z) return;
-  //     physicsBody$.value.getRigidBody().setNextKinematicTranslation(position);
+  //
+  //     console.log('XXX received position', position);
+  //     const rigidBody: RigidBody | undefined = physicsBody$.value?.getRigidBody();
+  //     if (isDefined(rigidBody)) {
+  //       // console.log('XXX1', rigidBody.translation());
+  //       // console.log('XXX received position', rigidBody.translation(), position);
+  //       // rigidBody.setNextKinematicTranslation(position);
+  //       // rigidBody.setTranslation(position, true);
+  //       // console.log('XXX2', rigidBody.translation());
+  //     }
   //   });
+
+  // setInterval(() => {
+  //   const rigidBody: RigidBody | undefined = physicsBody$.value?.getRigidBody();
+  //   if (isDefined(rigidBody)) {
+  //     console.log('XXX3', agent.position$.value);
+  //     rigidBody.setNextKinematicTranslation(agent.position$.value);
+  //   }
+  // }, 300);
 
   const destroySub$: Subscription = abstractTransformAgent.destroy$.subscribe((): void => {
     //Stop subscriptions
@@ -74,13 +91,14 @@ export function PhysicsTransformAgent(params: TPhysicsTransformAgentParams, { ph
 
   physicsSub$ = combineLatest([agent.enabled$, physicsLoopService.autoUpdate$])
     .pipe(
+      // TODO 8.0.0. MODELS: does this pipe turn on and turn off watching tick$? Check everywhere (cause looks like it's turn it on, but not off)
       filter(([isEnabled, isAutoUpdate]: ReadonlyArray<boolean>): boolean => isEnabled && isAutoUpdate),
       switchMap((): Subject<void> => physicsLoopService.tick$)
       // TODO 8.0.0. MODELS: perhaps distinctUntilChanged is needed here
     )
     .subscribe((): void => {
       const { position, rotation } = getPhysicalBodyTransform(agent);
-      if (isDefined(position)) abstractTransformAgent.position$.next(new Vector3(position.x, position.y, position.z));
+      if (isDefined(position)) agent.position$.next(new Vector3(position.x, position.y, position.z));
       if (isDefined(rotation)) rotationQuaternion$.next(new Quaternion(rotation.x, rotation.y, rotation.z, rotation.w));
     });
 
