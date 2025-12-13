@@ -12,6 +12,7 @@ import spaceConfig from './spaceTransformDrive.json';
 
 const config: TSpaceConfig = spaceConfig as TSpaceConfig;
 
+// TODO 15-0-0: cleanup serialized data from empty kinematic states
 // TODO 15-0-0: we need to test a "flying state": the fact that kinematic/physics actor will continue to move after the "Load" (perhaps add a separate E2E for this)
 // TODO 15-0-0: add physical TD check after serialization physics will be done
 export const spaceTransformDriveData: TSpacesData = {
@@ -53,7 +54,7 @@ export const spaceTransformDriveData: TSpacesData = {
     kinematicActor.drive.kinematic.moveTo(new Vector3(0, 2, 0), metersPerSecond(0.1));
     kinematicActor.drive.kinematic.lookAt(new Vector3(0, 2, 0), metersPerSecond(0.0003));
 
-    await doKinematicSteps(space, 100, 100);
+    await doKinematicSteps(space, 100, 25);
     removeAwait('onChange', spaceTransformDriveData.awaits$);
   }
 };

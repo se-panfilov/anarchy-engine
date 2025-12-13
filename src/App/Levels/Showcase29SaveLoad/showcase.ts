@@ -48,6 +48,8 @@ const spacesData: ReadonlyArray<TSpacesData> = [
   spaceTransformDriveData
 ];
 
+const initialSpaceDataName: string = spaceBasicData.name;
+
 const spacesInMemoryData: Array<TSpacesData> = [];
 
 let currentSpaceName: string | undefined;
@@ -62,9 +64,7 @@ export function start(): void {
     spacesData.map((space: TSpacesData): string => space.name)
   );
 
-  //Initial space
-  // loadSpace(spacesData.find((s: TSpacesData): boolean => s.name === spaceBasicData.name)?.name, spacesData);
-  loadSpace(spacesData.find((s: TSpacesData): boolean => s.name === spaceTransformDriveData.name)?.name, spacesData);
+  loadSpace(spacesData.find((s: TSpacesData): boolean => s.name === initialSpaceDataName)?.name, spacesData);
 }
 
 function loadSpace(name: string | undefined, source: ReadonlyArray<TSpacesData>): void {
@@ -158,6 +158,7 @@ export function createForm(containerId: string | undefined, isTop: boolean, isRi
       loadSpace(name, spacesData);
     },
     options,
+    initialSpaceDataName,
     { right, top }
   );
 

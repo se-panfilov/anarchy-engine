@@ -58,6 +58,7 @@ export function addDropdown(
   containerId: string | undefined,
   cb: (...rest: ReadonlyArray<any>) => void,
   options: ReadonlyArray<string>,
+  selectedOption?: string,
   params?: {
     right?: string;
     left?: string;
@@ -98,6 +99,10 @@ export function addDropdown(
     const opt: HTMLOptionElement = document.createElement('option');
     // eslint-disable-next-line functional/immutable-data
     opt.value = option;
+    if (isDefined(selectedOption) && selectedOption === option) {
+      // eslint-disable-next-line functional/immutable-data
+      opt.selected = true;
+    }
     // eslint-disable-next-line functional/immutable-data
     opt.textContent = option;
     select.appendChild(opt);
