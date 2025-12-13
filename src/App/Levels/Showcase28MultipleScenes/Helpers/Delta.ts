@@ -1,13 +1,13 @@
 import { withLatestFrom } from 'rxjs';
 import { Clock, Vector3 } from 'three';
 
+import { createReactiveLineFromActor } from '@/App/Levels/Showcase25TransformDrive/Utils';
 import { moveByCircle } from '@/App/Levels/Utils/MoveUtils';
 import type { TActor, TActorRegistry, TAudio3dWrapper, TCameraWrapper, TIntersectionEvent, TIntersectionsWatcher, TMouseWatcherEvent, TSceneWrapper, TSpace } from '@/Engine';
-import { DebugAudioRenderer, isNotDefined, metersPerSecond, TransformAgent } from '@/Engine';
+import { DebugAudioRenderer, isNotDefined, metersPerSecond } from '@/Engine';
 
 export function runDelta(space: TSpace): void {
   initAudio(space);
-
   initKinematic(space);
 
   space.start$.next(true);
@@ -46,12 +46,12 @@ function initAudio(space: TSpace): void {
 function startIntersections(space: TSpace, camera: TCameraWrapper): TIntersectionsWatcher {
   const { actorService, intersectionsWatcherService, mouseService } = space.services;
   const { intersectionsLoop } = space.loops;
-  const actor: TActor | undefined = actorService.getRegistry().findByName('surface_actor');
-  if (isNotDefined(actor)) throw new Error('Actor is not defined');
+  const surfaceActor: TActor | undefined = actorService.getRegistry().findByName('surface_actor');
+  if (isNotDefined(surfaceActor)) throw new Error('Actor is not defined');
 
   return intersectionsWatcherService.create({
     name: 'intersection_watcher',
-    actors: [actor],
+    actors: [surfaceActor],
     camera,
     isAutoStart: true,
     position$: mouseService.position$,
@@ -60,7 +60,7 @@ function startIntersections(space: TSpace, camera: TCameraWrapper): TIntersectio
 }
 
 function initKinematic(space: TSpace): void {
-  const { actorService, cameraService, mouseService } = space.services;
+  const { actorService, cameraService, mouseService, scenesService } = space.services;
 
   const { clickLeftRelease$ } = mouseService;
 
@@ -71,8 +71,10 @@ function initKinematic(space: TSpace): void {
   const actorMouse: TActor | undefined = actorService.getRegistry().findByName('sphere_mouse_actor');
   if (isNotDefined(actorMouse)) throw new Error('Actor mouse is not defined');
 
+  const { line } = createReactiveLineFromActor('#E91E63', actorMouse, intersectionsWatcher);
+  scenesService.findActive()?.entity.add(line);
+
   clickLeftRelease$.pipe(withLatestFrom(intersectionsWatcher.value$)).subscribe(([, intersection]: [TMouseWatcherEvent, TIntersectionEvent]): void => {
-    if (actorMouse.drive.getActiveAgent().type !== TransformAgent.Kinematic) actorMouse.drive.agent$.next(TransformAgent.Kinematic);
     const position: Vector3 = intersection.point.clone().add(new Vector3(0, 1.5, 0));
     actorMouse.drive.kinematic.moveTo(position, metersPerSecond(15));
   });
