@@ -1,7 +1,8 @@
-import type { IActorWrapper } from '@/Engine/Domains/Actor';
-import type { IFullKeyframeDestination, IKeyframeDestination, IMoveByPathFn, IMoveByPathFnParams, IMoveDestination, IMoveFn, IMoveFnParams } from '@/Engine/Services/MoverService/Models';
 import type { Subscription } from 'rxjs';
+
+import type { IActorWrapper } from '@/Engine/Domains/Actor';
 import type { ILoopService, ILoopTimes } from '@/Engine/Domains/Loop';
+import type { IFullKeyframeDestination, IKeyframeDestination, IMoveByPathFn, IMoveByPathFnParams, IMoveDestination, IMoveFn, IMoveFnParams } from '@/Engine/Services/MoverService/Models';
 import { createDeferredPromise } from '@/Engine/Utils';
 
 export function performMove(moveFn: IMoveFn | IMoveByPathFn, loopService: ILoopService, params: Omit<IMoveFnParams, 'complete'> | Omit<IMoveByPathFnParams, 'complete'>): Promise<void> {
