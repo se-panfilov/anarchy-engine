@@ -10,15 +10,20 @@ export type TGameSettings = Readonly<{
 }>;
 
 export type TGraphicsSettings = Readonly<{
-  isFullscreen: boolean;
+  isFullScreen: boolean;
   // isBorderlessWindowed: boolean;
-  resolution: { width: number; height: number };
+  resolution: TResolution;
   // isVsync: boolean;
   // frameLimit: number; // 0 for no limit
   // isUseHighDPI: boolean;
   // graphicsQuality: 'low' | 'medium' | 'high' | 'ultra'; /// TODO should be an enum
   // brightness: number;
   // contrast: number;
+}>;
+
+export type TResolution = Readonly<{
+  width: number;
+  height: number;
 }>;
 
 export type TAudioSettings = Readonly<{

@@ -1,25 +1,57 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import MenuViewActions from '@/Levels/Showcase28Menu/MainMenu/Components/MenuViewActions.vue';
+import MenuSettingsGroup from '@/Levels/Showcase28Menu/MainMenu/Components/MenuSettingsGroup.vue';
+import MenuView from '@/Levels/Showcase28Menu/MainMenu/Components/MenuView.vue';
+import SettingsCheckboxComponent from '@/Levels/Showcase28Menu/MainMenu/Components/SettingsCheckboxComponent.vue';
+import SettingsDropdownComponent from '@/Levels/Showcase28Menu/MainMenu/Components/SettingsDropdownComponent.vue';
+import { computed, reactive } from 'vue';
+import { useSettingsStore } from '@/Levels/Showcase28Menu/MainMenu/Stores/SettingsStore';
+import { TGraphicsSettings, TResolution } from '@/Levels/Showcase28Menu/Models';
+import type { TWriteable } from '@Engine';
+
+const emit = defineEmits(['cancel', 'save']);
+
+const settingsStore = useSettingsStore();
+
+const state: TWriteable<TGraphicsSettings> = reactive({
+  isFullScreen: settingsStore.graphics.isFullScreen,
+  resolution: settingsStore.graphics.resolution
+});
+
+function cancel() {
+  state.isFullScreen = settingsStore.graphics.isFullScreen;
+  state.resolution = settingsStore.graphics.resolution;
+
+  emit('cancel');
+}
+
+function save(payload: TGraphicsSettings) {
+  settingsStore.graphics = { ...payload };
+  emit('save');
+}
+
+const options = computed(() => {
+  return settingsStore.getAvailableResolutions().map((resolution) => ({
+    value: resolution,
+    label: `${resolution.width}x${resolution.height}`
+  }));
+});
+</script>
 
 <template>
-  <div class="graphics main-menu-view">
-    <div class="main-menu-view__title">Graphics settings</div>
-    <div class="main-menu-view__group">
-      <div class="main-menu-view__group-title">Group 1</div>
-      <label class="main-menu-view__setting -fullscreen">
-        <span class="main-menu-view__setting-description">Full screen</span>
-        <input type="checkbox" class="main-menu-view__setting-value -checkbox" />
-      </label>
-      <label class="main-menu-view__setting -resolution">
-        <span class="main-menu-view__setting-description">Resolution</span>
-        <select class="main-menu-view__setting-value -select">
-          <option value="1920x1080">1920x1080</option>
-          <option value="1280x720">1280x720</option>
-          <option value="800x600">800x600</option>
-          <option value="640x480">640x480</option>
-        </select>
-      </label>
-    </div>
-  </div>
+  <MenuView class="graphics" title="Graphics settings">
+    <MenuSettingsGroup class="main-menu-view__group" title="Main Graphics Settings">
+      <SettingsCheckboxComponent :value="state.isFullScreen" class="main-menu-view__setting -fullscreen" label="Fullscreen" @change="(value: boolean) => (state.isFullScreen = value)" />
+      <SettingsDropdownComponent
+        :options="options"
+        :value="state.resolution"
+        class="main-menu-view__setting -resolution"
+        label="Resolution"
+        @change="(value: Readonly<TResolution>) => (state.resolution = value)"
+      />
+    </MenuSettingsGroup>
+    <MenuViewActions @cancel="cancel()" @save="save(state)" />
+  </MenuView>
 </template>
 
 <style scoped></style>

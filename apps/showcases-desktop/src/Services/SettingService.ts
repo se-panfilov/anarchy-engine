@@ -1,10 +1,11 @@
 import * as fs from 'node:fs';
 import { join } from 'path';
 import type { App } from 'electron';
+import { TResolution } from '@Desktop/Models';
 
 type TDesktopAppSettings = Readonly<{ screen: TScreenSettings }>;
 type TScreenSettings = Readonly<{
-  resolution: { width: number; height: number };
+  resolution: TResolution;
   fullscreen: boolean;
 }>;
 

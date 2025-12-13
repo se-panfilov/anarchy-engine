@@ -33,7 +33,7 @@ canvas {
   backdrop-filter: blur(4px);
 
   &.-active {
-    display: block;
+    display: flex;
   }
 }
 
@@ -45,6 +45,6 @@ canvas {
   pointer-events: auto;
 
   &.-active {
-    display: block;
+    display: flex;
   }
 }
