@@ -1,6 +1,6 @@
 import { AllowedAppFolders } from '@Showcases/Desktop/Constants';
 import type { TDesktopAppService, TDesktopServiceDependencies } from '@Showcases/Desktop/Models';
-import { isBuildMeta } from '@Showcases/Shared';
+import { hasJsonStructure } from '@Showcases/Shared';
 import type { App } from 'electron';
 import { BrowserWindow } from 'electron';
 
@@ -55,7 +55,7 @@ export function DesktopAppService(app: App, { filesService }: TDesktopServiceDep
 
   async function getPackagesVersions(): Promise<any> {
     try {
-      return await filesService.readFileAsJson('build-meta.json', AllowedAppFolders.DistDesktop, isBuildMeta);
+      return await filesService.readFileAsJson('build-meta.json', AllowedAppFolders.DistDesktop, hasJsonStructure as any);
     } catch (e: any) {
       throw new Error('[DESKTOP] Failed to get packages versions from build-meta.json:', e);
     }
