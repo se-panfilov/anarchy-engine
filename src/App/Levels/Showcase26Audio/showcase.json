@@ -47,23 +47,23 @@
       },
       {
         "audioSource": "monster_sound",
-        "name": "monster_singing",
-        "refDistance": 1,
         "maxDistance": 10,
+        "name": "monster_singing",
         "position": {
           "x": 0,
           "y": 0,
           "z": 0
-        }
+        },
+        "refDistance": 1
       }
     ],
     "cameras": [
       {
+        "audioListener": "main_listener",
         "far": 100,
         "fov": 45,
         "isActive": true,
         "name": "main_camera",
-        "audioListener": "main_listener",
         "near": 1,
         "position": {
           "x": -0.58,
