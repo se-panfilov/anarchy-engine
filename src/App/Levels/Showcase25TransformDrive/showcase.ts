@@ -243,17 +243,10 @@ function moveActorTo(actor: TActor, position: Vector3, agent: TransformAgent, is
 }
 
 function rotateActorTo(actor: TActor, rotation: Quaternion, agent: TransformAgent): void {
-  // For debug reasons: here is how we can rotate the model3d without TransformDrive
-  // actor.model3d.getRawModel3d().rotation.set(0, rotationXYZ.y, 0);
-  // return actor.model3d.getRawModel3d().rotation.set(0, degToRad(180), 0);
-
   switch (agent) {
     case TransformAgent.Default:
       return actor.drive.default.setRotation(rotation);
     case TransformAgent.Kinematic:
-      // actor.drive.kinematic.setAngularAzimuth(radians(rotationXYZ.y));
-      // actor.drive.kinematic.setAngularAzimuth(radians(degToRad(-90)));
-      // return actor.drive.kinematic.setAngularSpeed(metersPerSecond(2));
       return actor.drive.kinematic.rotateTo(rotation, metersPerSecond(5), meters(1));
     case TransformAgent.Connected:
       // no need to do anything here, cause already connected

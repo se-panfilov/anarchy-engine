@@ -10,20 +10,21 @@ import type {
   TActorParams,
   TActorService,
   TCollisionCheckResult,
+  TIntersectionsWatcher,
   TLightService,
   TMaterialService,
   TMaterialWrapper,
+  TMetersPerSecond,
   TModel3d,
   TModels3dService,
   TMouseService,
   TPointLightWrapper,
-  TRadians,
   TSceneWrapper,
   TSpatialGridService,
   TSpatialGridWrapper
 } from '@/Engine';
 import { isDefined, isNotDefined, MaterialType, metersPerSecond, mpsSpeed, PrimitiveModel3dType, SpatialUpdatePriority, TransformAgent } from '@/Engine';
-import { meters, radians } from '@/Engine/Measurements/Utils';
+import { meters } from '@/Engine/Measurements/Utils';
 
 export const BULLET_TAG = 'bullet';
 export const BULLET_TARGET_TAG = 'target';
@@ -35,7 +36,7 @@ export type TBullet = TActor &
     setActive: (act: boolean) => void;
     isActive: () => boolean;
     reset: () => void;
-    update: (delta: number, spatialGrid: TSpatialGridWrapper) => void;
+    update: (delta: number) => void;
     hit$: Observable<TCollisionCheckResult>;
   }>;
 
@@ -75,7 +76,7 @@ export function getBulletsPool(
     // eslint-disable-next-line @typescript-eslint/no-floating-promises
     bullets = [
       ...bullets,
-      BulletAsync(
+      Bullet(
         {
           name: `bullet_${i}_${id}_actor`,
           model3dSource: model3d,
@@ -100,7 +101,7 @@ export function getBulletsPool(
   return bullets;
 }
 
-export function BulletAsync(params: TActorParams, actorService: TActorService): TBullet {
+export function Bullet(params: TActorParams, actorService: TActorService): TBullet {
   const actor: TActor = actorService.create(params);
   let distanceTraveled: number = 0;
   const maxDistance: number = 50;
@@ -122,9 +123,7 @@ export function BulletAsync(params: TActorParams, actorService: TActorService): 
 
   function reset(): void {
     actor.drive.position$.next(new Vector3(0, 0, 0));
-    actor.drive.kinematic.setLinearAzimuth(radians(0));
-    actor.drive.kinematic.setLinearElevation(radians(0));
-    actor.drive.kinematic.setLinearSpeed(metersPerSecond(0));
+    actor.drive.kinematic.resetLinear(true, true);
     setDistanceTraveled(0);
     setActive(false);
     // eslint-disable-next-line functional/immutable-data
@@ -135,10 +134,11 @@ export function BulletAsync(params: TActorParams, actorService: TActorService): 
 
   function update(delta: number): void {
     if (isActive()) {
-      const azimuthRadians: TRadians = actor.drive.kinematic.getLinearAzimuth();
-      const elevationRadians: TRadians = actor.drive.kinematic.getLinearElevation();
-      const vectorDirection: Vector3 = new Vector3(Math.cos(elevationRadians) * Math.cos(azimuthRadians), Math.sin(elevationRadians), Math.cos(elevationRadians) * Math.sin(azimuthRadians));
-      actor.drive.kinematic.setLinearDirection(vectorDirection);
+      // TODO wtf this calculation is doing?
+      // const azimuthRadians: TRadians = actor.drive.kinematic.getLinearDirection();
+      // const elevationRadians: TRadians = actor.drive.kinematic.getLinearElevation();
+      // const vectorDirection: Vector3 = new Vector3(Math.cos(elevationRadians) * Math.cos(azimuthRadians), Math.sin(elevationRadians), Math.cos(elevationRadians) * Math.sin(azimuthRadians));
+      // actor.drive.kinematic.setLinearDirection(vectorDirection);
 
       setDistanceTraveled(getDistanceTraveled() + mpsSpeed(actor.drive.kinematic.getLinearSpeed(), delta));
       if (getDistanceTraveled() > maxDistance) reset();
@@ -159,19 +159,21 @@ export function BulletAsync(params: TActorParams, actorService: TActorService): 
   };
 }
 
-export function shootRapidFire(
+export function prepareShooting(
   actor: TActor,
   mouseService: TMouseService,
-  from: Readonly<{ azimuth: TRadians; elevation: TRadians }>,
-  shootingParams: Readonly<{ cooldownMs: number; speed: number }>,
+  intersectionsWatcher: TIntersectionsWatcher,
+  shootingParams: Readonly<{ cooldownMs: number; speed: TMetersPerSecond }>,
   bullets: ReadonlyArray<TBullet>
 ): void {
   let idx: ReturnType<typeof setTimeout> | number = 0;
   mouseService.clickLeftPress$.subscribe((): void => {
-    shoot(actor.drive.getPosition(), from.azimuth, from.elevation, meters(shootingParams.speed), bullets);
+    const targetPosition: Vector3 | undefined = intersectionsWatcher.getValue()?.point;
+    if (isNotDefined(targetPosition)) return;
+    shoot(actor.drive.getPosition(), targetPosition, shootingParams.speed, bullets);
     // TODO setTimout/setInterval is not a good idea (cause the game might be "on pause", e.g. when tab is not active)
     idx = setInterval((): void => {
-      shoot(actor.drive.getPosition(), from.azimuth, from.elevation, meters(shootingParams.speed), bullets);
+      shoot(actor.drive.getPosition(), targetPosition, shootingParams.speed, bullets);
     }, shootingParams.cooldownMs);
   });
   mouseService.clickLeftRelease$.subscribe((): void => {
@@ -179,20 +181,18 @@ export function shootRapidFire(
   });
 }
 
-export function shoot(actorPosition: Vector3, toAngle: TRadians, elevation: TRadians, speedMeters: number, bullets: ReadonlyArray<TBullet>): void {
+export function shoot(actorPosition: Vector3, target: Vector3, speed: TMetersPerSecond, bullets: ReadonlyArray<TBullet>): void {
   const bullet: TBullet | undefined = bullets.find((b: TBullet): boolean => !b.isActive());
   if (isDefined(bullet)) {
     bullet.drive.position$.next(actorPosition);
-    bullet.drive.kinematic.setLinearAzimuth(toAngle);
-    bullet.drive.kinematic.setLinearElevation(elevation);
     bullet.setDistanceTraveled(0);
-    bullet.drive.kinematic.setLinearSpeed(metersPerSecond(speedMeters));
+    bullet.drive.kinematic.moveTo(target, speed);
     bullet.setActive(true);
   }
 }
 
-export function updateBullets(bullets: ReadonlyArray<TBullet>, delta: number, spatialGrid: TSpatialGridWrapper): void {
-  bullets.forEach((bullet: TBullet): void => bullet.update(delta, spatialGrid));
+export function updateBullets(bullets: ReadonlyArray<TBullet>, delta: number): void {
+  bullets.forEach((bullet: TBullet): void => bullet.update(delta));
 }
 
 export function createHitEffect(position: Vector3, sceneW: TSceneWrapper, lightService: TLightService): void {

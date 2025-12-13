@@ -14,8 +14,10 @@ export type TKinematicMethods = Readonly<{
   setLinearSpeed: (speed: TMetersPerSecond) => void;
   getLinearDirection: () => Vector3;
   setLinearDirection: (direction: Vector3Like) => void;
+  resetLinear: (resetSpeed: boolean, resetDirection: boolean) => void;
   getAngularSpeed: () => TMetersPerSecond;
   setAngularSpeed: (speed: TMetersPerSecond) => void;
   getAngularDirection: () => Quaternion;
   setAngularDirection: (direction: QuaternionLike) => void;
+  resetAngular: (resetSpeed: boolean, resetDirection: boolean) => void;
 }>;

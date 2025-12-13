@@ -135,6 +135,10 @@ export function KinematicTransformAgent(params: TKinematicTransformAgentParams, 
     setLinearDirection(direction: Vector3Like): void {
       agent.data.state.linearDirection.copy(direction);
     },
+    resetLinear(resetSpeed: boolean, resetDirection: boolean): void {
+      if (resetSpeed) agent.setLinearSpeed(0);
+      if (resetDirection) agent.setLinearDirection(new Vector3());
+    },
     getAngularSpeed(): TMetersPerSecond {
       return agent.data.state.angularSpeed;
     },
@@ -147,6 +151,10 @@ export function KinematicTransformAgent(params: TKinematicTransformAgentParams, 
     },
     setAngularDirection(direction: QuaternionLike): void {
       agent.data.state.angularDirection.copy(direction);
+    },
+    resetAngular(resetSpeed: boolean, resetDirection: boolean): void {
+      if (resetSpeed) agent.setAngularSpeed(0);
+      if (resetDirection) agent.setAngularDirection(new Quaternion());
     },
     autoUpdate$
   };

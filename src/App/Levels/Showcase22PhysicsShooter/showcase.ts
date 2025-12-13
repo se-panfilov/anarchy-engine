@@ -15,14 +15,14 @@ import type {
   TEngine,
   TIntersectionEvent,
   TIntersectionsWatcher,
-  TRadians,
+  TMetersPerSecond,
   TRawModel3d,
   TSceneWrapper,
   TSpace,
   TSpaceConfig,
   TSpatialGridWrapper
 } from '@/Engine';
-import { Engine, get3DAzimuth, isDefined, isNotDefined, KeysExtra, metersPerSecond, milliseconds, spaceService } from '@/Engine';
+import { Engine, isDefined, isNotDefined, KeysExtra, metersPerSecond, milliseconds, spaceService } from '@/Engine';
 import { radians } from '@/Engine/Measurements/Utils';
 
 import spaceConfig from './showcase.json';
@@ -36,7 +36,7 @@ import {
   getBulletsPool,
   initGui,
   moveActorBounce,
-  shootRapidFire,
+  prepareShooting,
   startMoveActorWithKeyboard,
   updateBullets
 } from './utils';
@@ -117,11 +117,6 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     const line: Line2 = createLine('#E91E63', 0.1);
     actorService.getScene().entity.add(line);
 
-    const fromHeroAngles: { azimuth: TRadians; elevation: TRadians } = {
-      azimuth: radians(0),
-      elevation: radians(0)
-    };
-
     //move bouncing sphere to target practice
     moveActorBounce(sphereActor, metersPerSecond(4.3), radians(degToRad(210)), milliseconds(5000));
 
@@ -141,7 +136,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
 
     const shootingParams = {
       cooldownMs: 300,
-      speed: 30
+      speed: 30 as TMetersPerSecond
     };
 
     initGui(mouseLineIntersectionsWatcher, spatialGridService, actorService, shootingParams);
@@ -149,22 +144,17 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     cameraFollowingActor(cameraW, hero);
 
     loopService.tick$.subscribe((delta): void => {
-      updateBullets(bullets, delta.delta, spatialGrid);
+      updateBullets(bullets, delta.delta);
       // TODO this should be updated only if coords or angle are changed
       if (isDefined(mouseLineIntersections.point)) {
         const heroCoords: Vector3 = hero.drive.getPosition();
-        const azimuth3d = get3DAzimuth(heroCoords, mouseLineIntersections.point);
-        // eslint-disable-next-line functional/immutable-data
-        fromHeroAngles.azimuth = azimuth3d.azimuth;
-        // eslint-disable-next-line functional/immutable-data
-        fromHeroAngles.elevation = (azimuth3d.elevation as number) >= 0 ? azimuth3d.elevation : radians(0);
         // TODO could make some use of mouseLineIntersectionsWatcher.latest$ instead of mouseLineIntersections
         line.geometry.setPositions([heroCoords.x, heroCoords.y, heroCoords.z, mouseLineIntersections.point.x, mouseLineIntersections.point.y, mouseLineIntersections.point.z]);
         line.computeLineDistances();
       }
     });
 
-    shootRapidFire(hero, mouseService, fromHeroAngles, shootingParams, bullets);
+    prepareShooting(hero, mouseService, mouseLineIntersectionsWatcher, shootingParams, bullets);
 
     physicsLoopService.autoUpdate$.next(true);
     keyboardService.onKey(KeysExtra.Space).pressed$.subscribe((): void => physicsLoopService.autoUpdate$.next(!physicsLoopService.autoUpdate$.value));
