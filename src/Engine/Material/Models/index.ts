@@ -1,5 +1,6 @@
 export * from './TMaterialConfig';
 export * from './TMaterialConfigOptions';
+export * from './TMaterialConfigToParamsDependencies';
 export * from './TMaterialFactory';
 export * from './TMaterialPackKeys';
 export * from './TMaterialParams';
@@ -9,6 +10,7 @@ export * from './TMaterialPropsOptions';
 export * from './TMaterialRegistry';
 export * from './TMaterials';
 export * from './TMaterialService';
+export * from './TMaterialServiceDependencies';
 export * from './TMaterialTexturePack';
 export * from './TMaterialWrapper';
 export * from './TWithMaterial';

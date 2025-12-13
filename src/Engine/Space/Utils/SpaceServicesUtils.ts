@@ -64,8 +64,8 @@ export function initSceneService(): TScenesService {
 }
 
 export function initEntitiesServices(sceneW: TSceneWrapper, canvas: TAppCanvas): Omit<TSpaceServices, 'scenesService'> {
-  const materialService: TMaterialService = MaterialService(MaterialFactory(), MaterialRegistry());
   const textureService: TTextureService = TextureService(TextureAsyncRegistry());
+  const materialService: TMaterialService = MaterialService(MaterialFactory(), MaterialRegistry(), { textureService });
   const physicsPresetService: TPhysicsPresetsService = PhysicsPresetsService(PhysicsPresetRegistry());
   const physicsWorldService: TPhysicsWorldService = PhysicsWorldService(sceneW);
   const physicsBodyService: TPhysicsBodyService = PhysicsBodyService(PhysicsBodyFactory(), PhysicsBodyRegistry(), physicsPresetService, physicsWorldService);
