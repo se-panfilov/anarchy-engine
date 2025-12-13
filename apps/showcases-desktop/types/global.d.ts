@@ -5,4 +5,5 @@ declare global {
   //Constants from vite's define
   const __DESKTOP_APP_VERSION__: string;
   const __PLATFORM_MODE__: 'dev' | 'production';
+  const PACK_PLATFORMS: string;
 }
