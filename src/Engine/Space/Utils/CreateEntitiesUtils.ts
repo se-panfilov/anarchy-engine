@@ -8,12 +8,19 @@ import { isDefined } from '@/Engine/Utils';
 export function createEntities(entities: TSpaceConfigEntities | TSpaceParamsEntities, services: TSpaceServices, strategy: CreateEntitiesStrategy): void | never {
   switch (strategy) {
     case CreateEntitiesStrategy.Config:
-      return createEntitiesFromConfigs(entities as TSpaceConfigEntities, services);
+      createEntitiesFromConfigs(entities as TSpaceConfigEntities, services);
+      break;
     case CreateEntitiesStrategy.Params:
-      return createEntitiesFromParams(entities as TSpaceParamsEntities, services);
+      createEntitiesFromParams(entities as TSpaceParamsEntities, services);
+      break;
     default:
       throw new Error(`Space: Unknown entities creation strategy: ${strategy}`);
   }
+
+  // TODO Not the best place for this, perhaps better to do it in a wrapper (or service?)
+  services.intersectionsWatcherService.getRegistry().added$.subscribe(({ value }: TRegistryPack<TIntersectionsWatcher>): void => {
+    if (value.isAutoStart && !value.isStarted) value.start$.next();
+  });
 }
 
 // TODO a lot of code duplication here, but doesn't worth to refactor right now
@@ -65,11 +72,6 @@ export function createEntitiesFromConfigs(entities: TSpaceConfigEntities, servic
   particlesService.createFromConfig(particles);
 
   intersectionsWatcherService.createFromConfig(intersections, mouseService, cameraService, actorService, loopService);
-
-  // TODO Not the best place for this, perhaps better to do it in a wrapper (or service?)
-  intersectionsWatcherService.getRegistry().added$.subscribe(({ value }: TRegistryPack<TIntersectionsWatcher>): void => {
-    if (value.isAutoStart && !value.isStarted) value.start$.next();
-  });
 }
 
 export function createEntitiesFromParams(entities: TSpaceParamsEntities, services: TSpaceServices): void {
@@ -118,9 +120,4 @@ export function createEntitiesFromParams(entities: TSpaceParamsEntities, service
   if (isDefined(particles)) particlesService.createFromList(particles);
 
   if (isDefined(intersections)) intersectionsWatcherService.createFromList(intersections);
-
-  // TODO Not the best place for this, perhaps better to do it in a wrapper (or service?)
-  intersectionsWatcherService.getRegistry().added$.subscribe(({ value }: TRegistryPack<TIntersectionsWatcher>): void => {
-    if (value.isAutoStart && !value.isStarted) value.start$.next();
-  });
 }
