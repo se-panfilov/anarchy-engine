@@ -2,13 +2,17 @@ import { combineLatest } from 'rxjs';
 import { Euler, Vector3 } from 'three';
 
 import type { TShowcase } from '@/App/Levels/Models';
-import type { TActorParams, TAppCanvas, TCameraWrapper, TEngine, TMaterialWrapper, TModel3d, TModels3dService, TSpace, TSpaceConfig, TSpatialGridWrapper } from '@/Engine';
+import type { TActorParams, TCameraWrapper, TEngine, TMaterialWrapper, TModel3d, TModels3dService, TSpace, TSpaceConfig, TSpatialGridWrapper } from '@/Engine';
 import { ambientContext, Engine, isNotDefined, MaterialType, meters, PrimitiveModel3dType, spaceService } from '@/Engine';
 
-import spaceConfig from './showcase.json';
+import spaceConfigJson from './showcase.json';
 
-export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
-  const space: TSpace = await spaceService.buildSpaceFromConfig(canvas, spaceConfig as TSpaceConfig);
+const spaceConfig: TSpaceConfig = spaceConfigJson as TSpaceConfig;
+
+export function showcase(): TShowcase {
+  const spaces: ReadonlyArray<TSpace> = spaceService.createFromConfig([spaceConfig]);
+  // TODO 14-0-0: implement spaceService.findActive()
+  const space: TSpace = spaces[0];
   const engine: TEngine = Engine(space);
 
   function start(): void {

@@ -5,15 +5,19 @@ import { Vector3 } from 'three';
 import type { TShowcase } from '@/App/Levels/Models';
 import { createReactiveLineFromActor } from '@/App/Levels/Showcase25TransformDrive/Utils';
 import { addGizmo } from '@/App/Levels/Utils';
-import type { TActor, TActorRegistry, TAppCanvas, TCameraWrapper, TEngine, TIntersectionEvent, TIntersectionsWatcher, TMouseWatcherEvent, TMoverService, TSpace, TSpaceConfig } from '@/Engine';
+import type { TActor, TActorRegistry, TCameraWrapper, TEngine, TIntersectionEvent, TIntersectionsWatcher, TMouseWatcherEvent, TMoverService, TSpace, TSpaceConfig } from '@/Engine';
 import { ambientContext, defaultMoverServiceConfig, Easing, Engine, isNotDefined, KeyCode, LookUpStrategy, metersPerSecond, mpsSpeed, spaceService, TransformAgent } from '@/Engine';
 import { MoverService } from '@/Engine/Services/MoverService/MoverService';
 
-import spaceConfig from './showcase.json';
+import spaceConfigJson from './showcase.json';
 
-export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
+const spaceConfig: TSpaceConfig = spaceConfigJson as TSpaceConfig;
+
+export function showcase(): TShowcase {
   const gui: GUI = new GUI();
-  const space: TSpace = await spaceService.buildSpaceFromConfig(canvas, spaceConfig as TSpaceConfig);
+  const spaces: ReadonlyArray<TSpace> = spaceService.createFromConfig([spaceConfig]);
+  // TODO 14-0-0: implement spaceService.findActive()
+  const space: TSpace = spaces[0];
   const engine: TEngine = Engine(space);
   const { keyboardService } = engine.services;
 

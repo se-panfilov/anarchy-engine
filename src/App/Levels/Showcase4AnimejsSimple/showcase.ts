@@ -1,16 +1,20 @@
 import { Euler, Vector3 } from 'three';
 
 import type { TShowcase } from '@/App/Levels/Models';
-import type { TActor, TActorParams, TActorRegistry, TAppCanvas, TEngine, TMaterialWrapper, TModel3d, TMoverService, TSpace, TSpaceConfig, TSpatialGridWrapper } from '@/Engine';
+import type { TActor, TActorParams, TActorRegistry, TEngine, TMaterialWrapper, TModel3d, TMoverService, TSpace, TSpaceConfig, TSpatialGridWrapper } from '@/Engine';
 import { defaultMoverServiceConfig, Engine, forEachEnum, getTags, LookUpStrategy, MaterialType, meters, PrimitiveModel3dType, spaceService, TextType, TransformAgent } from '@/Engine';
 import type { TAnimationParams } from '@/Engine/Services';
 import { Easing } from '@/Engine/Services';
 import { MoverService } from '@/Engine/Services/MoverService/MoverService';
 
-import spaceConfig from './showcase.json';
+import spaceConfigJson from './showcase.json';
 
-export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
-  const space: TSpace = await spaceService.buildSpaceFromConfig(canvas, spaceConfig as TSpaceConfig);
+const spaceConfig: TSpaceConfig = spaceConfigJson as TSpaceConfig;
+
+export function showcase(): TShowcase {
+  const spaces: ReadonlyArray<TSpace> = spaceService.createFromConfig([spaceConfig]);
+  // TODO 14-0-0: implement spaceService.findActive()
+  const space: TSpace = spaces[0];
   const engine: TEngine = Engine(space);
 
   function start(): void {

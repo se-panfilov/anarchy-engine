@@ -26,10 +26,6 @@ import '@/App/style.css';
 import { showcase } from '@/App/Levels/Showcase24ActorsWithModels';
 // import { showcase } from '@/App/Levels/Showcase25TransformDrive';
 // import { showcase } from '@/App/Levels/Showcase26Audio';
-import type { TAppCanvas } from '@/Engine';
-import { ambientContext, isNotDefined } from '@/Engine';
 
-const canvas: TAppCanvas | null = ambientContext.container.getCanvasElement('#app');
-if (isNotDefined(canvas)) throw new Error('Canvas is not defined');
-const { start } = await showcase(canvas);
+const { start } = showcase();
 void start();

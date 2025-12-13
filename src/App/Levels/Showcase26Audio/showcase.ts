@@ -7,7 +7,6 @@ import type { TShowcase } from '@/App/Levels/Models';
 import type {
   TActor,
   TAnyAudioWrapper,
-  TAppCanvas,
   TAudio3dWrapper,
   TCameraWrapper,
   TDebugAudioRenderer,
@@ -26,10 +25,14 @@ import type {
 } from '@/Engine';
 import { DebugAudioRenderer, Engine, isAudio3dWrapper, isDefined, isNotDefined, spaceService } from '@/Engine';
 
-import spaceConfig from './showcase.json';
+import spaceConfigJson from './showcase.json';
 
-export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
-  const space: TSpace = await spaceService.buildSpaceFromConfig(canvas, spaceConfig as TSpaceConfig);
+const spaceConfig: TSpaceConfig = spaceConfigJson as TSpaceConfig;
+
+export function showcase(): TShowcase {
+  const spaces: ReadonlyArray<TSpace> = spaceService.createFromConfig([spaceConfig]);
+  // TODO 14-0-0: implement spaceService.findActive()
+  const space: TSpace = spaces[0];
   const engine: TEngine = Engine(space);
   const gui: GUI = new GUI();
 

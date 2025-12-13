@@ -8,7 +8,6 @@ import type { TShowcase } from '@/App/Levels/Models';
 import { addGizmo, getMemoryUsage } from '@/App/Levels/Utils';
 import type {
   TActor,
-  TAppCanvas,
   TCameraWrapper,
   TControlsWrapper,
   TDegrees,
@@ -54,7 +53,7 @@ import {
   TransformAgent
 } from '@/Engine';
 
-import spaceConfig from './showcase.json';
+import spaceConfigJson from './showcase.json';
 import {
   addActorFolderGui,
   addKinematicActorFolderGui,
@@ -70,6 +69,8 @@ import {
   startIntersections
 } from './Utils';
 
+const spaceConfig: TSpaceConfig = spaceConfigJson as TSpaceConfig;
+
 //This showcase should demonstrate the ways we can move the actor.
 // We have different "agents" (modes) which can be switched in runtime
 // - Connected agent is expose mutable position/rotation/scale objects and follow the changes of them. Useful to work with 3rd party libs (e.g. animejs). But recommended to avoid.
@@ -77,9 +78,11 @@ import {
 // - Physical agent is a mode when model3d reads values from a physical body. Requires setup of physics. Recommended for environmental objects (e.g. physical bricks in a wall).
 // - Default agent is providing almost nothing, but setters. Recommended for static objects.
 // - Also: with every mode you can do position$.next() to "teleport" the object to the new position
-export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
+export function showcase(): TShowcase {
   const gui: GUI = new GUI();
-  const space: TSpace = await spaceService.buildSpaceFromConfig(canvas, spaceConfig as TSpaceConfig);
+  const spaces: ReadonlyArray<TSpace> = spaceService.createFromConfig([spaceConfig]);
+  // TODO 14-0-0: implement spaceService.findActive()
+  const space: TSpace = spaces[0];
   const engine: TEngine = Engine(space);
   const { cameraService, controlsService, lightService, models3dService, mouseService, particlesService, physicsWorldService, rendererService, scenesService, spatialGridService, textService } =
     space.services;

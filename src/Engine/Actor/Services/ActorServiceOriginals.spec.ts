@@ -2,21 +2,16 @@ import { beforeAll, describe } from 'vitest';
 
 import type { TActor, TActorConfigToParamsDependencies, TActorParams, TActorService } from '@/Engine/Actor';
 import { configToParams } from '@/Engine/Actor/Adapters';
-import type { TAppCanvas } from '@/Engine/App';
 import type { TSpace, TSpaceConfigEntities, TSpaceConfigResources, TSpaceService } from '@/Engine/Space';
 import { SpaceFactory, SpaceRegistry, SpaceService } from '@/Engine/Space';
 import type { TWriteable } from '@/Engine/Utils';
-import { getMockCanvas } from '@/Tests/Mocks/GetMockCanvas';
 import { mockActorConfig } from '@/Tests/Mocks/MockActorConfig';
 import { mockMaterialConfig } from '@/Tests/Mocks/MockMaterialConfig';
 import { mockModel3dConfig } from '@/Tests/Mocks/MockModel3dConfig';
 import { mockConfig } from '@/Tests/Mocks/MockSpaceConfig';
 import { validateCommonServiceBehavior } from '@/Tests/Suits/ValidateServiceOriginalsTestSuite';
 
-async function getServiceAndParams(
-  spaceService: TSpaceService,
-  canvas: TAppCanvas
-): Promise<{
+async function getServiceAndParams(spaceService: TSpaceService): Promise<{
   service: TActorService;
   params: TActorParams;
 }> {
@@ -37,14 +32,12 @@ async function getServiceAndParams(
 
 describe('ActorServiceOriginals', () => {
   let spaceService: TSpaceService;
-  let canvas: TAppCanvas;
 
   beforeAll(() => {
     spaceService = SpaceService(SpaceFactory(), SpaceRegistry());
-    canvas = getMockCanvas();
   });
 
   describe('Make sure that the registry operates with original object, not copies ', async () => {
-    validateCommonServiceBehavior<TActor, TActorParams>(() => getServiceAndParams(spaceService, canvas));
+    validateCommonServiceBehavior<TActor, TActorParams>(() => getServiceAndParams(spaceService));
   });
 });

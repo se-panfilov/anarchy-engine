@@ -1,13 +1,17 @@
 import type { Vector3 } from 'three';
 
 import type { TShowcase } from '@/App/Levels/Models';
-import type { TActor, TAppCanvas, TCameraWrapper, TEngine, TReadonlyVector3, TSpace, TSpaceConfig } from '@/Engine';
+import type { TActor, TCameraWrapper, TEngine, TReadonlyVector3, TSpace, TSpaceConfig } from '@/Engine';
 import { Engine, isNotDefined, spaceService } from '@/Engine';
 
-import spaceConfig from './showcase.json';
+import spaceConfigJson from './showcase.json';
 
-export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
-  const space: TSpace = await spaceService.buildSpaceFromConfig(canvas, spaceConfig as TSpaceConfig);
+const spaceConfig: TSpaceConfig = spaceConfigJson as TSpaceConfig;
+
+export function showcase(): TShowcase {
+  const spaces: ReadonlyArray<TSpace> = spaceService.createFromConfig([spaceConfig]);
+  // TODO 14-0-0: implement spaceService.findActive()
+  const space: TSpace = spaces[0];
   const engine: TEngine = Engine(space);
   const { actorService, cameraService, physicsWorldService } = space.services;
   const { physicalLoop } = space.loops;

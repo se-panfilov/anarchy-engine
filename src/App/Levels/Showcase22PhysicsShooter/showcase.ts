@@ -9,7 +9,6 @@ import { initLight } from '@/App/Levels/Showcase22PhysicsShooter/utils/Light';
 import { getMemoryUsage } from '@/App/Levels/Utils';
 import type {
   TActor,
-  TAppCanvas,
   TCameraWrapper,
   TCollisionCheckResult,
   TEngine,
@@ -27,7 +26,7 @@ import type {
 import { Engine, isDefined, isNotDefined, KeysExtra, metersPerSecond, milliseconds, spaceService } from '@/Engine';
 import { radians } from '@/Engine/Measurements/Utils';
 
-import spaceConfig from './showcase.json';
+import spaceConfigJson from './showcase.json';
 import type { TBullet } from './utils';
 import {
   applyExplosionImpulse,
@@ -43,8 +42,12 @@ import {
   updateBullets
 } from './utils';
 
-export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
-  const space: TSpace = await spaceService.buildSpaceFromConfig(canvas, spaceConfig as TSpaceConfig);
+const spaceConfig: TSpaceConfig = spaceConfigJson as TSpaceConfig;
+
+export function showcase(): TShowcase {
+  const spaces: ReadonlyArray<TSpace> = spaceService.createFromConfig([spaceConfig]);
+  // TODO 14-0-0: implement spaceService.findActive()
+  const space: TSpace = spaces[0];
   const engine: TEngine = Engine(space);
   const { keyboardService } = engine.services;
   const { cameraService, physicsWorldService, actorService, lightService, models3dService, materialService, mouseService, intersectionsWatcherService, spatialGridService } = space.services;

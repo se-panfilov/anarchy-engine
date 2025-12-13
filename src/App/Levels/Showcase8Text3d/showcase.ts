@@ -5,29 +5,19 @@ import { degToRad } from 'three/src/math/MathUtils';
 
 import type { TShowcase } from '@/App/Levels/Models';
 import { addGizmo } from '@/App/Levels/Utils';
-import type {
-  TAnimationParams,
-  TAppCanvas,
-  TEngine,
-  TMeters,
-  TModel3d,
-  TModels3dRegistry,
-  TMoverService,
-  TRadians,
-  TSceneWrapper,
-  TSpace,
-  TSpaceConfig,
-  TText3dTextureWrapper,
-  TText3dWrapper
-} from '@/Engine';
+import type { TAnimationParams, TEngine, TMeters, TModel3d, TModels3dRegistry, TMoverService, TRadians, TSceneWrapper, TSpace, TSpaceConfig, TText3dTextureWrapper, TText3dWrapper } from '@/Engine';
 import { ambientContext, createCirclePathXZ, defaultMoverServiceConfig, Easing, Engine, generateAnglesForCircle, isNotDefined, spaceService, TextType, TransformAgent } from '@/Engine';
 import { meters, radians } from '@/Engine/Measurements/Utils';
 import { MoverService } from '@/Engine/Services/MoverService/MoverService';
 
-import spaceConfig from './showcase.json';
+import spaceConfigJson from './showcase.json';
 
-export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
-  const space: TSpace = await spaceService.buildSpaceFromConfig(canvas, spaceConfig as TSpaceConfig);
+const spaceConfig: TSpaceConfig = spaceConfigJson as TSpaceConfig;
+
+export function showcase(): TShowcase {
+  const spaces: ReadonlyArray<TSpace> = spaceService.createFromConfig([spaceConfig]);
+  // TODO 14-0-0: implement spaceService.findActive()
+  const space: TSpace = spaces[0];
   const engine: TEngine = Engine(space);
   const { textService, models3dService, mouseService, scenesService } = space.services;
   const { transformLoop } = space.loops;

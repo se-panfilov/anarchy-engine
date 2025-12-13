@@ -5,7 +5,7 @@ import { LineMaterial } from 'three/examples/jsm/lines/LineMaterial';
 
 import type { TShowcase } from '@/App/Levels/Models';
 import { addGizmo } from '@/App/Levels/Utils';
-import type { TActor, TAppCanvas, TCameraWrapper, TEngine, TIntersectionEvent, TIntersectionsWatcher, TRadians, TReadonlyVector3, TSceneWrapper, TSpace, TSpaceConfig } from '@/Engine';
+import type { TActor, TCameraWrapper, TEngine, TIntersectionEvent, TIntersectionsWatcher, TRadians, TReadonlyVector3, TSceneWrapper, TSpace, TSpaceConfig } from '@/Engine';
 import {
   ambientContext,
   Engine,
@@ -22,10 +22,14 @@ import {
 } from '@/Engine';
 import { meters, radians } from '@/Engine/Measurements/Utils';
 
-import spaceConfig from './showcase.json';
+import spaceConfigJson from './showcase.json';
 
-export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
-  const space: TSpace = await spaceService.buildSpaceFromConfig(canvas, spaceConfig as TSpaceConfig);
+const spaceConfig: TSpaceConfig = spaceConfigJson as TSpaceConfig;
+
+export function showcase(): TShowcase {
+  const spaces: ReadonlyArray<TSpace> = spaceService.createFromConfig([spaceConfig]);
+  // TODO 14-0-0: implement spaceService.findActive()
+  const space: TSpace = spaces[0];
   const engine: TEngine = Engine(space);
   const { keyboardService } = engine.services;
   const { actorService, cameraService, intersectionsWatcherService, mouseService, textService, physicsWorldService } = space.services;

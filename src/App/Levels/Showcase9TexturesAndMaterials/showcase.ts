@@ -2,13 +2,17 @@ import { combineLatest, distinctUntilChanged, tap } from 'rxjs';
 import type { Vector2Like, Vector3 } from 'three';
 
 import type { TShowcase } from '@/App/Levels/Models';
-import type { TAppCanvas, TCameraWrapper, TEngine, TModel3d, TModels3dRegistry, TMouseService, TSceneWrapper, TScreenSizeValues, TSpace, TSpaceConfig } from '@/Engine';
+import type { TCameraWrapper, TEngine, TModel3d, TModels3dRegistry, TMouseService, TSceneWrapper, TScreenSizeValues, TSpace, TSpaceConfig } from '@/Engine';
 import { ambientContext, Engine, getRotationByCos, getRotationBySin, isDefined, isNotDefined, spaceService } from '@/Engine';
 
-import spaceConfig from './showcase.json';
+import spaceConfigJson from './showcase.json';
 
-export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
-  const space: TSpace = await spaceService.buildSpaceFromConfig(canvas, spaceConfig as TSpaceConfig);
+const spaceConfig: TSpaceConfig = spaceConfigJson as TSpaceConfig;
+
+export function showcase(): TShowcase {
+  const spaces: ReadonlyArray<TSpace> = spaceService.createFromConfig([spaceConfig]);
+  // TODO 14-0-0: implement spaceService.findActive()
+  const space: TSpace = spaces[0];
   const engine: TEngine = Engine(space);
 
   const { models3dService, mouseService, scenesService } = space.services;
