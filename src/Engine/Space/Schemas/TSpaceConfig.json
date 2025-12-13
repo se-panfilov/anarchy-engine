@@ -1357,6 +1357,16 @@
         "lookAt": {
           "$ref": "#/definitions/Vector3Like"
         },
+        "audioListener": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/Listeners"
+            },
+            {
+              "type": "string"
+            }
+          ]
+        },
         "fov": {
           "type": "number"
         },
@@ -1383,6 +1393,10 @@
         }
       },
       "required": ["isActive", "position"]
+    },
+    "Listeners": {
+      "type": "string",
+      "const": "main_listener"
     },
     "TEnvMapConfig": {
       "type": "object",

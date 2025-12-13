@@ -1,4 +1,4 @@
-import type { Vector3 } from 'three';
+import type { AudioListener, Vector3 } from 'three';
 
 import type { TActive, TWithNameOptional, TWithTags } from '@/Engine/Mixins';
 import type { TObject3DParams } from '@/Engine/ThreeLib';
@@ -9,6 +9,7 @@ export type TCameraParams = Readonly<{
   near?: number;
   far?: number;
   lookAt?: Vector3;
+  audioListener?: AudioListener;
 }> &
   TWithTransformAgentParam &
   TWithNameOptional &

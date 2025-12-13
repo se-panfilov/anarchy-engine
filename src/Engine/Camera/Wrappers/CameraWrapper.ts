@@ -13,7 +13,7 @@ import { applyObject3dParams, isDefined } from '@/Engine/Utils';
 import { getAccessors } from './Accessors';
 
 export function CameraWrapper(params: TCameraParams): TCameraWrapper {
-  const { fov = 45, near = 1, far = 10000, lookAt, tags }: TCameraParams = params;
+  const { fov = 45, near = 1, far = 10000, lookAt, audioListener }: TCameraParams = params;
   const { width, height, ratio } = ambientContext.screenSizeWatcher.getValue() ?? { width: 0, height: 0, ratio: 1 };
   const entity: TWriteable<TPerspectiveCamera> = new PerspectiveCamera(fov, ratio, near, far);
 
@@ -30,8 +30,7 @@ export function CameraWrapper(params: TCameraParams): TCameraWrapper {
     ...accessors,
     entity,
     ...withObject3d(entity),
-    ...withActiveMixin(),
-    ...tags
+    ...withActiveMixin()
   };
 
   applyObject3dParams(result, params);
@@ -39,7 +38,8 @@ export function CameraWrapper(params: TCameraParams): TCameraWrapper {
 
   result.destroy$.subscribe((): void => driveToTargetConnector.destroy$.next());
 
-  if (isDefined(lookAt)) entity.lookAt(new Vector3(lookAt.x, lookAt.y, lookAt.z));
+  if (isDefined(lookAt)) accessors.lookAt(new Vector3(lookAt.x, lookAt.y, lookAt.z));
+  if (isDefined(audioListener)) accessors.addListener(audioListener);
 
   return result;
 }

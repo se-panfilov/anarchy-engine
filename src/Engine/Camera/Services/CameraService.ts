@@ -2,7 +2,7 @@ import type { Subscription } from 'rxjs';
 import { distinctUntilChanged } from 'rxjs';
 
 import type { TRegistryPack } from '@/Engine/Abstract';
-import type { TCameraConfig, TCameraFactory, TCameraParams, TCameraRegistry, TCameraService, TCameraWrapper } from '@/Engine/Camera/Models';
+import type { TCameraConfig, TCameraFactory, TCameraParams, TCameraRegistry, TCameraService, TCameraServiceDependencies, TCameraWrapper } from '@/Engine/Camera/Models';
 import { ambientContext } from '@/Engine/Context';
 import type { TDestroyable, TWithActiveMixinResult } from '@/Engine/Mixins';
 import { destroyableMixin, withActiveEntityServiceMixin } from '@/Engine/Mixins';
@@ -10,7 +10,13 @@ import type { TSceneWrapper } from '@/Engine/Scene';
 import type { TScreenSizeValues } from '@/Engine/Screen';
 import { isNotDefined } from '@/Engine/Utils';
 
-export function CameraService(factory: TCameraFactory, registry: TCameraRegistry, scene: TSceneWrapper, isUpdateCamerasAspect: boolean = true): TCameraService {
+export function CameraService(
+  factory: TCameraFactory,
+  registry: TCameraRegistry,
+  scene: TSceneWrapper,
+  dependencies: TCameraServiceDependencies,
+  shouldUpdateCamerasAspect: boolean = true
+): TCameraService {
   const withActive: TWithActiveMixinResult<TCameraWrapper> = withActiveEntityServiceMixin<TCameraWrapper>(registry);
   const registrySub$: Subscription = registry.added$.subscribe(({ value }: TRegistryPack<TCameraWrapper>): void => {
     scene.addCamera(value);
@@ -38,15 +44,16 @@ export function CameraService(factory: TCameraFactory, registry: TCameraRegistry
       });
   }
 
-  if (isUpdateCamerasAspect) startUpdatingCamerasAspect(false);
+  if (shouldUpdateCamerasAspect) startUpdatingCamerasAspect(false);
 
   const screenSizeDestroy$: Subscription = ambientContext.screenSizeWatcher.destroy$.subscribe(() => {
     screenSizeSub$?.unsubscribe();
     screenSizeDestroy$.unsubscribe();
   });
 
-  const create = (params: TCameraParams): TCameraWrapper => factory.create(params);
-  const createFromConfig = (cameras: ReadonlyArray<TCameraConfig>): ReadonlyArray<TCameraWrapper> => cameras.map((config: TCameraConfig): TCameraWrapper => create(factory.configToParams(config)));
+  const create = (params: TCameraParams): TCameraWrapper => factory.create(params, dependencies);
+  const createFromConfig = (cameras: ReadonlyArray<TCameraConfig>): ReadonlyArray<TCameraWrapper> =>
+    cameras.map((config: TCameraConfig): TCameraWrapper => create(factory.configToParams(config, dependencies)));
 
   const destroyable: TDestroyable = destroyableMixin();
   const destroySub$: Subscription = destroyable.destroy$.subscribe((): void => {

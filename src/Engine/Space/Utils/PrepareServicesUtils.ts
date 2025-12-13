@@ -3,6 +3,7 @@ import { ActorFactory, ActorRegistry, ActorService, Model3dToActorConnectionRegi
 import type { TAnimationsService } from '@/Engine/Animations';
 import { AnimationsResourceAsyncRegistry, AnimationsService } from '@/Engine/Animations';
 import type { TAppCanvas } from '@/Engine/App';
+import type { TAudioService } from '@/Engine/Audio';
 import { AudioFactory, AudioListenersRegistry, AudioRegistry, AudioResourceAsyncRegistry, AudioService } from '@/Engine/Audio';
 import type { TCameraService } from '@/Engine/Camera';
 import { CameraFactory, CameraRegistry, CameraService } from '@/Engine/Camera';
@@ -76,7 +77,8 @@ export function buildEntitiesServices(sceneW: TSceneWrapper, canvas: TAppCanvas,
     model3dRawToModel3dConnectionRegistry
   });
   const fsmService: TFsmService = FsmService(FsmInstanceFactory(), FsmSourceFactory(), FsmInstanceRegistry(), FsmSourceRegistry());
-  const cameraService: TCameraService = CameraService(CameraFactory(), CameraRegistry(), sceneW);
+  const audioService: TAudioService = AudioService(AudioFactory(), AudioRegistry(), AudioResourceAsyncRegistry(), AudioListenersRegistry(), loops);
+  const cameraService: TCameraService = CameraService(CameraFactory(), CameraRegistry(), sceneW, { audioService });
 
   return {
     actorService: ActorService(
@@ -93,7 +95,7 @@ export function buildEntitiesServices(sceneW: TSceneWrapper, canvas: TAppCanvas,
       },
       sceneW
     ),
-    audioService: AudioService(AudioFactory(), AudioRegistry(), AudioResourceAsyncRegistry(), AudioListenersRegistry(), loops),
+    audioService,
     cameraService,
     controlsService: ControlService(ControlsFactory(), ControlsRegistry(), loops, canvas),
     collisionsService,
