@@ -4,6 +4,7 @@ import { LineGeometry } from 'three/examples/jsm/lines/LineGeometry';
 import { LineMaterial } from 'three/examples/jsm/lines/LineMaterial';
 
 import type { TShowcase } from '@/App/Levels/Models';
+import { addGizmo } from '@/App/Levels/Utils';
 import type { TActor, TAppCanvas, TCameraWrapper, TEngine, TIntersectionEvent, TIntersectionsWatcher, TSceneWrapper, TSpace, TSpaceConfig } from '@/Engine';
 import { Engine, getDistancePrecisely, getHorizontalAzimuthDeg, getPushCoordsFrom3dAzimuthDeg, isActorHasPhysicsBody, isDefined, isNotDefined, KeysExtra, spaceService, TextType } from '@/Engine';
 import { meters } from '@/Engine/Measurements/Utils';
@@ -21,6 +22,8 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
 
   function init(): void {
     physicsWorldService.getDebugRenderer(loopService).start();
+
+    addGizmo(space.services, { placement: 'bottom-left' });
 
     const line: Line2 = createLine();
     sceneWrapper.entity.add(line);

@@ -2,6 +2,7 @@ import GUI from 'lil-gui';
 import { withLatestFrom } from 'rxjs';
 
 import type { TShowcase } from '@/App/Levels/Models';
+import { addGizmo } from '@/App/Levels/Utils';
 import type { TActor, TActorRegistry, TAppCanvas, TCameraWrapper, TEngine, TIntersectionEvent, TIntersectionsWatcher, TMouseWatcherEvent, TMoverService, TSpace, TSpaceConfig } from '@/Engine';
 import { defaultMoverServiceConfig, Easing, Engine, isNotDefined, KeyCode, LookUpStrategy, mpsSpeed, spaceService } from '@/Engine';
 import { MoverService } from '@/Engine/Services/MoverService/MoverService';
@@ -20,6 +21,11 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
   const { onKey } = keyboardService;
 
   function init(): void {
+    const camera: TCameraWrapper | undefined = cameraService.findActive();
+    if (isNotDefined(camera)) throw new Error('Camera is not defined');
+
+    addGizmo(space.services, { placement: 'bottom-left' });
+
     const actorKeyboard: TActor | undefined = findByTag('keyboard');
     const actorMouse: TActor | undefined = findByTag('mouse');
     const actorKeyW: TActor | undefined = findByTags(['key', 'W'], LookUpStrategy.Every);
@@ -62,7 +68,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     onKey(KeyCode.D).pressed$.subscribe((): void => void actorKeyD.drive.default.addY(-0.2));
     onKey(KeyCode.D).released$.subscribe((): void => void actorKeyD.drive.default.addY(0.2));
 
-    const intersectionsWatcher: TIntersectionsWatcher = startIntersections();
+    const intersectionsWatcher: TIntersectionsWatcher = startIntersections(camera);
     const coordsUI: { x: number; z: number } = { x: 0, z: 0 };
 
     gui.add(coordsUI, 'x').listen();
@@ -98,9 +104,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     wheelDown$.subscribe((): void => actorMkeyMiddle.drive.default.adjustRotationByX(-10));
   }
 
-  function startIntersections(): TIntersectionsWatcher {
-    const camera: TCameraWrapper | undefined = cameraService.findActive();
-    if (isNotDefined(camera)) throw new Error('Camera is not defined');
+  function startIntersections(camera: TCameraWrapper): TIntersectionsWatcher {
     const actor: TActor | undefined = findByName('surface_actor');
     if (isNotDefined(actor)) throw new Error('Actor is not defined');
 

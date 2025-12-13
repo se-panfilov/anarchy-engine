@@ -2,6 +2,7 @@ import GUI from 'lil-gui';
 import type { Fog } from 'three';
 
 import type { TShowcase } from '@/App/Levels/Models';
+import { addGizmo } from '@/App/Levels/Utils';
 import type { TAppCanvas, TEngine, TSceneWrapper, TSpace, TSpaceConfig } from '@/Engine';
 import { Engine, isNotDefined, spaceService } from '@/Engine';
 
@@ -17,6 +18,8 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     const scene: TSceneWrapper | undefined = scenesService.findActive();
     if (isNotDefined(scene)) throw new Error('Scene not found');
     if (isNotDefined(scene.entity.fog)) throw new Error("Scene's fog not found");
+
+    addGizmo(space.services, { placement: 'bottom-left' });
 
     rendererService.findActive()?.entity.setClearColor(scene.entity.fog.color);
 

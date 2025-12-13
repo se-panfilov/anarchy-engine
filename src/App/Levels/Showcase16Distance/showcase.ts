@@ -1,4 +1,5 @@
 import type { TShowcase } from '@/App/Levels/Models';
+import { addGizmo } from '@/App/Levels/Utils';
 import type { TActor, TActorRegistry, TAppCanvas, TCameraRegistry, TEngine, TSpace, TSpaceConfig } from '@/Engine';
 import { Engine, isNotDefined, KeyCode, mpsSpeed, spaceService } from '@/Engine';
 
@@ -22,6 +23,8 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
   function init(): void {
     const sphereW: TActor | undefined = findByName('sphere_actor');
     if (isNotDefined(sphereW)) throw new Error('Actor "sphere_actor" is not defined');
+
+    addGizmo(space.services, { placement: 'bottom-left' });
 
     let isMove: boolean = false;
     let isTimerStarted: boolean = false;

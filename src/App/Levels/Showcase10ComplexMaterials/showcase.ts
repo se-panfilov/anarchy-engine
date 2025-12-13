@@ -6,6 +6,7 @@ import { Euler } from 'three';
 import { Vector3 } from 'three/src/math/Vector3';
 
 import type { TShowcase } from '@/App/Levels/Models';
+import { addGizmo } from '@/App/Levels/Utils';
 import type {
   TActor,
   TActorRegistry,
@@ -43,6 +44,8 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
 
   const engine: TEngine = Engine(space);
   const { keyboardService } = engine.services;
+
+  addGizmo(space.services, { placement: 'bottom-left' });
 
   const { actorService, controlsService } = space.services;
   const actorRegistry: TActorRegistry = actorService.getRegistry();

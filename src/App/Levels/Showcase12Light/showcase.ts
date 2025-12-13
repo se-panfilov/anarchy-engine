@@ -3,6 +3,7 @@ import { CameraHelper, DirectionalLightHelper, HemisphereLightHelper, PointLight
 import { RectAreaLightHelper } from 'three/examples/jsm/helpers/RectAreaLightHelper';
 
 import type { TShowcase } from '@/App/Levels/Models';
+import { addGizmo } from '@/App/Levels/Utils';
 import type {
   TAppCanvas,
   TDirectionalLightWrapper,
@@ -41,6 +42,8 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
   function init(): void {
     const scene: TSceneWrapper | undefined = scenesService.findActive();
     if (isNotDefined(scene)) throw new Error('Scene not found');
+
+    addGizmo(space.services, { placement: 'bottom-left' });
 
     //directional light
     const directionalLight: TDirectionalLightWrapper | undefined = lightRegistry.findByTag('directional') as TDirectionalLightWrapper | undefined;

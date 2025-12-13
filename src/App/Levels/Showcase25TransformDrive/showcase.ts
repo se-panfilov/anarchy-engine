@@ -2,9 +2,9 @@ import GUI from 'lil-gui';
 import { map, withLatestFrom } from 'rxjs';
 import { Vector3 } from 'three';
 import { radToDeg } from 'three/src/math/MathUtils';
-import { ViewportGizmo } from 'three-viewport-gizmo';
 
 import type { TShowcase } from '@/App/Levels/Models';
+import { addGizmo } from '@/App/Levels/Utils';
 import type {
   TActor,
   TAppCanvas,
@@ -60,7 +60,6 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     cameraService,
     controlsService,
     lightService,
-    loopService,
     models3dService,
     mouseService,
     particlesService,
@@ -109,9 +108,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     const renderer: TRendererWrapper | undefined = rendererService.findActive();
     if (isNotDefined(renderer)) throw new Error('Renderer is not defined');
 
-    const gizmo = new ViewportGizmo(camera.entity, renderer.entity, { placement: 'bottom-left' });
-    gizmo.attachControls(controls.entity);
-    loopService.tick$.subscribe(() => gizmo.render());
+    addGizmo(space.services, { placement: 'bottom-left' });
 
     setParticles(particles);
     grid._debugVisualizeCells(sceneW, '#4e0c85');
