@@ -7,7 +7,7 @@ const VIEWPORT = { width: 800, height: 600 };
 
 const GAME_URL = `http://localhost:${process.env.PORT}`;
 
-test.use({ viewport: VIEWPORT });
+test.use({ viewport: VIEWPORT, deviceScaleFactor: 1 });
 
 test.beforeEach(async ({ page }) => {
   await page.goto(GAME_URL);

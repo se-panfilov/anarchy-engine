@@ -25,7 +25,7 @@ export function IntersectionsWatcher({ position$, isAutoStart, tags, name, perfo
   const removeActors = (actorIds: ReadonlyArray<string>): void => void (actors = actors.filter((actor: TActor): boolean => !actorIds.includes(actor.id)));
   const removeActor = (actorId: string): void => void (actors = actors.filter((actor: TActor): boolean => actorId !== actor.id));
 
-  const setCamera = (cam: TAnyCameraWrapper): void => void (camera = cam);
+  const setCamera = (c: TAnyCameraWrapper): void => void (camera = c);
   const getCamera = (): TAnyCameraWrapper | undefined => camera;
 
   let positionSub$: Subscription | undefined;
@@ -48,7 +48,7 @@ export function IntersectionsWatcher({ position$, isAutoStart, tags, name, perfo
         sample(intersectionsLoop.tick$)
       )
       .subscribe((position: Vector2Like): void => {
-        if (isNotDefined(camera)) throw new Error('Intersections service: cannot start: a camera is not defined');
+        if (isNotDefined(camera)) throw new Error('[IntersectionsWatcher]: Cannot start: camera is not defined');
         const intersection: TIntersectionEvent | undefined = getIntersection(
           position,
           camera,
@@ -68,7 +68,7 @@ export function IntersectionsWatcher({ position$, isAutoStart, tags, name, perfo
   });
 
   function getIntersection(coords: Vector2Like, cameraWrapper: Readonly<TAnyCameraWrapper>, list: Array<TSceneObject>): TIntersectionEvent | undefined | never {
-    if (isNotDefined(raycaster)) throw new Error('Intersections service: cannot get intersection: a raycaster is not defined');
+    if (isNotDefined(raycaster)) throw new Error('[IntersectionsWatcher]: Cannot get intersection: raycaster is not defined');
     raycaster.setFromCamera(new Vector2(coords.x, coords.y), cameraWrapper.entity);
     return raycaster.intersectObjects(list)[0];
   }
