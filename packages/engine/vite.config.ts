@@ -4,12 +4,12 @@ import dts from 'vite-plugin-dts';
 import path from 'path';
 import wasm from 'vite-plugin-wasm';
 import { visualizer } from 'rollup-plugin-visualizer';
+import { sharedAliases } from '../../vite.alias';
 
 export default defineConfig({
   resolve: {
     alias: {
-      '@Engine': path.resolve(__dirname, './src'),
-      '@Shared': path.resolve(__dirname, '../shared')
+      ...sharedAliases
     }
   },
   plugins: [
