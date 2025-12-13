@@ -1,37 +1,22 @@
 import type { Subscription } from 'rxjs';
-import { BehaviorSubject } from 'rxjs';
 
-import type { TDestroyable } from '@/Engine/Mixins';
-import { destroyableMixin } from '@/Engine/Mixins';
-import type { TReadonlyEuler, TReadonlyVector3 } from '@/Engine/ThreeLib';
-import type { TPhysicsTransformAgent, TTransformAgentParams } from '@/Engine/TransformDrive/Models';
+import { TransformAgent } from '@/Engine/TransformDrive/Constants';
+import type { TAbstractTransformAgent, TPhysicsTransformAgent, TTransformAgentParams } from '@/Engine/TransformDrive/Models';
+
+import { AbstractTransformAgent } from './AbstractTransformAgent';
 
 // TODO 8.0.0. MODELS: This is a placeholder for PhysicsTransformAgent
 export function PhysicsTransformAgent(params: TTransformAgentParams): TPhysicsTransformAgent {
-  const position$: BehaviorSubject<TReadonlyVector3> = new BehaviorSubject<TReadonlyVector3>(params.position);
-  const rotation$: BehaviorSubject<TReadonlyEuler> = new BehaviorSubject<TReadonlyEuler>(params.rotation);
-  const scale$: BehaviorSubject<TReadonlyVector3> = new BehaviorSubject<TReadonlyVector3>(params.scale);
+  const abstractTransformAgent: TAbstractTransformAgent = AbstractTransformAgent(params, TransformAgent.Physical);
 
-  const destroyable: TDestroyable = destroyableMixin();
-  const destroySub$: Subscription = destroyable.destroy$.subscribe((): void => {
+  const destroySub$: Subscription = abstractTransformAgent.destroy$.subscribe((): void => {
     //Stop subscriptions
     destroySub$.unsubscribe();
 
-    //Complete subjects
-    position$.complete();
-    position$.unsubscribe();
-    rotation$.complete();
-    rotation$.unsubscribe();
-    destroyable.destroy$.complete();
-    destroyable.destroy$.unsubscribe();
+    abstractTransformAgent.destroy$.next();
   });
 
-  const agent = {
-    ...destroyable,
-    position$,
-    rotation$,
-    scale$
+  return {
+    ...abstractTransformAgent
   };
-
-  return agent;
 }

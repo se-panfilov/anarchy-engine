@@ -6,57 +6,44 @@ import { degToRad } from 'three/src/math/MathUtils';
 import type { TKinematicData, TKinematicLoopService } from '@/Engine/Kinematic/Models';
 import type { TDegrees, TRadians } from '@/Engine/Math';
 import { getAzimuthDegFromDirection, getAzimuthRadFromDirection, getElevationDegFromDirection, getElevationRadFromDirection } from '@/Engine/Math';
-import type { TDestroyable } from '@/Engine/Mixins';
-import { destroyableMixin } from '@/Engine/Mixins';
 import type { TReadonlyEuler, TReadonlyQuaternion, TReadonlyVector3 } from '@/Engine/ThreeLib';
-import type { TKinematicTransformAgent, TKinematicTransformAgentParams } from '@/Engine/TransformDrive/Models';
+import { TransformAgent } from '@/Engine/TransformDrive/Constants';
+import type { TAbstractTransformAgent, TKinematicTransformAgent, TKinematicTransformAgentParams } from '@/Engine/TransformDrive/Models';
 import type { TWriteable } from '@/Engine/Utils';
+
+import { AbstractTransformAgent } from './AbstractTransformAgent';
 
 export function KinematicTransformAgent(params: TKinematicTransformAgentParams, kinematicLoopService: TKinematicLoopService): TKinematicTransformAgent {
   let _isAutoUpdate: boolean = params.isAutoUpdate ?? false;
-  let _isEnabled: boolean = _isAutoUpdate;
-  const position$: BehaviorSubject<TReadonlyVector3> = new BehaviorSubject<TReadonlyVector3>(params.position);
-  const rotationQuaternion$: BehaviorSubject<TReadonlyQuaternion> = new BehaviorSubject<TReadonlyQuaternion>(new Quaternion().setFromEuler(params.rotation));
-  const rotation$: BehaviorSubject<TReadonlyEuler> = new BehaviorSubject<TReadonlyEuler>(params.rotation);
-  const scale$: BehaviorSubject<TReadonlyVector3> = new BehaviorSubject<TReadonlyVector3>(params.scale);
+  const abstractTransformAgent: TAbstractTransformAgent = AbstractTransformAgent(params, TransformAgent.Kinematic);
 
-  const rotationQuaternionSub$: Subscription = rotationQuaternion$.pipe(map((q: TReadonlyQuaternion): TReadonlyEuler => new Euler().setFromQuaternion(q))).subscribe(rotation$);
+  const rotationQuaternion$: BehaviorSubject<TReadonlyQuaternion> = new BehaviorSubject<TReadonlyQuaternion>(new Quaternion().setFromEuler(params.rotation));
+  const rotationQuaternionSub$: Subscription = rotationQuaternion$.pipe(map((q: TReadonlyQuaternion): TReadonlyEuler => new Euler().setFromQuaternion(q))).subscribe(abstractTransformAgent.rotation$);
 
   let kinematicSub$: Subscription | undefined = undefined;
 
-  const destroyable: TDestroyable = destroyableMixin();
-  const destroySub$: Subscription = destroyable.destroy$.subscribe((): void => {
-    destroySub$.unsubscribe();
-
+  const destroySub$: Subscription = abstractTransformAgent.destroy$.subscribe((): void => {
     //Stop subscriptions
+    destroySub$.unsubscribe();
     kinematicSub$?.unsubscribe();
     rotationQuaternionSub$?.unsubscribe();
 
     //Complete subjects
-    position$.complete();
-    position$.unsubscribe();
     rotationQuaternion$.complete();
     rotationQuaternion$.unsubscribe();
-    destroyable.destroy$.complete();
-    destroyable.destroy$.unsubscribe();
+
+    abstractTransformAgent.destroy$.next();
   });
 
   const agent: Omit<TKinematicTransformAgent, 'data'> & Readonly<{ data: TWriteable<TKinematicData> }> = {
-    ...destroyable,
+    ...abstractTransformAgent,
+    rotationQuaternion$,
     data: {
       linearSpeed: params.linearSpeed ?? 0,
       linearDirection: params.linearDirection ?? new Vector3(),
       angularSpeed: params.angularSpeed ?? 0,
       angularDirection: params.angularDirection ?? new Vector3()
     },
-    position$: position$,
-    rotation$,
-    scale$: scale$,
-    rotationQuaternion$,
-    // TODO 8.0.0. MODELS: maybe all agents should implement this enable/disable/isEnabled (and automatically call them on agent change)?
-    enable: (): boolean => (_isEnabled = true),
-    disable: (): boolean => (_isEnabled = false),
-    isEnabled: (): boolean => _isEnabled,
     setData({ linearSpeed, linearDirection, angularSpeed, angularDirection }: TKinematicData): void {
       // eslint-disable-next-line functional/immutable-data
       agent.data.linearSpeed = linearSpeed;
@@ -206,15 +193,15 @@ export function KinematicTransformAgent(params: TKinematicTransformAgentParams, 
   };
 
   function doKinematicMove(delta: number): void {
-    if (!agent.isEnabled()) return;
+    if (!agent.enabled$.value) return;
     if (agent.data.linearSpeed <= 0) return;
     const normalizedDirection: TReadonlyVector3 = agent.data.linearDirection.clone().normalize();
     const displacement: TReadonlyVector3 = normalizedDirection.multiplyScalar(agent.data.linearSpeed * delta);
-    position$.next(position$.value.clone().add(displacement));
+    abstractTransformAgent.position$.next(abstractTransformAgent.position$.value.clone().add(displacement));
   }
 
   function doKinematicRotation(delta: number): void {
-    if (!agent.isEnabled()) return;
+    if (!agent.enabled$.value) return;
     if (agent.data.angularSpeed <= 0) return;
     const normalizedAngularDirection: TReadonlyVector3 = agent.data.angularDirection.clone().normalize();
     const angle: TRadians = agent.data.angularSpeed * delta;
@@ -222,7 +209,7 @@ export function KinematicTransformAgent(params: TKinematicTransformAgentParams, 
     rotationQuaternion$.next(rotationQuaternion$.value.clone().multiply(quaternion));
   }
 
-  kinematicSub$ = kinematicLoopService.tick$.pipe(takeWhile((): boolean => agent.isEnabled() && agent.isAutoUpdate())).subscribe((delta: number): void => {
+  kinematicSub$ = kinematicLoopService.tick$.pipe(takeWhile((): boolean => agent.enabled$.value && agent.isAutoUpdate())).subscribe((delta: number): void => {
     doKinematicRotation(delta);
     doKinematicMove(delta);
   });

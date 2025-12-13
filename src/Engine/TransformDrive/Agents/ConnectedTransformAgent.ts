@@ -1,27 +1,25 @@
 import type { Subscription } from 'rxjs';
 
-import type { TDestroyable } from '@/Engine/Mixins';
-import { destroyableMixin } from '@/Engine/Mixins';
+import { TransformAgent } from '@/Engine/TransformDrive/Constants';
 import { withMutablePositionConnector, withMutableRotationConnector, withMutableScaleConnector } from '@/Engine/TransformDrive/Mixins';
 import type { TAbstractTransformAgent, TConnectedTransformAgent, TTransformAgentParams } from '@/Engine/TransformDrive/Models';
 
-import { DefaultTransformAgent } from './DefaultTransformAgent';
+import { AbstractTransformAgent } from './AbstractTransformAgent';
 
 export function ConnectedTransformAgent(params: TTransformAgentParams): TConnectedTransformAgent {
-  const defaultTransformAgent: TAbstractTransformAgent = DefaultTransformAgent(params);
+  const abstractTransformAgent: TAbstractTransformAgent = AbstractTransformAgent(params, TransformAgent.Connected);
 
-  const destroyable: TDestroyable = destroyableMixin();
-  const destroySub$: Subscription = destroyable.destroy$.subscribe((): void => {
+  const destroySub$: Subscription = abstractTransformAgent.destroy$.subscribe((): void => {
     //Stop subscriptions
     destroySub$.unsubscribe();
-    defaultTransformAgent.destroy$.next();
+
+    abstractTransformAgent.destroy$.next();
   });
 
   return {
-    ...destroyable,
-    ...defaultTransformAgent,
-    ...withMutablePositionConnector(defaultTransformAgent.position$),
-    ...withMutableRotationConnector(defaultTransformAgent.rotation$),
-    ...withMutableScaleConnector(defaultTransformAgent.scale$)
+    ...abstractTransformAgent,
+    ...withMutablePositionConnector(abstractTransformAgent.position$),
+    ...withMutableRotationConnector(abstractTransformAgent.rotation$),
+    ...withMutableScaleConnector(abstractTransformAgent.scale$)
   };
 }
