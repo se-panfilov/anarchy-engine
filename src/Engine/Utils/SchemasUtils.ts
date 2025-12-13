@@ -81,8 +81,8 @@ function validateData({ name, actors, cameras, scenes, controls, intersections, 
   if (!isEveryActorNameValid) errors = [...errors, 'Actor names must be defined and contain only letters, numbers and underscores'];
   if (!isEveryCameraNameValid) errors = [...errors, 'Camera names must be defined and contain only letters, numbers and underscores'];
   if (!isEveryIntersectionNameValid) errors = [...errors, 'Intersection names must be defined and contain only letters, numbers and underscores'];
-  if (!isEveryIntersectionCameraNameValid) errors = [...errors, 'Intersection "cameraName" must be defined and contain only letters, numbers and underscores'];
-  if (!isEveryIntersectionActorNamesValid) errors = [...errors, 'Intersection "actorNames" must be an array of strings that contain only letters, numbers and underscores'];
+  if (!isEveryIntersectionCameraNameValid) errors = [...errors, 'Intersections "cameraName" must be defined and contain only letters, numbers and underscores'];
+  if (!isEveryIntersectionActorNamesValid) errors = [...errors, 'Intersections "actorNames" must be an array of strings that contain only letters, numbers and underscores'];
   if (!isEveryLightNameValid) errors = [...errors, 'Light names must be defined and contain only letters, numbers and underscores'];
   if (!isEveryFogNameValid) errors = [...errors, 'Fog names must be defined and contain only letters, numbers and underscores'];
   if (!isEveryTextNameValid) errors = [...errors, 'Text names must be defined and contain only letters, numbers and underscores'];
@@ -107,12 +107,14 @@ const validateCameraNames = (entities: ReadonlyArray<Readonly<{ cameraName: stri
 const validateCameraName = (entity: Readonly<{ cameraName: string }>): boolean => validateField(entity, 'cameraName');
 
 const validateActorNamesForEveryEntity = (entities: ReadonlyArray<Readonly<{ actorNames: ReadonlyArray<string> }>>): boolean => entities.every(validateActorNames);
-const validateActorNames = (entity: Readonly<{ actorNames: ReadonlyArray<string> }>): boolean => validateField(entity, 'actorNames');
+const validateActorNames = (entity: Readonly<{ actorNames: ReadonlyArray<string> }>): boolean => validateArrayField(entity, 'actorNames');
 
 const validateTagsForEveryEntity = (entities: ReadonlyArray<IWithReadonlyTags>): boolean => entities.every((e: IWithReadonlyTags): boolean => validateTags(e.tags));
 const validateTags = (tags: ReadonlyArray<string>): boolean => tags.every(validate);
 
 // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
 const validateField = <T extends Record<string, any>>(obj: T, field: keyof T): boolean => validate(obj[field]);
+// eslint-disable-next-line @typescript-eslint/no-unsafe-call,@typescript-eslint/no-unsafe-return
+const validateArrayField = <T extends Record<string, any>>(obj: T, field: keyof T): boolean => obj[field].every(validate);
 
 const validate = (str: string | undefined): boolean => (isDefined(str) ? str.length > 0 && /^[A-z0-9_]+$/gm.test(str) : true);
