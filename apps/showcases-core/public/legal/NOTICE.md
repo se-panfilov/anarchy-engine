@@ -5,7 +5,7 @@
 This product includes third-party components. Their **licenses and attributions** are listed below.
 For the **full license texts**, see `THIRD_PARTY_LICENSES.md`.
 
-Components listed: 72
+Components listed: 75
 
 ## 1) Mandatory Attributions (verbatim)
 
@@ -156,6 +156,18 @@ The following notices are reproduced as provided by the respective licensors (e.
 **Repository:** github:RobertWHurst/Keystrokes
 
 **Attribution:** Copyright (c) 2023 Robert Hurst
+
+---
+
+## @types/trusted-types@2.0.7
+
+**License(s):** MIT
+
+**Repository:** https://github.com/DefinitelyTyped/DefinitelyTyped.git
+
+**URL:** https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/trusted-types
+
+**Attribution:** Copyright (c) Microsoft Corporation.
 
 ---
 
@@ -387,6 +399,18 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
+## dompurify@3.2.6
+
+**License(s):** (MPL-2.0 OR Apache-2.0)
+
+**Repository:** git://github.com/cure53/DOMPurify.git
+
+**URL:** https://github.com/cure53/DOMPurify
+
+**Attribution:** Copyright 2025 Dr.-Ing. Mario Heiderich, Cure53
+
+---
+
 ## entities@4.5.0
 
 **License(s):** BSD-2-Clause
@@ -419,7 +443,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## fast-uri@3.0.6
+## fast-uri@3.1.0
 
 **License(s):** BSD-3-Clause
 
@@ -427,7 +451,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 **URL:** https://github.com/fastify/fast-uri
 
-**Attribution:** Copyright (c) 2021 The Fastify Team
+**Attribution:** Copyright (c) 2011-2021, Gary Court until https://github.com/garycourt/uri-js/commit/a1acf730b4bba3f1097c9f52e7d9d3aba8cdcaae
 
 ---
 
@@ -506,6 +530,18 @@ The following notices are reproduced as provided by the respective licensors (e.
 **Repository:** https://github.com/rich-harris/magic-string.git
 
 **Attribution:** Copyright 2018 Rich Harris
+
+---
+
+## marked@16.2.1
+
+**License(s):** MIT
+
+**Repository:** git://github.com/markedjs/marked.git
+
+**URL:** https://marked.js.org
+
+**Attribution:** Copyright (c) 2018+, MarkedJS (https://github.com/markedjs/)
 
 ---
 
@@ -653,7 +689,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## showcases-menu@1.6.0
+## showcases-menu@1.6.2
 
 **License(s):** MIT
 
@@ -661,7 +697,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## showcases-shared@1.0.9
+## showcases-shared@1.0.10
 
 **License(s):** MIT
 

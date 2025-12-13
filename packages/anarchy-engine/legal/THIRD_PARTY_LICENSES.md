@@ -378,7 +378,7 @@ SOFTWARE.
 
 ---
 
-## fast-uri@3.0.6
+## fast-uri@3.1.0
 
 **License:** BSD-3-Clause
 
@@ -388,9 +388,11 @@ SOFTWARE.
 
 **Publisher:** Vincent Le Goff <vince.legoff@gmail.com> (https://github.com/zekth)
 
-Copyright (c) 2021 The Fastify Team
 Copyright (c) 2011-2021, Gary Court until https://github.com/garycourt/uri-js/commit/a1acf730b4bba3f1097c9f52e7d9d3aba8cdcaae
+Copyright (c) 2021-present The Fastify team
 All rights reserved.
+
+The Fastify team members are listed at https://github.com/fastify/fastify#team.
 
 Redistribution and use in source and binary forms, with or without
 modification, are permitted provided that the following conditions are met:

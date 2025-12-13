@@ -75,7 +75,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## fast-uri@3.0.6
+## fast-uri@3.1.0
 
 **License(s):** BSD-3-Clause
 
@@ -83,7 +83,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 **URL:** https://github.com/fastify/fast-uri
 
-**Attribution:** Copyright (c) 2021 The Fastify Team
+**Attribution:** Copyright (c) 2011-2021, Gary Court until https://github.com/garycourt/uri-js/commit/a1acf730b4bba3f1097c9f52e7d9d3aba8cdcaae
 
 ---
 
