@@ -15,7 +15,10 @@
       { "name": "surface_material", "type": "phong", "options": { "color": "#CBCBCB", "depthWrite": false } },
       { "name": "sphere_material", "type": "standard", "options": { "color": "#E91E63" } }
     ],
-    "models3d": [{ "name": "solder_model", "url": "/Showcase/Models/Solder/Solder.glb" }]
+    "models3d": [
+      { "name": "solder_model_1", "url": "/Showcase/Models/Solder/Solder.glb" },
+      { "name": "solder_model_2", "url": "/Showcase/Models/Solder/Solder.glb" }
+    ]
   },
   "entities": {
     "spatialGrids": [
@@ -45,8 +48,14 @@
         "rotation": { "x": -1.57, "y": 0, "z": 0 }
       },
       {
-        "name": "solder_model_entity",
-        "model3dSource": "solder_model",
+        "name": "solder_model_entity_1",
+        "model3dSource": "solder_model_1",
+        "position": { "x": 0, "y": 0, "z": 0 },
+        "castShadow": true
+      },
+      {
+        "name": "solder_model_entity_2",
+        "model3dSource": "solder_model_2",
         "position": { "x": 0, "y": 0, "z": 0 },
         "castShadow": true
       }
@@ -62,9 +71,20 @@
       },
       {
         "name": "solder_actor_1",
-        "model3dSource": "solder_model_entity",
+        "model3dSource": "solder_model_entity_1",
         "agent": "default",
         "position": { "x": 0, "y": 0, "z": 0 },
+        "rotation": { "x": 0, "y": 0, "z": 0 },
+        "spatial": { "grid": "main_grid", "isAutoUpdate": true }
+      },
+      {
+        "name": "solder_model_entity_2",
+        "model3dSource": "solder_model_entity_1",
+        "states": {
+          "animationsFsmSource": "dance_anim_fsm"
+        },
+        "agent": "default",
+        "position": { "x": 6, "y": 0, "z": 8 },
         "rotation": { "x": 0, "y": 0, "z": 0 },
         "spatial": { "grid": "main_grid", "isAutoUpdate": true }
       }
@@ -131,7 +151,17 @@
         "far": 35
       }
     ],
-    "fsm": []
+    "fsm": [
+      {
+        "name": "dance_anim_fsm",
+        "type": "animation",
+        "initial": "Idle",
+        "transitions": [
+          ["Idle", "Dance", "Dance"],
+          ["Dance", "Idle", "Idle"]
+        ]
+      }
+    ]
   },
   "tags": []
 }

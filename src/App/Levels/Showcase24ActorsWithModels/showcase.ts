@@ -31,9 +31,9 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
 
     const fadeDuration = 0.3;
 
-    // TODO perhaps should be moved inside actor
-    const solderModel3d: TModel3d | undefined = models3dService.getRegistry().findByName('solder_model_entity');
-    if (isNotDefined(solderModel3d)) throw new Error(`Model "solder_model_entity" doesn't exist in the registry`);
+    const solderName: string = 'solder_model_entity_1';
+    const solderModel3d: TModel3d | undefined = models3dService.getRegistry().findByName(solderName);
+    if (isNotDefined(solderModel3d)) throw new Error(`Model "${solderName}" doesn't exist in the registry`);
     const actions = animationsService.startAutoUpdateMixer(solderModel3d).actions;
 
     enum AnimationActions {
