@@ -6,4 +6,4 @@ export * from './IWithActiveMixin';
 export * from './IWithActiveMixinResult';
 export * from './IWithMessages';
 export * from './IWithName';
-export * from './IWithTags';
+export * from './IWithTagsMixin';

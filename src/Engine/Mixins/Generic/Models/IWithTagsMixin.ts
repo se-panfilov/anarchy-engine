@@ -1,4 +1,4 @@
-export type IWithTags<T> = Readonly<{
+export type IWithTagsMixin<T> = Readonly<{
   setTags: (tagsList: ReadonlyArray<T | string>) => void;
   addTag: (tag: T | string) => void;
   removeTag: (tag: T | string) => void;
