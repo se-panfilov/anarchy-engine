@@ -1,6 +1,6 @@
 import type { TReadonlyQuaternion, TReadonlyVector3 } from '@Anarchy/Engine/ThreeLib';
 import type { TransformAgent } from '@Anarchy/Engine/TransformDrive/Constants';
-import type { TAbstractTransformAgent, TTransformDriveCompatibleEntity, TWithTransformDrive } from '@Anarchy/Engine/TransformDrive/Models';
+import type { TAbstractTransformAgent } from '@Anarchy/Engine/TransformDrive/Models';
 import { isEqualOrSimilarByXyzCoords } from '@Anarchy/Engine/Utils';
 import { isDefined } from '@Anarchy/Shared/Utils';
 import type { BehaviorSubject, Observable, Subject } from 'rxjs';
@@ -31,8 +31,4 @@ export function updateFromActiveAgent<T extends TReadonlyVector3 | TReadonlyQuat
       prevValue[2] = value.z;
     })
   );
-}
-
-export function hasTransformDrive<T extends TTransformDriveCompatibleEntity>(entity: unknown): entity is TWithTransformDrive<T> {
-  return isDefined((entity as TWithTransformDrive<T>).drive) && isDefined((entity as TWithTransformDrive<T>).driveToTargetConnector);
 }

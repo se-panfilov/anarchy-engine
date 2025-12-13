@@ -2,12 +2,11 @@ import type { TAbstractEntity } from '@Anarchy/Engine/Abstract';
 import type { TAnyAudio } from '@Anarchy/Engine/Audio';
 import type { TAnyMaterialWrapper, TMaterials } from '@Anarchy/Engine/Material';
 import type { TWithModel3d, TWithModel3dEntities } from '@Anarchy/Engine/Models3d';
-import { hasTransformDrive } from '@Anarchy/Engine/TransformDrive/Utils';
 import { isDefined, isNotDefined } from '@Anarchy/Shared/Utils';
 import type { AnimationAction, AnimationClip, Material, Object3D, PositionalAudio } from 'three';
 import { Mesh, Texture } from 'three';
 
-import { hasGeometry, hasMaterial } from './CheckUtils';
+import { hasGeometry, hasMaterial, hasTransformDrive } from './CheckUtils';
 import { isWrapper } from './WrapperHelpers';
 
 export function disposeGltf(gltf: Object3D | null): void {

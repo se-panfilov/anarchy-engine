@@ -5,6 +5,7 @@ import type { TEulerLike } from '@Anarchy/Engine/ThreeLib';
 import { isDefined, isNotDefined, isObject } from '@Anarchy/Shared/Utils';
 import type { BufferGeometry, Euler, Material, Quaternion, QuaternionLike, Vector2, Vector2Like, Vector3, Vector3Like, Vector4, Vector4Like } from 'three';
 import { Color } from 'three';
+import type { TTransformDriveCompatibleEntity, TWithTransformDrive } from '@Anarchy/Engine/TransformDrive';
 
 export function isDestroyable(obj: unknown): obj is TDestroyable {
   return isDefined((obj as TDestroyable).destroy$);
@@ -40,3 +41,7 @@ export const isAsyncEntityRegistry = (registry: TAbstractEntityRegistry<any> | T
 export const hasMaterial = (entity: unknown): entity is { material?: Material | Array<Material> | null } => isDefined((entity as any).material);
 
 export const hasGeometry = (entity: unknown): entity is { geometry?: BufferGeometry | null } => isDefined((entity as any).geometry);
+
+export function hasTransformDrive<T extends TTransformDriveCompatibleEntity>(entity: unknown): entity is TWithTransformDrive<T> {
+  return isDefined((entity as TWithTransformDrive<T>).drive) && isDefined((entity as TWithTransformDrive<T>).driveToTargetConnector);
+}
