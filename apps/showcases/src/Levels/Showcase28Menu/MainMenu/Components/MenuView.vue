@@ -5,7 +5,7 @@ defineProps<{ title: string }>();
 <template>
   <div class="menu-settings-view">
     <div class="menu-settings-view__title">{{ title }}</div>
-    <slot name="default"></slot>
+    <slot name="default" />
   </div>
 </template>
 

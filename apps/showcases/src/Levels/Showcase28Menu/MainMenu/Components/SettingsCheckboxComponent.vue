@@ -9,7 +9,7 @@ const modelValue = defineModel<boolean>();
 <template>
   <label class="settings-checkbox">
     <span class="settings-checkbox__label"> {{ props.label }}</span>
-    <input type="checkbox" v-model="modelValue" class="settings-checkbox__input" />
+    <input v-model="modelValue" type="checkbox" class="settings-checkbox__input" />
   </label>
 </template>
 

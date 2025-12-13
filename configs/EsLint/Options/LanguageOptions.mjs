@@ -14,3 +14,12 @@ export const languageOptions = {
     sourceType: 'module'
   }
 };
+
+// TODO DESKTOP: do we need this?
+export const vueLanguageOptions = {
+  ...languageOptions,
+  parserOptions: {
+    ...languageOptions.parserOptions,
+    extraFileExtensions: ['.vue']
+  }
+};

@@ -42,7 +42,7 @@ const options = computed(() => {
   <MenuView class="graphics" title="Graphics settings">
     <MenuSettingsGroup class="main-menu-view__group" title="Main Graphics Settings">
       <SettingsCheckboxComponent v-model="state.isFullScreen" class="main-menu-view__setting -fullscreen" label="Fullscreen" />
-      <SettingsDropdownComponent :options="options" v-model="state.resolution" class="main-menu-view__setting -resolution" label="Resolution" />
+      <SettingsDropdownComponent v-model="state.resolution" :options="options" class="main-menu-view__setting -resolution" label="Resolution" />
     </MenuSettingsGroup>
     <MenuViewActions @cancel="cancel()" @save="save(state)" />
   </MenuView>

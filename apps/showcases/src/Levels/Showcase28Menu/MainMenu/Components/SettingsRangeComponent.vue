@@ -21,7 +21,7 @@ const [modelValue] = defineModel<number>({
 <template>
   <label class="settings-range">
     <span class="settings-range__label"> {{ props.label }}</span>
-    <input type="range" :min="min" :max="max" v-model="modelValue" class="settings-range__input" />
+    <input v-model="modelValue" type="range" :min="min" :max="max" class="settings-range__input" />
     <span class="settings-range__value-helper"> {{ modelValue }}</span>
   </label>
 </template>
