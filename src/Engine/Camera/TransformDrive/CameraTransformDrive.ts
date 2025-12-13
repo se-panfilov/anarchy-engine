@@ -4,9 +4,9 @@ import type { TCameraParams, TCameraTransformAgents, TCameraTransformDrive } fro
 import type { TConnectedTransformAgent, TDefaultTransformAgent, TTransformAgentParams, TTransformDriveParams } from '@/Engine/TransformDrive';
 import { ConnectedTransformAgent, DefaultTransformAgent, TransformAgent, TransformDrive } from '@/Engine/TransformDrive';
 
-export function CameraTransformDrive(params: TCameraParams): TCameraTransformDrive {
+export function CameraTransformDrive(params: TCameraParams, relatedEntityId: string): TCameraTransformDrive {
   const transformAgents: TCameraTransformAgents = getTransformAgents(params);
-  const driveParams: TTransformDriveParams = { activeAgent: params.agent };
+  const driveParams: TTransformDriveParams = { activeAgent: params.agent, relatedEntityId };
   return TransformDrive(driveParams, transformAgents);
 }
 

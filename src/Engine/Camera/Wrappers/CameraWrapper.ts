@@ -22,11 +22,12 @@ export function CameraWrapper(params: TCameraParams): TCameraWrapper {
   const { width, height } = ambientContext.screenSizeWatcher.latest$.value;
   accessors.setAspect(width / height);
 
-  const drive: TCameraTransformDrive = CameraTransformDrive(params);
+  const wrapper = AbstractWrapper(entity, WrapperType.Camera, params);
+  const drive: TCameraTransformDrive = CameraTransformDrive(params, wrapper.id);
   const driveToTargetConnector: TDriveToTargetConnector = DriveToTargetConnector(drive, entity);
 
   const result = {
-    ...AbstractWrapper(entity, WrapperType.Camera, params),
+    ...wrapper,
     drive,
     ...accessors,
     entity,

@@ -4,9 +4,9 @@ import type { TParticlesParams, TParticlesTransformAgents, TParticlesTransformDr
 import type { TConnectedTransformAgent, TDefaultTransformAgent, TTransformAgentParams, TTransformDriveParams } from '@/Engine/TransformDrive';
 import { ConnectedTransformAgent, DefaultTransformAgent, TransformAgent, TransformDrive } from '@/Engine/TransformDrive';
 
-export function ParticlesTransformDrive(params: TParticlesParams): TParticlesTransformDrive {
+export function ParticlesTransformDrive(params: TParticlesParams, relatedEntityId: string): TParticlesTransformDrive {
   const transformAgents: TParticlesTransformAgents = getTransformAgents(params);
-  const driveParams: TTransformDriveParams = { activeAgent: params.agent };
+  const driveParams: TTransformDriveParams = { activeAgent: params.agent, relatedEntityId };
   return TransformDrive(driveParams, transformAgents);
 }
 

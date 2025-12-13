@@ -4,9 +4,9 @@ import type { TTextParams, TTextTransformAgents, TTextTransformDrive, TTextTrans
 import type { TConnectedTransformAgent, TDefaultTransformAgent, TKinematicTransformAgent, TPhysicsTransformAgent, TTransformAgentParams, TTransformDriveParams } from '@/Engine/TransformDrive';
 import { ConnectedTransformAgent, DefaultTransformAgent, getKinematicTransformAgent, getPhysicsTransformAgent, TransformAgent, TransformDrive } from '@/Engine/TransformDrive';
 
-export function TextTransformDrive(params: TTextParams, dependencies: TTextTransformDriveDependencies): TTextTransformDrive {
+export function TextTransformDrive(params: TTextParams, dependencies: TTextTransformDriveDependencies, relatedEntityId: string): TTextTransformDrive {
   const transformAgents: TTextTransformAgents = getTransformAgents(params, dependencies);
-  const driveParams: TTransformDriveParams = { activeAgent: params.agent };
+  const driveParams: TTransformDriveParams = { activeAgent: params.agent, relatedEntityId };
   return TransformDrive(driveParams, transformAgents);
 }
 

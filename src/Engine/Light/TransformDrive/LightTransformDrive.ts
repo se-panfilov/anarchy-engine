@@ -4,9 +4,9 @@ import type { TLightParams, TLightTransformAgents, TLightTransformDrive } from '
 import type { TConnectedTransformAgent, TDefaultTransformAgent, TTransformAgentParams, TTransformDriveParams } from '@/Engine/TransformDrive';
 import { ConnectedTransformAgent, DefaultTransformAgent, TransformAgent, TransformDrive } from '@/Engine/TransformDrive';
 
-export function LightTransformDrive(params: TLightParams): TLightTransformDrive {
+export function LightTransformDrive(params: TLightParams, relatedEntityId: string): TLightTransformDrive {
   const transformAgents: TLightTransformAgents = getTransformAgents(params);
-  const driveParams: TTransformDriveParams = { activeAgent: params.agent };
+  const driveParams: TTransformDriveParams = { activeAgent: params.agent, relatedEntityId };
   return TransformDrive(driveParams, transformAgents);
 }
 

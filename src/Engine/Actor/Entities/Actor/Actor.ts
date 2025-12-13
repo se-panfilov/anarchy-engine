@@ -17,11 +17,12 @@ export function Actor(
   params: TActorParams,
   { kinematicLoopService, spatialGridService, physicsBodyService, physicsLoopService, collisionsLoopService, collisionsService, models3dService, model3dToActorConnectionRegistry }: TActorDependencies
 ): TActor {
+  const id: string = EntityType.Actor + '_' + nanoid();
   const isModelAlreadyInUse: boolean = isDefined(model3dToActorConnectionRegistry.findByModel3d(params.model3dSource));
   const model3d: TModel3d = isModelAlreadyInUse ? models3dService.clone(params.model3dSource) : params.model3dSource;
 
   // Init TransformDrive
-  const drive: TActorTransformDrive = ActorTransformDrive(params, { kinematicLoopService, physicsBodyService, physicsLoopService });
+  const drive: TActorTransformDrive = ActorTransformDrive(params, { kinematicLoopService, physicsBodyService, physicsLoopService }, id);
   const driveToTargetConnector: TDriveToTargetConnector = DriveToTargetConnector(drive, model3d.getRawModel3d());
 
   // TODO CWP:
@@ -47,7 +48,7 @@ export function Actor(
     ...withUpdateSpatialCell()
   };
 
-  const actor: TActor = AbstractEntity(entities, EntityType.Actor, params);
+  const actor: TActor = AbstractEntity(entities, EntityType.Actor, { ...params, id });
 
   actor.destroy$.subscribe((): void => {
     //Remove model3d registration

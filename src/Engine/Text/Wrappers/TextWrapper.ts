@@ -3,6 +3,7 @@ import '@/Engine/Text/Styles/font-elements.css';
 import { CSS2DObject } from 'three/examples/jsm/renderers/CSS2DRenderer';
 import { CSS3DObject } from 'three/examples/jsm/renderers/CSS3DRenderer';
 
+import type { TWrapper } from '@/Engine/Abstract';
 import { AbstractWrapper } from '@/Engine/Abstract';
 import { withObject3d } from '@/Engine/Mixins';
 import { RelatedEntityAttribute, TextCssClass, TextType } from '@/Engine/Text/Constants';
@@ -20,11 +21,12 @@ export function createTextWrapper<T extends CSS2DObject | CSS3DObject>(params: T
   element.textContent = params.text;
   const entity: T = createText(type, element) as T;
 
-  const drive: TTextTransformDrive = TextTransformDrive(params, dependencies);
+  const wrapper: TWrapper<T> = AbstractWrapper(entity, getWrapperTypeByTextType(type), params);
+  const drive: TTextTransformDrive = TextTransformDrive(params, dependencies, wrapper.id);
   const driveToTargetConnector: TDriveToTargetConnector = DriveToTargetConnector(drive, entity);
 
   const result: TTextWrapper<T> = {
-    ...AbstractWrapper(entity, getWrapperTypeByTextType(type), params),
+    ...wrapper,
     type,
     drive,
     ...getCssAccessors(element),

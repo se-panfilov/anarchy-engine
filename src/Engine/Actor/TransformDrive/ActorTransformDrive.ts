@@ -4,9 +4,9 @@ import type { TActorParams, TActorTransformAgents, TActorTransformDrive, TActorT
 import type { TConnectedTransformAgent, TDefaultTransformAgent, TKinematicTransformAgent, TPhysicsTransformAgent, TTransformAgentParams, TTransformDriveParams } from '@/Engine/TransformDrive';
 import { ConnectedTransformAgent, DefaultTransformAgent, getKinematicTransformAgent, getPhysicsTransformAgent, TransformAgent, TransformDrive } from '@/Engine/TransformDrive';
 
-export function ActorTransformDrive(params: TActorParams, dependencies: TActorTransformDriveDependencies): TActorTransformDrive {
+export function ActorTransformDrive(params: TActorParams, dependencies: TActorTransformDriveDependencies, relatedEntityId: string): TActorTransformDrive {
   const transformAgents: TActorTransformAgents = getTransformAgents(params, dependencies);
-  const driveParams: TTransformDriveParams = { activeAgent: params.agent };
+  const driveParams: TTransformDriveParams = { activeAgent: params.agent, relatedEntityId };
   return TransformDrive(driveParams, transformAgents);
 }
 
