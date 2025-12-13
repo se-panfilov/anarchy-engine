@@ -7,7 +7,7 @@ import type { IVector3Wrapper } from '@/Engine/Wrappers';
 export type ITextParams = Readonly<{
   text: string;
   position: IVector3Wrapper;
-  fontSize: number;
+  fontSize?: number;
   color?: string | number | Color;
   font?: string;
   maxWidth?: number;
