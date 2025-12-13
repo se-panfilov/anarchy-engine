@@ -77,9 +77,7 @@ function addSpaceSwitcher(cb: (...rest: ReadonlyArray<any>) => void): void {
 
 function nextSpace(spaces: ReadonlyArray<TSpace>): void {
   const currIdx: number = isDefined(currentSpaceId) ? spaces.findIndex((s: TSpace): boolean => s.id === currentSpaceId) : 0;
-  const nextIdx: number = currIdx >= spaces.length ? 0 : currIdx + 1;
-
-  console.log('XXX', currIdx, nextIdx);
+  const nextIdx: number = currIdx >= spaces.length - 1 ? 0 : currIdx + 1;
 
   const currSpace: TSpace = spaces[currIdx];
   const nextSpace: TSpace = spaces[nextIdx];
