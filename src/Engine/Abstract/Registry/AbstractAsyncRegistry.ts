@@ -7,7 +7,7 @@ import type { IMultitonRegistrable, IRegistrable } from '@/Engine/Mixins';
 import {
   getAsyncUniqEntityByNameAsync,
   getAsyncUniqEntityWithTag,
-  getUniqEntityByName,
+  getUniqEntityByName$,
   getUniqEntityWithTag$,
   getUniqEntityWithTags$,
   getUniqEntityWithTagsAsync,
@@ -25,7 +25,7 @@ export function AbstractAsyncRegistry<T extends IRegistrable | IMultitonRegistra
 
   const findByTags$ = (tags: ReadonlyArray<string>, strategy: LookUpStrategy): Observable<T> => getUniqEntityWithTags$<T>(tags, abstractRegistry, strategy);
   const findByTag$ = (tag: string): Observable<T> => getUniqEntityWithTag$(tag, abstractRegistry);
-  const findByName$ = (name: string): Observable<T> => getUniqEntityByName(name, abstractRegistry);
+  const findByName$ = (name: string): Observable<T> => getUniqEntityByName$(name, abstractRegistry);
 
   return {
     ...omitInObjectWithoutMutation(abstractRegistry, ['findByTags', 'findByTag', 'findByName']),

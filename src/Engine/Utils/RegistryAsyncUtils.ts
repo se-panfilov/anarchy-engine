@@ -28,13 +28,12 @@ export function getAsyncUniqEntityWithTag<T extends IRegistrable>(tag: string, r
   return getValueAsync<T>(registry, (entity: T): boolean => entity.hasTag(tag), undefined, waitingTime);
 }
 
-// TODO (S.Panfilov) add unit tests
 export function getAsyncUniqEntityByNameAsync<T extends IRegistrable>(
   name: string,
   registry: IAbstractEntityRegistry<T> | IAbstractAsyncRegistry<T>,
   waitingTime: number = 3000
 ): Promise<T | undefined> {
-  return getValueAsync<T>(registry, (entity: T): boolean => entity && entity.name === name, undefined, waitingTime);
+  return getValueAsync<T>(registry, (entity: T): boolean => isDefined(entity) && entity.name === name, undefined, waitingTime);
 }
 
 // TODO (S.Panfilov) add unit tests
@@ -52,7 +51,7 @@ export function getUniqEntityWithTag$<T extends IRegistrable>(tag: string, regis
 }
 
 // TODO (S.Panfilov) add unit tests
-export function getUniqEntityByName<T extends IRegistrable>(name: string, registry: IAbstractEntityRegistry<T>): Observable<T> {
+export function getUniqEntityByName$<T extends IRegistrable>(name: string, registry: IAbstractEntityRegistry<T>): Observable<T> {
   const result: T | undefined = registry.findByName(name);
   if (isDefined(result)) new BehaviorSubject(result).asObservable();
   return subscribeToValue$<T>(registry, (entity: T): boolean => entity.name === name);

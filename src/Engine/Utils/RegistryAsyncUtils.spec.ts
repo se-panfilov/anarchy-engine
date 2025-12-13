@@ -6,7 +6,7 @@ import { AbstractAsyncRegistry, LookUpStrategy } from '@/Engine/Abstract';
 import type { IRegistrable } from '@/Engine/Mixins';
 import { withTagsMixin } from '@/Engine/Mixins';
 
-import { getAsyncUniqEntityWithTag, getUniqEntityWithTagsAsync, getValueAsync, subscribeToValue$ } from './RegistryAsyncUtils';
+import { getAsyncUniqEntityByNameAsync, getAsyncUniqEntityWithTag, getUniqEntityWithTagsAsync, getValueAsync, subscribeToValue$ } from './RegistryAsyncUtils';
 
 const mockEntity1: IRegistrable = { id: 'mockEntityId1', name: 'mockEntity1' } as unknown as IRegistrable;
 const mockEntity2: IRegistrable = { id: 'mockEntityId2', name: 'mockEntity2' } as unknown as IRegistrable;
@@ -110,6 +110,28 @@ describe('RegistryAsyncUtils', () => {
       const registry: IAbstractAsyncRegistry<IRegistrable> = AbstractAsyncRegistry<IRegistrable>('mockEntity' as RegistryType);
       registry.add(obj5None);
       const result: IRegistrable | undefined = await getAsyncUniqEntityWithTag(tagB, registry, waitingTime);
+      expect(result).toBeUndefined();
+    }, 1000);
+  });
+
+  describe('getAsyncUniqEntityByNameAsync', () => {
+    it('should return an uniq object that contains a name', async () => {
+      const name: string = 'john';
+      const objJohn: IRegistrable = { id: 'j12', name, ...withTagsMixin([]) };
+      setTimeout(() => registry.add(objJohn), 50);
+      const result: IRegistrable | undefined = await getAsyncUniqEntityByNameAsync(name, registry, waitingTime);
+      expect(result).toEqual(objJohn);
+    }, 1000);
+
+    it('should return an empty array if the registry is empty', async () => {
+      const result: IRegistrable | undefined = await getAsyncUniqEntityByNameAsync('some', AbstractAsyncRegistry<IRegistrable>('mockEntity' as RegistryType), waitingTime);
+      expect(result).toBeUndefined();
+    }, 1000);
+
+    it('should return "undefined" if the entity is not in the registry', async () => {
+      const registry: IAbstractAsyncRegistry<IRegistrable> = AbstractAsyncRegistry<IRegistrable>('mockEntity' as RegistryType);
+      registry.add(obj3CD);
+      const result: IRegistrable | undefined = await getAsyncUniqEntityByNameAsync('some', registry, waitingTime);
       expect(result).toBeUndefined();
     }, 1000);
   });
