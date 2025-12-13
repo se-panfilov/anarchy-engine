@@ -17,6 +17,7 @@ export function textToConfig(entity: TTextAnyWrapper): TTextConfig {
     elementType: (entity as TText2dWrapper).getElement()?.tagName,
     center: center ? vector2ToXy(center) : undefined,
     physics: drive.physical?.serialize(),
+    // TODO 15-0-0: Why kinematic is always exist?
     kinematic: drive.kinematic?.serialize(),
     receiveShadow: entity.getReceiveShadow(),
     frustumCulled: entity.getFrustumCulled(),

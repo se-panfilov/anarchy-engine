@@ -7,7 +7,7 @@ import type { TAbstractTextWrapper } from '@/Engine/Text/Models/TAbstractTextWra
 export type TTextTextureWrapper<T extends Mesh> = TWrapper<T> &
   Readonly<{
     type: TextType;
-    setText: (newText: string) => void;
+    setText: (newText: string) => Promise<void>;
     getText: () => string;
   }> &
   TAbstractTextWrapper;

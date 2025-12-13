@@ -31,17 +31,26 @@ export function createTextTextureWrapper(params: TTextParams, type: TextType, de
   const entity = new Mesh(geometry, material);
 
   // TODO #191823 Text3dTextures doesn't update text values on textures on change
-  function setText(newText: string): void {
+  async function setText(newText: string): Promise<void> {
     text = newText;
     const fontSize: string = toPx(params.cssProps?.fontSize);
     const fontSizeNoUnits: number = stripUnits(fontSize);
+    const fontFamily: string | undefined = params.cssProps?.fontFamily;
+
+    await document.fonts.ready;
+    await document.fonts.load(`${fontSize} ${fontFamily ?? 'Arial'}`, text);
+
     // eslint-disable-next-line functional/immutable-data
-    context.font = `${fontSize} Arial`;
+    context.font = `${fontSize} ${fontFamily ?? 'Arial'}`;
 
     const textMetrics: TextMetrics = context.measureText(text);
     const padding: number = fontSizeNoUnits * 0.2;
+    // const ascent: number = textMetrics.actualBoundingBoxAscent ?? fontSizeNoUnits;
+    // const descent: number = textMetrics.actualBoundingBoxDescent ?? fontSizeNoUnits * 0.2;
     const textWidth: number = Math.ceil(textMetrics.width + padding * 2);
+    //const textWidth: number = Math.ceil(textMetrics.width + padding * 2);
     const textHeight: number = Math.ceil(fontSizeNoUnits + padding * 2);
+    //const textHeight: number = Math.ceil(ascent + descent + padding * 2);
 
     // eslint-disable-next-line functional/immutable-data
     canvas.width = textWidth;
@@ -49,7 +58,7 @@ export function createTextTextureWrapper(params: TTextParams, type: TextType, de
     canvas.height = textHeight;
 
     // eslint-disable-next-line functional/immutable-data
-    context.font = `${fontSize} Arial`;
+    context.font = `${fontSize} ${fontFamily ?? 'Arial'}`;
 
     // eslint-disable-next-line functional/immutable-data
     context.textAlign = 'center';
