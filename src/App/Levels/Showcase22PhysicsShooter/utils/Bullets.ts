@@ -1,7 +1,8 @@
+import { nanoid } from 'nanoid';
 import { Vector3 } from 'three';
 
 import type { TActorParams, TActorService, TActorWrapperAsync, TRadians, TWithCoordsXYZ } from '@/Engine';
-import { ActorType, collisionsService, isDefined, MaterialType, mpsSpeed, Vector3Wrapper } from '@/Engine';
+import { ActorType, collisionsService, EulerWrapper, isDefined, MaterialType, mpsSpeed, Vector3Wrapper } from '@/Engine';
 import { meters } from '@/Engine/Measurements/Utils';
 
 export type TBullet = TActorWrapperAsync &
@@ -26,15 +27,19 @@ export function getBulletsPool(count: number, actorService: TActorService): Read
       ...bullets,
       BulletAsync(
         {
-          name: `bullet_${i}`,
+          name: `bullet_${i}_${nanoid()}`,
           type: ActorType.Cube,
           width: 0.3,
           height: 0.3,
           depth: 0.5,
           material: { type: MaterialType.Standard, params: { color: '#FF0000' } },
           position: Vector3Wrapper({ x: 0, y: 0, z: 0 }),
+          rotation: EulerWrapper({ x: 0, y: 1.57, z: 0 }),
           castShadow: false,
           isKinematicAutoUpdate: true,
+          kinematic: {
+            linearSpeed: meters(5)
+          },
           tags: []
         },
         actorService
@@ -50,7 +55,6 @@ export async function BulletAsync(params: TActorParams, actorService: TActorServ
   let distanceTraveled: number = 0;
   let fallSpeed: number = 0;
   let active: boolean = false;
-  const speed: number = meters(5);
 
   const setDistanceTraveled = (dist: number): void => void (distanceTraveled = dist);
   const getDistanceTraveled = (): number => distanceTraveled;
@@ -58,8 +62,6 @@ export async function BulletAsync(params: TActorParams, actorService: TActorServ
   const getFallSpeed = (): number => fallSpeed;
   const setActive = (act: boolean): void => void (active = act);
   const isActive = (): boolean => active;
-
-  actor.kinematic.setLinearSpeed(speed);
 
   function reset(): void {
     actor.setPosition(Vector3Wrapper({ x: 0, y: 0, z: 0 }));
