@@ -27,7 +27,7 @@ export function AbstractResourceAsyncRegistry<T>(type: RegistryType): TAbstractR
     findByKeyAsync,
     getByKeyAsync: async (name: string): Promise<T | never> => {
       const result: T | undefined = await findByKeyAsync(name);
-      if (isNotDefined(result)) throw new Error(`[REGISTRY]: Cannot get resource by name "${name}" from registry ${abstractSimpleAsyncRegistry.id}: resource is not found`);
+      if (isNotDefined(result)) throw new Error(`[${type}]: Cannot get resource by name "${name}" from registry ${abstractSimpleAsyncRegistry.id}: resource is not found`);
       return result;
     },
     serialize
