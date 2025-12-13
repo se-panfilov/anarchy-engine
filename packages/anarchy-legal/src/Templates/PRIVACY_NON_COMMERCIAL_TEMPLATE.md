@@ -1,4 +1,4 @@
-# Privacy Notice — {{PACKAGE_NAME}} (Open Source Repository)
+# Privacy Notice — {{PACKAGE_NAME}}
 
 **Effective date:** {{EFFECTIVE_DATE}}
 **Controller:** {{LEGAL_ENTITY_NAME}} — Contact: {{PRIVACY_EMAIL}}
