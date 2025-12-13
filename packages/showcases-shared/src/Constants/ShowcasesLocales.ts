@@ -2,13 +2,16 @@
 import { enUs, nlNl } from '@Anarchy/i18n';
 import type { TLocaleWithFont, TShowcaseLocales } from '@Showcases/Shared/Models';
 
-const font: string = `"Noto Sans", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif`;
+const getFontFamily = (font: string): string => `"${font}", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif`;
+
+// Default font for most of the supported languages
+const font: string = getFontFamily('Noto Sans');
 
 // Full list of locales is based on packages/anarchy-i18n/src/Constants/Locales.gen.ts
 export const ShowcasesLocales: TShowcaseLocales = {
   // IMPORTANT!!!: NL uses a special font only for dev purposes.
   // Remove it in production and clean up the code packages/showcases-shared/src/assets/_fonts.scss
-  'nl-NL': { ...nlNl, font: `"LongCang"` },
+  'nl-NL': { ...nlNl, font: getFontFamily('LongCang') },
 
   // ===== UNIVERSAL LATIN + GREEK + CYRILLIC + VIETNAMESE =====
   // 'af-ZA': { ...afZa, font },
@@ -81,64 +84,64 @@ export const ShowcasesLocales: TShowcaseLocales = {
   // 'el-GR': { ...elGr, font },
 
   // ===== ARABIC SCRIPT =====
-  // 'ar-SA': { ...arSa, font: `"Noto Sans Arabic"` },
-  // 'fa-IR': { ...faIr, font: `"Noto Sans Arabic"` },
-  // 'az-Arab-IR': { ...azArabIr, font: `"Noto Sans Arabic"` },
-  // 'ur-PK': { ...urPk, font: `"Noto Nastaliq Urdu"` },
+  // 'ar-SA': { ...arSa, font: getFontFamily('Noto Sans Arabic') },
+  // 'fa-IR': { ...faIr, font: getFontFamily('Noto Sans Arabic') },
+  // 'az-Arab-IR': { ...azArabIr, font: getFontFamily('Noto Sans Arabic') },
+  // 'ur-PK': { ...urPk, font: getFontFamily('Noto Nastaliq Urdu') },
 
   // ===== HEBREW =====
-  // 'he-IL': { ...heIl, font: `"Noto Sans Hebrew"` },
+  // 'he-IL': { ...heIl, font: getFontFamily('Noto Sans Hebrew') },
 
   // ===== DEVANAGARI =====
-  // 'hi-IN': { ...hiIn, font: `"Noto Sans Devanagari"` },
-  // 'mr-IN': { ...mrIn, font: `"Noto Sans Devanagari"` },
-  // 'ne-NP': { ...neNp, font: `"Noto Sans Devanagari"` },
+  // 'hi-IN': { ...hiIn, font: getFontFamily('Noto Sans Devanagari') },
+  // 'mr-IN': { ...mrIn, font: getFontFamily('Noto Sans Devanagari') },
+  // 'ne-NP': { ...neNp, font: getFontFamily('Noto Sans Devanagari') },
 
   // ===== BENGALI =====
-  // 'bn-BD': { ...bnBd, font: `"Noto Sans Bengali"` },
-  // 'bn-IN': { ...bnIn, font: `"Noto Sans Bengali"` },
+  // 'bn-BD': { ...bnBd, font: getFontFamily('Noto Sans Bengali') },
+  // 'bn-IN': { ...bnIn, font: getFontFamily('Noto Sans Bengali') },
 
   // ===== GURMUKHI =====
-  // 'pa-IN': { ...paIn, font: `"Noto Sans Gurmukhi"` },
+  // 'pa-IN': { ...paIn, font: getFontFamily('Noto Sans Gurmukhi') },
 
   // ===== GUJARATI =====
-  // 'gu-IN': { ...guIn, font: `"Noto Sans Gujarati"` },
+  // 'gu-IN': { ...guIn, font: getFontFamily('Noto Sans Gujarati') },
 
   // ===== KANNADA =====
-  // 'kn-IN': { ...knIn, font: `"Noto Sans Kannada"` },
+  // 'kn-IN': { ...knIn, font: getFontFamily('Noto Sans Kannada') },
 
   // ===== MALAYALAM =====
-  // 'ml-IN': { ...mlIn, font: `"Noto Sans Malayalam"` },
+  // 'ml-IN': { ...mlIn, font: getFontFamily('Noto Sans Malayalam') },
 
   // ===== SINHALA =====
-  // 'si-LK': { ...siLk, font: `"Noto Sans Sinhala"` },
+  // 'si-LK': { ...siLk, font: getFontFamily('Noto Sans Sinhala') },
 
   // ===== TAMIL =====
-  // 'ta-IN': { ...taIn, font: `"Noto Sans Tamil"` },
-  // 'ta-LK': { ...taLk, font: `"Noto Sans Tamil"` },
+  // 'ta-IN': { ...taIn, font: getFontFamily('Noto Sans Tamil') },
+  // 'ta-LK': { ...taLk, font: getFontFamily('Noto Sans Tamil') },
 
   // ===== THAI =====
-  // 'th-TH': { ...thTh, font: `"Noto Sans Thai"` },
+  // 'th-TH': { ...thTh, font: getFontFamily('Noto Sans Thai') },
 
   // ===== KHMER =====
-  // 'km-KH': { ...kmKh, font: `"Noto Sans Khmer"` },
+  // 'km-KH': { ...kmKh, font: getFontFamily('Noto Sans Khmer') },
 
   // ===== LAO =====
-  // 'lo-LA': { ...loLa, font: `"Noto Sans Lao"` },
+  // 'lo-LA': { ...loLa, font: getFontFamily('Noto Sans Lao') },
 
   // ===== ETHIOPIC (AMHARIC) =====
-  // 'am-ET': { ...amEt, font: `"Noto Sans Ethiopic"` },
+  // 'am-ET': { ...amEt, font: getFontFamily('Noto Sans Ethiopic') },
 
   // ===== Chinese =====
-  // 'zh-Hans-CN': { ...zhHansCn, font: `"Noto Sans SC"` },
-  // 'zh-Hans-SG': { ...zhHansSg, font: `"Noto Sans SC"` },
-  // 'zh-Hant-HK': { ...zhHantHk, font: `"Noto Sans HK"` },
-  // 'zh-Hant-TW': { ...zhHantTw, font: `"Noto Sans TC"` },
+  // 'zh-Hans-CN': { ...zhHansCn, font: getFontFamily('Noto Sans SC') },
+  // 'zh-Hans-SG': { ...zhHansSg, font: getFontFamily('Noto Sans SC') },
+  // 'zh-Hant-HK': { ...zhHantHk, font: getFontFamily('Noto Sans HK') },
+  // 'zh-Hant-TW': { ...zhHantTw, font: getFontFamily('Noto Sans TC') },
 
   // ===== Japanese =====
-  // 'ja-JP': { ...jaJp, font: `"Noto Sans JP"` },
+  // 'ja-JP': { ...jaJp, font: getFontFamily('Noto Sans JP') },
 
   // ===== Korean =====
-  // 'ko-KR': { ...koKr, font: `"Noto Sans KR"` }
+  // 'ko-KR': { ...koKr, font: getFontFamily('Noto Sans KR') }
 };
 export const ShowcasesFallbackLocale: TLocaleWithFont = { ...enUs, font };
