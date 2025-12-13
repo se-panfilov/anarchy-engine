@@ -24,8 +24,15 @@ canvas {
   z-index: 1;
 }
 
-/* // TODO DESKTOP: one common layer for menu and in-game UI or distinct ones? */
-#gui {
+#menu {
+  display: none;
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  pointer-events: auto;
+}
+
+#ui {
   display: none;
   position: absolute;
   inset: 0;
