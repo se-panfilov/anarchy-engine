@@ -9,7 +9,7 @@ import type { TModel3dProps } from './TModel3dProps';
 export type TModel3dParams = TModel3dProps &
   Readonly<{
     model3dSource: GLTF | PrimitiveModel3dType;
-    animationsSource: ReadonlyArray<AnimationClip>;
+    animationsSource?: ReadonlyArray<AnimationClip>;
     materialSource?: TMaterialWrapper;
     clonedFrom?: string;
   }>;
