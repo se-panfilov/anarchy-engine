@@ -1,6 +1,7 @@
-import type { AnimationAction, AnimationClip, Material, Object3D } from 'three';
+import type { AnimationAction, AnimationClip, Material, Object3D, PositionalAudio } from 'three';
 import { Mesh, Texture } from 'three';
 
+import type { TAnyAudio } from '@/Engine';
 import type { TEntity } from '@/Engine/Abstract';
 import type { TWithModel3dEntities } from '@/Engine/Models3d';
 import { hasTransformDrive } from '@/Engine/TransformDrive/Utils';
@@ -65,8 +66,8 @@ export function disposeMaterialDeep(material: Material | ReadonlyArray<Material>
 export function destroyGeometryInEntity(entity: unknown): void {
   if (!hasGeometry(entity)) return;
 
-  // Dispose geometry if exists
   entity.geometry?.dispose?.();
+  (entity as any).skeleton?.dispose?.();
   // eslint-disable-next-line functional/immutable-data
   entity.geometry = null;
 }
@@ -106,4 +107,27 @@ export function destroyModel3dAnimationEntities({ model3dSource, mixer, actions 
 
   // eslint-disable-next-line functional/immutable-data
   model3dSource.animations.length = 0;
+}
+
+export function destroyAudio(entity: TAnyAudio): void {
+  if (isNotDefined(entity)) return;
+
+  try {
+    entity.stop();
+    entity.disconnect();
+  } catch {
+    console.warn('Audio: failed to stop and disconnect audio (probably already stopped or disconnected)');
+  }
+
+  // eslint-disable-next-line functional/immutable-data
+  entity.buffer = null as any;
+  // eslint-disable-next-line functional/immutable-data
+  entity.listener = null as any;
+  // eslint-disable-next-line functional/immutable-data
+  entity.source = null as any;
+  // eslint-disable-next-line functional/immutable-data
+  if (isDefined((entity as PositionalAudio).panner)) (entity as PositionalAudio).panner = null as any;
+
+  entity.removeFromParent();
+  entity.clear?.();
 }
