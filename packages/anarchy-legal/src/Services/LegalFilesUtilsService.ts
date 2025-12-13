@@ -54,12 +54,13 @@ export function LegalFilesUtilsService(repoUtilsService: TRepoUtilsService): TLe
           console.warn(`[warn] anarchy-legal.config: section "${k}" must be an object; got ${typeof v}. Skipped.`);
           return undefined;
         }
-        const { template, messages } = v as { template?: string; messages?: TTemplateMessages };
+        const { template, messages, relativeOutput } = v as TAnarchyLegalConfigEntry;
         return [
           k,
           {
             ...(template ? { template } : {}),
-            ...(messages ? { messages } : {})
+            ...(messages ? { messages } : {}),
+            ...(relativeOutput ? { relativeOutput } : {})
           }
         ];
       };
@@ -73,8 +74,8 @@ export function LegalFilesUtilsService(repoUtilsService: TRepoUtilsService): TLe
       // Warn on unknown keys (helps catch typos)
       const known = new Set<string>(['GENERIC', ...Object.values(LegalDocumentType)]);
       Object.keys(obj)
-        .filter((k) => !known.has(k))
-        .forEach((k) => console.warn(`[warn] anarchy-legal.config: unknown section "${k}" ignored.`));
+        .filter((k: string): boolean => !known.has(k))
+        .forEach((k: string): void => console.warn(`[warn] anarchy-legal.config: unknown section "${k}" ignored.`));
 
       debugLog(isDebug(), 'config file:', found, 'keys:', Object.keys(config));
       return config;
@@ -283,7 +284,7 @@ export function LegalFilesUtilsService(repoUtilsService: TRepoUtilsService): TLe
 
     if (!specificConfig?.template || specificConfig.template.trim() === '') throw new Error(`[${docType}] missing "template" in anarchy-legal.config.js`);
 
-    const desiredBase = specificConfig.template;
+    const desiredBase: string = specificConfig.template;
 
     const tplPath: string | undefined = await findTemplateFile(input.templatesDir, docType, options, desiredBase);
     if (!tplPath) throw new Error(`[${docType}] template "${desiredBase}" not found under templates dir: ${input.templatesDir}`);
@@ -295,13 +296,17 @@ export function LegalFilesUtilsService(repoUtilsService: TRepoUtilsService): TLe
     const afterSections: string = renderSections(tplText, raw);
 
     const namesAfter: ReadonlySet<string> = collectPlaceholders(afterSections);
-    const missing: string[] = Array.from(namesAfter).filter((name: string): boolean => values[name] === undefined);
+    const missing: ReadonlyArray<string> = Array.from(namesAfter).filter((name: string): boolean => values[name] === undefined);
     if (missing.length) console.warn(`[warn] ${docType}: ${missing.length} placeholders had no value: ${missing.slice(0, 10).join(', ')}${missing.length > 10 ? '…' : ''}`);
 
     const rendered: string = renderVariables(afterSections, values);
 
+    const relOut: string | undefined = specificConfig.relativeOutput?.trim();
+    if (relOut && path.isAbsolute(relOut)) console.warn(`[warn] ${docType}: relativeOutput is absolute ("${relOut}"); it will be used as-is.`);
+    const targetDir: string = relOut ? path.resolve(input.outDir, relOut) : input.outDir;
+
     const outName: string = `${docType}.md`;
-    const outPath: string = path.join(input.outDir, outName);
+    const outPath: string = path.join(targetDir, outName);
     await fs.mkdir(path.dirname(outPath), { recursive: true });
     await fs.writeFile(outPath, rendered, 'utf8');
     console.log(`${docType}.md written -> ${outPath}`);
