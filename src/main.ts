@@ -18,6 +18,7 @@ scene.add(directionalLight);
 updateRenderer();
 
 const controls = new OrbitControls(camera, renderer.domElement);
+// new OrbitControls(directionalLight as any, renderer.domElement);
 controls.enableDamping = true;
 
 const loop = () => {
