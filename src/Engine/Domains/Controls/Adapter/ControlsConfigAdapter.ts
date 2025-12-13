@@ -1,10 +1,11 @@
-import type { ICameraRegistry, ICameraWrapper } from '@Engine/Domains/Camera';
 import type { IAppCanvas } from '@Engine/Domains/App';
+import type { ICameraRegistry, ICameraWrapper } from '@Engine/Domains/Camera';
 import { isNotDefined } from '@Engine/Utils';
+
+import type { IFromConfigFn } from '@/Engine/Domains/Abstract';
 
 import type { IControlsConfig, IControlsParams } from '../Models';
 import { IControlsType } from '../Models';
-import type { IFromConfigFn } from '@/Engine/Domains/Abstract';
 
 export type AdditionalControlsConfigParams = { cameraRegistry: ICameraRegistry; canvas: IAppCanvas };
 

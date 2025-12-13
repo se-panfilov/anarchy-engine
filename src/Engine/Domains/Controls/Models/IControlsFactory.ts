@@ -6,4 +6,4 @@ import type { IControlsConfig } from './IControlsConfig';
 import type { IControlsParams } from './IControlsParams';
 import type { IControlsWrapper } from './IControlsWrapper';
 
-export type IControlsFactory = IFactory<IControlsWrapper, IControlsParams> & IFromConfig<IControlsWrapper, IControlsConfig> & IDestroyable;
+export type IControlsFactory = IFactory<IControlsWrapper, IControlsParams> & IFromConfig<IControlsConfig, IControlsParams> & IDestroyable;

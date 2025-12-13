@@ -5,4 +5,4 @@ import type { IInputWrapper } from './IInputWrapper';
 
 // TODO (S.Panfilov) any instead of IInputConfig
 // TODO (S.Panfilov) mock input type
-export type IInputFactory = IFactory<IInputWrapper, IInputParams> & IFromConfig<IInputWrapper, any>;
+export type IInputFactory = IFactory<IInputWrapper, IInputParams> & IFromConfig<any, IInputParams>;

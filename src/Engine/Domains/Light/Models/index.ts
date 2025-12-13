@@ -1,5 +1,4 @@
 export * from './IAmbientLight';
-export * from './ICreateLightFn';
 export * from './IDirectionalLight';
 export * from './ILightAccessors';
 export * from './ILightConfig';

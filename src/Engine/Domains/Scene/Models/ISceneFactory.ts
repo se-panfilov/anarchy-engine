@@ -4,4 +4,4 @@ import type { ISceneConfig } from './ISceneConfig';
 import type { ISceneParams } from './ISceneParams';
 import type { ISceneWrapper } from './ISceneWrapper';
 
-export type ISceneFactory = IFactory<ISceneWrapper, ISceneParams> & IFromConfig<ISceneWrapper, ISceneConfig>;
+export type ISceneFactory = IFactory<ISceneWrapper, ISceneParams> & IFromConfig<ISceneConfig, ISceneParams>;

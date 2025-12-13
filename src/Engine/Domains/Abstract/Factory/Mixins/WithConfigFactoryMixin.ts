@@ -1,12 +1,7 @@
-import type { IFromConfig, IFromConfigFn } from './Models';
-import type { IFactory } from '@/Engine/Domains/Abstract';
-import { isNotDefined } from '@Engine/Utils';
+import type { IFromConfig } from './Models';
 
-export function withConfigFactoryMixin<T, C>(factory: IFactory<T>, fromConfig: IFromConfigFn<T, C>): IFromConfig<T, C> {
+export function withConfigMixin<C, P>(configToParamsFn: (config: C) => P): IFromConfig<C, P> {
   return {
-    fromConfig: (config: C, extra?: Record<string, any>): T => {
-      if (isNotDefined(fromConfig)) throw new Error(`Factory "${factory.id}" cannot create from config: fromConfig function is not provided`);
-      return factory.create(fromConfig(config, extra));
-    }
+    getParams: (config: C): P => configToParamsFn(config)
   };
 }

@@ -1,5 +1,5 @@
 import type { IFactory, IFromConfig } from '@Engine/Domains/Abstract';
-import { AbstractFactory, destroyableFactoryMixin, withConfigFactoryMixin } from '@Engine/Domains/Abstract';
+import { AbstractFactory, destroyableFactoryMixin, withConfigMixin } from '@Engine/Domains/Abstract';
 
 import { fromConfig } from '../Adapter';
 import type { IControlsConfig, IControlsFactory, IControlsParams, IControlsWrapper } from '../Models';
@@ -13,6 +13,6 @@ const destroy = (): void | never => {
 
 const factory: IFactory<IControlsWrapper, IControlsParams> = { ...AbstractFactory('controls'), create };
 
-export const ControlsWithConfigFactory: IFactory<IControlsWrapper, IControlsParams> & IFromConfig<IControlsWrapper, IControlsConfig> = withConfigFactoryMixin(factory, fromConfig);
+export const ControlsWithConfigFactory: IFactory<IControlsWrapper, IControlsParams> & IFromConfig<IControlsConfig, IControlsParams> = { ...factory, ...withConfigMixin(fromConfig) };
 
-export const ControlsFactory = (): IControlsFactory => destroyableFactoryMixin(ControlsWithConfigFactory, destroy);
+export const ControlsFactory = (): IControlsFactory => ({ ...ControlsWithConfigFactory, ...destroyableFactoryMixin(ControlsWithConfigFactory, destroy) });
