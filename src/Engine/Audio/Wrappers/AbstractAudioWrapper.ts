@@ -9,7 +9,6 @@ import { disposeAudio, seekAudio } from '@/Engine/Audio/Utils';
 import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
 
-// TODO 11.0.0: pause/resume/seek/stop/play doesn't work perfectly in showcase, fix
 export function AbstractAudioWrapper<T extends TAnyAudio>(params: TAnyAudioParams, createFn: TAudioCreateFn<T>): TAbstractAudioWrapper<T> {
   const { audioSource, volume } = params;
   const entity: T = createFn(audioSource, params);
@@ -63,7 +62,7 @@ export function AbstractAudioWrapper<T extends TAnyAudio>(params: TAnyAudioParam
       skipWhile((seek: number, index: number): boolean => index === 0 && seek === 0)
     )
     .subscribe((seek: number): void => {
-      seekAudio(entity, seek);
+      seekAudio(entity, seek, entity.isPlaying);
       lastPausedPosition = seek;
     });
 

@@ -10,12 +10,12 @@ export const isAudio3dConfig = (config: TAnyAudioConfig): config is TAudio3dConf
 export const isAudio3dParams = (config: TAnyAudioParams): config is TAudio3dParams => isDefined((config as TAudio3dParams).position);
 export const isAudio3dWrapper = (wrapper: TAnyAudioWrapper): wrapper is TAudio3dWrapper => isDefined((wrapper as TAudio3dWrapper).position$);
 
-export function seekAudio(entity: TAnyAudio, time: number): void {
+export function seekAudio(entity: TAnyAudio, time: number, shouldPlay: boolean): void {
   if (!entity.buffer) return;
   entity.stop();
   // eslint-disable-next-line functional/immutable-data
   entity.offset = time;
-  entity.play();
+  if (shouldPlay) entity.play();
 }
 
 export function createPositionalAudio(audioSource: AudioBuffer, params: TAudio3dParams): PositionalAudio | never {
