@@ -1,6 +1,6 @@
 import { TextureLoader } from 'three';
 
-import type { IMaterialPackKeys, IMaterialProps, MaterialType } from '@/Engine/Material';
+import type { IMaterialPackKeys, IMaterialProps } from '@/Engine/Material';
 import type {
   IBasicMaterialTexturePack,
   IBasicTextureUploaded,
@@ -58,8 +58,6 @@ export function TextureService(): ITextureService {
   function load(m: IMaterialProps<IStandardMaterialTexturePack>): IStandardTextureUploadPromises;
   function load(m: IMaterialProps<IMaterialTexturePack>): ITextureUploadPromises {
     let promises: Omit<ITextureUploadPromises, 'all' | 'material'> = {};
-    const material: MaterialType = m.type;
-
     if (isNotDefined(m.textures)) return { ...promises, all };
 
     Object.entries(m.textures).forEach(([key, packParams]: [string, ITexturePackParams]): void => {
@@ -88,9 +86,9 @@ export function TextureService(): ITextureService {
     function all(): Promise<ITextureUploaded> {
       let uploaded: ITextureUploaded = {};
       return Promise.all(Object.values(promises)).then((textures) => {
-        if (isNotDefined(m.textures)) return { ...uploaded, material };
+        if (isNotDefined(m.textures)) return { ...uploaded };
         Object.keys(m.textures).forEach((key: string, index: number): void => void (uploaded = { ...uploaded, [key]: textures[index] }));
-        return { ...uploaded, material };
+        return { ...uploaded };
       });
     }
 
