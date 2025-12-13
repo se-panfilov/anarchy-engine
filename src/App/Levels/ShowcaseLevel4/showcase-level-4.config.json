@@ -9,10 +9,21 @@
   ],
   "actors": [
     {
+      "width": 60,
+      "height": 40,
+      "widthSegments": 10,
+      "heightSegments": 10,
+      "materialParams": { "color": "#5EDCAE" },
+      "type": "plane",
+      "position": { "x": 0, "y": 0, "z": 0 },
+      "castShadow": false,
+      "tags": []
+    },
+    {
       "type": "cube",
       "width": 1,
       "height": 1,
-      "position": { "x": 0, "y": 0, "z": 0 },
+      "position": { "x": 0, "y": 2, "z": 0 },
       "castShadow": true,
       "materialParams": { "color": "#5177ff" },
       "tags": ["central_actor"]
@@ -23,8 +34,8 @@
       "fov": 45,
       "near": 1,
       "far": 10000,
-      "position": { "x": 0, "y": 0, "z": 3 },
-      "rotation": { "x": 0, "y": 0, "z": 0 },
+      "position": { "x": 0, "y": 5, "z": 0 },
+      "rotation": { "x": -1.5, "y": 0, "z": 0 },
       "tags": ["initial"]
     }
   ],
