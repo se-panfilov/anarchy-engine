@@ -1515,15 +1515,15 @@ Original Author, when distributed with the Software.
 
 ---
 
-## copy-anything@3.0.5
+## copy-anything@4.0.5
 
 **License:** MIT
 
-**Repository:** git+https://github.com/mesqueeb/copy-anything.git
+**Repository:** https://github.com/mesqueeb/copy-anything.git
 
 **URL:** https://github.com/mesqueeb/copy-anything#readme
 
-**Publisher:** Luca Ban - Mesqueeb
+**Publisher:** Luca Ban - Mesqueeb (https://cycraft.co)
 
 MIT License
 
@@ -3240,15 +3240,15 @@ _No license text file found; relying on package metadata._
 
 ---
 
-## is-what@4.1.16
+## is-what@5.5.0
 
 **License:** MIT
 
-**Repository:** git+https://github.com/mesqueeb/is-what.git
+**Repository:** https://github.com/mesqueeb/is-what.git
 
 **URL:** https://github.com/mesqueeb/is-what#readme
 
-**Publisher:** Luca Ban - Mesqueeb
+**Publisher:** Luca Ban - Mesqueeb (https://cycraft.co)
 
 MIT License
 
@@ -4509,7 +4509,7 @@ SOFTWARE.
 
 ---
 
-## showcases-shared@1.4.2
+## showcases-shared@1.5.0
 
 **License:** MIT
 
@@ -4638,7 +4638,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 ---
 
-## superjson@2.2.2
+## superjson@2.2.3
 
 **License:** MIT
 

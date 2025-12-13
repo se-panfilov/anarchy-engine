@@ -862,7 +862,7 @@ limitations under the License.
 
 ---
 
-## @opentelemetry/context-async-hooks@2.1.0
+## @opentelemetry/context-async-hooks@2.2.0
 
 **License:** Apache-2.0
 
@@ -1290,7 +1290,7 @@ limitations under the License.
 
 ---
 
-## @opentelemetry/core@2.1.0
+## @opentelemetry/core@2.2.0
 
 **License:** Apache-2.0
 
@@ -7068,7 +7068,7 @@ limitations under the License.
 
 ---
 
-## @opentelemetry/resources@2.1.0
+## @opentelemetry/resources@2.2.0
 
 **License:** Apache-2.0
 
@@ -7282,7 +7282,7 @@ limitations under the License.
 
 ---
 
-## @opentelemetry/sdk-trace-base@2.1.0
+## @opentelemetry/sdk-trace-base@2.2.0
 
 **License:** Apache-2.0
 

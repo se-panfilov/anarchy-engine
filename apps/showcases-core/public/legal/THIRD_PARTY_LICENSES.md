@@ -1664,7 +1664,7 @@ limitations under the License.
 
 ---
 
-## @opentelemetry/context-async-hooks@2.1.0
+## @opentelemetry/context-async-hooks@2.2.0
 
 **License:** Apache-2.0
 
@@ -2092,7 +2092,7 @@ limitations under the License.
 
 ---
 
-## @opentelemetry/core@2.1.0
+## @opentelemetry/core@2.2.0
 
 **License:** Apache-2.0
 
@@ -7870,7 +7870,7 @@ limitations under the License.
 
 ---
 
-## @opentelemetry/resources@2.1.0
+## @opentelemetry/resources@2.2.0
 
 **License:** Apache-2.0
 
@@ -8084,7 +8084,7 @@ limitations under the License.
 
 ---
 
-## @opentelemetry/sdk-trace-base@2.1.0
+## @opentelemetry/sdk-trace-base@2.2.0
 
 **License:** Apache-2.0
 
@@ -10358,7 +10358,7 @@ SOFTWARE.
 
 ---
 
-## anarchy-tracking@1.4.0
+## anarchy-tracking@1.5.0
 
 **License:** MIT
 
@@ -10596,15 +10596,15 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 ---
 
-## copy-anything@3.0.5
+## copy-anything@4.0.5
 
 **License:** MIT
 
-**Repository:** git+https://github.com/mesqueeb/copy-anything.git
+**Repository:** https://github.com/mesqueeb/copy-anything.git
 
 **URL:** https://github.com/mesqueeb/copy-anything#readme
 
-**Publisher:** Luca Ban - Mesqueeb
+**Publisher:** Luca Ban - Mesqueeb (https://cycraft.co)
 
 MIT License
 
@@ -12914,15 +12914,15 @@ _No license text file found; relying on package metadata._
 
 ---
 
-## is-what@4.1.16
+## is-what@5.5.0
 
 **License:** MIT
 
-**Repository:** git+https://github.com/mesqueeb/is-what.git
+**Repository:** https://github.com/mesqueeb/is-what.git
 
 **URL:** https://github.com/mesqueeb/is-what#readme
 
-**Publisher:** Luca Ban - Mesqueeb
+**Publisher:** Luca Ban - Mesqueeb (https://cycraft.co)
 
 MIT License
 
@@ -14663,7 +14663,7 @@ SOFTWARE.
 
 ---
 
-## showcases-shared@1.4.2
+## showcases-shared@1.5.0
 
 **License:** MIT
 
@@ -14826,7 +14826,7 @@ THE SOFTWARE.
 
 ---
 
-## superjson@2.2.2
+## superjson@2.2.3
 
 **License:** MIT
 

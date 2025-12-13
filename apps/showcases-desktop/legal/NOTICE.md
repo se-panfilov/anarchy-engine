@@ -317,7 +317,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @opentelemetry/context-async-hooks@2.1.0
+## @opentelemetry/context-async-hooks@2.2.0
 
 **License(s):** Apache-2.0
 
@@ -341,7 +341,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @opentelemetry/core@2.1.0
+## @opentelemetry/core@2.2.0
 
 **License(s):** Apache-2.0
 
@@ -665,7 +665,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @opentelemetry/resources@2.1.0
+## @opentelemetry/resources@2.2.0
 
 **License(s):** Apache-2.0
 
@@ -677,7 +677,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @opentelemetry/sdk-trace-base@2.1.0
+## @opentelemetry/sdk-trace-base@2.2.0
 
 **License(s):** Apache-2.0
 
@@ -1215,7 +1215,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## anarchy-tracking@1.4.0
+## anarchy-tracking@1.5.0
 
 **License(s):** MIT
 
@@ -1293,11 +1293,11 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## copy-anything@3.0.5
+## copy-anything@4.0.5
 
 **License(s):** MIT
 
-**Repository:** git+https://github.com/mesqueeb/copy-anything.git
+**Repository:** https://github.com/mesqueeb/copy-anything.git
 
 **URL:** https://github.com/mesqueeb/copy-anything#readme
 
@@ -1611,11 +1611,11 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## is-what@4.1.16
+## is-what@5.5.0
 
 **License(s):** MIT
 
-**Repository:** git+https://github.com/mesqueeb/is-what.git
+**Repository:** https://github.com/mesqueeb/is-what.git
 
 **URL:** https://github.com/mesqueeb/is-what#readme
 
@@ -2077,7 +2077,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## showcases-core@2.16.0
+## showcases-core@2.17.0
 
 **License(s):** MIT
 
@@ -2101,7 +2101,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## showcases-shared@1.4.2
+## showcases-shared@1.5.0
 
 **License(s):** MIT
 
@@ -2157,7 +2157,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## superjson@2.2.2
+## superjson@2.2.3
 
 **License(s):** MIT
 
