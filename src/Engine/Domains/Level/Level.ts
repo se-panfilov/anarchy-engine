@@ -22,8 +22,8 @@ import type { IRendererFactory, IRendererRegistry, IRendererWrapper } from '@/En
 import { RendererFactory, RendererModes, RendererRegistry, RendererTag } from '@/Engine/Domains/Renderer';
 import type { ISceneConfig, ISceneFactory, ISceneRegistry, ISceneWrapper } from '@/Engine/Domains/Scene';
 import { SceneFactory, SceneRegistry, SceneTag } from '@/Engine/Domains/Scene';
-import type { IText2dRenderer, ITextConfig, ITextFactory, ITextRegistry, ITextWrapper } from '@/Engine/Domains/Text';
-import { initText2dRenderer, TextFactory, TextRegistry } from '@/Engine/Domains/Text';
+import type { IText2dRenderer, IText3dRenderer, ITextConfig, ITextFactory, ITextRegistry, ITextWrapper } from '@/Engine/Domains/Text';
+import { initText2dRenderer, initText3dRenderer, TextFactory, TextRegistry } from '@/Engine/Domains/Text';
 import type { IDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
 import { withTags } from '@/Engine/Mixins/Generic/WithTags';
@@ -59,6 +59,7 @@ export function buildLevelFromConfig(canvas: IAppCanvas, config: ILevelConfig): 
 
   //build texts
   const text2dRenderer: IText2dRenderer = initText2dRenderer(ambientContext.container.getAppContainer(), ambientContext.screenSizeWatcher);
+  const text3dRenderer: IText3dRenderer = initText3dRenderer(ambientContext.container.getAppContainer(), ambientContext.screenSizeWatcher);
   const textFactory: ITextFactory = TextFactory();
   const textRegistry: ITextRegistry = TextRegistry();
   const textAddedSubscription: Subscription = textRegistry.added$.subscribe((text: ITextWrapper) => scene.addText(text));
@@ -123,7 +124,9 @@ export function buildLevelFromConfig(canvas: IAppCanvas, config: ILevelConfig): 
     const activeCamera: ICameraWrapper | undefined = cameraRegistry.getUniqByTag(CameraTag.Active);
     if (isDefined(activeCamera)) {
       renderer.entity.render(scene.entity, activeCamera.entity);
+      // TODO (S.Panfilov) update these text renderers only when there are any text (or maybe only when it's changed)
       text2dRenderer.renderer.render(scene.entity, activeCamera.entity);
+      text3dRenderer.renderer.render(scene.entity, activeCamera.entity);
     }
 
     // TODO (S.Panfilov) also perhaps make a controls service instead of a factory?
