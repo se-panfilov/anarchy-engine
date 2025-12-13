@@ -47,26 +47,11 @@ export function showcase(canvas: TAppCanvas): TShowcase {
 
   const ballActorPromise: Promise<TActorWrapperAsync | undefined> = actorAsyncRegistry.findByNameAsync('ball');
   const surfaceActorPromise: Promise<TActorWrapperAsync | undefined> = actorAsyncRegistry.findByNameAsync('surface');
-  // const obstacle1ActorPromise: Promise<TActorWrapperAsync | undefined> = actorAsyncRegistry.findByNameAsync('obstacle_1');
-  // const obstacle2ActorPromise: Promise<TActorWrapperAsync | undefined> = actorAsyncRegistry.findByNameAsync('obstacle_2');
-  // const obstacle3ActorPromise: Promise<TActorWrapperAsync | undefined> = actorAsyncRegistry.findByNameAsync('obstacle_3');
-  // const obstacle4ActorPromise: Promise<TActorWrapperAsync | undefined> = actorAsyncRegistry.findByNameAsync('obstacle_4');
 
   physicsWorldService.getDebugRenderer(loopService).start();
 
-  // const ballRigidBodyDesc = RigidBodyDesc.dynamic().setTranslation(0, 6, 0);
-  // const ballRigidBody = world.createRigidBody(ballRigidBodyDesc);
-  // const ballColliderDesc = ColliderDesc.ball(meters(1));
-  // world.createCollider(ballColliderDesc, ballRigidBody);
-
   const line: Line2 = createLine();
   sceneWrapper.entity.add(line);
-
-  // createWallsAndFloor(world);
-  // const cube1ObstacleRigidBody = createCubeObstacle(world, { x: -4, y: 2, z: 2 }, { x: 0, y: 0, z: 0 }, 0.5, 2, 0.5);
-  // const cube2ObstacleRigidBody = createCubeObstacle(world, { x: 4, y: 2, z: 1 }, { x: 0, y: 0, z: 0 }, 0.5, 2, 0.5);
-  // const ball3ObstacleRigidBody = createBallObstacle(world, { x: 1, y: 8, z: -4 }, 1);
-  // const ball4ObstacleRigidBody = createBallObstacle(world, { x: 2, y: 12, z: -4 }, 1);
 
   let azimuth: number = 0;
   let forcePower: number = 0;
@@ -80,35 +65,15 @@ export function showcase(canvas: TAppCanvas): TShowcase {
     if (isNotDefined(surfaceActorW)) throw new Error(`Cannot find "surfaceActor" actor`);
     if (!isActorHasPhysicsBody(surfaceActorW)) throw new Error(`"surfaceActor" actor is not a physic actor`);
 
-    // const obstacle1ActorW: THasPhysicsBody<TActorWrapperAsync> | TActorWrapperAsync | undefined = await obstacle1ActorPromise;
-    // if (isNotDefined(obstacle1ActorW)) throw new Error(`Cannot find "obstacle1Actor" actor`);
-    // if (!isActorHasPhysicsBody(obstacle1ActorW)) throw new Error(`"obstacle1Actor" actor is not a physic actor`);
-    //
-    // const obstacle2ActorW: THasPhysicsBody<TActorWrapperAsync> | TActorWrapperAsync | undefined = await obstacle2ActorPromise;
-    // if (isNotDefined(obstacle2ActorW)) throw new Error(`Cannot find "obstacle2Actor" actor`);
-    // if (!isActorHasPhysicsBody(obstacle2ActorW)) throw new Error(`"obstacle2Actor" actor is not a physic actor`);
-    //
-    // const obstacle3ActorW: THasPhysicsBody<TActorWrapperAsync> | TActorWrapperAsync | undefined = await obstacle3ActorPromise;
-    // if (isNotDefined(obstacle3ActorW)) throw new Error(`Cannot find "obstacle3Actor" actor`);
-    // if (!isActorHasPhysicsBody(obstacle3ActorW)) throw new Error(`"obstacle3Actor" actor is not a physic actor`);
-    //
-    // const obstacle4ActorW: THasPhysicsBody<TActorWrapperAsync> | TActorWrapperAsync | undefined = await obstacle4ActorPromise;
-    // if (isNotDefined(obstacle4ActorW)) throw new Error(`Cannot find "obstacle4Actor" actor`);
-    // if (!isActorHasPhysicsBody(obstacle4ActorW)) throw new Error(`"obstacle4Actor" actor is not a physic actor`);
-
     const cameraW: TCameraWrapper | undefined = cameraService.findActive();
     if (isNotDefined(cameraW)) throw new Error(`Cannot find active camera`);
 
-    console.log(ballActorW.physicsBody?.getRigidBody());
-
     mouseService.clickLeftRelease$.subscribe(() => {
-      // TODO (S.Panfilov) debug "?" operator
-      ballActorW.physicsBody?.getRigidBody()?.applyImpulse(getPushCoordsFrom3dAzimuth(azimuth, 0, forcePower * 10.5), true);
+      ballActorW.physicsBody.getRigidBody()?.applyImpulse(getPushCoordsFrom3dAzimuth(azimuth, 0, forcePower * 10.5), true);
     });
 
     keyboardService.onKey(KeysExtra.Space).pressed$.subscribe((): void => {
-      // TODO (S.Panfilov) debug "?" operator
-      ballActorW.physicsBody?.getRigidBody()?.applyImpulse({ x: 0, y: 20, z: 0 }, true);
+      ballActorW.physicsBody.getRigidBody()?.applyImpulse({ x: 0, y: 20, z: 0 }, true);
     });
 
     const mouseLineIntersectionsWatcher: TIntersectionsWatcher = intersectionsWatcherService.create({
@@ -143,7 +108,6 @@ export function showcase(canvas: TAppCanvas): TShowcase {
       mouseLineIntersectionsCoords = intersection.point;
     });
 
-    // TODO (S.Panfilov) extract physics world update to the main loop
     loopService.tick$.subscribe(() => {
       if (isDefined(mouseLineIntersectionsCoords)) {
         const ballCoords: TWithCoordsXYZ = ballActorW.getPosition().getCoords();
@@ -154,12 +118,6 @@ export function showcase(canvas: TAppCanvas): TShowcase {
         line.geometry.setPositions([ballCoords.x, ballCoords.y, ballCoords.z, mouseLineIntersectionsCoords.x, mouseLineIntersectionsCoords.y, mouseLineIntersectionsCoords.z]);
         line.computeLineDistances();
       }
-
-      // updateActorByPhysics(ballActorW.physicsBody.getRigidBody(), ballActorW);
-      // updateActorByPhysics(obstacle1ActorW.physicsBody.getRigidBody(), obstacle1ActorW);
-      // updateActorByPhysics(obstacle2ActorW.physicsBody.getRigidBody(), obstacle2ActorW);
-      // updateActorByPhysics(obstacle3ActorW.physicsBody.getRigidBody(), obstacle3ActorW);
-      // updateActorByPhysics(obstacle4ActorW.physicsBody.getRigidBody(), obstacle4ActorW);
     });
   }
 
@@ -183,50 +141,3 @@ function createLine(): Line2 {
 
   return new Line2(geometry, material);
 }
-
-// function createWallsAndFloor(world: World): void {
-//   const groundColliderDesc: ColliderDesc = ColliderDesc.cuboid(meters(10), meters(0.1), meters(10));
-//   world.createCollider(groundColliderDesc);
-//
-//   const wallLeftColliderDesc: ColliderDesc = ColliderDesc.cuboid(meters(0.5), meters(2.5), meters(10)).setTranslation(-10.5, 0, 0);
-//   world.createCollider(wallLeftColliderDesc);
-//
-//   const wallRightColliderDesc: ColliderDesc = ColliderDesc.cuboid(meters(0.5), meters(2.5), meters(10)).setTranslation(10.5, 0, 0);
-//   world.createCollider(wallRightColliderDesc);
-//
-//   const wallFrontColliderDesc: ColliderDesc = ColliderDesc.cuboid(meters(0.5), meters(2.5), meters(11))
-//     .setTranslation(0, 0, -10.5)
-//     .setRotation(degreesToQuaternion({ x: 0, y: 90, z: 0 }));
-//   world.createCollider(wallFrontColliderDesc);
-//
-//   const wallBackColliderDesc: ColliderDesc = ColliderDesc.cuboid(meters(0.5), meters(2.5), meters(11))
-//     .setTranslation(0, 0, 10.5)
-//     .setRotation(degreesToQuaternion({ x: 0, y: 90, z: 0 }));
-//   world.createCollider(wallBackColliderDesc);
-// }
-
-// function createCubeObstacle(world: World, position: TWithCoordsXYZ, rotation: TWithCoordsXYZ, hx: number, hy: number, hz: number): RigidBody {
-//   const rigidBodyDesc = RigidBodyDesc.dynamic().setTranslation(position.x, position.y, position.z).setRotation(degreesToQuaternion(rotation));
-//   const rigidBody = world.createRigidBody(rigidBodyDesc);
-//   const colliderDesc = ColliderDesc.cuboid(meters(hx), meters(hy), meters(hz));
-//   world.createCollider(colliderDesc, rigidBody);
-//
-//   return rigidBody;
-// }
-// function createBallObstacle(world: World, position: TWithCoordsXYZ, size: 1): RigidBody {
-//   const rigidBodyDesc = RigidBodyDesc.dynamic().setTranslation(position.x, position.y, position.z);
-//   const rigidBody = world.createRigidBody(rigidBodyDesc);
-//   const colliderDesc = ColliderDesc.ball(meters(size));
-//
-//   world.createCollider(colliderDesc, rigidBody);
-//
-//   return rigidBody;
-// }
-
-// function updateActorByPhysics(rigidBody: RigidBody, actor: TActorWrapperAsync): void {
-//   const position: Vector = rigidBody.translation();
-//   const rotation: Rotation = rigidBody.rotation();
-//
-//   actor.setPosition(Vector3Wrapper(position));
-//   actor.entity.quaternion.set(rotation.x, rotation.y, rotation.z, rotation.w);
-// }
