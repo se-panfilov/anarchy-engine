@@ -8,7 +8,7 @@ import type { TAnimationParams, TMeters, TModel3d, TModels3dRegistry, TMoverServ
 import { ambientContext, createCirclePathXZ, defaultMoverServiceConfig, Easing, generateAnglesForCircle, isNotDefined, meters, radians, spaceService, TextType, TransformAgent } from '@/Engine';
 import { MoverService } from '@/Engine/Services/MoverService/MoverService';
 
-import spaceConfigJson from './showcase.json';
+import spaceConfigJson from './space.json';
 
 const spaceConfig: TSpaceConfig = spaceConfigJson as TSpaceConfig;
 

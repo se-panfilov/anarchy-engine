@@ -18,7 +18,7 @@ import type {
 } from '@/Engine';
 import { ambientContext, isNotDefined, spaceService } from '@/Engine';
 
-import spaceConfigJson from './showcase.json';
+import spaceConfigJson from './space.json';
 
 const spaceConfig: TSpaceConfig = spaceConfigJson as TSpaceConfig;
 

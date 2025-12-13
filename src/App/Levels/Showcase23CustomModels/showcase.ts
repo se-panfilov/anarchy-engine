@@ -6,7 +6,7 @@ import { addGizmo } from '@/App/Levels/Utils';
 import type { TModel3d, TModels3dRegistry, TModels3dResourceAsyncRegistry, TRegistryPack, TSceneWrapper, TSpace, TSpaceConfig, TSpaceServices } from '@/Engine';
 import { ambientContext, isNotDefined, KeyCode, spaceService } from '@/Engine';
 
-import spaceConfigJson from './showcase.json';
+import spaceConfigJson from './space.json';
 
 const spaceConfig: TSpaceConfig = spaceConfigJson as TSpaceConfig;
 

@@ -3,7 +3,7 @@ import GUI from 'lil-gui';
 import type { TCameraRegistry, TCameraWrapper, TIntersectionEvent, TIntersectionsWatcher, TSpace, TSpaceConfig } from '@/Engine';
 import { isNotDefined, spaceService } from '@/Engine';
 
-import spaceConfigJson from './showcase.json';
+import spaceConfigJson from './space.json';
 
 const spaceConfig: TSpaceConfig = spaceConfigJson as TSpaceConfig;
 

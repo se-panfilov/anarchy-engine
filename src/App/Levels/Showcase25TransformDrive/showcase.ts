@@ -50,7 +50,7 @@ import {
   TransformAgent
 } from '@/Engine';
 
-import spaceConfigJson from './showcase.json';
+import spaceConfigJson from './space.json';
 import {
   addActorFolderGui,
   addKinematicActorFolderGui,

@@ -23,7 +23,7 @@ import type {
 } from '@/Engine';
 import { DebugAudioRenderer, isAudio3dWrapper, isDefined, isNotDefined, spaceService } from '@/Engine';
 
-import spaceConfigJson from './showcase.json';
+import spaceConfigJson from './space.json';
 
 const spaceConfig: TSpaceConfig = spaceConfigJson as TSpaceConfig;
 

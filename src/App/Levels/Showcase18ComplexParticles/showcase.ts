@@ -6,7 +6,7 @@ import type { TMaterialConfig, TMaterialParams, TMilliseconds, TParticlesConfig,
 import { ambientContext, isDefined, isNotDefined, spaceService } from '@/Engine';
 import { configToParams as materialConfigToParams } from '@/Engine/Material/Adapters';
 
-import spaceConfigJson from './showcase.json';
+import spaceConfigJson from './space.json';
 
 const spaceConfig: TSpaceConfig = spaceConfigJson as TSpaceConfig;
 

@@ -3,7 +3,7 @@ import type { Vector3 } from 'three';
 import type { TActor, TCameraWrapper, TReadonlyVector3, TSpace, TSpaceConfig } from '@/Engine';
 import { isNotDefined, spaceService } from '@/Engine';
 
-import spaceConfigJson from './showcase.json';
+import spaceConfigJson from './space.json';
 
 const spaceConfig: TSpaceConfig = spaceConfigJson as TSpaceConfig;
 

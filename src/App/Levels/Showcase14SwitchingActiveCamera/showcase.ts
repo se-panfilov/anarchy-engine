@@ -4,7 +4,7 @@ import { Clock } from 'three';
 import type { TActor, TActorRegistry, TCameraRegistry, TCameraWrapper, TMilliseconds, TSpace, TSpaceConfig } from '@/Engine';
 import { isNotDefined, spaceService } from '@/Engine';
 
-import spaceConfigJson from './showcase.json';
+import spaceConfigJson from './space.json';
 
 const spaceConfig: TSpaceConfig = spaceConfigJson as TSpaceConfig;
 

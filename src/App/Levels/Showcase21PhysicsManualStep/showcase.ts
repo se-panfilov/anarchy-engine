@@ -4,7 +4,7 @@ import { addGizmo } from '@/App/Levels/Utils';
 import type { TActor, TMilliseconds, TSpace, TSpaceConfig } from '@/Engine';
 import { ambientContext, isNotDefined, KeysExtra, spaceService } from '@/Engine';
 
-import spaceConfigJson from './showcase.json';
+import spaceConfigJson from './space.json';
 
 const spaceConfig: TSpaceConfig = spaceConfigJson as TSpaceConfig;
 

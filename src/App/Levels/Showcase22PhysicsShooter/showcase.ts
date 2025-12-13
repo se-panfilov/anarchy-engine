@@ -23,7 +23,7 @@ import type {
 import { isDefined, isNotDefined, KeysExtra, metersPerSecond, milliseconds, spaceService } from '@/Engine';
 import { radians } from '@/Engine/Measurements/Utils';
 
-import spaceConfigJson from './showcase.json';
+import spaceConfigJson from './space.json';
 import type { TBullet } from './utils';
 import {
   applyExplosionImpulse,

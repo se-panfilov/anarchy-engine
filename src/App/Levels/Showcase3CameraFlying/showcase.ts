@@ -4,7 +4,7 @@ import type { Vector3 } from 'three';
 import type { TActor, TActorRegistry, TCameraWrapper, TSpace, TSpaceConfig } from '@/Engine';
 import { ambientContext, getRotationByCos, getRotationBySin, isNotDefined, spaceService } from '@/Engine';
 
-import spaceConfigJson from './showcase.json';
+import spaceConfigJson from './space.json';
 
 const spaceConfig: TSpaceConfig = spaceConfigJson as TSpaceConfig;
 

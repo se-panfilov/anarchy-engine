@@ -20,7 +20,7 @@ import {
 } from '@/Engine';
 import { meters, radians } from '@/Engine/Measurements/Utils';
 
-import spaceConfigJson from './showcase.json';
+import spaceConfigJson from './space.json';
 
 const spaceConfig: TSpaceConfig = spaceConfigJson as TSpaceConfig;
 
