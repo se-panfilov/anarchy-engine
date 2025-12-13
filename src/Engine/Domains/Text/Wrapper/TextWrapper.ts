@@ -37,7 +37,7 @@ export function createTextWrapper<T extends CSS2DObject | CSS3DObject>(params: I
   document.body.appendChild(element);
 
   result.setText(params.text);
-  applyHtmlElementParams(result, params.cssProps);
+  if (isDefined(params.cssProps)) applyHtmlElementParams(result, params.cssProps);
   applyObject3dParams(result, params);
   applyPosition(result, params.position);
   if (type === TextType.Text2d) applyCenter(entity as CSS2DObject, params.center);

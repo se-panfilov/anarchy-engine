@@ -6,7 +6,7 @@ import type { ITextCssProps } from './ITextCssProps';
 export type ITextProps = Readonly<{
   text: string;
   type: TextType;
-  cssProps: ITextCssProps;
+  cssProps?: ITextCssProps;
   center?: IVector2Wrapper;
   elementType?: string;
 }>;

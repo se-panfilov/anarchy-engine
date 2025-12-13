@@ -8,6 +8,7 @@ export * from './IText3dWrapper';
 export * from './ITextAnyWrapper';
 export * from './ITextConfig';
 export * from './ITextCssProps';
+export * from './ITextCssPropsValue';
 export * from './ITextFactory';
 export * from './ITextParams';
 export * from './ITextProps';
