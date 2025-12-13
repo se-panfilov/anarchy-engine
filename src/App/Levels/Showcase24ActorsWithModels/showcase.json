@@ -84,7 +84,7 @@
           "animationsFsmSource": "dance_anim_fsm"
         },
         "agent": "default",
-        "position": { "x": 4, "y": 0, "z": 4 },
+        "position": { "x": 2, "y": 0, "z": 2 },
         "rotation": { "x": 0, "y": 0.8, "z": 0 },
         "spatial": { "grid": "main_grid", "isAutoUpdate": true }
       }
@@ -112,13 +112,13 @@
         "castShadow": true,
         "position": { "x": -3, "y": 10, "z": -10 },
         "shadow": {
-          "mapSize": { "x": 1024, "y": 1024 },
+          "mapSize": { "x": 2048, "y": 2048 },
           "normalBias": 0.05,
           "camera": {
-            "top": 2,
-            "bottom": -2,
-            "left": -2,
-            "right": 2,
+            "top": 10,
+            "bottom": -10,
+            "left": -10,
+            "right": 10,
             "near": 0.1,
             "far": 40
           }
