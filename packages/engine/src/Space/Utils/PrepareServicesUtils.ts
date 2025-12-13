@@ -34,7 +34,7 @@ import { PhysicsBodyFactory, PhysicsBodyRegistry, PhysicsBodyService, PhysicsWor
 import { RendererFactory, RendererRegistry, RendererService } from '@Engine/Renderer';
 import type { TScenesService, TSceneWrapper } from '@Engine/Scene';
 import { SceneFactory, SceneRegistry, ScenesService } from '@Engine/Scene';
-import type { TSpaceCanvas } from '@Engine/Space';
+import type { TSpaceCanvas, TSpaceSettings } from '@Engine/Space';
 import type { TSpaceBaseServices, TSpaceLoops, TSpaceServices } from '@Engine/Space/Models';
 import type { TSpatialGridService } from '@Engine/Spatial';
 import { SpatialGridFactory, SpatialGridRegistry, SpatialGridService } from '@Engine/Spatial';
@@ -56,7 +56,8 @@ export function buildEntitiesServices(
   canvas: TSpaceCanvas,
   container: TContainerDecorator,
   loops: TSpaceLoops,
-  { loopService, scenesService }: TSpaceBaseServices
+  { loopService, scenesService }: TSpaceBaseServices,
+  settings: TSpaceSettings
 ): TSpaceServices {
   const textureService: TTextureService = TextureService(TextureResourceAsyncRegistry(), TextureMetaInfoRegistry());
   const materialService: TMaterialService = MaterialService(MaterialFactory(), MaterialRegistry(), { textureService });
@@ -64,14 +65,21 @@ export function buildEntitiesServices(
   const physicsBodyService: TPhysicsBodyService = PhysicsBodyService(PhysicsBodyFactory(), PhysicsBodyRegistry(), physicsWorldService);
   const spatialGridService: TSpatialGridService = SpatialGridService(SpatialGridFactory(), SpatialGridRegistry());
   const collisionsService: TCollisionsService = CollisionsService();
-  const animationsService: TAnimationsService = AnimationsService(AnimationsResourceAsyncRegistry(), AnimationsMetaInfoRegistry(), loops);
+  const animationsService: TAnimationsService = AnimationsService(AnimationsResourceAsyncRegistry(), AnimationsMetaInfoRegistry(), loops, settings);
   const model3dToActorConnectionRegistry: TModel3dToActorConnectionRegistry = Model3dToActorConnectionRegistry();
   const model3dRawToModel3dConnectionRegistry: TModel3dRawToModel3dConnectionRegistry = Model3dRawToModel3dConnectionRegistry();
-  const models3dService: TModels3dService = Models3dService(Models3dFactory(), Models3dRegistry(), Models3dResourceAsyncRegistry(), Models3dMetaInfoRegistry(), {
-    materialService,
-    animationsService,
-    model3dRawToModel3dConnectionRegistry
-  });
+  const models3dService: TModels3dService = Models3dService(
+    Models3dFactory(),
+    Models3dRegistry(),
+    Models3dResourceAsyncRegistry(),
+    Models3dMetaInfoRegistry(),
+    {
+      materialService,
+      animationsService,
+      model3dRawToModel3dConnectionRegistry
+    },
+    settings
+  );
   const fsmService: TFsmService = FsmService(FsmInstanceFactory(), FsmSourceFactory(), FsmInstanceRegistry(), FsmSourceRegistry());
   const transformDriveService: TTransformDriveService = TransformDriveService(TransformDriveFactory(), TransformDriveRegistry(), { loopService });
   const audioService: TAudioService = AudioService(AudioFactory(), AudioRegistry(), AudioResourceAsyncRegistry(), AudioListenersRegistry(), AudioMetaInfoRegistry(), { transformDriveService }, loops);

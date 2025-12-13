@@ -130,7 +130,7 @@ function initSpaceServices(
   canvas: TSpaceCanvas,
   container: TContainerDecorator,
   params: TSpaceParams,
-  settings: TSpaceSettings | undefined,
+  settings: TSpaceSettings = {},
   events$: Subject<TSpaceAnyEvent>
 ): {
   services: TSpaceServices;
@@ -147,7 +147,7 @@ function initSpaceServices(
   const loops: TSpaceLoops = createLoops(baseServices.loopService, settings);
 
   events$.next({ name: SpaceEvents.BeforeEntitiesServicesBuilt, args: { canvas, params } });
-  const services: TSpaceServices = buildEntitiesServices(sceneW, canvas, container, loops, baseServices);
+  const services: TSpaceServices = buildEntitiesServices(sceneW, canvas, container, loops, baseServices, settings);
 
   services.textService.injectStyle();
 

@@ -1,14 +1,15 @@
 import { LoaderType } from '@Engine/Abstract';
 import type { TModel3dResourceConfig, TModels3dLoader, TModels3dMetaInfoRegistry, TModels3dResourceAsyncRegistry } from '@Engine/Models3d';
 import { applyObject3dParamsToModel3d, applyPositionToModel3d, applyRotationToModel3d, applyScaleToModel3d } from '@Engine/Models3d';
+import type { TDracoLoaderSettings } from '@Engine/ThreeLib';
 import type { TWriteable } from '@Engine/Utils';
 import { isDefined, isNotDefined } from '@Engine/Utils';
 import type { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
 
 import { Loader3dCore } from './Loader3dCore';
 
-export function Models3dLoader(registry: TModels3dResourceAsyncRegistry, metaInfoRegistry: TModels3dMetaInfoRegistry): TModels3dLoader {
-  const loader: TModels3dLoader = Loader3dCore(registry, metaInfoRegistry, LoaderType.Model3d);
+export function Models3dLoader(registry: TModels3dResourceAsyncRegistry, metaInfoRegistry: TModels3dMetaInfoRegistry, settings: TDracoLoaderSettings = {}): TModels3dLoader {
+  const loader: TModels3dLoader = Loader3dCore(registry, metaInfoRegistry, LoaderType.Model3d, settings);
 
   function applyParamsOnLoaded(loaded: TWriteable<GLTF>, options?: TModel3dResourceConfig['options']): GLTF {
     if (isNotDefined(options)) return loaded;

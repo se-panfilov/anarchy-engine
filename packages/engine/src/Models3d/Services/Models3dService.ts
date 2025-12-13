@@ -25,6 +25,7 @@ import type {
   TModels3dService,
   TModels3dServiceDependencies
 } from '@Engine/Models3d/Models';
+import type { TSpaceSettings } from '@Engine/Space';
 import type { TOptional } from '@Engine/Utils';
 import { mergeAll } from '@Engine/Utils';
 import type { Subscription } from 'rxjs';
@@ -34,10 +35,11 @@ export function Models3dService(
   registry: TModels3dRegistry,
   resourcesRegistry: TModels3dResourceAsyncRegistry,
   metaInfoRegistry: TModels3dMetaInfoRegistry,
-  { materialService, animationsService, model3dRawToModel3dConnectionRegistry }: TModels3dServiceDependencies
+  { materialService, animationsService, model3dRawToModel3dConnectionRegistry }: TModels3dServiceDependencies,
+  settings: TSpaceSettings
 ): TModels3dService {
   const factorySub$: Subscription = factory.entityCreated$.subscribe((model3d: TModel3d): void => registry.add(model3d));
-  const model3dLoader: TModels3dLoader = Models3dLoader(resourcesRegistry, metaInfoRegistry);
+  const model3dLoader: TModels3dLoader = Models3dLoader(resourcesRegistry, metaInfoRegistry, settings.threeJsSettings?.draco);
   const materialRegistry: TMaterialRegistry = materialService.getRegistry();
   const animationsResourceAsyncRegistry: TAnimationsResourceAsyncRegistry = animationsService.getResourceRegistry();
   const disposable: ReadonlyArray<TDisposable> = [registry, factory, resourcesRegistry, model3dRawToModel3dConnectionRegistry, factorySub$, model3dLoader];

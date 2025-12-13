@@ -12,5 +12,6 @@ export type * from './TReadonlyQuaternion';
 export type * from './TReadonlyVector2';
 export type * from './TReadonlyVector3';
 export type * from './TSphereGeometryParams';
+export type * from './TThreeJsSettings';
 export type * from './TVector3OrEuler';
 export type * from './TVector4OrQuaternion';

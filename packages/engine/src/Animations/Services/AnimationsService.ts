@@ -16,7 +16,7 @@ import type { TDelta } from '@Engine/Loop';
 import type { TDisposable } from '@Engine/Mixins';
 import { withSerializeAllResources } from '@Engine/Mixins';
 import type { TModel3d, TRawModel3d } from '@Engine/Models3d';
-import type { TSpaceLoops } from '@Engine/Space';
+import type { TSpaceLoops, TSpaceSettings } from '@Engine/Space';
 import type { TWriteable } from '@Engine/Utils';
 import { isDefined, isNotDefined, mergeAll } from '@Engine/Utils';
 import type { Observable, Subscription } from 'rxjs';
@@ -24,8 +24,13 @@ import { Subject } from 'rxjs';
 import type { AnimationClip } from 'three';
 import { AnimationMixer } from 'three';
 
-export function AnimationsService(resourcesRegistry: TAnimationsResourceAsyncRegistry, metaInfoRegistry: TAnimationsMetaInfoRegistry, { renderLoop }: TSpaceLoops): TAnimationsService {
-  const animationsLoader: TAnimationsLoader = AnimationsLoader(resourcesRegistry, metaInfoRegistry);
+export function AnimationsService(
+  resourcesRegistry: TAnimationsResourceAsyncRegistry,
+  metaInfoRegistry: TAnimationsMetaInfoRegistry,
+  { renderLoop }: TSpaceLoops,
+  settings: TSpaceSettings
+): TAnimationsService {
+  const animationsLoader: TAnimationsLoader = AnimationsLoader(resourcesRegistry, metaInfoRegistry, settings.threeJsSettings?.draco);
   const added$: Subject<TModel3dAnimations> = new Subject<TModel3dAnimations>();
   const subscriptions: Map<AnimationMixer, Subscription> = new Map<AnimationMixer, Subscription>();
   const disposable: ReadonlyArray<TDisposable> = [resourcesRegistry, animationsLoader];

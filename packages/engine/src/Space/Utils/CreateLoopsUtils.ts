@@ -14,10 +14,10 @@ import type { TSpatialLoop } from '@Engine/Spatial';
 import type { TTextLoop } from '@Engine/Text';
 import type { TTransformLoop } from '@Engine/TransformDrive';
 
-export function createLoops({ create }: TLoopService, spaceSettings: TSpaceSettings | undefined): TSpaceLoops {
+export function createLoops({ create }: TLoopService, spaceSettings: TSpaceSettings = {}): TSpaceLoops {
   const { Audio, Render, Intersections, Spatial, Mouse, Text, Kinematic, Collisions, Controls, Transform, Keyboard, Physics } = LoopType;
 
-  const settings: TLoopsSettings = { ...LOOPS_DEFAULT_SETTINGS, ...spaceSettings?.loopsSettings };
+  const settings: TLoopsSettings = { ...LOOPS_DEFAULT_SETTINGS, ...spaceSettings.loopsSettings };
 
   const {
     audioLoopStep,
