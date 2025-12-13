@@ -216,6 +216,7 @@ export const JsRules = {
         '[D-d]arwin',
         '[D-d]estroyable',
         '[D-d]euteranopia',
+        '[D-d]exie',
         '[D-d]iv[s]?',
         '[D-d]om',
         '[D-d]otenv',
