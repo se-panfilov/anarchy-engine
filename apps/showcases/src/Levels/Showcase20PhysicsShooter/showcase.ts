@@ -13,8 +13,9 @@ import type {
   TSpaceConfig,
   TSpatialGridWrapper
 } from '@Engine';
-import { asRecord, isDefined, isNotDefined, KeysExtra, metersPerSecond, milliseconds, spaceService } from '@Engine';
+import { KeysExtra, metersPerSecond, milliseconds, spaceService } from '@Engine';
 import { radians } from '@Engine/Measurements/Utils';
+import { asRecord, isDefined, isNotDefined } from '@Shared/Utils';
 import type { Intersection } from 'three';
 import { Vector3 } from 'three';
 import type { Line2 } from 'three/examples/jsm/lines/Line2';

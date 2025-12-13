@@ -1,5 +1,6 @@
 import type { TActor, TActorRegistry, TMilliseconds, TModel3d, TModels3dRegistry, TSceneWrapper, TSpace, TSpaceConfig } from '@Engine';
-import { asRecord, isNotDefined, spaceService } from '@Engine';
+import { spaceService } from '@Engine';
+import { asRecord, isNotDefined } from '@Shared/Utils';
 import { Clock } from 'three';
 
 import type { TAppSettings } from '@/Models';

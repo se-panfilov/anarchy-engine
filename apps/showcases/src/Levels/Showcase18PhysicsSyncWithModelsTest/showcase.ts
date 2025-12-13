@@ -1,5 +1,6 @@
 import type { TActor, TAnyCameraWrapper, TReadonlyVector3, TSpace, TSpaceConfig } from '@Engine';
-import { asRecord, isNotDefined, spaceService } from '@Engine';
+import { spaceService } from '@Engine';
+import { asRecord, isNotDefined } from '@Shared/Utils';
 import type { Vector3 } from 'three';
 
 import type { TAppSettings } from '@/Models';

@@ -11,7 +11,8 @@ import type {
   TSpaceConfig,
   TSpotLightWrapper
 } from '@Engine';
-import { asRecord, isNotDefined, spaceService } from '@Engine';
+import { spaceService } from '@Engine';
+import { asRecord, isNotDefined } from '@Shared/Utils';
 import GUI from 'lil-gui';
 import { CameraHelper, DirectionalLightHelper, HemisphereLightHelper, PointLightHelper, SpotLightHelper } from 'three';
 import { RectAreaLightHelper } from 'three/examples/jsm/helpers/RectAreaLightHelper';

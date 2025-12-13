@@ -1,6 +1,7 @@
 import type { TMaterialConfig, TMaterialParams, TMilliseconds, TParticlesConfig, TParticlesWrapper, TSpace, TSpaceConfig, TSpaceConfigEntities } from '@Engine';
-import { asRecord, isDefined, isNotDefined, spaceService } from '@Engine';
+import { spaceService } from '@Engine';
 import { configToParams as materialConfigToParams } from '@Engine/Material/Adapters';
+import { asRecord, isDefined, isNotDefined } from '@Shared/Utils';
 import GUI from 'lil-gui';
 import { BufferGeometry, Color, PointsMaterial } from 'three';
 

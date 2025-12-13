@@ -1,5 +1,6 @@
 import type { TSceneWrapper, TSpace, TSpaceConfig } from '@Engine';
-import { asRecord, isNotDefined, spaceService } from '@Engine';
+import { spaceService } from '@Engine';
+import { asRecord, isNotDefined } from '@Shared/Utils';
 import GUI from 'lil-gui';
 import type { Fog } from 'three';
 

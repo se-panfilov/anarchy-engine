@@ -1,5 +1,6 @@
 import type { TActorParams, TAnyCameraWrapper, TAnyMaterialWrapper, TModel3d, TModels3dService, TSpace, TSpaceConfig, TSpatialGridWrapper } from '@Engine';
-import { asRecord, CameraType, isNotDefined, MaterialType, meters, PrimitiveModel3dType, spaceService } from '@Engine';
+import { CameraType, MaterialType, meters, PrimitiveModel3dType, spaceService } from '@Engine';
+import { asRecord, isNotDefined } from '@Shared/Utils';
 import { combineLatest, distinctUntilChanged } from 'rxjs';
 import type { Vector2Like } from 'three';
 import { Euler, Vector3 } from 'three';

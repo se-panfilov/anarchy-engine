@@ -1,5 +1,6 @@
 import type { TSpace, TSpaceConfig } from '@Engine';
-import { asRecord, isNotDefined, spaceService } from '@Engine';
+import { spaceService } from '@Engine';
+import { asRecord, isNotDefined } from '@Shared/Utils';
 import { combineLatest, Observable, Subscription } from 'rxjs';
 
 import type { TAppSettings } from '@/Models';

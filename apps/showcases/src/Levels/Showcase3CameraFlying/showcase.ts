@@ -1,5 +1,6 @@
 import type { TActor, TActorRegistry, TAnyCameraWrapper, TSpace, TSpaceConfig } from '@Engine';
-import { asRecord, getRotationByCos, getRotationBySin, isNotDefined, spaceService } from '@Engine';
+import { getRotationByCos, getRotationBySin, spaceService } from '@Engine';
+import { asRecord, isNotDefined } from '@Shared/Utils';
 import { combineLatest, distinctUntilChanged } from 'rxjs';
 import type { Vector2Like, Vector3 } from 'three';
 

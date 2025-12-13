@@ -1,5 +1,6 @@
 import type { TActor, TActorRegistry, TAnyCameraWrapper, TIntersectionEvent, TIntersectionsCameraWatcher, TKeyboardPressingEvent, TMouseWatcherEvent, TSpace, TSpaceConfig } from '@Engine';
-import { asRecord, isNotDefined, KeyCode, LookUpStrategy, metersPerSecond, mpsSpeed, spaceService } from '@Engine';
+import { KeyCode, LookUpStrategy, metersPerSecond, mpsSpeed, spaceService } from '@Engine';
+import { asRecord, isNotDefined } from '@Shared/Utils';
 import GUI from 'lil-gui';
 import { withLatestFrom } from 'rxjs';
 import { Vector3 } from 'three';

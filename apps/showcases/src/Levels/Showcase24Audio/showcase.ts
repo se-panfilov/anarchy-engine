@@ -15,7 +15,8 @@ import type {
   TSpaceLoops,
   TSpaceServices
 } from '@Engine';
-import { asRecord, DebugAudioRenderer, isAudio3dWrapper, isDefined, isNotDefined, spaceService } from '@Engine';
+import { DebugAudioRenderer, isAudio3dWrapper, spaceService } from '@Engine';
+import { asRecord, isDefined, isNotDefined } from '@Shared/Utils';
 import GUI from 'lil-gui';
 import { distinctUntilChanged } from 'rxjs';
 import type { AnimationAction, AudioListener } from 'three';

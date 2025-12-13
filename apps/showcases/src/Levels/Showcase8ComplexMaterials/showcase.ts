@@ -22,7 +22,8 @@ import type {
   TWithThickness,
   TWithTransmission
 } from '@Engine';
-import { asRecord, ControlsType, getTags, isDefined, isNotDefined, isOrbitControls, KeyCode, LookUpStrategy, spaceService, TextType } from '@Engine';
+import { ControlsType, getTags, isOrbitControls, KeyCode, LookUpStrategy, spaceService, TextType } from '@Engine';
+import { asRecord, isDefined, isNotDefined } from '@Shared/Utils';
 import type { Controller } from 'lil-gui';
 import GUI from 'lil-gui';
 import { BehaviorSubject, combineLatest, startWith, Subject } from 'rxjs';

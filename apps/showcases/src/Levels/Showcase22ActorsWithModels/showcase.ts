@@ -1,5 +1,6 @@
 import type { TFsmStates, TFsmWrapper, TModels3dResourceAsyncRegistry, TRegistryPack, TSpace, TSpaceAnyEvent, TSpaceConfig, TSpaceServices } from '@Engine';
-import { asRecord, isNotDefined, KeyCode, KeysExtra, SpaceEvents, spaceService } from '@Engine';
+import { KeyCode, KeysExtra, SpaceEvents, spaceService } from '@Engine';
+import { asRecord, isNotDefined } from '@Shared/Utils';
 import { distinctUntilChanged } from 'rxjs';
 import type { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
 

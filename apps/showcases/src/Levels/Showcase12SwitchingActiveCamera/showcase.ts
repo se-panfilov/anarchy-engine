@@ -1,5 +1,6 @@
 import type { TActor, TActorRegistry, TAnyCameraWrapper, TCameraRegistry, TMilliseconds, TSpace, TSpaceConfig } from '@Engine';
-import { asRecord, isNotDefined, spaceService } from '@Engine';
+import { spaceService } from '@Engine';
+import { asRecord, isNotDefined } from '@Shared/Utils';
 import GUI from 'lil-gui';
 import { Clock } from 'three';
 
