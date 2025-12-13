@@ -1,7 +1,7 @@
 import { isDefined } from '@Anarchy/Shared/Utils';
 import type { TTrackingService } from '@Anarchy/Tracking/Models';
-import { scrubEvent } from '@Anarchy/Tracking/Utils';
 import { rewriteFramesIntegrationBrowser } from '@Anarchy/Tracking/Utils/IntegrationsBrowser';
+import { scrubEvent } from '@Anarchy/Tracking/Utils/ScrubEvent';
 import { scrubUserPathsBrowser } from '@Anarchy/Tracking/Utils/ScrubsBrowser';
 import type { BrowserOptions, EventHint } from '@sentry/browser';
 import { captureException, init, setTags } from '@sentry/browser';

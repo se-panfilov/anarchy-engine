@@ -1,6 +1,8 @@
 import { isDefined } from '@Anarchy/Shared/Utils';
 import type { TTrackingService } from '@Anarchy/Tracking/Models';
-import { rewriteFramesIntegrationNode, scrubEvent, scrubUserPathsDesktop } from '@Anarchy/Tracking/Utils';
+import { rewriteFramesIntegrationNode } from '@Anarchy/Tracking/Utils/IntegrationsNode';
+import { scrubEvent } from '@Anarchy/Tracking/Utils/ScrubEvent';
+import { scrubUserPathsDesktop } from '@Anarchy/Tracking/Utils/ScrubsDesktop';
 import type { Primitive } from '@sentry/core';
 import type { ElectronMainOptions } from '@sentry/electron/esm/main';
 import type { ErrorEvent, EventHint } from '@sentry/electron/main';

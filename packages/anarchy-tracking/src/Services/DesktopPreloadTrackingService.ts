@@ -1,6 +1,7 @@
 import { isDefined } from '@Anarchy/Shared/Utils';
 import type { TTrackingService } from '@Anarchy/Tracking/Models';
-import { scrubEvent, scrubUserPathsBrowser } from '@Anarchy/Tracking/Utils';
+import { scrubEvent } from '@Anarchy/Tracking/Utils/ScrubEvent';
+import { scrubUserPathsBrowser } from '@Anarchy/Tracking/Utils/ScrubsBrowser';
 import type { Primitive } from '@sentry/core';
 import type { ErrorEvent, EventHint } from '@sentry/electron/renderer';
 import { captureException, init, setTags } from '@sentry/electron/renderer';
