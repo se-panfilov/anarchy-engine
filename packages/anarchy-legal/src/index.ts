@@ -18,3 +18,5 @@ export * from './Services';
 //  - Privacy Label (Apple)
 //  - Data Safety (Google Play)
 //  - CIRCIA (USA)
+//  - EAA?
+//  - something about china?
