@@ -3,3 +3,4 @@
 - 1.2.0 Added fonts and font-faces presets
 - 1.3.0 Extracted i18n to a separate package
 - 1.4.0 Sanitize utils
+- 1.5.0 Error tracking and anonymization utils
