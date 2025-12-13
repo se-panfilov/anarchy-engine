@@ -62,7 +62,8 @@ export default defineConfig(({ mode, command }: ConfigEnv): UserConfig => {
     define: {
       'import.meta.env.__APP_VERSION__': JSON.stringify(version),
       'import.meta.env.__APP_VERSION_HTML__': JSON.stringify(version.replaceAll(/\./g, '_')),
-      __BUILD_META_INFO__: JSON.stringify(buildMetaInfo)
+      __BUILD_META_INFO__: JSON.stringify(buildMetaInfo),
+      __PLATFORM_MODE__: JSON.stringify(mode)
     },
     resolve: {
       alias: {
