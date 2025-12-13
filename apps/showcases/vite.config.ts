@@ -2,13 +2,14 @@
 import { defineConfig } from 'vite';
 import path from 'path';
 import wasm from 'vite-plugin-wasm';
+import { sharedAliases } from '../../vite.alias';
 
 export default defineConfig({
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
-      '@public': path.resolve(__dirname, './public'),
-      '@Engine': path.resolve(__dirname, '../../packages/engine/src')
+      '@Public': path.resolve(__dirname, './public'),
+      ...sharedAliases
     }
   },
   plugins: [wasm()],
