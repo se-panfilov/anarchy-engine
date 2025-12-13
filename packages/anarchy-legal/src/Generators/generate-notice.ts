@@ -8,6 +8,13 @@ import { globby } from 'globby';
 import yargs from 'yargs';
 import { hideBin } from 'yargs/helpers';
 
+/**
+ * Anarchy-legal: NOTICE generator (from THIRD_PARTY_LICENSES.md)
+ * - Robust header parse for "## <name>@<version>" including scoped names
+ * - --audit: print diff between headings in source and parsed entries
+ * - --strict (with --audit): exit code 2 on mismatch
+ */
+
 // ---------------------- Types ----------------------
 
 type TWorkspaceInfo = Readonly<{
@@ -112,22 +119,32 @@ const resolveWorkspaceFromArg = (arg: string, workspaces: ReadonlyMap<string, TW
 
 // ---------------------- Parse THIRD_PARTY_LICENSES.md ----------------------
 
+// we split by '---' fences produced by our generator
 const splitEntriesFromMarkdown = (md: string): ReadonlyArray<string> => {
-  // Entries are separated by lines with '---'
-  // We will split on '^---$' and keep chunks that contain '## <name>@<version>'
   const parts = md.split(/\r?\n---\r?\n/g);
-  return parts.filter((chunk) => /^##\s+.+@.+/m.test(chunk));
+  // keep only chunks that contain any "## <something>" heading (later we validate)
+  return parts.filter((chunk) => /^##\s+.+/m.test(chunk));
+};
+
+// robust parse of "## <name>@<version>" allowing scoped names
+const parseHeaderLine = (chunk: string): { name: string; version: string } | undefined => {
+  const m = /^##\s+(.+?)\s*$/m.exec(chunk);
+  if (!m) return undefined;
+  const full = m[1].trim(); // e.g. "@babel/core@7.27.1" or "lodash@4.17.21"
+  const at = full.lastIndexOf('@');
+  if (at <= 0 || at === full.length - 1) return undefined;
+  const name = full.slice(0, at).trim();
+  const version = full.slice(at + 1).trim();
+  if (!name || !version) return undefined;
+  return { name, version };
 };
 
 const parseOneEntry = (chunk: string): TParsedEntry | undefined => {
-  // Header: "## name@version"
-  const hdr = /^##\s+([^\s@]+)@([^\s]+)\s*$/m.exec(chunk);
+  const hdr = parseHeaderLine(chunk);
   if (!hdr) return undefined;
-  const name = hdr[1].trim();
-  const version = hdr[2].trim();
+  const { name, version } = hdr;
   const id = `${name}@${version}`;
 
-  // Key-value lines
   const field = (label: string): string | undefined => {
     const re = new RegExp(`^\\*\\*${label}:\\*\\*\\s*(.+)\\s*$`, 'mi');
     const m = re.exec(chunk);
@@ -144,47 +161,37 @@ const parseOneEntry = (chunk: string): TParsedEntry | undefined => {
   const url = field('URL');
   const publisher = field('Publisher')
     ?.replace(/\s+<[^>]+>\s*$/, '')
-    .trim(); // strip email if present
+    .trim();
   const pth = field('Path');
 
-  // License text: between the blank line after fields and the end of chunk
-  // detection: we look for the first blank line after '**Path:** ...' or last field,
-  // then anything after that, except when it's the "No license text file found..." note.
+  // License text: tail after the first blank line following the header+KV area
   let licenseText: string | undefined = undefined;
   {
-    // get substring starting at first blank line after header section
-    const kvEndIdx = (() => {
-      const lines = chunk.split(/\r?\n/);
-      let seenHeader = false;
-      let idx = 0;
-      for (; idx < lines.length; idx++) {
-        if (lines[idx].startsWith('## ')) {
-          seenHeader = true;
-          continue;
-        }
-        if (seenHeader && lines[idx].trim() === '') {
-          idx++;
-          break;
-        }
+    const lines = chunk.split(/\r?\n/);
+    let seenHeader = false;
+    let idx = 0;
+    for (; idx < lines.length; idx++) {
+      const ln = lines[idx];
+      if (ln.startsWith('## ')) {
+        seenHeader = true;
+        continue;
       }
-      // idx now at first line of potential license text
-      return idx;
-    })();
-    const tail = chunk.split(/\r?\n/).slice(kvEndIdx).join('\n').trim();
-    if (tail && !/^_No license text file found;/m.test(tail)) {
-      licenseText = tail;
+      if (seenHeader && ln.trim() === '') {
+        idx++;
+        break;
+      }
     }
+    const tail = lines.slice(idx).join('\n').trim();
+    if (tail && !/^_No license text file found;/m.test(tail)) licenseText = tail;
   }
 
-  // Infer copyright line
-  const inferCopyright = (): string | undefined => {
+  const inferredCopyright = (() => {
     if (licenseText) {
-      const lines = licenseText.split(/\r?\n/);
-      const found = lines.find((ln) => /^\s*(?:copyright|\(c\)|©)\s+/i.test(ln));
-      if (found) return found.trim();
+      const ln = licenseText.split(/\r?\n/).find((l) => /^\s*(?:copyright|\(c\)|©)\s+/i.test(l));
+      if (ln) return ln.trim();
     }
     return publisher?.trim();
-  };
+  })();
 
   return {
     id,
@@ -196,7 +203,7 @@ const parseOneEntry = (chunk: string): TParsedEntry | undefined => {
     publisher: publisher ?? undefined,
     path: pth ?? undefined,
     licenseText,
-    inferredCopyright: inferCopyright()
+    inferredCopyright
   };
 };
 
@@ -207,9 +214,23 @@ const parseThirdPartyMarkdown = (md: string): ReadonlyArray<TParsedEntry> => {
     const e = parseOneEntry(ch);
     if (e) out.push(e);
   }
-  // stable sort
   out.sort((a, b) => (a.name === b.name ? a.version.localeCompare(b.version) : a.name.localeCompare(b.name)));
   return out;
+};
+
+// for audit: collect every heading id present in the source file
+const collectAllHeadingIds = (md: string): ReadonlySet<string> => {
+  const ids = new Set<string>();
+  const re = /^##\s+(.+?)\s*$/gm;
+  let m: RegExpExecArray | null;
+  while ((m = re.exec(md))) {
+    const full = m[1].trim();
+    const at = full.lastIndexOf('@');
+    if (at > 0 && at < full.length - 1) {
+      ids.add(`${full.slice(0, at).trim()}@${full.slice(at + 1).trim()}`);
+    }
+  }
+  return ids;
 };
 
 // ---------------------- Optional upstream NOTICE fetch ----------------------
@@ -229,10 +250,11 @@ const loadUpstreamNotice = async (dir: string, maxBytes: number): Promise<string
   if (!p) return undefined;
   try {
     const stat = await fs.stat(p);
+    const txt = await fs.readFile(p, 'utf8');
     if (stat.size > maxBytes) {
-      return `Upstream NOTICE is too large (${stat.size} bytes); truncated.\n\n` + (await fs.readFile(p, { encoding: 'utf8' })).slice(0, maxBytes);
+      return `Upstream NOTICE is too large (${stat.size} bytes); truncated.\n\n` + txt.slice(0, maxBytes);
     }
-    return await fs.readFile(p, 'utf8');
+    return txt;
   } catch {
     return undefined;
   }
@@ -263,7 +285,6 @@ const renderNotice = (wsName: string, entries: ReadonlyArray<TParsedEntry>, incl
     lines.push(``);
     if (includeUpstream && e.upstreamNotice) {
       lines.push(`**Upstream NOTICE:**`);
-      // Present as blockquote to avoid clobbering layout
       lines.push(...e.upstreamNotice.split(/\r?\n/).map((ln) => `> ${ln}`));
       lines.push(``);
     }
@@ -278,12 +299,14 @@ const renderNotice = (wsName: string, entries: ReadonlyArray<TParsedEntry>, incl
 const main = async (): Promise<void> => {
   const argv = await yargs(hideBin(process.argv))
     .scriptName('anarchy-legal:notice')
-    .usage('$0 --workspace <name|path> [--source <THIRD_PARTY_LICENSES.md>] [--out <NOTICE.md>] [--include-upstream-notices] [--max-upstream-notice-kb <N>] [--debug]')
+    .usage('$0 --workspace <name|path> [--source <THIRD_PARTY_LICENSES.md>] [--out <NOTICE.md>] [--include-upstream-notices] [--max-upstream-notice-kb <N>] [--audit] [--strict] [--debug]')
     .option('workspace', { type: 'string', demandOption: true, describe: 'Target workspace (name or path relative to monorepo root)' })
     .option('source', { type: 'string', describe: 'Path to THIRD_PARTY_LICENSES.md. Default: <workspace>/THIRD_PARTY_LICENSES.md' })
     .option('out', { type: 'string', describe: 'Path to output NOTICE.md. Default: <workspace>/NOTICE.md' })
     .option('include-upstream-notices', { type: 'boolean', default: false, describe: 'Also read upstream NOTICE files from dependency install paths (if present in THIRD_PARTY_LICENSES.md)' })
     .option('max-upstream-notice-kb', { type: 'number', default: 128, describe: 'Max size per upstream NOTICE to read (kilobytes)' })
+    .option('audit', { type: 'boolean', default: false, describe: 'Print a diff between headings in source and parsed entries' })
+    .option('strict', { type: 'boolean', default: false, describe: 'With --audit, exit with code 2 if mismatches found' })
     .option('debug', { type: 'boolean', default: false })
     .help()
     .parseAsync();
@@ -319,7 +342,6 @@ const main = async (): Promise<void> => {
 
   if (!(await exists(srcPath))) {
     console.warn(`[warn] THIRD_PARTY_LICENSES.md not found at: ${srcPath}`);
-    // Generate an empty NOTICE with note
     const md = renderNotice(ws.name, [], false);
     await fs.mkdir(path.dirname(outPath), { recursive: true });
     await fs.writeFile(outPath, md, 'utf8');
@@ -328,10 +350,14 @@ const main = async (): Promise<void> => {
   }
 
   const src = await fs.readFile(srcPath, 'utf8');
+
+  // collect declared ids from headings for audit
+  const declaredIds = collectAllHeadingIds(src);
+
   const entries = parseThirdPartyMarkdown(src);
   dlog('parsed entries:', entries.length);
 
-  // Optionally enrich with upstream NOTICE
+  // Optional upstream NOTICE load
   if (argv['include-upstream-notices']) {
     const maxBytes = Math.max(1, Math.floor(Number(argv['max-upstream-notice-kb']) || 128)) * 1024;
     let filled = 0;
@@ -340,11 +366,34 @@ const main = async (): Promise<void> => {
       if (!e.path) continue;
       const u = await loadUpstreamNotice(e.path, maxBytes);
       if (u) {
-        (entries as any)[i] = { ...e, upstreamNotice: u } as TParsedEntry;
+        (entries as any)[i] = { ...e, upstreamNotice: u };
         filled++;
       }
     }
     dlog('upstream notices loaded:', filled);
+  }
+
+  // Audit report
+  if (argv.audit) {
+    const parsedIds = new Set(entries.map((e) => e.id));
+    const missing: string[] = [];
+    for (const id of declaredIds) if (!parsedIds.has(id)) missing.push(id);
+    missing.sort();
+
+    console.log(`NOTICE audit:
+  headings in source:  ${declaredIds.size}
+  parsed entries:      ${parsedIds.size}
+  missing in NOTICE:   ${missing.length}`);
+
+    if (missing.length) {
+      console.log(missing.map((x) => `  - ${x}`).join('\n'));
+      if (argv.strict) {
+        console.error('✖ Audit failed: some entries were not parsed into NOTICE.');
+        process.exit(2);
+      }
+    } else {
+      console.log('✔ Audit OK: all entries accounted for.');
+    }
   }
 
   const md = renderNotice(ws.name, entries, Boolean(argv['include-upstream-notices']));
