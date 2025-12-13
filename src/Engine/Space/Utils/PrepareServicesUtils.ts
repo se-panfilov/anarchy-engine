@@ -80,7 +80,7 @@ export function buildEntitiesServices(
     physicsBodyService
   });
   const audioService: TAudioService = AudioService(AudioFactory(), AudioRegistry(), AudioResourceAsyncRegistry(), AudioListenersRegistry(), { transformDriveService }, loops);
-  const cameraService: TCameraService = CameraService(CameraFactory(), CameraRegistry(), sceneW, { audioService, screenService });
+  const cameraService: TCameraService = CameraService(CameraFactory(), CameraRegistry(), sceneW, { audioService, transformDriveService, screenService });
 
   return {
     actorService: ActorService(

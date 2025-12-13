@@ -1,28 +1,9 @@
-import { Vector3 } from 'three';
+import type { TCameraParams, TCameraServiceDependencies, TCameraTransformAgents, TCameraTransformDrive } from '@/Engine/Camera/Models';
+import type { TTransformDriveParams } from '@/Engine/TransformDrive';
 
-import type { TCameraParams, TCameraTransformAgents, TCameraTransformDrive } from '@/Engine/Camera/Models';
-import { toQuaternion } from '@/Engine/Math';
-import type { TConnectedTransformAgent, TDefaultTransformAgent, TTransformAgentParams, TTransformDriveParams } from '@/Engine/TransformDrive';
-import { ConnectedTransformAgent, DefaultTransformAgent, TransformAgent, TransformDrive } from '@/Engine/TransformDrive';
-
-export function CameraTransformDrive(params: TCameraParams, relatedEntityId: string): TCameraTransformDrive {
-  const transformAgents: TCameraTransformAgents = getTransformAgents(params);
+export function CameraTransformDrive(params: TCameraParams, { transformDriveService }: Pick<TCameraServiceDependencies, 'transformDriveService'>, relatedEntityId: string): TCameraTransformDrive {
+  const transformAgents: TCameraTransformAgents = transformDriveService.getTransformAgents(params, { isConnected: true }) as TCameraTransformAgents;
   const driveParams: TTransformDriveParams = { activeAgent: params.agent, relatedEntityId };
-  return TransformDrive(driveParams, transformAgents);
-}
 
-function getTransformAgents(params: TCameraParams): TCameraTransformAgents {
-  const agentParams: TTransformAgentParams = {
-    position: params.position,
-    rotation: toQuaternion(params.rotation),
-    scale: params.scale ?? new Vector3(1, 1, 1),
-    onDeactivated: undefined,
-    onActivated: undefined
-  };
-  const connectedTransformAgent: TConnectedTransformAgent = ConnectedTransformAgent(agentParams);
-  const defaultTransformAgent: TDefaultTransformAgent = DefaultTransformAgent(agentParams);
-  return {
-    [TransformAgent.Connected]: connectedTransformAgent,
-    [TransformAgent.Default]: defaultTransformAgent
-  };
+  return transformDriveService.create(driveParams, transformAgents) as TCameraTransformDrive;
 }

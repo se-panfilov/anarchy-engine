@@ -14,7 +14,7 @@ import { applyObject3dParams, isDefined } from '@/Engine/Utils';
 
 import { getAccessors } from './Accessors';
 
-export function CameraWrapper(params: TCameraParams, { screenService }: TCameraWrapperDependencies): TCameraWrapper {
+export function CameraWrapper(params: TCameraParams, { screenService, transformDriveService }: TCameraWrapperDependencies): TCameraWrapper {
   const { fov = 45, near = 1, far = 10000, lookAt, audioListener }: TCameraParams = params;
   const { width, height, ratio }: TScreenSizeValues = screenService.watchers.default$.value?.getValue() ?? {
     width: 0,
@@ -27,7 +27,7 @@ export function CameraWrapper(params: TCameraParams, { screenService }: TCameraW
   accessors.setAspect(width / height);
 
   const wrapper = AbstractWrapper(entity, WrapperType.Camera, params);
-  const drive: TCameraTransformDrive = CameraTransformDrive(params, wrapper.id);
+  const drive: TCameraTransformDrive = CameraTransformDrive(params, { transformDriveService }, wrapper.id);
   const driveToTargetConnector: TDriveToTargetConnector = DriveToTargetConnector(drive, entity);
 
   screenService.watchers.default$.value?.value$.pipe(takeUntil(wrapper.destroy$)).subscribe(({ width, height }: TScreenSizeValues): void => {
