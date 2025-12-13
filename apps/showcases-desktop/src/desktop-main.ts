@@ -21,9 +21,9 @@ const desktopAppSettings: TDesktopAppConfig = {
 // TODO DESKTOP: We need e2e eventually
 // TODO DESKTOP: Add .env files for different platforms (macos, windows, linux).
 
-const desktopAppService: TDesktopAppService = DesktopAppService(app);
-const windowService: TWindowService = WindowService();
 const filesService: TFilesService = FilesService(app);
+const desktopAppService: TDesktopAppService = DesktopAppService(app, { filesService });
+const windowService: TWindowService = WindowService();
 const settingsService: TSettingsService = SettingsService(app, { filesService, windowService });
 const docsService: TDocsService = DocsService(filesService);
 

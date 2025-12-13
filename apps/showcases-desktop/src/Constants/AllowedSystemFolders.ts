@@ -19,5 +19,6 @@ export enum AllowedSystemFolders {
 
 export enum AllowedAppFolders {
   Assets = 'assets',
+  DistDesktop = 'dist/dist-desktop',
   LegalDocs = 'assets/legal'
 }

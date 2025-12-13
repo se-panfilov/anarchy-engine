@@ -1,8 +1,10 @@
-import type { TDesktopAppService } from '@Showcases/Desktop/Models';
+import { AllowedAppFolders } from '@Showcases/Desktop/Constants';
+import type { TDesktopAppService, TDesktopServiceDependencies } from '@Showcases/Desktop/Models';
+import { isBuildMeta } from '@Showcases/Shared';
 import type { App } from 'electron';
 import { BrowserWindow } from 'electron';
 
-export function DesktopAppService(app: App): TDesktopAppService {
+export function DesktopAppService(app: App, { filesService }: TDesktopServiceDependencies): TDesktopAppService {
   let isExitingApp: boolean = false;
 
   function closeWindow(win: BrowserWindow, delay: number = 3000): void {
@@ -51,8 +53,17 @@ export function DesktopAppService(app: App): TDesktopAppService {
     app.exit(0);
   }
 
+  async function getPackagesVersions(): Promise<any> {
+    try {
+      return await filesService.readFileAsJson('build-meta.json', AllowedAppFolders.DistDesktop, isBuildMeta);
+    } catch (e: any) {
+      throw new Error('[DESKTOP] Failed to get packages versions from build-meta.json:', e);
+    }
+  }
+
   return {
     closeApp,
+    getPackagesVersions,
     isExiting(): boolean {
       return isExitingApp;
     },
