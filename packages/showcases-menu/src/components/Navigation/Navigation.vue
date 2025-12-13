@@ -9,9 +9,6 @@ import { computed } from 'vue';
 
 const { $t } = vueTranslationService;
 
-// TODO DESKTOP: add version to html body
-// TODO DESKTOP: add init event with version and platform
-
 const props = withDefaults(
   defineProps<{
     options?: ReadonlyArray<TVueNavOption>;
