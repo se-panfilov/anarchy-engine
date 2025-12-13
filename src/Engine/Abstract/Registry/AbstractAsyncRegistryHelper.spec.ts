@@ -1,17 +1,19 @@
 import type { IAbstractAsyncRegistry, RegistryType } from '@/Engine/Abstract';
 import { AbstractAsyncRegistry } from '@/Engine/Abstract';
-import { getValueAsync } from '@/Engine/Abstract/Registry/AbstractAsyncRegistryHelper';
+import { getValueAsync, subscribeToValue$ } from '@/Engine/Abstract/Registry/AbstractAsyncRegistryHelper';
 import type { IRegistrable } from '@/Engine/Mixins';
+import { expect } from 'vitest';
+import { firstValueFrom, lastValueFrom } from 'rxjs';
+
+const mockEntity1: IRegistrable = { id: 'mockEntityId1', name: 'mockEntity1' } as unknown as IRegistrable;
+const mockEntity2: IRegistrable = { id: 'mockEntityId2', name: 'mockEntity2' } as unknown as IRegistrable;
+const mockEntity3: IRegistrable = { id: 'mockEntityId3', name: 'mockEntity3' } as unknown as IRegistrable;
+const mockEntity4: IRegistrable = { id: 'mockEntityId4', name: 'mockEntity4' } as unknown as IRegistrable;
+const mockEntity5: IRegistrable = { id: 'mockEntityId5', name: 'mockEntity5' } as unknown as IRegistrable;
+const mockEntity6: IRegistrable = { id: 'mockEntityId6', name: 'mockEntity6' } as unknown as IRegistrable;
 
 describe('AbstractAsyncRegistryHelper', () => {
   const waitingTime: number = 500;
-
-  const mockEntity1: IRegistrable = { id: 'mockEntityId1', name: 'mockEntity1' } as unknown as IRegistrable;
-  const mockEntity2: IRegistrable = { id: 'mockEntityId2', name: 'mockEntity2' } as unknown as IRegistrable;
-  const mockEntity3: IRegistrable = { id: 'mockEntityId3', name: 'mockEntity3' } as unknown as IRegistrable;
-  const mockEntity4: IRegistrable = { id: 'mockEntityId4', name: 'mockEntity4' } as unknown as IRegistrable;
-  const mockEntity5: IRegistrable = { id: 'mockEntityId5', name: 'mockEntity5' } as unknown as IRegistrable;
-  const mockEntity6: IRegistrable = { id: 'mockEntityId6', name: 'mockEntity6' } as unknown as IRegistrable;
 
   describe('getValueAsync', () => {
     it('should return an entity that was added sync before getting the value', async () => {
@@ -238,6 +240,25 @@ describe('AbstractAsyncRegistryHelper', () => {
       const filterFn = (entity: IRegistrable): boolean => entity.id === mockEntity2.id;
       const result: IRegistrable | undefined = await getValueAsync(registry, filterFn, undefined, 10);
       expect(result).toBeUndefined();
+    }, 1000);
+  });
+
+  describe('subscribeToValue$', () => {
+    it('should return an entity that was added sync before getting the value', async () => {
+      // setup
+      const registry: IAbstractAsyncRegistry<IRegistrable> = AbstractAsyncRegistry<IRegistrable>('mockEntity' as RegistryType);
+      const filterFn = (entity: IRegistrable): boolean => entity.id === mockEntity2.id;
+
+      // execute
+      const subscription$ = firstValueFrom(subscribeToValue$(registry, filterFn));
+
+      registry.add(mockEntity1);
+      registry.add(mockEntity2);
+      registry.add(mockEntity3);
+
+      // check
+      const result: IRegistrable = await subscription$;
+      expect(result).toEqual(mockEntity2);
     }, 1000);
   });
 });

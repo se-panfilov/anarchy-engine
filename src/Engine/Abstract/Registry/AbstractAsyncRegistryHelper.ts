@@ -20,7 +20,6 @@ export function getValueAsync<T extends IRegistrable | IMultitonRegistrable>(
     .pipe(
       filter(filterFn),
       take(1),
-      // TODO (S.Panfilov) I'm not sure, that timeout is a good idea here. (maybe it's better to use some kind of retry mechanism, or something)
       timeout(waitingTime),
       catchError((error: any) => {
         // TODO (S.Panfilov) instead of console should be forwarded to some kind of logger
@@ -50,7 +49,7 @@ export function getValueAsync<T extends IRegistrable | IMultitonRegistrable>(
   return promise;
 }
 
-export function subscribeToValue$<T extends IRegistrable | IMultitonRegistrable>(reg: IAbstractEntityRegistry<T>, filterFn: (entity: T) => boolean): Observable<T> {
+export function subscribeToValue$<T extends IRegistrable | IMultitonRegistrable>(reg: IAbstractEntityRegistry<T> | IAbstractAsyncRegistry<T>, filterFn: (entity: T) => boolean): Observable<T> {
   return reg.added$.pipe(
     filter(filterFn),
     take(1),
@@ -61,7 +60,6 @@ export function subscribeToValue$<T extends IRegistrable | IMultitonRegistrable>
       // TODO (S.Panfilov) instead of console should be forwarded to some kind of logger
       // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
       if (error?.name === 'TimeoutError') console.error(`Cannot get entity async from registry ("${reg.id}"): timeout error has occurred`);
-      // reject(undefined)
 
       // return of(undefined);
       return EMPTY;
