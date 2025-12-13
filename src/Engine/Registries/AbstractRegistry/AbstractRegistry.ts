@@ -91,5 +91,5 @@ export function AbstractRegistry<T extends IRegistrable | IMultitonRegistrable>(
 }
 
 function isMultitonEntity(entity: IRegistrable | IMultitonRegistrable): entity is IMultitonRegistrable {
-  return !!entity.key;
+  return !!(entity as IMultitonRegistrable).key;
 }
