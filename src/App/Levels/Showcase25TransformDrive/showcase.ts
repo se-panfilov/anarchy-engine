@@ -36,14 +36,14 @@ import {
   getDistancePrecisely,
   getHorizontalAzimuthDeg,
   getMouseAzimuthAndElevation,
-  getPushCoordsFrom3dAzimuthDeg,
+  getPushCoordsFrom3dAzimuth,
   isNotDefined,
   KeysExtra,
   spaceService,
   TextType,
   TransformAgent
 } from '@/Engine';
-import { degrees, meters } from '@/Engine/Measurements/Utils';
+import { degrees, meters, radians } from '@/Engine/Measurements/Utils';
 
 import spaceConfig from './showcase.json';
 import {
@@ -232,7 +232,7 @@ function moveActorTo(actor: TActor, position: Vector3, agent: TransformAgent, is
       return undefined;
     case TransformAgent.Physical:
       forcePower = getDistancePrecisely(actor.drive.getPosition(), position).toNumber();
-      actor.drive.physical.physicsBody$.value?.getRigidBody()?.applyImpulse(getPushCoordsFrom3dAzimuthDeg(radToDeg(azimuth) as TDegrees, 0 as TDegrees, forcePower * 1.5), true);
+      actor.drive.physical.physicsBody$.value?.getRigidBody()?.applyImpulse(getPushCoordsFrom3dAzimuth(azimuth, radians(0), forcePower * 1.5), true);
       return undefined;
     default:
       throw new Error(`Unknown agent: ${agent}`);

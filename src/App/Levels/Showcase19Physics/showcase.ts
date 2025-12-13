@@ -11,7 +11,7 @@ import {
   Engine,
   getDistancePrecisely,
   getHorizontalAzimuthRad,
-  getPushCoordsFrom3dAzimuthDeg,
+  getPushCoordsFrom3dAzimuth,
   isActorHasPhysicsBody,
   isDefined,
   isNotDefined,
@@ -56,7 +56,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
 
     mouseService.clickLeftRelease$.subscribe(() => {
       // TODO CWP: 8.0.0. MODELS: Perhaps, "applyImpulse" (and similar functions) should be available via physical drive
-      ballActor.drive.physical.physicsBody$.value?.getRigidBody()?.applyImpulse(getPushCoordsFrom3dAzimuthDeg(azimuth, radians(0), forcePower * 10.5), true);
+      ballActor.drive.physical.physicsBody$.value?.getRigidBody()?.applyImpulse(getPushCoordsFrom3dAzimuth(azimuth, radians(0), forcePower * 10.5), true);
     });
 
     keyboardService.onKey(KeysExtra.Space).pressed$.subscribe((): void => {
