@@ -32,7 +32,6 @@ export function GuiService(mainMenuService: TMainMenuService): TGuiService {
   function onGuiActionEvent(payload: TFromGuiActionPayload): void {
     switch (payload.type) {
       case FromGuiActionEvents.SettingsToggle: {
-        console.log('XXX mainMenuService.isMenuActive()', mainMenuService.isMenuActive());
         return mainMenuService.isMenuActive() ? mainMenuService.closeMainMenu() : mainMenuService.openMainMenu();
       }
       default:

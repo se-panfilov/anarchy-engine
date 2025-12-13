@@ -7,7 +7,7 @@ export type TGuiButtonStoreState = Readonly<{
 }>;
 
 export type TGuiButtonState = {
-  id: string;
+  id: GuiActionType;
   isVisible: boolean;
   isActive: boolean;
   i18n: string;

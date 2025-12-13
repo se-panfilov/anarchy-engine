@@ -1,20 +1,20 @@
 import type { MouseButtonValue, TGameKey } from '@Anarchy/Engine';
 import { isNotDefined } from '@Anarchy/Shared/Utils';
-import { BUTTON_IDS, BUTTON_KEYS, GuiActionType } from '@Showcases/GUI/constants';
+import { BUTTON_KEYS, GuiActionType } from '@Showcases/GUI/constants';
 import type { TGuiButtonState, TGuiButtonStoreState } from '@Showcases/GUI/models';
 import { Backpack, Map as MapIcon, Settings as SettingsIcon, Shield, Sword } from 'lucide-vue-next';
 import { defineStore } from 'pinia';
 import { computed, reactive } from 'vue';
 
-const { Attack, Map, Defense, Settings, Inventory } = GuiActionType;
+const { Attack, MiniMap, Defense, Settings, Inventory } = GuiActionType;
 
 export const useGuiButtonStore = defineStore('guiButtonsStore', () => {
   const state: TGuiButtonStoreState = reactive({
-    [Attack]: { id: BUTTON_IDS[Attack], isVisible: true, isActive: false, i18n: 'gui.bottom.button.attack.title', key: BUTTON_KEYS[Attack], icon: Sword },
-    [Defense]: { id: BUTTON_IDS[Defense], isVisible: true, isActive: false, i18n: 'gui.bottom.button.defense.title', key: BUTTON_KEYS[Defense], icon: Shield },
-    [Inventory]: { id: BUTTON_IDS[Inventory], isVisible: true, isActive: false, i18n: 'gui.bottom.button.inventory.title', key: BUTTON_KEYS[Inventory], icon: Backpack },
-    [Map]: { id: BUTTON_IDS[Map], isVisible: true, isActive: false, i18n: 'gui.bottom.button.map.title', key: BUTTON_KEYS[Map], icon: MapIcon },
-    [Settings]: { id: BUTTON_IDS[Settings], isVisible: true, isActive: false, i18n: 'gui.bottom.button.settings.title', key: BUTTON_KEYS[Settings], icon: SettingsIcon }
+    [Attack]: { id: Attack, isVisible: true, isActive: false, i18n: 'gui.bottom.button.attack.title', key: BUTTON_KEYS[Attack], icon: Sword },
+    [Defense]: { id: Defense, isVisible: true, isActive: false, i18n: 'gui.bottom.button.defense.title', key: BUTTON_KEYS[Defense], icon: Shield },
+    [Inventory]: { id: Inventory, isVisible: true, isActive: false, i18n: 'gui.bottom.button.inventory.title', key: BUTTON_KEYS[Inventory], icon: Backpack },
+    [MiniMap]: { id: MiniMap, isVisible: true, isActive: false, i18n: 'gui.bottom.button.map.title', key: BUTTON_KEYS[MiniMap], icon: MapIcon },
+    [Settings]: { id: Settings, isVisible: true, isActive: false, i18n: 'gui.bottom.button.settings.title', key: BUTTON_KEYS[Settings], icon: SettingsIcon }
   });
 
   function setActiveButton(actionType: GuiActionType, isActive: boolean): void | never {
