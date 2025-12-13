@@ -1,5 +1,3 @@
-import { filter } from 'rxjs';
-
 import type { TShowcase } from '@/App/Levels/Models';
 import type {
   TActorRegistry,
@@ -39,27 +37,22 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     const actor: TActorWrapper | undefined = actorRegistry.findByName('sphere_actor');
     if (isNotDefined(actor)) throw new Error('Actor is not defined');
 
+    watchIntersections([actor]);
+
     loopService.tick$.subscribe(({ elapsedTime }) => {
       actor.setX(Math.sin(elapsedTime) * 8);
       actor.setZ(Math.cos(elapsedTime) * 8);
     });
   }
 
-  function startIntersections(): void {
+  function watchIntersections(actors: ReadonlyArray<TActorWrapper>): void {
     const camera: TCameraWrapper | undefined = cameraService.findActive();
     if (isNotDefined(camera)) throw new Error('Camera is not defined');
-    // const actors: ReadonlyArray<IActorWrapperAsync> = actorRegistry.findAllByTags(['intersectable'], LookUpStrategy.Every);
-    const intersectionsWatcher: TIntersectionsWatcher = intersectionsWatcherService.create({ camera, actors: [], position$: mouseService.position$, isAutoStart: true, tags: [] });
 
-    actorRegistry.added$.pipe(filter((a: TActorWrapper) => a.hasTag('intersectable'))).subscribe((actor: TActorWrapper): void => intersectionsWatcher.addActor(actor));
+    const intersectionsWatcher: TIntersectionsWatcher = intersectionsWatcherService.create({ camera, actors, position$: mouseService.position$, isAutoStart: true, tags: [] });
 
-    intersectionsWatcher.value$.subscribe((obj: TIntersectionEvent): void => {
-      console.log('intersect obj', obj);
-    });
-
-    mouseService.clickLeftRelease$.subscribe((): void => {
-      console.log('int click:');
-    });
+    intersectionsWatcher.value$.subscribe((obj: TIntersectionEvent): void => console.log('intersect obj', obj));
+    mouseService.clickLeftRelease$.subscribe((): void => console.log('int click:'));
 
     intersectionsWatcher.start();
   }
@@ -67,7 +60,6 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
   function start(): void {
     engine.start();
     void init();
-    startIntersections();
   }
 
   return { start, space };

@@ -112,7 +112,7 @@
             "far": 40
           }
         },
-        "tags": []
+        "tags": ["intersectable"]
       }
     ],
     "controls": [
