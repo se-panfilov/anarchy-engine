@@ -59,6 +59,10 @@ We apply appropriate technical and organizational measures proportionate to the 
 
 We may update this policy. Material changes will be communicated via **{{EULA_UPDATE_COMMUNICATION}}**.
 
+## Governing Language
+
+This agreement is drafted in English. Translations may be provided for convenience. In consumer markets where local-language versions are required by law for clarity and fairness, the local-language version controls to the extent required by applicable law; otherwise, the English version controls.
+
 **Contact:** {{PRIVACY_EMAIL}}
 
 {{#HAS_DPO}}

@@ -36,4 +36,8 @@ This project is intended for developers and is **not** directed to children.
 
 We may update this notice by committing changes to the repository.
 
+## Governing Language
+
+This agreement is drafted in English. Translations may be provided for convenience. In consumer markets where local-language versions are required by law for clarity and fairness, the local-language version controls to the extent required by applicable law; otherwise, the English version controls.
+
 **Contact:** {{PRIVACY_EMAIL}}

@@ -9,4 +9,8 @@ This repository is provided under the **{{PLATFORM_LICENSE}}** (see `LICENSE`).
 4. **Third-Party Components (OSS Precedence).** Dependencies retain their own licenses and notices. **If this text ever conflicts with an OSS license for a specific component, the OSS license governs for that component.** See `NOTICE` / `THIRD_PARTY_LICENSES.md`.
 5. **No Warranty / Liability.** Provided **“AS IS”**, **to the extent permitted by law**, without warranties; **statutory consumer rights (if any) are not affected**.
 
+## Governing Language
+
+This agreement is drafted in English. Translations may be provided for convenience. In consumer markets where local-language versions are required by law for clarity and fairness, the local-language version controls to the extent required by applicable law; otherwise, the English version controls.
+
 For full OSS terms, see `{{PLATFORM_LICENSE}}`.

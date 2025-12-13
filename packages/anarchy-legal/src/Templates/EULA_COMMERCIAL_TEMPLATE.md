@@ -101,4 +101,8 @@ If you are a consumer, **mandatory consumer protection laws of your country of r
 
 We may update this EULA. Material changes will be communicated via **{{EULA_UPDATE_COMMUNICATION}}**. Continued use after the effective date constitutes acceptance.
 
+## Governing Language
+
+This agreement is drafted in English. Translations may be provided for convenience. In consumer markets where local-language versions are required by law for clarity and fairness, the local-language version controls to the extent required by applicable law; otherwise, the English version controls.
+
 **Contact:** {{LEGAL_EMAIL}}
