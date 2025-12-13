@@ -1,6 +1,6 @@
 import { isDefined } from '@Anarchy/Shared/Utils';
 import { initVueI18n, vueTranslationService } from '@Showcases/i18n';
-import { eventsService } from '@Showcases/Menu/services';
+import { eventsEmitterService, eventsListenerService } from '@Showcases/Menu/services';
 import { menuPinia } from '@Showcases/Menu/stores/CreatePinia';
 import { useMenuOptionsStore } from '@Showcases/Menu/stores/MenuOptionsStore';
 import type { TFromMenuEvent, TMenuOptions, TToMenuEvent } from '@Showcases/Shared';
@@ -19,8 +19,8 @@ export async function initMenuApp(id: string, fromMenuBus$: Subject<TFromMenuEve
   await vueTranslationService.waitInitialReady();
   vueTranslationService.connectVueI18n(i18n);
   app.use(menuPinia);
-  eventsService.setFromMenuBus(fromMenuBus$);
-  eventsService.setToMenuBus(toMenuBus$);
+  eventsEmitterService.setFromMenuBus(fromMenuBus$);
+  eventsListenerService.setToMenuBus(toMenuBus$);
   app.mount(id);
   if (isDefined(options)) useMenuOptionsStore(menuPinia).setState(options);
   console.log(`[UI MENU] Menu app initialized at element with ID "${id}"`);

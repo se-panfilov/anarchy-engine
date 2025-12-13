@@ -1,21 +1,16 @@
 import { isNotDefined } from '@Anarchy/Shared/Utils';
-import type { TEventsService } from '@Showcases/Menu/models';
-import { menuPinia } from '@Showcases/Menu/stores/CreatePinia';
-import { useLegalDocsStore } from '@Showcases/Menu/stores/LegalDocsStore';
-import { useSettingsStore } from '@Showcases/Menu/stores/SettingsStore';
-import type { TFromMenuEvent, TLoadDocPayload, TShowcaseGameSettings, TToMenuEvent } from '@Showcases/Shared';
-import { FromMenuEvents, isLoadDoc, isSettings, ToMenuEvents } from '@Showcases/Shared';
-import type { Observable, Subject, Subscription } from 'rxjs';
+import type { TEventsEmitterService } from '@Showcases/Menu/models';
+import type { TFromMenuEvent, TLoadDocPayload, TShowcaseGameSettings } from '@Showcases/Shared';
+import { FromMenuEvents } from '@Showcases/Shared';
+import type { Subject } from 'rxjs';
 import { toRaw } from 'vue';
 
 const { CloseMenu, ContinueGame, ExitApp, GetLegalDocs, GetSettings, LoadGame, SetSettings, StartNewGame } = FromMenuEvents;
 
-function EventsService(): TEventsService {
+function EventsEmitterService(): TEventsEmitterService {
   let fromMenuBus$: Subject<TFromMenuEvent> | undefined;
-  let toMenuBus$: Observable<TToMenuEvent> | undefined;
 
   const setFromMenuBus = (bus: Subject<TFromMenuEvent>): void => void (fromMenuBus$ = bus);
-  const setToMenuBus = (bus: Observable<TToMenuEvent>): void => void (toMenuBus$ = bus);
 
   const noBusError = '[EventsService]: fromMenuBus$ is not defined. Call setBus() first.';
 
@@ -67,33 +62,6 @@ function EventsService(): TEventsService {
     fromMenuBus$.next({ type: ExitApp });
   }
 
-  function startListeningAppEvents(): Subscription {
-    if (isNotDefined(toMenuBus$)) throw new Error('[EventsService]: toMenuBus$ is not defined. Call setToMenuBus() first.');
-    return toMenuBus$.subscribe(handleToMenuEvents);
-  }
-
-  function handleToMenuEvents(event: TToMenuEvent): void {
-    switch (event.type) {
-      case ToMenuEvents.SettingsReceived: {
-        console.log('[EventsService]: Settings received');
-        if (!isSettings(event.payload)) throw new Error(`[EventsService]: Failed to apply settings: Invalid payload`);
-        //Pass menuPinia explicitly to avoid issues when pinia connects to different app instance (e.g. gui vs menu)
-        useSettingsStore(menuPinia).setState(event.payload);
-        break;
-      }
-      case ToMenuEvents.LegalDocsReceived: {
-        console.log('[EventsService]: Legal docs received');
-        if (!isLoadDoc(event.payload)) throw new Error(`[EventsService]: Failed to apply legal docs: Invalid payload`);
-        //Pass menuPinia explicitly to avoid issues when pinia connects to different app instance (e.g. gui vs menu)
-        useLegalDocsStore(menuPinia).setDoc(event.payload);
-        break;
-      }
-      default: {
-        throw new Error('[EventsService]: Unknown event type received in toMenuBus$');
-      }
-    }
-  }
-
   return {
     emitCloseMenu,
     emitContinueGame,
@@ -103,11 +71,8 @@ function EventsService(): TEventsService {
     emitLoadGame,
     emitSetMenuSettings,
     emitStartNewGame,
-    setFromMenuBus,
-    setToMenuBus,
-    startListeningAppEvents,
-    toMenuBus$
+    setFromMenuBus
   };
 }
 
-export const eventsService: TEventsService = EventsService();
+export const eventsEmitterService: TEventsEmitterService = EventsEmitterService();

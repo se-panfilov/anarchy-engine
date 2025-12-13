@@ -4,7 +4,7 @@ import Navigation from '@Showcases/Menu/components/Navigation/Navigation.vue';
 import PageTitle from '@Showcases/Menu/components/PageTitle.vue';
 import { Routes } from '@Showcases/Menu/constants';
 import type { TVueNavOption } from '@Showcases/Menu/models';
-import { eventsService } from '@Showcases/Menu/services';
+import { eventsEmitterService } from '@Showcases/Menu/services';
 import { useMenuOptionsStore } from '@Showcases/Menu/stores/MenuOptionsStore';
 import { useRouterStore } from '@Showcases/Menu/stores/RouterStore';
 import { useI18n } from 'vue-i18n';
@@ -17,20 +17,20 @@ const navOptions: ReadonlyArray<TVueNavOption> = [
     id: 0,
     name: 'continue-game',
     label: t('main-menu.home.button.continue-game.text'),
-    action: () => eventsService.emitContinueGame()
+    action: () => eventsEmitterService.emitContinueGame()
   },
   {
     id: 1,
     name: 'new-game',
     label: t('main-menu.home.button.new-game.text'),
     disabled: true,
-    action: () => eventsService.emitStartNewGame()
+    action: () => eventsEmitterService.emitStartNewGame()
   },
   {
     id: 2,
     name: 'load-game',
     label: t('main-menu.home.button.load-game.text'),
-    action: () => eventsService.emitLoadGame()
+    action: () => eventsEmitterService.emitLoadGame()
   },
   {
     id: 3,
@@ -42,14 +42,14 @@ const navOptions: ReadonlyArray<TVueNavOption> = [
     id: 4,
     name: 'close-menu',
     label: t('main-menu.home.button.close-menu.text'),
-    action: () => eventsService.emitCloseMenu()
+    action: () => eventsEmitterService.emitCloseMenu()
   },
   {
     id: 5,
     name: 'exit-app',
     label: t('main-menu.home.button.exit-app.text'),
     condition: useMenuOptionsStore().showExitBtn,
-    action: () => eventsService.emitExitApp()
+    action: () => eventsEmitterService.emitExitApp()
   }
 ];
 

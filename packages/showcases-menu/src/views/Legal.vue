@@ -5,7 +5,7 @@ import MdRenderer from '@Showcases/Menu/components/MdRenderer.vue';
 import Navigation from '@Showcases/Menu/components/Navigation/Navigation.vue';
 import View from '@Showcases/Menu/components/View.vue';
 import ViewForm from '@Showcases/Menu/components/ViewForm.vue';
-import { eventsService } from '@Showcases/Menu/services';
+import { eventsEmitterService } from '@Showcases/Menu/services';
 import { useLegalDocsStore } from '@Showcases/Menu/stores/LegalDocsStore';
 import { useSettingsStore } from '@Showcases/Menu/stores/SettingsStore';
 import { AllowedLegalDocNames } from '@Showcases/Shared';
@@ -19,13 +19,13 @@ const settingsStore = useSettingsStore();
 onMounted(() => {
   const locale = settingsStore.localization.locale.id as TShowcaseLocaleIds;
 
-  if (isNotDefined(legalDocsStore.translatedDisclaimer)) eventsService.emitGetLegalDocs({ name: DISCLAIMER, locale });
-  if (isNotDefined(legalDocsStore.translatedEula)) eventsService.emitGetLegalDocs({ name: EULA, locale });
-  if (isNotDefined(legalDocsStore.translatedPrivacy)) eventsService.emitGetLegalDocs({ name: PRIVACY, locale });
-  if (isNotDefined(legalDocsStore.translatedNotice)) eventsService.emitGetLegalDocs({ name: NOTICE, locale });
-  if (isNotDefined(legalDocsStore.translatedSupport)) eventsService.emitGetLegalDocs({ name: SUPPORT, locale });
-  if (isNotDefined(legalDocsStore.translatedSecurity)) eventsService.emitGetLegalDocs({ name: SECURITY, locale });
-  if (isNotDefined(legalDocsStore.translatedThirdPartyLicenses)) eventsService.emitGetLegalDocs({ name: THIRD_PARTY_LICENSES, locale });
+  if (isNotDefined(legalDocsStore.translatedDisclaimer)) eventsEmitterService.emitGetLegalDocs({ name: DISCLAIMER, locale });
+  if (isNotDefined(legalDocsStore.translatedEula)) eventsEmitterService.emitGetLegalDocs({ name: EULA, locale });
+  if (isNotDefined(legalDocsStore.translatedPrivacy)) eventsEmitterService.emitGetLegalDocs({ name: PRIVACY, locale });
+  if (isNotDefined(legalDocsStore.translatedNotice)) eventsEmitterService.emitGetLegalDocs({ name: NOTICE, locale });
+  if (isNotDefined(legalDocsStore.translatedSupport)) eventsEmitterService.emitGetLegalDocs({ name: SUPPORT, locale });
+  if (isNotDefined(legalDocsStore.translatedSecurity)) eventsEmitterService.emitGetLegalDocs({ name: SECURITY, locale });
+  if (isNotDefined(legalDocsStore.translatedThirdPartyLicenses)) eventsEmitterService.emitGetLegalDocs({ name: THIRD_PARTY_LICENSES, locale });
 });
 </script>
 

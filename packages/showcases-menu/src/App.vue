@@ -3,7 +3,7 @@ import './assets/style.scss';
 
 import { vueTranslationService } from '@Showcases/i18n';
 import RouterView from '@Showcases/Menu/components/RouterView.vue';
-import { eventsService } from '@Showcases/Menu/services';
+import { eventsEmitterService, eventsListenerService } from '@Showcases/Menu/services';
 import { useSettingsStore } from '@Showcases/Menu/stores/SettingsStore';
 import type { Subscription } from 'rxjs';
 import { onMounted, onUnmounted } from 'vue';
@@ -11,8 +11,8 @@ import { onMounted, onUnmounted } from 'vue';
 let appEventsSub$: Subscription | undefined;
 
 onMounted((): void => {
-  appEventsSub$ = eventsService.startListeningAppEvents();
-  eventsService.emitGetMenuSettings();
+  appEventsSub$ = eventsListenerService.startListeningAppEvents();
+  eventsEmitterService.emitGetMenuSettings();
 });
 
 onUnmounted((): void => {
@@ -21,7 +21,7 @@ onUnmounted((): void => {
 });
 
 function save(): void {
-  eventsService.emitSetMenuSettings(useSettingsStore().state);
+  eventsEmitterService.emitSetMenuSettings(useSettingsStore().state);
 }
 </script>
 
