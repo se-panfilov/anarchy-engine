@@ -404,8 +404,7 @@ describe('CheckUtils', () => {
   describe('isAsyncRegistry', () => {
     it('should return "true" if it is an async registry', () => {
       const registry: any = {
-        getUniqWithSomeTagAsync: vi.fn(),
-        getUniqWithEveryTagAsync: vi.fn(),
+        getUniqByTagsAsync: vi.fn(),
         getUniqByTagAsync: vi.fn()
       };
       // eslint-disable-next-line @typescript-eslint/no-unsafe-argument

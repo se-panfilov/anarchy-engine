@@ -1,20 +1,25 @@
+import type { TagSelector } from '@/Engine/Abstract/Registry';
 import type { IRegistrable } from '@/Engine/Mixins';
 
-export function getAll<T>(registry: ReadonlyMap<string, T>): ReadonlyArray<T> {
-  return Array.from(registry.values());
-}
+export const getAll = <T>(registry: ReadonlyMap<string, T>): ReadonlyArray<T> => Array.from(registry.values());
 
-export function getAllEntitiesWithEveryTag<T extends IRegistrable>(tagList: ReadonlyArray<string>, registry: ReadonlyMap<string, T>): ReadonlyArray<T> {
-  return getEntitiesWithTag(tagList, registry, true);
-}
-
-export function getAllEntitiesWithSomeTag<T extends IRegistrable>(tagList: ReadonlyArray<string>, registry: ReadonlyMap<string, T>): ReadonlyArray<T> {
-  return getEntitiesWithTag(tagList, registry, false);
-}
-
-function getEntitiesWithTag<T extends IRegistrable>(tagList: ReadonlyArray<string>, registry: ReadonlyMap<string, T>, shouldMatchAllTags: boolean): ReadonlyArray<T> {
+// TODO (S.Panfilov) add unit tests
+export function getAllEntitiesWithTags<T extends IRegistrable>(tagList: ReadonlyArray<string>, registry: ReadonlyMap<string, T>, selector: TagSelector): ReadonlyArray<T> {
   if (tagList.length === 0) return [];
-  const methodName: 'every' | 'some' = shouldMatchAllTags ? 'every' : 'some';
+  return Array.from(registry.values()).filter((obj: T) => tagList[selector]((tag: string) => obj.hasTag(tag)));
+}
 
-  return Array.from(registry.values()).filter((obj: T) => tagList[methodName]((tag: string) => obj.hasTag(tag)));
+// TODO (S.Panfilov) add unit tests
+export function getAllEntitiesWithTag<T extends IRegistrable>(tag: string, registry: ReadonlyMap<string, T>): ReadonlyArray<T> {
+  return Array.from(registry.values()).filter((obj: T) => obj.hasTag(tag));
+}
+
+// TODO (S.Panfilov) add unit tests
+export function getUniqEntityWithTags<T extends IRegistrable>(tagList: ReadonlyArray<string>, registry: ReadonlyMap<string, T>, selector: TagSelector): T | undefined {
+  return Array.from(registry.values()).find((obj: T) => tagList[selector]((tag: string) => obj.hasTag(tag)));
+}
+
+// TODO (S.Panfilov) add unit tests
+export function getUniqEntityWithTag<T extends IRegistrable>(tag: string, registry: ReadonlyMap<string, T>): T | undefined {
+  return Array.from(registry.values()).find((obj: T) => obj.hasTag(tag));
 }

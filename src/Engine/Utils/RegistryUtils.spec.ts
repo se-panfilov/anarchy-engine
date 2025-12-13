@@ -1,7 +1,8 @@
+import { TagSelector } from '@/Engine/Abstract/Registry';
 import type { IRegistrable } from '@/Engine/Mixins';
 import { withTags } from '@/Engine/Mixins/Generic/WithTags';
 
-import { getAllEntitiesWithEveryTag, getAllEntitiesWithSomeTag } from './RegistryUtils';
+import { getAllEntitiesWithTags, getUniqEntityWithTag } from './RegistryUtils';
 
 describe('RegistryUtils', () => {
   const tag1: string = 'tag1';
@@ -27,39 +28,67 @@ describe('RegistryUtils', () => {
   registry.set('obj6', obj6);
   registry.set('obj7', obj7);
 
-  describe('getAllEntitiesWithEveryTag', () => {
+  describe('getAllEntitiesWithTags every', () => {
     it('should return all object that contains multiple tags', () => {
-      expect(getAllEntitiesWithEveryTag([tag2, tag5], registry)).toEqual([obj4, obj6, obj7]);
+      expect(getAllEntitiesWithTags([tag2, tag5], registry, TagSelector.Every)).toEqual([obj4, obj6, obj7]);
     });
 
     it('should return all object that contains a single tag', () => {
-      expect(getAllEntitiesWithEveryTag([tag2], registry)).toEqual([obj1, obj2, obj4, obj6, obj7]);
+      expect(getAllEntitiesWithTags([tag2], registry, TagSelector.Every)).toEqual([obj1, obj2, obj4, obj6, obj7]);
     });
 
     it('should return an empty array if no tagList is provided', () => {
-      expect(getAllEntitiesWithEveryTag([], registry)).toEqual([]);
+      expect(getAllEntitiesWithTags([], registry, TagSelector.Every)).toEqual([]);
     });
 
     it('should return an empty array if the registry is empty', () => {
-      expect(getAllEntitiesWithEveryTag([tag2, tag5], new Map())).toEqual([]);
+      expect(getAllEntitiesWithTags([tag2, tag5], new Map(), TagSelector.Every)).toEqual([]);
     });
   });
 
-  describe('getAllEntitiesWithSomeTag', () => {
+  describe('getAllEntitiesWithTags some', () => {
     it('should return all object that contains multiple tags', () => {
-      expect(getAllEntitiesWithSomeTag([tag2, tag5], registry)).toEqual([obj1, obj2, obj4, obj6, obj7]);
+      expect(getAllEntitiesWithTags([tag2, tag5], registry, TagSelector.Some)).toEqual([obj1, obj2, obj4, obj6, obj7]);
     });
 
     it('should return all object that contains a single tag', () => {
-      expect(getAllEntitiesWithSomeTag([tag2], registry)).toEqual([obj1, obj2, obj4, obj6, obj7]);
+      expect(getAllEntitiesWithTags([tag2], registry, TagSelector.Some)).toEqual([obj1, obj2, obj4, obj6, obj7]);
     });
 
     it('should return an empty array if no tagList is provided', () => {
-      expect(getAllEntitiesWithSomeTag([], registry)).toEqual([]);
+      expect(getAllEntitiesWithTags([], registry, TagSelector.Some)).toEqual([]);
     });
 
     it('should return an empty array if the registry is empty', () => {
-      expect(getAllEntitiesWithSomeTag([tag2, tag5], new Map())).toEqual([]);
+      expect(getAllEntitiesWithTags([tag2, tag5], new Map(), TagSelector.Some)).toEqual([]);
+    });
+  });
+
+  describe('getUniqEntityWithTag every', () => {
+    it('should return all object that contains multiple tags', () => {
+      expect(getUniqEntityWithTag(tag2, registry)).toEqual([obj4, obj6, obj7]);
+    });
+
+    it('should return all object that contains a single tag', () => {
+      expect(getUniqEntityWithTag(tag2, registry)).toEqual([obj1, obj2, obj4, obj6, obj7]);
+    });
+
+    it('should return an empty array if the registry is empty', () => {
+      expect(getUniqEntityWithTag(tag2, new Map())).toEqual([]);
+    });
+  });
+
+  describe('getUniqEntityWithTag some', () => {
+    it('should return all object that contains multiple tags', () => {
+      expect(getUniqEntityWithTag(tag2, registry)).toEqual([obj1, obj2, obj4, obj6, obj7]);
+    });
+
+    it('should return all object that contains a single tag', () => {
+      expect(getUniqEntityWithTag(tag2, registry)).toEqual([obj1, obj2, obj4, obj6, obj7]);
+    });
+
+    it('should return an empty array if the registry is empty', () => {
+      expect(getUniqEntityWithTag(tag2, new Map())).toEqual([]);
     });
   });
 });

@@ -1,7 +1,7 @@
 import type { Subscription } from 'rxjs';
 import { merge, ReplaySubject } from 'rxjs';
 
-import { CommonTag } from '@/Engine/Abstract';
+import { CommonTag, TagSelector } from '@/Engine/Abstract';
 import type { IActorAsyncRegistry, IActorConfig, IActorFactory, IActorWrapper } from '@/Engine/Actor';
 import { ActorAsyncRegistry, ActorFactory, ActorTag } from '@/Engine/Actor';
 import type { IAppCanvas } from '@/Engine/App';
@@ -92,7 +92,7 @@ export function buildLevelFromConfig(canvas: IAppCanvas, config: ILevelConfig): 
   );
   messages$.next(`Controls (${controls.length}) created`);
 
-  const clickableActors: ReadonlyArray<IActorWrapper> = actorRegistry.getAllWithEveryTag([ActorTag.Intersectable]);
+  const clickableActors: ReadonlyArray<IActorWrapper> = actorRegistry.getAllByTags([ActorTag.Intersectable], TagSelector.Every);
   const initialCamera: ICameraWrapper | undefined = cameraRegistry.getUniqByTag(CameraTag.Initial);
 
   //build intersections watcher

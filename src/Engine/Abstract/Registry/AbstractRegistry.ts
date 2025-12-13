@@ -3,9 +3,10 @@ import { Subject } from 'rxjs';
 
 import type { RegistryType } from '@/Engine/Abstract/Constants';
 import type { IAbstractRegistry } from '@/Engine/Abstract/Models';
+import type { TagSelector } from '@/Engine/Abstract/Registry/Constants';
 import type { IDestroyable, IMultitonRegistrable, IRegistrable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
-import { getAll, getAllEntitiesWithEveryTag, getAllEntitiesWithSomeTag, isDestroyable, isNotDefined } from '@/Engine/Utils';
+import { getAll, getAllEntitiesWithTag, getAllEntitiesWithTags, getUniqEntityWithTag, getUniqEntityWithTags, isDestroyable, isNotDefined } from '@/Engine/Utils';
 
 export function AbstractRegistry<T extends IRegistrable | IMultitonRegistrable>(type: RegistryType): IAbstractRegistry<T> {
   const id: string = type + '_registry_' + nanoid();
@@ -32,9 +33,7 @@ export function AbstractRegistry<T extends IRegistrable | IMultitonRegistrable>(
     replaced$.next(entity);
   }
 
-  function getById(id: string): T | undefined {
-    return registry.get(id);
-  }
+  const getById = (id: string): T | undefined => registry.get(id);
 
   function remove(id: string): void | never {
     const entity: T | undefined = registry.get(id);
@@ -55,25 +54,13 @@ export function AbstractRegistry<T extends IRegistrable | IMultitonRegistrable>(
     registry.clear();
   });
 
-  function getUniqWithSomeTag(tags: ReadonlyArray<string>): T | undefined | never {
-    const result: ReadonlyArray<T> = getAllEntitiesWithSomeTag(tags, registry);
-    if (result.length > 1) throw new Error(`Entity with tags "${tags.toString()}" is not uniq in "${type}"`);
-    return result[0];
-  }
+  const getAllByTags = (tags: ReadonlyArray<string>, selector: TagSelector): ReadonlyArray<T> => getAllEntitiesWithTags(tags, registry, selector);
+  const getAllByTag = (tag: string): ReadonlyArray<T> => getAllEntitiesWithTag(tag, registry);
 
-  function getUniqWithEveryTag(tags: ReadonlyArray<string>): T | undefined | never {
-    const result: ReadonlyArray<T> = getAllEntitiesWithEveryTag(tags, registry);
-    if (result.length > 1) throw new Error(`Entity with tags "${tags.toString()}" is not uniq in "${type}"`);
-    return result[0];
-  }
+  const isEmpty = (): boolean => registry.size === 0;
 
-  function isEmpty(): boolean {
-    return registry.size === 0;
-  }
-
-  function getUniqByTag(tag: string): T | undefined | never {
-    return getUniqWithSomeTag([tag]);
-  }
+  const getUniqByTags = (tags: ReadonlyArray<string>, selector: TagSelector): T | undefined | never => getUniqEntityWithTags(tags, registry, selector);
+  const getUniqByTag = (tag: string): T | undefined | never => getUniqEntityWithTag(tag, registry);
 
   return {
     id,
@@ -85,10 +72,9 @@ export function AbstractRegistry<T extends IRegistrable | IMultitonRegistrable>(
     replace,
     getById,
     getAll: () => getAll(registry),
-    getAllWithEveryTag: (tags: ReadonlyArray<string>): ReadonlyArray<T> => getAllEntitiesWithEveryTag(tags, registry),
-    getAllWithSomeTag: (tags: ReadonlyArray<string>): ReadonlyArray<T> => getAllEntitiesWithSomeTag(tags, registry),
-    getUniqWithSomeTag,
-    getUniqWithEveryTag,
+    getAllByTags,
+    getAllByTag,
+    getUniqByTags,
     getUniqByTag,
     isEmpty,
     registry,

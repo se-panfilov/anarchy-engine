@@ -1,6 +1,6 @@
 import type { IShowcase } from '@/App/Levels/Models';
 import type { IActorParams, IActorWrapper, IAppCanvas, ILevel, ILevelConfig } from '@/Engine';
-import { ActorType, ambientContext, buildLevelFromConfig, EulerWrapper, forEachEnum, MaterialType, TextType, Vector3Wrapper } from '@/Engine';
+import { ActorType, ambientContext, buildLevelFromConfig, EulerWrapper, forEachEnum, MaterialType, TagSelector, TextType, Vector3Wrapper } from '@/Engine';
 import type { IAnimationParams } from '@/Engine/Services';
 import { Easing, standardMoverService } from '@/Engine/Services';
 
@@ -63,7 +63,7 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
       console.log('click is ready', !isClickBlocked);
       isClickBlocked = true;
 
-      actorRegistry.getAllWithSomeTag([boxActorTag]).forEach((actor: IActorWrapper) => {
+      actorRegistry.getAllByTags([boxActorTag], TagSelector.Some).forEach((actor: IActorWrapper) => {
         const easing = actor.getTags()[1] as Easing;
         void standardMoverService.goToPosition(actor, { x: 20 }, { ...animationParams, easing });
       });
