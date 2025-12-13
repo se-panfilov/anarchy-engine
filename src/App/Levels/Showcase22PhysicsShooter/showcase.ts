@@ -11,7 +11,6 @@ import type {
   TEngine,
   TIntersectionEvent,
   TIntersectionsWatcher,
-  TMousePosition,
   TRadians,
   TSpace,
   TSpaceConfig,
