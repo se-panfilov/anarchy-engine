@@ -22,7 +22,7 @@ import { meters } from '@/Engine/Measurements/Utils';
 
 import spaceConfig from './showcase.json';
 import type { TBullet } from './utils';
-import { buildTower, cameraFollowingActor, createLine, getBulletsPool, moveActorBounce, shoot, startMoveActorWithKeyboard, updateBullets } from './utils';
+import { buildTower, cameraFollowingActor, createLine, getBulletsPool, initGui, moveActorBounce, shoot, startMoveActorWithKeyboard, updateBullets } from './utils';
 
 export function showcase(canvas: TAppCanvas): TShowcase {
   const space: TSpace = buildSpaceFromConfig(canvas, spaceConfig as TSpaceConfig);
@@ -86,6 +86,8 @@ export function showcase(canvas: TAppCanvas): TShowcase {
 
     //move bouncing sphere to target practice
     moveActorBounce(sphereActorW);
+
+    initGui(mouseLineIntersectionsWatcher);
 
     loopService.tick$.subscribe((delta): void => {
       cameraFollowingActor(cameraW, heroW);
