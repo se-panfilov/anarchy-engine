@@ -1,19 +1,9 @@
-import type { ITextAccessors, ITextParams } from '@/Engine/Domains/Text/Models';
-import { applyObject3dParams, applyPosition, applyRotation, applyScale, isDefined } from '@/Engine/Utils';
-
-export function applyParams(params: ITextParams, entityWithAccessors: ITextAccessors): void {
-  applyTextParams(params, entityWithAccessors);
-  applyObject3dParams(params, entityWithAccessors);
-  applyPosition(params.position, entityWithAccessors);
-  applyRotation(params.rotation, entityWithAccessors);
-  if (isDefined(params.scale)) applyScale(params.scale, entityWithAccessors);
-  entityWithAccessors.update();
-}
+import type { ITextAccessors, ITextProps } from '@/Engine/Domains/Text/Models';
+import { isDefined } from '@/Engine/Utils';
 
 export function applyTextParams(
   {
     text,
-    position,
     fontSize,
     color,
     font,
@@ -47,12 +37,10 @@ export function applyTextParams(
     sdfGlyphSize,
     textIndent,
     unicodeFontsUrl
-  }: ITextParams,
+  }: ITextProps,
   entityWithAccessors: ITextAccessors
 ): void {
   entityWithAccessors.setText(text);
-  const { x, y, z } = position.getCoords();
-  entityWithAccessors.setPosition(x, y, z);
   if (isDefined(fontSize)) entityWithAccessors.setFontSize(fontSize);
   if (isDefined(color)) entityWithAccessors.setColor(color);
   if (isDefined(font)) entityWithAccessors.setFont(font);
