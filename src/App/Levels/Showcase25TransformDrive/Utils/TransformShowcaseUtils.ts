@@ -208,7 +208,7 @@ export function addSpatialGuiFolder(gui: GUI, grid: TSpatialGridWrapper, mouseLi
     // eslint-disable-next-line functional/immutable-data
     cell.actors = grid
       .getAllInCell(intersection.point.x, intersection.point.z)
-      .map((actorW: TActor): string | undefined => actorW.name)
+      .map((actor: TActor): string | undefined => actor.name)
       .join(', ');
   });
 
