@@ -14,6 +14,7 @@ import type {
 } from 'three/src/constants';
 import type { ColorRepresentation } from 'three/src/math/Color';
 
+import type { ITexture } from '@/Engine/Texture/Models';
 import type { IVector2, IVector3 } from '@/Engine/Vector';
 
 export type IAbstractMaterialParams = Readonly<{
@@ -233,6 +234,16 @@ export type IPhysicalMaterialParams = IStandardMaterialParams &
     anisotropyRotation?: number;
   }>;
 
+export type IPointsMaterialParams = IAbstractMaterialParams &
+  Readonly<{
+    color: ColorRepresentation;
+    map?: ITexture | null;
+    alphaMap?: ITexture | null;
+    size: number;
+    sizeAttenuation: boolean;
+    fog: boolean;
+  }>;
+
 export type IMaterialParams =
   | IBasicMaterialParams
   | IDepthMaterialParams
@@ -243,4 +254,5 @@ export type IMaterialParams =
   | IPhongMaterialParams
   | IPhysicalMaterialParams
   | IToonMaterialParams
-  | IStandardMaterialParams;
+  | IStandardMaterialParams
+  | IPointsMaterialParams;

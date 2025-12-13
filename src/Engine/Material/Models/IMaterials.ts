@@ -8,7 +8,8 @@ import type {
   MeshPhongMaterial,
   MeshPhysicalMaterial,
   MeshStandardMaterial,
-  MeshToonMaterial
+  MeshToonMaterial,
+  PointsMaterial
 } from 'three';
 
 export type IMaterials =
@@ -21,7 +22,9 @@ export type IMaterials =
   | MeshPhongMaterial
   | MeshPhysicalMaterial
   | MeshStandardMaterial
-  | MeshToonMaterial;
+  | MeshToonMaterial
+  | PointsMaterial;
+
 export type ITypeOfMaterials =
   | typeof MeshBasicMaterial
   | typeof MeshDepthMaterial
@@ -32,4 +35,5 @@ export type ITypeOfMaterials =
   | typeof MeshPhongMaterial
   | typeof MeshPhysicalMaterial
   | typeof MeshStandardMaterial
-  | typeof MeshToonMaterial;
+  | typeof MeshToonMaterial
+  | typeof PointsMaterial;
