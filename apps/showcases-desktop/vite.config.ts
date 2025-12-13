@@ -32,6 +32,7 @@ export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
       rollupOptions: {
         external: ['electron', 'path', 'fs'], // Prevent bundling electron and node modules
         plugins: [
+          // TODO DESKTOP: "copy" plugin doesn't really work on Windows
           copy({
             targets: [
               {
