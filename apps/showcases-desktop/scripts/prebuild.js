@@ -25,18 +25,28 @@ const loadEnvFile = (file) => {
 };
 
 const buildEnvChain = (m) => {
-  // Always include base envs first
   const chain = ['.env', '.env.local'];
-  const parts = String(m).split('.');
-  // If the first token is a known base (production/development), start from it; otherwise still chain progressively
-  const accum = [];
-  for (const p of parts) {
-    accum.push(p);
-    const key = accum.join('.');
-    chain.push(`.env.${key}`);
-    chain.push(`.env.${key}.local`);
+  const tokens = String(m).split('.').filter(Boolean);
+  const first = tokens[0]?.toLowerCase();
+  const firstAlias = first === 'dev' ? 'development' : first === 'prod' ? 'production' : undefined;
+
+  const seqs = [tokens];
+  if (firstAlias && firstAlias !== first) {
+    seqs.push([firstAlias, ...tokens.slice(1)]);
   }
-  return chain;
+
+  for (const seq of seqs) {
+    const accum = [];
+    for (const p of seq) {
+      accum.push(p);
+      const key = accum.join('.');
+      chain.push(`.env.${key}`);
+      chain.push(`.env.${key}.local`);
+    }
+  }
+
+  // Deduplicate while preserving order
+  return Array.from(new Set(chain));
 };
 
 const chain = buildEnvChain(mode);
@@ -55,7 +65,7 @@ console.log(`[prebuild] mode: ${mode}`);
 
 // 0) Build showcases-core for desktop first (needed for assets copied by Vite static copy)
 const coreDir = path.resolve(process.cwd(), '../showcases-core');
-const coreMode = normalizeMode(mode) === 'dev' || normalizeMode(mode) === 'development' ? 'dev' : 'production';
+const coreMode = normalizeMode(mode) === 'development' ? 'dev' : 'production';
 const coreScript = `build:${coreMode}:desktop`;
 run(`npm run ${coreScript}`, { cwd: coreDir });
 
