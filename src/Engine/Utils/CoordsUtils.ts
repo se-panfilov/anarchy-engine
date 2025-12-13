@@ -2,6 +2,7 @@ import { Vector3 } from 'three';
 
 import type { TMeters, TRadians } from '@/Engine/Math';
 import { getAzimuthFromDirection, getElevationFromDirection } from '@/Engine/Math';
+import type { TReadonlyVector3 } from '@/Engine/ThreeLib';
 
 type TTempCoords = Readonly<{
   coord1: number;
@@ -44,8 +45,8 @@ export function createCirclePathYZ(angleArray: ReadonlyArray<TRadians>, radius: 
   return createCirclePath(angleArray, radius, { coord1: circleCenter.y, coord2: circleCenter.z }).map((coords: TTempCoords): Vector3 => new Vector3(circleCenter.x, coords.coord1, coords.coord2));
 }
 
-export function getMouseAzimuthAndElevation(mousePosition: Vector3, playerPosition: Vector3): Readonly<{ azimuth: TRadians; elevation: TRadians }> {
-  const direction: Vector3 = mousePosition.clone().sub(playerPosition).normalize();
+export function getMouseAzimuthAndElevation(mousePosition: TReadonlyVector3, playerPosition: TReadonlyVector3): Readonly<{ azimuth: TRadians; elevation: TRadians }> {
+  const direction: TReadonlyVector3 = mousePosition.clone().sub(playerPosition).normalize();
   const azimuth: TRadians = getAzimuthFromDirection(direction);
   const elevation: TRadians = getElevationFromDirection(direction);
 

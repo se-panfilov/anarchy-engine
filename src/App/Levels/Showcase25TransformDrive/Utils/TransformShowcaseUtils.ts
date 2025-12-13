@@ -20,6 +20,8 @@ import type {
   TModel3d,
   TOrbitControlsWrapper,
   TParticlesWrapper,
+  TReadonlyQuaternion,
+  TReadonlyVector3,
   TSpaceServices,
   TSpatialGridWrapper,
   TWithConnectedTransformAgent,
@@ -85,8 +87,16 @@ export function createRepeaterActor(actor: TActor, model3d: TModel3d, offset: Ve
   addActorFolderGui(gui, repeaterActor);
 }
 
-export function attachConnectorPositionToSubj(connectedActor: TActor, subj: Subject<Vector3> | Observable<Vector3>, offset: Vector3Like = { x: 0, y: 0, z: 0 }): Subscription {
-  return subj.subscribe((position: Vector3): void => {
+export function attachConnectorPositionToSubj(
+  connectedActor: TActor,
+  subj: Subject<TReadonlyVector3> | Observable<TReadonlyVector3>,
+  offset: Readonly<Vector3Like> = {
+    x: 0,
+    y: 0,
+    z: 0
+  }
+): Subscription {
+  return subj.subscribe((position: TReadonlyVector3): void => {
     // eslint-disable-next-line functional/immutable-data
     connectedActor.drive.connected.positionConnector.x = position.x + offset.x;
     // eslint-disable-next-line functional/immutable-data
@@ -96,8 +106,8 @@ export function attachConnectorPositionToSubj(connectedActor: TActor, subj: Subj
   });
 }
 
-export function attachConnectorRotationToSubj(connectedActor: TActor, subj: Subject<Quaternion> | Observable<Quaternion>): Subscription {
-  return subj.subscribe((rotation: Quaternion): void => {
+export function attachConnectorRotationToSubj(connectedActor: TActor, subj: Subject<TReadonlyQuaternion> | Observable<TReadonlyQuaternion>): Subscription {
+  return subj.subscribe((rotation: TReadonlyQuaternion): void => {
     // eslint-disable-next-line functional/immutable-data
     connectedActor.drive.connected.rotationQuaternionConnector.x = rotation.x;
     // eslint-disable-next-line functional/immutable-data
@@ -143,12 +153,12 @@ export function connectCameraToActor(camera: TCameraWrapper, controls: TOrbitCon
 
   actor.drive.position$
     .pipe(
-      map((position: Vector3): { position: Vector3; isFollowingActor: boolean } => ({
+      map((position: TReadonlyVector3): { position: TReadonlyVector3; isFollowingActor: boolean } => ({
         position: position.clone(),
         isFollowingActor: cameraSettings.isFollowingActor
       }))
     )
-    .subscribe(({ position, isFollowingActor }: { position: Vector3; isFollowingActor: boolean }): void => {
+    .subscribe(({ position, isFollowingActor }: { position: TReadonlyVector3; isFollowingActor: boolean }): void => {
       if (isFollowingActor) {
         // we can do just this, but here we want to test the "connected" agent of a camera
         // camera.drive.position$.next(position.clone().add(new Vector3(0, 10, 0)));
@@ -159,7 +169,7 @@ export function connectCameraToActor(camera: TCameraWrapper, controls: TOrbitCon
         camera.drive.connected.positionConnector.y = position.y + 10;
         // eslint-disable-next-line functional/immutable-data
         camera.drive.connected.positionConnector.z = position.z;
-        camera.lookAt(position);
+        camera.lookAt(position as Vector3);
       }
     });
 
@@ -187,12 +197,12 @@ export function connectObjToActor(folderName: string, obj: TWithTransformDrive<T
 
   actor.drive.position$
     .pipe(
-      map((position: Vector3): { position: Vector3; isFollowingActor: boolean } => ({
+      map((position: TReadonlyVector3): { position: TReadonlyVector3; isFollowingActor: boolean } => ({
         position: position.clone(),
         isFollowingActor: objSettings.isFollowingActor
       }))
     )
-    .subscribe(({ position, isFollowingActor }: { position: Vector3; isFollowingActor: boolean }): void => {
+    .subscribe(({ position, isFollowingActor }: { position: TReadonlyVector3; isFollowingActor: boolean }): void => {
       if (isFollowingActor) {
         // we can do just this, but here we want to test the "connected" agent of an obj
         // obj.drive.position$.next(position.clone().add(new Vector3(0, 4, 0)));
@@ -228,7 +238,7 @@ export function addActorFolderGui(gui: GUI, actor: TActor): void {
   folder.add(actor.drive.agent$, 'value').name('agent').listen();
 
   const position: Vector3 = new Vector3();
-  actor.drive.position$.subscribe((p: Vector3): Vector3 => position.copy(p));
+  actor.drive.position$.subscribe((p: TReadonlyVector3): TReadonlyVector3 => position.copy(p));
 
   folder.add(position, 'x').listen();
   folder.add(position, 'y').listen();
@@ -310,7 +320,7 @@ export function createLine(color: ColorRepresentation, width: number): Line2 {
 export function createReactiveLineFromActor(color: ColorRepresentation, actor: TActor, intersectionsWatcher: TIntersectionsWatcher): { line: Line2; sub$: Subscription } {
   const line: Line2 = createLine(color, 0.1);
 
-  const sub$: Subscription = combineLatest([intersectionsWatcher.value$, actor.drive.position$]).subscribe(([intersection, position]: [TIntersectionEvent, Vector3]): void => {
+  const sub$: Subscription = combineLatest([intersectionsWatcher.value$, actor.drive.position$]).subscribe(([intersection, position]: [TIntersectionEvent, TReadonlyVector3]): void => {
     line.geometry.setPositions([position.x, position.y, position.z, intersection.point.x, intersection.point.y, intersection.point.z]);
     line.computeLineDistances();
   });

@@ -1,6 +1,6 @@
-import type { Vector3 } from 'three';
+import type { TReadonlyVector3 } from '@/Engine/ThreeLib';
 
-export function getDistance(pointA: Vector3, pointB: Vector3): number {
+export function getDistance(pointA: TReadonlyVector3, pointB: TReadonlyVector3): number {
   const dx: number = pointB.x - pointA.x;
   const dy: number = pointB.y - pointA.y;
   const dz: number = pointB.z - pointA.z;

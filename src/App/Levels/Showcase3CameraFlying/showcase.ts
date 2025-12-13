@@ -1,4 +1,5 @@
 import { combineLatest } from 'rxjs';
+import type { Vector3 } from 'three';
 
 import type { TShowcase } from '@/App/Levels/Models';
 import type { TActor, TActorRegistry, TAppCanvas, TCameraWrapper, TEngine, TSpace, TSpaceConfig } from '@/Engine';
@@ -32,7 +33,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
 
       const actor: TActor | undefined = actorRegistry.findByName('central_actor');
       if (isNotDefined(actor)) throw new Error('Actor not found');
-      camera.lookAt(actor.drive.position$.value);
+      camera.lookAt(actor.drive.position$.value as Vector3);
     });
   }
 

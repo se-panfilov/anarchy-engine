@@ -1,7 +1,7 @@
 import { nanoid } from 'nanoid';
 import type { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { distinctUntilChanged, sample, tap } from 'rxjs';
-import type { Vector3 } from 'three';
+import type { Vector3, Vector3Like } from 'three';
 
 import { AbstractEntity, EntityType } from '@/Engine/Abstract';
 import { withActorStates } from '@/Engine/Actor/Mixins';
@@ -71,12 +71,12 @@ export function Actor(params: TActorParams, { spatialGridService, physicsBodySer
   return actor;
 }
 
-function spatialPositionUpdate(spatialLoop: TSpatialLoop, position$: BehaviorSubject<TReadonlyVector3>, noiseThreshold?: number): Observable<Readonly<Vector3>> {
+function spatialPositionUpdate<T extends Vector3Like | Vector3 | TReadonlyVector3>(spatialLoop: TSpatialLoop, position$: BehaviorSubject<T>, noiseThreshold?: number): Observable<Readonly<T>> {
   const prevValue: Float32Array = new Float32Array([0, 0, 0]);
 
   return position$.pipe(
-    distinctUntilChanged((_prev: Vector3, curr: Vector3): boolean => isEqualOrSimilarByXyzCoords(prevValue[0], prevValue[1], prevValue[2], curr.x, curr.y, curr.z, noiseThreshold ?? 0)),
-    tap((value: Vector3): void => {
+    distinctUntilChanged((_prev: T, curr: T): boolean => isEqualOrSimilarByXyzCoords(prevValue[0], prevValue[1], prevValue[2], curr.x, curr.y, curr.z, noiseThreshold ?? 0)),
+    tap((value: T): void => {
       // eslint-disable-next-line functional/immutable-data
       prevValue[0] = value.x;
       // eslint-disable-next-line functional/immutable-data

@@ -1,4 +1,4 @@
-import type { Subscription } from 'rxjs';
+import type { Subject, Subscription } from 'rxjs';
 import type { Quaternion, Vector3 } from 'three';
 
 import type { TWithPosition3dProperty, TWithQuaternionRotationProperty, TWithScaleProperty } from '@/Engine/Mixins';
@@ -24,20 +24,30 @@ export function DefaultTransformAgent(params: TTransformAgentParams): TDefaultTr
   const rotationObj: TWithQuaternionRotationProperty = { rotation: abstractTransformAgent.rotation$.value.clone() };
   const scaleObj: TWithScaleProperty = { scale: abstractTransformAgent.scale$.value.clone() };
 
-  const proxyPositionObj: TWithPosition3dProperty = updateSubjOnChange(positionObj, 'position', abstractTransformAgent.position$, (value: TReadonlyVector3): TReadonlyVector3 => value.clone());
+  const proxyPositionObj: TWithPosition3dProperty = updateSubjOnChange(
+    positionObj,
+    'position',
+    abstractTransformAgent.position$ as unknown as Subject<Vector3>,
+    (value: TReadonlyVector3): Vector3 => value.clone()
+  );
   const proxyRotationObj: TWithQuaternionRotationProperty = updateSubjOnChange(
     rotationObj,
     'rotation',
-    abstractTransformAgent.rotation$,
-    (value: TReadonlyQuaternion): TReadonlyQuaternion => value.clone()
+    abstractTransformAgent.rotation$ as unknown as Subject<Quaternion>,
+    (value: TReadonlyQuaternion): Quaternion => value.clone()
   );
-  const proxyScaleObj: TWithScaleProperty = updateSubjOnChange(scaleObj, 'scale', abstractTransformAgent.scale$, (value: TReadonlyVector3): TReadonlyVector3 => value.clone()) as TWithScaleProperty;
+  const proxyScaleObj: TWithScaleProperty = updateSubjOnChange(
+    scaleObj,
+    'scale',
+    abstractTransformAgent.scale$ as unknown as Subject<Vector3>,
+    (value: TReadonlyVector3): Vector3 => value.clone()
+  ) as TWithScaleProperty;
 
   return {
     ...abstractTransformAgent,
     ...withProxyTransform(abstractTransformAgent, proxyPositionObj, proxyRotationObj, proxyScaleObj),
-    setPosition: (position: Vector3): void => abstractTransformAgent.position$.next(position),
-    setRotation: (rotation: Quaternion): void => abstractTransformAgent.rotation$.next(rotation),
-    setScale: (scale: Vector3): void => abstractTransformAgent.scale$.next(scale)
+    setPosition: (position: TReadonlyVector3): void => abstractTransformAgent.position$.next(position),
+    setRotation: (rotation: TReadonlyQuaternion): void => abstractTransformAgent.rotation$.next(rotation),
+    setScale: (scale: TReadonlyVector3): void => abstractTransformAgent.scale$.next(scale)
   };
 }

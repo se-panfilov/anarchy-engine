@@ -1,3 +1,6 @@
+import type { TMeters, TRadians } from '@/Engine/Math';
+
 export type TTransformAgentPerformanceParams = Readonly<{
-  noiseThreshold?: number;
+  positionNoiseThreshold?: TMeters;
+  rotationNoiseThreshold?: TRadians;
 }>;

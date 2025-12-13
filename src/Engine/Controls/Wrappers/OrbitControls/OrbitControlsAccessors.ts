@@ -2,6 +2,7 @@ import type { Vector3 } from 'three';
 import type { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
 import type { TOrbitControlsAccessors } from '@/Engine/Controls/Models';
+import type { TReadonlyVector3 } from '@/Engine/ThreeLib';
 import type { TWriteable } from '@/Engine/Utils';
 
 export function getOrbitControlsAccessors(entity: TWriteable<OrbitControls>): TOrbitControlsAccessors {
@@ -9,7 +10,7 @@ export function getOrbitControlsAccessors(entity: TWriteable<OrbitControls>): TO
   const setDamping = (isEnabled: boolean): void => void (entity.enableDamping = isEnabled);
   const getDamping = (): boolean => entity.enableDamping;
 
-  function setTarget({ x, y, z }: Vector3): void {
+  function setTarget({ x, y, z }: TReadonlyVector3 | Vector3): void {
     entity.target.set(x, y, z);
     entity.update();
   }

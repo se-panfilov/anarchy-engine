@@ -3,6 +3,7 @@ import { Raycaster } from 'three';
 
 import type { TActor } from '@/Engine/Actor/Models';
 import type { TBvhService, TCollisionCheckResult, TCollisionsService } from '@/Engine/Collisions/Models';
+import type { TReadonlyVector3 } from '@/Engine/ThreeLib';
 
 import { BvhService } from './BvhService';
 
@@ -12,8 +13,8 @@ export function CollisionsService(): TCollisionsService {
   // The bigger "interpolationLengthMultiplier" then less chance the bullet won't fly through the target without a collision registration. But the too big value might lead to false positives registrations
   // i.g. bigger "interpolationLengthMultiplier" (2, 4, etc.) is safer (but better test it first)
   function checkCollisions(actor: TActor, actorsToCheck: ReadonlyArray<TActor>, interpolationLengthMultiplier: number, delta: number): TCollisionCheckResult | undefined {
-    const currentPosition: Vector3 = actor.drive.position$.value;
-    const direction: Vector3 = actor.drive.kinematic.getLinearDirection().normalize();
+    const currentPosition: TReadonlyVector3 = actor.drive.position$.value;
+    const direction: Vector3 = actor.drive.kinematic.getLinearDirection().clone().normalize();
     const speed: number = actor.drive.kinematic.getLinearSpeed();
 
     const extendedDistance: number = speed * delta * interpolationLengthMultiplier;

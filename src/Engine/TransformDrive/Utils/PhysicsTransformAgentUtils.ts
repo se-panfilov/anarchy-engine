@@ -1,9 +1,9 @@
 import type { RigidBody } from '@dimforge/rapier3d';
 import type { BehaviorSubject } from 'rxjs';
-import type { Quaternion, Vector3 } from 'three';
 
 import type { TPhysicsBody, TPhysicsBodyService, TWithPresetNamePhysicsBodyParams } from '@/Engine/Physics';
 import { isPhysicsBodyParamsComplete, RigidBodyTypesNames } from '@/Engine/Physics';
+import type { TReadonlyQuaternion, TReadonlyVector3 } from '@/Engine/ThreeLib';
 import type { TRigidBodyTransformData } from '@/Engine/TransformDrive/Models';
 import { isDefined, isNotDefined } from '@/Engine/Utils';
 
@@ -23,7 +23,7 @@ export function createPhysicsBody(physics: TWithPresetNamePhysicsBodyParams, phy
   return physicsBodyService.create(rest);
 }
 
-export function applyLatestTransform(rigidBody: RigidBody | undefined, position: Vector3, rotation: Quaternion): void {
+export function applyLatestTransform(rigidBody: RigidBody | undefined, position: TReadonlyVector3, rotation: TReadonlyQuaternion): void {
   if (isNotDefined(rigidBody)) return;
   rigidBody.setTranslation(position, false);
   rigidBody.setRotation(rotation, false);

@@ -2,6 +2,7 @@ import { Quaternion, Vector3 } from 'three';
 
 import type { TKinematicState, TKinematicTarget } from '@/Engine/Kinematic/Models';
 import type { TMeters, TRadians } from '@/Engine/Math';
+import type { TReadonlyQuaternion, TReadonlyVector3 } from '@/Engine/ThreeLib';
 import { KinematicSpeed } from '@/Engine/TransformDrive/Constants';
 import type { TKinematicSpeed, TKinematicTransformAgent } from '@/Engine/TransformDrive/Models';
 import type { TWriteable } from '@/Engine/Utils';
@@ -59,7 +60,7 @@ export function getStepRotation(agent: TKinematicTransformAgent, rotationStep: T
   return stepAngle !== 0 ? new Quaternion().setFromAxisAngle(relativeAxis, stepAngle) : undefined;
 }
 
-export function isPointReached(target: TKinematicTarget | undefined, position: Vector3, state: TKinematicState): boolean {
+export function isPointReached(target: TKinematicTarget | undefined, position: TReadonlyVector3, state: TKinematicState): boolean {
   if (isNotDefined(target)) return false;
   const { position: targetPosition, positionThreshold } = target;
   if (isNotDefined(targetPosition)) return false;
@@ -82,7 +83,7 @@ export function isPointReached(target: TKinematicTarget | undefined, position: V
   return false;
 }
 
-export function isRotationReached(target: TKinematicTarget | undefined, rotation: Quaternion, state: TKinematicState): boolean {
+export function isRotationReached(target: TKinematicTarget | undefined, rotation: TReadonlyQuaternion, state: TKinematicState): boolean {
   if (isNotDefined(target)) return false;
   const { rotation: targetRotation, rotationThreshold } = target;
 
@@ -102,7 +103,7 @@ export function isRotationReached(target: TKinematicTarget | undefined, rotation
   return false;
 }
 
-export function rotateInstantly(agent: TWriteable<TKinematicTransformAgent>, targetRotation: Quaternion): void {
+export function rotateInstantly(agent: TWriteable<TKinematicTransformAgent>, targetRotation: TReadonlyQuaternion): void {
   agent.setAngularSpeed(0);
   // eslint-disable-next-line functional/immutable-data
   if (isDefined(agent.data.target?.rotation)) (agent.data.target as TWriteable<TKinematicTarget>).rotation = undefined;
@@ -112,7 +113,7 @@ export function rotateInstantly(agent: TWriteable<TKinematicTransformAgent>, tar
   return;
 }
 
-export function moveInstantly(agent: TWriteable<TKinematicTransformAgent>, targetPosition: Vector3): void {
+export function moveInstantly(agent: TWriteable<TKinematicTransformAgent>, targetPosition: TReadonlyVector3): void {
   agent.setLinearSpeed(0);
   // eslint-disable-next-line functional/immutable-data
   if (isDefined(agent.data.target?.position)) (agent.data.target as TWriteable<TKinematicTarget>).position = undefined;

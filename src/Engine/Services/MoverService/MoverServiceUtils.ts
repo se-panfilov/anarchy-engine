@@ -1,6 +1,5 @@
 import anime from 'animejs';
 import type { Subscription } from 'rxjs';
-import type { Vector3 } from 'three';
 
 import type {
   TAnimationParams,
@@ -14,6 +13,7 @@ import type {
   TMoveFnParams,
   TStopMoveCb
 } from '@/Engine/Services/MoverService/Models';
+import type { TReadonlyVector3 } from '@/Engine/ThreeLib';
 import type { TTransformLoop, TWithConnectedTransformAgent, TWithTransformDrive } from '@/Engine/TransformDrive';
 import { createDeferredPromise } from '@/Engine/Utils';
 
@@ -40,14 +40,14 @@ export function addMissingCoords<T extends TKeyframeDestination | TMoveDestinati
   destination: T,
   obj: TWithTransformDrive<TWithConnectedTransformAgent>
 ): TKeyframeDestination | Required<TMoveDestination> {
-  const objPosition: Vector3 = obj.drive.position$.value;
+  const objPosition: TReadonlyVector3 = obj.drive.position$.value;
   return { ...destination, x: destination.x ?? objPosition.x, y: destination.y ?? objPosition.y, z: destination.z ?? objPosition.z };
 }
 
 export function getAccumulatedKeyframes(path: ReadonlyArray<TKeyframeDestination>, obj: TWithTransformDrive<TWithConnectedTransformAgent>): ReadonlyArray<TFullKeyframeDestination> {
   return path.reduce((acc: ReadonlyArray<TFullKeyframeDestination>, destination: TKeyframeDestination, index: number) => {
     const prevDestination: TKeyframeDestination | undefined = acc[index - 1];
-    const objPosition: Vector3 = obj.drive.position$.value;
+    const objPosition: TReadonlyVector3 = obj.drive.position$.value;
     const prevX: number = prevDestination?.x ?? objPosition.x;
     const prevY: number = prevDestination?.y ?? objPosition.y;
     const prevZ: number = prevDestination?.z ?? objPosition.z;

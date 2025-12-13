@@ -6,6 +6,7 @@ export type * from './TKinematicAgentDependencies';
 export type * from './TKinematicSpeed';
 export type * from './TKinematicTransformAgent';
 export type * from './TKinematicTransformAgentParams';
+export type * from './TOffsets';
 export type * from './TPhysicsAgentDependencies';
 export type * from './TPhysicsTransformAgent';
 export type * from './TPhysicsTransformAgentParams';

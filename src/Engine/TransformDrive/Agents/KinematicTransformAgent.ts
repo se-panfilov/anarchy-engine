@@ -8,6 +8,7 @@ import { ForwardAxis } from '@/Engine/Kinematic/Constants';
 import type { TKinematicData, TKinematicWritableData } from '@/Engine/Kinematic/Models';
 import type { TMeters, TMetersPerSecond, TMilliseconds, TRadians, TRadiansPerSecond } from '@/Engine/Math';
 import { getAzimuthElevationFromVector, getElevationFromDirection } from '@/Engine/Math';
+import type { TReadonlyQuaternion, TReadonlyVector3 } from '@/Engine/ThreeLib';
 import { TransformAgent } from '@/Engine/TransformDrive/Constants';
 import type { TAbstractTransformAgent, TKinematicAgentDependencies, TKinematicSpeed, TKinematicTransformAgent, TKinematicTransformAgentParams } from '@/Engine/TransformDrive/Models';
 import { getStepRotation, isInstant, isPointReached, isRotationReached, moveInstantly, rotateInstantly } from '@/Engine/TransformDrive/Utils';
@@ -102,13 +103,13 @@ export function KinematicTransformAgent(params: TKinematicTransformAgentParams, 
       // eslint-disable-next-line functional/immutable-data
       agent.data.state.forwardAxis = axis;
     },
-    moveTo(targetPosition: Vector3, speed: TKinematicSpeed): void | never {
+    moveTo(targetPosition: TReadonlyVector3, speed: TKinematicSpeed): void | never {
       if (isInstant(speed)) return moveInstantly(agent, targetPosition);
       if (speed < 0) throw new Error('Speed must be greater than 0 to calculate angular speed.');
       if (speed === 0) return agent.setLinearSpeed(0);
 
       // eslint-disable-next-line functional/immutable-data
-      agent.data.target.position = targetPosition;
+      agent.data.target.position = targetPosition.clone();
 
       // If the agent is already at the target, do not move
       if (targetPosition.equals(abstractTransformAgent.position$.value)) return agent.setLinearSpeed(0);
@@ -118,16 +119,16 @@ export function KinematicTransformAgent(params: TKinematicTransformAgentParams, 
       return undefined;
     },
     // Rotates agent to "look" at the target position (e.g. mouse click position, other actor, etc.)
-    lookAt(targetPosition: Vector3, speed: TKinematicSpeed): void | never {
+    lookAt(targetPosition: TReadonlyVector3, speed: TKinematicSpeed): void | never {
       tempObject.position.copy(abstractTransformAgent.position$.value);
       tempObject.up.set(0, 1, 0);
-      tempObject.lookAt(targetPosition);
+      tempObject.lookAt(targetPosition as Vector3);
       const targetRotation: Quaternion = tempObject.quaternion.clone().normalize();
 
       return agent.rotateTo(targetRotation, speed);
     },
     // Rotates agent as provided Quaternion (useful when you want to rotate as someone else already rotated)
-    rotateTo(targetRotation: Quaternion, speed: TKinematicSpeed, infinite: boolean = false): void | never {
+    rotateTo(targetRotation: TReadonlyQuaternion, speed: TKinematicSpeed, infinite: boolean = false): void | never {
       if (isInstant(speed)) return rotateInstantly(agent, targetRotation);
 
       if (speed < 0) throw new Error('Speed must be greater than 0 to calculate angular speed.');

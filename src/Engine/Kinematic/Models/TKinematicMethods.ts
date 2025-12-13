@@ -1,7 +1,8 @@
-import type { Quaternion, QuaternionLike, Vector3, Vector3Like } from 'three';
+import type { QuaternionLike, Vector3Like } from 'three';
 
 import type { ForwardAxis } from '@/Engine/Kinematic/Constants';
 import type { TMeters, TMetersPerSecond, TRadians, TRadiansPerSecond } from '@/Engine/Math';
+import type { TReadonlyQuaternion, TReadonlyVector3 } from '@/Engine/ThreeLib';
 import type { TKinematicSpeed } from '@/Engine/TransformDrive/Models';
 
 import type { TKinematicData } from './TKinematicData';
@@ -9,14 +10,14 @@ import type { TKinematicData } from './TKinematicData';
 export type TKinematicMethods = Readonly<{
   setData: (kinematic: TKinematicData) => void;
   getData: () => TKinematicData;
-  moveTo: (vector: Vector3, speed: TKinematicSpeed) => void | never;
-  rotateTo: (quaternion: Quaternion, speed: TKinematicSpeed, infinite?: boolean) => void | never;
-  lookAt: (vector: Vector3, speed: TKinematicSpeed) => void | never;
+  moveTo: (vector: TReadonlyVector3, speed: TKinematicSpeed) => void | never;
+  rotateTo: (quaternion: TReadonlyQuaternion, speed: TKinematicSpeed, infinite?: boolean) => void | never;
+  lookAt: (vector: TReadonlyVector3, speed: TKinematicSpeed) => void | never;
   getRadius: () => TMeters;
   setRadius: (radius: TMeters) => void;
   getLinearSpeed: () => TMetersPerSecond;
   setLinearSpeed: (speed: TMetersPerSecond) => void;
-  getLinearDirection: () => Vector3;
+  getLinearDirection: () => TReadonlyVector3;
   getForwardAxis: () => ForwardAxis;
   setForwardAxis: (forwardAxis: ForwardAxis) => void;
   setLinearDirection: (direction: Vector3Like) => void;
@@ -29,7 +30,7 @@ export type TKinematicMethods = Readonly<{
   getAngularSpeedMps: () => TMetersPerSecond | never;
   setAngularSpeed: (speed: TRadiansPerSecond) => void;
   setAngularSpeedMps: (speed: TMetersPerSecond) => void | never;
-  getAngularDirection: () => Quaternion;
+  getAngularDirection: () => TReadonlyQuaternion;
   setAngularDirection: (direction: QuaternionLike) => void;
   resetAngular: (resetSpeed: boolean, resetDirection: boolean) => void;
 }>;
