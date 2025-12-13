@@ -1,4 +1,4 @@
-import RAPIER from '@dimforge/rapier3d';
+import { ColliderDesc, RigidBodyDesc, World } from '@dimforge/rapier3d';
 import type { Scene } from 'three';
 import { BufferAttribute, BufferGeometry, LineBasicMaterial, LineSegments } from 'three';
 
@@ -15,7 +15,7 @@ export function showcase(canvas: TAppCanvas): TShowcase {
   const { actorService } = space.services;
 
   const gravity = { x: 0.0, y: -9.81, z: 0.0 };
-  const world = new RAPIER.World(gravity);
+  const world = new World(gravity);
 
   // const { vertices, colors } = world.debugRender()
 
@@ -23,15 +23,15 @@ export function showcase(canvas: TAppCanvas): TShowcase {
   const rapierDebugRenderer = new RapierDebugRenderer(scene.entity, world);
 
   // Create the ground
-  const groundColliderDesc = RAPIER.ColliderDesc.cuboid(10.0, 0.1, 10.0);
+  const groundColliderDesc = ColliderDesc.cuboid(10.0, 0.1, 10.0);
   world.createCollider(groundColliderDesc);
 
   // Create a dynamic rigid-body.
-  const rigidBodyDesc = RAPIER.RigidBodyDesc.dynamic().setTranslation(0.0, 1.0, 0.0);
+  const rigidBodyDesc = RigidBodyDesc.dynamic().setTranslation(0.0, 1.0, 0.0);
   const rigidBody = world.createRigidBody(rigidBodyDesc);
 
   // Create a cuboid collider attached to the dynamic rigidBody.
-  const colliderDesc = RAPIER.ColliderDesc.cuboid(0.5, 0.5, 0.5);
+  const colliderDesc = ColliderDesc.cuboid(0.5, 0.5, 0.5);
   const collider = world.createCollider(colliderDesc, rigidBody);
 
   // Game loop. Replace by your own game loop system.
@@ -69,17 +69,17 @@ export function showcase(canvas: TAppCanvas): TShowcase {
 
 class RapierDebugRenderer {
   mesh;
-  world;
-  enabled = true;
+  world: World;
+  enabled: boolean = true;
 
-  constructor(scene: Scene, world: RAPIER.World) {
+  constructor(scene: Scene, world: World) {
     this.world = world;
     this.mesh = new LineSegments(new BufferGeometry(), new LineBasicMaterial({ color: 0xffffff, vertexColors: true }));
     this.mesh.frustumCulled = false;
     scene.add(this.mesh);
   }
 
-  update() {
+  update(): void {
     if (this.enabled) {
       const { vertices, colors } = this.world.debugRender();
       this.mesh.geometry.setAttribute('position', new BufferAttribute(vertices, 3));
