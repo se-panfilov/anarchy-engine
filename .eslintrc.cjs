@@ -70,6 +70,17 @@ module.exports = {
     '@typescript-eslint/no-explicit-any': 'off', // TODO (S.Panfilov) better to turn it on probably, but not right now
     '@typescript-eslint/no-inferrable-types': 'off',
     '@typescript-eslint/restrict-template-expressions': 'off',
+    '@typescript-eslint/naming-convention': [
+      'error',
+      {
+        selector: 'typeAlias',
+        format: ['PascalCase'],
+        custom: {
+          regex: '^T[A-Z0-9]',
+          match: true
+        }
+      }
+    ],
     'simple-import-sort/imports': 'error',
     'simple-import-sort/exports': 'error',
     '@typescript-eslint/consistent-type-exports': 'error',
