@@ -1,19 +1,6 @@
 import type { IShowcase } from '@/App/Levels/Models';
-import {
-  buildSpaceFromConfig,
-  Engine,
-  IActorAsyncRegistry,
-  IActorWrapperAsync,
-  IAppCanvas,
-  ICameraRegistry,
-  IEngine,
-  isNotDefined,
-  ISpace,
-  ISpaceConfig,
-  KeyCode,
-  mouseService,
-  mpsSpeed
-} from '@/Engine';
+import type { IActorAsyncRegistry, IActorWrapperAsync, IAppCanvas, ICameraRegistry, IEngine, ISpace, ISpaceConfig } from '@/Engine';
+import { buildSpaceFromConfig, Engine, isNotDefined, KeyCode, mouseService, mpsSpeed } from '@/Engine';
 
 import spaceConfig from './showcase.json';
 

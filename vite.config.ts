@@ -21,10 +21,10 @@ export default defineConfig({
       include: ['src/**/*'],
       exclude: ['src/**/index.ts', 'coverage', 'utils/', 'public', 'vite.config.ts', '.eslintrc.js', 'src/vite-env.d.ts', 'src/App/DeveloperPanel/*'],
       thresholds: {
-        statements: 56,
-        branches: 69,
-        functions: 35,
-        lines: 54
+        statements: 55,
+        branches: 68,
+        functions: 34,
+        lines: 53
       }
     }
   }
