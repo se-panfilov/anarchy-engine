@@ -451,7 +451,7 @@
           "normalBias": 0.05
         },
         "tags": ["directional"],
-        "type": "Directional"
+        "type": "DirectionalLight"
       },
       {
         "name": "hemisphere_light",
@@ -464,7 +464,7 @@
           "z": 6
         },
         "tags": ["hemisphere"],
-        "type": "Hemisphere"
+        "type": "HemisphereLight"
       },
       {
         "name": "rect_area_light",
@@ -477,7 +477,7 @@
           "z": 2.25
         },
         "tags": ["rect_area"],
-        "type": "RectArea",
+        "type": "RectAreaLight",
         "width": 3
       },
       {
@@ -503,7 +503,7 @@
           "normalBias": 0.05
         },
         "tags": ["point"],
-        "type": "Point"
+        "type": "PointLight"
       },
       {
         "name": "spot_light",
@@ -530,7 +530,7 @@
           "normalBias": 0.05
         },
         "tags": ["spot"],
-        "type": "Spot"
+        "type": "SpotLight"
       }
     ],
     "models3d": [

@@ -446,7 +446,7 @@
           "y": 2,
           "z": 2.25
         },
-        "type": "Ambient"
+        "type": "AmbientLight"
       },
       {
         "name": "directional_light",
@@ -468,7 +468,7 @@
           },
           "normalBias": 0.05
         },
-        "type": "Directional"
+        "type": "DirectionalLight"
       }
     ],
     "models3d": [

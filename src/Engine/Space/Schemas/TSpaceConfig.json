@@ -1624,7 +1624,7 @@
     },
     "LightType": {
       "type": "string",
-      "enum": ["Ambient", "Directional", "Hemisphere", "Point", "RectArea", "Spot"]
+      "enum": ["AmbientLight", "DirectionalLight", "HemisphereLight", "PointLight", "RectAreaLight", "SpotLight"]
     },
     "THemisphereLightConfig": {
       "type": "object",

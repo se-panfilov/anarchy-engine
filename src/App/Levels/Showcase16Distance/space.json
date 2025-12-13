@@ -91,7 +91,7 @@
           },
           "normalBias": 0.05
         },
-        "type": "Directional"
+        "type": "DirectionalLight"
       }
     ],
     "models3d": [

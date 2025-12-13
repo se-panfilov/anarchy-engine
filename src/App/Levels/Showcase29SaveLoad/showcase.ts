@@ -18,6 +18,14 @@ export function start(): void {
   });
 }
 
+// TODO 15-0-0:   "_order": "XYZ",
+//           "_x": -1.57,
+//           "_y": 0,
+//           "_z": 0,
+//           "isEuler": true
+//         },
+// TODO 15-0-0:   "type": "DirectionalLight",
+
 export function runSpace(space: TSpace): void {
   space.start$.next(true);
 }
@@ -25,7 +33,7 @@ export function runSpace(space: TSpace): void {
 function save(space: TSpace): void {
   const serialized: TSpaceConfig = space.serialize() as TSpaceConfig;
 
-  const blob: Blob = new Blob([JSON.stringify(serialized, undefined, 2)], { type: 'application/json' }, 2);
+  const blob: Blob = new Blob([JSON.stringify(serialized, undefined, 2)], { type: 'application/json' });
   const url: string = URL.createObjectURL(blob);
   const a: HTMLAnchorElement = document.createElement('a');
   // eslint-disable-next-line functional/immutable-data

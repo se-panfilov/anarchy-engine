@@ -201,7 +201,7 @@
           },
           "normalBias": 0.05
         },
-        "type": "Directional"
+        "type": "DirectionalLight"
       },
       {
         "name": "ambient_light",
@@ -213,7 +213,7 @@
           "y": 20,
           "z": 0
         },
-        "type": "Hemisphere"
+        "type": "HemisphereLight"
       }
     ],
     "models3d": [

@@ -89,7 +89,7 @@
           "z": 6
         },
         "tags": ["hemisphere"],
-        "type": "Hemisphere"
+        "type": "HemisphereLight"
       }
     ],
     "models3d": [

@@ -67,7 +67,7 @@
           "y": 2,
           "z": 2.25
         },
-        "type": "Ambient"
+        "type": "AmbientLight"
       }
     ],
     "models3d": [

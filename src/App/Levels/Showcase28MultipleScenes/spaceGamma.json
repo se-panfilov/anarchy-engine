@@ -111,7 +111,7 @@
           "y": 20,
           "z": 0
         },
-        "type": "Hemisphere"
+        "type": "HemisphereLight"
       }
     ],
     "models3d": [
