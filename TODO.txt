@@ -27,6 +27,7 @@ Global Refactoring:
 
 Bugs and issues:
 - Registries might be a mistake: if I create "bullet" which extends "actor", the actor will be registered, not the bullet (which is unexpected)
+- Timers are the issue (the game is paused when you are not in the tab, but timers such as "setTimeout" are still running)
 
 Also:
 - Add line domain and let lines be created via config
