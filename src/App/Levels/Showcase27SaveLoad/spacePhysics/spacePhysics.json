@@ -6,16 +6,7 @@
         "agent": "physical",
         "model3dSource": "surface_model",
         "name": "surface_actor",
-        "physics": {
-          "collisionShape": "cuboid",
-          "name": "surface_actor_physics",
-          "shapeParams": {
-            "hx": 50,
-            "hy": 50,
-            "hz": 0.025
-          },
-          "type": "fixed"
-        },
+        "physicBodyName": "surface_actor_physics",
         "position": {
           "x": 0,
           "y": 0,
@@ -35,17 +26,7 @@
         "agent": "physical",
         "model3dSource": "cube_1_model",
         "name": "cube_1_actor",
-        "physics": {
-          "collisionShape": "cuboid",
-          "name": "cube_1_physics",
-          "restitution": 0.1,
-          "shapeParams": {
-            "hx": 2,
-            "hy": 2,
-            "hz": 2
-          },
-          "type": "dynamic"
-        },
+        "physicBodyName": "cube_1_physics",
         "position": {
           "x": -4,
           "y": 2,
@@ -65,17 +46,7 @@
         "agent": "physical",
         "model3dSource": "cube_2_model",
         "name": "cube_2_actor",
-        "physics": {
-          "collisionShape": "cuboid",
-          "name": "cube_2_physics",
-          "restitution": 0.1,
-          "shapeParams": {
-            "hx": 2,
-            "hy": 2,
-            "hz": 2
-          },
-          "type": "dynamic"
-        },
+        "physicBodyName": "cube_2_physics",
         "position": {
           "x": 4,
           "y": 2,
@@ -228,13 +199,47 @@
     ],
     "particles": [],
     "physics": {
-      "global": {
+      "world": {
         "gravity": {
           "x": 0,
           "y": -9.81,
           "z": 0
         }
-      }
+      },
+      "bodies": [
+        {
+          "collisionShape": "cuboid",
+          "name": "surface_actor_physics",
+          "shapeParams": {
+            "hx": 50,
+            "hy": 50,
+            "hz": 0.025
+          },
+          "type": "fixed"
+        },
+        {
+          "collisionShape": "cuboid",
+          "name": "cube_1_physics",
+          "restitution": 0.1,
+          "shapeParams": {
+            "hx": 2,
+            "hy": 2,
+            "hz": 2
+          },
+          "type": "dynamic"
+        },
+        {
+          "collisionShape": "cuboid",
+          "name": "cube_2_physics",
+          "restitution": 0.1,
+          "shapeParams": {
+            "hx": 2,
+            "hy": 2,
+            "hz": 2
+          },
+          "type": "dynamic"
+        }
+      ]
     },
     "renderers": [
       {
