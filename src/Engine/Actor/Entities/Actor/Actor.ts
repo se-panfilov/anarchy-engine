@@ -37,9 +37,9 @@ export function Actor(
 
   // TODO CWP The Actor flow is the following:
   //  Case "Kinematic":
-  //  Kinematic mixin should have position$ and rotation$ (which piped to return Vector3 and Euler)
+  //  ✅ Kinematic mixin should have position$ and rotation$ (which piped to return Vector3 and Euler)
   //  ✅ "doKinematicMove", "doKinematicRotation" should update Kinematic's position$ and rotation$
-  //  Actor is subscribed to Kinematic's position$ and rotation$
+  //  ✅ Actor is subscribed to Kinematic's position$ and rotation$
   //  Model3d is subscribed to Actor's position$/rotation$/scale$
   //  When Actor's position$/rotation$/scale$ updated, Model3d updates its position/rotation/scale
   //  External update of Actor's position$/rotation$ is forbidden (scale$ is allowed)
