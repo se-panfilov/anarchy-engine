@@ -16,7 +16,17 @@ export function withBaseAccessorsRegistry<T>(registry: Map<string, T>): TWithBas
   const serialize = <S, D extends Record<string, any> | undefined>(dependencies?: Record<string, any> | undefined): ReadonlyArray<S> => {
     return map((value: T): S => {
       if (isDefined((value as TSerializable<S, D>).serialize)) return (value as TSerializable<S, D>).serialize(dependencies as D);
-      if (isDefined((value as any).toString)) return (value as any).toString();
+      if (isDefined((value as any).toString)) {
+        const result = (value as any).toString().trim();
+        if (result === {}.toString()) {
+          throw new Error(`[REGISTRY]: Value "${value}" has no .serialize() or .toString() methods. Standard .toString() returned '[object Object]' which seems to be an error`);
+        }
+        if (result === [].toString() || result === '') {
+          throw new Error(`[REGISTRY]: Value "${value}" has no .serialize() or .toString() methods. Standard .toString() returned an empty string which seems to be an error`);
+        }
+
+        return result as unknown as S;
+      }
 
       console.warn(`[REGISTRY] Value "${value}" as no .serialize() or .toString() methods, returning as is`);
       return value as unknown as S;
