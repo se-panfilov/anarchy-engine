@@ -1,5 +1,5 @@
-import type { Intersection, Plane, Raycaster } from 'three';
-import { Box3, GridHelper, MathUtils, Vector2, Vector3 } from 'three';
+import type { Intersection } from 'three';
+import { Box3, GridHelper, MathUtils, Vector3 } from 'three';
 import { Line2 } from 'three/examples/jsm/lines/Line2';
 import { LineGeometry } from 'three/examples/jsm/lines/LineGeometry';
 import { LineMaterial } from 'three/examples/jsm/lines/LineMaterial';
@@ -19,7 +19,6 @@ import type {
   TKeySubscription,
   TSpace,
   TSpaceConfig,
-  TWithCoordsXY,
   TWithCoordsXYZ,
   TWithCoordsXZ
 } from '@/Engine';
@@ -105,7 +104,6 @@ export function showcase(canvas: TAppCanvas): TShowcase {
       // TODO (S.Panfilov) this should be updated only if coords or angle are changed
       if (isDefined(mouseLineIntersections.point)) {
         const heroCoords: TWithCoordsXYZ = heroW.getPosition().getCoords();
-        console.log(mouseLineIntersections);
         fromHeroAngles = get3DAzimuth(heroCoords, mouseLineIntersections.point);
         // TODO (S.Panfilov) could make some use of mouseLineIntersectionsWatcher.latest$ instead of mouseLineIntersections
         line.geometry.setPositions([heroCoords.x, heroCoords.y, heroCoords.z, mouseLineIntersections.point.x, mouseLineIntersections.point.y, mouseLineIntersections.point.z]);
@@ -115,7 +113,7 @@ export function showcase(canvas: TAppCanvas): TShowcase {
 
     mouseService.clickLeftRelease$.subscribe((): void => {
       if (isNotDefined(heroW)) throw new Error(`Cannot find "hero" actor`);
-      shoot(heroW.getPosition().getCoords(), mouseLineIntersections.point, fromHeroAngles.azimuth, mouseLineIntersections.distance, bullets);
+      shoot(heroW.getPosition().getCoords(), fromHeroAngles.azimuth, fromHeroAngles.elevation, bullets);
     });
 
     physicsLoopService.shouldAutoUpdate(true);
@@ -168,7 +166,7 @@ async function buildTower(actorService: TActorService, startCoords: TWithCoordsX
 
 function getBlocks(startCoords: TWithCoordsXZ, rows: number, cols: number, levels: number): ReadonlyArray<Required<Pick<TActorParams, 'height' | 'width' | 'depth' | 'position'>>> {
   let blocks: ReadonlyArray<Required<Pick<TActorParams, 'height' | 'width' | 'depth' | 'position'>>> = [];
-  const gap: number = 0.1;
+  // const gap: number = 0.1;
   const width: number = 1;
   const height: number = 1;
   const depth: number = 1;
@@ -220,25 +218,6 @@ function cameraFollowingActor(cameraW: TCameraWrapper, actorW: TActorWrapperAsyn
   // const cameraCoords: TWithCoordsXYZ = cameraW.getPosition().getCoords();
   cameraW.setPosition(Vector3Wrapper({ x: actorCoords.x, y: actorCoords.y + 45, z: actorCoords.z + 10 }));
   cameraW.lookAt(Vector3Wrapper(actorCoords));
-}
-
-type THeroADC = Readonly<{ angle: number; distance: number; coords: Vector3 | undefined }>;
-
-function getADCFromActor(actor: TActorWrapperAsync, normalizedCoords: TWithCoordsXY, raycaster: Raycaster, cameraW: TCameraWrapper, plane: Plane, planeNormal: Vector3): THeroADC {
-  raycaster.setFromCamera(new Vector2(normalizedCoords.x, normalizedCoords.y), cameraW.entity);
-  let result = { angle: 0, distance: 0, coords: new Vector3() };
-
-  const intersects: Vector3 | null = raycaster.ray.intersectPlane(plane, new Vector3());
-  if (intersects) {
-    const point: Vector3 = intersects;
-    result = {
-      angle: planeNormal.angleTo(raycaster.ray.direction),
-      distance: point.distanceTo(actor.getPosition().getCoords()),
-      coords: new Vector3(point.x, 2, point.z)
-    };
-  }
-
-  return result;
 }
 
 function startMoveActorWithKeyboard(actor: TActorWrapperAsync, onKey: (key: TGameKey) => TKeySubscription): void {
@@ -299,15 +278,18 @@ type TBullet = TActorWrapperAsync &
   Readonly<{
     setDirection: (azimuth: number) => void;
     getDirection: () => number;
+    setElevation: (elev: number) => void;
+    getElevation: () => number;
     setDistanceTraveled: (dist: number) => void;
     getDistanceTraveled: () => number;
     setActive: (act: boolean) => void;
-    getActive: () => boolean;
+    isActive: () => boolean;
   }>;
 
 async function BulletAsync(params: TActorParams, actorService: TActorService): Promise<TBullet> {
   const actor: TActorWrapperAsync = await actorService.createAsync(params);
   let direction: number = 0;
+  let elevation: number = 0;
   let distanceTraveled: number = 0;
   let active: boolean = false;
 
@@ -315,24 +297,21 @@ async function BulletAsync(params: TActorParams, actorService: TActorService): P
     ...actor,
     setDirection: (azimuth: number): void => void (direction = azimuth),
     getDirection: (): number => direction,
+    setElevation: (elev: number): void => void (elevation = elev),
+    getElevation: (): number => elevation,
     setDistanceTraveled: (dist: number): void => void (distanceTraveled = dist),
     getDistanceTraveled: (): number => distanceTraveled,
     setActive: (act: boolean): void => void (active = act),
-    getActive: (): boolean => active
+    isActive: (): boolean => active
   };
 }
 
-function shoot(actorPosition: TWithCoordsXYZ, toCoords, toAngle: number, toDistance, bullets: ReadonlyArray<TBullet>): void {
-  const bullet: TBullet | undefined = bullets.find((b: TBullet) => !b.getActive());
+function shoot(actorPosition: TWithCoordsXYZ, toAngle: number, elevation: number, bullets: ReadonlyArray<TBullet>): void {
+  const bullet: TBullet | undefined = bullets.find((b: TBullet) => !b.isActive());
   if (isDefined(bullet)) {
     bullet.setPosition(Vector3Wrapper(actorPosition));
-    // bullet.setDirection(toAngle);
     bullet.setDirection(toAngle);
-    console.log(toAngle);
-
-    // bullet.direction = new Vector3();
-    // camera.getWorldDirection(bullet.direction);
-    // bullet.direction.normalize();
+    bullet.setElevation(elevation);
     bullet.setDistanceTraveled(0);
     bullet.setActive(true);
   }
@@ -342,11 +321,10 @@ function updateBullets(bullets: ReadonlyArray<TBullet>, delta: number): void {
   const bulletSpeed: number = 10;
 
   bullets.forEach((bullet: TBullet): void => {
-    if (bullet.getActive()) {
-      const direction: number = bullet.getDirection();
-      // console.log('direction', direction);
-      const azimuthRadians = MathUtils.degToRad(direction);
-      const vectorDirection = new Vector3(Math.cos(azimuthRadians), 0, Math.sin(azimuthRadians));
+    if (bullet.isActive()) {
+      const azimuthRadians: number = MathUtils.degToRad(bullet.getDirection());
+      // const elevationRadians: number = MathUtils.degToRad(bullet.getDirection());
+      const vectorDirection: Vector3 = new Vector3(Math.cos(azimuthRadians), 0, Math.sin(azimuthRadians));
       bullet.entity.position.add(vectorDirection.clone().multiplyScalar(bulletSpeed * delta));
       bullet.setDistanceTraveled(bullet.getDistanceTraveled() + bulletSpeed * delta);
 
