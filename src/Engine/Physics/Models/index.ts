@@ -10,7 +10,6 @@ export type * from './TPhysicsDebugRenderer';
 export type * from './TPhysicsDependencies';
 export type * from './TPhysicsGlobalConfig';
 export type * from './TPhysicsGlobalParams';
-export type * from './TPhysicsGlobalProps';
 export type * from './TPhysicsLoopService';
 export type * from './TPhysicsPresetConfig';
 export type * from './TPhysicsPresetParams';

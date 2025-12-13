@@ -1,3 +1,3 @@
-import type { TPhysicsGlobalProps } from './TPhysicsGlobalProps';
+import type { TPhysicsWorldParams } from './TPhysicsWorldParams';
 
-export type TPhysicsGlobalParams = TPhysicsGlobalProps;
+export type TPhysicsGlobalParams = TPhysicsWorldParams;
