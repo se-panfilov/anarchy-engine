@@ -1,7 +1,7 @@
 import GUI from 'lil-gui';
 
 import type { IShowcase } from '@/App/Levels/Models';
-import type { IAppCanvas, IDirectionalLightWrapper, IHemisphereLightWrapper, ILevel, ILevelConfig, IPointLightWrapper, IRectAreaLightWrapper } from '@/Engine';
+import type { IAppCanvas, IDirectionalLightWrapper, IHemisphereLightWrapper, ILevel, ILevelConfig, IPointLightWrapper, IRectAreaLightWrapper, ISpotLightWrapper } from '@/Engine';
 import { buildLevelFromConfig, isNotDefined } from '@/Engine';
 
 import levelConfig from './showcase-12-light.json';
@@ -50,6 +50,19 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
     pointFolder.add(pointLight.entity, 'intensity').min(0).max(100).step(0.1);
     pointFolder.add(pointLight.entity, 'distance').min(0).max(100).step(0.1);
     pointFolder.add(pointLight.entity, 'decay').min(0).max(100).step(0.1);
+
+    const spotLight: ISpotLightWrapper | undefined = lightRegistry.getUniqByTag('spot') as ISpotLightWrapper | undefined;
+    if (isNotDefined(spotLight)) throw new Error('Spot light not found');
+    const spotFolder: GUI = gui.addFolder('Spot light');
+    spotFolder.add(spotLight.entity.position, 'x').min(-50).max(50).step(0.5);
+    spotFolder.add(spotLight.entity.position, 'y').min(-50).max(50).step(0.5);
+    spotFolder.add(spotLight.entity.position, 'z').min(-50).max(50).step(0.5);
+    spotFolder.addColor(spotLight.entity, 'color');
+    spotFolder.add(spotLight.entity, 'intensity').min(0).max(100).step(0.1);
+    spotFolder.add(spotLight.entity, 'distance').min(0).max(100).step(0.1);
+    spotFolder.add(spotLight.entity, 'angle').min(0).max(100).step(0.1);
+    spotFolder.add(spotLight.entity, 'penumbra').min(0).max(100).step(0.1);
+    spotFolder.add(spotLight.entity, 'decay').min(0).max(100).step(0.1);
   }
 
   function start(): void {
