@@ -42,7 +42,7 @@ export const useGuiButtonStore = defineStore('guiButtonsStore', () => {
   const buttonsList = (): ReadonlyArray<TGuiButtonState> => Object.values(state);
 
   return {
-    state: computed(() => state),
+    state: computed((): TGuiButtonStoreState => ({ ...state })),
     setActiveButton,
     setActiveButtonByKey,
     bindButtonKey,

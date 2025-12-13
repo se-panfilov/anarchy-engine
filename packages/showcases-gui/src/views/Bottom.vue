@@ -2,14 +2,17 @@
 import ActionButton from '@Showcases/GUI/components/ActionButton.vue';
 import ValueBar from '@Showcases/GUI/components/ValueBar.vue';
 import { useGuiButtonStore } from '@Showcases/GUI/stores/GuiButtonsStore';
+import { ShowcasesLocales, vueTranslationService } from '@Showcases/i18n';
 import { Heart, Zap } from 'lucide-vue-next';
-import { computed } from 'vue';
 
-const buttons = computed(() => {
-  return useGuiButtonStore()
-    .buttonsList()
-    .filter((button) => button.isVisible);
-});
+const buttons = useGuiButtonStore()
+  .buttonsList()
+  .filter((button) => button.isVisible);
+
+function toggleLocale(): void {
+  const newLocale = vueTranslationService.getCurrentLocale().id === ShowcasesLocales['en-US'].id ? ShowcasesLocales['nl-NL'] : ShowcasesLocales['en-US'];
+  vueTranslationService.setLocale(newLocale);
+}
 </script>
 
 <template>
@@ -21,6 +24,10 @@ const buttons = computed(() => {
         </ValueBar>
 
         <div class="action-buttons">
+          <!-- //TODO DEBUG -->
+          <div v-for="button in useGuiButtonStore().buttonsList()" :key="button.id">{{ button.isActive }}</div>
+          <div @click="toggleLocale()">toggle</div>
+
           <ActionButton v-for="button in buttons" :key="button.id" :title="$t(button.i18n)" :is-active="button.isActive" :data-key="button.key">
             <component :is="button.icon" />
           </ActionButton>
