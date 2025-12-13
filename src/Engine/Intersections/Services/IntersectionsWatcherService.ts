@@ -33,7 +33,7 @@ export function IntersectionsWatcherService(factory: TIntersectionsWatcherFactor
     actorService: TActorService,
     loopService: TLoopService
   ): ReadonlyArray<TAnyIntersectionsWatcher> =>
-    configs.map((config: TAnyIntersectionsWatcherParams): TAnyIntersectionsWatcher => create(factory.configToParams(config, mouseService, cameraService, actorService, loopService)));
+    configs.map((config: TAnyIntersectionsWatcherConfig): TAnyIntersectionsWatcher => create(factory.configToParams(config, mouseService, cameraService, actorService, loopService)));
 
   const withFactory: TIntersectionsWatcherServiceWithFactory = withFactoryService(factory);
   const withRegistry: TIntersectionsWatcherServiceWithRegistry = withRegistryService(registry);

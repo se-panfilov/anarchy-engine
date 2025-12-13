@@ -28,11 +28,11 @@ export function MouseService(
 ): TMouseService {
   mouseClickWatcherFactory.entityCreated$.subscribe((watcher: TMouseClickWatcher): void => mouseClickWatcherRegistry.add(watcher));
   const mouseClickWatcher: TMouseClickWatcher = mouseClickWatcherFactory.create({ container, tags: [WatcherTag.Initial, WatcherTag.Global] }, undefined);
-  mouseClickWatcher.start$.next();
+  mouseClickWatcher.enabled$.next(true);
 
   mousePositionWatcherFactory.entityCreated$.subscribe((watcher: TMousePositionWatcher): void => mousePositionWatcherRegistry.add(watcher));
   const mousePositionWatcher: TMousePositionWatcher = mousePositionWatcherFactory.create({ container, tags: [WatcherTag.Initial, WatcherTag.Global] }, { mouseLoop });
-  mousePositionWatcher.start$.next();
+  mousePositionWatcher.enabled$.next(true);
 
   const abstractService: TAbstractService = AbstractService([mouseClickWatcherFactory, mousePositionWatcherFactory, mouseClickWatcherRegistry, mousePositionWatcherRegistry]);
 

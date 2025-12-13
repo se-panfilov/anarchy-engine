@@ -39,12 +39,9 @@ export function MousePositionWatcher({ container, tags, performance }: TMousePos
     )
     .subscribe((): void => abstractWatcher.value$.next({ x: position[0], y: position[1] }));
 
-  abstractWatcher.start$.pipe(takeUntil(abstractWatcher.destroy$)).subscribe((): void => {
-    container.startWatch('mousemove', onMouseMoveListener);
-  });
-
-  abstractWatcher.stop$.pipe(takeUntil(abstractWatcher.destroy$)).subscribe((): void => {
-    container.stopWatch('mousemove', onMouseMoveListener);
+  abstractWatcher.enabled$.pipe(distinctUntilChanged(), takeUntil(abstractWatcher.destroy$)).subscribe((value: boolean): void => {
+    if (value) container.startWatch('mousemove', onMouseMoveListener);
+    else container.stopWatch('mousemove', onMouseMoveListener);
   });
 
   const destroySub$: Subscription = abstractWatcher.destroy$.subscribe((): void => {
