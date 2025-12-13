@@ -175,5 +175,8 @@ export function createForm(containerId: string | undefined, isTop: boolean, isRi
   });
   addBtn(`Save`, containerId, (): void => saveSpaceConfigInMemory(currentSpaceName, spaceRegistry));
   addBtn(`Drop`, containerId, (): void => unloadSpace(currentSpaceName, spaceRegistry));
+
+  // TODO: enable to check false positive screenshot compare
+  // addBtn(`Load`, containerId, (): void => loadSpace(currentSpaceName));
   addBtn(`Load`, containerId, (): void => loadSpaceConfigFromMemory(currentSpaceName));
 }
