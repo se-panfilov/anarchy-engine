@@ -1,5 +1,5 @@
 {
-  "canvasSelector": "#right_container #app_beta",
+  "canvasSelector": "#right_top_container #app_beta",
   "entities": {
     "renderers": [{ "mode": "webgl2", "isActive": true, "alpha": true }],
     "actors": [

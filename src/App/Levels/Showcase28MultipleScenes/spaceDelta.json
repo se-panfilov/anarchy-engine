@@ -1,5 +1,5 @@
 {
-  "canvasSelector": "#left_top_container #app_alpha",
+  "canvasSelector": "#left_bottom_container #app_delta",
   "entities": {
     "renderers": [{ "mode": "webgl2", "isActive": true, "alpha": true }],
     "actors": [
@@ -68,7 +68,7 @@
     ],
     "texts": []
   },
-  "name": "showcase_space_alpha",
+  "name": "showcase_space_delta",
   "resources": {
     "animations": [],
     "audio": [],

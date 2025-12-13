@@ -1,11 +1,11 @@
 {
-  "canvasSelector": "#left_top_container #app_alpha",
+  "canvasSelector": "#right_bottom_container #app_gamma",
   "entities": {
     "renderers": [{ "mode": "webgl2", "isActive": true, "alpha": true }],
     "actors": [
       {
-        "model3dSource": "sphere_model",
-        "name": "sphere_actor",
+        "model3dSource": "box_model",
+        "name": "box_actor",
         "position": {
           "x": 0,
           "y": 0,
@@ -46,11 +46,15 @@
     "models3d": [
       {
         "castShadow": false,
-        "materialSource": "sphere_material",
-        "model3dSource": "sphere",
-        "name": "sphere_model",
+        "materialSource": "box_material",
+        "model3dSource": "cube",
+        "name": "box_model",
         "options": {
-          "radius": 1
+          "depth": 1,
+          "height": 1,
+          "heightSegments": 1,
+          "width": 1,
+          "widthSegments": 1
         }
       }
     ],
@@ -68,16 +72,16 @@
     ],
     "texts": []
   },
-  "name": "showcase_space_alpha",
+  "name": "showcase_space_gamma",
   "resources": {
     "animations": [],
     "audio": [],
     "envMaps": [],
     "materials": [
       {
-        "name": "sphere_material",
+        "name": "box_material",
         "options": {
-          "color": "#E91E63"
+          "color": "#4638DF"
         },
         "type": "basic"
       }
