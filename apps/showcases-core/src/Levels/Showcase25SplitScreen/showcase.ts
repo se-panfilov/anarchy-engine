@@ -1,5 +1,5 @@
 import type { TActor, TActorRegistry, TKeyboardPressingEvent, TSpace, TSpaceConfig, TSpaceServices } from '@Anarchy/Engine';
-import { createDomElement, KeyCode, metersPerSecond, mpsSpeed, spaceService } from '@Anarchy/Engine';
+import { ambientContext, createDomElement, KeyCode, metersPerSecond, mpsSpeed, spaceService } from '@Anarchy/Engine';
 import { asRecord, isNotDefined } from '@Anarchy/Shared/Utils';
 import { combineLatest } from 'rxjs';
 import { Clock } from 'three';
@@ -14,8 +14,22 @@ const spaceAlphaConfig: TSpaceConfig = spaceAlphaConfigJson as TSpaceConfig;
 const spaceBetaConfig: TSpaceConfig = spaceBetaConfigJson as TSpaceConfig;
 
 function createContainersDivs(): void {
-  createDomElement('div', undefined, undefined, 'left_container', 'position: fixed; left: 0; right: calc(50% + 2px); top: 0; bottom: 0; outline: none; background: oklab(0.91 -0.13 0.05)');
-  createDomElement('div', undefined, undefined, 'right_container', 'position: fixed; left: calc(50% + 2px); right: 0; top: 0; bottom: 0; outline: none; background: oklab(0.89 -0.08 -0.05);');
+  createDomElement(
+    ambientContext,
+    'div',
+    undefined,
+    undefined,
+    'left_container',
+    'position: fixed; left: 0; right: calc(50% + 2px); top: 0; bottom: 0; outline: none; background: oklab(0.91 -0.13 0.05)'
+  );
+  createDomElement(
+    ambientContext,
+    'div',
+    undefined,
+    undefined,
+    'right_container',
+    'position: fixed; left: calc(50% + 2px); right: 0; top: 0; bottom: 0; outline: none; background: oklab(0.89 -0.08 -0.05);'
+  );
 }
 
 export function start(settings: TAppSettings): void {

@@ -1,5 +1,5 @@
 import type { TModel3d, TSpace, TSpaceConfig, TText2dRegistry, TText2dWrapper, TText3dRegistry, TText3dTextureRegistry, TText3dTextureWrapper, TText3dWrapper } from '@Anarchy/Engine';
-import { createDomElement, TextType } from '@Anarchy/Engine';
+import { ambientContext, createDomElement, TextType } from '@Anarchy/Engine';
 import { isNotDefined } from '@Anarchy/Shared/Utils';
 import type { BehaviorSubject } from 'rxjs';
 import { Euler, Vector3 } from 'three';
@@ -7,7 +7,7 @@ import { Euler, Vector3 } from 'three';
 import type { TSpacesData } from './ShowcaseTypes';
 
 export function createContainersDivs(spacesDataList: ReadonlyArray<TSpacesData>): void {
-  spacesDataList.forEach(({ container }): HTMLElement => createDomElement('div', undefined, ['container'], container));
+  spacesDataList.forEach(({ container }): HTMLElement => createDomElement(ambientContext, 'div', undefined, ['container'], container));
 }
 
 export function setContainerVisibility(name: string, isVisible: boolean, spacesDataList: ReadonlyArray<TSpacesData>): void {

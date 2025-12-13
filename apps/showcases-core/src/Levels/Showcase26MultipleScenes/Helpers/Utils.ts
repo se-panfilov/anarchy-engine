@@ -1,11 +1,12 @@
 import type { TActor, TActorRegistry, TKeyboardPressingEvent, TParticlesWrapper, TSpace, TSpaceServices } from '@Anarchy/Engine';
-import { createDomElement, KeyCode, metersPerSecond, mpsSpeed } from '@Anarchy/Engine';
+import { ambientContext, createDomElement, KeyCode, metersPerSecond, mpsSpeed } from '@Anarchy/Engine';
 
 import type { TSubscriptionsData } from '@/Levels/Showcase26MultipleScenes/Helpers/TSubscriptionsData';
 import { addBtn } from '@/Utils';
 
 export function createContainersDivs(): void {
   createDomElement(
+    ambientContext,
     'div',
     undefined,
     undefined,
@@ -13,6 +14,7 @@ export function createContainersDivs(): void {
     'position: fixed; left: 0; right: calc(50% + 2px); top: 0; bottom: calc(50% + 2px); outline: none; background: oklab(0.91 -0.13 0.05)'
   );
   createDomElement(
+    ambientContext,
     'div',
     undefined,
     undefined,
@@ -20,6 +22,7 @@ export function createContainersDivs(): void {
     'position: fixed; left: calc(50% + 2px); right: 0; top: 0; bottom: calc(50% + 2px); outline: none; background: oklab(0.89 -0.08 -0.05);'
   );
   createDomElement(
+    ambientContext,
     'div',
     undefined,
     undefined,
@@ -27,6 +30,7 @@ export function createContainersDivs(): void {
     'position: fixed; left: 0; right: calc(50% + 2px); top: calc(50% + 2px); bottom: 0; outline: none; background: oklab(0.81 0.11 -0.1)'
   );
   createDomElement(
+    ambientContext,
     'div',
     undefined,
     undefined,

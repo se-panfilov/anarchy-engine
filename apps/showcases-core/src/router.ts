@@ -41,6 +41,6 @@ export async function route(settings: TAppSettings): Promise<void> {
     console.log(`[Router]: Loading './Levels/${routerConfig[path]}/index.ts'`);
     result.start(settings);
   } catch (err: any) {
-    console.log(`[Router]: Showcase "${path}" not found: ` + err);
+    throw new Error(`[Router]: Showcase "${path}" not found: ` + err);
   }
 }
