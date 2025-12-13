@@ -1,6 +1,6 @@
 import type { TKeyboardService, TMouseService } from '@Anarchy/Engine';
 import { KeyCode } from '@Anarchy/Engine';
-import { isEventKey } from '@Anarchy/Engine/Keyboard/Utils/KeysUtils';
+import { isKeyInEvent } from '@Anarchy/Engine/Keyboard/Utils/KeysUtils';
 import type { TToGuiEvent } from '@Showcases/Shared';
 import type { Subject } from 'rxjs';
 import { GuiActionType } from 'showcases-gui/src/constants';
@@ -23,14 +23,14 @@ export function initGuiEvents(keyboardService: TKeyboardService, mouseService: T
   const openMiniMap = (open: boolean): void => toGuiEventsBus$.next(createToGuiActionEvent(MiniMap, open));
 
   pressed$.subscribe((event: KeyboardEvent): void => {
-    if (isEventKey(KeyCode.I, event)) openInventory(true);
-    if (isEventKey(KeyCode.M, event)) openMiniMap(true);
-    if (isEventKey(KeyCode.Escape, event)) openSettings(true);
+    if (isKeyInEvent(KeyCode.I, event)) openInventory(true);
+    if (isKeyInEvent(KeyCode.M, event)) openMiniMap(true);
+    if (isKeyInEvent(KeyCode.Escape, event)) openSettings(true);
   });
 
   released$.subscribe((event: KeyboardEvent): void => {
-    if (isEventKey(KeyCode.I, event)) openInventory(false);
-    if (isEventKey(KeyCode.M, event)) openMiniMap(false);
-    if (isEventKey(KeyCode.Escape, event)) openSettings(false);
+    if (isKeyInEvent(KeyCode.I, event)) openInventory(false);
+    if (isKeyInEvent(KeyCode.M, event)) openMiniMap(false);
+    if (isKeyInEvent(KeyCode.Escape, event)) openSettings(false);
   });
 }
