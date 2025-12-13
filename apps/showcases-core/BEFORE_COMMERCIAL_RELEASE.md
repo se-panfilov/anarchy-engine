@@ -1,6 +1,7 @@
-1. Convert EU_DECLARATION_OF_CONFORMITY to PDF and add a signature.
-2. Place the signed PDF in the `legal/dd-mm-yyyy` folder.
-3. Add CE-mark to the product's Legal/About screen and documentation (e.g. INSTRUCTIONS)
+# Must be done before the commercial release of the app.
+
+1. Convert `./compliance/EU_DECLARATION_OF_CONFORMITY.md` to `./legal/dd-mm-yyyy/EU_DECLARATION_OF_CONFORMITY.pdf` and sign it.
+2. Add CE-mark to the product's Legal/About screen and documentation (e.g. INSTRUCTIONS)
 
 In the root folder (every app):
 
