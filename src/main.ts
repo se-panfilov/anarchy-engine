@@ -3,7 +3,6 @@ import { ambientContext, startAmbientContext } from '@Engine/Context';
 import { isNotDefined, isValidSceneConfig } from '@Engine/Utils';
 import './style.css';
 import { launch } from '@Engine/Launcher';
-import type { ISceneConfig } from '@Engine/Launcher/Models';
 import { startWatchers } from './startWatchers';
 import { getRegistryPool } from '@Engine/Pool/GetRegistiryPool';
 import type { IRegistriesPool } from '@Engine/Pool/Models/IRegistriesPool';
@@ -17,7 +16,7 @@ if (!isValidSceneConfig(sceneConfig)) throw new Error('Failed to load a scene: i
 startWatchers();
 const registryPool: IRegistriesPool = getRegistryPool();
 const factoriesPool: IFactoriesPool = getFactoriesPool({ canvas, cameraRegistry: registryPool.cameraRegistry });
-const isLaunched: boolean = await launch(sceneConfig as unknown as ISceneConfig, canvas, factoriesPool, registryPool);
+const isLaunched: boolean = await launch(sceneConfig, canvas, factoriesPool, registryPool);
 console.log('Launched', isLaunched);
 
 //Ambient Context
