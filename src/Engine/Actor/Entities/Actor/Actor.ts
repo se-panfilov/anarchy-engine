@@ -36,6 +36,7 @@ export function Actor(
   // TODO 8.0.0. MODELS: Kinematic drive needs additional methods: go to position (and stop), rotate to angle (and stop), move to point (calculate azimuth, elevation by itelf)
 
   // TODO 8.0.0. MODELS: Remove Vector3/Euler/Quaternion from schema in favour of Vector3Like and etc. Adjust config adapters (Also for Rapier's Vector and etc)
+  // TODO 8.0.0. MODELS: Replace all rotations with Quaternions
   // TODO 8.0.0. MODELS: close all issues (todoes) with tag 8.0.0
 
   const entities: TActorEntities = {
