@@ -9,12 +9,16 @@ export function WebErrorTrackingService(): TWebErrorTrackingService {
   async function start(): Promise<TTrackingService | undefined> {
     if (!runtimeEnv.VITE_SENTRY_DSN) return undefined;
 
+    const dist = `${process.platform}-${process.arch}`;
+    console.log('XXX Sentry dist:', dist);
+
     return BrowserTrackingService(
       {
         dsn: runtimeEnv.VITE_SENTRY_DSN,
         environment: __PLATFORM_MODE__,
         // Release must exact match the platform's release.
-        release: await platformApiService.getReleaseName()
+        release: await platformApiService.getReleaseName(),
+        dist
       },
       // TODO DESKTOP: Useful to get app's settings (resolution, locale, etc). But should not break GDPR
       // TODO DESKTOP: Implement an adapter to avoid users fingerprinting and send the settings fo Sentry. Same for Desktop.
