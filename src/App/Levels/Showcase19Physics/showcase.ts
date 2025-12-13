@@ -6,6 +6,19 @@ import { LineGeometry } from 'three/examples/jsm/lines/LineGeometry';
 import { LineMaterial } from 'three/examples/jsm/lines/LineMaterial';
 
 import type { TShowcase } from '@/App/Levels/Models';
+import type {
+  TActorWrapperAsync,
+  TAppCanvas,
+  TCameraWrapper,
+  TEngine,
+  TIntersectionEvent,
+  TIntersectionsWatcher,
+  TPhysicsDebugRenderer,
+  TSceneWrapper,
+  TSpace,
+  TSpaceConfig,
+  TWithCoordsXYZ
+} from '@/Engine';
 import {
   buildSpaceFromConfig,
   degreesToQuaternion,
@@ -20,18 +33,7 @@ import {
   mouseService,
   PhysicsDebugRenderer,
   STANDARD_GRAVITY,
-  TActorWrapperAsync,
-  TAppCanvas,
-  TCameraWrapper,
-  TEngine,
   TextType,
-  TIntersectionEvent,
-  TIntersectionsWatcher,
-  TPhysicsDebugRenderer,
-  TSceneWrapper,
-  TSpace,
-  TSpaceConfig,
-  TWithCoordsXYZ,
   Vector3Wrapper
 } from '@/Engine';
 import { meters } from '@/Engine/Measurements/Utils';
