@@ -36,7 +36,7 @@ export function createPhysicsBody(world: World, params: TPhysicsPresetParams): R
 // TODO (S.Panfilov) add unit tests
 export function getColliderDesc(params: TPhysicsPresetParams): ColliderDesc | never {
   const { collisionShape, shapeParams } = params;
-  const { a, b, c, borderRadius, nrows, ncols, normal, heights, scale, halfHeight, flags, radius, hx, hy, hz, vertices, indices } = paramsToMeters(shapeParams);
+  const { a, b, c, borderRadius, nrows, ncols, heights, scale, halfHeight, flags, radius, hx, hy, hz, vertices, indices } = paramsToMeters(shapeParams);
 
   // const fixedShapeParams = paramsToMeters(shapeParams);
 

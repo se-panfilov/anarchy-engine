@@ -12,11 +12,11 @@ import { createActorMesh, createPhysicsBody } from './ActorUtils';
 
 export async function ActorWrapperAsync(params: TActorParams, { materialTextureService, physicsService }: TActorDependencies): Promise<TActorWrapperAsync> {
   let physicsBody: TPhysicsBodyWrapper | undefined;
-  if (isDefined(params.physics) && Object.keys(params.physics).length > 0) physicsBody = createPhysicsBody(params.physics, physicsService);
+  if (isDefined(params.physics) && Object.keys(params.physics).length > 0) physicsBody = createPhysicsBody(params.physics, { physicsService });
 
   // TODO (S.Panfilov) AWAIT: could speed up by not awaiting mesh to be build
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-  const entity: TMesh = await createActorMesh(params, { materialTextureService, physicsService });
+  const entity: TMesh = await createActorMesh(params, { materialTextureService });
 
   const withMaterialEntity: TWithMaterial = withMaterial(entity);
 
