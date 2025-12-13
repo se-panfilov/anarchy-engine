@@ -8,6 +8,7 @@ export function materialToConfig(entity: TMaterialWrapper): TMaterialConfig {
   // TODO 15-0-0: implement
   console.log('XXX entity', entity);
   const json: MaterialJSON = entity.entity.toJSON();
+  console.log('XXX json', json);
 
   // TODO 15-0-0: fix any
   return filterOutEmptyFields({
