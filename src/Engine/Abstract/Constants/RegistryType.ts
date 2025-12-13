@@ -1,5 +1,6 @@
 export enum RegistryType {
   Actor = 'actor',
+  ActorsModels3d = 'actors_models_3d',
   Camera = 'camera',
   Controls = 'controls',
   EnvMap = 'env_map',

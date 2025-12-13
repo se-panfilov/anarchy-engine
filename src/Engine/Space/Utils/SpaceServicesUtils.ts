@@ -1,4 +1,4 @@
-import { ActorFactory, ActorRegistry, ActorService } from '@/Engine/Actor';
+import { ActorFactory, ActorRegistry, ActorService, ActorToModel3dConnectionRegistry } from '@/Engine/Actor';
 import type { TAnimationsService } from '@/Engine/Animations';
 import { AnimationsService } from '@/Engine/Animations';
 import type { TAppCanvas } from '@/Engine/App';
@@ -91,7 +91,8 @@ export function initEntitiesServices(sceneW: TSceneWrapper, canvas: TAppCanvas):
         spatialLoopService,
         spatialGridService,
         collisionsLoopService,
-        collisionsService
+        collisionsService,
+        actorToModel3dConnectionRegistry: ActorToModel3dConnectionRegistry()
       },
       sceneW
     ),

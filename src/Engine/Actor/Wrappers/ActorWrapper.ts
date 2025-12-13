@@ -14,8 +14,12 @@ import type { TSpatialLoopServiceValue } from '@/Engine/Spatial';
 import { withReactivePosition, withReactiveRotation, withSpatial, withUpdateSpatialCell } from '@/Engine/Spatial';
 import { applyObject3dParams, applyPosition, applyRotation, applyScale, isDefined } from '@/Engine/Utils';
 
-export function ActorWrapper(params: TActorParams, { kinematicLoopService, spatialLoopService, spatialGridService, collisionsLoopService, collisionsService }: TActorDependencies): TActorWrapper {
-  const model3dF: TModel3dFacade = params.model3dSource;
+export function ActorWrapper(
+  params: TActorParams,
+  { kinematicLoopService, spatialLoopService, spatialGridService, collisionsLoopService, collisionsService, models3dService, actorToModel3dConnectionRegistry }: TActorDependencies
+): TActorWrapper {
+  const isModelAlreadyInUse: boolean = isDefined(actorToModel3dConnectionRegistry.findByModel3d(params.model3dSource));
+  const model3dF: TModel3dFacade = isModelAlreadyInUse ? models3dService.clone(params.model3dSource) : params.model3dSource;
   const entity: Group | Mesh | Object3D = model3dF.getModel();
 
   // TODO 8.0.0. MODELS: MATERIAL MIXIN: decide what to do with this mixin
@@ -69,6 +73,7 @@ export function ActorWrapper(params: TActorParams, { kinematicLoopService, spati
     rotation$.complete();
     actorW.spatial.destroy();
     actorW.collisions?.destroy();
+    actorToModel3dConnectionRegistry.removeByModel3d(model3dF);
   });
 
   applyPosition(actorW, params.position);
@@ -79,6 +84,8 @@ export function ActorWrapper(params: TActorParams, { kinematicLoopService, spati
   startCollisions(actorW);
 
   position$.subscribe((newPosition: Vector3): void => actorW.updateSpatialCells(newPosition));
+
+  actorToModel3dConnectionRegistry.addModel3d(model3dF, actorW);
 
   return actorW;
 }

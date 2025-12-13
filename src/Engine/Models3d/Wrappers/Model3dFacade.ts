@@ -6,9 +6,10 @@ import { applyCastShadowToModel3d, applyPositionToModel3d, applyReceiveShadowToM
 import type { TOptional } from '@/Engine/Utils';
 import { isDefined } from '@/Engine/Utils';
 
+// TODO 9.0.0. RESOURCES: In actor should use models3dUsageRegistry.set() to mark the model as used after it's creation
+// TODO 9.0.0. RESOURCES: In actor should update models3dUsageRegistry when remove model or delete actor itself
 export function Model3dFacade(params: TModel3dParams, { animationsService }: TModel3dFacadeDependencies): TModel3dFacade {
-  const shouldCloneModel3d: boolean = false;
-  const entities: TModel3dEntities = createModels3dEntities(params, animationsService, shouldCloneModel3d);
+  const entities: TModel3dEntities = createModels3dEntities(params, animationsService);
   const facade = AbstractFacade(withModel3dFacadeEntities(entities), FacadeType.Model3d, params);
 
   const getParams = (): TModel3dParams => ({ ...params });
@@ -25,7 +26,7 @@ export function Model3dFacade(params: TModel3dParams, { animationsService }: TMo
   if (isDefined(params.castShadow)) applyCastShadowToModel3d(entities.model3dSource, params.castShadow);
   if (isDefined(params.receiveShadow)) applyReceiveShadowToModel3d(entities.model3dSource, params.receiveShadow);
 
-  // TODO 9.0.0. RESOURCES: add facade id to model3d's userData
+  // TODO 9.0.0. RESOURCES: add facade id to model3d's userData (make sure facade's id is reset during clone)
   return {
     ...facade,
     getParams,

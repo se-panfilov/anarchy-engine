@@ -2,22 +2,7 @@ import GUI from 'lil-gui';
 import { withLatestFrom } from 'rxjs';
 
 import type { TShowcase } from '@/App/Levels/Models';
-import type {
-  TActorRegistry,
-  TActorWrapper,
-  TAppCanvas,
-  TCameraWrapper,
-  TEngine,
-  TIntersectionEvent,
-  TIntersectionsWatcher,
-  TModel3dFacade,
-  TModel3dRegistry,
-  TMouseWatcherEvent,
-  TMoverService,
-  TSceneWrapper,
-  TSpace,
-  TSpaceConfig
-} from '@/Engine';
+import type { TActorRegistry, TActorWrapper, TAppCanvas, TCameraWrapper, TEngine, TIntersectionEvent, TIntersectionsWatcher, TMouseWatcherEvent, TMoverService, TSpace, TSpaceConfig } from '@/Engine';
 import { defaultMoverServiceConfig, Easing, Engine, isNotDefined, KeyCode, LookUpStrategy, mpsSpeed, spaceService } from '@/Engine';
 import { MoverService } from '@/Engine/Services/MoverService/MoverService';
 
@@ -29,19 +14,19 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
   const engine: TEngine = Engine(space);
   const { keyboardService } = engine.services;
 
-  const { actorService, cameraService, intersectionsWatcherService, loopService, mouseService, scenesService, models3dService } = space.services;
+  const { actorService, cameraService, intersectionsWatcherService, loopService, mouseService } = space.services;
   const actorRegistry: TActorRegistry = actorService.getRegistry();
   const { findByName, findByTag, findByTags } = actorRegistry;
   const { onKey } = keyboardService;
 
-  const sceneW: TSceneWrapper | undefined = scenesService.findActive();
-  if (isNotDefined(sceneW)) throw new Error('Scene is not defined');
+  // const sceneW: TSceneWrapper | undefined = scenesService.findActive();
+  // if (isNotDefined(sceneW)) throw new Error('Scene is not defined');
 
-  const models3dRegistry: TModel3dRegistry = models3dService.getRegistry();
-  const planeModel3dF: TModel3dFacade | undefined = models3dRegistry.findByName('surface_model');
-  if (isNotDefined(planeModel3dF)) throw new Error('Plane model is not defined');
+  // const models3dRegistry: TModel3dRegistry = models3dService.getRegistry();
+  // const planeModel3dF: TModel3dFacade | undefined = models3dRegistry.findByName('surface_model');
+  // if (isNotDefined(planeModel3dF)) throw new Error('Plane model is not defined');
 
-  sceneW.addModel3d(planeModel3dF.getModel());
+  // sceneW.addModel3d(planeModel3dF.getModel());
 
   // TODO 9.0.0. RESOURCES: Actors that has the same modelSource should clone the model3d
   function init(): void {

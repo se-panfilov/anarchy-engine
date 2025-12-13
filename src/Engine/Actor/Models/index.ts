@@ -6,6 +6,7 @@ export * from './TActorParams';
 export * from './TActorProps';
 export * from './TActorRegistry';
 export * from './TActorService';
+export * from './TActorToModel3dConnectionRegistry';
 export * from './TActorWithPhysicsWrapper';
 export * from './TActorWrapper';
 export * from './TActorWrapperWithPhysics';
