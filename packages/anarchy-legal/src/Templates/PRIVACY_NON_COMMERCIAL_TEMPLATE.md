@@ -1,8 +1,7 @@
-# Privacy Notice — {{PACKAGE_NAME}}
+# Privacy Notice — {{PACKAGE_NAME}} (Open Source Repository)
 
 **Effective date:** {{EFFECTIVE_DATE}}
-
-**Controller:** {{PACKAGE_AUTHOR}}, {{PRIVACY_EMAIL}}
+**Controller:** {{PACKAGE_AUTHOR}} — Contact: {{PRIVACY_EMAIL}}
 
 ## 1. Scope
 
@@ -10,19 +9,18 @@ This notice covers **the open-source repository** for {{PACKAGE_NAME}}. We do **
 
 ## 2. Repository Interactions
 
-If you open issues, pull requests, or discussions, the content you submit (including profile data) becomes **public** on the hosting platform (**{{SOURCE_HOSTING_PLATFORM}}**) and is processed under that platform’s privacy policy. We may process this public information to maintain the project.
-
+If you open issues, pull requests, or discussions, the content you submit (including profile data) is **public** on **{{SOURCE_HOSTING_PLATFORM}}** and processed under that platform’s privacy policy. We may process this public information to maintain the project.
 **Legal basis:** our **legitimate interests** in operating and improving the OSS project.
 **Retention:** issue/PR history is retained as part of the public project record.
 
 ## 3. Communications
 
-If you email us (email **{{SUPPORT_EMAIL}}**), we will process your email address and message to respond.
-**Retention:** **{{SUPPORT_EMAILS_RETAIN_PERIOD_MONTH}}**, unless longer is required for audit or legal reasons.
+If you email **{{SUPPORT_EMAIL}}**, we process your email address and message to respond.
+**Retention:** **{{SUPPORT_EMAILS_RETAIN_PERIOD_MONTH}}**, unless longer retention is required by law.
 
 ## 4. Processors & Transfers
 
-We may use email or CI hosting providers as processors with appropriate safeguards (including **Standard Contractual Clauses** for international transfers where applicable).
+We may use email/CI hosting providers as processors with appropriate safeguards (including recognized cross-border transfer mechanisms where applicable).
 
 ## 5. Your Rights
 
