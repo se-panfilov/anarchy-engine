@@ -38,7 +38,7 @@ test.describe('Space Transform Drive save/load Special tests', () => {
 export async function waitUntilReady(actionName: string, page: Page, timeout: number = 1000): Promise<void> {
   await page.waitForFunction(
     ({ actionName }): boolean | undefined => {
-      console.log('XXX [E2E] is ', actionName, ' ready: ', (window as any)._isReady);
+      console.log(`XXX [E2E] is ${actionName} ready: `, (window as any)._isReady);
       const body: HTMLBodyElement | null = document.querySelector('body');
       const loaded: boolean = !!body?.classList.contains('ready');
       const isReady: boolean = !!(window as any)._isReady;

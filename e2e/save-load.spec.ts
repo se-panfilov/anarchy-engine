@@ -11,7 +11,7 @@ test.use({ viewport: VIEWPORT });
 
 test.beforeEach(async ({ page }) => {
   await page.goto(GAME_URL);
-  await waitUntilReady(page);
+  await waitUntilReady('BEFORE_EACH', page);
 });
 
 const scenes: ReadonlyArray<string> = [
@@ -44,16 +44,16 @@ test.describe('Space save/load persistence', () => {
     test(`Load, Save, Load: [${sceneName}]`, async ({ page }, testInfo) => {
       const canvas: Locator = page.locator('canvas');
       await page.getByLabel('Spaces').selectOption(sceneName);
-      await waitUntilReady(page);
+      await waitUntilReady('WAIT_PAGE_LOAD', page);
 
       const bufferA = await canvas.screenshot();
 
       await page.getByRole('button', { name: 'Save' }).click();
+      await waitUntilReady('CLICKED_SAVE', page);
 
-      await waitUntilReady(page);
       await page.getByRole('button', { name: 'Drop' }).click();
       await page.getByRole('button', { name: 'Load' }).click();
-      await waitUntilReady(page);
+      await waitUntilReady('CLICKED_LOAD', page);
 
       const bufferB = await canvas.screenshot();
 
@@ -72,18 +72,18 @@ test.describe('Space save/load persistence', () => {
       const canvas: Locator = page.locator('canvas');
       await page.getByLabel('Spaces').selectOption(sceneName);
 
-      await waitUntilReady(page);
+      await waitUntilReady('WAIT_PAGE_LOAD', page);
 
       await page.getByRole('button', { name: 'Change' }).click();
-      await waitUntilReady(page);
+      await waitUntilReady('CLICKED_CHANGE', page);
 
       const bufferA = await canvas.screenshot();
 
       await page.getByRole('button', { name: 'Save' }).click();
-      await waitUntilReady(page);
+      await waitUntilReady('CLICKED_SAVE', page);
       await page.getByRole('button', { name: 'Drop' }).click();
       await page.getByRole('button', { name: 'Load' }).click();
-      await waitUntilReady(page);
+      await waitUntilReady('CLICKED_LOAD', page);
 
       const bufferB = await canvas.screenshot();
 
@@ -100,13 +100,16 @@ test.describe('Space save/load persistence', () => {
   });
 });
 
-export async function waitUntilReady(page: Page, timeout: number = 1000, delay: number = 500): Promise<void> {
+export async function waitUntilReady(actionName: string, page: Page, timeout: number = 1000): Promise<void> {
   await page.waitForFunction(
-    (): boolean | undefined => {
+    ({ actionName }): boolean | undefined => {
+      console.log(`XXX [E2E] is ${actionName} ready: `, (window as any)._isReady);
       const body: HTMLBodyElement | null = document.querySelector('body');
-      return body?.classList.contains('ready') && !body?.classList.contains('await');
+      const loaded: boolean = !!body?.classList.contains('ready');
+      const isReady: boolean = !!(window as any)._isReady;
+      return loaded && isReady;
     },
-    { timeout }
+    { timeout, actionName }
   );
-  await page.waitForTimeout(delay);
+  await page.waitForTimeout(500);
 }
