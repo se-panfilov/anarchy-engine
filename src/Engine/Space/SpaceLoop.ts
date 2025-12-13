@@ -18,7 +18,7 @@ export function spaceLoop(
   controlsRegistry: TControlsRegistry,
   physicsWorldService: TPhysicsWorldService
 ): void {
-  if (isDefined(physicsWorldService.getWorld())) physicsWorldService.step();
+  if (isDefined(physicsWorldService.getWorld()) && physicsWorldService.isAutoUpdate()) physicsWorldService.step();
 
   if (isDefined(activeCamera)) {
     renderer.entity.render(activeScene.entity, activeCamera.entity);

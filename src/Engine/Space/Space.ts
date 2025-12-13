@@ -53,7 +53,10 @@ export function buildSpaceFromConfig(canvas: TAppCanvas, config: TSpaceConfig): 
     textService
   } = services;
 
-  if (isDefined(physics.global)) physicsWorldService.createWorld(physics.global);
+  if (isDefined(physics.global)) {
+    physicsWorldService.createWorld(physics.global);
+    physicsWorldService.shouldAutoUpdate(physics.isAutoUpdate ?? true);
+  }
   if (isDefined(physics.presets)) physicsPresetService.addPresetsFromConfig(physics.presets);
 
   cameraService.createFromConfig(cameras);

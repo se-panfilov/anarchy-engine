@@ -12,6 +12,7 @@ import type { TVector3Wrapper } from '@/Engine/Vector';
 
 export function PhysicsWorldService(scene: TSceneWrapper): TPhysicsWorldService {
   let world: World | undefined;
+  let _isAutoUpdate: boolean = true;
 
   function createWorld({
     gravity,
@@ -76,6 +77,8 @@ export function PhysicsWorldService(scene: TSceneWrapper): TPhysicsWorldService 
     setGravity,
     getScene: (): TSceneWrapper => scene,
     step,
+    isAutoUpdate: (): boolean => _isAutoUpdate,
+    shouldAutoUpdate: (value: boolean): void => void (_isAutoUpdate = value),
     ...destroyable
   };
 }
