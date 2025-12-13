@@ -12,5 +12,5 @@ export type TGuiButtonState = {
   isActive: boolean;
   i18n: string;
   key: KeyCode | KeysExtra | MouseButtonValue | undefined;
-  button: FunctionalComponent;
+  icon: FunctionalComponent;
 };
