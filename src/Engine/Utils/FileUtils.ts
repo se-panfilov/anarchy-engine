@@ -2,7 +2,7 @@ import { FileSizes } from '@/Engine/Files';
 
 import { isDefined } from './CheckUtils';
 
-export function getHumanReadableFileSize(bytes: number, decimals: number = 2): string {
+export function getHumanReadableMemorySize(bytes: number, decimals: number = 2): string {
   if (!+bytes) return '0 Bytes';
   const k: number = 1024;
   const dm: number = decimals < 0 ? 0 : decimals;
