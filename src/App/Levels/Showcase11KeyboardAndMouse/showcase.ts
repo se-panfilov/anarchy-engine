@@ -19,16 +19,6 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
   const { findByName, findByTag, findByTags } = actorRegistry;
   const { onKey } = keyboardService;
 
-  // const sceneW: TSceneWrapper | undefined = scenesService.findActive();
-  // if (isNotDefined(sceneW)) throw new Error('Scene is not defined');
-
-  // const models3dRegistry: TModel3dRegistry = models3dService.getRegistry();
-  // const planeModel3dF: TModel3dFacade | undefined = models3dRegistry.findByName('surface_model');
-  // if (isNotDefined(planeModel3dF)) throw new Error('Plane model is not defined');
-
-  // sceneW.addModel3d(planeModel3dF.getModel());
-
-  // TODO 9.0.0. RESOURCES: Actors that has the same modelSource should clone the model3d
   function init(): void {
     const actorKeyboard: TActorWrapper | undefined = findByTag('keyboard');
     const actorMouse: TActorWrapper | undefined = findByTag('mouse');
