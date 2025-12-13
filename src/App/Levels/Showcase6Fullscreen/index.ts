@@ -13,7 +13,7 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
     const actor: IActorWrapperAsync = await actorRegistry.getUniqByTagAsync('sphere');
     actor.setY(2);
 
-    mouseService.click$.subscribe(() => {
+    mouseService.clickLeftRelease$.subscribe(() => {
       void screenService.toggleFullScreen();
     });
 

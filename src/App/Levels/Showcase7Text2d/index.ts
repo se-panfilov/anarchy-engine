@@ -76,7 +76,7 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
     loop: true
   };
 
-  mouseService.click$.subscribe(() => {
+  mouseService.clickLeftRelease$.subscribe(() => {
     void standardMoverService.goByPath(floatingText, circlePathXZ, { ...animationParams, easing: Easing.Linear });
     setTimeout(() => {
       void standardMoverService.goByPath(floatingText2, circlePathXZ2, { ...animationParams, easing: Easing.Linear });

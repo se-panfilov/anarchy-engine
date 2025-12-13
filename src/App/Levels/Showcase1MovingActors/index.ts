@@ -33,7 +33,7 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
       console.log('intersect obj', obj);
     });
 
-    mouseService.click$.subscribe((): void => {
+    mouseService.clickLeftRelease$.subscribe((): void => {
       console.log('int click:');
     });
 

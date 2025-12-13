@@ -1,7 +1,7 @@
 import type { MouseButtonValue, MouseEventType, MouseWheelValue } from '@/Engine/Mouse/Constants';
 
 export type IMouseWatcherEvent = Readonly<{
-  eventType: MouseEventType;
+  type: MouseEventType;
   value: MouseButtonValue | MouseWheelValue;
   button: number;
   x: number;

@@ -1,5 +1,5 @@
 import type { IShowcase } from '@/App/Levels/Models';
-import type { IActorWrapperAsync, IAppCanvas, ILevel, ILevelConfig, IMousePosition } from '@/Engine';
+import type { IActorWrapperAsync, IAppCanvas, ILevel, ILevelConfig, IMouseWatcherEvent } from '@/Engine';
 import { buildLevelFromConfig, mouseService } from '@/Engine';
 
 import levelConfig from './showcase-11-keyboard-and-mouse.json';
@@ -13,13 +13,12 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
     const actorKeyboard: IActorWrapperAsync = await actorRegistry.getUniqByTagAsync('keyboard');
     const actorMouse: IActorWrapperAsync = await actorRegistry.getUniqByTagAsync('mouse');
 
-    // mouseService.position$.subscribe((pos: IMousePosition) => {
-    //   console.log('position', pos);
-    // });
-
-    mouseService.click$.subscribe((): void => {
-      console.log('click');
-    });
+    mouseService.clickLeftRelease$.subscribe((event: IMouseWatcherEvent): void => console.log('click left', event));
+    mouseService.clickRightRelease$.subscribe((event: IMouseWatcherEvent): void => console.log('click right', event));
+    mouseService.clickMiddleRelease$.subscribe((event: IMouseWatcherEvent): void => console.log('click middle', event));
+    mouseService.clickBackRelease$.subscribe((event: IMouseWatcherEvent): void => console.log('click back', event));
+    mouseService.clickForwardRelease$.subscribe((event: IMouseWatcherEvent): void => console.log('click forward', event));
+    mouseService.clickExtraRelease$.subscribe((event: IMouseWatcherEvent): void => console.log('click extra', event));
   }
 
   function start(): void {

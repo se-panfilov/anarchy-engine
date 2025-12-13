@@ -54,7 +54,7 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
       });
     });
 
-    mouseService.click$.subscribe(() => {
+    mouseService.clickLeftRelease$.subscribe(() => {
       if (isClickBlocked) {
         console.log('click is blocked');
         isClickBlocked = false;

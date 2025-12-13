@@ -48,8 +48,8 @@ export function getMouseEventType(e: MouseEvent | WheelEvent): MouseEventType | 
 export const getMouseWheelValue = (button: number): MouseWheelValue => (button === 0 ? MouseWheelValue.WheelUp : MouseWheelValue.WheelDown);
 
 export function getMouseWatcherEvent(e: MouseEvent | WheelEvent): IMouseWatcherEvent {
-  const eventType: MouseEventType = getMouseEventType(e);
-  const value: MouseButtonValue | MouseWheelValue = eventType === MouseEventType.Wheel ? getMouseWheelValue(e.button) : getMouseButtonValue(e.button);
+  const type: MouseEventType = getMouseEventType(e);
+  const value: MouseButtonValue | MouseWheelValue = type === MouseEventType.Wheel ? getMouseWheelValue(e.button) : getMouseButtonValue(e.button);
 
-  return { eventType, value, button: e.button, x: e.clientX, y: e.clientY };
+  return { type, value, button: e.button, x: e.clientX, y: e.clientY };
 }

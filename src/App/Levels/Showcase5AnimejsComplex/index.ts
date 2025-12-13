@@ -73,7 +73,7 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
       tags: []
     });
 
-    mouseService.click$.subscribe(() => {
+    mouseService.clickLeftRelease$.subscribe(() => {
       if (isClickBlocked) {
         redActor.setVisible(false);
         notification.setVisible(true);
