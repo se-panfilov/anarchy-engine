@@ -36,6 +36,7 @@ export function Actor(
   // TODO 8.0.0. MODELS: Replace all rotations with Quaternions (kill TEulerLike)
   // TODO 8.0.0. MODELS: close all issues (todoes) with tag 8.0.0
   // TODO 8.0.0. MODELS: close all issues (todoes) with tag 9.2.0
+  // TODO 8.0.0. MODELS: make sure animations are working with actors & models
 
   const entities: TActorEntities = {
     drive,
