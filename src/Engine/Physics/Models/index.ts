@@ -13,6 +13,7 @@ export * from './TPhysicsGlobalConfig';
 export * from './TPhysicsGlobalParams';
 export * from './TPhysicsGlobalProps';
 export * from './TPhysicsParams';
+export * from './TPhysicsPresetParams';
 export * from './TPhysicsPresetRegistry';
 export * from './TPhysicsPresetsService';
 export * from './TPhysicsProps';

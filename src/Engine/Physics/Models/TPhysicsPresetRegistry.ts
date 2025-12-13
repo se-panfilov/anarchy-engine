@@ -1,5 +1,5 @@
 import type { TAbstractSimpleRegistry, TProtectedRegistry } from '@/Engine/Abstract';
 
-import type { TPhysicsBodyParams } from './TPhysicsBodyParams';
+import type { TPhysicsPresetParams } from './TPhysicsPresetParams';
 
-export type TPhysicsPresetRegistry = TProtectedRegistry<TAbstractSimpleRegistry<TPhysicsBodyParams>>;
+export type TPhysicsPresetRegistry = TProtectedRegistry<TAbstractSimpleRegistry<TPhysicsPresetParams>>;

@@ -4,7 +4,7 @@ import { ActorType } from '@/Engine/Actor/Constants';
 import type { TActorDependencies, TActorParams } from '@/Engine/Actor/Models';
 import type { TMaterials, TMaterialWrapper } from '@/Engine/Material';
 import { meters } from '@/Engine/Measurements/Utils';
-import type { TPhysicsBodyFacade, TPhysicsBodyParams, TPhysicsPresetRegistry, TWithPresetPhysicsBodyParams } from '@/Engine/Physics';
+import type { TPhysicsBodyFacade, TPhysicsBodyParams, TPhysicsPresetParams, TPhysicsPresetRegistry, TWithPresetPhysicsBodyParams } from '@/Engine/Physics';
 import type { TMesh } from '@/Engine/ThreeLib';
 import { isDefined, isNotDefined } from '@/Engine/Utils';
 
@@ -42,7 +42,8 @@ export function createPhysicsBody(
   { physicsBodyService, physicsPresetService }: Pick<TActorDependencies, 'physicsBodyService' | 'physicsPresetService'>
 ): TPhysicsBodyFacade {
   const { presetName, ...rest } = physics;
-  let presetFromRegistry: TPhysicsBodyParams | undefined;
+  let presetFromRegistry: TPhysicsPresetParams | undefined;
+
   if (isDefined(presetName)) {
     const physicsPresetRegistry: TPhysicsPresetRegistry = physicsPresetService.getRegistry();
     // TODO (S.Panfilov) findByKey?
@@ -52,6 +53,8 @@ export function createPhysicsBody(
 
   let fullParams: TPhysicsBodyParams = { ...rest } as TPhysicsBodyParams;
   if (isDefined(presetFromRegistry)) fullParams = { ...fullParams, ...presetFromRegistry };
+
+  // TODO (S.Panfilov) should test params that they do have mandatory fields
 
   // TODO (S.Panfilov) CWP here we build somehow (we need a factory and a registry),
   //  next we have to attach it to the actor and put to physics objects registry
