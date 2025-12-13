@@ -1,6 +1,6 @@
 import type { IActorRegistry, ICameraRegistry, IControlsRegistry, ILightRegistry } from '@Engine/Registries';
 
-export type IRegistriesPool = Readonly<{
+export type IRegistries = Readonly<{
   actorRegistry: IActorRegistry;
   cameraRegistry: ICameraRegistry;
   lightRegistry: ILightRegistry;

@@ -1,28 +1,19 @@
-import type { IMousePosition, ISceneObject, IVector3 } from '@Engine/Models';
+import type { IDestroyable, IMousePosition, ISceneObject, IVector3 } from '@Engine/Models';
 import { getNormalizedMousePosition, isNotDefined, unWrapEntities } from '@Engine/Utils';
 import type { IActorWrapper, ICameraWrapper } from '@Engine/Wrappers';
 import { Raycaster } from 'three';
 
 export type IntersectionsService = Readonly<{
-  getIntersection: (
-    position: IMousePosition,
-    cameraWrapper: ICameraWrapper,
-    actors: ReadonlyArray<IActorWrapper>
-  ) => IVector3 | undefined | never;
-  destroy: () => void;
+  getIntersection: (position: IMousePosition, cameraWrapper: ICameraWrapper, actors: ReadonlyArray<IActorWrapper>) => IVector3 | undefined | never;
   reset: () => void;
-}>;
+}> &
+  IDestroyable;
 
 export function IntersectionsService(): IntersectionsService {
   let raycaster: Readonly<Raycaster> | undefined = new Raycaster();
 
-  function getIntersection(
-    position: IMousePosition,
-    cameraWrapper: ICameraWrapper,
-    actors: ReadonlyArray<IActorWrapper>
-  ): IVector3 | undefined | never {
-    if (isNotDefined(raycaster))
-      throw new Error('Intersections service: cannot get intersection: a raycaster is not defined.');
+  function getIntersection(position: IMousePosition, cameraWrapper: ICameraWrapper, actors: ReadonlyArray<IActorWrapper>): IVector3 | undefined | never {
+    if (isNotDefined(raycaster)) throw new Error('Intersections service: cannot get intersection: a raycaster is not defined.');
     raycaster.setFromCamera(getNormalizedMousePosition(position), cameraWrapper.entity);
     const entitiesList: ReadonlyArray<ISceneObject> = unWrapEntities(actors);
     const intersectObj = raycaster.intersectObjects([...entitiesList])[0];

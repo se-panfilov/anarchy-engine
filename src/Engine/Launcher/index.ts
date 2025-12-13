@@ -1,49 +1,75 @@
 import { CameraTag, LoopTag, RendererTag } from '@Engine/Constants';
 import { addToRegistry } from '@Engine/Launcher/AddToRegistry';
 import type { ISceneConfig } from '@Engine/Launcher/Models';
-import type { IAppCanvas, IStartedScene } from '@Engine/Models';
-import { IProtectedRegistry } from '@Engine/Models';
-import { initRegistriesAddSubscription } from '@Engine/Pool/GetRegistiryPool';
-import type { IFactoriesPool, IRegistriesPool } from '@Engine/Pool/Models';
+import type { IAppCanvas, ISceneLauncher, IStartedScene } from '@Engine/Models';
+import type { IRegistryPool, ISceneFactories, ISceneFactoryPool } from '@Engine/Pool';
+import { RegistryPool } from '@Engine/Pool';
+import type { IFactories, IRegistries } from '@Engine/Pool/Models';
+import { SceneFactoriesPool } from '@Engine/Pool/SceneFactoriesPool';
 import { isNotDefined } from '@Engine/Utils';
 import type { ICameraWrapper, ILoopWrapper, IRendererWrapper, ISceneWrapper } from '@Engine/Wrappers';
+import { BehaviorSubject } from 'rxjs';
 
-export function launchScene(
-  sceneConfig: ISceneConfig,
-  canvas: IAppCanvas,
-  factoriesPool: IFactoriesPool,
-  registryPool: IRegistriesPool
-): IStartedScene {
+export function SceneLauncher(sceneConfig: ISceneConfig, canvas: IAppCanvas, factories: IFactories): ISceneLauncher {
   const { name: sceneName, actors, cameras, lights, controls, tags: sceneTags } = sceneConfig;
-  const { actorFactory, cameraFactory, lightFactory, controlsFactory, rendererFactory, sceneFactory, loopFactory } =
-    factoriesPool;
-  const { actorRegistry, cameraRegistry, lightRegistry, controlsRegistry } = registryPool;
 
-  const scene: ISceneWrapper = sceneFactory.create({ name: sceneName, tags: sceneTags });
+  const prepared$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  const launched$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  const destroyed$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
-  initRegistriesAddSubscription(scene, registryPool);
+  let registryPool: IRegistryPool;
+  let sceneFactoriesPool: ISceneFactoryPool;
+  let sceneFactories: ISceneFactories;
+  let registries: IRegistries;
+  let scene: ISceneWrapper;
+  let renderer: IRendererWrapper;
+  let loop: ILoopWrapper;
 
-  addToRegistry(actors, actorFactory, actorRegistry);
-  addToRegistry(cameras, cameraFactory, cameraRegistry);
-  addToRegistry(lights, lightFactory, lightRegistry);
-  addToRegistry(controls, controlsFactory, controlsRegistry);
+  function prepare(): void {
+    registryPool = RegistryPool();
+    registries = registryPool.init();
+    sceneFactoriesPool = SceneFactoriesPool({ canvas, cameraRegistry: registries.cameraRegistry });
+    sceneFactories = sceneFactoriesPool.init();
+    prepared$.next(true);
+  }
 
-  // TODO (S.Panfilov) everything below should be extracted from the launchScene()
-  const renderer: IRendererWrapper = rendererFactory.create({ canvas, tags: [RendererTag.Main] });
+  function launch(): IStartedScene {
+    if (!prepared$.value) prepare();
 
-  const loop: ILoopWrapper = loopFactory.create({ tags: [LoopTag.Main] });
-  const initialCamera: ICameraWrapper | undefined = cameraRegistry.getUniqWithTag([CameraTag.Initial]);
-  if (isNotDefined(initialCamera))
-    throw new Error(`Cannot start the main loop for the scene ${sceneName}: initial camera is not defined`);
-  loop.start(renderer, scene, initialCamera);
+    const { actorFactory, cameraFactory, lightFactory, rendererFactory, sceneFactory, loopFactory } = factories;
+    const { actorRegistry, cameraRegistry, lightRegistry, controlsRegistry } = registries;
+    const { controlsFactory } = sceneFactories;
+    scene = sceneFactory.create({ name: sceneName, tags: sceneTags });
+
+    registryPool.startAddSubscription(scene);
+
+    addToRegistry(actors, actorFactory, actorRegistry);
+    addToRegistry(cameras, cameraFactory, cameraRegistry);
+    addToRegistry(lights, lightFactory, lightRegistry);
+    addToRegistry(controls, controlsFactory, controlsRegistry);
+
+    // TODO (S.Panfilov) everything below should be extracted from the launchScene()
+    const renderer: IRendererWrapper = rendererFactory.create({ canvas, tags: [RendererTag.Main] });
+
+    const loop: ILoopWrapper = loopFactory.create({ tags: [LoopTag.Main] });
+    const initialCamera: ICameraWrapper | undefined = cameraRegistry.getUniqWithTag([CameraTag.Initial]);
+    if (isNotDefined(initialCamera)) throw new Error(`Cannot start the main loop for the scene ${sceneName}: initial camera is not defined`);
+    loop.start(renderer, scene, initialCamera);
+
+    launched$.next(true);
+    return { loop, renderer, registryPool, sceneFactories };
+  }
 
   function destroy(): void {
-    // TODO (S.Panfilov) any
-    Object.values(registryPool).forEach((registry: IProtectedRegistry<any>): void => registry.destroy());
+    prepared$.complete();
+    launched$.complete();
+    destroyed$.complete();
+    registryPool.destroy();
+    sceneFactoriesPool.destroy();
     loop.destroy();
     renderer.destroy();
     scene.destroy();
   }
 
-  return { loop, renderer, registryPool, canvas, destroy };
+  return { prepare, launch, destroy, prepared$, launched$, destroyed$ };
 }

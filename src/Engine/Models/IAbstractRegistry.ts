@@ -1,4 +1,4 @@
-import type { IWrapper } from '@Engine/Models';
+import type { IDestroyable, IWrapper } from '@Engine/Models';
 import type { Subject } from 'rxjs';
 
 export type IAbstractRegistry<T extends IWrapper<unknown>> = Readonly<{
@@ -13,5 +13,5 @@ export type IAbstractRegistry<T extends IWrapper<unknown>> = Readonly<{
   getUniqWithTag: (tags: ReadonlyArray<string>, shouldMuchEveryTag?: boolean) => T | undefined | never;
   remove: (id: string) => void;
   removed$: Subject<T>;
-  destroy: () => void;
-}>;
+}> &
+  IDestroyable;
