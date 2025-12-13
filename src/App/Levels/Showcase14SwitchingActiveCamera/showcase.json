@@ -60,16 +60,14 @@
         "rotation": { "x": -1.57, "y": 0, "z": 0 },
         "castShadow": false,
         "receiveShadow": true,
-        "spatial": { "grid": "main_grid", "isAutoUpdate": true },
-        "tags": ["surface"]
+        "spatial": { "grid": "main_grid", "isAutoUpdate": true }
       },
       {
         "name": "sphere_actor",
         "model3dEntity": "sphere_model",
         "position": { "x": 0, "y": 2, "z": 0 },
         "castShadow": true,
-        "spatial": { "grid": "main_grid", "isAutoUpdate": true },
-        "tags": ["physical", "glass"]
+        "spatial": { "grid": "main_grid", "isAutoUpdate": true }
       }
     ],
     "intersections": [],

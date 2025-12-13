@@ -8,77 +8,37 @@
       "isActive": true
     }
   ],
-  "spatialGrids": [
-    {
-      "name": "main_grid",
-      "mapWidth": 60,
-      "mapHeight": 40,
-      "cellSize": 10,
-      "centerX": 0,
-      "centerZ": 0,
-      "tags": []
-    }
-  ],
-  "actors": [
-    {
-      "name": "surface",
-      "width": 60,
-      "height": 40,
-      "widthSegments": 1,
-      "heightSegments": 1,
-      "material": { "type": "standard", "params": { "color": "#5EDCAE" } },
-      "model3d": {
-        "url": "plane"
-      },
-      "position": { "x": 0, "y": -4, "z": 0 },
-      "rotation": { "x": -1.57, "y": 0, "z": 0 },
-      "castShadow": false,
-      "spatial": { "grid": "main_grid", "isAutoUpdate": false },
-      "tags": []
-    },
-    {
-      "name": "textile",
-      "model3d": {
-        "url": "sphere"
-      },
-      "width": 1,
-      "height": 1,
-      "radius": 0.7,
-      "position": { "x": 0, "y": 0, "z": 0 },
-      "widthSegments": 64,
-      "heightSegments": 64,
-      "castShadow": true,
-      "material": {
+  "resources": {
+    "textures": [
+      { "name": "textile_ao_map_texture", "url": "/Showcase/Dirty_Carpet/dirty_carpet_ao_1k.jpg" },
+      { "name": "textile_map_texture", "url": "/Showcase/Dirty_Carpet/dirty_carpet_diff_1k.jpg" },
+      { "name": "textile_normal_map_texture", "url": "/Showcase/Dirty_Carpet/dirty_carpet_nor_dx_1k.jpg" },
+      { "name": "textile_displacement_map_texture", "url": "/Showcase/Dirty_Carpet/dirty_carpet_disp_1k.png" },
+      { "name": "textile_roughness_map_texture", "url": "/Showcase/Dirty_Carpet/dirty_carpet_rough_1k.jpg" },
+      { "name": "particles_alpha_map_texture", "url": "/Showcase/particles/2.png" }
+    ],
+    "envMaps": [],
+    "materials": [
+      { "name": "surface_material", "type": "standard", "options": { "color": "#5EDCAE" } },
+      { "name": "sphere_material", "type": "standard", "options": { "color": "#E91E63" } },
+      {
+        "name": "textile_material",
         "type": "physical",
-        "params": {
+        "options": {
           "displacementScale": 0.1
         },
         "textures": {
-          "aoMap": { "url": "/Showcase/Dirty_Carpet/dirty_carpet_ao_1k.jpg" },
-          "map": { "url": "/Showcase/Dirty_Carpet/dirty_carpet_diff_1k.jpg" },
-          "normalMap": { "url": "/Showcase/Dirty_Carpet/dirty_carpet_nor_dx_1k.jpg" },
-          "displacementMap": { "url": "/Showcase/Dirty_Carpet/dirty_carpet_disp_1k.png" },
-          "roughnessMap": { "url": "/Showcase/Dirty_Carpet/dirty_carpet_rough_1k.jpg" }
+          "aoMap": "textile_ao_map_texture",
+          "map": "textile_map_texture",
+          "normalMap": "textile_normal_map_texture",
+          "displacementMap": "textile_displacement_map_texture",
+          "roughnessMap": "textile_roughness_map_texture"
         }
       },
-      "spatial": { "grid": "main_grid", "isAutoUpdate": false },
-      "tags": []
-    },
-    {
-      "name": "glass",
-      "model3d": {
-        "url": "sphere"
-      },
-      "width": 1,
-      "height": 1,
-      "radius": 0.7,
-      "position": { "x": 0, "y": 2, "z": 0 },
-      "widthSegments": 64,
-      "heightSegments": 64,
-      "castShadow": true,
-      "material": {
+      {
+        "name": "glass_material",
         "type": "physical",
-        "params": {
+        "options": {
           "clearcoat": 0.8,
           "clearcoatRoughness": 0.09,
           "displacementScale": 0.1,
@@ -91,58 +51,10 @@
           "thickness": 0.5
         }
       },
-      "spatial": { "grid": "main_grid", "isAutoUpdate": false },
-      "tags": ["physical", "glass"]
-    }
-  ],
-  "models3d": [],
-  "intersections": [],
-  "physics": {},
-  "texts": [],
-  "cameras": [
-    {
-      "fov": 45,
-      "name": "main",
-      "near": 1,
-      "far": 10000,
-      "position": { "x": 3, "y": 20, "z": 35 },
-      "rotation": { "x": 0, "y": 0, "z": 0 },
-      "tags": [],
-      "isActive": true
-    }
-  ],
-  "lights": [
-    {
-      "type": "Directional",
-      "color": "#ffffff",
-      "intensity": 1,
-      "castShadow": true,
-      "shadow": {
-        "mapSize": { "x": 1024, "y": 1024 },
-        "camera": { "far": 15 },
-        "normalBias": 0.05
-      },
-      "position": { "x": 0.25, "y": 2, "z": 2.25 },
-      "tags": []
-    }
-  ],
-  "controls": [
-    {
-      "type": "OrbitControls",
-      "cameraName": "main",
-      "enableDamping": true,
-      "tags": [],
-      "isActive": true
-    }
-  ],
-  "envMaps": [],
-  "particles": [
-    {
-      "name": "bubbles",
-      "position": { "x": 0, "y": 6, "z": 0 },
-      "material": {
+      {
+        "name": "particles_material",
         "type": "points",
-        "params": {
+        "options": {
           "color": "#E91E63",
           "size": 0.5,
           "sizeAttenuation": true,
@@ -152,12 +64,127 @@
           "vertexColors": false
         },
         "textures": {
-          "alphaMap": { "url": "/Showcase/particles/2.png" }
+          "alphaMap": "particles_alpha_map_texture"
         }
+      }
+    ],
+    "models3d": []
+  },
+  "entities": {
+    "spatialGrids": [
+      {
+        "name": "main_grid",
+        "mapWidth": 60,
+        "mapHeight": 40,
+        "cellSize": 10,
+        "centerX": 0,
+        "centerZ": 0,
+        "tags": []
+      }
+    ],
+    "models3d": [
+      {
+        "name": "surface_model",
+        "model3dSource": "plane",
+        "materialSource": "surface_material",
+        "options": {
+          "width": 60,
+          "height": 40,
+          "widthSegments": 1,
+          "heightSegments": 1
+        },
+        "castShadow": false,
+        "receiveShadow": true
       },
-      "tags": []
-    }
-  ],
-  "fogs": [],
+      {
+        "name": "sphere_textile_model",
+        "model3dSource": "sphere",
+        "materialSource": "textile_material",
+        "options": { "radius": 0.7 },
+        "castShadow": true
+      },
+      {
+        "name": "sphere_glass_model",
+        "model3dSource": "sphere",
+        "materialSource": "glass_material",
+        "options": { "radius": 0.7 },
+        "castShadow": true
+      }
+    ],
+    "actors": [
+      {
+        "name": "surface_actor",
+        "model3dEntity": "surface_model",
+        "position": { "x": 0, "y": -4, "z": 0 },
+        "rotation": { "x": -1.57, "y": 0, "z": 0 },
+        "castShadow": false,
+        "receiveShadow": true,
+        "spatial": { "grid": "main_grid", "isAutoUpdate": true }
+      },
+      {
+        "name": "textile_actor",
+        "model3dEntity": "sphere_textile_model",
+        "position": { "x": 0, "y": 0, "z": 0 },
+        "castShadow": true,
+        "spatial": { "grid": "main_grid", "isAutoUpdate": true }
+      },
+      {
+        "name": "glass_actor",
+        "model3dEntity": "sphere_glass_model",
+        "position": { "x": 0, "y": 2, "z": 0 },
+        "castShadow": true,
+        "spatial": { "grid": "main_grid", "isAutoUpdate": true }
+      }
+    ],
+    "intersections": [],
+    "physics": {},
+    "texts": [],
+    "cameras": [
+      {
+        "fov": 45,
+        "name": "main",
+        "near": 1,
+        "far": 10000,
+        "position": { "x": 3, "y": 20, "z": 35 },
+        "rotation": { "x": 0, "y": 0, "z": 0 },
+        "tags": [],
+        "isActive": true
+      }
+    ],
+    "lights": [
+      {
+        "type": "Directional",
+        "color": "#ffffff",
+        "intensity": 1,
+        "castShadow": true,
+        "shadow": {
+          "mapSize": { "x": 1024, "y": 1024 },
+          "camera": { "far": 15 },
+          "normalBias": 0.05
+        },
+        "position": { "x": 0.25, "y": 2, "z": 2.25 },
+        "tags": []
+      }
+    ],
+    "controls": [
+      {
+        "type": "OrbitControls",
+        "cameraName": "main",
+        "enableDamping": true,
+        "tags": [],
+        "isActive": true
+      }
+    ],
+    "envMaps": [],
+    "particles": [
+      {
+        "name": "bubbles",
+        "position": { "x": 0, "y": 6, "z": 0 },
+        "material": "particles_material",
+        "tags": []
+      }
+    ],
+    "fogs": []
+  },
   "tags": []
 }
