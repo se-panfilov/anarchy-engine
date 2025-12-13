@@ -1,4 +1,4 @@
-import { ShowcasesLocales } from '@Showcases/i18n';
+import { InitialLocale } from '@Showcases/i18n';
 import type { TShowcaseGameSettings } from '@Showcases/Shared/Models';
 
 export const DefaultShowcaseGameSettings: TShowcaseGameSettings = {
@@ -12,7 +12,7 @@ export const DefaultShowcaseGameSettings: TShowcaseGameSettings = {
     masterVolume: 80
   },
   localization: {
-    locale: ShowcasesLocales['en-US']
+    locale: InitialLocale
   },
   debug: {
     isDebugMode: false
