@@ -39,7 +39,7 @@ export function Driver(): TPlatformDriver {
     const settings: TShowcaseGameSettings | undefined = await settingsWebDbService.findSettings();
     if (isDefined(settings)) return settings;
 
-    console.log(`[WEB] Settings not found. Applying default settings.`);
+    console.warn(`[WEB] Settings not found. Applying default settings.`);
     const defaultSettings: TShowcaseGameSettings = await buildDefaultSettings();
     await setAppSettings(defaultSettings);
     return defaultSettings;
@@ -89,9 +89,8 @@ export function Driver(): TPlatformDriver {
     return Promise.resolve();
   }
 
-  function setAppSettings(settings: TShowcaseGameSettings): Promise<void> {
-    console.log('XXX [WEB]', 'setAppSettings', settings);
-    return Promise.resolve();
+  async function setAppSettings(settings: TShowcaseGameSettings): Promise<void> {
+    return settingsWebDbService.setSettings(settings);
   }
 
   return {
