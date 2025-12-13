@@ -1,141 +1,212 @@
 {
-  "name": "showcase",
-  "version": "1.0.0",
-  "scenes": [
-    {
-      "name": "showcase",
-      "background": "#A0A0A0",
-      "isActive": true
-    }
-  ],
-  "resources": {
-    "textures": [],
-    "envMaps": [],
-    "materials": [
-      { "name": "surface_material", "type": "phong", "options": { "color": "#CBCBCB", "depthWrite": false } },
-      { "name": "sphere_material", "type": "standard", "options": { "color": "#E91E63" } }
-    ],
-    "models3d": [{ "name": "mutant_model", "url": "/Showcase/Models/Mutant/Mutant.glb" }],
-    "audio": [],
-    "animations": []
-  },
   "entities": {
-    "spatialGrids": [
-      {
-        "name": "main_grid",
-        "mapWidth": 100,
-        "mapHeight": 100,
-        "cellSize": 10,
-        "centerX": 0,
-        "centerZ": 0
-      }
-    ],
-    "models3d": [
-      {
-        "name": "surface_model",
-        "model3dSource": "plane",
-        "materialSource": "surface_material",
-        "options": {
-          "width": 100,
-          "height": 100,
-          "widthSegments": 1,
-          "heightSegments": 1
-        },
-        "castShadow": false,
-        "receiveShadow": true,
-        "position": { "x": 0, "y": 0, "z": 0 },
-        "rotation": { "x": -1.57, "y": 0, "z": 0 }
-      },
-      {
-        "name": "mutant_model_entity_1",
-        "model3dSource": "mutant_model",
-        "position": { "x": 0, "y": 0, "z": 0 },
-        "castShadow": true
-      }
-    ],
     "actors": [
       {
-        "name": "surface_actor",
-        "model3dSource": "surface_model",
         "agent": "physical",
-        "position": { "x": 0, "y": 0, "z": 0 },
-        "rotation": { "x": -1.57, "y": 0, "z": 0 },
-        "spatial": { "grid": "main_grid", "isAutoUpdate": true }
-      },
-      {
-        "name": "mutant_actor_1",
-        "model3dSource": "mutant_model_entity_1",
-        "agent": "default",
-        "position": { "x": 0, "y": 0, "z": 0 },
-        "rotation": { "x": 0, "y": 3.14, "z": 0 },
-        "spatial": { "grid": "main_grid", "isAutoUpdate": true }
-      }
-    ],
-    "physics": {},
-    "intersections": [],
-    "texts": [],
-    "cameras": [
-      {
-        "fov": 45,
-        "name": "main_camera",
-        "near": 1,
-        "far": 100,
-        "position": { "x": -0.58, "y": 1.2, "z": -3.93 },
-        "rotation": { "x": 0, "y": 3.14, "z": 0 },
-        "isActive": true
-      }
-    ],
-    "lights": [
-      {
-        "name": "dir_light",
-        "type": "Directional",
-        "color": "#ffffff",
-        "intensity": 3,
-        "castShadow": true,
-        "position": { "x": -3, "y": 10, "z": -10 },
-        "shadow": {
-          "mapSize": { "x": 2048, "y": 2048 },
-          "normalBias": 0.05,
-          "camera": {
-            "top": 10,
-            "bottom": -10,
-            "left": -10,
-            "right": 10,
-            "near": 0.1,
-            "far": 40
-          }
+        "model3dSource": "surface_model",
+        "name": "surface_actor",
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "rotation": {
+          "x": -1.57,
+          "y": 0,
+          "z": 0
+        },
+        "spatial": {
+          "grid": "main_grid",
+          "isAutoUpdate": true
         }
       },
       {
-        "name": "ambient_light",
-        "type": "Hemisphere",
-        "color": "#FFFFFF",
-        "groundColor": "#8D8D8D",
-        "position": { "x": 0, "y": 20, "z": 0 },
-        "intensity": 3
+        "agent": "default",
+        "model3dSource": "mutant_model_entity_1",
+        "name": "mutant_actor_1",
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "rotation": {
+          "x": 0,
+          "y": 3.14,
+          "z": 0
+        },
+        "spatial": {
+          "grid": "main_grid",
+          "isAutoUpdate": true
+        }
+      }
+    ],
+    "audio": [],
+    "cameras": [
+      {
+        "far": 100,
+        "fov": 45,
+        "isActive": true,
+        "name": "main_camera",
+        "near": 1,
+        "position": {
+          "x": -0.58,
+          "y": 1.2,
+          "z": -3.93
+        },
+        "rotation": {
+          "x": 0,
+          "y": 3.14,
+          "z": 0
+        }
       }
     ],
     "controls": [
       {
-        "type": "FirstPersonControls",
         "cameraName": "main_camera",
+        "isActive": true,
         "lookSpeed": 0.05,
-        "movementSpeed": 3,
         "lookVertical": false,
-        "isActive": true
+        "movementSpeed": 3,
+        "type": "FirstPersonControls"
       }
     ],
     "envMaps": [],
-    "particles": [],
     "fogs": [
       {
         "color": "#A0A0A0",
-        "near": 10,
-        "far": 35
+        "far": 35,
+        "near": 10
       }
     ],
     "fsm": [],
-    "audio": []
+    "intersections": [],
+    "lights": [
+      {
+        "castShadow": true,
+        "color": "#ffffff",
+        "intensity": 3,
+        "name": "dir_light",
+        "position": {
+          "x": -3,
+          "y": 10,
+          "z": -10
+        },
+        "shadow": {
+          "camera": {
+            "bottom": -10,
+            "far": 40,
+            "left": -10,
+            "near": 0.1,
+            "right": 10,
+            "top": 10
+          },
+          "mapSize": {
+            "x": 2048,
+            "y": 2048
+          },
+          "normalBias": 0.05
+        },
+        "type": "Directional"
+      },
+      {
+        "color": "#FFFFFF",
+        "groundColor": "#8D8D8D",
+        "intensity": 3,
+        "name": "ambient_light",
+        "position": {
+          "x": 0,
+          "y": 20,
+          "z": 0
+        },
+        "type": "Hemisphere"
+      }
+    ],
+    "models3d": [
+      {
+        "castShadow": false,
+        "materialSource": "surface_material",
+        "model3dSource": "plane",
+        "name": "surface_model",
+        "options": {
+          "height": 100,
+          "heightSegments": 1,
+          "width": 100,
+          "widthSegments": 1
+        },
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "receiveShadow": true,
+        "rotation": {
+          "x": -1.57,
+          "y": 0,
+          "z": 0
+        }
+      },
+      {
+        "castShadow": true,
+        "model3dSource": "mutant_model",
+        "name": "mutant_model_entity_1",
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        }
+      }
+    ],
+    "particles": [],
+    "physics": {},
+    "spatialGrids": [
+      {
+        "cellSize": 10,
+        "centerX": 0,
+        "centerZ": 0,
+        "mapHeight": 100,
+        "mapWidth": 100,
+        "name": "main_grid"
+      }
+    ],
+    "texts": []
   },
-  "tags": []
+  "name": "showcase",
+  "resources": {
+    "animations": [],
+    "audio": [],
+    "envMaps": [],
+    "materials": [
+      {
+        "name": "surface_material",
+        "options": {
+          "color": "#CBCBCB",
+          "depthWrite": false
+        },
+        "type": "phong"
+      },
+      {
+        "name": "sphere_material",
+        "options": {
+          "color": "#E91E63"
+        },
+        "type": "standard"
+      }
+    ],
+    "models3d": [
+      {
+        "name": "mutant_model",
+        "url": "/Showcase/Models/Mutant/Mutant.glb"
+      }
+    ],
+    "textures": []
+  },
+  "scenes": [
+    {
+      "background": "#A0A0A0",
+      "isActive": true,
+      "name": "showcase"
+    }
+  ],
+  "tags": [],
+  "version": "1.0.0"
 }

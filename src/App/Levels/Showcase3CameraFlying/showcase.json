@@ -1,101 +1,141 @@
 {
-  "name": "showcase",
-  "version": "1.0.0",
-  "scenes": [
-    {
-      "name": "showcase",
-      "tags": [],
-      "isActive": true
-    }
-  ],
-  "resources": {
-    "textures": [],
-    "envMaps": [],
-    "materials": [{ "name": "cube_material", "type": "standard", "options": { "color": "#5177ff" } }],
-    "animations": [],
-    "models3d": [],
-    "audio": []
-  },
   "entities": {
-    "spatialGrids": [
-      {
-        "name": "main_grid",
-        "mapWidth": 10,
-        "mapHeight": 10,
-        "cellSize": 10,
-        "centerX": 0,
-        "centerZ": 0,
-        "tags": []
-      }
-    ],
-    "models3d": [
-      {
-        "name": "central_actor_model",
-        "model3dSource": "cube",
-        "materialSource": "cube_material",
-        "options": {
-          "width": 1,
-          "height": 1,
-          "widthSegments": 1,
-          "heightSegments": 1
-        },
-        "castShadow": true,
-        "receiveShadow": true,
-        "position": { "x": 0, "y": 0, "z": 0 }
-      }
-    ],
     "actors": [
       {
-        "name": "central_actor",
         "model3dSource": "central_actor_model",
-        "position": { "x": 0, "y": 0, "z": 0 },
-        "spatial": { "grid": "main_grid", "isAutoUpdate": false },
+        "name": "central_actor",
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "spatial": {
+          "grid": "main_grid",
+          "isAutoUpdate": false
+        },
         "tags": []
       }
     ],
-    "intersections": [],
-    "physics": {},
-    "texts": [],
+    "audio": [],
     "cameras": [
       {
+        "far": 10000,
         "fov": 45,
+        "isActive": true,
         "name": "main",
         "near": 1,
-        "far": 10000,
-        "position": { "x": 0, "y": 0, "z": 3 },
-        "rotation": { "x": 0, "y": 0, "z": 0 },
-        "tags": [],
-        "isActive": true
-      }
-    ],
-    "lights": [
-      {
-        "type": "Ambient",
-        "color": "#ffffff",
-        "intensity": 0.5,
-        "position": { "x": 0.25, "y": 2, "z": 2.25 },
-        "tags": []
-      },
-      {
-        "type": "Directional",
-        "color": "#ffffff",
-        "intensity": 0.5,
-        "castShadow": true,
-        "shadow": {
-          "mapSize": { "x": 1024, "y": 1024 },
-          "camera": { "far": 15 },
-          "normalBias": 0.05
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": 3
         },
-        "position": { "x": 0.25, "y": 2, "z": 2.25 },
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
         "tags": []
       }
     ],
     "controls": [],
     "envMaps": [],
-    "particles": [],
     "fogs": [],
     "fsm": [],
-    "audio": []
+    "intersections": [],
+    "lights": [
+      {
+        "color": "#ffffff",
+        "intensity": 0.5,
+        "position": {
+          "x": 0.25,
+          "y": 2,
+          "z": 2.25
+        },
+        "tags": [],
+        "type": "Ambient"
+      },
+      {
+        "castShadow": true,
+        "color": "#ffffff",
+        "intensity": 0.5,
+        "position": {
+          "x": 0.25,
+          "y": 2,
+          "z": 2.25
+        },
+        "shadow": {
+          "camera": {
+            "far": 15
+          },
+          "mapSize": {
+            "x": 1024,
+            "y": 1024
+          },
+          "normalBias": 0.05
+        },
+        "tags": [],
+        "type": "Directional"
+      }
+    ],
+    "models3d": [
+      {
+        "castShadow": true,
+        "materialSource": "cube_material",
+        "model3dSource": "cube",
+        "name": "central_actor_model",
+        "options": {
+          "height": 1,
+          "heightSegments": 1,
+          "width": 1,
+          "widthSegments": 1
+        },
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "receiveShadow": true
+      }
+    ],
+    "particles": [],
+    "physics": {},
+    "spatialGrids": [
+      {
+        "cellSize": 10,
+        "centerX": 0,
+        "centerZ": 0,
+        "mapHeight": 10,
+        "mapWidth": 10,
+        "name": "main_grid",
+        "tags": []
+      }
+    ],
+    "texts": []
   },
-  "tags": []
+  "name": "showcase",
+  "resources": {
+    "animations": [],
+    "audio": [],
+    "envMaps": [],
+    "materials": [
+      {
+        "name": "cube_material",
+        "options": {
+          "color": "#5177ff"
+        },
+        "type": "standard"
+      }
+    ],
+    "models3d": [],
+    "textures": []
+  },
+  "scenes": [
+    {
+      "isActive": true,
+      "name": "showcase",
+      "tags": []
+    }
+  ],
+  "tags": [],
+  "version": "1.0.0"
 }

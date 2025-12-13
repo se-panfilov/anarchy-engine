@@ -1,68 +1,81 @@
 {
-  "name": "showcase",
-  "version": "1.0.0",
-  "scenes": [
-    {
-      "name": "showcase",
-      "tags": [],
-      "isActive": true
-    }
-  ],
-  "resources": {
-    "textures": [],
-    "envMaps": [],
-    "materials": [],
-    "animations": [],
-    "models3d": [],
-    "audio": []
-  },
   "entities": {
+    "actors": [],
+    "audio": [],
+    "cameras": [],
+    "controls": [],
+    "envMaps": [],
+    "fogs": [],
+    "fsm": [],
+    "intersections": [],
+    "lights": [
+      {
+        "color": "#ffffff",
+        "intensity": 0.5,
+        "position": {
+          "x": 0.25,
+          "y": 2,
+          "z": 2.25
+        },
+        "tags": [],
+        "type": "Ambient"
+      },
+      {
+        "castShadow": true,
+        "color": "#ffffff",
+        "intensity": 0.5,
+        "name": "dir_light",
+        "position": {
+          "x": 0.25,
+          "y": 2,
+          "z": 2.25
+        },
+        "shadow": {
+          "camera": {
+            "far": 15
+          },
+          "mapSize": {
+            "x": 1024,
+            "y": 1024
+          },
+          "normalBias": 0.05
+        },
+        "tags": [],
+        "type": "Directional"
+      }
+    ],
     "models3d": [],
+    "particles": [],
+    "physics": {},
     "spatialGrids": [
       {
-        "name": "main_grid",
-        "mapWidth": 10,
-        "mapHeight": 10,
         "cellSize": 10,
         "centerX": 0,
         "centerZ": 0,
+        "mapHeight": 10,
+        "mapWidth": 10,
+        "name": "main_grid",
         "tags": []
       }
     ],
-    "actors": [],
-    "intersections": [],
-    "physics": {},
-    "texts": [],
-    "cameras": [],
-    "lights": [
-      {
-        "type": "Ambient",
-        "color": "#ffffff",
-        "intensity": 0.5,
-        "position": { "x": 0.25, "y": 2, "z": 2.25 },
-        "tags": []
-      },
-      {
-        "name": "dir_light",
-        "type": "Directional",
-        "color": "#ffffff",
-        "intensity": 0.5,
-        "castShadow": true,
-        "position": { "x": 0.25, "y": 2, "z": 2.25 },
-        "shadow": {
-          "mapSize": { "x": 1024, "y": 1024 },
-          "camera": { "far": 15 },
-          "normalBias": 0.05
-        },
-        "tags": []
-      }
-    ],
-    "controls": [],
-    "envMaps": [],
-    "particles": [],
-    "fogs": [],
-    "fsm": [],
-    "audio": []
+    "texts": []
   },
-  "tags": []
+  "name": "showcase",
+  "resources": {
+    "animations": [],
+    "audio": [],
+    "envMaps": [],
+    "materials": [],
+    "models3d": [],
+    "textures": []
+  },
+  "scenes": [
+    {
+      "isActive": true,
+      "name": "showcase",
+      "tags": []
+    }
+  ],
+  "tags": [],
+  "version": "1.0.0"
 }

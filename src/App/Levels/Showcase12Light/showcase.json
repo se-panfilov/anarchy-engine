@@ -1,1042 +1,1409 @@
 {
-  "name": "showcase",
-  "version": "1.0.0",
-  "scenes": [
-    {
-      "name": "showcase",
-      "tags": [],
-      "isActive": true
-    }
-  ],
-  "resources": {
-    "textures": [
-      { "name": "metal_steel_brushed_bump_map", "url": "/Showcase/Brushed_Metal/MetalSteelBrushed001_BUMP_1K_METALNESS.png", "tags": ["bumpMap", "metal"] },
-      { "name": "metal_steel_brushed_map", "url": "/Showcase/Brushed_Metal/MetalSteelBrushed001_COL_1K_METALNESS.png", "tags": ["map", "metal"] },
-      { "name": "metal_steel_brushed_normal_map", "url": "/Showcase/Brushed_Metal/MetalSteelBrushed001_NRM_1K_METALNESS.png", "tags": ["normalMap", "metal"] },
-      { "name": "metal_steel_brushed_displacement_map", "url": "/Showcase/Brushed_Metal/MetalSteelBrushed001_DISP_1K_METALNESS.png", "tags": ["displacementMap", "metal"] },
-      { "name": "metal_steel_brushed_metalness_map", "url": "/Showcase/Brushed_Metal/MetalSteelBrushed001_BUMP16_1K_METALNESS.png", "tags": ["metalnessMap", "metal"] },
-      { "name": "metal_steel_brushed_roughness_map", "url": "/Showcase/Brushed_Metal/MetalSteelBrushed001_ROUGHNESS_1K_METALNESS.png", "tags": ["roughnessMap", "metal"] },
-      { "name": "wood_ao_map", "url": "/Showcase/Door_Wood/Door_Wood_001_ambientOcclusion.jpg", "tags": ["aoMap", "wood"] },
-      { "name": "wood_map", "url": "/Showcase/Door_Wood/Door_Wood_001_basecolor.jpg", "tags": ["map", "wood"] },
-      { "name": "wood_normal_map", "url": "/Showcase/Door_Wood/Door_Wood_001_normal.jpg", "tags": ["normalMap", "wood"] },
-      { "name": "wood_displacement_map", "url": "/Showcase/Door_Wood/Door_Wood_001_height.png", "tags": ["displacementMap", "wood"] },
-      { "name": "wood_alpha_map", "url": "/Showcase/Door_Wood/Door_Wood_001_opacity.jpg", "tags": ["alphaMap", "wood"] },
-      { "name": "wood_metalness_map", "url": "/Showcase/Door_Wood/Door_Wood_001_metallic.jpg", "tags": ["metalnessMap", "wood"] },
-      { "name": "wood_roughness_map", "url": "/Showcase/Door_Wood/Door_Wood_001_roughness.jpg", "tags": ["roughnessMap", "wood"] },
-      { "name": "carpet_ao_map", "url": "/Showcase/Dirty_Carpet/dirty_carpet_ao_1k.jpg", "tags": ["carpet", "aoMap"] },
-      { "name": "carpet_map", "url": "/Showcase/Dirty_Carpet/dirty_carpet_diff_1k.jpg", "tags": ["carpet", "map"] },
-      { "name": "carpet_normal_map", "url": "/Showcase/Dirty_Carpet/dirty_carpet_nor_dx_1k.jpg", "tags": ["carpet", "normalMap"] },
-      { "name": "carpet_displacement_map", "url": "/Showcase/Dirty_Carpet/dirty_carpet_disp_1k.png", "tags": ["carpet", "displacementMap"] },
-      { "name": "carpet_roughness_map", "url": "/Showcase/Dirty_Carpet/dirty_carpet_rough_1k.jpg", "tags": ["carpet", "roughnessMap"] }
-    ],
-    "envMaps": [],
-    "materials": [
-      { "name": "surface_material", "type": "toon", "options": { "color": "#5EDCAE" } },
-      {
-        "name": "standard_metal",
-        "type": "standard",
-        "options": { "displacementScale": 0 },
-        "textures": {
-          "bumpMap": "metal_steel_brushed_bump_map",
-          "map": "metal_steel_brushed_map",
-          "normalMap": "metal_steel_brushed_normal_map",
-          "displacementMap": "metal_steel_brushed_displacement_map",
-          "metalnessMap": "metal_steel_brushed_metalness_map",
-          "roughnessMap": "metal_steel_brushed_roughness_map"
-        },
-        "tags": ["standard", "metal"]
-      },
-      {
-        "name": "physical_metal",
-        "type": "physical",
-        "options": {
-          "clearcoat": 1,
-          "clearcoatRoughness": 0.12,
-          "displacementScale": 0,
-          "metalness": 0.97,
-          "roughness": 0.8,
-          "iridescence": 0.655,
-          "iridescenceIOR": 1.86,
-          "transmission": 0,
-          "ior": 2.5,
-          "thickness": 0
-        },
-        "textures": {
-          "bumpMap": "metal_steel_brushed_bump_map",
-          "map": "metal_steel_brushed_map",
-          "normalMap": "metal_steel_brushed_normal_map",
-          "displacementMap": "metal_steel_brushed_displacement_map",
-          "metalnessMap": "metal_steel_brushed_metalness_map",
-          "roughnessMap": "metal_steel_brushed_roughness_map"
-        },
-        "tags": ["physical", "metal"]
-      },
-      {
-        "name": "basic_metal",
-        "type": "basic",
-        "textures": {
-          "map": "metal_steel_brushed_map"
-        },
-        "tags": ["basic", "metal"]
-      },
-      {
-        "name": "phong_metal",
-        "type": "phong",
-        "options": { "displacementScale": 0.1 },
-        "textures": {
-          "bumpMap": "metal_steel_brushed_bump_map",
-          "map": "metal_steel_brushed_map",
-          "normalMap": "metal_steel_brushed_normal_map",
-          "displacementMap": "metal_steel_brushed_displacement_map"
-        },
-        "tags": ["phong", "metal"]
-      },
-      {
-        "name": "lambert_metal",
-        "type": "lambert",
-        "options": { "displacementScale": 0.1 },
-        "textures": {
-          "bumpMap": "metal_steel_brushed_bump_map",
-          "map": "metal_steel_brushed_map",
-          "normalMap": "metal_steel_brushed_normal_map",
-          "displacementMap": "metal_steel_brushed_displacement_map"
-        },
-        "tags": ["lambert", "metal"]
-      },
-      {
-        "name": "toon_metal",
-        "type": "toon",
-        "options": { "displacementScale": 0.1 },
-        "textures": {
-          "bumpMap": "metal_steel_brushed_bump_map",
-          "map": "metal_steel_brushed_map",
-          "normalMap": "metal_steel_brushed_normal_map",
-          "displacementMap": "metal_steel_brushed_displacement_map"
-        },
-        "tags": ["toon", "metal"]
-      },
-      {
-        "name": "matcap_metal",
-        "type": "matcap",
-        "options": { "displacementScale": 0.1 },
-        "textures": {
-          "bumpMap": "metal_steel_brushed_bump_map",
-          "map": "metal_steel_brushed_map",
-          "normalMap": "metal_steel_brushed_normal_map",
-          "displacementMap": "metal_steel_brushed_displacement_map"
-        },
-        "tags": ["matcap", "metal"]
-      },
-      {
-        "name": "standard_wood",
-        "type": "standard",
-        "options": { "displacementScale": 0.1 },
-        "textures": {
-          "aoMap": "wood_ao_map",
-          "map": "wood_map",
-          "normalMap": "wood_normal_map",
-          "displacementMap": "wood_displacement_map",
-          "alphaMap": "wood_alpha_map",
-          "metalnessMap": "wood_metalness_map",
-          "roughnessMap": "wood_roughness_map"
-        },
-        "tags": ["standard", "wood"]
-      },
-      {
-        "name": "physical_wood",
-        "type": "physical",
-        "options": { "displacementScale": 0.1 },
-        "textures": {
-          "aoMap": "wood_ao_map",
-          "map": "wood_map",
-          "normalMap": "wood_normal_map",
-          "displacementMap": "wood_displacement_map",
-          "alphaMap": "wood_alpha_map",
-          "metalnessMap": "wood_metalness_map",
-          "roughnessMap": "wood_roughness_map"
-        },
-        "tags": ["physical", "wood"]
-      },
-      {
-        "name": "basic_wood",
-        "type": "basic",
-        "textures": {
-          "aoMap": "wood_ao_map",
-          "map": "wood_map",
-          "alphaMap": "wood_alpha_map"
-        },
-        "tags": ["basic", "wood"]
-      },
-      {
-        "name": "phong_wood",
-        "type": "phong",
-        "options": { "displacementScale": 0.1 },
-        "textures": {
-          "aoMap": "wood_ao_map",
-          "map": "wood_map",
-          "normalMap": "wood_normal_map",
-          "displacementMap": "wood_displacement_map",
-          "alphaMap": "wood_alpha_map"
-        },
-        "tags": ["phong", "wood"]
-      },
-      {
-        "name": "lambert_wood",
-        "type": "lambert",
-        "options": { "displacementScale": 0.1 },
-        "textures": {
-          "aoMap": "wood_ao_map",
-          "map": "wood_map",
-          "normalMap": "wood_normal_map",
-          "displacementMap": "wood_displacement_map",
-          "alphaMap": "wood_alpha_map"
-        },
-        "tags": ["lambert", "wood"]
-      },
-      {
-        "name": "toon_wood",
-        "type": "toon",
-        "options": { "displacementScale": 0.1 },
-        "textures": {
-          "aoMap": "wood_ao_map",
-          "map": "wood_map",
-          "normalMap": "wood_normal_map",
-          "displacementMap": "wood_displacement_map",
-          "alphaMap": "wood_alpha_map"
-        },
-        "tags": ["toon", "wood"]
-      },
-      {
-        "name": "matcap_wood",
-        "type": "matcap",
-        "options": { "displacementScale": 0.1 },
-        "textures": {
-          "map": "wood_map",
-          "normalMap": "wood_normal_map",
-          "displacementMap": "wood_displacement_map",
-          "alphaMap": "wood_alpha_map"
-        },
-        "tags": ["matcap", "wood"]
-      },
-      {
-        "name": "standard_glass",
-        "type": "standard",
-        "options": {
-          "metalness": 0,
-          "roughness": 0
-        },
-        "tags": ["standard", "glass"]
-      },
-      {
-        "name": "physical_glass",
-        "type": "physical",
-        "options": {
-          "clearcoat": 0.8,
-          "clearcoatRoughness": 0.09,
-          "displacementScale": 0.1,
-          "metalness": 0,
-          "roughness": 0,
-          "iridescence": 0,
-          "iridescenceIOR": 1.38,
-          "transmission": 0.77,
-          "ior": 1.26,
-          "thickness": 0.5
-        },
-        "tags": ["physical", "glass"]
-      },
-      {
-        "name": "basic_glass",
-        "type": "basic",
-        "tags": ["basic", "glass"]
-      },
-      {
-        "name": "phong_glass",
-        "type": "phong",
-        "options": { "displacementScale": 0.1 },
-        "tags": ["phong", "glass"]
-      },
-      {
-        "name": "lambert_glass",
-        "type": "lambert",
-        "options": { "displacementScale": 0.1 },
-        "tags": ["lambert", "glass"]
-      },
-      {
-        "name": "toon_glass",
-        "type": "toon",
-        "options": { "displacementScale": 0.1 },
-        "tags": ["toon", "glass"]
-      },
-      {
-        "name": "matcap_glass",
-        "type": "matcap",
-        "options": { "displacementScale": 0.1 },
-        "tags": ["matcap", "glass"]
-      },
-      {
-        "name": "standard_textile",
-        "type": "standard",
-        "options": { "displacementScale": 0.1 },
-        "textures": {
-          "aoMap": "carpet_ao_map",
-          "map": "carpet_map",
-          "normalMap": "carpet_normal_map",
-          "displacementMap": "carpet_displacement_map",
-          "roughnessMap": "carpet_roughness_map"
-        },
-        "tags": ["standard", "textile"]
-      },
-      {
-        "name": "physical_textile",
-        "type": "physical",
-        "options": { "displacementScale": 0.1 },
-        "textures": {
-          "aoMap": "carpet_ao_map",
-          "map": "carpet_map",
-          "normalMap": "carpet_normal_map",
-          "displacementMap": "carpet_displacement_map",
-          "roughnessMap": "carpet_roughness_map"
-        },
-        "tags": ["physical", "textile"]
-      },
-      {
-        "name": "basic_textile",
-        "type": "basic",
-        "textures": {
-          "aoMap": "carpet_ao_map",
-          "map": "carpet_map"
-        },
-        "tags": ["basic", "textile"]
-      },
-      {
-        "name": "phong_textile",
-        "type": "phong",
-        "options": { "displacementScale": 0.1 },
-        "textures": {
-          "aoMap": "carpet_ao_map",
-          "map": "carpet_map",
-          "normalMap": "carpet_normal_map",
-          "displacementMap": "carpet_displacement_map"
-        },
-        "tags": ["phong", "textile"]
-      },
-      {
-        "name": "lambert_textile",
-        "type": "lambert",
-        "options": { "displacementScale": 0.1 },
-        "textures": {
-          "aoMap": "carpet_ao_map",
-          "map": "carpet_map",
-          "normalMap": "carpet_normal_map",
-          "displacementMap": "carpet_displacement_map"
-        },
-        "tags": ["lambert", "textile"]
-      },
-      {
-        "name": "toon_textile",
-        "type": "toon",
-        "options": { "displacementScale": 0.1 },
-        "textures": {
-          "aoMap": "carpet_ao_map",
-          "map": "carpet_map",
-          "normalMap": "carpet_normal_map",
-          "displacementMap": "carpet_displacement_map"
-        },
-        "tags": ["toon", "textile"]
-      },
-      {
-        "name": "matcap_textile",
-        "type": "matcap",
-        "options": { "displacementScale": 0.1 },
-        "textures": {
-          "map": "carpet_map",
-          "normalMap": "carpet_normal_map",
-          "displacementMap": "carpet_displacement_map"
-        },
-        "tags": ["matcap", "textile"]
-      }
-    ],
-    "animations": [],
-    "models3d": [],
-    "audio": []
-  },
   "entities": {
-    "models3d": [
-      {
-        "name": "surface_model",
-        "model3dSource": "plane",
-        "materialSource": "surface_material",
-        "options": {
-          "width": 60,
-          "height": 40,
-          "widthSegments": 1,
-          "heightSegments": 1
-        },
-        "castShadow": false,
-        "receiveShadow": true,
-        "position": { "x": 0, "y": 0, "z": 0 },
-        "rotation": { "x": -1.57, "y": 0, "z": 0 }
-      },
-      {
-        "name": "sphere_standard_metal",
-        "model3dSource": "sphere",
-        "materialSource": "standard_metal",
-        "options": {
-          "width": 1,
-          "height": 1,
-          "radius": 0.7,
-          "widthSegments": 64,
-          "heightSegments": 64
-        },
-        "castShadow": true,
-        "tags": ["sphere", "standard", "metal"]
-      },
-      {
-        "name": "sphere_physical_metal",
-        "model3dSource": "sphere",
-        "materialSource": "physical_metal",
-        "options": {
-          "width": 1,
-          "height": 1,
-          "radius": 0.7,
-          "widthSegments": 64,
-          "heightSegments": 64
-        },
-        "castShadow": true,
-        "tags": ["sphere", "physical", "metal"]
-      },
-      {
-        "name": "sphere_basic_metal",
-        "model3dSource": "sphere",
-        "materialSource": "basic_metal",
-        "options": {
-          "width": 1,
-          "height": 1,
-          "radius": 0.7,
-          "widthSegments": 64,
-          "heightSegments": 64
-        },
-        "castShadow": true,
-        "tags": ["sphere", "basic", "metal"]
-      },
-      {
-        "name": "sphere_phong_metal",
-        "model3dSource": "sphere",
-        "materialSource": "phong_metal",
-        "options": {
-          "width": 1,
-          "height": 1,
-          "radius": 0.7,
-          "widthSegments": 64,
-          "heightSegments": 64
-        },
-        "castShadow": true,
-        "tags": ["sphere", "phong", "metal"]
-      },
-      {
-        "name": "sphere_lambert_metal",
-        "model3dSource": "sphere",
-        "materialSource": "lambert_metal",
-        "options": {
-          "width": 1,
-          "height": 1,
-          "radius": 0.7,
-          "widthSegments": 64,
-          "heightSegments": 64
-        },
-        "castShadow": true,
-        "tags": ["sphere", "lambert", "metal"]
-      },
-      {
-        "name": "sphere_toon_metal",
-        "model3dSource": "sphere",
-        "materialSource": "toon_metal",
-        "options": {
-          "width": 1,
-          "height": 1,
-          "radius": 0.7,
-          "widthSegments": 64,
-          "heightSegments": 64
-        },
-        "castShadow": true,
-        "tags": ["sphere", "toon", "metal"]
-      },
-      {
-        "name": "sphere_matcap_metal",
-        "model3dSource": "sphere",
-        "materialSource": "matcap_metal",
-        "options": {
-          "width": 1,
-          "height": 1,
-          "radius": 0.7,
-          "widthSegments": 64,
-          "heightSegments": 64
-        },
-        "castShadow": true,
-        "tags": ["sphere", "matcap", "metal"]
-      },
-      {
-        "name": "cube_standard_wood",
-        "model3dSource": "cube",
-        "materialSource": "standard_wood",
-        "options": {
-          "width": 1,
-          "height": 1,
-          "widthSegments": 64,
-          "heightSegments": 64
-        },
-        "castShadow": true,
-        "tags": ["cube", "standard", "wood"]
-      },
-      {
-        "name": "cube_physical_wood",
-        "model3dSource": "cube",
-        "materialSource": "physical_wood",
-        "options": {
-          "width": 1,
-          "height": 1,
-          "widthSegments": 64,
-          "heightSegments": 64
-        },
-        "castShadow": true,
-        "tags": ["cube", "physical", "wood"]
-      },
-      {
-        "name": "cube_basic_wood",
-        "model3dSource": "cube",
-        "materialSource": "basic_wood",
-        "options": {
-          "width": 1,
-          "height": 1,
-          "widthSegments": 64,
-          "heightSegments": 64
-        },
-        "castShadow": true,
-        "tags": ["cube", "basic", "wood"]
-      },
-      {
-        "name": "cube_phong_wood",
-        "model3dSource": "cube",
-        "materialSource": "phong_wood",
-        "options": {
-          "width": 1,
-          "height": 1,
-          "widthSegments": 64,
-          "heightSegments": 64
-        },
-        "castShadow": true,
-        "tags": ["cube", "phong", "wood"]
-      },
-      {
-        "name": "cube_lambert_wood",
-        "model3dSource": "cube",
-        "materialSource": "lambert_wood",
-        "options": {
-          "width": 1,
-          "height": 1,
-          "widthSegments": 64,
-          "heightSegments": 64
-        },
-        "castShadow": true,
-        "tags": ["cube", "lambert", "wood"]
-      },
-      {
-        "name": "cube_toon_wood",
-        "model3dSource": "cube",
-        "materialSource": "toon_wood",
-        "options": {
-          "width": 1,
-          "height": 1,
-          "widthSegments": 64,
-          "heightSegments": 64
-        },
-        "castShadow": true,
-        "tags": ["cube", "toon", "wood"]
-      },
-      {
-        "name": "cube_matcap_wood",
-        "model3dSource": "cube",
-        "materialSource": "matcap_wood",
-        "options": {
-          "width": 1,
-          "height": 1,
-          "widthSegments": 64,
-          "heightSegments": 64
-        },
-        "castShadow": true,
-        "tags": ["cube", "matcap", "wood"]
-      },
-      {
-        "name": "sphere_standard_glass",
-        "model3dSource": "sphere",
-        "materialSource": "standard_glass",
-        "options": {
-          "width": 1,
-          "height": 1,
-          "radius": 0.7,
-          "widthSegments": 64,
-          "heightSegments": 64
-        },
-        "castShadow": true,
-        "tags": ["sphere", "standard", "glass"]
-      },
-      {
-        "name": "sphere_physical_glass",
-        "model3dSource": "sphere",
-        "materialSource": "physical_glass",
-        "options": {
-          "width": 1,
-          "height": 1,
-          "radius": 0.7,
-          "widthSegments": 64,
-          "heightSegments": 64
-        },
-        "castShadow": true,
-        "tags": ["sphere", "physical", "glass"]
-      },
-      {
-        "name": "sphere_basic_glass",
-        "model3dSource": "sphere",
-        "materialSource": "basic_glass",
-        "options": {
-          "width": 1,
-          "height": 1,
-          "radius": 0.7,
-          "widthSegments": 64,
-          "heightSegments": 64
-        },
-        "castShadow": true,
-        "tags": ["sphere", "basic", "glass"]
-      },
-      {
-        "name": "sphere_phong_glass",
-        "model3dSource": "sphere",
-        "materialSource": "phong_glass",
-        "options": {
-          "width": 1,
-          "height": 1,
-          "radius": 0.7,
-          "widthSegments": 64,
-          "heightSegments": 64
-        },
-        "castShadow": true,
-        "tags": ["sphere", "phong", "glass"]
-      },
-      {
-        "name": "sphere_lambert_glass",
-        "model3dSource": "sphere",
-        "materialSource": "lambert_glass",
-        "options": {
-          "width": 1,
-          "height": 1,
-          "radius": 0.7,
-          "widthSegments": 64,
-          "heightSegments": 64
-        },
-        "castShadow": true,
-        "tags": ["sphere", "lambert", "glass"]
-      },
-      {
-        "name": "sphere_toon_glass",
-        "model3dSource": "sphere",
-        "materialSource": "toon_glass",
-        "options": {
-          "width": 1,
-          "height": 1,
-          "radius": 0.7,
-          "widthSegments": 64,
-          "heightSegments": 64
-        },
-        "castShadow": true,
-        "tags": ["sphere", "toon", "glass"]
-      },
-      {
-        "name": "sphere_matcap_glass",
-        "model3dSource": "sphere",
-        "materialSource": "matcap_glass",
-        "options": {
-          "width": 1,
-          "height": 1,
-          "radius": 0.7,
-          "widthSegments": 64,
-          "heightSegments": 64
-        },
-        "castShadow": true,
-        "tags": ["sphere", "matcap", "glass"]
-      },
-      {
-        "name": "sphere_standard_textile",
-        "model3dSource": "sphere",
-        "materialSource": "standard_textile",
-        "options": {
-          "width": 1,
-          "height": 1,
-          "radius": 0.7,
-          "widthSegments": 64,
-          "heightSegments": 64
-        },
-        "castShadow": true,
-        "tags": ["sphere", "standard", "textile"]
-      },
-      {
-        "name": "sphere_physical_textile",
-        "model3dSource": "sphere",
-        "materialSource": "physical_textile",
-        "options": {
-          "width": 1,
-          "height": 1,
-          "radius": 0.7,
-          "widthSegments": 64,
-          "heightSegments": 64
-        },
-        "castShadow": true,
-        "tags": ["sphere", "physical", "textile"]
-      },
-      {
-        "name": "sphere_basic_textile",
-        "model3dSource": "sphere",
-        "materialSource": "basic_textile",
-        "options": {
-          "width": 1,
-          "height": 1,
-          "radius": 0.7,
-          "widthSegments": 64,
-          "heightSegments": 64
-        },
-        "castShadow": true,
-        "tags": ["sphere", "basic", "textile"]
-      },
-      {
-        "name": "sphere_phong_textile",
-        "model3dSource": "sphere",
-        "materialSource": "phong_textile",
-        "options": {
-          "width": 1,
-          "height": 1,
-          "radius": 0.7,
-          "widthSegments": 64,
-          "heightSegments": 64
-        },
-        "castShadow": true,
-        "tags": ["sphere", "phong", "textile"]
-      },
-      {
-        "name": "sphere_lambert_textile",
-        "model3dSource": "sphere",
-        "materialSource": "lambert_textile",
-        "options": {
-          "width": 1,
-          "height": 1,
-          "radius": 0.7,
-          "widthSegments": 64,
-          "heightSegments": 64
-        },
-        "castShadow": true,
-        "tags": ["sphere", "lambert", "textile"]
-      },
-      {
-        "name": "sphere_toon_textile",
-        "model3dSource": "sphere",
-        "materialSource": "toon_textile",
-        "options": {
-          "width": 1,
-          "height": 1,
-          "radius": 0.7,
-          "widthSegments": 64,
-          "heightSegments": 64
-        },
-        "castShadow": true,
-        "tags": ["sphere", "toon", "textile"]
-      },
-      {
-        "name": "sphere_matcap_textile",
-        "model3dSource": "sphere",
-        "materialSource": "matcap_textile",
-        "options": {
-          "width": 1,
-          "height": 1,
-          "radius": 0.7,
-          "widthSegments": 64,
-          "heightSegments": 64
-        },
-        "castShadow": true,
-        "tags": ["sphere", "matcap", "textile"]
-      }
-    ],
-    "spatialGrids": [
-      {
-        "name": "main_grid",
-        "mapWidth": 10,
-        "mapHeight": 10,
-        "cellSize": 10,
-        "centerX": 0,
-        "centerZ": 0,
-        "tags": []
-      }
-    ],
     "actors": [
       {
         "model3dSource": "sphere_standard_metal",
-        "position": { "x": 0, "y": 2, "z": 2 },
-        "spatial": { "grid": "main_grid", "isAutoUpdate": false },
+        "position": {
+          "x": 0,
+          "y": 2,
+          "z": 2
+        },
+        "spatial": {
+          "grid": "main_grid",
+          "isAutoUpdate": false
+        },
         "tags": ["standard", "metal"]
       },
       {
         "model3dSource": "sphere_physical_metal",
-        "position": { "x": 2, "y": 2, "z": 2 },
-        "spatial": { "grid": "main_grid", "isAutoUpdate": false },
+        "position": {
+          "x": 2,
+          "y": 2,
+          "z": 2
+        },
+        "spatial": {
+          "grid": "main_grid",
+          "isAutoUpdate": false
+        },
         "tags": ["physical", "metal"]
       },
       {
         "model3dSource": "sphere_basic_metal",
-        "position": { "x": 4, "y": 2, "z": 2 },
-        "spatial": { "grid": "main_grid", "isAutoUpdate": false },
+        "position": {
+          "x": 4,
+          "y": 2,
+          "z": 2
+        },
+        "spatial": {
+          "grid": "main_grid",
+          "isAutoUpdate": false
+        },
         "tags": ["basic", "metal"]
       },
       {
         "model3dSource": "sphere_phong_metal",
-        "position": { "x": 6, "y": 2, "z": 2 },
-        "spatial": { "grid": "main_grid", "isAutoUpdate": false },
+        "position": {
+          "x": 6,
+          "y": 2,
+          "z": 2
+        },
+        "spatial": {
+          "grid": "main_grid",
+          "isAutoUpdate": false
+        },
         "tags": ["phong", "metal"]
       },
       {
         "model3dSource": "sphere_lambert_metal",
-        "position": { "x": 8, "y": 2, "z": 2 },
-        "spatial": { "grid": "main_grid", "isAutoUpdate": false },
+        "position": {
+          "x": 8,
+          "y": 2,
+          "z": 2
+        },
+        "spatial": {
+          "grid": "main_grid",
+          "isAutoUpdate": false
+        },
         "tags": ["lambert", "metal"]
       },
       {
         "model3dSource": "sphere_toon_metal",
-        "position": { "x": 10, "y": 2, "z": 2 },
-        "spatial": { "grid": "main_grid", "isAutoUpdate": false },
+        "position": {
+          "x": 10,
+          "y": 2,
+          "z": 2
+        },
+        "spatial": {
+          "grid": "main_grid",
+          "isAutoUpdate": false
+        },
         "tags": ["toon", "metal"]
       },
       {
         "model3dSource": "sphere_matcap_metal",
-        "position": { "x": 12, "y": 2, "z": 2 },
-        "spatial": { "grid": "main_grid", "isAutoUpdate": false },
+        "position": {
+          "x": 12,
+          "y": 2,
+          "z": 2
+        },
+        "spatial": {
+          "grid": "main_grid",
+          "isAutoUpdate": false
+        },
         "tags": ["matcap", "metal"]
       },
       {
         "model3dSource": "cube_standard_wood",
-        "position": { "x": 0, "y": 2, "z": 0 },
-        "spatial": { "grid": "main_grid", "isAutoUpdate": false },
+        "position": {
+          "x": 0,
+          "y": 2,
+          "z": 0
+        },
+        "spatial": {
+          "grid": "main_grid",
+          "isAutoUpdate": false
+        },
         "tags": ["standard", "wood"]
       },
       {
         "model3dSource": "cube_physical_wood",
-        "position": { "x": 2, "y": 2, "z": 0 },
-        "spatial": { "grid": "main_grid", "isAutoUpdate": false },
+        "position": {
+          "x": 2,
+          "y": 2,
+          "z": 0
+        },
+        "spatial": {
+          "grid": "main_grid",
+          "isAutoUpdate": false
+        },
         "tags": ["physical", "wood"]
       },
       {
         "model3dSource": "cube_basic_wood",
-        "position": { "x": 4, "y": 2, "z": 0 },
-        "spatial": { "grid": "main_grid", "isAutoUpdate": false },
+        "position": {
+          "x": 4,
+          "y": 2,
+          "z": 0
+        },
+        "spatial": {
+          "grid": "main_grid",
+          "isAutoUpdate": false
+        },
         "tags": ["basic", "wood"]
       },
       {
         "model3dSource": "cube_phong_wood",
-        "position": { "x": 6, "y": 2, "z": 0 },
-        "spatial": { "grid": "main_grid", "isAutoUpdate": false },
+        "position": {
+          "x": 6,
+          "y": 2,
+          "z": 0
+        },
+        "spatial": {
+          "grid": "main_grid",
+          "isAutoUpdate": false
+        },
         "tags": ["phong", "wood"]
       },
       {
         "model3dSource": "cube_lambert_wood",
-        "position": { "x": 8, "y": 2, "z": 0 },
-        "spatial": { "grid": "main_grid", "isAutoUpdate": false },
+        "position": {
+          "x": 8,
+          "y": 2,
+          "z": 0
+        },
+        "spatial": {
+          "grid": "main_grid",
+          "isAutoUpdate": false
+        },
         "tags": ["lambert", "wood"]
       },
       {
         "model3dSource": "cube_toon_wood",
-        "position": { "x": 10, "y": 2, "z": 0 },
-        "spatial": { "grid": "main_grid", "isAutoUpdate": false },
+        "position": {
+          "x": 10,
+          "y": 2,
+          "z": 0
+        },
+        "spatial": {
+          "grid": "main_grid",
+          "isAutoUpdate": false
+        },
         "tags": ["toon", "wood"]
       },
       {
         "model3dSource": "cube_matcap_wood",
-        "position": { "x": 12, "y": 2, "z": 0 },
-        "spatial": { "grid": "main_grid", "isAutoUpdate": false },
+        "position": {
+          "x": 12,
+          "y": 2,
+          "z": 0
+        },
+        "spatial": {
+          "grid": "main_grid",
+          "isAutoUpdate": false
+        },
         "tags": ["matcap", "wood"]
       },
       {
         "model3dSource": "sphere_standard_glass",
-        "position": { "x": 0, "y": 2, "z": -2 },
-        "spatial": { "grid": "main_grid", "isAutoUpdate": false },
+        "position": {
+          "x": 0,
+          "y": 2,
+          "z": -2
+        },
+        "spatial": {
+          "grid": "main_grid",
+          "isAutoUpdate": false
+        },
         "tags": ["standard", "glass"]
       },
       {
         "model3dSource": "sphere_physical_glass",
-        "position": { "x": 2, "y": 2, "z": -2 },
-        "spatial": { "grid": "main_grid", "isAutoUpdate": false },
+        "position": {
+          "x": 2,
+          "y": 2,
+          "z": -2
+        },
+        "spatial": {
+          "grid": "main_grid",
+          "isAutoUpdate": false
+        },
         "tags": ["physical", "glass"]
       },
       {
         "model3dSource": "sphere_basic_glass",
-        "position": { "x": 4, "y": 2, "z": -2 },
-        "spatial": { "grid": "main_grid", "isAutoUpdate": false },
+        "position": {
+          "x": 4,
+          "y": 2,
+          "z": -2
+        },
+        "spatial": {
+          "grid": "main_grid",
+          "isAutoUpdate": false
+        },
         "tags": ["basic", "glass"]
       },
       {
         "model3dSource": "sphere_phong_glass",
-        "position": { "x": 6, "y": 2, "z": -2 },
-        "spatial": { "grid": "main_grid", "isAutoUpdate": false },
+        "position": {
+          "x": 6,
+          "y": 2,
+          "z": -2
+        },
+        "spatial": {
+          "grid": "main_grid",
+          "isAutoUpdate": false
+        },
         "tags": ["phong", "glass"]
       },
       {
         "model3dSource": "sphere_lambert_glass",
-        "position": { "x": 8, "y": 2, "z": -2 },
-        "spatial": { "grid": "main_grid", "isAutoUpdate": false },
+        "position": {
+          "x": 8,
+          "y": 2,
+          "z": -2
+        },
+        "spatial": {
+          "grid": "main_grid",
+          "isAutoUpdate": false
+        },
         "tags": ["lambert", "glass"]
       },
       {
         "model3dSource": "sphere_toon_glass",
-        "position": { "x": 10, "y": 2, "z": -2 },
-        "spatial": { "grid": "main_grid", "isAutoUpdate": false },
+        "position": {
+          "x": 10,
+          "y": 2,
+          "z": -2
+        },
+        "spatial": {
+          "grid": "main_grid",
+          "isAutoUpdate": false
+        },
         "tags": ["toon", "glass"]
       },
       {
         "model3dSource": "sphere_matcap_glass",
-        "position": { "x": 12, "y": 2, "z": -2 },
-        "spatial": { "grid": "main_grid", "isAutoUpdate": false },
+        "position": {
+          "x": 12,
+          "y": 2,
+          "z": -2
+        },
+        "spatial": {
+          "grid": "main_grid",
+          "isAutoUpdate": false
+        },
         "tags": ["matcap", "glass"]
       },
       {
         "model3dSource": "sphere_standard_textile",
-        "position": { "x": 0, "y": 2, "z": -4 },
-        "spatial": { "grid": "main_grid", "isAutoUpdate": false },
+        "position": {
+          "x": 0,
+          "y": 2,
+          "z": -4
+        },
+        "spatial": {
+          "grid": "main_grid",
+          "isAutoUpdate": false
+        },
         "tags": ["standard", "textile"]
       },
       {
         "model3dSource": "sphere_physical_textile",
-        "position": { "x": 2, "y": 2, "z": -4 },
-        "spatial": { "grid": "main_grid", "isAutoUpdate": false },
+        "position": {
+          "x": 2,
+          "y": 2,
+          "z": -4
+        },
+        "spatial": {
+          "grid": "main_grid",
+          "isAutoUpdate": false
+        },
         "tags": ["physical", "textile"]
       },
       {
         "model3dSource": "sphere_basic_textile",
-        "position": { "x": 4, "y": 2, "z": -4 },
-        "spatial": { "grid": "main_grid", "isAutoUpdate": false },
+        "position": {
+          "x": 4,
+          "y": 2,
+          "z": -4
+        },
+        "spatial": {
+          "grid": "main_grid",
+          "isAutoUpdate": false
+        },
         "tags": ["basic", "textile"]
       },
       {
         "model3dSource": "sphere_phong_textile",
-        "position": { "x": 6, "y": 2, "z": -4 },
-        "spatial": { "grid": "main_grid", "isAutoUpdate": false },
+        "position": {
+          "x": 6,
+          "y": 2,
+          "z": -4
+        },
+        "spatial": {
+          "grid": "main_grid",
+          "isAutoUpdate": false
+        },
         "tags": ["phong", "textile"]
       },
       {
         "model3dSource": "sphere_lambert_textile",
-        "position": { "x": 8, "y": 2, "z": -4 },
-        "spatial": { "grid": "main_grid", "isAutoUpdate": false },
+        "position": {
+          "x": 8,
+          "y": 2,
+          "z": -4
+        },
+        "spatial": {
+          "grid": "main_grid",
+          "isAutoUpdate": false
+        },
         "tags": ["lambert", "textile"]
       },
       {
         "model3dSource": "sphere_toon_textile",
-        "position": { "x": 10, "y": 2, "z": -4 },
-        "spatial": { "grid": "main_grid", "isAutoUpdate": false },
+        "position": {
+          "x": 10,
+          "y": 2,
+          "z": -4
+        },
+        "spatial": {
+          "grid": "main_grid",
+          "isAutoUpdate": false
+        },
         "tags": ["toon", "textile"]
       },
       {
         "model3dSource": "sphere_matcap_textile",
-        "position": { "x": 12, "y": 2, "z": -4 },
-        "spatial": { "grid": "main_grid", "isAutoUpdate": false },
+        "position": {
+          "x": 12,
+          "y": 2,
+          "z": -4
+        },
+        "spatial": {
+          "grid": "main_grid",
+          "isAutoUpdate": false
+        },
         "tags": ["matcap", "textile"]
       }
     ],
-    "intersections": [],
-    "physics": {},
-    "texts": [],
+    "audio": [],
     "cameras": [
       {
+        "far": 10000,
         "fov": 45,
+        "isActive": true,
         "name": "main",
         "near": 1,
-        "far": 10000,
-        "position": { "x": 3, "y": 20, "z": 35 },
-        "rotation": { "x": 0, "y": 0, "z": 0 },
-        "tags": [],
-        "isActive": true
-      }
-    ],
-    "lights": [
-      {
-        "type": "Directional",
-        "color": "#ffffff",
-        "intensity": 0,
-        "castShadow": true,
-        "shadow": {
-          "mapSize": { "x": 1024, "y": 1024 },
-          "camera": { "far": 15 },
-          "normalBias": 0.05
+        "position": {
+          "x": 3,
+          "y": 20,
+          "z": 35
         },
-        "position": { "x": -14, "y": 10, "z": 2.25 },
-        "tags": ["directional"]
-      },
-      {
-        "type": "Hemisphere",
-        "color": "#9999ff",
-        "groundColor": "#ff007b",
-        "intensity": 1,
-        "position": { "x": 0.25, "y": 2, "z": 6 },
-        "tags": ["hemisphere"]
-      },
-      {
-        "type": "RectArea",
-        "color": "#0000ff",
-        "width": 3,
-        "height": 3,
-        "intensity": 0,
-        "position": { "x": 6.5, "y": 2, "z": 2.25 },
-        "tags": ["rect_area"]
-      },
-      {
-        "type": "Point",
-        "color": "#00ff00",
-        "intensity": 14,
-        "distance": 23,
-        "decay": 4.5,
-        "castShadow": true,
-        "shadow": {
-          "mapSize": { "x": 1024, "y": 1024 },
-          "camera": { "far": 15 },
-          "normalBias": 0.05
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": 0
         },
-        "position": { "x": 10, "y": 6.5, "z": 2.25 },
-        "tags": ["point"]
-      },
-      {
-        "type": "Spot",
-        "color": "#01dede",
-        "intensity": 41,
-        "distance": 57,
-        "angle": 45,
-        "penumbra": 40,
-        "decay": 2,
-        "castShadow": true,
-        "shadow": {
-          "mapSize": { "x": 1024, "y": 1024 },
-          "camera": { "far": 15 },
-          "normalBias": 0.05
-        },
-        "position": { "x": 4, "y": 4, "z": 2.25 },
-        "tags": ["spot"]
+        "tags": []
       }
     ],
     "controls": [
       {
-        "type": "OrbitControls",
         "cameraName": "main",
         "enableDamping": true,
+        "isActive": true,
         "tags": [],
-        "isActive": true
+        "type": "OrbitControls"
       }
     ],
     "envMaps": [],
-    "particles": [],
     "fogs": [],
     "fsm": [],
-    "audio": []
+    "intersections": [],
+    "lights": [
+      {
+        "castShadow": true,
+        "color": "#ffffff",
+        "intensity": 0,
+        "position": {
+          "x": -14,
+          "y": 10,
+          "z": 2.25
+        },
+        "shadow": {
+          "camera": {
+            "far": 15
+          },
+          "mapSize": {
+            "x": 1024,
+            "y": 1024
+          },
+          "normalBias": 0.05
+        },
+        "tags": ["directional"],
+        "type": "Directional"
+      },
+      {
+        "color": "#9999ff",
+        "groundColor": "#ff007b",
+        "intensity": 1,
+        "position": {
+          "x": 0.25,
+          "y": 2,
+          "z": 6
+        },
+        "tags": ["hemisphere"],
+        "type": "Hemisphere"
+      },
+      {
+        "color": "#0000ff",
+        "height": 3,
+        "intensity": 0,
+        "position": {
+          "x": 6.5,
+          "y": 2,
+          "z": 2.25
+        },
+        "tags": ["rect_area"],
+        "type": "RectArea",
+        "width": 3
+      },
+      {
+        "castShadow": true,
+        "color": "#00ff00",
+        "decay": 4.5,
+        "distance": 23,
+        "intensity": 14,
+        "position": {
+          "x": 10,
+          "y": 6.5,
+          "z": 2.25
+        },
+        "shadow": {
+          "camera": {
+            "far": 15
+          },
+          "mapSize": {
+            "x": 1024,
+            "y": 1024
+          },
+          "normalBias": 0.05
+        },
+        "tags": ["point"],
+        "type": "Point"
+      },
+      {
+        "angle": 45,
+        "castShadow": true,
+        "color": "#01dede",
+        "decay": 2,
+        "distance": 57,
+        "intensity": 41,
+        "penumbra": 40,
+        "position": {
+          "x": 4,
+          "y": 4,
+          "z": 2.25
+        },
+        "shadow": {
+          "camera": {
+            "far": 15
+          },
+          "mapSize": {
+            "x": 1024,
+            "y": 1024
+          },
+          "normalBias": 0.05
+        },
+        "tags": ["spot"],
+        "type": "Spot"
+      }
+    ],
+    "models3d": [
+      {
+        "castShadow": false,
+        "materialSource": "surface_material",
+        "model3dSource": "plane",
+        "name": "surface_model",
+        "options": {
+          "height": 40,
+          "heightSegments": 1,
+          "width": 60,
+          "widthSegments": 1
+        },
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "receiveShadow": true,
+        "rotation": {
+          "x": -1.57,
+          "y": 0,
+          "z": 0
+        }
+      },
+      {
+        "castShadow": true,
+        "materialSource": "standard_metal",
+        "model3dSource": "sphere",
+        "name": "sphere_standard_metal",
+        "options": {
+          "height": 1,
+          "heightSegments": 64,
+          "radius": 0.7,
+          "width": 1,
+          "widthSegments": 64
+        },
+        "tags": ["sphere", "standard", "metal"]
+      },
+      {
+        "castShadow": true,
+        "materialSource": "physical_metal",
+        "model3dSource": "sphere",
+        "name": "sphere_physical_metal",
+        "options": {
+          "height": 1,
+          "heightSegments": 64,
+          "radius": 0.7,
+          "width": 1,
+          "widthSegments": 64
+        },
+        "tags": ["sphere", "physical", "metal"]
+      },
+      {
+        "castShadow": true,
+        "materialSource": "basic_metal",
+        "model3dSource": "sphere",
+        "name": "sphere_basic_metal",
+        "options": {
+          "height": 1,
+          "heightSegments": 64,
+          "radius": 0.7,
+          "width": 1,
+          "widthSegments": 64
+        },
+        "tags": ["sphere", "basic", "metal"]
+      },
+      {
+        "castShadow": true,
+        "materialSource": "phong_metal",
+        "model3dSource": "sphere",
+        "name": "sphere_phong_metal",
+        "options": {
+          "height": 1,
+          "heightSegments": 64,
+          "radius": 0.7,
+          "width": 1,
+          "widthSegments": 64
+        },
+        "tags": ["sphere", "phong", "metal"]
+      },
+      {
+        "castShadow": true,
+        "materialSource": "lambert_metal",
+        "model3dSource": "sphere",
+        "name": "sphere_lambert_metal",
+        "options": {
+          "height": 1,
+          "heightSegments": 64,
+          "radius": 0.7,
+          "width": 1,
+          "widthSegments": 64
+        },
+        "tags": ["sphere", "lambert", "metal"]
+      },
+      {
+        "castShadow": true,
+        "materialSource": "toon_metal",
+        "model3dSource": "sphere",
+        "name": "sphere_toon_metal",
+        "options": {
+          "height": 1,
+          "heightSegments": 64,
+          "radius": 0.7,
+          "width": 1,
+          "widthSegments": 64
+        },
+        "tags": ["sphere", "toon", "metal"]
+      },
+      {
+        "castShadow": true,
+        "materialSource": "matcap_metal",
+        "model3dSource": "sphere",
+        "name": "sphere_matcap_metal",
+        "options": {
+          "height": 1,
+          "heightSegments": 64,
+          "radius": 0.7,
+          "width": 1,
+          "widthSegments": 64
+        },
+        "tags": ["sphere", "matcap", "metal"]
+      },
+      {
+        "castShadow": true,
+        "materialSource": "standard_wood",
+        "model3dSource": "cube",
+        "name": "cube_standard_wood",
+        "options": {
+          "height": 1,
+          "heightSegments": 64,
+          "width": 1,
+          "widthSegments": 64
+        },
+        "tags": ["cube", "standard", "wood"]
+      },
+      {
+        "castShadow": true,
+        "materialSource": "physical_wood",
+        "model3dSource": "cube",
+        "name": "cube_physical_wood",
+        "options": {
+          "height": 1,
+          "heightSegments": 64,
+          "width": 1,
+          "widthSegments": 64
+        },
+        "tags": ["cube", "physical", "wood"]
+      },
+      {
+        "castShadow": true,
+        "materialSource": "basic_wood",
+        "model3dSource": "cube",
+        "name": "cube_basic_wood",
+        "options": {
+          "height": 1,
+          "heightSegments": 64,
+          "width": 1,
+          "widthSegments": 64
+        },
+        "tags": ["cube", "basic", "wood"]
+      },
+      {
+        "castShadow": true,
+        "materialSource": "phong_wood",
+        "model3dSource": "cube",
+        "name": "cube_phong_wood",
+        "options": {
+          "height": 1,
+          "heightSegments": 64,
+          "width": 1,
+          "widthSegments": 64
+        },
+        "tags": ["cube", "phong", "wood"]
+      },
+      {
+        "castShadow": true,
+        "materialSource": "lambert_wood",
+        "model3dSource": "cube",
+        "name": "cube_lambert_wood",
+        "options": {
+          "height": 1,
+          "heightSegments": 64,
+          "width": 1,
+          "widthSegments": 64
+        },
+        "tags": ["cube", "lambert", "wood"]
+      },
+      {
+        "castShadow": true,
+        "materialSource": "toon_wood",
+        "model3dSource": "cube",
+        "name": "cube_toon_wood",
+        "options": {
+          "height": 1,
+          "heightSegments": 64,
+          "width": 1,
+          "widthSegments": 64
+        },
+        "tags": ["cube", "toon", "wood"]
+      },
+      {
+        "castShadow": true,
+        "materialSource": "matcap_wood",
+        "model3dSource": "cube",
+        "name": "cube_matcap_wood",
+        "options": {
+          "height": 1,
+          "heightSegments": 64,
+          "width": 1,
+          "widthSegments": 64
+        },
+        "tags": ["cube", "matcap", "wood"]
+      },
+      {
+        "castShadow": true,
+        "materialSource": "standard_glass",
+        "model3dSource": "sphere",
+        "name": "sphere_standard_glass",
+        "options": {
+          "height": 1,
+          "heightSegments": 64,
+          "radius": 0.7,
+          "width": 1,
+          "widthSegments": 64
+        },
+        "tags": ["sphere", "standard", "glass"]
+      },
+      {
+        "castShadow": true,
+        "materialSource": "physical_glass",
+        "model3dSource": "sphere",
+        "name": "sphere_physical_glass",
+        "options": {
+          "height": 1,
+          "heightSegments": 64,
+          "radius": 0.7,
+          "width": 1,
+          "widthSegments": 64
+        },
+        "tags": ["sphere", "physical", "glass"]
+      },
+      {
+        "castShadow": true,
+        "materialSource": "basic_glass",
+        "model3dSource": "sphere",
+        "name": "sphere_basic_glass",
+        "options": {
+          "height": 1,
+          "heightSegments": 64,
+          "radius": 0.7,
+          "width": 1,
+          "widthSegments": 64
+        },
+        "tags": ["sphere", "basic", "glass"]
+      },
+      {
+        "castShadow": true,
+        "materialSource": "phong_glass",
+        "model3dSource": "sphere",
+        "name": "sphere_phong_glass",
+        "options": {
+          "height": 1,
+          "heightSegments": 64,
+          "radius": 0.7,
+          "width": 1,
+          "widthSegments": 64
+        },
+        "tags": ["sphere", "phong", "glass"]
+      },
+      {
+        "castShadow": true,
+        "materialSource": "lambert_glass",
+        "model3dSource": "sphere",
+        "name": "sphere_lambert_glass",
+        "options": {
+          "height": 1,
+          "heightSegments": 64,
+          "radius": 0.7,
+          "width": 1,
+          "widthSegments": 64
+        },
+        "tags": ["sphere", "lambert", "glass"]
+      },
+      {
+        "castShadow": true,
+        "materialSource": "toon_glass",
+        "model3dSource": "sphere",
+        "name": "sphere_toon_glass",
+        "options": {
+          "height": 1,
+          "heightSegments": 64,
+          "radius": 0.7,
+          "width": 1,
+          "widthSegments": 64
+        },
+        "tags": ["sphere", "toon", "glass"]
+      },
+      {
+        "castShadow": true,
+        "materialSource": "matcap_glass",
+        "model3dSource": "sphere",
+        "name": "sphere_matcap_glass",
+        "options": {
+          "height": 1,
+          "heightSegments": 64,
+          "radius": 0.7,
+          "width": 1,
+          "widthSegments": 64
+        },
+        "tags": ["sphere", "matcap", "glass"]
+      },
+      {
+        "castShadow": true,
+        "materialSource": "standard_textile",
+        "model3dSource": "sphere",
+        "name": "sphere_standard_textile",
+        "options": {
+          "height": 1,
+          "heightSegments": 64,
+          "radius": 0.7,
+          "width": 1,
+          "widthSegments": 64
+        },
+        "tags": ["sphere", "standard", "textile"]
+      },
+      {
+        "castShadow": true,
+        "materialSource": "physical_textile",
+        "model3dSource": "sphere",
+        "name": "sphere_physical_textile",
+        "options": {
+          "height": 1,
+          "heightSegments": 64,
+          "radius": 0.7,
+          "width": 1,
+          "widthSegments": 64
+        },
+        "tags": ["sphere", "physical", "textile"]
+      },
+      {
+        "castShadow": true,
+        "materialSource": "basic_textile",
+        "model3dSource": "sphere",
+        "name": "sphere_basic_textile",
+        "options": {
+          "height": 1,
+          "heightSegments": 64,
+          "radius": 0.7,
+          "width": 1,
+          "widthSegments": 64
+        },
+        "tags": ["sphere", "basic", "textile"]
+      },
+      {
+        "castShadow": true,
+        "materialSource": "phong_textile",
+        "model3dSource": "sphere",
+        "name": "sphere_phong_textile",
+        "options": {
+          "height": 1,
+          "heightSegments": 64,
+          "radius": 0.7,
+          "width": 1,
+          "widthSegments": 64
+        },
+        "tags": ["sphere", "phong", "textile"]
+      },
+      {
+        "castShadow": true,
+        "materialSource": "lambert_textile",
+        "model3dSource": "sphere",
+        "name": "sphere_lambert_textile",
+        "options": {
+          "height": 1,
+          "heightSegments": 64,
+          "radius": 0.7,
+          "width": 1,
+          "widthSegments": 64
+        },
+        "tags": ["sphere", "lambert", "textile"]
+      },
+      {
+        "castShadow": true,
+        "materialSource": "toon_textile",
+        "model3dSource": "sphere",
+        "name": "sphere_toon_textile",
+        "options": {
+          "height": 1,
+          "heightSegments": 64,
+          "radius": 0.7,
+          "width": 1,
+          "widthSegments": 64
+        },
+        "tags": ["sphere", "toon", "textile"]
+      },
+      {
+        "castShadow": true,
+        "materialSource": "matcap_textile",
+        "model3dSource": "sphere",
+        "name": "sphere_matcap_textile",
+        "options": {
+          "height": 1,
+          "heightSegments": 64,
+          "radius": 0.7,
+          "width": 1,
+          "widthSegments": 64
+        },
+        "tags": ["sphere", "matcap", "textile"]
+      }
+    ],
+    "particles": [],
+    "physics": {},
+    "spatialGrids": [
+      {
+        "cellSize": 10,
+        "centerX": 0,
+        "centerZ": 0,
+        "mapHeight": 10,
+        "mapWidth": 10,
+        "name": "main_grid",
+        "tags": []
+      }
+    ],
+    "texts": []
   },
-  "tags": []
+  "name": "showcase",
+  "resources": {
+    "animations": [],
+    "audio": [],
+    "envMaps": [],
+    "materials": [
+      {
+        "name": "surface_material",
+        "options": {
+          "color": "#5EDCAE"
+        },
+        "type": "toon"
+      },
+      {
+        "name": "standard_metal",
+        "options": {
+          "displacementScale": 0
+        },
+        "tags": ["standard", "metal"],
+        "textures": {
+          "bumpMap": "metal_steel_brushed_bump_map",
+          "displacementMap": "metal_steel_brushed_displacement_map",
+          "map": "metal_steel_brushed_map",
+          "metalnessMap": "metal_steel_brushed_metalness_map",
+          "normalMap": "metal_steel_brushed_normal_map",
+          "roughnessMap": "metal_steel_brushed_roughness_map"
+        },
+        "type": "standard"
+      },
+      {
+        "name": "physical_metal",
+        "options": {
+          "clearcoat": 1,
+          "clearcoatRoughness": 0.12,
+          "displacementScale": 0,
+          "ior": 2.5,
+          "iridescence": 0.655,
+          "iridescenceIOR": 1.86,
+          "metalness": 0.97,
+          "roughness": 0.8,
+          "thickness": 0,
+          "transmission": 0
+        },
+        "tags": ["physical", "metal"],
+        "textures": {
+          "bumpMap": "metal_steel_brushed_bump_map",
+          "displacementMap": "metal_steel_brushed_displacement_map",
+          "map": "metal_steel_brushed_map",
+          "metalnessMap": "metal_steel_brushed_metalness_map",
+          "normalMap": "metal_steel_brushed_normal_map",
+          "roughnessMap": "metal_steel_brushed_roughness_map"
+        },
+        "type": "physical"
+      },
+      {
+        "name": "basic_metal",
+        "tags": ["basic", "metal"],
+        "textures": {
+          "map": "metal_steel_brushed_map"
+        },
+        "type": "basic"
+      },
+      {
+        "name": "phong_metal",
+        "options": {
+          "displacementScale": 0.1
+        },
+        "tags": ["phong", "metal"],
+        "textures": {
+          "bumpMap": "metal_steel_brushed_bump_map",
+          "displacementMap": "metal_steel_brushed_displacement_map",
+          "map": "metal_steel_brushed_map",
+          "normalMap": "metal_steel_brushed_normal_map"
+        },
+        "type": "phong"
+      },
+      {
+        "name": "lambert_metal",
+        "options": {
+          "displacementScale": 0.1
+        },
+        "tags": ["lambert", "metal"],
+        "textures": {
+          "bumpMap": "metal_steel_brushed_bump_map",
+          "displacementMap": "metal_steel_brushed_displacement_map",
+          "map": "metal_steel_brushed_map",
+          "normalMap": "metal_steel_brushed_normal_map"
+        },
+        "type": "lambert"
+      },
+      {
+        "name": "toon_metal",
+        "options": {
+          "displacementScale": 0.1
+        },
+        "tags": ["toon", "metal"],
+        "textures": {
+          "bumpMap": "metal_steel_brushed_bump_map",
+          "displacementMap": "metal_steel_brushed_displacement_map",
+          "map": "metal_steel_brushed_map",
+          "normalMap": "metal_steel_brushed_normal_map"
+        },
+        "type": "toon"
+      },
+      {
+        "name": "matcap_metal",
+        "options": {
+          "displacementScale": 0.1
+        },
+        "tags": ["matcap", "metal"],
+        "textures": {
+          "bumpMap": "metal_steel_brushed_bump_map",
+          "displacementMap": "metal_steel_brushed_displacement_map",
+          "map": "metal_steel_brushed_map",
+          "normalMap": "metal_steel_brushed_normal_map"
+        },
+        "type": "matcap"
+      },
+      {
+        "name": "standard_wood",
+        "options": {
+          "displacementScale": 0.1
+        },
+        "tags": ["standard", "wood"],
+        "textures": {
+          "alphaMap": "wood_alpha_map",
+          "aoMap": "wood_ao_map",
+          "displacementMap": "wood_displacement_map",
+          "map": "wood_map",
+          "metalnessMap": "wood_metalness_map",
+          "normalMap": "wood_normal_map",
+          "roughnessMap": "wood_roughness_map"
+        },
+        "type": "standard"
+      },
+      {
+        "name": "physical_wood",
+        "options": {
+          "displacementScale": 0.1
+        },
+        "tags": ["physical", "wood"],
+        "textures": {
+          "alphaMap": "wood_alpha_map",
+          "aoMap": "wood_ao_map",
+          "displacementMap": "wood_displacement_map",
+          "map": "wood_map",
+          "metalnessMap": "wood_metalness_map",
+          "normalMap": "wood_normal_map",
+          "roughnessMap": "wood_roughness_map"
+        },
+        "type": "physical"
+      },
+      {
+        "name": "basic_wood",
+        "tags": ["basic", "wood"],
+        "textures": {
+          "alphaMap": "wood_alpha_map",
+          "aoMap": "wood_ao_map",
+          "map": "wood_map"
+        },
+        "type": "basic"
+      },
+      {
+        "name": "phong_wood",
+        "options": {
+          "displacementScale": 0.1
+        },
+        "tags": ["phong", "wood"],
+        "textures": {
+          "alphaMap": "wood_alpha_map",
+          "aoMap": "wood_ao_map",
+          "displacementMap": "wood_displacement_map",
+          "map": "wood_map",
+          "normalMap": "wood_normal_map"
+        },
+        "type": "phong"
+      },
+      {
+        "name": "lambert_wood",
+        "options": {
+          "displacementScale": 0.1
+        },
+        "tags": ["lambert", "wood"],
+        "textures": {
+          "alphaMap": "wood_alpha_map",
+          "aoMap": "wood_ao_map",
+          "displacementMap": "wood_displacement_map",
+          "map": "wood_map",
+          "normalMap": "wood_normal_map"
+        },
+        "type": "lambert"
+      },
+      {
+        "name": "toon_wood",
+        "options": {
+          "displacementScale": 0.1
+        },
+        "tags": ["toon", "wood"],
+        "textures": {
+          "alphaMap": "wood_alpha_map",
+          "aoMap": "wood_ao_map",
+          "displacementMap": "wood_displacement_map",
+          "map": "wood_map",
+          "normalMap": "wood_normal_map"
+        },
+        "type": "toon"
+      },
+      {
+        "name": "matcap_wood",
+        "options": {
+          "displacementScale": 0.1
+        },
+        "tags": ["matcap", "wood"],
+        "textures": {
+          "alphaMap": "wood_alpha_map",
+          "displacementMap": "wood_displacement_map",
+          "map": "wood_map",
+          "normalMap": "wood_normal_map"
+        },
+        "type": "matcap"
+      },
+      {
+        "name": "standard_glass",
+        "options": {
+          "metalness": 0,
+          "roughness": 0
+        },
+        "tags": ["standard", "glass"],
+        "type": "standard"
+      },
+      {
+        "name": "physical_glass",
+        "options": {
+          "clearcoat": 0.8,
+          "clearcoatRoughness": 0.09,
+          "displacementScale": 0.1,
+          "ior": 1.26,
+          "iridescence": 0,
+          "iridescenceIOR": 1.38,
+          "metalness": 0,
+          "roughness": 0,
+          "thickness": 0.5,
+          "transmission": 0.77
+        },
+        "tags": ["physical", "glass"],
+        "type": "physical"
+      },
+      {
+        "name": "basic_glass",
+        "tags": ["basic", "glass"],
+        "type": "basic"
+      },
+      {
+        "name": "phong_glass",
+        "options": {
+          "displacementScale": 0.1
+        },
+        "tags": ["phong", "glass"],
+        "type": "phong"
+      },
+      {
+        "name": "lambert_glass",
+        "options": {
+          "displacementScale": 0.1
+        },
+        "tags": ["lambert", "glass"],
+        "type": "lambert"
+      },
+      {
+        "name": "toon_glass",
+        "options": {
+          "displacementScale": 0.1
+        },
+        "tags": ["toon", "glass"],
+        "type": "toon"
+      },
+      {
+        "name": "matcap_glass",
+        "options": {
+          "displacementScale": 0.1
+        },
+        "tags": ["matcap", "glass"],
+        "type": "matcap"
+      },
+      {
+        "name": "standard_textile",
+        "options": {
+          "displacementScale": 0.1
+        },
+        "tags": ["standard", "textile"],
+        "textures": {
+          "aoMap": "carpet_ao_map",
+          "displacementMap": "carpet_displacement_map",
+          "map": "carpet_map",
+          "normalMap": "carpet_normal_map",
+          "roughnessMap": "carpet_roughness_map"
+        },
+        "type": "standard"
+      },
+      {
+        "name": "physical_textile",
+        "options": {
+          "displacementScale": 0.1
+        },
+        "tags": ["physical", "textile"],
+        "textures": {
+          "aoMap": "carpet_ao_map",
+          "displacementMap": "carpet_displacement_map",
+          "map": "carpet_map",
+          "normalMap": "carpet_normal_map",
+          "roughnessMap": "carpet_roughness_map"
+        },
+        "type": "physical"
+      },
+      {
+        "name": "basic_textile",
+        "tags": ["basic", "textile"],
+        "textures": {
+          "aoMap": "carpet_ao_map",
+          "map": "carpet_map"
+        },
+        "type": "basic"
+      },
+      {
+        "name": "phong_textile",
+        "options": {
+          "displacementScale": 0.1
+        },
+        "tags": ["phong", "textile"],
+        "textures": {
+          "aoMap": "carpet_ao_map",
+          "displacementMap": "carpet_displacement_map",
+          "map": "carpet_map",
+          "normalMap": "carpet_normal_map"
+        },
+        "type": "phong"
+      },
+      {
+        "name": "lambert_textile",
+        "options": {
+          "displacementScale": 0.1
+        },
+        "tags": ["lambert", "textile"],
+        "textures": {
+          "aoMap": "carpet_ao_map",
+          "displacementMap": "carpet_displacement_map",
+          "map": "carpet_map",
+          "normalMap": "carpet_normal_map"
+        },
+        "type": "lambert"
+      },
+      {
+        "name": "toon_textile",
+        "options": {
+          "displacementScale": 0.1
+        },
+        "tags": ["toon", "textile"],
+        "textures": {
+          "aoMap": "carpet_ao_map",
+          "displacementMap": "carpet_displacement_map",
+          "map": "carpet_map",
+          "normalMap": "carpet_normal_map"
+        },
+        "type": "toon"
+      },
+      {
+        "name": "matcap_textile",
+        "options": {
+          "displacementScale": 0.1
+        },
+        "tags": ["matcap", "textile"],
+        "textures": {
+          "displacementMap": "carpet_displacement_map",
+          "map": "carpet_map",
+          "normalMap": "carpet_normal_map"
+        },
+        "type": "matcap"
+      }
+    ],
+    "models3d": [],
+    "textures": [
+      {
+        "name": "metal_steel_brushed_bump_map",
+        "tags": ["bumpMap", "metal"],
+        "url": "/Showcase/Brushed_Metal/MetalSteelBrushed001_BUMP_1K_METALNESS.png"
+      },
+      {
+        "name": "metal_steel_brushed_map",
+        "tags": ["map", "metal"],
+        "url": "/Showcase/Brushed_Metal/MetalSteelBrushed001_COL_1K_METALNESS.png"
+      },
+      {
+        "name": "metal_steel_brushed_normal_map",
+        "tags": ["normalMap", "metal"],
+        "url": "/Showcase/Brushed_Metal/MetalSteelBrushed001_NRM_1K_METALNESS.png"
+      },
+      {
+        "name": "metal_steel_brushed_displacement_map",
+        "tags": ["displacementMap", "metal"],
+        "url": "/Showcase/Brushed_Metal/MetalSteelBrushed001_DISP_1K_METALNESS.png"
+      },
+      {
+        "name": "metal_steel_brushed_metalness_map",
+        "tags": ["metalnessMap", "metal"],
+        "url": "/Showcase/Brushed_Metal/MetalSteelBrushed001_BUMP16_1K_METALNESS.png"
+      },
+      {
+        "name": "metal_steel_brushed_roughness_map",
+        "tags": ["roughnessMap", "metal"],
+        "url": "/Showcase/Brushed_Metal/MetalSteelBrushed001_ROUGHNESS_1K_METALNESS.png"
+      },
+      {
+        "name": "wood_ao_map",
+        "tags": ["aoMap", "wood"],
+        "url": "/Showcase/Door_Wood/Door_Wood_001_ambientOcclusion.jpg"
+      },
+      {
+        "name": "wood_map",
+        "tags": ["map", "wood"],
+        "url": "/Showcase/Door_Wood/Door_Wood_001_basecolor.jpg"
+      },
+      {
+        "name": "wood_normal_map",
+        "tags": ["normalMap", "wood"],
+        "url": "/Showcase/Door_Wood/Door_Wood_001_normal.jpg"
+      },
+      {
+        "name": "wood_displacement_map",
+        "tags": ["displacementMap", "wood"],
+        "url": "/Showcase/Door_Wood/Door_Wood_001_height.png"
+      },
+      {
+        "name": "wood_alpha_map",
+        "tags": ["alphaMap", "wood"],
+        "url": "/Showcase/Door_Wood/Door_Wood_001_opacity.jpg"
+      },
+      {
+        "name": "wood_metalness_map",
+        "tags": ["metalnessMap", "wood"],
+        "url": "/Showcase/Door_Wood/Door_Wood_001_metallic.jpg"
+      },
+      {
+        "name": "wood_roughness_map",
+        "tags": ["roughnessMap", "wood"],
+        "url": "/Showcase/Door_Wood/Door_Wood_001_roughness.jpg"
+      },
+      {
+        "name": "carpet_ao_map",
+        "tags": ["carpet", "aoMap"],
+        "url": "/Showcase/Dirty_Carpet/dirty_carpet_ao_1k.jpg"
+      },
+      {
+        "name": "carpet_map",
+        "tags": ["carpet", "map"],
+        "url": "/Showcase/Dirty_Carpet/dirty_carpet_diff_1k.jpg"
+      },
+      {
+        "name": "carpet_normal_map",
+        "tags": ["carpet", "normalMap"],
+        "url": "/Showcase/Dirty_Carpet/dirty_carpet_nor_dx_1k.jpg"
+      },
+      {
+        "name": "carpet_displacement_map",
+        "tags": ["carpet", "displacementMap"],
+        "url": "/Showcase/Dirty_Carpet/dirty_carpet_disp_1k.png"
+      },
+      {
+        "name": "carpet_roughness_map",
+        "tags": ["carpet", "roughnessMap"],
+        "url": "/Showcase/Dirty_Carpet/dirty_carpet_rough_1k.jpg"
+      }
+    ]
+  },
+  "scenes": [
+    {
+      "isActive": true,
+      "name": "showcase",
+      "tags": []
+    }
+  ],
+  "tags": [],
+  "version": "1.0.0"
 }

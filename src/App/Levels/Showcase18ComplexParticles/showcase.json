@@ -1,103 +1,129 @@
 {
-  "name": "showcase",
-  "version": "1.0.0",
-  "scenes": [
-    {
-      "name": "showcase",
-      "background": "#000000",
-      "tags": [],
-      "isActive": true
-    }
-  ],
-  "resources": {
-    "textures": [{ "name": "particles_ao_map_texture", "url": "/Showcase/particles/4.png" }],
-    "envMaps": [],
-    "materials": [
-      {
-        "name": "particles_material",
-        "type": "points",
-        "options": {
-          "color": "#E91E63",
-          "size": 0.3,
-          "sizeAttenuation": true,
-          "depthWrite": false,
-          "blending": "AdditiveBlending",
-          "vertexColors": true
-        },
-        "textures": {
-          "alphaMap": "particles_ao_map_texture"
-        }
-      }
-    ],
-    "animations": [],
-    "models3d": [],
-    "audio": []
-  },
   "entities": {
-    "spatialGrids": [
-      {
-        "name": "main_grid",
-        "mapWidth": 10,
-        "mapHeight": 10,
-        "cellSize": 10,
-        "centerX": 0,
-        "centerZ": 0,
-        "tags": []
-      }
-    ],
-    "models3d": [],
     "actors": [],
-    "intersections": [],
-    "physics": {},
-    "texts": [],
+    "audio": [],
     "cameras": [
       {
+        "far": 10000,
         "fov": 45,
+        "isActive": true,
         "name": "main",
         "near": 1,
-        "far": 10000,
-        "position": { "x": 3, "y": 10, "z": 15 },
-        "rotation": { "x": 0, "y": 0, "z": 0 },
-        "tags": [],
-        "isActive": true
-      }
-    ],
-    "lights": [
-      {
-        "type": "Directional",
-        "color": "#ffffff",
-        "intensity": 1,
-        "castShadow": true,
-        "shadow": {
-          "mapSize": { "x": 1024, "y": 1024 },
-          "camera": { "far": 15 },
-          "normalBias": 0.05
+        "position": {
+          "x": 3,
+          "y": 10,
+          "z": 15
         },
-        "position": { "x": 0.25, "y": 2, "z": 2.25 },
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
         "tags": []
       }
     ],
     "controls": [
       {
-        "type": "OrbitControls",
         "cameraName": "main",
         "enableDamping": true,
+        "isActive": true,
         "tags": [],
-        "isActive": true
+        "type": "OrbitControls"
       }
     ],
     "envMaps": [],
+    "fogs": [],
+    "fsm": [],
+    "intersections": [],
+    "lights": [
+      {
+        "castShadow": true,
+        "color": "#ffffff",
+        "intensity": 1,
+        "position": {
+          "x": 0.25,
+          "y": 2,
+          "z": 2.25
+        },
+        "shadow": {
+          "camera": {
+            "far": 15
+          },
+          "mapSize": {
+            "x": 1024,
+            "y": 1024
+          },
+          "normalBias": 0.05
+        },
+        "tags": [],
+        "type": "Directional"
+      }
+    ],
+    "models3d": [],
     "particles": [
       {
-        "name": "stars",
-        "position": { "x": 0, "y": 0, "z": 0 },
         "materialSource": "particles_material",
+        "name": "stars",
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
         "tags": []
       }
     ],
-    "fogs": [],
-    "fsm": [],
-    "audio": []
+    "physics": {},
+    "spatialGrids": [
+      {
+        "cellSize": 10,
+        "centerX": 0,
+        "centerZ": 0,
+        "mapHeight": 10,
+        "mapWidth": 10,
+        "name": "main_grid",
+        "tags": []
+      }
+    ],
+    "texts": []
   },
-  "tags": []
+  "name": "showcase",
+  "resources": {
+    "animations": [],
+    "audio": [],
+    "envMaps": [],
+    "materials": [
+      {
+        "name": "particles_material",
+        "options": {
+          "blending": "AdditiveBlending",
+          "color": "#E91E63",
+          "depthWrite": false,
+          "size": 0.3,
+          "sizeAttenuation": true,
+          "vertexColors": true
+        },
+        "textures": {
+          "alphaMap": "particles_ao_map_texture"
+        },
+        "type": "points"
+      }
+    ],
+    "models3d": [],
+    "textures": [
+      {
+        "name": "particles_ao_map_texture",
+        "url": "/Showcase/particles/4.png"
+      }
+    ]
+  },
+  "scenes": [
+    {
+      "background": "#000000",
+      "isActive": true,
+      "name": "showcase",
+      "tags": []
+    }
+  ],
+  "tags": [],
+  "version": "1.0.0"
 }

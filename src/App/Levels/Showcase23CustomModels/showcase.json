@@ -1,130 +1,195 @@
 {
-  "name": "showcase",
-  "version": "1.0.0",
-  "scenes": [
-    {
-      "name": "showcase",
-      "tags": [],
-      "isActive": true
-    }
-  ],
-  "resources": {
-    "textures": [],
-    "envMaps": [],
-    "materials": [{ "name": "surface_material", "type": "standard", "options": { "color": "#5EDCAE" } }],
-    "models3d": [{ "name": "fox_glb", "url": "/Showcase/Models/Fox/Fox.glb" }],
-    "audio": [],
-    "animations": []
-  },
   "entities": {
-    "models3d": [
-      {
-        "name": "surface_model",
-        "model3dSource": "plane",
-        "materialSource": "surface_material",
-        "options": {
-          "width": 100,
-          "height": 100,
-          "widthSegments": 1,
-          "heightSegments": 1
-        },
-        "castShadow": false,
-        "receiveShadow": true,
-        "position": { "x": 0, "y": 0, "z": 0 },
-        "rotation": { "x": -1.57, "y": 0, "z": 0 }
-      },
-      {
-        "name": "fox_glb_config_original",
-        "model3dSource": "fox_glb",
-        "scale": { "x": 0.025, "y": 0.025, "z": 0.025 },
-        "position": { "x": 5, "y": 0, "z": 0 },
-        "tags": ["fox", "compressed"]
-      }
-    ],
-    "spatialGrids": [
-      {
-        "name": "main_grid",
-        "mapWidth": 100,
-        "mapHeight": 100,
-        "cellSize": 10,
-        "centerX": 0,
-        "centerZ": 0,
-        "tags": []
-      }
-    ],
     "actors": [],
-    "physics": {},
-    "intersections": [],
-    "texts": [
-      {
-        "type": "text_3d",
-        "text": "1",
-        "position": { "x": -5, "y": 0, "z": 3 },
-        "rotation": { "x": -1.57, "y": 0, "z": 0 },
-        "cssProps": {
-          "color": "#000000",
-          "fontSize": "0.1rem",
-          "fontFamily": "\"Roboto\", sans-serif"
-        }
-      },
-      {
-        "type": "text_3d",
-        "text": "2",
-        "position": { "x": 0, "y": 0, "z": 3 },
-        "rotation": { "x": -1.57, "y": 0, "z": 0 },
-        "cssProps": {
-          "color": "#000000",
-          "fontSize": "0.1rem",
-          "fontFamily": "\"Roboto\", sans-serif"
-        }
-      },
-      {
-        "type": "text_3d",
-        "text": "3",
-        "position": { "x": 5, "y": 0, "z": 3 },
-        "rotation": { "x": -1.57, "y": 0, "z": 0 },
-        "cssProps": {
-          "color": "#000000",
-          "fontSize": "0.1rem",
-          "fontFamily": "\"Roboto\", sans-serif"
-        }
-      }
-    ],
+    "audio": [],
     "cameras": [
       {
+        "far": 10000,
         "fov": 45,
+        "isActive": true,
         "name": "main",
         "near": 1,
-        "far": 10000,
-        "position": { "x": 3, "y": 20, "z": 35 },
-        "rotation": { "x": 0, "y": 0, "z": 0 },
-        "tags": [],
-        "isActive": true
-      }
-    ],
-    "lights": [
-      {
-        "type": "Ambient",
-        "color": "#ffffff",
-        "intensity": 0.5,
-        "position": { "x": 0.25, "y": 2, "z": 2.25 },
+        "position": {
+          "x": 3,
+          "y": 20,
+          "z": 35
+        },
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
         "tags": []
       }
     ],
     "controls": [
       {
-        "type": "OrbitControls",
         "cameraName": "main",
         "enableDamping": true,
+        "isActive": true,
         "tags": [],
-        "isActive": true
+        "type": "OrbitControls"
       }
     ],
     "envMaps": [],
-    "particles": [],
     "fogs": [],
     "fsm": [],
-    "audio": []
+    "intersections": [],
+    "lights": [
+      {
+        "color": "#ffffff",
+        "intensity": 0.5,
+        "position": {
+          "x": 0.25,
+          "y": 2,
+          "z": 2.25
+        },
+        "tags": [],
+        "type": "Ambient"
+      }
+    ],
+    "models3d": [
+      {
+        "castShadow": false,
+        "materialSource": "surface_material",
+        "model3dSource": "plane",
+        "name": "surface_model",
+        "options": {
+          "height": 100,
+          "heightSegments": 1,
+          "width": 100,
+          "widthSegments": 1
+        },
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "receiveShadow": true,
+        "rotation": {
+          "x": -1.57,
+          "y": 0,
+          "z": 0
+        }
+      },
+      {
+        "model3dSource": "fox_glb",
+        "name": "fox_glb_config_original",
+        "position": {
+          "x": 5,
+          "y": 0,
+          "z": 0
+        },
+        "scale": {
+          "x": 0.025,
+          "y": 0.025,
+          "z": 0.025
+        },
+        "tags": ["fox", "compressed"]
+      }
+    ],
+    "particles": [],
+    "physics": {},
+    "spatialGrids": [
+      {
+        "cellSize": 10,
+        "centerX": 0,
+        "centerZ": 0,
+        "mapHeight": 100,
+        "mapWidth": 100,
+        "name": "main_grid",
+        "tags": []
+      }
+    ],
+    "texts": [
+      {
+        "cssProps": {
+          "color": "#000000",
+          "fontFamily": "\"Roboto\", sans-serif",
+          "fontSize": "0.1rem"
+        },
+        "position": {
+          "x": -5,
+          "y": 0,
+          "z": 3
+        },
+        "rotation": {
+          "x": -1.57,
+          "y": 0,
+          "z": 0
+        },
+        "text": "1",
+        "type": "text_3d"
+      },
+      {
+        "cssProps": {
+          "color": "#000000",
+          "fontFamily": "\"Roboto\", sans-serif",
+          "fontSize": "0.1rem"
+        },
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": 3
+        },
+        "rotation": {
+          "x": -1.57,
+          "y": 0,
+          "z": 0
+        },
+        "text": "2",
+        "type": "text_3d"
+      },
+      {
+        "cssProps": {
+          "color": "#000000",
+          "fontFamily": "\"Roboto\", sans-serif",
+          "fontSize": "0.1rem"
+        },
+        "position": {
+          "x": 5,
+          "y": 0,
+          "z": 3
+        },
+        "rotation": {
+          "x": -1.57,
+          "y": 0,
+          "z": 0
+        },
+        "text": "3",
+        "type": "text_3d"
+      }
+    ]
   },
-  "tags": []
+  "name": "showcase",
+  "resources": {
+    "animations": [],
+    "audio": [],
+    "envMaps": [],
+    "materials": [
+      {
+        "name": "surface_material",
+        "options": {
+          "color": "#5EDCAE"
+        },
+        "type": "standard"
+      }
+    ],
+    "models3d": [
+      {
+        "name": "fox_glb",
+        "url": "/Showcase/Models/Fox/Fox.glb"
+      }
+    ],
+    "textures": []
+  },
+  "scenes": [
+    {
+      "isActive": true,
+      "name": "showcase",
+      "tags": []
+    }
+  ],
+  "tags": [],
+  "version": "1.0.0"
 }
