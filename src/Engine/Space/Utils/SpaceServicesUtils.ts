@@ -1,7 +1,7 @@
 import type { TModel3dToActorConnectionRegistry } from '@/Engine/Actor';
 import { ActorFactory, ActorRegistry, ActorService, Model3dToActorConnectionRegistry } from '@/Engine/Actor';
 import type { TAnimationsService } from '@/Engine/Animations';
-import { AnimationsService } from '@/Engine/Animations';
+import { AnimationsFsmFactory, AnimationsFsmRegistry, AnimationsFsmService, AnimationsService } from '@/Engine/Animations';
 import type { TAppCanvas } from '@/Engine/App';
 import { CameraFactory, CameraRegistry, CameraService } from '@/Engine/Camera';
 import type { TCollisionsLoopService, TCollisionsService } from '@/Engine/Collisions';
@@ -115,6 +115,7 @@ export function initEntitiesServices(sceneW: TSceneWrapper, canvas: TAppCanvas):
     materialService,
     models3dService,
     animationsService,
+    animationsFsmService: AnimationsFsmService(AnimationsFsmFactory(), AnimationsFsmRegistry()),
     mouseService: MouseService(ambientContext.container, { loopService }),
     particlesService: ParticlesService(ParticlesFactory(), ParticlesRegistry(), materialService, sceneW),
     physicsBodyService,
