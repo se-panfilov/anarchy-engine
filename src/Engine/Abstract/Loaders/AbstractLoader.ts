@@ -41,8 +41,8 @@ export function AbstractLoader<L extends Loader<any>, R extends TProtectedRegist
   const setOnLoadedFn = (onLoaded: TAbstractOnLoadFunction<T>): void => void (onLoadedFn = onLoaded);
 
   const destroyable: TDestroyable = destroyableMixin();
-  destroyable.destroyed$.subscribe(() => {
-    registry.destroy();
+  destroyable.destroy$.subscribe(() => {
+    registry.destroy$.next();
   });
 
   return {

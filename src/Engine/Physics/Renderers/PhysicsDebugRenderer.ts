@@ -32,7 +32,7 @@ export function PhysicsDebugRenderer(sceneW: TSceneWrapper, world: World, loopSe
   const loopSubscription$: Subscription = loopService.tick$.subscribe(update);
 
   const destroyable: TDestroyable = destroyableMixin();
-  destroyable.destroyed$.subscribe(() => loopSubscription$.unsubscribe());
+  destroyable.destroy$.subscribe(() => loopSubscription$.unsubscribe());
 
   return {
     update,

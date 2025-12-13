@@ -58,7 +58,7 @@ export function IntersectionsWatcher({ position$, isAutoStart, tags, name, ...re
     return raycaster.intersectObjects(list)[0];
   }
 
-  const abstractWatcherSubscription: Subscription = abstractWatcher.destroyed$.subscribe(() => {
+  const abstractWatcherSubscription: Subscription = abstractWatcher.destroy$.subscribe(() => {
     raycaster = undefined;
     mousePos$?.unsubscribe();
     abstractWatcherSubscription.unsubscribe();

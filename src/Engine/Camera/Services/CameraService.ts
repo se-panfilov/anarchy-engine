@@ -35,7 +35,7 @@ export function CameraService(factory: TCameraFactory, registry: TCameraRegistry
 
   if (isUpdateCamerasAspect) startUpdatingCamerasAspect(false);
 
-  const screenSizeDestroy$: Subscription = ambientContext.screenSizeWatcher.destroyed$.subscribe(() => {
+  const screenSizeDestroy$: Subscription = ambientContext.screenSizeWatcher.destroy$.subscribe(() => {
     screenSize$?.unsubscribe();
     screenSizeDestroy$.unsubscribe();
   });
@@ -44,9 +44,9 @@ export function CameraService(factory: TCameraFactory, registry: TCameraRegistry
   const createFromConfig = (cameras: ReadonlyArray<TCameraConfig>): ReadonlyArray<TCameraWrapper> => cameras.map((config: TCameraConfig): TCameraWrapper => create(factory.configToParams(config)));
 
   const destroyable: TDestroyable = destroyableMixin();
-  destroyable.destroyed$.subscribe(() => {
-    factory.destroy();
-    registry.destroy();
+  destroyable.destroy$.subscribe(() => {
+    factory.destroy$.next();
+    registry.destroy$.next();
     withActive.active$.complete();
     screenSize$?.unsubscribe();
     screenSizeDestroy$.unsubscribe();

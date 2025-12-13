@@ -9,7 +9,7 @@ export function KinematicLoopService(): TKinematicLoopService {
   const tick$: Subject<number> = new Subject<number>();
 
   const destroyable: TDestroyable = destroyableMixin();
-  destroyable.destroyed$.subscribe((): void => {
+  destroyable.destroy$.subscribe((): void => {
     tick$.complete();
   });
 

@@ -31,7 +31,7 @@ export function Model3d(params: TModel3dParams, { animationsService, model3dRawT
   if (isDefined(params.position)) applyPositionToModel3d(entities.model3dSource, params.position);
   applyObject3dParamsToModel3d(entities.model3dSource, params);
 
-  abstract.destroyed$.subscribe(() => {
+  abstract.destroy$.subscribe(() => {
     model3dRawToModel3dConnectionRegistry.removeByModel3d(entities.model3dSource);
     // TODO 8.0.0. MODELS: implement the removal of the model from the scene and destroy of the models (and unload the resources)
   });

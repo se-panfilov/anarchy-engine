@@ -14,9 +14,10 @@ export function AbstractWatcherWithState<T>(type: WatcherType | string, initialV
     latest$.next(val);
   });
 
-  const abstractWatcherSubscription$: Subscription = abstractWatcher.destroyed$.subscribe((): void => {
-    latest$.unsubscribe();
+  const abstractWatcherSubscription$: Subscription = abstractWatcher.destroy$.subscribe((): void => {
     latest$.complete();
+    latest$.unsubscribe();
+    abstractWatcher.value$.complete();
     abstractWatcher.value$.unsubscribe();
     abstractWatcherSubscription$.unsubscribe();
   });

@@ -15,9 +15,9 @@ export function ParticlesService(factory: TParticlesFactory, registry: TParticle
     particles.map((config: TParticlesConfig): TParticlesWrapper => create(factory.configToParams(config, { materialRegistry })));
 
   const destroyable: TDestroyable = destroyableMixin();
-  destroyable.destroyed$.subscribe(() => {
-    factory.destroy();
-    registry.destroy();
+  destroyable.destroy$.subscribe(() => {
+    factory.destroy$.next();
+    registry.destroy$.next();
   });
 
   return {

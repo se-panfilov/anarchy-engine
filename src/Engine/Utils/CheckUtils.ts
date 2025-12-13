@@ -19,7 +19,7 @@ export const isAllNotDefined = <T>(values: ReadonlyArray<T | undefined | null>):
 export const isRegistrable = (obj: unknown): obj is TRegistrable => isDefined((obj as TRegistrable).getTags) && Boolean((obj as TRegistrable).addTag);
 
 export function isDestroyable(obj: unknown): obj is TDestroyable {
-  return isDefined((obj as TDestroyable).destroy) && isDefined((obj as TDestroyable).destroyed$) && isDefined((obj as TDestroyable).isDestroyed);
+  return isDefined((obj as TDestroyable).destroy$) && isDefined((obj as TDestroyable).isDestroyed);
 }
 
 export const isString = (value: unknown): value is string => typeof value === 'string';

@@ -3,18 +3,17 @@ import { Subject } from 'rxjs';
 import type { TDestroyable } from '@/Engine/Mixins/Generics/Models';
 
 export function destroyableMixin(): TDestroyable {
-  const destroyed$: Subject<void> = new Subject<void>();
+  const destroy$: Subject<void> = new Subject<void>();
   let isDestroyed: boolean = false;
 
-  destroyed$.subscribe((): void => {
+  destroy$.subscribe((): void => {
     isDestroyed = true;
-    destroyed$.unsubscribe();
-    destroyed$.complete();
+    destroy$.complete();
+    destroy$.unsubscribe();
   });
 
   return {
-    destroy: (): void => destroyed$.next(),
     isDestroyed: (): boolean => isDestroyed,
-    destroyed$: destroyed$.asObservable()
+    destroy$
   };
 }

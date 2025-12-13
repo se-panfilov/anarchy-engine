@@ -26,7 +26,7 @@ export function ActorWithPhysics(
     updateMovementInfo(actorPhysicalW, deps.physicsBodyService);
   });
 
-  actorPhysicalW.destroyed$.subscribe(() => sub$.unsubscribe());
+  actorPhysicalW.destroy$.subscribe(() => sub$.unsubscribe());
 
   return actorPhysicalW;
 }

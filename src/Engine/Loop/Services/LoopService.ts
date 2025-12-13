@@ -44,7 +44,7 @@ export function LoopService(): TLoopService {
   }
 
   const destroyable: TDestroyable = destroyableMixin();
-  destroyable.destroyed$.subscribe((): void => {
+  destroyable.destroy$.subscribe((): void => {
     beforeTick$.complete();
     tick$.complete();
   });

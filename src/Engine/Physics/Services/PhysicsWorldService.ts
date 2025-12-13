@@ -60,7 +60,7 @@ export function PhysicsWorldService(scene: TSceneWrapper): TPhysicsWorldService 
   }
 
   const destroyable: TDestroyable = destroyableMixin();
-  destroyable.destroyed$.subscribe(() => {
+  destroyable.destroy$.subscribe(() => {
     world?.free();
   });
 

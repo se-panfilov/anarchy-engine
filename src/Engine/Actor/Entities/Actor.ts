@@ -27,9 +27,15 @@ export function Actor(
   const isModelAlreadyInUse: boolean = isDefined(model3dToActorConnectionRegistry.findByModel3d(params.model3dSource));
   const model3d: TModel3d = isModelAlreadyInUse ? models3dService.clone(params.model3dSource) : params.model3dSource;
 
-  position$.pipe(distinctUntilChanged((prev: Vector3, curr: Vector3): boolean => prev.equals(curr))).subscribe((position: Vector3): Vector3 => model3d.getRawModel3d().position.copy(position));
-  rotation$.pipe(distinctUntilChanged((prev: Euler, curr: Euler): boolean => prev.equals(curr))).subscribe((rotation: Euler): Euler => model3d.getRawModel3d().rotation.copy(rotation));
-  scale$.pipe(distinctUntilChanged((prev: Vector3, curr: Vector3): boolean => prev.equals(curr))).subscribe((scale: Vector3): Vector3 => model3d.getRawModel3d().scale.copy(scale));
+  const positionSub$: Subscription = position$
+    .pipe(distinctUntilChanged((prev: Vector3, curr: Vector3): boolean => prev.equals(curr)))
+    .subscribe((position: Vector3): Vector3 => model3d.getRawModel3d().position.copy(position));
+  const rotationSub$: Subscription = rotation$
+    .pipe(distinctUntilChanged((prev: Euler, curr: Euler): boolean => prev.equals(curr)))
+    .subscribe((rotation: Euler): Euler => model3d.getRawModel3d().rotation.copy(rotation));
+  const scaleSub$: Subscription = scale$
+    .pipe(distinctUntilChanged((prev: Vector3, curr: Vector3): boolean => prev.equals(curr)))
+    .subscribe((scale: Vector3): Vector3 => model3d.getRawModel3d().scale.copy(scale));
 
   // TODO 8.0.0. MODELS: maybe not needed at all, cause we can check current drive in mixins
   // drive$.subscribe((drive: ActorDrive): void => {
@@ -94,39 +100,35 @@ export function Actor(
     }
   });
 
-  abstract.destroyed$.subscribe(() => {
+  abstract.destroy$.subscribe(() => {
+    //Remove model3d registration
     model3dToActorConnectionRegistry.removeByModel3d(model3d);
+
+    //Finish subscriptions
     spatialSub$.unsubscribe();
-    position$.unsubscribe();
+    positionSub$.unsubscribe();
+    rotationSub$.unsubscribe();
+    scaleSub$.unsubscribe();
+
+    //Stop subjects
     position$.complete();
-    rotation$.unsubscribe();
+    position$.unsubscribe();
     rotation$.complete();
-    model3d.destroy();
-    entities.spatial.destroy();
-    entities.collisions?.destroy();
-    entities.kinematic.destroy();
+    rotation$.unsubscribe();
+    scale$.complete();
+    scale$.unsubscribe();
+
+    // Destroy related entities
+    model3d.destroy$.next();
+    entities.spatial.destroy$.next();
+    entities.collisions?.destroy$.next();
+    entities.kinematic.destroy$.next();
     // TODO 8.0.0. MODELS: implement destroy of physics mixin (or remoe it if not needed)
-    entities.physicsBody.destroy();
+    entities.physicsBody.destroy$.next();
   });
 
   // TODO 8.0.0. MODELS: perhaps do this only once (without "if"'s), then just read this value from kinematic/physics and throw error if the drive is not None
   combineLatest([position$, rotation$, scale$]).subscribe(([position, rotation, scale]: [Vector3, Euler, Vector3]): void => {
-    // TODO 8.0.0. MODELS: if drive is Physics, should also apply these props to the rigid body
-    // if (!position.equals(oldPosition)) {
-    //   oldPosition = position;
-    //   applyPosition(entities, position);
-    // }
-    //
-    // if (!rotation.equals(oldRotation)) {
-    //   oldRotation = rotation;
-    //   applyRotation(entities, rotation);
-    // }
-    //
-    // if (!scale.equals(oldScale)) {
-    //   oldScale = scale;
-    //   applyScale(entities, scale);
-    // }
-
     // TODO 8.0.0. MODELS: should it take in account scale and rotation? Otherwise trigger it only for position
     entities.updateSpatialCells(position);
   });

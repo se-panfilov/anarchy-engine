@@ -7,9 +7,9 @@ export function TextureService(resourcesRegistry: TTextureAsyncRegistry): TTextu
   const texturesLoader: TTexturesLoader = TexturesLoader(resourcesRegistry);
 
   const destroyable: TDestroyable = destroyableMixin();
-  destroyable.destroyed$.subscribe(() => {
+  destroyable.destroy$.subscribe(() => {
     // TODO DESTROY: We need a way to unload env maps, tho
-    resourcesRegistry.destroy();
+    resourcesRegistry.destroy$.next();
   });
 
   return {

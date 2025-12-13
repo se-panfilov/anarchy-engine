@@ -11,26 +11,30 @@ import { getAzimuthDegFromDirection, getAzimuthRadFromDirection, getElevationDeg
 import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
 import type { TWriteable } from '@/Engine/Utils';
-import { isDefined } from '@/Engine/Utils';
 
 export function withKinematic(params: TActorParams, kinematicLoopService: TKinematicLoopService, drive$: BehaviorSubject<ActorDrive>): TWithKinematic {
   let _isAutoUpdate: boolean = (params.kinematic?.isAutoUpdate && drive$.value === ActorDrive.Kinematic) ?? false;
   const position$: BehaviorSubject<Vector3> = new BehaviorSubject<Vector3>(params.position);
   const rotation$: BehaviorSubject<Quaternion> = new BehaviorSubject<Quaternion>(new Quaternion().setFromEuler(params.rotation));
 
-  drive$.subscribe((drive: ActorDrive): void => void (_isAutoUpdate = !!(drive === ActorDrive.Kinematic && params.kinematic?.isAutoUpdate)));
+  const driveSubscription$: Subscription = drive$.subscribe((drive: ActorDrive): void => void (_isAutoUpdate = !!(drive === ActorDrive.Kinematic && params.kinematic?.isAutoUpdate)));
 
   let kinematicSub$: Subscription | undefined = undefined;
 
   const destroyable: TDestroyable = destroyableMixin();
-  destroyable.destroyed$.subscribe((): void => {
-    if (isDefined(kinematicSub$)) kinematicSub$.unsubscribe();
-    drive$.unsubscribe();
-    position$.unsubscribe();
-    position$.complete();
-    rotation$.unsubscribe();
-    rotation$.complete();
+  const destroyableSub$: Subscription = destroyable.destroy$.subscribe((): void => {
+    //Stop subscriptions
     kinematicSub$?.unsubscribe();
+    driveSubscription$.unsubscribe();
+    destroyableSub$.unsubscribe();
+
+    //Complete subjects
+    position$.complete();
+    position$.unsubscribe();
+    rotation$.complete();
+    rotation$.unsubscribe();
+    destroyable.destroy$.complete();
+    destroyable.destroy$.unsubscribe();
   });
 
   const result = {

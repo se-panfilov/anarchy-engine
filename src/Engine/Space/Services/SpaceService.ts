@@ -33,9 +33,9 @@ export function SpaceService(): TSpaceService {
     const destroyable: TDestroyable = destroyableMixin();
     const builtMixin: TWithBuilt = withBuiltMixin();
 
-    destroyable.destroyed$.subscribe(() => {
+    destroyable.destroy$.subscribe(() => {
       builtMixin.built$.complete();
-      Object.values(services).forEach((service): void => void (isDestroyable(service) && service.destroy()));
+      Object.values(services).forEach((service): void => void (isDestroyable(service) && service.destroy$.next()));
     });
 
     builtMixin.build();

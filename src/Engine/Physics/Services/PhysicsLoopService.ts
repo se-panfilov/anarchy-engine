@@ -11,7 +11,7 @@ export function PhysicsLoopService(physicsWorldService: TPhysicsWorldService): T
   const tick$: Subject<void> = new Subject<void>();
 
   const destroyable: TDestroyable = destroyableMixin();
-  destroyable.destroyed$.subscribe((): void => {
+  destroyable.destroy$.subscribe((): void => {
     tick$.complete();
   });
 

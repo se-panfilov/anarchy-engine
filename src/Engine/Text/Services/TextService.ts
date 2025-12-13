@@ -45,13 +45,13 @@ export function TextService(
   const createFromConfig = (texts: ReadonlyArray<TTextConfig>): ReadonlyArray<TTextAnyWrapper> => texts.map((text: TTextConfig): TTextAnyWrapper => create(factory.configToParams(text)));
 
   const destroyable: TDestroyable = destroyableMixin();
-  destroyable.destroyed$.subscribe((): void => {
-    factory.destroy();
-    text2dRegistry.destroy();
-    text3dRegistry.destroy();
-    text3dTextureRegistry.destroy();
-    text2dRendererRegistry.destroy();
-    text3dRendererRegistry.destroy();
+  destroyable.destroy$.subscribe((): void => {
+    factory.destroy$.next();
+    text2dRegistry.destroy$.next();
+    text3dRegistry.destroy$.next();
+    text3dTextureRegistry.destroy$.next();
+    text2dRendererRegistry.destroy$.next();
+    text3dRendererRegistry.destroy$.next();
   });
 
   function createText2dRenderer(container: TAppGlobalContainer, screenSizeWatcher: Readonly<TScreenSizeWatcher>): TText2dRenderer {

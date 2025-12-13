@@ -38,7 +38,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
   }
 
   function resetGui(folder: GUI | undefined, camera: TCameraWrapper): GUI {
-    folder?.destroy();
+    folder?.destroy$.next();
     folder = gui.addFolder(`Active camera ${camera.name}`);
     folder.add(camera.entity.position, 'x').min(-50).max(50).step(0.5);
     folder.add(camera.entity.position, 'y').min(-50).max(50).step(0.5);

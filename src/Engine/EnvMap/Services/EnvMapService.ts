@@ -30,10 +30,10 @@ export function EnvMapService(factory: TEnvMapFactory, registry: TEnvMapRegistry
   const findActive = withActive.findActive;
 
   const destroyable: TDestroyable = destroyableMixin();
-  destroyable.destroyed$.subscribe(() => {
-    registry.destroy();
+  destroyable.destroy$.subscribe(() => {
+    registry.destroy$.next();
     // TODO DESTROY: We need a way to unload env maps, tho
-    resourcesRegistry.destroy();
+    resourcesRegistry.destroy$.next();
     withActive.active$.unsubscribe();
     withActive.active$.complete();
   });

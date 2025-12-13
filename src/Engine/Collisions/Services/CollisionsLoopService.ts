@@ -9,7 +9,7 @@ export function CollisionsLoopService(): TCollisionsLoopService {
   const tick$: Subject<TCollisionsLoopServiceValue> = new Subject<TCollisionsLoopServiceValue>();
 
   const destroyable: TDestroyable = destroyableMixin();
-  destroyable.destroyed$.subscribe((): void => {
+  destroyable.destroy$.subscribe((): void => {
     tick$.complete();
   });
 

@@ -52,7 +52,7 @@ export function RendererWrapper(params: TRendererParams, screenSizeWatcher: Read
 
   const screenSize$: Subscription = screenSizeWatcher.value$.subscribe((params: TScreenSizeValues): void => setValues(entity, params));
 
-  const screenSizeWatcherSubscription: Subscription = screenSizeWatcher.destroyed$.subscribe(() => {
+  const screenSizeWatcherSubscription: Subscription = screenSizeWatcher.destroy$.subscribe(() => {
     screenSize$.unsubscribe();
     screenSizeWatcherSubscription.unsubscribe();
   });

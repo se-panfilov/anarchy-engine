@@ -13,7 +13,7 @@ export function AbstractWatcher<T>(type: WatcherType | string, name: string | un
   const value$: Subject<T> = new Subject<T>();
   const destroyable: TDestroyable = destroyableMixin();
 
-  destroyable.destroyed$.subscribe((): void => value$.complete());
+  destroyable.destroy$.subscribe((): void => value$.complete());
 
   const result = {
     id,

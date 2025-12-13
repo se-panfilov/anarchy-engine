@@ -9,7 +9,7 @@ export function SpatialLoopService(): TSpatialLoopService {
   const tick$: Subject<TSpatialLoopServiceValue> = new Subject<TSpatialLoopServiceValue>();
 
   const destroyable: TDestroyable = destroyableMixin();
-  destroyable.destroyed$.subscribe((): void => {
+  destroyable.destroy$.subscribe((): void => {
     tick$.complete();
   });
 

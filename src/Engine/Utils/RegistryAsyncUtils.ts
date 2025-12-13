@@ -77,7 +77,7 @@ export function getValueAsync<T>(
   waitingTime: number = 3000
 ): Promise<T | undefined> {
   const { resolve, promise, reject } = createDeferredPromise<T | undefined>();
-  const destroySub$: Subscription = reg.destroyed$.subscribe(stop);
+  const destroySub$: Subscription = reg.destroy$.subscribe(stop);
 
   const sub$: Subscription = reg.added$
     .pipe(

@@ -43,7 +43,7 @@ export function AnimationsService(loopService: TLoopService): TAnimationsService
   }
 
   const destroyable: TDestroyable = destroyableMixin();
-  destroyable.destroyed$.subscribe(() => {
+  destroyable.destroy$.subscribe(() => {
     added$.complete();
     added$.unsubscribe();
     subscriptions.forEach((subs$) => subs$.unsubscribe());

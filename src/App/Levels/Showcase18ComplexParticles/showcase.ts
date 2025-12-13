@@ -43,7 +43,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
       // TODO DESTROY: implement scene remove
       // particlesService.getScene().entity.remove(particles.entity);
       // TODO DESTROY: destroy doesn't work atm
-      //particles.destroy();
+      //particles.destroy$.next();
       // particles = undefined;
     }
 

@@ -1,7 +1,6 @@
-import type { Observable } from 'rxjs';
+import type { Subject } from 'rxjs';
 
 export type TDestroyable = Readonly<{
-  destroyed$: Observable<void>;
+  destroy$: Subject<void>;
   isDestroyed: () => boolean;
-  destroy: () => void;
 }>;

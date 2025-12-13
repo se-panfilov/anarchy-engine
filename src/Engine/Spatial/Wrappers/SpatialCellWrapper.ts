@@ -20,7 +20,7 @@ export function SpatialCellWrapper(params: TSpatialCellParams): TSpatialCellWrap
   const wrapper: TWrapper<TSpatialCell> = AbstractWrapper(entity, WrapperType.SpatialCell);
   const update$: Subject<TSpatialCell> = new Subject<TSpatialCell>();
 
-  const sub$: Subscription = wrapper.destroyed$.subscribe((): void => {
+  const sub$: Subscription = wrapper.destroy$.subscribe((): void => {
     // eslint-disable-next-line functional/immutable-data
     entity.objects = [];
     sub$.unsubscribe();

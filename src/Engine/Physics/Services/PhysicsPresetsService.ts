@@ -19,7 +19,7 @@ export function PhysicsPresetsService(registry: TPhysicsPresetRegistry): TPhysic
   const addPresetsFromConfig = (presets: ReadonlyArray<TPhysicsPresetConfig>): void => addPresets(presets.map(configToParamsPreset));
 
   const destroyable: TDestroyable = destroyableMixin();
-  destroyable.destroyed$.subscribe(() => registry.destroy());
+  destroyable.destroy$.subscribe(() => registry.destroy$.next());
 
   const getPresetByName = (name: string): TPhysicsPresetParams | undefined => registry.findByKey(name);
 

@@ -134,8 +134,8 @@ export function SpatialGridWrapper(params: TSpatialGridParams): TSpatialGridWrap
 
   function destroy(): void {
     update$.complete();
-    wrapper.destroy();
-    // getAllCells().forEach((cell: TSpatialCellWrapper): void => void cell.destroy());
+    wrapper.destroy$.next();
+    // getAllCells().forEach((cell: TSpatialCellWrapper): void => void cell.destroy$.next());
     entity.clear();
 
     // TODO DESTROY: implement destroy

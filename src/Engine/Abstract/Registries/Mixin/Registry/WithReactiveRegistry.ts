@@ -10,12 +10,12 @@ export function withReactiveRegistry<T>(destroyable: TDestroyable): TWithReactiv
   const replaced$: Subject<TRegistryPack<T>> = new Subject<TRegistryPack<T>>();
   const removed$: Subject<TRegistryPack<T>> = new Subject<TRegistryPack<T>>();
 
-  destroyable.destroyed$.subscribe((): void => {
+  destroyable.destroy$.subscribe((): void => {
     added$.complete();
     replaced$.complete();
     removed$.complete();
     registry.forEach((obj: T): void => {
-      if (isDestroyable(obj)) obj.destroy();
+      if (isDestroyable(obj)) obj.destroy$.next();
     });
     registry.clear();
   });

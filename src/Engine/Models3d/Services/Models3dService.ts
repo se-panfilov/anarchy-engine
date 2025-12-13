@@ -37,10 +37,10 @@ export function Models3dService(
   }
 
   const destroyable: TDestroyable = destroyableMixin();
-  destroyable.destroyed$.subscribe(() => {
-    registry.destroy();
+  destroyable.destroy$.subscribe(() => {
+    registry.destroy$.next();
     // TODO DESTROY: We need a way to unload models3d, tho
-    resourcesRegistry.destroy();
+    resourcesRegistry.destroy$.next();
   });
 
   return {
