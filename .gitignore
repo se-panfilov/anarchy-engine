@@ -10,11 +10,13 @@ lerna-debug.log*
 node_modules
 dist
 dist-ssr
+coverage
 *.local
 reports/
 stats.html
 graph.svg
 ./__temp.txt
+*.tsbuildinfo
 
 # Editor directories and files
 .vscode/*
