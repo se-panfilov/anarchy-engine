@@ -1,7 +1,6 @@
 import type { IActorAsyncRegistry, IActorFactory } from '@/Engine/Actor';
 import type { ICameraFactory, ICameraRegistry } from '@/Engine/Camera';
 import type { IControlsFactory, IControlsRegistry } from '@/Engine/Controls';
-import type { IIntersectionsWatcherFactory, IIntersectionsWatcherRegistry } from '@/Engine/Intersections';
 import type { ILightFactory, ILightRegistry } from '@/Engine/Light';
 import type { IRendererFactory, IRendererRegistry } from '@/Engine/Renderer';
 import type { ISceneFactory, ISceneRegistry } from '@/Engine/Scene';
@@ -19,8 +18,6 @@ export type ILevelEntities = {
   lightFactory: ILightFactory;
   controlsRegistry: IControlsRegistry;
   controlsFactory: IControlsFactory;
-  intersectionsWatcherRegistry: IIntersectionsWatcherRegistry;
-  intersectionsWatcherFactory: IIntersectionsWatcherFactory;
   scenesRegistry: ISceneRegistry;
   scenesFactory: ISceneFactory;
   rendererRegistry: IRendererRegistry;

@@ -1,3 +1,4 @@
+export * from './IIntersectionsService';
 export * from './IIntersectionsWatcher';
 export * from './IIntersectionsWatcherFactory';
 export * from './IIntersectionsWatcherParams';

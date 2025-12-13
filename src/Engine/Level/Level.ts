@@ -1,9 +1,9 @@
 import type { Subscription } from 'rxjs';
 import { merge, ReplaySubject } from 'rxjs';
 
-import { CommonTag, LookUpStrategy } from '@/Engine/Abstract';
+import { CommonTag } from '@/Engine/Abstract';
 import type { IActorAsyncRegistry, IActorConfig, IActorFactory, IActorWrapper } from '@/Engine/Actor';
-import { ActorAsyncRegistry, ActorFactory, ActorTag } from '@/Engine/Actor';
+import { ActorAsyncRegistry, ActorFactory } from '@/Engine/Actor';
 import type { IAppCanvas } from '@/Engine/App';
 import type { ICameraConfig, ICameraFactory, ICameraRegistry, ICameraWrapper } from '@/Engine/Camera';
 import { CameraFactory, CameraRegistry, CameraTag } from '@/Engine/Camera';
@@ -12,8 +12,6 @@ import type { IControlsFactory, IControlsRegistry, IOrbitControlsConfig, IOrbitC
 import { ControlsFactory, ControlsRegistry } from '@/Engine/Controls';
 import type { IDataTexture } from '@/Engine/EnvMap';
 import { envMapService } from '@/Engine/EnvMap';
-import type { IIntersectionsWatcher, IIntersectionsWatcherFactory, IIntersectionsWatcherRegistry } from '@/Engine/Intersections';
-import { IntersectionsWatcherFactory, IntersectionsWatcherRegistry } from '@/Engine/Intersections';
 import { withBuiltMixin } from '@/Engine/Level/Mixin';
 import type { ILevel, ILevelConfig, IWithBuilt } from '@/Engine/Level/Models';
 import type { ILightConfig, ILightFactory, ILightRegistry, ILightWrapper } from '@/Engine/Light';
@@ -92,26 +90,6 @@ export function buildLevelFromConfig(canvas: IAppCanvas, config: ILevelConfig): 
   );
   messages$.next(`Controls (${controls.length}) created`);
 
-  const clickableActors: ReadonlyArray<IActorWrapper> = actorRegistry.getAllByTags([ActorTag.Intersectable], LookUpStrategy.Every);
-  const initialCamera: ICameraWrapper | undefined = cameraRegistry.getUniqByTag(CameraTag.Initial);
-
-  //build intersections watcher
-  const intersectionsWatcherFactory: IIntersectionsWatcherFactory = IntersectionsWatcherFactory();
-  const intersectionsWatcherRegistry: IIntersectionsWatcherRegistry = IntersectionsWatcherRegistry();
-  let intersectionsWatcher: IIntersectionsWatcher | undefined;
-  let intersectionsWatcherEntityCreatedSubscription: Subscription | undefined;
-  if (isDefined(initialCamera)) {
-    initialCamera.addTag(CameraTag.Active);
-    intersectionsWatcherEntityCreatedSubscription = intersectionsWatcherFactory.entityCreated$.subscribe((intersectionsWatcher: IIntersectionsWatcher): void => {
-      intersectionsWatcher.addTag(CommonTag.FromConfig);
-      intersectionsWatcherRegistry.add(intersectionsWatcher);
-    });
-    intersectionsWatcher = intersectionsWatcherFactory.create({ actors: clickableActors, camera: initialCamera, mousePosWatcher: ambientContext.mousePositionWatcher });
-    messages$.next(`Intersections watcher created`);
-  } else {
-    messages$.next(`WARNING: no initial camera`);
-  }
-
   //build lights
   const lightFactory: ILightFactory = LightFactory();
   const lightRegistry: ILightRegistry = LightRegistry();
@@ -183,10 +161,6 @@ export function buildLevelFromConfig(canvas: IAppCanvas, config: ILevelConfig): 
     controlsFactory.destroy();
     controlsRegistry.destroy();
 
-    if (isDefined(intersectionsWatcherEntityCreatedSubscription)) intersectionsWatcherEntityCreatedSubscription.unsubscribe();
-    intersectionsWatcherFactory.destroy();
-    intersectionsWatcherRegistry.destroy();
-
     rendererEntityCreatedSubscription.unsubscribe();
     rendererFactory.destroy();
     rendererRegistry.destroy();
@@ -201,13 +175,12 @@ export function buildLevelFromConfig(canvas: IAppCanvas, config: ILevelConfig): 
   return {
     name,
     start(): void {
-      if (isDefined(intersectionsWatcher)) intersectionsWatcher.start();
       standardLoopService.start();
       messages$.next(`Level started`);
     },
     stop(): void {
-      if (isDefined(intersectionsWatcher)) intersectionsWatcher.stop();
       // TODO (S.Panfilov) implement stop
+      // if (isDefined(intersectionsWatcher)) intersectionsWatcher.stop();
       // loop.stop(renderer, scene, controlsRegistry, cameraRegistry);
       messages$.next(`Level stopped`);
     },
@@ -223,8 +196,6 @@ export function buildLevelFromConfig(canvas: IAppCanvas, config: ILevelConfig): 
       lightFactory: lightFactory,
       controlsRegistry: controlsRegistry,
       controlsFactory: controlsFactory,
-      intersectionsWatcherRegistry: intersectionsWatcherRegistry,
-      intersectionsWatcherFactory: intersectionsWatcherFactory,
       scenesRegistry: sceneRegistry,
       scenesFactory: sceneFactory,
       rendererRegistry: rendererRegistry,

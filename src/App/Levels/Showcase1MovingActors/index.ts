@@ -1,13 +1,13 @@
 import type { IShowcase } from '@/App/Levels/Models';
-import type { IActorWrapper, IAppCanvas, IIntersectionsWatcher, ILevel, ILevelConfig, IVector3 } from '@/Engine';
-import { ActorTag, ambientContext, buildLevelFromConfig, CommonTag, isNotDefined, standardLoopService } from '@/Engine';
+import type { IActorWrapper, IAppCanvas, ICameraWrapper, IIntersectionsWatcher, ILevel, ILevelConfig, IVector3 } from '@/Engine';
+import { ActorTag, ambientContext, buildLevelFromConfig, CameraTag, intersectionsService, isNotDefined, LookUpStrategy, standardLoopService } from '@/Engine';
 
 import levelConfig from './showcase-1-moving-actors.config.json';
 
 //Showcase 1: Moving actor with intersections & reading data from config
 export function showcaseLevel(canvas: IAppCanvas): IShowcase {
   const level: ILevel = buildLevelFromConfig(canvas, levelConfig as ILevelConfig);
-  const { intersectionsWatcherRegistry, actorRegistry } = level.entities;
+  const { actorRegistry, cameraRegistry } = level.entities;
 
   async function init(): Promise<void> {
     const actor: IActorWrapper = await actorRegistry.getUniqByTagAsync(ActorTag.Intersectable);
@@ -19,12 +19,14 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
     });
   }
 
-  function start(): void {
-    level.start();
+  // TODO (S.Panfilov) CWP intersections doesn't work
 
-    //START: just debug
-    const intersectionsWatcher: IIntersectionsWatcher | undefined = intersectionsWatcherRegistry.getUniqByTag(CommonTag.FromConfig);
-    if (isNotDefined(intersectionsWatcher)) throw new Error(`Cannot get "intersectionsWatcher" with tag "${CommonTag.FromConfig}"`);
+  function startIntersections(): void {
+    const camera: ICameraWrapper | undefined = cameraRegistry.getUniqByTag(CameraTag.Initial);
+    if (isNotDefined(camera)) throw new Error('Camera is not defined');
+    const actors: ReadonlyArray<IActorWrapper> = actorRegistry.getAllByTags([ActorTag.Intersectable], LookUpStrategy.Every);
+
+    const intersectionsWatcher: IIntersectionsWatcher = intersectionsService.start(actors, camera);
     intersectionsWatcher.value$.subscribe((obj: IVector3): void => {
       console.log('intersect obj', obj);
     });
@@ -32,9 +34,12 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
     ambientContext.mouseClickWatcher.value$.subscribe((): void => {
       console.log('int click:');
     });
-    //END: just debug
+  }
 
+  function start(): void {
+    level.start();
     void init();
+    startIntersections();
   }
 
   return { start, level };
