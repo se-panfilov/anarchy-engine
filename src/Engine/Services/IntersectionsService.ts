@@ -17,6 +17,7 @@ export type IIntersectionsWatcher = Readonly<{
 }> &
   IDestroyable;
 
+// TODO (S.Panfilov) should be IFactory
 export function IntersectionsService(): IIntersectionsService {
   // TODO (S.Panfilov) add to registry?
   function getWatcher(actors: ReadonlyArray<IActorWrapper>, camera: ICameraWrapper, positionWatcher: IMousePositionWatcher): IIntersectionsWatcher {
@@ -26,7 +27,7 @@ export function IntersectionsService(): IIntersectionsService {
   return { getWatcher };
 }
 
-// TODO (S.Panfilov) extract?
+// TODO (S.Panfilov) should be IWatcher
 function IntersectionsWatcher(actors: ReadonlyArray<IActorWrapper>, camera: ICameraWrapper, positionWatcher: IMousePositionWatcher): IIntersectionsWatcher {
   let raycaster: Readonly<Raycaster> | undefined = new Raycaster();
   let onIntersectCB: (obj: IVector3) => void;
