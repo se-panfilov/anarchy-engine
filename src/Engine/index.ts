@@ -31,6 +31,7 @@ export * from './Scene';
 export * from './Screen';
 export * from './Services';
 export * from './Space';
+export * from './Spatial';
 export * from './Text';
 export * from './Texture';
 export * from './ThreeLib';

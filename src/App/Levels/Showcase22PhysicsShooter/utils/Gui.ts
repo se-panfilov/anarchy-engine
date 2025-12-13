@@ -1,9 +1,12 @@
 import GUI from 'lil-gui';
 
-import type { TIntersectionEvent, TIntersectionsWatcher } from '@/Engine';
+import type { TIntersectionEvent, TIntersectionsWatcher, TSpatialGridService, TSpatialGridWrapper } from '@/Engine';
+import { isNotDefined } from '@/Engine';
 
-export function initGui(mouseLineIntersectionsWatcher: TIntersectionsWatcher): void {
+export function initGui(mouseLineIntersectionsWatcher: TIntersectionsWatcher, spatialGridService: TSpatialGridService): void {
   const gui: GUI = new GUI();
+  const grid: TSpatialGridWrapper | undefined = spatialGridService.getRegistry().findByName('main_grid');
+  if (isNotDefined(grid)) throw new Error(`Cannot find "main_grid" spatial grid`);
 
   const mouse: Record<string, any> = {
     x: 0,
@@ -14,6 +17,8 @@ export function initGui(mouseLineIntersectionsWatcher: TIntersectionsWatcher): v
     wrapperId: '',
     objectName: ''
   };
+
+  const cell = { id: '' };
 
   mouseLineIntersectionsWatcher.value$.subscribe((intersection: TIntersectionEvent) => {
     // eslint-disable-next-line functional/immutable-data
@@ -30,9 +35,12 @@ export function initGui(mouseLineIntersectionsWatcher: TIntersectionsWatcher): v
     mouse.wrapperId = intersection.object.userData.wrapperId;
     // eslint-disable-next-line functional/immutable-data
     mouse.objectName = intersection.object.name;
+    // eslint-disable-next-line functional/immutable-data
+    cell.id = grid.findCells(intersection.point.x, intersection.point.z)[0]?.id;
   });
 
   const mouseFolderGui: GUI = gui.addFolder('Mouse');
+  const gridFolderGui: GUI = gui.addFolder('Mouse');
   mouseFolderGui.add(mouse, 'x').listen();
   mouseFolderGui.add(mouse, 'y').listen();
   mouseFolderGui.add(mouse, 'z').listen();
@@ -40,4 +48,5 @@ export function initGui(mouseLineIntersectionsWatcher: TIntersectionsWatcher): v
   mouseFolderGui.add(mouse, 'objectId').listen();
   mouseFolderGui.add(mouse, 'wrapperId').listen();
   mouseFolderGui.add(mouse, 'objectName').listen();
+  gridFolderGui.add(cell, 'id').listen();
 }

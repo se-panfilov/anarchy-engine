@@ -68,7 +68,8 @@ export function SpatialGridWrapper(params: TSpatialGridParams): TSpatialGridWrap
 
   function getAllInCell(x: number, z: number): ReadonlyArray<TActorWrapperAsync> {
     const cells: ReadonlyArray<TSpatialCell> = entity.search({ minX: x, minY: z, maxX: x, maxY: z });
-    if (cells.length > 0) return cells[0].objects;
+    if (cells.length === 1) return cells[0].objects;
+    if (cells.length > 1) return cells.flatMap((cell: TSpatialCell): ReadonlyArray<TActorWrapperAsync> => cell.objects);
     return [];
   }
 
@@ -99,6 +100,14 @@ export function SpatialGridWrapper(params: TSpatialGridParams): TSpatialGridWrap
   function updateActorCell(actorW: TActorWrapperAsync): void {
     removeFromGrid(actorW);
     addActorToGrid(actorW);
+  }
+
+  function findCells(x: number, z: number): ReadonlyArray<TSpatialCell> {
+    return entity.search({ minX: x, minY: z, maxX: x, maxY: z });
+  }
+
+  function findCellById(id: TSpatialCellId): TSpatialCell | undefined {
+    return entity.all().filter((cell: TSpatialCell): boolean => cell.id === id)[0];
   }
 
   function destroy(): void {
@@ -146,6 +155,8 @@ export function SpatialGridWrapper(params: TSpatialGridParams): TSpatialGridWrap
     getAllItems,
     getAllInCell,
     getAllInCellByCellId,
+    findCells,
+    findCellById,
     removeFromGrid,
     clearGrid,
     _debugVisualizeCells,

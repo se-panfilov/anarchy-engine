@@ -53,7 +53,8 @@ export async function ActorWrapperAsync(params: TActorParams, { materialTextureS
     actorW.doKinematicRotation(delta);
   });
 
-  // TODO (S.Panfilov) CWP check & fix spatial position updates
+  // TODO (S.Panfilov) CWP check & fix spatial position updates (should work with moving objects)
+  // TODO (S.Panfilov) CWP add a function to update spatial position (maybe without foreach array)
   const spatialSub$: Subscription = spatialLoopService.tick$.subscribe(({ priority }: TSpatialLoopServiceValue): void => {
     if (!actorW.spatial.isAutoUpdate()) return;
     if (actorW.spatial.getSpatialUpdatePriority() >= priority) {
