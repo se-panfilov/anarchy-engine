@@ -3,11 +3,13 @@ import type { TLegalDoc, TLoadDocPayload } from '@Showcases/Shared';
 import type { TShowcaseGameSettings } from './TShowcaseGameSettings';
 
 export type TShowcasesDesktopApi = Readonly<{
-  saveAppSettings: (settings: TShowcaseGameSettings) => Promise<void>;
+  chrome: () => string;
+  closeApp: () => void;
+  desktopAppVersion: () => Promise<string>;
+  electron: () => string;
   loadAppSettings: () => Promise<TShowcaseGameSettings>;
   loadLegalDocs: (options: TLoadDocPayload) => Promise<TLegalDoc>;
   node: () => string;
-  chrome: () => string;
-  electron: () => string;
-  desktopAppVersion: () => Promise<string>;
+  restartApp: () => void;
+  saveAppSettings: (settings: TShowcaseGameSettings) => Promise<void>;
 }>;

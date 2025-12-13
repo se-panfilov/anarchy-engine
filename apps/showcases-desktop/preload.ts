@@ -9,13 +9,15 @@ const { SaveAppSettings, LoadAppSettings, LoadLegalDocs } = PlatformActions;
 declare const __DESKTOP_APP_VERSION__: string;
 
 const mapping: TShowcasesDesktopApi = {
-  saveAppSettings: (settings: TShowcaseGameSettings): Promise<void> => ipcRenderer.invoke(platformApiChannel, SaveAppSettings, settings),
+  chrome: (): string => process.versions.chrome,
+  closeApp: (): void => ipcRenderer.send(platformApiChannel, 'closeApp'),
+  desktopAppVersion: async (): Promise<string> => __DESKTOP_APP_VERSION__,
+  electron: (): string => process.versions.electron,
   loadAppSettings: (): Promise<TShowcaseGameSettings> => ipcRenderer.invoke(platformApiChannel, LoadAppSettings),
   loadLegalDocs: (options: TLoadDocPayload): Promise<TLegalDoc> => ipcRenderer.invoke(platformApiChannel, LoadLegalDocs, options),
   node: (): string => process.versions.node,
-  chrome: (): string => process.versions.chrome,
-  electron: (): string => process.versions.electron,
-  desktopAppVersion: async (): Promise<string> => __DESKTOP_APP_VERSION__
+  restartApp: (): void => ipcRenderer.send(platformApiChannel, 'restartApp'),
+  saveAppSettings: (settings: TShowcaseGameSettings): Promise<void> => ipcRenderer.invoke(platformApiChannel, SaveAppSettings, settings)
 };
 
 //platformApiName will be available in the main app as `window[platformApiName]`
