@@ -3,7 +3,7 @@ import { defineStore } from 'pinia';
 import type { ComputedRef } from 'vue';
 import { computed, reactive } from 'vue';
 
-export const useMenuRouterStore = defineStore('menuRouterStore', () => {
+export const useRouterStore = defineStore('routerStore', () => {
   const state: { history: ReadonlyArray<Routes> } = reactive({
     history: [Routes.Home]
   });

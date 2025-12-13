@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { menuRouteMap } from '@Menu/constants';
-import { useMenuRouterStore } from '@Menu/stores/MenuRouterStore';
+import { useRouterStore } from '@Menu/stores/MenuRouterStore';
 import { computed } from 'vue';
 
-const router = useMenuRouterStore();
+const router = useRouterStore();
 
 const currentComponent = computed(() => menuRouteMap[router.currRoute]);
 </script>

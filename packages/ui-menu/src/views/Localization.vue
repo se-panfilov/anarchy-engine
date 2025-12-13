@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import type { TWriteable } from '@Engine';
-import MenuSettingsGroup from '@Menu/components/MenuSettingsGroup.vue';
-import MenuView from '@Menu/components/MenuView.vue';
-import MenuViewActions from '@Menu/components/MenuViewActions.vue';
-import SettingsDropdownComponent from '@Menu/components/SettingsDropdownComponent.vue';
+import Dropdown from '@Menu/components/Dropdown.vue';
+import SettingsGroup from '@Menu/components/SettingsGroup.vue';
+import View from '@Menu/components/View.vue';
+import ViewActions from '@Menu/components/ViewActions.vue';
 import { Languages } from '@Menu/constants';
 import type { TDropdownOption } from '@Menu/models';
 import { useSettingsStore } from '@Menu/stores/SettingsStore';
@@ -33,12 +33,12 @@ const options = computed((): ReadonlyArray<TDropdownOption<Languages>> => {
 </script>
 
 <template>
-  <MenuView class="localization" title="Localization settings">
-    <MenuSettingsGroup class="main-menu-view__group" title="Main Localization Settings">
-      <SettingsDropdownComponent v-model="state.language" :options="options" class="main-menu-view__setting -resolution" label="Resolution" />
-    </MenuSettingsGroup>
-    <MenuViewActions @cancel="cancel()" @save="save(state)" />
-  </MenuView>
+  <View class="localization" title="Localization settings">
+    <SettingsGroup class="main-menu-view__group" title="Main Localization Settings">
+      <Dropdown v-model="state.language" :options="options" class="main-menu-view__setting -resolution" label="Resolution" />
+    </SettingsGroup>
+    <ViewActions @cancel="cancel()" @save="save(state)" />
+  </View>
 </template>
 
 <style scoped></style>

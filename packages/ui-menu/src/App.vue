@@ -1,14 +1,14 @@
 <script setup lang="ts">
 import './assets/style.scss';
 
-import MenuNavigation from '@Menu/components/MenuNavigation.vue';
-import MenuRouterView from '@Menu/components/MenuRouterView.vue';
+import Navigation from '@Menu/components/Navigation.vue';
+import RouterView from '@Menu/components/RouterView.vue';
 </script>
 
 <template>
   <div class="main-menu">
-    <MenuNavigation class="main-menu__navigation" />
-    <MenuRouterView class="main-menu__view" />
+    <Navigation class="main-menu__navigation" />
+    <RouterView class="main-menu__view" />
   </div>
 </template>
 

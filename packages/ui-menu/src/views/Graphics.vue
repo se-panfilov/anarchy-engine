@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import type { TWriteable } from '@Engine';
-import MenuSettingsGroup from '@Menu/components/MenuSettingsGroup.vue';
-import MenuView from '@Menu/components/MenuView.vue';
-import MenuViewActions from '@Menu/components/MenuViewActions.vue';
-import SettingsCheckboxComponent from '@Menu/components/SettingsCheckboxComponent.vue';
-import SettingsDropdownComponent from '@Menu/components/SettingsDropdownComponent.vue';
+import Checkbox from '@Menu/components/Checkbox.vue';
+import Dropdown from '@Menu/components/Dropdown.vue';
+import SettingsGroup from '@Menu/components/SettingsGroup.vue';
+import View from '@Menu/components/View.vue';
+import ViewActions from '@Menu/components/ViewActions.vue';
 import type { TDropdownOption } from '@Menu/models';
 import { useSettingsStore } from '@Menu/stores/SettingsStore';
 import { computed, reactive } from 'vue';
@@ -40,13 +40,13 @@ const options = computed((): ReadonlyArray<TDropdownOption<{ width: number; heig
 </script>
 
 <template>
-  <MenuView class="graphics" title="Graphics settings">
-    <MenuSettingsGroup class="main-menu-view__group" title="Main Graphics Settings">
-      <SettingsCheckboxComponent v-model="state.isFullScreen" class="main-menu-view__setting -fullscreen" label="Fullscreen" />
-      <SettingsDropdownComponent v-model="state.resolution" :options="options" class="main-menu-view__setting -resolution" label="Resolution" />
-    </MenuSettingsGroup>
-    <MenuViewActions @cancel="cancel()" @save="save(state)" />
-  </MenuView>
+  <View class="graphics" title="Graphics settings">
+    <SettingsGroup class="main-menu-view__group" title="Main Graphics Settings">
+      <Checkbox v-model="state.isFullScreen" class="main-menu-view__setting -fullscreen" label="Fullscreen" />
+      <Dropdown v-model="state.resolution" :options="options" class="main-menu-view__setting -resolution" label="Resolution" />
+    </SettingsGroup>
+    <ViewActions @cancel="cancel()" @save="save(state)" />
+  </View>
 </template>
 
 <style scoped></style>

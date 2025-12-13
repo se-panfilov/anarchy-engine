@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import { Routes } from '@Menu/constants';
-import { useMenuRouterStore } from '@Menu/stores/MenuRouterStore';
+import { useRouterStore } from '@Menu/stores/MenuRouterStore';
 // TODO DESKTOP: extract to... shared?
 // import { closeMainMenu } from 'anarchy_engine_showcases/src/Levels/Showcase28Menu/MainMenuService';
 
 // TODO DESKTOP: test i18n (for desktop also)
 
-const menuRouterStore = useMenuRouterStore();
+const menuRouterStore = useRouterStore();
 </script>
 
 <template>
