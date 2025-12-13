@@ -1,7 +1,6 @@
 export type * from './TRendererAccessors';
 export type * from './TRendererFactory';
 export type * from './TRendererParams';
-export type * from './TRendererPerformanceOptions';
 export type * from './TRendererRegistry';
 export type * from './TRendererService';
 export type * from './TRendererWrapper';

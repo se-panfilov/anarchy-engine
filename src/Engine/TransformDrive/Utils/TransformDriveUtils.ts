@@ -14,7 +14,7 @@ export function getDynamicAgents<T extends Partial<Record<TransformAgent, TAbstr
 export function updateFromActiveAgent<T extends Vector3 | Euler>(
   activeAgent$: BehaviorSubject<TAbstractTransformAgent>,
   agentProp: 'position$' | 'rotation$' | 'scale$',
-  { delay, threshold }: Readonly<{ delay: number; threshold: number }>
+  { threshold }: Readonly<{ threshold: number }>
 ): Observable<T> {
   const prevValue: Float32Array = new Float32Array([0, 0, 0]);
 
@@ -23,8 +23,6 @@ export function updateFromActiveAgent<T extends Vector3 | Euler>(
       return isDefined(agent) ? (agent[agentProp] as unknown as Subject<T>) : EMPTY;
     }),
     distinctUntilChanged((_prev: T, curr: T): boolean => isEqualOrSimilarByXyzCoords(prevValue[0], prevValue[1], prevValue[2], curr.x, curr.y, curr.z, threshold)),
-    // TODO 8.0.0. MODELS: These performance tweaks actually make performance even worse. Fix or remove (check all th other places with suc optimisations, e.g. intersections or mouse)
-    // throttleTime(delay)
     tap((value: T): void => {
       // eslint-disable-next-line functional/immutable-data
       prevValue[0] = value.x;

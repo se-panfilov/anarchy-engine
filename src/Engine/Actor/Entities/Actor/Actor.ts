@@ -38,6 +38,7 @@ export function Actor(
   // TODO 8.0.0. MODELS: Remove Vector3/Euler/Quaternion from schema in favour of Vector3Like and etc. Adjust config adapters (Also for Rapier's Vector and etc)
   // TODO 8.0.0. MODELS: Replace all rotations with Quaternions
   // TODO 8.0.0. MODELS: close all issues (todoes) with tag 8.0.0
+  // TODO 8.0.0. MODELS: close all issues (todoes) with tag 9.2.0
 
   const entities: TActorEntities = {
     drive,
@@ -63,14 +64,11 @@ export function Actor(
     entities.collisions?.destroy$.next();
   });
 
-  const spatialUpdateDelay: number = params.spatial.performance?.updateDelay ?? 4;
   const spatialNoiseThreshold: number = params.spatial.performance?.noiseThreshold ?? 0.0000001;
   const prevValue: Float32Array = new Float32Array([0, 0, 0]);
   // TODO 10.0.0. LOOPS: Position/rotations/scale should have an own loop independent from frame rate (driven by time)
   const positionSub$: Subscription = drive.position$
     .pipe(
-      // TODO 8.0.0. MODELS: These performance tweaks actually make performance even worse. Fix or remove (check all th other places with suc optimisations, e.g. intersections or mouse)
-      // throttleTime(spatialUpdateDelay),
       distinctUntilChanged((_prev: Vector3, curr: Vector3): boolean => isEqualOrSimilarByXyzCoords(prevValue[0], prevValue[1], prevValue[2], curr.x, curr.y, curr.z, spatialNoiseThreshold)),
       tap((value: Vector3): void => {
         // eslint-disable-next-line functional/immutable-data

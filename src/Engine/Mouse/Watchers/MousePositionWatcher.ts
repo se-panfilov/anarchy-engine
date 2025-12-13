@@ -1,4 +1,4 @@
-import { distinctUntilChanged, map, tap, throttleTime } from 'rxjs';
+import { distinctUntilChanged, map, tap } from 'rxjs';
 import type { Vector2Like } from 'three';
 
 import type { TAbstractWatcher } from '@/Engine/Abstract';
@@ -21,9 +21,7 @@ export function MousePositionWatcher({ container, tags, performance }: TMousePos
     position[1] = y;
   };
 
-  // TODO ENV: limited fps, perhaps should be configurable
-  const updateDelay: number = performance?.updateDelay ?? 2; // 480 FPS (when 16 is 60 FPS)
-  const threshold: number = performance?.updateDelay ?? 0.001;
+  const threshold: number = performance?.noiseThreshold ?? 0.001;
 
   // TODO 10.0.0. LOOPS: Mouse should have an own loop independent from frame rate (driven by time)
   loopService.tick$
@@ -34,8 +32,7 @@ export function MousePositionWatcher({ container, tags, performance }: TMousePos
         prevPosition[0] = position[0]; //x
         // eslint-disable-next-line functional/immutable-data
         prevPosition[1] = position[1]; //y
-      }),
-      throttleTime(updateDelay)
+      })
     )
     .subscribe((): void => {
       // TODO 8.0.0. MODELS: check if this works while mouse not moving, but the scene is moving
