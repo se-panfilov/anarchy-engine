@@ -48,7 +48,6 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     });
   }
 
-  // TODO would be nice to add a "beforeConfigLoaded()" hook
   const space: TSpace = await spaceService.buildSpaceFromConfig(canvas, spaceConfig as TSpaceConfig, { beforeResourcesLoaded });
   const engine: TEngine = Engine(space);
 
