@@ -12,6 +12,7 @@ import type {
   TAudioFactory,
   TAudioListenersRegistry,
   TAudioLoader,
+  TAudioMetaInfoRegistry,
   TAudioRegistry,
   TAudioResourceAsyncRegistry,
   TAudioResourceConfig,
@@ -32,10 +33,11 @@ export function AudioService(
   registry: TAudioRegistry,
   audioResourceAsyncRegistry: TAudioResourceAsyncRegistry,
   audioListenersRegistry: TAudioListenersRegistry,
+  audioMetaInfoRegistry: TAudioMetaInfoRegistry,
   dependencies: TAudioServiceDependencies,
   { audioLoop }: TSpaceLoops
 ): TAudioService {
-  const audioLoader: TAudioLoader = AudioLoader(audioResourceAsyncRegistry);
+  const audioLoader: TAudioLoader = AudioLoader(audioResourceAsyncRegistry, audioMetaInfoRegistry);
   const factorySub$: Subscription = factory.entityCreated$.subscribe((wrapper: TAnyAudioWrapper): void => registry.add(wrapper));
 
   const disposable: ReadonlyArray<TDisposable> = [registry, factory, audioResourceAsyncRegistry, audioListenersRegistry, factorySub$, audioLoader];
@@ -63,6 +65,7 @@ export function AudioService(
     withSerializeAllEntities<TAnyAudioConfig, undefined>(registry),
     {
       getResourceRegistry: (): TAudioResourceAsyncRegistry => audioResourceAsyncRegistry,
+      getMetaInfoRegistry: (): TAudioMetaInfoRegistry => audioMetaInfoRegistry,
       getListenersRegistry: (): TAudioListenersRegistry => audioListenersRegistry,
       getMainListener: (): AudioListener | undefined => audioListenersRegistry.findByKey(Listeners.Main),
       loadAsync: audioLoader.loadAsync,

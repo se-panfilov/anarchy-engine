@@ -1,7 +1,15 @@
 import type { AudioListener } from 'three';
 
 import type { TSerializableEntitiesService, TSerializableResourceService } from '@/Engine/Abstract';
-import type { TWithCreateFromConfigService, TWithCreateService, TWithFactoryService, TWithLoadResourcesAsyncService, TWithRegistryService, TWithResourcesRegistryService } from '@/Engine/Mixins';
+import type {
+  TWithCreateFromConfigService,
+  TWithCreateService,
+  TWithFactoryService,
+  TWithLoadResourcesAsyncService,
+  TWithRegistryService,
+  TWithResourcesMetaInfoRegistryService,
+  TWithResourcesRegistryService
+} from '@/Engine/Mixins';
 
 import type { TAnyAudioConfig } from './TAnyAudioConfig';
 import type { TAnyAudioParams } from './TAnyAudioParams';
@@ -25,6 +33,7 @@ export type TAudioService = TSerializableEntitiesService<TAnyAudioConfig> &
   TAudioServiceWithFactory &
   TAudioServiceWithRegistry &
   TWithResourcesRegistryService<TAudioResourceAsyncRegistry> &
+  TWithResourcesMetaInfoRegistryService<TAudioResourceConfig> &
   Readonly<{
     getListenersRegistry: () => TAudioListenersRegistry;
     getMainListener: () => AudioListener | undefined;

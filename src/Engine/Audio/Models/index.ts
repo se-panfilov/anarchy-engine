@@ -16,6 +16,7 @@ export type * from './TAudioFactory';
 export type * from './TAudioListenersRegistry';
 export type * from './TAudioLoader';
 export type * from './TAudioLoop';
+export type * from './TAudioMetaInfoRegistry';
 export type * from './TAudioParams';
 export type * from './TAudioPerformanceOptions';
 export type * from './TAudioRegistry';
