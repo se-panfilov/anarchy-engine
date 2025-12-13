@@ -37,9 +37,9 @@ Done:
 - 18.1.x Configurable Space (added options)
 
 Roadmap:
-- 19.0.x Reduce package size
-- 20.0.x npm package and a repo for the engine
-- 21.0.x Building app (desktop/mobile) (might be not a part of an engine, but at least POC level)
+- 19.0.x Desktop/Mobile app builds (POC level)
+- 20.0.x Reduce package size (prod build)
+- 21.0.x Create a npm package
 - 22.x.x Load managers domain for resource loaders (audio, animations, envMaps, materials, models3d, textures, etc.)
 - 23.x.x Postprocessing
 - 24.0.x Shaders
