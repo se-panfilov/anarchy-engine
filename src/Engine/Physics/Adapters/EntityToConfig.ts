@@ -4,7 +4,7 @@ import { Euler, Quaternion } from 'three';
 
 import type { TPhysicsBody, TPhysicsBodyConfig, TPhysicsWorldConfig } from '@/Engine/Physics/Models';
 import type { TEulerLike } from '@/Engine/ThreeLib';
-import { filterOutEmptyFields, isDefined, vector3ToXyz } from '@/Engine/Utils';
+import { eulerToXyz, filterOutEmptyFields, isDefined, vector3ToXyz } from '@/Engine/Utils';
 
 export function physicBodyToConfig(entity: TPhysicsBody): TPhysicsBodyConfig {
   const rigidBody: RigidBody | undefined = entity.getRigidBody();
@@ -43,7 +43,7 @@ export function physicBodyToConfig(entity: TPhysicsBody): TPhysicsBodyConfig {
   if (isDefined(body)) {
     position = vector3ToXyz(body.translation());
     const bodyRotation: Rotation = body.rotation();
-    rotation = new Euler().setFromQuaternion(new Quaternion(bodyRotation.x, bodyRotation.y, bodyRotation.z, bodyRotation.w));
+    rotation = eulerToXyz(new Euler().setFromQuaternion(new Quaternion(bodyRotation.x, bodyRotation.y, bodyRotation.z, bodyRotation.w)));
   }
 
   return filterOutEmptyFields({
