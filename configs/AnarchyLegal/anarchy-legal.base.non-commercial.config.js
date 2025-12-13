@@ -12,6 +12,7 @@ export default {
   },
   DISCLAIMER: { template: 'DISCLAIMER_TEMPLATE' },
   EULA: { template: 'EULA_COMMERCIAL_TEMPLATE', relativeOutput: './legal' },
+  NOTICE: { template: 'NOTICE_SLIM_TEMPLATE' },
   PRIVACY: { template: 'PRIVACY_COMMERCIAL_TEMPLATE', relativeOutput: './legal' },
   SECURITY: { template: 'SECURITY_COMMERCIAL_TEMPLATE', relativeOutput: './legal' }
 };

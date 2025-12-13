@@ -14,6 +14,7 @@ export default {
   EULA: { template: 'EULA_COMMERCIAL_TEMPLATE', relativeOutput: './legal' },
   EU_DECLARATION_OF_CONFORMITY: { template: 'EU_DECLARATION_OF_CONFORMITY_COMMERCIAL_TEMPLATE', relativeOutput: './compliance' },
   INSTRUCTIONS: { template: 'INSTRUCTIONS_TEMPLATE', relativeOutput: './legal' },
+  NOTICE: { template: 'NOTICE_SLIM_TEMPLATE' },
   PRIVACY: { template: 'PRIVACY_COMMERCIAL_TEMPLATE', relativeOutput: './legal' },
   SECURITY: { template: 'SECURITY_COMMERCIAL_TEMPLATE', relativeOutput: './legal' },
   SUPPORT: { template: 'SUPPORT_COMMERCIAL_TEMPLATE', relativeOutput: './legal' },
