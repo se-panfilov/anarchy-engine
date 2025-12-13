@@ -28,7 +28,6 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
   });
 
   currentActor$.subscribe(moveCameraToActor);
-  actorRegistry.getAll().forEach(addTextToActor);
 
   function addTextToActor(actor: IActorWrapperAsync): void {
     const position: IVector3Wrapper = actor.getPosition();
@@ -67,6 +66,11 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
   });
 
   actorRegistry.added$.subscribe((actor: IActorWrapperAsync) => {
+    addGuiToActor(actor);
+    addTextToActor(actor);
+  });
+
+  function addGuiToActor(actor: IActorWrapperAsync): void {
     const isMetalness: boolean = isDefined((actor.entity.material as MeshStandardMaterial).metalness);
     const isRoughness: boolean = isDefined((actor.entity.material as MeshStandardMaterial).roughness);
     const isAoMap: boolean = isDefined((actor.entity.material as MeshStandardMaterial).aoMap);
@@ -124,7 +128,7 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
       gui.add(actor.entity.material, 'ior').min(1).max(10).step(0.0001); //diamond ior 2.417, water 1.333, glass 1.5, air 1.0003
       gui.add(actor.entity.material, 'thickness').min(0).max(1).step(0.0001);
     }
-  });
+  }
 
   function start(): void {
     level.start();
