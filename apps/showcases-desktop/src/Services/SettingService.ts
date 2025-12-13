@@ -45,6 +45,7 @@ export function SettingsService(app: App, filesService: TFilesService): TSetting
   }
 
   // TODO DESKTOP: in showcases-shared add function to get one preferred locale (use particular match as a fallback)
+  // TODO DESKTOP: Also call getPreferredLocales() when no settings file found
   function getPreferredLocales(): ReadonlyArray<TLocaleId> {
     return Array.from(new Set([...app.getPreferredSystemLanguages(), app.getLocale()] as ReadonlyArray<TLocaleId>));
   }
