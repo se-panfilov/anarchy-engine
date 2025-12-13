@@ -22,7 +22,6 @@ export async function ActorWrapperAsync(params: TActorParams, { materialTextureS
 
   const withMaterialEntity: TWithMaterial = withMaterial(entity);
 
-  // TODO (S.Panfilov) CWP fix provided entity (type) into mixins and add "spatial" param as an optional param of Actor
   const { value$: position$, update: updatePosition } = withReactivePosition(entity);
   const { value$: rotation$, update: updateRotation } = withReactiveRotation(entity);
 
@@ -56,8 +55,10 @@ export async function ActorWrapperAsync(params: TActorParams, { materialTextureS
 
   const spatialSub$: Subscription = spatialLoopService.tick$.subscribe(({ priority }: TSpatialLoopServiceValue): void => {
     if (!actorW.spatial.isAutoUpdate()) return;
-    updatePosition(priority);
-    updateRotation(priority);
+    if (actorW.spatial.getSpatialUpdatePriority() >= priority) {
+      updatePosition();
+      updateRotation();
+    }
   });
 
   actorW.destroyed$.subscribe(() => {
@@ -70,6 +71,8 @@ export async function ActorWrapperAsync(params: TActorParams, { materialTextureS
   });
 
   applyPosition(actorW, params.position);
+  // TODO (S.Panfilov) CWP Should be guaranteed that spatial grid is build before in Space
+  // applySpatialGrid(actorW);
   applyRotation(actorW, params.rotation);
   if (isDefined(params.scale)) applyScale(actorW, params.scale);
   applyObject3dParams(actorW, params);
