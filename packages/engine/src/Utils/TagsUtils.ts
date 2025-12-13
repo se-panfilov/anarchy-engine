@@ -1,6 +1,6 @@
 import type { TWithTags } from '@Engine/Mixins';
 import type { TWriteable } from '@Engine/Utils';
-import { omitInArray } from '@Engine/Utils';
+import { omitInArray } from '@Shared/Utils';
 
 export function setTags<T extends TWithTags>(entity: T, tagsList: ReadonlyArray<string>): void {
   // eslint-disable-next-line functional/immutable-data

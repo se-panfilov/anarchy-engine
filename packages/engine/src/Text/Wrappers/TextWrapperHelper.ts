@@ -3,7 +3,7 @@ import type { TextCssClass } from '@Engine/Text/Constants';
 import { TextType } from '@Engine/Text/Constants';
 import type { TElementWithCssAccessors, TTextCssProps } from '@Engine/Text/Models';
 import type { TValueOf } from '@Engine/Utils';
-import { isDefined, isString } from '@Engine/Utils';
+import { isDefined, isString } from '@Shared/Utils';
 
 export function applyHtmlElementParams(wrapper: TElementWithCssAccessors, cssProps: TTextCssProps, className: TextCssClass): void {
   Object.keys(cssProps).forEach((paramName: string): void => {

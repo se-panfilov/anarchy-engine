@@ -5,7 +5,7 @@ import type { TWithName, TWithNameOptional, TWithTags } from '@Engine/Mixins';
 import type { TModel3dConfig, TModel3dResourceConfig } from '@Engine/Models3d';
 import { isPrimitiveModel3dResourceConfig, isPrimitiveModel3dSource } from '@Engine/Models3d';
 import type { TPhysicsBodyConfig, TPhysicsConfig } from '@Engine/Physics';
-import { findDuplicateString, isDefined, isNotDefined } from '@Engine/Utils';
+import { findDuplicateString, isDefined, isNotDefined } from '@Shared/Utils';
 
 export const validateNames = (entities: ReadonlyArray<TWithNameOptional>): boolean => entities.every(validateName);
 export const validateName = (entity: TWithNameOptional): boolean => validateField(entity, 'name');
