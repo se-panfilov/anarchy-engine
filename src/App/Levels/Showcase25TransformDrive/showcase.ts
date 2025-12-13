@@ -49,7 +49,7 @@ import spaceConfig from './showcase.json';
 import {
   addActorFolderGui,
   addSpatialGuiFolder,
-  attachConnectorToSubj,
+  attachConnectorPositionToSubj,
   changeActorActiveAgent,
   connectCameraToActor,
   connectObjToActor,
@@ -158,9 +158,6 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
       sphereText.setText(`x: ${p.x.toFixed(2)} y: ${p.y.toFixed(2)} z: ${p.z.toFixed(2)}, Rotation: ${radToDeg(r.y)}`);
     });
 
-    // TODO debug
-    console.log('XXX1', sphereActor.model3d.getRawModel3d().rotation);
-
     createRepeaterActor(sphereActor, sphereActor.model3d, { x: 0, y: 0, z: 4 }, grid, gui, space.services);
 
     const intersectionsWatcher: TIntersectionsWatcher = startIntersections(space.services);
@@ -202,7 +199,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
         moveActorTo(sphereActor, adjustedPoint, agent, mode.isTeleportationMode);
       });
 
-    attachConnectorToSubj(sphereActor, intersectionsWatcher.value$.pipe(map((v: TIntersectionEvent): Vector3 => v.point.add(new Vector3(0, actorsOffsetY, 0)))));
+    attachConnectorPositionToSubj(sphereActor, intersectionsWatcher.value$.pipe(map((v: TIntersectionEvent): Vector3 => v.point.add(new Vector3(0, actorsOffsetY, 0)))));
 
     changeActorActiveAgent(sphereActor, KeysExtra.Space, keyboardService);
 
@@ -256,8 +253,7 @@ function rotateActorTo(actor: TActor, rotation: Euler, agent: TransformAgent): v
       actor.drive.kinematic.setAngularAzimuthDeg(degrees(radToDeg(rotationXYZ.y)));
       return actor.drive.kinematic.setAngularSpeed(meters(5));
     case TransformAgent.Connected:
-      // TODO what should we do here?
-      // TODO 8.0.0. MODELS: check repeaterActor's rotation (not sure if here or in an other place)
+      // no need to do anything here, cause already connected
       return undefined;
     case TransformAgent.Physical:
       // Should not do anything here, cause physical agent should read values from physical body
