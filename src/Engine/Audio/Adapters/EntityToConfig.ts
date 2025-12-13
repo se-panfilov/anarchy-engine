@@ -19,8 +19,8 @@ export function audioToConfig<T extends TAnyAudio>(entity: TAbstractAudioWrapper
       }
     : ({} as any);
 
-  // TODO 15-0-0: maybe entity.entity.buffer instead? Check this in runtime.
-  const audioSource: string | undefined = audioResourceAsyncRegistry.findKeyByValue(entity.entity);
+  if (isNotDefined(entity.entity.buffer)) throw new Error(`EntityToConfig: Cannot serialize Audio without audio buffer: "${entity.name}" (id: "${entity.id}")`);
+  const audioSource: string | undefined = audioResourceAsyncRegistry.findKeyByValue(entity.entity.buffer);
   if (isNotDefined(audioSource)) throw new Error(`EntityToConfig: audioSource not found for entity with name: "${entity.name}" (id: "${entity.id}")`);
 
   return {
