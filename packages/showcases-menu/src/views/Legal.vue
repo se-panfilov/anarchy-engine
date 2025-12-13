@@ -4,6 +4,8 @@ import SettingsGroup from '@Showcases/Menu/components/SettingsGroup.vue';
 import View from '@Showcases/Menu/components/View.vue';
 import ViewForm from '@Showcases/Menu/components/ViewForm.vue';
 import { eventsService, vueTranslationService } from '@Showcases/Menu/services';
+import { useLegalDocsStore } from '@Showcases/Menu/stores/LegalDocsStore';
+import { AllowedLegalDocNames } from '@Showcases/Shared';
 import type { ShallowRef } from 'vue';
 import { onMounted } from 'vue';
 
@@ -19,8 +21,7 @@ import { onMounted } from 'vue';
 // Render .md files in a scrollable view
 
 onMounted(() => {
-  const val = eventsService.emitLoadLegalDocs({ name: 'EULA', locale: 'en-US' });
-  console.log('XXX legal docs', val);
+  eventsService.emitLoadLegalDocs({ name: AllowedLegalDocNames.EULA, locale: 'en-US' });
 });
 
 const { $t } = vueTranslationService;
@@ -32,7 +33,7 @@ const mainSettingsGroupTitleText: ShallowRef<string> = $t('main-menu.settings.le
 <template>
   <View class="legal" :title="viewTitleText">
     <ViewForm name="legal" class="legal__view-form">
-      <SettingsGroup :title="mainSettingsGroupTitleText"> 123 </SettingsGroup>
+      <SettingsGroup :title="mainSettingsGroupTitleText"> {{ useLegalDocsStore().state.EULA }} </SettingsGroup>
       <Navigation class="settings__navigation" :back-btn="true" />
     </ViewForm>
   </View>

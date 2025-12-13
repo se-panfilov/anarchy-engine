@@ -53,7 +53,7 @@ export function handleFromMenuEvents(fromMenuEventsBus$: Observable<TFromMenuEve
 
         toMenuEventsBus$.next({
           type: ToMenuEvents.LegalDocsLoaded,
-          payload: { legal: legalDocs }
+          payload: legalDocs
         });
         break;
       }
