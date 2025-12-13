@@ -27,6 +27,8 @@ export async function handleAppRequest(
       return settingsService.getAppSettings();
     case PlatformActions.GetPackagesVersions:
       return { ...(await desktopAppService.getPackagesVersions()), desktop: __DESKTOP_APP_VERSION__ };
+    case PlatformActions.GetReleaseName:
+      return `${_RELEASE_NAME_PREFIX}_${__DESKTOP_APP_VERSION__}`;
     case PlatformActions.GetPreferredLocales:
       return settingsService.getPreferredLocales();
     case PlatformActions.UpdateAppSettings:

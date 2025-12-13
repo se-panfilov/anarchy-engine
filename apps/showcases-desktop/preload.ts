@@ -7,7 +7,7 @@ import { contextBridge, ipcRenderer } from 'electron';
 
 import { PlatformActions } from './src/Constants';
 
-const { AppExit, AppRestart, GetAppSettings, GetLegalDocs, GetPackagesVersions, GetPreferredLocales, SetAppSettings, UpdateAppSettings } = PlatformActions;
+const { AppExit, AppRestart, GetAppSettings, GetLegalDocs, GetPackagesVersions, GetPreferredLocales, GetReleaseName, SetAppSettings, UpdateAppSettings } = PlatformActions;
 
 const mapping: TShowcasesDesktopApi = {
   closeApp: (): Promise<void> => ipcRenderer.invoke(platformApiChannel, AppExit),
@@ -18,6 +18,7 @@ const mapping: TShowcasesDesktopApi = {
   getLegalDocs: (options: TLoadDocPayload): Promise<TLegalDoc> => ipcRenderer.invoke(platformApiChannel, GetLegalDocs, options),
   getPackagesVersions: async (): Promise<Record<string, string>> => ipcRenderer.invoke(platformApiChannel, GetPackagesVersions),
   getPreferredLocales: (): Promise<ReadonlyArray<TLocaleId>> => ipcRenderer.invoke(platformApiChannel, GetPreferredLocales),
+  getReleaseName: (): Promise<string> => ipcRenderer.invoke(platformApiChannel, GetReleaseName, { version }),
   node: (): string => process.versions.node,
   restartApp: (args?: ReadonlyArray<string>): Promise<void> => ipcRenderer.invoke(platformApiChannel, AppRestart, args),
   setAppSettings: (settings: TShowcaseGameSettings): Promise<void> => ipcRenderer.invoke(platformApiChannel, SetAppSettings, settings),
