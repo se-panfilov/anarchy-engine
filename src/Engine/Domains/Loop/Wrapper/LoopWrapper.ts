@@ -20,8 +20,6 @@ export function LoopWrapper(params: ILoopParams): ILoopWrapper {
     });
 
     const activeCamera: ICameraWrapper | undefined = cameraRegistry.getUniqByTag(CameraTag.Active);
-    // TODO (S.Panfilov) debug
-    console.log(111, cameraRegistry.getAll()[0].tags);
     if (isDefined(activeCamera)) renderer.entity.render(scene.entity, activeCamera.entity);
   };
 

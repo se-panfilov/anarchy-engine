@@ -26,7 +26,7 @@ export function showcaseLevel2(canvas: IAppCanvas): IShowcase {
     const cameraTag: string = 'showcase-2-camera';
 
     cameraFactory.create({
-      position: Vector3Wrapper({ x: 0, y: 0, z: 0 }),
+      position: Vector3Wrapper({ x: 2, y: 2, z: 2 }),
       rotation: EulerWrapper({ x: 0, y: 0, z: 0 }),
       tags: [cameraTag, CameraTag.Active]
     });
