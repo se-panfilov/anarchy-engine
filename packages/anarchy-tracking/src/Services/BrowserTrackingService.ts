@@ -5,6 +5,8 @@ import { captureException, init } from '@sentry/browser';
 import type { Client, ErrorEvent } from '@sentry/core';
 
 export function BrowserTrackingService(options?: BrowserOptions, metaData?: Record<string, any>): TTrackingService {
+  let isStarted: boolean = false;
+
   const defaultOptions: BrowserOptions = {
     beforeSend(event: ErrorEvent, _hint: EventHint): PromiseLike<ErrorEvent | null> | ErrorEvent | null {
       // eslint-disable-next-line functional/immutable-data
@@ -58,11 +60,14 @@ export function BrowserTrackingService(options?: BrowserOptions, metaData?: Reco
   const onRejection = (ev: PromiseRejectionEvent): void => void captureException((ev as PromiseRejectionEvent).reason ?? ev);
 
   function start(onErrorHandler: (ev: any) => void = onError, onRejectionHandler: (ev: PromiseRejectionEvent) => void = onRejection): void {
+    if (isStarted) return;
+    isStarted = true;
     window.addEventListener('error', onErrorHandler);
     window.addEventListener('unhandledrejection', onRejectionHandler);
   }
 
   function stop(onErrorHandler: (ev: any) => void = onError, onRejectionHandler: (ev: PromiseRejectionEvent) => void = onRejection): void {
+    isStarted = false;
     window.removeEventListener('error', onErrorHandler);
     window.removeEventListener('unhandledrejection', onRejectionHandler);
   }
@@ -73,6 +78,7 @@ export function BrowserTrackingService(options?: BrowserOptions, metaData?: Reco
     client,
     captureException,
     start,
-    stop
+    stop,
+    isStarted: () => isStarted
   };
 }
