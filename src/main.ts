@@ -1,4 +1,4 @@
-import * as sceneConfig from '@Engine/Launcher/debug-scene.config.json';
+import sceneConfig from '@Engine/Launcher/debug-scene.config.json';
 import { isNotDefined, isValidSceneConfig } from '@Engine/Utils';
 import { ambientContext, startAmbientContext } from '@Engine/Context';
 import './style.css';

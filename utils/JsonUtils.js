@@ -10,7 +10,8 @@ const tsj = require('ts-json-schema-generator');
 const config = {
   path: '../src/Engine/Launcher/Models/ISceneConfig.ts',
   tsconfig: '../tsconfig.json',
-  type: '*' // Or <type-name> if you want to generate schema for that one type only
+  type: '*', // Or <type-name> if you want to generate schema for that one type only,
+  topRef: false
 };
 
 // TODO (S.Panfilov) docs: https://github.com/vega/ts-json-schema-generator

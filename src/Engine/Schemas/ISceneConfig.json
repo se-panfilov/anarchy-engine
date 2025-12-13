@@ -1,41 +1,38 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$ref": "#/definitions/ISceneConfig",
-  "definitions": {
-    "ISceneConfig": {
-      "type": "object",
-      "properties": {
-        "name": {
-          "type": "string"
-        },
-        "actors": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/IActorConfig"
-          }
-        },
-        "cameras": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/ICameraConfig"
-          }
-        },
-        "lights": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/ILightConfig"
-          }
-        },
-        "controls": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/IControlsConfig"
-          }
-        }
-      },
-      "required": ["name", "actors", "cameras", "lights", "controls"],
-      "additionalProperties": false
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
     },
+    "actors": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/IActorConfig"
+      }
+    },
+    "cameras": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/ICameraConfig"
+      }
+    },
+    "lights": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/ILightConfig"
+      }
+    },
+    "controls": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/IControlsConfig"
+      }
+    }
+  },
+  "required": ["name", "actors", "cameras", "lights", "controls"],
+  "additionalProperties": false,
+  "definitions": {
     "IActorConfig": {
       "type": "object",
       "properties": {
