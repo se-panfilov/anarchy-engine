@@ -1,12 +1,12 @@
 import type { IShowcase } from '@/App/Levels/Models';
-import type { IActorWrapperAsync, IAppCanvas, ILevel, ILevelConfig } from '@/Engine';
+import type { IActorWrapperAsync, IAppCanvas, ISpace, ISpaceConfig } from '@/Engine';
 import { buildLevelFromConfig, mouseService, screenService, standardLoopService } from '@/Engine';
 
-import levelConfig from './showcase-7-fullscreen.config.json';
+import spaceConfig from './showcase-7-fullscreen.config.json';
 
 //Showcase 6: Go fullscreen
 export function showcaseLevel(canvas: IAppCanvas): IShowcase {
-  const level: ILevel = buildLevelFromConfig(canvas, levelConfig as ILevelConfig);
+  const level: ISpace = buildLevelFromConfig(canvas, spaceConfig as ISpaceConfig);
   const { actorRegistry } = level.entities;
 
   async function init(): Promise<void> {

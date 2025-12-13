@@ -1,4 +1,4 @@
-export * from './ILevel';
-export * from './ILevelConfig';
-export * from './ILevelEntities';
+export * from './ISpace';
+export * from './ISpaceConfig';
+export * from './ISpaceEntities';
 export * from './IWithBuilt';

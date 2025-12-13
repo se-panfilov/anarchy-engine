@@ -1,14 +1,14 @@
 import { combineLatest } from 'rxjs';
 
 import type { IShowcase } from '@/App/Levels/Models';
-import type { IActorWrapperAsync, IAppCanvas, ICameraWrapper, ILevel, ILevelConfig } from '@/Engine';
+import type { IActorWrapperAsync, IAppCanvas, ICameraWrapper, ISpace, ISpaceConfig } from '@/Engine';
 import { ambientContext, buildLevelFromConfig, getRotationByCos, getRotationBySin, isNotDefined, mouseService } from '@/Engine';
 
-import levelConfig from './showcase-3-camera-flying.config.json';
+import spaceConfig from './showcase-3-camera-flying.config.json';
 
 //Showcase 3: Camera flying around the central actor
 export function showcaseLevel(canvas: IAppCanvas): IShowcase {
-  const level: ILevel = buildLevelFromConfig(canvas, levelConfig as ILevelConfig);
+  const level: ISpace = buildLevelFromConfig(canvas, spaceConfig as ISpaceConfig);
 
   function start(): void {
     level.start();

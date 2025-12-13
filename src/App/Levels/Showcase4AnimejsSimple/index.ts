@@ -1,14 +1,14 @@
 import type { IShowcase } from '@/App/Levels/Models';
-import type { IActorParams, IActorWrapperAsync, IAppCanvas, ILevel, ILevelConfig } from '@/Engine';
+import type { IActorParams, IActorWrapperAsync, IAppCanvas, ISpace, ISpaceConfig } from '@/Engine';
 import { ActorType, buildLevelFromConfig, EulerWrapper, forEachEnum, LookUpStrategy, MaterialType, mouseService, TextType, Vector3Wrapper } from '@/Engine';
 import type { IAnimationParams } from '@/Engine/Services';
 import { Easing, standardMoverService } from '@/Engine/Services';
 
-import levelConfig from './showcase-4-animejs-simple.config.json';
+import spaceConfig from './showcase-4-animejs-simple.config.json';
 
 //Showcase 4: Anime.js simple animations (easing, etc.)
 export function showcaseLevel(canvas: IAppCanvas): IShowcase {
-  const level: ILevel = buildLevelFromConfig(canvas, levelConfig as ILevelConfig);
+  const level: ISpace = buildLevelFromConfig(canvas, spaceConfig as ISpaceConfig);
 
   function start(): void {
     level.start();

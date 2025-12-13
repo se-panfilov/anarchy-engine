@@ -1,1 +1,1 @@
-export { default as LevelConfigSchema } from './ILevelConfig.json';
+export { default as LevelConfigSchema } from './ISpaceConfig.json';

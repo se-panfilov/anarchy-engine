@@ -4,16 +4,16 @@ import { BehaviorSubject, combineLatest, startWith, Subject } from 'rxjs';
 import type { MeshPhysicalMaterial, MeshStandardMaterial } from 'three';
 
 import type { IShowcase } from '@/App/Levels/Models';
-import type { IActorWrapperAsync, IAppCanvas, ILevel, ILevelConfig, IOrbitControlsWrapper, IVector3Wrapper } from '@/Engine';
+import type { IActorWrapperAsync, IAppCanvas, ISpace, ISpaceConfig, IOrbitControlsWrapper, IVector3Wrapper } from '@/Engine';
 import { buildLevelFromConfig, envMapService, EulerWrapper, isDefined, isNotDefined, keyboardService, KeyCode, LookUpStrategy, TextType, Vector3Wrapper } from '@/Engine';
 
-import levelConfig from './showcase-10-complex-materials.config.json';
+import spaceConfig from './showcase-10-complex-materials.config.json';
 
 //Showcase 10: Complex Materials
 export function showcaseLevel(canvas: IAppCanvas): IShowcase {
   const gui: GUI = new GUI();
 
-  const level: ILevel = buildLevelFromConfig(canvas, levelConfig as ILevelConfig);
+  const level: ISpace = buildLevelFromConfig(canvas, spaceConfig as ISpaceConfig);
   const { textFactory, actorRegistry, controlsRegistry } = level.entities;
 
   const currentActor$: Subject<IActorWrapperAsync> = new Subject();

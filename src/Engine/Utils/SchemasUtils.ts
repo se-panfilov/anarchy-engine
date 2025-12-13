@@ -1,12 +1,12 @@
 import Ajv from 'ajv';
 
-import type { ILevelConfig } from '@/Engine/Level';
-import ILevelConfigSchema from '@/Engine/Level/Schemas/ILevelConfig.json';
+import type { ISpaceConfig } from '@/Engine/Level';
+import ISpaceConfigSchema from '@/Engine/Level/Schemas/ISpaceConfig.json';
 
 const ajv: Ajv = new Ajv();
 
-export function validLevelConfig(config: ILevelConfig): { isValid: boolean; errors?: ReadonlyArray<any> | null | undefined } {
-  const validate = ajv.compile(ILevelConfigSchema);
+export function validLevelConfig(config: ISpaceConfig): { isValid: boolean; errors?: ReadonlyArray<any> | null | undefined } {
+  const validate = ajv.compile(ISpaceConfigSchema);
   const isValid: boolean = validate(config);
   return { isValid, errors: validate.errors };
 }

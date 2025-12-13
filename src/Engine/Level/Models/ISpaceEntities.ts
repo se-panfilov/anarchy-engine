@@ -7,7 +7,7 @@ import type { IRendererFactory, IRendererRegistry } from '@/Engine/Renderer';
 import type { ISceneFactory, ISceneRegistry } from '@/Engine/Scene';
 import type { IText2dRegistry, IText3dRegistry, ITextFactory } from '@/Engine/Text';
 
-export type ILevelEntities = {
+export type ISpaceEntities = {
   actorRegistry: IActorAsyncRegistry;
   actorFactory: IActorFactory;
   text2dRegistry: IText2dRegistry;

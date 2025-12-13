@@ -1,15 +1,15 @@
 import GUI from 'lil-gui';
 
 import type { IShowcase } from '@/App/Levels/Models';
-import type { IAppCanvas, ILevel, ILevelConfig, ISceneWrapper } from '@/Engine';
+import type { IAppCanvas, ISpace, ISpaceConfig, ISceneWrapper } from '@/Engine';
 import { buildLevelFromConfig, isNotDefined, RendererTag } from '@/Engine';
 
-import levelConfig from './showcase-13-fog.json';
+import spaceConfig from './showcase-13-fog.json';
 
 //Showcase 13: Fog
 export function showcaseLevel(canvas: IAppCanvas): IShowcase {
   const gui: GUI = new GUI();
-  const level: ILevel = buildLevelFromConfig(canvas, levelConfig as ILevelConfig);
+  const level: ISpace = buildLevelFromConfig(canvas, spaceConfig as ISpaceConfig);
   const { scenesRegistry, rendererRegistry } = level.entities;
 
   function init(): void {

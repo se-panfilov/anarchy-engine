@@ -1,14 +1,14 @@
 import './fonts.css';
 
 import type { IShowcase } from '@/App/Levels/Models';
-import type { IAnimationParams, IAppCanvas, ILevel, ILevelConfig, ITextAnyWrapper, IWithCoordsXZ } from '@/Engine';
+import type { IAnimationParams, IAppCanvas, ISpace, ISpaceConfig, ITextAnyWrapper, IWithCoordsXZ } from '@/Engine';
 import { buildLevelFromConfig, createCirclePathXZ, Easing, EulerWrapper, generateAnglesForCircle, mouseService, standardMoverService, TextType, Vector3Wrapper } from '@/Engine';
 
-import levelConfig from './showcase-7-text-2d.config.json';
+import spaceConfig from './showcase-7-text-2d.config.json';
 
 //Showcase 7: Text 2d
 export function showcaseLevel(canvas: IAppCanvas): IShowcase {
-  const level: ILevel = buildLevelFromConfig(canvas, levelConfig as ILevelConfig);
+  const level: ISpace = buildLevelFromConfig(canvas, spaceConfig as ISpaceConfig);
   const { textFactory } = level.entities;
 
   textFactory.create({

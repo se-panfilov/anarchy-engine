@@ -1,14 +1,14 @@
 import { combineLatest } from 'rxjs';
 
 import type { IShowcase } from '@/App/Levels/Models';
-import type { IActorWrapperAsync, IAppCanvas, ICameraWrapper, ILevel, ILevelConfig } from '@/Engine';
+import type { IActorWrapperAsync, IAppCanvas, ICameraWrapper, ISpace, ISpaceConfig } from '@/Engine';
 import { ambientContext, buildLevelFromConfig, getRotationByCos, getRotationBySin, isDefined, isNotDefined, mouseService } from '@/Engine';
 
-import levelConfig from './showcase-9-textures-and-materials.config.json';
+import spaceConfig from './showcase-9-textures-and-materials.config.json';
 
 //Showcase 9: Textures & Materials
 export function showcaseLevel(canvas: IAppCanvas): IShowcase {
-  const level: ILevel = buildLevelFromConfig(canvas, levelConfig as ILevelConfig);
+  const level: ISpace = buildLevelFromConfig(canvas, spaceConfig as ISpaceConfig);
 
   // Load texture dynamically
   // const pack: IBasicMaterialTexturePack = {
@@ -35,7 +35,7 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
 }
 
 // This is mostly a copy of Showcase 3 (camera rotation)
-function initCameraRotation(level: ILevel, actor: IActorWrapperAsync | undefined): void {
+function initCameraRotation(level: ISpace, actor: IActorWrapperAsync | undefined): void {
   const { cameraRegistry } = level.entities;
 
   const camera: ICameraWrapper | undefined = cameraRegistry.getActiveCamera();

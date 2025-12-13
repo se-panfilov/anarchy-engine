@@ -14,9 +14,9 @@ import type { IDataTexture } from '@/Engine/EnvMap';
 import { envMapService } from '@/Engine/EnvMap';
 import type { IFogConfig, IFogFactory, IFogRegistry, IFogWrapper } from '@/Engine/Fog';
 import { FogFactory, FogRegistry } from '@/Engine/Fog';
-import { setInitialActiveCamera } from '@/Engine/Level/LevelHelper';
+import { setInitialActiveCamera } from '@/Engine/Level/SpaceHelper';
 import { withBuiltMixin } from '@/Engine/Level/Mixin';
-import type { ILevel, ILevelConfig, IWithBuilt } from '@/Engine/Level/Models';
+import type { ISpace, ISpaceConfig, IWithBuilt } from '@/Engine/Level/Models';
 import type { IAbstractLightWrapper, ILight, ILightConfig, ILightFactory, ILightRegistry } from '@/Engine/Light';
 import { LightFactory, LightRegistry } from '@/Engine/Light';
 import type { ILoopTimes } from '@/Engine/Loop';
@@ -33,7 +33,7 @@ import type { IText2dRegistry, IText2dRenderer, IText3dRegistry, IText3dRenderer
 import { initText2dRenderer, initText3dRenderer, isText2dWrapper, isText3dWrapper, Text2dRegistry, Text3dRegistry, TextFactory } from '@/Engine/Text';
 import { isDefined, isNotDefined, validLevelConfig } from '@/Engine/Utils';
 
-export function buildLevelFromConfig(canvas: IAppCanvas, config: ILevelConfig): ILevel {
+export function buildLevelFromConfig(canvas: IAppCanvas, config: ISpaceConfig): ISpace {
   const { isValid, errors } = validLevelConfig(config);
   if (!isValid) {
     console.error(errors);

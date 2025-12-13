@@ -1,2 +1,1 @@
-export * from './LevelSchemaVersion';
-export * from './LevelTag';
+export * from './SpaceSchemaVersion';

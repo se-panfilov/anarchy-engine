@@ -1,3 +1,0 @@
-export enum LevelSchemaVersion {
-  V1 = '1.0.0'
-}

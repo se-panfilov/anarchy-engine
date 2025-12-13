@@ -2,15 +2,15 @@ import GUI from 'lil-gui';
 import { withLatestFrom } from 'rxjs';
 
 import type { IShowcase } from '@/App/Levels/Models';
-import type { IActorWrapperAsync, IAppCanvas, ICameraWrapper, IIntersectionEvent, IIntersectionsWatcher, ILevel, ILevelConfig, IMouseWatcherEvent } from '@/Engine';
+import type { IActorWrapperAsync, IAppCanvas, ICameraWrapper, IIntersectionEvent, IIntersectionsWatcher, ISpace, ISpaceConfig, IMouseWatcherEvent } from '@/Engine';
 import { buildLevelFromConfig, Easing, intersectionsService, isNotDefined, keyboardService, KeyCode, LookUpStrategy, mouseService, standardMoverService } from '@/Engine';
 
-import levelConfig from './showcase-11-keyboard-and-mouse.json';
+import spaceConfig from './showcase-11-keyboard-and-mouse.json';
 
 //Showcase 11: Keyboard and Mouse
 export function showcaseLevel(canvas: IAppCanvas): IShowcase {
   const gui: GUI = new GUI();
-  const level: ILevel = buildLevelFromConfig(canvas, levelConfig as ILevelConfig);
+  const level: ISpace = buildLevelFromConfig(canvas, spaceConfig as ISpaceConfig);
   const { actorRegistry, cameraRegistry } = level.entities;
 
   async function init(): Promise<void> {

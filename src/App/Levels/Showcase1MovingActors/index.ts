@@ -1,14 +1,14 @@
 import { filter } from 'rxjs';
 
 import type { IShowcase } from '@/App/Levels/Models';
-import type { IActorWrapperAsync, IAppCanvas, ICameraWrapper, IIntersectionEvent, IIntersectionsWatcher, ILevel, ILevelConfig } from '@/Engine';
+import type { IActorWrapperAsync, IAppCanvas, ICameraWrapper, IIntersectionEvent, IIntersectionsWatcher, ISpace, ISpaceConfig } from '@/Engine';
 import { ActorTag, buildLevelFromConfig, intersectionsService, isNotDefined, mouseService, standardLoopService } from '@/Engine';
 
-import levelConfig from './showcase-1-moving-actors.config.json';
+import spaceConfig from './showcase-1-moving-actors.config.json';
 
 //Showcase 1: Moving actor with intersections & reading data from config
 export function showcaseLevel(canvas: IAppCanvas): IShowcase {
-  const level: ILevel = buildLevelFromConfig(canvas, levelConfig as ILevelConfig);
+  const level: ISpace = buildLevelFromConfig(canvas, spaceConfig as ISpaceConfig);
   const { actorRegistry, cameraRegistry } = level.entities;
 
   async function init(): Promise<void> {
