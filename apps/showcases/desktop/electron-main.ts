@@ -35,7 +35,9 @@ function createWindow(width: number, height: number): BrowserWindow {
   const win = new BrowserWindow({
     width,
     height,
-    fullscreen: false, //We set fullscreen later
+    // TODO DESKTOP: Is Fullscreen or not should depend on the app settings
+    // TODO DESKTOP: Change default fullscreen mode to "true"
+    fullscreen: false,
     autoHideMenuBar: true,
     useContentSize: true,
     hiddenInMissionControl: true,
@@ -68,19 +70,12 @@ ipcMain.handle('ping', async () => {
 app.whenReady().then((): void => {
   const win: BrowserWindow = createWindow(windowWidth, windowHeight);
 
-  // TODO DESKTOP: test this case
-  app.on('activate', (): void => {
-    // On macOS it's common to re-create a window in the app when the
-    // dock icon is clicked and there are no other windows open.
-    if (BrowserWindow.getAllWindows().length === 0) createWindow(windowWidth, windowHeight);
-  });
-
-  // TODO DESKTOP: test this case
   app.on('window-all-closed', (): void => {
-    // Quit when all windows are closed, except on macOS. There, it's common
-    // for applications and their menu bar to stay active until the user quits
-    // explicitly with Cmd + Q.
-    if (process.platform !== 'darwin') app.quit();
+    //Quit the app when all windows are closed (even on macOS, which is a bit non-macOS style)
+    app.quit();
+
+    // Makes quit not to quit on macOS (macOS style)
+    // if (process.platform !== 'darwin') app.quit();
   });
 
   // Turn off the menu bar (and Hotkeys(!!!) such as Ctrl+R, Ctrl+F5, etc.)
@@ -103,11 +98,6 @@ app.whenReady().then((): void => {
   // win.webContents.on('will-prevent-unload', (event) => {
   // event.preventDefault(); // Prevent the default behavior of closing the window
   // });
-
-  // TODO DESKTOP: Is Fullscreen or not should depend on the app settings
-  // TODO DESKTOP: Change default fullscreen mode to "true"
-  //Fullscreen mode
-  setTimeout((): void => void (!win.isDestroyed() && win.setFullScreen(false)), 500);
 
   // Hide the menu bar
   win.setMenuBarVisibility(false);
