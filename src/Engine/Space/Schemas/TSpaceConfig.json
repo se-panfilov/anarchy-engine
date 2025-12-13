@@ -243,8 +243,8 @@
         "name": {
           "type": "string"
         },
-        "driver": {
-          "$ref": "#/definitions/ActorDriver"
+        "agent": {
+          "$ref": "#/definitions/TransformAgent"
         },
         "driveUpdateDelay": {
           "type": "number"
@@ -1051,7 +1051,7 @@
       "type": "number",
       "enum": [5, 4, 3, 2, 1, 0]
     },
-    "ActorDriver": {
+    "TransformAgent": {
       "type": "string",
       "enum": ["kinematic", "physical", "instant"]
     },
