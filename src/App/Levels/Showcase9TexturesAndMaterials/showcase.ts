@@ -42,10 +42,10 @@ function initCameraRotation(space: TSpace, actor: TActorWrapperAsync | undefined
   const camera: TCameraWrapper | undefined = cameraService.findActive();
 
   const { screenSizeWatcher } = ambientContext;
-  combineLatest([mouseService.position$, screenSizeWatcher.latest$]).subscribe(([{ x, y }, { width, height }]): void => {
+  combineLatest([mouseService.position$, screenSizeWatcher.latest$]).subscribe(([{ coords }, { width, height }]): void => {
     if (isNotDefined(camera)) return;
-    const xRatio: number = x / width - 0.5;
-    const yRatio: number = -(y / height - 0.5);
+    const xRatio: number = coords.x / width - 0.5;
+    const yRatio: number = -(coords.y / height - 0.5);
 
     const xRotation: number = getRotationBySin(xRatio, 1, 2);
     const yRotation: number = getRotationByCos(xRatio, 1, 2);

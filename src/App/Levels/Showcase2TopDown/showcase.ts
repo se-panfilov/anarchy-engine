@@ -41,10 +41,10 @@ export function showcase(canvas: TAppCanvas): TShowcase {
     });
 
     const { screenSizeWatcher } = ambientContext;
-    combineLatest([mouseService.position$, screenSizeWatcher.latest$]).subscribe(([{ x, y }, { width, height }]): void => {
+    combineLatest([mouseService.position$, screenSizeWatcher.latest$]).subscribe(([{ coords }, { width, height }]): void => {
       if (isNotDefined(camera)) return;
-      const xRatio: number = x / width - 0.5;
-      const yRatio: number = -(y / height - 0.5);
+      const xRatio: number = coords.x / width - 0.5;
+      const yRatio: number = -(coords.y / height - 0.5);
       camera.setX(xRatio * 5);
       camera.setY(yRatio * 5);
     });

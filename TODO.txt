@@ -25,3 +25,4 @@ Also:
 - Maybe actor position/rotation should be an observable?
 - Add line domain and let lines be created via config
 - BVH (Bounding Volume Hierarchies) with Grid-Based Spatial Partitioning for collision detection
+- Make stats enable/disable configurable via url params (?debug=true)

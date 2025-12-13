@@ -3,8 +3,8 @@ import Benchmark from 'benchmark';
 import Big from 'big.js';
 import BigNumber from 'bignumber.js';
 import Decimal from 'decimal.js';
-import { all, create, number } from 'mathjs';
 import { glMatrix, vec3 } from 'gl-matrix';
+import { all, create, number } from 'mathjs';
 
 //Install: npm install benchmark big.js mathjs bignumber.js decimal.js gl-matrix
 

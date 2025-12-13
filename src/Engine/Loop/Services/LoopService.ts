@@ -63,8 +63,11 @@ function getLoopFn(beforeTick$: Subject<TLoopTimes>, state: TLoopServiceState): 
   const clock: Clock = new Clock();
   let lastElapsedTime: number = 0;
 
+  // TODO (S.Panfilov) DEBUG: make stats enable/disable configurable via url params (?debug=true)
   const stats: any = new Stats();
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-call,@typescript-eslint/no-unsafe-member-access
   stats.showPanel(0); // 0: fps, 1: ms, 2: mb, 3+: custom
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-call,@typescript-eslint/no-unsafe-member-access
   document.body.appendChild(stats.dom);
 
   function loopFn(frameTime: number): void {
@@ -76,6 +79,7 @@ function getLoopFn(beforeTick$: Subject<TLoopTimes>, state: TLoopServiceState): 
     lastElapsedTime = elapsedTime;
     beforeTick$.next({ delta, frameTime, elapsedTime });
 
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call,@typescript-eslint/no-unsafe-member-access
     stats.end();
     requestAnimationFrame(loopFn);
   }
