@@ -4,7 +4,7 @@ import { TAppSettings } from './src/Models';
 
 const { SaveAppSettings, LoadAppSettings } = PlatformActions;
 
-declare const __APP_VERSION__: string;
+declare const __DESKTOP_APP_VERSION__: string;
 
 contextBridge.exposeInMainWorld(platformApiName, {
   saveAppSettings: (settings: TAppSettings): Promise<void> => ipcRenderer.invoke(platformApiChannel, SaveAppSettings, settings),
@@ -12,5 +12,5 @@ contextBridge.exposeInMainWorld(platformApiName, {
   node: (): string => process.versions.node,
   chrome: (): string => process.versions.chrome,
   electron: (): string => process.versions.electron,
-  desktopAppVersion: async (): Promise<string> => __APP_VERSION__
+  desktopAppVersion: async (): Promise<string> => __DESKTOP_APP_VERSION__
 });

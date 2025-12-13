@@ -7,7 +7,7 @@ import { version } from './package.json';
 // But imports are such a pain, so it's easier to use a bundler.
 export default defineConfig({
   define: {
-    __APP_VERSION__: JSON.stringify(version)
+    __DESKTOP_APP_VERSION__: JSON.stringify(version)
   },
   resolve: {
     alias: {

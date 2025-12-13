@@ -11,7 +11,7 @@ const tsconfigPath: string = resolve(__dirname, 'tsconfig.preload.json');
 // So the recommended way is to use a bundler for preload.ts.
 export default defineConfig({
   define: {
-    __APP_VERSION__: JSON.stringify(version)
+    __DESKTOP_APP_VERSION__: JSON.stringify(version)
   },
   plugins: [tsconfigPaths({ projects: [tsconfigPath] })],
   resolve: {
