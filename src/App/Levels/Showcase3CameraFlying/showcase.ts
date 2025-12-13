@@ -30,7 +30,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
       camera.setY(yRatio * 10);
       camera.setZ(yRotation);
 
-      const actor: TActorWrapper | undefined = actorRegistry.findByTag('central_actor');
+      const actor: TActorWrapper | undefined = actorRegistry.findByName('central_actor');
       if (isNotDefined(actor)) throw new Error('Actor not found');
       camera.lookAt(actor.getPosition());
     });
