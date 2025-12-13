@@ -23,7 +23,7 @@ export function performMove(moveFn: TMoveFn | TMoveByPathFn, loopService: TLoopS
   // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
   const move = moveFn({ ...params, complete: resolve } as any);
   const tickSubscription: Subscription = loopService.tick$.subscribe(({ frameTime }: TLoopTimes): void => move.tick(frameTime));
-  return promise.then(() => tickSubscription.unsubscribe());
+  return promise.then((): void => tickSubscription.unsubscribe());
 }
 
 export function performMoveUntil<F extends (params: P) => TMoveableByTick, P>(moveFn: F, loopService: TLoopService, params: P): TStopMoveCb {
