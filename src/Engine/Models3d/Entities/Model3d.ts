@@ -16,7 +16,7 @@ export function Model3d(params: TModel3dParams, { animationsService, model3dRawT
   if (isModelAlreadyInUse)
     throw new Error(`Model3d Trying to create Model3d around a raw model3d resource that is already in use by another Model3d. Might be a mistake. Consider cloning the source instead.`);
 
-  const facade = AbstractEntity(withModel3dEntities(entities), EntityType.Model3d, params);
+  const abstract = AbstractEntity(withModel3dEntities(entities), EntityType.Model3d, params);
 
   const getParams = (): TModel3dParams => ({ ...params });
 
@@ -31,16 +31,16 @@ export function Model3d(params: TModel3dParams, { animationsService, model3dRawT
   if (isDefined(params.position)) applyPositionToModel3d(entities.model3dSource, params.position);
   applyObject3dParamsToModel3d(entities.model3dSource, params);
 
-  facade.destroyed$.subscribe(() => {
+  abstract.destroyed$.subscribe(() => {
     model3dRawToModel3dConnectionRegistry.removeByModel3d(entities.model3dSource);
     // TODO 8.0.0. MODELS: implement the removal of the model from the scene and destroy of the models (and unload the resources)
   });
 
-  model3dRawToModel3dConnectionRegistry.addModel3d(entities.model3dSource, facade as TModel3d);
+  model3dRawToModel3dConnectionRegistry.addModel3d(entities.model3dSource, abstract as TModel3d);
 
   return {
     ...withObject3d(entities.model3dSource),
-    ...facade,
+    ...abstract,
     getParams,
     _clone
   };
