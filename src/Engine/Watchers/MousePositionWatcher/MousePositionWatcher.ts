@@ -6,7 +6,7 @@ import { AbstractWatcher } from '@Engine/Watchers/AbstractWatcher/AbstractWatche
 
 export function MousePositionWatcher(container: IGlobalContainerDecorator, tags: ReadonlyArray<string> = []): IMousePositionWatcher {
   const containerIdTag: string = `container_id_${container.id}`;
-  const abstractWatcher: IAbstractWatcher<IMousePosition> = AbstractWatcher('mouse_position', [...tags, containerIdTag]);
+  const abstractWatcher: IAbstractWatcher<IMousePosition> = AbstractWatcher('mouse_position', tags);
   const onMouseMoveListener = ({ clientX: x, clientY: y }: IMouseEvent): void => abstractWatcher.value$.next({ x, y });
 
   function start(): IMousePositionWatcher {
@@ -21,6 +21,7 @@ export function MousePositionWatcher(container: IGlobalContainerDecorator, tags:
 
   const result: IMousePositionWatcher = {
     ...abstractWatcher,
+    key: containerIdTag,
     start,
     stop
   };

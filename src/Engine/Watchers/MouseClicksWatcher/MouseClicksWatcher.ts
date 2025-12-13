@@ -4,7 +4,7 @@ import { AbstractWatcher } from '@Engine/Watchers/AbstractWatcher/AbstractWatche
 
 export function MouseClicksWatcher(container: IGlobalContainerDecorator, tags: ReadonlyArray<string> = []): IMouseClicksWatcher {
   const containerIdTag: string = `container_id_${container.id}`;
-  const abstractWatcher: IAbstractWatcher<void> = AbstractWatcher('mouse_clicks', [...tags, containerIdTag]);
+  const abstractWatcher: IAbstractWatcher<void> = AbstractWatcher('mouse_clicks', tags);
   const onMouseUpListener = (): void => abstractWatcher.value$.next();
 
   function start(): IMouseClicksWatcher {
@@ -19,7 +19,7 @@ export function MouseClicksWatcher(container: IGlobalContainerDecorator, tags: R
 
   const result: IMouseClicksWatcher = {
     ...abstractWatcher,
-    key: container.id,
+    key: containerIdTag,
     start,
     stop
   };
