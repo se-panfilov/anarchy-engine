@@ -8,15 +8,17 @@
 @mixin font-face($font-family, $font-file, $font-weight: 400, $font-style: normal, $font-display: swap) {
   @font-face {
     font-family: $font-family;
-    src: url('#{$font-file}.woff2') format('woff2');
+    src: url('./#{$font-file}.woff2') format('woff2');
     font-weight: $font-weight;
     font-style: $font-style;
     font-display: $font-display;
   }
 }
+
 // IMPORTANT!!!: This font-face (LongCang) is used only for dev purposes (to see if font change actually works), no need on the real production.
 // Remove it (and the font file) when not needed.
-@include font-face('LongCang', 'LongCang');
+// Also remove it from fonts definition for the NL lang in packages/showcases-shared/src/Constants/ShowcasesLocales.ts
+@include font-face('LongCang', 'LongCang-Regular');
 
 // ===== UNIVERSAL LATIN + GREEK + CYRILLIC + VIETNAMESE =====
 // Covers: af-ZA, az-Latn-AZ, bs-BA, ca-ES, cs-CZ, cy-GB, da-DK,
