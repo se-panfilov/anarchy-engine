@@ -81,11 +81,10 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     const spatialGrid: TSpatialGridWrapper | undefined = spatialGridService.getRegistry().findByName('main_grid');
     if (isNotDefined(spatialGrid)) throw new Error(`Cannot find "main_grid" spatial grid`);
 
-    // TODO 8.0.0. MODELS: A large number of blocks produces a heavy performance issue (which is not in master)
     // const blocks = await buildTower(actorService, models3dService, materialService, { x: 10, z: 0 }, 5, 5, 10, spatialGrid);
     const blocks = await buildTower(actorService, models3dService, materialService, { x: 10, z: 0 }, 10, 10, 20, spatialGrid);
-    // const blocks2 = await buildTower(actorService, models3dService, materialService, { x: 45, z: 7 }, 6, 7, 18, spatialGrid);
-    // const blocks3 = await buildTower(actorService, models3dService, materialService, { x: -15, z: -15 }, 10, 7, 15, spatialGrid);
+    const blocks2 = await buildTower(actorService, models3dService, materialService, { x: 45, z: 7 }, 6, 7, 18, spatialGrid);
+    const blocks3 = await buildTower(actorService, models3dService, materialService, { x: -15, z: -15 }, 10, 7, 15, spatialGrid);
 
     const maxBulletsSameTime: number = 150;
     const bullets: ReadonlyArray<TBullet> = await Promise.all(getBulletsPool(maxBulletsSameTime, actorService, models3dService, materialService, spatialGridService));
@@ -99,18 +98,12 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
       });
     });
 
+    // TODO 8.0.0. MODELS: Looks like mouse intersection watcher is giving us a lot of a low performance
     const mouseLineIntersectionsWatcher: TIntersectionsWatcher = intersectionsWatcherService.create({
       name: 'mouse_line_intersections_watcher',
       isAutoStart: true,
       camera: cameraW,
-      actors: [
-        ...blocks,
-        // TODO 8.0.0. MODELS: revert when performance issue is fixed
-        // ...blocks2,
-        // ...blocks3,
-        surface,
-        sphereActor
-      ],
+      actors: [...blocks, ...blocks2, ...blocks3, surface, sphereActor],
       position$: mouseService.position$
     });
 
