@@ -12,8 +12,8 @@ const spaceAlphaConfig: TSpaceConfig = spaceAlphaConfigJson as TSpaceConfig;
 const spaceBetaConfig: TSpaceConfig = spaceBetaConfigJson as TSpaceConfig;
 
 function createContainersDivs(): void {
-  createDomElement('div', undefined, undefined, 'left_container', 'position: fixed; left: 0; right: 50%; top: 0; bottom: 0; outline: none;');
-  createDomElement('div', undefined, undefined, 'right_container', 'position: fixed; left: 50%; right: 0; top: 0; bottom: 0; outline: none;');
+  createDomElement('div', undefined, undefined, 'left_container', 'position: fixed; left: 0; right: calc(50% + 2px); top: 0; bottom: 0; outline: none;');
+  createDomElement('div', undefined, undefined, 'right_container', 'position: fixed; left: calc(50% + 2px); right: 0; top: 0; bottom: 0; outline: none;');
 }
 
 export function start(): void {
