@@ -47,11 +47,14 @@ export function showcase(canvas: TAppCanvas): TShowcase {
     const sphereActorW: TActorWrapperAsync | undefined = await actorService.getRegistry().findByNameAsync('sphere');
     if (isNotDefined(sphereActorW)) throw new Error(`Cannot find "sphere" actor`);
 
-    const blocks = await buildTower(actorService, { x: 10, z: 0 }, 10, 10, 20);
-    // const blocks2 = await buildTower(actorService, { x: 20, z: 0 }, 5, 5, 15);
-    // await buildTower(actorService, { x: 0, z: 30 }, 6, 7, 18);
-    // await buildTower(actorService, { x: 17, z: 30 }, 7, 7, 35);
-    // await buildTower(actorService, { x: -15, z: -15 }, 10, 7, 15);
+    const spatialGrid: TSpatialGridWrapper | undefined = spatialGridService.getRegistry().findByName('main_grid');
+    if (isNotDefined(spatialGrid)) throw new Error(`Cannot find "main_grid" spatial grid`);
+
+    const blocks = await buildTower(actorService, { x: 10, z: 0 }, 10, 10, 20, spatialGrid);
+    // const blocks2 = await buildTower(actorService, { x: 20, z: 0 }, 5, 5, 15, spatialGrid);
+    // await buildTower(actorService, { x: 0, z: 30 }, 6, 7, 18, spatialGrid);
+    // await buildTower(actorService, { x: 17, z: 30 }, 7, 7, 35, spatialGrid);
+    // await buildTower(actorService, { x: -15, z: -15 }, 10, 7, 15, spatialGrid);
 
     // TODO temp
     const maxBulletsSameTime: number = 15;
@@ -99,8 +102,6 @@ export function showcase(canvas: TAppCanvas): TShowcase {
     setTimeout(() => moveActorBounce(targetActor2W, 4.5, -270, 3000), 500);
     setTimeout(() => moveActorBounce(targetActor3W, 5, -270, 3000), 1000);
 
-    const spatialGrid: TSpatialGridWrapper | undefined = spatialGridService.getRegistry().findByName('main_grid');
-    if (isNotDefined(spatialGrid)) throw new Error(`Cannot find "main_grid" spatial grid`);
     initGui(mouseLineIntersectionsWatcher, spatialGridService, actorService);
 
     loopService.tick$.subscribe((delta): void => {

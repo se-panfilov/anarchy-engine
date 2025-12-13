@@ -1,9 +1,16 @@
-import type { TActorParams, TActorService, TActorWrapperWithPhysicsAsync, TWithCoordsXZ } from '@/Engine';
+import type { TActorParams, TActorService, TActorWrapperWithPhysicsAsync, TSpatialGridWrapper, TWithCoordsXZ } from '@/Engine';
 import { ActorType, CollisionShape, MaterialType, RigidBodyTypesNames, Vector3Wrapper } from '@/Engine';
 
 export type TBuidingBlock = Required<Pick<TActorParams, 'height' | 'width' | 'depth' | 'position'>>;
 
-export async function buildTower(actorService: TActorService, startCoords: TWithCoordsXZ, rows: number, cols: number, levels: number): Promise<ReadonlyArray<TActorWrapperWithPhysicsAsync>> {
+export async function buildTower(
+  actorService: TActorService,
+  startCoords: TWithCoordsXZ,
+  rows: number,
+  cols: number,
+  levels: number,
+  grid: TSpatialGridWrapper
+): Promise<ReadonlyArray<TActorWrapperWithPhysicsAsync>> {
   const blocks: ReadonlyArray<TBuidingBlock> = getBlocks(startCoords, rows, cols, levels);
 
   console.log('number of blocks:', blocks.length);
@@ -32,6 +39,7 @@ export async function buildTower(actorService: TActorService, startCoords: TWith
       },
       position: block.position,
       castShadow: true,
+      spatial: { isAutoUpdate: true, grid },
       tags: ['physics_block']
     }) as Promise<TActorWrapperWithPhysicsAsync>;
   });

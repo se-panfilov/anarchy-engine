@@ -342,14 +342,14 @@
         "isAutoUpdate": {
           "type": "boolean"
         },
-        "gridName": {
+        "grid": {
           "type": "string"
         },
         "updatePriority": {
           "$ref": "#/definitions/SpatialUpdatePriority"
         }
       },
-      "required": ["gridName", "isAutoUpdate"]
+      "required": ["grid", "isAutoUpdate"]
     },
     "SpatialUpdatePriority": {
       "type": "number",

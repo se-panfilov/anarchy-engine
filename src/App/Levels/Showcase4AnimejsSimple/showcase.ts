@@ -1,5 +1,5 @@
 import type { TShowcase } from '@/App/Levels/Models';
-import type { TActorAsyncRegistry, TActorParams, TActorWrapperAsync, TAppCanvas, TEngine, TMoverService, TSpace, TSpaceConfig } from '@/Engine';
+import type { TActorAsyncRegistry, TActorParams, TActorWrapperAsync, TAppCanvas, TEngine, TMoverService, TSpace, TSpaceConfig, TSpatialGridWrapper } from '@/Engine';
 import { ActorType, buildSpaceFromConfig, defaultMoverServiceConfig, Engine, EulerWrapper, forEachEnum, LookUpStrategy, MaterialType, TextType, Vector3Wrapper } from '@/Engine';
 import type { TAnimationParams } from '@/Engine/Services';
 import { Easing } from '@/Engine/Services';
@@ -13,7 +13,7 @@ export function showcase(canvas: TAppCanvas): TShowcase {
 
   function start(): void {
     engine.start();
-    const { actorService, textService, loopService, mouseService } = space.services;
+    const { actorService, textService, loopService, mouseService, spatialGridService } = space.services;
     const actorRegistry: TActorAsyncRegistry = actorService.getRegistry();
 
     let isClickBlocked: boolean = false;
@@ -24,6 +24,7 @@ export function showcase(canvas: TAppCanvas): TShowcase {
     };
 
     const boxActorTag: string = 'box';
+    const grid: TSpatialGridWrapper | undefined = spatialGridService.getRegistry().findByName('main_grid');
 
     const actorTemplate: TActorParams = {
       type: ActorType.Cube,
@@ -32,6 +33,7 @@ export function showcase(canvas: TAppCanvas): TShowcase {
       position: Vector3Wrapper({ x: -20, y: 2, z: -2 }),
       castShadow: true,
       material: { type: MaterialType.Toon, params: { color: '#5177ff' } },
+      spatial: { isAutoUpdate: true, grid },
       tags: [boxActorTag]
     };
 
