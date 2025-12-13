@@ -4,7 +4,7 @@ import { CameraFactory, CameraRegistry, CameraService } from '@/Engine/Camera';
 import { ControlService, ControlsFactory, ControlsRegistry } from '@/Engine/Controls';
 import { EnvMapService } from '@/Engine/EnvMap';
 import { FogFactory, FogRegistry, FogService } from '@/Engine/Fog';
-import { IntersectionsService, IntersectionsWatcherFactory, IntersectionsWatcherRegistry } from '@/Engine/Intersections';
+import { IntersectionsWatcherFactory, IntersectionsWatcherRegistry, IntersectionsWatcherService } from '@/Engine/Intersections';
 import { LightFactory, LightRegistry, LightService } from '@/Engine/Light';
 import { LoopService } from '@/Engine/Loop';
 import { RendererFactory, RendererRegistry, RendererService } from '@/Engine/Renderer';
@@ -31,7 +31,7 @@ export function initEntitiesServices(scene: ISceneWrapper, canvas: IAppCanvas): 
     loopService: LoopService(),
     rendererService: RendererService(RendererFactory(), RendererRegistry()),
     textService: TextService(TextFactory(), Text2dRegistry(), Text3dRegistry(), scene),
-    intersectionsService: IntersectionsService(IntersectionsWatcherFactory(), IntersectionsWatcherRegistry()),
+    intersectionsWatcherService: IntersectionsWatcherService(IntersectionsWatcherFactory(), IntersectionsWatcherRegistry()),
     controlsService: ControlService(ControlsFactory(), ControlsRegistry(), canvas)
   };
 }

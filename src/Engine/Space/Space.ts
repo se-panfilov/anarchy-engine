@@ -2,11 +2,12 @@ import type { IAppCanvas } from '@/Engine/App';
 import type { ICameraWrapper } from '@/Engine/Camera';
 import { ambientContext } from '@/Engine/Context';
 import type { IDataTexture } from '@/Engine/EnvMap';
-import { IIntersectionsWatcher, IntersectionsWatcherService } from '@/Engine/Intersections';
+import type { IIntersectionsWatcher } from '@/Engine/Intersections';
 import type { ILoopTimes } from '@/Engine/Loop';
 import type { IDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
 import { withTagsMixin } from '@/Engine/Mixins/Generic';
+import { mouseService } from '@/Engine/Mouse';
 import type { IRendererWrapper } from '@/Engine/Renderer';
 import { RendererModes } from '@/Engine/Renderer';
 import type { IScenesService, ISceneWrapper } from '@/Engine/Scene';
@@ -18,7 +19,6 @@ import { spaceLoop } from '@/Engine/Space/SpaceLoop';
 import type { IText2dRenderer, IText3dRenderer } from '@/Engine/Text';
 import { initText2dRenderer, initText3dRenderer } from '@/Engine/Text';
 import { isDestroyable, isNotDefined, validLevelConfig } from '@/Engine/Utils';
-import { mouseService } from '@/Engine';
 
 export function buildSpaceFromConfig(canvas: IAppCanvas, config: ISpaceConfig): ISpace {
   const { isValid, errors } = validLevelConfig(config);
@@ -41,7 +41,7 @@ export function buildSpaceFromConfig(canvas: IAppCanvas, config: ISpaceConfig): 
     return activeScene;
   });
 
-  const { actorService, cameraService, controlsService, lightService, loopService, fogService, envMapService, textService, rendererService, intersectionsService } = services;
+  const { actorService, cameraService, controlsService, lightService, loopService, fogService, envMapService, textService, rendererService, intersectionsWatcherService } = services;
 
   cameraService.createFromConfig(cameras);
   actorService.createFromConfig(actors);
@@ -73,7 +73,6 @@ export function buildSpaceFromConfig(canvas: IAppCanvas, config: ISpaceConfig): 
 
   // TODO (S.Panfilov) intersections should be added and launched async, as they depend on actors which are also async
   // TODO (S.Panfilov) debug line, should be a part of Space's services
-  const intersectionsWatcherService = IntersectionsWatcherService(intersectionsService.getFactory(), intersectionsService.getRegistry());
   intersectionsWatcherService.createFromConfig(intersections, mouseService, cameraService);
 
   let camera: ICameraWrapper | undefined;

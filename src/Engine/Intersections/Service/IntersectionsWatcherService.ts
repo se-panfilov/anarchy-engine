@@ -18,6 +18,20 @@ export function IntersectionsWatcherService(factory: IIntersectionsWatcherFactor
   const createFromConfig = (configs: ReadonlyArray<IIntersectionsWatcherConfig>, mouseService: IMouseService, cameraService: ICameraService): void =>
     configs.forEach((config: IIntersectionsWatcherConfig): IIntersectionsWatcher => factory.create(factory.configToParams(config, mouseService, cameraService)));
 
+  //function getWatchersForFromConfigIntersections(
+  //     actorRegistry: IActorAsyncRegistry,
+  //     cameraRegistry: ICameraRegistry,
+  //     intersections: ReadonlyArray<IIntersectionsWatcherConfig>
+  //   ): ReadonlyArray<Promise<IIntersectionsWatcher>> {
+  //     return intersections.map((intersection: IIntersectionsWatcherConfig) => {
+  //       const actorsPromises: ReadonlyArray<Promise<IActorWrapperAsync>> = intersection.actorNames.map((name: string): Promise<IActorWrapperAsync> => actorRegistry.findByNameAsync(name));
+  //       const cameraWrapper: ICameraWrapper | undefined = cameraRegistry.findByName(intersection.cameraName);
+  //       if (isNotDefined(cameraWrapper)) throw new Error(`Intersections: Cannot find camera ("${intersection.cameraName}")`);
+  //
+  //       return buildWatcherForActorPromises(actorsPromises, cameraWrapper);
+  //     });
+  //   }
+
   const destroyable: IDestroyable = destroyableMixin();
   destroyable.destroyed$.subscribe(() => {
     factory.destroy();
