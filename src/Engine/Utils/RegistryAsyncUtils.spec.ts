@@ -1,8 +1,8 @@
 import { firstValueFrom } from 'rxjs';
 import { expect } from 'vitest';
 
-import type { RegistryType, TAbstractAsyncRegistry, TAbstractEntityRegistry } from '@/Engine/Abstract';
-import { AbstractAsyncRegistry, AbstractEntityRegistry, LookUpStrategy } from '@/Engine/Abstract';
+import type { RegistryType, TAbstractAsyncRegistry, TAbstractEntityRegistry, TAbstractSimpleAsyncRegistry, TAbstractSimpleRegistry } from '@/Engine/Abstract';
+import { AbstractAsyncRegistry, AbstractEntityRegistry, AbstractSimpleAsyncRegistry, AbstractSimpleRegistry, LookUpStrategy } from '@/Engine/Abstract';
 import type { TRegistrable } from '@/Engine/Mixins';
 import { withTagsMixin } from '@/Engine/Mixins';
 
@@ -10,6 +10,7 @@ import {
   getAsyncUniqEntityByNameAsync,
   getAsyncUniqEntityWithTag,
   getEntityValueAsync,
+  getUniqEntityByKey$,
   getUniqEntityByName$,
   getUniqEntityWithTag$,
   getUniqEntityWithTags$,
@@ -17,15 +18,17 @@ import {
   subscribeToEntityValue$
 } from './RegistryAsyncUtils';
 
-const mockEntity1: TRegistrable = { id: 'mockEntityId1', name: 'mockEntity1' } as unknown as TRegistrable;
-const mockEntity2: TRegistrable = { id: 'mockEntityId2', name: 'mockEntity2' } as unknown as TRegistrable;
-const mockEntity3: TRegistrable = { id: 'mockEntityId3', name: 'mockEntity3' } as unknown as TRegistrable;
-const mockEntity4: TRegistrable = { id: 'mockEntityId4', name: 'mockEntity4' } as unknown as TRegistrable;
-const mockEntity5: TRegistrable = { id: 'mockEntityId5', name: 'mockEntity5' } as unknown as TRegistrable;
-const mockEntity6: TRegistrable = { id: 'mockEntityId6', name: 'mockEntity6' } as unknown as TRegistrable;
+type TSimpeObj = { name: string };
 
 describe('RegistryAsyncUtils', () => {
   const waitingTime: number = 100;
+
+  const mockEntity1: TRegistrable = { id: 'mockEntityId1', name: 'mockEntity1' } as unknown as TRegistrable;
+  const mockEntity2: TRegistrable = { id: 'mockEntityId2', name: 'mockEntity2' } as unknown as TRegistrable;
+  const mockEntity3: TRegistrable = { id: 'mockEntityId3', name: 'mockEntity3' } as unknown as TRegistrable;
+  const mockEntity4: TRegistrable = { id: 'mockEntityId4', name: 'mockEntity4' } as unknown as TRegistrable;
+  const mockEntity5: TRegistrable = { id: 'mockEntityId5', name: 'mockEntity5' } as unknown as TRegistrable;
+  const mockEntity6: TRegistrable = { id: 'mockEntityId6', name: 'mockEntity6' } as unknown as TRegistrable;
 
   const tagA: string = 'tagA';
   const tagB: string = 'tagB';
@@ -44,6 +47,11 @@ describe('RegistryAsyncUtils', () => {
   const obj7EB: TRegistrable = { id: 'obj7EB', ...withTagsMixin([tagE, tagB]) };
   const obj8Uniq1: TRegistrable = { id: 'obj8Uniq1', ...withTagsMixin([tagUniq1]) };
   const obj9Uniq2: TRegistrable = { id: 'obj9Uniq2', ...withTagsMixin([tagD, tagUniq2, tagC, tagE]) };
+
+  const simpleObj1: TSimpeObj = { name: 'simpleObj1' };
+  const simpleObj2: TSimpeObj = { name: 'simpleObj2' };
+  const simpleObj3: TSimpeObj = { name: 'simpleObj3' };
+  const simpleObj4: TSimpeObj = { name: 'simpleObj4' };
 
   let registryAsync: TAbstractAsyncRegistry<TRegistrable>;
   let registrySync: TAbstractEntityRegistry<TRegistrable>;
@@ -838,6 +846,68 @@ describe('RegistryAsyncUtils', () => {
         // check
         const result: TRegistrable = await subscription$;
         expect(result).toEqual(expectedResult);
+      }, 100);
+    });
+  });
+
+  describe('getUniqEntityByKey$', () => {
+    describe('added before subscription started', () => {
+      describe('added after subscription started', () => {
+        it('should return an entity that was added before getting the value', async () => {
+          // setup
+          const name: string = simpleObj2.name;
+          const registryAsync: TAbstractSimpleAsyncRegistry<TSimpeObj> = AbstractSimpleAsyncRegistry<TSimpeObj>('mockEntity' as RegistryType);
+
+          registryAsync.add(simpleObj1.name, simpleObj1);
+          registryAsync.add(simpleObj2.name, simpleObj2);
+          registryAsync.add(simpleObj3.name, simpleObj3);
+          setTimeout(() => registryAsync.add(simpleObj4.name, simpleObj4), 20);
+
+          // execute
+          const subscription$ = firstValueFrom(getUniqEntityByKey$(name, registryAsync));
+
+          // check
+          const result: TSimpeObj = await subscription$;
+          expect(result).toEqual(simpleObj2);
+        }, 100);
+
+        it('should return an entity that was added before getting the value from Sync registry', async () => {
+          // setup
+          const name: string = simpleObj3.name;
+          const registrySync: TAbstractSimpleRegistry<TSimpeObj> = AbstractSimpleRegistry<TSimpeObj>('mockEntity' as RegistryType);
+
+          registrySync.add(simpleObj1.name, simpleObj1);
+          registrySync.add(simpleObj2.name, simpleObj2);
+          registrySync.add(simpleObj3.name, simpleObj3);
+          setTimeout(() => registrySync.add(simpleObj4.name, simpleObj4), 20);
+
+          // execute
+          const subscription$ = firstValueFrom(getUniqEntityByKey$(name, registrySync));
+
+          // check
+          const result: TSimpeObj = await subscription$;
+          expect(result).toEqual(simpleObj3);
+        }, 100);
+      });
+    });
+
+    describe('added after subscription started', () => {
+      it('should return an entity that was added before getting the value', async () => {
+        // setup
+        const name: string = simpleObj2.name;
+        const registryAsync: TAbstractSimpleAsyncRegistry<TSimpeObj> = AbstractSimpleAsyncRegistry<TSimpeObj>('mockEntity' as RegistryType);
+        const expectedResult: TSimpeObj = { ...obj9Uniq2, name };
+
+        // execute
+        const subscription$ = firstValueFrom(getUniqEntityByKey$(name, registryAsync));
+
+        setTimeout(() => registryAsync.add(simpleObj1.name, simpleObj1), 20);
+        setTimeout(() => registryAsync.add(simpleObj2.name, simpleObj2), 20);
+        setTimeout(() => registryAsync.add(simpleObj3.name, simpleObj3), 20);
+
+        // check
+        const result: TSimpeObj = await subscription$;
+        expect(result).toEqual(simpleObj2);
       }, 100);
     });
   });
