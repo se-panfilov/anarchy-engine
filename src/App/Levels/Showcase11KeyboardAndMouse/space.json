@@ -3,8 +3,8 @@
   "entities": {
     "actors": [
       {
-        "model3dSource": "surface_model",
         "name": "surface_actor",
+        "model3dSource": "surface_model",
         "position": {
           "x": 0,
           "y": 0.5,
@@ -214,6 +214,7 @@
     ],
     "controls": [
       {
+        "name": "orbit_controls",
         "cameraName": "main",
         "enableDamping": true,
         "isActive": true,
@@ -227,6 +228,7 @@
     "intersections": [],
     "lights": [
       {
+        "name": "ambient_light",
         "color": "#ffffff",
         "intensity": 0.5,
         "position": {
@@ -330,6 +332,7 @@
     ],
     "texts": [
       {
+        "name": "text_w",
         "cssProps": {
           "color": "#ff0000",
           "fontSize": "0.1rem"
@@ -349,6 +352,7 @@
         "type": "text_3d"
       },
       {
+        "name": "text_a",
         "cssProps": {
           "color": "#ff0000",
           "fontSize": "0.1rem"
@@ -368,6 +372,7 @@
         "type": "text_3d"
       },
       {
+        "name": "text_s",
         "cssProps": {
           "color": "#ff0000",
           "fontSize": "0.1rem"
@@ -387,6 +392,7 @@
         "type": "text_3d"
       },
       {
+        "name": "text_d",
         "cssProps": {
           "color": "#ff0000",
           "fontSize": "0.1rem"
@@ -406,6 +412,7 @@
         "type": "text_3d"
       },
       {
+        "name": "text_l",
         "cssProps": {
           "color": "#ff0000",
           "fontSize": "0.1rem"
@@ -425,6 +432,7 @@
         "type": "text_3d"
       },
       {
+        "name": "text_r",
         "cssProps": {
           "color": "#ff0000",
           "fontSize": "0.1rem"
@@ -444,6 +452,7 @@
         "type": "text_3d"
       },
       {
+        "name": "text_back",
         "cssProps": {
           "color": "#ff0000",
           "fontSize": "0.1rem"
@@ -463,6 +472,7 @@
         "type": "text_3d"
       },
       {
+        "name": "text_forward",
         "cssProps": {
           "color": "#ff0000",
           "fontSize": "0.1rem"
@@ -482,6 +492,7 @@
         "type": "text_3d"
       },
       {
+        "name": "text_extra",
         "cssProps": {
           "color": "#ff0000",
           "fontSize": "0.1rem"

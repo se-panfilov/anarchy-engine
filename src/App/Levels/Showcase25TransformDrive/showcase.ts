@@ -191,6 +191,7 @@ export async function showcase(space: TSpace): Promise<void> {
   sceneW.entity.add(line);
 
   const azimuthText: TTextAnyWrapper = textService.create({
+    name: 'azimuth_text',
     text: 'Azimuth...',
     type: TextType.Text3d,
     cssProps: { fontSize: '0.05rem' },

@@ -3,6 +3,7 @@
   "entities": {
     "actors": [
       {
+        "name": "sphere_standard_metal_actor",
         "model3dSource": "sphere_standard_metal",
         "position": {
           "x": 0,
@@ -16,6 +17,7 @@
         "tags": ["standard", "metal"]
       },
       {
+        "name": "sphere_physical_metal_actor",
         "model3dSource": "sphere_physical_metal",
         "position": {
           "x": 2,
@@ -29,6 +31,7 @@
         "tags": ["physical", "metal"]
       },
       {
+        "name": "sphere_basic_metal_actor",
         "model3dSource": "sphere_basic_metal",
         "position": {
           "x": 4,
@@ -42,6 +45,7 @@
         "tags": ["basic", "metal"]
       },
       {
+        "name": "sphere_phong_metal_actor",
         "model3dSource": "sphere_phong_metal",
         "position": {
           "x": 6,
@@ -55,6 +59,7 @@
         "tags": ["phong", "metal"]
       },
       {
+        "name": "sphere_lambert_metal_actor",
         "model3dSource": "sphere_lambert_metal",
         "position": {
           "x": 8,
@@ -68,6 +73,7 @@
         "tags": ["lambert", "metal"]
       },
       {
+        "name": "sphere_toon_metal_actor",
         "model3dSource": "sphere_toon_metal",
         "position": {
           "x": 10,
@@ -81,6 +87,7 @@
         "tags": ["toon", "metal"]
       },
       {
+        "name": "sphere_matcap_metal_actor",
         "model3dSource": "sphere_matcap_metal",
         "position": {
           "x": 12,
@@ -94,6 +101,7 @@
         "tags": ["matcap", "metal"]
       },
       {
+        "name": "cube_standard_wood_actor",
         "model3dSource": "cube_standard_wood",
         "position": {
           "x": 0,
@@ -107,6 +115,7 @@
         "tags": ["standard", "wood"]
       },
       {
+        "name": "cube_physical_wood_actor",
         "model3dSource": "cube_physical_wood",
         "position": {
           "x": 2,
@@ -120,6 +129,7 @@
         "tags": ["physical", "wood"]
       },
       {
+        "name": "cube_basic_wood_actor",
         "model3dSource": "cube_basic_wood",
         "position": {
           "x": 4,
@@ -133,6 +143,7 @@
         "tags": ["basic", "wood"]
       },
       {
+        "name": "cube_phong_wood_actor",
         "model3dSource": "cube_phong_wood",
         "position": {
           "x": 6,
@@ -146,6 +157,7 @@
         "tags": ["phong", "wood"]
       },
       {
+        "name": "cube_lambert_wood_actor",
         "model3dSource": "cube_lambert_wood",
         "position": {
           "x": 8,
@@ -159,6 +171,7 @@
         "tags": ["lambert", "wood"]
       },
       {
+        "name": "cube_toon_wood_actor",
         "model3dSource": "cube_toon_wood",
         "position": {
           "x": 10,
@@ -172,6 +185,7 @@
         "tags": ["toon", "wood"]
       },
       {
+        "name": "cube_matcap_wood_actor",
         "model3dSource": "cube_matcap_wood",
         "position": {
           "x": 12,
@@ -185,6 +199,7 @@
         "tags": ["matcap", "wood"]
       },
       {
+        "name": "sphere_standard_glass_actor",
         "model3dSource": "sphere_standard_glass",
         "position": {
           "x": 0,
@@ -198,6 +213,7 @@
         "tags": ["standard", "glass"]
       },
       {
+        "name": "sphere_physical_glass_actor",
         "model3dSource": "sphere_physical_glass",
         "position": {
           "x": 2,
@@ -211,6 +227,7 @@
         "tags": ["physical", "glass"]
       },
       {
+        "name": "sphere_basic_glass_actor",
         "model3dSource": "sphere_basic_glass",
         "position": {
           "x": 4,
@@ -224,6 +241,7 @@
         "tags": ["basic", "glass"]
       },
       {
+        "name": "sphere_phong_glass_actor",
         "model3dSource": "sphere_phong_glass",
         "position": {
           "x": 6,
@@ -237,6 +255,7 @@
         "tags": ["phong", "glass"]
       },
       {
+        "name": "sphere_lambert_glass_actor",
         "model3dSource": "sphere_lambert_glass",
         "position": {
           "x": 8,
@@ -250,6 +269,7 @@
         "tags": ["lambert", "glass"]
       },
       {
+        "name": "sphere_toon_glass_actor",
         "model3dSource": "sphere_toon_glass",
         "position": {
           "x": 10,
@@ -263,6 +283,7 @@
         "tags": ["toon", "glass"]
       },
       {
+        "name": "sphere_matcap_glass_actor",
         "model3dSource": "sphere_matcap_glass",
         "position": {
           "x": 12,
@@ -276,6 +297,7 @@
         "tags": ["matcap", "glass"]
       },
       {
+        "name": "sphere_standard_textile_actor",
         "model3dSource": "sphere_standard_textile",
         "position": {
           "x": 0,
@@ -289,6 +311,7 @@
         "tags": ["standard", "textile"]
       },
       {
+        "name": "sphere_physical_textile_actor",
         "model3dSource": "sphere_physical_textile",
         "position": {
           "x": 2,
@@ -302,6 +325,7 @@
         "tags": ["physical", "textile"]
       },
       {
+        "name": "sphere_basic_textile_actor",
         "model3dSource": "sphere_basic_textile",
         "position": {
           "x": 4,
@@ -315,6 +339,7 @@
         "tags": ["basic", "textile"]
       },
       {
+        "name": "sphere_phong_textile_actor",
         "model3dSource": "sphere_phong_textile",
         "position": {
           "x": 6,
@@ -328,6 +353,7 @@
         "tags": ["phong", "textile"]
       },
       {
+        "name": "sphere_lambert_textile_actor",
         "model3dSource": "sphere_lambert_textile",
         "position": {
           "x": 8,
@@ -341,6 +367,7 @@
         "tags": ["lambert", "textile"]
       },
       {
+        "name": "sphere_toon_textile_actor",
         "model3dSource": "sphere_toon_textile",
         "position": {
           "x": 10,
@@ -354,6 +381,7 @@
         "tags": ["toon", "textile"]
       },
       {
+        "name": "sphere_matcap_textile_actor",
         "model3dSource": "sphere_matcap_textile",
         "position": {
           "x": 12,
@@ -390,6 +418,7 @@
     ],
     "controls": [
       {
+        "name": "orbit_controls",
         "cameraName": "main",
         "enableDamping": true,
         "isActive": true,
@@ -403,6 +432,7 @@
     "intersections": [],
     "lights": [
       {
+        "name": "directional_light",
         "castShadow": true,
         "color": "#ffffff",
         "intensity": 0,
@@ -425,6 +455,7 @@
         "type": "Directional"
       },
       {
+        "name": "hemisphere_light",
         "color": "#9999ff",
         "groundColor": "#ff007b",
         "intensity": 1,
@@ -437,6 +468,7 @@
         "type": "Hemisphere"
       },
       {
+        "name": "rect_area_light",
         "color": "#0000ff",
         "height": 3,
         "intensity": 0,
@@ -450,6 +482,7 @@
         "width": 3
       },
       {
+        "name": "point_light",
         "castShadow": true,
         "color": "#00ff00",
         "decay": 4.5,
@@ -474,6 +507,7 @@
         "type": "Point"
       },
       {
+        "name": "spot_light",
         "angle": 45,
         "castShadow": true,
         "color": "#01dede",

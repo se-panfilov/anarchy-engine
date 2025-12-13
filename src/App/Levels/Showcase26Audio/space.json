@@ -144,6 +144,7 @@
     ],
     "controls": [
       {
+        "name": "fps_controls",
         "cameraName": "main_camera",
         "isActive": true,
         "lookSpeed": 0.05,
@@ -155,6 +156,7 @@
     "envMaps": [],
     "fogs": [
       {
+        "name": "main_fog",
         "color": "#A0A0A0",
         "far": 35,
         "near": 10
@@ -174,10 +176,10 @@
     "intersections": [],
     "lights": [
       {
+        "name": "dir_light",
         "castShadow": true,
         "color": "#ffffff",
         "intensity": 3,
-        "name": "dir_light",
         "position": {
           "x": -3,
           "y": 10,
@@ -201,10 +203,10 @@
         "type": "Directional"
       },
       {
-        "color": "#FFFFFF",
+        "name": "ambient_light",
+        "color": "#ffffff",
         "groundColor": "#8D8D8D",
         "intensity": 3,
-        "name": "ambient_light",
         "position": {
           "x": 0,
           "y": 20,

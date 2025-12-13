@@ -4,6 +4,7 @@ import { mockModel3dName } from './MockModel3dConfig';
 import { mockSpatialGridName } from './MockSpatialGridConfig';
 
 export const mockActorConfig: TActorConfig = {
+  name: 'mock-actor',
   model3dSource: mockModel3dName,
   spatial: {
     grid: mockSpatialGridName,

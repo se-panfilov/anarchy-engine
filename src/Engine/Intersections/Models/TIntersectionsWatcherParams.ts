@@ -3,7 +3,7 @@ import type { Vector2Like } from 'three';
 
 import type { TActor } from '@/Engine/Actor';
 import type { TCameraWrapper } from '@/Engine/Camera';
-import type { TWithNameOptional, TWithTags } from '@/Engine/Mixins';
+import type { TWithName, TWithTags } from '@/Engine/Mixins';
 
 import type { TIntersectionsLoop } from './TIntersectionsLoop';
 import type { TIntersectionsWatcherPerformanceOptions } from './TIntersectionsWatcherPerformanceOptions';
@@ -16,5 +16,5 @@ export type TIntersectionsWatcherParams = Readonly<{
   intersectionsLoop: TIntersectionsLoop;
   performance?: TIntersectionsWatcherPerformanceOptions;
 }> &
-  TWithNameOptional &
+  TWithName &
   TWithTags;

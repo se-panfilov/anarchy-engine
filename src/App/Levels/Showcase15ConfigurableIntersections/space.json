@@ -115,6 +115,7 @@
     ],
     "controls": [
       {
+        "name": "orbit_controls",
         "cameraName": "camera_red",
         "enableDamping": true,
         "isActive": true,
@@ -143,6 +144,7 @@
     ],
     "lights": [
       {
+        "name": "ambient_light",
         "color": "#ffffff",
         "intensity": 0.5,
         "position": {

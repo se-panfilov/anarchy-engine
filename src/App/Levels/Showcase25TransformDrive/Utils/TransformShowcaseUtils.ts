@@ -130,6 +130,7 @@ export function startIntersections({ actorService, cameraService, intersectionsW
   if (isNotDefined(boxActor2)) throw new Error('Actor "box_actor_2" is not defined');
 
   return intersectionsWatcherService.create({
+    name: 'intersections_watcher',
     actors: [surfaceActor, boxActor1, boxActor2],
     camera,
     isAutoStart: true,

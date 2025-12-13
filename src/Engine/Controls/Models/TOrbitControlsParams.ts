@@ -1,7 +1,7 @@
 import type { Vector3 } from 'three';
 
 import type { TAppCanvas } from '@/Engine/App';
-import type { TActive, TWithNameOptional, TWithTags } from '@/Engine/Mixins';
+import type { TActive, TWithName, TWithTags } from '@/Engine/Mixins';
 
 import type { TBaseControlsParams } from './TBaseControlsParams';
 
@@ -35,6 +35,6 @@ export type TOrbitControlsParams = TBaseControlsParams &
     target?: Vector3;
     cursor?: Vector3;
   }> &
-  TWithNameOptional &
+  TWithName &
   TActive &
   TWithTags;

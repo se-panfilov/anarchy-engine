@@ -19,15 +19,15 @@ describe('RegistryUtils', () => {
   const tagUniq1: string = 'tagUniq1';
   const tagUniq2: string = 'tagUniq2';
 
-  const obj1AB: TRegistrable = { id: '1', tags: [tagA, tagB] };
-  const obj2B: TRegistrable = { id: '2', tags: [tagB] };
-  const obj3CD: TRegistrable = { id: '3', tags: [tagC, tagD] };
-  const obj4BE: TRegistrable = { id: '4', tags: [tagB, tagE] };
-  const obj5None: TRegistrable = { id: '5', tags: [] };
-  const obj6ABE: TRegistrable = { id: '6', tags: [tagA, tagB, tagE] };
-  const obj7EB: TRegistrable = { id: '7', tags: [tagE, tagB] };
-  const obj8Uniq1: TRegistrable = { id: '8', tags: [tagUniq1] };
-  const obj9Uniq2: TRegistrable = { id: '9', tags: [tagD, tagUniq2, tagC, tagE] };
+  const obj1AB: TRegistrable = { id: '1', tags: [tagA, tagB], name: 'obj-1-A-B' };
+  const obj2B: TRegistrable = { id: '2', tags: [tagB], name: 'obj-2-B' };
+  const obj3CD: TRegistrable = { id: '3', tags: [tagC, tagD], name: 'obj-3-C-D' };
+  const obj4BE: TRegistrable = { id: '4', tags: [tagB, tagE], name: 'obj-4-B-E' };
+  const obj5None: TRegistrable = { id: '5', tags: [], name: 'obj-5-None' };
+  const obj6ABE: TRegistrable = { id: '6', tags: [tagA, tagB, tagE], name: 'obj-6-A-B-E' };
+  const obj7EB: TRegistrable = { id: '7', tags: [tagE, tagB], name: 'obj-7-E-B' };
+  const obj8Uniq1: TRegistrable = { id: '8', tags: [tagUniq1], name: 'obj-8-Uniq-1' };
+  const obj9Uniq2: TRegistrable = { id: '9', tags: [tagD, tagUniq2, tagC, tagE], name: 'obj-9-Uniq-2' };
 
   const registry: Map<string, TRegistrable> = new Map();
   registry.set('obj1AB', obj1AB);

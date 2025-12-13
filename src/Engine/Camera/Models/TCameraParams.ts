@@ -1,6 +1,6 @@
 import type { AudioListener, Vector3 } from 'three';
 
-import type { TActive, TWithNameOptional, TWithTags } from '@/Engine/Mixins';
+import type { TActive, TWithName, TWithTags } from '@/Engine/Mixins';
 import type { TObject3DParams } from '@/Engine/ThreeLib';
 import type { TWithTransformAgentParam } from '@/Engine/TransformDrive';
 
@@ -12,7 +12,7 @@ export type TCameraParams = Readonly<{
   audioListener?: AudioListener;
 }> &
   TWithTransformAgentParam &
-  TWithNameOptional &
+  TWithName &
   TActive &
   TObject3DParams &
   TWithTags;

@@ -100,6 +100,7 @@ export function showcase(space: TSpace): void {
   }
 
   const notification: TTextAnyWrapper = textService.create({
+    name: 'text-blocked-click',
     type: TextType.Text2d,
     text: 'Click is blocked',
     cssProps: {

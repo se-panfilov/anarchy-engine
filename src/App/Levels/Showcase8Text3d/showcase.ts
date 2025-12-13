@@ -41,6 +41,7 @@ export function showcase(space: TSpace): void {
   sceneW.addModel3d(sphereModel3d);
 
   textService.create({
+    name: 'text_3d_1',
     type: TextType.Text3d,
     text: '3D text (RubikDoodleTriangles)',
     position: new Vector3(-4, 2, 0),
@@ -54,6 +55,7 @@ export function showcase(space: TSpace): void {
   });
 
   textService.create({
+    name: 'text_3d_2',
     type: TextType.Text3dTexture,
     text: '3D Texture Text (can be hidden by objects in the scene)',
     position: new Vector3(8, 10, 2),
@@ -67,6 +69,7 @@ export function showcase(space: TSpace): void {
   });
 
   textService.create({
+    name: 'text_3d_3',
     type: TextType.Text3d,
     text: 'RubikScribble',
     position: new Vector3(-5, 12, 6),
@@ -79,6 +82,7 @@ export function showcase(space: TSpace): void {
   });
 
   const floatingText: TText3dWrapper | TText3dTextureWrapper = textService.create({
+    name: 'floating_text_1',
     type: TextType.Text3d,
     text: 'LongCang',
     position: new Vector3(-10, 8, -8),
@@ -92,6 +96,7 @@ export function showcase(space: TSpace): void {
   });
 
   const floatingText2: TText3dWrapper | TText3dTextureWrapper = textService.create({
+    name: 'floating_text_2',
     type: TextType.Text3d,
     text: 'VarelaRound',
     position: new Vector3(-15, 6, -14),

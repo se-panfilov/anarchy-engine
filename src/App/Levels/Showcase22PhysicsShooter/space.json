@@ -291,6 +291,7 @@
     "envMaps": [],
     "fogs": [
       {
+        "name": "main_fog",
         "color": "#454b55",
         "far": 100,
         "near": 1,
@@ -301,6 +302,7 @@
     "intersections": [],
     "lights": [
       {
+        "name": "directional_light",
         "castShadow": true,
         "color": "#FFFFFF",
         "intensity": 2,

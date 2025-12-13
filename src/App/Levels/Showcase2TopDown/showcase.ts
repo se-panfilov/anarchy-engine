@@ -24,21 +24,22 @@ export function showcase(space: TSpace): void {
 
   const materialW: TMaterialWrapper = materialService.create({ name: 'model_material', type: MaterialType.Toon, options: { color: '#5177ff' } });
 
-  const actorDefaultParams: Omit<TActorParams, 'model3dSource'> = {
+  const actorDefaultParams: Omit<TActorParams, 'model3dSource' | 'name'> = {
     position: new Vector3(),
     rotation: new Euler(),
     spatial: { grid, isAutoUpdate: false }
   };
 
-  const actorParams1: TActorParams = { ...actorDefaultParams, model3dSource: createCube(models3dService, 'cube1', materialW), position: new Vector3(2, 2, 0) };
-  const actorParams2: TActorParams = { ...actorDefaultParams, model3dSource: createCube(models3dService, 'cube2', materialW), position: new Vector3(-2, 0, 0) };
-  const actorParams3: TActorParams = { ...actorDefaultParams, model3dSource: createCube(models3dService, 'cube3', materialW), position: new Vector3(0, 1, 0) };
-  const actorParams4: TActorParams = { ...actorDefaultParams, model3dSource: createCube(models3dService, 'cube4', materialW), position: new Vector3(-2, 2, 0) };
-  const actorParams5: TActorParams = { ...actorDefaultParams, model3dSource: createCube(models3dService, 'cube5', materialW), position: new Vector3(2, 0, 0) };
+  const actorParams1: TActorParams = { ...actorDefaultParams, name: 'actor_1', model3dSource: createCube(models3dService, 'cube1', materialW), position: new Vector3(2, 2, 0) };
+  const actorParams2: TActorParams = { ...actorDefaultParams, name: 'actor_2', model3dSource: createCube(models3dService, 'cube2', materialW), position: new Vector3(-2, 0, 0) };
+  const actorParams3: TActorParams = { ...actorDefaultParams, name: 'actor_3', model3dSource: createCube(models3dService, 'cube3', materialW), position: new Vector3(0, 1, 0) };
+  const actorParams4: TActorParams = { ...actorDefaultParams, name: 'actor_4', model3dSource: createCube(models3dService, 'cube4', materialW), position: new Vector3(-2, 2, 0) };
+  const actorParams5: TActorParams = { ...actorDefaultParams, name: 'actor_5', model3dSource: createCube(models3dService, 'cube5', materialW), position: new Vector3(2, 0, 0) };
 
   [actorParams1, actorParams2, actorParams3, actorParams4, actorParams5].forEach((actor: TActorParams) => actorService.create(actor));
 
   const camera: TCameraWrapper = cameraService.create({
+    name: 'camera',
     position: new Vector3(0, 0, 3),
     rotation: new Euler(),
     isActive: true

@@ -59,6 +59,7 @@
     ],
     "controls": [
       {
+        "name": "orbit_controls",
         "cameraName": "main",
         "enableDamping": true,
         "isActive": true,
@@ -69,6 +70,7 @@
     "envMaps": [],
     "fogs": [
       {
+        "name": "main_fog",
         "color": "#353CA7",
         "far": 100,
         "near": 1,
@@ -79,6 +81,7 @@
     "intersections": [],
     "lights": [
       {
+        "name": "hemisphere_light",
         "color": "#9999ff",
         "groundColor": "#ff007b",
         "intensity": 1,

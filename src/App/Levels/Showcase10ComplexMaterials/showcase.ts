@@ -75,12 +75,14 @@ export function showcase(space: TSpace): void {
 
   currentActor$.subscribe(moveCameraToActor);
 
+  let textCounter: number = 0;
   function addTextToActor(pack: TRegistryPack<TActor>): void {
     const actor: TActor = pack.value;
     const position: TReadonlyVector3 = actor.drive.position$.value;
     const { x, y, z } = position;
 
     textService.create({
+      name: `${actor.getName()}_text_${textCounter++}`,
       type: TextType.Text3d,
       text: getTags(actor)[0],
       cssProps: { fontSize: '0.3px', color: 'red' },

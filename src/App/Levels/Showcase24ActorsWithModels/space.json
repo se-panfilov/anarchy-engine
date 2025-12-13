@@ -85,6 +85,7 @@
     ],
     "controls": [
       {
+        "name": "orbit_controls",
         "cameraName": "main",
         "enableDamping": true,
         "isActive": true,
@@ -99,6 +100,7 @@
     "envMaps": [],
     "fogs": [
       {
+        "name": "main_fog",
         "color": "#A0A0A0",
         "far": 35,
         "near": 10
@@ -118,6 +120,7 @@
     "intersections": [],
     "lights": [
       {
+        "name": "directional_light",
         "castShadow": true,
         "color": "#ffffff",
         "intensity": 3,
@@ -145,7 +148,8 @@
         "type": "Directional"
       },
       {
-        "color": "#FFFFFF",
+        "name": "ambient_light",
+        "color": "#ffffff",
         "groundColor": "#8D8D8D",
         "intensity": 3,
         "name": "ambient_light",

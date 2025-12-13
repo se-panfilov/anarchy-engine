@@ -46,7 +46,7 @@ export function showcase(space: TSpace): void {
     rotation: new Euler(0, 0, 0)
   });
 
-  const actorTemplate: TActorParams = {
+  const actorTemplate: Omit<TActorParams, 'name'> = {
     model3dSource: cubeModel3d,
     spatial: { isAutoUpdate: true, grid },
     position: new Vector3(-20, 2, -2),
@@ -66,6 +66,7 @@ export function showcase(space: TSpace): void {
     });
 
     textService.create({
+      name: `text_${easing}`,
       type: TextType.Text2d,
       text: String(easing),
       cssProps: {

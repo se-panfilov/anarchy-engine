@@ -132,7 +132,7 @@ export function showcase(space: TSpace): void {
     const actor: TActor | undefined = findByName('surface_actor');
     if (isNotDefined(actor)) throw new Error('Actor is not defined');
 
-    return intersectionsWatcherService.create({ actors: [actor], camera, isAutoStart: true, position$: mouseService.position$, intersectionsLoop });
+    return intersectionsWatcherService.create({ name: 'intersection_watcher', actors: [actor], camera, isAutoStart: true, position$: mouseService.position$, intersectionsLoop });
   }
 
   space.start$.next(true);

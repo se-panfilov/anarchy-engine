@@ -39,15 +39,15 @@ describe('RegistryAsyncUtils', () => {
   const tagUniq1: string = 'tagUniq1';
   const tagUniq2: string = 'tagUniq2';
 
-  const obj1AB: TRegistrable = { id: 'obj1AB', tags: [tagA, tagB] };
-  const obj2B: TRegistrable = { id: 'obj2B', tags: [tagB] };
-  const obj3CD: TRegistrable = { id: 'obj3CD', tags: [tagC, tagD] };
-  const obj4BE: TRegistrable = { id: 'obj4BE', tags: [tagB, tagE] };
-  const obj5None: TRegistrable = { id: 'obj5None', tags: [] };
-  const obj6ABE: TRegistrable = { id: 'obj6ABE', tags: [tagA, tagB, tagE] };
-  const obj7EB: TRegistrable = { id: 'obj7EB', tags: [tagE, tagB] };
-  const obj8Uniq1: TRegistrable = { id: 'obj8Uniq1', tags: [tagUniq1] };
-  const obj9Uniq2: TRegistrable = { id: 'obj9Uniq2', tags: [tagD, tagUniq2, tagC, tagE] };
+  const obj1AB: TRegistrable = { id: 'obj1AB', tags: [tagA, tagB], name: 'obj-1-A-B' };
+  const obj2B: TRegistrable = { id: 'obj2B', tags: [tagB], name: 'obj-2-B' };
+  const obj3CD: TRegistrable = { id: 'obj3CD', tags: [tagC, tagD], name: 'obj-3-C-D' };
+  const obj4BE: TRegistrable = { id: 'obj4BE', tags: [tagB, tagE], name: 'obj-4-B-E' };
+  const obj5None: TRegistrable = { id: 'obj5None', tags: [], name: 'obj-5-None' };
+  const obj6ABE: TRegistrable = { id: 'obj6ABE', tags: [tagA, tagB, tagE], name: 'obj-6-A-B-E' };
+  const obj7EB: TRegistrable = { id: 'obj7EB', tags: [tagE, tagB], name: 'obj-7-E-B' };
+  const obj8Uniq1: TRegistrable = { id: 'obj8Uniq1', tags: [tagUniq1], name: 'obj-8-Uniq-1' };
+  const obj9Uniq2: TRegistrable = { id: 'obj9Uniq2', tags: [tagD, tagUniq2, tagC, tagE], name: 'obj-9-Uniq-2' };
 
   const simpleObj1: TSimpleObj = { name: 'simpleObj1' };
   const simpleObj2: TSimpleObj = { name: 'simpleObj2' };

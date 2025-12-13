@@ -25,6 +25,7 @@
     ],
     "controls": [
       {
+        "name": "orbit_controls",
         "cameraName": "main",
         "enableDamping": true,
         "isActive": true,
@@ -38,6 +39,7 @@
     "intersections": [],
     "lights": [
       {
+        "name": "ambient_light",
         "color": "#ffffff",
         "intensity": 0.5,
         "position": {
@@ -104,6 +106,7 @@
     ],
     "texts": [
       {
+        "name": "text_1",
         "cssProps": {
           "color": "#000000",
           "fontFamily": "\"Roboto\", sans-serif",
@@ -123,6 +126,7 @@
         "type": "text_3d"
       },
       {
+        "name": "text_2",
         "cssProps": {
           "color": "#000000",
           "fontFamily": "\"Roboto\", sans-serif",
@@ -142,6 +146,7 @@
         "type": "text_3d"
       },
       {
+        "name": "text_3",
         "cssProps": {
           "color": "#000000",
           "fontFamily": "\"Roboto\", sans-serif",

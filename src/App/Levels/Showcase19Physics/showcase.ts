@@ -4,7 +4,7 @@ import { LineGeometry } from 'three/examples/jsm/lines/LineGeometry';
 import { LineMaterial } from 'three/examples/jsm/lines/LineMaterial';
 
 import { addGizmo } from '@/App/Levels/Utils';
-import type { TActor, TCameraWrapper, TIntersectionEvent, TIntersectionsWatcher, TRadians, TReadonlyVector3, TSceneWrapper, TSpace, TSpaceConfig } from '@/Engine';
+import type { TActor, TCameraWrapper, TIntersectionEvent, TIntersectionsWatcher, TRadians, TReadonlyVector3, TSceneWrapper, TSpace, TSpaceConfig, TTextAnyWrapper } from '@/Engine';
 import {
   ambientContext,
   ForwardAxis,
@@ -78,7 +78,8 @@ export function showcase(space: TSpace): void {
     intersectionsLoop
   });
 
-  const azimuthText = textService.create({
+  const azimuthText: TTextAnyWrapper = textService.create({
+    name: 'azimuth_text',
     text: 'Azimuth...',
     type: TextType.Text3d,
     cssProps: { fontSize: '0.05rem' },
@@ -86,7 +87,8 @@ export function showcase(space: TSpace): void {
     rotation: new Euler(-1.57, 0, 0)
   });
 
-  const forcePowerText = textService.create({
+  const forcePowerText: TTextAnyWrapper = textService.create({
+    name: 'force_text',
     text: 'Force...',
     type: TextType.Text3d,
     cssProps: { fontSize: '0.05rem' },

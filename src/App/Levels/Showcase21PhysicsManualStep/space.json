@@ -182,6 +182,7 @@
     ],
     "controls": [
       {
+        "name": "orbit_controls",
         "cameraName": "main",
         "enableDamping": true,
         "isActive": true,
@@ -195,6 +196,7 @@
     "intersections": [],
     "lights": [
       {
+        "name": "directional_light",
         "castShadow": true,
         "color": "#ffffff",
         "intensity": 1,
