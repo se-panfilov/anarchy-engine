@@ -4,12 +4,4 @@ import type { IWithReadonlyTags } from '@/Engine/Mixins';
 
 import type { ITextProps } from './ITextProps';
 
-export type ITextConfig = Omit<ITextProps, 'color' | 'strokeColor' | 'material'> &
-  Readonly<{
-    color?: string;
-    strokeColor?: string | number;
-    materialType?: 'MeshBasicMaterial' | 'MeshStandardMaterial';
-    materialParams?: Record<string, any>; // MeshBasicMaterialParameters | MeshStandardMaterialParameters;
-  }> &
-  IObject3DPropConfig &
-  IWithReadonlyTags<TextTag>;
+export type ITextConfig = ITextProps & IObject3DPropConfig & IWithReadonlyTags<TextTag>;

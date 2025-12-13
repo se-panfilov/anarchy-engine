@@ -34,9 +34,6 @@ export function applyPosition(obj: IMovableXYZ, position?: IVector3Wrapper): voi
 export function applyCenter(obj: CSS2DObject, center?: IVector2Wrapper): void {
   if (isDefined(center)) obj.center.set(center.getX(), center.getY());
 }
-export function applyLayers(obj: CSS2DObject, layers: number = 0): void {
-  if (isDefined(layers)) obj.layers.set(layers);
-}
 
 export function applyTexturePack(obj: IWithTexturesActor, pack: IBasicMaterialTexturePack): Promise<void>;
 export function applyTexturePack(obj: IWithTexturesActor, pack: IDepthMaterialTexturePack): Promise<void>;

@@ -5,7 +5,7 @@ import type { ITextParams, ITextWrapper } from '@/Engine/Domains/Text/Models';
 import { getElement2dAccessors } from '@/Engine/Domains/Text/Wrapper/Accessors';
 import { applyElement2dParams } from '@/Engine/Domains/Text/Wrapper/TextWrapperHelper';
 import { scalableMixin, withMoveByXyzMixin, withObject3d, withRotationByXyzMixin } from '@/Engine/Mixins';
-import { applyCenter, applyLayers, applyObject3dParams, applyPosition, applyRotation, applyScale, isDefined } from '@/Engine/Utils';
+import { applyCenter, applyObject3dParams, applyPosition, applyRotation, applyScale, isDefined } from '@/Engine/Utils';
 
 export function Text2dWrapper(params: ITextParams): ITextWrapper {
   const element: HTMLDivElement = document.createElement('div');
@@ -28,7 +28,6 @@ export function Text2dWrapper(params: ITextParams): ITextWrapper {
   applyObject3dParams(result, params);
   applyPosition(result, params.position);
   applyCenter(entity, params.center);
-  applyLayers(entity, params.layers);
   applyRotation(result, params.rotation);
   if (isDefined(params.scale)) applyScale(result, params.scale);
 
