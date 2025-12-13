@@ -1,22 +1,28 @@
 import './style.css';
 import { Color, Mesh, MeshToonMaterial, Scene, SphereGeometry, Vector3 } from 'three';
 import { IntersectionPointer, MousePointer } from './Pointer';
-import { renderer, updateRenderer } from './renderer';
-import { camera } from './camera';
+import { renderer } from './renderer';
+import { CameraWrapped } from './CameraWrapped';
 import { ambientLight, directionalLight } from './lights';
 import { sphere } from './sphere';
 import { plane } from './planne';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { fpsGraph } from './DeveloperPanel';
+import { startWatchResize } from './DeviceWatcher/Resize';
 
 const scene = new Scene();
 scene.add(sphere);
 scene.add(plane);
+
+const { camera } = CameraWrapped(window.innerWidth, window.innerHeight);
+camera.position.set(3, 2, 15);
+camera.lookAt(0, 0, 0);
 scene.add(camera);
+
+startWatchResize();
+
 scene.add(ambientLight);
 scene.add(directionalLight);
-
-updateRenderer();
 
 const controls = new OrbitControls(camera, renderer.domElement);
 // new OrbitControls(directionalLight as any, renderer.domElement);
