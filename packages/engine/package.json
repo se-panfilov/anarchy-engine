@@ -18,7 +18,8 @@
     "before:release": "npm run clean:reinstall && npm run before:release:check && npm run generate:license-report && npm run generate:all-licenses-list",
     "before:release:check": "npm run ts:check && npm run prettier:check && npm run check:ts-morph && npm run lint && npm run unit:coverage && npm run e2e:with-clean",
     "build": "rimraf ./dist && npm run generate:schemas:minify && vite build",
-    "check:no-spread-brand": "node ../../configs/TsMorph/check-no-spread-brand.js ",
+    "check:no-spread-brand": "node ../../configs/TsMorph/check-no-spread-brand.js",
+    "check:no-mangle-unsafe": "node ../../configs/TsMorph/check-object-keys-mangle-safe.js",
     "check:ts-morph": "npm run check:no-spread-brand",
     "check:ts-morph:fix": "npm run check:no-spread-brand -- --fix",
     "generate:all-licenses-list": "yarn licenses generate-disclaimer > THIRD_PARTY_LICENSES_FULL.txt",
@@ -38,10 +39,10 @@
     "unit:watch": "vitest"
   },
   "dependencies": {
-    "anarchy_engine_shared": "*",
     "@dimforge/rapier3d": "0.17.3",
     "@rwh/keystrokes": "1.5.6",
     "ajv": "8.17.1",
+    "anarchy_engine_shared": "*",
     "date-fns": "4.1.0",
     "lodash-es": "4.17.21",
     "nanoid": "5.1.5",
