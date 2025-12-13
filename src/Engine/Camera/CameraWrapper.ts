@@ -2,18 +2,14 @@ import { PerspectiveCamera } from 'three';
 import { deviceSize$ } from '@/Engine/Store/DeviceSize';
 import { Subject } from 'rxjs';
 import { nanoid } from 'nanoid';
-import { WrappedCamera } from './Models/WrappedCamera';
+import type { WrappedCamera } from './Models/WrappedCamera';
+import type { CameraParams } from '@Engine/Camera/Models/CameraParams';
 
-export function CameraWrapper(
-  width: number,
-  height: number,
-  fov: number = 45,
-  near: number = 1,
-  far: number = 10000
-): WrappedCamera {
+export function CameraWrapper({ width, height, fov = 45, near = 1, far = 10000 }: CameraParams): WrappedCamera {
   let camera = new PerspectiveCamera(fov, width / height, near, far);
   const destroyed$ = new Subject<void>();
 
+  // TODO (S.Panfilov) should access through params or manager?
   deviceSize$.subscribe(({ width, height }) => {
     camera.aspect = width / height;
     camera.updateProjectionMatrix();

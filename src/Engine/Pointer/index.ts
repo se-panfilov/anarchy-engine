@@ -1,2 +1,2 @@
-export * from './lib/MousePointer';
-export * from './lib/IntersectionPointer';
+export * from './lib/MousePointerWrapper';
+export * from './lib/IntersectionPointerWrapper';

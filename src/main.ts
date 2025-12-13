@@ -1,12 +1,13 @@
 import './style.css';
 import { Color, Mesh, MeshToonMaterial, SphereGeometry, Vector3 } from 'three';
+import { ActorManager, CameraManager, InputManager, LightManager, LoopManager, SceneManager } from '@Engine/Managers';
 
-const actorManager = new ActorManager();
-const cameraManager = new CameraManager();
-const lightManager = new LightManager();
-const inputManager = new InputManager();
-const loopManager = new LoopManager();
-const sceneManager = new SceneManager();
+const actorManager = ActorManager();
+const cameraManager = CameraManager();
+const lightManager = LightManager();
+const inputManager = InputManager();
+const loopManager = LoopManager();
+const sceneManager = SceneManager();
 
 const scene = sceneManager.createScene();
 sceneManager.setCurrentScene(scene);

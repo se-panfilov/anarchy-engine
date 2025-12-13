@@ -1,5 +1,5 @@
 import { Color, Mesh, MeshToonMaterial, Scene, SphereGeometry, Vector3 } from 'three';
-import { IntersectionPointer, MousePointer } from './Pointer';
+import { IntersectionPointerWrapper, MousePointerWrapper } from './Pointer';
 import { RendererWrapper } from './Renderer/RendererWrapper';
 import { CameraWrapper } from './Camera/CameraWrapper';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
@@ -31,7 +31,7 @@ const controls = new OrbitControls(camera, renderer.domElement);
 // new OrbitControls(directionalLight as any, renderer.domElement);
 controls.enableDamping = true;
 
-const intersectionPointer = IntersectionPointer(MousePointer(), camera, scene.children);
+const intersectionPointer = IntersectionPointerWrapper(MousePointerWrapper(), camera, scene.children);
 
 intersectionPointer.click$.subscribe(({ position, event }) => onMouseClick(position, event));
 

@@ -1,16 +1,17 @@
 import { BehaviorSubject, Subject } from 'rxjs';
-import { Camera, Raycaster, Vector3 } from 'three';
+import { Raycaster, Vector3 } from 'three';
 import { getNormalizedMousePosition } from './utils/utils';
-import { MousePointer } from './MousePointer';
-import { MousePosition } from './models/MousePosition';
+import type { MousePosition } from './models/MousePosition';
 import { Object3D } from 'three/src/core/Object3D';
 import { nanoid } from 'nanoid';
-import { WrappedIntersectionPointer } from './models/WrappedIntersectionPointer';
+import type { WrappedIntersectionPointer } from './models/WrappedIntersectionPointer';
+import type { WrappedCamera } from '@Engine/Camera/Models/WrappedCamera';
+import type { WrappedMousePointer } from '@Engine/Pointer/lib/models/WrappedMousePointer';
 
-export function IntersectionPointer(
-  mousePointer: ReturnType<typeof MousePointer>,
-  camera: Camera,
-  obj: Array<Object3D>
+export function IntersectionPointerWrapper(
+  mousePointer: Pick<WrappedMousePointer, 'position$' | 'click$' | 'destroyed$'>,
+  camera: WrappedCamera,
+  obj: ReadonlyArray<Object3D>
 ): WrappedIntersectionPointer {
   const position$ = new BehaviorSubject<Vector3>(new Vector3());
   const click$ = new Subject<{ readonly position: Vector3; readonly event: MouseEvent }>();
@@ -19,8 +20,8 @@ export function IntersectionPointer(
   const raycaster = new Raycaster();
 
   mousePointer.position$.subscribe((position: MousePosition) => {
-    raycaster.setFromCamera(getNormalizedMousePosition(position), camera);
-    const intersectObj = raycaster.intersectObjects(obj)[0];
+    raycaster.setFromCamera(getNormalizedMousePosition(position), camera.camera);
+    const intersectObj = raycaster.intersectObjects([...obj])[0];
     if (intersectObj) position$.next(intersectObj.point);
   });
 
@@ -34,5 +35,5 @@ export function IntersectionPointer(
     destroyed$.complete();
   }
 
-  return { id: `intersection_pointer_${nanoid()}`, click$, position$, mousePointer, raycaster, destroy, destroyed$ };
+  return { id: `intersection_pointer_${nanoid()}`, click$, position$, raycaster, destroy, destroyed$ };
 }

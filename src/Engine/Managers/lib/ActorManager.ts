@@ -1,11 +1,11 @@
 import { BehaviorSubject, Subject } from 'rxjs';
 import { nanoid } from 'nanoid';
-import { Manager } from './Models/Manager';
+import type { Manager } from '../Models/Manager';
 import { Color, Mesh, MeshToonMaterial, SphereGeometry } from 'three';
 
 export function ActorManager(): Manager {
   const destroyed$ = new Subject<void>();
-  const actors$ = new BehaviorSubject<Actor>();
+  const actors$ = new BehaviorSubject<WrappedActor>();
 
   function addActor() {
     const actor = new Mesh(new SphereGeometry(1, 32, 32), new MeshToonMaterial({ color: new Color('#5EDCAE') }));
@@ -14,8 +14,7 @@ export function ActorManager(): Manager {
   }
 
   function destroy() {
-    camera = undefined as any;
-    deviceSize$.unsubscribe();
+    actors$.complete();
     destroyed$.next();
     destroyed$.complete();
   }

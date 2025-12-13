@@ -1,16 +1,28 @@
 import { BehaviorSubject, Subject } from 'rxjs';
-import { MousePosition } from './models/MousePosition';
+import type { MousePosition } from './models/MousePosition';
 import { nanoid } from 'nanoid';
-import { WrappedMousePointer } from './models/WrappedMousePointer';
+import type { WrappedMousePointer } from './models/WrappedMousePointer';
+import { IntersectionPointerWrapper } from '@Engine/Pointer';
+import type { WrappedCamera } from '@Engine/Camera/Models/WrappedCamera';
+import { Object3D } from 'three/src/core/Object3D';
 
-export function MousePointer(): WrappedMousePointer {
+export function MousePointerWrapper(): WrappedMousePointer {
   const position$ = new BehaviorSubject<MousePosition>({ x: 0, y: 0 });
   const click$ = new Subject<{ readonly position: MousePosition; readonly event: MouseEvent }>();
   const destroyed$ = new Subject<void>();
-  // let isHeld = false;
 
   const onMouseMoveListener = ({ clientX: x, clientY: y }: MouseEvent) => position$.next({ x, y });
   const onMouseUpListener = (event: MouseEvent) => click$.next({ position: position$.value, event });
+  const addIntersectionPointer = (camera: WrappedCamera, obj: ReadonlyArray<Object3D>) =>
+    IntersectionPointerWrapper(
+      {
+        position$,
+        click$,
+        destroyed$
+      },
+      camera,
+      obj
+    );
 
   // TODO (S.Panfilov) global?
   document.addEventListener('mousemove', onMouseMoveListener);
@@ -28,5 +40,5 @@ export function MousePointer(): WrappedMousePointer {
     destroyed$.complete();
   }
 
-  return { id: `mouse_pointer_${nanoid()}`, position$, click$, destroy, destroyed$ };
+  return { id: `mouse_pointer_${nanoid()}`, position$, click$, addIntersectionPointer, destroy, destroyed$ };
 }
