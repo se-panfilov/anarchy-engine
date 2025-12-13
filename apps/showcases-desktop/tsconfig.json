@@ -15,6 +15,6 @@
     "sourceMap": false,
     "noEmit": false
   },
-  "include": ["src/desktop-main.ts"],
+  "include": ["src/desktop-main.ts", "types"],
   "exclude": ["dist", "node_modules"]
 }

@@ -9,7 +9,6 @@ import { version } from './package.json';
 export default defineConfig({
   define: {
     __DESKTOP_APP_VERSION__: JSON.stringify(version)
-    // TODO DESKTOP: Would be nice to have app's and engine's versions here (and in vite.preload.config.ts)
   },
   resolve: {
     alias: {
