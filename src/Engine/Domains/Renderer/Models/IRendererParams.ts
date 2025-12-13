@@ -4,5 +4,6 @@ import type { IWithReadonlyTags } from '@/Engine/Mixins';
 export type IRendererParams = Readonly<{
   canvas: HTMLElement;
   mode: RendererModes;
+  maxPixelRatio?: number;
 }> &
   IWithReadonlyTags<RendererTag>;

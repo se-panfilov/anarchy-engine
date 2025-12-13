@@ -12,6 +12,7 @@ import { isNotDefined, isWebGL2Available, isWebGLAvailable } from '@/Engine/Util
 
 // TODO (S.Panfilov) Should we provide delta here?
 export function RendererWrapper(params: IRendererParams, screenSizeWatcher: Readonly<IScreenSizeWatcher>): IRendererWrapper {
+  const maxPixelRatio: number = params.maxPixelRatio ?? 2;
   if (isNotDefined(params.canvas)) throw new Error(`Canvas is not defined`);
   if (!isWebGLAvailable()) throw new Error('WebGL is not supported by this device');
   const isWebGL2: boolean = params.mode === RendererModes.WebGL2;
@@ -41,7 +42,7 @@ export function RendererWrapper(params: IRendererParams, screenSizeWatcher: Read
   function setValues(entity: IWriteable<WebGLRenderer>, { width, height, ratio }: IScreenSizeValues): void {
     if (isNotDefined(entity)) return;
     entity.setSize(width, height);
-    entity.setPixelRatio(Math.min(ratio, 2));
+    entity.setPixelRatio(Math.min(ratio, maxPixelRatio));
   }
 
   //init with the values which came before the start of the subscription
