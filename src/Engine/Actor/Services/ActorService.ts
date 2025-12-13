@@ -11,11 +11,14 @@ import type {
   TActorRegistry,
   TActorService,
   TActorServiceDependencies,
+  TActorServiceWithCreate,
+  TActorServiceWithCreateFromConfig,
   TActorServiceWithFactory,
   TActorServiceWithRegistry
 } from '@/Engine/Actor/Models';
-import type { TDisposable } from '@/Engine/Mixins';
+import type { TDisposable, TWithSceneGetterService, TWithSerializeAllEntities, TWithSerializeEntity } from '@/Engine/Mixins';
 import { withFactoryService, withRegistryService, withSceneGetterService, withSerializeAllEntities } from '@/Engine/Mixins';
+import { withSerializeEntity } from '@/Engine/Mixins/Generics/WithSerializeEntity';
 import type { TSceneWrapper } from '@/Engine/Scene';
 import type { TSpatialGridRegistry } from '@/Engine/Spatial';
 
@@ -46,16 +49,20 @@ export function ActorService(factory: TActorFactory, registry: TActorRegistry, a
   const withRegistry: TActorServiceWithRegistry = withRegistryService(registry);
 
   // eslint-disable-next-line functional/immutable-data
-  return Object.assign(
-    abstractService,
-    withFactory,
-    withRegistry,
+  const part1: TAbstractService & TActorServiceWithFactory & TActorServiceWithRegistry = Object.assign(abstractService, withFactory, withRegistry);
+  const part2: TWithSceneGetterService & TWithSerializeAllEntities<TActorConfig> = Object.assign(
     withSceneGetterService(scene),
-    withSerializeAllEntities<TActorConfig, TActorEntityToConfigDependencies>(registry, actorServiceDependencies),
+    withSerializeAllEntities<TActorConfig, TActorEntityToConfigDependencies>(registry, actorServiceDependencies)
+  );
+  const part3: TWithSerializeEntity<TActor, TActorEntityToConfigDependencies> & TActorServiceWithCreate & TActorServiceWithCreateFromConfig = Object.assign(
+    withSerializeEntity<TActor, TActorEntityToConfigDependencies>(),
     {
       create,
       createFromList,
       createFromConfig
     }
   );
+
+  // eslint-disable-next-line functional/immutable-data
+  return Object.assign(part1, part2, part3);
 }
