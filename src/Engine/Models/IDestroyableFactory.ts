@@ -1,4 +1,4 @@
-import type { IAbstractFactory, IDestroyable, IWrapper } from '@Engine/Models';
+import type { IAbstractWrapperFactory, IDestroyable, IWrapper } from '@Engine/Models';
 import type { Nullable } from '@Engine/Utils';
 
-export type IDestroyableFactory<T extends IWrapper<ENT>, ENT, PRMS> = Nullable<IAbstractFactory<T, ENT, PRMS>> & IDestroyable;
+export type IDestroyableFactory<T extends IWrapper<ENT>, ENT, PRMS> = Nullable<IAbstractWrapperFactory<T, ENT, PRMS>> & IDestroyable;

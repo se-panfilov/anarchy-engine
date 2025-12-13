@@ -1,3 +1,5 @@
-import type { IAbstractConfig, IAbstractFromConfigFactory, IDestroyableFromConfigFactory, IWrapper } from '@/Engine';
+import type { IAbstractConfig, IAbstractFromConfigWrapperFactory, IDestroyableFromConfigFactory, IWrapper } from '@/Engine';
 
-export type IFromConfigFactory<T extends IWrapper<ENT>, ENT, PRMS, C extends IAbstractConfig = void> = IAbstractFromConfigFactory<T, ENT, PRMS, C> | IDestroyableFromConfigFactory<T, ENT, PRMS, C>;
+export type IFromConfigFactory<T extends IWrapper<ENT>, ENT, PRMS, C extends IAbstractConfig = void> =
+  | IAbstractFromConfigWrapperFactory<T, ENT, PRMS, C>
+  | IDestroyableFromConfigFactory<T, ENT, PRMS, C>;

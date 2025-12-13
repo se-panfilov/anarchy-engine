@@ -1,8 +1,8 @@
 import type { ICreateFN } from '@Engine/Factories/AbstractFactory/Models';
-import type { IAbstractFactory, IWrapper } from '@Engine/Models';
+import type { IAbstractWrapperFactory, IWrapper } from '@Engine/Models';
 import { nanoid } from 'nanoid';
 
-export function AbstractFactory<T extends IWrapper<ENT>, ENT, PRMS>(type: string, createFn: ICreateFN<T, PRMS>): IAbstractFactory<T, ENT, PRMS> {
+export function AbstractFactory<T extends IWrapper<ENT>, ENT, PRMS>(type: string, createFn: ICreateFN<T, PRMS>): IAbstractWrapperFactory<T, ENT, PRMS> {
   const id: string = type + '_factory_' + nanoid();
 
   function create(params: PRMS): T {
