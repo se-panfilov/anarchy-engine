@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import './assets/style.scss';
 
-import { eventsService } from '@Showcases/GUI/services';
+import { eventsListenerService } from '@Showcases/GUI/services';
 import Bottom from '@Showcases/GUI/views/Bottom.vue';
 import { vueTranslationService } from '@Showcases/i18n';
 import type { Subscription } from 'rxjs';
@@ -10,7 +10,7 @@ import { onMounted, onUnmounted } from 'vue';
 let appEventsSub$: Subscription | undefined;
 
 onMounted((): void => {
-  appEventsSub$ = eventsService.startListeningAppEvents();
+  appEventsSub$ = eventsListenerService.startListeningAppEvents();
 });
 
 onUnmounted((): void => {

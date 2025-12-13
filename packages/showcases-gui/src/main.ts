@@ -1,4 +1,4 @@
-import { eventsService } from '@Showcases/GUI/services';
+import { eventsEmitterService, eventsListenerService } from '@Showcases/GUI/services';
 import { guiPinia } from '@Showcases/GUI/stores/CreatePinia';
 import { initVueI18n, vueTranslationService } from '@Showcases/i18n';
 import type { TFromGuiEvent, TToGuiEvent } from '@Showcases/Shared';
@@ -17,8 +17,8 @@ export async function initGuiApp(id: string, fromGuiBus$: Subject<TFromGuiEvent>
   await vueTranslationService.waitInitialReady();
   vueTranslationService.connectVueI18n(i18n);
   app.use(guiPinia);
-  eventsService.setFromGuiBus(fromGuiBus$);
-  eventsService.setToGuiBus(toGuiBus$);
+  eventsEmitterService.setFromGuiBus(fromGuiBus$);
+  eventsListenerService.setToGuiBus(toGuiBus$);
   app.mount(id);
   console.log(`[GUI] GUI app initialized at element with ID "${id}"`);
 }

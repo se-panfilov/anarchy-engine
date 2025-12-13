@@ -1,7 +1,7 @@
 import { isNotDefined } from '@Anarchy/Shared/Utils';
 import { GuiActionType } from '@Showcases/GUI/constants';
 import type { TGuiActionPayload, TKeyActionsService } from '@Showcases/GUI/models';
-import { eventsService } from '@Showcases/GUI/services/EventsService';
+import { eventsEmitterService } from '@Showcases/GUI/services/EventsEmitterService';
 import { guiPinia } from '@Showcases/GUI/stores/CreatePinia';
 import { useGuiButtonStore } from '@Showcases/GUI/stores/GuiButtonsStore';
 import { FromGuiActionEvents, ToGuiEvents } from '@Showcases/Shared';
@@ -36,7 +36,7 @@ export function KeyActionsService(): TKeyActionsService {
         console.log('XXX Map', value);
         break;
       case Settings:
-        if (value) eventsService.emitActionEvent({ type: SettingsToggle });
+        if (value) eventsEmitterService.emitActionEvent({ type: SettingsToggle });
         break;
       default:
         throw new Error(`[KeyActionsService]: Unknown action type "${type}"`);
