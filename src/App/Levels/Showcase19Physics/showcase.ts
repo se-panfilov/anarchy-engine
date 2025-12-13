@@ -21,7 +21,7 @@ import {
   buildSpaceFromConfig,
   Engine,
   EulerWrapper,
-  getDistance,
+  getDistancePrecisely,
   getHorizontalAzimuth,
   getPushCoordsFrom3dAzimuth,
   isActorHasPhysicsBody,
@@ -114,7 +114,7 @@ export function showcase(canvas: TAppCanvas): TShowcase {
         azimuth = getHorizontalAzimuth({ x: ballCoords.x, z: ballCoords.z }, mouseLineIntersectionsCoords);
         azimuthText.setText(`Azimuth: ${azimuth}`);
         forcePowerText.setText(`Force: ${forcePower}`);
-        forcePower = getDistance(ballActorW.getPosition().getCoords(), mouseLineIntersectionsCoords);
+        forcePower = getDistancePrecisely(ballActorW.getPosition().getCoords(), mouseLineIntersectionsCoords).toNumber();
         line.geometry.setPositions([ballCoords.x, ballCoords.y, ballCoords.z, mouseLineIntersectionsCoords.x, mouseLineIntersectionsCoords.y, mouseLineIntersectionsCoords.z]);
         line.computeLineDistances();
       }
