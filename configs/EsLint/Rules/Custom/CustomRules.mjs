@@ -1,3 +1,1 @@
-export const CustomRules = {
-  'custom-rules/no-spread': 'error'
-};
+export const CustomRules = {};
