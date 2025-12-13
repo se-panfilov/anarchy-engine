@@ -9,6 +9,8 @@ import type { TActorParams, TActorService, TActorWrapperAsync, TCollisionCheckRe
 import { ActorType, EulerWrapper, isDefined, isNotDefined, MaterialType, mpsSpeed, Vector3Wrapper } from '@/Engine';
 import { meters } from '@/Engine/Measurements/Utils';
 
+export const BULLET_TAG = 'bullet';
+
 export type TBullet = TActorWrapperAsync &
   Readonly<{
     setDistanceTraveled: (dist: number) => void;
@@ -47,7 +49,7 @@ export function getBulletsPool(count: number, actorService: TActorService, spati
             linearSpeed: meters(5),
             isAutoUpdate: true
           },
-          tags: []
+          tags: [BULLET_TAG]
         },
         actorService
       )
@@ -100,6 +102,8 @@ export async function BulletAsync(params: TActorParams, actorService: TActorServ
       if (getDistanceTraveled() > maxDistance) reset();
     }
   }
+
+  actorW.collisions.setCollisionsFilterFn((actorW: TActorWrapperAsync): boolean => !actorW.getTags().includes(BULLET_TAG));
 
   return {
     ...actorW,

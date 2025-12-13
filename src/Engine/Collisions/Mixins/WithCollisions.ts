@@ -12,11 +12,15 @@ export function withCollisions(params: TActorParams, collisionsService: TCollisi
   let _isAutoUpdate: boolean = params.collisions?.isAutoUpdate ?? false;
   const value$: Subject<TCollisionCheckResult> = new Subject<TCollisionCheckResult>();
   let collisionsLoopServiceSub$: Subscription;
+  let filterFn: ((o: TActorWrapperAsync) => boolean) | undefined = undefined;
 
   // TODO test this code (should work)
   function getActorsToCheck(actorW: TActorWrapperAsync): ReadonlyArray<TActorWrapperAsync> {
     const cells: ReadonlyArray<TSpatialCellWrapper> = actorW.spatial.getSpatialCells();
-    if (cells.length > 0) return actorW.spatial.getSpatialCells().flatMap((cell: TSpatialCellWrapper): ReadonlyArray<TActorWrapperAsync> => cell.getObjects());
+    if (cells.length > 0) {
+      const objects = actorW.spatial.getSpatialCells().flatMap((cell: TSpatialCellWrapper): ReadonlyArray<TActorWrapperAsync> => cell.getObjects());
+      return isDefined(filterFn) ? objects.filter(filterFn) : objects;
+    }
     return [];
     // TODO this code is probably an extra overcomplicated corner case)
     // const grid: TSpatialGridWrapper | undefined = spatialGridService.getRegistry().findByName(gridName);
@@ -48,6 +52,9 @@ export function withCollisions(params: TActorParams, collisionsService: TCollisi
       setCollisionsUpdatePriority(value: CollisionsUpdatePriority): void {
         // eslint-disable-next-line functional/immutable-data
         (this.data as TWriteable<TCollisionsData>).updatePriority = value;
+      },
+      setCollisionsFilterFn(fn: (actorW: TActorWrapperAsync) => boolean): void {
+        filterFn = fn;
       },
       getCollisionsUpdatePriority(): CollisionsUpdatePriority {
         return this.data.updatePriority;
