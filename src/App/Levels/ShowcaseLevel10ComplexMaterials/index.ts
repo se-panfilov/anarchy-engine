@@ -1,17 +1,17 @@
-import { BehaviorSubject, combineLatest } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 
 import type { IShowcase } from '@/App/Levels/Models';
-import type { IActorWrapper, IAppCanvas, ICameraWrapper, ILevel, ILevelConfig, ITextAnyWrapper, IVector3Wrapper } from '@/Engine';
-import { ambientContext, buildLevelFromConfig, CameraTag, getRotationByCos, getRotationBySin, isNotDefined, TextType } from '@/Engine';
+import type { IActorWrapper, IAppCanvas, ICameraWrapper, ILevel, ILevelConfig, IOrbitControlsWrapper, ITextAnyWrapper, IVector3Wrapper } from '@/Engine';
+import { ambientContext, buildLevelFromConfig, CameraTag, isNotDefined, TextType } from '@/Engine';
 
 import levelConfig from './showcase-10-complex-materials.config.json';
 
-const { mousePositionWatcher, screenSizeWatcher, mouseClickWatcher } = ambientContext;
+const { mouseClickWatcher } = ambientContext;
 
 //Showcase 10: Complex Materials
 export function showcaseLevel(canvas: IAppCanvas): IShowcase {
   const level: ILevel = buildLevelFromConfig(canvas, levelConfig as ILevelConfig);
-  const { textFactory, actorRegistry, cameraRegistry } = level.entities;
+  const { textFactory, actorRegistry, cameraRegistry, controlsRegistry } = level.entities;
   const camera: ICameraWrapper | undefined = cameraRegistry.getUniqByTag(CameraTag.Active);
   if (isNotDefined(camera)) throw new Error('Camera is not found');
 
@@ -35,7 +35,10 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
     currentActor$.next(actor);
   });
 
-  currentActor$.subscribe((actor: IActorWrapper): void => moveTextToActor(actor));
+  currentActor$.subscribe((actor: IActorWrapper): void => {
+    moveTextToActor(actor);
+    moveCameraToActor(actor);
+  });
 
   function moveTextToActor(actor: IActorWrapper): void {
     const position: IVector3Wrapper = actor.getPosition();
@@ -50,20 +53,12 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
     currentMaterialIndex$.next((currentMaterialIndex$.value + 1) % materials.length);
   });
 
-  combineLatest([mousePositionWatcher.value$, screenSizeWatcher.latest$]).subscribe(([{ x, y }, { width, height }]): void => {
-    if (isNotDefined(camera)) return;
-    const xRatio: number = x / width - 0.5;
-    const yRatio: number = -(y / height - 0.5);
-
-    const xRotation: number = getRotationBySin(xRatio, 1, 2);
-    const yRotation: number = getRotationByCos(xRatio, 1, 2);
-
-    camera.setX(xRotation);
-    camera.setY(yRatio * 10);
-    camera.setZ(yRotation);
-
-    camera.lookAt(currentActor$.value.getPosition());
-  });
+  function moveCameraToActor(actor: IActorWrapper): void {
+    const position: IVector3Wrapper = actor.getPosition();
+    const orbitControls: IOrbitControlsWrapper | undefined = controlsRegistry.getUniqByTag('orbit');
+    if (isNotDefined(orbitControls)) throw new Error('Orbit controls are not found');
+    orbitControls.setTarget(position);
+  }
 
   function start(): void {
     level.start();

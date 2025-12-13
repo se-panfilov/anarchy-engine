@@ -157,6 +157,13 @@
       "tags": []
     }
   ],
-  "controls": [],
+  "controls": [
+    {
+      "type": "OrbitControls",
+      "cameraTag": "initial",
+      "enableDamping": true,
+      "tags": ["orbit"]
+    }
+  ],
   "tags": ["build-in"]
 }

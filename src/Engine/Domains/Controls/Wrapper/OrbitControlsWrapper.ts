@@ -3,6 +3,7 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { AbstractWrapper, WrapperType } from '@/Engine/Domains/Abstract';
 import type { IOrbitControlsParams, IOrbitControlsWrapper } from '@/Engine/Domains/Controls/Models';
 import { isDefined } from '@/Engine/Utils';
+import { IVector3Wrapper } from '@/Engine';
 
 export function OrbitControlsWrapper(params: IOrbitControlsParams): IOrbitControlsWrapper {
   const entity: OrbitControls = new OrbitControls(params.camera.entity, params.canvas);
@@ -37,7 +38,12 @@ export function OrbitControlsWrapper(params: IOrbitControlsParams): IOrbitContro
     entity.enabled = false;
   }
 
+  function setTarget(position: IVector3Wrapper): void {
+    entity.target.set(position.getX(), position.getY(), position.getZ());
+    entity.update();
+  }
+
   // eslint-disable-next-line functional/immutable-data
   if (isDefined(params.damping)) entity.enableDamping = params.damping;
-  return { ...AbstractWrapper(entity, WrapperType.Controls, params), update, setDamping, getDampingState, enable, disable, entity };
+  return { ...AbstractWrapper(entity, WrapperType.Controls, params), update, setDamping, getDampingState, enable, disable, setTarget, entity };
 }
