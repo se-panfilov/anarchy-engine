@@ -13,7 +13,7 @@ export function withBaseAccessorsRegistry<T>(registry: Map<string, T>): TWithBas
   const findKey = (predicate: (entity: T, key: string) => boolean): string | undefined => findKeyInMap(registry, predicate);
   const clear = (): void => registry.clear();
   const getRegistryCopy = (): Map<string, T> => new Map(registry);
-  const serialize = <S, D extends Record<string, any> | undefined>(dependencies?: Record<string, any> | undefined): ReadonlyArray<S> => {
+  const serialize = <S, D extends Record<string, any> | undefined>(dependencies?: Record<string, any> | undefined): ReadonlyArray<S> | never => {
     return map((value: T): S => {
       if (isDefined((value as TSerializable<S, D>).serialize)) return (value as TSerializable<S, D>).serialize(dependencies as D);
       if (isDefined((value as any).toString)) {

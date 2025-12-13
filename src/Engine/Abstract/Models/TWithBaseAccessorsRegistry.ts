@@ -10,5 +10,5 @@ export type TWithBaseAccessorsRegistry<T> = {
   getLength: () => number;
   isEmpty: () => boolean;
   clear: () => void;
-  serialize: <S>(dependencies?: Record<string, any> | undefined) => ReadonlyArray<S>;
+  serialize: <S>(dependencies?: Record<string, any> | undefined) => ReadonlyArray<S> | never;
 };
