@@ -28,7 +28,7 @@ export function SpatialGridWrapper(params: TSpatialGridParams): TSpatialGridWrap
       // eslint-disable-next-line functional/no-loop-statements
       for (let z = 0; z < mapHeight; z += cellSize) {
         const cell: TSpatialCell = {
-          id: `spatial_grid_${x}_${z}`,
+          id: `spatial_cell_${x}_${z}`,
           minX: startX + x,
           minY: startZ + z,
           maxX: startX + x + cellSize,
