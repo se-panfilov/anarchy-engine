@@ -1,8 +1,6 @@
 import { isNotDefined } from '@Anarchy/Shared/Utils';
-import type { GuiActionType } from '@Showcases/GUI/constants';
 import type { TEventsService, TToGuiActionEvent } from '@Showcases/GUI/models';
-import { guiPinia } from '@Showcases/GUI/stores/CreatePinia';
-import { useGuiButtonStore } from '@Showcases/GUI/stores/GuiButtonsStore';
+import { keyActionsService } from '@Showcases/GUI/services/KeyActionsService';
 import type { TFromGuiEvent, TToGuiEvent } from '@Showcases/Shared';
 import { FromGuiEvents, ToGuiEvents } from '@Showcases/Shared';
 import type { Observable, Subject, Subscription } from 'rxjs';
@@ -32,10 +30,7 @@ function EventsService(): TEventsService {
   function handleToGuiEvents(event: TToGuiEvent | TToGuiActionEvent): void {
     switch (event.type) {
       case ToGuiEvents.KeyAction: {
-        if (isNotDefined(event.payload?.value)) throw new Error(`[EventsService]: Action "${ToGuiEvents.KeyAction}" has no payload "value"`);
-        if (isNotDefined(event.payload?.type)) throw new Error(`[EventsService]: Action "${ToGuiEvents.KeyAction}" has no payload "type"`);
-        //Pass guiPinia explicitly to avoid issues when pinia connects to different app instance (e.g. gui vs menu)
-        useGuiButtonStore(guiPinia).setActiveButton(event.payload.type as GuiActionType, event.payload.value as boolean);
+        keyActionsService.onAction((event as TToGuiActionEvent).payload);
         break;
       }
       default: {
