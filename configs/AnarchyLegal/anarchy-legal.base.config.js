@@ -67,8 +67,7 @@ export default {
       CE_MARK_PLACEMENT: 'in-product Legal/About screen and documentation; on physical media/packaging where used',
       CONFORMITY_ASSESSMENT_ROUTE: 'internal control',
       IR_RECORD_RETENTION_MONTH: 24,
-      PRODUCT_SHORT_PURPOSE:
-        'Interactive entertainment software (videogame) and its platform-specific client applications, intended for personal use in non-safety-critical environments. Operates offline by default; any online features, if offered, are optional. No personal data collection by the client',
+      PRODUCT_SHORT_PURPOSE: 'interactive entertainment software and its platform-specific client applications, intended for personal use in non-safety-critical environments',
 
       NETWORK_REQUIREMENT: 'not required for offline play; occasional connectivity may be needed for updates or optional online features',
 

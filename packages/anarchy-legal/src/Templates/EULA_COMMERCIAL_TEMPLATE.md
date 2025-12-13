@@ -61,7 +61,7 @@ You may:
 - distribute or resell the {{PRODUCT_TERM}} commercially **as an unofficial build**, provided that you (i) clearly and prominently state that your distribution is **unofficial and not endorsed** by us, (ii) do **not** use our trademarks, logos or branding beyond nominative fair use, (iii) include this EULA and all third-party notices, (iv) do not modify or bundle the {{PRODUCT_TERM}} with malware, adware, or telemetry, and (v) only where this is not prohibited by applicable law or the terms of the relevant Distribution Channel.
   {{/ALLOW_COMMERCIAL_RESALE}}
 
-You must **not**:
+You must **not:**
 
 {{#IS_GAME}}
 

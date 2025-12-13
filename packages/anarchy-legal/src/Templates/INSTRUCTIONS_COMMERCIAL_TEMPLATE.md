@@ -20,8 +20,8 @@
 
 ## 1) What this {{PRODUCT_TERM}} is
 
-- {{PRODUCT_TERM}}: {{PRODUCT_SHORT_PURPOSE}}.
-- Works **offline** by design. Any optional online features (if present) are **opt-in** and described in the **Privacy Policy**.
+- **{{PRODUCT_TERM}}:** {{PRODUCT_SHORT_PURPOSE}}.
+  Operates **offline** by default; any online features, if offered, are **opt-in**. No personal data collection during offline use (see **Privacy Policy** for details).
 
 {{#SUPPORTED_PLATFORMS}}
 **Supported platforms (indicative):** {{SUPPORTED_PLATFORMS}}.
@@ -30,18 +30,20 @@
 
 > **Indicative requirements**. Performance and compatibility depend on device, GPU/driver, OS updates, and browser/runtime. Some older/integrated GPUs or blocked drivers may not support all effects. Where WebGL 2 is unavailable, limited fallback may run with reduced visuals (not guaranteed).
 
-**Minimum system requirements (indicative):** {{MIN_SYSTEM_REQUIREMENTS}}.
+**Minimum system requirements (indicative):**
+{{MIN_SYSTEM_REQUIREMENTS}}
 
-**Recommended system requirements (indicative):** {{REC_SYSTEM_REQUIREMENTS}}.
+**Recommended system requirements (indicative):**
+{{REC_SYSTEM_REQUIREMENTS}}
 
-**Network**: {{NETWORK_REQUIREMENT}}.
+**Network:** {{NETWORK_REQUIREMENT}}.
 {{/MIN_SYSTEM_REQUIREMENTS}}
 
 ---
 
 ## 2) Install / Uninstall
 
-- **Install:** obtain {{PRODUCT_TERM}} via your chosen distribution channel or by running the provided installer / extracting the distribution package.
+- **Install:** obtain the {{PRODUCT_TERM}} via your chosen distribution channel or by running the provided installer / extracting the distribution package.
 - **Permissions:** administrative rights may be required to install to protected locations.
 - **Uninstall:** use the OS standard uninstall mechanism or remove the installed folder; user-created content/mods remain in your user data directories unless you remove them.
 
@@ -53,7 +55,7 @@
 
 - We may provide **updates** (patches, bug fixes, content changes). Updates can be delivered through the same channels you used to obtain the {{PRODUCT_TERM}} or as replacement files in the package.
 - Some updates may be required to continue using certain features.
-- Release notes / advisories may be included within the product, inside the update package, or provided via the distribution channel (no fixed location/cadence guaranteed).
+- Release notes / advisories may be included within the product, inside the update package, or provided via the distribution channel (**no fixed location/cadence guaranteed**).
 - Security maintenance periods are described in the **Security Policy**.
 
 ---
@@ -123,7 +125,7 @@ All legal documents are provided **offline** in this folder (canonical filenames
 - **Third-Party Notices** — `NOTICE.md` and `THIRD_PARTY_LICENSES.md`
 - **Primary License** — `LICENSE`
 - **EU Declaration of Conformity** — `EU_DECLARATION_OF_CONFORMITY.pdf`
-- **CE mark image** — `./images/ce-mark.png`
+- **CE mark image** — `ce-mark.png`
 - **Software Bill of Materials** — `sbom/`
 
 > External links are avoided where possible so that required information remains available offline within the distribution.

@@ -10,38 +10,40 @@
 
 ## 1) What this Software is
 
-- Software: Interactive entertainment software (videogame) and its platform-specific client applications, intended for personal use in non-safety-critical environments. Operates offline by default; any online features, if offered, are optional. No personal data collection by the client.
-- Works **offline** by design. Any optional online features (if present) are **opt-in** and described in the **Privacy Policy**.
+- **Software:** interactive entertainment software and its platform-specific client applications, intended for personal use in non-safety-critical environments.
+  Operates **offline** by default; any online features, if offered, are **opt-in**. No personal data collection during offline use (see **Privacy Policy** for details).
 
-**Supported platforms (indicative):** Modern desktop/mobile browsers with WebGL 2 support (Chromium-based, Firefox, Safari or equivalent).
+**Supported platforms (indicative):** modern desktop/mobile browsers with **WebGL 2** support (Chromium-based, Firefox, Safari or equivalent).
 
 > **Indicative requirements**. Performance and compatibility depend on device, GPU/driver, OS updates, and browser/runtime. Some older/integrated GPUs or blocked drivers may not support all effects. Where WebGL 2 is unavailable, limited fallback may run with reduced visuals (not guaranteed).
 
-**Minimum system requirements (indicative):** - **Browser**: a current-generation browser with WebGL 2 enabled (JavaScript and hardware acceleration on).
+**Minimum system requirements (indicative):**
 
-- **CPU**: 64-bit dual-core.
-- **Memory**: 4 GB RAM.
-- **GPU**: integrated or discrete GPU with WebGL 2 (≈ OpenGL ES 3.0) support; ~1 GB graphics memory available.
-- **Storage**: 500 MB free for cached assets.
-- **Display**: 1280×720.
-- **Input**: keyboard/mouse or compatible controller/touchpad..
+- **Browser:** current-generation browser with WebGL 2 enabled (JavaScript and hardware acceleration on)
+- **CPU:** 64-bit dual-core
+- **Memory:** 4 GB RAM
+- **GPU:** integrated or discrete GPU with WebGL 2 (~OpenGL ES 3.0) support; ~1 GB graphics memory available
+- **Storage:** 500 MB free for cached assets
+- **Display:** 1280×720
+- **Input:** keyboard/mouse or compatible controller/touchpad
 
-**Recommended system requirements (indicative):** - **Browser**: a current-generation browser with WebGL 2 enabled (JavaScript and hardware acceleration on).
+**Recommended system requirements (indicative):**
 
-- **CPU**: 4-core (or better).
-- **Memory**: 8 GB RAM.
-- **GPU**: modern integrated/discrete GPU with robust WebGL 2; ~2 GB graphics memory.
-- **Storage**: 500 MB free for cached assets.
-- **Display**: 1920×1080.
-- **Input**: keyboard/mouse or compatible controller/touchpad..
+- **Browser:** a current-generation browser with WebGL 2 enabled (JavaScript and hardware acceleration on)
+- **CPU:** 4-core (or better)
+- **Memory:** 8 GB RAM
+- **GPU:** modern integrated or discrete GPU with robust WebGL 2; ~2 GB graphics memory
+- **Storage:** 500 MB free for cached assets
+- **Display:** 1920×1080
+- **Input:** keyboard/mouse or compatible controller/touchpad
 
-**Network**: not required for offline play; occasional connectivity may be needed for updates or optional online features.
+**Network:** not required for offline play; occasional connectivity may be needed for updates or optional online features.
 
 ---
 
 ## 2) Install / Uninstall
 
-- **Install:** obtain Software via your chosen distribution channel or by running the provided installer / extracting the distribution package.
+- **Install:** obtain the Software via your chosen distribution channel or by running the provided installer / extracting the distribution package.
 - **Permissions:** administrative rights may be required to install to protected locations.
 - **Uninstall:** use the OS standard uninstall mechanism or remove the installed folder; user-created content/mods remain in your user data directories unless you remove them.
 
@@ -53,7 +55,7 @@
 
 - We may provide **updates** (patches, bug fixes, content changes). Updates can be delivered through the same channels you used to obtain the Software or as replacement files in the package.
 - Some updates may be required to continue using certain features.
-- Release notes / advisories may be included within the product, inside the update package, or provided via the distribution channel (no fixed location/cadence guaranteed).
+- Release notes / advisories may be included within the product, inside the update package, or provided via the distribution channel (**no fixed location/cadence guaranteed**).
 - Security maintenance periods are described in the **Security Policy**.
 
 ---
@@ -120,7 +122,7 @@ All legal documents are provided **offline** in this folder (canonical filenames
 - **Third-Party Notices** — `NOTICE.md` and `THIRD_PARTY_LICENSES.md`
 - **Primary License** — `LICENSE`
 - **EU Declaration of Conformity** — `EU_DECLARATION_OF_CONFORMITY.pdf`
-- **CE mark image** — `./images/ce-mark.png`
+- **CE mark image** — `ce-mark.png`
 - **Software Bill of Materials** — `sbom/`
 
 > External links are avoided where possible so that required information remains available offline within the distribution.
