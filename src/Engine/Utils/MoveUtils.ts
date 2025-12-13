@@ -10,9 +10,14 @@ interface Position {
 
 // TODO (S.Panfilov) CWP what about delta time?
 // Now the value change depends on a frame rate
+// add loop.tick$.subscribe((delta) => { ... })
+// and do animation.tick(delta)
 
 export function goToPosition(actor: IMesh, position: Position, duration: number, easing: EasingOptions = 'linear'): Promise<void> {
-  const timeline = anime.timeline();
+  const timeline = anime.timeline({
+    autoplay: false
+  });
+
   timeline.add({
     targets: actor.position,
     x: position.x,
