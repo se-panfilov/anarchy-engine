@@ -28,14 +28,7 @@ function save(payload: TAudioSettings) {
 <template>
   <MenuView class="audio" title="Audio settings">
     <MenuSettingsGroup class="main-menu-view__group" title="Main Audio Settings">
-      <SettingsRangeComponent
-        :value="state.masterVolume"
-        :min="0"
-        :max="100"
-        class="main-menu-view__setting -masterVolume"
-        label="Master Volume"
-        @change="(value: number) => (state.masterVolume = value)"
-      />
+      <SettingsRangeComponent v-model="state.masterVolume" :min="0" :max="100" class="main-menu-view__setting -masterVolume" label="Master Volume" />
     </MenuSettingsGroup>
     <MenuViewActions @cancel="cancel()" @save="save(state)" />
   </MenuView>

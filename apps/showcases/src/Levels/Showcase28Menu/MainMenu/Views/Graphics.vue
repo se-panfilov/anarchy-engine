@@ -41,14 +41,8 @@ const options = computed(() => {
 <template>
   <MenuView class="graphics" title="Graphics settings">
     <MenuSettingsGroup class="main-menu-view__group" title="Main Graphics Settings">
-      <SettingsCheckboxComponent :value="state.isFullScreen" class="main-menu-view__setting -fullscreen" label="Fullscreen" @change="(value: boolean) => (state.isFullScreen = value)" />
-      <SettingsDropdownComponent
-        :options="options"
-        :value="state.resolution"
-        class="main-menu-view__setting -resolution"
-        label="Resolution"
-        @change="(value: Readonly<TResolution>) => (state.resolution = value)"
-      />
+      <SettingsCheckboxComponent v-model="state.isFullScreen" class="main-menu-view__setting -fullscreen" label="Fullscreen" />
+      <SettingsDropdownComponent :options="options" v-model="state.resolution" class="main-menu-view__setting -resolution" label="Resolution" />
     </MenuSettingsGroup>
     <MenuViewActions @cancel="cancel()" @save="save(state)" />
   </MenuView>

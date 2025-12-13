@@ -34,13 +34,7 @@ const options = computed(() => {
 <template>
   <MenuView class="localization" title="Localization settings">
     <MenuSettingsGroup class="main-menu-view__group" title="Main Localization Settings">
-      <SettingsDropdownComponent
-        :options="options"
-        :value="state.language"
-        class="main-menu-view__setting -resolution"
-        label="Resolution"
-        @change="(value: Readonly<Languages>) => (state.language = value)"
-      />
+      <SettingsDropdownComponent :options="options" v-model="state.language" class="main-menu-view__setting -resolution" label="Resolution" />
     </MenuSettingsGroup>
     <MenuViewActions @cancel="cancel()" @save="save(state)" />
   </MenuView>

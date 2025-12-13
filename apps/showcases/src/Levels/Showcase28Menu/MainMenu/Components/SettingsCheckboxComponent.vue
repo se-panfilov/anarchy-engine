@@ -1,29 +1,15 @@
 <script setup lang="ts">
-import { reactive, watch } from 'vue';
-
-defineEmits(['change']);
-
 const props = defineProps<{
-  value: boolean;
   label: string;
 }>();
 
-const state = reactive({
-  value: props.value
-});
-
-watch(
-  () => props.value,
-  (newVal: boolean): void => {
-    if (state.value !== newVal) state.value = newVal;
-  }
-);
+const modelValue = defineModel<boolean>();
 </script>
 
 <template>
   <label class="settings-checkbox">
     <span class="settings-checkbox__label"> {{ props.label }}</span>
-    <input type="checkbox" v-model="state.value" class="settings-checkbox__input" @change="$emit('change', state.value)" />
+    <input type="checkbox" v-model="modelValue" class="settings-checkbox__input" />
   </label>
 </template>
 
