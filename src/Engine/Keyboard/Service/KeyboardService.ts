@@ -3,9 +3,10 @@ import { Subject } from 'rxjs';
 
 import type { IGameKey, IKeyboardRegistry, IKeyboardRegistryValues, IKeyboardService, IKeyCombo, IKeySubscription } from '@/Engine/Keyboard/Models';
 import { KeyboardRegistry } from '@/Engine/Keyboard/Registry';
+import type { ILoopService } from '@/Engine/Loop';
 import { isNotDefined } from '@/Engine/Utils';
 
-export function KeyboardService(): IKeyboardService {
+export function KeyboardService(loopService: ILoopService): IKeyboardService {
   const keyboardRegistry: IKeyboardRegistry = KeyboardRegistry();
 
   function createKeySubscriptions(key: IGameKey | IKeyCombo): IKeySubscription {
@@ -48,9 +49,11 @@ export function KeyboardService(): IKeyboardService {
     // ).subscribe();
 
     // TODO (S.Panfilov)
-    //loopService.tick$.subscribe((delta) => {
-    //  if (isPressed) pressing.next();
-    // })
+    // console.log('loopService', loopService);
+    // loopService.tick$.subscribe((delta) => {
+    //if (isPressed) pressing.next();
+    // console.log('tick$', delta);
+    // });
 
     pressing$.next(key);
 
@@ -110,5 +113,3 @@ export function KeyboardService(): IKeyboardService {
     isKeyComboPressed: checkKeyCombo
   };
 }
-
-export const keyboardService: IKeyboardService = KeyboardService();

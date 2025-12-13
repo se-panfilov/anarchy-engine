@@ -16,7 +16,7 @@ import type {
   ISpace,
   ISpaceConfig
 } from '@/Engine';
-import { buildSpaceFromConfig, defaultMoverServiceConfig, Easing, Engine, isNotDefined, keyboardService, KeyCode, LookUpStrategy, mouseService } from '@/Engine';
+import { buildSpaceFromConfig, defaultMoverServiceConfig, Easing, Engine, isNotDefined, KeyCode, LookUpStrategy, mouseService } from '@/Engine';
 import { MoverService } from '@/Engine/Services/MoverService/MoverService';
 
 import spaceConfig from './showcase-11.json';
@@ -26,6 +26,7 @@ export function showcase(canvas: IAppCanvas): IShowcase {
   const gui: GUI = new GUI();
   const space: ISpace = buildSpaceFromConfig(canvas, spaceConfig as ISpaceConfig);
   const engine: IEngine = Engine(space);
+  const { keyboardService } = engine.services;
 
   const { actorService, cameraService, intersectionsWatcherService } = space.services;
   const actorRegistry: IActorAsyncRegistry = actorService.getRegistry();

@@ -1,6 +1,9 @@
 import type { ICameraWrapper } from '@/Engine/Camera';
 import type { IControlsRegistry } from '@/Engine/Controls';
+import type { IEngine } from '@/Engine/Engine/Models';
 import type { IIntersectionsWatcher } from '@/Engine/Intersections';
+import type { IKeyboardService } from '@/Engine/Keyboard';
+import { KeyboardService } from '@/Engine/Keyboard';
 import type { ILoopService, ILoopTimes } from '@/Engine/Loop';
 import { LoopService } from '@/Engine/Loop';
 import type { IRendererWrapper } from '@/Engine/Renderer';
@@ -10,20 +13,10 @@ import { spaceLoop } from '@/Engine/Space/SpaceLoop';
 import type { IText2dRenderer, IText3dRenderer } from '@/Engine/Text';
 import { isNotDefined } from '@/Engine/Utils';
 
-// TODO (S.Panfilov) extract
-export type IEngine = Readonly<{
-  start: () => void;
-  stop: () => void;
-  services: IEngineServices;
-}>;
-
-// TODO (S.Panfilov) extract
-export type IEngineServices = Readonly<{
-  loopService: ILoopService;
-}>;
-
 export function Engine(space: ISpace): IEngine {
   const loopService: ILoopService = LoopService();
+  const keyboardService: IKeyboardService = KeyboardService(loopService);
+
   const { cameraService, rendererService, scenesService, textService, controlsService } = space.services;
   const activeScene: ISceneWrapper | undefined = scenesService.findActive();
 
@@ -60,6 +53,6 @@ export function Engine(space: ISpace): IEngine {
   return {
     start,
     stop,
-    services: { loopService }
+    services: { loopService, keyboardService }
   };
 }
