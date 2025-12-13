@@ -1,7 +1,12 @@
-import type { BlendingEquation } from 'three/src/constants';
+import type { BlendingEquation } from 'three';
+import { AddEquation, MaxEquation, MinEquation, ReverseSubtractEquation, SubtractEquation } from 'three';
 
 import { BlendEquationName } from './BlendEquationName';
 
 export const BlendEquationMap: Readonly<Record<BlendEquationName, BlendingEquation>> = {
-  [BlendEquationName.WWW]: EEE
+  [BlendEquationName.AddEquation]: AddEquation,
+  [BlendEquationName.SubtractEquation]: SubtractEquation,
+  [BlendEquationName.ReverseSubtractEquation]: ReverseSubtractEquation,
+  [BlendEquationName.MinEquation]: MinEquation,
+  [BlendEquationName.MaxEquation]: MaxEquation
 };

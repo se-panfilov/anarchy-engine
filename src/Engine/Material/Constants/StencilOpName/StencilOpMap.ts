@@ -1,7 +1,15 @@
 import type { StencilOp } from 'three/src/constants';
+import { DecrementStencilOp, DecrementWrapStencilOp, IncrementStencilOp, IncrementWrapStencilOp, InvertStencilOp, KeepStencilOp, ReplaceStencilOp, ZeroStencilOp } from 'three/src/constants';
 
 import { StencilOpName } from './StencilOpName';
 
 export const StencilOpMap: Readonly<Record<StencilOpName, StencilOp>> = {
-  [StencilOpName.WWW]: EEE
+  [StencilOpName.ZeroStencilOp]: ZeroStencilOp,
+  [StencilOpName.KeepStencilOp]: KeepStencilOp,
+  [StencilOpName.ReplaceStencilOp]: ReplaceStencilOp,
+  [StencilOpName.IncrementStencilOp]: IncrementStencilOp,
+  [StencilOpName.DecrementStencilOp]: DecrementStencilOp,
+  [StencilOpName.IncrementWrapStencilOp]: IncrementWrapStencilOp,
+  [StencilOpName.DecrementWrapStencilOp]: DecrementWrapStencilOp,
+  [StencilOpName.InvertStencilOp]: InvertStencilOp
 };
