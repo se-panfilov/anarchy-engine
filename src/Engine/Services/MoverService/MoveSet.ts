@@ -5,7 +5,7 @@ import type { Vector3 } from 'three/src/math/Vector3';
 import { defaultAnimationParams, Easing } from '@/Engine/Services/MoverService/Constants';
 import type { TFollowTargetFn, TFollowTargetParams, TMoveableByTick, TMoveByPathFn, TMoveByPathFnParams, TMoveFn, TMoveFnParams } from '@/Engine/Services/MoverService/Models';
 import { getAnimationWrapperForComplexPathAnimation } from '@/Engine/Services/MoverService/MoverServiceUtils';
-import { isVector3Wrapper } from '@/Engine/Utils';
+import { isVector3 } from '@/Engine/Utils';
 
 export const goStraightMove: TMoveFn = ({ obj, destination, animationParams, complete }: TMoveFnParams): anime.AnimeInstance => {
   return anime({
@@ -42,7 +42,7 @@ export const followTarget: TFollowTargetFn = ({ obj, target, offset }: TFollowTa
       const position: Vector3 | Vector2 = target.getPosition();
       obj.setX(position.x + (offset?.x ?? 0));
       obj.setY(position.y + (offset?.y ?? 0));
-      if (isVector3Wrapper(position)) obj.setZ(position.z + (offset?.z ?? 0));
+      if (isVector3(position)) obj.setZ(position.z + (offset?.z ?? 0));
     }
   };
 };
