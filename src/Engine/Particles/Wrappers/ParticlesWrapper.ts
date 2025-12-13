@@ -11,11 +11,12 @@ import { ParticlesTransformDrive } from '@/Engine/Particles/TransformDrive';
 import type { TBufferGeometry, TPoints } from '@/Engine/ThreeLib';
 import type { TDriveToTargetConnector } from '@/Engine/TransformDrive';
 import { DriveToTargetConnector } from '@/Engine/TransformDrive';
+import type { TWriteable } from '@/Engine/Utils';
 import { applyObject3dParams } from '@/Engine/Utils';
 
 export function ParticlesWrapper(params: TParticlesParams): TParticlesWrapper {
-  const geometry: TBufferGeometry = new BufferGeometry();
-  const entity: TPoints = new Points(geometry, params.materialSource.entity);
+  let geometry: TBufferGeometry = new BufferGeometry();
+  let entity: TPoints = new Points(geometry, params.materialSource.entity);
 
   const { material } = entity;
   if (!isPointsMaterial(material)) throw new Error('Material is not PointsMaterial or not defined');
@@ -54,6 +55,10 @@ export function ParticlesWrapper(params: TParticlesParams): TParticlesWrapper {
   const destroySub$: Subscription = result.destroy$.subscribe((): void => {
     destroySub$.unsubscribe();
     //Material and geometry disposes in AbstractWrapper
+    geometry = null as any;
+    entity = null as any;
+    // eslint-disable-next-line functional/immutable-data
+    (result as TWriteable<TParticlesWrapper>).entity = null as any;
   });
 
   return result;
