@@ -1,20 +1,5 @@
-import { AmbientLight, DirectionalLight, PointLight } from 'three';
-
-import { WrapperType } from '@/Engine';
-import type { IAmbientLight, IAmbientLightParams, IDirectionalLight, IPointLight } from '@/Engine/Light/Models';
-
-export function getLight({ type, color, intensity, distance, decay }: IAmbientLightParams): IAmbientLight | IDirectionalLight | IPointLight | never {
-  switch (type) {
-    case 'ambient':
-      return new AmbientLight(color, intensity);
-    case 'directional':
-      return new DirectionalLight(color, intensity);
-    case 'point':
-      return new PointLight(color, intensity, distance, decay);
-    default:
-      throw new Error('Unknown light type');
-  }
-}
+import { WrapperType } from '@/Engine/Abstract';
+import type { IAmbientLight, IDirectionalLight, IPointLight } from '@/Engine/Light/Models';
 
 export function getWrapperType(light: IAmbientLight | IDirectionalLight | IPointLight): WrapperType | never {
   if (isAmbientLight(light)) return WrapperType.AmbientLight;

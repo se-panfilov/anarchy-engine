@@ -4,7 +4,7 @@ import type { IAbstractLightWrapper, IDirectionalLight, IDirectionalLightParams 
 
 import { AbstractLightWrapper } from './AbstractLightWrapper';
 
-export function DirectionalLightWrapper(params: IDirectionalLightParams): IAbstractLightWrapper {
+export function DirectionalLightWrapper(params: IDirectionalLightParams): IAbstractLightWrapper<IDirectionalLight> {
   const entity: IDirectionalLight = new DirectionalLight(params.color, params.intensity);
   return AbstractLightWrapper(entity, params);
 }

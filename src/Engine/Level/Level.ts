@@ -15,7 +15,7 @@ import { envMapService } from '@/Engine/EnvMap';
 import { setInitialActiveCamera } from '@/Engine/Level/LevelHelper';
 import { withBuiltMixin } from '@/Engine/Level/Mixin';
 import type { ILevel, ILevelConfig, IWithBuilt } from '@/Engine/Level/Models';
-import type { ILightConfig, ILightFactory, ILightRegistry, ILightWrapper } from '@/Engine/Light';
+import type { IAbstractLightWrapper, ILight, ILightConfig, ILightFactory, ILightRegistry } from '@/Engine/Light';
 import { LightFactory, LightRegistry } from '@/Engine/Light';
 import type { ILoopTimes } from '@/Engine/Loop';
 import { standardLoopService } from '@/Engine/Loop';
@@ -94,9 +94,9 @@ export function buildLevelFromConfig(canvas: IAppCanvas, config: ILevelConfig): 
   //build lights
   const lightFactory: ILightFactory = LightFactory();
   const lightRegistry: ILightRegistry = LightRegistry();
-  const lightAddedSubscription: Subscription = lightRegistry.added$.subscribe((light: ILightWrapper) => scene.addLight(light));
-  const lightEntityCreatedSubscription: Subscription = lightFactory.entityCreated$.subscribe((light: ILightWrapper): void => lightRegistry.add(light));
-  lights.forEach((light: ILightConfig): ILightWrapper => lightFactory.create(lightFactory.configToParams({ ...light, tags: [...light.tags, CommonTag.FromConfig] })));
+  const lightAddedSubscription: Subscription = lightRegistry.added$.subscribe((light: IAbstractLightWrapper<ILight>) => scene.addLight(light));
+  const lightEntityCreatedSubscription: Subscription = lightFactory.entityCreated$.subscribe((light: IAbstractLightWrapper<ILight>): void => lightRegistry.add(light));
+  lights.forEach((light: ILightConfig): IAbstractLightWrapper<ILight> => lightFactory.create(lightFactory.configToParams({ ...light, tags: [...light.tags, CommonTag.FromConfig] })));
   messages$.next(`Lights (${lights.length}) created`);
 
   //env maps
