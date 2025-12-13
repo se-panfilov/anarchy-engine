@@ -7,4 +7,8 @@ export type ICameraAccessors = IMovable &
     lookAt: (vector3: IVector3Wrapper) => void;
     setCastShadow: (value: boolean) => boolean;
     setControls: (x: number, y: number, z: number) => IVector3Wrapper;
+    setFov: (fov: number) => void;
+    setNear: (near: number) => void;
+    setFar: (far: number) => void;
+    setAspect: (aspect: number) => void;
   }>;
