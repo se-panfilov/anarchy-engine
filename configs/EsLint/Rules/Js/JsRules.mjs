@@ -203,6 +203,7 @@ export const JsRules = {
         '[D-d]om',
         '[D-d]otenv',
         '[D-d]ropdown',
+        '[E-e]nglish',
         '[E-e]num[s]?',
         '[E-e]vented',
         '[E-e]xe',
