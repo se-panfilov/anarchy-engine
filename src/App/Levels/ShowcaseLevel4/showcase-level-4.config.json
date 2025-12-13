@@ -1,9 +1,9 @@
 {
-  "name": "Showcase level 03",
+  "name": "Showcase level 04",
   "version": "1.0.0",
   "scenes": [
     {
-      "name": "Showcase Scene 03",
+      "name": "Showcase Scene 04",
       "tags": ["current"]
     }
   ],

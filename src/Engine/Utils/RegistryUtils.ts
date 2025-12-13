@@ -1,6 +1,6 @@
 import type { IRegistrable } from '@/Engine/Mixins';
 
-export function getAll<T>(registry: ReadonlyMap<string, T>): ReadonlyArray<T> {
+export function getAll<T>(registry: ReadonlyMap<string, T>): ReadonlyArray<T | undefined> {
   return Array.from(registry.values());
 }
 

@@ -6,7 +6,7 @@ import { ambientContext, buildLevelFromConfig, CameraTag, getRotationByCos, getR
 
 import levelConfig from './showcase-level-3.config.json';
 
-//Showcase 3:
+//Showcase 3: Camera flying around the central actor
 export function showcaseLevel(canvas: IAppCanvas): IShowcase {
   const level: ILevel = buildLevelFromConfig(canvas, levelConfig as ILevelConfig);
 
