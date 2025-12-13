@@ -14,6 +14,7 @@ export default defineConfig({
       ...sharedAliases
     }
   },
+  // minify: 'terser', //could have better compression (make sure wasm is not broken)
   plugins: [
     wasm(),
     dts({
