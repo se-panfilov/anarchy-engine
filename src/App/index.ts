@@ -1,6 +1,6 @@
 import '@/App/style.css';
 
-import { showcase } from '@/App/Levels/Showcase1MovingActors';
+// import { showcase } from '@/App/Levels/Showcase1MovingActors';
 // import { showcase } from '@/App/Levels/Showcase2TopDown';
 // import { showcase } from '@/App/Levels/Showcase3CameraFlying';
 // import { showcase } from '@/App/Levels/Showcase4AnimejsSimple';
@@ -22,7 +22,7 @@ import { showcase } from '@/App/Levels/Showcase1MovingActors';
 // import { showcase } from '@/App/Levels/Showcase20PhysicsSyncWithModelsTest';
 // import { showcase } from '@/App/Levels/Showcase21PhysicsManualStep';
 // import { showcase } from '@/App/Levels/Showcase22PhysicsShooter';
-// import { showcase } from '@/App/Levels/Showcase23CustomModels';
+import { showcase } from '@/App/Levels/Showcase23CustomModels';
 // import { showcase } from '@/App/Levels/Showcase24ActorsWithModels';
 import type { TAppCanvas } from '@/Engine';
 import { ambientContext, isNotDefined } from '@/Engine';

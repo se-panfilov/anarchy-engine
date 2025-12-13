@@ -40,8 +40,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     //Adding models3d to the scene
     models3dResourceRegistry.added$.subscribe(({ key: name, value: model3dSource }: TRegistryPack<GLTF>): void => {
       console.log(`Model "${name}" is loaded`);
-      const model3dF: TModel3dFacade = models3dService.create({ name, model3dSource });
-      model3dF.getModel().scale.set(scale.x, scale.y, scale.z);
+      models3dService.create({ name, model3dSource });
     });
 
     models3dRegistry.added$.subscribe(({ key: name, value: model3dSource }: TRegistryPack<TModel3dFacade>): void => {
@@ -61,7 +60,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     if (isNotDefined(sceneW)) throw new Error('Scene is not defined');
 
     //gltf model
-    await models3dService.loadAsync({ name: originalName, url: '/Showcase/Models/Fox/Fox.gltf' });
+    await models3dService.loadAsync({ name: originalName, url: '/Showcase/Models/Fox/Fox.gltf', options: { scale } });
 
     //Let's clone the original model (which was loaded from the code)
     const modelOriginal: TModel3dFacade | undefined = models3dService.getRegistry().findByName(originalName);
