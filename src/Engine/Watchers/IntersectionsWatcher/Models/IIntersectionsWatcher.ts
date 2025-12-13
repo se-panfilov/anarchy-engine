@@ -1,4 +1,5 @@
-import type { IMousePosition } from '@Engine/Models';
 import type { IWatcher } from '@Engine/Watchers';
 
-export type IIntersectionsWatcher = IWatcher<IMousePosition>;
+import type { IVector3 } from '@/Engine/Wrappers';
+
+export type IIntersectionsWatcher = IWatcher<IVector3>;

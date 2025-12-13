@@ -13,7 +13,7 @@ export function IntersectionsWatcher(
   positionWatcher: Readonly<IMousePositionWatcher>,
   tags: ReadonlyArray<string> = []
 ): IIntersectionsWatcher {
-  const abstractWatcher: IAbstractWatcher<IMousePosition> = AbstractWatcher('intersection_watcher', tags);
+  const abstractWatcher: IAbstractWatcher<IVector3> = AbstractWatcher('intersection_watcher', tags);
   let raycaster: Readonly<Raycaster> | undefined = new Raycaster();
 
   function start(): IIntersectionsWatcher {
