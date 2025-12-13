@@ -28,16 +28,10 @@ export function Actor(
   // TODO 8.0.0. MODELS: Connect Physics body with the PhysicsAgent
   // TODO 8.0.0. MODELS: Make sure external change of position$/rotation$/scale$ works with the PhysicsAgent
 
-  // TODO 8.0.0. MODELS: Make spatial working
-  // TODO 8.0.0. MODELS: Make collisions working
+  // TODO 8.0.0. MODELS: Make sure, that collisions are working
 
-  // TODO 8.0.0. MODELS: Add a showcase with runtime switch between agents
   // TODO 8.0.0. MODELS: In showcase validate also rotation and scale
   // TODO 8.0.0. MODELS: In showcase check spatial and collisions
-
-  // TODO 8.0.0. MODELS: Make sure text (all types of) can use kinematic agent
-
-  // TODO 8.0.0. MODELS: Make sure that on creation of Actor we apply actor's position$/rotation$/scale$ to model3d
 
   const entities: TActorEntities = {
     drive,
