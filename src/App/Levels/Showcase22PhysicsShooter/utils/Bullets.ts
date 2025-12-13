@@ -1,7 +1,8 @@
 import { MathUtils, Vector3 } from 'three';
 
 import type { TActorParams, TActorService, TActorWrapperAsync, TWithCoordsXYZ } from '@/Engine';
-import { ActorType, isDefined, MaterialType, Vector3Wrapper } from '@/Engine';
+import { ActorType, isDefined, MaterialType, mpsSpeed, Vector3Wrapper } from '@/Engine';
+import { meters } from '@/Engine/Measurements/Utils';
 
 export type TBullet = TActorWrapperAsync &
   Readonly<{
@@ -11,8 +12,13 @@ export type TBullet = TActorWrapperAsync &
     getElevation: () => number;
     setDistanceTraveled: (dist: number) => void;
     getDistanceTraveled: () => number;
+    setFallSpeed: (speed: number) => void;
+    getFallSpeed: () => number;
     setActive: (act: boolean) => void;
     isActive: () => boolean;
+    setSpeed: (s: number) => void;
+    getSpeed: () => number;
+    update: (delta: number) => void;
   }>;
 
 export function getBulletsPool(count: number, actorService: TActorService): ReadonlyArray<Promise<TBullet>> {
@@ -55,42 +61,30 @@ export async function BulletAsync(params: TActorParams, actorService: TActorServ
   let direction: number = 0;
   let elevation: number = 0;
   let distanceTraveled: number = 0;
+  let fallSpeed: number = 0;
   let active: boolean = false;
+  let speed: number = 1;
 
-  return {
-    ...actor,
-    setDirection: (azimuth: number): void => void (direction = azimuth),
-    getDirection: (): number => direction,
-    setElevation: (elev: number): void => void (elevation = elev),
-    getElevation: (): number => elevation,
-    setDistanceTraveled: (dist: number): void => void (distanceTraveled = dist),
-    getDistanceTraveled: (): number => distanceTraveled,
-    setActive: (act: boolean): void => void (active = act),
-    isActive: (): boolean => active
-  };
-}
+  const setDirection = (azimuth: number): void => void (direction = azimuth);
+  const getDirection = (): number => direction;
+  const setElevation = (elev: number): void => void (elevation = elev);
+  const getElevation = (): number => elevation;
+  const setDistanceTraveled = (dist: number): void => void (distanceTraveled = dist);
+  const getDistanceTraveled = (): number => distanceTraveled;
+  const setFallSpeed = (speed: number): void => void (fallSpeed = speed);
+  const getFallSpeed = (): number => fallSpeed;
+  const setActive = (act: boolean): void => void (active = act);
+  const isActive = (): boolean => active;
+  const setSpeed = (s: number): void => void (speed = s);
+  const getSpeed = (): number => speed;
 
-export function shoot(actorPosition: TWithCoordsXYZ, toAngle: number, elevation: number, bullets: ReadonlyArray<TBullet>): void {
-  const bullet: TBullet | undefined = bullets.find((b: TBullet) => !b.isActive());
-  if (isDefined(bullet)) {
-    bullet.setPosition(Vector3Wrapper(actorPosition));
-    bullet.setDirection(toAngle);
-    bullet.setElevation(elevation);
-    bullet.setDistanceTraveled(0);
-    bullet.setActive(true);
-  }
-}
-
-export function updateBullets(bullets: ReadonlyArray<TBullet>, delta: number): void {
-  const bulletSpeed: number = 10;
-
-  bullets.forEach((bullet: TBullet): void => {
-    if (bullet.isActive()) {
-      const azimuthRadians: number = MathUtils.degToRad(bullet.getDirection());
-      const elevationRadians: number = MathUtils.degToRad(bullet.getElevation());
+  function update(delta: number): void {
+    if (isActive()) {
+      const azimuthRadians: number = MathUtils.degToRad(getDirection());
+      const elevationRadians: number = MathUtils.degToRad(getElevation());
       const vectorDirection: Vector3 = new Vector3(Math.cos(azimuthRadians), elevationRadians, Math.sin(azimuthRadians));
-      bullet.entity.position.add(vectorDirection.clone().multiplyScalar(bulletSpeed * delta));
-      bullet.setDistanceTraveled(bullet.getDistanceTraveled() + bulletSpeed * delta);
+      actor.entity.position.add(vectorDirection.clone().multiplyScalar(mpsSpeed(speed, delta)));
+      setDistanceTraveled(getDistanceTraveled() + mpsSpeed(speed, delta));
 
       // const collision = checkCollision(bullet);
       // if (collision) {
@@ -100,5 +94,39 @@ export function updateBullets(bullets: ReadonlyArray<TBullet>, delta: number): v
       //   resetBullet(bullet);
       // }
     }
-  });
+  }
+
+  return {
+    ...actor,
+    setDirection,
+    getDirection,
+    setElevation,
+    getElevation,
+    setDistanceTraveled,
+    getDistanceTraveled,
+    setFallSpeed,
+    getFallSpeed,
+    setActive,
+    isActive,
+    setSpeed,
+    getSpeed,
+    update
+  };
+}
+
+export function shoot(actorPosition: TWithCoordsXYZ, toAngle: number, elevation: number, fallSpeed: number, bullets: ReadonlyArray<TBullet>): void {
+  const bullet: TBullet | undefined = bullets.find((b: TBullet) => !b.isActive());
+  if (isDefined(bullet)) {
+    bullet.setPosition(Vector3Wrapper(actorPosition));
+    bullet.setDirection(toAngle);
+    bullet.setElevation(elevation);
+    bullet.setDistanceTraveled(0);
+    bullet.setFallSpeed(fallSpeed);
+    bullet.setSpeed(meters(10));
+    bullet.setActive(true);
+  }
+}
+
+export function updateBullets(bullets: ReadonlyArray<TBullet>, delta: number): void {
+  bullets.forEach((bullet: TBullet): void => bullet.update(delta));
 }
