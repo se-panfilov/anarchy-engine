@@ -1,3 +1,2 @@
-export * from './ActorConfigAdapter';
-export * from './ActorStatesConfigToParams';
-export * from './Model3dSettingsConfigToParams';
+export * from './ConfigToParamsActorAdapter';
+export * from './Helpers';

@@ -1,4 +1,4 @@
-import { actorStatesConfigToParams } from '@/Engine/Actor/Adapters/ActorStatesConfigToParams';
+import { actorStatesConfigToParams, model3dSettingsConfigToParams } from '@/Engine/Actor/Adapters/Helpers';
 import type { TActorConfig, TActorConfigToParamsDependencies, TActorParams } from '@/Engine/Actor/Models';
 import { kinematicConfigToParams } from '@/Engine/Kinematic';
 import type { TModel3d } from '@/Engine/Models3d';
@@ -7,9 +7,7 @@ import { configToParamsSpatialData } from '@/Engine/Spatial';
 import { configToParamsObject3d } from '@/Engine/ThreeLib';
 import { isNotDefined } from '@/Engine/Utils';
 
-import { model3dSettingsConfigToParams } from './Model3dSettingsConfigToParams';
-
-export function configToParams(config: TActorConfig, dependencies: TActorConfigToParamsDependencies): TActorParams {
+export function configToParamsActorAdapter(config: TActorConfig, dependencies: TActorConfigToParamsDependencies): TActorParams {
   const { position, rotation, scale, physics, spatial, states, model3dSource, kinematic, model3dSettings, ...rest } = config;
 
   const model3d: TModel3d | undefined = dependencies.models3dService.getRegistry().findByName(model3dSource);
