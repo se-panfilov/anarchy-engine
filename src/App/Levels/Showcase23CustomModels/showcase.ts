@@ -1,3 +1,4 @@
+import type { AnimationAction } from 'three';
 import type { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
 
 import type { TShowcase } from '@/App/Levels/Models';
@@ -22,9 +23,9 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
   console.log('Press keys 1..3 to play animations of related models');
 
   const scale: TWithCoordsXYZ = { x: 0.025, y: 0.025, z: 0.025 };
-  const nameGltfOriginal: string = 'fox_gltf_original';
-  const nameGltfClone1: string = 'fox_gltf_clone_1';
-  const nameGlb: string = 'fox_glb_config_original';
+  const originalName: string = 'fox_gltf_original';
+  const cloneName: string = 'fox_gltf_clone_1';
+  const originalCompressedName: string = 'fox_glb_config_original';
 
   function beforeResourcesLoaded(config: TSpaceConfig, { models3dService, scenesService }: TSpaceServices): void {
     const models3dRegistry: TModel3dRegistry = models3dService.getRegistry();
@@ -56,30 +57,29 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     if (isNotDefined(sceneW)) throw new Error('Scene is not defined');
 
     //gltf model
-    await models3dService.loadAsync({ name: nameGltfOriginal, url: '/Showcase/Models/Fox/Fox.gltf' });
+    await models3dService.loadAsync({ name: originalName, url: '/Showcase/Models/Fox/Fox.gltf' });
 
     //Let's clone the original model (which was loaded from the code)
-    const foxGltfOriginal: TModel3dFacade | undefined = models3dService.getRegistry().findByName(nameGltfOriginal);
-    if (isNotDefined(foxGltfOriginal)) throw new Error(`Model "${nameGltfOriginal}" doesn't exist in the registry`);
-    models3dService.clone(foxGltfOriginal, { name: nameGltfClone1, position: Vector3Wrapper({ x: -5, y: 0, z: 0 }) });
+    const modelOriginal: TModel3dFacade | undefined = models3dService.getRegistry().findByName(originalName);
+    if (isNotDefined(modelOriginal)) throw new Error(`Model "${originalName}" doesn't exist in the registry`);
+    models3dService.clone(modelOriginal, { name: cloneName, position: Vector3Wrapper({ x: -5, y: 0, z: 0 }) });
 
-    const foxGltfClone1: TModel3dFacade | undefined = models3dService.getRegistry().findByName(nameGltfClone1);
-    if (isNotDefined(foxGltfClone1)) throw new Error(`Model "${foxGltfClone1}" model is not defined`);
+    const modelClone: TModel3dFacade | undefined = models3dService.getRegistry().findByName(cloneName);
+    if (isNotDefined(modelClone)) throw new Error(`Model "${modelClone}" model is not defined`);
 
-    //Let's clone the original model (which was loaded from the json config)
-    const foxGlbClone2: TModel3dFacade | undefined = models3dService.getRegistry().findByName(nameGlb);
-    if (isNotDefined(foxGlbClone2)) throw new Error(`Model "${foxGlbClone2}" model is not defined`);
+    const modelCompressed: TModel3dFacade | undefined = models3dService.getRegistry().findByName(originalCompressedName);
+    if (isNotDefined(modelCompressed)) throw new Error(`Model "${modelCompressed}" model is not defined`);
 
-    const runActionGltf = animationsService.startAutoUpdateMixer(foxGltfOriginal).actions['Run'];
-    const runActionGltfClone1 = animationsService.startAutoUpdateMixer(foxGltfClone1).actions['Run'];
-    const runActionGltfClone2 = animationsService.startAutoUpdateMixer(foxGlbClone2).actions['Run'];
+    const runActionOriginalModel: AnimationAction = animationsService.startAutoUpdateMixer(modelOriginal).actions['Run'];
+    const runActionCloneModel: AnimationAction = animationsService.startAutoUpdateMixer(modelClone).actions['Run'];
+    const runActionCompressedModel: AnimationAction = animationsService.startAutoUpdateMixer(modelCompressed).actions['Run'];
 
-    keyboardService.onKey(KeyCode.One).pressed$.subscribe((): void => void runActionGltf?.play());
-    keyboardService.onKey(KeyCode.One).released$.subscribe((): void => void runActionGltf?.stop());
-    keyboardService.onKey(KeyCode.Two).pressed$.subscribe((): void => void runActionGltfClone1?.play());
-    keyboardService.onKey(KeyCode.Two).released$.subscribe((): void => void runActionGltfClone1?.stop());
-    keyboardService.onKey(KeyCode.Three).pressed$.subscribe((): void => void runActionGltfClone2?.play());
-    keyboardService.onKey(KeyCode.Three).released$.subscribe((): void => void runActionGltfClone2?.stop());
+    keyboardService.onKey(KeyCode.One).pressed$.subscribe((): void => void runActionCloneModel?.play());
+    keyboardService.onKey(KeyCode.One).released$.subscribe((): void => void runActionCloneModel?.stop());
+    keyboardService.onKey(KeyCode.Two).pressed$.subscribe((): void => void runActionOriginalModel?.play());
+    keyboardService.onKey(KeyCode.Two).released$.subscribe((): void => void runActionOriginalModel?.stop());
+    keyboardService.onKey(KeyCode.Three).pressed$.subscribe((): void => void runActionCompressedModel?.play());
+    keyboardService.onKey(KeyCode.Three).released$.subscribe((): void => void runActionCompressedModel?.stop());
   }
 
   function start(): void {
