@@ -22,7 +22,7 @@ export async function launchPackagedElectronApp(): Promise<TDesktopAppLaunchResu
   });
 
   const page: Page = await electronApp.firstWindow();
-  // await page.waitForLoadState('domcontentloaded');
+  await page.waitForLoadState('domcontentloaded');
 
   return { electronApp, page };
 }
