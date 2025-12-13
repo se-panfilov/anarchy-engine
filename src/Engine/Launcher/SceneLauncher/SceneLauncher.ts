@@ -8,6 +8,13 @@ import { addFromConfigToRegistry, isNotDefined, isValidSceneConfig } from '@Engi
 import type { ICameraWrapper, ILoopWrapper, IRendererWrapper, ISceneWrapper } from '@Engine/Wrappers';
 import { BehaviorSubject } from 'rxjs';
 
+// TODO (S.Panfilov) CWP fix ts
+// finish factories refactoring 1 (HOC from config)
+// finish factories refactoring 2 (factories for non-wrapper entities)
+// finish registry refactoring (works with watcher as singltons)
+// make factories create watchers with check for container ID (to prevent copies)
+// intersection service should be refactored into factory and a watcher, could be possible to create multiple intersection watchers (and manage them in registry)
+
 export function SceneLauncher(): ISceneLauncher {
   const prepared$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   const launched$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
