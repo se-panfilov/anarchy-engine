@@ -45,5 +45,5 @@ export type TLightShadowConfig = Omit<TLightShadowParams, 'mapSize'> &
 export type TDirectionalLightShadowConfig = Omit<TDirectionalLightShadowParams, 'mapSize'> &
   Readonly<{
     mapSize: Vector2Like;
-    camera: { far: number; left?: number; right?: number; top?: number; bottom?: number };
+    camera: { far: number; left?: number; right?: number; top?: number; bottom?: number; near?: number; type?: string; up?: Vector2Like; zoom?: number; layers?: number };
   }>;

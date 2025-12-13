@@ -109,18 +109,26 @@ export function onlyLightShadowToConfig<T extends TLight>(
   const shadow: TLightShadowParams | TDirectionalLightShadowParams | undefined = lightConfig.shadow;
   if (isNotDefined(shadow)) return {};
 
+  console.log('XXX shadow', shadow.camera);
+
   return filterOutEmptyFields({
     shadow: {
       ...shadow,
       mapSize: getMapSize(shadow),
       //{ far: number; left?: number; right?: number; top?: number; bottom?: number }
       // camera: omitInObjectWithoutMutation(shadow.camera as TCamera, ['uuid']) as TLightShadowConfig['camera'] | TDirectionalLightShadowConfig['camera']
+
       camera: filterOutEmptyFields({
         far: shadow.camera.far,
         left: (shadow.camera as TDirectionalLightShadowConfig['camera']).left,
         right: (shadow.camera as TDirectionalLightShadowConfig['camera']).right,
         top: (shadow.camera as TDirectionalLightShadowConfig['camera']).top,
-        bottom: (shadow.camera as TDirectionalLightShadowConfig['camera']).bottom
+        bottom: (shadow.camera as TDirectionalLightShadowConfig['camera']).bottom,
+        // layers: (shadow.camera as TDirectionalLightShadowConfig['camera']).layers,
+        near: (shadow.camera as TDirectionalLightShadowConfig['camera']).near,
+        type: (shadow.camera as TDirectionalLightShadowConfig['camera']).type,
+        up: (shadow.camera as TDirectionalLightShadowConfig['camera']).up,
+        zoom: (shadow.camera as TDirectionalLightShadowConfig['camera']).zoom
       }) as TCamera
     }
   });
