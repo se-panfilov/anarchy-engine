@@ -7,9 +7,6 @@ import { isNotDefined } from '@/Engine/Utils';
 export function configToParams(config: TSpaceConfig): TSpaceParams | never {
   const { canvasSource, scenes, ...rest } = config;
 
-  const canvas: TSpaceCanvas | null = ambientContext.container.getCanvasElement(canvasSource);
-  if (isNotDefined(canvas)) throw new Error('Space: cannot convert config to params: no canvas element found');
-
   return {
     ...rest,
     scenes: scenes.map(sceneConfigAdapter),

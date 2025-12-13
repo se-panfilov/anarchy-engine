@@ -17,9 +17,13 @@ import { createLoops } from '@/Engine/Space/Utils/CreateLoopsUtils';
 import { isDefined, isDestroyable, isNotDefined } from '@/Engine/Utils';
 
 export function Space(params: TSpaceParams, hooks?: TSpaceHooks): TSpace {
-  const { canvas, version, name, tags } = params;
+  const { containerSelector, canvasSelector, version, name, tags } = params;
   const built$: BehaviorSubject<TSpace | undefined> = new BehaviorSubject<TSpace | undefined>(undefined);
   const start$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+
+  // TODO 14-0-0: Create DOM utils
+  let canvas: TSpaceCanvas | undefined = findCanvas(containerSelector, canvasSelector);
+  if (isNotDefined(canvas)) canvas = createCanvas(containerSelector, canvasSelector);
 
   const { services, loops } = initSpaceServices(canvas, params);
   hooks?.afterAllServicesInitialized?.(canvas, services, loops, params);
