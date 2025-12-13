@@ -14,6 +14,7 @@ import {
   getPushCoordsFrom3dAzimuth,
   isDefined,
   isNotDefined,
+  KeyCode,
   mouseService,
   PhysicsDebugRenderer,
   STANDARD_GRAVITY,
@@ -29,6 +30,7 @@ import {
   TSceneWrapper,
   TSpace,
   TSpaceConfig,
+  TWithCoordsXYZ,
   Vector3Wrapper
 } from '@/Engine';
 import { meters } from '@/Engine/Measurements/Utils';
@@ -38,7 +40,7 @@ import spaceConfig from './showcase.json';
 export function showcase(canvas: TAppCanvas): TShowcase {
   const space: TSpace = buildSpaceFromConfig(canvas, spaceConfig as TSpaceConfig);
   const engine: TEngine = Engine(space);
-  const { loopService } = engine.services;
+  const { loopService, keyboardService } = engine.services;
   const { actorService, cameraService, intersectionsWatcherService, textService } = space.services;
 
   const actorAsyncRegistry = actorService.getRegistry();
@@ -61,10 +63,15 @@ export function showcase(canvas: TAppCanvas): TShowcase {
   const groundColliderDesc: ColliderDesc = ColliderDesc.cuboid(meters(10), meters(0.1), meters(10));
   world.createCollider(groundColliderDesc);
 
+  let azimuth: number = 0;
+
   mouseService.clickLeftRelease$.subscribe(() => {
-    // TODO (S.Panfilov) get 3d azimuth and convert it to coords
-    console.log(getPushCoordsFrom3dAzimuth(180, 0, 2));
-    rigidBody.setLinvel(getPushCoordsFrom3dAzimuth(180, 0, 2), true);
+    rigidBody.setLinvel(getPushCoordsFrom3dAzimuth(azimuth, 0, 5), true);
+  });
+
+  keyboardService.onKey(KeyCode.W).pressed$.subscribe((): void => {
+    const linvel = rigidBody.linvel();
+    rigidBody.setLinvel({ x: linvel.x, y: linvel.y + 5, z: linvel.z }, true);
   });
 
   async function init(): Promise<void> {
@@ -76,8 +83,6 @@ export function showcase(canvas: TAppCanvas): TShowcase {
 
     const cameraW: TCameraWrapper | undefined = cameraService.findActive();
     if (isNotDefined(cameraW)) throw new Error(`Cannot find active camera`);
-
-    const initialBallCoords = ballActorW.getPosition().getCoords();
 
     const mouseLineIntersectionsWatcher: TIntersectionsWatcher = intersectionsWatcherService.create({
       name: 'mouse_line_intersections_watcher',
@@ -100,8 +105,8 @@ export function showcase(canvas: TAppCanvas): TShowcase {
     let mouseLineIntersectionsCoords: Vector3 | undefined = undefined;
     mouseLineIntersectionsWatcher.value$.subscribe((intersection: TIntersectionEvent) => {
       mouseLineIntersectionsCoords = intersection.point;
-      console.log(mouseLineIntersectionsCoords);
-      const azimuth: number = getHorizontalAzimuth({ x: 0, z: 0 }, mouseLineIntersectionsCoords);
+      const ballCoords: TWithCoordsXYZ = ballActorW.getPosition().getCoords();
+      azimuth = getHorizontalAzimuth({ x: ballCoords.x, z: ballCoords.z }, mouseLineIntersectionsCoords);
       azimuthText.setText(`Azimuth: ${azimuth}`);
     });
 
@@ -111,7 +116,8 @@ export function showcase(canvas: TAppCanvas): TShowcase {
       world.step();
 
       if (isDefined(mouseLineIntersectionsCoords)) {
-        line.geometry.setPositions([initialBallCoords.x, initialBallCoords.y, initialBallCoords.z, mouseLineIntersectionsCoords.x, mouseLineIntersectionsCoords.y, mouseLineIntersectionsCoords.z]);
+        const ballCoords: TWithCoordsXYZ = ballActorW.getPosition().getCoords();
+        line.geometry.setPositions([ballCoords.x, ballCoords.y, ballCoords.z, mouseLineIntersectionsCoords.x, mouseLineIntersectionsCoords.y, mouseLineIntersectionsCoords.z]);
         line.computeLineDistances();
       }
 
