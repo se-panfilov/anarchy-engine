@@ -12,50 +12,46 @@ export function getStepRotation(agent: TKinematicTransformAgent, rotationStep: T
   if (!infinite && isNotDefined(agent.data.target?.rotation)) return undefined;
 
   // Retrieve the target rotation (for infinite mode, it's used as a descriptor).
-  const targetRotation = agent.data.target?.rotation ?? new Quaternion();
-  const targetNormalized = targetRotation.clone().normalize();
+  const targetRotation: Quaternion = agent.data.target?.rotation ?? new Quaternion();
+  const targetNormalized: Quaternion = targetRotation.clone().normalize();
 
   // Clamp w-component to prevent floating-point errors.
-  const clampedW = Math.min(Math.max(targetNormalized.w, -1), 1);
-  let angle = 2 * Math.acos(clampedW);
+  const clamped: number = Math.min(Math.max(targetNormalized.w, -1), 1);
+  let angle: number = 2 * Math.acos(clamped);
 
   // Correct angle to take the shortest rotation path.
-  if (angle > Math.PI) {
-    angle -= 2 * Math.PI;
-  }
+  if (angle > Math.PI) angle -= 2 * Math.PI;
 
-  const sinHalfAngle = Math.sqrt(1 - clampedW * clampedW);
+  const sinHalfAngle: number = Math.sqrt(1 - clamped * clamped);
 
   // Extract rotation axis; use a default axis if sinHalfAngle is too small.
-  const axis = sinHalfAngle > 1e-6 ? new Vector3(targetNormalized.x, targetNormalized.y, targetNormalized.z).divideScalar(sinHalfAngle).normalize() : new Vector3(0, 1, 0);
+  const axis: Vector3 = sinHalfAngle > 1e-6 ? new Vector3(targetNormalized.x, targetNormalized.y, targetNormalized.z).divideScalar(sinHalfAngle).normalize() : new Vector3(0, 1, 0);
 
   // Infinite Rotation Mode
   if (infinite) {
-    // Use the computed sign (after correction) to determine rotation direction.
-    const stepAngle = Math.sign(angle) * rotationStep;
+    // Use the computed sign (after correction) to determine a rotation direction.
+    const stepAngle: number = Math.sign(angle) * rotationStep;
     return new Quaternion().setFromAxisAngle(axis, stepAngle);
   }
 
   // Finite Rotation Mode
-  const currentRotation = agent.rotation$.value.clone().normalize();
-  const qRelative = currentRotation.clone().invert().multiply(targetNormalized);
+  const currentRotation: Quaternion = agent.rotation$.value.clone().normalize();
+  const qRelative: Quaternion = currentRotation.clone().invert().multiply(targetNormalized);
 
   // Clamp w-component for relative rotation.
-  const relativeClampedW = Math.min(Math.max(qRelative.w, -1), 1);
-  let relativeAngle = 2 * Math.acos(relativeClampedW);
+  const relativeClampedW: number = Math.min(Math.max(qRelative.w, -1), 1);
+  let relativeAngle: number = 2 * Math.acos(relativeClampedW);
 
   // Correct relative angle for the shortest path.
-  if (relativeAngle > Math.PI) {
-    relativeAngle -= 2 * Math.PI;
-  }
+  if (relativeAngle > Math.PI) relativeAngle -= 2 * Math.PI;
 
-  const relativeSinHalfAngle = Math.sqrt(1 - relativeClampedW * relativeClampedW);
+  const relativeSinHalfAngle: number = Math.sqrt(1 - relativeClampedW * relativeClampedW);
 
   // Extract the relative rotation axis.
-  const relativeAxis = relativeSinHalfAngle > 1e-6 ? new Vector3(qRelative.x, qRelative.y, qRelative.z).divideScalar(relativeSinHalfAngle).normalize() : new Vector3(0, 1, 0);
+  const relativeAxis: Vector3 = relativeSinHalfAngle > 1e-6 ? new Vector3(qRelative.x, qRelative.y, qRelative.z).divideScalar(relativeSinHalfAngle).normalize() : new Vector3(0, 1, 0);
 
   // Compute the rotation step with the shortest path correction.
-  const stepAngle = Math.sign(relativeAngle) * Math.min(Math.abs(relativeAngle), rotationStep);
+  const stepAngle: number = Math.sign(relativeAngle) * Math.min(Math.abs(relativeAngle), rotationStep);
 
   return stepAngle !== 0 ? new Quaternion().setFromAxisAngle(relativeAxis, stepAngle) : undefined;
 }
