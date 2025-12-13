@@ -23,6 +23,7 @@ export default defineConfig({
   build: {
     sourcemap: true,
     rollupOptions: {
+      // TODO "treeshake: false" is due to the issue with Rapier3d wasm module, check later if we could enable it.
       treeshake: false
     }
   },
