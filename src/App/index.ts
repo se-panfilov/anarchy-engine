@@ -6,8 +6,8 @@ import '@/App/style.css';
 // import { showcaseLevel } from '@/App/Levels/Showcase4AnimejsSimple'; //Showcase 4: Anime.js simple animations (easing, etc.)
 // import { showcaseLevel } from '@/App/Levels/Showcase5AnimejsComplex'; //Showcase 5: Anime.js animation with complex path and easing
 // import { showcaseLevel } from '@/App/Levels/Showcase6Fullscreen'; //Showcase 6: Go fullscreen
-// import { showcaseLevel } from '@/App/Levels/Showcase7Text2d'; //Showcase 7: Text 2d
-import { showcaseLevel } from '@/App/Levels/Showcase8Text3d'; //Showcase 7: Text 3d
+import { showcaseLevel } from '@/App/Levels/Showcase7Text2d'; //Showcase 7: Text 2d
+// import { showcaseLevel } from '@/App/Levels/Showcase8Text3d'; //Showcase 7: Text 3d
 // import { showcaseLevel } from '@/App/Levels/ShowcaseLevel9TexturesAndMaterials'; //Showcase 9: Textures & Materials
 import type { IAppCanvas } from '@/Engine';
 import { ambientContext, isNotDefined } from '@/Engine';

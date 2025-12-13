@@ -129,8 +129,8 @@ export function buildLevelFromConfig(canvas: IAppCanvas, config: ILevelConfig): 
     if (isDefined(activeCamera)) {
       renderer.entity.render(scene.entity, activeCamera.entity);
       // TODO (S.Panfilov) update these text renderers only when there are any text (or maybe only when it's changed)
-      text2dRenderer.renderer.render(scene.entity, activeCamera.entity);
-      text3dRenderer.renderer.render(scene.entity, activeCamera.entity);
+      if (!text2dRegistry.isEmpty()) text2dRenderer.renderer.render(scene.entity, activeCamera.entity);
+      if (!text3dRegistry.isEmpty()) text3dRenderer.renderer.render(scene.entity, activeCamera.entity);
     }
 
     // TODO (S.Panfilov) also perhaps make a controls service instead of a factory?

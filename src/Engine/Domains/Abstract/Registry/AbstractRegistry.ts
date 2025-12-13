@@ -67,6 +67,10 @@ export function AbstractRegistry<T extends IRegistrable | IMultitonRegistrable>(
     return result[0];
   }
 
+  function isEmpty(): boolean {
+    return registry.size === 0;
+  }
+
   function getUniqByTag(tag: string): T | undefined | never {
     return getUniqWithSomeTag([tag]);
   }
@@ -86,6 +90,7 @@ export function AbstractRegistry<T extends IRegistrable | IMultitonRegistrable>(
     getUniqWithSomeTag,
     getUniqWithEveryTag,
     getUniqByTag,
+    isEmpty,
     registry,
     remove,
     ...destroyable

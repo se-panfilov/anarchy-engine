@@ -18,6 +18,7 @@ export type IAbstractRegistry<T extends IRegistrable> = Readonly<{
   getUniqWithSomeTag: (tags: ReadonlyArray<string>) => T | undefined | never;
   getUniqWithEveryTag: (tags: ReadonlyArray<string>) => T | undefined | never;
   getUniqByTag: (tag: string) => T | undefined | never;
+  isEmpty: () => boolean;
   remove: (id: string) => void;
   removed$: Observable<T>;
 }> &
