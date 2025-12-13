@@ -7,9 +7,7 @@ export function AbstractWatcherRegistry<T extends TAbstractWatcher<any> | TAbstr
   const abstractEntityRegistry: TAbstractEntityRegistry<T> = AbstractEntityRegistry<T>(type);
 
   abstractEntityRegistry.destroy$.subscribe((): void => {
-    console.log('XXX destroy watcher registry', abstractEntityRegistry.id);
     abstractEntityRegistry.forEach((v: T): void => {
-      console.log('XXX destroy watcher', v.name);
       v.stop$.next();
     });
   });

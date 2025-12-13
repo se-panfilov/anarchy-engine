@@ -1,7 +1,10 @@
+import type { Subscription } from 'rxjs';
+
 import type { TAbstractService } from '@/Engine/Abstract';
 import { AbstractService } from '@/Engine/Abstract';
 import { ambientContext } from '@/Engine/Context';
 import type { TAppGlobalContainer, TContainerDecorator } from '@/Engine/Global';
+import type { TDisposable } from '@/Engine/Mixins';
 import type { TScreenService, TScreenSizeWatcherFactory, TScreenSizeWatcherRegistry } from '@/Engine/Screen/Models';
 import { exitFullScreen, goFullScreen, isFullScreen } from '@/Engine/Screen/Utils';
 import type { TSpaceCanvas } from '@/Engine/Space';
@@ -10,8 +13,15 @@ import { getCanvasContainer, isDefined } from '@/Engine/Utils';
 import { ScreenSizeWatcherService } from './ScreenSizeWatcherService';
 
 export function ScreenService(factory: TScreenSizeWatcherFactory, registry: TScreenSizeWatcherRegistry): TScreenService {
-  const abstractService: TAbstractService = AbstractService();
+  const disposable: ReadonlyArray<TDisposable> = [registry, factory];
+  const abstractService: TAbstractService = AbstractService(disposable);
   let canvas: TSpaceCanvas | undefined;
+
+  const destroySub$: Subscription = abstractService.destroy$.subscribe((): void => {
+    destroySub$.unsubscribe();
+
+    (abstractService as TScreenService).watchers?.destroy$.next();
+  });
 
   // eslint-disable-next-line functional/immutable-data
   return Object.assign(abstractService, {
