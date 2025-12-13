@@ -1,7 +1,7 @@
 import { nanoid } from 'nanoid';
 import type { Subscription } from 'rxjs';
 import { firstValueFrom } from 'rxjs';
-import { beforeEach, describe, expect, it } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 
 import type { TRegistrable, TWithName } from '@/Engine/Mixins';
 
@@ -30,6 +30,8 @@ function validateCommonRegistryBehavior<T extends TRegistrable>(registry: TAbstr
     entity = getEntity();
     addFn(registry, entity);
   });
+
+  afterEach(() => registry.clear());
 
   it('should return original via find()', () => {
     const result: T | undefined = registry.find((e: T): boolean => e.name === entity.name);
@@ -63,6 +65,8 @@ export function validateEntityRegistryReturnsOriginalObjects<T extends TRegistra
       entity = createEntity();
       registry.add(entity);
     });
+
+    afterEach(() => registry.clear());
 
     it('should store the original in registry map', () => {
       expectSame(registry.registry.get(entity.id), entity);
@@ -148,6 +152,8 @@ export function validateSimpleRegistryReturnsOriginalObjects<T extends TRegistra
       registry.add(entity.id, entity);
     });
 
+    afterEach(() => registry.clear());
+
     it('should store the original in registry map', () => {
       expectSame(registry.registry.get(entity.id), entity);
     });
@@ -207,6 +213,8 @@ export function validateSimpleAsyncRegistryReturnsOriginalObjects<T extends TReg
       registry.add(entity.id, entity);
     });
 
+    afterEach(() => registry.clear());
+
     it('should store the original in registry map', () => {
       expectSame(registry.registry.get(entity.id), entity);
     });
@@ -237,6 +245,8 @@ export function validateEntityAsyncRegistryReturnsOriginalObjects<T extends TReg
       entity = createEntity();
       registry.add(entity);
     });
+
+    afterEach(() => registry.clear());
 
     it('should store the original in registry map', () => {
       expectSame(registry.registry.get(entity.id), entity);
@@ -276,6 +286,7 @@ export function validateEntityAsyncRegistryReturnsOriginalObjects<T extends TReg
   });
 }
 
+// TODO CWP
 // TODO 12-0-0: Test async registries
 // TODO 12-0-0: Fix all failing methods
 // TODO 12-0-0: Maybe add by a test suit to every registry in the project
