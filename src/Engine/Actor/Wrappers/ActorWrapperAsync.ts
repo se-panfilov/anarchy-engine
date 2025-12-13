@@ -53,6 +53,7 @@ export async function ActorWrapperAsync(params: TActorParams, { materialTextureS
     actorW.doKinematicRotation(delta);
   });
 
+  // TODO (S.Panfilov) CWP check & fix spatial position updates
   const spatialSub$: Subscription = spatialLoopService.tick$.subscribe(({ priority }: TSpatialLoopServiceValue): void => {
     if (!actorW.spatial.isAutoUpdate()) return;
     if (actorW.spatial.getSpatialUpdatePriority() >= priority) {
