@@ -11,7 +11,7 @@ import { TextTransformDrive } from '@/Engine/Text/TransformDrive';
 import { getWrapperTypeByTextType } from '@/Engine/Text/Wrappers/TextWrapperHelper';
 import type { TDriveToTargetConnector } from '@/Engine/TransformDrive';
 import { DriveToTargetConnector } from '@/Engine/TransformDrive';
-import { applyObject3dParams, stripUnits, toPx } from '@/Engine/Utils';
+import { applyObject3dParams, stripUnits, toPx, toRem } from '@/Engine/Utils';
 
 export function createTextTextureWrapper(params: TTextParams, type: TextType, dependencies: TTextServiceDependencies): TTextTextureWrapper<Mesh> {
   let canvas: HTMLCanvasElement = document.createElement('canvas');
@@ -86,7 +86,8 @@ export function createTextTextureWrapper(params: TTextParams, type: TextType, de
   function getPropsAsCss(): Pick<TTextCssProps, 'fontSize' | 'fontFamily' | 'backgroundColor' | 'color'> {
     const font: string = context.font;
     const match = font.match(/(\d+(?:\.\d+)?)(px|pt|em|rem|%)\s+(.+)/) ?? [];
-    const fontSize: string = match?.[1] + match?.[2];
+    let fontSize: string = match?.[1] + match?.[2];
+    fontSize = toRem(fontSize);
     const fontFamily: string = match?.[3];
 
     let color: string | undefined = context.fillStyle.toString();
