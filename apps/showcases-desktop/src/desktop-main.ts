@@ -37,7 +37,7 @@ app.whenReady().then(async (): Promise<void> => {
   //Note: Do not "await" before window creation (cause problems in production – invisible window)
   const settings: TShowcaseGameSettings = await settingsService.loadAppSettings();
 
-  windowReadyToShow(win, settings);
+  windowReadyToShow(win, settings, windowService);
   appWindowAllClosedHandler(app);
   turnOffMenuBarAndHotkeys();
   // TODO DESKTOP: Make sure navigation isn't working (also from mouse extra buttons)

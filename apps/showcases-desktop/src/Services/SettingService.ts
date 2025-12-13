@@ -5,7 +5,7 @@ import type { TSettingsService, TSettingsServiceDependencies } from '@Showcases/
 import { detectResolution } from '@Showcases/Desktop/Utils';
 import type { TShowcaseGameSettings } from '@Showcases/Shared';
 import { DefaultShowcaseGameSettings, isSettings, ShowcasesFallbackLocale, ShowcasesLocales } from '@Showcases/Shared';
-import type { App, BrowserWindow } from 'electron';
+import type { App } from 'electron';
 
 // TODO DESKTOP: Add protection (allowed files list, name/extension checks, sanitization, etc)
 export function SettingsService(app: App, { filesService, windowService }: TSettingsServiceDependencies): TSettingsService {
@@ -58,15 +58,10 @@ export function SettingsService(app: App, { filesService, windowService }: TSett
   //Return true if app restart is needed
   function applyPlatformSettings(settings: TShowcaseGameSettings): boolean {
     console.log('[DESKTOP] Applying platform settings');
-    const window: BrowserWindow = windowService.getWindow();
 
-    console.log('XXX isFullScreenable', window.isFullScreenable());
-
-    const isFullScreen: boolean = window.isFullScreen() || window.isSimpleFullScreen();
-    if (isFullScreen !== Boolean(settings.graphics.isFullScreen)) {
-      // window.setFullScreen(Boolean(settings.graphics.isFullScreen));
-      window.setSimpleFullScreen(Boolean(settings.graphics.isFullScreen));
-    }
+    const isFullScreenNow: boolean = windowService.isFullScreen();
+    const isFullScreenIntended: boolean = Boolean(settings.graphics.isFullScreen);
+    if (isFullScreenNow !== isFullScreenIntended) windowService.setFullScreen(isFullScreenIntended);
 
     //Requires restart: app.disableHardwareAcceleration()
     return false;
