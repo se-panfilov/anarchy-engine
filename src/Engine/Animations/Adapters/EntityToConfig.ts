@@ -3,7 +3,6 @@ import type { AnimationAction } from 'three';
 import type { TAnimationStateConfig } from '@/Engine/Animations/Models';
 import { filterOutEmptyFields } from '@/Engine/Utils';
 
-// TODO 15-0-0: validate
 export function animationActionToConfig(entity: AnimationAction): TAnimationStateConfig {
   return filterOutEmptyFields({
     name: entity.getClip().name,
