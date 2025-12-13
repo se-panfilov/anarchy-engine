@@ -82,7 +82,7 @@ export function showcase(canvas: TAppCanvas): TShowcase {
 
     mouseService.clickLeftRelease$.subscribe((): void => {
       if (isNotDefined(heroW)) throw new Error(`Cannot find "hero" actor`);
-      shoot(heroW.getPosition().getCoords(), fromHeroAngles.azimuth, fromHeroAngles.elevation, meters(10), meters(1), bullets);
+      shoot(heroW.getPosition().getCoords(), fromHeroAngles.azimuth, fromHeroAngles.elevation, meters(10), meters(0.35), bullets);
     });
 
     physicsLoopService.shouldAutoUpdate(true);
