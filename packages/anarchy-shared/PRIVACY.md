@@ -3,18 +3,18 @@
 **Effective date:** TBD until market release
 **Controller:** Sergei Aleksandrovich Panfilov — Contact: TBD until market release
 
-**Scope / Identification.** This notice applies to the **open-source repository** for **anarchy-shared** (hosted on or mirrored to **public code hosting platform(s)**). We do **not** operate a consumer service through this repository.
+**Scope / Identification.** This notice applies to the **open-source project** **anarchy-shared** (hosted on or mirrored to **public code hosting platform(s)**). We do **not** operate a consumer service through this repository.
 
-**CPRA (California):** we **do not sell or share** personal information for cross-context behavioral advertising.
+**CPRA (California):** we **do not sell or share** personal information for cross-context behavioral advertising and we do **not** process **sensitive personal information** in this repository context.
 
 ## 1. Repository Interactions
 
-If you open issues, pull requests, or discussions, the content you submit (including your profile/handle and any attachments) becomes **public** on the code hosting platform(s) where the repository is published and is processed under the applicable platform’s privacy policy. We may process this **public** information to operate, maintain, and improve the project.
+If you open issues, pull requests, or discussions, the content you submit (including your profile/handle and attachments) becomes **public** on the code-hosting platform(s) where the repository is published and is processed under the applicable platform’s privacy policy. We may process this **public** information to operate, maintain, and improve the project.
 Copies of public content may also appear in mirrors, forks, caches, archival copies, package registries, or on physical media distributed by others; we do not control those third-party copies, and requests regarding them should be directed to the respective distributor or platform.
 
 **Legal basis:** our **legitimate interests** in running the OSS project.
 
-**Retention:** issue/PR/discussion history is retained as part of the **public project record**. Edits/deletions are handled through the platform’s features; historical records (e.g., git history) may persist.
+**Retention:** issue/PR/discussion history is retained as part of the **public project record**. Edits/deletions are handled via the platform’s features; historical records (e.g., git history) may persist.
 
 ## 2. Communications
 
@@ -30,7 +30,7 @@ We may use service providers (e.g., email or CI hosting) as **processors**, boun
 
 ## 4. Your Rights
 
-Where applicable, you may request **access**, **rectification**, **erasure**, **restriction**, **objection**, or **portability** at **TBD until market release**. You may also contact your local supervisory authority. We may request reasonable information to **verify your identity** before acting on a request and will respond **within timelines required by applicable law**.
+Where applicable, you may request **access**, **rectification**, **erasure**, **restriction**, **objection**, **portability**, and **withdrawal of consent** (for processing based on consent) at **TBD until market release**. You may also contact your local supervisory authority (e.g., the Dutch **Autoriteit Persoonsgegevens**, Brazil’s **ANPD**, Canada’s **OPC**, Australia’s **OAIC**). We may request reasonable information to **verify your identity** before acting on a request and will respond **within timelines required by applicable law**.
 
 ## 5. Security
 

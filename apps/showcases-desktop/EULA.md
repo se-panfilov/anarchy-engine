@@ -1,4 +1,4 @@
-# End User License Agreement (EULA) —
+# End User License Agreement (EULA) — TBD until market release
 
 **Effective date:** TBD until market release
 
@@ -10,7 +10,7 @@ _This EULA applies to copies acquired on or after the Effective date. For earlie
 
 ## Identification
 
-This EULA applies to \*\*\*\* (the “Software”).
+This EULA applies to **TBD until market release** (the “Software”).
 
 Also distributed under the following technical identifiers: `showcases-desktop`.
 
@@ -18,11 +18,11 @@ Also distributed under the following technical identifiers: `showcases-desktop`.
 
 ## Defined Terms
 
-**“Distribution Channels”** means any store, marketplace, platform, launcher, website, installer, physical media, or other mechanism used now or in the future to distribute the Software, regardless of provider.
+“**Distribution Channels**” means any store, marketplace, platform, launcher, website, installer, physical media, or other mechanism used now or in the future to distribute the Software, regardless of provider.
 
-**“Consumer”** means an individual acting wholly or mainly outside their trade, business, craft or profession.
+“**Consumer**” means an individual acting wholly or mainly outside their trade, business, craft or profession.
 
-**“Business User”** means a user who is not a Consumer.
+“**Business User**” means a user who is not a Consumer.
 
 ## Severability
 
@@ -48,6 +48,7 @@ You may:
 
 You must **not**:
 
+- create, market, distribute or use **cheats, hacks, bots, aimbots, trainers, exploits** or other tools intended to gain an unfair advantage, disrupt operation or user experience, bypass anti-cheat, or compromise the integrity or security of the Software or others’ systems;
 - develop, embed or distribute **malware** or use the Software as a vehicle for malicious code, phishing, or fraud;
 - **impersonate** us or **mislead** users by presenting your builds as “official”, using confusingly similar names, or implying sponsorship, endorsement, or partnership without our prior written permission;
 - violate applicable law or third-party rights when using, modifying, or sharing the Software.
@@ -66,15 +67,15 @@ You may create, use, and distribute mods for the Software **at your own risk**, 
 
 We **do not** provide support, tools, or compatibility commitments for mods. Updates may break mods, and we are **not liable** for any loss or damage arising from mods. We may restrict or disable mods in online/competitive modes or where required for legal, safety, anti-cheat, or compliance reasons.
 
-You retain rights in your mods. This EULA does **not** grant you any rights to our IP beyond what is necessary to interoperate with the Software. Do not include or redistribute our proprietary content unless expressly permitted.
+You retain rights in your mods. This EULA does **not** grant rights to our IP beyond what is necessary to interoperate with the Software.
 
 ## 5. Updates
 
 The Software may receive updates, patches, bug fixes, or content changes (“Updates”). Updates may be delivered through any Distribution Channels in use from time to time, including automatic updates where supported, or by including updated files in the distribution package. Some Updates may be required to continue use.
 
-Where we provide release notes or advisories, they may be delivered within the product, in the update package, or via the applicable Distribution Channel. No specific location or publication cadence is guaranteed.
+Where provided, release notes/advisories may be delivered within the product, in the update package, or via the applicable Distribution Channel. No specific location or cadence is guaranteed.
 
-We do **not** commit to any service levels, availability targets, or ongoing support unless expressly agreed in a separate written agreement.
+We do **not** commit to service levels, availability targets, or ongoing support unless expressly agreed in a separate written agreement.
 
 ## 6. Third-Party Services
 
@@ -88,43 +89,47 @@ Where UGC features exist for the Software, you remain responsible for your conte
 
 This Software is not directed to children below the age requiring parental consent under applicable law (e.g., EU 16, US 13, China 14). We do not knowingly collect personal data from such children.
 
-## 9. Term & Termination
+## 9. Accessibility
+
+Where required by applicable law (e.g., the **EU Accessibility Act**), we aim to address **accessibility feedback** for consumer-facing builds **within reasonable and proportionate limits**. Contact: **TBD until market release**. This section does **not** create service levels or guarantees.
+
+## 10. Term & Termination
 
 This EULA is effective until terminated. It terminates automatically if you materially breach it. Upon termination, cease use and uninstall the Software. Sections intended to survive (Ownership, OSS, Disclaimers, Liability, Governing Law) shall survive.
 
-## 10. Disclaimer of Warranties
+## 11. Disclaimer of Warranties
 
 The Software is provided **“AS IS”**, **to the maximum extent permitted by applicable law**, without warranties of any kind, express or implied, including **merchantability, fitness for a particular purpose, and non-infringement**. **Statutory consumer rights are not affected.**
 
-## 11. Limitation of Liability
+## 12. Limitation of Liability
 
 To the fullest extent permitted by law, Licensor shall **not** be liable for any indirect, incidental, special, exemplary, or consequential damages.
 
-**Nothing in this EULA excludes or limits liability where such exclusion or limitation is unlawful, including for death or personal injury caused by negligence, fraud, or wilful misconduct.**
+**Nothing in this EULA excludes or limits liability where such exclusion or limitation is unlawful (including for death or personal injury, fraud, or wilful misconduct).**
 
-## 11A. Liability Cap (Business Users Only)
+## 12A. Liability Cap (Business Users Only)
 
 This clause applies **only** to Business Users. To the extent permitted by applicable law, the Licensor’s aggregate liability for all claims relating to the Software shall not exceed **the total fees paid by that Business User to the Licensor for the Software in the 12 months immediately preceding the event giving rise to the claim**.
 
-Nothing in this clause applies to Consumers, nor does it limit liability where such limitation is unlawful (including for death or personal injury caused by negligence, fraud or wilful misconduct).
+This clause does not apply to Consumers and does not limit liability where such limitation is unlawful.
 
-## 12. Export Controls & Sanctions
+## 13. Export Controls & Sanctions
 
 You must comply with applicable **export, re-export, and sanctions** laws. You may not use or transfer the Software to restricted persons, entities, destinations, or for prohibited end uses.
 
-## 13. Open-Source Components (OSS Precedence)
+## 14. Open-Source Components (OSS Precedence)
 
 The Software includes **open-source software**. **To the extent of any conflict between this EULA and the license terms of an OSS component, the OSS license controls for that component.** Third-party notices and licenses are provided in the distribution package (see `NOTICE` and `THIRD_PARTY_LICENSES`).
 
-## 14. Governing Law & Consumer Rights
+## 15. Governing Law & Consumer Rights
 
 This EULA is governed by the laws of **The Netherlands** with venue in **Amsterdam**.
 
-If you are a consumer, **mandatory consumer protection laws of your country of residence remain applicable**.
+If you are a Consumer, **mandatory consumer protection laws of your country of residence remain applicable**.
 
-## 15. Changes
+## 16. Changes
 
-We may update this EULA. Material changes may be communicated **within the product or the update package** (for example, via an in-product notice, a prompt to review the EULA on update, or release notes included with the distribution), or via the applicable Distribution Channel. Continued use after the effective date constitutes acceptance.
+We may update this EULA. Material changes may be communicated **within the product or the update package** (e.g., in-product notice, prompt to review the EULA on update, or release notes included with the distribution), or via the applicable Distribution Channel. Continued use after the effective date constitutes acceptance.
 
 ## Governing Language
 
@@ -132,6 +137,6 @@ This agreement is drafted in English. Translations may be provided for convenien
 
 **Contact:** TBD until market release
 
-Trademarks. is a trademark of Sergei Aleksandrovich Panfilov.
+Trademarks. TBD until market release is a trademark of Sergei Aleksandrovich Panfilov.
 
 All other trademarks are the property of their respective owners.

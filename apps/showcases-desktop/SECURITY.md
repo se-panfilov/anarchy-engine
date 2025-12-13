@@ -1,11 +1,11 @@
-# Security Policy —
+# Security Policy — TBD until market release
 
 **Effective date:** TBD until market release
 **Security Contact:** TBD until market release
 
 ## Scope
 
-This policy applies to commercial builds of \***\* (the “Software”). It explains how to report potential security issues and how we handle them. **It does not create service levels, warranties, or contractual obligations.** Distribution and updates may occur via any **distribution channels\*\* in use from time to time (including installers, physical media, or package archives).
+This policy applies to commercial builds of **TBD until market release** (the “Software”). It explains how to report potential security issues and how we handle them. **It does not create service levels, warranties, or contractual obligations.** Distribution and updates may occur via any **distribution channels** in use from time to time (including installers, physical media, or package archives).
 
 ## Coordinated Vulnerability Disclosure (CVD)
 
@@ -27,6 +27,8 @@ We will make a **good-faith effort** to triage and prioritize reports. We **do n
 ## Regulatory Notifications
 
 Where required by law, we will **notify competent authorities and/or users within the legally mandated timelines** for actively exploited vulnerabilities or other reportable events. This may include obligations under EU law when applicable. No additional contractual commitments are created by this section.
+
+**US CIRCIA.** If we are a **covered entity** under the U.S. Cyber Incident Reporting for Critical Infrastructure Act, we will submit reports to **CISA** within the timelines mandated by law for covered cyber incidents or ransom payments.
 
 ## Security Updates & Delivery
 
