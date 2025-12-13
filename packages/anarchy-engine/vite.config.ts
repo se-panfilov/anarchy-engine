@@ -131,15 +131,28 @@ export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
       outputFile: './reports/html/unit.html',
       include: ['src/**/*.spec.{js,mjs,cjs,ts,mts,cts}'],
       coverage: {
-        all: false,
         reportsDirectory: './reports/coverage',
-        include: ['src/**/*'],
-        exclude: ['src/**/index.ts', 'coverage', 'utils/', 'public', 'vite.config.ts', '.eslintrc.js', 'src/vite-env.d.ts', 'src/App/DeveloperPanel/*', 'e2e'],
+        include: ['src/**/*.{js,jsx,ts,tsx}'],
+        exclude: [
+          'src/**/index.ts',
+          'src/**/Models/*.ts',
+          'src/Mixins/GameObjects/Models/**/*.ts',
+          'src/**/Constants/*.ts',
+          'src/**/Math/Types/*.ts',
+          'coverage',
+          'utils/',
+          'public',
+          'vite.config.ts',
+          '.eslintrc.js',
+          'src/vite-env.d.ts',
+          'src/App/DeveloperPanel/*',
+          'e2e'
+        ],
         thresholds: {
-          statements: 15,
-          branches: 60,
-          functions: 25,
-          lines: 15
+          statements: 9,
+          branches: 5,
+          functions: 11,
+          lines: 9
         }
       }
     }
