@@ -1258,17 +1258,17 @@
         "texture": {
           "type": "string"
         },
+        "isActive": {
+          "type": "boolean"
+        },
+        "name": {
+          "type": "string"
+        },
         "tags": {
           "type": "array",
           "items": {
             "type": "string"
           }
-        },
-        "name": {
-          "type": "string"
-        },
-        "isActive": {
-          "type": "boolean"
         }
       },
       "required": ["isActive", "texture"]

@@ -1,6 +1,6 @@
-import type { TEnvMapProps } from './TEnvMapProps';
+import type { TEnvMapParams } from './TEnvMapParams';
 
-export type TEnvMapConfig = TEnvMapProps &
+export type TEnvMapConfig = Omit<TEnvMapParams, 'texture'> &
   Readonly<{
     texture: string;
   }>;

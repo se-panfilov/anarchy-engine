@@ -1,7 +1,10 @@
-import type { TEnvMapProps } from './TEnvMapProps';
+import type { TActive, TWithName, TWithReadonlyTags } from '@/Engine/Mixins';
+
 import type { TEnvMapTexture } from './TEnvMapTexture';
 
-export type TEnvMapParams = TEnvMapProps &
-  Readonly<{
-    texture: TEnvMapTexture;
-  }>;
+export type TEnvMapParams = Readonly<{
+  texture: TEnvMapTexture;
+}> &
+  TActive &
+  TWithName &
+  TWithReadonlyTags;
