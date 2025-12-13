@@ -8,11 +8,12 @@ import { createPrimitiveModel3d, isPrimitiveModel3dSource } from '@/Engine/Model
 export function createModels3dEntities(params: TModel3dParams, animationsService: TAnimationsService): TModel3dEntities {
   let model3dSource: Object3D;
   let animationsSource: ReadonlyArray<AnimationClip> = [];
+
   if (isPrimitiveModel3dSource(params.model3dSource)) {
     model3dSource = createPrimitiveModel3d(params);
   } else {
     animationsSource = params.model3dSource.animations;
-    model3dSource = SkeletonUtils.clone(params.model3dSource.scene);
+    model3dSource = params.shouldCloneModel ? SkeletonUtils.clone(params.model3dSource.scene) : params.model3dSource.scene;
   }
   const { actions, mixer } = animationsService.createActions(model3dSource, animationsSource);
 

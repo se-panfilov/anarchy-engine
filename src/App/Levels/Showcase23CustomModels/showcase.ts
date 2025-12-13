@@ -33,7 +33,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
       sceneW.addModel3d(model3dF.getModel());
     });
 
-    // Adding to the scene models3d from config
+    // Adding to the scene loaded-from-config models3d
     const glbModelF: TModel3dFacade | undefined = models3dRegistry.findByName(nameGlb);
     if (isNotDefined(glbModelF)) throw new Error(`Model "${nameGlb}" model is not defined`);
     sceneW.addModel3d(glbModelF.getModel());

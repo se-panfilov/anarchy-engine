@@ -5,7 +5,7 @@ import type { TOptional } from '@/Engine/Utils';
 import type { TModel3dProps } from './TModel3dProps';
 
 export type TModel3dConfig = Readonly<{
-  model3dSource: PrimitiveModel3dType | string;
+  model3dSource: string | PrimitiveModel3dType;
   // TODO 9.0.0. RESOURCES: implement animations loading in resources (shall animations be loaded separately from models?)
   // animationsSource: ReadonlyArray<string>;
   materialSource?: string;

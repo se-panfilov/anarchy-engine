@@ -4,21 +4,16 @@ import { withModel3dFacadeEntities } from '@/Engine/Models3d/Mixins';
 import type { TModel3dEntities, TModel3dFacade, TModel3dFacadeDependencies, TModel3dParams } from '@/Engine/Models3d/Models';
 import { applyCastShadowToModel3d, applyPositionToModel3d, applyReceiveShadowToModel3d, applyRotationToModel3d, applyScaleToModel3d, createModels3dEntities } from '@/Engine/Models3d/Utils';
 import type { TOptional } from '@/Engine/Utils';
-import { isDefined, omitInObjectWithoutMutation } from '@/Engine/Utils';
+import { isDefined } from '@/Engine/Utils';
 
 export function Model3dFacade(params: TModel3dParams, { animationsService }: TModel3dFacadeDependencies): TModel3dFacade {
   const entities: TModel3dEntities = createModels3dEntities(params, animationsService);
   const facade = AbstractFacade(withModel3dFacadeEntities(entities), FacadeType.Model3d, params);
 
-  // TODO 8.0.0. MODELS: Maybe remove duplication: extract getParams to utils
-  const getParams = (): TModel3dParams => omitInObjectWithoutMutation({ ...entities, clonedFrom: facade.id }, ['actions', 'mixer']);
+  const getParams = (): TModel3dParams => ({ ...params });
 
-  // TODO 8.0.0. MODELS: Maybe remove duplication: extract _clone to utils
-  // Be aware that this clone method doesn't save the facade to the registry, use clone() method of the service instead
-  function _clone(overrides: TOptional<TModel3dParams> = {}): TModel3dFacade {
-    const _overrides = omitInObjectWithoutMutation(overrides, ['clonedFrom']);
-    return Model3dFacade({ ...getParams(), clonedFrom: facade.id, ..._overrides }, { animationsService });
-  }
+  // IMPORTANT!!!: This clone() doesn't save the facade to the registry. Consider using of clone() the models3d service instead.
+  const _clone = (overrides: TOptional<TModel3dParams> = {}): TModel3dFacade => Model3dFacade({ ...getParams(), shouldCloneModel: true, ...overrides }, { animationsService });
 
   // TODO 8.0.0. MODELS: apply all the params from object3d (can we do it in a more generic way?)
   // TODO 8.0.0. MODELS: Remove duplication: extract applying of params to utils

@@ -7,5 +7,4 @@ export type TWithModel3dFacadeEntities = Readonly<{
   getAnimations: () => ReadonlyArray<AnimationClip>;
   getMixer: () => AnimationMixer;
   getActions: () => TAnimationActions;
-  getClonedFrom: () => string | undefined;
 }>;
