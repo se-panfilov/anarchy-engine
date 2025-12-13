@@ -10,6 +10,7 @@ export function KeyPressWatcher({ container, tags }: TKeyWatcherParams): TKeyWat
   const abstractWatcher: TAbstractWatcher<KeyboardEvent> = AbstractWatcher(WatcherType.KeyPressWatcher, 'key_press_watcher', tags);
 
   function onChange(event: KeyboardEvent): void {
+    if (event.repeat) return;
     if (isTextInputTarget(event.target)) return;
     abstractWatcher.value$.next(event);
   }
