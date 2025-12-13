@@ -27,7 +27,8 @@ export const routerConfig: Record<string, string> = {
   audio: 'Showcase24Audio',
   splitscreen: 'Showcase25SplitScreen',
   multipleScenes: 'Showcase26MultipleScenes',
-  saveLoad: 'Showcase27SaveLoad'
+  saveLoad: 'Showcase27SaveLoad',
+  menu: 'Showcase28Menu'
 };
 
 export async function route(settings: TAppSettings): Promise<void> {
