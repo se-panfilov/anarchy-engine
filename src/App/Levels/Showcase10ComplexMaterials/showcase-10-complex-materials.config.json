@@ -660,7 +660,7 @@
   "controls": [
     {
       "type": "OrbitControls",
-      "relatedCameraName": "main",
+      "cameraName": "main",
       "enableDamping": true,
       "autoRotate": false,
       "tags": ["orbit"],

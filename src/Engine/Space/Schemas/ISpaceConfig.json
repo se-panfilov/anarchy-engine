@@ -4419,7 +4419,7 @@
         "type": {
           "$ref": "#/definitions/ControlsType"
         },
-        "relatedCameraName": {
+        "cameraName": {
           "type": "string"
         },
         "target": {
@@ -4531,7 +4531,7 @@
           "type": "boolean"
         }
       },
-      "required": ["isActive", "relatedCameraName", "tags", "type"]
+      "required": ["isActive", "cameraName", "tags", "type"]
     },
     "ControlsTag": {
       "type": "string",

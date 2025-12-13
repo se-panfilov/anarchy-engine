@@ -280,7 +280,7 @@
   "controls": [
     {
       "type": "OrbitControls",
-      "relatedCameraName": "main",
+      "cameraName": "main",
       "enableDamping": true,
       "tags": [],
       "isActive": true

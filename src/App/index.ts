@@ -1,8 +1,8 @@
 import '@/App/style.css';
 
-// import { showcase } from '@/App/Levels/Showcase1MovingActors';
+import { showcase } from '@/App/Levels/Showcase1MovingActors';
 // import { showcase } from '@/App/Levels/Showcase2TopDown';
-import { showcase } from '@/App/Levels/Showcase3CameraFlying';
+// import { showcase } from '@/App/Levels/Showcase3CameraFlying';
 // import { showcase } from '@/App/Levels/Showcase4AnimejsSimple';
 // import { showcase } from '@/App/Levels/Showcase5AnimejsComplex';
 // import { showcase } from '@/App/Levels/Showcase6Fullscreen';
