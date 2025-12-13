@@ -1,4 +1,4 @@
-import { distinctUntilChanged, map, tap } from 'rxjs';
+import { distinctUntilChanged, identity, map, tap } from 'rxjs';
 import type { Vector2Like } from 'three';
 
 import type { TAbstractWatcherWithState } from '@/Engine/Abstract';
@@ -23,11 +23,13 @@ export function MousePositionWatcher({ container, tags, performance }: TMousePos
   };
 
   const threshold: number = performance?.noiseThreshold ?? 0.001;
+  // shouldUseDistinct might improve performance, however won't fire an event if the mouse is not moving (and actor or scene is moving)
+  const shouldUseDistinct: boolean = performance?.shouldUseDistinct ?? false;
 
   // TODO 10.0.0. LOOPS: Mouse should have an own loop independent from frame rate (driven by time)
   loopService.tick$
     .pipe(
-      distinctUntilChanged((): boolean => isEqualOrSimilarByXyCoords(prevPosition[0], prevPosition[1], position[0], position[1], threshold)),
+      shouldUseDistinct ? distinctUntilChanged((): boolean => isEqualOrSimilarByXyCoords(prevPosition[0], prevPosition[1], position[0], position[1], threshold)) : identity,
       tap((): void => {
         // eslint-disable-next-line functional/immutable-data
         prevPosition[0] = position[0]; //x
@@ -36,8 +38,6 @@ export function MousePositionWatcher({ container, tags, performance }: TMousePos
       })
     )
     .subscribe((): void => {
-      // TODO 8.0.0. MODELS: check if this works while mouse not moving, but the scene is moving
-      // console.log('XXX 111', position);
       abstractWatcher.value$.next({ x: position[0], y: position[1] });
     });
 

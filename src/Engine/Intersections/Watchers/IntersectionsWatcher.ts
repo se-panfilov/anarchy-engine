@@ -1,5 +1,5 @@
 import type { Subscription } from 'rxjs';
-import { distinctUntilChanged, tap } from 'rxjs';
+import { distinctUntilChanged, identity, tap } from 'rxjs';
 import type { Vector2Like } from 'three';
 import { Raycaster, Vector2 } from 'three';
 
@@ -31,14 +31,17 @@ export function IntersectionsWatcher({ position$, isAutoStart, tags, name, perfo
   const getCamera = (): TCameraWrapper | undefined => camera;
 
   let mousePos$: Subscription | undefined;
+
   const threshold: number = performance?.noiseThreshold ?? 0.001;
+  // shouldUseDistinct might improve performance, however won't fire an event if the mouse is not moving (and actor or scene is moving)
+  const shouldUseDistinct: boolean = performance?.shouldUseDistinct ?? false;
 
   function start(): TIntersectionsWatcher {
     const prevValue: Float32Array = new Float32Array([0, 0]);
     // TODO 10.0.0. LOOPS: Intersections could have an own loop independent from frame rate (driven by time)
     mousePos$ = position$
       .pipe(
-        distinctUntilChanged((_prev: Vector2Like, curr: Vector2Like): boolean => isEqualOrSimilarByXyCoords(prevValue[0], prevValue[1], curr.x, curr.y, threshold)),
+        shouldUseDistinct ? distinctUntilChanged((_prev: Vector2Like, curr: Vector2Like): boolean => isEqualOrSimilarByXyCoords(prevValue[0], prevValue[1], curr.x, curr.y, threshold)) : identity,
         tap((value: Vector2Like): void => {
           // eslint-disable-next-line functional/immutable-data
           prevValue[0] = value.x;
@@ -53,8 +56,7 @@ export function IntersectionsWatcher({ position$, isAutoStart, tags, name, perfo
           camera,
           actors.map((a: TActor): TRawModel3d => a.model3d.getRawModel3d())
         );
-        // TODO 8.0.0. MODELS: check if this works while mouse not moving, but the scene is moving
-        // console.log('XXX 111', position);
+
         if (isDefined(intersection)) abstractWatcher.value$.next(intersection);
       });
     // eslint-disable-next-line functional/immutable-data
