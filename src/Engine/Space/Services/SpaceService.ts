@@ -6,8 +6,8 @@ import { destroyableMixin } from '@/Engine/Mixins';
 import { RendererModes } from '@/Engine/Renderer';
 import { screenService } from '@/Engine/Services';
 import { withBuiltMixin } from '@/Engine/Space/Mixins';
-import type { TSpace, TSpaceConfig, TSpaceHooks, TSpaceLoops, TSpaceService, TWithBuilt } from '@/Engine/Space/Models';
-import { createEntities, loadResources, prepareServices } from '@/Engine/Space/Utils';
+import type { TSpace, TSpaceBaseServices, TSpaceConfig, TSpaceHooks, TSpaceLoops, TSpaceService, TWithBuilt } from '@/Engine/Space/Models';
+import { buildBaseServices, createEntities, loadResources, prepareServices } from '@/Engine/Space/Utils';
 import { createLoops } from '@/Engine/Space/Utils/CreateLoopsUtils';
 import { validateConfig } from '@/Engine/Space/Validators';
 import { isDestroyable } from '@/Engine/Utils';
@@ -20,16 +20,17 @@ export function SpaceService(): TSpaceService {
     validateConfig(config);
     screenService.setCanvas(canvas);
     hooks?.beforeServicesPrepared?.(canvas, config);
-    const { services } = await prepareServices(config.name, canvas, config.scenes);
-    hooks?.beforeLoopsCreated?.(config, services);
-    const loops: TSpaceLoops = createLoops(services);
+    const baseServices: TSpaceBaseServices = buildBaseServices();
+    hooks?.beforeLoopsCreated?.(config);
+    const loops: TSpaceLoops = createLoops(baseServices.loopService);
+    const { services } = await prepareServices(config.name, canvas, config.scenes, loops, baseServices);
 
-    hooks?.beforeResourcesLoaded?.(config, services);
+    hooks?.beforeResourcesLoaded?.(config, services, loops);
     await loadResources(config.resources, services);
     services.rendererService.create({ canvas, mode: RendererModes.WebGL2, isActive: true });
-    hooks?.beforeEntitiesCreated?.(config, services);
+    hooks?.beforeEntitiesCreated?.(config, services, loops);
     createEntities(config.entities, services, loops);
-    hooks?.afterEntitiesCreated?.(config, services);
+    hooks?.afterEntitiesCreated?.(config, services, loops);
 
     const destroyable: TDestroyable = destroyableMixin();
     const builtMixin: TWithBuilt = withBuiltMixin();

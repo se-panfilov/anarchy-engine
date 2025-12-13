@@ -17,7 +17,7 @@ import { FsmService } from '@/Engine/Fsm/Services/FsmService';
 import { IntersectionsWatcherFactory, IntersectionsWatcherRegistry, IntersectionsWatcherService } from '@/Engine/Intersections';
 import { LightFactory, LightRegistry, LightService } from '@/Engine/Light';
 import type { TLoopService } from '@/Engine/Loop';
-import { LoopService } from '@/Engine/Loop';
+import { LoopFactory, LoopRegistry, LoopService } from '@/Engine/Loop';
 import type { TMaterialService } from '@/Engine/Material';
 import { MaterialFactory, MaterialRegistry, MaterialService } from '@/Engine/Material';
 import type { TModel3dRawToModel3dConnectionRegistry, TModels3dService } from '@/Engine/Models3d';
@@ -27,9 +27,9 @@ import { ParticlesFactory, ParticlesRegistry, ParticlesService } from '@/Engine/
 import type { TPhysicsBodyService, TPhysicsPresetsService, TPhysicsWorldService } from '@/Engine/Physics';
 import { PhysicsBodyFactory, PhysicsBodyRegistry, PhysicsBodyService, PhysicsPresetRegistry, PhysicsPresetsService, PhysicsWorldService } from '@/Engine/Physics';
 import { RendererFactory, RendererRegistry, RendererService } from '@/Engine/Renderer';
-import type { TSceneConfig, TSceneFactory, TSceneRegistry, TScenesService, TSceneWrapper } from '@/Engine/Scene';
+import type { TSceneConfig, TScenesService, TSceneWrapper } from '@/Engine/Scene';
 import { SceneFactory, SceneRegistry, ScenesService } from '@/Engine/Scene';
-import type { TSpaceServices } from '@/Engine/Space/Models';
+import type { TSpaceBaseServices, TSpaceLoops, TSpaceServices } from '@/Engine/Space/Models';
 import type { TSpatialGridService } from '@/Engine/Spatial';
 import { SpatialGridFactory, SpatialGridRegistry, SpatialGridService } from '@/Engine/Spatial';
 import { Text2dRegistry, Text2dRendererRegistry, Text3dRegistry, Text3dRendererRegistry, Text3dTextureRegistry, TextFactory, TextService } from '@/Engine/Text';
@@ -41,7 +41,7 @@ import { isNotDefined } from '@/Engine/Utils';
 export async function prepareServices(spaceName: string, canvas: TAppCanvas, scenes: ReadonlyArray<TSceneConfig>): Promise<Readonly<{ services: TSpaceServices; activeSceneW: TSceneWrapper }>> {
   let activeSceneW: TSceneWrapper;
   const p = new Promise<{ services: TSpaceServices; activeSceneW: TSceneWrapper }>((resolve) => {
-    const services: TSpaceServices = initServices(canvas, (scenesService: TScenesService): TSceneWrapper | never => {
+    const services: TSpaceServices = buildEntitiesServices(canvas, (scenesService: TScenesService): TSceneWrapper | never => {
       scenesService.createFromConfig(scenes);
       const sceneW: TSceneWrapper | undefined = scenesService.findActive();
       if (isNotDefined(sceneW)) throw new Error(`Cannot find an active scene for space "${spaceName}" during space's services initialization.`);
@@ -59,22 +59,20 @@ export async function prepareServices(spaceName: string, canvas: TAppCanvas, sce
   return p;
 }
 
-export function initSceneService(): TScenesService {
-  const sceneFactory: TSceneFactory = SceneFactory();
-  const sceneRegistry: TSceneRegistry = SceneRegistry();
-
-  return ScenesService(sceneFactory, sceneRegistry);
+export function buildBaseServices(): TSpaceBaseServices {
+  const scenesService: TScenesService = ScenesService(SceneFactory(), SceneRegistry());
+  const loopService: TLoopService = LoopService(LoopFactory(), LoopRegistry());
+  return { loopService, scenesService };
 }
 
-export function initEntitiesServices(sceneW: TSceneWrapper, canvas: TAppCanvas): Omit<TSpaceServices, 'scenesService'> {
+export function buildEntitiesServices(sceneW: TSceneWrapper, canvas: TAppCanvas, loops: TSpaceLoops, { loopService, scenesService }: TSpaceBaseServices): TSpaceServices {
   const textureService: TTextureService = TextureService(TextureAsyncRegistry());
   const materialService: TMaterialService = MaterialService(MaterialFactory(), MaterialRegistry(), { textureService });
   const physicsPresetService: TPhysicsPresetsService = PhysicsPresetsService(PhysicsPresetRegistry());
-  const physicsWorldService: TPhysicsWorldService = PhysicsWorldService(sceneW);
+  const physicsWorldService: TPhysicsWorldService = PhysicsWorldService(sceneW, { physicalLoop: loops.physicalLoop });
   const physicsBodyService: TPhysicsBodyService = PhysicsBodyService(PhysicsBodyFactory(), PhysicsBodyRegistry(), physicsPresetService, physicsWorldService);
   const spatialGridService: TSpatialGridService = SpatialGridService(SpatialGridFactory(), SpatialGridRegistry());
   const collisionsService: TCollisionsService = CollisionsService();
-  const loopService: TLoopService = LoopService();
   const animationsService: TAnimationsService = AnimationsService(loopService, AnimationsResourceAsyncRegistry());
   const model3dToActorConnectionRegistry: TModel3dToActorConnectionRegistry = Model3dToActorConnectionRegistry();
   const model3dRawToModel3dConnectionRegistry: TModel3dRawToModel3dConnectionRegistry = Model3dRawToModel3dConnectionRegistry();
@@ -103,6 +101,7 @@ export function initEntitiesServices(sceneW: TSceneWrapper, canvas: TAppCanvas):
     cameraService: CameraService(CameraFactory(), CameraRegistry(), sceneW),
     controlsService: ControlService(ControlsFactory(), ControlsRegistry(), canvas),
     collisionsService,
+    scenesService,
     envMapService: EnvMapService(EnvMapFactory(), EnvMapRegistry(), EnvMapTextureAsyncRegistry(), sceneW),
     fogService: FogService(FogFactory(), FogRegistry(), sceneW),
     fsmService,
@@ -130,17 +129,5 @@ export function initEntitiesServices(sceneW: TSceneWrapper, canvas: TAppCanvas):
       sceneW
     ),
     textureService
-  };
-}
-
-export function initServices(canvas: TAppCanvas, buildScenesFn: (scenesService: TScenesService) => TSceneWrapper): TSpaceServices | never {
-  const scenesService: TScenesService = initSceneService();
-  const sceneW: TSceneWrapper = buildScenesFn(scenesService);
-
-  if (isNotDefined(sceneW)) throw new Error(`Cannot find the active scene for space during the services initialization.`);
-
-  return {
-    scenesService,
-    ...initEntitiesServices(sceneW, canvas)
   };
 }
