@@ -3,7 +3,7 @@ import { nanoid } from 'nanoid';
 import type { Watcher } from '@Engine/Models';
 
 export function AbstractWatcher<T>(type: string, start: () => void, stop: () => void): Watcher<T> {
-  const id: string = type + '_' + nanoid();
+  const id: string = type + '_watcher_' + nanoid();
   const value$: Subject<T> = new Subject<T>();
   const start$: Subject<void> = new Subject<void>();
   const stop$: Subject<void> = new Subject<void>();
@@ -27,7 +27,7 @@ export function AbstractWatcher<T>(type: string, start: () => void, stop: () => 
       return id;
     },
     get type(): string {
-      return type;
+      return type + 'watcher';
     },
     get value$(): Subject<T> {
       return value$;

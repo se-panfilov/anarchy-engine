@@ -11,7 +11,7 @@ export function AbstractRegistry<T extends ReactiveWrapper<unknown>>(): Registry
   const remove$: Subject<string> = new Subject<string>();
   const destroyed$: Subject<void> = new Subject<void>();
 
-  let registry: Map<string, T> = new Map();
+  const registry: Map<string, T> = new Map();
 
   add$.subscribe((entity: T): void | never => {
     if (registry.has(entity.id))
@@ -42,7 +42,6 @@ export function AbstractRegistry<T extends ReactiveWrapper<unknown>>(): Registry
     remove$.complete();
     destroyed$.complete();
     registry.clear();
-    registry = undefined as any;
   });
 
   return {

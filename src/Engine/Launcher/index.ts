@@ -111,6 +111,7 @@ export async function launch(sceneConfig: SceneConfig): Promise<void> {
   // start loop (renderer, scene, camera)/////////////////////
 
   // TODO (S.Panfilov) any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   loopFactory.create$.next({} as any);
   ////////////////////////////////////
 
