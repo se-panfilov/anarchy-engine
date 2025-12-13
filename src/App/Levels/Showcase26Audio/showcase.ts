@@ -2,8 +2,8 @@ import GUI from 'lil-gui';
 import type { AnimationAction, AudioListener } from 'three';
 
 import type { TShowcase } from '@/App/Levels/Models';
-import type { TActor, TAnyAudioWrapper, TAppCanvas, TCameraWrapper, TEngine, TModel3d, TSpace, TSpaceConfig, TSpaceServices } from '@/Engine';
-import { Engine, isNotDefined, spaceService } from '@/Engine';
+import type { TActor, TAnyAudioWrapper, TAppCanvas, TAudio3dWrapper, TCameraWrapper, TDebugAudioRenderer, TEngine, TModel3d, TSceneWrapper, TSpace, TSpaceConfig, TSpaceServices } from '@/Engine';
+import { DebugAudioRenderer, Engine, isNotDefined, spaceService } from '@/Engine';
 
 import spaceConfig from './showcase.json';
 
@@ -12,7 +12,8 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
   const engine: TEngine = Engine(space);
   const gui: GUI = new GUI();
 
-  const { audioService, cameraService } = space.services;
+  const { scenesService, audioService, cameraService } = space.services;
+  const { audioLoop } = space.loops;
   const mainListener: AudioListener | undefined = audioService.getMainListener();
 
   const camera: TCameraWrapper | undefined = cameraService.findActive();
@@ -23,9 +24,15 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
   camera.entity.add(mainListener);
 
   function init(): void {
+    const scene: TSceneWrapper | undefined = scenesService.findActive();
+    if (isNotDefined(scene)) throw new Error('Showcase: No active scene is not found');
+
     initMutant('mutant_actor_1', space.services);
     initMusicWithControls('bg_music', 'Background music', gui, space.services);
-    initMusicWithControls('monster_singing', 'Positional music', gui, space.services);
+    const singing: TAudio3dWrapper = initMusicWithControls('monster_singing', 'Positional music', gui, space.services) as TAudio3dWrapper;
+    const debugAudioRenderer: TDebugAudioRenderer = DebugAudioRenderer(singing, scene, audioLoop);
+
+    // debugAudioRenderer.enabled$.next(!debugAudioRenderer.enabled$.value);
   }
 
   function start(): void {
@@ -48,27 +55,27 @@ function initMutant(actorName: string, { animationsService, actorService }: TSpa
   danceAction.reset().fadeIn(fadeDuration).play();
 }
 
-function initMusicWithControls(name: string, folderName: string, gui: GUI, { audioService }: TSpaceServices): void {
+function initMusicWithControls(name: string, folderName: string, gui: GUI, { audioService }: TSpaceServices): TAnyAudioWrapper {
   const folder: GUI = gui.addFolder(folderName);
-  const bgMusic: TAnyAudioWrapper | undefined = audioService.getRegistry().findByName(name);
-  if (isNotDefined(bgMusic)) throw new Error('Background music is not found');
+  const audioW: TAnyAudioWrapper | undefined = audioService.getRegistry().findByName(name);
+  if (isNotDefined(audioW)) throw new Error('Background music is not found');
 
   const state = {
-    playMusic: (): void => bgMusic.play$.next(true),
-    pauseMusic: (): void => bgMusic.pause$.next(true),
-    resumeMusic: (): void => bgMusic.pause$.next(false),
-    stopMusic: (): void => bgMusic.play$.next(false),
+    playMusic: (): void => audioW.play$.next(true),
+    pauseMusic: (): void => audioW.pause$.next(true),
+    resumeMusic: (): void => audioW.pause$.next(false),
+    stopMusic: (): void => audioW.play$.next(false),
     seekPlus: (): void => {
-      const currentTime: number = bgMusic.seek$.getValue();
-      bgMusic.seek$.next(currentTime + 10);
+      const currentTime: number = audioW.seek$.getValue();
+      audioW.seek$.next(currentTime + 10);
     },
     seekMinus: (): void => {
-      const currentTime: number = bgMusic.seek$.getValue();
-      bgMusic.seek$.next(currentTime - 10);
+      const currentTime: number = audioW.seek$.getValue();
+      audioW.seek$.next(currentTime - 10);
     },
     loop: (): void => {
-      const currentLoop: boolean = bgMusic.loop$.getValue();
-      bgMusic.loop$.next(!currentLoop);
+      const currentLoop: boolean = audioW.loop$.getValue();
+      audioW.loop$.next(!currentLoop);
     },
     volume: 1,
     progress: 0
@@ -85,6 +92,8 @@ function initMusicWithControls(name: string, folderName: string, gui: GUI, { aud
     .add(state, 'volume', 0, 1)
     .name('Volume')
     .onChange((value: number): void => {
-      bgMusic.volume$.next(value);
+      audioW.volume$.next(value);
     });
+
+  return audioW;
 }
