@@ -52,7 +52,8 @@
     "three-mesh-bvh": "0.9.1",
     "three-viewport-gizmo": "2.2.0",
     "ts-key-enum": "3.0.13",
-    "typescript-fsm": "1.6.0"
+    "typescript-fsm": "1.6.0",
+    "valibot": "1.1.0"
   },
   "devDependencies": {
     "@dimforge/rapier3d-compat": "0.17.3",

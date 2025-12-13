@@ -17,9 +17,7 @@
     "ts:check": "tsc --noEmit",
     "ts:check:watch": "tsc --watch --noEmit"
   },
-  "dependencies": {
-    "valibot": "1.1.0"
-  },
+  "dependencies": {},
   "devDependencies": {
     "fast-glob": "3.3.3",
     "sharp": "0.34.2",

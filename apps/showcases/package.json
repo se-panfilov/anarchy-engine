@@ -24,7 +24,8 @@
   },
   "dependencies": {
     "anarchy_engine": "*",
-    "stats.js": "0.17.0"
+    "stats.js": "0.17.0",
+    "valibot": "1.1.0"
   },
   "devDependencies": {}
 }
