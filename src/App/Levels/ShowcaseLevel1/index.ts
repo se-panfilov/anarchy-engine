@@ -1,13 +1,13 @@
 import type { IShowcase } from '@/App/Levels/Models';
-import type { IActorWrapper, IAppCanvas, IIntersectionsWatcher, ILevel, ILevelConfig, ILoopWrapper, IVector3 } from '@/Engine';
-import { ActorTag, ambientContext, buildLevelFromConfig, CommonTag, isNotDefined, LoopTag } from '@/Engine';
+import type { IActorWrapper, IAppCanvas, IIntersectionsWatcher, ILevel, ILevelConfig, IVector3 } from '@/Engine';
+import { ActorTag, ambientContext, buildLevelFromConfig, CommonTag, isNotDefined } from '@/Engine';
 
 import levelConfig from './showcase-level-1.config.json';
 
 //Showcase 3: Moving actor with intersections & reading data from config
 export function showcaseLevel(canvas: IAppCanvas): IShowcase {
   const level: ILevel = buildLevelFromConfig(canvas, levelConfig as ILevelConfig);
-  const { intersectionsWatcherRegistry, actorRegistry, loopRegistry } = level.entities;
+  const { intersectionsWatcherRegistry, actorRegistry } = level.entities;
 
   function start(): void {
     level.start();
