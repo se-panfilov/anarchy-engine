@@ -9,7 +9,7 @@ export function AbstractFactory<T, P>(type: FactoryType | string): Omit<IFactory
     get id(): string {
       return id;
     },
-    get type(): string {
+    get type(): FactoryType | string {
       return type;
     }
   };

@@ -76,7 +76,7 @@ export function AbstractRegistry<T extends IRegistrable | IMultitonRegistrable>(
     get id(): string {
       return id;
     },
-    get type(): RegistryType {
+    get type(): RegistryType | string {
       return type;
     },
     get added$(): Observable<T> {

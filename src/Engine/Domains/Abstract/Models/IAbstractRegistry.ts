@@ -5,7 +5,7 @@ import type { RegistryType } from '@/Engine/Registries';
 
 export type IAbstractRegistry<T extends IRegistrable> = Readonly<{
   id: string;
-  type: RegistryType;
+  type: RegistryType | string;
   add: (entity: T) => void;
   added$: Observable<T>;
   replace: (entity: T) => void;

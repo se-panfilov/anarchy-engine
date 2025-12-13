@@ -6,7 +6,7 @@ import type { WatcherType } from '@/Engine/Domains/Abstract/Constants';
 import type { IAbstractWatcher } from '../Models';
 
 export function AbstractWatcher<T>(type: WatcherType | string, tags: ReadonlyArray<string> = []): IAbstractWatcher<T> {
-  const id: string = type + '_watcher_' + nanoid();
+  const id: string = type + '_' + nanoid();
   const value$: Subject<T> = new Subject<T>();
   const destroy$: Subject<void> = new Subject<void>();
 
@@ -20,8 +20,8 @@ export function AbstractWatcher<T>(type: WatcherType | string, tags: ReadonlyArr
     get id(): string {
       return id;
     },
-    get type(): string {
-      return type + '_watcher';
+    get type(): WatcherType | string {
+      return type;
     },
     get value$(): Subject<T> {
       return value$;
