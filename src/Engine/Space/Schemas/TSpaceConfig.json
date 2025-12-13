@@ -28,7 +28,7 @@
       "$ref": "#/definitions/TSpaceConfigResources"
     }
   },
-  "required": ["entities", "name", "resources", "scenes", "version"],
+  "required": ["entities", "resources", "scenes", "version"],
   "definitions": {
     "SpaceSchemaVersion": {
       "type": "string",
@@ -1053,7 +1053,7 @@
     },
     "TransformAgent": {
       "type": "string",
-      "enum": ["kinematic", "physical", "connected", "default"]
+      "enum": ["default", "kinematic", "physical", "connected"]
     },
     "TCameraConfig": {
       "type": "object",
