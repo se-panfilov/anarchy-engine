@@ -4,6 +4,10 @@
     "module": "CommonJS",
     "moduleResolution": "node",
     "paths": {
+      "@Shared/*": ["packages/shared/src/*"],
+      "@Shared": ["packages/shared/src/index.ts"],
+      "showcases_shared/*": ["packages/showcases-shared/src/*"],
+      "showcases_shared": ["packages/showcases-shared/src/index.ts"],
       "@Desktop/*": ["./src/*"]
     }
   },

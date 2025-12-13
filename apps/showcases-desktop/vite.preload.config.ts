@@ -2,6 +2,7 @@ import path, { resolve } from 'path';
 import { defineConfig } from 'vite';
 import tsconfigPaths from 'vite-tsconfig-paths';
 import { version } from './package.json';
+import { sharedAliases } from '../../vite.alias';
 
 const tsconfigPath: string = resolve(__dirname, 'tsconfig.preload.json');
 
@@ -16,7 +17,9 @@ export default defineConfig({
   plugins: [tsconfigPaths({ projects: [tsconfigPath] })],
   resolve: {
     alias: {
-      '@Desktop': path.resolve(__dirname, './src')
+      ...sharedAliases,
+      '@Desktop': path.resolve(__dirname, './src'),
+      showcases_shared: path.resolve(__dirname, '../../packages/showcases-shared/src')
     }
   },
   build: {

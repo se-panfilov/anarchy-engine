@@ -1,17 +1,20 @@
 import { contextBridge, ipcRenderer } from 'electron';
-import { PlatformActions, platformApiChannel, platformApiName } from './src/Constants';
-import type { TShowcaseGameSettings } from 'showcases_shared';
+import { TShowcaseGameSettings, TShowcasesDesktopApi } from 'showcases_shared';
+import { platformApiChannel, platformApiName } from '@ShowcasesShared/Constants/PlatformMessages';
+import { PlatformActions } from './src/Constants';
 
 const { SaveAppSettings, LoadAppSettings } = PlatformActions;
 
 declare const __DESKTOP_APP_VERSION__: string;
 
-//platformApiName will be available in the main world as `window.platformApi`
-contextBridge.exposeInMainWorld(platformApiName, {
+const mapping: TShowcasesDesktopApi = {
   saveAppSettings: (settings: TShowcaseGameSettings): Promise<void> => ipcRenderer.invoke(platformApiChannel, SaveAppSettings, settings),
   loadAppSettings: (): Promise<TShowcaseGameSettings> => ipcRenderer.invoke(platformApiChannel, LoadAppSettings),
   node: (): string => process.versions.node,
   chrome: (): string => process.versions.chrome,
   electron: (): string => process.versions.electron,
   desktopAppVersion: async (): Promise<string> => __DESKTOP_APP_VERSION__
-});
+};
+
+//platformApiName will be available in the main app as `window[platformApiName]`
+contextBridge.exposeInMainWorld(platformApiName, mapping);
