@@ -5,14 +5,14 @@ import { Object3D, Quaternion, Vector3 } from 'three';
 
 import { metersPerSecond } from '@/Engine/Distance';
 import { ForwardAxis } from '@/Engine/Kinematic/Constants';
-import type { TKinematicData, TKinematicWritableData } from '@/Engine/Kinematic/Models';
+import type { TKinematicConfig, TKinematicData, TKinematicWritableData } from '@/Engine/Kinematic/Models';
 import type { TMeters, TMetersPerSecond, TMilliseconds, TRadians, TRadiansPerSecond } from '@/Engine/Math';
 import { getAzimuthElevationFromVector, getElevationFromDirection } from '@/Engine/Math';
 import type { TReadonlyQuaternion, TReadonlyVector3 } from '@/Engine/ThreeLib';
 import { TransformAgent } from '@/Engine/TransformDrive/Constants';
 import type { TAbstractTransformAgent, TKinematicAgentDependencies, TKinematicSpeed, TKinematicTransformAgent, TKinematicTransformAgentParams } from '@/Engine/TransformDrive/Models';
 import { getStepRotation, isInstant, isPointReached, isRotationReached, moveInstantly, rotateInstantly } from '@/Engine/TransformDrive/Utils';
-import { isDefined, isNotDefined } from '@/Engine/Utils';
+import { isDefined, isNotDefined, quaternionToXyzw, vector3ToXyz } from '@/Engine/Utils';
 
 import { AbstractTransformAgent } from './AbstractTransformAgent';
 
@@ -284,6 +284,29 @@ export function KinematicTransformAgent(params: TKinematicTransformAgentParams, 
     resetAngular(resetSpeed: boolean, resetDirection: boolean): void {
       if (resetSpeed) agent.setAngularSpeed(0);
       if (resetDirection) agent.setAngularDirection(new Quaternion());
+    },
+    serialize(): TKinematicConfig {
+      const { position, positionThreshold, rotationThreshold, rotation } = agent.data.target;
+      const { linearSpeed, linearDirection, angularSpeed, angularDirection, radius, forwardAxis, isInfiniteRotation } = agent.data.state;
+
+      return {
+        isAutoUpdate: autoUpdate$.value,
+        target: {
+          position: isDefined(position) ? vector3ToXyz(position) : undefined,
+          rotation: isDefined(rotation) ? quaternionToXyzw(rotation) : undefined,
+          positionThreshold,
+          rotationThreshold
+        },
+        state: {
+          linearSpeed,
+          linearDirection: vector3ToXyz(linearDirection),
+          angularSpeed,
+          angularDirection: quaternionToXyzw(angularDirection),
+          radius,
+          forwardAxis,
+          isInfiniteRotation
+        }
+      };
     },
     autoUpdate$
   });

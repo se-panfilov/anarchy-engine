@@ -1,6 +1,6 @@
 import type { BehaviorSubject, Subject } from 'rxjs';
 
-import type { TDestroyable, TNoSpread, TWithId } from '@/Engine/Mixins';
+import type { TDestroyable, TNoSpread, TSerializable, TWithId } from '@/Engine/Mixins';
 import type { TReadonlyQuaternion, TReadonlyVector3 } from '@/Engine/ThreeLib';
 import type { TransformAgent } from '@/Engine/TransformDrive/Constants';
 
@@ -18,4 +18,5 @@ export type TAbstractTransformAgent = Readonly<{
 }> &
   TWithId &
   TNoSpread &
+  TSerializable<any> &
   TDestroyable;

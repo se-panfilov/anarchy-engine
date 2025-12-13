@@ -5,7 +5,7 @@ import { Quaternion, Vector3 } from 'three';
 
 import type { TMeters, TRadians } from '@/Engine/Math';
 import { meters, radians } from '@/Engine/Measurements';
-import type { TPhysicsBody } from '@/Engine/Physics';
+import type { TPhysicsBody, TPhysicsBodyConfig } from '@/Engine/Physics';
 import { RigidBodyTypesNames } from '@/Engine/Physics';
 import { TransformAgent } from '@/Engine/TransformDrive/Constants';
 import type {
@@ -30,7 +30,10 @@ export function PhysicsTransformAgent(params: TPhysicsTransformAgentParams, { ph
   const positionNoiseThreshold: TMeters = params.performance?.positionNoiseThreshold ?? meters(0.0000001);
   const rotationNoiseThreshold: TRadians = params.performance?.rotationNoiseThreshold ?? radians(0.0000001);
 
-  const adaptedParams: TPhysicsTransformAgentInternalParams = { ...params, rotation: isEulerLike(params.rotation) ? new Quaternion().setFromEuler(params.rotation) : params.rotation };
+  const adaptedParams: TPhysicsTransformAgentInternalParams = {
+    ...params,
+    rotation: isEulerLike(params.rotation) ? new Quaternion().setFromEuler(params.rotation) : params.rotation
+  };
   const abstractTransformAgent: TAbstractTransformAgent = AbstractTransformAgent(params, TransformAgent.Physical);
 
   const onDeactivated$Sub: Subscription = abstractTransformAgent.onDeactivated$.pipe(takeWhile((): boolean => isNotDefined(params.onDeactivated))).subscribe((): void => {
@@ -52,7 +55,15 @@ export function PhysicsTransformAgent(params: TPhysicsTransformAgentParams, { ph
   const physicsBody$: BehaviorSubject<TPhysicsBody | undefined> = new BehaviorSubject<TPhysicsBody | undefined>(undefined);
 
   // eslint-disable-next-line functional/immutable-data
-  const agent: TPhysicsTransformAgent = Object.assign(abstractTransformAgent, { physicsBody$ });
+  const agent: TPhysicsTransformAgent = Object.assign(abstractTransformAgent, {
+    physicsBody$,
+    serialize: (): TPhysicsBodyConfig => {
+      const body: TPhysicsBody | undefined = physicsBody$.value;
+      if (isNotDefined(body)) throw new Error(`[Serialization] PhysicsTransformAgent: physics body is not defined for agent with name: "${params.name}", (id: "${agent.id}")`);
+
+      return body.serialize();
+    }
+  });
 
   let previousPhysicsBodyType: RigidBodyTypesNames = physicsBody$.value?.getPhysicsBodyType() ?? RigidBodyTypesNames.Fixed;
 

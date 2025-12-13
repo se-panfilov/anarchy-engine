@@ -13,6 +13,7 @@ export type * from './TPhysicsTransformAgent';
 export type * from './TPhysicsTransformAgentParams';
 export type * from './TReadonlyTransform';
 export type * from './TRigidBodyTransformData';
+export type * from './TSerializedTransform';
 export type * from './TTransformAgentParams';
 export type * from './TTransformAgentPerformanceParams';
 export type * from './TTransformAgents';

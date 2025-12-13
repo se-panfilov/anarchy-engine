@@ -6,7 +6,7 @@ import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
 import type { TReadonlyQuaternion, TReadonlyVector3 } from '@/Engine/ThreeLib';
 import type { TransformAgent } from '@/Engine/TransformDrive/Constants';
-import type { TAbstractTransformAgent, TReadonlyTransform, TTransformAgentParams } from '@/Engine/TransformDrive/Models';
+import type { TAbstractTransformAgent, TReadonlyTransform, TSerializedTransform, TTransformAgentParams } from '@/Engine/TransformDrive/Models';
 import { isDefined } from '@/Engine/Utils';
 
 export function AbstractTransformAgent(params: TTransformAgentParams, type: TransformAgent): TAbstractTransformAgent {
@@ -55,6 +55,11 @@ export function AbstractTransformAgent(params: TTransformAgentParams, type: Tran
     enabled$,
     onActivated$,
     onDeactivated$,
-    relatedDriveId$
+    relatedDriveId$,
+    serialize: (): TSerializedTransform => ({
+      position: position$.value,
+      rotation: rotation$.value,
+      scale: scale$.value
+    })
   };
 }
