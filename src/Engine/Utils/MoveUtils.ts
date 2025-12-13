@@ -1,14 +1,15 @@
 import type { EasingOptions } from 'animejs';
 import anime from 'animejs';
-import { Clock } from 'three';
+import type { Subscription } from 'rxjs';
 
+import { isDefined } from '@/Engine';
 import type { IActorWrapper } from '@/Engine/Domains/Actor';
-import type { ILoopWrapper } from '@/Engine/Domains/Loop';
-import { createDeferredPromise } from '@/Engine/Utils/AsyncUtils';
+import type { ILoopTimes, ILoopWrapper } from '@/Engine/Domains/Loop';
 
 // TODO (S.Panfilov) should be a service (MoveService) that uses LoopService
 
 let loop: ILoopWrapper;
+
 // TODO (S.Panfilov) debug
 export function setLoopForMoveUtils(loopWrapper: ILoopWrapper): void {
   loop = loopWrapper;
@@ -99,10 +100,12 @@ const lastElapsedTime = 0; // Для хранения времени после�
 //   return promise;
 // }
 
-let lastTime = 0; // Начальное время для отслеживания общего времени анимации
 
 export function goToPosition(actor: IActorWrapper, targetPosition: Position, params: IAnimationParams): void {
-  let animationRunning = false;
+  const tickSubscription: Subscription = loop.tick$.subscribe(({ frameTime }: ILoopTimes): void => {
+    // TODO (S.Panfilov) I'm not sure if this makes animation independent from frame rate. Need to test.
+    animation.tick(frameTime); // frameTime, delta, elapsedTime?
+  });
 
   const animation = anime({
     targets: actor.entity.position,
@@ -111,31 +114,9 @@ export function goToPosition(actor: IActorWrapper, targetPosition: Position, par
     z: targetPosition.z,
     ...defaultAnimationParams,
     ...params,
-    autoplay: false, // Отключаем автоматическое воспроизведение
+    autoplay: false,
     complete: (): void => {
-      animationRunning = false;
+      if (isDefined(tickSubscription)) tickSubscription.unsubscribe();
     }
   });
-
-  // Функция для обновления анимации, вызывается в цикле обновления
-  function animate(currentTime: number): void {
-    // console.log(currentTime);
-    if (!animationRunning) return;
-    // console.log('animate');
-
-     if (lastTime === 0) {
-      lastTime = currentTime; // Инициализируем lastTime в первом кадре
-    }
-    // console.log(currentTime);
-    const deltaTime = currentTime - lastTime; // Вычисляем delta time
-    lastTime = currentTime; // Обновляем lastTime для следующего кадра
-
-    // animation.tick(elapsedTime * 1000); // Обновляем анимацию, преобразуем в миллисекунды
-    // animation.tick(t); // Обновляем анимацию, преобразуем в миллисекунды
-   animation.tick(currentTime);
-
-    requestAnimationFrame(animate); // Планируем следующий кадр
-  }
-  animationRunning = true;
-  requestAnimationFrame(animate);
 }

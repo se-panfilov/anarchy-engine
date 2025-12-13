@@ -24,14 +24,14 @@ export function getUtils(entity: LoopFn): ILoopUtils {
 function loopWrapper(fn: LoopFn, renderer: Readonly<IRendererWrapper>, scene: Readonly<ISceneWrapper>, controlsRegistry: IControlsRegistry, cameraRegistry: ICameraRegistry): (time: number) => void {
   const clock: Clock = new Clock();
   let lastElapsedTime: number = 0;
-  const loop = (time: number): void => {
+  const loop = (frameTime: number): void => {
     // (fpsGraph as any).begin();
     if (!isRan) return;
     const elapsedTime: number = clock.getElapsedTime();
     // console.log(time, elapsedTime * 1000);
     const delta: number = elapsedTime - lastElapsedTime;
     lastElapsedTime = elapsedTime;
-    fn(renderer, scene, delta, controlsRegistry, cameraRegistry);
+    fn(renderer, scene, controlsRegistry, cameraRegistry, { delta, frameTime, elapsedTime });
 
     // (fpsGraph as any).end();
     requestAnimationFrame(loop);

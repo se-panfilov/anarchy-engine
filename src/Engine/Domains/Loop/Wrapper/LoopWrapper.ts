@@ -4,7 +4,7 @@ import { AbstractWrapper, WrapperType } from '@/Engine/Domains/Abstract';
 import type { ICameraRegistry, ICameraWrapper } from '@/Engine/Domains/Camera';
 import { CameraTag } from '@/Engine/Domains/Camera';
 import type { IControlsRegistry, IOrbitControlsWrapper } from '@/Engine/Domains/Controls';
-import type { ILoopParams, ILoopWrapper, LoopFn } from '@/Engine/Domains/Loop/Models';
+import type { ILoopParams, ILoopTimes, ILoopWrapper, LoopFn } from '@/Engine/Domains/Loop/Models';
 import type { IRendererWrapper } from '@/Engine/Domains/Renderer';
 import type { ISceneWrapper } from '@/Engine/Domains/Scene';
 import { isDefined } from '@/Engine/Utils';
@@ -14,11 +14,11 @@ import { getUtils } from './utils';
 // TODO (S.Panfilov) should be a service (LoopService)
 
 export function LoopWrapper(params: ILoopParams): ILoopWrapper {
-  const tick$: Subject<number> = new Subject<number>();
+  const tick$: Subject<ILoopTimes> = new Subject<ILoopTimes>();
   let _delta: number = 0;
-  const entity: LoopFn = (renderer: Readonly<IRendererWrapper>, scene: Readonly<ISceneWrapper>, delta: number, controlsRegistry: IControlsRegistry, cameraRegistry: ICameraRegistry): void => {
+  const entity: LoopFn = (renderer: Readonly<IRendererWrapper>, scene: Readonly<ISceneWrapper>, controlsRegistry: IControlsRegistry, cameraRegistry: ICameraRegistry, { delta, frameTime, elapsedTime }): void => {
     _delta = delta;
-    tick$.next(delta);
+    tick$.next({ delta, frameTime, elapsedTime });
 
     // TODO (S.Panfilov) could be extracted with tick$
     //just for control's damping
