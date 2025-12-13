@@ -27,7 +27,7 @@ describe('LocalesUtils', (): void => {
       it('should return preferred localeId (locales with script)', (): void => {
         expect(getPreferLocaleId([zhHansCN, nlNl], [enUS, zhHansCN], enUS)).toBe(zhHansCN);
         // eslint-disable-next-line spellcheck/spell-checker
-        expect(getPreferLocaleId([srCyrlRs, nlNl], [srCyrlRs, enUS], enUS)).toBe(zhHansCN);
+        expect(getPreferLocaleId([srCyrlRs, nlNl], [srCyrlRs, enUS], enUS)).toBe(srCyrlRs);
         // eslint-disable-next-line spellcheck/spell-checker
         expect(getPreferLocaleId([zhHansCN, zhHantHk], [enUS, nlNl, zhHantHk], enUS)).toBe(zhHantHk);
         // eslint-disable-next-line spellcheck/spell-checker
@@ -47,7 +47,7 @@ describe('LocalesUtils', (): void => {
         // eslint-disable-next-line spellcheck/spell-checker
         expect(getPreferLocaleId([zhHantHk, zhHantTw], [zhHansCN, enUS, nlNl], nlNl)).toBe(zhHansCN);
         // eslint-disable-next-line spellcheck/spell-checker
-        expect(getPreferLocaleId([enGB, zhHantHk], [nlNl, zhHantHk, zhHantTw], nlNl)).toBe(enUS);
+        expect(getPreferLocaleId([enGB, zhHantHk], [nlNl, zhHantHk, zhHantTw], nlNl)).toBe(zhHantHk);
       });
     });
 
