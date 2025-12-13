@@ -3,6 +3,7 @@ export type * from './TAudio3dTransformAgents';
 export type * from './TAudio3dTransformDrive';
 export type * from './TAudio3dWrapper';
 export type * from './TAudio3dWrapperDependencies';
+export type * from './TAudioLoader';
 export type * from './TAudioLoop';
 export type * from './TAudioOptions';
 export type * from './TAudioPerformanceOptions';
