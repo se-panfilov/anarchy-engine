@@ -1,9 +1,10 @@
 import type { Observable } from 'rxjs';
 
+import type { IMousePosition } from './IMousePosition';
+
 export type IMouseService = {
-  // TODO (S.Panfilov) any
-  click$: Observable<any>;
-  position$: Observable<any>;
+  click$: Observable<void>;
+  position$: Observable<IMousePosition>;
   // doubleClick$: Observable<any>;
   // wheel$: Observable<any>;
   // pressed$: Observable<any>;
