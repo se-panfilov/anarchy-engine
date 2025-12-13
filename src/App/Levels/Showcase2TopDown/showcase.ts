@@ -3,7 +3,7 @@ import type { Vector2Like } from 'three';
 import { Euler, Vector3 } from 'three';
 
 import type { TActorParams, TAnyCameraWrapper, TMaterialWrapper, TModel3d, TModels3dService, TSpace, TSpaceConfig, TSpatialGridWrapper } from '@/Engine';
-import { asRecord, isNotDefined, MaterialType, meters, PrimitiveModel3dType, spaceService } from '@/Engine';
+import { asRecord, CameraType, isNotDefined, MaterialType, meters, PrimitiveModel3dType, spaceService } from '@/Engine';
 
 import spaceConfigJson from './space.json';
 
@@ -67,7 +67,8 @@ export function showcase(space: TSpace): void {
     name: 'camera',
     position: new Vector3(0, 0, 3),
     rotation: new Euler(),
-    isActive: true
+    isActive: true,
+    type: CameraType.Perspective
   });
 
   combineLatest([mouseService.position$, space.container.viewportRect$])

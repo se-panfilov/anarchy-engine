@@ -1,5 +1,14 @@
-import type { TAnyCameraParams, TOrthographicCameraParams, TPerspectiveCameraParams } from '@/Engine/Camera';
+import type { CameraType, TAnyCameraParams, TOrthographicCameraParams, TPerspectiveCameraParams } from '@/Engine/Camera';
 
-export type TShadowCameraParams = Omit<TAnyCameraParams, 'audioListener' | 'position' | 'rotation' | 'name' | 'isActive'>;
-export type TShadowPerspectiveCameraParams = Omit<TPerspectiveCameraParams, 'position' | 'rotation' | 'name' | 'isActive'>;
-export type TShadowOrthographicCameraParams = Omit<TOrthographicCameraParams, 'position' | 'rotation' | 'name' | 'isActive'>;
+export type TShadowCameraParams = Omit<TAnyCameraParams, 'audioListener' | 'position' | 'rotation' | 'name' | 'isActive' | 'type'> &
+  Readonly<{
+    type?: CameraType;
+  }>;
+export type TShadowPerspectiveCameraParams = Omit<TPerspectiveCameraParams, 'position' | 'rotation' | 'name' | 'isActive' | 'type'> &
+  Readonly<{
+    type?: CameraType;
+  }>;
+export type TShadowOrthographicCameraParams = Omit<TOrthographicCameraParams, 'position' | 'rotation' | 'name' | 'isActive' | 'type'> &
+  Readonly<{
+    type?: CameraType;
+  }>;

@@ -315,6 +315,7 @@
           "camera": {
             "bottom": -10,
             "far": 150,
+            "type": "OrthographicCamera",
             "left": -35,
             "right": 35,
             "top": 10

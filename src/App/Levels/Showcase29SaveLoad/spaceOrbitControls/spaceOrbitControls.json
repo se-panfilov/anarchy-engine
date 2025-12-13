@@ -67,6 +67,7 @@
           "camera": {
             "bottom": -50,
             "far": 40,
+            "type": "OrthographicCamera",
             "left": -50,
             "near": 0.1,
             "right": 50,

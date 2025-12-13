@@ -1,9 +1,8 @@
 import type { Object3DJSONObject, Vector2Like } from 'three';
 import { Vector2 } from 'three';
 
-import type { TCommonCameraConfig, TCommonCameraParams, TPerspectiveCameraConfig } from '@/Engine/Camera';
+import type { TCommonCameraParams } from '@/Engine/Camera';
 import { getCommonCameraConfig, getOrthographicCameraOnlyConfig, getPerspectiveCameraOnlyConfig, isOrthographicCameraParams, isPerspectiveCameraParams } from '@/Engine/Camera';
-import type { TOrthographicCameraConfig } from '@/Engine/Camera/Models/TOrthographicCameraConfig';
 import { serializeColor } from '@/Engine/Color';
 import { LightType } from '@/Engine/Light/Constants';
 import type {
@@ -22,6 +21,7 @@ import type {
   TPointLightWrapper,
   TRectAreaLightConfig,
   TRectAreaLightWrapper,
+  TShadowCameraConfig,
   TShadowCameraParams,
   TSpotLightConfig,
   TSpotLightWrapper
@@ -122,10 +122,7 @@ export function onlyLightShadowToConfig<T extends TAnyLight>(
 
   if (isNotDefined(camera)) return result;
 
-  const cameraConfig: Omit<TCommonCameraConfig & (TPerspectiveCameraConfig | TOrthographicCameraConfig), 'name' | 'isActive' | 'position' | 'rotation' | 'audioListener'> = Object.assign(
-    getCommonCameraConfig(camera),
-    { type: camera.type }
-  );
+  const cameraConfig: TShadowCameraConfig = Object.assign(getCommonCameraConfig(camera), { type: camera.type });
   // eslint-disable-next-line functional/immutable-data
   if (isPerspectiveCameraParams(camera)) Object.assign(cameraConfig, getPerspectiveCameraOnlyConfig(camera));
   // eslint-disable-next-line functional/immutable-data

@@ -97,7 +97,8 @@
         },
         "shadow": {
           "camera": {
-            "far": 15
+            "far": 15,
+            "type": "OrthographicCamera"
           },
           "mapSize": {
             "x": 1024,

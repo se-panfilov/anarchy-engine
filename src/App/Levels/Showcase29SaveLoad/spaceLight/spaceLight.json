@@ -188,6 +188,7 @@
           "camera": {
             "bottom": -5,
             "far": 15,
+            "type": "OrthographicCamera",
             "layers": 1,
             "left": -5,
             "near": 0.5,

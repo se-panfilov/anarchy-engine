@@ -1766,15 +1766,16 @@
     },
     "TShadowCameraConfig": {
       "type": "object",
+      "additionalProperties": false,
       "properties": {
+        "type": {
+          "$ref": "#/definitions/CameraType"
+        },
         "far": {
           "type": "number"
         },
         "near": {
           "type": "number"
-        },
-        "type": {
-          "$ref": "#/definitions/CameraType"
         },
         "zoom": {
           "type": "number"
@@ -1839,9 +1840,7 @@
         "top": {
           "type": "number"
         }
-      },
-      "required": ["type"],
-      "additionalProperties": false
+      }
     },
     "LightType": {
       "type": "string",
@@ -2024,7 +2023,11 @@
     },
     "TShadowCameraParams": {
       "type": "object",
+      "additionalProperties": false,
       "properties": {
+        "type": {
+          "$ref": "#/definitions/CameraType"
+        },
         "far": {
           "type": "number"
         },
@@ -2033,9 +2036,6 @@
         },
         "near": {
           "type": "number"
-        },
-        "type": {
-          "$ref": "#/definitions/CameraType"
         },
         "up": {
           "$ref": "#/definitions/Vector3"
@@ -2097,9 +2097,7 @@
         "top": {
           "type": "number"
         }
-      },
-      "required": ["type"],
-      "additionalProperties": false
+      }
     },
     "Vector3": {
       "type": "object",

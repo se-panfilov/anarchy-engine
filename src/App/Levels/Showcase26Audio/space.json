@@ -195,7 +195,7 @@
           "camera": {
             "bottom": -10,
             "far": 40,
-            "type": "PerspectiveCamera",
+            "type": "OrthographicCamera",
             "left": -10,
             "near": 0.1,
             "right": 10,

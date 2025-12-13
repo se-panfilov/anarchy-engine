@@ -21,11 +21,12 @@ export function configToParams(config: TCommonCameraConfig, { audioService }: TC
 }
 
 export function configToParamsCameraOnly(config: TCommonCameraConfig): Omit<TAnyCameraParams, 'audioListener'> {
-  const { position, rotation, scale, layers, name, isActive } = config;
+  const { position, rotation, scale, layers, name, isActive, type } = config;
 
   return {
     name,
     isActive,
+    type,
     ...configToParamsCameraOptionsOnly(config),
     ...configToParamsObject3d({ position, rotation, scale, layers })
   };
