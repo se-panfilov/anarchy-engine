@@ -36,13 +36,23 @@
   "cameras": [
     {
       "fov": 45,
-      "name": "main",
+      "name": "cam1",
       "near": 1,
       "far": 10000,
       "position": { "x": 3, "y": 20, "z": 35 },
       "rotation": { "x": 0, "y": 0, "z": 0 },
       "tags": [],
       "isActive": true
+    },
+    {
+      "fov": 45,
+      "name": "cam2",
+      "near": 1,
+      "far": 10000,
+      "position": { "x": 3, "y": 20, "z": 35 },
+      "rotation": { "x": 0, "y": 0, "z": 0 },
+      "tags": [],
+      "isActive": false
     }
   ],
   "lights": [
@@ -71,7 +81,7 @@
   "controls": [
     {
       "type": "OrbitControls",
-      "cameraName": "main",
+      "cameraName": "cam1",
       "enableDamping": true,
       "tags": [],
       "isActive": true
