@@ -6,6 +6,7 @@ import type { TObject3DPropConfig } from '@/Engine/ThreeLib';
 
 import type { TActorModel3dSettingsConfig } from './TActorModel3dSettingsConfig';
 import type { TActorProps } from './TActorProps';
+import type { TActorStatesConfig } from './TActorStatesConfig';
 
 export type TActorConfig = Omit<TActorProps, 'model3dSettings'> &
   Readonly<{
@@ -15,5 +16,6 @@ export type TActorConfig = Omit<TActorProps, 'model3dSettings'> &
     spatial: TSpatialDataConfig;
     collisions?: TCollisionsDataConfig;
     model3dSettings?: TActorModel3dSettingsConfig;
+    states?: TActorStatesConfig;
   }> &
   Pick<TObject3DPropConfig, 'position' | 'rotation' | 'scale'>;

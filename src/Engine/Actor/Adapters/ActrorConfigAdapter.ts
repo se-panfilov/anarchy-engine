@@ -1,19 +1,19 @@
-import { Vector3 } from 'three';
-
-import type { TActorConfig, TActorConfigToParamsDependencies, TActorModel3dSettings, TActorModel3dSettingsConfig, TActorParams } from '@/Engine/Actor/Models';
+import { actorStatesConfigToParams } from '@/Engine/Actor/Adapters/ActorStatesConfigToParams';
+import type { TActorConfig, TActorConfigToParamsDependencies, TActorParams } from '@/Engine/Actor/Models';
 import { kinematicConfigToParams } from '@/Engine/Kinematic';
-import { toQuaternion } from '@/Engine/Math';
 import type { TModel3d } from '@/Engine/Models3d';
 import { configToOptionalParamsBody } from '@/Engine/Physics';
 import { configToParamsSpatialData } from '@/Engine/Spatial';
 import { configToParamsObject3d } from '@/Engine/ThreeLib';
-import { isDefined, isNotDefined } from '@/Engine/Utils';
+import { isNotDefined } from '@/Engine/Utils';
+
+import { model3dSettingsConfigToParams } from './Model3dSettingsConfigToParams';
 
 export function configToParams(config: TActorConfig, dependencies: TActorConfigToParamsDependencies): TActorParams {
-  const { position, rotation, scale, physics, spatial, model3dSource, kinematic, model3dSettings, ...rest } = config;
+  const { position, rotation, scale, physics, spatial, states, model3dSource, kinematic, model3dSettings, ...rest } = config;
 
   const model3d: TModel3d | undefined = dependencies.models3dService.getRegistry().findByName(model3dSource);
-  if (isNotDefined(model3d)) throw new Error(`Actor. ConfigToParams: Model3d "${model3dSource}" not found, while actor initialization`);
+  if (isNotDefined(model3d)) throw new Error(`Actor. ConfigToParams: Model3d "${model3dSource}" not found, during the actor initialization`);
 
   // TODO Improvement: Physics could be extracted from Actor to a distinct entity (and we should have physicsSource in Actor)
   return {
@@ -23,17 +23,7 @@ export function configToParams(config: TActorConfig, dependencies: TActorConfigT
     physics: physics ? configToOptionalParamsBody(physics) : undefined,
     kinematic: kinematic ? kinematicConfigToParams(kinematic) : undefined,
     model3dSettings: model3dSettings ? model3dSettingsConfigToParams(model3dSettings) : undefined,
+    states: states ? actorStatesConfigToParams(states, dependencies) : undefined,
     ...configToParamsObject3d({ position, rotation, scale })
-  };
-}
-
-function model3dSettingsConfigToParams(settings: TActorModel3dSettingsConfig): TActorModel3dSettings {
-  const { positionOffset, rotationOffset, scaleOffset, ...rest } = settings;
-
-  return {
-    ...rest,
-    positionOffset: isDefined(positionOffset) ? new Vector3(positionOffset.x, positionOffset.y, positionOffset.z) : undefined,
-    rotationOffset: isDefined(rotationOffset) ? toQuaternion(rotationOffset) : undefined,
-    scaleOffset: isDefined(scaleOffset) ? new Vector3(scaleOffset.x, scaleOffset.y, scaleOffset.z) : undefined
   };
 }

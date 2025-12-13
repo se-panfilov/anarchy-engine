@@ -12,6 +12,7 @@ export type * from './TActorProps';
 export type * from './TActorRegistry';
 export type * from './TActorService';
 export type * from './TActorStates';
+export type * from './TActorStatesConfig';
 export type * from './TActorTransformAgents';
 export type * from './TActorTransformDrive';
 export type * from './TActorTransformDriveDependencies';
