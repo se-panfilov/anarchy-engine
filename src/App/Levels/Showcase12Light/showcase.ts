@@ -44,8 +44,7 @@ export function showcase(space: TSpace): void {
   addGizmo(space.services, space.container, space.loops, { placement: 'bottom-left' });
 
   //directional light
-  const directionalLight: TDirectionalLightWrapper | undefined = lightRegistry.findByTag('directional') as TDirectionalLightWrapper | undefined;
-  if (isNotDefined(directionalLight)) throw new Error('Directional light not found');
+  const directionalLight: TDirectionalLightWrapper = lightRegistry.getByTag('directional') as TDirectionalLightWrapper;
   const directionalLightHelper: DirectionalLightHelper = new DirectionalLightHelper(directionalLight.entity, 3);
   const directionalLightCameraHelper: CameraHelper = new CameraHelper(directionalLight.entity.shadow.camera);
   // eslint-disable-next-line functional/immutable-data
@@ -65,8 +64,7 @@ export function showcase(space: TSpace): void {
   directionalFolder.add(directionalLight.entity, 'castShadow');
 
   //hemisphere light
-  const hemisphereLight: THemisphereLightWrapper | undefined = lightRegistry.findByTag('hemisphere') as THemisphereLightWrapper | undefined;
-  if (isNotDefined(hemisphereLight)) throw new Error('Hemisphere light not found');
+  const hemisphereLight: THemisphereLightWrapper = lightRegistry.getByTag('hemisphere') as THemisphereLightWrapper;
   const hemisphereLightHelper: HemisphereLightHelper = new HemisphereLightHelper(hemisphereLight.entity, 3);
   sceneW.entity.add(hemisphereLightHelper);
   const hemisphereFolder: GUI = gui.addFolder('Hemisphere light');
@@ -74,8 +72,7 @@ export function showcase(space: TSpace): void {
   hemisphereFolder.addColor(hemisphereLight.entity, 'groundColor');
   hemisphereFolder.add(hemisphereLight.entity, 'intensity').min(0).max(10).step(0.1);
 
-  const rectAreaLight: TRectAreaLightWrapper | undefined = lightRegistry.findByTag('rect_area') as TRectAreaLightWrapper | undefined;
-  if (isNotDefined(rectAreaLight)) throw new Error('Rect area light not found');
+  const rectAreaLight: TRectAreaLightWrapper = lightRegistry.getByTag('rect_area') as TRectAreaLightWrapper;
   const rectAreaLightHelper: RectAreaLightHelper = new RectAreaLightHelper(rectAreaLight.entity, 5);
   sceneW.entity.add(rectAreaLightHelper);
   const rectAreaFolder: GUI = gui.addFolder('RectArea light');
@@ -86,8 +83,7 @@ export function showcase(space: TSpace): void {
   rectAreaFolder.add(rectAreaLight.entity, 'height').min(0).max(50).step(0.5);
   rectAreaFolder.add(rectAreaLight.entity, 'intensity').min(0).max(10).step(0.1);
 
-  const pointLight: TPointLightWrapper | undefined = lightRegistry.findByTag('point') as TPointLightWrapper | undefined;
-  if (isNotDefined(pointLight)) throw new Error('Point light not found');
+  const pointLight: TPointLightWrapper = lightRegistry.getByTag('point') as TPointLightWrapper;
   const pointLightHelper: PointLightHelper = new PointLightHelper(pointLight.entity, 3);
   sceneW.entity.add(pointLightHelper);
   const pointFolder: GUI = gui.addFolder('Point light');
@@ -100,8 +96,7 @@ export function showcase(space: TSpace): void {
   pointFolder.add(pointLight.entity, 'decay').min(0).max(100).step(0.1);
   pointFolder.add(pointLight.entity, 'castShadow');
 
-  const spotLight: TSpotLightWrapper | undefined = lightRegistry.findByTag('spot') as TSpotLightWrapper | undefined;
-  if (isNotDefined(spotLight)) throw new Error('Spot light not found');
+  const spotLight: TSpotLightWrapper = lightRegistry.getByTag('spot') as TSpotLightWrapper;
   const spotLightHelper: SpotLightHelper = new SpotLightHelper(spotLight.entity, 3);
   sceneW.entity.add(spotLightHelper);
   const spotFolder: GUI = gui.addFolder('Spot light');

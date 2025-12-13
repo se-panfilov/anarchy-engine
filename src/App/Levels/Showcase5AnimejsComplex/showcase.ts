@@ -49,15 +49,13 @@ export function showcase(space: TSpace): void {
   orbitControls.entity.target.set(6, 0, 0);
   cameraRegistry.asArray()[0]?.drive.position$.next(new Vector3(6, 30, 0));
 
-  const redActor: TActor | undefined = actorRegistry.findByTag('red');
-  const blueActor: TActor | undefined = actorRegistry.findByTag('blue');
-  const greenActor: TActor | undefined = actorRegistry.findByTag('green');
-  if (isNotDefined(redActor) || isNotDefined(blueActor) || isNotDefined(greenActor)) throw new Error('Actors are not defined');
+  const redActor: TActor = actorRegistry.getByTag('red');
+  const blueActor: TActor = actorRegistry.getByTag('blue');
+  const greenActor: TActor = actorRegistry.getByTag('green');
 
-  const redText: TText2dWrapper | undefined = text2dRegistry.findByTag('red');
-  const blueText: TText2dWrapper | undefined = text2dRegistry.findByTag('blue');
-  const greenText: TText2dWrapper | undefined = text2dRegistry.findByTag('green');
-  if (isNotDefined(redText) || isNotDefined(blueText) || isNotDefined(greenText)) throw new Error('Texts are not defined');
+  const redText: TText2dWrapper = text2dRegistry.getByTag('red');
+  const blueText: TText2dWrapper = text2dRegistry.getByTag('blue');
+  const greenText: TText2dWrapper = text2dRegistry.getByTag('green');
 
   let isClickBlocked: boolean = false;
 
