@@ -30,11 +30,9 @@ export function RendererWrapper(params: TRendererParams, { screenService }: TRen
   };
 
   if (isWebGL2) {
-    const context: WebGL2RenderingContext | null = (options.canvas as HTMLCanvasElement).getContext(RendererModes.WebGL2);
+    const context: WebGL2RenderingContext | null = (options.canvas as HTMLCanvasElement).getContext(RendererModes.WebGL2, options) as WebGL2RenderingContext | null;
     if (isNotDefined(context)) throw new Error(`WebGL2 context is not defined, however mode is set to ${RendererModes.WebGL2}`);
 
-    // TODO 14-0-0: what's the different here? WHy screen white/black?
-    // options = Object.assign(options, context);
     options = { ...options, context };
   }
 
