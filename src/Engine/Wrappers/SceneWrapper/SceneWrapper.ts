@@ -4,9 +4,10 @@ import { AbstractWrapper } from '@Engine/Wrappers';
 import type { ISceneParams } from '@Engine/Models/ISceneParams';
 import type { ISceneWrapper } from './Models';
 import { Scene } from 'three';
+import type { Writeable } from '@Engine/Utils';
 
 export function SceneWrapper({ name }: ISceneParams): ISceneWrapper {
-  const entity: IScene = new Scene();
+  const entity: Writeable<IScene> = new Scene();
 
   // eslint-disable-next-line functional/immutable-data
   entity.name = name;
