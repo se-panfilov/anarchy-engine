@@ -21,6 +21,23 @@
       "rotation": { "x": -1.57, "y": 0, "z": 0 },
       "castShadow": false,
       "tags": []
+    },
+    {
+      "name": "cube",
+      "type": "cube",
+      "width": 1,
+      "height": 1,
+      "position": { "x": 0, "y": 4, "z": 0 },
+      "castShadow": true,
+      "material": {
+        "type": "basic",
+        "textures": {
+          "aoMap": { "url": "/Showcase/Door_Wood/Door_Wood_001_ambientOcclusion.jpg" },
+          "map": { "url": "/Showcase/Door_Wood/Door_Wood_001_basecolor.jpg" },
+          "alphaMap": { "url": "/Showcase/Door_Wood/Door_Wood_001_opacity.jpg" }
+        }
+      },
+      "tags": []
     }
   ],
   "intersections": [],
