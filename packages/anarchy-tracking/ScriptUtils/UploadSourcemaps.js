@@ -6,7 +6,7 @@ import * as dotenv from 'dotenv';
 
 /* Minimal Sentry sourcemaps uploader for Vite builds.
  * Features:
- *  - release: from --release | $RELEASE | $npm_package_version
+ *  - release: from --release | $RELEASE | "<VITE_RELEASE_NAME_PREFIX>@$npm_package_version"
  *  - dist dir: from --dist | positional | "dist"
  *  - urlPrefix: --url-prefix | auto from Vite "base" | "~/" fallback
  *  - dev-guard (ON by default): blocks upload unless mode=production; can disable via --no-dev-guard
@@ -34,13 +34,13 @@ function loadEnvFromCwd(mode) {
 function printHelp() {
   console.log(`
 Usage:
-  anarchy-upload-sourcemaps [--dist ./dist] [--release 1.2.3] [--org ORG] [--project PROJECT]
+  anarchy-upload-sourcemaps [--dist ./dist] [--release app-name@1.2.3] [--org ORG] [--project PROJECT]
                             [--url-prefix PREFIX] [--mode production]
                             [--no-dev-guard] [--no-detect-base] [--dry-run]
 
 Args:
   --dist <path>           Directory with build output (default: "dist" or first positional arg).
-  --release <name>        Release name. Defaults to $RELEASE or $npm_package_version.
+  --release <name>        Release name. Defaults to $RELEASE or "<VITE_RELEASE_NAME_PREFIX>@$npm_package_version".
   --org <slug>            Override Sentry org (else use .sentryclirc).
   --project <slug>        Override Sentry project (else use .sentryclirc).
   --url-prefix <prefix>   Explicit urlPrefix for upload-sourcemaps (e.g., "~/" or "~/assets").
@@ -187,7 +187,7 @@ function runSentryCli(args, env, dryRun) {
   const distAbs = resolve(cwd, dist);
 
   // Resolve release
-  const release = argv.release || process.env.RELEASE || process.env.npm_package_version;
+  const release = argv.release || process.env.RELEASE || `${process.env.VITE_RELEASE_NAME_PREFIX}@${process.env.npm_package_version}`;
   if (!release) {
     console.error('ERROR: release is required. Provide --release or set $RELEASE or ensure npm_package_version is present.');
     process.exit(1);
