@@ -26,7 +26,6 @@ export function Models3dService(
   const model3dLoader: TModels3dLoader = Models3dLoader(resourcesRegistry);
   const materialRegistry: TMaterialRegistry = materialService.getRegistry();
 
-  // TODO 9.0.0. RESOURCES: should not create models3d with the same names (probably this should be applied to all entities, maybe in factory?)
   const create = (params: TModel3dParams): TModel3dFacade => factory.create(params, { animationsService, model3dToModel3dFacadeConnectionRegistry });
   const createFromConfig = (models3d: ReadonlyArray<TModel3dConfig>): ReadonlyArray<TModel3dFacade> =>
     models3d.map((config: TModel3dConfig): TModel3dFacade => create(factory.configToParams(config, { materialRegistry, model3dResourceAsyncRegistry: resourcesRegistry })));
