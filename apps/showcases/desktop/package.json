@@ -27,19 +27,19 @@
     "copy:dist-app": "node ../../../packages/shared/ScriptUtils/CopyDir.js -- from=../dist-desktop to=dist-app",
     "copy:draco": "node ../../../packages/shared/ScriptUtils/CopyFiles.js ../../../node_modules/three/examples/jsm/libs/draco/draco_decoder.js ../../../node_modules/three/examples/jsm/libs/draco/draco_wasm_wrapper.js ../../../node_modules/three/examples/jsm/libs/draco/draco_decoder.wasm to=dist-app/three/examples/jsm/libs/draco/",
     "prebuild": "npm run prebuild:ts && npm run prebuild:preload",
-    "prebuild:preload": "tsc -p tsconfig.preload.json",
+    "prebuild:preload": "vite build",
     "prebuild:ts": "npm run generate:versions-file && tsc",
     "reload-and-prebuild": "npm run reload:dist-app && npm run prebuild",
     "reload:dist-app": "npm run clean && npm run copy:dist-app && npm run copy:draco",
     "start": "npm run reload-and-prebuild && electron ."
   },
-  "dependencies": {
+  "devDependencies": {
     "electron": "37.2.1",
     "electron-builder": "26.0.12",
-    "electron-reloader": "1.2.3"
-  },
-  "devDependencies": {
-    "typescript": "5.8.3"
+    "electron-reloader": "1.2.3",
+    "typescript": "5.8.3",
+    "vite": "7.0.4",
+    "vite-tsconfig-paths": "5.1.4"
   },
   "build": {
     "appId": "com.anarchy.showcases.demo.desktop",

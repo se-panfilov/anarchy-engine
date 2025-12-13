@@ -1,7 +1,5 @@
 import { contextBridge, ipcRenderer } from 'electron';
-// import { packageJsonVersion } from './src/Generated/versions.js';
-
-// console.log('Module type:', import.meta.url);
+import { packageJsonVersion } from './src/Generated/versions.js';
 
 // TODO DESKTOP: Const duplications from AppToPlatformMessagesConstants
 const APP_TO_PLATFORM_CHANNEL: string = 'app-to-platform-channel';
@@ -15,6 +13,6 @@ contextBridge.exposeInMainWorld(PLATFORM_API_NAME, {
   loadAppSettings: (): Promise<any> => ipcRenderer.invoke(APP_TO_PLATFORM_CHANNEL, 'app:settings:save'),
   node: (): string => process.versions.node,
   chrome: (): string => process.versions.chrome,
-  electron: (): string => process.versions.electron
-  // desktopAppVersion: (): string => packageJsonVersion
+  electron: (): string => process.versions.electron,
+  desktopAppVersion: async (): Promise<string> => packageJsonVersion
 });
