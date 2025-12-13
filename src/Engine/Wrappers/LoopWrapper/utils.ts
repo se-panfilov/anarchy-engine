@@ -3,7 +3,7 @@ import type { ICameraWrapper, IRendererWrapper, ISceneWrapper } from '@Engine/Wr
 import type { ILoopUtils, LoopFn } from './Models';
 
 export function getUtils(entity: LoopFn): ILoopUtils {
-  function start(renderer: IRendererWrapper, scene: ISceneWrapper, camera: ICameraWrapper): void {
+  function start(renderer: Readonly<IRendererWrapper>, scene: Readonly<ISceneWrapper>, camera: Readonly<ICameraWrapper>): void {
     loopWrapper(entity, renderer, scene, camera)();
   }
 
@@ -12,7 +12,7 @@ export function getUtils(entity: LoopFn): ILoopUtils {
   return { start };
 }
 
-function loopWrapper(fn: LoopFn, renderer: IRendererWrapper, scene: ISceneWrapper, camera: ICameraWrapper): () => void {
+function loopWrapper(fn: LoopFn, renderer: Readonly<IRendererWrapper>, scene: Readonly<ISceneWrapper>, camera: Readonly<ICameraWrapper>): () => void {
   const loop = (): void => {
     // (fpsGraph as any).begin();
     fn(renderer, scene, camera);

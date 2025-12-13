@@ -27,12 +27,12 @@ export function RegistryPool(): IRegistryPool {
     intersectionsWatcherRegistry: IntersectionsWatcherRegistry()
   });
 
-  function startAddSubscription(scene: ISceneWrapper): void {
+  function startAddSubscription(scene: Readonly<ISceneWrapper>): void {
     if (isNotDefined(abstractPool.pool)) throw new Error('Cannot start RegistryPool subscription: pool is not initialized');
 
-    abstractPool.pool.actorRegistry.added$.subscribe((actor: IActorWrapper) => scene.addActor(actor));
-    abstractPool.pool.cameraRegistry.added$.subscribe((camera: ICameraWrapper) => scene.addCamera(camera));
-    abstractPool.pool.lightRegistry.added$.subscribe((light: ILightWrapper) => scene.addLight(light));
+    abstractPool.pool.actorRegistry.added$.subscribe((actor: Readonly<IActorWrapper>) => scene.addActor(actor));
+    abstractPool.pool.cameraRegistry.added$.subscribe((camera: Readonly<ICameraWrapper>) => scene.addCamera(camera));
+    abstractPool.pool.lightRegistry.added$.subscribe((light: Readonly<ILightWrapper>) => scene.addLight(light));
   }
 
   function destroy(): void {

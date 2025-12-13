@@ -1,5 +1,5 @@
 import type { ICameraWrapper, IRendererWrapper, ISceneWrapper } from '@Engine/Wrappers';
 
 export type ILoopUtils = Readonly<{
-  start: (renderer: IRendererWrapper, scene: ISceneWrapper, camera: ICameraWrapper) => void;
+  start: (renderer: Readonly<IRendererWrapper>, scene: Readonly<ISceneWrapper>, camera: Readonly<ICameraWrapper>) => void;
 }>;

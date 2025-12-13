@@ -7,7 +7,7 @@ import type { LoopFn } from './Models/LoopFn';
 import { getUtils } from './utils';
 
 export function LoopWrapper(params: ILoopParams): ILoopWrapper {
-  const entity: LoopFn = (renderer: IRendererWrapper, scene: ISceneWrapper, camera: ICameraWrapper): void => {
+  const entity: LoopFn = (renderer: Readonly<IRendererWrapper>, scene: Readonly<ISceneWrapper>, camera: Readonly<ICameraWrapper>): void => {
     renderer.entity.render(scene.entity, camera.entity);
   };
 
