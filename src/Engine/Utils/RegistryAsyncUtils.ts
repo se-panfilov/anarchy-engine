@@ -33,19 +33,19 @@ export function getAsyncUniqEntityByNameAsync<T extends IRegistrable>(
 
 export function getUniqEntityWithTags$<T extends IRegistrable>(tags: ReadonlyArray<string>, registry: IAbstractEntityRegistry<T> | IAbstractAsyncRegistry<T>, strategy: LookUpStrategy): Observable<T> {
   const result: T | undefined = isDefined((registry as IAbstractEntityRegistry<T>).findByTags) ? (registry as IAbstractEntityRegistry<T>).findByTags(tags, strategy) : undefined;
-  if (isDefined(result)) new BehaviorSubject(result).asObservable();
+  if (isDefined(result)) return new BehaviorSubject(result).asObservable();
   return subscribeToValue$<T>(registry, (entity: T): boolean => shouldHaveTags(entity, tags, strategy));
 }
 
 export function getUniqEntityWithTag$<T extends IRegistrable>(tag: string, registry: IAbstractEntityRegistry<T> | IAbstractAsyncRegistry<T>): Observable<T> {
   const result: T | undefined = isDefined((registry as IAbstractEntityRegistry<T>).findByTag) ? (registry as IAbstractEntityRegistry<T>).findByTag(tag) : undefined;
-  if (isDefined(result)) new BehaviorSubject(result).asObservable();
+  if (isDefined(result)) return new BehaviorSubject(result).asObservable();
   return subscribeToValue$<T>(registry, (entity: T): boolean => entity.hasTag(tag));
 }
 
 export function getUniqEntityByName$<T extends IRegistrable>(name: string, registry: IAbstractEntityRegistry<T> | IAbstractAsyncRegistry<T>): Observable<T> {
   const result: T | undefined = isDefined((registry as IAbstractEntityRegistry<T>).findByName) ? (registry as IAbstractEntityRegistry<T>).findByName(name) : undefined;
-  if (isDefined(result)) new BehaviorSubject(result).asObservable();
+  if (isDefined(result)) return new BehaviorSubject(result).asObservable();
   return subscribeToValue$<T>(registry, (entity: T): boolean => entity.name === name);
 }
 

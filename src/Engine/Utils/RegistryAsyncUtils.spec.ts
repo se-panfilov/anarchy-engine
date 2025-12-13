@@ -1,8 +1,8 @@
 import { firstValueFrom } from 'rxjs';
 import { expect } from 'vitest';
 
-import type { IAbstractAsyncRegistry, RegistryType } from '@/Engine/Abstract';
-import { AbstractAsyncRegistry, LookUpStrategy } from '@/Engine/Abstract';
+import type { IAbstractAsyncRegistry, IAbstractEntityRegistry, RegistryType } from '@/Engine/Abstract';
+import { AbstractAsyncRegistry, AbstractEntityRegistry, LookUpStrategy } from '@/Engine/Abstract';
 import type { IRegistrable } from '@/Engine/Mixins';
 import { withTagsMixin } from '@/Engine/Mixins';
 
@@ -514,7 +514,6 @@ describe('RegistryAsyncUtils', () => {
 
           // execute
           const subscription$ = firstValueFrom(getUniqEntityWithTags$([tagD, tagC], registry, LookUpStrategy.Every));
-          // const subscription$ = firstValueFrom(getUniqEntityWithTags$([tagD, tagUniq2, tagC, tagE], registry, LookUpStrategy.Every));
 
           // check
           const result: IRegistrable = await subscription$;
@@ -528,8 +527,7 @@ describe('RegistryAsyncUtils', () => {
           const registry: IAbstractAsyncRegistry<IRegistrable> = AbstractAsyncRegistry<IRegistrable>('mockEntity' as RegistryType);
 
           // execute
-          const subscription$ = firstValueFrom(getUniqEntityWithTags$([tagD, tagC], registry, LookUpStrategy.Every));
-          // const subscription$ = firstValueFrom(getUniqEntityWithTags$([tagD, tagUniq2, tagC, tagE], registry, LookUpStrategy.Every));
+          const subscription$ = firstValueFrom(getUniqEntityWithTags$([tagD, tagUniq2], registry, LookUpStrategy.Every));
 
           setTimeout(() => registry.add(obj1AB), 50);
           setTimeout(() => registry.add(obj9Uniq2), 50);
@@ -555,7 +553,6 @@ describe('RegistryAsyncUtils', () => {
 
             // execute
             const subscription$ = firstValueFrom(getUniqEntityWithTags$([tagD, tagC], registry, LookUpStrategy.Some));
-            // const subscription$ = firstValueFrom(getUniqEntityWithTags$([tagD, tagUniq2, tagC, tagE], registry, LookUpStrategy.Every));
 
             // check
             const result: IRegistrable = await subscription$;
