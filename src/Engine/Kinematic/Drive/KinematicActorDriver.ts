@@ -4,21 +4,21 @@ import { Euler, Quaternion, Vector3 } from 'three';
 import { degToRad } from 'three/src/math/MathUtils';
 
 import type { TActorParams } from '@/Engine/Actor';
-import { ActorDrive } from '@/Engine/Actor';
-import type { TKinematicActorDrive, TKinematicData, TKinematicLoopService } from '@/Engine/Kinematic/Models';
+import { ActorDriver } from '@/Engine/Actor';
+import type { TKinematicActorDriver, TKinematicData, TKinematicLoopService } from '@/Engine/Kinematic/Models';
 import type { TDegrees, TRadians } from '@/Engine/Math';
 import { getAzimuthDegFromDirection, getAzimuthRadFromDirection, getElevationDegFromDirection, getElevationRadFromDirection } from '@/Engine/Math';
 import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
 import type { TWriteable } from '@/Engine/Utils';
 
-export function KinematicActorDrive(params: TActorParams, kinematicLoopService: TKinematicLoopService, drive$: BehaviorSubject<ActorDrive>): TKinematicActorDrive {
-  let _isAutoUpdate: boolean = (params.kinematic?.isAutoUpdate && drive$.value === ActorDrive.Kinematic) ?? false;
+export function KinematicActorDriver(params: TActorParams, kinematicLoopService: TKinematicLoopService, drive$: BehaviorSubject<ActorDriver>): TKinematicActorDriver {
+  let _isAutoUpdate: boolean = (params.kinematic?.isAutoUpdate && drive$.value === ActorDriver.Kinematic) ?? false;
   const position$: BehaviorSubject<Vector3> = new BehaviorSubject<Vector3>(params.position);
   const rotation$: BehaviorSubject<Quaternion> = new BehaviorSubject<Quaternion>(new Quaternion().setFromEuler(params.rotation));
   const scale$: BehaviorSubject<Vector3 | undefined> = new BehaviorSubject<Vector3 | undefined>(params.scale);
 
-  const driveSubscription$: Subscription = drive$.subscribe((drive: ActorDrive): void => void (_isAutoUpdate = !!(drive === ActorDrive.Kinematic && params.kinematic?.isAutoUpdate)));
+  const driveSubscription$: Subscription = drive$.subscribe((drive: ActorDriver): void => void (_isAutoUpdate = !!(drive === ActorDriver.Kinematic && params.kinematic?.isAutoUpdate)));
 
   let kinematicSub$: Subscription | undefined = undefined;
 
@@ -47,10 +47,10 @@ export function KinematicActorDrive(params: TActorParams, kinematicLoopService: 
       angularSpeed: params.kinematic?.angularSpeed ?? 0,
       angularDirection: params.kinematic?.angularDirection ?? new Vector3()
     },
-    position$: position$.asObservable(),
+    position$: position$,
     rotation$: rotation$.pipe(map((q: Quaternion): Euler => new Euler().setFromQuaternion(q))),
-    scale$: scale$.asObservable(),
-    rotationQuaternion$: rotation$.asObservable(),
+    scale$: scale$,
+    rotationQuaternion$: rotation$,
     setData({ linearSpeed, linearDirection, angularSpeed, angularDirection }: TKinematicData): void {
       // eslint-disable-next-line functional/immutable-data
       (this.data as TWriteable<TKinematicData>).linearSpeed = linearSpeed;

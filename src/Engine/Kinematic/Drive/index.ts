@@ -1,1 +1,1 @@
-export * from './KinematicActorDrive';
+export * from './KinematicActorDriver';

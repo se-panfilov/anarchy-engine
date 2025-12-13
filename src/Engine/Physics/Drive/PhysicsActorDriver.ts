@@ -3,13 +3,13 @@ import { BehaviorSubject } from 'rxjs';
 import type { Vector3 } from 'three';
 import { Quaternion } from 'three';
 
-import type { ActorDrive, TActorParams } from '@/Engine/Actor';
+import type { ActorDriver, TActorParams } from '@/Engine/Actor';
 import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
-import type { TPhysicsActorDrive } from '@/Engine/Physics/Models';
+import type { TPhysicsActorDriver } from '@/Engine/Physics/Models';
 
 // TODO 8.0.0. MODELS: This is a placeholder for PhysicsActorDrive
-export function PhysicsActorDrive(params: TActorParams, drive$: BehaviorSubject<ActorDrive>): TPhysicsActorDrive {
+export function PhysicsActorDriver(params: TActorParams, drive$: BehaviorSubject<ActorDriver>): TPhysicsActorDriver {
   const position$: BehaviorSubject<Vector3> = new BehaviorSubject<Vector3>(params.position);
   const rotation$: BehaviorSubject<Quaternion> = new BehaviorSubject<Quaternion>(new Quaternion().setFromEuler(params.rotation));
   const scale$: BehaviorSubject<Vector3 | undefined> = new BehaviorSubject<Vector3 | undefined>(params.scale);

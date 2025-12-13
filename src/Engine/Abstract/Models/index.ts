@@ -1,4 +1,5 @@
 export * from './TAbstractAsyncRegistry';
+export * from './TAbstractDriver';
 export * from './TAbstractEntityRegistry';
 export * from './TAbstractLoadedResourcePack';
 export * from './TAbstractLoader';
@@ -17,6 +18,7 @@ export * from './TFactory';
 export * from './THtmlElementStyleDeclaration';
 export * from './TMultitonWatcher';
 export * from './TMultitonWatcherWithState';
+export * from './TProtectedDriverFacade';
 export * from './TProtectedRegistry';
 export * from './TReactiveFactory';
 export * from './TRegistryPack';
