@@ -1,5 +1,5 @@
 import type { ILoopFactory, ILoopRegistry, ILoopWrapper } from '@Engine/Domains/Loop';
-import type { BehaviorSubject } from 'rxjs';
+import type { Subject } from 'rxjs';
 
 import type { IActorFactory, IActorRegistry } from '@/Engine/Domains/Actor';
 import type { ICameraFactory, ICameraRegistry } from '@/Engine/Domains/Camera';
@@ -10,8 +10,8 @@ import type { IRendererFactory, IRendererRegistry } from '@/Engine/Domains/Rende
 export type IBuiltGame = Readonly<{
   destroy: () => void;
   start: () => ILoopWrapper;
-  built$: BehaviorSubject<boolean>;
-  destroyed$: BehaviorSubject<boolean>;
+  built$: Subject<void>;
+  destroyed$: Subject<void>;
   actor: DomainTools<IActorFactory, IActorRegistry>;
   camera: DomainTools<ICameraFactory, ICameraRegistry>;
   light: DomainTools<ILightFactory, ILightRegistry>;

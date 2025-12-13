@@ -9,7 +9,7 @@ import type { ISceneConfig, ISceneWrapper } from '@Engine/Domains/Scene';
 import { SceneFactory } from '@Engine/Domains/Scene';
 import type { IBuiltGame } from '@Engine/Launcher';
 import { isNotDefined, isValidSceneConfig } from '@Engine/Utils';
-import { BehaviorSubject } from 'rxjs';
+import { Subject } from 'rxjs';
 
 import type { IActorConfig, IActorFactory, IActorRegistry, IActorWrapper } from '@/Engine/Domains/Actor';
 import { ActorFactory, ActorRegistry } from '@/Engine/Domains/Actor';
@@ -18,13 +18,12 @@ import { ControlsFactory, ControlsRegistry } from '@/Engine/Domains/Controls';
 import type { ILightConfig, ILightFactory, ILightRegistry, ILightWrapper } from '@/Engine/Domains/Light';
 import { LightFactory, LightRegistry } from '@/Engine/Domains/Light';
 
-// TODO (S.Panfilov) fix IBuiltGame type
 // TODO (S.Panfilov) CWP All factories should be self-registrable
 // TODO (S.Panfilov) Registries' destroy() should kill all registred instances
 
 export function buildGame(sceneConfig: ISceneConfig, canvas: IAppCanvas): IBuiltGame {
-  const built$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-  const destroyed$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  const built$: Subject<void> = new Subject<void>();
+  const destroyed$: Subject<void> = new Subject<void>();
 
   if (!isValidSceneConfig(sceneConfig)) throw new Error('Failed to launch a scene: invalid data format');
   const { name: sceneName, actors, cameras, lights, controls, tags } = sceneConfig;
@@ -96,10 +95,10 @@ export function buildGame(sceneConfig: ISceneConfig, canvas: IAppCanvas): IBuilt
   const initialCamera: ICameraWrapper | undefined = cameraRegistry.getUniqByTag(CameraTag.Initial);
   if (isNotDefined(initialCamera)) throw new Error(`Cannot start the main loop for the scene ${sceneName}: initial camera is not defined`);
 
-  built$.next(true);
+  built$.next();
 
   function destroy(): void {
-    destroyed$.next(true);
+    destroyed$.next();
   }
 
   return {
