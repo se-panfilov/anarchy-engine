@@ -1,4 +1,4 @@
-import type { Subscription } from 'rxjs';
+import type { Observable, Subscription } from 'rxjs';
 import { BehaviorSubject, Subject, switchMap } from 'rxjs';
 
 import type { TActor, TActorParams } from '@/Engine/Actor';
@@ -47,7 +47,7 @@ export function withCollisions(params: TActorParams, collisionsService: TCollisi
       start(actor: TActor): void {
         const collisionsInterpolationLengthMultiplier: number = 4;
 
-        collisionsLoopServiceSub$ = autoUpdate$.pipe(switchMap((): Subject<TCollisionsLoopServiceValue> => collisionsLoopService.tick$)).subscribe(({ delta, priority }): void => {
+        collisionsLoopServiceSub$ = autoUpdate$.pipe(switchMap((): Observable<TCollisionsLoopServiceValue> => collisionsLoopService.tick$)).subscribe(({ delta, priority }): void => {
           if (priority < this.getCollisionsUpdatePriority()) return;
 
           // TODO should be possible to check collisions against another grid

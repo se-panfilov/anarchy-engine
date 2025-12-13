@@ -1,5 +1,5 @@
 import type { RigidBody, Rotation, Vector } from '@dimforge/rapier3d';
-import type { Subject, Subscription } from 'rxjs';
+import type { Observable, Subscription } from 'rxjs';
 import { BehaviorSubject, combineLatest, filter, map, switchMap } from 'rxjs';
 import { Euler, Quaternion, Vector3 } from 'three';
 
@@ -44,9 +44,8 @@ export function PhysicsTransformAgent(params: TPhysicsTransformAgentParams, { ph
 
   physicsSub$ = combineLatest([agent.enabled$, physicsLoopService.autoUpdate$])
     .pipe(
-      //Do not update if agent is disabled or autoUpdate is turned off
       filter(([isEnabled, isAutoUpdate]: ReadonlyArray<boolean>): boolean => isEnabled && isAutoUpdate),
-      switchMap((): Subject<void> => physicsLoopService.tick$)
+      switchMap((): Observable<void> => physicsLoopService.tick$)
     )
     .subscribe((): void => {
       const { position, rotation } = getPhysicalBodyTransform(agent);
