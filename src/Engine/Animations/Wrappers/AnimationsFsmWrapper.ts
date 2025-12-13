@@ -4,19 +4,18 @@ import { StateMachine, t } from 'typescript-fsm';
 
 import type { TWrapper } from '@/Engine/Abstract';
 import { AbstractWrapper, WrapperType } from '@/Engine/Abstract';
-import type { TAnimationsFsmMachine, TAnimationsFsmParams, TAnimationsFsmWrapper } from '@/Engine/Animations/Models';
+import type { TAnimationsFsmMachine, TAnimationsFsmParams, TAnimationsFsmWrapper, TEventsFsm, TStatesFsm } from '@/Engine/Animations/Models';
 import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
 
-// export function AnimationsFsmWrapper<TStates extends string | number | symbol, TEvents extends string | number | symbol>(params: TAnimationsFsmParams): TAnimationsFsmWrapper {
 export function AnimationsFsmWrapper(params: TAnimationsFsmParams): TAnimationsFsmWrapper {
-  const changed$: BehaviorSubject<string | number | symbol> = new BehaviorSubject<string | number | symbol>(params.initial);
+  const changed$: BehaviorSubject<TStatesFsm> = new BehaviorSubject<TStatesFsm>(params.initial);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { name, ...machineParams } = params;
 
-  const onChange = (val: string | number | symbol): void => changed$.next(val);
+  const onChange = (val: TStatesFsm): void => changed$.next(val);
 
-  const entity: TAnimationsFsmMachine = new StateMachine<string | number | symbol, string | number | symbol>(
+  const entity: TAnimationsFsmMachine = new StateMachine<TStatesFsm, TEventsFsm>(
     machineParams.initial,
     machineParams.transitions.map(([from, to, event]) => {
       return t(from, to, event, (): void => onChange(to));
@@ -25,10 +24,10 @@ export function AnimationsFsmWrapper(params: TAnimationsFsmParams): TAnimationsF
 
   const wrapper: TWrapper<TAnimationsFsmMachine> = AbstractWrapper(entity, WrapperType.AnimationsFsm, params);
 
-  const getState = (): string | number | symbol => entity.getState();
+  const getState = (): TStatesFsm => entity.getState();
 
-  let prev: string | number | symbol = entity.getState();
-  const send = (event: string | number | symbol): void => {
+  let prev: TStatesFsm = entity.getState();
+  const send = (event: TStatesFsm): void => {
     if (entity.getState() === event) return;
 
     //this is a hack to prevent double dispatching of the same event. getState() is not updated immediately after dispatch

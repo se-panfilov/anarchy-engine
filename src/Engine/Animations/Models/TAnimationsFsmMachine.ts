@@ -1,3 +1,5 @@
 import type { StateMachine } from 'typescript-fsm';
 
-export type TAnimationsFsmMachine = StateMachine<string | number | symbol, string | number | symbol>;
+import type { TEventsFsm, TStatesFsm } from './TAnimationsFsmParams';
+
+export type TAnimationsFsmMachine = StateMachine<TStatesFsm, TEventsFsm>;

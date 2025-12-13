@@ -4,7 +4,20 @@ import type { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
 
 import type { TShowcase } from '@/App/Levels/Models';
 import { addGizmo } from '@/App/Levels/Utils';
-import type { TActor, TAnimationsFsmWrapper, TAppCanvas, TEngine, TModel3d, TModel3dResourceAsyncRegistry, TRegistryPack, TSceneWrapper, TSpace, TSpaceConfig, TSpaceServices } from '@/Engine';
+import type {
+  TActor,
+  TAnimationsFsmWrapper,
+  TAppCanvas,
+  TEngine,
+  TModel3d,
+  TModel3dResourceAsyncRegistry,
+  TRegistryPack,
+  TSceneWrapper,
+  TSpace,
+  TSpaceConfig,
+  TSpaceServices,
+  TStatesFsm
+} from '@/Engine';
 import { ambientContext, Engine, isNotDefined, KeyCode, KeysExtra, spaceService } from '@/Engine';
 
 import spaceConfig from './showcase.json';
@@ -71,7 +84,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     const { animationsFsm } = solderActor.states;
     if (isNotDefined(animationsFsm)) throw new Error('Animations FSM is not defined');
 
-    solderAnimFsm.changed$.pipe(distinctUntilChanged()).subscribe((state: string | number | symbol): void => {
+    solderAnimFsm.changed$.pipe(distinctUntilChanged()).subscribe((state: TStatesFsm): void => {
       switch (state) {
         case Idle:
           walkAction.fadeOut(fadeDuration);

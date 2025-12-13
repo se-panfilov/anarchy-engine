@@ -1,7 +1,10 @@
 import type { TWithNameOptional } from '@/Engine/Mixins';
 
+export type TStatesFsm = string | number | symbol;
+export type TEventsFsm = string | number | symbol;
+
 export type TAnimationsFsmParams = Readonly<{
-  initial: string | number | symbol;
-  transitions: ReadonlyArray<Readonly<[string | number | symbol, string | number | symbol, string | number | symbol]>>;
+  initial: TStatesFsm;
+  transitions: ReadonlyArray<Readonly<[TStatesFsm, TEventsFsm, TStatesFsm]>>;
 }> &
   TWithNameOptional;
