@@ -3799,13 +3799,19 @@
           "$ref": "#/definitions/TMaterialConfigOptions"
         },
         "textures": {
-          "$ref": "#/definitions/TMaterialTexturePack"
+          "$ref": "#/definitions/TMaterialConfigTextures"
         },
         "type": {
           "$ref": "#/definitions/MaterialType"
         },
         "name": {
           "type": "string"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
         }
       },
       "required": ["type"]
@@ -6344,44 +6350,44 @@
       },
       "required": ["color"]
     },
-    "TMaterialTexturePack": {
+    "TMaterialConfigTextures": {
       "anyOf": [
         {
-          "$ref": "#/definitions/TBasicMaterialTexturePack"
+          "$ref": "#/definitions/TBasicMaterialConfigTextures"
         },
         {
-          "$ref": "#/definitions/TDepthMaterialTexturePack"
+          "$ref": "#/definitions/TDepthMaterialConfigTextures"
         },
         {
-          "$ref": "#/definitions/TDistanceMaterialTexturePack"
+          "$ref": "#/definitions/TDistanceMaterialConfigTextures"
         },
         {
-          "$ref": "#/definitions/TNormalMaterialTexturePack"
+          "$ref": "#/definitions/TNormalMaterialConfigTextures"
         },
         {
-          "$ref": "#/definitions/TMatcapMaterialTexturePack"
+          "$ref": "#/definitions/TMatcapMaterialConfigTextures"
         },
         {
-          "$ref": "#/definitions/TLambertMaterialTexturePack"
+          "$ref": "#/definitions/TLambertMaterialConfigTextures"
         },
         {
-          "$ref": "#/definitions/TPhongMaterialTexturePack"
+          "$ref": "#/definitions/TPhongMaterialConfigTextures"
         },
         {
-          "$ref": "#/definitions/TPhysicalMaterialTexturePack"
+          "$ref": "#/definitions/TPhysicalMaterialConfigTextures"
         },
         {
-          "$ref": "#/definitions/TToonMaterialTexturePack"
+          "$ref": "#/definitions/TToonMaterialConfigTextures"
         },
         {
-          "$ref": "#/definitions/TStandardMaterialTexturePack"
+          "$ref": "#/definitions/TStandardMaterialConfigTextures"
         },
         {
-          "$ref": "#/definitions/TPointsMaterialTexturePack"
+          "$ref": "#/definitions/TPointsMaterialConfigTextures"
         }
       ]
     },
-    "TBasicMaterialTexturePack": {
+    "TBasicMaterialConfigTextures": {
       "type": "object",
       "properties": {
         "map": {
@@ -6405,7 +6411,7 @@
       },
       "additionalProperties": false
     },
-    "TDepthMaterialTexturePack": {
+    "TDepthMaterialConfigTextures": {
       "type": "object",
       "properties": {
         "map": {
@@ -6420,7 +6426,7 @@
       },
       "additionalProperties": false
     },
-    "TDistanceMaterialTexturePack": {
+    "TDistanceMaterialConfigTextures": {
       "type": "object",
       "properties": {
         "map": {
@@ -6432,7 +6438,7 @@
       },
       "additionalProperties": false
     },
-    "TNormalMaterialTexturePack": {
+    "TNormalMaterialConfigTextures": {
       "type": "object",
       "properties": {
         "bumpMap": {
@@ -6447,7 +6453,7 @@
       },
       "additionalProperties": false
     },
-    "TMatcapMaterialTexturePack": {
+    "TMatcapMaterialConfigTextures": {
       "type": "object",
       "properties": {
         "map": {
@@ -6471,7 +6477,7 @@
       },
       "additionalProperties": false
     },
-    "TLambertMaterialTexturePack": {
+    "TLambertMaterialConfigTextures": {
       "type": "object",
       "properties": {
         "map": {
@@ -6507,7 +6513,7 @@
       },
       "additionalProperties": false
     },
-    "TPhongMaterialTexturePack": {
+    "TPhongMaterialConfigTextures": {
       "type": "object",
       "properties": {
         "map": {
@@ -6543,7 +6549,7 @@
       },
       "additionalProperties": false
     },
-    "TPhysicalMaterialTexturePack": {
+    "TPhysicalMaterialConfigTextures": {
       "type": "object",
       "properties": {
         "map": {
@@ -6591,7 +6597,7 @@
       },
       "additionalProperties": false
     },
-    "TToonMaterialTexturePack": {
+    "TToonMaterialConfigTextures": {
       "type": "object",
       "properties": {
         "map": {
@@ -6624,7 +6630,7 @@
       },
       "additionalProperties": false
     },
-    "TStandardMaterialTexturePack": {
+    "TStandardMaterialConfigTextures": {
       "type": "object",
       "properties": {
         "map": {
@@ -6663,7 +6669,7 @@
       },
       "additionalProperties": false
     },
-    "TPointsMaterialTexturePack": {
+    "TPointsMaterialConfigTextures": {
       "type": "object",
       "properties": {
         "map": {
