@@ -39,7 +39,7 @@ function parseArgs(argv) {
     out: null,
     files: [],
     glob: '*.schema.json',
-    module: 'Validators.gen.mjs',
+    module: 'Validators.gen.ts',
     dts: false,
     formats: true,
     strict: true,
