@@ -4,17 +4,17 @@ Done:
 - 4.x.x Collision detection
 
 To be done:
-- 5.x.x Complex models
+- 5.0.x Complex models
 - 5.1.x Lines domain
 - 6.x.x Animations
-- 7.x.x Sounds/Music
-- 7.x.x GUI
-- 7.x.x Logging
-- 8.x.x Deletion (memory management)
-- 8.x.x Building app (desktop/mobile) (might be not a part of an engine)
-- 8.x.x Testing (screenshot tests)
-- 8.x.x Split apps and engine
-- 8.x.x npm package and a repo
+- 7.0.x Sounds/Music
+- 7.1.x GUI
+- 7.2.x Logging
+- 8.0.x Deletion (memory management)
+- 8.1.x Building app (desktop/mobile) (might be not a part of an engine)
+- 8.2.x Testing (screenshot tests)
+- 8.3.x Split apps and engine
+- 8.4.x npm package and a repo
 - 9.x.x Shaders
 - 10.x.x Save/Load
 
