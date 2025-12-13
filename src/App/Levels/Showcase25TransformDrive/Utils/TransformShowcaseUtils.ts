@@ -1,6 +1,6 @@
 import type GUI from 'lil-gui';
 import type { Observable, Subject, Subscription } from 'rxjs';
-import { combineLatest } from 'rxjs';
+import { combineLatest, map } from 'rxjs';
 import type { ColorRepresentation } from 'three';
 import { Euler, Vector3 } from 'three';
 import { Line2 } from 'three/examples/jsm/lines/Line2';
@@ -18,6 +18,7 @@ import type {
   TKeyboardService,
   TMaterialWrapper,
   TModel3d,
+  TOrbitControlsWrapper,
   TSpaceServices,
   TSpatialGridWrapper
 } from '@/Engine';
@@ -90,6 +91,30 @@ export function changeActorActiveAgent(actor: TActor, key: KeyCode | KeysExtra, 
     const index: number = agents.findIndex((agent: TransformAgent): boolean => agent === actor.drive.agent$.value);
     actor.drive.agent$.next(agents[(index + 1) % agents.length]);
   });
+}
+
+export function connectCameraToActor(camera: TCameraWrapper, controls: TOrbitControlsWrapper, actor: TActor, gui: GUI): void {
+  const cameraFolder = {
+    isFollowingActor: false
+  };
+  gui.add(cameraFolder, 'isFollowingActor').name('Following mode');
+
+  actor.drive.position$
+    .pipe(
+      map((position: Vector3): { position: Vector3; isFollowingActor: boolean } => ({
+        position: position.clone(),
+        isFollowingActor: cameraFolder.isFollowingActor
+      }))
+    )
+    .subscribe(({ position, isFollowingActor }: { position: Vector3; isFollowingActor: boolean }): void => {
+      if (isFollowingActor) {
+        if (controls.isEnable()) controls.disable();
+        camera.drive.position$.next(position.clone().add(new Vector3(0, 10, 0)));
+        camera.lookAt(position);
+      } else {
+        controls.enable();
+      }
+    });
 }
 
 export function addActorFolderGui(gui: GUI, actor: TActor): void {

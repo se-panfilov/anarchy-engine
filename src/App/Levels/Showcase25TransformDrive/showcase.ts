@@ -6,12 +6,14 @@ import type { TShowcase } from '@/App/Levels/Models';
 import type {
   TActor,
   TAppCanvas,
+  TCameraWrapper,
   TEngine,
   TIntersectionEvent,
   TIntersectionsWatcher,
   TModel3d,
   TModel3dRegistry,
   TMouseWatcherEvent,
+  TOrbitControlsWrapper,
   TSceneWrapper,
   TSpace,
   TSpaceConfig,
@@ -22,7 +24,17 @@ import { meters } from '@/Engine/Measurements/Utils';
 import { getHumanReadableMemorySize } from '@/Engine/Utils/FileUtils';
 
 import spaceConfig from './showcase.json';
-import { addActorFolderGui, addSpatialGuiFolder, attachConnectorToSubj, changeActorActiveAgent, createActor, createReactiveLineFromActor, createRepeaterActor, startIntersections } from './Utils';
+import {
+  addActorFolderGui,
+  addSpatialGuiFolder,
+  attachConnectorToSubj,
+  changeActorActiveAgent,
+  connectCameraToActor,
+  createActor,
+  createReactiveLineFromActor,
+  createRepeaterActor,
+  startIntersections
+} from './Utils';
 
 //This showcase should demonstrate the ways we can move the actor.
 // We have different "agents" (modes) which can be switched in runtime
@@ -36,7 +48,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
   const space: TSpace = await spaceService.buildSpaceFromConfig(canvas, spaceConfig as TSpaceConfig);
   const engine: TEngine = Engine(space);
 
-  const { models3dService, mouseService, scenesService, spatialGridService } = space.services;
+  const { cameraService, controlsService, models3dService, mouseService, scenesService, spatialGridService } = space.services;
   const { keyboardService } = engine.services;
   const { clickLeftRelease$ } = mouseService;
   const models3dRegistry: TModel3dRegistry = models3dService.getRegistry();
@@ -52,6 +64,12 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
 
     const planeModel3dF: TModel3d | undefined = models3dRegistry.findByName('surface_model');
     if (isNotDefined(planeModel3dF)) throw new Error('Plane model is not defined');
+
+    const camera: TCameraWrapper | undefined = cameraService.findActive();
+    if (isNotDefined(camera)) throw new Error('Camera is not defined');
+
+    const controls: TOrbitControlsWrapper | undefined = controlsService.findActive();
+    if (isNotDefined(controls)) throw new Error('Controls are not defined');
 
     grid._debugVisualizeCells(sceneW, '#4e0c85');
 
@@ -69,6 +87,8 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     const intersectionsWatcher: TIntersectionsWatcher = startIntersections(space.services);
 
     addSpatialGuiFolder(gui, grid, intersectionsWatcher);
+
+    connectCameraToActor(camera, controls, sphereActor, gui);
 
     const { line } = createReactiveLineFromActor('#E91E63', sphereActor, intersectionsWatcher);
     sceneW.entity.add(line);
