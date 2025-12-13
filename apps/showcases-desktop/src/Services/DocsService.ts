@@ -6,7 +6,6 @@ import { AllowedLegalDocNames } from '@Showcases/Shared';
 
 export function DocsService(filesService: TFilesService): TDocsService {
   // TODO DESKTOP: Add protection (allowed files list, name/extension checks, sanitization, etc)
-  // TODO DESKTOP: rename load/save to read/write
   async function get({ name }: TLoadDocPayload): Promise<TLegalDoc> {
     if (isNotDefined(AllowedLegalDocNames[name])) throw new Error(`[DESKTOP] Invalid doc name. Name "${name}" is not allowed`);
     const content: string = await filesService.readFile(name + '.md', AllowedAppFolders.LegalDocs);
