@@ -6,11 +6,6 @@ import { filterOutEmptyFields, isNotDefined } from '@/Engine/Utils';
 
 // TODO 15-0-0: validate result
 export function controlsToConfig(entity: TControlsWrapper, { cameraService }: TControlsServiceDependencies): TControlsConfig {
-  // console.log('XXX entity', entity);
-  // console.log('XXX entity.entity', entity.entity);
-  // console.log('XXX registry', cameraService.getRegistry().asObject());
-  // console.log('XXX entity.entity.object', entity.entity.object);
-
   const camera: TCamera | undefined = entity.entity.object as TCamera;
   if (isNotDefined(camera)) throw new Error(`[Serialization] Controls: camera not found for entity with name: "${entity.name}", (id: "${entity.id}")`);
   const cameraName: string | undefined = cameraService.getRegistry().findKey((cameraWrapper: TCameraWrapper): boolean => cameraWrapper.entity === camera);
@@ -57,9 +52,9 @@ function getOrbitControlsFields(entity: TOrbitControlsWrapper): Omit<TOrbitContr
     screenSpacePanning: entity.getScreenSpacePanning(),
     keyPanSpeed: entity.getKeyPanSpeed(),
     autoRotate: entity.getAutoRotate(),
-    autoRotateSpeed: entity.getAutoRotateSpeed()
-    // target: entity.getTarget(),
-    // cursor: entity.getCursor()
+    autoRotateSpeed: entity.getAutoRotateSpeed(),
+    target: entity.entity.target.clone(),
+    cursor: entity.entity.cursor.clone()
   });
 }
 
