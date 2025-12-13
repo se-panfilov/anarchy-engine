@@ -33,7 +33,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @babel/parser@7.28.3
+## @babel/parser@7.28.4
 
 **License(s):** MIT
 
@@ -45,7 +45,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @babel/types@7.28.2
+## @babel/types@7.28.4
 
 **License(s):** MIT
 
@@ -329,7 +329,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## anarchy-i18n@1.1.3
+## anarchy-i18n@1.2.0
 
 **License(s):** MIT
 
@@ -337,7 +337,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## anarchy-shared@1.1.3
+## anarchy-shared@1.1.4
 
 **License(s):** MIT
 
@@ -513,7 +513,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## magic-string@0.30.18
+## magic-string@0.30.19
 
 **License(s):** MIT
 
@@ -679,7 +679,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## showcases-shared@1.0.10
+## showcases-shared@1.1.0
 
 **License(s):** MIT
 

@@ -74,7 +74,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 ---
 
-## @babel/parser@7.28.3
+## @babel/parser@7.28.4
 
 **License:** MIT
 
@@ -106,7 +106,7 @@ THE SOFTWARE.
 
 ---
 
-## @babel/types@7.28.2
+## @babel/types@7.28.4
 
 **License:** MIT
 
@@ -1039,7 +1039,7 @@ SOFTWARE.
 
 ---
 
-## anarchy-i18n@1.1.3
+## anarchy-i18n@1.2.0
 
 **License:** MIT
 
@@ -1069,7 +1069,7 @@ SOFTWARE.
 
 ---
 
-## anarchy-shared@1.1.3
+## anarchy-shared@1.1.4
 
 **License:** MIT
 
@@ -2193,7 +2193,7 @@ terms above.
 
 ---
 
-## magic-string@0.30.18
+## magic-string@0.30.19
 
 **License:** MIT
 
@@ -2940,7 +2940,7 @@ http://creativecommons.org/publicdomain/zero/1.0/.
 
 ---
 
-## showcases-menu@1.6.2
+## showcases-menu@1.7.0
 
 **License:** MIT
 
@@ -2970,7 +2970,7 @@ SOFTWARE.
 
 ---
 
-## showcases-shared@1.0.10
+## showcases-shared@1.1.0
 
 **License:** MIT
 
