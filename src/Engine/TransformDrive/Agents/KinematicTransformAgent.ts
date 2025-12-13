@@ -106,19 +106,13 @@ export function KinematicTransformAgent(params: TKinematicTransformAgentParams, 
       if (speed < 0) throw new Error('Speed must be greater than 0 to calculate angular speed.');
       if (speed === 0) return agent.setAngularSpeed(0);
       if (radius <= 0) throw new Error('Radius must be greater than 0 to calculate angular speed.');
+      // TODO 8.0.0. MODELS: TRadiansPerSecond
       const angularSpeed: TMetersPerSecond = (speed / radius) as TMetersPerSecond;
 
       // eslint-disable-next-line functional/immutable-data
-      agent.data.target.rotation = targetRotation;
+      agent.data.target.rotation = targetRotation.clone().normalize();
 
-      // Calculate angle to the target using dot product
-      const dot: number = agent.rotation$.value.dot(targetRotation);
-      const angleToTarget: number = Math.acos(2 * dot * dot - 1);
-      if (angleToTarget < agent.data.target.rotationThreshold) return agent.setAngularSpeed(0);
-
-      // agent.setAngularDirection(targetRotation);
       agent.setAngularSpeed(angularSpeed);
-
       return undefined;
     },
     getLinearSpeed(): TMetersPerSecond {
@@ -204,62 +198,47 @@ export function KinematicTransformAgent(params: TKinematicTransformAgentParams, 
 // function getStepRotation(agent: TKinematicTransformAgent, rotationStep: number): Quaternion | undefined {
 //   if (!agent.data.target?.rotation) return undefined;
 //
-//   const relativeRotation = agent.data.target.rotation.clone().multiply(agent.rotation$.value.clone().invert());
-//   const angleToTarget: TRadians = (2 * Math.acos(Math.max(-1, Math.min(1, relativeRotation.w)))) as TRadians;
-//   if (angleToTarget < 1e-6) return undefined;
+//   const currentEuler = new Euler().setFromQuaternion(agent.rotation$.value, 'YXZ');
+//   const targetEuler = new Euler().setFromQuaternion(agent.data.target.rotation, 'YXZ');
 //
-//   const axis = new Vector3(relativeRotation.x, relativeRotation.y, relativeRotation.z);
-//   const scaleFactor = Math.sqrt(1 - relativeRotation.w * relativeRotation.w);
+//   const deltaX = targetEuler.x - currentEuler.x;
+//   const deltaY = targetEuler.y - currentEuler.y;
+//   const deltaZ = targetEuler.z - currentEuler.z;
 //
-//   if (scaleFactor > 1e-6) {
-//     axis.divideScalar(scaleFactor).normalize();
-//   } else {
-//     axis.set(1, 0, 0);
-//   }
+//   const stepEuler = new Euler(
+//     Math.sign(deltaX) * Math.min(rotationStep, Math.abs(deltaX)),
+//     Math.sign(deltaY) * Math.min(rotationStep, Math.abs(deltaY)),
+//     Math.sign(deltaZ) * Math.min(rotationStep, Math.abs(deltaZ)),
+//     'YXZ'
+//   );
 //
-//   const stepAngle = Math.min(rotationStep, angleToTarget);
-//
-//   return new Quaternion().setFromAxisAngle(axis, stepAngle);
+//   return new Quaternion().setFromEuler(stepEuler);
 // }
 
-// function getStepRotation(agent: TKinematicTransformAgent, rotationStep: number): Quaternion | undefined {
-//   if (!agent.data.target?.rotation) return undefined;
-//
-//   const currentRotation: Quaternion = agent.rotation$.value;
-//   const targetRotation: Quaternion = agent.data.target.rotation;
-//   const relativeRotation: Quaternion = new Quaternion().copy(targetRotation).multiply(currentRotation.clone().invert());
-//
-//   const angleToTarget: TRadians = 2 * Math.acos(Math.max(-1, Math.min(1, relativeRotation.w))) as TRadians;
-//   if (angleToTarget < 1e-6) return undefined;
-//
-//   const axis = new Vector3(relativeRotation.x, relativeRotation.y, relativeRotation.z);
-//   if (axis.lengthSq() < 1e-6) return undefined;
-//   axis.normalize();
-//
-//   const stepFactor: number = Math.min(1, rotationStep / angleToTarget);
-//   const stepRotation: Quaternion = new Quaternion().setFromAxisAngle(axis, angleToTarget * stepFactor);
-//
-//   return stepRotation;
-// }
+function getStepRotation(agent: TKinematicTransformAgent, rotationStep: TRadians): Quaternion | undefined {
+  const targetRotation = agent.data.target?.rotation?.clone();
+  if (!targetRotation) return undefined;
+  const currentRotation = agent.rotation$.value.clone().normalize();
+  targetRotation.normalize();
 
-function getStepRotation(agent: TKinematicTransformAgent, rotationStep: number): Quaternion | undefined {
-  if (!agent.data.target?.rotation) return undefined;
+  const qRelative = currentRotation.clone().invert().multiply(targetRotation).normalize();
+  const { x, y, z, w } = qRelative;
+  const angle = 2 * Math.acos(Math.min(Math.max(w, -1), 1)); // clamp w для безопасности
 
-  const currentEuler = new Euler().setFromQuaternion(agent.rotation$.value, 'YXZ');
-  const targetEuler = new Euler().setFromQuaternion(agent.data.target.rotation, 'YXZ');
+  const axis = new Vector3(x, y, z);
+  const sinHalfAngle = Math.sqrt(1 - w * w);
 
-  const deltaX = targetEuler.x - currentEuler.x;
-  const deltaY = targetEuler.y - currentEuler.y;
-  const deltaZ = targetEuler.z - currentEuler.z;
+  if (sinHalfAngle > 1e-6) {
+    axis.divideScalar(sinHalfAngle).normalize();
+  } else {
+    axis.set(0, 1, 0);
+  }
 
-  const stepEuler = new Euler(
-    Math.sign(deltaX) * Math.min(rotationStep, Math.abs(deltaX)),
-    Math.sign(deltaY) * Math.min(rotationStep, Math.abs(deltaY)),
-    Math.sign(deltaZ) * Math.min(rotationStep, Math.abs(deltaZ)),
-    'YXZ'
-  );
+  const useNegativeAngle = angle > Math.PI;
+  const correctedAngle = useNegativeAngle ? angle - 2 * Math.PI : angle;
+  const stepAngle = Math.sign(correctedAngle) * Math.min(Math.abs(correctedAngle), rotationStep);
 
-  return new Quaternion().setFromEuler(stepEuler);
+  return new Quaternion().setFromAxisAngle(axis, stepAngle).normalize();
 }
 
 function isPointReached(target: TKinematicTarget | undefined, position: Vector3, state: TKinematicState): boolean {
