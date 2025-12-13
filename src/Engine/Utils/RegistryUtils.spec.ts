@@ -1,6 +1,5 @@
-import { vi } from 'vitest';
-
-import type { IRegistrable } from '@/Engine';
+import type { IRegistrable } from '@/Engine/Mixins';
+import { withTags } from '@/Engine/Mixins/Generic/WithTags';
 
 import { getAllEntitiesWithEveryTag, getAllEntitiesWithSomeTag } from './RegistryUtils';
 
@@ -11,19 +10,13 @@ describe('RegistryUtils', () => {
   const tag4: string = 'tag4';
   const tag5: string = 'tag5';
 
-  const setTags = vi.fn();
-  const hasTag = vi.fn();
-  const addTag = vi.fn();
-  const removeTag = vi.fn();
-  const clearTags = vi.fn();
-
-  const obj1: IRegistrable = { id: '1', getTags: () => [tag1, tag2], setTags, hasTag, addTag, removeTag, clearTags };
-  const obj2: IRegistrable = { id: '2', getTags: () => [tag2], setTags, hasTag, addTag, removeTag, clearTags };
-  const obj3: IRegistrable = { id: '3', getTags: () => [tag3, tag4], setTags, hasTag, addTag, removeTag, clearTags };
-  const obj4: IRegistrable = { id: '4', getTags: () => [tag2, tag5], setTags, hasTag, addTag, removeTag, clearTags };
-  const obj5: IRegistrable = { id: '5', getTags: () => [], setTags, hasTag, addTag, removeTag, clearTags };
-  const obj6: IRegistrable = { id: '6', getTags: () => [tag1, tag2, tag5], setTags, hasTag, addTag, removeTag, clearTags };
-  const obj7: IRegistrable = { id: '7', getTags: () => [tag5, tag2], setTags, hasTag, addTag, removeTag, clearTags };
+  const obj1: IRegistrable = { id: '1', ...withTags([tag1, tag2]) };
+  const obj2: IRegistrable = { id: '2', ...withTags([tag2]) };
+  const obj3: IRegistrable = { id: '3', ...withTags([tag3, tag4]) };
+  const obj4: IRegistrable = { id: '4', ...withTags([tag2, tag5]) };
+  const obj5: IRegistrable = { id: '5', ...withTags([]) };
+  const obj6: IRegistrable = { id: '6', ...withTags([tag1, tag2, tag5]) };
+  const obj7: IRegistrable = { id: '7', ...withTags([tag5, tag2]) };
 
   const registry: Map<string, IRegistrable> = new Map();
   registry.set('obj1', obj1);
