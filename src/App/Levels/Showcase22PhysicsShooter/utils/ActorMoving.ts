@@ -1,6 +1,5 @@
 import { distinctUntilChanged, map } from 'rxjs';
 import type { Vector3 } from 'three';
-import { degToRad } from 'three/src/math/MathUtils';
 
 import type { TActorWrapperAsync, TIntersectionEvent, TIntersectionsWatcher, TKeyboardService, TRadians } from '@/Engine';
 import { getAzimuthRadFromDirection, getElevationRadFromDirection, KeyCode } from '@/Engine';
@@ -73,22 +72,22 @@ function getActorMoveAzimuthRad(keyStates: TMoveKeysState): TRadians {
   const { Forward, Backward, Left, Right } = keyStates;
 
   //just forward
-  if (Forward && !Backward && !Left && !Right) return degToRad(0);
+  if (Forward && !Backward && !Left && !Right) return 0; //0 degrees
   //just backward
-  if (!Forward && Backward && !Left && !Right) return degToRad(180);
+  if (!Forward && Backward && !Left && !Right) return Math.PI; //180 degrees
   //just left
-  if (!Forward && !Backward && Left && !Right) return degToRad(-90);
+  if (!Forward && !Backward && Left && !Right) return -Math.PI / 2; //-90 degrees
   //just right
-  if (!Forward && !Backward && !Left && Right) return degToRad(90);
+  if (!Forward && !Backward && !Left && Right) return Math.PI / 2; //90 degrees
 
   //forward and left
-  if (Forward && !Backward && Left && !Right) return degToRad(-45);
+  if (Forward && !Backward && Left && !Right) return -Math.PI / 4; //-45 degrees
   //forward and right
-  if (Forward && !Backward && !Left && Right) return degToRad(45);
+  if (Forward && !Backward && !Left && Right) return Math.PI / 4; //45 degrees
   //backward and left
-  if (!Forward && Backward && Left && !Right) return degToRad(225);
+  if (!Forward && Backward && Left && !Right) return (5 * Math.PI) / 4; //225 degrees
   //backward and right
-  if (!Forward && Backward && !Left && Right) return degToRad(135);
+  if (!Forward && Backward && !Left && Right) return (3 * Math.PI) / 4; //135 degrees
 
   return 0;
 }
