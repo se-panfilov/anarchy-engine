@@ -21,7 +21,8 @@
 ## 1) What this {{PRODUCT_TERM}} is
 
 - **{{PRODUCT_TERM}}:** {{PRODUCT_SHORT_PURPOSE}}.
-  Operates **offline** by default; any online features, if offered, are **opt-in**. No personal data collection during offline use (see **Privacy Policy** for details).
+
+Operates **offline** by default; any online features, if offered, are **opt-in**. No personal data collection during offline use (see **Privacy Policy** for details).
 
 {{#SUPPORTED_PLATFORMS}}
 **Supported platforms (indicative):** {{SUPPORTED_PLATFORMS}}.
@@ -126,7 +127,7 @@ All legal documents are provided **offline** in this folder (canonical filenames
 - **Primary License** — `LICENSE`
 - **EU Declaration of Conformity** — `EU_DECLARATION_OF_CONFORMITY.pdf`
 - **CE mark image** — `ce-mark.png`
-- **Software Bill of Materials** — `sbom/`
+- **Software Bill of Materials** — `{{SBOM_LOCATION}} `
 
 > External links are avoided where possible so that required information remains available offline within the distribution.
 
