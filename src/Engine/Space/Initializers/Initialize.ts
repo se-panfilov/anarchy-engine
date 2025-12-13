@@ -1,15 +1,14 @@
 import type { Subject, Subscription } from 'rxjs';
 
-import type { CommonTag } from '@/Engine/Abstract';
-import type { ActorAsyncRegistry, ActorFactory } from '@/Engine/Actor';
-import type { CameraFactory, CameraRegistry } from '@/Engine/Camera';
-
-export type { IAbstractAsyncRegistry, IAbstractEntityRegistry, IAsyncReactiveFactory, IParamsFromConfig, IProtectedRegistry, IReactiveFactory, IWrapper } from '@/Engine/Abstract';
-export type { IActorAsyncRegistry, IActorConfig, IActorFactory, IActorWrapperAsync } from '@/Engine/Actor';
-export type { ICameraConfig, ICameraFactory, ICameraRegistry } from '@/Engine/Camera';
-export type { IRegistrable, IWithReadonlyTags } from '@/Engine/Mixins';
-export type { ISceneConfig, ISceneFactory, ISceneObject, ISceneRegistry, ISceneWrapper } from '@/Engine/Scene';
-export { SceneFactory, SceneRegistry } from '@/Engine/Scene';
+import type { IAbstractAsyncRegistry, IAbstractEntityRegistry, IAsyncReactiveFactory, IParamsFromConfig, IProtectedRegistry, IReactiveFactory, IWrapper } from '@/Engine/Abstract';
+import { CommonTag } from '@/Engine/Abstract';
+import type { IActorAsyncRegistry, IActorConfig, IActorFactory, IActorWrapperAsync } from '@/Engine/Actor';
+import { ActorAsyncRegistry, ActorFactory } from '@/Engine/Actor';
+import type { ICameraConfig, ICameraFactory, ICameraRegistry } from '@/Engine/Camera';
+import { CameraFactory, CameraRegistry } from '@/Engine/Camera';
+import type { IRegistrable, IWithReadonlyTags } from '@/Engine/Mixins';
+import type { ISceneConfig, ISceneFactory, ISceneObject, ISceneRegistry, ISceneWrapper } from '@/Engine/Scene';
+import { SceneFactory, SceneRegistry } from '@/Engine/Scene';
 
 function init<E extends ISceneObject, W extends IWrapper<E> & IRegistrable, R extends IAbstractEntityRegistry<W>, C extends IWithReadonlyTags<string>, P>(
   scene: ISceneWrapper,
