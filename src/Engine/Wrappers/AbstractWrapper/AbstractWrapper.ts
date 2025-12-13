@@ -1,7 +1,7 @@
 import type { IWrapper } from '@Engine/Models';
 import { nanoid } from 'nanoid';
 
-export function AbstractWrapper<T>(entity: T): IWrapper<T> {
+export function AbstractWrapper<T>(entity: T, { tags }: Readonly<{ tags: ReadonlyArray<string> }>): IWrapper<T> {
   const id: string = nanoid();
 
   return {
@@ -11,6 +11,6 @@ export function AbstractWrapper<T>(entity: T): IWrapper<T> {
     get entity(): T {
       return entity;
     },
-    tags: []
+    tags
   };
 }

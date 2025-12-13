@@ -8,11 +8,11 @@ import { PCFShadowMap, WebGL1Renderer } from 'three';
 import type { IRendererWrapper } from './Models';
 
 // TODO (S.Panfilov) Should we provide delta here?
-export function RendererWrapper({ canvas }: IRendererParams, screenSizeWatcher: IScreenSizeWatcher): IRendererWrapper {
-  if (isNotDefined(canvas)) throw new Error(`Canvas is not defined`);
+export function RendererWrapper(params: IRendererParams, screenSizeWatcher: IScreenSizeWatcher): IRendererWrapper {
+  if (isNotDefined(params.canvas)) throw new Error(`Canvas is not defined`);
   if (!isWebGLAvailable()) throw new Error('WebGL is not supported by this device');
 
-  const entity: WebGL1Renderer = new WebGL1Renderer({ canvas });
+  const entity: WebGL1Renderer = new WebGL1Renderer({ canvas: params.canvas });
   // eslint-disable-next-line functional/immutable-data
   entity.shadowMap.enabled = true;
   // eslint-disable-next-line functional/immutable-data
@@ -37,7 +37,7 @@ export function RendererWrapper({ canvas }: IRendererParams, screenSizeWatcher: 
     screenSizeWatcher.destroy$.unsubscribe();
   });
 
-  const wrapper: IWrapper<WebGL1Renderer> = AbstractWrapper(entity);
+  const wrapper: IWrapper<WebGL1Renderer> = AbstractWrapper(entity, params);
 
   function destroy(): void {
     screenSizeWatcher.value$.unsubscribe();

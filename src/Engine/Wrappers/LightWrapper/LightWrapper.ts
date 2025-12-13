@@ -7,5 +7,5 @@ import { getLight } from './utils';
 
 export function LightWrapper(params: ILightParams): ILightWrapper {
   const entity: IAmbientLight | IDirectionalLight = getLight(params);
-  return { ...AbstractWrapper(entity), ...getAccessors(entity), entity };
+  return { ...AbstractWrapper(entity, params), ...getAccessors(entity), entity };
 }

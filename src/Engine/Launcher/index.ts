@@ -7,7 +7,7 @@ import { initRegistriesAddSubscription } from '@Engine/Pool/GetRegistiryPool';
 import type { IFactoriesPool, IRegistriesPool } from '@Engine/Pool/Models';
 import { IntersectionsService } from '@Engine/Services';
 import { isNotDefined } from '@Engine/Utils';
-import type { ICameraWrapper, ILoopWrapper, IRendererWrapper, ISceneWrapper } from '@Engine/Wrappers';
+import type { IActorWrapper, ICameraWrapper, ILoopWrapper, IRendererWrapper, ISceneWrapper } from '@Engine/Wrappers';
 
 export function launchScene(
   sceneConfig: ISceneConfig,
@@ -41,13 +41,11 @@ export function launchScene(
     const camera: ICameraWrapper | undefined = cameraRegistry.getUniqWithTag([cameraTag]);
     if (isNotDefined(camera))
       throw new Error(`Cannot init intersection service: camera with tag "${cameraTag}" is not defined`);
-    const intersectObj: IVector3 | undefined = intersectionsService.getIntersection(
-      position,
-      camera,
-      actorRegistry.getAllWithTag([ActorTag.Intersectable])
-    );
+    const actors: ReadonlyArray<IActorWrapper> = actorRegistry.getAllWithTag([ActorTag.Intersectable]);
+    console.log(actors);
+    const intersectObj: IVector3 | undefined = intersectionsService.getIntersection(position, camera, actors);
     if (intersectObj) {
-      console.log((intersectObj as any).point);
+      console.log('Intersection: ', (intersectObj as any).point);
     }
   });
 
@@ -57,7 +55,7 @@ export function launchScene(
   // TODO (S.Panfilov) UNDER CONSTRUCTION: intersections END/////////////////////////////////////////////
   ////////////////////////////////////
 
-  const loop: ILoopWrapper = loopFactory.create({ tags: [LoopTag.Main, sceneName] });
+  const loop: ILoopWrapper = loopFactory.create({ tags: [LoopTag.Main] });
   const initialCamera: ICameraWrapper | undefined = cameraRegistry.getUniqWithTag([CameraTag.Initial]);
   if (isNotDefined(initialCamera))
     throw new Error(`Cannot start the main loop for the scene ${sceneName}: initial camera is not defined`);

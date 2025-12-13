@@ -33,5 +33,5 @@ export function CameraWrapper(params: ICameraParams, screenSizeWatcher: IScreenS
     screenSizeWatcher.destroy$.unsubscribe();
   });
 
-  return { ...AbstractWrapper(entity), ...getAccessors(entity), entity, tags };
+  return { ...AbstractWrapper(entity, params), ...getAccessors(entity), entity, tags };
 }

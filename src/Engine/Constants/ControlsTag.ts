@@ -1,3 +1,1 @@
-export enum ControlsTag {
-  Standard = 'standard'
-}
+export type ControlsTag = string;

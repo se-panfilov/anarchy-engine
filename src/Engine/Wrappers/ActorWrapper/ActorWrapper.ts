@@ -7,5 +7,5 @@ import type { IActorWrapper } from './Models';
 
 export function ActorWrapper(params: IActorParams): IActorWrapper {
   const entity: IMesh = createActor(params);
-  return { ...AbstractWrapper(entity), ...getAccessors(entity), entity };
+  return { ...AbstractWrapper(entity, params), ...getAccessors(entity), entity };
 }

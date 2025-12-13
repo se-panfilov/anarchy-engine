@@ -7,13 +7,13 @@ import { Scene } from 'three';
 
 import type { ISceneWrapper } from './Models';
 
-export function SceneWrapper({ name }: ISceneParams): ISceneWrapper {
+export function SceneWrapper(params: ISceneParams): ISceneWrapper {
   const entity: Writeable<IScene> = new Scene();
 
   // eslint-disable-next-line functional/immutable-data
-  entity.name = name;
+  entity.name = params.name;
 
-  const wrapper: IWrapper<Scene> = AbstractWrapper(entity);
+  const wrapper: IWrapper<Scene> = AbstractWrapper(entity, params);
 
   function add(obj: ISceneObject): void {
     entity.add(obj);
