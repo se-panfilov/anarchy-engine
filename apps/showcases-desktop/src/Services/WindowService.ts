@@ -56,6 +56,10 @@ export function WindowService(): TWindowService {
       hiddenInMissionControl: true,
       webPreferences: {
         contextIsolation: true,
+        // TODO DESKTOP: check if it's better to set defaultEncoding to UTF-8
+        //defaultEncoding: 'UTF-8',
+        sandbox: true,
+        webSecurity: true,
         preload: join(__dirname, 'preload.js'),
         nodeIntegration: false //Must be off fore security reasons
       }
