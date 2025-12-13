@@ -16,5 +16,6 @@ export function applySpatialGrid(params: TActorParams, actorW: TActorWrapperAsyn
 }
 
 export function startCollisions(actorW: TActorWrapperAsync): void {
-  actorW.collisions?.start(actorW);
+  if (isNotDefined(actorW.collisions) || !actorW.collisions.isAutoUpdate()) return;
+  actorW.collisions.start(actorW);
 }

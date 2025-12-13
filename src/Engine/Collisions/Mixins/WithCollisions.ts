@@ -1,3 +1,4 @@
+import type { Subscription } from 'rxjs';
 import { Subject } from 'rxjs';
 
 import type { TActorParams, TActorWrapperAsync } from '@/Engine/Actor';
@@ -10,6 +11,7 @@ import { isDefined } from '@/Engine/Utils';
 export function withCollisions(params: TActorParams, collisionsService: TCollisionsService, collisionsLoopService: TCollisionsLoopService): TWithCollisions {
   let _isAutoUpdate: boolean = params.isCollisionsAutoUpdate ?? false;
   const value$: Subject<TCollisionCheckResult> = new Subject<TCollisionCheckResult>();
+  let collisionsLoopServiceSub$: Subscription;
 
   // TODO (S.Panfilov) test this code (should work)
   function getActorsToCheck(actorW: TActorWrapperAsync): ReadonlyArray<TActorWrapperAsync> {
@@ -29,7 +31,8 @@ export function withCollisions(params: TActorParams, collisionsService: TCollisi
         radius: params.collisions?.radius ?? 0.01
       },
       start(actorW: TActorWrapperAsync): void {
-        collisionsLoopService.tick$.subscribe((): void => {
+        collisionsLoopServiceSub$ = collisionsLoopService.tick$.subscribe(({ priority }): void => {
+          if (priority < this.getCollisionsUpdatePriority()) return;
           const collision: TCollisionCheckResult | undefined = collisionsService.checkCollisions(actorW, this.data.radius, getActorsToCheck(actorW));
           if (isDefined(collision)) value$.next(collision);
         });
@@ -65,7 +68,7 @@ export function withCollisions(params: TActorParams, collisionsService: TCollisi
         // actorSub$ = undefined;
         // unsubscribeFromCells();
         value$.complete();
-        collisionsLoopService.tick$.unsubscribe();
+        collisionsLoopServiceSub$.unsubscribe();
       },
       value$: value$.asObservable()
     }
