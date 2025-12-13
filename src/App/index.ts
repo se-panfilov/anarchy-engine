@@ -2,16 +2,16 @@ import '@App/style.css';
 
 import sceneConfig from '@App/Scenes/debug-scene.config.json';
 
-import type { IActorWrapper, ICameraWrapper, IIntersectionsService, IIntersectionsWatcher, ILaunchedEngine, ILaunchedScene, IRegistries, IVector3 } from '@/Engine';
-import { ActorTag, ambientContext, CameraTag, IntersectionsService, isNotDefined, launchEngine, SceneLauncher } from '@/Engine';
+import type { IActorWrapper, ICameraWrapper, ILaunchedEngine, ILaunchedScene, IRegistries, IVector3 } from '@/Engine';
+import { ActorTag, ambientContext, CameraTag, isNotDefined, launchEngine, SceneLauncher } from '@/Engine';
+import { IntersectionsWatcher } from '@Engine/Watchers/IntersectionsWatcher';
 
 const { factories, canvas }: ILaunchedEngine = launchEngine('#app');
 const { registries }: ILaunchedScene = SceneLauncher().launch(sceneConfig, canvas, factories);
 const { actorRegistry, cameraRegistry }: IRegistries = registries;
 
-// TODO (S.Panfilov) CWP
 // TODO (S.Panfilov) UNDER CONSTRUCTION: intersections START///////////////////////////////////////////
-const intersectionsService: IIntersectionsService = IntersectionsService();
+const intersectionsService: IIntersectionsService = IntersectionsWatcher();
 
 const clickableActors: ReadonlyArray<IActorWrapper> = actorRegistry.getAllWithEveryTag([ActorTag.Intersectable]);
 const cameraTag: CameraTag = CameraTag.Initial;
@@ -21,7 +21,7 @@ if (isNotDefined(camera)) throw new Error(`Cannot init intersection service: cam
 
 const intersectionsWatcher: IIntersectionsWatcher = intersectionsService.getWatcher(clickableActors, camera, ambientContext.mousePositionWatcher, ambientContext.mouseClicksWatcher);
 
-intersectionsWatcher.onIntersect((obj: IVector3): void => {
+intersectionsWatcher.value$((obj: IVector3): void => {
   console.log('intersect obj', obj);
 });
 

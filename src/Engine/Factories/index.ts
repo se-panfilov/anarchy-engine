@@ -3,6 +3,7 @@ export * from './ActorFactory';
 export * from './CameraFactory';
 export * from './ControlsFactory';
 export * from './InputFactory';
+export * from './IntersectionsWatcherFactory';
 export * from './LightFactory';
 export * from './LoopFactory';
 export * from './MouseClicksWatcherFactory';

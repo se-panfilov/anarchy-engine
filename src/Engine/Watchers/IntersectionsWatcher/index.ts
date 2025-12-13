@@ -1,2 +1,2 @@
 export * from './Models';
-export * from './MousePositionWatcher';
+export * from './IntersectionsWatcher';

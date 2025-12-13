@@ -5,5 +5,6 @@ export enum RegistryName {
   Controls = 'controls_registry',
   MouseClicksWatcher = 'mouse_clicks_watcher_registry',
   ScreenSizeWatcher = 'screen_size_watcher',
-  MousePositionWatcher = 'mouse_position_watcher'
+  MousePositionWatcher = 'mouse_position_watcher',
+  IntersectionsWatcher = 'intersections_watcher'
 }

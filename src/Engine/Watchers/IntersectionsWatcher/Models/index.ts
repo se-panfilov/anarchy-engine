@@ -1,1 +1,1 @@
-export * from './IMousePositionWatcher';
+export * from './IIntersectionsWatcher';
