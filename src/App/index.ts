@@ -29,5 +29,5 @@ import { ambientContext, isNotDefined } from '@/Engine';
 
 const canvas: TAppCanvas | null = ambientContext.container.getCanvasElement('#app');
 if (isNotDefined(canvas)) throw new Error('Canvas is not defined');
-const { start } = showcase(canvas);
+const { start } = await showcase(canvas);
 void start();

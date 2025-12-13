@@ -4,6 +4,7 @@ import type { TBoxGeometryProps, TPlaneGeometryProps, TSphereGeometryProps } fro
 
 export type TActorProps = Readonly<{
   castShadow: boolean;
+  receiveShadow: boolean;
   material: TMaterialPackParams<TMaterialTexturePack>;
 }> &
   TBoxGeometryProps &

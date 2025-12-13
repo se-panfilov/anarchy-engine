@@ -19,23 +19,27 @@ export function ActorWrapper(
   params: TActorParams,
   { materialTextureService, kinematicLoopService, spatialLoopService, spatialGridService, collisionsLoopService, collisionsService }: TActorDependencies
 ): TActorWrapper {
-  const entity: TModel3dFacade = params.model3d;
-  const model3d: Group | Mesh | Object3D = entity.getModel();
+  const facade: TModel3dFacade = params.model3d;
+  const entity: Group | Mesh | Object3D = facade.getModel();
 
-  // TODO (S.Panfilov) CWP don't think we need "withMaterial" in actor anymore
+  // TODO (S.Panfilov) CWP MATERIAL MIXIN: decide what to do with this mixin
+  // TODO Option 1.: Test if this override model's material and maybe keep it here
+  // TODO Option 1.: Or move it into TModel3dFacade
   const withMaterialEntity: TWithMaterial = withMaterial(entity);
 
-  const { value$: position$, update: updatePosition } = withReactivePosition(model3d);
-  const { value$: rotation$, update: updateRotation } = withReactiveRotation(model3d);
+  // TODO options such as "castShadow", "receiveShadow" and etc might be not needed here
+
+  const { value$: position$, update: updatePosition } = withReactivePosition(entity);
+  const { value$: rotation$, update: updateRotation } = withReactiveRotation(entity);
 
   const actorW: TActorWrapper = {
     ...AbstractWrapper(entity, WrapperType.Actor, params),
-    ...withMoveBy3dMixin(model3d),
-    ...withRotationByXyzMixin(model3d),
-    ...scalableMixin(model3d),
-    ...withObject3d(model3d),
+    ...withMoveBy3dMixin(entity),
+    ...withRotationByXyzMixin(entity),
+    ...scalableMixin(entity),
+    ...withObject3d(entity),
     ...withMaterialEntity,
-    // TODO (S.Panfilov) CWP don't think we need "withTextures" in actor anymore
+    // TODO (S.Panfilov) CWP MATERIAL MIXIN: check if this works and decide: keep it mere, or move to TModel3dFacade
     ...withTextures(withMaterialEntity, materialTextureService),
     ...withKinematic(params),
     ...withSpatial(params),
@@ -43,6 +47,7 @@ export function ActorWrapper(
     ...withUpdateSpatialCell(),
     position$: position$.asObservable(),
     rotation$: rotation$.asObservable(),
+    getFacade: (): TModel3dFacade => facade,
     entity
   };
 
