@@ -2590,9 +2590,11 @@
           "properties": {
             "far": {
               "type": "number"
+            },
+            "near": {
+              "type": "number"
             }
           },
-          "required": ["far"],
           "additionalProperties": false
         },
         "normalBias": {
@@ -2756,6 +2758,9 @@
             "far": {
               "type": "number"
             },
+            "near": {
+              "type": "number"
+            },
             "left": {
               "type": "number"
             },
@@ -2769,7 +2774,6 @@
               "type": "number"
             }
           },
-          "required": ["far"],
           "additionalProperties": false
         },
         "normalBias": {

@@ -52,7 +52,7 @@ export function getBulletsPool(count: number, actorService: TActorService, spati
           material: { type: MaterialType.Standard, params: { color: '#FF0000' } },
           position: Vector3Wrapper({ x: 0, y: 0, z: 0 }),
           rotation: EulerWrapper({ x: 0, y: 1.57, z: 0 }),
-          castShadow: false,
+          castShadow: true,
           spatial: { grid, isAutoUpdate: true, updatePriority: SpatialUpdatePriority.ASAP },
           collisions: { isAutoUpdate: true },
           kinematic: {

@@ -4,6 +4,7 @@ import type { Line2 } from 'three/examples/jsm/lines/Line2';
 
 import type { TShowcase } from '@/App/Levels/Models';
 import { enableCollisions } from '@/App/Levels/Showcase22PhysicsShooter/utils/Collisions';
+import { initLight } from '@/App/Levels/Showcase22PhysicsShooter/utils/Light';
 import type {
   TActorWrapperAsync,
   TActorWrapperWithPhysicsAsync,
@@ -41,11 +42,13 @@ export function showcase(canvas: TAppCanvas): TShowcase {
   const space: TSpace = buildSpaceFromConfig(canvas, spaceConfig as TSpaceConfig);
   const engine: TEngine = Engine(space);
   const { keyboardService } = engine.services;
-  const { physicsLoopService, cameraService, actorService, loopService, mouseService, intersectionsWatcherService, spatialGridService } = space.services;
+  const { physicsLoopService, cameraService, actorService, lightService, loopService, mouseService, intersectionsWatcherService, spatialGridService } = space.services;
 
   async function init(): Promise<void> {
     // physicsWorldService.getDebugRenderer(loopService).start();
     // physicsLoopService.shouldAutoUpdate(false);
+
+    initLight(lightService);
 
     const cameraW: TCameraWrapper | undefined = cameraService.findActive();
     if (isNotDefined(cameraW)) throw new Error(`Cannot find active camera`);
@@ -126,7 +129,7 @@ export function showcase(canvas: TAppCanvas): TShowcase {
 
     const shootingParams = {
       cooldownMs: 300,
-      speed: 10
+      speed: 30
     };
 
     initGui(mouseLineIntersectionsWatcher, spatialGridService, actorService, shootingParams);
