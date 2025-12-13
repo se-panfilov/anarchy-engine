@@ -3,7 +3,8 @@ import './style.css';
 
 import type { Subscription } from 'rxjs';
 
-import { spaceBasicData } from '@/App/Levels/Showcase29SaveLoad/spaceBasic/spaceBasic';
+import { spaceActorData } from '@/App/Levels/Showcase29SaveLoad/spaceActor';
+import { spaceBasicData } from '@/App/Levels/Showcase29SaveLoad/spaceBasic';
 import { spaceCameraData } from '@/App/Levels/Showcase29SaveLoad/spaceCamera';
 import { spaceCustomModelsData } from '@/App/Levels/Showcase29SaveLoad/spaceCustomModels';
 import { spaceFpsControlsData } from '@/App/Levels/Showcase29SaveLoad/spaceFpsControls';
@@ -57,7 +58,8 @@ export function start(): void {
   );
 
   //Initial space
-  loadSpace(spacesData.find((s: TSpacesData): boolean => s.name === spaceBasicData.name)?.name, spacesData);
+  // loadSpace(spacesData.find((s: TSpacesData): boolean => s.name === spaceBasicData.name)?.name, spacesData);
+  loadSpace(spacesData.find((s: TSpacesData): boolean => s.name === spaceActorData.name)?.name, spacesData);
 }
 
 function loadSpace(name: string | undefined, source: ReadonlyArray<TSpacesData>): void {
