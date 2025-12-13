@@ -10,7 +10,7 @@ import space from './spaceBasic.json';
 import spaceCustomModels from './spaceCustomModels.json';
 import spaceTexts from './spaceTexts.json';
 import type { TSpacesData } from './utils';
-import { createContainersDivs, setContainerVisibility } from './utils';
+import { changeText, createContainersDivs, setContainerVisibility } from './utils';
 
 const spaceBasicConfig: TSpaceConfig = space as TSpaceConfig;
 const spaceCustomModelsConfig: TSpaceConfig = spaceCustomModels as TSpaceConfig;
@@ -62,7 +62,17 @@ const spacesData: ReadonlyArray<TSpacesData> = [
       subscriptions[spaceCustomModelsConfig.name].unsubscribe();
     }
   },
-  { name: spaceTextsConfig.name, config: spaceTextsConfig, container: getContainer(spaceTextsConfig.canvasSelector) }
+  {
+    name: spaceTextsConfig.name,
+    config: spaceTextsConfig,
+    container: getContainer(spaceTextsConfig.canvasSelector),
+    onChange: (space: TSpace): void => {
+      const { text2dRegistry, text3dRegistry, text3dTextureRegistry } = space.services.textService.getRegistries();
+      changeText('text_2d', text2dRegistry);
+      changeText('text_3d_1', text3dRegistry);
+      changeText('text_3d_2', text3dTextureRegistry);
+    }
+  }
 ];
 
 const spacesInMemoryData: Array<TSpacesData> = [];
@@ -79,6 +89,7 @@ export function start(): void {
     spacesData.map((space: TSpacesData): string => space.name)
   );
 
+  //Initial space
   loadSpace(spaceBasicConfig.name);
 }
 
