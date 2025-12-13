@@ -47,7 +47,10 @@ export function KeyboardService(): IKeyboardService {
     //   released$
     // ).subscribe();
 
-    loopS;
+    // TODO (S.Panfilov)
+    //loopService.tick$.subscribe((delta) => {
+    //  if (isPressed) pressing.next();
+    // })
 
     pressing$.next(key);
 
