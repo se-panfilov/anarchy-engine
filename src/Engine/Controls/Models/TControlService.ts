@@ -5,11 +5,11 @@ import type { TControlsConfig } from './TControlsConfig';
 import type { TControlsFactory } from './TControlsFactory';
 import type { TControlsParams } from './TControlsParams';
 import type { TControlsRegistry } from './TControlsRegistry';
-import type { TControlsWrapper } from './TControlsWrapper';
+import type { TAnyControlsWrapper } from './TAnyControlsWrapper';
 
-export type TControlsServiceWithCreate = TWithCreateService<TControlsWrapper, TControlsParams>;
-export type TControlsServiceWithCreateFromConfig = Omit<TWithCreateFromConfigService<TControlsConfig, TControlsWrapper>, 'createFromConfig'>;
-export type TControlsServiceWithFactory = TWithFactoryService<TControlsWrapper, TControlsParams, undefined, TControlsFactory>;
+export type TControlsServiceWithCreate = TWithCreateService<TAnyControlsWrapper, TControlsParams>;
+export type TControlsServiceWithCreateFromConfig = Omit<TWithCreateFromConfigService<TControlsConfig, TAnyControlsWrapper>, 'createFromConfig'>;
+export type TControlsServiceWithFactory = TWithFactoryService<TAnyControlsWrapper, TControlsParams, undefined, TControlsFactory>;
 export type TControlsServiceWithRegistry = TWithRegistryService<TControlsRegistry>;
 
 export type TControlsService = TSerializableEntitiesService<TControlsConfig> &
@@ -18,6 +18,6 @@ export type TControlsService = TSerializableEntitiesService<TControlsConfig> &
   Readonly<{
     createFromConfig: (controls: ReadonlyArray<TControlsConfig>) => void;
   }> &
-  TWithActiveAccessorsService<TControlsWrapper> &
+  TWithActiveAccessorsService<TAnyControlsWrapper> &
   TControlsServiceWithFactory &
   TControlsServiceWithRegistry;

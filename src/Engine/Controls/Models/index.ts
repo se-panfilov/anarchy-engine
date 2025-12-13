@@ -1,4 +1,5 @@
 export type * from './TAdditionalControlsConfigParams';
+export type * from './TAnyControlsWrapper';
 export type * from './TBaseControlsParams';
 export type * from './TControlsConfig';
 export type * from './TControlService';
@@ -7,7 +8,6 @@ export type * from './TControlsLoop';
 export type * from './TControlsParams';
 export type * from './TControlsRegistry';
 export type * from './TControlsServiceDependencies';
-export type * from './TControlsWrapper';
 export type * from './TFpsControlsAccessors';
 export type * from './TFpsControlsConfig';
 export type * from './TFpsControlsConfigOptions';

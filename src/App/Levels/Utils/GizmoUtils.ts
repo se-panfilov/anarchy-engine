@@ -1,7 +1,7 @@
 import type { GizmoOptions } from 'three-viewport-gizmo';
 import { ViewportGizmo } from 'three-viewport-gizmo';
 
-import type { TAnyCameraWrapper, TContainerDecorator, TControlsWrapper, TOrbitControlsWrapper, TRendererWrapper, TSpaceLoops, TSpaceServices } from '@/Engine';
+import type { TAnyCameraWrapper, TAnyControlsWrapper, TContainerDecorator, TOrbitControlsWrapper, TRendererWrapper, TSpaceLoops, TSpaceServices } from '@/Engine';
 import { ControlsType } from '@/Engine';
 
 export function addGizmo(
@@ -11,7 +11,7 @@ export function addGizmo(
   options?: GizmoOptions
 ): void | never {
   const camera: TAnyCameraWrapper = cameraService.getActive();
-  const controls: TControlsWrapper = controlsService.getActive();
+  const controls: TAnyControlsWrapper = controlsService.getActive();
   if (controls?.getType() !== ControlsType.OrbitControls) {
     console.warn(`Gizmo: OrbitControls is required, but the active control is ${controls?.getType()}`);
     return;

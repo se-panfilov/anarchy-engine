@@ -1,5 +1,5 @@
 import type { TAbstractEntityRegistry } from '@/Engine/Abstract/Models';
 
-import type { TControlsWrapper } from './TControlsWrapper';
+import type { TAnyControlsWrapper } from './TAnyControlsWrapper';
 
-export type TControlsRegistry = TAbstractEntityRegistry<TControlsWrapper>;
+export type TControlsRegistry = TAbstractEntityRegistry<TAnyControlsWrapper>;

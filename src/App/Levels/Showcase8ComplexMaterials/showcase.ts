@@ -8,8 +8,8 @@ import { addGizmo } from '@/App/Levels/Utils';
 import type {
   TActor,
   TActorRegistry,
+  TAnyControlsWrapper,
   TControlsRegistry,
-  TControlsWrapper,
   TReadonlyVector3,
   TRegistryPack,
   TSpace,
@@ -115,7 +115,7 @@ export function showcase(space: TSpace): void {
     // eslint-disable-next-line functional/immutable-data
     state.controllers = addGuiToActor(actor);
     const position: TReadonlyVector3 = actor.drive.position$.value;
-    const orbitControls: TControlsWrapper = controlsRegistry.getByName('orbit_controls');
+    const orbitControls: TAnyControlsWrapper = controlsRegistry.getByName('orbit_controls');
     if (!isOrbitControls(orbitControls)) throw new Error(`Active controls are not of type "${ControlsType.OrbitControls}", but ${orbitControls.getType()}`);
     orbitControls.setDamping(true);
     orbitControls.moveToTargetSmoothly(position);

@@ -8,7 +8,7 @@ import { addGizmo, attachConnectorPositionToSubj, getMemoryUsage } from '@/App/L
 import type {
   TActor,
   TAnyCameraWrapper,
-  TControlsWrapper,
+  TAnyControlsWrapper,
   TDegrees,
   TIntersectionEvent,
   TIntersectionsCameraWatcher,
@@ -109,7 +109,7 @@ export async function showcase(space: TSpace): Promise<void> {
   const grid: TSpatialGridWrapper = spatialGridService.getRegistry().getByName('main_grid');
   const planeModel3d: TModel3d = models3dRegistry.getByName('surface_model');
   const camera: TAnyCameraWrapper = cameraService.getActive();
-  const controls: TControlsWrapper = controlsService.getActive();
+  const controls: TAnyControlsWrapper = controlsService.getActive();
   if (!isOrbitControls(controls)) throw new Error(`Active controls are not of type "${ControlsType.OrbitControls}", but ${controls.getType()}`);
 
   const light: TPointLightWrapper = lightService.getRegistry().getByName('point_light') as TPointLightWrapper;

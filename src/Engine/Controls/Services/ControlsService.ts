@@ -5,6 +5,7 @@ import { AbstractService } from '@/Engine/Abstract';
 import type { TAbstractCameraRegistry, TAnyCameraWrapper } from '@/Engine/Camera';
 import { controlsLoopEffect } from '@/Engine/Controls/Loop';
 import type {
+  TAnyControlsWrapper,
   TControlsConfig,
   TControlsFactory,
   TControlsParams,
@@ -12,14 +13,10 @@ import type {
   TControlsService,
   TControlsServiceDependencies,
   TControlsServiceWithFactory,
-  TControlsServiceWithRegistry,
-  TControlsWrapper,
-  TFpsControlsWrapper,
-  TOrbitControlsWrapper
+  TControlsServiceWithRegistry
 } from '@/Engine/Controls/Models';
 import type { TDisposable, TWithActiveMixinResult } from '@/Engine/Mixins';
-import { withActiveEntityServiceMixin, withFactoryService, withRegistryService, withSerializeAllEntities } from '@/Engine/Mixins';
-import { withSerializeEntity } from '@/Engine/Mixins/Generics/WithSerializeEntity';
+import { withActiveEntityServiceMixin, withFactoryService, withRegistryService, withSerializableEntities } from '@/Engine/Mixins';
 import type { TSpaceCanvas, TSpaceLoops } from '@/Engine/Space';
 import { mergeAll } from '@/Engine/Utils';
 
@@ -30,20 +27,20 @@ export function ControlService(
   { cameraService }: TControlsServiceDependencies,
   canvas: TSpaceCanvas
 ): TControlsService {
-  const withActive: TWithActiveMixinResult<TControlsWrapper> = withActiveEntityServiceMixin<TControlsWrapper>(registry);
-  const registrySub$: Subscription = registry.added$.subscribe(({ value }: TRegistryPack<TControlsWrapper>): void => {
+  const withActive: TWithActiveMixinResult<TAnyControlsWrapper> = withActiveEntityServiceMixin<TAnyControlsWrapper>(registry);
+  const registrySub$: Subscription = registry.added$.subscribe(({ value }: TRegistryPack<TAnyControlsWrapper>): void => {
     if (value.isActive()) withActive.active$.next(value);
   });
-  const factorySub$: Subscription = factory.entityCreated$.subscribe((wrapper: TControlsWrapper): void => registry.add(wrapper));
+  const factorySub$: Subscription = factory.entityCreated$.subscribe((wrapper: TAnyControlsWrapper): void => registry.add(wrapper));
   const disposable: ReadonlyArray<TDisposable> = [registry, factory, registrySub$, factorySub$];
   const abstractService: TAbstractService = AbstractService(disposable);
 
   const cameraRegistry: TAbstractCameraRegistry = cameraService.getRegistry();
 
-  const create = (params: TControlsParams): TControlsWrapper => factory.create(params, undefined);
-  const createFromList = (list: ReadonlyArray<TControlsParams>): ReadonlyArray<TControlsWrapper> => list.map(create);
+  const create = (params: TControlsParams): TAnyControlsWrapper => factory.create(params, undefined);
+  const createFromList = (list: ReadonlyArray<TControlsParams>): ReadonlyArray<TAnyControlsWrapper> => list.map(create);
   const createFromConfig = (controls: ReadonlyArray<TControlsConfig>): void => {
-    controls.forEach((control: TControlsConfig): TControlsWrapper => {
+    controls.forEach((control: TControlsConfig): TAnyControlsWrapper => {
       const camera: TAnyCameraWrapper = cameraRegistry.get((camera: TAnyCameraWrapper): boolean => camera.getName() === control.cameraName);
       return create(factory.configToParams(control, { camera, canvas }));
     });
