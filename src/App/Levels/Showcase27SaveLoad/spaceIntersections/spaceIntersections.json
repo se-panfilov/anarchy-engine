@@ -25,9 +25,9 @@
         "model3dSource": "sphere_red_1_model",
         "name": "sphere_red_1_actor",
         "position": {
-          "x": -2,
+          "x": -5,
           "y": 0,
-          "z": -4
+          "z": 0
         },
         "spatial": {
           "grid": "main_grid",
@@ -38,9 +38,9 @@
         "model3dSource": "sphere_red_2_model",
         "name": "sphere_red_2_actor",
         "position": {
-          "x": 4,
+          "x": 5,
           "y": 0,
-          "z": -4
+          "z": 0
         },
         "spatial": {
           "grid": "main_grid",
@@ -51,9 +51,9 @@
         "model3dSource": "cube_blue_1_model",
         "name": "cube_blue_1_actor",
         "position": {
-          "x": -2,
+          "x": -5,
           "y": 0,
-          "z": 4
+          "z": 8
         },
         "spatial": {
           "grid": "main_grid",
@@ -64,9 +64,9 @@
         "model3dSource": "cube_blue_2_model",
         "name": "cube_blue_2_actor",
         "position": {
-          "x": 4,
+          "x": 5,
           "y": 0,
-          "z": 4
+          "z": 8
         },
         "spatial": {
           "grid": "main_grid",
@@ -83,14 +83,14 @@
         "name": "camera_red",
         "near": 1,
         "position": {
-          "x": 3,
+          "x": 0,
           "y": 20,
-          "z": 35
+          "z": 4
         },
         "rotation": {
-          "x": -0.519146114246523,
-          "y": 0.07428390319893977,
-          "z": 0.04238351982512054
+          "x": -1.57,
+          "y": 0,
+          "z": 0
         },
         "type": "PerspectiveCamera"
       },
@@ -211,7 +211,7 @@
         "model3dSource": "sphere",
         "name": "sphere_red_1_model",
         "options": {
-          "radius": 3
+          "radius": 4
         }
       },
       {
@@ -220,7 +220,7 @@
         "model3dSource": "sphere",
         "name": "sphere_red_2_model",
         "options": {
-          "radius": 3
+          "radius": 4
         }
       },
       {
@@ -229,10 +229,10 @@
         "model3dSource": "cube",
         "name": "cube_blue_1_model",
         "options": {
-          "depth": 3,
-          "height": 3,
+          "depth": 6,
+          "height": 6,
           "heightSegments": 1,
-          "width": 3,
+          "width": 6,
           "widthSegments": 1
         }
       },
@@ -242,10 +242,10 @@
         "model3dSource": "cube",
         "name": "cube_blue_2_model",
         "options": {
-          "depth": 3,
-          "height": 3,
+          "depth": 6,
+          "height": 6,
           "heightSegments": 1,
-          "width": 3,
+          "width": 6,
           "widthSegments": 1
         }
       }
