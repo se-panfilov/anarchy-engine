@@ -5,9 +5,14 @@ import type { ControlsType } from '@/Engine/Controls/Constants';
 import type { TMilliseconds } from '@/Engine/Math';
 import type { TWithActiveMixin } from '@/Engine/Mixins';
 
+import type { TControlsServiceDependencies } from './TControlsServiceDependencies';
 import type { TFpsControlsAccessors } from './TFpsControlsAccessors';
+import type { TFpsControlsConfig } from './TFpsControlsConfig';
 
-export type TFpsControlsWrapper = TWrapper<FirstPersonControls> &
+export type TFpsControlsWrapper = Omit<TWrapper<FirstPersonControls>, 'serialize'> &
+  Readonly<{
+    serialize: (dependencies: TControlsServiceDependencies) => TFpsControlsConfig;
+  }> &
   TFpsControlsAccessors &
   Readonly<{
     enable: () => void;

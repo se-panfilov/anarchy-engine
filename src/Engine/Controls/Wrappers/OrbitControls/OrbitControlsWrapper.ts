@@ -60,6 +60,7 @@ export function OrbitControlsWrapper(params: TOrbitControlsParams): TOrbitContro
     ...withActiveMixin(),
     moveToTargetSmoothly,
     entity,
+    // TODO 15-0-0: add serializer to the service to avoid dependencies passing
     serialize: (dependencies: TControlsServiceDependencies): TOrbitControlsConfig => controlsToConfig(result, dependencies)
   });
 

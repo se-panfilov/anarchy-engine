@@ -3,7 +3,7 @@ import { FirstPersonControls } from 'three/examples/jsm/controls/FirstPersonCont
 import { AbstractWrapper, WrapperType } from '@/Engine/Abstract';
 import { controlsToConfig } from '@/Engine/Controls/Adapters';
 import type { ControlsType } from '@/Engine/Controls/Constants';
-import type { TFpsControlsConfig, TFpsControlsParams, TFpsControlsWrapper } from '@/Engine/Controls/Models';
+import type { TControlsServiceDependencies, TFpsControlsConfig, TFpsControlsParams, TFpsControlsWrapper } from '@/Engine/Controls/Models';
 import { getFpsControlsAccessors } from '@/Engine/Controls/Wrappers/FpsControls/FpsControlsAccessors';
 import { applyFpsControlsParams } from '@/Engine/Controls/Wrappers/FpsControls/FpsControlsWrapperHelper';
 import type { TMilliseconds } from '@/Engine/Math';
@@ -43,7 +43,8 @@ export function FpsControlsWrapper(params: TFpsControlsParams): TFpsControlsWrap
     ...getFpsControlsAccessors(entity),
     ...withActiveMixin(),
     entity,
-    serialize: (): TFpsControlsConfig => controlsToConfig(result)
+    // TODO 15-0-0: add serializer to the service to avoid dependencies passing
+    serialize: (dependencies: TControlsServiceDependencies): TFpsControlsConfig => controlsToConfig(result, dependencies)
   });
 
   applyFpsControlsParams(result, params);
