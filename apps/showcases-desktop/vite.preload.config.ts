@@ -28,7 +28,7 @@ export default defineConfig({
     },
     outDir: 'dist',
     rollupOptions: {
-      external: ['electron'], // Prevent bundling electron module
+      external: ['electron', 'path', 'fs'], // Prevent bundling electron module
       output: {
         exports: 'named'
       }
