@@ -1,5 +1,14 @@
 import { DestroyablePool } from '@Engine/Pool/DestroyablePool';
-import { ActorRegistry, CameraRegistry, ControlsRegistry, LightRegistry } from '@Engine/Registries';
+import {
+  ActorRegistry,
+  CameraRegistry,
+  ControlsRegistry,
+  IntersectionsWatcherRegistry,
+  LightRegistry,
+  MouseClicksWatcherRegistry,
+  MousePositionWatcherRegistry,
+  ScreenSizeWatcherRegistry
+} from '@Engine/Registries';
 import { isNotDefined } from '@Engine/Utils';
 import type { IActorWrapper, ICameraWrapper, ILightWrapper, ISceneWrapper } from '@Engine/Wrappers';
 
@@ -10,15 +19,20 @@ export function RegistryPool(): IRegistryPool {
     actorRegistry: ActorRegistry(),
     cameraRegistry: CameraRegistry(),
     lightRegistry: LightRegistry(),
-    controlsRegistry: ControlsRegistry()
+    controlsRegistry: ControlsRegistry(),
+    // TODO (S.Panfilov) is this registration needed?
+    mouseClicksWatcherRegistry: MouseClicksWatcherRegistry(),
+    screenSizeWatcherRegistry: ScreenSizeWatcherRegistry(),
+    mousePositionWatcherRegistry: MousePositionWatcherRegistry(),
+    intersectionsWatcherRegistry: IntersectionsWatcherRegistry()
   });
 
-  function startAddSubscription(scene: ISceneWrapper): void {
+  function startAddSubscription(scene: Readonly<ISceneWrapper>): void {
     if (isNotDefined(abstractPool.pool)) throw new Error('Cannot start RegistryPool subscription: pool is not initialized');
 
-    abstractPool.pool.actorRegistry.added$.subscribe((actor: IActorWrapper) => scene.addActor(actor));
-    abstractPool.pool.cameraRegistry.added$.subscribe((camera: ICameraWrapper) => scene.addCamera(camera));
-    abstractPool.pool.lightRegistry.added$.subscribe((light: ILightWrapper) => scene.addLight(light));
+    abstractPool.pool.actorRegistry.added$.subscribe((actor: Readonly<IActorWrapper>) => scene.addActor(actor));
+    abstractPool.pool.cameraRegistry.added$.subscribe((camera: Readonly<ICameraWrapper>) => scene.addCamera(camera));
+    abstractPool.pool.lightRegistry.added$.subscribe((light: Readonly<ILightWrapper>) => scene.addLight(light));
   }
 
   function destroy(): void {
@@ -27,6 +41,7 @@ export function RegistryPool(): IRegistryPool {
     abstractPool.pool.actorRegistry.added$.unsubscribe();
     abstractPool.pool.cameraRegistry.added$.unsubscribe();
     abstractPool.pool.lightRegistry.added$.unsubscribe();
+    abstractPool.pool.mouseClicksWatcherRegistry.added$.unsubscribe();
   }
 
   return { ...abstractPool, startAddSubscription, destroy };

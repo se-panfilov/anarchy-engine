@@ -1,15 +1,11 @@
-import { AbstractFactory } from '@Engine/Factories';
+import { AbstractWrapperFactory } from '@Engine/Factories';
 import type { ICreateFN } from '@Engine/Factories/AbstractFactory/Models';
-import type { IAbstractConfig, IDestroyableFactory, IWrapper } from '@Engine/Models';
+import type { IDestroyableFactory, IWrapper } from '@Engine/Models';
 import { cleanObject } from '@Engine/Utils';
 
-export function AbstractDestroyableFactory<T extends IWrapper<ENT>, ENT, PRMS, C extends IAbstractConfig>(
-  type: string,
-  createFn: ICreateFN<T, PRMS>,
-  adapterFn?: (config: C) => PRMS
-): IDestroyableFactory<T, ENT, PRMS, C> {
-  const factory: IDestroyableFactory<T, ENT, PRMS, C> = {
-    ...AbstractFactory(type, createFn, adapterFn),
+export function AbstractDestroyableFactory<T extends IWrapper<ENT>, ENT, PRMS>(type: string, createFn: ICreateFN<T, PRMS>): IDestroyableFactory<T, ENT, PRMS> {
+  const factory: IDestroyableFactory<T, ENT, PRMS> = {
+    ...AbstractWrapperFactory(type, createFn),
     destroy
   };
 

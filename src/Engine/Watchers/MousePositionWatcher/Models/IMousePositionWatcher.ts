@@ -1,4 +1,4 @@
 import type { IMousePosition } from '@Engine/Models';
-import type { IWatcher } from '@Engine/Watchers';
+import type { IMultitonWatcher } from '@Engine/Watchers';
 
-export type IMousePositionWatcher = IWatcher<IMousePosition>;
+export type IMousePositionWatcher = IMultitonWatcher<IMousePosition>;

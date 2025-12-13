@@ -8,7 +8,7 @@ import { PCFShadowMap, WebGLRenderer } from 'three';
 import type { IRendererWrapper } from './Models';
 
 // TODO (S.Panfilov) Should we provide delta here?
-export function RendererWrapper(params: IRendererParams, screenSizeWatcher: IScreenSizeWatcher): IRendererWrapper {
+export function RendererWrapper(params: IRendererParams, screenSizeWatcher: Readonly<IScreenSizeWatcher>): IRendererWrapper {
   if (isNotDefined(params.canvas)) throw new Error(`Canvas is not defined`);
   if (!isWebGLAvailable()) throw new Error('WebGL is not supported by this device');
 

@@ -3,7 +3,7 @@ import { Subject } from 'rxjs';
 
 import type { IAbstractWatcher } from '../Models';
 
-export function AbstractWatcher<T>(type: string): IAbstractWatcher<T> {
+export function AbstractWatcher<T>(type: string, tags: ReadonlyArray<string> = []): IAbstractWatcher<T> {
   const id: string = type + '_watcher_' + nanoid();
   const value$: Subject<T> = new Subject<T>();
   const destroy$: Subject<void> = new Subject<void>();
@@ -26,6 +26,9 @@ export function AbstractWatcher<T>(type: string): IAbstractWatcher<T> {
     },
     get destroy$(): Subject<void> {
       return destroy$;
+    },
+    get tags(): ReadonlyArray<string> {
+      return tags;
     }
   };
 }

@@ -1,3 +1,3 @@
-import type { IWatcher } from '@Engine/Watchers';
+import type { IMultitonWatcher } from '@Engine/Watchers';
 
-export type IMouseClicksWatcher = IWatcher<void>;
+export type IMouseClicksWatcher = IMultitonWatcher<void>;

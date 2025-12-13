@@ -5,5 +5,5 @@ import type { IRegistries } from './IRegistries';
 
 export type IRegistryPool = IDestroyablePool<IRegistries> &
   Readonly<{
-    startAddSubscription: (scene: ISceneWrapper) => void;
+    startAddSubscription: (scene: Readonly<ISceneWrapper>) => void;
   }>;

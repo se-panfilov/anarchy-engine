@@ -3,9 +3,10 @@ import type { IScreenParams } from '@Engine/Models';
 import { AbstractWatcherWithState, type IAbstractWatcherWithState } from '@Engine/Watchers';
 import type { IScreenSizeWatcher } from '@Engine/Watchers/ScreenSizeWatcher/Models/IScreenSizeWatcher';
 
-export function ScreenSizeWatcher(container: IGlobalContainerDecorator): IScreenSizeWatcher {
+export function ScreenSizeWatcher(container: IGlobalContainerDecorator, tags: ReadonlyArray<string> = []): IScreenSizeWatcher {
   const initialValue: IScreenParams = { width: 0, height: 0, ratio: 0 };
-  const abstractWatcher: IAbstractWatcherWithState<IScreenParams> = AbstractWatcherWithState('screen-size', initialValue);
+  const containerIdTag: string = `container_id_${container.id}`;
+  const abstractWatcher: IAbstractWatcherWithState<IScreenParams> = AbstractWatcherWithState('screen-size', initialValue, tags);
 
   const onResize = (): void =>
     abstractWatcher.value$.next({
@@ -27,6 +28,7 @@ export function ScreenSizeWatcher(container: IGlobalContainerDecorator): IScreen
 
   const result: IScreenSizeWatcher = {
     ...abstractWatcher,
+    key: containerIdTag,
     start,
     stop
   };

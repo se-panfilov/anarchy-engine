@@ -19,15 +19,15 @@ export function SceneWrapper(params: ISceneParams): ISceneWrapper {
     entity.add(obj);
   }
 
-  function addCamera(camera: ICameraWrapper): void {
+  function addCamera(camera: Readonly<ICameraWrapper>): void {
     add(camera.entity);
   }
 
-  function addActor(actor: IActorWrapper): void {
+  function addActor(actor: Readonly<IActorWrapper>): void {
     add(actor.entity);
   }
 
-  function addLight(light: ILightWrapper): void {
+  function addLight(light: Readonly<ILightWrapper>): void {
     add(light.entity);
   }
 

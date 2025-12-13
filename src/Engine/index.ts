@@ -8,7 +8,6 @@ export * from './Models';
 export * from './Pool';
 export * from './Registries';
 export { default as SceneConfigSchema } from './Schemas/ISceneConfig.json';
-export * from './Services';
 export * from './Utils';
 export * from './Watchers';
 export * from './Wrappers';
