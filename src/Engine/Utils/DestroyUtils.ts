@@ -21,9 +21,12 @@ export function disposeGltf(gltf: Object3D | null): void {
     }
   });
 
+  // eslint-disable-next-line functional/immutable-data
+  if (isDefined((gltf as any).animations)) gltf.animations.length = 0;
   // TODO 13-0-0: remove user data and children as functions and call them in abstract entities?
   // eslint-disable-next-line functional/immutable-data
   gltf.userData = {};
+  gltf.clear?.();
   // eslint-disable-next-line functional/immutable-data
   gltf.children.length = 0;
   gltf = null;
@@ -36,6 +39,7 @@ export function destroyTransformDriveInEntity(entity: unknown): void {
 }
 
 export function destroyMaterialInEntity(entity: unknown): void {
+  if (isNotDefined(entity)) return;
   if (!hasMaterial(entity)) return;
   if (isNotDefined(entity.material)) return;
 
@@ -48,7 +52,7 @@ export function destroyMaterialInEntity(entity: unknown): void {
 }
 
 export function disposeMaterialDeep(material: Material | ReadonlyArray<Material> | undefined | null): void {
-  if (!material) return;
+  if (isNotDefined(material)) return;
 
   const materials = Array.isArray(material) ? material : [material];
 
@@ -100,7 +104,7 @@ export function destroyModel3dAnimationEntities({ model3dSource, mixer, actions 
 
   mixer.uncacheRoot(model3dSource);
 
-  model3dSource.animations.forEach((clip: AnimationClip): void => {
+  model3dSource.animations?.forEach((clip: AnimationClip): void => {
     mixer.uncacheClip(clip);
     mixer.uncacheAction(clip);
   });
@@ -113,10 +117,10 @@ export function destroyAudio(entity: TAnyAudio): void {
   if (isNotDefined(entity)) return;
 
   try {
-    entity.stop();
-    entity.disconnect();
+    entity.stop?.();
+    entity.disconnect?.();
   } catch {
-    console.warn('Audio: failed to stop and disconnect audio (probably already stopped or disconnected)');
+    console.warn('Audio: failed to stop or disconnect audio (probably already stopped or disconnected)');
   }
 
   // eslint-disable-next-line functional/immutable-data
@@ -133,7 +137,9 @@ export function destroyAudio(entity: TAnyAudio): void {
 }
 
 export function genericEntityCleanUp(entity: any): void {
-  //Remove from parent
+  if (isNotDefined(entity)) return;
+
+  //Remove from parent (scene)
   removeFromParent(entity);
 
   //Tell the children that they have no parent anymore
@@ -149,9 +155,9 @@ export function genericEntityCleanUp(entity: any): void {
   destroyGeometryInEntity(entity);
   destroyMaterialInEntity(entity);
 
-  // Remove children if exists
+  // Clear children if possible
   (entity as any).clear?.();
 
-  // Dispose the entity itself
+  // Dispose itself if possible
   (entity as any).dispose?.();
 }
