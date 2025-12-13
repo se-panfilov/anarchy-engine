@@ -5,8 +5,8 @@ import type { TActorConfig } from '@/Engine/Actor';
 import type { TCameraConfig } from '@/Engine/Camera';
 import type { TControlsConfig } from '@/Engine/Controls';
 import type { TWithNameOptional, TWithReadonlyTags } from '@/Engine/Mixins';
-import type { TModel3dResourceConfig } from '@/Engine/Models3d';
-import { isPrimitiveModel3dResourceConfig } from '@/Engine/Models3d';
+import type { TModel3dConfig, TModel3dResourceConfig } from '@/Engine/Models3d';
+import { isPrimitiveModel3dResourceConfig, isPrimitiveModel3dSource } from '@/Engine/Models3d';
 import type { TPhysicsPresetConfig, TWithPresetNamePhysicsBodyConfig } from '@/Engine/Physics';
 import type { TSceneConfig } from '@/Engine/Scene/Models';
 import { SpaceSchemaVersion } from '@/Engine/Space/Constants';
@@ -37,8 +37,8 @@ function validateJsonSchema(config: TSpaceConfig): TSchemaValidationResult {
 //  Maybe split resource and entities validation
 //  Also extract utils functions to a separate file
 function validateData({ name, version, scenes, resources, entities, tags }: TSpaceConfig): TSchemaValidationResult {
-  const { models3d, envMaps, materials, textures } = resources;
-  const { actors, cameras, spatialGrids, controls, intersections, lights, fogs, texts, physics } = entities;
+  const { models3d: models3dResources, envMaps, materials, textures } = resources;
+  const { actors, cameras, spatialGrids, controls, intersections, lights, models3d: models3dEntities, fogs, texts, physics } = entities;
 
   let errors: ReadonlyArray<string> = [];
 
@@ -49,13 +49,13 @@ function validateData({ name, version, scenes, resources, entities, tags }: TSpa
   const isNoScenesDefined: boolean = scenes.length === 0;
 
   //check active entities
-  const isMultipleActiveCameras: boolean = cameras.filter((camera: TCameraConfig) => camera.isActive).length > 1;
-  const isMultipleActiveScenes: boolean = scenes.filter((scene: TSceneConfig) => scene.isActive).length > 1;
-  const isMultipleActiveControls: boolean = controls.filter((control: TControlsConfig) => control.isActive).length > 1;
+  const isMultipleActiveCameras: boolean = cameras.filter((camera: TCameraConfig): boolean => camera.isActive).length > 1;
+  const isMultipleActiveScenes: boolean = scenes.filter((scene: TSceneConfig): boolean => scene.isActive).length > 1;
+  const isMultipleActiveControls: boolean = controls.filter((control: TControlsConfig): boolean => control.isActive).length > 1;
 
   //check relations
   const isControlsWithoutCamera: boolean = controls.length > 0 && cameras.length === 0;
-  const isEveryControlsHasCamera: boolean = controls.every((control: TControlsConfig) => cameras.some((camera: TCameraConfig): boolean => camera.name === control.cameraName));
+  const isEveryControlsHasCamera: boolean = controls.every((control: TControlsConfig): boolean => cameras.some((camera: TCameraConfig): boolean => camera.name === control.cameraName));
 
   //check actors' physics presets
   const isAllActorsHasPhysicsPreset = validateAllActorsHasPhysicsPreset(actors, physics.presets);
@@ -88,15 +88,19 @@ function validateData({ name, version, scenes, resources, entities, tags }: TSpa
   const isEveryFogTagsValid: boolean = validateTagsForEveryEntity(fogs);
   const isEveryTextTagsValid: boolean = validateTagsForEveryEntity(texts);
   const isEveryControlsTagsValid: boolean = validateTagsForEveryEntity(controls);
-  const isEveryModels3dTagsValid: boolean = validateTagsForEveryEntity(models3d);
+  const isEveryModels3dTagsValid: boolean = validateTagsForEveryEntity(models3dResources);
   const isEveryMaterialTagsValid: boolean = validateTagsForEveryEntity(materials);
   const isEveryEnvMapsTagsValid: boolean = validateTagsForEveryEntity(envMaps);
   const isEveryTextureTagsValid: boolean = validateTagsForEveryEntity(textures);
 
   //urls
-  const isEveryModels3dUrlValid: boolean = validateModel3dileUrls(models3d);
+  const isEveryModels3dUrlValid: boolean = validateModel3dileUrls(models3dResources);
   const isEveryEnvMapsUrlValid: boolean = validateFileUrls(envMaps);
   const isEveryTextureUrlValid: boolean = validateFileUrls(textures);
+
+  //Resources
+  const isAllActorsHasModel3d: boolean = validateAllActorsHasModel3d(actors, models3dEntities);
+  const isAllModel3dEntityHasValidResource: boolean = validateAllModel3dEntityHasValidResource(models3dEntities, models3dResources);
 
   //Adding errors
   if (isSupportedVersion) errors = [...errors, `Unsupported schema's version(${version}). Supported version is: ${SpaceSchemaVersion.V2}`];
@@ -147,6 +151,10 @@ function validateData({ name, version, scenes, resources, entities, tags }: TSpa
   //presets
   if (!isAllActorsHasPhysicsPreset) errors = [...errors, 'Not every actor has a defined physics preset (check actors presetName against physics presets names)'];
 
+  //Resources
+  if (!isAllActorsHasModel3d) errors = [...errors, 'Not every actor has a defined model3dSource (check actors model3dSource against models3d entities)'];
+  if (!isAllModel3dEntityHasValidResource) errors = [...errors, 'Not every model3d entity has a valid resource (must be a primitive or an url)'];
+
   return { isValid: errors.length === 0, errors };
 }
 
@@ -183,6 +191,19 @@ function validateAllActorsHasPhysicsPreset(actors: ReadonlyArray<TActorConfig>, 
   return actors.every((actor: TActorConfig) => {
     if (isNotDefined(presets)) return true;
     return presets.some((preset: TPhysicsPresetConfig): boolean => isNotDefined(actor.physics) || isNotDefined(actor.physics?.presetName) || preset.name === actor.physics.presetName);
+  });
+}
+
+function validateAllActorsHasModel3d(actors: ReadonlyArray<TActorConfig>, models3d: ReadonlyArray<TModel3dConfig> | undefined): boolean {
+  const sources: ReadonlyArray<string> = models3d?.map((v: TModel3dConfig): string => v.name) ?? [];
+  return actors.every((actor: TActorConfig): boolean => (isNotDefined(models3d) ? true : sources.includes(actor.model3dSource)));
+}
+
+// TODO would be nice to check all the resources and relations (e.g. materials)
+function validateAllModel3dEntityHasValidResource(models3dEntities: ReadonlyArray<TModel3dConfig>, models3dResources: ReadonlyArray<TModel3dResourceConfig>): boolean {
+  return models3dEntities.every((models3d: TModel3dConfig): boolean => {
+    if (isPrimitiveModel3dSource(models3d.model3dSource)) return true;
+    return models3dResources.some((resource: TModel3dResourceConfig): boolean => resource.name === models3d.model3dSource);
   });
 }
 

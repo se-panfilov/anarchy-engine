@@ -9,7 +9,6 @@ import type { TActorProps } from './TActorProps';
 
 export type TActorConfig = Omit<TActorProps, 'model3dSettings'> &
   Readonly<{
-    // TODO 8.0.0. MODELS: check name match model's in config
     model3dSource: string;
     physics?: TWithPresetNamePhysicsBodyConfig;
     kinematic?: TKinematicConfig;
