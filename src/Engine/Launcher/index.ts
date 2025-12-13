@@ -1,14 +1,13 @@
 import type { ActorConfig, CameraConfig, LightConfig, SceneConfig } from '@Engine/Launcher/Models';
+import type { Registry } from '@Engine/Models';
 import type {
-  ActorParams,
-  CameraParams,
-  Factory,
-  LightParams,
-  LoopParams,
-  Registry,
-  RendererParams,
-  SceneParams
-} from '@Engine/Models';
+  IActorFactory,
+  ICameraFactory,
+  ILightFactory,
+  ILoopFactory,
+  IRendererFactory,
+  ISceneFactory
+} from '@Engine/Factories';
 import {
   ActorFactory,
   CameraFactory,
@@ -28,20 +27,12 @@ import type {
   ISceneWrapper
 } from '@Engine/Wrappers';
 import { combineLatest } from 'rxjs';
-import type { ISceneFactory, IActorFactory } from '@Engine/Factories';
 
 export async function launch(sceneConfig: SceneConfig): Promise<void> {
   const { name, actors, cameras, lights } = sceneConfig;
   const { promise, resolve } = createDeferredPromise<void>();
 
   //Factories
-  // const sceneFactory: Factory<ISceneWrapper> = SceneFactory();
-  // const actorFactory: Factory<IActorWrapper> = ActorFactory();
-  // const cameraFactory: Factory<ICameraWrapper> = CameraFactory();
-  // const lightFactory: Factory<ILightWrapper> = LightFactory();
-  // const rendererFactory: Factory<IRendererWrapper> = RendererFactory();
-  // const loopFactory: Factory<ILoopWrapper> = LoopFactory();
-
   const sceneFactory: ISceneFactory = SceneFactory();
   const actorFactory: IActorFactory = ActorFactory();
   const cameraFactory: ICameraFactory = CameraFactory();
