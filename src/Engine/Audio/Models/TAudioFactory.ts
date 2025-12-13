@@ -1,10 +1,10 @@
 import type { TParamsFromConfigWithDependencies, TReactiveFactoryWithDependencies } from '@/Engine/Abstract';
 
+import type { TAnyAudioConfig } from './TAnyAudioConfig';
+import type { TAnyAudioParams } from './TAnyAudioParams';
 import type { TAnyAudioWrapper } from './TAnyAudioWrapper';
-import type { TAudioConfig } from './TAudioConfig';
 import type { TAudioConfigToParamsDependencies } from './TAudioConfigToParamsDependencies';
-import type { TAudioParams } from './TAudioParams';
 import type { TAudioWrapperDependencies } from './TAudioWrapperDependencies';
 
-export type TAudioFactory = TReactiveFactoryWithDependencies<TAnyAudioWrapper, TAudioParams, Pick<TAudioWrapperDependencies, 'audioLoop'>> &
-  TParamsFromConfigWithDependencies<TAudioConfig, TAudioParams, TAudioConfigToParamsDependencies>;
+export type TAudioFactory = TReactiveFactoryWithDependencies<TAnyAudioWrapper, TAnyAudioParams, Pick<TAudioWrapperDependencies, 'audioLoop'>> &
+  TParamsFromConfigWithDependencies<TAnyAudioConfig, TAnyAudioParams, TAudioConfigToParamsDependencies>;

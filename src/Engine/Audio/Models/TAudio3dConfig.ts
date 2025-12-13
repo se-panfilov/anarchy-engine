@@ -1,8 +1,8 @@
 import type { Vector3Like } from 'three';
 
-import type { TAudioBasicConfig } from './TAudioBasicConfig';
+import type { TAudioConfig } from './TAudioConfig';
 
-export type TAudio3dConfig = TAudioBasicConfig &
+export type TAudio3dConfig = TAudioConfig &
   Readonly<{
     position: Vector3Like;
   }>;

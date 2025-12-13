@@ -1,16 +1,16 @@
 import { Vector3 } from 'three';
 
 import { Listeners } from '@/Engine/Audio/Constants';
-import type { TAudio3dConfig, TAudio3dParams, TAudioConfig, TAudioConfigToParamsDependencies, TAudioParams, TAudioResourceAsyncRegistry } from '@/Engine/Audio/Models';
+import type { TAnyAudioConfig, TAnyAudioParams, TAudio3dConfig, TAudio3dParams, TAudioConfigToParamsDependencies, TAudioResourceAsyncRegistry } from '@/Engine/Audio/Models';
 import { isAudio3dConfig } from '@/Engine/Audio/Utils';
 import type { TWriteable } from '@/Engine/Utils';
 import { isDefined, isNotDefined } from '@/Engine/Utils';
 
 // TODO 11.0.0: Connect listener to the camera (test 3d sound, also warn if listener is not connected to anything)
-export function configToParams(config: TAudioConfig, { audioResourceAsyncRegistry, audioListenersRegistry }: TAudioConfigToParamsDependencies): TAudioParams {
+export function configToParams(config: TAnyAudioConfig, { audioResourceAsyncRegistry, audioListenersRegistry }: TAudioConfigToParamsDependencies): TAnyAudioParams {
   const { position, ...rest } = config as TAudio3dConfig;
 
-  const result: TAudioParams = {
+  const result: TAnyAudioParams = {
     ...rest,
     listener: audioListenersRegistry.findByKey(config.listener ?? Listeners.Main),
     // TODO 11.0.0: do we need rotation and scale (actually no, but transform drive might need it)
@@ -27,7 +27,7 @@ export function configToParams(config: TAudioConfig, { audioResourceAsyncRegistr
   return result;
 }
 
-function getAudio(config: TAudioConfig, audioResourceAsyncRegistry: TAudioResourceAsyncRegistry): AudioBuffer | never {
+function getAudio(config: TAnyAudioConfig, audioResourceAsyncRegistry: TAudioResourceAsyncRegistry): AudioBuffer | never {
   const audio: AudioBuffer | undefined = isDefined(config.audioSource) ? audioResourceAsyncRegistry.findByKey(config.audioSource) : undefined;
   if (isNotDefined(audio)) throw new Error(`AudioConfigAdapter: audioSource not found: ${config.audioSource}`);
   return audio;

@@ -1,8 +1,10 @@
 import type { TReadonlyVector3 } from '@/Engine/ThreeLib';
 
-import type { TAudioBasicParams } from './TAudioBasicParams';
+import type { TAudio3dPerformanceOptions } from './TAudio3dPerformanceOptions';
+import type { TAudioParams } from './TAudioParams';
 
-export type TAudio3dParams = TAudioBasicParams &
+export type TAudio3dParams = Omit<TAudioParams, 'performance'> &
   Readonly<{
+    performance?: TAudio3dPerformanceOptions;
     position: TReadonlyVector3;
   }>;

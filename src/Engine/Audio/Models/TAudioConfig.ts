@@ -1,4 +1,10 @@
-import type { TAudio3dConfig } from './TAudio3dConfig';
-import type { TAudioBasicConfig } from './TAudioBasicConfig';
+import type { TObject3DParams } from '@/Engine/ThreeLib';
 
-export type TAudioConfig = TAudio3dConfig | TAudioBasicConfig;
+import type { TAudioParams } from './TAudioParams';
+
+export type TAudioConfig = Omit<TAudioParams, 'audioSource' | 'listener'> &
+  Readonly<{
+    audioSource: string;
+    listener?: string;
+  }> &
+  Omit<TObject3DParams, keyof TObject3DParams>;

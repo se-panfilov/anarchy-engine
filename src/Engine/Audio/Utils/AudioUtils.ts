@@ -1,10 +1,10 @@
 import { Audio, PositionalAudio } from 'three';
 
-import type { TAnyAudio, TAudio3dConfig, TAudio3dParams, TAudioBasicParams, TAudioConfig, TAudioParams } from '@/Engine/Audio/Models';
+import type { TAnyAudio, TAnyAudioConfig, TAnyAudioParams, TAudio3dConfig, TAudio3dParams, TAudioParams } from '@/Engine/Audio/Models';
 import { isNotDefined } from '@/Engine/Utils';
 
-export const isAudio3dConfig = (config: TAudioConfig | TAudio3dConfig): config is TAudio3dConfig => (config as TAudio3dConfig).position !== undefined;
-export const isAudio3dParams = (config: TAudioParams | TAudio3dParams): config is TAudio3dParams => (config as TAudio3dParams).position !== undefined;
+export const isAudio3dConfig = (config: TAnyAudioConfig | TAudio3dConfig): config is TAudio3dConfig => (config as TAudio3dConfig).position !== undefined;
+export const isAudio3dParams = (config: TAnyAudioParams | TAudio3dParams): config is TAudio3dParams => (config as TAudio3dParams).position !== undefined;
 
 export function seekAudio(entity: TAnyAudio, time: number): void {
   if (!entity.buffer) return;
@@ -29,7 +29,7 @@ export function createPositionalAudio(audioSource: AudioBuffer, params: TAudio3d
   return audio;
 }
 
-export function createAudio(audioSource: AudioBuffer, params: TAudioBasicParams): Audio {
+export function createAudio(audioSource: AudioBuffer, params: TAudioParams): Audio {
   if (isNotDefined(params.listener)) throw new Error('Audio: cannot create positional audio without a listener');
   const audio = new Audio(params.listener);
   audio.setBuffer(audioSource);
