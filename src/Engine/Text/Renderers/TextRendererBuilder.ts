@@ -57,7 +57,6 @@ export function getTextRenderer<T extends CSS2DRenderer | CSS3DRenderer>(
     destroySub$.unsubscribe();
 
     screenSize$.unsubscribe();
-    // TODO 14-0-0: remove renderer element both on destroy$ and on drop
 
     if (isAppGlobalContainer(container)) {
       container.document.body.removeChild(renderer.domElement);
