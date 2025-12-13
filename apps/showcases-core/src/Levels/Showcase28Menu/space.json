@@ -192,7 +192,7 @@
           "y": 0,
           "z": 0
         },
-        "text": "Welcome",
+        "textKey": "app.showcases-menu.menu.greetings.text",
         "type": "text_2d"
       },
       {
@@ -211,13 +211,13 @@
           "y": 0,
           "z": 0
         },
-        "text": "Menu",
+        "textKey": "app.showcases-menu.menu.button.text",
         "type": "text_3d"
       },
       {
         "name": "text_3d_2",
         "type": "text_3d_texture",
-        "text": "Click on the \"menu\" button",
+        "textKey": "app.showcases-menu.menu.cta.text",
         "position": {
           "x": -1,
           "y": 2,
