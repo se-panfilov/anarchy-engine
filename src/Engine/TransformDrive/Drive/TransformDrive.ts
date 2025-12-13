@@ -7,7 +7,14 @@ import { destroyableMixin } from '@/Engine/Mixins';
 import type { TReadonlyEuler, TReadonlyVector3 } from '@/Engine/ThreeLib';
 import { TransformAgent } from '@/Engine/TransformDrive/Constants';
 import { ProtectedTransformAgentFacade } from '@/Engine/TransformDrive/Facades';
-import type { TAbstractTransformAgent, TProtectedTransformAgentFacade, TTransformDrive, TTransformDriveParams, TWithProtectedTransformAgents } from '@/Engine/TransformDrive/Models';
+import type {
+  TAbstractTransformAgent,
+  TProtectedTransformAgentFacade,
+  TTransformDrive,
+  TTransformDriveMandatoryFields,
+  TTransformDriveParams,
+  TWithProtectedTransformAgents
+} from '@/Engine/TransformDrive/Models';
 import { isEqualOrSimilarVector3Like, isNotDefined } from '@/Engine/Utils';
 
 // TransformDrive is an entity to move/rotate/scale other entities
@@ -104,10 +111,11 @@ export function TransformDrive<T extends Partial<Record<TransformAgent, TAbstrac
     )
     .subscribe(scale$);
 
-  const result: TTransformDrive<T> = {
+  const result: TTransformDriveMandatoryFields = {
     ...destroyable,
     agent$,
     activeAgent$: activeAgentRep$,
+    getActiveAgent: (): TProtectedTransformAgentFacade<TAbstractTransformAgent> => activeAgent$.value,
     position$: positionRep$,
     getPosition: (): Vector3 => position$.value.clone(),
     rotation$: rotationRep$,
@@ -115,7 +123,7 @@ export function TransformDrive<T extends Partial<Record<TransformAgent, TAbstrac
     scale$: scaleRep$,
     getScale: (): Vector3 => scale$.value.clone(),
     ...getDynamicAgents(agents)
-  } as TTransformDrive<T>;
+  };
 
   destroyable.destroy$.subscribe(() => {
     // Stop subscriptions
@@ -144,7 +152,7 @@ export function TransformDrive<T extends Partial<Record<TransformAgent, TAbstrac
     Object.values(agents).forEach((agent: TProtectedTransformAgentFacade<TAbstractTransformAgent>): void => agent.destroy$.next());
   });
 
-  return result;
+  return result as TTransformDrive<T>;
 }
 
 function getDynamicAgents<T extends Partial<Record<TransformAgent, TAbstractTransformAgent>>>(agents: T): TWithProtectedTransformAgents<T> {
