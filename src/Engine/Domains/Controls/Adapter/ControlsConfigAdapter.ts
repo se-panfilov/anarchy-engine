@@ -1,11 +1,14 @@
-import type { IAppCanvas } from '@Engine/Domains/App';
 import type { ICameraRegistry, ICameraWrapper } from '@Engine/Domains/Camera';
+import type { IAppCanvas } from '@Engine/Domains/App';
 import { isNotDefined } from '@Engine/Utils';
 
 import type { IControlsConfig, IControlsParams } from '../Models';
 import { IControlsType } from '../Models';
+import type { IFromConfigFn } from '@/Engine/Domains/Abstract';
 
-export function fromConfig(config: IControlsConfig, cameraRegistry: ICameraRegistry, canvas: IAppCanvas): IControlsParams {
+export type AdditionalControlsConfigParams = { cameraRegistry: ICameraRegistry; canvas: IAppCanvas };
+
+export const fromConfig: IFromConfigFn<IControlsParams, IControlsConfig> = (config: IControlsConfig, { cameraRegistry, canvas }: AdditionalControlsConfigParams): IControlsParams => {
   const { type, cameraTag, tags } = config;
 
   if (type !== IControlsType.OrbitControls) throw new Error(`Cannot create controls of unknown type "${type as string}"`);
@@ -19,4 +22,4 @@ export function fromConfig(config: IControlsConfig, cameraRegistry: ICameraRegis
     canvas,
     tags
   };
-}
+};
