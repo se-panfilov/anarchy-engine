@@ -7,11 +7,6 @@ import type { TKinematicSpeed, TKinematicTransformAgent } from '@/Engine/Transfo
 import type { TWriteable } from '@/Engine/Utils';
 import { isDefined, isNotDefined } from '@/Engine/Utils';
 
-export function getStepRotation(agent: TKinematicTransformAgent, rotationStep: TRadians): Quaternion | undefined {
-  if (isDefined(agent.data.target?.rotation)) return getStepRotationToTarget(agent, rotationStep);
-  return getStepRotationInfinite(agent, rotationStep);
-}
-
 export function getStepRotationToTarget(agent: TKinematicTransformAgent, rotationStep: TRadians): Quaternion | undefined {
   if (isNotDefined(agent.data.target?.rotation)) return undefined;
 

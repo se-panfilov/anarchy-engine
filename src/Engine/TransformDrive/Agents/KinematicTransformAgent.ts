@@ -296,10 +296,15 @@ export function KinematicTransformAgent(params: TKinematicTransformAgentParams, 
   function doKinematicRotation(delta: TMilliseconds): void {
     if (agent.data.state.angularSpeed <= 0) return;
 
-    if (isRotationReached(agent.data.target, agent.rotation$.value, agent.data.state)) return;
-
     const rotationStep: TRadians = (agent.data.state.angularSpeed * delta) as TRadians;
-    const stepRotation: Quaternion | undefined = getStepRotation(agent, rotationStep);
+
+    let stepRotation: Quaternion | undefined;
+    if (agent.data.target?.rotation) {
+      if (isRotationReached(agent.data.target, agent.rotation$.value, agent.data.state)) return;
+      stepRotation = getStepRotationToTarget(agent, rotationStep);
+    } else {
+      stepRotation = getStepRotationInfinite(agent, rotationStep);
+    }
     if (isNotDefined(stepRotation)) return;
 
     agent.data.state.angularDirection.multiply(stepRotation).normalize();
