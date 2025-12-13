@@ -2,7 +2,7 @@ import { combineLatest } from 'rxjs';
 
 import type { TShowcase } from '@/App/Levels/Models';
 import type { TActorParams, TAppCanvas, TCameraWrapper, TEngine, TSpace, TSpaceConfig, TSpatialGridWrapper } from '@/Engine';
-import { ambientContext, buildSpaceFromConfig, Engine, EulerWrapper, isNotDefined, MaterialType, Model3dType, Vector3Wrapper } from '@/Engine';
+import { ambientContext, buildSpaceFromConfig, Engine, EulerWrapper, isNotDefined, MaterialType, PrimitiveModel3dType, Vector3Wrapper } from '@/Engine';
 
 import spaceConfig from './showcase.json';
 
@@ -17,7 +17,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     if (isNotDefined(grid)) throw new Error(`Cannot find "main_grid" grid`);
 
     const actorDefaultParams: TActorParams = {
-      model3d: { url: Model3dType.Cube },
+      model3d: { url: PrimitiveModel3dType.Cube },
       position: Vector3Wrapper({ x: 0, y: 0, z: 0 }),
       castShadow: true,
       material: { type: MaterialType.Toon, params: { color: '#5177ff' } },

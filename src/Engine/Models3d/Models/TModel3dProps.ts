@@ -1,11 +1,10 @@
 import type { TEulerWrapper } from '@/Engine/Euler';
-import type { Model3dType } from '@/Engine/Models3d/Constants';
 import type { TVector3Wrapper } from '@/Engine/Vector';
 
 import type { TModel3dLoadOptions } from './TModel3dLoadOptions';
 
 export type TModel3dProps = Readonly<{
-  url: string | Model3dType;
+  url: string;
   castShadow?: boolean;
   options: TModel3dLoadOptions;
 }> &

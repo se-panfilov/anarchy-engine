@@ -5,7 +5,6 @@ import type { TCameraConfig } from '@/Engine/Camera';
 import type { TControlsConfig } from '@/Engine/Controls';
 import type { TWithName, TWithReadonlyTags } from '@/Engine/Mixins';
 import type { TModel3dConfig } from '@/Engine/Models3d';
-import { Model3dType } from '@/Engine/Models3d';
 import type { TPhysicsPresetConfig, TWithPresetNamePhysicsBodyConfig } from '@/Engine/Physics';
 import type { TSceneConfig } from '@/Engine/Scene/Models';
 import type { TSpaceConfig } from '@/Engine/Space/Models';
@@ -168,8 +167,7 @@ function validateFileUrls(models3d: ReadonlyArray<TModel3dConfig>): boolean {
   return models3d.every((model3d: TModel3dConfig): boolean => validateFileUrl(model3d.url));
 }
 
-function validateFileUrl(url: string | Model3dType): boolean {
-  if (Object.values(Model3dType).includes(url as Model3dType)) return true;
+function validateFileUrl(url: string): boolean {
   const regex = /^(\/|[a-zA-Z]:\\)[a-zA-Z0-9_\-/\\]+\.(gltf|glb)$/;
   return regex.test(url);
 }

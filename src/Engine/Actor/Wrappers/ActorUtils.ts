@@ -1,32 +1,22 @@
 import { BoxGeometry, Mesh, PlaneGeometry, SphereGeometry } from 'three';
 
-import type { TActorDependencies, TActorParams } from '@/Engine/Actor/Models';
+import type { TActorParams } from '@/Engine/Actor/Models';
 import type { TMaterials, TMaterialWrapper } from '@/Engine/Material';
 import { meters } from '@/Engine/Measurements/Utils';
-import type { TModel3dFacade, TModel3dPack } from '@/Engine/Models3d';
-import { Model3dType } from '@/Engine/Models3d';
-import type { TOptional } from '@/Engine/Utils';
+import type { TModel3dPack } from '@/Engine/Models3d';
+import { PrimitiveModel3dType } from '@/Engine/Models3d';
 import { isDefined } from '@/Engine/Utils';
 
-export async function createActorModel3d(
-  params: TActorParams,
-  { materialTextureService, models3dService }: Pick<TActorDependencies, 'materialTextureService' | 'models3dService'>
-): Promise<TModel3dFacade> | never {
-  // TODO AWAIT: could speed up by not awaiting material loading (return promise of an actor)
-  const materialWrapper: TMaterialWrapper = await materialTextureService.createAsync(params.material);
-
-  if (!Object.values(Model3dType).includes(params.model3d.url as Model3dType)) throw new Error('Cannot create Actor: unknown actor type');
-
-  let result: TOptional<TModel3dPack> = {
-    url: params.model3d.url,
+export function createPrimitiveModel3dPack(type: PrimitiveModel3dType, materialW: TMaterialWrapper, params: TActorParams): TModel3dPack | never {
+  const pre: Omit<TModel3dPack, 'model'> = {
+    url: '',
     animations: [],
-    model: undefined,
     options: { shouldAddToScene: false, shouldAddToRegistry: true, isForce: false }
   };
-  if ((params.model3d.url as Model3dType) === Model3dType.Plane) result = { ...result, model: createPlane(params, materialWrapper.entity) };
-  else if ((params.model3d.url as Model3dType) === Model3dType.Sphere) result = { ...result, model: createSphere(params, materialWrapper.entity) };
-  else if ((params.model3d.url as Model3dType) === Model3dType.Cube) result = { ...result, model: createCube(params, materialWrapper.entity) };
-  return models3dService.createFromPack(result as TModel3dPack);
+  if (type === PrimitiveModel3dType.Plane) return { ...pre, model: createPlane(params, materialW.entity) };
+  else if (type === PrimitiveModel3dType.Sphere) return { ...pre, model: createSphere(params, materialW.entity) };
+  else if (type === PrimitiveModel3dType.Cube) return { ...pre, model: createCube(params, materialW.entity) };
+  throw new Error(`Unknown primitive model type: "${type}"`);
 }
 
 function createPlane({ width, height, widthSegments, heightSegments }: TActorParams, material: TMaterials): Mesh {

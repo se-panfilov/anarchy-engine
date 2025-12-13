@@ -1,1 +1,1 @@
-export * from './Model3dType';
+export * from './PrimitiveModel3dType';

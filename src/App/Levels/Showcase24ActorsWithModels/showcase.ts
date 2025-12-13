@@ -7,10 +7,10 @@ import spaceConfig from './showcase.json';
 export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
   const space: TSpace = await buildSpaceFromConfig(canvas, spaceConfig as TSpaceConfig);
   const engine: TEngine = Engine(space);
-  const { models3dService } = space.services;
+  const { actorService } = space.services;
 
   async function init(): Promise<void> {
-    // TODO
+    const actorW: TActorWrapperAsync = await actorService.createAsync(params);
   }
 
   // TODO debug light

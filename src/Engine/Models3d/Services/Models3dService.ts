@@ -3,11 +3,14 @@ import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader';
 import type { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 
+import type { TActorParams } from '@/Engine/Actor';
+import { createPrimitiveModel3dPack } from '@/Engine/Actor/Wrappers/ActorUtils';
 import type { TAnimationsService } from '@/Engine/Animations';
+import type { TMaterialWrapper } from '@/Engine/Material';
 import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
 import { model3dConfigToParams } from '@/Engine/Models3d/Adapters';
-import { Model3dType } from '@/Engine/Models3d/Constants';
+import type { PrimitiveModel3dType } from '@/Engine/Models3d/Constants';
 import type { TModel3dConfig, TModel3dFacade, TModel3dPack, TModel3dParams, TModels3dAsyncRegistry, TModels3dService, TPerformLoadResult } from '@/Engine/Models3d/Models';
 import { Model3dFacade } from '@/Engine/Models3d/Wrappers';
 import type { TSceneWrapper } from '@/Engine/Scene';
@@ -40,7 +43,6 @@ export function Models3dService(registry: TModels3dAsyncRegistry, animationsServ
 
   function performLoad(params: TModel3dParams): Promise<TPerformLoadResult> {
     const { url, options } = params;
-    if ([...Object.values(Model3dType)].includes(url as Model3dType)) throw new Error(`Trying to load a primitive(e.g. cube, sphere, etc.) as an imported model: ${url}`);
 
     if (!options.isForce) {
       const model3dFacade: TModel3dFacade | undefined = registry.find((facade: TModel3dFacade): boolean => facade.getUrl() === url);
@@ -76,6 +78,11 @@ export function Models3dService(registry: TModels3dAsyncRegistry, animationsServ
     return cloned;
   }
 
+  function createPrimitive(type: PrimitiveModel3dType, params: TActorParams, materialW: TMaterialWrapper): TModel3dFacade {
+    const pack = createPrimitiveModel3dPack(type, materialW, params);
+    return createFromPack(pack);
+  }
+
   const destroyable: TDestroyable = destroyableMixin();
   destroyable.destroyed$.subscribe(() => {
     registry.destroy();
@@ -91,6 +98,7 @@ export function Models3dService(registry: TModels3dAsyncRegistry, animationsServ
     loadAsync,
     loadFromConfigAsync,
     createFromPack,
+    createPrimitive,
     added$: added$.asObservable(),
     loaded$: loaded$.asObservable(),
     getRegistry: (): TModels3dAsyncRegistry => registry,

@@ -11,7 +11,7 @@ import type { TWithMaterial } from '@/Engine/Material';
 import { withMaterial } from '@/Engine/Material';
 import { scalableMixin, withMoveBy3dMixin, withObject3d, withRotationByXyzMixin } from '@/Engine/Mixins';
 import type { TModel3dFacade } from '@/Engine/Models3d';
-import { Model3dType } from '@/Engine/Models3d';
+import { PrimitiveModel3dType } from '@/Engine/Models3d';
 import type { TSpatialLoopServiceValue } from '@/Engine/Spatial';
 import { withReactivePosition, withReactiveRotation, withSpatial, withUpdateSpatialCell } from '@/Engine/Spatial';
 import { withTextures } from '@/Engine/Texture';
@@ -21,14 +21,8 @@ export async function ActorWrapperAsync(
   params: TActorParams,
   { materialTextureService, models3dService, kinematicLoopService, spatialLoopService, spatialGridService, collisionsLoopService, collisionsService }: TActorDependencies
 ): Promise<TActorWrapperAsync> {
-  const isPrimitiveModel3d: boolean = [...Object.values(Model3dType)].includes(params.model3d.url as Model3dType);
+  const isPrimitiveModel3d: boolean = [...Object.values(PrimitiveModel3dType)].includes(params.model3d.url as PrimitiveModel3dType);
 
-  // TODO Maybe this options should be the same as for the actor. But actor doesn't have them yet (refactoring is needed)
-  const options = {
-    shouldAddToRegistry: params.model3d.options?.shouldAddToRegistry ?? true,
-    shouldAddToScene: params.model3d.options?.shouldAddToScene ?? false,
-    isForce: params.model3d.options?.isForce ?? false
-  };
   // TODO AWAIT: could speed up by not awaiting mesh to be build?
   const model3dLoadResultList: ReadonlyArray<Promise<TModel3dFacade>> = isPrimitiveModel3d
     ? [createActorModel3d(params, { materialTextureService, models3dService })]
