@@ -8,7 +8,6 @@ import { getAnimationWrapperForComplexPathAnimation } from '@/Engine/Services/Mo
 import { isVector3 } from '@/Engine/Utils';
 
 export const goStraightMove: TMoveFn = ({ obj, destination, animationParams, complete }: TMoveFnParams): anime.AnimeInstance => {
-  console.log(112, obj.positionConnector);
   return anime({
     targets: obj,
     x: destination.x,
