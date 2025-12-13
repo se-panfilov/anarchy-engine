@@ -1,6 +1,7 @@
 export * from './IAbstractConfig';
 export * from './IAbstractFactory';
 export * from './IAbstractFromConfigWrapperFactory';
+export * from './IAbstractPool';
 export * from './IAbstractRegistry';
 export * from './IAbstractWatcher';
 export * from './IAbstractWatcherWithState';

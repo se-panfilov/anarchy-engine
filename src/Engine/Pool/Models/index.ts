@@ -1,4 +1,3 @@
-export * from './IAbstractPool';
 export * from './IDestroyableFactories';
 export * from './IDestroyablePool';
 export * from './IFactories';

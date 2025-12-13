@@ -1,5 +1,5 @@
+import { AbstractPool } from '@Engine/Domains/Abstract';
 import type { IDestroyable } from '@Engine/Mixins';
-import { AbstractPool } from '@Engine/Pool/AbstractPool';
 import { cleanObject, isNotDefined } from '@Engine/Utils';
 
 import type { IDestroyablePool } from '../Models';
