@@ -5,6 +5,9 @@ type IFactory<P, T> = Readonly<{
   create: (params: P) => T;
 }>;
 
+type ExtractFactoryParams<F> = F extends IFactory<infer P, any> ? P : never;
+type ExtractFactoryReturn<F> = F extends IFactory<any, infer T> ? T : never;
+
 function Factory<Params, Entity>(type: string, createFn: (params: Params) => Entity): IFactory<Params, Entity> {
   return {
     type,
@@ -50,6 +53,19 @@ function RegistrableFactory<F extends IFactory<any, any>>(factory: F, tags: Read
     tags
   };
 }
+
+// function FromConfigFactory<F extends IFactory>(factory: F): F & IFromConfig<ExtractFactoryReturn<F>, ExtractFactoryParams<F>> {
+//   function configToParams(config: ExtractFactoryParams<F>): ExtractFactoryParams<F> {
+//     return config;
+//   }
+//
+//   return {
+//     ...factory,
+//     fromConfig: (config: ExtractFactoryParams<F>): ExtractFactoryReturn<F> => {
+//       return factory.create(configToParams(config));
+//     }
+//   };
+// }
 
 function FromConfigFactory<F extends IFactory<any, any>, P, T, C>(factory: F): F & IFromConfigFactory<F, T, C> {
   function configToParams(config: C): P {
