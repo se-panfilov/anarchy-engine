@@ -2,10 +2,10 @@ import type { BufferGeometry, Intersection, Mesh, Raycaster, Scene } from 'three
 import type { MeshBVH } from 'three-mesh-bvh';
 import { acceleratedRaycast, computeBoundsTree, disposeBoundsTree, MeshBVHHelper } from 'three-mesh-bvh';
 
-import type { TBvhOptions, TRaycastBvhService } from '@/Engine/Collisions/Models';
+import type { TRaycastBvhOptions, TRaycastBvhService } from '@/Engine/Collisions/Models';
 
 export function RaycastBvhService(): TRaycastBvhService {
-  const computeBVHBoundsTree = (geometry: BufferGeometry, options?: TBvhOptions): MeshBVH => computeBoundsTree.call(geometry, options);
+  const computeBVHBoundsTree = (geometry: BufferGeometry, options?: TRaycastBvhOptions): MeshBVH => computeBoundsTree.call(geometry, options);
 
   const disposeBVHBoundsTree = (geometry: BufferGeometry): void => disposeBoundsTree.call(geometry);
 
