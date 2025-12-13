@@ -10,17 +10,9 @@ import type { TActorProps } from './TActorProps';
 export type TActorParams = TActorProps &
   Readonly<{
     model3dSource: TModel3dFacade;
-  }> &
-  Readonly<{
     physics?: TWithPresetNamePhysicsBodyParams;
-  }> &
-  Readonly<{
     kinematic?: TKinematicDataParams;
-  }> &
-  Readonly<{
     spatial: TSpatialDataParams;
-  }> &
-  Readonly<{
     collisions?: TCollisionsDataParams;
   }> &
   // TODO 8.0.0. MODELS: do we need scale?

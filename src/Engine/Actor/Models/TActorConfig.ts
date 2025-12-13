@@ -10,17 +10,9 @@ export type TActorConfig = TActorProps &
   Readonly<{
     // TODO 8.0.0. MODELS: check name match model's in config
     model3dSource: string;
-  }> &
-  Readonly<{
     physics?: TWithPresetNamePhysicsBodyConfig;
-  }> &
-  Readonly<{
     kinematic?: TKinematicDataConfig;
-  }> &
-  Readonly<{
     spatial: TSpatialDataConfig;
-  }> &
-  Readonly<{
     collisions?: TCollisionsDataConfig;
   }> &
   Pick<TObject3DPropConfig, 'position' | 'rotation' | 'scale'>;

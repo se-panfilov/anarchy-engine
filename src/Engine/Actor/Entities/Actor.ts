@@ -1,29 +1,26 @@
 import type { Subscription } from 'rxjs';
-import { Subject } from 'rxjs';
-import type { Euler, Vector3 } from 'three';
+import { combineLatest, Subject } from 'rxjs';
+import { Euler, Vector3 } from 'three';
 
 import { FacadeType } from '@/Engine/Abstract';
 import { AbstractFacade } from '@/Engine/Abstract/Wrappers/AbstractFacade';
-import { ActorDrive } from '@/Engine/Actor/Constants';
-import type { TActor, TActorDependencies, TActorFacadeEntities, TActorParams } from '@/Engine/Actor/Models';
+import type { ActorDrive } from '@/Engine/Actor/Constants';
+import type { TActor, TActorDependencies, TActorEntities, TActorParams } from '@/Engine/Actor/Models';
 import { applySpatialGrid, startCollisions } from '@/Engine/Actor/Wrappers/ActorWrapperHelper';
 import { withCollisions } from '@/Engine/Collisions';
 import { withKinematic } from '@/Engine/Kinematic';
 import type { TModel3dFacade } from '@/Engine/Models3d';
 import { withModel3dFacade } from '@/Engine/Models3d';
 import type { TSpatialLoopServiceValue } from '@/Engine/Spatial';
-import { withReactivePosition, withSpatial, withUpdateSpatialCell } from '@/Engine/Spatial';
+import { withReactivePosition, withReactiveRotation, withSpatial, withUpdateSpatialCell } from '@/Engine/Spatial';
 import { applyPosition, applyRotation, applyScale, isDefined } from '@/Engine/Utils';
 
-// TODO 8.0.0. MODELS: Why we call it facades? Just Actor. Just Model3d (however, we need an abstract "class" for it)
-// TODO 8.0.0. MODELS: shall we refactor TActorWrapper to TActorFacade?
 export function Actor(
   params: TActorParams,
   { kinematicLoopService, spatialLoopService, spatialGridService, collisionsLoopService, collisionsService, models3dService, model3dFacadeToActorConnectionRegistry }: TActorDependencies
 ): TActor {
-  // TODO 8.0.0. MODELS: Actor should be driven either by kinematic or physics or none (direct applying of position)
   // TODO 8.0.0. MODELS: Allow to switch "drive" it in runtime
-  let drive: ActorDrive = ActorDrive.Kinematic;
+  let drive: ActorDrive = params.drive;
 
   const setDrive = (mode: ActorDrive): string => (drive = mode);
   const getDrive = (): ActorDrive => drive;
@@ -36,12 +33,11 @@ export function Actor(
 
   const isModelAlreadyInUse: boolean = isDefined(model3dFacadeToActorConnectionRegistry.findByModel3dFacade(params.model3dSource));
   const model3dF: TModel3dFacade = isModelAlreadyInUse ? models3dService.clone(params.model3dSource) : params.model3dSource;
-  // const model3d: Group | Mesh | Object3D = model3dF.getModel3d();
-  //
+
   // const { value$: position$, update: updatePosition } = withReactivePosition(model3d);
   // const { value$: rotation$, update: updateRotation } = withReactiveRotation(model3d);
 
-  const entities: TActorFacadeEntities = {
+  const entities: TActorEntities = {
     ...withModel3dFacade(model3dF),
     // TODO 8.0.0. MODELS: Kinematic should update rotation (and position?) (if "drive" is "kinematic")
     // TODO 8.0.0. MODELS: Physics should update position and rotation (if "drive" is "physics")
@@ -79,10 +75,35 @@ export function Actor(
     model3dFacadeToActorConnectionRegistry.removeByModel3dFacade(model3dF);
     model3dF.destroy();
   });
+
+  let oldPosition: Vector3 = new Vector3();
+  let oldRotation: Euler = new Euler();
+  let oldScale: Vector3 = new Vector3();
+
+  combineLatest([position$, rotation$, scale$]).subscribe(([position, rotation, scale]: [Vector3, Euler, Vector3]): void => {
+    if (!position.equals(oldPosition)) {
+      oldPosition = position;
+      applyPosition(entities, position);
+    }
+
+    if (!rotation.equals(oldRotation)) {
+      oldRotation = rotation;
+      applyRotation(entities, rotation);
+    }
+
+    if (!scale.equals(oldScale)) {
+      oldScale = scale;
+      applyScale(entities, scale);
+    }
+
+    // TODO 8.0.0. MODELS: should it take in account scale and rotation? Otherwise trigger it only for position
+    entities.updateSpatialCells(position);
+  });
+
   // TODO 8.0.0. MODELS: check: should be applied both for actor and model3d
-  applyPosition(entities, params.position);
+  // applyPosition(entities, params.position);
   // TODO 8.0.0. MODELS: check: should be applied both for actor and model3d
-  applyRotation(entities, params.rotation);
+  // applyRotation(entities, params.rotation);
   // TODO 8.0.0. MODELS: do we need to apply scale for actor?
 
   if (isDefined(params.scale)) applyScale(entities, params.scale);
@@ -90,8 +111,6 @@ export function Actor(
 
   // TODO 8.0.0. MODELS: check how collisions works with the model3d?
   startCollisions(entities);
-
-  position$.subscribe((newPosition: Vector3): void => entities.updateSpatialCells(newPosition));
 
   model3dFacadeToActorConnectionRegistry.addModel3dFacade(model3dF, entities);
 

@@ -2,7 +2,7 @@ export * from './TActor';
 export * from './TActorConfig';
 export * from './TActorConfigToParamsDependencies';
 export * from './TActorDependencies';
-export * from './TActorFacadeEntities';
+export * from './TActorEntities';
 export * from './TActorFactory';
 export * from './TActorParams';
 export * from './TActorProps';

@@ -1,4 +1,5 @@
 export * from './Constants';
+export * from './Entities';
 export * from './Factories';
 export * from './Models';
 export * from './Registries';
