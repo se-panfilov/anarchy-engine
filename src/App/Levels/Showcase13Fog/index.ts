@@ -1,8 +1,8 @@
 import GUI from 'lil-gui';
 
 import type { IShowcase } from '@/App/Levels/Models';
-import { IAppCanvas, ILevel, ILevelConfig, ISceneWrapper, RendererTag } from '@/Engine';
-import { buildLevelFromConfig, isNotDefined } from '@/Engine';
+import type { IAppCanvas, ILevel, ILevelConfig, ISceneWrapper } from '@/Engine';
+import { buildLevelFromConfig, isNotDefined, RendererTag } from '@/Engine';
 
 import levelConfig from './showcase-13-fog.json';
 
