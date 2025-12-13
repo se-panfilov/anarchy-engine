@@ -72,15 +72,26 @@
       {
         "type": "Ambient",
         "color": "#ffffff",
-        "intensity": 0.5,
+        "intensity": 0.01,
         "position": { "x": 0.25, "y": 2, "z": 2.25 },
+        "tags": []
+      },
+      {
+        "name": "point_light",
+        "type": "Point",
+        "color": "#ff0000",
+        "intensity": 100,
+        "distance": 1,
+        "decay": 1,
+        "castShadow": false,
+        "position": { "x": 0, "y": 4, "z": 0 },
         "tags": []
       },
       {
         "name": "dir_light",
         "type": "Directional",
         "color": "#ffffff",
-        "intensity": 1.5,
+        "intensity": 0.5,
         "castShadow": true,
         "position": { "x": 0.25, "y": 15, "z": 2.25 },
         "shadow": {

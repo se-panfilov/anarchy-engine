@@ -11,6 +11,7 @@ import type { Vector3Like } from 'three/src/math/Vector3';
 import type {
   KeyCode,
   KeysExtra,
+  TAbstractLightWrapper,
   TActor,
   TCameraWrapper,
   TIntersectionEvent,
@@ -94,25 +95,62 @@ export function changeActorActiveAgent(actor: TActor, key: KeyCode | KeysExtra, 
 }
 
 export function connectCameraToActor(camera: TCameraWrapper, controls: TOrbitControlsWrapper, actor: TActor, gui: GUI): void {
-  const cameraFolder = {
-    isFollowingActor: false
-  };
-  gui.add(cameraFolder, 'isFollowingActor').name('Following mode');
+  const cameraSettings = { isFollowingActor: false };
+  const folder: GUI = gui.addFolder('Camera');
+  folder.add(cameraSettings, 'isFollowingActor').name('Following mode');
 
   actor.drive.position$
     .pipe(
       map((position: Vector3): { position: Vector3; isFollowingActor: boolean } => ({
         position: position.clone(),
-        isFollowingActor: cameraFolder.isFollowingActor
+        isFollowingActor: cameraSettings.isFollowingActor
       }))
     )
     .subscribe(({ position, isFollowingActor }: { position: Vector3; isFollowingActor: boolean }): void => {
       if (isFollowingActor) {
         if (controls.isEnable()) controls.disable();
-        camera.drive.position$.next(position.clone().add(new Vector3(0, 10, 0)));
+        // we can do just this, but here we want to test the "connected" agent of a camera
+        // camera.drive.position$.next(position.clone().add(new Vector3(0, 10, 0)));
+        camera.drive.agent$.next(TransformAgent.Connected);
+        // eslint-disable-next-line functional/immutable-data
+        camera.drive.connected.positionConnector.x = position.x;
+        // eslint-disable-next-line functional/immutable-data
+        camera.drive.connected.positionConnector.y = position.y + 10;
+        // eslint-disable-next-line functional/immutable-data
+        camera.drive.connected.positionConnector.z = position.z;
         camera.lookAt(position);
       } else {
         controls.enable();
+        camera.drive.agent$.next(TransformAgent.Default);
+      }
+    });
+}
+
+export function connectLightToActor(light: TAbstractLightWrapper<any>, actor: TActor, gui: GUI): void {
+  const lightSettings = { isFollowingActor: false };
+  const folder: GUI = gui.addFolder('Light');
+  folder.add(lightSettings, 'isFollowingActor').name('Following mode');
+
+  actor.drive.position$
+    .pipe(
+      map((position: Vector3): { position: Vector3; isFollowingActor: boolean } => ({
+        position: position.clone(),
+        isFollowingActor: lightSettings.isFollowingActor
+      }))
+    )
+    .subscribe(({ position, isFollowingActor }: { position: Vector3; isFollowingActor: boolean }): void => {
+      if (isFollowingActor) {
+        // we can do just this, but here we want to test the "connected" agent of a light
+        // light.drive.position$.next(position.clone().add(new Vector3(0, 4, 0)));
+        light.drive.agent$.next(TransformAgent.Connected);
+        // eslint-disable-next-line functional/immutable-data
+        light.drive.connected.positionConnector.x = position.x;
+        // eslint-disable-next-line functional/immutable-data
+        light.drive.connected.positionConnector.y = position.y + 4;
+        // eslint-disable-next-line functional/immutable-data
+        light.drive.connected.positionConnector.z = position.z;
+      } else {
+        light.drive.agent$.next(TransformAgent.Default);
       }
     });
 }

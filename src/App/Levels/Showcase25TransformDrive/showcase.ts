@@ -14,6 +14,7 @@ import type {
   TModel3dRegistry,
   TMouseWatcherEvent,
   TOrbitControlsWrapper,
+  TPointLightWrapper,
   TSceneWrapper,
   TSpace,
   TSpaceConfig,
@@ -30,6 +31,7 @@ import {
   attachConnectorToSubj,
   changeActorActiveAgent,
   connectCameraToActor,
+  connectLightToActor,
   createActor,
   createReactiveLineFromActor,
   createRepeaterActor,
@@ -48,7 +50,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
   const space: TSpace = await spaceService.buildSpaceFromConfig(canvas, spaceConfig as TSpaceConfig);
   const engine: TEngine = Engine(space);
 
-  const { cameraService, controlsService, models3dService, mouseService, scenesService, spatialGridService } = space.services;
+  const { cameraService, controlsService, lightService, models3dService, mouseService, scenesService, spatialGridService } = space.services;
   const { keyboardService } = engine.services;
   const { clickLeftRelease$ } = mouseService;
   const models3dRegistry: TModel3dRegistry = models3dService.getRegistry();
@@ -71,6 +73,9 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     const controls: TOrbitControlsWrapper | undefined = controlsService.findActive();
     if (isNotDefined(controls)) throw new Error('Controls are not defined');
 
+    const light: TPointLightWrapper | undefined = lightService.getRegistry().findByName('point_light') as TPointLightWrapper | undefined;
+    if (isNotDefined(light)) throw new Error('Light is not defined');
+
     grid._debugVisualizeCells(sceneW, '#4e0c85');
 
     console.log('Click "space" to change actor movement mode ("agent")');
@@ -89,6 +94,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     addSpatialGuiFolder(gui, grid, intersectionsWatcher);
 
     connectCameraToActor(camera, controls, sphereActor, gui);
+    connectLightToActor(light, sphereActor, gui);
 
     const { line } = createReactiveLineFromActor('#E91E63', sphereActor, intersectionsWatcher);
     sceneW.entity.add(line);
