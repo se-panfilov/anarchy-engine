@@ -4,6 +4,7 @@ import type { TFogConfig, TFogWrapper } from '@/Engine/Fog/Models';
 import { extractSerializableRegistrableFields } from '@/Engine/Mixins';
 import { filterOutEmptyFields } from '@/Engine/Utils';
 
+// TODO 15-0-0: validate result
 export function fogToConfig(entity: TFogWrapper): TFogConfig {
   const json: FogJSON = entity.entity.toJSON();
 
