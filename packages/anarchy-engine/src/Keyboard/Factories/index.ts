@@ -1,1 +1,1 @@
-export * from './KeyboardWatcherFactory';
+export * from './KeyWatcherFactory';

@@ -1,1 +1,2 @@
-export * from './KeyboardWatcher';
+export * from './KeyPressWatcher';
+export * from './KeyReleaseWatcher';

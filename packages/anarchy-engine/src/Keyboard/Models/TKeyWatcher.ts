@@ -1,3 +1,3 @@
 import type { TMultitonWatcher } from '@Anarchy/Engine/Abstract';
 
-export type TKeyboardWatcher = TMultitonWatcher<KeyboardEvent>;
+export type TKeyWatcher = TMultitonWatcher<KeyboardEvent>;
