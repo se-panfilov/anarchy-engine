@@ -1,35 +1,6 @@
-import type { TextAlign, TextDirection, TextFontStyle, TextFontWeight, TextOverflowWrap, TextWhiteSpace } from '@/Engine/Domains/Text';
-
 export type IElement2dAccessors = Readonly<{
   setText: (text: string) => void;
-  getText: () => string | null;
-  setBackgroundColor: (color: string) => void;
-  getBackgroundColor: () => string;
-  setClassName: (name: string) => void;
-  appendClassName: (name: string) => void;
-  getClassName: () => string;
-  setFontSize: (fontSize: string) => void;
-  getFontSize: () => string;
-  setColor: (color: string) => void;
-  getColor: () => string;
-  setFontFamily: (font: string) => void;
-  getFontFamily: () => string;
-  setMaxWidth: (maxWidth: string) => void;
-  getMaxWidth: () => string;
-  setLineHeight: (lineHeight: string) => void;
-  getLineHeight: () => string;
-  setLetterSpacing: (letterSpacing: string) => void;
-  getLetterSpacing: () => string;
-  setTextAlign: (textAlign: TextAlign) => void;
-  getTextAlign: () => TextAlign;
-  setDirection: (direction: TextDirection) => void;
-  getDirection: () => TextDirection;
-  setOverflowWrap: (overflowWrap: TextOverflowWrap) => void;
-  getOverflowWrap: () => TextOverflowWrap;
-  setWhiteSpace: (whiteSpace: TextWhiteSpace) => void;
-  getWhiteSpace: () => TextWhiteSpace;
-  setFontStyle: (fontStyle: TextFontStyle) => void;
-  getFontStyle: () => TextFontStyle;
-  setFontWeight: (fontWeight: TextFontWeight) => void;
-  getFontWeight: () => TextFontWeight;
+  setCssProperty: (name: string, value: string) => void;
+  appendCssProperty: (name: string, value: string) => void;
+  getCssProperty: (name: string) => string;
 }>;

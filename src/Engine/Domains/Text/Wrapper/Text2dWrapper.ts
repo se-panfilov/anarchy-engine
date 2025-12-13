@@ -5,8 +5,8 @@ import { CSS2DObject } from 'three/examples/jsm/renderers/CSS2DRenderer';
 import { AbstractWrapper, WrapperType } from '@/Engine/Domains/Abstract';
 import { RelatedEntityAttribute, TextType } from '@/Engine/Domains/Text/Constants';
 import type { IText2dWrapper, ITextParams } from '@/Engine/Domains/Text/Models';
-import { getElement2dAccessors } from '@/Engine/Domains/Text/Wrapper/Accessors';
-import { applyElement2dParams } from '@/Engine/Domains/Text/Wrapper/TextWrapperHelper';
+import { getCssAccessors } from '@/Engine/Domains/Text/Wrapper/Accessors';
+import { applyHtmlElementParams } from '@/Engine/Domains/Text/Wrapper/TextWrapperHelper';
 import { scalableMixin, withMoveByXyzMixin, withObject3d, withRotationByXyzMixin } from '@/Engine/Mixins';
 import { applyCenter, applyObject3dParams, applyPosition, applyRotation, applyScale, isDefined } from '@/Engine/Utils';
 
@@ -19,7 +19,7 @@ export function Text2dWrapper(params: ITextParams): IText2dWrapper {
   const result = {
     type: TextType.Text2d,
     ...AbstractWrapper(entity, WrapperType.Text2d, params),
-    ...getElement2dAccessors(element),
+    ...getCssAccessors(element),
     ...withMoveByXyzMixin(entity),
     ...withRotationByXyzMixin(entity),
     ...scalableMixin(entity),
@@ -34,7 +34,8 @@ export function Text2dWrapper(params: ITextParams): IText2dWrapper {
 
   document.body.appendChild(element);
 
-  applyElement2dParams(result, params);
+  result.setText(params.text);
+  applyHtmlElementParams(result, params.cssProps);
   applyObject3dParams(result, params);
   applyPosition(result, params.position);
   applyCenter(entity, params.center);
