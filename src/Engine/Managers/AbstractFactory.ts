@@ -6,10 +6,10 @@ import type { Entity } from '@Engine/Models/Entity';
 export function AbstractFactory<T extends Entity<unknown>, R extends Record<string, any>>(
   create: (params: R) => T
 ): Factory<T, R> {
-  let id: string = nanoid();
-  let latest$: Subject<T> = new Subject<T>();
-  let add$: Subject<R> = new Subject<R>();
-  let destroyed$: Subject<void> = new Subject<void>();
+  const id: string = nanoid();
+  const latest$: Subject<T> = new Subject<T>();
+  const add$: Subject<R> = new Subject<R>();
+  const destroyed$: Subject<void> = new Subject<void>();
 
   add$.subscribe((val: R): void => latest$.next(create(val)));
 
