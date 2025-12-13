@@ -3,8 +3,6 @@ import { defineConfig } from 'vite';
 import path from 'path';
 import { sharedAliases } from '../../vite.alias';
 import { version } from './package.json';
-import csp from 'vite-plugin-csp-guard';
-import { PROD_CSP } from '../../configs/Security/Csp/CspConfig';
 import { viteStaticCopy } from 'vite-plugin-static-copy';
 
 const toPosix = (p: string) => p.split(path.sep).join('/');
@@ -29,6 +27,7 @@ export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
     plugins: [
       viteStaticCopy({
         targets: [
+          // Copy all files from showcases-core build, preserving structure
           {
             src: toPosix(path.resolve(CORE_DIST_DIR, '**/*')),
             dest: 'dist-desktop'
@@ -60,14 +59,7 @@ export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
       outDir: 'dist',
       rollupOptions: {
         external: ['electron', 'path', 'fs'], // Prevent bundling electron and node modules
-        plugins: [
-          //Issue: CSP plugin doesn't add <Meta> tag in dev mode
-          csp({
-            dev: { run: true, outlierSupport: ['sass'] },
-            policy: PROD_CSP,
-            build: { sri: true }
-          })
-        ]
+        plugins: []
       },
       sourcemap: false,
       ssr: true, // This is a build for node, not for browser
