@@ -2,7 +2,7 @@ import type { IShowcase } from '@/App/Levels/Models';
 import type { IActorWrapper, IAnimationParams, IAppCanvas, ILevel, ILevelConfig, ITextWrapper, IWithCoordsXZ } from '@/Engine';
 import { ambientContext, buildLevelFromConfig, createCirclePathXZ, Easing, EulerWrapper, generateAnglesForCircle, isNotDefined, standardMoverService, Vector3Wrapper } from '@/Engine';
 
-import levelConfig from './showcase-level-5.config.json';
+import levelConfig from './showcase-5-animejs-complex.config.json';
 
 //Showcase 5: Anime.js animation with complex path and easing
 export function showcaseLevel(canvas: IAppCanvas): IShowcase {

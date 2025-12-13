@@ -1,9 +1,9 @@
 {
-  "name": "Showcase level 07",
+  "name": "Showcase 07 Text2d",
   "version": "1.0.0",
   "scenes": [
     {
-      "name": "Showcase Scene 07",
+      "name": "Showcase Scene 07 Text2d",
       "tags": ["current"]
     }
   ],

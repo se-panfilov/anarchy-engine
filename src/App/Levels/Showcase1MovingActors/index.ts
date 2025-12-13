@@ -2,7 +2,7 @@ import type { IShowcase } from '@/App/Levels/Models';
 import type { IActorWrapper, IAppCanvas, IIntersectionsWatcher, ILevel, ILevelConfig, IVector3 } from '@/Engine';
 import { ActorTag, ambientContext, buildLevelFromConfig, CommonTag, isNotDefined, standardLoopService } from '@/Engine';
 
-import levelConfig from './showcase-level-1.config.json';
+import levelConfig from './showcase-1-moving-actors.config.json';
 
 //Showcase 1: Moving actor with intersections & reading data from config
 export function showcaseLevel(canvas: IAppCanvas): IShowcase {

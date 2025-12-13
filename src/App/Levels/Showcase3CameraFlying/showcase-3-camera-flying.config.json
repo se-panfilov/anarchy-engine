@@ -1,24 +1,21 @@
 {
-  "name": "Showcase level 04",
+  "name": "Showcase 03 Camera Flying",
   "version": "1.0.0",
   "scenes": [
     {
-      "name": "Showcase Scene 04",
+      "name": "Showcase Scene 03 Camera Flying",
       "tags": ["current"]
     }
   ],
   "actors": [
     {
-      "width": 70,
-      "height": 70,
-      "widthSegments": 10,
-      "heightSegments": 10,
-      "materialParams": { "color": "#5ddc9a" },
-      "type": "plane",
+      "type": "cube",
+      "width": 1,
+      "height": 1,
       "position": { "x": 0, "y": 0, "z": 0 },
-      "rotation": { "x": -1.57, "y": 0, "z": 0 },
-      "castShadow": false,
-      "tags": []
+      "castShadow": true,
+      "materialParams": { "color": "#5177ff" },
+      "tags": ["central_actor"]
     }
   ],
   "texts": [],
@@ -27,9 +24,8 @@
       "fov": 45,
       "near": 1,
       "far": 10000,
-      "position": { "x": 0, "y": 80, "z": 0 },
+      "position": { "x": 0, "y": 0, "z": 3 },
       "rotation": { "x": 0, "y": 0, "z": 0 },
-      "lookAt": { "x": 0, "y": -90, "z": 0 },
       "tags": ["initial"]
     }
   ],

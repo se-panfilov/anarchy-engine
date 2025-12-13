@@ -4,7 +4,7 @@ import { ActorType, ambientContext, buildLevelFromConfig, EulerWrapper, forEachE
 import type { IAnimationParams } from '@/Engine/Services';
 import { Easing, standardMoverService } from '@/Engine/Services';
 
-import levelConfig from './showcase-level-4.config.json';
+import levelConfig from './showcase-4-animejs-simple.config.json';
 
 //Showcase 4: Anime.js simple animations (easing, etc.)
 export function showcaseLevel(canvas: IAppCanvas): IShowcase {

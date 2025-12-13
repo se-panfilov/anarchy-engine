@@ -1,9 +1,9 @@
 {
-  "name": "Showcase level 01",
+  "name": "Showcase 06 Fullscreen",
   "version": "1.0.0",
   "scenes": [
     {
-      "name": "Showcase Scene 01",
+      "name": "Showcase Scene 06 Fullscreen",
       "tags": ["current"]
     }
   ],
@@ -27,7 +27,7 @@
       "materialParams": { "color": "#E91E63" },
       "position": { "x": 0, "y": 2, "z": 0 },
       "castShadow": true,
-      "tags": ["intersectable"]
+      "tags": ["sphere"]
     }
   ],
   "texts": [],

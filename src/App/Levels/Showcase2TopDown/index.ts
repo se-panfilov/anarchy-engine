@@ -4,7 +4,7 @@ import type { IShowcase } from '@/App/Levels/Models';
 import type { IActorParams, IAppCanvas, ICameraWrapper, ILevel, ILevelConfig } from '@/Engine';
 import { ActorType, ambientContext, buildLevelFromConfig, CameraTag, EulerWrapper, isNotDefined, Vector3Wrapper } from '@/Engine';
 
-import levelConfig from './showcase-level-2.config.json';
+import levelConfig from './showcase-2-top-down.config.json';
 
 //Showcase 2: Top-down controls with dynamic actors and camera creation
 export function showcaseLevel(canvas: IAppCanvas): IShowcase {

@@ -1,30 +1,24 @@
 {
-  "name": "Showcase level 08",
+  "name": "Showcase 04 Animejs Simple",
   "version": "1.0.0",
   "scenes": [
     {
-      "name": "Showcase Scene 08",
+      "name": "Showcase Scene 04 Animejs Simple",
       "tags": ["current"]
     }
   ],
   "actors": [
     {
-      "type": "cube",
-      "width": 1,
-      "height": 1,
+      "width": 70,
+      "height": 70,
+      "widthSegments": 10,
+      "heightSegments": 10,
+      "materialParams": { "color": "#5ddc9a" },
+      "type": "plane",
       "position": { "x": 0, "y": 0, "z": 0 },
-      "castShadow": true,
-      "materialParams": { "color": "#5177ff" },
-      "texturePack": {
-        "aoMap": { "url": "/ShowcaseLevel8/Door_Wood/Door_Wood_001_ambientOcclusion.jpg" },
-        "map": { "url": "/ShowcaseLevel8/Door_Wood/Door_Wood_001_basecolor.jpg" },
-        "normalMap": { "url": "/ShowcaseLevel8/Door_Wood/Door_Wood_001_normal.jpg" },
-        "alphaMap": { "url": "/ShowcaseLevel8/Door_Wood/Door_Wood_001_opacity.jpg" },
-        "metalnessMap": { "url": "/ShowcaseLevel8/Door_Wood/Door_Wood_001_metallic.jpg" },
-        "roughnessMap": { "url": "/ShowcaseLevel8/Door_Wood/Door_Wood_001_roughness.jpg" },
-        "material": "basic"
-      },
-      "tags": ["central_actor"]
+      "rotation": { "x": -1.57, "y": 0, "z": 0 },
+      "castShadow": false,
+      "tags": []
     }
   ],
   "texts": [],
@@ -33,8 +27,9 @@
       "fov": 45,
       "near": 1,
       "far": 10000,
-      "position": { "x": 0, "y": 0, "z": 3 },
+      "position": { "x": 0, "y": 80, "z": 0 },
       "rotation": { "x": 0, "y": 0, "z": 0 },
+      "lookAt": { "x": 0, "y": -90, "z": 0 },
       "tags": ["initial"]
     }
   ],

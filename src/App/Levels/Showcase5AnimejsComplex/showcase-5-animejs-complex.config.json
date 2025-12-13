@@ -1,9 +1,9 @@
 {
-  "name": "Showcase level 05",
+  "name": "Showcase 05 Animejs Complex",
   "version": "1.0.0",
   "scenes": [
     {
-      "name": "Showcase Scene 05",
+      "name": "Showcase Scene 05 Animejs Complex",
       "tags": ["current"]
     }
   ],

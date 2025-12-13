@@ -1,9 +1,9 @@
 {
-  "name": "Showcase level 02",
+  "name": "Showcase 02 Top Down Controls",
   "version": "1.0.0",
   "scenes": [
     {
-      "name": "Showcase Scene 02",
+      "name": "Showcase Scene 02 Top Down Controls",
       "tags": ["current"]
     }
   ],

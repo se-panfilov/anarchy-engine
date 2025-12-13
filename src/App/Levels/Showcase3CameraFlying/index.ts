@@ -4,7 +4,7 @@ import type { IShowcase } from '@/App/Levels/Models';
 import type { IAppCanvas, ILevel, ILevelConfig } from '@/Engine';
 import { ambientContext, buildLevelFromConfig, CameraTag, getRotationByCos, getRotationBySin, isDefined, isNotDefined } from '@/Engine';
 
-import levelConfig from './showcase-level-3.config.json';
+import levelConfig from './showcase-3-camera-flying.config.json';
 
 //Showcase 3: Camera flying around the central actor
 export function showcaseLevel(canvas: IAppCanvas): IShowcase {

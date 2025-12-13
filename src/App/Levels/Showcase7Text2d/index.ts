@@ -4,7 +4,7 @@ import type { IShowcase } from '@/App/Levels/Models';
 import type { IAnimationParams, IAppCanvas, ILevel, ILevelConfig, ITextWrapper, IWithCoordsXZ } from '@/Engine';
 import { ambientContext, buildLevelFromConfig, createCirclePathXZ, Easing, EulerWrapper, generateAnglesForCircle, standardMoverService, Vector3Wrapper } from '@/Engine';
 
-import levelConfig from './showcase-level-7.config.json';
+import levelConfig from './showcase-7-text-2d.config.json';
 
 //Showcase 7: Fancy text
 export function showcaseLevel(canvas: IAppCanvas): IShowcase {

@@ -4,9 +4,9 @@ import type { IShowcase } from '@/App/Levels/Models';
 import type { IActorWrapper, IAppCanvas, ICameraWrapper, ILevel, ILevelConfig } from '@/Engine';
 import { ambientContext, buildLevelFromConfig, CameraTag, getRotationByCos, getRotationBySin, isDefined, isNotDefined } from '@/Engine';
 
-import levelConfig from './showcase-level-8.config.json';
+import levelConfig from './showcase-9-textures-and-materials.config.json';
 
-//Showcase 8: Textures & Materials
+//Showcase 9: Textures & Materials
 export function showcaseLevel(canvas: IAppCanvas): IShowcase {
   const level: ILevel = buildLevelFromConfig(canvas, levelConfig as ILevelConfig);
 

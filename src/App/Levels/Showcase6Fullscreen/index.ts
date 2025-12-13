@@ -2,7 +2,7 @@ import type { IShowcase } from '@/App/Levels/Models';
 import type { IActorWrapper, IAppCanvas, ILevel, ILevelConfig } from '@/Engine';
 import { ambientContext, buildLevelFromConfig, isNotDefined, screenService, standardLoopService } from '@/Engine';
 
-import levelConfig from './showcase-level-6.config.json';
+import levelConfig from './showcase-7-fullscreen.config.json';
 
 //Showcase 6: Go fullscreen
 export function showcaseLevel(canvas: IAppCanvas): IShowcase {
