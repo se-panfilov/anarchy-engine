@@ -175,7 +175,7 @@
     "lights": [
       {
         "castShadow": true,
-        "color": "#ffffff",
+        "color": "#FFFFFF",
         "intensity": 0,
         "name": "directional_light",
         "position": {
@@ -197,8 +197,8 @@
         "type": "DirectionalLight"
       },
       {
-        "color": "#9999ff",
-        "groundColor": "#ff007b",
+        "color": "#9999FF",
+        "groundColor": "#FF007B",
         "intensity": 1,
         "name": "hemisphere_light",
         "position": {
@@ -210,7 +210,7 @@
         "type": "HemisphereLight"
       },
       {
-        "color": "#0000ff",
+        "color": "#0000FF",
         "height": 3,
         "intensity": 0,
         "name": "rect_area_light",
@@ -225,7 +225,7 @@
       },
       {
         "castShadow": true,
-        "color": "#00ff00",
+        "color": "#00FF00",
         "decay": 4.5,
         "distance": 23,
         "intensity": 27,
@@ -251,7 +251,7 @@
       {
         "angle": 45,
         "castShadow": true,
-        "color": "#01dede",
+        "color": "#01DEDE",
         "decay": 2,
         "distance": 57,
         "intensity": 41,
@@ -712,10 +712,8 @@
   "scenes": [
     {
       "isActive": true,
-      "name": "showcase",
-      "tags": []
+      "name": "showcase"
     }
   ],
-  "tags": [],
   "version": "1.0.0"
 }
