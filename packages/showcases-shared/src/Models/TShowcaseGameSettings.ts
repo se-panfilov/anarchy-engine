@@ -1,4 +1,5 @@
-// TODO DESKTOP: All fields (including nested) should be optional. So it it's not defined, it means that certain setting is not allowed on a certain platform (e.g. no resolution change in browser)
+// TODO DESKTOP: All fields (including nested) should be optional.
+//  So it it's not defined, it means that certain setting is not allowed on a certain platform (e.g. no resolution change in browser)
 export type TShowcaseGameSettings = Readonly<{
   graphics: TGraphicsSettings;
   audio: TAudioSettings;

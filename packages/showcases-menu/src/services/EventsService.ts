@@ -61,6 +61,7 @@ function EventsService(): TEventsService {
       case ToMenuEvents.SettingsLoaded: {
         console.log('[EventsService]: Settings loaded:', event.payload);
         if (!isSettings(event.payload)) throw new Error(`[EventsService]: Failed to apply settings: Invalid payload`);
+        // TODO DESKTOP: languages should apply to menu immediately
         useSettingsStore().setState(event.payload);
         break;
       }

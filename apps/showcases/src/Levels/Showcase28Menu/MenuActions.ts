@@ -5,6 +5,7 @@ import type { Observable, Subject } from 'rxjs';
 
 import { closeMainMenu, loadSettings, saveSettings } from '@/Levels/Showcase28Menu/MainMenuService';
 
+// TODO DESKTOP: App should react on save or load settings: E.g. language change should apply immediately (in the game).
 export function handleFromMenuEvents(fromMenuEventsBus$: Observable<TFromMenuEvent>, toMenuEventsBus$: Subject<TToMenuEvent>): void {
   let settings: TShowcaseGameSettings | undefined;
 

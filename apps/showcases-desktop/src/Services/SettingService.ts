@@ -16,6 +16,8 @@ export function SettingsService(app: App): TSettingsService {
     return path.join(folder, appSettingsFileName);
   }
 
+  // TODO DESKTOP: Extract file reading/writing to a separate utility
+  // TODO DESKTOP: Better to make all of this async
   function loadAppSettings(): TShowcaseGameSettings | never {
     const filePath: string = settingsFilePath();
     if (!fs.existsSync(filePath)) throw new Error(`[DESKTOP]: Settings file does not exist: ${filePath}`);
