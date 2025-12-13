@@ -8,7 +8,7 @@ import type { IAppCanvas } from '@/Engine/App';
 import type { ICameraFactory, ICameraRegistry, ICameraService, ICameraWrapper } from '@/Engine/Camera';
 import { CameraFactory, CameraRegistry, CameraService } from '@/Engine/Camera';
 import { ambientContext } from '@/Engine/Context';
-import type { IControlsFactory, IControlsRegistry, IOrbitControlsConfig, IOrbitControlsWrapper } from '@/Engine/Controls';
+import { ControlService, IControlsFactory, IControlsRegistry, IOrbitControlsConfig, IOrbitControlsWrapper } from '@/Engine/Controls';
 import { ControlsFactory, ControlsRegistry } from '@/Engine/Controls';
 import type { IDataTexture, IEnvMapService } from '@/Engine/EnvMap';
 import { EnvMapService } from '@/Engine/EnvMap';
@@ -139,11 +139,7 @@ export function buildSpaceFromConfig(canvas: IAppCanvas, config: ISpaceConfig): 
 
     const controlsFactory: IControlsFactory = ControlsFactory();
     const controlsRegistry: IControlsRegistry = ControlsRegistry();
-    const controlsService: IControlsService = ControlsService(controlsFactory, controlsRegistry, registries.cameraRegistry, canvas);
-
-    // TODO (S.Panfilov) move this into the service
-    controlsFactory.entityCreated$.subscribe((wrapper: IOrbitControlsWrapper): void => controlsRegistry.add(wrapper));
-    ////
+    const controlsService: IControlsService = ControlService(controlsFactory, controlsRegistry, registries.cameraRegistry, canvas);
 
     // TODO (S.Panfilov) use service
     controls.forEach((control: IOrbitControlsConfig): IOrbitControlsWrapper => {
