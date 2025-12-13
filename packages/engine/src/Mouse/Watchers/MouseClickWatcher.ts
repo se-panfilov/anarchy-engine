@@ -9,7 +9,8 @@ export function MouseClickWatcher({ container, tags }: TMouseClickWatcherParams)
   const containerIdTag: string = `container_id_${container.id}`;
   const abstractWatcher: TAbstractWatcher<TMouseWatcherEvent> = AbstractWatcher<TMouseWatcherEvent>(WatcherType.MouseClickWatcher, 'mouse_click_watcher', tags);
   const onMouseListener = (event: MouseEvent | WheelEvent): void => {
-    if ((event.type as MouseEventType) !== MouseEventType.Wheel && event.cancelable) event.preventDefault();
+    //Must do "event.target === container.canvas$.value" to make sure we are not catching events from other elements (UI, etc.), outside of canvas
+    if ((event.type as MouseEventType) !== MouseEventType.Wheel && event.cancelable && event.target === container.canvas$.value) event.preventDefault();
     const e: TMouseWatcherEvent = getMouseWatcherEvent(event);
     abstractWatcher.value$.next(e);
   };
