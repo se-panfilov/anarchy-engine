@@ -24,8 +24,9 @@ Roadmap:
 - 12.1.x Performance improvements (make sure actors, materials and env maps are async)
 - 12.2.x Extract materials form actors
 - 12.3.x npm package and a repo
-- 13.0.x Shaders
-- 14.x.x Save/Load
+- 13.0.x Presets in configs (actors, materials, texts, models, physics, intersections, cameras, lights, controls, etc)
+- 14.0.x Shaders
+- 15.x.x Save/Load
 
 Global Refactoring:
 - extract materials from actors, keep there an alias to a material to be able to reuse the same material
