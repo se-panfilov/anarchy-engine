@@ -1,7 +1,7 @@
 import type { Observable } from 'rxjs';
 
 import type { RegistryType } from '@/Engine/Abstract/Constants';
-import type { TDestroyable } from '@/Engine/Mixins';
+import type { TDestroyable, TWithId } from '@/Engine/Mixins';
 
 import type { TRegistryPack } from './TRegistryPack';
 import type { TWithBaseAccessorsRegistry } from './TWithBaseAccessorsRegistry';
@@ -10,7 +10,6 @@ import type { TWithReactiveRegistry } from './TWithReactiveRegistry';
 export type TAbstractSimpleRegistry<T> = TWithBaseAccessorsRegistry<T> &
   Omit<TWithReactiveRegistry<T>, 'added$' | 'replaced$' | 'removed$'> &
   Readonly<{
-    id: string;
     add: (key: string, value: T) => void;
     added$: Observable<TRegistryPack<T>>;
     findByKey: (key: string) => T | undefined;
@@ -23,4 +22,5 @@ export type TAbstractSimpleRegistry<T> = TWithBaseAccessorsRegistry<T> &
     replaced$: Observable<TRegistryPack<T>>;
     type: RegistryType | string;
   }> &
+  TWithId &
   TDestroyable;

@@ -5,6 +5,7 @@ export * from './TRegistrable';
 export * from './TWithActiveMixin';
 export * from './TWithActiveMixinResult';
 export * from './TWithCreateAsync';
+export * from './TWithId';
 export * from './TWithMessages';
 export * from './TWithName';
 export * from './TWithTagsMixin';

@@ -1,4 +1,5 @@
 import type { FactoryType } from '@/Engine/Abstract/Constants';
+import type { TWithId } from '@/Engine/Mixins';
 
 import type { TCreateEntityFactoryFn, TCreateEntityFactoryWithDependenciesFn } from './TCreateEntityFactoryFn';
 
@@ -8,7 +9,7 @@ export type TFactoryWithDependencies<T, P, D = Record<string, any>> = Omit<TFact
   }>;
 
 export type TFactory<T, P> = Readonly<{
-  id: string;
   create: TCreateEntityFactoryFn<T, P>;
   type: FactoryType | string;
-}>;
+}> &
+  TWithId;

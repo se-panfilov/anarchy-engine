@@ -1,8 +1,8 @@
 import type { TAppCanvas } from '@/Engine/App';
 import type { TAppGlobalContainer } from '@/Engine/Global';
+import type { TWithId } from '@/Engine/Mixins';
 
 export type TGlobalContainerDecorator = Readonly<{
-  id: string;
   getWidth: () => number;
   getHeight: () => number;
   getRatio: () => number;
@@ -10,4 +10,5 @@ export type TGlobalContainerDecorator = Readonly<{
   stopWatch: (type: string, cb: (...args: ReadonlyArray<never>) => void) => void;
   getCanvasElement: (selector: string) => TAppCanvas | null;
   getAppContainer: () => TAppGlobalContainer;
-}>;
+}> &
+  TWithId;
