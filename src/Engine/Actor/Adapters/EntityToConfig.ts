@@ -1,4 +1,5 @@
 import type { TActor, TActorConfig, TActorEntityToConfigDependencies, TActorStates } from '@/Engine/Actor/Models';
+import type { TCollisionsDataConfig } from '@/Engine/Collisions';
 import type { TFsmWrapper } from '@/Engine/Fsm';
 import { extractSerializableRegistrableFields } from '@/Engine/Mixins';
 import type { TModel3d, TModels3dRegistry } from '@/Engine/Models3d';
@@ -27,7 +28,7 @@ export function actorToConfig(entity: TActor, { models3dService }: TActorEntityT
     // physics?: TWithPresetNamePhysicsBodyConfig,
     // kinematic?: TKinematicConfig,
     spatial: getSpatial(entity),
-    // collisions?: TCollisionsDataConfig,
+    collisions: getCollisions(entity),
     // model3dSettings?: TActorModel3dSettingsConfig,
     states: getStates(entity),
 
@@ -51,4 +52,12 @@ function getStates(entity: TActor): TActorStates {
   });
 
   return result;
+}
+
+function getCollisions(entity: TActor): TCollisionsDataConfig | undefined {
+  if (isNotDefined(entity.collisions) || isNotDefined(entity.collisions.data)) return undefined;
+
+  const { updatePriority } = entity.collisions.data;
+
+  return { isAutoUpdate: entity.collisions.autoUpdate$.value, updatePriority };
 }
