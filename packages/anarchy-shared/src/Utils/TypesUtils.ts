@@ -38,3 +38,5 @@ export function nullsToUndefined<T extends Record<string, any>>(obj: T): TNullTo
 }
 
 export type TUnionToIntersection<U> = (U extends any ? (k: U) => void : never) extends (k: infer I) => void ? I : never;
+
+export type TDeepPartial<T> = T extends ReadonlyArray<infer U> ? ReadonlyArray<TDeepPartial<U>> : T extends object ? { readonly [K in keyof T]?: TDeepPartial<T[K]> } : T;

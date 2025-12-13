@@ -1,3 +1,5 @@
+import type { TDeepPartial } from '@Anarchy/Shared/Utils/TypesUtils';
+
 export function cleanObject<T extends Record<string, unknown>>(obj: T): void {
   Object.keys(obj).forEach((key: keyof T): void => {
     // eslint-disable-next-line functional/immutable-data
@@ -36,27 +38,20 @@ export function filterOutEmptyFields<T extends Record<string, unknown>>(obj: T):
   return Object.fromEntries(Object.entries(obj).filter(([, value]: [string, unknown]): boolean => value !== undefined && value !== null && value !== Infinity && value !== -Infinity)) as T;
 }
 
-export type TDeepPartial<T> = T extends ReadonlyArray<infer U> ? ReadonlyArray<TDeepPartial<U>> : T extends object ? { readonly [K in keyof T]?: TDeepPartial<T[K]> } : T;
-
-export function mergeDeep<T>(base: T, patch?: TDeepPartial<T>): T {
+// Merges objects but overrides only defined values from patch
+export function patchObject<T extends Record<string, any>>(base: T, patch?: TDeepPartial<T>): T {
   if (patch === undefined) return base;
 
   if (!isObject(base) || Array.isArray(patch)) return patch as T;
-  const out: Record<string, unknown> = { ...(base as any) };
+  const out: Record<string, unknown> = { ...base };
 
-  for (const key of Object.keys(patch as object)) {
-    const pv = (patch as any)[key];
-    if (pv === undefined) continue;
-    const bv = (base as any)[key];
+  Object.entries(patch).forEach(([key, patchVal]): void => {
+    if (patchVal === undefined) return;
+    const baseVal = base[key];
 
-    if (Array.isArray(pv)) {
-      out[key] = pv.slice();
-    } else if (isObject(pv) && isObject(bv)) {
-      out[key] = mergeDeep(bv, pv as any);
-    } else {
-      out[key] = pv as any;
-    }
-  }
+    // eslint-disable-next-line functional/immutable-data
+    out[key] = Array.isArray(patchVal) ? patchVal.slice() : isObject(patchVal) && isObject(baseVal) ? patchObject(baseVal, patchVal) : patchVal;
+  });
 
   return out as T;
 }

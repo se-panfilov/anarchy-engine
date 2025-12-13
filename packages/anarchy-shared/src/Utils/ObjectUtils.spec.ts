@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { mergeDeep, omitInObjectWithMutation, omitInObjectWithoutMutation } from './ObjectUtils';
+import { omitInObjectWithMutation, omitInObjectWithoutMutation, patchObject } from './ObjectUtils';
 
 describe('ObjectUtils', () => {
   describe('omitInObjectWithoutMutation', () => {
@@ -55,7 +55,7 @@ describe('ObjectUtils', () => {
     });
   });
 
-  describe('mergeDeep', () => {
+  describe('patchObject', () => {
     const origin = {
       levelA1: {
         valueA1: true,
@@ -91,22 +91,22 @@ describe('ObjectUtils', () => {
 
     it('should modify single top-level value', () => {
       const expected = { ...origin, levelA1: { ...origin.levelA1, valueA1: false } };
-      expect(mergeDeep(origin, { levelA1: { valueA1: false } })).toEqual(expected);
+      expect(patchObject(origin, { levelA1: { valueA1: false } })).toEqual(expected);
     });
 
     it('should modify single deep-level value', () => {
       const expected = { ...origin, levelA1: { ...origin.levelA1, levelA2: { ...origin.levelA1.levelA2, valueA1: false } } };
-      expect(mergeDeep(origin, { levelA1: { levelA2: { valueA1: false } } })).toEqual(expected);
+      expect(patchObject(origin, { levelA1: { levelA2: { valueA1: false } } })).toEqual(expected);
     });
 
     it('should modify multiple top-level values', () => {
       const expected = { ...origin, levelA1: { ...origin.levelA1, valueA1: false, valueA3: false } };
-      expect(mergeDeep(origin, { levelA1: { valueA1: false, valueA3: false } })).toEqual(expected);
+      expect(patchObject(origin, { levelA1: { valueA1: false, valueA3: false } })).toEqual(expected);
     });
 
     it('should modify multiple deep-level values', () => {
       const expected = { ...origin, levelA1: { ...origin.levelA1, levelA2: { ...origin.levelA1.levelA2, valueA1: false, valueA3: false } } };
-      expect(mergeDeep(origin, { levelA1: { levelA2: { valueA1: false, valueA3: false } } })).toEqual(expected);
+      expect(patchObject(origin, { levelA1: { levelA2: { valueA1: false, valueA3: false } } })).toEqual(expected);
     });
   });
 });
