@@ -1,9 +1,9 @@
 import type { PlatformActions } from '@Showcases/Desktop/Constants';
-import { appBeforeQuitHandler, appCrashHandler, appWindowAllClosedHandler, windowNavigateHandler, windowSecondInstanceHandler } from '@Showcases/Desktop/EventHandlers';
+import { appBeforeQuitHandler, appCrashHandler, appWindowAllClosedHandler, windowNavigateHandler, windowReadyToShow, windowSecondInstanceHandler } from '@Showcases/Desktop/EventHandlers';
 import type { TDesktopAppConfig, TDesktopAppService, TDocsService, TFilesService, TSettingsService, TWindowService } from '@Showcases/Desktop/Models';
 import { DesktopAppService, DocsService, FilesService, handleAppRequest, SettingsService, WindowService } from '@Showcases/Desktop/Services';
 import { getWindowSizeSafe, hideMenuBar, noZoom, turnOffMenuBarAndHotkeys } from '@Showcases/Desktop/Utils';
-import type { TResolution } from '@Showcases/Shared';
+import type { TResolution, TShowcaseGameSettings } from '@Showcases/Shared';
 import { platformApiChannel } from '@Showcases/Shared';
 import type { BrowserWindow, IpcMainInvokeEvent } from 'electron';
 import { app, ipcMain } from 'electron';
@@ -33,11 +33,12 @@ const docsService: TDocsService = DocsService(filesService);
 ipcMain.handle(platformApiChannel, (event: IpcMainInvokeEvent, ...args: [PlatformActions | string, unknown]) => handleAppRequest({ settingsService, docsService, desktopAppService }, event, args));
 
 app.whenReady().then(async (): Promise<void> => {
-  const settings = await settingsService.loadAppSettings();
+  const settings: TShowcaseGameSettings = await settingsService.loadAppSettings();
 
   const initialWindowSize: TResolution = getWindowSizeSafe();
   const win: BrowserWindow = windowService.createWindow(initialWindowSize.width, initialWindowSize.height, desktopAppSettings);
 
+  windowReadyToShow(win, settings);
   appWindowAllClosedHandler(app);
   turnOffMenuBarAndHotkeys();
   // TODO DESKTOP: Make sure navigation isn't working (also from mouse extra buttons)
