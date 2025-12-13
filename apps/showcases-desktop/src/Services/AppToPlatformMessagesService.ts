@@ -6,8 +6,8 @@ import type { IpcMainInvokeEvent } from 'electron';
 
 // TODO CWP
 // TODO DESKTOP: Current task:
-//  - Implement close app
-//  - Implement restart app
+//  - [DONE] Implement close app
+//  - [DONE] Implement restart app
 //  - Split platform and app settings
 //  - Implement apply of desktop settings (e.g. resolution)
 //  - Implement apply of App settings (e.g. language
