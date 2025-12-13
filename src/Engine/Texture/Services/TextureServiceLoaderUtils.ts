@@ -94,8 +94,12 @@ export function TextureServiceLoaderUtils(registry: TTextureAsyncRegistry): Pick
     return { ...promises, all };
   }
 
+  // TODO 9.0.0. RESOURCES: add isForce param to load the texture anyway
+  // TODO 9.0.0. RESOURCES: should be possible to load the same texture with different params (and store them separately in registry)
+  // TODO 9.0.0. RESOURCES: colorSpace, should be able to set via params/config
   function load({ url, params }: TTexturePackParams, colorSpace?: TMaterialPackKeys): Promise<TTextureLoadedPack> {
     const texture = registry.findByKey(url);
+    // TODO 9.0.0. RESOURCES: check if this is working and we return already loaded texture
     if (isDefined(texture)) return Promise.resolve({ url, texture });
 
     return textureLoader.loadAsync(url).then((texture: TWriteable<TTexture>): TTextureLoadedPack => {
