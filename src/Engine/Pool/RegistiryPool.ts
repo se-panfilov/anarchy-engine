@@ -1,5 +1,5 @@
 import { DestroyablePool } from '@Engine/Pool/DestroyablePool';
-import { ActorRegistry, CameraRegistry, ControlsRegistry, LightRegistry } from '@Engine/Registries';
+import { ActorRegistry, CameraRegistry, ControlsRegistry, LightRegistry, MouseClicksWatcherRegistry } from '@Engine/Registries';
 import { isNotDefined } from '@Engine/Utils';
 import type { IActorWrapper, ICameraWrapper, ILightWrapper, ISceneWrapper } from '@Engine/Wrappers';
 
@@ -10,7 +10,8 @@ export function RegistryPool(): IRegistryPool {
     actorRegistry: ActorRegistry(),
     cameraRegistry: CameraRegistry(),
     lightRegistry: LightRegistry(),
-    controlsRegistry: ControlsRegistry()
+    controlsRegistry: ControlsRegistry(),
+    mouseClicksWatcherRegistry: MouseClicksWatcherRegistry()
   });
 
   function startAddSubscription(scene: ISceneWrapper): void {
@@ -27,6 +28,7 @@ export function RegistryPool(): IRegistryPool {
     abstractPool.pool.actorRegistry.added$.unsubscribe();
     abstractPool.pool.cameraRegistry.added$.unsubscribe();
     abstractPool.pool.lightRegistry.added$.unsubscribe();
+    abstractPool.pool.mouseClicksWatcherRegistry.added$.unsubscribe();
   }
 
   return { ...abstractPool, startAddSubscription, destroy };

@@ -1,4 +1,3 @@
-export * from '.';
 export * from './IAbstractConfig';
 export * from './IAbstractRegistry';
 export * from './IActorConfig';
@@ -27,6 +26,7 @@ export * from './IMousePosition';
 export * from './IOrthographicCamera';
 export * from './IPerspectiveCamera';
 export * from './IProtectedRegistry';
+export * from './IRegistrableEntity';
 export * from './IRendererParams';
 export * from './IScene';
 export * from './ISceneConfig';

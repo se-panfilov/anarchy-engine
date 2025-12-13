@@ -1,4 +1,4 @@
-import type { IAbstractRegistry } from '@Engine/Models/IAbstractRegistry';
-import type { IWrapper } from '@Engine/Models/IWrapper';
+import type { IAbstractRegistry } from '@/Engine/Models/IAbstractRegistry';
+import type { IRegistrableEntity } from '@/Engine/Models/IRegistrableEntity';
 
-export type IProtectedRegistry<T extends IWrapper<unknown>> = Readonly<Omit<IAbstractRegistry<T>, 'registry'>>;
+export type IProtectedRegistry<T extends IRegistrableEntity> = Readonly<Omit<IAbstractRegistry<T>, 'registry'>>;

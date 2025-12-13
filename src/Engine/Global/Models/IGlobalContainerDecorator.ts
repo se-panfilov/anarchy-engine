@@ -1,6 +1,7 @@
 import type { IAppCanvas } from '@/Engine';
 
 export type IGlobalContainerDecorator = Readonly<{
+  id: string;
   width: number;
   height: number;
   ratio: number;

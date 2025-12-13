@@ -3,5 +3,7 @@ export * from './ActorRegistry';
 export * from './CameraRegistry';
 export * from './ControlsRegistry';
 export * from './LightRegistry';
+export * from './MouseClicksWatcherRegistry';
 export * from './RegistryFacade';
 export * from './RegistryName';
+export * from './WatcherRegistry';

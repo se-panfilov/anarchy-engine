@@ -1,7 +1,7 @@
-import type { IDestroyable, IWrapper } from '@Engine/Models';
+import type { IDestroyable, IRegistrableEntity } from '@Engine/Models';
 import type { Subject } from 'rxjs';
 
-export type IAbstractRegistry<T extends IWrapper<unknown>> = Readonly<{
+export type IAbstractRegistry<T extends IRegistrableEntity> = Readonly<{
   id: string;
   add: (entity: T) => void;
   added$: Subject<T>;

@@ -1,8 +1,7 @@
 import type { IDestroyable } from '@Engine/Models/IDestroyable';
 
+import type { IRegistrableEntity } from '@/Engine/Models/IRegistrableEntity';
+
 export type IWrapper<T> = Readonly<{
-  id: string;
   entity: Readonly<T>;
-  tags: ReadonlyArray<string>;
-}> &
-  IDestroyable;
+}> & IDestroyable & IRegistrableEntity;
