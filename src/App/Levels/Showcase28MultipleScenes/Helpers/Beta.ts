@@ -2,7 +2,7 @@ import { Clock, Euler, Vector3 } from 'three';
 
 import { moveByCircle } from '@/App/Levels/Utils/MoveUtils';
 import type { TModel3d, TOrbitControlsWrapper, TSceneWrapper, TSpace } from '@/Engine';
-import { isDefined, isNotDefined, TextType } from '@/Engine';
+import { isDefined, TextType } from '@/Engine';
 
 import { addParticles } from './Utils';
 
@@ -18,14 +18,13 @@ function addModel3d(space: TSpace): void {
 
   moveByCircle('box_actor', actorService, transformLoop, new Clock());
   space.start$.next(true);
-  const controls: TOrbitControlsWrapper | undefined = controlsService.findActive() as TOrbitControlsWrapper | undefined;
+  const controls: TOrbitControlsWrapper = controlsService.getActive() as TOrbitControlsWrapper;
   if (isDefined(controls)) controls.setTarget(new Vector3(0, 0, 0));
 
   const foxModelName: string = 'fox_model_3d';
 
   const foxActor: TModel3d = models3dService.getRegistry().getByName(foxModelName);
-  const sceneW: TSceneWrapper | undefined = scenesService.findActive();
-  if (isNotDefined(sceneW)) throw new Error('Scene is not defined');
+  const sceneW: TSceneWrapper = scenesService.getActive();
   sceneW.addModel3d(foxActor);
 }
 

@@ -65,6 +65,7 @@ export function ControlService(
     createFromConfig,
     setActive: withActive.setActive,
     findActive: withActive.findActive,
+    getActive: withActive.getActive,
     active$: withActive.active$
   });
 }

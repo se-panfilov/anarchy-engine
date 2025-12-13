@@ -22,25 +22,24 @@ export function showcase(space: TSpace): void {
 
   const { rendererService, scenesService } = space.services;
 
-  const scene: TSceneWrapper | undefined = scenesService.findActive();
-  if (isNotDefined(scene)) throw new Error('Scene not found');
-  if (isNotDefined(scene.entity.fog)) throw new Error("Scene's fog not found");
+  const sceneW: TSceneWrapper = scenesService.getActive();
+  if (isNotDefined(sceneW.entity.fog)) throw new Error("Scene's fog not found");
 
   addGizmo(space.services, space.container, space.loops, { placement: 'bottom-left' });
 
-  rendererService.findActive()?.entity.setClearColor(scene.entity.fog.color);
+  rendererService.getActive().entity.setClearColor(sceneW.entity.fog.color);
 
   // Create fog via service
   // FogService().create({ color: ColorWrapper('#00FF00').entity, near: 1, far: 100 });
 
-  gui.addColor(scene.entity.fog, 'color');
+  gui.addColor(sceneW.entity.fog, 'color');
   gui
-    .add(scene.entity.fog as Fog, 'near')
+    .add(sceneW.entity.fog as Fog, 'near')
     .min(0)
     .max(1)
     .step(0.1);
   gui
-    .add(scene.entity.fog as Fog, 'far')
+    .add(sceneW.entity.fog as Fog, 'far')
     .min(0)
     .max(100)
     .step(1);

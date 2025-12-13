@@ -103,16 +103,11 @@ export async function showcase(space: TSpace): Promise<void> {
 
   await preloadModels3d();
 
-  const sceneW: TSceneWrapper | undefined = scenesService.findActive();
-  if (isNotDefined(sceneW)) throw new Error('Scene is not defined');
-
+  const sceneW: TSceneWrapper = scenesService.getActive();
   const grid: TSpatialGridWrapper = spatialGridService.getRegistry().getByName('main_grid');
   const planeModel3d: TModel3d = models3dRegistry.getByName('surface_model');
-  const camera: TAnyCameraWrapper | undefined = cameraService.findActive();
-  if (isNotDefined(camera)) throw new Error('Camera is not defined');
-
-  const controls: TControlsWrapper | undefined = controlsService.findActive();
-  if (isNotDefined(controls)) throw new Error('Controls are not defined');
+  const camera: TAnyCameraWrapper = cameraService.getActive();
+  const controls: TControlsWrapper = controlsService.getActive();
   if (!isOrbitControls(controls)) throw new Error(`Active controls are not of type "${ControlsType.OrbitControls}", but ${controls.getType()}`);
 
   const light: TPointLightWrapper = lightService.getRegistry().getByName('point_light') as TPointLightWrapper;

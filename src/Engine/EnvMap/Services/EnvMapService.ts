@@ -88,6 +88,7 @@ export function EnvMapService(
       loadFromConfigAsync: envMapLoader.loadFromConfigAsync,
       setActive: withActive.setActive,
       findActive,
+      getActive: withActive.getActive,
       active$: withActive.active$,
       getResourceRegistry: (): TEnvMapTextureAsyncRegistry => resourcesRegistry,
       getMetaInfoRegistry: (): TEnvMapMetaInfoRegistry => metaInfoRegistry

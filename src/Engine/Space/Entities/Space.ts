@@ -128,8 +128,7 @@ function initSpaceServices(
   container.canvas$.next(canvas);
 
   baseServices.scenesService.createFromList(params.scenes);
-  const sceneW: TSceneWrapper | undefined = baseServices.scenesService.findActive();
-  if (isNotDefined(sceneW)) throw new Error(`Cannot find an active scene for space "${params.name}" during space's services initialization.`);
+  const sceneW: TSceneWrapper = baseServices.scenesService.getActive();
 
   hooks?.beforeLoopsCreated?.(params);
   const loops: TSpaceLoops = createLoops(baseServices.loopService);

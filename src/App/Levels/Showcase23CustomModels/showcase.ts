@@ -13,8 +13,7 @@ const spaceConfig: TSpaceConfig = spaceConfigJson as TSpaceConfig;
 function beforeResourcesLoaded(_config: TSpaceConfig, { models3dService, scenesService }: TSpaceServices): void {
   const models3dRegistry: TModels3dRegistry = models3dService.getRegistry();
   const models3dResourceRegistry: TModels3dResourceAsyncRegistry = models3dService.getResourceRegistry();
-  const sceneW: TSceneWrapper | undefined = scenesService.findActive();
-  if (isNotDefined(sceneW)) throw new Error('Scene is not defined');
+  const sceneW: TSceneWrapper = scenesService.getActive();
 
   //Adding models3d to the scene
   models3dResourceRegistry.added$.subscribe(({ key: name, value: model3dSource }: TRegistryPack<GLTF>): void => {
@@ -49,9 +48,7 @@ export async function showcase(space: TSpace): Promise<void> {
   addGizmo(space.services, space.container, space.loops, { placement: 'bottom-left' });
 
   const scale: Vector3 = new Vector3(0.025, 0.025, 0.025);
-  const { animationsService, keyboardService, models3dService, scenesService } = space.services;
-  const sceneW: TSceneWrapper | undefined = scenesService.findActive();
-  if (isNotDefined(sceneW)) throw new Error('Scene is not defined');
+  const { animationsService, keyboardService, models3dService } = space.services;
 
   //gltf model
   await models3dService.loadAsync({ name: originalName, url: '/Showcase/Models/Fox/Fox.gltf', options: { scale } });

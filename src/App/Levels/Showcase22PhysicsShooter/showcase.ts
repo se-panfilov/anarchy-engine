@@ -60,9 +60,7 @@ export function showcase(space: TSpace): void {
 
   initLight(lightService);
 
-  const cameraW: TAnyCameraWrapper | undefined = cameraService.findActive();
-  if (isNotDefined(cameraW)) throw new Error(`Cannot find active camera`);
-
+  const cameraW: TAnyCameraWrapper = cameraService.getActive();
   const hero: TActor = actorService.getRegistry().getByName('hero');
   const surface: TActor = actorService.getRegistry().getByName('surface');
   const sphereActor: TActor = actorService.getRegistry().getByName('sphere');

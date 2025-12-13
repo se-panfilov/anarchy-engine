@@ -37,15 +37,9 @@ export function showcase(space: TSpace): void {
 
   const lightRegistry: TLightRegistry = lightService.getRegistry();
   const models3dRegistry: TModels3dRegistry = models3dService.getRegistry();
-
   const planeModel3d: TModel3d = models3dRegistry.getByName('surface_model');
-
-  const sceneW: TSceneWrapper | undefined = scenesService.findActive();
-  if (isNotDefined(sceneW)) throw new Error('Scene is not defined');
+  const sceneW: TSceneWrapper = scenesService.getActive();
   sceneW.addModel3d(planeModel3d);
-
-  const scene: TSceneWrapper | undefined = scenesService.findActive();
-  if (isNotDefined(scene)) throw new Error('Scene not found');
 
   addGizmo(space.services, space.container, space.loops, { placement: 'bottom-left' });
 
@@ -58,8 +52,8 @@ export function showcase(space: TSpace): void {
   directionalLight.entity.shadow.camera.near = 1;
   // eslint-disable-next-line functional/immutable-data
   directionalLight.entity.shadow.camera.far = 6;
-  scene.entity.add(directionalLightHelper);
-  scene.entity.add(directionalLightCameraHelper);
+  sceneW.entity.add(directionalLightHelper);
+  sceneW.entity.add(directionalLightCameraHelper);
   const directionalFolder: GUI = gui.addFolder('Directional light');
   directionalFolder.add(directionalLight.entity.position, 'x').min(-50).max(50).step(0.5);
   directionalFolder.add(directionalLight.entity.position, 'y').min(-50).max(50).step(0.5);
@@ -74,7 +68,7 @@ export function showcase(space: TSpace): void {
   const hemisphereLight: THemisphereLightWrapper | undefined = lightRegistry.findByTag('hemisphere') as THemisphereLightWrapper | undefined;
   if (isNotDefined(hemisphereLight)) throw new Error('Hemisphere light not found');
   const hemisphereLightHelper: HemisphereLightHelper = new HemisphereLightHelper(hemisphereLight.entity, 3);
-  scene.entity.add(hemisphereLightHelper);
+  sceneW.entity.add(hemisphereLightHelper);
   const hemisphereFolder: GUI = gui.addFolder('Hemisphere light');
   hemisphereFolder.addColor(hemisphereLight.entity, 'color');
   hemisphereFolder.addColor(hemisphereLight.entity, 'groundColor');
@@ -83,7 +77,7 @@ export function showcase(space: TSpace): void {
   const rectAreaLight: TRectAreaLightWrapper | undefined = lightRegistry.findByTag('rect_area') as TRectAreaLightWrapper | undefined;
   if (isNotDefined(rectAreaLight)) throw new Error('Rect area light not found');
   const rectAreaLightHelper: RectAreaLightHelper = new RectAreaLightHelper(rectAreaLight.entity, 5);
-  scene.entity.add(rectAreaLightHelper);
+  sceneW.entity.add(rectAreaLightHelper);
   const rectAreaFolder: GUI = gui.addFolder('RectArea light');
   rectAreaFolder.add(rectAreaLight.entity.position, 'x').min(-50).max(50).step(0.5);
   rectAreaFolder.add(rectAreaLight.entity.position, 'y').min(-50).max(50).step(0.5);
@@ -95,7 +89,7 @@ export function showcase(space: TSpace): void {
   const pointLight: TPointLightWrapper | undefined = lightRegistry.findByTag('point') as TPointLightWrapper | undefined;
   if (isNotDefined(pointLight)) throw new Error('Point light not found');
   const pointLightHelper: PointLightHelper = new PointLightHelper(pointLight.entity, 3);
-  scene.entity.add(pointLightHelper);
+  sceneW.entity.add(pointLightHelper);
   const pointFolder: GUI = gui.addFolder('Point light');
   pointFolder.addColor(pointLight.entity, 'color');
   pointFolder.add(pointLight.entity.position, 'x').min(-50).max(50).step(0.5);
@@ -109,7 +103,7 @@ export function showcase(space: TSpace): void {
   const spotLight: TSpotLightWrapper | undefined = lightRegistry.findByTag('spot') as TSpotLightWrapper | undefined;
   if (isNotDefined(spotLight)) throw new Error('Spot light not found');
   const spotLightHelper: SpotLightHelper = new SpotLightHelper(spotLight.entity, 3);
-  scene.entity.add(spotLightHelper);
+  sceneW.entity.add(spotLightHelper);
   const spotFolder: GUI = gui.addFolder('Spot light');
   spotFolder.add(spotLight.entity.position, 'x').min(-50).max(50).step(0.5);
   spotFolder.add(spotLight.entity.position, 'y').min(-50).max(50).step(0.5);

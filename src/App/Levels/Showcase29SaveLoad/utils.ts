@@ -82,5 +82,5 @@ export function removeAwait(id: string, awaits$: BehaviorSubject<ReadonlySet<str
 
 export function addModel3dToScene(space: TSpace, modelName: string): void | never {
   const model3d: TModel3d = space.services.models3dService.getRegistry().getByName(modelName);
-  space.services.scenesService.findActive()?.addModel3d(model3d);
+  space.services.scenesService.getActive().addModel3d(model3d);
 }

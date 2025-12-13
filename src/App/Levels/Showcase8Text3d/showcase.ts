@@ -25,9 +25,7 @@ export function showcase(space: TSpace): void {
   const { textService, models3dService, mouseService, scenesService } = space.services;
   const { transformLoop } = space.loops;
   const models3dRegistry: TModels3dRegistry = models3dService.getRegistry();
-
-  const sceneW: TSceneWrapper | undefined = scenesService.findActive();
-  if (isNotDefined(sceneW)) throw new Error('Scene is not defined');
+  const sceneW: TSceneWrapper = scenesService.getActive();
 
   addGizmo(space.services, space.container, space.loops, { placement: 'bottom-left' });
 

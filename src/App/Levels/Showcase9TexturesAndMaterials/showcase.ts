@@ -19,9 +19,7 @@ export function start(): void {
 export function showcase(space: TSpace): void {
   const { models3dService, mouseService, scenesService } = space.services;
   const models3dRegistry: TModels3dRegistry = models3dService.getRegistry();
-
-  const sceneW: TSceneWrapper | undefined = scenesService.findActive();
-  if (isNotDefined(sceneW)) throw new Error('Scene is not defined');
+  const sceneW: TSceneWrapper = scenesService.getActive();
 
   const model3d: TModel3d = models3dRegistry.getByName('wood_cube_model');
 

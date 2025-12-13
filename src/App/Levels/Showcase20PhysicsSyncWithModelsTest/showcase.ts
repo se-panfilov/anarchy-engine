@@ -25,8 +25,7 @@ export function showcase(space: TSpace): void {
   const actor2: TActor = actorAsyncRegistry.getByName('actor_2');
   const actor3: TActor = actorAsyncRegistry.getByName('actor_3');
 
-  const cameraW: TAnyCameraWrapper | undefined = cameraService.findActive();
-  if (isNotDefined(cameraW)) throw new Error(`Cannot find active camera`);
+  const cameraW: TAnyCameraWrapper = cameraService.getActive();
 
   actor1.drive.physical.physicsBody$.value?.getRigidBody()?.addTorque({ x: -0.2, y: 0.5, z: 1 }, true);
   actor2.drive.physical.physicsBody$.value?.getRigidBody()?.addTorque({ x: -0.5, y: -0.01, z: 0.05 }, true);

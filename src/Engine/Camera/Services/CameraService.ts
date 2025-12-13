@@ -89,6 +89,7 @@ export function CameraService(factory: TCameraFactory, registry: TCameraRegistry
     {
       setActive: withActive.setActive,
       findActive,
+      getActive: withActive.getActive,
       active$: withActive.active$,
       startUpdatingCamerasAspect
     }

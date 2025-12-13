@@ -17,6 +17,11 @@ export function withActiveEntityServiceMixin<W extends TWithActiveMixin & TRegis
   return {
     setActive,
     findActive,
+    getActive: (): W | never => {
+      const active: W | undefined = active$.value;
+      if (active === undefined) throw new Error('[withActiveEntityServiceMixin]: No active entity found');
+      return active;
+    },
     active$
   };
 }

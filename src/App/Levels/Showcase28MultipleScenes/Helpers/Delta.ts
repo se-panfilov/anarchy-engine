@@ -4,7 +4,7 @@ import { Clock, Vector3 } from 'three';
 import { createReactiveLineFromActor } from '@/App/Levels/Showcase25TransformDrive/Utils';
 import { moveByCircle } from '@/App/Levels/Utils/MoveUtils';
 import type { TActor, TActorRegistry, TAnyCameraWrapper, TAudio3dWrapper, TIntersectionEvent, TIntersectionsWatcher, TMouseWatcherEvent, TSceneWrapper, TSpace } from '@/Engine';
-import { DebugAudioRenderer, isNotDefined, metersPerSecond } from '@/Engine';
+import { DebugAudioRenderer, metersPerSecond } from '@/Engine';
 
 import { addParticles } from './Utils';
 
@@ -22,12 +22,10 @@ function initAudio(space: TSpace): void {
   moveByCircle('sphere_actor', actorService, transformLoop, new Clock());
 
   const gunshotName2: string = 'gunshot_2';
-
-  const scene: TSceneWrapper | undefined = scenesService.findActive();
-  if (isNotDefined(scene)) throw new Error('Showcase: No active scene is not found');
+  const sceneW: TSceneWrapper = scenesService.getActive();
 
   const gunshot2: TAudio3dWrapper = audioService.getRegistry().getByName(gunshotName2) as TAudio3dWrapper;
-  DebugAudioRenderer(gunshot2, scene, audioLoop);
+  DebugAudioRenderer(gunshot2, sceneW, audioLoop);
 
   setInterval((): void => gunshot2.play$.next(true), 500);
 
@@ -64,14 +62,12 @@ function initKinematic(space: TSpace): void {
 
   const { clickLeftRelease$ } = mouseService;
 
-  const camera: TAnyCameraWrapper | undefined = cameraService.findActive();
-  if (isNotDefined(camera)) throw new Error('Camera is not defined');
-
+  const camera: TAnyCameraWrapper = cameraService.getActive();
   const intersectionsWatcher: TIntersectionsWatcher = startIntersections(space, camera);
   const actorMouse: TActor = actorService.getRegistry().getByName('sphere_mouse_actor');
 
   const { line } = createReactiveLineFromActor('#E91E63', actorMouse, intersectionsWatcher);
-  scenesService.findActive()?.entity.add(line);
+  scenesService.getActive().entity.add(line);
 
   clickLeftRelease$.pipe(withLatestFrom(intersectionsWatcher.value$)).subscribe(([, intersection]: [TMouseWatcherEvent, TIntersectionEvent]): void => {
     const position: Vector3 = intersection.point.clone().add(new Vector3(0, 1.5, 0));

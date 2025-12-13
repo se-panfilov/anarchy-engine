@@ -31,8 +31,7 @@ export function showcase(space: TSpace): void {
   const { getByName, getByTags } = actorRegistry;
   const { onKey } = keyboardService;
 
-  const camera: TAnyCameraWrapper | undefined = cameraService.findActive();
-  if (isNotDefined(camera)) throw new Error('Camera is not defined');
+  const camera: TAnyCameraWrapper = cameraService.getActive();
 
   addGizmo(space.services, space.container, space.loops, { placement: 'bottom-left' });
 
@@ -69,7 +68,7 @@ export function showcase(space: TSpace): void {
   const coordsUI: { x: number; z: number } = { x: 0, z: 0 };
 
   const { line } = createReactiveLineFromActor('#E91E63', actorMouse, intersectionsWatcher);
-  scenesService.findActive()?.entity.add(line);
+  scenesService.getActive().entity.add(line);
 
   gui.add(coordsUI, 'x').listen();
   gui.add(coordsUI, 'z').listen();

@@ -2,7 +2,6 @@ import { BehaviorSubject } from 'rxjs';
 import { Euler } from 'three';
 
 import type { TOrbitControlsWrapper, TSpace, TSpaceConfig } from '@/Engine';
-import { isNotDefined } from '@/Engine';
 
 import type { TSpacesData } from '../ShowcaseTypes';
 import { addModel3dToScene, getContainer } from '../utils';
@@ -19,9 +18,7 @@ export const spaceOrbitControlsData: TSpacesData = {
     addModel3dToScene(space, 'surface_model');
   },
   onChange: (space: TSpace): void => {
-    const controls: TOrbitControlsWrapper | undefined = space.services.controlsService.findActive() as TOrbitControlsWrapper | undefined;
-    if (isNotDefined(controls)) throw new Error(`[Showcase]: Controls are not defined for space "${space.name}"`);
-
+    const controls: TOrbitControlsWrapper = space.services.controlsService.getActive() as TOrbitControlsWrapper;
     controls.rotateCameraTo(new Euler(-0.21611581505751948, 0.7673075650744225, 0.15124389190255216));
   }
 };

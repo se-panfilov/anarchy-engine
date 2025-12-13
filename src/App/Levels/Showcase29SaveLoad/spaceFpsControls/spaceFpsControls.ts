@@ -2,7 +2,6 @@ import { BehaviorSubject } from 'rxjs';
 import { Euler } from 'three';
 
 import type { TFpsControlsWrapper, TSpace, TSpaceConfig } from '@/Engine';
-import { isNotDefined } from '@/Engine';
 
 import type { TSpacesData } from '../ShowcaseTypes';
 import { addModel3dToScene, getContainer } from '../utils';
@@ -19,8 +18,7 @@ export const spaceFpsControlsData: TSpacesData = {
     addModel3dToScene(space, 'surface_model');
   },
   onChange: (space: TSpace): void => {
-    const controls: TFpsControlsWrapper | undefined = space.services.controlsService.findActive() as TFpsControlsWrapper | undefined;
-    if (isNotDefined(controls)) throw new Error(`[Showcase]: Controls are not defined for space "${space.name}"`);
+    const controls: TFpsControlsWrapper = space.services.controlsService.getActive() as TFpsControlsWrapper;
 
     controls.rotateCameraTo(new Euler(-0.2, 0.3, 0));
   }

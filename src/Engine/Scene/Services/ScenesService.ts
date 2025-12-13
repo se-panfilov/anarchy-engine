@@ -42,6 +42,7 @@ export function ScenesService(factory: TSceneFactory, registry: TSceneRegistry):
   return Object.assign(abstractService, withCreateService, withCreateFromConfigService, withFactory, withRegistry, withSerializeAllEntities<TSceneConfig, undefined>(registry), {
     setActive: withActive.setActive,
     findActive: withActive.findActive,
+    getActive: withActive.getActive,
     active$: withActive.active$
   });
 }

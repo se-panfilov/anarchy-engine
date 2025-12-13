@@ -3,7 +3,7 @@ import { Vector3 } from 'three/src/math/Vector3';
 
 import { attachConnectorPositionToSubj, attachConnectorRotationToSubj } from '@/App/Levels/Utils';
 import type { TActor, TCameraWrapper, TLightWrapper, TSpace, TSpaceConfig, TText3dTextureWrapper, TText3dWrapper } from '@/Engine';
-import { getQueryParams, isDefined, isNotDefined, metersPerSecond } from '@/Engine';
+import { getQueryParams, isDefined, metersPerSecond } from '@/Engine';
 
 import type { TSpacesData } from '../ShowcaseTypes';
 import { addAwait, getContainer, removeAwait } from '../utils';
@@ -113,9 +113,7 @@ function getShowcaseActors({ services }: TSpace): {
   const kinematicText: TText3dTextureWrapper = services.textService.getRegistries().text3dTextureRegistry.getByName('kinematic_text');
   const connectedText: TText3dWrapper = services.textService.getRegistries().text3dRegistry.getByName('connected_text');
   const connectedLight: TLightWrapper = services.lightService.getRegistry().getByName('connected_light') as TLightWrapper;
-
-  const camera: TCameraWrapper<any> | undefined = services.cameraService.findActive();
-  if (isNotDefined(camera)) throw new Error('[Showcase]: Active camera not found');
+  const camera: TCameraWrapper<any> = services.cameraService.getActive();
 
   return { defaultActor, kinematicActor, connectedActor, kinematicText, connectedLight, connectedText, camera };
 }

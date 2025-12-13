@@ -55,6 +55,7 @@ export function RendererService(
   return Object.assign(abstractService, withCreateService, withCreateFromConfigService, withFactory, withRegistry, withSerializeAllEntities<TRendererConfig, undefined>(registry), {
     setActive: withActive.setActive,
     findActive: withActive.findActive,
+    getActive: withActive.getActive,
     active$: withActive.active$
   });
 }

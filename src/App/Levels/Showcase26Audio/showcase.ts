@@ -44,8 +44,7 @@ export function showcase(space: TSpace): void {
 
   if (isNotDefined(mainListener)) throw new Error('Main audio listener is not found');
 
-  const scene: TSceneWrapper | undefined = scenesService.findActive();
-  if (isNotDefined(scene)) throw new Error('Showcase: No active scene is not found');
+  const scene: TSceneWrapper = scenesService.getActive();
 
   const gunshotName1: string = 'gunshot_1';
   const gunshotName2: string = 'gunshot_2';

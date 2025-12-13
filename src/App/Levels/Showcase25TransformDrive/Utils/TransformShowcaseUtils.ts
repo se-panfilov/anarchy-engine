@@ -28,7 +28,7 @@ import type {
   TWithPresetNamePhysicsBodyParams,
   TWithTransformDrive
 } from '@/Engine';
-import { ForwardAxis, isNotDefined, MaterialType, metersPerSecond, TransformAgent } from '@/Engine';
+import { ForwardAxis, MaterialType, metersPerSecond, TransformAgent } from '@/Engine';
 import { meters } from '@/Engine/Measurements/Utils';
 
 export function createActor(
@@ -88,8 +88,7 @@ export function createRepeaterActor(actor: TActor, model3d: TModel3d, offset: Ve
 }
 
 export function startIntersections({ actorService, cameraService, intersectionsWatcherService, mouseService, loopService }: TSpaceServices): TIntersectionsWatcher {
-  const camera: TAnyCameraWrapper | undefined = cameraService.findActive();
-  if (isNotDefined(camera)) throw new Error('Camera is not defined');
+  const camera: TAnyCameraWrapper = cameraService.getActive();
   const surfaceActor: TActor = actorService.getRegistry().getByName('surface_actor');
   const boxActor1: TActor = actorService.getRegistry().getByName('box_actor_1');
   const boxActor2: TActor = actorService.getRegistry().getByName('box_actor_2');

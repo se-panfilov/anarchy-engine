@@ -43,8 +43,7 @@ export function showcase(space: TSpace): void {
   const surfaceActor: TActor = actorAsyncRegistry.getByName('surface_actor');
   if (!isActorHasPhysicsBody(surfaceActor)) throw new Error(`"surfaceActor" actor is not a physic actor`);
 
-  const cameraW: TAnyCameraWrapper | undefined = cameraService.findActive();
-  if (isNotDefined(cameraW)) throw new Error(`Cannot find active camera`);
+  const cameraW: TAnyCameraWrapper = cameraService.getActive();
 
   mouseService.clickLeftRelease$.subscribe(() => {
     ballActor.drive.physical.physicsBody$.value?.getRigidBody()?.applyImpulse(getPushCoordsFrom3dAzimuth(azimuth, radians(0), forcePower * 10.5, ForwardAxis.X), true);

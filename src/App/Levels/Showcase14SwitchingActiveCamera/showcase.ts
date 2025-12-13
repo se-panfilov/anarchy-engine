@@ -32,7 +32,7 @@ export function showcase(space: TSpace): void {
   const getCameraName = (): string => `cam${counter}`;
   clickLeftRelease$.subscribe((): void => {
     const camera: TAnyCameraWrapper | undefined = cameraRegistry.getByName(getCameraName());
-    console.log(getCameraName(), cameraService.findActive()?.name, getCameraName() === cameraService.findActive()?.name);
+    console.log(getCameraName(), cameraService.getActive().name, getCameraName() === cameraService.findActive()?.name);
     cameraFolder = resetGui(gui, cameraFolder, camera);
 
     cameraService.setActive(camera.id);
