@@ -1,19 +1,20 @@
 import type { TActorParams } from '@/Engine/Actor';
 import { getAzimuthByLinearVelocity, getElevationByLinearVelocity, getLinearVelocity, getSpeedByLinearVelocity } from '@/Engine/Math';
-import type { TWithKinematic } from '@/Engine/Mixins/GameObjects/Models';
+import type { TKinematicAccessors, TWithKinematic } from '@/Engine/Mixins/GameObjects/Models';
 import type { TKinematicInfo } from '@/Engine/Physics/Models';
+import type { TWriteable } from '@/Engine/Utils';
 
 export function withKinematic(params: TActorParams): TWithKinematic {
   return {
     setKinematicInfo(kinematic: TKinematicInfo): void {
       // eslint-disable-next-line functional/immutable-data
-      this.kinematic.linearVelocity = kinematic.linearVelocity;
+      (this.kinematic as TWriteable<TKinematicInfo & TKinematicAccessors>).linearVelocity = kinematic.linearVelocity;
       // eslint-disable-next-line functional/immutable-data
-      this.kinematic.angularVelocity = kinematic.angularVelocity;
+      (this.kinematic as TWriteable<TKinematicInfo & TKinematicAccessors>).angularVelocity = kinematic.angularVelocity;
       // eslint-disable-next-line functional/immutable-data
-      this.kinematic.principalInertia = kinematic.principalInertia;
+      (this.kinematic as TWriteable<TKinematicInfo & TKinematicAccessors>).principalInertia = kinematic.principalInertia;
       // eslint-disable-next-line functional/immutable-data
-      this.kinematic.mass = kinematic.mass;
+      (this.kinematic as TWriteable<TKinematicInfo & TKinematicAccessors>).mass = kinematic.mass;
     },
     getKinematicInfo(): TKinematicInfo {
       return this.kinematic;
@@ -24,17 +25,17 @@ export function withKinematic(params: TActorParams): TWithKinematic {
       angularVelocity: params.kinematic?.angularVelocity ?? { x: 0, y: 0, z: 0 },
       principalInertia: params.kinematic?.principalInertia ?? { x: 0, y: 0, z: 0 },
       getSpeed(): number {
-        return getSpeedByLinearVelocity(this.kinematic.linearVelocity);
+        return getSpeedByLinearVelocity(this.linearVelocity);
       },
       getAzimuth(): number {
-        return getAzimuthByLinearVelocity(this.kinematic.linearVelocity);
+        return getAzimuthByLinearVelocity(this.linearVelocity);
       },
       getElevation(): number {
-        return getElevationByLinearVelocity(this.kinematic.linearVelocity);
+        return getElevationByLinearVelocity(this.linearVelocity);
       },
       setLinearVelocity(speed: number, azimuth: number, elevation: number): void {
         // eslint-disable-next-line functional/immutable-data
-        this.kinematic.linearVelocity = getLinearVelocity(speed, azimuth, elevation);
+        (this as TWriteable<TKinematicInfo & TKinematicAccessors>).linearVelocity = getLinearVelocity(speed, azimuth, elevation);
       }
     }
   };
