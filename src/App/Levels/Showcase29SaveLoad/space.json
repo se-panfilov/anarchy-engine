@@ -11,8 +11,8 @@
           "z": 0
         },
         "spatial": {
-          "isAutoUpdate": true,
-          "grid": "main_grid"
+          "grid": "main_grid",
+          "isAutoUpdate": true
         }
       }
     ],
