@@ -71,8 +71,8 @@ export function buildLevelFromConfig(canvas: IAppCanvas, config: ILevelConfig): 
 
   const intersectionsWatcherFactory: IIntersectionsWatcherFactory = IntersectionsWatcherFactory();
   const intersectionsWatcherRegistry: IIntersectionsWatcherRegistry = IntersectionsWatcherRegistry();
-  const intersectionsWatcherEntityCreatedSubscription: Subscription = intersectionsWatcherFactory.entityCreated$.subscribe((instance: IIntersectionsWatcher): void =>
-    intersectionsWatcherRegistry.add(instance)
+  const intersectionsWatcherEntityCreatedSubscription: Subscription = intersectionsWatcherFactory.entityCreated$.subscribe((intersectionsWatcher: IIntersectionsWatcher): void =>
+    intersectionsWatcherRegistry.add({ ...intersectionsWatcher, tags: [...intersectionsWatcher.tags, CommonTags.FromConfig] })
   );
   const intersectionsWatcher: IIntersectionsWatcher = intersectionsWatcherFactory.create({ actors: clickableActors, camera, positionWatcher: ambientContext.mousePositionWatcher });
 
