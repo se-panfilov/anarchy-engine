@@ -16,7 +16,7 @@ const isOpenDevTools: boolean = true;
 // TODO DESKTOP: Save/Load app's settings (screen resolution, fullscreen mode, etc.)
 // TODO DESKTOP: Detect resolution and set window size accordingly
 // TODO DESKTOP: Add canvas.requestPointerLock(); on a Space level
-// TODO DESKTOP: Error forwarding to a file
+// TODO DESKTOP: Error forwarding to a file (with versions)
 // TODO DESKTOP: Fix Electron Security Warning (Insecure Content-Security-Policy) https://www.electronjs.org/docs/latest/tutorial/security
 
 function getIndexHtmlPath(): string {
@@ -54,7 +54,7 @@ function createWindow(width: number, height: number): BrowserWindow {
 
   if (isOpenDevTools) win.webContents.openDevTools();
 
-  // TODO DESKTOP: Enable hot reloading in development mode.
+  // Hot reloading (in development mode)
   // try {
   //   require('electron-reloader')(module);
   // } catch (_) {}
