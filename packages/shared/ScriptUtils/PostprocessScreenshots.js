@@ -2,7 +2,7 @@ import fs from 'fs/promises';
 import path from 'path';
 import sharp from 'sharp';
 
-const SCREENSHOT_DIR = path.resolve(process.cwd(), './e2e');
+const SCREENSHOT_DIR = path.resolve(process.cwd(), './src');
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 async function processPng(filePath) {

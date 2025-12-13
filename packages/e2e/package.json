@@ -9,7 +9,7 @@
     "before:release": "npm run clean:reinstall && npm run before:release:check",
     "before:release:check": "npm run ts:check && npm run prettier:check && npm run lint && npm run e2e:with-clean",
     "e2e": "playwright test",
-    "e2e:clean-metadate": "node ./utils/PostprocessScreenshots.js",
+    "e2e:clean-metadate": "node ../shared/ScriptUtils/PostprocessScreenshots.js",
     "e2e:debug": "PWDEBUG=1 npx playwright test",
     "e2e:debug:ui": "npx playwright test --ui",
     "e2e:headed": "npm run e2e -- --headed",
