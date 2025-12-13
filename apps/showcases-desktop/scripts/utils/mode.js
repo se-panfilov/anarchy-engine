@@ -16,7 +16,7 @@ export function normalizeMode(input) {
   if (!input) return 'production';
   const s = String(input).trim().toLowerCase();
   if (s === 'prod' || s === 'production' || s.startsWith('production.')) return 'production';
-  if (s === 'dev' || s === 'development' || s.startsWith('development.')) return 'development';
+  if (s === 'dev' || s === 'development' || s.startsWith('development.') || s.startsWith('dev.')) return 'development';
   return s;
 }
 
