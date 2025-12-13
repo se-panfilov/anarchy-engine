@@ -4,7 +4,7 @@ import Decimal from 'decimal.js';
 import { Vector3 } from 'three';
 
 import type { TKinematicData } from '@/Engine/Kinematic';
-import { cos, degToRad, getDirectionFromAngularVelocity, getDirectionFromLinearVelocity, getSpeedFromAngularVelocity, getSpeedFromLinearVelocity, sin } from '@/Engine/Math';
+import { cosPrecise, degToRadPrecise, getDirectionFromAngularVelocity, getDirectionFromLinearVelocity, getSpeedFromAngularVelocity, getSpeedFromLinearVelocity, sinPrecise } from '@/Engine/Math';
 import type { TWithCoordsXYZ } from '@/Engine/Mixins';
 import { VelocityType } from '@/Engine/Physics/Constants';
 import type { TPhysicsBodyFacade } from '@/Engine/Physics/Models';
@@ -12,13 +12,13 @@ import { isNotDefined } from '@/Engine/Utils';
 import type { TVector3Wrapper } from '@/Engine/Vector';
 
 export function getPushCoordsFrom3dAzimuth(azimuthDeg: number, elevationDeg: number, force: number): TWithCoordsXYZ {
-  const azimuthDecimal: Decimal = degToRad(azimuthDeg);
-  const elevationDecimal: Decimal = degToRad(elevationDeg);
+  const azimuthDecimal: Decimal = degToRadPrecise(azimuthDeg);
+  const elevationDecimal: Decimal = degToRadPrecise(elevationDeg);
   const forceDecimal: Decimal = new Decimal(force);
 
-  const x: Decimal = forceDecimal.times(cos(elevationDecimal)).times(cos(azimuthDecimal));
-  const y: Decimal = forceDecimal.times(sin(elevationDecimal));
-  const z: Decimal = forceDecimal.times(cos(elevationDecimal)).times(sin(azimuthDecimal));
+  const x: Decimal = forceDecimal.times(cosPrecise(elevationDecimal)).times(cosPrecise(azimuthDecimal));
+  const y: Decimal = forceDecimal.times(sinPrecise(elevationDecimal));
+  const z: Decimal = forceDecimal.times(cosPrecise(elevationDecimal)).times(sinPrecise(azimuthDecimal));
 
   return { x: x.toNumber(), y: y.toNumber(), z: z.toNumber() };
 }

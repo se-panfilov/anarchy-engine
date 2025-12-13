@@ -6,13 +6,13 @@ import type { TDegrees, TRadians } from '@/Engine/Math';
 import type { TWithCoordsXYZ, TWithCoordsXYZW, TWithCoordsXZ } from '@/Engine/Mixins';
 
 // TODO (S.Panfilov) add unit tests
-export const degToRad = (degrees: TDegrees): Decimal => new Decimal(degrees).times(Math.PI).div(180);
+export const degToRadPrecise = (degrees: TDegrees): Decimal => new Decimal(degrees).times(Math.PI).div(180);
 // TODO (S.Panfilov) add unit tests
-export const cos = (value: Decimal): Decimal => Decimal.cos(value);
+export const cosPrecise = (value: Decimal): Decimal => Decimal.cos(value);
 // TODO (S.Panfilov) add unit tests
-export const sin = (value: Decimal): Decimal => Decimal.sin(value);
+export const sinPrecise = (value: Decimal): Decimal => Decimal.sin(value);
 // TODO (S.Panfilov) add unit tests
-export const radiansToDegrees = (radians: TRadians): Decimal => new Decimal(radians).times(180).div(Math.PI);
+export const radiansToDegreesPrecise = (radians: TRadians): Decimal => new Decimal(radians).times(180).div(Math.PI);
 
 // TODO (S.Panfilov) add unit tests
 export function getHorizontalAzimuthDeg(center: TWithCoordsXZ, point: TWithCoordsXZ): TDegrees {
@@ -33,19 +33,19 @@ export const getAzimuthRadFromDirection = (direction: Vector3): TRadians => {
   return azimuth;
 };
 // TODO (S.Panfilov) add unit tests
-export const getAzimuthDegFromDirection = (direction: Vector3): TDegrees => radiansToDegrees(getAzimuthRadFromDirection(direction)).toNumber();
+export const getAzimuthDegFromDirection = (direction: Vector3): TDegrees => radiansToDegreesPrecise(getAzimuthRadFromDirection(direction)).toNumber();
 // TODO (S.Panfilov) add unit tests
 export const getElevationRadFromDirection = (direction: Vector3): TRadians => Math.atan2(direction.y, Math.sqrt(direction.x ** 2 + direction.z ** 2));
 // TODO (S.Panfilov) add unit tests
-export const getElevationDegFromDirection = (direction: Vector3): TDegrees => radiansToDegrees(getElevationRadFromDirection(direction)).toNumber();
+export const getElevationDegFromDirection = (direction: Vector3): TDegrees => radiansToDegreesPrecise(getElevationRadFromDirection(direction)).toNumber();
 // TODO (S.Panfilov) add unit tests
 export const getDirectionFromLinearVelocity = (linearVelocity: Vector3): Vector3 => linearVelocity.clone().normalize();
 // TODO (S.Panfilov) add unit tests
 export const getSpeedFromLinearVelocity = (linearVelocity: Vector3): number => linearVelocity.length();
 // TODO (S.Panfilov) add unit tests
 export const getLinearVelocityByDeg = (speed: number, azimuth: TDegrees, elevation: TDegrees): Vector3 => {
-  const azimuthRad: TRadians = degToRad(azimuth).toNumber();
-  const elevationRad: TRadians = degToRad(elevation).toNumber();
+  const azimuthRad: TRadians = degToRadPrecise(azimuth).toNumber();
+  const elevationRad: TRadians = degToRadPrecise(elevation).toNumber();
   return new Vector3(speed * Math.cos(elevationRad) * Math.cos(azimuthRad), speed * Math.sin(elevationRad), speed * Math.cos(elevationRad) * Math.sin(azimuthRad));
 };
 
@@ -100,9 +100,9 @@ export function get3DAzimuthRad(center: TWithCoordsXYZ, point: TWithCoordsXYZ): 
 // TODO (S.Panfilov) add unit tests
 export function degreesToEuler(degrees: TWithCoordsXYZ): TWithCoordsXYZ {
   const radians = {
-    x: degToRad(degrees.x),
-    y: degToRad(degrees.y),
-    z: degToRad(degrees.z)
+    x: degToRadPrecise(degrees.x),
+    y: degToRadPrecise(degrees.y),
+    z: degToRadPrecise(degrees.z)
   };
 
   return {
@@ -115,9 +115,9 @@ export function degreesToEuler(degrees: TWithCoordsXYZ): TWithCoordsXYZ {
 // TODO (S.Panfilov) add unit tests
 export function degreesToQuaternion(degrees: TWithCoordsXYZ): TWithCoordsXYZW {
   const radians = {
-    x: degToRad(degrees.x),
-    y: degToRad(degrees.y),
-    z: degToRad(degrees.z)
+    x: degToRadPrecise(degrees.x),
+    y: degToRadPrecise(degrees.y),
+    z: degToRadPrecise(degrees.z)
   };
 
   const euler: TEuler = new Euler(radians.x.toNumber(), radians.y.toNumber(), radians.z.toNumber());
@@ -137,8 +137,8 @@ export function quaternionToDegrees(quaternion: TWithCoordsXYZW): TWithCoordsXYZ
   const euler: Euler = new Euler().setFromQuaternion(q, 'XYZ');
 
   return {
-    x: radiansToDegrees(euler.x).toNumber(),
-    y: radiansToDegrees(euler.y).toNumber(),
-    z: radiansToDegrees(euler.z).toNumber()
+    x: radiansToDegreesPrecise(euler.x).toNumber(),
+    y: radiansToDegreesPrecise(euler.y).toNumber(),
+    z: radiansToDegreesPrecise(euler.z).toNumber()
   };
 }
