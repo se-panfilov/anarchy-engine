@@ -3,7 +3,7 @@ import { Euler, Vector3 } from 'three';
 import type { TShowcase } from '@/App/Levels/Models';
 import { addGizmo } from '@/App/Levels/Utils';
 import type { TActor, TActorRegistry, TAnimationParams, TAppCanvas, TCameraRegistry, TControlsRegistry, TEngine, TMoverService, TSpace, TSpaceConfig, TText2dWrapper, TTextAnyWrapper } from '@/Engine';
-import { createCirclePathXZ, defaultMoverServiceConfig, Easing, Engine, generateAnglesForCircle, isNotDefined, spaceService, TextType } from '@/Engine';
+import { ambientContext, createCirclePathXZ, defaultMoverServiceConfig, Easing, Engine, generateAnglesForCircle, isNotDefined, spaceService, TextType } from '@/Engine';
 import { MoverService } from '@/Engine/Services/MoverService/MoverService';
 
 import spaceConfig from './showcase.json';
@@ -19,7 +19,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     const controlsRegistry: TControlsRegistry = controlsService.getRegistry();
     const { text2dRegistry } = textService.getRegistries();
 
-    addGizmo(space.services, { placement: 'bottom-left' });
+    addGizmo(space.services, ambientContext.screenSizeWatcher, { placement: 'bottom-left' });
 
     controlsRegistry.getAll()[0]?.entity.target.set(6, 0, 0);
     cameraRegistry.getAll()[0]?.drive.position$.next(new Vector3(6, 30, 0));

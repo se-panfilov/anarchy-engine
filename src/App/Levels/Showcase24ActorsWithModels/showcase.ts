@@ -3,7 +3,7 @@ import type { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
 import type { TShowcase } from '@/App/Levels/Models';
 import { addGizmo } from '@/App/Levels/Utils';
 import type { TAppCanvas, TEngine, TModel3d, TModel3dRegistry, TModel3dResourceAsyncRegistry, TRegistryPack, TSceneWrapper, TSpace, TSpaceConfig, TSpaceServices } from '@/Engine';
-import { Engine, isNotDefined, spaceService } from '@/Engine';
+import { ambientContext, Engine, isNotDefined, spaceService } from '@/Engine';
 
 import spaceConfig from './showcase.json';
 
@@ -28,7 +28,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
   // const { actorService } = space.services;
 
   function init(): void {
-    addGizmo(space.services, { placement: 'bottom-left' });
+    addGizmo(space.services, ambientContext.screenSizeWatcher, { placement: 'bottom-left' });
 
     // const actor: TActor = actorService.create(params);
   }

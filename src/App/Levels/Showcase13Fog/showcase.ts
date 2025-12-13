@@ -4,7 +4,7 @@ import type { Fog } from 'three';
 import type { TShowcase } from '@/App/Levels/Models';
 import { addGizmo } from '@/App/Levels/Utils';
 import type { TAppCanvas, TEngine, TSceneWrapper, TSpace, TSpaceConfig } from '@/Engine';
-import { Engine, isNotDefined, spaceService } from '@/Engine';
+import { ambientContext, Engine, isNotDefined, spaceService } from '@/Engine';
 
 import spaceConfig from './showcase.json';
 
@@ -19,7 +19,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     if (isNotDefined(scene)) throw new Error('Scene not found');
     if (isNotDefined(scene.entity.fog)) throw new Error("Scene's fog not found");
 
-    addGizmo(space.services, { placement: 'bottom-left' });
+    addGizmo(space.services, ambientContext.screenSizeWatcher, { placement: 'bottom-left' });
 
     rendererService.findActive()?.entity.setClearColor(scene.entity.fog.color);
 

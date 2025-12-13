@@ -5,7 +5,7 @@ import type { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
 import type { TShowcase } from '@/App/Levels/Models';
 import { addGizmo } from '@/App/Levels/Utils';
 import type { TAppCanvas, TEngine, TModel3d, TModel3dRegistry, TModel3dResourceAsyncRegistry, TRegistryPack, TSceneWrapper, TSpace, TSpaceConfig, TSpaceServices } from '@/Engine';
-import { Engine, isNotDefined, KeyCode, spaceService } from '@/Engine';
+import { ambientContext, Engine, isNotDefined, KeyCode, spaceService } from '@/Engine';
 
 import spaceConfig from './showcase.json';
 
@@ -40,7 +40,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
   const engine: TEngine = Engine(space);
 
   async function init(): Promise<void> {
-    addGizmo(space.services, { placement: 'bottom-left' });
+    addGizmo(space.services, ambientContext.screenSizeWatcher, { placement: 'bottom-left' });
 
     const scale: Vector3 = new Vector3(0.025, 0.025, 0.025);
     const { keyboardService } = engine.services;

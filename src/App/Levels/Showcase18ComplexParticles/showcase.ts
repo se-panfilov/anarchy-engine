@@ -4,7 +4,7 @@ import { BufferGeometry, Color, PointsMaterial } from 'three';
 import type { TShowcase } from '@/App/Levels/Models';
 import { addGizmo } from '@/App/Levels/Utils';
 import type { TAppCanvas, TEngine, TMaterialConfig, TMaterialParams, TParticlesConfig, TParticlesWrapper, TSpace, TSpaceConfig, TSpaceConfigEntities, TSpaceConfigResources } from '@/Engine';
-import { Engine, isDefined, isNotDefined, spaceService } from '@/Engine';
+import { ambientContext, Engine, isDefined, isNotDefined, spaceService } from '@/Engine';
 import { configToParams as materialConfigToParams } from '@/Engine/Material/Adapters';
 
 import spaceConfig from './showcase.json';
@@ -119,7 +119,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
   });
 
   function init(): void {
-    addGizmo(space.services, { placement: 'bottom-left' });
+    addGizmo(space.services, ambientContext.screenSizeWatcher, { placement: 'bottom-left' });
     gui.add(parameters, 'count').min(1000).max(1000000).step(1000).onFinishChange(createGalaxy);
     gui.add(parameters, 'size').min(0.001).max(1).step(0.001).onFinishChange(createGalaxy);
     gui.add(parameters, 'radius').min(0.01).max(20).step(0.01).onFinishChange(createGalaxy);

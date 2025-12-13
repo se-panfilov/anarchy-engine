@@ -15,7 +15,7 @@ import type {
   TSpace,
   TSpaceConfig
 } from '@/Engine';
-import { Engine, isNotDefined, spaceService } from '@/Engine';
+import { ambientContext, Engine, isNotDefined, spaceService } from '@/Engine';
 
 import spaceConfig from './showcase.json';
 
@@ -31,7 +31,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     const sceneW: TSceneWrapper | undefined = scenesService.findActive();
     if (isNotDefined(sceneW)) throw new Error('Scene is not defined');
 
-    addGizmo(space.services, { placement: 'bottom-left' });
+    addGizmo(space.services, ambientContext.screenSizeWatcher, { placement: 'bottom-left' });
 
     const planeModel3dF: TModel3d | undefined = models3dRegistry.findByName('surface_model');
     if (isNotDefined(planeModel3dF)) throw new Error('Plane model is not defined');

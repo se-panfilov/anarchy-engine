@@ -4,7 +4,7 @@ import { withLatestFrom } from 'rxjs';
 import type { TShowcase } from '@/App/Levels/Models';
 import { addGizmo } from '@/App/Levels/Utils';
 import type { TActor, TActorRegistry, TAppCanvas, TCameraWrapper, TEngine, TIntersectionEvent, TIntersectionsWatcher, TMouseWatcherEvent, TMoverService, TSpace, TSpaceConfig } from '@/Engine';
-import { defaultMoverServiceConfig, Easing, Engine, isNotDefined, KeyCode, LookUpStrategy, mpsSpeed, spaceService } from '@/Engine';
+import { ambientContext, defaultMoverServiceConfig, Easing, Engine, isNotDefined, KeyCode, LookUpStrategy, mpsSpeed, spaceService } from '@/Engine';
 import { MoverService } from '@/Engine/Services/MoverService/MoverService';
 
 import spaceConfig from './showcase.json';
@@ -24,7 +24,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     const camera: TCameraWrapper | undefined = cameraService.findActive();
     if (isNotDefined(camera)) throw new Error('Camera is not defined');
 
-    addGizmo(space.services, { placement: 'bottom-left' });
+    addGizmo(space.services, ambientContext.screenSizeWatcher, { placement: 'bottom-left' });
 
     const actorKeyboard: TActor | undefined = findByTag('keyboard');
     const actorMouse: TActor | undefined = findByTag('mouse');

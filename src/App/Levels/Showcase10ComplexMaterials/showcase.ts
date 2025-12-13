@@ -32,7 +32,7 @@ import type {
   TWithThickness,
   TWithTransmission
 } from '@/Engine';
-import { Engine, isDefined, isNotDefined, KeyCode, LookUpStrategy, spaceService, TextType } from '@/Engine';
+import { ambientContext, Engine, isDefined, isNotDefined, KeyCode, LookUpStrategy, spaceService, TextType } from '@/Engine';
 
 import spaceConfig from './showcase.json';
 
@@ -45,7 +45,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
   const engine: TEngine = Engine(space);
   const { keyboardService } = engine.services;
 
-  addGizmo(space.services, { placement: 'bottom-left' });
+  addGizmo(space.services, ambientContext.screenSizeWatcher, { placement: 'bottom-left' });
 
   const { actorService, controlsService } = space.services;
   const actorRegistry: TActorRegistry = actorService.getRegistry();

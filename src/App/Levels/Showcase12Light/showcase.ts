@@ -19,7 +19,7 @@ import type {
   TSpaceConfig,
   TSpotLightWrapper
 } from '@/Engine';
-import { Engine, isNotDefined, spaceService } from '@/Engine';
+import { ambientContext, Engine, isNotDefined, spaceService } from '@/Engine';
 
 import spaceConfig from './showcase.json';
 
@@ -43,7 +43,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     const scene: TSceneWrapper | undefined = scenesService.findActive();
     if (isNotDefined(scene)) throw new Error('Scene not found');
 
-    addGizmo(space.services, { placement: 'bottom-left' });
+    addGizmo(space.services, ambientContext.screenSizeWatcher, { placement: 'bottom-left' });
 
     //directional light
     const directionalLight: TDirectionalLightWrapper | undefined = lightRegistry.findByTag('directional') as TDirectionalLightWrapper | undefined;

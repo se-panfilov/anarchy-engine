@@ -1,7 +1,7 @@
 import type { TShowcase } from '@/App/Levels/Models';
 import { addGizmo } from '@/App/Levels/Utils';
 import type { TActor, TAppCanvas, TEngine, TSpace, TSpaceConfig } from '@/Engine';
-import { Engine, isNotDefined, KeysExtra, spaceService } from '@/Engine';
+import { ambientContext, Engine, isNotDefined, KeysExtra, spaceService } from '@/Engine';
 
 import spaceConfig from './showcase.json';
 
@@ -14,7 +14,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
   function init(): void {
     physicsWorldService.getDebugRenderer(loopService).start();
 
-    addGizmo(space.services, { placement: 'bottom-left' });
+    addGizmo(space.services, ambientContext.screenSizeWatcher, { placement: 'bottom-left' });
 
     const actor: TActor | undefined = actorService.getRegistry().findByName('sphere_4_actor');
     if (isNotDefined(actor)) throw new Error('Non-physical actor not found');

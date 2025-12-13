@@ -26,7 +26,7 @@ import type {
   TText3dWrapper,
   TWithPresetNamePhysicsBodyParams
 } from '@/Engine';
-import { Engine, getDistancePrecisely, getMouseAzimuthAndElevation, getPushCoordsFrom3dAzimuthDeg, isNotDefined, KeysExtra, spaceService, TransformAgent } from '@/Engine';
+import { ambientContext, Engine, getDistancePrecisely, getMouseAzimuthAndElevation, getPushCoordsFrom3dAzimuthDeg, isNotDefined, KeysExtra, spaceService, TransformAgent } from '@/Engine';
 import { meters } from '@/Engine/Measurements/Utils';
 import { getHumanReadableMemorySize } from '@/Engine/Utils/FileUtils';
 
@@ -108,7 +108,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     const renderer: TRendererWrapper | undefined = rendererService.findActive();
     if (isNotDefined(renderer)) throw new Error('Renderer is not defined');
 
-    addGizmo(space.services, { placement: 'bottom-left' });
+    addGizmo(space.services, ambientContext.screenSizeWatcher, { placement: 'bottom-left' });
 
     setParticles(particles);
     grid._debugVisualizeCells(sceneW, '#4e0c85');

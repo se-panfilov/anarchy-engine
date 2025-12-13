@@ -1,7 +1,7 @@
 import type { TShowcase } from '@/App/Levels/Models';
 import { addGizmo } from '@/App/Levels/Utils';
 import type { TAppCanvas, TEngine, TParticlesWrapper, TSpace, TSpaceConfig } from '@/Engine';
-import { Engine, isNotDefined, spaceService } from '@/Engine';
+import { ambientContext, Engine, isNotDefined, spaceService } from '@/Engine';
 
 import spaceConfig from './showcase.json';
 
@@ -15,7 +15,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     const positions: Float32Array = new Float32Array(count * 3);
     const colors: Float32Array = new Float32Array(count * 3);
 
-    addGizmo(space.services, { placement: 'bottom-left' });
+    addGizmo(space.services, ambientContext.screenSizeWatcher, { placement: 'bottom-left' });
 
     // eslint-disable-next-line functional/no-loop-statements
     for (let i: number = 0; i < count * 3; i++) {
