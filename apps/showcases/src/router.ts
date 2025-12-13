@@ -30,7 +30,7 @@ export const routerConfig: Record<string, string> = {
   '/audio': 'Showcase24Audio',
   '/splitscreen': 'Showcase25SplitScreen',
   '/multiple-scenes': 'Showcase26MultipleScenes',
-  '/saves-load': 'Showcases27SaveLoad'
+  '/save-load': 'Showcase27SaveLoad'
 };
 
 export async function route(settings: TAppSettings): Promise<void> {
@@ -43,6 +43,7 @@ export async function route(settings: TAppSettings): Promise<void> {
   let result;
   try {
     result = await import(`./Levels/${routerConfig[levelName]}/index.ts`);
+    console.log(`[Router]: Loading './Levels/${routerConfig[levelName]}/index.ts'`, result);
     result.start(settings);
   } catch (err: any) {
     console.log(`[Router]: Showcase "${levelName}" not found: ` + err);

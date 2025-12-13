@@ -4,6 +4,7 @@ import { setBrowserSafeguards } from '@Engine';
 
 import { runtimeEnv } from '@/env';
 import type { TAppSettings } from '@/Models/TAppSettings';
+import { addNavigationPanel } from '@/Navigation/NavigationPanel';
 import { route } from '@/router';
 
 const settings: TAppSettings = {
@@ -28,5 +29,4 @@ const settings: TAppSettings = {
 
 setBrowserSafeguards(window);
 
-void route(settings);
-window.addEventListener('popstate', () => route(settings));
+void route(settings).then((): void => addNavigationPanel(document.body, () => 123));
