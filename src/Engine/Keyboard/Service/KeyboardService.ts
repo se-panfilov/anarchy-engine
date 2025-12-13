@@ -1,19 +1,19 @@
 import { bindKey, bindKeyCombo, checkKey, checkKeyCombo, unbindKey, unbindKeyCombo } from '@rwh/keystrokes';
 import { Subject } from 'rxjs';
 
-import type { IGameKey, IKeyboardRegistry, IKeyboardRegistryValues, IKeyboardService, IKeySubscription } from '@/Engine/Keyboard/Models';
+import type { IGameKey, IKeyboardRegistry, IKeyboardRegistryValues, IKeyboardService, IKeyCombo, IKeySubscription } from '@/Engine/Keyboard/Models';
 import { KeyboardRegistry } from '@/Engine/Keyboard/Registry';
 import { isNotDefined } from '@/Engine/Utils';
 
 export function KeyboardService(): IKeyboardService {
   const keyboardRegistry: IKeyboardRegistry = KeyboardRegistry();
 
-  function createKeySubscriptions(key: string): IKeySubscription {
+  function createKeySubscriptions(key: IGameKey | IKeyCombo): IKeySubscription {
     const subscriptions: IKeyboardRegistryValues | undefined = keyboardRegistry.getByKey(key);
     if (!subscriptions) {
-      const pressed$: Subject<IGameKey | string> = new Subject();
-      const pressing$: Subject<IGameKey | string> = new Subject();
-      const released$: Subject<IGameKey | string> = new Subject();
+      const pressed$: Subject<IGameKey | IKeyCombo> = new Subject();
+      const pressing$: Subject<IGameKey | IKeyCombo> = new Subject();
+      const released$: Subject<IGameKey | IKeyCombo> = new Subject();
 
       keyboardRegistry.add(key, { pressed$, pressing$, released$ });
       return { pressed$, pressing$, released$ };
@@ -26,12 +26,12 @@ export function KeyboardService(): IKeyboardService {
     return bind(key, false);
   }
 
-  function onKeyCombo(combo: string): IKeySubscription {
+  function onKeyCombo(combo: IKeyCombo): IKeySubscription {
     createKeySubscriptions(combo);
     return bind(combo, true);
   }
 
-  function bind(key: IGameKey | string, isCombo: boolean): IKeySubscription {
+  function bind(key: IGameKey | IKeyCombo, isCombo: boolean): IKeySubscription {
     const subjects: IKeyboardRegistryValues | undefined = keyboardRegistry.getByKey(key);
     if (isNotDefined(subjects)) throw new Error(`Key ${key} is not found in registry`);
     const { pressed$, pressing$, released$ } = subjects;
@@ -53,11 +53,11 @@ export function KeyboardService(): IKeyboardService {
   }
 
   const pauseKeyBinding = (key: IGameKey): void => unbindKey(key);
-  const pauseKeyComboBinding = (combo: string): void => unbindKeyCombo(combo);
+  const pauseKeyComboBinding = (combo: IKeyCombo): void => unbindKeyCombo(combo);
   const resumeKeyBinding = (key: IGameKey): void => void bind(key, false);
-  const resumeKeyComboBinding = (combo: string): void => void bind(combo, true);
+  const resumeKeyComboBinding = (combo: IKeyCombo): void => void bind(combo, true);
 
-  function removeBinding(key: IGameKey | string, isCombo: boolean): void {
+  function removeBinding(key: IGameKey | IKeyCombo, isCombo: boolean): void {
     if (isCombo) {
       unbindKeyCombo(key);
     } else {
@@ -72,11 +72,11 @@ export function KeyboardService(): IKeyboardService {
     keyboardRegistry.remove(key);
   }
 
-  const removeKeyBinding = (key: string): void => removeBinding(key, false);
-  const removeKeyComboBinding = (key: string): void => removeBinding(key, true);
+  const removeKeyBinding = (key: IGameKey): void => removeBinding(key, false);
+  const removeKeyComboBinding = (key: IKeyCombo): void => removeBinding(key, true);
 
-  const isKeyPressed = (key: string): boolean => checkKey(key);
-  const isKeyComboPressed = (key: string): boolean => checkKeyCombo(key);
+  const isKeyPressed = (key: IGameKey): boolean => checkKey(key);
+  const isKeyComboPressed = (key: IKeyCombo): boolean => checkKeyCombo(key);
 
   return {
     onKey,

@@ -1,9 +1,10 @@
 import type { Observable } from 'rxjs';
 
 import type { IGameKey } from './IGameKey';
+import type { IKeyCombo } from './IKeyCombo';
 
 export type IKeySubscription = {
-  pressed$: Observable<IGameKey | string>;
-  pressing$: Observable<IGameKey | string>;
-  released$: Observable<IGameKey | string>;
+  pressed$: Observable<IGameKey | IKeyCombo>;
+  pressing$: Observable<IGameKey | IKeyCombo>;
+  released$: Observable<IGameKey | IKeyCombo>;
 };
