@@ -7,33 +7,31 @@ const GAME_URL = `http://localhost:${process.env.PORT}`;
 
 test.use({ viewport: VIEWPORT, deviceScaleFactor: 1 });
 
-test.beforeEach(async ({ page }) => {
+test.beforeEach(async ({ page }): Promise<void> => {
   await page.goto(GAME_URL + '?e2eName=continuous-move');
   await waitUntilReady('GO_TO_PAGE', page);
 });
 
-test.describe('Space Transform Drive save/load Special tests', () => {
-  test(`Special: Transform Drive continuous move`, async ({ page }) => {
-    //   const sceneName: string = 'SpaceTransformDrive';
-    //
-    //   await page.getByLabel('Spaces').selectOption(sceneName);
-    //
-    //   await waitUntilReady('WAIT_PAGE_LOAD', page);
-    //
-    //   await page.getByRole('button', { name: 'Change' }).click();
-    //   await waitUntilReady('CLICKED_CHANGE', page);
-    //
-    //   await page.getByRole('button', { name: 'Save' }).click();
-    //   await waitUntilReady('CLICKED_SAVE', page);
-    //   await page.getByRole('button', { name: 'Drop' }).click();
-    //   await page.getByRole('button', { name: 'Load' }).click();
-    //   await waitUntilReady('CLICKED_LOAD', page);
-    //   await page.getByRole('button', { name: 'Change' }).click();
-    //   await waitUntilReady('CLICKED_Change_2', page);
-    //
-    //   await expect(page).toHaveScreenshot(`${sceneName}-4-td-continuous-move-compare-changed.png`);
-    // TODO debug
-    expect(1).toBe(1);
+test.describe('Space Transform Drive save/load Special tests', (): void => {
+  test(`Special: Transform Drive continuous move`, async ({ page }): Promise<void> => {
+    const sceneName: string = 'SpaceTransformDrive';
+
+    await page.getByLabel('Spaces').selectOption(sceneName);
+
+    await waitUntilReady('WAIT_PAGE_LOAD', page);
+
+    await page.getByRole('button', { name: 'Change' }).click();
+    await waitUntilReady('CLICKED_CHANGE', page);
+
+    await page.getByRole('button', { name: 'Save' }).click();
+    await waitUntilReady('CLICKED_SAVE', page);
+    await page.getByRole('button', { name: 'Drop' }).click();
+    await page.getByRole('button', { name: 'Load' }).click();
+    await waitUntilReady('CLICKED_LOAD', page);
+    await page.getByRole('button', { name: 'Change' }).click();
+    await waitUntilReady('CLICKED_Change_2', page);
+
+    await expect(page).toHaveScreenshot(`${sceneName}-4-td-continuous-move-compare-changed.png`);
   });
 });
 
