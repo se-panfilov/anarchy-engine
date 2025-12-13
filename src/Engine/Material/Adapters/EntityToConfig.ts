@@ -17,7 +17,7 @@ import { getOptionName } from '@/Engine/Material/Utils';
 import { extractSerializableRegistrableFields } from '@/Engine/Mixins';
 import type { TTexture, TTextureAsyncRegistry } from '@/Engine/Texture';
 import type { TOptional } from '@/Engine/Utils';
-import { eulerToXyz, filterOutEmptyFields, isNotDefined, nullsToUndefined } from '@/Engine/Utils';
+import { eulerToXyz, filterOutEmptyFields, isNotDefined, nullsToUndefined, vector2ToXy } from '@/Engine/Utils';
 
 // TODO 15-0-0: validate
 export function materialToConfig(entity: TMaterialWrapper, { textureResourceRegistry }: TMaterialEntityToConfigDependencies): TMaterialConfig {
@@ -73,7 +73,7 @@ function getMaterialOptions({ entity }: TMaterialWrapper): TOptional<TMaterialCo
       ior: (entity as any).ior,
       metalness: (entity as any).metalness,
       normalMapType: getOptionName((entity as any).normalMapType, NormalMapTypesMap, 'normalMapType'),
-      normalScale: (entity as any).normalScale,
+      normalScale: (entity as any).normalScale ? vector2ToXy((entity as any).normalScale) : undefined,
       opacity: entity.opacity,
       polygonOffset: entity.polygonOffset,
       polygonOffsetFactor: entity.polygonOffsetFactor,
