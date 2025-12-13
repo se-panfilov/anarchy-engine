@@ -23,6 +23,7 @@ const scenes: ReadonlyArray<string> = [
   'SpaceLight',
   'SpaceMaterials',
   'SpaceOrbitControls',
+  'SpaceParticles',
   'SpaceTexts',
   'SpaceTransformDrive'
 ];

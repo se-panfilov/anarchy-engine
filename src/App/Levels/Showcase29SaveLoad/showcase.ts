@@ -12,6 +12,7 @@ import { spaceFpsControlsData } from '@/App/Levels/Showcase29SaveLoad/spaceFpsCo
 import { spaceLightData } from '@/App/Levels/Showcase29SaveLoad/spaceLight/spaceLight';
 import { spaceMaterialsData } from '@/App/Levels/Showcase29SaveLoad/spaceMaterials';
 import { spaceOrbitControlsData } from '@/App/Levels/Showcase29SaveLoad/spaceOrbitControls';
+import { spaceParticlesData } from '@/App/Levels/Showcase29SaveLoad/spaceParticles';
 import { spaceTextData } from '@/App/Levels/Showcase29SaveLoad/spaceTexts';
 import { spaceTransformDriveData } from '@/App/Levels/Showcase29SaveLoad/spaceTransformDrive';
 import { addBtn, addDropdown } from '@/App/Levels/Utils';
@@ -23,10 +24,10 @@ import { createContainersDivs, setContainerVisibility } from './utils';
 
 let subscriptions: Record<string, Subscription> = {};
 
-// TODO 15-0-0: E2E: Physics
 // TODO 15-0-0: E2E: Particles
-// TODO 15-0-0: E2E: Audio3d (with debug renderer)
 // TODO 15-0-0: E2E: Fog
+// TODO 15-0-0: E2E: Audio3d (with debug renderer)
+// TODO 15-0-0: E2E: Physics
 // TODO 15-0-0: E2E: Spatial
 // TODO 15-0-0: E2E: Intersections
 // TODO 15-0-0: E2E: Complex scene (similar to Showcase22PhysicsShooter)
@@ -43,12 +44,13 @@ const spacesData: ReadonlyArray<TSpacesData> = [
   spaceLightData,
   spaceMaterialsData,
   spaceOrbitControlsData,
+  spaceParticlesData,
   spaceTextData,
   spaceTransformDriveData
 ];
 
 // const initialSpaceDataName: string = spaceBasicData.name;
-const initialSpaceDataName: string = spaceTransformDriveData.name;
+const initialSpaceDataName: string = spaceParticlesData.name;
 
 const spacesInMemoryData: Array<TSpacesData> = [];
 
