@@ -1,6 +1,6 @@
 import { nanoid } from 'nanoid';
 import type { BehaviorSubject, Observable, Subscription } from 'rxjs';
-import { distinctUntilChanged, sample, tap } from 'rxjs';
+import { distinctUntilChanged, filter, sample, tap } from 'rxjs';
 import type { Vector3, Vector3Like } from 'three';
 
 import { AbstractEntity, EntityType } from '@/Engine/Abstract';
@@ -37,14 +37,13 @@ export function Actor(params: TActorParams, { spatialGridService, physicsBodySer
     ...withCollisions(params, collisionsService, loopService.getCollisionsLoop()),
     ...withUpdateSpatialCell()
   };
-
   const actor: TActor = AbstractEntity(entities, EntityType.Actor, { ...params, id });
 
   const spatialLoop: TSpatialLoop = loopService.getSpatialLoop();
-  const positionChangeSub$: Subscription = spatialPositionUpdate(spatialLoop, drive.position$, params.spatial.performance?.noiseThreshold ?? 0.000001).subscribe((position: TReadonlyVector3): void => {
-    if (entities.spatial.getSpatialUpdatePriority() < spatialLoop.priority$.value) return;
-    actor.updateSpatialCells(position);
-  });
+
+  const positionChangeSub$: Subscription = spatialPositionUpdate(spatialLoop, drive.position$, params.spatial.performance?.noiseThreshold ?? 0.000001)
+    .pipe(filter((): boolean => spatialLoop.shouldUpdateWithPriority(entities.spatial.getSpatialUpdatePriority())))
+    .subscribe((position: TReadonlyVector3): void => actor.updateSpatialCells(position));
 
   actor.destroy$.subscribe((): void => {
     //Remove model3d registration

@@ -1,5 +1,5 @@
 import type { Observable, Subscription } from 'rxjs';
-import { BehaviorSubject, EMPTY, filter, Subject, switchMap, withLatestFrom } from 'rxjs';
+import { BehaviorSubject, EMPTY, filter, Subject, switchMap } from 'rxjs';
 
 import type { TActor, TActorParams } from '@/Engine/Actor';
 import type { TCollisionCheckResult, TCollisionsData, TCollisionsLoop, TCollisionsService, TWithCollisions } from '@/Engine/Collisions/Models';
@@ -51,10 +51,9 @@ export function withCollisions(params: TActorParams, collisionsService: TCollisi
         collisionsLoopSub$ = autoUpdate$
           .pipe(
             switchMap((isAutoUpdate: boolean): Subject<TMilliseconds> | Observable<never> => (isAutoUpdate ? collisionsLoop.tick$ : EMPTY)),
-            withLatestFrom(collisionsLoop.priority$),
-            filter(([, priority]: [TMilliseconds, LoopUpdatePriority]): boolean => priority >= this.getCollisionsUpdatePriority())
+            filter((): boolean => collisionsLoop.shouldUpdateWithPriority(this.getCollisionsUpdatePriority()))
           )
-          .subscribe(([delta]: [TMilliseconds, LoopUpdatePriority]): void => {
+          .subscribe((delta: TMilliseconds): void => {
             // TODO should be possible to check collisions against another grid
             const collision: TCollisionCheckResult | undefined = collisionsService.checkCollisions(actor, getActorsToCheck(actor), collisionsInterpolationLengthMultiplier, delta);
             if (isDefined(collision)) value$.next(collision);
