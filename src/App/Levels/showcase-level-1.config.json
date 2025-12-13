@@ -1,8 +1,8 @@
 {
-  "name": "Test level 01",
+  "name": "Showcase level 01",
   "scenes": [
     {
-      "name": "Test scene 01",
+      "name": "Showcase Scene 01",
       "tags": ["current"]
     }
   ],

@@ -1,6 +1,6 @@
 import '@App/style.css';
 
-import levelConfig from '@App/Levels/debug-level.config.json';
+import levelConfig from '@App/Levels/showcase-level-1.config.json';
 import type { IIntersectionsWatcher } from '@Engine/Domains/Intersections';
 import { IntersectionsWatcherFactory } from '@Engine/Domains/Intersections';
 
