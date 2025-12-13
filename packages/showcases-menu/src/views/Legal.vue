@@ -15,7 +15,7 @@ const { DISCLAIMER, EULA, NOTICE, SUPPORT, PRIVACY, SECURITY, THIRD_PARTY_LICENS
 const legalDocsStore = useLegalDocsStore();
 const settingsStore = useSettingsStore();
 
-// TODO DESKTOP: LEGAL: change legal folders to /legal/{locale} (also public/legal/{locale}, assets/legal/{locale})
+// TODO LEGAL: change legal folders to /legal/{locale} (also public/legal/{locale}, assets/legal/{locale})
 onMounted(() => {
   const locale = settingsStore.localization.locale.id as TShowcaseLocaleIds;
 
