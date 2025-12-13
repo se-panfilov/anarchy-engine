@@ -22,7 +22,6 @@ import type {
   TTextAnyWrapper
 } from '@Engine';
 import {
-  asRecord,
   CollisionShape,
   ControlsType,
   degrees,
@@ -32,7 +31,6 @@ import {
   getHorizontalAzimuth,
   getMouseAzimuthAndElevation,
   getPushCoordsFrom3dAzimuth,
-  isNotDefined,
   isOrbitControls,
   KeysExtra,
   meters,
@@ -43,6 +41,7 @@ import {
   TextType,
   TransformAgent
 } from '@Engine';
+import { asRecord, isNotDefined } from '@Shared/Utils';
 import GUI from 'lil-gui';
 import { BehaviorSubject, combineLatest, map, withLatestFrom } from 'rxjs';
 import { Euler, Quaternion, Vector3 } from 'three';
