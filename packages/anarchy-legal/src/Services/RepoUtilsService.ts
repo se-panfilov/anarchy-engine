@@ -70,7 +70,7 @@ export function RepoUtilsService(isDebug: boolean): TRepoUtilsService {
     if (!wsField) {
       throw new Error(`"workspaces" not found in root package.json at ${rootPkgPath}`);
     }
-    const patterns: ReadonlyArray<string> = Array.isArray(wsField) ? wsField : (wsField.packages ?? []);
+    const patterns: ReadonlyArray<string> = Array.isArray(wsField) ? wsField : ((wsField as any).packages ?? []);
     if (patterns.length === 0) {
       throw new Error(`"workspaces" has no packages in ${rootPkgPath}`);
     }

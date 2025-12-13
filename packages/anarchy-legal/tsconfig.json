@@ -3,7 +3,8 @@
   "compilerOptions": {
     "noEmit": false,
     "outDir": "./dist",
-    "moduleResolution": "Bundler"
+    "moduleResolution": "Bundler",
+    "allowImportingTsExtensions": true
   },
   "include": ["src", "types"]
 }
