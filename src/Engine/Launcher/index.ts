@@ -1,7 +1,6 @@
 import type { ActorConfig, CameraConfig, LightConfig, SceneConfig } from '@Engine/Launcher/Models';
 import type { ActorParams, LightParams } from '@Engine/Models';
-import { CameraFactory, LightFactory, RendererFactory, SceneFactory } from '@Engine/Factories';
-import { ActorFactory } from '@Engine/Factories/ActorFactory';
+import { ActorFactory, CameraFactory, LightFactory, RendererFactory, SceneFactory } from '@Engine/Factories';
 import { createDeferredPromise, isNotDefined } from '@Engine/Utils';
 import { actorAdapter, lightAdapter } from '@Engine/Launcher/ConfigToParamAdapters';
 import { combineLatest } from 'rxjs';

@@ -1,4 +1,4 @@
-import { AbstractFactory } from '@Engine/Factories/AbstractFactory';
+import { AbstractFactory } from './AbstractFactory';
 import { LightWrapper } from '@Engine/Wrappers';
 import type { Factory, LightParams } from '@Engine/Models';
 

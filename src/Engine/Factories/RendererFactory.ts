@@ -1,4 +1,4 @@
-import { AbstractFactory } from '@Engine/Factories/AbstractFactory';
+import { AbstractFactory } from './AbstractFactory';
 import { RendererWrapper } from '@Engine/Wrappers';
 import type { Factory, RendererParams } from '@Engine/Models';
 

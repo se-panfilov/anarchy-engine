@@ -1,4 +1,4 @@
-export * from './ActorFactory';
+export * from './AbstractFactory';
 export * from './ActorFactory';
 export * from './CameraFactory';
 export * from './ControlsFactory';

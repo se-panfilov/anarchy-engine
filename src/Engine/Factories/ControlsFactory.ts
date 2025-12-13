@@ -1,5 +1,5 @@
 import { ControlsWrapper } from '@Engine/Wrappers';
-import { AbstractFactory } from '@Engine/Factories/AbstractFactory';
+import { AbstractFactory } from './AbstractFactory';
 import type { ControlsParams, Factory } from '@Engine/Models';
 
 const create = (params: ControlsParams): ReturnType<typeof ControlsWrapper> => ControlsWrapper(params);

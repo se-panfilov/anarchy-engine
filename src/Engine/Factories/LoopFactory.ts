@@ -1,4 +1,4 @@
-import { AbstractFactory } from '@Engine/Factories/AbstractFactory';
+import { AbstractFactory } from './AbstractFactory';
 import { LoopWrapper } from '@Engine/Wrappers';
 import type { Factory, LoopParams } from '@Engine/Models';
 

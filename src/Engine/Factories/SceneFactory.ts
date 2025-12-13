@@ -1,4 +1,4 @@
-import { AbstractFactory } from '@Engine/Factories/AbstractFactory';
+import { AbstractFactory } from './AbstractFactory';
 import { SceneWrapper } from '@Engine/Wrappers';
 import type { Factory, SceneParams } from '@Engine/Models';
 
