@@ -50,6 +50,9 @@ export function CameraService(factory: ICameraFactory, registry: ICameraRegistry
     setActiveCamera,
     findActiveCamera,
     startUpdatingCamerasAspect,
+    getFactory: (): ICameraFactory => factory,
+    getRegistry: (): ICameraRegistry => registry,
+    getScene: (): ISceneWrapper => scene,
     ...destroyable
   };
 }

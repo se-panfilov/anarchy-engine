@@ -21,6 +21,8 @@ export function RendererService(factory: IRendererFactory, registry: IRendererRe
     create,
     setActiveRenderer,
     findActiveRenderer,
+    getFactory: (): IRendererFactory => factory,
+    getRegistry: (): IRendererRegistry => registry,
     ...destroyable
   };
 }

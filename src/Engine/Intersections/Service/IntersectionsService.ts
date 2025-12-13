@@ -37,6 +37,8 @@ export function IntersectionsService(factory: IIntersectionsWatcherFactory, regi
     buildWatcher,
     addActorsToWatcher,
     start,
+    getFactory: (): IIntersectionsWatcherFactory => factory,
+    getRegistry: (): IIntersectionsWatcherRegistry => registry,
     ...destroyable
   };
 }

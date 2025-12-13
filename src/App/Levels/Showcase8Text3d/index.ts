@@ -1,15 +1,16 @@
 import './fonts.css';
 
 import type { IShowcase } from '@/App/Levels/Models';
-import type { IAnimationParams, IAppCanvas, ISpace, ISpaceConfig, IText3dWrapper, IWithCoordsXZ } from '@/Engine';
-import { buildSpaceFromConfig, createCirclePathXZ, Easing, EulerWrapper, generateAnglesForCircle, mouseService, standardMoverService, TextType, Vector3Wrapper } from '@/Engine';
+import { defaultMoverServiceConfig, IAnimationParams, IAppCanvas, IMoverService, ISpace, ISpaceConfig, IText3dWrapper, IWithCoordsXZ } from '@/Engine';
+import { buildSpaceFromConfig, createCirclePathXZ, Easing, EulerWrapper, generateAnglesForCircle, mouseService, TextType, Vector3Wrapper } from '@/Engine';
 
 import spaceConfig from './showcase-8-text-3d.config.json';
+import { MoverService } from '@/Engine/Services/MoverService/MoverService';
 
 //Showcase 8: Text 3d
 export function showcase(canvas: IAppCanvas): IShowcase {
   const space: ISpace = buildSpaceFromConfig(canvas, spaceConfig as ISpaceConfig);
-  const { textService } = space.services;
+  const { textService, loopService } = space.services;
 
   textService.create({
     type: TextType.Text3d,
@@ -77,10 +78,12 @@ export function showcase(canvas: IAppCanvas): IShowcase {
     loop: true
   };
 
+  const moverService: IMoverService = MoverService(loopService, defaultMoverServiceConfig);
+
   mouseService.clickLeftRelease$.subscribe(() => {
-    void standardMoverService.goByPath(floatingText, circlePathXZ, { ...animationParams, easing: Easing.Linear });
+    void moverService.goByPath(floatingText, circlePathXZ, { ...animationParams, easing: Easing.Linear });
     setTimeout(() => {
-      void standardMoverService.goByPath(floatingText2, circlePathXZ2, { ...animationParams, easing: Easing.Linear });
+      void moverService.goByPath(floatingText2, circlePathXZ2, { ...animationParams, easing: Easing.Linear });
     }, 1000);
   });
 

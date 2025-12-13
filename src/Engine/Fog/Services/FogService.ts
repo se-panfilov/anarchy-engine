@@ -16,5 +16,12 @@ export function FogService(factory: IFogFactory, registry: IFogRegistry, scene: 
     registry.destroy();
   });
 
-  return { create, createFromConfig, ...destroyable };
+  return {
+    create,
+    createFromConfig,
+    getFactory: (): IFogFactory => factory,
+    getRegistry: (): IFogRegistry => registry,
+    getScene: (): ISceneWrapper => scene,
+    ...destroyable
+  };
 }

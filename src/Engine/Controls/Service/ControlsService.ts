@@ -30,6 +30,8 @@ export function ControlService(factory: IControlsFactory, registry: IControlsReg
     createFromConfig,
     setActiveControls,
     findActiveControls,
+    getFactory: (): IControlsFactory => factory,
+    getRegistry: (): IControlsRegistry => registry,
     ...destroyable
   };
 }

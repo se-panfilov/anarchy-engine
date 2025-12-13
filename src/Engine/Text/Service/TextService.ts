@@ -26,6 +26,9 @@ export function TextService(factory: ITextFactory, text2dRegistry: IText2dRegist
   return {
     create,
     createFromConfig,
+    getFactory: (): ITextFactory => factory,
+    getScene: (): ISceneWrapper => scene,
+    getRegistries: () => ({ text2dRegistry, text3dRegistry }),
     ...destroyable
   };
 }

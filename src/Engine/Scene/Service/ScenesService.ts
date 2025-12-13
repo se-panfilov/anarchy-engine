@@ -23,6 +23,8 @@ export function ScenesService(factory: ISceneFactory, registry: ISceneRegistry):
     createFromConfig,
     setActiveScene,
     findActiveScene,
+    getFactory: (): ISceneFactory => factory,
+    getRegistry: (): ISceneRegistry => registry,
     ...destroyable
   };
 }

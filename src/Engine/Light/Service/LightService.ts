@@ -19,6 +19,9 @@ export function LightService(factory: ILightFactory, registry: ILightRegistry, s
   return {
     create,
     createFromConfig,
+    getFactory: (): ILightFactory => factory,
+    getRegistry: (): ILightRegistry => registry,
+    getScene: (): ISceneWrapper => scene,
     ...destroyable
   };
 }

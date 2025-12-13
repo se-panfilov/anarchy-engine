@@ -2,7 +2,7 @@ import { filter } from 'rxjs';
 
 import type { IShowcase } from '@/App/Levels/Models';
 import type { IActorWrapperAsync, IAppCanvas, ICameraWrapper, IIntersectionEvent, IIntersectionsWatcher, ISpace, ISpaceConfig } from '@/Engine';
-import { buildSpaceFromConfig, isNotDefined, mouseService, standardLoopService } from '@/Engine';
+import { buildSpaceFromConfig, isNotDefined, mouseService } from '@/Engine';
 
 import spaceConfig from './showcase-1-moving-actors.config.json';
 
@@ -10,13 +10,13 @@ import spaceConfig from './showcase-1-moving-actors.config.json';
 export function showcase(canvas: IAppCanvas): IShowcase {
   const space: ISpace = buildSpaceFromConfig(canvas, spaceConfig as ISpaceConfig);
   const { actorRegistry } = space.registries;
-  const { cameraService, intersectionsService } = space.services;
+  const { cameraService, intersectionsService, loopService } = space.services;
 
   async function init(): Promise<void> {
     const actor: IActorWrapperAsync = await actorRegistry.findByTagAsync('intersectable');
     actor.setY(2);
 
-    standardLoopService.tick$.subscribe(({ elapsedTime }) => {
+    loopService.tick$.subscribe(({ elapsedTime }) => {
       actor.setX(Math.sin(elapsedTime) * 8);
       actor.setZ(Math.cos(elapsedTime) * 8);
     });

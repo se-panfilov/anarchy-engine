@@ -1,8 +1,9 @@
 import type { IShowcase } from '@/App/Levels/Models';
-import type { IActorParams, IActorWrapperAsync, IAppCanvas, ISpace, ISpaceConfig } from '@/Engine';
-import { ActorType, buildSpaceFromConfig, EulerWrapper, forEachEnum, LookUpStrategy, MaterialType, mouseService, TextType, Vector3Wrapper } from '@/Engine';
+import type { IActorParams, IActorWrapperAsync, IAppCanvas, IMoverService, ISpace, ISpaceConfig } from '@/Engine';
+import { ActorType, buildSpaceFromConfig, defaultMoverServiceConfig, EulerWrapper, forEachEnum, LookUpStrategy, MaterialType, mouseService, TextType, Vector3Wrapper } from '@/Engine';
 import type { IAnimationParams } from '@/Engine/Services';
-import { Easing, standardMoverService } from '@/Engine/Services';
+import { Easing } from '@/Engine/Services';
+import { MoverService } from '@/Engine/Services/MoverService/MoverService';
 
 import spaceConfig from './showcase-4-animejs-simple.config.json';
 
@@ -13,7 +14,7 @@ export function showcase(canvas: IAppCanvas): IShowcase {
   function start(): void {
     space.start();
     const { actorRegistry } = space.registries;
-    const { actorService, textService } = space.services;
+    const { actorService, textService, loopService } = space.services;
 
     let isClickBlocked: boolean = false;
 
@@ -64,9 +65,11 @@ export function showcase(canvas: IAppCanvas): IShowcase {
       console.log('click is ready', !isClickBlocked);
       isClickBlocked = true;
 
+      const moverService: IMoverService = MoverService(loopService, defaultMoverServiceConfig);
+
       actorRegistry.findAllByTags([boxActorTag], LookUpStrategy.Some).forEach((actor: IActorWrapperAsync) => {
         const easing = actor.getTags()[1] as Easing;
-        void standardMoverService.goToPosition(actor, { x: 20 }, { ...animationParams, easing });
+        void moverService.goToPosition(actor, { x: 20 }, { ...animationParams, easing });
       });
     });
   }

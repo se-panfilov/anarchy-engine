@@ -1,6 +1,6 @@
 import type { IShowcase } from '@/App/Levels/Models';
 import type { IActorWrapperAsync, IAppCanvas, ISpace, ISpaceConfig } from '@/Engine';
-import { buildSpaceFromConfig, mouseService, screenService, standardLoopService } from '@/Engine';
+import { buildSpaceFromConfig, mouseService, screenService } from '@/Engine';
 
 import spaceConfig from './showcase-7-fullscreen.config.json';
 
@@ -8,6 +8,7 @@ import spaceConfig from './showcase-7-fullscreen.config.json';
 export function showcase(canvas: IAppCanvas): IShowcase {
   const space: ISpace = buildSpaceFromConfig(canvas, spaceConfig as ISpaceConfig);
   const { actorRegistry } = space.registries;
+  const { loopService } = space.services;
 
   async function init(): Promise<void> {
     const actor: IActorWrapperAsync = await actorRegistry.findByTagAsync('sphere');
@@ -17,7 +18,7 @@ export function showcase(canvas: IAppCanvas): IShowcase {
       void screenService.toggleFullScreen();
     });
 
-    standardLoopService.tick$.subscribe(({ elapsedTime }) => {
+    loopService.tick$.subscribe(({ elapsedTime }) => {
       actor.setX(Math.sin(elapsedTime) * 8);
       actor.setZ(Math.cos(elapsedTime) * 8);
     });

@@ -1,6 +1,7 @@
 import type { IShowcase } from '@/App/Levels/Models';
-import type { IActorWrapperAsync, IAnimationParams, IAppCanvas, ISpace, ISpaceConfig, IText2dWrapper, ITextAnyWrapper, IWithCoordsXZ } from '@/Engine';
-import { buildSpaceFromConfig, createCirclePathXZ, Easing, EulerWrapper, generateAnglesForCircle, isNotDefined, mouseService, standardMoverService, TextType, Vector3Wrapper } from '@/Engine';
+import type { IActorWrapperAsync, IAnimationParams, IAppCanvas, IMoverService, ISpace, ISpaceConfig, IText2dWrapper, ITextAnyWrapper, IWithCoordsXZ } from '@/Engine';
+import { buildSpaceFromConfig, createCirclePathXZ, defaultMoverServiceConfig, Easing, EulerWrapper, generateAnglesForCircle, isNotDefined, mouseService, TextType, Vector3Wrapper } from '@/Engine';
+import { MoverService } from '@/Engine/Services/MoverService/MoverService';
 
 import spaceConfig from './showcase-5-animejs-complex.config.json';
 
@@ -11,7 +12,7 @@ export function showcase(canvas: IAppCanvas): IShowcase {
   async function init(): Promise<void> {
     const { actorRegistry, cameraRegistry, controlsRegistry, text2dRegistry } = space.registries;
     const { textFactory } = space.factories;
-    const { textService } = space.services;
+    const { textService, loopService } = space.services;
 
     controlsRegistry.getAll()[0]?.entity.target.set(6, 0, 0);
     cameraRegistry.getAll()[0]?.setPosition(Vector3Wrapper({ x: 6, y: 30, z: 0 }));
@@ -49,12 +50,14 @@ export function showcase(canvas: IAppCanvas): IShowcase {
       blue: undefined
     };
 
+    const moverService: IMoverService = MoverService(loopService, defaultMoverServiceConfig);
+
     function follow(): void {
       if (isNotDefined(redText) || isNotDefined(blueText) || isNotDefined(greenText)) throw new Error('Texts are not defined');
       if (isNotDefined(redActor) || isNotDefined(blueActor) || isNotDefined(greenActor)) throw new Error('Actors are not defined');
-      followersCb = { ...followersCb, red: standardMoverService.followTarget(redText, redActor, { x: 1 }) };
-      followersCb = { ...followersCb, blue: standardMoverService.followTarget(blueText, blueActor, { x: 1 }) };
-      followersCb = { ...followersCb, green: standardMoverService.followTarget(greenText, greenActor, { x: 1 }) };
+      followersCb = { ...followersCb, red: moverService.followTarget(redText, redActor, { x: 1 }) };
+      followersCb = { ...followersCb, blue: moverService.followTarget(blueText, blueActor, { x: 1 }) };
+      followersCb = { ...followersCb, green: moverService.followTarget(greenText, greenActor, { x: 1 }) };
     }
 
     function stopFollowing(): void {
@@ -86,9 +89,9 @@ export function showcase(canvas: IAppCanvas): IShowcase {
       follow();
 
       void Promise.all([
-        standardMoverService.goByPath(redActor, redPath, { ...animationParams, easing: Easing.Linear }).then(() => console.log('red done')),
-        standardMoverService.goByPath(greenActor, greenPath, { ...animationParams, easing: Easing.EaseInCirc }).then(() => console.log('green done')),
-        standardMoverService.goByPath(blueActor, bluePath, { ...animationParams, easing: Easing.EaseInBack }).then(() => console.log('blue done'))
+        moverService.goByPath(redActor, redPath, { ...animationParams, easing: Easing.Linear }).then(() => console.log('red done')),
+        moverService.goByPath(greenActor, greenPath, { ...animationParams, easing: Easing.EaseInCirc }).then(() => console.log('green done')),
+        moverService.goByPath(blueActor, bluePath, { ...animationParams, easing: Easing.EaseInBack }).then(() => console.log('blue done'))
       ]).then(() => {
         isClickBlocked = false;
         stopFollowing();

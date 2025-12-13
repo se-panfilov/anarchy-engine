@@ -17,8 +17,8 @@ import type { IIntersectionsService, IIntersectionsWatcherFactory, IIntersection
 import { IntersectionsService, IntersectionsWatcherFactory, IntersectionsWatcherRegistry } from '@/Engine/Intersections';
 import type { ILightFactory, ILightRegistry, ILightService } from '@/Engine/Light';
 import { LightFactory, LightRegistry, LightService } from '@/Engine/Light';
-import type { ILoopTimes } from '@/Engine/Loop';
-import { standardLoopService } from '@/Engine/Loop';
+import type { ILoopService, ILoopTimes } from '@/Engine/Loop';
+import { LoopService } from '@/Engine/Loop';
 import type { IDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
 import { withTags } from '@/Engine/Mixins/Generic';
@@ -28,7 +28,7 @@ import type { ISceneFactory, ISceneRegistry, IScenesService, ISceneWrapper } fro
 import { SceneFactory, SceneRegistry, ScenesService } from '@/Engine/Scene';
 import { screenService } from '@/Engine/Services';
 import { withBuiltMixin } from '@/Engine/Space/Mixin';
-import type { ISpace, ISpaceConfig, ISpaceFactories, ISpaceRegistries, ISpaceRenderer, ISpaceServices, IWithBuilt } from '@/Engine/Space/Models';
+import type { ISpace, ISpaceConfig, ISpaceServices, IWithBuilt } from '@/Engine/Space/Models';
 import { getBoolValue } from '@/Engine/Space/SpaceHelper';
 import type { IText2dRegistry, IText2dRenderer, IText3dRegistry, IText3dRenderer, ITextFactory, ITextService } from '@/Engine/Text';
 import { initText2dRenderer, initText3dRenderer, Text2dRegistry, Text3dRegistry, TextFactory, TextService } from '@/Engine/Text';
@@ -40,6 +40,7 @@ export function buildSpaceFromConfig(canvas: IAppCanvas, config: ISpaceConfig): 
     console.error(errors);
     throw new Error('Failed to launch a space: invalid data format');
   }
+
   const { initSpace, name, actors, cameras, lights, fogs, texts, controls, scenes, tags } = config;
   const messages$: ReplaySubject<string> = new ReplaySubject<string>();
 
@@ -58,10 +59,17 @@ export function buildSpaceFromConfig(canvas: IAppCanvas, config: ISpaceConfig): 
   screenService.setCanvas(canvas);
 
   let scene: ISceneWrapper | undefined = undefined;
-  let factories: ISpaceFactories = {};
-  let registries: ISpaceRegistries = {};
   let services: ISpaceServices = {};
-  let renderers: ISpaceRenderer = {};
+
+  let cameraRegistry: ICameraRegistry | undefined;
+  let rendererRegistry: IRendererRegistry | undefined;
+  let controlsRegistry: IControlsRegistry | undefined;
+  let text2dRegistry: IText2dRegistry | undefined;
+  let text3dRegistry: IText3dRegistry | undefined;
+
+  let text2dRenderer: IText2dRenderer | undefined;
+  let text3dRenderer: IText3dRenderer | undefined;
+  let renderer: IRendererWrapper | undefined;
 
   //build scenes
   if (isScenesInit) {
@@ -75,8 +83,6 @@ export function buildSpaceFromConfig(canvas: IAppCanvas, config: ISpaceConfig): 
     scene = scenesService.findActiveScene();
     if (isNotDefined(scene)) throw new Error(`Cannot find the current scene for space "${name}" during the space building.`);
 
-    factories = { ...factories, sceneFactory };
-    registries = { ...registries, sceneRegistry };
     services = { ...services, scenesService };
   }
 
@@ -90,8 +96,6 @@ export function buildSpaceFromConfig(canvas: IAppCanvas, config: ISpaceConfig): 
 
     actorService.createFromConfig(actors);
 
-    factories = { ...factories, actorFactory };
-    registries = { ...registries, actorRegistry };
     services = { ...services, actorService };
     messages$.next(`Actors (${actors.length}) created (async))`);
   }
@@ -102,18 +106,15 @@ export function buildSpaceFromConfig(canvas: IAppCanvas, config: ISpaceConfig): 
 
     const textFactory: ITextFactory = TextFactory();
 
-    const text2dRenderer: IText2dRenderer = initText2dRenderer(ambientContext.container.getAppContainer(), ambientContext.screenSizeWatcher);
-    const text3dRenderer: IText3dRenderer = initText3dRenderer(ambientContext.container.getAppContainer(), ambientContext.screenSizeWatcher);
+    text2dRenderer = initText2dRenderer(ambientContext.container.getAppContainer(), ambientContext.screenSizeWatcher);
+    text3dRenderer = initText3dRenderer(ambientContext.container.getAppContainer(), ambientContext.screenSizeWatcher);
 
-    const text2dRegistry: IText2dRegistry = Text2dRegistry();
-    const text3dRegistry: IText3dRegistry = Text3dRegistry();
+    text2dRegistry = Text2dRegistry();
+    text3dRegistry = Text3dRegistry();
 
     const textService: ITextService = TextService(textFactory, text2dRegistry, text3dRegistry, scene);
 
-    factories = { ...factories, textFactory };
-    registries = { ...registries, text2dRegistry, text3dRegistry };
     services = { ...services, textService };
-    renderers = { ...renderers, text2dRenderer, text3dRenderer };
 
     messages$.next(`Texts (${texts.length}) created`);
   }
@@ -122,13 +123,11 @@ export function buildSpaceFromConfig(canvas: IAppCanvas, config: ISpaceConfig): 
   if (isCamerasInit) {
     if (isNotDefined(scene)) throw new Error('Scene should be initialized for cameras initialization');
     const cameraFactory: ICameraFactory = CameraFactory();
-    const cameraRegistry: ICameraRegistry = CameraRegistry();
+    cameraRegistry = CameraRegistry();
     const cameraService: ICameraService = CameraService(cameraFactory, cameraRegistry, scene);
 
     cameraService.createFromConfig(cameras);
 
-    factories = { ...factories, cameraFactory };
-    registries = { ...registries, cameraRegistry };
     services = { ...services, cameraService };
 
     messages$.next(`Cameras (${cameras.length}) created`);
@@ -137,16 +136,14 @@ export function buildSpaceFromConfig(canvas: IAppCanvas, config: ISpaceConfig): 
   //build controls
   if (isControlsInit) {
     if (isNotDefined(isCamerasInit)) throw new Error('Camera initialization should be "true" for controls initialization');
-    if (isNotDefined(registries.cameraRegistry)) throw new Error('Cannot find camera registry for controls initialization');
+    if (isNotDefined(cameraRegistry)) throw new Error('Cannot find camera registry for controls initialization');
 
     const controlsFactory: IControlsFactory = ControlsFactory();
-    const controlsRegistry: IControlsRegistry = ControlsRegistry();
-    const controlsService: IControlsService = ControlService(controlsFactory, controlsRegistry, registries.cameraRegistry, canvas);
+    controlsRegistry = ControlsRegistry();
+    const controlsService: IControlsService = ControlService(controlsFactory, controlsRegistry, cameraRegistry, canvas);
 
     controlsService.createFromConfig(controls);
 
-    factories = { ...factories, controlsFactory };
-    registries = { ...registries, controlsRegistry };
     services = { ...services, controlsService };
     messages$.next(`Controls (${controls.length}) created`);
   }
@@ -161,15 +158,13 @@ export function buildSpaceFromConfig(canvas: IAppCanvas, config: ISpaceConfig): 
 
     lightService.createFromConfig(lights);
 
-    factories = { ...factories, lightFactory };
-    registries = { ...registries, lightRegistry };
     services = { ...services, lightService };
     messages$.next(`Lights (${lights.length}) created`);
   }
 
   if (isInitIntersections) {
     if (isNotDefined(scene)) throw new Error('Scene should be initialized for intersections initialization');
-    if (isNotDefined(registries.cameraRegistry)) throw new Error('Cannot find camera registry for intersections initialization');
+    if (isNotDefined(cameraRegistry)) throw new Error('Cannot find camera registry for intersections initialization');
 
     const intersectionsWatcherFactory: IIntersectionsWatcherFactory = IntersectionsWatcherFactory();
     const intersectionsWatcherRegistry: IIntersectionsWatcherRegistry = IntersectionsWatcherRegistry();
@@ -177,8 +172,6 @@ export function buildSpaceFromConfig(canvas: IAppCanvas, config: ISpaceConfig): 
 
     // TODO (S.Panfilov) We need to load intersections from config as well as the other entities
 
-    factories = { ...factories, intersectionsWatcherFactory };
-    registries = { ...registries, intersectionsWatcherRegistry };
     services = { ...services, intersectionsService };
     messages$.next(`Intersections watcher created`);
   }
@@ -193,8 +186,6 @@ export function buildSpaceFromConfig(canvas: IAppCanvas, config: ISpaceConfig): 
 
     fogService.createFromConfig(fogs);
 
-    factories = { ...factories, fogFactory };
-    registries = { ...registries, fogRegistry };
     services = { ...services, fogService };
     messages$.next(`Fogs (${fogs.length}) created`);
   }
@@ -215,42 +206,41 @@ export function buildSpaceFromConfig(canvas: IAppCanvas, config: ISpaceConfig): 
   //build renderer
   if (isRendererInit) {
     const rendererFactory: IRendererFactory = RendererFactory();
-    const rendererRegistry: IRendererRegistry = RendererRegistry();
+    rendererRegistry = RendererRegistry();
     const rendererService: IRendererService = RendererService(rendererFactory, rendererRegistry);
 
-    const renderer: IRendererWrapper = rendererService.create({ canvas, tags: [], mode: RendererModes.WebGL2, isActive: true });
+    renderer = rendererService.create({ canvas, tags: [], mode: RendererModes.WebGL2, isActive: true });
 
-    factories = { ...factories, rendererFactory };
-    registries = { ...registries, rendererRegistry };
     services = { ...services, rendererService };
-    renderers = { ...renderer, renderer };
     messages$.next(`Renderer ("${renderer.id}") created`);
   }
 
   let loopTick$: Subscription | undefined;
   if (isLoopInit) {
     if (isNotDefined(scene)) throw new Error('Scene should be initialized for loop initialization');
-    if (isNotDefined(registries.cameraRegistry)) throw new Error('Cannot find camera registry for loop initialization');
-    if (isNotDefined(registries.rendererRegistry)) throw new Error('Cannot find renderer registry for loop initialization');
-    if (isNotDefined(renderers.renderer)) throw new Error('Cannot find renderer');
-    if (isNotDefined(registries.controlsRegistry)) throw new Error('Cannot find controls registry for loop initialization');
+    if (isNotDefined(cameraRegistry)) throw new Error('Cannot find camera registry for loop initialization');
+    if (isNotDefined(rendererRegistry)) throw new Error('Cannot find renderer registry for loop initialization');
+    if (isNotDefined(renderer)) throw new Error('Cannot find renderer');
+    if (isNotDefined(controlsRegistry)) throw new Error('Cannot find controls registry for loop initialization');
+    const loopService: ILoopService = LoopService();
+    services = { ...services, loopService };
 
-    loopTick$ = standardLoopService.tick$.subscribe(({ delta }: ILoopTimes): void => {
+    loopTick$ = loopService.tick$.subscribe(({ delta }: ILoopTimes): void => {
       const activeCamera: ICameraWrapper | undefined = services.cameraService?.findActiveCamera();
       if (isDefined(activeCamera)) {
-        if (isNotDefined(renderers.renderer)) throw new Error('Cannot find renderer');
-        renderers.renderer.entity.render(scene.entity, activeCamera.entity);
+        if (isNotDefined(renderer)) throw new Error('Cannot find renderer');
+        renderer.entity.render(scene.entity, activeCamera.entity);
         // TODO (S.Panfilov) update these text renderers only when there are any text (or maybe only when it's changed)
         if (isTextsInit) {
-          if (!registries.text2dRegistry?.isEmpty()) renderers.text2dRenderer?.renderer.render(scene.entity, activeCamera.entity);
-          if (!registries.text3dRegistry?.isEmpty()) renderers.text3dRenderer?.renderer.render(scene.entity, activeCamera.entity);
+          if (!text2dRegistry?.isEmpty()) text2dRenderer?.renderer.render(scene.entity, activeCamera.entity);
+          if (!text3dRegistry?.isEmpty()) text3dRenderer?.renderer.render(scene.entity, activeCamera.entity);
         }
       }
 
       if (isNotDefined(loopTick$)) throw new Error('Loop tick subscription is not defined');
 
       // just for control's damping
-      registries.controlsRegistry?.getAll().forEach((controls: IOrbitControlsWrapper): void => {
+      controlsRegistry?.getAll().forEach((controls: IOrbitControlsWrapper): void => {
         if (controls.entity.enableDamping) controls.entity.update(delta);
       });
     });
@@ -271,7 +261,8 @@ export function buildSpaceFromConfig(canvas: IAppCanvas, config: ISpaceConfig): 
   return {
     name,
     start(): void {
-      standardLoopService.start();
+      if (isNotDefined(services.loopService)) throw new Error('Cannot start space, loop service is not defined');
+      services.loopService.start();
       messages$.next(`Space started`);
     },
     stop(): void {
@@ -280,10 +271,7 @@ export function buildSpaceFromConfig(canvas: IAppCanvas, config: ISpaceConfig): 
       // loop.stop(renderer, scene, controlsRegistry, cameraRegistry);
       messages$.next(`Space stopped`);
     },
-    factories,
-    registries,
     services,
-    renderers,
     ...builtMixin,
     built$: builtMixin.built$.asObservable(),
     ...destroyable,

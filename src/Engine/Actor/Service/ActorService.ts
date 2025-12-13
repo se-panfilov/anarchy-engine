@@ -22,6 +22,9 @@ export function ActorService(factory: IActorFactory, registry: IActorAsyncRegist
   return {
     createAsync,
     createFromConfig,
+    getFactory: (): IActorFactory => factory,
+    getRegistry: (): IActorAsyncRegistry => registry,
+    getScene: (): ISceneWrapper => scene,
     ...destroyable
   };
 }
