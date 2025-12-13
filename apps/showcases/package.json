@@ -18,7 +18,7 @@
     "lint:fix": "npm run lint -- --fix",
     "prettier": "prettier --write .",
     "prettier:check": "prettier --check .",
-    "preview": "vite preview",
+    "preview": "vite preview --outDir dist-web",
     "sanitize-assets": "node ../../packages/shared/ScriptUtils/SanitizeAssets.js",
     "start:dev": "vite --mode dev",
     "start:e2e": "vite --mode e2e --port 5073 --logLevel error",
