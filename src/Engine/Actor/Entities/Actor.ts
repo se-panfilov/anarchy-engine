@@ -10,7 +10,7 @@ import { applySpatialGrid, startCollisions } from '@/Engine/Actor/Wrappers/Actor
 import { withCollisions } from '@/Engine/Collisions';
 import { withKinematic } from '@/Engine/Kinematic';
 import type { TModel3d } from '@/Engine/Models3d';
-import { withModel3dFacade } from '@/Engine/Models3d';
+import { withModel3d } from '@/Engine/Models3d';
 import type { TSpatialLoopServiceValue } from '@/Engine/Spatial';
 import { withReactivePosition, withReactiveRotation, withSpatial, withUpdateSpatialCell } from '@/Engine/Spatial';
 import { applyPosition, applyRotation, applyScale, isDefined } from '@/Engine/Utils';
@@ -38,7 +38,7 @@ export function Actor(
   // const { value$: rotation$, update: updateRotation } = withReactiveRotation(model3d);
 
   const entities: TActorEntities = {
-    ...withModel3dFacade(model3dF),
+    ...withModel3d(model3dF),
     // TODO 8.0.0. MODELS: Kinematic should update rotation (and position?) (if "drive" is "kinematic")
     // TODO 8.0.0. MODELS: Physics should update position and rotation (if "drive" is "physics")
     ...withKinematic(params),

@@ -1,9 +1,9 @@
 import type { Group, Mesh, Object3D } from 'three';
 
 import { scalableMixin, withMoveBy3dMixin, withRotationByXyzMixin } from '@/Engine/Mixins';
-import type { TModel3d, TWithModel3dFacade } from '@/Engine/Models3d/Models';
+import type { TModel3d, TWithModel3d } from '@/Engine/Models3d/Models';
 
-export function withModel3dFacade(model3dF: TModel3d): TWithModel3dFacade {
+export function withModel3d(model3dF: TModel3d): TWithModel3d {
   const model3d: Group | Mesh | Object3D = model3dF.getRawModel3d();
 
   return {
