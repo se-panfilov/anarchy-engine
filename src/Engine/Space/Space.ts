@@ -144,8 +144,7 @@ export function buildSpaceFromConfig(canvas: IAppCanvas, config: ISpaceConfig): 
     const cameraRegistry: ICameraRegistry = CameraRegistry();
     const cameraService: ICameraService = CameraService(cameraFactory, cameraRegistry, scene);
 
-    // TODO (S.Panfilov) use service
-    cameras.forEach((config: ICameraConfig): ICameraWrapper => cameraFactory.create(cameraFactory.configToParams({ ...config, tags: [...config.tags, CommonTag.FromConfig] })));
+    cameraService.createFromConfig(cameras);
 
     factories = { ...factories, cameraFactory };
     registries = { ...registries, cameraRegistry };

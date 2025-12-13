@@ -4,7 +4,7 @@ import { PerspectiveCamera, Vector3 } from 'three';
 import { AbstractWrapper, WrapperType } from '@/Engine/Abstract';
 import type { ICameraParams, ICameraWrapper, IPerspectiveCamera } from '@/Engine/Camera/Models';
 import { ambientContext } from '@/Engine/Context';
-import { withMoveBy3dMixin, withObject3d, withRotationByXyzMixin } from '@/Engine/Mixins';
+import { adjustWthActive, withMoveBy3dMixin, withObject3d, withRotationByXyzMixin } from '@/Engine/Mixins';
 import { withTags } from '@/Engine/Mixins/Generic';
 import type { IScreenSizeValues, IScreenSizeWatcher } from '@/Engine/Screen';
 import type { IWriteable } from '@/Engine/Utils';
@@ -16,7 +16,6 @@ export function CameraWrapper(params: ICameraParams, screenSizeWatcher: Readonly
   const { fov = 45, near = 1, far = 10000, lookAt, tags }: ICameraParams = params;
   const aspectRatio: number = ambientContext.screenSizeWatcher.latest$.value.ratio || 0;
   const entity: IWriteable<IPerspectiveCamera> = new PerspectiveCamera(fov, aspectRatio, near, far);
-  let isActive: boolean = false;
 
   const accessors = getAccessors(entity);
 
@@ -35,17 +34,17 @@ export function CameraWrapper(params: ICameraParams, screenSizeWatcher: Readonly
     screenSizeWatcherSubscription.unsubscribe();
   });
 
-  const result = {
+  let result = {
     ...AbstractWrapper(entity, WrapperType.Camera, params),
     ...accessors,
     entity,
     ...withMoveBy3dMixin(entity),
     ...withRotationByXyzMixin(entity),
     ...withObject3d(entity),
-    ...withTags(tags),
-    setActive: (value: boolean): void => void (isActive = value),
-    isActive: (): boolean => isActive
+    ...withTags(tags)
   };
+
+  result = adjustWthActive(result, params.isActive);
 
   applyPosition(result, params.position);
   applyRotation(result, params.rotation);

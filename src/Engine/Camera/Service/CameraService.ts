@@ -1,19 +1,20 @@
-import type { ICameraFactory, ICameraRegistry, ICameraService, ICameraWrapper } from '@/Engine/Camera/Models';
+import type { ICameraConfig, ICameraFactory, ICameraParams, ICameraRegistry, ICameraService, ICameraWrapper } from '@/Engine/Camera/Models';
 import type { IDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
 import type { ISceneWrapper } from '@/Engine/Scene';
+import { findActiveWrappedEntity, setActiveWrappedEntity } from '@/Engine/Utils';
+import { CommonTag } from '@/Engine/Abstract';
 
 export function CameraService(factory: ICameraFactory, registry: ICameraRegistry, scene: ISceneWrapper): ICameraService {
   registry.added$.subscribe((wrapper: ICameraWrapper): void => scene.addCamera(wrapper));
   factory.entityCreated$.subscribe((wrapper: ICameraWrapper): void => registry.add(wrapper));
 
-  function setActiveCamera(cameraId: string, cameraRegistry: ICameraRegistry): void {
-    cameraRegistry.forEach((camera: ICameraWrapper) => camera.setActive(camera.id === cameraId));
-  }
+  const create = (params: ICameraParams): ICameraWrapper => factory.create(params);
+  const createFromConfig = (cameras: ReadonlyArray<ICameraConfig>): void =>
+    cameras.forEach((config: ICameraConfig): ICameraWrapper => factory.create(factory.configToParams({ ...config, tags: [...config.tags, CommonTag.FromConfig] })));
 
-  function getActiveCamera(cameraRegistry: ICameraRegistry): ICameraWrapper | undefined {
-    return cameraRegistry.find((camera: ICameraWrapper) => camera.isActive());
-  }
+  const setActiveCamera = (cameraId: string): void => setActiveWrappedEntity(registry, cameraId);
+  const findActiveCamera = (): ICameraWrapper | undefined => findActiveWrappedEntity(registry);
 
   const destroyable: IDestroyable = destroyableMixin();
   destroyable.destroyed$.subscribe(() => {
@@ -22,8 +23,10 @@ export function CameraService(factory: ICameraFactory, registry: ICameraRegistry
   });
 
   return {
+    create,
+    createFromConfig,
     setActiveCamera,
-    getActiveCamera,
+    findActiveCamera,
     ...destroyable
   };
 }
