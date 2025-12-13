@@ -1,24 +1,23 @@
 import { extractSerializableRegistrableFields } from '@/Engine/Mixins';
-import type { TRendererConfig, TRendererWrapper } from '@/Engine/Renderer/Models';
+import type { TRendererConfig, TRendererParams, TRendererWrapper } from '@/Engine/Renderer/Models';
 import { filterOutEmptyFields } from '@/Engine/Utils';
 
+// TODO 15-0-0: validate result
 export function rendererToConfig(entity: TRendererWrapper): TRendererConfig {
-  // TODO 15-0-0: implement
-  console.log('XXX1 entity', entity);
-  console.log('XXX2 entity.entity', entity.entity);
+  const params: TRendererParams = entity.getParams();
 
   return filterOutEmptyFields({
-    // precision: entity.precision,
-    // alpha: entity.alpha,
-    // premultipliedAlpha: entity.premultipliedAlpha,
-    // antialias: entity.antialias,
-    // stencil: entity.stencil,
-    // preserveDrawingBuffer: entity.preserveDrawingBuffer,
-    // powerPreference: entity.powerPreference,
-    // depth: entity.depth,
-    // logarithmicDepthBuffer: entity.logarithmicDepthBuffer,
-    // failIfMajorPerformanceCaveat: entity.failIfMajorPerformanceCaveat,
-    // mode: entity.mode,
+    precision: params.precision,
+    alpha: params.alpha,
+    premultipliedAlpha: params.premultipliedAlpha,
+    antialias: params.antialias,
+    stencil: params.stencil,
+    preserveDrawingBuffer: params.preserveDrawingBuffer,
+    powerPreference: params.powerPreference,
+    depth: params.depth,
+    logarithmicDepthBuffer: params.logarithmicDepthBuffer,
+    failIfMajorPerformanceCaveat: params.failIfMajorPerformanceCaveat,
+    mode: params.mode,
     isShadowMapEnabled: entity.isShadowMapEnabled(),
     maxPixelRatio: entity.entity.getPixelRatio(),
     isActive: entity.isActive(),

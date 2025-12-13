@@ -68,7 +68,10 @@ export function RendererWrapper(params: TRendererParams, { container }: TRendere
   });
 
   // eslint-disable-next-line functional/immutable-data
-  const result = Object.assign(wrapper, accessors, withActiveMixin(), { serialize: (): TRendererConfig => rendererToConfig(result) });
+  const result = Object.assign(wrapper, accessors, withActiveMixin(), {
+    getParams: () => params,
+    serialize: (): TRendererConfig => rendererToConfig(result)
+  });
 
   result._setActive(params.isActive, true);
 
