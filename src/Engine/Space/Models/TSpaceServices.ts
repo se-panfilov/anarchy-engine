@@ -22,6 +22,7 @@ import type { TScreenService } from '@/Engine/Screen';
 import type { TSpatialGridService } from '@/Engine/Spatial';
 import type { TTextService } from '@/Engine/Text';
 import type { TTextureService } from '@/Engine/Texture';
+import type { TTransformDriveService } from '@/Engine/TransformDrive';
 
 export type TSpaceServices = Readonly<{
   actorService: TActorService;
@@ -50,4 +51,5 @@ export type TSpaceServices = Readonly<{
   spatialGridService: TSpatialGridService;
   textService: TTextService;
   textureService: TTextureService;
+  transformDriveService: TTransformDriveService;
 }>;

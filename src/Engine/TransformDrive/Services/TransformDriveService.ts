@@ -33,7 +33,6 @@ export function TransformDriveService(factory: TTransformDriveFactory, registry:
     return paramsList.map((p: TTransformDriveParams, i: number): TTransformDrive<T> => create(p, agentsList[i] as T));
   };
 
-  // const withCreateService: TTransformDriveServiceWithCreate = withCreateServiceMixin(factory, undefined);
   const withFactory: TTransformDriveServiceWithFactory = withFactoryService(factory);
   const withRegistry: TTransformDriveServiceWithRegistry = withRegistryService(registry);
 
