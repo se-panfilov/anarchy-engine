@@ -17,3 +17,12 @@ export * from './Services';
 //  - CIRCIA (USA)
 //  - EAA?
 //  - something about China, e.g. PIPL?
+
+// TODO DESKTOP: LEGAL: Add following parts:
+//  - INSTRUCTIONS.md
+//  - SUPPORT.md
+//  - TECHNICAL_DOCUMENTATION
+//  - SBOM
+//  - EU_Declaration_of_Conformity.md
+//  - SECURITY.md + .well-known/security.txt
+//  - INCIDENT_RESPONSE / VULN_HANDLING.md
