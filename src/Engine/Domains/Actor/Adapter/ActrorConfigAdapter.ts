@@ -1,6 +1,8 @@
 import { isDefined } from '@Engine/Utils';
 import type { MeshToonMaterialParameters } from 'three';
-import { Color, Vector3 } from 'three';
+import { Color } from 'three';
+
+import { Vector3Wrapper } from '@/Engine/Wrappers';
 
 import type { IActorConfig, IActorMaterialConfig, IActorParams } from '../Models';
 
@@ -9,7 +11,7 @@ export function getParams(config: IActorConfig): IActorParams {
   return {
     ...rest,
     ...getAdaptedMaterialParams(materialParams),
-    position: new Vector3(position.x, position.y, position.z)
+    position: Vector3Wrapper(position)
   };
 }
 

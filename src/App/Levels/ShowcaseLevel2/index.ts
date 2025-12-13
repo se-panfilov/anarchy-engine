@@ -1,7 +1,7 @@
 import { combineLatest } from 'rxjs';
 import { Vector3 } from 'three';
 
-import type { IActorParams, IAppCanvas, ILevel, ILevelConfig } from '@/Engine';
+import type { IAppCanvas, ILevel, ILevelConfig } from '@/Engine';
 import { ActorType, ambientContext, buildLevelFromConfig, Vector3Wrapper } from '@/Engine';
 
 import levelConfig from './showcase-level-2.config.json';
@@ -16,11 +16,11 @@ export function showcaseLevel2(canvas: IAppCanvas): void {
   // START Experiment1: custom controls ---------------
   level.factory.actor.create({
     type: ActorType.cube,
-    position: Vector3Wrapper({ x: 0, y: 0, z: 0 }).entity,
+    position: Vector3Wrapper({ x: 0, y: 0, z: 0 }),
     castShadow: true,
     materialParams: { color: '#5177ff' },
     tags: []
-  } satisfies IActorParams);
+  });
 
   const { mousePositionWatcher, screenSizeWatcher } = ambientContext;
   combineLatest([mousePositionWatcher.value$, screenSizeWatcher.latest$]).subscribe(([{ x, y }, { width, height }]): void => {

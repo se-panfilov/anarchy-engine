@@ -1,4 +1,4 @@
-import type { IVector3 } from '@Engine/Wrappers';
+import type { IEulerWrapper, IVector3Wrapper } from '@Engine/Wrappers';
 import type { MeshToonMaterialParameters } from 'three';
 
 import type { CommonTag } from '@/Engine/Domains/Abstract';
@@ -15,8 +15,8 @@ export type IActorParams = Readonly<{
   heightSegments?: number;
   depthSegments?: number;
   materialParams?: MeshToonMaterialParameters;
-  position: IVector3;
-  rotation?: IVector3;
+  position: IVector3Wrapper;
+  rotation?: IEulerWrapper;
   castShadow: boolean;
   tags: ReadonlyArray<ActorTag | CommonTag | string>;
 }>;

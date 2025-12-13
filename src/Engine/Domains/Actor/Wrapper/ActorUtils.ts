@@ -12,11 +12,11 @@ export function createActor(params: IActorParams): IMesh | never {
 
 function createPlane({ width, height, widthSegments, heightSegments, materialParams, rotation, position, castShadow }: IActorParams): IMesh {
   const plane = new Mesh(new PlaneGeometry(width, height, widthSegments, heightSegments), new MeshToonMaterial(materialParams));
-  plane.rotation.set(rotation?.x ?? -Math.PI / 2, rotation?.y ?? 0, rotation?.z ?? 0);
+  plane.rotation.set(rotation?.entity.x ?? -Math.PI / 2, rotation?.entity.y ?? 0, rotation?.entity.z ?? 0);
   // eslint-disable-next-line functional/immutable-data
   plane.receiveShadow = true;
 
-  plane.position.set(position.x, position.y, position.z);
+  plane.position.set(position.entity.x, position.entity.y, position.entity.z);
   // eslint-disable-next-line functional/immutable-data
   plane.castShadow = castShadow;
 
@@ -26,7 +26,7 @@ function createPlane({ width, height, widthSegments, heightSegments, materialPar
 function createSphere({ radius, widthSegments, heightSegments, materialParams, position, castShadow }: IActorParams): IMesh {
   // const sphere = new Mesh(new SphereGeometry(1, 32, 32), new MeshToonMaterial({ color: new Color('#5EDCAE') }));
   const sphere = new Mesh(new SphereGeometry(radius, widthSegments, heightSegments), new MeshToonMaterial(materialParams));
-  sphere.position.set(position.x, position.y, position.z);
+  sphere.position.set(position.entity.x, position.entity.y, position.entity.z);
   // eslint-disable-next-line functional/immutable-data
   sphere.castShadow = castShadow;
 
@@ -36,7 +36,7 @@ function createSphere({ radius, widthSegments, heightSegments, materialParams, p
 function createCube({ width, height, depth, widthSegments, heightSegments, depthSegments, materialParams, position, castShadow }: IActorParams): IMesh {
   // const sphere = new Mesh(new SphereGeometry(1, 32, 32), new MeshToonMaterial({ color: new Color('#5EDCAE') }));
   const sphere = new Mesh(new BoxGeometry(width, height, depth, widthSegments, heightSegments, depthSegments), new MeshToonMaterial(materialParams));
-  sphere.position.set(position.x, position.y, position.z);
+  sphere.position.set(position.entity.x, position.entity.y, position.entity.z);
   // eslint-disable-next-line functional/immutable-data
   sphere.castShadow = castShadow;
 
