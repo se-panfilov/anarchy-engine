@@ -79,6 +79,7 @@
     },
     "files": [
       "./legal/**",
+      "./assets/legal/**",
       "CHANGELOG.md",
       "NOTICE.md",
       "LICENSE",
