@@ -1,6 +1,7 @@
 {
   "name": "Showcase 12 Light",
   "version": "1.0.0",
+  "initSpace": true,
   "scenes": [
     {
       "name": "Showcase 12 Light",

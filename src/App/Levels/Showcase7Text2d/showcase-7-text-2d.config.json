@@ -1,6 +1,7 @@
 {
   "name": "Showcase 07 Text2d",
   "version": "1.0.0",
+  "initSpace": true,
   "scenes": [
     {
       "name": "Showcase Scene 07 Text2d",

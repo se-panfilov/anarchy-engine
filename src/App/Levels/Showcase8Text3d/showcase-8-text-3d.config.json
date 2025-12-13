@@ -1,6 +1,7 @@
 {
   "name": "Showcase 08 Text4d",
   "version": "1.0.0",
+  "initSpace": true,
   "scenes": [
     {
       "name": "Showcase Scene 08 Text3d",

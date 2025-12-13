@@ -1,6 +1,7 @@
 {
   "name": "Showcase 11 Keyboard and mouse",
   "version": "1.0.0",
+  "initSpace": true,
   "scenes": [
     {
       "name": "Showcase 11 Keyboard and mouse",

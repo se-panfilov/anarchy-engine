@@ -1,6 +1,7 @@
 {
   "name": "Showcase 01 Moving Actors",
   "version": "1.0.0",
+  "initSpace": true,
   "scenes": [
     {
       "name": "Showcase Scene 01 Moving Actors",

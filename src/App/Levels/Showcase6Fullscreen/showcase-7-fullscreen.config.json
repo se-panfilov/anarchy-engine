@@ -1,6 +1,7 @@
 {
   "name": "Showcase 06 Fullscreen",
   "version": "1.0.0",
+  "initSpace": true,
   "scenes": [
     {
       "name": "Showcase Scene 06 Fullscreen",

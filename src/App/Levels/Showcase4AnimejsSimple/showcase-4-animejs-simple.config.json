@@ -1,6 +1,7 @@
 {
   "name": "Showcase 04 Animejs Simple",
   "version": "1.0.0",
+  "initSpace": true,
   "scenes": [
     {
       "name": "Showcase Scene 04 Animejs Simple",

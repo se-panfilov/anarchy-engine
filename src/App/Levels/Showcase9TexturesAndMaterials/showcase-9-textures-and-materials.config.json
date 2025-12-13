@@ -1,6 +1,7 @@
 {
   "name": "Showcase 09 TexturesAndMaterials",
   "version": "1.0.0",
+  "initSpace": true,
   "scenes": [
     {
       "name": "Showcase Scene 09 TexturesAndMaterials",

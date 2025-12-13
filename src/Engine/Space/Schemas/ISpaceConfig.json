@@ -21,6 +21,16 @@
     "version": {
       "$ref": "#/definitions/SpaceSchemaVersion"
     },
+    "initSpace": {
+      "anyOf": [
+        {
+          "type": "boolean"
+        },
+        {
+          "$ref": "#/definitions/ISpaceInitializationConfig"
+        }
+      ]
+    },
     "scenes": {
       "type": "array",
       "items": {
@@ -70,7 +80,7 @@
       }
     }
   },
-  "required": ["actors", "cameras", "controls", "envMaps", "fogs", "lights", "name", "scenes", "tags", "texts", "version"],
+  "required": ["actors", "cameras", "controls", "envMaps", "fogs", "initSpace", "lights", "name", "scenes", "tags", "texts", "version"],
   "definitions": {
     "CommonTag": {
       "type": "string",
@@ -79,6 +89,35 @@
     "SpaceSchemaVersion": {
       "type": "string",
       "const": "1.0.0"
+    },
+    "ISpaceInitializationConfig": {
+      "type": "object",
+      "properties": {
+        "scene": {
+          "type": "boolean"
+        },
+        "actors": {
+          "type": "boolean"
+        },
+        "cameras": {
+          "type": "boolean"
+        },
+        "lights": {
+          "type": "boolean"
+        },
+        "fogs": {
+          "type": "boolean"
+        },
+        "texts": {
+          "type": "boolean"
+        },
+        "controls": {
+          "type": "boolean"
+        },
+        "envMaps": {
+          "type": "boolean"
+        }
+      }
     },
     "ISceneConfig": {
       "type": "object",

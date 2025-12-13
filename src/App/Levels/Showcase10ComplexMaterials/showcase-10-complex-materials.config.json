@@ -1,6 +1,7 @@
 {
   "name": "Showcase 10 Complex Materials",
   "version": "1.0.0",
+  "initSpace": true,
   "scenes": [
     {
       "name": "Showcase Scene 10 Complex Materials",
