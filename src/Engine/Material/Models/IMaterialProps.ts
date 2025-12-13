@@ -239,7 +239,7 @@ export type IPointsMaterialProps = IAbstractMaterialProps &
     color: ColorRepresentation;
     map?: ITexture | null;
     alphaMap?: ITexture | null;
-    size: number;
+    size?: number;
     sizeAttenuation?: boolean;
     fog?: boolean;
   }>;

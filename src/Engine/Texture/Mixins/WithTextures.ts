@@ -1,30 +1,13 @@
 import type { Material } from 'three';
 
-import type { IMaterialService, IWithMaterial } from '@/Engine/Material';
-import type { IMaterialPackProps, IMaterialTexturePack } from '@/Engine/MaterialTexturePack';
-import { textureService } from '@/Engine/Texture';
-import type { ITextureUploaded, IWithTextures } from '@/Engine/Texture/Models';
+import type { IMaterialWrapper, IWithMaterial } from '@/Engine/Material';
+import type { IMaterialPackProps, IMaterialTexturePack, IMaterialTextureService } from '@/Engine/MaterialTexturePack';
+import type { IWithTextures } from '@/Engine/Texture/Models';
 
-export function withTextures<T extends IWithMaterial>(entity: T, materialService: IMaterialService): IWithTextures {
+export function withTextures<T extends IWithMaterial>(entity: T, materialTextureService: IMaterialTextureService): IWithTextures {
   function loadAndApplyMaterialTexturePack(pack: IMaterialPackProps<IMaterialTexturePack>): Promise<Material> {
-    // TODO (S.Panfilov) remove eslint
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-return
-    return (
-      textureService
-        .load(pack)
-        .all()
-        // .then((mt: ITextureUploaded) => entity.useMaterial(materialService.buildMaterial(pack.type, pack.params, mt)));
-        .then((mt: ITextureUploaded) => {
-          // TODO (S.Panfilov) debug
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-return
-          return console.log(entity, mt, materialService) as any;
-          // TODO (S.Panfilov) CWP FIX this or remove
-          // materialService.createAsync(pack.type, pack.params, mt).then((material: Material) => entity.useMaterial(material));
-        })
-    );
+    return materialTextureService.createAsync(pack).then((materialWrapper: IMaterialWrapper) => entity.useMaterial(materialWrapper.entity));
   }
 
-  return {
-    loadAndApplyMaterialTexturePack
-  };
+  return { loadAndApplyMaterialTexturePack };
 }

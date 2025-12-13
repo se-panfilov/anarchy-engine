@@ -9,9 +9,9 @@ import { applyObject3dParams, applyPosition, applyRotation, applyScale, isDefine
 
 import { createActor } from './ActorUtils';
 
-export async function ActorWrapperAsync(params: IActorParams, { materialService }: IActorDependencies): Promise<IActorWrapperAsync> {
+export async function ActorWrapperAsync(params: IActorParams, { materialTextureService }: IActorDependencies): Promise<IActorWrapperAsync> {
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-  const entity: IMesh = await createActor(params, materialService);
+  const entity: IMesh = await createActor(params, materialTextureService);
 
   const withMaterialEntity: IWithMaterial = withMaterial(entity);
 
@@ -22,7 +22,7 @@ export async function ActorWrapperAsync(params: IActorParams, { materialService 
     ...scalableMixin(entity),
     ...withObject3d(entity),
     ...withMaterialEntity,
-    ...withTextures(withMaterialEntity, materialService),
+    ...withTextures(withMaterialEntity, materialTextureService),
     entity
   };
 

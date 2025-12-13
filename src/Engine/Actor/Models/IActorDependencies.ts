@@ -1,3 +1,3 @@
-import type { IMaterialService } from '@/Engine/Material/Models';
+import type { IMaterialTextureService } from '@/Engine/MaterialTexturePack/Models';
 
-export type IActorDependencies = Readonly<{ materialService: IMaterialService }>;
+export type IActorDependencies = Readonly<{ materialTextureService: IMaterialTextureService }>;

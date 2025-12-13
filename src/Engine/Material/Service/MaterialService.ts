@@ -5,10 +5,10 @@ import { destroyableMixin } from '@/Engine/Mixins';
 export function MaterialService(factory: IMaterialFactory, registry: IMaterialRegistry): IMaterialService {
   factory.entityCreated$.subscribe((wrapper: IMaterialWrapper): void => registry.add(wrapper));
 
-  const create = (params: IMaterialParams): Promise<IMaterialWrapper> => factory.create(params);
+  const create = (params: IMaterialParams): IMaterialWrapper => factory.create(params);
   const createFromConfig = (material: ReadonlyArray<IMaterialConfig>): void => {
     // eslint-disable-next-line @typescript-eslint/no-misused-promises
-    material.forEach((config: IMaterialConfig): Promise<IMaterialWrapper> => factory.create(factory.configToParams(config)));
+    material.forEach((config: IMaterialConfig): IMaterialWrapper => factory.create(factory.configToParams(config)));
   };
 
   const destroyable: IDestroyable = destroyableMixin();

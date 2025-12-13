@@ -12,11 +12,11 @@ import { applyObject3dParams, applyPosition, applyRotation, applyScale, isDefine
 
 import { createParticles } from './ParticlesUtils';
 
-export async function ParticlesWrapperAsync(params: IParticlesParams, { materialService }: IParticlesDependencies): Promise<IParticlesWrapperAsync> {
+export async function ParticlesWrapperAsync(params: IParticlesParams, { materialTextureService }: IParticlesDependencies): Promise<IParticlesWrapperAsync> {
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-  const entity: IPoints = await createParticles(params, materialService);
+  const entity: IPoints = await createParticles(params, materialTextureService);
   const { material, geometry } = entity;
-  if (!isPointsMaterial(material)) throw new Error('Material is not defined');
+  if (!isPointsMaterial(material)) throw new Error('Material is not PointsMaterial or not defined');
 
   const withMaterialEntity: IWithMaterial = withMaterial(entity);
 
@@ -37,7 +37,7 @@ export async function ParticlesWrapperAsync(params: IParticlesParams, { material
     ...scalableMixin(entity),
     ...withObject3d(entity),
     ...withMaterialEntity,
-    ...withTextures(withMaterialEntity, materialService),
+    ...withTextures(withMaterialEntity, materialTextureService),
     setMaterialColor,
     getMaterialColor,
     setIndividualMaterialColors,

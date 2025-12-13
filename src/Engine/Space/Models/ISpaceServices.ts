@@ -6,6 +6,7 @@ import type { IFogService } from '@/Engine/Fog';
 import type { IIntersectionsWatcherService } from '@/Engine/Intersections';
 import type { ILightService } from '@/Engine/Light';
 import type { IMaterialService } from '@/Engine/Material';
+import type { IMaterialTextureService } from '@/Engine/MaterialTexturePack';
 import type { IParticlesService } from '@/Engine/Particles';
 import type { IRendererService } from '@/Engine/Renderer';
 import type { IScenesService } from '@/Engine/Scene';
@@ -21,6 +22,7 @@ export type ISpaceServices = Readonly<{
   fogService: IFogService;
   controlsService: IControlsService;
   materialService: IMaterialService;
+  materialTextureService: IMaterialTextureService;
   scenesService: IScenesService;
   rendererService: IRendererService;
   envMapService: IEnvMapService;
