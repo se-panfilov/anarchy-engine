@@ -25,7 +25,7 @@ export const useSettingsStore = defineStore('settingsStore', () => {
     }
   );
 
-  // TODO DESKTOP: available resolutions depends on platform. Should be set by platform or from .env
+  // TODO DESKTOP: available resolutions depends on platform (detect by platform and add options).
   function getAvailableResolutions(): ReadonlyArray<TResolution> {
     return [
       { width: 1920, height: 1080 },
