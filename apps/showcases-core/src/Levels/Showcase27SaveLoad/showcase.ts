@@ -81,13 +81,13 @@ function loadSpace(name: string | undefined, source: ReadonlyArray<TSpacesData>,
   setSpaceReady(false);
   // eslint-disable-next-line functional/immutable-data
   (window as any)._isRendererReady = false;
-  if (isNotDefined(name)) throw new Error('[Showcase]: Space name is not defined');
+  if (isNotDefined(name)) throw new Error('[APP] Space name is not defined');
   const spaceData: TSpacesData | undefined = source.find((s: TSpacesData): boolean => s.name === name);
-  if (isNotDefined(spaceData)) throw new Error(`[Showcase]: Space data is not found for space "${name}"`);
+  if (isNotDefined(spaceData)) throw new Error(`[APP] Space data is not found for space "${name}"`);
 
   const spaces: ReadonlyArray<TSpace> = spaceService.createFromConfig([spaceData.config], settings.spaceSettings);
   const space: TSpace = spaces.find((s: TSpace): boolean => s.name === name) as TSpace;
-  if (isNotDefined(space)) throw new Error(`[Showcase]: Cannot create the space "${name}"`);
+  if (isNotDefined(space)) throw new Error(`[APP] Cannot create the space "${name}"`);
 
   if (settings.loopsDebugInfo) enableFPSCounter(space.loops.renderLoop.tick$);
 
@@ -129,7 +129,7 @@ function unloadSpace(name: string | undefined, spaceRegistry: TSpaceRegistry): v
 
   const spaceData: TSpacesData | undefined = spacesData.find((s: TSpacesData): boolean => s.name === name);
   Object.values(subscriptions).forEach((sub: Subscription): void => sub.unsubscribe());
-  if (isNotDefined(spaceData)) throw new Error(`[Showcase]: Space data is not found for space "${name}"`);
+  if (isNotDefined(spaceData)) throw new Error(`[APP] Space data is not found for space "${name}"`);
   spaceData.onUnload?.(space, subscriptions);
 
   setSpaceReady(false);
@@ -149,7 +149,7 @@ function saveSpaceConfigInMemory(name: string | undefined, spaceRegistry: TSpace
   console.log('[Serialized data]:', config);
 
   const spaceData: TSpacesData | undefined = spacesData.find((s: TSpacesData): boolean => s.name === name);
-  if (isNotDefined(spaceData)) throw new Error(`[Showcase]: Space data is not found for space "${name}"`);
+  if (isNotDefined(spaceData)) throw new Error(`[APP] Space data is not found for space "${name}"`);
   const { onSpaceReady, onChange, onUnload, onCreate, awaits$ } = spaceData;
 
   // eslint-disable-next-line functional/immutable-data
@@ -186,7 +186,7 @@ export function createForm(containerId: string | undefined, isTop: boolean, isRi
     if (isNotDefined(currentSpaceName)) return;
 
     const spaceData: TSpacesData | undefined = spacesData.find((s: TSpacesData): boolean => s.name === currentSpaceName);
-    if (isNotDefined(spaceData)) throw new Error(`[Showcase]: Space data is not found for space "${currentSpaceName}"`);
+    if (isNotDefined(spaceData)) throw new Error(`[APP] Space data is not found for space "${currentSpaceName}"`);
 
     const space: TSpace = spaceRegistry.getByName(currentSpaceName);
 
@@ -208,7 +208,7 @@ function setSpaceReady(isReady: boolean): void | never {
 
 function toggleClass(isSet: boolean, className: string, selector: string = 'body'): void | never {
   const elem: Element | null = document.querySelector(selector);
-  if (!elem) throw new Error(`[Showcase]: Element "body" is not found`);
+  if (!elem) throw new Error(`[APP] Element "body" is not found`);
 
   if (isSet && !elem.classList.contains(className)) elem.classList.add(className);
   if (!isSet && elem.classList.contains(className)) elem.classList.remove(className);

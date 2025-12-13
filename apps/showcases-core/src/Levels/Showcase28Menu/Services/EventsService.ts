@@ -22,8 +22,8 @@ export function EventsService({ mainMenuService, appService, settingsService }: 
           break;
         }
         case FromMenuEvents.SaveSettings: {
-          if (isNotDefined(event.payload)) throw new Error(`[Showcase]: No settings provided for saving`);
-          if (!isSettings(event.payload)) throw new Error('[Showcase]: Attempted to save invalid app settings');
+          if (isNotDefined(event.payload)) throw new Error(`[APP] No settings provided for saving`);
+          if (!isSettings(event.payload)) throw new Error('[APP] Attempted to save invalid app settings');
           await saveSettings(event.payload as TShowcaseGameSettings);
           isRestartNeeded = settingsService.applyAppSettings(event.payload);
           if (isRestartNeeded) appService.restartApp();
@@ -33,9 +33,9 @@ export function EventsService({ mainMenuService, appService, settingsService }: 
           try {
             settings = await loadSettings();
           } catch (error) {
-            throw new Error(`[Showcase]: Failed to load settings: ${error}`);
+            throw new Error(`[APP] Failed to load settings: ${error}`);
           }
-          if (isNotDefined(settings)) throw new Error(`[Showcase]: Failed to load settings: ${settings}`);
+          if (isNotDefined(settings)) throw new Error(`[APP] Failed to load settings: ${settings}`);
 
           toMenuEventsBus$.next({
             type: ToMenuEvents.SettingsLoaded,
@@ -44,14 +44,14 @@ export function EventsService({ mainMenuService, appService, settingsService }: 
           break;
         }
         case FromMenuEvents.LoadLegalDocs: {
-          if (isNotDefined(event.payload)) throw new Error(`[Showcase]: No legal docs params provided`);
-          if (!isLoadDocPayload(event.payload)) throw new Error(`[Showcase]: payload is not valid legal docs params: ${event.payload}`);
+          if (isNotDefined(event.payload)) throw new Error(`[APP] No legal docs params provided`);
+          if (!isLoadDocPayload(event.payload)) throw new Error(`[APP] payload is not valid legal docs params: ${event.payload}`);
           try {
             legalDocs = await loadLegalDocs(event.payload as TLoadDocPayload);
           } catch (error) {
-            throw new Error(`[Showcase]: Failed to load legal docs: ${error}`);
+            throw new Error(`[APP] Failed to load legal docs: ${error}`);
           }
-          if (isNotDefined(legalDocs)) throw new Error(`[Showcase]: Failed to load legal docs: ${legalDocs}`);
+          if (isNotDefined(legalDocs)) throw new Error(`[APP] Failed to load legal docs: ${legalDocs}`);
 
           toMenuEventsBus$.next({
             type: ToMenuEvents.LegalDocsLoaded,
@@ -64,7 +64,7 @@ export function EventsService({ mainMenuService, appService, settingsService }: 
           break;
         }
         default: {
-          console.warn(`[Showcase]: Unknown event type "${event.type}" received in menuEventsBus$`);
+          console.warn(`[APP] Unknown event type "${event.type}" received in menuEventsBus$`);
         }
       }
     });

@@ -98,7 +98,7 @@ export function playAnimationUntilFrame(mixer: AnimationMixer, action: Animation
   const targetTime: number = targetFrame / animationFps;
 
   if (targetTime > duration) {
-    console.warn(`[Showcase]: Target frame ${targetFrame} exceeds clip duration (${duration}s). Will clamp.`);
+    console.warn(`[APP] Target frame ${targetFrame} exceeds clip duration (${duration}s). Will clamp.`);
   }
 
   action.reset();
@@ -125,6 +125,6 @@ export function playAnimationUntilFrame(mixer: AnimationMixer, action: Animation
   action.paused = true;
 
   if (steps >= maxSteps) {
-    console.warn('[Showcase]: playAnimationUntilFrame: Reached max steps, animation may not be complete.');
+    console.warn('[APP] playAnimationUntilFrame: Reached max steps, animation may not be complete.');
   }
 }

@@ -7,13 +7,13 @@ import { platformApiService } from '@/Services';
 export function MainMenuService(): TMainMenuService {
   function openMainMenu(): void | never {
     const mainMenuElement: HTMLElement | null = document.querySelector('#menu');
-    if (isNotDefined(mainMenuElement)) throw new Error(`[Showcase]: No main menu element found`);
+    if (isNotDefined(mainMenuElement)) throw new Error(`[APP] No main menu element found`);
     mainMenuElement.classList.add('-active');
   }
 
   function closeMainMenu(): void | never {
     const mainMenuElement: HTMLElement | null = document.querySelector('#menu');
-    if (isNotDefined(mainMenuElement)) throw new Error(`[Showcase]: No main menu element found`);
+    if (isNotDefined(mainMenuElement)) throw new Error(`[APP] No main menu element found`);
     mainMenuElement.classList.remove('-active');
   }
 

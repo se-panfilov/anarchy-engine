@@ -29,7 +29,7 @@ export const spaceActorData: TSpacesData = {
     const solder: TActor = space.services.actorService.getRegistry().getByName('solder_actor_1');
 
     const { animationsFsm } = solder.states;
-    if (isNotDefined(animationsFsm)) throw new Error('[Showcase]:Solder animationsFsm not found');
+    if (isNotDefined(animationsFsm)) throw new Error('[APP]Solder animationsFsm not found');
 
     const model3d: TModel3d = solder.model3d;
     const actions = space.services.animationsService.startAutoUpdateMixer(model3d).actions;
@@ -37,7 +37,7 @@ export const spaceActorData: TSpacesData = {
     const idleAction: AnimationAction = actions[Idle];
     const tPoseAction: AnimationAction = actions[TPose];
 
-    if (isNotDefined(subscriptions)) throw new Error(`[Showcase]: Subscriptions is not defined`);
+    if (isNotDefined(subscriptions)) throw new Error(`[APP] Subscriptions is not defined`);
 
     // eslint-disable-next-line functional/immutable-data
     subscriptions[config.name] = animationsFsm.changed$.pipe(distinctUntilChanged()).subscribe((state: TFsmStates): void => {
@@ -63,7 +63,7 @@ export const spaceActorData: TSpacesData = {
     solder.drive.position$.next(new Vector3(-0.5, 0, 0.3));
   },
   onUnload: (_space: TSpace, subscriptions?: Record<string, Subscription>): void | never => {
-    if (isNotDefined(subscriptions)) throw new Error(`[Showcase]: Subscriptions is not defined`);
+    if (isNotDefined(subscriptions)) throw new Error(`[APP] Subscriptions is not defined`);
     subscriptions[config.name].unsubscribe();
   }
 };

@@ -23,8 +23,8 @@ export function start(settings: TAppSettings): void {
   const spaces: Record<string, TSpace> = asRecord('name', spaceService.createFromConfig([spaceAlphaConfig, spaceBetaConfig], settings.spaceSettings));
   const spaceAlpha: TSpace = spaces[spaceAlphaConfig.name];
   const spaceBeta: TSpace = spaces[spaceBetaConfig.name];
-  if (isNotDefined(spaceAlpha)) throw new Error(`[Showcase]: Space "${spaceAlphaConfig.name}" is not defined`);
-  if (isNotDefined(spaceBeta)) throw new Error(`[Showcase]: Space "${spaceBetaConfig.name}" is not defined`);
+  if (isNotDefined(spaceAlpha)) throw new Error(`[APP] Space "${spaceAlphaConfig.name}" is not defined`);
+  if (isNotDefined(spaceBeta)) throw new Error(`[APP] Space "${spaceBetaConfig.name}" is not defined`);
 
   combineLatest([spaceAlpha.built$, spaceBeta.built$]).subscribe(([alpha, beta]: ReadonlyArray<TSpace>): void => {
     runAlpha(alpha);

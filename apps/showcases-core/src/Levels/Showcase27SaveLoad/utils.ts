@@ -12,9 +12,9 @@ export function createContainersDivs(spacesDataList: ReadonlyArray<TSpacesData>)
 
 export function setContainerVisibility(name: string, isVisible: boolean, spacesDataList: ReadonlyArray<TSpacesData>): void {
   const spaceData: TSpacesData | undefined = spacesDataList.find((s: TSpacesData): boolean => s.name === name);
-  if (isNotDefined(spaceData)) throw new Error(`[Showcase]: Space data is not found for space "${name}"`);
+  if (isNotDefined(spaceData)) throw new Error(`[APP] Space data is not found for space "${name}"`);
   const containerElement: HTMLElement | null = document.querySelector(`#${spaceData.container}`);
-  if (isNotDefined(containerElement)) throw new Error(`[Showcase]: Cannot find the container element for showcase "${name}"`);
+  if (isNotDefined(containerElement)) throw new Error(`[APP] Cannot find the container element for showcase "${name}"`);
   // eslint-disable-next-line functional/immutable-data
   containerElement.style.display = isVisible ? 'block' : 'none';
 }
@@ -50,7 +50,7 @@ export const getContainer = (canvasSelector: string): string => canvasSelector.s
 
 export function setButtonsDisabledInContainer(selector: string, disabled: boolean): void | never {
   const container: Element | null = document.querySelector(selector);
-  if (!container) throw new Error(`[Showcase]: Container with selector "${selector}" is not found`);
+  if (!container) throw new Error(`[APP] Container with selector "${selector}" is not found`);
 
   const buttons = container.querySelectorAll<HTMLButtonElement>('button');
   buttons.forEach((button): void => {
@@ -61,7 +61,7 @@ export function setButtonsDisabledInContainer(selector: string, disabled: boolea
 
 export function toggleElementClass(selector: string, className: string): void | never {
   const elem: Element | null = document.querySelector(selector);
-  if (!elem) throw new Error(`[Showcase]: Element with selector "${selector}" is not found`);
+  if (!elem) throw new Error(`[APP] Element with selector "${selector}" is not found`);
 
   if (elem.classList.contains(className)) {
     return elem.classList.remove(className);
