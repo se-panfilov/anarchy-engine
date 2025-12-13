@@ -3,10 +3,10 @@ import type { TFsmWrapper } from '@/Engine/Fsm';
 import { isNotDefined } from '@/Engine/Utils';
 
 export function actorStatesConfigToParams(states: TActorStatesConfig, dependencies: TActorConfigToParamsDependencies): TActorStates {
-  const { animationsFsmSource } = states;
+  const { animationsFsm } = states;
 
   return {
-    animationsFsm: animationsFsmSource ? getAnimationsFsm(animationsFsmSource, dependencies) : undefined
+    animationsFsm: animationsFsm ? getAnimationsFsm(animationsFsm, dependencies) : undefined
   };
 }
 

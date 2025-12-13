@@ -54,7 +54,7 @@
           "isAutoUpdate": true
         },
         "states": {
-          "animationsFsmSource": { "name": "dance_anim_fsm" }
+          "animationsFsm": { "name": "dance_anim_fsm" }
         }
       }
     ],

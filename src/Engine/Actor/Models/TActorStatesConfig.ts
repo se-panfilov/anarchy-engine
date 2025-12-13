@@ -3,5 +3,5 @@ import type { TAnimationsFsmSource } from './TAnimationsFsmSource';
 
 export type TActorStatesConfig = Omit<TActorStates, 'animationsFsm'> &
   Readonly<{
-    animationsFsmSource?: TAnimationsFsmSource;
+    animationsFsm?: TAnimationsFsmSource;
   }>;

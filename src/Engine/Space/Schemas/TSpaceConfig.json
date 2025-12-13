@@ -1195,7 +1195,7 @@
       "type": "object",
       "additionalProperties": false,
       "properties": {
-        "animationsFsmSource": {
+        "animationsFsm": {
           "$ref": "#/definitions/TAnimationsFsmSource"
         }
       }
