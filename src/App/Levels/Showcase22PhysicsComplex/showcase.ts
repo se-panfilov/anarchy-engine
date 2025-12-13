@@ -78,10 +78,12 @@ export function showcase(canvas: TAppCanvas): TShowcase {
 
     let angle = 0;
 
-    mouseService.position$.subscribe(({ coords }): void => {
+    mouseService.position$.subscribe(({ normalizedCoords }): void => {
       // Convert mouse coordinates to normalized device coordinates (-1 to +1)
-      mouse.x = (coords.x / window.innerWidth) * 2 - 1;
-      mouse.y = -(coords.y / window.innerHeight) * 2 + 1;
+      // eslint-disable-next-line functional/immutable-data
+      mouse.x = normalizedCoords.x;
+      // eslint-disable-next-line functional/immutable-data
+      mouse.y = normalizedCoords.y;
 
       raycaster.setFromCamera(mouse, (cameraService.findActive() as TCameraWrapper)?.entity);
 
@@ -89,7 +91,7 @@ export function showcase(canvas: TAppCanvas): TShowcase {
       if (intersects) {
         const point = intersects;
         angle = planeNormal.angleTo(raycaster.ray.direction);
-        const distance = point.distanceTo(heroW.getPosition().getCoords());
+        // const distance = point.distanceTo(heroW.getPosition().getCoords());
         mouseLineIntersectionsCoords = new Vector3(point.x, 2, point.z);
       }
     });
@@ -107,7 +109,7 @@ export function showcase(canvas: TAppCanvas): TShowcase {
       }
     });
 
-    mouseService.clickLeftRelease$.subscribe(() => {
+    mouseService.clickLeftRelease$.subscribe((): void => {
       if (isNotDefined(heroW)) throw new Error(`Cannot find "hero" actor`);
       heroW.physicsBody?.getRigidBody()?.applyImpulse(getPushCoordsFrom3dAzimuth(angle, 2, 100), true);
     });
@@ -207,7 +209,7 @@ function createLine(): Line2 {
 }
 
 function cameraFollowingActor(cameraW: TCameraWrapper, actorW: TActorWrapperAsync): void {
-  // const actorCoords: TWithCoordsXYZ = actorW.getPosition().getCoords();
-  // cameraW.setPosition(Vector3Wrapper({ x: actorCoords.x, y: actorCoords.y + 10, z: actorCoords.z + 10 }));
-  // cameraW.lookAt(Vector3Wrapper(actorCoords));
+  const actorCoords: TWithCoordsXYZ = actorW.getPosition().getCoords();
+  cameraW.setPosition(Vector3Wrapper({ x: actorCoords.x, y: actorCoords.y + 10, z: actorCoords.z + 10 }));
+  cameraW.lookAt(Vector3Wrapper(actorCoords));
 }
