@@ -22,7 +22,7 @@ import type {
   TSpaceConfig,
   TSpatialGridWrapper
 } from '@/Engine';
-import { Engine, get3DAzimuth, isDefined, isNotDefined, KeysExtra, metersPerSecond, milliseconds, secondsToMS, spaceService } from '@/Engine';
+import { Engine, get3DAzimuth, isDefined, isNotDefined, KeysExtra, metersPerSecond, milliseconds, spaceService } from '@/Engine';
 import { radians } from '@/Engine/Measurements/Utils';
 
 import spaceConfig from './showcase.json';
