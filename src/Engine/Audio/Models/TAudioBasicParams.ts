@@ -7,6 +7,11 @@ export type TAudioBasicParams = Readonly<{
   sound: Howl;
   volume: number;
   name: string;
+  loop?: boolean;
+  speed?: number;
+  seek?: number;
+  pause?: boolean;
+  mute?: boolean;
   performance?: TAudioPerformanceOptions;
 }> &
   TWithTransformAgentParam &

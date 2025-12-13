@@ -11,12 +11,7 @@ import type { TAudioResourceAsyncRegistry } from './TAudioResourceAsyncRegistry'
 import type { TAudioResourceConfig } from './TAudioResourceConfig';
 import type { TAudioWrapper } from './TAudioWrapper';
 
-export type TAudioService = Readonly<{
-  play: (name: string) => void;
-  stop: (name: string) => void;
-  setVolume: (name: string, volume: number) => void;
-}> &
-  TWithCreateService<TAudioWrapper, TAudioParams> &
+export type TAudioService = TWithCreateService<TAudioWrapper, TAudioParams> &
   TWithCreateFromConfigService<TAudioConfig, TAudioWrapper> &
   TWithFactoryService<TAudioFactory> &
   TWithRegistryService<TAudioRegistry> &

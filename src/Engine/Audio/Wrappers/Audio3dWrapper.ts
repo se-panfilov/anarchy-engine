@@ -1,6 +1,6 @@
 import type { Howl } from 'howler';
 import type { Observable, Subscription } from 'rxjs';
-import { BehaviorSubject, combineLatest, distinctUntilChanged, filter, sample, tap } from 'rxjs';
+import { BehaviorSubject, combineLatest, distinctUntilChanged, filter, sample, Subject, tap } from 'rxjs';
 import { Vector3 } from 'three';
 
 import type { TWrapper } from '@/Engine/Abstract';
@@ -22,6 +22,13 @@ export function Audio3dWrapper(params: TAudio3dParams, { loopService }: TAudio3d
   const entity: Howl = sound;
   const position$: BehaviorSubject<TReadonlyVector3> = new BehaviorSubject<TReadonlyVector3>(position);
   const listenerPosition$: BehaviorSubject<TReadonlyVector3> = new BehaviorSubject<TReadonlyVector3>(new Vector3());
+
+  const pause$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(params.pause ?? false);
+  const mute$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(params.mute ?? false);
+  const fade$: Subject<Readonly<{ from: number; to: number; duration: number }>> = new Subject<Readonly<{ from: number; to: number; duration: number }>>();
+  const speed$: BehaviorSubject<number> = new BehaviorSubject<number>(params.speed ?? 1);
+  const seek$: BehaviorSubject<number> = new BehaviorSubject<number>(params.seek ?? 0);
+  const loop$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(params.loop ?? false);
   const volume$: BehaviorSubject<number> = new BehaviorSubject<number>(volume);
 
   const updatePriority: LoopUpdatePriority = performance?.updatePriority ?? LoopUpdatePriority.LOW;
@@ -70,14 +77,43 @@ export function Audio3dWrapper(params: TAudio3dParams, { loopService }: TAudio3d
     position$.complete();
     position$.unsubscribe();
 
+    pause$.complete();
+    pause$.unsubscribe();
+    mute$.complete();
+    mute$.unsubscribe();
+    fade$.complete();
+    fade$.unsubscribe();
+    speed$.complete();
+    speed$.unsubscribe();
+    seek$.complete();
+    seek$.unsubscribe();
+    loop$.complete();
+    loop$.unsubscribe();
     volume$.complete();
     volume$.unsubscribe();
+
+    // TODO 11.0.0: do we need to do unload here?
   });
 
   return {
     ...wrapper,
     drive,
-    play: (): number => entity.play(),
+    play: (): void => void entity.play(),
+    pause$,
+    mute$,
+    fade$,
+    speed$,
+    seek$,
+    loop$,
+    isPlaying: (): boolean => entity.playing(),
+    getDuration: (): number => entity.duration(),
+    getState: (): 'unloaded' | 'loading' | 'loaded' => entity.state(),
+    load: (): void => void entity.load(),
+    unload: (): void => {
+      void entity.unload();
+      destroyable.destroy$.next();
+    },
+    stop: (): Howl => entity.stop(),
     volume$,
     position$,
     listenerPosition$,
