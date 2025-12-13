@@ -15,5 +15,6 @@ export * from './TPhysicsPresetRegistry';
 export * from './TPhysicsProps';
 export * from './TPhysicsService';
 export * from './TPhysicsWorldParams';
+export * from './TWithPhysicsBody';
 export * from './TWithPhysicsPresetConfig';
 export * from './TWithPhysicsPresetParams';

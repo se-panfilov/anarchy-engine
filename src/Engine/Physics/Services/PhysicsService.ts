@@ -22,7 +22,10 @@ import type { TVector3Wrapper } from '@/Engine/Vector';
 export function PhysicsService(factory: TPhysicsBodyFactory, registry: TPhysicsBodyRegistry, physicsPresetRegistry: TPhysicsPresetRegistry, scene: TSceneWrapper): TPhysicsService {
   let world: World | undefined;
 
-  registry.added$.subscribe((wrapper: TPhysicsBodyWrapper): void => world.add(wrapper));
+  registry.added$.subscribe((wrapper: TPhysicsBodyWrapper): void => {
+    if (isNotDefined(world)) throw new Error('Cannot add collider: world is not defined');
+    world.createCollider(wrapper);
+  });
   factory.entityCreated$.subscribe((wrapper: TPhysicsBodyWrapper): void => registry.add(wrapper));
 
   const create = (params: TPhysicsPresetParams): TPhysicsBodyWrapper => factory.create(params);

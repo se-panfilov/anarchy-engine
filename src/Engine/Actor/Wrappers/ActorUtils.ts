@@ -4,18 +4,17 @@ import { ActorType } from '@/Engine/Actor/Constants';
 import type { TActorDependencies, TActorParams } from '@/Engine/Actor/Models';
 import type { TMaterials, TMaterialWrapper } from '@/Engine/Material';
 import { meters } from '@/Engine/Measurements/Utils';
-import type { TPhysicsPresetParams, TPhysicsPresetRegistry, TPhysicsService, TWithPhysicsPresetParams } from '@/Engine/Physics';
+import type { TPhysicsBodyWrapper, TPhysicsPresetParams, TPhysicsPresetRegistry, TPhysicsService, TWithPhysicsPresetParams } from '@/Engine/Physics';
 import type { TMesh } from '@/Engine/ThreeLib';
 import { isDefined, isNotDefined } from '@/Engine/Utils';
 
-export async function createActor(params: TActorParams, { materialTextureService, physicsService }: TActorDependencies): Promise<TMesh> | never {
+export async function createActorMesh(params: TActorParams, { materialTextureService, physicsService }: TActorDependencies): Promise<TMesh> | never {
+  // TODO (S.Panfilov) AWAIT: could speed up by not awaiting material loading (return promise of an actor)
   const materialWrapper: TMaterialWrapper = await materialTextureService.createAsync(params.material);
 
   if (params.type === ActorType.plane) return createPlane(params, materialWrapper.entity);
   if (params.type === ActorType.sphere) return createSphere(params, materialWrapper.entity);
   if (params.type === ActorType.cube) return createCube(params, materialWrapper.entity);
-
-  if (isDefined(params.physics) && Object.keys(params.physics).length > 0) buildPhysics(params.physics, physicsService);
 
   throw new Error('Cannot create Actor: unknown actor type');
 }
@@ -38,7 +37,7 @@ function createCube({ width, height, depth, widthSegments, heightSegments, depth
   return new Mesh(new BoxGeometry(w, h, d, widthSegments, heightSegments, depthSegments), material);
 }
 
-function buildPhysics(physics: TWithPhysicsPresetParams, physicsService: TPhysicsService): void {
+export function createPhysicsBody(physics: TWithPhysicsPresetParams, physicsService: TPhysicsService): TPhysicsBodyWrapper {
   const { preset, ...rest } = physics;
   let presetFromRegistry: TPhysicsPresetParams | undefined;
   if (isDefined(preset)) {

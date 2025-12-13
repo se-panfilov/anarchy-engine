@@ -3,15 +3,20 @@ import type { TActorDependencies, TActorParams, TActorWrapperAsync } from '@/Eng
 import type { TWithMaterial } from '@/Engine/Material';
 import { withMaterial } from '@/Engine/Material';
 import { scalableMixin, withMoveBy3dMixin, withObject3d, withRotationByXyzMixin } from '@/Engine/Mixins';
+import type { TPhysicsBodyWrapper } from '@/Engine/Physics';
 import { withTextures } from '@/Engine/Texture';
 import type { TMesh } from '@/Engine/ThreeLib';
 import { applyObject3dParams, applyPosition, applyRotation, applyScale, isDefined } from '@/Engine/Utils';
 
-import { createActor } from './ActorUtils';
+import { createActorMesh, createPhysicsBody } from './ActorUtils';
 
 export async function ActorWrapperAsync(params: TActorParams, { materialTextureService, physicsService }: TActorDependencies): Promise<TActorWrapperAsync> {
+  let physicsBody: TPhysicsBodyWrapper | undefined;
+  if (isDefined(params.physics) && Object.keys(params.physics).length > 0) physicsBody = createPhysicsBody(params.physics, physicsService);
+
+  // TODO (S.Panfilov) AWAIT: could speed up by not awaiting mesh to be build
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-  const entity: TMesh = await createActor(params, { materialTextureService, physicsService });
+  const entity: TMesh = await createActorMesh(params, { materialTextureService, physicsService });
 
   const withMaterialEntity: TWithMaterial = withMaterial(entity);
 
@@ -23,6 +28,7 @@ export async function ActorWrapperAsync(params: TActorParams, { materialTextureS
     ...withObject3d(entity),
     ...withMaterialEntity,
     ...withTextures(withMaterialEntity, materialTextureService),
+    physicsBody: physicsBody ?? undefined,
     entity
   };
 
