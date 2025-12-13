@@ -10,6 +10,7 @@ import type { TPlatformDriver } from '@/Models';
 import { settingsWebDbService } from '@/Services/SettingsWebDbService';
 
 export function Driver(): TPlatformDriver {
+  let cachedAppSettings: TShowcaseGameSettings | undefined;
   function closeApp(): void {
     throw new Error('[WEB] closeApp is not supported on this platform');
   }
@@ -24,13 +25,19 @@ export function Driver(): TPlatformDriver {
 
   async function getAppSettings(): Promise<TShowcaseGameSettings> {
     const settings: TShowcaseGameSettings | undefined = await settingsWebDbService.findSettings();
-    if (isDefined(settings)) return settings;
+    if (isDefined(settings)) {
+      cachedAppSettings = settings;
+      return settings;
+    }
 
     console.warn(`[WEB] Settings not found. Applying default settings.`);
     const defaultSettings: TShowcaseGameSettings = await buildDefaultSettings();
+    cachedAppSettings = settings;
     await setAppSettings(defaultSettings);
     return defaultSettings;
   }
+
+  const getCachedAppSettings = (): TShowcaseGameSettings | undefined => cachedAppSettings;
 
   function getPreferredLocales(): Promise<ReadonlyArray<TLocaleId>> {
     const navigatorLanguages: ReadonlyArray<string> = Array.isArray(navigator.languages) ? navigator.languages : [];
@@ -70,6 +77,7 @@ export function Driver(): TPlatformDriver {
   const setFirstRun = (isFirstRun: boolean): Promise<void> => settingsWebDbService.updateSettings({ internal: { isFirstRun } });
 
   async function setAppSettings(settings: TShowcaseGameSettings): Promise<void> {
+    cachedAppSettings = settings;
     return settingsWebDbService.setSettings(settings);
   }
 
@@ -81,6 +89,7 @@ export function Driver(): TPlatformDriver {
     closeApp,
     getAppSettings,
     getBrowserInfo,
+    getCachedAppSettings,
     getDistName,
     getLegalDocs,
     getNodeVersion,

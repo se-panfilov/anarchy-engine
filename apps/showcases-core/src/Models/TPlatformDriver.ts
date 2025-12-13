@@ -6,6 +6,7 @@ export type TPlatformDriver = Readonly<{
   closeApp: () => void;
   getAppSettings: () => Promise<TShowcaseGameSettings>;
   getBrowserInfo: () => TBrowserInfo;
+  getCachedAppSettings: () => TShowcaseGameSettings | undefined;
   getDistName: () => Promise<TDistName>; //DistName is something like "darwin-arm64" (`${process.platform}-${process.arch}`)
   getLegalDocs: (options: TLoadDocPayload) => Promise<TLegalDoc>;
   getNodeVersion: () => string;

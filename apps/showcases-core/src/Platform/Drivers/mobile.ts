@@ -8,6 +8,8 @@ import type { TPlatformDriver } from '@/Models';
 // TODO MOBILE: Make sure ALL these methods are working correctly
 // TODO MOBILE: Implement the mobile driver
 export function Driver(): TPlatformDriver {
+  let cachedAppSettings: TShowcaseGameSettings | undefined;
+
   function closeApp(): void {
     throw new Error('[MOBILE] closeApp is not supported on this platform');
   }
@@ -16,6 +18,8 @@ export function Driver(): TPlatformDriver {
     console.log('TODO [MOBILE]', 'getBrowserInfo');
     return {} as TBrowserInfo;
   }
+
+  const getCachedAppSettings = (): TShowcaseGameSettings | undefined => cachedAppSettings;
 
   function getDistName(): Promise<TDistName> {
     console.log('TODO [MOBILE]', 'getDistName');
@@ -38,6 +42,7 @@ export function Driver(): TPlatformDriver {
   }
 
   function getAppSettings(): Promise<TShowcaseGameSettings> {
+    // TODO UPDATE cachedAppSettings
     console.log('TODO [MOBILE]', 'getAppSettings');
     return Promise.resolve({} as any);
   }
@@ -58,6 +63,7 @@ export function Driver(): TPlatformDriver {
   }
 
   function setAppSettings(settings: TShowcaseGameSettings): Promise<void> {
+    // TODO UPDATE cachedAppSettings
     console.log('TODO [MOBILE]', 'setAppSettings', settings);
     return Promise.resolve();
   }
@@ -81,6 +87,7 @@ export function Driver(): TPlatformDriver {
     closeApp,
     getAppSettings,
     getBrowserInfo,
+    getCachedAppSettings,
     getDistName,
     getLegalDocs,
     getNodeVersion,
