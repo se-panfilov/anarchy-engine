@@ -7,3 +7,5 @@ export * from './LightWrapper';
 export * from './LoopWrapper';
 export * from './RendererWrapper';
 export * from './SceneWrapper';
+export * from './Vector2Wrapper';
+export * from './Vector3Wrapper';

@@ -1,6 +1,6 @@
-import type { IDestroyable, IMousePosition, ISceneObject, IVector3 } from '@Engine/Models';
+import type { IDestroyable, IMousePosition, ISceneObject } from '@Engine/Models';
 import { getNormalizedMousePosition, isNotDefined, unWrapEntities } from '@Engine/Utils';
-import type { IActorWrapper, ICameraWrapper } from '@Engine/Wrappers';
+import type { IActorWrapper, ICameraWrapper, IVector3 } from '@Engine/Wrappers';
 import { Raycaster } from 'three';
 
 export type IntersectionsService = Readonly<{

@@ -34,8 +34,6 @@ export * from './ISceneLauncher';
 export * from './ISceneObject';
 export * from './ISceneParams';
 export * from './IScreenParams';
-export * from './IVector2';
 export * from './IVector2dConfig';
-export * from './IVector3';
 export * from './IVector3dConfig';
 export * from './IWrapper';

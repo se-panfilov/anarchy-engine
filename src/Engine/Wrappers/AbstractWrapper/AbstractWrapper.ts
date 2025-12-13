@@ -2,13 +2,13 @@ import type { IWrapper } from '@Engine/Models';
 import { cleanObject } from '@Engine/Utils';
 import { nanoid } from 'nanoid';
 
-export function AbstractWrapper<T>(entity: T, { tags }: Readonly<{ tags: ReadonlyArray<string> }>): IWrapper<T> {
+export function AbstractWrapper<T>(entity: T, params?: Readonly<{ tags: ReadonlyArray<string> }>): IWrapper<T> {
   const id: string = nanoid();
 
   const wrapper = {
     id,
     entity,
-    tags,
+    tags: params?.tags ?? [],
     destroy
   };
 

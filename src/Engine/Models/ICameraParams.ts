@@ -1,5 +1,5 @@
 import type { CameraTag } from '@Engine/Constants';
-import type { IVector3 } from '@Engine/Models/IVector3';
+import type { IVector3 } from '@/Engine/Wrappers';
 
 export type ICameraParams = Readonly<{
   fov?: number;

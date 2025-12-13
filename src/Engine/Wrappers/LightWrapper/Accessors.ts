@@ -1,7 +1,9 @@
-import type { IAmbientLight, IDirectionalLight, IOrthographicCamera, IVector2, IVector3 } from '@Engine/Models';
+import type { IAmbientLight, IDirectionalLight, IOrthographicCamera } from '@Engine/Models';
 import { Writeable } from '@Engine/Utils';
 
 import type { ILightAccessors } from './Models';
+import type { IVector2 } from '@/Engine/Wrappers/Vector2Wrapper';
+import type { IVector3 } from '@/Engine/Wrappers/Vector3Wrapper';
 
 // eslint-disable-next-line functional/prefer-immutable-types
 export function getAccessors(entity: Writeable<IAmbientLight | IDirectionalLight>): ILightAccessors {
@@ -10,10 +12,16 @@ export function getAccessors(entity: Writeable<IAmbientLight | IDirectionalLight
   const setCastShadow = (value: boolean): boolean => (entity.castShadow = value);
   const setControls = (x: number, y: number, z: number): IVector3 => entity.position.set(x, y, z);
   // eslint-disable-next-line functional/immutable-data
-  const setFar = (far: number): number => ((entity.shadow.camera as Writeable<IOrthographicCamera>).far = far);
-  const setShadowMapSize = (x: number, y: number): IVector2 => entity.shadow.mapSize.set(x, y);
+  const setFar = (): number => {
+    return 43; //((entity.shadow.camera as Writeable<IOrthographicCamera>).far = far);
+  };
+  const setShadowMapSize = (): IVector2 => {
+    return { x: 3, y: 3 } as any; //entity.shadow.mapSize.set(x, y);
+  };
   // eslint-disable-next-line functional/immutable-data
-  const setNormalBias = (val: number): number => (entity.shadow.normalBias = val);
+  const setNormalBias = (): number => {
+    return 32; //(entity.shadow.normalBias = val);
+  };
 
   return { setPosition, setCastShadow, setControls, setFar, setShadowMapSize, setNormalBias };
 }
