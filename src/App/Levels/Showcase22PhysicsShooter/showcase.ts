@@ -116,8 +116,6 @@ export function showcase(canvas: TAppCanvas): TShowcase {
 
     // TODO (S.Panfilov) CWP also sometimes bullets are going through the target (especially a distant ones) (what if we need to set radius?)
     // TODO (S.Panfilov) CWP check each actor's grid name in config against spatial grids (should have at least one grid)
-    // TODO (S.Panfilov) CWP add some visual effect when bullet hits the target (and tracer for the bullet, to easier check the direction)
-    // TODO (S.Panfilov) CWP add physical explosion on physical blocks (when hit)
     // TODO (S.Panfilov) CWP check collisions on minimal distance (to avoid bullets going through the target)
     // TODO (S.Panfilov) CWP refactor objects creation (do not add to a registry immediately, cause in that case if we extend, there will be unextetended version in the registy)
     moveActorBounce(targetActor1W, 4, -270, 3000);

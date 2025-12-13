@@ -1,5 +1,5 @@
-import type { Intersection } from 'three';
-import { Box3, Raycaster } from 'three';
+import type { ColorRepresentation, Intersection, Line, Vector3 } from 'three';
+import { ArrowHelper, Box3, BufferGeometry, LineBasicMaterial, LineSegments, Mesh, MeshBasicMaterial, Raycaster, SphereGeometry } from 'three';
 
 import type { TActorWrapperAsync } from '@/Engine/Actor/Models';
 import type { TBvhService, TCollisionCheckResult, TCollisionsService } from '@/Engine/Collisions/Models';
@@ -12,6 +12,39 @@ export function CollisionsService(): TCollisionsService {
 
   // TODO debug box
   let box: any;
+
+  let arrowHelper: ArrowHelper;
+  function _debugVisualizeRaycaster(raycaster: Raycaster, length: number, color: ColorRepresentation = 0x0000ff): ArrowHelper {
+    const direction = raycaster.ray.direction.clone().normalize();
+    const origin = raycaster.ray.origin.clone();
+
+    const arrowHelper = new ArrowHelper(direction, origin, length, color);
+
+    // TODO debug (window as any).sceneW
+    (window as any).sceneW.entity.add(arrowHelper);
+    return arrowHelper;
+  }
+
+  function _debugVisualizeInterpolatedPositions(previousPosition: Vector3, currentPosition: Vector3, steps: number, color: ColorRepresentation = 0xff0000): LineSegments {
+    const stepVector = currentPosition.clone().sub(previousPosition).divideScalar(steps);
+    const points: Vector3[] = [];
+
+    for (let i = 0; i < steps; i++) {
+      const start = previousPosition.clone().add(stepVector.clone().multiplyScalar(i));
+      const end = previousPosition.clone().add(stepVector.clone().multiplyScalar(i + 1));
+      points.push(start, end);
+    }
+
+    const geometry = new BufferGeometry().setFromPoints(points);
+    const material = new LineBasicMaterial({ color });
+    const lineSegments = new LineSegments(geometry, material);
+
+    // TODO debug (window as any).sceneW
+    (window as any).sceneW.entity.add(lineSegments);
+    return lineSegments;
+  }
+
+  const interpolatedPositions = [];
 
   // TODO should be possible to check collisions against another grid
   function checkCollisions(actorW: TActorWrapperAsync, radius: number, actorsToCheck: ReadonlyArray<TActorWrapperAsync>): TCollisionCheckResult | undefined {
@@ -30,30 +63,63 @@ export function CollisionsService(): TCollisionsService {
     box = createBoundingBox(queryBox.minX, queryBox.minZ, queryBox.maxX, queryBox.maxZ, 'red');
     (window as any).sceneW.entity.add(box);
 
+    if (!actorW.previousPosition) actorW.previousPosition = actorW.entity.position.clone();
+
+    const currentPosition = actorW.entity.position.clone();
+    const previousPosition = actorW.previousPosition.clone();
+
+    const movementVector = currentPosition.clone().sub(previousPosition);
+    const movementDistance = movementVector.length();
+
+    if (movementDistance === 0) {
+      return undefined;
+    }
+    const direction = movementVector.clone().normalize();
+
+    const stepCount = Math.ceil(movementDistance / radius);
+    const stepSize = movementDistance / stepCount;
+
+    // TODO debug (window as any).sceneW
+    // interpolatedPositions.forEach((line: Line) => (window as any).sceneW.entity.remove(line));
+    // interpolatedPositions = [...interpolatedPositions, _debugVisualizeInterpolatedPositions(previousPosition, currentPosition, stepCount)];
+
     // eslint-disable-next-line functional/no-loop-statements
-    for (const object of actorsToCheck) {
-      if (object.id !== actorW.id) {
-        const raycaster: Raycaster = new Raycaster();
-        // eslint-disable-next-line functional/immutable-data
-        raycaster.firstHitOnly = true;
-        raycaster.set(actorW.entity.position, actorW.kinematic.getLinearDirection());
+    for (let i = 0; i <= stepCount; i++) {
+      const interpolatedPosition = previousPosition.clone().add(direction.clone().multiplyScalar(i * stepSize));
 
-        const intersects: Array<Intersection> = [];
-        bvhService.raycastWithBvh(object, raycaster, intersects);
+      // eslint-disable-next-line functional/no-loop-statements
+      for (const object of actorsToCheck) {
+        if (object.id !== actorW.id) {
+          const raycaster: Raycaster = new Raycaster();
+          // eslint-disable-next-line functional/immutable-data
+          raycaster.firstHitOnly = true;
+          raycaster.set(interpolatedPosition, direction);
+          // raycaster.far = radius * 2;
 
-        if (intersects.length > 0) {
-          const intersect = intersects[0];
-          if (intersect.distance <= radius) {
-            return {
-              object,
-              distance: intersect.distance,
-              collisionPoint: intersect.point,
-              bulletPosition: actorW.entity.position.clone()
-            };
+          // TODO debug (window as any).sceneW
+          // (window as any).sceneW.entity.remove(arrowHelper);
+          // arrowHelper = _debugVisualizeRaycaster(raycaster, raycaster.ray.direction.length());
+
+          const intersects: Array<Intersection> = [];
+          bvhService.raycastWithBvh(object, raycaster, intersects);
+
+          if (intersects.length > 0) {
+            const intersect = intersects[0];
+            if (intersect.distance <= radius) {
+              actorW.previousPosition.copy(currentPosition);
+              return {
+                object,
+                distance: intersect.distance,
+                collisionPoint: intersect.point,
+                bulletPosition: interpolatedPosition.clone()
+              };
+            }
           }
         }
       }
     }
+
+    actorW.previousPosition.copy(currentPosition);
 
     return undefined;
   }
