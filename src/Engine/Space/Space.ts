@@ -1,12 +1,9 @@
 import type { Subscription } from 'rxjs';
 import { ReplaySubject } from 'rxjs';
-
-import { CommonTag } from '@/Engine/Abstract';
 import type { IActorWrapperAsync } from '@/Engine/Actor';
 import type { IAppCanvas } from '@/Engine/App';
 import type { ICameraWrapper } from '@/Engine/Camera';
-import type { IControlsFactory, IControlsRegistry, IOrbitControlsConfig, IOrbitControlsWrapper } from '@/Engine/Controls';
-import { ControlsFactory, ControlsRegistry } from '@/Engine/Controls';
+import type { IOrbitControlsWrapper } from '@/Engine/Controls';
 import type { IDataTexture } from '@/Engine/EnvMap';
 import { envMapService } from '@/Engine/EnvMap';
 import type { ILoopTimes } from '@/Engine/Loop';
@@ -14,8 +11,6 @@ import { standardLoopService } from '@/Engine/Loop';
 import type { IDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
 import { withTags } from '@/Engine/Mixins/Generic/WithTags';
-import type { IRendererFactory, IRendererRegistry, IRendererWrapper } from '@/Engine/Renderer';
-import { RendererFactory, RendererModes, RendererRegistry, RendererTag } from '@/Engine/Renderer';
 import type { ISceneWrapper } from '@/Engine/Scene';
 import { SceneTag } from '@/Engine/Scene';
 import { screenService } from '@/Engine/Services';
@@ -24,7 +19,7 @@ import { initControlsEntityPipe } from '@/Engine/Space/EntityPipes/ControlsEntit
 import { withBuiltMixin } from '@/Engine/Space/Mixin';
 import type { ISpace, ISpaceConfig, ISpaceEntities, ISpaceSubscriptions, IWithBuilt } from '@/Engine/Space/Models';
 import { isSpaceInitializationConfig, setInitialActiveCamera } from '@/Engine/Space/SpaceHelper';
-import { isDefined, isNotDefined, validLevelConfig } from '@/Engine/Utils';
+import { isDefined, isDestroyable, isNotDefined, validLevelConfig } from '@/Engine/Utils';
 import { initRenderersEntityPipe } from '@/Engine/Space/EntityPipes/RendererEntityPipe';
 
 export function buildSpaceFromConfig(canvas: IAppCanvas, config: ISpaceConfig): ISpace {
@@ -93,7 +88,6 @@ export function buildSpaceFromConfig(canvas: IAppCanvas, config: ISpaceConfig): 
 
     //build controls
     if (isControlsInit) {
-      if (isNotDefined(scene)) throw new Error('Scene should be initialized for controls initialization');
       if (isNotDefined(isCamerasInit)) throw new Error('Camera initialization should be "true" for controls initialization');
       if (isNotDefined(entities.cameraRegistry)) throw new Error('Cannot find camera registry for controls initialization');
 
@@ -165,41 +159,11 @@ export function buildSpaceFromConfig(canvas: IAppCanvas, config: ISpaceConfig): 
     destroyable.destroyed$.subscribe(() => {
       builtMixin.built$.complete();
 
-      sceneCreated$.unsubscribe();
+      Object.values(entities).forEach((entity): void => {
+        if (isDestroyable(entity)) entity.destroy();
+      });
 
-      actorCreated$.unsubscribe();
-      actorFactory.destroy();
-      actorAdded$.unsubscribe();
-      actorRegistry.destroy();
-
-      textCreated$.unsubscribe();
-      textFactory.destroy();
-      textAdded$.unsubscribe();
-      text2dRegistry.destroy();
-      text3dRegistry.destroy();
-
-      cameraCreated$.unsubscribe();
-      cameraFactory.destroy();
-      cameraAdded$.unsubscribe();
-      cameraRegistry.destroy();
-
-      lightCreated$.unsubscribe();
-      lightFactory.destroy();
-      lightAdded$.unsubscribe();
-      lightRegistry.destroy();
-
-      fogCreated$.unsubscribe();
-      fogFactory.destroy();
-      fogAdded$.unsubscribe();
-      fogRegistry.destroy();
-
-      controlsCreated$.unsubscribe();
-      controlsFactory.destroy();
-      controlsRegistry.destroy();
-
-      rendererCreated$.unsubscribe();
-      rendererFactory.destroy();
-      rendererRegistry.destroy();
+      Object.values(subscriptions).forEach((sub: Subscription): void => sub.unsubscribe());
 
       loopTick$.unsubscribe();
 
