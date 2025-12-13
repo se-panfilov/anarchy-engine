@@ -3,7 +3,12 @@ import GUI from 'lil-gui';
 import type { TActorService, TActorWrapperAsync, TIntersectionEvent, TIntersectionsWatcher, TSpatialGridService, TSpatialGridWrapper } from '@/Engine';
 import { isNotDefined } from '@/Engine';
 
-export function initGui(mouseLineIntersectionsWatcher: TIntersectionsWatcher, spatialGridService: TSpatialGridService, actorService: TActorService): void {
+export function initGui(
+  mouseLineIntersectionsWatcher: TIntersectionsWatcher,
+  spatialGridService: TSpatialGridService,
+  actorService: TActorService,
+  shootingParams: Readonly<{ cooldownMs: number; speed: number }>
+): void {
   const gui: GUI = new GUI();
   const grid: TSpatialGridWrapper | undefined = spatialGridService.getRegistry().findByName('main_grid');
   if (isNotDefined(grid)) throw new Error(`Cannot find "main_grid" spatial grid`);
@@ -62,4 +67,8 @@ export function initGui(mouseLineIntersectionsWatcher: TIntersectionsWatcher, sp
 
   const actorFolderGui: GUI = gui.addFolder('Actor');
   actorFolderGui.add(actor, 'name').listen();
+
+  const shootingFolderGui: GUI = gui.addFolder('Shooting');
+  shootingFolderGui.add(shootingParams, 'speed').min(1).max(100).step(1);
+  shootingFolderGui.add(shootingParams, 'cooldownMs').min(4).max(1000).step(10);
 }

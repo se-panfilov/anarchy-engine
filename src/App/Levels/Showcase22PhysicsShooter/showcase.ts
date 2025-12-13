@@ -20,7 +20,6 @@ import type {
   TWithCoordsXYZ
 } from '@/Engine';
 import { buildSpaceFromConfig, Engine, get3DAzimuthRad, isDefined, isNotDefined, KeysExtra } from '@/Engine';
-import { meters } from '@/Engine/Measurements/Utils';
 
 import spaceConfig from './showcase.json';
 import type { TBullet } from './utils';
@@ -127,7 +126,12 @@ export function showcase(canvas: TAppCanvas): TShowcase {
     // TODO setTimout/setInterval is not a good idea (cause the game might be "on pause", e.g. when tab is not active)
     setTimeout(() => moveActorBounce(targetActor3W, 5, -270, 3000), 1000);
 
-    initGui(mouseLineIntersectionsWatcher, spatialGridService, actorService);
+    const shootingParams = {
+      cooldownMs: 300,
+      speed: 10
+    };
+
+    initGui(mouseLineIntersectionsWatcher, spatialGridService, actorService, shootingParams);
 
     loopService.tick$.subscribe((delta): void => {
       cameraFollowingActor(cameraW, heroW);
@@ -147,7 +151,7 @@ export function showcase(canvas: TAppCanvas): TShowcase {
       }
     });
 
-    shootRapidFire(heroW, mouseService, fromHeroAngles, meters(10), bullets);
+    shootRapidFire(heroW, mouseService, fromHeroAngles, shootingParams, bullets);
 
     physicsLoopService.shouldAutoUpdate(true);
     keyboardService.onKey(KeysExtra.Space).pressed$.subscribe((): void => physicsLoopService.shouldAutoUpdate(!physicsLoopService.isAutoUpdate()));
