@@ -40,7 +40,7 @@ SOFTWARE.
 
 ---
 
-## @asamuzakjp/dom-selector@6.5.6
+## @asamuzakjp/dom-selector@6.6.1
 
 **License:** MIT
 

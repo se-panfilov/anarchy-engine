@@ -2,10 +2,10 @@
   "$schema": "http://cyclonedx.org/schema/bom-1.5.schema.json",
   "bomFormat": "CycloneDX",
   "specVersion": "1.5",
-  "serialNumber": "urn:uuid:bd0fe3f8-ad3c-472b-8698-fbfccbde5584",
+  "serialNumber": "urn:uuid:25cd78e1-69db-4f5d-9f22-4144e7fee202",
   "version": 1,
   "metadata": {
-    "timestamp": "2025-09-28T01:06:31.827Z",
+    "timestamp": "2025-10-09T22:38:25.511Z",
     "lifecycles": [
       {
         "phase": "pre-build"
@@ -45,14 +45,14 @@
   },
   "components": [
     {
-      "bom-ref": "showcases-core@2.13.1",
+      "bom-ref": "showcases-core@2.13.2",
       "type": "library",
       "name": "showcases-core",
-      "version": "2.13.1",
+      "version": "2.13.2",
       "scope": "required",
       "author": "S. Panfilov",
       "description": "Anarchy Showcases Core – an application with demos for Anarchy-Engine.",
-      "purl": "pkg:npm/showcases-core@2.13.1",
+      "purl": "pkg:npm/showcases-core@2.13.2",
       "properties": [
         {
           "name": "cdx:npm:package:private",
@@ -358,6 +358,174 @@
         {
           "alg": "SHA-512",
           "content": "c36af61251b2c5828ad31dd276c624fa690d06965ca58faf60d898a9fa460e26ad3b1127245786a1a83c3ae623039aae2b4689a90f9a649cc77a76b18c84f871"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ]
+    },
+    {
+      "bom-ref": "@sentry-internal/browser-utils@10.17.0",
+      "type": "library",
+      "name": "@sentry-internal/browser-utils",
+      "version": "10.17.0",
+      "scope": "required",
+      "purl": "pkg:npm/%40sentry-internal/browser-utils@10.17.0",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/@sentry-internal/browser-utils/-/browser-utils-10.17.0.tgz"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "8d70bb76d22d6583463fe2bd2e8fb7316696686548eae0c83c607d040664667b5cff59467e130f9bb168daa6f53756d43f4bce4c9d93992500f06371cb181e91"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ]
+    },
+    {
+      "bom-ref": "@sentry-internal/feedback@10.17.0",
+      "type": "library",
+      "name": "@sentry-internal/feedback",
+      "version": "10.17.0",
+      "scope": "required",
+      "purl": "pkg:npm/%40sentry-internal/feedback@10.17.0",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/@sentry-internal/feedback/-/feedback-10.17.0.tgz"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "288205fdd0d0a9810d6f1e2f9fa0747afcbfab1d50b4466c49946f5cd5fab549b5e020b2ad9783ca604cc84ceef114393de65789b6cf124cfbc4e5e21b7abe79"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ]
+    },
+    {
+      "bom-ref": "@sentry-internal/replay@10.17.0",
+      "type": "library",
+      "name": "@sentry-internal/replay",
+      "version": "10.17.0",
+      "scope": "required",
+      "purl": "pkg:npm/%40sentry-internal/replay@10.17.0",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/@sentry-internal/replay/-/replay-10.17.0.tgz"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "f648ab38fa77c1b7fe4ccc87980f224ad280cac92564f72b3e5074bf6ce1d2a463d73345634c400f6592831b82bc3f6b128e6a2a198029c693ed48e29fae2e4b"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ]
+    },
+    {
+      "bom-ref": "@sentry-internal/replay-canvas@10.17.0",
+      "type": "library",
+      "name": "@sentry-internal/replay-canvas",
+      "version": "10.17.0",
+      "scope": "required",
+      "purl": "pkg:npm/%40sentry-internal/replay-canvas@10.17.0",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/@sentry-internal/replay-canvas/-/replay-canvas-10.17.0.tgz"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "19729922b697adba0fd37f974be2b092429524ef9c4a53341eb7e378f49f16a88d6db9e346138b7a4a0bb83bef1ff6445cf5285090f559ee483c183eb196507d"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ]
+    },
+    {
+      "bom-ref": "@sentry/browser@10.17.0",
+      "type": "library",
+      "name": "@sentry/browser",
+      "version": "10.17.0",
+      "scope": "required",
+      "purl": "pkg:npm/%40sentry/browser@10.17.0",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/@sentry/browser/-/browser-10.17.0.tgz"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "5f83a21840b3929ead23200a5c1ffd6de042da85f5c4a384903a38bffa6120a18fceb990e28e798f66bafd5db48d27d237bc3e91f679e882c4ef54b30bdc3569"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ]
+    },
+    {
+      "bom-ref": "@sentry/core@10.17.0",
+      "type": "library",
+      "name": "@sentry/core",
+      "version": "10.17.0",
+      "scope": "required",
+      "purl": "pkg:npm/%40sentry/core@10.17.0",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/@sentry/core/-/core-10.17.0.tgz"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "51522fc52cd2d27e506c80cfc857f4597f48efb39fd5b72be9ad2c08429f8e124698643c9855a85a0476805e3070fc3ad1752bcdbaf20abefd78eb081cb43973"
         }
       ],
       "licenses": [
@@ -1434,6 +1602,30 @@
       ]
     },
     {
+      "bom-ref": "anarchy-tracking@1.2.0",
+      "type": "library",
+      "name": "anarchy-tracking",
+      "version": "1.2.0",
+      "scope": "required",
+      "author": "S. Panfilov",
+      "description": "Anarchy-Tracking – a library error monitoring in Anarchy Engine's based projects.",
+      "purl": "pkg:npm/anarchy-tracking@1.2.0",
+      "properties": [
+        {
+          "name": "cdx:npm:package:private",
+          "value": "true"
+        }
+      ],
+      "externalReferences": [],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ]
+    },
+    {
       "bom-ref": "showcases-i18n@1.3.0",
       "type": "library",
       "name": "showcases-i18n",
@@ -1846,24 +2038,26 @@
     {
       "ref": "anarchy-monorepo@2.1.8",
       "dependsOn": [
-        "showcases-core@2.13.1",
+        "showcases-core@2.13.2",
         "showcases-desktop@2.8.2",
         "showcases-e2e@1.0.4",
         "anarchy-engine@21.1.0",
         "anarchy-i18n@1.2.0",
         "anarchy-legal@1.10.4",
         "anarchy-shared@1.4.0",
+        "anarchy-tracking@1.2.0",
         "showcases-i18n@1.3.0",
         "showcases-menu@1.8.0",
         "showcases-shared@1.4.0"
       ]
     },
     {
-      "ref": "showcases-core@2.13.1",
+      "ref": "showcases-core@2.13.2",
       "dependsOn": [
         "anarchy-engine@21.1.0",
         "anarchy-i18n@1.2.0",
         "anarchy-shared@1.4.0",
+        "anarchy-tracking@1.2.0",
         "dexie@4.2.0",
         "lil-gui@0.20.0",
         "sanitize.css@13.0.0",
@@ -1876,7 +2070,7 @@
     },
     {
       "ref": "showcases-desktop@2.8.2",
-      "dependsOn": ["anarchy-shared@1.4.0", "showcases-core@2.13.1", "showcases-shared@1.4.0"]
+      "dependsOn": ["anarchy-shared@1.4.0", "showcases-core@2.13.2", "showcases-shared@1.4.0"]
     },
     {
       "ref": "showcases-e2e@1.0.4",
@@ -1916,6 +2110,30 @@
     },
     {
       "ref": "@rwh/keystrokes@1.5.6",
+      "dependsOn": []
+    },
+    {
+      "ref": "@sentry-internal/browser-utils@10.17.0",
+      "dependsOn": ["@sentry/core@10.17.0"]
+    },
+    {
+      "ref": "@sentry-internal/feedback@10.17.0",
+      "dependsOn": ["@sentry/core@10.17.0"]
+    },
+    {
+      "ref": "@sentry-internal/replay@10.17.0",
+      "dependsOn": ["@sentry-internal/browser-utils@10.17.0", "@sentry/core@10.17.0"]
+    },
+    {
+      "ref": "@sentry-internal/replay-canvas@10.17.0",
+      "dependsOn": ["@sentry-internal/replay@10.17.0", "@sentry/core@10.17.0"]
+    },
+    {
+      "ref": "@sentry/browser@10.17.0",
+      "dependsOn": ["@sentry-internal/browser-utils@10.17.0", "@sentry-internal/feedback@10.17.0", "@sentry-internal/replay@10.17.0", "@sentry-internal/replay-canvas@10.17.0", "@sentry/core@10.17.0"]
+    },
+    {
+      "ref": "@sentry/core@10.17.0",
       "dependsOn": []
     },
     {
@@ -2085,6 +2303,10 @@
     {
       "ref": "anarchy-shared@1.4.0",
       "dependsOn": ["bowser@2.12.1"]
+    },
+    {
+      "ref": "anarchy-tracking@1.2.0",
+      "dependsOn": ["@sentry/browser@10.17.0"]
     },
     {
       "ref": "showcases-i18n@1.3.0",
