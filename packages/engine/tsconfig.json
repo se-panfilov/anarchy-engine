@@ -27,7 +27,7 @@
     "target": "ESNext",
     "types": ["node", "vite/client", "three", "vitest/importMeta", "vitest/globals"],
     "useDefineForClassFields": true,
-    "typeRoots": ["./node_modules/@types", "./node_modules", "./src/Engine/Types", "../../types"]
+    "typeRoots": ["./node_modules/@types", "./node_modules", "./src/Engine/Types", "./types"]
   },
   "include": ["../../src", "vite.config.ts", "playwright.config.ts", "types", "e2e", "shared"]
 }
