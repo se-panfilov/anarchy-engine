@@ -3,7 +3,7 @@ import type { TFsmWrapper } from '@/Engine/Fsm';
 import type { TWriteable } from '@/Engine/Utils';
 
 export function withActorStates(params: TActorParams): TWithActorStates {
-  const states: TWriteable<TActorStates> = {};
+  const states: TWriteable<TActorStates> = params.states ?? {};
 
   function setAnimationsFsm(fsm: TFsmWrapper): void {
     // eslint-disable-next-line functional/immutable-data
