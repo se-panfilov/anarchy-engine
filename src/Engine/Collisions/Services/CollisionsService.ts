@@ -3,6 +3,7 @@ import { Box3, Raycaster, Vector3 } from 'three';
 
 import type { TActorWrapperAsync } from '@/Engine/Actor/Models';
 import type { TBvhService, TCollisionCheckResult, TCollisionsService, TSpatialGridService } from '@/Engine/Collisions/Models';
+import { isNotDefined } from '@/Engine/Utils';
 
 import { BvhService } from './BvhService';
 import { SpatialGridService } from './SpatialGridService';
@@ -27,6 +28,7 @@ export function CollisionsService(): TCollisionsService {
     // eslint-disable-next-line functional/no-loop-statements
     for (const candidate of candidates) {
       if (candidate.object !== actorW.entity) {
+        if (isNotDefined(actorW.kinematic.linearVelocity)) throw new Error('Cannot check collisions: Linear velocity is not defined');
         const raycaster: Raycaster = new Raycaster();
 
         // TODO (S.Panfilov) is linearVelocity is the same as direction here?

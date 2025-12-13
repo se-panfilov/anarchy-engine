@@ -1,8 +1,8 @@
+import type { TKinematicInfo } from '@/Engine/Kinematic';
 import type { TDestroyable } from '@/Engine/Mixins';
 import type { TWithCreateFromConfigService, TWithCreateService, TWithFactoryService, TWithRegistryService } from '@/Engine/Space';
 import type { TOptional } from '@/Engine/Utils';
 
-import type { TKinematicInfo } from './TKinematicInfo';
 import type { TPhysicsBodyFacade } from './TPhysicsBodyFacade';
 import type { TPhysicsBodyFactory } from './TPhysicsBodyFactory';
 import type { TPhysicsBodyParams } from './TPhysicsBodyParams';

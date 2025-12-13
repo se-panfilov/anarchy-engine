@@ -40,10 +40,8 @@ export function getKinematicInfoFromPhysics(facade: TPhysicsBodyFacade): TKinema
   const rigidBody: RigidBody | undefined = facade.getRigidBody();
   if (isNotDefined(rigidBody)) throw new Error('Cannot get movement info: rigid body is not defined');
   const linearVelocity: Vector = rigidBody.linvel();
-  const mass: number = rigidBody.mass();
 
   return {
-    mass,
     linearVelocity,
     angularVelocity: rigidBody.angvel(),
     principalInertia: rigidBody.principalInertia()

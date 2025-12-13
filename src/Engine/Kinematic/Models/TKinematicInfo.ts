@@ -1,7 +1,7 @@
 import type { TWithCoordsXYZ } from '@/Engine/Mixins';
 
 export type TKinematicInfo = Readonly<{
-  linearVelocity: TWithCoordsXYZ;
-  angularVelocity: TWithCoordsXYZ;
-  principalInertia: TWithCoordsXYZ;
+  linearVelocity: TWithCoordsXYZ | undefined;
+  angularVelocity: TWithCoordsXYZ | undefined;
+  principalInertia: TWithCoordsXYZ | undefined;
 }>;
