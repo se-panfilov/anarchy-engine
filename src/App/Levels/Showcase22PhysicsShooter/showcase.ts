@@ -83,14 +83,20 @@ export function showcase(canvas: TAppCanvas): TShowcase {
     };
 
     //move bouncing sphere to target practice
-    moveActorBounce(sphereActorW);
+    moveActorBounce(sphereActorW, 4.3, 210, 5000);
 
     const targetActor1W: TActorWrapperAsync | undefined = await actorService.getRegistry().findByNameAsync('target_1');
     if (isNotDefined(targetActor1W)) throw new Error(`Cannot find "target_1" actor`);
-    // const targetActor2W: TActorWrapperAsync | undefined = await actorService.getRegistry().findByNameAsync('target_2');
-    // const targetActor3W: TActorWrapperAsync | undefined = await actorService.getRegistry().findByNameAsync('target_3');
-    // TODO (S.Panfilov) CWP an issue with updating spatial grid for more than 1 moving object
-    moveActorBounce(targetActor1W);
+    const targetActor2W: TActorWrapperAsync | undefined = await actorService.getRegistry().findByNameAsync('target_2');
+    if (isNotDefined(targetActor2W)) throw new Error(`Cannot find "target_2" actor`);
+    const targetActor3W: TActorWrapperAsync | undefined = await actorService.getRegistry().findByNameAsync('target_3');
+    if (isNotDefined(targetActor3W)) throw new Error(`Cannot find "target_3" actor`);
+
+    // TODO (S.Panfilov) CWP also sometimes bullets are going through the target (especially a distant ones) (what if we need to set radius?)
+    // TODO (S.Panfilov) CWP make sure it works properly for objects with and without BVH
+    moveActorBounce(targetActor1W, 4, -270, 3000);
+    setTimeout(() => moveActorBounce(targetActor2W, 4.5, -270, 3000), 500);
+    setTimeout(() => moveActorBounce(targetActor3W, 5, -270, 3000), 1000);
 
     const spatialGrid: TSpatialGridWrapper | undefined = spatialGridService.getRegistry().findByName('main_grid');
     if (isNotDefined(spatialGrid)) throw new Error(`Cannot find "main_grid" spatial grid`);

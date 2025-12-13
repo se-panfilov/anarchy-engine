@@ -90,11 +90,11 @@ function getActorMoveAzimuthRad(keyStates: TMoveKeysState): TRadians {
   return 0;
 }
 
-export function moveActorBounce(actorW: TActorWrapperAsync): void {
+export function moveActorBounce(actorW: TActorWrapperAsync, speedMPS: number, azimuthDeg: number, duration: number): void {
   actorW.kinematic.setAutoUpdate(true);
-  actorW.kinematic.setLinearSpeed(meters(4.3));
-  actorW.kinematic.setLinearAzimuthDeg(-210);
+  actorW.kinematic.setLinearSpeed(meters(speedMPS));
+  actorW.kinematic.setLinearAzimuthDeg(azimuthDeg);
   setInterval((): void => {
     actorW.kinematic.setLinearAzimuthDeg(actorW.kinematic.getLinearAzimuthDeg() + 180);
-  }, 5000);
+  }, duration);
 }
