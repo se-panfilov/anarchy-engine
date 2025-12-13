@@ -10,9 +10,9 @@ const modelValue = defineModel<T>();
 </script>
 
 <template>
-  <label class="settings-dropdown">
-    <span class="settings-dropdown__label"> {{ props.label }}</span>
-    <select v-model="modelValue" class="settings-dropdown__input">
+  <label class="dropdown">
+    <span class="dropdown__label"> {{ props.label }}</span>
+    <select v-model="modelValue" class="dropdown__input">
       <option v-for="(option, idx) in props.options" :key="idx" :value="option.value">
         {{ option.label }}
       </option>

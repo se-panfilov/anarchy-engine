@@ -3,8 +3,8 @@ defineEmits(['reset', 'save']);
 </script>
 
 <template>
-  <div class="menu-view-actions_container">
-    <button type="button" class="menu-view-actions_container__action -cancel" @click="$emit('reset')">Reset</button>
-    <button type="button" class="menu-view-actions_container__action -save" @click="$emit('save')">Save</button>
+  <div class="view-actions">
+    <button type="button" class="view-actions__btn -reset" @click="$emit('reset')">Reset</button>
+    <button type="button" class="view-actions__btn -save" @click="$emit('save')">Save</button>
   </div>
 </template>

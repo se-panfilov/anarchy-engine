@@ -15,10 +15,10 @@ const [modelValue] = defineModel<number>({ set: Number });
 </script>
 
 <template>
-  <label class="settings-range">
-    <span class="settings-range__label"> {{ props.label }}</span>
-    <input v-model="modelValue" type="range" :min="min" :max="max" class="settings-range__input" />
-    <span class="settings-range__value-helper"> {{ modelValue }}</span>
+  <label class="range">
+    <span class="range__label"> {{ props.label }}</span>
+    <input v-model="modelValue" type="range" :min="min" :max="max" class="range__input" />
+    <span class="range__value-helper"> {{ modelValue }}</span>
   </label>
 </template>
 
