@@ -1,3 +1,5 @@
+import type { Subscription } from 'rxjs';
+
 import type { TAnimationsService } from '@/Engine/Animations';
 import type { TMaterialRegistry, TMaterialService } from '@/Engine/Material';
 import type { TDestroyable } from '@/Engine/Mixins';
@@ -15,7 +17,6 @@ import type {
   TModels3dServiceDependencies
 } from '@/Engine/Models3d/Models';
 import type { TOptional } from '@/Engine/Utils';
-import { Subscription } from 'rxjs';
 
 export function Models3dService(
   factory: TModels3dFactory,

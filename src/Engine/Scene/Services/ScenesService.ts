@@ -1,8 +1,9 @@
+import type { Subscription } from 'rxjs';
+
 import type { TRegistryPack } from '@/Engine/Abstract';
 import type { TDestroyable, TWithActiveMixinResult } from '@/Engine/Mixins';
 import { destroyableMixin, withActiveEntityServiceMixin } from '@/Engine/Mixins';
 import type { TSceneConfig, TSceneFactory, TSceneParams, TSceneRegistry, TScenesService, TSceneWrapper } from '@/Engine/Scene';
-import { Subscription } from 'rxjs';
 
 export function ScenesService(factory: TSceneFactory, registry: TSceneRegistry): TScenesService {
   const withActive: TWithActiveMixinResult<TSceneWrapper> = withActiveEntityServiceMixin<TSceneWrapper>(registry);

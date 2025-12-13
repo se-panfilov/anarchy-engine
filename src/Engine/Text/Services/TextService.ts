@@ -1,4 +1,5 @@
-import { merge, Subscription } from 'rxjs';
+import type { Subscription } from 'rxjs';
+import { merge } from 'rxjs';
 
 import type { TRegistryPack } from '@/Engine/Abstract';
 import type { TAppGlobalContainer } from '@/Engine/Global';
