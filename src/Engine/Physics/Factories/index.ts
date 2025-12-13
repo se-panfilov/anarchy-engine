@@ -1,1 +1,1 @@
-export * from './PhysicsFactory';
+export * from './PhysicsBodyFactory';

@@ -4,12 +4,12 @@ import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
 import { configToParams } from '@/Engine/Physics/Adapters';
 import type {
+  TPhysicsBodyFactory,
+  TPhysicsBodyRegistry,
   TPhysicsDebugRenderer,
-  TPhysicsFactory,
   TPhysicsPresetConfig,
   TPhysicsPresetParams,
   TPhysicsPresetRegistry,
-  TPhysicsRegistry,
   TPhysicsService,
   TPhysicsWorldParams
 } from '@/Engine/Physics/Models';
@@ -18,7 +18,7 @@ import type { TSceneWrapper } from '@/Engine/Scene';
 import { isNotDefined } from '@/Engine/Utils';
 import type { TVector3Wrapper } from '@/Engine/Vector';
 
-export function PhysicsService(factory: TPhysicsFactory, registry: TPhysicsRegistry, physicsPresetRegistry: TPhysicsPresetRegistry, scene: TSceneWrapper): TPhysicsService {
+export function PhysicsService(factory: TPhysicsBodyFactory, registry: TPhysicsBodyRegistry, physicsPresetRegistry: TPhysicsPresetRegistry, scene: TSceneWrapper): TPhysicsService {
   let world: World | undefined;
 
   function createWorld({
@@ -86,8 +86,8 @@ export function PhysicsService(factory: TPhysicsFactory, registry: TPhysicsRegis
     getDebugRenderer,
     getWorld: (): World | undefined => world,
     setGravity,
-    getFactory: (): TPhysicsFactory => factory,
-    getRegistry: (): TPhysicsRegistry => registry,
+    getFactory: (): TPhysicsBodyFactory => factory,
+    getRegistry: (): TPhysicsBodyRegistry => registry,
     getPresetRegistry: (): TPhysicsPresetRegistry => physicsPresetRegistry,
     getScene: (): TSceneWrapper => scene,
     ...destroyable

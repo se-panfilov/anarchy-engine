@@ -5,4 +5,4 @@ import type { TPhysicsBodyWrapper } from './TPhysicsBodyWrapper';
 import type { TPhysicsConfig } from './TPhysicsConfig';
 import type { TPhysicsParams } from './TPhysicsParams';
 
-export type TPhysicsFactory = TReactiveFactory<TPhysicsBodyWrapper, TPhysicsParams> & TParamsFromConfig<TPhysicsConfig, TPhysicsParams> & TDestroyable;
+export type TPhysicsBodyFactory = TReactiveFactory<TPhysicsBodyWrapper, TPhysicsParams> & TParamsFromConfig<TPhysicsConfig, TPhysicsParams> & TDestroyable;

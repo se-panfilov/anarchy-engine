@@ -12,7 +12,7 @@ import type { TMaterialTextureService } from '@/Engine/MaterialTexturePack';
 import { MaterialTextureService } from '@/Engine/MaterialTexturePack';
 import { ParticlesAsyncRegistry, ParticlesFactory, ParticlesService } from '@/Engine/Particles';
 import type { TPhysicsService } from '@/Engine/Physics';
-import { PhysicsObjectFactory, PhysicsObjectRegistry, PhysicsPresetRegistry, PhysicsService } from '@/Engine/Physics';
+import { PhysicsBodyFactory, PhysicsBodyRegistry, PhysicsPresetRegistry, PhysicsService } from '@/Engine/Physics';
 import { RendererFactory, RendererRegistry, RendererService } from '@/Engine/Renderer';
 import type { TSceneFactory, TSceneRegistry, TScenesService, TSceneWrapper } from '@/Engine/Scene';
 import { SceneFactory, SceneRegistry, ScenesService } from '@/Engine/Scene';
@@ -31,7 +31,7 @@ export function initSceneService(): TScenesService {
 export function initEntitiesServices(scene: TSceneWrapper, canvas: TAppCanvas): Omit<TSpaceServices, 'scenesService'> {
   const materialService: TMaterialService = MaterialService(MaterialFactory(), MaterialRegistry());
   const materialTextureService: TMaterialTextureService = MaterialTextureService(materialService, textureService);
-  const physicsService: TPhysicsService = PhysicsService(PhysicsObjectFactory(), PhysicsObjectRegistry(), PhysicsPresetRegistry(), scene);
+  const physicsService: TPhysicsService = PhysicsService(PhysicsBodyFactory(), PhysicsBodyRegistry(), PhysicsPresetRegistry(), scene);
 
   return {
     actorService: ActorService(ActorFactory(), ActorAsyncRegistry(), materialTextureService, physicsService, scene),

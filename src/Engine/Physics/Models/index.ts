@@ -1,7 +1,8 @@
+export * from './TPhysicsBodyFactory';
+export * from './TPhysicsBodyRegistry';
 export * from './TPhysicsBodyWrapper';
 export * from './TPhysicsConfig';
 export * from './TPhysicsDebugRenderer';
-export * from './TPhysicsFactory';
 export * from './TPhysicsGlobalConfig';
 export * from './TPhysicsGlobalParams';
 export * from './TPhysicsGlobalProps';
@@ -12,7 +13,6 @@ export * from './TPhysicsPresetParams';
 export * from './TPhysicsPresetProps';
 export * from './TPhysicsPresetRegistry';
 export * from './TPhysicsProps';
-export * from './TPhysicsRegistry';
 export * from './TPhysicsService';
 export * from './TPhysicsWorldParams';
 export * from './TWithPhysicsPresetConfig';
