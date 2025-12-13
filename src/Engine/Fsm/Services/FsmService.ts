@@ -1,6 +1,8 @@
 import { isEqual } from 'lodash-es';
 import type { Subscription } from 'rxjs';
 
+import type { TAbstractService } from '@/Engine/Abstract';
+import { AbstractService } from '@/Engine/Abstract';
 import type {
   TFsmInstanceFactory,
   TFsmInstanceRegistry,
@@ -13,14 +15,13 @@ import type {
   TFsmSourceService,
   TFsmWrapper
 } from '@/Engine/Fsm/Models';
-import type { TDestroyable } from '@/Engine/Mixins';
-import { destroyableMixin } from '@/Engine/Mixins';
 import { isDefined, isNotDefined } from '@/Engine/Utils';
 
 import { FsmInstanceService } from './FsmInstanceService';
 import { FsmSourceService } from './FsmSourceService';
 
 export function FsmService(instanceFactory: TFsmInstanceFactory, sourceFactory: TFsmSourceFactory, instanceRegistry: TFsmInstanceRegistry, sourceRegistry: TFsmSourceRegistry): TFsmService {
+  const abstractService: TAbstractService = AbstractService();
   const sourceService: TFsmSourceService = FsmSourceService(sourceFactory, sourceRegistry);
   const instanceService: TFsmInstanceService = FsmInstanceService(instanceFactory, instanceRegistry);
 
@@ -49,14 +50,14 @@ export function FsmService(instanceFactory: TFsmInstanceFactory, sourceFactory: 
     return instanceService.create(source);
   }
 
-  const destroyable: TDestroyable = destroyableMixin();
-  const destroySub$: Subscription = destroyable.destroy$.subscribe((): void => {
+  const destroySub$: Subscription = abstractService.destroy$.subscribe((): void => {
     destroySub$.unsubscribe();
     sourceService.destroy$.next();
     instanceService.destroy$.next();
   });
 
-  return {
+  // eslint-disable-next-line functional/immutable-data
+  return Object.assign(abstractService, {
     create,
     createInstanceBySourceName,
     createSource: sourceService.create,
@@ -64,7 +65,6 @@ export function FsmService(instanceFactory: TFsmInstanceFactory, sourceFactory: 
     createInstance: instanceService.create,
     getSourceRegistry: (): TFsmSourceRegistry => sourceRegistry,
     getInstanceRegistry: (): TFsmInstanceRegistry => instanceRegistry,
-    getFactory: (): TFsmInstanceFactory => instanceFactory,
-    ...destroyable
-  };
+    getFactory: (): TFsmInstanceFactory => instanceFactory
+  });
 }

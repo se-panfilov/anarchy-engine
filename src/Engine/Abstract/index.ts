@@ -5,5 +5,6 @@ export * from './Loaders';
 export * from './Mixins';
 export type * from './Models';
 export * from './Registries';
+export * from './Services';
 export * from './Watchers';
 export * from './Wrappers';

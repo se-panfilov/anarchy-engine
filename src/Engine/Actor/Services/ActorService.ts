@@ -1,13 +1,13 @@
 import type { Subscription } from 'rxjs';
 
-import type { TRegistryPack } from '@/Engine/Abstract';
+import type { TAbstractService, TRegistryPack } from '@/Engine/Abstract';
+import { AbstractService } from '@/Engine/Abstract';
 import type { TActor, TActorConfig, TActorFactory, TActorParams, TActorRegistry, TActorService, TActorServiceDependencies } from '@/Engine/Actor/Models';
-import type { TDestroyable } from '@/Engine/Mixins';
-import { destroyableMixin } from '@/Engine/Mixins';
 import type { TSceneWrapper } from '@/Engine/Scene';
 import type { TSpatialGridRegistry } from '@/Engine/Spatial';
 
 export function ActorService(factory: TActorFactory, registry: TActorRegistry, actorServiceDependencies: TActorServiceDependencies, scene: TSceneWrapper): TActorService {
+  const abstractService: TAbstractService = AbstractService();
   const registrySub$: Subscription = registry.added$.subscribe(({ value }: TRegistryPack<TActor>): void => scene.addActor(value));
   const factorySub$: Subscription = factory.entityCreated$.subscribe((actor: TActor): void => registry.add(actor));
 
@@ -20,8 +20,7 @@ export function ActorService(factory: TActorFactory, registry: TActorRegistry, a
     );
   };
 
-  const destroyable: TDestroyable = destroyableMixin();
-  const destroySub$: Subscription = destroyable.destroy$.subscribe((): void => {
+  const destroySub$: Subscription = abstractService.destroy$.subscribe((): void => {
     destroySub$.unsubscribe();
 
     registrySub$.unsubscribe();
@@ -31,12 +30,12 @@ export function ActorService(factory: TActorFactory, registry: TActorRegistry, a
     registry.destroy$.next();
   });
 
-  return {
+  // eslint-disable-next-line functional/immutable-data
+  return Object.assign(abstractService, {
     create,
     createFromConfig,
     getFactory: (): TActorFactory => factory,
     getRegistry: (): TActorRegistry => registry,
-    getScene: (): TSceneWrapper => scene,
-    ...destroyable
-  };
+    getScene: (): TSceneWrapper => scene
+  });
 }

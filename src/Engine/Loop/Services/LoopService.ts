@@ -1,5 +1,7 @@
 import type { Subscription } from 'rxjs';
 
+import type { TAbstractService } from '@/Engine/Abstract';
+import { AbstractService } from '@/Engine/Abstract';
 import type { TAudioLoop } from '@/Engine/Audio';
 import type { TCollisionsLoop } from '@/Engine/Collisions';
 import type { TControlsLoop } from '@/Engine/Controls';
@@ -9,8 +11,6 @@ import type { TKinematicLoop } from '@/Engine/Kinematic';
 import { LoopType } from '@/Engine/Loop/Constants';
 import type { TLoop, TLoopFactory, TLoopParams, TLoopRegistry, TLoopService } from '@/Engine/Loop/Models';
 import { getMainLoopNameByType } from '@/Engine/Loop/Utils';
-import type { TDestroyable } from '@/Engine/Mixins';
-import { destroyableMixin } from '@/Engine/Mixins';
 import type { TMouseLoop } from '@/Engine/Mouse';
 import type { TPhysicalLoop } from '@/Engine/Physics';
 import type { TRenderLoop } from '@/Engine/Space';
@@ -20,12 +20,12 @@ import type { TTransformLoop } from '@/Engine/TransformDrive';
 import { isNotDefined } from '@/Engine/Utils';
 
 export function LoopService(factory: TLoopFactory, registry: TLoopRegistry): TLoopService {
+  const abstractService: TAbstractService = AbstractService();
   let debugInfoSub$: Subscription | undefined;
   const factorySub$: Subscription = factory.entityCreated$.subscribe((wrapper: TLoop): void => registry.add(wrapper));
   const create = (params: TLoopParams): TLoop => factory.create(params);
 
-  const destroyable: TDestroyable = destroyableMixin();
-  const destroySub$: Subscription = destroyable.destroy$.subscribe((): void => {
+  const destroySub$: Subscription = abstractService.destroy$.subscribe((): void => {
     debugInfoSub$?.unsubscribe();
     destroySub$.unsubscribe();
 
@@ -42,7 +42,8 @@ export function LoopService(factory: TLoopFactory, registry: TLoopRegistry): TLo
     return loop;
   }
 
-  return {
+  // eslint-disable-next-line functional/immutable-data
+  return Object.assign(abstractService, {
     create,
     getLoop,
     getRenderLoop: (name?: string): TRenderLoop | never => getLoop(name, LoopType.Render) as TRenderLoop,
@@ -58,7 +59,6 @@ export function LoopService(factory: TLoopFactory, registry: TLoopRegistry): TLo
     getIntersectionsLoop: (name?: string): TIntersectionsLoop | never => getLoop(name, LoopType.Intersections) as TIntersectionsLoop,
     getControlsLoop: (name?: string): TControlsLoop | never => getLoop(name, LoopType.Controls) as TControlsLoop,
     getFactory: (): TLoopFactory => factory,
-    getRegistry: (): TLoopRegistry => registry,
-    ...destroyable
-  };
+    getRegistry: (): TLoopRegistry => registry
+  });
 }

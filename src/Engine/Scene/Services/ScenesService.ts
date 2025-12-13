@@ -1,11 +1,13 @@
 import type { Subscription } from 'rxjs';
 
-import type { TRegistryPack } from '@/Engine/Abstract';
-import type { TDestroyable, TWithActiveMixinResult } from '@/Engine/Mixins';
-import { destroyableMixin, withActiveEntityServiceMixin } from '@/Engine/Mixins';
+import type { TAbstractService, TRegistryPack } from '@/Engine/Abstract';
+import { AbstractService } from '@/Engine/Abstract';
+import type { TWithActiveMixinResult } from '@/Engine/Mixins';
+import { withActiveEntityServiceMixin } from '@/Engine/Mixins';
 import type { TSceneConfig, TSceneFactory, TSceneParams, TSceneRegistry, TScenesService, TSceneWrapper } from '@/Engine/Scene';
 
 export function ScenesService(factory: TSceneFactory, registry: TSceneRegistry): TScenesService {
+  const abstractService: TAbstractService = AbstractService();
   const withActive: TWithActiveMixinResult<TSceneWrapper> = withActiveEntityServiceMixin<TSceneWrapper>(registry);
 
   const registrySub$: Subscription = registry.added$.subscribe(({ value }: TRegistryPack<TSceneWrapper>): void => {
@@ -16,8 +18,7 @@ export function ScenesService(factory: TSceneFactory, registry: TSceneRegistry):
   const create = (params: TSceneParams): TSceneWrapper => factory.create(params);
   const createFromConfig = (scenes: ReadonlyArray<TSceneConfig>): ReadonlyArray<TSceneWrapper> => scenes.map((config: TSceneConfig): TSceneWrapper => create(factory.configToParams(config)));
 
-  const destroyable: TDestroyable = destroyableMixin();
-  const destroySub$: Subscription = destroyable.destroy$.subscribe((): void => {
+  const destroySub$: Subscription = abstractService.destroy$.subscribe((): void => {
     destroySub$.unsubscribe();
     registrySub$.unsubscribe();
     factorySub$.unsubscribe();
@@ -28,14 +29,14 @@ export function ScenesService(factory: TSceneFactory, registry: TSceneRegistry):
     withActive.active$.unsubscribe();
   });
 
-  return {
+  // eslint-disable-next-line functional/immutable-data
+  return Object.assign(abstractService, {
     create,
     createFromConfig,
     setActive: withActive.setActive,
     findActive: withActive.findActive,
     active$: withActive.active$,
     getFactory: (): TSceneFactory => factory,
-    getRegistry: (): TSceneRegistry => registry,
-    ...destroyable
-  };
+    getRegistry: (): TSceneRegistry => registry
+  });
 }

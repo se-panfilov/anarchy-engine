@@ -2,8 +2,8 @@ import { World } from '@dimforge/rapier3d';
 import type { Subscription } from 'rxjs';
 import type { Vector3 } from 'three';
 
-import type { TDestroyable } from '@/Engine/Mixins';
-import { destroyableMixin } from '@/Engine/Mixins';
+import type { TAbstractService } from '@/Engine/Abstract';
+import { AbstractService } from '@/Engine/Abstract';
 import { STANDARD_GRAVITY } from '@/Engine/Physics/Constants';
 import type { TPhysicalLoop, TPhysicsDebugRenderer, TPhysicsWorldParams, TPhysicsWorldService } from '@/Engine/Physics/Models';
 import { PhysicsDebugRenderer } from '@/Engine/Physics/Renderers';
@@ -12,6 +12,7 @@ import type { TSpaceLoops } from '@/Engine/Space';
 import { isNotDefined } from '@/Engine/Utils';
 
 export function PhysicsWorldService(scene: TSceneWrapper, { physicalLoop }: TSpaceLoops): TPhysicsWorldService {
+  const abstractService: TAbstractService = AbstractService();
   let world: World | undefined;
 
   function createWorld({
@@ -68,8 +69,7 @@ export function PhysicsWorldService(scene: TSceneWrapper, { physicalLoop }: TSpa
     world.gravity = vector;
   }
 
-  const destroyable: TDestroyable = destroyableMixin();
-  const destroySub$: Subscription = destroyable.destroy$.subscribe((): void => {
+  const destroySub$: Subscription = abstractService.destroy$.subscribe((): void => {
     debugRenderersList.forEach((renderer: TPhysicsDebugRenderer): void => renderer.destroy$.next());
 
     destroySub$.unsubscribe();
@@ -79,12 +79,12 @@ export function PhysicsWorldService(scene: TSceneWrapper, { physicalLoop }: TSpa
     world = null as any;
   });
 
-  return {
+  // eslint-disable-next-line functional/immutable-data
+  return Object.assign(abstractService, {
     createWorld,
     getDebugRenderer,
     getWorld: (): World | undefined => world,
     setGravity,
-    getScene: (): TSceneWrapper => scene,
-    ...destroyable
-  };
+    getScene: (): TSceneWrapper => scene
+  });
 }

@@ -1,10 +1,9 @@
 import type { Observable, Subscription } from 'rxjs';
 import { EMPTY, filter, map, merge, mergeMap, Subject } from 'rxjs';
 
-import { WatcherTag } from '@/Engine/Abstract';
+import type { TAbstractService } from '@/Engine/Abstract';
+import { AbstractService, WatcherTag } from '@/Engine/Abstract';
 import type { TGlobalContainerDecorator } from '@/Engine/Global';
-import type { TDestroyable } from '@/Engine/Mixins';
-import { destroyableMixin } from '@/Engine/Mixins';
 import { MouseButtonValue, MouseEventType, MouseWheelValue } from '@/Engine/Mouse/Constants';
 import { MouseClickWatcherFactory, MousePositionWatcherFactory } from '@/Engine/Mouse/Factories';
 import type {
@@ -22,6 +21,8 @@ import { MouseClickWatcherRegistry, MousePositionWatcherRegistry } from '@/Engin
 import type { TSpaceLoops } from '@/Engine/Space';
 
 export function MouseService(container: TGlobalContainerDecorator, { mouseLoop }: TSpaceLoops): TMouseService {
+  const abstractService: TAbstractService = AbstractService();
+
   const mouseClickWatcherFactory: TMouseClickWatcherFactory = MouseClickWatcherFactory();
   const mouseClickWatcherRegistry: TMouseClickWatcherRegistry = MouseClickWatcherRegistry();
   mouseClickWatcherFactory.entityCreated$.subscribe((watcher: TMouseClickWatcher) => mouseClickWatcherRegistry.add(watcher));
@@ -132,8 +133,7 @@ export function MouseService(container: TGlobalContainerDecorator, { mouseLoop }
     if (event.type === MouseEventType.Wheel) wheel$.next(event);
   });
 
-  const destroyable: TDestroyable = destroyableMixin();
-  const destroySub$: Subscription = destroyable.destroy$.subscribe((): void => {
+  const destroySub$: Subscription = abstractService.destroy$.subscribe((): void => {
     destroySub$.unsubscribe();
 
     clickPress$.complete();
@@ -196,7 +196,8 @@ export function MouseService(container: TGlobalContainerDecorator, { mouseLoop }
     mergeSub$.unsubscribe();
   });
 
-  return {
+  // eslint-disable-next-line functional/immutable-data
+  return Object.assign(abstractService, {
     clickPress$: clickPress$.asObservable(),
     clickLeftPress$: clickLeftPress$.asObservable(),
     clickRightPress$: clickRightPress$.asObservable(),
@@ -228,7 +229,6 @@ export function MouseService(container: TGlobalContainerDecorator, { mouseLoop }
     wheelUp$: wheelUp$.asObservable(),
     wheelDown$: wheelDown$.asObservable(),
 
-    position$: mousePositionWatcher.value$,
-    ...destroyable
-  };
+    position$: mousePositionWatcher.value$
+  });
 }

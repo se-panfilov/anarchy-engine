@@ -1,16 +1,18 @@
 import type { Subscription } from 'rxjs';
 
-import type { TRegistryPack } from '@/Engine/Abstract';
+import type { TAbstractService, TRegistryPack } from '@/Engine/Abstract';
+import { AbstractService } from '@/Engine/Abstract';
 import type { TAppCanvas } from '@/Engine/App';
 import type { TCameraRegistry, TCameraWrapper } from '@/Engine/Camera';
 import { controlsLoopEffect } from '@/Engine/Controls/Loop';
 import type { TControlsConfig, TControlsFactory, TControlsParams, TControlsRegistry, TControlsService, TControlsWrapper } from '@/Engine/Controls/Models';
-import type { TDestroyable, TWithActiveMixinResult } from '@/Engine/Mixins';
-import { destroyableMixin, withActiveEntityServiceMixin } from '@/Engine/Mixins';
+import type { TWithActiveMixinResult } from '@/Engine/Mixins';
+import { withActiveEntityServiceMixin } from '@/Engine/Mixins';
 import type { TSpaceLoops } from '@/Engine/Space';
 import { isNotDefined } from '@/Engine/Utils';
 
 export function ControlService(factory: TControlsFactory, registry: TControlsRegistry, { controlsLoop }: TSpaceLoops, canvas: TAppCanvas): TControlsService {
+  const abstractService: TAbstractService = AbstractService();
   const withActive: TWithActiveMixinResult<TControlsWrapper> = withActiveEntityServiceMixin<TControlsWrapper>(registry);
   const registrySub$: Subscription = registry.added$.subscribe(({ value }: TRegistryPack<TControlsWrapper>): void => {
     if (value.isActive()) withActive.active$.next(value);
@@ -28,8 +30,7 @@ export function ControlService(factory: TControlsFactory, registry: TControlsReg
 
   const loopSub$: Subscription = controlsLoopEffect(controlsLoop, registry);
 
-  const destroyable: TDestroyable = destroyableMixin();
-  const destroySub$: Subscription = destroyable.destroy$.subscribe((): void => {
+  const destroySub$: Subscription = abstractService.destroy$.subscribe((): void => {
     destroySub$.unsubscribe();
 
     registrySub$.unsubscribe();
@@ -43,14 +44,14 @@ export function ControlService(factory: TControlsFactory, registry: TControlsReg
     withActive.active$.unsubscribe();
   });
 
-  return {
+  // eslint-disable-next-line functional/immutable-data
+  return Object.assign(abstractService, {
     create,
     createFromConfig,
     setActive: withActive.setActive,
     findActive: withActive.findActive,
     active$: withActive.active$,
     getFactory: (): TControlsFactory => factory,
-    getRegistry: (): TControlsRegistry => registry,
-    ...destroyable
-  };
+    getRegistry: (): TControlsRegistry => registry
+  });
 }

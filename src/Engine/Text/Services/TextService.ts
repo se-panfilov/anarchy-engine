@@ -1,10 +1,9 @@
 import type { Subscription } from 'rxjs';
 import { BehaviorSubject, merge } from 'rxjs';
 
-import type { TRegistryPack } from '@/Engine/Abstract';
+import type { TAbstractService, TRegistryPack } from '@/Engine/Abstract';
+import { AbstractService } from '@/Engine/Abstract';
 import type { TAppGlobalContainer } from '@/Engine/Global';
-import type { TDestroyable } from '@/Engine/Mixins';
-import { destroyableMixin } from '@/Engine/Mixins';
 import type { TSceneWrapper } from '@/Engine/Scene';
 import type { TScreenSizeWatcher } from '@/Engine/Screen';
 import type { TSpaceLoops } from '@/Engine/Space';
@@ -38,6 +37,7 @@ export function TextService(
   dependencies: TTextDependencies,
   scene: TSceneWrapper
 ): TTextService {
+  const abstractService: TAbstractService = AbstractService();
   merge(text2dRegistry.added$, text3dRegistry.added$, text3dTextureRegistry.added$).subscribe(({ value }: TRegistryPack<TTextAnyWrapper>) => scene.addText(value));
   const factorySub$: Subscription = factory.entityCreated$.subscribe((text: TTextAnyWrapper): void => {
     if (isText2dWrapper(text)) text2dRegistry.add(text);
@@ -69,8 +69,7 @@ export function TextService(
 
   const loopSub$: Subscription = textLoopEffect(textLoop, text2dRegistry, text3dRegistry, activeText2dRenderer, activeText3dRenderer, scene, dependencies.cameraService);
 
-  const destroyable: TDestroyable = destroyableMixin();
-  const destroySub$: Subscription = destroyable.destroy$.subscribe((): void => {
+  const destroySub$: Subscription = abstractService.destroy$.subscribe((): void => {
     destroySub$.unsubscribe();
     factorySub$.unsubscribe();
     loopSub$.unsubscribe();
@@ -83,7 +82,8 @@ export function TextService(
     text3dRendererRegistry.destroy$.next();
   });
 
-  return {
+  // eslint-disable-next-line functional/immutable-data
+  return Object.assign(abstractService, {
     create,
     createFromConfig,
     getFactory: (): TTextFactory => factory,
@@ -95,7 +95,6 @@ export function TextService(
     activeText2dRenderer: activeText2dRenderer.asObservable(),
     activeText3dRenderer: activeText3dRenderer.asObservable(),
     getActiveText2dRenderer: (): TText2dRenderer | undefined => activeText2dRenderer.value,
-    getActiveText3dRenderer: (): TText3dRenderer | undefined => activeText3dRenderer.value,
-    ...destroyable
-  };
+    getActiveText3dRenderer: (): TText3dRenderer | undefined => activeText3dRenderer.value
+  });
 }

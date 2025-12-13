@@ -3,17 +3,18 @@ import { Subject } from 'rxjs';
 import type { AnimationClip } from 'three';
 import { AnimationMixer } from 'three';
 
+import type { TAbstractService } from '@/Engine/Abstract';
+import { AbstractService } from '@/Engine/Abstract';
 import { AnimationsLoader } from '@/Engine/Animations/Loader';
 import type { TAnimationActions, TAnimationActionsPack, TAnimationsLoader, TAnimationsResourceAsyncRegistry, TAnimationsService, TModel3dAnimations } from '@/Engine/Animations/Models';
 import type { TDelta } from '@/Engine/Loop';
-import type { TDestroyable } from '@/Engine/Mixins';
-import { destroyableMixin } from '@/Engine/Mixins';
 import type { TModel3d, TRawModel3d } from '@/Engine/Models3d';
 import type { TSpaceLoops } from '@/Engine/Space';
 import type { TWriteable } from '@/Engine/Utils';
 import { isDefined, isNotDefined } from '@/Engine/Utils';
 
 export function AnimationsService(resourcesRegistry: TAnimationsResourceAsyncRegistry, { renderLoop }: TSpaceLoops): TAnimationsService {
+  const abstractService: TAbstractService = AbstractService();
   const animationsLoader: TAnimationsLoader = AnimationsLoader(resourcesRegistry);
   const added$: Subject<TModel3dAnimations> = new Subject<TModel3dAnimations>();
   const subscriptions: Map<AnimationMixer, Subscription> = new Map<AnimationMixer, Subscription>();
@@ -46,8 +47,7 @@ export function AnimationsService(resourcesRegistry: TAnimationsResourceAsyncReg
     subscriptions.delete(mixer);
   }
 
-  const destroyable: TDestroyable = destroyableMixin();
-  const destroySub$: Subscription = destroyable.destroy$.subscribe((): void => {
+  const destroySub$: Subscription = abstractService.destroy$.subscribe((): void => {
     destroySub$.unsubscribe();
 
     added$.complete();
@@ -58,14 +58,14 @@ export function AnimationsService(resourcesRegistry: TAnimationsResourceAsyncReg
     resourcesRegistry.destroy$.next();
   });
 
-  return {
+  // eslint-disable-next-line functional/immutable-data
+  return Object.assign(abstractService, {
     createActions,
     added$: added$.asObservable(),
     startAutoUpdateMixer,
     stopAutoUpdateMixer,
     loadAsync: animationsLoader.loadAsync,
     loadFromConfigAsync: animationsLoader.loadFromConfigAsync,
-    getResourceRegistry: (): TAnimationsResourceAsyncRegistry => resourcesRegistry,
-    ...destroyable
-  };
+    getResourceRegistry: (): TAnimationsResourceAsyncRegistry => resourcesRegistry
+  });
 }

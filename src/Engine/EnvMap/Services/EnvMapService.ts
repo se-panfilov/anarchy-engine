@@ -1,14 +1,16 @@
 import type { Subscription } from 'rxjs';
 
-import type { TRegistryPack } from '@/Engine/Abstract';
+import type { TAbstractService, TRegistryPack } from '@/Engine/Abstract';
+import { AbstractService } from '@/Engine/Abstract';
 import { EnvMapLoader } from '@/Engine/EnvMap/Loader';
 import type { TEnvMapConfig, TEnvMapFactory, TEnvMapLoader, TEnvMapParams, TEnvMapRegistry, TEnvMapService, TEnvMapTextureAsyncRegistry, TEnvMapWrapper } from '@/Engine/EnvMap/Models';
-import type { TDestroyable, TWithActiveMixinResult } from '@/Engine/Mixins';
-import { destroyableMixin, withActiveEntityServiceMixin } from '@/Engine/Mixins';
+import type { TWithActiveMixinResult } from '@/Engine/Mixins';
+import { withActiveEntityServiceMixin } from '@/Engine/Mixins';
 import type { TSceneWrapper } from '@/Engine/Scene';
 import { isDefined } from '@/Engine/Utils';
 
 export function EnvMapService(factory: TEnvMapFactory, registry: TEnvMapRegistry, resourcesRegistry: TEnvMapTextureAsyncRegistry, sceneW: TSceneWrapper): TEnvMapService {
+  const abstractService: TAbstractService = AbstractService();
   const registrySub$: Subscription = registry.added$.subscribe(({ value }: TRegistryPack<TEnvMapWrapper>): void => {
     if (value.isActive()) withActive.active$.next(value);
   });
@@ -31,8 +33,7 @@ export function EnvMapService(factory: TEnvMapFactory, registry: TEnvMapRegistry
 
   const findActive = withActive.findActive;
 
-  const destroyable: TDestroyable = destroyableMixin();
-  const destroySub$: Subscription = destroyable.destroy$.subscribe((): void => {
+  const destroySub$: Subscription = abstractService.destroy$.subscribe((): void => {
     destroySub$.unsubscribe();
 
     registrySub$.unsubscribe();
@@ -46,7 +47,8 @@ export function EnvMapService(factory: TEnvMapFactory, registry: TEnvMapRegistry
     withActive.active$.unsubscribe();
   });
 
-  return {
+  // eslint-disable-next-line functional/immutable-data
+  return Object.assign(abstractService, {
     create,
     createFromConfig,
     loadAsync: envMapLoader.loadAsync,
@@ -57,7 +59,6 @@ export function EnvMapService(factory: TEnvMapFactory, registry: TEnvMapRegistry
     getFactory: (): TEnvMapFactory => factory,
     getRegistry: (): TEnvMapRegistry => registry,
     getResourceRegistry: (): TEnvMapTextureAsyncRegistry => resourcesRegistry,
-    getScene: (): TSceneWrapper => sceneW,
-    ...destroyable
-  };
+    getScene: (): TSceneWrapper => sceneW
+  });
 }

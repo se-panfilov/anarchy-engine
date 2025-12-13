@@ -7,6 +7,7 @@ export type * from './TAbstractOnLoadFunction';
 export type * from './TAbstractProtectedWatcherWithState';
 export type * from './TAbstractResourceAsyncRegistry';
 export type * from './TAbstractResourceConfig';
+export type * from './TAbstractService';
 export type * from './TAbstractSimpleRegistry';
 export type * from './TAbstractWatcher';
 export type * from './TAbstractWatcherWithState';

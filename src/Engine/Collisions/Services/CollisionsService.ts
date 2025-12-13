@@ -1,6 +1,8 @@
 import type { Vector3 } from 'three';
 import { Raycaster } from 'three';
 
+import type { TAbstractService } from '@/Engine/Abstract';
+import { AbstractService } from '@/Engine/Abstract';
 import type { TActor } from '@/Engine/Actor/Models';
 import type { TBvhService, TCollisionCheckResult, TCollisionsService } from '@/Engine/Collisions/Models';
 import type { TReadonlyVector3 } from '@/Engine/ThreeLib';
@@ -8,6 +10,7 @@ import type { TReadonlyVector3 } from '@/Engine/ThreeLib';
 import { BvhService } from './BvhService';
 
 export function CollisionsService(): TCollisionsService {
+  const abstractService: TAbstractService = AbstractService();
   const bvhService: TBvhService = BvhService();
 
   // The bigger "interpolationLengthMultiplier" then less chance the bullet won't fly through the target without a collision registration. But the too big value might lead to false positives registrations
@@ -48,8 +51,9 @@ export function CollisionsService(): TCollisionsService {
     return undefined;
   }
 
-  return {
+  // eslint-disable-next-line functional/immutable-data
+  return Object.assign(abstractService, {
     checkCollisions,
     bvh: bvhService
-  };
+  });
 }

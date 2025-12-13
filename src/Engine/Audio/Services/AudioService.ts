@@ -1,6 +1,8 @@
 import type { Subscription } from 'rxjs';
 import { AudioListener } from 'three';
 
+import type { TAbstractService } from '@/Engine/Abstract';
+import { AbstractService } from '@/Engine/Abstract';
 import { Listeners } from '@/Engine/Audio/Constants';
 import { AudioLoader } from '@/Engine/Audio/Loader';
 import type {
@@ -14,8 +16,6 @@ import type {
   TAudioResourceAsyncRegistry,
   TAudioService
 } from '@/Engine/Audio/Models';
-import type { TDestroyable } from '@/Engine/Mixins';
-import { destroyableMixin } from '@/Engine/Mixins';
 import type { TSpaceLoops } from '@/Engine/Space';
 
 // TODO Audio: Maybe implement "Sound Perception Manager" for NPCs to react to a sound (if they are in a radius)
@@ -26,6 +26,7 @@ export function AudioService(
   audioListenersRegistry: TAudioListenersRegistry,
   { audioLoop }: TSpaceLoops
 ): TAudioService {
+  const abstractService: TAbstractService = AbstractService();
   const audioLoader: TAudioLoader = AudioLoader(audioResourceAsyncRegistry);
   const factorySub$: Subscription = factory.entityCreated$.subscribe((wrapper: TAnyAudioWrapper): void => registry.add(wrapper));
 
@@ -36,8 +37,7 @@ export function AudioService(
   const createFromConfig = (models3d: ReadonlyArray<TAnyAudioConfig>): ReadonlyArray<TAnyAudioWrapper> =>
     models3d.map((config: TAnyAudioConfig): TAnyAudioWrapper => create(factory.configToParams(config, { audioResourceAsyncRegistry, audioListenersRegistry })));
 
-  const destroyable: TDestroyable = destroyableMixin();
-  const destroySub$: Subscription = destroyable.destroy$.subscribe((): void => {
+  const destroySub$: Subscription = abstractService.destroy$.subscribe((): void => {
     destroySub$.unsubscribe();
     factorySub$.unsubscribe();
 
@@ -46,7 +46,8 @@ export function AudioService(
     audioListenersRegistry.destroy$.next();
   });
 
-  return {
+  // eslint-disable-next-line functional/immutable-data
+  return Object.assign(abstractService, {
     getFactory: (): TAudioFactory => factory,
     getRegistry: (): TAudioRegistry => registry,
     getResourceRegistry: (): TAudioResourceAsyncRegistry => audioResourceAsyncRegistry,
@@ -55,7 +56,6 @@ export function AudioService(
     create,
     createFromConfig,
     loadAsync: audioLoader.loadAsync,
-    loadFromConfigAsync: audioLoader.loadFromConfigAsync,
-    ...destroyable
-  };
+    loadFromConfigAsync: audioLoader.loadFromConfigAsync
+  });
 }

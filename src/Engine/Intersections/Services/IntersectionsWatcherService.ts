@@ -1,5 +1,7 @@
 import type { Subscription } from 'rxjs';
 
+import type { TAbstractService } from '@/Engine/Abstract';
+import { AbstractService } from '@/Engine/Abstract';
 import type { TActorService } from '@/Engine/Actor';
 import type { TCameraService } from '@/Engine/Camera';
 import type {
@@ -11,11 +13,10 @@ import type {
   TIntersectionsWatcherService
 } from '@/Engine/Intersections/Models';
 import type { TLoopService } from '@/Engine/Loop';
-import type { TDestroyable } from '@/Engine/Mixins';
-import { destroyableMixin } from '@/Engine/Mixins';
 import type { TMouseService } from '@/Engine/Mouse';
 
 export function IntersectionsWatcherService(factory: TIntersectionsWatcherFactory, registry: TIntersectionsWatcherRegistry): TIntersectionsWatcherService {
+  const abstractService: TAbstractService = AbstractService();
   const factorySub$: Subscription = factory.entityCreated$.subscribe((watcher: TIntersectionsWatcher): void => registry.add(watcher));
 
   const create = (params: TIntersectionsWatcherParams): TIntersectionsWatcher => factory.create(params);
@@ -28,8 +29,7 @@ export function IntersectionsWatcherService(factory: TIntersectionsWatcherFactor
   ): ReadonlyArray<TIntersectionsWatcher> =>
     configs.map((config: TIntersectionsWatcherConfig): TIntersectionsWatcher => create(factory.configToParams(config, mouseService, cameraService, actorService, loopService)));
 
-  const destroyable: TDestroyable = destroyableMixin();
-  const destroySub$: Subscription = destroyable.destroy$.subscribe((): void => {
+  const destroySub$: Subscription = abstractService.destroy$.subscribe((): void => {
     destroySub$.unsubscribe();
     factorySub$.unsubscribe();
 
@@ -37,11 +37,11 @@ export function IntersectionsWatcherService(factory: TIntersectionsWatcherFactor
     registry.destroy$.next();
   });
 
-  return {
+  // eslint-disable-next-line functional/immutable-data
+  return Object.assign(abstractService, {
     create,
     createFromConfig,
     getFactory: (): TIntersectionsWatcherFactory => factory,
-    getRegistry: (): TIntersectionsWatcherRegistry => registry,
-    ...destroyable
-  };
+    getRegistry: (): TIntersectionsWatcherRegistry => registry
+  });
 }

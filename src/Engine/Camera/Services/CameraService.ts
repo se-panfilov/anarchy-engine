@@ -1,11 +1,12 @@
 import type { Subscription } from 'rxjs';
 import { distinctUntilChanged } from 'rxjs';
 
-import type { TRegistryPack } from '@/Engine/Abstract';
+import type { TAbstractService, TRegistryPack } from '@/Engine/Abstract';
+import { AbstractService } from '@/Engine/Abstract';
 import type { TCameraConfig, TCameraFactory, TCameraParams, TCameraRegistry, TCameraService, TCameraServiceDependencies, TCameraWrapper } from '@/Engine/Camera/Models';
 import { ambientContext } from '@/Engine/Context';
-import type { TDestroyable, TWithActiveMixinResult } from '@/Engine/Mixins';
-import { destroyableMixin, withActiveEntityServiceMixin } from '@/Engine/Mixins';
+import type { TWithActiveMixinResult } from '@/Engine/Mixins';
+import { withActiveEntityServiceMixin } from '@/Engine/Mixins';
 import type { TSceneWrapper } from '@/Engine/Scene';
 import type { TScreenSizeValues } from '@/Engine/Screen';
 import { isNotDefined } from '@/Engine/Utils';
@@ -17,6 +18,7 @@ export function CameraService(
   dependencies: TCameraServiceDependencies,
   shouldUpdateCamerasAspect: boolean = true
 ): TCameraService {
+  const abstractService: TAbstractService = AbstractService();
   const withActive: TWithActiveMixinResult<TCameraWrapper> = withActiveEntityServiceMixin<TCameraWrapper>(registry);
   const registrySub$: Subscription = registry.added$.subscribe(({ value }: TRegistryPack<TCameraWrapper>): void => {
     scene.addCamera(value);
@@ -55,8 +57,7 @@ export function CameraService(
   const createFromConfig = (cameras: ReadonlyArray<TCameraConfig>): ReadonlyArray<TCameraWrapper> =>
     cameras.map((config: TCameraConfig): TCameraWrapper => create(factory.configToParams(config, dependencies)));
 
-  const destroyable: TDestroyable = destroyableMixin();
-  const destroySub$: Subscription = destroyable.destroy$.subscribe((): void => {
+  const destroySub$: Subscription = abstractService.destroy$.subscribe((): void => {
     destroySub$.unsubscribe();
 
     registrySub$.unsubscribe();
@@ -71,7 +72,8 @@ export function CameraService(
     ambientContext.screenSizeWatcher.destroy$.next();
   });
 
-  return {
+  // eslint-disable-next-line functional/immutable-data
+  return Object.assign(abstractService, {
     create,
     createFromConfig,
     setActive: withActive.setActive,
@@ -80,7 +82,6 @@ export function CameraService(
     startUpdatingCamerasAspect,
     getFactory: (): TCameraFactory => factory,
     getRegistry: (): TCameraRegistry => registry,
-    getScene: (): TSceneWrapper => scene,
-    ...destroyable
-  };
+    getScene: (): TSceneWrapper => scene
+  });
 }

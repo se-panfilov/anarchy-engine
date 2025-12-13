@@ -8,6 +8,8 @@ import { destroyableMixin, withNameAndNameAccessorsMixin } from '@/Engine/Mixins
 import { genericEntityCleanUp, isDefined } from '@/Engine/Utils';
 
 // TODO 13-0-0: Services should have an abstract service with a common destroy$
+// TODO 13-0-0: Code review destroy utils
+// TODO 13-0-0: Drop cache in loaders
 // TODO 13-0-0: Stop loops
 // TODO 13-0-0: Build destroy chain Space -> Services -> registries -> entities -> sub-entities
 // TODO 13-0-0: Test partial destroy of entities
@@ -21,7 +23,7 @@ export function AbstractEntity<T extends Record<string, any>>(entities: T, type:
   const destroyable: TDestroyable = destroyableMixin();
 
   const destroySub$: Subscription = destroyable.destroy$.subscribe((): void => {
-    Object.values(entities).forEach((entity: any): void => genericEntityCleanUp(entity));
+    Object.values(entities).forEach(genericEntityCleanUp);
 
     destroySub$.unsubscribe();
     destroyable.destroy$.complete();

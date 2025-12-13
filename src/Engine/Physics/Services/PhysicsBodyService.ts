@@ -1,8 +1,8 @@
 import type { World } from '@dimforge/rapier3d';
 import type { Subscription } from 'rxjs';
 
-import type { TDestroyable } from '@/Engine/Mixins';
-import { destroyableMixin } from '@/Engine/Mixins';
+import type { TAbstractService } from '@/Engine/Abstract';
+import { AbstractService } from '@/Engine/Abstract';
 import type {
   TPhysicsBody,
   TPhysicsBodyFactory,
@@ -24,6 +24,7 @@ export function PhysicsBodyService(
   physicsPresetService: TPhysicsPresetsService,
   physicsWorldService: TPhysicsWorldService
 ): TPhysicsBodyService {
+  const abstractService: TAbstractService = AbstractService();
   const factorySub$: Subscription = factory.entityCreated$.subscribe((body: TPhysicsBody): void => registry.add(body));
 
   const create = (params: TPhysicsBodyParams): TPhysicsBody | never => {
@@ -51,8 +52,7 @@ export function PhysicsBodyService(
     });
   };
 
-  const destroyable: TDestroyable = destroyableMixin();
-  const destroySub$: Subscription = destroyable.destroy$.subscribe((): void => {
+  const destroySub$: Subscription = abstractService.destroy$.subscribe((): void => {
     destroySub$.unsubscribe();
     factorySub$.unsubscribe();
 
@@ -60,14 +60,14 @@ export function PhysicsBodyService(
     registry.destroy$.next();
   });
 
-  return {
+  // eslint-disable-next-line functional/immutable-data
+  return Object.assign(abstractService, {
     create,
     createWithPreset,
     createWithPresetName,
     createFromConfig,
     getFactory: (): TPhysicsBodyFactory => factory,
     getRegistry: (): TPhysicsBodyRegistry => registry,
-    getKinematicDataFromPhysics,
-    ...destroyable
-  };
+    getKinematicDataFromPhysics
+  });
 }

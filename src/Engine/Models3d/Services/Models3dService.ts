@@ -1,9 +1,9 @@
 import type { Subscription } from 'rxjs';
 
+import type { TAbstractService } from '@/Engine/Abstract';
+import { AbstractService } from '@/Engine/Abstract';
 import type { TAnimationsResourceAsyncRegistry, TAnimationsService } from '@/Engine/Animations';
 import type { TMaterialRegistry, TMaterialService } from '@/Engine/Material';
-import type { TDestroyable } from '@/Engine/Mixins';
-import { destroyableMixin } from '@/Engine/Mixins';
 import { Models3dLoader } from '@/Engine/Models3d/Loaders';
 import type {
   TModel3d,
@@ -24,6 +24,7 @@ export function Models3dService(
   resourcesRegistry: TModels3dResourceAsyncRegistry,
   { materialService, animationsService, model3dRawToModel3dConnectionRegistry }: TModels3dServiceDependencies
 ): TModels3dService {
+  const abstractService: TAbstractService = AbstractService();
   const factorySub$: Subscription = factory.entityCreated$.subscribe((model3d: TModel3d): void => registry.add(model3d));
   const model3dLoader: TModels3dLoader = Models3dLoader(resourcesRegistry);
   const materialRegistry: TMaterialRegistry = materialService.getRegistry();
@@ -39,8 +40,7 @@ export function Models3dService(
     return cloned;
   }
 
-  const destroyable: TDestroyable = destroyableMixin();
-  const destroySub$: Subscription = destroyable.destroy$.subscribe((): void => {
+  const destroySub$: Subscription = abstractService.destroy$.subscribe((): void => {
     destroySub$.unsubscribe();
     factorySub$.unsubscribe();
 
@@ -49,7 +49,8 @@ export function Models3dService(
     resourcesRegistry.destroy$.next();
   });
 
-  return {
+  // eslint-disable-next-line functional/immutable-data
+  return Object.assign(abstractService, {
     create,
     createFromConfig,
     loadAsync: model3dLoader.loadAsync,
@@ -59,7 +60,6 @@ export function Models3dService(
     getResourceRegistry: (): TModels3dResourceAsyncRegistry => resourcesRegistry,
     getAnimationsService: (): TAnimationsService => animationsService,
     getMaterialService: (): TMaterialService => materialService,
-    clone,
-    ...destroyable
-  };
+    clone
+  });
 }
