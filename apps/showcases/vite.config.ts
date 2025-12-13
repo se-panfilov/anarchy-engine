@@ -7,6 +7,8 @@ import { sharedAliases } from '../../vite.alias';
 import { visualizer } from 'rollup-plugin-visualizer';
 import wasm from 'vite-plugin-wasm';
 
+const isWeb: boolean = process.env.BUILD_TARGET === 'web';
+
 export default defineConfig({
   base: './',
   resolve: {
@@ -22,18 +24,23 @@ export default defineConfig({
     dts({
       exclude: ['**/*.spec.ts', '**/*.test.ts', 'vite.config.ts']
     }),
-    compression({
-      ext: '.gz',
-      algorithm: 'gzip',
-      deleteOriginFile: false,
-      filter: /\.(js|mjs|json|css|map|html|glb|gltf|bin|wasm|txt|svg|csv|xml|shader|material|ttf|otf)$/i
-    }),
-    compression({
-      ext: '.br',
-      algorithm: 'brotliCompress',
-      deleteOriginFile: false,
-      filter: /\.(js|mjs|json|css|map|html|glb|gltf|bin|wasm|txt|svg|csv|xml|shader|material|ttf|otf)$/i
-    })
+    //Compression is only for web builds (desktop and mobile cannot unpack .br/.gz files)
+    ...(isWeb
+      ? [
+          compression({
+            ext: '.gz',
+            algorithm: 'gzip',
+            deleteOriginFile: false,
+            filter: /\.(js|mjs|json|css|map|html|glb|gltf|bin|wasm|txt|svg|csv|xml|shader|material|ttf|otf)$/i
+          }),
+          compression({
+            ext: '.br',
+            algorithm: 'brotliCompress',
+            deleteOriginFile: false,
+            filter: /\.(js|mjs|json|css|map|html|glb|gltf|bin|wasm|txt|svg|csv|xml|shader|material|ttf|otf)$/i
+          })
+        ]
+      : [])
   ],
   worker: {
     format: 'es',
