@@ -13,8 +13,9 @@ const state = reactive({
 async function parseContent(content: string | undefined): Promise<string> {
   if (isNotDefined(content)) return '';
   const { marked } = await import('marked');
-  // const clean = DOMPurify.sanitize(dirty, { USE_PROFILES: { html: true } });
-  return marked.parse(content);
+  const DOMPurify = (await import('dompurify')).default;
+  const cleanContent = DOMPurify.sanitize(content, { USE_PROFILES: { html: true } });
+  return marked.parse(cleanContent);
 }
 
 watch(

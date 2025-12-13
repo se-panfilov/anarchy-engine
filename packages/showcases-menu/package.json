@@ -44,6 +44,7 @@
     "anarchy-engine": "*",
     "anarchy-i18n": "*",
     "anarchy-shared": "*",
+    "dompurify": "3.2.6",
     "marked": "16.2.1",
     "pinia": "3.0.3",
     "rxjs": "7.8.2",
