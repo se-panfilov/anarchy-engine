@@ -3,8 +3,8 @@ import { Vector3 } from 'three/src/math/Vector3';
 
 import { AbstractWrapper, WrapperType } from '@/Engine/Abstract';
 import type { TOrbitControlsParams, TOrbitControlsWrapper } from '@/Engine/Controls/Models';
-import { getOrbitControlsAccessors } from '@/Engine/Controls/Wrappers/OrbitControlsAccessors';
-import { applyOrbitControlsParams } from '@/Engine/Controls/Wrappers/OrbitControlsWrapperHelper';
+import { getOrbitControlsAccessors } from '@/Engine/Controls/Wrappers/OrbitControls/OrbitControlsAccessors';
+import { applyOrbitControlsParams } from '@/Engine/Controls/Wrappers/OrbitControls/OrbitControlsWrapperHelper';
 import { withActiveMixin } from '@/Engine/Mixins';
 import { isDefined } from '@/Engine/Utils';
 
