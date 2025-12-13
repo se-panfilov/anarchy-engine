@@ -420,12 +420,17 @@
   "intersections": [],
   "physics": {
     "global": {
-      "gravity": { "x": 0, "y": -9.81, "z": 0 },
+      "gravity": {
+        "x": 0,
+        "y": -9.81,
+        "z": 0
+      },
       "timeStep": 0.016666666666666666,
       "enableCCD": false
     },
-    "presets": {
-      "wall_physics": {
+    "presets": [
+      {
+        "name": "wall_physics",
         "type": "static",
         "collisionShape": "cuboid",
         "mass": 1,
@@ -433,7 +438,8 @@
         "friction": 0.5,
         "collisionGroups": 1
       },
-      "ball_physics": {
+      {
+        "name": "ball_physics",
         "type": "dynamic",
         "collisionShape": "ball",
         "mass": 1,
@@ -441,7 +447,8 @@
         "friction": 0.5,
         "collisionGroups": 1
       },
-      "box_physics": {
+      {
+        "name": "box_physics",
         "type": "dynamic",
         "collisionShape": "box",
         "mass": 1,
@@ -449,7 +456,7 @@
         "friction": 0.5,
         "collisionGroups": 1
       }
-    }
+    ]
   },
   "texts": [],
   "cameras": [
