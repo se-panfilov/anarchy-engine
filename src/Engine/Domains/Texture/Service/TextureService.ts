@@ -57,20 +57,22 @@ export function TextureService(): ITextureService {
   function load(pack: IToonMaterialTexturePack): IToonMaterialTextureUploadPromises;
   function load(pack: IStandardMaterialTexturePack): IStandardMaterialTextureUploadPromises;
   function load(pack: IMaterialTexturePack): IMaterialTextureUploadPromises {
-    let promises: Omit<IMaterialTextureUploadPromises, 'all'> = {};
+    let promises: Omit<IMaterialTextureUploadPromises, 'all' | 'material'> = {};
 
     Object.entries(pack).forEach(([key, packParams]: [string, ITexturePackParams | MaterialType]): void => {
-      if (isMaterialType(packParams)) return;
       // TODO (S.Panfilov) CWP do not load texture if already loaded
-
-      const { url, params }: ITexturePackParams = packParams;
-      const p: Promise<ITexture> = textureLoader.loadAsync(url).then((texture: IWriteable<ITexture>): ITexture => {
-        applyTextureParams(texture, params);
-        applyColorSpace(key as IMaterialPackKeys, texture, params);
-        applyFilters(texture, params);
-        return texture;
-      });
-      promises = { ...promises, [key]: p };
+      if (!isMaterialType(packParams)) {
+        const { url, params }: ITexturePackParams = packParams;
+        const p: Promise<ITexture> = textureLoader.loadAsync(url).then((texture: IWriteable<ITexture>): ITexture => {
+          applyTextureParams(texture, params);
+          applyColorSpace(key as IMaterialPackKeys, texture, params);
+          applyFilters(texture, params);
+          return texture;
+        });
+        promises = { ...promises, [key]: p };
+      } else {
+        promises = { ...promises, material: packParams };
+      }
     });
 
     function all(): Promise<IBasicMaterialTextureUploaded>;

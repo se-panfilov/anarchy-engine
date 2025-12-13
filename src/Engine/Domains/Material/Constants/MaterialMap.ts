@@ -11,9 +11,10 @@ import {
   MeshToonMaterial
 } from 'three';
 
-import { MaterialType } from '@/Engine/Domains/Material';
+import type { ITypeOfMaterials } from '@/Engine/Domains/Material/Models';
+import { MaterialType } from './MaterialType';
 
-export const MaterialMap = {
+export const MaterialMap: Readonly<Record<MaterialType, ITypeOfMaterials>> = {
   [MaterialType.Basic]: MeshBasicMaterial,
   [MaterialType.Depth]: MeshDepthMaterial,
   [MaterialType.Distance]: MeshDistanceMaterial,

@@ -1,5 +1,5 @@
 import type { IMesh } from '@/Engine/Domains/Actor';
-import { MaterialMap } from '@/Engine/Domains/Material';
+import { ITypeOfMaterials, MaterialMap } from '@/Engine/Domains/Material';
 import type {
   IBasicMaterialTexturePack,
   IDepthMaterialTexturePack,
@@ -22,7 +22,8 @@ import { isNotDefined, omitInObjectWithoutMutation } from '@/Engine/Utils';
 export function withTexturesActor<T extends IWriteable<IMesh>>(entity: T): IWithTexturesActor {
   function useTextureAsMaterial(mt: IMaterialTextureUploaded): void {
     const params: Omit<IMaterialTextureUploaded, 'material'> = omitInObjectWithoutMutation(mt, 'material');
-    const MaterialConstructor = MaterialMap[mt.material];
+    const MaterialConstructor: ITypeOfMaterials = MaterialMap[mt.material];
+    console.log('111 MaterialConstructor', MaterialConstructor);
     if (isNotDefined(MaterialConstructor)) throw new Error(`Unsupported material type: ${mt.material}`);
 
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access,functional/immutable-data
@@ -41,7 +42,10 @@ export function withTexturesActor<T extends IWriteable<IMesh>>(entity: T): IWith
   function loadMaterialTexturePack(pack: IStandardMaterialTexturePack): Promise<void>;
   function loadMaterialTexturePack(pack: IMaterialTexturePack): Promise<void> {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-    return textureService.load(pack).all().then(useTextureAsMaterial);
+    return textureService
+      .load(pack as any)
+      .all()
+      .then(useTextureAsMaterial);
   }
 
   return {
