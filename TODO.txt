@@ -15,23 +15,24 @@ Done:
 - 9.1.x Refactor Vector/TVectorWrapper, Euler/TEulerWrapper (should be Vector/Euler everywhere)
 - 9.2.x Transform drive
 - 10.0.x Refactor loops (physical, collision and etc) loops should be based on milliseconds, not frames. Only rendering loop should be based on frames
+- 11.0.x Sounds/Music
 
 Roadmap:
-- 11.0.x Sounds/Music
 - 12.0.x GUI
 - 13.0.x Registries refactoring (explicitly register/not register entities)
 - 14.0.x Lines domain
 - 15.0.x Deletion and resource dispose (memory management)
 - 16.x.x Save/Load
-- 17.0.0 Multiple scenes full support (unload/load scenes one after another)
-- 18.0.x Split apps and engine (and add config for an app to setup engine)
-- 19.0.x Building app (desktop/mobile) (might be not a part of an engine)
-- 20.0.x Shaders
-- 21.x.x Postprocessing
-- 22.0.x Refactor withActive entities (use active$) (camera, renderer, etc)
-- 23.0.x Logging
-- 24.0.x Performance improvements (make sure actors, materials and env maps are async)
-- 25.0.x npm package and a repo
+- 17.x.x Load managers domain for resource loaders (audio, animations, envMaps, materials, models3d, textures, etc.)
+- 18.0.0 Multiple scenes full support (unload/load scenes one after another)
+- 19.0.x Split apps and engine (and add config for an app to set up engine)
+- 20.0.x Building app (desktop/mobile) (might be not a part of an engine)
+- 21.0.x Shaders
+- 22.x.x Postprocessing
+- 23.0.x Refactor withActive entities (use active$) (camera, renderer, etc)
+- 24.0.x Logging
+- 25.0.x Performance improvements (make sure actors, materials and env maps are async)
+- 26.0.x npm package and a repo
 
 Global Refactoring:
 - feels like env map is not async at all (check for extra "await", and compare with vanilla env map loading)
