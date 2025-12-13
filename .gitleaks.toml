@@ -32,6 +32,7 @@ paths = [
   '''(?:^|/)vendor/(?:bundle|ruby)(?:/.*?)?$''',
   '''\.gem$''',
   '''verification-metadata\.xml''',
+  '''stats\.html''',
   '''Database.refactorlog''',
   '''(?:^|/)\.git$''',
 ]
