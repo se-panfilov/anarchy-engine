@@ -6,7 +6,7 @@ import type { TAbstractSimpleRegistry } from './TAbstractSimpleRegistry';
 
 export type TAbstractSimpleAsyncRegistry<T> = TAbstractSimpleRegistry<T> &
   Readonly<{
-    findByNameAsync: (name: string) => Promise<T | undefined>;
-    findByName$: (name: string) => Observable<T>;
+    findByKeyAsync: (name: string) => Promise<T | undefined>;
+    findByKey$: (name: string) => Observable<T>;
   }> &
   TDestroyable;

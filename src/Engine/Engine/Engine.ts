@@ -25,8 +25,8 @@ export function Engine(space: TSpace): TEngine {
   const renderer: TRendererWrapper | undefined = rendererService.findActive();
 
   const { text2dRendererRegistry, text3dRendererRegistry } = textService.getRendererRegistries();
-  const text2dRenderer: TText2dRenderer | undefined = text2dRendererRegistry.findAll()[0];
-  const text3dRenderer: TText3dRenderer | undefined = text3dRendererRegistry.findAll()[0];
+  const text2dRenderer: TText2dRenderer | undefined = text2dRendererRegistry.getAll()[0];
+  const text3dRenderer: TText3dRenderer | undefined = text3dRendererRegistry.getAll()[0];
 
   let camera: TCameraWrapper | undefined;
 

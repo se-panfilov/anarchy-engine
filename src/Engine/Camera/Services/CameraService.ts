@@ -27,7 +27,7 @@ export function CameraService(factory: TCameraFactory, registry: TCameraRegistry
         if (isNotDefined(activeCamera)) throw new Error('Cannot find an active camera during the aspect update.');
         activeCamera.setAspect(params.width / params.height);
       } else {
-        registry.findAll().forEach((camera: TCameraWrapper): void => camera.setAspect(params.width / params.height));
+        registry.getAll().forEach((camera: TCameraWrapper): void => camera.setAspect(params.width / params.height));
       }
     });
   }
