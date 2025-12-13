@@ -1,4 +1,4 @@
 export * from './FromMenuEvents';
 export * from './PlatformMessages';
-export * from './ShowcasesLangs';
+export * from './ShowcasesLocales';
 export * from './ToMenuEvents';
