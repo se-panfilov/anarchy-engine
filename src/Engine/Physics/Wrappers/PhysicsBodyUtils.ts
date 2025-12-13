@@ -32,14 +32,17 @@ export function createPhysicsBody(params: TPhysicsBodyParams, world: World): TPh
     const collider: Collider = world.createCollider(colliderDesc);
     return { rigidBody: undefined, rigidBodyDesc: undefined, colliderDesc, collider };
   } else {
-    if ((params as any).radius === 3) {
-      debugger;
-    }
     const rigidBodyDesc: RigidBodyDesc = RigidBodyDesc[params.type]();
     if (isDefined(params.position)) rigidBodyDesc.setTranslation(params.position.getX(), params.position.getY(), params.position.getZ());
     if (isDefined(params.rotation)) rigidBodyDesc.setRotation(params.rotation.getCoords());
     const rigidBody: RigidBody = world.createRigidBody(rigidBodyDesc);
     const colliderDesc: ColliderDesc = getColliderDesc(params);
+
+    if (isDefined(params.restitution)) colliderDesc.setRestitution(params.restitution);
+    if (isDefined(params.friction)) colliderDesc.setFriction(params.friction);
+    if (isDefined(params.mass)) colliderDesc.setMass(params.mass);
+    if (isDefined(params.collisionGroups)) colliderDesc.setCollisionGroups(params.collisionGroups);
+
     const collider: Collider = world.createCollider(colliderDesc, rigidBody);
     return { rigidBody, rigidBodyDesc, colliderDesc, collider };
   }
