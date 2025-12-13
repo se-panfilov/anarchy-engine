@@ -43,6 +43,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
 
   sceneW.addModel3d(planeModel3dF.getModel());
 
+  // TODO 9.0.0. RESOURCES: Actors that has the same modelSource should clone the model3d
   function init(): void {
     const actorKeyboard: TActorWrapper | undefined = findByTag('keyboard');
     const actorMouse: TActorWrapper | undefined = findByTag('mouse');
