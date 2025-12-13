@@ -2,7 +2,7 @@ import { AbstractResourceAsyncRegistry, RegistryType } from '@/Engine/Abstract';
 import type { TTexture, TTextureAsyncRegistry, TTextureResourceConfig, TTextureSerializeResourcesDependencies } from '@/Engine/Texture/Models';
 import { isNotDefined } from '@/Engine/Utils';
 
-export function TextureAsyncRegistry(): TTextureAsyncRegistry {
+export function TextureResourceAsyncRegistry(): TTextureAsyncRegistry {
   const registry = Object.assign(AbstractResourceAsyncRegistry<TTexture>(RegistryType.Texture), {
     // TODO 15-0-0: could we extract this function as a generic one?
     serialize: ({ metaInfoRegistry }: TTextureSerializeResourcesDependencies): ReadonlyArray<TTextureResourceConfig> => {

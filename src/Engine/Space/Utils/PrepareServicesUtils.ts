@@ -40,7 +40,7 @@ import type { TSpatialGridService } from '@/Engine/Spatial';
 import { SpatialGridFactory, SpatialGridRegistry, SpatialGridService } from '@/Engine/Spatial';
 import { Text2dRegistry, Text2dRendererRegistry, Text3dRegistry, Text3dRendererRegistry, Text3dTextureRegistry, TextFactory, TextService } from '@/Engine/Text';
 import type { TTextureService } from '@/Engine/Texture';
-import { TextureAsyncRegistry, TextureMetaInfoRegistry, TextureService } from '@/Engine/Texture';
+import { TextureMetaInfoRegistry, TextureResourceAsyncRegistry, TextureService } from '@/Engine/Texture';
 import type { TTransformDriveService } from '@/Engine/TransformDrive';
 import { TransformDriveFactory, TransformDriveRegistry, TransformDriveService } from '@/Engine/TransformDrive';
 
@@ -58,7 +58,7 @@ export function buildEntitiesServices(
   loops: TSpaceLoops,
   { loopService, scenesService }: TSpaceBaseServices
 ): TSpaceServices {
-  const textureService: TTextureService = TextureService(TextureAsyncRegistry(), TextureMetaInfoRegistry());
+  const textureService: TTextureService = TextureService(TextureResourceAsyncRegistry(), TextureMetaInfoRegistry());
   const materialService: TMaterialService = MaterialService(MaterialFactory(), MaterialRegistry(), { textureService });
   const physicsPresetService: TPhysicsPresetsService = PhysicsPresetsService(PhysicsPresetRegistry());
   const physicsWorldService: TPhysicsWorldService = PhysicsWorldService(sceneW, loops);
