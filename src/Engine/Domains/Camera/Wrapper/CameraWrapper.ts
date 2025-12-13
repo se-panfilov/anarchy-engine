@@ -1,12 +1,12 @@
-import type { ICameraParams, IPerspectiveCamera, IScreenParams } from '@Engine/Models';
+import type { IScreenParams } from '@Engine/Models';
 import type { Writeable } from '@Engine/Utils';
 import { isNotDefined } from '@Engine/Utils';
 import type { IScreenSizeWatcher } from '@Engine/Watchers';
-import type { ICameraWrapper } from '@Engine/Wrappers';
 import { AbstractWrapper } from '@Engine/Wrappers';
 import { PerspectiveCamera } from 'three';
 
 import { getAccessors } from './Accessors';
+import type { ICameraParams, ICameraWrapper, IPerspectiveCamera } from '@Engine/Domains/Camera/Models';
 
 export function CameraWrapper(params: ICameraParams, screenSizeWatcher: Readonly<IScreenSizeWatcher>): ICameraWrapper {
   const { fov = 45, near = 1, far = 10000, lookAt, position, tags }: ICameraParams = params;

@@ -1,9 +1,7 @@
-import { controlsAdapter } from '@Engine/Adapters';
-import type { IControlsFactory, IControlsFactoryParams, ICreateControlsFn } from '@Engine/Factories';
 import { AbstractDestroyableFromConfigFactory } from '@Engine/Factories';
-import type { IControlsConfig, IControlsParams } from '@Engine/Models';
-import type { IControlsWrapper } from '@Engine/Wrappers';
-import { ControlsWrapper } from '@Engine/Wrappers';
+import type { IControlsConfig, IControlsFactory, IControlsFactoryParams, IControlsParams, IControlsWrapper, ICreateControlsFn } from '@Engine/Domains/Controls/Models';
+import { ControlsWrapper } from '@Engine/Domains/Controls/Wrapper';
+import { controlsAdapter } from '@Engine/Domains/Controls/Adapter';
 
 const create: ICreateControlsFn = (params: IControlsParams): IControlsWrapper => ControlsWrapper(params);
 
