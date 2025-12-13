@@ -1,3 +1,4 @@
+export * from './RelatedEntityAttribute';
 export * from './TextAlign';
 export * from './TextCssClass';
 export * from './TextDirection';

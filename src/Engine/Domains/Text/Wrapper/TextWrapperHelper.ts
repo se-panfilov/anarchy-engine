@@ -1,4 +1,4 @@
-import { TEXT_CSS_CLASS } from '@/Engine/Domains/Text/Constants';
+import { Text2dCssClass } from '@/Engine/Domains/Text/Constants';
 import type { IElement2dAccessors, ITextProps } from '@/Engine/Domains/Text/Models';
 import { isDefined } from '@/Engine/Utils';
 
@@ -7,7 +7,7 @@ export function applyElement2dParams(
   { backgroundColor, className, text, fontSize, color, fontFamily, maxWidth, lineHeight, letterSpacing, textAlign, direction, overflowWrap, whiteSpace, fontStyle, fontWeight }: ITextProps
 ): void {
   element.setText(text);
-  element.setClassName(TEXT_CSS_CLASS.CSS_2D_CLASS);
+  element.setClassName(Text2dCssClass.Text2d);
 
   if (isDefined(backgroundColor)) element.setBackgroundColor(backgroundColor);
   if (isDefined(className)) element.appendClassName(className);

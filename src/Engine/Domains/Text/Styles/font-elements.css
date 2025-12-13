@@ -1,6 +1,11 @@
-.css-2d-text {
+.text-2d {
   background: transparent;
   user-select: none;
-  /*pointer-events: none;*/
   position: absolute;
+}
+
+.renderer-text-2d {
+  position: absolute;
+  top: 0;
+  pointer-events: none;
 }

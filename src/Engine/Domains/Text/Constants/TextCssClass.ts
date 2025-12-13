@@ -1,3 +1,4 @@
-export enum TEXT_CSS_CLASS {
-  CSS_2D_CLASS = 'css-2d-text'
+export enum Text2dCssClass {
+  Text2d = 'text-2d',
+  RendererText2d = 'renderer-text-2d'
 }
