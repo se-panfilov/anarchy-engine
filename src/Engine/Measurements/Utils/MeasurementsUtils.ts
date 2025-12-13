@@ -13,6 +13,7 @@ export const kilometersToMeters = (km: number): TMeters => (km * 1000 * METER) a
 export const secondsToMS = (seconds: number | TSeconds): TMilliseconds => (seconds * SECOND) as TMilliseconds;
 export const minutesToMS = (minutes: number): TMilliseconds => (minutes * MINUTE) as TMilliseconds;
 export const hoursToMS = (hours: number): TMilliseconds => (hours * HOUR) as TMilliseconds;
+export const milliseconds = (ms: number): TMilliseconds => ms as TMilliseconds;
 
 export const coordsXYZToMeters = ({ x, y, z }: Vector3 | Vector): Vector3 => new Vector3(meters(x), meters(y), meters(z));
 

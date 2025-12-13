@@ -1,7 +1,7 @@
 import { BehaviorSubject, combineLatest, map, Subject } from 'rxjs';
 import { degToRad } from 'three/src/math/MathUtils';
 
-import type { TActor, TIntersectionEvent, TIntersectionsWatcher, TKeyboardService, TMetersPerSecond, TRadians } from '@/Engine';
+import type { TActor, TIntersectionEvent, TIntersectionsWatcher, TKeyboardService, TMetersPerSecond, TMilliseconds, TRadians } from '@/Engine';
 import { getMouseAzimuthAndElevation, KeyCode, metersPerSecond } from '@/Engine';
 import { radians } from '@/Engine/Measurements/Utils';
 
@@ -78,9 +78,9 @@ function getActorMoveAzimuthRad(keyStates: TMoveKeysState): TRadians {
   return radians(0);
 }
 
-export function moveActorBounce(actor: TActor, speedMPS: TMetersPerSecond, azimuth: TRadians, duration: number): void {
+export function moveActorBounce(actor: TActor, speed: TMetersPerSecond, azimuth: TRadians, duration: TMilliseconds): void {
   actor.drive.kinematic.autoUpdate$.next(true);
-  actor.drive.kinematic.setLinearSpeed(metersPerSecond(speedMPS));
+  actor.drive.kinematic.setLinearSpeed(speed);
   actor.drive.kinematic.setLinearAzimuth(azimuth);
   // TODO setTimout/setInterval is not a good idea (cause the game might be "on pause", e.g. when tab is not active)
   setInterval((): void => {
