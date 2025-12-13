@@ -2,6 +2,14 @@
   "name": "Test scene 01",
   "actors": [
     {
+      "width": 60,
+      "height": 40,
+      "widthSegments": 10,
+      "heightSegments": 10,
+      "materialParams": { "color": "#5EDCAE" },
+      "type": "plane"
+    },
+    {
       "type": "sphere",
       "width": 32,
       "height": 32,

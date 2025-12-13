@@ -1,4 +1,4 @@
-import type { Vector2dConfig } from '@Engine/Launcher/Models/Vector2dConfig';
+import type { Vector2dConfig } from './Vector2dConfig';
 
 export interface Vector3dConfig extends Vector2dConfig {
   readonly x: number;

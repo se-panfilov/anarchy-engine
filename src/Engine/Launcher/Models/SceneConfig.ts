@@ -1,6 +1,6 @@
-import type { ActorConfig } from '@Engine/Launcher/Models/ActorConfig';
-import type { CameraConfig } from '@Engine/Launcher/Models/CameraConfig';
-import type { LightConfig } from '@Engine/Launcher/Models/LightConfig';
+import type { ActorConfig } from './ActorConfig';
+import type { CameraConfig } from './CameraConfig';
+import type { LightConfig } from './LightConfig';
 
 export interface SceneConfig {
   readonly name: string;
