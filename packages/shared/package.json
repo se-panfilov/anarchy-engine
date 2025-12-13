@@ -10,7 +10,6 @@
     "before:release": "npm run clean:reinstall && npm run before:release:check && npm run generate:license-report && npm run generate:all-licenses-list",
     "prettier": "prettier --write .",
     "prettier:check": "prettier --check .",
-    "prettier:changed": "git diff --name-only --diff-filter=ACMRTUXB HEAD | grep -E '\\.(ts|tsx|js|json|css|md)$' | xargs prettier --write",
     "ts:check": "tsc --noEmit",
     "ts:check:watch": "tsc --watch --noEmit",
     "clean:all": "rimraf ./dist ./node_modules ./package-lock.json",

@@ -11,6 +11,7 @@
   "license": "MIT",
   "scripts": {
     "pretty-quick": "pretty-quick --staged",
+    "prettier:changed": "git diff --name-only --diff-filter=ACMRTUXB HEAD | grep -E '\\.(ts|tsx|js|json|css|md)$' | xargs prettier --write",
     "clean:all": "rimraf ./dist ./packages/*/dist ./apps/*/dist ./node_modules ./packages/*/node_modules ./apps/*/node_modules ./package-lock.json",
     "clean:reinstall": "npm run clean:all && npm install && git add ./package-lock.json"
   },
