@@ -3,8 +3,10 @@ import { TranslationService } from '@Anarchy/i18n';
 import { locales } from '@Showcases/Menu/i18n';
 import type { TVueTranslationService } from '@Showcases/Menu/models';
 import { Locales } from '@Showcases/Shared';
-import type { Subscription } from 'rxjs';
+import type { Observable, Subscription } from 'rxjs';
 import { filter } from 'rxjs';
+import type { ShallowRef } from 'vue';
+import { onBeforeUnmount, onMounted, shallowRef } from 'vue';
 
 export function VueTranslationService(localesMapping: TLocalesMapping<Locales> = locales): TVueTranslationService {
   const i18n: TTranslationService<Locales> = TranslationService<Locales>(Locales.en, Locales.en, localesMapping);
@@ -25,8 +27,22 @@ export function VueTranslationService(localesMapping: TLocalesMapping<Locales> =
   //Make sure that the default and fallback locales are loaded before the app starts
   const waitInitialReady = async (): Promise<void> => isReadyPromise;
 
+  function toRef(obs$: Observable<string>): ShallowRef<string> {
+    const ref: ShallowRef<string> = shallowRef<string>('');
+    let sub: Subscription | undefined;
+
+    onMounted((): void => {
+      // eslint-disable-next-line functional/immutable-data
+      sub = obs$.subscribe((value: string): void => void (ref.value = value));
+    });
+
+    onBeforeUnmount((): void => sub?.unsubscribe());
+
+    return ref;
+  }
+
   // eslint-disable-next-line functional/immutable-data
-  return Object.assign(i18n, { waitInitialReady });
+  return Object.assign(i18n, { waitInitialReady, toRef });
 }
 
 export const vueTranslationService: TVueTranslationService = VueTranslationService();
