@@ -57,7 +57,7 @@ export function buildLevelFromConfig(canvas: IAppCanvas, config: ILevelConfig): 
   const actorAddedSubscription: Subscription = actorRegistry.added$.subscribe((actor: IActorWrapper) => scene.addActor(actor));
   const actorEntityCreatedSubscription: Subscription = actorFactory.entityCreated$.subscribe((actor: IActorWrapper): void => actorRegistry.add(actor));
   // eslint-disable-next-line @typescript-eslint/no-misused-promises
-  actors.forEach((actor: IActorConfig): Promise<IActorWrapper> => actorFactory.create(actorFactory.configToParams({ ...actor, tags: [...actor.tags, CommonTag.FromConfig] })));
+  actors.forEach((actor: IActorConfig): Promise<IActorWrapper> => actorFactory.createAsync(actorFactory.configToParams({ ...actor, tags: [...actor.tags, CommonTag.FromConfig] })));
   messages$.next(`Actors (${actors.length}) created`);
 
   //build texts

@@ -36,7 +36,7 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
     const positionZ: number = -30;
     const gap: number = 2;
     forEachEnum(Easing, (easing: string | number, _key: string | number, i: number): void => {
-      void actorFactory.create({
+      void actorFactory.createAsync({
         ...actorTemplate,
         position: Vector3Wrapper({ x: -20, y: 2, z: positionZ + gap * i }),
         tags: [...actorTemplate.tags, String(easing)]

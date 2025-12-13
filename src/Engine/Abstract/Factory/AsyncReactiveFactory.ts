@@ -9,7 +9,7 @@ import { AbstractFactory } from './AbstractFactory';
 export function AsyncReactiveFactory<T, P>(type: FactoryType | string, createEntityFn: (params: P) => Promise<T>): IAsyncReactiveFactory<T, P> {
   const entityCreated$: Subject<T> = new Subject<T>();
 
-  async function create(params: P): Promise<T> {
+  async function createAsync(params: P): Promise<T> {
     const entity: T = await createEntityFn(params);
     entityCreated$.next(entity);
     return entity;
@@ -18,7 +18,7 @@ export function AsyncReactiveFactory<T, P>(type: FactoryType | string, createEnt
   return {
     ...AbstractFactory(type),
     entityCreated$,
-    create,
+    createAsync,
     ...destroyableMixin()
   };
 }
