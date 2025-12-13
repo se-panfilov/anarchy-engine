@@ -1,11 +1,9 @@
 import type { Collider, RigidBody, Vector } from '@dimforge/rapier3d';
 import { ColliderDesc, RigidBodyDesc, World } from '@dimforge/rapier3d';
-import type { Scene } from 'three';
-import { BufferAttribute, BufferGeometry, LineBasicMaterial, LineSegments } from 'three';
 
 import type { TShowcase } from '@/App/Levels/Models';
-import type { TAppCanvas, TEngine, TSceneWrapper, TSpace, TSpaceConfig } from '@/Engine';
-import { buildSpaceFromConfig, Engine } from '@/Engine';
+import type { TAppCanvas, TEngine, TPhysicsDebugRenderer, TSceneWrapper, TSpace, TSpaceConfig } from '@/Engine';
+import { buildSpaceFromConfig, Engine, PhysicsDebugRenderer } from '@/Engine';
 
 import spaceConfig from './showcase.json';
 
@@ -19,7 +17,7 @@ export function showcase(canvas: TAppCanvas): TShowcase {
   const world: World = new World(gravity);
 
   const sceneWrapper: TSceneWrapper = actorService.getScene();
-  const rapierDebugRenderer: RapierDebugRenderer = new RapierDebugRenderer(sceneWrapper.entity, world);
+  const rapierDebugRenderer: TPhysicsDebugRenderer = PhysicsDebugRenderer(sceneWrapper.entity, world);
 
   // Create the ground
   const groundColliderDesc: ColliderDesc = ColliderDesc.cuboid(10.0, 0.1, 10.0);
@@ -54,28 +52,4 @@ export function showcase(canvas: TAppCanvas): TShowcase {
   }
 
   return { start, space };
-}
-
-class RapierDebugRenderer {
-  mesh;
-  world: World;
-  enabled: boolean = true;
-
-  constructor(scene: Scene, world: World) {
-    this.world = world;
-    this.mesh = new LineSegments(new BufferGeometry(), new LineBasicMaterial({ color: 0xffffff, vertexColors: true }));
-    this.mesh.frustumCulled = false;
-    scene.add(this.mesh);
-  }
-
-  update(): void {
-    if (this.enabled) {
-      const { vertices, colors } = this.world.debugRender();
-      this.mesh.geometry.setAttribute('position', new BufferAttribute(vertices, 3));
-      this.mesh.geometry.setAttribute('color', new BufferAttribute(colors, 4));
-      this.mesh.visible = true;
-    } else {
-      this.mesh.visible = false;
-    }
-  }
 }
