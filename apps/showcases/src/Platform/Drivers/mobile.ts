@@ -12,6 +12,7 @@ export function Driver(): TPlatformDriver {
     console.log('XXX [MOBILE]', 'loadAppSettings');
     return Promise.resolve({} as any);
   }
+
   function getNodeVersion(): string {
     console.log('XXX [MOBILE]', 'getNodeVersion');
     return 'XXX [MOBILE] mocked node version';
@@ -21,10 +22,12 @@ export function Driver(): TPlatformDriver {
     console.log('XXX [MOBILE]', 'getChromeVersion');
     return 'XXX [MOBILE] mocked chrome version';
   }
+
   function getPlatformVersion(): string {
     console.log('XXX [MOBILE]', 'getPlatformVersion');
     return 'XXX [MOBILE] mocked platform version';
   }
+
   function getWrappedAppVersion(): Promise<string> {
     console.log('XXX [MOBILE]', 'getWrappedAppVersion');
     return Promise.resolve('XXX [MOBILE] mocked wrapped app version');

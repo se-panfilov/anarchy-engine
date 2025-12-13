@@ -3,32 +3,12 @@ import type { TShowcaseGameSettings } from '@ShowcasesShared';
 import type { TPlatformDriver } from '@/Models';
 
 export function Driver(): TPlatformDriver {
-  function saveAppSettings(settings: TShowcaseGameSettings): Promise<void> {
-    console.log('XXX [DESKTOP]', 'saveAppSettings', settings);
-    return Promise.resolve();
-  }
-
-  function loadAppSettings(): Promise<TShowcaseGameSettings> {
-    console.log('XXX [DESKTOP]', 'loadAppSettings');
-    return Promise.resolve({} as any);
-  }
-  function getNodeVersion(): string {
-    console.log('XXX [DESKTOP]', 'getNodeVersion');
-    return 'XXX [DESKTOP] mocked node version';
-  }
-
-  function getChromeVersion(): string {
-    console.log('XXX [DESKTOP]', 'getChromeVersion');
-    return 'XXX [DESKTOP] mocked chrome version';
-  }
-  function getPlatformVersion(): string {
-    console.log('XXX [DESKTOP]', 'getPlatformVersion');
-    return 'XXX [DESKTOP] mocked platform version';
-  }
-  function getWrappedAppVersion(): Promise<string> {
-    console.log('XXX [DESKTOP]', 'getWrappedAppVersion');
-    return Promise.resolve('XXX [DESKTOP] mocked wrapped app version');
-  }
+  const saveAppSettings = (settings: TShowcaseGameSettings): Promise<void> => window.platformApi.saveAppSettings(settings);
+  const loadAppSettings = (): Promise<TShowcaseGameSettings> => window.platformApi.loadAppSettings();
+  const getNodeVersion = (): string => window.platformApi.node();
+  const getChromeVersion = (): string => window.platformApi.chrome();
+  const getPlatformVersion = (): string => window.platformApi.electron();
+  const getWrappedAppVersion = (): Promise<string> => window.platformApi.desktopAppVersion();
 
   return {
     saveAppSettings,
