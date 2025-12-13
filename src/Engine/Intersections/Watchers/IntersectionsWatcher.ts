@@ -50,8 +50,7 @@ export function IntersectionsWatcher({ position$, isAutoStart, tags, name, perfo
       .subscribe((position: Vector2Like): void => {
         if (isNotDefined(camera)) throw new Error('Intersections service: cannot start: a camera is not defined');
         const intersection: TIntersectionEvent | undefined = getIntersection(
-          // TODO PERFORMANCE: Vector2 is might be too heavy here, consider {x,y} object
-          new Vector2(position.x, position.y),
+          position,
           camera,
           actors.map((a: TActor): TRawModel3d => a.model3d.getRawModel3d())
         );
