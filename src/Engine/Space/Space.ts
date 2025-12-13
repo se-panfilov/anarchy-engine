@@ -1,11 +1,10 @@
 import type { Subscription } from 'rxjs';
-import { merge, ReplaySubject } from 'rxjs';
+import { ReplaySubject } from 'rxjs';
 
 import { CommonTag } from '@/Engine/Abstract';
 import type { IActorWrapperAsync } from '@/Engine/Actor';
 import type { IAppCanvas } from '@/Engine/App';
 import type { ICameraWrapper } from '@/Engine/Camera';
-import { ambientContext } from '@/Engine/Context';
 import type { IControlsFactory, IControlsRegistry, IOrbitControlsConfig, IOrbitControlsWrapper } from '@/Engine/Controls';
 import { ControlsFactory, ControlsRegistry } from '@/Engine/Controls';
 import type { IDataTexture } from '@/Engine/EnvMap';
@@ -20,27 +19,25 @@ import { RendererFactory, RendererModes, RendererRegistry, RendererTag } from '@
 import type { ISceneWrapper } from '@/Engine/Scene';
 import { SceneTag } from '@/Engine/Scene';
 import { screenService } from '@/Engine/Services';
-import { initActors, initCameras, initFogs, initLights, initScenes } from '@/Engine/Space/Initializers/Initialize';
+import { initActors, initCameras, initFogs, initLights, initScenes, initTexts } from '@/Engine/Space/Initializers/Initialize';
 import { withBuiltMixin } from '@/Engine/Space/Mixin';
 import type { ISpace, ISpaceConfig, ISpaceEntities, IWithBuilt } from '@/Engine/Space/Models';
 import { isSpaceInitializationConfig, setInitialActiveCamera } from '@/Engine/Space/SpaceHelper';
-import type { IText2dRegistry, IText2dRenderer, IText3dRegistry, IText3dRenderer, ITextAnyWrapper, ITextConfig, ITextFactory } from '@/Engine/Text';
-import { initText2dRenderer, initText3dRenderer, isText2dWrapper, isText3dWrapper, Text2dRegistry, Text3dRegistry, TextFactory } from '@/Engine/Text';
 import { isDefined, isNotDefined, validLevelConfig } from '@/Engine/Utils';
 
 // TODO (S.Panfilov) extract this type
 type ISpaceSubscriptions = Readonly<{
-  actorEntityCreated$: Subscription;
+  actorCreated$: Subscription;
   actorAdded$: Subscription;
-  textEntityCreated$: Subscription;
+  textCreated$: Subscription;
   textAdded$: Subscription;
-  cameraEntityCreated$: Subscription;
+  cameraCreated$: Subscription;
   cameraAdded$: Subscription;
-  lightEntityCreated$: Subscription;
+  lightCreated$: Subscription;
   lightAdded$: Subscription;
-  fogEntityCreated$: Subscription;
+  fogCreated$: Subscription;
   fogAdded$: Subscription;
-  controlsEntityCreated$: Subscription;
+  controlsCreated$: Subscription;
   loopTickSubscription: Subscription;
 }>;
 
@@ -67,51 +64,46 @@ export function buildSpaceFromConfig(canvas: IAppCanvas, config: ISpaceConfig): 
 
     //build scenes
     if (isScenesInit) {
-      const { created$: sceneEntityCreated$, factory: sceneFactory, registry: sceneRegistry } = initScenes(scenes);
+      const { sceneCreated$, sceneFactory, sceneRegistry } = initScenes(scenes);
       messages$.next(`Scenes (${scenes.length}) created`);
       const scene: ISceneWrapper | undefined = sceneRegistry.findByTag(SceneTag.Current);
       if (isNotDefined(scene)) throw new Error(`Cannot find the current scene for space "${name}" during the space building.`);
       entities = { ...entities, sceneFactory, sceneRegistry };
-      subscriptions = { ...subscriptions, sceneEntityCreated$ };
+      subscriptions = { ...subscriptions, sceneCreated$ };
       isScenesReady = true;
     }
 
     //build actors
     if (isActorsInit && isScenesReady) {
       const actorsMessage$: ReplaySubject<IActorWrapperAsync> = new ReplaySubject<IActorWrapperAsync>();
-      const { added$: actorEntityAdded$, created$: actorEntityCreated$, factory: actorFactory, registry: actorRegistry } = initActors(scenes, actors, actorsMessage$);
+      const { actorAdded$, actorCreated$, actorFactory, actorRegistry } = initActors(scenes, actors, actorsMessage$);
       entities = { ...entities, actorFactory, actorRegistry };
-      subscriptions = { ...subscriptions, actorEntityAdded$, actorEntityCreated$ };
+      subscriptions = { ...subscriptions, actorAdded$, actorCreated$ };
       // TODO (S.Panfilov) implement:
       //when actorsMessage$ length === actors.length, then actors are ready
+      //messages$.next(`Actors (${actors.length}) created`);
     }
 
     //build texts
-    const text2dRenderer: IText2dRenderer = initText2dRenderer(ambientContext.container.getAppContainer(), ambientContext.screenSizeWatcher);
-    const text3dRenderer: IText3dRenderer = initText3dRenderer(ambientContext.container.getAppContainer(), ambientContext.screenSizeWatcher);
-    const textFactory: ITextFactory = TextFactory();
-    const text2dRegistry: IText2dRegistry = Text2dRegistry();
-    const text3dRegistry: IText3dRegistry = Text3dRegistry();
-    const textAdded$: Subscription = merge(text2dRegistry.added$, text3dRegistry.added$).subscribe((text: ITextAnyWrapper) => scene.addText(text));
-    const textEntityCreated$: Subscription = textFactory.entityCreated$.subscribe((text: ITextAnyWrapper): void => {
-      if (isText2dWrapper(text)) text2dRegistry.add(text);
-      if (isText3dWrapper(text)) text3dRegistry.add(text);
-    });
-    texts.forEach((text: ITextConfig): ITextAnyWrapper => textFactory.create(textFactory.configToParams({ ...text, tags: [...text.tags, CommonTag.FromConfig] })));
-    messages$.next(`Texts (${texts.length}) created`);
+    if (isTextsInit && isScenesReady) {
+      const { textAdded$, textCreated$, textFactory, text2dRegistry, text3dRegistry, text2dRenderer, text3dRenderer } = initTexts(scene, texts);
+      entities = { ...entities, textFactory, text2dRegistry, text3dRegistry, text2dRenderer, text3dRenderer };
+      subscriptions = { ...subscriptions, textAdded$, textCreated$ };
+      messages$.next(`Texts (${texts.length}) created`);
+    }
 
     //build cameras
     if (isCamerasInit && isScenesReady) {
-      const { added$: cameraEntityAdded$, created$: cameraEntityCreated$, factory: cameraFactory, registry: cameraRegistry } = initCameras(scenes, cameras);
+      const { cameraAdded$, cameraCreated$, cameraFactory, cameraRegistry } = initCameras(scenes, cameras);
       entities = { ...entities, cameraFactory, cameraRegistry };
-      subscriptions = { ...subscriptions, cameraEntityAdded$, cameraEntityCreated$ };
+      subscriptions = { ...subscriptions, cameraAdded$, cameraCreated$ };
       messages$.next(`Cameras (${cameras.length}) created`);
     }
 
     //build controls
     const controlsFactory: IControlsFactory = ControlsFactory();
     const controlsRegistry: IControlsRegistry = ControlsRegistry();
-    const controlsEntityCreated$: Subscription = controlsFactory.entityCreated$.subscribe((controls: IOrbitControlsWrapper): void => controlsRegistry.add(controls));
+    const controlsCreated$: Subscription = controlsFactory.entityCreated$.subscribe((controls: IOrbitControlsWrapper): void => controlsRegistry.add(controls));
     controls.forEach(
       (control: IOrbitControlsConfig): IOrbitControlsWrapper =>
         controlsFactory.create(controlsFactory.configToParams({ ...control, tags: [...control.tags, CommonTag.FromConfig] }, { cameraRegistry, canvas }))
@@ -120,17 +112,17 @@ export function buildSpaceFromConfig(canvas: IAppCanvas, config: ISpaceConfig): 
 
     //build lights
     if (isLightsInit && isScenesReady) {
-      const { added$: lightEntityAdded$, created$: lightEntityCreated$, factory: lightFactory, registry: lightRegistry } = initLights(scenes, lights);
+      const { lightAdded$, lightCreated$, lightFactory, lightRegistry } = initLights(scenes, lights);
       entities = { ...entities, lightFactory, lightRegistry };
-      subscriptions = { ...subscriptions, lightEntityAdded$, lightEntityCreated$ };
+      subscriptions = { ...subscriptions, lightAdded$, lightCreated$ };
       messages$.next(`Lights (${lights.length}) created`);
     }
 
     //build fogs
     if (isFogsInit && isScenesReady) {
-      const { added$: fogEntityAdded$, created$: fogEntityCreated$, factory: fogFactory, registry: fogRegistry } = initFogs(scenes, fogs);
+      const { fogAdded$, fogCreated$, fogFactory, fogRegistry } = initFogs(scenes, fogs);
       entities = { ...entities, fogFactory, fogRegistry };
-      subscriptions = { ...subscriptions, fogEntityAdded$, fogEntityCreated$ };
+      subscriptions = { ...subscriptions, fogAdded$, fogCreated$ };
       messages$.next(`Fogs (${fogs.length}) created`);
     }
 
@@ -144,7 +136,7 @@ export function buildSpaceFromConfig(canvas: IAppCanvas, config: ISpaceConfig): 
     //build renderer
     const rendererFactory: IRendererFactory = RendererFactory();
     const rendererRegistry: IRendererRegistry = RendererRegistry();
-    const rendererEntityCreated$: Subscription = rendererFactory.entityCreated$.subscribe((renderer: IRendererWrapper): void => rendererRegistry.add(renderer));
+    const rendererCreated$: Subscription = rendererFactory.entityCreated$.subscribe((renderer: IRendererWrapper): void => rendererRegistry.add(renderer));
     const renderer: IRendererWrapper = rendererFactory.create({ canvas, tags: [RendererTag.Main], mode: RendererModes.WebGL2 });
     messages$.next(`Renderer created`);
 
@@ -169,39 +161,39 @@ export function buildSpaceFromConfig(canvas: IAppCanvas, config: ISpaceConfig): 
     destroyable.destroyed$.subscribe(() => {
       builtMixin.built$.complete();
 
-      sceneEntityCreated$.unsubscribe();
+      sceneCreated$.unsubscribe();
 
-      actorEntityCreated$.unsubscribe();
+      actorCreated$.unsubscribe();
       actorFactory.destroy();
       actorAdded$.unsubscribe();
       actorRegistry.destroy();
 
-      textEntityCreated$.unsubscribe();
+      textCreated$.unsubscribe();
       textFactory.destroy();
       textAdded$.unsubscribe();
       text2dRegistry.destroy();
       text3dRegistry.destroy();
 
-      cameraEntityCreated$.unsubscribe();
+      cameraCreated$.unsubscribe();
       cameraFactory.destroy();
       cameraAdded$.unsubscribe();
       cameraRegistry.destroy();
 
-      lightEntityCreated$.unsubscribe();
+      lightCreated$.unsubscribe();
       lightFactory.destroy();
       lightAdded$.unsubscribe();
       lightRegistry.destroy();
 
-      fogEntityCreated$.unsubscribe();
+      fogCreated$.unsubscribe();
       fogFactory.destroy();
       fogAdded$.unsubscribe();
       fogRegistry.destroy();
 
-      controlsEntityCreated$.unsubscribe();
+      controlsCreated$.unsubscribe();
       controlsFactory.destroy();
       controlsRegistry.destroy();
 
-      rendererEntityCreated$.unsubscribe();
+      rendererCreated$.unsubscribe();
       rendererFactory.destroy();
       rendererRegistry.destroy();
 
