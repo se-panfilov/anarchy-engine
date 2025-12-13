@@ -1,0 +1,82 @@
+{
+  "name": "Showcase 13 fog",
+  "version": "1.0.0",
+  "scenes": [
+    {
+      "name": "Showcase 13 fog",
+      "tags": ["current"]
+    }
+  ],
+  "actors": [
+    {
+      "width": 60,
+      "height": 40,
+      "widthSegments": 10,
+      "heightSegments": 10,
+      "material": { "type": "toon", "params": { "color": "#FFFFFF" } },
+      "type": "plane",
+      "position": { "x": 0, "y": 0, "z": 0 },
+      "rotation": { "x": -1.57, "y": 0, "z": 0 },
+      "castShadow": false,
+      "receiveShadow": true,
+      "tags": ["surface"]
+    },
+    {
+      "type": "sphere",
+      "width": 1,
+      "height": 1,
+      "radius": 0.7,
+      "position": { "x": 2, "y": 2, "z": -2 },
+      "widthSegments": 64,
+      "heightSegments": 64,
+      "castShadow": true,
+      "material": {
+        "type": "physical",
+        "params": {
+          "clearcoat": 0.8,
+          "clearcoatRoughness": 0.09,
+          "displacementScale": 0.1,
+          "metalness": 0,
+          "roughness": 0,
+          "iridescence": 0,
+          "iridescenceIOR": 1.38,
+          "transmission": 0.77,
+          "ior": 1.26,
+          "thickness": 0.5
+        }
+      },
+      "tags": ["physical", "glass"]
+    }
+  ],
+  "texts": [],
+  "cameras": [
+    {
+      "fov": 45,
+      "near": 1,
+      "far": 10000,
+      "position": { "x": 3, "y": 20, "z": 35 },
+      "rotation": { "x": 0, "y": 0, "z": 0 },
+      "tags": ["initial"]
+    }
+  ],
+  "lights": [
+    {
+      "type": "Hemisphere",
+      "color": "#9999ff",
+      "groundColor": "#ff007b",
+      "intensity": 1,
+      "position": { "x": 0.25, "y": 2, "z": 6 },
+      "tags": ["hemisphere"]
+    }
+  ],
+  "controls": [
+    {
+      "type": "OrbitControls",
+      "cameraTag": "initial",
+      "enableDamping": true,
+      "tags": []
+    }
+  ],
+  "envMaps": [],
+  "tags": ["build-in"]
+}
