@@ -9,6 +9,10 @@ export function withModel3dEntities(entities: TModel3dEntities): TWithModel3dEnt
   // eslint-disable-next-line functional/immutable-data
   return Object.assign(entities, {
     getRawModel3d: (): TRawModel3d => entities.model3dSource,
+    getActiveAnimationAction: (): AnimationAction | undefined => {
+      const allActions = entities.animationsSource?.map((clip) => entities.mixer.clipAction(clip));
+      return allActions?.find((action) => action.isRunning());
+    },
     getAnimations: (): ReadonlyArray<AnimationClip> => entities.animationsSource ?? [],
     setAnimations: (animations: ReadonlyArray<AnimationClip>): void => {
       // eslint-disable-next-line functional/immutable-data

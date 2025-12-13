@@ -1,4 +1,4 @@
-import type { AnimationClip, AnimationMixer } from 'three';
+import type { AnimationAction, AnimationClip, AnimationMixer } from 'three';
 
 import type { TAnimationActions } from '@/Engine/Animations/Models';
 
@@ -10,6 +10,7 @@ export type TWithModel3dEntities = Readonly<{
   addAnimations: (animations: ReadonlyArray<AnimationClip>) => void;
   setAnimations: (animations: ReadonlyArray<AnimationClip>) => void;
   getAnimations: () => ReadonlyArray<AnimationClip>;
+  getActiveAnimationAction: () => AnimationAction | undefined;
   getMixer: () => AnimationMixer;
   setActions: (actions: TAnimationActions) => void;
   addActions: (actions: TAnimationActions) => void;
