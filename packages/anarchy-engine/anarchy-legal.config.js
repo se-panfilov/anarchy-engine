@@ -1,6 +1,6 @@
 import base from '../../anarchy-legal-base.config.js.js';
 
-//Commercial configuration for legal docs
+//Non-Commercial configuration for legal docs
 export default [
   ...base,
   {
@@ -8,14 +8,14 @@ export default [
   },
   {
     type: 'EULA',
-    template: 'EULA_COMMERCIAL_TEMPLATE'
+    template: 'EULA_NON_COMMERCIAL_TEMPLATE'
   },
   {
     type: 'PRIVACY',
-    template: 'PRIVACY_COMMERCIAL_TEMPLATE'
+    template: 'PRIVACY_NON_COMMERCIAL_TEMPLATE'
   },
   {
     type: 'SECURITY',
-    template: 'SECURITY_COMMERCIAL_TEMPLATE'
+    template: 'SECURITY_NON_COMMERCIAL_TEMPLATE'
   }
 ];
