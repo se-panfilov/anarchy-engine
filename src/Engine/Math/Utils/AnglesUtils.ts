@@ -5,11 +5,12 @@ import { degToRad, euclideanModulo, radToDeg } from 'three/src/math/MathUtils';
 import type { Vector3Like } from 'three/src/math/Vector3';
 
 import { metersPerSecond } from '@/Engine/Distance';
+import { ForwardAxis } from '@/Engine/Kinematic/Constants';
 import type { TDegrees, TMetersPerSecond, TRadians } from '@/Engine/Math';
 import type { TEulerLike } from '@/Engine/ThreeLib';
 import { isEulerLike, isQuaternionLike } from '@/Engine/Utils';
 
-export function getHorizontalAzimuth(x: number, z: number, point: Vector3Like, forwardAxis: 'X' | 'Z'): TRadians {
+export function getHorizontalAzimuth(x: number, z: number, point: Vector3Like, forwardAxis: ForwardAxis): TRadians {
   const dx: number = point.x - x;
   const dz: number = point.z - z;
 
@@ -41,10 +42,10 @@ export function getAzimuthElevationFromQuaternion(q: Quaternion): { azimuth: TRa
   return { azimuth, elevation };
 }
 
-export function getAzimuthElevationFromVector(v: Vector3Like, forwardAxis: 'X' | 'Z'): { azimuth: TRadians; elevation: TRadians } {
+export function getAzimuthElevationFromVector(v: Vector3Like, forwardAxis: ForwardAxis): { azimuth: TRadians; elevation: TRadians } {
   let azimuth: TRadians;
 
-  if (forwardAxis === 'Z') {
+  if (forwardAxis === ForwardAxis.Z) {
     azimuth = Math.atan2(v.x, v.z) as TRadians;
   } else {
     azimuth = Math.atan2(v.z, v.x) as TRadians;

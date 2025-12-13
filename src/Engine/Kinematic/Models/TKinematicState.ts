@@ -1,6 +1,7 @@
 import type { Quaternion, Vector3 } from 'three';
 import type { Vector3Like } from 'three/src/math/Vector3';
 
+import type { ForwardAxis } from '@/Engine/Kinematic/Constants';
 import type { TMeters, TMetersPerSecond, TRadiansPerSecond } from '@/Engine/Math/Types';
 
 export type TKinematicState = Readonly<{
@@ -9,7 +10,7 @@ export type TKinematicState = Readonly<{
   radius: TMeters;
   angularSpeed: TRadiansPerSecond;
   angularDirection: Quaternion;
-  forwardAxis: 'X' | 'Z';
+  forwardAxis: ForwardAxis;
   isInfiniteRotation: boolean;
 }>;
 

@@ -5,6 +5,7 @@ import { Object3D, Quaternion, Vector3 } from 'three';
 import type { Vector3Like } from 'three/src/math/Vector3';
 
 import { metersPerSecond } from '@/Engine/Distance';
+import { ForwardAxis } from '@/Engine/Kinematic/Constants';
 import type { TKinematicData, TKinematicWritableData } from '@/Engine/Kinematic/Models';
 import type { TMeters, TMetersPerSecond, TMilliseconds, TRadians, TRadiansPerSecond } from '@/Engine/Math';
 import { getAzimuthElevationFromVector, getElevationFromDirection } from '@/Engine/Math';
@@ -45,9 +46,8 @@ export function KinematicTransformAgent(params: TKinematicTransformAgentParams, 
         angularSpeed: params.state.angularSpeed ?? 0,
         radius: params.state.radius ?? 0,
         angularDirection: params.state.angularDirection?.clone() ?? new Quaternion(),
-        // TODO 8.0.0. MODELS: Extract forwardAxis's X and Z to constants
         // TODO 8.0.0. MODELS: the default "forwardAxis" perhaps should be "X"
-        forwardAxis: params.state.forwardAxis ?? 'Z',
+        forwardAxis: params.state.forwardAxis ?? ForwardAxis.Z,
         isInfiniteRotation: params.state.isInfiniteRotation ?? false
       },
       target: {
@@ -96,10 +96,10 @@ export function KinematicTransformAgent(params: TKinematicTransformAgentParams, 
       // eslint-disable-next-line functional/immutable-data
       agent.data.state.radius = radius;
     },
-    getForwardAxis(): 'X' | 'Z' {
+    getForwardAxis(): ForwardAxis {
       return agent.data.state.forwardAxis;
     },
-    setForwardAxis(axis: 'X' | 'Z'): void {
+    setForwardAxis(axis: ForwardAxis): void {
       // eslint-disable-next-line functional/immutable-data
       agent.data.state.forwardAxis = axis;
     },
@@ -173,13 +173,14 @@ export function KinematicTransformAgent(params: TKinematicTransformAgentParams, 
       let newX: number, newZ: number;
       const horizontalScale: number = Math.cos(elevation) * totalLength;
 
-      if (forwardAxis === 'Z') {
+      if (forwardAxis === ForwardAxis.Z) {
         newX = Math.sin(azimuthRad) * horizontalScale;
         newZ = Math.cos(azimuthRad) * horizontalScale;
-      } else {
-        // 'X'
+      } else if (forwardAxis === ForwardAxis.X) {
         newX = Math.cos(azimuthRad) * horizontalScale;
         newZ = Math.sin(azimuthRad) * horizontalScale;
+      } else {
+        throw new Error(`Unknown forward axis: must be either ${ForwardAxis.Z} or ${ForwardAxis.X}`);
       }
 
       const newY = Math.sin(elevation) * totalLength;
@@ -217,12 +218,14 @@ export function KinematicTransformAgent(params: TKinematicTransformAgentParams, 
       const horizontalScale: number = Math.cos(elevationRad) * totalLength;
       let newX: number, newZ: number;
 
-      if (forwardAxis === 'Z') {
+      if (forwardAxis === ForwardAxis.Z) {
         newX = Math.sin(azimuth) * horizontalScale;
         newZ = Math.cos(azimuth) * horizontalScale;
-      } else {
+      } else if (ForwardAxis.X) {
         newX = Math.cos(azimuth) * horizontalScale;
         newZ = Math.sin(azimuth) * horizontalScale;
+      } else {
+        throw new Error(`Unknown forward axis: must be either ${ForwardAxis.Z} or ${ForwardAxis.X}`);
       }
 
       const newY = Math.sin(elevationRad) * totalLength;

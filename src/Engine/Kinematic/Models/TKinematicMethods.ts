@@ -1,6 +1,7 @@
 import type { Quaternion, QuaternionLike, Vector3 } from 'three';
 import type { Vector3Like } from 'three/src/math/Vector3';
 
+import type { ForwardAxis } from '@/Engine/Kinematic/Constants';
 import type { TMeters, TMetersPerSecond, TRadians, TRadiansPerSecond } from '@/Engine/Math';
 import type { TKinematicSpeed } from '@/Engine/TransformDrive/Models';
 
@@ -17,8 +18,8 @@ export type TKinematicMethods = Readonly<{
   getLinearSpeed: () => TMetersPerSecond;
   setLinearSpeed: (speed: TMetersPerSecond) => void;
   getLinearDirection: () => Vector3;
-  getForwardAxis: () => 'X' | 'Z';
-  setForwardAxis: (forwardAxis: 'X' | 'Z') => void;
+  getForwardAxis: () => ForwardAxis;
+  setForwardAxis: (forwardAxis: ForwardAxis) => void;
   setLinearDirection: (direction: Vector3Like) => void;
   getLinearAzimuth: () => TRadians;
   setLinearAzimuth: (azimuth: TRadians) => void;
