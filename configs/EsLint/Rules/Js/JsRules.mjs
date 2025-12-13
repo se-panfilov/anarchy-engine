@@ -148,6 +148,7 @@ export const JsRules = {
         'resize',
         'rgb',
         'rolloff',
+        'rollup',
         'rtl',
         'rxjs',
         'scrollbar',
