@@ -1,12 +1,11 @@
 import type { Observable, Subscription } from 'rxjs';
 import { BehaviorSubject, combineLatest, EMPTY, switchMap } from 'rxjs';
 import type { QuaternionLike } from 'three';
-import { Euler, Quaternion, Vector3 } from 'three';
+import { Quaternion, Vector3 } from 'three';
 import type { Vector3Like } from 'three/src/math/Vector3';
 
 import type { TKinematicData, TKinematicState, TKinematicTarget, TKinematicWritableData } from '@/Engine/Kinematic/Models';
 import type { TMeters, TMetersPerSecond, TMilliseconds, TRadians } from '@/Engine/Math';
-import { getAzimuthFromDirection, getElevationFromDirection } from '@/Engine/Math';
 import { TransformAgent } from '@/Engine/TransformDrive/Constants';
 import type { TAbstractTransformAgent, TKinematicAgentDependencies, TKinematicTransformAgent, TKinematicTransformAgentParams } from '@/Engine/TransformDrive/Models';
 import { isDefined, isNotDefined } from '@/Engine/Utils';
@@ -123,20 +122,6 @@ export function KinematicTransformAgent(params: TKinematicTransformAgentParams, 
 
       return undefined;
     },
-    adjustDataByLinearVelocity(linearVelocity: Quaternion): void {
-      const { x, y, z, w } = linearVelocity;
-      const speed = (2 * Math.sqrt(x * x + y * y + z * z)) as TMetersPerSecond;
-      // Normalize the linear velocity quaternion only if it's not already normalized
-      const normalizedLinearVelocity: Quaternion = Math.abs(linearVelocity.lengthSq() - 1) > 1e-6 ? new Quaternion(x, y, z, w).normalize() : linearVelocity.clone();
-
-      agent.setLinearSpeed(speed);
-      agent.setLinearDirection(normalizedLinearVelocity);
-    },
-    adjustDataFromAngularVelocity(angularVelocity: Quaternion): void {
-      const angularSpeed: TMetersPerSecond = angularVelocity.angleTo(new Quaternion()) as TMetersPerSecond;
-      agent.setAngularSpeed(angularSpeed);
-      agent.setAngularDirection(angularVelocity.clone().normalize());
-    },
     getLinearSpeed(): TMetersPerSecond {
       return agent.data.state.linearSpeed;
     },
@@ -150,32 +135,6 @@ export function KinematicTransformAgent(params: TKinematicTransformAgentParams, 
     setLinearDirection(direction: Vector3Like): void {
       agent.data.state.linearDirection.copy(direction);
     },
-    setLinearDirectionFromParams(azimuthRad: TRadians, elevationRad: TRadians): void {
-      agent.setLinearAzimuth(azimuthRad);
-      agent.setLinearElevation(elevationRad);
-    },
-    getLinearAzimuth(): TRadians {
-      return getAzimuthFromDirection(agent.data.state.linearDirection);
-    },
-    setLinearAzimuth(azimuthRad: TRadians): void {
-      const lengthXZ: number = Math.sqrt(agent.data.state.linearDirection.x ** 2 + agent.data.state.linearDirection.z ** 2) || 1;
-      agent.data.state.linearDirection.set(Math.cos(azimuthRad) * lengthXZ, agent.data.state.linearDirection.y, Math.sin(azimuthRad) * lengthXZ).normalize();
-    },
-    getLinearElevation(): TRadians {
-      return getElevationFromDirection(agent.data.state.linearDirection);
-    },
-    setLinearElevation(elevationRad: TRadians): void {
-      const currentAzimuth: number = Math.atan2(agent.data.state.linearDirection.z, agent.data.state.linearDirection.x);
-
-      const length: number = agent.data.state.linearDirection.length();
-      const newY: number = Math.sin(elevationRad) * length;
-      const newLengthXZ: number = Math.cos(elevationRad) * length;
-
-      const newX: number = Math.cos(currentAzimuth) * newLengthXZ;
-      const newZ: number = Math.sin(currentAzimuth) * newLengthXZ;
-
-      agent.data.state.linearDirection.set(newX, newY, newZ).normalize();
-    },
     getAngularSpeed(): TMetersPerSecond {
       return agent.data.state.angularSpeed;
     },
@@ -188,58 +147,6 @@ export function KinematicTransformAgent(params: TKinematicTransformAgentParams, 
     },
     setAngularDirection(direction: QuaternionLike): void {
       agent.data.state.angularDirection.copy(direction);
-    },
-    setAngularDirectionFromParams(azimuthRad: TRadians, elevationRad: TRadians): void {
-      const quaternion = new Quaternion().setFromEuler(new Euler(elevationRad, azimuthRad, 0, 'ZYX')); // Convert azimuth and elevation to Quaternion
-      agent.setAngularDirection(quaternion);
-    },
-    getAngularAzimuth(): TRadians {
-      // TODO debug
-      // return getAzimutFromQuaternionDirection(agent.data.state.angularDirection);
-      return getAzimuthFromDirection(new Euler().setFromQuaternion(agent.data.state.angularDirection));
-    },
-    setAngularAzimuth(azimuthRad: TRadians): void {
-      // const elevation = agent.getAngularElevation();
-      // const quaternion = new Quaternion().setFromEuler(new Euler(elevation, azimuthRad, 0, 'ZYX'));
-      // agent.data.state.angularDirection.copy(quaternion);
-
-      const lengthXZ: number = Math.sqrt(agent.data.state.angularDirection.x ** 2 + agent.data.state.angularDirection.z ** 2) || 1;
-      const quaternion = new Quaternion().setFromEuler(new Euler(Math.cos(azimuthRad) * lengthXZ, agent.data.state.angularDirection.y, Math.sin(azimuthRad) * lengthXZ));
-
-      // console.log('XXX2', radToDeg(new Euler().setFromQuaternion(agent.data.state.angularDirection).z));
-
-      agent.data.state.angularDirection.copy(quaternion);
-    },
-    getAngularElevation(): TRadians {
-      // TODO debug
-      // return getElevationFromQuaternionDirection(agent.data.state.angularDirection);
-      return getElevationFromDirection(agent.data.state.angularDirection);
-    },
-    setAngularElevation(elevationRad: TRadians): void {
-      // const azimuth: TRadians = agent.getAngularAzimuth();
-      // const quaternion: Quaternion = new Quaternion().setFromEuler(new Euler(elevationRad, azimuth, 0, 'ZYX'));
-      // agent.data.state.angularDirection.copy(quaternion);
-      // This approach could lead to bugs, if the quaternion is not normalized
-      // const azimuth: TRadians = agent.getAngularAzimuth();
-      //
-      // const sinElevation: TRadians = Math.sin(elevationRad) as TRadians;
-      // const cosElevation: TRadians = Math.cos(elevationRad) as TRadians;
-      //
-      // const sinAzimuth: TRadians = Math.sin(azimuth) as TRadians;
-      // const cosAzimuth: TRadians = Math.cos(azimuth) as TRadians;
-      //
-      // agent.data.state.angularDirection
-      //   .set(
-      //     cosElevation * cosAzimuth, // x
-      //     sinElevation, // y
-      //     cosElevation * sinAzimuth, // z
-      //     Math.sqrt(1 - sinElevation ** 2) // w
-      //   )
-      //   .normalize();
-    },
-    setAngularVelocityFromParams(speed: TMetersPerSecond, azimuth: TRadians, elevation: TRadians): void {
-      agent.setAngularSpeed(speed);
-      agent.setAngularDirectionFromParams(azimuth, elevation);
     },
     autoUpdate$
   };
