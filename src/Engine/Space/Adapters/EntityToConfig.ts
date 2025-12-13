@@ -4,26 +4,48 @@ import { filterOutEmptyFields } from '@/Engine/Utils';
 
 // TODO 15-0-0: validate result
 // TODO 15-0-0: Space can be created in a runtime, so "entities" field could contain something (when create from config, it's empty)
-export function spaceToConfig(entity: TSpace, { actorService }: TSpaceServices): TSpaceConfig {
+export function spaceToConfig(
+  entity: TSpace,
+  {
+    actorService,
+    spatialGridService,
+    audioService,
+    cameraService,
+    envMapService,
+    intersectionsWatcherService,
+    lightService,
+    models3dService,
+    rendererService,
+    particlesService,
+    physicsPresetService,
+    fogService,
+    fsmService,
+    textService,
+    controlsService
+  }: TSpaceServices
+): TSpaceConfig {
   console.log('XXX entity', entity);
 
   const entities: TSpaceConfigEntities = {
-    //   spatialGrids: ReadonlyArray<TSpatialGridConfig>;
-    //   actors: ReadonlyArray<TActorConfig>;
-    //   audio: ReadonlyArray<TAnyAudioConfig>;
-    //   cameras: ReadonlyArray<TCameraConfig>;
-    //   envMaps: ReadonlyArray<TEnvMapConfig>;
-    //   intersections: ReadonlyArray<TIntersectionsWatcherConfig>;
-    //   lights: ReadonlyArray<TAnyLightConfig>;
-    //   models3d: ReadonlyArray<TModel3dConfig>;
-    //   renderers: ReadonlyArray<TRendererConfig>;
-    //   particles: ReadonlyArray<TParticlesConfig>;
-    //   physics: TPhysicsConfig;
-    //   fogs: ReadonlyArray<TFogConfig>;
-    //   fsm: ReadonlyArray<TFsmConfig>;
-    //   texts: ReadonlyArray<TTextConfig>;
-    //   controls: ReadonlyArray<TControlsConfig>;
-    // actors: actorService.serializeAllEntities()
+    spatialGrids: spatialGridService.serializeAllEntities(),
+    actors: actorService.serializeAllEntities(),
+    audio: audioService.serializeAllEntities(),
+    cameras: cameraService.serializeAllEntities(),
+    envMaps: envMapService.serializeAllEntities(),
+    intersections: intersectionsWatcherService.serializeAllEntities(),
+    lights: lightService.serializeAllEntities(),
+    models3d: models3dService.serializeAllEntities(),
+    renderers: rendererService.serializeAllEntities(),
+    particles: particlesService.serializeAllEntities(),
+    physics: {
+      // global: physicsWorldService.serializeAllEntities(),
+      presets: physicsPresetService.serializeAllEntities()
+    },
+    fogs: fogService.serializeAllEntities(),
+    fsm: fsmService.serializeAllEntities(),
+    texts: textService.serializeAllEntities(),
+    controls: controlsService.serializeAllEntities()
+
     // TODO 15-0-0: fix any
     // ...entity.entities.reduce((acc: TSpaceConfigEntities, entity): TSpaceConfigEntities => {
     //   const { id, type } = entity;
