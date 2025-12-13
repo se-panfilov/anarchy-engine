@@ -31,8 +31,8 @@ export function IntersectionsCameraWatcher(params: TIntersectionsCameraWatcherPa
   const positionSub$: Subscription = position$.subscribe((value: Vector2Like): Vector2 => (position = new Vector2().copy(value)));
 
   const threshold: number = performance?.noiseThreshold ?? 0.001;
-  // shouldUseDistinct might improve performance, however, won't fire an event if the mouse (position$) is not moving (and actor or scene is moving)
-  const shouldUseDistinct: boolean = performance?.shouldUseDistinct ?? false;
+  // shouldReactOnlyOnChange might improve performance, however, won't fire an event if the mouse (position$) is not moving (and actor or scene is moving)
+  const shouldReactOnlyOnChange: boolean = performance?.shouldReactOnlyOnChange ?? false;
 
   const tmpPosition = new Float32Array(2);
   const prevPosition = new Float32Array(2);
@@ -41,7 +41,7 @@ export function IntersectionsCameraWatcher(params: TIntersectionsCameraWatcherPa
     .pipe(
       distinctUntilChanged(),
       switchMap((isEnabled: boolean): Observable<TMilliseconds | never> => (isEnabled ? intersectionsLoop.tick$ : EMPTY)),
-      map((): Readonly<{ position: TReadonlyVector2 }> | undefined => (shouldUseDistinct ? getChangedPosition(tmpPosition, prevPosition, position, threshold) : { position })),
+      map((): Readonly<{ position: TReadonlyVector2 }> | undefined => (shouldReactOnlyOnChange ? getChangedPosition(tmpPosition, prevPosition, position, threshold) : { position })),
       filter(isDefined)
     )
     .subscribe(({ position }: Readonly<{ position: TReadonlyVector2 }>): void => {

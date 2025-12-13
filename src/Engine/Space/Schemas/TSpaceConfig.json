@@ -964,7 +964,7 @@
         "noiseThreshold": {
           "type": "number"
         },
-        "shouldUseDistinct": {
+        "shouldReactOnlyOnChange": {
           "type": "boolean"
         }
       },

@@ -23,12 +23,12 @@ export function MousePositionWatcher({ container, tags, performance }: TMousePos
   };
 
   const threshold: number = performance?.noiseThreshold ?? 0.001;
-  // shouldUseDistinct might improve performance, however won't fire an event if the mouse is not moving (and actor or scene is moving)
-  const shouldUseDistinct: boolean = performance?.shouldUseDistinct ?? false;
+  // shouldReactOnlyOnChange might improve performance, however won't fire an event if the mouse is not moving (and actor or scene is moving)
+  const shouldReactOnlyOnChange: boolean = performance?.shouldReactOnlyOnChange ?? false;
 
   mouseLoop.tick$
     .pipe(
-      shouldUseDistinct ? distinctUntilChanged((): boolean => isEqualOrSimilarByXyCoords(prevPosition[0], prevPosition[1], position[0], position[1], threshold)) : identity,
+      shouldReactOnlyOnChange ? distinctUntilChanged((): boolean => isEqualOrSimilarByXyCoords(prevPosition[0], prevPosition[1], position[0], position[1], threshold)) : identity,
       tap((): void => {
         // eslint-disable-next-line functional/immutable-data
         prevPosition[0] = position[0]; //x

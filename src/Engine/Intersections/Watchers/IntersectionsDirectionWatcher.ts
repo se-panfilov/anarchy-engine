@@ -20,8 +20,8 @@ export function IntersectionsDirectionWatcher(params: TIntersectionsDirectionWat
   const direction$: BehaviorSubject<TReadonlyVector3> = new BehaviorSubject<TReadonlyVector3>(new Vector3().copy(params.direction));
 
   const threshold: number = performance?.noiseThreshold ?? 0.001;
-  // shouldUseDistinct might improve performance, however, won't fire an event if the mouse (position$) is not moving (and actor or scene is moving)
-  const shouldUseDistinct: boolean = performance?.shouldUseDistinct ?? false;
+  // shouldReactOnlyOnChange might improve performance, however, won't fire an event if the mouse (position$) is not moving (and actor or scene is moving)
+  const shouldReactOnlyOnChange: boolean = performance?.shouldReactOnlyOnChange ?? false;
 
   const tmpOrigin = new Float32Array(3);
   const prevOrigin = new Float32Array(3);
@@ -33,9 +33,9 @@ export function IntersectionsDirectionWatcher(params: TIntersectionsDirectionWat
       distinctUntilChanged(),
       switchMap((isEnabled: boolean): Observable<TMilliseconds | never> => (isEnabled ? intersectionsLoop.tick$ : EMPTY)),
       map((): Readonly<{ origin: TReadonlyVector3; direction: TReadonlyVector3 }> | undefined =>
-        // TODO 15-0-0: implement a support of shouldUseDistinct and test it
+        // TODO 15-0-0: implement a support of shouldReactOnlyOnChange and test it
         // getOriginAndDirection(tmpOrigin, tmpDirection, prevOrigin, prevDirection, origin$.value.clone(), direction$.value.clone(), threshold)
-        shouldUseDistinct
+        shouldReactOnlyOnChange
           ? getChangedOriginAndDirection(tmpOrigin, tmpDirection, prevOrigin, prevDirection, origin$.value.clone(), direction$.value.clone(), threshold)
           : { origin: origin$.value.clone(), direction: direction$.value.clone() }
       ),
