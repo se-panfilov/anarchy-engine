@@ -33,6 +33,8 @@ export function Actor(
   // TODO 8.0.0. MODELS: In showcase validate also rotation and scale
   // TODO 8.0.0. MODELS: In showcase check spatial and collisions
 
+  // TODO 8.0.0. MODELS: close all issues (todoes) with tag 8.0.0
+
   const entities: TActorEntities = {
     drive,
     model3d,
