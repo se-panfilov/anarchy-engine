@@ -258,6 +258,12 @@
         "renderOrder": {
           "type": "number"
         },
+        "collisions": {
+          "$ref": "#/definitions/TCollisionsDataConfig"
+        },
+        "isCollisionsAutoUpdate": {
+          "type": "boolean"
+        },
         "spatial": {
           "$ref": "#/definitions/TSpatialDataConfig"
         },
@@ -317,6 +323,25 @@
         }
       },
       "required": ["castShadow", "material", "position", "tags", "type"]
+    },
+    "TCollisionsDataConfig": {
+      "$ref": "#/definitions/TOptional%3CTCollisionsData%3E"
+    },
+    "TOptional<TCollisionsData>": {
+      "type": "object",
+      "properties": {
+        "updatePriority": {
+          "$ref": "#/definitions/CollisionsUpdatePriority"
+        },
+        "radius": {
+          "type": "number"
+        }
+      },
+      "additionalProperties": false
+    },
+    "CollisionsUpdatePriority": {
+      "type": "number",
+      "enum": [5, 4, 3, 2, 1, 0]
     },
     "TSpatialDataConfig": {
       "type": "object",

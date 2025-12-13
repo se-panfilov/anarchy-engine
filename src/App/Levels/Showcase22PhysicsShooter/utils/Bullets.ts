@@ -36,6 +36,8 @@ export function getBulletsPool(count: number, actorService: TActorService): Read
           castShadow: false,
           isKinematicAutoUpdate: true,
           isSpatialAutoUpdate: true,
+          isCollisionsAutoUpdate: true,
+          collisions: { radius: 1 },
           kinematic: {
             linearSpeed: meters(5)
           },
@@ -69,14 +71,8 @@ export async function BulletAsync(params: TActorParams, actorService: TActorServ
     actorW.entity.visible = false;
   }
 
-  const collisionCheckRadius: number = 1; //meters(5); set radius make sens for explosions and etc
-
-  const collisionWatcher = collisionsService.createCollisionsWatcher(actorW, collisionCheckRadius);
-  collisionWatcher.value$.subscribe((collision: TCollisionEvent): void => {
-    if (isDefined(collision)) {
-      console.log('Collision detected', collision);
-      // reset(actorW);
-    }
+  actorW.collisions.value$.subscribe((collision: any): void => {
+    console.log('Bullet hit', collision);
   });
 
   function update(delta: number): void {
