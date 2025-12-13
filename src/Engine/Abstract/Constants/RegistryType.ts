@@ -5,6 +5,7 @@ export enum RegistryType {
   IntersectionsWatcher = 'intersections_watcher',
   KeyboardRecord = 'keyboard_record',
   Light = 'light',
+  Fog = 'fog',
   MouseClickWatcher = 'mouse_click_watcher',
   MousePositionWatcher = 'mouse_position_watcher',
   Renderer = 'renderer',

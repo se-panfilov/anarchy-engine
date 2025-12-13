@@ -3,7 +3,7 @@ export enum WrapperType {
   Camera = 'camera_wrapper',
   Controls = 'controls_wrapper',
   Color = 'color_wrapper',
-  Input = 'input_wrapper',
+  Fog = 'fog_wrapper',
   AmbientLight = 'ambient_light_wrapper',
   DirectionalLight = 'directional_light_wrapper',
   PointLight = 'point_light_wrapper',
