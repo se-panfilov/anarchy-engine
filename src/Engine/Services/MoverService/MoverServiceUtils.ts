@@ -1,8 +1,8 @@
 import anime from 'animejs';
 import type { Subscription } from 'rxjs';
 
-import type { IActorWrapper } from '@/Engine/Domains/Actor';
 import type { ILoopService, ILoopTimes } from '@/Engine/Domains/Loop';
+import type { IMovableXYZ } from '@/Engine/Mixins';
 import type {
   IAnimationParams,
   IFullKeyframeDestination,
@@ -36,16 +36,16 @@ export function performMoveUntil<F extends (params: P) => IMoveableByTick, P>(mo
 }
 
 // Do not use this function for complex paths (with more than 1 point), it might not work as expected when partial coords are provided.
-export function addMissingCoords<T extends IKeyframeDestination | IMoveDestination>(destination: T, actor: IActorWrapper): IKeyframeDestination | Required<IMoveDestination> {
+export function addMissingCoords<T extends IKeyframeDestination | IMoveDestination>(destination: T, actor: IMovableXYZ): IKeyframeDestination | Required<IMoveDestination> {
   return { ...destination, x: destination.x ?? actor.getX(), y: destination.y ?? actor.getY(), z: destination.z ?? actor.getZ() };
 }
 
-export function getAccumulatedKeyframes(path: ReadonlyArray<IKeyframeDestination>, actor: IActorWrapper): ReadonlyArray<IFullKeyframeDestination> {
+export function getAccumulatedKeyframes(path: ReadonlyArray<IKeyframeDestination>, obj: IMovableXYZ): ReadonlyArray<IFullKeyframeDestination> {
   return path.reduce((acc: ReadonlyArray<IFullKeyframeDestination>, destination: IKeyframeDestination, index: number) => {
     const prevDestination: IKeyframeDestination | undefined = acc[index - 1];
-    const prevX: number = prevDestination?.x ?? actor.getX();
-    const prevY: number = prevDestination?.y ?? actor.getY();
-    const prevZ: number = prevDestination?.z ?? actor.getZ();
+    const prevX: number = prevDestination?.x ?? obj.getX();
+    const prevY: number = prevDestination?.y ?? obj.getY();
+    const prevZ: number = prevDestination?.z ?? obj.getZ();
     const x: number = destination.x ?? prevX;
     const y: number = destination.y ?? prevY;
     const z: number = destination.z ?? prevZ;
@@ -54,12 +54,12 @@ export function getAccumulatedKeyframes(path: ReadonlyArray<IKeyframeDestination
   }, []);
 }
 
-export function prepareDestination(destination: IMoveDestination, actor: IActorWrapper): Required<IMoveDestination> {
-  return addMissingCoords(destination, actor) as Required<IMoveDestination>;
+export function prepareDestination(destination: IMoveDestination, obj: IMovableXYZ): Required<IMoveDestination> {
+  return addMissingCoords(destination, obj) as Required<IMoveDestination>;
 }
 
-export function preparePathList(list: ReadonlyArray<IKeyframeDestination>, actor: IActorWrapper): ReadonlyArray<IFullKeyframeDestination> {
-  return list.map((destination: IKeyframeDestination) => addMissingCoords(destination, actor) as IFullKeyframeDestination);
+export function preparePathList(list: ReadonlyArray<IKeyframeDestination>, obj: IMovableXYZ): ReadonlyArray<IFullKeyframeDestination> {
+  return list.map((destination: IKeyframeDestination) => addMissingCoords(destination, obj) as IFullKeyframeDestination);
 }
 
 export function getAnimationWrapperForComplexPathAnimation(baseAnimation: anime.AnimeInstance, animationParams: IAnimationParams): anime.AnimeInstance {

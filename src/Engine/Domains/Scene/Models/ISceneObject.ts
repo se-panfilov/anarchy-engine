@@ -1,3 +1,3 @@
-import type { Object3D } from 'three/src/core/Object3D';
+import type { IObject3D } from '@/Engine/Domains/ThreeLib';
 
-export type ISceneObject = Readonly<Object3D>;
+export type ISceneObject = Readonly<IObject3D>;

@@ -2,6 +2,7 @@ export * from './IAnimationParams';
 export * from './IFollowTargetParams';
 export * from './IFullKeyframeDestination';
 export * from './IKeyframeDestination';
+export * from './IMovableWrapper';
 export * from './IMoveByPathFnParams';
 export * from './IMoveDestination';
 export * from './IMoveFn';

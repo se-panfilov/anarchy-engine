@@ -1,10 +1,9 @@
-import type { IActorWrapper } from '@/Engine/Domains/Actor';
-import type { IAnimationParams } from '@/Engine/Services';
-
+import type { IAnimationParams } from './IAnimationParams';
+import type { IMovableEntityWrapper } from './IMovableWrapper';
 import type { IMoveDestination } from './IMoveDestination';
 
 export type IMoveFnParams = Readonly<{
-  actor: IActorWrapper;
+  obj: IMovableEntityWrapper;
   destination: Required<IMoveDestination>;
   animationParams: IAnimationParams;
   complete: (...rest: ReadonlyArray<unknown>) => any;

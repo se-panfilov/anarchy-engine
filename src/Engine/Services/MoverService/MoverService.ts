@@ -1,10 +1,9 @@
 import anime from 'animejs';
 
-import type { IActorWrapper } from '@/Engine/Domains/Actor';
 import type { ILoopService } from '@/Engine/Domains/Loop';
-import type { IMovableXYZ, IWithCoordsXYZ, IWithPosition } from '@/Engine/Mixins';
+import type { IWithCoordsXYZ, IWithPosition } from '@/Engine/Mixins';
 import { defaultMoverServiceConfig } from '@/Engine/Services/MoverService/Constants';
-import type { IAnimationParams, IFollowTargetParams, IKeyframeDestination, IMoverServiceConfig, IStopMoveCb } from '@/Engine/Services/MoverService/Models';
+import type { IAnimationParams, IFollowTargetParams, IKeyframeDestination, IMovableEntityWrapper, IMoverServiceConfig, IStopMoveCb } from '@/Engine/Services/MoverService/Models';
 import type { IMoveDestination } from '@/Engine/Services/MoverService/Models/IMoveDestination';
 import type { IMoverService } from '@/Engine/Services/MoverService/Models/IMoverService';
 import { getAccumulatedKeyframes, performMove, performMoveUntil, prepareDestination } from '@/Engine/Services/MoverService/MoverServiceUtils';
@@ -15,13 +14,13 @@ export function MoverService(loopService: ILoopService, { suspendWhenDocumentHid
   (anime as any).suspendWhenDocumentHidden = suspendWhenDocumentHidden;
 
   return {
-    goToPosition: (actor: IActorWrapper, destination: IMoveDestination, animationParams: IAnimationParams): Promise<void> => {
-      return performMove(goStraightMove, loopService, { actor, destination: prepareDestination(destination, actor), animationParams });
+    goToPosition: (obj: IMovableEntityWrapper, destination: IMoveDestination, animationParams: IAnimationParams): Promise<void> => {
+      return performMove(goStraightMove, loopService, { obj, destination: prepareDestination(destination, obj), animationParams });
     },
-    goByPath: (actor: IActorWrapper, path: ReadonlyArray<IKeyframeDestination>, animationParams: IAnimationParams): Promise<void> => {
-      return performMove(byPathMove, loopService, { actor, path: getAccumulatedKeyframes(path, actor), animationParams });
+    goByPath: (obj: IMovableEntityWrapper, path: ReadonlyArray<IKeyframeDestination>, animationParams: IAnimationParams): Promise<void> => {
+      return performMove(byPathMove, loopService, { obj, path: getAccumulatedKeyframes(path, obj), animationParams });
     },
-    followTarget: (obj: IMovableXYZ, target: IWithPosition, offset?: Partial<IWithCoordsXYZ>): IStopMoveCb => {
+    followTarget: (obj: IMovableEntityWrapper, target: IWithPosition, offset?: Partial<IWithCoordsXYZ>): IStopMoveCb => {
       return performMoveUntil(followTarget, loopService, { obj, target, offset } satisfies IFollowTargetParams);
     }
   };

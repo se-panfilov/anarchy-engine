@@ -1,9 +1,10 @@
-import type { AnimationClip, Layers, Object3D } from 'three';
+import type { AnimationClip, Layers } from 'three';
 
+import type { IObject3D } from '@/Engine/Domains/ThreeLib';
 import type { IWithObject3d } from '@/Engine/Mixins/GameObject/Models';
 import type { IWriteable } from '@/Engine/Utils';
 
-export function withObject3d<T extends Object3D>(entity: T): IWithObject3d {
+export function withObject3d<T extends IObject3D>(entity: T): IWithObject3d {
   // eslint-disable-next-line functional/immutable-data
   const setVisible = (visible: boolean): void => void ((entity as IWriteable<T>).visible = visible);
   const getVisible = (): boolean => entity.visible;

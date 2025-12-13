@@ -5,9 +5,9 @@ import type { followTargetFn, IFollowTargetParams, IMoveableByTick, IMoveByPathF
 import { getAnimationWrapperForComplexPathAnimation } from '@/Engine/Services/MoverService/MoverServiceUtils';
 import type { IVector3Wrapper } from '@/Engine/Wrappers';
 
-export const goStraightMove: IMoveFn = ({ actor, destination, animationParams, complete }: IMoveFnParams): anime.AnimeInstance => {
+export const goStraightMove: IMoveFn = ({ obj, destination, animationParams, complete }: IMoveFnParams): anime.AnimeInstance => {
   return anime({
-    targets: actor.entity.position,
+    targets: obj.entity.position,
     x: destination.x,
     y: destination.y,
     z: destination.z,
@@ -18,10 +18,10 @@ export const goStraightMove: IMoveFn = ({ actor, destination, animationParams, c
   });
 };
 
-export const byPathMove: IMoveByPathFn = ({ actor, path, animationParams, complete }: IMoveByPathFnParams): anime.AnimeInstance => {
+export const byPathMove: IMoveByPathFn = ({ obj, path, animationParams, complete }: IMoveByPathFnParams): anime.AnimeInstance => {
   return getAnimationWrapperForComplexPathAnimation(
     anime({
-      targets: actor.entity.position,
+      targets: obj.entity.position,
       keyframes: path,
       ...defaultAnimationParams,
       ...animationParams,

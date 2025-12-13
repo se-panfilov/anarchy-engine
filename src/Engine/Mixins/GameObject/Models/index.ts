@@ -1,4 +1,5 @@
 export * from './Coordinates';
+export * from './IWithEntity';
 export * from './IWithObject3d';
 export * from './Movable';
 export * from './Position';
