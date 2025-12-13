@@ -1,4 +1,4 @@
-import type { EasingOptions } from 'animejs';
+import type { Easing } from '@/Engine/Services/MoverService/Constants';
 
 export type IAnimationParams = {
   duration: number;
@@ -7,5 +7,5 @@ export type IAnimationParams = {
   delay?: number;
   endDelay?: number; //i.g. delay after animation
   loop?: boolean;
-  easing?: EasingOptions;
+  easing?: Easing;
 };

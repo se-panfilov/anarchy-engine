@@ -2,7 +2,7 @@ import type { IShowcase } from '@/App/Levels/Models';
 import type { IActorWrapper, IAppCanvas, ILevel, ILevelConfig } from '@/Engine';
 import { ambientContext, buildLevelFromConfig, isNotDefined } from '@/Engine';
 import type { IAnimationParams } from '@/Engine/Services';
-import { standardMoverService } from '@/Engine/Services';
+import { Easing, standardMoverService } from '@/Engine/Services';
 
 import levelConfig from './showcase-level-4.config.json';
 
@@ -39,11 +39,11 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
       console.log('click is ready', !isClickBlocked);
       isClickBlocked = true;
 
-      void standardMoverService.goToPosition(topActor, { x: 20 }, { ...animationParams, easing: 'easeInCirc' }).then(() => {
+      void standardMoverService.goToPosition(topActor, { x: 20 }, { ...animationParams, easing: Easing.EaseInCirc }).then(() => {
         isClickBlocked = false;
       });
-      void standardMoverService.goToPosition(centralActor, { x: 20 }, { ...animationParams, easing: 'linear' });
-      void standardMoverService.goToPosition(bottomActor, { x: 20 }, { ...animationParams, easing: 'easeInOutQuad' });
+      void standardMoverService.goToPosition(centralActor, { x: 20 }, { ...animationParams, easing: Easing.Linear });
+      void standardMoverService.goToPosition(bottomActor, { x: 20 }, { ...animationParams, easing: Easing.EaseInOutQuad });
     });
   }
 
