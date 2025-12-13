@@ -1,13 +1,11 @@
-import type { TControlsRegistry } from '@/Engine/Controls';
 import type { TEngine } from '@/Engine/Engine/Models';
 import type { TIntersectionsWatcher } from '@/Engine/Intersections';
 import type { TKeyboardService } from '@/Engine/Keyboard';
 import { KeyboardService } from '@/Engine/Keyboard';
-import type { TDelta, TLoop } from '@/Engine/Loop';
+import type { TLoop } from '@/Engine/Loop';
 import type { TRendererWrapper } from '@/Engine/Renderer';
 import type { TSceneWrapper } from '@/Engine/Scene';
 import type { TSpace } from '@/Engine/Space';
-import { spaceLoop } from '@/Engine/Space';
 import type { TText2dRenderer, TText3dRenderer } from '@/Engine/Text';
 import { isNotDefined } from '@/Engine/Utils';
 
@@ -15,11 +13,9 @@ export function Engine(space: TSpace): TEngine {
   // TODO 10.0.0. LOOPS: refactor this, keyboard will have an own loop
   const keyboardService: TKeyboardService = KeyboardService(space.services.loopService);
 
-  const { cameraService, rendererService, scenesService, textService, controlsService } = space.services;
+  const { rendererService, scenesService, textService } = space.services;
   const activeScene: TSceneWrapper | undefined = scenesService.findActive();
 
-  const { text2dRegistry, text3dRegistry } = textService.getRegistries();
-  const controlsRegistry: TControlsRegistry = controlsService.getRegistry();
   const renderer: TRendererWrapper | undefined = rendererService.findActive();
 
   const { text2dRendererRegistry, text3dRendererRegistry } = textService.getRendererRegistries();
@@ -32,17 +28,13 @@ export function Engine(space: TSpace): TEngine {
     if (isNotDefined(text3dRenderer)) throw new Error('Engine: Cannot find an active text3d renderer');
     if (isNotDefined(renderer)) throw new Error('Engine: Cannot find an active renderer');
 
-    // TODO 10.0.0. LOOPS: fix this
-    space.services.loopService.setBeforeEveryTick((delta: TDelta): void => {
-      spaceLoop(delta, cameraService.active$.value, renderer, activeScene, text2dRegistry, text3dRegistry, text2dRenderer, text3dRenderer, controlsRegistry);
-    });
-    Object.values(space.loops).forEach((loop: TLoop): void => loop.start());
+    Object.values(space.loops).forEach((loop: TLoop): void => queueMicrotask((): void => loop.start()));
   }
 
   function stop(): void {
     if (isNotDefined(space)) throw new Error('Engine is not started yet (space is not defined)');
     const { intersectionsWatcherService } = space.services;
-    Object.values(space.loops).forEach((loop: TLoop): void => loop.stop());
+    Object.values(space.loops).forEach((loop: TLoop): void => queueMicrotask((): void => loop.stop()));
     void intersectionsWatcherService.getRegistry().forEach((watcher: TIntersectionsWatcher): void => {
       if (watcher.isStarted) watcher.stop();
     });
