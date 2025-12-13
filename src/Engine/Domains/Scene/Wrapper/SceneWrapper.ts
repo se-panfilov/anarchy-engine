@@ -7,12 +7,16 @@ import type { IWriteable } from '@Engine/Utils';
 import { Scene } from 'three';
 
 import type { ISceneObject, ISceneParams, ISceneWrapper } from '../Models';
+import { isDefined, isNotDefined, isString } from '@Engine/Utils';
+import type { IColor, ITexture, ICubeTexture } from '@Engine/Wrappers';
 
 export function SceneWrapper(params: ISceneParams): ISceneWrapper {
   const entity: IWriteable<Scene> = new Scene();
 
   // eslint-disable-next-line functional/immutable-data
   entity.name = params.name;
+
+  if (isDefined(params.background)) setBackground(params.background);
 
   const wrapper: IWrapper<Scene> = AbstractWrapper(entity, params);
 
@@ -32,5 +36,17 @@ export function SceneWrapper(params: ISceneParams): ISceneWrapper {
     add(light.entity);
   }
 
-  return { ...wrapper, add, addActor, addCamera, addLight, entity };
+  function setBackground(color: string | IColor | ITexture | ICubeTexture): void {
+    let background: string | IColor | ITexture | ICubeTexture | null = null;
+    if (isString(color)) background = new Color(color);
+    else background = color;
+    if (isNotDefined(background)) throw new Error('Invalid background color');
+    entity.background = background;
+  }
+
+  function getBackground(): IColor | ITexture | ICubeTexture | null {
+    return entity.background;
+  }
+
+  return { ...wrapper, add, addActor, addCamera, addLight, setBackground, getBackground, entity };
 }

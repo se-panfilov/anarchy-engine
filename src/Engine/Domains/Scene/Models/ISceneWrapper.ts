@@ -12,4 +12,6 @@ export type ISceneWrapper = IWrapper<Scene> &
     addActor: (actor: Readonly<IActorWrapper>) => void;
     addCamera: (camera: Readonly<ICameraWrapper>) => void;
     addLight: (light: Readonly<ILightWrapper>) => void;
+    setBackground: (color: string) => void;
+    getBackground: () => string | null;
   }>;

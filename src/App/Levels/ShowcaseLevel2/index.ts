@@ -1,5 +1,5 @@
-import type { IActorParams, IActorWrapper, IAppCanvas, ICameraWrapper, IIntersectionsWatcher, ILevel, ILevelConfig, IVector3 } from '@/Engine';
-import { ActorTag, ActorType, ambientContext, buildLevelFromConfig, CameraTag, IntersectionsWatcherFactory, isNotDefined, Vector3Wrapper } from '@/Engine';
+import type { IActorParams, IAppCanvas, ILevel, ILevelConfig } from '@/Engine';
+import { ActorTag, ActorType, buildLevelFromConfig, Vector3Wrapper } from '@/Engine';
 
 import levelConfig from './showcase-level-2.config.json';
 
