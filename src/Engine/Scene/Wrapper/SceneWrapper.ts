@@ -26,9 +26,7 @@ export function SceneWrapper(params: ISceneParams): ISceneWrapper {
 
   const wrapper: IWrapper<Scene> = AbstractWrapper(entity, WrapperType.Scene, params);
 
-  const add = (obj: ISceneObject): void => {
-    entity.add(obj);
-  };
+  const add = (obj: ISceneObject): void => void entity.add(obj);
   const addCamera = (camera: Readonly<ICameraWrapper>): void => add(camera.entity);
   const addActor = (actor: Readonly<IActorWrapperAsync>): void => add(actor.entity);
   const addLight = <T extends ILight>(light: Readonly<IAbstractLightWrapper<T>>): void => add(light.entity);

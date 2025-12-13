@@ -1,5 +1,6 @@
 import type { ICameraRegistry, ICameraWrapper } from '@/Engine/Camera';
 import { cameraService, CameraTag } from '@/Engine/Camera';
+import type { ISpaceInitializationConfig } from '@/Engine/Space/Models/ISpaceInitializationConfig';
 
 export function setInitialActiveCamera(cameraRegistry: ICameraRegistry): void {
   const len: number = cameraRegistry.getLength();
@@ -11,3 +12,5 @@ export function setInitialActiveCamera(cameraRegistry: ICameraRegistry): void {
     }
   }
 }
+
+export const isSpaceInitializationConfig = (initSpace: boolean | ISpaceInitializationConfig): initSpace is ISpaceInitializationConfig => typeof initSpace === 'object';
