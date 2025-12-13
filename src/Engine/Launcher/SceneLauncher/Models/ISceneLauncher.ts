@@ -1,7 +1,6 @@
 import type { IAppCanvas } from '@Engine/Domains/App';
 import type { IDestroyable } from '@Engine/Domains/Mixins';
 import type { ISceneConfig } from '@Engine/Domains/Scene';
-import type { IFactories } from '@Engine/Pool';
 import type { BehaviorSubject } from 'rxjs';
 
 import type { ILaunchedScene } from './ILaunchedScene';

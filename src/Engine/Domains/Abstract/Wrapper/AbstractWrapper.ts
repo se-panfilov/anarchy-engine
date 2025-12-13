@@ -1,23 +1,20 @@
-import { cleanObject } from '@Engine/Utils';
 import { nanoid } from 'nanoid';
+
+import { destroyableMixin } from '@/Engine/Domains/Mixins';
 
 import type { IWrapper } from '../Models';
 
 export function AbstractWrapper<T>(entity: T, params?: Readonly<{ tags: ReadonlyArray<string> }>): IWrapper<T> {
   const id: string = nanoid();
 
-  const wrapper = {
+  const wrapper: IWrapper<T> = {} as IWrapper<T>;
+
+  return {
+    ...wrapper,
     id,
     entity,
     tags: params?.tags ?? [],
-    destroy
+    isRegistrable: true,
+    ...destroyableMixin(wrapper)
   };
-
-  // TODO (S.Panfilov) destroy() should be tested before released
-  function destroy(): void {
-    console.error('Develop: At the moment .destroy() does nothing (not implemented)');
-    cleanObject(wrapper);
-  }
-
-  return wrapper;
 }

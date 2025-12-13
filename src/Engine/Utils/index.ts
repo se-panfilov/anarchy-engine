@@ -1,6 +1,5 @@
 export * from './AsyncUtils';
 export * from './CheckUtils';
-export * from './DestroyableUtils';
 export * from './EntityUtils';
 export * from './MouseUtils';
 export * from './ObjectUtils';

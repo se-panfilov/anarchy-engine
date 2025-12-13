@@ -16,7 +16,6 @@ export * from './Domains/Scene';
 export * from './Domains/Screen';
 export * from './Domains/ThreeLib';
 export * from './Launcher';
-export * from './Pool';
 export * from './Registries';
 export { default as SceneConfigSchema } from './Schemas/ISceneConfig.json';
 export * from './Utils';

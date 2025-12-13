@@ -29,6 +29,9 @@ export function AbstractWatcher<T>(type: string, tags: ReadonlyArray<string> = [
     },
     get tags(): ReadonlyArray<string> {
       return tags;
+    },
+    get isRegistrable(): boolean {
+      return true;
     }
   };
 }

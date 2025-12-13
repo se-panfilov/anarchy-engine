@@ -4,7 +4,7 @@ import { Color, Vector3 } from 'three';
 
 import type { IActorConfig, IActorMaterialConfig, IActorParams } from '../Models';
 
-export function fromConfig(config: IActorConfig): IActorParams {
+export function getParams(config: IActorConfig): IActorParams {
   const { materialParams, position, ...rest } = config;
   return {
     ...rest,

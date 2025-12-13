@@ -3,7 +3,7 @@ import { Color, Vector2, Vector3 } from 'three';
 
 import type { ILightConfig, ILightParams, ILightShadowParams, LightShadowConfig } from '../Models';
 
-export function fromConfig(config: ILightConfig): ILightParams {
+export function getParams(config: ILightConfig): ILightParams {
   const { position, color, shadow, ...rest } = config;
   return {
     ...rest,

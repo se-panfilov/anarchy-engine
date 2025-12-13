@@ -9,7 +9,7 @@ import { IControlsType } from '../Models';
 
 export type AdditionalControlsConfigParams = { cameraRegistry: ICameraRegistry; canvas: IAppCanvas };
 
-export const fromConfig: IFromConfigFn<IControlsParams, IControlsConfig> = (config: IControlsConfig, { cameraRegistry, canvas }: AdditionalControlsConfigParams): IControlsParams => {
+export const getParams: IFromConfigFn<IControlsParams, IControlsConfig> = (config: IControlsConfig, { cameraRegistry, canvas }: AdditionalControlsConfigParams): IControlsParams => {
   const { type, cameraTag, tags } = config;
 
   if (type !== IControlsType.OrbitControls) throw new Error(`Cannot create controls of unknown type "${type as string}"`);

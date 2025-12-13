@@ -7,11 +7,7 @@ import type { IRendererWrapper } from '@Engine/Domains/Renderer';
 import { RendererTag } from '@Engine/Domains/Renderer';
 import type { ISceneConfig, ISceneWrapper } from '@Engine/Domains/Scene';
 import type { ILaunchedScene, ISceneLauncher } from '@Engine/Launcher';
-import type { IDestroyableFactories, ILocalFactoryPool, IRegistryPool } from '@Engine/Pool';
-import { RegistryPool } from '@Engine/Pool';
-import { LocalFactoriesPool } from '@Engine/Pool/LocalFactoriesPool';
-import type { IFactories, IRegistries } from '@Engine/Pool/Models';
-import { addFromConfigToRegistry, isNotDefined, isValidSceneConfig } from '@Engine/Utils';
+import { isNotDefined, isValidSceneConfig } from '@Engine/Utils';
 import { BehaviorSubject } from 'rxjs';
 
 // TODO (S.Panfilov) CWP All factories (especially wrapper's) don't care about entity registration, but they should
