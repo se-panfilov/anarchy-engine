@@ -15,10 +15,7 @@
       { "name": "surface_material", "type": "phong", "options": { "color": "#CBCBCB", "depthWrite": false } },
       { "name": "sphere_material", "type": "standard", "options": { "color": "#E91E63" } }
     ],
-    "models3d": [
-      { "name": "solder_model_1", "url": "/Showcase/Models/Solder/Solder.glb" },
-      { "name": "solder_model_2", "url": "/Showcase/Models/Solder/Solder.glb" }
-    ],
+    "models3d": [{ "name": "solder_model", "url": "/Showcase/Models/Solder/Solder.glb" }],
     "animations": [{ "name": "dance_anim", "url": "/Showcase/Models/Solder/animations/samba.glb" }]
   },
   "entities": {
@@ -50,13 +47,13 @@
       },
       {
         "name": "solder_model_entity_1",
-        "model3dSource": "solder_model_1",
+        "model3dSource": "solder_model",
         "position": { "x": 0, "y": 0, "z": 0 },
         "castShadow": true
       },
       {
         "name": "solder_model_entity_2",
-        "model3dSource": "solder_model_2",
+        "model3dSource": "solder_model",
         "animationsSource": ["dance_anim"],
         "position": { "x": 0, "y": 0, "z": 0 },
         "castShadow": true
