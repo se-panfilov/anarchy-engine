@@ -90,10 +90,21 @@ export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
           ...(minifyManual
             ? [
                 terser({
-                  compress: true,
+                  compress: {
+                    passes: 3, // Rerun compress multiple times
+                    pure_getters: true,
+                    unsafe: false, // Turn on only if the code is pure
+                    unsafe_arrows: false, // Could break "this" in arrow functions
+                    unsafe_methods: false, // Risky
+                    unsafe_comps: false, // Optimize comparisons `a <= b`
+                    drop_console: false,
+                    drop_debugger: true,
+                    defaults: true // Default number of optimizations
+                  },
                   mangle: enableMangle,
                   format: {
-                    comments: false
+                    comments: false,
+                    ascii_only: true // To prevent emoji/unicode problems
                   }
                 }) as Plugin
               ]
