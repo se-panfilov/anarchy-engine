@@ -1,6 +1,7 @@
 {
   "canvasSelector": "#right_container #app_beta",
   "entities": {
+    "renderers": [],
     "actors": [
       {
         "model3dSource": "box_model",

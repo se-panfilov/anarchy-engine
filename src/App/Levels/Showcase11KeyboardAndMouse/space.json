@@ -1,6 +1,7 @@
 {
   "canvasSelector": "#app",
   "entities": {
+    "renderers": [],
     "actors": [
       {
         "name": "surface_actor",

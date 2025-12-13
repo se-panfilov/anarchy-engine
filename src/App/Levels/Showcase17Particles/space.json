@@ -1,6 +1,7 @@
 {
   "canvasSelector": "#app",
   "entities": {
+    "renderers": [],
     "actors": [
       {
         "model3dSource": "surface_model",

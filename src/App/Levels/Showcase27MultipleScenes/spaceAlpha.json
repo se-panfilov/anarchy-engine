@@ -1,6 +1,7 @@
 {
   "canvasSelector": "#left_container #app_alpha",
   "entities": {
+    "renderers": [],
     "actors": [
       {
         "model3dSource": "sphere_model",

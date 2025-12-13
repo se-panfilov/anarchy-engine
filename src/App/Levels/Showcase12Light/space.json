@@ -1,6 +1,7 @@
 {
   "canvasSelector": "#app",
   "entities": {
+    "renderers": [],
     "actors": [
       {
         "name": "sphere_standard_metal_actor",
