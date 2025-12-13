@@ -30,6 +30,5 @@ const menuRouterStore = useRouterStore();
         <button type="button" class="menu-navigation__button -exit">Exit to desktop</button>
       </li>
     </ul>
-    <div>111 {{ useMenuOptionsStore().showExitBtn }}</div>
   </div>
 </template>
