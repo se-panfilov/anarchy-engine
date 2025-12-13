@@ -21,17 +21,17 @@
     "build:mac:dmg": "npm run build -- --mac dmg && npm run clean:postbuild",
     "build:win:app": "npm run build -- --win --dir && npm run clean:postbuild",
     "build:win:nsis": "npm run build -- --win nsis && npm run clean:postbuild",
-    "generate:versions-file": "node ../../../packages/shared/ScriptUtils/GenerateVersionsFile.js  --out=src/Generated/versions.ts",
+    "generate:versions-file": "node ../../packages/shared/ScriptUtils/GenerateVersionsFile.js  --out=src/Generated/versions.ts",
     "clean": "rimraf dist && rimraf dist-app",
     "clean:postbuild": "rimraf dist/electron-main.js dist/electron-main.js.map dist/preload.js dist/preload.js.map",
-    "copy:dist-app": "node ../../../packages/shared/ScriptUtils/CopyDir.js -- from=../dist-desktop to=dist-app",
-    "copy:draco": "node ../../../packages/shared/ScriptUtils/CopyFiles.js ../../../node_modules/three/examples/jsm/libs/draco/draco_decoder.js ../../../node_modules/three/examples/jsm/libs/draco/draco_wasm_wrapper.js ../../../node_modules/three/examples/jsm/libs/draco/draco_decoder.wasm to=dist-app/three/examples/jsm/libs/draco/",
+    "copy:dist-app": "node ../../packages/shared/ScriptUtils/CopyDir.js -- from=../dist-desktop to=dist-app",
+    "copy:draco": "node ../../packages/shared/ScriptUtils/CopyFiles.js ../../../node_modules/three/examples/jsm/libs/draco/draco_decoder.js ../../../node_modules/three/examples/jsm/libs/draco/draco_wasm_wrapper.js ../../../node_modules/three/examples/jsm/libs/draco/draco_decoder.wasm to=dist-app/three/examples/jsm/libs/draco/",
     "prebuild": "npm run prebuild:ts && npm run prebuild:preload",
     "prebuild:preload": "vite build --config vite.preload.config.ts",
     "prebuild:ts": "npm run generate:versions-file && vite build",
     "reload-and-prebuild": "npm run reload:dist-app && npm run prebuild",
     "reload:dist-app": "npm run clean && npm run copy:dist-app && npm run copy:draco",
-    "start": "npm run reload-and-prebuild && electron ."
+    "start": "npm run reload-and-prebuild && electron "
   },
   "devDependencies": {
     "electron": "37.2.1",
