@@ -1,6 +1,6 @@
 import type { IShowcase } from '@/App/Levels/Models';
-import { IActorWrapperAsync, IAppCanvas, type IGameKey, ILevel, ILevelConfig, IMouseWatcherEvent, keyboardService, KeyCode } from '@/Engine';
-import { buildLevelFromConfig, mouseService } from '@/Engine';
+import type { IActorWrapperAsync, IAppCanvas, ILevel, ILevelConfig, IMouseWatcherEvent } from '@/Engine';
+import { buildLevelFromConfig, keyboardService, KeyCode, mouseService } from '@/Engine';
 
 import levelConfig from './showcase-11-keyboard-and-mouse.json';
 
@@ -32,6 +32,13 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
     mouseService.clickBackRelease$.subscribe((event: IMouseWatcherEvent): void => console.log('click back', event));
     mouseService.clickForwardRelease$.subscribe((event: IMouseWatcherEvent): void => console.log('click forward', event));
     mouseService.clickExtraRelease$.subscribe((event: IMouseWatcherEvent): void => console.log('click extra', event));
+
+    mouseService.isLeftPressed$.subscribe((isPressed: boolean): void => console.log('left pressed', isPressed));
+    mouseService.isRightPressed$.subscribe((isPressed: boolean): void => console.log('right pressed', isPressed));
+    mouseService.isMiddlePressed$.subscribe((isPressed: boolean): void => console.log('middle pressed', isPressed));
+    mouseService.isBackPressed$.subscribe((isPressed: boolean): void => console.log('back pressed', isPressed));
+    mouseService.isForwardPressed$.subscribe((isPressed: boolean): void => console.log('forward pressed', isPressed));
+    mouseService.isExtraPressed$.subscribe((isPressed: boolean): void => console.log('extra pressed', isPressed));
 
     mouseService.doubleLeftClick$.subscribe((event: IMouseWatcherEvent): void => console.log('double click left', event));
     mouseService.doubleRightClick$.subscribe((event: IMouseWatcherEvent): void => console.log('double click right', event));

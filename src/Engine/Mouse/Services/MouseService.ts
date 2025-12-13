@@ -45,6 +45,13 @@ export function MouseService(container: IGlobalContainerDecorator): IMouseServic
   const clickForwardRelease$: Subject<IMouseWatcherEvent> = new Subject<IMouseWatcherEvent>();
   const clickExtraRelease$: Subject<IMouseWatcherEvent> = new Subject<IMouseWatcherEvent>();
 
+  const isLeftPressed$: Subject<boolean> = new Subject<boolean>();
+  const isRightPressed$: Subject<boolean> = new Subject<boolean>();
+  const isMiddlePressed$: Subject<boolean> = new Subject<boolean>();
+  const isBackPressed$: Subject<boolean> = new Subject<boolean>();
+  const isForwardPressed$: Subject<boolean> = new Subject<boolean>();
+  const isExtraPressed$: Subject<boolean> = new Subject<boolean>();
+
   const doubleClick$: Subject<IMouseWatcherEvent> = new Subject<IMouseWatcherEvent>();
   const doubleLeftClick$: Subject<IMouseWatcherEvent> = new Subject<IMouseWatcherEvent>();
   const doubleRightClick$: Subject<IMouseWatcherEvent> = new Subject<IMouseWatcherEvent>();
@@ -60,12 +67,26 @@ export function MouseService(container: IGlobalContainerDecorator): IMouseServic
   clickPress$.pipe(filter((event: IMouseWatcherEvent): boolean => event.value === MouseButtonValue.Forward)).subscribe((event: IMouseWatcherEvent) => clickForwardPress$.next(event));
   clickPress$.pipe(filter((event: IMouseWatcherEvent): boolean => event.value === MouseButtonValue.Extra)).subscribe((event: IMouseWatcherEvent) => clickExtraPress$.next(event));
 
+  clickLeftPress$.subscribe((): void => isLeftPressed$.next(true));
+  clickRightPress$.subscribe((): void => isRightPressed$.next(true));
+  clickMiddlePress$.subscribe((): void => isMiddlePressed$.next(true));
+  clickBackPress$.subscribe((): void => isBackPressed$.next(true));
+  clickForwardPress$.subscribe((): void => isForwardPressed$.next(true));
+  clickExtraPress$.subscribe((): void => isExtraPressed$.next(true));
+
   clickRelease$.pipe(filter((event: IMouseWatcherEvent): boolean => event.value === MouseButtonValue.Left)).subscribe((event: IMouseWatcherEvent) => clickLeftRelease$.next(event));
   clickRelease$.pipe(filter((event: IMouseWatcherEvent): boolean => event.value === MouseButtonValue.Right)).subscribe((event: IMouseWatcherEvent) => clickRightRelease$.next(event));
   clickRelease$.pipe(filter((event: IMouseWatcherEvent): boolean => event.value === MouseButtonValue.Middle)).subscribe((event: IMouseWatcherEvent) => clickMiddleRelease$.next(event));
   clickRelease$.pipe(filter((event: IMouseWatcherEvent): boolean => event.value === MouseButtonValue.Back)).subscribe((event: IMouseWatcherEvent) => clickBackRelease$.next(event));
   clickRelease$.pipe(filter((event: IMouseWatcherEvent): boolean => event.value === MouseButtonValue.Forward)).subscribe((event: IMouseWatcherEvent) => clickForwardRelease$.next(event));
   clickRelease$.pipe(filter((event: IMouseWatcherEvent): boolean => event.value === MouseButtonValue.Extra)).subscribe((event: IMouseWatcherEvent) => clickExtraRelease$.next(event));
+
+  clickLeftRelease$.subscribe((): void => isLeftPressed$.next(false));
+  clickRightRelease$.subscribe((): void => isRightPressed$.next(false));
+  clickMiddleRelease$.subscribe((): void => isMiddlePressed$.next(false));
+  clickBackRelease$.subscribe((): void => isBackPressed$.next(false));
+  clickForwardRelease$.subscribe((): void => isForwardPressed$.next(false));
+  clickExtraRelease$.subscribe((): void => isExtraPressed$.next(false));
 
   doubleClick$.pipe(filter((event: IMouseWatcherEvent): boolean => event.value === MouseButtonValue.Left)).subscribe((event: IMouseWatcherEvent) => doubleLeftClick$.next(event));
   doubleClick$.pipe(filter((event: IMouseWatcherEvent): boolean => event.value === MouseButtonValue.Right)).subscribe((event: IMouseWatcherEvent) => doubleRightClick$.next(event));
@@ -96,6 +117,13 @@ export function MouseService(container: IGlobalContainerDecorator): IMouseServic
     clickBackRelease$: clickBackRelease$.asObservable(),
     clickForwardRelease$: clickForwardRelease$.asObservable(),
     clickExtraRelease$: clickExtraRelease$.asObservable(),
+
+    isLeftPressed$: isLeftPressed$.asObservable(),
+    isRightPressed$: isRightPressed$.asObservable(),
+    isMiddlePressed$: isMiddlePressed$.asObservable(),
+    isBackPressed$: isBackPressed$.asObservable(),
+    isForwardPressed$: isForwardPressed$.asObservable(),
+    isExtraPressed$: isExtraPressed$.asObservable(),
 
     doubleClick$: doubleClick$.asObservable(),
     doubleLeftClick$: doubleLeftClick$.asObservable(),

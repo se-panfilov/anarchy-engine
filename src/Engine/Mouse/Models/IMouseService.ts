@@ -20,6 +20,13 @@ export type IMouseService = {
   clickForwardRelease$: Observable<IMouseWatcherEvent>;
   clickExtraRelease$: Observable<IMouseWatcherEvent>;
 
+  isLeftPressed$: Observable<boolean>;
+  isRightPressed$: Observable<boolean>;
+  isMiddlePressed$: Observable<boolean>;
+  isBackPressed$: Observable<boolean>;
+  isForwardPressed$: Observable<boolean>;
+  isExtraPressed$: Observable<boolean>;
+
   doubleClick$: Observable<IMouseWatcherEvent>;
   doubleLeftClick$: Observable<IMouseWatcherEvent>;
   doubleRightClick$: Observable<IMouseWatcherEvent>;
