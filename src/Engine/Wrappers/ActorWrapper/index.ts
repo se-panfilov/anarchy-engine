@@ -1,12 +1,2 @@
-import { AbstractWrapper } from '@Engine/Wrappers';
-import type { ActorParams } from '@Engine/Models';
-import { createActor } from './ActorUtils';
-import { getAccessors } from './Accessors';
-import type { Mesh } from 'three';
-
-export type IActorWrapper = ReturnType<typeof AbstractWrapper<Mesh>> & ReturnType<typeof getAccessors>;
-
-export function ActorWrapper(params: ActorParams): IActorWrapper {
-  const entity: Mesh = createActor(params);
-  return { ...AbstractWrapper(entity), ...getAccessors(entity), entity };
-}
+export * from './ActorWrapper';
+export * from './Models';

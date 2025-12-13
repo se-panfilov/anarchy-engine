@@ -1,17 +1,9 @@
 import type { Vector2, Vector3 } from 'three';
 import { AmbientLight, DirectionalLight } from 'three';
 import type { OrthographicCamera } from 'three/src/cameras/OrthographicCamera';
+import { IAccessors } from './Models';
 
-export interface Accessors {
-  readonly setPosition: (x: number, y: number, z: number) => Vector3;
-  readonly setCastShadow: (value: boolean) => boolean;
-  readonly setControls: (x: number, y: number, z: number) => Vector3;
-  readonly setShadowMapSize: (x: number, y: number) => Vector2;
-  readonly setFar: (value: number) => number;
-  readonly setNormalBias: (val: number) => number;
-}
-
-export function getAccessors(entity: AmbientLight | DirectionalLight): Accessors {
+export function getAccessors(entity: AmbientLight | DirectionalLight): IAccessors {
   const setPosition = (x: number, y: number, z: number): Vector3 => entity.position.set(x, y, z);
   // eslint-disable-next-line functional/immutable-data
   const setCastShadow = (value: boolean): boolean => (entity.castShadow = value);
