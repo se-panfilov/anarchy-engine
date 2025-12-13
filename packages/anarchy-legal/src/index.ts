@@ -19,4 +19,4 @@ export * from './Services';
 //  - Data Safety (Google Play)
 //  - CIRCIA (USA)
 //  - EAA?
-//  - something about china?
+//  - something about China?
