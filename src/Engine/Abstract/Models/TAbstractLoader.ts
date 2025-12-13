@@ -9,7 +9,7 @@ export type TAbstractLoader<T, C extends TAbstractResourceConfig> = Readonly<{
   loadAsync: (config: C) => Promise<T>;
   loadListAsync: (configs: ReadonlyArray<C>) => Promise<ReadonlyArray<T>>;
   loadFromConfigAsync: (configs: ReadonlyArray<C>) => Promise<ReadonlyArray<T>>;
-  setOnLoadedFn: (onLoaded: TAbstractOnLoadFunction<T>) => void;
+  setOnLoadedFn: (onLoaded: TAbstractOnLoadFunction<T, C['options']>, options?: C['options']) => void;
   loaded$: Observable<TAbstractLoadedResourcePack<T, C>>;
 }> &
   TDestroyable;

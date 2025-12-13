@@ -1,3 +1,3 @@
 import type { TWriteable } from '@/Engine/Utils';
 
-export type TAbstractOnLoadFunction<T> = (loaded: TWriteable<T>, options?: Record<string, any>) => T;
+export type TAbstractOnLoadFunction<T, O = Record<string, any>> = (loaded: TWriteable<T>, options?: O) => T;
