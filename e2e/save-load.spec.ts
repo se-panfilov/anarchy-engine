@@ -14,7 +14,7 @@ test.beforeEach(async ({ page }) => {
   await waitUntilReady(page);
 });
 
-const scenes: ReadonlyArray<string> = ['SpaceBasic', 'SpaceCustomModels', 'SpaceTexts', 'SpaceLight', 'SpaceMaterials'];
+const scenes: ReadonlyArray<string> = ['SpaceBasic', 'SpaceCustomModels', 'SpaceTexts', 'SpaceLight', 'SpaceMaterials', 'SpaceControls'];
 
 test.describe('Space save/load persistence', () => {
   const thresholds = {

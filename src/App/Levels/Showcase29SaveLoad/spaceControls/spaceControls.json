@@ -1,5 +1,5 @@
 {
-  "canvasSelector": "#basic_container #app",
+  "canvasSelector": "#controls_container #app",
   "entities": {
     "actors": [
       {
@@ -7,7 +7,7 @@
         "name": "sphere_actor",
         "position": {
           "x": 0,
-          "y": 2,
+          "y": 4,
           "z": 0
         },
         "spatial": {
@@ -36,23 +36,20 @@
         }
       }
     ],
-    "controls": [],
+    "controls": [
+      {
+        "cameraName": "main",
+        "enableDamping": true,
+        "isActive": true,
+        "name": "orbit_controls",
+        "type": "OrbitControls"
+      }
+    ],
     "envMaps": [],
     "fogs": [],
     "fsm": [],
     "intersections": [],
     "lights": [
-      {
-        "color": "#ffffff",
-        "intensity": 0.5,
-        "name": "ambient_light",
-        "position": {
-          "x": 0.25,
-          "y": 2,
-          "z": 2.25
-        },
-        "type": "AmbientLight"
-      },
       {
         "castShadow": true,
         "color": "#ffffff",
@@ -85,7 +82,7 @@
       {
         "name": "surface_material",
         "options": {
-          "color": "#5EDCAE"
+          "color": "#9ACEFF"
         },
         "type": "MeshStandardMaterial"
       },
@@ -104,9 +101,9 @@
         "model3dSource": "plane",
         "name": "surface_model",
         "options": {
-          "height": 100,
+          "height": 80,
           "heightSegments": 1,
-          "width": 100,
+          "width": 80,
           "widthSegments": 1
         },
         "position": {
@@ -127,7 +124,7 @@
         "model3dSource": "sphere",
         "name": "sphere_model",
         "options": {
-          "radius": 0.7
+          "radius": 2
         }
       }
     ],
@@ -153,7 +150,7 @@
     ],
     "texts": []
   },
-  "name": "SpaceBasic",
+  "name": "SpaceControls",
   "resources": {
     "animations": [],
     "audio": [],
