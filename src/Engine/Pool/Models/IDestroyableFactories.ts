@@ -1,5 +1,5 @@
 import type { IControlsFactory } from '@Engine/Factories';
 
-export type ISceneFactories = Readonly<{
+export type IDestroyableFactories = Readonly<{
   controlsFactory: IControlsFactory;
 }>;

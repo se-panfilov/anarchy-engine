@@ -6,38 +6,28 @@ import type { IActorWrapper, ICameraWrapper, ILightWrapper, ISceneWrapper } from
 import type { IDestroyablePool, IRegistries, IRegistryPool } from './Models';
 
 export function RegistryPool(): IRegistryPool {
-  const abstractPool: IDestroyablePool<IRegistries> = DestroyablePool<IRegistries>(init);
-  const { pool, setPool } = abstractPool;
-
-  function init(): IRegistries {
-    setPool({
-      actorRegistry: ActorRegistry(),
-      cameraRegistry: CameraRegistry(),
-      lightRegistry: LightRegistry(),
-      controlsRegistry: ControlsRegistry()
-    });
-
-    if (isNotDefined(pool)) throw new Error('Failed to initialize RegistryPool');
-
-    return pool;
-  }
+  const abstractPool: IDestroyablePool<IRegistries> = DestroyablePool<IRegistries>({
+    actorRegistry: ActorRegistry(),
+    cameraRegistry: CameraRegistry(),
+    lightRegistry: LightRegistry(),
+    controlsRegistry: ControlsRegistry()
+  });
 
   function startAddSubscription(scene: ISceneWrapper): void {
-    if (isNotDefined(pool)) throw new Error('Cannot start RegistryPool subscription: pool is not initialized');
+    if (isNotDefined(abstractPool.pool)) throw new Error('Cannot start RegistryPool subscription: pool is not initialized');
 
-    pool.actorRegistry.added$.subscribe((actor: IActorWrapper) => scene.addActor(actor));
-    pool.cameraRegistry.added$.subscribe((camera: ICameraWrapper) => scene.addCamera(camera));
-    pool.lightRegistry.added$.subscribe((light: ILightWrapper) => scene.addLight(light));
+    abstractPool.pool.actorRegistry.added$.subscribe((actor: IActorWrapper) => scene.addActor(actor));
+    abstractPool.pool.cameraRegistry.added$.subscribe((camera: ICameraWrapper) => scene.addCamera(camera));
+    abstractPool.pool.lightRegistry.added$.subscribe((light: ILightWrapper) => scene.addLight(light));
   }
 
-  // TODO (S.Panfilov) fix destroy
   function destroy(): void {
-    if (isNotDefined(pool)) return;
+    if (isNotDefined(abstractPool.pool)) return;
     abstractPool.destroy();
-    pool.actorRegistry.added$.unsubscribe();
-    pool.cameraRegistry.added$.unsubscribe();
-    pool.lightRegistry.added$.unsubscribe();
+    abstractPool.pool.actorRegistry.added$.unsubscribe();
+    abstractPool.pool.cameraRegistry.added$.unsubscribe();
+    abstractPool.pool.lightRegistry.added$.unsubscribe();
   }
 
-  return { ...abstractPool, init, startAddSubscription, destroy };
+  return { ...abstractPool, startAddSubscription, destroy };
 }

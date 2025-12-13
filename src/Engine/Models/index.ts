@@ -6,6 +6,7 @@ export * from './ICameraParams';
 export * from './IControlsParams';
 export * from './IControlsType';
 export * from './IDestroyable';
+export * from './IDestroyableFactory';
 export * from './IDirectionalLight';
 export * from './IFactory';
 export * from './IInputParams';

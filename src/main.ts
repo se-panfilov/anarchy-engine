@@ -10,7 +10,7 @@ import { isNotDefined, isValidSceneConfig } from '@Engine/Utils';
 const canvas: IAppCanvas | null = document.querySelector('#app');
 if (isNotDefined(canvas)) throw new Error('Canvas is not defined');
 if (!isValidSceneConfig(sceneConfig)) throw new Error('Failed to load a scene: invalid data format');
-const factories: IFactories = FactoriesPool().init();
+const factories: IFactories = FactoriesPool().pool;
 const launcher: ISceneLauncher = SceneLauncher(sceneConfig, canvas, factories);
 launcher.launch();
 

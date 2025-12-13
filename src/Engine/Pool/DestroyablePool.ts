@@ -4,8 +4,8 @@ import { isNotDefined } from '@Engine/Utils';
 
 import type { IAbstractPool, IDestroyablePool } from './Models';
 
-export function DestroyablePool<T extends Record<string, IDestroyable>>(init: () => T): IDestroyablePool<T> {
-  const abstractPool: IAbstractPool<T> = AbstractPool<T>(init);
+export function DestroyablePool<T extends Record<string, IDestroyable>>(pool: T): IDestroyablePool<T> {
+  const abstractPool: IAbstractPool<T> = AbstractPool<T>(pool);
 
   // TODO (S.Panfilov) fix destroy
   function destroy(): void {

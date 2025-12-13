@@ -2,10 +2,10 @@ import { CameraTag, LoopTag, RendererTag } from '@Engine/Constants';
 import { addToRegistry } from '@Engine/Launcher/AddToRegistry';
 import type { ISceneConfig } from '@Engine/Launcher/Models';
 import type { IAppCanvas, ISceneLauncher, IStartedScene } from '@Engine/Models';
-import type { IRegistryPool, ISceneFactories, ISceneFactoryPool } from '@Engine/Pool';
+import type { IDestroyableFactories, ILocalFactoryPool, IRegistryPool } from '@Engine/Pool';
 import { RegistryPool } from '@Engine/Pool';
+import { LocalFactoriesPool } from '@Engine/Pool/LocalFactoriesPool';
 import type { IFactories, IRegistries } from '@Engine/Pool/Models';
-import { SceneFactoriesPool } from '@Engine/Pool/SceneFactoriesPool';
 import { isNotDefined } from '@Engine/Utils';
 import type { ICameraWrapper, ILoopWrapper, IRendererWrapper, ISceneWrapper } from '@Engine/Wrappers';
 import { BehaviorSubject } from 'rxjs';
@@ -18,8 +18,8 @@ export function SceneLauncher(sceneConfig: ISceneConfig, canvas: IAppCanvas, fac
   const destroyed$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   let registryPool: IRegistryPool;
-  let sceneFactoriesPool: ISceneFactoryPool;
-  let sceneFactories: ISceneFactories;
+  let sceneFactoriesPool: ILocalFactoryPool;
+  let sceneFactories: IDestroyableFactories;
   let registries: IRegistries;
   let scene: ISceneWrapper;
   let renderer: IRendererWrapper;
@@ -27,9 +27,9 @@ export function SceneLauncher(sceneConfig: ISceneConfig, canvas: IAppCanvas, fac
 
   function prepare(): void {
     registryPool = RegistryPool();
-    registries = registryPool.init();
-    sceneFactoriesPool = SceneFactoriesPool({ canvas, cameraRegistry: registries.cameraRegistry });
-    sceneFactories = sceneFactoriesPool.init();
+    registries = registryPool.pool;
+    sceneFactoriesPool = LocalFactoriesPool({ canvas, cameraRegistry: registries.cameraRegistry });
+    sceneFactories = sceneFactoriesPool.pool;
     prepared$.next(true);
   }
 
