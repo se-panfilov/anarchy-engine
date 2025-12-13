@@ -1,18 +1,17 @@
-import { AbstractWatcher } from '@Engine/Watchers/AbstractWatcher/AbstractWatcher';
 import type { IGlobalContainerDecorator } from '@Engine/Global';
 import type { IScreenSizeWatcher } from '@Engine/Watchers/ScreenSizeWatcher/Models/IScreenSizeWatcher';
 import type { IScreenParams } from '@Engine/Models';
-import { BehaviorSubject, Subject } from 'rxjs';
-import { IAbstractWatcher } from '@Engine/Watchers';
+import { AbstractWatcherWithState, IAbstractWatcherWithState } from '@Engine/Watchers';
 
 export function ScreenSizeWatcher(container: IGlobalContainerDecorator): IScreenSizeWatcher {
-  const value$: Subject<IScreenParams> = new Subject<IScreenParams>();
-  const latest$: BehaviorSubject<IScreenParams> = new BehaviorSubject<IScreenParams>({ width: 0, height: 0, ratio: 0 });
-
-  value$.subscribe((val: IScreenParams) => latest$.next(val));
+  const initialValue: IScreenParams = { width: 0, height: 0, ratio: 0 };
+  const abstractWatcher: IAbstractWatcherWithState<IScreenParams> = AbstractWatcherWithState(
+    'screen-size',
+    initialValue
+  );
 
   const onResize = (): void =>
-    value$.next({
+    abstractWatcher.value$.next({
       width: container.width,
       height: container.height,
       ratio: container.ratio
@@ -29,19 +28,10 @@ export function ScreenSizeWatcher(container: IGlobalContainerDecorator): IScreen
     return result;
   }
 
-  const abstractWatcher: IAbstractWatcher<IScreenParams> = AbstractWatcher('screen-size');
-
-  abstractWatcher.destroy$.subscribe(() => {
-    latest$.complete();
-    abstractWatcher.destroy$.unsubscribe();
-  });
-
   const result: IScreenSizeWatcher = {
     ...abstractWatcher,
     start,
-    stop,
-    value$,
-    latest$
+    stop
   };
 
   return result;

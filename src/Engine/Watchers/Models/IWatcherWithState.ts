@@ -1,10 +1,7 @@
-import type { BehaviorSubject } from 'rxjs';
-import type { IScreenParams } from '@Engine/Models';
-import type { IAbstractWatcher } from '@Engine/Watchers';
+import type { IAbstractWatcherWithState } from '@Engine/Watchers';
 
-export type IWatcherWithState<T> = IAbstractWatcher<T> &
+export type IWatcherWithState<T> = IAbstractWatcherWithState<T> &
   Readonly<{
     start: () => IWatcherWithState<T>;
     stop: () => IWatcherWithState<T>;
-    latest$: BehaviorSubject<IScreenParams>;
   }>;
