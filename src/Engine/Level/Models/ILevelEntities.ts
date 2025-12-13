@@ -5,6 +5,7 @@ import type { ILightFactory, ILightRegistry } from '@/Engine/Light';
 import type { IRendererFactory, IRendererRegistry } from '@/Engine/Renderer';
 import type { ISceneFactory, ISceneRegistry } from '@/Engine/Scene';
 import type { IText2dRegistry, IText3dRegistry, ITextFactory } from '@/Engine/Text';
+import type { IFogFactory, IFogRegistry } from '@/Engine/Fog';
 
 export type ILevelEntities = {
   actorRegistry: IActorAsyncRegistry;
@@ -16,6 +17,8 @@ export type ILevelEntities = {
   cameraFactory: ICameraFactory;
   lightRegistry: ILightRegistry;
   lightFactory: ILightFactory;
+  fogRegistry: IFogRegistry;
+  fogFactory: IFogFactory;
   controlsRegistry: IControlsRegistry;
   controlsFactory: IControlsFactory;
   scenesRegistry: ISceneRegistry;

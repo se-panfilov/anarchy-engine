@@ -30,6 +30,8 @@ import { screenService } from '@/Engine/Services';
 import type { IText2dRegistry, IText2dRenderer, IText3dRegistry, IText3dRenderer, ITextAnyWrapper, ITextConfig, ITextFactory } from '@/Engine/Text';
 import { initText2dRenderer, initText3dRenderer, isText2dWrapper, isText3dWrapper, Text2dRegistry, Text3dRegistry, TextFactory } from '@/Engine/Text';
 import { isDefined, isNotDefined, validLevelConfig } from '@/Engine/Utils';
+import { FogRegistry, IFogConfig, IFogFactory, IFogRegistry, IFogWrapper } from '@/Engine/Fog';
+import { FogFactory } from '@/Engine/Fog';
 
 export function buildLevelFromConfig(canvas: IAppCanvas, config: ILevelConfig): ILevel {
   const { isValid, errors } = validLevelConfig(config);
@@ -37,7 +39,7 @@ export function buildLevelFromConfig(canvas: IAppCanvas, config: ILevelConfig): 
     console.error(errors);
     throw new Error('Failed to launch a level: invalid data format');
   }
-  const { name, actors, cameras, lights, texts, controls, scenes, tags } = config;
+  const { name, actors, cameras, lights, fogs, texts, controls, scenes, tags } = config;
 
   screenService.setCanvas(canvas);
 
@@ -103,6 +105,14 @@ export function buildLevelFromConfig(canvas: IAppCanvas, config: ILevelConfig): 
   lights.forEach((light: ILightConfig): IAbstractLightWrapper<ILight> => lightFactory.create(lightFactory.configToParams({ ...light, tags: [...light.tags, CommonTag.FromConfig] })));
   messages$.next(`Lights (${lights.length}) created`);
 
+  //build fogs
+  const fogFactory: IFogFactory = FogFactory();
+  const fogRegistry: IFogRegistry = FogRegistry();
+  const fogAddedSubscription: Subscription = fogRegistry.added$.subscribe((fog: IFogWrapper) => scene.addFog(fog));
+  const fogEntityCreatedSubscription: Subscription = fogFactory.entityCreated$.subscribe((fog: IFogWrapper): void => fogRegistry.add(fog));
+  fogs.forEach((fog: IFogConfig): IFogWrapper => fogFactory.create(fogFactory.configToParams({ ...fog, tags: [...fog.tags, CommonTag.FromConfig] })));
+  messages$.next(`Fogs (${fogs.length}) created`);
+
   //env maps
   envMapService.added$.subscribe((texture: IDataTexture): void => {
     scene.setBackground(texture);
@@ -161,6 +171,11 @@ export function buildLevelFromConfig(canvas: IAppCanvas, config: ILevelConfig): 
     lightAddedSubscription.unsubscribe();
     lightRegistry.destroy();
 
+    fogEntityCreatedSubscription.unsubscribe();
+    fogFactory.destroy();
+    fogAddedSubscription.unsubscribe();
+    fogRegistry.destroy();
+
     controlsEntityCreatedSubscription.unsubscribe();
     controlsFactory.destroy();
     controlsRegistry.destroy();
@@ -199,6 +214,8 @@ export function buildLevelFromConfig(canvas: IAppCanvas, config: ILevelConfig): 
       cameraFactory: cameraFactory,
       lightRegistry: lightRegistry,
       lightFactory: lightFactory,
+      fogRegistry: fogRegistry,
+      fogFactory: fogFactory,
       controlsRegistry: controlsRegistry,
       controlsFactory: controlsFactory,
       scenesRegistry: sceneRegistry,

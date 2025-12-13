@@ -6,6 +6,7 @@ import type { ILightConfig } from '@/Engine/Light';
 import type { IWithReadonlyTags } from '@/Engine/Mixins';
 import type { ISceneConfig } from '@/Engine/Scene';
 import type { ITextConfig } from '@/Engine/Text';
+import type { IFogConfig } from '@/Engine/Fog';
 
 export type ILevelConfig = Readonly<{
   name: string;
@@ -14,6 +15,7 @@ export type ILevelConfig = Readonly<{
   actors: ReadonlyArray<IActorConfig>;
   cameras: ReadonlyArray<ICameraConfig>;
   lights: ReadonlyArray<ILightConfig>;
+  fog: ReadonlyArray<IFogConfig>;
   texts: ReadonlyArray<ITextConfig>;
   controls: ReadonlyArray<IOrbitControlsConfig>;
   envMaps: ReadonlyArray<string>;
