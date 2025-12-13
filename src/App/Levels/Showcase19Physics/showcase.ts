@@ -41,8 +41,8 @@ import spaceConfig from './showcase.json';
 export function showcase(canvas: TAppCanvas): TShowcase {
   const space: TSpace = buildSpaceFromConfig(canvas, spaceConfig as TSpaceConfig);
   const engine: TEngine = Engine(space);
-  const { loopService, keyboardService } = engine.services;
-  const { actorService, cameraService, intersectionsWatcherService, textService, physicsBodyService } = space.services;
+  const { keyboardService } = engine.services;
+  const { actorService, cameraService, intersectionsWatcherService, loopService, textService, physicsBodyService } = space.services;
 
   const actorAsyncRegistry = actorService.getRegistry();
   const sceneWrapper: TSceneWrapper = actorService.getScene();

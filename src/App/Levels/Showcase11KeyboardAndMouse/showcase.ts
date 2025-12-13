@@ -27,7 +27,7 @@ export function showcase(canvas: TAppCanvas): TShowcase {
   const engine: TEngine = Engine(space);
   const { keyboardService } = engine.services;
 
-  const { actorService, cameraService, intersectionsWatcherService } = space.services;
+  const { actorService, cameraService, intersectionsWatcherService, loopService } = space.services;
   const actorRegistry: TActorAsyncRegistry = actorService.getRegistry();
   const cameraRegistry: TCameraRegistry = cameraService.getRegistry();
   if (isNotDefined(actorRegistry)) throw new Error('Actor registry is not defined');
@@ -94,7 +94,7 @@ export function showcase(canvas: TAppCanvas): TShowcase {
     const { clickLeftRelease$, isLeftPressed$, isRightPressed$, isMiddlePressed$, isBackPressed$, isForwardPressed$, isExtraPressed$, doubleLeftClick$, doubleRightClick$, wheelUp$, wheelDown$ } =
       mouseService;
 
-    const moverService: TMoverService = MoverService(engine.services.loopService, defaultMoverServiceConfig);
+    const moverService: TMoverService = MoverService(loopService, defaultMoverServiceConfig);
 
     clickLeftRelease$.pipe(withLatestFrom(intersectionsWatcher.value$)).subscribe(([, intersection]: [TMouseWatcherEvent, TIntersectionEvent]): void => {
       void moverService.goToPosition(actorMouse, { x: intersection.point.x, z: intersection.point.z }, { duration: 1000, easing: Easing.EaseInCubic });

@@ -240,27 +240,39 @@
     },
     {
       "name": "ball",
-      "type": "sphere",
-      "radius": 1,
+      "type": "cube",
+      "height": 4,
+      "width": 1,
+      "depth": 1,
       "material": {
         "type": "physical",
         "params": {
-          "clearcoat": 0.8,
-          "clearcoatRoughness": 0.09,
-          "displacementScale": 0.1,
-          "metalness": 0,
-          "roughness": 0,
-          "iridescence": 0,
-          "iridescenceIOR": 1.38,
-          "transmission": 0.77,
-          "ior": 1.26,
-          "thickness": 0.5
+          "clearcoat": 1,
+          "clearcoatRoughness": 0.12,
+          "displacementScale": 0,
+          "metalness": 0.97,
+          "roughness": 0.8,
+          "iridescence": 0.655,
+          "iridescenceIOR": 1.86,
+          "transmission": 0,
+          "ior": 2.5,
+          "thickness": 0
+        },
+        "textures": {
+          "bumpMap": { "url": "/Showcase/Brushed_Metal/MetalSteelBrushed001_BUMP_1K_METALNESS.png" },
+          "map": { "url": "/Showcase/Brushed_Metal/MetalSteelBrushed001_COL_1K_METALNESS.png" },
+          "normalMap": { "url": "/Showcase/Brushed_Metal/MetalSteelBrushed001_NRM_1K_METALNESS.png" },
+          "displacementMap": { "url": "/Showcase/Brushed_Metal/MetalSteelBrushed001_DISP_1K_METALNESS.png" },
+          "metalnessMap": { "url": "/Showcase/Brushed_Metal/MetalSteelBrushed001_BUMP16_1K_METALNESS.png" },
+          "roughnessMap": { "url": "/Showcase/Brushed_Metal/MetalSteelBrushed001_ROUGHNESS_1K_METALNESS.png" }
         }
       },
       "physics": {
-        "presetName": "ball_physics",
+        "presetName": "box_physics",
         "shapeParams": {
-          "radius": 1
+          "hx": 0.5,
+          "hy": 2,
+          "hz": 0.5
         },
         "position": { "x": 0, "y": 6, "z": 0 }
       },

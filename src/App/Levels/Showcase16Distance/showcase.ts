@@ -9,7 +9,7 @@ export function showcase(canvas: TAppCanvas): TShowcase {
   const engine: TEngine = Engine(space);
   const { keyboardService } = engine.services;
 
-  const { actorService, cameraService } = space.services;
+  const { actorService, cameraService, loopService } = space.services;
   const actorRegistry: TActorAsyncRegistry = actorService.getRegistry();
   const cameraRegistry: TCameraRegistry = cameraService.getRegistry();
   if (isNotDefined(actorRegistry)) throw new Error('Actor registry is not defined');

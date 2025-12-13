@@ -10,9 +10,8 @@ export function showcase(canvas: TAppCanvas): TShowcase {
   const gui: GUI = new GUI();
   const space: TSpace = buildSpaceFromConfig(canvas, spaceConfig as TSpaceConfig);
   const engine: TEngine = Engine(space);
-  const { loopService } = engine.services;
 
-  const { actorService, cameraService } = space.services;
+  const { actorService, cameraService, loopService } = space.services;
   const actorRegistry: TActorAsyncRegistry = actorService.getRegistry();
   const cameraRegistry: TCameraRegistry = cameraService.getRegistry();
   const { clickLeftRelease$ } = mouseService;

@@ -12,8 +12,7 @@ export function showcase(canvas: TAppCanvas): TShowcase {
   const gui: GUI = new GUI();
   const space: TSpace = buildSpaceFromConfig(canvas, spaceConfig as TSpaceConfig);
   const engine: TEngine = Engine(space);
-  const { loopService } = engine.services;
-  const { particlesService } = space.services;
+  const { particlesService, loopService } = space.services;
 
   const particlesName: string = 'stars';
 

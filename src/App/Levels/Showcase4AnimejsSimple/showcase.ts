@@ -10,11 +10,10 @@ import spaceConfig from './showcase.json';
 export function showcase(canvas: TAppCanvas): TShowcase {
   const space: TSpace = buildSpaceFromConfig(canvas, spaceConfig as TSpaceConfig);
   const engine: TEngine = Engine(space);
-  const { loopService } = engine.services;
 
   function start(): void {
     engine.start();
-    const { actorService, textService } = space.services;
+    const { actorService, textService, loopService } = space.services;
     const actorRegistry: TActorAsyncRegistry = actorService.getRegistry();
 
     let isClickBlocked: boolean = false;

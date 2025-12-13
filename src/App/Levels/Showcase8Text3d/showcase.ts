@@ -10,8 +10,7 @@ import spaceConfig from './showcase.json';
 export function showcase(canvas: TAppCanvas): TShowcase {
   const space: TSpace = buildSpaceFromConfig(canvas, spaceConfig as TSpaceConfig);
   const engine: TEngine = Engine(space);
-  const { loopService } = engine.services;
-  const { textService } = space.services;
+  const { textService, loopService } = space.services;
 
   textService.create({
     type: TextType.Text3d,

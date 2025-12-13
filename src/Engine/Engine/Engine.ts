@@ -4,8 +4,7 @@ import type { TEngine } from '@/Engine/Engine/Models';
 import type { TIntersectionsWatcher } from '@/Engine/Intersections';
 import type { TKeyboardService } from '@/Engine/Keyboard';
 import { KeyboardService } from '@/Engine/Keyboard';
-import type { TLoopService, TLoopTimes } from '@/Engine/Loop';
-import { LoopService } from '@/Engine/Loop';
+import type { TLoopTimes } from '@/Engine/Loop';
 import type { TRendererWrapper } from '@/Engine/Renderer';
 import type { TSceneWrapper } from '@/Engine/Scene';
 import type { TSpace } from '@/Engine/Space';
@@ -14,8 +13,7 @@ import type { TText2dRenderer, TText3dRenderer } from '@/Engine/Text';
 import { isNotDefined } from '@/Engine/Utils';
 
 export function Engine(space: TSpace): TEngine {
-  const loopService: TLoopService = LoopService();
-  const keyboardService: TKeyboardService = KeyboardService(loopService);
+  const keyboardService: TKeyboardService = KeyboardService(space.services.loopService);
 
   const { cameraService, rendererService, scenesService, textService, controlsService } = space.services;
   const activeScene: TSceneWrapper | undefined = scenesService.findActive();
@@ -37,14 +35,16 @@ export function Engine(space: TSpace): TEngine {
     if (isNotDefined(renderer)) throw new Error('Cannot find an active renderer');
 
     cameraService.active$.subscribe((wrapper: TCameraWrapper | undefined): void => void (camera = wrapper));
-    loopService.tick$.subscribe(({ delta }: TLoopTimes): void => spaceLoop(delta, camera, renderer, activeScene, text2dRegistry, text3dRegistry, text2dRenderer, text3dRenderer, controlsRegistry));
-    loopService.start();
+    space.services.loopService.tick$.subscribe(({ delta }: TLoopTimes): void =>
+      spaceLoop(delta, camera, renderer, activeScene, text2dRegistry, text3dRegistry, text2dRenderer, text3dRenderer, controlsRegistry)
+    );
+    space.services.loopService.start();
   }
 
   function stop(): void {
     if (isNotDefined(space)) throw new Error('Engine is not started yet (space is not defined)');
     const { intersectionsWatcherService } = space.services;
-    loopService.stop();
+    space.services.loopService.stop();
     void intersectionsWatcherService.getRegistry().forEach((watcher: TIntersectionsWatcher): void => {
       if (watcher.isStarted) watcher.stop();
     });
@@ -53,6 +53,6 @@ export function Engine(space: TSpace): TEngine {
   return {
     start,
     stop,
-    services: { loopService, keyboardService }
+    services: { keyboardService }
   };
 }

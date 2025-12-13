@@ -42,15 +42,16 @@ export function buildSpaceFromConfig(canvas: TAppCanvas, config: TSpaceConfig): 
     actorService,
     cameraService,
     controlsService,
-    lightService,
-    fogService,
     envMapService,
-    textService,
-    rendererService,
+    fogService,
     intersectionsWatcherService,
+    lightService,
+    loopService,
     particlesService,
+    physicsBodyService,
     physicsPresetService,
-    physicsBodyService
+    rendererService,
+    textService
   } = services;
 
   if (isDefined(physics.global)) physicsBodyService.createWorld(physics.global);

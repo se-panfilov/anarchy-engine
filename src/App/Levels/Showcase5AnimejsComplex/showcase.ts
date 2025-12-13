@@ -34,10 +34,9 @@ import spaceConfig from './showcase.json';
 export function showcase(canvas: TAppCanvas): TShowcase {
   const space: TSpace = buildSpaceFromConfig(canvas, spaceConfig as TSpaceConfig);
   const engine: TEngine = Engine(space);
-  const { loopService } = engine.services;
 
   async function init(): Promise<void> {
-    const { actorService, cameraService, controlsService, textService } = space.services;
+    const { actorService, cameraService, controlsService, textService, loopService } = space.services;
     const actorRegistry: TActorAsyncRegistry = actorService.getRegistry();
     const cameraRegistry: TCameraRegistry = cameraService.getRegistry();
     const controlsRegistry: TControlsRegistry = controlsService.getRegistry();
