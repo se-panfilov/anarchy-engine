@@ -9,11 +9,12 @@ defineProps<{
 </template>
 
 <style scoped lang="scss">
+@use 'anarchy-shared/src/assets/utils' as anarchy_utils;
+
 .page-title {
-  // TODO DESKTOP: add px-to-rem function (to shared?)
   // TODO DESKTOP: Add font-family
   letter-spacing: 2.1px;
-  font-size: 42px;
+  font-size: anarchy_utils.px-to-rem(64px);
   line-height: 44px;
   text-transform: uppercase;
   text-align: center;

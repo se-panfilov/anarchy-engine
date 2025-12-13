@@ -25,6 +25,8 @@ const [modelValue] = defineModel<number>({ set: Number });
 </template>
 
 <style scoped lang="scss">
+@use 'anarchy-shared/src/assets/utils' as anarchy_utils;
+
 .range {
   display: flex;
   flex-direction: column;
@@ -32,7 +34,7 @@ const [modelValue] = defineModel<number>({ set: Number });
 
   &__label {
     font-weight: 500;
-    font-size: 14px;
+    font-size: anarchy_utils.px-to-rem(14px);
     line-height: 16px;
   }
 
@@ -49,7 +51,7 @@ const [modelValue] = defineModel<number>({ set: Number });
 
   &__value-helper {
     font-weight: 500;
-    font-size: 16px;
+    font-size: anarchy_utils.px-to-rem(16px);
     line-height: 18px;
   }
 }

@@ -51,6 +51,8 @@ const backButtonText: ShallowRef<string> = $t('main-menu.navigation.back-button.
 </template>
 
 <style scoped lang="scss">
+@use 'anarchy-shared/src/assets/utils' as anarchy_utils;
+
 .navigation {
   display: flex;
   flex-direction: column;
@@ -74,7 +76,7 @@ const backButtonText: ShallowRef<string> = $t('main-menu.navigation.back-button.
     outline-style: none;
     white-space: nowrap;
     font-weight: 500;
-    font-size: 16px;
+    font-size: anarchy_utils.px-to-rem(16px);
     line-height: 18px;
     border: 1px solid black;
     border-radius: 6px;

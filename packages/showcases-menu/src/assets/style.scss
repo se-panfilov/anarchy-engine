@@ -1,3 +1,4 @@
+@use 'anarchy-shared/src/assets/constants' as anarchy_constants;
 @import url(sanitize.css);
 
 body,
@@ -5,7 +6,7 @@ html {
   height: 100%;
   margin: 0;
   padding: 0;
-  font-size: 14px;
+  font-size: anarchy_constants.$base-font-size;
   user-select: none;
   -webkit-app-region: no-drag;
 }

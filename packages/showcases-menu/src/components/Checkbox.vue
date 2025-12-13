@@ -14,6 +14,8 @@ const modelValue = defineModel<boolean>();
 </template>
 
 <style scoped lang="scss">
+@use 'anarchy-shared/src/assets/utils' as anarchy_utils;
+
 .checkbox {
   display: flex;
   flex-direction: row-reverse;
@@ -22,7 +24,7 @@ const modelValue = defineModel<boolean>();
 
   &__label {
     font-weight: 500;
-    font-size: 14px;
+    font-size: anarchy_utils.px-to-rem(14px);
     line-height: 16px;
   }
 }
