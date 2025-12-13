@@ -228,7 +228,6 @@ export function createHitEffect(position: Vector3, sceneW: TSceneWrapper, lightS
 }
 
 export function applyExplosionImpulse(actor: TActor, collisionPoint: Vector3, explosionForce: number): void {
-  // TODO CWP: 8.0.0. MODELS: Perhaps, "applyImpulse" (and similar functions) should be available via physical drive
   const body: RigidBody | undefined = actor.drive.physical.physicsBody$.value?.getRigidBody();
   if (isNotDefined(body)) return;
 

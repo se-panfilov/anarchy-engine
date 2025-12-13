@@ -26,6 +26,14 @@ export function Actor(
   const drive: TActorTransformDrive = ActorTransformDrive(params, { kinematicLoopService, physicsBodyService, physicsLoopService }, id);
   const driveToTargetConnector: TDriveToTargetConnector = DriveToTargetConnector(drive, model3d.getRawModel3d(), params.model3dSettings);
 
+  // TODO CWP:
+  // TODO 8.0.0. MODELS: Close all todoes with tag 8.0.0
+  // TODO 8.0.0. MODELS: Close all todoes with tag 9.0.0
+  // TODO 8.0.0. MODELS: Close all todoes with tag 9.2.0
+  // TODO 8.0.0. MODELS: Close all todoes with tag 10.0.0
+  // TODO 8.0.0. MODELS: Take a look to todoes with tag ANIMATIONS
+  // TODO 8.0.0. MODELS: Take a look to todoes with tag Layers
+
   const entities: TActorEntities = {
     drive,
     model3d,

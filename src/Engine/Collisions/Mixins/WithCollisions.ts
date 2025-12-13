@@ -27,7 +27,6 @@ export function withCollisions(params: TActorParams, collisionsService: TCollisi
     collisionsLoopServiceSub$.unsubscribe();
   });
 
-  // TODO test this code (should work)
   function getActorsToCheck(actor: TActor): ReadonlyArray<TActor> {
     const cells: ReadonlyArray<TSpatialCellWrapper> = actor.spatial.getSpatialCells();
     if (cells.length > 0) {
