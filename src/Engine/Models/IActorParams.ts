@@ -1,7 +1,7 @@
 import type { MeshToonMaterialParameters, Vector3 } from 'three';
 
 export interface IActorParams {
-  readonly type: ActorType;
+  readonly type: IActorType;
   readonly width?: number;
   readonly height?: number;
   readonly radius?: number;
@@ -13,4 +13,4 @@ export interface IActorParams {
   readonly castShadow: boolean;
 }
 
-export type ActorType = 'sphere' | 'plane';
+export type IActorType = 'sphere' | 'plane';
