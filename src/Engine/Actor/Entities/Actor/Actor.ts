@@ -4,6 +4,7 @@ import { distinctUntilChanged, tap } from 'rxjs';
 import type { Vector3 } from 'three';
 
 import { AbstractEntity, EntityType } from '@/Engine/Abstract';
+import { withActorStates } from '@/Engine/Actor/Mixins';
 import type { TActor, TActorDependencies, TActorEntities, TActorParams, TActorTransformDrive } from '@/Engine/Actor/Models';
 import { ActorTransformDrive } from '@/Engine/Actor/TransformDrive';
 import { applySpatialGrid, startCollisions } from '@/Engine/Actor/Utils';
@@ -39,6 +40,7 @@ export function Actor(
     // TODO ACTOR: state encapsulate sounds
     drive,
     model3d,
+    ...withActorStates(params),
     ...withSpatial(params),
     ...withCollisions(params, collisionsService, collisionsLoopService),
     ...withUpdateSpatialCell()

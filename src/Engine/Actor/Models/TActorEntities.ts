@@ -7,6 +7,7 @@ import type { TActorTransformAgents } from './TActorTransformAgents';
 
 export type TActorEntities = Readonly<{
   model3d: TModel3d;
+  states: Record<string, any>;
 }> &
   TWithTransformDrive<TActorTransformAgents> &
   TWithSpatial &

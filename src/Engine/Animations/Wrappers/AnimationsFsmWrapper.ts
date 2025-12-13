@@ -1,5 +1,5 @@
 import type { Subscription } from 'rxjs';
-import type { Actor as ActorFsm, ActorLogic } from 'xstate';
+import type { Actor as ActorFsm, ActorLogic as ActorFsmLogic } from 'xstate';
 import { createActor, createMachine } from 'xstate';
 
 import type { TWrapper } from '@/Engine/Abstract';
@@ -11,7 +11,7 @@ import { omitInArray } from '@/Engine/Utils';
 
 export function AnimationsFsmWrapper(params: TAnimationsFsmParams): TAnimationsFsmWrapper {
   // TODO 9.3.0 STATE: fix any
-  const entity: ActorLogic<any, any> = createMachine(params);
+  const entity: ActorFsmLogic<any, any> = createMachine(params);
   let instances: ReadonlyArray<string> = [];
 
   const registerInstance = (id: string): void => void (instances = [...instances, id]);
@@ -19,14 +19,14 @@ export function AnimationsFsmWrapper(params: TAnimationsFsmParams): TAnimationsF
   const getInstances = (): ReadonlyArray<string> => [...instances];
 
   // TODO 9.3.0 STATE: fix any
-  function createActorFsm(): ActorFsm<ActorLogic<any, any>> {
+  function createActorFsm(): ActorFsm<ActorFsmLogic<any, any>> {
     const result = createActor(entity).start();
     registerInstance(result.id);
     return result;
   }
 
   // TODO 9.3.0 STATE: fix any
-  const wrapper: TWrapper<ActorLogic<any, any>> = AbstractWrapper(entity, WrapperType.Fog, params);
+  const wrapper: TWrapper<ActorFsmLogic<any, any>> = AbstractWrapper(entity, WrapperType.Fog, params);
 
   const destroyable: TDestroyable = destroyableMixin();
   const destroySub$: Subscription = destroyable.destroy$.subscribe((): void => {
