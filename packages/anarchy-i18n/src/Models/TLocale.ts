@@ -6,5 +6,5 @@ export type TLocale = Readonly<{
   scriptCode?: string; // 'Latn' | 'Cyrl' | 'Hans' |
   englishName: string;
   nativeName: string;
-  dir: 'ltr' | 'rtl'; // TODO DESKTOP: rename to 'direction'
+  direction: 'ltr' | 'rtl';
 }>;

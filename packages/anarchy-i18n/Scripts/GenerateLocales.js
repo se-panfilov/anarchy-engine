@@ -198,7 +198,7 @@ async function generate(localeIds) {
     const id = canonicalize(rawId);
     const p = parseParts(id);
     if (!p.language) throw new Error(`Invalid locale id: "${rawId}"`);
-    const dir = inferDirection(p.language, p.script);
+    const direction = inferDirection(p.language, p.script);
 
     return {
       id,
@@ -207,7 +207,7 @@ async function generate(localeIds) {
       scriptCode: p.script,
       englishName: buildEnglishName(id, p),
       nativeName: buildNativeName(id, p),
-      dir
+      direction
     };
   });
 
