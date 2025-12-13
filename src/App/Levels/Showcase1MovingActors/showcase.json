@@ -27,10 +27,10 @@
           "width": 100,
           "height": 100,
           "widthSegments": 1,
-          "heightSegments": 1,
-          "castShadow": false,
-          "receiveShadow": true
+          "heightSegments": 1
         },
+        "castShadow": false,
+        "receiveShadow": true,
         "position": { "x": 0, "y": 0, "z": 0 },
         "rotation": { "x": -1.57, "y": 0, "z": 0 }
       },
@@ -43,9 +43,9 @@
           "height": 1,
           "radius": 0.7,
           "widthSegments": 64,
-          "heightSegments": 64,
-          "castShadow": true
-        }
+          "heightSegments": 64
+        },
+        "castShadow": true
       }
     ],
     "spatialGrids": [
