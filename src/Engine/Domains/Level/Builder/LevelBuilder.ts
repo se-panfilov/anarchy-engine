@@ -8,8 +8,7 @@ import { RendererFactory, RendererModes, RendererRegistry, RendererTag } from '@
 import type { ISceneConfig, ISceneFactory, ISceneRegistry, ISceneWrapper } from '@Engine/Domains/Scene';
 import { SceneFactory, SceneRegistry, SceneTag } from '@Engine/Domains/Scene';
 import { isNotDefined, isValidLevelConfig } from '@Engine/Utils';
-import type { Observable, Subscription } from 'rxjs';
-import { BehaviorSubject, filter, map } from 'rxjs';
+import type { Subscription } from 'rxjs';
 
 import { ambientContext } from '@/Engine/Context';
 import { CommonTag } from '@/Engine/Domains/Abstract';
@@ -19,9 +18,11 @@ import type { IControlsConfig, IControlsFactory, IControlsRegistry, IOrbitContro
 import { ControlsFactory, ControlsRegistry } from '@/Engine/Domains/Controls';
 import type { IIntersectionsWatcher, IIntersectionsWatcherFactory, IIntersectionsWatcherRegistry } from '@/Engine/Domains/Intersections';
 import { IntersectionsWatcherFactory, IntersectionsWatcherRegistry } from '@/Engine/Domains/Intersections';
-import type { ILevel, ILevelConfig } from '@/Engine/Domains/Level/Models';
+import { withBuiltMixin } from '@/Engine/Domains/Level/Mixin';
+import type { ILevel, ILevelConfig, IWithBuilt } from '@/Engine/Domains/Level/Models';
 import type { ILightConfig, ILightFactory, ILightRegistry, ILightWrapper } from '@/Engine/Domains/Light';
 import { LightFactory, LightRegistry } from '@/Engine/Domains/Light';
+import type { IDestroyable } from '@/Engine/Domains/Mixins';
 import { destroyableMixin } from '@/Engine/Domains/Mixins';
 
 // TODO (S.Panfilov) CWP All factories should be self-registrable (maybe pass a registry as a param there?)
@@ -30,8 +31,6 @@ import { destroyableMixin } from '@/Engine/Domains/Mixins';
 // TODO (S.Panfilov) CWP 2. maybe add relations to all wrappers during the level build?
 
 export function buildLevelFromConfig(canvas: IAppCanvas, config: ILevelConfig): ILevel {
-  const built$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-
   if (!isValidLevelConfig(config)) throw new Error('Failed to launch a level: invalid data format');
   const { name, actors, cameras, lights, controls, scenes, tags } = config;
 
@@ -90,10 +89,11 @@ export function buildLevelFromConfig(canvas: IAppCanvas, config: ILevelConfig): 
   const loopEntityCreatedSubscription: Subscription = loopFactory.entityCreated$.subscribe((loop: ILoopWrapper): void => loopRegistry.add(loop));
   const loop: ILoopWrapper = loopFactory.create({ tags: [LoopTag.Main, CommonTag.FromConfig] });
 
-  const withDestroyed = destroyableMixin();
+  const destroyable: IDestroyable = destroyableMixin();
+  const builtMixin: IWithBuilt = withBuiltMixin();
 
-  withDestroyed.destroyed$.subscribe(() => {
-    built$.complete();
+  destroyable.destroyed$.subscribe(() => {
+    builtMixin.built$.complete();
 
     sceneEntityCreatedSubscription.unsubscribe();
 
@@ -132,7 +132,7 @@ export function buildLevelFromConfig(canvas: IAppCanvas, config: ILevelConfig): 
   const initialCamera: ICameraWrapper | undefined = cameraRegistry.getUniqByTag(CameraTag.Initial);
   if (isNotDefined(initialCamera)) throw new Error(`Cannot start the main loop for the level "${name}": initial camera is not defined`);
 
-  built$.next(true);
+  builtMixin.build();
 
   return {
     name,
@@ -179,13 +179,8 @@ export function buildLevelFromConfig(canvas: IAppCanvas, config: ILevelConfig): 
       registry: { initial: rendererRegistry }
     },
     tags,
-    get built$(): Observable<void> {
-      return built$.pipe(
-        filter((v: boolean): boolean => !!v),
-        map(() => undefined)
-      );
-    },
-    isBuilt: (): boolean => built$.getValue(),
-    ...withDestroyed
+    ...builtMixin,
+    built$: builtMixin.built$.asObservable(),
+    ...destroyable
   };
 }
