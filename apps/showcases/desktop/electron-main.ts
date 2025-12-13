@@ -7,20 +7,23 @@ const __filename: string = fileURLToPath(import.meta.url);
 const __dirname: string = dirname(__filename);
 
 // TODO DESKTOP: These vars should come from .env files:
-const FAKE_ENV_IS_PROD: boolean = false;
 const FAKE_ENV_WINDOW_HEIGHT: number = 720;
 const FAKE_ENV_WINDOW_WIDTH: number = 1280;
 const FAKE_ENV_IS_OPEN_DEV_TOOLS: boolean = true;
 
-function getIndexHtmlPath(isProdMode: boolean): string {
-  console.log('[Main] isProdMode:', isProdMode);
+function getIndexHtmlPath(): string {
   //console.log('XXX app.isPackaged', app.isPackaged);
   //   // console.log('XXX resolve', join(process.resourcesPath, 'dist', 'index.html'));
   //   const indexPath: string = false ? resolve(__dirname, '../../dist/index.html') : join(process.resourcesPath, 'dist', 'index.html');
   //   // const indexPath: string = resolve(__dirname, '../../dist/index.html');
-  const path: string = isProdMode ? join(process.resourcesPath, 'dist', 'index.html') : resolve(__dirname, '../../dist/index.html');
+  const path: string = app.isPackaged ? join(process.resourcesPath, 'dist', 'index.html') : resolve(__dirname, '../../dist/index.html');
+  // const path: string = app.isPackaged ? `file://${join(__dirname, 'dist', 'index.html')}` : `file://${resolve(__dirname, '../../dist/index.html')}`;
   //   console.log('Resolved index.html path:', path);
   //   console.log('Exists:', fs.existsSync(path));
+
+  // console.log('process.resourcesPath =', process.resourcesPath);
+  // console.log('Contents of dist folder inside resources:');
+  // console.log(fs.readdirSync(join(process.resourcesPath)));
 
   if (!existsSync(path)) {
     const errMsg: string = `[Main] index.html not found at: ${path}`;
@@ -44,10 +47,7 @@ function createWindow(width: number, height: number): void {
     }
   });
 
-  // TODO DESKTOP: Should come from .env file, to enable/disable dev tools.
-  // const isProdMode: boolean = app.isPackaged;
-  const isProdMode: boolean = false;
-  const indexPath: string = getIndexHtmlPath(FAKE_ENV_IS_PROD);
+  const indexPath: string = getIndexHtmlPath();
   win.loadFile(indexPath);
 
   if (FAKE_ENV_IS_OPEN_DEV_TOOLS) win.webContents.openDevTools();
