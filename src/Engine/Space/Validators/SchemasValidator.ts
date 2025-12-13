@@ -6,6 +6,7 @@ import type { TAnyAudioConfig, TAudioResourceConfig } from '@/Engine/Audio';
 import type { TAnyCameraConfig } from '@/Engine/Camera';
 import type { TControlsConfig } from '@/Engine/Controls';
 import type { TAnyIntersectionsWatcherConfig } from '@/Engine/Intersections';
+import { isIntersectionsCameraWatcherConfig } from '@/Engine/Intersections';
 import type { TActive, TWithName, TWithNameOptional, TWithTags } from '@/Engine/Mixins';
 import type { TModel3dConfig, TModel3dResourceConfig } from '@/Engine/Models3d';
 import type { TSceneConfig } from '@/Engine/Scene/Models';
@@ -134,7 +135,7 @@ function validateRelations(
   if (!validateAllActorsHasModel3d(actors, models3dEntities)) errors = [...errors, 'Not every actor has a defined model3dSource (check actors model3dSource against models3d entities)'];
   if (!validateAllModel3dEntityHasValidResource(models3dEntities, models3dResources)) errors = [...errors, 'Not every model3d entity has a valid resource (must be a primitive or an url)'];
   if (!validateAllAudioEntityHasValidResource(audio, audioResources)) errors = [...errors, 'Not every audio entity has a valid resource (must be a primitive or an url)'];
-  if (!validateCameraNames(intersections)) errors = [...errors, 'Not every intersection camera name is valid'];
+  if (!validateCameraNames(intersections.filter(isIntersectionsCameraWatcherConfig))) errors = [...errors, 'Not every intersection camera name is valid'];
   if (!validateActorNamesForEveryEntity(intersections)) errors = [...errors, 'Not every intersection actor name is valid'];
 
   return errors;
