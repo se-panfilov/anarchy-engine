@@ -12,9 +12,9 @@ import App from './App.vue';
 export function initMenuApp(id: string, fromMenuBus$: Subject<TFromMenuEvent>, toMenuBus$: Observable<TToMenuEvent>, options?: TMenuOptions): void {
   const menuApp: VueApp<Element> = createApp(App);
   menuApp.use(createPinia());
-  menuApp.mount(id);
   eventsService.setFromMenuBus(fromMenuBus$);
   eventsService.setToMenuBus(toMenuBus$);
+  menuApp.mount(id);
   if (isDefined(options)) useMenuOptionsStore().setState(options);
   console.log(`[UI MENU] Menu app initialized at element with ID "${id}"`);
 }
