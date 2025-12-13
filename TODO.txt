@@ -20,6 +20,6 @@ Global Refactoring:
 - "tags" should be optional everywhere
 
 Also:
-- should I add physics updates to the global loop? (like all physics objects in a registry should update attached actors?)
-- actor position/rotation should be an observable
+- Maybe actor position/rotation should be an observable?
 - Add line domain and let lines be created via config
+- Add example of physics with manual step
