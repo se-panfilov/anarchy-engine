@@ -2,8 +2,18 @@ import type { Subscription } from 'rxjs';
 
 import type { IActorWrapper } from '@/Engine/Domains/Actor';
 import type { ILoopService, ILoopTimes } from '@/Engine/Domains/Loop';
-import type { IFullKeyframeDestination, IKeyframeDestination, IMoveByPathFn, IMoveByPathFnParams, IMoveDestination, IMoveFn, IMoveFnParams } from '@/Engine/Services/MoverService/Models';
+import type {
+  IAnimationParams,
+  IFullKeyframeDestination,
+  IKeyframeDestination,
+  IMoveByPathFn,
+  IMoveByPathFnParams,
+  IMoveDestination,
+  IMoveFn,
+  IMoveFnParams
+} from '@/Engine/Services/MoverService/Models';
 import { createDeferredPromise } from '@/Engine/Utils';
+import anime from 'animejs';
 
 export function performMove(moveFn: IMoveFn | IMoveByPathFn, loopService: ILoopService, params: Omit<IMoveFnParams, 'complete'> | Omit<IMoveByPathFnParams, 'complete'>): Promise<void> {
   const { promise, resolve } = createDeferredPromise();
@@ -42,4 +52,14 @@ export function prepareDestination(destination: IMoveDestination, actor: IActorW
 
 export function preparePathList(list: ReadonlyArray<IKeyframeDestination>, actor: IActorWrapper): ReadonlyArray<IFullKeyframeDestination> {
   return list.map((destination: IKeyframeDestination) => addMissingCoords(destination, actor) as IFullKeyframeDestination);
+}
+
+export function getAnimationWrapperForComplexPathAnimation(baseAnimation: anime.AnimeInstance, animationParams: IAnimationParams): anime.AnimeInstance {
+  return anime({
+    targets: baseAnimation,
+    progress: [0, 100],
+    easing: animationParams.easing,
+    duration: animationParams.duration,
+    update: () => baseAnimation.seek(baseAnimation.duration * (baseAnimation.progress / 100))
+  });
 }
