@@ -1,7 +1,7 @@
 import type { TEventsService } from '@Menu/models';
 import { isNotDefined } from '@Shared/Utils';
 import type { TFromMenuEvent, TShowcaseGameSettings, TToMenuEvent } from '@ShowcasesShared';
-import { FromMenuEvents } from '@ShowcasesShared';
+import { FromMenuEvents, ToMenuEvents } from '@ShowcasesShared';
 import type { Observable, Subject } from 'rxjs';
 import { toRaw } from 'vue';
 
@@ -50,7 +50,26 @@ function EventsService(): TEventsService {
     fromMenuBus$.next({ type: FromMenuEvents.LoadGame });
   }
 
-  return { setFromMenuBus, setToMenuBus, emitCloseMenu, emitSaveMenuSettings, emitLoadMenuSettings, emitStartNewGame, emitContinueGame, emitLoadGame, toMenuBus$ };
+  function startListeningAppEvents(): void {
+    if (isNotDefined(toMenuBus$)) throw new Error('[EventsService]: toMenuBus$ is not defined. Call setToMenuBus() first.');
+    toMenuBus$.subscribe(handleToMenuEvents);
+  }
+
+  function handleToMenuEvents(event: TToMenuEvent): void {
+    switch (event.type) {
+      case ToMenuEvents.SettingsLoaded: {
+        console.log('[EventsService]: Settings loaded:', event.payload);
+        // TODO DESKTOP: implement!!!
+        console.error('[EventsService]: Settings loaded not implemented yet');
+        break;
+      }
+      default: {
+        throw new Error('[EventsService]: Unknown event type received in toMenuBus$');
+      }
+    }
+  }
+
+  return { setFromMenuBus, setToMenuBus, emitCloseMenu, emitSaveMenuSettings, emitLoadMenuSettings, emitStartNewGame, emitContinueGame, emitLoadGame, startListeningAppEvents, toMenuBus$ };
 }
 
 export const eventsService: TEventsService = EventsService();

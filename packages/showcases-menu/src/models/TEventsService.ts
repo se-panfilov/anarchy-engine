@@ -10,5 +10,6 @@ export type TEventsService = Readonly<{
   emitStartNewGame: () => void | never;
   emitContinueGame: () => void | never;
   emitLoadGame: () => void | never;
+  startListeningAppEvents: () => void;
   toMenuBus$: Observable<TToMenuEvent> | undefined;
 }>;

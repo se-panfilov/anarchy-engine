@@ -6,9 +6,11 @@ import { eventsService } from '@Menu/services';
 import { useSettingsStore } from '@Menu/stores/SettingsStore';
 import { onMounted } from 'vue';
 
-// useSettingsStore().setState(settings);
-
-onMounted(() => eventsService.emitLoadMenuSettings());
+onMounted((): void => {
+  // TODO DESKTOP: make sure this is only called once (close/open menu doesn't retrigger this)
+  eventsService.startListeningAppEvents();
+  eventsService.emitLoadMenuSettings();
+});
 
 function save(): void {
   eventsService.emitSaveMenuSettings(useSettingsStore().state);
