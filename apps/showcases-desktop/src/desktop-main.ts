@@ -33,6 +33,7 @@ const docsService: TDocsService = DocsService(filesService);
 ipcMain.handle(platformApiChannel, (event: IpcMainInvokeEvent, ...args: [PlatformActions | string, unknown]) => handleAppRequest({ settingsService, docsService, desktopAppService }, event, args));
 
 app.whenReady().then(async (): Promise<void> => {
+  // TODO DESKTOP: save this settings into a desktop-level store (to implement) and return value from there when app requests (also update it on save and use it for apply)
   const settings: TShowcaseGameSettings = await settingsService.loadAppSettings();
 
   const initialWindowSize: TResolution = getWindowSizeSafe();
