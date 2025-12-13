@@ -3,7 +3,7 @@ import { Quaternion, Vector3 } from 'three';
 import { ForwardAxis } from '@/Engine/Kinematic/Constants';
 import type { TKinematicData, TKinematicParams } from '@/Engine/Kinematic/Models';
 import type { TWithPresetNamePhysicsBodyParams } from '@/Engine/Physics';
-import { KinematicTransformAgent, PhysicsTransformAgent } from '@/Engine/TransformDrive/Agents';
+import { KinematicTransformAgent, PhysicsTransformAgent } from '@/Engine/TransformDrive/Entities/Agents';
 import type {
   TKinematicAgentDependencies,
   TKinematicTransformAgent,
