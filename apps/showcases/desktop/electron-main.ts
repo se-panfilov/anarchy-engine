@@ -13,6 +13,7 @@ const isOpenDevTools: boolean = true;
 // TODO CWP
 // TODO DESKTOP: Save/Load with files?
 // TODO DESKTOP: Block browser's hotkeys and navigation
+// TODO DESKTOP: Can we avoid copying of dist-desktop to dist-app? (check paths in asar)
 
 function getIndexHtmlPath(): string {
   const path: string = app.isPackaged ? join(app.getAppPath(), 'dist-app', 'index.html') : join(__dirname, '..', 'dist-app', 'index.html');
