@@ -140,17 +140,23 @@ export function KinematicTransformAgent(params: TKinematicTransformAgentParams, 
       return getAzimuthFromDirection(agent.data.state.linearDirection);
     },
     setLinearAzimuth(azimuthRad: TRadians): void {
-      const elevation = agent.getLinearElevation();
-      const quaternion = new Quaternion().setFromEuler(new Euler(elevation, azimuthRad, 0, 'ZYX'));
-      agent.setLinearDirection(quaternion);
+      const lengthXZ: number = Math.sqrt(agent.data.state.linearDirection.x ** 2 + agent.data.state.linearDirection.z ** 2) || 1;
+      agent.data.state.linearDirection.set(Math.cos(azimuthRad) * lengthXZ, agent.data.state.linearDirection.y, Math.sin(azimuthRad) * lengthXZ).normalize();
     },
     getLinearElevation(): TRadians {
       return getElevationFromDirection(agent.data.state.linearDirection);
     },
     setLinearElevation(elevationRad: TRadians): void {
-      const azimuth = this.getLinearAzimuth(); // Get current azimuth
-      const quaternion = new Quaternion().setFromEuler(new Euler(elevationRad, azimuth, 0, 'ZYX'));
-      agent.setLinearDirection(quaternion);
+      const currentAzimuth: number = Math.atan2(agent.data.state.linearDirection.z, agent.data.state.linearDirection.x);
+
+      const length: number = agent.data.state.linearDirection.length();
+      const newY: number = Math.sin(elevationRad) * length;
+      const newLengthXZ: number = Math.cos(elevationRad) * length;
+
+      const newX: number = Math.cos(currentAzimuth) * newLengthXZ;
+      const newZ: number = Math.sin(currentAzimuth) * newLengthXZ;
+
+      agent.data.state.linearDirection.set(newX, newY, newZ).normalize();
     },
     getAngularSpeed(): TMetersPerSecond {
       return agent.data.state.angularSpeed;
