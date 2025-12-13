@@ -1,6 +1,6 @@
-import type { Vector2, Vector4 } from 'three';
+import type { Vector2, Vector2Like, Vector4, Vector4Like } from 'three';
 import { Color } from 'three';
-import type { Vector3 } from 'three/src/math/Vector3';
+import type { Vector3, Vector3Like } from 'three/src/math/Vector3';
 
 import type { TAbstractAsyncRegistry, TAbstractEntityRegistry, TWithUserData, TWithWrapperId, TWithWrapperIdEntity } from '@/Engine/Abstract/Models';
 import type { TColorWrapper } from '@/Engine/Color';
@@ -34,13 +34,16 @@ export function isWithWrapperId<T extends TWithUserData>(obj: unknown): obj is T
   return isDefined(obj) && isObject(obj) && isDefined((obj as TWithWrapperIdEntity<T>).userData) && isDefined((obj as TWithWrapperIdEntity<T>).userData.wrapperId);
 }
 
-export const isVector2 = (obj: Vector2 | Vector3 | Vector4): obj is Vector2 => isDefined(obj.x) && isDefined(obj.x) && isNotDefined((obj as Vector3).z) && isNotDefined((obj as Vector4).w);
-export const isVector3 = (obj: Vector2 | Vector3 | Vector4): obj is Vector3 => isDefined(obj.x) && isDefined(obj.x) && isDefined((obj as Vector3).z) && isNotDefined((obj as Vector4).w);
-export const isVector4 = (obj: Vector2 | Vector3 | Vector4): obj is Vector4 => isDefined(obj.x) && isDefined(obj.x) && isDefined((obj as Vector4).z) && isDefined((obj as Vector4).w);
+export const isVector2Like = (obj: Vector2 | Vector3 | Vector4 | Vector2Like | Vector3Like | Vector4Like): obj is Vector2Like =>
+  isDefined(obj.x) && isDefined(obj.x) && isNotDefined((obj as Vector3).z) && isNotDefined((obj as Vector4).w);
+export const isVector3Like = (obj: Vector2 | Vector3 | Vector4 | Vector2Like | Vector3Like | Vector4Like): obj is Vector3Like =>
+  isDefined(obj.x) && isDefined(obj.x) && isDefined((obj as Vector3).z) && isNotDefined((obj as Vector4).w);
+export const isVector4Like = (obj: Vector2 | Vector3 | Vector4 | Vector2Like | Vector3Like | Vector4Like): obj is Vector4Like =>
+  isDefined(obj.x) && isDefined(obj.x) && isDefined((obj as Vector4).z) && isDefined((obj as Vector4).w);
 
-export const isEntityWith2dPosition = (obj: TWithPositionProperty): obj is TWithPosition2dProperty => isVector2(obj.position as Vector2);
-export const isEntityWith3dPosition = (obj: TWithPositionProperty): obj is TWithPosition3dProperty => isVector3(obj.position as Vector3);
-export const isEntityWith4dPosition = (obj: TWithPositionProperty): obj is TWithPosition4dProperty => isVector4(obj.position as Vector4);
+export const isEntityWith2dPosition = (obj: TWithPositionProperty): obj is TWithPosition2dProperty => isVector2Like(obj.position as Vector2);
+export const isEntityWith3dPosition = (obj: TWithPositionProperty): obj is TWithPosition3dProperty => isVector3Like(obj.position as Vector3);
+export const isEntityWith4dPosition = (obj: TWithPositionProperty): obj is TWithPosition4dProperty => isVector4Like(obj.position as Vector4);
 
 export const isAsyncRegistry = (registry: TAbstractEntityRegistry<any> | TAbstractAsyncRegistry<any>): registry is TAbstractAsyncRegistry<any> =>
   isDefined((registry as TAbstractAsyncRegistry<any>).findByTagsAsync) && isDefined((registry as TAbstractAsyncRegistry<any>).findByTagAsync);

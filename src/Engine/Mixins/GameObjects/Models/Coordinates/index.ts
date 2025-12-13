@@ -1,9 +1,0 @@
-export type * from './TWithCoordsXY';
-export type * from './TWithCoordsXYZ';
-export type * from './TWithCoordsXYZW';
-export type * from './TWithCoordsXZ';
-export type * from './TWithCoordsYZ';
-export type * from './TWithCoordW';
-export type * from './TWithCoordX';
-export type * from './TWithCoordY';
-export type * from './TWithCoordZ';

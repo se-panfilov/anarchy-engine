@@ -1,6 +1,7 @@
+import type { Vector2Like } from 'three';
 import type { Color } from 'three/src/math/Color';
 
-import type { TWithCoordsXY, TWithReadonlyTags } from '@/Engine/Mixins';
+import type { TWithReadonlyTags } from '@/Engine/Mixins';
 import type { TObject3DPropConfig } from '@/Engine/ThreeLib';
 
 import type { TAmbientLightProps } from './TAmbientLightProps';
@@ -38,14 +39,14 @@ export type TAnyLightConfig = TAmbientLightConfig | THemisphereLightConfig | TDi
 
 export type TLightShadowConfig = Omit<TLightShadowParams, 'mapSize'> &
   Readonly<{
-    mapSize: TWithCoordsXY;
+    mapSize: Vector2Like;
     camera: { far: number };
     normalBias: number;
   }>;
 
 export type TDirectionalLightShadowConfig = Omit<TDirectionalLightShadowParams, 'mapSize'> &
   Readonly<{
-    mapSize: TWithCoordsXY;
+    mapSize: Vector2Like;
     camera: { far: number; left?: number; right?: number; top?: number; bottom?: number };
     normalBias: number;
   }>;

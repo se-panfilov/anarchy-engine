@@ -18,9 +18,9 @@ import {
   isNotDefined,
   isRegistrable,
   isString,
-  isVector2,
-  isVector3,
-  isVector4,
+  isVector2Like,
+  isVector3Like,
+  isVector4Like,
   isWithUserData,
   isWithWrapperId,
   isWithWrapperIdAccessors
@@ -418,58 +418,58 @@ describe('CheckUtils', () => {
 
   describe('isVector2', () => {
     it('should return "true" if it is a vector2 wrapper', () => {
-      expect(isVector2(new Vector2(10, 10))).toBe(true);
-      expect(isVector2(new Vector2(0, 0))).toBe(true);
+      expect(isVector2Like(new Vector2(10, 10))).toBe(true);
+      expect(isVector2Like(new Vector2(0, 0))).toBe(true);
     });
 
     it('should return "false" if it is a vector3', () => {
-      expect(isVector2(new Vector3(0, 0))).toBe(false);
-      expect(isVector2(new Vector3(0, 0, 0))).toBe(false);
-      expect(isVector2(new Vector3(10, 10))).toBe(false);
-      expect(isVector2(new Vector3(10, 10, 10))).toBe(false);
+      expect(isVector2Like(new Vector3(0, 0))).toBe(false);
+      expect(isVector2Like(new Vector3(0, 0, 0))).toBe(false);
+      expect(isVector2Like(new Vector3(10, 10))).toBe(false);
+      expect(isVector2Like(new Vector3(10, 10, 10))).toBe(false);
     });
 
     it('should return "true" if it is a vector4', () => {
-      expect(isVector2(new Vector4(0, 0, 0, 0))).toBe(false);
-      expect(isVector2(new Vector4(10, 10, 10, 10))).toBe(false);
+      expect(isVector2Like(new Vector4(0, 0, 0, 0))).toBe(false);
+      expect(isVector2Like(new Vector4(10, 10, 10, 10))).toBe(false);
     });
   });
 
   describe('isVector3', () => {
     it('should return "false" if it is a vector2', () => {
-      expect(isVector3(new Vector2(0, 0))).toBe(false);
-      expect(isVector3(new Vector2(10, 10))).toBe(false);
+      expect(isVector3Like(new Vector2(0, 0))).toBe(false);
+      expect(isVector3Like(new Vector2(10, 10))).toBe(false);
     });
 
     it('should return "true" if it is a vector3', () => {
-      expect(isVector3(new Vector3(0, 0))).toBe(true);
-      expect(isVector3(new Vector3(0, 0, 0))).toBe(true);
-      expect(isVector3(new Vector3(10, 10))).toBe(true);
-      expect(isVector3(new Vector3(10, 10, 10))).toBe(true);
+      expect(isVector3Like(new Vector3(0, 0))).toBe(true);
+      expect(isVector3Like(new Vector3(0, 0, 0))).toBe(true);
+      expect(isVector3Like(new Vector3(10, 10))).toBe(true);
+      expect(isVector3Like(new Vector3(10, 10, 10))).toBe(true);
     });
 
     it('should return "false" if it is a vector4', () => {
-      expect(isVector3(new Vector4(0, 0, 0, 0))).toBe(false);
-      expect(isVector3(new Vector4(10, 10, 10, 10))).toBe(false);
+      expect(isVector3Like(new Vector4(0, 0, 0, 0))).toBe(false);
+      expect(isVector3Like(new Vector4(10, 10, 10, 10))).toBe(false);
     });
   });
 
   describe('isVector4', () => {
     it('should return "false" if it is a vector2 ', () => {
-      expect(isVector4(new Vector2(10, 10))).toBe(false);
-      expect(isVector4(new Vector2(0, 0))).toBe(false);
+      expect(isVector4Like(new Vector2(10, 10))).toBe(false);
+      expect(isVector4Like(new Vector2(0, 0))).toBe(false);
     });
 
     it('should return "false" if it is a vector3 ', () => {
-      expect(isVector4(new Vector3(0, 0))).toBe(false);
-      expect(isVector4(new Vector3(0, 0, 0))).toBe(false);
-      expect(isVector4(new Vector3(10, 10))).toBe(false);
-      expect(isVector4(new Vector3(10, 10, 10))).toBe(false);
+      expect(isVector4Like(new Vector3(0, 0))).toBe(false);
+      expect(isVector4Like(new Vector3(0, 0, 0))).toBe(false);
+      expect(isVector4Like(new Vector3(10, 10))).toBe(false);
+      expect(isVector4Like(new Vector3(10, 10, 10))).toBe(false);
     });
 
     it('should return "true" if it is a vector4 ', () => {
-      expect(isVector4(new Vector4(0, 0, 0, 0))).toBe(true);
-      expect(isVector4(new Vector4(10, 10, 10, 10))).toBe(true);
+      expect(isVector4Like(new Vector4(0, 0, 0, 0))).toBe(true);
+      expect(isVector4Like(new Vector4(10, 10, 10, 10))).toBe(true);
     });
   });
 

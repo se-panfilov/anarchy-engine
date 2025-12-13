@@ -1,6 +1,7 @@
-import type { TWithCoordsXYZ } from '@/Engine/Mixins';
+import type { Vector3Like } from 'three/src/math/Vector3';
+
 import type { TWriteable } from '@/Engine/Utils';
 
 export type TWithMutablePositionConnector = Readonly<{
-  positionConnector: TWriteable<TWithCoordsXYZ>;
+  positionConnector: TWriteable<Vector3Like>;
 }>;
