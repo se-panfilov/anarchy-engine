@@ -69,9 +69,6 @@ export function DesktopPreloadTrackingService(options?: Record<string, any>, met
     if (isStarted) return;
     isStarted = true;
 
-    console.log('XXX window', globalThis.window?.addEventListener);
-    console.log('XXX process', globalThis.process?.on);
-
     globalThis.window?.addEventListener?.('error', onErrorHandler);
     globalThis.window?.addEventListener?.('unhandledrejection', onRejectionHandler);
     globalThis.process?.on?.('uncaughtException', onErrorHandler);

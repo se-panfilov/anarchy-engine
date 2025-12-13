@@ -31,7 +31,6 @@ contextBridge.exposeInMainWorld(platformApiName, mapping);
 // TODO DESKTOP: upload source maps for desktop releases
 
 if (import.meta.env.VITE_SENTRY_DSN) {
-  console.log('XXX tracking started');
   DesktopPreloadTrackingService(
     {
       dsn: import.meta.env.VITE_SENTRY_DSN,
