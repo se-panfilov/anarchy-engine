@@ -67,12 +67,11 @@ export function showcase(canvas: TAppCanvas): TShowcase {
   let forcePower: number = 0;
 
   mouseService.clickLeftRelease$.subscribe(() => {
-    ballRigidBody.setLinvel(getPushCoordsFrom3dAzimuth(azimuth, 0, forcePower * 1.5), true);
+    ballRigidBody.applyImpulse(getPushCoordsFrom3dAzimuth(azimuth, 0, forcePower * 10.5), true);
   });
 
   keyboardService.onKey(KeysExtra.Space).pressed$.subscribe((): void => {
-    const linvel = ballRigidBody.linvel();
-    ballRigidBody.setLinvel({ x: linvel.x, y: linvel.y + 5, z: linvel.z }, true);
+    ballRigidBody.applyImpulse({ x: 0, y: 20, z: 0 }, true);
   });
 
   async function init(): Promise<void> {
