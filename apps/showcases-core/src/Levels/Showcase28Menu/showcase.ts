@@ -4,6 +4,7 @@ import { asRecord, isNotDefined } from '@Anarchy/Shared/Utils';
 import { showcasesTranslationService } from '@Showcases/i18n';
 import { filter, Subject } from 'rxjs';
 import { initMenuApp } from 'showcases-menu/src/main';
+import { initGuiApp } from 'showcases-gui/src/main';
 
 import { runtimeEnv } from '@/env';
 import { fromMenuEventsBus$, toMenuEventsBus$ } from '@/Levels/Showcase28Menu/EventsBus';
@@ -52,6 +53,9 @@ export function showcase(space: TSpace): void {
   initMenuApp('#menu', fromMenuEventsBus$, toMenuEventsBus$.asObservable(), {
     showExitBtn: runtimeEnv.VITE_SHOW_EXIT_GAME_MENU_BTN
   });
+
+  // Init the gui app.
+  initGuiApp('#gui', fromGuiEventsBus$, toGuiEventsBus$.asObservable());
 
   const watcherMenuCube: TIntersectionsCameraWatcher = intersectionsWatcherService.getCameraWatcher('watcher_menu_cube');
 

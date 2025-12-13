@@ -19,7 +19,8 @@
       "@Showcases/i18n": ["packages/showcases-i18n/src/index.ts"],
       "@Showcases/i18n/*": ["packages/showcases-i18n/src/*"],
       "platform:api": ["apps/showcases-core/src/Platform/Drivers/web"],
-      "showcases-menu/src/main": ["apps/showcases-core/types/showcases-menu-shim"]
+      "showcases-menu/src/main": ["apps/showcases-core/types/showcases-menu-shim"],
+      "showcases-gui/src/main": ["apps/showcases-core/types/showcases-gui-shim"]
     }
   },
   "include": ["src", "vite.config.ts", "types", "dist-desktop", "dist-web", "dist-mobile", "dist"]
