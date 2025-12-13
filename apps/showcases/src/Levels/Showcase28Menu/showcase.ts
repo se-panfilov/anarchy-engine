@@ -1,12 +1,11 @@
 import type { TIntersectionEvent, TIntersectionsCameraWatcher, TModel3d, TModels3dRegistry, TSceneWrapper, TSpace, TSpaceConfig, TText3dWrapper } from '@Engine';
 import { asRecord, isNotDefined, spaceService } from '@Engine';
-import type { TMenuEvent } from '@ShowcasesShared';
-import { MenuEvents } from '@ShowcasesShared';
 import { filter, Subject } from 'rxjs';
 import { initMenuApp } from 'showcases_menu/src/main';
 
 import { runtimeEnv } from '@/env';
-import { closeMainMenu, openMainMenu } from '@/Levels/Showcase28Menu/MainMenuService';
+import { openMainMenu } from '@/Levels/Showcase28Menu/MainMenuService';
+import { handleMenuEvents } from '@/Levels/Showcase28Menu/MenuActions';
 import { menuEventsBus$ } from '@/Levels/Showcase28Menu/MenuEventsBus';
 import type { TAppSettings } from '@/Models';
 import { addGizmo } from '@/Utils';
@@ -40,18 +39,10 @@ export function showcase(space: TSpace): void {
   sceneW.addModel3d(planeModel3d);
   sceneW.addText(text3d);
 
-  menuEventsBus$.subscribe((event: TMenuEvent): void => {
-    switch (event.type) {
-      case MenuEvents.Close: {
-        closeMainMenu();
-        break;
-      }
-      default: {
-        console.warn(`[Showcase]: Unknown event type "${event.type}" received in menuEventsBus$`);
-      }
-    }
-  });
+  //Subscribe the menu app's events (clicks, etc.).
+  handleMenuEvents(menuEventsBus$);
 
+  // Init the menu app.
   initMenuApp('#menu', menuEventsBus$, {
     showExitBtn: runtimeEnv.VITE_SHOW_EXIT_GAME_MENU_BTN
   });

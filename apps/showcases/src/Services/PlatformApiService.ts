@@ -42,3 +42,5 @@ export function PlatformApiService(): TPlatformApiService {
     getDriver
   };
 }
+
+export const platformApiService: TPlatformApiService = PlatformApiService();
