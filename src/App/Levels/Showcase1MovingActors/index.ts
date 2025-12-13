@@ -26,7 +26,7 @@ export function showcase(canvas: IAppCanvas): IShowcase {
     const camera: ICameraWrapper | undefined = cameraService.findActive();
     if (isNotDefined(camera)) throw new Error('Camera is not defined');
     // const actors: ReadonlyArray<IActorWrapperAsync> = actorRegistry.findAllByTags(['intersectable'], LookUpStrategy.Every);
-    const intersectionsWatcher: IIntersectionsWatcher = intersectionsWatcherService.create(camera);
+    const intersectionsWatcher: IIntersectionsWatcher = intersectionsWatcherService.create({ camera, actors: [], position$: mouseService.position$, isAutoStart: true, tags: [] });
 
     actorRegistry.added$.pipe(filter((a: IActorWrapperAsync) => a.hasTag('intersectable'))).subscribe((actor: IActorWrapperAsync): void => intersectionsWatcher.addActor(actor));
 

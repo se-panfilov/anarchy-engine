@@ -11,6 +11,7 @@
   ],
   "actors": [
     {
+      "name": "surface",
       "width": 60,
       "height": 40,
       "widthSegments": 10,
@@ -20,7 +21,7 @@
       "position": { "x": 0, "y": 2, "z": 0 },
       "rotation": { "x": -1.57, "y": 0, "z": 0 },
       "castShadow": false,
-      "tags": ["surface"]
+      "tags": []
     },
     {
       "type": "sphere",

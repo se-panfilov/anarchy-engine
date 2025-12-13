@@ -10,14 +10,12 @@ import spaceConfig from './showcase-15.json';
 export function showcase(canvas: IAppCanvas): IShowcase {
   const gui: GUI = new GUI();
   const space: ISpace = buildSpaceFromConfig(canvas, spaceConfig as ISpaceConfig);
-  const { cameraService, intersectionsService } = space.services;
+  const { cameraService, intersectionsWatcherService } = space.services;
   const cameraRegistry: ICameraRegistry = cameraService.getRegistry();
   const { clickLeftRelease$ } = mouseService;
 
-  function init(): void {
-    // TODO (S.Panfilov) should be async
-    console.log(intersectionsService.getRegistry().getAll());
-    const redWatcher: IIntersectionsWatcher | undefined = intersectionsService.getRegistry().findByName('red_watcher');
+  async function init(): Promise<void> {
+    const redWatcher: IIntersectionsWatcher | undefined = await intersectionsWatcherService.getRegistry().findByNameAsync('red_watcher');
     if (isNotDefined(redWatcher)) throw new Error('Cannot find red watcher');
     // const blueWatcher: IIntersectionsWatcher | undefined = intersectionsService.getRegistry().findByName('blue_watcher');
     // if (isNotDefined(blueWatcher)) throw new Error('Cannot find blue watcher');

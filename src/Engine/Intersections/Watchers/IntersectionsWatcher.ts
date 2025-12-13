@@ -9,6 +9,7 @@ import type { IIntersectionEvent, IIntersectionsWatcher, IIntersectionsWatcherPa
 import type { IMousePosition } from '@/Engine/Mouse';
 import { getNormalizedMousePosition } from '@/Engine/Mouse';
 import type { ISceneObject } from '@/Engine/Scene';
+import type { IWriteable } from '@/Engine/Utils';
 import { isDefined, isNotDefined, unWrapEntities } from '@/Engine/Utils';
 
 export function IntersectionsWatcher({ position$, isAutoStart, tags, ...rest }: IIntersectionsWatcherParams): IIntersectionsWatcher {
@@ -16,7 +17,6 @@ export function IntersectionsWatcher({ position$, isAutoStart, tags, ...rest }: 
   let raycaster: Readonly<Raycaster> | undefined = new Raycaster();
   let actors: ReadonlyArray<IActorWrapperAsync> = [];
   let camera: Readonly<ICameraWrapper> | undefined;
-  let isStarted: boolean = false;
 
   const addActors = (actorWrappers: ReadonlyArray<IActorWrapperAsync>): void => void (actors = [...actors, ...actorWrappers]);
   const addActor = (actorWrapper: IActorWrapperAsync): void => void (actors = [...actors, actorWrapper]);
@@ -35,13 +35,15 @@ export function IntersectionsWatcher({ position$, isAutoStart, tags, ...rest }: 
       const intersection: IIntersectionEvent | undefined = getIntersection(position, camera, unWrapEntities(actors) as Array<IMesh>);
       if (isDefined(intersection)) abstractWatcher.value$.next(intersection);
     });
-    isStarted = true;
+    // eslint-disable-next-line functional/immutable-data
+    result.isStarted = true;
     return result;
   }
 
   function stop(): IIntersectionsWatcher {
     mousePos$?.unsubscribe();
-    isStarted = false;
+    // eslint-disable-next-line functional/immutable-data
+    result.isStarted = false;
     return result;
   }
 
@@ -57,9 +59,7 @@ export function IntersectionsWatcher({ position$, isAutoStart, tags, ...rest }: 
     abstractWatcherSubscription.unsubscribe();
   });
 
-  setCamera(rest.camera);
-
-  const result: IIntersectionsWatcher = {
+  const result: IWriteable<IIntersectionsWatcher> = {
     ...abstractWatcher,
     value$: abstractWatcher.value$.asObservable(),
     addActors,
@@ -71,9 +71,13 @@ export function IntersectionsWatcher({ position$, isAutoStart, tags, ...rest }: 
     removeActor,
     start,
     stop,
-    isStarted,
+    isStarted: false,
     isAutoStart
   };
+
+  setCamera(rest.camera);
+  if (rest.actors.length > 0) addActors(rest.actors);
+  if (isAutoStart) start();
 
   return result;
 }

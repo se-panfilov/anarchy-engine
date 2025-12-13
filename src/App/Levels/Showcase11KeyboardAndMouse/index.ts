@@ -29,7 +29,7 @@ export function showcase(canvas: IAppCanvas): IShowcase {
   const cameraRegistry: ICameraRegistry = cameraService.getRegistry();
   if (isNotDefined(actorRegistry)) throw new Error('Actor registry is not defined');
   if (isNotDefined(cameraRegistry)) throw new Error('Camera registry is not defined');
-  const { findByTagAsync, findByTagsAsync } = actorRegistry;
+  const { findByNameAsync, findByTagAsync, findByTagsAsync } = actorRegistry;
   const { onKey } = keyboardService;
 
   async function init(): Promise<void> {
@@ -63,7 +63,6 @@ export function showcase(canvas: IAppCanvas): IShowcase {
     onKey(KeyCode.D).released$.subscribe((): void => void actorKeyD.addY(0.2));
 
     const intersectionsWatcher: IIntersectionsWatcher = await startIntersections();
-
     const coordsUI: { x: number; z: number } = { x: 0, z: 0 };
 
     gui.add(coordsUI, 'x').listen();
@@ -102,11 +101,11 @@ export function showcase(canvas: IAppCanvas): IShowcase {
   async function startIntersections(): Promise<IIntersectionsWatcher> {
     const camera: ICameraWrapper | undefined = cameraService.findActive();
     if (isNotDefined(camera)) throw new Error('Camera is not defined');
-    const actor: IActorWrapperAsync = await findByTagAsync('surface');
-    const intersectionsWatcher: IIntersectionsWatcher = intersectionsWatcherService.create({ actors: [actor], camera });
+    const actor: IActorWrapperAsync = await findByNameAsync('surface');
 
-    intersectionsWatcher.start();
-    return intersectionsWatcher;
+    console.log({ actors: [actor], camera, isAutoStart: true, position$: mouseService.position$, tags: [] });
+
+    return intersectionsWatcherService.create({ actors: [actor], camera, isAutoStart: true, position$: mouseService.position$, tags: [] });
   }
 
   function start(): void {
