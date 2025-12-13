@@ -1,6 +1,8 @@
-import type { Material, Object3D } from 'three';
+import type { AnimationAction, AnimationClip, Material, Object3D } from 'three';
 import { Mesh, Texture } from 'three';
 
+import type { TEntity } from '@/Engine/Abstract';
+import type { TWithModel3dEntities } from '@/Engine/Models3d';
 import { hasTransformDrive } from '@/Engine/TransformDrive/Utils';
 import { hasGeometry, hasMaterial, isDefined, isNotDefined } from '@/Engine/Utils';
 
@@ -22,7 +24,7 @@ export function disposeGltf(gltf: Object3D | null): void {
   // eslint-disable-next-line functional/immutable-data
   gltf.userData = {};
   // eslint-disable-next-line functional/immutable-data
-  gltf.children = [];
+  gltf.children.length = 0;
   gltf = null;
 }
 
@@ -82,4 +84,26 @@ export function stopParenting(entity: any): void {
       });
     });
   }
+}
+
+export function destroyModel3dAnimationEntities({ model3dSource, mixer, actions }: TEntity<TWithModel3dEntities>): void {
+  if (isNotDefined(mixer)) return;
+
+  Object.values(actions).forEach((action: AnimationAction): void => {
+    action.stop();
+    action.reset();
+    mixer.uncacheAction(action.getClip(), action.getRoot());
+  });
+
+  mixer.stopAllAction();
+
+  mixer.uncacheRoot(model3dSource);
+
+  model3dSource.animations.forEach((clip: AnimationClip): void => {
+    mixer.uncacheClip(clip);
+    mixer.uncacheAction(clip);
+  });
+
+  // eslint-disable-next-line functional/immutable-data
+  model3dSource.animations.length = 0;
 }
