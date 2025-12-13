@@ -1,4 +1,3 @@
-import type { RigidBody } from '@dimforge/rapier3d';
 import type { Subscription } from 'rxjs';
 import { BehaviorSubject, combineLatest, distinctUntilChanged, EMPTY, filter, map, switchMap, takeWhile, withLatestFrom } from 'rxjs';
 import type { QuaternionLike, Vector3Like } from 'three';

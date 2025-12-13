@@ -8,7 +8,7 @@ import type { TRigidBodyTransformData } from '@/Engine/TransformDrive/Models';
 import { isDefined, isEqualOrSimilarVector3Like, isEqualOrSimilarVector4Like, isNotDefined } from '@/Engine/Utils';
 
 export function getPhysicalBodyTransform(
-  body: RigidBody,
+  body: RigidBody | undefined,
   prevPosition: Vector3Like | undefined,
   prevRotation: QuaternionLike | undefined,
   thresholdPosition: number,
