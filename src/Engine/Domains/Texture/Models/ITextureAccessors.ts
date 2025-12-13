@@ -1,1 +1,0 @@
-export type ITextureAccessors = Readonly<{}>;

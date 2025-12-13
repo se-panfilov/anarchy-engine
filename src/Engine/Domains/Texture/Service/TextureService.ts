@@ -9,7 +9,15 @@ export function TextureService(): ITextureService {
   const textureLoader: TextureLoader = new TextureLoader();
   const messages$: ReplaySubject<string> = new ReplaySubject<string>();
 
-  // TODO (S.Panfilov) we do not track loaded textures, but probably makes sense to dispose them (and add to registries)
+  function getLoader(): TextureLoader {
+    return textureLoader;
+  }
+
+  function sendMessage(message: string): void {
+    messages$.next(message);
+  }
+
+  // TODO (S.Panfilov) remove
   function load(urlsObj: Record<string, string>): Record<string, ITexture> {
     const result: Record<string, ITexture> = {};
 
@@ -50,7 +58,7 @@ export function TextureService(): ITextureService {
     return result;
   }
 
-  return { load };
+  return { getLoader, sendMessage, messages$ };
 }
 
 export const textureService: ITextureService = TextureService();
