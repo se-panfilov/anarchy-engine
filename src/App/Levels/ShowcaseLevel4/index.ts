@@ -39,11 +39,11 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
       console.log('click is ready', !isClickBlocked);
       isClickBlocked = true;
 
-      void standardMoverService.goToPosition(topActor, { x: 20, y: topActor.getY(), z: topActor.getZ() }, { ...animationParams, easing: 'easeInCirc' }).then(() => {
+      void standardMoverService.goToPosition(topActor, { x: 20 }, { ...animationParams, easing: 'easeInCirc' }).then(() => {
         isClickBlocked = false;
       });
-      void standardMoverService.goToPosition(centralActor, { x: 20, y: centralActor.getY(), z: centralActor.getZ() }, { ...animationParams, easing: 'linear' });
-      void standardMoverService.goToPosition(bottomActor, { x: 20, y: bottomActor.getY(), z: bottomActor.getZ() }, { ...animationParams, easing: 'easeInOutQuad' });
+      void standardMoverService.goToPosition(centralActor, { x: 20 }, { ...animationParams, easing: 'linear' });
+      void standardMoverService.goToPosition(bottomActor, { x: 20 }, { ...animationParams, easing: 'easeInOutQuad' });
     });
   }
 

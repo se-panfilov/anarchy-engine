@@ -14,8 +14,9 @@ export function MoverService(loopService: ILoopService, { suspendWhenDocumentHid
   // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access,functional/immutable-data
   (anime as any).suspendWhenDocumentHidden = suspendWhenDocumentHidden;
 
-  function performMove(moveFn: IMoveFn, actor: IActorWrapper, targetPosition: IWithCoords3, params: IAnimationParams): Promise<void> {
+  function performMove(moveFn: IMoveFn, actor: IActorWrapper, { x, y, z }: Partial<IWithCoords3>, params: IAnimationParams): Promise<void> {
     const { promise, resolve } = createDeferredPromise();
+    const targetPosition: IWithCoords3 = { x: x ?? actor.getX(), y: y ?? actor.getY(), z: z ?? actor.getZ() };
     const move = moveFn(actor, targetPosition, params, resolve);
     const tickSubscription: Subscription = loopService.tick$.subscribe(({ frameTime }: ILoopTimes): void => {
       // TODO (S.Panfilov) CWP what about delta time?
@@ -26,6 +27,6 @@ export function MoverService(loopService: ILoopService, { suspendWhenDocumentHid
   }
 
   return {
-    goToPosition: (actor: IActorWrapper, targetPosition: IWithCoords3, params: IAnimationParams): Promise<void> => performMove(goStraightMove, actor, targetPosition, params)
+    goToPosition: (actor: IActorWrapper, targetPosition: Partial<IWithCoords3>, params: IAnimationParams): Promise<void> => performMove(goStraightMove, actor, targetPosition, params)
   };
 }
