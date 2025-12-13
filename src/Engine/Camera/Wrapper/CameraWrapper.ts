@@ -19,7 +19,7 @@ export function CameraWrapper(params: ICameraParams): ICameraWrapper {
   const { width, height } = ambientContext.screenSizeWatcher.latest$.value;
   accessors.setAspect(width / height);
 
-  let result = {
+  const partialWrapper: Omit<ICameraWrapper, 'isActive' | '_setActive'> = {
     ...AbstractWrapper(entity, WrapperType.Camera, params),
     ...accessors,
     entity,
@@ -29,13 +29,13 @@ export function CameraWrapper(params: ICameraParams): ICameraWrapper {
     ...withTags(tags)
   };
 
-  result = adjustWthActive(result, params.isActive);
+  const wrapper: ICameraWrapper = adjustWthActive(partialWrapper, params.isActive);
 
-  applyPosition(result, params.position);
-  applyRotation(result, params.rotation);
-  applyObject3dParams(result, params);
+  applyPosition(partialWrapper, params.position);
+  applyRotation(partialWrapper, params.rotation);
+  applyObject3dParams(partialWrapper, params);
 
   if (isDefined(lookAt)) entity.lookAt(new Vector3(lookAt.entity.x, lookAt.entity.y, lookAt.entity.z));
 
-  return result;
+  return wrapper;
 }

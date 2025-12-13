@@ -41,10 +41,10 @@ export function OrbitControlsWrapper(params: IOrbitControlsParams): IOrbitContro
     const z: number = currentDistance * Math.sin(currentPolarAngle) * Math.cos(currentAzimuthalAngle);
     // camera.entity.position.set(x + position.getX(), y + position.getY(), z + position.getZ());
     params.camera.setPosition(Vector3Wrapper({ x: x + position.getX(), y: y + position.getY(), z: z + position.getZ() }));
-    result.setTarget(position);
+    wrapper.setTarget(position);
   }
 
-  let result = {
+  const partialWrapper: Omit<IOrbitControlsWrapper, 'isActive' | '_setActive'> = {
     ...AbstractWrapper(entity, WrapperType.Controls, params),
     update,
     enable,
@@ -55,11 +55,11 @@ export function OrbitControlsWrapper(params: IOrbitControlsParams): IOrbitContro
     entity
   };
 
-  result = adjustWthActive(result, params.isActive);
+  const wrapper: IOrbitControlsWrapper = adjustWthActive(partialWrapper, params.isActive);
 
-  applyOrbitControlsParams(result, params);
-  result.enable();
-  result.update();
+  applyOrbitControlsParams(wrapper, params);
+  partialWrapper.enable();
+  partialWrapper.update();
 
-  return result;
+  return wrapper;
 }

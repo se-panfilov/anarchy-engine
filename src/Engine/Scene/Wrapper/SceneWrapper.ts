@@ -51,7 +51,7 @@ export function SceneWrapper(params: ISceneParams): ISceneWrapper {
 
   const getEnvironmentMap = (): ITexture | null => entity.environment;
 
-  let sceneWrapper = {
+  const sceneWrapper: Omit<ISceneWrapper, 'isActive' | '_setActive'> = {
     ...wrapper,
     addActor,
     addCamera,
@@ -66,7 +66,5 @@ export function SceneWrapper(params: ISceneParams): ISceneWrapper {
     entity
   };
 
-  sceneWrapper = adjustWthActive(sceneWrapper, params.isActive);
-
-  return sceneWrapper;
+  return adjustWthActive(sceneWrapper, params.isActive);
 }

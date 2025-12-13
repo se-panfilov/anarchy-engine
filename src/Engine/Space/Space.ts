@@ -199,7 +199,7 @@ export function buildSpaceFromConfig(canvas: IAppCanvas, config: ISpaceConfig): 
     const rendererRegistry: IRendererRegistry = RendererRegistry();
     const rendererService: IRendererService = RendererService(rendererFactory, rendererRegistry);
 
-    const renderer: IRendererWrapper = rendererService.create({ canvas, tags: [], mode: RendererModes.WebGL2 });
+    const renderer: IRendererWrapper = rendererService.create({ canvas, tags: [], mode: RendererModes.WebGL2, isActive: true });
 
     factories = { ...factories, rendererFactory };
     registries = { ...registries, rendererRegistry };
@@ -217,8 +217,9 @@ export function buildSpaceFromConfig(canvas: IAppCanvas, config: ISpaceConfig): 
     if (isNotDefined(registries.controlsRegistry)) throw new Error('Cannot find controls registry for loop initialization');
 
     loopTick$ = standardLoopService.tick$.subscribe(({ delta }: ILoopTimes): void => {
-      const activeCamera: ICameraWrapper | undefined = registries.cameraRegistry?.getActiveCamera();
+      const activeCamera: ICameraWrapper | undefined = services.cameraService?.findActiveCamera();
       if (isDefined(activeCamera)) {
+        if (isNotDefined(renderers.renderer)) throw new Error('Cannot find renderer');
         renderers.renderer.entity.render(scene.entity, activeCamera.entity);
         // TODO (S.Panfilov) update these text renderers only when there are any text (or maybe only when it's changed)
         if (isTextsInit) {

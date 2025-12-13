@@ -4,4 +4,4 @@ import type { IMovable3dXYZ, IRotatable, IWithActive, IWithObject3d, IWithTags }
 import type { ICamera } from './ICamera';
 import type { ICameraAccessors } from './ICameraAccessors';
 
-export type ICameraWrapper = IWrapper<ICamera> & IWithObject3d & IWithActive<ICamera> & ICameraAccessors & IMovable3dXYZ & IRotatable & IWithTags<string>;
+export type ICameraWrapper = IWrapper<ICamera> & IWithObject3d & IWithActive & ICameraAccessors & IMovable3dXYZ & IRotatable & IWithTags<string>;

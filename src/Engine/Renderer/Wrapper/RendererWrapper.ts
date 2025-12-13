@@ -63,9 +63,6 @@ export function RendererWrapper(params: IRendererParams, screenSizeWatcher: Read
     screenSize$.unsubscribe();
   }
 
-  let result = { ...wrapper, ...accessors, entity, destroy };
-
-  result = adjustWthActive(result, params.isActive);
-
-  return result;
+  const partialResult: Omit<IRendererWrapper, 'isActive' | '_setActive'> = { ...wrapper, ...accessors, entity, destroy };
+  return adjustWthActive(partialResult, params.isActive);
 }

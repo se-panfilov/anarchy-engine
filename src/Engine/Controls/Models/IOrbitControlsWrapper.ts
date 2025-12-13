@@ -15,5 +15,5 @@ export type IOrbitControlsWrapper = IWrapper<OrbitControls> &
     disable: () => void;
     moveToTargetSmoothly: (position: IVector3Wrapper) => void;
   }> &
-  IWithActive<OrbitControls> &
+  IWithActive &
   IWithTags<string>;

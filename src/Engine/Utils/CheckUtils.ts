@@ -15,12 +15,12 @@ export function isNotDefined<T>(value: T | undefined | null): value is undefined
   return !isDefined<T>(value);
 }
 
-export function isRegistrable<T>(obj: T | IRegistrable): obj is IRegistrable {
-  return isDefined((obj as unknown as IRegistrable).getTags) && Boolean((obj as unknown as IRegistrable).addTag);
+export function isRegistrable(obj: unknown): obj is IRegistrable {
+  return isDefined((obj as IRegistrable).getTags) && Boolean((obj as IRegistrable).addTag);
 }
 
-export function isDestroyable<T>(obj: T | IDestroyable): obj is IDestroyable {
-  return isDefined((obj as unknown as IDestroyable).destroy) && isDefined((obj as unknown as IDestroyable).destroyed$) && isDefined((obj as unknown as IDestroyable).isDestroyed);
+export function isDestroyable(obj: unknown): obj is IDestroyable {
+  return isDefined((obj as IDestroyable).destroy) && isDefined((obj as IDestroyable).destroyed$) && isDefined((obj as IDestroyable).isDestroyed);
 }
 
 export function isString(value: unknown): value is string {

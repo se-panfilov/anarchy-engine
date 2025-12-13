@@ -50,16 +50,27 @@ describe('adjustWthActive mixin', () => {
     });
 
     it('should set "isActive" to "false" via "_setActive" of returned object', (): void => {
-      const adjustedEntity: IWithActive<IMockEntity> = adjustWthActive(entity, true);
+      const adjustedEntity: IWithActive = adjustWthActive(entity, true);
       expect(adjustedEntity.isActive).toBe(true);
       adjustedEntity._setActive(false, true);
       expect(adjustedEntity.isActive).toBe(false);
     });
 
     it('should throw an error if was called not from the service', (): void => {
-      const adjustedEntity: IWithActive<IMockEntity> = adjustWthActive(entity, false);
+      const adjustedEntity: IWithActive = adjustWthActive(entity, false);
       expect(adjustedEntity.isActive).toBe(false);
       expect(() => adjustedEntity._setActive(true, false)).toThrow();
+    });
+
+    it('should change value to "true" for constant alias', (): void => {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+      const entity1: IMockEntity = { name: 'mock-entity123' } as any;
+      const entity2: IMockEntity = adjustWthActive(entity1, false);
+      expect(entity1.isActive).toBe(false);
+      expect(entity2.isActive).toBe(false);
+      entity2._setActive(true, true);
+      expect(entity1.isActive).toBe(true);
+      expect(entity2.isActive).toBe(true);
     });
   });
 });
