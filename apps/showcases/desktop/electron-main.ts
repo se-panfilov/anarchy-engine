@@ -1,5 +1,9 @@
 import { app, BrowserWindow, ipcMain } from 'electron';
-import { join } from 'path';
+import { dirname, join } from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename: string = fileURLToPath(import.meta.url);
+const __dirname: string = dirname(__filename);
 
 function createWindow(): void {
   // TODO DESKTOP: why fixed resolution?
