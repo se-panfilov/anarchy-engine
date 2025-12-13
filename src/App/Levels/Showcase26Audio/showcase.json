@@ -2,7 +2,7 @@
   "entities": {
     "actors": [
       {
-        "agent": "physical",
+        "agent": "default",
         "model3dSource": "surface_model",
         "name": "surface_actor",
         "position": {
@@ -17,7 +17,7 @@
         },
         "spatial": {
           "grid": "main_grid",
-          "isAutoUpdate": true
+          "isAutoUpdate": false
         }
       },
       {
@@ -36,13 +36,13 @@
         },
         "spatial": {
           "grid": "main_grid",
-          "isAutoUpdate": true
+          "isAutoUpdate": false
         }
       },
       {
         "agent": "default",
-        "model3dSource": "medea_entity",
-        "name": "medea",
+        "model3dSource": "medea_model_entity",
+        "name": "medea_actor",
         "position": {
           "x": 5,
           "y": 0,
@@ -60,10 +60,24 @@
         },
         "spatial": {
           "grid": "main_grid",
-          "isAutoUpdate": true
+          "isAutoUpdate": false
         },
         "states": {
           "animationsFsmSource": "shoot_anim_fsm"
+        }
+      },
+      {
+        "agent": "default",
+        "model3dSource": "box_model_entity",
+        "name": "box_actor",
+        "position": {
+          "x": 8,
+          "y": 0,
+          "z": 8
+        },
+        "spatial": {
+          "grid": "main_grid",
+          "isAutoUpdate": false
         }
       }
     ],
@@ -209,36 +223,27 @@
           "width": 100,
           "widthSegments": 1
         },
-        "position": {
-          "x": 0,
-          "y": 0,
-          "z": 0
-        },
-        "receiveShadow": true,
-        "rotation": {
-          "x": -1.57,
-          "y": 0,
-          "z": 0
-        }
+        "receiveShadow": true
       },
       {
         "castShadow": true,
         "model3dSource": "mutant_model",
-        "name": "mutant_model_entity_1",
-        "position": {
-          "x": 0,
-          "y": 0,
-          "z": 0
-        }
+        "name": "mutant_model_entity_1"
       },
       {
         "castShadow": true,
         "model3dSource": "medea_model",
-        "name": "medea_entity",
-        "position": {
-          "x": 0,
-          "y": 0,
-          "z": 0
+        "name": "medea_model_entity"
+      },
+      {
+        "castShadow": true,
+        "materialSource": "cube_material",
+        "model3dSource": "cube",
+        "name": "box_model_entity",
+        "options": {
+          "depth": 1,
+          "height": 1,
+          "width": 1
         }
       }
     ],
@@ -287,6 +292,13 @@
         "name": "sphere_material",
         "options": {
           "color": "#E91E63"
+        },
+        "type": "standard"
+      },
+      {
+        "name": "cube_material",
+        "options": {
+          "color": "#5EDCAE"
         },
         "type": "standard"
       }

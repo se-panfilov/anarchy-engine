@@ -1,6 +1,7 @@
 import GUI from 'lil-gui';
 import { distinctUntilChanged } from 'rxjs';
 import type { AnimationAction, AudioListener } from 'three';
+import { Clock } from 'three';
 
 import type { TShowcase } from '@/App/Levels/Models';
 import type {
@@ -14,13 +15,16 @@ import type {
   TFsmStates,
   TFsmWrapper,
   TLoop,
+  TMilliseconds,
   TModel3d,
+  TReadonlyVector3,
   TSceneWrapper,
   TSpace,
   TSpaceConfig,
+  TSpaceLoops,
   TSpaceServices
 } from '@/Engine';
-import { DebugAudioRenderer, Engine, isAudio3dWrapper, isDefined, isNotDefined, spaceService } from '@/Engine';
+import { DebugAudioRenderer, Engine, isAudio3dWrapper, isDefined, isNotDefined, spaceService, TransformAgent } from '@/Engine';
 
 import spaceConfig from './showcase.json';
 
@@ -46,23 +50,23 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
 
     const gunshot1: TAudio3dWrapper | undefined = audioService.getRegistry().findByName(gunshotName1) as TAudio3dWrapper | undefined;
     if (isNotDefined(gunshot1)) throw new Error(`Showcase: Audio "${gunshotName1}" is not found`);
-    const gunshot1DebugAudioRenderer = DebugAudioRenderer(gunshot1, scene, audioLoop);
+    DebugAudioRenderer(gunshot1, scene, audioLoop);
     const gunshot2: TAudio3dWrapper | undefined = audioService.getRegistry().findByName(gunshotName2) as TAudio3dWrapper | undefined;
     if (isNotDefined(gunshot2)) throw new Error(`Showcase: Audio "${gunshotName2}" is not found`);
-    const gunshot2DebugAudioRenderer = DebugAudioRenderer(gunshot2, scene, audioLoop);
+    DebugAudioRenderer(gunshot2, scene, audioLoop);
 
     initMutant('mutant_actor_1', space.services);
-    const lady: TActor = initLady('medea', gunshot1, space.services);
+    const lady: TActor = initLady('medea_actor', gunshot1, space.services);
+    initMovingCube('box_actor', gunshot2, space.services, space.loops);
     initMusicWithControls('bg_music', 'Background music', gui, space.services);
     initMusicWithControls('monster_singing', 'Positional music', gui, space.services, { loop: audioLoop, scene });
 
     //Keep in mind that setInterval/setTimeout could be slowdown in background tabs, don't use it for production (or use in web workers)
     setInterval((): void => {
-      // gunshot1.play$.next(true);
       const ladyShootFsm: TFsmWrapper | undefined = lady.getAnimationsFsm();
       if (isNotDefined(ladyShootFsm)) throw new Error('Showcase: Animations FSM is not found');
       ladyShootFsm.send$.next('Shoot');
-      setTimeout(() => ladyShootFsm.send$.next('Idle'), 500);
+      setTimeout((): void => ladyShootFsm.send$.next('Idle'), 500);
     }, 1500);
   }
 
@@ -95,8 +99,6 @@ function initLady(actorName: string, gunshotAudioW: TAudio3dWrapper, { animation
   const model3d: TModel3d = actor.model3d;
   const fadeDuration = 0.3;
   const actions = animationsService.startAutoUpdateMixer(model3d).actions;
-
-  console.log('XXX', actions);
 
   const shootAction: AnimationAction = actions['Armature|mixamo.com|Layer0'];
   shootAction.reset().fadeIn(fadeDuration).play();
@@ -131,8 +133,7 @@ function initMusicWithControls(name: string, folderName: string, gui: GUI, { aud
   const isDebugRendererEnabled: boolean = isAudio3dWrapper(audioW) && isDefined(loop) && isDefined(scene);
 
   let debugAudioRenderer: TDebugAudioRenderer | undefined;
-  // TODO debug, revert (uncomment)
-  // if (isDebugRendererEnabled) debugAudioRenderer = DebugAudioRenderer(audioW as TAudio3dWrapper, scene as TSceneWrapper, loop as TLoop);
+  if (isDebugRendererEnabled) debugAudioRenderer = DebugAudioRenderer(audioW as TAudio3dWrapper, scene as TSceneWrapper, loop as TLoop);
 
   const state = {
     playMusic: (): void => audioW.play$.next(true),
@@ -170,4 +171,39 @@ function initMusicWithControls(name: string, folderName: string, gui: GUI, { aud
   if (isDebugRendererEnabled) folder.add(state, 'toggleDebugRendrer').name('Debug renderer');
 
   return audioW;
+}
+
+function initMovingCube(actorName: string, sound: TAudio3dWrapper, { actorService }: TSpaceServices, { transformLoop }: TSpaceLoops): TActor {
+  const actor: TActor | undefined = actorService.getRegistry().findByName(actorName);
+  if (isNotDefined(actor)) throw new Error(`Actor "${actorName}" is not found`);
+
+  const clock: Clock = new Clock();
+  const center: TReadonlyVector3 = actor.drive.position$.value.clone();
+  const radius = 3;
+
+  sound.drive.agent$.next(TransformAgent.Connected);
+
+  //Keep in mind that setInterval/setTimeout could be slowdown in background tabs, don't use it for production (or use in web workers)
+  setInterval((): void => sound.play$.next(true), 500);
+
+  transformLoop.tick$.subscribe((): void => {
+    const elapsedTime: TMilliseconds = clock.getElapsedTime() as TMilliseconds;
+
+    const x: number = center.x + Math.sin(elapsedTime) * radius;
+    const y: number = center.y;
+    const z: number = center.z + Math.cos(elapsedTime) * radius;
+
+    actor.drive.default.setX(x);
+    actor.drive.default.setY(y);
+    actor.drive.default.setZ(z);
+
+    // eslint-disable-next-line functional/immutable-data
+    sound.drive.connected.positionConnector.x = x;
+    // eslint-disable-next-line functional/immutable-data
+    sound.drive.connected.positionConnector.y = y;
+    // eslint-disable-next-line functional/immutable-data
+    sound.drive.connected.positionConnector.z = z;
+  });
+
+  return actor;
 }
