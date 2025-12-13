@@ -1,7 +1,8 @@
-import type { TSpace, TSpaceConfig } from '@Engine';
+import type { TModel3d, TModels3dRegistry, TSceneWrapper, TSpace, TSpaceConfig } from '@Engine';
 import { asRecord, isNotDefined, spaceService } from '@Engine';
 
 import type { TAppSettings } from '@/Models';
+import { addGizmo } from '@/Utils';
 
 import spaceConfigJson from './space.json';
 
@@ -16,5 +17,15 @@ export function start(settings: TAppSettings): void {
 }
 
 export function showcase(space: TSpace): void {
-  // const { scenesService, audioService } = space.services;
+  const { models3dService, scenesService } = space.services;
+  const models3dRegistry: TModels3dRegistry = models3dService.getRegistry();
+  const sceneW: TSceneWrapper = scenesService.getActive();
+
+  addGizmo(space.services, space.container, space.loops, { placement: 'bottom-left' });
+
+  const planeModel3d: TModel3d = models3dRegistry.getByName('surface_model');
+
+  sceneW.addModel3d(planeModel3d);
+
+  space.start$.next(true);
 }
