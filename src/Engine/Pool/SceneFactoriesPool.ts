@@ -1,12 +1,11 @@
 import { ControlsFactory } from '@Engine/Factories';
-import { AbstractPool } from '@Engine/Pool/AbstractPool';
 import { DestroyablePool } from '@Engine/Pool/DestroyablePool';
 import { isNotDefined } from '@Engine/Utils';
 
-import type { IAbstractPool, ISceneFactories, ISceneFactoryPool, ISceneFactoryPoolParams } from './Models';
+import type { IDestroyablePool, ISceneFactories, ISceneFactoryPool, ISceneFactoryPoolParams } from './Models';
 
 export function SceneFactoriesPool({ canvas, cameraRegistry }: ISceneFactoryPoolParams): ISceneFactoryPool {
-  const abstractPool: IAbstractPool<ISceneFactories> = DestroyablePool<ISceneFactories>(init);
+  const abstractPool: IDestroyablePool<ISceneFactories> = DestroyablePool<ISceneFactories>(init);
   const { pool, setPool } = abstractPool;
 
   function init(): ISceneFactories {
