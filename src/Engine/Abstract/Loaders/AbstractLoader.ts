@@ -3,7 +3,7 @@ import { Subject } from 'rxjs';
 import type { Loader } from 'three';
 
 import type { LoaderType } from '@/Engine/Abstract/Constants';
-import type { TAbstractLoader, TAbstractOnLoadFunction, TAbstractResourceConfig, TAbstractSimpleAsyncRegistry, TProtectedRegistry } from '@/Engine/Abstract/Models';
+import type { TAbstractLoadedResourcePack, TAbstractLoader, TAbstractOnLoadFunction, TAbstractResourceConfig, TAbstractSimpleAsyncRegistry, TProtectedRegistry } from '@/Engine/Abstract/Models';
 import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
 import type { TWriteable } from '@/Engine/Utils';
@@ -14,13 +14,15 @@ export function AbstractLoader<L extends Loader<any>, R extends TProtectedRegist
   registry: R,
   type: LoaderType
 ): TAbstractLoader<T, C> {
-  const loaded$: Subject<T> = new Subject<T>();
+  const loaded$: Subject<TAbstractLoadedResourcePack<T, C>> = new Subject<TAbstractLoadedResourcePack<T, C>>();
   const id: string = type + '_' + nanoid();
   let onLoadedFn: TAbstractOnLoadFunction<T> | undefined = undefined;
 
   const loadFromConfigAsync = (configs: ReadonlyArray<C>): Promise<ReadonlyArray<T>> => Promise.all(configs.map((config: C): Promise<T> => loadAsync(config)));
 
-  function loadAsync({ url, isForce, name, options }: C): Promise<T> {
+  function loadAsync(config: C): Promise<T> {
+    const { url, isForce, name, options } = config;
+
     if (!isForce) {
       const resource: T | undefined = registry.findByKey(name);
       if (isDefined(resource)) return Promise.resolve(resource);
@@ -29,7 +31,7 @@ export function AbstractLoader<L extends Loader<any>, R extends TProtectedRegist
     return loader.loadAsync(url).then((loaded: TWriteable<T>): T => {
       const res: T = isDefined(onLoadedFn) ? onLoadedFn(loaded, options) : loaded;
       registry.add(name, res);
-      loaded$.next(res);
+      loaded$.next({ resource: res, options: config });
       return res;
     });
   }

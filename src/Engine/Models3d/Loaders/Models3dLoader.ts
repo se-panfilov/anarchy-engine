@@ -1,5 +1,5 @@
-import type { Group, Mesh, Object3D } from 'three';
 import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader';
+import type { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 
 import type { TAbstractLoader } from '@/Engine/Abstract';
@@ -15,11 +15,10 @@ export function Models3dLoader(registry: TModel3dResourceAsyncRegistry): TModels
   dracoLoader.preload();
   models3dLoader.setDRACOLoader(dracoLoader);
 
-  // TODO 9.0.0. Does it loads "Group | Mesh | Object3D" or "GLTF"?
-  const loader: TAbstractLoader<Group | Mesh | Object3D, TModel3dResourceConfig> = AbstractLoader(models3dLoader, registry, LoaderType.Model3d);
+  const loader: TAbstractLoader<GLTF, TModel3dResourceConfig> = AbstractLoader(models3dLoader, registry, LoaderType.Model3d);
 
   // function applyParamsOnLoaded(loaded: TWriteable<GLTF>, options?: TModel3dOptions): GLTF {
-  function applyParamsOnLoaded(loaded: TWriteable<Group | Mesh | Object3D>): Group | Mesh | Object3D {
+  function applyParamsOnLoaded(loaded: TWriteable<GLTF>): GLTF {
     // const loadResult: TModel3dFacade = Model3dFacade({ ...params, model: loaded.scene, animations: loaded.animations }, animationsService);
     return loaded;
   }

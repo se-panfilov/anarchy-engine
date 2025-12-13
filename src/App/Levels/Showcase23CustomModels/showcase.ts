@@ -27,6 +27,8 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     const models3dRegistry: TModel3dRegistry = models3dService.getRegistry();
     const models3dResourceRegistry: TModel3dResourceAsyncRegistry = models3dService.getResourceRegistry();
 
+    // TODO CWP Think: do we need to really add configs to the loader/registry, or registry can return also a "name" in "added$"?
+
     //Adding loaded-from-js models3d to the scene
     models3dResourceRegistry.added$.subscribe((gltf: GLTF): void => {
       // TODO 9.0.0. RESOURCES: Would be nice if the loader also returns here the original params with witch the model was loaded,
