@@ -17,7 +17,7 @@
       "name": "main",
       "near": 1,
       "far": 10000,
-      "position": { "x": 3, "y": 20, "z": 35 },
+      "position": { "x": 3, "y": 10, "z": 15 },
       "rotation": { "x": 0, "y": 0, "z": 0 },
       "tags": [],
       "isActive": true
@@ -51,17 +51,16 @@
   "particles": [
     {
       "name": "bubbles",
-      "position": { "x": 0, "y": 6, "z": 0 },
+      "position": { "x": 0, "y": 0, "z": 0 },
       "material": {
         "type": "points",
         "params": {
           "color": "#E91E63",
-          "size": 0.5,
+          "size": 0.3,
           "sizeAttenuation": true,
-          "transparent": true,
           "depthWrite": false,
           "blending": "AdditiveBlending",
-          "vertexColors": false
+          "vertexColors": true
         },
         "textures": {
           "alphaMap": { "url": "/Showcase/particles/2.png" }

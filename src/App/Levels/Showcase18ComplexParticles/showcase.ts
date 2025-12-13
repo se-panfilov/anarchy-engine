@@ -1,22 +1,27 @@
-import { AdditiveBlending, BufferAttribute, Points, PointsMaterial } from 'three';
-import { BufferGeometry, Color } from 'three';
+import GUI from 'lil-gui';
+import { AdditiveBlending, BufferGeometry, Color, PointsMaterial } from 'three';
 
 import type { TShowcase } from '@/App/Levels/Models';
-import type { TAppCanvas, TEngine, TParticlesWrapperAsync, TSpace, TSpaceConfig } from '@/Engine';
+import type { TAppCanvas, TEngine, TParticlesConfig, TParticlesParams, TParticlesWrapperAsync, TSpace, TSpaceConfig } from '@/Engine';
 import { buildSpaceFromConfig, Engine, isDefined, isNotDefined } from '@/Engine';
 
 import spaceConfig from './showcase.json';
-import GUI from 'lil-gui';
+import { configToParams as particlesConfigToParams } from '@/Engine/Particles/Adapters';
 
 export function showcase(canvas: TAppCanvas): TShowcase {
   const space: TSpace = buildSpaceFromConfig(canvas, spaceConfig as TSpaceConfig);
   const engine: TEngine = Engine(space);
   const { particlesService } = space.services;
-  const scene = particlesService.getScene();
+
+  const particlesName: string = 'bubbles';
+
+  const particlesConfig: TParticlesConfig | undefined = (spaceConfig.particles as ReadonlyArray<TParticlesConfig>).find((p: TParticlesConfig): boolean => p.name === particlesName);
+  if (isNotDefined(particlesConfig)) throw new Error(`Particles "${particlesName}" not found`);
+  const particlesDefaultParams: TParticlesParams = particlesConfigToParams(particlesConfig);
 
   const parameters: Record<string, string | number> = {
     count: 100000,
-    size: 0.01,
+    size: particlesDefaultParams.material.params?.size ?? 0.01,
     radius: 5,
     branches: 3,
     spin: 1,
@@ -28,32 +33,25 @@ export function showcase(canvas: TAppCanvas): TShowcase {
 
   let geometry: BufferGeometry | undefined;
   let material: PointsMaterial | undefined;
-  let points: Points | undefined;
 
-  function createGalaxy(): void {
+  async function createGalaxy(): Promise<void> {
     // Destroy old galaxy
     if (isDefined(geometry)) geometry.dispose();
     if (isDefined(material)) material.dispose();
     // TODO (S.Panfilov) scene.remove
-    if (isDefined(points)) scene.entity.remove(points);
+    // if (isDefined(particles)) scene.entity.remove(points);
 
     geometry = new BufferGeometry();
     const { positions, colors } = generateParams();
 
-    geometry.setAttribute('position', new BufferAttribute(positions, 3));
-    geometry.setAttribute('color', new BufferAttribute(colors, 3));
-
     material = new PointsMaterial({
-      size: parameters.size,
-      sizeAttenuation: true,
-      depthWrite: false,
-      blending: AdditiveBlending,
-      vertexColors: true
+      ...particlesDefaultParams.material.params,
+      size: parameters.size as number
     });
-
-    points = new Points(geometry, material);
-    // TODO (S.Panfilov) replace with a proper scene.addSometing
-    scene.entity.add(points);
+    const particles: TParticlesWrapperAsync | undefined = await particlesService.getRegistry().findByNameAsync(particlesName);
+    if (isNotDefined(particles)) throw new Error(`Particles "${particlesName}" not found`);
+    particles.setIndividualPositions(positions);
+    particles.setIndividualMaterialColors(colors);
   }
 
   function generateParams(): { positions: Float32Array; colors: Float32Array; colorInside: Color; colorOutside: Color } {
@@ -105,18 +103,6 @@ export function showcase(canvas: TAppCanvas): TShowcase {
     gui.addColor(parameters, 'outsideColor').onFinishChange(createGalaxy);
 
     createGalaxy();
-    // const count: number = 50000;
-    // const positions: Float32Array = new Float32Array(count * 3);
-    // const colors: Float32Array = new Float32Array(count * 3);
-    //
-    // // eslint-disable-next-line functional/no-loop-statements
-    // for (let i: number = 0; i < count * 3; i++) {
-    //   // eslint-disable-next-line functional/immutable-data
-    //   positions[i] = (Math.random() - 0.5) * 100;
-    //   // eslint-disable-next-line functional/immutable-data
-    //   colors[i] = Math.random();
-    // }
-    //
     // const particlesName: string = 'bubbles';
     // const particles: TParticlesWrapperAsync | undefined = await particlesService.getRegistry().findByNameAsync(particlesName);
     // if (isNotDefined(particles)) throw new Error(`Particles "${particlesName}" not found`);
