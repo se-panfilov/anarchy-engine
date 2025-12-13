@@ -229,6 +229,11 @@ export function MouseService(
     wheelUp$: wheelUp$.asObservable(),
     wheelDown$: wheelDown$.asObservable(),
 
-    position$: mousePositionWatcher.value$
+    position$: mousePositionWatcher.value$,
+
+    getMouseClickWatcherRegistry: (): TMouseClickWatcherRegistry => mouseClickWatcherRegistry,
+    getMouseClickWatcherFactory: (): TMouseClickWatcherFactory => mouseClickWatcherFactory,
+    getMousePositionWatcherRegistry: (): TMousePositionWatcherRegistry => mousePositionWatcherRegistry,
+    getMousePositionWatcherFactory: (): TMousePositionWatcherFactory => mousePositionWatcherFactory
   });
 }

@@ -3,6 +3,10 @@ import type { Vector2Like } from 'three';
 
 import type { TAbstractService } from '@/Engine/Abstract';
 
+import type { TMouseClickWatcherFactory } from './TMouseClickWatcherFactory';
+import type { TMouseClickWatcherRegistry } from './TMouseClickWatcherRegistry';
+import type { TMousePositionWatcherFactory } from './TMousePositionWatcherFactory';
+import type { TMousePositionWatcherRegistry } from './TMousePositionWatcherRegistry';
 import type { TMouseWatcherEvent } from './TMouseWatcherEvent';
 
 export type TMouseService = TAbstractService &
@@ -39,4 +43,9 @@ export type TMouseService = TAbstractService &
     wheelDown$: Observable<TMouseWatcherEvent>;
 
     position$: Observable<Vector2Like>;
+
+    getMouseClickWatcherRegistry: () => TMouseClickWatcherRegistry;
+    getMouseClickWatcherFactory: () => TMouseClickWatcherFactory;
+    getMousePositionWatcherRegistry: () => TMousePositionWatcherRegistry;
+    getMousePositionWatcherFactory: () => TMousePositionWatcherFactory;
   }>;
