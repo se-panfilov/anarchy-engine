@@ -13,7 +13,7 @@ export function EventsService({ mainMenuService, appService, settingsService }: 
     let legalDocs: TLegalDoc | undefined;
     let isRestartNeeded: boolean = false;
 
-    const { closeMainMenu, loadLegalDocs, loadSettings, saveSettings } = mainMenuService;
+    const { closeMainMenu, loadLegalDocs, readSettings, writeSettings } = mainMenuService;
 
     fromMenuEventsBus$.subscribe(async (event: TFromMenuEvent): Promise<void> => {
       switch (event.type) {
@@ -24,14 +24,14 @@ export function EventsService({ mainMenuService, appService, settingsService }: 
         case FromMenuEvents.SaveSettings: {
           if (isNotDefined(event.payload)) throw new Error(`[APP] No settings provided for saving`);
           if (!isSettings(event.payload)) throw new Error('[APP] Attempted to save invalid app settings');
-          await saveSettings(event.payload as TShowcaseGameSettings);
+          await writeSettings(event.payload as TShowcaseGameSettings);
           isRestartNeeded = settingsService.applyAppSettings(event.payload);
           if (isRestartNeeded) appService.restartApp();
           break;
         }
         case FromMenuEvents.LoadSettings: {
           try {
-            settings = await loadSettings();
+            settings = await readSettings();
           } catch (error) {
             throw new Error(`[APP] Failed to load settings: ${error}`);
           }

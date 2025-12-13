@@ -3,9 +3,9 @@ import type { TLegalDoc, TLoadDocPayload, TShowcaseGameSettings } from '@Showcas
 export type TMainMenuService = Readonly<{
   openMainMenu: () => void | never;
   closeMainMenu: () => void | never;
-  saveSettings: (settings: TShowcaseGameSettings) => Promise<void>;
+  writeSettings: (settings: TShowcaseGameSettings) => Promise<void>;
   closeApp: () => void;
   restartApp: () => void;
-  loadSettings: () => Promise<TShowcaseGameSettings>;
+  readSettings: () => Promise<TShowcaseGameSettings>;
   loadLegalDocs: (options: TLoadDocPayload) => Promise<TLegalDoc>;
 }>;
