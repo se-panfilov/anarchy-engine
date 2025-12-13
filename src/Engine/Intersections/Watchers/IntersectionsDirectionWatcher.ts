@@ -7,6 +7,7 @@ import { Vector3 } from 'three/src/math/Vector3';
 import type { TActor } from '@/Engine/Actor';
 import type { TAnyCameraWrapper } from '@/Engine/Camera';
 import type { TAbstractIntersectionsWatcher, TIntersectionEvent, TIntersectionsDirectionWatcher, TIntersectionsDirectionWatcherParams, TIntersectionsLoop } from '@/Engine/Intersections/Models';
+import { getOriginAndDirection } from '@/Engine/Intersections/Utils';
 import { AbstractIntersectionsWatcher } from '@/Engine/Intersections/Watchers/AbstractIntersectionsWatcher';
 import type { TMilliseconds } from '@/Engine/Math';
 import type { TRawModel3d } from '@/Engine/Models3d';
@@ -105,44 +106,4 @@ export function initIntersectionsWatcher(
       const intersection: TIntersectionEvent | undefined = getIntersection(origin, direction);
       console.log('XXX Intersection:', intersection);
     });
-}
-
-function getOriginAndDirection(
-  tmpOrigin: Float32Array,
-  tmpDirection: Float32Array,
-  prevOrigin: Float32Array,
-  prevDirection: Float32Array,
-  origin: TReadonlyVector3,
-  direction: TReadonlyVector3,
-  threshold: number
-): Readonly<{ origin: TReadonlyVector3; direction: TReadonlyVector3 }> | undefined {
-  // eslint-disable-next-line functional/immutable-data
-  tmpOrigin[0] = origin.x;
-  // eslint-disable-next-line functional/immutable-data
-  tmpOrigin[1] = origin.y;
-  // eslint-disable-next-line functional/immutable-data
-  tmpOrigin[2] = origin.z;
-
-  // eslint-disable-next-line functional/immutable-data
-  tmpDirection[0] = direction.x;
-  // eslint-disable-next-line functional/immutable-data
-  tmpDirection[1] = direction.y;
-  // eslint-disable-next-line functional/immutable-data
-  tmpDirection[2] = direction.z;
-
-  const originChanged: boolean = Math.abs(tmpOrigin[0] - prevOrigin[0]) > threshold || Math.abs(tmpOrigin[1] - prevOrigin[1]) > threshold || Math.abs(tmpOrigin[2] - prevOrigin[2]) > threshold;
-
-  const directionChanged: boolean =
-    Math.abs(tmpDirection[0] - prevDirection[0]) > threshold || Math.abs(tmpDirection[1] - prevDirection[1]) > threshold || Math.abs(tmpDirection[2] - prevDirection[2]) > threshold;
-
-  if (!originChanged && !directionChanged) return undefined;
-
-  prevOrigin.set(tmpOrigin);
-  prevDirection.set(tmpDirection);
-
-  // TODO 15-0-0: do we really need Vector3 here?
-  return {
-    origin: new Vector3(tmpOrigin[0], tmpOrigin[1], tmpOrigin[2]) as TReadonlyVector3,
-    direction: new Vector3(tmpDirection[0], tmpDirection[1], tmpDirection[2]) as TReadonlyVector3
-  };
 }
