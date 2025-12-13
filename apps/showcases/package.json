@@ -25,7 +25,7 @@
     "ts:check:watch": "tsc --watch --noEmit",
     "sanitize-assets": "node ../shared/src/utils/SanitizeAssets.js",
     "clean:all": "rimraf ./dist ./node_modules ./package-lock.json",
-    "clean:reinstall": "npm run clean:all && npm install && git add ./package-lock.json",
+    "clean:reinstall": "npm run clean:all && npm install && git add ./package-lock.json"
   },
   "dependencies": {
     "stats.js": "0.17.0"
