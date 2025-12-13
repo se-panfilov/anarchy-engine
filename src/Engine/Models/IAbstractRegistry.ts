@@ -7,7 +7,7 @@ export type IAbstractRegistry<T extends IRegistrable> = Readonly<{
   added$: Subject<T>;
   replace: (entity: T) => void;
   replaced$: Subject<T>;
-  registry: ReadonlyMap<string, T>;
+  registry: Map<string, T>;
   getById: (id: string) => T | undefined;
   getAllWithSomeTag: (tags: ReadonlyArray<string>) => ReadonlyArray<T> | never;
   getAllWithEveryTag: (tags: ReadonlyArray<string>) => ReadonlyArray<T> | never;
