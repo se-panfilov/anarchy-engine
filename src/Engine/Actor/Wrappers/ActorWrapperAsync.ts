@@ -22,9 +22,15 @@ export async function ActorWrapperAsync(
   { materialTextureService, models3dService, kinematicLoopService, spatialLoopService, spatialGridService, collisionsLoopService, collisionsService }: TActorDependencies
 ): Promise<TActorWrapperAsync> {
   const isPrimitiveModel3d: boolean = [...Object.values(Model3dType)].includes(params.model3d.url as Model3dType);
+
+  // TODO Maybe this options should be the same as for the actor. But actor doesn't have them yet (refactoring is needed)
+  const options = {
+    shouldSaveToRegistry: params.model3d.options?.shouldSaveToRegistry ?? true,
+    shouldAddToScene: params.model3d.options?.shouldAddToScene ?? false,
+    isForce: params.model3d.options?.isForce ?? false
+  };
   // TODO AWAIT: could speed up by not awaiting mesh to be build
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-  const entity: TMesh = isPrimitiveModel3d ? await createActorMesh(params, { materialTextureService }) : await models3dService.loadAsync(params.model3d);
+  const entity: TMesh = isPrimitiveModel3d ? await createActorMesh(params, { materialTextureService }) : await models3dService.loadAsync({ ...params.model3d, options });
 
   const withMaterialEntity: TWithMaterial = withMaterial(entity);
 
