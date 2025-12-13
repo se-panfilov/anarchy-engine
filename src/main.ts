@@ -1,14 +1,13 @@
 import './style.css';
 import { Color, Mesh, MeshToonMaterial, Scene, SphereGeometry, Vector3 } from 'three';
+import { IntersectionPointer, MousePointer } from './Pointer';
 import { renderer, updateRenderer } from './renderer';
 import { camera } from './camera';
 import { ambientLight, directionalLight } from './lights';
 import { sphere } from './sphere';
 import { plane } from './planne';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
-import { MousePointer } from './Pointer/MousePointer';
 import { fpsGraph } from './DeveloperPanel';
-import { IntersectionPointer } from './Pointer/IntersectionPointer';
 
 const scene = new Scene();
 scene.add(sphere);
@@ -30,8 +29,9 @@ intersectionPointer.click$.subscribe(({ position, event }) => onMouseClick(posit
 const loop = () => {
   (fpsGraph as any).begin();
   renderer.render(scene, camera);
-  requestAnimationFrame(loop);
+
   (fpsGraph as any).end();
+  requestAnimationFrame(loop);
 };
 
 loop();

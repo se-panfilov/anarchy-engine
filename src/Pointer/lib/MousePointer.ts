@@ -1,9 +1,11 @@
 import { BehaviorSubject, Subject } from 'rxjs';
 import { MousePosition } from './models/MousePosition';
+import { nanoid } from 'nanoid';
 
 export function MousePointer() {
   const position$ = new BehaviorSubject<MousePosition>({ x: 0, y: 0 });
   const click$ = new Subject<{ readonly position: MousePosition; event: MouseEvent }>();
+  const destroyed$ = new Subject<void>();
   // let isHeld = false;
 
   const onMouseMoveListener = ({ clientX: x, clientY: y }: MouseEvent) => position$.next({ x, y });
@@ -21,7 +23,9 @@ export function MousePointer() {
     document.removeEventListener('mouseup', onMouseUpListener);
     position$.complete();
     click$.complete();
+    destroyed$.next();
+    destroyed$.complete();
   }
 
-  return { position$, click$, destroy };
+  return { id: nanoid(), position$, click$, destroy, destroyed$ };
 }

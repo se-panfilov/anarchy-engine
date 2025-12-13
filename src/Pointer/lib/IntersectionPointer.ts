@@ -4,6 +4,7 @@ import { getNormalizedMousePosition } from './utils/utils';
 import { MousePointer } from './MousePointer';
 import { MousePosition } from './models/MousePosition';
 import { Object3D } from 'three/src/core/Object3D';
+import { nanoid } from 'nanoid';
 
 export function IntersectionPointer(
   mousePointer: ReturnType<typeof MousePointer>,
@@ -12,6 +13,7 @@ export function IntersectionPointer(
 ) {
   const position$ = new BehaviorSubject<Vector3>(new Vector3());
   const click$ = new Subject<{ readonly position: Vector3; readonly event: MouseEvent }>();
+  const destroyed$ = new Subject<void>();
 
   const raycaster = new Raycaster();
 
@@ -22,11 +24,14 @@ export function IntersectionPointer(
   });
 
   mousePointer.click$.subscribe(({ event }) => click$.next({ position: position$.value, event }));
+  mousePointer.destroyed$.subscribe(() => destroy());
 
   function destroy() {
     mousePointer.position$.unsubscribe();
     position$.complete();
+    destroyed$.next();
+    destroyed$.complete();
   }
 
-  return { click$, position$, mousePointer, raycaster, destroy };
+  return { id: nanoid(), click$, position$, mousePointer, raycaster, destroy, destroyed$ };
 }
