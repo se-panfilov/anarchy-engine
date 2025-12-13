@@ -2,7 +2,7 @@ import { combineLatest } from 'rxjs';
 
 import type { IShowcase } from '@/App/Levels/Models';
 import type { IActorParams, IAppCanvas, ICameraWrapper, ILevel, ILevelConfig } from '@/Engine';
-import { ActorType, ambientContext, buildLevelFromConfig, CameraTag, EulerWrapper, isNotDefined, MaterialType, Vector3Wrapper } from '@/Engine';
+import { ActorType, ambientContext, buildLevelFromConfig, EulerWrapper, isNotDefined, MaterialType, Vector3Wrapper } from '@/Engine';
 
 import levelConfig from './showcase-2-top-down.config.json';
 
@@ -36,8 +36,9 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
     const camera: ICameraWrapper = cameraFactory.create({
       position: Vector3Wrapper({ x: 0, y: 0, z: 3 }),
       rotation: EulerWrapper({ x: 0, y: 0, z: 0 }),
-      tags: [CameraTag.Active]
+      tags: []
     });
+    camera.setActive(true);
 
     const { mousePositionWatcher, screenSizeWatcher } = ambientContext;
     combineLatest([mousePositionWatcher.value$, screenSizeWatcher.latest$]).subscribe(([{ x, y }, { width, height }]): void => {

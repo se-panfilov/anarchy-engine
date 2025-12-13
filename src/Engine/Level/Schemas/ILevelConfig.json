@@ -2757,7 +2757,7 @@
     },
     "CameraTag": {
       "type": "string",
-      "enum": ["initial", "active"]
+      "const": "initial"
     },
     "ILightConfig": {
       "type": "object",
