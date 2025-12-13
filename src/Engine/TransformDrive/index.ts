@@ -1,4 +1,3 @@
-export * from './Connectors';
 export * from './Constants';
 export * from './Entities';
 export * from './Factories';
