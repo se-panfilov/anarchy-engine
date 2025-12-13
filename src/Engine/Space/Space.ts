@@ -13,6 +13,8 @@ import type { IDataTexture, IEnvMapService } from '@/Engine/EnvMap';
 import { EnvMapService } from '@/Engine/EnvMap';
 import type { IFogFactory, IFogRegistry, IFogService } from '@/Engine/Fog';
 import { FogFactory, FogRegistry, FogService } from '@/Engine/Fog';
+import type { IIntersectionsService, IIntersectionsWatcherFactory, IIntersectionsWatcherRegistry } from '@/Engine/Intersections';
+import { IntersectionsService, IntersectionsWatcherFactory, IntersectionsWatcherRegistry } from '@/Engine/Intersections';
 import type { ILightFactory, ILightRegistry, ILightService } from '@/Engine/Light';
 import { LightFactory, LightRegistry, LightService } from '@/Engine/Light';
 import type { ILoopTimes } from '@/Engine/Loop';
@@ -51,6 +53,7 @@ export function buildSpaceFromConfig(canvas: IAppCanvas, config: ISpaceConfig): 
   const isEnvMapsInit: boolean = getBoolValue('isEnvMapsInit', initSpace);
   const isRendererInit: boolean = getBoolValue('isRendererInit', initSpace);
   const isLoopInit: boolean = getBoolValue('isLoopInit', initSpace);
+  const isInitIntersections: boolean = getBoolValue('isInitIntersections', initSpace);
 
   screenService.setCanvas(canvas);
 
@@ -162,6 +165,22 @@ export function buildSpaceFromConfig(canvas: IAppCanvas, config: ISpaceConfig): 
     registries = { ...registries, lightRegistry };
     services = { ...services, lightService };
     messages$.next(`Lights (${lights.length}) created`);
+  }
+
+  if (isInitIntersections) {
+    if (isNotDefined(scene)) throw new Error('Scene should be initialized for intersections initialization');
+    if (isNotDefined(registries.cameraRegistry)) throw new Error('Cannot find camera registry for intersections initialization');
+
+    const intersectionsWatcherFactory: IIntersectionsWatcherFactory = IntersectionsWatcherFactory();
+    const intersectionsWatcherRegistry: IIntersectionsWatcherRegistry = IntersectionsWatcherRegistry();
+    const intersectionsService: IIntersectionsService = IntersectionsService(intersectionsWatcherFactory, intersectionsWatcherRegistry);
+
+    // TODO (S.Panfilov) We need to load intersections from config as well as the other entities
+
+    factories = { ...factories, intersectionsWatcherFactory };
+    registries = { ...registries, intersectionsWatcherRegistry };
+    services = { ...services, intersectionsService };
+    messages$.next(`Intersections watcher created`);
   }
 
   //build fogs

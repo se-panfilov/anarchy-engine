@@ -2,6 +2,7 @@ import type { IActorAsyncRegistry } from '@/Engine/Actor';
 import type { ICameraRegistry } from '@/Engine/Camera';
 import type { IControlsRegistry } from '@/Engine/Controls';
 import type { IFogRegistry } from '@/Engine/Fog';
+import type { IIntersectionsWatcherRegistry } from '@/Engine/Intersections';
 import type { ILightRegistry } from '@/Engine/Light';
 import type { IRendererRegistry } from '@/Engine/Renderer';
 import type { ISceneRegistry } from '@/Engine/Scene';
@@ -19,4 +20,5 @@ export type ISpaceRegistries = {
   controlsRegistry?: IControlsRegistry;
   sceneRegistry?: ISceneRegistry;
   rendererRegistry?: IRendererRegistry;
+  intersectionsWatcherRegistry?: IIntersectionsWatcherRegistry;
 };

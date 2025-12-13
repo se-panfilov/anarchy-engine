@@ -9,4 +9,5 @@ export type ISpaceInitializationConfig = Readonly<{
   isEnvMapsInit?: boolean;
   isRendererInit?: boolean;
   isLoopInit?: boolean;
+  isInitIntersections?: boolean;
 }>;

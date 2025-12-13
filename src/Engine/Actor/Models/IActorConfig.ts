@@ -1,4 +1,4 @@
-import type { ActorTag, ActorType } from '@/Engine/Actor/Constants';
+import type { ActorType } from '@/Engine/Actor/Constants';
 import type { IWithReadonlyTags } from '@/Engine/Mixins';
 import type { IObject3DPropConfig } from '@/Engine/ThreeLib';
 
@@ -12,4 +12,4 @@ export type IActorConfig = IActorProps &
     castShadow: boolean;
   }> &
   IObject3DPropConfig &
-  IWithReadonlyTags<ActorTag>;
+  IWithReadonlyTags<string>;

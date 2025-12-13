@@ -2,6 +2,7 @@ import type { IActorFactory } from '@/Engine/Actor';
 import type { ICameraFactory } from '@/Engine/Camera';
 import type { IControlsFactory } from '@/Engine/Controls';
 import type { IFogFactory } from '@/Engine/Fog';
+import type { IIntersectionsWatcherFactory } from '@/Engine/Intersections';
 import type { ILightFactory } from '@/Engine/Light';
 import type { IRendererFactory } from '@/Engine/Renderer';
 import type { ISceneFactory } from '@/Engine/Scene';
@@ -18,4 +19,5 @@ export type ISpaceFactories = {
   controlsFactory?: IControlsFactory;
   sceneFactory?: ISceneFactory;
   rendererFactory?: IRendererFactory;
+  intersectionsWatcherFactory?: IIntersectionsWatcherFactory;
 };

@@ -2,7 +2,7 @@ import { filter } from 'rxjs';
 
 import type { IShowcase } from '@/App/Levels/Models';
 import type { IActorWrapperAsync, IAppCanvas, ICameraWrapper, IIntersectionEvent, IIntersectionsWatcher, ISpace, ISpaceConfig } from '@/Engine';
-import { ActorTag, buildSpaceFromConfig, intersectionsService, isNotDefined, mouseService, standardLoopService } from '@/Engine';
+import { buildSpaceFromConfig, intersectionsService, isNotDefined, mouseService, standardLoopService } from '@/Engine';
 
 import spaceConfig from './showcase-1-moving-actors.config.json';
 
@@ -12,7 +12,7 @@ export function showcase(canvas: IAppCanvas): IShowcase {
   const { actorRegistry, cameraRegistry } = space.entities;
 
   async function init(): Promise<void> {
-    const actor: IActorWrapperAsync = await actorRegistry.findByTagAsync(ActorTag.Intersectable);
+    const actor: IActorWrapperAsync = await actorRegistry.findByTagAsync('intersectable');
     actor.setY(2);
 
     standardLoopService.tick$.subscribe(({ elapsedTime }) => {
@@ -24,10 +24,10 @@ export function showcase(canvas: IAppCanvas): IShowcase {
   function startIntersections(): void {
     const camera: ICameraWrapper | undefined = cameraRegistry.getActiveCamera();
     if (isNotDefined(camera)) throw new Error('Camera is not defined');
-    // const actors: ReadonlyArray<IActorWrapperAsync> = actorRegistry.findAllByTags([ActorTag.Intersectable], LookUpStrategy.Every);
+    // const actors: ReadonlyArray<IActorWrapperAsync> = actorRegistry.findAllByTags(['intersectable'], LookUpStrategy.Every);
     const intersectionsWatcher: IIntersectionsWatcher = intersectionsService.buildWatcher(camera);
 
-    actorRegistry.added$.pipe(filter((a: IActorWrapperAsync) => a.hasTag(ActorTag.Intersectable))).subscribe((actor: IActorWrapperAsync): void => intersectionsWatcher.addActor(actor));
+    actorRegistry.added$.pipe(filter((a: IActorWrapperAsync) => a.hasTag('intersectable'))).subscribe((actor: IActorWrapperAsync): void => intersectionsWatcher.addActor(actor));
 
     intersectionsWatcher.value$.subscribe((obj: IIntersectionEvent): void => {
       console.log('intersect obj', obj);
