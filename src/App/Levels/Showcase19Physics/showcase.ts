@@ -56,7 +56,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     if (isNotDefined(cameraW)) throw new Error(`Cannot find active camera`);
 
     mouseService.clickLeftRelease$.subscribe(() => {
-      ballActor.drive.physical.physicsBody$.value?.getRigidBody()?.applyImpulse(getPushCoordsFrom3dAzimuth(azimuth, radians(0), forcePower * 10.5, ForwardAxis.Z), true);
+      ballActor.drive.physical.physicsBody$.value?.getRigidBody()?.applyImpulse(getPushCoordsFrom3dAzimuth(azimuth, radians(0), forcePower * 10.5, ForwardAxis.X), true);
     });
 
     keyboardService.onKey(KeysExtra.Space).pressed$.subscribe((): void => {

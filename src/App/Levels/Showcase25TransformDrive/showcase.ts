@@ -251,7 +251,7 @@ function moveActorTo(actor: TActor, position: Vector3, agent: TransformAgent, is
       return undefined;
     case TransformAgent.Physical:
       forcePower = getDistance(actor.drive.getPosition(), position);
-      actor.drive.physical.physicsBody$.value?.getRigidBody()?.applyImpulse(getPushCoordsFrom3dAzimuth(azimuth, radians(0), forcePower * 1.5, ForwardAxis.X), true);
+      actor.drive.physical.physicsBody$.value?.getRigidBody()?.applyImpulse(getPushCoordsFrom3dAzimuth(azimuth, radians(0), forcePower * 1.5, ForwardAxis.Z), true);
       return undefined;
     default:
       throw new Error(`Unknown agent: ${agent}`);

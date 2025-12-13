@@ -17,10 +17,10 @@ export function getPushCoordsFrom3dAzimuth(azimuth: TRadians, elevation: TRadian
 
   let x: number, z: number;
 
-  if (forwardAxis === ForwardAxis.Z) {
+  if (forwardAxis === ForwardAxis.X) {
     x = horizontalForce * Math.sin(azimuth);
     z = horizontalForce * Math.cos(azimuth);
-  } else if (forwardAxis === ForwardAxis.X) {
+  } else if (forwardAxis === ForwardAxis.Z) {
     x = horizontalForce * Math.cos(azimuth);
     z = horizontalForce * Math.sin(azimuth);
   } else {
