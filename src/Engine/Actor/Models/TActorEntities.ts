@@ -4,11 +4,12 @@ import type { TWithSpatial, TWithUpdateSpatialCell } from '@/Engine/Spatial/Mode
 import type { TWithTransformDrive } from '@/Engine/TransformDrive';
 
 import type { TActorTransformAgents } from './TActorTransformAgents';
+import type { TWithActorStates } from './TWithActorStates';
 
 export type TActorEntities = Readonly<{
   model3d: TModel3d;
-  states: Record<string, any>;
 }> &
+  TWithActorStates &
   TWithTransformDrive<TActorTransformAgents> &
   TWithSpatial &
   TWithCollisions &
