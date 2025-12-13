@@ -2,7 +2,7 @@ import GUI from 'lil-gui';
 import { withLatestFrom } from 'rxjs';
 
 import type { IShowcase } from '@/App/Levels/Models';
-import type { IActorWrapperAsync, IAppCanvas, ICameraWrapper, IIntersectionEvent, IIntersectionsWatcher, ILevel, ILevelConfig, IMouseWatcherEvent } from '@/Engine';
+import { getRotationByCos, IActorWrapperAsync, IAppCanvas, ICameraWrapper, IIntersectionEvent, IIntersectionsWatcher, ILevel, ILevelConfig, IMouseWatcherEvent, standardLoopService } from '@/Engine';
 import { buildLevelFromConfig, Easing, intersectionsService, isNotDefined, keyboardService, KeyCode, mouseService, standardMoverService, LookUpStrategy } from '@/Engine';
 
 import levelConfig from './showcase-11-keyboard-and-mouse.json';
@@ -71,8 +71,8 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
     mouseService.doubleLeftClick$.subscribe((event: IMouseWatcherEvent): void => console.log('double click left', event));
     mouseService.doubleRightClick$.subscribe((event: IMouseWatcherEvent): void => console.log('double click right', event));
 
-    mouseService.wheelUp$.subscribe((event: IMouseWatcherEvent): void => console.log('wheel up', event));
-    mouseService.wheelDown$.subscribe((event: IMouseWatcherEvent): void => console.log('wheel down', event));
+    mouseService.wheelUp$.subscribe((): void => actorMkeyMiddle.adjustRotationByX(10));
+    mouseService.wheelDown$.subscribe((): void => actorMkeyMiddle.adjustRotationByX(-10));
   }
 
   async function startIntersections(): Promise<IIntersectionsWatcher> {
