@@ -8,21 +8,7 @@
       "isActive": true
     }
   ],
-  "actors": [
-    {
-      "name": "surface",
-      "width": 60,
-      "height": 40,
-      "widthSegments": 1,
-      "heightSegments": 1,
-      "material": { "type": "standard", "params": { "color": "#5EDCAE" } },
-      "type": "plane",
-      "position": { "x": 0, "y": -4, "z": 0 },
-      "rotation": { "x": -1.57, "y": 0, "z": 0 },
-      "castShadow": false,
-      "tags": []
-    }
-  ],
+  "actors": [],
   "intersections": [],
   "texts": [],
   "cameras": [
