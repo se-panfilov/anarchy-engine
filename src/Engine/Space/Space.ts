@@ -27,8 +27,9 @@ export async function buildSpaceFromConfig(canvas: TAppCanvas, config: TSpaceCon
     throw new Error('Failed to launch a space: invalid data format');
   }
 
-  const { name, actors, cameras, intersections, lights, models3d, fogs, texts, envMaps, controls, scenes, particles, physics, tags, spatialGrids } = config;
-
+  const { name, entities, resources, scenes, tags } = config;
+  const { models3d, envMaps } = resources;
+  const { actors, cameras, spatialGrids, controls, intersections, lights, fogs, texts, physics, particles } = entities;
   screenService.setCanvas(canvas);
 
   let activeSceneW: TSceneWrapper;

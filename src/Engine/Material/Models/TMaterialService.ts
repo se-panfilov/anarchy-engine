@@ -1,5 +1,5 @@
+import type { TWithMaterialConfigPresetWithOverrides } from '@/Engine/MaterialTexturePack';
 import type { TDestroyable } from '@/Engine/Mixins';
-import type { TModel3dConfigMaterialConfig } from '@/Engine/Models3d';
 import type { TWithCreateFromConfigService, TWithCreateService, TWithFactoryService, TWithRegistryService } from '@/Engine/Space';
 
 import type { TMaterialConfig } from './TMaterialConfig';
@@ -10,7 +10,7 @@ import type { TMaterialWrapper } from './TMaterialWrapper';
 
 export type TMaterialService = TWithCreateService<TMaterialWrapper, TMaterialParams> &
   Readonly<{
-    getMaterialWithOverrides: (config: TModel3dConfigMaterialConfig) => TMaterialWrapper | undefined;
+    getMaterialWithOverrides: (config: TWithMaterialConfigPresetWithOverrides) => TMaterialWrapper | undefined;
   }> &
   TWithCreateFromConfigService<TMaterialConfig> &
   TWithFactoryService<TMaterialFactory> &

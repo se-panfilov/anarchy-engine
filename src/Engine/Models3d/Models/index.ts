@@ -6,7 +6,6 @@ export * from './TModel3dComplexPack';
 export * from './TModel3dComplexParams';
 export * from './TModel3dComplexProps';
 export * from './TModel3dConfig';
-export * from './TModel3dConfigMaterialConfig';
 export * from './TModel3dConfigToParamsDependencies';
 export * from './TModel3dFacade';
 export * from './TModel3dLoadOptions';

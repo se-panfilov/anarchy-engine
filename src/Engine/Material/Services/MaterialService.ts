@@ -1,7 +1,7 @@
 import type { TMaterialConfig, TMaterialFactory, TMaterialParams, TMaterialRegistry, TMaterialService, TMaterialWrapper } from '@/Engine/Material/Models';
+import type { TWithMaterialConfigPresetWithOverrides } from '@/Engine/MaterialTexturePack';
 import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
-import type { TModel3dConfigMaterialConfig } from '@/Engine/Models3d';
 import { isNotDefined } from '@/Engine/Utils';
 
 export function MaterialService(factory: TMaterialFactory, registry: TMaterialRegistry): TMaterialService {
@@ -16,7 +16,7 @@ export function MaterialService(factory: TMaterialFactory, registry: TMaterialRe
     registry.destroy();
   });
 
-  function getMaterialWithOverrides(config: TModel3dConfigMaterialConfig): TMaterialWrapper | undefined {
+  function getMaterialWithOverrides(config: TWithMaterialConfigPresetWithOverrides): TMaterialWrapper | undefined {
     const material: TMaterialWrapper | undefined = registry.findByName(config.presetName);
     if (isNotDefined(material)) return undefined;
 
