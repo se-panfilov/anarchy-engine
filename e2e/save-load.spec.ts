@@ -12,41 +12,45 @@ test.beforeEach(async ({ page }) => {
   await page.goto(GAME_URL);
 });
 
-test.describe('SpaceBasic', () => {
-  const name = 'SpaceBasic';
+const scenes = ['SpaceBasic', 'SpaceCustomModels'];
 
-  test('Normal state', async ({ page }) => {
-    const spaceSelect: Locator = page.getByLabel('Spaces');
-    await expect(spaceSelect).toBeVisible();
-    await page.getByLabel('Spaces').selectOption(name);
-    await expect(page.locator('canvas')).toHaveScreenshot(`${name}-default.png`);
-  });
+test.describe('Space save/load persistence', () => {
+  const thresholds = {
+    threshold: 0.01,
+    maxDiffPixelRatio: 0.001
+  };
 
-  test('Compare canvas before and after reload', async ({ page }, testInfo) => {
-    const canvas: Locator = page.locator('canvas');
-    await page.getByLabel('Spaces').selectOption(name);
+  scenes.forEach((sceneName: string): void => {
+    test(`Plain space load: [${sceneName}]`, async ({ page }) => {
+      const spaceSelect: Locator = page.getByLabel('Spaces');
+      await expect(spaceSelect).toBeVisible();
+      await page.getByLabel('Spaces').selectOption(sceneName);
+      await expect(page.locator('canvas')).toHaveScreenshot(`${sceneName}-default.png`);
+    });
 
-    await page.getByRole('button', { name: 'Change' }).click();
+    test(`Load, Change, Save, Load changed [${sceneName}]`, async ({ page }, testInfo) => {
+      const canvas: Locator = page.locator('canvas');
+      await page.getByLabel('Spaces').selectOption(sceneName);
 
-    const bufferA = await canvas.screenshot();
+      await page.getByRole('button', { name: 'Change' }).click();
 
-    await page.getByRole('button', { name: 'Save' }).click();
-    await page.getByRole('button', { name: 'Drop' }).click();
-    await page.getByRole('button', { name: 'Load' }).click();
+      const bufferA = await canvas.screenshot();
 
-    const bufferB = await canvas.screenshot();
+      await page.getByRole('button', { name: 'Save' }).click();
+      await page.getByRole('button', { name: 'Drop' }).click();
+      await page.getByRole('button', { name: 'Load' }).click();
 
-    const snapshotName = `${name}-compare.png`;
-    const snapshotPath: string = testInfo.snapshotPath(snapshotName);
+      const bufferB = await canvas.screenshot();
 
-    if (!fs.existsSync(snapshotPath)) {
-      fs.writeFileSync(snapshotPath, bufferA);
-      throw new Error('Snapshot A was missing and has now been created. Re-run the test.');
-    }
+      const snapshotName: string = `${sceneName}-compare.png`;
+      const snapshotPath: string = testInfo.snapshotPath(snapshotName);
 
-    expect(bufferB).toMatchSnapshot(snapshotName, {
-      threshold: 0.01,
-      maxDiffPixelRatio: 0.001
+      if (!fs.existsSync(snapshotPath)) {
+        fs.writeFileSync(snapshotPath, bufferA);
+        throw new Error(`Snapshot for ${sceneName} was missing and has now been created. Re-run the test to validate.`);
+      }
+
+      expect(bufferB).toMatchSnapshot(snapshotName, thresholds);
     });
   });
 });
