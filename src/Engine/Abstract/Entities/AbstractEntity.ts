@@ -7,7 +7,6 @@ import type { TDestroyable, TNoSpread, TRegistrable, TWithNameAndNameAccessorsMi
 import { destroyableMixin, withNameAndNameAccessorsMixin } from '@/Engine/Mixins';
 import { genericEntityCleanUp, isDefined } from '@/Engine/Utils';
 
-// TODO 13-0-0: Services should have an abstract service with a common destroy$
 // TODO 13-0-0: Code review destroy utils
 // TODO 13-0-0: Drop cache in loaders
 // TODO 13-0-0: Stop loops
