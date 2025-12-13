@@ -34,7 +34,7 @@ import { SpatialGridFactory, SpatialGridRegistry, SpatialGridService, SpatialLoo
 import { Text2dRegistry, Text2dRendererRegistry, Text3dRegistry, Text3dRendererRegistry, TextFactory, TextService } from '@/Engine/Text';
 import type { TTextureService } from '@/Engine/Texture';
 import { TextureService } from '@/Engine/Texture';
-import { TextureFactory } from '@/Engine/Texture/Factories/TextureFactory';
+import { TextureFactory } from '@/Engine/Texture/Factories';
 import { TextureAsyncRegistry } from '@/Engine/Texture/Registries/TextureRegistry';
 import { isNotDefined } from '@/Engine/Utils';
 

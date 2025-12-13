@@ -1,5 +1,3 @@
-import type { TWithName } from '@/Engine/Mixins';
+import type { TTextureParams } from './TTextureParams';
 
-import type { TTextureProps } from './TTextureProps';
-
-export type TTextureConfig = TTextureProps & TWithName;
+export type TTextureConfig = TTextureParams;

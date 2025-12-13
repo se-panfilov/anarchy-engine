@@ -2,6 +2,6 @@ import type { TAsyncReactiveFactory } from '@/Engine/Abstract';
 import type { TDestroyable } from '@/Engine/Mixins';
 
 import type { TTextureLoadedPack } from './TTextureLoadedPack';
-import type { TTextureParams } from './TTextureParams';
+import type { TTexturePackParams } from './TTexturePackParams';
 
-export type TTextureFactory = TAsyncReactiveFactory<TTextureLoadedPack, TTextureParams> & TDestroyable;
+export type TTextureFactory = TAsyncReactiveFactory<TTextureLoadedPack, TTexturePackParams> & TDestroyable;

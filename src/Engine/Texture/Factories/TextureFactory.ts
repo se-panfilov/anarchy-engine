@@ -1,14 +1,11 @@
 import type { TAsyncReactiveFactory, TCreateAsyncEntityFactoryFn } from '@/Engine/Abstract';
 import { AsyncReactiveFactory, FactoryType } from '@/Engine/Abstract';
 import { configToParams } from '@/Engine/Texture/Adapters';
-import type { TTexture, TTextureDependencies, TTextureFactory, TTextureParams, TTextureWithPhysicsDependencies, TTextureWrapperWithPhysicsAsync } from '@/Engine/Texture/Models';
-import { Texture } from '@/Engine/Texture/Wrappers';
+import type { TTextureDependencies, TTextureFactory, TTextureLoadedPack, TTexturePackParams } from '@/Engine/Texture/Models';
 
-async function createTexture(params: TTextureParams, dependencies: TTextureDependencies | TTextureWithPhysicsDependencies): Promise<TTexture | TTextureWrapperWithPhysicsAsync> {
-  return await Texture(params, dependencies);
-}
+const createTexture = (pack: TTexturePackParams, { load }: TTextureDependencies): Promise<TTextureLoadedPack> => load(pack);
 
-const factory: TAsyncReactiveFactory<TTexture, TTextureParams> = {
-  ...AsyncReactiveFactory(FactoryType.Texture, createTexture as TCreateAsyncEntityFactoryFn<TTexture, TTextureParams>)
+const factory: TAsyncReactiveFactory<TTextureLoadedPack, TTexturePackParams> = {
+  ...AsyncReactiveFactory(FactoryType.Texture, createTexture as TCreateAsyncEntityFactoryFn<TTextureLoadedPack, TTexturePackParams>)
 };
 export const TextureFactory = (): TTextureFactory => ({ ...factory, configToParams });

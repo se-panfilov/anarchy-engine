@@ -2,6 +2,7 @@ export * from './TCubeTexture';
 export * from './TTexture';
 export * from './TTextureAsyncRegistry';
 export * from './TTextureConfig';
+export * from './TTextureDependencies';
 export * from './TTextureFactory';
 export * from './TTextureLoadedPack';
 export * from './TTexturePackConfig';
