@@ -15,19 +15,6 @@
           "grid": "main_grid",
           "isAutoUpdate": true
         }
-      },
-      {
-        "model3dSource": "move_model_right",
-        "name": "move_actor_right",
-        "position": {
-          "x": 0,
-          "y": 0,
-          "z": 0
-        },
-        "spatial": {
-          "grid": "main_grid",
-          "isAutoUpdate": true
-        }
       }
     ],
     "audio": [],
@@ -69,19 +56,6 @@
           "width": 1,
           "widthSegments": 1
         }
-      },
-      {
-        "castShadow": false,
-        "materialSource": "move_material",
-        "model3dSource": "cube",
-        "name": "move_model_right",
-        "options": {
-          "depth": 1,
-          "height": 1,
-          "heightSegments": 1,
-          "width": 1,
-          "widthSegments": 1
-        }
       }
     ],
     "particles": [],
@@ -108,13 +82,6 @@
         "name": "box_material",
         "options": {
           "color": "#4638DF"
-        },
-        "type": "basic"
-      },
-      {
-        "name": "move_material",
-        "options": {
-          "color": "#e66a36"
         },
         "type": "basic"
       }

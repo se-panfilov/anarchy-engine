@@ -1,9 +1,9 @@
-import type { Subscription } from 'rxjs';
 import { combineLatest } from 'rxjs';
 import { Clock } from 'three';
 
-import type { TActor, TActorRegistry, TActorService, TKeyboardPressingEvent, TMilliseconds, TSpace, TSpaceConfig, TSpaceServices, TTransformLoop } from '@/Engine';
-import { asRecord, createDomElement, isNotDefined, KeyCode, metersPerSecond, mpsSpeed, spaceService } from '@/Engine';
+import { moveByCircle } from '@/App/Levels/Utils/MoveUtils';
+import type { TSpace, TSpaceConfig } from '@/Engine';
+import { asRecord, createDomElement, isDefined, isNotDefined, spaceService } from '@/Engine';
 
 import spaceAlphaConfigJson from './spaceAlpha.json';
 import spaceBetaConfigJson from './spaceBeta.json';
@@ -29,42 +29,28 @@ export function start(): void {
     runBeta(beta);
   });
 
-  addBtn('Start Alpha', (): void => spaceAlpha.start$.next(true));
-  addBtn('Stop Alpha', (): void => spaceAlpha.start$.next(false));
-  addBtn('Destroy Alpha', (): void => spaceAlpha.destroy$.next());
+  const leftContainerId = 'btn-container-left';
+  const rightContainerId = 'btn-container-right';
+  addBtn('Start Alpha', leftContainerId, (): void => spaceAlpha.start$.next(true), 'calc(50% + 4px)');
+  addBtn('Stop Alpha', leftContainerId, (): void => spaceAlpha.start$.next(false));
+  addBtn('Destroy Alpha', leftContainerId, (): void => spaceAlpha.destroy$.next());
 
-  addBtn('Start Beta', (): void => spaceBeta.start$.next(true));
-  addBtn('Stop Beta', (): void => spaceBeta.start$.next(false));
-  addBtn('Destroy Beta', (): void => spaceBeta.destroy$.next());
+  addBtn('Start Beta', rightContainerId, (): void => spaceBeta.start$.next(true), '4px');
+  addBtn('Stop Beta', rightContainerId, (): void => spaceBeta.start$.next(false));
+  addBtn('Destroy Beta', rightContainerId, (): void => spaceBeta.destroy$.next());
 }
 
 export function runAlpha(space: TSpace): void {
-  moveCircle('sphere_actor', space.services.actorService, space.loops.transformLoop, new Clock());
-  driveByKeyboard('move_actor_left', space.services);
+  moveByCircle('sphere_actor', space.services.actorService, space.loops.transformLoop, new Clock());
   space.start$.next(true);
 }
 
 export function runBeta(space: TSpace): void {
-  moveCircle('box_actor', space.services.actorService, space.loops.transformLoop, new Clock());
-  driveByKeyboard('move_actor_right', space.services);
+  moveByCircle('box_actor', space.services.actorService, space.loops.transformLoop, new Clock());
   space.start$.next(true);
 }
 
-function moveCircle(actorName: string, actorService: TActorService, transformLoop: TTransformLoop, clock: Clock): Subscription {
-  const actorRegistry: TActorRegistry = actorService.getRegistry();
-  const actor: TActor | undefined = actorRegistry.findByName(actorName);
-  if (isNotDefined(actor)) throw new Error(`Actor "${actorName}" is not defined`);
-
-  return transformLoop.tick$.subscribe((): void => {
-    const elapsedTime: TMilliseconds = clock.getElapsedTime() as TMilliseconds;
-    actor.drive.default.setX(Math.sin(elapsedTime) * 8);
-    actor.drive.default.setZ(Math.cos(elapsedTime) * 8);
-  });
-}
-
-function addBtn(text: string, cb: (...rest: ReadonlyArray<any>) => void): void {
-  const containerId = 'btn-container';
-
+function addBtn(text: string, containerId: string, cb: (...rest: ReadonlyArray<any>) => void, right?: string, left?: string): void {
   let container: HTMLDivElement | null = document.querySelector('#' + containerId);
   if (isNotDefined(container)) {
     container = document.createElement('div');
@@ -75,7 +61,9 @@ function addBtn(text: string, cb: (...rest: ReadonlyArray<any>) => void): void {
     // eslint-disable-next-line functional/immutable-data
     container.style.top = '10px';
     // eslint-disable-next-line functional/immutable-data
-    container.style.right = '10px';
+    if (isDefined(right)) container.style.right = right;
+    // eslint-disable-next-line functional/immutable-data
+    if (isDefined(left)) container.style.left = left;
     // eslint-disable-next-line functional/immutable-data
     container.style.display = 'flex';
     // eslint-disable-next-line functional/immutable-data
@@ -89,17 +77,4 @@ function addBtn(text: string, cb: (...rest: ReadonlyArray<any>) => void): void {
 
   button.addEventListener('click', cb);
   container.appendChild(button);
-}
-
-function driveByKeyboard(actorName: string, { actorService, keyboardService }: TSpaceServices): void {
-  const actorRegistry: TActorRegistry = actorService.getRegistry();
-  const actor: TActor | undefined = actorRegistry.findByName(actorName);
-  if (isNotDefined(actor)) throw new Error(`Actor "${actorName}" is not defined`);
-
-  const { onKey } = keyboardService;
-
-  onKey(KeyCode.W).pressing$.subscribe(({ delta }: TKeyboardPressingEvent): void => void actor.drive.default.addZ(mpsSpeed(metersPerSecond(-10), delta)));
-  onKey(KeyCode.A).pressing$.subscribe(({ delta }: TKeyboardPressingEvent): void => void actor.drive.default.addX(mpsSpeed(metersPerSecond(-10), delta)));
-  onKey(KeyCode.S).pressing$.subscribe(({ delta }: TKeyboardPressingEvent): void => void actor.drive.default.addZ(mpsSpeed(metersPerSecond(10), delta)));
-  onKey(KeyCode.D).pressing$.subscribe(({ delta }: TKeyboardPressingEvent): void => void actor.drive.default.addX(mpsSpeed(metersPerSecond(10), delta)));
 }

@@ -1,8 +1,8 @@
-import type { Subscription } from 'rxjs';
 import { combineLatest } from 'rxjs';
 import { Clock } from 'three';
 
-import type { TActor, TActorRegistry, TActorService, TKeyboardPressingEvent, TMilliseconds, TSpace, TSpaceConfig, TSpaceServices, TTransformLoop } from '@/Engine';
+import { moveByCircle } from '@/App/Levels/Utils/MoveUtils';
+import type { TActor, TActorRegistry, TKeyboardPressingEvent, TSpace, TSpaceConfig, TSpaceServices } from '@/Engine';
 import { asRecord, createDomElement, isNotDefined, KeyCode, metersPerSecond, mpsSpeed, spaceService } from '@/Engine';
 
 import spaceAlphaConfigJson from './spaceAlpha.json';
@@ -31,27 +31,15 @@ export function start(): void {
 }
 
 export function runAlpha(space: TSpace): void {
-  moveCircle('sphere_actor', space.services.actorService, space.loops.transformLoop, new Clock());
+  moveByCircle('sphere_actor', space.services.actorService, space.loops.transformLoop, new Clock());
   driveByKeyboard('move_actor_left', space.services);
   space.start$.next(true);
 }
 
 export function runBeta(space: TSpace): void {
-  moveCircle('box_actor', space.services.actorService, space.loops.transformLoop, new Clock());
+  moveByCircle('box_actor', space.services.actorService, space.loops.transformLoop, new Clock());
   driveByKeyboard('move_actor_right', space.services);
   space.start$.next(true);
-}
-
-function moveCircle(actorName: string, actorService: TActorService, transformLoop: TTransformLoop, clock: Clock): Subscription {
-  const actorRegistry: TActorRegistry = actorService.getRegistry();
-  const actor: TActor | undefined = actorRegistry.findByName(actorName);
-  if (isNotDefined(actor)) throw new Error(`Actor "${actorName}" is not defined`);
-
-  return transformLoop.tick$.subscribe((): void => {
-    const elapsedTime: TMilliseconds = clock.getElapsedTime() as TMilliseconds;
-    actor.drive.default.setX(Math.sin(elapsedTime) * 8);
-    actor.drive.default.setZ(Math.cos(elapsedTime) * 8);
-  });
 }
 
 function driveByKeyboard(actorName: string, { actorService, keyboardService }: TSpaceServices): void {
