@@ -3,9 +3,8 @@ import { distinctUntilChanged, identity, sample, tap } from 'rxjs';
 import type { Vector2Like } from 'three';
 import { Raycaster, Vector2 } from 'three';
 
-import type { TAbstractProtectedWatcher, TAbstractWatcher } from '@/Engine/Abstract';
+import type { TAbstractWatcher } from '@/Engine/Abstract';
 import { AbstractWatcher, WatcherType } from '@/Engine/Abstract';
-import { ProtectedWatcher } from '@/Engine/Abstract/Watchers/ProtectedWatcher';
 import type { TActor } from '@/Engine/Actor';
 import type { TCameraWrapper } from '@/Engine/Camera';
 import type { TIntersectionEvent, TIntersectionsWatcher, TIntersectionsWatcherParams } from '@/Engine/Intersections/Models';
@@ -84,9 +83,8 @@ export function IntersectionsWatcher({ position$, isAutoStart, tags, name, perfo
     abstractWatcherSubscription.unsubscribe();
   });
 
-  const protectedWatcher: TAbstractProtectedWatcher<TIntersectionEvent> = ProtectedWatcher<TAbstractWatcher<TIntersectionEvent>, TIntersectionEvent>(abstractWatcher);
   // eslint-disable-next-line functional/immutable-data
-  const result: TWriteable<TIntersectionsWatcher> = Object.assign(protectedWatcher, {
+  const result: TWriteable<TIntersectionsWatcher> = Object.assign(abstractWatcher, {
     addActors,
     addActor,
     getActors,

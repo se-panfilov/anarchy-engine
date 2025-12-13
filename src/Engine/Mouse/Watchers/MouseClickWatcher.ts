@@ -1,6 +1,5 @@
 import type { TAbstractWatcher } from '@/Engine/Abstract';
 import { AbstractWatcher, WatcherType } from '@/Engine/Abstract';
-import { ProtectedWatcher } from '@/Engine/Abstract/Watchers/ProtectedWatcher';
 import { MouseEventType } from '@/Engine/Mouse/Constants';
 import type { TMouseClickWatcher, TMouseClickWatcherParams, TMouseWatcherEvent } from '@/Engine/Mouse/Models';
 import { getMouseWatcherEvent } from '@/Engine/Mouse/Utils';
@@ -30,7 +29,8 @@ export function MouseClickWatcher({ container, tags = [] }: TMouseClickWatcherPa
     return result;
   }
 
-  const result: TMouseClickWatcher = Object.assign(ProtectedWatcher<TAbstractWatcher<TMouseWatcherEvent>, TMouseWatcherEvent>(abstractWatcher), {
+  // eslint-disable-next-line functional/immutable-data
+  const result: TMouseClickWatcher = Object.assign(abstractWatcher, {
     key: containerIdTag,
     start,
     stop

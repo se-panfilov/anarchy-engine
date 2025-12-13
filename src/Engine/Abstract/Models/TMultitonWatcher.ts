@@ -1,10 +1,9 @@
 import type { TMultitonRegistrable } from '@/Engine/Mixins';
 
-import type { TAbstractProtectedWatcher } from './TAbstractProtectedWatcher';
+import type { TAbstractWatcher } from './TAbstractWatcher';
 
 export type TMultitonWatcher<T> = TMultitonRegistrable &
-  // IWatcher<T> &
-  TAbstractProtectedWatcher<T> &
+  TAbstractWatcher<T> &
   Readonly<{
     start: () => TMultitonWatcher<T>;
     stop: () => TMultitonWatcher<T>;

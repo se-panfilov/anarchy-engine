@@ -4,7 +4,6 @@ export type * from './TAbstractLoadedResourcePack';
 export type * from './TAbstractLoader';
 export type * from './TAbstractLoop';
 export type * from './TAbstractOnLoadFunction';
-export type * from './TAbstractProtectedWatcher';
 export type * from './TAbstractProtectedWatcherWithState';
 export type * from './TAbstractResourceAsyncRegistry';
 export type * from './TAbstractResourceConfig';
