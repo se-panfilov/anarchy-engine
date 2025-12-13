@@ -30,9 +30,9 @@ export function showcase(canvas: TAppCanvas): TShowcase {
     const cameraW: TCameraWrapper | undefined = cameraService.findActive();
     if (isNotDefined(cameraW)) throw new Error(`Cannot find active camera`);
 
-    actor1W.physicsBody?.getRigidBody()?.addForce({ x: 0, y: 0, z: 0.001 }, true);
-    actor2W.physicsBody?.getRigidBody()?.addTorque({ x: 0.1, y: -0.01, z: 0.1 }, true);
-    actor3W.physicsBody?.getRigidBody()?.addTorque({ x: 0.01, y: 0.1, z: -0.1 }, true);
+    // actor1W.physicsBody?.getRigidBody()?.addForce({ x: 0, y: 0, z: 0.001 }, true);
+    actor2W.physicsBody?.getRigidBody()?.addTorque({ x: -0.05, y: -0.01, z: 0.05 }, true);
+    actor3W.physicsBody?.getRigidBody()?.addTorque({ x: 0.01, y: 0.1, z: -0.05 }, true);
 
     // TODO (S.Panfilov) extract physics world update to the main loop
     loopService.tick$.subscribe(() => {
