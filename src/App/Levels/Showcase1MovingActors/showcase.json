@@ -9,7 +9,7 @@
     }
   ],
   "resources": {
-    "textures": {},
+    "textures": [],
     "envMapTextures": [],
     "materials": [
       { "name": "red_st", "type": "standard", "params": { "color": "#5EDCAE" } },
@@ -19,28 +19,27 @@
       {
         "name": "surface_model",
         "url": "plane",
-        "width": 100,
-        "height": 100,
-        "widthSegments": 1,
-        "heightSegments": 1,
         "material": "blue_st",
-        "castShadow": false,
-        "receiveShadow": true,
-        "position": { "x": 0, "y": 2, "z": 0 },
-        "rotation": { "x": -1.57, "y": 0, "z": 0 },
         "options": {
-          "shouldAddToScene": true,
-          "shouldAddToRegistry": true
+          "width": 100,
+          "height": 100,
+          "widthSegments": 1,
+          "heightSegments": 1,
+          "castShadow": false,
+          "receiveShadow": true
         }
       },
       {
         "name": "sphere_model",
         "url": "sphere",
-        "radius": 1,
         "material": "red_st",
         "options": {
-          "shouldAddToScene": false,
-          "shouldAddToRegistry": true
+          "width": 1,
+          "height": 1,
+          "radius": 0.7,
+          "widthSegments": 64,
+          "heightSegments": 64,
+          "castShadow": true
         }
       }
     ]
