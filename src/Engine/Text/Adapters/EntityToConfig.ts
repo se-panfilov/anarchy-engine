@@ -1,6 +1,6 @@
 import { extractSerializableRegistrableFields } from '@/Engine/Mixins';
 import type { TText2dWrapper, TTextAnyWrapper, TTextConfig } from '@/Engine/Text/Models';
-import { filterOutEmptyFields, isNotDefined } from '@/Engine/Utils';
+import { filterOutEmptyFields, isNotDefined, kebabToCamel } from '@/Engine/Utils';
 
 // TODO 15-0-0: validate result
 export function textToConfig(entity: TTextAnyWrapper): TTextConfig {
@@ -31,7 +31,7 @@ function extractInlineStyles(element: HTMLElement | undefined): Record<string, s
   const result: Record<string, string> = {};
   // eslint-disable-next-line functional/no-loop-statements
   for (let i: number = 0; i < element.style.length; i++) {
-    const prop: string = element.style[i];
+    const prop: string = kebabToCamel(element.style[i]);
     // eslint-disable-next-line functional/immutable-data
     result[prop] = element.style.getPropertyValue(prop);
   }
