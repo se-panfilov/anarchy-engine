@@ -166,6 +166,7 @@ export const JsRules = {
         '[A-a]ng',
         '[A-a]rial',
         '[A-a]zimuthal',
+        '[B-b]ool',
         '[C-c]alc',
         '[C-c]enter',
         '[C-c]oef',
