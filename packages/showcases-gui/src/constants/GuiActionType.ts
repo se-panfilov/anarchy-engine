@@ -3,5 +3,6 @@ export enum GuiActionType {
   Defense = 'defense',
   Inventory = 'inventory',
   MiniMap = 'map',
-  Settings = 'settings'
+  Settings = 'settings',
+  Language = 'language'
 }

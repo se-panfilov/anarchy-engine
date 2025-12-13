@@ -6,7 +6,7 @@ import { Backpack, Map as MapIcon, Settings as SettingsIcon, Shield, Sword } fro
 import { defineStore } from 'pinia';
 import { computed, reactive } from 'vue';
 
-const { Attack, MiniMap, Defense, Settings, Inventory } = GuiActionType;
+const { Attack, MiniMap, Defense, Settings, Inventory, Language } = GuiActionType;
 
 export const useGuiButtonStore = defineStore('guiButtonsStore', () => {
   const state: TGuiButtonStoreState = reactive({
@@ -14,6 +14,7 @@ export const useGuiButtonStore = defineStore('guiButtonsStore', () => {
     [Defense]: { id: Defense, isVisible: true, isActive: false, i18n: 'gui.bottom.button.defense.title', key: BUTTON_KEYS[Defense], icon: Shield },
     [Inventory]: { id: Inventory, isVisible: true, isActive: false, i18n: 'gui.bottom.button.inventory.title', key: BUTTON_KEYS[Inventory], icon: Backpack },
     [MiniMap]: { id: MiniMap, isVisible: true, isActive: false, i18n: 'gui.bottom.button.map.title', key: BUTTON_KEYS[MiniMap], icon: MapIcon },
+    [Language]: { id: Language, isVisible: true, isActive: false, i18n: 'gui.bottom.button.language.title', key: BUTTON_KEYS[Language], icon: SettingsIcon },
     [Settings]: { id: Settings, isVisible: true, isActive: false, i18n: 'gui.bottom.button.settings.title', key: BUTTON_KEYS[Settings], icon: SettingsIcon }
   });
 
