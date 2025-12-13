@@ -1,5 +1,6 @@
 export type * from './TBoxGeometryProps';
 export type * from './TBufferGeometry';
+export type * from './TEulerLike';
 export type * from './TMesh';
 export type * from './TObject3D';
 export type * from './TObject3DParams';
