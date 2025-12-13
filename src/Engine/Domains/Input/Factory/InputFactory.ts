@@ -1,10 +1,8 @@
-import type { IFactory } from '@Engine/Domains/Abstract';
-import { AbstractFactory } from '@Engine/Domains/Abstract';
-import { destroyableMixin } from '@Engine/Domains/Mixins';
+import type { IReactiveFactory } from '@Engine/Domains/Abstract';
+import { ReactiveFactory } from '@Engine/Domains/Abstract';
 
 import type { IInputFactory, IInputParams, IInputWrapper } from '../Models';
 import { InputWrapper } from '../Wrapper';
 
-const create = (params: IInputParams): IInputWrapper => InputWrapper(params);
-const factory: IFactory<IInputWrapper, IInputParams> = { ...AbstractFactory('input'), create };
-export const InputFactory = (): IInputFactory => ({ ...factory, ...destroyableMixin(factory) });
+const factory: IReactiveFactory<IInputWrapper, IInputParams> = { ...ReactiveFactory('input', InputWrapper) };
+export const InputFactory = (): IInputFactory => ({ ...factory });

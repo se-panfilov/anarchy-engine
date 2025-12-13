@@ -5,6 +5,7 @@ export * from './IAbstractWatcherWithState';
 export * from './IFactory';
 export * from './IMultitonWatcher';
 export * from './IMultitonWatcherWithState';
+export * from './IReactiveFactory';
 export * from './IWatcher';
 export * from './IWatcherWithState';
 export * from './IWrapper';

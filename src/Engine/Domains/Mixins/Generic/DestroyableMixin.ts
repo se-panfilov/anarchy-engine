@@ -5,7 +5,10 @@ export function destroyableMixin(factory: Record<string, any>, _destroy?: (...pa
   return {
     destroy: (...params: ReadonlyArray<any>): void => {
       if (isDefined(_destroy)) return _destroy(params);
-      if (isReactiveFactory(factory)) factory.destroyed$.next();
+      if (isReactiveFactory(factory)) {
+        factory.destroyed$.next();
+        factory.destroyed$.complete();
+      }
       return cleanObject(factory);
     }
   };

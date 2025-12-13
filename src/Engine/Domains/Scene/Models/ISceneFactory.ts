@@ -1,8 +1,8 @@
-import type { IFactory, IReactiveFactory } from '@Engine/Domains/Abstract';
+import type { IReactiveFactory } from '@Engine/Domains/Abstract';
 
 import type { IDestroyable } from '@/Engine/Domains/Mixins';
 
 import type { ISceneParams } from './ISceneParams';
 import type { ISceneWrapper } from './ISceneWrapper';
 
-export type ISceneFactory = IFactory<ISceneWrapper, ISceneParams> & IReactiveFactory<ISceneWrapper> & IDestroyable;
+export type ISceneFactory = IReactiveFactory<ISceneWrapper, ISceneParams> & IDestroyable;
