@@ -1,4 +1,4 @@
-import { Euler, Vector3 } from 'three';
+import { Euler, Layers, Vector3 } from 'three';
 
 import type { TObject3DParams, TObject3DPropConfig } from '@/Engine/ThreeLib/Models';
 import { isDefined } from '@/Engine/Utils';
@@ -7,8 +7,11 @@ export function configToParamsObject3d(config: Partial<TObject3DPropConfig>): TO
   const { position, rotation, scale } = config;
   let result = { ...config } as TObject3DParams;
 
-  // TODO LAYERS: layers may not supported at the moment
-  if (isDefined(config.layers)) result = { ...result, layers: undefined };
+  if (isDefined(config.layers)) {
+    const layers = new Layers();
+    layers.set(config.layers);
+    result = { ...result, layers };
+  }
 
   // Animations is a  responsibilities of Model3d and Animations domains, here we do nothing with that
   // if (isDefined(config.animations)) result = { ...result, animations: config.animations };

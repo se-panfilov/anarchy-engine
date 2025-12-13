@@ -9,6 +9,10 @@ export type TCameraParams = Readonly<{
   near?: number;
   far?: number;
   lookAt?: Vector3;
+  filmGauge?: number;
+  filmOffset?: number;
+  focus?: number;
+  zoom?: number;
   audioListener?: AudioListener;
 }> &
   TWithTransformAgentParam &
