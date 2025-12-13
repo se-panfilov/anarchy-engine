@@ -1,10 +1,11 @@
 import { nanoid } from 'nanoid';
 import type { Subscription } from 'rxjs';
+import { firstValueFrom } from 'rxjs';
 import { beforeEach, describe, expect, it } from 'vitest';
 
 import type { TRegistrable, TWithName } from '@/Engine/Mixins';
 
-import type { TAbstractEntityRegistry, TAbstractSimpleRegistry, TRegistryPack } from '../Models';
+import type { TAbstractAsyncRegistry, TAbstractEntityRegistry, TAbstractResourceAsyncRegistry, TAbstractSimpleRegistry, TRegistryPack } from '../Models';
 import { LookUpStrategy } from './Constants';
 
 enum MockTags {
@@ -15,8 +16,8 @@ enum MockTags {
 
 //Validates if it's exactly the same object (original), not a copy of the object.
 function expectSame<T>(a: T | undefined, b: T | undefined): void {
-  // expect(Object.is(a, b)).toBe(true);
-  // expect(a).toBe(b);
+  expect(Object.is(a, b)).toBe(true);
+  expect(a).toBe(b);
   expect(a).toEqual(b);
 }
 
@@ -196,6 +197,90 @@ export function validateSimpleRegistryReturnsOriginalObjects<T extends TRegistra
     });
   });
 }
+
+export function validateSimpleAsyncRegistryReturnsOriginalObjects<T extends TRegistrable>(registry: TAbstractResourceAsyncRegistry<T>, createEntity: () => T): void {
+  describe('Registry Reference Integrity Suite', () => {
+    let entity: T;
+
+    beforeEach(() => {
+      entity = createEntity();
+      registry.add(entity.id, entity);
+    });
+
+    it('should store the original in registry map', () => {
+      expectSame(registry.registry.get(entity.id), entity);
+    });
+
+    it('should return original via findByKey', () => {
+      expectSame(registry.findByKey(entity.id), entity);
+    });
+
+    it('should return original via findByKeyAsync', async () => {
+      const result: T | undefined = await registry.findByKeyAsync(entity.id);
+      expectSame(result, entity);
+    });
+
+    it('should return original via findByKey$', async () => {
+      const result: T = await firstValueFrom(registry.findByKey$(entity.id));
+      expectSame(result, entity);
+    });
+
+    validateCommonRegistryBehavior(registry as any, createEntity, (r: TAbstractResourceAsyncRegistry<T>, e: T): void => r.add(e.id, e));
+  });
+}
+
+export function validateEntityAsyncRegistryReturnsOriginalObjects<T extends TRegistrable>(registry: TAbstractAsyncRegistry<T>, createEntity: () => T): void {
+  describe('Registry Reference Integrity Suite', () => {
+    let entity: T;
+
+    beforeEach(() => {
+      entity = createEntity();
+      registry.add(entity);
+    });
+
+    it('should store the original in registry map', () => {
+      expectSame(registry.registry.get(entity.id), entity);
+    });
+
+    it('should return original via findByNameAsync', async () => {
+      const result: T | undefined = await registry.findByNameAsync((entity as TWithName).name);
+      expectSame(result, entity);
+    });
+
+    it('should return original via findByName$', async () => {
+      const result: T = await firstValueFrom(registry.findByName$((entity as TWithName).name));
+      expectSame(result, entity);
+    });
+
+    it('should return original via findByTagAsync', async () => {
+      const result: T | undefined = await registry.findByTagAsync(entity.tags?.[0] ?? '');
+      expectSame(result, entity);
+    });
+
+    it('should return original via findByTag$', async () => {
+      const result: T = await firstValueFrom(registry.findByTag$(entity.tags?.[0] ?? ''));
+      expectSame(result, entity);
+    });
+
+    it('should return original via findByTagsAsync', async () => {
+      const result: T | undefined = await registry.findByTagsAsync(entity.tags ?? [], LookUpStrategy.Every);
+      expectSame(result, entity);
+    });
+
+    it('should return original via findByTags$', async () => {
+      const result: T = await firstValueFrom(registry.findByTags$(entity.tags ?? [], LookUpStrategy.Every));
+      expectSame(result, entity);
+    });
+
+    validateCommonRegistryBehavior(registry as any, createEntity, (r: TAbstractAsyncRegistry<T>, e: T): void => r.add(e));
+  });
+}
+
+// TODO 12-0-0: Test async registries
+// TODO 12-0-0: Fix all failing methods
+// TODO 12-0-0: Maybe add by a test suit to every registry in the project
+// TODO 12-0-0: make sure things are working in a showcase
+// TODO 12-0-0: Add an option to skip the adding entity to the registry
 
 export function createMockEntity(): TRegistrable {
   return {
