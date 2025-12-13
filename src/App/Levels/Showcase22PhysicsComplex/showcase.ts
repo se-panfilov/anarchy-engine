@@ -77,7 +77,7 @@ async function buildTower(actorService: TActorService, rows: number, cols: numbe
 }
 
 function getBlocks(rows: number, cols: number, levels: number): ReadonlyArray<Required<Pick<TActorParams, 'height' | 'width' | 'depth' | 'position'>>> {
-  let blocks: ReadonlyArray<Pick<TActorParams, 'height' | 'width' | 'depth' | 'position'>> = [];
+  let blocks: ReadonlyArray<Required<Pick<TActorParams, 'height' | 'width' | 'depth' | 'position'>>> = [];
   const gap: number = 0.1;
   const width: number = 1;
   const height: number = 1;
