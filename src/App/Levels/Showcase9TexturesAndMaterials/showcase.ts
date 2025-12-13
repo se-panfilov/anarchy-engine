@@ -34,7 +34,7 @@ export function showcase(space: TSpace): void {
 function initCameraRotation(space: TSpace, model3d: TModel3d | undefined, mouseService: TMouseService): void {
   const { cameraService } = space.services;
 
-  const camera: TAnyCameraWrapper | undefined = cameraService.findActive();
+  const camera: TAnyCameraWrapper = cameraService.getActive();
 
   const prevValue: Float32Array = new Float32Array([0, 0, 0, 0]); // [x, y, wight, height]
   combineLatest([mouseService.position$, space.container.viewportRect$])

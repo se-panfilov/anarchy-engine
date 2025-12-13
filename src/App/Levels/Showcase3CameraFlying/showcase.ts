@@ -20,7 +20,7 @@ export function showcase(space: TSpace): void {
   const { actorService, cameraService, mouseService } = space.services;
   const actorRegistry: TActorRegistry = actorService.getRegistry();
 
-  const camera: TAnyCameraWrapper | undefined = cameraService.findActive();
+  const camera: TAnyCameraWrapper = cameraService.getActive();
 
   combineLatest([mouseService.position$, space.container.viewportRect$])
     .pipe(

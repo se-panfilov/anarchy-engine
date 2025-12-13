@@ -67,8 +67,7 @@ export function showcase(space: TSpace): void {
   currentMaterialTypeIndex$.subscribe((index: number): void => currentMaterialType$.next(materialType[index]));
 
   combineLatest([currentMaterial$.pipe(startWith(materials[0])), currentMaterialType$.pipe(startWith(materialType[3]))]).subscribe(([material, type]: ReadonlyArray<string>): void => {
-    const actor: TActor | undefined = actorRegistry.findByTags([material, type], LookUpStrategy.Every);
-    if (isNotDefined(actor)) throw new Error(`Actor with tag "${material}" is not found`);
+    const actor: TActor = actorRegistry.getByTags([material, type], LookUpStrategy.Every);
     currentActor$.next(actor);
   });
 
