@@ -1,3 +1,4 @@
+import type { PlatformActions } from '@Desktop/Constants';
 import { appCrashHandler, appWindowAllClosedHandler, windowNavigateHandler, windowSecondInstanceHandler } from '@Desktop/EventHandlers';
 import type { TDesktopAppConfig } from '@Desktop/Models';
 import { handleAppRequest, WindowService } from '@Desktop/Services';
@@ -24,7 +25,7 @@ const desktopAppSettings: TDesktopAppConfig = {
 // TODO DESKTOP: Does "exit to desktop" button displayed (and works)?
 
 const windowService = WindowService();
-ipcMain.handle(platformApiChannel, handleAppRequest);
+ipcMain.handle(platformApiChannel, (event, args: [PlatformActions | string, unknown]) => handleAppRequest(app, event, ...args));
 
 app.whenReady().then((): void => {
   // TODO DESKTOP: use "getDisplayInfo()" as default settings, prioritize saved user settings and use hardcoded fallback settings. Same for fullscreen mode

@@ -1,9 +1,12 @@
 import { PlatformActions } from '@Desktop/Constants';
-import type { IpcMainInvokeEvent } from 'electron';
+import { isPlatformAction } from '@Desktop/Utils';
+import type { App, IpcMainInvokeEvent } from 'electron';
 
 // TODO DESKTOP: fix handling of the events
-export function handleAppRequest(_event: IpcMainInvokeEvent, ...args: [PlatformActions, unknown]): Promise<any> | any {
-  const type: PlatformActions = args[0];
+// TODO DESKTOP: any
+export function handleAppRequest(app: App, _event: IpcMainInvokeEvent, ...args: [PlatformActions | string, unknown]): Promise<any> | any {
+  const type: PlatformActions | string = args[0];
+  if (!isPlatformAction(type)) throw new Error(`[DESKTOP]: Unknown platform action: ${type}`);
   const payload: unknown = args[1];
 
   switch (type) {
