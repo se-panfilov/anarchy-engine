@@ -13,6 +13,7 @@ const FAKE_ENV_WINDOW_WIDTH: number = 1280;
 const FAKE_ENV_IS_OPEN_DEV_TOOLS: boolean = true;
 
 function getIndexHtmlPath(isProdMode: boolean): string {
+  console.log('[Main] isProdMode:', isProdMode);
   //console.log('XXX app.isPackaged', app.isPackaged);
   //   // console.log('XXX resolve', join(process.resourcesPath, 'dist', 'index.html'));
   //   const indexPath: string = false ? resolve(__dirname, '../../dist/index.html') : join(process.resourcesPath, 'dist', 'index.html');
