@@ -12,6 +12,8 @@ import spaceConfig from './spaceTransformDrive.json';
 
 const config: TSpaceConfig = spaceConfig as TSpaceConfig;
 
+let isOriginalSceneLoaded: boolean = true;
+
 // TODO 15-0-0: cleanup serialized data from empty kinematic states
 // TODO 15-0-0: we need to test a "flying state": the fact that kinematic/physics actor will continue to move after the "Load" (perhaps add a separate E2E for this)
 // TODO 15-0-0: add physical TD check after serialization physics will be done
@@ -41,20 +43,20 @@ export const spaceTransformDriveData: TSpacesData = {
   },
   onChange: async (space: TSpace): Promise<void> => {
     addAwait('onChange', spaceTransformDriveData.awaits$);
-    // TODO 15-0-0:  Do loops stop after the change (and on reload) to check the screenshot
     const defaultActor: TActor | undefined = space.services.actorService.getRegistry().findByName('cube_default_actor');
     if (isNotDefined(defaultActor)) throw new Error('[Showcase]: Actor "cube_default_actor" not found');
-
-    defaultActor.drive.default.addZ(4);
 
     const kinematicActor: TActor | undefined = space.services.actorService.getRegistry().findByName('cube_kinematic_actor');
     if (isNotDefined(kinematicActor)) throw new Error('[Showcase]: Actor "cube_kinematic_actor" not found');
 
-    // kinematicActor.drive.kinematic.rotateTo()
-    kinematicActor.drive.kinematic.moveTo(new Vector3(0, 2, 0), metersPerSecond(0.1));
-    kinematicActor.drive.kinematic.lookAt(new Vector3(0, 2, 0), metersPerSecond(0.0003));
+    if (isOriginalSceneLoaded) {
+      defaultActor.drive.default.addZ(4);
+      kinematicActor.drive.kinematic.moveTo(new Vector3(0, 2, 0), metersPerSecond(0.01));
+      kinematicActor.drive.kinematic.lookAt(new Vector3(0, 2, 0), metersPerSecond(0.00003));
+    }
 
     await doKinematicSteps(space, 100, 25);
+    isOriginalSceneLoaded = false;
     removeAwait('onChange', spaceTransformDriveData.awaits$);
   }
 };
