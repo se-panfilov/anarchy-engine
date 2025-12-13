@@ -2,12 +2,13 @@ import type { BehaviorSubject, Observable } from 'rxjs';
 import { distinctUntilChanged, tap } from 'rxjs';
 import { Audio, PositionalAudio } from 'three';
 
-import type { TAnyAudio, TAnyAudioConfig, TAnyAudioParams, TAudio3dConfig, TAudio3dParams, TAudioParams } from '@/Engine/Audio/Models';
+import type { TAnyAudio, TAnyAudioConfig, TAnyAudioParams, TAnyAudioWrapper, TAudio3dConfig, TAudio3dParams, TAudio3dWrapper, TAudioParams } from '@/Engine/Audio/Models';
 import type { TReadonlyVector3 } from '@/Engine/ThreeLib';
-import { isEqualOrSimilarByXyzCoords, isNotDefined } from '@/Engine/Utils';
+import { isDefined, isEqualOrSimilarByXyzCoords, isNotDefined } from '@/Engine/Utils';
 
-export const isAudio3dConfig = (config: TAnyAudioConfig | TAudio3dConfig): config is TAudio3dConfig => (config as TAudio3dConfig).position !== undefined;
-export const isAudio3dParams = (config: TAnyAudioParams | TAudio3dParams): config is TAudio3dParams => (config as TAudio3dParams).position !== undefined;
+export const isAudio3dConfig = (config: TAnyAudioConfig): config is TAudio3dConfig => isDefined((config as TAudio3dConfig).position);
+export const isAudio3dParams = (config: TAnyAudioParams): config is TAudio3dParams => isDefined((config as TAudio3dParams).position);
+export const isAudio3dWrapper = (wrapper: TAnyAudioWrapper): wrapper is TAudio3dWrapper => isDefined((wrapper as TAudio3dWrapper).position$);
 
 export function seekAudio(entity: TAnyAudio, time: number): void {
   if (!entity.buffer) return;

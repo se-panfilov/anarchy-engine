@@ -2,8 +2,8 @@ import GUI from 'lil-gui';
 import type { AnimationAction, AudioListener } from 'three';
 
 import type { TShowcase } from '@/App/Levels/Models';
-import type { TActor, TAnyAudioWrapper, TAppCanvas, TAudio3dWrapper, TCameraWrapper, TDebugAudioRenderer, TEngine, TModel3d, TSceneWrapper, TSpace, TSpaceConfig, TSpaceServices } from '@/Engine';
-import { DebugAudioRenderer, Engine, isNotDefined, spaceService } from '@/Engine';
+import type { TActor, TAnyAudioWrapper, TAppCanvas, TCameraWrapper, TDebugAudioRenderer, TEngine, TLoop, TModel3d, TSceneWrapper, TSpace, TSpaceConfig, TSpaceServices } from '@/Engine';
+import { DebugAudioRenderer, Engine, isAudio3dWrapper, isDefined, isNotDefined, spaceService } from '@/Engine';
 
 import spaceConfig from './showcase.json';
 
@@ -29,10 +29,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
 
     initMutant('mutant_actor_1', space.services);
     initMusicWithControls('bg_music', 'Background music', gui, space.services);
-    const singing: TAudio3dWrapper = initMusicWithControls('monster_singing', 'Positional music', gui, space.services) as TAudio3dWrapper;
-    const debugAudioRenderer: TDebugAudioRenderer = DebugAudioRenderer(singing, scene, audioLoop);
-
-    // debugAudioRenderer.enabled$.next(!debugAudioRenderer.enabled$.value);
+    initMusicWithControls('monster_singing', 'Positional music', gui, space.services, { loop: audioLoop, scene });
   }
 
   function start(): void {
@@ -55,10 +52,15 @@ function initMutant(actorName: string, { animationsService, actorService }: TSpa
   danceAction.reset().fadeIn(fadeDuration).play();
 }
 
-function initMusicWithControls(name: string, folderName: string, gui: GUI, { audioService }: TSpaceServices): TAnyAudioWrapper {
+function initMusicWithControls(name: string, folderName: string, gui: GUI, { audioService }: TSpaceServices, { loop, scene }: { loop?: TLoop; scene?: TSceneWrapper } = {}): TAnyAudioWrapper {
   const folder: GUI = gui.addFolder(folderName);
   const audioW: TAnyAudioWrapper | undefined = audioService.getRegistry().findByName(name);
   if (isNotDefined(audioW)) throw new Error('Background music is not found');
+
+  let debugAudioRenderer: TDebugAudioRenderer | undefined;
+  if (isAudio3dWrapper(audioW) && isDefined(loop) && isDefined(scene)) {
+    debugAudioRenderer = DebugAudioRenderer(audioW, scene, loop);
+  }
 
   const state = {
     playMusic: (): void => audioW.play$.next(true),
@@ -77,6 +79,9 @@ function initMusicWithControls(name: string, folderName: string, gui: GUI, { aud
       const currentLoop: boolean = audioW.loop$.getValue();
       audioW.loop$.next(!currentLoop);
     },
+    toggleDebugRendrer: (): void => {
+      debugAudioRenderer?.enabled$.next(!debugAudioRenderer?.enabled$.value);
+    },
     volume: 1,
     progress: 0
   };
@@ -94,6 +99,7 @@ function initMusicWithControls(name: string, folderName: string, gui: GUI, { aud
     .onChange((value: number): void => {
       audioW.volume$.next(value);
     });
+  folder.add(state, 'toggleDebugRendrer').name('Debug renderer');
 
   return audioW;
 }
