@@ -21,8 +21,6 @@ import { createContainersDivs, setContainerVisibility } from './utils';
 
 const subscriptions: Record<string, Subscription> = {};
 
-// TODO 15-0-0: E2E: Actors with models
-// TODO 15-0-0: E2E: Actors with FSM
 // TODO 15-0-0: E2E: TransformDrive (default, connected, physics, kinematic)
 // TODO 15-0-0: E2E: Particles
 // TODO 15-0-0: E2E: Fog
