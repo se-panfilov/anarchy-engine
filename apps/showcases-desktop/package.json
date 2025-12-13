@@ -14,7 +14,7 @@
   "type": "module",
   "license": "MIT",
   "scripts": {
-    "before:release": "npm run before:release:check && npm run sanitize-assets",
+    "before:release": "npm run before:release:check && npm run sanitize-assets && npm run generate:legal",
     "before:release:check": "npm run ts:check && npm run prettier:check && npm run lint",
     "build": "npm run reload-and-prebuild && npm run build:electron --",
     "build:all": "npm run build -- --mac --win --linux --x64 --arm64 --universal && npm run clean:postbuild",
@@ -30,6 +30,7 @@
     "build:win:app": "npm run build -- --win --dir && npm run clean:postbuild",
     "build:win:nsis": "npm run build -- --win nsis && npm run clean:postbuild",
     "clean:postbuild": "rimraf dist/desktop-main.js dist/desktop-main.js.map dist/preload.js dist/preload.js.map dist/dist-desktop",
+    "generate:legal": "npm sbom generate:legal:sbom",
     "generate:legal:sbom": "npm sbom --sbom-format=cyclonedx --package-lock-only --omit=dev > ./compliance/sbom/sbom.cdx.json",
     "lint": "eslint ./src",
     "lint:fix": "npm run lint -- --fix",

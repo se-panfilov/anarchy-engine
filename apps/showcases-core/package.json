@@ -20,12 +20,13 @@
     "dist-web/"
   ],
   "scripts": {
-    "before:release": "npm run before:release:check && npm run sanitize-assets",
+    "before:release": "npm run before:release:check && npm run sanitize-assets && npm run generate:legal",
     "before:release:check": "npm run ts:check && npm run prettier:check && npm run lint",
     "build": "rimraf dist-desktop dist-mobile dist-web && vite build",
     "build:desktop": "npm run build -- --mode production.desktop",
     "build:mobile": "npm run build -- --mode production.mobile",
     "build:web": "npm run build -- --mode production.web",
+    "generate:legal": "npm sbom generate:legal:sbom",
     "generate:legal:sbom": "npm sbom --sbom-format=cyclonedx --package-lock-only --omit=dev > ./compliance/sbom/sbom.cdx.json",
     "lint": "eslint ./src",
     "lint:fix": "npm run lint -- --fix",
