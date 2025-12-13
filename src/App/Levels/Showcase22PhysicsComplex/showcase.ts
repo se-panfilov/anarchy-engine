@@ -1,46 +1,17 @@
 import type { Intersection } from 'three';
-import { Box3, GridHelper, MathUtils, Vector3 } from 'three';
+import { Box3, Vector3 } from 'three';
 import { Line2 } from 'three/examples/jsm/lines/Line2';
 import { LineGeometry } from 'three/examples/jsm/lines/LineGeometry';
 import { LineMaterial } from 'three/examples/jsm/lines/LineMaterial';
 
 import type { TShowcase } from '@/App/Levels/Models';
-import type {
-  TActorParams,
-  TActorService,
-  TActorWrapperAsync,
-  TActorWrapperWithPhysicsAsync,
-  TAppCanvas,
-  TCameraWrapper,
-  TEngine,
-  TGameKey,
-  TIntersectionEvent,
-  TIntersectionsWatcher,
-  TKeySubscription,
-  TSpace,
-  TSpaceConfig,
-  TWithCoordsXYZ,
-  TWithCoordsXZ
-} from '@/Engine';
-import {
-  ActorType,
-  buildSpaceFromConfig,
-  CollisionShape,
-  Engine,
-  get3DAzimuth,
-  isDefined,
-  isNotDefined,
-  KeyCode,
-  KeysExtra,
-  MaterialType,
-  mouseService,
-  mpsSpeed,
-  RigidBodyTypesNames,
-  Vector3Wrapper
-} from '@/Engine';
+import type { TActorWrapperAsync, TActorWrapperWithPhysicsAsync, TAppCanvas, TCameraWrapper, TEngine, TIntersectionEvent, TIntersectionsWatcher, TSpace, TSpaceConfig, TWithCoordsXYZ } from '@/Engine';
+import { buildSpaceFromConfig, Engine, get3DAzimuth, isDefined, isNotDefined, KeysExtra, mouseService } from '@/Engine';
 import { meters } from '@/Engine/Measurements/Utils';
 
 import spaceConfig from './showcase.json';
+import type { TBullet } from './utils';
+import { buildTower, cameraFollowingActor, getBulletsPool, initGridHelper, shoot, startMoveActorWithKeyboard, updateBullets } from './utils';
 
 export function showcase(canvas: TAppCanvas): TShowcase {
   const space: TSpace = buildSpaceFromConfig(canvas, spaceConfig as TSpaceConfig);
@@ -61,7 +32,7 @@ export function showcase(canvas: TAppCanvas): TShowcase {
     const surface: TActorWrapperWithPhysicsAsync | TActorWrapperAsync | undefined = await actorService.getRegistry().findByNameAsync('surface');
     if (isNotDefined(surface)) throw new Error(`Cannot find "surface" actor`);
 
-    startMoveActorWithKeyboard(heroW, keyboardService.onKey);
+    startMoveActorWithKeyboard(heroW, keyboardService);
 
     const gridSize: Vector3 = new Box3().setFromObject(surface?.entity).getSize(new Vector3());
     initGridHelper(actorService, gridSize.x, gridSize.z);
@@ -129,77 +100,6 @@ export function showcase(canvas: TAppCanvas): TShowcase {
   return { start, space };
 }
 
-async function buildTower(actorService: TActorService, startCoords: TWithCoordsXZ, rows: number, cols: number, levels: number): Promise<ReadonlyArray<TActorWrapperWithPhysicsAsync>> {
-  const blocks: ReadonlyArray<Required<Pick<TActorParams, 'height' | 'width' | 'depth' | 'position'>>> = getBlocks(startCoords, rows, cols, levels);
-
-  console.log('number of blocks:', blocks.length);
-
-  const result = blocks.map((block: Required<Pick<TActorParams, 'height' | 'width' | 'depth' | 'position'>>): Promise<TActorWrapperWithPhysicsAsync> => {
-    return actorService.createAsync({
-      name: `block_${block.position.getX()}_${block.position.getY()}_${block.position.getZ()}`,
-      type: ActorType.Cube,
-      width: block.width,
-      height: block.height,
-      depth: block.depth,
-      material: { type: MaterialType.Standard, params: { color: '#8FAA8F' } },
-      physics: {
-        type: RigidBodyTypesNames.Dynamic,
-        collisionShape: CollisionShape.Cuboid,
-        mass: 1,
-        friction: 0.5,
-        restitution: 0,
-        shapeParams: {
-          hx: block.width / 2,
-          hy: block.height / 2,
-          hz: block.depth / 2
-        },
-        position: block.position
-      },
-      position: block.position,
-      castShadow: true,
-      tags: []
-    }) as Promise<TActorWrapperWithPhysicsAsync>;
-  });
-
-  return await Promise.all(result);
-}
-
-function getBlocks(startCoords: TWithCoordsXZ, rows: number, cols: number, levels: number): ReadonlyArray<Required<Pick<TActorParams, 'height' | 'width' | 'depth' | 'position'>>> {
-  let blocks: ReadonlyArray<Required<Pick<TActorParams, 'height' | 'width' | 'depth' | 'position'>>> = [];
-  // const gap: number = 0.1;
-  const width: number = 1;
-  const height: number = 1;
-  const depth: number = 1;
-
-  // eslint-disable-next-line functional/no-loop-statements
-  for (let i: number = 0; i < rows; i++) {
-    // eslint-disable-next-line functional/no-loop-statements
-    for (let j: number = 0; j < cols; j++) {
-      // eslint-disable-next-line functional/no-loop-statements
-      for (let k: number = 0; k < levels; k++) {
-        blocks = [
-          ...blocks,
-          {
-            width,
-            height,
-            depth,
-            position: Vector3Wrapper({
-              // x: startCoords.x + i * (width + gap),
-              // y: k * (height + gap / 4),
-              // z: startCoords.z + j * (depth + gap)
-              x: startCoords.x + i * width,
-              y: k * height,
-              z: startCoords.z + j * depth
-            })
-          }
-        ];
-      }
-    }
-  }
-
-  return blocks;
-}
-
 function createLine(): Line2 {
   const material = new LineMaterial({
     color: '#E91E63',
@@ -211,130 +111,4 @@ function createLine(): Line2 {
   geometry.setPositions([0, 0, 0, 0, 0, 0]);
 
   return new Line2(geometry, material);
-}
-
-function cameraFollowingActor(cameraW: TCameraWrapper, actorW: TActorWrapperAsync): void {
-  const actorCoords: TWithCoordsXYZ = actorW.getPosition().getCoords();
-  // const cameraCoords: TWithCoordsXYZ = cameraW.getPosition().getCoords();
-  cameraW.setPosition(Vector3Wrapper({ x: actorCoords.x, y: actorCoords.y + 45, z: actorCoords.z + 10 }));
-  cameraW.lookAt(Vector3Wrapper(actorCoords));
-}
-
-function startMoveActorWithKeyboard(actor: TActorWrapperAsync, onKey: (key: TGameKey) => TKeySubscription): void {
-  onKey(KeyCode.W).pressing$.subscribe(({ delta }): void => void actor.addZ(mpsSpeed(-10, delta.delta)));
-  onKey(KeyCode.A).pressing$.subscribe(({ delta }): void => void actor.addX(mpsSpeed(-10, delta.delta)));
-  onKey(KeyCode.S).pressing$.subscribe(({ delta }): void => void actor.addZ(mpsSpeed(10, delta.delta)));
-  onKey(KeyCode.D).pressing$.subscribe(({ delta }): void => void actor.addX(mpsSpeed(10, delta.delta)));
-}
-
-function initGridHelper(actorService: TActorService, size: number, divisions: number): void {
-  const gridHelper: GridHelper = new GridHelper(size, divisions, '#03A062', '#03A062');
-  actorService.getScene().entity.add(gridHelper);
-}
-
-function getBulletsPool(count: number, actorService: TActorService): ReadonlyArray<Promise<TBullet>> {
-  let bullets: ReadonlyArray<Promise<TBullet>> = [];
-
-  // eslint-disable-next-line functional/no-loop-statements
-  for (let i: number = 0; i < count; i++) {
-    // const bulletGeometry: SphereGeometry = new SphereGeometry(0.1, 8, 8);
-    // const bulletMaterial = new MeshBasicMaterial({ color: 0xff0000 });
-    //
-    // const bullet = new Mesh(bulletGeometry, bulletMaterial);
-    // bullet.active = false;
-    // bullets.push(bullet);
-
-    // eslint-disable-next-line @typescript-eslint/no-floating-promises
-    bullets = [
-      ...bullets,
-      BulletAsync(
-        {
-          name: `bullet_${i}`,
-          type: ActorType.Sphere,
-          radius: 0.3,
-          material: { type: MaterialType.Standard, params: { color: '#FF0000' } },
-          // physics: {
-          //   type: RigidBodyTypesNames.Dynamic,
-          //   collisionShape: CollisionShape.Sphere,
-          //   mass: 1,
-          //   friction: 0.5,
-          //   restitution: 0,
-          //   shapeParams: { radius: 0.1 },
-          //   position: { x: 0, y: 0, z: 0 }
-          // },
-          position: Vector3Wrapper({ x: 0, y: 0, z: 0 }),
-          castShadow: false,
-          tags: []
-        },
-        actorService
-      )
-    ];
-  }
-
-  return bullets;
-}
-
-type TBullet = TActorWrapperAsync &
-  Readonly<{
-    setDirection: (azimuth: number) => void;
-    getDirection: () => number;
-    setElevation: (elev: number) => void;
-    getElevation: () => number;
-    setDistanceTraveled: (dist: number) => void;
-    getDistanceTraveled: () => number;
-    setActive: (act: boolean) => void;
-    isActive: () => boolean;
-  }>;
-
-async function BulletAsync(params: TActorParams, actorService: TActorService): Promise<TBullet> {
-  const actor: TActorWrapperAsync = await actorService.createAsync(params);
-  let direction: number = 0;
-  let elevation: number = 0;
-  let distanceTraveled: number = 0;
-  let active: boolean = false;
-
-  return {
-    ...actor,
-    setDirection: (azimuth: number): void => void (direction = azimuth),
-    getDirection: (): number => direction,
-    setElevation: (elev: number): void => void (elevation = elev),
-    getElevation: (): number => elevation,
-    setDistanceTraveled: (dist: number): void => void (distanceTraveled = dist),
-    getDistanceTraveled: (): number => distanceTraveled,
-    setActive: (act: boolean): void => void (active = act),
-    isActive: (): boolean => active
-  };
-}
-
-function shoot(actorPosition: TWithCoordsXYZ, toAngle: number, elevation: number, bullets: ReadonlyArray<TBullet>): void {
-  const bullet: TBullet | undefined = bullets.find((b: TBullet) => !b.isActive());
-  if (isDefined(bullet)) {
-    bullet.setPosition(Vector3Wrapper(actorPosition));
-    bullet.setDirection(toAngle);
-    bullet.setElevation(elevation);
-    bullet.setDistanceTraveled(0);
-    bullet.setActive(true);
-  }
-}
-
-function updateBullets(bullets: ReadonlyArray<TBullet>, delta: number): void {
-  const bulletSpeed: number = 10;
-
-  bullets.forEach((bullet: TBullet): void => {
-    if (bullet.isActive()) {
-      const azimuthRadians: number = MathUtils.degToRad(bullet.getDirection());
-      const elevationRadians: number = MathUtils.degToRad(bullet.getElevation());
-      const vectorDirection: Vector3 = new Vector3(Math.cos(azimuthRadians), elevationRadians, Math.sin(azimuthRadians));
-      bullet.entity.position.add(vectorDirection.clone().multiplyScalar(bulletSpeed * delta));
-      bullet.setDistanceTraveled(bullet.getDistanceTraveled() + bulletSpeed * delta);
-
-      // const collision = checkCollision(bullet);
-      // if (collision) {
-      //   console.log('Hit detected', collision);
-      //   resetBullet(bullet);
-      // } else if (bullet.distanceTraveled > maxDistance) {
-      //   resetBullet(bullet);
-      // }
-    }
-  });
 }

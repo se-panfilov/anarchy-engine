@@ -1,0 +1,75 @@
+import type { TActorParams, TActorService, TActorWrapperWithPhysicsAsync, TWithCoordsXZ } from '@/Engine';
+import { ActorType, CollisionShape, MaterialType, RigidBodyTypesNames, Vector3Wrapper } from '@/Engine';
+
+export type TBuidingBlock = Required<Pick<TActorParams, 'height' | 'width' | 'depth' | 'position'>>;
+
+export async function buildTower(actorService: TActorService, startCoords: TWithCoordsXZ, rows: number, cols: number, levels: number): Promise<ReadonlyArray<TActorWrapperWithPhysicsAsync>> {
+  const blocks: ReadonlyArray<TBuidingBlock> = getBlocks(startCoords, rows, cols, levels);
+
+  console.log('number of blocks:', blocks.length);
+
+  const result = blocks.map((block: TBuidingBlock): Promise<TActorWrapperWithPhysicsAsync> => {
+    return actorService.createAsync({
+      name: `block_${block.position.getX()}_${block.position.getY()}_${block.position.getZ()}`,
+      type: ActorType.Cube,
+      width: block.width,
+      height: block.height,
+      depth: block.depth,
+      material: { type: MaterialType.Standard, params: { color: '#8FAA8F' } },
+      physics: {
+        type: RigidBodyTypesNames.Dynamic,
+        collisionShape: CollisionShape.Cuboid,
+        mass: 1,
+        friction: 0.5,
+        restitution: 0,
+        shapeParams: {
+          hx: block.width / 2,
+          hy: block.height / 2,
+          hz: block.depth / 2
+        },
+        position: block.position
+      },
+      position: block.position,
+      castShadow: true,
+      tags: []
+    }) as Promise<TActorWrapperWithPhysicsAsync>;
+  });
+
+  return await Promise.all(result);
+}
+
+function getBlocks(startCoords: TWithCoordsXZ, rows: number, cols: number, levels: number): ReadonlyArray<TBuidingBlock> {
+  let blocks: ReadonlyArray<TBuidingBlock> = [];
+  // const gap: number = 0.1;
+  const width: number = 1;
+  const height: number = 1;
+  const depth: number = 1;
+
+  // eslint-disable-next-line functional/no-loop-statements
+  for (let i: number = 0; i < rows; i++) {
+    // eslint-disable-next-line functional/no-loop-statements
+    for (let j: number = 0; j < cols; j++) {
+      // eslint-disable-next-line functional/no-loop-statements
+      for (let k: number = 0; k < levels; k++) {
+        blocks = [
+          ...blocks,
+          {
+            width,
+            height,
+            depth,
+            position: Vector3Wrapper({
+              // x: startCoords.x + i * (width + gap),
+              // y: k * (height + gap / 4),
+              // z: startCoords.z + j * (depth + gap)
+              x: startCoords.x + i * width,
+              y: k * height,
+              z: startCoords.z + j * depth
+            })
+          }
+        ];
+      }
+    }
+  }
+
+  return blocks;
+}
