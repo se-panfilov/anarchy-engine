@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { reactive } from 'vue';
+import { reactive, watch } from 'vue';
 
 defineEmits(['change']);
 
@@ -19,6 +19,13 @@ const props = withDefaults(
 const state = reactive({
   value: props.value
 });
+
+watch(
+  () => props.value,
+  (newVal: number): void => {
+    if (state.value !== newVal) state.value = newVal;
+  }
+);
 </script>
 
 <template>
