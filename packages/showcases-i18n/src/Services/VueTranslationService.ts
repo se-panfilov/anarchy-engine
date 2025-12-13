@@ -1,8 +1,10 @@
-import type { TUseVueTranslations, TVueTranslationService } from '@Showcases/i18n';
+import type { TLocale } from '@Anarchy/i18n';
+import type { TVueTranslationService } from '@Showcases/i18n';
 import type { Observable, Subscription } from 'rxjs';
 import { filter } from 'rxjs';
 import type { ShallowRef } from 'vue';
 import { onBeforeUnmount, onMounted, shallowRef } from 'vue';
+import type { I18n } from 'vue-i18n';
 
 import { showcasesTranslationService } from './ShowcasesTranslationService';
 
@@ -37,24 +39,19 @@ export function VueTranslationService(): TVueTranslationService {
     return ref;
   }
 
-  function useTranslations(): TUseVueTranslations {
-    // const localeRef: ShallowRef<TLocaleId> = shallowRef(showcasesTranslationService.getCurrentLocale().id);
-    const resultRef: ShallowRef<string> = shallowRef('');
-    let sub: Subscription | undefined;
-
-    onBeforeUnmount((): void => sub?.unsubscribe());
-
-    const $t = (id: string, params?: Record<string, string>): string => {
+  // TODO DESKTOP: destroy with unsubscribe is needed
+  function connectVueI18n(i18n: I18n): void {
+    const sub: Subscription = showcasesTranslationService.locale$.subscribe(({ id: localeId }: TLocale): void => {
       // eslint-disable-next-line functional/immutable-data
-      sub = showcasesTranslationService.translate$(id, params).subscribe((value: string) => void (resultRef.value = value));
-      return resultRef.value;
-    };
-
-    return { $t };
+      i18n.global.locale.value = localeId;
+      import(`./locales/${localeId}.json`).then((messages) => {
+        i18n.global.setLocaleMessage(localeId, messages.default);
+      });
+    });
   }
 
   // eslint-disable-next-line functional/immutable-data
-  return Object.assign(showcasesTranslationService, { waitInitialReady, toRef, useTranslations });
+  return Object.assign(showcasesTranslationService, { waitInitialReady, toRef, connectVueI18n });
 }
 
 export const vueTranslationService: TVueTranslationService = VueTranslationService();

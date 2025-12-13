@@ -47,6 +47,7 @@
     "anarchy-engine": "*",
     "anarchy-i18n": "*",
     "anarchy-shared": "*",
-    "sort-json": "2.0.1"
+    "sort-json": "2.0.1",
+    "vue-i18n": "11.1.12"
   }
 }
