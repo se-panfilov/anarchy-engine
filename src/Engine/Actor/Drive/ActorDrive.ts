@@ -4,7 +4,7 @@ import type { Euler, Vector3 } from 'three';
 
 import { ProtectedDriverFacade } from '@/Engine/Abstract';
 import { ActorDriver } from '@/Engine/Actor/Constants';
-import type { TActorActiveDrivers, TActorDependencies, TActorDriveMixin, TActorParams } from '@/Engine/Actor/Models';
+import type { TActorActiveDrivers, TActorDependencies, TActorDrive, TActorParams } from '@/Engine/Actor/Models';
 import { isEqualOrSimilar } from '@/Engine/Actor/Utils';
 import type { TKinematicActorDriver } from '@/Engine/Kinematic';
 import { KinematicActorDriver } from '@/Engine/Kinematic';
@@ -13,7 +13,7 @@ import { destroyableMixin } from '@/Engine/Mixins';
 import type { TPhysicsActorDriver } from '@/Engine/Physics';
 import { PhysicsActorDriver } from '@/Engine/Physics';
 
-export function ActorDrive(params: TActorParams, { kinematicLoopService }: Pick<TActorDependencies, 'kinematicLoopService'>): TActorDriveMixin {
+export function ActorDrive(params: TActorParams, { kinematicLoopService }: Pick<TActorDependencies, 'kinematicLoopService'>): TActorDrive {
   //We don't want to expose these BehaviorSubjects, because they're vulnerable to external changes without .next()
   const position$: BehaviorSubject<Vector3> = new BehaviorSubject<Vector3>(params.position);
   const positionRep$: ReplaySubject<Vector3> = new ReplaySubject<Vector3>(1);

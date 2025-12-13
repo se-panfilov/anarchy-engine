@@ -7,7 +7,7 @@ import type { TKinematicActorDriver } from '@/Engine/Kinematic';
 import type { TDestroyable } from '@/Engine/Mixins';
 import type { TPhysicsActorDriver } from '@/Engine/Physics';
 
-export type TActorDriveMixin = Readonly<{
+export type TActorDrive = Readonly<{
   driver$: BehaviorSubject<ActorDriver>;
   position$: ReplaySubject<Vector3>;
   getPosition: () => Vector3;
