@@ -115,12 +115,13 @@
       {
         "name": "surface_actor",
         "model3dSource": "surface_model",
+        "agent": "physical",
         "physics": {
           "presetName": "wall_physics",
           "shapeParams": {
             "hx": 10,
-            "hy": 0.025,
-            "hz": 10
+            "hy": 10,
+            "hz": 0.025
           }
         },
         "position": { "x": 0, "y": 0, "z": 0 },
@@ -130,6 +131,7 @@
       {
         "name": "sphere_1_actor",
         "model3dSource": "sphere_1_model",
+        "agent": "physical",
         "physics": {
           "presetName": "ball_physics",
           "shapeParams": {
@@ -142,6 +144,7 @@
       {
         "name": "cube_1_actor",
         "model3dSource": "cube_1_model",
+        "agent": "physical",
         "physics": {
           "presetName": "box_physics",
           "shapeParams": {
@@ -157,6 +160,7 @@
       {
         "name": "cube_2_actor",
         "model3dSource": "cube_2_model",
+        "agent": "physical",
         "physics": {
           "presetName": "box_physics",
           "shapeParams": {
@@ -172,6 +176,7 @@
       {
         "name": "sphere_2_actor",
         "model3dSource": "sphere_2_model",
+        "agent": "physical",
         "physics": {
           "presetName": "ball_physics",
           "shapeParams": {
@@ -185,6 +190,7 @@
       {
         "name": "sphere_3_actor",
         "model3dSource": "sphere_3_model",
+        "agent": "physical",
         "physics": {
           "presetName": "ball_physics",
           "shapeParams": {
