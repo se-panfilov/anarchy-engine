@@ -18,6 +18,8 @@
     "ts:check": "tsc --noEmit",
     "ts:check:watch": "tsc --watch --noEmit"
   },
-  "dependencies": {},
-  "devDependencies": {}
+  "dependencies": {
+    "@formatjs/intl": "3.1.6",
+    "rxjs": "7.8.2"
+  }
 }
