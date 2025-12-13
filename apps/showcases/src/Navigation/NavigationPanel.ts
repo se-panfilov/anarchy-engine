@@ -19,8 +19,8 @@ export function addNavigationPanel(container: HTMLElement): void {
       // eslint-disable-next-line functional/immutable-data
       option.value = routerConfigKey;
 
-      // eslint-disable-next-line spellcheck/spell-checker
-      if (option.value === window.location.pathname) {
+      const params = new URLSearchParams(window.location.search);
+      if (option.value === params.get('path')) {
         // eslint-disable-next-line functional/immutable-data
         option.selected = true;
       }
@@ -32,8 +32,10 @@ export function addNavigationPanel(container: HTMLElement): void {
   }
 
   selectBox.addEventListener('change', (event: Event): void => {
-    // eslint-disable-next-line functional/immutable-data,spellcheck/spell-checker
-    window.location.pathname = (event?.target as any)?.value;
+    const params = new URLSearchParams(window.location.search);
+    params.set('path', (event?.target as HTMLSelectElement)?.value);
+    window.history.pushState(null, '', '?' + params.toString());
+    window.location.reload();
   });
 
   // eslint-disable-next-line functional/immutable-data
