@@ -23,7 +23,6 @@ export function Model3dFacade(params: TModel3dParams, { animationsService }: TMo
   if (isDefined(params.position)) applyPositionToModel3d(entities.model3dSource, params.position);
   applyObject3dParamsToModel3d(entities.model3dSource, params);
 
-  // TODO 9.0.0. RESOURCES: add facade id to model3d's userData (make sure facade's id is reset during clone)
   return {
     ...facade,
     getParams,
