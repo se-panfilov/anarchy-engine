@@ -39,7 +39,7 @@
     "generate:legal:sbom": "npm sbom --sbom-format=cyclonedx --package-lock-only --omit=dev > ./compliance/sbom/sbom.cdx.json",
     "lint": "eslint ./src",
     "lint:fix": "npm run lint -- --fix",
-    "make:png-to-ico": "node ../../packages/anarchy-shared/ScriptUtils/MakeIcoFromPng --in assets/icon.png --out assets/icon.ico",
+    "make:png-to-ico": "node ../../packages/anarchy-shared/ScriptUtils/MakeIcoFromPng --in assets/icon.png --out assets/icon.ico --size 256",
     "prebuild": "vite build && vite build --config vite.preload.config.ts",
     "prettier": "prettier --write .",
     "prettier:check": "prettier --check .",
