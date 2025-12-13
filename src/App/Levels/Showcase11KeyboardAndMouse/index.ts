@@ -8,6 +8,7 @@ import type {
   IAppCanvas,
   ICameraRegistry,
   ICameraWrapper,
+  IEngine,
   IIntersectionEvent,
   IIntersectionsWatcher,
   IMouseWatcherEvent,
@@ -15,7 +16,7 @@ import type {
   ISpace,
   ISpaceConfig
 } from '@/Engine';
-import { buildSpaceFromConfig, defaultMoverServiceConfig, Easing, isNotDefined, keyboardService, KeyCode, LookUpStrategy, mouseService } from '@/Engine';
+import { buildSpaceFromConfig, defaultMoverServiceConfig, Easing, Engine, isNotDefined, keyboardService, KeyCode, LookUpStrategy, mouseService } from '@/Engine';
 import { MoverService } from '@/Engine/Services/MoverService/MoverService';
 
 import spaceConfig from './showcase-11.json';
@@ -24,7 +25,9 @@ import spaceConfig from './showcase-11.json';
 export function showcase(canvas: IAppCanvas): IShowcase {
   const gui: GUI = new GUI();
   const space: ISpace = buildSpaceFromConfig(canvas, spaceConfig as ISpaceConfig);
-  const { actorService, cameraService, intersectionsWatcherService, loopService } = space.services;
+  const engine: IEngine = Engine(space);
+
+  const { actorService, cameraService, intersectionsWatcherService } = space.services;
   const actorRegistry: IActorAsyncRegistry = actorService.getRegistry();
   const cameraRegistry: ICameraRegistry = cameraService.getRegistry();
   if (isNotDefined(actorRegistry)) throw new Error('Actor registry is not defined');
@@ -91,7 +94,7 @@ export function showcase(canvas: IAppCanvas): IShowcase {
     const { clickLeftRelease$, isLeftPressed$, isRightPressed$, isMiddlePressed$, isBackPressed$, isForwardPressed$, isExtraPressed$, doubleLeftClick$, doubleRightClick$, wheelUp$, wheelDown$ } =
       mouseService;
 
-    const moverService: IMoverService = MoverService(loopService, defaultMoverServiceConfig);
+    const moverService: IMoverService = MoverService(engine.services.loopService, defaultMoverServiceConfig);
 
     clickLeftRelease$.pipe(withLatestFrom(intersectionsWatcher.value$)).subscribe(([, intersection]: [IMouseWatcherEvent, IIntersectionEvent]): void => {
       void moverService.goToPosition(actorMouse, { x: intersection.point.x, z: intersection.point.z }, { duration: 1000, easing: Easing.EaseInCubic });
@@ -121,7 +124,7 @@ export function showcase(canvas: IAppCanvas): IShowcase {
   }
 
   function start(): void {
-    space.start();
+    engine.start();
     void init();
   }
 

@@ -1,4 +1,5 @@
 import type { IAppCanvas } from '@/Engine/App';
+import { ambientContext } from '@/Engine/Context';
 import type { IDataTexture } from '@/Engine/EnvMap';
 import type { IIntersectionsWatcher } from '@/Engine/Intersections';
 import type { IDestroyable } from '@/Engine/Mixins';
@@ -12,6 +13,8 @@ import { withBuiltMixin } from '@/Engine/Space/Mixin';
 import type { ISpace, ISpaceConfig, ISpaceServices, IWithBuilt } from '@/Engine/Space/Models';
 import { initServices } from '@/Engine/Space/SpaceHelpers';
 import { isDestroyable, isNotDefined, validLevelConfig } from '@/Engine/Utils';
+
+// TODO (S.Panfilov) SPACE: we need a space service, and factory, to create from config, and to create from the code.
 
 // TODO (S.Panfilov) LOGGER: add a logger globally (not only for errors, but I'd like to know, which service with which id did what).
 export function buildSpaceFromConfig(canvas: IAppCanvas, config: ISpaceConfig): ISpace {
@@ -40,8 +43,8 @@ export function buildSpaceFromConfig(canvas: IAppCanvas, config: ISpaceConfig): 
   cameraService.createFromConfig(cameras);
   actorService.createFromConfig(actors);
 
-  // const text2dRenderer: IText2dRenderer = initText2dRenderer(ambientContext.container.getAppContainer(), ambientContext.screenSizeWatcher);
-  // const text3dRenderer: IText3dRenderer = initText3dRenderer(ambientContext.container.getAppContainer(), ambientContext.screenSizeWatcher);
+  textService.createText2dRenderer(ambientContext.container.getAppContainer(), ambientContext.screenSizeWatcher);
+  textService.createText3dRenderer(ambientContext.container.getAppContainer(), ambientContext.screenSizeWatcher);
   textService.createFromConfig(texts);
 
   controlsService.createFromConfig(controls, cameraService.getRegistry());
@@ -55,9 +58,6 @@ export function buildSpaceFromConfig(canvas: IAppCanvas, config: ISpaceConfig): 
   });
 
   rendererService.create({ canvas, tags: [], mode: RendererModes.WebGL2, isActive: true });
-  // const renderer: IRendererWrapper = rendererService.create({ canvas, tags: [], mode: RendererModes.WebGL2, isActive: true });
-  // const { text2dRegistry, text3dRegistry } = textService.getRegistries();
-  // const controlsRegistry = controlsService.getRegistry();
 
   //build intersections
   void intersectionsWatcherService.createFromConfigAsync(intersections, mouseService, cameraService, actorService);
@@ -66,18 +66,12 @@ export function buildSpaceFromConfig(canvas: IAppCanvas, config: ISpaceConfig): 
     if (watcher.isAutoStart && !watcher.isStarted) watcher.start();
   });
 
-  // let camera: ICameraWrapper | undefined;
-  // cameraService.active$.subscribe((wrapper: ICameraWrapper | undefined): void => void (camera = wrapper));
-  // loopService.tick$.subscribe(({ delta }: ILoopTimes): void => spaceLoop(delta, camera, renderer, activeScene, text2dRegistry, text3dRegistry, text2dRenderer, text3dRenderer, controlsRegistry));
-
   const destroyable: IDestroyable = destroyableMixin();
   const builtMixin: IWithBuilt = withBuiltMixin();
 
   destroyable.destroyed$.subscribe(() => {
     builtMixin.built$.complete();
     Object.values(services).forEach((service): void => void (isDestroyable(service) && service.destroy()));
-    // loopService.stop();
-    // loopService.destroy();
   });
 
   builtMixin.build();
