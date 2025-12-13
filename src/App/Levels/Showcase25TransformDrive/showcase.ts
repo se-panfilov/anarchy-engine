@@ -61,6 +61,8 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
 
   const mode = { isTeleportationMode: false };
 
+  const actorsOffsetY: number = 2;
+
   physicsWorldService.getDebugRenderer(physicsLoopService).start();
 
   function init(): void {
@@ -95,7 +97,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
 
     sceneW.addModel3d(planeModel3dF);
 
-    const actorCoords = new Vector3(0, 2, 0);
+    const actorCoords = new Vector3(0, actorsOffsetY, 0);
     const sphereActor: TActor = createActor('sphere', TransformAgent.Default, grid, actorCoords, '#E91E63', space.services);
     gui.add(mode, 'isTeleportationMode').name('Teleportation mode');
     addActorFolderGui(gui, sphereActor);
@@ -117,10 +119,11 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     clickLeftRelease$
       .pipe(withLatestFrom(intersectionsWatcher.value$, sphereActor.drive.agent$))
       .subscribe(([, intersection, agent]: [TMouseWatcherEvent, TIntersectionEvent, TransformAgent]): void => {
-        moveActorTo(sphereActor, intersection.point, agent, mode.isTeleportationMode);
+        const adjustedPoint: Vector3 = intersection.point.clone().add(new Vector3(0, actorsOffsetY, 0));
+        moveActorTo(sphereActor, adjustedPoint, agent, mode.isTeleportationMode);
       });
 
-    attachConnectorToSubj(sphereActor, intersectionsWatcher.value$.pipe(map((v: TIntersectionEvent): Vector3 => v.point)));
+    attachConnectorToSubj(sphereActor, intersectionsWatcher.value$.pipe(map((v: TIntersectionEvent): Vector3 => v.point.add(new Vector3(0, actorsOffsetY, 0)))));
 
     changeActorActiveAgent(sphereActor, KeysExtra.Space, keyboardService);
 
