@@ -5,7 +5,7 @@ import type { ISpaceServices, IWithBuilt } from '@/Engine/Space';
 
 export type ISpace = IDestroyable &
   Omit<IWithBuilt, 'built$'> &
-  IWithTagsMixin<string> &
+  IWithTagsMixin &
   Readonly<{
     name: string;
     start: () => void;

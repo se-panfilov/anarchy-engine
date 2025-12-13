@@ -12,4 +12,4 @@ export type IActorConfig = IActorProps &
     castShadow: boolean;
   }> &
   IObject3DPropConfig &
-  IWithReadonlyTags<string>;
+  IWithReadonlyTags;

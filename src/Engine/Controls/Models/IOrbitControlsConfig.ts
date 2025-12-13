@@ -1,4 +1,4 @@
-import type { ControlsTag, ControlsType } from '@/Engine/Controls/Constants';
+import type { ControlsType } from '@/Engine/Controls/Constants';
 import type { IWithReadonlyTags } from '@/Engine/Mixins';
 
 import type { IOrbitControlsProps } from './IOrbitControlsProps';
@@ -10,4 +10,4 @@ export type IOrbitControlsConfig = Omit<IOrbitControlsProps, 'target' | 'cursor'
     target?: { x: number; y: number; z: number };
     cursor?: { x: number; y: number; z: number };
   }> &
-  IWithReadonlyTags<ControlsTag>;
+  IWithReadonlyTags;

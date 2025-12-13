@@ -6,4 +6,4 @@ export type IFogConfig = Omit<IFogProps, 'color'> &
   Readonly<{
     color: string;
   }> &
-  IWithReadonlyTags<string>;
+  IWithReadonlyTags;

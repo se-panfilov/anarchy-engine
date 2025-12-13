@@ -1,6 +1,5 @@
 import type { IAppCanvas } from '@/Engine/App';
 import type { ICameraWrapper } from '@/Engine/Camera';
-import type { ControlsTag } from '@/Engine/Controls/Constants';
 import type { IWithReadonlyTags } from '@/Engine/Mixins';
 import type { IVector3Wrapper } from '@/Engine/Vector';
 
@@ -13,4 +12,4 @@ export type IOrbitControlsParams = Omit<IOrbitControlsProps, 'target' | 'cursor'
     target?: IVector3Wrapper;
     cursor?: IVector3Wrapper;
   }> &
-  IWithReadonlyTags<ControlsTag>;
+  IWithReadonlyTags;

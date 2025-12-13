@@ -2,7 +2,7 @@ import Ajv from 'ajv';
 
 import type { ICameraConfig } from '@/Engine/Camera';
 import type { IControlsConfig } from '@/Engine/Controls';
-import type { IWithName } from '@/Engine/Mixins';
+import type { IWithName, IWithReadonlyTags } from '@/Engine/Mixins';
 import type { ISceneConfig } from '@/Engine/Scene';
 import type { ISpaceConfig } from '@/Engine/Space';
 import ISpaceConfigSchema from '@/Engine/Space/Schemas/ISpaceConfig.json';
@@ -28,7 +28,7 @@ function validateJsonSchema(config: ISpaceConfig): SchemaValidationResult {
   return { isValid, errors: validate.errors };
 }
 
-function validateData({ name, actors, cameras, scenes, controls, lights, fogs, texts }: ISpaceConfig): SchemaValidationResult {
+function validateData({ name, actors, cameras, scenes, controls, lights, fogs, texts, tags }: ISpaceConfig): SchemaValidationResult {
   let errors: ReadonlyArray<string> = [];
 
   //must be defined
@@ -44,6 +44,7 @@ function validateData({ name, actors, cameras, scenes, controls, lights, fogs, t
   const isEveryControlsHasCamera: boolean = controls.every((control: IControlsConfig) => cameras.some((camera: ICameraConfig): boolean => camera.name === control.cameraName));
 
   //Regexp checks (ts-json schema does not support regexp patterns atm)
+  //names
   const isConfigNameValid: boolean = validateName(name);
   const isEverySceneNameValid: boolean = validateNames(scenes);
   const isEveryActorNameValid: boolean = validateNames(actors);
@@ -52,7 +53,17 @@ function validateData({ name, actors, cameras, scenes, controls, lights, fogs, t
   const isEveryFogNameValid: boolean = validateNames(fogs);
   const isEveryTextNameValid: boolean = validateNames(texts);
   const isEveryControlsNameValid: boolean = validateNames(controls);
+  //tags
+  const isConfigTagsValid: boolean = validateTags(tags);
+  const isEverySceneTagsValid: boolean = validateTagsForEveryEntity(scenes);
+  const isEveryActorTagsValid: boolean = validateTagsForEveryEntity(actors);
+  const isEveryCameraTagsValid: boolean = validateTagsForEveryEntity(cameras);
+  const isEveryLightTagsValid: boolean = validateTagsForEveryEntity(lights);
+  const isEveryFogTagsValid: boolean = validateTagsForEveryEntity(fogs);
+  const isEveryTextTagsValid: boolean = validateTagsForEveryEntity(texts);
+  const isEveryControlsTagsValid: boolean = validateTagsForEveryEntity(controls);
 
+  //Adding errors
   if (isNoScenesDefined) errors = [...errors, 'No scenes are defined'];
   if (isMultipleActiveCameras) errors = [...errors, 'Can be only one active camera, but multiple set as active'];
   if (isMultipleActiveScenes) errors = [...errors, 'Can be only one active scene, but multiple set as active'];
@@ -60,7 +71,8 @@ function validateData({ name, actors, cameras, scenes, controls, lights, fogs, t
   if (isControlsWithoutCamera) errors = [...errors, 'Controls cannot be defined without at least one camera, but there are no cameras'];
   if (!isEveryControlsHasCamera) errors = [...errors, 'Not every control has a camera'];
 
-  if (!isConfigNameValid) errors = [...errors, 'Config name must be defined and contain only letters, numbers and underscores'];
+  //names
+  if (!isConfigNameValid) errors = [...errors, 'Space config name must be defined and contain only letters, numbers and underscores'];
   if (!isEverySceneNameValid) errors = [...errors, 'Scene names must be defined and contain only letters, numbers and underscores'];
   if (!isEveryActorNameValid) errors = [...errors, 'Actor names must be defined and contain only letters, numbers and underscores'];
   if (!isEveryCameraNameValid) errors = [...errors, 'Camera names must be defined and contain only letters, numbers and underscores'];
@@ -68,6 +80,15 @@ function validateData({ name, actors, cameras, scenes, controls, lights, fogs, t
   if (!isEveryFogNameValid) errors = [...errors, 'Fog names must be defined and contain only letters, numbers and underscores'];
   if (!isEveryTextNameValid) errors = [...errors, 'Text names must be defined and contain only letters, numbers and underscores'];
   if (!isEveryControlsNameValid) errors = [...errors, 'Controls names must be defined and contain only letters, numbers and underscores'];
+  //tags
+  if (!isConfigTagsValid) errors = [...errors, 'Space config tags must contain only letters, numbers and underscores'];
+  if (!isEverySceneTagsValid) errors = [...errors, 'Scene tags must contain only letters, numbers and underscores'];
+  if (!isEveryActorTagsValid) errors = [...errors, 'Actor tags must contain only letters, numbers and underscores'];
+  if (!isEveryCameraTagsValid) errors = [...errors, 'Camera tags must contain only letters, numbers and underscores'];
+  if (!isEveryLightTagsValid) errors = [...errors, 'Light tags must contain only letters, numbers and underscores'];
+  if (!isEveryFogTagsValid) errors = [...errors, 'Fog tags must contain only letters, numbers and underscores'];
+  if (!isEveryTextTagsValid) errors = [...errors, 'Text tags must contain only letters, numbers and underscores'];
+  if (!isEveryControlsTagsValid) errors = [...errors, 'Controls tags must contain only letters, numbers and underscores'];
 
   return { isValid: errors.length === 0, errors };
 }
@@ -77,3 +98,8 @@ const validateNames = (entities: ReadonlyArray<IWithName>): boolean => entities.
 
 // TODO (S.Panfilov) add unit tests
 const validateName = (name: string | undefined): boolean => (isDefined(name) ? name.length > 0 && /^[A-z0-9_]+$/gm.test(name) : true);
+
+// TODO (S.Panfilov) add unit tests
+const validateTags = (tags: ReadonlyArray<string>): boolean => tags.every(validateName);
+
+const validateTagsForEveryEntity = (entities: ReadonlyArray<IWithReadonlyTags>): boolean => entities.every((e: IWithReadonlyTags): boolean => validateTags(e.tags));

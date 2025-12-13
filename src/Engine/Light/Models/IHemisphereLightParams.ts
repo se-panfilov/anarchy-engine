@@ -3,4 +3,4 @@ import type { IObject3DParams } from '@/Engine/ThreeLib';
 
 import type { IHemisphereLightProps } from './IHemisphereLightProps';
 
-export type IHemisphereLightParams = IHemisphereLightProps & IObject3DParams & IWithReadonlyTags<string>;
+export type IHemisphereLightParams = IHemisphereLightProps & IObject3DParams & IWithReadonlyTags;

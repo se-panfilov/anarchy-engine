@@ -16,4 +16,4 @@ export type IOrbitControlsWrapper = IWrapper<OrbitControls> &
     moveToTargetSmoothly: (position: IVector3Wrapper) => void;
   }> &
   IWithActiveMixin &
-  IWithTagsMixin<string>;
+  IWithTagsMixin;

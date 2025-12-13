@@ -20,4 +20,4 @@ export type ISpaceConfig = Readonly<{
   controls: ReadonlyArray<IControlsConfig>;
   envMaps: ReadonlyArray<string>;
 }> &
-  IWithReadonlyTags<string>;
+  IWithReadonlyTags;

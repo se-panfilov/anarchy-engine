@@ -9,4 +9,4 @@ export type ISceneConfig = Omit<ISceneProps, 'background'> &
     background?: string;
   }> &
   Omit<IObject3DPropConfig, 'position'> &
-  IWithReadonlyTags<string>;
+  IWithReadonlyTags;

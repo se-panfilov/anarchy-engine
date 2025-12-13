@@ -11,4 +11,4 @@ export type IRendererParams = ITreeJsRendererParams &
     maxPixelRatio?: number;
   }> &
   IActive &
-  IWithReadonlyTags<string>;
+  IWithReadonlyTags;

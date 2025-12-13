@@ -3,4 +3,4 @@ import type { IObject3DParams } from '@/Engine/ThreeLib';
 
 import type { ICameraProps } from './ICameraProps';
 
-export type ICameraParams = ICameraProps & IObject3DParams & IWithReadonlyTags<string>;
+export type ICameraParams = ICameraProps & IObject3DParams & IWithReadonlyTags;

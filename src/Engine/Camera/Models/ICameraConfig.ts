@@ -8,4 +8,4 @@ export type ICameraConfig = Omit<ICameraProps, 'lookAt'> &
     lookAt?: IWithCoordsXYZ;
   }> &
   IObject3DPropConfig &
-  IWithReadonlyTags<string>;
+  IWithReadonlyTags;

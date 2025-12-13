@@ -1,12 +1,12 @@
-export type IWithTagsMixin<T> = Readonly<{
-  setTags: (tagsList: ReadonlyArray<T | string>) => void;
-  addTag: (tag: T | string) => void;
-  removeTag: (tag: T | string) => void;
-  hasTag: (tag: T | string) => boolean;
-  getTags: () => ReadonlyArray<T | string>;
+export type IWithTagsMixin = Readonly<{
+  setTags: (tagsList: ReadonlyArray<string>) => void;
+  addTag: (tag: string) => void;
+  removeTag: (tag: string) => void;
+  hasTag: (tag: string) => boolean;
+  getTags: () => ReadonlyArray<string>;
   clearTags: () => void;
 }>;
 
-export type IWithReadonlyTags<T> = Readonly<{
-  tags: ReadonlyArray<T | string>;
+export type IWithReadonlyTags = Readonly<{
+  tags: ReadonlyArray<string>;
 }>;
