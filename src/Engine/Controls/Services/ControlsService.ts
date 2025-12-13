@@ -2,7 +2,7 @@ import type { Subscription } from 'rxjs';
 
 import type { TAbstractService, TRegistryPack } from '@/Engine/Abstract';
 import { AbstractService } from '@/Engine/Abstract';
-import type { TCameraRegistry, TCameraWrapper } from '@/Engine/Camera';
+import type { TAbstractCameraRegistry, TCameraWrapper } from '@/Engine/Camera';
 import { controlsLoopEffect } from '@/Engine/Controls/Loop';
 import type {
   TControlsConfig,
@@ -10,6 +10,7 @@ import type {
   TControlsParams,
   TControlsRegistry,
   TControlsService,
+  TControlsServiceDependencies,
   TControlsServiceWithFactory,
   TControlsServiceWithRegistry,
   TControlsWrapper
@@ -19,7 +20,13 @@ import { withActiveEntityServiceMixin, withFactoryService, withRegistryService }
 import type { TSpaceCanvas, TSpaceLoops } from '@/Engine/Space';
 import { isNotDefined } from '@/Engine/Utils';
 
-export function ControlService(factory: TControlsFactory, registry: TControlsRegistry, { controlsLoop }: TSpaceLoops, canvas: TSpaceCanvas): TControlsService {
+export function ControlService(
+  factory: TControlsFactory,
+  registry: TControlsRegistry,
+  { controlsLoop }: TSpaceLoops,
+  { cameraService }: TControlsServiceDependencies,
+  canvas: TSpaceCanvas
+): TControlsService {
   const withActive: TWithActiveMixinResult<TControlsWrapper> = withActiveEntityServiceMixin<TControlsWrapper>(registry);
   const registrySub$: Subscription = registry.added$.subscribe(({ value }: TRegistryPack<TControlsWrapper>): void => {
     if (value.isActive()) withActive.active$.next(value);
@@ -28,11 +35,13 @@ export function ControlService(factory: TControlsFactory, registry: TControlsReg
   const disposable: ReadonlyArray<TDisposable> = [registry, factory, registrySub$, factorySub$];
   const abstractService: TAbstractService = AbstractService(disposable);
 
+  const cameraRegistry: TAbstractCameraRegistry = cameraService.getRegistry();
+
   const create = (params: TControlsParams): TControlsWrapper => factory.create(params, undefined);
   const createFromList = (list: ReadonlyArray<TControlsParams>): ReadonlyArray<TControlsWrapper> => list.map(create);
-  const createFromConfig = (controls: ReadonlyArray<TControlsConfig>, camerasRegistry: TCameraRegistry): void => {
+  const createFromConfig = (controls: ReadonlyArray<TControlsConfig>): void => {
     controls.forEach((control: TControlsConfig): TControlsWrapper => {
-      const camera: TCameraWrapper | undefined = camerasRegistry.find((camera: TCameraWrapper): boolean => camera.getName() === control.cameraName);
+      const camera: TCameraWrapper | undefined = cameraRegistry.find((camera: TCameraWrapper): boolean => camera.getName() === control.cameraName);
       if (isNotDefined(camera)) throw new Error(`Cannot find camera for controls (${control.type}) initialization`);
       return create(factory.configToParams(control, { camera, canvas }));
     });

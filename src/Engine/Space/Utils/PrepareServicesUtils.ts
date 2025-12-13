@@ -96,7 +96,7 @@ export function buildEntitiesServices(
     ),
     audioService,
     cameraService,
-    controlsService: ControlService(ControlsFactory(), ControlsRegistry(), loops, canvas),
+    controlsService: ControlService(ControlsFactory(), ControlsRegistry(), loops, { cameraService }, canvas),
     collisionsService,
     scenesService,
     envMapService: EnvMapService(EnvMapFactory(), EnvMapRegistry(), EnvMapTextureAsyncRegistry(), sceneW),

@@ -1,5 +1,4 @@
 import type { TAbstractService } from '@/Engine/Abstract';
-import type { TCameraRegistry } from '@/Engine/Camera';
 import type { TWithActiveAccessorsService, TWithCreateFromConfigService, TWithCreateService, TWithFactoryService, TWithRegistryService } from '@/Engine/Mixins';
 
 import type { TControlsConfig } from './TControlsConfig';
@@ -17,7 +16,7 @@ export type TControlsService = TAbstractService &
   TControlsServiceWithCreate &
   TControlsServiceWithCreateFromConfig &
   Readonly<{
-    createFromConfig: (controls: ReadonlyArray<TControlsConfig>, camerasRegistry: TCameraRegistry) => void;
+    createFromConfig: (controls: ReadonlyArray<TControlsConfig>) => void;
   }> &
   TWithActiveAccessorsService<TControlsWrapper> &
   TControlsServiceWithFactory &

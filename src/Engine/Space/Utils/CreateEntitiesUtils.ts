@@ -63,7 +63,7 @@ export function createEntitiesFromConfigs(entities: TSpaceConfigEntities, servic
   textService.createText3dRenderer(container);
   textService.createFromConfig(texts);
 
-  controlsService.createFromConfig(controls, cameraService.getRegistry());
+  controlsService.createFromConfig(controls);
   lightService.createFromConfig(lights);
   particlesService.createFromConfig(particles);
 

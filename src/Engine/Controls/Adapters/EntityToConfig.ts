@@ -1,10 +1,15 @@
-import type { TControlsConfig, TControlsWrapper, TFpsControlsConfig, TFpsControlsWrapper, TOrbitControlsConfig, TOrbitControlsWrapper } from '@/Engine/Controls/Models';
+import type { TCameraWrapper } from '@/Engine/Camera';
+import type { TControlsConfig, TControlsServiceDependencies, TControlsWrapper, TFpsControlsConfig, TFpsControlsWrapper, TOrbitControlsConfig, TOrbitControlsWrapper } from '@/Engine/Controls/Models';
 import { extractSerializableRegistrableFields } from '@/Engine/Mixins';
-import { filterOutEmptyFields } from '@/Engine/Utils';
+import { filterOutEmptyFields, isNotDefined } from '@/Engine/Utils';
 
 // TODO 15-0-0: validate result
-export function controlsToConfig(entity: TControlsWrapper): TControlsConfig {
+export function controlsToConfig(entity: TControlsWrapper, { cameraService }: TControlsServiceDependencies): TControlsConfig {
   console.log('XXX entity', entity);
+  console.log('XXX entity.entity', entity.entity);
+
+  // const camera: TCameraWrapper | undefined = cameraRegistry.find((camera: TCameraWrapper): boolean => camera.getName() === control.cameraName);
+  // if (isNotDefined(camera)) throw new Error(`Cannot find camera for controls (${control.type}) initialization`);
 
   return filterOutEmptyFields({
     enabled: entity.isEnable(),
