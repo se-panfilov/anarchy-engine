@@ -1,6 +1,7 @@
 import type { MeshToonMaterialParameters } from 'three';
 
 import type { ActorType } from '@/Engine/Domains/Actor/Constants';
+import type { ITexturePack } from '@/Engine/Domains/Texture';
 
 export type IActorProps = Readonly<{
   type: ActorType;
@@ -13,4 +14,5 @@ export type IActorProps = Readonly<{
   depthSegments?: number;
   materialParams?: MeshToonMaterialParameters;
   castShadow: boolean;
+  texturePack?: ITexturePack;
 }>;

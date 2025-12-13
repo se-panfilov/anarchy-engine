@@ -259,6 +259,9 @@
         },
         "depthSegments": {
           "type": "number"
+        },
+        "texturePack": {
+          "$ref": "#/definitions/ITexturePack"
         }
       },
       "required": ["castShadow", "height", "materialParams", "position", "tags", "type", "width"]
@@ -280,6 +283,140 @@
       },
       "required": ["color"],
       "additionalProperties": false
+    },
+    "ITexturePack": {
+      "type": "object",
+      "properties": {
+        "map": {
+          "$ref": "#/definitions/ITexturePackParams"
+        },
+        "aoMap": {
+          "$ref": "#/definitions/ITexturePackParams"
+        },
+        "specularMap": {
+          "$ref": "#/definitions/ITexturePackParams"
+        },
+        "alphaMap": {
+          "$ref": "#/definitions/ITexturePackParams"
+        },
+        "envMap": {
+          "$ref": "#/definitions/ITexturePackParams"
+        },
+        "lightMap": {
+          "$ref": "#/definitions/ITexturePackParams"
+        }
+      },
+      "additionalProperties": false
+    },
+    "ITexturePackParams": {
+      "type": "object",
+      "properties": {
+        "url": {
+          "type": "string"
+        },
+        "params": {
+          "$ref": "#/definitions/ITextureParams"
+        }
+      },
+      "required": ["url"],
+      "additionalProperties": false
+    },
+    "ITextureParams": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "tags": {
+          "type": "array",
+          "items": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "$ref": "#/definitions/CommonTag"
+              }
+            ]
+          }
+        },
+        "mapping": {
+          "$ref": "#/definitions/Mapping"
+        },
+        "wrapS": {
+          "$ref": "#/definitions/Wrapping"
+        },
+        "wrapT": {
+          "$ref": "#/definitions/Wrapping"
+        },
+        "magFilter": {
+          "$ref": "#/definitions/MagnificationTextureFilter"
+        },
+        "minFilter": {
+          "$ref": "#/definitions/MinificationTextureFilter"
+        },
+        "format": {
+          "$ref": "#/definitions/PixelFormat"
+        },
+        "type": {
+          "$ref": "#/definitions/TextureDataType"
+        },
+        "anisotropy": {
+          "type": "number"
+        },
+        "colorSpace": {
+          "$ref": "#/definitions/ColorSpace"
+        }
+      },
+      "required": ["tags"]
+    },
+    "Mapping": {
+      "type": "number",
+      "enum": [300, 303, 304],
+      "description": "Texture Mapping Modes for non-cube Textures"
+    },
+    "Wrapping": {
+      "type": "number",
+      "enum": [1000, 1001, 1002],
+      "description": "Texture Wrapping Modes"
+    },
+    "MagnificationTextureFilter": {
+      "type": "number",
+      "enum": [1003, 1006],
+      "description": "Texture Magnification Filter Modes. For use with a texture's  {@link  THREE.Texture.magFilter magFilter }  property, these define the texture magnification function to be used when the pixel being textured maps to an area less than or equal to one texture element (texel)."
+    },
+    "MinificationTextureFilter": {
+      "type": "number",
+      "enum": [1003, 1004, 1005, 1006, 1007, 1008],
+      "description": "Texture Minification Filter Modes. For use with a texture's  {@link  THREE.Texture.minFilter minFilter }  property, these define the texture minifying function that is used whenever the pixel being textured maps to an area greater than one texture element (texel)."
+    },
+    "PixelFormat": {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/WebGL1PixelFormat"
+        },
+        {
+          "$ref": "#/definitions/WebGL2PixelFormat"
+        }
+      ],
+      "description": "All Texture Pixel Formats Modes."
+    },
+    "WebGL1PixelFormat": {
+      "type": "number",
+      "enum": [1021, 1024, 1025, 1026, 1027, 1028, 1029, 1030, 1035],
+      "description": "Texture Pixel Formats Modes. Compatible only with  {@link  WebGLRenderingContext WebGL 1 Rendering Context } ."
+    },
+    "WebGL2PixelFormat": {
+      "type": "number",
+      "enum": [1021, 1023, 1024, 1025, 1026, 1027, 1028, 1029, 1030, 1031, 1033, 1035],
+      "description": "Texture Pixel Formats Modes. Compatible only with  {@link  WebGL2RenderingContext WebGL 2 Rendering Context } ."
+    },
+    "TextureDataType": {
+      "type": "number",
+      "enum": [1009, 1010, 1011, 1012, 1013, 1014, 1015, 1016, 1017, 1018, 1020],
+      "description": "Texture Types."
+    },
+    "ColorSpace": {
+      "type": "string",
+      "enum": ["", "srgb", "srgb-linear", "display-p3", "display-p3-linear"]
     },
     "ICameraConfig": {
       "type": "object",
