@@ -74,10 +74,10 @@ export function buildLevelFromConfig(canvas: IAppCanvas, config: ILevelConfig): 
   let intersectionsWatcherEntityCreatedSubscription: Subscription | undefined;
   if (isDefined(initialCamera)) {
     initialCamera.addTag(CameraTag.Active);
-    console.log('2222', initialCamera.hasTag(CameraTag.Active), initialCamera.tags);
-    intersectionsWatcherEntityCreatedSubscription = intersectionsWatcherFactory.entityCreated$.subscribe((intersectionsWatcher: IIntersectionsWatcher): void =>
-      intersectionsWatcherRegistry.add({ ...intersectionsWatcher, tags: [...intersectionsWatcher.tags, CommonTag.FromConfig] })
-    );
+    intersectionsWatcherEntityCreatedSubscription = intersectionsWatcherFactory.entityCreated$.subscribe((intersectionsWatcher: IIntersectionsWatcher): void => {
+      intersectionsWatcher.addTag(CommonTag.FromConfig);
+      intersectionsWatcherRegistry.add(intersectionsWatcher);
+    });
     intersectionsWatcher = intersectionsWatcherFactory.create({ actors: clickableActors, camera: initialCamera, positionWatcher: ambientContext.mousePositionWatcher });
     messages$.next(`Intersections watcher created`);
   } else {

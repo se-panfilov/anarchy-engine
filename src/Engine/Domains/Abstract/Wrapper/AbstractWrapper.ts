@@ -9,7 +9,6 @@ export function AbstractWrapper<T>(entity: T, type: WrapperType | string, params
   return {
     id: type + '_' + nanoid(),
     entity,
-    isRegistrable: true,
     ...withTags(params ? params.tags : []),
     ...destroyableMixin()
   };

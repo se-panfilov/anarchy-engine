@@ -1,10 +1,11 @@
 import { nanoid } from 'nanoid';
 import { Subject } from 'rxjs';
 
-import type { CommonTag, WatcherType } from '@/Engine/Domains/Abstract/Constants';
+import type { WatcherType } from '@/Engine/Domains/Abstract/Constants';
 import type { IAbstractWatcher } from '@/Engine/Domains/Abstract/Models';
 import type { IDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
+import { withTags } from '@/Engine/Mixins/Generic/WithTags';
 
 export function AbstractWatcher<T>(type: WatcherType | string, tags: ReadonlyArray<string> = []): IAbstractWatcher<T> {
   const id: string = type + '_' + nanoid();
@@ -26,12 +27,7 @@ export function AbstractWatcher<T>(type: WatcherType | string, tags: ReadonlyArr
     get value$(): Subject<T> {
       return value$;
     },
-    get tags(): ReadonlyArray<CommonTag | string> {
-      return tags;
-    },
-    get isRegistrable(): boolean {
-      return true;
-    },
+    ...withTags(tags),
     ...destroyable
   };
 }

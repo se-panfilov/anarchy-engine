@@ -35,5 +35,11 @@ export function CameraWrapper(params: ICameraParams, screenSizeWatcher: Readonly
     screenSizeWatcherSubscription.unsubscribe();
   });
 
-  return { ...AbstractWrapper(entity, WrapperType.Camera, params), ...getAccessors(entity), entity, ...withTags(tags) };
+  const result = { ...AbstractWrapper(entity, WrapperType.Camera, params), ...getAccessors(entity), entity, ...withTags(tags) };
+
+  setInterval(() => {
+    console.log('result', result.getTags());
+  }, 1000);
+
+  return result;
 }

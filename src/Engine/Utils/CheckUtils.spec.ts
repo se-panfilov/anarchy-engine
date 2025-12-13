@@ -113,18 +113,18 @@ describe('CheckUtils', () => {
   });
 
   describe('isRegistrable', () => {
-    it('should return "true" if "isRegistrable" is "true"', () => {
-      const obj: IRegistrable = { id: 'mock-id', tags: [], isRegistrable: true };
+    it('should return "true"', () => {
+      const obj: Partial<IRegistrable> = { id: 'mock-id', getTags: vi.fn(), addTag: vi.fn() };
       expect(isRegistrable(obj)).toBe(true);
     });
 
-    it('should return "false" if  "isRegistrable" is "false"', () => {
-      const obj: IRegistrable = { id: 'mock-id', tags: [], isRegistrable: false };
+    it('should return "false" if  "getTags" is "undefined"', () => {
+      const obj: Partial<IRegistrable> = { id: 'mock-id', addTag: vi.fn() };
       expect(isRegistrable(obj)).toBe(false);
     });
 
-    it('should return "false" if isRegistrable is false', () => {
-      const obj: IRegistrable = { id: 'mock-id', tags: [], isRegistrable: false };
+    it('should return "false" if addTag is undefined', () => {
+      const obj: Partial<IRegistrable> = { id: 'mock-id', getTags: vi.fn() };
       expect(isRegistrable(obj)).toBe(false);
     });
   });

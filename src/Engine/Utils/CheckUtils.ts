@@ -12,7 +12,7 @@ export function isNotDefined<T>(value: T | undefined | null): value is undefined
 }
 
 export function isRegistrable<T>(obj: T | IRegistrable): obj is IRegistrable {
-  return isDefined((obj as unknown as IRegistrable).isRegistrable) && Boolean((obj as unknown as IRegistrable).isRegistrable);
+  return isDefined((obj as unknown as IRegistrable).getTags) && Boolean((obj as unknown as IRegistrable).addTag);
 }
 
 export function isDestroyable<T>(obj: T | IDestroyable): obj is IDestroyable {
