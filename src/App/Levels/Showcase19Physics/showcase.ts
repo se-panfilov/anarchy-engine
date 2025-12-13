@@ -1,5 +1,3 @@
-import type { RigidBody, Rotation } from '@dimforge/rapier3d';
-import type { Vector } from '@dimforge/rapier3d/math';
 import type { Vector3 } from 'three';
 import { Line2 } from 'three/examples/jsm/lines/Line2';
 import { LineGeometry } from 'three/examples/jsm/lines/LineGeometry';
@@ -49,10 +47,10 @@ export function showcase(canvas: TAppCanvas): TShowcase {
 
   const ballActorPromise: Promise<TActorWrapperAsync | undefined> = actorAsyncRegistry.findByNameAsync('ball');
   const surfaceActorPromise: Promise<TActorWrapperAsync | undefined> = actorAsyncRegistry.findByNameAsync('surface');
-  const obstacle1ActorPromise: Promise<TActorWrapperAsync | undefined> = actorAsyncRegistry.findByNameAsync('obstacle_1');
-  const obstacle2ActorPromise: Promise<TActorWrapperAsync | undefined> = actorAsyncRegistry.findByNameAsync('obstacle_2');
-  const obstacle3ActorPromise: Promise<TActorWrapperAsync | undefined> = actorAsyncRegistry.findByNameAsync('obstacle_3');
-  const obstacle4ActorPromise: Promise<TActorWrapperAsync | undefined> = actorAsyncRegistry.findByNameAsync('obstacle_4');
+  // const obstacle1ActorPromise: Promise<TActorWrapperAsync | undefined> = actorAsyncRegistry.findByNameAsync('obstacle_1');
+  // const obstacle2ActorPromise: Promise<TActorWrapperAsync | undefined> = actorAsyncRegistry.findByNameAsync('obstacle_2');
+  // const obstacle3ActorPromise: Promise<TActorWrapperAsync | undefined> = actorAsyncRegistry.findByNameAsync('obstacle_3');
+  // const obstacle4ActorPromise: Promise<TActorWrapperAsync | undefined> = actorAsyncRegistry.findByNameAsync('obstacle_4');
 
   physicsBodyService.getDebugRenderer(loopService).start();
 
@@ -82,21 +80,21 @@ export function showcase(canvas: TAppCanvas): TShowcase {
     if (isNotDefined(surfaceActorW)) throw new Error(`Cannot find "surfaceActor" actor`);
     if (!isActorHasPhysicsBody(surfaceActorW)) throw new Error(`"surfaceActor" actor is not a physic actor`);
 
-    const obstacle1ActorW: TActorWrapperWithPhysicsAsync | TActorWrapperAsync | undefined = await obstacle1ActorPromise;
-    if (isNotDefined(obstacle1ActorW)) throw new Error(`Cannot find "obstacle1Actor" actor`);
-    if (!isActorHasPhysicsBody(obstacle1ActorW)) throw new Error(`"obstacle1Actor" actor is not a physic actor`);
-
-    const obstacle2ActorW: TActorWrapperWithPhysicsAsync | TActorWrapperAsync | undefined = await obstacle2ActorPromise;
-    if (isNotDefined(obstacle2ActorW)) throw new Error(`Cannot find "obstacle2Actor" actor`);
-    if (!isActorHasPhysicsBody(obstacle2ActorW)) throw new Error(`"obstacle2Actor" actor is not a physic actor`);
-
-    const obstacle3ActorW: TActorWrapperWithPhysicsAsync | TActorWrapperAsync | undefined = await obstacle3ActorPromise;
-    if (isNotDefined(obstacle3ActorW)) throw new Error(`Cannot find "obstacle3Actor" actor`);
-    if (!isActorHasPhysicsBody(obstacle3ActorW)) throw new Error(`"obstacle3Actor" actor is not a physic actor`);
-
-    const obstacle4ActorW: TActorWrapperWithPhysicsAsync | TActorWrapperAsync | undefined = await obstacle4ActorPromise;
-    if (isNotDefined(obstacle4ActorW)) throw new Error(`Cannot find "obstacle4Actor" actor`);
-    if (!isActorHasPhysicsBody(obstacle4ActorW)) throw new Error(`"obstacle4Actor" actor is not a physic actor`);
+    // const obstacle1ActorW: THasPhysicsBody<TActorWrapperAsync> | TActorWrapperAsync | undefined = await obstacle1ActorPromise;
+    // if (isNotDefined(obstacle1ActorW)) throw new Error(`Cannot find "obstacle1Actor" actor`);
+    // if (!isActorHasPhysicsBody(obstacle1ActorW)) throw new Error(`"obstacle1Actor" actor is not a physic actor`);
+    //
+    // const obstacle2ActorW: THasPhysicsBody<TActorWrapperAsync> | TActorWrapperAsync | undefined = await obstacle2ActorPromise;
+    // if (isNotDefined(obstacle2ActorW)) throw new Error(`Cannot find "obstacle2Actor" actor`);
+    // if (!isActorHasPhysicsBody(obstacle2ActorW)) throw new Error(`"obstacle2Actor" actor is not a physic actor`);
+    //
+    // const obstacle3ActorW: THasPhysicsBody<TActorWrapperAsync> | TActorWrapperAsync | undefined = await obstacle3ActorPromise;
+    // if (isNotDefined(obstacle3ActorW)) throw new Error(`Cannot find "obstacle3Actor" actor`);
+    // if (!isActorHasPhysicsBody(obstacle3ActorW)) throw new Error(`"obstacle3Actor" actor is not a physic actor`);
+    //
+    // const obstacle4ActorW: THasPhysicsBody<TActorWrapperAsync> | TActorWrapperAsync | undefined = await obstacle4ActorPromise;
+    // if (isNotDefined(obstacle4ActorW)) throw new Error(`Cannot find "obstacle4Actor" actor`);
+    // if (!isActorHasPhysicsBody(obstacle4ActorW)) throw new Error(`"obstacle4Actor" actor is not a physic actor`);
 
     const cameraW: TCameraWrapper | undefined = cameraService.findActive();
     if (isNotDefined(cameraW)) throw new Error(`Cannot find active camera`);
@@ -147,13 +145,10 @@ export function showcase(canvas: TAppCanvas): TShowcase {
 
     // TODO (S.Panfilov) extract physics world update to the main loop
     loopService.tick$.subscribe(() => {
-      // Ste the simulation forward.
-      // world.step();
-
       // TODO (S.Panfilov) debug: this should not be done here, but instead in the service (with an option to manual update)
-      const world = physicsBodyService.getWorld();
-      if (isNotDefined(world)) throw new Error(`Cannot find physics world`);
-      world.step();
+      // const world = physicsBodyService.getWorld();
+      // if (isNotDefined(world)) throw new Error(`Cannot find physics world`);
+      // world.step();
 
       if (isDefined(mouseLineIntersectionsCoords)) {
         const ballCoords: TWithCoordsXYZ = ballActorW.getPosition().getCoords();
@@ -165,11 +160,11 @@ export function showcase(canvas: TAppCanvas): TShowcase {
         line.computeLineDistances();
       }
 
-      updateActorByPhysics(ballActorW.physicsBody.getRigidBody(), ballActorW);
-      updateActorByPhysics(obstacle1ActorW.physicsBody.getRigidBody(), obstacle1ActorW);
-      updateActorByPhysics(obstacle2ActorW.physicsBody.getRigidBody(), obstacle2ActorW);
-      updateActorByPhysics(obstacle3ActorW.physicsBody.getRigidBody(), obstacle3ActorW);
-      updateActorByPhysics(obstacle4ActorW.physicsBody.getRigidBody(), obstacle4ActorW);
+      // updateActorByPhysics(ballActorW.physicsBody.getRigidBody(), ballActorW);
+      // updateActorByPhysics(obstacle1ActorW.physicsBody.getRigidBody(), obstacle1ActorW);
+      // updateActorByPhysics(obstacle2ActorW.physicsBody.getRigidBody(), obstacle2ActorW);
+      // updateActorByPhysics(obstacle3ActorW.physicsBody.getRigidBody(), obstacle3ActorW);
+      // updateActorByPhysics(obstacle4ActorW.physicsBody.getRigidBody(), obstacle4ActorW);
     });
   }
 
@@ -233,10 +228,10 @@ function createLine(): Line2 {
 //   return rigidBody;
 // }
 
-function updateActorByPhysics(rigidBody: RigidBody, actor: TActorWrapperAsync): void {
-  const position: Vector = rigidBody.translation();
-  const rotation: Rotation = rigidBody.rotation();
-
-  actor.setPosition(Vector3Wrapper(position));
-  actor.entity.quaternion.set(rotation.x, rotation.y, rotation.z, rotation.w);
-}
+// function updateActorByPhysics(rigidBody: RigidBody, actor: TActorWrapperAsync): void {
+//   const position: Vector = rigidBody.translation();
+//   const rotation: Rotation = rigidBody.rotation();
+//
+//   actor.setPosition(Vector3Wrapper(position));
+//   actor.entity.quaternion.set(rotation.x, rotation.y, rotation.z, rotation.w);
+// }

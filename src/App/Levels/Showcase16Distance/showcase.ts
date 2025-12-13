@@ -31,7 +31,7 @@ export function showcase(canvas: TAppCanvas): TShowcase {
     });
 
     //Move by click once
-    engine.services.loopService.tick$.subscribe(({ delta }): void => {
+    loopService.tick$.subscribe(({ delta }): void => {
       if (isMove && !isTimerStarted) {
         isTimerStarted = true;
         console.time('move');
