@@ -185,28 +185,23 @@ export function LegalFilesUtilsService(repoUtilsService: TRepoUtilsService): TLe
     specific: Readonly<Record<string, unknown>> | undefined
   ): Readonly<{ values: Record<string, string>; raw: Record<string, unknown> }> {
     const values: Readonly<Record<string, string>> = buildPlaceholderValues(docType, tplText, pkg, generic as any, specific as any);
-    const raw: Record<string, unknown> = {};
 
-    for (const [k, v] of Object.entries(values)) raw[k] = v;
-
-    const mergeRaw = (msgs?: Readonly<Record<string, unknown>>) => {
-      if (!msgs) return;
-      for (const [k, v] of Object.entries(msgs)) raw[k] = v;
+    const raw: Record<string, unknown> = {
+      ...Object.fromEntries(Object.entries(values)),
+      ...(generic || {}),
+      ...(specific || {})
     };
-
-    mergeRaw(generic);
-    mergeRaw(specific);
 
     return { values, raw };
   }
 
   // Replace variables {{VAR}} with materialized values
-  function renderVariables(tpl: string, values: Readonly<Record<string, string>>, onMissing: (name: string) => void): string {
+  function renderVariables(tpl: string, values: Readonly<Record<string, string>>, onMissing?: (name: string) => void): string {
     const VAR_RE = /{{\s*([A-Z0-9_]+)\s*}}/g;
     return tpl.replace(VAR_RE, (_m, g1: string) => {
-      const v = values[g1];
+      const v: string = values[g1];
       if (v === undefined) {
-        onMissing(g1);
+        onMissing?.(g1);
         return '';
       }
       return v;
@@ -219,17 +214,16 @@ export function LegalFilesUtilsService(repoUtilsService: TRepoUtilsService): TLe
 
     const isTruthy = (raw: unknown): boolean => Boolean(raw);
 
-    let prev: string;
-    let out: string = input;
-    do {
-      prev = out;
-      out = out.replace(SECTION_RE, (_m, sigil: '#' | '^', name: string, body: string) => {
+    const processUntilConverged = (current: string): string => {
+      const next = current.replace(SECTION_RE, (_m, sigil: '#' | '^', name: string, body: string) => {
         const condition: boolean = isTruthy(truthyMap[name]);
         const pass: boolean = sigil === '#' ? condition : !condition;
         return pass ? renderSections(body, truthyMap) : '';
       });
-    } while (out !== prev);
-    return out;
+      return next === current ? current : processUntilConverged(next);
+    };
+
+    return processUntilConverged(input);
   }
 
   async function generateForType(
@@ -261,20 +255,14 @@ export function LegalFilesUtilsService(repoUtilsService: TRepoUtilsService): TLe
 
     const { values, raw } = buildContext(docType, tplText, i.ws.pkg, genericConfig?.messages as any, specificConfig?.messages as any);
 
-    const afterSections = renderSections(tplText, raw);
+    const afterSections: string = renderSections(tplText, raw);
 
-    const missing: string[] = [];
     const namesAfter: ReadonlySet<string> = collectPlaceholders(afterSections);
-    for (const name of namesAfter) {
-      if (values[name] === undefined) missing.push(name);
-    }
-    if (missing.length) {
-      console.warn(`[warn] ${docType}: ${missing.length} placeholders had no value: ${missing.slice(0, 10).join(', ')}${missing.length > 10 ? '…' : ''}`);
-    }
+    const missing: string[] = Array.from(namesAfter).filter((name: string): boolean => values[name] === undefined);
 
-    const rendered = renderVariables(afterSections, values, () => {
-      /* warn already done above */
-    });
+    if (missing.length) console.warn(`[warn] ${docType}: ${missing.length} placeholders had no value: ${missing.slice(0, 10).join(', ')}${missing.length > 10 ? '…' : ''}`);
+
+    const rendered: string = renderVariables(afterSections, values);
 
     const outName: string = `${docType}.md`;
     const outPath: string = path.join(i.outDir, outName);
