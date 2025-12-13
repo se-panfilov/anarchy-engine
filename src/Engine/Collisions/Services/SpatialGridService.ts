@@ -43,6 +43,7 @@ export function SpatialGridService(): TSpatialGridService {
     addObjectToGrid,
     removeObjectFromGrid,
     updateObjectInGrid,
-    visualizeRBush
+    visualizeRBush,
+    getSpatialGrid: (): RBush<TBoundingBox> => spatialGrid
   };
 }

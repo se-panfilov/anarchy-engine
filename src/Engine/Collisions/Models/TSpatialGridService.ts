@@ -8,4 +8,5 @@ export type TSpatialGridService = Readonly<{
   removeObjectFromGrid: (object: Object3D) => void;
   updateObjectInGrid: (object: Object3D) => void;
   visualizeRBush: (grid: RBush<TBoundingBox>, scene: Scene) => void;
+  getSpatialGrid: () => RBush<TBoundingBox>;
 }>;
