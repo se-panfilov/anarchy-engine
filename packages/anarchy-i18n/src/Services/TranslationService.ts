@@ -82,7 +82,9 @@ export function TranslationService(initialLocale: TLocale, defaultLocale: TLocal
       const intl: IntlShape<string> | undefined = intl$.value;
       if (isDefined(intl)) {
         const defaultMessage: string = (loaded.get(defaultLocale) ?? {})[id] ?? id;
-        return intl.formatMessage({ id, defaultMessage }, params);
+        const result: string = intl.formatMessage({ id, defaultMessage }, params);
+        if (result === id) console.warn(`[TranslateService]: Can't find translation for "${id}".`);
+        return result;
       }
       throw new Error(`[TranslateService]: The service is not ready. Tried to translate: "${id}"`);
     },

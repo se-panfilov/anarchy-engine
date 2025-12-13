@@ -3,7 +3,7 @@ import { isDefined, toObservable$ } from '@Anarchy/Shared/Utils';
 import type { FormatNumberOptions, IntlShape } from '@formatjs/intl';
 import type { FormatDateOptions } from '@formatjs/intl/src/types';
 import type { Observable } from 'rxjs';
-import { combineLatest, distinctUntilChanged, filter, map, shareReplay } from 'rxjs';
+import { combineLatest, distinctUntilChanged, filter, map, shareReplay, tap } from 'rxjs';
 
 export function ReactiveTranslationMixin(service: Omit<TTranslationService, keyof TReactiveTranslationMixin>): TReactiveTranslationMixin {
   const intlReady$: Observable<IntlShape<string>> = service.intl$.pipe(filter(isDefined), distinctUntilChanged(), shareReplay({ bufferSize: 1, refCount: true }));
@@ -13,6 +13,10 @@ export function ReactiveTranslationMixin(service: Omit<TTranslationService, keyo
     return combineLatest([intlReady$, params$]).pipe(
       map(([intl, p]) => intl.formatMessage({ id, defaultMessage: id }, p)),
       distinctUntilChanged(),
+      tap((value: string): string => {
+        console.warn(`[TranslationService]: Can't find translation for "${id}".`);
+        return value;
+      }),
       shareReplay({ bufferSize: 1, refCount: true })
     );
   }
