@@ -1,4 +1,4 @@
-import type { IWithConfigId, IWithCoordsXYZ, IWithReadonlyTags } from '@/Engine/Mixins';
+import type { IWithCoordsXYZ, IWithReadonlyTags } from '@/Engine/Mixins';
 import type { IObject3DPropConfig } from '@/Engine/ThreeLib';
 
 import type { ISceneProps } from './ISceneProps';
@@ -8,6 +8,5 @@ export type ISceneConfig = Omit<ISceneProps, 'background'> &
     position?: IWithCoordsXYZ; //scene may have an optional position
     background?: string;
   }> &
-  IWithConfigId &
   Omit<IObject3DPropConfig, 'position'> &
   IWithReadonlyTags<string>;

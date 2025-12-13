@@ -11,7 +11,7 @@ export function ControlService(factory: IControlsFactory, registry: IControlsReg
   const create = (params: IControlsParams): IControlsWrapper => factory.create(params);
   const createFromConfig = (controls: ReadonlyArray<IControlsConfig>, camerasRegistry: ICameraRegistry): void => {
     controls.forEach((control: IControlsConfig): IControlsWrapper => {
-      const camera: ICameraWrapper | undefined = camerasRegistry.findByConfigId(control.relatedCameraConfigId);
+      const camera: ICameraWrapper | undefined = camerasRegistry.find((camera: ICameraWrapper): boolean => camera.name === control.relatedCameraConfigId);
       if (isNotDefined(camera)) throw new Error(`Cannot find camera for controls (${control.type}) initialization`);
       return create(factory.configToParams(control, { camera, canvas }));
     });

@@ -29,10 +29,10 @@ import { SceneFactory, SceneRegistry, ScenesService } from '@/Engine/Scene';
 import { screenService } from '@/Engine/Services';
 import { withBuiltMixin } from '@/Engine/Space/Mixin';
 import type { ISpace, ISpaceConfig, ISpaceServices, IWithBuilt } from '@/Engine/Space/Models';
+import { initSceneServices } from '@/Engine/Space/SpaceHelpers';
 import type { IText2dRegistry, IText2dRenderer, IText3dRegistry, IText3dRenderer, ITextFactory } from '@/Engine/Text';
 import { initText2dRenderer, initText3dRenderer, Text2dRegistry, Text3dRegistry, TextFactory, TextService } from '@/Engine/Text';
 import { isDefined, isDestroyable, isNotDefined, validLevelConfig } from '@/Engine/Utils';
-import { initSceneServices } from '@/Engine/Space/SpaceHelpers';
 
 export function buildSpaceFromConfig(canvas: IAppCanvas, config: ISpaceConfig): ISpace {
   const { isValid, errors } = validLevelConfig(config);
