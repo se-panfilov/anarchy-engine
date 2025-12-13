@@ -14,7 +14,7 @@ export function showcaseLevel2(canvas: IAppCanvas): IShowcase {
     const { actorFactory, cameraFactory, cameraRegistry } = level.entities;
 
     // START Experiment1: custom controls ---------------
-    actorFactory.create({
+    const actor = actorFactory.create({
       type: ActorType.cube,
       position: Vector3Wrapper({ x: 0, y: 0, z: 0 }),
       castShadow: true,
@@ -52,7 +52,7 @@ export function showcaseLevel2(canvas: IAppCanvas): IShowcase {
       camera.setX(xRatio);
       // camera.setX(x * 3);
       camera.setY(yRatio);
-      // camera.lookAt(Vector3Wrapper({ x: 0, y: 0, z: 0 }));
+      camera.lookAt(actor.getPosition());
 
       // const xRatio: number = x / width - 0.5;
       // const yRatio: number = -(y / height - 0.5);
