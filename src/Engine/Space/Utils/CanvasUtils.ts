@@ -22,3 +22,5 @@ export function waitForCanvasGetSize(container: TContainerDecorator, timeoutMs: 
     check();
   });
 }
+
+export const nextAnimationFrame = (): Promise<unknown> => new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)));

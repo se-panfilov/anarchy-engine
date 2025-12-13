@@ -3,13 +3,20 @@ import { CreateEntitiesStrategy } from '@/Engine/Space/Constants';
 import type { TSpaceConfigEntities, TSpaceParamsEntities, TSpaceServices } from '@/Engine/Space/Models';
 import { isDefined } from '@/Engine/Utils';
 
-export function createEntities(entities: TSpaceConfigEntities | TSpaceParamsEntities, services: TSpaceServices, container: TContainerDecorator, strategy: CreateEntitiesStrategy): void | never {
+import { nextAnimationFrame, waitForCanvasGetSize } from './CanvasUtils';
+
+export async function createEntities(
+  entities: TSpaceConfigEntities | TSpaceParamsEntities,
+  services: TSpaceServices,
+  container: TContainerDecorator,
+  strategy: CreateEntitiesStrategy
+): Promise<void | never> {
   switch (strategy) {
     case CreateEntitiesStrategy.Config:
-      createEntitiesFromConfigs(entities as TSpaceConfigEntities, services, container);
+      await createEntitiesFromConfigs(entities as TSpaceConfigEntities, services, container);
       break;
     case CreateEntitiesStrategy.Params:
-      createEntitiesFromParams(entities as TSpaceParamsEntities, services, container);
+      await createEntitiesFromParams(entities as TSpaceParamsEntities, services, container);
       break;
     default:
       throw new Error(`Space: Unknown entities creation strategy: ${strategy}`);
@@ -17,7 +24,7 @@ export function createEntities(entities: TSpaceConfigEntities | TSpaceParamsEnti
 }
 
 // TODO a lot of code duplication here, but doesn't worth to refactor right now
-export function createEntitiesFromConfigs(entities: TSpaceConfigEntities, services: TSpaceServices, container: TContainerDecorator): void {
+export async function createEntitiesFromConfigs(entities: TSpaceConfigEntities, services: TSpaceServices, container: TContainerDecorator): Promise<void> {
   const { actors, audio, cameras, spatialGrids, controls, intersections, lights, materials, models3d, renderers, envMaps, fogs, fsm, texts, physics, particles } = entities;
 
   const {
@@ -41,6 +48,9 @@ export function createEntitiesFromConfigs(entities: TSpaceConfigEntities, servic
     spatialGridService,
     textService
   } = services;
+
+  await waitForCanvasGetSize(container);
+  await nextAnimationFrame();
 
   rendererService.createFromConfig(renderers);
 
@@ -74,7 +84,7 @@ export function createEntitiesFromConfigs(entities: TSpaceConfigEntities, servic
   intersectionsWatcherService.createFromConfig(intersections, mouseService, cameraService, actorService, loopService);
 }
 
-export function createEntitiesFromParams(entities: TSpaceParamsEntities, services: TSpaceServices, container: TContainerDecorator): void {
+export async function createEntitiesFromParams(entities: TSpaceParamsEntities, services: TSpaceServices, container: TContainerDecorator): Promise<void> {
   const { actors, audio, cameras, spatialGrids, controls, intersections, lights, materials, models3d, renderers, envMaps, fogs, fsm, texts, physics, particles } = entities;
 
   const {
@@ -96,6 +106,9 @@ export function createEntitiesFromParams(entities: TSpaceParamsEntities, service
     spatialGridService,
     textService
   } = services;
+
+  await waitForCanvasGetSize(container);
+  await nextAnimationFrame();
 
   if (isDefined(renderers)) rendererService.createFromList(renderers);
 

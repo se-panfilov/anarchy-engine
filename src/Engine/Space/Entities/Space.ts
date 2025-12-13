@@ -26,14 +26,16 @@ export function Space(params: TSpaceParams, registry: TSpaceRegistry, hooks?: TS
   const { services, loops } = initSpaceServices(canvas, container, params);
   hooks?.afterAllServicesInitialized?.(canvas, services, loops, params);
 
+  let entitiesCreationPromise: Promise<void> = Promise.resolve();
   if (isDefined(params.entities) && Object.values(params.entities).length > 0) {
     hooks?.beforeEntitiesCreated?.(params, services, loops);
-    createEntities(params.entities, services, container, CreateEntitiesStrategy.Params);
-    hooks?.afterEntitiesCreated?.(params, services, loops);
+    entitiesCreationPromise = createEntities(params.entities, services, container, CreateEntitiesStrategy.Params).then((): void => {
+      hooks?.afterEntitiesCreated?.(params, services, loops);
 
-    // TODO 14-0-0: Find a better place for this
-    services.intersectionsWatcherService.getRegistry().added$.subscribe(({ value }: TRegistryPack<TIntersectionsWatcher>): void => {
-      if (value.isAutoStart && !value.isStarted) value.start$.next();
+      // TODO 14-0-0: Find a better place for this
+      services.intersectionsWatcherService.getRegistry().added$.subscribe(({ value }: TRegistryPack<TIntersectionsWatcher>): void => {
+        if (value.isAutoStart && !value.isStarted) value.start$.next();
+      });
     });
   }
 
@@ -107,7 +109,7 @@ export function Space(params: TSpaceParams, registry: TSpaceRegistry, hooks?: TS
   // eslint-disable-next-line functional/immutable-data
   const result = Object.assign(space, parts);
 
-  built$.next(result);
+  entitiesCreationPromise.then(() => built$.next(result));
 
   return result;
 }

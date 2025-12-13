@@ -19,17 +19,19 @@ export function SpaceFromConfig(params: TSpaceParams, config: TSpaceConfig, regi
 
   oldBuilt$
     .pipe(
-      exhaustMap((): Promise<unknown> => {
+      exhaustMap(async (): Promise<unknown> => {
         hooks?.beforeResourcesLoaded?.(config, space.services, space.loops);
-        return loadResourcesFromConfig(config.resources, space.services);
+        await loadResourcesFromConfig(config.resources, space.services);
+
+        hooks?.beforeEntitiesCreated?.(config, space.services, space.loops);
+        await createEntities(config.entities, space.services, space.container, CreateEntitiesStrategy.Config);
+        hooks?.afterEntitiesCreated?.(config, space.services, space.loops);
+
+        return;
       }),
       takeUntil(space.destroy$)
     )
     .subscribe((): void => {
-      hooks?.beforeEntitiesCreated?.(config, space.services, space.loops);
-      createEntities(config.entities, space.services, space.container, CreateEntitiesStrategy.Config);
-      hooks?.afterEntitiesCreated?.(config, space.services, space.loops);
-
       builtFromConfig$.next(space);
       oldBuilt$ = null as any;
       // space.built$ = builtFromConfig$.pipe(filter(isDefined))
