@@ -8,6 +8,7 @@ interface ViteTypeOptions {
 
 interface ImportMetaEnv {
   VITE_SHOW_DEBUG_INFO: string;
+  VITE_BUILD_COMPRESSION: boolean;
 }
 
 interface ImportMeta {
