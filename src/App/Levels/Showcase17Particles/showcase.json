@@ -180,7 +180,7 @@
       {
         "name": "bubbles",
         "position": { "x": 0, "y": 6, "z": 0 },
-        "material": "particles_material",
+        "materialSource": "particles_material",
         "tags": []
       }
     ],

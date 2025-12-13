@@ -3,9 +3,9 @@ import type { TObject3DPropConfig } from '@/Engine/ThreeLib';
 
 import type { TParticlesProps } from './TParticlesProps';
 
-export type TParticlesConfig = Omit<TParticlesProps, 'material'> &
+export type TParticlesConfig = Omit<TParticlesProps, 'materialSource'> &
   Readonly<{
-    material: string;
+    materialSource: string;
   }> &
   TObject3DPropConfig &
   TWithReadonlyTags;

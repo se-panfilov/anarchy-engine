@@ -1802,14 +1802,14 @@
         "renderOrder": {
           "type": "number"
         },
-        "material": {
+        "materialSource": {
           "type": "string"
         },
         "name": {
           "type": "string"
         }
       },
-      "required": ["material", "position"]
+      "required": ["materialSource", "position"]
     },
     "TPhysicsConfig": {
       "type": "object",

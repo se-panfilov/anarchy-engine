@@ -6,7 +6,7 @@ import type { TParticlesProps } from './TParticlesProps';
 
 export type TParticlesParams = TParticlesProps &
   Readonly<{
-    material: TMaterialWrapper;
+    materialSource: TMaterialWrapper;
   }> &
   TObject3DParams &
   TWithReadonlyTags;

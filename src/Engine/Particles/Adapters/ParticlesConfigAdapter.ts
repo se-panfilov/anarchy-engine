@@ -6,12 +6,12 @@ import { isNotDefined } from '@/Engine/Utils';
 export function configToParams(config: TParticlesConfig, { materialRegistry }: TParticlesConfigToParamsDependencies): TParticlesParams | never {
   const { position, rotation, layers, scale, ...rest } = config;
 
-  const material: TMaterialWrapper | undefined = materialRegistry.findByName(config.material);
-  if (isNotDefined(material)) throw new Error(`Failed to create a particle: material "${config.material}" is not defined`);
+  const materialSource: TMaterialWrapper | undefined = materialRegistry.findByName(config.materialSource);
+  if (isNotDefined(materialSource)) throw new Error(`Failed to create a particle: material "${config.materialSource}" is not defined`);
 
   return {
     ...rest,
     ...configToParamsObject3d({ position, rotation, scale, layers }),
-    material
+    materialSource
   };
 }
