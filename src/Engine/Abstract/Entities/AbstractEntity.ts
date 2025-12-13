@@ -35,13 +35,6 @@ export function AbstractEntity<T extends Record<string, any>, P extends TEntityP
     destroyable.destroy$.unsubscribe();
   });
 
-  const partialResult: T & TRegistrable & TNoSpread & TDestroyable = {
-    ...params,
-    id,
-    ...entities,
-    tags: params?.tags ?? [],
-    ...destroyable
-  };
   const partialResult: T & TRegistrable & TNoSpread & TDestroyable = Object.assign(
     {
       ...params,
