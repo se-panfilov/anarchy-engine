@@ -1,6 +1,6 @@
 import { extractSerializableRegistrableFields } from '@/Engine/Mixins';
 import type { TText2dWrapper, TTextAnyWrapper, TTextConfig } from '@/Engine/Text/Models';
-import { filterOutEmptyFields } from '@/Engine/Utils';
+import { filterOutEmptyFields, isNotDefined } from '@/Engine/Utils';
 
 export function textToConfig(entity: TTextAnyWrapper): TTextConfig {
   const { drive } = entity;
@@ -9,12 +9,10 @@ export function textToConfig(entity: TTextAnyWrapper): TTextConfig {
   // TODO 15-0-0: implement texture
   // TODO 15-0-0: Check if we need distinct adapters for each type of text
 
-  const json = entity.entity.toJSON().object;
-
   return filterOutEmptyFields({
     text: entity.getText(),
     type: entity.type,
-    // cssProps: (entity as TText2dWrapper).getCssProperty(),
+    cssProps: extractInlineStyles((entity as TText2dWrapper).getElement()),
     elementType: (entity as TText2dWrapper).getElement()?.tagName,
     center: undefined,
     kinematic: undefined,
@@ -27,4 +25,17 @@ export function textToConfig(entity: TTextAnyWrapper): TTextConfig {
     ...extractSerializableRegistrableFields(entity),
     ...drive.serialize()
   });
+}
+
+function extractInlineStyles(element: HTMLElement | undefined): Record<string, string> | undefined {
+  if (isNotDefined(element)) return undefined;
+
+  const result: Record<string, string> = {};
+  // eslint-disable-next-line functional/no-loop-statements
+  for (let i: number = 0; i < element.style.length; i++) {
+    const prop: string = element.style[i];
+    // eslint-disable-next-line functional/immutable-data
+    result[prop] = element.style.getPropertyValue(prop);
+  }
+  return result;
 }
