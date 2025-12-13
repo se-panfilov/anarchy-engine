@@ -1,12 +1,11 @@
 import { AbstractWrapper } from '@Engine/Wrappers/AbstractWrapper';
+import type { InputParams } from '@Engine/Models/InputParams';
 
-// export class InputWrapper extends AbstractWrapper<Input> {
-export class InputWrapper extends AbstractWrapper<any> {
-  // public entity: Input;
-  public entity: any;
+type IInputWrapper = ReturnType<typeof AbstractWrapper<MOCK_INPUT_TYPE>>;
 
-  constructor() {
-    super();
-    // this.entity = new Input();
-  }
+type MOCK_INPUT_TYPE = unknown;
+
+export function InputWrapper(params: InputParams): IInputWrapper {
+  const entity: MOCK_INPUT_TYPE = {};
+  return { ...AbstractWrapper(entity), entity };
 }
