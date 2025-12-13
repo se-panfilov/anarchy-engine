@@ -59,11 +59,10 @@ export const BASE_CSP: TCspRulles = {
   // "upgrade-insecure-requests": [] //If needed in the web version
 };
 
-export const DEV_CSP: TCspRulles = {
-  ...BASE_CSP,
-  //   // TODO DESKTOP: Can we have ports from config (or env)?
-  'connect-src': [...BASE_CSP['connect-src']!, 'http://localhost:5173', 'ws://localhost:5173']
-};
+// export const DEV_CSP: TCspRulles = {
+//   ...BASE_CSP,
+//   'connect-src': [...BASE_CSP['connect-src']!, 'http://localhost:5173', 'ws://localhost:5173']
+// };
 
 export const PROD_CSP: TCspRulles = {
   ...BASE_CSP,
