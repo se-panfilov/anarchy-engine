@@ -4,8 +4,9 @@ import { BoxGeometry, Mesh, MeshBasicMaterial, Raycaster } from 'three';
 
 import type { TActorWrapperAsync } from '@/Engine/Actor';
 import type { TCameraWrapper } from '@/Engine/Camera';
-import type { TSpatialCell, TSpatialGridService } from '@/Engine/Collisions/Models';
+import type { TSpatialCell, TSpatialCellId, TSpatialGridService } from '@/Engine/Collisions/Models';
 import { createOutline } from '@/Engine/Collisions/Services/SpatialHelper';
+import type { TWithCoordsXZ } from '@/Engine/Mixins';
 import type { TSceneWrapper } from '@/Engine/Scene';
 import { isDefined, isNotDefined } from '@/Engine/Utils';
 
@@ -59,6 +60,8 @@ export function SpatialGridService(): TSpatialGridService {
     }
   }
 
+  const addToSpatialGridBulk = (tree: RBush<TSpatialCell>, list: ReadonlyArray<TSpatialCell>): RBush<TSpatialCell> => tree.load(list);
+
   function addToSpatialCell(x: number, y: number, actorW: TActorWrapperAsync, tree: RBush<TSpatialCell>): void {
     const cells: ReadonlyArray<TSpatialCell> = tree.search({ minX: x, minY: y, maxX: x, maxY: y });
     // eslint-disable-next-line functional/no-loop-statements
@@ -69,6 +72,25 @@ export function SpatialGridService(): TSpatialGridService {
         actorW.setSpatialCell(cell);
       }
     }
+  }
+
+  const getAllItemsFromSpatialGrid = (tree: RBush<TSpatialCell>): ReadonlyArray<TSpatialCell> => tree.all();
+
+  function getObjectsInSpatialCell(tree: RBush<TSpatialCell>, x: number, z: number): ReadonlyArray<TActorWrapperAsync> {
+    const cells: ReadonlyArray<TSpatialCell> = tree.search({ minX: x, minY: z, maxX: x, maxY: z });
+    if (cells.length > 0) return cells[0].objects;
+    return [];
+  }
+
+  const getCoordsFromGridId = (cellId: TSpatialCellId): TWithCoordsXZ => {
+    const [x, z] = cellId.split('_').slice(-2).map(Number);
+    return { x, z };
+  };
+
+  function getObjectsInSpatialCellById(tree: RBush<TSpatialCell>, cellId: TSpatialCellId): ReadonlyArray<TActorWrapperAsync> {
+    // const cells: ReadonlyArray<TSpatialCell> = tree.all().filter((cell) => cell.id === cellId);
+    const { x, z } = getCoordsFromGridId(cellId);
+    return getObjectsInSpatialCell(tree, x, z);
   }
 
   function removeFromSpatialCell(actorW: TActorWrapperAsync): void {
@@ -110,6 +132,7 @@ export function SpatialGridService(): TSpatialGridService {
       // eslint-disable-next-line functional/no-loop-statements
       for (let z = 0; z < mapHeight; z += cellSize) {
         const cell: TSpatialCell = {
+          id: `spatial_grid_${x}_${z}`,
           minX: startX + x,
           minY: startZ + z,
           maxX: startX + x + cellSize,
@@ -127,6 +150,10 @@ export function SpatialGridService(): TSpatialGridService {
   return {
     createSpatialGrid,
     addToSpatialCell,
+    addToSpatialGridBulk,
+    getAllItemsFromSpatialGrid,
+    getObjectsInSpatialCell,
+    getObjectsInSpatialCellById,
     removeFromSpatialCell,
     removeAllFromGrid,
     moveToNewSpatialCell,

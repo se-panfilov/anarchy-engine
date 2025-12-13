@@ -2,4 +2,6 @@ import type { BBox } from 'rbush';
 
 import type { TActorWrapperAsync } from '@/Engine/Actor';
 
-export type TSpatialCell = BBox & Readonly<{ objects: Array<TActorWrapperAsync> }>;
+export type TSpatialCellId = `spatial_grid_${number}_${number}`;
+
+export type TSpatialCell = BBox & Readonly<{ id: TSpatialCellId; objects: Array<TActorWrapperAsync> }>;
