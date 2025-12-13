@@ -4392,6 +4392,27 @@
         "toneMapped": {
           "type": "boolean",
           "default": true
+        },
+        "reflectivity": {
+          "type": "number"
+        },
+        "anisotropy": {
+          "type": "number"
+        },
+        "clearcoat": {
+          "type": "number"
+        },
+        "iridescence": {
+          "type": "number"
+        },
+        "dispersion": {
+          "type": "number"
+        },
+        "sheen": {
+          "type": "number"
+        },
+        "transmission": {
+          "type": "number"
         }
       }
     },

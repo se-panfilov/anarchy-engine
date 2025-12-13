@@ -47,8 +47,6 @@ export function materialToConfig(entity: TAnyMaterialWrapper, { textureResourceR
   const options: TMaterialConfigOptions | undefined = getMaterialOptions(entity);
   const textures: TMaterialConfigTextures | undefined = getMaterialTextures(entity, textureResourceRegistry);
 
-  console.log('XXX', options);
-
   return filterOutEmptyFields({
     type: entity.entity.type as MaterialType,
     options,

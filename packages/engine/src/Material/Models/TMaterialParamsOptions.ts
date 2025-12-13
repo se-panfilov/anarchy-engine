@@ -29,13 +29,26 @@ export type TLineDashedMaterialParamsOptions = TOmitNonMaterialOptionsFields<Lin
 export type TMatcapMaterialParamsOptions = TOmitNonMaterialOptionsFields<MeshMatcapMaterialParameters>;
 export type TNormalMaterialParamsOptions = TOmitNonMaterialOptionsFields<MeshNormalMaterialParameters>;
 export type TPhongMaterialParamsOptions = TOmitNonMaterialOptionsFields<MeshPhongMaterialParameters>;
-export type TPhysicalMaterialParamsOptions = TOmitNonMaterialOptionsFields<MeshPhysicalMaterialParameters>;
+export type TPhysicalMaterialParamsOptions = TOmitNonMaterialOptionsFields<MeshPhysicalMaterialParameters> & TMeshPhysicalMaterialParametersSetters;
 export type TPointsMaterialParamsOptions = TOmitNonMaterialOptionsFields<PointsMaterialParameters>;
 export type TShaderMaterialParamsOptions = TOmitNonMaterialOptionsFields<ShaderMaterialParameters>;
 export type TShadowMaterialParamsOptions = TOmitNonMaterialOptionsFields<ShadowMaterialParameters>;
 export type TSpriteMaterialParamsOptions = TOmitNonMaterialOptionsFields<SpriteMaterialParameters>;
 export type TStandardMaterialParamsOptions = TOmitNonMaterialOptionsFields<MeshStandardMaterialParameters>;
 export type TToonMaterialParamsOptions = TOmitNonMaterialOptionsFields<MeshToonMaterialParameters>;
+
+// The following fields are setters and getters in MeshPhysicalMaterialParameters, so Schema generator cannot handle them. We have to add them manually.
+export type TMeshPhysicalMaterialParametersSetters = Partial<
+  Readonly<{
+    reflectivity: number;
+    anisotropy: number;
+    clearcoat: number;
+    iridescence: number;
+    dispersion: number;
+    sheen: number;
+    transmission: number;
+  }>
+>;
 
 export type TMaterialParamsOptions =
   | TBasicMaterialParamsOptions
