@@ -94,7 +94,6 @@ export function showcase(canvas: TAppCanvas): TShowcase {
       const position: Vector = rigidBody.translation();
       const rotation: Rotation = rigidBody.rotation();
 
-      // Обновляем позицию и ориентацию 3D модели
       ballActorW.entity.position.set(position.x, position.y, position.z);
       ballActorW.entity.quaternion.set(rotation.x, rotation.y, rotation.z, rotation.w);
 
