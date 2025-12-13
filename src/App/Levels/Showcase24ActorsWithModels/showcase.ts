@@ -41,21 +41,23 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
       // TPose = 'TPose'
     }
 
-    const runAction = actions[AnimationActions.Run];
-    const walkAction = actions[AnimationActions.Walk];
-    const idleAction = actions[AnimationActions.Idle];
+    const { Run, Walk, Idle } = AnimationActions;
+
+    const runAction = actions[Run];
+    const walkAction = actions[Walk];
+    const idleAction = actions[Idle];
     // const tPoseAction = actions['TPose'];
 
     const solderAnimFsm: TAnimationsFsmWrapper = animationsFsmService.create({
       id: 'solder_animation_fsm',
-      initial: AnimationActions.Idle,
+      initial: Idle,
       states: {
         // Idle: { on: { Walk: 'Walk', Run: 'Run' } },
         // Walk: { on: { Idle: 'Idle', Run: 'Run' } },
         // Run: { on: { Idle: 'Idle', Walk: 'Walk' } }
-        [AnimationActions.Idle]: { on: { [AnimationActions.Walk]: AnimationActions.Walk, [AnimationActions.Run]: AnimationActions.Run } },
-        [AnimationActions.Walk]: { on: { [AnimationActions.Idle]: AnimationActions.Idle, [AnimationActions.Run]: AnimationActions.Run } },
-        [AnimationActions.Run]: { on: { [AnimationActions.Idle]: AnimationActions.Idle, [AnimationActions.Walk]: AnimationActions.Walk } }
+        [Idle]: { on: { [Walk]: Walk, [Run]: Run } },
+        [Walk]: { on: { [Idle]: Idle, [Run]: Run } },
+        [Run]: { on: { [Idle]: Idle, [Walk]: Walk } }
       }
     });
 
@@ -73,15 +75,15 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
       prev = state.value;
 
-      if (state.matches(AnimationActions.Idle)) {
+      if (state.matches(Idle)) {
         walkAction.fadeOut(fadeDuration);
         runAction.fadeOut(fadeDuration);
         idleAction.reset().fadeIn(fadeDuration).play();
-      } else if (state.matches(AnimationActions.Walk)) {
+      } else if (state.matches(Walk)) {
         idleAction.fadeOut(fadeDuration);
         runAction.fadeOut(fadeDuration);
         walkAction.reset().fadeIn(fadeDuration).play();
-      } else if (state.matches(AnimationActions.Run)) {
+      } else if (state.matches(Run)) {
         idleAction.fadeOut(fadeDuration);
         walkAction.fadeOut(fadeDuration);
         runAction.reset().fadeIn(fadeDuration).play();
@@ -89,12 +91,12 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     });
 
     onKey(KeyCode.W).pressing$.subscribe((): void => {
-      const type = isKeyPressed(KeysExtra.Shift) ? AnimationActions.Run : AnimationActions.Walk;
+      const type = isKeyPressed(KeysExtra.Shift) ? Run : Walk;
       if (animationsFsm.getSnapshot().value !== type) animationsFsm?.send({ type });
     });
 
     onKey(KeyCode.W).released$.subscribe((): void => {
-      animationsFsm.send({ type: AnimationActions.Idle });
+      animationsFsm.send({ type: Idle });
     });
   }
 
