@@ -19,7 +19,7 @@ import { FsmSourceFactory } from '@Anarchy/Engine/Fsm/Factories/FsmSourceFactory
 import { FsmService } from '@Anarchy/Engine/Fsm/Services/FsmService';
 import type { TContainerDecorator } from '@Anarchy/Engine/Global';
 import { IntersectionsWatcherFactory, IntersectionsWatcherRegistry, IntersectionsWatcherService } from '@Anarchy/Engine/Intersections';
-import { KeyboardService, KeyPressWatcherFactory, KeyWatcherRegistry } from '@Anarchy/Engine/Keyboard';
+import { KeyboardService, KeyWatcherFactory, KeyWatcherRegistry } from '@Anarchy/Engine/Keyboard';
 import { LightFactory, LightRegistry, LightService } from '@Anarchy/Engine/Light';
 import type { TLoopService } from '@Anarchy/Engine/Loop';
 import { LoopFactory, LoopRegistry, LoopService } from '@Anarchy/Engine/Loop';
@@ -110,7 +110,7 @@ export function buildEntitiesServices(
     fogService: FogService(FogFactory(), FogRegistry(), sceneW),
     fsmService,
     intersectionsWatcherService: IntersectionsWatcherService(IntersectionsWatcherFactory(), IntersectionsWatcherRegistry()),
-    keyboardService: KeyboardService(container, KeyPressWatcherFactory(), KeyWatcherRegistry(), loops),
+    keyboardService: KeyboardService(container, KeyWatcherFactory(), KeyWatcherRegistry(), loops),
     lightService: LightService(LightFactory(), LightRegistry(), { transformDriveService }, sceneW),
     loopService,
     materialService,
