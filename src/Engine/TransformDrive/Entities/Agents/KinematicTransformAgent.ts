@@ -105,7 +105,7 @@ export function KinematicTransformAgent(params: TKinematicTransformAgentParams, 
     },
     moveTo(targetPosition: TReadonlyVector3, speed: TKinematicSpeed): void | never {
       if (isInstant(speed)) return moveInstantly(agent, targetPosition);
-      if (speed < 0) throw new Error('Speed must be greater than 0 to calculate angular speed.');
+      if (speed < 0) throw new Error('[KinematicTransformAgent]: Speed must be greater than 0 to calculate angular speed.');
       if (speed === 0) return agent.setLinearSpeed(0);
 
       // eslint-disable-next-line functional/immutable-data
@@ -131,9 +131,9 @@ export function KinematicTransformAgent(params: TKinematicTransformAgentParams, 
     rotateTo(targetRotation: TReadonlyQuaternion, speed: TKinematicSpeed, infinite: boolean = false): void | never {
       if (isInstant(speed)) return rotateInstantly(agent, targetRotation);
 
-      if (speed < 0) throw new Error('Speed must be greater than 0 to calculate angular speed.');
+      if (speed < 0) throw new Error('[KinematicTransformAgent]: Speed must be greater than 0 to calculate angular speed.');
       if (speed === 0) return agent.setAngularSpeed(0);
-      if (agent.data.state.radius === 0) throw new Error('Radius must be greater than 0 to calculate angular speed.');
+      if (agent.data.state.radius === 0) throw new Error('[KinematicTransformAgent]: Radius must be greater than 0 to calculate angular speed.');
       const angularSpeed: TRadiansPerSecond = (speed / agent.data.state.radius) as TRadiansPerSecond;
 
       // eslint-disable-next-line functional/immutable-data
@@ -180,7 +180,7 @@ export function KinematicTransformAgent(params: TKinematicTransformAgentParams, 
         newX = Math.cos(azimuthRad) * horizontalScale;
         newZ = Math.sin(azimuthRad) * horizontalScale;
       } else {
-        throw new Error(`Unknown forward axis: must be either ${ForwardAxis.Z} or ${ForwardAxis.X}`);
+        throw new Error(`[KinematicTransformAgent]: Unknown forward axis: must be either ${ForwardAxis.Z} or ${ForwardAxis.X}`);
       }
 
       const newY = Math.sin(elevation) * totalLength;
@@ -225,7 +225,7 @@ export function KinematicTransformAgent(params: TKinematicTransformAgentParams, 
         newX = Math.cos(azimuth) * horizontalScale;
         newZ = Math.sin(azimuth) * horizontalScale;
       } else {
-        throw new Error(`Unknown forward axis: must be either ${ForwardAxis.Z} or ${ForwardAxis.X}`);
+        throw new Error(`[KinematicTransformAgent]: Unknown forward axis: must be either ${ForwardAxis.Z} or ${ForwardAxis.X}`);
       }
 
       const newY = Math.sin(elevationRad) * totalLength;
