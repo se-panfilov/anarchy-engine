@@ -11,11 +11,11 @@ export function showcase(canvas: TAppCanvas): TShowcase {
 
   const actorAsyncRegistry = actorService.getRegistry();
 
-  const actor1Promise: Promise<TActorWrapperAsync | undefined> = actorAsyncRegistry.findByNameAsync('actor_1');
-  const actor2Promise: Promise<TActorWrapperAsync | undefined> = actorAsyncRegistry.findByNameAsync('actor_2');
-  const actor3Promise: Promise<TActorWrapperAsync | undefined> = actorAsyncRegistry.findByNameAsync('actor_3');
-
   async function init(): Promise<void> {
+    const actor1Promise: Promise<TActorWrapperAsync | undefined> = actorAsyncRegistry.findByNameAsync('actor_1');
+    const actor2Promise: Promise<TActorWrapperAsync | undefined> = actorAsyncRegistry.findByNameAsync('actor_2');
+    const actor3Promise: Promise<TActorWrapperAsync | undefined> = actorAsyncRegistry.findByNameAsync('actor_3');
+
     const actor1W: TActorWrapperWithPhysicsAsync | TActorWrapperAsync | undefined = await actor1Promise;
     if (isNotDefined(actor1W)) throw new Error(`Cannot find "actor_1" actor`);
 

@@ -48,15 +48,15 @@ export function showcase(canvas: TAppCanvas): TShowcase {
   const ballActorPromise: Promise<TActorWrapperAsync | undefined> = actorAsyncRegistry.findByNameAsync('ball');
   const surfaceActorPromise: Promise<TActorWrapperAsync | undefined> = actorAsyncRegistry.findByNameAsync('surface');
 
-  physicsWorldService.getDebugRenderer(loopService).start();
-
-  const line: Line2 = createLine();
-  sceneWrapper.entity.add(line);
-
-  let azimuth: number = 0;
-  let forcePower: number = 0;
-
   async function init(): Promise<void> {
+    physicsWorldService.getDebugRenderer(loopService).start();
+
+    const line: Line2 = createLine();
+    sceneWrapper.entity.add(line);
+
+    let azimuth: number = 0;
+    let forcePower: number = 0;
+
     const ballActorW: TActorWrapperWithPhysicsAsync | TActorWrapperAsync | undefined = await ballActorPromise;
     if (isNotDefined(ballActorW)) throw new Error(`Cannot find "ball" actor`);
     if (!isActorHasPhysicsBody(ballActorW)) throw new Error(`"ball" actor is not a physic actor`);
