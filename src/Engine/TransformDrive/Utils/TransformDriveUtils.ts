@@ -1,5 +1,5 @@
 import type { BehaviorSubject, Observable, Subject } from 'rxjs';
-import { distinctUntilChanged, EMPTY, sampleTime, switchMap, tap } from 'rxjs';
+import { distinctUntilChanged, EMPTY, switchMap, tap, throttleTime } from 'rxjs';
 import type { Euler, Vector3 } from 'three';
 
 import type { TransformAgent } from '@/Engine/TransformDrive/Constants';
@@ -23,7 +23,7 @@ export function updateFromActiveAgent<T extends Vector3 | Euler>(
       return isDefined(agent) ? (agent[agentProp] as unknown as Subject<T>) : EMPTY;
     }),
     distinctUntilChanged((_prev: T, curr: T): boolean => isEqualOrSimilarByXyzCoords(prevValue[0], prevValue[1], prevValue[2], curr.x, curr.y, curr.z, threshold)),
-    sampleTime(delay),
+    throttleTime(delay),
     tap((value: T): void => {
       // eslint-disable-next-line functional/immutable-data
       prevValue[0] = value.x;

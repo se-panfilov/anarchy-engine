@@ -1,9 +1,7 @@
 import '@/App/style.css';
 
-// TODO 8.0.0. MODELS: In "Showcase1MovingActors" actor is moving not smoothly (check performance setup)
-// import { showcase } from '@/App/Levels/Showcase1MovingActors';
+import { showcase } from '@/App/Levels/Showcase1MovingActors';
 // import { showcase } from '@/App/Levels/Showcase2TopDown';
-// TODO 8.0.0. MODELS: In "Showcase3CameraFlying" actor is moving not smoothly (check performance setup)
 // import { showcase } from '@/App/Levels/Showcase3CameraFlying';
 // import { showcase } from '@/App/Levels/Showcase4AnimejsSimple';
 // import { showcase } from '@/App/Levels/Showcase5AnimejsComplex';
@@ -26,7 +24,7 @@ import '@/App/style.css';
 // import { showcase } from '@/App/Levels/Showcase22PhysicsShooter';
 // import { showcase } from '@/App/Levels/Showcase23CustomModels';
 // import { showcase } from '@/App/Levels/Showcase24ActorsWithModels';
-import { showcase } from '@/App/Levels/Showcase25TransformDrive';
+// import { showcase } from '@/App/Levels/Showcase25TransformDrive';
 import type { TAppCanvas } from '@/Engine';
 import { ambientContext, isNotDefined } from '@/Engine';
 

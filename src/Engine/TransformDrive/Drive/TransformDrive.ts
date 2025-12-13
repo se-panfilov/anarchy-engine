@@ -83,31 +83,6 @@ export function TransformDrive<T extends Partial<Record<TransformAgent, TAbstrac
   // rotationRep$.subscribe(activeAgent$.value.rotation$);
   // scaleRep$.subscribe(activeAgent$.value.scale$);
 
-  // TODO debug
-  // const threshold: number = 0.001;
-  // // TODO debug
-  // const prevValue: Float32Array = new Float32Array([0, 0, 0]);
-  // positionRep$
-  //   .pipe(
-  //     distinctUntilChanged((_prev: Vector3, curr: Vector3): boolean => {
-  //       return isEqualOrSimilarByXyzCoords(prevValue[0], prevValue[1], prevValue[2], curr.x, curr.y, curr.z, threshold);
-  //     }),
-  //     // TODO debug
-  //     // sampleTime(delay),
-  //     tap((value: Vector3): void => {
-  //       // eslint-disable-next-line functional/immutable-data
-  //       prevValue[0] = value.x;
-  //       // eslint-disable-next-line functional/immutable-data
-  //       prevValue[1] = value.y;
-  //       // eslint-disable-next-line functional/immutable-data
-  //       prevValue[2] = value.z;
-  //     })
-  //   )
-  //   .subscribe((value: Vector3): void => {
-  //     console.log('XXX', value);
-  //     activeAgent$.value.position$.next(value);
-  //   });
-
   const destroyable: TDestroyable = destroyableMixin();
 
   // TODO ENV: limited fps, perhaps should be configurable
