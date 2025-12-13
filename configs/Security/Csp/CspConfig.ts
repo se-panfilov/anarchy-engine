@@ -36,13 +36,13 @@ export const BASE_CSP: TCspRulles = {
   'script-src': ["'self'", "'wasm-unsafe-eval'"],
   'script-src-elem': ["'self'", "'wasm-unsafe-eval'"],
 
-  'style-src': ["'self'"],
+  'style-src': ["'self'", "'unsafe-inline'"],
 
   // A compromise for libs with inline styles
   'style-src-elem': ["'self'", "'unsafe-inline'"],
   'img-src': ["'self'", 'data:', 'blob:'],
-  'font-src': ["'self'"],
-  'connect-src': ["'self'"],
+  'font-src': ["'self'", 'data:'],
+  'connect-src': ["'self'", 'blob:'],
   'media-src': ["'self'", 'blob:'],
 
   // Required for WebWorker/three.js/wasm
