@@ -5,14 +5,7 @@
     "tags": {
       "type": "array",
       "items": {
-        "anyOf": [
-          {
-            "type": "string"
-          },
-          {
-            "$ref": "#/definitions/CommonTag"
-          }
-        ]
+        "type": ["string"]
       }
     },
     "name": {
@@ -82,10 +75,6 @@
   },
   "required": ["actors", "cameras", "controls", "envMaps", "fogs", "initSpace", "lights", "name", "scenes", "tags", "texts", "version"],
   "definitions": {
-    "CommonTag": {
-      "type": "string",
-      "const": "from_config"
-    },
     "SpaceSchemaVersion": {
       "type": "string",
       "const": "1.0.0"
@@ -93,28 +82,37 @@
     "ISpaceInitializationConfig": {
       "type": "object",
       "properties": {
-        "scene": {
+        "isScenesInit": {
           "type": "boolean"
         },
-        "actors": {
+        "isActorsInit": {
           "type": "boolean"
         },
-        "cameras": {
+        "isCamerasInit": {
           "type": "boolean"
         },
-        "lights": {
+        "isLightsInit": {
           "type": "boolean"
         },
-        "fogs": {
+        "isFogsInit": {
           "type": "boolean"
         },
-        "texts": {
+        "isTextsInit": {
           "type": "boolean"
         },
-        "controls": {
+        "isControlsInit": {
           "type": "boolean"
         },
-        "envMaps": {
+        "isEnvMapsInit": {
+          "type": "boolean"
+        },
+        "isRendererInit": {
+          "type": "boolean"
+        },
+        "isLoopInit": {
+          "type": "boolean"
+        },
+        "isInitIntersections": {
           "type": "boolean"
         }
       }
@@ -125,17 +123,7 @@
         "tags": {
           "type": "array",
           "items": {
-            "anyOf": [
-              {
-                "$ref": "#/definitions/SceneTag"
-              },
-              {
-                "$ref": "#/definitions/CommonTag"
-              },
-              {
-                "type": "string"
-              }
-            ]
+            "type": ["string"]
           }
         },
         "visible": {
@@ -174,15 +162,14 @@
         "background": {
           "type": "string"
         },
+        "isActive": {
+          "type": "boolean"
+        },
         "name": {
           "type": "string"
         }
       },
-      "required": ["name", "tags"]
-    },
-    "SceneTag": {
-      "type": "string",
-      "const": "current"
+      "required": ["isActive", "name", "tags"]
     },
     "IEuler3dConfig": {
       "type": "object",
@@ -227,17 +214,7 @@
         "tags": {
           "type": "array",
           "items": {
-            "anyOf": [
-              {
-                "$ref": "#/definitions/ActorTag"
-              },
-              {
-                "$ref": "#/definitions/CommonTag"
-              },
-              {
-                "type": "string"
-              }
-            ]
+            "type": ["string"]
           }
         },
         "layers": {
@@ -302,10 +279,6 @@
         }
       },
       "required": ["castShadow", "height", "material", "position", "tags", "type", "width"]
-    },
-    "ActorTag": {
-      "type": "string",
-      "const": "intersectable"
     },
     "ActorType": {
       "type": "string",
@@ -2431,14 +2404,7 @@
         "tags": {
           "type": "array",
           "items": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "$ref": "#/definitions/CommonTag"
-              }
-            ]
+            "type": ["string"]
           }
         },
         "mapping": {
@@ -2750,17 +2716,7 @@
         "tags": {
           "type": "array",
           "items": {
-            "anyOf": [
-              {
-                "$ref": "#/definitions/CameraTag"
-              },
-              {
-                "$ref": "#/definitions/CommonTag"
-              },
-              {
-                "type": "string"
-              }
-            ]
+            "type": ["string"]
           }
         },
         "layers": {
@@ -2807,13 +2763,12 @@
         },
         "far": {
           "type": "number"
+        },
+        "isActive": {
+          "type": "boolean"
         }
       },
-      "required": ["position", "tags"]
-    },
-    "CameraTag": {
-      "type": "string",
-      "const": "initial"
+      "required": ["isActive", "position", "tags"]
     },
     "ILightConfig": {
       "type": "object",
@@ -2821,14 +2776,7 @@
         "tags": {
           "type": "array",
           "items": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "$ref": "#/definitions/CommonTag"
-              }
-            ]
+            "type": ["string"]
           }
         },
         "layers": {
@@ -2923,14 +2871,7 @@
         "tags": {
           "type": "array",
           "items": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "$ref": "#/definitions/CommonTag"
-              }
-            ]
+            "type": ["string"]
           }
         },
         "color": {
@@ -2954,9 +2895,6 @@
             "anyOf": [
               {
                 "$ref": "#/definitions/TextTag"
-              },
-              {
-                "$ref": "#/definitions/CommonTag"
               },
               {
                 "type": "string"
@@ -4500,19 +4438,16 @@
                 "$ref": "#/definitions/ControlsTag"
               },
               {
-                "$ref": "#/definitions/CommonTag"
-              },
-              {
                 "type": "string"
               }
             ]
           }
         },
         "type": {
-          "$ref": "#/definitions/IControlsType"
+          "$ref": "#/definitions/ControlsType"
         },
         "cameraTag": {
-          "$ref": "#/definitions/CameraTag"
+          "type": "string"
         },
         "target": {
           "type": "object",
@@ -4615,15 +4550,18 @@
         },
         "autoRotateSpeed": {
           "type": "number"
+        },
+        "isActive": {
+          "type": "boolean"
         }
       },
-      "required": ["cameraTag", "tags", "type"]
+      "required": ["cameraTag", "isActive", "tags", "type"]
     },
     "ControlsTag": {
       "type": "string",
-      "enum": ["initial", "orbit"]
+      "const": "orbit"
     },
-    "IControlsType": {
+    "ControlsType": {
       "type": "string",
       "const": "OrbitControls"
     }
