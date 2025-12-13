@@ -57,7 +57,7 @@ export function showcase(space: TSpace): void {
 
   const currentActor$: Subject<TActor> = new Subject();
 
-  const materials: ReadonlyArray<string> = ['standard', 'physical', 'basic', 'phong', 'lambert', 'toon', 'matcap'];
+  const materials: ReadonlyArray<string> = ['standard', 'physics', 'basic', 'phong', 'lambert', 'toon', 'matcap'];
   const currentMaterialIndex$: BehaviorSubject<number> = new BehaviorSubject(0);
   const currentMaterial$: Subject<string> = new Subject();
 

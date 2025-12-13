@@ -50,7 +50,7 @@ const spacesData: ReadonlyArray<TSpacesData> = [
   spaceTransformDriveData
 ];
 
-const initialSpaceDataName: string = spaceLightData.name;
+const initialSpaceDataName: string = spaceBasicData.name;
 
 const spacesInMemoryData: Array<TSpacesData> = [];
 
@@ -71,6 +71,7 @@ export function start(settings: TAppSettings): void {
     settings
   );
 
+  console.log('XXX1 spacesData', spacesData);
   loadSpace(spacesData.find((s: TSpacesData): boolean => s.name === initialSpaceDataName)?.name, spacesData, settings);
 }
 
@@ -161,6 +162,7 @@ export function createForm(containerId: string | undefined, isTop: boolean, isRi
     containerId,
     (name: string): void => {
       unloadSpace(currentSpaceName, spaceRegistry);
+      console.log('XXX3 spacesData', spacesData);
       loadSpace(name, spacesData, settings);
     },
     options,
@@ -185,6 +187,7 @@ export function createForm(containerId: string | undefined, isTop: boolean, isRi
 
   // TODO: enable to check false positive screenshot compare
   // addBtn(`Load`, containerId, (): void => loadSpace(currentSpaceName));
+  console.log('XXX2 spacesInMemoryData', spacesInMemoryData);
   addBtn(`Load`, containerId, (): void => loadSpace(currentSpaceName, spacesInMemoryData, settings));
 }
 
