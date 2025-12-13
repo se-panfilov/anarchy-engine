@@ -13,7 +13,6 @@ import type {
   TEngine,
   TIntersectionEvent,
   TIntersectionsWatcher,
-  TIntersectionsWatcherParams,
   TPhysicsDebugRenderer,
   TSceneWrapper,
   TSpace,
@@ -110,7 +109,7 @@ export function showcase(canvas: TAppCanvas): TShowcase {
       actors: [surfaceActorW],
       position$: mouseService.position$,
       tags: []
-    } satisfies TIntersectionsWatcherParams);
+    });
 
     const azimuthText = textService.create({
       text: 'Azimuth...',
