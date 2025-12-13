@@ -2,10 +2,10 @@ import type { TLocale, TLocaleId } from '@Anarchy/i18n';
 import { getLocaleByLocaleId, getPreferLocaleId } from '@Anarchy/i18n';
 import { AllowedSystemFolders } from '@Showcases/Desktop/Constants';
 import type { TFilesService, TSettingsService } from '@Showcases/Desktop/Models';
-import type { TResolution, TShowcaseGameSettings } from '@Showcases/Shared';
+import { detectResolution } from '@Showcases/Desktop/Utils';
+import type { TShowcaseGameSettings } from '@Showcases/Shared';
 import { DefaultShowcaseGameSettings, isSettings, ShowcasesFallbackLocale, ShowcasesLocales } from '@Showcases/Shared';
 import type { App } from 'electron';
-import { screen } from 'electron';
 
 // TODO DESKTOP: Add protection (allowed files list, name/extension checks, sanitization, etc)
 export function SettingsService(app: App, filesService: TFilesService): TSettingsService {
@@ -48,18 +48,7 @@ export function SettingsService(app: App, filesService: TFilesService): TSetting
     };
   }
 
-  function detectResolution(): TResolution {
-    const primaryDisplay = screen.getPrimaryDisplay();
-    const { width, height } = primaryDisplay.size;
-    return { width, height };
-  }
-
   const getPreferredLocales = (): ReadonlyArray<TLocaleId> => Array.from(new Set([...app.getPreferredSystemLanguages(), app.getLocale()] as ReadonlyArray<TLocaleId>));
-
-  function getScreenRatio(): number {
-    const { width, height }: TResolution = detectResolution();
-    return width / height;
-  }
 
   async function saveAppSettings(settings: TShowcaseGameSettings): Promise<void> {
     if (!isSettings(settings)) throw new Error('[DESKTOP]: Attempted to save invalid app settings');
@@ -78,7 +67,6 @@ export function SettingsService(app: App, filesService: TFilesService): TSetting
     applyPlatformSettings,
     detectResolution,
     getPreferredLocales,
-    getScreenRatio,
     loadAppSettings,
     saveAppSettings
   };
