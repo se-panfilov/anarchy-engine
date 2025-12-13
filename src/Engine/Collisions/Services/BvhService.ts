@@ -17,7 +17,7 @@ export function BvhService(): TBvhService {
   }
 
   // this highlight is for debugging purposes only
-  function _debugVisualizeBvh(actorW: TActorWrapperAsync, sceneW: TSceneWrapper): void {
+  function _debugVisualizeBvhForActor(actorW: TActorWrapperAsync, sceneW: TSceneWrapper): void {
     const bvhHelper: MeshBVHHelper = new MeshBVHHelper(actorW.entity, 10);
     sceneW.entity.add(bvhHelper);
   }
@@ -27,6 +27,6 @@ export function BvhService(): TBvhService {
     disposeBVHBoundsTree,
     raycastWithBvh,
     createBvhForActor,
-    _debugVisualizeBvh
+    _debugVisualizeBvhForActor
   };
 }

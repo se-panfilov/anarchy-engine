@@ -46,5 +46,5 @@ export async function enableCollisions(mouseLineIntersectionsWatcher: TIntersect
   });
 
   grid._debugVisualizeCells(sceneW);
-  collisionsService.bvh._debugVisualizeBvh(sphereActorW, sceneW);
+  collisionsService.bvh._debugVisualizeBvhForActor(sphereActorW, sceneW);
 }
