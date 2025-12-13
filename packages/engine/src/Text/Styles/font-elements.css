@@ -2,22 +2,26 @@
   background: transparent;
   user-select: none;
   position: absolute;
+  z-index: 1;
 }
 
 .renderer-text-2d {
   position: absolute;
   top: 0;
   pointer-events: none;
+  z-index: 1;
 }
 
 .text-3d {
   background: transparent;
   user-select: none;
   position: absolute;
+  z-index: 1;
 }
 
 .renderer-text-3d {
   position: absolute;
   top: 0;
   pointer-events: none;
+  z-index: 1;
 }
