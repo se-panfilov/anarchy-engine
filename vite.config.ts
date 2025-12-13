@@ -2,16 +2,19 @@
 import { defineConfig } from 'vite';
 import path from 'path';
 import wasm from 'vite-plugin-wasm';
+import topLevelAwait from 'vite-plugin-top-level-await';
 
 export default defineConfig({
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src')
-      // '@Engine': path.resolve(__dirname, './src/Engine'),
-      // '@App': path.resolve(__dirname, './src/App')
     }
   },
-  plugins: [wasm()],
+  plugins: [
+    wasm(),
+    // "topLevelAwait" needed only if build.target is not "esnext"
+    topLevelAwait()
+  ],
   build: {
     sourcemap: true
   },
