@@ -1,11 +1,13 @@
+import type { TLocaleId } from '@Anarchy/i18n';
 import { AllowedSystemFolders } from '@Showcases/Desktop/Constants';
 import type { TFilesService, TSettingsService } from '@Showcases/Desktop/Models';
 import type { TResolution, TShowcaseGameSettings } from '@Showcases/Shared';
 import { DefaultShowcaseGameSettings, isSettings } from '@Showcases/Shared';
+import type { App } from 'electron';
 import { screen } from 'electron';
 
 // TODO DESKTOP: Add protection (allowed files list, name/extension checks, sanitization, etc)
-export function SettingsService(filesService: TFilesService): TSettingsService {
+export function SettingsService(app: App, filesService: TFilesService): TSettingsService {
   const userDataFolder: AllowedSystemFolders = AllowedSystemFolders.UserData;
   const appSettingsFileName: string = 'user-config.json';
 
@@ -42,6 +44,10 @@ export function SettingsService(filesService: TFilesService): TSettingsService {
     return { width, height };
   }
 
+  function getPreferredLocales(): ReadonlyArray<TLocaleId> {
+    return Array.from(new Set([...app.getPreferredSystemLanguages(), app.getLocale()] as ReadonlyArray<TLocaleId>));
+  }
+
   function getScreenRatio(): number {
     const { width, height } = detectResolution();
     return width / height;
@@ -64,6 +70,7 @@ export function SettingsService(filesService: TFilesService): TSettingsService {
   return {
     applyPlatformSettings,
     detectResolution,
+    getPreferredLocales,
     getScreenRatio,
     loadAppSettings,
     saveAppSettings

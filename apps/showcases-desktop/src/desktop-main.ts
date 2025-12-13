@@ -27,7 +27,7 @@ const desktopAppSettings: TDesktopAppConfig = {
 const desktopAppService: TDesktopAppService = DesktopAppService(app);
 const windowService: TWindowService = WindowService();
 const filesService: TFilesService = FilesService(app);
-const settingsService: TSettingsService = SettingsService(filesService);
+const settingsService: TSettingsService = SettingsService(app, filesService);
 const docsService: TDocsService = DocsService(filesService);
 
 ipcMain.handle(platformApiChannel, (event: IpcMainInvokeEvent, ...args: [PlatformActions | string, unknown]) => handleAppRequest({ settingsService, docsService, desktopAppService }, event, args));
