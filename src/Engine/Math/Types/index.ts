@@ -5,4 +5,5 @@ export type * from './TMeters';
 export type * from './TMetersPerSecond';
 export type * from './TMilliseconds';
 export type * from './TRadians';
+export type * from './TRadiansPerSecond';
 export type * from './TSeconds';

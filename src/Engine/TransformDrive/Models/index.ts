@@ -3,6 +3,7 @@ export type * from './TConnectedTransformAgent';
 export type * from './TDefaultTransformAgent';
 export type * from './TDriveToTargetConnector';
 export type * from './TKinematicAgentDependencies';
+export type * from './TKinematicSpeed';
 export type * from './TKinematicTransformAgent';
 export type * from './TKinematicTransformAgentParams';
 export type * from './TPhysicsAgentDependencies';

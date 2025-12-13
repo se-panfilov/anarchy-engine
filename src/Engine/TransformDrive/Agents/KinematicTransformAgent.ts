@@ -4,10 +4,14 @@ import type { QuaternionLike } from 'three';
 import { Object3D, Quaternion, Vector3 } from 'three';
 import type { Vector3Like } from 'three/src/math/Vector3';
 
+import { metersPerSecond } from '@/Engine/Distance';
 import type { TKinematicData, TKinematicState, TKinematicTarget, TKinematicWritableData } from '@/Engine/Kinematic/Models';
-import type { TMeters, TMetersPerSecond, TMilliseconds, TRadians } from '@/Engine/Math';
+import type { TMeters, TMetersPerSecond, TMilliseconds, TRadians, TRadiansPerSecond } from '@/Engine/Math';
+import { meters } from '@/Engine/Measurements';
 import { TransformAgent } from '@/Engine/TransformDrive/Constants';
-import type { TAbstractTransformAgent, TKinematicAgentDependencies, TKinematicTransformAgent, TKinematicTransformAgentParams } from '@/Engine/TransformDrive/Models';
+import type { TAbstractTransformAgent, TKinematicAgentDependencies, TKinematicSpeed, TKinematicTransformAgent, TKinematicTransformAgentParams } from '@/Engine/TransformDrive/Models';
+import { isInstant } from '@/Engine/TransformDrive/Utils/KinematicUtils';
+import type { TWriteable } from '@/Engine/Utils';
 import { isDefined, isNotDefined } from '@/Engine/Utils';
 
 import { AbstractTransformAgent } from './AbstractTransformAgent';
@@ -37,6 +41,7 @@ export function KinematicTransformAgent(params: TKinematicTransformAgentParams, 
         linearSpeed: params.state.linearSpeed ?? 0,
         linearDirection: params.state.linearDirection?.clone() ?? new Vector3(),
         angularSpeed: params.state.angularSpeed ?? 0,
+        radius: params.state.radius ?? meters(1),
         angularDirection: params.state.angularDirection?.clone() ?? new Quaternion()
       },
       target: {
@@ -74,7 +79,15 @@ export function KinematicTransformAgent(params: TKinematicTransformAgentParams, 
     getData(): TKinematicData {
       return agent.data;
     },
-    moveTo(targetPosition: Vector3, speed: TMetersPerSecond): void | never {
+    getRadius(): TMeters {
+      return agent.data.state.radius;
+    },
+    setRadius(radius: TMeters): void {
+      // eslint-disable-next-line functional/immutable-data
+      agent.data.state.radius = radius;
+    },
+    moveTo(targetPosition: Vector3, speed: TKinematicSpeed): void | never {
+      if (isInstant(speed)) return moveInstantly(agent, targetPosition);
       if (speed < 0) throw new Error('Speed must be greater than 0 to calculate angular speed.');
       if (speed === 0) return agent.setLinearSpeed(0);
 
@@ -89,25 +102,22 @@ export function KinematicTransformAgent(params: TKinematicTransformAgentParams, 
       return undefined;
     },
     // Rotates agent to "look" at the target position (e.g. mouse click position, other actor, etc.)
-    lookAt(targetPosition: Vector3, speed: TMetersPerSecond, radius: TMeters): void | never {
-      if (speed < 0) throw new Error('Speed must be greater than 0 to calculate angular speed.');
-      if (speed === 0) return agent.setAngularSpeed(0);
-      if (radius <= 0) throw new Error('Radius must be greater than 0 to calculate angular speed.');
-
+    lookAt(targetPosition: Vector3, speed: TKinematicSpeed): void | never {
       tempObject.position.copy(abstractTransformAgent.position$.value);
       tempObject.up.set(0, 1, 0);
       tempObject.lookAt(targetPosition);
       const targetRotation: Quaternion = tempObject.quaternion.clone().normalize();
 
-      return agent.rotateTo(targetRotation, speed, radius);
+      return agent.rotateTo(targetRotation, speed);
     },
     // Rotates agent as provided Quaternion (useful when you want to rotate as someone else already rotated)
-    rotateTo(targetRotation: Quaternion, speed: TMetersPerSecond, radius: TMeters): void | never {
+    rotateTo(targetRotation: Quaternion, speed: TKinematicSpeed): void | never {
+      if (isInstant(speed)) return rotateInstantly(agent, targetRotation);
+
       if (speed < 0) throw new Error('Speed must be greater than 0 to calculate angular speed.');
       if (speed === 0) return agent.setAngularSpeed(0);
-      if (radius <= 0) throw new Error('Radius must be greater than 0 to calculate angular speed.');
-      // TODO 8.0.0. MODELS: TRadiansPerSecond
-      const angularSpeed: TMetersPerSecond = (speed / radius) as TMetersPerSecond;
+      if (agent.data.state.radius <= 0) throw new Error('Radius must be greater than 0 to calculate angular speed.');
+      const angularSpeed: TRadiansPerSecond = (speed / agent.data.state.radius) as TRadiansPerSecond;
 
       // eslint-disable-next-line functional/immutable-data
       agent.data.target.rotation = targetRotation.clone().normalize();
@@ -132,12 +142,19 @@ export function KinematicTransformAgent(params: TKinematicTransformAgentParams, 
       if (resetSpeed) agent.setLinearSpeed(0);
       if (resetDirection) agent.setLinearDirection(new Vector3());
     },
-    getAngularSpeed(): TMetersPerSecond {
+    getAngularSpeed(): TRadiansPerSecond {
       return agent.data.state.angularSpeed;
     },
-    setAngularSpeed(speed: TMetersPerSecond): void {
+    getAngularSpeedMps(): TMetersPerSecond {
+      return metersPerSecond(agent.data.state.angularSpeed * agent.data.state.radius);
+    },
+    setAngularSpeed(speed: TRadiansPerSecond): void {
       // eslint-disable-next-line functional/immutable-data
       agent.data.state.angularSpeed = speed;
+    },
+    setAngularSpeedMps(speed: TMetersPerSecond): void {
+      if (agent.data.state.radius <= 0) throw new Error('Radius must be greater than 0 to calculate angular speed.');
+      agent.setAngularSpeed((speed / agent.data.state.radius) as TRadiansPerSecond);
     },
     getAngularDirection(): Quaternion {
       return agent.data.state.angularDirection.clone();
@@ -281,4 +298,22 @@ function isRotationReached(target: TKinematicTarget | undefined, rotation: Quate
   if (angleToTarget < rotationThreshold) return true;
 
   return false;
+}
+
+function rotateInstantly(agent: TWriteable<TKinematicTransformAgent>, targetRotation: Quaternion): void {
+  agent.setAngularSpeed(0);
+  // eslint-disable-next-line functional/immutable-data
+  if (isDefined(agent.data.target?.rotation)) (agent.data.target as TWriteable<TKinematicTarget>).rotation = undefined;
+  // eslint-disable-next-line functional/immutable-data
+  (agent.data.state as TWriteable<TKinematicState>).angularDirection = targetRotation.clone().normalize();
+  agent.rotation$.next(agent.data.state.angularDirection);
+  return;
+}
+
+function moveInstantly(agent: TWriteable<TKinematicTransformAgent>, targetPosition: Vector3): void {
+  agent.setLinearSpeed(0);
+  // eslint-disable-next-line functional/immutable-data
+  if (isDefined(agent.data.target?.position)) (agent.data.target as TWriteable<TKinematicTarget>).position = undefined;
+  agent.position$.next(targetPosition);
+  return;
 }
