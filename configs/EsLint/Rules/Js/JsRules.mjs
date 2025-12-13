@@ -220,6 +220,7 @@ export const JsRules = {
         '[K-k]eyframe[s]?',
         '[M-m]acos',
         '[M-m]in[s]?',
+        '[M-m]onorepo[s]?',
         '[M-m]onospace',
         '[M-m]ouseup',
         '[M-m]oveable',
