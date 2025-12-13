@@ -9,7 +9,6 @@ export type TOrbitControlsParamsOptions = Readonly<{
   enablePan?: boolean;
   enableRotate?: boolean;
   enableZoom?: boolean;
-  enabled?: boolean;
   keyPanSpeed?: number;
   maxAzimuthAngle?: number;
   maxDistance?: number;

@@ -44,10 +44,10 @@ export function FpsControlsWrapper(params: TFpsControlsParams): TFpsControlsWrap
     ...withActiveMixin(),
     entity,
     // TODO 15-0-0: add serializer to the service to avoid dependencies passing
-    serialize: (dependencies: TControlsServiceDependencies): TFpsControlsConfig => controlsToConfig(result, dependencies)
+    serialize: (dependencies: TControlsServiceDependencies): TFpsControlsConfig => controlsToConfig(result, dependencies) as TFpsControlsConfig
   });
 
-  applyFpsControlsParams(result, params);
+  applyFpsControlsParams(result, params.options);
   result.enable();
   result.update(0);
   result._setActive(params.isActive, true);

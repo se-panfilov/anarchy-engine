@@ -2,22 +2,11 @@ import type { TActive, TWithName, TWithTags } from '@/Engine/Mixins';
 import type { TSpaceCanvas } from '@/Engine/Space';
 
 import type { TBaseControlsParams } from './TBaseControlsParams';
+import type { TFpsControlsParamsOptions } from './TFpsControlsParamsOptions';
 
 export type TFpsControlsParams = TBaseControlsParams &
   Readonly<{
-    movementSpeed?: number;
-    lookSpeed?: number;
-    lookVertical?: boolean;
-    autoForward?: boolean;
-    activeLook?: boolean;
-    heightSpeed?: boolean;
-    heightCoef?: number;
-    heightMin?: number;
-    heightMax?: number;
-    constrainVertical?: boolean;
-    verticalMin?: number;
-    verticalMax?: number;
-    mouseDragOn?: boolean;
+    options?: TFpsControlsParamsOptions;
     canvas: TSpaceCanvas;
   }> &
   TWithName &

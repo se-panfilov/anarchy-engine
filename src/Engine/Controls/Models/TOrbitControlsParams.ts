@@ -7,6 +7,7 @@ import type { TOrbitControlsParamsOptions } from './TOrbitControlsParamsOptions'
 export type TOrbitControlsParams = TBaseControlsParams &
   Readonly<{
     options?: TOrbitControlsParamsOptions;
+    enabled?: boolean;
     canvas: TSpaceCanvas;
   }> &
   TWithName &

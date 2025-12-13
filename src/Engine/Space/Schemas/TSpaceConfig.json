@@ -7747,6 +7747,9 @@
         "type": {
           "$ref": "#/definitions/ControlsType"
         },
+        "enabled": {
+          "type": "boolean"
+        },
         "name": {
           "type": "string"
         },
@@ -7791,9 +7794,6 @@
           "type": "boolean"
         },
         "enableZoom": {
-          "type": "boolean"
-        },
-        "enabled": {
           "type": "boolean"
         },
         "keyPanSpeed": {
@@ -7854,12 +7854,33 @@
       "type": "object",
       "additionalProperties": false,
       "properties": {
+        "options": {
+          "$ref": "#/definitions/TFpsControlsParamsOptions"
+        },
         "cameraName": {
           "type": "string"
         },
         "type": {
           "$ref": "#/definitions/ControlsType"
         },
+        "name": {
+          "type": "string"
+        },
+        "isActive": {
+          "type": "boolean"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": ["cameraName", "isActive", "name", "type"]
+    },
+    "TFpsControlsParamsOptions": {
+      "type": "object",
+      "properties": {
         "movementSpeed": {
           "type": "number"
         },
@@ -7898,21 +7919,9 @@
         },
         "mouseDragOn": {
           "type": "boolean"
-        },
-        "name": {
-          "type": "string"
-        },
-        "isActive": {
-          "type": "boolean"
-        },
-        "tags": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
         }
       },
-      "required": ["cameraName", "isActive", "name", "type"]
+      "additionalProperties": false
     },
     "TSpaceConfigResources": {
       "type": "object",

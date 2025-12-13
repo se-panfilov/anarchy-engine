@@ -1,7 +1,9 @@
-import type { TFpsControlsParams, TFpsControlsWrapper } from '@/Engine/Controls/Models';
-import { isDefined } from '@/Engine/Utils';
+import type { TFpsControlsParamsOptions, TFpsControlsWrapper } from '@/Engine/Controls/Models';
+import { isDefined, isNotDefined } from '@/Engine/Utils';
 
-export function applyFpsControlsParams(wrapper: TFpsControlsWrapper, params: TFpsControlsParams): void {
+export function applyFpsControlsParams(wrapper: TFpsControlsWrapper, params: TFpsControlsParamsOptions | undefined): void {
+  if (isNotDefined(params)) return;
+
   if (isDefined(params.movementSpeed)) wrapper.setMovementSpeed(params.movementSpeed);
   if (isDefined(params.lookSpeed)) wrapper.setLookSpeed(params.lookSpeed);
   if (isDefined(params.lookVertical)) wrapper.setLookVertical(params.lookVertical);

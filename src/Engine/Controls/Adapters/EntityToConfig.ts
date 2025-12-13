@@ -1,7 +1,9 @@
 import type { TCamera, TCameraWrapper } from '@/Engine/Camera';
-import type { TControlsConfig, TControlsServiceDependencies, TControlsWrapper, TFpsControlsConfig, TFpsControlsWrapper, TOrbitControlsConfig, TOrbitControlsWrapper } from '@/Engine/Controls/Models';
+import type { TControlsConfig, TControlsServiceDependencies, TControlsWrapper, TFpsControlsWrapper, TOrbitControlsConfigOptions, TOrbitControlsWrapper } from '@/Engine/Controls/Models';
+import type { TFpsControlsConfigOptions } from '@/Engine/Controls/Models/TFpsControlsConfigOptions';
 import { isFpsControls, isOrbitControls } from '@/Engine/Controls/Utils';
 import { extractSerializableRegistrableFields } from '@/Engine/Mixins';
+import type { TWriteable } from '@/Engine/Utils';
 import { filterOutEmptyFields, isNotDefined, vector3ToXyz } from '@/Engine/Utils';
 
 export function controlsToConfig(entity: TControlsWrapper, { cameraService }: TControlsServiceDependencies): TControlsConfig {
@@ -11,7 +13,7 @@ export function controlsToConfig(entity: TControlsWrapper, { cameraService }: TC
   const cameraW: TCameraWrapper | undefined = cameraService.getRegistry().find((cameraWrapper: TCameraWrapper): boolean => cameraWrapper.entity === camera);
   if (isNotDefined(cameraW)) throw new Error(`[Serialization] Controls: camera not found for entity with name: "${entity.name}", (id: "${entity.id}")`);
 
-  const result = filterOutEmptyFields({
+  const result: TWriteable<TControlsConfig> = filterOutEmptyFields({
     enabled: entity.isEnable(),
     type: entity.getType(),
     isActive: entity.isActive(),
@@ -19,16 +21,21 @@ export function controlsToConfig(entity: TControlsWrapper, { cameraService }: TC
     ...extractSerializableRegistrableFields(entity)
   });
 
-  // eslint-disable-next-line functional/immutable-data
-  if (isOrbitControls(entity)) Object.assign(result, getOrbitControlsFields(entity as TOrbitControlsWrapper));
+  const options = {};
 
   // eslint-disable-next-line functional/immutable-data
-  if (isFpsControls(entity)) Object.assign(result, getFpsControlsFields(entity as TFpsControlsWrapper));
+  if (isOrbitControls(entity)) Object.assign(options, getOrbitControlsFields(entity as TOrbitControlsWrapper));
+
+  // eslint-disable-next-line functional/immutable-data
+  if (isFpsControls(entity)) Object.assign(options, getFpsControlsFields(entity as TFpsControlsWrapper));
+
+  // eslint-disable-next-line functional/immutable-data
+  result.options = filterOutEmptyFields(options);
 
   return filterOutEmptyFields(result);
 }
 
-function getOrbitControlsFields(entity: TOrbitControlsWrapper): Omit<TOrbitControlsConfig, 'type' | 'isActive' | 'name' | 'cameraName'> {
+function getOrbitControlsFields(entity: TOrbitControlsWrapper): TOrbitControlsConfigOptions {
   return filterOutEmptyFields({
     autoRotate: entity.getAutoRotate(),
     autoRotateSpeed: entity.getAutoRotateSpeed(),
@@ -38,7 +45,6 @@ function getOrbitControlsFields(entity: TOrbitControlsWrapper): Omit<TOrbitContr
     enablePan: entity.getEnablePan(),
     enableRotate: entity.getEnableRotate(),
     enableZoom: entity.getEnableZoom(),
-    enabled: entity.isEnable(),
     keyPanSpeed: entity.getKeyPanSpeed(),
     maxAzimuthAngle: entity.getMaxAzimuthAngle(),
     maxDistance: entity.getMaxDistance(),
@@ -59,7 +65,7 @@ function getOrbitControlsFields(entity: TOrbitControlsWrapper): Omit<TOrbitContr
   });
 }
 
-function getFpsControlsFields(entity: TFpsControlsWrapper): Omit<TFpsControlsConfig, 'type' | 'isActive' | 'name' | 'cameraName'> {
+function getFpsControlsFields(entity: TFpsControlsWrapper): TFpsControlsConfigOptions {
   return filterOutEmptyFields({
     activeLook: entity.getActiveLook(),
     autoForward: entity.getAutoForward(),
