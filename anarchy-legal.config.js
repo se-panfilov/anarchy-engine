@@ -1,33 +1,23 @@
-import base from './anarchy-legal-base.config.js.js';
-
-const baseGenerics = base.find(({ type }) => type === 'GENERIC');
-const newWithoutGenerics = [...base.filter(({ type }) => type !== 'GENERIC')];
+import base from './anarchy-legal-base.config.js';
 
 //Non-Commercial configuration for legal docs
-export default [
-  ...newWithoutGenerics,
-  {
-    ...baseGenerics,
+export default {
+  GENERIC: {
     messages: {
-      ...baseGenerics.messages,
+      ...base.GENERIC.messages,
 
       PRODUCT_TERM: 'Project',
       STORE_DISCLOSURES: false
     }
   },
-  {
-    type: 'DISCLAIMER'
-  },
-  {
-    type: 'EULA',
+  DISCLAIMER: {},
+  EULA: {
     template: 'EULA_NON_COMMERCIAL_TEMPLATE'
   },
-  {
-    type: 'PRIVACY',
+  PRIVACY: {
     template: 'PRIVACY_NON_COMMERCIAL_TEMPLATE'
   },
-  {
-    type: 'SECURITY',
+  SECURITY: {
     template: 'SECURITY_NON_COMMERCIAL_TEMPLATE'
   }
-];
+};

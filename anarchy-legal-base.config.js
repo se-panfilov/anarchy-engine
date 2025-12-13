@@ -1,9 +1,8 @@
 // TODO DESKTOP: LEGAL: Actually, we can use constants here (GENERIC, DISCLAIMER, EULA, PRIVACY, SECURITY) and other values (Software, Project, etc.)
 // TODO DESKTOP: LEGAL: Array is ok, but Object would be easier to extend
 
-export default [
-  {
-    type: 'GENERIC',
+export default {
+  GENERIC: {
     messages: {
       // CONFIGS
       HAS_DPO: false,
@@ -72,4 +71,4 @@ export default [
       EFFECTIVE_DATE: 'TBD until market release'
     }
   }
-];
+};
