@@ -19,7 +19,7 @@
       { "name": "solder_model_1", "url": "/Showcase/Models/Solder/Solder.glb" },
       { "name": "solder_model_2", "url": "/Showcase/Models/Solder/Solder.glb" }
     ],
-    "animations": []
+    "animations": [{ "name": "dance_anim", "url": "/Showcase/Models/Solder/animations/samba.glb" }]
   },
   "entities": {
     "spatialGrids": [
