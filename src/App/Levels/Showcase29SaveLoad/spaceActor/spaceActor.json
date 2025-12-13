@@ -3,11 +3,36 @@
   "entities": {
     "actors": [
       {
-        "model3dSource": "sphere_model",
-        "name": "sphere_actor",
+        "agent": "default",
+        "model3dSource": "surface_model",
+        "name": "surface_actor",
         "position": {
           "x": 0,
-          "y": 2,
+          "y": 0,
+          "z": 0
+        },
+        "rotation": {
+          "x": -1.57,
+          "y": 0,
+          "z": 0
+        },
+        "spatial": {
+          "grid": "main_grid",
+          "isAutoUpdate": true
+        }
+      },
+      {
+        "agent": "default",
+        "model3dSource": "solder_model_entity_1",
+        "name": "solder_actor_1",
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "rotation": {
+          "x": 0,
+          "y": 0,
           "z": 0
         },
         "spatial": {
@@ -19,7 +44,7 @@
     "audio": [],
     "cameras": [
       {
-        "far": 10000,
+        "far": 100,
         "fov": 45,
         "isActive": true,
         "name": "main",
@@ -36,10 +61,39 @@
         }
       }
     ],
-    "controls": [],
+    "controls": [
+      {
+        "cameraName": "main",
+        "isActive": true,
+        "name": "orbit_controls",
+        "options": {
+          "enableDamping": true
+        },
+        "target": {
+          "x": 0,
+          "y": 1.2,
+          "z": 0
+        },
+        "type": "OrbitControls"
+      }
+    ],
     "envMaps": [],
     "fogs": [],
-    "fsm": [],
+    "fsm": [
+      {
+        "initial": "Idle",
+        "name": "solder_anim_fsm",
+        "transitions": [
+          ["Idle", "Run", "Run"],
+          ["Idle", "Walk", "Walk"],
+          ["Walk", "Idle", "Idle"],
+          ["Walk", "Run", "Run"],
+          ["Run", "Walk", "Walk"],
+          ["Run", "Idle", "Idle"]
+        ],
+        "type": "animation"
+      }
+    ],
     "intersections": [],
     "lights": [
       {
@@ -88,13 +142,6 @@
           "color": "#5EDCAE"
         },
         "type": "MeshStandardMaterial"
-      },
-      {
-        "name": "sphere_material",
-        "options": {
-          "color": "#E91E63"
-        },
-        "type": "MeshStandardMaterial"
       }
     ],
     "models3d": [
@@ -109,11 +156,6 @@
           "width": 100,
           "widthSegments": 1
         },
-        "position": {
-          "x": 0,
-          "y": 0,
-          "z": 0
-        },
         "receiveShadow": true,
         "rotation": {
           "x": -1.57,
@@ -123,12 +165,8 @@
       },
       {
         "castShadow": true,
-        "material": "sphere_material",
-        "model3dSource": "sphere",
-        "name": "sphere_model",
-        "options": {
-          "radius": 0.7
-        }
+        "model3dSource": "solder_model",
+        "name": "solder_model_entity_1"
       }
     ],
     "particles": [],
@@ -158,11 +196,17 @@
     "animations": [],
     "audio": [],
     "envMaps": [],
-    "models3d": [],
+    "models3d": [
+      {
+        "name": "solder_model",
+        "url": "/Showcase/Models/Solder/Solder.glb"
+      }
+    ],
     "textures": []
   },
   "scenes": [
     {
+      "background": "#A0A0A0",
       "isActive": true,
       "name": "showcase"
     }

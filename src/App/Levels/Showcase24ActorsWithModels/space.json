@@ -1,7 +1,6 @@
 {
   "canvasSelector": "#app",
   "entities": {
-    "renderers": [{ "name": "main", "mode": "webgl2", "isActive": true }],
     "actors": [
       {
         "agent": "default",
@@ -60,7 +59,9 @@
           "isAutoUpdate": true
         },
         "states": {
-          "animationsFsmSource": { "name": "dance_anim_fsm" }
+          "animationsFsmSource": {
+            "name": "dance_anim_fsm"
+          }
         }
       }
     ],
@@ -86,12 +87,12 @@
     ],
     "controls": [
       {
-        "name": "orbit_controls",
         "cameraName": "main",
+        "isActive": true,
+        "name": "orbit_controls",
         "options": {
           "enableDamping": true
         },
-        "isActive": true,
         "target": {
           "x": 0,
           "y": 1.2,
@@ -103,9 +104,9 @@
     "envMaps": [],
     "fogs": [
       {
-        "name": "main_fog",
         "color": "#A0A0A0",
         "far": 35,
+        "name": "main_fog",
         "near": 10
       }
     ],
@@ -123,10 +124,10 @@
     "intersections": [],
     "lights": [
       {
-        "name": "directional_light",
         "castShadow": true,
         "color": "#ffffff",
         "intensity": 3,
+        "name": "directional_light",
         "position": {
           "x": -3,
           "y": 10,
@@ -150,10 +151,10 @@
         "type": "DirectionalLight"
       },
       {
-        "name": "ambient_light",
         "color": "#ffffff",
         "groundColor": "#8D8D8D",
         "intensity": 3,
+        "name": "ambient_light",
         "position": {
           "x": 0,
           "y": 20,
@@ -167,8 +168,8 @@
         "name": "surface_material",
         "options": {
           "color": "#CBCBCB",
-          "opacity": 1,
-          "depthWrite": false
+          "depthWrite": false,
+          "opacity": 1
         },
         "type": "MeshPhongMaterial"
       }
@@ -206,6 +207,13 @@
     ],
     "particles": [],
     "physics": {},
+    "renderers": [
+      {
+        "isActive": true,
+        "mode": "webgl2",
+        "name": "main"
+      }
+    ],
     "spatialGrids": [
       {
         "cellSize": 10,

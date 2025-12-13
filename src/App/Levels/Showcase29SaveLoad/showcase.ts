@@ -33,14 +33,15 @@ const subscriptions: Record<string, Subscription> = {};
 
 // TODO 15-0-0: E2E: Perhaps serialization should return promise (cause it feels kinda async)
 const spacesData: ReadonlyArray<TSpacesData> = [
+  spaceActorData,
   spaceBasicData,
-  spaceCustomModelsData,
-  spaceTextData,
   spaceCameraData,
+  spaceCustomModelsData,
+  spaceFpsControlsData,
   spaceLightData,
   spaceMaterialsData,
   spaceOrbitControlsData,
-  spaceFpsControlsData
+  spaceTextData
 ];
 
 const spacesInMemoryData: Array<TSpacesData> = [];
@@ -64,7 +65,7 @@ export function start(): void {
 
 function loadSpace(name: string | undefined, source: ReadonlyArray<TSpacesData>): void {
   setSpaceReady(false);
-  if (isNotDefined(name)) return;
+  if (isNotDefined(name)) throw new Error('[Showcase]: Space name is not defined');
   const spaceData: TSpacesData | undefined = source.find((s: TSpacesData): boolean => s.name === name);
   if (isNotDefined(spaceData)) throw new Error(`[Showcase]: Space data is not found for space "${name}"`);
 
