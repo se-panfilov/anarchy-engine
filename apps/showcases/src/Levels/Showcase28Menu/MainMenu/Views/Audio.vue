@@ -3,6 +3,7 @@ import { reactive } from 'vue';
 import MenuViewActions from '@/Levels/Showcase28Menu/MainMenu/Components/MenuViewActions.vue';
 import MenuSettingsGroup from '@/Levels/Showcase28Menu/MainMenu/Components/MenuSettingsGroup.vue';
 import SettingsRangeComponent from '@/Levels/Showcase28Menu/MainMenu/Components/SettingsRangeComponent.vue';
+import MenuView from '@/Levels/Showcase28Menu/MainMenu/Components/MenuView.vue';
 import { useSettingsStore } from '@/Levels/Showcase28Menu/MainMenu/Stores/SettingsStore';
 import type { TAudioSettings } from '@/Levels/Showcase28Menu/Models';
 import type { TWriteable } from '@Engine';
@@ -25,9 +26,8 @@ function save(payload: TAudioSettings) {
 </script>
 
 <template>
-  <div class="audio main-menu-view">
-    <div class="main-menu-view__title">Audio settings</div>
-    <MenuSettingsGroup class="main-menu-view__group" title="Group 1">
+  <MenuView class="audio" title="Audio settings">
+    <MenuSettingsGroup class="main-menu-view__group" title="Main Audio Settings">
       <SettingsRangeComponent
         :value="state.masterVolume"
         :min="0"
@@ -38,7 +38,7 @@ function save(payload: TAudioSettings) {
       />
     </MenuSettingsGroup>
     <MenuViewActions @cancel="cancel()" @save="save(state)" />
-  </div>
+  </MenuView>
 </template>
 
 <style scoped></style>
