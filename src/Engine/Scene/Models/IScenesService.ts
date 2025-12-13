@@ -3,7 +3,7 @@ import type { ISceneConfig, ISceneParams, ISceneWrapper } from '@/Engine/Scene';
 
 export type IScenesService = Readonly<{
   create: (params: ISceneParams) => ISceneWrapper;
-  createFromConfig: (config: ISceneConfig) => ISceneWrapper;
+  createFromConfig: (scenes: ReadonlyArray<ISceneConfig>) => void;
   setActiveScene: (scene: ISceneWrapper) => void;
   findActiveScene: () => ISceneWrapper | undefined;
 }> &

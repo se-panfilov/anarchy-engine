@@ -67,8 +67,7 @@ export function buildSpaceFromConfig(canvas: IAppCanvas, config: ISpaceConfig): 
     const sceneRegistry: ISceneRegistry = SceneRegistry();
     const scenesService: IScenesService = ScenesService(sceneFactory, sceneRegistry);
 
-    // TODO (S.Panfilov) use service
-    scenes.forEach((config: ISceneConfig): ISceneWrapper => sceneFactory.create(sceneFactory.configToParams({ ...config, tags: [...config.tags, CommonTag.FromConfig] })));
+    scenesService.createFromConfig(scenes);
 
     messages$.next(`Scenes (${scenes.length}) created`);
     scene = scenesService.findActiveScene();
