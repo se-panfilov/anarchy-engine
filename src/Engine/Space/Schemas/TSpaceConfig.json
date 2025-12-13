@@ -46,13 +46,13 @@
         "receiveShadow": {
           "type": "boolean"
         },
+        "layers": {
+          "type": "number"
+        },
         "frustumCulled": {
           "type": "boolean"
         },
         "renderOrder": {
-          "type": "number"
-        },
-        "layers": {
           "type": "number"
         },
         "rotation": {
@@ -1348,9 +1348,6 @@
       "type": "object",
       "additionalProperties": false,
       "properties": {
-        "layers": {
-          "type": "number"
-        },
         "position": {
           "$ref": "#/definitions/Vector3Like"
         },
@@ -1375,6 +1372,9 @@
         },
         "receiveShadow": {
           "type": "boolean"
+        },
+        "layers": {
+          "type": "number"
         },
         "frustumCulled": {
           "type": "boolean"
@@ -1541,9 +1541,6 @@
             "type": "string"
           }
         },
-        "layers": {
-          "type": "number"
-        },
         "position": {
           "$ref": "#/definitions/Vector3Like"
         },
@@ -1568,6 +1565,9 @@
         },
         "receiveShadow": {
           "type": "boolean"
+        },
+        "layers": {
+          "type": "number"
         },
         "frustumCulled": {
           "type": "boolean"
@@ -1678,13 +1678,13 @@
         "receiveShadow": {
           "type": "boolean"
         },
+        "layers": {
+          "type": "number"
+        },
         "frustumCulled": {
           "type": "boolean"
         },
         "renderOrder": {
-          "type": "number"
-        },
-        "layers": {
           "type": "number"
         },
         "position": {
@@ -1710,9 +1710,6 @@
       "type": "object",
       "additionalProperties": false,
       "properties": {
-        "layers": {
-          "type": "number"
-        },
         "position": {
           "$ref": "#/definitions/Vector3Like"
         },
@@ -1737,6 +1734,9 @@
         },
         "receiveShadow": {
           "type": "boolean"
+        },
+        "layers": {
+          "type": "number"
         },
         "frustumCulled": {
           "type": "boolean"
@@ -1821,9 +1821,6 @@
             "type": "string"
           }
         },
-        "layers": {
-          "type": "number"
-        },
         "position": {
           "$ref": "#/definitions/Vector3Like"
         },
@@ -1848,6 +1845,9 @@
         },
         "receiveShadow": {
           "type": "boolean"
+        },
+        "layers": {
+          "type": "number"
         },
         "frustumCulled": {
           "type": "boolean"
@@ -1895,9 +1895,6 @@
             "type": "string"
           }
         },
-        "layers": {
-          "type": "number"
-        },
         "position": {
           "$ref": "#/definitions/Vector3Like"
         },
@@ -1922,6 +1919,9 @@
         },
         "receiveShadow": {
           "type": "boolean"
+        },
+        "layers": {
+          "type": "number"
         },
         "frustumCulled": {
           "type": "boolean"
@@ -1969,9 +1969,6 @@
             "type": "string"
           }
         },
-        "layers": {
-          "type": "number"
-        },
         "position": {
           "$ref": "#/definitions/Vector3Like"
         },
@@ -1996,6 +1993,9 @@
         },
         "receiveShadow": {
           "type": "boolean"
+        },
+        "layers": {
+          "type": "number"
         },
         "frustumCulled": {
           "type": "boolean"
@@ -2091,7 +2091,7 @@
           "type": "boolean"
         },
         "layers": {
-          "$ref": "#/definitions/Layers"
+          "type": "number"
         },
         "frustumCulled": {
           "type": "boolean"
@@ -2156,18 +2156,6 @@
         }
       },
       "additionalProperties": false
-    },
-    "Layers": {
-      "type": "object",
-      "properties": {
-        "mask": {
-          "type": "number",
-          "description": "A bit mask storing which of the 32 layers this layers object is currently a member of."
-        }
-      },
-      "required": ["mask"],
-      "additionalProperties": false,
-      "description": "A  {@link  THREE.Layers Layers }  object assigns an  {@link  THREE.Object3D Object3D }  to 1 or more of 32 layers numbered `0` to `31` - internally the layers are stored as a  {@link  https://en.wikipedia.org/wiki/Mask_(computing) bit mask } , and by default all Object3Ds are a member of layer `0`."
     },
     "TRendererConfig": {
       "type": "object",
@@ -2250,9 +2238,6 @@
       "type": "object",
       "additionalProperties": false,
       "properties": {
-        "layers": {
-          "type": "number"
-        },
         "position": {
           "$ref": "#/definitions/Vector3Like"
         },
@@ -2277,6 +2262,9 @@
         },
         "receiveShadow": {
           "type": "boolean"
+        },
+        "layers": {
+          "type": "number"
         },
         "frustumCulled": {
           "type": "boolean"
@@ -2594,9 +2582,6 @@
       "type": "object",
       "additionalProperties": false,
       "properties": {
-        "layers": {
-          "type": "number"
-        },
         "position": {
           "$ref": "#/definitions/Vector3Like"
         },
@@ -2621,6 +2606,9 @@
         },
         "receiveShadow": {
           "type": "boolean"
+        },
+        "layers": {
+          "type": "number"
         },
         "frustumCulled": {
           "type": "boolean"
@@ -7311,13 +7299,13 @@
         "receiveShadow": {
           "type": "boolean"
         },
+        "layers": {
+          "type": "number"
+        },
         "frustumCulled": {
           "type": "boolean"
         },
         "renderOrder": {
-          "type": "number"
-        },
-        "layers": {
           "type": "number"
         },
         "position": {

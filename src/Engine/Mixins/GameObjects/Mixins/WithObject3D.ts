@@ -1,5 +1,3 @@
-import type { Layers } from 'three';
-
 import type { TWithObject3d } from '@/Engine/Mixins/GameObjects/Models';
 import type { TObject3D } from '@/Engine/ThreeLib';
 import type { TWriteable } from '@/Engine/Utils';
@@ -16,10 +14,6 @@ export function withObject3d<T extends TObject3D>(entity: T): TWithObject3d {
   // eslint-disable-next-line functional/immutable-data
   const setReceiveShadow = (receiveShadow: boolean): void => void ((entity as TWriteable<T>).receiveShadow = receiveShadow);
   const getReceiveShadow = (): boolean => entity.receiveShadow;
-
-  // eslint-disable-next-line functional/immutable-data
-  const setLayers = (layers: Layers): void => void ((entity as TWriteable<T>).layers = layers);
-  const getLayers = (): Layers => entity.layers;
 
   // eslint-disable-next-line functional/immutable-data
   const setFrustumCulled = (frustumCulled: boolean): void => void ((entity as TWriteable<T>).frustumCulled = frustumCulled);
@@ -39,8 +33,6 @@ export function withObject3d<T extends TObject3D>(entity: T): TWithObject3d {
     getCastShadow,
     setReceiveShadow,
     getReceiveShadow,
-    setLayers,
-    getLayers,
     setFrustumCulled,
     getFrustumCulled,
     setRenderOrder,

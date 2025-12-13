@@ -1,4 +1,4 @@
-import type { Layers, Quaternion, Vector3 } from 'three';
+import type { Quaternion, Vector3 } from 'three';
 import type { Euler } from 'three/src/math/Euler';
 
 export type TObject3DParams = Readonly<{
@@ -8,7 +8,7 @@ export type TObject3DParams = Readonly<{
   visible?: boolean;
   castShadow?: boolean;
   receiveShadow?: boolean;
-  layers?: Layers;
+  layers?: number;
   frustumCulled?: boolean;
   renderOrder?: number;
   // Animations is a  responsibilities of Model3d and Animations domains, here we do nothing with that
