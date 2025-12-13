@@ -1,6 +1,6 @@
 import { AbstractWrapper, WrapperType } from '@/Engine/Domains/Abstract';
 import type { IActorParams, IActorWrapper, IMesh } from '@/Engine/Domains/Actor/Models';
-import { moveableMixin, rotatableMixin, scalableMixin, withObject3d } from '@/Engine/Mixins';
+import { scalableMixin, withMoveByXyzMixin, withObject3d,withRotationByXyzMixin } from '@/Engine/Mixins';
 import { applyObject3dParams, applyPosition, applyRotation, applyScale, isDefined } from '@/Engine/Utils';
 
 import { createActor } from './ActorUtils';
@@ -10,17 +10,20 @@ export function ActorWrapper(params: IActorParams): IActorWrapper {
 
   const result = {
     ...AbstractWrapper(entity, WrapperType.Actor, params),
-    ...moveableMixin(entity),
-    ...rotatableMixin(entity),
+    ...withMoveByXyzMixin(entity),
+    ...withRotationByXyzMixin(entity),
     ...scalableMixin(entity),
     ...withObject3d(entity),
     entity
   };
 
-  applyPosition(params.position, result);
-  applyRotation(params.rotation, result);
-  if (isDefined(params.scale)) applyScale(params.scale, result);
-  applyObject3dParams(params, result);
+  applyPosition(result, params.position);
+  applyRotation(result, params.rotation);
+  if (isDefined(params.scale)) applyScale(result, params.scale);
+  applyObject3dParams(result, params);
+
+  // console.log('params', params.position.getCoords());
+  console.log('entity', entity.position);
 
   return result;
 }

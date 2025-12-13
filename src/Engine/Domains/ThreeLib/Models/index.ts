@@ -1,3 +1,4 @@
 export * from './IEuler3dConfig';
+export * from './IObject3DParams';
 export * from './IObject3DPropConfig';
-export * from './IObject3DPropParams';
+export * from './IObject3DProps';

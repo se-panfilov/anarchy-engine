@@ -2,6 +2,7 @@ import type { ITextAccessors, ITextProps } from '@/Engine/Domains/Text/Models';
 import { isDefined } from '@/Engine/Utils';
 
 export function applyTextParams(
+  entityWithAccessors: ITextAccessors,
   {
     text,
     fontSize,
@@ -37,8 +38,7 @@ export function applyTextParams(
     sdfGlyphSize,
     textIndent,
     unicodeFontsUrl
-  }: ITextProps,
-  entityWithAccessors: ITextAccessors
+  }: ITextProps
 ): void {
   entityWithAccessors.setText(text);
   if (isDefined(fontSize)) entityWithAccessors.setFontSize(fontSize);

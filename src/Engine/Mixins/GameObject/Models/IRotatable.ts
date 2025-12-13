@@ -1,15 +1,6 @@
-import type { IEulerWrapper } from '@/Engine/Wrappers';
+import type { IRotatableX } from './IRotatableX';
+import type { IRotatableY } from './IRotatableY';
+import type { IRotatableZ } from './IRotatableZ';
+import type { IWithRotation } from './IWithRotation';
 
-export type IRotatable = Readonly<{
-  setRotation: (x: number, y: number, z: number) => IEulerWrapper;
-  getRotation: () => IEulerWrapper;
-  setRotationX: (x: number) => void;
-  getRotationX: () => number;
-  setRotationY: (y: number) => void;
-  getRotationY: () => number;
-  setRotationZ: (z: number) => void;
-  getRotationZ: () => number;
-  adjustRotationByX: (x: number) => void;
-  adjustRotationByY: (y: number) => void;
-  adjustRotationByZ: (z: number) => void;
-}>;
+export type IRotatable = IWithRotation & IRotatableX & IRotatableY & IRotatableZ;

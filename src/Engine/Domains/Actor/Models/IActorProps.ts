@@ -1,7 +1,6 @@
 import type { MeshToonMaterialParameters } from 'three';
 
 import type { ActorType } from '@/Engine/Domains/Actor/Constants';
-import type { IEulerWrapper, IVector3Wrapper } from '@/Engine/Wrappers';
 
 export type IActorProps = Readonly<{
   type: ActorType;
@@ -13,7 +12,5 @@ export type IActorProps = Readonly<{
   heightSegments?: number;
   depthSegments?: number;
   materialParams?: MeshToonMaterialParameters;
-  position: IVector3Wrapper;
-  rotation?: IEulerWrapper;
   castShadow: boolean;
 }>

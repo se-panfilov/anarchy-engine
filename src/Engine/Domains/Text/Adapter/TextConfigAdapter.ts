@@ -1,4 +1,4 @@
-import { MeshBasicMaterialParameters, MeshStandardMaterialParameters } from 'three';
+import type { MeshBasicMaterialParameters, MeshStandardMaterialParameters  } from 'three';
 import { MeshBasicMaterial, MeshStandardMaterial } from 'three';
 
 import type { ITextConfig, ITextParams } from '@/Engine/Domains/Text/Models';

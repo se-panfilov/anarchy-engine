@@ -4,9 +4,7 @@ import type { IWithCoordsXYZ, IWithReadonlyTags } from '@/Engine/Mixins';
 
 import type { ICameraProps } from './ICameraProps';
 
-export type ICameraConfig = Omit<ICameraProps, 'rotation' | 'position' | 'lookAt'> &
+export type ICameraConfig = Omit<ICameraProps, 'lookAt'> &
   Readonly<{
-    rotation: IWithCoordsXYZ;
-    position: IWithCoordsXYZ;
     lookAt?: IWithCoordsXYZ;
   }> & IObject3DPropConfig & IWithReadonlyTags<CameraTag>;

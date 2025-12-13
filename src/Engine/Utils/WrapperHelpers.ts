@@ -1,8 +1,9 @@
-import type { IObject3DPropParams } from '@/Engine/Domains/ThreeLib';
-import type { IMovable, IRotatable, IScalable, IWithCoordsXYZ, IWithObject3d } from '@/Engine/Mixins';
+import type { IObject3DParams } from '@/Engine/Domains/ThreeLib';
+import type { IMovableXYZ, IRotatable, IScalable, IWithObject3d } from '@/Engine/Mixins';
 import { isDefined } from '@/Engine/Utils/index';
+import type { IEulerWrapper, IVector3Wrapper } from '@/Engine/Wrappers';
 
-export function applyObject3dParams({ visible, castShadow, receiveShadow, frustumCulled, renderOrder }: IObject3DPropParams, obj: IWithObject3d): void {
+export function applyObject3dParams(obj: IWithObject3d, { visible, castShadow, receiveShadow, frustumCulled, renderOrder }: Partial<IObject3DParams>): void {
   if (isDefined(visible)) obj.setVisible(visible);
   if (isDefined(castShadow)) obj.setCastShadow(castShadow);
   if (isDefined(receiveShadow)) obj.setReceiveShadow(receiveShadow);
@@ -10,14 +11,14 @@ export function applyObject3dParams({ visible, castShadow, receiveShadow, frustu
   if (isDefined(renderOrder)) obj.setRenderOrder(renderOrder);
 }
 
-export function applyPosition(position: IWithCoordsXYZ, obj: IMovable): void {
-  if (isDefined(position)) obj.setPosition(position.x, position.y, position.z);
+export function applyPosition(obj: IMovableXYZ, position?: IVector3Wrapper): void {
+  if (isDefined(position)) obj.setPosition(position.getX(), position.getY(), position.getZ())
 }
 
-export function applyRotation(rotation: IWithCoordsXYZ, obj: IRotatable): void {
-  if (isDefined(rotation)) obj.setRotation(rotation.x, rotation.y, rotation.z);
+export function applyRotation(obj: IRotatable, rotation?: IEulerWrapper): void {
+  if (isDefined(rotation)) obj.setRotation(rotation.getRotationX(), rotation.getRotationY(), rotation.getRotationZ());
 }
 
-export function applyScale(scale: IWithCoordsXYZ, obj: IScalable): void {
-  if (isDefined(scale)) obj.setScale(scale.x, scale.y, scale.z);
+export function applyScale(obj: IScalable, scale?: IVector3Wrapper): void {
+  if (isDefined(scale)) obj.setScale(scale.getX(), scale.getY(), scale.getZ());
 }

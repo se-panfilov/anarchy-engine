@@ -1,10 +1,6 @@
-import type { IEuler } from '@/Engine/Wrappers';
+import type { IEulerWrapper } from '@/Engine/Wrappers';
 
-export type IWithRotation = {
-  rotation: {
-    set: (x: number, y: number, z: number) => IEuler;
-    x: number;
-    y: number;
-    z: number;
-  };
-};
+export type IWithRotation = Readonly<{
+  setRotation: (x: number, y: number, z: number) => IEulerWrapper;
+  getRotation: () => IEulerWrapper;
+}>;

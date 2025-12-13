@@ -4,7 +4,7 @@ import { PerspectiveCamera, Vector3 } from 'three';
 import { AbstractWrapper, WrapperType } from '@/Engine/Domains/Abstract';
 import type { ICameraParams, ICameraWrapper, IPerspectiveCamera } from '@/Engine/Domains/Camera/Models';
 import type { IScreenSizeValues, IScreenSizeWatcher } from '@/Engine/Domains/Screen';
-import { moveableMixin, rotatableMixin, withObject3d } from '@/Engine/Mixins';
+import { withMoveByXyzMixin, withObject3d,withRotationByXyzMixin } from '@/Engine/Mixins';
 import { withTags } from '@/Engine/Mixins/Generic/WithTags';
 import type { IWriteable } from '@/Engine/Utils';
 import { applyObject3dParams, applyPosition, applyRotation, isDefined, isNotDefined } from '@/Engine/Utils';
@@ -39,15 +39,15 @@ export function CameraWrapper(params: ICameraParams, screenSizeWatcher: Readonly
     ...AbstractWrapper(entity, WrapperType.Camera, params),
     ...getAccessors(entity),
     entity,
-    ...moveableMixin(entity),
-    ...rotatableMixin(entity),
+    ...withMoveByXyzMixin(entity),
+    ...withRotationByXyzMixin(entity),
     ...withObject3d(entity),
     ...withTags(tags)
   };
 
-  applyPosition(params.position, result);
-  applyRotation(params.rotation, result);
-  applyObject3dParams(params, result);
+  applyPosition(result, params.position);
+  applyRotation(result, params.rotation);
+  applyObject3dParams(result, params);
 
   return result;
 }

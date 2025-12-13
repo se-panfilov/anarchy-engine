@@ -1,5 +1,4 @@
 export * from './Models';
-export * from './RotatableMixin';
 export * from './ScalableMixin';
 export * from './WithMoveByXMixin';
 export * from './WithMoveByXyMixin';
@@ -8,3 +7,8 @@ export * from './WithMoveByYMixin';
 export * from './WithMoveByZMixin';
 export * from './WithObject3D';
 export * from './WithPositionMixin';
+export * from './WithRotationByXMixin';
+export * from './WithRotationByXyzMixin';
+export * from './WithRotationByYMixin';
+export * from './WithRotationByZMixin';
+export * from './WithRotationMixin';
