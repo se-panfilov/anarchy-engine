@@ -15,7 +15,6 @@ import type { TTextLoop } from '@/Engine/Text';
 import type { TTransformLoop } from '@/Engine/TransformDrive';
 
 export function createLoops({ create }: TLoopService): TSpaceLoops {
-  // TODO 10.0.0. LOOPS: add priority in every loop
   // TODO 10.0.0. LOOPS: 16ms is hardcoded here, should be configurable
   // TODO 10.0.0. LOOPS: showDebugInfo is hardcoded here, should be configurable
   const { RenderMain, IntersectionsMain, SpatialMain, MouseMain, TextMain, KinematicMain, CollisionsMain, ControlsMain, TransformMain, KeyboardMain, PhysicalMain } = SpaceLoopNames;

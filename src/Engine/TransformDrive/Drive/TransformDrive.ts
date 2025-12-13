@@ -96,7 +96,6 @@ export function TransformDrive<T extends Partial<Record<TransformAgent, TAbstrac
     scaleNoiseThreshold: params.performance?.scaleNoiseThreshold ?? 0.0000001
   };
 
-  // TODO 10.0.0. LOOPS: TransformDrive should have an Transform loop independent from frame rate (driven by time)
   const positionSub$: Subscription = updateFromActiveAgent<TReadonlyVector3>(activeAgent$, 'position$', { threshold: performance.positionNoiseThreshold }).subscribe((v: TReadonlyVector3): void =>
     position$.next(v)
   );
