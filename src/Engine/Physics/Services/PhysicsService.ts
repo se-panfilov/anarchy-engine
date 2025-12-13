@@ -83,12 +83,10 @@ export function PhysicsService(factory: TPhysicsBodyFactory, registry: TPhysicsB
 
   const destroyable: TDestroyable = destroyableMixin();
   destroyable.destroyed$.subscribe(() => {
-    // TODO (S.Panfilov) fix
     factory.destroy();
     registry.destroy();
     physicsPresetRegistry.destroy();
-    world.dispose(); //dispose?
-    //destroy debug renderer?
+    world?.free();
   });
 
   return {

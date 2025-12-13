@@ -1,6 +1,6 @@
 import type { RigidBody, World } from '@dimforge/rapier3d';
 import { ColliderDesc, RigidBodyDesc } from '@dimforge/rapier3d';
-import type { TriMeshFlags } from '@dimforge/rapier3d/geometry/shape';
+import type { HeightFieldFlags, TriMeshFlags } from '@dimforge/rapier3d/geometry/shape';
 
 import { coordsXYZToMeters, meters } from '@/Engine/Measurements/Utils';
 import type { TWithCoordsXYZ } from '@/Engine/Mixins';
@@ -9,6 +9,7 @@ import type {
   TAllPhysicsBodyParams,
   TPhysicsBodyBallParams,
   TPhysicsBodyCapsuleParams,
+  TPhysicsBodyConeParams,
   TPhysicsBodyCuboidParams,
   TPhysicsBodyHalfSpaceParams,
   TPhysicsBodyHeightfieldParams,
@@ -37,28 +38,6 @@ export function createPhysicsBody(world: World, params: TPhysicsPresetParams): R
 export function getColliderDesc(params: TPhysicsPresetParams): ColliderDesc | never {
   const { collisionShape, shapeParams } = params;
   const { a, b, c, borderRadius, nrows, ncols, heights, scale, halfHeight, flags, radius, hx, hy, hz, vertices, indices } = paramsToMeters(shapeParams);
-
-  // const fixedShapeParams = paramsToMeters(shapeParams);
-
-  // const ballParams: TPhysicsBodyBallParams = { radius: (fixedShapeParams as TPhysicsBodyBallParams).radius };
-  // const ballParams: TPhysicsBodyCapsuleParams = { radius };
-  // const ballParams: TPhysicsBodyConeParams = { radius };
-  // const ballParams: TPhysicsBodyConvexPolyhedronParams = { radius };
-  // const ballParams: TPhysicsBodyCuboidParams = { radius };
-  // const ballParams: TPhysicsBodyCylinderParams = { radius };
-  // const ballParams: TPhysicsBodyHalfSpaceParams = { radius };
-  // const ballParams: TPhysicsBodyHeightfieldParams = { radius };
-  // const ballParams: TPhysicsBodyParams = { radius };
-  // const ballParams: TPhysicsBodyPolylineParams = { radius };
-  // const ballParams: TPhysicsBodyRoundConeParams = { radius };
-  // const ballParams: TPhysicsBodyRoundCuboidParams = { radius };
-  // const ballParams: TPhysicsBodyRoundCylinderParams = { radius };
-  // const ballParams: TPhysicsBodyRoundTriangleParams = { radius };
-  // const ballParams: TPhysicsBodySegmentParams = { radius };
-  // const ballParams: TPhysicsBodyTriangleParams = { radius };
-  // const ballParams: TPhysicsBodyTriMeshParams = { radius };
-  // const ballParams: TPhysicsPresetParams = { radius };
-  // const ballParams: TPolyhedronPhysicsBodyRoundConvexPolyhedronParams = { radius };
 
   switch (collisionShape) {
     case CollisionShape.Ball:
@@ -99,11 +78,11 @@ export function getColliderDesc(params: TPhysicsPresetParams): ColliderDesc | ne
       if (isNotDefined(halfHeight) || isNotDefined(radius)) throw new Error(`Collider shape is "${collisionShape}" but "halfHeight"(${halfHeight}) or "radius"(${radius}) are not defined`);
       return ColliderDesc[collisionShape](halfHeight, radius);
     case CollisionShape.RoundCuboid:
-      if (isNotDefined(hx) || isNotDefined(hy) || isNotDefined(hz) || isNotDefined(radius))
+      if (isNotDefined(hx) || isNotDefined(hy) || isNotDefined(hz) || isNotDefined(borderRadius))
         throw new Error(`Collider shape is "${collisionShape}" but "hx"(${hx}), "hy"(${hy}), "hz"(${hz}), or "radius"(${radius}) are not defined`);
       return ColliderDesc[collisionShape](hx, hy, hz, borderRadius);
     case CollisionShape.RoundTriangle:
-      if (isNotDefined(a) || isNotDefined(b) || isNotDefined(c) || isNotDefined(radius))
+      if (isNotDefined(a) || isNotDefined(b) || isNotDefined(c) || isNotDefined(borderRadius))
         throw new Error(`Collider shape is "${collisionShape}" but "a"(${a}), "b"(${b}), "c"(${c}), or "radius"(${radius}) are not defined`);
       return ColliderDesc[collisionShape](a, b, c, borderRadius);
     case CollisionShape.RoundCylinder:
@@ -123,14 +102,14 @@ export function getColliderDesc(params: TPhysicsPresetParams): ColliderDesc | ne
     // if (isNotDefined(normal)) throw new Error(`Collider shape is "${collisionShape}" but "normal" is not defined`);
     // return ColliderDesc[collisionShape](normal);
     default:
-      throw new Error(`Unknown collider type: ${type}`);
+      throw new Error(`Unknown collisionShape: "${collisionShape}"`);
   }
 }
 
 export function paramsToMeters(params: TPhysicsBodyParams): TWithUndefined<TAllPhysicsBodyParams> {
   const vertices: Float32Array | undefined = (params as TPhysicsBodyPolylineParams).vertices;
   const indices: Uint32Array | undefined = (params as TPhysicsBodyPolylineParams).indices;
-  const flags: TriMeshFlags | undefined = (params as TPhysicsBodyTriMeshParams).flags;
+  const flags: TriMeshFlags | HeightFieldFlags | undefined = (params as TPhysicsBodyTriMeshParams).flags;
   const heights: Float32Array | undefined = (params as TPhysicsBodyHeightfieldParams).heights;
   const nrows: number | undefined = (params as TPhysicsBodyHeightfieldParams).nrows;
   const ncols: number | undefined = (params as TPhysicsBodyHeightfieldParams).ncols;
@@ -140,7 +119,7 @@ export function paramsToMeters(params: TPhysicsBodyParams): TWithUndefined<TAllP
   const c: TWithCoordsXYZ | undefined = isDefined((params as TPhysicsBodyTriangleParams).c) ? coordsXYZToMeters((params as TPhysicsBodyTriangleParams).c) : undefined;
   const borderRadius: number | undefined = (params as TPhysicsBodyRoundTriangleParams).borderRadius ? meters((params as TPhysicsBodyRoundTriangleParams).borderRadius) : undefined;
   const halfHeight: number | undefined = (params as TPhysicsBodyCapsuleParams).halfHeight ? meters((params as TPhysicsBodyCapsuleParams).halfHeight) : undefined;
-  const radius: number | undefined = (params as TPhysicsBodyBallParams).radius ? meters((params as TPhysicsBodyBallParams).radius) : undefined;
+  const radius: number | undefined = (params as TPhysicsBodyBallParams).radius ? meters((params as TPhysicsBodyConeParams).radius) : undefined;
   const hx: number | undefined = (params as TPhysicsBodyCuboidParams).hx ? meters((params as TPhysicsBodyCuboidParams).hx) : undefined;
   const hy: number | undefined = (params as TPhysicsBodyCuboidParams).hy ? meters((params as TPhysicsBodyCuboidParams).hy) : undefined;
   const hz: number | undefined = (params as TPhysicsBodyCuboidParams).hz ? meters((params as TPhysicsBodyCuboidParams).hz) : undefined;
