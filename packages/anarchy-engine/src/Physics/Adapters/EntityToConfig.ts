@@ -70,7 +70,6 @@ export function physicWorldToConfig(world: World): TPhysicsWorldConfig {
       normalizedAllowedLinearError: world.integrationParameters.normalizedAllowedLinearError,
       normalizedPredictionDistance: world.integrationParameters.normalizedPredictionDistance,
       numSolverIterations: world.integrationParameters.numSolverIterations,
-      numAdditionalFrictionIterations: world.integrationParameters.numAdditionalFrictionIterations,
       // eslint-disable-next-line spellcheck/spell-checker
       numInternalPgsIterations: world.integrationParameters.numInternalPgsIterations,
       minIslandSize: world.integrationParameters.minIslandSize,

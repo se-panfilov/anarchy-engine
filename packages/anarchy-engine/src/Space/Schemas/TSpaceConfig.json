@@ -6481,7 +6481,7 @@
         "logarithmicDepthBuffer": {
           "type": "boolean"
         },
-        "reverseDepthBuffer": {
+        "reversedDepthBuffer": {
           "type": "boolean"
         },
         "mode": {
@@ -9425,7 +9425,7 @@
     },
     "TextureDataType": {
       "type": "number",
-      "enum": [1009, 1010, 1011, 1012, 1013, 1014, 1015, 1016, 1017, 1018, 1020, 35902]
+      "enum": [1009, 1010, 1011, 1012, 1013, 1014, 1015, 1016, 1017, 1018, 1020, 35902, 35899]
     },
     "ColorSpace": {
       "type": "string",
