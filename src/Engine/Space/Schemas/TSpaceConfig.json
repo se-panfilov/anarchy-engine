@@ -51,6 +51,9 @@
         "$ref": "#/definitions/TParticlesConfig"
       }
     },
+    "physics": {
+      "$ref": "#/definitions/TPhysicsConfig"
+    },
     "fogs": {
       "type": "array",
       "items": {
@@ -76,7 +79,7 @@
       }
     }
   },
-  "required": ["actors", "cameras", "controls", "envMaps", "fogs", "intersections", "lights", "name", "particles", "scenes", "tags", "texts", "version"],
+  "required": ["actors", "cameras", "controls", "envMaps", "fogs", "intersections", "lights", "name", "particles", "physics", "scenes", "tags", "texts", "version"],
   "definitions": {
     "SpaceSchemaVersion": {
       "type": "string",
@@ -218,11 +221,14 @@
         "renderOrder": {
           "type": "number"
         },
+        "material": {
+          "$ref": "#/definitions/TMaterialPackConfig%3CTMaterialTexturePack%3E"
+        },
         "type": {
           "$ref": "#/definitions/ActorType"
         },
-        "material": {
-          "$ref": "#/definitions/TMaterialPackConfig%3CTMaterialTexturePack%3E"
+        "physics": {
+          "$ref": "#/definitions/TWithPresetNamePhysicsBodyConfig"
         },
         "width": {
           "type": "number"
@@ -231,9 +237,6 @@
           "type": "number"
         },
         "depth": {
-          "type": "number"
-        },
-        "radius": {
           "type": "number"
         },
         "widthSegments": {
@@ -245,15 +248,26 @@
         "depthSegments": {
           "type": "number"
         },
+        "radius": {
+          "type": "number"
+        },
+        "phiStart": {
+          "type": "number"
+        },
+        "phiLength": {
+          "type": "number"
+        },
+        "thetaStart": {
+          "type": "number"
+        },
+        "thetaLength": {
+          "type": "number"
+        },
         "name": {
           "type": "string"
         }
       },
-      "required": ["castShadow", "material", "position", "tags", "type"]
-    },
-    "ActorType": {
-      "type": "string",
-      "enum": ["cube", "plane", "sphere"]
+      "required": ["castShadow", "material", "physics", "position", "tags", "type"]
     },
     "TMaterialPackConfig<TMaterialTexturePack>": {
       "type": "object",
@@ -1540,6 +1554,1335 @@
       },
       "additionalProperties": false
     },
+    "ActorType": {
+      "type": "string",
+      "enum": ["cube", "plane", "sphere"]
+    },
+    "TWithPresetNamePhysicsBodyConfig": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "presetName": {
+          "type": "string"
+        },
+        "type": {
+          "$ref": "#/definitions/RigidBodyTypesNames"
+        },
+        "collisionShape": {
+          "$ref": "#/definitions/CollisionShape"
+        },
+        "shapeParams": {
+          "$ref": "#/definitions/TPhysicsShapeParams"
+        },
+        "mass": {
+          "type": "number"
+        },
+        "restitution": {
+          "type": "number"
+        },
+        "friction": {
+          "type": "number"
+        },
+        "collisionGroups": {
+          "type": "number"
+        },
+        "name": {
+          "type": "string"
+        },
+        "position": {
+          "$ref": "#/definitions/TVector3Wrapper"
+        },
+        "rotation": {
+          "$ref": "#/definitions/TEulerWrapper"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": ["collisionShape", "presetName", "shapeParams", "tags", "type"]
+    },
+    "RigidBodyTypesNames": {
+      "type": "string",
+      "enum": ["dynamic", "fixed", "kinematicPositionBased", "kinematicVelocityBased"]
+    },
+    "CollisionShape": {
+      "type": "string",
+      "enum": [
+        "ball",
+        "cuboid",
+        "capsule",
+        "segment",
+        "polyline",
+        "triangle",
+        "trimesh",
+        "heightfield",
+        "compound",
+        "convexPolyhedron",
+        "cylinder",
+        "cone",
+        "roundCuboid",
+        "roundTriangle",
+        "roundCylinder",
+        "roundCone",
+        "roundConvexPolyhedron",
+        "halfSpace"
+      ]
+    },
+    "TPhysicsShapeParams": {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/TPhysicsShapeBallParams"
+        },
+        {
+          "$ref": "#/definitions/TPhysicsShapeHalfSpaceParams"
+        },
+        {
+          "$ref": "#/definitions/TPhysicsShapeCuboidParams"
+        },
+        {
+          "$ref": "#/definitions/TPhysicsShapeRoundCuboidParams"
+        },
+        {
+          "$ref": "#/definitions/TPhysicsShapeCapsuleParams"
+        },
+        {
+          "$ref": "#/definitions/TPhysicsShapeRoundCapsuleParams"
+        },
+        {
+          "$ref": "#/definitions/TPhysicsShapeSegmentParams"
+        },
+        {
+          "$ref": "#/definitions/TPhysicsShapeTriangleParams"
+        },
+        {
+          "$ref": "#/definitions/TPhysicsShapeRoundTriangleParams"
+        },
+        {
+          "$ref": "#/definitions/TPhysicsShapePolylineParams"
+        },
+        {
+          "$ref": "#/definitions/TPhysicsShapeTriMeshParams"
+        },
+        {
+          "$ref": "#/definitions/TPhysicsShapeConvexPolyhedronParams"
+        },
+        {
+          "$ref": "#/definitions/TPhysicsShapeRoundConvexPolyhedronParams"
+        },
+        {
+          "$ref": "#/definitions/TPhysicsShapeHeightfieldParams"
+        },
+        {
+          "$ref": "#/definitions/TPhysicsShapeCylinderParams"
+        },
+        {
+          "$ref": "#/definitions/TPhysicsShapeRoundCylinderParams"
+        },
+        {
+          "$ref": "#/definitions/TPhysicsShapeConeParams"
+        },
+        {
+          "$ref": "#/definitions/TPhysicsShapeRoundConeParams"
+        }
+      ]
+    },
+    "TPhysicsShapeBallParams": {
+      "type": "object",
+      "properties": {
+        "radius": {
+          "type": "number"
+        }
+      },
+      "additionalProperties": false
+    },
+    "TPhysicsShapeHalfSpaceParams": {
+      "type": "object",
+      "properties": {
+        "normal": {
+          "$ref": "#/definitions/Vector"
+        }
+      },
+      "required": ["normal"],
+      "additionalProperties": false
+    },
+    "Vector": {
+      "type": "object",
+      "properties": {
+        "x": {
+          "type": "number"
+        },
+        "y": {
+          "type": "number"
+        },
+        "z": {
+          "type": "number"
+        }
+      },
+      "required": ["x", "y", "z"],
+      "additionalProperties": false
+    },
+    "TPhysicsShapeCuboidParams": {
+      "type": "object",
+      "properties": {
+        "hx": {
+          "type": "number"
+        },
+        "hy": {
+          "type": "number"
+        },
+        "hz": {
+          "type": "number"
+        }
+      },
+      "required": ["hx", "hy", "hz"],
+      "additionalProperties": false
+    },
+    "TPhysicsShapeRoundCuboidParams": {
+      "type": "object",
+      "properties": {
+        "hx": {
+          "type": "number"
+        },
+        "hy": {
+          "type": "number"
+        },
+        "hz": {
+          "type": "number"
+        },
+        "borderRadius": {
+          "type": "number"
+        }
+      },
+      "required": ["hx", "hy", "hz", "borderRadius"],
+      "additionalProperties": false
+    },
+    "TPhysicsShapeCapsuleParams": {
+      "type": "object",
+      "properties": {
+        "halfHeight": {
+          "type": "number"
+        },
+        "radius": {
+          "type": "number"
+        }
+      },
+      "required": ["halfHeight", "radius"],
+      "additionalProperties": false
+    },
+    "TPhysicsShapeRoundCapsuleParams": {
+      "type": "object",
+      "properties": {
+        "halfHeight": {
+          "type": "number"
+        },
+        "radius": {
+          "type": "number"
+        },
+        "borderRadius": {
+          "type": "number"
+        }
+      },
+      "required": ["halfHeight", "radius", "borderRadius"],
+      "additionalProperties": false
+    },
+    "TPhysicsShapeSegmentParams": {
+      "type": "object",
+      "properties": {
+        "a": {
+          "$ref": "#/definitions/Vector"
+        },
+        "b": {
+          "$ref": "#/definitions/Vector"
+        }
+      },
+      "required": ["a", "b"],
+      "additionalProperties": false
+    },
+    "TPhysicsShapeTriangleParams": {
+      "type": "object",
+      "properties": {
+        "a": {
+          "$ref": "#/definitions/Vector"
+        },
+        "b": {
+          "$ref": "#/definitions/Vector"
+        },
+        "c": {
+          "$ref": "#/definitions/Vector"
+        }
+      },
+      "required": ["a", "b", "c"],
+      "additionalProperties": false
+    },
+    "TPhysicsShapeRoundTriangleParams": {
+      "type": "object",
+      "properties": {
+        "a": {
+          "$ref": "#/definitions/Vector"
+        },
+        "b": {
+          "$ref": "#/definitions/Vector"
+        },
+        "c": {
+          "$ref": "#/definitions/Vector"
+        },
+        "borderRadius": {
+          "type": "number"
+        }
+      },
+      "required": ["a", "b", "c", "borderRadius"],
+      "additionalProperties": false
+    },
+    "TPhysicsShapePolylineParams": {
+      "type": "object",
+      "properties": {
+        "vertices": {
+          "type": "object",
+          "properties": {
+            "BYTES_PER_ELEMENT": {
+              "type": "number"
+            },
+            "buffer": {
+              "type": "object",
+              "properties": {
+                "byteLength": {
+                  "type": "number"
+                }
+              },
+              "required": ["byteLength"],
+              "additionalProperties": false
+            },
+            "byteLength": {
+              "type": "number"
+            },
+            "byteOffset": {
+              "type": "number"
+            },
+            "length": {
+              "type": "number"
+            }
+          },
+          "required": ["BYTES_PER_ELEMENT", "buffer", "byteLength", "byteOffset", "length"],
+          "additionalProperties": {
+            "type": "number"
+          }
+        },
+        "indices": {
+          "type": "object",
+          "properties": {
+            "BYTES_PER_ELEMENT": {
+              "type": "number"
+            },
+            "buffer": {
+              "type": "object",
+              "properties": {
+                "byteLength": {
+                  "type": "number"
+                }
+              },
+              "required": ["byteLength"],
+              "additionalProperties": false
+            },
+            "byteLength": {
+              "type": "number"
+            },
+            "byteOffset": {
+              "type": "number"
+            },
+            "length": {
+              "type": "number"
+            }
+          },
+          "required": ["BYTES_PER_ELEMENT", "buffer", "byteLength", "byteOffset", "length"],
+          "additionalProperties": {
+            "type": "number"
+          }
+        }
+      },
+      "required": ["vertices"],
+      "additionalProperties": false
+    },
+    "TPhysicsShapeTriMeshParams": {
+      "type": "object",
+      "properties": {
+        "vertices": {
+          "type": "object",
+          "properties": {
+            "BYTES_PER_ELEMENT": {
+              "type": "number"
+            },
+            "buffer": {
+              "type": "object",
+              "properties": {
+                "byteLength": {
+                  "type": "number"
+                }
+              },
+              "required": ["byteLength"],
+              "additionalProperties": false
+            },
+            "byteLength": {
+              "type": "number"
+            },
+            "byteOffset": {
+              "type": "number"
+            },
+            "length": {
+              "type": "number"
+            }
+          },
+          "required": ["BYTES_PER_ELEMENT", "buffer", "byteLength", "byteOffset", "length"],
+          "additionalProperties": {
+            "type": "number"
+          }
+        },
+        "indices": {
+          "type": "object",
+          "properties": {
+            "BYTES_PER_ELEMENT": {
+              "type": "number"
+            },
+            "buffer": {
+              "type": "object",
+              "properties": {
+                "byteLength": {
+                  "type": "number"
+                }
+              },
+              "required": ["byteLength"],
+              "additionalProperties": false
+            },
+            "byteLength": {
+              "type": "number"
+            },
+            "byteOffset": {
+              "type": "number"
+            },
+            "length": {
+              "type": "number"
+            }
+          },
+          "required": ["BYTES_PER_ELEMENT", "buffer", "byteLength", "byteOffset", "length"],
+          "additionalProperties": {
+            "type": "number"
+          }
+        },
+        "flags": {
+          "$ref": "#/definitions/TriMeshFlags"
+        }
+      },
+      "required": ["vertices", "indices"],
+      "additionalProperties": false
+    },
+    "TriMeshFlags": {
+      "type": "number",
+      "enum": [4, 8, 16, 32, 64, 152],
+      "description": "Flags controlling the behavior of the triangle mesh creation and of some operations involving triangle meshes."
+    },
+    "TPhysicsShapeConvexPolyhedronParams": {
+      "type": "object",
+      "properties": {
+        "vertices": {
+          "type": "object",
+          "properties": {
+            "BYTES_PER_ELEMENT": {
+              "type": "number"
+            },
+            "buffer": {
+              "type": "object",
+              "properties": {
+                "byteLength": {
+                  "type": "number"
+                }
+              },
+              "required": ["byteLength"],
+              "additionalProperties": false
+            },
+            "byteLength": {
+              "type": "number"
+            },
+            "byteOffset": {
+              "type": "number"
+            },
+            "length": {
+              "type": "number"
+            }
+          },
+          "required": ["BYTES_PER_ELEMENT", "buffer", "byteLength", "byteOffset", "length"],
+          "additionalProperties": {
+            "type": "number"
+          }
+        },
+        "indices": {
+          "anyOf": [
+            {
+              "type": "object",
+              "properties": {
+                "BYTES_PER_ELEMENT": {
+                  "type": "number"
+                },
+                "buffer": {
+                  "type": "object",
+                  "properties": {
+                    "byteLength": {
+                      "type": "number"
+                    }
+                  },
+                  "required": ["byteLength"],
+                  "additionalProperties": false
+                },
+                "byteLength": {
+                  "type": "number"
+                },
+                "byteOffset": {
+                  "type": "number"
+                },
+                "length": {
+                  "type": "number"
+                }
+              },
+              "required": ["BYTES_PER_ELEMENT", "buffer", "byteLength", "byteOffset", "length"],
+              "additionalProperties": {
+                "type": "number"
+              }
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": ["vertices"],
+      "additionalProperties": false
+    },
+    "TPhysicsShapeRoundConvexPolyhedronParams": {
+      "type": "object",
+      "properties": {
+        "vertices": {
+          "type": "object",
+          "properties": {
+            "BYTES_PER_ELEMENT": {
+              "type": "number"
+            },
+            "buffer": {
+              "type": "object",
+              "properties": {
+                "byteLength": {
+                  "type": "number"
+                }
+              },
+              "required": ["byteLength"],
+              "additionalProperties": false
+            },
+            "byteLength": {
+              "type": "number"
+            },
+            "byteOffset": {
+              "type": "number"
+            },
+            "length": {
+              "type": "number"
+            }
+          },
+          "required": ["BYTES_PER_ELEMENT", "buffer", "byteLength", "byteOffset", "length"],
+          "additionalProperties": {
+            "type": "number"
+          }
+        },
+        "indices": {
+          "anyOf": [
+            {
+              "type": "object",
+              "properties": {
+                "BYTES_PER_ELEMENT": {
+                  "type": "number"
+                },
+                "buffer": {
+                  "type": "object",
+                  "properties": {
+                    "byteLength": {
+                      "type": "number"
+                    }
+                  },
+                  "required": ["byteLength"],
+                  "additionalProperties": false
+                },
+                "byteLength": {
+                  "type": "number"
+                },
+                "byteOffset": {
+                  "type": "number"
+                },
+                "length": {
+                  "type": "number"
+                }
+              },
+              "required": ["BYTES_PER_ELEMENT", "buffer", "byteLength", "byteOffset", "length"],
+              "additionalProperties": {
+                "type": "number"
+              }
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "borderRadius": {
+          "type": "number"
+        }
+      },
+      "required": ["vertices", "borderRadius"],
+      "additionalProperties": false
+    },
+    "TPhysicsShapeHeightfieldParams": {
+      "type": "object",
+      "properties": {
+        "nrows": {
+          "type": "number"
+        },
+        "ncols": {
+          "type": "number"
+        },
+        "heights": {
+          "type": "object",
+          "properties": {
+            "BYTES_PER_ELEMENT": {
+              "type": "number"
+            },
+            "buffer": {
+              "type": "object",
+              "properties": {
+                "byteLength": {
+                  "type": "number"
+                }
+              },
+              "required": ["byteLength"],
+              "additionalProperties": false
+            },
+            "byteLength": {
+              "type": "number"
+            },
+            "byteOffset": {
+              "type": "number"
+            },
+            "length": {
+              "type": "number"
+            }
+          },
+          "required": ["BYTES_PER_ELEMENT", "buffer", "byteLength", "byteOffset", "length"],
+          "additionalProperties": {
+            "type": "number"
+          }
+        },
+        "scale": {
+          "$ref": "#/definitions/Vector"
+        },
+        "flags": {
+          "$ref": "#/definitions/HeightFieldFlags"
+        }
+      },
+      "required": ["nrows", "ncols", "heights", "scale"],
+      "additionalProperties": false
+    },
+    "HeightFieldFlags": {
+      "type": "number",
+      "const": 1,
+      "description": "Flags controlling the behavior of some operations involving heightfields."
+    },
+    "TPhysicsShapeCylinderParams": {
+      "type": "object",
+      "properties": {
+        "halfHeight": {
+          "type": "number"
+        },
+        "radius": {
+          "type": "number"
+        }
+      },
+      "required": ["halfHeight", "radius"],
+      "additionalProperties": false
+    },
+    "TPhysicsShapeRoundCylinderParams": {
+      "type": "object",
+      "properties": {
+        "halfHeight": {
+          "type": "number"
+        },
+        "radius": {
+          "type": "number"
+        },
+        "borderRadius": {
+          "type": "number"
+        }
+      },
+      "required": ["halfHeight", "radius", "borderRadius"],
+      "additionalProperties": false
+    },
+    "TPhysicsShapeConeParams": {
+      "type": "object",
+      "properties": {
+        "halfHeight": {
+          "type": "number"
+        },
+        "radius": {
+          "type": "number"
+        }
+      },
+      "required": ["halfHeight", "radius"],
+      "additionalProperties": false
+    },
+    "TPhysicsShapeRoundConeParams": {
+      "type": "object",
+      "properties": {
+        "halfHeight": {
+          "type": "number"
+        },
+        "radius": {
+          "type": "number"
+        },
+        "borderRadius": {
+          "type": "number"
+        }
+      },
+      "required": ["halfHeight", "radius", "borderRadius"],
+      "additionalProperties": false
+    },
+    "TVector3Wrapper": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "addZ": {
+          "$comment": "(z: number) => number",
+          "type": "object",
+          "properties": {
+            "namedArgs": {
+              "type": "object",
+              "properties": {
+                "z": {
+                  "type": "number"
+                }
+              },
+              "required": ["z"],
+              "additionalProperties": false
+            }
+          }
+        },
+        "setZ": {
+          "$comment": "(z: number) => number",
+          "type": "object",
+          "properties": {
+            "namedArgs": {
+              "type": "object",
+              "properties": {
+                "z": {
+                  "type": "number"
+                }
+              },
+              "required": ["z"],
+              "additionalProperties": false
+            }
+          }
+        },
+        "getZ": {
+          "$comment": "() => number"
+        },
+        "addY": {
+          "$comment": "(y: number) => number",
+          "type": "object",
+          "properties": {
+            "namedArgs": {
+              "type": "object",
+              "properties": {
+                "y": {
+                  "type": "number"
+                }
+              },
+              "required": ["y"],
+              "additionalProperties": false
+            }
+          }
+        },
+        "setY": {
+          "$comment": "(y: number) => number",
+          "type": "object",
+          "properties": {
+            "namedArgs": {
+              "type": "object",
+              "properties": {
+                "y": {
+                  "type": "number"
+                }
+              },
+              "required": ["y"],
+              "additionalProperties": false
+            }
+          }
+        },
+        "getY": {
+          "$comment": "() => number"
+        },
+        "addX": {
+          "$comment": "(x: number) => number",
+          "type": "object",
+          "properties": {
+            "namedArgs": {
+              "type": "object",
+              "properties": {
+                "x": {
+                  "type": "number"
+                }
+              },
+              "required": ["x"],
+              "additionalProperties": false
+            }
+          }
+        },
+        "setX": {
+          "$comment": "(x: number) => number",
+          "type": "object",
+          "properties": {
+            "namedArgs": {
+              "type": "object",
+              "properties": {
+                "x": {
+                  "type": "number"
+                }
+              },
+              "required": ["x"],
+              "additionalProperties": false
+            }
+          }
+        },
+        "getX": {
+          "$comment": "() => number"
+        },
+        "getCoords": {
+          "$comment": "() => TWithCoordsXYZ"
+        },
+        "getName": {
+          "$comment": "() => string | undefined"
+        },
+        "setName": {
+          "$comment": "(name: string) => void",
+          "type": "object",
+          "properties": {
+            "namedArgs": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                }
+              },
+              "required": ["name"],
+              "additionalProperties": false
+            }
+          }
+        },
+        "name": {
+          "type": "string"
+        },
+        "setTags": {
+          "$comment": "(tagsList: ReadonlyArray<string>) => void",
+          "type": "object",
+          "properties": {
+            "namedArgs": {
+              "type": "object",
+              "properties": {
+                "tagsList": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              },
+              "required": ["tagsList"],
+              "additionalProperties": false
+            }
+          }
+        },
+        "addTag": {
+          "$comment": "(tag: string) => void",
+          "type": "object",
+          "properties": {
+            "namedArgs": {
+              "type": "object",
+              "properties": {
+                "tag": {
+                  "type": "string"
+                }
+              },
+              "required": ["tag"],
+              "additionalProperties": false
+            }
+          }
+        },
+        "removeTag": {
+          "$comment": "(tag: string) => void",
+          "type": "object",
+          "properties": {
+            "namedArgs": {
+              "type": "object",
+              "properties": {
+                "tag": {
+                  "type": "string"
+                }
+              },
+              "required": ["tag"],
+              "additionalProperties": false
+            }
+          }
+        },
+        "hasTag": {
+          "$comment": "(tag: string) => boolean",
+          "type": "object",
+          "properties": {
+            "namedArgs": {
+              "type": "object",
+              "properties": {
+                "tag": {
+                  "type": "string"
+                }
+              },
+              "required": ["tag"],
+              "additionalProperties": false
+            }
+          }
+        },
+        "getTags": {
+          "$comment": "() => ReadonlyArray<string>"
+        },
+        "clearTags": {
+          "$comment": "() => void"
+        },
+        "id": {
+          "type": "string"
+        },
+        "destroyed$": {
+          "$ref": "#/definitions/Observable%3Cvoid%3E"
+        },
+        "isDestroyed": {
+          "$comment": "() => boolean"
+        },
+        "destroy": {
+          "$comment": "() => void"
+        },
+        "setWrapperId": {
+          "$comment": "(id: string) => void",
+          "type": "object",
+          "properties": {
+            "namedArgs": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string"
+                }
+              },
+              "required": ["id"],
+              "additionalProperties": false
+            }
+          }
+        },
+        "getWrapperId": {
+          "$comment": "() => string | undefined"
+        },
+        "entity": {
+          "type": "object",
+          "properties": {
+            "x": {
+              "type": "number",
+              "default": 0
+            },
+            "y": {
+              "type": "number",
+              "default": 0
+            },
+            "z": {
+              "type": "number",
+              "default": 0
+            },
+            "isVector3": {
+              "type": "boolean",
+              "const": true
+            }
+          },
+          "required": ["x", "y", "z", "isVector3"],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "addTag",
+        "addX",
+        "addY",
+        "addZ",
+        "clearTags",
+        "destroy",
+        "destroyed$",
+        "entity",
+        "getCoords",
+        "getName",
+        "getTags",
+        "getWrapperId",
+        "getX",
+        "getY",
+        "getZ",
+        "hasTag",
+        "id",
+        "isDestroyed",
+        "removeTag",
+        "setName",
+        "setTags",
+        "setWrapperId",
+        "setX",
+        "setY",
+        "setZ"
+      ]
+    },
+    "Observable<void>": {
+      "type": "object",
+      "properties": {
+        "source": {
+          "$ref": "#/definitions/Observable%3Cany%3E",
+          "deprecated": "Internal implementation detail, do not use directly. Will be made internal in v8."
+        },
+        "operator": {
+          "$ref": "#/definitions/Operator%3Cany%2Cvoid%3E",
+          "deprecated": "Internal implementation detail, do not use directly. Will be made internal in v8."
+        }
+      },
+      "additionalProperties": false,
+      "description": "A representation of any set of values over any amount of time. This is the most basic building block of RxJS."
+    },
+    "Observable<any>": {
+      "type": "object",
+      "properties": {
+        "source": {
+          "$ref": "#/definitions/Observable%3Cany%3E",
+          "deprecated": "Internal implementation detail, do not use directly. Will be made internal in v8."
+        },
+        "operator": {
+          "$ref": "#/definitions/Operator%3Cany%2Cany%3E",
+          "deprecated": "Internal implementation detail, do not use directly. Will be made internal in v8."
+        }
+      },
+      "additionalProperties": false,
+      "description": "A representation of any set of values over any amount of time. This is the most basic building block of RxJS."
+    },
+    "Operator<any,any>": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "*",
+      "deprecated": "Internal implementation detail, do not use directly. Will be made internal in v8."
+    },
+    "Operator<any,void>": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "*",
+      "deprecated": "Internal implementation detail, do not use directly. Will be made internal in v8."
+    },
+    "TEulerWrapper": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "setRotationZ": {
+          "$comment": "(z: number) => void",
+          "type": "object",
+          "properties": {
+            "namedArgs": {
+              "type": "object",
+              "properties": {
+                "z": {
+                  "type": "number"
+                }
+              },
+              "required": ["z"],
+              "additionalProperties": false
+            }
+          }
+        },
+        "getRotationZ": {
+          "$comment": "() => number"
+        },
+        "adjustRotationByZ": {
+          "$comment": "(z: number) => void",
+          "type": "object",
+          "properties": {
+            "namedArgs": {
+              "type": "object",
+              "properties": {
+                "z": {
+                  "type": "number"
+                }
+              },
+              "required": ["z"],
+              "additionalProperties": false
+            }
+          }
+        },
+        "setRotationY": {
+          "$comment": "(y: number) => void",
+          "type": "object",
+          "properties": {
+            "namedArgs": {
+              "type": "object",
+              "properties": {
+                "y": {
+                  "type": "number"
+                }
+              },
+              "required": ["y"],
+              "additionalProperties": false
+            }
+          }
+        },
+        "getRotationY": {
+          "$comment": "() => number"
+        },
+        "adjustRotationByY": {
+          "$comment": "(y: number) => void",
+          "type": "object",
+          "properties": {
+            "namedArgs": {
+              "type": "object",
+              "properties": {
+                "y": {
+                  "type": "number"
+                }
+              },
+              "required": ["y"],
+              "additionalProperties": false
+            }
+          }
+        },
+        "setRotationX": {
+          "$comment": "(x: number) => void",
+          "type": "object",
+          "properties": {
+            "namedArgs": {
+              "type": "object",
+              "properties": {
+                "x": {
+                  "type": "number"
+                }
+              },
+              "required": ["x"],
+              "additionalProperties": false
+            }
+          }
+        },
+        "getRotationX": {
+          "$comment": "() => number"
+        },
+        "adjustRotationByX": {
+          "$comment": "(x: number) => void",
+          "type": "object",
+          "properties": {
+            "namedArgs": {
+              "type": "object",
+              "properties": {
+                "x": {
+                  "type": "number"
+                }
+              },
+              "required": ["x"],
+              "additionalProperties": false
+            }
+          }
+        },
+        "getCoords": {
+          "$comment": "() => TWithCoordsXYZ"
+        },
+        "toQuaternion": {
+          "$comment": "() => Quaternion"
+        },
+        "getName": {
+          "$comment": "() => string | undefined"
+        },
+        "setName": {
+          "$comment": "(name: string) => void",
+          "type": "object",
+          "properties": {
+            "namedArgs": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                }
+              },
+              "required": ["name"],
+              "additionalProperties": false
+            }
+          }
+        },
+        "name": {
+          "type": "string"
+        },
+        "setTags": {
+          "$comment": "(tagsList: ReadonlyArray<string>) => void",
+          "type": "object",
+          "properties": {
+            "namedArgs": {
+              "type": "object",
+              "properties": {
+                "tagsList": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              },
+              "required": ["tagsList"],
+              "additionalProperties": false
+            }
+          }
+        },
+        "addTag": {
+          "$comment": "(tag: string) => void",
+          "type": "object",
+          "properties": {
+            "namedArgs": {
+              "type": "object",
+              "properties": {
+                "tag": {
+                  "type": "string"
+                }
+              },
+              "required": ["tag"],
+              "additionalProperties": false
+            }
+          }
+        },
+        "removeTag": {
+          "$comment": "(tag: string) => void",
+          "type": "object",
+          "properties": {
+            "namedArgs": {
+              "type": "object",
+              "properties": {
+                "tag": {
+                  "type": "string"
+                }
+              },
+              "required": ["tag"],
+              "additionalProperties": false
+            }
+          }
+        },
+        "hasTag": {
+          "$comment": "(tag: string) => boolean",
+          "type": "object",
+          "properties": {
+            "namedArgs": {
+              "type": "object",
+              "properties": {
+                "tag": {
+                  "type": "string"
+                }
+              },
+              "required": ["tag"],
+              "additionalProperties": false
+            }
+          }
+        },
+        "getTags": {
+          "$comment": "() => ReadonlyArray<string>"
+        },
+        "clearTags": {
+          "$comment": "() => void"
+        },
+        "id": {
+          "type": "string"
+        },
+        "destroyed$": {
+          "$ref": "#/definitions/Observable%3Cvoid%3E"
+        },
+        "isDestroyed": {
+          "$comment": "() => boolean"
+        },
+        "destroy": {
+          "$comment": "() => void"
+        },
+        "setWrapperId": {
+          "$comment": "(id: string) => void",
+          "type": "object",
+          "properties": {
+            "namedArgs": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string"
+                }
+              },
+              "required": ["id"],
+              "additionalProperties": false
+            }
+          }
+        },
+        "getWrapperId": {
+          "$comment": "() => string | undefined"
+        },
+        "entity": {
+          "type": "object",
+          "properties": {
+            "x": {
+              "type": "number",
+              "default": 0
+            },
+            "y": {
+              "type": "number",
+              "default": 0
+            },
+            "z": {
+              "type": "number",
+              "default": 0
+            },
+            "order": {
+              "$ref": "#/definitions/EulerOrder",
+              "default": "THREE.Euler.DEFAULT_ORDER"
+            },
+            "isEuler": {
+              "type": "boolean",
+              "const": true
+            },
+            "_onChangeCallback": {
+              "$comment": "() => void"
+            }
+          },
+          "required": ["x", "y", "z", "order", "isEuler", "_onChangeCallback"],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "addTag",
+        "adjustRotationByX",
+        "adjustRotationByY",
+        "adjustRotationByZ",
+        "clearTags",
+        "destroy",
+        "destroyed$",
+        "entity",
+        "getCoords",
+        "getName",
+        "getRotationX",
+        "getRotationY",
+        "getRotationZ",
+        "getTags",
+        "getWrapperId",
+        "hasTag",
+        "id",
+        "isDestroyed",
+        "removeTag",
+        "setName",
+        "setRotationX",
+        "setRotationY",
+        "setRotationZ",
+        "setTags",
+        "setWrapperId",
+        "toQuaternion"
+      ]
+    },
     "TCameraConfig": {
       "type": "object",
       "additionalProperties": false,
@@ -2153,6 +3496,215 @@
         }
       },
       "required": ["material", "position", "tags"]
+    },
+    "TPhysicsConfig": {
+      "type": "object",
+      "properties": {
+        "global": {
+          "$ref": "#/definitions/TPhysicsGlobalConfig"
+        },
+        "presets": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/TPhysicsBodyConfig"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "TPhysicsGlobalConfig": {
+      "$ref": "#/definitions/TPhysicsGlobalProps"
+    },
+    "TPhysicsGlobalProps": {
+      "$ref": "#/definitions/TPhysicsWorldParams"
+    },
+    "TPhysicsWorldParams": {
+      "type": "object",
+      "properties": {
+        "gravity": {
+          "$ref": "#/definitions/TWithCoordsXYZ"
+        },
+        "rawIntegrationParameters": {
+          "$ref": "#/definitions/RawIntegrationParameters"
+        },
+        "rawIslands": {
+          "$ref": "#/definitions/RawIslandManager"
+        },
+        "rawBroadPhase": {
+          "$ref": "#/definitions/RawBroadPhase"
+        },
+        "rawNarrowPhase": {
+          "$ref": "#/definitions/RawNarrowPhase"
+        },
+        "rawBodies": {
+          "$ref": "#/definitions/RawRigidBodySet"
+        },
+        "rawColliders": {
+          "$ref": "#/definitions/RawColliderSet"
+        },
+        "rawImpulseJoints": {
+          "$ref": "#/definitions/RawImpulseJointSet"
+        },
+        "rawMultibodyJoints": {
+          "$ref": "#/definitions/RawMultibodyJointSet"
+        },
+        "rawCCDSolver": {
+          "$ref": "#/definitions/RawCCDSolver"
+        },
+        "rawQueryPipeline": {
+          "$ref": "#/definitions/RawQueryPipeline"
+        },
+        "rawPhysicsPipeline": {
+          "$ref": "#/definitions/RawPhysicsPipeline"
+        },
+        "rawSerializationPipeline": {
+          "$ref": "#/definitions/RawSerializationPipeline"
+        },
+        "rawDebugRenderPipeline": {
+          "$ref": "#/definitions/RawDebugRenderPipeline"
+        }
+      },
+      "required": ["gravity"],
+      "additionalProperties": false
+    },
+    "RawIntegrationParameters": {
+      "type": "object",
+      "properties": {
+        "dt": {
+          "type": "number"
+        },
+        "erp": {
+          "type": "number"
+        },
+        "lengthUnit": {
+          "type": "number"
+        },
+        "maxCcdSubsteps": {
+          "type": "number"
+        },
+        "minIslandSize": {
+          "type": "number"
+        },
+        "normalizedAllowedLinearError": {
+          "type": "number"
+        },
+        "normalizedPredictionDistance": {
+          "type": "number"
+        },
+        "numAdditionalFrictionIterations": {
+          "type": "number"
+        },
+        "numInternalPgsIterations": {
+          "type": "number"
+        },
+        "numSolverIterations": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "dt",
+        "erp",
+        "lengthUnit",
+        "maxCcdSubsteps",
+        "minIslandSize",
+        "normalizedAllowedLinearError",
+        "normalizedPredictionDistance",
+        "numAdditionalFrictionIterations",
+        "numInternalPgsIterations",
+        "numSolverIterations"
+      ],
+      "additionalProperties": false
+    },
+    "RawIslandManager": {
+      "type": "object",
+      "additionalProperties": false
+    },
+    "RawBroadPhase": {
+      "type": "object",
+      "additionalProperties": false
+    },
+    "RawNarrowPhase": {
+      "type": "object",
+      "additionalProperties": false
+    },
+    "RawRigidBodySet": {
+      "type": "object",
+      "additionalProperties": false
+    },
+    "RawColliderSet": {
+      "type": "object",
+      "additionalProperties": false
+    },
+    "RawImpulseJointSet": {
+      "type": "object",
+      "additionalProperties": false
+    },
+    "RawMultibodyJointSet": {
+      "type": "object",
+      "additionalProperties": false
+    },
+    "RawCCDSolver": {
+      "type": "object",
+      "additionalProperties": false
+    },
+    "RawQueryPipeline": {
+      "type": "object",
+      "additionalProperties": false
+    },
+    "RawPhysicsPipeline": {
+      "type": "object",
+      "additionalProperties": false
+    },
+    "RawSerializationPipeline": {
+      "type": "object",
+      "additionalProperties": false
+    },
+    "RawDebugRenderPipeline": {
+      "type": "object",
+      "additionalProperties": false
+    },
+    "TPhysicsBodyConfig": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "$ref": "#/definitions/RigidBodyTypesNames"
+        },
+        "collisionShape": {
+          "$ref": "#/definitions/CollisionShape"
+        },
+        "shapeParams": {
+          "$ref": "#/definitions/TPhysicsShapeParams"
+        },
+        "mass": {
+          "type": "number"
+        },
+        "restitution": {
+          "type": "number"
+        },
+        "friction": {
+          "type": "number"
+        },
+        "collisionGroups": {
+          "type": "number"
+        },
+        "name": {
+          "type": "string"
+        },
+        "position": {
+          "$ref": "#/definitions/TVector3Wrapper"
+        },
+        "rotation": {
+          "$ref": "#/definitions/TEulerWrapper"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": ["collisionShape", "shapeParams", "tags", "type"]
     },
     "TFogConfig": {
       "type": "object",

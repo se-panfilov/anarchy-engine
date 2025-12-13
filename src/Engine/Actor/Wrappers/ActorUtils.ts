@@ -50,7 +50,7 @@ export function createPhysicsBody(
     if (isNotDefined(presetFromRegistry)) throw new Error(`Physics preset not found: ${presetName}`);
   }
 
-  let fullParams: TPhysicsBodyParams = { ...rest };
+  let fullParams: TPhysicsBodyParams = { ...rest } as TPhysicsBodyParams;
   if (isDefined(presetFromRegistry)) fullParams = { ...fullParams, ...presetFromRegistry };
 
   // TODO (S.Panfilov) CWP here we build somehow (we need a factory and a registry),
