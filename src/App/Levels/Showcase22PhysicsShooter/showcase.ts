@@ -33,7 +33,7 @@ import {
   getBulletsPool,
   initGui,
   moveActorBounce,
-  shoot,
+  shootRapidFire,
   startMoveActorWithKeyboard,
   updateBullets
 } from './utils';
@@ -75,7 +75,7 @@ export function showcase(canvas: TAppCanvas): TShowcase {
     sceneW.entity.add(...bullets.map((b: TBullet) => b.entity));
     bullets.forEach((b: TBullet) => {
       b.hit$.subscribe((hit: TCollisionCheckResult): void => {
-        console.log('hit', hit);
+        console.log('hit');
         createHitEffect(hit.collisionPoint, sceneW);
         applyExplosionImpulse(hit.object, hit.collisionPoint, 1000);
       });
@@ -100,7 +100,7 @@ export function showcase(canvas: TAppCanvas): TShowcase {
     const line: Line2 = createLine('#E91E63', 0.1);
     actorService.getScene().entity.add(line);
 
-    let fromHeroAngles: Readonly<{ azimuth: TRadians; elevation: TRadians }> = {
+    const fromHeroAngles: { azimuth: TRadians; elevation: TRadians } = {
       azimuth: 0,
       elevation: 0
     };
@@ -137,25 +137,19 @@ export function showcase(canvas: TAppCanvas): TShowcase {
       if (isDefined(mouseLineIntersections.point)) {
         const heroCoords: TWithCoordsXYZ = heroW.getPosition().getCoords();
         const azimuth3d = get3DAzimuthRad(heroCoords, mouseLineIntersections.point);
-        fromHeroAngles = { ...azimuth3d, elevation: azimuth3d.elevation >= 0 ? azimuth3d.elevation : 0 };
+        // eslint-disable-next-line functional/immutable-data
+        fromHeroAngles.azimuth = azimuth3d.azimuth;
+        // eslint-disable-next-line functional/immutable-data
+        fromHeroAngles.elevation = azimuth3d.elevation >= 0 ? azimuth3d.elevation : 0;
         // TODO could make some use of mouseLineIntersectionsWatcher.latest$ instead of mouseLineIntersections
         line.geometry.setPositions([heroCoords.x, heroCoords.y, heroCoords.z, mouseLineIntersections.point.x, mouseLineIntersections.point.y, mouseLineIntersections.point.z]);
         line.computeLineDistances();
       }
     });
 
-    let shooting = false;
-    const cooldownMs = 300;
-    mouseService.clickLeftPress$.subscribe((): void => void (shooting = true));
-    mouseService.clickLeftRelease$.subscribe((): void => void (shooting = false));
-
-    // TODO setTimout/setInterval is not a good idea (cause the game might be "on pause", e.g. when tab is not active)
-    setInterval(() => {
-      if (shooting) shoot(heroW.getPosition().getCoords(), fromHeroAngles.azimuth, fromHeroAngles.elevation, meters(30), bullets);
-    }, cooldownMs);
+    shootRapidFire(heroW, mouseService, fromHeroAngles, meters(10), bullets);
 
     physicsLoopService.shouldAutoUpdate(true);
-
     keyboardService.onKey(KeysExtra.Space).pressed$.subscribe((): void => physicsLoopService.shouldAutoUpdate(!physicsLoopService.isAutoUpdate()));
   }
 

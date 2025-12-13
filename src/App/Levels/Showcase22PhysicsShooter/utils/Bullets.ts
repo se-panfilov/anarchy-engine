@@ -5,7 +5,18 @@ import type { Mesh } from 'three';
 import { BufferAttribute, BufferGeometry, PointsMaterial, Vector3 } from 'three';
 import { Points } from 'three/src/objects/Points';
 
-import type { TActorParams, TActorService, TActorWrapperAsync, TCollisionCheckResult, TRadians, TSceneWrapper, TSpatialGridService, TSpatialGridWrapper, TWithCoordsXYZ } from '@/Engine';
+import type {
+  TActorParams,
+  TActorService,
+  TActorWrapperAsync,
+  TCollisionCheckResult,
+  TMouseService,
+  TRadians,
+  TSceneWrapper,
+  TSpatialGridService,
+  TSpatialGridWrapper,
+  TWithCoordsXYZ
+} from '@/Engine';
 import { ActorType, EulerWrapper, isDefined, isNotDefined, MaterialType, mpsSpeed, Vector3Wrapper } from '@/Engine';
 import { meters } from '@/Engine/Measurements/Utils';
 
@@ -115,6 +126,25 @@ export async function BulletAsync(params: TActorParams, actorService: TActorServ
     update,
     hit$: actorW.collisions.value$
   };
+}
+
+export function shootRapidFire(
+  actorW: TActorWrapperAsync,
+  mouseService: TMouseService,
+  from: Readonly<{ azimuth: TRadians; elevation: TRadians }>,
+  speedMeters: number,
+  bullets: ReadonlyArray<TBullet>
+): void {
+  let shooting = false;
+  const cooldownMs = 300;
+
+  mouseService.clickLeftPress$.subscribe((): void => void (shooting = true));
+  mouseService.clickLeftRelease$.subscribe((): void => void (shooting = false));
+
+  // TODO setTimout/setInterval is not a good idea (cause the game might be "on pause", e.g. when tab is not active)
+  setInterval(() => {
+    if (shooting) shoot(actorW.getPosition().getCoords(), from.azimuth, from.elevation, speedMeters, bullets);
+  }, cooldownMs);
 }
 
 export function shoot(actorPosition: TWithCoordsXYZ, toAngle: TRadians, elevation: TRadians, speedMeters: number, bullets: ReadonlyArray<TBullet>): void {
