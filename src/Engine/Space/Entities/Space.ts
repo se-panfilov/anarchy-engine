@@ -81,7 +81,6 @@ export function Space(params: TSpaceParams, hooks?: TSpaceHooks): TSpace {
     destroySub$.unsubscribe();
 
     built$.complete();
-    built$.unsubscribe();
     Object.values(services).forEach((service: TAbstractService): void => void (isDestroyable(service) && service.destroy$.next()));
     Object.values(loops).forEach((loop: TLoop): void => void (isDestroyable(loop) && loop.destroy$.next()));
   });

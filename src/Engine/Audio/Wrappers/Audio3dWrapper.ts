@@ -42,7 +42,6 @@ export function Audio3dWrapper(params: TAudio3dParams, { audioLoop }: TAudioWrap
     // TODO 14-0-0: how to disconnect listener?
 
     listener$.complete();
-    listener$.unsubscribe();
   });
 
   // eslint-disable-next-line functional/immutable-data

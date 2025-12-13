@@ -87,19 +87,12 @@ export function AbstractAudioWrapper<T extends TAnyAudio>(params: TAnyAudioParam
     loopSub$.unsubscribe();
 
     play$.complete();
-    play$.unsubscribe();
     listener$.complete();
-    listener$.unsubscribe();
     pause$.complete();
-    pause$.unsubscribe();
     speed$.complete();
-    speed$.unsubscribe();
     seek$.complete();
-    seek$.unsubscribe();
     loop$.complete();
-    loop$.unsubscribe();
     volume$.complete();
-    volume$.unsubscribe();
     disposeAudio(entity);
     // TODO DESTROY: Important: all wrappers/entities should be removed from the registry (and disposed) when destroyed. Perhaps we should add an event bus to send the message to remove a certain wrapper/entity from a certain registry
   });

@@ -69,7 +69,6 @@ export function withSpatial(params: TActorParams): TWithSpatial {
     result.spatial.resetGrid();
     result.spatial.resetSpatialCells();
     cellsChanged$.complete();
-    cellsChanged$.unsubscribe();
   });
 
   return result;

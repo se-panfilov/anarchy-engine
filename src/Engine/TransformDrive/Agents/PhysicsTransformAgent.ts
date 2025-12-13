@@ -86,7 +86,6 @@ export function PhysicsTransformAgent(params: TPhysicsTransformAgentParams, { ph
 
     abstractTransformAgent.destroy$.next();
     physicsBody$.complete();
-    physicsBody$.unsubscribe();
   });
 
   //Watching $ticks only when agent is enabled and physics loop is auto-updating

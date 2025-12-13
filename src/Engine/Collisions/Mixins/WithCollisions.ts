@@ -22,9 +22,7 @@ export function withCollisions(params: TActorParams, collisionsService: TCollisi
     destroySub$.unsubscribe();
 
     autoUpdate$.complete();
-    autoUpdate$.unsubscribe();
     value$.complete();
-    value$.unsubscribe();
     collisionsLoopSub$?.unsubscribe();
   });
 

@@ -14,11 +14,8 @@ export function withReactiveRegistry<T>(registry: Map<string, T>, destroyable: T
     destroySub$.unsubscribe();
 
     added$.complete();
-    added$.unsubscribe();
     replaced$.complete();
-    replaced$.unsubscribe();
     removed$.complete();
-    removed$.unsubscribe();
     registry.forEach((obj: T): void => {
       if (isDestroyable(obj)) obj.destroy$.next();
     });

@@ -1,5 +1,5 @@
 import type { Observable, Subscription } from 'rxjs';
-import { BehaviorSubject, exhaustMap, filter } from 'rxjs';
+import { BehaviorSubject, exhaustMap, filter, takeUntil } from 'rxjs';
 
 import { CreateEntitiesStrategy } from '@/Engine/Space/Constants';
 import type { TSpace, TSpaceConfig, TSpaceHooks, TSpaceParams } from '@/Engine/Space/Models';
@@ -17,12 +17,13 @@ export function SpaceFromConfig(params: TSpaceParams, config: TSpaceConfig, hook
   // eslint-disable-next-line functional/immutable-data
   (space as TWriteable<TSpace>).built$ = builtFromConfig$.pipe(filter(isDefined));
 
-  const oldBuiltSub$: Subscription = oldBuilt$
+  oldBuilt$
     .pipe(
       exhaustMap((): Promise<unknown> => {
         hooks?.beforeResourcesLoaded?.(config, space.services, space.loops);
         return loadResourcesFromConfig(config.resources, space.services);
-      })
+      }),
+      takeUntil(space.destroy$)
     )
     .subscribe((): void => {
       hooks?.beforeEntitiesCreated?.(config, space.services, space.loops);
@@ -38,10 +39,8 @@ export function SpaceFromConfig(params: TSpaceParams, config: TSpaceConfig, hook
     oldBuilt$ = null as any;
 
     destroySub$.unsubscribe();
-    oldBuiltSub$.unsubscribe();
 
     builtFromConfig$.complete();
-    builtFromConfig$.unsubscribe();
   });
 
   // return Object.assign(space, { built$: builtFromConfig$ });

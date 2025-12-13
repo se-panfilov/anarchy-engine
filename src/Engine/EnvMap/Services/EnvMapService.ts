@@ -50,7 +50,6 @@ export function EnvMapService(factory: TEnvMapFactory, registry: TEnvMapRegistry
     destroySub$.unsubscribe();
 
     withActive.active$.complete();
-    withActive.active$.unsubscribe();
   });
 
   // eslint-disable-next-line functional/immutable-data

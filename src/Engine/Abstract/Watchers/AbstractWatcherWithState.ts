@@ -20,7 +20,6 @@ export function AbstractWatcherWithState<T>(type: WatcherType | string, name: st
     destroySub$.unsubscribe();
 
     abstractWatcher.value$.complete();
-    abstractWatcher.value$.unsubscribe();
   });
 
   // eslint-disable-next-line functional/immutable-data

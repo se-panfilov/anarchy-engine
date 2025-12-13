@@ -65,16 +65,12 @@ export function FsmWrapper(params: TFsmParams): TFsmWrapper {
     strategySub$.unsubscribe();
 
     changed$.complete();
-    changed$.unsubscribe();
 
     strategy$.complete();
-    strategy$.unsubscribe();
 
     strategyOperator$.complete();
-    strategyOperator$.unsubscribe();
 
     send$.complete();
-    send$.unsubscribe();
   });
 
   // eslint-disable-next-line functional/immutable-data

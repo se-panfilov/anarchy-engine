@@ -35,7 +35,6 @@ export function ScenesService(factory: TSceneFactory, registry: TSceneRegistry):
     destroySub$.unsubscribe();
 
     withActive.active$.complete();
-    withActive.active$.unsubscribe();
   });
 
   // eslint-disable-next-line functional/immutable-data

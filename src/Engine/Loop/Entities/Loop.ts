@@ -109,7 +109,6 @@ export function Loop({ name, type, trigger, showDebugInfo, maxPriority, isParall
     tickCounter = 0;
 
     enabled$.complete();
-    enabled$.unsubscribe();
 
     worker?.postMessage({ loopId: id, action: LoopWorkerActions.Destroy } satisfies TLoopWorkerDestroyRequestData);
     worker?.terminate();
@@ -117,7 +116,6 @@ export function Loop({ name, type, trigger, showDebugInfo, maxPriority, isParall
     deltaCalc?.destroy();
 
     tick$.complete();
-    tick$.unsubscribe();
   });
 
   return Object.assign(

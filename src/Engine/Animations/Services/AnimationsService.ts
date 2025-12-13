@@ -53,7 +53,6 @@ export function AnimationsService(resourcesRegistry: TAnimationsResourceAsyncReg
     destroySub$.unsubscribe();
 
     added$.complete();
-    added$.unsubscribe();
     subscriptions.forEach((subs$: Subscription): void => subs$.unsubscribe());
 
     resourcesRegistry.destroy$.next();

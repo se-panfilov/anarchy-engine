@@ -94,11 +94,8 @@ export function KeyboardService(keyboardLoop: TKeyboardLoop): TKeyboardService {
     const subjects: TKeyboardRegistryValues | undefined = keyboardRegistry.findByKey(key);
     if (isNotDefined(subjects)) throw new Error(`Cannot remove key "${key}": it's not in the registry`);
     subjects.pressed$.complete();
-    subjects.pressed$.unsubscribe();
     subjects.pressing$.complete();
-    subjects.pressing$.unsubscribe();
     subjects.released$.complete();
-    subjects.released$.unsubscribe();
     keyboardRegistry.remove(key);
   }
 

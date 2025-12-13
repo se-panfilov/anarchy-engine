@@ -19,14 +19,11 @@ export function AbstractWatcher<T>(type: WatcherType | string, name: string, tag
     destroySub$.unsubscribe();
 
     start$.complete();
-    start$.unsubscribe();
 
     stop$.next();
     stop$.complete();
-    stop$.unsubscribe();
 
     value$.complete();
-    value$.unsubscribe();
   });
 
   // eslint-disable-next-line functional/immutable-data

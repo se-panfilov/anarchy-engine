@@ -49,7 +49,6 @@ export function ControlService(factory: TControlsFactory, registry: TControlsReg
     loopSub$.unsubscribe();
 
     withActive.active$.complete();
-    withActive.active$.unsubscribe();
   });
 
   // eslint-disable-next-line functional/immutable-data

@@ -123,17 +123,11 @@ export function TransformDrive<T extends Partial<Record<TransformAgent, TAbstrac
 
     //Stop subjects
     agent$.complete();
-    agent$.unsubscribe();
     activeAgent$.complete();
-    activeAgent$.unsubscribe();
     activeAgentRep$.complete();
-    activeAgentRep$.unsubscribe();
     position$.complete();
-    position$.unsubscribe();
     rotation$.complete();
-    rotation$.unsubscribe();
     scale$.complete();
-    scale$.unsubscribe();
 
     activeAgent = null as any;
     prevAgent = null as any;

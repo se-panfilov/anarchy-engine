@@ -48,7 +48,6 @@ export function RendererService(
     loopSub$.unsubscribe();
 
     withActive.active$.complete();
-    withActive.active$.unsubscribe();
   });
 
   // eslint-disable-next-line functional/immutable-data

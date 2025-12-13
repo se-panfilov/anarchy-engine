@@ -37,21 +37,12 @@ export function AbstractTransformAgent(params: TTransformAgentParams, type: Tran
 
     //Complete subjects
     position$.complete();
-    position$.unsubscribe();
     rotation$.complete();
-    rotation$.unsubscribe();
     scale$.complete();
-    scale$.unsubscribe();
     enabled$.complete();
-    enabled$.unsubscribe();
     onActivated$.complete();
-    onActivated$.unsubscribe();
     onDeactivated$.complete();
-    onDeactivated$.unsubscribe();
-    // destroyable.destroy$.complete();
-    // destroyable.destroy$.unsubscribe();
     relatedDriveId$.complete();
-    relatedDriveId$.unsubscribe();
   });
 
   return {

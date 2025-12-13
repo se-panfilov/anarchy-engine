@@ -66,7 +66,6 @@ export function CameraService(factory: TCameraFactory, registry: TCameraRegistry
     screenSizeSub$ = null as any;
 
     withActive.active$.complete();
-    withActive.active$.unsubscribe();
   });
 
   // eslint-disable-next-line functional/immutable-data

@@ -25,10 +25,8 @@ export function SpatialCellWrapper(params: TSpatialCellParams): TSpatialCellWrap
 
     // eslint-disable-next-line functional/immutable-data
     entity.objects = [];
-    sub$.unsubscribe();
 
     update$.complete();
-    update$.unsubscribe();
   });
 
   const findObject = (id: string): TActor | undefined => entity.objects.find((o: TActor): boolean => o.id === id);

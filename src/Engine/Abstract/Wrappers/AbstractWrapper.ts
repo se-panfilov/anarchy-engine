@@ -36,7 +36,6 @@ export function AbstractWrapper<T extends TWithUserData>(entity: T, type: Wrappe
 
     destroyableSub$.unsubscribe();
     result.destroy$.complete();
-    result.destroy$.unsubscribe();
   });
 
   //apply params

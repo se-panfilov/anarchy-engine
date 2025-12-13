@@ -21,7 +21,6 @@ export function ReactiveFactory<T, P, D = Record<string, any> | undefined>(type:
     destroySub$.unsubscribe();
 
     entityCreated$.complete();
-    entityCreated$.unsubscribe();
   });
 
   return Object.assign(AbstractFactory(type), {
