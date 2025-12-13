@@ -22,7 +22,7 @@ import type {
   TSpatialGridService,
   TSpatialGridWrapper
 } from '@/Engine';
-import { isDefined, isNotDefined, MaterialType, mpsSpeed, PrimitiveModel3dType, SpatialUpdatePriority, TransformAgent } from '@/Engine';
+import { isDefined, isNotDefined, MaterialType, metersPerSecond, mpsSpeed, PrimitiveModel3dType, SpatialUpdatePriority, TransformAgent } from '@/Engine';
 import { meters, radians } from '@/Engine/Measurements/Utils';
 
 export const BULLET_TAG = 'bullet';
@@ -85,7 +85,7 @@ export function getBulletsPool(
           spatial: { grid, isAutoUpdate: true, updatePriority: SpatialUpdatePriority.ASAP },
           collisions: { isAutoUpdate: true },
           kinematic: {
-            linearSpeed: meters(5),
+            linearSpeed: metersPerSecond(5),
             isAutoUpdate: true
           },
           tags: [BULLET_TAG]
@@ -122,7 +122,7 @@ export function BulletAsync(params: TActorParams, actorService: TActorService): 
     actor.drive.position$.next(new Vector3(0, 0, 0));
     actor.drive.kinematic.setLinearAzimuthRad(radians(0));
     actor.drive.kinematic.setLinearElevationRad(radians(0));
-    actor.drive.kinematic.setLinearSpeed(0);
+    actor.drive.kinematic.setLinearSpeed(metersPerSecond(0));
     setDistanceTraveled(0);
     setActive(false);
     // eslint-disable-next-line functional/immutable-data
@@ -184,7 +184,7 @@ export function shoot(actorPosition: Vector3, toAngle: TRadians, elevation: TRad
     bullet.drive.kinematic.setLinearAzimuthRad(toAngle);
     bullet.drive.kinematic.setLinearElevationRad(elevation);
     bullet.setDistanceTraveled(0);
-    bullet.drive.kinematic.setLinearSpeed(meters(speedMeters));
+    bullet.drive.kinematic.setLinearSpeed(metersPerSecond(speedMeters));
     bullet.setActive(true);
   }
 }

@@ -4,7 +4,8 @@ import { Euler, Quaternion, Vector3 } from 'three';
 import { degToRad, euclideanModulo, radToDeg } from 'three/src/math/MathUtils';
 import type { Vector3Like } from 'three/src/math/Vector3';
 
-import type { TDegrees, TRadians } from '@/Engine/Math';
+import { metersPerSecond } from '@/Engine';
+import type { TDegrees, TMetersPerSecond, TRadians } from '@/Engine/Math';
 
 // TODO add unit tests
 export const degToRadPrecise = (degrees: TDegrees): Decimal => new Decimal(degrees).times(Math.PI).div(180);
@@ -46,7 +47,7 @@ export const getElevationDegFromDirection = (direction: Vector3Like): TDegrees =
 // TODO add unit tests
 export const getDirectionFromLinearVelocity = (linearVelocity: Vector3): Vector3 => linearVelocity.clone().normalize();
 // TODO add unit tests
-export const getSpeedFromLinearVelocity = (linearVelocity: Vector3): number => linearVelocity.length();
+export const getSpeedFromLinearVelocity = (linearVelocity: Vector3): TMetersPerSecond => metersPerSecond(linearVelocity.length());
 // TODO add unit tests
 export const getLinearVelocityByDeg = (speed: number, azimuth: TDegrees, elevation: TDegrees): Vector3 => {
   const azimuthRad: TRadians = degToRad(azimuth) as TRadians;
@@ -59,7 +60,7 @@ export const getLinearVelocityByRad = (speed: number, azimuth: TRadians, elevati
   new Vector3(speed * Math.cos(elevation) * Math.cos(azimuth), speed * Math.sin(elevation), speed * Math.cos(elevation) * Math.sin(azimuth));
 
 // TODO add unit tests
-export const getSpeedFromAngularVelocity = (angularVelocity: Vector3): number => angularVelocity.length();
+export const getSpeedFromAngularVelocity = (angularVelocity: Vector3): TMetersPerSecond => metersPerSecond(angularVelocity.length());
 
 // TODO add unit tests
 export const getDirectionFromAngularVelocity = (angularVelocity: Vector3): Vector3 => angularVelocity.clone().normalize();

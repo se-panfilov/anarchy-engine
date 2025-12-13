@@ -1,5 +1,6 @@
 import { Vector3 } from 'three';
 
+import { metersPerSecond } from '@/Engine';
 import type { TKinematicData, TKinematicParams } from '@/Engine/Kinematic/Models';
 import type { TWithPresetNamePhysicsBodyParams } from '@/Engine/Physics';
 import { KinematicTransformAgent, PhysicsTransformAgent } from '@/Engine/TransformDrive/Agents';
@@ -23,9 +24,9 @@ export function getKinematicTransformAgent(params: TTransformAgentParams, kinema
 
 export function getKinematicWithDefaults(kinematic: TKinematicParams | undefined): TKinematicData {
   return {
-    linearSpeed: kinematic?.linearSpeed ?? 0,
+    linearSpeed: metersPerSecond(kinematic?.linearSpeed ?? 0),
     linearDirection: kinematic?.linearDirection ?? new Vector3(),
-    angularSpeed: kinematic?.angularSpeed ?? 0,
+    angularSpeed: metersPerSecond(kinematic?.angularSpeed ?? 0),
     angularDirection: kinematic?.angularDirection ?? new Vector3()
   };
 }

@@ -1,5 +1,8 @@
 export type * from './TDegrees';
+export type * from './TKilometers';
+export type * from './TKilometersPerHour';
 export type * from './TMeters';
+export type * from './TMetersPerSecond';
 export type * from './TMilliseconds';
 export type * from './TRadians';
 export type * from './TSeconds';

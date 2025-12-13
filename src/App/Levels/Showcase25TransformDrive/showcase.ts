@@ -39,11 +39,12 @@ import {
   getPushCoordsFrom3dAzimuth,
   isNotDefined,
   KeysExtra,
+  metersPerSecond,
   spaceService,
   TextType,
   TransformAgent
 } from '@/Engine';
-import { degrees, meters, radians } from '@/Engine/Measurements/Utils';
+import { degrees, radians } from '@/Engine/Measurements/Utils';
 
 import spaceConfig from './showcase.json';
 import {
@@ -226,7 +227,7 @@ function moveActorTo(actor: TActor, position: Vector3, agent: TransformAgent, is
       return actor.drive.default.setPosition(position);
     case TransformAgent.Kinematic:
       actor.drive.kinematic.setLinearAzimuthRad(azimuth);
-      return actor.drive.kinematic.setLinearSpeed(meters(5));
+      return actor.drive.kinematic.setLinearSpeed(metersPerSecond(5));
     case TransformAgent.Connected:
       // no need to do anything here, cause already connected
       return undefined;
@@ -251,7 +252,7 @@ function rotateActorTo(actor: TActor, rotation: Euler, agent: TransformAgent): v
       return actor.drive.default.setRotation(rotationXYZ);
     case TransformAgent.Kinematic:
       actor.drive.kinematic.setAngularAzimuthDeg(degrees(radToDeg(rotationXYZ.y)));
-      return actor.drive.kinematic.setAngularSpeed(meters(5));
+      return actor.drive.kinematic.setAngularSpeed(metersPerSecond(5));
     case TransformAgent.Connected:
       // no need to do anything here, cause already connected
       return undefined;

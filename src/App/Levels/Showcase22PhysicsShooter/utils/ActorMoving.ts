@@ -1,8 +1,8 @@
 import { BehaviorSubject, combineLatest, map, Subject } from 'rxjs';
 
-import type { TActor, TIntersectionEvent, TIntersectionsWatcher, TKeyboardService, TRadians } from '@/Engine';
-import { getMouseAzimuthAndElevation, KeyCode } from '@/Engine';
-import { degrees, meters, radians } from '@/Engine/Measurements/Utils';
+import type { TActor, TIntersectionEvent, TIntersectionsWatcher, TKeyboardService, TMetersPerSecond, TRadians } from '@/Engine';
+import { getMouseAzimuthAndElevation, KeyCode, metersPerSecond } from '@/Engine';
+import { degrees, radians } from '@/Engine/Measurements/Utils';
 
 type TMoveKeysState = { Forward: boolean; Left: boolean; Right: boolean; Backward: boolean };
 type TIntersectionDirection = Readonly<{ azimuth: TRadians; elevation: TRadians }>;
@@ -29,28 +29,28 @@ export function startMoveActorWithKeyboard(actor: TActor, keyboardService: TKeyb
   });
 }
 
-function getActorMoveSpeed(keyStates: TMoveKeysState, forwardSpeed: number, sideWalkSpeed: number, backwardSped: number): number {
+function getActorMoveSpeed(keyStates: TMoveKeysState, forwardSpeed: number, sideWalkSpeed: number, backwardSped: number): TMetersPerSecond {
   const { Forward, Backward, Left, Right } = keyStates;
 
   //just forward
-  if (Forward && !Backward && !Left && !Right) return forwardSpeed;
+  if (Forward && !Backward && !Left && !Right) return metersPerSecond(forwardSpeed);
   //just backward
-  if (!Forward && Backward && !Left && !Right) return backwardSped;
+  if (!Forward && Backward && !Left && !Right) return metersPerSecond(backwardSped);
   //just left
-  if (!Forward && !Backward && Left && !Right) return sideWalkSpeed;
+  if (!Forward && !Backward && Left && !Right) return metersPerSecond(sideWalkSpeed);
   //just right
-  if (!Forward && !Backward && !Left && Right) return sideWalkSpeed;
+  if (!Forward && !Backward && !Left && Right) return metersPerSecond(sideWalkSpeed);
 
   //forward and left
-  if (Forward && !Backward && Left && !Right) return (forwardSpeed + sideWalkSpeed) / 2;
+  if (Forward && !Backward && Left && !Right) return metersPerSecond((forwardSpeed + sideWalkSpeed) / 2);
   //forward and right
-  if (Forward && !Backward && !Left && Right) return (forwardSpeed + sideWalkSpeed) / 2;
+  if (Forward && !Backward && !Left && Right) return metersPerSecond((forwardSpeed + sideWalkSpeed) / 2);
   //backward and left
-  if (!Forward && Backward && Left && !Right) return (backwardSped + sideWalkSpeed) / 2;
+  if (!Forward && Backward && Left && !Right) return metersPerSecond((backwardSped + sideWalkSpeed) / 2);
   //backward and right
-  if (!Forward && Backward && !Left && Right) return (backwardSped + sideWalkSpeed) / 2;
+  if (!Forward && Backward && !Left && Right) return metersPerSecond((backwardSped + sideWalkSpeed) / 2);
 
-  return 0;
+  return metersPerSecond(0);
 }
 
 function getActorMoveAzimuthRad(keyStates: TMoveKeysState): TRadians {
@@ -79,7 +79,7 @@ function getActorMoveAzimuthRad(keyStates: TMoveKeysState): TRadians {
 
 export function moveActorBounce(actor: TActor, speedMPS: number, azimuthDeg: number, duration: number): void {
   actor.drive.kinematic.autoUpdate$.next(true);
-  actor.drive.kinematic.setLinearSpeed(meters(speedMPS));
+  actor.drive.kinematic.setLinearSpeed(metersPerSecond(speedMPS));
   actor.drive.kinematic.setLinearAzimuthDeg(degrees(azimuthDeg));
   // TODO setTimout/setInterval is not a good idea (cause the game might be "on pause", e.g. when tab is not active)
   setInterval((): void => {

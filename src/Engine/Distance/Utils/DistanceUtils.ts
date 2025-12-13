@@ -1,7 +1,11 @@
+import type { TKilometers, TKilometersPerHour, TMeters, TMetersPerSecond } from '@/Engine/Math/Types';
 import { HOUR, SECOND } from '@/Engine/Measurements';
 
 //move with speed in meters per second
-export const mpsSpeed = (mps: number, delta: number): number => mps * delta;
+export const mpsSpeed = (mps: TMetersPerSecond, delta: number): TMetersPerSecond => (mps * delta) as TMetersPerSecond;
 
 //move with speed in kilometers per hour
-export const kmphSpeed = (kmph: number, delta: number): number => ((kmph * SECOND) / HOUR) * delta;
+export const kmphSpeed = (kmph: TKilometersPerHour, delta: number): TKilometersPerHour => (((kmph * SECOND) / HOUR) * delta) as TKilometersPerHour;
+
+export const metersPerSecond = (meters: number | TMeters): TMetersPerSecond => meters as TMetersPerSecond;
+export const kilometersPerHour = (km: number | TKilometers): TKilometersPerHour => km as TKilometersPerHour;

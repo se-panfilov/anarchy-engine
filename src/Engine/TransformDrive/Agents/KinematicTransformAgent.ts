@@ -4,7 +4,7 @@ import { Euler, Quaternion, Vector3 } from 'three';
 import { degToRad } from 'three/src/math/MathUtils';
 
 import type { TKinematicData } from '@/Engine/Kinematic/Models';
-import type { TDegrees, TRadians } from '@/Engine/Math';
+import type { TDegrees, TMetersPerSecond, TRadians } from '@/Engine/Math';
 import { getAzimuthDegFromDirection, getAzimuthRadFromDirection, getElevationDegFromDirection, getElevationRadFromDirection } from '@/Engine/Math';
 import type { TReadonlyEuler, TReadonlyQuaternion, TReadonlyVector3 } from '@/Engine/ThreeLib';
 import { TransformAgent } from '@/Engine/TransformDrive/Constants';
@@ -58,17 +58,17 @@ export function KinematicTransformAgent(params: TKinematicTransformAgentParams, 
       return agent.data;
     },
     adjustDataByLinearVelocity(linearVelocity: TReadonlyVector3): void {
-      agent.setLinearSpeed(linearVelocity.length());
+      agent.setLinearSpeed(linearVelocity.length() as TMetersPerSecond);
       agent.setLinearDirection(linearVelocity.clone().normalize());
     },
     adjustDataFromAngularVelocity(angularVelocity: TReadonlyVector3): void {
-      agent.setAngularSpeed(angularVelocity.length());
+      agent.setAngularSpeed(angularVelocity.length() as TMetersPerSecond);
       agent.setAngularDirection(angularVelocity.clone().normalize());
     },
-    getLinearSpeed(): number {
+    getLinearSpeed(): TMetersPerSecond {
       return agent.data.linearSpeed;
     },
-    setLinearSpeed(speed: number): void {
+    setLinearSpeed(speed: TMetersPerSecond): void {
       // eslint-disable-next-line functional/immutable-data
       agent.data.linearSpeed = speed;
     },
@@ -121,10 +121,10 @@ export function KinematicTransformAgent(params: TKinematicTransformAgentParams, 
 
       agent.data.linearDirection.set(newX, newY, newZ).normalize();
     },
-    getAngularSpeed(): number {
+    getAngularSpeed(): TMetersPerSecond {
       return agent.data.angularSpeed;
     },
-    setAngularSpeed(speed: number): void {
+    setAngularSpeed(speed: TMetersPerSecond): void {
       // eslint-disable-next-line functional/immutable-data
       agent.data.angularSpeed = speed;
     },
@@ -176,11 +176,11 @@ export function KinematicTransformAgent(params: TKinematicTransformAgentParams, 
 
       agent.data.angularDirection.set(newX, newY, newZ).normalize();
     },
-    setAngularVelocityFromParamsDeg(speed: number, azimuth: TDegrees, elevation: TDegrees): void {
+    setAngularVelocityFromParamsDeg(speed: TMetersPerSecond, azimuth: TDegrees, elevation: TDegrees): void {
       agent.setAngularSpeed(speed);
       agent.setAngularDirectionFromParamsDeg(azimuth, elevation);
     },
-    setAngularVelocityFromParamsRad(speed: number, azimuth: TRadians, elevation: TRadians): void {
+    setAngularVelocityFromParamsRad(speed: TMetersPerSecond, azimuth: TRadians, elevation: TRadians): void {
       agent.setAngularSpeed(speed);
       agent.setAngularDirectionFromParamsRad(azimuth, elevation);
     },

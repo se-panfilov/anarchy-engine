@@ -6,8 +6,21 @@ import type { TShowcase } from '@/App/Levels/Models';
 import { createReactiveLineFromActor } from '@/App/Levels/Showcase25TransformDrive/Utils';
 import { addGizmo } from '@/App/Levels/Utils';
 import type { TActor, TActorRegistry, TAppCanvas, TCameraWrapper, TEngine, TIntersectionEvent, TIntersectionsWatcher, TMouseWatcherEvent, TMoverService, TSpace, TSpaceConfig } from '@/Engine';
-import { ambientContext, defaultMoverServiceConfig, Easing, Engine, getMouseAzimuthAndElevation, isNotDefined, KeyCode, LookUpStrategy, mpsSpeed, spaceService, TransformAgent } from '@/Engine';
-import { meters, radians } from '@/Engine/Measurements/Utils';
+import {
+  ambientContext,
+  defaultMoverServiceConfig,
+  Easing,
+  Engine,
+  getMouseAzimuthAndElevation,
+  isNotDefined,
+  KeyCode,
+  LookUpStrategy,
+  metersPerSecond,
+  mpsSpeed,
+  spaceService,
+  TransformAgent
+} from '@/Engine';
+import { radians } from '@/Engine/Measurements/Utils';
 import { MoverService } from '@/Engine/Services/MoverService/MoverService';
 
 import spaceConfig from './showcase.json';
@@ -55,19 +68,19 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     if (isNotDefined(actorMkeyForward)) throw new Error('Actor mkey Forward is not defined');
     if (isNotDefined(actorMkeyExtra)) throw new Error('Actor mkey Extra is not defined');
 
-    onKey(KeyCode.W).pressing$.subscribe(({ delta }): void => void actorKeyboard.drive.default.addZ(mpsSpeed(-10, delta.delta)));
+    onKey(KeyCode.W).pressing$.subscribe(({ delta }): void => void actorKeyboard.drive.default.addZ(mpsSpeed(metersPerSecond(-10), delta.delta)));
     onKey(KeyCode.W).pressed$.subscribe((): void => void actorKeyW.drive.default.addY(-0.2));
     onKey(KeyCode.W).released$.subscribe((): void => void actorKeyW.drive.default.addY(0.2));
 
-    onKey(KeyCode.A).pressing$.subscribe(({ delta }): void => void actorKeyboard.drive.default.addX(mpsSpeed(-10, delta.delta)));
+    onKey(KeyCode.A).pressing$.subscribe(({ delta }): void => void actorKeyboard.drive.default.addX(mpsSpeed(metersPerSecond(-10), delta.delta)));
     onKey(KeyCode.A).pressed$.subscribe((): void => void actorKeyA.drive.default.addY(-0.2));
     onKey(KeyCode.A).released$.subscribe((): void => void actorKeyA.drive.default.addY(0.2));
 
-    onKey(KeyCode.S).pressing$.subscribe(({ delta }): void => void actorKeyboard.drive.default.addZ(mpsSpeed(10, delta.delta)));
+    onKey(KeyCode.S).pressing$.subscribe(({ delta }): void => void actorKeyboard.drive.default.addZ(mpsSpeed(metersPerSecond(10), delta.delta)));
     onKey(KeyCode.S).pressed$.subscribe((): void => void actorKeyS.drive.default.addY(-0.2));
     onKey(KeyCode.S).released$.subscribe((): void => void actorKeyS.drive.default.addY(0.2));
 
-    onKey(KeyCode.D).pressing$.subscribe(({ delta }): void => void actorKeyboard.drive.default.addX(mpsSpeed(10, delta.delta)));
+    onKey(KeyCode.D).pressing$.subscribe(({ delta }): void => void actorKeyboard.drive.default.addX(mpsSpeed(metersPerSecond(10), delta.delta)));
     onKey(KeyCode.D).pressed$.subscribe((): void => void actorKeyD.drive.default.addY(-0.2));
     onKey(KeyCode.D).released$.subscribe((): void => void actorKeyD.drive.default.addY(0.2));
 
@@ -106,7 +119,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
         const azimuth: number = getMouseAzimuthAndElevation(position, actorMouse.drive.getPosition()).azimuth;
 
         actorMouse.drive.kinematic.setLinearAzimuthRad(radians(azimuth));
-        actorMouse.drive.kinematic.setLinearSpeed(meters(5));
+        actorMouse.drive.kinematic.setLinearSpeed(metersPerSecond(5));
       }
     });
 
