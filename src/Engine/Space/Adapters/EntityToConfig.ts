@@ -62,7 +62,6 @@ export function spaceToConfig(
     textures: textureService.serializeAllResources()
   };
 
-  // TODO 15-0-0: fix any
   return filterOutEmptyFields({
     canvasSelector: entity.getCanvasSelector(),
     version: entity.version as SpaceSchemaVersion,
