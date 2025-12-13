@@ -38,4 +38,4 @@ export function setActiveWrappedEntity<E extends IWithActiveMixin & IRegistrable
 }
 
 export const findActiveWrappedEntity = <E extends IWithActiveMixin & IRegistrable>(registry: IProtectedRegistry<IAbstractEntityRegistry<E>>): E | undefined =>
-  registry.find((entity: E): boolean => entity.isActive);
+  registry.find((entity: E): boolean => entity.isActive());

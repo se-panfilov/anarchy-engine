@@ -6,7 +6,7 @@ export function ScenesService(factory: ISceneFactory, registry: ISceneRegistry):
   const withActive: IWithActiveMixinResult<ISceneWrapper> = withActiveEntityServiceMixin<ISceneWrapper>(registry);
 
   registry.added$.subscribe((wrapper: ISceneWrapper): void => {
-    if (wrapper.isActive) withActive.active$.next(wrapper);
+    if (wrapper.isActive()) withActive.active$.next(wrapper);
   });
   factory.entityCreated$.subscribe((wrapper: ISceneWrapper): void => registry.add(wrapper));
 

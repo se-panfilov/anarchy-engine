@@ -11,7 +11,6 @@ import type {
   ISpaceConfig,
   IText2dWrapper,
   ITextAnyWrapper,
-  ITextFactory,
   IWithCoordsXZ
 } from '@/Engine';
 import { buildSpaceFromConfig, createCirclePathXZ, defaultMoverServiceConfig, Easing, EulerWrapper, generateAnglesForCircle, isNotDefined, mouseService, TextType, Vector3Wrapper } from '@/Engine';

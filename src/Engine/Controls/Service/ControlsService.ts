@@ -8,7 +8,7 @@ import { isNotDefined } from '@/Engine/Utils';
 export function ControlService(factory: IControlsFactory, registry: IControlsRegistry, canvas: IAppCanvas): IControlsService {
   const withActive: IWithActiveMixinResult<IControlsWrapper> = withActiveEntityServiceMixin<IControlsWrapper>(registry);
   registry.added$.subscribe((wrapper: IControlsWrapper): void => {
-    if (wrapper.isActive) withActive.active$.next(wrapper);
+    if (wrapper.isActive()) withActive.active$.next(wrapper);
   });
   factory.entityCreated$.subscribe((wrapper: IControlsWrapper): void => registry.add(wrapper));
 

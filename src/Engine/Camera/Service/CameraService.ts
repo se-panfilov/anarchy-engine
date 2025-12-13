@@ -11,7 +11,7 @@ export function CameraService(factory: ICameraFactory, registry: ICameraRegistry
   const withActive: IWithActiveMixinResult<ICameraWrapper> = withActiveEntityServiceMixin<ICameraWrapper>(registry);
   registry.added$.subscribe((wrapper: ICameraWrapper): void => {
     scene.addCamera(wrapper);
-    if (wrapper.isActive) withActive.active$.next(wrapper);
+    if (wrapper.isActive()) withActive.active$.next(wrapper);
   });
   factory.entityCreated$.subscribe((wrapper: ICameraWrapper): void => registry.add(wrapper));
 
@@ -21,7 +21,7 @@ export function CameraService(factory: ICameraFactory, registry: ICameraRegistry
     const cameras: ReadonlyArray<ICameraWrapper> = registry.getAll();
     screenSize$ = ambientContext.screenSizeWatcher.value$.subscribe((params: IScreenSizeValues): void => {
       cameras.forEach((camera: ICameraWrapper): void => {
-        if ((isOnlyActive && camera.isActive) || !isOnlyActive) camera.setAspect(params.width / params.height);
+        if ((isOnlyActive && camera.isActive()) || !isOnlyActive) camera.setAspect(params.width / params.height);
       });
     });
   }

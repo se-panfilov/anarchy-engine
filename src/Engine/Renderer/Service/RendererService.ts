@@ -9,7 +9,7 @@ export function RendererService(factory: IRendererFactory, registry: IRendererRe
   const active$: Subject<IRendererWrapper> = new Subject<IRendererWrapper>();
 
   registry.added$.subscribe((wrapper: IRendererWrapper): void => {
-    if (wrapper.isActive) active$.next(wrapper);
+    if (wrapper.isActive()) active$.next(wrapper);
   });
   factory.entityCreated$.subscribe((wrapper: IRendererWrapper): void => registry.add(wrapper));
 

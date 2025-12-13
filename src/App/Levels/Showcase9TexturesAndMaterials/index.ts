@@ -1,7 +1,7 @@
 import { combineLatest } from 'rxjs';
 
 import type { IShowcase } from '@/App/Levels/Models';
-import type { IActorWrapperAsync, IAppCanvas, ICameraWrapper, ISpace, ISpaceConfig } from '@/Engine';
+import type { IActorAsyncRegistry, IActorWrapperAsync, IAppCanvas, ICameraWrapper, ISpace, ISpaceConfig } from '@/Engine';
 import { ambientContext, buildSpaceFromConfig, getRotationByCos, getRotationBySin, isDefined, isNotDefined, mouseService } from '@/Engine';
 
 import spaceConfig from './showcase-9-textures-and-materials.config.json';
@@ -17,7 +17,8 @@ export function showcase(canvas: IAppCanvas): IShowcase {
   // };
 
   async function init(): Promise<void> {
-    const { actorRegistry } = space.registries;
+    const { actorService } = space.services;
+    const actorRegistry: IActorAsyncRegistry = actorService.getRegistry();
     const actor: IActorWrapperAsync | undefined = await actorRegistry.findByTagAsync('central_actor');
     if (isNotDefined(actor)) throw new Error('Actor is not found');
 
