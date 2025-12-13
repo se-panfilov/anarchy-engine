@@ -1,4 +1,5 @@
 import type { IActorParams, IActorType } from '@Engine/Domains/Actor/Models';
+
 import type { IVector3dConfig } from '@/Engine/Models';
 
 export type IActorConfig = Omit<IActorParams, 'materialParams' | 'position'> &
