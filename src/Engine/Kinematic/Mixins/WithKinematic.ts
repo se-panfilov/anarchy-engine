@@ -30,11 +30,11 @@ export function withKinematic(params: TActorParams): TWithKinematic {
       },
       adjustDataByLinearVelocity(linearVelocity: Vector3): void {
         this.setLinearSpeed(linearVelocity.length());
-        this.setLinearDirection(linearVelocity.normalize());
+        this.setLinearDirection(linearVelocity.clone().normalize());
       },
       adjustDataFromAngularVelocity(angularVelocity: Vector3): void {
         this.setAngularSpeed(angularVelocity.length());
-        this.setAngularDirection(angularVelocity.normalize());
+        this.setAngularDirection(angularVelocity.clone().normalize());
       },
       isAutoUpdate: params.isKinematicAutoUpdate ?? false,
       getLinearSpeed(): number {
@@ -59,7 +59,8 @@ export function withKinematic(params: TActorParams): TWithKinematic {
       },
       setLinearAzimuth(azimuth: number): void {
         const azimuthRadians: number = MathUtils.degToRad(azimuth);
-        this.data.linearDirection.set(Math.cos(azimuthRadians), this.data.linearDirection.y, Math.sin(azimuthRadians));
+        const lengthXZ: number = Math.sqrt(this.data.linearDirection.x ** 2 + this.data.linearDirection.z ** 2);
+        this.data.linearDirection.set(Math.cos(azimuthRadians) * lengthXZ, this.data.linearDirection.y, Math.sin(azimuthRadians) * lengthXZ);
       },
       getLinearElevation(): number {
         return getElevationFromDirection(this.data.linearDirection);
@@ -68,9 +69,12 @@ export function withKinematic(params: TActorParams): TWithKinematic {
         const elevationRadians: number = MathUtils.degToRad(elevation);
         const currentAzimuth: number = Math.atan2(this.data.linearDirection.z, this.data.linearDirection.x);
 
-        const newX: number = Math.cos(currentAzimuth) * Math.cos(elevationRadians);
-        const newY: number = Math.sin(elevationRadians);
-        const newZ: number = Math.sin(currentAzimuth) * Math.cos(elevationRadians);
+        const length: number = this.data.linearDirection.length();
+        const newY: number = Math.sin(elevationRadians) * length;
+        const newLengthXZ: number = Math.cos(elevationRadians) * length;
+
+        const newX: number = Math.cos(currentAzimuth) * newLengthXZ;
+        const newZ: number = Math.sin(currentAzimuth) * newLengthXZ;
 
         this.data.linearDirection.set(newX, newY, newZ).normalize();
       },
@@ -96,7 +100,8 @@ export function withKinematic(params: TActorParams): TWithKinematic {
       },
       setAngularAzimuth(azimuth: number): void {
         const azimuthRadians: number = MathUtils.degToRad(azimuth);
-        this.data.angularDirection.set(Math.cos(azimuthRadians), this.data.angularDirection.y, Math.sin(azimuthRadians));
+        const lengthXZ: number = Math.sqrt(this.data.angularDirection.x ** 2 + this.data.angularDirection.z ** 2);
+        this.data.angularDirection.set(Math.cos(azimuthRadians) * lengthXZ, this.data.angularDirection.y, Math.sin(azimuthRadians) * lengthXZ);
       },
       getAngularElevation(): number {
         return getElevationFromDirection(this.data.angularDirection);
@@ -105,9 +110,12 @@ export function withKinematic(params: TActorParams): TWithKinematic {
         const elevationRadians: number = MathUtils.degToRad(elevation);
         const currentAzimuth: number = Math.atan2(this.data.angularDirection.z, this.data.angularDirection.x);
 
-        const newX: number = Math.cos(currentAzimuth) * Math.cos(elevationRadians);
-        const newY: number = Math.sin(elevationRadians);
-        const newZ: number = Math.sin(currentAzimuth) * Math.cos(elevationRadians);
+        const length: number = this.data.angularDirection.length();
+        const newY: number = Math.sin(elevationRadians) * length;
+        const newLengthXZ: number = Math.cos(elevationRadians) * length;
+
+        const newX: number = Math.cos(currentAzimuth) * newLengthXZ;
+        const newZ: number = Math.sin(currentAzimuth) * newLengthXZ;
 
         this.data.angularDirection.set(newX, newY, newZ).normalize();
       },
