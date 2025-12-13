@@ -1,7 +1,6 @@
 import type { TDeepWriteable } from '@Engine';
 import { Languages } from '@Menu/constants';
-import type { TGameSettings } from 'anarchy_engine_showcases/src/Levels/Showcase28Menu/Models';
-import type { TResolution } from 'anarchy_engine_showcases_desktop/src/Models';
+import type { TGameSettings, TResolution } from '@Shared/Showcase';
 import { defineStore } from 'pinia';
 import { reactive } from 'vue';
 
