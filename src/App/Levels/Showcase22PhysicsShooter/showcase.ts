@@ -3,6 +3,7 @@ import { Vector3 } from 'three';
 import type { Line2 } from 'three/examples/jsm/lines/Line2';
 
 import type { TShowcase } from '@/App/Levels/Models';
+import { enableCollisions } from '@/App/Levels/Showcase22PhysicsShooter/utils/Collisions';
 import type {
   TActorWrapperAsync,
   TActorWrapperWithPhysicsAsync,
@@ -67,16 +68,7 @@ export function showcase(canvas: TAppCanvas): TShowcase {
 
     startMoveActorWithKeyboard(heroW, keyboardService, mouseLineIntersectionsWatcher);
 
-    //enable collisions
-    actorService.getScene().entity.traverse((object: Object3D): void => {
-      if ((object as Mesh).isMesh) {
-        collisionsService.initializeRaycastBvh(object as Mesh);
-        collisionsService.addObjectToGrid(object);
-        collisionsService.visualizeRaycastBvh(object as Mesh, actorService.getScene().entity);
-      }
-    });
-
-    // collisionsService.visualizeRBush(collisionsService.getSpatialGrid(), actorService.getScene().entity);
+    enableCollisions(actorService.getScene(), collisionsService);
 
     let mouseLineIntersections: TIntersectionEvent = { point: new Vector3(), distance: 0 } as Intersection;
     mouseLineIntersectionsWatcher.value$.subscribe((intersection: TIntersectionEvent): void => void (mouseLineIntersections = intersection));
