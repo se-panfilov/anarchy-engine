@@ -9,6 +9,7 @@ import spaceAlphaConfigJson from './spaceAlpha.json';
 import spaceBetaConfigJson from './spaceBeta.json';
 
 const tracked = new Map<Subscription, { sub: Subscription; stack: string }>();
+let untrackedSubscriptionsCount: number = 0;
 hackRxJsSubscriptions(tracked);
 
 const spaceAlphaConfig: TSpaceConfig = spaceAlphaConfigJson as TSpaceConfig;
@@ -40,7 +41,8 @@ export function start(): void {
     console.log('Subscriptions before destroy:', tracked.size);
     console.log('Cleaning up...');
     spaceAlpha.destroy$.next();
-    setTimeout(() => console.log('Subscriptions after destroy:', tracked.size), 1000);
+
+    setTimeout(() => console.log('Alive subscriptions after destroy (without untracked):', tracked.size - untrackedSubscriptionsCount), 1000);
     setTimeout(() => console.log(tracked), 1000);
   });
 
@@ -118,7 +120,7 @@ function hackRxJsSubscriptions(tracked: Map<Subscription, { sub: Subscription; s
       if (tracked.has(subscription)) {
         tracked.delete(subscription);
       } else {
-        console.warn('Attempted to unsubscribe untracked subscription');
+        untrackedSubscriptionsCount++;
       }
       return originalUnsubscribe();
     };
