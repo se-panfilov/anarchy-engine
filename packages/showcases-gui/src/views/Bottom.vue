@@ -1,18 +1,22 @@
 <script setup lang="ts">
 import ActionButton from '@Showcases/GUI/components/ActionButton.vue';
 import ValueBar from '@Showcases/GUI/components/ValueBar.vue';
+import { useGuiButtonStore } from '@Showcases/GUI/stores/GuiButtonsStore';
 import { vueTranslationService } from '@Showcases/i18n';
-import { Backpack, Heart, Map, Settings, Shield, Sword, Zap } from 'lucide-vue-next';
+import { Heart, Sword, Zap } from 'lucide-vue-next';
 import type { ShallowRef } from 'vue';
+import { computed } from 'vue';
 
 const { $t } = vueTranslationService;
 const valueEnergyTitle: ShallowRef<string> = $t('gui.bottom.bar.energy.title');
 const valueHealthTitle: ShallowRef<string> = $t('gui.bottom.bar.health.title');
 const buttonAttackTitle: ShallowRef<string> = $t('gui.bottom.button.attack.title');
-const buttonDefendTitle: ShallowRef<string> = $t('gui.bottom.button.defend.title');
-const buttonInventoryTitle: ShallowRef<string> = $t('gui.bottom.button.inventory.title');
-const buttonMapTitle: ShallowRef<string> = $t('gui.bottom.button.map.title');
-const buttonSettingsTitle: ShallowRef<string> = $t('gui.bottom.button.settings.title');
+
+const buttons = computed(() => {
+  return useGuiButtonStore()
+    .buttonsList()
+    .filter((button) => button.isVisible);
+});
 </script>
 
 <template>
@@ -24,25 +28,26 @@ const buttonSettingsTitle: ShallowRef<string> = $t('gui.bottom.button.settings.t
         </ValueBar>
 
         <div class="action-buttons">
-          <ActionButton :title="buttonAttackTitle" data-key="LMB">
+          <ActionButton v-for="button in buttons" :key="button.id" :title="buttonAttackTitle" :data-key="button.key">
+            {{ button.title }}
             <Sword />
           </ActionButton>
 
-          <ActionButton :title="buttonDefendTitle" data-key="RMB">
-            <Shield />
-          </ActionButton>
+          <!--          <ActionButton :title="buttonDefenseTitle" data-key="RMB">-->
+          <!--            <Shield />-->
+          <!--          </ActionButton>-->
 
-          <ActionButton :title="buttonInventoryTitle" data-key="I">
-            <Backpack />
-          </ActionButton>
+          <!--          <ActionButton :title="buttonInventoryTitle" data-key="I">-->
+          <!--            <Backpack />-->
+          <!--          </ActionButton>-->
 
-          <ActionButton :title="buttonMapTitle" data-key="M">
-            <Map />
-          </ActionButton>
+          <!--          <ActionButton :title="buttonMapTitle" data-key="M">-->
+          <!--            <Map />-->
+          <!--          </ActionButton>-->
 
-          <ActionButton :title="buttonSettingsTitle" data-key="Esc">
-            <Settings />
-          </ActionButton>
+          <!--          <ActionButton :title="buttonSettingsTitle" data-key="Esc">-->
+          <!--            <Settings />-->
+          <!--          </ActionButton>-->
         </div>
 
         <ValueBar :title="valueHealthTitle" :current="85" :max="100" color="red">

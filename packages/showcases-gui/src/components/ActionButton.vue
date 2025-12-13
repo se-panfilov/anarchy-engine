@@ -1,7 +1,9 @@
 <script setup lang="ts">
+import { isDefined } from '@Anarchy/Shared/Utils';
+
 defineProps<{
   title: string;
-  dataKey?: string;
+  dataKey?: string | undefined;
 }>();
 </script>
 
@@ -10,7 +12,7 @@ defineProps<{
     <span class="action-btn__content">
       <slot />
     </span>
-    <span class="action-btn__keybind">{{ dataKey }}</span>
+    <span v-if="isDefined(dataKey)" class="action-btn__keybind">{{ dataKey }}</span>
   </button>
 </template>
 

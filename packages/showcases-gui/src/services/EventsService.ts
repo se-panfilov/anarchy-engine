@@ -1,5 +1,7 @@
+import type { KeyCode, MouseButtonValue } from '@Anarchy/Engine';
 import { isNotDefined } from '@Anarchy/Shared/Utils';
 import type { TEventsService } from '@Showcases/GUI/models';
+import { useGuiButtonStore } from '@Showcases/GUI/stores/GuiButtonsStore';
 import type { TFromGuiEvent, TToGuiEvent } from '@Showcases/Shared';
 import { FromGuiEvents, ToGuiEvents } from '@Showcases/Shared';
 import type { Observable, Subject, Subscription } from 'rxjs';
@@ -28,11 +30,14 @@ function EventsService(): TEventsService {
 
   function handleToGuiEvents(event: TToGuiEvent): void {
     switch (event.type) {
-      case ToGuiEvents.MOCK: {
-        // console.log('[EventsService]: MOCK!!!');
-        // TODO DESKTOP: Implement
-        // if (!isSettings(event.payload)) throw new Error(`[EventsService]: Failed to apply settings: Invalid payload`);
-        // useSettingsStore().setState(event.payload);
+      case ToGuiEvents.KeyPress: {
+        if (isNotDefined(event.payload?.key)) throw new Error('[EventsService]: KeyPress event payload key is not defined');
+        useGuiButtonStore().setActiveButtonByKey(event.payload.key as KeyCode | MouseButtonValue, true);
+        break;
+      }
+      case ToGuiEvents.KeyRelease: {
+        if (isNotDefined(event.payload?.key)) throw new Error('[EventsService]: KeyRelease event payload key is not defined');
+        useGuiButtonStore().setActiveButtonByKey(event.payload.key as KeyCode | MouseButtonValue, false);
         break;
       }
       default: {

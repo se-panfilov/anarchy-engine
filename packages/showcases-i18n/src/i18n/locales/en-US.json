@@ -5,7 +5,7 @@
   "gui.bottom.bar.energy.title": "Energy",
   "gui.bottom.bar.health.title": "Health",
   "gui.bottom.button.attack.title": "Attack",
-  "gui.bottom.button.defend.title": "Defend",
+  "gui.bottom.button.defense.title": "Defend",
   "gui.bottom.button.inventory.title": "Inventory",
   "gui.bottom.button.map.title": "Map",
   "gui.bottom.button.settings.title": "Settings",

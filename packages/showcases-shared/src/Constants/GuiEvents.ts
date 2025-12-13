@@ -3,6 +3,6 @@ export enum FromGuiEvents {
 }
 
 export enum ToGuiEvents {
-  // TODO DESKTOP: Implement
-  MOCK = 'app:mock'
+  KeyPress = 'key:press',
+  KeyRelease = 'key:release'
 }
