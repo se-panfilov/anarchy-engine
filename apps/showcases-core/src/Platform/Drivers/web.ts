@@ -73,7 +73,7 @@ export function Driver(): TPlatformDriver {
     return settingsWebDbService.setSettings(settings);
   }
 
-  const getReleaseName = (): Promise<string> => Promise.resolve(`${import.meta.env.VITE_RELEASE_NAME_PREFIX}_${import.meta.env.__APP_VERSION__}`);
+  const getReleaseName = (): Promise<string> => Promise.resolve(`${import.meta.env.VITE_RELEASE_NAME_PREFIX}@${import.meta.env.__APP_VERSION__}`);
 
   return {
     closeApp,
