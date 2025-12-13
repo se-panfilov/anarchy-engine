@@ -12,7 +12,6 @@ import type {
   TDirectionalLightParams,
   TDirectionalLightShadowConfig,
   TDirectionalLightShadowParams,
-  TDirectionalLightWrapper,
   THemisphereLightConfig,
   THemisphereLightWrapper,
   TLight,
@@ -26,7 +25,7 @@ import type {
   TSpotLightWrapper
 } from '@/Engine/Light/Models';
 import { extractSerializableRegistrableFields } from '@/Engine/Mixins';
-import { filterOutEmptyFields, isDefined, isNotDefined, omitInObjectWithoutMutation } from '@/Engine/Utils';
+import { filterOutEmptyFields, isDefined, isNotDefined } from '@/Engine/Utils';
 
 // TODO 15-0-0: validate result
 export function lightToConfig<T extends TLight>(entity: TAbstractLightWrapper<T>): TDirectionalLightConfig | THemisphereLightConfig | TRectAreaLightConfig | TAmbientLightConfig | TSpotLightConfig {
@@ -39,7 +38,7 @@ export function lightToConfig<T extends TLight>(entity: TAbstractLightWrapper<T>
     color: `#${entity.entity.color.getHexString()}`,
     intensity: (json as unknown as TAbstractLightConfig<T>).intensity,
     castShadow: json.castShadow,
-    ...onlyDirectionalLightToConfig(entity as TDirectionalLightWrapper),
+    // ...onlyDirectionalLightToConfig(entity as TDirectionalLightWrapper),
     ...onlyHemisphereLightToConfig(entity as THemisphereLightWrapper),
     ...onlyRectAreaLightToConfig(entity as TRectAreaLightWrapper),
     ...onlyPointLightToConfig(entity as TPointLightWrapper),
@@ -50,15 +49,15 @@ export function lightToConfig<T extends TLight>(entity: TAbstractLightWrapper<T>
   });
 }
 
-export function onlyDirectionalLightToConfig(entity: TDirectionalLightWrapper): Partial<TDirectionalLightConfig> {
-  const json: Object3DJSONObject = entity.entity.toJSON().object;
-
-  return filterOutEmptyFields({
-    layers: json.layers,
-    matrix: json.matrix,
-    up: json.up
-  });
-}
+// export function onlyDirectionalLightToConfig(entity: TDirectionalLightWrapper): Partial<TDirectionalLightConfig> {
+//   const json: Object3DJSONObject = entity.entity.toJSON().object;
+//
+//   return filterOutEmptyFields({
+//     layers: json.layers,
+//     // matrix: json.matrix,
+//     // up: json.up
+//   });
+// }
 
 export function onlyHemisphereLightToConfig(entity: THemisphereLightWrapper): Partial<THemisphereLightConfig> {
   const json: Object3DJSONObject = entity.entity.toJSON().object;
@@ -112,7 +111,15 @@ export function onlyLightShadowToConfig<T extends TLight>(
     shadow: {
       ...shadow,
       mapSize: getMapSize(shadow),
-      camera: omitInObjectWithoutMutation(shadow.camera as TCamera, ['uuid']) as TLightShadowConfig['camera'] | TDirectionalLightShadowConfig['camera']
+      //{ far: number; left?: number; right?: number; top?: number; bottom?: number }
+      // camera: omitInObjectWithoutMutation(shadow.camera as TCamera, ['uuid']) as TLightShadowConfig['camera'] | TDirectionalLightShadowConfig['camera']
+      camera: filterOutEmptyFields({
+        far: shadow.camera.far,
+        left: (shadow.camera as TDirectionalLightShadowConfig['camera']).left,
+        right: (shadow.camera as TDirectionalLightShadowConfig['camera']).right,
+        top: (shadow.camera as TDirectionalLightShadowConfig['camera']).top,
+        bottom: (shadow.camera as TDirectionalLightShadowConfig['camera']).bottom
+      }) as TCamera
     }
   });
 }
