@@ -1,3 +1,7 @@
+import type { Client } from '@sentry/core';
+import type { ExclusiveEventHintOrCaptureContext } from '@sentry/core/build/types/utils/prepareEvent';
+
 export type TTrackingService = Readonly<{
-  // TODO DESKTOP: implement tracking service
+  client: Client | undefined;
+  captureException: (exception: unknown, hint?: ExclusiveEventHintOrCaptureContext) => string;
 }>;
