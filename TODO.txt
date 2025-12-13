@@ -5,27 +5,28 @@ Done:
 - 5.x.x Raycasting & Collision detection
 - 5.2.1 Production build fix (WASM)
 - 6.0.x Complex models
+- 7.x.x Animations
 
 Roadmap:
-- 7.x.x Animations
-- 7.1.x Lines domain
-- 7.2.x Refactor Vector/TVectorWrapper (should be Vector everywhere)
-- 8.0.x Sounds/Music
-- 8.1.x Tags should be optional
-- 8.2.x GUI
-- 8.3.x Pausing (timers)
-- 8.4.x Registries refactoring (explicitly register/not register entities)
-- 8.5.x Logging
-- 9.0.x Deletion (memory management)
-- 10.0.0 Multiple scenes full support (unload/load scenes)
-- 10.1.x Building app (desktop/mobile) (might be not a part of an engine)
-- 10.2.x Testing (screenshot tests)
-- 11.0.x Split apps and engine
-- 11.1.x Performance improvements (make sure actors, materials and env maps are async)
-- 11.2.x Extract materials form actors
-- 11.3.x npm package and a repo
-- 12.0.x Shaders
-- 13.x.x Save/Load
+- 8.x.x Actors with models & animations
+- 8.1.x Lines domain
+- 8.2.x Refactor Vector/TVectorWrapper (should be Vector everywhere)
+- 9.0.x Sounds/Music
+- 9.1.x Tags should be optional
+- 9.2.x GUI
+- 9.3.x Pausing (timers)
+- 9.4.x Registries refactoring (explicitly register/not register entities)
+- 9.5.x Logging
+- 10.0.x Deletion (memory management)
+- 11.0.0 Multiple scenes full support (unload/load scenes)
+- 11.1.x Building app (desktop/mobile) (might be not a part of an engine)
+- 11.2.x Testing (screenshot tests)
+- 12.0.x Split apps and engine
+- 12.1.x Performance improvements (make sure actors, materials and env maps are async)
+- 12.2.x Extract materials form actors
+- 12.3.x npm package and a repo
+- 13.0.x Shaders
+- 14.x.x Save/Load
 
 Global Refactoring:
 - extract materials from actors, keep there an alias to a material to be able to reuse the same material
