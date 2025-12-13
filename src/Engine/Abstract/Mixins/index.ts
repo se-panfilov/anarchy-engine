@@ -1,1 +1,1 @@
-export * from './WithWrapperId';
+export * from './WithWrapperIdMixin';

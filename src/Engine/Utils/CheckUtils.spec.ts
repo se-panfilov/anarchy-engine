@@ -25,7 +25,7 @@ import {
   isVector4Wrapper,
   isWithUserData,
   isWithWrapperId,
-  IWithWrapperIdAccessors
+  isWithWrapperIdAccessors
 } from './CheckUtils';
 
 describe('CheckUtils', () => {
@@ -249,11 +249,11 @@ describe('CheckUtils', () => {
 
   describe('IWithWrapperIdAccessors', () => {
     it('should return "true" an object has accessors', () => {
-      expect(IWithWrapperIdAccessors({ setWrapperId: vi.fn(), getWrapperId: vi.fn() })).toBe(true);
+      expect(isWithWrapperIdAccessors({ setWrapperId: vi.fn(), getWrapperId: vi.fn() })).toBe(true);
     });
 
     it('should return "false" an object has NO accessors', () => {
-      expect(IWithWrapperIdAccessors({})).toBe(false);
+      expect(isWithWrapperIdAccessors({})).toBe(false);
     });
   });
 

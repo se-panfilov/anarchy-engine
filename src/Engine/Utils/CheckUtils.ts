@@ -33,7 +33,7 @@ export function isColorWrapper(obj: unknown): obj is IColorWrapper {
 
 export const isWithUserData = (entity: any): entity is IWithUserData => isDefined((entity as IWithUserData).userData);
 
-export const IWithWrapperIdAccessors = (entity: any): entity is IWithWrapperId => isDefined((entity as IWithWrapperId).setWrapperId) && isDefined((entity as IWithWrapperId).getWrapperId);
+export const isWithWrapperIdAccessors = (entity: any): entity is IWithWrapperId => isDefined((entity as IWithWrapperId).setWrapperId) && isDefined((entity as IWithWrapperId).getWrapperId);
 
 export function isWithWrapperId<T extends IWithUserData>(obj: unknown): obj is IWithWrapperIdEntity<T> {
   return isDefined(obj) && isObject(obj) && isDefined((obj as IWithWrapperIdEntity<T>).userData) && isDefined((obj as IWithWrapperIdEntity<T>).userData.wrapperId);

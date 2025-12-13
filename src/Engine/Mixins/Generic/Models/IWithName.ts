@@ -6,4 +6,4 @@ export type IWithNameAccessors = Readonly<{
   setName: (name: string) => void;
 }>;
 
-export type IWithNameAndNameAccessors = IWriteable<IWithName> & IWithNameAccessors;
+export type IWithNameAndNameAccessorsMixin = IWriteable<IWithName> & IWithNameAccessors;

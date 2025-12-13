@@ -4,7 +4,7 @@ import { Subject } from 'rxjs';
 import type { WatcherType } from '@/Engine/Abstract/Constants';
 import type { IAbstractWatcher } from '@/Engine/Abstract/Models';
 import type { IDestroyable } from '@/Engine/Mixins';
-import { destroyableMixin, withNameAndNameAccessors } from '@/Engine/Mixins';
+import { destroyableMixin, withNameAndNameAccessorsMixin } from '@/Engine/Mixins';
 import { withTagsMixin } from '@/Engine/Mixins/Generic';
 import { isDefined } from '@/Engine/Utils';
 
@@ -20,7 +20,7 @@ export function AbstractWatcher<T>(type: WatcherType | string, name: string | un
     name,
     type,
     value$,
-    ...withNameAndNameAccessors,
+    ...withNameAndNameAccessorsMixin(),
     ...withTagsMixin(tags),
     ...destroyable
   };

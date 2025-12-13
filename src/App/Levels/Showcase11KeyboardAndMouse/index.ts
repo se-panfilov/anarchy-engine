@@ -117,8 +117,6 @@ export function showcase(canvas: IAppCanvas): IShowcase {
     const actor: IActorWrapperAsync | undefined = await findByNameAsync('surface');
     if (isNotDefined(actor)) throw new Error('Actor is not defined');
 
-    console.log({ actors: [actor], camera, isAutoStart: true, position$: mouseService.position$, tags: [] });
-
     return intersectionsWatcherService.create({ actors: [actor], camera, isAutoStart: true, position$: mouseService.position$, tags: [] });
   }
 
