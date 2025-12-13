@@ -1,5 +1,5 @@
 import { isDefined } from '@Anarchy/Shared/Utils';
-import { eventsService, translationService } from '@Showcases/Menu/services';
+import { eventsService, vueTranslationService } from '@Showcases/Menu/services';
 import { useMenuOptionsStore } from '@Showcases/Menu/stores/MenuOptionsStore';
 import type { TFromMenuEvent, TMenuOptions, TToMenuEvent } from '@Showcases/Shared';
 import { createPinia } from 'pinia';
@@ -11,7 +11,7 @@ import App from './App.vue';
 
 export async function initMenuApp(id: string, fromMenuBus$: Subject<TFromMenuEvent>, toMenuBus$: Observable<TToMenuEvent>, options?: TMenuOptions): Promise<void> {
   const menuApp: VueApp<Element> = createApp(App);
-  await translationService.waitInitialReady();
+  await vueTranslationService.waitInitialReady();
   menuApp.use(createPinia());
   eventsService.setFromMenuBus(fromMenuBus$);
   eventsService.setToMenuBus(toMenuBus$);

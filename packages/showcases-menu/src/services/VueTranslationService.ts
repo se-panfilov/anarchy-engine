@@ -6,7 +6,7 @@ import { Locales } from '@Showcases/Shared';
 import type { Subscription } from 'rxjs';
 import { filter } from 'rxjs';
 
-export function TranslationService(localesMapping: TLocalesMapping<Locales> = locales): TTranslationService {
+export function VueTranslationService(localesMapping: TLocalesMapping<Locales> = locales): TTranslationService {
   const i18n: TTranslateService<Locales> = TranslateService<Locales>(Locales.en, Locales.en, localesMapping);
 
   const isReadyPromise: Promise<void> = new Promise<void>((resolve, reject): void => {
@@ -29,4 +29,4 @@ export function TranslationService(localesMapping: TLocalesMapping<Locales> = lo
   return Object.assign(i18n, { waitInitialReady });
 }
 
-export const translationService: TTranslationService = TranslationService();
+export const vueTranslationService: TTranslationService = VueTranslationService();

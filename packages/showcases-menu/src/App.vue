@@ -2,7 +2,7 @@
 import './assets/style.scss';
 
 import RouterView from '@Showcases/Menu/components/RouterView.vue';
-import { eventsService, translationService } from '@Showcases/Menu/services';
+import { eventsService, vueTranslationService } from '@Showcases/Menu/services';
 import { useSettingsStore } from '@Showcases/Menu/stores/SettingsStore';
 import { Locales } from '@Showcases/Shared';
 import type { Subscription } from 'rxjs';
@@ -11,10 +11,10 @@ import { onMounted, onUnmounted } from 'vue';
 let appEventsSub$: Subscription | undefined;
 
 // TODO DESKTOP: DEBUG CODE
-console.log('XXX1', translationService.translate('menu.start'));
-translationService.locale$.next(Locales.nl);
+console.log('XXX1', vueTranslationService.translate('menu.start'));
+vueTranslationService.locale$.next(Locales.nl);
 setTimeout(() => {
-  console.log('XXX2', translationService.translate('menu.start'));
+  console.log('XXX2', vueTranslationService.translate('menu.start'));
 }, 500);
 
 // console.log(i18n.translate('hud.fps', { count: '60' }));
@@ -35,7 +35,7 @@ function save(): void {
 
 <template>
   <div class="main-menu">
-    <div>{{ translationService.translate('menu.start') }}</div>
+    <div>{{ vueTranslationService.translate('menu.start') }}</div>
     <RouterView class="main-menu__item -view" @save="save" />
   </div>
 </template>

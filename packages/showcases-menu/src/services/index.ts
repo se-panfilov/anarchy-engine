@@ -1,2 +1,2 @@
 export * from './EventsService';
-export * from './TranslationService';
+export * from './VueTranslationService';
