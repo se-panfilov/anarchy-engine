@@ -22,10 +22,9 @@ export function KinematicTransformAgent(params: TKinematicTransformAgentParams, 
 
   let kinematicSub$: Subscription | undefined = undefined;
 
-  const tempObject = new Object3D();
-  // TODO 8.0.0. MODELS: Destroy subscriptions linearDirection & displacement on agent destroy
-  const linearDirection = new Vector3();
-  const displacement = new Vector3();
+  let tempObject: Object3D = new Object3D();
+  let linearDirection: Vector3 = new Vector3();
+  let displacement: Vector3 = new Vector3();
 
   const destroySub$: Subscription = abstractTransformAgent.destroy$.subscribe((): void => {
     //Stop subscriptions
@@ -35,6 +34,12 @@ export function KinematicTransformAgent(params: TKinematicTransformAgentParams, 
     abstractTransformAgent.destroy$.next();
 
     tempObject.parent?.remove(tempObject);
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+    tempObject = null as any;
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+    linearDirection = null as any;
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+    displacement = null as any;
   });
 
   const agent: Omit<TKinematicTransformAgent, 'data'> & Readonly<{ data: TKinematicWritableData }> = {
