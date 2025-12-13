@@ -273,8 +273,8 @@
         "material": {
           "$ref": "#/definitions/TMaterialPackConfig%3CTMaterialTexturePack%3E"
         },
-        "type": {
-          "$ref": "#/definitions/Model3dType"
+        "model3d": {
+          "$ref": "#/definitions/TModel3dConfig"
         },
         "width": {
           "type": "number"
@@ -313,7 +313,7 @@
           "type": "string"
         }
       },
-      "required": ["castShadow", "material", "position", "spatial", "tags", "type"]
+      "required": ["castShadow", "material", "model3d", "position", "spatial", "tags"]
     },
     "TCollisionsDataConfig": {
       "type": "object",
@@ -2015,6 +2015,26 @@
           "$ref": "#/definitions/TTexturePackParams"
         }
       },
+      "additionalProperties": false
+    },
+    "TModel3dConfig": {
+      "$ref": "#/definitions/TModel3dProps"
+    },
+    "TModel3dProps": {
+      "type": "object",
+      "properties": {
+        "url": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/Model3dType"
+            },
+            {
+              "type": "string"
+            }
+          ]
+        }
+      },
+      "required": ["url"],
       "additionalProperties": false
     },
     "Model3dType": {

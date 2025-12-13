@@ -20,7 +20,7 @@ export function Models3dService(registry: TModels3dAsyncRegistry): TModels3dServ
   // }
 
   // function loadAsync({ url }: TModel3dParams, isForce: boolean = false): Promise<void> {
-  function loadAsync({ url }: TModel3dParams): Promise<void> {
+  function loadAsync({ url }: TModel3dParams): Promise<Mesh> {
     if ([...Object.values(Model3dType)].includes(url as Model3dType)) throw new Error(`Trying to load a primitive(e.g. cube, sphere, etc.) as an imported model: ${url}`);
 
     // TODO debug
@@ -38,6 +38,7 @@ export function Models3dService(registry: TModels3dAsyncRegistry): TModels3dServ
       (window as any).scene.add(gltf.scene);
 
       // TODO debug
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-return
       return gltf.scene as any;
     });
   }
