@@ -13,12 +13,8 @@
   "dependencies": {
     "@tweakpane/core": "1.1.0",
     "@tweakpane/plugin-essentials": "0.1.5",
-    "awilix": "8.0.1",
-    "install": "0.13.0",
     "nanoid": "4.0.0",
-    "npm": "9.6.5",
     "rxjs": "7.5.7",
-    "sanitize.css": "13.0.0",
     "three": "0.146.0",
     "tweakpane": "3.1.0"
   },
