@@ -6,7 +6,7 @@ defineProps<{
 </script>
 
 <template>
-  <button class="action-btn" :data-label="title" :data-key="dataKey">
+  <button type="button" class="action-btn" :aria-label="title">
     <span class="action-btn__content">
       <slot />
     </span>

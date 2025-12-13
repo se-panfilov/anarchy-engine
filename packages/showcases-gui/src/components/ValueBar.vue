@@ -8,27 +8,25 @@ defineProps<{
 </script>
 
 <template>
-  <div class="stat__container">
-    <div class="stat__bar" :class="`-` + (color || 'blue')">
-      <div class="stat__header">
-        <div class="stat__icon">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
-          </svg>
+  <div class="value-bar__container">
+    <div class="value-bar__bar" :class="`-` + (color || 'blue')">
+      <div class="value-bar__header">
+        <div class="value-bar__icon">
+          <slot />
         </div>
-        <span class="stat__label">{{ title }}</span>
-        <span class="stat__value">
-          <span class="stat__current">{{ current }}</span
-          >/<span class="stat__max">{{ max }}</span>
+        <span class="value-bar__label">{{ title }}</span>
+        <span class="value-bar__value">
+          <span class="value-bar__current">{{ current }}</span
+          >/<span class="value-bar__max">{{ max }}</span>
         </span>
       </div>
-      <div class="stat__bar-container">
-        <div class="stat__bar-bg" />
-        <div class="stat__bar-grid" />
-        <div class="stat__bar-fill" :style="`width: ${current}%`">
-          <div class="stat__bar-shine" />
+      <div class="value-bar__bar-container">
+        <div class="value-bar__bar-bg" />
+        <div class="value-bar__bar-grid" />
+        <div class="value-bar__bar-fill" :style="`width: ${current}%`">
+          <div class="value-bar__bar-shine" />
         </div>
-        <div class="stat__bar-text">{{ current }}%</div>
+        <div class="value-bar__bar-text">{{ current }}%</div>
       </div>
     </div>
   </div>
@@ -45,7 +43,7 @@ $red-400: #f87171;
 $orange-400: #fb923c;
 $red-950: #450a0a;
 
-.stat {
+.value-bar {
   &__container {
     flex: 1;
     display: flex;
@@ -92,38 +90,38 @@ $red-950: #450a0a;
   // Bar colors
   &__bar {
     &.-blue {
-      .stat__icon {
+      .value-bar__icon {
         color: $blue-400;
       }
 
-      .stat__value {
+      .value-bar__value {
         color: $blue-400;
       }
 
-      .stat__bar-bg {
+      .value-bar__bar-bg {
         background-color: rgba($blue-950, 0.5);
       }
 
-      .stat__bar-fill {
+      .value-bar__bar-fill {
         background: linear-gradient(to right, $blue-500, $blue-400, $cyan-400);
         box-shadow: 0 0 20px rgba($blue-500, 0.5);
       }
     }
 
     &.-red {
-      .stat__icon {
+      .value-bar__icon {
         color: $red-400;
       }
 
-      .stat__value {
+      .value-bar__value {
         color: $red-400;
       }
 
-      .stat__bar-bg {
+      .value-bar__bar-bg {
         background-color: rgba($red-950, 0.5);
       }
 
-      .stat__bar-fill {
+      .value-bar__bar-fill {
         background: linear-gradient(to right, $red-500, $red-400, $orange-400);
         box-shadow: 0 0 20px rgba($red-500, 0.5);
       }
