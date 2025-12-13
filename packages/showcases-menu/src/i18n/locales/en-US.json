@@ -1,8 +1,17 @@
 {
+  "main-menu.home.button.close-menu.text": "Close Menu",
+  "main-menu.home.button.continue-game.text": "Continue",
+  "main-menu.home.button.load-game.text": "Load Game",
+  "main-menu.home.button.new-game.text": "New Game",
+  "main-menu.home.button.settings.text": "Settings",
   "main-menu.home.game-title": "Game title",
+  "main-menu.navigation.back-button.text": "Back",
   "main-menu.settings.audio.group.main-audio-settings.title": "Main audio settings",
   "main-menu.settings.audio.master-volume.label": "Master Volume",
   "main-menu.settings.audio.view.title": "Audio Settings",
+  "main-menu.settings.button.audio.text": "Audio",
+  "main-menu.settings.button.graphics.text": "Graphics",
+  "main-menu.settings.button.localization.text": "Localization",
   "main-menu.settings.graphics.group.main-graphics-settings.title": "Main graphics settings",
   "main-menu.settings.graphics.is-fullscreen.label": "Fullscreen",
   "main-menu.settings.graphics.resolution.label": "Resolution",
@@ -10,14 +19,5 @@
   "main-menu.settings.localization.group.main-localization-settings.title": "Main localization settings",
   "main-menu.settings.localization.language.label": "Language",
   "main-menu.settings.localization.view.title": "Localization Settings",
-  "main-menu.settings.view.title": "Settings",
-  "main-menu.navigation.back-button.text": "Back",
-  "main-menu.home.button.continue-game.text": "Continue",
-  "main-menu.home.button.new-game.text": "New Game",
-  "main-menu.home.button.load-game.text": "Load Game",
-  "main-menu.home.button.settings.text": "Settings",
-  "main-menu.home.button.close-menu.text": "Close Menu",
-  "main-menu.settings.button.graphics.text": "Graphics",
-  "main-menu.settings.button.audio.text": "Audio",
-  "main-menu.settings.button.localization.text": "Localization"
+  "main-menu.settings.view.title": "Settings"
 }
