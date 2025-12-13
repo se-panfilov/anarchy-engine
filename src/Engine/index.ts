@@ -28,7 +28,6 @@ export * from './Particles';
 export * from './Physics';
 export * from './Renderer';
 export * from './Scene';
-export * from './Services';
 export * from './Space';
 export * from './Spatial';
 export * from './Text';
