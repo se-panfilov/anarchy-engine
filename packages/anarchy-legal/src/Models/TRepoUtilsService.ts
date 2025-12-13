@@ -1,4 +1,4 @@
-import type { TAnarchyLegalConfig, TCollected, TDependencyNode, TLicenseEntry, TRenderInput, TRootInfo, TTemplateGeneratorOptions, TWorkspaceInfo } from '@Anarchy/Legal/Models';
+import type { TCollected, TDependencyNode, TLicenseEntry, TRootInfo, TWorkspaceInfo } from '@Anarchy/Legal/Models';
 
 export type TRepoUtilsService = Readonly<{
   assertNoCycles: (graph: ReadonlyMap<string, ReadonlySet<string>>, start: string) => void;
@@ -11,13 +11,11 @@ export type TRepoUtilsService = Readonly<{
   debugLog: (isDebug: boolean, message: string, ...args: any[]) => void;
   fillMissingInstallPaths: (collected: Map<string, TCollected>, wsDir: string, rootDir: string) => void;
   findMonorepoRoot: (startDir: string) => Promise<string>;
-  generateAll: (renderInput: TRenderInput, options: TTemplateGeneratorOptions) => Promise<void>;
   isExist: (p: string) => Promise<boolean>;
   loadRoot: (rootDir: string) => Promise<TRootInfo>;
-  loadWorkspaces: (rootDir: string) => Promise<ReadonlyMap<string, TWorkspaceInfo>>;
   npmLsJson: (rootDir: string, workspace: string) => Promise<TDependencyNode | undefined>;
-  readConfig: (wsDir: string) => Promise<TAnarchyLegalConfig> | never;
   renderMarkdown: (workspaceLabel: string, items: ReadonlyArray<TLicenseEntry>, emptyNote?: string) => string;
   resolveWorkspaceFromArg: (arg: string, workspaces: ReadonlyMap<string, TWorkspaceInfo>, rootDir: string) => TWorkspaceInfo;
   setDebugMode: (isDebug: boolean) => void;
+  readJson: <T extends Record<string, unknown>>(p: string) => Promise<T>;
 }>;

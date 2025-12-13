@@ -1,18 +1,21 @@
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-import type { TAnarchyLegalConfigEntry, TLegalDocumentType, TLegalFilesService, TRepoUtilsService, TTemplateGeneratorOptions, TWorkspaceInfo } from '@Anarchy/Legal';
+import type { TAnarchyLegalConfigEntry, TLegalDocumentType, TLegalFilesService, TLegalFilesUtilsService, TRepoUtilsService, TTemplateGeneratorOptions, TWorkspaceInfo } from '@Anarchy/Legal';
 // eslint-disable-next-line spellcheck/spell-checker
 import yargs from 'yargs';
 import { hideBin } from 'yargs/helpers';
 
 import { LegalDocumentType } from '../Constants/LegalDocumentType.ts';
+import { LegalFilesUtilsService } from './LegalFilesUtilsService.ts';
 import { RepoUtilsService } from './RepoUtilsService.ts';
 
 export function LegalFilesService(): TLegalFilesService {
   let isDebug: boolean = false;
   const repoUtilsService: TRepoUtilsService = RepoUtilsService();
-  const { debugLog, findMonorepoRoot, resolveWorkspaceFromArg, loadWorkspaces, readConfig, generateAll } = repoUtilsService;
+  const legalFilesUtilsService: TLegalFilesUtilsService = LegalFilesUtilsService(repoUtilsService);
+  const { debugLog, findMonorepoRoot, resolveWorkspaceFromArg } = repoUtilsService;
+  const { loadWorkspaces, readConfig, generateAll } = legalFilesUtilsService;
 
   const options: TTemplateGeneratorOptions = {
     templateExtension: '.md',
@@ -75,7 +78,7 @@ export function LegalFilesService(): TLegalFilesService {
       const isKnown = (p: string): p is TLegalDocumentType => (allTypes as ReadonlyArray<string>).includes(p);
       const known = parts.filter(isKnown);
       const unknown = parts.filter((p) => !isKnown(p));
-      unknown.forEach((p) => console.warn(`[warn] Unknown doc type "${p}" ignored. Known: ${allTypes.join(', ')}`));
+      unknown.forEach((p: string): void => console.warn(`[warn] Unknown doc type "${p}" ignored. Known: ${allTypes.join(', ')}`));
       const set = new Set<TLegalDocumentType>(known);
       return set.size ? set : new Set(allTypes);
     })();

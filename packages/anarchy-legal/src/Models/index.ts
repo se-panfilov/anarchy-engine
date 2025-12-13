@@ -6,6 +6,7 @@ export type * from './TDependencyNode';
 export type * from './TGeneratorService';
 export type * from './TLegalDocumentType';
 export type * from './TLegalFilesService';
+export type * from './TLegalFilesUtilsService';
 export type * from './TLicenseEntry';
 export type * from './TNoticeService';
 export type * from './TNoticeUtilsService';
