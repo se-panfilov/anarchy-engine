@@ -94,6 +94,22 @@
         "type": "DirectionalLight"
       }
     ],
+    "materials": [
+      {
+        "name": "surface_material",
+        "options": {
+          "color": "#5EDCAE"
+        },
+        "type": "MeshToonMaterial"
+      },
+      {
+        "name": "sphere_material",
+        "options": {
+          "color": "#E91E63"
+        },
+        "type": "MeshToonMaterial"
+      }
+    ],
     "models3d": [
       {
         "castShadow": false,
@@ -142,22 +158,6 @@
     "animations": [],
     "audio": [],
     "envMaps": [],
-    "materials": [
-      {
-        "name": "surface_material",
-        "options": {
-          "color": "#5EDCAE"
-        },
-        "type": "MeshToonMaterial"
-      },
-      {
-        "name": "sphere_material",
-        "options": {
-          "color": "#E91E63"
-        },
-        "type": "MeshToonMaterial"
-      }
-    ],
     "models3d": [],
     "textures": []
   },

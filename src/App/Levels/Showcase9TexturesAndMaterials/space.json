@@ -63,6 +63,17 @@
         "type": "DirectionalLight"
       }
     ],
+    "materials": [
+      {
+        "name": "door_material",
+        "textures": {
+          "alphaMap": "door_opacity_texture",
+          "aoMap": "door_ao_texture",
+          "map": "door_base_texture"
+        },
+        "type": "MeshBasicMaterial"
+      }
+    ],
     "models3d": [
       {
         "castShadow": true,
@@ -102,17 +113,6 @@
     "animations": [],
     "audio": [],
     "envMaps": [],
-    "materials": [
-      {
-        "name": "door_material",
-        "textures": {
-          "alphaMap": "door_opacity_texture",
-          "aoMap": "door_ao_texture",
-          "map": "door_base_texture"
-        },
-        "type": "MeshBasicMaterial"
-      }
-    ],
     "models3d": [],
     "textures": [
       {

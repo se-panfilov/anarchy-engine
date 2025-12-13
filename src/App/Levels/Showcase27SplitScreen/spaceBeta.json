@@ -56,6 +56,22 @@
     "fsm": [],
     "intersections": [],
     "lights": [],
+    "materials": [
+      {
+        "name": "box_material",
+        "options": {
+          "color": "#4638DF"
+        },
+        "type": "MeshBasicMaterial"
+      },
+      {
+        "name": "move_material",
+        "options": {
+          "color": "#e66a36"
+        },
+        "type": "MeshBasicMaterial"
+      }
+    ],
     "models3d": [
       {
         "castShadow": false,
@@ -103,22 +119,6 @@
     "animations": [],
     "audio": [],
     "envMaps": [],
-    "materials": [
-      {
-        "name": "box_material",
-        "options": {
-          "color": "#4638DF"
-        },
-        "type": "MeshBasicMaterial"
-      },
-      {
-        "name": "move_material",
-        "options": {
-          "color": "#e66a36"
-        },
-        "type": "MeshBasicMaterial"
-      }
-    ],
     "models3d": [],
     "textures": []
   },

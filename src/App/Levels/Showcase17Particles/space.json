@@ -105,68 +105,6 @@
         "type": "DirectionalLight"
       }
     ],
-    "models3d": [
-      {
-        "castShadow": false,
-        "materialSource": "surface_material",
-        "model3dSource": "plane",
-        "name": "surface_model",
-        "options": {
-          "height": 40,
-          "heightSegments": 1,
-          "width": 60,
-          "widthSegments": 1
-        },
-        "receiveShadow": true
-      },
-      {
-        "castShadow": true,
-        "materialSource": "textile_material",
-        "model3dSource": "sphere",
-        "name": "sphere_textile_model",
-        "options": {
-          "radius": 0.7
-        }
-      },
-      {
-        "castShadow": true,
-        "materialSource": "glass_material",
-        "model3dSource": "sphere",
-        "name": "sphere_glass_model",
-        "options": {
-          "radius": 0.7
-        }
-      }
-    ],
-    "particles": [
-      {
-        "materialSource": "particles_material",
-        "name": "bubbles",
-        "position": {
-          "x": 0,
-          "y": 6,
-          "z": 0
-        }
-      }
-    ],
-    "physics": {},
-    "spatialGrids": [
-      {
-        "cellSize": 10,
-        "centerX": 0,
-        "centerZ": 0,
-        "mapHeight": 40,
-        "mapWidth": 60,
-        "name": "main_grid"
-      }
-    ],
-    "texts": []
-  },
-  "name": "showcase",
-  "resources": {
-    "animations": [],
-    "audio": [],
-    "envMaps": [],
     "materials": [
       {
         "name": "surface_material",
@@ -229,6 +167,68 @@
         "type": "PointsMaterial"
       }
     ],
+    "models3d": [
+      {
+        "castShadow": false,
+        "materialSource": "surface_material",
+        "model3dSource": "plane",
+        "name": "surface_model",
+        "options": {
+          "height": 40,
+          "heightSegments": 1,
+          "width": 60,
+          "widthSegments": 1
+        },
+        "receiveShadow": true
+      },
+      {
+        "castShadow": true,
+        "materialSource": "textile_material",
+        "model3dSource": "sphere",
+        "name": "sphere_textile_model",
+        "options": {
+          "radius": 0.7
+        }
+      },
+      {
+        "castShadow": true,
+        "materialSource": "glass_material",
+        "model3dSource": "sphere",
+        "name": "sphere_glass_model",
+        "options": {
+          "radius": 0.7
+        }
+      }
+    ],
+    "particles": [
+      {
+        "materialSource": "particles_material",
+        "name": "bubbles",
+        "position": {
+          "x": 0,
+          "y": 6,
+          "z": 0
+        }
+      }
+    ],
+    "physics": {},
+    "spatialGrids": [
+      {
+        "cellSize": 10,
+        "centerX": 0,
+        "centerZ": 0,
+        "mapHeight": 40,
+        "mapWidth": 60,
+        "name": "main_grid"
+      }
+    ],
+    "texts": []
+  },
+  "name": "showcase",
+  "resources": {
+    "animations": [],
+    "audio": [],
+    "envMaps": [],
     "models3d": [],
     "textures": [
       {

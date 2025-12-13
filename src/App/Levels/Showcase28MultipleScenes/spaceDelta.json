@@ -111,6 +111,46 @@
         "type": "AmbientLight"
       }
     ],
+    "materials": [
+      {
+        "name": "surface_material",
+        "options": {
+          "color": "#ff0000",
+          "wireframe": true
+        },
+        "type": "MeshBasicMaterial"
+      },
+      {
+        "name": "sphere_material",
+        "options": {
+          "color": "#E91E63"
+        },
+        "type": "MeshBasicMaterial"
+      },
+      {
+        "name": "sphere_mouse_material",
+        "options": {
+          "color": "#E91ED8"
+        },
+        "type": "MeshToonMaterial"
+      },
+      {
+        "name": "particles_material",
+        "options": {
+          "blending": "AdditiveBlending",
+          "color": "#FFFFFF",
+          "depthWrite": false,
+          "size": 0.7,
+          "sizeAttenuation": true,
+          "transparent": true,
+          "vertexColors": false
+        },
+        "textures": {
+          "alphaMap": "particles_alpha_map_texture"
+        },
+        "type": "PointsMaterial"
+      }
+    ],
     "models3d": [
       {
         "castShadow": false,
@@ -183,46 +223,6 @@
       }
     ],
     "envMaps": [],
-    "materials": [
-      {
-        "name": "surface_material",
-        "options": {
-          "color": "#ff0000",
-          "wireframe": true
-        },
-        "type": "MeshBasicMaterial"
-      },
-      {
-        "name": "sphere_material",
-        "options": {
-          "color": "#E91E63"
-        },
-        "type": "MeshBasicMaterial"
-      },
-      {
-        "name": "sphere_mouse_material",
-        "options": {
-          "color": "#E91ED8"
-        },
-        "type": "MeshToonMaterial"
-      },
-      {
-        "name": "particles_material",
-        "options": {
-          "blending": "AdditiveBlending",
-          "color": "#FFFFFF",
-          "depthWrite": false,
-          "size": 0.7,
-          "sizeAttenuation": true,
-          "transparent": true,
-          "vertexColors": false
-        },
-        "textures": {
-          "alphaMap": "particles_alpha_map_texture"
-        },
-        "type": "PointsMaterial"
-      }
-    ],
     "models3d": [],
     "textures": [
       {

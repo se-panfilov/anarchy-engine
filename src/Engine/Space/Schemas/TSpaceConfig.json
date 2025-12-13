@@ -189,6 +189,12 @@
             "$ref": "#/definitions/TAnyLightConfig"
           }
         },
+        "materials": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/TMaterialConfig"
+          }
+        },
         "models3d": {
           "type": "array",
           "items": {
@@ -235,7 +241,24 @@
           }
         }
       },
-      "required": ["spatialGrids", "actors", "audio", "cameras", "envMaps", "intersections", "lights", "models3d", "renderers", "particles", "physics", "fogs", "fsm", "texts", "controls"],
+      "required": [
+        "spatialGrids",
+        "actors",
+        "audio",
+        "cameras",
+        "envMaps",
+        "intersections",
+        "lights",
+        "materials",
+        "models3d",
+        "renderers",
+        "particles",
+        "physics",
+        "fogs",
+        "fsm",
+        "texts",
+        "controls"
+      ],
       "additionalProperties": false
     },
     "TSpatialGridConfig": {
@@ -2035,2377 +2058,6 @@
         }
       },
       "required": ["color", "name", "position", "type"]
-    },
-    "TModel3dConfig": {
-      "type": "object",
-      "additionalProperties": false,
-      "properties": {
-        "position": {
-          "$ref": "#/definitions/Vector3Like"
-        },
-        "scale": {
-          "$ref": "#/definitions/Vector3Like"
-        },
-        "rotation": {
-          "anyOf": [
-            {
-              "$ref": "#/definitions/TEulerLike"
-            },
-            {
-              "$ref": "#/definitions/QuaternionLike"
-            }
-          ]
-        },
-        "model3dSource": {
-          "anyOf": [
-            {
-              "type": "string"
-            },
-            {
-              "$ref": "#/definitions/PrimitiveModel3dType"
-            }
-          ]
-        },
-        "animationsSource": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "materialSource": {
-          "type": "string"
-        },
-        "forceClone": {
-          "type": "boolean"
-        },
-        "options": {
-          "$ref": "#/definitions/TModel3dOptions"
-        },
-        "visible": {
-          "type": "boolean"
-        },
-        "castShadow": {
-          "type": "boolean"
-        },
-        "receiveShadow": {
-          "type": "boolean"
-        },
-        "layers": {
-          "type": "number"
-        },
-        "frustumCulled": {
-          "type": "boolean"
-        },
-        "renderOrder": {
-          "type": "number"
-        },
-        "name": {
-          "type": "string"
-        },
-        "tags": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        }
-      },
-      "required": ["model3dSource", "name"]
-    },
-    "PrimitiveModel3dType": {
-      "type": "string",
-      "enum": ["cube", "plane", "sphere"]
-    },
-    "TModel3dOptions": {
-      "$ref": "#/definitions/TOptional%3CTPrimitiveModel3dParams%3E"
-    },
-    "TOptional<TPrimitiveModel3dParams>": {
-      "type": "object",
-      "properties": {
-        "width": {
-          "$ref": "#/definitions/TMeters"
-        },
-        "height": {
-          "$ref": "#/definitions/TMeters"
-        },
-        "depth": {
-          "$ref": "#/definitions/TMeters"
-        },
-        "widthSegments": {
-          "type": "number"
-        },
-        "heightSegments": {
-          "type": "number"
-        },
-        "depthSegments": {
-          "type": "number"
-        },
-        "radius": {
-          "$ref": "#/definitions/TMeters"
-        },
-        "phiStart": {
-          "type": "number"
-        },
-        "phiLength": {
-          "type": "number"
-        },
-        "thetaStart": {
-          "type": "number"
-        },
-        "thetaLength": {
-          "type": "number"
-        }
-      },
-      "additionalProperties": false
-    },
-    "TRendererConfig": {
-      "type": "object",
-      "properties": {
-        "alpha": {
-          "type": "boolean",
-          "description": "default is false."
-        },
-        "premultipliedAlpha": {
-          "type": "boolean",
-          "description": "default is true."
-        },
-        "antialias": {
-          "type": "boolean",
-          "description": "default is false."
-        },
-        "stencil": {
-          "type": "boolean",
-          "description": "default is false."
-        },
-        "preserveDrawingBuffer": {
-          "type": "boolean",
-          "description": "default is false."
-        },
-        "powerPreference": {
-          "type": "string",
-          "enum": ["default", "high-performance", "low-power"],
-          "description": "Can be \"high-performance\", \"low-power\" or \"default\""
-        },
-        "depth": {
-          "type": "boolean",
-          "description": "default is true."
-        },
-        "failIfMajorPerformanceCaveat": {
-          "type": "boolean",
-          "description": "default is false."
-        },
-        "precision": {
-          "type": "string",
-          "description": "shader precision. Can be \"highp\", \"mediump\" or \"lowp\"."
-        },
-        "logarithmicDepthBuffer": {
-          "type": "boolean",
-          "description": "default is false."
-        },
-        "reverseDepthBuffer": {
-          "type": "boolean",
-          "description": "default is false."
-        },
-        "mode": {
-          "$ref": "#/definitions/RendererModes"
-        },
-        "isShadowMapEnabled": {
-          "type": "boolean"
-        },
-        "maxPixelRatio": {
-          "type": "number"
-        },
-        "isActive": {
-          "type": "boolean"
-        },
-        "name": {
-          "type": "string"
-        },
-        "tags": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        }
-      },
-      "required": ["mode", "isActive", "name"],
-      "additionalProperties": false
-    },
-    "RendererModes": {
-      "type": "string",
-      "enum": ["webgl", "webgl2"]
-    },
-    "TParticlesConfig": {
-      "type": "object",
-      "additionalProperties": false,
-      "properties": {
-        "position": {
-          "$ref": "#/definitions/Vector3Like"
-        },
-        "rotation": {
-          "anyOf": [
-            {
-              "$ref": "#/definitions/TEulerLike"
-            },
-            {
-              "$ref": "#/definitions/QuaternionLike"
-            }
-          ]
-        },
-        "scale": {
-          "$ref": "#/definitions/Vector3Like"
-        },
-        "visible": {
-          "type": "boolean"
-        },
-        "castShadow": {
-          "type": "boolean"
-        },
-        "receiveShadow": {
-          "type": "boolean"
-        },
-        "layers": {
-          "type": "number"
-        },
-        "frustumCulled": {
-          "type": "boolean"
-        },
-        "renderOrder": {
-          "type": "number"
-        },
-        "materialSource": {
-          "type": "string"
-        },
-        "agent": {
-          "$ref": "#/definitions/TransformAgent"
-        },
-        "name": {
-          "type": "string"
-        },
-        "tags": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        }
-      },
-      "required": ["materialSource", "name", "position"]
-    },
-    "TPhysicsConfig": {
-      "type": "object",
-      "properties": {
-        "global": {
-          "$ref": "#/definitions/TPhysicsGlobalConfig"
-        },
-        "presets": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/TPhysicsPresetConfig"
-          }
-        }
-      },
-      "additionalProperties": false
-    },
-    "TPhysicsGlobalConfig": {
-      "type": "object",
-      "additionalProperties": false,
-      "properties": {
-        "gravity": {
-          "$ref": "#/definitions/Vector3Like"
-        },
-        "rawIntegrationParameters": {
-          "$ref": "#/definitions/RawIntegrationParameters"
-        },
-        "rawIslands": {
-          "$ref": "#/definitions/RawIslandManager"
-        },
-        "rawBroadPhase": {
-          "$ref": "#/definitions/RawBroadPhase"
-        },
-        "rawNarrowPhase": {
-          "$ref": "#/definitions/RawNarrowPhase"
-        },
-        "rawBodies": {
-          "$ref": "#/definitions/RawRigidBodySet"
-        },
-        "rawColliders": {
-          "$ref": "#/definitions/RawColliderSet"
-        },
-        "rawImpulseJoints": {
-          "$ref": "#/definitions/RawImpulseJointSet"
-        },
-        "rawMultibodyJoints": {
-          "$ref": "#/definitions/RawMultibodyJointSet"
-        },
-        "rawCCDSolver": {
-          "$ref": "#/definitions/RawCCDSolver"
-        },
-        "rawQueryPipeline": {
-          "$ref": "#/definitions/RawQueryPipeline"
-        },
-        "rawPhysicsPipeline": {
-          "$ref": "#/definitions/RawPhysicsPipeline"
-        },
-        "rawSerializationPipeline": {
-          "$ref": "#/definitions/RawSerializationPipeline"
-        },
-        "rawDebugRenderPipeline": {
-          "$ref": "#/definitions/RawDebugRenderPipeline"
-        }
-      },
-      "required": ["gravity"]
-    },
-    "RawIntegrationParameters": {
-      "type": "object",
-      "properties": {
-        "dt": {
-          "type": "number"
-        },
-        "contact_erp": {
-          "type": "number"
-        },
-        "normalizedAllowedLinearError": {
-          "type": "number"
-        },
-        "normalizedPredictionDistance": {
-          "type": "number"
-        },
-        "numSolverIterations": {
-          "type": "number"
-        },
-        "numAdditionalFrictionIterations": {
-          "type": "number"
-        },
-        "numInternalPgsIterations": {
-          "type": "number"
-        },
-        "minIslandSize": {
-          "type": "number"
-        },
-        "maxCcdSubsteps": {
-          "type": "number"
-        },
-        "lengthUnit": {
-          "type": "number"
-        }
-      },
-      "required": [
-        "dt",
-        "contact_erp",
-        "normalizedAllowedLinearError",
-        "normalizedPredictionDistance",
-        "numSolverIterations",
-        "numAdditionalFrictionIterations",
-        "numInternalPgsIterations",
-        "minIslandSize",
-        "maxCcdSubsteps",
-        "lengthUnit"
-      ],
-      "additionalProperties": false
-    },
-    "RawIslandManager": {
-      "type": "object",
-      "additionalProperties": false
-    },
-    "RawBroadPhase": {
-      "type": "object",
-      "additionalProperties": false
-    },
-    "RawNarrowPhase": {
-      "type": "object",
-      "additionalProperties": false
-    },
-    "RawRigidBodySet": {
-      "type": "object",
-      "additionalProperties": false
-    },
-    "RawColliderSet": {
-      "type": "object",
-      "additionalProperties": false
-    },
-    "RawImpulseJointSet": {
-      "type": "object",
-      "additionalProperties": false
-    },
-    "RawMultibodyJointSet": {
-      "type": "object",
-      "additionalProperties": false
-    },
-    "RawCCDSolver": {
-      "type": "object",
-      "additionalProperties": false
-    },
-    "RawQueryPipeline": {
-      "type": "object",
-      "additionalProperties": false
-    },
-    "RawPhysicsPipeline": {
-      "type": "object",
-      "additionalProperties": false
-    },
-    "RawSerializationPipeline": {
-      "type": "object",
-      "additionalProperties": false
-    },
-    "RawDebugRenderPipeline": {
-      "type": "object",
-      "additionalProperties": false
-    },
-    "TPhysicsPresetConfig": {
-      "type": "object",
-      "additionalProperties": false,
-      "properties": {
-        "name": {
-          "type": "string"
-        },
-        "type": {
-          "$ref": "#/definitions/RigidBodyTypesNames"
-        },
-        "position": {
-          "$ref": "#/definitions/Vector3Like"
-        },
-        "rotation": {
-          "$ref": "#/definitions/QuaternionLike"
-        },
-        "collisionShape": {
-          "$ref": "#/definitions/CollisionShape"
-        },
-        "shapeParams": {
-          "$ref": "#/definitions/TPhysicsShapeParams"
-        },
-        "mass": {
-          "type": "number"
-        },
-        "restitution": {
-          "type": "number"
-        },
-        "friction": {
-          "type": "number"
-        },
-        "collisionGroups": {
-          "type": "number"
-        },
-        "isSleep": {
-          "type": "boolean"
-        },
-        "tags": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        }
-      }
-    },
-    "TFogConfig": {
-      "type": "object",
-      "additionalProperties": false,
-      "properties": {
-        "color": {
-          "type": "string"
-        },
-        "near": {
-          "type": "number"
-        },
-        "far": {
-          "type": "number"
-        },
-        "name": {
-          "type": "string"
-        },
-        "tags": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        }
-      },
-      "required": ["color", "name"]
-    },
-    "TFsmConfig": {
-      "type": "object",
-      "additionalProperties": false,
-      "properties": {
-        "transitions": {
-          "type": "array",
-          "items": {
-            "type": "array",
-            "items": {
-              "anyOf": [
-                {
-                  "$ref": "#/definitions/TFsmStates"
-                },
-                {
-                  "$ref": "#/definitions/TFsmEvents"
-                }
-              ]
-            }
-          }
-        },
-        "type": {
-          "anyOf": [
-            {
-              "$ref": "#/definitions/FsmType"
-            },
-            {
-              "type": "string"
-            }
-          ]
-        },
-        "initial": {
-          "$ref": "#/definitions/TFsmStates"
-        },
-        "currentState": {
-          "$ref": "#/definitions/TFsmStates"
-        },
-        "strategy": {
-          "$ref": "#/definitions/FsmEventsStrategy"
-        },
-        "name": {
-          "type": "string"
-        },
-        "tags": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        }
-      },
-      "required": ["initial", "name", "transitions", "type"]
-    },
-    "TFsmEvents": {
-      "type": ["string", "number"]
-    },
-    "FsmType": {
-      "type": "string",
-      "const": "Animation"
-    },
-    "TTextConfig": {
-      "type": "object",
-      "additionalProperties": false,
-      "properties": {
-        "position": {
-          "$ref": "#/definitions/Vector3Like"
-        },
-        "rotation": {
-          "anyOf": [
-            {
-              "$ref": "#/definitions/TEulerLike"
-            },
-            {
-              "$ref": "#/definitions/QuaternionLike"
-            }
-          ]
-        },
-        "scale": {
-          "$ref": "#/definitions/Vector3Like"
-        },
-        "visible": {
-          "type": "boolean"
-        },
-        "castShadow": {
-          "type": "boolean"
-        },
-        "receiveShadow": {
-          "type": "boolean"
-        },
-        "layers": {
-          "type": "number"
-        },
-        "frustumCulled": {
-          "type": "boolean"
-        },
-        "renderOrder": {
-          "type": "number"
-        },
-        "center": {
-          "$ref": "#/definitions/Vector2Like"
-        },
-        "kinematic": {
-          "$ref": "#/definitions/TKinematicConfig"
-        },
-        "physics": {
-          "$ref": "#/definitions/TWithPresetNamePhysicsBodyConfig"
-        },
-        "text": {
-          "type": "string"
-        },
-        "type": {
-          "$ref": "#/definitions/TextType"
-        },
-        "cssProps": {
-          "$ref": "#/definitions/TTextCssProps"
-        },
-        "elementType": {
-          "type": "string"
-        },
-        "agent": {
-          "$ref": "#/definitions/TransformAgent"
-        },
-        "name": {
-          "type": "string"
-        },
-        "tags": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        }
-      },
-      "required": ["name", "position", "text", "type"]
-    },
-    "TextType": {
-      "type": "string",
-      "enum": ["text_2d", "text_3d", "text_3d_texture"]
-    },
-    "TTextCssProps": {
-      "type": "object",
-      "additionalProperties": false,
-      "properties": {
-        "textAlign": {
-          "$ref": "#/definitions/TextAlign"
-        },
-        "direction": {
-          "$ref": "#/definitions/TextDirection"
-        },
-        "overflowWrap": {
-          "$ref": "#/definitions/TextOverflowWrap"
-        },
-        "whiteSpace": {
-          "$ref": "#/definitions/TextWhiteSpace"
-        },
-        "fontStyle": {
-          "$ref": "#/definitions/TextFontStyle"
-        },
-        "fontWeight": {
-          "$ref": "#/definitions/TextFontWeight"
-        },
-        "accentColor": {
-          "type": "string"
-        },
-        "alignContent": {
-          "type": "string"
-        },
-        "alignItems": {
-          "type": "string"
-        },
-        "alignSelf": {
-          "type": "string"
-        },
-        "alignmentBaseline": {
-          "type": "string"
-        },
-        "all": {
-          "type": "string"
-        },
-        "animation": {
-          "type": "string"
-        },
-        "animationComposition": {
-          "type": "string"
-        },
-        "animationDelay": {
-          "type": "string"
-        },
-        "animationDirection": {
-          "type": "string"
-        },
-        "animationDuration": {
-          "type": "string"
-        },
-        "animationFillMode": {
-          "type": "string"
-        },
-        "animationIterationCount": {
-          "type": "string"
-        },
-        "animationName": {
-          "type": "string"
-        },
-        "animationPlayState": {
-          "type": "string"
-        },
-        "animationTimingFunction": {
-          "type": "string"
-        },
-        "appearance": {
-          "type": "string"
-        },
-        "aspectRatio": {
-          "type": "string"
-        },
-        "backdropFilter": {
-          "type": "string"
-        },
-        "backfaceVisibility": {
-          "type": "string"
-        },
-        "background": {
-          "type": "string"
-        },
-        "backgroundAttachment": {
-          "type": "string"
-        },
-        "backgroundBlendMode": {
-          "type": "string"
-        },
-        "backgroundClip": {
-          "type": "string"
-        },
-        "backgroundColor": {
-          "type": "string"
-        },
-        "backgroundImage": {
-          "type": "string"
-        },
-        "backgroundOrigin": {
-          "type": "string"
-        },
-        "backgroundPosition": {
-          "type": "string"
-        },
-        "backgroundPositionX": {
-          "type": "string"
-        },
-        "backgroundPositionY": {
-          "type": "string"
-        },
-        "backgroundRepeat": {
-          "type": "string"
-        },
-        "backgroundSize": {
-          "type": "string"
-        },
-        "baselineShift": {
-          "type": "string"
-        },
-        "blockSize": {
-          "type": "string"
-        },
-        "border": {
-          "type": "string"
-        },
-        "borderBlock": {
-          "type": "string"
-        },
-        "borderBlockColor": {
-          "type": "string"
-        },
-        "borderBlockEnd": {
-          "type": "string"
-        },
-        "borderBlockEndColor": {
-          "type": "string"
-        },
-        "borderBlockEndStyle": {
-          "type": "string"
-        },
-        "borderBlockEndWidth": {
-          "type": "string"
-        },
-        "borderBlockStart": {
-          "type": "string"
-        },
-        "borderBlockStartColor": {
-          "type": "string"
-        },
-        "borderBlockStartStyle": {
-          "type": "string"
-        },
-        "borderBlockStartWidth": {
-          "type": "string"
-        },
-        "borderBlockStyle": {
-          "type": "string"
-        },
-        "borderBlockWidth": {
-          "type": "string"
-        },
-        "borderBottom": {
-          "type": "string"
-        },
-        "borderBottomColor": {
-          "type": "string"
-        },
-        "borderBottomLeftRadius": {
-          "type": "string"
-        },
-        "borderBottomRightRadius": {
-          "type": "string"
-        },
-        "borderBottomStyle": {
-          "type": "string"
-        },
-        "borderBottomWidth": {
-          "type": "string"
-        },
-        "borderCollapse": {
-          "type": "string"
-        },
-        "borderColor": {
-          "type": "string"
-        },
-        "borderEndEndRadius": {
-          "type": "string"
-        },
-        "borderEndStartRadius": {
-          "type": "string"
-        },
-        "borderImage": {
-          "type": "string"
-        },
-        "borderImageOutset": {
-          "type": "string"
-        },
-        "borderImageRepeat": {
-          "type": "string"
-        },
-        "borderImageSlice": {
-          "type": "string"
-        },
-        "borderImageSource": {
-          "type": "string"
-        },
-        "borderImageWidth": {
-          "type": "string"
-        },
-        "borderInline": {
-          "type": "string"
-        },
-        "borderInlineColor": {
-          "type": "string"
-        },
-        "borderInlineEnd": {
-          "type": "string"
-        },
-        "borderInlineEndColor": {
-          "type": "string"
-        },
-        "borderInlineEndStyle": {
-          "type": "string"
-        },
-        "borderInlineEndWidth": {
-          "type": "string"
-        },
-        "borderInlineStart": {
-          "type": "string"
-        },
-        "borderInlineStartColor": {
-          "type": "string"
-        },
-        "borderInlineStartStyle": {
-          "type": "string"
-        },
-        "borderInlineStartWidth": {
-          "type": "string"
-        },
-        "borderInlineStyle": {
-          "type": "string"
-        },
-        "borderInlineWidth": {
-          "type": "string"
-        },
-        "borderLeft": {
-          "type": "string"
-        },
-        "borderLeftColor": {
-          "type": "string"
-        },
-        "borderLeftStyle": {
-          "type": "string"
-        },
-        "borderLeftWidth": {
-          "type": "string"
-        },
-        "borderRadius": {
-          "type": "string"
-        },
-        "borderRight": {
-          "type": "string"
-        },
-        "borderRightColor": {
-          "type": "string"
-        },
-        "borderRightStyle": {
-          "type": "string"
-        },
-        "borderRightWidth": {
-          "type": "string"
-        },
-        "borderSpacing": {
-          "type": "string"
-        },
-        "borderStartEndRadius": {
-          "type": "string"
-        },
-        "borderStartStartRadius": {
-          "type": "string"
-        },
-        "borderStyle": {
-          "type": "string"
-        },
-        "borderTop": {
-          "type": "string"
-        },
-        "borderTopColor": {
-          "type": "string"
-        },
-        "borderTopLeftRadius": {
-          "type": "string"
-        },
-        "borderTopRightRadius": {
-          "type": "string"
-        },
-        "borderTopStyle": {
-          "type": "string"
-        },
-        "borderTopWidth": {
-          "type": "string"
-        },
-        "borderWidth": {
-          "type": "string"
-        },
-        "bottom": {
-          "type": "string"
-        },
-        "boxShadow": {
-          "type": "string"
-        },
-        "boxSizing": {
-          "type": "string"
-        },
-        "breakAfter": {
-          "type": "string"
-        },
-        "breakBefore": {
-          "type": "string"
-        },
-        "breakInside": {
-          "type": "string"
-        },
-        "captionSide": {
-          "type": "string"
-        },
-        "caretColor": {
-          "type": "string"
-        },
-        "clear": {
-          "type": "string"
-        },
-        "clip": {
-          "type": "string"
-        },
-        "clipPath": {
-          "type": "string"
-        },
-        "clipRule": {
-          "type": "string"
-        },
-        "color": {
-          "type": "string"
-        },
-        "colorInterpolation": {
-          "type": "string"
-        },
-        "colorInterpolationFilters": {
-          "type": "string"
-        },
-        "colorScheme": {
-          "type": "string"
-        },
-        "columnCount": {
-          "type": "string"
-        },
-        "columnFill": {
-          "type": "string"
-        },
-        "columnGap": {
-          "type": "string"
-        },
-        "columnRule": {
-          "type": "string"
-        },
-        "columnRuleColor": {
-          "type": "string"
-        },
-        "columnRuleStyle": {
-          "type": "string"
-        },
-        "columnRuleWidth": {
-          "type": "string"
-        },
-        "columnSpan": {
-          "type": "string"
-        },
-        "columnWidth": {
-          "type": "string"
-        },
-        "columns": {
-          "type": "string"
-        },
-        "contain": {
-          "type": "string"
-        },
-        "containIntrinsicBlockSize": {
-          "type": "string"
-        },
-        "containIntrinsicHeight": {
-          "type": "string"
-        },
-        "containIntrinsicInlineSize": {
-          "type": "string"
-        },
-        "containIntrinsicSize": {
-          "type": "string"
-        },
-        "containIntrinsicWidth": {
-          "type": "string"
-        },
-        "container": {
-          "type": "string"
-        },
-        "containerName": {
-          "type": "string"
-        },
-        "containerType": {
-          "type": "string"
-        },
-        "content": {
-          "type": "string"
-        },
-        "counterIncrement": {
-          "type": "string"
-        },
-        "counterReset": {
-          "type": "string"
-        },
-        "counterSet": {
-          "type": "string"
-        },
-        "cssFloat": {
-          "type": "string"
-        },
-        "cssText": {
-          "type": "string"
-        },
-        "cursor": {
-          "type": "string"
-        },
-        "display": {
-          "type": "string"
-        },
-        "dominantBaseline": {
-          "type": "string"
-        },
-        "emptyCells": {
-          "type": "string"
-        },
-        "fill": {
-          "type": "string"
-        },
-        "fillOpacity": {
-          "type": "string"
-        },
-        "fillRule": {
-          "type": "string"
-        },
-        "filter": {
-          "type": "string"
-        },
-        "flex": {
-          "type": "string"
-        },
-        "flexBasis": {
-          "type": "string"
-        },
-        "flexDirection": {
-          "type": "string"
-        },
-        "flexFlow": {
-          "type": "string"
-        },
-        "flexGrow": {
-          "type": "string"
-        },
-        "flexShrink": {
-          "type": "string"
-        },
-        "flexWrap": {
-          "type": "string"
-        },
-        "float": {
-          "type": "string"
-        },
-        "floodColor": {
-          "type": "string"
-        },
-        "floodOpacity": {
-          "type": "string"
-        },
-        "font": {
-          "type": "string"
-        },
-        "fontFamily": {
-          "type": "string"
-        },
-        "fontFeatureSettings": {
-          "type": "string"
-        },
-        "fontKerning": {
-          "type": "string"
-        },
-        "fontOpticalSizing": {
-          "type": "string"
-        },
-        "fontPalette": {
-          "type": "string"
-        },
-        "fontSize": {
-          "type": "string"
-        },
-        "fontSizeAdjust": {
-          "type": "string"
-        },
-        "fontStretch": {
-          "type": "string"
-        },
-        "fontSynthesis": {
-          "type": "string"
-        },
-        "fontSynthesisSmallCaps": {
-          "type": "string"
-        },
-        "fontSynthesisStyle": {
-          "type": "string"
-        },
-        "fontSynthesisWeight": {
-          "type": "string"
-        },
-        "fontVariant": {
-          "type": "string"
-        },
-        "fontVariantAlternates": {
-          "type": "string"
-        },
-        "fontVariantCaps": {
-          "type": "string"
-        },
-        "fontVariantEastAsian": {
-          "type": "string"
-        },
-        "fontVariantLigatures": {
-          "type": "string"
-        },
-        "fontVariantNumeric": {
-          "type": "string"
-        },
-        "fontVariantPosition": {
-          "type": "string"
-        },
-        "fontVariationSettings": {
-          "type": "string"
-        },
-        "forcedColorAdjust": {
-          "type": "string"
-        },
-        "gap": {
-          "type": "string"
-        },
-        "grid": {
-          "type": "string"
-        },
-        "gridArea": {
-          "type": "string"
-        },
-        "gridAutoColumns": {
-          "type": "string"
-        },
-        "gridAutoFlow": {
-          "type": "string"
-        },
-        "gridAutoRows": {
-          "type": "string"
-        },
-        "gridColumn": {
-          "type": "string"
-        },
-        "gridColumnEnd": {
-          "type": "string"
-        },
-        "gridColumnGap": {
-          "type": "string"
-        },
-        "gridColumnStart": {
-          "type": "string"
-        },
-        "gridGap": {
-          "type": "string"
-        },
-        "gridRow": {
-          "type": "string"
-        },
-        "gridRowEnd": {
-          "type": "string"
-        },
-        "gridRowGap": {
-          "type": "string"
-        },
-        "gridRowStart": {
-          "type": "string"
-        },
-        "gridTemplate": {
-          "type": "string"
-        },
-        "gridTemplateAreas": {
-          "type": "string"
-        },
-        "gridTemplateColumns": {
-          "type": "string"
-        },
-        "gridTemplateRows": {
-          "type": "string"
-        },
-        "height": {
-          "type": "string"
-        },
-        "hyphenateCharacter": {
-          "type": "string"
-        },
-        "hyphens": {
-          "type": "string"
-        },
-        "imageOrientation": {
-          "type": "string"
-        },
-        "imageRendering": {
-          "type": "string"
-        },
-        "inlineSize": {
-          "type": "string"
-        },
-        "inset": {
-          "type": "string"
-        },
-        "insetBlock": {
-          "type": "string"
-        },
-        "insetBlockEnd": {
-          "type": "string"
-        },
-        "insetBlockStart": {
-          "type": "string"
-        },
-        "insetInline": {
-          "type": "string"
-        },
-        "insetInlineEnd": {
-          "type": "string"
-        },
-        "insetInlineStart": {
-          "type": "string"
-        },
-        "isolation": {
-          "type": "string"
-        },
-        "justifyContent": {
-          "type": "string"
-        },
-        "justifyItems": {
-          "type": "string"
-        },
-        "justifySelf": {
-          "type": "string"
-        },
-        "left": {
-          "type": "string"
-        },
-        "length": {
-          "type": "string"
-        },
-        "letterSpacing": {
-          "type": "string"
-        },
-        "lightingColor": {
-          "type": "string"
-        },
-        "lineBreak": {
-          "type": "string"
-        },
-        "lineHeight": {
-          "type": "string"
-        },
-        "listStyle": {
-          "type": "string"
-        },
-        "listStyleImage": {
-          "type": "string"
-        },
-        "listStylePosition": {
-          "type": "string"
-        },
-        "listStyleType": {
-          "type": "string"
-        },
-        "margin": {
-          "type": "string"
-        },
-        "marginBlock": {
-          "type": "string"
-        },
-        "marginBlockEnd": {
-          "type": "string"
-        },
-        "marginBlockStart": {
-          "type": "string"
-        },
-        "marginBottom": {
-          "type": "string"
-        },
-        "marginInline": {
-          "type": "string"
-        },
-        "marginInlineEnd": {
-          "type": "string"
-        },
-        "marginInlineStart": {
-          "type": "string"
-        },
-        "marginLeft": {
-          "type": "string"
-        },
-        "marginRight": {
-          "type": "string"
-        },
-        "marginTop": {
-          "type": "string"
-        },
-        "marker": {
-          "type": "string"
-        },
-        "markerEnd": {
-          "type": "string"
-        },
-        "markerMid": {
-          "type": "string"
-        },
-        "markerStart": {
-          "type": "string"
-        },
-        "mask": {
-          "type": "string"
-        },
-        "maskClip": {
-          "type": "string"
-        },
-        "maskComposite": {
-          "type": "string"
-        },
-        "maskImage": {
-          "type": "string"
-        },
-        "maskMode": {
-          "type": "string"
-        },
-        "maskOrigin": {
-          "type": "string"
-        },
-        "maskPosition": {
-          "type": "string"
-        },
-        "maskRepeat": {
-          "type": "string"
-        },
-        "maskSize": {
-          "type": "string"
-        },
-        "maskType": {
-          "type": "string"
-        },
-        "mathStyle": {
-          "type": "string"
-        },
-        "maxBlockSize": {
-          "type": "string"
-        },
-        "maxHeight": {
-          "type": "string"
-        },
-        "maxInlineSize": {
-          "type": "string"
-        },
-        "maxWidth": {
-          "type": "string"
-        },
-        "minBlockSize": {
-          "type": "string"
-        },
-        "minHeight": {
-          "type": "string"
-        },
-        "minInlineSize": {
-          "type": "string"
-        },
-        "minWidth": {
-          "type": "string"
-        },
-        "mixBlendMode": {
-          "type": "string"
-        },
-        "objectFit": {
-          "type": "string"
-        },
-        "objectPosition": {
-          "type": "string"
-        },
-        "offset": {
-          "type": "string"
-        },
-        "offsetDistance": {
-          "type": "string"
-        },
-        "offsetPath": {
-          "type": "string"
-        },
-        "offsetRotate": {
-          "type": "string"
-        },
-        "opacity": {
-          "type": "string"
-        },
-        "order": {
-          "type": "string"
-        },
-        "orphans": {
-          "type": "string"
-        },
-        "outline": {
-          "type": "string"
-        },
-        "outlineColor": {
-          "type": "string"
-        },
-        "outlineOffset": {
-          "type": "string"
-        },
-        "outlineStyle": {
-          "type": "string"
-        },
-        "outlineWidth": {
-          "type": "string"
-        },
-        "overflow": {
-          "type": "string"
-        },
-        "overflowAnchor": {
-          "type": "string"
-        },
-        "overflowClipMargin": {
-          "type": "string"
-        },
-        "overflowX": {
-          "type": "string"
-        },
-        "overflowY": {
-          "type": "string"
-        },
-        "overscrollBehavior": {
-          "type": "string"
-        },
-        "overscrollBehaviorBlock": {
-          "type": "string"
-        },
-        "overscrollBehaviorInline": {
-          "type": "string"
-        },
-        "overscrollBehaviorX": {
-          "type": "string"
-        },
-        "overscrollBehaviorY": {
-          "type": "string"
-        },
-        "padding": {
-          "type": "string"
-        },
-        "paddingBlock": {
-          "type": "string"
-        },
-        "paddingBlockEnd": {
-          "type": "string"
-        },
-        "paddingBlockStart": {
-          "type": "string"
-        },
-        "paddingBottom": {
-          "type": "string"
-        },
-        "paddingInline": {
-          "type": "string"
-        },
-        "paddingInlineEnd": {
-          "type": "string"
-        },
-        "paddingInlineStart": {
-          "type": "string"
-        },
-        "paddingLeft": {
-          "type": "string"
-        },
-        "paddingRight": {
-          "type": "string"
-        },
-        "paddingTop": {
-          "type": "string"
-        },
-        "page": {
-          "type": "string"
-        },
-        "pageBreakAfter": {
-          "type": "string"
-        },
-        "pageBreakBefore": {
-          "type": "string"
-        },
-        "pageBreakInside": {
-          "type": "string"
-        },
-        "paintOrder": {
-          "type": "string"
-        },
-        "perspective": {
-          "type": "string"
-        },
-        "perspectiveOrigin": {
-          "type": "string"
-        },
-        "placeContent": {
-          "type": "string"
-        },
-        "placeItems": {
-          "type": "string"
-        },
-        "placeSelf": {
-          "type": "string"
-        },
-        "pointerEvents": {
-          "type": "string"
-        },
-        "position": {
-          "type": "string"
-        },
-        "printColorAdjust": {
-          "type": "string"
-        },
-        "quotes": {
-          "type": "string"
-        },
-        "resize": {
-          "type": "string"
-        },
-        "right": {
-          "type": "string"
-        },
-        "rotate": {
-          "type": "string"
-        },
-        "rowGap": {
-          "type": "string"
-        },
-        "rubyPosition": {
-          "type": "string"
-        },
-        "scale": {
-          "type": "string"
-        },
-        "scrollBehavior": {
-          "type": "string"
-        },
-        "scrollMargin": {
-          "type": "string"
-        },
-        "scrollMarginBlock": {
-          "type": "string"
-        },
-        "scrollMarginBlockEnd": {
-          "type": "string"
-        },
-        "scrollMarginBlockStart": {
-          "type": "string"
-        },
-        "scrollMarginBottom": {
-          "type": "string"
-        },
-        "scrollMarginInline": {
-          "type": "string"
-        },
-        "scrollMarginInlineEnd": {
-          "type": "string"
-        },
-        "scrollMarginInlineStart": {
-          "type": "string"
-        },
-        "scrollMarginLeft": {
-          "type": "string"
-        },
-        "scrollMarginRight": {
-          "type": "string"
-        },
-        "scrollMarginTop": {
-          "type": "string"
-        },
-        "scrollPadding": {
-          "type": "string"
-        },
-        "scrollPaddingBlock": {
-          "type": "string"
-        },
-        "scrollPaddingBlockEnd": {
-          "type": "string"
-        },
-        "scrollPaddingBlockStart": {
-          "type": "string"
-        },
-        "scrollPaddingBottom": {
-          "type": "string"
-        },
-        "scrollPaddingInline": {
-          "type": "string"
-        },
-        "scrollPaddingInlineEnd": {
-          "type": "string"
-        },
-        "scrollPaddingInlineStart": {
-          "type": "string"
-        },
-        "scrollPaddingLeft": {
-          "type": "string"
-        },
-        "scrollPaddingRight": {
-          "type": "string"
-        },
-        "scrollPaddingTop": {
-          "type": "string"
-        },
-        "scrollSnapAlign": {
-          "type": "string"
-        },
-        "scrollSnapStop": {
-          "type": "string"
-        },
-        "scrollSnapType": {
-          "type": "string"
-        },
-        "scrollbarGutter": {
-          "type": "string"
-        },
-        "shapeImageThreshold": {
-          "type": "string"
-        },
-        "shapeMargin": {
-          "type": "string"
-        },
-        "shapeOutside": {
-          "type": "string"
-        },
-        "shapeRendering": {
-          "type": "string"
-        },
-        "stopColor": {
-          "type": "string"
-        },
-        "stopOpacity": {
-          "type": "string"
-        },
-        "stroke": {
-          "type": "string"
-        },
-        "strokeDasharray": {
-          "type": "string"
-        },
-        "strokeDashoffset": {
-          "type": "string"
-        },
-        "strokeLinecap": {
-          "type": "string"
-        },
-        "strokeLinejoin": {
-          "type": "string"
-        },
-        "strokeMiterlimit": {
-          "type": "string"
-        },
-        "strokeOpacity": {
-          "type": "string"
-        },
-        "strokeWidth": {
-          "type": "string"
-        },
-        "tabSize": {
-          "type": "string"
-        },
-        "tableLayout": {
-          "type": "string"
-        },
-        "textAlignLast": {
-          "type": "string"
-        },
-        "textAnchor": {
-          "type": "string"
-        },
-        "textCombineUpright": {
-          "type": "string"
-        },
-        "textDecoration": {
-          "type": "string"
-        },
-        "textDecorationColor": {
-          "type": "string"
-        },
-        "textDecorationLine": {
-          "type": "string"
-        },
-        "textDecorationSkipInk": {
-          "type": "string"
-        },
-        "textDecorationStyle": {
-          "type": "string"
-        },
-        "textDecorationThickness": {
-          "type": "string"
-        },
-        "textEmphasis": {
-          "type": "string"
-        },
-        "textEmphasisColor": {
-          "type": "string"
-        },
-        "textEmphasisPosition": {
-          "type": "string"
-        },
-        "textEmphasisStyle": {
-          "type": "string"
-        },
-        "textIndent": {
-          "type": "string"
-        },
-        "textOrientation": {
-          "type": "string"
-        },
-        "textOverflow": {
-          "type": "string"
-        },
-        "textRendering": {
-          "type": "string"
-        },
-        "textShadow": {
-          "type": "string"
-        },
-        "textTransform": {
-          "type": "string"
-        },
-        "textUnderlineOffset": {
-          "type": "string"
-        },
-        "textUnderlinePosition": {
-          "type": "string"
-        },
-        "top": {
-          "type": "string"
-        },
-        "touchAction": {
-          "type": "string"
-        },
-        "transform": {
-          "type": "string"
-        },
-        "transformBox": {
-          "type": "string"
-        },
-        "transformOrigin": {
-          "type": "string"
-        },
-        "transformStyle": {
-          "type": "string"
-        },
-        "transition": {
-          "type": "string"
-        },
-        "transitionDelay": {
-          "type": "string"
-        },
-        "transitionDuration": {
-          "type": "string"
-        },
-        "transitionProperty": {
-          "type": "string"
-        },
-        "transitionTimingFunction": {
-          "type": "string"
-        },
-        "translate": {
-          "type": "string"
-        },
-        "unicodeBidi": {
-          "type": "string"
-        },
-        "userSelect": {
-          "type": "string"
-        },
-        "verticalAlign": {
-          "type": "string"
-        },
-        "visibility": {
-          "type": "string"
-        },
-        "webkitAlignContent": {
-          "type": "string"
-        },
-        "webkitAlignItems": {
-          "type": "string"
-        },
-        "webkitAlignSelf": {
-          "type": "string"
-        },
-        "webkitAnimation": {
-          "type": "string"
-        },
-        "webkitAnimationDelay": {
-          "type": "string"
-        },
-        "webkitAnimationDirection": {
-          "type": "string"
-        },
-        "webkitAnimationDuration": {
-          "type": "string"
-        },
-        "webkitAnimationFillMode": {
-          "type": "string"
-        },
-        "webkitAnimationIterationCount": {
-          "type": "string"
-        },
-        "webkitAnimationName": {
-          "type": "string"
-        },
-        "webkitAnimationPlayState": {
-          "type": "string"
-        },
-        "webkitAnimationTimingFunction": {
-          "type": "string"
-        },
-        "webkitAppearance": {
-          "type": "string"
-        },
-        "webkitBackfaceVisibility": {
-          "type": "string"
-        },
-        "webkitBackgroundClip": {
-          "type": "string"
-        },
-        "webkitBackgroundOrigin": {
-          "type": "string"
-        },
-        "webkitBackgroundSize": {
-          "type": "string"
-        },
-        "webkitBorderBottomLeftRadius": {
-          "type": "string"
-        },
-        "webkitBorderBottomRightRadius": {
-          "type": "string"
-        },
-        "webkitBorderRadius": {
-          "type": "string"
-        },
-        "webkitBorderTopLeftRadius": {
-          "type": "string"
-        },
-        "webkitBorderTopRightRadius": {
-          "type": "string"
-        },
-        "webkitBoxAlign": {
-          "type": "string"
-        },
-        "webkitBoxFlex": {
-          "type": "string"
-        },
-        "webkitBoxOrdinalGroup": {
-          "type": "string"
-        },
-        "webkitBoxOrient": {
-          "type": "string"
-        },
-        "webkitBoxPack": {
-          "type": "string"
-        },
-        "webkitBoxShadow": {
-          "type": "string"
-        },
-        "webkitBoxSizing": {
-          "type": "string"
-        },
-        "webkitFilter": {
-          "type": "string"
-        },
-        "webkitFlex": {
-          "type": "string"
-        },
-        "webkitFlexBasis": {
-          "type": "string"
-        },
-        "webkitFlexDirection": {
-          "type": "string"
-        },
-        "webkitFlexFlow": {
-          "type": "string"
-        },
-        "webkitFlexGrow": {
-          "type": "string"
-        },
-        "webkitFlexShrink": {
-          "type": "string"
-        },
-        "webkitFlexWrap": {
-          "type": "string"
-        },
-        "webkitJustifyContent": {
-          "type": "string"
-        },
-        "webkitLineClamp": {
-          "type": "string"
-        },
-        "webkitMask": {
-          "type": "string"
-        },
-        "webkitMaskBoxImage": {
-          "type": "string"
-        },
-        "webkitMaskBoxImageOutset": {
-          "type": "string"
-        },
-        "webkitMaskBoxImageRepeat": {
-          "type": "string"
-        },
-        "webkitMaskBoxImageSlice": {
-          "type": "string"
-        },
-        "webkitMaskBoxImageSource": {
-          "type": "string"
-        },
-        "webkitMaskBoxImageWidth": {
-          "type": "string"
-        },
-        "webkitMaskClip": {
-          "type": "string"
-        },
-        "webkitMaskComposite": {
-          "type": "string"
-        },
-        "webkitMaskImage": {
-          "type": "string"
-        },
-        "webkitMaskOrigin": {
-          "type": "string"
-        },
-        "webkitMaskPosition": {
-          "type": "string"
-        },
-        "webkitMaskRepeat": {
-          "type": "string"
-        },
-        "webkitMaskSize": {
-          "type": "string"
-        },
-        "webkitOrder": {
-          "type": "string"
-        },
-        "webkitPerspective": {
-          "type": "string"
-        },
-        "webkitPerspectiveOrigin": {
-          "type": "string"
-        },
-        "webkitTextFillColor": {
-          "type": "string"
-        },
-        "webkitTextSizeAdjust": {
-          "type": "string"
-        },
-        "webkitTextStroke": {
-          "type": "string"
-        },
-        "webkitTextStrokeColor": {
-          "type": "string"
-        },
-        "webkitTextStrokeWidth": {
-          "type": "string"
-        },
-        "webkitTransform": {
-          "type": "string"
-        },
-        "webkitTransformOrigin": {
-          "type": "string"
-        },
-        "webkitTransformStyle": {
-          "type": "string"
-        },
-        "webkitTransition": {
-          "type": "string"
-        },
-        "webkitTransitionDelay": {
-          "type": "string"
-        },
-        "webkitTransitionDuration": {
-          "type": "string"
-        },
-        "webkitTransitionProperty": {
-          "type": "string"
-        },
-        "webkitTransitionTimingFunction": {
-          "type": "string"
-        },
-        "webkitUserSelect": {
-          "type": "string"
-        },
-        "widows": {
-          "type": "string"
-        },
-        "width": {
-          "type": "string"
-        },
-        "willChange": {
-          "type": "string"
-        },
-        "wordBreak": {
-          "type": "string"
-        },
-        "wordSpacing": {
-          "type": "string"
-        },
-        "wordWrap": {
-          "type": "string"
-        },
-        "writingMode": {
-          "type": "string"
-        },
-        "zIndex": {
-          "type": "string"
-        }
-      }
-    },
-    "TextAlign": {
-      "type": "string",
-      "enum": ["center", "justify", "left", "right"]
-    },
-    "TextDirection": {
-      "type": "string",
-      "enum": ["auto", "ltr", "rtl"]
-    },
-    "TextOverflowWrap": {
-      "type": "string",
-      "enum": ["break-word", "normal"]
-    },
-    "TextWhiteSpace": {
-      "type": "string",
-      "enum": ["normal", "nowrap"]
-    },
-    "TextFontStyle": {
-      "type": "string",
-      "enum": ["italic", "normal"]
-    },
-    "TextFontWeight": {
-      "type": "string",
-      "enum": ["bold", "normal"]
-    },
-    "TControlsConfig": {
-      "anyOf": [
-        {
-          "$ref": "#/definitions/TOrbitControlsConfig"
-        },
-        {
-          "$ref": "#/definitions/TFpsControlsConfig"
-        }
-      ]
-    },
-    "TOrbitControlsConfig": {
-      "type": "object",
-      "additionalProperties": false,
-      "properties": {
-        "cameraName": {
-          "type": "string"
-        },
-        "target": {
-          "$ref": "#/definitions/Vector3Like"
-        },
-        "cursor": {
-          "$ref": "#/definitions/Vector3Like"
-        },
-        "type": {
-          "$ref": "#/definitions/ControlsType"
-        },
-        "enabled": {
-          "type": "boolean"
-        },
-        "minDistance": {
-          "type": "number"
-        },
-        "maxDistance": {
-          "type": "number"
-        },
-        "minZoom": {
-          "type": "number"
-        },
-        "maxZoom": {
-          "type": "number"
-        },
-        "minTargetRadius": {
-          "type": "number"
-        },
-        "maxTargetRadius": {
-          "type": "number"
-        },
-        "minPolarAngle": {
-          "type": "number"
-        },
-        "maxPolarAngle": {
-          "type": "number"
-        },
-        "minAzimuthAngle": {
-          "type": "number"
-        },
-        "maxAzimuthAngle": {
-          "type": "number"
-        },
-        "enableDamping": {
-          "type": "boolean"
-        },
-        "dampingFactor": {
-          "type": "number"
-        },
-        "enableZoom": {
-          "type": "boolean"
-        },
-        "zoomSpeed": {
-          "type": "number"
-        },
-        "zoomToCursor": {
-          "type": "boolean"
-        },
-        "enableRotate": {
-          "type": "boolean"
-        },
-        "rotateSpeed": {
-          "type": "number"
-        },
-        "enablePan": {
-          "type": "boolean"
-        },
-        "panSpeed": {
-          "type": "number"
-        },
-        "screenSpacePanning": {
-          "type": "boolean"
-        },
-        "keyPanSpeed": {
-          "type": "number"
-        },
-        "autoRotate": {
-          "type": "boolean"
-        },
-        "autoRotateSpeed": {
-          "type": "number"
-        },
-        "name": {
-          "type": "string"
-        },
-        "isActive": {
-          "type": "boolean"
-        },
-        "tags": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        }
-      },
-      "required": ["cameraName", "isActive", "name", "type"]
-    },
-    "ControlsType": {
-      "type": "string",
-      "enum": ["OrbitControls", "FirstPersonControls"]
-    },
-    "TFpsControlsConfig": {
-      "type": "object",
-      "additionalProperties": false,
-      "properties": {
-        "cameraName": {
-          "type": "string"
-        },
-        "type": {
-          "$ref": "#/definitions/ControlsType"
-        },
-        "movementSpeed": {
-          "type": "number"
-        },
-        "lookSpeed": {
-          "type": "number"
-        },
-        "lookVertical": {
-          "type": "boolean"
-        },
-        "autoForward": {
-          "type": "boolean"
-        },
-        "activeLook": {
-          "type": "boolean"
-        },
-        "heightSpeed": {
-          "type": "boolean"
-        },
-        "heightCoef": {
-          "type": "number"
-        },
-        "heightMin": {
-          "type": "number"
-        },
-        "heightMax": {
-          "type": "number"
-        },
-        "constrainVertical": {
-          "type": "boolean"
-        },
-        "verticalMin": {
-          "type": "number"
-        },
-        "verticalMax": {
-          "type": "number"
-        },
-        "mouseDragOn": {
-          "type": "boolean"
-        },
-        "name": {
-          "type": "string"
-        },
-        "isActive": {
-          "type": "boolean"
-        },
-        "tags": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        }
-      },
-      "required": ["cameraName", "isActive", "name", "type"]
-    },
-    "TSpaceConfigResources": {
-      "type": "object",
-      "properties": {
-        "animations": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/TAnimationsResourceConfig"
-          }
-        },
-        "audio": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/TAudioResourceConfig"
-          }
-        },
-        "envMaps": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/TEnvMapResourceConfig"
-          }
-        },
-        "materials": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/TMaterialConfig"
-          }
-        },
-        "models3d": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/TModel3dResourceConfig"
-          }
-        },
-        "textures": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/TTextureResourceConfig"
-          }
-        }
-      },
-      "required": ["animations", "audio", "envMaps", "materials", "models3d", "textures"],
-      "additionalProperties": false
-    },
-    "TAnimationsResourceConfig": {
-      "$ref": "#/definitions/TAbstractResourceConfig"
-    },
-    "TAbstractResourceConfig": {
-      "type": "object",
-      "additionalProperties": false,
-      "properties": {
-        "tags": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "name": {
-          "type": "string"
-        },
-        "url": {
-          "type": "string"
-        },
-        "isForce": {
-          "type": "boolean"
-        },
-        "options": {
-          "type": "object"
-        }
-      },
-      "required": ["name", "url"]
-    },
-    "TAudioResourceConfig": {
-      "$ref": "#/definitions/TAbstractResourceConfig"
-    },
-    "TEnvMapResourceConfig": {
-      "type": "object",
-      "additionalProperties": false,
-      "properties": {
-        "options": {
-          "$ref": "#/definitions/TEnvMapTextureOptions"
-        },
-        "url": {
-          "type": "string"
-        },
-        "isForce": {
-          "type": "boolean"
-        },
-        "name": {
-          "type": "string"
-        },
-        "tags": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        }
-      },
-      "required": ["name", "url"]
-    },
-    "TEnvMapTextureOptions": {
-      "type": "object",
-      "properties": {
-        "mapping": {
-          "$ref": "#/definitions/EnvMapMappingTypesName"
-        }
-      },
-      "additionalProperties": false
-    },
-    "EnvMapMappingTypesName": {
-      "type": "string",
-      "enum": ["UVMapping", "CubeReflectionMapping", "CubeRefractionMapping", "CubeUVReflectionMapping", "EquirectangularReflectionMapping", "EquirectangularRefractionMapping"]
     },
     "TMaterialConfig": {
       "type": "object",
@@ -7261,6 +4913,2371 @@
         "LineDashedMaterial",
         "LineBasicMaterial"
       ]
+    },
+    "TModel3dConfig": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "position": {
+          "$ref": "#/definitions/Vector3Like"
+        },
+        "scale": {
+          "$ref": "#/definitions/Vector3Like"
+        },
+        "rotation": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/TEulerLike"
+            },
+            {
+              "$ref": "#/definitions/QuaternionLike"
+            }
+          ]
+        },
+        "model3dSource": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "$ref": "#/definitions/PrimitiveModel3dType"
+            }
+          ]
+        },
+        "animationsSource": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "materialSource": {
+          "type": "string"
+        },
+        "forceClone": {
+          "type": "boolean"
+        },
+        "options": {
+          "$ref": "#/definitions/TModel3dOptions"
+        },
+        "visible": {
+          "type": "boolean"
+        },
+        "castShadow": {
+          "type": "boolean"
+        },
+        "receiveShadow": {
+          "type": "boolean"
+        },
+        "layers": {
+          "type": "number"
+        },
+        "frustumCulled": {
+          "type": "boolean"
+        },
+        "renderOrder": {
+          "type": "number"
+        },
+        "name": {
+          "type": "string"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": ["model3dSource", "name"]
+    },
+    "PrimitiveModel3dType": {
+      "type": "string",
+      "enum": ["cube", "plane", "sphere"]
+    },
+    "TModel3dOptions": {
+      "$ref": "#/definitions/TOptional%3CTPrimitiveModel3dParams%3E"
+    },
+    "TOptional<TPrimitiveModel3dParams>": {
+      "type": "object",
+      "properties": {
+        "width": {
+          "$ref": "#/definitions/TMeters"
+        },
+        "height": {
+          "$ref": "#/definitions/TMeters"
+        },
+        "depth": {
+          "$ref": "#/definitions/TMeters"
+        },
+        "widthSegments": {
+          "type": "number"
+        },
+        "heightSegments": {
+          "type": "number"
+        },
+        "depthSegments": {
+          "type": "number"
+        },
+        "radius": {
+          "$ref": "#/definitions/TMeters"
+        },
+        "phiStart": {
+          "type": "number"
+        },
+        "phiLength": {
+          "type": "number"
+        },
+        "thetaStart": {
+          "type": "number"
+        },
+        "thetaLength": {
+          "type": "number"
+        }
+      },
+      "additionalProperties": false
+    },
+    "TRendererConfig": {
+      "type": "object",
+      "properties": {
+        "alpha": {
+          "type": "boolean",
+          "description": "default is false."
+        },
+        "premultipliedAlpha": {
+          "type": "boolean",
+          "description": "default is true."
+        },
+        "antialias": {
+          "type": "boolean",
+          "description": "default is false."
+        },
+        "stencil": {
+          "type": "boolean",
+          "description": "default is false."
+        },
+        "preserveDrawingBuffer": {
+          "type": "boolean",
+          "description": "default is false."
+        },
+        "powerPreference": {
+          "type": "string",
+          "enum": ["default", "high-performance", "low-power"],
+          "description": "Can be \"high-performance\", \"low-power\" or \"default\""
+        },
+        "depth": {
+          "type": "boolean",
+          "description": "default is true."
+        },
+        "failIfMajorPerformanceCaveat": {
+          "type": "boolean",
+          "description": "default is false."
+        },
+        "precision": {
+          "type": "string",
+          "description": "shader precision. Can be \"highp\", \"mediump\" or \"lowp\"."
+        },
+        "logarithmicDepthBuffer": {
+          "type": "boolean",
+          "description": "default is false."
+        },
+        "reverseDepthBuffer": {
+          "type": "boolean",
+          "description": "default is false."
+        },
+        "mode": {
+          "$ref": "#/definitions/RendererModes"
+        },
+        "isShadowMapEnabled": {
+          "type": "boolean"
+        },
+        "maxPixelRatio": {
+          "type": "number"
+        },
+        "isActive": {
+          "type": "boolean"
+        },
+        "name": {
+          "type": "string"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": ["mode", "isActive", "name"],
+      "additionalProperties": false
+    },
+    "RendererModes": {
+      "type": "string",
+      "enum": ["webgl", "webgl2"]
+    },
+    "TParticlesConfig": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "position": {
+          "$ref": "#/definitions/Vector3Like"
+        },
+        "rotation": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/TEulerLike"
+            },
+            {
+              "$ref": "#/definitions/QuaternionLike"
+            }
+          ]
+        },
+        "scale": {
+          "$ref": "#/definitions/Vector3Like"
+        },
+        "visible": {
+          "type": "boolean"
+        },
+        "castShadow": {
+          "type": "boolean"
+        },
+        "receiveShadow": {
+          "type": "boolean"
+        },
+        "layers": {
+          "type": "number"
+        },
+        "frustumCulled": {
+          "type": "boolean"
+        },
+        "renderOrder": {
+          "type": "number"
+        },
+        "materialSource": {
+          "type": "string"
+        },
+        "agent": {
+          "$ref": "#/definitions/TransformAgent"
+        },
+        "name": {
+          "type": "string"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": ["materialSource", "name", "position"]
+    },
+    "TPhysicsConfig": {
+      "type": "object",
+      "properties": {
+        "global": {
+          "$ref": "#/definitions/TPhysicsGlobalConfig"
+        },
+        "presets": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/TPhysicsPresetConfig"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "TPhysicsGlobalConfig": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "gravity": {
+          "$ref": "#/definitions/Vector3Like"
+        },
+        "rawIntegrationParameters": {
+          "$ref": "#/definitions/RawIntegrationParameters"
+        },
+        "rawIslands": {
+          "$ref": "#/definitions/RawIslandManager"
+        },
+        "rawBroadPhase": {
+          "$ref": "#/definitions/RawBroadPhase"
+        },
+        "rawNarrowPhase": {
+          "$ref": "#/definitions/RawNarrowPhase"
+        },
+        "rawBodies": {
+          "$ref": "#/definitions/RawRigidBodySet"
+        },
+        "rawColliders": {
+          "$ref": "#/definitions/RawColliderSet"
+        },
+        "rawImpulseJoints": {
+          "$ref": "#/definitions/RawImpulseJointSet"
+        },
+        "rawMultibodyJoints": {
+          "$ref": "#/definitions/RawMultibodyJointSet"
+        },
+        "rawCCDSolver": {
+          "$ref": "#/definitions/RawCCDSolver"
+        },
+        "rawQueryPipeline": {
+          "$ref": "#/definitions/RawQueryPipeline"
+        },
+        "rawPhysicsPipeline": {
+          "$ref": "#/definitions/RawPhysicsPipeline"
+        },
+        "rawSerializationPipeline": {
+          "$ref": "#/definitions/RawSerializationPipeline"
+        },
+        "rawDebugRenderPipeline": {
+          "$ref": "#/definitions/RawDebugRenderPipeline"
+        }
+      },
+      "required": ["gravity"]
+    },
+    "RawIntegrationParameters": {
+      "type": "object",
+      "properties": {
+        "dt": {
+          "type": "number"
+        },
+        "contact_erp": {
+          "type": "number"
+        },
+        "normalizedAllowedLinearError": {
+          "type": "number"
+        },
+        "normalizedPredictionDistance": {
+          "type": "number"
+        },
+        "numSolverIterations": {
+          "type": "number"
+        },
+        "numAdditionalFrictionIterations": {
+          "type": "number"
+        },
+        "numInternalPgsIterations": {
+          "type": "number"
+        },
+        "minIslandSize": {
+          "type": "number"
+        },
+        "maxCcdSubsteps": {
+          "type": "number"
+        },
+        "lengthUnit": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "dt",
+        "contact_erp",
+        "normalizedAllowedLinearError",
+        "normalizedPredictionDistance",
+        "numSolverIterations",
+        "numAdditionalFrictionIterations",
+        "numInternalPgsIterations",
+        "minIslandSize",
+        "maxCcdSubsteps",
+        "lengthUnit"
+      ],
+      "additionalProperties": false
+    },
+    "RawIslandManager": {
+      "type": "object",
+      "additionalProperties": false
+    },
+    "RawBroadPhase": {
+      "type": "object",
+      "additionalProperties": false
+    },
+    "RawNarrowPhase": {
+      "type": "object",
+      "additionalProperties": false
+    },
+    "RawRigidBodySet": {
+      "type": "object",
+      "additionalProperties": false
+    },
+    "RawColliderSet": {
+      "type": "object",
+      "additionalProperties": false
+    },
+    "RawImpulseJointSet": {
+      "type": "object",
+      "additionalProperties": false
+    },
+    "RawMultibodyJointSet": {
+      "type": "object",
+      "additionalProperties": false
+    },
+    "RawCCDSolver": {
+      "type": "object",
+      "additionalProperties": false
+    },
+    "RawQueryPipeline": {
+      "type": "object",
+      "additionalProperties": false
+    },
+    "RawPhysicsPipeline": {
+      "type": "object",
+      "additionalProperties": false
+    },
+    "RawSerializationPipeline": {
+      "type": "object",
+      "additionalProperties": false
+    },
+    "RawDebugRenderPipeline": {
+      "type": "object",
+      "additionalProperties": false
+    },
+    "TPhysicsPresetConfig": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "type": {
+          "$ref": "#/definitions/RigidBodyTypesNames"
+        },
+        "position": {
+          "$ref": "#/definitions/Vector3Like"
+        },
+        "rotation": {
+          "$ref": "#/definitions/QuaternionLike"
+        },
+        "collisionShape": {
+          "$ref": "#/definitions/CollisionShape"
+        },
+        "shapeParams": {
+          "$ref": "#/definitions/TPhysicsShapeParams"
+        },
+        "mass": {
+          "type": "number"
+        },
+        "restitution": {
+          "type": "number"
+        },
+        "friction": {
+          "type": "number"
+        },
+        "collisionGroups": {
+          "type": "number"
+        },
+        "isSleep": {
+          "type": "boolean"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "TFogConfig": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "color": {
+          "type": "string"
+        },
+        "near": {
+          "type": "number"
+        },
+        "far": {
+          "type": "number"
+        },
+        "name": {
+          "type": "string"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": ["color", "name"]
+    },
+    "TFsmConfig": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "transitions": {
+          "type": "array",
+          "items": {
+            "type": "array",
+            "items": {
+              "anyOf": [
+                {
+                  "$ref": "#/definitions/TFsmStates"
+                },
+                {
+                  "$ref": "#/definitions/TFsmEvents"
+                }
+              ]
+            }
+          }
+        },
+        "type": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/FsmType"
+            },
+            {
+              "type": "string"
+            }
+          ]
+        },
+        "initial": {
+          "$ref": "#/definitions/TFsmStates"
+        },
+        "currentState": {
+          "$ref": "#/definitions/TFsmStates"
+        },
+        "strategy": {
+          "$ref": "#/definitions/FsmEventsStrategy"
+        },
+        "name": {
+          "type": "string"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": ["initial", "name", "transitions", "type"]
+    },
+    "TFsmEvents": {
+      "type": ["string", "number"]
+    },
+    "FsmType": {
+      "type": "string",
+      "const": "Animation"
+    },
+    "TTextConfig": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "position": {
+          "$ref": "#/definitions/Vector3Like"
+        },
+        "rotation": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/TEulerLike"
+            },
+            {
+              "$ref": "#/definitions/QuaternionLike"
+            }
+          ]
+        },
+        "scale": {
+          "$ref": "#/definitions/Vector3Like"
+        },
+        "visible": {
+          "type": "boolean"
+        },
+        "castShadow": {
+          "type": "boolean"
+        },
+        "receiveShadow": {
+          "type": "boolean"
+        },
+        "layers": {
+          "type": "number"
+        },
+        "frustumCulled": {
+          "type": "boolean"
+        },
+        "renderOrder": {
+          "type": "number"
+        },
+        "center": {
+          "$ref": "#/definitions/Vector2Like"
+        },
+        "kinematic": {
+          "$ref": "#/definitions/TKinematicConfig"
+        },
+        "physics": {
+          "$ref": "#/definitions/TWithPresetNamePhysicsBodyConfig"
+        },
+        "text": {
+          "type": "string"
+        },
+        "type": {
+          "$ref": "#/definitions/TextType"
+        },
+        "cssProps": {
+          "$ref": "#/definitions/TTextCssProps"
+        },
+        "elementType": {
+          "type": "string"
+        },
+        "agent": {
+          "$ref": "#/definitions/TransformAgent"
+        },
+        "name": {
+          "type": "string"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": ["name", "position", "text", "type"]
+    },
+    "TextType": {
+      "type": "string",
+      "enum": ["text_2d", "text_3d", "text_3d_texture"]
+    },
+    "TTextCssProps": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "textAlign": {
+          "$ref": "#/definitions/TextAlign"
+        },
+        "direction": {
+          "$ref": "#/definitions/TextDirection"
+        },
+        "overflowWrap": {
+          "$ref": "#/definitions/TextOverflowWrap"
+        },
+        "whiteSpace": {
+          "$ref": "#/definitions/TextWhiteSpace"
+        },
+        "fontStyle": {
+          "$ref": "#/definitions/TextFontStyle"
+        },
+        "fontWeight": {
+          "$ref": "#/definitions/TextFontWeight"
+        },
+        "accentColor": {
+          "type": "string"
+        },
+        "alignContent": {
+          "type": "string"
+        },
+        "alignItems": {
+          "type": "string"
+        },
+        "alignSelf": {
+          "type": "string"
+        },
+        "alignmentBaseline": {
+          "type": "string"
+        },
+        "all": {
+          "type": "string"
+        },
+        "animation": {
+          "type": "string"
+        },
+        "animationComposition": {
+          "type": "string"
+        },
+        "animationDelay": {
+          "type": "string"
+        },
+        "animationDirection": {
+          "type": "string"
+        },
+        "animationDuration": {
+          "type": "string"
+        },
+        "animationFillMode": {
+          "type": "string"
+        },
+        "animationIterationCount": {
+          "type": "string"
+        },
+        "animationName": {
+          "type": "string"
+        },
+        "animationPlayState": {
+          "type": "string"
+        },
+        "animationTimingFunction": {
+          "type": "string"
+        },
+        "appearance": {
+          "type": "string"
+        },
+        "aspectRatio": {
+          "type": "string"
+        },
+        "backdropFilter": {
+          "type": "string"
+        },
+        "backfaceVisibility": {
+          "type": "string"
+        },
+        "background": {
+          "type": "string"
+        },
+        "backgroundAttachment": {
+          "type": "string"
+        },
+        "backgroundBlendMode": {
+          "type": "string"
+        },
+        "backgroundClip": {
+          "type": "string"
+        },
+        "backgroundColor": {
+          "type": "string"
+        },
+        "backgroundImage": {
+          "type": "string"
+        },
+        "backgroundOrigin": {
+          "type": "string"
+        },
+        "backgroundPosition": {
+          "type": "string"
+        },
+        "backgroundPositionX": {
+          "type": "string"
+        },
+        "backgroundPositionY": {
+          "type": "string"
+        },
+        "backgroundRepeat": {
+          "type": "string"
+        },
+        "backgroundSize": {
+          "type": "string"
+        },
+        "baselineShift": {
+          "type": "string"
+        },
+        "blockSize": {
+          "type": "string"
+        },
+        "border": {
+          "type": "string"
+        },
+        "borderBlock": {
+          "type": "string"
+        },
+        "borderBlockColor": {
+          "type": "string"
+        },
+        "borderBlockEnd": {
+          "type": "string"
+        },
+        "borderBlockEndColor": {
+          "type": "string"
+        },
+        "borderBlockEndStyle": {
+          "type": "string"
+        },
+        "borderBlockEndWidth": {
+          "type": "string"
+        },
+        "borderBlockStart": {
+          "type": "string"
+        },
+        "borderBlockStartColor": {
+          "type": "string"
+        },
+        "borderBlockStartStyle": {
+          "type": "string"
+        },
+        "borderBlockStartWidth": {
+          "type": "string"
+        },
+        "borderBlockStyle": {
+          "type": "string"
+        },
+        "borderBlockWidth": {
+          "type": "string"
+        },
+        "borderBottom": {
+          "type": "string"
+        },
+        "borderBottomColor": {
+          "type": "string"
+        },
+        "borderBottomLeftRadius": {
+          "type": "string"
+        },
+        "borderBottomRightRadius": {
+          "type": "string"
+        },
+        "borderBottomStyle": {
+          "type": "string"
+        },
+        "borderBottomWidth": {
+          "type": "string"
+        },
+        "borderCollapse": {
+          "type": "string"
+        },
+        "borderColor": {
+          "type": "string"
+        },
+        "borderEndEndRadius": {
+          "type": "string"
+        },
+        "borderEndStartRadius": {
+          "type": "string"
+        },
+        "borderImage": {
+          "type": "string"
+        },
+        "borderImageOutset": {
+          "type": "string"
+        },
+        "borderImageRepeat": {
+          "type": "string"
+        },
+        "borderImageSlice": {
+          "type": "string"
+        },
+        "borderImageSource": {
+          "type": "string"
+        },
+        "borderImageWidth": {
+          "type": "string"
+        },
+        "borderInline": {
+          "type": "string"
+        },
+        "borderInlineColor": {
+          "type": "string"
+        },
+        "borderInlineEnd": {
+          "type": "string"
+        },
+        "borderInlineEndColor": {
+          "type": "string"
+        },
+        "borderInlineEndStyle": {
+          "type": "string"
+        },
+        "borderInlineEndWidth": {
+          "type": "string"
+        },
+        "borderInlineStart": {
+          "type": "string"
+        },
+        "borderInlineStartColor": {
+          "type": "string"
+        },
+        "borderInlineStartStyle": {
+          "type": "string"
+        },
+        "borderInlineStartWidth": {
+          "type": "string"
+        },
+        "borderInlineStyle": {
+          "type": "string"
+        },
+        "borderInlineWidth": {
+          "type": "string"
+        },
+        "borderLeft": {
+          "type": "string"
+        },
+        "borderLeftColor": {
+          "type": "string"
+        },
+        "borderLeftStyle": {
+          "type": "string"
+        },
+        "borderLeftWidth": {
+          "type": "string"
+        },
+        "borderRadius": {
+          "type": "string"
+        },
+        "borderRight": {
+          "type": "string"
+        },
+        "borderRightColor": {
+          "type": "string"
+        },
+        "borderRightStyle": {
+          "type": "string"
+        },
+        "borderRightWidth": {
+          "type": "string"
+        },
+        "borderSpacing": {
+          "type": "string"
+        },
+        "borderStartEndRadius": {
+          "type": "string"
+        },
+        "borderStartStartRadius": {
+          "type": "string"
+        },
+        "borderStyle": {
+          "type": "string"
+        },
+        "borderTop": {
+          "type": "string"
+        },
+        "borderTopColor": {
+          "type": "string"
+        },
+        "borderTopLeftRadius": {
+          "type": "string"
+        },
+        "borderTopRightRadius": {
+          "type": "string"
+        },
+        "borderTopStyle": {
+          "type": "string"
+        },
+        "borderTopWidth": {
+          "type": "string"
+        },
+        "borderWidth": {
+          "type": "string"
+        },
+        "bottom": {
+          "type": "string"
+        },
+        "boxShadow": {
+          "type": "string"
+        },
+        "boxSizing": {
+          "type": "string"
+        },
+        "breakAfter": {
+          "type": "string"
+        },
+        "breakBefore": {
+          "type": "string"
+        },
+        "breakInside": {
+          "type": "string"
+        },
+        "captionSide": {
+          "type": "string"
+        },
+        "caretColor": {
+          "type": "string"
+        },
+        "clear": {
+          "type": "string"
+        },
+        "clip": {
+          "type": "string"
+        },
+        "clipPath": {
+          "type": "string"
+        },
+        "clipRule": {
+          "type": "string"
+        },
+        "color": {
+          "type": "string"
+        },
+        "colorInterpolation": {
+          "type": "string"
+        },
+        "colorInterpolationFilters": {
+          "type": "string"
+        },
+        "colorScheme": {
+          "type": "string"
+        },
+        "columnCount": {
+          "type": "string"
+        },
+        "columnFill": {
+          "type": "string"
+        },
+        "columnGap": {
+          "type": "string"
+        },
+        "columnRule": {
+          "type": "string"
+        },
+        "columnRuleColor": {
+          "type": "string"
+        },
+        "columnRuleStyle": {
+          "type": "string"
+        },
+        "columnRuleWidth": {
+          "type": "string"
+        },
+        "columnSpan": {
+          "type": "string"
+        },
+        "columnWidth": {
+          "type": "string"
+        },
+        "columns": {
+          "type": "string"
+        },
+        "contain": {
+          "type": "string"
+        },
+        "containIntrinsicBlockSize": {
+          "type": "string"
+        },
+        "containIntrinsicHeight": {
+          "type": "string"
+        },
+        "containIntrinsicInlineSize": {
+          "type": "string"
+        },
+        "containIntrinsicSize": {
+          "type": "string"
+        },
+        "containIntrinsicWidth": {
+          "type": "string"
+        },
+        "container": {
+          "type": "string"
+        },
+        "containerName": {
+          "type": "string"
+        },
+        "containerType": {
+          "type": "string"
+        },
+        "content": {
+          "type": "string"
+        },
+        "counterIncrement": {
+          "type": "string"
+        },
+        "counterReset": {
+          "type": "string"
+        },
+        "counterSet": {
+          "type": "string"
+        },
+        "cssFloat": {
+          "type": "string"
+        },
+        "cssText": {
+          "type": "string"
+        },
+        "cursor": {
+          "type": "string"
+        },
+        "display": {
+          "type": "string"
+        },
+        "dominantBaseline": {
+          "type": "string"
+        },
+        "emptyCells": {
+          "type": "string"
+        },
+        "fill": {
+          "type": "string"
+        },
+        "fillOpacity": {
+          "type": "string"
+        },
+        "fillRule": {
+          "type": "string"
+        },
+        "filter": {
+          "type": "string"
+        },
+        "flex": {
+          "type": "string"
+        },
+        "flexBasis": {
+          "type": "string"
+        },
+        "flexDirection": {
+          "type": "string"
+        },
+        "flexFlow": {
+          "type": "string"
+        },
+        "flexGrow": {
+          "type": "string"
+        },
+        "flexShrink": {
+          "type": "string"
+        },
+        "flexWrap": {
+          "type": "string"
+        },
+        "float": {
+          "type": "string"
+        },
+        "floodColor": {
+          "type": "string"
+        },
+        "floodOpacity": {
+          "type": "string"
+        },
+        "font": {
+          "type": "string"
+        },
+        "fontFamily": {
+          "type": "string"
+        },
+        "fontFeatureSettings": {
+          "type": "string"
+        },
+        "fontKerning": {
+          "type": "string"
+        },
+        "fontOpticalSizing": {
+          "type": "string"
+        },
+        "fontPalette": {
+          "type": "string"
+        },
+        "fontSize": {
+          "type": "string"
+        },
+        "fontSizeAdjust": {
+          "type": "string"
+        },
+        "fontStretch": {
+          "type": "string"
+        },
+        "fontSynthesis": {
+          "type": "string"
+        },
+        "fontSynthesisSmallCaps": {
+          "type": "string"
+        },
+        "fontSynthesisStyle": {
+          "type": "string"
+        },
+        "fontSynthesisWeight": {
+          "type": "string"
+        },
+        "fontVariant": {
+          "type": "string"
+        },
+        "fontVariantAlternates": {
+          "type": "string"
+        },
+        "fontVariantCaps": {
+          "type": "string"
+        },
+        "fontVariantEastAsian": {
+          "type": "string"
+        },
+        "fontVariantLigatures": {
+          "type": "string"
+        },
+        "fontVariantNumeric": {
+          "type": "string"
+        },
+        "fontVariantPosition": {
+          "type": "string"
+        },
+        "fontVariationSettings": {
+          "type": "string"
+        },
+        "forcedColorAdjust": {
+          "type": "string"
+        },
+        "gap": {
+          "type": "string"
+        },
+        "grid": {
+          "type": "string"
+        },
+        "gridArea": {
+          "type": "string"
+        },
+        "gridAutoColumns": {
+          "type": "string"
+        },
+        "gridAutoFlow": {
+          "type": "string"
+        },
+        "gridAutoRows": {
+          "type": "string"
+        },
+        "gridColumn": {
+          "type": "string"
+        },
+        "gridColumnEnd": {
+          "type": "string"
+        },
+        "gridColumnGap": {
+          "type": "string"
+        },
+        "gridColumnStart": {
+          "type": "string"
+        },
+        "gridGap": {
+          "type": "string"
+        },
+        "gridRow": {
+          "type": "string"
+        },
+        "gridRowEnd": {
+          "type": "string"
+        },
+        "gridRowGap": {
+          "type": "string"
+        },
+        "gridRowStart": {
+          "type": "string"
+        },
+        "gridTemplate": {
+          "type": "string"
+        },
+        "gridTemplateAreas": {
+          "type": "string"
+        },
+        "gridTemplateColumns": {
+          "type": "string"
+        },
+        "gridTemplateRows": {
+          "type": "string"
+        },
+        "height": {
+          "type": "string"
+        },
+        "hyphenateCharacter": {
+          "type": "string"
+        },
+        "hyphens": {
+          "type": "string"
+        },
+        "imageOrientation": {
+          "type": "string"
+        },
+        "imageRendering": {
+          "type": "string"
+        },
+        "inlineSize": {
+          "type": "string"
+        },
+        "inset": {
+          "type": "string"
+        },
+        "insetBlock": {
+          "type": "string"
+        },
+        "insetBlockEnd": {
+          "type": "string"
+        },
+        "insetBlockStart": {
+          "type": "string"
+        },
+        "insetInline": {
+          "type": "string"
+        },
+        "insetInlineEnd": {
+          "type": "string"
+        },
+        "insetInlineStart": {
+          "type": "string"
+        },
+        "isolation": {
+          "type": "string"
+        },
+        "justifyContent": {
+          "type": "string"
+        },
+        "justifyItems": {
+          "type": "string"
+        },
+        "justifySelf": {
+          "type": "string"
+        },
+        "left": {
+          "type": "string"
+        },
+        "length": {
+          "type": "string"
+        },
+        "letterSpacing": {
+          "type": "string"
+        },
+        "lightingColor": {
+          "type": "string"
+        },
+        "lineBreak": {
+          "type": "string"
+        },
+        "lineHeight": {
+          "type": "string"
+        },
+        "listStyle": {
+          "type": "string"
+        },
+        "listStyleImage": {
+          "type": "string"
+        },
+        "listStylePosition": {
+          "type": "string"
+        },
+        "listStyleType": {
+          "type": "string"
+        },
+        "margin": {
+          "type": "string"
+        },
+        "marginBlock": {
+          "type": "string"
+        },
+        "marginBlockEnd": {
+          "type": "string"
+        },
+        "marginBlockStart": {
+          "type": "string"
+        },
+        "marginBottom": {
+          "type": "string"
+        },
+        "marginInline": {
+          "type": "string"
+        },
+        "marginInlineEnd": {
+          "type": "string"
+        },
+        "marginInlineStart": {
+          "type": "string"
+        },
+        "marginLeft": {
+          "type": "string"
+        },
+        "marginRight": {
+          "type": "string"
+        },
+        "marginTop": {
+          "type": "string"
+        },
+        "marker": {
+          "type": "string"
+        },
+        "markerEnd": {
+          "type": "string"
+        },
+        "markerMid": {
+          "type": "string"
+        },
+        "markerStart": {
+          "type": "string"
+        },
+        "mask": {
+          "type": "string"
+        },
+        "maskClip": {
+          "type": "string"
+        },
+        "maskComposite": {
+          "type": "string"
+        },
+        "maskImage": {
+          "type": "string"
+        },
+        "maskMode": {
+          "type": "string"
+        },
+        "maskOrigin": {
+          "type": "string"
+        },
+        "maskPosition": {
+          "type": "string"
+        },
+        "maskRepeat": {
+          "type": "string"
+        },
+        "maskSize": {
+          "type": "string"
+        },
+        "maskType": {
+          "type": "string"
+        },
+        "mathStyle": {
+          "type": "string"
+        },
+        "maxBlockSize": {
+          "type": "string"
+        },
+        "maxHeight": {
+          "type": "string"
+        },
+        "maxInlineSize": {
+          "type": "string"
+        },
+        "maxWidth": {
+          "type": "string"
+        },
+        "minBlockSize": {
+          "type": "string"
+        },
+        "minHeight": {
+          "type": "string"
+        },
+        "minInlineSize": {
+          "type": "string"
+        },
+        "minWidth": {
+          "type": "string"
+        },
+        "mixBlendMode": {
+          "type": "string"
+        },
+        "objectFit": {
+          "type": "string"
+        },
+        "objectPosition": {
+          "type": "string"
+        },
+        "offset": {
+          "type": "string"
+        },
+        "offsetDistance": {
+          "type": "string"
+        },
+        "offsetPath": {
+          "type": "string"
+        },
+        "offsetRotate": {
+          "type": "string"
+        },
+        "opacity": {
+          "type": "string"
+        },
+        "order": {
+          "type": "string"
+        },
+        "orphans": {
+          "type": "string"
+        },
+        "outline": {
+          "type": "string"
+        },
+        "outlineColor": {
+          "type": "string"
+        },
+        "outlineOffset": {
+          "type": "string"
+        },
+        "outlineStyle": {
+          "type": "string"
+        },
+        "outlineWidth": {
+          "type": "string"
+        },
+        "overflow": {
+          "type": "string"
+        },
+        "overflowAnchor": {
+          "type": "string"
+        },
+        "overflowClipMargin": {
+          "type": "string"
+        },
+        "overflowX": {
+          "type": "string"
+        },
+        "overflowY": {
+          "type": "string"
+        },
+        "overscrollBehavior": {
+          "type": "string"
+        },
+        "overscrollBehaviorBlock": {
+          "type": "string"
+        },
+        "overscrollBehaviorInline": {
+          "type": "string"
+        },
+        "overscrollBehaviorX": {
+          "type": "string"
+        },
+        "overscrollBehaviorY": {
+          "type": "string"
+        },
+        "padding": {
+          "type": "string"
+        },
+        "paddingBlock": {
+          "type": "string"
+        },
+        "paddingBlockEnd": {
+          "type": "string"
+        },
+        "paddingBlockStart": {
+          "type": "string"
+        },
+        "paddingBottom": {
+          "type": "string"
+        },
+        "paddingInline": {
+          "type": "string"
+        },
+        "paddingInlineEnd": {
+          "type": "string"
+        },
+        "paddingInlineStart": {
+          "type": "string"
+        },
+        "paddingLeft": {
+          "type": "string"
+        },
+        "paddingRight": {
+          "type": "string"
+        },
+        "paddingTop": {
+          "type": "string"
+        },
+        "page": {
+          "type": "string"
+        },
+        "pageBreakAfter": {
+          "type": "string"
+        },
+        "pageBreakBefore": {
+          "type": "string"
+        },
+        "pageBreakInside": {
+          "type": "string"
+        },
+        "paintOrder": {
+          "type": "string"
+        },
+        "perspective": {
+          "type": "string"
+        },
+        "perspectiveOrigin": {
+          "type": "string"
+        },
+        "placeContent": {
+          "type": "string"
+        },
+        "placeItems": {
+          "type": "string"
+        },
+        "placeSelf": {
+          "type": "string"
+        },
+        "pointerEvents": {
+          "type": "string"
+        },
+        "position": {
+          "type": "string"
+        },
+        "printColorAdjust": {
+          "type": "string"
+        },
+        "quotes": {
+          "type": "string"
+        },
+        "resize": {
+          "type": "string"
+        },
+        "right": {
+          "type": "string"
+        },
+        "rotate": {
+          "type": "string"
+        },
+        "rowGap": {
+          "type": "string"
+        },
+        "rubyPosition": {
+          "type": "string"
+        },
+        "scale": {
+          "type": "string"
+        },
+        "scrollBehavior": {
+          "type": "string"
+        },
+        "scrollMargin": {
+          "type": "string"
+        },
+        "scrollMarginBlock": {
+          "type": "string"
+        },
+        "scrollMarginBlockEnd": {
+          "type": "string"
+        },
+        "scrollMarginBlockStart": {
+          "type": "string"
+        },
+        "scrollMarginBottom": {
+          "type": "string"
+        },
+        "scrollMarginInline": {
+          "type": "string"
+        },
+        "scrollMarginInlineEnd": {
+          "type": "string"
+        },
+        "scrollMarginInlineStart": {
+          "type": "string"
+        },
+        "scrollMarginLeft": {
+          "type": "string"
+        },
+        "scrollMarginRight": {
+          "type": "string"
+        },
+        "scrollMarginTop": {
+          "type": "string"
+        },
+        "scrollPadding": {
+          "type": "string"
+        },
+        "scrollPaddingBlock": {
+          "type": "string"
+        },
+        "scrollPaddingBlockEnd": {
+          "type": "string"
+        },
+        "scrollPaddingBlockStart": {
+          "type": "string"
+        },
+        "scrollPaddingBottom": {
+          "type": "string"
+        },
+        "scrollPaddingInline": {
+          "type": "string"
+        },
+        "scrollPaddingInlineEnd": {
+          "type": "string"
+        },
+        "scrollPaddingInlineStart": {
+          "type": "string"
+        },
+        "scrollPaddingLeft": {
+          "type": "string"
+        },
+        "scrollPaddingRight": {
+          "type": "string"
+        },
+        "scrollPaddingTop": {
+          "type": "string"
+        },
+        "scrollSnapAlign": {
+          "type": "string"
+        },
+        "scrollSnapStop": {
+          "type": "string"
+        },
+        "scrollSnapType": {
+          "type": "string"
+        },
+        "scrollbarGutter": {
+          "type": "string"
+        },
+        "shapeImageThreshold": {
+          "type": "string"
+        },
+        "shapeMargin": {
+          "type": "string"
+        },
+        "shapeOutside": {
+          "type": "string"
+        },
+        "shapeRendering": {
+          "type": "string"
+        },
+        "stopColor": {
+          "type": "string"
+        },
+        "stopOpacity": {
+          "type": "string"
+        },
+        "stroke": {
+          "type": "string"
+        },
+        "strokeDasharray": {
+          "type": "string"
+        },
+        "strokeDashoffset": {
+          "type": "string"
+        },
+        "strokeLinecap": {
+          "type": "string"
+        },
+        "strokeLinejoin": {
+          "type": "string"
+        },
+        "strokeMiterlimit": {
+          "type": "string"
+        },
+        "strokeOpacity": {
+          "type": "string"
+        },
+        "strokeWidth": {
+          "type": "string"
+        },
+        "tabSize": {
+          "type": "string"
+        },
+        "tableLayout": {
+          "type": "string"
+        },
+        "textAlignLast": {
+          "type": "string"
+        },
+        "textAnchor": {
+          "type": "string"
+        },
+        "textCombineUpright": {
+          "type": "string"
+        },
+        "textDecoration": {
+          "type": "string"
+        },
+        "textDecorationColor": {
+          "type": "string"
+        },
+        "textDecorationLine": {
+          "type": "string"
+        },
+        "textDecorationSkipInk": {
+          "type": "string"
+        },
+        "textDecorationStyle": {
+          "type": "string"
+        },
+        "textDecorationThickness": {
+          "type": "string"
+        },
+        "textEmphasis": {
+          "type": "string"
+        },
+        "textEmphasisColor": {
+          "type": "string"
+        },
+        "textEmphasisPosition": {
+          "type": "string"
+        },
+        "textEmphasisStyle": {
+          "type": "string"
+        },
+        "textIndent": {
+          "type": "string"
+        },
+        "textOrientation": {
+          "type": "string"
+        },
+        "textOverflow": {
+          "type": "string"
+        },
+        "textRendering": {
+          "type": "string"
+        },
+        "textShadow": {
+          "type": "string"
+        },
+        "textTransform": {
+          "type": "string"
+        },
+        "textUnderlineOffset": {
+          "type": "string"
+        },
+        "textUnderlinePosition": {
+          "type": "string"
+        },
+        "top": {
+          "type": "string"
+        },
+        "touchAction": {
+          "type": "string"
+        },
+        "transform": {
+          "type": "string"
+        },
+        "transformBox": {
+          "type": "string"
+        },
+        "transformOrigin": {
+          "type": "string"
+        },
+        "transformStyle": {
+          "type": "string"
+        },
+        "transition": {
+          "type": "string"
+        },
+        "transitionDelay": {
+          "type": "string"
+        },
+        "transitionDuration": {
+          "type": "string"
+        },
+        "transitionProperty": {
+          "type": "string"
+        },
+        "transitionTimingFunction": {
+          "type": "string"
+        },
+        "translate": {
+          "type": "string"
+        },
+        "unicodeBidi": {
+          "type": "string"
+        },
+        "userSelect": {
+          "type": "string"
+        },
+        "verticalAlign": {
+          "type": "string"
+        },
+        "visibility": {
+          "type": "string"
+        },
+        "webkitAlignContent": {
+          "type": "string"
+        },
+        "webkitAlignItems": {
+          "type": "string"
+        },
+        "webkitAlignSelf": {
+          "type": "string"
+        },
+        "webkitAnimation": {
+          "type": "string"
+        },
+        "webkitAnimationDelay": {
+          "type": "string"
+        },
+        "webkitAnimationDirection": {
+          "type": "string"
+        },
+        "webkitAnimationDuration": {
+          "type": "string"
+        },
+        "webkitAnimationFillMode": {
+          "type": "string"
+        },
+        "webkitAnimationIterationCount": {
+          "type": "string"
+        },
+        "webkitAnimationName": {
+          "type": "string"
+        },
+        "webkitAnimationPlayState": {
+          "type": "string"
+        },
+        "webkitAnimationTimingFunction": {
+          "type": "string"
+        },
+        "webkitAppearance": {
+          "type": "string"
+        },
+        "webkitBackfaceVisibility": {
+          "type": "string"
+        },
+        "webkitBackgroundClip": {
+          "type": "string"
+        },
+        "webkitBackgroundOrigin": {
+          "type": "string"
+        },
+        "webkitBackgroundSize": {
+          "type": "string"
+        },
+        "webkitBorderBottomLeftRadius": {
+          "type": "string"
+        },
+        "webkitBorderBottomRightRadius": {
+          "type": "string"
+        },
+        "webkitBorderRadius": {
+          "type": "string"
+        },
+        "webkitBorderTopLeftRadius": {
+          "type": "string"
+        },
+        "webkitBorderTopRightRadius": {
+          "type": "string"
+        },
+        "webkitBoxAlign": {
+          "type": "string"
+        },
+        "webkitBoxFlex": {
+          "type": "string"
+        },
+        "webkitBoxOrdinalGroup": {
+          "type": "string"
+        },
+        "webkitBoxOrient": {
+          "type": "string"
+        },
+        "webkitBoxPack": {
+          "type": "string"
+        },
+        "webkitBoxShadow": {
+          "type": "string"
+        },
+        "webkitBoxSizing": {
+          "type": "string"
+        },
+        "webkitFilter": {
+          "type": "string"
+        },
+        "webkitFlex": {
+          "type": "string"
+        },
+        "webkitFlexBasis": {
+          "type": "string"
+        },
+        "webkitFlexDirection": {
+          "type": "string"
+        },
+        "webkitFlexFlow": {
+          "type": "string"
+        },
+        "webkitFlexGrow": {
+          "type": "string"
+        },
+        "webkitFlexShrink": {
+          "type": "string"
+        },
+        "webkitFlexWrap": {
+          "type": "string"
+        },
+        "webkitJustifyContent": {
+          "type": "string"
+        },
+        "webkitLineClamp": {
+          "type": "string"
+        },
+        "webkitMask": {
+          "type": "string"
+        },
+        "webkitMaskBoxImage": {
+          "type": "string"
+        },
+        "webkitMaskBoxImageOutset": {
+          "type": "string"
+        },
+        "webkitMaskBoxImageRepeat": {
+          "type": "string"
+        },
+        "webkitMaskBoxImageSlice": {
+          "type": "string"
+        },
+        "webkitMaskBoxImageSource": {
+          "type": "string"
+        },
+        "webkitMaskBoxImageWidth": {
+          "type": "string"
+        },
+        "webkitMaskClip": {
+          "type": "string"
+        },
+        "webkitMaskComposite": {
+          "type": "string"
+        },
+        "webkitMaskImage": {
+          "type": "string"
+        },
+        "webkitMaskOrigin": {
+          "type": "string"
+        },
+        "webkitMaskPosition": {
+          "type": "string"
+        },
+        "webkitMaskRepeat": {
+          "type": "string"
+        },
+        "webkitMaskSize": {
+          "type": "string"
+        },
+        "webkitOrder": {
+          "type": "string"
+        },
+        "webkitPerspective": {
+          "type": "string"
+        },
+        "webkitPerspectiveOrigin": {
+          "type": "string"
+        },
+        "webkitTextFillColor": {
+          "type": "string"
+        },
+        "webkitTextSizeAdjust": {
+          "type": "string"
+        },
+        "webkitTextStroke": {
+          "type": "string"
+        },
+        "webkitTextStrokeColor": {
+          "type": "string"
+        },
+        "webkitTextStrokeWidth": {
+          "type": "string"
+        },
+        "webkitTransform": {
+          "type": "string"
+        },
+        "webkitTransformOrigin": {
+          "type": "string"
+        },
+        "webkitTransformStyle": {
+          "type": "string"
+        },
+        "webkitTransition": {
+          "type": "string"
+        },
+        "webkitTransitionDelay": {
+          "type": "string"
+        },
+        "webkitTransitionDuration": {
+          "type": "string"
+        },
+        "webkitTransitionProperty": {
+          "type": "string"
+        },
+        "webkitTransitionTimingFunction": {
+          "type": "string"
+        },
+        "webkitUserSelect": {
+          "type": "string"
+        },
+        "widows": {
+          "type": "string"
+        },
+        "width": {
+          "type": "string"
+        },
+        "willChange": {
+          "type": "string"
+        },
+        "wordBreak": {
+          "type": "string"
+        },
+        "wordSpacing": {
+          "type": "string"
+        },
+        "wordWrap": {
+          "type": "string"
+        },
+        "writingMode": {
+          "type": "string"
+        },
+        "zIndex": {
+          "type": "string"
+        }
+      }
+    },
+    "TextAlign": {
+      "type": "string",
+      "enum": ["center", "justify", "left", "right"]
+    },
+    "TextDirection": {
+      "type": "string",
+      "enum": ["auto", "ltr", "rtl"]
+    },
+    "TextOverflowWrap": {
+      "type": "string",
+      "enum": ["break-word", "normal"]
+    },
+    "TextWhiteSpace": {
+      "type": "string",
+      "enum": ["normal", "nowrap"]
+    },
+    "TextFontStyle": {
+      "type": "string",
+      "enum": ["italic", "normal"]
+    },
+    "TextFontWeight": {
+      "type": "string",
+      "enum": ["bold", "normal"]
+    },
+    "TControlsConfig": {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/TOrbitControlsConfig"
+        },
+        {
+          "$ref": "#/definitions/TFpsControlsConfig"
+        }
+      ]
+    },
+    "TOrbitControlsConfig": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "cameraName": {
+          "type": "string"
+        },
+        "target": {
+          "$ref": "#/definitions/Vector3Like"
+        },
+        "cursor": {
+          "$ref": "#/definitions/Vector3Like"
+        },
+        "type": {
+          "$ref": "#/definitions/ControlsType"
+        },
+        "enabled": {
+          "type": "boolean"
+        },
+        "minDistance": {
+          "type": "number"
+        },
+        "maxDistance": {
+          "type": "number"
+        },
+        "minZoom": {
+          "type": "number"
+        },
+        "maxZoom": {
+          "type": "number"
+        },
+        "minTargetRadius": {
+          "type": "number"
+        },
+        "maxTargetRadius": {
+          "type": "number"
+        },
+        "minPolarAngle": {
+          "type": "number"
+        },
+        "maxPolarAngle": {
+          "type": "number"
+        },
+        "minAzimuthAngle": {
+          "type": "number"
+        },
+        "maxAzimuthAngle": {
+          "type": "number"
+        },
+        "enableDamping": {
+          "type": "boolean"
+        },
+        "dampingFactor": {
+          "type": "number"
+        },
+        "enableZoom": {
+          "type": "boolean"
+        },
+        "zoomSpeed": {
+          "type": "number"
+        },
+        "zoomToCursor": {
+          "type": "boolean"
+        },
+        "enableRotate": {
+          "type": "boolean"
+        },
+        "rotateSpeed": {
+          "type": "number"
+        },
+        "enablePan": {
+          "type": "boolean"
+        },
+        "panSpeed": {
+          "type": "number"
+        },
+        "screenSpacePanning": {
+          "type": "boolean"
+        },
+        "keyPanSpeed": {
+          "type": "number"
+        },
+        "autoRotate": {
+          "type": "boolean"
+        },
+        "autoRotateSpeed": {
+          "type": "number"
+        },
+        "name": {
+          "type": "string"
+        },
+        "isActive": {
+          "type": "boolean"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": ["cameraName", "isActive", "name", "type"]
+    },
+    "ControlsType": {
+      "type": "string",
+      "enum": ["OrbitControls", "FirstPersonControls"]
+    },
+    "TFpsControlsConfig": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "cameraName": {
+          "type": "string"
+        },
+        "type": {
+          "$ref": "#/definitions/ControlsType"
+        },
+        "movementSpeed": {
+          "type": "number"
+        },
+        "lookSpeed": {
+          "type": "number"
+        },
+        "lookVertical": {
+          "type": "boolean"
+        },
+        "autoForward": {
+          "type": "boolean"
+        },
+        "activeLook": {
+          "type": "boolean"
+        },
+        "heightSpeed": {
+          "type": "boolean"
+        },
+        "heightCoef": {
+          "type": "number"
+        },
+        "heightMin": {
+          "type": "number"
+        },
+        "heightMax": {
+          "type": "number"
+        },
+        "constrainVertical": {
+          "type": "boolean"
+        },
+        "verticalMin": {
+          "type": "number"
+        },
+        "verticalMax": {
+          "type": "number"
+        },
+        "mouseDragOn": {
+          "type": "boolean"
+        },
+        "name": {
+          "type": "string"
+        },
+        "isActive": {
+          "type": "boolean"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": ["cameraName", "isActive", "name", "type"]
+    },
+    "TSpaceConfigResources": {
+      "type": "object",
+      "properties": {
+        "animations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/TAnimationsResourceConfig"
+          }
+        },
+        "audio": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/TAudioResourceConfig"
+          }
+        },
+        "envMaps": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/TEnvMapResourceConfig"
+          }
+        },
+        "models3d": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/TModel3dResourceConfig"
+          }
+        },
+        "textures": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/TTextureResourceConfig"
+          }
+        }
+      },
+      "required": ["animations", "audio", "envMaps", "models3d", "textures"],
+      "additionalProperties": false
+    },
+    "TAnimationsResourceConfig": {
+      "$ref": "#/definitions/TAbstractResourceConfig"
+    },
+    "TAbstractResourceConfig": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "name": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string"
+        },
+        "isForce": {
+          "type": "boolean"
+        },
+        "options": {
+          "type": "object"
+        }
+      },
+      "required": ["name", "url"]
+    },
+    "TAudioResourceConfig": {
+      "$ref": "#/definitions/TAbstractResourceConfig"
+    },
+    "TEnvMapResourceConfig": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "options": {
+          "$ref": "#/definitions/TEnvMapTextureOptions"
+        },
+        "url": {
+          "type": "string"
+        },
+        "isForce": {
+          "type": "boolean"
+        },
+        "name": {
+          "type": "string"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": ["name", "url"]
+    },
+    "TEnvMapTextureOptions": {
+      "type": "object",
+      "properties": {
+        "mapping": {
+          "$ref": "#/definitions/EnvMapMappingTypesName"
+        }
+      },
+      "additionalProperties": false
+    },
+    "EnvMapMappingTypesName": {
+      "type": "string",
+      "enum": ["UVMapping", "CubeReflectionMapping", "CubeRefractionMapping", "CubeUVReflectionMapping", "EquirectangularReflectionMapping", "EquirectangularRefractionMapping"]
     },
     "TModel3dResourceConfig": {
       "type": "object",

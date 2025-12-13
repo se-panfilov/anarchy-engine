@@ -135,6 +135,36 @@
         "type": "DirectionalLight"
       }
     ],
+    "materials": [
+      {
+        "name": "plane_material",
+        "options": {
+          "color": "#5ddc9a"
+        },
+        "type": "MeshStandardMaterial"
+      },
+      {
+        "name": "red_material",
+        "options": {
+          "color": "#ff0000"
+        },
+        "type": "MeshStandardMaterial"
+      },
+      {
+        "name": "green_material",
+        "options": {
+          "color": "#00ff00"
+        },
+        "type": "MeshStandardMaterial"
+      },
+      {
+        "name": "blue_material",
+        "options": {
+          "color": "#0000ff"
+        },
+        "type": "MeshStandardMaterial"
+      }
+    ],
     "models3d": [
       {
         "castShadow": false,
@@ -272,36 +302,6 @@
     "animations": [],
     "audio": [],
     "envMaps": [],
-    "materials": [
-      {
-        "name": "plane_material",
-        "options": {
-          "color": "#5ddc9a"
-        },
-        "type": "MeshStandardMaterial"
-      },
-      {
-        "name": "red_material",
-        "options": {
-          "color": "#ff0000"
-        },
-        "type": "MeshStandardMaterial"
-      },
-      {
-        "name": "green_material",
-        "options": {
-          "color": "#00ff00"
-        },
-        "type": "MeshStandardMaterial"
-      },
-      {
-        "name": "blue_material",
-        "options": {
-          "color": "#0000ff"
-        },
-        "type": "MeshStandardMaterial"
-      }
-    ],
     "models3d": [],
     "textures": []
   },

@@ -471,6 +471,373 @@
         "type": "DirectionalLight"
       }
     ],
+    "materials": [
+      {
+        "name": "standard_metal",
+        "options": {
+          "displacementScale": 0
+        },
+        "tags": ["standard", "metal"],
+        "textures": {
+          "bumpMap": "metal_steel_brushed_bump_map",
+          "displacementMap": "metal_steel_brushed_displacement_map",
+          "map": "metal_steel_brushed_map",
+          "metalnessMap": "metal_steel_brushed_metalness_map",
+          "normalMap": "metal_steel_brushed_normal_map",
+          "roughnessMap": "metal_steel_brushed_roughness_map"
+        },
+        "type": "MeshStandardMaterial"
+      },
+      {
+        "name": "physical_metal",
+        "options": {
+          "clearcoat": 1,
+          "clearcoatRoughness": 0.12,
+          "displacementScale": 0,
+          "ior": 2.5,
+          "iridescence": 0.655,
+          "iridescenceIOR": 1.86,
+          "metalness": 0.97,
+          "roughness": 0.8,
+          "thickness": 0,
+          "transmission": 0
+        },
+        "tags": ["physical", "metal"],
+        "textures": {
+          "bumpMap": "metal_steel_brushed_bump_map",
+          "displacementMap": "metal_steel_brushed_displacement_map",
+          "map": "metal_steel_brushed_map",
+          "metalnessMap": "metal_steel_brushed_metalness_map",
+          "normalMap": "metal_steel_brushed_normal_map",
+          "roughnessMap": "metal_steel_brushed_roughness_map"
+        },
+        "type": "MeshPhysicalMaterial"
+      },
+      {
+        "name": "basic_metal",
+        "tags": ["basic", "metal"],
+        "textures": {
+          "map": "metal_steel_brushed_map"
+        },
+        "type": "MeshBasicMaterial"
+      },
+      {
+        "name": "phong_metal",
+        "options": {
+          "displacementScale": 0.1
+        },
+        "tags": ["phong", "metal"],
+        "textures": {
+          "bumpMap": "metal_steel_brushed_bump_map",
+          "displacementMap": "metal_steel_brushed_displacement_map",
+          "map": "metal_steel_brushed_map",
+          "normalMap": "metal_steel_brushed_normal_map"
+        },
+        "type": "MeshPhongMaterial"
+      },
+      {
+        "name": "lambert_metal",
+        "options": {
+          "displacementScale": 0.1
+        },
+        "tags": ["lambert", "metal"],
+        "textures": {
+          "bumpMap": "metal_steel_brushed_bump_map",
+          "displacementMap": "metal_steel_brushed_displacement_map",
+          "map": "metal_steel_brushed_map",
+          "normalMap": "metal_steel_brushed_normal_map"
+        },
+        "type": "MeshLambertMaterial"
+      },
+      {
+        "name": "toon_metal",
+        "options": {
+          "displacementScale": 0.1
+        },
+        "tags": ["toon", "metal"],
+        "textures": {
+          "bumpMap": "metal_steel_brushed_bump_map",
+          "displacementMap": "metal_steel_brushed_displacement_map",
+          "map": "metal_steel_brushed_map",
+          "normalMap": "metal_steel_brushed_normal_map"
+        },
+        "type": "MeshToonMaterial"
+      },
+      {
+        "name": "matcap_metal",
+        "options": {
+          "displacementScale": 0.1
+        },
+        "tags": ["matcap", "metal"],
+        "textures": {
+          "bumpMap": "metal_steel_brushed_bump_map",
+          "displacementMap": "metal_steel_brushed_displacement_map",
+          "map": "metal_steel_brushed_map",
+          "normalMap": "metal_steel_brushed_normal_map"
+        },
+        "type": "MeshMatcapMaterial"
+      },
+      {
+        "name": "standard_wood",
+        "options": {
+          "displacementScale": 0.1
+        },
+        "tags": ["standard", "wood"],
+        "textures": {
+          "alphaMap": "wood_alpha_map",
+          "aoMap": "wood_ao_map",
+          "displacementMap": "wood_displacement_map",
+          "map": "wood_map",
+          "metalnessMap": "wood_metalness_map",
+          "normalMap": "wood_normal_map",
+          "roughnessMap": "wood_roughness_map"
+        },
+        "type": "MeshStandardMaterial"
+      },
+      {
+        "name": "physical_wood",
+        "options": {
+          "displacementScale": 0.1
+        },
+        "tags": ["physical", "wood"],
+        "textures": {
+          "alphaMap": "wood_alpha_map",
+          "aoMap": "wood_ao_map",
+          "displacementMap": "wood_displacement_map",
+          "map": "wood_map",
+          "metalnessMap": "wood_metalness_map",
+          "normalMap": "wood_normal_map",
+          "roughnessMap": "wood_roughness_map"
+        },
+        "type": "MeshPhysicalMaterial"
+      },
+      {
+        "name": "basic_wood",
+        "tags": ["basic", "wood"],
+        "textures": {
+          "alphaMap": "wood_alpha_map",
+          "aoMap": "wood_ao_map",
+          "map": "wood_map"
+        },
+        "type": "MeshBasicMaterial"
+      },
+      {
+        "name": "phong_wood",
+        "options": {
+          "displacementScale": 0.1
+        },
+        "tags": ["phong", "wood"],
+        "textures": {
+          "alphaMap": "wood_alpha_map",
+          "aoMap": "wood_ao_map",
+          "displacementMap": "wood_displacement_map",
+          "map": "wood_map",
+          "normalMap": "wood_normal_map"
+        },
+        "type": "MeshPhongMaterial"
+      },
+      {
+        "name": "lambert_wood",
+        "options": {
+          "displacementScale": 0.1
+        },
+        "tags": ["lambert", "wood"],
+        "textures": {
+          "alphaMap": "wood_alpha_map",
+          "aoMap": "wood_ao_map",
+          "displacementMap": "wood_displacement_map",
+          "map": "wood_map",
+          "normalMap": "wood_normal_map"
+        },
+        "type": "MeshLambertMaterial"
+      },
+      {
+        "name": "toon_wood",
+        "options": {
+          "displacementScale": 0.1
+        },
+        "tags": ["toon", "wood"],
+        "textures": {
+          "alphaMap": "wood_alpha_map",
+          "aoMap": "wood_ao_map",
+          "displacementMap": "wood_displacement_map",
+          "map": "wood_map",
+          "normalMap": "wood_normal_map"
+        },
+        "type": "MeshToonMaterial"
+      },
+      {
+        "name": "matcap_wood",
+        "options": {
+          "displacementScale": 0.1
+        },
+        "tags": ["matcap", "wood"],
+        "textures": {
+          "alphaMap": "wood_alpha_map",
+          "displacementMap": "wood_displacement_map",
+          "map": "wood_map",
+          "normalMap": "wood_normal_map"
+        },
+        "type": "MeshMatcapMaterial"
+      },
+      {
+        "name": "standard_glass",
+        "options": {
+          "metalness": 0,
+          "roughness": 0
+        },
+        "tags": ["standard", "glass"],
+        "type": "MeshStandardMaterial"
+      },
+      {
+        "name": "physical_glass",
+        "options": {
+          "clearcoat": 0.8,
+          "clearcoatRoughness": 0.09,
+          "displacementScale": 0.1,
+          "ior": 1.26,
+          "iridescence": 0,
+          "iridescenceIOR": 1.38,
+          "metalness": 0,
+          "roughness": 0,
+          "thickness": 0.5,
+          "transmission": 0.77
+        },
+        "tags": ["physical", "glass"],
+        "type": "MeshPhysicalMaterial"
+      },
+      {
+        "name": "basic_glass",
+        "tags": ["basic", "glass"],
+        "type": "MeshBasicMaterial"
+      },
+      {
+        "name": "phong_glass",
+        "options": {
+          "displacementScale": 0.1
+        },
+        "tags": ["phong", "glass"],
+        "type": "MeshPhongMaterial"
+      },
+      {
+        "name": "lambert_glass",
+        "options": {
+          "displacementScale": 0.1
+        },
+        "tags": ["lambert", "glass"],
+        "type": "MeshLambertMaterial"
+      },
+      {
+        "name": "toon_glass",
+        "options": {
+          "displacementScale": 0.1
+        },
+        "tags": ["toon", "glass"],
+        "type": "MeshToonMaterial"
+      },
+      {
+        "name": "matcap_glass",
+        "options": {
+          "displacementScale": 0.1
+        },
+        "tags": ["matcap", "glass"],
+        "type": "MeshMatcapMaterial"
+      },
+      {
+        "name": "standard_textile",
+        "options": {
+          "displacementScale": 0.1
+        },
+        "tags": ["standard", "textile"],
+        "textures": {
+          "aoMap": "carpet_ao_map",
+          "displacementMap": "carpet_displacement_map",
+          "map": "carpet_map",
+          "normalMap": "carpet_normal_map",
+          "roughnessMap": "carpet_roughness_map"
+        },
+        "type": "MeshStandardMaterial"
+      },
+      {
+        "name": "physical_textile",
+        "options": {
+          "displacementScale": 0.1
+        },
+        "tags": ["physical", "textile"],
+        "textures": {
+          "aoMap": "carpet_ao_map",
+          "displacementMap": "carpet_displacement_map",
+          "map": "carpet_map",
+          "normalMap": "carpet_normal_map",
+          "roughnessMap": "carpet_roughness_map"
+        },
+        "type": "MeshPhysicalMaterial"
+      },
+      {
+        "name": "basic_textile",
+        "tags": ["basic", "textile"],
+        "textures": {
+          "aoMap": "carpet_ao_map",
+          "map": "carpet_map"
+        },
+        "type": "MeshBasicMaterial"
+      },
+      {
+        "name": "phong_textile",
+        "options": {
+          "displacementScale": 0.1
+        },
+        "tags": ["phong", "textile"],
+        "textures": {
+          "aoMap": "carpet_ao_map",
+          "displacementMap": "carpet_displacement_map",
+          "map": "carpet_map",
+          "normalMap": "carpet_normal_map"
+        },
+        "type": "MeshPhongMaterial"
+      },
+      {
+        "name": "lambert_textile",
+        "options": {
+          "displacementScale": 0.1
+        },
+        "tags": ["lambert", "textile"],
+        "textures": {
+          "aoMap": "carpet_ao_map",
+          "displacementMap": "carpet_displacement_map",
+          "map": "carpet_map",
+          "normalMap": "carpet_normal_map"
+        },
+        "type": "MeshLambertMaterial"
+      },
+      {
+        "name": "toon_textile",
+        "options": {
+          "displacementScale": 0.1
+        },
+        "tags": ["toon", "textile"],
+        "textures": {
+          "aoMap": "carpet_ao_map",
+          "displacementMap": "carpet_displacement_map",
+          "map": "carpet_map",
+          "normalMap": "carpet_normal_map"
+        },
+        "type": "MeshToonMaterial"
+      },
+      {
+        "name": "matcap_textile",
+        "options": {
+          "displacementScale": 0.1
+        },
+        "tags": ["matcap", "textile"],
+        "textures": {
+          "displacementMap": "carpet_displacement_map",
+          "map": "carpet_map",
+          "normalMap": "carpet_normal_map"
+        },
+        "type": "MeshMatcapMaterial"
+      }
+    ],
     "models3d": [
       {
         "castShadow": true,
@@ -880,373 +1247,6 @@
       {
         "name": "urban_alley_hdr",
         "url": "/Showcase/hdr/urban_alley_01_4k.hdr"
-      }
-    ],
-    "materials": [
-      {
-        "name": "standard_metal",
-        "options": {
-          "displacementScale": 0
-        },
-        "tags": ["standard", "metal"],
-        "textures": {
-          "bumpMap": "metal_steel_brushed_bump_map",
-          "displacementMap": "metal_steel_brushed_displacement_map",
-          "map": "metal_steel_brushed_map",
-          "metalnessMap": "metal_steel_brushed_metalness_map",
-          "normalMap": "metal_steel_brushed_normal_map",
-          "roughnessMap": "metal_steel_brushed_roughness_map"
-        },
-        "type": "MeshStandardMaterial"
-      },
-      {
-        "name": "physical_metal",
-        "options": {
-          "clearcoat": 1,
-          "clearcoatRoughness": 0.12,
-          "displacementScale": 0,
-          "ior": 2.5,
-          "iridescence": 0.655,
-          "iridescenceIOR": 1.86,
-          "metalness": 0.97,
-          "roughness": 0.8,
-          "thickness": 0,
-          "transmission": 0
-        },
-        "tags": ["physical", "metal"],
-        "textures": {
-          "bumpMap": "metal_steel_brushed_bump_map",
-          "displacementMap": "metal_steel_brushed_displacement_map",
-          "map": "metal_steel_brushed_map",
-          "metalnessMap": "metal_steel_brushed_metalness_map",
-          "normalMap": "metal_steel_brushed_normal_map",
-          "roughnessMap": "metal_steel_brushed_roughness_map"
-        },
-        "type": "MeshPhysicalMaterial"
-      },
-      {
-        "name": "basic_metal",
-        "tags": ["basic", "metal"],
-        "textures": {
-          "map": "metal_steel_brushed_map"
-        },
-        "type": "MeshBasicMaterial"
-      },
-      {
-        "name": "phong_metal",
-        "options": {
-          "displacementScale": 0.1
-        },
-        "tags": ["phong", "metal"],
-        "textures": {
-          "bumpMap": "metal_steel_brushed_bump_map",
-          "displacementMap": "metal_steel_brushed_displacement_map",
-          "map": "metal_steel_brushed_map",
-          "normalMap": "metal_steel_brushed_normal_map"
-        },
-        "type": "MeshPhongMaterial"
-      },
-      {
-        "name": "lambert_metal",
-        "options": {
-          "displacementScale": 0.1
-        },
-        "tags": ["lambert", "metal"],
-        "textures": {
-          "bumpMap": "metal_steel_brushed_bump_map",
-          "displacementMap": "metal_steel_brushed_displacement_map",
-          "map": "metal_steel_brushed_map",
-          "normalMap": "metal_steel_brushed_normal_map"
-        },
-        "type": "MeshLambertMaterial"
-      },
-      {
-        "name": "toon_metal",
-        "options": {
-          "displacementScale": 0.1
-        },
-        "tags": ["toon", "metal"],
-        "textures": {
-          "bumpMap": "metal_steel_brushed_bump_map",
-          "displacementMap": "metal_steel_brushed_displacement_map",
-          "map": "metal_steel_brushed_map",
-          "normalMap": "metal_steel_brushed_normal_map"
-        },
-        "type": "MeshToonMaterial"
-      },
-      {
-        "name": "matcap_metal",
-        "options": {
-          "displacementScale": 0.1
-        },
-        "tags": ["matcap", "metal"],
-        "textures": {
-          "bumpMap": "metal_steel_brushed_bump_map",
-          "displacementMap": "metal_steel_brushed_displacement_map",
-          "map": "metal_steel_brushed_map",
-          "normalMap": "metal_steel_brushed_normal_map"
-        },
-        "type": "MeshMatcapMaterial"
-      },
-      {
-        "name": "standard_wood",
-        "options": {
-          "displacementScale": 0.1
-        },
-        "tags": ["standard", "wood"],
-        "textures": {
-          "alphaMap": "wood_alpha_map",
-          "aoMap": "wood_ao_map",
-          "displacementMap": "wood_displacement_map",
-          "map": "wood_map",
-          "metalnessMap": "wood_metalness_map",
-          "normalMap": "wood_normal_map",
-          "roughnessMap": "wood_roughness_map"
-        },
-        "type": "MeshStandardMaterial"
-      },
-      {
-        "name": "physical_wood",
-        "options": {
-          "displacementScale": 0.1
-        },
-        "tags": ["physical", "wood"],
-        "textures": {
-          "alphaMap": "wood_alpha_map",
-          "aoMap": "wood_ao_map",
-          "displacementMap": "wood_displacement_map",
-          "map": "wood_map",
-          "metalnessMap": "wood_metalness_map",
-          "normalMap": "wood_normal_map",
-          "roughnessMap": "wood_roughness_map"
-        },
-        "type": "MeshPhysicalMaterial"
-      },
-      {
-        "name": "basic_wood",
-        "tags": ["basic", "wood"],
-        "textures": {
-          "alphaMap": "wood_alpha_map",
-          "aoMap": "wood_ao_map",
-          "map": "wood_map"
-        },
-        "type": "MeshBasicMaterial"
-      },
-      {
-        "name": "phong_wood",
-        "options": {
-          "displacementScale": 0.1
-        },
-        "tags": ["phong", "wood"],
-        "textures": {
-          "alphaMap": "wood_alpha_map",
-          "aoMap": "wood_ao_map",
-          "displacementMap": "wood_displacement_map",
-          "map": "wood_map",
-          "normalMap": "wood_normal_map"
-        },
-        "type": "MeshPhongMaterial"
-      },
-      {
-        "name": "lambert_wood",
-        "options": {
-          "displacementScale": 0.1
-        },
-        "tags": ["lambert", "wood"],
-        "textures": {
-          "alphaMap": "wood_alpha_map",
-          "aoMap": "wood_ao_map",
-          "displacementMap": "wood_displacement_map",
-          "map": "wood_map",
-          "normalMap": "wood_normal_map"
-        },
-        "type": "MeshLambertMaterial"
-      },
-      {
-        "name": "toon_wood",
-        "options": {
-          "displacementScale": 0.1
-        },
-        "tags": ["toon", "wood"],
-        "textures": {
-          "alphaMap": "wood_alpha_map",
-          "aoMap": "wood_ao_map",
-          "displacementMap": "wood_displacement_map",
-          "map": "wood_map",
-          "normalMap": "wood_normal_map"
-        },
-        "type": "MeshToonMaterial"
-      },
-      {
-        "name": "matcap_wood",
-        "options": {
-          "displacementScale": 0.1
-        },
-        "tags": ["matcap", "wood"],
-        "textures": {
-          "alphaMap": "wood_alpha_map",
-          "displacementMap": "wood_displacement_map",
-          "map": "wood_map",
-          "normalMap": "wood_normal_map"
-        },
-        "type": "MeshMatcapMaterial"
-      },
-      {
-        "name": "standard_glass",
-        "options": {
-          "metalness": 0,
-          "roughness": 0
-        },
-        "tags": ["standard", "glass"],
-        "type": "MeshStandardMaterial"
-      },
-      {
-        "name": "physical_glass",
-        "options": {
-          "clearcoat": 0.8,
-          "clearcoatRoughness": 0.09,
-          "displacementScale": 0.1,
-          "ior": 1.26,
-          "iridescence": 0,
-          "iridescenceIOR": 1.38,
-          "metalness": 0,
-          "roughness": 0,
-          "thickness": 0.5,
-          "transmission": 0.77
-        },
-        "tags": ["physical", "glass"],
-        "type": "MeshPhysicalMaterial"
-      },
-      {
-        "name": "basic_glass",
-        "tags": ["basic", "glass"],
-        "type": "MeshBasicMaterial"
-      },
-      {
-        "name": "phong_glass",
-        "options": {
-          "displacementScale": 0.1
-        },
-        "tags": ["phong", "glass"],
-        "type": "MeshPhongMaterial"
-      },
-      {
-        "name": "lambert_glass",
-        "options": {
-          "displacementScale": 0.1
-        },
-        "tags": ["lambert", "glass"],
-        "type": "MeshLambertMaterial"
-      },
-      {
-        "name": "toon_glass",
-        "options": {
-          "displacementScale": 0.1
-        },
-        "tags": ["toon", "glass"],
-        "type": "MeshToonMaterial"
-      },
-      {
-        "name": "matcap_glass",
-        "options": {
-          "displacementScale": 0.1
-        },
-        "tags": ["matcap", "glass"],
-        "type": "MeshMatcapMaterial"
-      },
-      {
-        "name": "standard_textile",
-        "options": {
-          "displacementScale": 0.1
-        },
-        "tags": ["standard", "textile"],
-        "textures": {
-          "aoMap": "carpet_ao_map",
-          "displacementMap": "carpet_displacement_map",
-          "map": "carpet_map",
-          "normalMap": "carpet_normal_map",
-          "roughnessMap": "carpet_roughness_map"
-        },
-        "type": "MeshStandardMaterial"
-      },
-      {
-        "name": "physical_textile",
-        "options": {
-          "displacementScale": 0.1
-        },
-        "tags": ["physical", "textile"],
-        "textures": {
-          "aoMap": "carpet_ao_map",
-          "displacementMap": "carpet_displacement_map",
-          "map": "carpet_map",
-          "normalMap": "carpet_normal_map",
-          "roughnessMap": "carpet_roughness_map"
-        },
-        "type": "MeshPhysicalMaterial"
-      },
-      {
-        "name": "basic_textile",
-        "tags": ["basic", "textile"],
-        "textures": {
-          "aoMap": "carpet_ao_map",
-          "map": "carpet_map"
-        },
-        "type": "MeshBasicMaterial"
-      },
-      {
-        "name": "phong_textile",
-        "options": {
-          "displacementScale": 0.1
-        },
-        "tags": ["phong", "textile"],
-        "textures": {
-          "aoMap": "carpet_ao_map",
-          "displacementMap": "carpet_displacement_map",
-          "map": "carpet_map",
-          "normalMap": "carpet_normal_map"
-        },
-        "type": "MeshPhongMaterial"
-      },
-      {
-        "name": "lambert_textile",
-        "options": {
-          "displacementScale": 0.1
-        },
-        "tags": ["lambert", "textile"],
-        "textures": {
-          "aoMap": "carpet_ao_map",
-          "displacementMap": "carpet_displacement_map",
-          "map": "carpet_map",
-          "normalMap": "carpet_normal_map"
-        },
-        "type": "MeshLambertMaterial"
-      },
-      {
-        "name": "toon_textile",
-        "options": {
-          "displacementScale": 0.1
-        },
-        "tags": ["toon", "textile"],
-        "textures": {
-          "aoMap": "carpet_ao_map",
-          "displacementMap": "carpet_displacement_map",
-          "map": "carpet_map",
-          "normalMap": "carpet_normal_map"
-        },
-        "type": "MeshToonMaterial"
-      },
-      {
-        "name": "matcap_textile",
-        "options": {
-          "displacementScale": 0.1
-        },
-        "tags": ["matcap", "textile"],
-        "textures": {
-          "displacementMap": "carpet_displacement_map",
-          "map": "carpet_map",
-          "normalMap": "carpet_normal_map"
-        },
-        "type": "MeshMatcapMaterial"
       }
     ],
     "models3d": [],

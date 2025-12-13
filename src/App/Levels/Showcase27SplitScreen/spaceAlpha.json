@@ -56,6 +56,22 @@
     "fsm": [],
     "intersections": [],
     "lights": [],
+    "materials": [
+      {
+        "name": "sphere_material",
+        "options": {
+          "color": "#E91E63"
+        },
+        "type": "MeshBasicMaterial"
+      },
+      {
+        "name": "move_material",
+        "options": {
+          "color": "#e66a36"
+        },
+        "type": "MeshBasicMaterial"
+      }
+    ],
     "models3d": [
       {
         "castShadow": false,
@@ -95,22 +111,6 @@
     "animations": [],
     "audio": [],
     "envMaps": [],
-    "materials": [
-      {
-        "name": "sphere_material",
-        "options": {
-          "color": "#E91E63"
-        },
-        "type": "MeshBasicMaterial"
-      },
-      {
-        "name": "move_material",
-        "options": {
-          "color": "#e66a36"
-        },
-        "type": "MeshBasicMaterial"
-      }
-    ],
     "models3d": [],
     "textures": []
   },

@@ -41,6 +41,15 @@
         "type": "AmbientLight"
       }
     ],
+    "materials": [
+      {
+        "name": "surface_material",
+        "options": {
+          "color": "#5EDCAE"
+        },
+        "type": "MeshStandardMaterial"
+      }
+    ],
     "models3d": [],
     "particles": [],
     "physics": {},
@@ -122,15 +131,6 @@
     "animations": [],
     "audio": [],
     "envMaps": [],
-    "materials": [
-      {
-        "name": "surface_material",
-        "options": {
-          "color": "#5EDCAE"
-        },
-        "type": "MeshStandardMaterial"
-      }
-    ],
     "models3d": [],
     "textures": []
   },

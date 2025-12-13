@@ -114,6 +114,31 @@
         "type": "HemisphereLight"
       }
     ],
+    "materials": [
+      {
+        "name": "box_material",
+        "options": {
+          "color": "#4638DF"
+        },
+        "type": "MeshBasicMaterial"
+      },
+      {
+        "name": "particles_material",
+        "options": {
+          "blending": "AdditiveBlending",
+          "color": "#FFFFFF",
+          "depthWrite": false,
+          "size": 0.5,
+          "sizeAttenuation": true,
+          "transparent": true,
+          "vertexColors": false
+        },
+        "textures": {
+          "alphaMap": "particles_alpha_map_texture"
+        },
+        "type": "PointsMaterial"
+      }
+    ],
     "models3d": [
       {
         "castShadow": false,
@@ -174,31 +199,6 @@
     ],
     "audio": [],
     "envMaps": [],
-    "materials": [
-      {
-        "name": "box_material",
-        "options": {
-          "color": "#4638DF"
-        },
-        "type": "MeshBasicMaterial"
-      },
-      {
-        "name": "particles_material",
-        "options": {
-          "blending": "AdditiveBlending",
-          "color": "#FFFFFF",
-          "depthWrite": false,
-          "size": 0.5,
-          "sizeAttenuation": true,
-          "transparent": true,
-          "vertexColors": false
-        },
-        "textures": {
-          "alphaMap": "particles_alpha_map_texture"
-        },
-        "type": "PointsMaterial"
-      }
-    ],
     "models3d": [
       {
         "name": "solder_model",

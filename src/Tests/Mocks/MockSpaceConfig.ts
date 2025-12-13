@@ -15,6 +15,7 @@ export const mockConfig: TSpaceConfig = {
     fsm: [],
     intersections: [],
     lights: [],
+    materials: [],
     models3d: [],
     particles: [],
     physics: {},
@@ -27,7 +28,6 @@ export const mockConfig: TSpaceConfig = {
     animations: [],
     audio: [],
     envMaps: [],
-    materials: [],
     models3d: [],
     textures: []
   },

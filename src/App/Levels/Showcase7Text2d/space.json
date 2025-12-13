@@ -71,6 +71,15 @@
         "type": "DirectionalLight"
       }
     ],
+    "materials": [
+      {
+        "name": "surface_material",
+        "options": {
+          "color": "#5EDCAE"
+        },
+        "type": "MeshStandardMaterial"
+      }
+    ],
     "models3d": [
       {
         "castShadow": false,
@@ -136,15 +145,6 @@
     "animations": [],
     "audio": [],
     "envMaps": [],
-    "materials": [
-      {
-        "name": "surface_material",
-        "options": {
-          "color": "#5EDCAE"
-        },
-        "type": "MeshStandardMaterial"
-      }
-    ],
     "models3d": [],
     "textures": []
   },

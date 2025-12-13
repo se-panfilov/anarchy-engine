@@ -311,6 +311,80 @@
         "type": "DirectionalLight"
       }
     ],
+    "materials": [
+      {
+        "name": "metal_material",
+        "options": {
+          "clearcoat": 1,
+          "clearcoatRoughness": 0.12,
+          "displacementScale": 0,
+          "ior": 2.5,
+          "iridescence": 0.655,
+          "iridescenceIOR": 1.86,
+          "metalness": 0.97,
+          "roughness": 0.8,
+          "thickness": 0,
+          "transmission": 0
+        },
+        "textures": {
+          "bumpMap": "metal_bump_map_texture",
+          "displacementMap": "metal_displacement_map_texture",
+          "map": "metal_map_texture",
+          "metalnessMap": "metal_metalness_map_texture",
+          "normalMap": "metal_normal_map_texture",
+          "roughnessMap": "metal_roughness_map_texture"
+        },
+        "type": "MeshPhysicalMaterial"
+      },
+      {
+        "name": "glass_1_material",
+        "options": {
+          "clearcoat": 0.8,
+          "clearcoatRoughness": 0.09,
+          "displacementScale": 0.1,
+          "ior": 1.26,
+          "iridescence": 0,
+          "iridescenceIOR": 1.38,
+          "metalness": 0,
+          "roughness": 0,
+          "thickness": 0.5,
+          "transmission": 0.77
+        },
+        "type": "MeshPhysicalMaterial"
+      },
+      {
+        "name": "glass_2_material",
+        "options": {
+          "clearcoat": 0.8,
+          "clearcoatRoughness": 0.12,
+          "displacementScale": 0.1,
+          "ior": 1.5,
+          "iridescence": 0,
+          "iridescenceIOR": 1.38,
+          "metalness": 0,
+          "roughness": 3,
+          "thickness": 0.5,
+          "transmission": 0.77
+        },
+        "type": "MeshPhysicalMaterial"
+      },
+      {
+        "name": "wood_material",
+        "options": {
+          "displacementScale": 0.1
+        },
+        "textures": {
+          "alphaMap": "wood_alpha_map_texture",
+          "aoMap": "wood_ao_map_texture",
+          "displacementMap": "wood_displacement_map_texture",
+          "map": "wood_map_texture",
+          "metalnessMap": "wood_metalness_map_texture",
+          "normalMap": "wood_normal_map_texture",
+          "roughnessMap": "wood_roughness_map_texture"
+        },
+        "type": "MeshPhysicalMaterial"
+      }
+    ],
     "models3d": [
       {
         "castShadow": false,
@@ -478,80 +552,6 @@
       {
         "name": "shanghai_bund_hdr",
         "url": "/Showcase/hdr/shanghai_bund_4k.hdr"
-      }
-    ],
-    "materials": [
-      {
-        "name": "metal_material",
-        "options": {
-          "clearcoat": 1,
-          "clearcoatRoughness": 0.12,
-          "displacementScale": 0,
-          "ior": 2.5,
-          "iridescence": 0.655,
-          "iridescenceIOR": 1.86,
-          "metalness": 0.97,
-          "roughness": 0.8,
-          "thickness": 0,
-          "transmission": 0
-        },
-        "textures": {
-          "bumpMap": "metal_bump_map_texture",
-          "displacementMap": "metal_displacement_map_texture",
-          "map": "metal_map_texture",
-          "metalnessMap": "metal_metalness_map_texture",
-          "normalMap": "metal_normal_map_texture",
-          "roughnessMap": "metal_roughness_map_texture"
-        },
-        "type": "MeshPhysicalMaterial"
-      },
-      {
-        "name": "glass_1_material",
-        "options": {
-          "clearcoat": 0.8,
-          "clearcoatRoughness": 0.09,
-          "displacementScale": 0.1,
-          "ior": 1.26,
-          "iridescence": 0,
-          "iridescenceIOR": 1.38,
-          "metalness": 0,
-          "roughness": 0,
-          "thickness": 0.5,
-          "transmission": 0.77
-        },
-        "type": "MeshPhysicalMaterial"
-      },
-      {
-        "name": "glass_2_material",
-        "options": {
-          "clearcoat": 0.8,
-          "clearcoatRoughness": 0.12,
-          "displacementScale": 0.1,
-          "ior": 1.5,
-          "iridescence": 0,
-          "iridescenceIOR": 1.38,
-          "metalness": 0,
-          "roughness": 3,
-          "thickness": 0.5,
-          "transmission": 0.77
-        },
-        "type": "MeshPhysicalMaterial"
-      },
-      {
-        "name": "wood_material",
-        "options": {
-          "displacementScale": 0.1
-        },
-        "textures": {
-          "alphaMap": "wood_alpha_map_texture",
-          "aoMap": "wood_ao_map_texture",
-          "displacementMap": "wood_displacement_map_texture",
-          "map": "wood_map_texture",
-          "metalnessMap": "wood_metalness_map_texture",
-          "normalMap": "wood_normal_map_texture",
-          "roughnessMap": "wood_roughness_map_texture"
-        },
-        "type": "MeshPhysicalMaterial"
       }
     ],
     "models3d": [],

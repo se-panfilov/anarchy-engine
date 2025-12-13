@@ -7,6 +7,7 @@ import type { TFogParams } from '@/Engine/Fog';
 import type { TFsmParams } from '@/Engine/Fsm';
 import type { TIntersectionsWatcherParams } from '@/Engine/Intersections';
 import type { TAnyLightParams } from '@/Engine/Light';
+import type { TMaterialParams } from '@/Engine/Material';
 import type { TModel3dParams } from '@/Engine/Models3d';
 import type { TParticlesParams } from '@/Engine/Particles';
 import type { TPhysicsParams } from '@/Engine/Physics';
@@ -24,6 +25,7 @@ export type TSpaceParamsEntities = Readonly<{
   fsm?: ReadonlyArray<TFsmParams>;
   intersections?: ReadonlyArray<TIntersectionsWatcherParams>;
   lights?: ReadonlyArray<TAnyLightParams>;
+  materials?: ReadonlyArray<TMaterialParams>;
   models3d?: ReadonlyArray<TModel3dParams>;
   renderers?: ReadonlyArray<TRendererParams>;
   particles?: ReadonlyArray<TParticlesParams>;

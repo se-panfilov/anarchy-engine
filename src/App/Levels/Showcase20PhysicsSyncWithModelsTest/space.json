@@ -127,6 +127,15 @@
         "type": "DirectionalLight"
       }
     ],
+    "materials": [
+      {
+        "name": "box_material",
+        "options": {
+          "color": "#8E8E8E"
+        },
+        "type": "MeshStandardMaterial"
+      }
+    ],
     "models3d": [
       {
         "castShadow": true,
@@ -203,15 +212,6 @@
     "animations": [],
     "audio": [],
     "envMaps": [],
-    "materials": [
-      {
-        "name": "box_material",
-        "options": {
-          "color": "#8E8E8E"
-        },
-        "type": "MeshStandardMaterial"
-      }
-    ],
     "models3d": [],
     "textures": []
   },

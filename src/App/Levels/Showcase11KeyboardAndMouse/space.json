@@ -265,6 +265,36 @@
         "type": "DirectionalLight"
       }
     ],
+    "materials": [
+      {
+        "name": "surface_material",
+        "options": {
+          "color": "#5EDCAE"
+        },
+        "type": "MeshToonMaterial"
+      },
+      {
+        "name": "sphere_keyboard_material",
+        "options": {
+          "color": "#E91E63"
+        },
+        "type": "MeshToonMaterial"
+      },
+      {
+        "name": "sphere_mouse_material",
+        "options": {
+          "color": "#E91ED8"
+        },
+        "type": "MeshToonMaterial"
+      },
+      {
+        "name": "keys_material",
+        "options": {
+          "color": "#373739"
+        },
+        "type": "MeshToonMaterial"
+      }
+    ],
     "models3d": [
       {
         "castShadow": false,
@@ -514,36 +544,6 @@
     "animations": [],
     "audio": [],
     "envMaps": [],
-    "materials": [
-      {
-        "name": "surface_material",
-        "options": {
-          "color": "#5EDCAE"
-        },
-        "type": "MeshToonMaterial"
-      },
-      {
-        "name": "sphere_keyboard_material",
-        "options": {
-          "color": "#E91E63"
-        },
-        "type": "MeshToonMaterial"
-      },
-      {
-        "name": "sphere_mouse_material",
-        "options": {
-          "color": "#E91ED8"
-        },
-        "type": "MeshToonMaterial"
-      },
-      {
-        "name": "keys_material",
-        "options": {
-          "color": "#373739"
-        },
-        "type": "MeshToonMaterial"
-      }
-    ],
     "models3d": [],
     "textures": []
   },

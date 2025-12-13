@@ -172,6 +172,31 @@
         "type": "DirectionalLight"
       }
     ],
+    "materials": [
+      {
+        "name": "surface_material",
+        "options": {
+          "color": "#5EDCAE"
+        },
+        "type": "MeshStandardMaterial"
+      },
+      {
+        "name": "particles_material",
+        "options": {
+          "blending": "AdditiveBlending",
+          "color": "#E91E63",
+          "depthWrite": false,
+          "size": 0.5,
+          "sizeAttenuation": true,
+          "transparent": true,
+          "vertexColors": false
+        },
+        "textures": {
+          "alphaMap": "particles_alpha_map_texture"
+        },
+        "type": "PointsMaterial"
+      }
+    ],
     "models3d": [
       {
         "castShadow": false,
@@ -306,31 +331,6 @@
     "animations": [],
     "audio": [],
     "envMaps": [],
-    "materials": [
-      {
-        "name": "surface_material",
-        "options": {
-          "color": "#5EDCAE"
-        },
-        "type": "MeshStandardMaterial"
-      },
-      {
-        "name": "particles_material",
-        "options": {
-          "blending": "AdditiveBlending",
-          "color": "#E91E63",
-          "depthWrite": false,
-          "size": 0.5,
-          "sizeAttenuation": true,
-          "transparent": true,
-          "vertexColors": false
-        },
-        "textures": {
-          "alphaMap": "particles_alpha_map_texture"
-        },
-        "type": "PointsMaterial"
-      }
-    ],
     "models3d": [],
     "textures": [
       {

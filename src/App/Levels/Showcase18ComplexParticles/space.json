@@ -60,6 +60,23 @@
         "type": "DirectionalLight"
       }
     ],
+    "materials": [
+      {
+        "name": "particles_material",
+        "options": {
+          "blending": "AdditiveBlending",
+          "color": "#E91E63",
+          "depthWrite": false,
+          "size": 0.3,
+          "sizeAttenuation": true,
+          "vertexColors": true
+        },
+        "textures": {
+          "alphaMap": "particles_ao_map_texture"
+        },
+        "type": "PointsMaterial"
+      }
+    ],
     "models3d": [],
     "particles": [
       {
@@ -90,23 +107,6 @@
     "animations": [],
     "audio": [],
     "envMaps": [],
-    "materials": [
-      {
-        "name": "particles_material",
-        "options": {
-          "blending": "AdditiveBlending",
-          "color": "#E91E63",
-          "depthWrite": false,
-          "size": 0.3,
-          "sizeAttenuation": true,
-          "vertexColors": true
-        },
-        "textures": {
-          "alphaMap": "particles_ao_map_texture"
-        },
-        "type": "PointsMaterial"
-      }
-    ],
     "models3d": [],
     "textures": [
       {

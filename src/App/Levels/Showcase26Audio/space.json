@@ -216,6 +216,30 @@
         "type": "HemisphereLight"
       }
     ],
+    "materials": [
+      {
+        "name": "surface_material",
+        "options": {
+          "color": "#CBCBCB",
+          "depthWrite": false
+        },
+        "type": "MeshPhongMaterial"
+      },
+      {
+        "name": "sphere_material",
+        "options": {
+          "color": "#E91E63"
+        },
+        "type": "MeshStandardMaterial"
+      },
+      {
+        "name": "cube_material",
+        "options": {
+          "color": "#5EDCAE"
+        },
+        "type": "MeshStandardMaterial"
+      }
+    ],
     "models3d": [
       {
         "castShadow": false,
@@ -284,30 +308,6 @@
       }
     ],
     "envMaps": [],
-    "materials": [
-      {
-        "name": "surface_material",
-        "options": {
-          "color": "#CBCBCB",
-          "depthWrite": false
-        },
-        "type": "MeshPhongMaterial"
-      },
-      {
-        "name": "sphere_material",
-        "options": {
-          "color": "#E91E63"
-        },
-        "type": "MeshStandardMaterial"
-      },
-      {
-        "name": "cube_material",
-        "options": {
-          "color": "#5EDCAE"
-        },
-        "type": "MeshStandardMaterial"
-      }
-    ],
     "models3d": [
       {
         "name": "mutant_model",

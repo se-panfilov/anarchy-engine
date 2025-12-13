@@ -7,6 +7,7 @@ import type { TFogConfig } from '@/Engine/Fog';
 import type { TFsmConfig } from '@/Engine/Fsm';
 import type { TIntersectionsWatcherConfig } from '@/Engine/Intersections';
 import type { TAnyLightConfig } from '@/Engine/Light';
+import type { TMaterialConfig } from '@/Engine/Material';
 import type { TModel3dConfig } from '@/Engine/Models3d';
 import type { TParticlesConfig } from '@/Engine/Particles';
 import type { TPhysicsConfig } from '@/Engine/Physics';
@@ -22,6 +23,7 @@ export type TSpaceConfigEntities = Readonly<{
   envMaps: ReadonlyArray<TEnvMapConfig>;
   intersections: ReadonlyArray<TIntersectionsWatcherConfig>;
   lights: ReadonlyArray<TAnyLightConfig>;
+  materials: ReadonlyArray<TMaterialConfig>;
   models3d: ReadonlyArray<TModel3dConfig>;
   renderers: ReadonlyArray<TRendererConfig>;
   particles: ReadonlyArray<TParticlesConfig>;

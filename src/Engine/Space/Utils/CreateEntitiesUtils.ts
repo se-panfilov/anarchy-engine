@@ -18,7 +18,7 @@ export function createEntities(entities: TSpaceConfigEntities | TSpaceParamsEnti
 
 // TODO a lot of code duplication here, but doesn't worth to refactor right now
 export function createEntitiesFromConfigs(entities: TSpaceConfigEntities, services: TSpaceServices, container: TContainerDecorator): void {
-  const { actors, audio, cameras, spatialGrids, controls, intersections, lights, models3d, renderers, envMaps, fogs, fsm, texts, physics, particles } = entities;
+  const { actors, audio, cameras, spatialGrids, controls, intersections, lights, materials, models3d, renderers, envMaps, fogs, fsm, texts, physics, particles } = entities;
 
   const {
     actorService,
@@ -31,6 +31,7 @@ export function createEntitiesFromConfigs(entities: TSpaceConfigEntities, servic
     intersectionsWatcherService,
     lightService,
     loopService,
+    materialService,
     models3dService,
     mouseService,
     particlesService,
@@ -50,6 +51,9 @@ export function createEntitiesFromConfigs(entities: TSpaceConfigEntities, servic
   spatialGridService.createFromConfig(spatialGrids);
   fogService.createFromConfig(fogs);
   envMapService.createFromConfig(envMaps);
+
+  materialService.createFromConfig(materials);
+
   models3dService.createFromConfig(models3d);
   audioService.createFromConfig(audio);
 
@@ -71,7 +75,7 @@ export function createEntitiesFromConfigs(entities: TSpaceConfigEntities, servic
 }
 
 export function createEntitiesFromParams(entities: TSpaceParamsEntities, services: TSpaceServices, container: TContainerDecorator): void {
-  const { actors, audio, cameras, spatialGrids, controls, intersections, lights, models3d, renderers, envMaps, fogs, fsm, texts, physics, particles } = entities;
+  const { actors, audio, cameras, spatialGrids, controls, intersections, lights, materials, models3d, renderers, envMaps, fogs, fsm, texts, physics, particles } = entities;
 
   const {
     actorService,
@@ -83,6 +87,7 @@ export function createEntitiesFromParams(entities: TSpaceParamsEntities, service
     fsmService,
     intersectionsWatcherService,
     lightService,
+    materialService,
     models3dService,
     particlesService,
     physicsPresetService,
@@ -101,6 +106,7 @@ export function createEntitiesFromParams(entities: TSpaceParamsEntities, service
   if (isDefined(spatialGrids)) spatialGridService.createFromList(spatialGrids);
   if (isDefined(fogs)) fogService.createFromList(fogs);
   if (isDefined(envMaps)) envMapService.createFromList(envMaps);
+  if (isDefined(materials)) materialService.createFromList(materials);
   if (isDefined(models3d)) models3dService.createFromList(models3d);
   if (isDefined(audio)) audioService.createFromList(audio);
 

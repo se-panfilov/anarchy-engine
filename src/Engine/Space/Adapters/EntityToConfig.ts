@@ -40,6 +40,7 @@ export function spaceToConfig(
     fsm: fsmService.serializeAllEntities(),
     intersections: intersectionsWatcherService.serializeAllEntities(),
     lights: lightService.serializeAllEntities(),
+    materials: materialService.serializeAllEntities(),
     models3d: models3dService.serializeAllEntities(),
     particles: particlesService.serializeAllEntities(),
     physics: {
@@ -55,8 +56,6 @@ export function spaceToConfig(
     animations: animationsService.serializeAllResources(),
     audio: audioService.serializeAllResources(),
     envMaps: envMapService.serializeAllResources(),
-    // TODO 15-0-0: serializeAllEntities() or serializeAllResources() here?
-    materials: materialService.serializeAllEntities(),
     models3d: models3dService.serializeAllResources(),
     textures: textureService.serializeAllResources()
   };

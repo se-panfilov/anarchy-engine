@@ -49,8 +49,8 @@ function validateJsonSchema(config: TSpaceConfig): TSchemaValidationResult {
 }
 
 function validateData({ name, version, scenes, resources, entities, canvasSelector, tags }: TSpaceConfig): TSchemaValidationResult {
-  const { models3d: models3dResources, audio: audioResources, envMaps, materials, textures } = resources;
-  const { actors, audio, cameras, spatialGrids, controls, intersections, lights, models3d: models3dEntities, fogs, texts, physics } = entities;
+  const { models3d: models3dResources, audio: audioResources, envMaps, textures } = resources;
+  const { actors, audio, cameras, spatialGrids, controls, intersections, lights, materials, models3d: models3dEntities, fogs, texts, physics } = entities;
 
   const basicErrors: ReadonlyArray<string> = validateConfigBasics(name, version, scenes, canvasSelector, tags);
   const activeErrors: ReadonlyArray<string> = validateActiveEntities({ cameras, scenes, controls });

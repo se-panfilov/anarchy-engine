@@ -217,6 +217,57 @@
         "type": "DirectionalLight"
       }
     ],
+    "materials": [
+      {
+        "name": "box_material",
+        "options": {
+          "color": "#8E8E8E"
+        },
+        "type": "MeshStandardMaterial"
+      },
+      {
+        "name": "box_2_material",
+        "options": {
+          "color": "#FF8E8E"
+        },
+        "type": "MeshStandardMaterial"
+      },
+      {
+        "name": "box_3_material",
+        "options": {
+          "color": "#8E8EFF"
+        },
+        "type": "MeshStandardMaterial"
+      },
+      {
+        "name": "box_4_material",
+        "options": {
+          "color": "#8EFEFE"
+        },
+        "type": "MeshStandardMaterial"
+      },
+      {
+        "name": "box_5_material",
+        "options": {
+          "color": "#8FAA8F"
+        },
+        "type": "MeshStandardMaterial"
+      },
+      {
+        "name": "box_6_material",
+        "options": {
+          "color": "#E91E63"
+        },
+        "type": "MeshStandardMaterial"
+      },
+      {
+        "name": "box_7_material",
+        "options": {
+          "color": "#8EFF8E"
+        },
+        "type": "MeshStandardMaterial"
+      }
+    ],
     "models3d": [
       {
         "castShadow": false,
@@ -339,57 +390,6 @@
     "animations": [],
     "audio": [],
     "envMaps": [],
-    "materials": [
-      {
-        "name": "box_material",
-        "options": {
-          "color": "#8E8E8E"
-        },
-        "type": "MeshStandardMaterial"
-      },
-      {
-        "name": "box_2_material",
-        "options": {
-          "color": "#FF8E8E"
-        },
-        "type": "MeshStandardMaterial"
-      },
-      {
-        "name": "box_3_material",
-        "options": {
-          "color": "#8E8EFF"
-        },
-        "type": "MeshStandardMaterial"
-      },
-      {
-        "name": "box_4_material",
-        "options": {
-          "color": "#8EFEFE"
-        },
-        "type": "MeshStandardMaterial"
-      },
-      {
-        "name": "box_5_material",
-        "options": {
-          "color": "#8FAA8F"
-        },
-        "type": "MeshStandardMaterial"
-      },
-      {
-        "name": "box_6_material",
-        "options": {
-          "color": "#E91E63"
-        },
-        "type": "MeshStandardMaterial"
-      },
-      {
-        "name": "box_7_material",
-        "options": {
-          "color": "#8EFF8E"
-        },
-        "type": "MeshStandardMaterial"
-      }
-    ],
     "models3d": [],
     "textures": []
   },

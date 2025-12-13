@@ -1,22 +1,14 @@
 import type { TEnvMapTexture } from '@/Engine/EnvMap/Models';
 import type { TSpaceConfigResources, TSpaceServices } from '@/Engine/Space/Models';
 
-export async function loadResourcesFromConfig(
-  resources: TSpaceConfigResources,
-  { animationsService, audioService, models3dService, envMapService, materialService, textureService }: TSpaceServices
-): Promise<unknown> {
-  const { animations, audio, models3d, envMaps, materials, textures } = resources;
+export async function loadResourcesFromConfig(resources: TSpaceConfigResources, { animationsService, audioService, models3dService, envMapService, textureService }: TSpaceServices): Promise<unknown> {
+  const { animations, audio, models3d, envMaps, textures } = resources;
 
   // EnvMaps could be loaded async, no need to wait
   const envMapTexturePromise: Promise<ReadonlyArray<TEnvMapTexture>> = envMapService.loadFromConfigAsync(envMaps);
 
   // Textures should be loaded before materials and models
   await textureService.loadFromConfigAsync(textures);
-
-  // Technically, materials are more "entities" rather than "resources":
-  //   They are not loaded from anywhere (should be created instead) and depend on textures.
-  //   However, materials (and textures) should be fully ready before models3d.
-  materialService.createFromConfig(materials);
 
   await animationsService.loadFromConfigAsync(animations);
 
