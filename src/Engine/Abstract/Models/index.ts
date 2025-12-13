@@ -20,8 +20,6 @@ export type * from './TMultitonWatcherWithState';
 export type * from './TProtectedRegistry';
 export type * from './TReactiveFactory';
 export type * from './TRegistryPack';
-export type * from './TWatcher';
-export type * from './TWatcherWithState';
 export type * from './TWithBaseAccessorsRegistry';
 export type * from './TWithReactiveRegistry';
 export type * from './TWithUserData';

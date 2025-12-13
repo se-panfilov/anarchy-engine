@@ -5,6 +5,8 @@ import type { TDestroyable, TNoSpread, TRegistrable, TWithNameAndNameAccessorsMi
 
 export type TAbstractWatcher<T> = Readonly<{
   type: WatcherType | string;
+  start$: Subject<void>;
+  stop$: Subject<void>;
   value$: Subject<T>;
 }> &
   TWithNameAndNameAccessorsMixin &

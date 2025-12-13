@@ -55,7 +55,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     });
   }
 
-  function watchIntersections(actors: ReadonlyArray<TActor>): TIntersectionsWatcher {
+  function watchIntersections(actors: ReadonlyArray<TActor>): void {
     const camera: TCameraWrapper | undefined = cameraService.findActive();
     if (isNotDefined(camera)) throw new Error('Camera is not defined');
 
@@ -64,7 +64,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     intersectionsWatcher.value$.subscribe((obj: TIntersectionEvent): void => console.log('intersect obj', obj));
     mouseService.clickLeftRelease$.subscribe((): void => console.log('int click:'));
 
-    return intersectionsWatcher.start();
+    return intersectionsWatcher.start$.next();
   }
 
   function start(): void {

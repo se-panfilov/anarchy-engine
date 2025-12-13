@@ -18,7 +18,7 @@ export function Engine(space: TSpace): TEngine {
     const { intersectionsWatcherService } = space.services;
     Object.values(space.loops).forEach((loop: TLoop): void => loop.stop());
     void intersectionsWatcherService.getRegistry().forEach((watcher: TIntersectionsWatcher): void => {
-      if (watcher.isStarted) watcher.stop();
+      if (watcher.isStarted) watcher.stop$.next();
     });
   }
 

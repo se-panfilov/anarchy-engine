@@ -56,6 +56,6 @@ export function createEntities(entities: TSpaceConfigEntities, services: TSpaceS
 
   // TODO Not the best place for this, perhaps better to do it in a wrapper (or service?)
   intersectionsWatcherService.getRegistry().added$.subscribe(({ value }: TRegistryPack<TIntersectionsWatcher>): void => {
-    if (value.isAutoStart && !value.isStarted) value.start();
+    if (value.isAutoStart && !value.isStarted) value.start$.next();
   });
 }

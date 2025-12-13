@@ -11,10 +11,19 @@ import { isDefined } from '@/Engine/Utils';
 export function AbstractWatcher<T>(type: WatcherType | string, name: string | undefined, tags: ReadonlyArray<string> = []): TAbstractWatcher<T> {
   const id: string = type + '_' + nanoid();
   const value$: Subject<T> = new Subject<T>();
+  const start$: Subject<void> = new Subject<void>();
+  const stop$: Subject<void> = new Subject<void>();
   const destroyable: TDestroyable = destroyableMixin();
 
   const destroySub$: Subscription = destroyable.destroy$.subscribe((): void => {
     destroySub$.unsubscribe();
+
+    start$.complete();
+    start$.unsubscribe();
+
+    stop$.next();
+    stop$.complete();
+    stop$.unsubscribe();
 
     value$.complete();
     value$.unsubscribe();
@@ -26,6 +35,8 @@ export function AbstractWatcher<T>(type: WatcherType | string, name: string | un
     type,
     tags,
     value$,
+    start$,
+    stop$,
     ...withNameAndNameAccessorsMixin(),
     ...destroyable
   };

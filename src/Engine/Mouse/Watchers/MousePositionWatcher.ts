@@ -1,3 +1,4 @@
+import type { Subscription } from 'rxjs';
 import { distinctUntilChanged, identity, map, tap } from 'rxjs';
 import type { Vector2Like } from 'three';
 
@@ -38,23 +39,25 @@ export function MousePositionWatcher({ container, tags, performance }: TMousePos
       abstractWatcher.value$.next({ x: position[0], y: position[1] });
     });
 
-  function start(): TMousePositionWatcher {
+  const startSub$: Subscription = abstractWatcher.start$.subscribe((): void => {
     container.startWatch('mousemove', onMouseMoveListener);
-    return result;
-  }
+  });
 
-  function stop(): TMousePositionWatcher {
+  const stopSub$: Subscription = abstractWatcher.stop$.subscribe((): void => {
     container.stopWatch('mousemove', onMouseMoveListener);
-    return result;
-  }
+  });
+
+  const destroySub$: Subscription = abstractWatcher.destroy$.subscribe((): void => {
+    destroySub$.unsubscribe();
+    startSub$.unsubscribe();
+    stopSub$.unsubscribe();
+  });
 
   // eslint-disable-next-line functional/immutable-data
   const result: TMousePositionWatcher = Object.assign(abstractWatcher, {
     getValue: (): Vector2Like => ({ ...abstractWatcher.value$.value }),
     valueNormalized$: abstractWatcher.value$.pipe(map(getNormalizedMousePosition)),
-    key: containerIdTag,
-    start,
-    stop
+    key: containerIdTag
   });
 
   return result;

@@ -35,7 +35,7 @@ export function IntersectionsWatcher({ position$, isAutoStart, tags, name, perfo
   // shouldUseDistinct might improve performance, however won't fire an event if the mouse is not moving (and actor or scene is moving)
   const shouldUseDistinct: boolean = performance?.shouldUseDistinct ?? false;
 
-  function start(): TIntersectionsWatcher {
+  abstractWatcher.start$.subscribe((): void => {
     const prevValue: Float32Array = new Float32Array([0, 0]);
     positionSub$ = position$
       .pipe(
@@ -60,15 +60,13 @@ export function IntersectionsWatcher({ position$, isAutoStart, tags, name, perfo
       });
     // eslint-disable-next-line functional/immutable-data
     result.isStarted = true;
-    return result;
-  }
+  });
 
-  function stop(): TIntersectionsWatcher {
+  abstractWatcher.stop$.subscribe((): void => {
     positionSub$?.unsubscribe();
     // eslint-disable-next-line functional/immutable-data
     result.isStarted = false;
-    return result;
-  }
+  });
 
   function getIntersection(coords: Vector2Like, cameraWrapper: Readonly<TCameraWrapper>, list: Array<TSceneObject>): TIntersectionEvent | undefined | never {
     if (isNotDefined(raycaster)) throw new Error('Intersections service: cannot get intersection: a raycaster is not defined');
@@ -92,15 +90,13 @@ export function IntersectionsWatcher({ position$, isAutoStart, tags, name, perfo
     getCamera,
     removeActors,
     removeActor,
-    start,
-    stop,
     isStarted: false,
     isAutoStart
   });
 
   setCamera(rest.camera);
   if (rest.actors.length > 0) addActors(rest.actors);
-  if (isAutoStart) start();
+  if (isAutoStart) result.start$.next();
 
   return result;
 }

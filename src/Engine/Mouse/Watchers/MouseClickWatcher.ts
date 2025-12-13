@@ -13,27 +13,23 @@ export function MouseClickWatcher({ container, tags = [] }: TMouseClickWatcherPa
     abstractWatcher.value$.next(e);
   };
 
-  function start(): TMouseClickWatcher {
+  abstractWatcher.start$.subscribe((): void => {
     container.startWatch(MouseEventType.MouseUp, onMouseListener);
     container.startWatch(MouseEventType.MouseDown, onMouseListener);
     container.startWatch(MouseEventType.DoubleClick, onMouseListener);
     container.startWatch(MouseEventType.Wheel, onMouseListener);
-    return result;
-  }
+  });
 
-  function stop(): TMouseClickWatcher {
+  abstractWatcher.stop$.subscribe((): void => {
     container.stopWatch(MouseEventType.MouseUp, onMouseListener);
     container.stopWatch(MouseEventType.MouseDown, onMouseListener);
     container.stopWatch(MouseEventType.DoubleClick, onMouseListener);
     container.stopWatch(MouseEventType.Wheel, onMouseListener);
-    return result;
-  }
+  });
 
   // eslint-disable-next-line functional/immutable-data
   const result: TMouseClickWatcher = Object.assign(abstractWatcher, {
-    key: containerIdTag,
-    start,
-    stop
+    key: containerIdTag
   });
 
   return result;

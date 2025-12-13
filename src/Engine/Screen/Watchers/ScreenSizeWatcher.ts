@@ -15,23 +15,19 @@ export function ScreenSizeWatcher({ container, tags = [] }: TScreenSizeWatcherPa
     });
   };
 
-  function start(): TScreenSizeWatcher {
+  abstractWatcher.start$.subscribe((): void => {
     onResize();
     container.startWatch('resize', onResize);
-    return result;
-  }
+  });
 
-  function stop(): TScreenSizeWatcher {
+  abstractWatcher.stop$.subscribe((): void => {
     container.stopWatch('resize', onResize);
-    return result;
-  }
+  });
 
   // eslint-disable-next-line functional/immutable-data
   const result: TScreenSizeWatcher = Object.assign(abstractWatcher, {
     getValue: (): TScreenSizeValues => ({ ...abstractWatcher.value$.value }),
-    key: containerIdTag,
-    start,
-    stop
+    key: containerIdTag
   });
 
   return result;
