@@ -11,7 +11,6 @@ export enum MenuRoutes {
 }
 
 // TODO DESKTOP: any?
-// TODO DESKTOP: can we do it lazy?
 export const menuRouteMap: Record<MenuRoutes, any> = {
   [MenuRoutes.Home]: Home,
   [MenuRoutes.Audio]: Audio,

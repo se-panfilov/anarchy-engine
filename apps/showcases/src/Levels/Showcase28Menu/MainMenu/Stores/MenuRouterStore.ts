@@ -4,7 +4,7 @@ import { computed, reactive } from 'vue';
 
 import { MenuRoutes } from '@/Levels/Showcase28Menu/MainMenu/Constants';
 
-export const useMenuRouterStore = defineStore('menuRouter', () => {
+export const useMenuRouterStore = defineStore('menuRouterStore', () => {
   const state: { history: ReadonlyArray<MenuRoutes> } = reactive({
     history: [MenuRoutes.Home]
   });
