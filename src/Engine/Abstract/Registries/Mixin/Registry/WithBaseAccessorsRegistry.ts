@@ -1,6 +1,6 @@
 import type { TWithBaseAccessorsRegistry } from '@/Engine/Abstract/Models';
 import type { TSerializable } from '@/Engine/Mixins';
-import { asArray, findInMap, findKeyInMap, isDefined } from '@/Engine/Utils';
+import { asArray, findInMap, findKeyInMap, isDefined, isNotDefined } from '@/Engine/Utils';
 
 export function withBaseAccessorsRegistry<T>(registry: Map<string, T>): TWithBaseAccessorsRegistry<T> {
   const isEmpty = (): boolean => registry.size === 0;
@@ -24,15 +24,25 @@ export function withBaseAccessorsRegistry<T>(registry: Map<string, T>): TWithBas
   };
 
   return {
-    isEmpty,
-    getLength,
-    forEach,
-    map,
     asArray: (): ReadonlyArray<T> => asArray(registry),
-    getRegistryCopy,
     clear,
     find,
     findKey,
+    getKey: (predicate: (entity: T, key: string) => boolean): string | never => {
+      const result: string | undefined = findKey(predicate);
+      if (isNotDefined(result)) throw new Error('[REGISTRY]: Cannot find an entity key with the provided predicate');
+      return result;
+    },
+    forEach,
+    getLength,
+    getRegistryCopy,
+    isEmpty,
+    get: (predicate: (value: T, key: string) => boolean): T | never => {
+      const result: T | undefined = find(predicate);
+      if (isNotDefined(result)) throw new Error('[REGISTRY]: Cannot find an entity with the provided predicate');
+      return result;
+    },
+    map,
     serialize
   };
 }
