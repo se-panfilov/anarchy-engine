@@ -21,7 +21,7 @@ export function Models3dLoader(registry: TModel3dResourceAsyncRegistry): TModels
 
   function applyParamsOnLoaded(loaded: TWriteable<GLTF>, options?: TModel3dResourceConfig['options']): GLTF {
     if (isNotDefined(options)) return loaded;
-    loaded.scenes.forEach((scene) => applyObject3dParamsToModel3d(scene, options));
+    loaded.scenes.forEach((scene): void => applyObject3dParamsToModel3d(scene, options));
 
     if (isDefined(options.scale?.x) && isDefined(options.scale?.y) && isDefined(options.scale?.z)) applyScaleToModel3d(loaded.scene, options.scale);
     if (isDefined(options.position?.x) && isDefined(options.position?.y) && isDefined(options.position?.z)) applyPositionToModel3d(loaded.scene, options.position);

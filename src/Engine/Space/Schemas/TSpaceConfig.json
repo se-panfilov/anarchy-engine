@@ -6633,7 +6633,7 @@
       "additionalProperties": false,
       "properties": {
         "options": {
-          "$ref": "#/definitions/TOptional%3CTObject3DProps%3E"
+          "$ref": "#/definitions/TOptional%3CTObject3DPropConfig%3E"
         },
         "url": {
           "type": "string"
@@ -6653,18 +6653,9 @@
       },
       "required": ["url"]
     },
-    "TOptional<TObject3DProps>": {
+    "TOptional<TObject3DPropConfig>": {
       "type": "object",
       "properties": {
-        "position": {
-          "$ref": "#/definitions/Vector3"
-        },
-        "rotation": {
-          "$ref": "#/definitions/Euler"
-        },
-        "scale": {
-          "$ref": "#/definitions/Vector3"
-        },
         "visible": {
           "type": "boolean"
         },
@@ -6674,75 +6665,26 @@
         "receiveShadow": {
           "type": "boolean"
         },
-        "layers": {
-          "$ref": "#/definitions/Layers"
-        },
         "frustumCulled": {
           "type": "boolean"
         },
         "renderOrder": {
           "type": "number"
+        },
+        "layers": {
+          "type": "number"
+        },
+        "position": {
+          "$ref": "#/definitions/Vector3Like"
+        },
+        "rotation": {
+          "$ref": "#/definitions/Vector3Like"
+        },
+        "scale": {
+          "$ref": "#/definitions/Vector3Like"
         }
       },
       "additionalProperties": false
-    },
-    "Vector3": {
-      "type": "object",
-      "properties": {
-        "x": {
-          "type": "number",
-          "default": 0
-        },
-        "y": {
-          "type": "number",
-          "default": 0
-        },
-        "z": {
-          "type": "number",
-          "default": 0
-        },
-        "isVector3": {
-          "type": "boolean",
-          "const": true
-        }
-      },
-      "required": ["x", "y", "z", "isVector3"],
-      "additionalProperties": false,
-      "description": "3D vector.\n\nsee  {@link  https://github.com/mrdoob/three.js/blob/master/src/math/Vector3.js }"
-    },
-    "Euler": {
-      "type": "object",
-      "properties": {
-        "x": {
-          "type": "number",
-          "default": 0
-        },
-        "y": {
-          "type": "number",
-          "default": 0
-        },
-        "z": {
-          "type": "number",
-          "default": 0
-        },
-        "order": {
-          "$ref": "#/definitions/EulerOrder",
-          "default": "THREE.Euler.DEFAULT_ORDER"
-        },
-        "isEuler": {
-          "type": "boolean",
-          "const": true
-        },
-        "_onChangeCallback": {
-          "$comment": "() => void"
-        }
-      },
-      "required": ["x", "y", "z", "order", "isEuler", "_onChangeCallback"],
-      "additionalProperties": false
-    },
-    "EulerOrder": {
-      "type": "string",
-      "enum": ["XYZ", "YXZ", "ZXY", "ZYX", "YZX", "XZY"]
     },
     "TTextureResourceConfig": {
       "type": "object",

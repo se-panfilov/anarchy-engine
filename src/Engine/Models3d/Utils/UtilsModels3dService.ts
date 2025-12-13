@@ -1,15 +1,16 @@
-import type { Euler, Group, Mesh, Object3D, Object3DEventMap } from 'three';
-import type { Vector3 } from 'three/src/math/Vector3';
+import type { Group, Mesh, Object3D, Object3DEventMap } from 'three';
+import { Euler } from 'three';
+import type { Vector3Like } from 'three/src/math/Vector3';
 
 import type { TRawModel3d } from '@/Engine/Models3d/Models';
-import type { TObject3DParams } from '@/Engine/ThreeLib';
+import type { TEulerLike, TObject3DParams, TObject3DPropConfig } from '@/Engine/ThreeLib';
 import { isDefined } from '@/Engine/Utils';
 
-export const applyScaleToModel3d = (model: TRawModel3d, scale: Vector3): void => void model.scale.copy(scale);
-export const applyRotationToModel3d = (model: TRawModel3d, rotation: Euler): void => void model.rotation.copy(rotation);
-export const applyPositionToModel3d = (model: TRawModel3d, position: Vector3): void => void model.position.copy(position);
+export const applyScaleToModel3d = (model: TRawModel3d, scale: Vector3Like): void => void model.scale.copy(scale);
+export const applyRotationToModel3d = (model: TRawModel3d, rotation: TEulerLike): void => void model.rotation.copy(new Euler(rotation.x, rotation.y, rotation.z, rotation.order ?? 'XYZ'));
+export const applyPositionToModel3d = (model: TRawModel3d, position: Vector3Like): void => void model.position.copy(position);
 
-export function applyObject3dParamsToModel3d(model3d: TRawModel3d, { visible, castShadow, receiveShadow, frustumCulled, renderOrder }: Partial<TObject3DParams>): void {
+export function applyObject3dParamsToModel3d(model3d: TRawModel3d, { visible, castShadow, receiveShadow, frustumCulled, renderOrder }: Partial<TObject3DParams | TObject3DPropConfig>): void {
   if (isDefined(visible)) applyWithTraverseToModel3d(model3d, 'visible', visible);
   if (isDefined(castShadow)) applyWithTraverseToModel3d(model3d, 'castShadow', castShadow);
   if (isDefined(receiveShadow)) applyWithTraverseToModel3d(model3d, 'receiveShadow', receiveShadow);
