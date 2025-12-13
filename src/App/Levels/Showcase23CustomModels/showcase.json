@@ -57,17 +57,6 @@
       {
         "type": "3d",
         "text": "1",
-        "position": { "x": -10, "y": 0, "z": 3 },
-        "rotation": { "x": -1.57, "y": 0, "z": 0 },
-        "cssProps": {
-          "color": "#000000",
-          "fontSize": "0.1rem",
-          "fontFamily": "\"Roboto\", sans-serif"
-        }
-      },
-      {
-        "type": "3d",
-        "text": "2",
         "position": { "x": -5, "y": 0, "z": 3 },
         "rotation": { "x": -1.57, "y": 0, "z": 0 },
         "cssProps": {
@@ -78,7 +67,7 @@
       },
       {
         "type": "3d",
-        "text": "3",
+        "text": "2",
         "position": { "x": 0, "y": 0, "z": 3 },
         "rotation": { "x": -1.57, "y": 0, "z": 0 },
         "cssProps": {
@@ -89,7 +78,7 @@
       },
       {
         "type": "3d",
-        "text": "4",
+        "text": "3",
         "position": { "x": 5, "y": 0, "z": 3 },
         "rotation": { "x": -1.57, "y": 0, "z": 0 },
         "cssProps": {
