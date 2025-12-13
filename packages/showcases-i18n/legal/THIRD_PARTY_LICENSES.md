@@ -448,7 +448,7 @@ SOFTWARE.
 
 ---
 
-## anarchy-shared@1.3.0
+## anarchy-shared@1.3.1
 
 **License:** MIT
 
