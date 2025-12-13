@@ -15,7 +15,7 @@ export function findKeyInMap<K, V>(map: Map<K, V>, cb: (value: V, key: K) => boo
 }
 
 // NOTE: Slow O(n) linear lookup
-export function getKeyByValue<K, V>(map: Map<K, V>, value: V): K | undefined {
+export function findKeyWithValue<K, V>(map: Map<K, V>, value: V): K | undefined {
   // eslint-disable-next-line functional/no-loop-statements
   for (const [key, val] of map.entries()) if (val === value) return key;
   return undefined;
