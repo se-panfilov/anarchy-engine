@@ -1,5 +1,5 @@
 import type { ActorConfig, CameraConfig, LightConfig, SceneConfig } from '@Engine/Launcher/Models';
-import type { Registry } from '@Engine/Models';
+import type { Registry, ScreenParams, Watcher } from '@Engine/Models';
 import type {
   IActorFactory,
   ICameraFactory,
@@ -27,10 +27,23 @@ import type {
   ISceneWrapper
 } from '@Engine/Wrappers';
 import { combineLatest } from 'rxjs';
+import { DeviceWatcher, MouseClicksWatcher, MousePositionWatcher } from '@Engine/Watchers';
+import type { MousePosition } from '@Engine/Models';
 
 export async function launch(sceneConfig: SceneConfig): Promise<void> {
   const { name, actors, cameras, lights } = sceneConfig;
   const { promise, resolve } = createDeferredPromise<void>();
+
+  //Watchers
+  const deviceWatcher: Watcher<ScreenParams> = DeviceWatcher();
+  // deviceWatcher.value$.subscribe(console.log)
+  deviceWatcher.start$.next();
+  const mouseClicksWatcher: Watcher<void> = MouseClicksWatcher();
+  // mouseClicksWatcher.value$.subscribe(console.log)
+  mouseClicksWatcher.start$.next();
+  const mousePositionWatcher: Watcher<MousePosition> = MousePositionWatcher();
+  // mousePositionWatcher.value$.subscribe(console.log)
+  mousePositionWatcher.start$.next();
 
   //Factories
   const sceneFactory: ISceneFactory = SceneFactory();

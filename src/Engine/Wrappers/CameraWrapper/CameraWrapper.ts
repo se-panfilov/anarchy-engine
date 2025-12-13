@@ -4,6 +4,7 @@ import { getAccessors } from './Accessors';
 import { isNotDefined } from '@Engine/Utils';
 import { PerspectiveCamera } from 'three';
 import { DeviceWatcher } from '@Engine/Watchers';
+import type { ScreenParams } from '@Engine/Models';
 
 export function CameraWrapper({ fov = 45, near = 1, far = 10000, lookAt, position }: CameraParams): ICameraWrapper {
   // TODO (S.Panfilov) Test this: aspect is 0 fot now, but should be set by deviceWatcher
@@ -14,8 +15,10 @@ export function CameraWrapper({ fov = 45, near = 1, far = 10000, lookAt, positio
   // TODO (S.Panfilov) DI deviceWatcher instead of a creation of a new entity
   const deviceWatcher: ReturnType<typeof DeviceWatcher> = DeviceWatcher();
 
-  deviceWatcher.value$.subscribe(({ width, height }) => {
+  deviceWatcher.value$.subscribe(({ width, height }: ScreenParams): void => {
+    console.log(333, { width, height });
     if (isNotDefined(entity)) return;
+    // eslint-disable-next-line functional/immutable-data
     entity.aspect = width / height;
     entity.updateProjectionMatrix();
   });
