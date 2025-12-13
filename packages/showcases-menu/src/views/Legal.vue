@@ -13,22 +13,31 @@ import { AllowedLegalDocNames } from '@Showcases/Shared';
 import type { ShallowRef } from 'vue';
 import { onMounted } from 'vue';
 
+const { EULA, NOTICE } = AllowedLegalDocNames;
+const legalDocsStore = useLegalDocsStore();
+const settingsStore = useSettingsStore();
+
 // TODO DESKTOP: LEGAL: change legal folders to /legal/{locale} (also public/legal/{locale}, assets/legal/{locale})
 onMounted(() => {
-  if (isNotDefined(useLegalDocsStore().state.EULA)) eventsService.emitLoadLegalDocs({ name: AllowedLegalDocNames.EULA, locale: useSettingsStore().localization.locale.id as TShowcaseLocaleIds });
+  if (isNotDefined(legalDocsStore.state.EULA)) eventsService.emitLoadLegalDocs({ name: EULA, locale: settingsStore.localization.locale.id as TShowcaseLocaleIds });
+  if (isNotDefined(legalDocsStore.state.NOTICE)) eventsService.emitLoadLegalDocs({ name: NOTICE, locale: settingsStore.localization.locale.id as TShowcaseLocaleIds });
 });
 
 const { $t } = vueTranslationService;
 
 const viewTitleText: ShallowRef<string> = $t('main-menu.settings.legal.view.title');
-const mainSettingsGroupTitleText: ShallowRef<string> = $t('main-menu.settings.legal.group.main-legal-settings.title');
+const eulaGroupTitleText: ShallowRef<string> = $t('main-menu.settings.legal.group.eula.title');
+const noticeGroupTitleText: ShallowRef<string> = $t('main-menu.settings.legal.group.notice.title');
 </script>
 
 <template>
   <View class="legal" :title="viewTitleText">
     <ViewForm name="legal" class="legal__view-form">
-      <SettingsGroup :title="mainSettingsGroupTitleText">
-        <MdRenderer class="legal__renderer" :content="useLegalDocsStore().state.EULA" />
+      <SettingsGroup :title="eulaGroupTitleText">
+        <MdRenderer class="legal__renderer" :content="legalDocsStore.state.EULA" />
+      </SettingsGroup>
+      <SettingsGroup :title="noticeGroupTitleText">
+        <MdRenderer class="legal__renderer" :content="legalDocsStore.state.NOTICE" />
       </SettingsGroup>
       <Navigation class="settings__navigation" :back-btn="true" />
     </ViewForm>
