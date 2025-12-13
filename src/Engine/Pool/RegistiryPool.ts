@@ -6,13 +6,13 @@ import { ControlsRegistry } from '@Engine/Domains/Controls';
 import { IntersectionsWatcherRegistry } from '@Engine/Domains/Intersections';
 import type { ILightWrapper } from '@Engine/Domains/Light';
 import { LightRegistry } from '@Engine/Domains/Light';
+import { MouseClicksWatcherRegistry, MousePositionWatcherRegistry } from '@Engine/Domains/Mouse';
 import type { ISceneWrapper } from '@Engine/Domains/Scene';
 import { DestroyablePool } from '@Engine/Pool/Mixins/DestroyablePool';
-import { ScreenSizeWatcherRegistry } from '@Engine/Registries';
 import { isNotDefined } from '@Engine/Utils';
 
 import type { IDestroyablePool, IRegistries, IRegistryPool } from './Models';
-import { MouseClicksWatcherRegistry, MousePositionWatcherRegistry } from '@Engine/Domains/Mouse';
+import { ScreenSizeWatcherRegistry } from '@Engine/Domains/Screen';
 
 export function RegistryPool(): IRegistryPool {
   const abstractPool: IDestroyablePool<IRegistries> = DestroyablePool<IRegistries>({

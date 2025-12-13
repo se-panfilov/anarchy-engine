@@ -1,6 +1,6 @@
 import type { IScreenSizeWatcher, IScreenSizeWatcherFactory, IScreenSizeWatcherParams, IScreenSizeWatcherRegistry } from '../Models';
-import { ScreenSizeWatcher } from '../Watcher';
 import { ScreenSizeWatcherRegistry } from '../Registry';
+import { ScreenSizeWatcher } from '../Watcher';
 
 export function ScreenSizeWatcherFactory(): IScreenSizeWatcherFactory {
   const registry: IScreenSizeWatcherRegistry = ScreenSizeWatcherRegistry();

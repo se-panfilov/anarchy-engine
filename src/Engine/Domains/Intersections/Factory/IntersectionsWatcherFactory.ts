@@ -1,8 +1,7 @@
 import { AbstractFactory } from '@Engine/Domains/Abstract';
 import type { IIntersectionsWatcher } from '@Engine/Domains/Intersections';
-import { IntersectionsWatcherRegistry } from '@Engine/Domains/Intersections';
+import { IntersectionsWatcher, IntersectionsWatcherRegistry } from '@Engine/Domains/Intersections';
 import type { IIntersectionsParams } from '@Engine/Models';
-import { IntersectionsWatcher } from '@Engine/Watchers';
 
 import type { IIntersectionsWatcherFactory, IIntersectionsWatcherRegistry } from '../Models';
 
