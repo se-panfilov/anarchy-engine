@@ -1,12 +1,13 @@
-import sceneConfig from '@Engine/Launcher/debug-scene.config.json';
-import { isNotDefined, isValidSceneConfig } from '@Engine/Utils';
 import './style.css';
+
 import { launch } from '@Engine/Launcher';
-import { getRegistryPool } from '@Engine/Pool/GetRegistiryPool';
-import type { IRegistriesPool } from '@Engine/Pool/Models/IRegistriesPool';
-import { getFactoriesPool } from '@Engine/Pool/GetFactoriesPool';
-import type { IFactoriesPool } from '@Engine/Pool/Models/IFactoriesPool';
+import sceneConfig from '@Engine/Launcher/debug-scene.config.json';
 import type { IAppCanvas } from '@Engine/Models';
+import { getFactoriesPool } from '@Engine/Pool/GetFactoriesPool';
+import { getRegistryPool } from '@Engine/Pool/GetRegistiryPool';
+import type { IFactoriesPool } from '@Engine/Pool/Models/IFactoriesPool';
+import type { IRegistriesPool } from '@Engine/Pool/Models/IRegistriesPool';
+import { isNotDefined, isValidSceneConfig } from '@Engine/Utils';
 
 const canvas: IAppCanvas | null = document.querySelector('#app');
 if (isNotDefined(canvas)) throw new Error('Canvas is not defined');

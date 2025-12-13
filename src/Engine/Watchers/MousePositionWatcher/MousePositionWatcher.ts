@@ -1,8 +1,8 @@
-import type { IMouseEvent, IMousePosition } from '@Engine/Models';
-import { AbstractWatcher } from '@Engine/Watchers/AbstractWatcher/AbstractWatcher';
-import type { IMousePositionWatcher } from '@Engine/Watchers';
 import type { IGlobalContainerDecorator } from '@Engine/Global';
+import type { IMouseEvent, IMousePosition } from '@Engine/Models';
+import type { IMousePositionWatcher } from '@Engine/Watchers';
 import { IAbstractWatcher } from '@Engine/Watchers';
+import { AbstractWatcher } from '@Engine/Watchers/AbstractWatcher/AbstractWatcher';
 
 export function MousePositionWatcher(container: IGlobalContainerDecorator): IMousePositionWatcher {
   const abstractWatcher: IAbstractWatcher<IMousePosition> = AbstractWatcher('mouse_position');
