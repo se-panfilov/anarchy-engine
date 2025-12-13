@@ -37,9 +37,6 @@ export function KeyboardService(container: TContainerDecorator, keyWatcherFactor
       })
     );
 
-  // TODO DESKTOP:
-  //  - remove extra models
-
   const destroySub$: Subscription = abstractService.destroy$.subscribe((): void => {
     destroySub$.unsubscribe();
     keyboardLoopSub$.unsubscribe();

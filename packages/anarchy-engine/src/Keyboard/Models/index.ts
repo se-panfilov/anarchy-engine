@@ -1,8 +1,5 @@
 export type * from './TGameKey';
 export type * from './TKeyboardLoop';
-export type * from './TKeyboardRegistry';
-export type * from './TKeyboardRegistryRecords';
-export type * from './TKeyboardRegistryValues';
 export type * from './TKeyboardService';
 export type * from './TKeyComboWatcher';
 export type * from './TKeyComboWatcherDependencies';
