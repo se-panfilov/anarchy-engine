@@ -1,9 +1,8 @@
-import { Vector3 } from 'three';
+import { Quaternion, Vector3 } from 'three';
 
-import type { TActorParams } from '@/Engine/Actor';
+import type { TActorParams, TActorWrapperAsync } from '@/Engine/Actor';
 import type { TKinematicData, TWithKinematic } from '@/Engine/Kinematic/Models';
 import { getAzimuthByLinearVelocity, getElevationByLinearVelocity, getLinearVelocity, getSpeedByLinearVelocity } from '@/Engine/Math';
-import type { TWithPosition3d, TWithRotation } from '@/Engine/Mixins';
 import type { TWriteable } from '@/Engine/Utils';
 import { isNotDefined } from '@/Engine/Utils';
 import { Vector3Wrapper } from '@/Engine/Vector';
@@ -30,22 +29,18 @@ export function withKinematic(params: TActorParams): TWithKinematic {
       if (isNotDefined(this.kinematic.linearVelocity)) return;
       const { x, y, z } = this.kinematic.linearVelocity;
       const displacement: Vector3 = new Vector3(x, y, z).clone().multiplyScalar(delta);
-      (this as unknown as TWithPosition3d).addPosition(Vector3Wrapper(displacement));
-      // this.entity.position.add(displacement);
-
-      // (this as unknown as TWithPosition3d).setPosition(
-      //   Vector3Wrapper({
-      //     x: this.kinematic.linearVelocity.x * delta,
-      //     y: this.kinematic.linearVelocity.y * delta,
-      //     z: this.kinematic.linearVelocity.z * delta
-      //   })
-      // );
+      (this as TActorWrapperAsync).addPosition(Vector3Wrapper(displacement));
     },
     isKinematicAutoUpdate: params.isKinematicAutoUpdate ?? false,
     doKinematicRotation(delta: number): void {
       if (isNotDefined(this.kinematic.angularVelocity)) return;
-      // TODO (S.Panfilov) set or add values?
-      (this as unknown as TWithRotation).setRotation(this.kinematic.angularVelocity.x * delta, this.kinematic.angularVelocity.y * delta, this.kinematic.angularVelocity.z * delta);
+      const { x, y, z } = this.kinematic.angularVelocity;
+      const vec: Vector3 = new Vector3(x, y, z);
+      const axis: Vector3 = vec.clone().normalize();
+      const angle: number = vec.length() * delta;
+      const quaternion: Quaternion = new Quaternion().setFromAxisAngle(axis, angle);
+
+      (this as TActorWrapperAsync).entity.quaternion.multiplyQuaternions(quaternion, (this as TActorWrapperAsync).entity.quaternion);
     },
     getKinematicSpeed(): number {
       if (isNotDefined(this.kinematic.linearVelocity)) return 0;

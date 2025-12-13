@@ -5,7 +5,7 @@ export type TWithPosition2dProperty = Readonly<{
     x: number;
     y: number;
     set: (x: number, y: number) => TVector2;
-    add: (x: number, y: number) => TVector2;
+    // add: (x: number, y: number) => TVector2;
   };
 }>;
 
@@ -15,7 +15,7 @@ export type TWithPosition3dProperty = Readonly<{
     y: number;
     z: number;
     set: (x: number, y: number, z: number) => TVector3;
-    add: (x: number, y: number, z: number) => TVector3;
+    // add: (x: number, y: number, z: number) => TVector3;
   };
 }>;
 
@@ -26,7 +26,7 @@ export type TWithPosition4dProperty = Readonly<{
     z: number;
     w: number;
     set: (x: number, y: number, z: number, w: number) => TVector4;
-    add: (x: number, y: number, z: number, w: number) => TVector4;
+    // add: (x: number, y: number, z: number, w: number) => TVector4;
   };
 }>;
 
