@@ -38,7 +38,7 @@ export function showcase(canvas: TAppCanvas): TShowcase {
     if (isDefined(points)) scene.entity.remove(points);
 
     geometry = new BufferGeometry();
-    const { positions, colors, colorInside, colorOutside } = generateParams();
+    const { positions, colors } = generateParams();
 
     geometry.setAttribute('position', new BufferAttribute(positions, 3));
     geometry.setAttribute('color', new BufferAttribute(colors, 3));
