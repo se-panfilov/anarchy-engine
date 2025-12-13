@@ -41,7 +41,7 @@ import { eulerToXyzIfPossible, getOptionNameIfPossible, vector2ToXyIfPossible, v
 import { extractSerializableRegistrableFields } from '@/Engine/Mixins';
 import type { TTexture, TTextureAsyncRegistry } from '@/Engine/Texture';
 import type { TOptional } from '@/Engine/Utils';
-import { filterOutEmptyFields, isNotDefined, nullsToUndefined } from '@/Engine/Utils';
+import { filterOutEmptyFields, nullsToUndefined } from '@/Engine/Utils';
 
 export function materialToConfig(entity: TMaterialWrapper, { textureResourceRegistry }: TMaterialEntityToConfigDependencies): TMaterialConfig {
   const options: TMaterialConfigOptions | undefined = getMaterialOptions(entity);
@@ -163,10 +163,8 @@ function getMaterialTextures({ entity }: TMaterialWrapper, textureResourceRegist
   const mapsKeys: { [key: string]: string } = {};
 
   Object.entries(maps).forEach(([key, value]: [string, TTexture]): void | never => {
-    const textureName: string | undefined = textureResourceRegistry.findKeyByValue(value);
-    if (isNotDefined(textureName)) throw new Error(`[Serialization] Cannot find a texture with name "${value}" in the registry.`);
     // eslint-disable-next-line functional/immutable-data
-    mapsKeys[key] = textureName;
+    mapsKeys[key] = textureResourceRegistry.getKeyByValue(value);
   });
 
   return isEmpty(mapsKeys) ? undefined : mapsKeys;

@@ -20,8 +20,7 @@ export function audioToConfig<T extends TAnyAudio>(entity: TAbstractAudioWrapper
     : ({} as any);
 
   if (isNotDefined(entity.entity.buffer)) throw new Error(`[Serialization] Audio: Cannot serialize Audio without audio buffer: "${entity.name}" (id: "${entity.id}")`);
-  const audioSource: string | undefined = audioResourceAsyncRegistry.findKeyByValue(entity.entity.buffer);
-  if (isNotDefined(audioSource)) throw new Error(`[Serialization] Audio: audioSource not found for entity with name: "${entity.name}", (id: "${entity.id}")`);
+  const audioSource: string = audioResourceAsyncRegistry.getKeyByValue(entity.entity.buffer);
 
   return filterOutEmptyFields({
     ...audio3dConfig,
