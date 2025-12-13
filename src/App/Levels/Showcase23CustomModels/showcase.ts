@@ -49,10 +49,10 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
   // TODO would be nice to add a "beforeConfigLoaded()" hook
   const space: TSpace = await spaceService.buildSpaceFromConfig(canvas, spaceConfig as TSpaceConfig, { beforeResourcesLoaded });
   const engine: TEngine = Engine(space);
-  const { keyboardService } = engine.services;
-  const { animationsService, models3dService, scenesService } = space.services;
 
   async function init(): Promise<void> {
+    const { keyboardService } = engine.services;
+    const { animationsService, models3dService, scenesService } = space.services;
     const sceneW: TSceneWrapper | undefined = scenesService.findActive();
     if (isNotDefined(sceneW)) throw new Error('Scene is not defined');
 
