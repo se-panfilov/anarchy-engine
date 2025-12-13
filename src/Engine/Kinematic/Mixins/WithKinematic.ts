@@ -2,7 +2,8 @@ import { MathUtils, Quaternion, Vector3 } from 'three';
 
 import type { TActorParams, TActorWrapperAsync } from '@/Engine/Actor';
 import type { TKinematicData, TWithKinematic } from '@/Engine/Kinematic/Models';
-import { getAzimuthFromDirection, getElevationFromDirection } from '@/Engine/Math';
+import type { TDegrees, TRadians } from '@/Engine/Math';
+import { getAzimuthDegFromDirection, getAzimuthRadFromDirection, getElevationDegFromDirection, getElevationRadFromDirection } from '@/Engine/Math';
 import type { TWriteable } from '@/Engine/Utils';
 import { Vector3Wrapper } from '@/Engine/Vector';
 
@@ -50,28 +51,43 @@ export function withKinematic(params: TActorParams): TWithKinematic {
       setLinearDirection(direction: Vector3): void {
         this.data.linearDirection.copy(direction);
       },
-      setLinearDirectionFromParams(azimuth: number, elevation: number): void {
-        this.setLinearAzimuth(azimuth);
-        this.setLinearElevation(elevation);
+      setLinearDirectionFromParamsDeg(azimuthDeg: TDegrees, elevationDeg: TDegrees): void {
+        this.setLinearAzimuthDeg(azimuthDeg);
+        this.setLinearElevationDeg(elevationDeg);
       },
-      getLinearAzimuth(): number {
-        return getAzimuthFromDirection(this.data.linearDirection);
+      setLinearDirectionFromParamsRad(azimuthRad: TRadians, elevationRad: TRadians): void {
+        this.setLinearAzimuthRad(azimuthRad);
+        this.setLinearElevationRad(elevationRad);
       },
-      setLinearAzimuth(azimuth: number): void {
-        const azimuthRadians: number = MathUtils.degToRad(azimuth);
+      getLinearAzimuthDeg(): TDegrees {
+        return getAzimuthDegFromDirection(this.data.linearDirection);
+      },
+      getLinearAzimuthRad(): TRadians {
+        return getAzimuthRadFromDirection(this.data.linearDirection);
+      },
+      setLinearAzimuthDeg(azimuthDeg: TDegrees): void {
+        const azimuthRadians: TDegrees = MathUtils.degToRad(azimuthDeg);
+        this.setLinearAzimuthRad(azimuthRadians);
+      },
+      setLinearAzimuthRad(azimuthRad: TRadians): void {
         const lengthXZ: number = Math.sqrt(this.data.linearDirection.x ** 2 + this.data.linearDirection.z ** 2);
-        this.data.linearDirection.set(Math.cos(azimuthRadians) * lengthXZ, this.data.linearDirection.y, Math.sin(azimuthRadians) * lengthXZ);
+        this.data.linearDirection.set(Math.cos(azimuthRad) * lengthXZ, this.data.linearDirection.y, Math.sin(azimuthRad) * lengthXZ);
       },
-      getLinearElevation(): number {
-        return getElevationFromDirection(this.data.linearDirection);
+      getLinearElevationDeg(): TDegrees {
+        return getElevationDegFromDirection(this.data.linearDirection);
       },
-      setLinearElevation(elevation: number): void {
-        const elevationRadians: number = MathUtils.degToRad(elevation);
+      getLinearElevationRad(): TRadians {
+        return getElevationRadFromDirection(this.data.linearDirection);
+      },
+      setLinearElevationDeg(elevationDeg: TDegrees): void {
+        this.setLinearElevationRad(MathUtils.degToRad(elevationDeg));
+      },
+      setLinearElevationRad(elevationRad: TRadians): void {
         const currentAzimuth: number = Math.atan2(this.data.linearDirection.z, this.data.linearDirection.x);
 
         const length: number = this.data.linearDirection.length();
-        const newY: number = Math.sin(elevationRadians) * length;
-        const newLengthXZ: number = Math.cos(elevationRadians) * length;
+        const newY: number = Math.sin(elevationRad) * length;
+        const newLengthXZ: number = Math.cos(elevationRad) * length;
 
         const newX: number = Math.cos(currentAzimuth) * newLengthXZ;
         const newZ: number = Math.sin(currentAzimuth) * newLengthXZ;
@@ -91,37 +107,55 @@ export function withKinematic(params: TActorParams): TWithKinematic {
       setAngularDirection(direction: Vector3): void {
         this.data.angularDirection.copy(direction);
       },
-      setAngularDirectionFromParams(azimuth: number, elevation: number): void {
-        this.setAngularAzimuth(azimuth);
-        this.setAngularElevation(elevation);
+      setAngularDirectionFromParamsDeg(azimuthDeg: TDegrees, elevationDeg: TDegrees): void {
+        this.setAngularAzimuthDeg(azimuthDeg);
+        this.setAngularElevationDeg(elevationDeg);
       },
-      getAngularAzimuth(): number {
-        return getAzimuthFromDirection(this.data.angularDirection);
+      setAngularDirectionFromParamsRad(azimuthRad: TRadians, elevationRad: TRadians): void {
+        this.setAngularAzimuthRad(azimuthRad);
+        this.setAngularElevationRad(elevationRad);
       },
-      setAngularAzimuth(azimuth: number): void {
-        const azimuthRadians: number = MathUtils.degToRad(azimuth);
+      getAngularAzimuthDeg(): TDegrees {
+        return getAzimuthDegFromDirection(this.data.angularDirection);
+      },
+      getAngularAzimuthRad(): TRadians {
+        return getAzimuthRadFromDirection(this.data.angularDirection);
+      },
+      setAngularAzimuthDeg(azimuthDeg: TDegrees): void {
+        this.setAngularAzimuthRad(MathUtils.degToRad(azimuthDeg));
+      },
+      setAngularAzimuthRad(azimuthRad: TRadians): void {
         const lengthXZ: number = Math.sqrt(this.data.angularDirection.x ** 2 + this.data.angularDirection.z ** 2);
-        this.data.angularDirection.set(Math.cos(azimuthRadians) * lengthXZ, this.data.angularDirection.y, Math.sin(azimuthRadians) * lengthXZ);
+        this.data.angularDirection.set(Math.cos(azimuthRad) * lengthXZ, this.data.angularDirection.y, Math.sin(azimuthRad) * lengthXZ);
       },
-      getAngularElevation(): number {
-        return getElevationFromDirection(this.data.angularDirection);
+      getAngularElevationDeg(): TDegrees {
+        return getElevationDegFromDirection(this.data.angularDirection);
       },
-      setAngularElevation(elevation: number): void {
-        const elevationRadians: number = MathUtils.degToRad(elevation);
+      getAngularElevationRad(): TRadians {
+        return getElevationRadFromDirection(this.data.angularDirection);
+      },
+      setAngularElevationDeg(elevationDeg: TDegrees): void {
+        this.setAngularElevationRad(MathUtils.degToRad(elevationDeg));
+      },
+      setAngularElevationRad(elevationRad: TRadians): void {
         const currentAzimuth: number = Math.atan2(this.data.angularDirection.z, this.data.angularDirection.x);
 
         const length: number = this.data.angularDirection.length();
-        const newY: number = Math.sin(elevationRadians) * length;
-        const newLengthXZ: number = Math.cos(elevationRadians) * length;
+        const newY: number = Math.sin(elevationRad) * length;
+        const newLengthXZ: number = Math.cos(elevationRad) * length;
 
         const newX: number = Math.cos(currentAzimuth) * newLengthXZ;
         const newZ: number = Math.sin(currentAzimuth) * newLengthXZ;
 
         this.data.angularDirection.set(newX, newY, newZ).normalize();
       },
-      setAngularVelocityFromParams(speed: number, azimuth: number, elevation: number): void {
+      setAngularVelocityFromParamsDeg(speed: number, azimuth: TDegrees, elevation: TDegrees): void {
         this.setAngularSpeed(speed);
-        this.setAngularDirectionFromParams(azimuth, elevation);
+        this.setAngularDirectionFromParamsDeg(azimuth, elevation);
+      },
+      setAngularVelocityFromParamsRad(speed: number, azimuth: TRadians, elevation: TRadians): void {
+        this.setAngularSpeed(speed);
+        this.setAngularDirectionFromParamsRad(azimuth, elevation);
       }
     },
     doKinematicMove(delta: number): void {
