@@ -5,7 +5,7 @@ import { withTagsMixin } from '@/Engine/Mixins/Generics';
 import { RendererModes } from '@/Engine/Renderer';
 import { screenService } from '@/Engine/Services';
 import { withBuiltMixin } from '@/Engine/Space/Mixins';
-import type { TSpace, TSpaceConfig, TSpaceService, TWithBuilt } from '@/Engine/Space/Models';
+import type { TSpace, TSpaceConfig, TSpaceHooks, TSpaceService, TWithBuilt } from '@/Engine/Space/Models';
 import { createEntities, loadResources, prepareServices } from '@/Engine/Space/Utils';
 import { validateConfig } from '@/Engine/Space/Validators';
 import { isDestroyable } from '@/Engine/Utils';
@@ -13,14 +13,22 @@ import { isDestroyable } from '@/Engine/Utils';
 // TODO SPACE: we need a space service, and factory, to create from config, and to create from the code.
 export function SpaceService(): TSpaceService {
   // TODO LOGGER: add a logger globally (not only for errors, but I'd like to know, which service with which id did what).
-  async function buildSpaceFromConfig(canvas: TAppCanvas, config: TSpaceConfig): Promise<TSpace> {
+  async function buildSpaceFromConfig(canvas: TAppCanvas, config: TSpaceConfig, hooks?: TSpaceHooks): Promise<TSpace> {
+    hooks?.beforeConfigValidation?.(config);
     validateConfig(config);
+    hooks?.afterConfigValidation?.(config);
     screenService.setCanvas(canvas);
+    hooks?.beforeServicesPrepared?.(canvas, config);
     const { services } = await prepareServices(config.name, canvas, config.scenes);
+    hooks?.afterServicesPrepared?.(canvas, config, services);
 
+    hooks?.beforeResourcesLoaded?.(config, services);
     await loadResources(config.resources, services);
+    hooks?.afterResourcesLoaded?.(config, services);
     services.rendererService.create({ canvas, tags: [], mode: RendererModes.WebGL2, isActive: true });
+    hooks?.beforeEntitiesCreated?.(config, services);
     createEntities(config.entities, services);
+    hooks?.afterEntitiesCreated?.(config, services);
 
     const destroyable: TDestroyable = destroyableMixin();
     const builtMixin: TWithBuilt = withBuiltMixin();
