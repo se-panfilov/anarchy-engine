@@ -23,7 +23,7 @@ export function AbstractSimpleRegistry<T>(type: RegistryType): TAbstractSimpleRe
   }
 
   function replace(key: string, value: T): void | never {
-    if (registry.has(key)) throw new Error(`Cannot replace in a registry("${id}") a value with key "${key}": The key is not exist in the registry`);
+    if (!registry.has(key)) throw new Error(`Cannot replace in a registry("${id}") a value with key "${key}": The key is not exist in the registry`);
     registry.set(key, value);
     replaced$.next(value);
   }

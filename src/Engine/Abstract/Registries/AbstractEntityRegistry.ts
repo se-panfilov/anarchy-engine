@@ -30,7 +30,7 @@ export function AbstractEntityRegistry<T extends TRegistrable | TMultitonRegistr
   }
 
   function replace(entity: T): void | never {
-    if (registry.has(entity.id)) throw new Error(`Cannot replace an entity with id "${entity.id}" in registry ${id}: not exist`);
+    if (!registry.has(entity.id)) throw new Error(`Cannot replace an entity with id "${entity.id}" in registry ${id}: not exist`);
     registry.set(entity.id, entity);
     replaced$.next(entity);
   }
