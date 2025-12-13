@@ -7,37 +7,23 @@ import type { TVector2, TVector2Wrapper, TVector3, TVector3Wrapper, TVector4, TV
 
 import { isObject } from './ObjectUtils';
 
-export function isDefined<T>(value: T | undefined | null): value is T {
-  return <T>value !== undefined && <T>value !== null;
-}
+export const isDefined = <T>(value: T | undefined | null): value is T => <T>value !== undefined && <T>value !== null;
 
-export function isAllDefined<T>(values: ReadonlyArray<T | undefined | null>): values is ReadonlyArray<T> {
-  return values.every(isDefined);
-}
+export const isAllDefined = <T>(values: ReadonlyArray<T | undefined | null>): values is ReadonlyArray<T> => values.every(isDefined);
 
-export function isNotDefined<T>(value: T | undefined | null): value is undefined | null {
-  return !isDefined<T>(value);
-}
+export const isNotDefined = <T>(value: T | undefined | null): value is undefined | null => !isDefined<T>(value);
 
-export function isAllNotDefined<T>(values: ReadonlyArray<T | undefined | null>): values is ReadonlyArray<undefined | null> {
-  return values.every(isNotDefined);
-}
+export const isAllNotDefined = <T>(values: ReadonlyArray<T | undefined | null>): values is ReadonlyArray<undefined | null> => values.every(isNotDefined);
 
-export function isRegistrable(obj: unknown): obj is TRegistrable {
-  return isDefined((obj as TRegistrable).getTags) && Boolean((obj as TRegistrable).addTag);
-}
+export const isRegistrable = (obj: unknown): obj is TRegistrable => isDefined((obj as TRegistrable).getTags) && Boolean((obj as TRegistrable).addTag);
 
 export function isDestroyable(obj: unknown): obj is TDestroyable {
   return isDefined((obj as TDestroyable).destroy) && isDefined((obj as TDestroyable).destroyed$) && isDefined((obj as TDestroyable).isDestroyed);
 }
 
-export function isString(value: unknown): value is string {
-  return typeof value === 'string';
-}
+export const isString = (value: unknown): value is string => typeof value === 'string';
 
-export function isColorWrapper(obj: unknown): obj is TColorWrapper {
-  return isDefined((obj as TColorWrapper).entity) && (obj as TColorWrapper).entity instanceof Color;
-}
+export const isColorWrapper = (obj: unknown): obj is TColorWrapper => isDefined((obj as TColorWrapper).entity) && (obj as TColorWrapper).entity instanceof Color;
 
 export const isWithUserData = (entity: any): entity is TWithUserData => isDefined((entity as TWithUserData).userData);
 
