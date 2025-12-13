@@ -12,10 +12,7 @@ import type {
   TTransformDrive,
   TTransformDriveParams
 } from '@/Engine/TransformDrive';
-import { TransformAgent, TransformDrive } from '@/Engine/TransformDrive';
-import { InstantTransformAgent } from '@/Engine/TransformDrive/Agents/InstantTransformAgent';
-import { KinematicTransformAgent } from '@/Engine/TransformDrive/Agents/KinematicTransformAgent';
-import { PhysicsTransformAgent } from '@/Engine/TransformDrive/Agents/PhysicsTransformAgent';
+import { InstantTransformAgent, KinematicTransformAgent, PhysicsTransformAgent, TransformAgent, TransformDrive } from '@/Engine/TransformDrive';
 
 export function ActorTransformDrive(params: TActorParams, kinematicLoopService: TKinematicLoopService): TTransformDrive {
   const transformAgents: TTransformAgents = getTransformAgents(params, kinematicLoopService);
