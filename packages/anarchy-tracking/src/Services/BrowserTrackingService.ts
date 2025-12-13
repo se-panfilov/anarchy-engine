@@ -1,5 +1,7 @@
 import { isDefined } from '@Anarchy/Shared/Utils';
+import { HiddenField } from '@Anarchy/Tracking/Constants';
 import type { TTrackingService } from '@Anarchy/Tracking/Models';
+import { scrubUserPathsBrowser } from '@Anarchy/Tracking/Utils/ScrubsBrowser';
 import type { BrowserOptions, EventHint } from '@sentry/browser';
 import { captureException, init } from '@sentry/browser';
 import type { Client, ErrorEvent } from '@sentry/core';
@@ -16,12 +18,12 @@ export function BrowserTrackingService(options?: BrowserOptions, metaData?: Reco
         // eslint-disable-next-line functional/immutable-data
         event.request = {
           ...event.request,
-          url: 'hidden',
+          url: HiddenField,
           headers: {
             ...event.request?.headers,
-            url: 'hidden',
-            Referer: 'hidden',
-            referer: 'hidden'
+            url: HiddenField,
+            Referer: HiddenField,
+            referer: HiddenField
           }
         };
 
@@ -42,7 +44,7 @@ export function BrowserTrackingService(options?: BrowserOptions, metaData?: Reco
       // eslint-disable-next-line functional/immutable-data
       (event as any).tags = { ...event.tags, ...metaData };
 
-      return event;
+      return scrubUserPathsBrowser(event);
     },
     tracesSampleRate: 0,
     //Important: make sure this is false if you want Anonymous reports (no IPs, etc.).

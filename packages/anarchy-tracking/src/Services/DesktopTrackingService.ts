@@ -1,5 +1,7 @@
 import { isDefined } from '@Anarchy/Shared/Utils';
+import { HiddenField } from '@Anarchy/Tracking/Constants';
 import type { TTrackingService } from '@Anarchy/Tracking/Models';
+import { scrubUserPathsDesktop } from '@Anarchy/Tracking/Utils';
 import type { ElectronMainOptions } from '@sentry/electron/esm/main';
 import type { ErrorEvent, EventHint } from '@sentry/electron/main';
 import { captureException, init } from '@sentry/electron/main';
@@ -16,12 +18,12 @@ export function DesktopTrackingService(options?: ElectronMainOptions, metaData?:
         // eslint-disable-next-line functional/immutable-data
         event.request = {
           ...event.request,
-          url: 'hidden',
+          url: HiddenField,
           headers: {
             ...event.request?.headers,
-            url: 'hidden',
-            Referer: 'hidden',
-            referer: 'hidden'
+            url: HiddenField,
+            Referer: HiddenField,
+            referer: HiddenField
           }
         };
 
@@ -42,7 +44,7 @@ export function DesktopTrackingService(options?: ElectronMainOptions, metaData?:
       // eslint-disable-next-line functional/immutable-data
       (event as any).tags = { ...event.tags, ...metaData };
 
-      return event;
+      return scrubUserPathsDesktop(event);
     },
     tracesSampleRate: 0,
     //Important: make sure this is false if you want Anonymous reports (no IPs, etc.).
