@@ -8,5 +8,5 @@ export type TBvhService = Readonly<{
   disposeBVHBoundsTree: (geometry: BufferGeometry) => void;
   raycastWithBvh: (mesh: Mesh, raycaster: Raycaster, intersects: Array<Intersection>) => void;
   initializeRaycastBvh: (object: Mesh) => void;
-  visualizeBVH: (mesh: Mesh, scene: Scene) => void;
+  visualizeRaycastBvh: (mesh: Mesh, scene: Scene) => void;
 }>;

@@ -72,7 +72,7 @@ export function showcase(canvas: TAppCanvas): TShowcase {
       if ((object as Mesh).isMesh) {
         collisionsService.initializeRaycastBvh(object as Mesh);
         collisionsService.addObjectToGrid(object);
-        collisionsService.visualizeBVH(object as Mesh, actorService.getScene().entity);
+        collisionsService.visualizeRaycastBvh(object as Mesh, actorService.getScene().entity);
       }
     });
 

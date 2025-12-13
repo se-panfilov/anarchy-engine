@@ -15,7 +15,7 @@ export function RaycastBvhService(): TBvhService {
     if (object.isMesh) computeBVHBoundsTree(object.geometry);
   }
 
-  function visualizeBVH(mesh: Mesh, scene: Scene): void {
+  function visualizeRaycastBvh(mesh: Mesh, scene: Scene): void {
     const bvhHelper: MeshBVHHelper = new MeshBVHHelper(mesh, 10);
     scene.add(bvhHelper);
   }
@@ -25,6 +25,6 @@ export function RaycastBvhService(): TBvhService {
     disposeBVHBoundsTree,
     raycastWithBvh,
     initializeRaycastBvh,
-    visualizeBVH
+    visualizeRaycastBvh
   };
 }
