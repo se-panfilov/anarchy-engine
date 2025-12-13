@@ -20,7 +20,6 @@ const desktopAppSettings: TDesktopAppConfig = {
 // TODO DESKTOP: Add canvas.requestPointerLock(); on a Space level
 // TODO DESKTOP: Steam integration (manifest, cloud_sync.vdf, cloud saves, achievements, layer, etc.)
 // TODO DESKTOP: Other integrations (epic, gog, etc.)
-// TODO DESKTOP: Windows: make sure we can build the project (done, but re-check)
 
 const filesService: TFilesService = FilesService(app);
 const desktopAppService: TDesktopAppService = DesktopAppService(app, { filesService });
@@ -32,7 +31,6 @@ try {
   console.warn('Could not get packages versions for error tracking', e);
 }
 
-// TODO DESKTOP: Add source upload for desktop releases
 //Allow tracking for production (only Electron part, web part should be tracked separately)
 ElectronErrorTrackingService().start(packagesVersions);
 
