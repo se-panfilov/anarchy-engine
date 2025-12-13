@@ -1,7 +1,5 @@
 import type { RigidBody, Rotation } from '@dimforge/rapier3d';
-import type { Vector } from '@dimforge/rapier3d/math';
 import type { Subscription } from 'rxjs';
-import { Mesh, Vector3 } from 'three';
 
 import type { TActorParams, TActorWithPhysicsDependencies, TActorWrapperAsync, TActorWrapperWithPhysicsAsync } from '@/Engine/Actor/Models';
 import type { TPhysicsBodyFacade, TPhysicsBodyService, TWithPresetNamePhysicsBodyParams } from '@/Engine/Physics';

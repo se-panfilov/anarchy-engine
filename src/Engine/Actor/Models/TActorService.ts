@@ -6,8 +6,9 @@ import type { TActorConfig } from './TActorConfig';
 import type { TActorFactory } from './TActorFactory';
 import type { TActorParams } from './TActorParams';
 import type { TActorWrapperAsync } from './TActorWrapperAsync';
+import type { TActorWrapperWithPhysicsAsync } from './TActorWrapperWithPhysicsAsync';
 
-export type TActorService = TWithCreateAsyncService<TActorWrapperAsync, TActorParams> &
+export type TActorService = TWithCreateAsyncService<TActorWrapperAsync | TActorWrapperWithPhysicsAsync, TActorParams> &
   TWithCreateFromConfigService<TActorConfig> &
   TWithFactoryService<TActorFactory> &
   TWithRegistryService<TActorAsyncRegistry> &
