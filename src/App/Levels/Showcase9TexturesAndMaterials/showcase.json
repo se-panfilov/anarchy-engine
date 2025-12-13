@@ -23,8 +23,7 @@
           "aoMap": "door_ao_texture",
           "map": "door_base_texture",
           "alphaMap": "door_opacity_texture"
-        },
-        "options": { "color": "#5EDCAE" }
+        }
       }
     ],
     "models3d": []
