@@ -72,7 +72,7 @@
       "near": 1,
       "far": 10000,
       "position": { "x": 10, "y": 60, "z": 10 },
-      "rotation": { "x": -1.57, "y": 0, "z": 0 },
+      "rotation": { "x": -1.57, "y": 0, "z": -1.57 },
       "tags": [],
       "isActive": true
     }

@@ -1,5 +1,6 @@
 import Decimal from 'decimal.js';
 import { Euler, Quaternion, Vector3 } from 'three';
+import { degToRad, radToDeg } from 'three/src/math/MathUtils';
 
 import type { TEuler } from '@/Engine/Euler';
 import type { TDegrees, TRadians } from '@/Engine/Math';
@@ -33,19 +34,19 @@ export const getAzimuthRadFromDirection = (direction: Vector3): TRadians => {
   return azimuth;
 };
 // TODO (S.Panfilov) add unit tests
-export const getAzimuthDegFromDirection = (direction: Vector3): TDegrees => radiansToDegreesPrecise(getAzimuthRadFromDirection(direction)).toNumber();
+export const getAzimuthDegFromDirection = (direction: Vector3): TDegrees => radToDeg(getAzimuthRadFromDirection(direction));
 // TODO (S.Panfilov) add unit tests
 export const getElevationRadFromDirection = (direction: Vector3): TRadians => Math.atan2(direction.y, Math.sqrt(direction.x ** 2 + direction.z ** 2));
 // TODO (S.Panfilov) add unit tests
-export const getElevationDegFromDirection = (direction: Vector3): TDegrees => radiansToDegreesPrecise(getElevationRadFromDirection(direction)).toNumber();
+export const getElevationDegFromDirection = (direction: Vector3): TDegrees => radToDeg(getElevationRadFromDirection(direction));
 // TODO (S.Panfilov) add unit tests
 export const getDirectionFromLinearVelocity = (linearVelocity: Vector3): Vector3 => linearVelocity.clone().normalize();
 // TODO (S.Panfilov) add unit tests
 export const getSpeedFromLinearVelocity = (linearVelocity: Vector3): number => linearVelocity.length();
 // TODO (S.Panfilov) add unit tests
 export const getLinearVelocityByDeg = (speed: number, azimuth: TDegrees, elevation: TDegrees): Vector3 => {
-  const azimuthRad: TRadians = degToRadPrecise(azimuth).toNumber();
-  const elevationRad: TRadians = degToRadPrecise(elevation).toNumber();
+  const azimuthRad: TRadians = degToRad(azimuth);
+  const elevationRad: TRadians = degToRad(elevation);
   return new Vector3(speed * Math.cos(elevationRad) * Math.cos(azimuthRad), speed * Math.sin(elevationRad), speed * Math.cos(elevationRad) * Math.sin(azimuthRad));
 };
 
@@ -100,27 +101,27 @@ export function get3DAzimuthRad(center: TWithCoordsXYZ, point: TWithCoordsXYZ): 
 // TODO (S.Panfilov) add unit tests
 export function degreesToEuler(degrees: TWithCoordsXYZ): TWithCoordsXYZ {
   const radians = {
-    x: degToRadPrecise(degrees.x),
-    y: degToRadPrecise(degrees.y),
-    z: degToRadPrecise(degrees.z)
+    x: degToRad(degrees.x),
+    y: degToRad(degrees.y),
+    z: degToRad(degrees.z)
   };
 
   return {
-    x: radians.x.toNumber(),
-    y: radians.y.toNumber(),
-    z: radians.z.toNumber()
+    x: radians.x,
+    y: radians.y,
+    z: radians.z
   };
 }
 
 // TODO (S.Panfilov) add unit tests
 export function degreesToQuaternion(degrees: TWithCoordsXYZ): TWithCoordsXYZW {
   const radians = {
-    x: degToRadPrecise(degrees.x),
-    y: degToRadPrecise(degrees.y),
-    z: degToRadPrecise(degrees.z)
+    x: degToRad(degrees.x),
+    y: degToRad(degrees.y),
+    z: degToRad(degrees.z)
   };
 
-  const euler: TEuler = new Euler(radians.x.toNumber(), radians.y.toNumber(), radians.z.toNumber());
+  const euler: TEuler = new Euler(radians.x, radians.y, radians.z);
   const quaternion: Quaternion = new Quaternion().setFromEuler(euler);
 
   return {
@@ -137,8 +138,8 @@ export function quaternionToDegrees(quaternion: TWithCoordsXYZW): TWithCoordsXYZ
   const euler: Euler = new Euler().setFromQuaternion(q, 'XYZ');
 
   return {
-    x: radiansToDegreesPrecise(euler.x).toNumber(),
-    y: radiansToDegreesPrecise(euler.y).toNumber(),
-    z: radiansToDegreesPrecise(euler.z).toNumber()
+    x: radToDeg(euler.x),
+    y: radToDeg(euler.y),
+    z: radToDeg(euler.z)
   };
 }

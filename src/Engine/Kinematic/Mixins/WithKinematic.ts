@@ -1,10 +1,10 @@
-import { MathUtils, Quaternion, Vector3 } from 'three';
-import { radToDeg } from 'three/src/math/MathUtils';
+import { Quaternion, Vector3 } from 'three';
+import { degToRad } from 'three/src/math/MathUtils';
 
 import type { TActorParams, TActorWrapperAsync } from '@/Engine/Actor';
 import type { TKinematicData, TWithKinematic } from '@/Engine/Kinematic/Models';
 import type { TDegrees, TRadians } from '@/Engine/Math';
-import { getAzimuthDegFromDirection, getAzimuthRadFromDirection, getElevationDegFromDirection, getElevationRadFromDirection, quaternionToDegrees } from '@/Engine/Math';
+import { getAzimuthDegFromDirection, getAzimuthRadFromDirection, getElevationDegFromDirection, getElevationRadFromDirection } from '@/Engine/Math';
 import type { TWriteable } from '@/Engine/Utils';
 import { Vector3Wrapper } from '@/Engine/Vector';
 
@@ -67,7 +67,7 @@ export function withKinematic(params: TActorParams): TWithKinematic {
         return getAzimuthRadFromDirection(this.data.linearDirection);
       },
       setLinearAzimuthDeg(azimuthDeg: TDegrees): void {
-        const azimuthRadians: TDegrees = MathUtils.degToRad(azimuthDeg);
+        const azimuthRadians: TDegrees = degToRad(azimuthDeg);
         this.setLinearAzimuthRad(azimuthRadians);
       },
       setLinearAzimuthRad(azimuthRad: TRadians): void {
@@ -81,7 +81,7 @@ export function withKinematic(params: TActorParams): TWithKinematic {
         return getElevationRadFromDirection(this.data.linearDirection);
       },
       setLinearElevationDeg(elevationDeg: TDegrees): void {
-        this.setLinearElevationRad(MathUtils.degToRad(elevationDeg));
+        this.setLinearElevationRad(degToRad(elevationDeg));
       },
       setLinearElevationRad(elevationRad: TRadians): void {
         const currentAzimuth: number = Math.atan2(this.data.linearDirection.z, this.data.linearDirection.x);
@@ -123,7 +123,7 @@ export function withKinematic(params: TActorParams): TWithKinematic {
         return getAzimuthRadFromDirection(this.data.angularDirection);
       },
       setAngularAzimuthDeg(azimuthDeg: TDegrees): void {
-        this.setAngularAzimuthRad(MathUtils.degToRad(azimuthDeg));
+        this.setAngularAzimuthRad(degToRad(azimuthDeg));
       },
       setAngularAzimuthRad(azimuthRad: TRadians): void {
         const lengthXZ: number = Math.sqrt(this.data.angularDirection.x ** 2 + this.data.angularDirection.z ** 2) || 1;
@@ -136,7 +136,7 @@ export function withKinematic(params: TActorParams): TWithKinematic {
         return getElevationRadFromDirection(this.data.angularDirection);
       },
       setAngularElevationDeg(elevationDeg: TDegrees): void {
-        this.setAngularElevationRad(MathUtils.degToRad(elevationDeg));
+        this.setAngularElevationRad(degToRad(elevationDeg));
       },
       setAngularElevationRad(elevationRad: TRadians): void {
         const currentAzimuth: number = Math.atan2(this.data.angularDirection.z, this.data.angularDirection.x);
