@@ -1,7 +1,7 @@
 import type { MaterialJSON } from 'three';
 
 import type { MaterialType } from '@/Engine/Material/Constants';
-import { BlendEquationMap, BlendingDstFactorMap, BlendingMap, BlendingSrcFactorMap, SideMap, StencilFailMap, StencilFuncMap, StencilOpMap } from '@/Engine/Material/Constants';
+import { BlendEquationMap, BlendingDstFactorMap, BlendingMap, BlendingSrcFactorMap, NormalMapTypesMap, SideMap, StencilFailMap, StencilFuncMap, StencilOpMap } from '@/Engine/Material/Constants';
 import type { TAllMaterialConfigOptions, TMaterialConfig, TMaterialConfigOptions, TMaterialWrapper } from '@/Engine/Material/Models';
 import { getOptionName } from '@/Engine/Material/Utils';
 import { extractSerializableRegistrableFields } from '@/Engine/Mixins';
@@ -38,7 +38,7 @@ function getMaterialOptions({ entity }: TMaterialWrapper): TAllMaterialConfigOpt
       referencePosition: (entity as any).referencePosition,
       combine: (entity as any).combine,
       depthPacking: (entity as any).depthPacking,
-      normalMapType: (entity as any).normalMapType,
+      normalMapType: getOptionName((entity as any).normalMapType, NormalMapTypesMap, 'normalMapType'),
       alphaHash: entity.alphaHash,
       alphaTest: entity.alphaTest,
       alphaToCoverage: entity.alphaToCoverage,
