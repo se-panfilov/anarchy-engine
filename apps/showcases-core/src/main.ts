@@ -22,7 +22,7 @@ const settings: TAppSettings = {
 // TODO MOBILE: Integrate Sentry for mobile app error tracking
 
 //Allow tracking for all productions (web, desktop, mobile)
-if (__PLATFORM_MODE__.startsWith('production')) WebErrorTrackingService().start();
+if (__PLATFORM_MODE__.startsWith('production')) await WebErrorTrackingService().start();
 
 // TODO MOBILE: Detect user locale in mobile app and send it to the app settings (menu)
 
