@@ -1,5 +1,5 @@
-import type { TAbstractEntityRegistry, TProtectedRegistry } from '@/Engine/Abstract/Models';
+import type { TAbstractEntityRegistry } from '@/Engine/Abstract/Models';
 
 import type { TMouseClickWatcher } from './TMouseClickWatcher';
 
-export type TMouseClickWatcherRegistry = TProtectedRegistry<TAbstractEntityRegistry<TMouseClickWatcher>>;
+export type TMouseClickWatcherRegistry = TAbstractEntityRegistry<TMouseClickWatcher>;

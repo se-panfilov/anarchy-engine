@@ -1,4 +1,4 @@
-import type { TAbstractEntityRegistry, TProtectedRegistry } from '@/Engine/Abstract/Models';
+import type { TAbstractEntityRegistry } from '@/Engine/Abstract/Models';
 import type { TTextAnyWrapper } from '@/Engine/Text/Models';
 
-export type TTextRegistry<T extends TTextAnyWrapper> = TProtectedRegistry<TAbstractEntityRegistry<T>>;
+export type TTextRegistry<T extends TTextAnyWrapper> = TAbstractEntityRegistry<T>;

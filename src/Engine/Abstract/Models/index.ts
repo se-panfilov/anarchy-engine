@@ -18,7 +18,6 @@ export type * from './TFactory';
 export type * from './THtmlElementStyleDeclaration';
 export type * from './TMultitonWatcher';
 export type * from './TMultitonWatcherWithState';
-export type * from './TProtectedRegistry';
 export type * from './TReactiveFactory';
 export type * from './TRegistryPack';
 export type * from './TWithBaseAccessorsRegistry';

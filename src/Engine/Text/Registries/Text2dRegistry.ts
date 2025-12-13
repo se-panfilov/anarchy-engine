@@ -1,5 +1,5 @@
 import { RegistryType } from '@/Engine/Abstract/Constants';
-import { AbstractEntityRegistry, RegistryFacade } from '@/Engine/Abstract/Registries';
+import { AbstractEntityRegistry } from '@/Engine/Abstract/Registries';
 import type { TText2dRegistry, TText2dWrapper } from '@/Engine/Text/Models';
 
-export const Text2dRegistry = (): TText2dRegistry => RegistryFacade(AbstractEntityRegistry<TText2dWrapper>(RegistryType.Text2d));
+export const Text2dRegistry = (): TText2dRegistry => AbstractEntityRegistry<TText2dWrapper>(RegistryType.Text2d);

@@ -1,5 +1,5 @@
 import type { AudioListener } from 'three';
 
-import type { TAbstractSimpleRegistry, TProtectedRegistry } from '@/Engine/Abstract';
+import type { TAbstractSimpleRegistry } from '@/Engine/Abstract';
 
-export type TAudioListenersRegistry = TProtectedRegistry<TAbstractSimpleRegistry<AudioListener>>;
+export type TAudioListenersRegistry = TAbstractSimpleRegistry<AudioListener>;

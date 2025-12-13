@@ -1,4 +1,4 @@
-import type { TAbstractEntityRegistry, TProtectedRegistry } from '@/Engine/Abstract';
+import type { TAbstractEntityRegistry } from '@/Engine/Abstract';
 import type { TEnvMapWrapper } from '@/Engine/EnvMap/Models';
 
-export type TEnvMapRegistry = TProtectedRegistry<TAbstractEntityRegistry<TEnvMapWrapper>>;
+export type TEnvMapRegistry = TAbstractEntityRegistry<TEnvMapWrapper>;

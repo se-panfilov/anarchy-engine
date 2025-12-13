@@ -52,6 +52,8 @@ export function AbstractEntityRegistry<T extends TRegistrable | TMultitonRegistr
   const findByTags = (tags: ReadonlyArray<string>, strategy: LookUpStrategy): T | undefined | never => getUniqEntityWithTags(tags, registry, strategy);
   const findByTag = (tag: string): T | undefined | never => getUniqEntityWithTag(tag, registry);
 
+  const asObject = (): Record<string, T> => Object.fromEntries(registry.entries());
+
   return {
     id,
     add,
@@ -70,7 +72,7 @@ export function AbstractEntityRegistry<T extends TRegistrable | TMultitonRegistr
     getLength,
     isEmpty,
     clear,
-    registry,
+    asObject,
     remove,
     removed$: removed$.asObservable(),
     replace,

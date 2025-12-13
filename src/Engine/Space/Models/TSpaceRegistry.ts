@@ -1,5 +1,5 @@
-import type { TAbstractEntityRegistry, TProtectedRegistry } from '@/Engine/Abstract';
+import type { TAbstractEntityRegistry } from '@/Engine/Abstract';
 
 import type { TSpace } from './TSpace';
 
-export type TSpaceRegistry = TProtectedRegistry<TAbstractEntityRegistry<TSpace>>;
+export type TSpaceRegistry = TAbstractEntityRegistry<TSpace>;

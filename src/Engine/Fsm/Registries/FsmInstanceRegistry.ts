@@ -1,5 +1,5 @@
 import { RegistryType } from '@/Engine/Abstract/Constants';
-import { AbstractEntityRegistry, RegistryFacade } from '@/Engine/Abstract/Registries';
+import { AbstractEntityRegistry } from '@/Engine/Abstract/Registries';
 import type { TFsmInstanceRegistry, TFsmWrapper } from '@/Engine/Fsm/Models';
 
-export const FsmInstanceRegistry = (): TFsmInstanceRegistry => RegistryFacade(AbstractEntityRegistry<TFsmWrapper>(RegistryType.FsmInstance));
+export const FsmInstanceRegistry = (): TFsmInstanceRegistry => AbstractEntityRegistry<TFsmWrapper>(RegistryType.FsmInstance);

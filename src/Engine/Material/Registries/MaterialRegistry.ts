@@ -1,4 +1,4 @@
-import { AbstractEntityRegistry, RegistryFacade, RegistryType } from '@/Engine/Abstract';
+import { AbstractEntityRegistry, RegistryType } from '@/Engine/Abstract';
 import type { TMaterialRegistry, TMaterialWrapper } from '@/Engine/Material/Models';
 
-export const MaterialRegistry = (): TMaterialRegistry => RegistryFacade(AbstractEntityRegistry<TMaterialWrapper>(RegistryType.Material));
+export const MaterialRegistry = (): TMaterialRegistry => AbstractEntityRegistry<TMaterialWrapper>(RegistryType.Material);

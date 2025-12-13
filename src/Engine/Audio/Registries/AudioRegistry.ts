@@ -1,4 +1,4 @@
-import { AbstractEntityRegistry, RegistryFacade, RegistryType } from '@/Engine/Abstract';
+import { AbstractEntityRegistry, RegistryType } from '@/Engine/Abstract';
 import type { TAnyAudioWrapper, TAudioRegistry } from '@/Engine/Audio/Models';
 
-export const AudioRegistry = (): TAudioRegistry => RegistryFacade(AbstractEntityRegistry<TAnyAudioWrapper>(RegistryType.Audio));
+export const AudioRegistry = (): TAudioRegistry => AbstractEntityRegistry<TAnyAudioWrapper>(RegistryType.Audio);

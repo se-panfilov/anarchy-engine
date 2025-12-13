@@ -49,7 +49,6 @@ export function AbstractSimpleRegistry<T>(type: RegistryType): TAbstractSimpleRe
     getLength,
     isEmpty,
     clear,
-    registry,
     remove,
     removed$: removed$.asObservable(),
     replace,

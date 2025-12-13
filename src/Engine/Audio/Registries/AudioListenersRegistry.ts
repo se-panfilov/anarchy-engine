@@ -1,6 +1,6 @@
 import type { AudioListener } from 'three';
 
-import { AbstractSimpleRegistry, RegistryFacade, RegistryType } from '@/Engine/Abstract';
+import { AbstractSimpleRegistry, RegistryType } from '@/Engine/Abstract';
 import type { TAudioListenersRegistry } from '@/Engine/Audio/Models';
 
-export const AudioListenersRegistry = (): TAudioListenersRegistry => RegistryFacade(AbstractSimpleRegistry<AudioListener>(RegistryType.AudioListeners));
+export const AudioListenersRegistry = (): TAudioListenersRegistry => AbstractSimpleRegistry<AudioListener>(RegistryType.AudioListeners);

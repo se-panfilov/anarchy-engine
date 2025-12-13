@@ -1,4 +1,4 @@
-import type { TAbstractEntityRegistry, TProtectedRegistry } from '@/Engine/Abstract/Models';
+import type { TAbstractEntityRegistry } from '@/Engine/Abstract/Models';
 import type { LookUpStrategy } from '@/Engine/Abstract/Registries';
 import type { TRegistrable, TWithActiveMixin } from '@/Engine/Mixins';
 
@@ -60,7 +60,7 @@ export function getUniqEntityWithTag<T extends TRegistrable>(tag: string, regist
   return undefined;
 }
 
-export function setActiveWrappedEntity<E extends TWithActiveMixin & TRegistrable>(registry: TProtectedRegistry<TAbstractEntityRegistry<E>>, id: string): E | never {
+export function setActiveWrappedEntity<E extends TWithActiveMixin & TRegistrable>(registry: TAbstractEntityRegistry<E>, id: string): E | never {
   let result: E | undefined;
   registry.forEach((entity: E): void => {
     const isTarget: boolean = entity.id === id;
@@ -77,6 +77,6 @@ export function setActiveWrappedEntity<E extends TWithActiveMixin & TRegistrable
 
 export const shouldHaveTags = <T extends TRegistrable>(obj: T, tagList: ReadonlyArray<string>, strategy: LookUpStrategy): boolean => tagList[strategy]((tag: string) => hasTag(obj, tag));
 
-export function findByUrl<T extends TRegistrable & Readonly<{ getUrl: () => string }>>(url: string, registry: TProtectedRegistry<TAbstractEntityRegistry<T>>): T | undefined {
+export function findByUrl<T extends TRegistrable & Readonly<{ getUrl: () => string }>>(url: string, registry: TAbstractEntityRegistry<T>): T | undefined {
   return registry.find((value: T): boolean => value.getUrl() === url);
 }

@@ -1,4 +1,4 @@
-import type { TAbstractSimpleRegistry, TProtectedRegistry } from '@/Engine/Abstract';
+import type { TAbstractSimpleRegistry } from '@/Engine/Abstract';
 
 import type { TModel3d } from './TModel3d';
 import type { TRawModel3d } from './TRawModel3d';
@@ -11,4 +11,4 @@ export type TModel3dRawToModel3dConnectionRegistryExtension = Readonly<{
   asObject: () => Record<string, string>;
 }>;
 
-export type TModel3dRawToModel3dConnectionRegistry = Omit<TProtectedRegistry<TAbstractSimpleRegistry<string>>, 'asArray'> & TModel3dRawToModel3dConnectionRegistryExtension;
+export type TModel3dRawToModel3dConnectionRegistry = Omit<TAbstractSimpleRegistry<string>, 'asArray'> & TModel3dRawToModel3dConnectionRegistryExtension;

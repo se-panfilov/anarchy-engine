@@ -1,5 +1,5 @@
-import type { TAbstractResourceAsyncRegistry, TProtectedRegistry } from '@/Engine/Abstract';
+import type { TAbstractResourceAsyncRegistry } from '@/Engine/Abstract';
 
 import type { TTexture } from './TTexture';
 
-export type TTextureAsyncRegistry = TProtectedRegistry<TAbstractResourceAsyncRegistry<TTexture>>;
+export type TTextureAsyncRegistry = TAbstractResourceAsyncRegistry<TTexture>;

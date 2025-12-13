@@ -1,3 +1,3 @@
-import type { TAbstractResourceAsyncRegistry, TProtectedRegistry } from '@/Engine/Abstract';
+import type { TAbstractResourceAsyncRegistry } from '@/Engine/Abstract';
 
-export type TAudioResourceAsyncRegistry = TProtectedRegistry<TAbstractResourceAsyncRegistry<AudioBuffer>>;
+export type TAudioResourceAsyncRegistry = TAbstractResourceAsyncRegistry<AudioBuffer>;

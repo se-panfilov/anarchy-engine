@@ -1,4 +1,4 @@
-import { AbstractEntityRegistry, RegistryFacade, RegistryType } from '@/Engine/Abstract';
+import { AbstractEntityRegistry, RegistryType } from '@/Engine/Abstract';
 import type { TPhysicsBody, TPhysicsBodyRegistry } from '@/Engine/Physics/Models';
 
-export const PhysicsBodyRegistry = (): TPhysicsBodyRegistry => RegistryFacade(AbstractEntityRegistry<TPhysicsBody>(RegistryType.PhysicsBody));
+export const PhysicsBodyRegistry = (): TPhysicsBodyRegistry => AbstractEntityRegistry<TPhysicsBody>(RegistryType.PhysicsBody);

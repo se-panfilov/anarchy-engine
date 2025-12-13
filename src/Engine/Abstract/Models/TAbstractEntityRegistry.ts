@@ -14,6 +14,7 @@ export type TAbstractEntityRegistry<T extends TRegistrable> = Omit<TAbstractSimp
     findByName: (name: string) => T | undefined;
     findByTag: (tag: string) => T | undefined | never;
     findByTags: (tags: ReadonlyArray<string>, strategy: LookUpStrategy) => T | undefined | never;
+    asObject: () => Record<string, T>;
     remove: (id: string) => void;
     replace: (entity: T) => void;
   }> &
