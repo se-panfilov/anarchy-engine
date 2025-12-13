@@ -49,8 +49,7 @@ Thoughts:
 - Maybe: Add domain for lines;
 - Maybe: Refactor withActive entities (use active$) (camera, renderer, etc);
 - Maybe: A single generic factory and registries for all entities (actor, model, etc), instead of files create them with params;
-- Maybe: If it makes sense to replace Rapier with Havok;
-- Maybe: Serialization should return promise (cause it looks async);
+- Maybe: Is it makes any sense to replace Rapier with Havok?;
 - BUG: #191823 Text3dTextures doesn't update text values on textures on change;
 - TASK: Check every function in the engine that it's not calling every second (with adding console.log everywhere);
 - TASK: Check performance (make sure materials and env maps are async)
