@@ -1,18 +1,14 @@
-import type { TWithSpatialCell } from '@/Engine/Collisions/Models';
+import type { TSpatialCell, TWithSpatialCell } from '@/Engine/Collisions/Models';
 
 export function withSpatialCell(): TWithSpatialCell {
-  let cell: number = -1;
-
-  function getCell(): number {
-    return cell;
-  }
-
-  function setCell(newCell: number): void {
-    cell = newCell;
-  }
+  let cell: TSpatialCell | undefined;
+  const getSpatialCell = (): TSpatialCell | undefined => cell;
+  const setSpatialCell = (newCell: TSpatialCell | undefined): void => void (cell = newCell);
+  const resetSpatialCell = (): void => void (cell = undefined);
 
   return {
-    getCell,
-    setCell
+    getSpatialCell,
+    setSpatialCell,
+    resetSpatialCell
   };
 }

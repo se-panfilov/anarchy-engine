@@ -6,6 +6,9 @@ import type { TSceneWrapper } from '@/Engine/Scene';
 
 export type TSpatialGridService = Readonly<{
   createSpatialGrid: (mapWidth: number, mapHeight: number, cellSize: number) => RBush<TSpatialCell>;
-  addObjectToSpatialCell: (x: number, y: number, object: TActorWrapperAsync, tree: RBush<TSpatialCell>) => void;
-  visualizeSpatialCells: (tree: RBush<TSpatialCell>, scene: TSceneWrapper) => void;
+  addToSpatialCell: (x: number, y: number, actorW: TActorWrapperAsync, tree: RBush<TSpatialCell>) => void;
+  removeFromSpatialCell: (actorW: TActorWrapperAsync) => void;
+  moveToNewSpatialCell: (x: number, y: number, tree: RBush<TSpatialCell>, actorW: TActorWrapperAsync) => void;
+  updateActorsSpatialCells: (actorsW: ReadonlyArray<TActorWrapperAsync>, tree: RBush<TSpatialCell>) => void;
+  visualizeSpatialCells: (tree: RBush<TSpatialCell>, sceneW: TSceneWrapper) => void;
 }>;

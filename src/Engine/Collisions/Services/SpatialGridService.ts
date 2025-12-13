@@ -4,7 +4,7 @@ import { BoxGeometry, Mesh, MeshBasicMaterial } from 'three';
 import type { TActorWrapperAsync } from '@/Engine/Actor';
 import type { TSpatialCell, TSpatialGridService } from '@/Engine/Collisions/Models';
 import type { TSceneWrapper } from '@/Engine/Scene';
-import { isNotDefined } from '@/Engine/Utils';
+import { isDefined, isNotDefined } from '@/Engine/Utils';
 
 // TODO (S.Panfilov) CWP we need factories and registries for trees, perhaps.
 export function SpatialGridService(): TSpatialGridService {
@@ -17,21 +17,48 @@ export function SpatialGridService(): TSpatialGridService {
   }
 
   //this visualization is for debugging purposes only
-  function visualizeSpatialCells(tree: RBush<TSpatialCell>, scene: TSceneWrapper): void {
+  function visualizeSpatialCells(tree: RBush<TSpatialCell>, sceneW: TSceneWrapper): void {
     tree.all().forEach((cell: TSpatialCell): void => {
       const box: Mesh = createBoundingBox(cell.minX, cell.minY, cell.maxX, cell.maxY);
-      scene.entity.add(box);
+      sceneW.entity.add(box);
     });
   }
 
-  function addObjectToSpatialCell(x: number, y: number, object: TActorWrapperAsync, tree: RBush<TSpatialCell>): void {
+  function addToSpatialCell(x: number, y: number, actorW: TActorWrapperAsync, tree: RBush<TSpatialCell>): void {
     const cells: ReadonlyArray<TSpatialCell> = tree.search({ minX: x, minY: y, maxX: x, maxY: y });
     // eslint-disable-next-line functional/no-loop-statements
     for (const cell of cells) {
-      if (isNotDefined(cell.objects.find((o: TActorWrapperAsync): boolean => o.id === object.id))) {
+      if (isNotDefined(cell.objects.find((o: TActorWrapperAsync): boolean => o.id === actorW.id))) {
         // eslint-disable-next-line functional/immutable-data
-        cell.objects.push(object);
+        cell.objects.push(actorW);
+        actorW.setSpatialCell(cell);
       }
+    }
+  }
+
+  function removeFromSpatialCell(actorW: TActorWrapperAsync): void {
+    const cell: TSpatialCell | undefined = actorW.getSpatialCell();
+    if (isDefined(cell)) {
+      const index: number = cell.objects.indexOf(actorW);
+      if (index !== -1) {
+        // eslint-disable-next-line functional/immutable-data
+        cell.objects.splice(index, 1);
+        actorW.resetSpatialCell();
+      }
+    }
+  }
+
+  function moveToNewSpatialCell(x: number, y: number, tree: RBush<TSpatialCell>, actorW: TActorWrapperAsync): void {
+    removeFromSpatialCell(actorW);
+    addToSpatialCell(x, y, actorW, tree);
+  }
+
+  function updateActorsSpatialCells(actorsW: ReadonlyArray<TActorWrapperAsync>, tree: RBush<TSpatialCell>): void {
+    // eslint-disable-next-line functional/no-loop-statements
+    for (const actorW of actorsW) {
+      const { x, y } = actorW.getPosition().getCoords();
+      const cell: TSpatialCell = tree.search({ minX: x, minY: y, maxX: x, maxY: y })[0];
+      if (!cell || cell !== actorW.getSpatialCell()) moveToNewSpatialCell(x, y, tree, actorW);
     }
   }
 
@@ -52,7 +79,10 @@ export function SpatialGridService(): TSpatialGridService {
 
   return {
     createSpatialGrid,
-    addObjectToSpatialCell,
+    addToSpatialCell,
+    removeFromSpatialCell,
+    moveToNewSpatialCell,
+    updateActorsSpatialCells,
     visualizeSpatialCells
   };
 }

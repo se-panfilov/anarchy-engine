@@ -1,4 +1,7 @@
+import type { TSpatialCell } from '@/Engine/Collisions/Models';
+
 export type TWithSpatialCell = Readonly<{
-  getCell: () => number;
-  setCell: (cell: number) => void;
+  getSpatialCell: () => TSpatialCell | undefined;
+  setSpatialCell: (cell: TSpatialCell | undefined) => void;
+  resetSpatialCell: () => void;
 }>;
