@@ -1,10 +1,10 @@
 import type { IAppCanvas } from '@Engine/Domains/App';
 import type { ICameraConfig, ICameraFactory, ICameraRegistry, ICameraWrapper } from '@Engine/Domains/Camera';
 import { CameraFactory, CameraRegistry, CameraTag } from '@Engine/Domains/Camera';
-import type { ILoopFactory, ILoopWrapper } from '@Engine/Domains/Loop';
-import { LoopFactory, LoopTag } from '@Engine/Domains/Loop';
-import type { IRendererFactory, IRendererWrapper } from '@Engine/Domains/Renderer';
-import { RendererFactory, RendererTag } from '@Engine/Domains/Renderer';
+import type { ILoopFactory, ILoopRegistry, ILoopWrapper } from '@Engine/Domains/Loop';
+import { LoopFactory, LoopRegistry, LoopTag } from '@Engine/Domains/Loop';
+import type { IRendererFactory, IRendererRegistry, IRendererWrapper } from '@Engine/Domains/Renderer';
+import { RendererFactory, RendererRegistry, RendererTag } from '@Engine/Domains/Renderer';
 import type { ISceneConfig, ISceneWrapper } from '@Engine/Domains/Scene';
 import { SceneFactory } from '@Engine/Domains/Scene';
 import type { ILaunchedScene, ISceneLauncher } from '@Engine/Launcher';
