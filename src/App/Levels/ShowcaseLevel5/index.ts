@@ -30,26 +30,29 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
       direction: 'normal'
     };
 
+    const numberOfPoints: number = 160;
+    const numberOfCircles: number = 1;
+    const startAngle: number = 100;
+    const radius: number = 15;
+    const angleArray: ReadonlyArray<number> = generateAnglesForCircle(numberOfPoints, numberOfCircles, startAngle);
+
+    const redPath: ReadonlyArray<IWithCoordsXZ> = createCirclePathXZ(angleArray, radius, { x: 0, z: 0 });
+    const bluePath: ReadonlyArray<IWithCoordsXZ> = createCirclePathXZ(angleArray, radius - 2, { x: 0, z: 0 });
+
+    standardMoverService.followTarget(redText, redActor, { x: 1 });
+    standardMoverService.followTarget(blueText, blueActor, { x: 1 });
+
     ambientContext.mouseClickWatcher.value$.subscribe(() => {
       if (isClickBlocked) {
         console.log('click is blocked');
-        isClickBlocked = false;
         return;
       }
       isClickBlocked = true;
 
-      const numberOfPoints: number = 160;
-      const numberOfCircles: number = 1;
-      const startAngle: number = 100;
-      const radius: number = 15;
-      const angleArray: ReadonlyArray<number> = generateAnglesForCircle(numberOfPoints, numberOfCircles, startAngle);
-
-      const redPath: ReadonlyArray<IWithCoordsXZ> = createCirclePathXZ(angleArray, radius, { x: 0, z: 0 });
-      const bluePath: ReadonlyArray<IWithCoordsXZ> = createCirclePathXZ(angleArray, radius - 2, { x: 0, z: 0 });
-      void standardMoverService.goByPath(redActor, redPath, { ...animationParams, easing: Easing.Linear }).then(() => console.log('red done'));
-      void standardMoverService.goByPath(blueActor, bluePath, { ...animationParams, easing: Easing.EaseInCirc }).then(() => console.log('blue done'));
-      standardMoverService.followTarget(redText, redActor, { x: 1 });
-      standardMoverService.followTarget(blueText, blueActor, { x: 1 });
+      void Promise.all([
+        standardMoverService.goByPath(redActor, redPath, { ...animationParams, easing: Easing.Linear }).then(() => console.log('red done')),
+        standardMoverService.goByPath(blueActor, bluePath, { ...animationParams, easing: Easing.EaseInCirc }).then(() => console.log('blue done'))
+      ]).then(() => (isClickBlocked = false));
     });
   }
 
