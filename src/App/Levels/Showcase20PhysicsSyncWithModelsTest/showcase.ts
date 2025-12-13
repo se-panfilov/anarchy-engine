@@ -1,4 +1,4 @@
-import type { Vector3 } from 'three/src/math/Vector3';
+import type { Vector3 } from 'three';
 
 import type { TShowcase } from '@/App/Levels/Models';
 import type { TActor, TAppCanvas, TCameraWrapper, TEngine, TSpace, TSpaceConfig } from '@/Engine';

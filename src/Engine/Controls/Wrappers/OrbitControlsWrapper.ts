@@ -1,5 +1,5 @@
+import { Vector3 } from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
-import { Vector3 } from 'three/src/math/Vector3';
 
 import { AbstractWrapper, WrapperType } from '@/Engine/Abstract';
 import type { TOrbitControlsParams, TOrbitControlsWrapper } from '@/Engine/Controls/Models';

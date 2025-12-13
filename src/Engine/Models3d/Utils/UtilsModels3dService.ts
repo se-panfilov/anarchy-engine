@@ -1,6 +1,5 @@
-import type { Group, Mesh, Object3D, Object3DEventMap } from 'three';
+import type { Group, Mesh, Object3D, Object3DEventMap, Vector3Like } from 'three';
 import { Euler } from 'three';
-import type { Vector3Like } from 'three/src/math/Vector3';
 
 import type { TRawModel3d } from '@/Engine/Models3d/Models';
 import type { TEulerLike, TObject3DParams, TObject3DPropConfig } from '@/Engine/ThreeLib';

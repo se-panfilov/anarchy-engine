@@ -1,5 +1,4 @@
-import type { Vector2Like, Vector4Like } from 'three';
-import type { Vector3Like } from 'three/src/math/Vector3';
+import type { Vector2Like, Vector3Like, Vector4Like } from 'three';
 
 export function isEqualOrSimilarNumbers(prev: number, curr: number, threshold: number = 0): boolean {
   return Math.abs(curr - prev) <= threshold;

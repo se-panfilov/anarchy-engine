@@ -1,5 +1,5 @@
+import type { Vector3 } from 'three';
 import type { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
-import type { Vector3 } from 'three/src/math/Vector3';
 
 import type { TOrbitControlsAccessors } from '@/Engine/Controls/Models';
 import type { TWriteable } from '@/Engine/Utils';

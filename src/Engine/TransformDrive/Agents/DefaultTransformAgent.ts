@@ -1,6 +1,5 @@
 import type { Subscription } from 'rxjs';
-import type { Quaternion } from 'three';
-import type { Vector3 } from 'three/src/math/Vector3';
+import type { Quaternion, Vector3 } from 'three';
 
 import type { TWithPosition3dProperty, TWithQuaternionRotationProperty, TWithScaleProperty } from '@/Engine/Mixins';
 import type { TReadonlyQuaternion, TReadonlyVector3 } from '@/Engine/ThreeLib';

@@ -1,5 +1,4 @@
-import type { Vector2, Vector4 } from 'three';
-import type { Vector3 } from 'three/src/math/Vector3';
+import type { Vector2, Vector3, Vector4 } from 'three';
 
 export type TWithPosition2d = Readonly<{
   setPosition: (position: Vector2) => Vector2;

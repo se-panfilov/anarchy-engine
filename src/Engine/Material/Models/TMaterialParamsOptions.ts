@@ -1,4 +1,4 @@
-import type { Vector2 } from 'three';
+import type { Vector2, Vector3 } from 'three';
 import type {
   Blending,
   BlendingDstFactor,
@@ -14,7 +14,6 @@ import type {
   StencilOp
 } from 'three/src/constants';
 import type { ColorRepresentation } from 'three/src/math/Color';
-import type { Vector3 } from 'three/src/math/Vector3';
 
 import type { TTexture } from '@/Engine/Texture/Models';
 

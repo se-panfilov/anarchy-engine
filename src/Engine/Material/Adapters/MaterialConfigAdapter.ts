@@ -1,6 +1,5 @@
-import type { Vector2Like } from 'three';
+import type { Vector2Like, Vector3Like } from 'three';
 import { Vector2, Vector3 } from 'three';
-import type { Vector3Like } from 'three/src/math/Vector3';
 
 import {
   BlendEquationMap,
