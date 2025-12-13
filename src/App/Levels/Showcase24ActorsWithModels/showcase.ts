@@ -23,83 +23,24 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
   const engine: TEngine = Engine(space);
 
   const { keyboardService } = engine.services;
-  const { actorService, animationsService, fsmService, models3dService } = space.services;
   const { onKey, isKeyPressed } = keyboardService;
 
   function init(): void {
     addGizmo(space.services, ambientContext.screenSizeWatcher, { placement: 'bottom-left' });
 
-    const fadeDuration = 0.3;
-
-    const solderName: string = 'solder_model_entity_1';
-    const solderModel3d: TModel3d | undefined = models3dService.getRegistry().findByName(solderName);
-    if (isNotDefined(solderModel3d)) throw new Error(`Model "${solderName}" doesn't exist in the registry`);
-    const actions = animationsService.startAutoUpdateMixer(solderModel3d).actions;
-
-    enum AnimationActions {
-      Run = 'Run',
-      Walk = 'Walk',
-      Idle = 'Idle'
-      // TPose = 'TPose'
-    }
-
-    const { Run, Walk, Idle } = AnimationActions;
-
-    const runAction: AnimationAction = actions[Run];
-    const walkAction: AnimationAction = actions[Walk];
-    const idleAction: AnimationAction = actions[Idle];
-    // const tPoseAction: AnimationAction = actions['TPose'];
-
-    const solderAnimFsm: TFsmWrapper = fsmService.create({
-      name: 'solder_anim_fsm',
-      type: 'animation',
-      initial: Idle,
-      transitions: [
-        [Idle, Run, Run],
-        [Idle, Walk, Walk],
-        [Walk, Idle, Idle],
-        [Walk, Run, Run],
-        [Run, Walk, Walk],
-        [Run, Idle, Idle]
-      ]
-    });
-
-    const solderActor: TActor | undefined = actorService.getRegistry().findByName('solder_actor_1');
-    if (isNotDefined(solderActor)) throw new Error('Solder actor is not found');
-
-    solderActor.setAnimationsFsm(solderAnimFsm);
-
-    const { animationsFsm } = solderActor.states;
-    if (isNotDefined(animationsFsm)) throw new Error('Animations FSM is not defined');
-
-    solderAnimFsm.changed$.pipe(distinctUntilChanged()).subscribe((state: TFsmStates): void => {
-      switch (state) {
-        case Idle:
-          walkAction.fadeOut(fadeDuration);
-          runAction.fadeOut(fadeDuration);
-          idleAction.reset().fadeIn(fadeDuration).play();
-          break;
-        case Walk:
-          idleAction.fadeOut(fadeDuration);
-          runAction.fadeOut(fadeDuration);
-          walkAction.reset().fadeIn(fadeDuration).play();
-          break;
-        case Run:
-          idleAction.fadeOut(fadeDuration);
-          walkAction.fadeOut(fadeDuration);
-          runAction.reset().fadeIn(fadeDuration).play();
-          break;
-        default:
-          throw new Error(`Unknown state: ${String(state)}`);
-      }
-    });
+    const solder1AnimFsm: TFsmWrapper = initSolder1('solder_actor_1', space.services);
+    const solder2AnimFsm: TFsmWrapper = initSolder2('solder_actor_2', space.services);
 
     onKey(KeyCode.W).pressing$.subscribe((): void => {
-      const action: AnimationActions.Run | AnimationActions.Walk = isKeyPressed(KeysExtra.Shift) ? Run : Walk;
-      if (animationsFsm.getState() !== action) animationsFsm.send(action);
+      const action = isKeyPressed(KeysExtra.Shift) ? 'Run' : 'Walk';
+      if (solder1AnimFsm.getState() !== action) solder1AnimFsm.send(action);
+      solder2AnimFsm.send('Dance');
     });
 
-    onKey(KeyCode.W).released$.subscribe((): void => animationsFsm.send(Idle));
+    onKey(KeyCode.W).released$.subscribe((): void => {
+      solder1AnimFsm.send('Idle');
+      solder2AnimFsm.send('Idle');
+    });
   }
 
   function start(): void {
@@ -108,4 +49,110 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
   }
 
   return { start, space };
+}
+
+function initSolder1(actorName: string, { animationsService, fsmService, actorService }: TSpaceServices): TFsmWrapper {
+  const fadeDuration = 0.3;
+
+  const solderActor: TActor | undefined = actorService.getRegistry().findByName(actorName);
+  if (isNotDefined(solderActor)) throw new Error(`Actor "${actorName}" is not found`);
+
+  const solderModel3d: TModel3d = solderActor.model3d;
+  const actions = animationsService.startAutoUpdateMixer(solderModel3d).actions;
+
+  enum AnimationActions {
+    Run = 'Run',
+    Walk = 'Walk',
+    Idle = 'Idle'
+    // TPose = 'TPose'
+  }
+
+  const { Run, Walk, Idle } = AnimationActions;
+
+  const runAction: AnimationAction = actions[Run];
+  const walkAction: AnimationAction = actions[Walk];
+  const idleAction: AnimationAction = actions[Idle];
+  // const tPoseAction: AnimationAction = actions['TPose'];
+
+  const solderAnimFsm: TFsmWrapper = fsmService.create({
+    name: 'solder_anim_fsm',
+    type: 'animation',
+    initial: Idle,
+    transitions: [
+      [Idle, Run, Run],
+      [Idle, Walk, Walk],
+      [Walk, Idle, Idle],
+      [Walk, Run, Run],
+      [Run, Walk, Walk],
+      [Run, Idle, Idle]
+    ]
+  });
+
+  solderActor.setAnimationsFsm(solderAnimFsm);
+
+  const { animationsFsm } = solderActor.states;
+  if (isNotDefined(animationsFsm)) throw new Error('Animations FSM is not defined');
+
+  animationsFsm.changed$.pipe(distinctUntilChanged()).subscribe((state: TFsmStates): void => {
+    switch (state) {
+      case Idle:
+        walkAction.fadeOut(fadeDuration);
+        runAction.fadeOut(fadeDuration);
+        idleAction.reset().fadeIn(fadeDuration).play();
+        break;
+      case Walk:
+        idleAction.fadeOut(fadeDuration);
+        runAction.fadeOut(fadeDuration);
+        walkAction.reset().fadeIn(fadeDuration).play();
+        break;
+      case Run:
+        idleAction.fadeOut(fadeDuration);
+        walkAction.fadeOut(fadeDuration);
+        runAction.reset().fadeIn(fadeDuration).play();
+        break;
+      default:
+        throw new Error(`Unknown state: ${String(state)}`);
+    }
+  });
+
+  return animationsFsm;
+}
+
+function initSolder2(actorName: string, { animationsService, actorService }: TSpaceServices): TFsmWrapper {
+  const fadeDuration = 0.3;
+
+  const solderActor: TActor | undefined = actorService.getRegistry().findByName(actorName);
+  if (isNotDefined(solderActor)) throw new Error(`Actor "${actorName}" is not found`);
+
+  const solderModel3d: TModel3d = solderActor.model3d;
+  const actions = animationsService.startAutoUpdateMixer(solderModel3d).actions;
+
+  const idleAction: AnimationAction = actions['Idle'];
+
+  const { animationsFsm } = solderActor.states;
+  if (isNotDefined(animationsFsm)) throw new Error('Animations FSM is not defined');
+
+  animationsFsm.changed$.pipe(distinctUntilChanged()).subscribe((state: TFsmStates): void => {
+    switch (state) {
+      case 'Idle':
+        // walkAction.fadeOut(fadeDuration);
+        // runAction.fadeOut(fadeDuration);
+        idleAction.reset().fadeIn(fadeDuration).play();
+        break;
+      // case Walk:
+      //   idleAction.fadeOut(fadeDuration);
+      //   runAction.fadeOut(fadeDuration);
+      //   walkAction.reset().fadeIn(fadeDuration).play();
+      //   break;
+      // case Run:
+      //   idleAction.fadeOut(fadeDuration);
+      //   walkAction.fadeOut(fadeDuration);
+      //   runAction.reset().fadeIn(fadeDuration).play();
+      //   break;
+      default:
+        throw new Error(`Unknown state: ${String(state)}`);
+    }
+  });
+
+  return animationsFsm;
 }
