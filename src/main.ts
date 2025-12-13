@@ -8,13 +8,13 @@ import { InputManager } from '@Engine/Managers/InputManager';
 import { ActorManager } from '@Engine/Managers/ActorManager';
 import { ControlManager } from '@Engine/Managers/ControlManager';
 
-const actorManager = ActorManager();
-const cameraManager = CameraManager();
-const lightManager = LightManager();
-const controlManager = ControlManager();
-const inputManager = InputManager();
-const loopManager = LoopManager();
-const sceneManager = SceneManager();
+const actorManager = new ActorManager();
+const cameraManager = new CameraManager();
+const lightManager = new LightManager();
+const controlManager = new ControlManager();
+const inputManager = new InputManager();
+const loopManager = new LoopManager();
+const sceneManager = new SceneManager();
 
 const scene = sceneManager.create();
 sceneManager.setCurrent(scene);
@@ -33,7 +33,7 @@ wrappedCamera.setPosition(3, 2, 15);
 wrappedCamera.lookAt(0, 0, 0);
 
 const wrappedControl = controlManager.create();
-wrappedControl.control.wrappedCamera.setControls('OrbitControls');
+wrappedControl.entity.wrappedCamera.setControls('OrbitControls');
 
 lightManager.createAmbientLight({ type: 'ambient', color: 0xffffff, intensity: 0.5 });
 const wrappedDirectionalLight = lightManager.createDirectionalLight({
