@@ -61,7 +61,6 @@ export function IntersectionsCameraWatcher(params: TIntersectionsCameraWatcherPa
       }
 
       const intersection: TIntersectionEvent | undefined = getIntersection(position as Vector2, camera, abstractIntersectionsWatcher.getModelsFromActors());
-      console.log('XXX intersection', intersection);
       if (isDefined(intersection)) abstractIntersectionsWatcher.value$.next(intersection);
     });
 
