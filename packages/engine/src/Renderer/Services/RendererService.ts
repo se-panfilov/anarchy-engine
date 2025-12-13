@@ -37,7 +37,7 @@ export function RendererService(
   const disposable: ReadonlyArray<TDisposable> = [registry, factory, factorySub$, registrySub$];
   const abstractService: TAbstractService = AbstractService(disposable);
 
-  const withCreateService: TRendererServiceWithCreate = withCreateServiceMixin(factory, { container });
+  const withCreateService: TRendererServiceWithCreate = withCreateServiceMixin(factory, { container, renderLoop });
   const withCreateFromConfigService: TRendererServiceWithCreateFromConfig = withCreateFromConfigServiceMixin(withCreateService.create, factory.configToParams, { cameraService, container });
   const withFactory: TRendererServiceWithFactory = withFactoryService(factory);
   const withRegistry: TRendererServiceWithRegistry = withRegistryService(registry);

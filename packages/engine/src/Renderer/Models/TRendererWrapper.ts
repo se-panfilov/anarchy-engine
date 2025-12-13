@@ -1,5 +1,6 @@
 import type { TWrapper } from '@Engine/Abstract';
 import type { TWithActiveMixin } from '@Engine/Mixins';
+import type { BehaviorSubject } from 'rxjs';
 import type { WebGLRenderer } from 'three';
 
 import type { TRendererAccessors } from './TRendererAccessors';
@@ -10,4 +11,5 @@ export type TRendererWrapper = TWrapper<WebGLRenderer> &
   TRendererAccessors &
   Readonly<{
     getParams: () => TRendererParams;
+    isRendererReady$: BehaviorSubject<boolean>;
   }>;

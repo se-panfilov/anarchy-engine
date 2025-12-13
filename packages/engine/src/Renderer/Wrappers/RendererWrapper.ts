@@ -7,13 +7,13 @@ import type { TRendererAccessors, TRendererConfig, TRendererParams, TRendererWra
 import type { TWriteable } from '@Engine/Utils';
 import { isNotDefined, isWebGL2Available, isWebGLAvailable, mergeAll } from '@Engine/Utils';
 import type { Subscription } from 'rxjs';
-import { distinctUntilChanged } from 'rxjs';
+import { BehaviorSubject, distinctUntilChanged } from 'rxjs';
 import type { WebGLRendererParameters } from 'three';
 import { PCFShadowMap, WebGLRenderer } from 'three';
 
 import { getAccessors } from './Accessors';
 
-export function RendererWrapper(params: TRendererParams, { container }: TRendererWrapperDependencies): TRendererWrapper {
+export function RendererWrapper(params: TRendererParams, { container, renderLoop }: TRendererWrapperDependencies): TRendererWrapper {
   const maxPixelRatio: number = params.maxPixelRatio ?? 2;
   if (isNotDefined(params.canvas)) throw new Error(`Canvas is not defined`);
   if (!isWebGLAvailable()) throw new Error('WebGL is not supported by this device');
@@ -41,6 +41,15 @@ export function RendererWrapper(params: TRendererParams, { container }: TRendere
   accessors.setShadowMapEnabled(params.isShadowMapEnabled ?? true);
   accessors.setShadowMapType(PCFShadowMap);
 
+  //When "isRendererReady" is true, you can assume that the scene is loaded and ready.
+  const isRendererReady$: BehaviorSubject<boolean> = new BehaviorSubject(entity.info.render.frame > 0);
+
+  const rendererLoopSub$: Subscription = renderLoop.tick$.subscribe((): void => {
+    const isRendererReady: boolean = entity.info.render.frame > 0;
+    if (isRendererReady$.value === isRendererReady) return;
+    isRendererReady$.next(isRendererReady);
+  });
+
   function setValues(entity: TWriteable<WebGLRenderer>, { width, height }: DOMRect, ratio: number): void {
     if (isNotDefined(entity)) return;
     accessors.setSize(width, height);
@@ -64,11 +73,13 @@ export function RendererWrapper(params: TRendererParams, { container }: TRendere
 
     destroySub$.unsubscribe();
     screenSizeSub$.unsubscribe();
+    rendererLoopSub$.unsubscribe();
   });
 
   const result = mergeAll(wrapper, accessors, withActiveMixin(), {
-    getParams: () => params,
-    serialize: (): TRendererConfig => rendererToConfig(result)
+    getParams: (): TRendererParams => params,
+    serialize: (): TRendererConfig => rendererToConfig(result),
+    isRendererReady$
   });
 
   result._setActive(params.isActive, true);
