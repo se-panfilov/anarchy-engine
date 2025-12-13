@@ -6,7 +6,7 @@ import type { TSceneWrapper } from '@/Engine/Scene';
 import type { TSpatialGridRegistry } from '@/Engine/Spatial';
 
 export function ActorService(factory: TActorFactory, registry: TActorRegistry, actorServiceDependencies: TActorServiceDependencies, scene: TSceneWrapper): TActorService {
-  registry.added$.subscribe(({ value }: TRegistryPack<TActorWrapper | TActorWrapperWithPhysics>): void => scene.addActor(value));
+  registry.added$.subscribe(({ value }: TRegistryPack<TActorWrapper | TActorWrapperWithPhysics>): void => scene.addModel3d(value.entity.getModel3d()));
   factory.entityCreated$.subscribe((wrapper: TActorWrapper | TActorWrapperWithPhysics): void => registry.add(wrapper));
 
   const create = (params: TActorParams): TActorWrapper | TActorWrapperWithPhysics => factory.create(params, actorServiceDependencies);

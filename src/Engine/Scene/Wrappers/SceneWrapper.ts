@@ -1,9 +1,8 @@
-import type { CubeTexture } from 'three';
+import type { CubeTexture, Group, Mesh, Object3D } from 'three';
 import { Scene } from 'three';
 
 import type { TWrapper } from '@/Engine/Abstract';
 import { AbstractWrapper, WrapperType } from '@/Engine/Abstract';
-import type { TActorWrapper } from '@/Engine/Actor';
 import type { TCameraWrapper } from '@/Engine/Camera';
 import type { TColor } from '@/Engine/Color';
 import { ColorWrapper } from '@/Engine/Color';
@@ -26,11 +25,10 @@ export function SceneWrapper(params: TSceneParams): TSceneWrapper {
   const wrapper: TWrapper<Scene> = AbstractWrapper(entity, WrapperType.Scene, params);
 
   const add = (obj: TSceneObject): void => void entity.add(obj);
-  const addCamera = (camera: Readonly<TCameraWrapper>): void => add(camera.entity);
-  const addActor = (actor: Readonly<TActorWrapper>): void => add(actor.entity.getModel3d());
+  const addCamera = (camera: TCameraWrapper): void => add(camera.entity);
+  const addModel3d = (model3d: Group | Mesh | Object3D): void => add(model3d);
   const addLight = <T extends TLight>(light: Readonly<TAbstractLightWrapper<T>>): void => add(light.entity);
   const addParticles = (particles: Readonly<TParticlesWrapper>): void => add(particles.entity);
-  const addModel3d = add;
 
   const addText = (text: Readonly<TTextAnyWrapper>): void => add(text.entity);
 
@@ -55,7 +53,6 @@ export function SceneWrapper(params: TSceneParams): TSceneWrapper {
 
   const result = {
     ...wrapper,
-    addActor,
     addCamera,
     addLight,
     addModel3d,
