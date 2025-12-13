@@ -1,3 +1,5 @@
+import * as fs from 'node:fs';
+
 import { AllowedSystemFolders } from '@Showcases/Desktop/Constants';
 import type { TFilesService, TSettingsService } from '@Showcases/Desktop/Models';
 import type { TShowcaseGameSettings } from '@Showcases/Shared';
@@ -9,9 +11,14 @@ export function SettingsService(filesService: TFilesService): TSettingsService {
   const appSettingsFileName: string = 'user-config.json';
 
   // TODO DESKTOP: rename load/save to read/write
-
-  // TODO DESKTOP: Re-test the case when settings file is not existing (it's fine, do not throw)
-  const loadAppSettings = async (): Promise<TShowcaseGameSettings | undefined> => filesService.readFileAsJson(appSettingsFileName, userDataFolder, isSettings);
+  // TODO DESKTOP: What should happen when no settings? Return values from desktop? Use defaults from the main app?
+  const loadAppSettings = async (): Promise<TShowcaseGameSettings | undefined> => {
+    if (!fs.existsSync(filesService.getPathToFile(appSettingsFileName, userDataFolder))) {
+      console.log(`[DESKTOP]: Settings file ("${appSettingsFileName}") not found in : ${userDataFolder}`);
+      return undefined;
+    }
+    return filesService.readFileAsJson(appSettingsFileName, userDataFolder, isSettings);
+  };
 
   async function saveAppSettings(settings: TShowcaseGameSettings): Promise<void> {
     if (!isSettings(settings)) throw new Error('[DESKTOP]: Attempted to save invalid app settings');
