@@ -60,12 +60,12 @@ export function showcase(space: TSpace): void {
   const actorMkeyForward: TActor = getByTags(['mkey', 'Forward'], Every);
   const actorMkeyExtra: TActor = getByTags(['mkey', 'Extra'], Every);
 
-  keys$.subscribe((event: TKeyEvent): void => {
+  keys$.subscribe((keyEvent: TKeyEvent): void => {
     //true/false switches
-    if (isKeyInEvent(GoUp, event)) void actorKeyW.drive.default.addY(isPressEvent(event) ? -0.2 : 0.2);
-    if (isKeyInEvent(GoLeft, event)) void actorKeyA.drive.default.addY(isPressEvent(event) ? -0.2 : 0.2);
-    if (isKeyInEvent(GoDown, event)) void actorKeyS.drive.default.addY(isPressEvent(event) ? -0.2 : 0.2);
-    if (isKeyInEvent(GoRight, event)) void actorKeyD.drive.default.addY(isPressEvent(event) ? -0.2 : 0.2);
+    if (isKeyInEvent(GoUp, keyEvent)) void actorKeyW.drive.default.addY(isPressEvent(keyEvent) ? -0.2 : 0.2);
+    if (isKeyInEvent(GoLeft, keyEvent)) void actorKeyA.drive.default.addY(isPressEvent(keyEvent) ? -0.2 : 0.2);
+    if (isKeyInEvent(GoDown, keyEvent)) void actorKeyS.drive.default.addY(isPressEvent(keyEvent) ? -0.2 : 0.2);
+    if (isKeyInEvent(GoRight, keyEvent)) void actorKeyD.drive.default.addY(isPressEvent(keyEvent) ? -0.2 : 0.2);
   });
 
   kinematicLoop.tick$.pipe(withLatestFrom(keys$)).subscribe(([delta, { keys }]) => {

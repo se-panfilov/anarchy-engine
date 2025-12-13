@@ -22,9 +22,9 @@ export function initGuiEvents(keyboardService: TKeyboardService, mouseService: T
   const openSettings = (open: boolean): void => toGuiEventsBus$.next(createToGuiActionEvent(Settings, open));
   const openMiniMap = (open: boolean): void => toGuiEventsBus$.next(createToGuiActionEvent(MiniMap, open));
 
-  keys$.subscribe((event: TKeyEvent): void => {
-    if (isKeyInEvent(KeyCode.I, event)) openInventory(isPressEvent(event));
-    if (isKeyInEvent(KeyCode.M, event)) openMiniMap(isPressEvent(event));
-    if (isKeyInEvent(KeyCode.Escape, event)) openSettings(isPressEvent(event));
+  keys$.subscribe((keyEvent: TKeyEvent): void => {
+    if (isKeyInEvent(KeyCode.I, keyEvent)) openInventory(isPressEvent(keyEvent));
+    if (isKeyInEvent(KeyCode.M, keyEvent)) openMiniMap(isPressEvent(keyEvent));
+    if (isKeyInEvent(KeyCode.Escape, keyEvent)) openSettings(isPressEvent(keyEvent));
   });
 }

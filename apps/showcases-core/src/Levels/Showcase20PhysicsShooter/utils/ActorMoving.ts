@@ -14,11 +14,11 @@ export function startMoveActorWithKeyboard(actor: TActor, keyboardService: TKeyb
 
   const { keys$ } = keyboardService;
 
-  keys$.subscribe((event: TKeyEvent): void => {
-    if (isKeyInEvent(KeyCode.W, event)) keyStates$.next({ ...keyStates$.value, Forward: isPressEvent(event) });
-    if (isKeyInEvent(KeyCode.A, event)) keyStates$.next({ ...keyStates$.value, Left: isPressEvent(event) });
-    if (isKeyInEvent(KeyCode.S, event)) keyStates$.next({ ...keyStates$.value, Backward: isPressEvent(event) });
-    if (isKeyInEvent(KeyCode.D, event)) keyStates$.next({ ...keyStates$.value, Right: isPressEvent(event) });
+  keys$.subscribe((keyEvent: TKeyEvent): void => {
+    if (isKeyInEvent(KeyCode.W, keyEvent)) keyStates$.next({ ...keyStates$.value, Forward: isPressEvent(keyEvent) });
+    if (isKeyInEvent(KeyCode.A, keyEvent)) keyStates$.next({ ...keyStates$.value, Left: isPressEvent(keyEvent) });
+    if (isKeyInEvent(KeyCode.S, keyEvent)) keyStates$.next({ ...keyStates$.value, Backward: isPressEvent(keyEvent) });
+    if (isKeyInEvent(KeyCode.D, keyEvent)) keyStates$.next({ ...keyStates$.value, Right: isPressEvent(keyEvent) });
   });
 
   mouseLineIntersectionsWatcher.value$
