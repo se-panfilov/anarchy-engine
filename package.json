@@ -9,6 +9,7 @@
     "dev": "vite",
     "build": "rimraf ./dist tsc && vite build",
     "before:release:check": "npm run ts:check && npm run prettier:check && npm run check:ts-morph && npm run lint && unit:coverage",
+    "before:release": "npm run before:release:check && clean:reinstall && generate:license-report && generate:all-licenses-list",
     "preview": "vite preview",
     "lint": "eslint ./src",
     "lint:fix": "npm run lint -- --fix",
