@@ -6,9 +6,6 @@ import type { TWebErrorTrackingService } from '@/Models';
 
 export function WebErrorTrackingService(): TWebErrorTrackingService {
   function start(): TTrackingService | undefined {
-    // Only for production web builds
-    if (__PLATFORM_MODE__ !== 'production.web') return undefined;
-
     return BrowserTrackingService(
       {
         dsn: runtimeEnv.VITE_SENTRY_DSN,

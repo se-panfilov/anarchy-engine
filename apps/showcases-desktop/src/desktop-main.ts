@@ -1,7 +1,7 @@
 import type { PlatformActions } from '@Showcases/Desktop/Constants';
 import { appBeforeQuitHandler, appCrashHandler, appWindowAllClosedHandler, windowNavigateHandler, windowReadyToShow, windowSecondInstanceHandler } from '@Showcases/Desktop/EventHandlers';
 import type { TDesktopAppConfig, TDesktopAppService, TDocsService, TFilesService, TSettingsService, TWindowService } from '@Showcases/Desktop/Models';
-import { DesktopAppService, DocsService, FilesService, handleAppRequest, SettingsService, WindowService } from '@Showcases/Desktop/Services';
+import { DesktopAppService, DocsService, ElectronErrorTrackingService, FilesService, handleAppRequest, SettingsService, WindowService } from '@Showcases/Desktop/Services';
 import { getWindowSizeSafe, hideMenuBar, noZoom, turnOffMenuBarAndHotkeys } from '@Showcases/Desktop/Utils';
 import type { TResolution, TShowcaseGameSettings } from '@Showcases/Shared';
 import { platformApiChannel } from '@Showcases/Shared';
@@ -11,6 +11,9 @@ import { app, ipcMain } from 'electron';
 const desktopAppSettings: TDesktopAppConfig = {
   isOpenDevTools: true
 };
+
+//Allow tracking for production (only Electron part, web part should be tracked separately)
+if (__PLATFORM_MODE__.startsWith('production')) ElectronErrorTrackingService().start();
 
 // TODO DESKTOP: Add .env files for different platforms (macos, windows, linux).
 // TODO DESKTOP: We need e2e eventually

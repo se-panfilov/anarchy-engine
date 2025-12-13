@@ -1,6 +1,7 @@
 export * from './AppToPlatformMessagesService';
 export * from './DesktopAppService';
 export * from './DocsService';
+export * from './ElectronErrorTrackingService';
 export * from './FilesService';
 export * from './SettingService';
 export * from './WindowService';
