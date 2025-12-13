@@ -1,7 +1,8 @@
-import type { Observable, Subscription } from 'rxjs';
-import { BehaviorSubject, distinctUntilChanged, ReplaySubject, sampleTime, switchMap } from 'rxjs';
+import type { Subscription } from 'rxjs';
+import { BehaviorSubject, distinctUntilChanged, map, Observable, ReplaySubject, sampleTime, switchMap } from 'rxjs';
 import type { Euler, Vector3 } from 'three';
 
+import type { TReadonlyEuler, TReadonlyVector3 } from '@/Engine';
 import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
 import { TransformAgent } from '@/Engine/TransformDrive/Constants';
@@ -16,49 +17,50 @@ import { isEqualOrSimilarVector3Like, isNotDefined } from '@/Engine/Utils';
 // - Default agent is providing almost nothing, just use position$.next() of transform drive. Recommended for static objects.
 // - Also: with every mode you can do position$.next() to "teleport" the object to the new position
 export function TransformDrive(params: TTransformDriveParams, agents: TTransformAgents): TTransformDrive | never {
-  const activeAgent: TransformAgent = params.activeAgent ?? TransformAgent.Default;
+  const agent$: BehaviorSubject<TransformAgent> = new BehaviorSubject<TransformAgent>(params.activeAgent ?? TransformAgent.Default);
+  const activeAgent$: BehaviorSubject<TAbstractTransformAgent> = new BehaviorSubject(agents[agent$.value]);
 
-  if (isNotDefined(agents[activeAgent])) throw new Error(`Agent "${activeAgent}" is not defined`);
+  if (isNotDefined(activeAgent$.value)) throw new Error(`Agent "${activeAgent$.value}" is not defined`);
 
-  //We don't want to expose these BehaviorSubjects, because they're vulnerable to external changes without .next()
-  const position$: BehaviorSubject<Vector3> = new BehaviorSubject<Vector3>(agents[activeAgent].position$.value);
+  const agentSub$: Subscription = agent$.subscribe((agent: TransformAgent): void => activeAgent$.next(agents[agent]));
+
+  //We don't expose these BehaviorSubjects, because they're vulnerable to external changes without .next() (e.g. "position.value = ...")
+  const position$: BehaviorSubject<Vector3> = new BehaviorSubject<Vector3>(activeAgent$.value.position$.value);
   const positionRep$: ReplaySubject<Vector3> = new ReplaySubject<Vector3>(1);
-  const rotation$: BehaviorSubject<Euler> = new BehaviorSubject<Euler>(agents[activeAgent].rotation$.value);
+  const rotation$: BehaviorSubject<Euler> = new BehaviorSubject<Euler>(activeAgent$.value.rotation$.value);
   const rotationRep$: ReplaySubject<Euler> = new ReplaySubject<Euler>(1);
-  const scale$: BehaviorSubject<Vector3> = new BehaviorSubject<Vector3>(agents[activeAgent].scale$.value);
+  const scale$: BehaviorSubject<Vector3> = new BehaviorSubject<Vector3>(activeAgent$.value.scale$.value);
   const scaleRep$: ReplaySubject<Vector3> = new ReplaySubject<Vector3>(1);
 
   position$.subscribe(positionRep$);
   rotation$.subscribe(rotationRep$);
   scale$.subscribe(scaleRep$);
 
-  const agent$: BehaviorSubject<TransformAgent> = new BehaviorSubject<TransformAgent>(activeAgent);
-
   const destroyable: TDestroyable = destroyableMixin();
 
-  // TODO ENV: limit is 60 fps, perhaps should be configurable
+  // TODO ENV: limited fps, perhaps should be configurable
   const delay: number = params.updateDelay ?? 4; // 240 FPS (when 16 is 60 FPS)
   const threshold: number = params.noiseThreshold ?? 0.001;
 
-  const positionSub$: Subscription = agent$
+  const positionSub$: Subscription = activeAgent$
     .pipe(
-      switchMap((drive: TransformAgent): Observable<Vector3> => agents[drive as keyof TTransformAgents].position$),
+      switchMap((agent: TAbstractTransformAgent): BehaviorSubject<TReadonlyVector3> => agent.position$),
       distinctUntilChanged((prev: Vector3, curr: Vector3): boolean => isEqualOrSimilarVector3Like(prev, curr, threshold)),
       sampleTime(delay)
     )
     .subscribe(position$);
 
-  const rotationSub$: Subscription = agent$
+  const rotationSub$: Subscription = activeAgent$
     .pipe(
-      switchMap((drive: TransformAgent): Observable<Euler> => agents[drive as keyof TTransformAgents].rotation$),
+      switchMap((agent: TAbstractTransformAgent): BehaviorSubject<TReadonlyEuler> => agent.rotation$),
       distinctUntilChanged((prev: Euler, curr: Euler): boolean => isEqualOrSimilarVector3Like(prev, curr, threshold)),
       sampleTime(delay)
     )
     .subscribe(rotation$);
 
-  const scaleSub$: Subscription = agent$
+  const scaleSub$: Subscription = activeAgent$
     .pipe(
-      switchMap((drive: TransformAgent): Observable<Vector3> => agents[drive as keyof TTransformAgents].scale$),
+      switchMap((agent: TAbstractTransformAgent): BehaviorSubject<TReadonlyVector3> => agent.scale$),
       distinctUntilChanged((prev: Vector3, curr: Vector3): boolean => isEqualOrSimilarVector3Like(prev, curr, threshold)),
       sampleTime(delay)
     )
@@ -81,6 +83,7 @@ export function TransformDrive(params: TTransformDriveParams, agents: TTransform
     positionSub$.unsubscribe();
     rotationSub$.unsubscribe();
     scaleSub$.unsubscribe();
+    agentSub$.unsubscribe();
 
     //Stop subjects
     position$.complete();
