@@ -1,10 +1,10 @@
 {
-  "name": "Showcase 03 Camera Flying",
+  "name": "showcase",
   "version": "1.0.0",
   "initSpace": true,
   "scenes": [
     {
-      "name": "Showcase Scene 03 Camera Flying",
+      "name": "showcase",
       "tags": [],
       "isActive": true
     }

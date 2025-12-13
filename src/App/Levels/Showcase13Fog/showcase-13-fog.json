@@ -1,10 +1,10 @@
 {
-  "name": "Showcase 13 fog",
+  "name": "showcase",
   "version": "1.0.0",
   "initSpace": true,
   "scenes": [
     {
-      "name": "Showcase 13 fog",
+      "name": "showcase",
       "tags": [],
       "isActive": true
     }

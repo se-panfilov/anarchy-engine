@@ -1,10 +1,10 @@
 {
-  "name": "Showcase 09 TexturesAndMaterials",
+  "name": "showcase",
   "version": "1.0.0",
   "initSpace": true,
   "scenes": [
     {
-      "name": "Showcase Scene 09 TexturesAndMaterials",
+      "name": "showcase",
       "tags": [],
       "isActive": true
     }

@@ -21,6 +21,7 @@ import { isDestroyable, isNotDefined, validLevelConfig } from '@/Engine/Utils';
 export function buildSpaceFromConfig(canvas: IAppCanvas, config: ISpaceConfig): ISpace {
   const { isValid, errors } = validLevelConfig(config);
   if (!isValid) {
+    // TODO (S.Panfilov) should be forwarded to the errors hub (which is not implemented yet)
     console.error(errors);
     throw new Error('Failed to launch a space: invalid data format');
   }

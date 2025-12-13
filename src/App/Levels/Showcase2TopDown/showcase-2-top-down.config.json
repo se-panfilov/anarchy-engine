@@ -1,10 +1,10 @@
 {
-  "name": "Showcase 02 Top Down Controls",
+  "name": "showcase",
   "version": "1.0.0",
   "initSpace": true,
   "scenes": [
     {
-      "name": "Showcase Scene 02 Top Down Controls",
+      "name": "showcase",
       "tags": [],
       "isActive": true
     }

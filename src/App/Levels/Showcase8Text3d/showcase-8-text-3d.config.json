@@ -1,10 +1,10 @@
 {
-  "name": "Showcase 08 Text4d",
+  "name": "showcase",
   "version": "1.0.0",
   "initSpace": true,
   "scenes": [
     {
-      "name": "Showcase Scene 08 Text3d",
+      "name": "showcase",
       "tags": [],
       "isActive": true
     }
