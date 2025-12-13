@@ -81,7 +81,6 @@ export function PhysicsTransformAgent(params: TPhysicsTransformAgentParams, { ph
       )
     )
     .subscribe(([isEnabled, physicsBody]: [boolean, TPhysicsBody | undefined]): void | never => {
-      console.log('XXX isEnabled', isEnabled, physicsBody);
       if (isNotDefined(physicsBody?.getRigidBody())) return;
       if (!isEnabled) physicsBody.setPhysicsBodyType(RigidBodyTypesNames.KinematicPositionBased, false);
       else physicsBody?.setPhysicsBodyType(previousPhysicsBodyType, false);
@@ -117,12 +116,7 @@ export function PhysicsTransformAgent(params: TPhysicsTransformAgentParams, { ph
         return isDefined(body) && body.getPhysicsBodyType() !== RigidBodyTypesNames.Fixed;
       }),
       //Get the latest transform data from the physics body every physical tick
-      map((): TRigidBodyTransformData | undefined => {
-        const body: RigidBody | undefined = physicsBody$.value?.getRigidBody();
-        if (isNotDefined(body)) return undefined;
-
-        return getPhysicalBodyTransform(body, prevPosition, prevRotation, positionNoiseThreshold, rotationNoiseThreshold);
-      }),
+      map((): TRigidBodyTransformData | undefined => getPhysicalBodyTransform(physicsBody$.value?.getRigidBody(), prevPosition, prevRotation, positionNoiseThreshold, rotationNoiseThreshold)),
       filter(isDefined)
     )
     .subscribe(({ position, rotation }: TRigidBodyTransformData): void => {
