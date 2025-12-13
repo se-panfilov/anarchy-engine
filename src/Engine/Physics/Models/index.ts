@@ -24,4 +24,4 @@ export * from './TPhysicsWorldParams';
 export * from './TWithPhysicsBody';
 export * from './TWithPhysicsBodyFacadeEntities';
 export * from './TWithPresetNamePhysicsBodyConfig';
-export * from './TWithPresetPhysicsBodyParams';
+export * from './TWithPresetNamePhysicsBodyParams';

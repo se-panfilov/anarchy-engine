@@ -1598,8 +1598,7 @@
             "type": "string"
           }
         }
-      },
-      "required": ["presetName"]
+      }
     },
     "RigidBodyTypesNames": {
       "type": "string",

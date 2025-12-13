@@ -10,9 +10,9 @@ import { applyObject3dParams, applyPosition, applyRotation, applyScale, isDefine
 
 import { createActorMesh, createPhysicsBody } from './ActorUtils';
 
-export async function ActorWrapperAsync(params: TActorParams, { materialTextureService, physicsPresetService, physicsBodyService }: TActorDependencies): Promise<TActorWrapperAsync> {
+export async function ActorWrapperAsync(params: TActorParams, { materialTextureService, physicsBodyService }: TActorDependencies): Promise<TActorWrapperAsync> {
   let physicsBody: TPhysicsBodyFacade | undefined;
-  if (isDefined(params.physics) && Object.keys(params.physics).length > 0) physicsBody = createPhysicsBody(params.physics, { physicsPresetService, physicsBodyService });
+  if (isDefined(params.physics) && Object.keys(params.physics).length > 0) physicsBody = createPhysicsBody(params.physics, { physicsBodyService });
 
   // TODO (S.Panfilov) AWAIT: could speed up by not awaiting mesh to be build
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment

@@ -4,9 +4,10 @@ import { ActorType } from '@/Engine/Actor/Constants';
 import type { TActorDependencies, TActorParams } from '@/Engine/Actor/Models';
 import type { TMaterials, TMaterialWrapper } from '@/Engine/Material';
 import { meters } from '@/Engine/Measurements/Utils';
-import type { TPhysicsBodyFacade, TPhysicsBodyParams, TPhysicsPresetParams, TPhysicsPresetRegistry, TWithPresetPhysicsBodyParams } from '@/Engine/Physics';
+import type { TPhysicsBodyFacade, TWithPresetNamePhysicsBodyParams } from '@/Engine/Physics';
+import { isPhysicsBodyParamsComplete } from '@/Engine/Physics';
 import type { TMesh } from '@/Engine/ThreeLib';
-import { isDefined, isNotDefined } from '@/Engine/Utils';
+import { isDefined } from '@/Engine/Utils';
 
 export async function createActorMesh(params: TActorParams, { materialTextureService }: Pick<TActorDependencies, 'materialTextureService'>): Promise<TMesh> | never {
   // TODO (S.Panfilov) AWAIT: could speed up by not awaiting material loading (return promise of an actor)
@@ -37,28 +38,10 @@ function createCube({ width, height, depth, widthSegments, heightSegments, depth
   return new Mesh(new BoxGeometry(w, h, d, widthSegments, heightSegments, depthSegments), material);
 }
 
-export function createPhysicsBody(
-  physics: TWithPresetPhysicsBodyParams,
-  { physicsBodyService, physicsPresetService }: Pick<TActorDependencies, 'physicsBodyService' | 'physicsPresetService'>
-): TPhysicsBodyFacade {
+export function createPhysicsBody(physics: TWithPresetNamePhysicsBodyParams, { physicsBodyService }: Pick<TActorDependencies, 'physicsBodyService'>): TPhysicsBodyFacade {
   const { presetName, ...rest } = physics;
-  let presetFromRegistry: TPhysicsPresetParams | undefined;
-
-  if (isDefined(presetName)) {
-    const physicsPresetRegistry: TPhysicsPresetRegistry = physicsPresetService.getRegistry();
-    // TODO (S.Panfilov) findByKey?
-    presetFromRegistry = physicsPresetRegistry.findByKey(presetName);
-    if (isNotDefined(presetFromRegistry)) throw new Error(`Physics preset not found: ${presetName}`);
-  }
-
-  let fullParams: TPhysicsBodyParams = { ...rest } as TPhysicsBodyParams;
-  if (isDefined(presetFromRegistry)) fullParams = { ...fullParams, ...presetFromRegistry };
-
-  // TODO (S.Panfilov) should test params that they do have mandatory fields
-
-  // TODO (S.Panfilov) CWP here we build somehow (we need a factory and a registry),
-  //  next we have to attach it to the actor and put to physics objects registry
-  //  (and so to add to world, and use to update)
-  const physicsObject = physicsBodyService.create(fullParams);
-  return physicsObject;
+  if (isDefined(presetName)) return physicsBodyService.createWithPresetName(physics, presetName);
+  if (!isPhysicsBodyParamsComplete(rest))
+    throw new Error('Cannot create physics body: params are lacking of mandatory fields (mandatory fields must be set or a preset with such fields must be provided)');
+  return physicsBodyService.create(rest);
 }

@@ -3,30 +3,49 @@ import { World } from '@dimforge/rapier3d';
 import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
 import type {
-  TPhysicsBodyConfig,
   TPhysicsBodyFacade,
   TPhysicsBodyFactory,
   TPhysicsBodyParams,
   TPhysicsBodyRegistry,
   TPhysicsBodyService,
   TPhysicsDebugRenderer,
-  TPhysicsWorldParams
+  TPhysicsPresetParams,
+  TPhysicsPresetsService,
+  TPhysicsWorldParams,
+  TWithPresetNamePhysicsBodyConfig
 } from '@/Engine/Physics/Models';
-import { PhysicsDebugRenderer } from '@/Engine/Physics/Utils';
+import { isPhysicsBodyParamsComplete, PhysicsDebugRenderer } from '@/Engine/Physics/Utils';
 import type { TSceneWrapper } from '@/Engine/Scene';
+import type { TOptional } from '@/Engine/Utils';
 import { isNotDefined } from '@/Engine/Utils';
 import type { TVector3Wrapper } from '@/Engine/Vector';
 
-export function PhysicsBodyService(factory: TPhysicsBodyFactory, registry: TPhysicsBodyRegistry, scene: TSceneWrapper): TPhysicsBodyService {
+export function PhysicsBodyService(factory: TPhysicsBodyFactory, registry: TPhysicsBodyRegistry, physicsPresetService: TPhysicsPresetsService, scene: TSceneWrapper): TPhysicsBodyService {
   let world: World | undefined;
-  factory.entityCreated$.subscribe((coordinator: TPhysicsBodyFacade): void => registry.add(coordinator));
+  factory.entityCreated$.subscribe((facade: TPhysicsBodyFacade): void => registry.add(facade));
 
-  const create = (params: TPhysicsBodyParams): TPhysicsBodyFacade => {
+  const create = (params: TPhysicsBodyParams): TPhysicsBodyFacade | never => {
     if (isNotDefined(world)) throw new Error('Cannot create physics body: world is not defined');
     return factory.create(params, { world });
   };
-  const createFromConfig = (physics: ReadonlyArray<TPhysicsBodyConfig>): void => {
-    physics.forEach((config: TPhysicsBodyConfig): TPhysicsBodyFacade => factory.create(factory.configToParams(config)));
+
+  const createWithPreset = (params: TOptional<TPhysicsBodyParams>, preset: TPhysicsPresetParams): TPhysicsBodyFacade | never => {
+    const fullParams: TPhysicsBodyParams | TOptional<TPhysicsBodyParams> = { ...preset, ...params };
+    if (!isPhysicsBodyParamsComplete(fullParams)) throw new Error('Cannot create physics body: params are lacking of mandatory fields');
+
+    return create(fullParams);
+  };
+
+  const createWithPresetName = (params: TOptional<TPhysicsBodyParams>, presetName: string): TPhysicsBodyFacade | never => {
+    const preset: TPhysicsPresetParams | undefined = physicsPresetService.getPresetByName(presetName);
+    if (isNotDefined(preset)) throw new Error(`Cannot create physics body: preset with name "${presetName}" not found`);
+    return createWithPreset(params, preset);
+  };
+
+  const createFromConfig = (physics: ReadonlyArray<TWithPresetNamePhysicsBodyConfig>): void => {
+    physics.forEach((config: TWithPresetNamePhysicsBodyConfig): TPhysicsBodyFacade => {
+      return create(physicsPresetService.getMergedConfigWithPresetParams(config, factory));
+    });
   };
 
   function createWorld({
@@ -84,6 +103,8 @@ export function PhysicsBodyService(factory: TPhysicsBodyFactory, registry: TPhys
 
   return {
     create,
+    createWithPreset,
+    createWithPresetName,
     createFromConfig,
     createWorld,
     getDebugRenderer,

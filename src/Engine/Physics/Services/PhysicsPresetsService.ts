@@ -1,7 +1,18 @@
 import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
 import { configToParamsPreset } from '@/Engine/Physics/Adapters';
-import type { TPhysicsPresetConfig, TPhysicsPresetParams, TPhysicsPresetRegistry, TPhysicsPresetsService } from '@/Engine/Physics/Models';
+import type {
+  TPhysicsBodyFactory,
+  TPhysicsBodyParams,
+  TPhysicsPresetConfig,
+  TPhysicsPresetParams,
+  TPhysicsPresetRegistry,
+  TPhysicsPresetsService,
+  TWithPresetNamePhysicsBodyConfig
+} from '@/Engine/Physics/Models';
+import { isPhysicsBodyParamsComplete } from '@/Engine/Physics/Utils';
+import type { TOptional } from '@/Engine/Utils';
+import { isDefined, isNotDefined } from '@/Engine/Utils';
 
 export function PhysicsPresetsService(registry: TPhysicsPresetRegistry): TPhysicsPresetsService {
   const addPresets = (presets: ReadonlyArray<TPhysicsPresetParams>): void => presets.forEach((preset: TPhysicsPresetParams) => registry.add(preset.name, preset));
@@ -10,9 +21,29 @@ export function PhysicsPresetsService(registry: TPhysicsPresetRegistry): TPhysic
   const destroyable: TDestroyable = destroyableMixin();
   destroyable.destroyed$.subscribe(() => registry.destroy());
 
+  const getPresetByName = (name: string): TPhysicsPresetParams | undefined => registry.findByKey(name);
+
+  function getMergedConfigWithPresetParams(config: TWithPresetNamePhysicsBodyConfig, factory: TPhysicsBodyFactory): TPhysicsBodyParams | never {
+    const { presetName, ...rest } = config;
+    const ownParams: TPhysicsBodyParams = factory.configToParams(rest);
+
+    let presetParams: TPhysicsPresetParams | TOptional<TPhysicsPresetParams> | undefined = {};
+    if (isDefined(presetName)) {
+      presetParams = getPresetByName(presetName);
+      if (isNotDefined(presetParams)) throw new Error(`Physics preset not found: "${presetName}"`);
+    }
+
+    const fullParams: TPhysicsBodyParams = { ...ownParams };
+    if (!isPhysicsBodyParamsComplete(fullParams)) throw new Error('Cannot create physics body: params are lacking of mandatory fields');
+
+    return { ...presetParams, ...fullParams };
+  }
+
   return {
     addPresets,
     addPresetsFromConfig,
+    getPresetByName,
+    getMergedConfigWithPresetParams,
     getRegistry: (): TPhysicsPresetRegistry => registry,
     ...destroyable
   };
