@@ -49,7 +49,7 @@ export function addNavigationPanel(container: HTMLElement): void {
 
   const label: HTMLLabelElement = document.createElement('label');
   // eslint-disable-next-line functional/immutable-data
-  label.textContent = 'textXXX';
+  label.textContent = 'Navigation: ';
   label.appendChild(selectBox);
 
   navPanel.appendChild(label);
