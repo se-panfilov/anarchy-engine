@@ -33,12 +33,10 @@ export function WindowService(): TWindowService {
   }
 
   function createWindow(width: number, height: number, { isOpenDevTools, showInstantly, isBorderless, isResizable, isFullScreenable, isFullScreen }: TDesktopAppConfig): BrowserWindow {
-    const win = new BrowserWindow({
+    const win: BrowserWindow = new BrowserWindow({
       ...windowDefaultSettings,
       width,
       height,
-      // TODO DESKTOP: Is Fullscreen or not should depend on the app settings
-      // TODO DESKTOP: Change default fullscreen mode to "true"
       show: !showInstantly,
       frame: !isBorderless,
       resizable: isResizable,
