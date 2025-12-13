@@ -1,7 +1,7 @@
 import type { TShowcase } from '@/App/Levels/Models';
 import type {
-  TActorAsyncRegistry,
-  TActorWrapperAsync,
+  TActorRegistry,
+  TActorWrapper,
   TAnimationParams,
   TAppCanvas,
   TCameraRegistry,
@@ -25,7 +25,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
 
   async function init(): Promise<void> {
     const { actorService, cameraService, controlsService, textService, loopService, mouseService } = space.services;
-    const actorRegistry: TActorAsyncRegistry = actorService.getRegistry();
+    const actorRegistry: TActorRegistry = actorService.getRegistry();
     const cameraRegistry: TCameraRegistry = cameraService.getRegistry();
     const controlsRegistry: TControlsRegistry = controlsService.getRegistry();
     const { text2dRegistry } = textService.getRegistries();
@@ -33,9 +33,9 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     controlsRegistry.getAll()[0]?.entity.target.set(6, 0, 0);
     cameraRegistry.getAll()[0]?.setPosition(Vector3Wrapper({ x: 6, y: 30, z: 0 }));
 
-    const redActor: TActorWrapperAsync | undefined = await actorRegistry.findByTagAsync('red');
-    const blueActor: TActorWrapperAsync | undefined = await actorRegistry.findByTagAsync('blue');
-    const greenActor: TActorWrapperAsync | undefined = await actorRegistry.findByTagAsync('green');
+    const redActor: TActorWrapper | undefined = await actorRegistry.findByTagAsync('red');
+    const blueActor: TActorWrapper | undefined = await actorRegistry.findByTagAsync('blue');
+    const greenActor: TActorWrapper | undefined = await actorRegistry.findByTagAsync('green');
     if (isNotDefined(redActor) || isNotDefined(blueActor) || isNotDefined(greenActor)) throw new Error('Actors are not defined');
 
     const redText: TText2dWrapper | undefined = text2dRegistry.findByTag('red');

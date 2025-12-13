@@ -1,13 +1,13 @@
 import type { Vector3 } from 'three';
 
-import type { TActorWrapperAsync } from '@/Engine/Actor';
+import type { TActorWrapper } from '@/Engine/Actor';
 import type { TSpatialCell, TSpatialCellWrapper, TSpatialGridWrapper, TWithUpdateSpatialCell } from '@/Engine/Spatial/Models';
 import { isDefined, isNotDefined } from '@/Engine/Utils';
 
 export function withUpdateSpatialCell(): TWithUpdateSpatialCell {
   let prevCells: ReadonlyArray<Pick<TSpatialCell, 'maxX' | 'maxY' | 'minX' | 'minY'>> = [];
 
-  function updateSpatialCells(this: TActorWrapperAsync, newPosition: Vector3): void | never {
+  function updateSpatialCells(this: TActorWrapper, newPosition: Vector3): void | never {
     const grid: TSpatialGridWrapper | undefined = this.spatial.getGrid();
     const cells: ReadonlyArray<TSpatialCellWrapper> = this.spatial.getSpatialCells();
 

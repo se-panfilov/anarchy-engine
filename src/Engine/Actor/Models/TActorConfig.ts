@@ -11,7 +11,7 @@ import type { TActorProps } from './TActorProps';
 export type TActorConfig = Omit<TActorProps, 'material'> &
   Readonly<{
     material: TMaterialPackConfig<TMaterialTexturePack>;
-    // TODO check name match model's in config
+    // TODO CWP check name match model's in config
     model3dName?: string;
   }> &
   Readonly<{

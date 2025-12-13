@@ -4,13 +4,14 @@ import type { TMaterialPackParams, TMaterialTexturePack } from '@/Engine/Materia
 import { configToOptionalParamsBody } from '@/Engine/Physics';
 import { configToParamsSpatialData } from '@/Engine/Spatial';
 import { configToParamsObject3d } from '@/Engine/ThreeLib';
-import { isDefined } from '@/Engine/Utils';
+import { isDefined, isNotDefined } from '@/Engine/Utils';
 
-export async function configToParamsAsync(config: TActorConfig, dependencies: TActorConfigToParamsDependencies): Promise<TActorParams> {
+export function configToParams(config: TActorConfig, dependencies: TActorConfigToParamsDependencies): TActorParams {
   const { position, rotation, layers, animations, scale, material, physics, spatial, model3dName, ...rest } = config;
   const { type: materialType, ...restMaterialParams } = materialConfigToParams({ ...material.params, type: material.type });
 
-  const model3d = isDefined(model3dName) ? await dependencies.models3dRegistry.findByNameAsync(model3dName) : undefined;
+  const model3d = isDefined(model3dName) ? dependencies.models3dRegistry.findByName(model3dName) : undefined;
+  if (isNotDefined(model3d)) throw new Error(`Actor. ConfigToParams: Model3d "${model3dName}" not found, while actor initialization`);
 
   return {
     ...rest,

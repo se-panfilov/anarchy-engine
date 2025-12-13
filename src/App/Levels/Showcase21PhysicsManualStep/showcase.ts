@@ -1,5 +1,5 @@
 import type { TShowcase } from '@/App/Levels/Models';
-import type { TActorWrapperAsync, TAppCanvas, TEngine, TSpace, TSpaceConfig } from '@/Engine';
+import type { TActorWrapper, TAppCanvas, TEngine, TSpace, TSpaceConfig } from '@/Engine';
 import { buildSpaceFromConfig, Engine, isNotDefined, KeysExtra } from '@/Engine';
 
 import spaceConfig from './showcase.json';
@@ -13,7 +13,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
   async function init(): Promise<void> {
     physicsWorldService.getDebugRenderer(loopService).start();
 
-    const actor: TActorWrapperAsync | undefined = await actorService.getRegistry().findByNameAsync('actor_6');
+    const actor: TActorWrapper | undefined = await actorService.getRegistry().findByNameAsync('actor_6');
     if (isNotDefined(actor)) throw new Error('Non-physical actor not found');
 
     //run/stop physics loop

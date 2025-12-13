@@ -2,8 +2,7 @@ import type { Subscription } from 'rxjs';
 import type { Group, Mesh, Object3D, Vector3 } from 'three';
 
 import { AbstractWrapper, WrapperType } from '@/Engine/Abstract';
-import type { TActorDependencies, TActorParams, TActorWrapperAsync } from '@/Engine/Actor/Models';
-import { createActorModel3d } from '@/Engine/Actor/Wrappers/ActorUtils';
+import type { TActorDependencies, TActorParams, TActorWrapper } from '@/Engine/Actor/Models';
 import { applySpatialGrid, startCollisions } from '@/Engine/Actor/Wrappers/ActorWrapperHelper';
 import { withCollisions } from '@/Engine/Collisions';
 import { withKinematic } from '@/Engine/Kinematic';
@@ -11,39 +10,32 @@ import type { TWithMaterial } from '@/Engine/Material';
 import { withMaterial } from '@/Engine/Material';
 import { scalableMixin, withMoveBy3dMixin, withObject3d, withRotationByXyzMixin } from '@/Engine/Mixins';
 import type { TModel3dFacade } from '@/Engine/Models3d';
-import { PrimitiveModel3dType } from '@/Engine/Models3d';
 import type { TSpatialLoopServiceValue } from '@/Engine/Spatial';
 import { withReactivePosition, withReactiveRotation, withSpatial, withUpdateSpatialCell } from '@/Engine/Spatial';
 import { withTextures } from '@/Engine/Texture';
 import { applyObject3dParams, applyPosition, applyRotation, applyScale, isDefined } from '@/Engine/Utils';
 
-export async function ActorWrapperAsync(
+export function ActorWrapper(
   params: TActorParams,
-  { materialTextureService, models3dService, kinematicLoopService, spatialLoopService, spatialGridService, collisionsLoopService, collisionsService }: TActorDependencies
-): Promise<TActorWrapperAsync> {
-  const isPrimitiveModel3d: boolean = [...Object.values(PrimitiveModel3dType)].includes(params.model3d.url as PrimitiveModel3dType);
+  { materialTextureService, kinematicLoopService, spatialLoopService, spatialGridService, collisionsLoopService, collisionsService }: TActorDependencies
+): TActorWrapper {
+  const entity: TModel3dFacade = params.model3d;
+  const model3d: Group | Mesh | Object3D = entity.getModel();
 
-  // TODO AWAIT: could speed up by not awaiting mesh to be build?
-  const model3dLoadResultList: ReadonlyArray<Promise<TModel3dFacade>> = isPrimitiveModel3d
-    ? [createActorModel3d(params, { materialTextureService, models3dService })]
-    : models3dService.loadAsync([{ ...params.model3d, options }]);
-  if (model3dLoadResultList.length === 0) throw new Error(`Model3d not loaded: ${params.model3d.url}`);
-  if (model3dLoadResultList.length > 1) throw new Error(`Model3d loaded more than one model: ${params.model3d.url}`);
-  const model3dLoadResult: TModel3dFacade = await model3dLoadResultList[0];
-  const entity: Group | Mesh | Object3D = model3dLoadResult.getModel();
-
+  // TODO (S.Panfilov) CWP don't think we need "withMaterial" in actor anymore
   const withMaterialEntity: TWithMaterial = withMaterial(entity);
 
-  const { value$: position$, update: updatePosition } = withReactivePosition(entity);
-  const { value$: rotation$, update: updateRotation } = withReactiveRotation(entity);
+  const { value$: position$, update: updatePosition } = withReactivePosition(model3d);
+  const { value$: rotation$, update: updateRotation } = withReactiveRotation(model3d);
 
-  const actorW: TActorWrapperAsync = {
+  const actorW: TActorWrapper = {
     ...AbstractWrapper(entity, WrapperType.Actor, params),
-    ...withMoveBy3dMixin(entity),
-    ...withRotationByXyzMixin(entity),
-    ...scalableMixin(entity),
-    ...withObject3d(entity),
+    ...withMoveBy3dMixin(model3d),
+    ...withRotationByXyzMixin(model3d),
+    ...scalableMixin(model3d),
+    ...withObject3d(model3d),
     ...withMaterialEntity,
+    // TODO (S.Panfilov) CWP don't think we need "withTextures" in actor anymore
     ...withTextures(withMaterialEntity, materialTextureService),
     ...withKinematic(params),
     ...withSpatial(params),

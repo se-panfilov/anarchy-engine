@@ -1,5 +1,5 @@
 import type { TShowcase } from '@/App/Levels/Models';
-import type { TActorAsyncRegistry, TActorWrapperAsync, TAppCanvas, TEngine, TSpace, TSpaceConfig } from '@/Engine';
+import type { TActorRegistry, TActorWrapper, TAppCanvas, TEngine, TSpace, TSpaceConfig } from '@/Engine';
 import { buildSpaceFromConfig, Engine, isNotDefined, screenService } from '@/Engine';
 
 import spaceConfig from './showcase.json';
@@ -9,10 +9,10 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
   const engine: TEngine = Engine(space);
 
   const { actorService, loopService, mouseService } = space.services;
-  const actorRegistry: TActorAsyncRegistry = actorService.getRegistry();
+  const actorRegistry: TActorRegistry = actorService.getRegistry();
 
   async function init(): Promise<void> {
-    const actor: TActorWrapperAsync | undefined = await actorRegistry.findByTagAsync('sphere');
+    const actor: TActorWrapper | undefined = await actorRegistry.findByTagAsync('sphere');
     if (isNotDefined(actor)) throw new Error('Actor not found');
     actor.setY(2);
 

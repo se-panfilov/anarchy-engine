@@ -7,7 +7,7 @@ import type { ColorRepresentation } from 'three/src/math/Color';
 
 import type { TWrapper } from '@/Engine/Abstract';
 import { AbstractWrapper, WrapperType } from '@/Engine/Abstract';
-import type { TActorWrapperAsync } from '@/Engine/Actor';
+import type { TActorWrapper } from '@/Engine/Actor';
 import type { TWithCoordsXZ } from '@/Engine/Mixins';
 import type { TSceneWrapper } from '@/Engine/Scene';
 import type { TSpatialCellId, TSpatialCellParams, TSpatialCellWrapper, TSpatialGrid, TSpatialGridParams, TSpatialGridWrapper } from '@/Engine/Spatial/Models';
@@ -48,11 +48,11 @@ export function SpatialGridWrapper(params: TSpatialGridParams): TSpatialGridWrap
     return box;
   }
 
-  function registerActorToGrid(actorW: TActorWrapperAsync, gridW: TSpatialGridWrapper): void {
+  function registerActorToGrid(actorW: TActorWrapper, gridW: TSpatialGridWrapper): void {
     actorW.spatial.setGrid(gridW);
   }
 
-  function addActor(this: TSpatialGridWrapper, actorW: TActorWrapperAsync): void | never {
+  function addActor(this: TSpatialGridWrapper, actorW: TActorWrapper): void | never {
     if (isNotDefined(actorW.spatial.getGrid())) registerActorToGrid(actorW, this);
 
     const boundingBox: Box3 = getBoundingBox(actorW.entity);
@@ -72,10 +72,10 @@ export function SpatialGridWrapper(params: TSpatialGridParams): TSpatialGridWrap
 
   const getAllCells = (): ReadonlyArray<TSpatialCellWrapper> => entity.all();
 
-  function getAllInCell(x: number, z: number): ReadonlyArray<TActorWrapperAsync> {
+  function getAllInCell(x: number, z: number): ReadonlyArray<TActorWrapper> {
     const cells: ReadonlyArray<TSpatialCellWrapper> = entity.search({ minX: x, minY: z, maxX: x, maxY: z });
     if (cells.length === 1) return cells[0].getObjects();
-    if (cells.length > 1) return cells.flatMap((cell: TSpatialCellWrapper): ReadonlyArray<TActorWrapperAsync> => cell.getObjects());
+    if (cells.length > 1) return cells.flatMap((cell: TSpatialCellWrapper): ReadonlyArray<TActorWrapper> => cell.getObjects());
     return [];
   }
 
@@ -84,13 +84,13 @@ export function SpatialGridWrapper(params: TSpatialGridParams): TSpatialGridWrap
     return { x, z };
   };
 
-  function getAllInCellByCellId(cellId: TSpatialCellId): ReadonlyArray<TActorWrapperAsync> {
+  function getAllInCellByCellId(cellId: TSpatialCellId): ReadonlyArray<TActorWrapper> {
     // const cells: ReadonlyArray<TSpatialCellWrapper> = entity.all().filter((cell) => cell.id === cellId);
     const { x, z } = getCoordsFromGridId(cellId);
     return getAllInCell(x, z);
   }
 
-  function removeFromGrid(actorW: TActorWrapperAsync): void | never {
+  function removeFromGrid(actorW: TActorWrapper): void | never {
     const cells: ReadonlyArray<TSpatialCellWrapper> = actorW.spatial.getSpatialCells();
 
     // eslint-disable-next-line functional/no-loop-statements
@@ -113,7 +113,7 @@ export function SpatialGridWrapper(params: TSpatialGridParams): TSpatialGridWrap
     // });
   }
 
-  function updateActorCell(this: TSpatialGridWrapper, actorW: TActorWrapperAsync): void {
+  function updateActorCell(this: TSpatialGridWrapper, actorW: TActorWrapper): void {
     removeFromGrid(actorW);
     addActor.call(this, actorW);
   }
@@ -124,7 +124,7 @@ export function SpatialGridWrapper(params: TSpatialGridParams): TSpatialGridWrap
     entity.search({ minX, minY: minZ, maxX, maxY: maxZ });
 
   // TODO test this function
-  function findCellsByActorBox(actorW: TActorWrapperAsync): ReadonlyArray<TSpatialCellWrapper> {
+  function findCellsByActorBox(actorW: TActorWrapper): ReadonlyArray<TSpatialCellWrapper> {
     const actorBox: Box3 = getBoundingBox(actorW.entity);
     return findCellsForBox({ minX: actorBox.min.x, minZ: actorBox.min.z, maxX: actorBox.max.x, maxZ: actorBox.max.z });
   }
@@ -162,9 +162,9 @@ export function SpatialGridWrapper(params: TSpatialGridParams): TSpatialGridWrap
     });
     _debugOutlinesIds = [];
 
-    const actorsWrapperList: ReadonlyArray<TActorWrapperAsync> = getAllInCell(x, z);
+    const actorsWrapperList: ReadonlyArray<TActorWrapper> = getAllInCell(x, z);
 
-    actorsWrapperList.forEach((actorW: TActorWrapperAsync): void => {
+    actorsWrapperList.forEach((actorW: TActorWrapper): void => {
       const outline: Line2 = createOutline(actorW, color, 0.1);
       sceneW.entity.add(outline);
       // eslint-disable-next-line functional/immutable-data

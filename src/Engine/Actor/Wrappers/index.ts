@@ -1,2 +1,2 @@
-export * from './ActorWrapperAsync';
-export * from './ActorWrapperWithPhysicsAsync';
+export * from './ActorWrapper';
+export * from './ActorWrapperWithPhysics';

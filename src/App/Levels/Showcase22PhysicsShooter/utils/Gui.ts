@@ -1,6 +1,6 @@
 import GUI from 'lil-gui';
 
-import type { TActorService, TActorWrapperAsync, TIntersectionEvent, TIntersectionsWatcher, TSpatialGridService, TSpatialGridWrapper } from '@/Engine';
+import type { TActorService, TActorWrapper, TIntersectionEvent, TIntersectionsWatcher, TSpatialGridService, TSpatialGridWrapper } from '@/Engine';
 import { isNotDefined } from '@/Engine';
 
 export function initGui(
@@ -48,7 +48,7 @@ export function initGui(
     // eslint-disable-next-line functional/immutable-data
     cell.actors = grid
       .getAllInCell(intersection.point.x, intersection.point.z)
-      .map((actorW: TActorWrapperAsync) => actorW.name)
+      .map((actorW: TActorWrapper) => actorW.name)
       .join(', ');
   });
 

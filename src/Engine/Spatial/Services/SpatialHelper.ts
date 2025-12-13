@@ -5,7 +5,7 @@ import { LineGeometry } from 'three/examples/jsm/lines/LineGeometry';
 import { LineMaterial } from 'three/examples/jsm/lines/LineMaterial';
 import type { ColorRepresentation } from 'three/src/math/Color';
 
-import type { TActorWrapperAsync } from '@/Engine/Actor';
+import type { TActorWrapper } from '@/Engine/Actor';
 import { meters } from '@/Engine/Measurements/Utils';
 
 export function createLine(color: ColorRepresentation, width: number, positions: Array<number>): Line2 {
@@ -21,7 +21,7 @@ export function createLine(color: ColorRepresentation, width: number, positions:
   return new Line2(geometry, material);
 }
 
-export function createOutline(actorW: TActorWrapperAsync, color: ColorRepresentation, lineWidth: number): Line2 {
+export function createOutline(actorW: TActorWrapper, color: ColorRepresentation, lineWidth: number): Line2 {
   const boundingBox = new Box3().setFromObject(actorW.entity);
   const min = boundingBox.min;
   const max = boundingBox.max;

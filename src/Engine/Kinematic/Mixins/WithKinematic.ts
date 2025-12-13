@@ -1,7 +1,7 @@
 import { Quaternion, Vector3 } from 'three';
 import { degToRad } from 'three/src/math/MathUtils';
 
-import type { TActorParams, TActorWrapperAsync } from '@/Engine/Actor';
+import type { TActorParams, TActorWrapper } from '@/Engine/Actor';
 import type { TKinematicData, TWithKinematic } from '@/Engine/Kinematic/Models';
 import type { TDegrees, TRadians } from '@/Engine/Math';
 import { getAzimuthDegFromDirection, getAzimuthRadFromDirection, getElevationDegFromDirection, getElevationRadFromDirection } from '@/Engine/Math';
@@ -170,14 +170,14 @@ export function withKinematic(params: TActorParams): TWithKinematic {
       if (this.kinematic.data.linearSpeed <= 0) return;
       const normalizedDirection: Vector3 = this.kinematic.data.linearDirection.clone().normalize();
       const displacement: Vector3 = normalizedDirection.multiplyScalar(this.kinematic.data.linearSpeed * delta);
-      (this as TActorWrapperAsync).addPosition(Vector3Wrapper(displacement));
+      (this as TActorWrapper).addPosition(Vector3Wrapper(displacement));
     },
     doKinematicRotation(delta: number): void {
       if (this.kinematic.data.angularSpeed <= 0) return;
       const normalizedAngularDirection: Vector3 = this.kinematic.data.angularDirection.clone().normalize();
       const angle: TRadians = this.kinematic.data.angularSpeed * delta;
       const quaternion: Quaternion = new Quaternion().setFromAxisAngle(normalizedAngularDirection, angle);
-      (this as TActorWrapperAsync).entity.quaternion.multiplyQuaternions(quaternion, (this as TActorWrapperAsync).entity.quaternion);
+      (this as TActorWrapper).entity.quaternion.multiplyQuaternions(quaternion, (this as TActorWrapper).entity.quaternion);
     }
   };
 }

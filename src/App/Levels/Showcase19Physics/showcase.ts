@@ -5,8 +5,8 @@ import { LineMaterial } from 'three/examples/jsm/lines/LineMaterial';
 
 import type { TShowcase } from '@/App/Levels/Models';
 import type {
-  TActorWrapperAsync,
-  TActorWrapperWithPhysicsAsync,
+  TActorWrapper,
+  TActorWrapperWithPhysics,
   TAppCanvas,
   TCameraWrapper,
   TEngine,
@@ -44,8 +44,8 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
   const actorAsyncRegistry = actorService.getRegistry();
   const sceneWrapper: TSceneWrapper = actorService.getScene();
 
-  const ballActorPromise: Promise<TActorWrapperAsync | undefined> = actorAsyncRegistry.findByNameAsync('ball');
-  const surfaceActorPromise: Promise<TActorWrapperAsync | undefined> = actorAsyncRegistry.findByNameAsync('surface');
+  const ballActorPromise: Promise<TActorWrapper | undefined> = actorAsyncRegistry.findByNameAsync('ball');
+  const surfaceActorPromise: Promise<TActorWrapper | undefined> = actorAsyncRegistry.findByNameAsync('surface');
 
   async function init(): Promise<void> {
     physicsWorldService.getDebugRenderer(loopService).start();
@@ -56,11 +56,11 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     let azimuth: number = 0;
     let forcePower: number = 0;
 
-    const ballActorW: TActorWrapperWithPhysicsAsync | TActorWrapperAsync | undefined = await ballActorPromise;
+    const ballActorW: TActorWrapperWithPhysics | TActorWrapper | undefined = await ballActorPromise;
     if (isNotDefined(ballActorW)) throw new Error(`Cannot find "ball" actor`);
     if (!isActorHasPhysicsBody(ballActorW)) throw new Error(`"ball" actor is not a physic actor`);
 
-    const surfaceActorW: TActorWrapperWithPhysicsAsync | TActorWrapperAsync | undefined = await surfaceActorPromise;
+    const surfaceActorW: TActorWrapperWithPhysics | TActorWrapper | undefined = await surfaceActorPromise;
     if (isNotDefined(surfaceActorW)) throw new Error(`Cannot find "surfaceActor" actor`);
     if (!isActorHasPhysicsBody(surfaceActorW)) throw new Error(`"surfaceActor" actor is not a physic actor`);
 

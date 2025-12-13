@@ -1,4 +1,4 @@
-import { ActorAsyncRegistry, ActorFactory, ActorService } from '@/Engine/Actor';
+import { ActorFactory, ActorRegistry, ActorService } from '@/Engine/Actor';
 import type { TAnimationsService } from '@/Engine/Animations';
 import { AnimationsService } from '@/Engine/Animations';
 import type { TAppCanvas } from '@/Engine/App';
@@ -61,7 +61,7 @@ export function initEntitiesServices(sceneW: TSceneWrapper, canvas: TAppCanvas):
   return {
     actorService: ActorService(
       ActorFactory(),
-      ActorAsyncRegistry(),
+      ActorRegistry(),
       {
         materialTextureService,
         models3dService,

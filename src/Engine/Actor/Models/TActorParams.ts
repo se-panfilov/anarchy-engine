@@ -11,7 +11,7 @@ import type { TActorProps } from './TActorProps';
 export type TActorParams = TActorProps &
   TObject3DParams &
   Readonly<{
-    model3d: TModel3dFacade | undefined;
+    model3d: TModel3dFacade;
   }> &
   Readonly<{
     physics?: TWithPresetNamePhysicsBodyParams;

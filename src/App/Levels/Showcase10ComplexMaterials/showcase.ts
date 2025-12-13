@@ -4,7 +4,7 @@ import { BehaviorSubject, combineLatest, startWith, Subject } from 'rxjs';
 import type { Mesh, MeshPhysicalMaterial, MeshStandardMaterial } from 'three';
 
 import type { TShowcase } from '@/App/Levels/Models';
-import type { TActorAsyncRegistry, TActorWrapperAsync, TAppCanvas, TControlsRegistry, TEngine, TOrbitControlsWrapper, TSpace, TSpaceConfig, TVector3Wrapper } from '@/Engine';
+import type { TActorRegistry, TActorWrapper, TAppCanvas, TControlsRegistry, TEngine, TOrbitControlsWrapper, TSpace, TSpaceConfig, TVector3Wrapper } from '@/Engine';
 import { buildSpaceFromConfig, Engine, EulerWrapper, isDefined, isNotDefined, KeyCode, LookUpStrategy, TextType, Vector3Wrapper } from '@/Engine';
 
 import spaceConfig from './showcase.json';
@@ -19,10 +19,10 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
   const { keyboardService } = engine.services;
 
   const { actorService, controlsService, envMapService } = space.services;
-  const actorRegistry: TActorAsyncRegistry = actorService.getRegistry();
+  const actorRegistry: TActorRegistry = actorService.getRegistry();
   const controlsRegistry: TControlsRegistry = controlsService.getRegistry();
 
-  const currentActor$: Subject<TActorWrapperAsync> = new Subject();
+  const currentActor$: Subject<TActorWrapper> = new Subject();
 
   const materials: ReadonlyArray<string> = ['standard', 'physical', 'basic', 'phong', 'lambert', 'toon', 'matcap'];
   const currentMaterialIndex$: BehaviorSubject<number> = new BehaviorSubject(0);
@@ -40,14 +40,14 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     currentMaterialType$.pipe(startWith(materialType[3]))
     // eslint-disable-next-line @typescript-eslint/no-misused-promises
   ]).subscribe(async ([material, type]: ReadonlyArray<string>): Promise<void> => {
-    const actor: TActorWrapperAsync | undefined = await actorRegistry.findByTagsAsync([material, type], LookUpStrategy.Every);
+    const actor: TActorWrapper | undefined = await actorRegistry.findByTagsAsync([material, type], LookUpStrategy.Every);
     if (isNotDefined(actor)) throw new Error(`Actor with tag "${material}" is not found`);
     currentActor$.next(actor);
   });
 
   currentActor$.subscribe(moveCameraToActor);
 
-  function addTextToActor(actor: TActorWrapperAsync): void {
+  function addTextToActor(actor: TActorWrapper): void {
     const position: TVector3Wrapper = actor.getPosition();
     const x: number = position.getX();
     const y: number = position.getY();
@@ -83,7 +83,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     controllers: [] as ReadonlyArray<GUI | Controller>
   };
 
-  function moveCameraToActor(actor: TActorWrapperAsync): void {
+  function moveCameraToActor(actor: TActorWrapper): void {
     state.controllers.forEach((controller: GUI | Controller): void => controller.destroy());
     // eslint-disable-next-line functional/immutable-data
     state.controllers = addGuiToActor(actor);
@@ -98,7 +98,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
 
   actorRegistry.added$.subscribe(addTextToActor);
 
-  function addGuiToActor(actor: TActorWrapperAsync): ReadonlyArray<GUI | Controller> {
+  function addGuiToActor(actor: TActorWrapper): ReadonlyArray<GUI | Controller> {
     let controllers: ReadonlyArray<GUI | Controller> = [];
     const isMetalness: boolean = isDefined(((actor.entity as Mesh).material as MeshStandardMaterial).metalness);
     const isRoughness: boolean = isDefined(((actor.entity as Mesh).material as MeshStandardMaterial).roughness);

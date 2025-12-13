@@ -3,7 +3,7 @@ import { Subject } from 'rxjs';
 
 import type { TWrapper } from '@/Engine/Abstract';
 import { AbstractWrapper, WrapperType } from '@/Engine/Abstract';
-import type { TActorWrapperAsync } from '@/Engine/Actor';
+import type { TActorWrapper } from '@/Engine/Actor';
 import type { TSpatialCell, TSpatialCellParams, TSpatialCellWrapper } from '@/Engine/Spatial/Models';
 
 export function SpatialCellWrapper(params: TSpatialCellParams): TSpatialCellWrapper {
@@ -27,9 +27,9 @@ export function SpatialCellWrapper(params: TSpatialCellParams): TSpatialCellWrap
     update$.complete();
   });
 
-  const findObject = (id: string): TActorWrapperAsync | undefined => entity.objects.find((o: TActorWrapperAsync): boolean => o.id === id);
+  const findObject = (id: string): TActorWrapper | undefined => entity.objects.find((o: TActorWrapper): boolean => o.id === id);
 
-  function addObject(object: TActorWrapperAsync): void {
+  function addObject(object: TActorWrapper): void {
     // eslint-disable-next-line functional/immutable-data
     entity.objects.push(object);
     // eslint-disable-next-line functional/immutable-data
@@ -37,9 +37,9 @@ export function SpatialCellWrapper(params: TSpatialCellParams): TSpatialCellWrap
     update$.next(entity);
   }
 
-  const getObjects = (): ReadonlyArray<TActorWrapperAsync> => entity.objects;
+  const getObjects = (): ReadonlyArray<TActorWrapper> => entity.objects;
 
-  const removeObject = (actorW: TActorWrapperAsync): void => {
+  const removeObject = (actorW: TActorWrapper): void => {
     const index: number = getObjects().indexOf(actorW);
     if (index === -1) throw new Error(`Cannot remove actor (id: "${actorW.id}", name: "${actorW.name}") from spatial cell (id: "${entity.id}"). Such actor is not in the cell`);
 

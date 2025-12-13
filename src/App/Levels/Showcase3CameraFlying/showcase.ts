@@ -1,7 +1,7 @@
 import { combineLatest } from 'rxjs';
 
 import type { TShowcase } from '@/App/Levels/Models';
-import type { TActorAsyncRegistry, TActorWrapperAsync, TAppCanvas, TCameraWrapper, TEngine, TSpace, TSpaceConfig } from '@/Engine';
+import type { TActorRegistry, TActorWrapper, TAppCanvas, TCameraWrapper, TEngine, TSpace, TSpaceConfig } from '@/Engine';
 import { ambientContext, buildSpaceFromConfig, Engine, getRotationByCos, getRotationBySin, isNotDefined } from '@/Engine';
 
 import spaceConfig from './showcase.json';
@@ -13,7 +13,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
   function start(): void {
     engine.start();
     const { actorService, cameraService, mouseService } = space.services;
-    const actorRegistry: TActorAsyncRegistry = actorService.getRegistry();
+    const actorRegistry: TActorRegistry = actorService.getRegistry();
 
     const camera: TCameraWrapper | undefined = cameraService.findActive();
 
@@ -30,7 +30,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
       camera.setY(yRatio * 10);
       camera.setZ(yRotation);
 
-      void actorRegistry.findByTagAsync('central_actor').then((actor: TActorWrapperAsync | undefined): void => {
+      void actorRegistry.findByTagAsync('central_actor').then((actor: TActorWrapper | undefined): void => {
         if (isNotDefined(actor)) throw new Error('Actor not found');
         camera.lookAt(actor.getPosition());
       });

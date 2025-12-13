@@ -1,5 +1,5 @@
 import type { TShowcase } from '@/App/Levels/Models';
-import type { TActorWrapperAsync, TAppCanvas, TEngine, TSpace, TSpaceConfig } from '@/Engine';
+import type { TActorWrapper, TAppCanvas, TEngine, TSpace, TSpaceConfig } from '@/Engine';
 import { buildSpaceFromConfig, Engine } from '@/Engine';
 
 import spaceConfig from './showcase.json';
@@ -10,7 +10,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
   const { actorService } = space.services;
 
   async function init(): Promise<void> {
-    const actorW: TActorWrapperAsync = await actorService.createAsync(params);
+    const actorW: TActorWrapper = await actorService.createAsync(params);
   }
 
   // TODO debug light

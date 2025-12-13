@@ -6,8 +6,8 @@ import type { TShowcase } from '@/App/Levels/Models';
 import { enableCollisions } from '@/App/Levels/Showcase22PhysicsShooter/utils/Collisions';
 import { initLight } from '@/App/Levels/Showcase22PhysicsShooter/utils/Light';
 import type {
-  TActorWrapperAsync,
-  TActorWrapperWithPhysicsAsync,
+  TActorWrapper,
+  TActorWrapperWithPhysics,
   TAppCanvas,
   TCameraWrapper,
   TCollisionCheckResult,
@@ -53,13 +53,13 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     const cameraW: TCameraWrapper | undefined = cameraService.findActive();
     if (isNotDefined(cameraW)) throw new Error(`Cannot find active camera`);
 
-    const heroW: TActorWrapperWithPhysicsAsync | TActorWrapperAsync | undefined = await actorService.getRegistry().findByNameAsync('hero');
+    const heroW: TActorWrapperWithPhysics | TActorWrapper | undefined = await actorService.getRegistry().findByNameAsync('hero');
     if (isNotDefined(heroW)) throw new Error(`Cannot find "hero" actor`);
 
-    const surface: TActorWrapperWithPhysicsAsync | TActorWrapperAsync | undefined = await actorService.getRegistry().findByNameAsync('surface');
+    const surface: TActorWrapperWithPhysics | TActorWrapper | undefined = await actorService.getRegistry().findByNameAsync('surface');
     if (isNotDefined(surface)) throw new Error(`Cannot find "surface" actor`);
 
-    const sphereActorW: TActorWrapperAsync | undefined = await actorService.getRegistry().findByNameAsync('sphere');
+    const sphereActorW: TActorWrapper | undefined = await actorService.getRegistry().findByNameAsync('sphere');
     if (isNotDefined(sphereActorW)) throw new Error(`Cannot find "sphere" actor`);
 
     const spatialGrid: TSpatialGridWrapper | undefined = spatialGridService.getRegistry().findByName('main_grid');
@@ -108,11 +108,11 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     //move bouncing sphere to target practice
     moveActorBounce(sphereActorW, 4.3, 210, 5000);
 
-    const targetActor1W: TActorWrapperAsync | undefined = await actorService.getRegistry().findByNameAsync('target_1');
+    const targetActor1W: TActorWrapper | undefined = await actorService.getRegistry().findByNameAsync('target_1');
     if (isNotDefined(targetActor1W)) throw new Error(`Cannot find "target_1" actor`);
-    const targetActor2W: TActorWrapperAsync | undefined = await actorService.getRegistry().findByNameAsync('target_2');
+    const targetActor2W: TActorWrapper | undefined = await actorService.getRegistry().findByNameAsync('target_2');
     if (isNotDefined(targetActor2W)) throw new Error(`Cannot find "target_2" actor`);
-    const targetActor3W: TActorWrapperAsync | undefined = await actorService.getRegistry().findByNameAsync('target_3');
+    const targetActor3W: TActorWrapper | undefined = await actorService.getRegistry().findByNameAsync('target_3');
     if (isNotDefined(targetActor3W)) throw new Error(`Cannot find "target_3" actor`);
 
     // TODO (S.Panfilov) CWP refactor objects creation (do not add to a registry immediately, cause in that case if we extend, there will be unextetended version in the registy)

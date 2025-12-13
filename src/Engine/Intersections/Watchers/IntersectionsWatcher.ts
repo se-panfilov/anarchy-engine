@@ -3,7 +3,7 @@ import { Raycaster } from 'three';
 
 import type { TAbstractWatcher } from '@/Engine/Abstract';
 import { AbstractWatcher, WatcherType } from '@/Engine/Abstract';
-import type { TActorWrapperAsync } from '@/Engine/Actor';
+import type { TActorWrapper } from '@/Engine/Actor';
 import type { TCameraWrapper } from '@/Engine/Camera';
 import type { TIntersectionEvent, TIntersectionsWatcher, TIntersectionsWatcherParams } from '@/Engine/Intersections/Models';
 import type { TWithCoordsXY } from '@/Engine/Mixins';
@@ -17,14 +17,14 @@ import { isDefined, isNotDefined, unWrapEntities } from '@/Engine/Utils';
 export function IntersectionsWatcher({ position$, isAutoStart, tags, name, ...rest }: TIntersectionsWatcherParams): TIntersectionsWatcher {
   const abstractWatcher: TAbstractWatcher<TIntersectionEvent> = AbstractWatcher(WatcherType.IntersectionWatcher, name, tags);
   let raycaster: Readonly<Raycaster> | undefined = new Raycaster();
-  let actors: ReadonlyArray<TActorWrapperAsync> = [];
+  let actors: ReadonlyArray<TActorWrapper> = [];
   let camera: Readonly<TCameraWrapper> | undefined;
 
-  const addActors = (actorWrappers: ReadonlyArray<TActorWrapperAsync>): void => void (actors = [...actors, ...actorWrappers]);
-  const addActor = (actorWrapper: TActorWrapperAsync): void => void (actors = [...actors, actorWrapper]);
-  const getActors = (): ReadonlyArray<TActorWrapperAsync> => actors;
-  const removeActors = (actorWrapperIds: ReadonlyArray<string>): void => void (actors = actors.filter((actor: TActorWrapperAsync): boolean => !actorWrapperIds.includes(actor.id)));
-  const removeActor = (actorWrapperId: string): void => void (actors = actors.filter((actor: TActorWrapperAsync): boolean => actorWrapperId !== actor.id));
+  const addActors = (actorWrappers: ReadonlyArray<TActorWrapper>): void => void (actors = [...actors, ...actorWrappers]);
+  const addActor = (actorWrapper: TActorWrapper): void => void (actors = [...actors, actorWrapper]);
+  const getActors = (): ReadonlyArray<TActorWrapper> => actors;
+  const removeActors = (actorWrapperIds: ReadonlyArray<string>): void => void (actors = actors.filter((actor: TActorWrapper): boolean => !actorWrapperIds.includes(actor.id)));
+  const removeActor = (actorWrapperId: string): void => void (actors = actors.filter((actor: TActorWrapper): boolean => actorWrapperId !== actor.id));
 
   const setCamera = (cam: TCameraWrapper): void => void (camera = cam);
   const getCamera = (): TCameraWrapper | undefined => camera;

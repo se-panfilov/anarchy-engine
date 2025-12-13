@@ -2,7 +2,7 @@ import { Scene } from 'three';
 
 import type { TWrapper } from '@/Engine/Abstract';
 import { AbstractWrapper, WrapperType } from '@/Engine/Abstract';
-import type { TActorWrapperAsync } from '@/Engine/Actor';
+import type { TActorWrapper } from '@/Engine/Actor';
 import type { TCameraWrapper } from '@/Engine/Camera';
 import type { TColor } from '@/Engine/Color';
 import { ColorWrapper } from '@/Engine/Color';
@@ -26,7 +26,7 @@ export function SceneWrapper(params: TSceneParams): TSceneWrapper {
 
   const add = (obj: TSceneObject): void => void entity.add(obj);
   const addCamera = (camera: Readonly<TCameraWrapper>): void => add(camera.entity);
-  const addActor = (actor: Readonly<TActorWrapperAsync>): void => add(actor.entity);
+  const addActor = (actor: Readonly<TActorWrapper>): void => add(actor.entity);
   const addLight = <T extends TLight>(light: Readonly<TAbstractLightWrapper<T>>): void => add(light.entity);
   const addParticles = (particles: Readonly<TParticlesWrapperAsync>): void => add(particles.entity);
   const addModel = add;

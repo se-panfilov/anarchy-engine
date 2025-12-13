@@ -1,6 +1,6 @@
 import type { Group, Mesh, Object3D } from 'three';
 
-import type { TActorWrapperAsync } from '@/Engine/Actor';
+import type { TActorWrapper } from '@/Engine/Actor';
 import type { TCameraWrapper } from '@/Engine/Camera';
 import type { TColor } from '@/Engine/Color';
 import type { TDataTexture } from '@/Engine/EnvMap';
@@ -11,7 +11,7 @@ import type { TTextAnyWrapper } from '@/Engine/Text';
 import type { TCubeTexture, TTexture } from '@/Engine/Texture';
 
 export type TSceneAccessors = Readonly<{
-  addActor: (actor: Readonly<TActorWrapperAsync>) => void;
+  addActor: (actor: Readonly<TActorWrapper>) => void;
   addCamera: (camera: Readonly<TCameraWrapper>) => void;
   addLight: <T extends TLight>(light: Readonly<TAbstractLightWrapper<T>>) => void;
   setFog: (fog: Readonly<TFogWrapper>) => void;

@@ -1,6 +1,6 @@
 import { Raycaster } from 'three';
 
-import type { TActorWrapperAsync } from '@/Engine/Actor/Models';
+import type { TActorWrapper } from '@/Engine/Actor/Models';
 import type { TBvhService, TCollisionCheckResult, TCollisionsService } from '@/Engine/Collisions/Models';
 
 import { BvhService } from './BvhService';
@@ -10,7 +10,7 @@ export function CollisionsService(): TCollisionsService {
 
   // The bigger "interpolationLengthMultiplier" then less chance the bullet won't fly through the target without a collision registration. But the too big value might lead to false positives registrations
   // i.g. bigger "interpolationLengthMultiplier" (2, 4, etc.) is safer (but better test it first)
-  function checkCollisions(actorW: TActorWrapperAsync, actorsToCheck: ReadonlyArray<TActorWrapperAsync>, interpolationLengthMultiplier: number, delta: number): TCollisionCheckResult | undefined {
+  function checkCollisions(actorW: TActorWrapper, actorsToCheck: ReadonlyArray<TActorWrapper>, interpolationLengthMultiplier: number, delta: number): TCollisionCheckResult | undefined {
     const currentPosition = actorW.entity.position.clone();
     const direction = actorW.kinematic.getLinearDirection().normalize();
     const speed = actorW.kinematic.getLinearSpeed();

@@ -1,7 +1,7 @@
 import { filter } from 'rxjs';
 
 import type { TShowcase } from '@/App/Levels/Models';
-import type { TActorAsyncRegistry, TActorWrapperAsync, TAppCanvas, TCameraWrapper, TEngine, TIntersectionEvent, TIntersectionsWatcher, TSpace, TSpaceConfig } from '@/Engine';
+import type { TActorRegistry, TActorWrapper, TAppCanvas, TCameraWrapper, TEngine, TIntersectionEvent, TIntersectionsWatcher, TSpace, TSpaceConfig } from '@/Engine';
 import { buildSpaceFromConfig, Engine, isNotDefined } from '@/Engine';
 
 import spaceConfig from './showcase.json';
@@ -11,10 +11,10 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
   const engine: TEngine = Engine(space);
 
   const { actorService, cameraService, intersectionsWatcherService, loopService, mouseService } = space.services;
-  const actorRegistry: TActorAsyncRegistry = actorService.getRegistry();
+  const actorRegistry: TActorRegistry = actorService.getRegistry();
 
   async function init(): Promise<void> {
-    const actor: TActorWrapperAsync | undefined = await actorRegistry.findByTagAsync('intersectable');
+    const actor: TActorWrapper | undefined = await actorRegistry.findByTagAsync('intersectable');
     if (isNotDefined(actor)) throw new Error('Actor is not defined');
     actor.setY(2);
 
@@ -30,7 +30,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     // const actors: ReadonlyArray<IActorWrapperAsync> = actorRegistry.findAllByTags(['intersectable'], LookUpStrategy.Every);
     const intersectionsWatcher: TIntersectionsWatcher = intersectionsWatcherService.create({ camera, actors: [], position$: mouseService.position$, isAutoStart: true, tags: [] });
 
-    actorRegistry.added$.pipe(filter((a: TActorWrapperAsync) => a.hasTag('intersectable'))).subscribe((actor: TActorWrapperAsync): void => intersectionsWatcher.addActor(actor));
+    actorRegistry.added$.pipe(filter((a: TActorWrapper) => a.hasTag('intersectable'))).subscribe((actor: TActorWrapper): void => intersectionsWatcher.addActor(actor));
 
     intersectionsWatcher.value$.subscribe((obj: TIntersectionEvent): void => {
       console.log('intersect obj', obj);

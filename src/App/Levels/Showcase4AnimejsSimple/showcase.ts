@@ -1,5 +1,5 @@
 import type { TShowcase } from '@/App/Levels/Models';
-import type { TActorAsyncRegistry, TActorParams, TActorWrapperAsync, TAppCanvas, TEngine, TMoverService, TSpace, TSpaceConfig, TSpatialGridWrapper } from '@/Engine';
+import type { TActorParams, TActorRegistry, TActorWrapper, TAppCanvas, TEngine, TMoverService, TSpace, TSpaceConfig, TSpatialGridWrapper } from '@/Engine';
 import { buildSpaceFromConfig, defaultMoverServiceConfig, Engine, EulerWrapper, forEachEnum, LookUpStrategy, MaterialType, PrimitiveModel3dType, TextType, Vector3Wrapper } from '@/Engine';
 import type { TAnimationParams } from '@/Engine/Services';
 import { Easing } from '@/Engine/Services';
@@ -14,7 +14,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
   function start(): void {
     engine.start();
     const { actorService, textService, loopService, mouseService, spatialGridService } = space.services;
-    const actorRegistry: TActorAsyncRegistry = actorService.getRegistry();
+    const actorRegistry: TActorRegistry = actorService.getRegistry();
 
     let isClickBlocked: boolean = false;
 
@@ -69,7 +69,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
 
       const moverService: TMoverService = MoverService(loopService, defaultMoverServiceConfig);
 
-      actorRegistry.findAllByTags([boxActorTag], LookUpStrategy.Some).forEach((actor: TActorWrapperAsync) => {
+      actorRegistry.findAllByTags([boxActorTag], LookUpStrategy.Some).forEach((actor: TActorWrapper) => {
         const easing = actor.getTags()[1] as Easing;
         void moverService.goToPosition(actor, { x: 20 }, { ...animationParams, easing });
       });

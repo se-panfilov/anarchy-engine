@@ -3,8 +3,8 @@ import { withLatestFrom } from 'rxjs';
 
 import type { TShowcase } from '@/App/Levels/Models';
 import type {
-  TActorAsyncRegistry,
-  TActorWrapperAsync,
+  TActorRegistry,
+  TActorWrapper,
   TAppCanvas,
   TCameraRegistry,
   TCameraWrapper,
@@ -28,7 +28,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
   const { keyboardService } = engine.services;
 
   const { actorService, cameraService, intersectionsWatcherService, loopService, mouseService } = space.services;
-  const actorRegistry: TActorAsyncRegistry = actorService.getRegistry();
+  const actorRegistry: TActorRegistry = actorService.getRegistry();
   const cameraRegistry: TCameraRegistry = cameraService.getRegistry();
   if (isNotDefined(actorRegistry)) throw new Error('Actor registry is not defined');
   if (isNotDefined(cameraRegistry)) throw new Error('Camera registry is not defined');
@@ -36,18 +36,18 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
   const { onKey } = keyboardService;
 
   async function init(): Promise<void> {
-    const actorKeyboard: TActorWrapperAsync | undefined = await findByTagAsync('keyboard');
-    const actorMouse: TActorWrapperAsync | undefined = await findByTagAsync('mouse');
-    const actorKeyW: TActorWrapperAsync | undefined = await findByTagsAsync(['key', 'W'], LookUpStrategy.Every);
-    const actorKeyA: TActorWrapperAsync | undefined = await findByTagsAsync(['key', 'A'], LookUpStrategy.Every);
-    const actorKeyS: TActorWrapperAsync | undefined = await findByTagsAsync(['key', 'S'], LookUpStrategy.Every);
-    const actorKeyD: TActorWrapperAsync | undefined = await findByTagsAsync(['key', 'D'], LookUpStrategy.Every);
-    const actorMkeyLeft: TActorWrapperAsync | undefined = await findByTagsAsync(['mkey', 'Left'], LookUpStrategy.Every);
-    const actorMkeyRight: TActorWrapperAsync | undefined = await findByTagsAsync(['mkey', 'Right'], LookUpStrategy.Every);
-    const actorMkeyMiddle: TActorWrapperAsync | undefined = await findByTagsAsync(['mkey', 'Middle'], LookUpStrategy.Every);
-    const actorMkeyBack: TActorWrapperAsync | undefined = await findByTagsAsync(['mkey', 'Back'], LookUpStrategy.Every);
-    const actorMkeyForward: TActorWrapperAsync | undefined = await findByTagsAsync(['mkey', 'Forward'], LookUpStrategy.Every);
-    const actorMkeyExtra: TActorWrapperAsync | undefined = await findByTagsAsync(['mkey', 'Extra'], LookUpStrategy.Every);
+    const actorKeyboard: TActorWrapper | undefined = await findByTagAsync('keyboard');
+    const actorMouse: TActorWrapper | undefined = await findByTagAsync('mouse');
+    const actorKeyW: TActorWrapper | undefined = await findByTagsAsync(['key', 'W'], LookUpStrategy.Every);
+    const actorKeyA: TActorWrapper | undefined = await findByTagsAsync(['key', 'A'], LookUpStrategy.Every);
+    const actorKeyS: TActorWrapper | undefined = await findByTagsAsync(['key', 'S'], LookUpStrategy.Every);
+    const actorKeyD: TActorWrapper | undefined = await findByTagsAsync(['key', 'D'], LookUpStrategy.Every);
+    const actorMkeyLeft: TActorWrapper | undefined = await findByTagsAsync(['mkey', 'Left'], LookUpStrategy.Every);
+    const actorMkeyRight: TActorWrapper | undefined = await findByTagsAsync(['mkey', 'Right'], LookUpStrategy.Every);
+    const actorMkeyMiddle: TActorWrapper | undefined = await findByTagsAsync(['mkey', 'Middle'], LookUpStrategy.Every);
+    const actorMkeyBack: TActorWrapper | undefined = await findByTagsAsync(['mkey', 'Back'], LookUpStrategy.Every);
+    const actorMkeyForward: TActorWrapper | undefined = await findByTagsAsync(['mkey', 'Forward'], LookUpStrategy.Every);
+    const actorMkeyExtra: TActorWrapper | undefined = await findByTagsAsync(['mkey', 'Extra'], LookUpStrategy.Every);
 
     if (isNotDefined(actorKeyboard)) throw new Error('Actor keyboard is not defined');
     if (isNotDefined(actorMouse)) throw new Error('Actor mouse is not defined');
@@ -117,7 +117,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
   async function startIntersections(): Promise<TIntersectionsWatcher> {
     const camera: TCameraWrapper | undefined = cameraService.findActive();
     if (isNotDefined(camera)) throw new Error('Camera is not defined');
-    const actor: TActorWrapperAsync | undefined = await findByNameAsync('surface');
+    const actor: TActorWrapper | undefined = await findByNameAsync('surface');
     if (isNotDefined(actor)) throw new Error('Actor is not defined');
 
     return intersectionsWatcherService.create({ actors: [actor], camera, isAutoStart: true, position$: mouseService.position$, tags: [] });

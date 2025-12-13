@@ -1,16 +1,16 @@
 import type { TDestroyable } from '@/Engine/Mixins';
-import type { TWithCreateAsyncService, TWithCreateFromConfigService, TWithFactoryService, TWithRegistryService, TWithSceneGetterService } from '@/Engine/Space';
+import type { TWithCreateFromConfigService, TWithCreateService, TWithFactoryService, TWithRegistryService, TWithSceneGetterService } from '@/Engine/Space';
 
-import type { TActorAsyncRegistry } from './TActorAsyncRegistry';
 import type { TActorConfig } from './TActorConfig';
 import type { TActorFactory } from './TActorFactory';
 import type { TActorParams } from './TActorParams';
-import type { TActorWrapperAsync } from './TActorWrapperAsync';
-import type { TActorWrapperWithPhysicsAsync } from './TActorWrapperWithPhysicsAsync';
+import type { TActorRegistry } from './TActorRegistry';
+import type { TActorWrapper } from './TActorWrapper';
+import type { TActorWrapperWithPhysics } from './TActorWrapperWithPhysics';
 
-export type TActorService = TWithCreateAsyncService<TActorWrapperAsync | TActorWrapperWithPhysicsAsync, TActorParams> &
+export type TActorService = TWithCreateService<TActorWrapper | TActorWrapperWithPhysics, TActorParams> &
   TWithCreateFromConfigService<TActorConfig> &
   TWithFactoryService<TActorFactory> &
-  TWithRegistryService<TActorAsyncRegistry> &
+  TWithRegistryService<TActorRegistry> &
   TWithSceneGetterService &
   TDestroyable;

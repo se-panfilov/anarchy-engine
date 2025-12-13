@@ -1,5 +1,5 @@
 import type { TShowcase } from '@/App/Levels/Models';
-import type { TActorAsyncRegistry, TActorWrapperAsync, TAppCanvas, TCameraRegistry, TEngine, TSpace, TSpaceConfig } from '@/Engine';
+import type { TActorRegistry, TActorWrapper, TAppCanvas, TCameraRegistry, TEngine, TSpace, TSpaceConfig } from '@/Engine';
 import { buildSpaceFromConfig, Engine, isNotDefined, KeyCode, mpsSpeed } from '@/Engine';
 
 import spaceConfig from './showcase.json';
@@ -10,7 +10,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
   const { keyboardService } = engine.services;
 
   const { actorService, cameraService, loopService, mouseService } = space.services;
-  const actorRegistry: TActorAsyncRegistry = actorService.getRegistry();
+  const actorRegistry: TActorRegistry = actorService.getRegistry();
   const cameraRegistry: TCameraRegistry = cameraService.getRegistry();
   if (isNotDefined(actorRegistry)) throw new Error('Actor registry is not defined');
   if (isNotDefined(cameraRegistry)) throw new Error('Camera registry is not defined');
@@ -20,7 +20,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
   const { clickLeftRelease$ } = mouseService;
 
   async function init(): Promise<void> {
-    const car: TActorWrapperAsync | undefined = await findByNameAsync('car');
+    const car: TActorWrapper | undefined = await findByNameAsync('car');
     if (isNotDefined(car)) throw new Error('Actor "car" is not defined');
 
     let isMove: boolean = false;

@@ -1,4 +1,4 @@
-import type { TActorParams, TActorService, TActorWrapperWithPhysicsAsync, TSpatialGridWrapper, TWithCoordsXZ } from '@/Engine';
+import type { TActorParams, TActorService, TActorWrapperWithPhysics, TSpatialGridWrapper, TWithCoordsXZ } from '@/Engine';
 import { CollisionShape, MaterialType, PrimitiveModel3dType, RigidBodyTypesNames, Vector3Wrapper } from '@/Engine';
 
 export type TBuidingBlock = Required<Pick<TActorParams, 'height' | 'width' | 'depth' | 'position'>>;
@@ -10,12 +10,12 @@ export async function buildTower(
   cols: number,
   levels: number,
   grid: TSpatialGridWrapper
-): Promise<ReadonlyArray<TActorWrapperWithPhysicsAsync>> {
+): Promise<ReadonlyArray<TActorWrapperWithPhysics>> {
   const blocks: ReadonlyArray<TBuidingBlock> = getBlocks(startCoords, rows, cols, levels);
 
   console.log('number of blocks:', blocks.length);
 
-  const result = blocks.map((block: TBuidingBlock): Promise<TActorWrapperWithPhysicsAsync> => {
+  const result = blocks.map((block: TBuidingBlock): Promise<TActorWrapperWithPhysics> => {
     return actorService.createAsync({
       name: `block_${block.position.getX()}_${block.position.getY()}_${block.position.getZ()}`,
       model3d: { url: PrimitiveModel3dType.Cube },
@@ -41,7 +41,7 @@ export async function buildTower(
       castShadow: true,
       spatial: { isAutoUpdate: true, grid },
       tags: ['physics_block']
-    }) as Promise<TActorWrapperWithPhysicsAsync>;
+    }) as Promise<TActorWrapperWithPhysics>;
   });
 
   return await Promise.all(result);

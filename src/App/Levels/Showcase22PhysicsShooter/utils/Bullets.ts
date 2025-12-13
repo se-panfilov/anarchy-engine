@@ -8,7 +8,7 @@ import { createFlashLight } from '@/App/Levels/Showcase22PhysicsShooter/utils/Li
 import type {
   TActorParams,
   TActorService,
-  TActorWrapperAsync,
+  TActorWrapper,
   TCollisionCheckResult,
   TLightService,
   TMouseService,
@@ -23,7 +23,7 @@ import { meters } from '@/Engine/Measurements/Utils';
 
 export const BULLET_TAG = 'bullet';
 
-export type TBullet = TActorWrapperAsync &
+export type TBullet = TActorWrapper &
   Readonly<{
     setDistanceTraveled: (dist: number) => void;
     getDistanceTraveled: () => number;
@@ -72,7 +72,7 @@ export function getBulletsPool(count: number, actorService: TActorService, spati
 }
 
 export async function BulletAsync(params: TActorParams, actorService: TActorService): Promise<TBullet> {
-  const actorW: TActorWrapperAsync = await actorService.createAsync(params);
+  const actorW: TActorWrapper = await actorService.createAsync(params);
   let distanceTraveled: number = 0;
   const maxDistance: number = 50;
   let active: boolean = false;
@@ -116,7 +116,7 @@ export async function BulletAsync(params: TActorParams, actorService: TActorServ
     }
   }
 
-  actorW.collisions.setCollisionsFilterFn((actorW: TActorWrapperAsync): boolean => !actorW.getTags().includes(BULLET_TAG));
+  actorW.collisions.setCollisionsFilterFn((actorW: TActorWrapper): boolean => !actorW.getTags().includes(BULLET_TAG));
 
   return {
     ...actorW,
@@ -131,7 +131,7 @@ export async function BulletAsync(params: TActorParams, actorService: TActorServ
 }
 
 export function shootRapidFire(
-  actorW: TActorWrapperAsync,
+  actorW: TActorWrapper,
   mouseService: TMouseService,
   from: Readonly<{ azimuth: TRadians; elevation: TRadians }>,
   shootingParams: Readonly<{ cooldownMs: number; speed: number }>,
@@ -197,7 +197,7 @@ export function createHitEffect(position: Vector3, sceneW: TSceneWrapper, lightS
   }, 500);
 }
 
-export function applyExplosionImpulse(actorW: TActorWrapperAsync, collisionPoint: Vector3, explosionForce: number): void {
+export function applyExplosionImpulse(actorW: TActorWrapper, collisionPoint: Vector3, explosionForce: number): void {
   const body: RigidBody | undefined = actorW.physicsBody?.getRigidBody();
   if (isNotDefined(body)) return;
 

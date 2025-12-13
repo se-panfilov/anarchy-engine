@@ -1,22 +1,19 @@
 import type { Observable } from 'rxjs';
-import type { Euler, Group, Mesh, Object3D, Vector3 } from 'three';
+import type { Euler, Vector3 } from 'three';
 
 import type { TWrapper } from '@/Engine/Abstract';
 import type { TWithCollisions } from '@/Engine/Collisions';
 import type { TWithKinematic } from '@/Engine/Kinematic';
-import type { TWithMaterial } from '@/Engine/Material';
 import type { TMovable3dXYZ, TRotatable, TScalable, TWithObject3d, TWithTagsMixin } from '@/Engine/Mixins';
+import type { TModel3dFacade } from '@/Engine/Models3d';
 import type { TWithOptionalPhysicsBody } from '@/Engine/Physics';
 import type { TWithSpatial, TWithUpdateSpatialCell } from '@/Engine/Spatial/Models';
-import type { TWithTextures } from '@/Engine/Texture';
 
-export type TActorWrapperAsync = TWrapper<Group | Mesh | Object3D> &
+export type TActorWrapper = TWrapper<TModel3dFacade> &
   TMovable3dXYZ &
   TRotatable &
   TScalable &
   TWithObject3d &
-  TWithMaterial &
-  TWithTextures &
   TWithOptionalPhysicsBody &
   TWithKinematic &
   TWithSpatial &

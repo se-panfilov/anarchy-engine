@@ -1,4 +1,4 @@
-import type { TActorWrapperAsync, TIntersectionsWatcher, TSceneWrapper, TSpaceServices } from '@/Engine';
+import type { TActorWrapper, TIntersectionsWatcher, TSceneWrapper, TSpaceServices } from '@/Engine';
 import type { TSpatialGridWrapper } from '@/Engine/Spatial';
 import { isNotDefined } from '@/Engine/Utils';
 
@@ -7,17 +7,17 @@ export async function enableCollisions(mouseLineIntersectionsWatcher: TIntersect
   const grid: TSpatialGridWrapper | undefined = spatialGridService.getRegistry().findByName('main_grid');
   if (isNotDefined(grid)) throw new Error(`Cannot find "main_grid" spatial grid`);
 
-  const sphereActorW: TActorWrapperAsync | undefined = await actorService.getRegistry().findByNameAsync('sphere');
-  const boxActor1W: TActorWrapperAsync | undefined = await actorService.getRegistry().findByNameAsync('box_static_1');
-  const boxActor2W: TActorWrapperAsync | undefined = await actorService.getRegistry().findByNameAsync('box_static_2');
-  const boxActor3W: TActorWrapperAsync | undefined = await actorService.getRegistry().findByNameAsync('box_static_3');
-  const boxActor4W: TActorWrapperAsync | undefined = await actorService.getRegistry().findByNameAsync('box_static_4');
-  const boxActor5W: TActorWrapperAsync | undefined = await actorService.getRegistry().findByNameAsync('box_static_5');
-  const boxActor6W: TActorWrapperAsync | undefined = await actorService.getRegistry().findByNameAsync('box_static_6');
-  const boxActor7W: TActorWrapperAsync | undefined = await actorService.getRegistry().findByNameAsync('box_static_7');
-  const targetActor1W: TActorWrapperAsync | undefined = await actorService.getRegistry().findByNameAsync('target_1');
-  const targetActor2W: TActorWrapperAsync | undefined = await actorService.getRegistry().findByNameAsync('target_2');
-  const targetActor3W: TActorWrapperAsync | undefined = await actorService.getRegistry().findByNameAsync('target_3');
+  const sphereActorW: TActorWrapper | undefined = await actorService.getRegistry().findByNameAsync('sphere');
+  const boxActor1W: TActorWrapper | undefined = await actorService.getRegistry().findByNameAsync('box_static_1');
+  const boxActor2W: TActorWrapper | undefined = await actorService.getRegistry().findByNameAsync('box_static_2');
+  const boxActor3W: TActorWrapper | undefined = await actorService.getRegistry().findByNameAsync('box_static_3');
+  const boxActor4W: TActorWrapper | undefined = await actorService.getRegistry().findByNameAsync('box_static_4');
+  const boxActor5W: TActorWrapper | undefined = await actorService.getRegistry().findByNameAsync('box_static_5');
+  const boxActor6W: TActorWrapper | undefined = await actorService.getRegistry().findByNameAsync('box_static_6');
+  const boxActor7W: TActorWrapper | undefined = await actorService.getRegistry().findByNameAsync('box_static_7');
+  const targetActor1W: TActorWrapper | undefined = await actorService.getRegistry().findByNameAsync('target_1');
+  const targetActor2W: TActorWrapper | undefined = await actorService.getRegistry().findByNameAsync('target_2');
+  const targetActor3W: TActorWrapper | undefined = await actorService.getRegistry().findByNameAsync('target_3');
 
   if (
     isNotDefined(sphereActorW) ||
@@ -50,8 +50,8 @@ export async function enableCollisions(mouseLineIntersectionsWatcher: TIntersect
   // collisionsService.bvh.createBvhForActor(targetActor2W);
   // collisionsService.bvh.createBvhForActor(targetActor3W);
 
-  const physicsBlocksList: ReadonlyArray<TActorWrapperAsync> = actorService.getRegistry().findAllByTag('physics_block');
-  physicsBlocksList.forEach((blockW: TActorWrapperAsync) => grid.addActor(blockW));
+  const physicsBlocksList: ReadonlyArray<TActorWrapper> = actorService.getRegistry().findAllByTag('physics_block');
+  physicsBlocksList.forEach((blockW: TActorWrapper) => grid.addActor(blockW));
 
   mouseLineIntersectionsWatcher.addActor(boxActor1W);
   mouseLineIntersectionsWatcher.addActor(boxActor2W);

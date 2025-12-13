@@ -1,8 +1,8 @@
-import type { TAsyncReactiveFactory } from '@/Engine/Abstract';
+import type { TReactiveFactory } from '@/Engine/Abstract';
 import type { TDestroyable } from '@/Engine/Mixins';
 
 import type { TActorParams } from './TActorParams';
-import type { TActorWrapperAsync } from './TActorWrapperAsync';
-import type { TParamsFromConfigAsyncActor } from './TParamsFromConfigAsyncActor';
+import type { TActorWrapper } from './TActorWrapper';
+import type { TParamsFromConfigActor } from './TParamsFromConfigActor';
 
-export type TActorFactory = TAsyncReactiveFactory<TActorWrapperAsync, TActorParams> & TParamsFromConfigAsyncActor & TDestroyable;
+export type TActorFactory = TReactiveFactory<TActorWrapper, TActorParams> & TParamsFromConfigActor & TDestroyable;

@@ -1,7 +1,7 @@
 import { combineLatest } from 'rxjs';
 
 import type { TShowcase } from '@/App/Levels/Models';
-import type { TActorAsyncRegistry, TActorWrapperAsync, TAppCanvas, TCameraWrapper, TEngine, TMouseService, TSpace, TSpaceConfig } from '@/Engine';
+import type { TActorRegistry, TActorWrapper, TAppCanvas, TCameraWrapper, TEngine, TMouseService, TSpace, TSpaceConfig } from '@/Engine';
 import { ambientContext, buildSpaceFromConfig, Engine, getRotationByCos, getRotationBySin, isDefined, isNotDefined } from '@/Engine';
 
 import spaceConfig from './showcase.json';
@@ -18,8 +18,8 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
 
   async function init(): Promise<void> {
     const { actorService, mouseService } = space.services;
-    const actorRegistry: TActorAsyncRegistry = actorService.getRegistry();
-    const actor: TActorWrapperAsync | undefined = await actorRegistry.findByTagAsync('central_actor');
+    const actorRegistry: TActorRegistry = actorService.getRegistry();
+    const actor: TActorWrapper | undefined = await actorRegistry.findByTagAsync('central_actor');
     if (isNotDefined(actor)) throw new Error('Actor is not found');
 
     //apply textures async, without blocking the main thread (game might be started before textures are loaded)
@@ -36,7 +36,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
 }
 
 // This is mostly a copy of Showcase 3 (camera rotation)
-function initCameraRotation(space: TSpace, actor: TActorWrapperAsync | undefined, mouseService: TMouseService): void {
+function initCameraRotation(space: TSpace, actor: TActorWrapper | undefined, mouseService: TMouseService): void {
   const { cameraService } = space.services;
 
   const camera: TCameraWrapper | undefined = cameraService.findActive();
