@@ -261,7 +261,7 @@
           "type": "number"
         },
         "texturePack": {
-          "$ref": "#/definitions/ITexturePack"
+          "$ref": "#/definitions/IMaterialTexturePack"
         }
       },
       "required": ["castShadow", "height", "materialParams", "position", "tags", "type", "width"]
@@ -284,7 +284,41 @@
       "required": ["color"],
       "additionalProperties": false
     },
-    "ITexturePack": {
+    "IMaterialTexturePack": {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/IBasicMaterialTexturePack"
+        },
+        {
+          "$ref": "#/definitions/IDepthMaterialTexturePack"
+        },
+        {
+          "$ref": "#/definitions/IDistanceMaterialTexturePack"
+        },
+        {
+          "$ref": "#/definitions/INormalMaterialTexturePack"
+        },
+        {
+          "$ref": "#/definitions/IMatcapMaterialTexturePack"
+        },
+        {
+          "$ref": "#/definitions/ILambertMaterialTexturePack"
+        },
+        {
+          "$ref": "#/definitions/IPhongMaterialTexturePack"
+        },
+        {
+          "$ref": "#/definitions/IPhysicalMaterialTexturePack"
+        },
+        {
+          "$ref": "#/definitions/IToonMaterialTexturePack"
+        },
+        {
+          "$ref": "#/definitions/IStandardMaterialTexturePack"
+        }
+      ]
+    },
+    "IBasicMaterialTexturePack": {
       "type": "object",
       "properties": {
         "map": {
@@ -305,28 +339,11 @@
         "lightMap": {
           "$ref": "#/definitions/ITexturePackParams"
         },
-        "matcap": {
-          "$ref": "#/definitions/ITexturePackParams"
-        },
-        "bumpMap": {
-          "$ref": "#/definitions/ITexturePackParams"
-        },
-        "normalMap": {
-          "$ref": "#/definitions/ITexturePackParams"
-        },
-        "displacementMap": {
-          "$ref": "#/definitions/ITexturePackParams"
-        },
-        "emissiveMap": {
-          "$ref": "#/definitions/ITexturePackParams"
-        },
-        "roughnessMap": {
-          "$ref": "#/definitions/ITexturePackParams"
-        },
-        "metalnessMap": {
-          "$ref": "#/definitions/ITexturePackParams"
+        "material": {
+          "$ref": "#/definitions/MaterialType"
         }
       },
+      "required": ["material"],
       "additionalProperties": false
     },
     "ITexturePackParams": {
@@ -438,6 +455,271 @@
     "ColorSpace": {
       "type": "string",
       "enum": ["", "srgb", "srgb-linear", "display-p3", "display-p3-linear"]
+    },
+    "MaterialType": {
+      "type": "string",
+      "enum": ["basic", "depth", "distance", "normal", "matcap", "lambert", "phong", "physical", "toon", "standard"]
+    },
+    "IDepthMaterialTexturePack": {
+      "type": "object",
+      "properties": {
+        "map": {
+          "$ref": "#/definitions/ITexturePackParams"
+        },
+        "alphaMap": {
+          "$ref": "#/definitions/ITexturePackParams"
+        },
+        "displacementMap": {
+          "$ref": "#/definitions/ITexturePackParams"
+        },
+        "material": {
+          "$ref": "#/definitions/MaterialType"
+        }
+      },
+      "required": ["material"],
+      "additionalProperties": false
+    },
+    "IDistanceMaterialTexturePack": {
+      "type": "object",
+      "properties": {
+        "map": {
+          "$ref": "#/definitions/ITexturePackParams"
+        },
+        "alphaMap": {
+          "$ref": "#/definitions/ITexturePackParams"
+        },
+        "material": {
+          "$ref": "#/definitions/MaterialType"
+        }
+      },
+      "required": ["material"],
+      "additionalProperties": false
+    },
+    "INormalMaterialTexturePack": {
+      "type": "object",
+      "properties": {
+        "bumpMap": {
+          "$ref": "#/definitions/ITexturePackParams"
+        },
+        "normalMap": {
+          "$ref": "#/definitions/ITexturePackParams"
+        },
+        "displacementMap": {
+          "$ref": "#/definitions/ITexturePackParams"
+        },
+        "material": {
+          "$ref": "#/definitions/MaterialType"
+        }
+      },
+      "required": ["material"],
+      "additionalProperties": false
+    },
+    "IMatcapMaterialTexturePack": {
+      "type": "object",
+      "properties": {
+        "map": {
+          "$ref": "#/definitions/ITexturePackParams"
+        },
+        "matcap": {
+          "$ref": "#/definitions/ITexturePackParams"
+        },
+        "bumpMap": {
+          "$ref": "#/definitions/ITexturePackParams"
+        },
+        "normalMap": {
+          "$ref": "#/definitions/ITexturePackParams"
+        },
+        "displacementMap": {
+          "$ref": "#/definitions/ITexturePackParams"
+        },
+        "alphaMap": {
+          "$ref": "#/definitions/ITexturePackParams"
+        },
+        "material": {
+          "$ref": "#/definitions/MaterialType"
+        }
+      },
+      "required": ["material"],
+      "additionalProperties": false
+    },
+    "ILambertMaterialTexturePack": {
+      "type": "object",
+      "properties": {
+        "map": {
+          "$ref": "#/definitions/ITexturePackParams"
+        },
+        "bumpMap": {
+          "$ref": "#/definitions/ITexturePackParams"
+        },
+        "displacementMap": {
+          "$ref": "#/definitions/ITexturePackParams"
+        },
+        "emissiveMap": {
+          "$ref": "#/definitions/ITexturePackParams"
+        },
+        "lightMap": {
+          "$ref": "#/definitions/ITexturePackParams"
+        },
+        "normalMap": {
+          "$ref": "#/definitions/ITexturePackParams"
+        },
+        "aoMap": {
+          "$ref": "#/definitions/ITexturePackParams"
+        },
+        "specularMap": {
+          "$ref": "#/definitions/ITexturePackParams"
+        },
+        "alphaMap": {
+          "$ref": "#/definitions/ITexturePackParams"
+        },
+        "envMap": {
+          "$ref": "#/definitions/ITexturePackParams"
+        },
+        "material": {
+          "$ref": "#/definitions/MaterialType"
+        }
+      },
+      "required": ["material"],
+      "additionalProperties": false
+    },
+    "IPhongMaterialTexturePack": {
+      "type": "object",
+      "properties": {
+        "map": {
+          "$ref": "#/definitions/ITexturePackParams"
+        },
+        "lightMap": {
+          "$ref": "#/definitions/ITexturePackParams"
+        },
+        "aoMap": {
+          "$ref": "#/definitions/ITexturePackParams"
+        },
+        "emissiveMap": {
+          "$ref": "#/definitions/ITexturePackParams"
+        },
+        "bumpMap": {
+          "$ref": "#/definitions/ITexturePackParams"
+        },
+        "normalMap": {
+          "$ref": "#/definitions/ITexturePackParams"
+        },
+        "displacementMap": {
+          "$ref": "#/definitions/ITexturePackParams"
+        },
+        "specularMap": {
+          "$ref": "#/definitions/ITexturePackParams"
+        },
+        "alphaMap": {
+          "$ref": "#/definitions/ITexturePackParams"
+        },
+        "envMap": {
+          "$ref": "#/definitions/ITexturePackParams"
+        },
+        "material": {
+          "$ref": "#/definitions/MaterialType"
+        }
+      },
+      "required": ["material"],
+      "additionalProperties": false
+    },
+    "IPhysicalMaterialTexturePack": {
+      "type": "object",
+      "properties": {
+        "clearcoatMap": {
+          "$ref": "#/definitions/ITexturePackParams"
+        },
+        "clearcoatRoughnessMap": {
+          "$ref": "#/definitions/ITexturePackParams"
+        },
+        "clearcoatNormalMap": {
+          "$ref": "#/definitions/ITexturePackParams"
+        },
+        "material": {
+          "$ref": "#/definitions/MaterialType"
+        }
+      },
+      "required": ["material"],
+      "additionalProperties": false
+    },
+    "IToonMaterialTexturePack": {
+      "type": "object",
+      "properties": {
+        "map": {
+          "$ref": "#/definitions/ITexturePackParams"
+        },
+        "gradientMap": {
+          "$ref": "#/definitions/ITexturePackParams"
+        },
+        "lightMap": {
+          "$ref": "#/definitions/ITexturePackParams"
+        },
+        "aoMap": {
+          "$ref": "#/definitions/ITexturePackParams"
+        },
+        "emissiveMap": {
+          "$ref": "#/definitions/ITexturePackParams"
+        },
+        "bumpMap": {
+          "$ref": "#/definitions/ITexturePackParams"
+        },
+        "normalMap": {
+          "$ref": "#/definitions/ITexturePackParams"
+        },
+        "displacementMap": {
+          "$ref": "#/definitions/ITexturePackParams"
+        },
+        "alphaMap": {
+          "$ref": "#/definitions/ITexturePackParams"
+        },
+        "material": {
+          "$ref": "#/definitions/MaterialType"
+        }
+      },
+      "required": ["material"],
+      "additionalProperties": false
+    },
+    "IStandardMaterialTexturePack": {
+      "type": "object",
+      "properties": {
+        "map": {
+          "$ref": "#/definitions/ITexturePackParams"
+        },
+        "lightMap": {
+          "$ref": "#/definitions/ITexturePackParams"
+        },
+        "aoMap": {
+          "$ref": "#/definitions/ITexturePackParams"
+        },
+        "emissiveMap": {
+          "$ref": "#/definitions/ITexturePackParams"
+        },
+        "bumpMap": {
+          "$ref": "#/definitions/ITexturePackParams"
+        },
+        "normalMap": {
+          "$ref": "#/definitions/ITexturePackParams"
+        },
+        "displacementMap": {
+          "$ref": "#/definitions/ITexturePackParams"
+        },
+        "roughnessMap": {
+          "$ref": "#/definitions/ITexturePackParams"
+        },
+        "metalnessMap": {
+          "$ref": "#/definitions/ITexturePackParams"
+        },
+        "alphaMap": {
+          "$ref": "#/definitions/ITexturePackParams"
+        },
+        "envMap": {
+          "$ref": "#/definitions/ITexturePackParams"
+        },
+        "material": {
+          "$ref": "#/definitions/MaterialType"
+        }
+      },
+      "required": ["material"],
+      "additionalProperties": false
     },
     "ICameraConfig": {
       "type": "object",

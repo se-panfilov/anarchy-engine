@@ -11,8 +11,9 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
   const level: ILevel = buildLevelFromConfig(canvas, levelConfig as ILevelConfig);
 
   // Load texture dynamically
-  // const pack: ITexturePack = {
-  //   map: { url: '/ShowcaseLevel8/Door_Wood/Door_Wood_001_basecolor.jpg' }
+  // const pack: IBasicMaterialTexturePack = {
+  //   map: { url: '/ShowcaseLevel8/Door_Wood/Door_Wood_001_basecolor.jpg' },
+  //   material: MaterialType.Basic
   // };
 
   function start(): void {

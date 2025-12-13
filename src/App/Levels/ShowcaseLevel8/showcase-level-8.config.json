@@ -21,7 +21,8 @@
         "normalMap": { "url": "/ShowcaseLevel8/Door_Wood/Door_Wood_001_normal.jpg" },
         "alphaMap": { "url": "/ShowcaseLevel8/Door_Wood/Door_Wood_001_opacity.jpg" },
         "metalnessMap": { "url": "/ShowcaseLevel8/Door_Wood/Door_Wood_001_metallic.jpg" },
-        "roughnessMap": { "url": "/ShowcaseLevel8/Door_Wood/Door_Wood_001_roughness.jpg" }
+        "roughnessMap": { "url": "/ShowcaseLevel8/Door_Wood/Door_Wood_001_roughness.jpg" },
+        "material": "basic"
       },
       "tags": ["central_actor"]
     }
