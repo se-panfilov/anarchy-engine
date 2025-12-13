@@ -89,14 +89,14 @@
     "cameras": [
       {
         "far": 10000,
-        "fov": 45,
+        "fov": 50,
         "isActive": true,
         "name": "main",
         "near": 1,
         "position": {
           "x": 3,
-          "y": 20,
-          "z": 35
+          "y": 15,
+          "z": 20
         },
         "rotation": {
           "x": 0,
