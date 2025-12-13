@@ -5,7 +5,7 @@ import type { MeshPhysicalMaterial, MeshStandardMaterial } from 'three';
 
 import type { IShowcase } from '@/App/Levels/Models';
 import type { IActorAsyncRegistry, IActorWrapperAsync, IAppCanvas, IControlsRegistry, IOrbitControlsWrapper, ISpace, ISpaceConfig, IVector3Wrapper } from '@/Engine';
-import { buildSpaceFromConfig, envMapService, EulerWrapper, isDefined, isNotDefined, keyboardService, KeyCode, LookUpStrategy, TextType, Vector3Wrapper } from '@/Engine';
+import { buildSpaceFromConfig, EulerWrapper, isDefined, isNotDefined, keyboardService, KeyCode, LookUpStrategy, TextType, Vector3Wrapper } from '@/Engine';
 
 import spaceConfig from './showcase-10-complex-materials.config.json';
 
@@ -15,7 +15,7 @@ export function showcase(canvas: IAppCanvas): IShowcase {
 
   const space: ISpace = buildSpaceFromConfig(canvas, spaceConfig as ISpaceConfig);
   const { textService } = space.services;
-  const { actorService, controlsService } = space.services;
+  const { actorService, controlsService, envMapService } = space.services;
   const actorRegistry: IActorAsyncRegistry = actorService.getRegistry();
   const controlsRegistry: IControlsRegistry = controlsService.getRegistry();
 

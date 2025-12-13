@@ -1,3 +1,5 @@
+import { expect } from 'vitest';
+
 import { LookUpStrategy } from '@/Engine/Abstract/Registry';
 import type { ICameraRegistry, ICameraWrapper } from '@/Engine/Camera';
 import { CameraRegistry, CameraWrapper } from '@/Engine/Camera';
@@ -7,7 +9,6 @@ import type { ISceneRegistry, ISceneWrapper } from '@/Engine/Scene';
 import { SceneRegistry, SceneWrapper } from '@/Engine/Scene';
 
 import { getAllEntitiesWithTag, getAllEntitiesWithTags, getUniqEntityWithTag, getUniqEntityWithTags, setActiveWrappedEntity } from './RegistryUtils';
-import { expect } from 'vitest';
 
 describe('RegistryUtils', () => {
   const tagA: string = 'tagA';

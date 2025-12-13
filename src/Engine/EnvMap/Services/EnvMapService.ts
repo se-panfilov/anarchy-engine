@@ -13,6 +13,7 @@ export function EnvMapService(): IEnvMapService {
     return envMapLoader.loadAsync(url).then((texture: IWriteable<IDataTexture>): IDataTexture => {
       // eslint-disable-next-line functional/immutable-data
       texture.mapping = EquirectangularReflectionMapping;
+      setTimeout(() => added$.next(texture), 1000);
       added$.next(texture);
       return texture;
     });
@@ -20,5 +21,3 @@ export function EnvMapService(): IEnvMapService {
 
   return { load, added$: added$.asObservable() };
 }
-
-export const envMapService: IEnvMapService = EnvMapService();
