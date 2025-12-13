@@ -1,4 +1,4 @@
-# End User License Terms — {{PACKAGE_NAME}} (Open Source)
+# End User License Terms — {{PACKAGE_NAME}}
 
 **Effective date:** {{EFFECTIVE_DATE}}
 This repository is provided under the **{{PLATFORM_LICENSE}}** (see `LICENSE`).
@@ -13,4 +13,4 @@ This repository is provided under the **{{PLATFORM_LICENSE}}** (see `LICENSE`).
 
 This agreement is drafted in English. Translations may be provided for convenience. In consumer markets where local-language versions are required by law for clarity and fairness, the local-language version controls to the extent required by applicable law; otherwise, the English version controls.
 
-For full OSS terms, see `{{PLATFORM_LICENSE}}`.
+For full OSS terms, see `{{PACKAGE_LICENSE}}`.

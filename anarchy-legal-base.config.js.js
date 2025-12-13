@@ -11,6 +11,9 @@ export default [
       ALLOW_COMMERCIAL_RESALE: true,
       IS_CHILD_DIRECTED: true,
 
+      //B2B
+      LIABILITY_CAP_AMOUNT: 'the total fees paid by that Business User to the Licensor for the Game in the 12 months immediately preceding the event giving rise to the claim',
+
       // REGIONS
       REGION_CN: true,
       HAS_CHINA_REP: false,
@@ -29,6 +32,16 @@ export default [
       //CONTACTS
       SUPPORT_EMAIL: 'TBD until market release',
       LEGAL_EMAIL: 'TBD until market release',
+
+      // EULA (commercial)
+
+      // personal and commercial — default for games/builds when you don't want to restrict usage.
+      // personal - if you want a free promo build for private use only (streamers/events may fall under "commercial").
+      // any lawful purposes – super broad formula; acceptable, but redundant (lawfulness is already required).
+      // internal business purposes —  for closed B2B tools/editors (not for games).
+      // evaluation purposes only – for demo/beta, if you want to explicitly limit to evaluation.
+      // educational and research — for educational and research editions.
+      USAGE_SCOPE: 'personal and commercial',
 
       // TBD
       SECURITY_SUPPORT_PERIOD: 'TBD until market release',

@@ -22,7 +22,7 @@ If any term (including any limitation or exclusion of liability) is found invali
 
 ## 1. License Grant
 
-Subject to this EULA, Licensor grants you a personal, non-exclusive, revocable license to install and use showcases-core on devices you own or control for purposes, and—subject to Section 3—to make and distribute copies as permitted therein.
+Subject to this EULA, Licensor grants you a personal, non-exclusive, revocable license to install and use showcases-core on devices you own or control for personal and commercial purposes, and—subject to Section 3—to make and distribute copies as permitted therein.
 
 ## 2. Ownership
 
@@ -96,7 +96,7 @@ To the fullest extent permitted by law, Licensor shall **not** be liable for any
 
 ## 11A. Liability Cap (Business Users Only)
 
-This clause applies **only** to Business Users. To the extent permitted by applicable law, the Licensor’s aggregate liability for all claims relating to the Game shall not exceed \*\*\*\*.
+This clause applies **only** to Business Users. To the extent permitted by applicable law, the Licensor’s aggregate liability for all claims relating to the Game shall not exceed **the total fees paid by that Business User to the Licensor for the Game in the 12 months immediately preceding the event giving rise to the claim**.
 Nothing in this clause applies to Consumers, nor does it limit liability where such limitation is unlawful (including for death or personal injury caused by negligence, fraud or wilful misconduct).
 
 ## 12. Export Controls & Sanctions
@@ -105,7 +105,7 @@ You must comply with applicable **export, re-export, and sanctions** laws. You m
 
 ## 13. Open-Source Components (OSS Precedence)
 
-The Game includes **open-source software**. **To the extent of any conflict between this EULA and the license terms of an OSS component, the OSS license controls for that component.** Third-party notices and licenses are provided in `NOTICE` / `THIRD_PARTY_LICENSES.md` or at \*\*\*\*.
+The Game includes **open-source software**. **To the extent of any conflict between this EULA and the license terms of an OSS component, the OSS license controls for that component.** Third-party notices and licenses are provided in the distribution package (see `NOTICE.md` and `THIRD_PARTY_LICENSES.md`).
 
 ## 14. Governing Law & Consumer Rights
 
@@ -114,7 +114,7 @@ If you are a consumer, **mandatory consumer protection laws of your country of r
 
 ## 15. Changes
 
-We may update this EULA. Material changes will be communicated via \*\*\*\*. Continued use after the effective date constitutes acceptance.
+We may update this EULA. Material changes will be communicatWe may update this EULA. Material changes may be communicated **within the product or the update package** (for example, via an in-product notice, a prompt to review the EULA on update, or release notes included with the distribution), or via the applicable Distribution Channel. Continued use after the effective date constitutes acceptance.
 
 ## Governing Language
 
