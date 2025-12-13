@@ -30,7 +30,24 @@ import type {
   TToonMaterialPropsOptions
 } from './TMaterialPropsOptions';
 
-type TOmitParamsOnlyFields<T> = Omit<T, keyof TMaterialConfigFields> & Pick<TMaterialConfigFields, Extract<keyof T, keyof TMaterialConfigFields>>;
+type TOmitParamsOnlyFields<T> = Omit<
+  T,
+  | 'map'
+  | 'alphaMap'
+  | 'blending'
+  | 'blendDst'
+  | 'blendEquation'
+  | 'blendSrc'
+  | 'side'
+  | 'format'
+  | 'stencilFunc'
+  | 'stencilFail'
+  | 'stencilZFail'
+  | 'stencilZPass'
+  | 'combine'
+  | 'depthPacking'
+  | 'normalMapType'
+>;
 
 export type TAbstractMaterialConfigOptions = TOmitParamsOnlyFields<TAbstractMaterialPropsOptions> & TMaterialConfigFields;
 export type TBasicMaterialConfigOptions = TOmitParamsOnlyFields<TBasicMaterialPropsOptions> & TMaterialConfigFields;

@@ -1,3 +1,7 @@
+import type { Vector2Like } from 'three';
+import { Vector2, Vector3 } from 'three';
+import type { Vector3Like } from 'three/src/math/Vector3';
+
 import {
   BlendEquationMap,
   BlendingDstFactorMap,
@@ -19,7 +23,24 @@ export function configToParams(config: TMaterialConfig, { textureService }: TMat
   let options: TMaterialParamsOptions = {} as TMaterialParamsOptions;
 
   if (isDefined(config.options)) {
-    const { blending, blendDst, blendEquation, blendSrc, side, format, stencilFunc, stencilFail, stencilZFail, stencilZPass, combine, depthPacking, normalMapType, ...rest } = config.options;
+    const {
+      blending,
+      blendDst,
+      blendEquation,
+      blendSrc,
+      side,
+      format,
+      stencilFunc,
+      stencilFail,
+      stencilZFail,
+      stencilZPass,
+      referencePosition,
+      normalScale,
+      combine,
+      depthPacking,
+      normalMapType,
+      ...rest
+    } = config.options as typeof config.options & Readonly<{ referencePosition?: Vector3Like; normalScale?: Vector2Like }>;
 
     options = { ...rest };
 
@@ -36,6 +57,8 @@ export function configToParams(config: TMaterialConfig, { textureService }: TMat
     if (isDefined(combine)) options = { ...options, combine: CombineMap[combine] };
     if (isDefined(depthPacking)) options = { ...options, depthPacking: DepthPackingStrategiesMap[depthPacking] };
     if (isDefined(normalMapType)) options = { ...options, normalMapType: NormalMapTypesMap[normalMapType] };
+    if (isDefined(referencePosition)) options = { ...options, referencePosition: new Vector3(referencePosition.x, referencePosition.y, referencePosition.z) };
+    if (isDefined(normalScale)) options = { ...options, normalScale: new Vector2(normalScale.x, normalScale.y) };
   }
 
   let textures: TMaterialParamsTextures | undefined = undefined;
