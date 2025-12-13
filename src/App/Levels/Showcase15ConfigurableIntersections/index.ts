@@ -1,7 +1,7 @@
 import GUI from 'lil-gui';
 
 import type { IShowcase } from '@/App/Levels/Models';
-import type { IAppCanvas, ICameraRegistry, ICameraWrapper, IIntersectionsWatcher, ISpace, ISpaceConfig } from '@/Engine';
+import type { IAppCanvas, ICameraRegistry, ICameraWrapper, IIntersectionEvent, IIntersectionsWatcher, ISpace, ISpaceConfig } from '@/Engine';
 import { buildSpaceFromConfig, isNotDefined, mouseService } from '@/Engine';
 
 import spaceConfig from './showcase-15.json';
@@ -15,17 +15,16 @@ export function showcase(canvas: IAppCanvas): IShowcase {
   const { clickLeftRelease$ } = mouseService;
 
   function init(): void {
-    setTimeout(async () => {
-      console.log('before find');
-      const redWatcher: IIntersectionsWatcher | undefined = await intersectionsWatcherService.getRegistry().findByNameAsync('watcher_red');
-      console.log('after find');
-      if (isNotDefined(redWatcher)) throw new Error('Cannot find red watcher');
-      const blueWatcher: IIntersectionsWatcher | undefined = await intersectionsWatcherService.getRegistry().findByNameAsync('watcher_blue');
-      if (isNotDefined(blueWatcher)) throw new Error('Cannot find blue watcher');
+    intersectionsWatcherService.getRegistry().findByName$('watcher_red').subscribe(onRedWatcher);
+    intersectionsWatcherService.getRegistry().findByName$('watcher_blue').subscribe(onBlueWatcher);
 
-      redWatcher.value$.subscribe((value) => console.log('red watcher', value));
-      blueWatcher.value$.subscribe((value) => console.log('blue watcher', value));
-    }, 500);
+    function onRedWatcher(redWatcher: IIntersectionsWatcher): void {
+      redWatcher.value$.subscribe((value: IIntersectionEvent) => console.log('redWatcher', value));
+    }
+
+    function onBlueWatcher(blueWatcher: IIntersectionsWatcher): void {
+      blueWatcher.value$.subscribe((value: IIntersectionEvent) => console.log('blueWatcher', value));
+    }
 
     let cameraFolder: GUI | undefined;
     let cameraName: string = 'camera_red';
