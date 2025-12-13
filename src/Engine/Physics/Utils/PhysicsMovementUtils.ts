@@ -11,10 +11,21 @@ import { VelocityType } from '@/Engine/Physics/Constants';
 import type { TPhysicsBody } from '@/Engine/Physics/Models';
 import { isNotDefined } from '@/Engine/Utils';
 
-export function getPushCoordsFrom3dAzimuth(azimuth: TRadians, elevation: TRadians, force: number): Vector3 {
-  const x: number = force * Math.cos(elevation) * Math.sin(azimuth);
+export function getPushCoordsFrom3dAzimuth(azimuth: TRadians, elevation: TRadians, force: number, forwardAxis: ForwardAxis): Vector3 | never {
+  const horizontalForce: number = force * Math.cos(elevation);
   const y: number = force * Math.sin(elevation);
-  const z: number = force * Math.cos(elevation) * Math.cos(azimuth);
+
+  let x: number, z: number;
+
+  if (forwardAxis === ForwardAxis.Z) {
+    x = horizontalForce * Math.sin(azimuth);
+    z = horizontalForce * Math.cos(azimuth);
+  } else if (forwardAxis === ForwardAxis.X) {
+    x = horizontalForce * Math.cos(azimuth);
+    z = horizontalForce * Math.sin(azimuth);
+  } else {
+    throw new Error(`Cannot get push coordinates from 3d azimuth: forward axis is invalid: ${forwardAxis}`);
+  }
 
   return new Vector3(x, y, z);
 }
