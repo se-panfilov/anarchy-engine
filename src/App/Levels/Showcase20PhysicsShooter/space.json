@@ -6,19 +6,7 @@
         "agent": "physical",
         "model3dSource": "surface_model",
         "name": "surface",
-        "physics": {
-          "name": "surface_physics",
-          "collisionShape": "cuboid",
-          "friction": 0.5,
-          "mass": 1,
-          "restitution": 0,
-          "shapeParams": {
-            "hx": 100,
-            "hy": 100,
-            "hz": 0.025
-          },
-          "type": "fixed"
-        },
+        "physicBodyName": "surface_physics",
         "position": {
           "x": 0,
           "y": 0,
@@ -615,7 +603,31 @@
           "z": 0
         }
       },
-      "bodies": []
+      "bodies": [
+        {
+          "name": "surface_physics",
+          "collisionShape": "cuboid",
+          "friction": 0.5,
+          "mass": 1,
+          "restitution": 0,
+          "shapeParams": {
+            "hx": 100,
+            "hy": 100,
+            "hz": 0.025
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "rotation": {
+            "x": -1.57,
+            "y": 0,
+            "z": 0
+          },
+          "type": "fixed"
+        }
+      ]
     },
     "renderers": [
       {
