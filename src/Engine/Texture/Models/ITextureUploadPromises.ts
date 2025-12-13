@@ -9,7 +9,7 @@ import type {
   IPhysicalMaterialPackKeys,
   IStandardMaterialPackKeys,
   IToonMaterialPackKeys
-} from '@/Engine/Material';
+} from '@/Engine/MaterialTexturePack';
 
 import type { ITexture } from './ITexture';
 import type {

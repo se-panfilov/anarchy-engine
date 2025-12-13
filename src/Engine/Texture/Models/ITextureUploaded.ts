@@ -10,7 +10,7 @@ import type {
   IPointsMaterialPackKeys,
   IStandardMaterialPackKeys,
   IToonMaterialPackKeys
-} from '@/Engine/Material';
+} from '@/Engine/MaterialTexturePack';
 
 import type { ITexture } from './ITexture';
 
