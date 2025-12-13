@@ -13,17 +13,25 @@ export const rewriteFramesIntegrationBrowser = (): Integration =>
       // already normalized
       if (name.startsWith('app:///')) return f;
 
-      // Try to cut to the first "/dist/" occurrence so we get app:///dist/...
-      const m: RegExpMatchArray | null = name.match(/^file:\/+.*?(\/dist\/.*)$/);
-      if (m) {
+      // Prefer the LAST "/dist/" occurrence so nested paths like
+      // ".../dist/mac-arm64/.../app.asar/dist/dist-desktop/..." map to
+      // "app:///dist/dist-desktop/..." which matches uploaded urlPrefix/app paths.
+      const cutToLastDist = (p: string): string | null => {
+        const idx: number = p.lastIndexOf('/dist/');
+        if (idx < 0) return null;
+        return p.slice(idx).replace(/^\/+/, '');
+      };
+
+      const relFromLast = cutToLastDist(name);
+      if (relFromLast) {
         // eslint-disable-next-line functional/immutable-data
-        (f as any).filename = `app:///${m[1].replace(/^\/+/, '')}`;
+        (f as any).filename = `app:///${relFromLast}`;
         if (f.abs_path) {
           const abs: string = String(f.abs_path).replace(/\\/g, '/');
-          const mm: RegExpMatchArray | null = abs.match(/^file:\/+.*?(\/dist\/.*)$/);
-          if (mm) {
+          const absRel: string | null = cutToLastDist(abs);
+          if (absRel) {
             // eslint-disable-next-line functional/immutable-data
-            (f as any).abs_path = `app:///${mm[1].replace(/^\/+/, '')}`;
+            (f as any).abs_path = `app:///${absRel}`;
           }
         }
         return f;
