@@ -289,9 +289,6 @@
         "collisionGroups": {
           "type": "number"
         },
-        "shouldUpdateKinematic": {
-          "type": "boolean"
-        },
         "isSleep": {
           "type": "boolean"
         },
@@ -2021,9 +2018,6 @@
         "collisionGroups": {
           "type": "number"
         },
-        "shouldUpdateKinematic": {
-          "type": "boolean"
-        },
         "isSleep": {
           "type": "boolean"
         },
@@ -2102,6 +2096,9 @@
         },
         "kinematic": {
           "$ref": "#/definitions/TKinematicDataConfig"
+        },
+        "physics": {
+          "$ref": "#/definitions/TWithPresetNamePhysicsBodyConfig"
         },
         "text": {
           "type": "string"
