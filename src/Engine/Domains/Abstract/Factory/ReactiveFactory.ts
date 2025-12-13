@@ -1,6 +1,7 @@
+import { Subject } from 'rxjs';
+
 import type { IReactiveFactory } from '@/Engine/Domains/Abstract';
 import { AbstractFactory } from '@/Engine/Domains/Abstract';
-import { Subject } from 'rxjs';
 import { cleanObject } from '@/Engine/Utils';
 
 export function ReactiveFactory<T, P>(type: string, createEntityFn: (params: P) => T): IReactiveFactory<T, P> {
