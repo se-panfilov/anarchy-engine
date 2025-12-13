@@ -18,5 +18,6 @@ export * from './StringUtils';
 export * from './TagsUtils';
 export * from './TransformUtils';
 export * from './TypesUtils';
+export * from './UrlUtils';
 export * from './WebGLUtils';
 export * from './WrapperHelpers';
