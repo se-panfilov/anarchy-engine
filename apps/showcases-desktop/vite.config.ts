@@ -3,7 +3,6 @@ import { defineConfig } from 'vite';
 import path from 'path';
 import { sharedAliases } from '../../vite.alias';
 import { version } from './package.json';
-import license from 'rollup-plugin-license';
 
 // Frankly, we can build desktop-main.ts without Vite (just with tsc).
 // But imports are such a pain, so it's easier to use a bundler.
@@ -52,19 +51,6 @@ export default defineConfig({
             }
           ],
           hook: 'writeBundle'
-        }),
-        license({
-          sourcemap: true,
-          cwd: process.cwd(),
-          thirdParty: {
-            // includePrivate: true, // Default is false.
-            // includeSelf: true, // Default is false.
-            // multipleVersions: true, // Default is false.
-            output: {
-              file: path.join(__dirname, 'THIRD_PARTY_LICENSES.md'),
-              encoding: 'utf-8'
-            }
-          }
         })
       ]
     },
