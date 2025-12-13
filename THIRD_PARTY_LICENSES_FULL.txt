@@ -359,7 +359,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 -----
 
-The following software may be included in this product: @dimforge/rapier3d, @dimforge/rapier3d-compat. A copy of the source code may be downloaded from https://github.com/dimforge/rapier.js (@dimforge/rapier3d), https://github.com/dimforge/rapier.js (@dimforge/rapier3d-compat). This software contains the following license and notice below:
+The following software may be included in this product: @dimforge/rapier3d. A copy of the source code may be downloaded from https://github.com/dimforge/rapier.js. This software contains the following license and notice below:
 
 Apache License
                            Version 2.0, January 2004
@@ -591,7 +591,7 @@ SOFTWARE.
 
 -----
 
-The following software may be included in this product: @eslint/config-array, @eslint/core, @eslint/object-schema, @eslint/plugin-kit, @humanfs/core, @humanfs/node, @humanwhocodes/module-importer, @humanwhocodes/retry, @pkgjs/parseargs. A copy of the source code may be downloaded from git+https://github.com/eslint/rewrite.git (@eslint/config-array), git+https://github.com/eslint/rewrite.git (@eslint/core), git+https://github.com/eslint/rewrite.git (@eslint/object-schema), git+https://github.com/eslint/rewrite.git (@eslint/plugin-kit), git+https://github.com/humanwhocodes/humanfs.git (@humanfs/core), git+https://github.com/humanwhocodes/humanfs.git (@humanfs/node), git+https://github.com/humanwhocodes/module-importer.git (@humanwhocodes/module-importer), git+https://github.com/humanwhocodes/retry.git (@humanwhocodes/retry), git@github.com:pkgjs/parseargs.git (@pkgjs/parseargs). This software contains the following license and notice below:
+The following software may be included in this product: @eslint/config-array, @eslint/config-helpers, @eslint/core, @eslint/object-schema, @eslint/plugin-kit, @humanfs/core, @humanfs/node, @humanwhocodes/module-importer, @humanwhocodes/retry, @pkgjs/parseargs. A copy of the source code may be downloaded from git+https://github.com/eslint/rewrite.git (@eslint/config-array), git+https://github.com/eslint/rewrite.git (@eslint/config-helpers), git+https://github.com/eslint/rewrite.git (@eslint/core), git+https://github.com/eslint/rewrite.git (@eslint/object-schema), git+https://github.com/eslint/rewrite.git (@eslint/plugin-kit), git+https://github.com/humanwhocodes/humanfs.git (@humanfs/core), git+https://github.com/humanwhocodes/humanfs.git (@humanfs/node), git+https://github.com/humanwhocodes/module-importer.git (@humanwhocodes/module-importer), git+https://github.com/humanwhocodes/retry.git (@humanwhocodes/retry), git@github.com:pkgjs/parseargs.git (@pkgjs/parseargs). This software contains the following license and notice below:
 
 Apache License
                            Version 2.0, January 2004
@@ -1276,7 +1276,7 @@ THE SOFTWARE.
 
 -----
 
-The following software may be included in this product: @types/animejs, @types/date-fns, @types/estree, @types/json-schema, @types/lodash, @types/lodash-es, @types/node, @types/parse-json, @types/rbush, @types/stats.js, @types/three, @types/webxr. A copy of the source code may be downloaded from https://github.com/DefinitelyTyped/DefinitelyTyped.git (@types/animejs), https://github.com/DefinitelyTyped/DefinitelyTyped.git (@types/estree), https://github.com/DefinitelyTyped/DefinitelyTyped.git (@types/json-schema), https://github.com/DefinitelyTyped/DefinitelyTyped.git (@types/lodash), https://github.com/DefinitelyTyped/DefinitelyTyped.git (@types/lodash-es), https://github.com/DefinitelyTyped/DefinitelyTyped.git (@types/node), https://github.com/DefinitelyTyped/DefinitelyTyped.git (@types/parse-json), https://github.com/DefinitelyTyped/DefinitelyTyped.git (@types/rbush), https://github.com/DefinitelyTyped/DefinitelyTyped.git (@types/stats.js), https://github.com/DefinitelyTyped/DefinitelyTyped.git (@types/three), https://github.com/DefinitelyTyped/DefinitelyTyped.git (@types/webxr). This software contains the following license and notice below:
+The following software may be included in this product: @types/animejs, @types/date-fns, @types/estree, @types/howler, @types/json-schema, @types/lodash, @types/lodash-es, @types/node, @types/parse-json, @types/rbush, @types/stats.js, @types/three, @types/webxr. A copy of the source code may be downloaded from https://github.com/DefinitelyTyped/DefinitelyTyped.git (@types/animejs), https://github.com/DefinitelyTyped/DefinitelyTyped.git (@types/estree), https://github.com/DefinitelyTyped/DefinitelyTyped.git (@types/howler), https://github.com/DefinitelyTyped/DefinitelyTyped.git (@types/json-schema), https://github.com/DefinitelyTyped/DefinitelyTyped.git (@types/lodash), https://github.com/DefinitelyTyped/DefinitelyTyped.git (@types/lodash-es), https://github.com/DefinitelyTyped/DefinitelyTyped.git (@types/node), https://github.com/DefinitelyTyped/DefinitelyTyped.git (@types/parse-json), https://github.com/DefinitelyTyped/DefinitelyTyped.git (@types/rbush), https://github.com/DefinitelyTyped/DefinitelyTyped.git (@types/stats.js), https://github.com/DefinitelyTyped/DefinitelyTyped.git (@types/three), https://github.com/DefinitelyTyped/DefinitelyTyped.git (@types/webxr). This software contains the following license and notice below:
 
 MIT License
 
@@ -3219,7 +3219,7 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 -----
 
-The following software may be included in this product: eslint-visitor-keys. A copy of the source code may be downloaded from https://github.com/eslint/js.git. This software contains the following license and notice below:
+The following software may be included in this product: eslint-visitor-keys. A copy of the source code may be downloaded from https://github.com/eslint/eslint-visitor-keys.git. This software contains the following license and notice below:
 
 Apache License
                            Version 2.0, January 2004

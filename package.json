@@ -16,7 +16,7 @@
     "generate:schemas": "node ./utils/JsonUtils.js",
     "generate:schemas:minify": "node ./utils/JsonUtils.js --minify",
     "generate:license-report": "npm install -g license-report && license-report --only=prod --output=markdown > THIRD_PARTY_LICENSES.md",
-    "generate:all-licenses-list": "npm yarn licenses generate-disclaimer > THIRD_PARTY_LICENSES_FULL.txt",
+    "generate:all-licenses-list": "yarn licenses generate-disclaimer > THIRD_PARTY_LICENSES_FULL.txt",
     "ts:check": "tsc --noEmit",
     "ts:check:watch": "tsc --watch --noEmit",
     "unit": "vitest run",
