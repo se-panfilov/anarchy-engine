@@ -71,25 +71,31 @@ export function getCanvasContainer(canvas: HTMLCanvasElement): TContainerDecorat
   return ContainerDecorator(parent);
 }
 
-export function isAppGlobalContainer(container: TAppGlobalContainer | TContainerDecorator): container is TAppGlobalContainer {
+export function isAppGlobalContainer(container: TAppGlobalContainer | TContainerDecorator | HTMLElement): container is TAppGlobalContainer {
   return isDefined((container as TAppGlobalContainer).document);
 }
 
-export function observeResize(container: TAppGlobalContainer | HTMLElement, callback: (list: ReadonlyArray<ResizeObserverEntry> | Event) => void): () => void {
-  if (container === window) {
+export function observeResize(
+  container: TAppGlobalContainer | HTMLElement,
+  callback: (list: ReadonlyArray<ResizeObserverEntry> | Event) => void
+): Readonly<{
+  stop: () => void;
+}> {
+  if (isAppGlobalContainer(container)) {
     window.addEventListener('resize', callback);
-    return (): void => {
-      window.removeEventListener('resize', callback);
+    return {
+      stop: (): void => window.removeEventListener('resize', callback)
     };
   }
 
   const resizeObserver = new ResizeObserver(callback);
-
   resizeObserver.observe(container);
 
-  return (): void => {
-    resizeObserver.unobserve(container);
-    resizeObserver.disconnect();
+  return {
+    stop: (): void => {
+      resizeObserver.unobserve(container);
+      resizeObserver.disconnect();
+    }
   };
 }
 

@@ -1,7 +1,7 @@
 import type { BehaviorSubject, Observable } from 'rxjs';
 
 import type { TAppGlobalContainer } from '@/Engine/Global';
-import type { TNoSpread, TWithId } from '@/Engine/Mixins';
+import type { TDestroyable, TNoSpread, TWithId } from '@/Engine/Mixins';
 
 export type TContainerDecorator = Readonly<{
   getWidth: () => number;
@@ -15,4 +15,5 @@ export type TContainerDecorator = Readonly<{
   viewportRect$: BehaviorSubject<DOMRect | undefined>;
 }> &
   TWithId &
-  TNoSpread;
+  TNoSpread &
+  TDestroyable;
