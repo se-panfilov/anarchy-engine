@@ -20,6 +20,7 @@ export function WebErrorTrackingService(): TWebErrorTrackingService {
       // TODO DESKTOP: Implement an adapter to avoid users fingerprinting and send the settings fo Sentry. Same for Desktop.
       // TODO DESKTOP: And maybe add some "state in the game" (level, quest, etc). But we have to apply it dynamically guess, not here.
       // TODO DESKTOP: Windows: Test tracking Web/Desktop (and anonymization)
+      // TODO DESKTOP: add npm script to remove releases
       {
         ...__BUILD_META_INFO__,
         ...(await platformApiService.getPackagesVersions()),
