@@ -10,8 +10,32 @@
 
 ## 1) What this Software is
 
-- Software: (high-level, non-marketing description).
+- Software: Interactive entertainment software (videogame) and its platform-specific client applications, intended for personal use in non-safety-critical environments. Operates offline by default; any online features, if offered, are optional. No personal data collection by the client.
 - Works **offline** by design. Any optional online features (if present) are **opt-in** and described in the **Privacy Policy**.
+
+**Supported platforms (indicative):** Windows 10/11 (64-bit), macOS 12+ (Intel/Apple Silicon), and mainstream Linux x86_64 distributions (e.g., Ubuntu 20.04+), subject to GPU/driver support for WebGL 2 / hardware acceleration.
+
+> **Indicative requirements**. Performance and compatibility depend on device, GPU/driver, OS updates, and browser/runtime. Some older/integrated GPUs or blocked drivers may not support all effects. Where WebGL 2 is unavailable, limited fallback may run with reduced visuals (not guaranteed).
+
+**Minimum system requirements (indicative):** - **OS**: Windows 10/11 (64-bit), macOS 12+ (Intel/Apple Silicon), or Linux x86_64 (e.g., Ubuntu 20.04+).
+
+- **CPU**: x86_64 dual-core or Apple Silicon.
+- **Memory**: 4 GB RAM.
+- **GPU**: hardware-accelerated graphics with WebGL 2 (e.g., OpenGL 3.3/D3D11 class); ~1 GB graphics memory.
+- **Storage**: 1–1.5 GB free (app + caches/logs).
+- **Display**: 1280×720.
+- **Input**: keyboard/mouse or compatible controller/touchpad..
+
+**Recommended system requirements (indicative):** - **OS**: Windows 10/11 (64-bit), macOS 12+ (Intel/Apple Silicon), or Linux x86_64 (e.g., Ubuntu 20.04+).
+
+- **CPU**: 4-core (or better).
+- **Memory**: 8 GB RAM.
+- **GPU**: modern integrated/discrete GPU with robust WebGL 2; ~2 GB graphics memory.
+- **Storage**: 2 GB free.
+- **Display**: 1920×1080.
+- **Input**: keyboard/mouse or compatible controller/touchpad..
+
+**Network**: not required for offline play; occasional connectivity may be needed for updates or optional online features.
 
 ---
 

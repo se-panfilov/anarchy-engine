@@ -26,9 +26,16 @@
 {{#SUPPORTED_PLATFORMS}}
 **Supported platforms (indicative):** {{SUPPORTED_PLATFORMS}}.
 {{/SUPPORTED_PLATFORMS}}
-{{#SYSTEM_REQUIREMENTS}}
-**Minimum system requirements (indicative):** {{SYSTEM_REQUIREMENTS}}.
-{{/SYSTEM_REQUIREMENTS}}
+{{#MIN_SYSTEM_REQUIREMENTS}}
+
+> **Indicative requirements**. Performance and compatibility depend on device, GPU/driver, OS updates, and browser/runtime. Some older/integrated GPUs or blocked drivers may not support all effects. Where WebGL 2 is unavailable, limited fallback may run with reduced visuals (not guaranteed).
+
+**Minimum system requirements (indicative):** {{MIN_SYSTEM_REQUIREMENTS}}.
+
+**Recommended system requirements (indicative):** {{REC_SYSTEM_REQUIREMENTS}}.
+
+**Network**: {{NETWORK_REQUIREMENT}}.
+{{/MIN_SYSTEM_REQUIREMENTS}}
 
 ---
 

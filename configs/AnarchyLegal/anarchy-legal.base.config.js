@@ -68,7 +68,9 @@ export default {
       CONFORMITY_ASSESSMENT_ROUTE: 'internal control',
       IR_RECORD_RETENTION_MONTH: 24,
       PRODUCT_SHORT_PURPOSE:
-        'Interactive entertainment software (videogame) and its platform-specific client applications, intended for personal use in non-safety-critical environments. Operates offline by default; any online features, if offered, are optional. No personal data collection by the client.',
+        'Interactive entertainment software (videogame) and its platform-specific client applications, intended for personal use in non-safety-critical environments. Operates offline by default; any online features, if offered, are optional. No personal data collection by the client',
+
+      NETWORK_REQUIREMENT: 'not required for offline play; occasional connectivity may be needed for updates or optional online features',
 
       //SECURITY
       HAS_OFFICIAL_CHANNELS_LIST: false,
