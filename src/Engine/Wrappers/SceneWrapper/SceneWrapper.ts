@@ -1,7 +1,8 @@
-import { AbstractWrapper, ActorWrapper, CameraWrapper, LightWrapper } from '@Engine/Wrappers';
+import type { IActorWrapper, ICameraWrapper, ILightWrapper } from '@Engine/Wrappers';
+import type { ISceneObject, IWrapper } from '@Engine/Models';
+import { AbstractWrapper } from '@Engine/Wrappers';
 import type { ISceneParams } from '@Engine/Models/ISceneParams';
 import type { ISceneWrapper } from './Models';
-import type { IWrapper } from '@Engine/Models';
 import { Scene } from 'three';
 
 export function SceneWrapper({ name }: ISceneParams): ISceneWrapper {
@@ -12,17 +13,21 @@ export function SceneWrapper({ name }: ISceneParams): ISceneWrapper {
 
   const wrapper: IWrapper<Scene> = AbstractWrapper(entity);
 
-  function addCamera(camera: ReturnType<typeof CameraWrapper>): void {
-    entity.add(camera.entity);
+  function add(obj: ISceneObject): void {
+    entity.add(obj);
   }
 
-  function addActor(actor: ReturnType<typeof ActorWrapper>): void {
-    entity.add(actor.entity);
+  function addCamera(camera: ICameraWrapper): void {
+    add(camera.entity);
   }
 
-  function addLight(actor: ReturnType<typeof LightWrapper>): void {
-    entity.add(actor.entity);
+  function addActor(actor: IActorWrapper): void {
+    add(actor.entity);
   }
 
-  return { ...wrapper, addActor, addCamera, addLight, entity };
+  function addLight(light: ILightWrapper): void {
+    add(light.entity);
+  }
+
+  return { ...wrapper, add, addActor, addCamera, addLight, entity };
 }

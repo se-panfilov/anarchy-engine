@@ -1,4 +1,4 @@
-import type { IActorConfig, ICameraConfig, IControlsConfig, ILightConfig, ISceneConfig } from '@Engine/Launcher/Models';
+import type { IActorConfig, ISceneConfig } from '@Engine/Launcher/Models';
 import type { IAppCanvas, IMousePosition, IWatcher } from '@Engine/Models';
 import type {
   IActorFactory,
@@ -24,7 +24,6 @@ import { createDeferredPromise } from '@Engine/Utils';
 import type {
   IActorWrapper,
   ICameraWrapper,
-  IControlsWrapper,
   ILightWrapper,
   ILoopWrapper,
   IRendererWrapper,
@@ -32,6 +31,7 @@ import type {
 } from '@Engine/Wrappers';
 import { MouseClicksWatcher, MousePositionWatcher } from '@Engine/Watchers';
 import { CameraTag } from '@Engine/Constants';
+import { addToRegistry } from '@Engine/Launcher/AddToRegistry';
 
 export async function launch(sceneConfig: ISceneConfig, canvas: IAppCanvas): Promise<boolean> {
   const { name, actors, cameras, lights, controls } = sceneConfig;
@@ -67,28 +67,16 @@ export async function launch(sceneConfig: ISceneConfig, canvas: IAppCanvas): Pro
     scene.addActor(actor);
   });
 
-  cameras.forEach((config: ICameraConfig): void => {
-    const camera: ICameraWrapper = cameraFactory.fromConfig(config);
-    cameraRegistry.add(camera);
-    scene.addCamera(camera);
-  });
+  actorRegistry.added$.subscribe((actor: IActorWrapper) => scene.addActor(actor));
+  cameraRegistry.added$.subscribe((camera: ICameraWrapper) => scene.addCamera(camera));
+  lightRegistry.added$.subscribe((light: ILightWrapper) => scene.addLight(light));
 
-  lights.forEach((config: ILightConfig): void => {
-    const light: ILightWrapper = lightFactory.fromConfig(config);
-    lightRegistry.add(light);
-    scene.addLight(light);
-  });
-
-  controls.forEach((config: IControlsConfig): void => {
-    const control: IControlsWrapper = controlsFactory.fromConfig(config);
-    controlsRegistry.add(control);
-    // scene.addControl(control);
-  });
+  addToRegistry(actors, actorFactory, actorRegistry);
+  addToRegistry(cameras, cameraFactory, cameraRegistry);
+  addToRegistry(lights, lightFactory, lightRegistry);
+  addToRegistry(controls, controlsFactory, controlsRegistry);
 
   const renderer: IRendererWrapper = rendererFactory.create({ canvas });
-  // create controls (needs camera, renderer)/////////////////////
-  // TODO (S.Panfilov)
-  ////////////////////////////////////
 
   // create mouse pointer/////////////////////
   // TODO (S.Panfilov)
