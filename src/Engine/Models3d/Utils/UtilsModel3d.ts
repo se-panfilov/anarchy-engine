@@ -1,9 +1,12 @@
 import type { AnimationClip, Object3D } from 'three';
+import type { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
 import * as SkeletonUtils from 'three/examples/jsm/utils/SkeletonUtils';
 
 import type { TAnimationsService } from '@/Engine/Animations/Models';
-import type { TModel3dEntities, TModel3dParams } from '@/Engine/Models3d/Models';
+import type { PrimitiveModel3dType } from '@/Engine/Models3d/Constants';
+import type { TModel3dEntities, TModel3dParams, TModel3dRawToModel3dConnectionRegistry } from '@/Engine/Models3d/Models';
 import { createPrimitiveModel3d, isPrimitiveModel3dSource } from '@/Engine/Models3d/Utils';
+import { isDefined } from '@/Engine/Utils';
 
 export function createModels3dEntities(params: TModel3dParams, animationsService: TAnimationsService): TModel3dEntities {
   let model3dSource: Object3D;
@@ -18,4 +21,9 @@ export function createModels3dEntities(params: TModel3dParams, animationsService
   const { actions, mixer } = animationsService.createActions(model3dSource, animationsSource);
 
   return { ...params, model3dSource, animationsSource, actions, mixer };
+}
+
+export function isModel3dAlreadyInUse(model3dSource: GLTF | PrimitiveModel3dType, model3dRawToModel3dConnectionRegistry: TModel3dRawToModel3dConnectionRegistry): boolean {
+  if (isPrimitiveModel3dSource(model3dSource)) return false;
+  return isDefined(model3dRawToModel3dConnectionRegistry.findByModel3d(model3dSource.scene));
 }
