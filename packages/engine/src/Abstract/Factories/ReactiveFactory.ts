@@ -10,7 +10,7 @@ import { AbstractFactory } from './AbstractFactory';
 export function ReactiveFactory<T, P, D = Record<string, any> | undefined, O extends Record<string, any> | undefined = undefined>(
   type: FactoryType | string,
   createEntityFn: TCreateEntityFactoryFn<T, P, D, O>
-): TReactiveFactory<T, P, D> {
+): TReactiveFactory<T, P, D, O> {
   const entityCreated$: Subject<T> = new Subject<T>();
 
   function create(params: P, dependencies: D, options?: O): T {
