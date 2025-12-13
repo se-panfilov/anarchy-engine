@@ -211,6 +211,7 @@ export const JsRules = {
         '[A-a]ccessor[s]?',
         '[A-a]ng',
         '[A-a]nonymization[s]?',
+        '[A-a]nonymize',
         '[A-a]rial',
         '[A-a]sar',
         '[A-a]zimuthal',
