@@ -13,8 +13,7 @@ export function hideMenuBar(win: BrowserWindow): void {
 
 export function noZoom(win: BrowserWindow): void {
   win.webContents.setVisualZoomLevelLimits(1, 1).catch((err: any): void => {
-    console.log('[DESKTOP] Error setting zoom level limits:');
-    // TODO DESKTOP: can we log to the file?
+    console.error('[DESKTOP] Error setting zoom level limits:');
     console.error(err);
   });
 }

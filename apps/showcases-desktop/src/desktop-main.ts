@@ -12,7 +12,6 @@ const desktopAppSettings: TDesktopAppConfig = {
   isOpenDevTools: true
 };
 
-// TODO DESKTOP: Log errors to a file and send it via network anonymously (if user agrees)
 // TODO DESKTOP: Add .env files for different platforms (macos, windows, linux).
 // TODO DESKTOP: We need e2e eventually
 // TODO DESKTOP: 3d texts doesn't work in Safari

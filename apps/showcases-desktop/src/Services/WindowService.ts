@@ -25,7 +25,6 @@ export function WindowService(): TWindowService {
     const path: string = join(__dirname, 'dist-desktop', 'index.html');
 
     if (!existsSync(path)) {
-      // TODO DESKTOP: can we log to the file?
       const errMsg: string = `[DESKTOP] index.html not found at: ${path}`;
       console.error(errMsg);
       dialog.showErrorBox('[DESKTOP] Startup Error', errMsg);
