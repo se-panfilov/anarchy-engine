@@ -1,5 +1,5 @@
-import { app, BrowserWindow, ipcMain, dialog } from 'electron';
-import { dirname, join, resolve } from 'path';
+import { app, BrowserWindow, dialog, ipcMain } from 'electron';
+import { dirname, join } from 'path';
 import { fileURLToPath } from 'url';
 import { existsSync } from 'node:fs';
 
