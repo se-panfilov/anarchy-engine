@@ -1,5 +1,4 @@
 import { BehaviorSubject } from 'rxjs';
-import type { Vector3Like } from 'three';
 import { Vector3 } from 'three/src/math/Vector3';
 
 import { attachConnectorPositionToSubj, attachConnectorRotationToSubj } from '@/App/Levels/Utils';
@@ -26,19 +25,11 @@ export const spaceTransformDriveData: TSpacesData = {
     addAwait('onCreate', spaceTransformDriveData.awaits$);
     space.loops.kinematicLoop.stop();
 
-    const defaultActor: TActor | undefined = space.services.actorService.getRegistry().findByName('cube_default_actor');
-    if (isNotDefined(defaultActor)) throw new Error('[Showcase]: Actor "cube_default_actor" not found');
+    const { defaultActor, kinematicActor, connectedActor, connectedLight } = getShowcaseActors(space);
 
-    const repeaterActor: TActor | undefined = space.services.actorService.getRegistry().findByName('cube_connected_actor');
-    if (isNotDefined(repeaterActor)) throw new Error('[Showcase]: Actor "cube_connected_actor" not found');
-
-    const kinematicActor: TActor | undefined = space.services.actorService.getRegistry().findByName('cube_kinematic_actor');
-    if (isNotDefined(kinematicActor)) throw new Error('[Showcase]: Actor "cube_kinematic_actor" not found');
-
-    const offset: Vector3Like = { x: 4, y: 0, z: 0 };
-    //"repeaterActor" is connected with "positionConnector" (from "connected" agent) to "sphereActor" position
-    attachConnectorPositionToSubj(repeaterActor, kinematicActor.drive.position$, offset);
-    attachConnectorRotationToSubj(repeaterActor, kinematicActor.drive.rotation$);
+    attachConnectorPositionToSubj(connectedActor, kinematicActor.drive.position$, { x: 4, y: 0, z: 0 });
+    attachConnectorRotationToSubj(connectedActor, kinematicActor.drive.rotation$);
+    attachConnectorPositionToSubj(connectedLight, defaultActor.drive.position$, { x: 4, y: -1, z: 0 });
 
     removeAwait('onCreate', spaceTransformDriveData.awaits$);
   },
@@ -58,13 +49,12 @@ export const spaceTransformDriveData: TSpacesData = {
 };
 
 async function performNormalSaveLoadTest(space: TSpace): Promise<void> {
-  const { defaultActor, kinematicActor, kinematicLight, kinematicText } = getShowcaseActors(space);
+  const { defaultActor, kinematicActor, kinematicText } = getShowcaseActors(space);
 
   if (isOriginalSceneLoaded) {
     defaultActor.drive.default.addZ(4);
     kinematicActor.drive.kinematic.moveTo(new Vector3(0, 2, 0), metersPerSecond(0.05));
     kinematicActor.drive.kinematic.lookAt(new Vector3(0, 2, 0), metersPerSecond(0.00003));
-    // kinematicLight.drive.kinematic.moveTo(new Vector3(0, 2, 0), metersPerSecond(0.05));
     kinematicText.drive.kinematic.moveTo(new Vector3(2, 2, 2.5), metersPerSecond(0.05));
   }
 
@@ -110,7 +100,7 @@ function getShowcaseActors({ services }: TSpace): {
   kinematicActor: TActor;
   connectedActor: TActor;
   kinematicText: TText3dTextureWrapper;
-  kinematicLight: TLightWrapper;
+  connectedLight: TLightWrapper;
 } {
   const defaultActor: TActor | undefined = services.actorService.getRegistry().findByName('cube_default_actor');
   if (isNotDefined(defaultActor)) throw new Error('[Showcase]: Actor "cube_default_actor" not found');
@@ -124,8 +114,8 @@ function getShowcaseActors({ services }: TSpace): {
   const kinematicText: TText3dTextureWrapper | undefined = services.textService.getRegistries().text3dTextureRegistry.findByName('kinematic_text');
   if (isNotDefined(kinematicText)) throw new Error('[Showcase]: Text "kinematic_text" not found');
 
-  const kinematicLight: TLightWrapper | undefined = services.lightService.getRegistry().findByName('kinematic_light') as TLightWrapper;
-  if (isNotDefined(kinematicLight)) throw new Error('[Showcase]: Actor "kinematic_light" not found');
+  const connectedLight: TLightWrapper | undefined = services.lightService.getRegistry().findByName('connected_light') as TLightWrapper;
+  if (isNotDefined(connectedLight)) throw new Error('[Showcase]: Actor "connected_light" not found');
 
-  return { defaultActor, kinematicActor, connectedActor, kinematicText, kinematicLight };
+  return { defaultActor, kinematicActor, connectedActor, kinematicText, connectedLight };
 }

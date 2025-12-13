@@ -145,12 +145,13 @@
         "type": "DirectionalLight"
       },
       {
+        "agent": "connected",
         "castShadow": false,
         "color": "#FF0000",
         "decay": 5,
         "distance": 5,
         "intensity": 100,
-        "name": "kinematic_light",
+        "name": "connected_light",
         "position": {
           "x": 0,
           "y": 1,
@@ -291,7 +292,7 @@
         "cssProps": {
           "color": "#FF0000",
           "fontFamily": "\"Roboto\", sans-serif",
-          "fontSize": "24rem"
+          "fontSize": "20rem"
         },
         "name": "kinematic_text",
         "position": {
