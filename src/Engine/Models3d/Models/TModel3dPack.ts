@@ -11,5 +11,6 @@ export type TModel3dPack = TModel3dParams &
     animations: TAnimationsPack;
     actions: TAnimationActions;
     mixer: AnimationMixer;
+    clonedFrom?: string | undefined;
   }> &
   TWithName;

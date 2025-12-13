@@ -7,4 +7,5 @@ import type { TWithModel3dFacadeEntities } from './TWithModel3dFacadeEntities';
 export type TModel3dFacade = TFacade<TWithModel3dFacadeEntities> &
   Readonly<{
     _clone: (overrides?: TOptional<TModel3dPack>) => TModel3dFacade;
+    getPack: () => TModel3dPack;
   }>;

@@ -28,18 +28,20 @@ export function showcase(canvas: TAppCanvas): TShowcase {
     const nameGltfClone: string = 'fox_gltf_clone';
     let mixerGltfClone: AnimationMixer | undefined = undefined;
 
-    //origin glb model
+    //original glb model
     let runAnimationGlb: AnimationAction | undefined = undefined;
     let mixerGLB: AnimationMixer | undefined = undefined;
 
     models3dService.added$.subscribe((facade: TModel3dFacade): void => {
       const actions: TAnimationActions = facade.getActions();
       if (facade.getUrl() === urlGLTF && facade.getName() === nameGltf) {
+        // console.log('original', actions['Run'].getMixer().getRoot().uuid);
         runAnimationGltf = actions['Run'];
         mixerGltf = facade.getMixer();
       }
 
       if (facade.getUrl() === urlGLTF && facade.getName() === nameGltfClone) {
+        // console.log('clonned', actions['Run']);
         runAnimationGLTFClone = actions['Run'];
         mixerGltfClone = facade.getMixer();
       }
@@ -62,7 +64,7 @@ export function showcase(canvas: TAppCanvas): TShowcase {
     const foxGltfOriginal: TModel3dFacade | undefined = modelsList.find((model: TModel3dFacade): boolean => model.getName() === nameGltf);
     if (isNotDefined(foxGltfOriginal)) throw new Error(`Fox GLTF("${nameGltf}") model is not defined`);
 
-    const foxGltfClone: TModel3dFacade = models3dService.clone(foxGltfOriginal, true, { position: Vector3Wrapper({ x: 0, y: 0, z: 5 }) });
+    const foxGltfClone: TModel3dFacade = models3dService.clone(foxGltfOriginal, { name: nameGltfClone, position: Vector3Wrapper({ x: 0, y: 0, z: 5 }) });
 
     // TODO (S.Panfilov) CWP make animation play via service, so we don't need loop and tick everywhere
     keyboardService.onKey(KeyCode.One).pressed$.subscribe((): void => void runAnimationGltf?.play());

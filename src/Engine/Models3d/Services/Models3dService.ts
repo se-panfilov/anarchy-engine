@@ -74,9 +74,11 @@ export function Models3dService(registry: TModels3dAsyncRegistry, animationsServ
     return promises;
   }
 
-  function clone(model3dFacade: TModel3dFacade, shouldAddToRegistry: boolean, overrides?: TOptional<TModel3dPack>): TModel3dFacade {
+  function clone(model3dFacade: TModel3dFacade, overrides?: TOptional<TModel3dPack>): TModel3dFacade {
     const cloned = model3dFacade._clone(overrides);
-    if (shouldAddToRegistry) registry.add(cloned);
+    const options = model3dFacade.getOptions();
+    if (options.shouldAddToRegistry) registry.add(cloned);
+    if (options.shouldAddToScene) sceneW.addModel(cloned.getModel());
     added$.next(cloned);
     return cloned;
   }
