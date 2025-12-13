@@ -7,9 +7,14 @@ import type { TParticlesParams } from './TParticlesParams';
 import type { TParticlesRegistry } from './TParticlesRegistry';
 import type { TParticlesWrapper } from './TParticlesWrapper';
 
+export type TParticlesServiceWithCreate = TWithCreateService<TParticlesWrapper, TParticlesParams>;
+export type TParticlesServiceWithCreateFromConfig = TWithCreateFromConfigService<TParticlesConfig, TParticlesWrapper>;
+export type TParticlesServiceWithFactory = TWithFactoryService<TParticlesWrapper, TParticlesParams, undefined, TParticlesFactory, undefined>;
+export type TParticlesServiceWithRegistry = TWithRegistryService<TParticlesRegistry>;
+
 export type TParticlesService = TAbstractService &
-  TWithCreateService<TParticlesWrapper, TParticlesParams> &
-  TWithCreateFromConfigService<TParticlesConfig, TParticlesWrapper> &
-  TWithFactoryService<TParticlesFactory> &
-  TWithRegistryService<TParticlesRegistry> &
+  TParticlesServiceWithCreate &
+  TParticlesServiceWithCreateFromConfig &
+  TParticlesServiceWithFactory &
+  TParticlesServiceWithRegistry &
   TWithSceneGetterService;

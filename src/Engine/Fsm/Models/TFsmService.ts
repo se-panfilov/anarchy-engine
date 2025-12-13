@@ -5,8 +5,10 @@ import type { TWithFactoryService } from '@/Engine/Mixins';
 import type { TFsmInstanceFactory } from './TFsmInstanceFactory';
 import type { TFsmSourceRegistry } from './TFsmSourceRegistry';
 
+export type TFsmServiceWithFactory = TWithFactoryService<TFsmWrapper, TFsmParams, undefined, TFsmInstanceFactory, undefined>;
+
 export type TFsmService = TAbstractService &
-  TWithFactoryService<TFsmInstanceFactory> &
+  TFsmServiceWithFactory &
   Readonly<{
     create: (params: TFsmParams, force?: boolean) => TFsmWrapper | never;
     createInstanceBySourceName: (sourceName: string) => TFsmWrapper | never;

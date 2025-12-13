@@ -7,8 +7,9 @@ import type { TMaterialParams } from './TMaterialParams';
 import type { TMaterialRegistry } from './TMaterialRegistry';
 import type { TMaterialWrapper } from './TMaterialWrapper';
 
-export type TMaterialService = TAbstractService &
-  TWithCreateService<TMaterialWrapper, TMaterialParams> &
-  TWithCreateFromConfigService<TMaterialConfig, TMaterialWrapper> &
-  TWithFactoryService<TMaterialFactory> &
-  TWithRegistryService<TMaterialRegistry>;
+export type TMaterialServiceWithCreate = TWithCreateService<TMaterialWrapper, TMaterialParams>;
+export type TMaterialServiceWithCreateFromConfig = TWithCreateFromConfigService<TMaterialConfig, TMaterialWrapper>;
+export type TMaterialServiceWithFactory = TWithFactoryService<TMaterialWrapper, TMaterialParams, undefined, TMaterialFactory, undefined>;
+export type TMaterialServiceWithRegistry = TWithRegistryService<TMaterialRegistry>;
+
+export type TMaterialService = TAbstractService & TMaterialServiceWithCreate & TMaterialServiceWithCreateFromConfig & TMaterialServiceWithFactory & TMaterialServiceWithRegistry;

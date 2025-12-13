@@ -3,13 +3,14 @@ import type { TWithCreateFromConfigService, TWithCreateService, TWithFactoryServ
 
 import type { TActor } from './TActor';
 import type { TActorConfig } from './TActorConfig';
+import type { TActorServiceDependencies } from './TActorDependencies';
 import type { TActorFactory } from './TActorFactory';
 import type { TActorParams } from './TActorParams';
 import type { TActorRegistry } from './TActorRegistry';
 
-export type TActorService = TAbstractService &
-  TWithCreateService<TActor, TActorParams> &
-  TWithCreateFromConfigService<TActorConfig, TActor> &
-  TWithFactoryService<TActorFactory> &
-  TWithRegistryService<TActorRegistry> &
-  TWithSceneGetterService;
+export type TActorServiceWithCreate = TWithCreateService<TActor, TActorParams>;
+export type TActorServiceWithCreateFromConfig = TWithCreateFromConfigService<TActorConfig, TActor>;
+export type TActorServiceWithFactory = TWithFactoryService<TActor, TActorParams, TActorServiceDependencies, TActorFactory, undefined>;
+export type TActorServiceWithRegistry = TWithRegistryService<TActorRegistry>;
+
+export type TActorService = TAbstractService & TActorServiceWithCreate & TActorServiceWithCreateFromConfig & TActorServiceWithFactory & TActorServiceWithRegistry & TWithSceneGetterService;

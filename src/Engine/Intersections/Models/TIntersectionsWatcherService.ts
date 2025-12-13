@@ -11,9 +11,14 @@ import type { TIntersectionsWatcherFactory } from './TIntersectionsWatcherFactor
 import type { TIntersectionsWatcherParams } from './TIntersectionsWatcherParams';
 import type { TIntersectionsWatcherRegistry } from './TIntersectionsWatcherRegistry';
 
+export type TIntersectionsWatcherServiceWithCreate = TWithCreateService<TIntersectionsWatcher, TIntersectionsWatcherParams>;
+export type TIntersectionsWatcherServiceWithCreateFromConfig = Omit<TWithCreateFromConfigService<TIntersectionsWatcherConfig, TIntersectionsWatcher>, 'createFromConfig'>;
+export type TIntersectionsWatcherServiceWithFactory = TWithFactoryService<TIntersectionsWatcher, TIntersectionsWatcherParams, undefined, TIntersectionsWatcherFactory, undefined>;
+export type TIntersectionsWatcherServiceWithRegistry = TWithRegistryService<TIntersectionsWatcherRegistry>;
+
 export type TIntersectionsWatcherService = TAbstractService &
-  TWithCreateService<TIntersectionsWatcher, TIntersectionsWatcherParams> &
-  Omit<TWithCreateFromConfigService<TIntersectionsWatcherConfig, TIntersectionsWatcher>, 'createFromConfig'> &
+  TIntersectionsWatcherServiceWithCreate &
+  TIntersectionsWatcherServiceWithCreateFromConfig &
   Readonly<{
     createFromConfig: (
       configs: ReadonlyArray<TIntersectionsWatcherConfig>,
@@ -23,5 +28,5 @@ export type TIntersectionsWatcherService = TAbstractService &
       loopService: TLoopService
     ) => ReadonlyArray<TIntersectionsWatcher>;
   }> &
-  TWithFactoryService<TIntersectionsWatcherFactory> &
-  TWithRegistryService<TIntersectionsWatcherRegistry>;
+  TIntersectionsWatcherServiceWithFactory &
+  TIntersectionsWatcherServiceWithRegistry;

@@ -11,12 +11,17 @@ import type {
   TWithSceneGetterService
 } from '@/Engine/Mixins';
 
+export type TEnvMapServiceWithCreate = TWithCreateService<TEnvMapWrapper, TEnvMapParams>;
+export type TEnvMapServiceWithCreateFromConfig = TWithCreateFromConfigService<TEnvMapConfig, TEnvMapWrapper>;
+export type TEnvMapServiceWithFactory = TWithFactoryService<TEnvMapWrapper, TEnvMapParams, undefined, TEnvMapFactory, undefined>;
+export type TEnvMapServiceWithRegistry = TWithRegistryService<TEnvMapRegistry>;
+
 export type TEnvMapService = TAbstractService &
-  TWithCreateService<TEnvMapWrapper, TEnvMapParams> &
-  TWithCreateFromConfigService<TEnvMapConfig, TEnvMapWrapper> &
+  TEnvMapServiceWithCreate &
+  TEnvMapServiceWithCreateFromConfig &
   TWithActiveAccessorsService<TEnvMapWrapper> &
-  TWithFactoryService<TEnvMapFactory> &
-  TWithRegistryService<TEnvMapRegistry> &
+  TEnvMapServiceWithFactory &
+  TEnvMapServiceWithRegistry &
   TWithResourcesRegistryService<TEnvMapTextureAsyncRegistry> &
   TWithLoadResourcesAsyncService<TEnvMapResourceConfig, TEnvMapTexture> &
   TWithSceneGetterService;

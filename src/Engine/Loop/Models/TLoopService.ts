@@ -6,9 +6,10 @@ import type { TIntersectionsLoop } from '@/Engine/Intersections';
 import type { TKeyboardLoop } from '@/Engine/Keyboard';
 import type { TKinematicLoop } from '@/Engine/Kinematic';
 import type { LoopType } from '@/Engine/Loop/Constants';
-import type { TRenderLoop, TWithCreateService, TWithFactoryService, TWithRegistryService } from '@/Engine/Mixins';
+import type { TWithCreateService, TWithFactoryService, TWithRegistryService } from '@/Engine/Mixins';
 import type { TMouseLoop } from '@/Engine/Mouse';
 import type { TPhysicalLoop } from '@/Engine/Physics';
+import type { TRenderLoop } from '@/Engine/Space';
 import type { TSpatialLoop } from '@/Engine/Spatial';
 import type { TTextLoop } from '@/Engine/Text';
 import type { TTransformLoop } from '@/Engine/TransformDrive';
@@ -17,6 +18,10 @@ import type { TLoop } from './TLoop';
 import type { TLoopFactory } from './TLoopFactory';
 import type { TLoopParams } from './TLoopParams';
 import type { TLoopRegistry } from './TLoopRegistry';
+
+export type TLoopServiceWithCreate = TWithCreateService<TLoop, TLoopParams>;
+export type TLoopServiceWithFactory = TWithFactoryService<TLoop, TLoopParams, undefined, TLoopFactory, undefined>;
+export type TLoopServiceWithRegistry = TWithRegistryService<TLoopRegistry>;
 
 export type TLoopService = TAbstractService &
   Readonly<{
@@ -34,6 +39,6 @@ export type TLoopService = TAbstractService &
     getControlsLoop: (name?: string) => TControlsLoop | never;
     getLoop: (name: string | undefined, type: LoopType) => TLoop | never;
   }> &
-  TWithCreateService<TLoop, TLoopParams> &
-  TWithFactoryService<TLoopFactory> &
-  TWithRegistryService<TLoopRegistry>;
+  TLoopServiceWithCreate &
+  TLoopServiceWithFactory &
+  TLoopServiceWithRegistry;

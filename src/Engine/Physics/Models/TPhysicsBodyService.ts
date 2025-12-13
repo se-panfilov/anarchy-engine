@@ -7,14 +7,20 @@ import type { TPhysicsBody } from './TPhysicsBody';
 import type { TPhysicsBodyFactory } from './TPhysicsBodyFactory';
 import type { TPhysicsBodyParams } from './TPhysicsBodyParams';
 import type { TPhysicsBodyRegistry } from './TPhysicsBodyRegistry';
+import type { TPhysicsDependencies } from './TPhysicsDependencies';
 import type { TPhysicsPresetParams } from './TPhysicsPresetParams';
 import type { TWithPresetNamePhysicsBodyConfig } from './TWithPresetNamePhysicsBodyConfig';
 
+export type TPhysicsBodyServiceWithCreate = TWithCreateService<TPhysicsBody, TPhysicsBodyParams>;
+export type TPhysicsBodyServiceWithCreateFromConfig = TWithCreateFromConfigService<TWithPresetNamePhysicsBodyConfig, TPhysicsBody>;
+export type TPhysicsBodyServiceWithFactory = TWithFactoryService<TPhysicsBody, TPhysicsBodyParams, TPhysicsDependencies, TPhysicsBodyFactory, undefined>;
+export type TPhysicsBodyServiceWithRegistry = TWithRegistryService<TPhysicsBodyRegistry>;
+
 export type TPhysicsBodyService = TAbstractService &
-  TWithCreateService<TPhysicsBody, TPhysicsBodyParams> &
-  TWithCreateFromConfigService<TWithPresetNamePhysicsBodyConfig, TPhysicsBody> &
-  TWithFactoryService<TPhysicsBodyFactory> &
-  TWithRegistryService<TPhysicsBodyRegistry> &
+  TPhysicsBodyServiceWithCreate &
+  TPhysicsBodyServiceWithCreateFromConfig &
+  TPhysicsBodyServiceWithFactory &
+  TPhysicsBodyServiceWithRegistry &
   Readonly<{
     createWithPreset: (params: TOptional<TPhysicsBodyParams>, preset: TPhysicsPresetParams) => TPhysicsBody | never;
     createWithPresetName: (params: TOptional<TPhysicsBodyParams>, presetName: string) => TPhysicsBody | never;

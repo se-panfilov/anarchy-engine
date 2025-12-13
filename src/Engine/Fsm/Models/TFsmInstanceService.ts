@@ -6,4 +6,8 @@ import type { TFsmInstanceRegistry } from './TFsmInstanceRegistry';
 import type { TFsmSource } from './TFsmSource';
 import type { TFsmWrapper } from './TFsmWrapper';
 
-export type TFsmInstanceService = TAbstractService & TWithCreateService<TFsmWrapper, TFsmSource> & TWithFactoryService<TFsmInstanceFactory> & TWithRegistryService<TFsmInstanceRegistry>;
+export type TFsmServiceWithCreate = TWithCreateService<TFsmWrapper, TFsmSource>;
+export type TFsmServiceWithFactory = TWithFactoryService<TFsmWrapper, TFsmSource, undefined, TFsmInstanceFactory, undefined>;
+export type TFsmServiceWithRegistry = TWithRegistryService<TFsmInstanceRegistry>;
+
+export type TFsmInstanceService = TAbstractService & TFsmServiceWithCreate & TFsmServiceWithFactory & TFsmServiceWithRegistry;

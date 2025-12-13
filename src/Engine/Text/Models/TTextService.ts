@@ -14,13 +14,18 @@ import type { TText3dRendererRegistry } from './TText3dRendererRegistry';
 import type { TText3dTextureRegistry } from './TText3dTextureRegistry';
 import type { TTextAnyWrapper } from './TTextAnyWrapper';
 import type { TTextConfig } from './TTextConfig';
+import type { TTextDependencies } from './TTextDependencies';
 import type { TTextFactory } from './TTextFactory';
 import type { TTextParams } from './TTextParams';
 
+export type TTextServiceWithCreate = TWithCreateService<TTextAnyWrapper, TTextParams>;
+export type TTextServiceWithCreateFromConfig = TWithCreateFromConfigService<TTextConfig, TTextAnyWrapper>;
+export type TTextServiceWithFactory = TWithFactoryService<TTextAnyWrapper, TTextParams, TTextDependencies, TTextFactory, undefined>;
+
 export type TTextService = TAbstractService &
-  TWithCreateService<TTextAnyWrapper, TTextParams> &
-  TWithCreateFromConfigService<TTextConfig, TTextAnyWrapper> &
-  TWithFactoryService<TTextFactory> &
+  TTextServiceWithCreate &
+  TTextServiceWithCreateFromConfig &
+  TTextServiceWithFactory &
   Readonly<{
     getRegistries: () => { text2dRegistry: TText2dRegistry; text3dRegistry: TText3dRegistry; text3dTextureRegistry: TText3dTextureRegistry };
     createText2dRenderer: (container: TAppGlobalContainer, screenSizeWatcher: Readonly<TScreenSizeWatcher>) => TText2dRenderer;
