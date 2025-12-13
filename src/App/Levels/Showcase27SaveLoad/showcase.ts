@@ -27,7 +27,6 @@ import { createContainersDivs, setContainerVisibility } from './utils';
 
 let subscriptions: Record<string, Subscription> = {};
 
-// TODO 15-0-0: E2E: Physics
 // TODO 15-0-0: E2E: Spatial
 // TODO 15-0-0: E2E: Intersections
 // TODO 15-0-0: E2E: Complex scene (similar to Showcase22PhysicsShooter)

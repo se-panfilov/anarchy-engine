@@ -15,7 +15,6 @@ const config: TSpaceConfig = spaceConfig as TSpaceConfig;
 let isOriginalSceneLoaded: boolean = true;
 let continuousStepCounter: number = 0;
 
-// TODO 15-0-0: Add physical TD check after serialization physics will be done
 export const spaceTransformDriveData: TSpacesData = {
   name: config.name,
   config: config,
@@ -87,7 +86,9 @@ async function performContinuousMoveSaveLoadTest(space: TSpace): Promise<void> {
   if (continuousStepCounter === 1) {
     addAwait('continuous_move_1', spaceTransformDriveData.awaits$);
     await Promise.all([doLoopSteps(space.loops.physicalLoop, 110, 10), doLoopSteps(space.loops.kinematicLoop, 110, 10)]);
-    removeAwait('continuous_move_1', spaceTransformDriveData.awaits$);
+    setTimeout((): void => {
+      removeAwait('continuous_move_1', spaceTransformDriveData.awaits$);
+    }, 500);
   }
 
   continuousStepCounter += 1;
