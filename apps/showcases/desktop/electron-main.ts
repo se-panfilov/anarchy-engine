@@ -14,7 +14,8 @@ const isOpenDevTools: boolean = true;
 // TODO DESKTOP: Detect resolution and set window size accordingly
 // TODO DESKTOP: Save/Load with files?
 // TODO DESKTOP: Save/Load app's settings (screen resolution, fullscreen mode, etc.)
-// TODO DESKTOP: Steam integration (cloud saves, achievements, layer, etc.)
+// TODO DESKTOP: Steam integration (manifest, cloud saves, achievements, layer, etc.)
+// TODO DESKTOP: Other integrations (epic, gog, etc.)
 // TODO DESKTOP: Error forwarding to a file (with versions)
 // TODO DESKTOP: Can we avoid copying of dist-desktop to dist-app? (check paths in asar)
 // TODO DESKTOP: Add canvas.requestPointerLock(); on a Space level
