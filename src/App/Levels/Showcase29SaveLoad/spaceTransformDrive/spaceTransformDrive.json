@@ -31,7 +31,7 @@
       },
       {
         "agent": "default",
-        "model3dSource": "cube_model",
+        "model3dSource": "cube_default_model",
         "name": "cube_default_actor",
         "position": {
           "x": -4,
@@ -50,7 +50,7 @@
       },
       {
         "agent": "connected",
-        "model3dSource": "cube_model",
+        "model3dSource": "cube_connected_model",
         "name": "cube_connected_actor",
         "position": {
           "x": 0,
@@ -69,7 +69,7 @@
       },
       {
         "agent": "physical",
-        "model3dSource": "cube_model",
+        "model3dSource": "cube_physical_model",
         "name": "cube_physical_actor",
         "physics": {
           "presetName": "box_physics",
@@ -96,7 +96,7 @@
       },
       {
         "agent": "kinematic",
-        "model3dSource": "cube_model",
+        "model3dSource": "cube_kinematic_model",
         "name": "cube_kinematic_actor",
         "position": {
           "x": 8,
@@ -189,9 +189,30 @@
         "type": "MeshStandardMaterial"
       },
       {
-        "name": "cube_material",
+        "name": "cube_default_material",
+        "options": {
+          "color": "#2196F3"
+        },
+        "type": "MeshStandardMaterial"
+      },
+      {
+        "name": "cube_connected_material",
         "options": {
           "color": "#E91E63"
+        },
+        "type": "MeshStandardMaterial"
+      },
+      {
+        "name": "cube_physical_material",
+        "options": {
+          "color": "#FF9800"
+        },
+        "type": "MeshStandardMaterial"
+      },
+      {
+        "name": "cube_kinematic_material",
+        "options": {
+          "color": "#9C27B0"
         },
         "type": "MeshStandardMaterial"
       }
@@ -222,9 +243,42 @@
       },
       {
         "castShadow": true,
-        "material": "cube_material",
+        "material": "cube_default_material",
         "model3dSource": "cube",
-        "name": "cube_model",
+        "name": "cube_default_model",
+        "options": {
+          "depth": 4,
+          "height": 1,
+          "width": 1
+        }
+      },
+      {
+        "castShadow": true,
+        "material": "cube_connected_material",
+        "model3dSource": "cube",
+        "name": "cube_connected_model",
+        "options": {
+          "depth": 4,
+          "height": 1,
+          "width": 1
+        }
+      },
+      {
+        "castShadow": true,
+        "material": "cube_physical_material",
+        "model3dSource": "cube",
+        "name": "cube_physical_model",
+        "options": {
+          "depth": 4,
+          "height": 1,
+          "width": 1
+        }
+      },
+      {
+        "castShadow": true,
+        "material": "cube_kinematic_material",
+        "model3dSource": "cube",
+        "name": "cube_kinematic_model",
         "options": {
           "depth": 4,
           "height": 1,
