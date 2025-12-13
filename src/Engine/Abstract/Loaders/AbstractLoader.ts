@@ -1,4 +1,5 @@
 import { nanoid } from 'nanoid';
+import type { Subscription } from 'rxjs';
 import { Subject } from 'rxjs';
 import type { Loader } from 'three';
 
@@ -41,7 +42,9 @@ export function AbstractLoader<L extends Loader<any>, R extends TProtectedRegist
   const setOnLoadedFn = (onLoaded: TAbstractOnLoadFunction<T>): void => void (onLoadedFn = onLoaded);
 
   const destroyable: TDestroyable = destroyableMixin();
-  destroyable.destroy$.subscribe((): void => {
+  const destroySub$: Subscription = destroyable.destroy$.subscribe((): void => {
+    destroySub$.unsubscribe();
+
     registry.destroy$.next();
   });
 

@@ -1,3 +1,5 @@
+import type { Subscription } from 'rxjs';
+
 import type { TAppCanvas } from '@/Engine/App';
 import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
@@ -33,7 +35,9 @@ export function SpaceService(): TSpaceService {
     const destroyable: TDestroyable = destroyableMixin();
     const builtMixin: TWithBuilt = withBuiltMixin();
 
-    destroyable.destroy$.subscribe((): void => {
+    const destroySub$: Subscription = destroyable.destroy$.subscribe((): void => {
+      destroySub$.unsubscribe();
+
       builtMixin.built$.complete();
       builtMixin.built$.unsubscribe();
       Object.values(services).forEach((service): void => void (isDestroyable(service) && service.destroy$.next()));

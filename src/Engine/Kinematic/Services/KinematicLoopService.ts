@@ -1,3 +1,4 @@
+import type { Subscription } from 'rxjs';
 import { Subject } from 'rxjs';
 
 import type { TKinematicLoopService } from '@/Engine/Kinematic/Models';
@@ -9,7 +10,9 @@ export function KinematicLoopService(): TKinematicLoopService {
   const tick$: Subject<number> = new Subject<number>();
 
   const destroyable: TDestroyable = destroyableMixin();
-  destroyable.destroy$.subscribe((): void => {
+  const destroySub$: Subscription = destroyable.destroy$.subscribe((): void => {
+    destroySub$.unsubscribe();
+
     tick$.complete();
     tick$.unsubscribe();
   });

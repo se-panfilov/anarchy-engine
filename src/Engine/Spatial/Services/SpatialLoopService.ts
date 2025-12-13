@@ -1,3 +1,4 @@
+import type { Subscription } from 'rxjs';
 import { Subject } from 'rxjs';
 
 import type { TDestroyable } from '@/Engine/Mixins';
@@ -9,7 +10,9 @@ export function SpatialLoopService(): TSpatialLoopService {
   const tick$: Subject<TSpatialLoopServiceValue> = new Subject<TSpatialLoopServiceValue>();
 
   const destroyable: TDestroyable = destroyableMixin();
-  destroyable.destroy$.subscribe((): void => {
+  const destroySub$: Subscription = destroyable.destroy$.subscribe((): void => {
+    destroySub$.unsubscribe();
+
     tick$.complete();
     tick$.unsubscribe();
   });

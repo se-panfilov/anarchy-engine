@@ -22,11 +22,12 @@ export function withKinematic(params: TActorParams, kinematicLoopService: TKinem
   let kinematicSub$: Subscription | undefined = undefined;
 
   const destroyable: TDestroyable = destroyableMixin();
-  const destroyableSub$: Subscription = destroyable.destroy$.subscribe((): void => {
+  const destroySub$: Subscription = destroyable.destroy$.subscribe((): void => {
+    destroySub$.unsubscribe();
+
     //Stop subscriptions
     kinematicSub$?.unsubscribe();
     driveSubscription$.unsubscribe();
-    destroyableSub$.unsubscribe();
 
     //Complete subjects
     position$.complete();

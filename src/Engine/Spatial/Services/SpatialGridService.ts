@@ -12,7 +12,8 @@ export function SpatialGridService(factory: TSpatialGridFactory, registry: TSpat
     spatialGrids.map((spatialGrid: TSpatialGridConfig): TSpatialGridWrapper => create(factory.configToParams(spatialGrid)));
 
   const destroyable: TDestroyable = destroyableMixin();
-  destroyable.destroy$.subscribe((): void => {
+  const destroySub$: Subscription = destroyable.destroy$.subscribe((): void => {
+    destroySub$.unsubscribe();
     factorySub$.unsubscribe();
 
     factory.destroy$.next();

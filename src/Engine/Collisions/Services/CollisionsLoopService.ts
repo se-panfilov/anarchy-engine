@@ -1,3 +1,4 @@
+import type { Subscription } from 'rxjs';
 import { Subject } from 'rxjs';
 
 import type { TCollisionsLoopService, TCollisionsLoopServiceValue } from '@/Engine/Collisions/Models';
@@ -9,7 +10,9 @@ export function CollisionsLoopService(): TCollisionsLoopService {
   const tick$: Subject<TCollisionsLoopServiceValue> = new Subject<TCollisionsLoopServiceValue>();
 
   const destroyable: TDestroyable = destroyableMixin();
-  destroyable.destroy$.subscribe((): void => {
+  const destroySub$: Subscription = destroyable.destroy$.subscribe((): void => {
+    destroySub$.unsubscribe();
+
     tick$.complete();
     tick$.unsubscribe();
   });

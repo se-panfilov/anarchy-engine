@@ -16,7 +16,8 @@ export function RendererService(factory: TRendererFactory, registry: TRendererRe
   const create = (params: TRendererParams): TRendererWrapper => factory.create(params);
 
   const destroyable: TDestroyable = destroyableMixin();
-  destroyable.destroy$.subscribe((): void => {
+  const destroySub$: Subscription = destroyable.destroy$.subscribe((): void => {
+    destroySub$.unsubscribe();
     registrySub$.unsubscribe();
     factorySub$.unsubscribe();
 

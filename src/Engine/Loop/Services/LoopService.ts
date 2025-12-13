@@ -1,3 +1,4 @@
+import type { Subscription } from 'rxjs';
 import { Subject, tap } from 'rxjs';
 import Stats from 'stats.js';
 import { Clock } from 'three';
@@ -44,7 +45,9 @@ export function LoopService(): TLoopService {
   }
 
   const destroyable: TDestroyable = destroyableMixin();
-  destroyable.destroy$.subscribe((): void => {
+  const destroySub$: Subscription = destroyable.destroy$.subscribe((): void => {
+    destroySub$.unsubscribe();
+
     beforeTick$.complete();
     beforeTick$.unsubscribe();
     tick$.complete();

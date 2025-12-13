@@ -25,7 +25,9 @@ export function ControlService(factory: TControlsFactory, registry: TControlsReg
   };
 
   const destroyable: TDestroyable = destroyableMixin();
-  destroyable.destroy$.subscribe((): void => {
+  const destroySub$: Subscription = destroyable.destroy$.subscribe((): void => {
+    destroySub$.unsubscribe();
+
     registrySub$.unsubscribe();
     factorySub$.unsubscribe();
 

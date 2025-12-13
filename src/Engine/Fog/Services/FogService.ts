@@ -14,9 +14,11 @@ export function FogService(factory: TFogFactory, registry: TFogRegistry, scene: 
   const createFromConfig = (fogs: ReadonlyArray<TFogConfig>): ReadonlyArray<TFogWrapper> => fogs.map((fog: TFogConfig): TFogWrapper => create(factory.configToParams(fog)));
 
   const destroyable: TDestroyable = destroyableMixin();
-  destroyable.destroy$.subscribe((): void => {
+  const destroySub$: Subscription = destroyable.destroy$.subscribe((): void => {
+    destroySub$.unsubscribe();
     registrySub$.unsubscribe();
     factorySub$.unsubscribe();
+
     factory.destroy$.next();
     registry.destroy$.next();
   });

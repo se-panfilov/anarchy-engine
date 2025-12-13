@@ -27,7 +27,8 @@ export function IntersectionsWatcherService(factory: TIntersectionsWatcherFactor
     configs.map((config: TIntersectionsWatcherConfig): TIntersectionsWatcher => create(factory.configToParams(config, mouseService, cameraService, actorService)));
 
   const destroyable: TDestroyable = destroyableMixin();
-  destroyable.destroy$.subscribe((): void => {
+  const destroySub$: Subscription = destroyable.destroy$.subscribe((): void => {
+    destroySub$.unsubscribe();
     factorySub$.unsubscribe();
 
     factory.destroy$.next();

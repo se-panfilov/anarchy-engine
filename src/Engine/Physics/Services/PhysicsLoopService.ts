@@ -1,4 +1,5 @@
 import type { World } from '@dimforge/rapier3d';
+import type { Subscription } from 'rxjs';
 import { Subject } from 'rxjs';
 
 import type { TDestroyable } from '@/Engine/Mixins';
@@ -11,7 +12,9 @@ export function PhysicsLoopService(physicsWorldService: TPhysicsWorldService): T
   const tick$: Subject<void> = new Subject<void>();
 
   const destroyable: TDestroyable = destroyableMixin();
-  destroyable.destroy$.subscribe((): void => {
+  const destroySub$: Subscription = destroyable.destroy$.subscribe((): void => {
+    destroySub$.unsubscribe();
+
     tick$.complete();
     tick$.unsubscribe();
   });

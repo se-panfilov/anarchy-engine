@@ -1,3 +1,4 @@
+import type { Subscription } from 'rxjs';
 import { filter, Subject } from 'rxjs';
 
 import { WatcherTag } from '@/Engine/Abstract';
@@ -104,7 +105,9 @@ export function MouseService(container: TGlobalContainerDecorator, { loopService
   });
 
   const destroyable: TDestroyable = destroyableMixin();
-  destroyable.destroy$.subscribe((): void => {
+  const destroySub$: Subscription = destroyable.destroy$.subscribe((): void => {
+    destroySub$.unsubscribe();
+
     clickPress$.complete();
     clickPress$.unsubscribe();
     clickLeftPress$.complete();

@@ -1,3 +1,4 @@
+import type { Subscription } from 'rxjs';
 import { Subject } from 'rxjs';
 
 import type { FactoryType } from '@/Engine/Abstract/Constants';
@@ -20,7 +21,9 @@ export function ReactiveFactoryWithDependencies<T, P, D>(type: FactoryType | str
   }
 
   const destroyable = destroyableMixin();
-  destroyable.destroy$.subscribe(() => {
+  const destroySub$: Subscription = destroyable.destroy$.subscribe((): void => {
+    destroySub$.unsubscribe();
+
     entityCreated$.complete();
     entityCreated$.unsubscribe();
   });

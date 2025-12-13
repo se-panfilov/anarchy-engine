@@ -1,4 +1,5 @@
 import { nanoid } from 'nanoid';
+import type { Subscription } from 'rxjs';
 import { Subject } from 'rxjs';
 
 import type { WatcherType } from '@/Engine/Abstract/Constants';
@@ -13,7 +14,9 @@ export function AbstractWatcher<T>(type: WatcherType | string, name: string | un
   const value$: Subject<T> = new Subject<T>();
   const destroyable: TDestroyable = destroyableMixin();
 
-  destroyable.destroy$.subscribe((): void => {
+  const destroySub$: Subscription = destroyable.destroy$.subscribe((): void => {
+    destroySub$.unsubscribe();
+
     value$.complete();
     value$.unsubscribe();
   });

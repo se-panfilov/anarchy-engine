@@ -32,7 +32,9 @@ export function EnvMapService(factory: TEnvMapFactory, registry: TEnvMapRegistry
   const findActive = withActive.findActive;
 
   const destroyable: TDestroyable = destroyableMixin();
-  destroyable.destroy$.subscribe((): void => {
+  const destroySub$: Subscription = destroyable.destroy$.subscribe((): void => {
+    destroySub$.unsubscribe();
+
     registrySub$.unsubscribe();
     factorySub$.unsubscribe();
 

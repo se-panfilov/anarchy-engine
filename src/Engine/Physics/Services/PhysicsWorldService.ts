@@ -1,4 +1,5 @@
 import { World } from '@dimforge/rapier3d';
+import type { Subscription } from 'rxjs';
 import type { Vector3 } from 'three/src/math/Vector3';
 
 import type { TLoopService } from '@/Engine/Loop';
@@ -60,7 +61,9 @@ export function PhysicsWorldService(scene: TSceneWrapper): TPhysicsWorldService 
   }
 
   const destroyable: TDestroyable = destroyableMixin();
-  destroyable.destroy$.subscribe((): void => {
+  const destroySub$: Subscription = destroyable.destroy$.subscribe((): void => {
+    destroySub$.unsubscribe();
+
     world?.free();
   });
 

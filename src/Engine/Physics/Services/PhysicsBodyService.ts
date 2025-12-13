@@ -52,7 +52,8 @@ export function PhysicsBodyService(
   };
 
   const destroyable: TDestroyable = destroyableMixin();
-  destroyable.destroy$.subscribe((): void => {
+  const destroySub$: Subscription = destroyable.destroy$.subscribe((): void => {
+    destroySub$.unsubscribe();
     factorySub$.unsubscribe();
 
     factory.destroy$.next();

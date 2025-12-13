@@ -1,3 +1,5 @@
+import type { Subscription } from 'rxjs';
+
 import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
 import { configToParamsPreset } from '@/Engine/Physics/Adapters';
@@ -19,7 +21,11 @@ export function PhysicsPresetsService(registry: TPhysicsPresetRegistry): TPhysic
   const addPresetsFromConfig = (presets: ReadonlyArray<TPhysicsPresetConfig>): void => addPresets(presets.map(configToParamsPreset));
 
   const destroyable: TDestroyable = destroyableMixin();
-  destroyable.destroy$.subscribe(() => registry.destroy$.next());
+  const destroySub$: Subscription = destroyable.destroy$.subscribe((): void => {
+    destroySub$.unsubscribe();
+
+    registry.destroy$.next();
+  });
 
   const getPresetByName = (name: string): TPhysicsPresetParams | undefined => registry.findByKey(name);
 
