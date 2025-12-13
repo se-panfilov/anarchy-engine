@@ -193,6 +193,7 @@ export const JsRules = {
         '[R-r]ender[er]?[s]?',
         '[R-r]oboto',
         '[S-s]chema[s]?',
+        '[U-u]nobserve[d]?',
         '[U-u]ntrack[ed]?',
         '[U-u]ppercase',
         '[U-u]rl[s]?',
