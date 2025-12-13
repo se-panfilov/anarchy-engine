@@ -4,7 +4,7 @@ import type { TDestroyable } from '@/Engine/Mixins';
 
 import type { TAbstractSimpleRegistry } from './TAbstractSimpleRegistry';
 
-export type TAbstractSimpleAsyncRegistry<T> = TAbstractSimpleRegistry<T> &
+export type TAbstractResourceAsyncRegistry<T> = TAbstractSimpleRegistry<T> &
   Readonly<{
     findByKeyAsync: (name: string) => Promise<T | undefined>;
     findByKey$: (name: string) => Observable<T>;

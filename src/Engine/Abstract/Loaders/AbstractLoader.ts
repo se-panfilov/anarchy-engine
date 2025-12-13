@@ -3,13 +3,13 @@ import { Subject } from 'rxjs';
 import type { Loader } from 'three';
 
 import type { LoaderType } from '@/Engine/Abstract/Constants';
-import type { TAbstractLoadedResourcePack, TAbstractLoader, TAbstractOnLoadFunction, TAbstractResourceConfig, TAbstractSimpleAsyncRegistry, TProtectedRegistry } from '@/Engine/Abstract/Models';
+import type { TAbstractLoadedResourcePack, TAbstractLoader, TAbstractOnLoadFunction, TAbstractResourceAsyncRegistry, TAbstractResourceConfig, TProtectedRegistry } from '@/Engine/Abstract/Models';
 import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
 import type { TWriteable } from '@/Engine/Utils';
 import { isDefined } from '@/Engine/Utils';
 
-export function AbstractLoader<L extends Loader<any>, R extends TProtectedRegistry<TAbstractSimpleAsyncRegistry<T>>, T, C extends TAbstractResourceConfig>(
+export function AbstractLoader<L extends Loader<any>, R extends TProtectedRegistry<TAbstractResourceAsyncRegistry<T>>, T, C extends TAbstractResourceConfig>(
   loader: L,
   registry: R,
   type: LoaderType
