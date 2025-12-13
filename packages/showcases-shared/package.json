@@ -2,7 +2,7 @@
   "name": "showcases_shared",
   "author": "S. Panfilov",
   "private": true,
-  "version": "1.0.2",
+  "version": "1.0.3",
   "type": "module",
   "sideEffects": false,
   "license": "MIT",
