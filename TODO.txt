@@ -30,6 +30,7 @@ Done:
 - 17.0.0 E2E tests
 - 17.0.1 clean up metadata in assets
 - 17.2.0 Get rid of animejs in the engine
+- 17.4.0 Better physics serizlization/deserialization
 
 Roadmap:
 - 18.0.x Split apps and engine (and add config for an app to set up engine)
