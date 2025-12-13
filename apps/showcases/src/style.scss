@@ -30,10 +30,10 @@ canvas {
   inset: 0;
   z-index: 10;
   pointer-events: auto;
-}
 
-#menu.-active {
-  display: block;
+  &.-active {
+    display: block;
+  }
 }
 
 #ui {
@@ -42,8 +42,8 @@ canvas {
   inset: 0;
   z-index: 10;
   pointer-events: auto;
-}
 
-#ui.-active {
-  display: block;
+  &.-active {
+    display: block;
+  }
 }

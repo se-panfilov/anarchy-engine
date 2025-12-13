@@ -5,6 +5,7 @@ Done:
 - 2.1.x Distinct builds for desktop, web and mobile
 - 2.2.1 Added routing for showcases
 - 2.3.0 Added UI menu
+- 2.4.0 Added support of scss
 
 Roadmap:
 - 3.0.x Mobile Build
