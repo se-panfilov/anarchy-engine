@@ -3,27 +3,25 @@ import { LinearFilter, NearestFilter, SRGBColorSpace, TextureLoader } from 'thre
 import type { ITextureService } from '@/Engine/Domains/Texture/Models';
 import type { IWriteable } from '@/Engine/Utils';
 import type { ITexture } from '@/Engine/Wrappers';
+import { ReplaySubject } from 'rxjs';
 
 export function TextureService(): ITextureService {
   const textureLoader: TextureLoader = new TextureLoader();
+  const messages$: ReplaySubject<string> = new ReplaySubject<string>();
 
   // TODO (S.Panfilov) we do not track loaded textures, but probably makes sense to dispose them (and add to registries)
-
   function load(urlsObj: Record<string, string>): Record<string, ITexture> {
     const result: Record<string, ITexture> = {};
 
     Object.entries(urlsObj).forEach(([name, url]: ReadonlyArray<string>): void => {
-      // Object.values(urlsObj).forEach((url: string): void => {
       const texture: IWriteable<ITexture> = textureLoader.load(
         url,
-        (): void => {
-          console.log(`Texture "${url}" is loaded`);
-        },
-        (xhr: ProgressEvent<EventTarget>): void => {
-          console.log(222, xhr);
-        },
+        (): void => messages$.next(`Texture "${url}" is loaded`),
+        undefined,
         (error) => {
+          messages$.next(`Texture "${url}" is failed to load`);
           console.log(`Texture "${url}" is failed to load`, error);
+          throw error;
         }
       );
 
