@@ -13,7 +13,7 @@ export function Loader3dCore<T, RC extends TAbstractResourceConfig>(
   const models3dLoader = new GLTFLoader();
   const dracoLoader = new DRACOLoader();
   const { dracoLoaderDecoderPath, dracoLoaderDecoderType } = settings;
-  dracoLoader.setDecoderPath(dracoLoaderDecoderPath ?? '/three/examples/jsm/libs/draco/');
+  dracoLoader.setDecoderPath(dracoLoaderDecoderPath ?? 'three/examples/jsm/libs/draco/');
   dracoLoader.setDecoderConfig({ type: dracoLoaderDecoderType ?? 'wasm' });
   dracoLoader.preload();
   models3dLoader.setDRACOLoader(dracoLoader);
