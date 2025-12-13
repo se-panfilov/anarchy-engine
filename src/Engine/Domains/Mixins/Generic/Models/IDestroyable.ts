@@ -1,7 +1,7 @@
 import type { Observable } from 'rxjs';
 
 export type IDestroyable = Readonly<{
-  destroyed$: Observable<boolean>;
+  destroyed$: Observable<void>;
   isDestroyed: () => boolean;
   destroy: () => void;
 }>;

@@ -26,7 +26,7 @@ export type ILevel = IDestroyable &
     scenes: DomainTools<ISceneFactory, ISceneRegistry>;
     renderer: DomainTools<IRendererFactory, IRendererRegistry>;
     tags: ReadonlyArray<LevelTag | CommonTag | string>;
-    built$: Observable<boolean>;
+    built$: Observable<void>;
     isBuilt: () => boolean;
   }>;
 

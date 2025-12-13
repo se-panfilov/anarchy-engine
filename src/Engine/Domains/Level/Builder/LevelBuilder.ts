@@ -9,7 +9,7 @@ import type { ISceneConfig, ISceneFactory, ISceneRegistry, ISceneWrapper } from 
 import { SceneFactory, SceneRegistry, SceneTag } from '@Engine/Domains/Scene';
 import { isNotDefined, isValidLevelConfig } from '@Engine/Utils';
 import type { Observable, Subscription } from 'rxjs';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, filter, map } from 'rxjs';
 
 import { ambientContext } from '@/Engine/Context';
 import { CommonTag } from '@/Engine/Domains/Abstract';
@@ -184,14 +184,20 @@ export function buildLevelFromConfig(canvas: IAppCanvas, config: ILevelConfig): 
       registry: { initial: rendererRegistry }
     },
     tags,
-    get built$(): Observable<boolean> {
-      return built$.asObservable();
+    get built$(): Observable<void> {
+      return built$.pipe(
+        filter((v: boolean): boolean => !!v),
+        map(() => undefined)
+      );
     },
     isBuilt: (): boolean => built$.getValue(),
     destroy,
-    get destroyed$(): Observable<boolean> {
-      return destroyed$.asObservable();
-    },
-    isDestroyed: (): boolean => destroyed$.getValue()
+    isDestroyed: (): boolean => destroyed$.getValue(),
+    get destroyed$(): Observable<void> {
+      return destroyed$.pipe(
+        filter((v: boolean): boolean => !!v),
+        map(() => undefined)
+      );
+    }
   };
 }
