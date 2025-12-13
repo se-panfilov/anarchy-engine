@@ -6,4 +6,3 @@ export * from './LightRegistry';
 export * from './MouseClicksWatcherRegistry';
 export * from './RegistryFacade';
 export * from './RegistryName';
-export * from './WatcherRegistry';

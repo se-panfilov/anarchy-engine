@@ -1,10 +1,10 @@
-import type { IAbstractRegistry, IRegistrable } from '@Engine/Models';
+import type { IAbstractRegistry, IMultitonRegistrable, IRegistrable } from '@Engine/Models';
 import { RegistryName } from '@Engine/Registries';
 import { getAllEntitiesWithEveryTag, getAllEntitiesWithSomeTag, isNotDefined } from '@Engine/Utils';
 import { nanoid } from 'nanoid';
 import { Subject } from 'rxjs';
 
-export function AbstractRegistry<T extends IRegistrable>(name: RegistryName): IAbstractRegistry<T> {
+export function AbstractRegistry<T extends IRegistrable | IMultitonRegistrable>(name: RegistryName): IAbstractRegistry<T> {
   const id: string = nanoid();
   const registry: Map<string, T> = new Map();
   const added$: Subject<T> = new Subject<T>();
@@ -13,6 +13,12 @@ export function AbstractRegistry<T extends IRegistrable>(name: RegistryName): IA
 
   function add(entity: T): void | never {
     if (registry.has(entity.id)) throw new Error(`Cannot add an entity with id "${entity.id}" to registry ${id}: already exist`);
+    if (isMultitonEntity(entity)) {
+      registry.forEach((v: T): void => {
+        if ((v as IMultitonRegistrable).key === entity.key)
+          throw new Error(`Cannot add an entity with key "${entity.key}" to multiton registry ${id}: already added. Only one instance per key is allowed.`);
+      });
+    }
     registry.set(entity.id, entity);
     added$.next(entity);
   }
@@ -82,4 +88,8 @@ export function AbstractRegistry<T extends IRegistrable>(name: RegistryName): IA
     remove,
     destroy
   };
+}
+
+function isMultitonEntity(entity: IRegistrable | IMultitonRegistrable): entity is IMultitonRegistrable {
+  return !!(entity as IMultitonRegistrable).key;
 }

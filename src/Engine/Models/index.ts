@@ -30,6 +30,7 @@ export * from './ILoopParams';
 export * from './IMesh';
 export * from './IMouseEvent';
 export * from './IMousePosition';
+export * from './IMultitonRegistrable';
 export * from './IOrthographicCamera';
 export * from './IPerspectiveCamera';
 export * from './IProtectedRegistry';

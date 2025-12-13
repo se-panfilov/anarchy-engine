@@ -5,5 +5,6 @@ export * from './ControlsFactory';
 export * from './InputFactory';
 export * from './LightFactory';
 export * from './LoopFactory';
+export * from './MouseClicksWatcherFactory';
 export * from './RendererFactory';
 export * from './SceneFactory';
