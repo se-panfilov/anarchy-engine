@@ -1,5 +1,4 @@
-import type { Subscription } from 'rxjs';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, exhaustMap, filter, Subscription } from 'rxjs';
 import { StateMachine, t } from 'typescript-fsm';
 
 import type { TWrapper } from '@/Engine/Abstract';
@@ -26,24 +25,25 @@ export function FsmWrapper(params: TFsmParams): TFsmWrapper {
 
   const getState = (): TFsmStates => entity.getState();
 
-  let prev: TFsmStates = entity.getState();
-  const send = (event: TFsmStates): void => {
-    if (entity.getState() === event) return;
-
-    //this is a hack to prevent double dispatching of the same event. getState() is not updated immediately after dispatch
-    if (prev === event) return;
-    prev = event;
-
-    void entity.dispatch(event);
-  };
+  const send$: BehaviorSubject<TFsmStates> = new BehaviorSubject<TFsmStates>(entity.getState());
+  const sendSub$: Subscription = send$
+    .pipe(
+      filter((event: TFsmStates): boolean => event !== entity.getState()),
+      exhaustMap((event: TFsmEvents): Promise<void> => entity.dispatch(event))
+    )
+    .subscribe();
 
   const destroyable: TDestroyable = destroyableMixin();
   const destroySub$: Subscription = destroyable.destroy$.subscribe((): void => {
     destroySub$.unsubscribe();
+    sendSub$.unsubscribe();
 
     changed$.complete();
     changed$.unsubscribe();
+
+    send$.complete();
+    send$.unsubscribe();
   });
 
-  return { ...wrapper, entity, type: params.type, changed$: changed$.asObservable(), send, getState, ...destroyable };
+  return { ...wrapper, entity, type: params.type, changed$: changed$.asObservable(), send$, getState, ...destroyable };
 }
