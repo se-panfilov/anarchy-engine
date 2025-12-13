@@ -1,6 +1,6 @@
 import { isDefined } from '@Anarchy/Shared/Utils';
-import { HiddenField } from '@Anarchy/Tracking/Constants';
 import type { TTrackingService } from '@Anarchy/Tracking/Models';
+import { scrubEvent } from '@Anarchy/Tracking/Utils';
 import { rewriteFramesIntegrationBrowser } from '@Anarchy/Tracking/Utils/IntegrationsBrowser';
 import { scrubUserPathsBrowser } from '@Anarchy/Tracking/Utils/ScrubsBrowser';
 import type { BrowserOptions, EventHint } from '@sentry/browser';
@@ -12,37 +12,7 @@ export function BrowserTrackingService(options?: BrowserOptions, metaData?: Reco
 
   const defaultOptions: BrowserOptions = {
     beforeSend(event: ErrorEvent, _hint: EventHint): PromiseLike<ErrorEvent | null> | ErrorEvent | null {
-      // eslint-disable-next-line functional/immutable-data
-      if (isDefined(event.user)) event.user = null as any;
-
-      if (event.request) {
-        // eslint-disable-next-line functional/immutable-data
-        event.request = {
-          ...event.request,
-          url: HiddenField,
-          headers: {
-            ...event.request?.headers,
-            url: HiddenField,
-            Referer: HiddenField,
-            referer: HiddenField
-          }
-        };
-
-        delete (event.request.headers as any)?.Cookie;
-        delete (event.request.headers as any)?.cookie;
-      }
-
-      // eslint-disable-next-line functional/immutable-data
-      if ((event as any).contexts?.geo) delete (event as any).contexts.geo;
-      // eslint-disable-next-line functional/immutable-data
-      if ((event as any).contexts?.Geography) delete (event as any).contexts.Geography;
-      // eslint-disable-next-line functional/immutable-data
-      if ((event as any).contexts?.geography) delete (event as any).contexts.geography;
-
-      // eslint-disable-next-line functional/immutable-data
-      if (isDefined(event.breadcrumbs)) event.breadcrumbs = undefined;
-
-      return scrubUserPathsBrowser(event);
+      return scrubUserPathsBrowser(scrubEvent(event));
     },
     integrations: [rewriteFramesIntegrationBrowser()],
     tracesSampleRate: 0,

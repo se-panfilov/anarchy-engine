@@ -1,7 +1,6 @@
 import { isDefined } from '@Anarchy/Shared/Utils';
-import { HiddenField } from '@Anarchy/Tracking/Constants';
 import type { TTrackingService } from '@Anarchy/Tracking/Models';
-import { scrubUserPathsBrowser } from '@Anarchy/Tracking/Utils';
+import { scrubEvent, scrubUserPathsBrowser } from '@Anarchy/Tracking/Utils';
 import type { Primitive } from '@sentry/core';
 import type { ErrorEvent, EventHint } from '@sentry/electron/renderer';
 import { captureException, init, setTags } from '@sentry/electron/renderer';
@@ -11,37 +10,7 @@ export function DesktopPreloadTrackingService(options?: Record<string, any>, met
 
   const defaultOptions = {
     beforeSend(event: ErrorEvent, _hint: EventHint): PromiseLike<ErrorEvent | null> | ErrorEvent | null {
-      // eslint-disable-next-line functional/immutable-data
-      if (!event.user) event.user = null as any;
-
-      if (event.request) {
-        // eslint-disable-next-line functional/immutable-data
-        event.request = {
-          ...event.request,
-          url: HiddenField,
-          headers: {
-            ...event.request?.headers,
-            url: HiddenField,
-            Referer: HiddenField,
-            referer: HiddenField
-          }
-        };
-
-        delete (event.request.headers as any)?.Cookie;
-        delete (event.request.headers as any)?.cookie;
-      }
-
-      // eslint-disable-next-line functional/immutable-data
-      if ((event as any).contexts?.geo) delete (event as any).contexts.geo;
-      // eslint-disable-next-line functional/immutable-data
-      if ((event as any).contexts?.Geography) delete (event as any).contexts.Geography;
-      // eslint-disable-next-line functional/immutable-data
-      if ((event as any).contexts?.geography) delete (event as any).contexts.geography;
-
-      // eslint-disable-next-line functional/immutable-data
-      if (!event.breadcrumbs) event.breadcrumbs = undefined;
-
-      return scrubUserPathsBrowser(event as any) as ErrorEvent;
+      return scrubUserPathsBrowser(scrubEvent(event as any)) as ErrorEvent;
     },
     // integrations: [rewriteFramesIntegrationBrowser()],
     tracesSampleRate: 0,
