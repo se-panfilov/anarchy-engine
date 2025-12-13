@@ -73,7 +73,9 @@
     {
       "name": "red_watcher",
       "cameraName": "camera_red",
-      "actorNames": ["actor_red_1"]
+      "actorNames": ["actor_red_1"],
+      "isAutoStart": true,
+      "tags": []
     }
   ],
   "texts": [],

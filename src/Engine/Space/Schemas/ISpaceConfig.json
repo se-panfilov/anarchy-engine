@@ -2740,6 +2740,12 @@
     "IIntersectionConfig": {
       "type": "object",
       "properties": {
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
         "cameraName": {
           "type": "string"
         },
@@ -2748,9 +2754,12 @@
           "items": {
             "type": "string"
           }
+        },
+        "isAutoStart": {
+          "type": "boolean"
         }
       },
-      "required": ["cameraName", "actorNames"]
+      "required": ["actorNames", "cameraName", "isAutoStart", "tags"]
     },
     "ILightConfig": {
       "type": "object",

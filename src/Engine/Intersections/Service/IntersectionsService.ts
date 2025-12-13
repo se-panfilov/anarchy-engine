@@ -1,30 +1,34 @@
 import type { IActorAsyncRegistry, IActorWrapperAsync } from '@/Engine/Actor';
 import type { ICameraRegistry, ICameraWrapper } from '@/Engine/Camera';
-import type { IIntersectionConfig, IIntersectionsService, IIntersectionsWatcher, IIntersectionsWatcherFactory, IIntersectionsWatcherRegistry } from '@/Engine/Intersections/Models';
+import type {
+  IIntersectionsService,
+  IIntersectionsWatcher,
+  IIntersectionsWatcherConfig,
+  IIntersectionsWatcherFactory,
+  IIntersectionsWatcherRegistry,
+  IIntersectionsWatcherService
+} from '@/Engine/Intersections/Models';
+import { IntersectionsWatcherService } from '@/Engine/Intersections/Service/IntersectionsWatcherService';
 import type { IDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
 import { mouseService } from '@/Engine/Mouse';
 import { isNotDefined } from '@/Engine/Utils';
 
 export function IntersectionsService(factory: IIntersectionsWatcherFactory, registry: IIntersectionsWatcherRegistry): IIntersectionsService {
-  factory.entityCreated$.subscribe((intersectionsWatcher: IIntersectionsWatcher): void => registry.add(intersectionsWatcher));
+  const intersectionsWatcherService: IIntersectionsWatcherService = IntersectionsWatcherService(factory, registry);
 
   function buildWatcher(camera: Readonly<ICameraWrapper>): IIntersectionsWatcher {
-    const watcher: IIntersectionsWatcher = factory.create({ position$: mouseService.position$ });
+    const watcher: IIntersectionsWatcher = intersectionsWatcherService.create({ position$: mouseService.position$ });
     watcher.setCamera(camera);
     return watcher;
   }
 
-  function addActorsToWatcher(watcherId: string, actors: ReadonlyArray<IActorWrapperAsync>): void {
-    const watcher: IIntersectionsWatcher | undefined = registry.findById(watcherId);
-    if (isNotDefined(watcher)) throw new Error(`Intersections service: cannot add actors to watcher: watcher with id "${watcherId}" is not defined`);
-    watcher.addActors(actors);
-  }
+  const addActorsToWatcher = (watcher: IIntersectionsWatcher, actors: ReadonlyArray<IActorWrapperAsync>): void => watcher.addActors(actors);
 
   function buildWatcherForActorPromises(actorsPromises: ReadonlyArray<Promise<IActorWrapperAsync>>, cameraWrapper: ICameraWrapper): Promise<IIntersectionsWatcher> {
     return Promise.all(actorsPromises).then((actorWrappers: ReadonlyArray<IActorWrapperAsync>): IIntersectionsWatcher => {
       const watcher: IIntersectionsWatcher = buildWatcher(cameraWrapper);
-      addActorsToWatcher(watcher.id, actorWrappers);
+      addActorsToWatcher(watcher, actorWrappers);
       return watcher;
     });
   }
@@ -32,9 +36,9 @@ export function IntersectionsService(factory: IIntersectionsWatcherFactory, regi
   function getWatchersForFromConfigIntersections(
     actorRegistry: IActorAsyncRegistry,
     cameraRegistry: ICameraRegistry,
-    intersections: ReadonlyArray<IIntersectionConfig>
+    intersections: ReadonlyArray<IIntersectionsWatcherConfig>
   ): ReadonlyArray<Promise<IIntersectionsWatcher>> {
-    return intersections.map((intersection: IIntersectionConfig) => {
+    return intersections.map((intersection: IIntersectionsWatcherConfig) => {
       const actorsPromises: ReadonlyArray<Promise<IActorWrapperAsync>> = intersection.actorNames.map((name: string): Promise<IActorWrapperAsync> => actorRegistry.findByNameAsync(name));
       const cameraWrapper: ICameraWrapper | undefined = cameraRegistry.findByName(intersection.cameraName);
       if (isNotDefined(cameraWrapper)) throw new Error(`Intersections: Cannot find camera ("${intersection.cameraName}")`);
@@ -44,21 +48,20 @@ export function IntersectionsService(factory: IIntersectionsWatcherFactory, regi
   }
 
   function start(watcherId: string): IIntersectionsWatcher {
-    const watcher: IIntersectionsWatcher | undefined = registry.findById(watcherId);
+    const watcher: IIntersectionsWatcher | undefined = intersectionsWatcherService.getRegistry().findById(watcherId);
     if (isNotDefined(watcher)) throw new Error(`Intersections service: cannot start watcher: watcher with id "${watcherId}" is not defined`);
     return watcher.start();
   }
 
   function stop(watcherId: string): IIntersectionsWatcher {
-    const watcher: IIntersectionsWatcher | undefined = registry.findById(watcherId);
+    const watcher: IIntersectionsWatcher | undefined = intersectionsWatcherService.getRegistry().findById(watcherId);
     if (isNotDefined(watcher)) throw new Error(`Intersections service: cannot stop watcher: watcher with id "${watcherId}" is not defined`);
     return watcher.stop();
   }
 
   const destroyable: IDestroyable = destroyableMixin();
   destroyable.destroyed$.subscribe(() => {
-    factory.destroy();
-    registry.destroy();
+    intersectionsWatcherService.destroy();
   });
 
   return {
@@ -67,8 +70,8 @@ export function IntersectionsService(factory: IIntersectionsWatcherFactory, regi
     getWatchersForFromConfigIntersections,
     start,
     stop,
-    getFactory: (): IIntersectionsWatcherFactory => factory,
-    getRegistry: (): IIntersectionsWatcherRegistry => registry,
+    getFactory: (): IIntersectionsWatcherFactory => intersectionsWatcherService.getFactory(),
+    getRegistry: (): IIntersectionsWatcherRegistry => intersectionsWatcherService.getRegistry(),
     ...destroyable
   };
 }
