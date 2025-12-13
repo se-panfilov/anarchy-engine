@@ -14,6 +14,7 @@
     "prettier:staged": "pretty-quick --staged",
     "generate:schemas": "node ./utils/JsonUtils.js",
     "generate:schemas:minify": "node ./utils/JsonUtils.js --minify",
+    "generate:licanses-report": "npm install -g license-report && license-report --only=prod --output=markdown > 3RD_PARTY_LICENSES.md",
     "ts:check": "tsc --noEmit",
     "ts:check:watch": "tsc --watch --noEmit",
     "unit": "vitest run",
