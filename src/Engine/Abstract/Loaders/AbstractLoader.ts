@@ -43,6 +43,8 @@ export function AbstractLoader<L extends Loader<any>, R extends TProtectedRegist
 
   const destroyable: TDestroyable = destroyableMixin();
   const destroySub$: Subscription = destroyable.destroy$.subscribe((): void => {
+    (loader as any).clearCache?.();
+
     destroySub$.unsubscribe();
     loaded$.unsubscribe();
     loaded$.complete();

@@ -7,7 +7,6 @@ import type { TDestroyable, TNoSpread, TRegistrable, TWithNameAndNameAccessorsMi
 import { destroyableMixin, withNameAndNameAccessorsMixin } from '@/Engine/Mixins';
 import { genericEntityCleanUp, isDefined } from '@/Engine/Utils';
 
-// TODO 13-0-0: Drop cache in loaders (and destroy loaders)
 // TODO 13-0-0: Check destroy in registries
 // TODO 13-0-0: Stop loops
 // TODO 13-0-0: Build destroy chain Space -> Services -> registries -> entities -> sub-entities
