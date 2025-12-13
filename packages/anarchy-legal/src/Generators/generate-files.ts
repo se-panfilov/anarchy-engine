@@ -1,3 +1,5 @@
+import type { TLegalFilesService } from '@Anarchy/Legal';
+
 import { LegalFilesService } from '../Services/LegalFilesService.ts';
 
 /**

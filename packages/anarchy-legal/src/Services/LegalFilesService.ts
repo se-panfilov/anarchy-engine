@@ -14,11 +14,7 @@ import { RepoUtilsService } from './RepoUtilsService.ts';
 export function LegalFilesService(): TLegalFilesService {
   let isDebug: boolean = false;
   const repoUtilsService: TRepoUtilsService = RepoUtilsService();
-  const {
-    debugLog,
-    findMonorepoRoot
-    // resolveWorkspaceFromArg
-  } = repoUtilsService;
+  const { debugLog, findMonorepoRoot, resolveWorkspaceFromArg } = repoUtilsService;
 
   const DOC_TYPES = ['DISCLAIMER', 'EULA', 'PRIVACY', 'SECURITY'] as const;
   type TDocType = (typeof DOC_TYPES)[number];
@@ -74,17 +70,6 @@ export function LegalFilesService(): TLegalFilesService {
       entries.push([name, { name, dir, pkgPath, pkg }]);
     }
     return new Map(entries);
-  }
-
-  function resolveWorkspaceFromArg(arg: string, workspaces: ReadonlyMap<string, TWorkspaceInfo>, rootDir: string): Readonly<{ ws: TWorkspaceInfo }> {
-    const byName = workspaces.get(arg);
-    if (byName) return { ws: byName };
-    const asPath = path.isAbsolute(arg) ? arg : path.join(rootDir, arg);
-    const norm = path.resolve(asPath);
-    for (const w of workspaces.values()) {
-      if (path.resolve(w.dir) === norm) return { ws: w };
-    }
-    throw new Error(`Workspace "${arg}" not found by name or path`);
   }
 
   // ---------------------- Config ----------------------
@@ -330,7 +315,7 @@ export function LegalFilesService(): TLegalFilesService {
 
     // Load workspaces and resolve target
     const workspaces = await loadWorkspaces(rootDir);
-    const { ws } = resolveWorkspaceFromArg(String(argv.workspace), workspaces, rootDir);
+    const ws = resolveWorkspaceFromArg(String(argv.workspace), workspaces, rootDir);
     debugLog(isDebug, 'target workspace:', ws.name, ws.dir);
 
     // Resolve templates dir

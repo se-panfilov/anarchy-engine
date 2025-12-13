@@ -142,31 +142,31 @@ export function ThirdPartyLicensesService(): TThirdPartyLicensesService {
     debugLog(isDebug, 'rootDir:', root.rootDir);
 
     // 4) Resolve workspace
-    const { wsName, wsDir } = resolveWorkspaceFromArg(argv.workspace as string, root.workspaces, root.rootDir);
-    debugLog(isDebug, 'target workspace:', wsName, 'dir:', wsDir);
+    const { name, dir } = resolveWorkspaceFromArg(argv.workspace as string, root.workspaces, root.rootDir);
+    debugLog(isDebug, 'target workspace:', name, 'dir:', dir);
 
     // 5) Cycle check
     const graph: ReadonlyMap<string, ReadonlySet<string>> = buildWsGraph(root.workspaces);
-    assertNoCycles(graph, wsName);
+    assertNoCycles(graph, name);
 
     // 6) Workspace closure and seeds
-    const closure: ReadonlySet<string> = collectWorkspaceClosure(graph, wsName);
+    const closure: ReadonlySet<string> = collectWorkspaceClosure(graph, name);
     const wsNamesSet: ReadonlySet<string> = new Set(root.workspaces.keys());
     const seedNames: ReadonlySet<string> = collectExternalSeedNames(closure, root.workspaces, wsNamesSet);
     debugLog(isDebug, 'workspace closure size:', closure.size, 'seed external deps:', seedNames.size, 'sample:', [...seedNames].slice(0, 10));
 
     // 7) Resolved prod tree
-    const tree: TDependencyNode | undefined = await npmLsJson(root.rootDir, wsName);
+    const tree: TDependencyNode | undefined = await npmLsJson(root.rootDir, name);
 
     // 8) Collect external packages WITH paths (seed-filtered)
     const thirdPartyMap: Map<string, TCollected> = new Map(collectThirdPartyMap(tree, wsNamesSet, seedNames));
-    fillMissingInstallPaths(thirdPartyMap, wsDir, root.rootDir);
+    fillMissingInstallPaths(thirdPartyMap, name, root.rootDir);
 
     if (thirdPartyMap.size === 0) debugLog(isDebug, `[info] No third-party prod deps reachable from seeds.`);
     else if (isDebug) console.log('[debug] examples (third-party):', [...thirdPartyMap.values()].slice(0, 5));
 
     // 9) Workspace licenses (excluding self by default)
-    const wsEntries: ReadonlyArray<TLicenseEntry> = await getWorkspaceEntries(argv, wsName, closure, root);
+    const wsEntries: ReadonlyArray<TLicenseEntry> = await getWorkspaceEntries(argv, name, closure, root);
     debugLog(isDebug, 'workspace license entries (after self-filter):', wsEntries.length);
 
     // 10) Third-party licenses
@@ -183,7 +183,7 @@ export function ThirdPartyLicensesService(): TThirdPartyLicensesService {
 
     debugLog(isDebug, 'write output to:', outPath, 'total entries:', sorted.length);
 
-    await writeResultFile(outPath, wsName, sorted, emptyNote);
+    await writeResultFile(outPath, name, sorted, emptyNote);
   }
 
   return { generate };
