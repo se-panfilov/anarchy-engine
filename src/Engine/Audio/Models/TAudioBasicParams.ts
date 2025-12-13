@@ -5,7 +5,7 @@ import type { TWithTransformAgentParam } from '@/Engine/TransformDrive';
 import type { TAudioPerformanceOptions } from './TAudioPerformanceOptions';
 
 export type TAudioBasicParams = Readonly<{
-  audioSource: Howl;
+  audioSource: AudioBuffer;
   volume: number;
   name: string;
   loop?: boolean;

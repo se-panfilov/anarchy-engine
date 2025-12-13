@@ -1,4 +1,3 @@
-import type { SpatialPosition } from 'howler';
 import type { Subscription } from 'rxjs';
 import { Vector3 } from 'three/src/math/Vector3';
 

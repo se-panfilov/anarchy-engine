@@ -1,4 +1,3 @@
-import type { Howl } from 'howler';
 import type { BehaviorSubject, Subject } from 'rxjs';
 
 import type { TWrapper } from '@/Engine/Abstract';
@@ -7,11 +6,10 @@ import type { TWithTransformDrive } from '@/Engine/TransformDrive';
 
 import type { TAudio3dTransformAgents } from './TAudio3dTransformAgents';
 
-export type TAudio3dWrapper = TWrapper<Howl> &
+export type TAudio3dWrapper = TWrapper<AudioBuffer> &
   Readonly<{
     play: () => void;
     pause$: BehaviorSubject<boolean>;
-    mute$: BehaviorSubject<boolean>;
     fade$: Subject<Readonly<{ from: number; to: number; duration: number }>>;
     speed$: BehaviorSubject<number>;
     seek$: BehaviorSubject<number>;

@@ -1,4 +1,3 @@
-import type { Howl } from 'howler';
 import type { Observable, Subscription } from 'rxjs';
 import { BehaviorSubject, combineLatest, distinctUntilChanged, filter, sample, Subject, tap } from 'rxjs';
 import { Vector3 } from 'three';
@@ -8,6 +7,7 @@ import { AbstractWrapper, WrapperType } from '@/Engine/Abstract';
 import { DriveToAudio3dConnector } from '@/Engine/Audio/Connectors';
 import type { TAudio3dParams, TAudio3dTransformDrive, TAudio3dWrapper, TAudio3dWrapperDependencies, TAudioLoop } from '@/Engine/Audio/Models';
 import { Audio3dTransformDrive } from '@/Engine/Audio/TransformDrive';
+import { fadeAudio, pauseAudio, resumeAudio, seekAudio } from '@/Engine/Audio/Utils';
 import { LoopUpdatePriority } from '@/Engine/Loop';
 import type { TMeters } from '@/Engine/Math';
 import { meters } from '@/Engine/Measurements';
@@ -18,14 +18,14 @@ import type { TDriveToTargetConnector } from '@/Engine/TransformDrive';
 import { isEqualOrSimilarByXyzCoords } from '@/Engine/Utils';
 
 export function Audio3dWrapper(params: TAudio3dParams, { loopService }: TAudio3dWrapperDependencies): TAudio3dWrapper {
-  const { sound, volume, position, performance } = params;
-  const entity: Howl = sound;
+  const { audioSource, volume, position, performance } = params;
+  // TODO 11.0.0: AudioBuffer is a resource, but wrapper should be PositionalAudio, guess
+  const entity: AudioBuffer = audioSource;
   const position$: BehaviorSubject<TReadonlyVector3> = new BehaviorSubject<TReadonlyVector3>(position);
   const listenerPosition$: BehaviorSubject<TReadonlyVector3> = new BehaviorSubject<TReadonlyVector3>(new Vector3());
 
   const pause$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(params.pause ?? false);
-  const mute$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(params.mute ?? false);
-  const fade$: Subject<Readonly<{ from: number; to: number; duration: number }>> = new Subject<Readonly<{ from: number; to: number; duration: number }>>();
+  const fade$: Subject<Readonly<{ to: number; duration: number }>> = new Subject<Readonly<{ to: number; duration: number }>>();
   const speed$: BehaviorSubject<number> = new BehaviorSubject<number>(params.speed ?? 1);
   const seek$: BehaviorSubject<number> = new BehaviorSubject<number>(params.seek ?? 0);
   const loop$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(params.loop ?? false);
@@ -35,18 +35,35 @@ export function Audio3dWrapper(params: TAudio3dParams, { loopService }: TAudio3d
   // TODO 11.0.0: maybe the default threshold should be higher?
   const noiseThreshold: TMeters = performance?.noiseThreshold ?? meters(0.000001);
 
-  const volumeSub: Subscription = volume$.pipe(distinctUntilChanged()).subscribe((volume: number): void => void entity.volume(volume));
+  const volumeSub$: Subscription = volume$.pipe(distinctUntilChanged()).subscribe((volume: number): void => void entity.volume(volume));
 
-  const audioLoop: TAudioLoop = loopService.getAudioLoop();
+  const audioLoop$: TAudioLoop = loopService.getAudioLoop();
+
+  const pauseSub$: Subscription = pause$.pipe(distinctUntilChanged()).subscribe((isPause: boolean): void => {
+    if (isPause) pauseAudio(entity);
+    else resumeAudio(entity);
+  });
+
+  const fadeSub$: Subscription = fade$.pipe(distinctUntilChanged()).subscribe(({ to, duration }: { to: number; duration: number }): void => {
+    fadeAudio(entity, to, duration);
+  });
+
+  const speedSub$: Subscription = speed$.pipe(distinctUntilChanged()).subscribe((speed: number): void => {
+    entity.setPlaybackRate();
+  });
+
+  const seekSub$: Subscription = seek$.pipe(distinctUntilChanged()).subscribe((seek: number): void => {
+    seekAudio(entity, seek);
+  });
 
   const sourcePositionUpdate$: Observable<TReadonlyVector3> = onPositionUpdate(position$, noiseThreshold);
   const listenerPositionUpdate$: Observable<TReadonlyVector3> = onPositionUpdate(listenerPosition$, noiseThreshold);
 
   const updateVolumeSub$: Subscription = combineLatest([sourcePositionUpdate$, listenerPositionUpdate$])
     .pipe(
-      sample(audioLoop.tick$),
+      sample(audioLoop$.tick$),
       // TODO 11.0.0: check filter logic
-      filter((): boolean => updatePriority >= audioLoop.priority$.value)
+      filter((): boolean => updatePriority >= audioLoop$.priority$.value)
     )
     .subscribe(([sourcePosition, listenerPos]: [TReadonlyVector3, TReadonlyVector3]): void => {
       volume$.next(calculateVolume(sourcePosition, listenerPos));
@@ -62,25 +79,26 @@ export function Audio3dWrapper(params: TAudio3dParams, { loopService }: TAudio3d
     return Math.max(0, 1 / (1 + Math.pow(distance / refDistance, 2)));
   }
 
-  const wrapper: TWrapper<Howl> = AbstractWrapper(entity, WrapperType.Audio3d, params);
+  const wrapper: TWrapper<AudioBuffer> = AbstractWrapper(entity, WrapperType.Audio3d, params);
   const drive: TAudio3dTransformDrive = Audio3dTransformDrive(params, wrapper.id);
   const driveToTargetConnector: TDriveToTargetConnector = DriveToAudio3dConnector(drive, entity);
 
   const destroyable: TDestroyable = destroyableMixin();
   const destroySub$: Subscription = destroyable.destroy$.subscribe((): void => {
     destroySub$.unsubscribe();
+    pauseSub$.unsubscribe();
+    fadeSub$.unsubscribe();
     driveToTargetConnector.destroy$.next();
-
-    volumeSub.unsubscribe();
+    volumeSub$.unsubscribe();
     updateVolumeSub$.unsubscribe();
+    speedSub$.unsubscribe();
+    seekSub$.unsubscribe();
 
     position$.complete();
     position$.unsubscribe();
 
     pause$.complete();
     pause$.unsubscribe();
-    mute$.complete();
-    mute$.unsubscribe();
     fade$.complete();
     fade$.unsubscribe();
     speed$.complete();
@@ -100,7 +118,6 @@ export function Audio3dWrapper(params: TAudio3dParams, { loopService }: TAudio3d
     drive,
     play: (): void => void entity.play(),
     pause$,
-    mute$,
     fade$,
     speed$,
     seek$,
@@ -113,7 +130,7 @@ export function Audio3dWrapper(params: TAudio3dParams, { loopService }: TAudio3d
       void entity.unload();
       destroyable.destroy$.next();
     },
-    stop: (): Howl => entity.stop(),
+    stop: (): void => entity.stop(),
     volume$,
     position$,
     listenerPosition$,

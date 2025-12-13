@@ -1,5 +1,3 @@
-import type { Howl } from 'howler';
-
 import type { TDestroyable } from '@/Engine/Mixins';
 import type { TWithCreateFromConfigService, TWithCreateService, TWithFactoryService, TWithLoadResourcesAsyncService, TWithRegistryService, TWithResourcesRegistryService } from '@/Engine/Space';
 
@@ -16,5 +14,5 @@ export type TAudioService = TWithCreateService<TAudioWrapper, TAudioParams> &
   TWithFactoryService<TAudioFactory> &
   TWithRegistryService<TAudioRegistry> &
   TWithResourcesRegistryService<TAudioResourceAsyncRegistry> &
-  TWithLoadResourcesAsyncService<TAudioResourceConfig, Howl> &
+  TWithLoadResourcesAsyncService<TAudioResourceConfig, AudioBuffer> &
   TDestroyable;

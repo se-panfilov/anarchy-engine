@@ -32,7 +32,6 @@
     "ajv": "8.17.1",
     "animejs": "3.2.2",
     "date-fns": "4.1.0",
-    "howler": "2.2.4",
     "lil-gui": "0.20.0",
     "lodash-es": "4.17.21",
     "nanoid": "5.1.3",

@@ -23,8 +23,8 @@ export function configToParams(config: TAudioConfig, { audioResourceAsyncRegistr
   return result;
 }
 
-function getAudio(config: TAudioConfig, audioResourceAsyncRegistry: TAudioResourceAsyncRegistry): Howl | never {
-  const audio: Howl | undefined = isDefined(config.audioSource) ? audioResourceAsyncRegistry.findByKey(config.audioSource) : undefined;
+function getAudio(config: TAudioConfig, audioResourceAsyncRegistry: TAudioResourceAsyncRegistry): AudioBuffer | never {
+  const audio: AudioBuffer | undefined = isDefined(config.audioSource) ? audioResourceAsyncRegistry.findByKey(config.audioSource) : undefined;
   if (isNotDefined(audio)) throw new Error(`AudioConfigAdapter: audioSource not found: ${config.audioSource}`);
   return audio;
 }
