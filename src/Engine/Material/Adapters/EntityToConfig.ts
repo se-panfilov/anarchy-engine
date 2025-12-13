@@ -1,9 +1,21 @@
 import { isEmpty } from 'lodash-es';
-import type { MaterialJSON } from 'three';
+import type { MaterialJSON, MeshBasicMaterial, MeshDepthMaterial, MeshLambertMaterial, MeshPhongMaterial, MeshPhysicalMaterial, MeshStandardMaterial, PointsMaterial } from 'three';
 
 import { serializeColorWhenPossible } from '@/Engine/Color';
 import type { MaterialType } from '@/Engine/Material/Constants';
-import { BlendEquationMap, BlendingDstFactorMap, BlendingMap, BlendingSrcFactorMap, NormalMapTypesMap, SideMap, StencilFailMap, StencilFuncMap, StencilOpMap } from '@/Engine/Material/Constants';
+import {
+  BlendEquationMap,
+  BlendingDstFactorMap,
+  BlendingMap,
+  BlendingSrcFactorMap,
+  CombineMap,
+  DepthPackingStrategiesMap,
+  NormalMapTypesMap,
+  SideMap,
+  StencilFailMap,
+  StencilFuncMap,
+  StencilOpMap
+} from '@/Engine/Material/Constants';
 import type {
   TMaterialConfig,
   TMaterialConfigOptions,
@@ -17,7 +29,7 @@ import { getOptionName } from '@/Engine/Material/Utils';
 import { extractSerializableRegistrableFields } from '@/Engine/Mixins';
 import type { TTexture, TTextureAsyncRegistry } from '@/Engine/Texture';
 import type { TOptional } from '@/Engine/Utils';
-import { eulerToXyz, filterOutEmptyFields, isNotDefined, nullsToUndefined, vector2ToXy } from '@/Engine/Utils';
+import { eulerToXyz, filterOutEmptyFields, isDefined, isNotDefined, nullsToUndefined, vector2ToXy } from '@/Engine/Utils';
 
 // TODO 15-0-0: validate
 export function materialToConfig(entity: TMaterialWrapper, { textureResourceRegistry }: TMaterialEntityToConfigDependencies): TMaterialConfig {
@@ -34,6 +46,7 @@ export function materialToConfig(entity: TMaterialWrapper, { textureResourceRegi
   });
 }
 
+// TODO 15-0-0: All this options should apply on config load
 function getMaterialOptions({ entity }: TMaterialWrapper): TOptional<TMaterialConfigOptions> | undefined {
   // Should more or less match threejs's MaterialParameters type
   return filterOutEmptyFields(
@@ -41,10 +54,10 @@ function getMaterialOptions({ entity }: TMaterialWrapper): TOptional<TMaterialCo
       alphaHash: entity.alphaHash,
       alphaTest: entity.alphaTest,
       alphaToCoverage: entity.alphaToCoverage,
-      attenuationColor: serializeColorWhenPossible((entity as any).attenuationColor),
-      attenuationDistance: (entity as any).attenuationDistance,
+      attenuationColor: serializeColorWhenPossible((entity as MeshPhysicalMaterial).attenuationColor),
+      attenuationDistance: (entity as MeshPhysicalMaterial).attenuationDistance,
       blendAlpha: entity.blendAlpha,
-      blendColor: serializeColorWhenPossible((entity as any).blendColor),
+      blendColor: serializeColorWhenPossible(entity.blendColor),
       blendDst: getOptionName(entity.blendDst, BlendingDstFactorMap, 'blendDst'),
       blendDstAlpha: entity.blendDstAlpha,
       blendEquation: getOptionName(entity.blendEquation, BlendEquationMap, 'blendEquation'),
@@ -52,48 +65,49 @@ function getMaterialOptions({ entity }: TMaterialWrapper): TOptional<TMaterialCo
       blendSrc: getOptionName(entity.blendSrc, { ...BlendingSrcFactorMap, ...BlendingDstFactorMap }, 'blendSrc'),
       blendSrcAlpha: entity.blendSrcAlpha,
       blending: getOptionName(entity.blending, BlendingMap, 'blending'),
-      clearcoat: (entity as any).clearcoat,
-      clearcoatRoughness: (entity as any).clearcoatRoughness,
+      clearcoat: (entity as MeshPhysicalMaterial).clearcoat,
+      clearcoatRoughness: (entity as MeshPhysicalMaterial).clearcoatRoughness,
+      clearcoatNormalScale: isDefined((entity as MeshPhysicalMaterial).clearcoatNormalScale) ? vector2ToXy((entity as MeshPhysicalMaterial).clearcoatNormalScale) : undefined,
       clipIntersection: entity.clipIntersection,
       clipShadows: entity.clipShadows,
       clippingPlanes: entity.clippingPlanes,
-      color: serializeColorWhenPossible((entity as any).color),
+      color: serializeColorWhenPossible((entity as MeshBasicMaterial).color),
       colorWrite: entity.colorWrite,
-      combine: (entity as any).combine,
+      combine: isDefined((entity as MeshBasicMaterial).combine) ? getOptionName((entity as MeshBasicMaterial).combine, CombineMap, 'combine') : undefined,
       depthFunc: entity.depthFunc,
-      depthPacking: (entity as any).depthPacking,
+      depthPacking: isDefined((entity as MeshDepthMaterial).depthPacking) ? getOptionName((entity as MeshDepthMaterial).depthPacking, DepthPackingStrategiesMap, 'depthPacking') : undefined,
       depthTest: entity.depthTest,
       depthWrite: entity.depthWrite,
       dithering: entity.dithering,
-      emissive: serializeColorWhenPossible((entity as any).emissive),
-      emissiveIntensity: (entity as any).emissiveIntensity,
-      envMapIntensity: (entity as any).envMapIntensity,
-      flatShading: (entity as any).flatShading,
+      emissive: serializeColorWhenPossible((entity as MeshLambertMaterial).emissive),
+      emissiveIntensity: (entity as MeshLambertMaterial).emissiveIntensity,
+      envMapIntensity: (entity as MeshStandardMaterial).envMapIntensity,
+      flatShading: (entity as MeshStandardMaterial).flatShading,
       forceSinglePass: entity.forceSinglePass,
-      ior: (entity as any).ior,
-      metalness: (entity as any).metalness,
-      normalMapType: getOptionName((entity as any).normalMapType, NormalMapTypesMap, 'normalMapType'),
-      normalScale: (entity as any).normalScale ? vector2ToXy((entity as any).normalScale) : undefined,
+      ior: (entity as MeshPhysicalMaterial).ior,
+      metalness: (entity as MeshStandardMaterial).metalness,
+      normalMapType: getOptionName((entity as MeshStandardMaterial).normalMapType, NormalMapTypesMap, 'normalMapType'),
+      normalScale: isDefined((entity as MeshStandardMaterial).normalScale) ? vector2ToXy((entity as any).normalScale) : undefined,
       opacity: entity.opacity,
       polygonOffset: entity.polygonOffset,
       polygonOffsetFactor: entity.polygonOffsetFactor,
       polygonOffsetUnits: entity.polygonOffsetUnits,
       precision: entity.precision,
       premultipliedAlpha: entity.premultipliedAlpha,
-      reflectivity: (entity as any).reflectivity,
-      refractionRatio: (entity as any).refractionRatio,
-      rotation: (entity as any).rotation ? eulerToXyz((entity as any).rotation) : undefined,
-      roughness: (entity as any).roughness,
+      reflectivity: (entity as MeshPhysicalMaterial).reflectivity,
+      refractionRatio: (entity as MeshBasicMaterial).refractionRatio,
+      rotation: isDefined((entity as any).rotation) ? eulerToXyz((entity as any).rotation) : undefined,
+      roughness: (entity as MeshStandardMaterial).roughness,
       shadowSide: entity.shadowSide,
-      sheen: (entity as any).sheen,
-      sheenColor: serializeColorWhenPossible((entity as any).sheenColor),
-      sheenRoughness: (entity as any).sheenRoughness,
+      sheen: (entity as MeshPhysicalMaterial).sheen,
+      sheenColor: serializeColorWhenPossible((entity as MeshPhysicalMaterial).sheenColor),
+      sheenRoughness: (entity as MeshPhysicalMaterial).sheenRoughness,
       side: getOptionName(entity.side, SideMap, 'side'),
-      size: (entity as any).size,
-      sizeAttenuation: (entity as any).sizeAttenuation,
-      specular: serializeColorWhenPossible((entity as any).specular),
-      specularColor: serializeColorWhenPossible((entity as any).specularColor),
-      specularIntensity: (entity as any).specularIntensity,
+      size: (entity as PointsMaterial).size,
+      sizeAttenuation: (entity as PointsMaterial).sizeAttenuation,
+      specular: serializeColorWhenPossible((entity as MeshPhongMaterial).specular),
+      specularColor: serializeColorWhenPossible((entity as MeshPhysicalMaterial).specularColor),
+      specularIntensity: (entity as MeshPhysicalMaterial).specularIntensity,
       stencilFail: getOptionName(entity.stencilFail, StencilFailMap, 'stencilFail'),
       stencilFunc: getOptionName(entity.stencilFunc, StencilFuncMap, 'stencilFunc'),
       stencilFuncMask: entity.stencilFuncMask,
@@ -102,7 +116,7 @@ function getMaterialOptions({ entity }: TMaterialWrapper): TOptional<TMaterialCo
       stencilWriteMask: entity.stencilWriteMask,
       stencilZFail: getOptionName(entity.stencilZFail, StencilOpMap, 'stencilZFail'),
       stencilZPass: getOptionName(entity.stencilZPass, StencilOpMap, 'stencilZPass'),
-      thickness: (entity as any).thickness,
+      thickness: (entity as MeshPhysicalMaterial).thickness,
       toneMapped: entity.toneMapped,
       transparent: entity.transparent,
       vertexColors: entity.vertexColors,

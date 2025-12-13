@@ -18,6 +18,7 @@ import type { ColorRepresentation } from 'three/src/math/Color';
 import type { TTexture } from '@/Engine/Texture/Models';
 
 export type TAbstractMaterialParamsOptions = Readonly<{
+  // clippingPlanes?: Plane[];
   alphaHash?: boolean;
   alphaTest?: number;
   alphaToCoverage?: boolean;
@@ -27,17 +28,19 @@ export type TAbstractMaterialParamsOptions = Readonly<{
   blendDstAlpha?: number;
   blendEquation?: BlendingEquation;
   blendEquationAlpha?: number;
-  blending?: Blending;
   blendSrc?: BlendingSrcFactor | BlendingDstFactor;
   blendSrcAlpha?: number;
+  blending?: Blending;
   clipIntersection?: boolean;
-  // clippingPlanes?: Plane[];
   clipShadows?: boolean;
   colorWrite?: boolean;
   defines?: any;
   depthFunc?: DepthModes;
   depthTest?: boolean;
   depthWrite?: boolean;
+  dithering?: boolean;
+  forceSinglePass?: boolean;
+  format?: PixelFormat;
   name?: string;
   opacity?: number;
   polygonOffset?: boolean;
@@ -45,55 +48,52 @@ export type TAbstractMaterialParamsOptions = Readonly<{
   polygonOffsetUnits?: number;
   precision?: 'highp' | 'mediump' | 'lowp';
   premultipliedAlpha?: boolean;
-  forceSinglePass?: boolean;
-  dithering?: boolean;
-  side?: Side;
   shadowSide?: Side;
-  toneMapped?: boolean;
-  transparent?: boolean;
-  vertexColors?: boolean;
-  visible?: boolean;
-  format?: PixelFormat;
-  stencilWrite?: boolean;
-  stencilFunc?: StencilFunc;
-  stencilRef?: number;
-  stencilWriteMask?: number;
-  stencilFuncMask?: number;
+  side?: Side;
   stencilFail?: StencilOp;
+  stencilFunc?: StencilFunc;
+  stencilFuncMask?: number;
+  stencilRef?: number;
+  stencilWrite?: boolean;
+  stencilWriteMask?: number;
   stencilZFail?: StencilOp;
   stencilZPass?: StencilOp;
+  toneMapped?: boolean;
+  transparent?: boolean;
   userData?: Record<string, any>;
+  vertexColors?: boolean;
+  visible?: boolean;
 }>;
 
 export type TBasicMaterialParamsOptions = TAbstractMaterialParamsOptions &
   Readonly<{
-    color?: ColorRepresentation;
-    opacity?: number;
-    lightMapIntensity?: number;
     aoMapIntensity?: number;
-    fog?: boolean;
+    color?: ColorRepresentation;
     combine?: Combine;
+    fog?: boolean;
+    lightMapIntensity?: number;
+    opacity?: number;
     reflectivity?: number;
     refractionRatio?: number;
     wireframe?: boolean;
-    wireframeLinewidth?: number;
     wireframeLinecap?: string;
     wireframeLinejoin?: string;
+    wireframeLinewidth?: number;
   }>;
 
 export type TDepthMaterialParamsOptions = TAbstractMaterialParamsOptions &
   Readonly<{
     depthPacking?: DepthPackingStrategies;
-    displacementScale?: number;
     displacementBias?: number;
+    displacementScale?: number;
     wireframe?: boolean;
     wireframeLinewidth?: number;
   }>;
 
 export type TDistanceMaterialParamsOptions = TAbstractMaterialParamsOptions &
   Readonly<{
-    displacementScale?: number;
     displacementBias?: number;
+    displacementScale?: number;
     farDistance?: number;
     nearDistance?: number;
     referencePosition?: Vector3;
@@ -102,157 +102,157 @@ export type TDistanceMaterialParamsOptions = TAbstractMaterialParamsOptions &
 export type TNormalMaterialParamsOptions = TAbstractMaterialParamsOptions &
   Readonly<{
     bumpScale?: number;
+    displacementBias?: number;
+    displacementScale?: number;
     normalMapType?: NormalMapTypes;
     normalScale?: Vector2;
-    displacementScale?: number;
-    displacementBias?: number;
     wireframe?: boolean;
     wireframeLinewidth?: number;
   }>;
 
 export type TMatcapMaterialParamsOptions = TAbstractMaterialParamsOptions &
   Readonly<{
-    color?: ColorRepresentation;
     bumpScale?: number;
+    color?: ColorRepresentation;
+    displacementBias?: number;
+    displacementScale?: number;
+    flatShading?: boolean;
+    fog?: boolean;
     normalMapType?: NormalMapTypes;
     normalScale?: Vector2;
-    displacementScale?: number;
-    displacementBias?: number;
-    fog?: boolean;
-    flatShading?: boolean;
   }>;
 
 export type TLambertMaterialParamsOptions = TAbstractMaterialParamsOptions &
   Readonly<{
+    aoMapIntensity?: number;
     bumpScale?: number;
     color?: ColorRepresentation;
-    displacementScale?: number;
+    combine?: Combine;
     displacementBias?: number;
+    displacementScale?: number;
     emissive?: ColorRepresentation;
     emissiveIntensity?: number;
     flatShading?: boolean;
+    fog?: boolean;
     lightMapIntensity?: number;
     normalScale?: Vector2;
-    aoMapIntensity?: number;
-    combine?: Combine;
     reflectivity?: number;
     refractionRatio?: number;
     wireframe?: boolean;
-    wireframeLinewidth?: number;
     wireframeLinecap?: string;
     wireframeLinejoin?: string;
-    fog?: boolean;
+    wireframeLinewidth?: number;
   }>;
 
 export type TPhongMaterialParamsOptions = TAbstractMaterialParamsOptions &
   Readonly<{
-    color?: ColorRepresentation;
-    specular?: ColorRepresentation;
-    shininess?: number;
-    opacity?: number;
-    lightMapIntensity?: number;
     aoMapIntensity?: number;
+    bumpScale?: number;
+    color?: ColorRepresentation;
+    combine?: Combine;
+    displacementBias?: number;
+    displacementScale?: number;
     emissive?: ColorRepresentation;
     emissiveIntensity?: number;
-    bumpScale?: number;
+    flatShading?: boolean;
+    fog?: boolean;
+    lightMapIntensity?: number;
     normalMapType?: NormalMapTypes;
     normalScale?: Vector2;
-    displacementScale?: number;
-    displacementBias?: number;
-    combine?: Combine;
+    opacity?: number;
     reflectivity?: number;
     refractionRatio?: number;
+    shininess?: number;
+    specular?: ColorRepresentation;
     wireframe?: boolean;
-    wireframeLinewidth?: number;
     wireframeLinecap?: string;
     wireframeLinejoin?: string;
-    fog?: boolean;
-    flatShading?: boolean;
+    wireframeLinewidth?: number;
   }>;
 
 export type TToonMaterialParamsOptions = TAbstractMaterialParamsOptions &
   Readonly<{
-    color?: ColorRepresentation;
-    opacity?: number;
-    lightMapIntensity?: number;
     aoMapIntensity?: number;
+    bumpScale?: number;
+    color?: ColorRepresentation;
+    displacementBias?: number;
+    displacementScale?: number;
     emissive?: ColorRepresentation;
     emissiveIntensity?: number;
-    bumpScale?: number;
+    fog?: boolean;
+    lightMapIntensity?: number;
     normalMapType?: NormalMapTypes;
     normalScale?: Vector2;
-    displacementScale?: number;
-    displacementBias?: number;
+    opacity?: number;
     wireframe?: boolean;
-    wireframeLinewidth?: number;
     wireframeLinecap?: string;
     wireframeLinejoin?: string;
-    fog?: boolean;
+    wireframeLinewidth?: number;
   }>;
 
 export type TStandardMaterialParamsOptions = TAbstractMaterialParamsOptions &
   Readonly<{
-    color?: ColorRepresentation;
-    roughness?: number;
-    metalness?: number;
-    lightMapIntensity?: number;
     aoMapIntensity?: number;
+    bumpScale?: number;
+    color?: ColorRepresentation;
+    displacementBias?: number;
+    displacementScale?: number;
     emissive?: ColorRepresentation;
     emissiveIntensity?: number;
-    bumpScale?: number;
+    envMapIntensity?: number;
+    flatShading?: boolean;
+    fog?: boolean;
+    lightMapIntensity?: number;
+    metalness?: number;
     normalMapType?: NormalMapTypes;
     normalScale?: Vector2;
-    displacementScale?: number;
-    displacementBias?: number;
-    envMapIntensity?: number;
+    roughness?: number;
     wireframe?: boolean;
     wireframeLinewidth?: number;
-    fog?: boolean;
-    flatShading?: boolean;
   }>;
 
 export type TPhysicalMaterialParamsOptions = TStandardMaterialParamsOptions &
   Readonly<{
+    anisotropy?: number;
+    anisotropyRotation?: number;
+    attenuationColor?: ColorRepresentation;
+    attenuationDistance?: number;
     clearcoat?: number;
-    clearcoatRoughness?: number;
     clearcoatNormalScale?: Vector2;
-    reflectivity?: number;
+    clearcoatRoughness?: number;
     ior?: number;
+    iridescence?: number;
+    iridescenceIOR?: number;
+    iridescenceThicknessRange?: [number, number];
+    reflectivity?: number;
     sheen?: number;
     sheenColor?: ColorRepresentation;
     sheenRoughness?: number;
-    transmission?: number;
-    thickness?: number;
-    attenuationDistance?: number;
-    attenuationColor?: ColorRepresentation;
-    specularIntensity?: number;
     specularColor?: ColorRepresentation;
-    iridescenceIOR?: number;
-    iridescence?: number;
-    iridescenceThicknessRange?: [number, number];
-    anisotropy?: number;
-    anisotropyRotation?: number;
+    specularIntensity?: number;
+    thickness?: number;
+    transmission?: number;
   }>;
 
 export type TPointsMaterialParamsOptions = TAbstractMaterialParamsOptions &
   Readonly<{
-    color: ColorRepresentation;
-    map?: TTexture | null;
     alphaMap?: TTexture | null;
+    color: ColorRepresentation;
+    fog?: boolean;
+    map?: TTexture | null;
     size?: number;
     sizeAttenuation?: boolean;
-    fog?: boolean;
   }>;
 
 export type TMaterialParamsOptions =
   | TBasicMaterialParamsOptions
   | TDepthMaterialParamsOptions
   | TDistanceMaterialParamsOptions
-  | TNormalMaterialParamsOptions
-  | TMatcapMaterialParamsOptions
   | TLambertMaterialParamsOptions
+  | TMatcapMaterialParamsOptions
+  | TNormalMaterialParamsOptions
   | TPhongMaterialParamsOptions
   | TPhysicalMaterialParamsOptions
-  | TToonMaterialParamsOptions
+  | TPointsMaterialParamsOptions
   | TStandardMaterialParamsOptions
-  | TPointsMaterialParamsOptions;
+  | TToonMaterialParamsOptions;

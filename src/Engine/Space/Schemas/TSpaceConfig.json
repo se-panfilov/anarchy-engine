@@ -2220,6 +2220,12 @@
         "depthWrite": {
           "type": "boolean"
         },
+        "dithering": {
+          "type": "boolean"
+        },
+        "forceSinglePass": {
+          "type": "boolean"
+        },
         "name": {
           "type": "string"
         },
@@ -2242,14 +2248,20 @@
         "premultipliedAlpha": {
           "type": "boolean"
         },
-        "forceSinglePass": {
-          "type": "boolean"
-        },
-        "dithering": {
-          "type": "boolean"
-        },
         "shadowSide": {
           "$ref": "#/definitions/Side"
+        },
+        "stencilFuncMask": {
+          "type": "number"
+        },
+        "stencilRef": {
+          "type": "number"
+        },
+        "stencilWrite": {
+          "type": "boolean"
+        },
+        "stencilWriteMask": {
+          "type": "number"
         },
         "toneMapped": {
           "type": "boolean"
@@ -2257,38 +2269,26 @@
         "transparent": {
           "type": "boolean"
         },
+        "userData": {
+          "type": "object"
+        },
         "vertexColors": {
           "type": "boolean"
         },
         "visible": {
           "type": "boolean"
         },
-        "stencilWrite": {
-          "type": "boolean"
-        },
-        "stencilRef": {
+        "aoMapIntensity": {
           "type": "number"
-        },
-        "stencilWriteMask": {
-          "type": "number"
-        },
-        "stencilFuncMask": {
-          "type": "number"
-        },
-        "userData": {
-          "type": "object"
         },
         "color": {
           "$ref": "#/definitions/ColorRepresentation"
         },
-        "lightMapIntensity": {
-          "type": "number"
-        },
-        "aoMapIntensity": {
-          "type": "number"
-        },
         "fog": {
           "type": "boolean"
+        },
+        "lightMapIntensity": {
+          "type": "number"
         },
         "reflectivity": {
           "type": "number"
@@ -2299,14 +2299,14 @@
         "wireframe": {
           "type": "boolean"
         },
-        "wireframeLinewidth": {
-          "type": "number"
-        },
         "wireframeLinecap": {
           "type": "string"
         },
         "wireframeLinejoin": {
           "type": "string"
+        },
+        "wireframeLinewidth": {
+          "type": "number"
         }
       }
     },
@@ -2521,6 +2521,12 @@
         "depthWrite": {
           "type": "boolean"
         },
+        "dithering": {
+          "type": "boolean"
+        },
+        "forceSinglePass": {
+          "type": "boolean"
+        },
         "name": {
           "type": "string"
         },
@@ -2543,14 +2549,20 @@
         "premultipliedAlpha": {
           "type": "boolean"
         },
-        "forceSinglePass": {
-          "type": "boolean"
-        },
-        "dithering": {
-          "type": "boolean"
-        },
         "shadowSide": {
           "$ref": "#/definitions/Side"
+        },
+        "stencilFuncMask": {
+          "type": "number"
+        },
+        "stencilRef": {
+          "type": "number"
+        },
+        "stencilWrite": {
+          "type": "boolean"
+        },
+        "stencilWriteMask": {
+          "type": "number"
         },
         "toneMapped": {
           "type": "boolean"
@@ -2558,31 +2570,19 @@
         "transparent": {
           "type": "boolean"
         },
+        "userData": {
+          "type": "object"
+        },
         "vertexColors": {
           "type": "boolean"
         },
         "visible": {
           "type": "boolean"
         },
-        "stencilWrite": {
-          "type": "boolean"
-        },
-        "stencilRef": {
+        "displacementBias": {
           "type": "number"
-        },
-        "stencilWriteMask": {
-          "type": "number"
-        },
-        "stencilFuncMask": {
-          "type": "number"
-        },
-        "userData": {
-          "type": "object"
         },
         "displacementScale": {
-          "type": "number"
-        },
-        "displacementBias": {
           "type": "number"
         },
         "wireframe": {
@@ -2692,6 +2692,12 @@
         "depthWrite": {
           "type": "boolean"
         },
+        "dithering": {
+          "type": "boolean"
+        },
+        "forceSinglePass": {
+          "type": "boolean"
+        },
         "name": {
           "type": "string"
         },
@@ -2714,14 +2720,20 @@
         "premultipliedAlpha": {
           "type": "boolean"
         },
-        "forceSinglePass": {
-          "type": "boolean"
-        },
-        "dithering": {
-          "type": "boolean"
-        },
         "shadowSide": {
           "$ref": "#/definitions/Side"
+        },
+        "stencilFuncMask": {
+          "type": "number"
+        },
+        "stencilRef": {
+          "type": "number"
+        },
+        "stencilWrite": {
+          "type": "boolean"
+        },
+        "stencilWriteMask": {
+          "type": "number"
         },
         "toneMapped": {
           "type": "boolean"
@@ -2729,31 +2741,19 @@
         "transparent": {
           "type": "boolean"
         },
+        "userData": {
+          "type": "object"
+        },
         "vertexColors": {
           "type": "boolean"
         },
         "visible": {
           "type": "boolean"
         },
-        "stencilWrite": {
-          "type": "boolean"
-        },
-        "stencilRef": {
+        "displacementBias": {
           "type": "number"
-        },
-        "stencilWriteMask": {
-          "type": "number"
-        },
-        "stencilFuncMask": {
-          "type": "number"
-        },
-        "userData": {
-          "type": "object"
         },
         "displacementScale": {
-          "type": "number"
-        },
-        "displacementBias": {
           "type": "number"
         },
         "farDistance": {
@@ -2866,6 +2866,12 @@
         "depthWrite": {
           "type": "boolean"
         },
+        "dithering": {
+          "type": "boolean"
+        },
+        "forceSinglePass": {
+          "type": "boolean"
+        },
         "name": {
           "type": "string"
         },
@@ -2888,14 +2894,20 @@
         "premultipliedAlpha": {
           "type": "boolean"
         },
-        "forceSinglePass": {
-          "type": "boolean"
-        },
-        "dithering": {
-          "type": "boolean"
-        },
         "shadowSide": {
           "$ref": "#/definitions/Side"
+        },
+        "stencilFuncMask": {
+          "type": "number"
+        },
+        "stencilRef": {
+          "type": "number"
+        },
+        "stencilWrite": {
+          "type": "boolean"
+        },
+        "stencilWriteMask": {
+          "type": "number"
         },
         "toneMapped": {
           "type": "boolean"
@@ -2903,34 +2915,22 @@
         "transparent": {
           "type": "boolean"
         },
+        "userData": {
+          "type": "object"
+        },
         "vertexColors": {
           "type": "boolean"
         },
         "visible": {
           "type": "boolean"
         },
-        "stencilWrite": {
-          "type": "boolean"
-        },
-        "stencilRef": {
-          "type": "number"
-        },
-        "stencilWriteMask": {
-          "type": "number"
-        },
-        "stencilFuncMask": {
-          "type": "number"
-        },
-        "userData": {
-          "type": "object"
-        },
         "bumpScale": {
           "type": "number"
         },
-        "displacementScale": {
+        "displacementBias": {
           "type": "number"
         },
-        "displacementBias": {
+        "displacementScale": {
           "type": "number"
         },
         "wireframe": {
@@ -3043,6 +3043,12 @@
         "depthWrite": {
           "type": "boolean"
         },
+        "dithering": {
+          "type": "boolean"
+        },
+        "forceSinglePass": {
+          "type": "boolean"
+        },
         "name": {
           "type": "string"
         },
@@ -3065,14 +3071,20 @@
         "premultipliedAlpha": {
           "type": "boolean"
         },
-        "forceSinglePass": {
-          "type": "boolean"
-        },
-        "dithering": {
-          "type": "boolean"
-        },
         "shadowSide": {
           "$ref": "#/definitions/Side"
+        },
+        "stencilFuncMask": {
+          "type": "number"
+        },
+        "stencilRef": {
+          "type": "number"
+        },
+        "stencilWrite": {
+          "type": "boolean"
+        },
+        "stencilWriteMask": {
+          "type": "number"
         },
         "toneMapped": {
           "type": "boolean"
@@ -3080,43 +3092,31 @@
         "transparent": {
           "type": "boolean"
         },
+        "userData": {
+          "type": "object"
+        },
         "vertexColors": {
           "type": "boolean"
         },
         "visible": {
           "type": "boolean"
         },
-        "stencilWrite": {
-          "type": "boolean"
-        },
-        "stencilRef": {
+        "bumpScale": {
           "type": "number"
-        },
-        "stencilWriteMask": {
-          "type": "number"
-        },
-        "stencilFuncMask": {
-          "type": "number"
-        },
-        "userData": {
-          "type": "object"
         },
         "color": {
           "$ref": "#/definitions/ColorRepresentation"
         },
-        "bumpScale": {
+        "displacementBias": {
           "type": "number"
         },
         "displacementScale": {
           "type": "number"
         },
-        "displacementBias": {
-          "type": "number"
-        },
-        "fog": {
+        "flatShading": {
           "type": "boolean"
         },
-        "flatShading": {
+        "fog": {
           "type": "boolean"
         },
         "normalScale": {
@@ -3223,6 +3223,12 @@
         "depthWrite": {
           "type": "boolean"
         },
+        "dithering": {
+          "type": "boolean"
+        },
+        "forceSinglePass": {
+          "type": "boolean"
+        },
         "name": {
           "type": "string"
         },
@@ -3245,14 +3251,20 @@
         "premultipliedAlpha": {
           "type": "boolean"
         },
-        "forceSinglePass": {
-          "type": "boolean"
-        },
-        "dithering": {
-          "type": "boolean"
-        },
         "shadowSide": {
           "$ref": "#/definitions/Side"
+        },
+        "stencilFuncMask": {
+          "type": "number"
+        },
+        "stencilRef": {
+          "type": "number"
+        },
+        "stencilWrite": {
+          "type": "boolean"
+        },
+        "stencilWriteMask": {
+          "type": "number"
         },
         "toneMapped": {
           "type": "boolean"
@@ -3260,26 +3272,17 @@
         "transparent": {
           "type": "boolean"
         },
+        "userData": {
+          "type": "object"
+        },
         "vertexColors": {
           "type": "boolean"
         },
         "visible": {
           "type": "boolean"
         },
-        "stencilWrite": {
-          "type": "boolean"
-        },
-        "stencilRef": {
+        "aoMapIntensity": {
           "type": "number"
-        },
-        "stencilWriteMask": {
-          "type": "number"
-        },
-        "stencilFuncMask": {
-          "type": "number"
-        },
-        "userData": {
-          "type": "object"
         },
         "bumpScale": {
           "type": "number"
@@ -3287,10 +3290,10 @@
         "color": {
           "$ref": "#/definitions/ColorRepresentation"
         },
-        "displacementScale": {
+        "displacementBias": {
           "type": "number"
         },
-        "displacementBias": {
+        "displacementScale": {
           "type": "number"
         },
         "emissive": {
@@ -3302,10 +3305,10 @@
         "flatShading": {
           "type": "boolean"
         },
-        "lightMapIntensity": {
-          "type": "number"
+        "fog": {
+          "type": "boolean"
         },
-        "aoMapIntensity": {
+        "lightMapIntensity": {
           "type": "number"
         },
         "reflectivity": {
@@ -3317,17 +3320,14 @@
         "wireframe": {
           "type": "boolean"
         },
-        "wireframeLinewidth": {
-          "type": "number"
-        },
         "wireframeLinecap": {
           "type": "string"
         },
         "wireframeLinejoin": {
           "type": "string"
         },
-        "fog": {
-          "type": "boolean"
+        "wireframeLinewidth": {
+          "type": "number"
         },
         "normalScale": {
           "$ref": "#/definitions/Vector2Like"
@@ -3433,6 +3433,12 @@
         "depthWrite": {
           "type": "boolean"
         },
+        "dithering": {
+          "type": "boolean"
+        },
+        "forceSinglePass": {
+          "type": "boolean"
+        },
         "name": {
           "type": "string"
         },
@@ -3455,14 +3461,20 @@
         "premultipliedAlpha": {
           "type": "boolean"
         },
-        "forceSinglePass": {
-          "type": "boolean"
-        },
-        "dithering": {
-          "type": "boolean"
-        },
         "shadowSide": {
           "$ref": "#/definitions/Side"
+        },
+        "stencilFuncMask": {
+          "type": "number"
+        },
+        "stencilRef": {
+          "type": "number"
+        },
+        "stencilWrite": {
+          "type": "boolean"
+        },
+        "stencilWriteMask": {
+          "type": "number"
         },
         "toneMapped": {
           "type": "boolean"
@@ -3470,40 +3482,28 @@
         "transparent": {
           "type": "boolean"
         },
+        "userData": {
+          "type": "object"
+        },
         "vertexColors": {
           "type": "boolean"
         },
         "visible": {
           "type": "boolean"
         },
-        "stencilWrite": {
-          "type": "boolean"
-        },
-        "stencilRef": {
+        "aoMapIntensity": {
           "type": "number"
         },
-        "stencilWriteMask": {
+        "bumpScale": {
           "type": "number"
-        },
-        "stencilFuncMask": {
-          "type": "number"
-        },
-        "userData": {
-          "type": "object"
         },
         "color": {
           "$ref": "#/definitions/ColorRepresentation"
         },
-        "specular": {
-          "$ref": "#/definitions/ColorRepresentation"
-        },
-        "shininess": {
+        "displacementBias": {
           "type": "number"
         },
-        "lightMapIntensity": {
-          "type": "number"
-        },
-        "aoMapIntensity": {
+        "displacementScale": {
           "type": "number"
         },
         "emissive": {
@@ -3512,13 +3512,13 @@
         "emissiveIntensity": {
           "type": "number"
         },
-        "bumpScale": {
-          "type": "number"
+        "flatShading": {
+          "type": "boolean"
         },
-        "displacementScale": {
-          "type": "number"
+        "fog": {
+          "type": "boolean"
         },
-        "displacementBias": {
+        "lightMapIntensity": {
           "type": "number"
         },
         "reflectivity": {
@@ -3527,11 +3527,14 @@
         "refractionRatio": {
           "type": "number"
         },
+        "shininess": {
+          "type": "number"
+        },
+        "specular": {
+          "$ref": "#/definitions/ColorRepresentation"
+        },
         "wireframe": {
           "type": "boolean"
-        },
-        "wireframeLinewidth": {
-          "type": "number"
         },
         "wireframeLinecap": {
           "type": "string"
@@ -3539,11 +3542,8 @@
         "wireframeLinejoin": {
           "type": "string"
         },
-        "fog": {
-          "type": "boolean"
-        },
-        "flatShading": {
-          "type": "boolean"
+        "wireframeLinewidth": {
+          "type": "number"
         },
         "normalScale": {
           "$ref": "#/definitions/Vector2Like"
@@ -3649,6 +3649,12 @@
         "depthWrite": {
           "type": "boolean"
         },
+        "dithering": {
+          "type": "boolean"
+        },
+        "forceSinglePass": {
+          "type": "boolean"
+        },
         "name": {
           "type": "string"
         },
@@ -3671,14 +3677,20 @@
         "premultipliedAlpha": {
           "type": "boolean"
         },
-        "forceSinglePass": {
-          "type": "boolean"
-        },
-        "dithering": {
-          "type": "boolean"
-        },
         "shadowSide": {
           "$ref": "#/definitions/Side"
+        },
+        "stencilFuncMask": {
+          "type": "number"
+        },
+        "stencilRef": {
+          "type": "number"
+        },
+        "stencilWrite": {
+          "type": "boolean"
+        },
+        "stencilWriteMask": {
+          "type": "number"
         },
         "toneMapped": {
           "type": "boolean"
@@ -3686,34 +3698,28 @@
         "transparent": {
           "type": "boolean"
         },
+        "userData": {
+          "type": "object"
+        },
         "vertexColors": {
           "type": "boolean"
         },
         "visible": {
           "type": "boolean"
         },
-        "stencilWrite": {
-          "type": "boolean"
-        },
-        "stencilRef": {
+        "aoMapIntensity": {
           "type": "number"
         },
-        "stencilWriteMask": {
+        "bumpScale": {
           "type": "number"
-        },
-        "stencilFuncMask": {
-          "type": "number"
-        },
-        "userData": {
-          "type": "object"
         },
         "color": {
           "$ref": "#/definitions/ColorRepresentation"
         },
-        "lightMapIntensity": {
+        "displacementBias": {
           "type": "number"
         },
-        "aoMapIntensity": {
+        "displacementScale": {
           "type": "number"
         },
         "emissive": {
@@ -3722,20 +3728,14 @@
         "emissiveIntensity": {
           "type": "number"
         },
-        "bumpScale": {
-          "type": "number"
+        "fog": {
+          "type": "boolean"
         },
-        "displacementScale": {
-          "type": "number"
-        },
-        "displacementBias": {
+        "lightMapIntensity": {
           "type": "number"
         },
         "wireframe": {
           "type": "boolean"
-        },
-        "wireframeLinewidth": {
-          "type": "number"
         },
         "wireframeLinecap": {
           "type": "string"
@@ -3743,8 +3743,8 @@
         "wireframeLinejoin": {
           "type": "string"
         },
-        "fog": {
-          "type": "boolean"
+        "wireframeLinewidth": {
+          "type": "number"
         },
         "normalScale": {
           "$ref": "#/definitions/Vector2Like"
@@ -3850,6 +3850,12 @@
         "depthWrite": {
           "type": "boolean"
         },
+        "dithering": {
+          "type": "boolean"
+        },
+        "forceSinglePass": {
+          "type": "boolean"
+        },
         "name": {
           "type": "string"
         },
@@ -3872,14 +3878,20 @@
         "premultipliedAlpha": {
           "type": "boolean"
         },
-        "forceSinglePass": {
-          "type": "boolean"
-        },
-        "dithering": {
-          "type": "boolean"
-        },
         "shadowSide": {
           "$ref": "#/definitions/Side"
+        },
+        "stencilFuncMask": {
+          "type": "number"
+        },
+        "stencilRef": {
+          "type": "number"
+        },
+        "stencilWrite": {
+          "type": "boolean"
+        },
+        "stencilWriteMask": {
+          "type": "number"
         },
         "toneMapped": {
           "type": "boolean"
@@ -3887,40 +3899,28 @@
         "transparent": {
           "type": "boolean"
         },
+        "userData": {
+          "type": "object"
+        },
         "vertexColors": {
           "type": "boolean"
         },
         "visible": {
           "type": "boolean"
         },
-        "stencilWrite": {
-          "type": "boolean"
-        },
-        "stencilRef": {
+        "aoMapIntensity": {
           "type": "number"
         },
-        "stencilWriteMask": {
+        "bumpScale": {
           "type": "number"
-        },
-        "stencilFuncMask": {
-          "type": "number"
-        },
-        "userData": {
-          "type": "object"
         },
         "color": {
           "$ref": "#/definitions/ColorRepresentation"
         },
-        "roughness": {
+        "displacementBias": {
           "type": "number"
         },
-        "metalness": {
-          "type": "number"
-        },
-        "lightMapIntensity": {
-          "type": "number"
-        },
-        "aoMapIntensity": {
+        "displacementScale": {
           "type": "number"
         },
         "emissive": {
@@ -3929,16 +3929,22 @@
         "emissiveIntensity": {
           "type": "number"
         },
-        "bumpScale": {
-          "type": "number"
-        },
-        "displacementScale": {
-          "type": "number"
-        },
-        "displacementBias": {
-          "type": "number"
-        },
         "envMapIntensity": {
+          "type": "number"
+        },
+        "flatShading": {
+          "type": "boolean"
+        },
+        "fog": {
+          "type": "boolean"
+        },
+        "lightMapIntensity": {
+          "type": "number"
+        },
+        "metalness": {
+          "type": "number"
+        },
+        "roughness": {
           "type": "number"
         },
         "wireframe": {
@@ -3946,12 +3952,6 @@
         },
         "wireframeLinewidth": {
           "type": "number"
-        },
-        "fog": {
-          "type": "boolean"
-        },
-        "flatShading": {
-          "type": "boolean"
         },
         "normalScale": {
           "$ref": "#/definitions/Vector2Like"
@@ -4057,6 +4057,12 @@
         "depthWrite": {
           "type": "boolean"
         },
+        "dithering": {
+          "type": "boolean"
+        },
+        "forceSinglePass": {
+          "type": "boolean"
+        },
         "name": {
           "type": "string"
         },
@@ -4079,14 +4085,20 @@
         "premultipliedAlpha": {
           "type": "boolean"
         },
-        "forceSinglePass": {
-          "type": "boolean"
-        },
-        "dithering": {
-          "type": "boolean"
-        },
         "shadowSide": {
           "$ref": "#/definitions/Side"
+        },
+        "stencilFuncMask": {
+          "type": "number"
+        },
+        "stencilRef": {
+          "type": "number"
+        },
+        "stencilWrite": {
+          "type": "boolean"
+        },
+        "stencilWriteMask": {
+          "type": "number"
         },
         "toneMapped": {
           "type": "boolean"
@@ -4094,40 +4106,28 @@
         "transparent": {
           "type": "boolean"
         },
+        "userData": {
+          "type": "object"
+        },
         "vertexColors": {
           "type": "boolean"
         },
         "visible": {
           "type": "boolean"
         },
-        "stencilWrite": {
-          "type": "boolean"
-        },
-        "stencilRef": {
+        "aoMapIntensity": {
           "type": "number"
         },
-        "stencilWriteMask": {
+        "bumpScale": {
           "type": "number"
-        },
-        "stencilFuncMask": {
-          "type": "number"
-        },
-        "userData": {
-          "type": "object"
         },
         "color": {
           "$ref": "#/definitions/ColorRepresentation"
         },
-        "roughness": {
+        "displacementBias": {
           "type": "number"
         },
-        "metalness": {
-          "type": "number"
-        },
-        "lightMapIntensity": {
-          "type": "number"
-        },
-        "aoMapIntensity": {
+        "displacementScale": {
           "type": "number"
         },
         "emissive": {
@@ -4136,16 +4136,22 @@
         "emissiveIntensity": {
           "type": "number"
         },
-        "bumpScale": {
-          "type": "number"
-        },
-        "displacementScale": {
-          "type": "number"
-        },
-        "displacementBias": {
-          "type": "number"
-        },
         "envMapIntensity": {
+          "type": "number"
+        },
+        "flatShading": {
+          "type": "boolean"
+        },
+        "fog": {
+          "type": "boolean"
+        },
+        "lightMapIntensity": {
+          "type": "number"
+        },
+        "metalness": {
+          "type": "number"
+        },
+        "roughness": {
           "type": "number"
         },
         "wireframe": {
@@ -4154,11 +4160,17 @@
         "wireframeLinewidth": {
           "type": "number"
         },
-        "fog": {
-          "type": "boolean"
+        "anisotropy": {
+          "type": "number"
         },
-        "flatShading": {
-          "type": "boolean"
+        "anisotropyRotation": {
+          "type": "number"
+        },
+        "attenuationColor": {
+          "$ref": "#/definitions/ColorRepresentation"
+        },
+        "attenuationDistance": {
+          "type": "number"
         },
         "clearcoat": {
           "type": "number"
@@ -4166,10 +4178,24 @@
         "clearcoatRoughness": {
           "type": "number"
         },
-        "reflectivity": {
+        "ior": {
           "type": "number"
         },
-        "ior": {
+        "iridescence": {
+          "type": "number"
+        },
+        "iridescenceIOR": {
+          "type": "number"
+        },
+        "iridescenceThicknessRange": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "minItems": 2,
+          "maxItems": 2
+        },
+        "reflectivity": {
           "type": "number"
         },
         "sheen": {
@@ -4181,42 +4207,16 @@
         "sheenRoughness": {
           "type": "number"
         },
-        "transmission": {
-          "type": "number"
-        },
-        "thickness": {
-          "type": "number"
-        },
-        "attenuationDistance": {
-          "type": "number"
-        },
-        "attenuationColor": {
+        "specularColor": {
           "$ref": "#/definitions/ColorRepresentation"
         },
         "specularIntensity": {
           "type": "number"
         },
-        "specularColor": {
-          "$ref": "#/definitions/ColorRepresentation"
-        },
-        "iridescenceIOR": {
+        "thickness": {
           "type": "number"
         },
-        "iridescence": {
-          "type": "number"
-        },
-        "iridescenceThicknessRange": {
-          "type": "array",
-          "items": {
-            "type": "number"
-          },
-          "minItems": 2,
-          "maxItems": 2
-        },
-        "anisotropy": {
-          "type": "number"
-        },
-        "anisotropyRotation": {
+        "transmission": {
           "type": "number"
         },
         "clearcoatNormalScale": {
@@ -4326,6 +4326,12 @@
         "depthWrite": {
           "type": "boolean"
         },
+        "dithering": {
+          "type": "boolean"
+        },
+        "forceSinglePass": {
+          "type": "boolean"
+        },
         "name": {
           "type": "string"
         },
@@ -4348,14 +4354,20 @@
         "premultipliedAlpha": {
           "type": "boolean"
         },
-        "forceSinglePass": {
-          "type": "boolean"
-        },
-        "dithering": {
-          "type": "boolean"
-        },
         "shadowSide": {
           "$ref": "#/definitions/Side"
+        },
+        "stencilFuncMask": {
+          "type": "number"
+        },
+        "stencilRef": {
+          "type": "number"
+        },
+        "stencilWrite": {
+          "type": "boolean"
+        },
+        "stencilWriteMask": {
+          "type": "number"
         },
         "toneMapped": {
           "type": "boolean"
@@ -4363,37 +4375,25 @@
         "transparent": {
           "type": "boolean"
         },
+        "userData": {
+          "type": "object"
+        },
         "vertexColors": {
           "type": "boolean"
         },
         "visible": {
           "type": "boolean"
         },
-        "stencilWrite": {
-          "type": "boolean"
-        },
-        "stencilRef": {
-          "type": "number"
-        },
-        "stencilWriteMask": {
-          "type": "number"
-        },
-        "stencilFuncMask": {
-          "type": "number"
-        },
-        "userData": {
-          "type": "object"
-        },
         "color": {
           "$ref": "#/definitions/ColorRepresentation"
+        },
+        "fog": {
+          "type": "boolean"
         },
         "size": {
           "type": "number"
         },
         "sizeAttenuation": {
-          "type": "boolean"
-        },
-        "fog": {
           "type": "boolean"
         }
       },
