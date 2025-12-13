@@ -44,7 +44,7 @@ const planeParams: ActorParams = {
   materialParams: { color: new Color('#5EDCAE') },
   type: 'plane'
 };
-
+//test
 const planeActor = actorManager.create(planeParams);
 
 // const sphereParams: ActorParams = {
