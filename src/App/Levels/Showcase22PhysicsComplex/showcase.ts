@@ -17,18 +17,8 @@ export function showcase(canvas: TAppCanvas): TShowcase {
 
     controlsService.findActive()?.entity.target.set(0, 10, 0);
 
-    const world: World | undefined = physicsWorldService.getWorld();
-    if (isNotDefined(world)) throw new Error('World is not defined');
-
-    // world.maxVelocityIterations = 2;
-    // world.maxPositionIterations = 1;
-
     physicsLoopService.shouldAutoUpdate(false);
     await buildTower(actorService, 10, 10, 20);
-
-    // setInterval(() => {
-    //   physicsLoopService.step();
-    // }, 100);
 
     physicsLoopService.shouldAutoUpdate(true);
 
