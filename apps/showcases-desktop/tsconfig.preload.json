@@ -4,11 +4,11 @@
     "module": "CommonJS",
     "moduleResolution": "node",
     "paths": {
-      "@Anarchy/Shared/*": ["packages/anarchy-shared/src/*"],
       "@Anarchy/Shared": ["packages/anarchy-shared/src/index.ts"],
-      "showcases-shared/*": ["packages/showcases-shared/src/*"],
+      "@Anarchy/Shared/*": ["packages/anarchy-shared/src/*"],
+      "@Showcases/Desktop/*": ["./src/*"],
       "showcases-shared": ["packages/showcases-shared/src/index.ts"],
-      "@Showcases/Desktop/*": ["./src/*"]
+      "showcases-shared/*": ["packages/showcases-shared/src/*"]
     }
   },
   "include": ["preload.ts"],

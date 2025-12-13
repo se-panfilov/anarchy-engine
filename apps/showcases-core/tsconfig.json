@@ -3,19 +3,19 @@
   "compilerOptions": {
     "paths": {
       "@/*": ["apps/showcases-core/src/*"],
-      "@Public/*": ["apps/showcases-core/public/*"],
-      "@Anarchy/Engine/*": ["packages/anarchy-engine/src/*"],
       "@Anarchy/Engine": ["packages/anarchy-engine/src/index.ts"],
-      "@Anarchy/Shared/*": ["packages/anarchy-shared/src/*"],
+      "@Anarchy/Engine/*": ["packages/anarchy-engine/src/*"],
       "@Anarchy/Shared": ["packages/anarchy-shared/src/index.ts"],
-      "@Anarchy/i18n/*": ["packages/anarchy-i18n/src/*"],
+      "@Anarchy/Shared/*": ["packages/anarchy-shared/src/*"],
       "@Anarchy/i18n": ["packages/anarchy-i18n/src/index.ts"],
-      "@Showcases/Shared/*": ["packages/showcases-shared/src/*"],
-      "@Showcases/Shared": ["packages/showcases-shared/src/index.ts"],
-      "@Showcases/E2E/*": ["apps/showcases-e2e/src/*"],
+      "@Anarchy/i18n/*": ["packages/anarchy-i18n/src/*"],
+      "@Public/*": ["apps/showcases-core/public/*"],
       "@Showcases/E2E": ["apps/showcases-e2e/src/index.ts"],
-      "showcases-menu/src/main": ["apps/showcases-core/types/showcases-menu-shim"],
-      "platform:api": ["apps/showcases-core/src/Platform/Drivers/web"]
+      "@Showcases/E2E/*": ["apps/showcases-e2e/src/*"],
+      "@Showcases/Shared": ["packages/showcases-shared/src/index.ts"],
+      "@Showcases/Shared/*": ["packages/showcases-shared/src/*"],
+      "platform:api": ["apps/showcases-core/src/Platform/Drivers/web"],
+      "showcases-menu/src/main": ["apps/showcases-core/types/showcases-menu-shim"]
     }
   },
   "include": ["src", "vite.config.ts", "types", "dist-desktop", "dist-web", "dist-mobile", "dist"]
