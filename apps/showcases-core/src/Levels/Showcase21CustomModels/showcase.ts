@@ -1,5 +1,5 @@
-import type { TModel3d, TModels3dRegistry, TModels3dResourceAsyncRegistry, TRegistryPack, TSceneWrapper, TSpace, TSpaceAnyEvent, TSpaceConfig, TSpaceServices } from '@Anarchy/Engine';
-import { KeyCode, SpaceEvents, spaceService } from '@Anarchy/Engine';
+import type { TKeysEvent, TModel3d, TModels3dRegistry, TModels3dResourceAsyncRegistry, TRegistryPack, TSceneWrapper, TSpace, TSpaceAnyEvent, TSpaceConfig, TSpaceServices } from '@Anarchy/Engine';
+import { isKeyInEvent, isPressedEvent, KeyCode, SpaceEvents, spaceService } from '@Anarchy/Engine';
 import { asRecord, isNotDefined } from '@Anarchy/Shared/Utils';
 import type { AnimationAction } from 'three';
 import { Euler, Vector3 } from 'three';
@@ -69,12 +69,12 @@ export async function showcase(space: TSpace): Promise<void> {
   const runActionCloneModel: AnimationAction = animationsService.startAutoUpdateMixer(modelClone).actions['Run'];
   const runActionCompressedModel: AnimationAction = animationsService.startAutoUpdateMixer(modelCompressed).actions['Run'];
 
-  keyboardService.onKey(KeyCode.One).pressed$.subscribe((): void => void runActionCloneModel?.play());
-  keyboardService.onKey(KeyCode.One).released$.subscribe((): void => void runActionCloneModel?.stop());
-  keyboardService.onKey(KeyCode.Two).pressed$.subscribe((): void => void runActionOriginalModel?.play());
-  keyboardService.onKey(KeyCode.Two).released$.subscribe((): void => void runActionOriginalModel?.stop());
-  keyboardService.onKey(KeyCode.Three).pressed$.subscribe((): void => void runActionCompressedModel?.play());
-  keyboardService.onKey(KeyCode.Three).released$.subscribe((): void => void runActionCompressedModel?.stop());
+  keyboardService.keys$.pipe().subscribe((event: TKeysEvent): void => {
+    const action = isPressedEvent(event) ? 'play' : ('stop' as const);
+    if (isKeyInEvent(KeyCode.One, event.event)) runActionCloneModel?.[action]();
+    if (isKeyInEvent(KeyCode.Two, event.event)) runActionOriginalModel?.[action]();
+    if (isKeyInEvent(KeyCode.Three, event.event)) runActionCompressedModel?.[action]();
+  });
 
   space.start$.next(true);
 }

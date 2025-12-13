@@ -1,5 +1,5 @@
 import type { TActor, TAnyCameraWrapper, TIntersectionEvent, TIntersectionsCameraWatcher, TRadians, TReadonlyVector3, TSceneWrapper, TSpace, TSpaceConfig, TTextAnyWrapper } from '@Anarchy/Engine';
-import { ForwardAxis, getDistance, getHorizontalAzimuth, getPushCoordsFrom3dAzimuth, isActorHasPhysicsBody, KeyCode, spaceService, TextType } from '@Anarchy/Engine';
+import { ForwardAxis, getDistance, getHorizontalAzimuth, getPushCoordsFrom3dAzimuth, isActorHasPhysicsBody, KeyCode, onKey, spaceService, TextType } from '@Anarchy/Engine';
 import { meters, radians } from '@Anarchy/Engine/Measurements/Utils';
 import { asRecord, isDefined, isNotDefined } from '@Anarchy/Shared/Utils';
 import { Euler, Vector3 } from 'three';
@@ -52,7 +52,7 @@ export function showcase(space: TSpace): void {
     ballActor.drive.physics.physicsBody$.value?.getRigidBody()?.applyImpulse(getPushCoordsFrom3dAzimuth(azimuth, radians(0), forcePower * 10.5, ForwardAxis.X), true);
   });
 
-  keyboardService.onKey(KeyCode.Space).pressed$.subscribe((): void => {
+  keyboardService.keys$.pipe(onKey(KeyCode.Space)).subscribe((): void => {
     ballActor.drive.physics.physicsBody$.value?.getRigidBody()?.applyImpulse({ x: 0, y: 20, z: 0 }, true);
   });
 
