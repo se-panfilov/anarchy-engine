@@ -29,26 +29,35 @@ export function createPhysicsBodyEntities(params: TPhysicsBodyParams, world: Wor
     const colliderDesc: ColliderDesc = getColliderDesc(params);
     if (isDefined(params.position)) colliderDesc.setTranslation(params.position.x, params.position.y, params.position.z);
     if (isDefined(params.rotation)) colliderDesc.setRotation(params.rotation);
+    if (isDefined(params.collisionGroups)) colliderDesc.setCollisionGroups(params.collisionGroups);
+    if (isDefined(params.friction)) colliderDesc.setFriction(params.friction);
+    if (isDefined(params.restitution)) colliderDesc.setRestitution(params.restitution);
+    if (isDefined(params.isSensor)) colliderDesc.setSensor(params.isSensor);
+    if (isDefined(params.density)) colliderDesc.setDensity(params.density);
+    if (isDefined(params.mass)) colliderDesc.setMass(params.mass);
+    if (isDefined(params.solverGroups)) colliderDesc.setSolverGroups(params.solverGroups);
+
     const collider: Collider = world.createCollider(colliderDesc);
     return { rigidBody: undefined, rigidBodyDesc: undefined, colliderDesc, collider };
   } else {
     const rigidBodyDesc: RigidBodyDesc = RigidBodyDesc[params.type]();
     if (isDefined(params.position)) rigidBodyDesc.setTranslation(params.position.x, params.position.y, params.position.z);
     if (isDefined(params.rotation)) rigidBodyDesc.setRotation(params.rotation);
-    const rigidBody: RigidBody = world.createRigidBody(rigidBodyDesc);
-    const colliderDesc: ColliderDesc = getColliderDesc(params);
-
-    if (isDefined(params.angularVelocity)) rigidBodyDesc.setAngvel(params.angularVelocity);
-    if (isDefined(params.ccdEnabled)) rigidBodyDesc.setCcdEnabled(params.ccdEnabled);
-    if (isDefined(params.collisionGroups)) colliderDesc.setCollisionGroups(params.collisionGroups);
-    if (isDefined(params.density)) colliderDesc.setDensity(params.density);
-    if (isDefined(params.dominanceGroup)) rigidBodyDesc.setDominanceGroup(params.dominanceGroup);
-    if (isDefined(params.friction)) colliderDesc.setFriction(params.friction);
-    if (isDefined(params.gravityScale)) rigidBodyDesc.setGravityScale(params.gravityScale);
-    if (isDefined(params.isSensor)) colliderDesc.setSensor(params.isSensor);
     if (isDefined(params.linearVelocity)) rigidBodyDesc.setLinvel(params.linearVelocity.x, params.linearVelocity.y, params.linearVelocity.z);
-    if (isDefined(params.mass)) colliderDesc.setMass(params.mass);
+    if (isDefined(params.angularVelocity)) rigidBodyDesc.setAngvel(params.angularVelocity);
+    if (isDefined(params.gravityScale)) rigidBodyDesc.setGravityScale(params.gravityScale);
+    if (isDefined(params.dominanceGroup)) rigidBodyDesc.setDominanceGroup(params.dominanceGroup);
+    if (isDefined(params.ccdEnabled)) rigidBodyDesc.setCcdEnabled(params.ccdEnabled);
+
+    const rigidBody: RigidBody = world.createRigidBody(rigidBodyDesc);
+
+    const colliderDesc: ColliderDesc = getColliderDesc(params);
+    if (isDefined(params.collisionGroups)) colliderDesc.setCollisionGroups(params.collisionGroups);
+    if (isDefined(params.friction)) colliderDesc.setFriction(params.friction);
     if (isDefined(params.restitution)) colliderDesc.setRestitution(params.restitution);
+    if (isDefined(params.isSensor)) colliderDesc.setSensor(params.isSensor);
+    if (isDefined(params.density)) colliderDesc.setDensity(params.density);
+    if (isDefined(params.mass)) colliderDesc.setMass(params.mass);
     if (isDefined(params.solverGroups)) colliderDesc.setSolverGroups(params.solverGroups);
 
     const collider: Collider = world.createCollider(colliderDesc, rigidBody);
