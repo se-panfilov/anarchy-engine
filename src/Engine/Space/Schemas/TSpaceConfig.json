@@ -1053,7 +1053,7 @@
     },
     "TransformAgent": {
       "type": "string",
-      "enum": ["kinematic", "physical", "instant"]
+      "enum": ["kinematic", "physical", "connected", "default"]
     },
     "TCameraConfig": {
       "type": "object",

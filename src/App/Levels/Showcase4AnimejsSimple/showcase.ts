@@ -83,7 +83,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
 
       actorRegistry.findAllByTags([boxActorTag], LookUpStrategy.Some).forEach((actor: TActor): void => {
         const easing = actor.getTags()[1] as Easing;
-        void moverService.goToPosition(actor.drive.instant.positionConnector, { x: 20 }, { ...animationParams, easing });
+        void moverService.goToPosition(actor.drive.connected.positionConnector, { x: 20 }, { ...animationParams, easing });
       });
     });
   }

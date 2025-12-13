@@ -46,21 +46,21 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     if (isNotDefined(actorMkeyForward)) throw new Error('Actor mkey Forward is not defined');
     if (isNotDefined(actorMkeyExtra)) throw new Error('Actor mkey Extra is not defined');
 
-    onKey(KeyCode.W).pressing$.subscribe(({ delta }): void => void actorKeyboard.drive.instant.addZ(mpsSpeed(-10, delta.delta)));
-    onKey(KeyCode.W).pressed$.subscribe((): void => void actorKeyW.drive.instant.addY(-0.2));
-    onKey(KeyCode.W).released$.subscribe((): void => void actorKeyW.drive.instant.addY(0.2));
+    onKey(KeyCode.W).pressing$.subscribe(({ delta }): void => void actorKeyboard.drive.default.addZ(mpsSpeed(-10, delta.delta)));
+    onKey(KeyCode.W).pressed$.subscribe((): void => void actorKeyW.drive.default.addY(-0.2));
+    onKey(KeyCode.W).released$.subscribe((): void => void actorKeyW.drive.default.addY(0.2));
 
-    onKey(KeyCode.A).pressing$.subscribe(({ delta }): void => void actorKeyboard.drive.instant.addX(mpsSpeed(-10, delta.delta)));
-    onKey(KeyCode.A).pressed$.subscribe((): void => void actorKeyA.drive.instant.addY(-0.2));
-    onKey(KeyCode.A).released$.subscribe((): void => void actorKeyA.drive.instant.addY(0.2));
+    onKey(KeyCode.A).pressing$.subscribe(({ delta }): void => void actorKeyboard.drive.default.addX(mpsSpeed(-10, delta.delta)));
+    onKey(KeyCode.A).pressed$.subscribe((): void => void actorKeyA.drive.default.addY(-0.2));
+    onKey(KeyCode.A).released$.subscribe((): void => void actorKeyA.drive.default.addY(0.2));
 
-    onKey(KeyCode.S).pressing$.subscribe(({ delta }): void => void actorKeyboard.drive.instant.addZ(mpsSpeed(10, delta.delta)));
-    onKey(KeyCode.S).pressed$.subscribe((): void => void actorKeyS.drive.instant.addY(-0.2));
-    onKey(KeyCode.S).released$.subscribe((): void => void actorKeyS.drive.instant.addY(0.2));
+    onKey(KeyCode.S).pressing$.subscribe(({ delta }): void => void actorKeyboard.drive.default.addZ(mpsSpeed(10, delta.delta)));
+    onKey(KeyCode.S).pressed$.subscribe((): void => void actorKeyS.drive.default.addY(-0.2));
+    onKey(KeyCode.S).released$.subscribe((): void => void actorKeyS.drive.default.addY(0.2));
 
-    onKey(KeyCode.D).pressing$.subscribe(({ delta }): void => void actorKeyboard.drive.instant.addX(mpsSpeed(10, delta.delta)));
-    onKey(KeyCode.D).pressed$.subscribe((): void => void actorKeyD.drive.instant.addY(-0.2));
-    onKey(KeyCode.D).released$.subscribe((): void => void actorKeyD.drive.instant.addY(0.2));
+    onKey(KeyCode.D).pressing$.subscribe(({ delta }): void => void actorKeyboard.drive.default.addX(mpsSpeed(10, delta.delta)));
+    onKey(KeyCode.D).pressed$.subscribe((): void => void actorKeyD.drive.default.addY(-0.2));
+    onKey(KeyCode.D).released$.subscribe((): void => void actorKeyD.drive.default.addY(0.2));
 
     const intersectionsWatcher: TIntersectionsWatcher = startIntersections();
     const coordsUI: { x: number; z: number } = { x: 0, z: 0 };
@@ -81,21 +81,21 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     const moverService: TMoverService = MoverService(loopService, defaultMoverServiceConfig);
 
     clickLeftRelease$.pipe(withLatestFrom(intersectionsWatcher.value$)).subscribe(([, intersection]: [TMouseWatcherEvent, TIntersectionEvent]): void => {
-      void moverService.goToPosition(actorMouse.drive.instant.positionConnector, { x: intersection.point.x, z: intersection.point.z }, { duration: 1000, easing: Easing.EaseInCubic });
+      void moverService.goToPosition(actorMouse.drive.connected.positionConnector, { x: intersection.point.x, z: intersection.point.z }, { duration: 1000, easing: Easing.EaseInCubic });
     });
 
-    isLeftPressed$.subscribe((isPressed: boolean): void => void actorMkeyLeft.drive.instant.addY(isPressed ? -0.2 : 0.2));
-    isRightPressed$.subscribe((isPressed: boolean): void => void actorMkeyRight.drive.instant.addY(isPressed ? -0.2 : 0.2));
-    isMiddlePressed$.subscribe((isPressed: boolean): void => void actorMkeyMiddle.drive.instant.addY(isPressed ? -0.2 : 0.2));
-    isBackPressed$.subscribe((isPressed: boolean): void => void actorMkeyBack.drive.instant.addY(isPressed ? -0.2 : 0.2));
-    isForwardPressed$.subscribe((isPressed: boolean): void => void actorMkeyForward.drive.instant.addY(isPressed ? -0.2 : 0.2));
-    isExtraPressed$.subscribe((isPressed: boolean): void => void actorMkeyExtra.drive.instant.addY(isPressed ? -0.2 : 0.2));
+    isLeftPressed$.subscribe((isPressed: boolean): void => void actorMkeyLeft.drive.default.addY(isPressed ? -0.2 : 0.2));
+    isRightPressed$.subscribe((isPressed: boolean): void => void actorMkeyRight.drive.default.addY(isPressed ? -0.2 : 0.2));
+    isMiddlePressed$.subscribe((isPressed: boolean): void => void actorMkeyMiddle.drive.default.addY(isPressed ? -0.2 : 0.2));
+    isBackPressed$.subscribe((isPressed: boolean): void => void actorMkeyBack.drive.default.addY(isPressed ? -0.2 : 0.2));
+    isForwardPressed$.subscribe((isPressed: boolean): void => void actorMkeyForward.drive.default.addY(isPressed ? -0.2 : 0.2));
+    isExtraPressed$.subscribe((isPressed: boolean): void => void actorMkeyExtra.drive.default.addY(isPressed ? -0.2 : 0.2));
 
     doubleLeftClick$.subscribe((event: TMouseWatcherEvent): void => console.log('double click left', event));
     doubleRightClick$.subscribe((event: TMouseWatcherEvent): void => console.log('double click right', event));
 
-    wheelUp$.subscribe((): void => actorMkeyMiddle.drive.instant.adjustRotationByX(10));
-    wheelDown$.subscribe((): void => actorMkeyMiddle.drive.instant.adjustRotationByX(-10));
+    wheelUp$.subscribe((): void => actorMkeyMiddle.drive.default.adjustRotationByX(10));
+    wheelDown$.subscribe((): void => actorMkeyMiddle.drive.default.adjustRotationByX(-10));
   }
 
   function startIntersections(): TIntersectionsWatcher {

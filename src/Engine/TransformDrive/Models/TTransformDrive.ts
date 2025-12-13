@@ -4,8 +4,8 @@ import type { Euler, Vector3 } from 'three';
 import type { TDestroyable } from '@/Engine/Mixins';
 import type { TransformAgent } from '@/Engine/TransformDrive/Constants';
 
+import type { TWithConnectedProtectedAgent } from './TWithConnectedProtectedAgent';
 import type { TWithDefaultProtectedAgent } from './TWithDefaultProtectedAgent';
-import type { TWithInstantProtectedAgent } from './TWithInstantProtectedAgent';
 import type { TWithKinematicProtectedAgent } from './TWithKinematicProtectedAgent';
 import type { TWithPhysicsProtectedAgent } from './TWithPhysicsProtectedAgent';
 
@@ -20,6 +20,6 @@ export type TTransformDrive = Readonly<{
 }> &
   TWithKinematicProtectedAgent &
   TWithPhysicsProtectedAgent &
-  TWithInstantProtectedAgent &
+  TWithConnectedProtectedAgent &
   TWithDefaultProtectedAgent &
   TDestroyable;

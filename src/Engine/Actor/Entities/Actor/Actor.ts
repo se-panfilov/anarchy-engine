@@ -38,8 +38,7 @@ export function Actor(
 
   // TODO 8.0.0. MODELS: Make sure it works with the Kinematic agent
   // TODO 8.0.0. MODELS: Make sure it works with the Physics agent
-  // TODO 8.0.0. MODELS: Make sure it works with the Instant agent (set)
-  // TODO 8.0.0. MODELS: Make sure it works with the Instant agent (connector)
+  // TODO 8.0.0. MODELS: Make sure it works with the Connected agent
 
   // TODO 8.0.0. MODELS: Add a showcase with runtime switch between agents (check spatial and collisions)
 
