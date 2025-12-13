@@ -32,12 +32,12 @@ export function TransformDrive(params: TTransformDriveParams, agents: TTransform
   const positionRep$: ReplaySubject<Vector3> = new ReplaySubject<Vector3>(1);
   const rotationRep$: ReplaySubject<Euler> = new ReplaySubject<Euler>(1);
   const scaleRep$: ReplaySubject<Vector3> = new ReplaySubject<Vector3>(1);
-  const activeAgentRep$: ReplaySubject<TAbstractTransformAgent> = new ReplaySubject(1);
+  const activeAgentRep$: ReplaySubject<TProtectedTransformAgentFacade<TAbstractTransformAgent>> = new ReplaySubject(1);
 
   position$.subscribe(positionRep$);
   rotation$.subscribe(rotationRep$);
   scale$.subscribe(scaleRep$);
-  activeAgent$.subscribe(activeAgentRep$);
+  activeAgent$.subscribe((agent: TAbstractTransformAgent): void => activeAgentRep$.next(ProtectedTransformAgentFacade(agent)));
 
   const destroyable: TDestroyable = destroyableMixin();
 
@@ -90,14 +90,14 @@ export function TransformDrive(params: TTransformDriveParams, agents: TTransform
     agentSub$.unsubscribe();
 
     //Stop subjects
+    agent$.complete();
+    agent$.unsubscribe();
     position$.complete();
     position$.unsubscribe();
     rotation$.complete();
     rotation$.unsubscribe();
     scale$.complete();
     scale$.unsubscribe();
-    activeAgent$.complete();
-    activeAgent$.unsubscribe();
 
     Object.values(agents).forEach((agent: TProtectedTransformAgentFacade<TAbstractTransformAgent>): void => agent.destroy$.next());
   });
