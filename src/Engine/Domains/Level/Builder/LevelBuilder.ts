@@ -30,7 +30,8 @@ import type { ILevel, ILevelConfig } from '../Models';
 // TODO (S.Panfilov) CWP 2. maybe add relations to all wrappers during the level build?
 
 export function buildLevelFromConfig(canvas: IAppCanvas, config: ILevelConfig): ILevel {
-  let isInternalChange: boolean = true;
+  let isDestroyedInternalChange: boolean = true;
+  let isBuiltInternalChange: boolean = true;
   const built$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   const destroyed$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
@@ -38,13 +39,13 @@ export function buildLevelFromConfig(canvas: IAppCanvas, config: ILevelConfig): 
   const { name, actors, cameras, lights, controls, scenes, tags } = config;
 
   destroyed$.subscribe((val: boolean): void => {
-    if (!isInternalChange) throw new Error(`Level ("${name}") doesn't allow to modify "destroyed$" from outside. Attempt to set value: ${String(val)}`);
-    isInternalChange = false;
+    if (!isDestroyedInternalChange) throw new Error(`Level ("${name}") doesn't allow to modify "destroyed$" from outside. Attempt to set value: ${String(val)}`);
+    isDestroyedInternalChange = false;
   });
 
   built$.subscribe((val: boolean): void => {
-    if (!isInternalChange) throw new Error(`Level ("${name}") doesn't allow to modify "built$" from outside. Attempt to set value: ${String(val)}`);
-    isInternalChange = false;
+    if (!isBuiltInternalChange) throw new Error(`Level ("${name}") doesn't allow to modify "built$" from outside. Attempt to set value: ${String(val)}`);
+    isBuiltInternalChange = false;
   });
 
   // TODO (S.Panfilov) refactor this maybe with command/strategy pattern?
