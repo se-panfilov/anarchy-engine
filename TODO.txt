@@ -11,7 +11,8 @@ Done:
 
 Roadmap:
 - 9.1.x Refactor Vector/TVectorWrapper, Euler/TEulerWrapper (should be Vector/Euler everywhere)
-- 9.2.x Lines domain
+- 9.2.x Refactor withActive entities (use active$) (camera, renderer, etc)
+- 9.3.x Lines domain
 - 10.0.x Sounds/Music
 - 10.1.x GUI
 - 10.2.x Pausing (timers)
