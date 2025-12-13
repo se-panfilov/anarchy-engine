@@ -29,9 +29,6 @@ export function Actor(
   const drive: TActorTransformDrive = ActorTransformDrive(params, { kinematicLoopService, physicsBodyService, physicsLoopService }, id);
   const driveToTargetConnector: TDriveToTargetConnector = DriveToTargetConnector(drive, model3d.getRawModel3d(), params.model3dSettings);
 
-  // TODO CWP:
-  // TODO 8.0.0. MODELS: Close all todoes with tag 10.0.0
-
   const entities: TActorEntities = {
     // TODO ACTOR: state encapsulate AI (connection)
     // TODO ACTOR: state encapsulate sounds
