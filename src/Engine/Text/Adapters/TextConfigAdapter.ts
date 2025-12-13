@@ -10,7 +10,7 @@ export function configToParams(config: TTextConfig): TTextParams {
     ...configToParamsObject3d({ position, rotation, scale, layers })
   };
 
-  if (isDefined(center)) result = { ...result, center: Vector2Wrapper(center) };
+  if (isDefined(center)) result = { ...result, center };
 
   return result;
 }

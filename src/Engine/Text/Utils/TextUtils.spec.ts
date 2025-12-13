@@ -1,16 +1,17 @@
-import { EulerWrapper } from '@/Engine/Euler';
+import { Euler } from 'three';
+import { Vector3 } from 'three/src/math/Vector3';
+
 import { TextType } from '@/Engine/Text/Constants';
 import type { TText2dWrapper, TText3dWrapper, TTextParams } from '@/Engine/Text/Models';
 import { Text2dWrapper, Text3dWrapper } from '@/Engine/Text/Wrappers';
-import { Vector3Wrapper } from '@/Engine/Vector';
 
 import { isText2dWrapper, isText3dWrapper } from './TextUtils';
 
 describe('TextUtils', () => {
   const textPrams: Omit<TTextParams, 'type'> = {
     text: 'VarelaRound',
-    position: Vector3Wrapper({ x: -15, y: 6, z: -14 }),
-    rotation: EulerWrapper({ x: -1.57, y: 0, z: 0 }),
+    position: new Vector3(-15, 6, -14),
+    rotation: new Euler(-1.57, 0, 0),
     cssProps: {
       color: '#ff0000',
       fontSize: '0.2rem',

@@ -27,9 +27,9 @@ import {
 } from './CheckUtils';
 
 describe('CheckUtils', () => {
-  const entity2d: TWithPosition2dProperty = { position: Vector2Wrapper({ x: 10, y: 10 }).entity };
-  const entity3d: TWithPosition3dProperty = { position: Vector3Wrapper({ x: 10, y: 10, z: 10 }).entity };
-  const entity4d: TWithPosition4dProperty = { position: Vector4Wrapper({ x: 10, y: 10, z: 10, w: 10 }).entity };
+  const entity2d: TWithPosition2dProperty = { position: new Vector2(10, 10) };
+  const entity3d: TWithPosition3dProperty = { position: new Vector3(10, 10, 10) };
+  const entity4d: TWithPosition4dProperty = { position: new Vector4(10, 10, 10, 10) };
 
   describe('isDefined', () => {
     it('should return "true" if value is "string"', () => {
