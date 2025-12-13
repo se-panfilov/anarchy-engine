@@ -36,13 +36,91 @@
       "texturePack": {
         "aoMap": { "url": "/ShowcaseLevel8/Door_Wood/Door_Wood_001_ambientOcclusion.jpg" },
         "map": { "url": "/ShowcaseLevel8/Door_Wood/Door_Wood_001_basecolor.jpg" },
+        "alphaMap": { "url": "/ShowcaseLevel8/Door_Wood/Door_Wood_001_opacity.jpg" },
+        "material": "basic"
+      },
+      "tags": ["basic"]
+    },
+    {
+      "type": "cube",
+      "width": 1,
+      "height": 1,
+      "position": { "x": 4, "y": 0, "z": 0 },
+      "castShadow": true,
+      "materialParams": { "color": "#5177ff" },
+      "texturePack": {
+        "aoMap": { "url": "/ShowcaseLevel8/Door_Wood/Door_Wood_001_ambientOcclusion.jpg" },
+        "map": { "url": "/ShowcaseLevel8/Door_Wood/Door_Wood_001_basecolor.jpg" },
+        "normalMap": { "url": "/ShowcaseLevel8/Door_Wood/Door_Wood_001_normal.jpg" },
+        "alphaMap": { "url": "/ShowcaseLevel8/Door_Wood/Door_Wood_001_opacity.jpg" },
+        "material": "phong"
+      },
+      "tags": ["phong"]
+    },
+    {
+      "type": "cube",
+      "width": 1,
+      "height": 1,
+      "position": { "x": 6, "y": 0, "z": 0 },
+      "castShadow": true,
+      "materialParams": { "color": "#5177ff" },
+      "texturePack": {
+        "aoMap": { "url": "/ShowcaseLevel8/Door_Wood/Door_Wood_001_ambientOcclusion.jpg" },
+        "map": { "url": "/ShowcaseLevel8/Door_Wood/Door_Wood_001_basecolor.jpg" },
+        "normalMap": { "url": "/ShowcaseLevel8/Door_Wood/Door_Wood_001_normal.jpg" },
+        "alphaMap": { "url": "/ShowcaseLevel8/Door_Wood/Door_Wood_001_opacity.jpg" },
+        "material": "lambert"
+      },
+      "tags": ["lambert"]
+    },
+    {
+      "type": "cube",
+      "width": 1,
+      "height": 1,
+      "position": { "x": 8, "y": 0, "z": 0 },
+      "castShadow": true,
+      "materialParams": { "color": "#5177ff" },
+      "texturePack": {
+        "aoMap": { "url": "/ShowcaseLevel8/Door_Wood/Door_Wood_001_ambientOcclusion.jpg" },
+        "map": { "url": "/ShowcaseLevel8/Door_Wood/Door_Wood_001_basecolor.jpg" },
+        "normalMap": { "url": "/ShowcaseLevel8/Door_Wood/Door_Wood_001_normal.jpg" },
+        "alphaMap": { "url": "/ShowcaseLevel8/Door_Wood/Door_Wood_001_opacity.jpg" },
+        "material": "toon"
+      },
+      "tags": ["toon"]
+    },
+    {
+      "type": "cube",
+      "width": 1,
+      "height": 1,
+      "position": { "x": 10, "y": 0, "z": 0 },
+      "castShadow": true,
+      "materialParams": { "color": "#5177ff" },
+      "texturePack": {
+        "aoMap": { "url": "/ShowcaseLevel8/Door_Wood/Door_Wood_001_ambientOcclusion.jpg" },
+        "map": { "url": "/ShowcaseLevel8/Door_Wood/Door_Wood_001_basecolor.jpg" },
         "normalMap": { "url": "/ShowcaseLevel8/Door_Wood/Door_Wood_001_normal.jpg" },
         "alphaMap": { "url": "/ShowcaseLevel8/Door_Wood/Door_Wood_001_opacity.jpg" },
         "metalnessMap": { "url": "/ShowcaseLevel8/Door_Wood/Door_Wood_001_metallic.jpg" },
         "roughnessMap": { "url": "/ShowcaseLevel8/Door_Wood/Door_Wood_001_roughness.jpg" },
-        "material": "basic"
+        "material": "physical"
       },
-      "tags": ["basic"]
+      "tags": ["physical"]
+    },
+    {
+      "type": "cube",
+      "width": 1,
+      "height": 1,
+      "position": { "x": 12, "y": 0, "z": 0 },
+      "castShadow": true,
+      "materialParams": { "color": "#5177ff" },
+      "texturePack": {
+        "map": { "url": "/ShowcaseLevel8/Door_Wood/Door_Wood_001_basecolor.jpg" },
+        "normalMap": { "url": "/ShowcaseLevel8/Door_Wood/Door_Wood_001_normal.jpg" },
+        "alphaMap": { "url": "/ShowcaseLevel8/Door_Wood/Door_Wood_001_opacity.jpg" },
+        "material": "matcap"
+      },
+      "tags": ["matcap"]
     }
   ],
   "texts": [],
@@ -51,7 +129,7 @@
       "fov": 45,
       "near": 1,
       "far": 10000,
-      "position": { "x": 0, "y": 0, "z": 3 },
+      "position": { "x": 0, "y": 0, "z": 0 },
       "rotation": { "x": 0, "y": 0, "z": 0 },
       "tags": ["initial"]
     }

@@ -35,15 +35,7 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
     currentActor$.next(actor);
   });
 
-  currentActor$.subscribe((actor: IActorWrapper): void => {
-    moveTextToActor(actor);
-    lookAtActor(actor);
-  });
-
-  function lookAtActor(actor: IActorWrapper): void {
-    if (isNotDefined(actor) || isNotDefined(camera)) throw new Error('Actor or camera is not found');
-    camera.lookAt(actor.getPosition());
-  }
+  currentActor$.subscribe((actor: IActorWrapper): void => moveTextToActor(actor));
 
   function moveTextToActor(actor: IActorWrapper): void {
     const position: IVector3Wrapper = actor.getPosition();
@@ -65,7 +57,7 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
 
     const xRotation: number = getRotationBySin(xRatio, 1, 2);
     const yRotation: number = getRotationByCos(xRatio, 1, 2);
-    // camera.setX(xRatio * 10);
+
     camera.setX(xRotation);
     camera.setY(yRatio * 10);
     camera.setZ(yRotation);
