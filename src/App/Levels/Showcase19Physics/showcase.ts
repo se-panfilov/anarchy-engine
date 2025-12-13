@@ -6,6 +6,20 @@ import { LineGeometry } from 'three/examples/jsm/lines/LineGeometry';
 import { LineMaterial } from 'three/examples/jsm/lines/LineMaterial';
 
 import type { TShowcase } from '@/App/Levels/Models';
+import type {
+  TActorWrapperAsync,
+  TAppCanvas,
+  TCameraWrapper,
+  TEngine,
+  TIntersectionEvent,
+  TIntersectionsWatcher,
+  TIntersectionsWatcherParams,
+  TPhysicsDebugRenderer,
+  TSceneWrapper,
+  TSpace,
+  TSpaceConfig,
+  TWithCoordsXYZ
+} from '@/Engine';
 import {
   buildSpaceFromConfig,
   Engine,
@@ -14,24 +28,11 @@ import {
   getPushCoordsFrom3dAzimuth,
   isDefined,
   isNotDefined,
-  KeyCode,
   KeysExtra,
   mouseService,
   PhysicsDebugRenderer,
   STANDARD_GRAVITY,
-  TActorWrapperAsync,
-  TAppCanvas,
-  TCameraWrapper,
-  TEngine,
   TextType,
-  TIntersectionEvent,
-  TIntersectionsWatcher,
-  TIntersectionsWatcherParams,
-  TPhysicsDebugRenderer,
-  TSceneWrapper,
-  TSpace,
-  TSpaceConfig,
-  TWithCoordsXYZ,
   Vector3Wrapper
 } from '@/Engine';
 import { meters } from '@/Engine/Measurements/Utils';
@@ -111,8 +112,8 @@ export function showcase(canvas: TAppCanvas): TShowcase {
       azimuthText.setText(`Azimuth: ${azimuth}`);
     });
 
-    // TODO (S.Panfilov) extract physics world update to  the main loop
-    loopService.tick$.subscribe(({ delta }) => {
+    // TODO (S.Panfilov) extract physics world update to the main loop
+    loopService.tick$.subscribe(() => {
       // Ste the simulation forward.
       world.step();
 
