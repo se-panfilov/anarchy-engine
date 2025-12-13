@@ -18,11 +18,6 @@ export const sinPrecise = (value: Decimal): Decimal => Decimal.sin(value);
 // TODO add unit tests
 export const radiansToDegreesPrecise = (radians: TRadians): Decimal => new Decimal(radians).times(180).div(Math.PI);
 
-// TODO add unit tests
-export function getHorizontalAzimuthDeg(x: number, z: number, point: Vector3Like): TDegrees {
-  return radToDeg(getHorizontalAzimuth(x, z, point)) as TDegrees;
-}
-
 export function getHorizontalAzimuth(x: number, z: number, point: Vector3Like): TRadians {
   const dx: number = point.x - x;
   const dz: number = point.z - z;
@@ -32,6 +27,17 @@ export function getHorizontalAzimuth(x: number, z: number, point: Vector3Like): 
   azimuthRad = euclideanModulo(azimuthRad, Math.PI * 2);
 
   return azimuthRad as TRadians;
+}
+
+// TODO add unit tests
+export function getElevation(x: number, y: number, z: number, point: Vector3Like): TRadians {
+  const dx: number = point.x - x;
+  const dy: number = point.y - y;
+  const dz: number = point.z - z;
+
+  const horizontalDistance: number = Math.sqrt(dx ** 2 + dz ** 2);
+
+  return Math.atan2(dy, horizontalDistance) as TRadians;
 }
 
 // TODO add unit tests
