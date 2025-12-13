@@ -1,8 +1,8 @@
-import type { TAnyAudioConfig, TAnyAudioWrapper, TAudio3dConfig, TAudioResourceAsyncRegistry } from '@/Engine/Audio/Models';
+import type { TAnyAudioConfig, TAnyAudioWrapper, TAudio3dConfig, TAudioConfigToParamsDependencies } from '@/Engine/Audio/Models';
 import { isAudio3dWrapper } from '@/Engine/Audio/Utils';
 import { isNotDefined } from '@/Engine/Utils';
 
-export function audioToConfig(entity: TAnyAudioWrapper, audioResourceAsyncRegistry: TAudioResourceAsyncRegistry): TAnyAudioConfig {
+export function audioToConfig(entity: TAnyAudioWrapper, { audioResourceAsyncRegistry, audioListenersRegistry }: TAudioConfigToParamsDependencies): TAnyAudioConfig {
   const { name, volume$, loop$, speed$, pause$, seek$ } = entity;
   // TODO 15-0-0: implement
 
@@ -14,7 +14,7 @@ export function audioToConfig(entity: TAnyAudioWrapper, audioResourceAsyncRegist
         directionalCone: entity.directionalCone$.value,
         distanceModel: entity.entity.getDistanceModel(),
         //   performance?: TAudioPerformanceOptions;
-        //   listener?: string;
+        listener: audioListenersRegistry.findKeyByValue(entity.entity.listener),
         ...entity.drive.serialize()
       }
     : ({} as any);

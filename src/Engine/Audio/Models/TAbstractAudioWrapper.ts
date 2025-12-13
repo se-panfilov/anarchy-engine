@@ -4,8 +4,10 @@ import type { AudioListener } from 'three';
 import type { TWrapper } from '@/Engine/Abstract';
 
 import type { TAnyAudio } from './TAnyAudio';
+import type { TAnyAudioConfig } from './TAnyAudioConfig';
+import type { TAudioConfigToParamsDependencies } from './TAudioConfigToParamsDependencies';
 
-export type TAbstractAudioWrapper<T extends TAnyAudio> = TWrapper<T> &
+export type TAbstractAudioWrapper<T extends TAnyAudio> = Omit<TWrapper<T>, 'serialize'> &
   Readonly<{
     play$: Subject<boolean>;
     pause$: BehaviorSubject<boolean>;
@@ -16,4 +18,5 @@ export type TAbstractAudioWrapper<T extends TAnyAudio> = TWrapper<T> &
     getDuration: () => number | undefined;
     volume$: BehaviorSubject<number>;
     listener$: BehaviorSubject<AudioListener | undefined>;
+    serialize: (dependencies: TAudioConfigToParamsDependencies) => TAnyAudioConfig;
   }>;
