@@ -6,7 +6,7 @@ export enum WrapperType {
   Controls = 'controls_wrapper',
   DirectionalLight = 'directional_light_wrapper',
   Euler = 'euler_wrapper',
-  EnvMap = 'envmap_wrapper',
+  EnvMap = 'env_map_wrapper',
   Fog = 'fog_wrapper',
   HemisphereLight = 'hemisphere_light_wrapper',
   Material = 'material_wrapper',

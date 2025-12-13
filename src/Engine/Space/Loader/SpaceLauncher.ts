@@ -18,7 +18,7 @@ import { prepareServices } from './SpaceServicesPrepare';
 export async function buildSpaceFromConfig(canvas: TAppCanvas, config: TSpaceConfig): Promise<TSpace> {
   validateConfig(config);
   screenService.setCanvas(canvas);
-  const { services } = await prepareServices(canvas, config.scenes);
+  const { services } = await prepareServices(config.name, canvas, config.scenes);
   await loadResources(config.resources, services);
   services.rendererService.create({ canvas, tags: [], mode: RendererModes.WebGL2, isActive: true });
   createEntities(config.entities, services);

@@ -2,6 +2,8 @@ export * from './TEnvMap';
 export * from './TEnvMapAsyncRegistry';
 export * from './TEnvMapConfig';
 export * from './TEnvMapConfigPack';
+export * from './TEnvMapConfigToParamsDependencies';
+export * from './TEnvMapFactory';
 export * from './TEnvMapLoader';
 export * from './TEnvMapParams';
 export * from './TEnvMapParamsPack';

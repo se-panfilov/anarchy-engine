@@ -7,7 +7,7 @@ import type { TCollisionsLoopService, TCollisionsService } from '@/Engine/Collis
 import { CollisionsLoopService, CollisionsService } from '@/Engine/Collisions';
 import { ambientContext } from '@/Engine/Context';
 import { ControlService, ControlsFactory, ControlsRegistry } from '@/Engine/Controls';
-import { EnvMapAsyncRegistry, EnvMapService } from '@/Engine/EnvMap';
+import { EnvMapAsyncRegistry, EnvMapFactory, EnvMapService } from '@/Engine/EnvMap';
 import { FogFactory, FogRegistry, FogService } from '@/Engine/Fog';
 import { IntersectionsWatcherFactory, IntersectionsWatcherRegistry, IntersectionsWatcherService } from '@/Engine/Intersections';
 import type { TKinematicLoopService } from '@/Engine/Kinematic';
@@ -83,7 +83,7 @@ export function initEntitiesServices(sceneW: TSceneWrapper, canvas: TAppCanvas):
     controlsService: ControlService(ControlsFactory(), ControlsRegistry(), canvas),
     collisionsService,
     collisionsLoopService,
-    envMapService: EnvMapService(EnvMapAsyncRegistry(), sceneW),
+    envMapService: EnvMapService(EnvMapFactory(), EnvMapAsyncRegistry(), sceneW),
     fogService: FogService(FogFactory(), FogRegistry(), sceneW),
     intersectionsWatcherService: IntersectionsWatcherService(IntersectionsWatcherFactory(), IntersectionsWatcherRegistry()),
     kinematicLoopService,

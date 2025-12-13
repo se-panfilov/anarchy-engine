@@ -5,13 +5,13 @@ import { isNotDefined } from '@/Engine/Utils';
 
 import { initServices } from './SpaceServicesLauncher';
 
-export async function prepareServices(canvas: TAppCanvas, scenes: ReadonlyArray<TSceneConfig>): Promise<Readonly<{ services: TSpaceServices; activeSceneW: TSceneWrapper }>> {
+export async function prepareServices(spaceName: string, canvas: TAppCanvas, scenes: ReadonlyArray<TSceneConfig>): Promise<Readonly<{ services: TSpaceServices; activeSceneW: TSceneWrapper }>> {
   let activeSceneW: TSceneWrapper;
   const p = new Promise<{ services: TSpaceServices; activeSceneW: TSceneWrapper }>((resolve) => {
     const services: TSpaceServices = initServices(canvas, (scenesService: TScenesService): TSceneWrapper | never => {
       scenesService.createFromConfig(scenes);
       const sceneW: TSceneWrapper | undefined = scenesService.findActive();
-      if (isNotDefined(sceneW)) throw new Error(`Cannot find an active scene for space "${name}" during space's services initialization.`);
+      if (isNotDefined(sceneW)) throw new Error(`Cannot find an active scene for space "${spaceName}" during space's services initialization.`);
       activeSceneW = sceneW;
 
       // TODO debug (window as any).sceneW
