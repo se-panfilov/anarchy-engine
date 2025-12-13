@@ -9,4 +9,6 @@ export type TKeyboardService = TAbstractService &
     pressed$: Observable<ReadonlySet<TGameKey>>;
     pressing$: Observable<TKeysPressingEvent>;
     currentKeys: ReadonlySet<TGameKey>;
+    isKeyPressed: (key: TGameKey) => boolean;
+    isKeysPressed: (keys: ReadonlyArray<TGameKey>) => boolean;
   }>;

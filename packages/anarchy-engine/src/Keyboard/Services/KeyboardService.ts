@@ -37,13 +37,8 @@ export function KeyboardService(container: TContainerDecorator, keyWatcherFactor
       })
     );
 
-  // TODO:
-  //  - Listen events from container (not window)
-  //  - sort combo priority by combo length (longer first)
-  //  - ignore input fields
-  //  - remove listeners on destroy
+  // TODO DESKTOP:
   //  - remove extra models
-  //  - send pressing event in keyboard loop (avoid deps on hardware)
 
   const destroySub$: Subscription = abstractService.destroy$.subscribe((): void => {
     destroySub$.unsubscribe();
@@ -56,6 +51,8 @@ export function KeyboardService(container: TContainerDecorator, keyWatcherFactor
   return Object.assign(abstractService, {
     pressed$: keyComboWatcher.value$.asObservable(),
     pressing$: pressing$.asObservable(),
-    currentKeys: keyComboWatcher.getValue()
+    currentKeys: keyComboWatcher.value$.value,
+    isKeyPressed: (key: TGameKey): boolean => keyComboWatcher.value$.value.has(key),
+    isKeysPressed: (keys: ReadonlyArray<TGameKey>): boolean => keys.every((key: TGameKey): boolean => keyComboWatcher.value$.value.has(key))
   });
 }
