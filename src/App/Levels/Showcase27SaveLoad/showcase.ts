@@ -48,8 +48,8 @@ const spacesData: ReadonlyArray<TSpacesData> = [
   spaceOrbitControlsData,
   spaceParticlesData,
   spacePhysicsData,
-  spaceTextData,
   spaceSpatialData,
+  spaceTextData,
   spaceTransformDriveData
 ];
 
