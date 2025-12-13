@@ -25,12 +25,12 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
   const { keyboardService } = engine.services;
   const { onKey, isKeyPressed } = keyboardService;
 
-  function init(): void {
+  async function init(): Promise<void> {
     addGizmo(space.services, ambientContext.screenSizeWatcher, { placement: 'bottom-left' });
     const fadeDuration = 0.3;
 
     const solder1AnimFsm: TFsmWrapper = initSolder1('solder_actor_1', fadeDuration, space.services);
-    const solder2AnimFsm: TFsmWrapper = initSolder2('solder_actor_2', fadeDuration, space.services);
+    const solder2AnimFsm: TFsmWrapper = await initSolder2('solder_actor_2', fadeDuration, space.services);
 
     solder1AnimFsm.changed$.pipe(distinctUntilChanged()).subscribe((state: TFsmStates): void => {
       if (state === 'Idle') {
@@ -123,28 +123,40 @@ function initSolder1(actorName: string, fadeDuration: number, { animationsServic
   return animationsFsm;
 }
 
-function initSolder2(actorName: string, fadeDuration: number, { animationsService, actorService }: TSpaceServices): TFsmWrapper {
+async function initSolder2(actorName: string, fadeDuration: number, { animationsService, actorService, models3dService }: TSpaceServices): Promise<TFsmWrapper> {
   const actor: TActor | undefined = actorService.getRegistry().findByName(actorName);
   if (isNotDefined(actor)) throw new Error(`Actor "${actorName}" is not found`);
 
   const model3d: TModel3d = actor.model3d;
-  const actions = animationsService.startAutoUpdateMixer(model3d).actions;
-
-  const idleAction: AnimationAction = actions['Idle'];
-  // const danceAction: AnimationAction = actions['Dance'];
 
   const { animationsFsm } = actor.states;
   if (isNotDefined(animationsFsm)) throw new Error('Animations FSM is not defined');
 
+  const animContainer = await models3dService.loadAsync({ name: 'dance_anim', url: '/Showcase/Models/Solder/animations/samba.glb' });
+  // console.log('XXX anim 1', model3d.getAnimations());
+  model3d.addAnimations(animContainer.animations);
+  console.log('XXX anim 2', model3d.getAnimations().length === 5 ? 'YES!!!' : 'NO', model3d.getAnimations().length);
+
+  const newActionsPack = animationsService.createActions(model3d.getRawModel3d(), animContainer.animations, model3d.getMixer());
+  console.log('XXX newActions', newActionsPack.actions);
+  model3d.addActions(newActionsPack.actions);
+  console.log('XXX model3d actions', model3d.getActions());
+
+  const actions = animationsService.startAutoUpdateMixer(model3d).actions;
+  // console.log('XXX actions', actions);
+  const idleAction: AnimationAction = actions['Idle'];
+  const danceAction: AnimationAction = actions['Armature|mixamo.com|Layer0'];
+  console.log('XXXdance', danceAction);
+
   animationsFsm.changed$.pipe(distinctUntilChanged()).subscribe((state: TFsmStates): void => {
     switch (state) {
       case 'Idle':
-        // danceAction.fadeOut(fadeDuration);
+        danceAction.fadeOut(fadeDuration);
         idleAction.reset().fadeIn(fadeDuration).play();
         break;
       case 'Dance':
         idleAction.fadeOut(fadeDuration);
-        // danceAction.reset().fadeIn(fadeDuration).play();
+        danceAction.reset().fadeIn(fadeDuration).play();
         break;
       default:
         throw new Error(`Unknown state: ${String(state)}`);
