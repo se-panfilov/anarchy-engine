@@ -27,10 +27,11 @@ export function Models3dService(
   const factorySub$: Subscription = factory.entityCreated$.subscribe((wrapper: TModel3d): void => registry.add(wrapper));
   const model3dLoader: TModels3dLoader = Models3dLoader(resourcesRegistry);
   const materialRegistry: TMaterialRegistry = materialService.getRegistry();
+  const animationsResourceAsyncRegistry: TModel3dResourceAsyncRegistry = animationsService.getResourceRegistry();
 
   const create = (params: TModel3dParams): TModel3d => factory.create(params, { animationsService, model3dRawToModel3dConnectionRegistry });
   const createFromConfig = (models3d: ReadonlyArray<TModel3dConfig>): ReadonlyArray<TModel3d> =>
-    models3d.map((config: TModel3dConfig): TModel3d => create(factory.configToParams(config, { materialRegistry, model3dResourceAsyncRegistry: resourcesRegistry })));
+    models3d.map((config: TModel3dConfig): TModel3d => create(factory.configToParams(config, { animationsResourceAsyncRegistry, materialRegistry, model3dResourceAsyncRegistry: resourcesRegistry })));
 
   function clone(model3d: TModel3d, overrides?: TOptional<TModel3dParams>): TModel3d {
     const cloned: TModel3d = model3d._clone(overrides);

@@ -4,8 +4,12 @@ import type { AnimationClip, AnimationMixer } from 'three';
 import type { TLoopTimes } from '@/Engine/Loop';
 import type { TDestroyable } from '@/Engine/Mixins';
 import type { TModel3d, TRawModel3d } from '@/Engine/Models3d';
+import type { TWithLoadResourcesAsyncService, TWithResourcesRegistryService } from '@/Engine/Space';
 
 import type { TAnimationActionsPack } from './TAnimationActionsPack';
+import type { TAnimations } from './TAnimations';
+import type { TAnimationsResourceAsyncRegistry } from './TAnimationsResourceAsyncRegistry';
+import type { TAnimationsResourceConfig } from './TAnimationsResourceConfig';
 import type { TModel3dAnimations } from './TModel3dAnimations';
 
 export type TAnimationsService = Readonly<{
@@ -14,4 +18,6 @@ export type TAnimationsService = Readonly<{
   startAutoUpdateMixer: (model3d: TModel3d, updateTick$?: Observable<TLoopTimes>) => TAnimationActionsPack | never;
   stopAutoUpdateMixer: (mixer: AnimationMixer) => void | never;
 }> &
+  TWithResourcesRegistryService<TAnimationsResourceAsyncRegistry> &
+  TWithLoadResourcesAsyncService<TAnimationsResourceConfig, TAnimations> &
   TDestroyable;

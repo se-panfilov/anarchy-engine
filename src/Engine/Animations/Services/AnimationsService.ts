@@ -3,7 +3,8 @@ import { Subject } from 'rxjs';
 import type { AnimationClip } from 'three';
 import { AnimationMixer } from 'three';
 
-import type { TAnimationActions, TAnimationActionsPack, TAnimationsService, TModel3dAnimations } from '@/Engine/Animations/Models';
+import { AnimationsLoader } from '@/Engine/Animations/Loader';
+import type { TAnimationActions, TAnimationActionsPack, TAnimationsLoader, TAnimationsResourceAsyncRegistry, TAnimationsService, TModel3dAnimations } from '@/Engine/Animations/Models';
 import type { TLoopService, TLoopTimes } from '@/Engine/Loop';
 import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
@@ -11,7 +12,8 @@ import type { TModel3d, TRawModel3d } from '@/Engine/Models3d';
 import type { TWriteable } from '@/Engine/Utils';
 import { isDefined, isNotDefined } from '@/Engine/Utils';
 
-export function AnimationsService(loopService: TLoopService): TAnimationsService {
+export function AnimationsService(loopService: TLoopService, resourcesRegistry: TAnimationsResourceAsyncRegistry): TAnimationsService {
+  const animationsLoader: TAnimationsLoader = AnimationsLoader(resourcesRegistry);
   const added$: Subject<TModel3dAnimations> = new Subject<TModel3dAnimations>();
   const subscriptions: Map<AnimationMixer, Subscription> = new Map<AnimationMixer, Subscription>();
 
@@ -52,6 +54,9 @@ export function AnimationsService(loopService: TLoopService): TAnimationsService
     added$.complete();
     added$.unsubscribe();
     subscriptions.forEach((subs$) => subs$.unsubscribe());
+
+    // TODO DESTROY: We need a way to unload env animations, tho
+    resourcesRegistry.destroy$.next();
   });
 
   return {
@@ -59,6 +64,9 @@ export function AnimationsService(loopService: TLoopService): TAnimationsService
     added$: added$.asObservable(),
     startAutoUpdateMixer,
     stopAutoUpdateMixer,
+    loadAsync: animationsLoader.loadAsync,
+    loadFromConfigAsync: animationsLoader.loadFromConfigAsync,
+    getResourceRegistry: (): TAnimationsResourceAsyncRegistry => resourcesRegistry,
     ...destroyable
   };
 }

@@ -8,13 +8,13 @@ import { isPrimitiveModel3dData } from '@/Engine/Models3d/Utils';
 import { configToParamsObject3d } from '@/Engine/ThreeLib';
 import { isDefined, isNotDefined } from '@/Engine/Utils';
 
-export function configToParams(config: TModel3dConfig, { materialRegistry, model3dResourceAsyncRegistry }: TModel3dConfigToParamsDependencies): TModel3dParams {
+export function configToParams(config: TModel3dConfig, { animationsResourceAsyncRegistry, materialRegistry, model3dResourceAsyncRegistry }: TModel3dConfigToParamsDependencies): TModel3dParams {
   const { position, rotation, materialSource, scale, ...rest } = config;
 
   return {
     ...rest,
     ...configToParamsObject3d({ position, rotation, scale }),
-    animationsSource: getAnimationsSource(config),
+    animationsSource: getAnimationsSource(config, animationsResourceAsyncRegistry),
     model3dSource: getModel3d(config, model3dResourceAsyncRegistry),
     materialSource: isDefined(materialSource) ? materialRegistry.findByName(materialSource) : undefined
   };
