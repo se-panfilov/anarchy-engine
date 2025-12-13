@@ -20,7 +20,7 @@ export function Space(params: TSpaceParams, hooks?: TSpaceHooks): TSpace {
   const start$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   const canvas: TSpaceCanvas = getOrCreateCanvasFromSelector(canvasSelector);
-  const container: TContainerDecorator = getContainer();
+  const container: TContainerDecorator = getCanvasContainer(canvas);
 
   const { services, loops } = initSpaceServices(canvas, container, params);
   hooks?.afterAllServicesInitialized?.(canvas, services, loops, params);
@@ -50,10 +50,6 @@ export function Space(params: TSpaceParams, hooks?: TSpaceHooks): TSpace {
     return result;
   }
 
-  function getContainer(): TContainerDecorator | never {
-    return getCanvasContainer(canvas);
-  }
-
   function drop(): void {
     space.destroy$.next();
     canvas.remove();
@@ -65,7 +61,7 @@ export function Space(params: TSpaceParams, hooks?: TSpaceHooks): TSpace {
       name,
       tags
     }),
-    { getCanvasElement, getContainer, drop }
+    { getCanvasElement, container, drop }
   );
 
   start$.pipe(skip(1), distinctUntilChanged()).subscribe((value: boolean): void => {
@@ -80,7 +76,6 @@ export function Space(params: TSpaceParams, hooks?: TSpaceHooks): TSpace {
     return undefined;
   });
 
-  // TODO 14-0-0: Add possibility to drop the whole canvas on destroy
   const destroySub$: Subscription = space.destroy$.subscribe((): void => {
     destroySub$.unsubscribe();
 
