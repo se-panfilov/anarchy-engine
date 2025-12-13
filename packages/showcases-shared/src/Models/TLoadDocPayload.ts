@@ -1,6 +1,5 @@
+import type { TShowcaseLocaleIds } from '@Showcases/i18n';
 import type { AllowedLegalDocNames } from '@Showcases/Shared/Constants';
-
-import type { TShowcaseLocaleIds } from '../../../showcases-i18n/src/Models/TShowcaseLocaleIds';
 
 export type TLoadDocPayload = Readonly<{
   name: AllowedLegalDocNames;

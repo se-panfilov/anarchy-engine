@@ -1,4 +1,4 @@
-import type { TLocale } from 'anarchy-i18n/src';
+import type { TLocale } from '@Anarchy/i18n';
 
 import type { TFullLocaleIds, TShowcaseLocaleIds } from './TShowcaseLocaleIds';
 
