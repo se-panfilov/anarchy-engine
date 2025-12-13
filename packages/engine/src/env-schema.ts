@@ -3,7 +3,8 @@ import { object } from 'valibot';
 
 export const runtimeSchema = object({
   CI: toBool,
-  VITE_BUILD_COMPRESSION: toBool
+  VITE_BUILD_COMPRESSION: toBool,
+  VITE_BUILD_MINIFY_MANUAL: toBool
 });
 
 // export const nodeSchema = object({
