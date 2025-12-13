@@ -1,10 +1,11 @@
 import type { TAbstractService } from '@/Engine/Abstract';
 import { AbstractService } from '@/Engine/Abstract';
 import { ambientContext } from '@/Engine/Context';
-import type { TAppGlobalContainer } from '@/Engine/Global';
+import type { TAppGlobalContainer, TContainerDecorator } from '@/Engine/Global';
 import type { TScreenService, TScreenSizeWatcherFactory, TScreenSizeWatcherRegistry } from '@/Engine/Screen/Models';
 import { exitFullScreen, goFullScreen, isFullScreen } from '@/Engine/Screen/Utils';
 import type { TSpaceCanvas } from '@/Engine/Space';
+import { getCanvasContainer, isDefined } from '@/Engine/Utils';
 
 import { ScreenSizeWatcherService } from './ScreenSizeWatcherService';
 
@@ -28,6 +29,7 @@ export function ScreenService(factory: TScreenSizeWatcherFactory, registry: TScr
       const container: TAppGlobalContainer = ambientContext.globalContainer.getAppContainer();
       return isFullScreen(container) ? exitFullScreen(container) : goFullScreen(canvas);
     },
+    getContainer: (): TContainerDecorator | undefined => (isDefined(canvas) ? getCanvasContainer(canvas) : undefined),
     isFullScreen: (): boolean => isFullScreen(ambientContext.globalContainer.getAppContainer())
   });
 }

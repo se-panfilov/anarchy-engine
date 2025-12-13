@@ -5,7 +5,7 @@ import { getWindowFromDomElement, isNotDefined } from '@/Engine/Utils';
 
 export function ContainerDecorator(container: TAppGlobalContainer | HTMLElement): TContainerDecorator {
   function getAppContainer(): TAppGlobalContainer | never {
-    const globalContainer = getWindowFromDomElement(container);
+    const globalContainer: Readonly<Window> | null = getWindowFromDomElement(container);
     if (isNotDefined(globalContainer)) throw new Error(`Cannot find global ${container}`);
     return globalContainer;
   }

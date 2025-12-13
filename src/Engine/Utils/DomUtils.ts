@@ -1,5 +1,6 @@
 import { ambientContext } from '@/Engine/Context';
-import type { TAppGlobalContainer } from '@/Engine/Global';
+import type { TAppGlobalContainer, TContainerDecorator } from '@/Engine/Global';
+import { ContainerDecorator } from '@/Engine/Global';
 import { isDefined, isNotDefined } from '@/Engine/Utils';
 
 export function findDomElement(canvasSelector: string): HTMLElement | null {
@@ -59,4 +60,10 @@ export function getWindowFromDomElement(element: HTMLElement | Window): TAppGlob
   if (typeof window === 'undefined') return null;
   if (element === window) return window;
   return (element as Element).ownerDocument.defaultView;
+}
+
+export function getCanvasContainer(canvas: HTMLCanvasElement): TContainerDecorator | never {
+  const parent: HTMLElement | null = canvas.parentElement;
+  if (isNotDefined(parent)) throw new Error(`Can't find canvas' parent element`);
+  return ContainerDecorator(parent);
 }

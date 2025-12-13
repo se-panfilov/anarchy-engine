@@ -4,7 +4,6 @@ import { BehaviorSubject, distinctUntilChanged, filter, skip } from 'rxjs';
 import type { TAbstractService, TRegistryPack } from '@/Engine/Abstract';
 import { AbstractEntity, EntityType } from '@/Engine/Abstract';
 import type { TContainerDecorator } from '@/Engine/Global';
-import { ContainerDecorator } from '@/Engine/Global';
 import type { TIntersectionsWatcher } from '@/Engine/Intersections';
 import type { TLoop } from '@/Engine/Loop';
 import { RendererModes } from '@/Engine/Renderer';
@@ -14,7 +13,7 @@ import { CreateEntitiesStrategy } from '@/Engine/Space/Constants';
 import type { TSpace, TSpaceBaseServices, TSpaceCanvas, TSpaceHooks, TSpaceLoops, TSpaceParams, TSpaceParts, TSpaceServices } from '@/Engine/Space/Models';
 import { buildBaseServices, buildEntitiesServices, createEntities } from '@/Engine/Space/Utils';
 import { createLoops } from '@/Engine/Space/Utils/CreateLoopsUtils';
-import { findDomElement, getOrCreateCanvasFromSelector, isCanvasElement, isDefined, isDestroyable, isNotDefined } from '@/Engine/Utils';
+import { findDomElement, getCanvasContainer, getOrCreateCanvasFromSelector, isCanvasElement, isDefined, isDestroyable, isNotDefined } from '@/Engine/Utils';
 
 export function Space(params: TSpaceParams, hooks?: TSpaceHooks): TSpace {
   const { canvasSelector, version, name, tags } = params;
@@ -55,9 +54,7 @@ export function Space(params: TSpaceParams, hooks?: TSpaceHooks): TSpace {
   }
 
   function getContainer(): TContainerDecorator | never {
-    const parent: HTMLElement | null = canvas.parentElement;
-    if (isNotDefined(parent)) throw new Error(`Space: Can't find canvas' parent element`);
-    return ContainerDecorator(parent);
+    return getCanvasContainer(canvas);
   }
 
   const space: TSpace = Object.assign(AbstractEntity(parts, EntityType.Space, { version, name, tags }), { getCanvasElement, getContainer });
