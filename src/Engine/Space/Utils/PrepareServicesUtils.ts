@@ -128,7 +128,7 @@ export function buildEntitiesServices(
       Text2dRendererRegistry(),
       Text3dRendererRegistry(),
       loops,
-      { loopService, physicsBodyService, cameraService },
+      { loopService, physicsBodyService, cameraService, transformDriveService },
       sceneW
     ),
     textureService,

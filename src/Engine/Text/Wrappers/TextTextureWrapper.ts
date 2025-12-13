@@ -4,14 +4,14 @@ import { LinearFilter, Mesh, MeshBasicMaterial, PlaneGeometry, Texture } from 't
 import { AbstractWrapper } from '@/Engine/Abstract';
 import { withObject3d } from '@/Engine/Mixins';
 import type { TextType } from '@/Engine/Text/Constants';
-import type { TTextDependencies, TTextParams, TTextTextureWrapper, TTextTransformDrive } from '@/Engine/Text/Models';
+import type { TTextParams, TTextServiceDependencies, TTextTextureWrapper, TTextTransformDrive } from '@/Engine/Text/Models';
 import { TextTransformDrive } from '@/Engine/Text/TransformDrive';
 import { getWrapperTypeByTextType } from '@/Engine/Text/Wrappers/TextWrapperHelper';
 import type { TDriveToTargetConnector } from '@/Engine/TransformDrive';
 import { DriveToTargetConnector } from '@/Engine/TransformDrive';
 import { applyObject3dParams, isNotDefined } from '@/Engine/Utils';
 
-export function createTextTextureWrapper(params: TTextParams, type: TextType, dependencies: TTextDependencies): TTextTextureWrapper<Mesh> {
+export function createTextTextureWrapper(params: TTextParams, type: TextType, dependencies: TTextServiceDependencies): TTextTextureWrapper<Mesh> {
   let canvas: HTMLCanvasElement = document.createElement('canvas');
   let context: CanvasRenderingContext2D = canvas.getContext('2d')!;
 

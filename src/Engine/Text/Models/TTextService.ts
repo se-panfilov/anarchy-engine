@@ -14,13 +14,13 @@ import type { TText3dRendererRegistry } from './TText3dRendererRegistry';
 import type { TText3dTextureRegistry } from './TText3dTextureRegistry';
 import type { TTextAnyWrapper } from './TTextAnyWrapper';
 import type { TTextConfig } from './TTextConfig';
-import type { TTextDependencies } from './TTextDependencies';
 import type { TTextFactory } from './TTextFactory';
 import type { TTextParams } from './TTextParams';
+import type { TTextServiceDependencies } from './TTextServiceDependencies';
 
 export type TTextServiceWithCreate = TWithCreateService<TTextAnyWrapper, TTextParams>;
 export type TTextServiceWithCreateFromConfig = TWithCreateFromConfigService<TTextConfig, TTextAnyWrapper>;
-export type TTextServiceWithFactory = TWithFactoryService<TTextAnyWrapper, TTextParams, TTextDependencies, TTextFactory>;
+export type TTextServiceWithFactory = TWithFactoryService<TTextAnyWrapper, TTextParams, TTextServiceDependencies, TTextFactory>;
 
 export type TTextService = TAbstractService &
   TTextServiceWithCreate &

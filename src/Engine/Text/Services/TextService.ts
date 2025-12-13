@@ -19,9 +19,9 @@ import type {
   TText3dRendererRegistry,
   TText3dTextureRegistry,
   TTextAnyWrapper,
-  TTextDependencies,
   TTextFactory,
   TTextService,
+  TTextServiceDependencies,
   TTextServiceWithCreate,
   TTextServiceWithCreateFromConfig,
   TTextServiceWithFactory
@@ -37,7 +37,7 @@ export function TextService(
   text2dRendererRegistry: TText2dRendererRegistry,
   text3dRendererRegistry: TText3dRendererRegistry,
   { textLoop }: TSpaceLoops,
-  dependencies: TTextDependencies,
+  dependencies: TTextServiceDependencies,
   scene: TSceneWrapper
 ): TTextService {
   merge(text2dRegistry.added$, text3dRegistry.added$, text3dTextureRegistry.added$).subscribe(({ value }: TRegistryPack<TTextAnyWrapper>): void => scene.addText(value));

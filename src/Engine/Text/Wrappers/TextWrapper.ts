@@ -8,7 +8,7 @@ import type { TWrapper } from '@/Engine/Abstract';
 import { AbstractWrapper } from '@/Engine/Abstract';
 import { withObject3d } from '@/Engine/Mixins';
 import { RelatedEntityAttribute, TextCssClass, TextType } from '@/Engine/Text/Constants';
-import type { TTextDependencies, TTextParams, TTextTransformDrive, TTextWrapper } from '@/Engine/Text/Models';
+import type { TTextParams, TTextServiceDependencies, TTextTransformDrive, TTextWrapper } from '@/Engine/Text/Models';
 import { TextTransformDrive } from '@/Engine/Text/TransformDrive';
 import { getCssAccessors } from '@/Engine/Text/Wrappers/Accessors';
 import { applyHtmlElementParams, getWrapperTypeByTextType } from '@/Engine/Text/Wrappers/TextWrapperHelper';
@@ -16,7 +16,7 @@ import type { TDriveToTargetConnector } from '@/Engine/TransformDrive';
 import { DriveToTargetConnector } from '@/Engine/TransformDrive';
 import { applyCenter, applyObject3dParams, isDefined } from '@/Engine/Utils';
 
-export function createTextWrapper<T extends CSS2DObject | CSS3DObject>(params: TTextParams, type: TextType, dependencies: TTextDependencies): TTextWrapper<T> {
+export function createTextWrapper<T extends CSS2DObject | CSS3DObject>(params: TTextParams, type: TextType, dependencies: TTextServiceDependencies): TTextWrapper<T> {
   let element: HTMLElement = document.createElement(params.elementType || 'div');
   // eslint-disable-next-line functional/immutable-data
   element.textContent = params.text;
