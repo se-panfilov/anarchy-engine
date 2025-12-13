@@ -49,6 +49,12 @@
         "$ref": "#/definitions/ILightConfig"
       }
     },
+    "texts": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/ITextConfig"
+      }
+    },
     "controls": {
       "type": "array",
       "items": {
@@ -56,7 +62,7 @@
       }
     }
   },
-  "required": ["actors", "cameras", "controls", "lights", "name", "scenes", "tags", "version"],
+  "required": ["actors", "cameras", "controls", "lights", "name", "scenes", "tags", "texts", "version"],
   "definitions": {
     "LevelTag": {
       "type": "string",
@@ -347,6 +353,48 @@
     "LightTag": {
       "type": "string",
       "const": "ambient"
+    },
+    "ITextConfig": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "color": {
+          "type": "string"
+        },
+        "intensity": {
+          "type": "number"
+        },
+        "position": {
+          "$ref": "#/definitions/IWithCoordsXYZ"
+        },
+        "text": {
+          "type": "string"
+        },
+        "fontSize": {
+          "type": "number"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "anyOf": [
+              {
+                "$ref": "#/definitions/TextTag"
+              },
+              {
+                "$ref": "#/definitions/CommonTag"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          }
+        }
+      },
+      "required": ["color", "fontSize", "intensity", "position", "tags", "text"]
+    },
+    "TextTag": {
+      "type": "string",
+      "enum": ["ui", "action"]
     },
     "IControlsConfig": {
       "type": "object",

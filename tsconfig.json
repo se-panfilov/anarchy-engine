@@ -24,7 +24,9 @@
     "strictNullChecks": true,
     "target": "ESNext",
     "types": ["node", "vite/client", "three", "vitest/importMeta", "vitest/globals"],
-    "useDefineForClassFields": true
+    "useDefineForClassFields": true,
+    // Troika-text has no types, so we need to add this to the "typeRoots" (otherwise we don't need to specify "typeRoots" at all)
+    "typeRoots": ["./node_modules/@types", "./node_modules", "./src/Engine/Types"]
   },
   "include": ["src", "vite.config.ts"]
 }
