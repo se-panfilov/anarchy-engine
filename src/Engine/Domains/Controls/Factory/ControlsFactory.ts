@@ -6,9 +6,6 @@ import type { IControlsConfig, IControlsFactory, IControlsParams, IControlsWrapp
 import { ControlsWrapper } from '../Wrapper';
 
 const create = (params: IControlsParams): IControlsWrapper => ControlsWrapper(params);
-
 const factory: IFactory<IControlsWrapper, IControlsParams> = { ...AbstractFactory('controls'), create };
-
 export const ControlsWithConfigFactory: IFactory<IControlsWrapper, IControlsParams> & IFromConfig<IControlsConfig, IControlsParams> = { ...factory, ...withConfigMixin(fromConfig) };
-
 export const ControlsFactory = (): IControlsFactory => ({ ...ControlsWithConfigFactory, ...destroyableFactoryMixin(ControlsWithConfigFactory) });
