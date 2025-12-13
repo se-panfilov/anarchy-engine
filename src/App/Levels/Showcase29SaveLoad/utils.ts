@@ -47,3 +47,25 @@ export function changeText(name: string, registry: TText2dRegistry | TText3dRegi
 }
 
 export const getContainer = (canvasSelector: string): string => canvasSelector.split('#')[1].trim();
+
+export function setButtonsDisabledInContainer(selector: string, disabled: boolean): void | never {
+  const container: Element | null = document.querySelector(selector);
+  if (!container) throw new Error(`[Showcase]: Container with selector "${selector}" is not found`);
+
+  const buttons = container.querySelectorAll<HTMLButtonElement>('button');
+  buttons.forEach((button): void => {
+    // eslint-disable-next-line functional/immutable-data
+    button.disabled = disabled;
+  });
+}
+
+export function toggleElementClass(selector: string, className: string): void | never {
+  const elem: Element | null = document.querySelector(selector);
+  if (!elem) throw new Error(`[Showcase]: Element with selector "${selector}" is not found`);
+
+  if (elem.classList.contains(className)) {
+    return elem.classList.remove(className);
+  } else {
+    return elem.classList.add(className);
+  }
+}

@@ -53,6 +53,7 @@ export function start(): void {
 }
 
 function loadSpace(name: string | undefined, source: ReadonlyArray<TSpacesData>): void {
+  setSpaceReady(false);
   if (isNotDefined(name)) return;
   const spaceData: TSpacesData | undefined = source.find((s: TSpacesData): boolean => s.name === name);
   if (isNotDefined(spaceData)) throw new Error(`[Showcase]: Space data is not found for space "${name}"`);
@@ -60,6 +61,12 @@ function loadSpace(name: string | undefined, source: ReadonlyArray<TSpacesData>)
   const spaces: ReadonlyArray<TSpace> = spaceService.createFromConfig([spaceData.config]);
   const space: TSpace = spaces.find((s: TSpace): boolean => s.name === name) as TSpace;
   if (isNotDefined(space)) throw new Error(`[Showcase]: Cannot create the space "${name}"`);
+
+  // eslint-disable-next-line functional/immutable-data
+  subscriptions[`serializationInProgress$_${space.name}`] = space.serializationInProgress$.subscribe((isInProgress: boolean): void => setSpaceReady(!isInProgress));
+
+  // eslint-disable-next-line functional/immutable-data
+  subscriptions[`start$_${space.name}`] = space.start$.subscribe((isStarted: boolean): void => setSpaceReady(isStarted));
 
   currentSpaceName = space.name;
   spaceData.onCreate?.(space, subscriptions);
@@ -74,8 +81,10 @@ function unloadSpace(name: string | undefined, spaceRegistry: TSpaceRegistry): v
   setContainerVisibility(name, false, spacesData);
 
   const spaceData: TSpacesData | undefined = spacesData.find((s: TSpacesData): boolean => s.name === name);
+  Object.values(subscriptions).forEach((sub: Subscription): void => sub.unsubscribe());
   if (isNotDefined(spaceData)) throw new Error(`[Showcase]: Space data is not found for space "${name}"`);
   spaceData.onUnload?.(space, subscriptions);
+  setSpaceReady(false);
   space.drop();
 }
 
@@ -127,7 +136,9 @@ export function createForm(containerId: string | undefined, isTop: boolean, isRi
     const space: TSpace | undefined = spaceRegistry.findByName(currentSpaceName);
     if (isNotDefined(space)) throw new Error(`[Showcase]: Cannot find the space "${currentSpaceName}"`);
 
+    setSpaceReady(false);
     spaceData.onChange?.(space, subscriptions);
+    setSpaceReady(true);
   });
   addBtn(`Save`, containerId, (): void => saveSpaceConfigInMemory(currentSpaceName, spaceRegistry));
   addBtn(`Drop`, containerId, (): void => unloadSpace(currentSpaceName, spaceRegistry));
@@ -135,4 +146,21 @@ export function createForm(containerId: string | undefined, isTop: boolean, isRi
   // TODO: enable to check false positive screenshot compare
   // addBtn(`Load`, containerId, (): void => loadSpace(currentSpaceName));
   addBtn(`Load`, containerId, (): void => loadSpace(currentSpaceName, spacesInMemoryData));
+}
+
+function setSpaceReady(isReady: boolean): void | never {
+  const readyClass: string = 'ready';
+  const notReadyClass: string = 'awaiting';
+
+  const elem: Element | null = document.querySelector('body');
+  if (!elem) throw new Error(`[Showcase]: Element "body" is not found`);
+
+  if (isReady) {
+    if (elem.classList.contains(notReadyClass)) elem.classList.remove(notReadyClass);
+    if (!elem.classList.contains(readyClass)) elem.classList.add(readyClass);
+  }
+  if (!isReady) {
+    if (elem.classList.contains(readyClass)) elem.classList.remove(readyClass);
+    if (!elem.classList.contains(notReadyClass)) elem.classList.add(notReadyClass);
+  }
 }

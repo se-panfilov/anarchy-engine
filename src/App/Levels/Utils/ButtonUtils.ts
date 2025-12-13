@@ -37,6 +37,7 @@ export function addBtn(
   // eslint-disable-next-line functional/immutable-data
   button.textContent = text;
 
+  button.classList.add('btn');
   // eslint-disable-next-line functional/immutable-data
   button.style.background = 'oklch(0.66 0.1 204.08)';
   // eslint-disable-next-line functional/immutable-data

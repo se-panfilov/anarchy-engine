@@ -6,3 +6,8 @@
   bottom: 0;
   display: none;
 }
+
+.btn[disabled] {
+  background-color: oklch(0.65 0.06 203.99 / 1) !important;
+  color: #cfe0d7 !important;
+}
