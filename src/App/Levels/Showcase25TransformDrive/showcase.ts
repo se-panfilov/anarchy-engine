@@ -61,7 +61,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     gui.add(mode, 'isTeleportationMode').name('Teleportation mode');
     addActorFolderGui(gui, sphereActor);
 
-    createRepeaterActor(sphereActor, { x: 0, y: -4, z: 0 }, grid, gui, space.services);
+    createRepeaterActor(sphereActor, { x: 0, y: 0, z: 4 }, grid, gui, space.services);
 
     const intersectionsWatcher: TIntersectionsWatcher = startIntersections(space.services);
 
