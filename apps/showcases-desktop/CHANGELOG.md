@@ -13,6 +13,7 @@
 - 2.9.0 Added error-tracking (Sentry) for Desktop app and improved build process (distinct dev/prod builds)
 - 2.10.0 Error-tracking sourcemaps upload (Sentry)
 - 2.11.0 Support of different envs for platforms (mac, win, linux) and fixes for Sentry.
+- 2.12.0 Get window size/fullscreen settings via command line args (for E2E)
 
 Roadmap:
 

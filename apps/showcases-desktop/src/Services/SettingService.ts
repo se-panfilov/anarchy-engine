@@ -1,11 +1,11 @@
 import type { TLocale, TLocaleId } from '@Anarchy/i18n';
 import { getLocaleByLocaleId, getPreferLocaleId } from '@Anarchy/i18n';
-import { patchObject } from '@Anarchy/Shared/Utils';
+import { isDefined, patchObject } from '@Anarchy/Shared/Utils';
 import { AllowedSystemFolders } from '@Showcases/Desktop/Constants';
 import type { TSettingsService, TSettingsServiceDependencies } from '@Showcases/Desktop/Models';
 import { detectResolution } from '@Showcases/Desktop/Utils';
 import { ShowcasesFallbackLocale, ShowcasesLocales } from '@Showcases/i18n';
-import type { TShowcaseGameSettings } from '@Showcases/Shared';
+import type { TResolution, TShowcaseGameSettings } from '@Showcases/Shared';
 import { DefaultShowcaseGameSettings, isSettings } from '@Showcases/Shared';
 import type { App } from 'electron';
 
@@ -15,7 +15,8 @@ export function SettingsService(app: App, { filesService, windowService }: TSett
 
   const getAppSettings = async (): Promise<TShowcaseGameSettings> => {
     try {
-      return await filesService.readFileAsJson(appSettingsFileName, userDataFolder, isSettings);
+      const settings: TShowcaseGameSettings = await filesService.readFileAsJson(appSettingsFileName, userDataFolder, isSettings);
+      return mergeCliSettingsWithDetected(settings);
     } catch (e) {
       console.warn(`[DESKTOP] Cannot read settings file ("${appSettingsFileName}") from : ${userDataFolder}. Damaged or not existed. Applying default settings. Error: ${(e as Error).message}`);
       const settings: TShowcaseGameSettings = buildDefaultSettings();
@@ -23,6 +24,47 @@ export function SettingsService(app: App, { filesService, windowService }: TSett
       return settings;
     }
   };
+
+  function getResolutionFromCommandLine(): TResolution | undefined {
+    const widthStr: string = app.commandLine.getSwitchValue('width');
+    const heightStr: string = app.commandLine.getSwitchValue('height');
+
+    const width: number = Number.parseInt(widthStr, 10);
+    const height: number = Number.parseInt(heightStr, 10);
+
+    if (!Number.isNaN(width) && !Number.isNaN(height) && width > 0 && height > 0) {
+      console.log(`[DESKTOP] CLI args: resolution: ${width}x${height}`);
+      return { width, height };
+    }
+
+    return undefined;
+  }
+
+  function getIsFullScreenFromCommandLine(): boolean | undefined {
+    const isFullScreenStr: string = app.commandLine.getSwitchValue('fullscreen');
+    if (isFullScreenStr) console.log(`[DESKTOP] CLI args: fullscreen: ${isFullScreenStr}`);
+    if (isFullScreenStr === 'true') return true;
+    if (isFullScreenStr === 'false') return false;
+    return undefined;
+  }
+
+  function getCommandLineSettings(): { resolution: TResolution; isFullScreen: boolean } {
+    const resolution: TResolution = getResolutionFromCommandLine() ?? detectResolution();
+    const isFullScreen: boolean = getIsFullScreenFromCommandLine() ?? true;
+
+    return {
+      resolution,
+      isFullScreen
+    };
+  }
+
+  function mergeCliSettingsWithDetected(settings: TShowcaseGameSettings): TShowcaseGameSettings {
+    const { resolution, isFullScreen } = getCommandLineSettings();
+    let result = { ...settings };
+    if (isDefined(resolution)) result = patchObject(result, { graphics: { resolution } });
+    if (isDefined(isFullScreen)) result = patchObject(result, { graphics: { isFullScreen } });
+    return result;
+  }
 
   function buildDefaultSettings(): TShowcaseGameSettings {
     const availableLocales: ReadonlyArray<TLocale> = Object.values(ShowcasesLocales);
@@ -41,10 +83,10 @@ export function SettingsService(app: App, { filesService, windowService }: TSett
       }
     };
 
-    return {
+    return mergeCliSettingsWithDetected({
       ...DefaultShowcaseGameSettings,
       ...platformDetectedSettings
-    };
+    });
   }
 
   const getPreferredLocales = (): ReadonlyArray<TLocaleId> => Array.from(new Set([...app.getPreferredSystemLanguages(), app.getLocale()] as ReadonlyArray<TLocaleId>));
