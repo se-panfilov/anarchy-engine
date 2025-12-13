@@ -8,6 +8,7 @@ import { TPrimitiveModel3dProps } from '@/Engine/Models3d/Models/TPrimitiveModel
 import type { TBoxGeometryProps, TPlaneGeometryProps, TSphereGeometryProps } from '@/Engine/ThreeLib';
 import { isDefined, isNotDefined } from '@/Engine/Utils';
 
+// TODO CWP !!! more or less fix primitive models creation and fix TS errors
 export function createPrimitiveModel3dPack(params: TModel3dParams): TModel3dPack | never {
   const { primitive } = params;
   if (!isDefined(primitive)) throw new Error(`Primitive model type is not defined`);
