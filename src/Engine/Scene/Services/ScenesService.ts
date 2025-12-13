@@ -33,7 +33,7 @@ export function ScenesService(factory: TSceneFactory, registry: TSceneRegistry):
     createFromConfig,
     setActive: withActive.setActive,
     findActive: withActive.findActive,
-    active$: withActive.active$.asObservable(),
+    active$: withActive.active$,
     getFactory: (): TSceneFactory => factory,
     getRegistry: (): TSceneRegistry => registry,
     ...destroyable

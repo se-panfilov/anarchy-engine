@@ -45,23 +45,13 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
   const space: TSpace = await spaceService.buildSpaceFromConfig(canvas, spaceConfig as TSpaceConfig);
   const engine: TEngine = Engine(space);
   const { keyboardService } = engine.services;
-  const {
-    physicsLoopService,
-    cameraService,
-    physicsWorldService,
-    actorService,
-    lightService,
-    loopService,
-    models3dService,
-    materialService,
-    mouseService,
-    intersectionsWatcherService,
-    spatialGridService
-  } = space.services;
+  const { cameraService, physicsWorldService, actorService, lightService, loopService, models3dService, materialService, mouseService, intersectionsWatcherService, spatialGridService } =
+    space.services;
+  const { physicalLoop } = space.loops;
 
   async function init(): Promise<void> {
     physicsWorldService.getDebugRenderer(loopService).start();
-    physicsLoopService.autoUpdate$.next(false);
+    physicalLoop.enabled$.next(false);
 
     // (window as any).space = space;
 
@@ -156,8 +146,8 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
 
     prepareShooting(hero, mouseService, mouseLineIntersectionsWatcher, shootingParams, bullets);
 
-    physicsLoopService.autoUpdate$.next(true);
-    keyboardService.onKey(KeysExtra.Space).pressed$.subscribe((): void => physicsLoopService.autoUpdate$.next(!physicsLoopService.autoUpdate$.value));
+    physicalLoop.enabled$.next(true);
+    keyboardService.onKey(KeysExtra.Space).pressed$.subscribe((): void => physicalLoop.enabled$.next(!physicalLoop.enabled$.value));
   }
 
   function start(): void {

@@ -17,7 +17,6 @@ export function Loop(trigger: TTriggerFn | number): TLoop {
   const isTriggerFn: boolean = typeof trigger === 'function';
   const deltaCalc: TDeltaCalculator = DeltaCalculator(isTriggerFn);
 
-  // TODO 10.0.0. LOOPS: Add stats (for FPS)
   const tickSub$: Subscription = enabled$
     .pipe(switchMap((isEnabled: boolean): Subject<TDelta> | Observable<never> => (isEnabled && isTriggerFn ? tick$ : EMPTY)))
     .subscribe((): number | void => (trigger as TTriggerFn)((): void => tick$.next(deltaCalc.update())));

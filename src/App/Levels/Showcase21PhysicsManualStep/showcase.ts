@@ -9,7 +9,8 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
   const space: TSpace = await spaceService.buildSpaceFromConfig(canvas, spaceConfig as TSpaceConfig);
   const engine: TEngine = Engine(space);
   const { keyboardService } = engine.services;
-  const { actorService, loopService, physicsWorldService, physicsLoopService } = space.services;
+  const { actorService, loopService, physicsWorldService } = space.services;
+  const { physicalLoop } = space.loops;
 
   function init(): void {
     physicsWorldService.getDebugRenderer(loopService).start();
@@ -20,8 +21,8 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     if (isNotDefined(actor)) throw new Error('Non-physical actor not found');
 
     //run/stop physics loop
-    keyboardService.onKey(KeysExtra.Space).pressed$.subscribe((): void => physicsLoopService.autoUpdate$.next(true));
-    keyboardService.onKey(KeysExtra.Space).released$.subscribe((): void => physicsLoopService.autoUpdate$.next(false));
+    keyboardService.onKey(KeysExtra.Space).pressed$.subscribe((): void => physicalLoop.enabled$.next(true));
+    keyboardService.onKey(KeysExtra.Space).released$.subscribe((): void => physicalLoop.enabled$.next(false));
 
     //always running non-physical actor
     loopService.tick$.subscribe(({ elapsedTime }): void => {

@@ -43,7 +43,7 @@ export function ControlService(factory: TControlsFactory, registry: TControlsReg
     createFromConfig,
     setActive: withActive.setActive,
     findActive: withActive.findActive,
-    active$: withActive.active$.asObservable(),
+    active$: withActive.active$,
     getFactory: (): TControlsFactory => factory,
     getRegistry: (): TControlsRegistry => registry,
     ...destroyable

@@ -32,7 +32,7 @@ export function RendererService(factory: TRendererFactory, registry: TRendererRe
     create,
     setActive: withActive.setActive,
     findActive: withActive.findActive,
-    active$: withActive.active$.asObservable(),
+    active$: withActive.active$,
     getFactory: (): TRendererFactory => factory,
     getRegistry: (): TRendererRegistry => registry,
     ...destroyable

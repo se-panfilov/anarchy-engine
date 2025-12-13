@@ -25,7 +25,7 @@ import { AbstractTransformAgent } from './AbstractTransformAgent';
 // Physical bodies doesn't play well with manual set of position/rotation (e.g. position$.next(), rotation$.next() from any external sources).
 // In principle, it's better to avoid manual setting of position/rotation for physics objects.
 // But if you have to, first change active agent to "Default", then set position/rotation, and then switch back to "Physical" agent.
-export function PhysicsTransformAgent(params: TPhysicsTransformAgentParams, { physicsBodyService, physicsLoopService }: TPhysicsAgentDependencies): TPhysicsTransformAgent {
+export function PhysicsTransformAgent(params: TPhysicsTransformAgentParams, { physicsBodyService, physicalLoop }: TPhysicsAgentDependencies): TPhysicsTransformAgent {
   const noiseThreshold: number = params.performance?.noiseThreshold ?? 0.0000001;
 
   const adaptedParams: TPhysicsTransformAgentInternalParams = { ...params, rotation: isEulerLike(params.rotation) ? new Quaternion().setFromEuler(params.rotation) : params.rotation };
@@ -90,11 +90,11 @@ export function PhysicsTransformAgent(params: TPhysicsTransformAgentParams, { ph
   });
 
   //Watching $ticks only when agent is enabled and physics loop is auto-updating
-  physicsSub$ = combineLatest([agent.enabled$, physicsLoopService.autoUpdate$])
+  physicsSub$ = combineLatest([agent.enabled$, physicalLoop.enabled$])
     .pipe(
       //If agent is enabled and physics loop is auto-updating, then we are switching to the physics loop ticks
       switchMap(([isEnabled, isAutoUpdate]: ReadonlyArray<boolean>) => {
-        if (isEnabled && isAutoUpdate) return physicsLoopService.tick$;
+        if (isEnabled && isAutoUpdate) return physicalLoop.tick$;
         return EMPTY;
       }),
       //Get the latest transform data from the physics body every physical tick

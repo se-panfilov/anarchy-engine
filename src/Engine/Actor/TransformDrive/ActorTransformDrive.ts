@@ -11,7 +11,7 @@ export function ActorTransformDrive(params: TActorParams, dependencies: TActorTr
   return TransformDrive(driveParams, transformAgents);
 }
 
-function getTransformAgents(params: TActorParams, { kinematicLoopService, physicsBodyService, physicsLoopService }: TActorTransformDriveDependencies): TActorTransformAgents {
+function getTransformAgents(params: TActorParams, { kinematicLoop, physicsBodyService, physicalLoop }: TActorTransformDriveDependencies): TActorTransformAgents {
   //PhysicsTransformAgent might need a special "onDeactivated" hook if it supposed to switch physics/non-physics mode in runtime
   const agentParams: TTransformAgentParams = {
     position: params.position,
@@ -20,8 +20,8 @@ function getTransformAgents(params: TActorParams, { kinematicLoopService, physic
     onDeactivated: undefined,
     onActivated: undefined
   };
-  const kinematicTransformAgent: TKinematicTransformAgent = getKinematicTransformAgent(agentParams, params.kinematic, { kinematicLoopService });
-  const physicsTransformAgent: TPhysicsTransformAgent = getPhysicsTransformAgent(agentParams, params.physics, { physicsLoopService, physicsBodyService });
+  const kinematicTransformAgent: TKinematicTransformAgent = getKinematicTransformAgent(agentParams, params.kinematic, { kinematicLoop });
+  const physicsTransformAgent: TPhysicsTransformAgent = getPhysicsTransformAgent(agentParams, params.physics, { physicalLoop, physicsBodyService });
   const connectedTransformAgent: TConnectedTransformAgent = ConnectedTransformAgent(agentParams);
   const defaultTransformAgent: TDefaultTransformAgent = DefaultTransformAgent(agentParams);
   return {

@@ -22,9 +22,7 @@ export function spaceLoop(
   text3dRenderer: TText3dRenderer,
   controlsRegistry: TControlsRegistry
 ): void {
-  // TODO 10.0.0. LOOPS: We need independent loops for physics, kinematic, spatial, collisions, mouse, intersection and transforms. Those loops should be driven by time, not by frame rate
-  const isAutoUpdatePhysicalWorld: boolean = physicsLoopService.autoUpdate$.value;
-  if (isAutoUpdatePhysicalWorld) physicsLoopService.step();
+  // TODO 10.0.0. LOOPS: get rid of autoUpdate$ (and isAutoUpdate in config, guess)
 
   if (isDefined(activeCamera)) {
     renderer.entity.render(activeScene.entity, activeCamera.entity);
@@ -33,17 +31,13 @@ export function spaceLoop(
     if (!text3dRegistry?.isEmpty()) text3dRenderer?.renderer.render(activeScene.entity, activeCamera.entity);
   }
 
-  if (isAutoUpdatePhysicalWorld) physicsLoopService.tick$.next();
-
-  if (kinematicLoopService.autoUpdate$.value) kinematicLoopService.tick$.next(delta);
-
-  if (spatialLoopService.autoUpdate$.value) {
-    spatialLoopService.tick$.next({ delta, priority: currentSpatialPriorityCounter });
+  if (spatialLoop.enabled$.value) {
+    spatialLoop.tick$.next({ delta, priority: currentSpatialPriorityCounter });
     currentSpatialPriorityCounter = currentSpatialPriorityCounter === (SpatialUpdatePriority.IDLE as number) ? SpatialUpdatePriority.ASAP : currentSpatialPriorityCounter - 1;
   }
 
-  if (collisionsLoopService.autoUpdate$.value) {
-    collisionsLoopService.tick$.next({ delta, priority: currentCollisionsPriorityCounter });
+  if (collisionsLoop.enabled$.value) {
+    collisionsLoop.tick$.next({ delta, priority: currentCollisionsPriorityCounter });
     currentCollisionsPriorityCounter = currentCollisionsPriorityCounter === (CollisionsUpdatePriority.IDLE as number) ? CollisionsUpdatePriority.ASAP : currentCollisionsPriorityCounter - 1;
   }
 

@@ -53,7 +53,7 @@ export function EnvMapService(factory: TEnvMapFactory, registry: TEnvMapRegistry
     loadFromConfigAsync: envMapLoader.loadFromConfigAsync,
     setActive: withActive.setActive,
     findActive,
-    active$: withActive.active$.asObservable(),
+    active$: withActive.active$,
     getFactory: (): TEnvMapFactory => factory,
     getRegistry: (): TEnvMapRegistry => registry,
     getResourceRegistry: (): TEnvMapTextureAsyncRegistry => resourcesRegistry,

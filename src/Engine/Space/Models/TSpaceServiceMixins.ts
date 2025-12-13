@@ -1,4 +1,4 @@
-import type { Observable } from 'rxjs';
+import type { BehaviorSubject } from 'rxjs';
 
 import type { TAbstractResourceConfig } from '@/Engine/Abstract';
 import type { TWithCreateAsync } from '@/Engine/Mixins';
@@ -21,7 +21,7 @@ export type TWithCreateFromConfigAsyncService<C, R> = Readonly<{
 export type TWithActiveAccessorsService<W> = Readonly<{
   setActive: (id: string) => void;
   findActive: () => W | undefined;
-  active$: Observable<W | undefined>;
+  active$: BehaviorSubject<W | undefined>;
 }>;
 
 export type TWithFactoryService<F> = Readonly<{

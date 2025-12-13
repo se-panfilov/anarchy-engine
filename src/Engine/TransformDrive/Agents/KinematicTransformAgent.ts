@@ -16,7 +16,7 @@ import { isDefined, isNotDefined } from '@/Engine/Utils';
 
 import { AbstractTransformAgent } from './AbstractTransformAgent';
 
-export function KinematicTransformAgent(params: TKinematicTransformAgentParams, { kinematicLoopService }: TKinematicAgentDependencies): TKinematicTransformAgent {
+export function KinematicTransformAgent(params: TKinematicTransformAgentParams, { kinematicLoop }: TKinematicAgentDependencies): TKinematicTransformAgent {
   const autoUpdate$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(params.isAutoUpdate ?? false);
   const abstractTransformAgent: TAbstractTransformAgent = AbstractTransformAgent(params, TransformAgent.Kinematic);
 
@@ -318,7 +318,7 @@ export function KinematicTransformAgent(params: TKinematicTransformAgentParams, 
   kinematicSub$ = combineLatest([agent.enabled$, agent.autoUpdate$])
     .pipe(
       //Do not update if agent is disabled or autoUpdate is turned off
-      switchMap(([isEnabled, isAutoUpdate]: ReadonlyArray<boolean>): Observable<TMilliseconds> => (isEnabled && isAutoUpdate ? kinematicLoopService.tick$ : EMPTY))
+      switchMap(([isEnabled, isAutoUpdate]: ReadonlyArray<boolean>): Observable<TMilliseconds> => (isEnabled && isAutoUpdate ? kinematicLoop.tick$ : EMPTY))
     )
     .subscribe((delta: TMilliseconds): void => {
       doKinematicRotation(delta);

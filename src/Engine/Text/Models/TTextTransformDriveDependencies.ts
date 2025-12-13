@@ -1,8 +1,8 @@
-import type { TKinematicLoopService } from '@/Engine/Kinematic';
-import type { TPhysicsBodyService, TPhysicsLoopService } from '@/Engine/Physics';
+import type { TKinematicLoop } from '@/Engine/Kinematic';
+import type { TPhysicalLoop, TPhysicsBodyService } from '@/Engine/Physics';
 
 export type TTextTransformDriveDependencies = Readonly<{
-  kinematicLoopService: TKinematicLoopService;
+  kinematicLoop: TKinematicLoop;
   physicsBodyService: TPhysicsBodyService;
-  physicsLoopService: TPhysicsLoopService;
+  physicalLoop: TPhysicalLoop;
 }>;
