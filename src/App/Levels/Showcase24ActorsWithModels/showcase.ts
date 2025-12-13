@@ -1,16 +1,36 @@
+import type { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
+
 import type { TShowcase } from '@/App/Levels/Models';
-import type { TActorWrapper, TAppCanvas, TEngine, TSpace, TSpaceConfig } from '@/Engine';
-import { Engine, spaceService } from '@/Engine';
+import type { TAppCanvas, TEngine, TModel3dFacade, TModel3dRegistry, TModel3dResourceAsyncRegistry, TRegistryPack, TSceneWrapper, TSpace, TSpaceConfig, TSpaceServices } from '@/Engine';
+import { Engine, isNotDefined, spaceService } from '@/Engine';
 
 import spaceConfig from './showcase.json';
 
 export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
-  const space: TSpace = await spaceService.buildSpaceFromConfig(canvas, spaceConfig as TSpaceConfig);
+  function beforeResourcesLoaded(_config: TSpaceConfig, { models3dService, scenesService }: TSpaceServices): void {
+    const models3dRegistry: TModel3dRegistry = models3dService.getRegistry();
+    const models3dResourceRegistry: TModel3dResourceAsyncRegistry = models3dService.getResourceRegistry();
+    const sceneW: TSceneWrapper | undefined = scenesService.findActive();
+    if (isNotDefined(sceneW)) throw new Error('Scene is not defined');
+
+    //Adding models3d to the scene
+    models3dResourceRegistry.added$.subscribe(({ key: name, value: model3dSource }: TRegistryPack<GLTF>): void => {
+      console.log(`Model "${name}" is loaded`);
+      models3dService.create({ name, model3dSource });
+    });
+
+    models3dRegistry.added$.subscribe(({ key: name, value: model3dSource }: TRegistryPack<TModel3dFacade>): void => {
+      console.log(`Model "${name}" is created`, model3dSource.name);
+      sceneW.addModel3d(model3dSource.getModel());
+    });
+  }
+
+  const space: TSpace = await spaceService.buildSpaceFromConfig(canvas, spaceConfig as TSpaceConfig, { beforeResourcesLoaded });
   const engine: TEngine = Engine(space);
-  const { actorService } = space.services;
+  // const { actorService } = space.services;
 
   function init(): void {
-    const actorW: TActorWrapper = actorService.create(params);
+    // const actorW: TActorWrapper = actorService.create(params);
   }
 
   // TODO debug light
