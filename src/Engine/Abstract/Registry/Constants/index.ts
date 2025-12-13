@@ -1,1 +1,1 @@
-export * from './TagSelector';
+export * from './LookUpStrategy';

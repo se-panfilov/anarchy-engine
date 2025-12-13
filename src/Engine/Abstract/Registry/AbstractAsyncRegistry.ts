@@ -1,4 +1,4 @@
-import type { IAbstractRegistry, TagSelector } from '@/Engine/Abstract';
+import type { IAbstractRegistry, LookUpStrategy } from '@/Engine/Abstract';
 import { AbstractRegistry } from '@/Engine/Abstract';
 import type { RegistryType } from '@/Engine/Abstract/Constants';
 import type { IAbstractAsyncRegistry } from '@/Engine/Abstract/Models';
@@ -12,10 +12,10 @@ export function AbstractAsyncRegistry<T extends IRegistrable | IMultitonRegistra
 
   // TODO (S.Panfilov) add stop the subscription function as param
 
-  function getUniqByTagsAsync(tags: ReadonlyArray<string>, selector: TagSelector): Promise<T> {
-    const result: T | undefined = abstractRegistry.getUniqByTags(tags, selector);
+  function getUniqByTagsAsync(tags: ReadonlyArray<string>, strategy: LookUpStrategy): Promise<T> {
+    const result: T | undefined = abstractRegistry.getUniqByTags(tags, strategy);
     if (isDefined(result)) return Promise.resolve(result);
-    const { promise } = subscribeToValue<T>(abstractRegistry, (entity: T) => entity.getTags()[selector]((tag: string) => tags.includes(tag)));
+    const { promise } = subscribeToValue<T>(abstractRegistry, (entity: T) => entity.getTags()[strategy]((tag: string) => tags.includes(tag)));
     return promise;
   }
 

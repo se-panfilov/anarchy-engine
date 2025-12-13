@@ -3,7 +3,7 @@ import { Subject } from 'rxjs';
 
 import type { RegistryType } from '@/Engine/Abstract/Constants';
 import type { IAbstractRegistry } from '@/Engine/Abstract/Models';
-import type { TagSelector } from '@/Engine/Abstract/Registry/Constants';
+import type { LookUpStrategy } from '@/Engine/Abstract/Registry/Constants';
 import type { IDestroyable, IMultitonRegistrable, IRegistrable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
 import { getAll, getAllEntitiesWithTag, getAllEntitiesWithTags, getUniqEntityWithTag, getUniqEntityWithTags, isDestroyable, isNotDefined } from '@/Engine/Utils';
@@ -54,12 +54,12 @@ export function AbstractRegistry<T extends IRegistrable | IMultitonRegistrable>(
     registry.clear();
   });
 
-  const getAllByTags = (tags: ReadonlyArray<string>, selector: TagSelector): ReadonlyArray<T> => getAllEntitiesWithTags(tags, registry, selector);
+  const getAllByTags = (tags: ReadonlyArray<string>, strategy: LookUpStrategy): ReadonlyArray<T> => getAllEntitiesWithTags(tags, registry, strategy);
   const getAllByTag = (tag: string): ReadonlyArray<T> => getAllEntitiesWithTag(tag, registry);
 
   const isEmpty = (): boolean => registry.size === 0;
 
-  const getUniqByTags = (tags: ReadonlyArray<string>, selector: TagSelector): T | undefined | never => getUniqEntityWithTags(tags, registry, selector);
+  const getUniqByTags = (tags: ReadonlyArray<string>, strategy: LookUpStrategy): T | undefined | never => getUniqEntityWithTags(tags, registry, strategy);
   const getUniqByTag = (tag: string): T | undefined | never => getUniqEntityWithTag(tag, registry);
 
   return {

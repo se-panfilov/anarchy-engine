@@ -1,4 +1,4 @@
-export enum TagSelector {
+export enum LookUpStrategy {
   Some = 'some',
   Every = 'every'
 }

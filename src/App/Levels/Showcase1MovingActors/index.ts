@@ -1,6 +1,6 @@
 import type { IShowcase } from '@/App/Levels/Models';
 import type { IActorWrapper, IAppCanvas, IIntersectionsWatcher, ILevel, ILevelConfig, IVector3 } from '@/Engine';
-import { ActorTag, ambientContext, buildLevelFromConfig, CommonTag, isNotDefined, standardLoopService, TagSelector } from '@/Engine';
+import { ActorTag, ambientContext, buildLevelFromConfig, CommonTag, isNotDefined, LookUpStrategy, standardLoopService } from '@/Engine';
 
 import levelConfig from './showcase-1-moving-actors.config.json';
 
@@ -24,7 +24,7 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
     });
     //END: just debug
 
-    const actor: IActorWrapper = actorRegistry.getAllByTags([ActorTag.Intersectable], TagSelector.Some)[0];
+    const actor: IActorWrapper = actorRegistry.getAllByTags([ActorTag.Intersectable], LookUpStrategy.Some)[0];
     actor.setY(2);
 
     standardLoopService.tick$.subscribe(({ elapsedTime }) => {

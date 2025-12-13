@@ -1,94 +1,116 @@
-import { TagSelector } from '@/Engine/Abstract/Registry';
+import { LookUpStrategy } from '@/Engine/Abstract/Registry';
 import type { IRegistrable } from '@/Engine/Mixins';
 import { withTags } from '@/Engine/Mixins/Generic/WithTags';
 
-import { getAllEntitiesWithTags, getUniqEntityWithTag } from './RegistryUtils';
+import { getAllEntitiesWithTag, getAllEntitiesWithTags, getUniqEntityWithTag, getUniqEntityWithTags } from './RegistryUtils';
 
 describe('RegistryUtils', () => {
-  const tag1: string = 'tag1';
-  const tag2: string = 'tag2';
-  const tag3: string = 'tag3';
-  const tag4: string = 'tag4';
-  const tag5: string = 'tag5';
+  const tagA: string = 'tagA';
+  const tagB: string = 'tagB';
+  const tagC: string = 'tagC';
+  const tagD: string = 'tagD';
+  const tagE: string = 'tagE';
+  const tagUniq1: string = 'tagUniq1';
+  const tagUniq2: string = 'tagUniq2';
 
-  const obj1: IRegistrable = { id: '1', ...withTags([tag1, tag2]) };
-  const obj2: IRegistrable = { id: '2', ...withTags([tag2]) };
-  const obj3: IRegistrable = { id: '3', ...withTags([tag3, tag4]) };
-  const obj4: IRegistrable = { id: '4', ...withTags([tag2, tag5]) };
-  const obj5: IRegistrable = { id: '5', ...withTags([]) };
-  const obj6: IRegistrable = { id: '6', ...withTags([tag1, tag2, tag5]) };
-  const obj7: IRegistrable = { id: '7', ...withTags([tag5, tag2]) };
+  const obj1AB: IRegistrable = { id: '1', ...withTags([tagA, tagB]) };
+  const obj2B: IRegistrable = { id: '2', ...withTags([tagB]) };
+  const obj3CD: IRegistrable = { id: '3', ...withTags([tagC, tagD]) };
+  const obj4BE: IRegistrable = { id: '4', ...withTags([tagB, tagE]) };
+  const obj5None: IRegistrable = { id: '5', ...withTags([]) };
+  const obj6ABE: IRegistrable = { id: '6', ...withTags([tagA, tagB, tagE]) };
+  const obj7EB: IRegistrable = { id: '7', ...withTags([tagE, tagB]) };
+  const obj8Uniq1: IRegistrable = { id: '8', ...withTags([tagUniq1]) };
+  const obj9Uniq2: IRegistrable = { id: '9', ...withTags([tagD, tagUniq2, tagC, tagE]) };
 
   const registry: Map<string, IRegistrable> = new Map();
-  registry.set('obj1', obj1);
-  registry.set('obj2', obj2);
-  registry.set('obj3', obj3);
-  registry.set('obj4', obj4);
-  registry.set('obj5', obj5);
-  registry.set('obj6', obj6);
-  registry.set('obj7', obj7);
+  registry.set('obj1AB', obj1AB);
+  registry.set('obj2B', obj2B);
+  registry.set('obj3CD', obj3CD);
+  registry.set('obj4BE', obj4BE);
+  registry.set('obj5None', obj5None);
+  registry.set('obj6ABE', obj6ABE);
+  registry.set('obj7EB', obj7EB);
+  registry.set('obj8Uniq1', obj8Uniq1);
+  registry.set('obj9Uniq2', obj9Uniq2);
 
   describe('getAllEntitiesWithTags every', () => {
-    it('should return all object that contains multiple tags', () => {
-      expect(getAllEntitiesWithTags([tag2, tag5], registry, TagSelector.Every)).toEqual([obj4, obj6, obj7]);
+    describe('LookUpStrategy "every"', () => {
+      it('should return all object that contains multiple tags', () => {
+        expect(getAllEntitiesWithTags([tagB, tagE], registry, LookUpStrategy.Every)).toEqual([obj4BE, obj6ABE, obj7EB]);
+      });
+
+      it('should return all object that contains a single tag', () => {
+        expect(getAllEntitiesWithTags([tagB], registry, LookUpStrategy.Every)).toEqual([obj1AB, obj2B, obj4BE, obj6ABE, obj7EB]);
+      });
+
+      it('should return an empty array if no tagList is provided', () => {
+        expect(getAllEntitiesWithTags([], registry, LookUpStrategy.Every)).toEqual([]);
+      });
+
+      it('should return an empty array if the registry is empty', () => {
+        expect(getAllEntitiesWithTags([tagB, tagE], new Map(), LookUpStrategy.Every)).toEqual([]);
+      });
     });
 
-    it('should return all object that contains a single tag', () => {
-      expect(getAllEntitiesWithTags([tag2], registry, TagSelector.Every)).toEqual([obj1, obj2, obj4, obj6, obj7]);
-    });
+    describe('LookUpStrategy "some"', () => {
+      it('should return all object that contains multiple tags', () => {
+        expect(getAllEntitiesWithTags([tagB, tagE], registry, LookUpStrategy.Some)).toEqual([obj1AB, obj2B, obj4BE, obj6ABE, obj7EB, obj9Uniq2]);
+      });
 
-    it('should return an empty array if no tagList is provided', () => {
-      expect(getAllEntitiesWithTags([], registry, TagSelector.Every)).toEqual([]);
-    });
+      it('should return all object that contains a single tag', () => {
+        expect(getAllEntitiesWithTags([tagB], registry, LookUpStrategy.Some)).toEqual([obj1AB, obj2B, obj4BE, obj6ABE, obj7EB]);
+      });
 
-    it('should return an empty array if the registry is empty', () => {
-      expect(getAllEntitiesWithTags([tag2, tag5], new Map(), TagSelector.Every)).toEqual([]);
-    });
-  });
+      it('should return an empty array if no tagList is provided', () => {
+        expect(getAllEntitiesWithTags([], registry, LookUpStrategy.Some)).toEqual([]);
+      });
 
-  describe('getAllEntitiesWithTags some', () => {
-    it('should return all object that contains multiple tags', () => {
-      expect(getAllEntitiesWithTags([tag2, tag5], registry, TagSelector.Some)).toEqual([obj1, obj2, obj4, obj6, obj7]);
-    });
-
-    it('should return all object that contains a single tag', () => {
-      expect(getAllEntitiesWithTags([tag2], registry, TagSelector.Some)).toEqual([obj1, obj2, obj4, obj6, obj7]);
-    });
-
-    it('should return an empty array if no tagList is provided', () => {
-      expect(getAllEntitiesWithTags([], registry, TagSelector.Some)).toEqual([]);
-    });
-
-    it('should return an empty array if the registry is empty', () => {
-      expect(getAllEntitiesWithTags([tag2, tag5], new Map(), TagSelector.Some)).toEqual([]);
-    });
-  });
-
-  describe('getUniqEntityWithTag every', () => {
-    it('should return all object that contains multiple tags', () => {
-      expect(getUniqEntityWithTag(tag2, registry)).toEqual([obj4, obj6, obj7]);
-    });
-
-    it('should return all object that contains a single tag', () => {
-      expect(getUniqEntityWithTag(tag2, registry)).toEqual([obj1, obj2, obj4, obj6, obj7]);
-    });
-
-    it('should return an empty array if the registry is empty', () => {
-      expect(getUniqEntityWithTag(tag2, new Map())).toEqual([]);
+      it('should return an empty array if the registry is empty', () => {
+        expect(getAllEntitiesWithTags([tagB, tagE], new Map(), LookUpStrategy.Some)).toEqual([]);
+      });
     });
   });
 
-  describe('getUniqEntityWithTag some', () => {
+  describe('getAllEntitiesWithTag', () => {
     it('should return all object that contains multiple tags', () => {
-      expect(getUniqEntityWithTag(tag2, registry)).toEqual([obj1, obj2, obj4, obj6, obj7]);
-    });
-
-    it('should return all object that contains a single tag', () => {
-      expect(getUniqEntityWithTag(tag2, registry)).toEqual([obj1, obj2, obj4, obj6, obj7]);
+      expect(getAllEntitiesWithTag(tagB, registry)).toEqual([obj1AB, obj2B, obj4BE, obj6ABE, obj7EB]);
     });
 
     it('should return an empty array if the registry is empty', () => {
-      expect(getUniqEntityWithTag(tag2, new Map())).toEqual([]);
+      expect(getAllEntitiesWithTag(tagB, new Map())).toEqual([]);
+    });
+  });
+
+  describe('getUniqEntityWithTags', () => {
+    describe('LookUpStrategy "every"', () => {
+      it('should return an uniq object that contains multiple tags', () => {
+        expect(getUniqEntityWithTags([tagUniq2, tagC], registry, LookUpStrategy.Every)).toEqual(obj9Uniq2);
+      });
+
+      it('should return an uniq object that contains  a single tag', () => {
+        expect(getUniqEntityWithTags([tagUniq1], registry, LookUpStrategy.Every)).toEqual(obj8Uniq1);
+      });
+
+      it('should return an empty array if the registry is empty', () => {
+        expect(getUniqEntityWithTags([tagB], new Map(), LookUpStrategy.Every)).toBeUndefined();
+      });
+    });
+
+    describe('LookUpStrategy "some"', () => {
+      it('should return an uniq object that contains at least one tag tag', () => {
+        expect(getUniqEntityWithTags([tagUniq2, 'asdsd', 'eeee'], registry, LookUpStrategy.Some)).toEqual(obj9Uniq2);
+      });
+    });
+  });
+
+  describe('getUniqEntityWithTag', () => {
+    it('should return an uniq object that contains a tag', () => {
+      expect(getUniqEntityWithTag(tagUniq1, registry)).toEqual(obj8Uniq1);
+    });
+
+    it('should return an empty array if the registry is empty', () => {
+      expect(getUniqEntityWithTag(tagB, new Map())).toBeUndefined();
     });
   });
 });
