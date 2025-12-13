@@ -24,8 +24,8 @@ export function IntersectionsWatcher({ position$, tags = [] }: IIntersectionsWat
     void (actors = actors.filter((actor: IWithWrapperIdEntity<IMesh>): boolean => !actorWrapperIds.includes(actor.userData.wrapperId)));
   const removeActor = (actorWrapperId: string): void => void (actors = actors.filter((actor: IWithWrapperIdEntity<IMesh>): boolean => actorWrapperId !== actor.userData.wrapperId));
 
-  const setCamera = (cam: Readonly<ICameraWrapper>): void => void (camera = cam);
-  const getCamera = (): Readonly<ICameraWrapper> | undefined => camera;
+  const setCamera = (cam: ICameraWrapper): void => void (camera = cam);
+  const getCamera = (): ICameraWrapper | undefined => camera;
 
   let mousePos$: Subscription | undefined;
 

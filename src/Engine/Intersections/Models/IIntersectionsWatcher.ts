@@ -11,8 +11,8 @@ export type IIntersectionsWatcher = Omit<IWatcher<IIntersectionEvent>, 'start' |
     getActors: () => ReadonlyArray<IWithWrapperIdEntity<IMesh>>;
     removeActors: (actorWrapperIds: ReadonlyArray<string>) => void;
     removeActor: (actorWrapperId: string) => void;
-    setCamera: (cam: Readonly<ICameraWrapper>) => void;
-    getCamera: () => Readonly<ICameraWrapper> | undefined;
+    setCamera: (cam: ICameraWrapper) => void;
+    getCamera: () => ICameraWrapper | undefined;
     start: () => IIntersectionsWatcher;
     stop: () => IIntersectionsWatcher;
   }>;
