@@ -46,7 +46,10 @@ export function getTextRenderer<T extends CSS2DRenderer | CSS3DRenderer>(
     destroySub$.unsubscribe();
 
     screenSize$.unsubscribe();
+    container.document.body.removeChild(renderer.domElement);
     renderer.domElement.remove();
+    // eslint-disable-next-line functional/immutable-data
+    renderer.domElement = null as any;
   });
 
   return { id, type, renderer, updateSize, ...destroyable };
