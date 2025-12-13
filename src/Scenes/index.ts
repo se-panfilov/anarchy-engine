@@ -1,1 +1,1 @@
-export * from './PlaneScene/PlaneScene';
+export * from './DebugScene/DebugScene';
