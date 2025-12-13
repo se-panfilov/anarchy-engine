@@ -18,7 +18,7 @@ function createContainersDivs(): void {
 
 export function start(flags: TSpaceFlags): void {
   createContainersDivs();
-  const spaces: Record<string, TSpace> = asRecord('name', spaceService.createFromConfig([spaceAlphaConfig, spaceBetaConfig], { flags }));
+  const spaces: Record<string, TSpace> = asRecord('name', spaceService.createFromConfig([spaceAlphaConfig, spaceBetaConfig], flags));
   const spaceAlpha: TSpace = spaces[spaceAlphaConfig.name];
   const spaceBeta: TSpace = spaces[spaceBetaConfig.name];
   if (isNotDefined(spaceAlpha)) throw new Error(`[Showcase]: Space "${spaceAlphaConfig.name}" is not defined`);

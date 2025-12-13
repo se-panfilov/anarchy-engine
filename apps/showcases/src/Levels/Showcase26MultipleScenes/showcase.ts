@@ -25,7 +25,7 @@ const spaceDeltaConfig: TSpaceConfig = spaceDeltaConfigJson as TSpaceConfig;
 export function start(flags: TSpaceFlags): void {
   createContainersDivs();
 
-  const spaces: Record<string, TSpace> = asRecord('name', spaceService.createFromConfig([spaceAlphaConfig, spaceBetaConfig, spaceGammaConfig, spaceDeltaConfig], { flags }));
+  const spaces: Record<string, TSpace> = asRecord('name', spaceService.createFromConfig([spaceAlphaConfig, spaceBetaConfig, spaceGammaConfig, spaceDeltaConfig], flags));
   const spaceAlpha: TSpace = spaces[spaceAlphaConfig.name];
   const spaceBeta: TSpace = spaces[spaceBetaConfig.name];
   const spaceGamma: TSpace = spaces[spaceGammaConfig.name];
