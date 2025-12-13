@@ -5,7 +5,7 @@
 This product includes third-party components. Their **licenses and attributions** are listed below.
 For the **full license texts**, see `THIRD_PARTY_LICENSES.md`.
 
-Components listed: 76
+Components listed: 78
 
 ## 1) Mandatory Attributions (verbatim)
 
@@ -357,6 +357,18 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
+## bowser@2.12.1
+
+**License(s):** MIT
+
+**Repository:** git+https://github.com/lancedikson/bowser.git
+
+**URL:** https://github.com/lancedikson/bowser
+
+**Attribution:** Copyright 2015, Dustin Diaz (the "Original Author")
+
+---
+
 ## copy-anything@3.0.5
 
 **License(s):** MIT
@@ -396,6 +408,18 @@ The following notices are reproduced as provided by the respective licensors (e.
 **Repository:** https://github.com/MikeMcl/decimal.js.git
 
 **Attribution:** Copyright (c) 2025 Michael Mclaughlin
+
+---
+
+## dexie@4.2.0
+
+**License(s):** Apache-2.0
+
+**Repository:** https://github.com/dexie/Dexie.js.git
+
+**URL:** https://dexie.org
+
+**Attribution:** copyright notice that is included in or attached to the work
 
 ---
 
@@ -697,7 +721,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## showcases-menu@1.7.2
+## showcases-menu@1.7.3
 
 **License(s):** MIT
 
@@ -705,7 +729,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## showcases-shared@1.3.2
+## showcases-shared@1.3.3
 
 **License(s):** MIT
 

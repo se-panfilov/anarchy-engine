@@ -2,10 +2,10 @@
   "$schema": "http://cyclonedx.org/schema/bom-1.5.schema.json",
   "bomFormat": "CycloneDX",
   "specVersion": "1.5",
-  "serialNumber": "urn:uuid:5673b09e-9986-41e7-9da6-7a2d54d5650c",
+  "serialNumber": "urn:uuid:e1c7bdf4-1e7e-4b2d-ba80-da110c2b83da",
   "version": 1,
   "metadata": {
-    "timestamp": "2025-09-18T22:46:40.632Z",
+    "timestamp": "2025-09-21T16:36:47.277Z",
     "lifecycles": [
       {
         "phase": "pre-build"
@@ -45,14 +45,14 @@
   },
   "components": [
     {
-      "bom-ref": "showcases-core@2.10.0",
+      "bom-ref": "showcases-core@2.10.1",
       "type": "library",
       "name": "showcases-core",
-      "version": "2.10.0",
+      "version": "2.10.1",
       "scope": "required",
       "author": "S. Panfilov",
       "description": "Anarchy Showcases Core – an application with demos for Anarchy-Engine.",
-      "purl": "pkg:npm/showcases-core@2.10.0",
+      "purl": "pkg:npm/showcases-core@2.10.1",
       "properties": [
         {
           "name": "cdx:npm:package:private",
@@ -69,14 +69,14 @@
       ]
     },
     {
-      "bom-ref": "showcases-desktop@2.6.0",
+      "bom-ref": "showcases-desktop@2.6.1",
       "type": "library",
       "name": "showcases-desktop",
-      "version": "2.6.0",
+      "version": "2.6.1",
       "scope": "required",
       "author": "S. Panfilov",
       "description": "Anarchy Desktop Showcases  – a desktop wrapper-application for showcases-core.",
-      "purl": "pkg:npm/showcases-desktop@2.6.0",
+      "purl": "pkg:npm/showcases-desktop@2.6.1",
       "properties": [
         {
           "name": "cdx:npm:package:private",
@@ -481,6 +481,34 @@
       ]
     },
     {
+      "bom-ref": "bowser@2.12.1",
+      "type": "library",
+      "name": "bowser",
+      "version": "2.12.1",
+      "scope": "required",
+      "purl": "pkg:npm/bowser@2.12.1",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/bowser/-/bowser-2.12.1.tgz"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "cf8ac4d86c61eedbec850e2196e213ed7705ae02c841ac3d5f703e9134d1768bc2cf93ccba49bfd100bf04a4983e3de8985e507f2a67f4efdce648299af6140b"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ]
+    },
+    {
       "bom-ref": "copy-anything@3.0.5",
       "type": "library",
       "name": "copy-anything",
@@ -504,6 +532,34 @@
         {
           "license": {
             "id": "MIT"
+          }
+        }
+      ]
+    },
+    {
+      "bom-ref": "dexie@4.2.0",
+      "type": "library",
+      "name": "dexie",
+      "version": "4.2.0",
+      "scope": "required",
+      "purl": "pkg:npm/dexie@4.2.0",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/dexie/-/dexie-4.2.0.tgz"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "3927b2c963947ad0f2f6815679d749822f373a7440de148587746b6e5b663e0a87b3313d7f6e1e50254b23898f83489fb169349504dd9d2fa3c8636b3ccbe10c"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
           }
         }
       ]
@@ -1264,14 +1320,14 @@
       ]
     },
     {
-      "bom-ref": "showcases-menu@1.7.2",
+      "bom-ref": "showcases-menu@1.7.3",
       "type": "library",
       "name": "showcases-menu",
-      "version": "1.7.2",
+      "version": "1.7.3",
       "scope": "required",
       "author": "S. Panfilov",
       "description": "Anarchy Showcases-Menu – a menu for Anarchy Engine Showcases.",
-      "purl": "pkg:npm/showcases-menu@1.7.2",
+      "purl": "pkg:npm/showcases-menu@1.7.3",
       "properties": [
         {
           "name": "cdx:npm:package:private",
@@ -1288,14 +1344,14 @@
       ]
     },
     {
-      "bom-ref": "showcases-shared@1.3.2",
+      "bom-ref": "showcases-shared@1.3.3",
       "type": "library",
       "name": "showcases-shared",
-      "version": "1.3.2",
+      "version": "1.3.3",
       "scope": "required",
       "author": "S. Panfilov",
       "description": "Anarchy Showcases Shared – a shared library for Anarchy Engine Showcases.",
-      "purl": "pkg:npm/showcases-shared@1.3.2",
+      "purl": "pkg:npm/showcases-shared@1.3.3",
       "properties": [
         {
           "name": "cdx:npm:package:private",
@@ -1316,32 +1372,33 @@
     {
       "ref": "anarchy-monorepo@2.1.6",
       "dependsOn": [
-        "showcases-core@2.10.0",
-        "showcases-desktop@2.6.0",
+        "showcases-core@2.10.1",
+        "showcases-desktop@2.6.1",
         "showcases-e2e@1.0.4",
         "anarchy-engine@21.0.1",
         "anarchy-i18n@1.2.0",
         "anarchy-legal@1.10.4",
         "showcases-i18n@1.2.1",
-        "showcases-menu@1.7.2"
+        "showcases-menu@1.7.3"
       ]
     },
     {
-      "ref": "showcases-core@2.10.0",
+      "ref": "showcases-core@2.10.1",
       "dependsOn": [
         "anarchy-engine@21.0.1",
         "anarchy-i18n@1.2.0",
+        "dexie@4.2.0",
         "lil-gui@0.20.0",
         "sanitize.css@13.0.0",
         "showcases-i18n@1.2.1",
-        "showcases-menu@1.7.2",
+        "showcases-menu@1.7.3",
         "stats.js@0.17.0",
         "three-viewport-gizmo@2.2.0"
       ]
     },
     {
-      "ref": "showcases-desktop@2.6.0",
-      "dependsOn": ["showcases-core@2.10.0"]
+      "ref": "showcases-desktop@2.6.1",
+      "dependsOn": ["showcases-core@2.10.1"]
     },
     {
       "ref": "showcases-e2e@1.0.4",
@@ -1400,8 +1457,16 @@
       "dependsOn": []
     },
     {
+      "ref": "bowser@2.12.1",
+      "dependsOn": []
+    },
+    {
       "ref": "copy-anything@3.0.5",
       "dependsOn": ["is-what@4.1.16"]
+    },
+    {
+      "ref": "dexie@4.2.0",
+      "dependsOn": []
     },
     {
       "ref": "dompurify@3.2.6",
@@ -1519,18 +1584,18 @@
     },
     {
       "ref": "anarchy-shared@1.2.0",
-      "dependsOn": []
+      "dependsOn": ["bowser@2.12.1"]
     },
     {
       "ref": "showcases-i18n@1.2.1",
       "dependsOn": ["anarchy-engine@21.0.1", "anarchy-i18n@1.2.0"]
     },
     {
-      "ref": "showcases-menu@1.7.2",
+      "ref": "showcases-menu@1.7.3",
       "dependsOn": ["anarchy-engine@21.0.1", "anarchy-i18n@1.2.0", "dompurify@3.2.6", "marked@16.3.0", "pinia@3.0.3", "sanitize.css@13.0.0", "showcases-i18n@1.2.1"]
     },
     {
-      "ref": "showcases-shared@1.3.2",
+      "ref": "showcases-shared@1.3.3",
       "dependsOn": []
     }
   ]

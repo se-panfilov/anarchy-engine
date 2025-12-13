@@ -5,7 +5,7 @@
 This product includes third-party components. Their **licenses and attributions** are listed below.
 For the **full license texts**, see `THIRD_PARTY_LICENSES.md`.
 
-Components listed: 19
+Components listed: 20
 
 ## 1) Mandatory Attributions (verbatim)
 
@@ -50,6 +50,18 @@ The following notices are reproduced as provided by the respective licensors (e.
 **License(s):** MIT
 
 **Attribution:** Copyright (c) 2025 Sergei Panfilov
+
+---
+
+## bowser@2.12.1
+
+**License(s):** MIT
+
+**Repository:** git+https://github.com/lancedikson/bowser.git
+
+**URL:** https://github.com/lancedikson/bowser
+
+**Attribution:** Copyright 2015, Dustin Diaz (the "Original Author")
 
 ---
 
