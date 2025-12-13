@@ -1,6 +1,7 @@
 import type { Intersection } from 'three';
 import { Vector3 } from 'three';
 import type { Line2 } from 'three/examples/jsm/lines/Line2';
+import { degToRad } from 'three/src/math/MathUtils';
 
 import type { TShowcase } from '@/App/Levels/Models';
 import { enableCollisions } from '@/App/Levels/Showcase22PhysicsShooter/utils/Collisions';
@@ -21,7 +22,7 @@ import type {
   TSpaceConfig,
   TSpatialGridWrapper
 } from '@/Engine';
-import { Engine, get3DAzimuthRad, isDefined, isNotDefined, KeysExtra, spaceService } from '@/Engine';
+import { Engine, get3DAzimuthRad, isDefined, isNotDefined, KeysExtra, metersPerSecond, spaceService } from '@/Engine';
 import { radians } from '@/Engine/Measurements/Utils';
 
 import spaceConfig from './showcase.json';
@@ -122,7 +123,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     };
 
     //move bouncing sphere to target practice
-    moveActorBounce(sphereActor, 4.3, 210, 5000);
+    moveActorBounce(sphereActor, metersPerSecond(4.3), radians(degToRad(210)), 5000);
 
     const targetActor1: TActor | undefined = actorService.getRegistry().findByName('target_1');
     if (isNotDefined(targetActor1)) throw new Error(`Cannot find "target_1" actor`);
@@ -132,11 +133,11 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     if (isNotDefined(targetActor3)) throw new Error(`Cannot find "target_3" actor`);
 
     // TODO CWP refactor objects creation (do not add to a registry immediately, cause in that case if we extend, there will be unextetended version in the registy)
-    moveActorBounce(targetActor1, 4, -270, 3000);
+    moveActorBounce(targetActor1, metersPerSecond(4), radians(degToRad(-270)), 3000);
     // TODO setTimout/setInterval is not a good idea (cause the game might be "on pause", e.g. when tab is not active)
-    setTimeout(() => moveActorBounce(targetActor2, 4.5, -270, 3000), 500);
+    setTimeout(() => moveActorBounce(targetActor2, metersPerSecond(4.5), radians(degToRad(-270)), 3000), 500);
     // TODO setTimout/setInterval is not a good idea (cause the game might be "on pause", e.g. when tab is not active)
-    setTimeout(() => moveActorBounce(targetActor3, 5, -270, 3000), 1000);
+    setTimeout(() => moveActorBounce(targetActor3, metersPerSecond(5), radians(degToRad(-270)), 3000), 1000);
 
     const shootingParams = {
       cooldownMs: 300,

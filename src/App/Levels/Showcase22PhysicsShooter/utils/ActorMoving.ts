@@ -1,8 +1,9 @@
 import { BehaviorSubject, combineLatest, map, Subject } from 'rxjs';
+import { degToRad } from 'three/src/math/MathUtils';
 
 import type { TActor, TIntersectionEvent, TIntersectionsWatcher, TKeyboardService, TMetersPerSecond, TRadians } from '@/Engine';
 import { getMouseAzimuthAndElevation, KeyCode, metersPerSecond } from '@/Engine';
-import { degrees, radians } from '@/Engine/Measurements/Utils';
+import { radians } from '@/Engine/Measurements/Utils';
 
 type TMoveKeysState = { Forward: boolean; Left: boolean; Right: boolean; Backward: boolean };
 type TIntersectionDirection = Readonly<{ azimuth: TRadians; elevation: TRadians }>;
@@ -77,12 +78,12 @@ function getActorMoveAzimuthRad(keyStates: TMoveKeysState): TRadians {
   return radians(0);
 }
 
-export function moveActorBounce(actor: TActor, speedMPS: number, azimuthDeg: number, duration: number): void {
+export function moveActorBounce(actor: TActor, speedMPS: TMetersPerSecond, azimuth: TRadians, duration: number): void {
   actor.drive.kinematic.autoUpdate$.next(true);
   actor.drive.kinematic.setLinearSpeed(metersPerSecond(speedMPS));
-  actor.drive.kinematic.setLinearAzimuthDeg(degrees(azimuthDeg));
+  actor.drive.kinematic.setLinearAzimuthRad(azimuth);
   // TODO setTimout/setInterval is not a good idea (cause the game might be "on pause", e.g. when tab is not active)
   setInterval((): void => {
-    actor.drive.kinematic.setLinearAzimuthDeg(degrees(actor.drive.kinematic.getLinearAzimuthDeg() + 180));
+    actor.drive.kinematic.setLinearAzimuthRad(radians(actor.drive.kinematic.getLinearAzimuthRad() + degToRad(180)));
   }, duration);
 }

@@ -1,11 +1,10 @@
 import type { Observable, Subscription } from 'rxjs';
 import { BehaviorSubject, combineLatest, EMPTY, map, switchMap } from 'rxjs';
 import { Euler, Quaternion, Vector3 } from 'three';
-import { degToRad } from 'three/src/math/MathUtils';
 
 import type { TKinematicData } from '@/Engine/Kinematic/Models';
-import type { TDegrees, TMetersPerSecond, TRadians } from '@/Engine/Math';
-import { getAzimuthDegFromDirection, getAzimuthRadFromDirection, getElevationDegFromDirection, getElevationRadFromDirection } from '@/Engine/Math';
+import type { TMetersPerSecond, TRadians } from '@/Engine/Math';
+import { getAzimuthRadFromDirection, getElevationRadFromDirection } from '@/Engine/Math';
 import type { TReadonlyEuler, TReadonlyQuaternion, TReadonlyVector3 } from '@/Engine/ThreeLib';
 import { TransformAgent } from '@/Engine/TransformDrive/Constants';
 import type { TAbstractTransformAgent, TKinematicAgentDependencies, TKinematicTransformAgent, TKinematicTransformAgentParams } from '@/Engine/TransformDrive/Models';
@@ -78,36 +77,19 @@ export function KinematicTransformAgent(params: TKinematicTransformAgentParams, 
     setLinearDirection(direction: TReadonlyVector3): void {
       agent.data.linearDirection.copy(direction);
     },
-    setLinearDirectionFromParamsDeg(azimuthDeg: TDegrees, elevationDeg: TDegrees): void {
-      agent.setLinearAzimuthDeg(azimuthDeg);
-      agent.setLinearElevationDeg(elevationDeg);
-    },
     setLinearDirectionFromParamsRad(azimuthRad: TRadians, elevationRad: TRadians): void {
       agent.setLinearAzimuthRad(azimuthRad);
       agent.setLinearElevationRad(elevationRad);
     },
-    getLinearAzimuthDeg(): TDegrees {
-      return getAzimuthDegFromDirection(agent.data.linearDirection);
-    },
     getLinearAzimuthRad(): TRadians {
       return getAzimuthRadFromDirection(agent.data.linearDirection);
-    },
-    setLinearAzimuthDeg(azimuthDeg: TDegrees): void {
-      const azimuthRadians: TRadians = degToRad(azimuthDeg) as TRadians;
-      agent.setLinearAzimuthRad(azimuthRadians);
     },
     setLinearAzimuthRad(azimuthRad: TRadians): void {
       const lengthXZ: number = Math.sqrt(agent.data.linearDirection.x ** 2 + agent.data.linearDirection.z ** 2) || 1;
       agent.data.linearDirection.set(Math.cos(azimuthRad) * lengthXZ, agent.data.linearDirection.y, Math.sin(azimuthRad) * lengthXZ).normalize();
     },
-    getLinearElevationDeg(): TDegrees {
-      return getElevationDegFromDirection(agent.data.linearDirection);
-    },
     getLinearElevationRad(): TRadians {
       return getElevationRadFromDirection(agent.data.linearDirection);
-    },
-    setLinearElevationDeg(elevationDeg: TDegrees): void {
-      agent.setLinearElevationRad(degToRad(elevationDeg) as TRadians);
     },
     setLinearElevationRad(elevationRad: TRadians): void {
       const currentAzimuth: number = Math.atan2(agent.data.linearDirection.z, agent.data.linearDirection.x);
@@ -134,35 +116,19 @@ export function KinematicTransformAgent(params: TKinematicTransformAgentParams, 
     setAngularDirection(direction: TReadonlyVector3): void {
       agent.data.angularDirection.copy(direction);
     },
-    setAngularDirectionFromParamsDeg(azimuthDeg: TDegrees, elevationDeg: TDegrees): void {
-      agent.setAngularAzimuthDeg(azimuthDeg);
-      agent.setAngularElevationDeg(elevationDeg);
-    },
     setAngularDirectionFromParamsRad(azimuthRad: TRadians, elevationRad: TRadians): void {
       agent.setAngularAzimuthRad(azimuthRad);
       agent.setAngularElevationRad(elevationRad);
     },
-    getAngularAzimuthDeg(): TDegrees {
-      return getAzimuthDegFromDirection(agent.data.angularDirection);
-    },
     getAngularAzimuthRad(): TRadians {
       return getAzimuthRadFromDirection(agent.data.angularDirection);
-    },
-    setAngularAzimuthDeg(azimuthDeg: TDegrees): void {
-      agent.setAngularAzimuthRad(degToRad(azimuthDeg) as TRadians);
     },
     setAngularAzimuthRad(azimuthRad: TRadians): void {
       const lengthXZ: number = Math.sqrt(agent.data.angularDirection.x ** 2 + agent.data.angularDirection.z ** 2) || 1;
       agent.data.angularDirection.set(Math.cos(azimuthRad) * lengthXZ, agent.data.angularDirection.y, Math.sin(azimuthRad) * lengthXZ);
     },
-    getAngularElevationDeg(): TDegrees {
-      return getElevationDegFromDirection(agent.data.angularDirection);
-    },
     getAngularElevationRad(): TRadians {
       return getElevationRadFromDirection(agent.data.angularDirection);
-    },
-    setAngularElevationDeg(elevationDeg: TDegrees): void {
-      agent.setAngularElevationRad(degToRad(elevationDeg) as TRadians);
     },
     setAngularElevationRad(elevationRad: TRadians): void {
       const currentAzimuth: number = Math.atan2(agent.data.angularDirection.z, agent.data.angularDirection.x);
@@ -175,10 +141,6 @@ export function KinematicTransformAgent(params: TKinematicTransformAgentParams, 
       const newZ: number = Math.sin(currentAzimuth) * newLengthXZ;
 
       agent.data.angularDirection.set(newX, newY, newZ).normalize();
-    },
-    setAngularVelocityFromParamsDeg(speed: TMetersPerSecond, azimuth: TDegrees, elevation: TDegrees): void {
-      agent.setAngularSpeed(speed);
-      agent.setAngularDirectionFromParamsDeg(azimuth, elevation);
     },
     setAngularVelocityFromParamsRad(speed: TMetersPerSecond, azimuth: TRadians, elevation: TRadians): void {
       agent.setAngularSpeed(speed);

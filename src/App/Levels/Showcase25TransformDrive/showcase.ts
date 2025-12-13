@@ -251,7 +251,7 @@ function rotateActorTo(actor: TActor, rotation: Euler, agent: TransformAgent): v
     case TransformAgent.Default:
       return actor.drive.default.setRotation(rotationXYZ);
     case TransformAgent.Kinematic:
-      actor.drive.kinematic.setAngularAzimuthDeg(degrees(radToDeg(rotationXYZ.y)));
+      actor.drive.kinematic.setAngularAzimuthRad(radians(rotationXYZ.y));
       return actor.drive.kinematic.setAngularSpeed(metersPerSecond(5));
     case TransformAgent.Connected:
       // no need to do anything here, cause already connected
