@@ -8,20 +8,19 @@ import type { TAudioSettings } from '@Shared/Showcase';
 import type { TWriteable } from 'anarchy_engine/src';
 import { reactive } from 'vue';
 
-const emit = defineEmits(['cancel', 'save']);
+const emit = defineEmits(['reset', 'save']);
 
 const settingsStore = useSettingsStore();
 
 const state: TWriteable<TAudioSettings> = reactive({ masterVolume: settingsStore.audio.masterVolume });
 
-function cancel(): void {
+function reset(): void {
   state.masterVolume = settingsStore.audio.masterVolume;
-  emit('cancel');
+  emit('reset');
 }
 
 function save(payload: TAudioSettings): void {
-  // eslint-disable-next-line functional/immutable-data
-  settingsStore.audio = { ...payload };
+  settingsStore.setAudio(payload);
   emit('save');
 }
 </script>
@@ -31,7 +30,7 @@ function save(payload: TAudioSettings): void {
     <SettingsGroup class="main-menu-view__group" title="Main Audio Settings">
       <Range v-model="state.masterVolume" :min="0" :max="100" class="main-menu-view__setting -masterVolume" label="Master Volume" />
     </SettingsGroup>
-    <ViewActions @cancel="cancel()" @save="save(state)" />
+    <ViewActions @reset="reset()" @save="save(state)" />
   </View>
 </template>
 

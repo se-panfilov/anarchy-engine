@@ -14,7 +14,25 @@ function EventsService(): TEventsService {
     bus$.next({ type: Events.Close });
   }
 
-  return { setBus, emitClose };
+  function emitStartNew(): void | never {
+    if (isNotDefined(bus$)) throw new Error('[EventsService]: bus$ is not defined. Call setBus() first.');
+    console.log('[EventsService]: emitStartNew');
+    bus$.next({ type: Events.StartNewGame });
+  }
+
+  function emitContinue(): void | never {
+    if (isNotDefined(bus$)) throw new Error('[EventsService]: bus$ is not defined. Call setBus() first.');
+    console.log('[EventsService]: emitContinue');
+    bus$.next({ type: Events.ContinueGame });
+  }
+
+  function emitLoad(): void | never {
+    if (isNotDefined(bus$)) throw new Error('[EventsService]: bus$ is not defined. Call setBus() first.');
+    console.log('[EventsService]: emitLoad');
+    bus$.next({ type: Events.LoadGame });
+  }
+
+  return { setBus, emitClose, emitStartNew, emitContinue, emitLoad };
 }
 
 export const eventsService: TEventsService = EventsService();

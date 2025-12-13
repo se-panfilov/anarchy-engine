@@ -10,21 +10,20 @@ import { useSettingsStore } from '@Menu/stores/SettingsStore';
 import type { TLocalizationSettings } from '@Shared/Showcase';
 import { computed, reactive } from 'vue';
 
-const emit = defineEmits(['cancel', 'save']);
+const emit = defineEmits(['reset', 'save']);
 const settingsStore = useSettingsStore();
 
 const state: TWriteable<TLocalizationSettings> = reactive({
   language: settingsStore.localization.language
 });
 
-function cancel(): void {
+function reset(): void {
   state.language = settingsStore.localization.language;
-  emit('cancel');
+  emit('reset');
 }
 
 function save(payload: TLocalizationSettings): void {
-  // eslint-disable-next-line functional/immutable-data
-  settingsStore.localization = { ...payload };
+  settingsStore.setLocalization(payload);
   emit('save');
 }
 
@@ -38,7 +37,7 @@ const options = computed((): ReadonlyArray<TDropdownOption<Languages>> => {
     <SettingsGroup class="main-menu-view__group" title="Main Localization Settings">
       <Dropdown v-model="state.language" :options="options" class="main-menu-view__setting -resolution" label="Resolution" />
     </SettingsGroup>
-    <ViewActions @cancel="cancel()" @save="save(state)" />
+    <ViewActions @reset="reset()" @save="save(state)" />
   </View>
 </template>
 

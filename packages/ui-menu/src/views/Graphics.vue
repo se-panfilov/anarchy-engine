@@ -10,7 +10,7 @@ import { useSettingsStore } from '@Menu/stores/SettingsStore';
 import type { TGraphicsSettings } from '@Shared/Showcase';
 import { computed, reactive } from 'vue';
 
-const emit = defineEmits(['cancel', 'save']);
+const emit = defineEmits(['reset', 'save']);
 
 const settingsStore = useSettingsStore();
 
@@ -19,16 +19,15 @@ const state: TWriteable<TGraphicsSettings> = reactive({
   resolution: settingsStore.graphics.resolution
 });
 
-function cancel(): void {
+function reset(): void {
   state.isFullScreen = settingsStore.graphics.isFullScreen;
   state.resolution = settingsStore.graphics.resolution;
 
-  emit('cancel');
+  emit('reset');
 }
 
 function save(payload: TGraphicsSettings): void {
-  // eslint-disable-next-line functional/immutable-data
-  settingsStore.graphics = { ...payload };
+  settingsStore.setGraphics(payload);
   emit('save');
 }
 
@@ -46,7 +45,7 @@ const options = computed((): ReadonlyArray<TDropdownOption<{ width: number; heig
       <Checkbox v-model="state.isFullScreen" class="main-menu-view__setting -fullscreen" label="Fullscreen" />
       <Dropdown v-model="state.resolution" :options="options" class="main-menu-view__setting -resolution" label="Resolution" />
     </SettingsGroup>
-    <ViewActions @cancel="cancel()" @save="save(state)" />
+    <ViewActions @reset="reset()" @save="save(state)" />
   </View>
 </template>
 

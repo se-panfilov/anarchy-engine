@@ -10,7 +10,7 @@ export const useMenuOptionsStore = defineStore('menuOptionsStore', () => {
     showExitBtn: runtimeEnv.VITE_SHOW_EXIT_BTN ?? true
   });
 
-  const setState = (options: TMenuOptions): void => void Object.assign(state, options);
+  const setState = (options: TMenuOptions): void => void Object.assign(state, { ...options });
   const showExitBtn = computed(() => state.showExitBtn);
 
   return { showExitBtn, setState };

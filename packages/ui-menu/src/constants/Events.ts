@@ -1,7 +1,9 @@
 export enum Events {
   Open = 'menu:open',
   Close = 'menu:close',
-  Toggle = 'menu:toggle',
+  LoadGame = 'menu:game:load',
+  ContinueGame = 'menu:game:continue',
+  StartNewGame = 'menu:game:start-new',
   SaveSettings = 'menu:settings:save',
   LoadSettings = 'menu:settings:load'
 }

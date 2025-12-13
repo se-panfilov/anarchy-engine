@@ -1,6 +1,6 @@
 import type { TDeepWriteable } from '@Engine';
 import { Languages } from '@Menu/constants';
-import type { TGameSettings, TResolution } from '@Shared/Showcase';
+import type { TAudioSettings, TDebugSettings, TGameSettings, TGraphicsSettings, TInternalSettings, TLocalizationSettings, TResolution } from '@Shared/Showcase';
 import { defineStore } from 'pinia';
 import { computed, reactive } from 'vue';
 
@@ -40,12 +40,23 @@ export const useSettingsStore = defineStore('settingsStore', () => {
   const debug = computed(() => state.debug);
   const internal = computed(() => state.internal);
 
+  const setGraphics = (newGraphics: Partial<TGraphicsSettings>): void => void Object.assign(state.graphics, { ...newGraphics });
+  const setAudio = (newAudio: Partial<TAudioSettings>): void => void Object.assign(state.audio, { ...newAudio });
+  const setLocalization = (newLocalization: Partial<TLocalizationSettings>): void => void Object.assign(state.localization, { ...newLocalization });
+  const setDebug = (newDebug: Partial<TDebugSettings>): void => void Object.assign(state.debug, { ...newDebug });
+  const setInternal = (newInternal: Partial<TInternalSettings>): void => void Object.assign(state.internal, { ...newInternal });
+
   return {
     graphics,
+    setGraphics,
     audio,
+    setAudio,
     localization,
+    setLocalization,
     debug,
+    setDebug,
     internal,
+    setInternal,
     getAvailableResolutions
   };
 });
