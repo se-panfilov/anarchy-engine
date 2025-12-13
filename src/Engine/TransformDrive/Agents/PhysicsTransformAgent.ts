@@ -1,5 +1,4 @@
 import type { RigidBody, Rotation, Vector } from '@dimforge/rapier3d';
-import { RigidBodyType } from '@dimforge/rapier3d/dynamics/rigid_body';
 import type { Subject, Subscription } from 'rxjs';
 import { BehaviorSubject, combineLatest, distinctUntilChanged, filter, map, switchMap, withLatestFrom } from 'rxjs';
 import { Euler, Quaternion, Vector3 } from 'three';
@@ -43,38 +42,19 @@ export function PhysicsTransformAgent(params: TPhysicsTransformAgentParams, { ph
     previousPhysicsBodyType = physicsBody.getPhysicsBodyType();
   });
 
-  const enabledSub$: Subscription = agent.enabled$.pipe(withLatestFrom(physicsBody$)).subscribe(([isEnabled, physicsBody]: [boolean, TPhysicsBody | undefined]): void => {
-    if (isNotDefined(physicsBody?.getRigidBody())) return;
-    if (!isEnabled) physicsBody.setPhysicsBodyType(RigidBodyTypesNames.KinematicPositionBased, false);
-    else physicsBody?.setPhysicsBodyType(previousPhysicsBodyType, false);
-  });
-
-  // TODO 8.0.0. MODELS: physical object doesn't move when position is changed externally
-  // TODO 8.0.0. MODELS: apply rotation!!!
-  // agent.position$
-  //   // .pipe(distinctUntilChanged((prev: Vector3, curr: Vector3): boolean => prev.equals(curr)))
-  //   .subscribe((position: Vector3): void => {
-  //     // const coords = physicsBody$.value?.getRigidBody()?.translation();
-  //     // if (position.x === coords?.x && position.y === coords?.y && position.z === coords?.z) return;
-  //
-  //     console.log('XXX received position', position);
-  //     const rigidBody: RigidBody | undefined = physicsBody$.value?.getRigidBody();
-  //     if (isDefined(rigidBody)) {
-  //       // console.log('XXX1', rigidBody.translation());
-  //       // console.log('XXX received position', rigidBody.translation(), position);
-  //       // rigidBody.setNextKinematicTranslation(position);
-  //       // rigidBody.setTranslation(position, true);
-  //       // console.log('XXX2', rigidBody.translation());
-  //     }
-  //   });
-
-  // setInterval(() => {
-  //   const rigidBody: RigidBody | undefined = physicsBody$.value?.getRigidBody();
-  //   if (isDefined(rigidBody)) {
-  //     console.log('XXX3', agent.position$.value);
-  //     rigidBody.setNextKinematicTranslation(agent.position$.value);
-  //   }
-  // }, 300);
+  const enabledSub$: Subscription = agent.enabled$
+    .pipe(
+      withLatestFrom(physicsBody$),
+      distinctUntilChanged(
+        ([prevEnabled, prevPhysicsBody]: [boolean, TPhysicsBody | undefined], [enabled, physicsBody]: [boolean, TPhysicsBody | undefined]): boolean =>
+          prevEnabled === enabled && prevPhysicsBody === physicsBody
+      )
+    )
+    .subscribe(([isEnabled, physicsBody]: [boolean, TPhysicsBody | undefined]): void | never => {
+      if (isNotDefined(physicsBody?.getRigidBody())) return;
+      if (!isEnabled) physicsBody.setPhysicsBodyType(RigidBodyTypesNames.KinematicPositionBased, false);
+      else physicsBody?.setPhysicsBodyType(previousPhysicsBodyType, false);
+    });
 
   const destroySub$: Subscription = abstractTransformAgent.destroy$.subscribe((): void => {
     //Stop subscriptions
