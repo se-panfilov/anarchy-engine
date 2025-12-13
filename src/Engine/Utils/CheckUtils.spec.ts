@@ -3,7 +3,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import type { IDestroyable, IRegistrable } from '@/Engine/Mixins';
 import { ColorWrapper } from '@/Engine/Wrappers';
 
-import { isColorWrapper, isDefined, isDestroyable, isNotDefined, isRegistrable, isString } from './CheckUtils';
+import { isColorWrapper, isDefined, isDestroyable, isNotDefined, isRegistrable, isString, isWithWrapperId } from './CheckUtils';
 
 describe('CheckUtils', () => {
   describe('isDefined', () => {
@@ -206,6 +206,18 @@ describe('CheckUtils', () => {
 
     it('should return "false" if it is a string', () => {
       expect(isColorWrapper('#FF0000')).toBe(false);
+    });
+  });
+
+  describe('isWithWrapperId', () => {
+    it('should return "true" an object has wrapperId', () => {
+      expect(isWithWrapperId({ userData: { wrapperId: 'some' } })).toBe(true);
+    });
+
+    it('should return "false" an object has NO wrapperId', () => {
+      expect(isWithWrapperId(undefined)).toBe(false);
+      expect(isWithWrapperId({})).toBe(false);
+      expect(isWithWrapperId({ userData: {} })).toBe(false);
     });
   });
 });

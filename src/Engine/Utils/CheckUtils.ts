@@ -1,7 +1,10 @@
 import { Color } from 'three';
 
+import type { IAbstractEntityWithWrapperId } from '@/Engine/Domains/Abstract/Models';
 import type { IDestroyable, IRegistrable } from '@/Engine/Mixins';
 import type { IColorWrapper } from '@/Engine/Wrappers';
+
+import { isObject } from './ObjectUtils';
 
 export function isDefined<T>(value: T | undefined | null): value is T {
   return <T>value !== undefined && <T>value !== null;
@@ -25,4 +28,8 @@ export function isString(value: unknown): value is string {
 
 export function isColorWrapper(obj: unknown): obj is IColorWrapper {
   return isDefined((obj as IColorWrapper).entity) && (obj as IColorWrapper).entity instanceof Color;
+}
+
+export function isWithWrapperId(obj: unknown | IAbstractEntityWithWrapperId): obj is IAbstractEntityWithWrapperId {
+  return isDefined(obj) && isObject(obj) && isDefined((obj as IAbstractEntityWithWrapperId).userData) && isDefined((obj as IAbstractEntityWithWrapperId).userData.wrapperId);
 }

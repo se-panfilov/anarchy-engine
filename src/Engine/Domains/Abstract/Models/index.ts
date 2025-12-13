@@ -1,3 +1,4 @@
+export * from './IAbstractEntityWithWrapperId';
 export * from './IAbstractPool';
 export * from './IAbstractRegistry';
 export * from './IAbstractWatcher';
@@ -8,4 +9,5 @@ export * from './IMultitonWatcherWithState';
 export * from './IReactiveFactory';
 export * from './IWatcher';
 export * from './IWatcherWithState';
+export * from './IWithWrapperId';
 export * from './IWrapper';
