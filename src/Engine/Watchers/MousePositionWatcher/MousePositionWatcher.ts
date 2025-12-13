@@ -1,9 +1,10 @@
-import { Subject } from 'rxjs';
+import { AbstractWatcher } from '@Engine/Watchers/AbstractWatcher/AbstractWatcher';
+import type { IMousePositionWatcher } from '@Engine/Watchers';
 import type { MousePosition } from '@Engine/Models';
-import { AbstractWatcher } from '@Engine/Watchers/AbstractWatcher';
+import { Subject } from 'rxjs';
 
-export function MousePositionWatcher(): ReturnType<typeof AbstractWatcher<MousePosition>> {
-  const value$ = new Subject<MousePosition>();
+export function MousePositionWatcher(): IMousePositionWatcher {
+  const value$: Subject<MousePosition> = new Subject<MousePosition>();
 
   const onMouseMoveListener = ({ clientX: x, clientY: y }: MouseEvent): void => value$.next({ x, y });
 

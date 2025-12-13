@@ -1,8 +1,9 @@
+import { AbstractWatcher } from '@Engine/Watchers/AbstractWatcher/AbstractWatcher';
+import type { IMouseClicksWatcher } from '@Engine/Watchers';
 import { Subject } from 'rxjs';
-import { AbstractWatcher } from '@Engine/Watchers/AbstractWatcher';
 
-export function MouseClicksWatcher(): ReturnType<typeof AbstractWatcher<void>> {
-  const value$ = new Subject<void>();
+export function MouseClicksWatcher(): IMouseClicksWatcher {
+  const value$: Subject<void> = new Subject<void>();
   const onMouseUpListener = (): void => value$.next();
 
   // TODO (S.Panfilov) global?
