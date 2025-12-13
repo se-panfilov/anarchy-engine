@@ -5,7 +5,6 @@ export type * from './TMesh';
 export type * from './TObject3D';
 export type * from './TObject3DParams';
 export type * from './TObject3DPropConfig';
-export type * from './TObject3DProps';
 export type * from './TPlaneGeometryProps';
 export type * from './TPoints';
 export type * from './TReadonlyEuler';
