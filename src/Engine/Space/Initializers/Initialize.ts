@@ -6,6 +6,10 @@ import type { IActorAsyncRegistry, IActorConfig, IActorFactory, IActorWrapperAsy
 import { ActorAsyncRegistry, ActorFactory } from '@/Engine/Actor';
 import type { ICameraConfig, ICameraFactory, ICameraRegistry } from '@/Engine/Camera';
 import { CameraFactory, CameraRegistry } from '@/Engine/Camera';
+import type { IFogConfig, IFogFactory, IFogRegistry, IFogWrapper } from '@/Engine/Fog';
+import { FogFactory, FogRegistry } from '@/Engine/Fog';
+import type { ILightConfig, ILightFactory, ILightRegistry } from '@/Engine/Light';
+import { LightFactory, LightRegistry } from '@/Engine/Light';
 import type { IRegistrable, IWithReadonlyTags } from '@/Engine/Mixins';
 import type { ISceneConfig, ISceneFactory, ISceneObject, ISceneRegistry, ISceneWrapper } from '@/Engine/Scene';
 import { SceneFactory, SceneRegistry } from '@/Engine/Scene';
@@ -80,6 +84,24 @@ export function initCameras(scene: ISceneWrapper, cameras: ReadonlyArray<ICamera
   const factory: ICameraFactory = CameraFactory();
   const registry: ICameraRegistry = CameraRegistry();
   const { added$, created$ } = init(scene, factory, registry, cameras);
+
+  return { added$, created$, factory, registry };
+}
+
+export function initLights(scene: ISceneWrapper, lights: ReadonlyArray<ILightConfig>): { added$: Subscription; created$: Subscription; factory: ILightFactory; registry: ILightRegistry } {
+  const factory: ILightFactory = LightFactory();
+  const registry: ILightRegistry = LightRegistry();
+  const { added$, created$ } = init(scene, factory, registry, lights);
+
+  return { added$, created$, factory, registry };
+}
+
+export function initFogs(scene: ISceneWrapper, fogs: ReadonlyArray<IFogConfig>): { added$: Subscription; created$: Subscription; factory: IFogFactory; registry: IFogRegistry } {
+  const factory: IFogFactory = FogFactory();
+  const registry: IFogRegistry = FogRegistry();
+  const added$: Subscription = registry.added$.subscribe((fog: IFogWrapper) => scene.setFog(fog));
+  const created$: Subscription = factory.entityCreated$.subscribe((fog: IFogWrapper): void => registry.add(fog));
+  fogs.forEach((fog: IFogConfig): IFogWrapper => factory.create(factory.configToParams({ ...fog, tags: [...fog.tags, CommonTag.FromConfig] })));
 
   return { added$, created$, factory, registry };
 }
