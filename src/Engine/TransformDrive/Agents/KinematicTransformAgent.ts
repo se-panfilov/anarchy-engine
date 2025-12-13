@@ -56,6 +56,9 @@ export function KinematicTransformAgent(params: TKinematicTransformAgentParams, 
     getData(): TKinematicData {
       return agent.data;
     },
+    // rotateToRad(degrees: TRadians, speed: TMetersPerSecond): void {
+    //   agent.getAngularAzimuthRad(degrees);
+    // },
     adjustDataByLinearVelocity(linearVelocity: TReadonlyVector3): void {
       agent.setLinearSpeed(linearVelocity.length() as TMetersPerSecond);
       agent.setLinearDirection(linearVelocity.clone().normalize());
@@ -77,21 +80,21 @@ export function KinematicTransformAgent(params: TKinematicTransformAgentParams, 
     setLinearDirection(direction: TReadonlyVector3): void {
       agent.data.linearDirection.copy(direction);
     },
-    setLinearDirectionFromParamsRad(azimuthRad: TRadians, elevationRad: TRadians): void {
-      agent.setLinearAzimuthRad(azimuthRad);
-      agent.setLinearElevationRad(elevationRad);
+    setLinearDirectionFromParams(azimuthRad: TRadians, elevationRad: TRadians): void {
+      agent.setLinearAzimuth(azimuthRad);
+      agent.setLinearElevation(elevationRad);
     },
-    getLinearAzimuthRad(): TRadians {
+    getLinearAzimuth(): TRadians {
       return getAzimuthRadFromDirection(agent.data.linearDirection);
     },
-    setLinearAzimuthRad(azimuthRad: TRadians): void {
+    setLinearAzimuth(azimuthRad: TRadians): void {
       const lengthXZ: number = Math.sqrt(agent.data.linearDirection.x ** 2 + agent.data.linearDirection.z ** 2) || 1;
       agent.data.linearDirection.set(Math.cos(azimuthRad) * lengthXZ, agent.data.linearDirection.y, Math.sin(azimuthRad) * lengthXZ).normalize();
     },
-    getLinearElevationRad(): TRadians {
+    getLinearElevation(): TRadians {
       return getElevationRadFromDirection(agent.data.linearDirection);
     },
-    setLinearElevationRad(elevationRad: TRadians): void {
+    setLinearElevation(elevationRad: TRadians): void {
       const currentAzimuth: number = Math.atan2(agent.data.linearDirection.z, agent.data.linearDirection.x);
 
       const length: number = agent.data.linearDirection.length();
@@ -116,21 +119,21 @@ export function KinematicTransformAgent(params: TKinematicTransformAgentParams, 
     setAngularDirection(direction: TReadonlyVector3): void {
       agent.data.angularDirection.copy(direction);
     },
-    setAngularDirectionFromParamsRad(azimuthRad: TRadians, elevationRad: TRadians): void {
-      agent.setAngularAzimuthRad(azimuthRad);
-      agent.setAngularElevationRad(elevationRad);
+    setAngularDirectionFromParams(azimuthRad: TRadians, elevationRad: TRadians): void {
+      agent.setAngularAzimuth(azimuthRad);
+      agent.setAngularElevation(elevationRad);
     },
-    getAngularAzimuthRad(): TRadians {
+    getAngularAzimuth(): TRadians {
       return getAzimuthRadFromDirection(agent.data.angularDirection);
     },
-    setAngularAzimuthRad(azimuthRad: TRadians): void {
+    setAngularAzimuth(azimuthRad: TRadians): void {
       const lengthXZ: number = Math.sqrt(agent.data.angularDirection.x ** 2 + agent.data.angularDirection.z ** 2) || 1;
       agent.data.angularDirection.set(Math.cos(azimuthRad) * lengthXZ, agent.data.angularDirection.y, Math.sin(azimuthRad) * lengthXZ);
     },
-    getAngularElevationRad(): TRadians {
+    getAngularElevation(): TRadians {
       return getElevationRadFromDirection(agent.data.angularDirection);
     },
-    setAngularElevationRad(elevationRad: TRadians): void {
+    setAngularElevation(elevationRad: TRadians): void {
       const currentAzimuth: number = Math.atan2(agent.data.angularDirection.z, agent.data.angularDirection.x);
 
       const length: number = agent.data.angularDirection.length();
@@ -142,9 +145,9 @@ export function KinematicTransformAgent(params: TKinematicTransformAgentParams, 
 
       agent.data.angularDirection.set(newX, newY, newZ).normalize();
     },
-    setAngularVelocityFromParamsRad(speed: TMetersPerSecond, azimuth: TRadians, elevation: TRadians): void {
+    setAngularVelocityFromParams(speed: TMetersPerSecond, azimuth: TRadians, elevation: TRadians): void {
       agent.setAngularSpeed(speed);
-      agent.setAngularDirectionFromParamsRad(azimuth, elevation);
+      agent.setAngularDirectionFromParams(azimuth, elevation);
     },
     autoUpdate$
   };

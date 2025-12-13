@@ -118,7 +118,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
         const position: Vector3 = intersection.point.clone().add(new Vector3(0, 0, 0));
         const azimuth: number = getMouseAzimuthAndElevation(position, actorMouse.drive.getPosition()).azimuth;
 
-        actorMouse.drive.kinematic.setLinearAzimuthRad(radians(azimuth));
+        actorMouse.drive.kinematic.setLinearAzimuth(radians(azimuth));
         actorMouse.drive.kinematic.setLinearSpeed(metersPerSecond(5));
       }
     });

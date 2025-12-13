@@ -120,8 +120,8 @@ export function BulletAsync(params: TActorParams, actorService: TActorService): 
 
   function reset(): void {
     actor.drive.position$.next(new Vector3(0, 0, 0));
-    actor.drive.kinematic.setLinearAzimuthRad(radians(0));
-    actor.drive.kinematic.setLinearElevationRad(radians(0));
+    actor.drive.kinematic.setLinearAzimuth(radians(0));
+    actor.drive.kinematic.setLinearElevation(radians(0));
     actor.drive.kinematic.setLinearSpeed(metersPerSecond(0));
     setDistanceTraveled(0);
     setActive(false);
@@ -133,8 +133,8 @@ export function BulletAsync(params: TActorParams, actorService: TActorService): 
 
   function update(delta: number): void {
     if (isActive()) {
-      const azimuthRadians: TRadians = actor.drive.kinematic.getLinearAzimuthRad();
-      const elevationRadians: TRadians = actor.drive.kinematic.getLinearElevationRad();
+      const azimuthRadians: TRadians = actor.drive.kinematic.getLinearAzimuth();
+      const elevationRadians: TRadians = actor.drive.kinematic.getLinearElevation();
       const vectorDirection: Vector3 = new Vector3(Math.cos(elevationRadians) * Math.cos(azimuthRadians), Math.sin(elevationRadians), Math.cos(elevationRadians) * Math.sin(azimuthRadians));
       actor.drive.kinematic.setLinearDirection(vectorDirection);
 
@@ -181,8 +181,8 @@ export function shoot(actorPosition: Vector3, toAngle: TRadians, elevation: TRad
   const bullet: TBullet | undefined = bullets.find((b: TBullet): boolean => !b.isActive());
   if (isDefined(bullet)) {
     bullet.drive.position$.next(actorPosition);
-    bullet.drive.kinematic.setLinearAzimuthRad(toAngle);
-    bullet.drive.kinematic.setLinearElevationRad(elevation);
+    bullet.drive.kinematic.setLinearAzimuth(toAngle);
+    bullet.drive.kinematic.setLinearElevation(elevation);
     bullet.setDistanceTraveled(0);
     bullet.drive.kinematic.setLinearSpeed(metersPerSecond(speedMeters));
     bullet.setActive(true);

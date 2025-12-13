@@ -26,7 +26,7 @@ export function startMoveActorWithKeyboard(actor: TActor, keyboardService: TKeyb
 
   combineLatest([keyStates$, intersectionDirection$]).subscribe(([keyStates, { azimuth }]: [TMoveKeysState, TIntersectionDirection]): void => {
     actor.drive.kinematic.setLinearSpeed(getActorMoveSpeed(keyStates, 5, 4, 3));
-    actor.drive.kinematic.setLinearAzimuthRad(radians(azimuth + getActorMoveAzimuthRad(keyStates)));
+    actor.drive.kinematic.setLinearAzimuth(radians(azimuth + getActorMoveAzimuthRad(keyStates)));
   });
 }
 
@@ -81,9 +81,9 @@ function getActorMoveAzimuthRad(keyStates: TMoveKeysState): TRadians {
 export function moveActorBounce(actor: TActor, speedMPS: TMetersPerSecond, azimuth: TRadians, duration: number): void {
   actor.drive.kinematic.autoUpdate$.next(true);
   actor.drive.kinematic.setLinearSpeed(metersPerSecond(speedMPS));
-  actor.drive.kinematic.setLinearAzimuthRad(azimuth);
+  actor.drive.kinematic.setLinearAzimuth(azimuth);
   // TODO setTimout/setInterval is not a good idea (cause the game might be "on pause", e.g. when tab is not active)
   setInterval((): void => {
-    actor.drive.kinematic.setLinearAzimuthRad(radians(actor.drive.kinematic.getLinearAzimuthRad() + degToRad(180)));
+    actor.drive.kinematic.setLinearAzimuth(radians(actor.drive.kinematic.getLinearAzimuth() + degToRad(180)));
   }, duration);
 }
