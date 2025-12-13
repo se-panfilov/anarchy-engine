@@ -3,9 +3,6 @@
   "type": "object",
   "additionalProperties": false,
   "properties": {
-    "canvasSource": {
-      "type": "string"
-    },
     "scenes": {
       "type": "array",
       "items": {
@@ -17,6 +14,9 @@
     },
     "resources": {
       "$ref": "#/definitions/TSpaceConfigResources"
+    },
+    "canvasId": {
+      "type": "string"
     },
     "version": {
       "$ref": "#/definitions/SpaceSchemaVersion"
@@ -31,7 +31,7 @@
       }
     }
   },
-  "required": ["canvasSource", "entities", "resources", "scenes", "version"],
+  "required": ["canvasId", "entities", "resources", "scenes", "version"],
   "definitions": {
     "TSceneConfig": {
       "type": "object",

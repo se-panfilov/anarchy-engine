@@ -3,6 +3,7 @@ export * from './AsyncUtils';
 export * from './CheckUtils';
 export * from './CoordsUtils';
 export * from './DestroyUtils';
+export * from './DomUtils';
 export * from './EntityUtils';
 export * from './FileUtils';
 export * from './MapUtils';

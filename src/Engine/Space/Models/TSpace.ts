@@ -6,6 +6,6 @@ import type { TSpaceParts } from './TSpaceParts';
 export type TSpace = TEntity<
   TSpaceParts &
     Readonly<{
-      getCanvasElement: (selector: string) => TSpaceCanvas | null;
+      getCanvasElement: (selector: string) => TSpaceCanvas | never;
     }>
 >;

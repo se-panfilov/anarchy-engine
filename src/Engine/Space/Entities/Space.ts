@@ -14,21 +14,19 @@ import { CreateEntitiesStrategy } from '@/Engine/Space/Constants';
 import type { TSpace, TSpaceBaseServices, TSpaceCanvas, TSpaceHooks, TSpaceLoops, TSpaceParams, TSpaceParts, TSpaceServices } from '@/Engine/Space/Models';
 import { buildBaseServices, buildEntitiesServices, createEntities } from '@/Engine/Space/Utils';
 import { createLoops } from '@/Engine/Space/Utils/CreateLoopsUtils';
-import { isDefined, isDestroyable, isNotDefined } from '@/Engine/Utils';
+import { findDomElement, findOrCreateCanvas, isCanvasElement, isDefined, isDestroyable, isNotDefined } from '@/Engine/Utils';
 
 export function Space(params: TSpaceParams, hooks?: TSpaceHooks): TSpace {
-  const { containerSelector, canvasSelector, version, name, tags } = params;
+  const { canvasId, version, name, tags } = params;
   const built$: BehaviorSubject<TSpace | undefined> = new BehaviorSubject<TSpace | undefined>(undefined);
   const start$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
-  // TODO 14-0-0: Create DOM utils
-  let canvas: TSpaceCanvas | undefined = findCanvas(containerSelector, canvasSelector);
-  if (isNotDefined(canvas)) canvas = createCanvas(containerSelector, canvasSelector);
+  const canvas: TSpaceCanvas = findOrCreateCanvas(canvasId);
 
   const { services, loops } = initSpaceServices(canvas, params);
   hooks?.afterAllServicesInitialized?.(canvas, services, loops, params);
 
-  services.rendererService.create({ canvas: params.canvas, mode: RendererModes.WebGL2, isActive: true });
+  services.rendererService.create({ canvas, mode: RendererModes.WebGL2, isActive: true });
 
   if (isDefined(params.entities) && Object.values(params.entities).length > 0) {
     hooks?.beforeEntitiesCreated?.(params, services, loops);
@@ -48,7 +46,12 @@ export function Space(params: TSpaceParams, hooks?: TSpaceHooks): TSpace {
     start$
   };
 
-  const getCanvasElement = (selector: string): TSpaceCanvas | null => container.document.querySelector(selector);
+  const getCanvasElement = (): TSpaceCanvas | never => {
+    const result: HTMLElement | TSpaceCanvas | null = findDomElement(canvasId);
+    if (!isNotDefined(result)) throw new Error(`Space: Can't find canvas element: ${result}`);
+    if (!isCanvasElement(result)) throw new Error(`Space: Element (${result}) is found, but it isn't a canvas`);
+    return result;
+  };
 
   const space: TSpace = Object.assign(AbstractEntity(parts, EntityType.Space, { version, name, tags }), { getCanvasElement });
 
@@ -91,7 +94,7 @@ export function Space(params: TSpaceParams, hooks?: TSpaceHooks): TSpace {
 }
 
 function initSpaceServices(canvas: TSpaceCanvas, params: TSpaceParams, hooks?: TSpaceHooks): { services: TSpaceServices; loops: TSpaceLoops } {
-  hooks?.beforeBaseServicesBuilt?.(params.canvas, params);
+  hooks?.beforeBaseServicesBuilt?.(canvas, params);
   const baseServices: TSpaceBaseServices = buildBaseServices();
   baseServices.screenService.setCanvas(canvas);
   const container: TGlobalContainerDecorator = ambientContext.container;
@@ -106,8 +109,8 @@ function initSpaceServices(canvas: TSpaceCanvas, params: TSpaceParams, hooks?: T
   hooks?.beforeLoopsCreated?.(params);
   const loops: TSpaceLoops = createLoops(baseServices.loopService);
 
-  hooks?.beforeEntitiesServicesBuilt?.(params.canvas, params);
-  const services: TSpaceServices = buildEntitiesServices(sceneW, params.canvas, loops, baseServices);
+  hooks?.beforeEntitiesServicesBuilt?.(canvas, params);
+  const services: TSpaceServices = buildEntitiesServices(sceneW, canvas, loops, baseServices);
 
   return { services, loops };
 }

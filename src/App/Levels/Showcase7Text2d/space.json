@@ -1,5 +1,5 @@
 {
-  "canvasSource": "#app",
+  "canvasId": "#app",
   "entities": {
     "actors": [],
     "audio": [],
