@@ -5,7 +5,9 @@ export async function loadResources(resources: TSpaceConfigResources, { models3d
   const { models3d, envMaps, materials, textures } = resources;
 
   //no need to wait for a loading
+  // TODO 9.0.0. RESOURCES: I'm not happy with this: textures should be loaded here, but the entities should be created in the entities creator
   const envMapPromise: Promise<ReadonlyArray<TEnvMapWrapperAsync>> = envMapService.createFromConfigAsync(envMaps);
+  // TODO 9.0.0. RESOURCES: Particles also should load textures here, before the creation
 
   // textures should be loaded before materials
   await textureService.createFromConfigAsync(textures);
