@@ -53,6 +53,9 @@ export function KeyboardService(container: TContainerDecorator, keyWatcherFactor
     pressing$: pressing$.asObservable(),
     currentKeys: keyComboWatcher.value$.value,
     isKeyPressed: (key: TGameKey): boolean => keyComboWatcher.value$.value.has(key),
-    isKeysPressed: (keys: ReadonlyArray<TGameKey>): boolean => keys.every((key: TGameKey): boolean => keyComboWatcher.value$.value.has(key))
+    isKeysPressed: (keys: ReadonlyArray<TGameKey>): boolean => {
+      const combos: ReadonlySet<TGameKey> = keyComboWatcher.value$.value;
+      return keys.every((key: TGameKey): boolean => combos.has(key));
+    }
   });
 }
