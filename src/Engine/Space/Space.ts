@@ -1,5 +1,6 @@
 import type { Subscription } from 'rxjs';
 import { ReplaySubject } from 'rxjs';
+
 import type { IActorWrapperAsync } from '@/Engine/Actor';
 import type { IAppCanvas } from '@/Engine/App';
 import type { ICameraWrapper } from '@/Engine/Camera';
@@ -11,17 +12,17 @@ import { standardLoopService } from '@/Engine/Loop';
 import type { IDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
 import { withTags } from '@/Engine/Mixins/Generic/WithTags';
+import type { IRendererWrapper } from '@/Engine/Renderer';
 import type { ISceneWrapper } from '@/Engine/Scene';
 import { SceneTag } from '@/Engine/Scene';
 import { screenService } from '@/Engine/Services';
 import { initActorsEntityPipe, initCamerasEntityPipe, initFogsEntityPipe, initLightsEntityPipe, initScenesEntityPipe, initTextsEntityPipe } from '@/Engine/Space/EntityPipes';
 import { initControlsEntityPipe } from '@/Engine/Space/EntityPipes/ControlsEntityPipe';
+import { initRenderersEntityPipe } from '@/Engine/Space/EntityPipes/RendererEntityPipe';
 import { withBuiltMixin } from '@/Engine/Space/Mixin';
 import type { ISpace, ISpaceConfig, ISpaceEntities, ISpaceSubscriptions, IWithBuilt } from '@/Engine/Space/Models';
 import { isSpaceInitializationConfig, setInitialActiveCamera } from '@/Engine/Space/SpaceHelper';
 import { isDefined, isDestroyable, isNotDefined, validLevelConfig } from '@/Engine/Utils';
-import { initRenderersEntityPipe } from '@/Engine/Space/EntityPipes/RendererEntityPipe';
-import { IRendererWrapper } from '@/Engine';
 
 export function buildSpaceFromConfig(canvas: IAppCanvas, config: ISpaceConfig): ISpace {
   const { isValid, errors } = validLevelConfig(config);
@@ -138,7 +139,7 @@ export function buildSpaceFromConfig(canvas: IAppCanvas, config: ISpaceConfig): 
       entities = { ...entities, rendererFactory, rendererRegistry };
       subscriptions = { ...subscriptions, rendererCreated$ };
       renderer = currentRenderer;
-      messages$.next(`Renderer created`);
+      messages$.next(`Renderer ("${renderer.id}") created`);
     }
 
     let loopTick$: Subscription | undefined;
@@ -160,6 +161,9 @@ export function buildSpaceFromConfig(canvas: IAppCanvas, config: ISpaceConfig): 
           }
         }
 
+        if (isNotDefined(loopTick$)) throw new Error('Loop tick subscription is not defined');
+        subscriptions = { ...subscriptions, loopTick$ };
+
         // just for control's damping
         entities.controlsRegistry?.getAll().forEach((controls: IOrbitControlsWrapper): void => {
           if (controls.entity.enableDamping) controls.entity.update(delta);
@@ -172,15 +176,9 @@ export function buildSpaceFromConfig(canvas: IAppCanvas, config: ISpaceConfig): 
 
     destroyable.destroyed$.subscribe(() => {
       builtMixin.built$.complete();
-
-      Object.values(entities).forEach((entity): void => {
-        if (isDestroyable(entity)) entity.destroy();
-      });
-
+      Object.values(entities).forEach((entity): void => void (isDestroyable(entity) && entity.destroy()));
       Object.values(subscriptions).forEach((sub: Subscription): void => sub.unsubscribe());
-
-      loopTick$.unsubscribe();
-
+      messages$.next('Space destroyed');
       messages$.complete();
     });
 

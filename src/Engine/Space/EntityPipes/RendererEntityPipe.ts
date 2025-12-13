@@ -1,7 +1,8 @@
 import type { Subscription } from 'rxjs';
+
+import type { IAppCanvas } from '@/Engine/App';
 import type { IRendererFactory, IRendererRegistry, IRendererWrapper } from '@/Engine/Renderer';
 import { RendererFactory, RendererModes, RendererRegistry, RendererTag } from '@/Engine/Renderer';
-import type { IAppCanvas } from '@/Engine/App';
 
 export function initRenderersEntityPipe(canvas: IAppCanvas): { renderer: IRendererWrapper; rendererCreated$: Subscription; rendererFactory: IRendererFactory; rendererRegistry: IRendererRegistry } {
   const rendererFactory: IRendererFactory = RendererFactory();
