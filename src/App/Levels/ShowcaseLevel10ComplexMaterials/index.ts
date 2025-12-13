@@ -1,6 +1,6 @@
 import type { Controller } from 'lil-gui';
 import GUI from 'lil-gui';
-import { BehaviorSubject, combineLatest, Subject } from 'rxjs';
+import { BehaviorSubject, combineLatest, startWith, Subject } from 'rxjs';
 import type { MeshPhysicalMaterial, MeshStandardMaterial } from 'three';
 
 import type { IShowcase } from '@/App/Levels/Models';
@@ -25,12 +25,15 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
   currentMaterialIndex$.subscribe((index: number): void => currentMaterial$.next(materials[index]));
 
   const materialType: ReadonlyArray<string> = ['textile', 'glass', 'wood', 'metal'];
-  const currentMaterialTypeIndex$: BehaviorSubject<number> = new BehaviorSubject(0);
+  const currentMaterialTypeIndex$: BehaviorSubject<number> = new BehaviorSubject(3);
   const currentMaterialType$: Subject<string> = new Subject();
   currentMaterialTypeIndex$.subscribe((index: number): void => currentMaterialType$.next(materialType[index]));
 
-  // eslint-disable-next-line @typescript-eslint/no-misused-promises
-  combineLatest([currentMaterial$, currentMaterialType$]).subscribe(async ([material, type]: ReadonlyArray<string>): Promise<void> => {
+  combineLatest([
+    currentMaterial$.pipe(startWith(materials[0])),
+    currentMaterialType$.pipe(startWith(materialType[3]))
+    // eslint-disable-next-line @typescript-eslint/no-misused-promises
+  ]).subscribe(async ([material, type]: ReadonlyArray<string>): Promise<void> => {
     const actor: IActorWrapperAsync = await actorRegistry.getUniqByTagsAsync([material, type], LookUpStrategy.Every);
     // console.log('material', material, 'type', type, actor.getTags());
     if (isNotDefined(actor)) throw new Error(`Actor with tag "${material}" is not found`);
