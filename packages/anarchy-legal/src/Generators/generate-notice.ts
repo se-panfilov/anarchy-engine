@@ -13,6 +13,7 @@ import { hideBin } from 'yargs/helpers';
  * - Robust header parse for "## <name>@<version>" including scoped names
  * - --audit: print diff between headings in source and parsed entries
  * - --strict (with --audit): exit code 2 on mismatch
+ * - --source-name: file name inside workspace (default: THIRD_PARTY_LICENSES.md)
  */
 
 // ---------------------- Types ----------------------
@@ -21,11 +22,6 @@ type TWorkspaceInfo = Readonly<{
   name: string;
   dir: string; // abs path
   pkgPath: string; // abs path to package.json
-}>;
-
-type TRootInfo = Readonly<{
-  rootDir: string;
-  workspaces: ReadonlyMap<string, TWorkspaceInfo>;
 }>;
 
 type TParsedEntry = Readonly<{
