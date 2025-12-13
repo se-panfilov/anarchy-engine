@@ -10,8 +10,6 @@ import spaceConfig from './spaceIntersections.json';
 
 const config: TSpaceConfig = spaceConfig as TSpaceConfig;
 
-// TODO 15-0-0: Implement intersections among actors (add source, direction). Camera intersection should be a private case of intersections.
-// TODO 15-0-0: should serialize "shouldReactOnlyOnChange"
 export const spaceIntersectionsData: TSpacesData = {
   name: config.name,
   config: config,
