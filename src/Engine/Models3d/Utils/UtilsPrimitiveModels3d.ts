@@ -2,25 +2,25 @@ import { BoxGeometry, Mesh, PlaneGeometry, SphereGeometry } from 'three';
 
 import type { TMaterials } from '@/Engine/Material';
 import { meters } from '@/Engine/Measurements/Utils';
-import type { TModel3dPrimitivePack, TModel3dPrimitiveParams, TPrimitiveProps } from '@/Engine/Models3d';
+import type { TModel3dPack, TModel3dParams } from '@/Engine/Models3d';
 import { PrimitiveModel3dType } from '@/Engine/Models3d';
 import { isDefined } from '@/Engine/Utils';
 
-export function createPrimitiveModel3dPack(params: TModel3dPrimitiveParams): TModel3dPrimitivePack | never {
+export function createPrimitiveModel3dPack(params: TModel3dParams): TModel3dPack | never {
   const { primitive, material } = params;
   if (!isDefined(primitive)) throw new Error(`Primitive model type is not defined`);
 
   console.log('material', material);
 
-  const pre: Omit<TModel3dPrimitivePack, 'model'> = {
+  const pre: Omit<TModel3dPack, 'model'> = {
     ...params,
     primitive,
     options: { shouldAddToScene: false, shouldAddToRegistry: true, isForce: false }
   };
 
-  if (primitive.type === PrimitiveModel3dType.Plane) return { ...pre, model: createPlane(primitive, params.material.entity) };
-  else if (primitive.type === PrimitiveModel3dType.Sphere) return { ...pre, model: createSphere(primitive, params.material.entity) };
-  else if (primitive.type === PrimitiveModel3dType.Cube) return { ...pre, model: createCube(primitive, params.material.entity) };
+  if (primitive.url === PrimitiveModel3dType.Plane) return { ...pre, model: createPlane(primitive, params.material.entity) };
+  else if (primitive.url === PrimitiveModel3dType.Sphere) return { ...pre, model: createSphere(primitive, params.material.entity) };
+  else if (primitive.url === PrimitiveModel3dType.Cube) return { ...pre, model: createCube(primitive, params.material.entity) };
   throw new Error(`Unknown primitive model type: "${primitive.type}"`);
 }
 

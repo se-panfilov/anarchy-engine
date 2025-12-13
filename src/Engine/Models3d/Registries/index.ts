@@ -1,1 +1,2 @@
-export * from './Models3dAsyncRegistry';
+export * from './Models3dRegistry';
+export * from './Models3dResourceAsyncRegistry';

@@ -20,7 +20,7 @@ import { MaterialFactory, MaterialRegistry, MaterialService } from '@/Engine/Mat
 import type { TMaterialTextureService } from '@/Engine/MaterialTexturePack';
 import { MaterialTextureService } from '@/Engine/MaterialTexturePack';
 import type { TModels3dService } from '@/Engine/Models3d';
-import { Models3dAsyncRegistry, Models3dService } from '@/Engine/Models3d';
+import { Models3dFactory, Models3dRegistry, Models3dResourceAsyncRegistry, Models3dService } from '@/Engine/Models3d';
 import { MouseService } from '@/Engine/Mouse';
 import { ParticlesFactory, ParticlesRegistry, ParticlesService } from '@/Engine/Particles';
 import type { TPhysicsBodyService, TPhysicsLoopService, TPhysicsPresetsService, TPhysicsWorldService } from '@/Engine/Physics';
@@ -59,7 +59,7 @@ export function initEntitiesServices(sceneW: TSceneWrapper, canvas: TAppCanvas):
   const collisionsService: TCollisionsService = CollisionsService();
   const loopService: TLoopService = LoopService();
   const animationsService: TAnimationsService = AnimationsService(loopService);
-  const models3dService: TModels3dService = Models3dService(Models3dAsyncRegistry(), { animationsService, materialService }, sceneW);
+  const models3dService: TModels3dService = Models3dService(Models3dFactory(), Models3dRegistry(), Models3dResourceAsyncRegistry(), { animationsService, materialService }, sceneW);
 
   return {
     actorService: ActorService(

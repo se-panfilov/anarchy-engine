@@ -2,7 +2,7 @@ import type { Observable } from 'rxjs';
 
 import type { TAnimationsService } from '@/Engine/Animations';
 import type { TDestroyable } from '@/Engine/Mixins';
-import type { TModel3dConfig, TModel3dFacade, TModel3dPack, TModels3dAsyncRegistry } from '@/Engine/Models3d/Models';
+import type { TModel3dConfig, TModel3dFacade, TModel3dPack, TModel3dResourceAsyncRegistry } from '@/Engine/Models3d/Models';
 import type { TWithCreateFromConfigAsyncService, TWithRegistryService, TWithSceneGetterService } from '@/Engine/Space';
 import type { TOptional } from '@/Engine/Utils';
 
@@ -20,6 +20,6 @@ export type TModels3dService = Readonly<{
   clone: (model3dFacade: TModel3dFacade, overrides?: TOptional<TModel3dPack>) => TModel3dFacade;
 }> &
   TWithCreateFromConfigAsyncService<TModel3dConfig, ReadonlyArray<TModel3dFacade>> &
-  TWithRegistryService<TModels3dAsyncRegistry> &
+  TWithRegistryService<TModel3dResourceAsyncRegistry> &
   TWithSceneGetterService &
   TDestroyable;

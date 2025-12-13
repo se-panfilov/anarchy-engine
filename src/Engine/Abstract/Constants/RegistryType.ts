@@ -10,6 +10,7 @@ export enum RegistryType {
   Light = 'light',
   Material = 'material',
   Model3d = 'model_3d',
+  Model3dFacade = 'model_3d_facade',
   Model3dAnimations = 'model_3d_animations',
   MouseClickWatcher = 'mouse_click_watcher',
   MousePositionWatcher = 'mouse_position_watcher',
