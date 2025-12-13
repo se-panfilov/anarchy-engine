@@ -9,6 +9,7 @@ import type {
   TActorWrapperWithPhysicsAsync,
   TAppCanvas,
   TCameraWrapper,
+  TCollisionCheckResult,
   TEngine,
   TIntersectionEvent,
   TIntersectionsWatcher,
@@ -23,7 +24,7 @@ import { meters } from '@/Engine/Measurements/Utils';
 
 import spaceConfig from './showcase.json';
 import type { TBullet } from './utils';
-import { buildTower, cameraFollowingActor, createLine, getBulletsPool, initGui, moveActorBounce, shoot, startMoveActorWithKeyboard, updateBullets } from './utils';
+import { buildTower, cameraFollowingActor, createHitEffect, createLine, getBulletsPool, initGui, moveActorBounce, shoot, startMoveActorWithKeyboard, updateBullets } from './utils';
 
 export function showcase(canvas: TAppCanvas): TShowcase {
   const space: TSpace = buildSpaceFromConfig(canvas, spaceConfig as TSpaceConfig);
@@ -56,10 +57,16 @@ export function showcase(canvas: TAppCanvas): TShowcase {
     // await buildTower(actorService, { x: 17, z: 30 }, 7, 7, 35, spatialGrid);
     // await buildTower(actorService, { x: -15, z: -15 }, 10, 7, 15, spatialGrid);
 
-    // TODO temp
     const maxBulletsSameTime: number = 15;
     const bullets: ReadonlyArray<TBullet> = await Promise.all(getBulletsPool(maxBulletsSameTime, actorService, spatialGridService));
-    actorService.getScene().entity.add(...bullets.map((b: TBullet) => b.entity));
+    const sceneW = actorService.getScene();
+    sceneW.entity.add(...bullets.map((b: TBullet) => b.entity));
+    bullets.forEach((b: TBullet) => {
+      b.hit$.subscribe((hit: TCollisionCheckResult): void => {
+        console.log('hit', hit);
+        createHitEffect(hit.collisionPoint, sceneW);
+      });
+    });
 
     const mouseLineIntersectionsWatcher: TIntersectionsWatcher = intersectionsWatcherService.create({
       name: 'mouse_line_intersections_watcher',
@@ -102,7 +109,9 @@ export function showcase(canvas: TAppCanvas): TShowcase {
     // TODO (S.Panfilov) CWP check collisions on minimal distance (to avoid bullets going through the target)
     // TODO (S.Panfilov) CWP refactor objects creation (do not add to a registry immediately, cause in that case if we extend, there will be unextetended version in the registy)
     moveActorBounce(targetActor1W, 4, -270, 3000);
+    // TODO setTimout/setInterval is not a good idea (cause the game might be "on pause", e.g. when tab is not active)
     setTimeout(() => moveActorBounce(targetActor2W, 4.5, -270, 3000), 500);
+    // TODO setTimout/setInterval is not a good idea (cause the game might be "on pause", e.g. when tab is not active)
     setTimeout(() => moveActorBounce(targetActor3W, 5, -270, 3000), 1000);
 
     initGui(mouseLineIntersectionsWatcher, spatialGridService, actorService);

@@ -1,8 +1,10 @@
 import { nanoid } from 'nanoid';
+import type { Observable } from 'rxjs';
 import type { Mesh } from 'three';
-import { Vector3 } from 'three';
+import { BufferAttribute, BufferGeometry, PointsMaterial, Vector3 } from 'three';
+import { Points } from 'three/src/objects/Points';
 
-import type { TActorParams, TActorService, TActorWrapperAsync, TRadians, TSpatialGridService, TSpatialGridWrapper, TWithCoordsXYZ } from '@/Engine';
+import type { TActorParams, TActorService, TActorWrapperAsync, TCollisionCheckResult, TRadians, TSceneWrapper, TSpatialGridService, TSpatialGridWrapper, TWithCoordsXYZ } from '@/Engine';
 import { ActorType, EulerWrapper, isDefined, isNotDefined, MaterialType, mpsSpeed, Vector3Wrapper } from '@/Engine';
 import { meters } from '@/Engine/Measurements/Utils';
 
@@ -14,6 +16,7 @@ export type TBullet = TActorWrapperAsync &
     isActive: () => boolean;
     reset: () => void;
     update: (delta: number, spatialGrid: TSpatialGridWrapper) => void;
+    hit$: Observable<TCollisionCheckResult>;
   }>;
 
 export function getBulletsPool(count: number, actorService: TActorService, spatialGridService: TSpatialGridService): ReadonlyArray<Promise<TBullet>> {
@@ -83,10 +86,7 @@ export async function BulletAsync(params: TActorParams, actorService: TActorServ
     (actorW.entity as Mesh).visible = false;
   }
 
-  actorW.collisions.value$.subscribe((collision: any): void => {
-    console.log('Bullet hit', collision);
-    reset();
-  });
+  actorW.collisions.value$.subscribe((): void => reset());
 
   function update(delta: number): void {
     if (isActive()) {
@@ -107,7 +107,8 @@ export async function BulletAsync(params: TActorParams, actorService: TActorServ
     setActive,
     isActive,
     reset,
-    update
+    update,
+    hit$: actorW.collisions.value$
   };
 }
 
@@ -125,4 +126,30 @@ export function shoot(actorPosition: TWithCoordsXYZ, toAngle: TRadians, elevatio
 
 export function updateBullets(bullets: ReadonlyArray<TBullet>, delta: number, spatialGrid: TSpatialGridWrapper): void {
   bullets.forEach((bullet: TBullet): void => bullet.update(delta, spatialGrid));
+}
+
+export function createHitEffect(position: Vector3, sceneW: TSceneWrapper): void {
+  const particleCount = 100;
+  const particles = new BufferGeometry();
+  const positions = new Float32Array(particleCount * 3);
+  console.log(position);
+
+  // eslint-disable-next-line functional/no-loop-statements
+  for (let i = 0; i < particleCount; i++) {
+    // eslint-disable-next-line functional/immutable-data
+    positions[i * 3] = position.x + (Math.random() - 0.5) * 0.9;
+    // eslint-disable-next-line functional/immutable-data
+    positions[i * 3 + 1] = position.y + (Math.random() - 0.5) * 0.9;
+    // eslint-disable-next-line functional/immutable-data
+    positions[i * 3 + 2] = position.z + (Math.random() - 0.5) * 0.9;
+  }
+
+  particles.setAttribute('position', new BufferAttribute(positions, 3));
+
+  const material = new PointsMaterial({ color: 0xff0000, size: 0.09 });
+
+  const particleSystem = new Points(particles, material);
+  sceneW.entity.add(particleSystem);
+  // TODO setTimout/setInterval is not a good idea (cause the game might be "on pause", e.g. when tab is not active)
+  setTimeout(() => sceneW.entity.remove(particleSystem), 500);
 }
