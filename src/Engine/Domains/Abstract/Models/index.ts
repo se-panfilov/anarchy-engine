@@ -7,6 +7,7 @@ export * from './IFactory';
 export * from './IHtmlElementStyleDeclaration';
 export * from './IMultitonWatcher';
 export * from './IMultitonWatcherWithState';
+export * from './IProtectedRegistry';
 export * from './IReactiveFactory';
 export * from './IWatcher';
 export * from './IWatcherWithState';

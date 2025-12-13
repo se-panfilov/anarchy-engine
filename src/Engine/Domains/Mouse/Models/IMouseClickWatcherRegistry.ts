@@ -1,5 +1,4 @@
-import type { IAbstractRegistry } from '@/Engine/Domains/Abstract';
-import type { IProtectedRegistry } from '@/Engine/Mixins';
+import type { IAbstractRegistry, IProtectedRegistry } from '@/Engine/Domains/Abstract';
 
 import type { IMouseClickWatcher } from './IMouseClickWatcher';
 
