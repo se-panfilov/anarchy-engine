@@ -1,18 +1,9 @@
-import type { TActorConfig } from '@/Engine/Actor';
-import type { TCameraConfig } from '@/Engine/Camera';
-import type { TControlsConfig } from '@/Engine/Controls';
-import type { TFogConfig } from '@/Engine/Fog';
-import type { TIntersectionsWatcherConfig } from '@/Engine/Intersections';
-import type { TAnyLightConfig } from '@/Engine/Light';
-import type { TMaterialConfig } from '@/Engine/Material';
 import type { TWithReadonlyTags } from '@/Engine/Mixins';
-import type { TModel3dConfig } from '@/Engine/Models3d';
-import type { TParticlesConfig } from '@/Engine/Particles';
-import type { TPhysicsConfig } from '@/Engine/Physics';
 import type { TSceneConfig } from '@/Engine/Scene';
 import type { SpaceSchemaVersion } from '@/Engine/Space/Constants';
-import type { TSpatialGridConfig } from '@/Engine/Spatial';
-import type { TTextConfig } from '@/Engine/Text';
+
+import type { TSpaceConfigEntities } from './TSpaceConfigEntities';
+import type { TSpaceConfigResources } from './TSpaceConfigResources';
 
 // TODO CWP split config into resources and entities
 // TODO CWP preload all (async)resources before entities
@@ -23,18 +14,7 @@ export type TSpaceConfig = Readonly<{
   name: string;
   version: SpaceSchemaVersion;
   scenes: ReadonlyArray<TSceneConfig>;
-  spatialGrids: ReadonlyArray<TSpatialGridConfig>;
-  actors: ReadonlyArray<TActorConfig>;
-  cameras: ReadonlyArray<TCameraConfig>;
-  models3d: ReadonlyArray<TModel3dConfig>;
-  materials: ReadonlyArray<TMaterialConfig>;
-  intersections: ReadonlyArray<TIntersectionsWatcherConfig>;
-  lights: ReadonlyArray<TAnyLightConfig>;
-  particles: ReadonlyArray<TParticlesConfig>;
-  physics: TPhysicsConfig;
-  fogs: ReadonlyArray<TFogConfig>;
-  texts: ReadonlyArray<TTextConfig>;
-  controls: ReadonlyArray<TControlsConfig>;
-  envMaps: ReadonlyArray<string>;
+  entities: TSpaceConfigEntities;
+  resources: TSpaceConfigResources;
 }> &
   TWithReadonlyTags;
