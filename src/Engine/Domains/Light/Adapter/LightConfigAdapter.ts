@@ -1,28 +1,17 @@
 import { Color, Vector2 } from 'three';
 
 import type { ILightConfig, ILightParams, ILightShadowParams, LightShadowConfig } from '@/Engine/Domains/Light/Models';
-import { isDefined, isNotDefined } from '@/Engine/Utils';
-import { EulerWrapper, Vector3Wrapper } from '@/Engine/Wrappers';
+import { configToParamsObject3d } from '@/Engine/Domains/ThreeLib';
+import { isNotDefined } from '@/Engine/Utils';
 
 export function getParams(config: ILightConfig): ILightParams {
-  const { position, rotation, scale, color, shadow, ...rest } = config;
+  const { position, rotation, scale, layers, animations, color, shadow, ...rest } = config;
+
   return {
     ...rest,
+    ...configToParamsObject3d({ position, rotation, scale, layers, animations }),
     ...getLightColorParams(color),
-    ...getLightShadowParams(shadow),
-
-    // TODO (S.Panfilov) CWP object3dAdapter//////////
-    // TODO (S.Panfilov) debug (wtf layers?)
-    // layers: config.layers ? (new Layers()).set(config.layers) : undefined,
-    layers: undefined,
-
-    // TODO (S.Panfilov) wtf animations?
-    animations: [],
-
-    position: Vector3Wrapper(position),
-    rotation: isDefined(rotation) ? EulerWrapper(rotation) : undefined,
-    scale: isDefined(scale) ? Vector3Wrapper(scale) : undefined
-    // TODO (S.Panfilov) End object3dAdapter//////////
+    ...getLightShadowParams(shadow)
   };
 }
 
