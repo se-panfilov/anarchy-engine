@@ -71,9 +71,10 @@ export async function ActorWrapperAsync(params: TActorParams, { materialTextureS
   });
 
   applyPosition(actorW, params.position);
+  applyRotation(actorW, params.rotation);
   // TODO (S.Panfilov) CWP Should be guaranteed that spatial grid is build before in Space
   // applySpatialGrid(actorW);
-  applyRotation(actorW, params.rotation);
+  // applyRotation(actorW, params.rotation);
   if (isDefined(params.scale)) applyScale(actorW, params.scale);
   applyObject3dParams(actorW, params);
 

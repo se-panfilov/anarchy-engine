@@ -31,7 +31,7 @@ export async function enableCollisions(
   mouseLineIntersectionsWatcher.value$.subscribe((value) => {
     const objects = spatialGridService.getAllInCell(tree, value.point.x, value.point.z);
     // TODO (S.Panfilov) CWP Actor's position should be observable. When actors move, check if need to update grid
-    // console.log(objects.map((actorW: TActorWrapperAsync) => actorW.name));
+    console.log(objects.map((actorW: TActorWrapperAsync) => actorW.name));
     spatialGridService._debugHighlightObjects(tree, sceneW, value.point.x, value.point.z);
   });
 

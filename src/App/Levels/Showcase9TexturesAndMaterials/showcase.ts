@@ -1,7 +1,7 @@
 import { combineLatest } from 'rxjs';
 
 import type { TShowcase } from '@/App/Levels/Models';
-import type { TActorAsyncRegistry, TActorWrapperAsync, TAppCanvas, TCameraWrapper, TEngine, TSpace, TSpaceConfig } from '@/Engine';
+import type { TActorAsyncRegistry, TActorWrapperAsync, TAppCanvas, TCameraWrapper, TEngine, TMouseService, TSpace, TSpaceConfig } from '@/Engine';
 import { ambientContext, buildSpaceFromConfig, Engine, getRotationByCos, getRotationBySin, isDefined, isNotDefined } from '@/Engine';
 
 import spaceConfig from './showcase.json';
@@ -24,7 +24,7 @@ export function showcase(canvas: TAppCanvas): TShowcase {
 
     //apply textures async, without blocking the main thread (game might be started before textures are loaded)
     // void actor.loadAndApplyMaterialTexturePack(pack);
-    initCameraRotation(space, actor);
+    initCameraRotation(space, actor, mouseService);
   }
 
   function start(): void {
@@ -36,7 +36,7 @@ export function showcase(canvas: TAppCanvas): TShowcase {
 }
 
 // This is mostly a copy of Showcase 3 (camera rotation)
-function initCameraRotation(space: TSpace, actor: TActorWrapperAsync | undefined): void {
+function initCameraRotation(space: TSpace, actor: TActorWrapperAsync | undefined, mouseService: TMouseService): void {
   const { cameraService } = space.services;
 
   const camera: TCameraWrapper | undefined = cameraService.findActive();

@@ -14,19 +14,7 @@ import type {
   TTextAnyWrapper,
   TWithCoordsXZ
 } from '@/Engine';
-import {
-  buildSpaceFromConfig,
-  createCirclePathXZ,
-  defaultMoverServiceConfig,
-  Easing,
-  Engine,
-  EulerWrapper,
-  generateAnglesForCircle,
-  isNotDefined,
-  mouseService,
-  TextType,
-  Vector3Wrapper
-} from '@/Engine';
+import { buildSpaceFromConfig, createCirclePathXZ, defaultMoverServiceConfig, Easing, Engine, EulerWrapper, generateAnglesForCircle, isNotDefined, TextType, Vector3Wrapper } from '@/Engine';
 import { MoverService } from '@/Engine/Services/MoverService/MoverService';
 
 import spaceConfig from './showcase.json';
@@ -36,7 +24,7 @@ export function showcase(canvas: TAppCanvas): TShowcase {
   const engine: TEngine = Engine(space);
 
   async function init(): Promise<void> {
-    const { actorService, cameraService, controlsService, textService, loopService } = space.services;
+    const { actorService, cameraService, controlsService, textService, loopService, mouseService } = space.services;
     const actorRegistry: TActorAsyncRegistry = actorService.getRegistry();
     const cameraRegistry: TCameraRegistry = cameraService.getRegistry();
     const controlsRegistry: TControlsRegistry = controlsService.getRegistry();
