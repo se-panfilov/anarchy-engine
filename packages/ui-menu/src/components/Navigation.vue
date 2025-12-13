@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Routes } from '@Menu/constants';
-import { useRouterStore } from '@Menu/stores/MenuRouterStore';
+import { useRouterStore } from '@Menu/stores/RouterStore';
 // TODO DESKTOP: extract to... shared?
 // import { closeMainMenu } from 'anarchy_engine_showcases/src/Levels/Showcase28Menu/MainMenuService';
 

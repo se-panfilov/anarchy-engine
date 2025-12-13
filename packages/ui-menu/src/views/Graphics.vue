@@ -7,6 +7,7 @@ import View from '@Menu/components/View.vue';
 import ViewActions from '@Menu/components/ViewActions.vue';
 import type { TDropdownOption } from '@Menu/models';
 import { useSettingsStore } from '@Menu/stores/SettingsStore';
+import type { TGraphicsSettings } from '@Shared/Showcase';
 import { computed, reactive } from 'vue';
 
 const emit = defineEmits(['cancel', 'save']);

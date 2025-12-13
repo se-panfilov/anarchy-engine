@@ -7,6 +7,7 @@ import ViewActions from '@Menu/components/ViewActions.vue';
 import { Languages } from '@Menu/constants';
 import type { TDropdownOption } from '@Menu/models';
 import { useSettingsStore } from '@Menu/stores/SettingsStore';
+import type { TLocalizationSettings } from '@Shared/Showcase';
 import { computed, reactive } from 'vue';
 
 const emit = defineEmits(['cancel', 'save']);

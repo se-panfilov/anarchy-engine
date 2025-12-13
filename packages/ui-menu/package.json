@@ -18,7 +18,7 @@
     "prettier:check": "prettier --check .",
     "preview": "vite preview",
     "sanitize-assets": "node ../../packages/shared/ScriptUtils/SanitizeAssets.js",
-    "start:dev": "vite --mode dev",
+    "start:dev": "vite --mode dev --port 5083",
     "test:unit": "vitest",
     "ts:check": "vue-tsc --noEmit"
   },
