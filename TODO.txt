@@ -35,7 +35,7 @@ Roadmap:
 - 26.0.x npm package and a repo
 
 Global Refactoring:
-- feels like env map is not async at all (check for extra "await", and compare with vanilla env map loading)
+- It feels like env map is not async at all (check for extra "await", and compare with vanilla env map loading)
 - Check if it makes sense to replace Rapier with Havok
 - Consider a single factory for all entities (actor, model, etc)
 
