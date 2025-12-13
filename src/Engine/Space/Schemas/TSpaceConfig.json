@@ -4631,20 +4631,7 @@
     },
     "PixelFormatName": {
       "type": "string",
-      "enum": [
-        "AlphaFormat",
-        "DepthFormat",
-        "DepthStencilFormat",
-        "LuminanceAlphaFormat",
-        "LuminanceFormat",
-        "RGBAFormat",
-        "RGBAIntegerFormat",
-        "RGBFormat",
-        "RGFormat",
-        "RGIntegerFormat",
-        "RedFormat",
-        "RedIntegerFormat"
-      ]
+      "enum": ["AlphaFormat", "DepthFormat", "DepthStencilFormat", "RGBAFormat", "RGBAIntegerFormat", "RGBFormat", "RGBIntegerFormat", "RGFormat", "RGIntegerFormat", "RedFormat", "RedIntegerFormat"]
     },
     "StencilFuncName": {
       "type": "string",
@@ -7361,7 +7348,7 @@
     },
     "PixelFormat": {
       "type": "number",
-      "enum": [1021, 1022, 1023, 1024, 1025, 1026, 1027, 1028, 1029, 1030, 1031, 1032, 1033],
+      "enum": [1021, 1022, 1023, 1026, 1027, 1028, 1029, 1030, 1031, 1032, 1033],
       "description": "All Texture Pixel Formats Modes."
     },
     "TextureDataType": {
