@@ -61,19 +61,18 @@ export function physicBodyToConfig(entity: TPhysicsBody): TPhysicsBodyConfig {
 export function physicWorldToConfig(world: World): TPhysicsWorldConfig {
   return {
     gravity: world.gravity,
-    rawIntegrationParameters: world.integrationParameters.raw,
-    rawIslands: world.islands.raw,
-    rawBroadPhase: world.broadPhase.raw,
-    rawNarrowPhase: world.narrowPhase.raw,
-    rawBodies: world.bodies.raw,
-    rawColliders: world.colliders.raw,
-    rawImpulseJoints: world.impulseJoints.raw,
-    rawMultibodyJoints: world.multibodyJoints.raw,
-    // eslint-disable-next-line spellcheck/spell-checker
-    rawCCDSolver: world.ccdSolver.raw,
-    rawQueryPipeline: world.queryPipeline.raw,
-    rawPhysicsPipeline: world.physicsPipeline.raw,
-    rawSerializationPipeline: world.serializationPipeline.raw,
-    rawDebugRenderPipeline: world.debugRenderPipeline.raw
+    integrationParameters: {
+      dt: world.integrationParameters.dt,
+      lengthUnit: world.integrationParameters.lengthUnit,
+      normalizedAllowedLinearError: world.integrationParameters.normalizedAllowedLinearError,
+      normalizedPredictionDistance: world.integrationParameters.normalizedPredictionDistance,
+      numSolverIterations: world.integrationParameters.numSolverIterations,
+      numAdditionalFrictionIterations: world.integrationParameters.numAdditionalFrictionIterations,
+      // eslint-disable-next-line spellcheck/spell-checker
+      numInternalPgsIterations: world.integrationParameters.numInternalPgsIterations,
+      minIslandSize: world.integrationParameters.minIslandSize,
+      // eslint-disable-next-line spellcheck/spell-checker
+      maxCcdSubsteps: world.integrationParameters.maxCcdSubsteps
+    }
   };
 }

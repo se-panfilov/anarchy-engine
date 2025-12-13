@@ -5550,55 +5550,19 @@
         "gravity": {
           "$ref": "#/definitions/Vector3Like"
         },
-        "rawIntegrationParameters": {
-          "$ref": "#/definitions/RawIntegrationParameters"
-        },
-        "rawIslands": {
-          "$ref": "#/definitions/RawIslandManager"
-        },
-        "rawBroadPhase": {
-          "$ref": "#/definitions/RawBroadPhase"
-        },
-        "rawNarrowPhase": {
-          "$ref": "#/definitions/RawNarrowPhase"
-        },
-        "rawBodies": {
-          "$ref": "#/definitions/RawRigidBodySet"
-        },
-        "rawColliders": {
-          "$ref": "#/definitions/RawColliderSet"
-        },
-        "rawImpulseJoints": {
-          "$ref": "#/definitions/RawImpulseJointSet"
-        },
-        "rawMultibodyJoints": {
-          "$ref": "#/definitions/RawMultibodyJointSet"
-        },
-        "rawCCDSolver": {
-          "$ref": "#/definitions/RawCCDSolver"
-        },
-        "rawQueryPipeline": {
-          "$ref": "#/definitions/RawQueryPipeline"
-        },
-        "rawPhysicsPipeline": {
-          "$ref": "#/definitions/RawPhysicsPipeline"
-        },
-        "rawSerializationPipeline": {
-          "$ref": "#/definitions/RawSerializationPipeline"
-        },
-        "rawDebugRenderPipeline": {
-          "$ref": "#/definitions/RawDebugRenderPipeline"
+        "integrationParameters": {
+          "$ref": "#/definitions/TPhysicsIntegrationParameters"
         }
       },
       "required": ["gravity"]
     },
-    "RawIntegrationParameters": {
+    "TPhysicsIntegrationParameters": {
       "type": "object",
       "properties": {
         "dt": {
           "type": "number"
         },
-        "contact_erp": {
+        "lengthUnit": {
           "type": "number"
         },
         "normalizedAllowedLinearError": {
@@ -5621,71 +5585,8 @@
         },
         "maxCcdSubsteps": {
           "type": "number"
-        },
-        "lengthUnit": {
-          "type": "number"
         }
       },
-      "required": [
-        "dt",
-        "contact_erp",
-        "normalizedAllowedLinearError",
-        "normalizedPredictionDistance",
-        "numSolverIterations",
-        "numAdditionalFrictionIterations",
-        "numInternalPgsIterations",
-        "minIslandSize",
-        "maxCcdSubsteps",
-        "lengthUnit"
-      ],
-      "additionalProperties": false
-    },
-    "RawIslandManager": {
-      "type": "object",
-      "additionalProperties": false
-    },
-    "RawBroadPhase": {
-      "type": "object",
-      "additionalProperties": false
-    },
-    "RawNarrowPhase": {
-      "type": "object",
-      "additionalProperties": false
-    },
-    "RawRigidBodySet": {
-      "type": "object",
-      "additionalProperties": false
-    },
-    "RawColliderSet": {
-      "type": "object",
-      "additionalProperties": false
-    },
-    "RawImpulseJointSet": {
-      "type": "object",
-      "additionalProperties": false
-    },
-    "RawMultibodyJointSet": {
-      "type": "object",
-      "additionalProperties": false
-    },
-    "RawCCDSolver": {
-      "type": "object",
-      "additionalProperties": false
-    },
-    "RawQueryPipeline": {
-      "type": "object",
-      "additionalProperties": false
-    },
-    "RawPhysicsPipeline": {
-      "type": "object",
-      "additionalProperties": false
-    },
-    "RawSerializationPipeline": {
-      "type": "object",
-      "additionalProperties": false
-    },
-    "RawDebugRenderPipeline": {
-      "type": "object",
       "additionalProperties": false
     },
     "TPhysicsBodyConfig": {

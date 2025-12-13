@@ -9,6 +9,7 @@ export type * from './TPhysicsBodyService';
 export type * from './TPhysicsConfig';
 export type * from './TPhysicsDebugRenderer';
 export type * from './TPhysicsDependencies';
+export type * from './TPhysicsIntegrationParameters';
 export type * from './TPhysicsParams';
 export type * from './TPhysicsShapeParams';
 export type * from './TPhysicsWorldConfig';

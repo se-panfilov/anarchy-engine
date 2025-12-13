@@ -18,38 +18,10 @@ export function PhysicsWorldService(scene: TSceneWrapper, { physicalLoop }: TSpa
   const abstractService: TAbstractService = AbstractService();
   let world: World | undefined;
 
-  function createWorld({
-    gravity,
-    rawIntegrationParameters,
-    rawIslands,
-    rawBroadPhase,
-    rawNarrowPhase,
-    rawBodies,
-    rawColliders,
-    rawImpulseJoints,
-    rawMultibodyJoints,
-    rawCCDSolver,
-    rawQueryPipeline,
-    rawPhysicsPipeline,
-    rawSerializationPipeline,
-    rawDebugRenderPipeline
-  }: TPhysicsWorldParams): World {
-    world = new World(
-      gravity ?? STANDARD_GRAVITY,
-      rawIntegrationParameters,
-      rawIslands,
-      rawBroadPhase,
-      rawNarrowPhase,
-      rawBodies,
-      rawColliders,
-      rawImpulseJoints,
-      rawMultibodyJoints,
-      rawCCDSolver,
-      rawQueryPipeline,
-      rawPhysicsPipeline,
-      rawSerializationPipeline,
-      rawDebugRenderPipeline
-    );
+  function createWorld({ gravity, integrationParameters }: TPhysicsWorldParams): World {
+    world = new World(gravity ?? STANDARD_GRAVITY);
+    // eslint-disable-next-line functional/immutable-data
+    Object.assign(world.integrationParameters, integrationParameters);
     return world;
   }
 

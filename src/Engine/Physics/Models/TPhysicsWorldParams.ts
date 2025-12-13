@@ -1,33 +1,8 @@
-import type {
-  RawBroadPhase,
-  RawCCDSolver,
-  RawColliderSet,
-  RawDebugRenderPipeline,
-  RawImpulseJointSet,
-  RawIntegrationParameters,
-  RawIslandManager,
-  RawMultibodyJointSet,
-  RawNarrowPhase,
-  RawPhysicsPipeline,
-  RawQueryPipeline,
-  RawRigidBodySet,
-  RawSerializationPipeline
-} from '@dimforge/rapier3d-compat/rapier_wasm3d';
 import type { Vector3Like } from 'three';
+
+import type { TPhysicsIntegrationParameters } from './TPhysicsIntegrationParameters';
 
 export type TPhysicsWorldParams = Readonly<{
   gravity?: Vector3Like;
-  rawIntegrationParameters?: RawIntegrationParameters;
-  rawIslands?: RawIslandManager;
-  rawBroadPhase?: RawBroadPhase;
-  rawNarrowPhase?: RawNarrowPhase;
-  rawBodies?: RawRigidBodySet;
-  rawColliders?: RawColliderSet;
-  rawImpulseJoints?: RawImpulseJointSet;
-  rawMultibodyJoints?: RawMultibodyJointSet;
-  rawCCDSolver?: RawCCDSolver;
-  rawQueryPipeline?: RawQueryPipeline;
-  rawPhysicsPipeline?: RawPhysicsPipeline;
-  rawSerializationPipeline?: RawSerializationPipeline;
-  rawDebugRenderPipeline?: RawDebugRenderPipeline;
+  integrationParameters?: TPhysicsIntegrationParameters;
 }>;
