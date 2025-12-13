@@ -1,5 +1,8 @@
 import type { IWrapper } from '@Engine/Domains/Abstract';
-import type { ILoopUtils, LoopFn, LoopTag } from '@Engine/Domains/Loop';
+
+import type { LoopTag } from '../Constants';
+import type { ILoopUtils } from './ILoopUtils';
+import type { LoopFn } from './LoopFn';
 
 export type ILoopWrapper = IWrapper<LoopFn> &
   ILoopUtils &

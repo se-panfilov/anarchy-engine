@@ -1,9 +1,9 @@
 import { AbstractWrapper } from '@Engine/Domains/Abstract';
 import type { ICameraWrapper } from '@Engine/Domains/Camera';
-import type { ILoopParams, ILoopWrapper, LoopFn } from '@Engine/Domains/Loop';
 import type { IRendererWrapper } from '@Engine/Domains/Renderer';
 import type { ISceneWrapper } from '@Engine/Domains/Scene';
 
+import type { ILoopParams, ILoopWrapper, LoopFn } from '../Models';
 import { getUtils } from './utils';
 
 export function LoopWrapper(params: ILoopParams): ILoopWrapper {

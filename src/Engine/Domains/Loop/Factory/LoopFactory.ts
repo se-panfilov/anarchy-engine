@@ -1,6 +1,7 @@
 import { AbstractFromConfigWrapperFactory } from '@Engine/Domains/Abstract';
-import type { ILoopFactory, ILoopLoopFn, ILoopParams, ILoopWrapper } from '@Engine/Domains/Loop';
-import { LoopWrapper } from '@Engine/Domains/Loop';
+
+import type { ILoopFactory, ILoopLoopFn, ILoopParams, ILoopWrapper } from '../Models';
+import { LoopWrapper } from '../Wrapper';
 
 const create: ILoopLoopFn = (params: ILoopParams): ILoopWrapper => LoopWrapper(params);
 
