@@ -1,7 +1,9 @@
+import { withLatestFrom } from 'rxjs';
+
 import type { IShowcase } from '@/App/Levels/Models';
 import type { IActorWrapperAsync, IAppCanvas, ICameraWrapper, IIntersectionEvent, IIntersectionsWatcher, ILevel, ILevelConfig, IMouseWatcherEvent } from '@/Engine';
-import { buildLevelFromConfig, intersectionsService, isNotDefined, keyboardService, KeyCode, mouseService } from '@/Engine';
-import { withLatestFrom } from 'rxjs';
+import { buildLevelFromConfig, Easing, intersectionsService, isNotDefined, keyboardService, KeyCode, mouseService, standardMoverService } from '@/Engine';
+
 import levelConfig from './showcase-11-keyboard-and-mouse.json';
 
 //Showcase 11: Keyboard and Mouse
@@ -21,8 +23,7 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
     const intersectionsWatcher: IIntersectionsWatcher = await startIntersections();
 
     mouseService.clickLeftRelease$.pipe(withLatestFrom(intersectionsWatcher.value$)).subscribe(([, intersection]: [IMouseWatcherEvent, IIntersectionEvent]): void => {
-      actorMouse.setX(intersection.point.x);
-      actorMouse.setZ(intersection.point.z);
+      void standardMoverService.goToPosition(actorMouse, { x: intersection.point.x, z: intersection.point.z }, { duration: 1000, easing: Easing.EaseInCubic });
     });
 
     //console output of mouse events
@@ -52,7 +53,6 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
     if (isNotDefined(camera)) throw new Error('Camera is not defined');
     const intersectionsWatcher: IIntersectionsWatcher = intersectionsService.buildWatcher(camera);
 
-    // actorRegistry.added$.pipe(filter((a: IActorWrapperAsync) => a.hasTag(ActorTag.Intersectable))).subscribe((actor: IActorWrapperAsync): void => intersectionsWatcher.addActor(actor));
     await actorRegistry.getUniqByTagAsync('surface').then((actor: IActorWrapperAsync) => intersectionsWatcher.addActor(actor));
 
     intersectionsWatcher.start();
