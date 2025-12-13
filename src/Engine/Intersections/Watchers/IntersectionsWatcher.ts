@@ -11,7 +11,7 @@ import { getNormalizedMousePosition } from '@/Engine/Mouse';
 import type { ISceneObject } from '@/Engine/Scene';
 import { isDefined, isNotDefined, unWrapEntities } from '@/Engine/Utils';
 
-export function IntersectionsWatcher({ mousePosWatcher, tags = [] }: IIntersectionsWatcherParams): IIntersectionsWatcher {
+export function IntersectionsWatcher({ position$, tags = [] }: IIntersectionsWatcherParams): IIntersectionsWatcher {
   const abstractWatcher: IAbstractWatcher<IIntersectionEvent> = AbstractWatcher(WatcherType.IntersectionWatcher, tags);
   let raycaster: Readonly<Raycaster> | undefined = new Raycaster();
   let actors: ReadonlyArray<IWithWrapperIdEntity<IMesh>> = [];
@@ -30,7 +30,7 @@ export function IntersectionsWatcher({ mousePosWatcher, tags = [] }: IIntersecti
   let mousePos$: Subscription | undefined;
 
   function start(): IIntersectionsWatcher {
-    mousePos$ = mousePosWatcher.value$.subscribe((position: IMousePosition): void => {
+    mousePos$ = position$.subscribe((position: IMousePosition): void => {
       if (isNotDefined(camera)) throw new Error('Intersections service: cannot start: a camera is not defined');
       const intersection: IIntersectionEvent | undefined = getIntersection(position, camera, [...actors]);
       if (isDefined(intersection)) abstractWatcher.value$.next(intersection);

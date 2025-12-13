@@ -16,7 +16,7 @@ function IntersectionsService(): IIntersectionsService {
   });
 
   function buildWatcher(camera: Readonly<ICameraWrapper>): IIntersectionsWatcher {
-    const watcher: IIntersectionsWatcher = intersectionsWatcherFactory.create({ mousePosWatcher: mouseService.position$ });
+    const watcher: IIntersectionsWatcher = intersectionsWatcherFactory.create({ position$: mouseService.position$ });
     watcher.setCamera(camera);
     return watcher;
   }
