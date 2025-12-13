@@ -2,7 +2,7 @@ import { combineLatest } from 'rxjs';
 
 import type { IShowcase } from '@/App/Levels/Models';
 import type { IActorParams, IAppCanvas, ICameraWrapper, ILevel, ILevelConfig } from '@/Engine';
-import { ActorType, ambientContext, buildLevelFromConfig, CameraTag, EulerWrapper, isNotDefined, Vector3Wrapper } from '@/Engine';
+import { ActorType, ambientContext, buildLevelFromConfig, CameraTag, EulerWrapper, isNotDefined, MaterialType, Vector3Wrapper } from '@/Engine';
 
 import levelConfig from './showcase-2-top-down.config.json';
 
@@ -18,7 +18,7 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
       type: ActorType.cube,
       position: Vector3Wrapper({ x: 0, y: 0, z: 0 }),
       castShadow: true,
-      materialParams: { color: '#5177ff' },
+      material: { type: MaterialType.Toon, params: { color: '#5177ff' } },
       tags: []
     };
 

@@ -1,6 +1,6 @@
 import type { IShowcase } from '@/App/Levels/Models';
 import type { IActorParams, IActorWrapper, IAppCanvas, ILevel, ILevelConfig } from '@/Engine';
-import { ActorType, ambientContext, buildLevelFromConfig, EulerWrapper, forEachEnum, TextType, Vector3Wrapper } from '@/Engine';
+import { ActorType, ambientContext, buildLevelFromConfig, EulerWrapper, forEachEnum, MaterialType, TextType, Vector3Wrapper } from '@/Engine';
 import type { IAnimationParams } from '@/Engine/Services';
 import { Easing, standardMoverService } from '@/Engine/Services';
 
@@ -29,7 +29,7 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
       height: 1,
       position: Vector3Wrapper({ x: -20, y: 2, z: -2 }),
       castShadow: true,
-      materialParams: { color: '#5177ff' },
+      material: { type: MaterialType.Toon, params: { color: '#5177ff' } },
       tags: [boxActorTag]
     };
 
