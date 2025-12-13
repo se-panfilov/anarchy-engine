@@ -1,9 +1,11 @@
+import type { Subscription } from 'rxjs';
+
 import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
 import type { TSpatialGridConfig, TSpatialGridFactory, TSpatialGridParams, TSpatialGridRegistry, TSpatialGridService, TSpatialGridWrapper } from '@/Engine/Spatial/Models';
 
 export function SpatialGridService(factory: TSpatialGridFactory, registry: TSpatialGridRegistry): TSpatialGridService {
-  factory.entityCreated$.subscribe((spatialGrid: TSpatialGridWrapper): void => registry.add(spatialGrid));
+  const factorySub$: Subscription = factory.entityCreated$.subscribe((spatialGrid: TSpatialGridWrapper): void => registry.add(spatialGrid));
 
   const create = (params: TSpatialGridParams): TSpatialGridWrapper => factory.create(params);
   const createFromConfig = (spatialGrids: ReadonlyArray<TSpatialGridConfig>): ReadonlyArray<TSpatialGridWrapper> =>
@@ -11,6 +13,8 @@ export function SpatialGridService(factory: TSpatialGridFactory, registry: TSpat
 
   const destroyable: TDestroyable = destroyableMixin();
   destroyable.destroy$.subscribe((): void => {
+    factorySub$.unsubscribe();
+
     factory.destroy$.next();
     registry.destroy$.next();
   });

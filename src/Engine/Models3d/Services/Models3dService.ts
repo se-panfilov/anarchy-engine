@@ -15,6 +15,7 @@ import type {
   TModels3dServiceDependencies
 } from '@/Engine/Models3d/Models';
 import type { TOptional } from '@/Engine/Utils';
+import { Subscription } from 'rxjs';
 
 export function Models3dService(
   factory: TModels3dFactory,
@@ -22,7 +23,7 @@ export function Models3dService(
   resourcesRegistry: TModel3dResourceAsyncRegistry,
   { materialService, animationsService, model3dRawToModel3dConnectionRegistry }: TModels3dServiceDependencies
 ): TModels3dService {
-  factory.entityCreated$.subscribe((wrapper: TModel3d): void => registry.add(wrapper));
+  const factorySub$: Subscription = factory.entityCreated$.subscribe((wrapper: TModel3d): void => registry.add(wrapper));
   const model3dLoader: TModels3dLoader = Models3dLoader(resourcesRegistry);
   const materialRegistry: TMaterialRegistry = materialService.getRegistry();
 
@@ -38,6 +39,9 @@ export function Models3dService(
 
   const destroyable: TDestroyable = destroyableMixin();
   destroyable.destroy$.subscribe((): void => {
+    registrySub$.unsubscribe();
+    factorySub$.unsubscribe();
+
     registry.destroy$.next();
     // TODO DESTROY: We need a way to unload models3d, tho
     resourcesRegistry.destroy$.next();

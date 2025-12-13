@@ -3,10 +3,11 @@ import type { TAbstractLightWrapper, TAnyLightConfig, TLight, TLightFactory, TLi
 import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
 import type { TSceneWrapper } from '@/Engine/Scene';
+import { Subscription } from 'rxjs';
 
 export function LightService(factory: TLightFactory, registry: TLightRegistry, scene: TSceneWrapper): TLightService {
-  registry.added$.subscribe(({ value }: TRegistryPack<TAbstractLightWrapper<TLight>>) => scene.addLight(value));
-  factory.entityCreated$.subscribe((wrapper: TAbstractLightWrapper<TLight>): void => registry.add(wrapper));
+  const registrySub$: Subscription = registry.added$.subscribe(({ value }: TRegistryPack<TAbstractLightWrapper<TLight>>) => scene.addLight(value));
+  const factorySub$: Subscription = factory.entityCreated$.subscribe((wrapper: TAbstractLightWrapper<TLight>): void => registry.add(wrapper));
 
   const create = (params: TLightParams): TAbstractLightWrapper<TLight> => factory.create(params);
   const createFromConfig = (lights: ReadonlyArray<TAnyLightConfig>): ReadonlyArray<TAbstractLightWrapper<TLight>> =>
@@ -14,6 +15,9 @@ export function LightService(factory: TLightFactory, registry: TLightRegistry, s
 
   const destroyable: TDestroyable = destroyableMixin();
   destroyable.destroy$.subscribe((): void => {
+    registrySub$.unsubscribe();
+    factorySub$.unsubscribe();
+
     factory.destroy$.next();
     registry.destroy$.next();
   });

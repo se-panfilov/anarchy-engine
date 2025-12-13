@@ -1,3 +1,5 @@
+import type { Subscription } from 'rxjs';
+
 import type { TRegistryPack } from '@/Engine/Abstract';
 import type { TActor, TActorConfig, TActorFactory, TActorParams, TActorRegistry, TActorService, TActorServiceDependencies, TActorWithPhysics } from '@/Engine/Actor/Models';
 import type { TDestroyable } from '@/Engine/Mixins';
@@ -6,8 +8,8 @@ import type { TSceneWrapper } from '@/Engine/Scene';
 import type { TSpatialGridRegistry } from '@/Engine/Spatial';
 
 export function ActorService(factory: TActorFactory, registry: TActorRegistry, actorServiceDependencies: TActorServiceDependencies, scene: TSceneWrapper): TActorService {
-  registry.added$.subscribe(({ value }: TRegistryPack<TActor | TActorWithPhysics>): void => scene.addModel3d(value.model.getRawModel3d()));
-  factory.entityCreated$.subscribe((wrapper: TActor | TActorWithPhysics): void => registry.add(wrapper));
+  const registrySub$: Subscription = registry.added$.subscribe(({ value }: TRegistryPack<TActor | TActorWithPhysics>): void => scene.addModel3d(value.model.getRawModel3d()));
+  const factorySub$: Subscription = factory.entityCreated$.subscribe((wrapper: TActor | TActorWithPhysics): void => registry.add(wrapper));
 
   const create = (params: TActorParams): TActor | TActorWithPhysics => factory.create(params, actorServiceDependencies);
   const createFromConfig = (actors: ReadonlyArray<TActorConfig>): ReadonlyArray<TActor | TActorWithPhysics> => {
@@ -20,6 +22,9 @@ export function ActorService(factory: TActorFactory, registry: TActorRegistry, a
 
   const destroyable: TDestroyable = destroyableMixin();
   destroyable.destroy$.subscribe((): void => {
+    registrySub$.unsubscribe();
+    factorySub$.unsubscribe();
+
     factory.destroy$.next();
     registry.destroy$.next();
   });

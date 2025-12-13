@@ -1,3 +1,5 @@
+import type { Subscription } from 'rxjs';
+
 import type { TRegistryPack } from '@/Engine/Abstract';
 import type { TMaterialRegistry, TMaterialService } from '@/Engine/Material';
 import type { TDestroyable } from '@/Engine/Mixins';
@@ -6,8 +8,8 @@ import type { TParticlesConfig, TParticlesFactory, TParticlesParams, TParticlesR
 import type { TSceneWrapper } from '@/Engine/Scene';
 
 export function ParticlesService(factory: TParticlesFactory, registry: TParticlesRegistry, materialService: TMaterialService, scene: TSceneWrapper): TParticlesService {
-  registry.added$.subscribe(({ value }: TRegistryPack<TParticlesWrapper>): void => scene.addParticles(value));
-  factory.entityCreated$.subscribe((wrapper: TParticlesWrapper): void => registry.add(wrapper));
+  const registrySub$: Subscription = registry.added$.subscribe(({ value }: TRegistryPack<TParticlesWrapper>): void => scene.addParticles(value));
+  const factorySub$: Subscription = factory.entityCreated$.subscribe((wrapper: TParticlesWrapper): void => registry.add(wrapper));
   const materialRegistry: TMaterialRegistry = materialService.getRegistry();
 
   const create = (params: TParticlesParams): TParticlesWrapper => factory.create(params);
@@ -16,6 +18,9 @@ export function ParticlesService(factory: TParticlesFactory, registry: TParticle
 
   const destroyable: TDestroyable = destroyableMixin();
   destroyable.destroy$.subscribe((): void => {
+    registrySub$.unsubscribe();
+    factorySub$.unsubscribe();
+
     factory.destroy$.next();
     registry.destroy$.next();
   });

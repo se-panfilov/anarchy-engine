@@ -11,11 +11,11 @@ import { isNotDefined } from '@/Engine/Utils';
 
 export function CameraService(factory: TCameraFactory, registry: TCameraRegistry, scene: TSceneWrapper, isUpdateCamerasAspect: boolean = true): TCameraService {
   const withActive: TWithActiveMixinResult<TCameraWrapper> = withActiveEntityServiceMixin<TCameraWrapper>(registry);
-  registry.added$.subscribe(({ value }: TRegistryPack<TCameraWrapper>): void => {
+  const registrySub$: Subscription = registry.added$.subscribe(({ value }: TRegistryPack<TCameraWrapper>): void => {
     scene.addCamera(value);
     if (value.isActive()) withActive.active$.next(value);
   });
-  factory.entityCreated$.subscribe((wrapper: TCameraWrapper): void => registry.add(wrapper));
+  const factorySub$: Subscription = factory.entityCreated$.subscribe((wrapper: TCameraWrapper): void => registry.add(wrapper));
 
   let screenSize$: Subscription | undefined = undefined;
 
@@ -45,6 +45,9 @@ export function CameraService(factory: TCameraFactory, registry: TCameraRegistry
 
   const destroyable: TDestroyable = destroyableMixin();
   destroyable.destroy$.subscribe((): void => {
+    registrySub$.unsubscribe();
+    factorySub$.unsubscribe();
+
     factory.destroy$.next();
     registry.destroy$.next();
     withActive.active$.complete();

@@ -11,9 +11,10 @@ import type {
 import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
 import type { TMouseService } from '@/Engine/Mouse';
+import { Subscription } from 'rxjs';
 
 export function IntersectionsWatcherService(factory: TIntersectionsWatcherFactory, registry: TIntersectionsWatcherRegistry): TIntersectionsWatcherService {
-  factory.entityCreated$.subscribe((watcher: TIntersectionsWatcher): void => registry.add(watcher));
+  const factorySub$: Subscription = factory.entityCreated$.subscribe((watcher: TIntersectionsWatcher): void => registry.add(watcher));
 
   const create = (params: TIntersectionsWatcherParams): TIntersectionsWatcher => factory.create(params);
   const createFromConfig = (
@@ -26,6 +27,8 @@ export function IntersectionsWatcherService(factory: TIntersectionsWatcherFactor
 
   const destroyable: TDestroyable = destroyableMixin();
   destroyable.destroy$.subscribe((): void => {
+    factorySub$.unsubscribe();
+
     factory.destroy$.next();
     registry.destroy$.next();
   });

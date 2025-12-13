@@ -1,4 +1,5 @@
 import type { World } from '@dimforge/rapier3d';
+import type { Subscription } from 'rxjs';
 
 import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
@@ -23,7 +24,7 @@ export function PhysicsBodyService(
   physicsPresetService: TPhysicsPresetsService,
   physicsWorldService: TPhysicsWorldService
 ): TPhysicsBodyService {
-  factory.entityCreated$.subscribe((body: TPhysicsBody): void => registry.add(body));
+  const factorySub$: Subscription = factory.entityCreated$.subscribe((body: TPhysicsBody): void => registry.add(body));
 
   const create = (params: TPhysicsBodyParams): TPhysicsBody | never => {
     const world: World | undefined = physicsWorldService.getWorld();
@@ -52,6 +53,8 @@ export function PhysicsBodyService(
 
   const destroyable: TDestroyable = destroyableMixin();
   destroyable.destroy$.subscribe((): void => {
+    factorySub$.unsubscribe();
+
     factory.destroy$.next();
     registry.destroy$.next();
   });

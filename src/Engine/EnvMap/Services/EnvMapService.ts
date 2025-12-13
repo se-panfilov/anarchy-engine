@@ -5,13 +5,14 @@ import type { TDestroyable, TWithActiveMixinResult } from '@/Engine/Mixins';
 import { destroyableMixin, withActiveEntityServiceMixin } from '@/Engine/Mixins';
 import type { TSceneWrapper } from '@/Engine/Scene';
 import { isDefined } from '@/Engine/Utils';
+import { Subscription } from 'rxjs';
 
 export function EnvMapService(factory: TEnvMapFactory, registry: TEnvMapRegistry, resourcesRegistry: TEnvMapTextureAsyncRegistry, sceneW: TSceneWrapper): TEnvMapService {
-  registry.added$.subscribe(({ value }: TRegistryPack<TEnvMapWrapper>): void => {
+  const registrySub$: Subscription = registry.added$.subscribe(({ value }: TRegistryPack<TEnvMapWrapper>): void => {
     if (value.isActive()) withActive.active$.next(value);
   });
 
-  factory.entityCreated$.subscribe((wrapper: TEnvMapWrapper): void => registry.add(wrapper));
+  const factorySub$: Subscription = factory.entityCreated$.subscribe((wrapper: TEnvMapWrapper): void => registry.add(wrapper));
 
   const withActive: TWithActiveMixinResult<TEnvMapWrapper> = withActiveEntityServiceMixin<TEnvMapWrapper>(registry);
   const envMapLoader: TEnvMapLoader = EnvMapLoader(resourcesRegistry);
@@ -31,6 +32,9 @@ export function EnvMapService(factory: TEnvMapFactory, registry: TEnvMapRegistry
 
   const destroyable: TDestroyable = destroyableMixin();
   destroyable.destroy$.subscribe((): void => {
+    registrySub$.unsubscribe();
+    factorySub$.unsubscribe();
+
     registry.destroy$.next();
     // TODO DESTROY: We need a way to unload env maps, tho
     resourcesRegistry.destroy$.next();
