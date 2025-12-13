@@ -1,4 +1,4 @@
-import type { TAbstractRegistryPack } from '@/Engine/Abstract';
+import type { TRegistryPack } from '@/Engine/Abstract';
 import type { TDestroyable, TWithActiveMixinResult } from '@/Engine/Mixins';
 import { destroyableMixin, withActiveEntityServiceMixin } from '@/Engine/Mixins';
 import type { TSceneConfig, TSceneFactory, TSceneParams, TSceneRegistry, TScenesService, TSceneWrapper } from '@/Engine/Scene';
@@ -6,7 +6,7 @@ import type { TSceneConfig, TSceneFactory, TSceneParams, TSceneRegistry, TScenes
 export function ScenesService(factory: TSceneFactory, registry: TSceneRegistry): TScenesService {
   const withActive: TWithActiveMixinResult<TSceneWrapper> = withActiveEntityServiceMixin<TSceneWrapper>(registry);
 
-  registry.added$.subscribe(({ value }: TAbstractRegistryPack<TSceneWrapper>): void => {
+  registry.added$.subscribe(({ value }: TRegistryPack<TSceneWrapper>): void => {
     if (value.isActive()) withActive.active$.next(value);
   });
   factory.entityCreated$.subscribe((wrapper: TSceneWrapper): void => registry.add(wrapper));

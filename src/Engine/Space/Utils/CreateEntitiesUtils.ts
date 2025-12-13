@@ -1,6 +1,6 @@
 import type { World } from '@dimforge/rapier3d';
 
-import type { TAbstractRegistryPack } from '@/Engine/Abstract';
+import type { TRegistryPack } from '@/Engine/Abstract';
 import { ambientContext } from '@/Engine/Context';
 import type { TIntersectionsWatcher } from '@/Engine/Intersections';
 import type { TSpaceConfigEntities, TSpaceServices } from '@/Engine/Space/Models';
@@ -56,7 +56,7 @@ export function createEntities(entities: TSpaceConfigEntities, services: TSpaceS
   intersectionsWatcherService.createFromConfig(intersections, mouseService, cameraService, actorService);
 
   // TODO Not the best place for this, perhaps better to do it in a wrapper (or service?)
-  intersectionsWatcherService.getRegistry().added$.subscribe(({ value }: TAbstractRegistryPack<TIntersectionsWatcher>): void => {
+  intersectionsWatcherService.getRegistry().added$.subscribe(({ value }: TRegistryPack<TIntersectionsWatcher>): void => {
     if (value.isAutoStart && !value.isStarted) value.start();
   });
 }

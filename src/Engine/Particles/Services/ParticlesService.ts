@@ -1,4 +1,4 @@
-import type { TAbstractRegistryPack } from '@/Engine/Abstract';
+import type { TRegistryPack } from '@/Engine/Abstract';
 import type { TMaterialRegistry, TMaterialService } from '@/Engine/Material';
 import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
@@ -6,7 +6,7 @@ import type { TParticlesConfig, TParticlesFactory, TParticlesParams, TParticlesR
 import type { TSceneWrapper } from '@/Engine/Scene';
 
 export function ParticlesService(factory: TParticlesFactory, registry: TParticlesRegistry, materialService: TMaterialService, scene: TSceneWrapper): TParticlesService {
-  registry.added$.subscribe(({ value }: TAbstractRegistryPack<TParticlesWrapper>): void => scene.addParticles(value));
+  registry.added$.subscribe(({ value }: TRegistryPack<TParticlesWrapper>): void => scene.addParticles(value));
   factory.entityCreated$.subscribe((wrapper: TParticlesWrapper): void => registry.add(wrapper));
   const materialRegistry: TMaterialRegistry = materialService.getRegistry();
 

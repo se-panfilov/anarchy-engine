@@ -1,7 +1,7 @@
 import { firstValueFrom } from 'rxjs';
 import { expect } from 'vitest';
 
-import type { RegistryType, TAbstractAsyncRegistry, TAbstractEntityRegistry, TAbstractRegistryPack, TAbstractResourceAsyncRegistry, TAbstractSimpleRegistry } from '@/Engine/Abstract';
+import type { RegistryType, TAbstractAsyncRegistry, TAbstractEntityRegistry, TAbstractResourceAsyncRegistry, TAbstractSimpleRegistry, TRegistryPack } from '@/Engine/Abstract';
 import { AbstractEntityAsyncRegistry, AbstractEntityRegistry, AbstractSimpleAsyncRegistry, AbstractSimpleRegistry, LookUpStrategy } from '@/Engine/Abstract';
 import type { TRegistrable } from '@/Engine/Mixins';
 import { withTagsMixin } from '@/Engine/Mixins';
@@ -377,7 +377,7 @@ describe('RegistryAsyncUtils', () => {
       registryAsync.add(mockEntity1);
       registryAsync.add(mockEntity2);
       registryAsync.add(mockEntity3);
-      const filterFn = (pack: TAbstractRegistryPack<TRegistrable>): boolean => pack.value.id === mockEntity2.id;
+      const filterFn = (pack: TRegistryPack<TRegistrable>): boolean => pack.value.id === mockEntity2.id;
       const result: TRegistrable | undefined = await getEntityValueAsync(registryAsync, filterFn, undefined, waitingTime);
       expect(result).toEqual(mockEntity2);
     }, 100);
@@ -387,7 +387,7 @@ describe('RegistryAsyncUtils', () => {
       registrySync.add(mockEntity1);
       registrySync.add(mockEntity2);
       registrySync.add(mockEntity3);
-      const filterFn = (pack: TAbstractRegistryPack<TRegistrable>): boolean => pack.value.id === mockEntity2.id;
+      const filterFn = (pack: TRegistryPack<TRegistrable>): boolean => pack.value.id === mockEntity2.id;
       const result: TRegistrable | undefined = await getEntityValueAsync(registrySync, filterFn, undefined, waitingTime);
       expect(result).toEqual(mockEntity2);
     }, 100);
@@ -398,7 +398,7 @@ describe('RegistryAsyncUtils', () => {
       setTimeout(() => registryAsync.add(mockEntity2), 20);
       registryAsync.add(mockEntity3);
       setTimeout(() => registryAsync.add(mockEntity4), 20);
-      const filterFn = (pack: TAbstractRegistryPack<TRegistrable>): boolean => pack.value.id === mockEntity2.id;
+      const filterFn = (pack: TRegistryPack<TRegistrable>): boolean => pack.value.id === mockEntity2.id;
       const result: TRegistrable | undefined = await getEntityValueAsync(registryAsync, filterFn, undefined, waitingTime);
       expect(result).toEqual(mockEntity2);
     }, 100);
@@ -408,7 +408,7 @@ describe('RegistryAsyncUtils', () => {
       registryAsync.add(mockEntity1);
       registryAsync.add(mockEntity2);
       registryAsync.add(mockEntity3);
-      const filterFn = (pack: TAbstractRegistryPack<TRegistrable>): boolean => pack.value.id === 'wheteverId';
+      const filterFn = (pack: TRegistryPack<TRegistrable>): boolean => pack.value.id === 'wheteverId';
       const promise: Promise<TRegistrable | undefined> = getEntityValueAsync(registryAsync, filterFn, undefined, waitingTime);
       setTimeout(() => registryAsync.add(mockEntity4), 20);
       setTimeout(() => registryAsync.add(mockEntity5), 20);
@@ -418,7 +418,7 @@ describe('RegistryAsyncUtils', () => {
 
     it('should return an entity that will be added after getting the value', async () => {
       const registryAsync: TAbstractAsyncRegistry<TRegistrable> = AbstractEntityAsyncRegistry<TRegistrable>('mockEntity' as RegistryType);
-      const filterFn = (pack: TAbstractRegistryPack<TRegistrable>): boolean => pack.value.id === mockEntity2.id;
+      const filterFn = (pack: TRegistryPack<TRegistrable>): boolean => pack.value.id === mockEntity2.id;
       const promise: Promise<TRegistrable | undefined> = getEntityValueAsync(registryAsync, filterFn, undefined, 65);
       registryAsync.add(mockEntity1);
       setTimeout(() => registryAsync.add(mockEntity2), 25);
@@ -431,7 +431,7 @@ describe('RegistryAsyncUtils', () => {
       const registryAsync: TAbstractAsyncRegistry<TRegistrable> = AbstractEntityAsyncRegistry<TRegistrable>('mockEntity' as RegistryType);
       registryAsync.add(mockEntity1);
       setTimeout(() => registryAsync.add(mockEntity2), 25);
-      const filterFn = (pack: TAbstractRegistryPack<TRegistrable>): boolean => pack.value.id === mockEntity3.id;
+      const filterFn = (pack: TRegistryPack<TRegistrable>): boolean => pack.value.id === mockEntity3.id;
       const promise: Promise<TRegistrable | undefined> = getEntityValueAsync(registryAsync, filterFn, undefined, waitingTime);
       registryAsync.add(mockEntity3);
       setTimeout(() => registryAsync.add(mockEntity4), 25);
@@ -443,7 +443,7 @@ describe('RegistryAsyncUtils', () => {
       const registryAsync: TAbstractAsyncRegistry<TRegistrable> = AbstractEntityAsyncRegistry<TRegistrable>('mockEntity' as RegistryType);
       registryAsync.add(mockEntity1);
       setTimeout(() => registryAsync.add(mockEntity2), 25);
-      const filterFn = (pack: TAbstractRegistryPack<TRegistrable>): boolean => pack.value.id === mockEntity2.id;
+      const filterFn = (pack: TRegistryPack<TRegistrable>): boolean => pack.value.id === mockEntity2.id;
       const result: TRegistrable | undefined = await getEntityValueAsync(registryAsync, filterFn, undefined, waitingTime);
       registryAsync.add(mockEntity3);
       setTimeout(() => registryAsync.add(mockEntity4), 25);
@@ -454,7 +454,7 @@ describe('RegistryAsyncUtils', () => {
       const registryAsync: TAbstractAsyncRegistry<TRegistrable> = AbstractEntityAsyncRegistry<TRegistrable>('mockEntity' as RegistryType);
       registryAsync.add(mockEntity1);
       setTimeout(() => registryAsync.add(mockEntity2), 20);
-      const filterFn = (pack: TAbstractRegistryPack<TRegistrable>): boolean => pack.value.id === mockEntity3.id;
+      const filterFn = (pack: TRegistryPack<TRegistrable>): boolean => pack.value.id === mockEntity3.id;
       const promise: Promise<TRegistrable | undefined> = getEntityValueAsync(registryAsync, filterFn, undefined, 65);
       registryAsync.add(mockEntity3);
       setTimeout(() => registryAsync.add(mockEntity4), 30);
@@ -472,7 +472,7 @@ describe('RegistryAsyncUtils', () => {
       registryB.add(mockEntity3);
       setTimeout(() => registryB.add(mockEntity4), 25);
 
-      const filterFn = (pack: TAbstractRegistryPack<TRegistrable>): boolean => pack.value.id === mockEntity2.id;
+      const filterFn = (pack: TRegistryPack<TRegistrable>): boolean => pack.value.id === mockEntity2.id;
       const result: TRegistrable | undefined = await getEntityValueAsync(registryA, filterFn, undefined, waitingTime);
       expect(result).toEqual(mockEntity2);
     }, 100);
@@ -480,19 +480,19 @@ describe('RegistryAsyncUtils', () => {
     it('should perform several consecutive searches', async () => {
       const registryAsync: TAbstractAsyncRegistry<TRegistrable> = AbstractEntityAsyncRegistry<TRegistrable>('mockEntity' as RegistryType);
       registryAsync.add(mockEntity1);
-      const filterFn1 = (pack: TAbstractRegistryPack<TRegistrable>): boolean => pack.value.id === mockEntity1.id;
+      const filterFn1 = (pack: TRegistryPack<TRegistrable>): boolean => pack.value.id === mockEntity1.id;
       const result1: TRegistrable | undefined = await getEntityValueAsync(registryAsync, filterFn1, undefined, waitingTime);
       registryAsync.add(mockEntity2);
       expect(result1).toEqual(mockEntity1);
 
       registryAsync.add(mockEntity3);
-      const filterFn2 = (pack: TAbstractRegistryPack<TRegistrable>): boolean => pack.value.id === mockEntity3.id;
+      const filterFn2 = (pack: TRegistryPack<TRegistrable>): boolean => pack.value.id === mockEntity3.id;
       const result2: TRegistrable | undefined = await getEntityValueAsync(registryAsync, filterFn2, undefined, waitingTime);
       registryAsync.add(mockEntity4);
       expect(result2).toEqual(mockEntity3);
 
       registryAsync.add(mockEntity5);
-      const filterFn3 = (pack: TAbstractRegistryPack<TRegistrable>): boolean => pack.value.id === mockEntity5.id;
+      const filterFn3 = (pack: TRegistryPack<TRegistrable>): boolean => pack.value.id === mockEntity5.id;
       const result3: TRegistrable | undefined = await getEntityValueAsync(registryAsync, filterFn3, undefined, waitingTime);
       registryAsync.add(mockEntity6);
       expect(result3).toEqual(mockEntity5);
@@ -501,19 +501,19 @@ describe('RegistryAsyncUtils', () => {
     it('should perform several consecutive async searches', async () => {
       const registryAsync: TAbstractAsyncRegistry<TRegistrable> = AbstractEntityAsyncRegistry<TRegistrable>('mockEntity' as RegistryType);
       setTimeout(() => registryAsync.add(mockEntity1), 25);
-      const filterFn1 = (pack: TAbstractRegistryPack<TRegistrable>): boolean => pack.value.id === mockEntity1.id;
+      const filterFn1 = (pack: TRegistryPack<TRegistrable>): boolean => pack.value.id === mockEntity1.id;
       const result1: TRegistrable | undefined = await getEntityValueAsync(registryAsync, filterFn1, undefined, waitingTime);
       setTimeout(() => registryAsync.add(mockEntity2), 25);
       expect(result1).toEqual(mockEntity1);
 
       setTimeout(() => registryAsync.add(mockEntity3), 25);
-      const filterFn2 = (pack: TAbstractRegistryPack<TRegistrable>): boolean => pack.value.id === mockEntity3.id;
+      const filterFn2 = (pack: TRegistryPack<TRegistrable>): boolean => pack.value.id === mockEntity3.id;
       const result2: TRegistrable | undefined = await getEntityValueAsync(registryAsync, filterFn2, undefined, waitingTime);
       setTimeout(() => registryAsync.add(mockEntity4), 25);
       expect(result2).toEqual(mockEntity3);
 
       setTimeout(() => registryAsync.add(mockEntity5), 25);
-      const filterFn3 = (pack: TAbstractRegistryPack<TRegistrable>): boolean => pack.value.id === mockEntity5.id;
+      const filterFn3 = (pack: TRegistryPack<TRegistrable>): boolean => pack.value.id === mockEntity5.id;
       const result3: TRegistrable | undefined = await getEntityValueAsync(registryAsync, filterFn3, undefined, waitingTime);
       setTimeout(() => registryAsync.add(mockEntity6), 25);
       expect(result3).toEqual(mockEntity5);
@@ -522,9 +522,9 @@ describe('RegistryAsyncUtils', () => {
     it('should perform several parallel searches', async () => {
       const registryAsync: TAbstractAsyncRegistry<TRegistrable> = AbstractEntityAsyncRegistry<TRegistrable>('mockEntity' as RegistryType);
       registryAsync.add(mockEntity1);
-      const filterFn1 = (pack: TAbstractRegistryPack<TRegistrable>): boolean => pack.value.id === mockEntity1.id;
-      const filterFn2 = (pack: TAbstractRegistryPack<TRegistrable>): boolean => pack.value.id === mockEntity3.id;
-      const filterFn3 = (pack: TAbstractRegistryPack<TRegistrable>): boolean => pack.value.id === mockEntity5.id;
+      const filterFn1 = (pack: TRegistryPack<TRegistrable>): boolean => pack.value.id === mockEntity1.id;
+      const filterFn2 = (pack: TRegistryPack<TRegistrable>): boolean => pack.value.id === mockEntity3.id;
+      const filterFn3 = (pack: TRegistryPack<TRegistrable>): boolean => pack.value.id === mockEntity5.id;
 
       setTimeout(() => registryAsync.add(mockEntity2), 20);
       setTimeout(() => registryAsync.add(mockEntity3), 15);
@@ -552,13 +552,13 @@ describe('RegistryAsyncUtils', () => {
       registryAsync.add(mockEntity1);
       registryAsync.add(mockEntity2);
       registryAsync.add(mockEntity3);
-      const filterFn1 = (pack: TAbstractRegistryPack<TRegistrable>): boolean => pack.value.id === mockEntity2.id;
+      const filterFn1 = (pack: TRegistryPack<TRegistrable>): boolean => pack.value.id === mockEntity2.id;
       const result1: TRegistrable | undefined = await getEntityValueAsync(registryAsync, filterFn1, undefined, waitingTime);
       expect(result1).toEqual(mockEntity2);
 
       registryAsync.remove(mockEntity2.id);
 
-      const filterFn2 = (pack: TAbstractRegistryPack<TRegistrable>): boolean => pack.value.id === mockEntity2.id;
+      const filterFn2 = (pack: TRegistryPack<TRegistrable>): boolean => pack.value.id === mockEntity2.id;
       const result2: TRegistrable | undefined = await getEntityValueAsync(registryAsync, filterFn2, undefined, waitingTime);
       expect(result2).toBeUndefined();
     }, 1000);
@@ -568,7 +568,7 @@ describe('RegistryAsyncUtils', () => {
       registryAsync.add(mockEntity1);
       registryAsync.add(mockEntity2);
       registryAsync.add(mockEntity3);
-      const filterFn = (pack: TAbstractRegistryPack<TRegistrable>): boolean => pack.value.id === mockEntity2.id;
+      const filterFn = (pack: TRegistryPack<TRegistrable>): boolean => pack.value.id === mockEntity2.id;
 
       const result1: TRegistrable | undefined = await getEntityValueAsync(registryAsync, filterFn, undefined, waitingTime);
       expect(result1).toEqual(mockEntity2);
@@ -588,12 +588,12 @@ describe('RegistryAsyncUtils', () => {
       registryAsync.add(mockEntity1);
       registryAsync.add(mockEntity2);
       registryAsync.add(mockEntity3);
-      const filterFn1 = (pack: TAbstractRegistryPack<TRegistrable>): boolean => pack.value.id === mockEntity2.id;
+      const filterFn1 = (pack: TRegistryPack<TRegistrable>): boolean => pack.value.id === mockEntity2.id;
       const result1: TRegistrable | undefined = await getEntityValueAsync(registryAsync, filterFn1, undefined, waitingTime);
       expect(result1).toEqual(mockEntity2);
 
       registryAsync.remove(mockEntity1.id);
-      const filterFn2 = (pack: TAbstractRegistryPack<TRegistrable>): boolean => pack.value.id === mockEntity2.id;
+      const filterFn2 = (pack: TRegistryPack<TRegistrable>): boolean => pack.value.id === mockEntity2.id;
       const result2: TRegistrable | undefined = await getEntityValueAsync(registryAsync, filterFn2, undefined, waitingTime);
       expect(result2).toEqual(mockEntity2);
     }, 100);
@@ -603,7 +603,7 @@ describe('RegistryAsyncUtils', () => {
       registryAsync.add(mockEntity1);
       registryAsync.add(mockEntity3);
       setTimeout(() => registryAsync.add(mockEntity2), 20);
-      const filterFn = (pack: TAbstractRegistryPack<TRegistrable>): boolean => pack.value.id === mockEntity2.id;
+      const filterFn = (pack: TRegistryPack<TRegistrable>): boolean => pack.value.id === mockEntity2.id;
       const result: TRegistrable | undefined = await getEntityValueAsync(registryAsync, filterFn, undefined, 10);
       expect(result).toBeUndefined();
     }, 100);
@@ -613,7 +613,7 @@ describe('RegistryAsyncUtils', () => {
     it('should return an entity that was added sync before getting the value', async () => {
       // setup
       const registryAsync: TAbstractAsyncRegistry<TRegistrable> = AbstractEntityAsyncRegistry<TRegistrable>('mockEntity' as RegistryType);
-      const filterFn = (pack: TAbstractRegistryPack<TRegistrable>): boolean => pack.value.id === mockEntity2.id;
+      const filterFn = (pack: TRegistryPack<TRegistrable>): boolean => pack.value.id === mockEntity2.id;
 
       // execute
       const subscription$ = firstValueFrom(subscribeToEntityValue$(registryAsync, filterFn));
@@ -630,7 +630,7 @@ describe('RegistryAsyncUtils', () => {
     it('should return an entity that was added sync before getting the value drom Sync registry', async () => {
       // setup
       const registrySync: TAbstractEntityRegistry<TRegistrable> = AbstractEntityRegistry<TRegistrable>('mockEntity' as RegistryType);
-      const filterFn = (pack: TAbstractRegistryPack<TRegistrable>): boolean => pack.value.id === mockEntity2.id;
+      const filterFn = (pack: TRegistryPack<TRegistrable>): boolean => pack.value.id === mockEntity2.id;
 
       // execute
       const subscription$ = firstValueFrom(subscribeToEntityValue$(registrySync, filterFn));
@@ -649,7 +649,7 @@ describe('RegistryAsyncUtils', () => {
     it('should return an entity that was added sync before getting the value', async () => {
       // setup
       const registryAsync: TAbstractResourceAsyncRegistry<TSimpeObj> = AbstractSimpleAsyncRegistry<TSimpeObj>('simpleObj' as RegistryType);
-      const filterFn = (pack: TAbstractRegistryPack<TSimpeObj>): boolean => pack.value.name === simpleObj2.name;
+      const filterFn = (pack: TRegistryPack<TSimpeObj>): boolean => pack.value.name === simpleObj2.name;
 
       // execute
       const subscription$ = firstValueFrom(subscribeToSimpleValue$(registryAsync, filterFn));
@@ -666,7 +666,7 @@ describe('RegistryAsyncUtils', () => {
     it('should return an entity that was added sync before getting the value drom Sync registry', async () => {
       // setup
       const registrySync: TAbstractSimpleRegistry<TSimpeObj> = AbstractSimpleRegistry<TSimpeObj>('simpleObj' as RegistryType);
-      const filterFn = (pack: TAbstractRegistryPack<TSimpeObj>): boolean => pack.value.name === simpleObj2.name;
+      const filterFn = (pack: TRegistryPack<TSimpeObj>): boolean => pack.value.name === simpleObj2.name;
 
       // execute
       const subscription$ = firstValueFrom(subscribeToSimpleValue$(registrySync, filterFn));

@@ -1,7 +1,7 @@
 import type { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
 
 import type { TShowcase } from '@/App/Levels/Models';
-import type { TAbstractRegistryPack, TAppCanvas, TEngine, TModel3dFacade, TModel3dRegistry, TModel3dResourceAsyncRegistry, TSceneWrapper, TSpace, TSpaceConfig, TWithCoordsXYZ } from '@/Engine';
+import type { TAppCanvas, TEngine, TModel3dFacade, TModel3dRegistry, TModel3dResourceAsyncRegistry, TRegistryPack, TSceneWrapper, TSpace, TSpaceConfig, TWithCoordsXYZ } from '@/Engine';
 import { Engine, isNotDefined, KeyCode, spaceService, Vector3Wrapper } from '@/Engine';
 
 import spaceConfig from './showcase.json';
@@ -28,7 +28,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     const models3dResourceRegistry: TModel3dResourceAsyncRegistry = models3dService.getResourceRegistry();
 
     //Adding loaded-from-js models3d to the scene
-    models3dResourceRegistry.added$.subscribe(({ key, value }: TAbstractRegistryPack<GLTF>): void => {
+    models3dResourceRegistry.added$.subscribe(({ key, value }: TRegistryPack<GLTF>): void => {
       const model3dF: TModel3dFacade = models3dService.create({ name: key, model3dSource: value });
       sceneW.addModel3d(model3dF.getModel());
     });

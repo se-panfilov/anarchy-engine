@@ -4,7 +4,7 @@ import { BehaviorSubject, combineLatest, startWith, Subject } from 'rxjs';
 import type { Mesh, MeshPhysicalMaterial, MeshStandardMaterial } from 'three';
 
 import type { TShowcase } from '@/App/Levels/Models';
-import type { TActorRegistry, TActorWrapper, TAppCanvas, TControlsRegistry, TEngine, TOrbitControlsWrapper, TSpace, TSpaceConfig, TVector3Wrapper } from '@/Engine';
+import type { TActorRegistry, TActorWrapper, TAppCanvas, TControlsRegistry, TEngine, TOrbitControlsWrapper, TRegistryPack, TSpace, TSpaceConfig, TVector3Wrapper } from '@/Engine';
 import { Engine, EulerWrapper, isDefined, isNotDefined, KeyCode, LookUpStrategy, spaceService, TextType, Vector3Wrapper } from '@/Engine';
 
 import spaceConfig from './showcase.json';
@@ -47,7 +47,8 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
 
   currentActor$.subscribe(moveCameraToActor);
 
-  function addTextToActor(actor: TActorWrapper): void {
+  function addTextToActor(pack: TRegistryPack<TActorWrapper>): void {
+    const actor: TActorWrapper = pack.value;
     const position: TVector3Wrapper = actor.getPosition();
     const x: number = position.getX();
     const y: number = position.getY();
