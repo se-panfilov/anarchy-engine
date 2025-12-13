@@ -25,24 +25,26 @@ export function Model3d(params: TModel3dParams, { animationsService, model3dRawT
 
   // Maybe we should apply all the params from object3d (can we do it in a more generic way?)
   //applying model's params
-  if (isDefined(params.scale)) applyScaleToModel3d(entities.model3dSource, params.scale);
-  if (isDefined(params.rotation)) applyRotationToModel3d(entities.model3dSource, params.rotation);
-  if (isDefined(params.position)) applyPositionToModel3d(entities.model3dSource, params.position);
-  applyObject3dParamsToModel3d(entities.model3dSource, params);
+  if (isDefined(params.scale)) applyScaleToModel3d(abstract.getRawModel3d(), params.scale);
+  if (isDefined(params.rotation)) applyRotationToModel3d(abstract.getRawModel3d(), params.rotation);
+  if (isDefined(params.position)) applyPositionToModel3d(abstract.getRawModel3d(), params.position);
+  applyObject3dParamsToModel3d(abstract.getRawModel3d(), params);
 
   abstract.destroy$.subscribe((): void => {
-    model3dRawToModel3dConnectionRegistry.removeByModel3d(entities.model3dSource);
+    model3dRawToModel3dConnectionRegistry.removeByModel3d(abstract.getRawModel3d());
 
     // TODO MODELS: This is not tested yet. This dispose function could remove resources (e.g. textures) that could be used by other models.
-    disposeGltf(entities.model3dSource);
+    disposeGltf(abstract.getRawModel3d());
   });
 
-  model3dRawToModel3dConnectionRegistry.addModel3d(entities.model3dSource, abstract as TModel3d);
+  model3dRawToModel3dConnectionRegistry.addModel3d(abstract.getRawModel3d(), abstract as TModel3d);
 
-  return {
-    ...withObject3d(entities.model3dSource),
+  const result = {
+    ...withObject3d(abstract.getRawModel3d()),
     ...abstract,
     getParams,
     _clone
   };
+
+  return result;
 }
