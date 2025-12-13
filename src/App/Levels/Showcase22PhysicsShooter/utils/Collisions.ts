@@ -12,13 +12,20 @@ export async function enableCollisions(scene: TSceneWrapper, actorService: TActo
   // collisionsService.grid.addToGridBulk(grid, actorService.getRegistry().getAll());
   const sphereActorW: TActorWrapperAsync | undefined = await actorService.getRegistry().findByNameAsync('sphere');
   if (isNotDefined(sphereActorW)) throw new Error(`Cannot find "sphere" actor`);
-  collisionsService.grid.addActorToGrid(grid, sphereActorW);
+  // collisionsService.grid.addActorToGrid(grid, sphereActorW);
+
+  const boxActor1W: TActorWrapperAsync | undefined = await actorService.getRegistry().findByNameAsync('box_static1');
+  const boxActor2W: TActorWrapperAsync | undefined = await actorService.getRegistry().findByNameAsync('box_static2');
+  const boxActor3W: TActorWrapperAsync | undefined = await actorService.getRegistry().findByNameAsync('box_static3');
+  if (isNotDefined(boxActor1W) || isNotDefined(boxActor2W) || isNotDefined(boxActor3W)) throw new Error(`Cannot find "box_static" actors`);
+  collisionsService.grid.addActorToGrid(grid, boxActor1W);
+  collisionsService.grid.addActorToGrid(grid, boxActor2W);
+  collisionsService.grid.addActorToGrid(grid, boxActor3W);
 
   mouseLineIntersectionsWatcher.value$.subscribe((value) => {
     // console.log(value.point);
     const objects = collisionsService.grid.getAllInCell(grid, value.point.x, value.point.z);
-    // TODO (S.Panfilov) CWP This is kinda works, but show actor not in proper location (not in the cell?)
-    console.log(objects);
+    console.log(objects.map((o) => o.name));
     //collisionsService._debugHighlightCellObjects(new Vector2(value.point.x, value.point.z), cameraW, scene, grid);
   });
 

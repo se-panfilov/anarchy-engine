@@ -56,6 +56,45 @@
       "tags": []
     },
     {
+      "name": "box_static1",
+      "type": "cube",
+      "width": 1,
+      "height": 1,
+      "depth": 1,
+      "widthSegments": 1,
+      "heightSegments": 1,
+      "material": { "type": "standard", "params": { "color": "#FF9800" } },
+      "position": { "x": 24, "y": 0, "z": 14 },
+      "castShadow": true,
+      "tags": []
+    },
+    {
+      "name": "box_static2",
+      "type": "cube",
+      "width": 1,
+      "height": 1,
+      "depth": 1,
+      "widthSegments": 1,
+      "heightSegments": 1,
+      "material": { "type": "standard", "params": { "color": "#FF00FF" } },
+      "position": { "x": 26, "y": 0, "z": 17 },
+      "castShadow": true,
+      "tags": []
+    },
+    {
+      "name": "box_static3",
+      "type": "cube",
+      "width": 1,
+      "height": 1,
+      "depth": 1,
+      "widthSegments": 1,
+      "heightSegments": 1,
+      "material": { "type": "standard", "params": { "color": "#FFFF00" } },
+      "position": { "x": 23, "y": 0, "z": 22 },
+      "castShadow": true,
+      "tags": []
+    },
+    {
       "name": "map_center",
       "type": "cube",
       "width": 0.3,
