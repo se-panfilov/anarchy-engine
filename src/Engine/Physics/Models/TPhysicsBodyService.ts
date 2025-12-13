@@ -4,15 +4,15 @@ import type { TDestroyable } from '@/Engine/Mixins';
 import type { TWithCreateFromConfigService, TWithCreateService, TWithFactoryService, TWithRegistryService, TWithSceneGetterService } from '@/Engine/Space';
 import type { TVector3Wrapper } from '@/Engine/Vector';
 
-import type { TPhysicsBody } from './TPhysicsBody';
 import type { TPhysicsBodyConfig } from './TPhysicsBodyConfig';
+import type { TPhysicsBodyFacade } from './TPhysicsBodyFacade';
 import type { TPhysicsBodyFactory } from './TPhysicsBodyFactory';
 import type { TPhysicsBodyParams } from './TPhysicsBodyParams';
 import type { TPhysicsBodyRegistry } from './TPhysicsBodyRegistry';
 import type { TPhysicsDebugRenderer } from './TPhysicsDebugRenderer';
 import type { TPhysicsWorldParams } from './TPhysicsWorldParams';
 
-export type TPhysicsBodyService = TWithCreateService<TPhysicsBody, TPhysicsBodyParams> &
+export type TPhysicsBodyService = TWithCreateService<TPhysicsBodyFacade, TPhysicsBodyParams> &
   TWithCreateFromConfigService<TPhysicsBodyConfig> &
   TWithFactoryService<TPhysicsBodyFactory> &
   TWithRegistryService<TPhysicsBodyRegistry> &

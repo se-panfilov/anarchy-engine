@@ -1,5 +1,5 @@
-import type { TPhysicsBody } from './TPhysicsBody';
+import type { TPhysicsBodyFacade } from './TPhysicsBodyFacade';
 
 export type TWithPhysicsBody = Readonly<{
-  physicsBody: TPhysicsBody | undefined;
+  physicsBody: TPhysicsBodyFacade | undefined;
 }>;

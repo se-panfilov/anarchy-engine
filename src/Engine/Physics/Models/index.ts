@@ -1,5 +1,5 @@
-export * from './TPhysicsBody';
 export * from './TPhysicsBodyConfig';
+export * from './TPhysicsBodyFacade';
 export * from './TPhysicsBodyFacadeEntities';
 export * from './TPhysicsBodyFactory';
 export * from './TPhysicsBodyParams';
