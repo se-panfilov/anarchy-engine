@@ -6,7 +6,6 @@ import type { Observable, Subject } from 'rxjs';
 import type { TEventsService, TEventsServiceDependencies } from '@/Levels/Showcase28Menu/Models';
 
 export function EventsService({ mainMenuService, appService, settingsService }: TEventsServiceDependencies): TEventsService {
-  // TODO DESKTOP: App should react on save or load settings: E.g. language change should apply immediately (in the game).
   function handleFromMenuEvents(fromMenuEventsBus$: Observable<TFromMenuEvent>, toMenuEventsBus$: Subject<TToMenuEvent>): void {
     let settings: TShowcaseGameSettings | undefined;
     let legalDocs: TLegalDoc | undefined;
