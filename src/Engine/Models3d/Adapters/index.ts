@@ -1,1 +1,1 @@
-export * from './Model3dConfigAdapter';
+export * from './ConfigToParams';
