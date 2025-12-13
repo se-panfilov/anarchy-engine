@@ -1,9 +1,6 @@
-import type { TWithReadonlyTags } from '@/Engine/Mixins';
+import type { TFogParams } from './TFogParams';
 
-import type { TFogProps } from './TFogProps';
-
-export type TFogConfig = Omit<TFogProps, 'color'> &
+export type TFogConfig = Omit<TFogParams, 'color'> &
   Readonly<{
     color: string;
-  }> &
-  TWithReadonlyTags;
+  }>;

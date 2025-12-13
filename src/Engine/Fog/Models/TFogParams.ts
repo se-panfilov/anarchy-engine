@@ -1,5 +1,11 @@
-import type { TWithReadonlyTags } from '@/Engine/Mixins';
+import type { Color } from 'three';
 
-import type { TFogProps } from './TFogProps';
+import type { TWithNameOptional, TWithReadonlyTags } from '@/Engine/Mixins';
 
-export type TFogParams = TFogProps & TWithReadonlyTags;
+export type TFogParams = Readonly<{
+  color: Color;
+  near?: number;
+  far?: number;
+}> &
+  TWithNameOptional &
+  TWithReadonlyTags;

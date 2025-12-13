@@ -2236,12 +2236,6 @@
       "type": "object",
       "additionalProperties": false,
       "properties": {
-        "tags": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
         "color": {
           "type": "string"
         },
@@ -2253,6 +2247,12 @@
         },
         "name": {
           "type": "string"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
         }
       },
       "required": ["color"]
