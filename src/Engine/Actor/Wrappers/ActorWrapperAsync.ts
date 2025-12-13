@@ -76,16 +76,7 @@ export async function ActorWrapperAsync(
   if (isDefined(params.scale)) applyScale(actorW, params.scale);
   applyObject3dParams(actorW, params);
 
-  // TODO (S.Panfilov) debug
-  //WIP: position subject
-  position$.subscribe((newPosition: Vector3): void => {
-    if (actorW.getName() === 'sphere') console.log(actorW.spatial.getData());
-
-    // if (actorW.getName() === 'sphere') console.log(`Position changed to: x=${newPosition.x}, y=${newPosition.y}, z=${newPosition.z}`);
-    // TODO (S.Panfilov) debug if
-    // if (actorW.getName() === 'sphere') actorW.updateSpatialCell(newPosition, actorW.spatial.getGrid());
-  });
-  //END WIP: position subject
+  position$.subscribe((newPosition: Vector3): void => actorW.updateSpatialCell(newPosition));
 
   return actorW;
 }

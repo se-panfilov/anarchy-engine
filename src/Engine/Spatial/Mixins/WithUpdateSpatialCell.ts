@@ -7,9 +7,7 @@ import { isDefined, isNotDefined } from '@/Engine/Utils';
 export function withUpdateSpatialCell(): TWithUpdateSpatialCell {
   let prev: Pick<TSpatialCell, 'maxX' | 'maxY' | 'minX' | 'minY'> = {} as Pick<TSpatialCell, 'maxX' | 'maxY' | 'minX' | 'minY'>;
 
-  function updateSpatialCell(this: TActorWrapperAsync, newPosition: Vector3, gridW: TSpatialGridWrapper | undefined): void | never {
-    if (isNotDefined(gridW)) throw new Error(`Cannot update actor's (id: "${this.id}") spatial grid's cell: grid is not defined`);
-
+  function updateSpatialCell(this: TActorWrapperAsync, newPosition: Vector3): void | never {
     //first run
     if (isNotDefined(prev.minX)) {
       const cell: TSpatialCell | undefined = this.spatial.getSpatialCell();
@@ -25,7 +23,9 @@ export function withUpdateSpatialCell(): TWithUpdateSpatialCell {
     }
 
     if (newPosition.x < prev.minX || newPosition.x > prev.maxX || newPosition.z < prev.minY || newPosition.z > prev.maxY) {
-      gridW.updateActorCell(this);
+      const grid: TSpatialGridWrapper | undefined = this.spatial.getGrid();
+      if (isNotDefined(grid)) throw new Error(`Cannot update actor's (id: "${this.id}") spatial grid's cell: grid is not defined`);
+      grid.updateActorCell(this);
       const newCell: TSpatialCell | undefined = this.spatial.getSpatialCell();
       if (isDefined(newCell)) {
         prev = {

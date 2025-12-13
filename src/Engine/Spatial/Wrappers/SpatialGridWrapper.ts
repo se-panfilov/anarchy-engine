@@ -45,7 +45,7 @@ export function SpatialGridWrapper(params: TSpatialGridParams): TSpatialGridWrap
 
   const wrapper: TWrapper<TSpatialGrid> = AbstractWrapper(entity, WrapperType.SpatialGrid, params);
 
-  const addToGridBulk = (list: ReadonlyArray<TSpatialCell>): TSpatialGrid => entity.load(list);
+  // const addToGridBulk = (list: ReadonlyArray<TSpatialCell>): TSpatialGrid => entity.load(list);
 
   function addActorToCell(x: number, z: number, actorW: TActorWrapperAsync): void {
     const cells: ReadonlyArray<TSpatialCell> = entity.search({ minX: x, minY: z, maxX: x, maxY: z });
@@ -59,8 +59,13 @@ export function SpatialGridWrapper(params: TSpatialGridParams): TSpatialGridWrap
     }
   }
 
-  function addActor(actorW: TActorWrapperAsync): void {
+  function registerActorToGrid(actorW: TActorWrapperAsync, gridW: TSpatialGridWrapper): void {
+    actorW.spatial.setGrid(gridW);
+  }
+
+  function addActor(this: TSpatialGridWrapper, actorW: TActorWrapperAsync): void | never {
     const { x, z } = actorW.getPosition().getCoords();
+    if (isNotDefined(actorW.spatial.getGrid())) registerActorToGrid(actorW, this);
     addActorToCell(x, z, actorW);
   }
 
@@ -97,9 +102,9 @@ export function SpatialGridWrapper(params: TSpatialGridParams): TSpatialGridWrap
 
   const clearGrid = (): TSpatialGrid => entity.clear();
 
-  function updateActorCell(actorW: TActorWrapperAsync): void {
+  function updateActorCell(this: TSpatialGridWrapper, actorW: TActorWrapperAsync): void {
     removeFromGrid(actorW);
-    addActor(actorW);
+    addActor.call(this, actorW);
   }
 
   function findCells(x: number, z: number): ReadonlyArray<TSpatialCell> {
@@ -145,12 +150,11 @@ export function SpatialGridWrapper(params: TSpatialGridParams): TSpatialGridWrap
     });
   }
 
-  return {
+  const result: TSpatialGridWrapper = {
     ...wrapper,
     entity,
     destroy,
-    addToGridBulk,
-    addActorToCell,
+    // addToGridBulk,
     addActor,
     getAllItems,
     getAllInCell,
@@ -163,4 +167,6 @@ export function SpatialGridWrapper(params: TSpatialGridParams): TSpatialGridWrap
     _debugHighlightObjects,
     updateActorCell
   };
+
+  return result;
 }
