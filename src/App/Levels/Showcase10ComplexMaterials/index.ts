@@ -64,19 +64,19 @@ export function showcase(canvas: IAppCanvas): IShowcase {
     });
   }
 
-  keyboardService.onKey(KeyCode.D).pressing$.subscribe((): void => {
+  keyboardService.onKey(KeyCode.D).pressed$.subscribe((): void => {
     currentMaterialIndex$.next((currentMaterialIndex$.value + 1) % materials.length);
   });
 
-  keyboardService.onKey(KeyCode.A).pressing$.subscribe((): void => {
+  keyboardService.onKey(KeyCode.A).pressed$.subscribe((): void => {
     currentMaterialIndex$.next((currentMaterialIndex$.value - 1 + materials.length) % materials.length);
   });
 
-  keyboardService.onKey(KeyCode.W).pressing$.subscribe((): void => {
+  keyboardService.onKey(KeyCode.W).pressed$.subscribe((): void => {
     currentMaterialTypeIndex$.next((currentMaterialTypeIndex$.value + 1) % materialType.length);
   });
 
-  keyboardService.onKey(KeyCode.S).pressing$.subscribe((): void => {
+  keyboardService.onKey(KeyCode.S).pressed$.subscribe((): void => {
     currentMaterialTypeIndex$.next((currentMaterialTypeIndex$.value - 1 + materialType.length) % materialType.length);
   });
 
