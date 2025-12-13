@@ -4,7 +4,7 @@ import type { TModels3dService } from '@/Engine/Models3d';
 import type { TPhysicsBodyService, TPhysicsLoopService } from '@/Engine/Physics';
 import type { TSpatialGridService, TSpatialLoopService } from '@/Engine/Spatial';
 
-import type { TModel3dToActorConnectionRegistry } from './TModel3dToActorConnectionRegistry';
+import type { TModel3dFacadeToActorConnectionRegistry } from './TModel3dFacadeToActorConnectionRegistry';
 
 export type TActorDependencies = Readonly<{
   models3dService: TModels3dService;
@@ -13,7 +13,7 @@ export type TActorDependencies = Readonly<{
   spatialGridService: TSpatialGridService;
   collisionsLoopService: TCollisionsLoopService;
   collisionsService: TCollisionsService;
-  model3dToActorConnectionRegistry: TModel3dToActorConnectionRegistry;
+  model3dFacadeToActorConnectionRegistry: TModel3dFacadeToActorConnectionRegistry;
 }>;
 
 export type TActorWithPhysicsDependencies = TActorDependencies &

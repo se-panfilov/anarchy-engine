@@ -9,5 +9,5 @@ export * from './TActorService';
 export * from './TActorWithPhysicsWrapper';
 export * from './TActorWrapper';
 export * from './TActorWrapperWithPhysics';
-export * from './TModel3dToActorConnectionRegistry';
+export * from './TModel3dFacadeToActorConnectionRegistry';
 export * from './TParamsFromConfigActor';
