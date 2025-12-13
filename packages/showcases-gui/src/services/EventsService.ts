@@ -1,6 +1,6 @@
-import type { MouseButtonValue, TGameKey } from '@Anarchy/Engine';
 import { isNotDefined } from '@Anarchy/Shared/Utils';
-import type { TEventsService } from '@Showcases/GUI/models';
+import type { GuiActionType } from '@Showcases/GUI/constants';
+import type { TEventsService, TToGuiActionEvent } from '@Showcases/GUI/models';
 import { guiPinia } from '@Showcases/GUI/stores/CreatePinia';
 import { useGuiButtonStore } from '@Showcases/GUI/stores/GuiButtonsStore';
 import type { TFromGuiEvent, TToGuiEvent } from '@Showcases/Shared';
@@ -29,18 +29,13 @@ function EventsService(): TEventsService {
     return toGuiBus$.subscribe(handleToGuiEvents);
   }
 
-  function handleToGuiEvents(event: TToGuiEvent): void {
+  function handleToGuiEvents(event: TToGuiEvent | TToGuiActionEvent): void {
     switch (event.type) {
-      case ToGuiEvents.KeyPress: {
-        if (isNotDefined(event.payload?.key)) throw new Error('[EventsService]: KeyPress event payload key is not defined');
+      case ToGuiEvents.KeyAction: {
+        if (isNotDefined(event.payload?.value)) throw new Error(`[EventsService]: Action "${ToGuiEvents.KeyAction}" has no payload "value"`);
+        if (isNotDefined(event.payload?.type)) throw new Error(`[EventsService]: Action "${ToGuiEvents.KeyAction}" has no payload "type"`);
         //Pass guiPinia explicitly to avoid issues when pinia connects to different app instance (e.g. gui vs menu)
-        useGuiButtonStore(guiPinia).setActiveButtonByKey(event.payload.key as TGameKey | MouseButtonValue, true);
-        break;
-      }
-      case ToGuiEvents.KeyRelease: {
-        if (isNotDefined(event.payload?.key)) throw new Error('[EventsService]: KeyRelease event payload key is not defined');
-        //Pass guiPinia explicitly to avoid issues when pinia connects to different app instance (e.g. gui vs menu)
-        useGuiButtonStore(guiPinia).setActiveButtonByKey(event.payload.key as TGameKey | MouseButtonValue, false);
+        useGuiButtonStore(guiPinia).setActiveButton(event.payload.type as GuiActionType, event.payload.value as boolean);
         break;
       }
       default: {

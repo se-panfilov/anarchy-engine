@@ -3,6 +3,5 @@ export enum FromGuiEvents {
 }
 
 export enum ToGuiEvents {
-  KeyPress = 'key:press',
-  KeyRelease = 'key:release'
+  KeyAction = 'gui:key_action'
 }

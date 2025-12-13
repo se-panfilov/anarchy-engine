@@ -1,9 +1,9 @@
 import type { MouseButtonValue, TGameKey } from '@Anarchy/Engine';
-import type { GuiBottomButtons } from '@Showcases/GUI/constants';
+import type { GuiActionType } from '@Showcases/GUI/constants';
 import type { FunctionalComponent } from 'vue';
 
 export type TGuiButtonStoreState = Readonly<{
-  [key in GuiBottomButtons]: TGuiButtonState;
+  [key in GuiActionType]: TGuiButtonState;
 }>;
 
 export type TGuiButtonState = {

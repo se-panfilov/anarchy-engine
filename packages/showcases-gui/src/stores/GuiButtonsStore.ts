@@ -1,50 +1,40 @@
-import type { TGameKey } from '@Anarchy/Engine';
-import { KeyCode, KeysExtra, MouseButtonValue } from '@Anarchy/Engine';
+import type { MouseButtonValue, TGameKey } from '@Anarchy/Engine';
 import { isNotDefined } from '@Anarchy/Shared/Utils';
-import { GuiBottomButtons } from '@Showcases/GUI/constants';
+import { BUTTON_IDS, BUTTON_KEYS, GuiActionType } from '@Showcases/GUI/constants';
 import type { TGuiButtonState, TGuiButtonStoreState } from '@Showcases/GUI/models';
 import { Backpack, Map as MapIcon, Settings as SettingsIcon, Shield, Sword } from 'lucide-vue-next';
-import { nanoid } from 'nanoid';
 import { defineStore } from 'pinia';
 import { computed, reactive } from 'vue';
 
-const { Attack, Map, Defense, Settings, Inventory } = GuiBottomButtons;
-
-const buttonIds: Record<GuiBottomButtons, string> = {
-  [Attack]: nanoid(),
-  [Defense]: nanoid(),
-  [Inventory]: nanoid(),
-  [Map]: nanoid(),
-  [Settings]: nanoid()
-};
+const { Attack, Map, Defense, Settings, Inventory } = GuiActionType;
 
 export const useGuiButtonStore = defineStore('guiButtonsStore', () => {
   const state: TGuiButtonStoreState = reactive({
-    [Attack]: { id: buttonIds[Attack], isVisible: true, isActive: false, i18n: 'gui.bottom.button.attack.title', key: MouseButtonValue.Left, icon: Sword },
-    [Defense]: { id: buttonIds[Defense], isVisible: true, isActive: false, i18n: 'gui.bottom.button.defense.title', key: MouseButtonValue.Right, icon: Shield },
-    [Inventory]: { id: buttonIds[Inventory], isVisible: true, isActive: false, i18n: 'gui.bottom.button.inventory.title', key: KeyCode.I, icon: Backpack },
-    [Map]: { id: buttonIds[Map], isVisible: true, isActive: false, i18n: 'gui.bottom.button.map.title', key: KeyCode.M, icon: MapIcon },
-    [Settings]: { id: buttonIds[Settings], isVisible: true, isActive: false, i18n: 'gui.bottom.button.settings.title', key: KeysExtra.Escape, icon: SettingsIcon }
+    [Attack]: { id: BUTTON_IDS[Attack], isVisible: true, isActive: false, i18n: 'gui.bottom.button.attack.title', key: BUTTON_KEYS[Attack], icon: Sword },
+    [Defense]: { id: BUTTON_IDS[Defense], isVisible: true, isActive: false, i18n: 'gui.bottom.button.defense.title', key: BUTTON_KEYS[Defense], icon: Shield },
+    [Inventory]: { id: BUTTON_IDS[Inventory], isVisible: true, isActive: false, i18n: 'gui.bottom.button.inventory.title', key: BUTTON_KEYS[Inventory], icon: Backpack },
+    [Map]: { id: BUTTON_IDS[Map], isVisible: true, isActive: false, i18n: 'gui.bottom.button.map.title', key: BUTTON_KEYS[Map], icon: MapIcon },
+    [Settings]: { id: BUTTON_IDS[Settings], isVisible: true, isActive: false, i18n: 'gui.bottom.button.settings.title', key: BUTTON_KEYS[Settings], icon: SettingsIcon }
   });
 
-  function setActiveButton(buttonName: GuiBottomButtons, isActive: boolean): void | never {
-    if (isNotDefined(state[buttonName])) throw new Error(`Invalid GUI button: "${buttonName}"`);
-    state[buttonName].isActive = isActive;
+  function setActiveButton(actionType: GuiActionType, isActive: boolean): void | never {
+    if (isNotDefined(state[actionType])) throw new Error(`Invalid GUI button: "${actionType}"`);
+    state[actionType].isActive = isActive;
   }
 
   function setActiveButtonByKey(key: TGameKey | MouseButtonValue, isActive: boolean): void | never {
     const buttonEntry = Object.entries(state).find(([, buttonState]): boolean => buttonState.key === key);
     if (isNotDefined(buttonEntry)) throw new Error(`[GuiButtonsStore]: Can't set active button: button for key "${key}" is not found`);
     const [buttonName] = buttonEntry;
-    setActiveButton(buttonName as GuiBottomButtons, isActive);
+    setActiveButton(buttonName as GuiActionType, isActive);
   }
 
-  function bindButtonKey(buttonName: GuiBottomButtons, key: TGameKey | MouseButtonValue): void | never {
+  function bindButtonKey(buttonName: GuiActionType, key: TGameKey | MouseButtonValue): void | never {
     if (isNotDefined(state[buttonName])) throw new Error(`Invalid GUI button: "${buttonName}"`);
     state[buttonName].key = key;
   }
 
-  function unbindButtonKey(buttonName: GuiBottomButtons): void {
+  function unbindButtonKey(buttonName: GuiActionType): void {
     state[buttonName].key = undefined;
   }
 
