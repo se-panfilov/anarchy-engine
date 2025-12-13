@@ -11,5 +11,5 @@ export type TModel3dProps = Readonly<{
 }> &
   // TODO (S.Panfilov) CWP apply all TObject3DProps
   // We're not ready to add animations like this, so omit them for now
-  Omit<TObject3DProps, 'animations'> &
+  Omit<TObject3DProps, 'animations' | 'position' | 'scale' | 'rotation'> &
   Pick<TObject3DParams, 'position' | 'scale' | 'rotation'>;

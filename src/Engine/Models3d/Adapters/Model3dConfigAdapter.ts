@@ -6,7 +6,6 @@ import { configToParamsObject3d } from '@/Engine/ThreeLib';
 import { isDefined, isNotDefined } from '@/Engine/Utils';
 
 export function model3dConfigToParams(config: TModel3dConfig | TModel3dPrimitiveConfig): TModel3dParams | TModel3dPrimitiveParams {
-  // export function model3dConfigToParams(config: TModel3dConfig): TModel3dParams {
   const { position, rotation, material, scale, ...rest } = config;
 
   let materialParams: TMaterialPackParams<TMaterialTexturePack> | undefined;
