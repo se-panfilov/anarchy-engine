@@ -19,8 +19,6 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
     });
   }
 
-  // TODO (S.Panfilov) CWP intersections doesn't work
-
   function startIntersections(): void {
     const camera: ICameraWrapper | undefined = cameraRegistry.getUniqByTag(CameraTag.Initial);
     if (isNotDefined(camera)) throw new Error('Camera is not defined');

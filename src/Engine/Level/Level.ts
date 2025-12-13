@@ -12,6 +12,7 @@ import type { IControlsFactory, IControlsRegistry, IOrbitControlsConfig, IOrbitC
 import { ControlsFactory, ControlsRegistry } from '@/Engine/Controls';
 import type { IDataTexture } from '@/Engine/EnvMap';
 import { envMapService } from '@/Engine/EnvMap';
+import { setInitialActiveCamera } from '@/Engine/Level/LevelHelper';
 import { withBuiltMixin } from '@/Engine/Level/Mixin';
 import type { ILevel, ILevelConfig, IWithBuilt } from '@/Engine/Level/Models';
 import type { ILightConfig, ILightFactory, ILightRegistry, ILightWrapper } from '@/Engine/Light';
@@ -175,6 +176,7 @@ export function buildLevelFromConfig(canvas: IAppCanvas, config: ILevelConfig): 
   return {
     name,
     start(): void {
+      setInitialActiveCamera(cameraRegistry);
       standardLoopService.start();
       messages$.next(`Level started`);
     },
