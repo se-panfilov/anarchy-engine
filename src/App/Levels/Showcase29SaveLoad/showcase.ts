@@ -2,30 +2,19 @@ import '@public/Showcase/fonts.css';
 import './style.css';
 
 import type { Subscription } from 'rxjs';
-import type { HemisphereLight, PointLight, SpotLight } from 'three';
-import { Color, Euler, Quaternion, Vector3 } from 'three';
 
+import { spaceBasicData } from '@/App/Levels/Showcase29SaveLoad/spaceBasic/spaceBasic';
+import { spaceCameraData } from '@/App/Levels/Showcase29SaveLoad/spaceCamera';
+import { spaceCustomModelsData } from '@/App/Levels/Showcase29SaveLoad/spaceCustomModels';
+import { spaceLightData } from '@/App/Levels/Showcase29SaveLoad/spaceLight/spaceLight';
+import { spaceMaterialsData } from '@/App/Levels/Showcase29SaveLoad/spaceMaterials';
+import { spaceTextData } from '@/App/Levels/Showcase29SaveLoad/spaceTexts';
 import { addBtn, addDropdown } from '@/App/Levels/Utils';
-import type { TCameraWrapper, THemisphereLightWrapper, TModel3d, TPointLightWrapper, TRegistryPack, TSpace, TSpaceConfig, TSpaceRegistry, TSpotLightWrapper, TWriteable } from '@/Engine';
-import { eulerToXyz, isNotDefined, spaceService, vector3ToXyz } from '@/Engine';
+import type { TSpace, TSpaceConfig, TSpaceRegistry } from '@/Engine';
+import { isNotDefined, spaceService } from '@/Engine';
 
-import spaceBasicConfig from './spaceBasic.json';
-import spaceCameraConfig from './spaceCamera.json';
-import spaceCustomModelsConfig from './spaceCustomModels.json';
-import spaceLightConfig from './spaceLight.json';
-import spaceMaterialsConfig from './SpaceMaterials.json';
-import spaceTextsConfig from './spaceTexts.json';
-import type { TSpacesData } from './utils';
-import { changeText, createContainersDivs, setContainerVisibility } from './utils';
-
-const basicCase: TSpaceConfig = spaceBasicConfig as TSpaceConfig;
-const customModelsCase: TSpaceConfig = spaceCustomModelsConfig as TSpaceConfig;
-const textsCase: TSpaceConfig = spaceTextsConfig as TSpaceConfig;
-const cameraCase: TSpaceConfig = spaceCameraConfig as TSpaceConfig;
-const lightCase: TSpaceConfig = spaceLightConfig as TSpaceConfig;
-const materialsCase: TSpaceConfig = spaceMaterialsConfig as TSpaceConfig;
-
-const getContainer = (canvasSelector: string): string => canvasSelector.split('#')[1].trim();
+import type { TSpacesData } from './ShowcaseTypes';
+import { createContainersDivs, setContainerVisibility } from './utils';
 
 const subscriptions: Record<string, Subscription> = {};
 
@@ -43,115 +32,7 @@ const subscriptions: Record<string, Subscription> = {};
 // TODO 15-0-0: E2E: Complex scene (similar to Showcase22PhysicsShooter)
 
 // TODO 15-0-0: E2E: Perhaps serialization should return promise (cause it feels kinda async)
-const spacesData: ReadonlyArray<TSpacesData> = [
-  {
-    name: basicCase.name,
-    config: basicCase,
-    container: getContainer(basicCase.canvasSelector),
-    onCreate: (space: TSpace): void => {
-      const sub$: Subscription = space.services.models3dService.getRegistry().added$.subscribe(({ value: model3dSource }: TRegistryPack<TModel3d>): void => {
-        if (model3dSource.name === 'surface_model') space.services.scenesService.findActive()?.addModel3d(model3dSource);
-      });
-      // eslint-disable-next-line functional/immutable-data
-      subscriptions[customModelsCase.name] = sub$;
-    },
-    onChange: (space: TSpace): void => {
-      space.services.actorService.getRegistry().findByName('sphere_actor')?.drive.default.setX(10);
-    },
-    onUnload: (): void => {
-      subscriptions[customModelsCase.name].unsubscribe();
-    }
-  },
-  {
-    name: customModelsCase.name,
-    config: customModelsCase,
-    container: getContainer(customModelsCase.canvasSelector),
-    onCreate: (space: TSpace): void => {
-      const sub$: Subscription = space.services.models3dService.getRegistry().added$.subscribe(({ value: model3dSource }: TRegistryPack<TModel3d>): void => {
-        space.services.scenesService.findActive()?.addModel3d(model3dSource);
-      });
-      // eslint-disable-next-line functional/immutable-data
-      subscriptions[customModelsCase.name] = sub$;
-    },
-    onChange: (space: TSpace): void => {
-      const model3d: TModel3d | undefined = space.services.models3dService.getRegistry().findByName('fox_glb_config_original');
-      if (isNotDefined(model3d)) throw new Error(`[Showcase]: Model3d is not found`);
-      // eslint-disable-next-line functional/immutable-data
-      model3d.getRawModel3d().position.x += 5;
-      // eslint-disable-next-line functional/immutable-data
-      model3d.getRawModel3d().rotation.y = 1.57;
-    },
-    onUnload: (): void => {
-      subscriptions[customModelsCase.name].unsubscribe();
-    }
-  },
-  {
-    name: textsCase.name,
-    config: textsCase,
-    container: getContainer(textsCase.canvasSelector),
-    onChange: (space: TSpace): void => {
-      const { text2dRegistry, text3dRegistry, text3dTextureRegistry } = space.services.textService.getRegistries();
-      changeText('text_2d', text2dRegistry);
-      changeText('text_3d_1', text3dRegistry);
-      changeText('text_3d_2', text3dTextureRegistry);
-    }
-  },
-  {
-    name: cameraCase.name,
-    config: cameraCase,
-    container: getContainer(cameraCase.canvasSelector),
-    onChange: (space: TSpace): void => {
-      const camera: TCameraWrapper | undefined = space.services.cameraService.findActive();
-      if (isNotDefined(camera)) throw new Error(`[Showcase]: Camera is not found`);
-
-      camera.setFov(100);
-
-      const rotation: Euler = new Euler(-2.879975303042544, 0.8041367970357067, 2.951086186540901);
-      camera.drive.rotation$.next(new Quaternion().setFromEuler(rotation));
-      camera.drive.position$.next(new Vector3(28.672614163776107, 6.92408866503931, -27.63943185331239));
-    }
-  },
-  {
-    name: lightCase.name,
-    config: lightCase,
-    container: getContainer(lightCase.canvasSelector),
-    onChange: (space: TSpace): void => {
-      const hemisphere: THemisphereLightWrapper = space.services.lightService.getRegistry().findByName('hemisphere_light') as THemisphereLightWrapper;
-      const pointLight: TPointLightWrapper = space.services.lightService.getRegistry().findByName('point_light') as TPointLightWrapper;
-      const spotlight: TSpotLightWrapper = space.services.lightService.getRegistry().findByName('spot_light') as TSpotLightWrapper;
-
-      // eslint-disable-next-line functional/immutable-data
-      (hemisphere.entity as TWriteable<HemisphereLight>).color = new Color('#2121AB');
-      // eslint-disable-next-line functional/immutable-data
-      (hemisphere.entity as TWriteable<HemisphereLight>).intensity = 1.1;
-
-      pointLight.drive.position$.next(new Vector3(4, 15.5, 2.5));
-      // eslint-disable-next-line functional/immutable-data
-      (pointLight.entity as TWriteable<PointLight>).intensity = 16;
-      // eslint-disable-next-line functional/immutable-data
-      pointLight.entity.shadow.camera.far = 25;
-
-      spotlight.drive.position$.next(new Vector3(4, 1.5, 2.5));
-      // eslint-disable-next-line functional/immutable-data
-      (spotlight.entity as TWriteable<SpotLight>).intensity = 5;
-      // eslint-disable-next-line functional/immutable-data
-      (spotlight.entity as TWriteable<SpotLight>).angle = 28.8;
-    }
-  },
-  {
-    name: materialsCase.name,
-    config: materialsCase,
-    container: getContainer(materialsCase.canvasSelector),
-    onChange: (space: TSpace): void => {
-      // TODO debug
-      const camera: TCameraWrapper | undefined = space.services.cameraService.findActive();
-      if (isNotDefined(camera)) throw new Error(`[Showcase]: Camera is not found`);
-      console.log('XXX camera position', vector3ToXyz(camera.entity.position));
-      console.log('XXX camera rotation', eulerToXyz(camera.entity.rotation));
-      console.log('XXX implement');
-    }
-  }
-];
+const spacesData: ReadonlyArray<TSpacesData> = [spaceBasicData, spaceCustomModelsData, spaceTextData, spaceCameraData, spaceLightData, spaceMaterialsData];
 
 const spacesInMemoryData: Array<TSpacesData> = [];
 
@@ -168,10 +49,12 @@ export function start(): void {
   );
 
   //Initial space
-  loadSpace(basicCase.name);
+  // loadSpace(basicCase.name);
+  loadSpace(spacesData.find((s: TSpacesData): boolean => s.name === spaceBasicData.name)?.name);
 }
 
-function loadSpace(name: string): void {
+function loadSpace(name: string | undefined): void {
+  if (isNotDefined(name)) return;
   const spaceData: TSpacesData | undefined = spacesData.find((s: TSpacesData): boolean => s.name === name);
   if (isNotDefined(spaceData)) throw new Error(`[Showcase]: Space data is not found for space "${name}"`);
 
@@ -180,7 +63,7 @@ function loadSpace(name: string): void {
   if (isNotDefined(space)) throw new Error(`[Showcase]: Cannot create the space "${name}"`);
 
   currentSpaceName = space.name;
-  spaceData.onCreate?.(space);
+  spaceData.onCreate?.(space, subscriptions);
   space.start$.next(true);
   setContainerVisibility(name, true, spacesData);
 }
@@ -193,7 +76,7 @@ function unloadSpace(name: string | undefined, spaceRegistry: TSpaceRegistry): v
 
   const spaceData: TSpacesData | undefined = spacesData.find((s: TSpacesData): boolean => s.name === name);
   if (isNotDefined(spaceData)) throw new Error(`[Showcase]: Space data is not found for space "${name}"`);
-  spaceData.onUnload?.(space);
+  spaceData.onUnload?.(space, subscriptions);
   space.drop();
 }
 
@@ -204,6 +87,8 @@ function saveSpaceConfigInMemory(name: string | undefined, spaceRegistry: TSpace
 
   const index: number = spacesInMemoryData.findIndex((s: TSpacesData): boolean => s.name === name);
   const config: TSpaceConfig = space.serialize();
+
+  console.log('XXX1 spaceData.config', config);
 
   const spaceData: TSpacesData | undefined = spacesData.find((s: TSpacesData): boolean => s.name === name);
   if (isNotDefined(spaceData)) throw new Error(`[Showcase]: Space data is not found for space "${name}"`);
@@ -231,7 +116,7 @@ function loadSpaceConfigFromMemory(name: string | undefined): void {
   if (isNotDefined(space)) throw new Error(`[Showcase]: Cannot create the space "${name}"`);
 
   currentSpaceName = space.name;
-  spaceData.onCreate?.(space);
+  spaceData.onCreate?.(space, subscriptions);
   space.start$.next(true);
   setContainerVisibility(name, true, spacesData);
 }
@@ -261,7 +146,7 @@ export function createForm(containerId: string | undefined, isTop: boolean, isRi
     const space: TSpace | undefined = spaceRegistry.findByName(currentSpaceName);
     if (isNotDefined(space)) throw new Error(`[Showcase]: Cannot find the space "${currentSpaceName}"`);
 
-    spaceData.onChange?.(space);
+    spaceData.onChange?.(space, subscriptions);
   });
   addBtn(`Save`, containerId, (): void => saveSpaceConfigInMemory(currentSpaceName, spaceRegistry));
   addBtn(`Drop`, containerId, (): void => unloadSpace(currentSpaceName, spaceRegistry));

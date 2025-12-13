@@ -3,14 +3,7 @@ import { Euler, Vector3 } from 'three';
 import type { TSpace, TSpaceConfig, TText2dRegistry, TText2dWrapper, TText3dRegistry, TText3dTextureRegistry, TText3dTextureWrapper, TText3dWrapper } from '@/Engine';
 import { createDomElement, isNotDefined, TextType } from '@/Engine';
 
-export type TSpacesData = Readonly<{
-  name: string;
-  config: TSpaceConfig;
-  container: string;
-  onCreate?: (space: TSpace) => void;
-  onChange?: (space: TSpace) => void;
-  onUnload?: (space: TSpace) => void;
-}>;
+import type { TSpacesData } from './ShowcaseTypes';
 
 export function createContainersDivs(spacesDataList: ReadonlyArray<TSpacesData>): void {
   spacesDataList.forEach(({ container }): HTMLElement => createDomElement('div', undefined, ['container'], container));
@@ -52,3 +45,5 @@ export function changeText(name: string, registry: TText2dRegistry | TText3dRegi
   text.drive.position$.next(new Vector3(position.x * -1, position.y * -1, position.z * -1));
   text.drive.rotation$.next(text.drive.rotation$.value.clone().setFromEuler(new Euler(0, 0, Math.PI / 4)));
 }
+
+export const getContainer = (canvasSelector: string): string => canvasSelector.split('#')[1].trim();
