@@ -56,7 +56,6 @@ function initCameraRotation(space: TSpace, model3d: TModel3d | undefined, mouseS
       })
     )
     .subscribe(([coords, { width, height }]: [Vector2Like, DOMRect]): void => {
-      if (isNotDefined(camera)) return;
       const xRatio: number = coords.x / width - 0.5;
       const yRatio: number = -(coords.y / height - 0.5);
 

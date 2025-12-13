@@ -83,8 +83,6 @@ export function showcase(space: TSpace): void {
   const moverService: TMoverService = MoverService(transformLoop, defaultMoverServiceConfig);
 
   function follow(): void {
-    if (isNotDefined(redText) || isNotDefined(blueText) || isNotDefined(greenText)) throw new Error('Texts are not defined');
-    if (isNotDefined(redActor) || isNotDefined(blueActor) || isNotDefined(greenActor)) throw new Error('Actors are not defined');
     followersCb = { ...followersCb, red: moverService.followTarget(redText, redActor, { x: 1 }) };
     followersCb = { ...followersCb, blue: moverService.followTarget(blueText, blueActor, { x: 1 }) };
     followersCb = { ...followersCb, green: moverService.followTarget(greenText, greenActor, { x: 1 }) };

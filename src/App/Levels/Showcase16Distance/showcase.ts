@@ -2,7 +2,7 @@ import GUI from 'lil-gui';
 import { Vector3 } from 'three';
 
 import { addGizmo } from '@/App/Levels/Utils';
-import type { TActor, TActorRegistry, TCameraRegistry, TMetersPerSecond, TMilliseconds, TReadonlyVector3, TSpace, TSpaceConfig } from '@/Engine';
+import type { TActor, TActorRegistry, TMetersPerSecond, TMilliseconds, TReadonlyVector3, TSpace, TSpaceConfig } from '@/Engine';
 import { asRecord, isNotDefined, KeysExtra, meters, metersPerSecond, mpsSpeed, spaceService, TransformAgent } from '@/Engine';
 
 import spaceConfigJson from './space.json';
@@ -27,12 +27,9 @@ export function showcase(space: TSpace): void {
   const mode = { isKinematic: false };
   folder.add(mode, 'isKinematic').name('Actor is in kinematic mode');
 
-  const { actorService, cameraService } = space.services;
+  const { actorService } = space.services;
   const { transformLoop } = space.loops;
   const actorRegistry: TActorRegistry = actorService.getRegistry();
-  const cameraRegistry: TCameraRegistry = cameraService.getRegistry();
-  if (isNotDefined(actorRegistry)) throw new Error('Actor registry is not defined');
-  if (isNotDefined(cameraRegistry)) throw new Error('Camera registry is not defined');
   const { getByName } = actorRegistry;
   const { onKey } = keyboardService;
 
