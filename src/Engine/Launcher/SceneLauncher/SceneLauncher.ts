@@ -10,12 +10,13 @@ import { SceneFactory } from '@Engine/Domains/Scene';
 import type { ILaunchedScene, ISceneLauncher } from '@Engine/Launcher';
 import { isNotDefined, isValidSceneConfig } from '@Engine/Utils';
 import { BehaviorSubject } from 'rxjs';
+
 import type { IActorConfig, IActorFactory, IActorParams, IActorRegistry, IActorWrapper } from '@/Engine/Domains/Actor';
 import { ActorFactory, ActorRegistry } from '@/Engine/Domains/Actor';
-import type { ILightConfig, ILightFactory, ILightParams, ILightRegistry, ILightWrapper } from '@/Engine/Domains/Light';
-import { LightFactory, LightRegistry } from '@/Engine/Domains/Light';
 import type { IControlsConfig, IControlsFactory, IControlsParams, IControlsRegistry, IControlsWrapper } from '@/Engine/Domains/Controls';
 import { ControlsFactory, ControlsRegistry } from '@/Engine/Domains/Controls';
+import type { ILightConfig, ILightFactory, ILightParams, ILightRegistry, ILightWrapper } from '@/Engine/Domains/Light';
+import { LightFactory, LightRegistry } from '@/Engine/Domains/Light';
 
 // TODO (S.Panfilov) CWP All factories (especially wrapper's) don't care about entity registration, but they should
 // Registries should be created automatically and dynamically added to pools
