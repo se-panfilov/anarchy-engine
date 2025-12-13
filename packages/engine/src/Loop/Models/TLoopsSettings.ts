@@ -1,6 +1,6 @@
-export type TSpaceLoopsOptions = TSpaceLoopsOptionLoopSteps & TSpaceLoopsOptionLoopMode;
+export type TLoopsSettings = TLoopsSettingsSteps & TLoopsSettingsMode;
 
-export type TSpaceLoopsOptionLoopSteps = Readonly<{
+export type TLoopsSettingsSteps = Readonly<{
   audioLoopStep: number;
   collisionsLoopStep: number;
   controlsLoopStep: number;
@@ -14,7 +14,7 @@ export type TSpaceLoopsOptionLoopSteps = Readonly<{
   transformLoopStep: number;
 }>;
 
-export type TSpaceLoopsOptionLoopMode = Readonly<{
+export type TLoopsSettingsMode = Readonly<{
   isAudioParallel?: boolean;
   isCollisionsParallel?: boolean;
   isControlsParallel?: boolean;

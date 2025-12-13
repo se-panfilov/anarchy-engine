@@ -10,7 +10,6 @@ export type * from './TSpaceFactory';
 export type * from './TSpaceFactoryDependencies';
 export type * from './TSpaceHooks';
 export type * from './TSpaceLoops';
-export type * from './TSpaceLoopsOptions';
 export type * from './TSpaceOptions';
 export type * from './TSpaceParams';
 export type * from './TSpaceParamsEntities';

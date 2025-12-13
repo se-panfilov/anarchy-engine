@@ -1,7 +1,8 @@
+import type { TLoopsSettings } from '@Engine/Loop/Models';
+
 import type { TSpaceDebugFlags } from './TSpaceDebugFlags';
-import type { TSpaceLoopsOptions } from './TSpaceLoopsOptions';
 
 export type TSpaceOptions = Readonly<{
-  loops: TSpaceLoopsOptions;
+  loopsSettings: TLoopsSettings;
   debugFlags: TSpaceDebugFlags;
 }>;
