@@ -87,7 +87,7 @@ export function showcase(canvas: TAppCanvas): TShowcase {
     actorService.getScene().entity.add(line);
 
     loopService.tick$.subscribe(() => {
-      // cameraFollowingActor(cameraW, heroW);
+      cameraFollowingActor(cameraW, heroW);
 
       if (isDefined(heroADC.coords)) {
         const heroCoords: TWithCoordsXYZ = heroW.getPosition().getCoords();
@@ -197,6 +197,7 @@ function createLine(): Line2 {
 
 function cameraFollowingActor(cameraW: TCameraWrapper, actorW: TActorWrapperAsync): void {
   const actorCoords: TWithCoordsXYZ = actorW.getPosition().getCoords();
+  const cameraCoords: TWithCoordsXYZ = cameraW.getPosition().getCoords();
   cameraW.setPosition(Vector3Wrapper({ x: actorCoords.x, y: actorCoords.y + 10, z: actorCoords.z + 10 }));
   cameraW.lookAt(Vector3Wrapper(actorCoords));
 }

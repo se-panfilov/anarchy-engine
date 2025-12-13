@@ -91,15 +91,7 @@
       "tags": []
     }
   ],
-  "controls": [
-    {
-      "type": "OrbitControls",
-      "cameraName": "main",
-      "enableDamping": true,
-      "tags": [],
-      "isActive": true
-    }
-  ],
+  "controls": [],
   "envMaps": [],
   "particles": [],
   "fogs": [],
