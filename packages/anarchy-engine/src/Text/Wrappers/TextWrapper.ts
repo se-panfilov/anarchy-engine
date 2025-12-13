@@ -10,9 +10,9 @@ import { applyHtmlElementParams, getWrapperTypeByTextType } from '@Anarchy/Engin
 import type { TDriveToTargetConnector } from '@Anarchy/Engine/TransformDrive';
 import { DriveToTargetConnector } from '@Anarchy/Engine/TransformDrive';
 import { applyCenter, applyObject3dParams } from '@Anarchy/Engine/Utils';
+import { isDefined, isNotDefined } from '@Anarchy/Shared/Utils';
 import type { Subscription } from 'rxjs';
 import { distinctUntilChanged } from 'rxjs';
-import { isDefined, isNotDefined } from '@Anarchy/Shared/Utils';
 import { CSS2DObject } from 'three/examples/jsm/renderers/CSS2DRenderer';
 import { CSS3DObject } from 'three/examples/jsm/renderers/CSS3DRenderer';
 
