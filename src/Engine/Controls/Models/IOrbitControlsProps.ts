@@ -1,4 +1,4 @@
-import type { IActive } from '@/Engine';
+import type { IActive } from '@/Engine/Mixins';
 import type { IVector3 } from '@/Engine/Vector';
 
 export type IOrbitControlsProps = Readonly<{

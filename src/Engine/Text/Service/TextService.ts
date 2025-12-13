@@ -14,8 +14,7 @@ export function TextService(factory: ITextFactory, text2dRegistry: IText2dRegist
   });
 
   const create = (params: ITextParams): ITextAnyWrapper => factory.create(params);
-  const createFromConfig = (texts: ReadonlyArray<ITextConfig>): void =>
-    texts.forEach((text: ITextConfig): ITextAnyWrapper => factory.create(factory.configToParams({ ...text, tags: [...text.tags, CommonTag.FromConfig] })));
+  const createFromConfig = (texts: ReadonlyArray<ITextConfig>): void => texts.forEach((text: ITextConfig): ITextAnyWrapper => factory.create(factory.configToParams(text)));
 
   const destroyable: IDestroyable = destroyableMixin();
   destroyable.destroyed$.subscribe(() => {
