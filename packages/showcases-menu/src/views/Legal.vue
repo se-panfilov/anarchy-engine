@@ -22,6 +22,8 @@ import { onMounted } from 'vue';
 // Add possibility to menu to receive that lazy-loaded content
 // Render .md files in a scrollable view
 
+// TODO DESKTOP: LEGAL: change legal folders to /legal/{locale} (also public/legal/{locale}, assets/legal/{locale})
+
 onMounted(() => {
   eventsService.emitLoadLegalDocs({ name: AllowedLegalDocNames.EULA, locale: useSettingsStore().localization.locale.id as TShowcaseLocaleIds });
 });
