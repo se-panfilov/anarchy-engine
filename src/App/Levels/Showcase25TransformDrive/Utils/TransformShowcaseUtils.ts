@@ -28,7 +28,7 @@ import type {
   TWithPresetNamePhysicsBodyParams,
   TWithTransformDrive
 } from '@/Engine';
-import { ForwardAxis, isNotDefined, MaterialType, metersPerSecond, TransformAgent } from '@/Engine';
+import { isNotDefined, MaterialType, metersPerSecond, TransformAgent } from '@/Engine';
 import { meters } from '@/Engine/Measurements/Utils';
 
 export function createActor(
