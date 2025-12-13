@@ -1,21 +1,7 @@
 {
   "canvasSelector": "#particles_container #app",
   "entities": {
-    "actors": [
-      {
-        "model3dSource": "sphere_model",
-        "name": "sphere_actor",
-        "position": {
-          "x": 0,
-          "y": 2,
-          "z": 0
-        },
-        "spatial": {
-          "grid": "main_grid",
-          "isAutoUpdate": true
-        }
-      }
-    ],
+    "actors": [],
     "audio": [],
     "cameras": [
       {
@@ -92,11 +78,20 @@
         "type": "MeshStandardMaterial"
       },
       {
-        "name": "sphere_material",
+        "name": "particles_material",
         "options": {
-          "color": "#E91E63"
+          "blending": "AdditiveBlending",
+          "color": "#E91E63",
+          "depthWrite": false,
+          "size": 0.5,
+          "sizeAttenuation": true,
+          "transparent": true,
+          "vertexColors": false
         },
-        "type": "MeshStandardMaterial"
+        "textures": {
+          "alphaMap": "particles_alpha_map_texture"
+        },
+        "type": "PointsMaterial"
       }
     ],
     "models3d": [
@@ -122,18 +117,19 @@
           "y": 0,
           "z": 0
         }
-      },
+      }
+    ],
+    "particles": [
       {
-        "castShadow": true,
-        "material": "sphere_material",
-        "model3dSource": "sphere",
-        "name": "sphere_model",
-        "options": {
-          "radius": 0.7
+        "material": "particles_material",
+        "name": "bubbles",
+        "position": {
+          "x": 0,
+          "y": 2,
+          "z": 0
         }
       }
     ],
-    "particles": [],
     "physics": {},
     "renderers": [
       {
@@ -161,7 +157,12 @@
     "audio": [],
     "envMaps": [],
     "models3d": [],
-    "textures": []
+    "textures": [
+      {
+        "name": "particles_alpha_map_texture",
+        "url": "/Showcase/particles/2.png"
+      }
+    ]
   },
   "scenes": [
     {
