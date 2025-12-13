@@ -76,7 +76,12 @@ export function addDropdown(
   }
 
   const select: HTMLSelectElement = document.createElement('select');
-  select.addEventListener('change', cb);
+
+  select.addEventListener('change', () => {
+    const selectedValue: string = (select as HTMLSelectElement).value;
+    cb(selectedValue);
+  });
+
   options.forEach((option: string): void => {
     const opt: HTMLOptionElement = document.createElement('option');
     // eslint-disable-next-line functional/immutable-data
