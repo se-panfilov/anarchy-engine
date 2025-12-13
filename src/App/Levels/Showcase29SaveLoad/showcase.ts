@@ -48,7 +48,7 @@ const spacesData: ReadonlyArray<TSpacesData> = [
   spaceTransformDriveData
 ];
 
-const initialSpaceDataName: string = spaceBasicData.name;
+const initialSpaceDataName: string = spaceTransformDriveData.name;
 
 const spacesInMemoryData: Array<TSpacesData> = [];
 
