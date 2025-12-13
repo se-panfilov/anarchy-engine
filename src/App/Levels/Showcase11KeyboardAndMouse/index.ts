@@ -63,7 +63,9 @@ export function showcase(canvas: IAppCanvas): IShowcase {
     if (isNotDefined(actorMkeyForward)) throw new Error('Actor mkey Forward is not defined');
     if (isNotDefined(actorMkeyExtra)) throw new Error('Actor mkey Extra is not defined');
 
-    onKey(KeyCode.W).pressing$.subscribe((): void => void actorKeyboard.addZ(-0.3));
+    // TODO (S.Panfilov) CWP We need a speed service and to set units (1 unit = 1 meter)
+
+    onKey(KeyCode.W).pressing$.subscribe(({ delta }): void => void actorKeyboard.addZ(-10 * delta.delta));
     onKey(KeyCode.W).pressed$.subscribe((): void => void actorKeyW.addY(-0.2));
     onKey(KeyCode.W).released$.subscribe((): void => void actorKeyW.addY(0.2));
 
