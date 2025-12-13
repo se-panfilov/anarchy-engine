@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import type { TWriteable } from '@Engine';
 import Checkbox from '@Menu/components/Checkbox.vue';
 import Dropdown from '@Menu/components/Dropdown.vue';
 import Navigation from '@Menu/components/Navigation.vue';
@@ -8,6 +7,7 @@ import View from '@Menu/components/View.vue';
 import ViewActions from '@Menu/components/ViewActions.vue';
 import ViewForm from '@Menu/components/ViewForm.vue';
 import { useSettingsStore } from '@Menu/stores/SettingsStore';
+import type { TWriteable } from '@Shared/Utils';
 import type { TDropdownOption, TGraphicsSettings } from '@ShowcasesShared';
 import { computed, reactive } from 'vue';
 
