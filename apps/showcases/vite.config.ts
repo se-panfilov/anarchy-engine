@@ -10,7 +10,12 @@ import wasm from 'vite-plugin-wasm';
 export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
   const root: string = process.cwd();
   const env: ImportMetaEnv = loadEnv(mode, root) as ImportMetaEnv;
-  const { VITE_BUILD_COMPRESSION } = env;
+  const { VITE_BUILD_COMPRESSION, VITE_BUILD_MINIFIED, VITE_BUILD_SOURCEMAPS } = env;
+
+  const toBool = (v: string): boolean => v === 'true';
+  const buildCompression: boolean = toBool(VITE_BUILD_COMPRESSION as any);
+  const minify: boolean = toBool(VITE_BUILD_MINIFIED as any);
+  const sourcemap: boolean = toBool(VITE_BUILD_SOURCEMAPS as any);
 
   return {
     base: './',
@@ -28,7 +33,7 @@ export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
         exclude: ['**/*.spec.ts', '**/*.test.ts', 'vite.config.ts']
       }),
       //Compression is only for web builds (desktop and mobile cannot unpack .br/.gz files)
-      ...(VITE_BUILD_COMPRESSION
+      ...(buildCompression
         ? [
             compression({
               ext: '.gz',
@@ -53,7 +58,8 @@ export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
     build: {
       assetsInlineLimit: 0, // Do not inline assets and wasm
       target: 'esnext',
-      sourcemap: true,
+      sourcemap,
+      minify,
       rollupOptions: {
         // external: (id: string): boolean => id.endsWith('.spec.ts') || id.endsWith('.test.ts'),
         //  external: ['three', 'rxjs', '@dimforge/rapier3d'], — If you want to exclude some dependencies from the bundle

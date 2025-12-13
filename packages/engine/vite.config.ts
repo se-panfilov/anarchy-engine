@@ -13,7 +13,6 @@ export default defineConfig({
       ...sharedAliases
     }
   },
-  // minify: 'terser', //could have better compression (make sure wasm is not broken)
   plugins: [
     wasm(),
     dts({
@@ -38,6 +37,7 @@ export default defineConfig({
     plugins: [wasm()]
   },
   build: {
+    minify: true, //could have better compression (make sure wasm is not broken)
     assetsInlineLimit: 0, // Do not inline assets and wasm
     lib: {
       entry: path.resolve(__dirname, 'src/index.ts'),
