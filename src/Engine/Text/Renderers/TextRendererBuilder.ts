@@ -35,7 +35,7 @@ export function getTextRenderer<T extends CSS2DRenderer | CSS3DRenderer>(
   const updateSize = ({ width, height }: TScreenSizeValues): void => renderer.setSize(width, height);
 
   //init with the values which came before the start of the subscription
-  updateSize(screenSizeWatcher.latest$.value);
+  updateSize(screenSizeWatcher.getValue());
 
   const screenSize$: Subscription = screenSizeWatcher.value$
     .pipe(distinctUntilChanged((prev: TScreenSizeValues, curr: TScreenSizeValues): boolean => prev.width === curr.width && prev.height === curr.height))

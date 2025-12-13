@@ -1,8 +1,9 @@
-import type { BehaviorSubject } from 'rxjs';
+import type { Observable } from 'rxjs';
 
-import type { TAbstractProtectedWatcher } from './TAbstractProtectedWatcher';
+import type { TAbstractWatcher } from './TAbstractWatcher';
 
-export type TAbstractProtectedWatcherWithState<T> = TAbstractProtectedWatcher<T> &
+export type TAbstractProtectedWatcherWithState<T> = Omit<TAbstractWatcher<T>, 'value$'> &
   Readonly<{
-    latest$: BehaviorSubject<T>;
+    value$: Observable<T>;
+    getValue: () => T;
   }>;

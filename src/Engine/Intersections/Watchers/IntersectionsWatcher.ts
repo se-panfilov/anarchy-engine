@@ -5,6 +5,7 @@ import { Raycaster, Vector2 } from 'three';
 
 import type { TAbstractWatcher } from '@/Engine/Abstract';
 import { AbstractWatcher, WatcherType } from '@/Engine/Abstract';
+import { ProtectedWatcher } from '@/Engine/Abstract/Watchers/ProtectedWatcher';
 import type { TActor } from '@/Engine/Actor';
 import type { TCameraWrapper } from '@/Engine/Camera';
 import type { TIntersectionEvent, TIntersectionsWatcher, TIntersectionsWatcherParams } from '@/Engine/Intersections/Models';
@@ -15,7 +16,7 @@ import type { TWriteable } from '@/Engine/Utils';
 import { isDefined, isEqualOrSimilarByXyCoords, isNotDefined } from '@/Engine/Utils';
 
 export function IntersectionsWatcher({ position$, isAutoStart, tags, name, performance, ...rest }: TIntersectionsWatcherParams): TIntersectionsWatcher {
-  const abstractWatcher: TAbstractWatcher<TIntersectionEvent> = AbstractWatcher(WatcherType.IntersectionWatcher, name, tags);
+  const abstractWatcher: TAbstractWatcher<TIntersectionEvent> = AbstractWatcher<TIntersectionEvent>(WatcherType.IntersectionWatcher, name, tags);
   let raycaster: Readonly<Raycaster> | undefined = new Raycaster();
   let actors: ReadonlyArray<TActor> = [];
   let camera: Readonly<TCameraWrapper> | undefined;
@@ -82,8 +83,7 @@ export function IntersectionsWatcher({ position$, isAutoStart, tags, name, perfo
   });
 
   const result: TWriteable<TIntersectionsWatcher> = {
-    ...abstractWatcher,
-    value$: abstractWatcher.value$.asObservable(),
+    ...ProtectedWatcher(abstractWatcher),
     addActors,
     addActor,
     getActors,

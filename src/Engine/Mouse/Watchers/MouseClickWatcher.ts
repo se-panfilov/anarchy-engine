@@ -1,5 +1,6 @@
 import type { TAbstractWatcher } from '@/Engine/Abstract';
 import { AbstractWatcher, WatcherType } from '@/Engine/Abstract';
+import { ProtectedWatcher } from '@/Engine/Abstract/Watchers/ProtectedWatcher';
 import { MouseEventType } from '@/Engine/Mouse/Constants';
 import type { TMouseClickWatcher, TMouseClickWatcherParams, TMouseWatcherEvent } from '@/Engine/Mouse/Models';
 import { getMouseWatcherEvent } from '@/Engine/Mouse/Utils';
@@ -30,8 +31,7 @@ export function MouseClickWatcher({ container, tags = [] }: TMouseClickWatcherPa
   }
 
   const result: TMouseClickWatcher = {
-    ...abstractWatcher,
-    value$: abstractWatcher.value$.asObservable(),
+    ...ProtectedWatcher(abstractWatcher),
     key: containerIdTag,
     start,
     stop

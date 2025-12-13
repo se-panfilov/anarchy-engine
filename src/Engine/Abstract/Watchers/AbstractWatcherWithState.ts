@@ -6,23 +6,25 @@ import type { TAbstractWatcher, TAbstractWatcherWithState } from '@/Engine/Abstr
 
 import { AbstractWatcher } from './AbstractWatcher';
 
-export function AbstractWatcherWithState<T>(type: WatcherType | string, initialValue: T, tags: ReadonlyArray<string> = []): TAbstractWatcherWithState<T> {
-  const abstractWatcher: TAbstractWatcher<T> = AbstractWatcher(type, undefined, tags);
-  // TODO Do we really need latest$?
-  const latest$: BehaviorSubject<T> = new BehaviorSubject<T>(initialValue);
+export function AbstractWatcherWithState<T>(type: WatcherType | string, name: string, initialValue: T, tags: ReadonlyArray<string> = []): TAbstractWatcherWithState<T> {
+  const abstractWatcher: Omit<TAbstractWatcher<T>, 'value$'> & { value$: BehaviorSubject<T> } = AbstractWatcher(type, name, tags) as Omit<TAbstractWatcher<T>, 'value$'> & {
+    value$: BehaviorSubject<T>;
+  };
 
-  abstractWatcher.value$.subscribe(latest$);
+  abstractWatcher.value$.complete();
+  abstractWatcher.value$.unsubscribe();
+  // eslint-disable-next-line functional/immutable-data
+  abstractWatcher.value$ = new BehaviorSubject<T>(initialValue);
 
-  const abstractWatcherSubscription$: Subscription = abstractWatcher.destroy$.subscribe((): void => {
-    latest$.complete();
-    latest$.unsubscribe();
+  const destroySub$: Subscription = abstractWatcher.destroy$.subscribe((): void => {
+    destroySub$.unsubscribe();
+
     abstractWatcher.value$.complete();
     abstractWatcher.value$.unsubscribe();
-    abstractWatcherSubscription$.unsubscribe();
   });
 
   return {
     ...abstractWatcher,
-    latest$
+    getValue: (): T => abstractWatcher.value$.value
   };
 }

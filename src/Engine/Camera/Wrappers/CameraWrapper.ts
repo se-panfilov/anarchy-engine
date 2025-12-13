@@ -15,11 +15,10 @@ import { getAccessors } from './Accessors';
 
 export function CameraWrapper(params: TCameraParams): TCameraWrapper {
   const { fov = 45, near = 1, far = 10000, lookAt, tags }: TCameraParams = params;
-  const aspectRatio: number = ambientContext.screenSizeWatcher.latest$.value.ratio || 0;
-  const entity: TWriteable<TPerspectiveCamera> = new PerspectiveCamera(fov, aspectRatio, near, far);
+  const { width, height, ratio } = ambientContext.screenSizeWatcher.getValue() ?? { width: 0, height: 0, ratio: 1 };
+  const entity: TWriteable<TPerspectiveCamera> = new PerspectiveCamera(fov, ratio, near, far);
 
   const accessors: TCameraAccessors = getAccessors(entity);
-  const { width, height } = ambientContext.screenSizeWatcher.latest$.value;
   accessors.setAspect(width / height);
 
   const wrapper = AbstractWrapper(entity, WrapperType.Camera, params);

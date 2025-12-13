@@ -50,7 +50,7 @@ export function RendererWrapper(params: TRendererParams, screenSizeWatcher: Read
   }
 
   //init with the values which came before the start of the subscription
-  setValues(entity, screenSizeWatcher.latest$.value);
+  setValues(entity, screenSizeWatcher.getValue() ?? { width: 0, height: 0, ratio: 1 });
 
   // TODO 9.2.0 ACTIVE: This could be done only in active$ renderer and applied in onActive hook
   const screenSize$: Subscription = screenSizeWatcher.value$
