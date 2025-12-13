@@ -3,9 +3,9 @@ import type { Observable } from 'rxjs';
 import type { TDestroyable } from '@/Engine/Mixins';
 
 export type TPhysicsLoopService = Readonly<{
-  start: () => void;
-  stop: () => void;
-  tick$: Observable<number>;
-  isLooping: () => boolean;
+  tick$: Observable<void>;
+  step: () => void;
+  isAutoUpdate: () => boolean;
+  shouldAutoUpdate: (value: boolean) => void;
 }> &
   TDestroyable;

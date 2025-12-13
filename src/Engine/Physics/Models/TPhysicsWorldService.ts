@@ -15,7 +15,4 @@ export type TPhysicsWorldService = TDestroyable &
     getDebugRenderer: (loopService: TLoopService) => TPhysicsDebugRenderer;
     setGravity: (vector: TVector3Wrapper) => void;
     getWorld: () => World | undefined;
-    step: () => void;
-    isAutoUpdate: () => boolean;
-    shouldAutoUpdate: (value: boolean) => void;
   }>;

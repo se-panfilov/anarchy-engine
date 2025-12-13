@@ -12,7 +12,6 @@ import type { TVector3Wrapper } from '@/Engine/Vector';
 
 export function PhysicsWorldService(scene: TSceneWrapper): TPhysicsWorldService {
   let world: World | undefined;
-  let _isAutoUpdate: boolean = true;
 
   function createWorld({
     gravity,
@@ -60,11 +59,6 @@ export function PhysicsWorldService(scene: TSceneWrapper): TPhysicsWorldService 
     world.gravity = vector.getCoords();
   }
 
-  function step(): void {
-    if (isNotDefined(world)) throw new Error('Cannot step: world is not defined');
-    world.step();
-  }
-
   const destroyable: TDestroyable = destroyableMixin();
   destroyable.destroyed$.subscribe(() => {
     world?.free();
@@ -76,9 +70,6 @@ export function PhysicsWorldService(scene: TSceneWrapper): TPhysicsWorldService 
     getWorld: (): World | undefined => world,
     setGravity,
     getScene: (): TSceneWrapper => scene,
-    step,
-    isAutoUpdate: (): boolean => _isAutoUpdate,
-    shouldAutoUpdate: (value: boolean): void => void (_isAutoUpdate = value),
     ...destroyable
   };
 }

@@ -1,6 +1,6 @@
 import type { TCameraWrapper } from '@/Engine/Camera';
 import type { TControlsRegistry, TOrbitControlsWrapper } from '@/Engine/Controls';
-import type { TPhysicsWorldService } from '@/Engine/Physics';
+import type { TPhysicsLoopService } from '@/Engine/Physics';
 import type { TRendererWrapper } from '@/Engine/Renderer';
 import type { TSceneWrapper } from '@/Engine/Scene';
 import type { TText2dRegistry, TText2dRenderer, TText3dRegistry, TText3dRenderer } from '@/Engine/Text';
@@ -16,16 +16,16 @@ export function spaceLoop(
   text2dRenderer: TText2dRenderer,
   text3dRenderer: TText3dRenderer,
   controlsRegistry: TControlsRegistry,
-  physicsWorldService: TPhysicsWorldService
+  physicsLoopService: TPhysicsLoopService
 ): void {
-  if (isDefined(physicsWorldService.getWorld()) && physicsWorldService.isAutoUpdate()) physicsWorldService.step();
-
   if (isDefined(activeCamera)) {
     renderer.entity.render(activeScene.entity, activeCamera.entity);
     // TODO (S.Panfilov) update these text renderers only when there are any text (or maybe only when it's changed)
     if (!text2dRegistry?.isEmpty()) text2dRenderer?.renderer.render(activeScene.entity, activeCamera.entity);
     if (!text3dRegistry?.isEmpty()) text3dRenderer?.renderer.render(activeScene.entity, activeCamera.entity);
   }
+
+  if (physicsLoopService.isAutoUpdate()) physicsLoopService.step();
 
   // just for control's damping
   controlsRegistry.getAll().forEach((controls: TOrbitControlsWrapper): void => {

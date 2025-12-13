@@ -1,12 +1,14 @@
+import type { World } from '@dimforge/rapier3d';
 import { Subject } from 'rxjs';
 
 import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
-import type { TPhysicsLoopService } from '@/Engine/Physics/Models';
+import type { TPhysicsLoopService, TPhysicsWorldService } from '@/Engine/Physics/Models';
+import { isNotDefined } from '@/Engine/Utils';
 
-export function PhysicsLoopService(): TPhysicsLoopService {
-  const tick$: Subject<number> = new Subject<number>();
-  const state: { isLooping: boolean } = { isLooping: false };
+export function PhysicsLoopService(physicsWorldService: TPhysicsWorldService): TPhysicsLoopService {
+  let _isAutoUpdate: boolean = true;
+  const tick$: Subject<void> = new Subject<void>();
 
   const destroyable: TDestroyable = destroyableMixin();
   destroyable.destroyed$.subscribe((): void => {
@@ -14,17 +16,15 @@ export function PhysicsLoopService(): TPhysicsLoopService {
   });
 
   return {
-    start: (): void => {
-      // eslint-disable-next-line functional/immutable-data
-      state.isLooping = true;
-      // requestAnimationFrame(loopFn);
-    },
-    stop: (): void => {
-      // eslint-disable-next-line functional/immutable-data
-      state.isLooping = false;
+    step: (): void => {
+      const world: World | undefined = physicsWorldService.getWorld();
+      if (isNotDefined(world)) return;
+      world.step();
+      tick$.next();
     },
     tick$: tick$.asObservable(),
-    isLooping: (): boolean => state.isLooping,
+    isAutoUpdate: (): boolean => _isAutoUpdate,
+    shouldAutoUpdate: (value: boolean): void => void (_isAutoUpdate = value),
     ...destroyable
   };
 }

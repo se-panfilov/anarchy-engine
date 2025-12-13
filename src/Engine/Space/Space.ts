@@ -1,3 +1,5 @@
+import type { World } from '@dimforge/rapier3d';
+
 import type { TAppCanvas } from '@/Engine/App';
 import { ambientContext } from '@/Engine/Context';
 import type { TAddedTexturePack } from '@/Engine/EnvMap';
@@ -49,14 +51,15 @@ export function buildSpaceFromConfig(canvas: TAppCanvas, config: TSpaceConfig): 
     lightService,
     particlesService,
     physicsWorldService,
+    physicsLoopService,
     physicsPresetService,
     rendererService,
     textService
   } = services;
 
   if (isDefined(physics.global)) {
-    physicsWorldService.createWorld(physics.global);
-    physicsWorldService.shouldAutoUpdate(physics.isAutoUpdate ?? true);
+    const world: World = physicsWorldService.createWorld(physics.global);
+    physicsLoopService.shouldAutoUpdate((isDefined(world) && physics.isAutoUpdate) ?? true);
   }
   if (isDefined(physics.presets)) physicsPresetService.addPresetsFromConfig(physics.presets);
 

@@ -36,7 +36,7 @@ export function initEntitiesServices(scene: TSceneWrapper, canvas: TAppCanvas): 
   const physicsPresetService: TPhysicsPresetsService = PhysicsPresetsService(PhysicsPresetRegistry());
   const physicsWorldService: TPhysicsWorldService = PhysicsWorldService(scene);
   const physicsBodyService: TPhysicsBodyService = PhysicsBodyService(PhysicsBodyFactory(), PhysicsBodyRegistry(), physicsPresetService, physicsWorldService);
-  const physicsLoopService: TPhysicsLoopService = PhysicsLoopService();
+  const physicsLoopService: TPhysicsLoopService = PhysicsLoopService(physicsWorldService);
   const loopService: TLoopService = LoopService();
 
   return {
