@@ -31,14 +31,6 @@ export function Audio3dWrapper(params: TAudio3dParams, { audioLoop }: TAudioWrap
   const loop$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(params.loop ?? false);
   const volume$: BehaviorSubject<number> = new BehaviorSubject<number>(volume ?? 1);
 
-  // TODO debug
-  // setTimeout((): void => {
-  //   // entity.play();
-  //   // entity.setVolume(1);
-  //   console.log('XXX launched', entity.isPlaying);
-  //   // console.log('XXX launched', params.listener);
-  // }, 2000);
-
   const updatePriority: LoopUpdatePriority = performance?.updatePriority ?? LoopUpdatePriority.LOW;
   // TODO 11.0.0: maybe the default threshold should be higher?
   const noiseThreshold: TMeters = performance?.noiseThreshold ?? meters(0.000001);
