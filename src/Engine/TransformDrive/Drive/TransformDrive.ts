@@ -90,7 +90,6 @@ export function TransformDrive<T extends Partial<Record<TransformAgent, TAbstrac
 
   // TODO 8.0.0. MODELS: Make sure we have no performance issue here, cause "filter" might be really highloaded
   // Update values of the active agent when drive.position$.next() is called from an external code
-  // TODO CWP: Looks like "physics agent" is doesn't work like this. Have to fix. Maybe disable->setPosition->enable?
   positionRep$.pipe(filter((value: Vector3): boolean => value !== activeAgent$.value.position$.value)).subscribe((value: Vector3): void => activeAgent$.value.position$.next(value));
   rotationRep$.pipe(filter((value: Quaternion): boolean => value !== activeAgent$.value.rotation$.value)).subscribe((value: Quaternion): void => activeAgent$.value.rotation$.next(value));
   scaleRep$.pipe(filter((value: Vector3): boolean => value !== activeAgent$.value.scale$.value)).subscribe((value: Vector3): void => activeAgent$.value.scale$.next(value));
