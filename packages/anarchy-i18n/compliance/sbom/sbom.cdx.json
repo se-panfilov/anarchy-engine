@@ -2,10 +2,10 @@
   "$schema": "http://cyclonedx.org/schema/bom-1.5.schema.json",
   "bomFormat": "CycloneDX",
   "specVersion": "1.5",
-  "serialNumber": "urn:uuid:064ca04c-864f-4972-80de-3e3f73d4bd74",
+  "serialNumber": "urn:uuid:0127cc5e-152d-4a96-807c-f84147a68f3b",
   "version": 1,
   "metadata": {
-    "timestamp": "2025-09-27T22:42:36.562Z",
+    "timestamp": "2025-09-28T01:06:28.403Z",
     "lifecycles": [
       {
         "phase": "pre-build"
@@ -45,14 +45,14 @@
   },
   "components": [
     {
-      "bom-ref": "showcases-core@2.13.0",
+      "bom-ref": "showcases-core@2.13.1",
       "type": "library",
       "name": "showcases-core",
-      "version": "2.13.0",
+      "version": "2.13.1",
       "scope": "required",
       "author": "S. Panfilov",
       "description": "Anarchy Showcases Core – an application with demos for Anarchy-Engine.",
-      "purl": "pkg:npm/showcases-core@2.13.0",
+      "purl": "pkg:npm/showcases-core@2.13.1",
       "properties": [
         {
           "name": "cdx:npm:package:private",
@@ -69,14 +69,14 @@
       ]
     },
     {
-      "bom-ref": "showcases-desktop@2.8.1",
+      "bom-ref": "showcases-desktop@2.8.2",
       "type": "library",
       "name": "showcases-desktop",
-      "version": "2.8.1",
+      "version": "2.8.2",
       "scope": "required",
       "author": "S. Panfilov",
       "description": "Anarchy Desktop Showcases  – a desktop wrapper-application for showcases-core.",
-      "purl": "pkg:npm/showcases-desktop@2.8.1",
+      "purl": "pkg:npm/showcases-desktop@2.8.2",
       "properties": [
         {
           "name": "cdx:npm:package:private",
@@ -1482,6 +1482,342 @@
       ]
     },
     {
+      "bom-ref": "@vue/compiler-core@3.5.21",
+      "type": "library",
+      "name": "@vue/compiler-core",
+      "version": "3.5.21",
+      "scope": "required",
+      "purl": "pkg:npm/%40vue/compiler-core@3.5.21",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/@vue/compiler-core/-/compiler-core-3.5.21.tgz"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "f22f8b674bdfe9980823967d5e652fac2c84ce872f593f93791d95054565cc81fa4f2bf9ec4db498f6756c24beb5b7a38148268eb121eeaff41746e26ec9009b"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ]
+    },
+    {
+      "bom-ref": "@vue/compiler-dom@3.5.21",
+      "type": "library",
+      "name": "@vue/compiler-dom",
+      "version": "3.5.21",
+      "scope": "required",
+      "purl": "pkg:npm/%40vue/compiler-dom@3.5.21",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/@vue/compiler-dom/-/compiler-dom-3.5.21.tgz"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "8cdb5bbbfbbdef08b210126527d926770eed02be55cb4023e428109a8fbaa7158d4215d90cfb11af55163cde2fdd97fcdacd87de4179d486f36788cc58080f95"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ]
+    },
+    {
+      "bom-ref": "@vue/compiler-sfc@3.5.21",
+      "type": "library",
+      "name": "@vue/compiler-sfc",
+      "version": "3.5.21",
+      "scope": "required",
+      "purl": "pkg:npm/%40vue/compiler-sfc@3.5.21",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/@vue/compiler-sfc/-/compiler-sfc-3.5.21.tgz"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "49797293a239794181776bfc21eeed17a0031c4f64091ea6044b8fc87d67519d21e97c7a9d9236f62d76b092909b36c3cabdad507321853b79d59e9b95b9134d"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ]
+    },
+    {
+      "bom-ref": "@vue/compiler-ssr@3.5.21",
+      "type": "library",
+      "name": "@vue/compiler-ssr",
+      "version": "3.5.21",
+      "scope": "required",
+      "purl": "pkg:npm/%40vue/compiler-ssr@3.5.21",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/@vue/compiler-ssr/-/compiler-ssr-3.5.21.tgz"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "bca439a251f979d15975fe59ae512048ed63d43300e2edb74d52b95d1d6e321bf09d8bd57431749c75c951b94bfc6bf39528506e3859676baf6260e501b828f7"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ]
+    },
+    {
+      "bom-ref": "@vue/reactivity@3.5.21",
+      "type": "library",
+      "name": "@vue/reactivity",
+      "version": "3.5.21",
+      "scope": "required",
+      "purl": "pkg:npm/%40vue/reactivity@3.5.21",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/@vue/reactivity/-/reactivity-3.5.21.tgz"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "dda87bb1af82c2bf6289810446df497d928fc380365256d8f116db9c7da618213c3701e4866959b7656c1f4a030373f4f17de325ddbda21043b57f936c3f40b0"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ]
+    },
+    {
+      "bom-ref": "@vue/runtime-core@3.5.21",
+      "type": "library",
+      "name": "@vue/runtime-core",
+      "version": "3.5.21",
+      "scope": "required",
+      "purl": "pkg:npm/%40vue/runtime-core@3.5.21",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/@vue/runtime-core/-/runtime-core-3.5.21.tgz"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "f83a65425452e0c5df21ff607c3d41389a64e514b21a01970ff47e72e9a17bc8dd8d472afea9710dac1095223c8422aea4196f33edde4b5b1ee715be4ae340c0"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ]
+    },
+    {
+      "bom-ref": "@vue/runtime-dom@3.5.21",
+      "type": "library",
+      "name": "@vue/runtime-dom",
+      "version": "3.5.21",
+      "scope": "required",
+      "purl": "pkg:npm/%40vue/runtime-dom@3.5.21",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/@vue/runtime-dom/-/runtime-dom-3.5.21.tgz"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "dccd8366c385c0ce6a235e70acc98d1794497b5f804628edd873374dbcc16cf4ae047390a6889d13e3daf9711a54df9ccdb1dff351134681b596dced3f67a6f3"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ]
+    },
+    {
+      "bom-ref": "@vue/server-renderer@3.5.21",
+      "type": "library",
+      "name": "@vue/server-renderer",
+      "version": "3.5.21",
+      "scope": "required",
+      "purl": "pkg:npm/%40vue/server-renderer@3.5.21",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/@vue/server-renderer/-/server-renderer-3.5.21.tgz"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "aabf00aa00f70c93c9706bcb709290a36b4073c3a75d171fc6138908f17e7dc7e7e5b046cfb54270eeedfaa11338fc6958ad66832b17bd54ff8fec5668778c58"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ]
+    },
+    {
+      "bom-ref": "@vue/shared@3.5.21",
+      "type": "library",
+      "name": "@vue/shared",
+      "version": "3.5.21",
+      "scope": "required",
+      "purl": "pkg:npm/%40vue/shared@3.5.21",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/@vue/shared/-/shared-3.5.21.tgz"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "fb6935110a6762e56ebb737b6ad5b21b7ff1a0558854966ae0ccfc5cd39d49c148d1eb444bbe5f6e7cbfa14e2529693fe7becfd739a0d22a18be91840d9dc32f"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ]
+    },
+    {
+      "bom-ref": "entities@4.5.0",
+      "type": "library",
+      "name": "entities",
+      "version": "4.5.0",
+      "scope": "required",
+      "purl": "pkg:npm/entities@4.5.0",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/entities/-/entities-4.5.0.tgz"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "5748631f87463e1f40a39a74328458e8156ab700a3873eaf2392d3f00279e47fb883dff8bdb1f1d48e787d2d17b9c94b8431c0acf40288c8c3c6368bf1f3f187"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "BSD-2-Clause"
+          }
+        }
+      ]
+    },
+    {
+      "bom-ref": "estree-walker@2.0.2",
+      "type": "library",
+      "name": "estree-walker",
+      "version": "2.0.2",
+      "scope": "required",
+      "purl": "pkg:npm/estree-walker@2.0.2",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/estree-walker/-/estree-walker-2.0.2.tgz"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "45f924fcca7f0cbec95637b7bb5f05c45ba34254cd476aba41f312301ec0bc2071f753468ff6dade409fcdad1fe9d5436f0ed89517ff9c3ae7ee942b082c90ff"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ]
+    },
+    {
+      "bom-ref": "vue@3.5.21",
+      "type": "library",
+      "name": "vue",
+      "version": "3.5.21",
+      "scope": "required",
+      "purl": "pkg:npm/vue@3.5.21",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/vue/-/vue-3.5.21.tgz"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "c717fdaee9bd2ad39dc1d464880a562fef6164431613dd051e1f324b5f8a240896621fa219657516ab8f8e83bd5541d0f95221b025cd37267949fe3ef9155904"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ]
+    },
+    {
       "bom-ref": "showcases-shared@1.4.0",
       "type": "library",
       "name": "showcases-shared",
@@ -1510,8 +1846,8 @@
     {
       "ref": "anarchy-monorepo@2.1.8",
       "dependsOn": [
-        "showcases-core@2.13.0",
-        "showcases-desktop@2.8.1",
+        "showcases-core@2.13.1",
+        "showcases-desktop@2.8.2",
         "showcases-e2e@1.0.4",
         "anarchy-engine@21.1.0",
         "anarchy-i18n@1.2.0",
@@ -1523,7 +1859,7 @@
       ]
     },
     {
-      "ref": "showcases-core@2.13.0",
+      "ref": "showcases-core@2.13.1",
       "dependsOn": [
         "anarchy-engine@21.1.0",
         "anarchy-i18n@1.2.0",
@@ -1539,8 +1875,8 @@
       ]
     },
     {
-      "ref": "showcases-desktop@2.8.1",
-      "dependsOn": ["anarchy-shared@1.4.0", "showcases-core@2.13.0", "showcases-shared@1.4.0"]
+      "ref": "showcases-desktop@2.8.2",
+      "dependsOn": ["anarchy-shared@1.4.0", "showcases-core@2.13.1", "showcases-shared@1.4.0"]
     },
     {
       "ref": "showcases-e2e@1.0.4",
@@ -1756,7 +2092,65 @@
     },
     {
       "ref": "showcases-menu@1.8.0",
-      "dependsOn": ["anarchy-engine@21.1.0", "anarchy-i18n@1.2.0", "anarchy-shared@1.4.0", "marked@16.3.0", "pinia@3.0.3", "sanitize.css@13.0.0", "showcases-i18n@1.3.0", "showcases-shared@1.4.0"]
+      "dependsOn": [
+        "anarchy-engine@21.1.0",
+        "anarchy-i18n@1.2.0",
+        "anarchy-shared@1.4.0",
+        "marked@16.3.0",
+        "pinia@3.0.3",
+        "sanitize.css@13.0.0",
+        "showcases-i18n@1.3.0",
+        "showcases-shared@1.4.0",
+        "vue@3.5.21"
+      ]
+    },
+    {
+      "ref": "@vue/compiler-core@3.5.21",
+      "dependsOn": ["@vue/shared@3.5.21", "entities@4.5.0", "estree-walker@2.0.2"]
+    },
+    {
+      "ref": "@vue/compiler-dom@3.5.21",
+      "dependsOn": ["@vue/compiler-core@3.5.21", "@vue/shared@3.5.21"]
+    },
+    {
+      "ref": "@vue/compiler-sfc@3.5.21",
+      "dependsOn": ["@vue/compiler-core@3.5.21", "@vue/compiler-dom@3.5.21", "@vue/compiler-ssr@3.5.21", "@vue/shared@3.5.21", "estree-walker@2.0.2"]
+    },
+    {
+      "ref": "@vue/compiler-ssr@3.5.21",
+      "dependsOn": ["@vue/compiler-dom@3.5.21", "@vue/shared@3.5.21"]
+    },
+    {
+      "ref": "@vue/reactivity@3.5.21",
+      "dependsOn": ["@vue/shared@3.5.21"]
+    },
+    {
+      "ref": "@vue/runtime-core@3.5.21",
+      "dependsOn": ["@vue/reactivity@3.5.21", "@vue/shared@3.5.21"]
+    },
+    {
+      "ref": "@vue/runtime-dom@3.5.21",
+      "dependsOn": ["@vue/reactivity@3.5.21", "@vue/runtime-core@3.5.21", "@vue/shared@3.5.21"]
+    },
+    {
+      "ref": "@vue/server-renderer@3.5.21",
+      "dependsOn": ["vue@3.5.21", "@vue/compiler-ssr@3.5.21", "@vue/shared@3.5.21"]
+    },
+    {
+      "ref": "@vue/shared@3.5.21",
+      "dependsOn": []
+    },
+    {
+      "ref": "entities@4.5.0",
+      "dependsOn": []
+    },
+    {
+      "ref": "estree-walker@2.0.2",
+      "dependsOn": []
+    },
+    {
+      "ref": "vue@3.5.21",
+      "dependsOn": ["@vue/compiler-dom@3.5.21", "@vue/compiler-sfc@3.5.21", "@vue/runtime-dom@3.5.21", "@vue/server-renderer@3.5.21", "@vue/shared@3.5.21"]
     },
     {
       "ref": "showcases-shared@1.4.0",
