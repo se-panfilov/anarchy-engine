@@ -1,17 +1,15 @@
 import type { AnimationMixer, Group, Mesh } from 'three';
 
 import type { TAnimationActions, TAnimationsPack } from '@/Engine/Animations/Models';
-import type { TWithName, TWithReadonlyTags } from '@/Engine/Mixins';
+import type { TWithName } from '@/Engine/Mixins';
 
-import type { TModel3dLoadOptions } from './TModel3dLoadOptions';
+import type { TModel3dParams } from './TModel3dParams';
 
-export type TModel3dPack = Readonly<{
-  url: string;
-  model: Group | Mesh;
-  animations: TAnimationsPack;
-  actions: TAnimationActions;
-  mixer: AnimationMixer;
-  options: TModel3dLoadOptions;
-}> &
-  TWithName &
-  TWithReadonlyTags;
+export type TModel3dPack = TModel3dParams &
+  Readonly<{
+    model: Group | Mesh;
+    animations: TAnimationsPack;
+    actions: TAnimationActions;
+    mixer: AnimationMixer;
+  }> &
+  TWithName;

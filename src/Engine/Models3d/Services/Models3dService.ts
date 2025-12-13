@@ -9,7 +9,6 @@ import { destroyableMixin } from '@/Engine/Mixins';
 import { model3dConfigToParams } from '@/Engine/Models3d/Adapters';
 import { Model3dType } from '@/Engine/Models3d/Constants';
 import type { TModel3dConfig, TModel3dFacade, TModel3dPack, TModel3dParams, TModels3dAsyncRegistry, TModels3dService, TPerformLoadResult } from '@/Engine/Models3d/Models';
-import { applyPosition, applyRotation, applyScale } from '@/Engine/Models3d/Services/Models3dServiceHelper';
 import { Model3dFacade } from '@/Engine/Models3d/Wrappers';
 import type { TSceneWrapper } from '@/Engine/Scene';
 import { isDefined } from '@/Engine/Utils';
@@ -42,7 +41,8 @@ export function Models3dService(registry: TModels3dAsyncRegistry, animationsServ
     return facade;
   }
 
-  function performLoad({ url, options }: TModel3dParams): Promise<TPerformLoadResult> {
+  function performLoad(params: TModel3dParams): Promise<TPerformLoadResult> {
+    const { url, options } = params;
     if ([...Object.values(Model3dType)].includes(url as Model3dType)) throw new Error(`Trying to load a primitive(e.g. cube, sphere, etc.) as an imported model: ${url}`);
 
     if (!options.isForce) {
@@ -51,7 +51,7 @@ export function Models3dService(registry: TModels3dAsyncRegistry, animationsServ
     }
 
     return models3dLoader.loadAsync(url).then((gltf: GLTF): TPerformLoadResult => {
-      return { result: Model3dFacade({ url, options, model: gltf.scene, animations: animationsService.gltfAnimationsToPack(gltf.animations) }, animationsService), isExisting: false };
+      return { result: Model3dFacade({ ...params, model: gltf.scene, animations: animationsService.gltfAnimationsToPack(gltf.animations) }, animationsService), isExisting: false };
     });
   }
 
@@ -62,12 +62,7 @@ export function Models3dService(registry: TModels3dAsyncRegistry, animationsServ
 
     model3dList.forEach((m: TModel3dParams): void => {
       const p: Promise<TModel3dFacade> = performLoad(m).then(({ result, isExisting }: TPerformLoadResult): TModel3dFacade => {
-        //adjust model before adding to scene and registries
-        const model = result.getModel();
-        if (isDefined(m.scale)) applyScale(model, m.scale);
-        if (isDefined(m.rotation)) applyRotation(model, m.rotation);
-        if (isDefined(m.position)) applyPosition(model, m.position);
-
+        // TODO why this if? (maybe add to added$ ?)
         if (!isExisting) loaded$.next({ result, isExisting });
         return result;
       });
