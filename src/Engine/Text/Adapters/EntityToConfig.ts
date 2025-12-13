@@ -1,18 +1,21 @@
+import type { Vector2 } from 'three';
+
 import { extractSerializableRegistrableFields } from '@/Engine/Mixins';
 import type { TText2dWrapper, TTextAnyWrapper, TTextConfig } from '@/Engine/Text/Models';
-import { filterOutEmptyFields, isNotDefined, kebabToCamel } from '@/Engine/Utils';
+import { filterOutEmptyFields, isNotDefined, kebabToCamel, vector2ToXy } from '@/Engine/Utils';
 
 // TODO 15-0-0: validate result
 export function textToConfig(entity: TTextAnyWrapper): TTextConfig {
   const { drive } = entity;
+
+  const center: Vector2 | undefined = (entity as TText2dWrapper).entity.center;
 
   return filterOutEmptyFields({
     text: entity.getText(),
     type: entity.type,
     cssProps: extractInlineStyles((entity as TText2dWrapper).getElement()),
     elementType: (entity as TText2dWrapper).getElement()?.tagName,
-    // TODO 15-0-0: implement
-    center: undefined,
+    center: center ? vector2ToXy(center) : undefined,
     physics: drive.physical?.serialize(),
     kinematic: drive.kinematic?.serialize(),
     receiveShadow: entity.getReceiveShadow(),

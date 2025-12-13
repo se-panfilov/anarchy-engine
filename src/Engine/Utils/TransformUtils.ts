@@ -38,6 +38,13 @@ export function vector3ToXyz(vector: Vector3Like): Readonly<{ x: number; y: numb
   };
 }
 
+export function vector2ToXy(vector: Vector2Like): Readonly<{ x: number; y: number }> {
+  return {
+    x: vector.x,
+    y: vector.y
+  };
+}
+
 export function quaternionToXyzw(quaternion: Vector4Like): Readonly<{ x: number; y: number; z: number; w: number }> {
   return {
     x: quaternion.x,
@@ -47,7 +54,12 @@ export function quaternionToXyzw(quaternion: Vector4Like): Readonly<{ x: number;
   };
 }
 
-export function eulerToXyz(euler: TEulerLike | TEulerString): Readonly<{ x: number; y: number; z: number; order?: 'XYZ' | 'XZY' | 'YXZ' | 'YZX' | 'ZXY' | 'ZYX' }> {
+export function eulerToXyz(euler: TEulerLike | TEulerString): Readonly<{
+  x: number;
+  y: number;
+  z: number;
+  order?: 'XYZ' | 'XZY' | 'YXZ' | 'YZX' | 'ZXY' | 'ZYX';
+}> {
   return {
     x: (euler as TEulerLike).x ?? (euler as TEulerString)._x,
     y: (euler as TEulerLike).y ?? (euler as TEulerString)._y,
