@@ -1,7 +1,7 @@
 import { combineLatest } from 'rxjs';
 
 import type { TShowcase } from '@/App/Levels/Models';
-import type { TActorParams, TAppCanvas, TCameraWrapper, TEngine, TMaterialWrapper, TModel3dFacade, TSpace, TSpaceConfig, TSpatialGridWrapper } from '@/Engine';
+import type { TActorParams, TAppCanvas, TCameraWrapper, TEngine, TMaterialWrapper, TModel3dFacade, TModels3dService, TSpace, TSpaceConfig, TSpatialGridWrapper } from '@/Engine';
 import { ambientContext, Engine, EulerWrapper, isNotDefined, MaterialType, PrimitiveModel3dType, spaceService, Vector3Wrapper } from '@/Engine';
 
 import spaceConfig from './showcase.json';
@@ -18,28 +18,17 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
 
     const materialW: TMaterialWrapper = materialService.create({ name: 'model_material', type: MaterialType.Toon, options: { color: '#5177ff' } });
 
-    const modelF: TModel3dFacade = models3dService.create({
-      name: 'model_1',
-      model3dSource: PrimitiveModel3dType.Cube,
-      animationsSource: [],
-      materialSource: materialW,
-      options: { width: 1, height: 1, depth: 1 }
-    });
-
-    const actorDefaultParams: TActorParams = {
-      model3dEntity: modelF,
+    const actorDefaultParams: Omit<TActorParams, 'model3dEntity'> = {
       position: Vector3Wrapper({ x: 0, y: 0, z: 0 }),
       castShadow: true,
       spatial: { grid, isAutoUpdate: false }
     };
 
-    const centralActorTag: string = 'central';
-
-    const actorParams1: TActorParams = { ...actorDefaultParams, position: Vector3Wrapper({ x: 2, y: 2, z: 0 }) };
-    const actorParams2: TActorParams = { ...actorDefaultParams, position: Vector3Wrapper({ x: -2, y: 0, z: 0 }) };
-    const actorParams3: TActorParams = { ...actorDefaultParams, position: Vector3Wrapper({ x: 0, y: 1, z: 0 }), tags: [centralActorTag] };
-    const actorParams4: TActorParams = { ...actorDefaultParams, position: Vector3Wrapper({ x: -2, y: 2, z: 0 }) };
-    const actorParams5: TActorParams = { ...actorDefaultParams, position: Vector3Wrapper({ x: 2, y: 0, z: 0 }) };
+    const actorParams1: TActorParams = { ...actorDefaultParams, model3dEntity: createCube(models3dService, 'cube1', materialW), position: Vector3Wrapper({ x: 2, y: 2, z: 0 }) };
+    const actorParams2: TActorParams = { ...actorDefaultParams, model3dEntity: createCube(models3dService, 'cube2', materialW), position: Vector3Wrapper({ x: -2, y: 0, z: 0 }) };
+    const actorParams3: TActorParams = { ...actorDefaultParams, model3dEntity: createCube(models3dService, 'cube3', materialW), position: Vector3Wrapper({ x: 0, y: 1, z: 0 }) };
+    const actorParams4: TActorParams = { ...actorDefaultParams, model3dEntity: createCube(models3dService, 'cube4', materialW), position: Vector3Wrapper({ x: -2, y: 2, z: 0 }) };
+    const actorParams5: TActorParams = { ...actorDefaultParams, model3dEntity: createCube(models3dService, 'cube5', materialW), position: Vector3Wrapper({ x: 2, y: 0, z: 0 }) };
 
     // eslint-disable-next-line @typescript-eslint/no-misused-promises
     [actorParams1, actorParams2, actorParams3, actorParams4, actorParams5].forEach((actor: TActorParams) => actorService.create(actor));
@@ -62,4 +51,14 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
   }
 
   return { start, space };
+}
+
+function createCube(models3dService: TModels3dService, name: string, materialW: TMaterialWrapper): TModel3dFacade {
+  return models3dService.create({
+    name,
+    model3dSource: PrimitiveModel3dType.Cube,
+    animationsSource: [],
+    materialSource: materialW,
+    options: { width: 1, height: 1, depth: 1 }
+  });
 }
