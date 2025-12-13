@@ -14,5 +14,7 @@ export type * from './TFpsControlsParams';
 export type * from './TFpsControlsWrapper';
 export type * from './TOrbitControlsAccessors';
 export type * from './TOrbitControlsConfig';
+export type * from './TOrbitControlsConfigOptions';
 export type * from './TOrbitControlsParams';
+export type * from './TOrbitControlsParamsOptions';
 export type * from './TOrbitControlsWrapper';

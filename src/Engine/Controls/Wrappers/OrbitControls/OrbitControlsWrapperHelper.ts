@@ -1,29 +1,31 @@
-import type { TOrbitControlsParams, TOrbitControlsWrapper } from '@/Engine/Controls/Models';
-import { isDefined } from '@/Engine/Utils';
+import type { TOrbitControlsParamsOptions, TOrbitControlsWrapper } from '@/Engine/Controls/Models';
+import { isDefined, isNotDefined } from '@/Engine/Utils';
 
-export function applyOrbitControlsParams(wrapper: TOrbitControlsWrapper, params: TOrbitControlsParams): void {
-  if (isDefined(params.enableDamping)) wrapper.setDamping(params.enableDamping);
-  if (isDefined(params.target)) wrapper.setTarget(params.target);
-  if (isDefined(params.autoRotate)) wrapper.setAutoRotate(params.autoRotate);
-  if (isDefined(params.minDistance)) wrapper.setMinDistance(params.minDistance);
-  if (isDefined(params.maxDistance)) wrapper.setMaxDistance(params.maxDistance);
-  if (isDefined(params.minZoom)) wrapper.setMinZoom(params.minZoom);
-  if (isDefined(params.maxZoom)) wrapper.setMaxZoom(params.maxZoom);
-  if (isDefined(params.minTargetRadius)) wrapper.setMinTargetRadius(params.minTargetRadius);
-  if (isDefined(params.maxTargetRadius)) wrapper.setMaxTargetRadius(params.maxTargetRadius);
-  if (isDefined(params.minPolarAngle)) wrapper.setMinPolarAngle(params.minPolarAngle);
-  if (isDefined(params.maxPolarAngle)) wrapper.setMaxPolarAngle(params.maxPolarAngle);
-  if (isDefined(params.minAzimuthAngle)) wrapper.setMinAzimuthAngle(params.minAzimuthAngle);
-  if (isDefined(params.maxAzimuthAngle)) wrapper.setMaxAzimuthAngle(params.maxAzimuthAngle);
-  if (isDefined(params.dampingFactor)) wrapper.setDampingFactor(params.dampingFactor);
-  if (isDefined(params.enableZoom)) wrapper.setEnableZoom(params.enableZoom);
-  if (isDefined(params.zoomSpeed)) wrapper.setZoomSpeed(params.zoomSpeed);
-  if (isDefined(params.zoomToCursor)) wrapper.setZoomToCursor(params.zoomToCursor);
-  if (isDefined(params.enableRotate)) wrapper.setEnableRotate(params.enableRotate);
-  if (isDefined(params.rotateSpeed)) wrapper.setRotateSpeed(params.rotateSpeed);
-  if (isDefined(params.enablePan)) wrapper.setEnablePan(params.enablePan);
-  if (isDefined(params.panSpeed)) wrapper.setPanSpeed(params.panSpeed);
-  if (isDefined(params.screenSpacePanning)) wrapper.setScreenSpacePanning(params.screenSpacePanning);
-  if (isDefined(params.keyPanSpeed)) wrapper.setKeyPanSpeed(params.keyPanSpeed);
-  if (isDefined(params.autoRotateSpeed)) wrapper.setAutoRotateSpeed(params.autoRotateSpeed);
+export function applyOrbitControlsParams(wrapper: TOrbitControlsWrapper, options: TOrbitControlsParamsOptions | undefined): void {
+  if (isNotDefined(options)) return;
+
+  if (isDefined(options.enableDamping)) wrapper.setDamping(options.enableDamping);
+  if (isDefined(options.target)) wrapper.setTarget(options.target);
+  if (isDefined(options.autoRotate)) wrapper.setAutoRotate(options.autoRotate);
+  if (isDefined(options.minDistance)) wrapper.setMinDistance(options.minDistance);
+  if (isDefined(options.maxDistance)) wrapper.setMaxDistance(options.maxDistance);
+  if (isDefined(options.minZoom)) wrapper.setMinZoom(options.minZoom);
+  if (isDefined(options.maxZoom)) wrapper.setMaxZoom(options.maxZoom);
+  if (isDefined(options.minTargetRadius)) wrapper.setMinTargetRadius(options.minTargetRadius);
+  if (isDefined(options.maxTargetRadius)) wrapper.setMaxTargetRadius(options.maxTargetRadius);
+  if (isDefined(options.minPolarAngle)) wrapper.setMinPolarAngle(options.minPolarAngle);
+  if (isDefined(options.maxPolarAngle)) wrapper.setMaxPolarAngle(options.maxPolarAngle);
+  if (isDefined(options.minAzimuthAngle)) wrapper.setMinAzimuthAngle(options.minAzimuthAngle);
+  if (isDefined(options.maxAzimuthAngle)) wrapper.setMaxAzimuthAngle(options.maxAzimuthAngle);
+  if (isDefined(options.dampingFactor)) wrapper.setDampingFactor(options.dampingFactor);
+  if (isDefined(options.enableZoom)) wrapper.setEnableZoom(options.enableZoom);
+  if (isDefined(options.zoomSpeed)) wrapper.setZoomSpeed(options.zoomSpeed);
+  if (isDefined(options.zoomToCursor)) wrapper.setZoomToCursor(options.zoomToCursor);
+  if (isDefined(options.enableRotate)) wrapper.setEnableRotate(options.enableRotate);
+  if (isDefined(options.rotateSpeed)) wrapper.setRotateSpeed(options.rotateSpeed);
+  if (isDefined(options.enablePan)) wrapper.setEnablePan(options.enablePan);
+  if (isDefined(options.panSpeed)) wrapper.setPanSpeed(options.panSpeed);
+  if (isDefined(options.screenSpacePanning)) wrapper.setScreenSpacePanning(options.screenSpacePanning);
+  if (isDefined(options.keyPanSpeed)) wrapper.setKeyPanSpeed(options.keyPanSpeed);
+  if (isDefined(options.autoRotateSpeed)) wrapper.setAutoRotateSpeed(options.autoRotateSpeed);
 }

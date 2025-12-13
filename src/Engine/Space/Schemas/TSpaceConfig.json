@@ -7732,6 +7732,9 @@
       "type": "object",
       "additionalProperties": false,
       "properties": {
+        "options": {
+          "$ref": "#/definitions/TOrbitControlsConfigOptions"
+        },
         "cameraName": {
           "type": "string"
         },
@@ -7743,78 +7746,6 @@
         },
         "type": {
           "$ref": "#/definitions/ControlsType"
-        },
-        "enabled": {
-          "type": "boolean"
-        },
-        "minDistance": {
-          "type": "number"
-        },
-        "maxDistance": {
-          "type": "number"
-        },
-        "minZoom": {
-          "type": "number"
-        },
-        "maxZoom": {
-          "type": "number"
-        },
-        "minTargetRadius": {
-          "type": "number"
-        },
-        "maxTargetRadius": {
-          "type": "number"
-        },
-        "minPolarAngle": {
-          "type": "number"
-        },
-        "maxPolarAngle": {
-          "type": "number"
-        },
-        "minAzimuthAngle": {
-          "type": "number"
-        },
-        "maxAzimuthAngle": {
-          "type": "number"
-        },
-        "enableDamping": {
-          "type": "boolean"
-        },
-        "dampingFactor": {
-          "type": "number"
-        },
-        "enableZoom": {
-          "type": "boolean"
-        },
-        "zoomSpeed": {
-          "type": "number"
-        },
-        "zoomToCursor": {
-          "type": "boolean"
-        },
-        "enableRotate": {
-          "type": "boolean"
-        },
-        "rotateSpeed": {
-          "type": "number"
-        },
-        "enablePan": {
-          "type": "boolean"
-        },
-        "panSpeed": {
-          "type": "number"
-        },
-        "screenSpacePanning": {
-          "type": "boolean"
-        },
-        "keyPanSpeed": {
-          "type": "number"
-        },
-        "autoRotate": {
-          "type": "boolean"
-        },
-        "autoRotateSpeed": {
-          "type": "number"
         },
         "name": {
           "type": "string"
@@ -7830,6 +7761,90 @@
         }
       },
       "required": ["cameraName", "isActive", "name", "type"]
+    },
+    "TOrbitControlsConfigOptions": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "target": {
+          "$ref": "#/definitions/Vector3Like"
+        },
+        "cursor": {
+          "$ref": "#/definitions/Vector3Like"
+        },
+        "autoRotate": {
+          "type": "boolean"
+        },
+        "autoRotateSpeed": {
+          "type": "number"
+        },
+        "dampingFactor": {
+          "type": "number"
+        },
+        "enableDamping": {
+          "type": "boolean"
+        },
+        "enablePan": {
+          "type": "boolean"
+        },
+        "enableRotate": {
+          "type": "boolean"
+        },
+        "enableZoom": {
+          "type": "boolean"
+        },
+        "enabled": {
+          "type": "boolean"
+        },
+        "keyPanSpeed": {
+          "type": "number"
+        },
+        "maxAzimuthAngle": {
+          "type": "number"
+        },
+        "maxDistance": {
+          "type": "number"
+        },
+        "maxPolarAngle": {
+          "type": "number"
+        },
+        "maxTargetRadius": {
+          "type": "number"
+        },
+        "maxZoom": {
+          "type": "number"
+        },
+        "minAzimuthAngle": {
+          "type": "number"
+        },
+        "minDistance": {
+          "type": "number"
+        },
+        "minPolarAngle": {
+          "type": "number"
+        },
+        "minTargetRadius": {
+          "type": "number"
+        },
+        "minZoom": {
+          "type": "number"
+        },
+        "panSpeed": {
+          "type": "number"
+        },
+        "rotateSpeed": {
+          "type": "number"
+        },
+        "screenSpacePanning": {
+          "type": "boolean"
+        },
+        "zoomSpeed": {
+          "type": "number"
+        },
+        "zoomToCursor": {
+          "type": "boolean"
+        }
+      }
     },
     "ControlsType": {
       "type": "string",

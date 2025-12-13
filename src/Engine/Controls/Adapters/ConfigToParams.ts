@@ -2,9 +2,18 @@ import { Vector3 } from 'three';
 
 import type { TGetParamsFn } from '@/Engine/Abstract';
 import { ControlsType } from '@/Engine/Controls/Constants';
-import type { TAdditionalControlsConfigParams, TControlsConfig, TControlsParams, TFpsControlsConfig, TFpsControlsParams, TOrbitControlsConfig, TOrbitControlsParams } from '@/Engine/Controls/Models';
-import type { TWriteable } from '@/Engine/Utils';
-import { isDefined } from '@/Engine/Utils';
+import type {
+  TAdditionalControlsConfigParams,
+  TControlsConfig,
+  TControlsParams,
+  TFpsControlsConfig,
+  TFpsControlsParams,
+  TOrbitControlsConfig,
+  TOrbitControlsConfigOptions,
+  TOrbitControlsParams,
+  TOrbitControlsParamsOptions
+} from '@/Engine/Controls/Models';
+import { isDefined, isNotDefined } from '@/Engine/Utils';
 
 export const configToParams: TGetParamsFn<TControlsParams, TControlsConfig> = (config: TControlsConfig, additional: TAdditionalControlsConfigParams): TControlsParams | never => {
   if (config.type === ControlsType.OrbitControls) return getOrbitControlsParams(config as TOrbitControlsConfig, additional);
@@ -14,15 +23,23 @@ export const configToParams: TGetParamsFn<TControlsParams, TControlsConfig> = (c
 
 function getOrbitControlsParams(config: TOrbitControlsConfig, { camera, canvas }: TAdditionalControlsConfigParams): TOrbitControlsParams {
   if (config.type !== ControlsType.OrbitControls) throw new Error(`Cannot create controls of unknown type "${config.type}"`);
-  const { target, cursor, ...rest } = config;
+  const { options, ...rest } = config;
+  const paramsOptions: TOrbitControlsParamsOptions = getOptionsFromConfig(options);
 
-  let result: TWriteable<TControlsParams> = {
+  return {
     ...rest,
+    options: paramsOptions,
     camera,
-    canvas,
-    enableDamping: config.enableDamping
+    canvas
   };
+}
 
+function getOptionsFromConfig(options: TOrbitControlsConfigOptions | undefined): TOrbitControlsParamsOptions {
+  if (isNotDefined(options)) return {};
+
+  const { target, cursor, ...rest } = options;
+
+  let result: TOrbitControlsParamsOptions = { ...rest };
   if (isDefined(target)) result = { ...result, target: new Vector3(target.x, target.y, target.z) };
   if (isDefined(cursor)) result = { ...result, cursor: new Vector3(cursor.x, cursor.y, cursor.z) };
 

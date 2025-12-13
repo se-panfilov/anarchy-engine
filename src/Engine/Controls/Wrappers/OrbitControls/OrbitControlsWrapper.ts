@@ -16,8 +16,8 @@ export function OrbitControlsWrapper(params: TOrbitControlsParams): TOrbitContro
   const entity: OrbitControls = new OrbitControls(params.camera.entity, params.canvas);
   const update = (delta: TMilliseconds): boolean => entity.update(delta);
 
-  if (isDefined(params.target)) {
-    entity.target.set(params.target.x, params.target.y, params.target.z);
+  if (isDefined(params.options?.target)) {
+    entity.target.set(params.options.target.x, params.options.target.y, params.options.target.z);
     update(0);
   }
 
@@ -64,7 +64,7 @@ export function OrbitControlsWrapper(params: TOrbitControlsParams): TOrbitContro
     serialize: (dependencies: TControlsServiceDependencies): TOrbitControlsConfig => controlsToConfig(result, dependencies)
   });
 
-  applyOrbitControlsParams(result, params);
+  applyOrbitControlsParams(result, params.options);
   result.enable();
   result.update(0);
   result._setActive(params.isActive, true);
