@@ -1,5 +1,6 @@
 /// <reference types="vitest" />
 import { defineConfig } from 'vite';
+import dts from 'vite-plugin-dts';
 import path from 'path';
 import wasm from 'vite-plugin-wasm';
 
@@ -7,19 +8,29 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
-      '@shared': path.resolve(__dirname, './shared'),
-      '@public': path.resolve(__dirname, './public')
+      '@shared': path.resolve(__dirname, '../shared')
     }
   },
-  plugins: [wasm()],
+  plugins: [wasm(), dts()],
   worker: {
     format: 'es',
     //@ts-expect-error
     plugins: [wasm()]
   },
   build: {
+    lib: {
+      entry: path.resolve(__dirname, 'src/index.ts'),
+      name: 'AnarchyEngine',
+      fileName: (format): string => `anarchy-engine.${format}.js`,
+      formats: ['es', 'cjs']
+    },
     target: 'esnext',
-    sourcemap: true
+    sourcemap: true,
+    rollupOptions: {
+      // external: ['three', ...] — If you want to exclude some dependencies from the bundle
+    },
+    outDir: 'dist',
+    emptyOutDir: true
   },
   test: {
     globals: true,

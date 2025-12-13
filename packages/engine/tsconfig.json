@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "baseUrl": "../..",
+    "baseUrl": ".",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "isolatedModules": true,
@@ -14,10 +14,7 @@
     "noUnusedParameters": true,
     "paths": {
       "@/*": ["./src/*"],
-      "@shared/*": ["./shared/*"],
-      "@public/*": ["./public/*"]
-      //      "@App/*": ["./src/App/*"],
-      //      "@Engine/*": ["./src/Engine/*"]
+      "@shared/*": ["../shared/*"]
     },
     "resolveJsonModule": true,
     "skipLibCheck": true,
@@ -29,5 +26,5 @@
     "useDefineForClassFields": true,
     "typeRoots": ["./node_modules/@types", "./node_modules", "./src/Engine/Types", "./types"]
   },
-  "include": ["../../src", "vite.config.ts", "playwright.config.ts", "types", "e2e", "shared"]
+  "include": ["src", "vite.config.ts", "playwright.config.ts", "types", "e2e", "shared"]
 }
