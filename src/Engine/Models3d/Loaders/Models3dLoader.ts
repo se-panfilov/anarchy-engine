@@ -1,4 +1,3 @@
-import { Vector3 } from 'three';
 import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader';
 import type { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
@@ -6,7 +5,7 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import type { TAbstractLoader } from '@/Engine/Abstract';
 import { AbstractLoader, LoaderType } from '@/Engine/Abstract';
 import type { TModel3dResourceAsyncRegistry, TModel3dResourceConfig, TModels3dLoader } from '@/Engine/Models3d';
-import { applyObject3dParamsToModel3d, applyPositionToModel3d, applyScaleToModel3d } from '@/Engine/Models3d';
+import { applyObject3dParamsToModel3d, applyPositionToModel3d, applyRotationToModel3d, applyScaleToModel3d } from '@/Engine/Models3d';
 import type { TWriteable } from '@/Engine/Utils';
 import { isDefined, isNotDefined } from '@/Engine/Utils';
 
@@ -24,18 +23,10 @@ export function Models3dLoader(registry: TModel3dResourceAsyncRegistry): TModels
     if (isNotDefined(options)) return loaded;
     loaded.scenes.forEach((scene) => applyObject3dParamsToModel3d(scene, options));
 
-    // TODO 9.0.0. RESOURCES: Make this applications more generic (with "applyObject3dParamsToModel3d") when get rid of custom coords wrappers
-    if (isDefined(options.scale?.x) && isDefined(options.scale?.y) && isDefined(options.scale?.z)) {
-      applyScaleToModel3d(loaded.scene, new Vector3(options.scale.x, options.scale.y, options.scale.z));
-    }
+    if (isDefined(options.scale?.x) && isDefined(options.scale?.y) && isDefined(options.scale?.z)) applyScaleToModel3d(loaded.scene, options.scale);
+    if (isDefined(options.position?.x) && isDefined(options.position?.y) && isDefined(options.position?.z)) applyPositionToModel3d(loaded.scene, options.position);
+    if (isDefined(options.rotation?.x) && isDefined(options.rotation?.y) && isDefined(options.rotation?.z)) applyRotationToModel3d(loaded.scene, options.rotation);
 
-    if (isDefined(options.position?.x) && isDefined(options.position?.y) && isDefined(options.position?.z)) {
-      applyPositionToModel3d(loaded.scene, new Vector3(options.position.x, options.position.y, options.position.z));
-    }
-
-    if (isDefined(options.rotation?.x) && isDefined(options.rotation?.y) && isDefined(options.rotation?.z)) {
-      applyScaleToModel3d(loaded.scene, new Vector3(options.rotation.x, options.rotation.y, options.rotation.z));
-    }
     return loaded;
   }
 
