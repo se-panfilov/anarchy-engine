@@ -1,6 +1,6 @@
-import type { Vector2 } from 'three';
+import type { TWithCoordsXY } from '@/Engine/Mixins';
 
 export type TMousePosition = Readonly<{
-  coords: Vector2;
-  normalizedCoords: Vector2;
+  coords: TWithCoordsXY;
+  normalizedCoords: TWithCoordsXY;
 }>;

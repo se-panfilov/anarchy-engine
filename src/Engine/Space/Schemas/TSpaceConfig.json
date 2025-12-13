@@ -63,13 +63,13 @@
           "type": "number"
         },
         "rotation": {
-          "$ref": "#/definitions/TEuler3dConfig"
+          "$ref": "#/definitions/Euler"
         },
         "scale": {
-          "$ref": "#/definitions/TWithCoordsXYZ"
+          "$ref": "#/definitions/Vector3"
         },
         "position": {
-          "$ref": "#/definitions/TWithCoordsXYZ"
+          "$ref": "#/definitions/Vector3"
         },
         "background": {
           "type": "string"
@@ -83,43 +83,63 @@
       },
       "required": ["isActive"]
     },
-    "TEuler3dConfig": {
+    "Euler": {
       "type": "object",
-      "additionalProperties": false,
       "properties": {
-        "order": {
-          "$ref": "#/definitions/EulerOrder"
-        },
         "x": {
-          "type": "number"
+          "type": "number",
+          "default": 0
         },
         "y": {
-          "type": "number"
+          "type": "number",
+          "default": 0
         },
         "z": {
-          "type": "number"
+          "type": "number",
+          "default": 0
+        },
+        "order": {
+          "$ref": "#/definitions/EulerOrder",
+          "default": "THREE.Euler.DEFAULT_ORDER"
+        },
+        "isEuler": {
+          "type": "boolean",
+          "const": true
+        },
+        "_onChangeCallback": {
+          "$comment": "() => void"
         }
-      }
+      },
+      "required": ["x", "y", "z", "order", "isEuler", "_onChangeCallback"],
+      "additionalProperties": false
     },
     "EulerOrder": {
       "type": "string",
       "enum": ["XYZ", "YXZ", "ZXY", "ZYX", "YZX", "XZY"]
     },
-    "TWithCoordsXYZ": {
+    "Vector3": {
       "type": "object",
-      "additionalProperties": false,
       "properties": {
-        "z": {
-          "type": "number"
+        "x": {
+          "type": "number",
+          "default": 0
         },
         "y": {
-          "type": "number"
+          "type": "number",
+          "default": 0
         },
-        "x": {
-          "type": "number"
+        "z": {
+          "type": "number",
+          "default": 0
+        },
+        "isVector3": {
+          "type": "boolean",
+          "const": true
         }
       },
-      "required": ["x", "y", "z"]
+      "required": ["x", "y", "z", "isVector3"],
+      "additionalProperties": false,
+      "description": "3D vector.\n\nsee  {@link  https://github.com/mrdoob/three.js/blob/master/src/math/Vector3.js }"
     },
     "TSpaceConfigEntities": {
       "type": "object",
@@ -233,13 +253,13 @@
       "additionalProperties": false,
       "properties": {
         "position": {
-          "$ref": "#/definitions/TWithCoordsXYZ"
+          "$ref": "#/definitions/Vector3"
         },
         "rotation": {
-          "$ref": "#/definitions/TEuler3dConfig"
+          "$ref": "#/definitions/Euler"
         },
         "scale": {
-          "$ref": "#/definitions/TWithCoordsXYZ"
+          "$ref": "#/definitions/Vector3"
         },
         "collisions": {
           "$ref": "#/definitions/TCollisionsDataConfig"
@@ -327,30 +347,6 @@
       },
       "required": ["isAutoUpdate"]
     },
-    "Vector3": {
-      "type": "object",
-      "properties": {
-        "x": {
-          "type": "number",
-          "default": 0
-        },
-        "y": {
-          "type": "number",
-          "default": 0
-        },
-        "z": {
-          "type": "number",
-          "default": 0
-        },
-        "isVector3": {
-          "type": "boolean",
-          "const": true
-        }
-      },
-      "required": ["x", "y", "z", "isVector3"],
-      "additionalProperties": false,
-      "description": "3D vector.\n\nsee  {@link  https://github.com/mrdoob/three.js/blob/master/src/math/Vector3.js }"
-    },
     "TWithPresetNamePhysicsBodyConfig": {
       "type": "object",
       "additionalProperties": false,
@@ -362,10 +358,10 @@
           "$ref": "#/definitions/RigidBodyTypesNames"
         },
         "position": {
-          "$ref": "#/definitions/TWithCoordsXYZ"
+          "$ref": "#/definitions/Vector3"
         },
         "rotation": {
-          "$ref": "#/definitions/TWithCoordsXYZW"
+          "$ref": "#/definitions/Vector4"
         },
         "collisionShape": {
           "$ref": "#/definitions/CollisionShape"
@@ -403,24 +399,39 @@
       "type": "string",
       "enum": ["dynamic", "fixed", "kinematicPositionBased", "kinematicVelocityBased"]
     },
-    "TWithCoordsXYZW": {
+    "Vector4": {
       "type": "object",
-      "additionalProperties": false,
       "properties": {
-        "w": {
-          "type": "number"
-        },
-        "z": {
-          "type": "number"
+        "x": {
+          "type": "number",
+          "default": 0
         },
         "y": {
+          "type": "number",
+          "default": 0
+        },
+        "z": {
+          "type": "number",
+          "default": 0
+        },
+        "w": {
+          "type": "number",
+          "default": 0
+        },
+        "width": {
           "type": "number"
         },
-        "x": {
+        "height": {
           "type": "number"
+        },
+        "isVector4": {
+          "type": "boolean",
+          "const": true
         }
       },
-      "required": ["w", "x", "y", "z"]
+      "required": ["x", "y", "z", "w", "width", "height", "isVector4"],
+      "additionalProperties": false,
+      "description": "4D vector."
     },
     "CollisionShape": {
       "type": "string",
@@ -1078,13 +1089,13 @@
           "type": "number"
         },
         "position": {
-          "$ref": "#/definitions/TWithCoordsXYZ"
+          "$ref": "#/definitions/Vector3"
         },
         "rotation": {
-          "$ref": "#/definitions/TEuler3dConfig"
+          "$ref": "#/definitions/Euler"
         },
         "scale": {
-          "$ref": "#/definitions/TWithCoordsXYZ"
+          "$ref": "#/definitions/Vector3"
         },
         "visible": {
           "type": "boolean"
@@ -1102,7 +1113,7 @@
           "type": "number"
         },
         "lookAt": {
-          "$ref": "#/definitions/TWithCoordsXYZ"
+          "$ref": "#/definitions/Vector3"
         },
         "fov": {
           "type": "number"
@@ -1211,13 +1222,13 @@
           "type": "number"
         },
         "position": {
-          "$ref": "#/definitions/TWithCoordsXYZ"
+          "$ref": "#/definitions/Vector3"
         },
         "rotation": {
-          "$ref": "#/definitions/TEuler3dConfig"
+          "$ref": "#/definitions/Euler"
         },
         "scale": {
-          "$ref": "#/definitions/TWithCoordsXYZ"
+          "$ref": "#/definitions/Vector3"
         },
         "visible": {
           "type": "boolean"
@@ -1257,7 +1268,7 @@
       "additionalProperties": false,
       "properties": {
         "mapSize": {
-          "$ref": "#/definitions/TWithCoordsXY"
+          "$ref": "#/definitions/Vector2"
         },
         "camera": {
           "type": "object",
@@ -1277,18 +1288,31 @@
       },
       "required": ["camera", "mapSize", "normalBias"]
     },
-    "TWithCoordsXY": {
+    "Vector2": {
       "type": "object",
-      "additionalProperties": false,
       "properties": {
+        "x": {
+          "type": "number",
+          "default": 0
+        },
         "y": {
+          "type": "number",
+          "default": 0
+        },
+        "width": {
           "type": "number"
         },
-        "x": {
+        "height": {
           "type": "number"
+        },
+        "isVector2": {
+          "type": "boolean",
+          "const": true
         }
       },
-      "required": ["x", "y"]
+      "required": ["x", "y", "width", "height", "isVector2"],
+      "additionalProperties": false,
+      "description": "2D vector."
     },
     "LightType": {
       "type": "string",
@@ -1335,13 +1359,13 @@
           "type": "number"
         },
         "position": {
-          "$ref": "#/definitions/TWithCoordsXYZ"
+          "$ref": "#/definitions/Vector3"
         },
         "rotation": {
-          "$ref": "#/definitions/TEuler3dConfig"
+          "$ref": "#/definitions/Euler"
         },
         "scale": {
-          "$ref": "#/definitions/TWithCoordsXYZ"
+          "$ref": "#/definitions/Vector3"
         },
         "tags": {
           "type": "array",
@@ -1366,13 +1390,13 @@
           "type": "number"
         },
         "position": {
-          "$ref": "#/definitions/TWithCoordsXYZ"
+          "$ref": "#/definitions/Vector3"
         },
         "rotation": {
-          "$ref": "#/definitions/TEuler3dConfig"
+          "$ref": "#/definitions/Euler"
         },
         "scale": {
-          "$ref": "#/definitions/TWithCoordsXYZ"
+          "$ref": "#/definitions/Vector3"
         },
         "visible": {
           "type": "boolean"
@@ -1412,7 +1436,7 @@
       "additionalProperties": false,
       "properties": {
         "mapSize": {
-          "$ref": "#/definitions/TWithCoordsXY"
+          "$ref": "#/definitions/Vector2"
         },
         "camera": {
           "type": "object",
@@ -1461,13 +1485,13 @@
           "type": "number"
         },
         "position": {
-          "$ref": "#/definitions/TWithCoordsXYZ"
+          "$ref": "#/definitions/Vector3"
         },
         "rotation": {
-          "$ref": "#/definitions/TEuler3dConfig"
+          "$ref": "#/definitions/Euler"
         },
         "scale": {
-          "$ref": "#/definitions/TWithCoordsXYZ"
+          "$ref": "#/definitions/Vector3"
         },
         "visible": {
           "type": "boolean"
@@ -1525,13 +1549,13 @@
           "type": "number"
         },
         "position": {
-          "$ref": "#/definitions/TWithCoordsXYZ"
+          "$ref": "#/definitions/Vector3"
         },
         "rotation": {
-          "$ref": "#/definitions/TEuler3dConfig"
+          "$ref": "#/definitions/Euler"
         },
         "scale": {
-          "$ref": "#/definitions/TWithCoordsXYZ"
+          "$ref": "#/definitions/Vector3"
         },
         "visible": {
           "type": "boolean"
@@ -1589,13 +1613,13 @@
           "type": "number"
         },
         "position": {
-          "$ref": "#/definitions/TWithCoordsXYZ"
+          "$ref": "#/definitions/Vector3"
         },
         "rotation": {
-          "$ref": "#/definitions/TEuler3dConfig"
+          "$ref": "#/definitions/Euler"
         },
         "scale": {
-          "$ref": "#/definitions/TWithCoordsXYZ"
+          "$ref": "#/definitions/Vector3"
         },
         "visible": {
           "type": "boolean"
@@ -1647,13 +1671,13 @@
       "additionalProperties": false,
       "properties": {
         "position": {
-          "$ref": "#/definitions/TWithCoordsXYZ"
+          "$ref": "#/definitions/Vector3"
         },
         "scale": {
-          "$ref": "#/definitions/TWithCoordsXYZ"
+          "$ref": "#/definitions/Vector3"
         },
         "rotation": {
-          "$ref": "#/definitions/TEuler3dConfig"
+          "$ref": "#/definitions/Euler"
         },
         "options": {
           "$ref": "#/definitions/TModel3dOptions"
@@ -1773,13 +1797,13 @@
           "type": "number"
         },
         "position": {
-          "$ref": "#/definitions/TWithCoordsXYZ"
+          "$ref": "#/definitions/Vector3"
         },
         "rotation": {
-          "$ref": "#/definitions/TEuler3dConfig"
+          "$ref": "#/definitions/Euler"
         },
         "scale": {
-          "$ref": "#/definitions/TWithCoordsXYZ"
+          "$ref": "#/definitions/Vector3"
         },
         "visible": {
           "type": "boolean"
@@ -1833,7 +1857,7 @@
       "type": "object",
       "properties": {
         "gravity": {
-          "$ref": "#/definitions/TWithCoordsXYZ"
+          "$ref": "#/definitions/Vector3"
         },
         "rawIntegrationParameters": {
           "$ref": "#/definitions/RawIntegrationParameters"
@@ -1988,10 +2012,10 @@
           "$ref": "#/definitions/RigidBodyTypesNames"
         },
         "position": {
-          "$ref": "#/definitions/TWithCoordsXYZ"
+          "$ref": "#/definitions/Vector3"
         },
         "rotation": {
-          "$ref": "#/definitions/TWithCoordsXYZW"
+          "$ref": "#/definitions/Vector4"
         },
         "collisionShape": {
           "$ref": "#/definitions/CollisionShape"
@@ -2064,13 +2088,13 @@
           "type": "number"
         },
         "position": {
-          "$ref": "#/definitions/TWithCoordsXYZ"
+          "$ref": "#/definitions/Vector3"
         },
         "rotation": {
-          "$ref": "#/definitions/TEuler3dConfig"
+          "$ref": "#/definitions/Euler"
         },
         "scale": {
-          "$ref": "#/definitions/TWithCoordsXYZ"
+          "$ref": "#/definitions/Vector3"
         },
         "visible": {
           "type": "boolean"
@@ -2088,17 +2112,7 @@
           "type": "number"
         },
         "center": {
-          "type": "object",
-          "properties": {
-            "x": {
-              "type": "number"
-            },
-            "y": {
-              "type": "number"
-            }
-          },
-          "required": ["x", "y"],
-          "additionalProperties": false
+          "$ref": "#/definitions/Vector2"
         },
         "text": {
           "type": "string"
@@ -3600,36 +3614,10 @@
           "type": "string"
         },
         "target": {
-          "type": "object",
-          "properties": {
-            "x": {
-              "type": "number"
-            },
-            "y": {
-              "type": "number"
-            },
-            "z": {
-              "type": "number"
-            }
-          },
-          "required": ["x", "y", "z"],
-          "additionalProperties": false
+          "$ref": "#/definitions/Vector3"
         },
         "cursor": {
-          "type": "object",
-          "properties": {
-            "x": {
-              "type": "number"
-            },
-            "y": {
-              "type": "number"
-            },
-            "z": {
-              "type": "number"
-            }
-          },
-          "required": ["x", "y", "z"],
-          "additionalProperties": false
+          "$ref": "#/definitions/Vector3"
         },
         "enabled": {
           "type": "boolean"
@@ -4660,32 +4648,9 @@
           "type": "number"
         },
         "referencePosition": {
-          "$ref": "#/definitions/TVector3"
+          "$ref": "#/definitions/Vector3"
         }
       }
-    },
-    "TVector3": {
-      "type": "object",
-      "properties": {
-        "x": {
-          "type": "number",
-          "default": 0
-        },
-        "y": {
-          "type": "number",
-          "default": 0
-        },
-        "z": {
-          "type": "number",
-          "default": 0
-        },
-        "isVector3": {
-          "type": "boolean",
-          "const": true
-        }
-      },
-      "required": ["x", "y", "z", "isVector3"],
-      "additionalProperties": false
     },
     "TNormalMaterialConfigOptions": {
       "type": "object",
@@ -4848,7 +4813,7 @@
           "type": "number"
         },
         "normalScale": {
-          "$ref": "#/definitions/TVector2"
+          "$ref": "#/definitions/Vector2"
         },
         "displacementScale": {
           "type": "number"
@@ -4863,31 +4828,6 @@
           "type": "number"
         }
       }
-    },
-    "TVector2": {
-      "type": "object",
-      "properties": {
-        "x": {
-          "type": "number",
-          "default": 0
-        },
-        "y": {
-          "type": "number",
-          "default": 0
-        },
-        "width": {
-          "type": "number"
-        },
-        "height": {
-          "type": "number"
-        },
-        "isVector2": {
-          "type": "boolean",
-          "const": true
-        }
-      },
-      "required": ["x", "y", "width", "height", "isVector2"],
-      "additionalProperties": false
     },
     "TMatcapMaterialConfigOptions": {
       "type": "object",
@@ -5053,7 +4993,7 @@
           "type": "number"
         },
         "normalScale": {
-          "$ref": "#/definitions/TVector2"
+          "$ref": "#/definitions/Vector2"
         },
         "displacementScale": {
           "type": "number"
@@ -5251,7 +5191,7 @@
           "type": "number"
         },
         "normalScale": {
-          "$ref": "#/definitions/TVector2"
+          "$ref": "#/definitions/Vector2"
         },
         "aoMapIntensity": {
           "type": "number"
@@ -5461,7 +5401,7 @@
           "type": "number"
         },
         "normalScale": {
-          "$ref": "#/definitions/TVector2"
+          "$ref": "#/definitions/Vector2"
         },
         "displacementScale": {
           "type": "number"
@@ -5671,7 +5611,7 @@
           "type": "number"
         },
         "normalScale": {
-          "$ref": "#/definitions/TVector2"
+          "$ref": "#/definitions/Vector2"
         },
         "displacementScale": {
           "type": "number"
@@ -5878,7 +5818,7 @@
           "type": "number"
         },
         "normalScale": {
-          "$ref": "#/definitions/TVector2"
+          "$ref": "#/definitions/Vector2"
         },
         "displacementScale": {
           "type": "number"
@@ -6085,7 +6025,7 @@
           "type": "number"
         },
         "normalScale": {
-          "$ref": "#/definitions/TVector2"
+          "$ref": "#/definitions/Vector2"
         },
         "displacementScale": {
           "type": "number"
@@ -6115,7 +6055,7 @@
           "type": "number"
         },
         "clearcoatNormalScale": {
-          "$ref": "#/definitions/TVector2"
+          "$ref": "#/definitions/Vector2"
         },
         "reflectivity": {
           "type": "number"
@@ -6708,13 +6648,13 @@
       "type": "object",
       "properties": {
         "position": {
-          "$ref": "#/definitions/TWithCoordsXYZ"
+          "$ref": "#/definitions/Vector3"
         },
         "rotation": {
-          "$ref": "#/definitions/TWithCoordsXYZ"
+          "$ref": "#/definitions/Euler"
         },
         "scale": {
-          "$ref": "#/definitions/TWithCoordsXYZ"
+          "$ref": "#/definitions/Vector3"
         },
         "visible": {
           "type": "boolean"
