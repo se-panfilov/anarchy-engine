@@ -9,7 +9,7 @@ import type { IColor, ICubeTexture, ITexture } from '@Engine/Wrappers';
 import { ColorWrapper } from '@Engine/Wrappers';
 import { Scene } from 'three';
 
-import type { ISceneObject, ISceneParams, ISceneWrapper } from '../Models';
+import type { ISceneObject, ISceneParams, ISceneWrapper } from '@/Engine/Domains/Scene/Models';
 
 export function SceneWrapper(params: ISceneParams): ISceneWrapper {
   const entity: IWriteable<Scene> = new Scene();

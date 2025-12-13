@@ -1,9 +1,8 @@
 import { AbstractWrapper, WrapperType } from '@Engine/Domains/Abstract';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
+import type { IOrbitControlsParams, IOrbitControlsWrapper } from '@/Engine/Domains/Controls/Models';
 import { isDefined } from '@/Engine/Utils';
-
-import type { IOrbitControlsParams, IOrbitControlsWrapper } from '../Models';
 
 export function OrbitControlsWrapper(params: IOrbitControlsParams): IOrbitControlsWrapper {
   const entity: OrbitControls = new OrbitControls(params.camera.entity, params.canvas);

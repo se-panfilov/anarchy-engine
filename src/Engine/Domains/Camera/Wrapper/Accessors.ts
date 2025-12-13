@@ -1,10 +1,9 @@
 import type { IWriteable } from '@Engine/Utils';
 
+import type { ICameraAccessors, IPerspectiveCamera } from '@/Engine/Domains/Camera/Models';
 import { moveableMixin, rotatableMixin } from '@/Engine/Domains/Mixins';
 import type { IVector3Wrapper } from '@/Engine/Wrappers';
 import { Vector3Wrapper } from '@/Engine/Wrappers';
-
-import type { ICameraAccessors, IPerspectiveCamera } from '../Models';
 
 // eslint-disable-next-line functional/prefer-immutable-types
 export function getAccessors(entity: IWriteable<IPerspectiveCamera>): ICameraAccessors {

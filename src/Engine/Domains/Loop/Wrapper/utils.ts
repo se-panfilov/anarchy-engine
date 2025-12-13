@@ -4,8 +4,7 @@ import type { ISceneWrapper } from '@Engine/Domains/Scene';
 import { Clock } from 'three';
 
 import type { IControlsRegistry } from '@/Engine/Domains/Controls';
-
-import type { ILoopUtils, LoopFn } from '../Models';
+import type { ILoopUtils, LoopFn } from '@/Engine/Domains/Loop/Models';
 
 export function getUtils(entity: LoopFn): ILoopUtils {
   function start(renderer: Readonly<IRendererWrapper>, scene: Readonly<ISceneWrapper>, camera: Readonly<ICameraWrapper>, controlsRegistry: IControlsRegistry): void {

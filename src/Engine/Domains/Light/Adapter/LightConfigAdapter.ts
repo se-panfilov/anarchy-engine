@@ -1,7 +1,7 @@
 import { isNotDefined } from '@Engine/Utils';
 import { Color, Vector2, Vector3 } from 'three';
 
-import type { ILightConfig, ILightParams, ILightShadowParams, LightShadowConfig } from '../Models';
+import type { ILightConfig, ILightParams, ILightShadowParams, LightShadowConfig } from '@/Engine/Domains/Light/Models';
 
 export function getParams(config: ILightConfig): ILightParams {
   const { position, color, shadow, ...rest } = config;

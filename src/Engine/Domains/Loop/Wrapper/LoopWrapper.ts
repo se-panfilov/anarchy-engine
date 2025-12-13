@@ -4,8 +4,8 @@ import type { IRendererWrapper } from '@Engine/Domains/Renderer';
 import type { ISceneWrapper } from '@Engine/Domains/Scene';
 
 import type { IControlsRegistry, IOrbitControlsWrapper } from '@/Engine/Domains/Controls';
+import type { ILoopParams, ILoopWrapper, LoopFn } from '@/Engine/Domains/Loop/Models';
 
-import type { ILoopParams, ILoopWrapper, LoopFn } from '../Models';
 import { getUtils } from './utils';
 
 export function LoopWrapper(params: ILoopParams): ILoopWrapper {

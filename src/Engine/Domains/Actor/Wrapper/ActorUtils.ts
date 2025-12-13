@@ -1,7 +1,7 @@
 import { BoxGeometry, Mesh, MeshToonMaterial, PlaneGeometry, SphereGeometry } from 'three';
 
-import { ActorType } from '../Constants';
-import type { IActorParams, IMesh } from '../Models';
+import { ActorType } from '@/Engine/Domains/Actor/Constants';
+import type { IActorParams, IMesh } from '@/Engine/Domains/Actor/Models';
 
 export function createActor(params: IActorParams): IMesh | never {
   if (params.type === ActorType.plane) return createPlane(params);

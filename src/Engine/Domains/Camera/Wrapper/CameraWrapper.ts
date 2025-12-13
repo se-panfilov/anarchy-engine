@@ -5,7 +5,8 @@ import { isNotDefined } from '@Engine/Utils';
 import type { Subscription } from 'rxjs';
 import { PerspectiveCamera } from 'three';
 
-import type { ICameraParams, ICameraWrapper, IPerspectiveCamera } from '../Models';
+import type { ICameraParams, ICameraWrapper, IPerspectiveCamera } from '@/Engine/Domains/Camera/Models';
+
 import { getAccessors } from './Accessors';
 
 export function CameraWrapper(params: ICameraParams, screenSizeWatcher: Readonly<IScreenSizeWatcher>): ICameraWrapper {

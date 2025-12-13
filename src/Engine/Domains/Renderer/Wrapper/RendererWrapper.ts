@@ -7,8 +7,8 @@ import type { Subscription } from 'rxjs';
 import type { WebGLRendererParameters } from 'three';
 import { PCFShadowMap, WebGLRenderer } from 'three';
 
-import { RendererModes } from '../Constants';
-import type { IRendererParams, IRendererWrapper } from '../Models';
+import { RendererModes } from '@/Engine/Domains/Renderer/Constants';
+import type { IRendererParams, IRendererWrapper } from '@/Engine/Domains/Renderer/Models';
 
 // TODO (S.Panfilov) Should we provide delta here?
 export function RendererWrapper(params: IRendererParams, screenSizeWatcher: Readonly<IScreenSizeWatcher>): IRendererWrapper {
