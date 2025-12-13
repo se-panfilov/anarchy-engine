@@ -6,9 +6,9 @@ Done:
 - 5.2.1 Production build fix (WASM)
 - 6.0.x Complex models
 - 7.x.x Animations
+- 8.x.x Actors with models & animations
 
 Roadmap:
-- 8.x.x Actors with models & animations
 - 8.1.x Lines domain
 - 8.2.x Refactor Vector/TVectorWrapper, Euler/TEulerWrapper (should be Vector/Euler everywhere)
 - 9.0.x Sounds/Music
