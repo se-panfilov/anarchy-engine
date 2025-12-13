@@ -1,4 +1,4 @@
-export enum MenuEvents {
+export enum FromMenuEvents {
   OpenMenu = 'menu:open',
   CloseMenu = 'menu:close',
   LoadGame = 'menu:game:load',

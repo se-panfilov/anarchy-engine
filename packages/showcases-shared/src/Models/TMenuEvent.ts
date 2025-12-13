@@ -1,6 +1,11 @@
-import type { MenuEvents } from '@ShowcasesShared/Constants';
+import type { FromMenuEvents, ToMenuEvents } from '@ShowcasesShared/Constants';
 
-export type TMenuEvent = {
-  type: MenuEvents;
+export type TFromMenuEvent = {
+  type: FromMenuEvents;
+  payload?: Record<string, any>;
+};
+
+export type TToMenuEvent = {
+  type: ToMenuEvents;
   payload?: Record<string, any>;
 };
