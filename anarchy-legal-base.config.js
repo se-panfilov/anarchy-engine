@@ -1,5 +1,5 @@
 // TODO DESKTOP: LEGAL: Actually, we can use constants here (GENERIC, DISCLAIMER, EULA, PRIVACY, SECURITY) and other values (Software, Project, etc.)
-// TODO DESKTOP: LEGAL: Array is ok, but Object would be easier to extend
+// TODO DESKTOP: LEGAL: Do not create files which are not in the config
 
 export default {
   GENERIC: {
