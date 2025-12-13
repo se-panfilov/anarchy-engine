@@ -1,0 +1,162 @@
+import fs from 'node:fs/promises';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+import type { TLicenseEntry, TRepoUtilsService, TThirdPartyLicensesService } from '@Anarchy/Legal/Models';
+// eslint-disable-next-line spellcheck/spell-checker
+import yargs from 'yargs';
+import { hideBin } from 'yargs/helpers';
+
+import { RepoUtilsService } from './RepoUtilsService.ts';
+
+export function ThirdPartyLicensesService(): TThirdPartyLicensesService {
+  let isDebug: boolean = false;
+
+  async function generate(): Promise<void> {
+    // eslint-disable-next-line spellcheck/spell-checker
+    const argv = await yargs(hideBin(process.argv))
+      // .scriptName('anarchy-legal')
+      .usage('$0 --workspace <name|path> --out <file> [--root <dir>] [--debug] [--no-include-workspaces]')
+      .option('root', {
+        type: 'string',
+        describe: 'Starting directory to search for monorepo root. If omitted, uses INIT_CWD, then process.cwd(), then script dir.'
+      })
+      .option('workspace', {
+        type: 'string',
+        demandOption: true,
+        describe: 'Target workspace (name from package.json or folder path relative to monorepo root)'
+      })
+      .option('out', {
+        type: 'string',
+        demandOption: true,
+        describe: 'Output path for the result file (relative to current working dir)'
+      })
+      .option('debug', {
+        type: 'boolean',
+        default: false,
+        describe: 'Print verbose diagnostic information'
+      })
+      .option('include-workspaces', {
+        type: 'boolean',
+        default: true,
+        describe: 'Also include licenses of reachable internal workspaces (excluding self by default)'
+      })
+      .option('include-workspace-self', {
+        type: 'boolean',
+        default: false,
+        describe: 'Also include license of the target workspace itself'
+      })
+      .help()
+      .parseAsync();
+
+    isDebug = Boolean(argv.debug);
+
+    const repoUtilsService: TRepoUtilsService = RepoUtilsService(isDebug);
+    const {
+      assertNoCycles,
+      buildLicenseEntries,
+      buildWorkspaceLicenseEntries,
+      buildWsGraph,
+      collectExternalSeedNames,
+      collectThirdPartyMap,
+      collectWorkspaceClosure,
+      debugLog,
+      fillMissingInstallPaths,
+      findMonorepoRoot,
+      loadRoot,
+      npmLsJson,
+      renderMarkdown,
+      resolveWorkspaceFromArg
+    } = repoUtilsService;
+
+    // 1) Determine start points
+    const scriptDir: string = path.dirname(fileURLToPath(import.meta.url));
+    const startCandidates: Array<string> = [argv.root as string | undefined, process.env.INIT_CWD, process.cwd(), scriptDir].filter(Boolean) as string[];
+
+    debugLog(isDebug, 'start candidates:', startCandidates);
+
+    // 2) Find monorepo root
+    let monorepoRoot: string | undefined;
+    // eslint-disable-next-line functional/no-loop-statements
+    for (const c of startCandidates) {
+      try {
+        const found = await findMonorepoRoot(c);
+        monorepoRoot = found;
+        debugLog(isDebug, 'monorepo root picked:', found, '(from', c + ')');
+        break;
+      } catch (e) {
+        debugLog(isDebug, 'no root from', c, ':', (e as Error).message);
+      }
+    }
+    if (!monorepoRoot) {
+      throw new Error(`Failed to locate monorepo root from candidates: ${startCandidates.join(', ')}`);
+    }
+
+    // 3) Load root + workspaces
+    const root = await loadRoot(monorepoRoot);
+    debugLog(isDebug, 'rootDir:', root.rootDir);
+
+    // 4) Resolve workspace
+    const { wsName, wsDir } = resolveWorkspaceFromArg(argv.workspace as string, root.workspaces, root.rootDir);
+    debugLog(isDebug, 'target workspace:', wsName, 'dir:', wsDir);
+
+    // 5) Cycle check
+    const graph = buildWsGraph(root.workspaces);
+    assertNoCycles(graph, wsName);
+
+    // 6) Workspace closure and seeds
+    const closure = collectWorkspaceClosure(graph, wsName);
+    const wsNamesSet = new Set(root.workspaces.keys());
+    const seedNames = collectExternalSeedNames(closure, root.workspaces, wsNamesSet);
+    debugLog(isDebug, 'workspace closure size:', closure.size, 'seed external deps:', seedNames.size, 'sample:', [...seedNames].slice(0, 10));
+
+    // 7) Resolved prod tree
+    const tree = await npmLsJson(root.rootDir, wsName);
+
+    // 8) Collect external packages WITH paths (seed-filtered)
+    const thirdPartyMap = new Map(collectThirdPartyMap(tree, wsNamesSet, seedNames));
+    fillMissingInstallPaths(thirdPartyMap, wsDir, root.rootDir);
+
+    if (thirdPartyMap.size === 0) debugLog(isDebug, `[info] No third-party prod deps reachable from seeds.`);
+    else if (isDebug) console.log('[debug] examples (third-party):', [...thirdPartyMap.values()].slice(0, 5));
+
+    // 9) Workspace licenses (excluding self by default)
+    let wsEntries: ReadonlyArray<TLicenseEntry> = [];
+    if (argv['include-workspaces'] !== false) {
+      wsEntries = await buildWorkspaceLicenseEntries(
+        closure,
+        root.workspaces,
+        argv['include-workspace-self'] ? undefined : wsName // exclude self
+      );
+      debugLog(isDebug, 'workspace license entries (after self-filter):', wsEntries.length);
+    }
+
+    // 10) Third-party licenses
+    const thirdEntries = await buildLicenseEntries(thirdPartyMap);
+    debugLog(isDebug, 'third-party license entries:', thirdEntries.length);
+
+    // 11) Merge & write
+    const merged = [...wsEntries, ...thirdEntries];
+    // eslint-disable-next-line functional/immutable-data
+    merged.sort((a, b) => (a.name === b.name ? a.version.localeCompare(b.version) : a.name.localeCompare(b.name)));
+
+    const outPath: string = path.isAbsolute(argv.out as string) ? (argv.out as string) : path.join(process.cwd(), argv.out as string);
+
+    let emptyNote: string | undefined;
+    if (merged.length === 0) {
+      const noSeeds = seedNames.size === 0;
+      emptyNote = noSeeds
+        ? 'This workspace declares no production dependencies and has no reachable internal workspaces. Therefore, there are no third-party licenses to list.'
+        : 'There are no third-party production dependencies reachable from this workspace. Therefore, there are no third-party licenses to list.';
+    }
+
+    debugLog(isDebug, 'write output to:', outPath, 'total entries:', merged.length);
+
+    const md = renderMarkdown(wsName, merged, emptyNote);
+    await fs.mkdir(path.dirname(outPath), { recursive: true });
+    await fs.writeFile(outPath, md, 'utf8');
+    console.log(`The result file written to: ${outPath}`);
+  }
+
+  return { generate };
+}

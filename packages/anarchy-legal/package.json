@@ -9,7 +9,7 @@
   "scripts": {
     "before:release": "npm run before:release:check",
     "before:release:check": "npm run ts:check && npm run prettier:check && npm run lint",
-    "generate:licenses": "node ./src/Builders/LicensesBuilder.ts",
+    "generate:licenses": "node src/Generators/ThirdPartyLicensesGenerator.ts",
     "lint": "eslint ./src",
     "lint:fix": "npm run lint -- --fix",
     "prettier": "prettier --write .",
