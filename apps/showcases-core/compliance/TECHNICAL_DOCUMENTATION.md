@@ -1,9 +1,13 @@
 # Technical Documentation (Technical File) — TBD until market release
 
 **Manufacturer:** Sergei Aleksandrovich Panfilov
+
 **Contacts:** Reg./Legal TBD until market release · Security TBD until market release
+
 **Product:** TBD until market release (the “Software”)
+
 **Conformity series:** TBD until market release (2.0.0) (baseline **TBD until market release**, dated **TBD until market release**)
+
 **Confidentiality:** Internal; provided to competent authorities upon request.
 
 > This index points to the core artifacts that substantiate CRA conformity. The Software works **offline by default** and **does not** process personal data by default. Where optional online/diagnostic features exist, see **PRIVACY**.
@@ -28,7 +32,7 @@
 - **Default configuration / hardening:** minimal permissions; sandboxing/OS-policies where applicable (short note).
 - **Data protection by design/default:** **no personal data by default**; optional features/diagnostics → **PRIVACY** (DPIA/ROPA only if such features are enabled).
 - **Accessibility (EAA):** basic info & contact TBD until market release (or “N/A”).
-- **Security support period:** **24 months** for the major version or **≤5 years** from initial commercial release (whichever is shorter) — see **SECURITY**.
+- **Security support period:** as declared in **SUPPORT.md** (“Support Period Policy (CRA)”): the **shorter** of (i) the **declared expected lifetime** per **major version** and (ii) **five (5) years** from the initial commercial release. See **SECURITY** for update delivery.
 
 ## D. Risk assessment (summary)
 

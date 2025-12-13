@@ -31,7 +31,7 @@
 
 ## Applicable Union Legislation
 
-The {{PRODUCT_TERM}} has been assessed for conformity with the **EU Cyber Resilience Act (CRA)** and other applicable Union legislation for products with digital elements. Conformity is demonstrated by internal control and/or third-party assessment as indicated below.
+The {{PRODUCT_TERM}} has been assessed for conformity with the essential requirements applicable to **products with digital elements** under the **EU Cyber Resilience Act (CRA)**. Conformity is demonstrated by internal control (and, where applicable, third-party assessment).
 
 {{#HAS_NOTIFIED_BODY}}
 
@@ -55,14 +55,14 @@ The {{PRODUCT_TERM}} has been assessed for conformity with the **EU Cyber Resili
 ## Essential Requirements — Summary of Compliance
 
 - **Secure development & vulnerability handling:** Implemented as described in `SECURITY` and the **Incident Response / Vulnerability Handling Plan**.
-- **Security support period:** as declared in **SUPPORT.md**; in any case the **shorter** of (i) the **declared expected lifetime** for the relevant **major version** and (ii) **five (5) years** from its initial commercial release.
+- **Security support period:** as declared in the **Support Period Policy (SUPPORT.md)**; in any case the **shorter** of **(i)** the **declared expected lifetime** for the relevant **major version** and **(ii)** **five (5) years** from its initial commercial release.
 - **Updates:** Delivered via distribution channels in use from time to time; no specific cadence guaranteed.
 - **Personal data protection:** No collection by default; if optional features are enabled, processing follows the **Privacy Policy**.
-- **Accessibility (EAA):** Information on accessibility and contact: {{ACCESSIBILITY_CONTACT}}.
+- **Accessibility (EAA):** Accessibility information and contact: {{ACCESSIBILITY_CONTACT}}.
 
 ## CE Marking
 
-The manufacturer declares that the {{PRODUCT_TERM}} conforms to the applicable requirements. The **CE marking** is affixed {{CE_MARK_PLACEMENT}}.
+The manufacturer declares that the {{PRODUCT_TERM}} conforms to the applicable requirements. The **CE marking** is **affixed electronically** in the **Instructions**; it **may also appear in-product** (e.g., “About/Legal”, installer/splash) and **on physical media/packaging where used**.
 
 ## Technical Documentation
 

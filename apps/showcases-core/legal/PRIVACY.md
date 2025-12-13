@@ -7,14 +7,16 @@
 
 ## 1. Summary
 
-We do **not** collect personal data through the Software. Purchasing, downloading, installation, account, or entitlement functions (if any) are handled by the distribution channels you use and are subject to their own terms and privacy policies, which we do not control.
+We do **not** collect personal data through the Software by default. Purchasing, downloading, installation, account, or entitlement functions (if any) are handled by the distribution channels you use and are subject to their own terms and privacy policies, which we do not control.
+
+**Optional diagnostics (crash reports).** The Software **may offer** an **opt-in** crash/diagnostics reporting feature. If you enable it, the app may send **anonymous technical diagnostics** (e.g., error codes, stack traces without content payloads, OS/runtime versions, device model class, timestamps). These diagnostics contain **no direct identifiers** and are used **solely** to investigate and fix issues. Reports are **encrypted in transit**, retained only for the period necessary to analyze and address the issue (**90 days**, unless law requires longer), then deleted or **irreversibly anonymized**. You can **withdraw consent** at any time via an in-product option (where available) or by contacting us. **Legal basis (GDPR/UK-GDPR/LGPD/PIPL):** your **consent**.
 
 **CPRA (California):** we **do not sell or share** personal information for cross-context behavioral advertising and we do **not** process **sensitive personal information**.
 
 ## 2. The Software
 
-- **No telemetry or analytics** are collected by the Software.
-- **No crash reports** are sent by default.
+- **No telemetry or analytics are collected by default**.
+- **Crash reports are optional (opt-in).** See **Summary** above for scope, purpose, safeguards, and retention.
 - The Software operates locally (offline). Any optional online features will be **opt-in** and documented here.
 
 ## 3. Distribution channels
@@ -51,7 +53,10 @@ We apply appropriate technical and organizational measures proportionate to the 
 
 ## 10. App-Store Disclosures (platform listings)
 
-Where required by app-store programs (e.g., **privacy nutrition labels** / **data safety**), our listing reflects this policy. **Current expected status:** _“No data collected.”_ If optional crash reports are enabled by you, they may be disclosed under **Diagnostics** as **not linked to you** and **not used for tracking/advertising**. Store-specific summaries are provided in the store listing and may vary by version.
+Where required by app-store programs (e.g., **privacy nutrition labels** / **data safety**), our listing reflects this policy.
+
+- **Default state:** _“No data collected.”_
+- **If you enable optional crash reports:** disclosed as **Diagnostics / Crash logs**, **not linked to you**, **not used for tracking/advertising**, **collection is optional** (user-controlled), and **for app functionality / app performance** only. Store-specific summaries are provided in the listing and may vary by version.
 
 ## 11. Changes
 

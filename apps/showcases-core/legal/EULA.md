@@ -14,7 +14,7 @@ This EULA applies to **TBD until market release** (the “Software”).
 
 Also distributed under the following technical identifiers: `showcases-core`.
 
-**Open-source repository.** The open-source codebase related to this Software (if any) is governed by its open-source license (see `LICENSE` in that repository) and is **not** governed by this EULA.
+**Open-source repository.** The codebase related to this Software (if any) is governed by its license (see `LICENSE` in that repository) and is **not** governed by this EULA.
 
 ## Defined Terms
 

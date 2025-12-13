@@ -34,7 +34,7 @@ Where required by law, we will **notify competent authorities and/or users withi
 
 - **Delivery:** through applicable distribution channels in use from time to time, which may include automatic updates where available, or by providing updated files in the distribution package.
 - **Advisories/release notes:** may be provided within the product, in the update package, or via the applicable distribution channel. No specific location or cadence is guaranteed.
-- **Security support period:** the **shorter** of **(i)** the declared expected lifetime for the relevant **major version** (**24 months**) **and (ii)** **five (5) years** from its **initial commercial release**. Older or unofficial builds may not receive fixes. For clarity, **“major version”** refers to the first segment of semantic versioning (e.g., **2.x.y**).
+- **Security support period:** as declared in **SUPPORT.md**; in any case the **shorter** of (i) the **declared expected lifetime** per **major version** and (ii) **five (5) years** from its initial commercial release.
 
 ## In / Out of Scope
 
