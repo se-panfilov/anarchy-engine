@@ -4,9 +4,9 @@ import { filterOutEmptyFields } from '@/Engine/Utils';
 
 export function rendererToConfig(entity: TRendererWrapper): TRendererConfig {
   // TODO 15-0-0: implement
-  console.log('XXX entity', entity);
+  console.log('XXX1 entity', entity);
+  console.log('XXX2 entity.entity', entity.entity);
 
-  // TODO 15-0-0: fix any
   return filterOutEmptyFields({
     // precision: entity.precision,
     // alpha: entity.alpha,
@@ -19,9 +19,9 @@ export function rendererToConfig(entity: TRendererWrapper): TRendererConfig {
     // logarithmicDepthBuffer: entity.logarithmicDepthBuffer,
     // failIfMajorPerformanceCaveat: entity.failIfMajorPerformanceCaveat,
     // mode: entity.mode,
-    // isShadowMapEnabled: entity.isShadowMapEnabled,
-    // maxPixelRatio: entity.maxPixelRatio,
+    isShadowMapEnabled: entity.isShadowMapEnabled(),
+    maxPixelRatio: entity.entity.getPixelRatio(),
     isActive: entity.isActive(),
     ...extractSerializableRegistrableFields(entity)
-  }) as any;
+  });
 }

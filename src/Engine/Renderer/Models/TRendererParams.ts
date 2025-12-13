@@ -1,9 +1,9 @@
+import type { WebGLRendererParameters } from 'three';
+
 import type { TActive, TWithName, TWithTags } from '@/Engine/Mixins';
 import type { RendererModes } from '@/Engine/Renderer/Constants';
 
-import type { TTreeJsRendererParams } from './TTreeJsRendererParams';
-
-export type TRendererParams = TTreeJsRendererParams &
+export type TRendererParams = WebGLRendererParameters &
   Readonly<{
     canvas: HTMLElement;
     mode: RendererModes;

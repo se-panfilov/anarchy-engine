@@ -9,4 +9,3 @@ export type * from './TRendererWrapper';
 export type * from './TRendererWrapperDependencies';
 export type * from './TThreeJsRendererParamsAccessors';
 export type * from './TThreeJsRendererPropsAccessors';
-export type * from './TTreeJsRendererParams';
