@@ -6,20 +6,31 @@ import { LineGeometry } from 'three/examples/jsm/lines/LineGeometry';
 import { LineMaterial } from 'three/examples/jsm/lines/LineMaterial';
 
 import type { TShowcase } from '@/App/Levels/Models';
-import type {
+import {
+  buildSpaceFromConfig,
+  Engine,
+  EulerWrapper,
+  getHorizontalAzimuth,
+  getPushCoordsFrom3dAzimuth,
+  isDefined,
+  isNotDefined,
+  mouseService,
+  PhysicsDebugRenderer,
+  STANDARD_GRAVITY,
   TActorWrapperAsync,
   TAppCanvas,
   TCameraWrapper,
   TEngine,
+  TextType,
   TIntersectionEvent,
   TIntersectionsWatcher,
   TIntersectionsWatcherParams,
   TPhysicsDebugRenderer,
   TSceneWrapper,
   TSpace,
-  TSpaceConfig
+  TSpaceConfig,
+  Vector3Wrapper
 } from '@/Engine';
-import { buildSpaceFromConfig, Engine, isDefined, isNotDefined, mouseService, PhysicsDebugRenderer, STANDARD_GRAVITY } from '@/Engine';
 import { meters } from '@/Engine/Measurements/Utils';
 
 import spaceConfig from './showcase.json';
@@ -28,7 +39,7 @@ export function showcase(canvas: TAppCanvas): TShowcase {
   const space: TSpace = buildSpaceFromConfig(canvas, spaceConfig as TSpaceConfig);
   const engine: TEngine = Engine(space);
   const { loopService } = engine.services;
-  const { actorService, cameraService, intersectionsWatcherService } = space.services;
+  const { actorService, cameraService, intersectionsWatcherService, textService } = space.services;
 
   const actorAsyncRegistry = actorService.getRegistry();
   const sceneWrapper: TSceneWrapper = actorService.getScene();
@@ -39,9 +50,7 @@ export function showcase(canvas: TAppCanvas): TShowcase {
   const world: World = new World(STANDARD_GRAVITY);
   const physicsDebugRenderer: TPhysicsDebugRenderer = PhysicsDebugRenderer(sceneWrapper.entity, world);
 
-  const rigidBodyDesc = RigidBodyDesc.dynamic()
-    .setTranslation(0, 5, 0) //should take the position of the actor
-    .setLinvel(4, 0, 2);
+  const rigidBodyDesc = RigidBodyDesc.dynamic().setTranslation(0, 6, 0); //should take the position of the actor
   const rigidBody = world.createRigidBody(rigidBodyDesc);
   const colliderDesc = ColliderDesc.ball(meters(1));
   world.createCollider(colliderDesc, rigidBody);
@@ -51,6 +60,12 @@ export function showcase(canvas: TAppCanvas): TShowcase {
 
   const groundColliderDesc: ColliderDesc = ColliderDesc.cuboid(meters(10), meters(0.1), meters(10));
   world.createCollider(groundColliderDesc);
+
+  mouseService.clickLeftRelease$.subscribe(() => {
+    // TODO (S.Panfilov) get 3d azimuth and convert it to coords
+    console.log(getPushCoordsFrom3dAzimuth(180, 0, 2));
+    rigidBody.setLinvel(getPushCoordsFrom3dAzimuth(180, 0, 2), true);
+  });
 
   async function init(): Promise<void> {
     const ballActorW: TActorWrapperAsync | undefined = await ballActorPromise;
@@ -73,9 +88,21 @@ export function showcase(canvas: TAppCanvas): TShowcase {
       tags: []
     } satisfies TIntersectionsWatcherParams);
 
+    const azimuthText = textService.create({
+      text: 'Azimuth...',
+      type: TextType.Text3d,
+      cssProps: { fontSize: '0.05rem' },
+      position: Vector3Wrapper({ x: 3, y: 0, z: 6 }),
+      rotation: EulerWrapper({ x: -1.57, y: 0, z: 0 }),
+      tags: []
+    });
+
     let mouseLineIntersectionsCoords: Vector3 | undefined = undefined;
     mouseLineIntersectionsWatcher.value$.subscribe((intersection: TIntersectionEvent) => {
       mouseLineIntersectionsCoords = intersection.point;
+      console.log(mouseLineIntersectionsCoords);
+      const azimuth: number = getHorizontalAzimuth({ x: 0, z: 0 }, mouseLineIntersectionsCoords);
+      azimuthText.setText(`Azimuth: ${azimuth}`);
     });
 
     // TODO (S.Panfilov) extract physics world update to  the main loop
