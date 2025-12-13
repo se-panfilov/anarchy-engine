@@ -46,6 +46,7 @@ Roadmap:
 - 25.0.x Modules: distinct engine/rapier from engine/core. Bonus: Make possible to load engine/rapier in async way
 
 Thoughts:
+- Maybe: Add a possibility to run E2E tests against minified code (prod). Cause minification could break things;
 - Maybe: Replace all arrays (with no allowed duplicates) with Maps (for performance)?;
 - Maybe: Try to replace spread operator with Object.assign everywhere (for performance and make sure that we are not creating new objects)? Check with AbstractEntity first;
 - Maybe: Add domain for timers (based on web workers);
