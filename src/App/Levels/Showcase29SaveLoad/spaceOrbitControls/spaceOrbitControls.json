@@ -1,5 +1,5 @@
 {
-  "canvasSelector": "#controls_container #app",
+  "canvasSelector": "#orbit_controls_container #app",
   "entities": {
     "actors": [
       {
@@ -152,7 +152,7 @@
     ],
     "texts": []
   },
-  "name": "SpaceControls",
+  "name": "SpaceOrbitControls",
   "resources": {
     "animations": [],
     "audio": [],

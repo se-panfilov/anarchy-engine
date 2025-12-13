@@ -6,11 +6,11 @@ import { isNotDefined } from '@/Engine';
 
 import type { TSpacesData } from '../ShowcaseTypes';
 import { getContainer } from '../utils';
-import spaceConfig from './spaceControls.json';
+import spaceConfig from './spaceOrbitControls.json';
 
 const config: TSpaceConfig = spaceConfig as TSpaceConfig;
 
-export const spaceControlsData: TSpacesData = {
+export const SpaceOrbitControlsData: TSpacesData = {
   name: config.name,
   config: config,
   container: getContainer(config.canvasSelector),

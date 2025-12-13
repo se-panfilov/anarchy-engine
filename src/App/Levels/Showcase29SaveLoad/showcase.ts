@@ -5,10 +5,10 @@ import type { Subscription } from 'rxjs';
 
 import { spaceBasicData } from '@/App/Levels/Showcase29SaveLoad/spaceBasic/spaceBasic';
 import { spaceCameraData } from '@/App/Levels/Showcase29SaveLoad/spaceCamera';
-import { spaceControlsData } from '@/App/Levels/Showcase29SaveLoad/spaceControls';
 import { spaceCustomModelsData } from '@/App/Levels/Showcase29SaveLoad/spaceCustomModels';
 import { spaceLightData } from '@/App/Levels/Showcase29SaveLoad/spaceLight/spaceLight';
 import { spaceMaterialsData } from '@/App/Levels/Showcase29SaveLoad/spaceMaterials';
+import { SpaceOrbitControlsData } from '@/App/Levels/Showcase29SaveLoad/spaceOrbitControls';
 import { spaceTextData } from '@/App/Levels/Showcase29SaveLoad/spaceTexts';
 import { addBtn, addDropdown } from '@/App/Levels/Utils';
 import type { TSpace, TSpaceConfig, TSpaceRegistry } from '@/Engine';
@@ -22,16 +22,16 @@ const subscriptions: Record<string, Subscription> = {};
 // TODO 15-0-0: E2E: FpsControls
 // TODO 15-0-0: E2E: Actors with models
 // TODO 15-0-0: E2E: Actors with FSM
+// TODO 15-0-0: E2E: TransformDrive (default, connected, physics, kinematic)
 // TODO 15-0-0: E2E: Particles
 // TODO 15-0-0: E2E: Fog
 // TODO 15-0-0: E2E: Physics
 // TODO 15-0-0: E2E: Intersections
-// TODO 15-0-0: E2E: TransformDrive (default, connected, physics, kinematic)
 // TODO 15-0-0: E2E: Animations (state, progress, etc)
 // TODO 15-0-0: E2E: Complex scene (similar to Showcase22PhysicsShooter)
 
 // TODO 15-0-0: E2E: Perhaps serialization should return promise (cause it feels kinda async)
-const spacesData: ReadonlyArray<TSpacesData> = [spaceBasicData, spaceCustomModelsData, spaceTextData, spaceCameraData, spaceLightData, spaceMaterialsData, spaceControlsData];
+const spacesData: ReadonlyArray<TSpacesData> = [spaceBasicData, spaceCustomModelsData, spaceTextData, spaceCameraData, spaceLightData, spaceMaterialsData, SpaceOrbitControlsData];
 
 const spacesInMemoryData: Array<TSpacesData> = [];
 
