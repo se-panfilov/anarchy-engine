@@ -72,7 +72,7 @@ export function playAnimationUntilFrame(mixer: AnimationMixer, action: Animation
 
   mixer.update(0);
 
-  let steps = 0;
+  let steps: number = 0;
   // eslint-disable-next-line functional/no-loop-statements
   while (action.time < targetTime && steps < maxSteps) {
     mixer.update(step);
