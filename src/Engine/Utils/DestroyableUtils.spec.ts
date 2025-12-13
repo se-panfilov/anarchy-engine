@@ -1,7 +1,7 @@
 import type { IActorFactory, ICameraFactory, IControlsFactory, IControlsFactoryParams, IInputFactory, ILightFactory, ILoopFactory, IRendererFactory, ISceneFactory } from '@Engine/Factories';
 import { AbstractFactory, ActorFactory, CameraFactory, ControlsFactory, InputFactory, LightFactory, LoopFactory, RendererFactory, SceneFactory } from '@Engine/Factories';
 import { AbstractDestroyableFactory } from '@Engine/Factories/AbstractFactory/AbstractDestroyableFactory';
-import type { IDestroyableFactory, IAbstractFactory } from '@Engine/Models';
+import type { IAbstractFactory, IDestroyableFactory } from '@Engine/Models';
 import { isDestroyedFactory } from '@Engine/Utils/DestroyableUtils';
 
 describe('DestroyableUtils', () => {

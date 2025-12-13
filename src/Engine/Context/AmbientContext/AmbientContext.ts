@@ -3,8 +3,9 @@ import { ContainerDecorator } from '@Engine/Global';
 import type { IMouseClicksWatcher, IMousePositionWatcher, IScreenSizeWatcher } from '@Engine/Watchers';
 import { MousePositionWatcher, ScreenSizeWatcher } from '@Engine/Watchers';
 
-import type { IAmbientContext } from './Models';
 import { MouseClicksWatcherFactory } from '@/Engine';
+
+import type { IAmbientContext } from './Models';
 
 const container: IGlobalContainerDecorator = ContainerDecorator(window);
 const screenSizeWatcher: IScreenSizeWatcher = ScreenSizeWatcher(container).start();
