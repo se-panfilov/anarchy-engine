@@ -1,6 +1,6 @@
 import type { Color } from 'three';
 
-import type { TWithNameOptional, TWithReadonlyTags } from '@/Engine/Mixins';
+import type { TWithNameOptional, TWithTags } from '@/Engine/Mixins';
 
 export type TFogParams = Readonly<{
   color: Color;
@@ -8,4 +8,4 @@ export type TFogParams = Readonly<{
   far?: number;
 }> &
   TWithNameOptional &
-  TWithReadonlyTags;
+  TWithTags;

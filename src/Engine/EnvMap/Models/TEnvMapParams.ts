@@ -1,4 +1,4 @@
-import type { TActive, TWithName, TWithReadonlyTags } from '@/Engine/Mixins';
+import type { TActive, TWithName, TWithTags } from '@/Engine/Mixins';
 
 import type { TEnvMapTexture } from './TEnvMapTexture';
 
@@ -7,4 +7,4 @@ export type TEnvMapParams = Readonly<{
 }> &
   TActive &
   TWithName &
-  TWithReadonlyTags;
+  TWithTags;

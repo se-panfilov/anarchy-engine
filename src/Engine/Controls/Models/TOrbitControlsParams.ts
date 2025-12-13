@@ -2,7 +2,7 @@ import type { Vector3 } from 'three/src/math/Vector3';
 
 import type { TAppCanvas } from '@/Engine/App';
 import type { TCameraWrapper } from '@/Engine/Camera';
-import type { TActive, TWithNameOptional, TWithReadonlyTags } from '@/Engine/Mixins';
+import type { TActive, TWithNameOptional, TWithTags } from '@/Engine/Mixins';
 
 export type TOrbitControlsParams = Readonly<{
   enabled?: boolean;
@@ -36,4 +36,4 @@ export type TOrbitControlsParams = Readonly<{
 }> &
   TWithNameOptional &
   TActive &
-  TWithReadonlyTags;
+  TWithTags;

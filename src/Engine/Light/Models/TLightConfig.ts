@@ -1,7 +1,7 @@
 import type { Vector2Like } from 'three';
 import type { Color } from 'three/src/math/Color';
 
-import type { TWithReadonlyTags } from '@/Engine/Mixins';
+import type { TWithTags } from '@/Engine/Mixins';
 import type { TObject3DParams, TObject3DPropConfig } from '@/Engine/ThreeLib';
 
 import type { TAmbientLightParams } from './TAmbientLightParams';
@@ -19,7 +19,7 @@ export type TAbstractLightConfig<T extends Readonly<{ color: Color; shadow?: TLi
     shadow?: TLightShadowConfig;
   }> &
   TObject3DPropConfig &
-  TWithReadonlyTags;
+  TWithTags;
 
 export type TDirectionalLightConfig = Omit<TDirectionalLightParams, keyof TObject3DParams | 'color' | 'shadow'> &
   Readonly<{

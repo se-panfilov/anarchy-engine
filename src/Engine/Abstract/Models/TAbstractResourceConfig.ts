@@ -1,4 +1,4 @@
-import type { TWithName, TWithReadonlyTags } from '@/Engine/Mixins';
+import type { TWithName, TWithTags } from '@/Engine/Mixins';
 
 export type TAbstractResourceConfig = Readonly<{
   url: string;
@@ -6,4 +6,4 @@ export type TAbstractResourceConfig = Readonly<{
   options?: Record<string, any>;
 }> &
   TWithName &
-  TWithReadonlyTags;
+  TWithTags;

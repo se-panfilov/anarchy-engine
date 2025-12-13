@@ -1,4 +1,4 @@
-import type { TWithName, TWithReadonlyTags } from '@/Engine/Mixins';
+import type { TWithName, TWithTags } from '@/Engine/Mixins';
 import type { TSceneConfig } from '@/Engine/Scene';
 import type { SpaceSchemaVersion } from '@/Engine/Space/Constants';
 
@@ -12,4 +12,4 @@ export type TSpaceConfig = Readonly<{
   resources: TSpaceConfigResources;
 }> &
   TWithName &
-  TWithReadonlyTags;
+  TWithTags;

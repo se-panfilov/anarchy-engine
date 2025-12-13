@@ -1,6 +1,6 @@
 import type { Quaternion, Vector3 } from 'three';
 
-import type { TWithName, TWithReadonlyTags } from '@/Engine/Mixins';
+import type { TWithName, TWithTags } from '@/Engine/Mixins';
 import type { CollisionShape, RigidBodyTypesNames } from '@/Engine/Physics/Constants';
 
 import type { TPhysicsShapeParams } from './TPhysicsShapeParams';
@@ -18,4 +18,4 @@ export type TPhysicsBodyParams = Readonly<{
   isSleep?: boolean;
 }> &
   TWithName &
-  TWithReadonlyTags;
+  TWithTags;

@@ -1,7 +1,7 @@
 import type { CubeTexture } from 'three';
 
 import type { TColor } from '@/Engine/Color';
-import type { TActive, TWithNameOptional, TWithReadonlyTags } from '@/Engine/Mixins';
+import type { TActive, TWithNameOptional, TWithTags } from '@/Engine/Mixins';
 import type { TTexture } from '@/Engine/Texture';
 import type { TObject3DParams } from '@/Engine/ThreeLib';
 
@@ -11,4 +11,4 @@ export type TSceneParams = Readonly<{
   TWithNameOptional &
   TActive &
   TObject3DParams &
-  TWithReadonlyTags;
+  TWithTags;

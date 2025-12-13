@@ -4,7 +4,7 @@ import type { TAbstractResourceConfig } from '@/Engine/Abstract';
 import type { TActorConfig } from '@/Engine/Actor';
 import type { TCameraConfig } from '@/Engine/Camera';
 import type { TControlsConfig } from '@/Engine/Controls';
-import type { TWithNameOptional, TWithReadonlyTags } from '@/Engine/Mixins';
+import type { TWithNameOptional, TWithTags } from '@/Engine/Mixins';
 import type { TModel3dConfig, TModel3dResourceConfig } from '@/Engine/Models3d';
 import { isPrimitiveModel3dResourceConfig, isPrimitiveModel3dSource } from '@/Engine/Models3d';
 import type { TPhysicsPresetConfig, TWithPresetNamePhysicsBodyConfig } from '@/Engine/Physics';
@@ -177,7 +177,7 @@ function validatePresetNames(entities: ReadonlyArray<Readonly<{ physics?: TWithP
 const validateActorNamesForEveryEntity = (entities: ReadonlyArray<Readonly<{ actorNames: ReadonlyArray<string> }>>): boolean => entities.every(validateActorNames);
 const validateActorNames = (entity: Readonly<{ actorNames: ReadonlyArray<string> }>): boolean => validateArrayField(entity, 'actorNames');
 
-const validateTagsForEveryEntity = (entities: ReadonlyArray<TWithReadonlyTags>): boolean => entities.every((e: TWithReadonlyTags): boolean => validateTags(e.tags));
+const validateTagsForEveryEntity = (entities: ReadonlyArray<TWithTags>): boolean => entities.every((e: TWithTags): boolean => validateTags(e.tags));
 const validateTags = (tags: ReadonlyArray<string> | undefined): boolean => (tags ? tags.every(validate) : true);
 
 // eslint-disable-next-line @typescript-eslint/no-unsafe-argument

@@ -1,7 +1,7 @@
 import type { Vector2 } from 'three';
 
 import type { TKinematicParams } from '@/Engine/Kinematic';
-import type { TWithNameOptional, TWithReadonlyTags } from '@/Engine/Mixins';
+import type { TWithNameOptional, TWithTags } from '@/Engine/Mixins';
 import type { TWithPresetNamePhysicsBodyParams } from '@/Engine/Physics';
 import type { TextType } from '@/Engine/Text/Constants';
 import type { TObject3DParams } from '@/Engine/ThreeLib';
@@ -21,4 +21,4 @@ export type TTextParams = Readonly<{
   TWithTransformAgentParam &
   TWithNameOptional &
   TObject3DParams &
-  TWithReadonlyTags;
+  TWithTags;

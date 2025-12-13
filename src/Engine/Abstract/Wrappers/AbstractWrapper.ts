@@ -5,10 +5,10 @@ import { withNoWrapperIdMixin, withWrapperIdMixin } from '@/Engine/Abstract';
 import type { TWrapper } from '@/Engine/Abstract/Models';
 import type { TDestroyable, TRegistrable, TWithEntity, TWithNameAndNameAccessorsMixin, TWithNameOptional } from '@/Engine/Mixins';
 import { destroyableMixin, withNameAndNameAccessorsMixin } from '@/Engine/Mixins';
-import type { TWithReadonlyTags } from '@/Engine/Mixins/Generics/Models/TWithTagsMixin';
+import type { TWithTags } from '@/Engine/Mixins/Generics/Models/TWithTags';
 import { isDefined, isWithUserData, isWithWrapperIdAccessors } from '@/Engine/Utils';
 
-type TWrapperParams = TWithReadonlyTags & TWithNameOptional;
+type TWrapperParams = TWithTags & TWithNameOptional;
 
 export function AbstractWrapper<T>(entity: T, type: WrapperType | string, params?: TWrapperParams): TWrapper<T>;
 export function AbstractWrapper<T extends TWithUserData>(entity: T, type: WrapperType | string, params?: TWrapperParams): TWrapper<TWithWrapperIdEntity<T>>;

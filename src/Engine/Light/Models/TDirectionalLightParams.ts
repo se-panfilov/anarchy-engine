@@ -1,6 +1,6 @@
 import type { Color } from 'three';
 
-import type { TWithReadonlyTags } from '@/Engine/Mixins';
+import type { TWithTags } from '@/Engine/Mixins';
 import type { TObject3DParams } from '@/Engine/ThreeLib';
 
 import type { TAbstractLightParams } from './TAbstractLightParams';
@@ -14,4 +14,4 @@ export type TDirectionalLightParams = Omit<TAbstractLightParams, 'shadow'> &
     castShadow?: boolean;
   }> &
   TObject3DParams &
-  TWithReadonlyTags;
+  TWithTags;

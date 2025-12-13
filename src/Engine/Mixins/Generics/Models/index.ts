@@ -8,4 +8,4 @@ export type * from './TWithCreateAsync';
 export type * from './TWithId';
 export type * from './TWithMessages';
 export type * from './TWithName';
-export type * from './TWithTagsMixin';
+export type * from './TWithTags';

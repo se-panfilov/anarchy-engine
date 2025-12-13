@@ -1,7 +1,7 @@
 import type { Color } from 'three/src/math/Color';
 
 import type { LightType } from '@/Engine/Light/Constants';
-import type { TWithNameOptional, TWithReadonlyTags } from '@/Engine/Mixins';
+import type { TWithNameOptional, TWithTags } from '@/Engine/Mixins';
 import type { TObject3DParams } from '@/Engine/ThreeLib';
 import type { TWithTransformAgentParam } from '@/Engine/TransformDrive';
 
@@ -16,4 +16,4 @@ export type TAbstractLightParams = Readonly<{
   TWithTransformAgentParam &
   TWithNameOptional &
   TObject3DParams &
-  TWithReadonlyTags;
+  TWithTags;

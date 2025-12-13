@@ -1,4 +1,4 @@
-import type { TActive, TWithReadonlyTags } from '@/Engine/Mixins';
+import type { TActive, TWithTags } from '@/Engine/Mixins';
 import type { RendererModes } from '@/Engine/Renderer/Constants';
 
 import type { TTreeJsRendererParams } from './TTreeJsRendererParams';
@@ -11,4 +11,4 @@ export type TRendererParams = TTreeJsRendererParams &
     maxPixelRatio?: number;
   }> &
   TActive &
-  TWithReadonlyTags;
+  TWithTags;
