@@ -2,7 +2,7 @@ import { Color } from 'three';
 
 import type { TAbstractAsyncRegistry, TAbstractEntityRegistry, TWithUserData, TWithWrapperId, TWithWrapperIdEntity } from '@/Engine/Abstract/Models';
 import type { TColorWrapper } from '@/Engine/Color';
-import type { IWithPosition2dProperty, IWithPosition3dProperty, IWithPosition4dProperty, IWithPositionProperty, TDestroyable, TRegistrable } from '@/Engine/Mixins';
+import type { TDestroyable, TRegistrable, TWithPosition2dProperty, TWithPosition3dProperty, TWithPosition4dProperty, TWithPositionProperty } from '@/Engine/Mixins';
 import type { TVector2, TVector2Wrapper, TVector3, TVector3Wrapper, TVector4, TVector4Wrapper } from '@/Engine/Vector';
 
 import { isObject } from './ObjectUtils';
@@ -47,9 +47,9 @@ export const isVector2Wrapper = (obj: TVector2Wrapper | TVector3Wrapper): obj is
 export const isVector3Wrapper = (obj: TVector2Wrapper | TVector3Wrapper): obj is TVector3Wrapper => isVector3(obj.entity);
 export const isVector4Wrapper = (obj: TVector2Wrapper | TVector3Wrapper): obj is TVector4Wrapper => isVector4(obj.entity);
 
-export const isEntityWith2dPosition = (obj: IWithPositionProperty): obj is IWithPosition2dProperty => isVector2(obj.position as TVector2);
-export const isEntityWith3dPosition = (obj: IWithPositionProperty): obj is IWithPosition3dProperty => isVector3(obj.position as TVector3);
-export const isEntityWith4dPosition = (obj: IWithPositionProperty): obj is IWithPosition4dProperty => isVector4(obj.position as TVector4);
+export const isEntityWith2dPosition = (obj: TWithPositionProperty): obj is TWithPosition2dProperty => isVector2(obj.position as TVector2);
+export const isEntityWith3dPosition = (obj: TWithPositionProperty): obj is TWithPosition3dProperty => isVector3(obj.position as TVector3);
+export const isEntityWith4dPosition = (obj: TWithPositionProperty): obj is TWithPosition4dProperty => isVector4(obj.position as TVector4);
 
 export const isAsyncRegistry = (registry: TAbstractEntityRegistry<any> | TAbstractAsyncRegistry<any>): registry is TAbstractAsyncRegistry<any> =>
   isDefined((registry as TAbstractAsyncRegistry<any>).findByTagsAsync) && isDefined((registry as TAbstractAsyncRegistry<any>).findByTagAsync);

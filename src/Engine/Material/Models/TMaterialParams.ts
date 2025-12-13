@@ -14,29 +14,29 @@ import type {
 } from './TMaterialProps';
 import type { TWithMaterialType } from './TWithMaterialType';
 
-export type IAbstractMaterialParams = TAbstractMaterialProps & TWithMaterialType;
-export type IBasicMaterialParams = TBasicMaterialProps & TWithMaterialType;
-export type IDepthMaterialParams = TDepthMaterialProps & TWithMaterialType;
-export type IDistanceMaterialParams = TDistanceMaterialProps & TWithMaterialType;
-export type INormalMaterialParams = TNormalMaterialProps & TWithMaterialType;
-export type IMatcapMaterialParams = TMatcapMaterialProps & TWithMaterialType;
-export type ILambertMaterialParams = TLambertMaterialProps & TWithMaterialType;
-export type IPhongMaterialParams = TPhongMaterialProps & TWithMaterialType;
-export type IToonMaterialParams = TToonMaterialProps & TWithMaterialType;
-export type IStandardMaterialParams = TStandardMaterialProps & TWithMaterialType;
-export type IPhysicalMaterialParams = TPhysicalMaterialProps & TWithMaterialType;
-export type IPointsMaterialParams = TPointsMaterialProps & TWithMaterialType;
+export type TAbstractMaterialParams = TAbstractMaterialProps & TWithMaterialType;
+export type TBasicMaterialParams = TBasicMaterialProps & TWithMaterialType;
+export type TDepthMaterialParams = TDepthMaterialProps & TWithMaterialType;
+export type TDistanceMaterialParams = TDistanceMaterialProps & TWithMaterialType;
+export type TNormalMaterialParams = TNormalMaterialProps & TWithMaterialType;
+export type TMatcapMaterialParams = TMatcapMaterialProps & TWithMaterialType;
+export type TLambertMaterialParams = TLambertMaterialProps & TWithMaterialType;
+export type TPhongMaterialParams = TPhongMaterialProps & TWithMaterialType;
+export type TToonMaterialParams = TToonMaterialProps & TWithMaterialType;
+export type TStandardMaterialParams = TStandardMaterialProps & TWithMaterialType;
+export type TPhysicalMaterialParams = TPhysicalMaterialProps & TWithMaterialType;
+export type TPointsMaterialParams = TPointsMaterialProps & TWithMaterialType;
 
 export type TMaterialParams =
-  | IAbstractMaterialParams
-  | IBasicMaterialParams
-  | IDepthMaterialParams
-  | IDistanceMaterialParams
-  | INormalMaterialParams
-  | IMatcapMaterialParams
-  | ILambertMaterialParams
-  | IPhongMaterialParams
-  | IToonMaterialParams
-  | IStandardMaterialParams
-  | IPhysicalMaterialParams
-  | IPointsMaterialParams;
+  | TAbstractMaterialParams
+  | TBasicMaterialParams
+  | TDepthMaterialParams
+  | TDistanceMaterialParams
+  | TNormalMaterialParams
+  | TMatcapMaterialParams
+  | TLambertMaterialParams
+  | TPhongMaterialParams
+  | TToonMaterialParams
+  | TStandardMaterialParams
+  | TPhysicalMaterialParams
+  | TPointsMaterialParams;

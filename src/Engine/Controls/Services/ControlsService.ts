@@ -1,12 +1,12 @@
 import type { TAppCanvas } from '@/Engine/App';
 import type { TCameraRegistry, TCameraWrapper } from '@/Engine/Camera';
 import type { TControlsConfig, TControlsFactory, TControlsParams, TControlsRegistry, TControlsService, TControlsWrapper } from '@/Engine/Controls/Models';
-import type { IWithActiveMixinResult, TDestroyable } from '@/Engine/Mixins';
+import type { TDestroyable, TWithActiveMixinResult } from '@/Engine/Mixins';
 import { destroyableMixin, withActiveEntityServiceMixin } from '@/Engine/Mixins';
 import { isNotDefined } from '@/Engine/Utils';
 
 export function ControlService(factory: TControlsFactory, registry: TControlsRegistry, canvas: TAppCanvas): TControlsService {
-  const withActive: IWithActiveMixinResult<TControlsWrapper> = withActiveEntityServiceMixin<TControlsWrapper>(registry);
+  const withActive: TWithActiveMixinResult<TControlsWrapper> = withActiveEntityServiceMixin<TControlsWrapper>(registry);
   registry.added$.subscribe((wrapper: TControlsWrapper): void => {
     if (wrapper.isActive()) withActive.active$.next(wrapper);
   });

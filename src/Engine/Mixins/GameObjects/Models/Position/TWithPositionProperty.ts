@@ -1,6 +1,6 @@
 import type { TVector2, TVector3, TVector4 } from '@/Engine/Vector';
 
-export type IWithPosition2dProperty = Readonly<{
+export type TWithPosition2dProperty = Readonly<{
   position: {
     x: number;
     y: number;
@@ -8,7 +8,7 @@ export type IWithPosition2dProperty = Readonly<{
   };
 }>;
 
-export type IWithPosition3dProperty = Readonly<{
+export type TWithPosition3dProperty = Readonly<{
   position: {
     x: number;
     y: number;
@@ -17,7 +17,7 @@ export type IWithPosition3dProperty = Readonly<{
   };
 }>;
 
-export type IWithPosition4dProperty = Readonly<{
+export type TWithPosition4dProperty = Readonly<{
   position: {
     x: number;
     y: number;
@@ -27,4 +27,4 @@ export type IWithPosition4dProperty = Readonly<{
   };
 }>;
 
-export type IWithPositionProperty = IWithPosition2dProperty | IWithPosition3dProperty | IWithPosition4dProperty;
+export type TWithPositionProperty = TWithPosition2dProperty | TWithPosition3dProperty | TWithPosition4dProperty;

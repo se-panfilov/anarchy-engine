@@ -1,6 +1,6 @@
 import type { TVector3 } from '@/Engine/Vector';
 
-export type IWithScale = {
+export type TWithScale = {
   scale: {
     x: number;
     y: number;

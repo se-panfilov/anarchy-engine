@@ -1,4 +1,4 @@
-import type { IActive, TWithName } from '@/Engine/Mixins';
+import type { TActive, TWithName } from '@/Engine/Mixins';
 import type { TVector3Wrapper } from '@/Engine/Vector';
 
 export type TCameraProps = Readonly<{
@@ -8,4 +8,4 @@ export type TCameraProps = Readonly<{
   lookAt?: TVector3Wrapper;
 }> &
   TWithName &
-  IActive;
+  TActive;

@@ -1,6 +1,6 @@
-import type { IWithRotation } from './IWithRotation';
+import type { TWithRotation } from './TWithRotation';
 
-export type TRotatableZ = IWithRotation &
+export type TRotatableZ = TWithRotation &
   Readonly<{
     setRotationZ: (z: number) => void;
     getRotationZ: () => number;

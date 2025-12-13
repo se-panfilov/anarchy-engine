@@ -23,7 +23,7 @@ export type TPhongMaterialTexturePack = Readonly<{ [key in TPhongMaterialPackKey
 export type TPhysicalMaterialTexturePack = Readonly<{ [key in TPhysicalMaterialPackKeys]?: TTexturePackParams }>;
 export type TToonMaterialTexturePack = Readonly<{ [key in TToonMaterialPackKeys]?: TTexturePackParams }>;
 export type TStandardMaterialTexturePack = Readonly<{ [key in TStandardMaterialPackKeys]?: TTexturePackParams }>;
-export type IPointsMaterialTexturePack = Readonly<{ [key in TPointsMaterialPackKeys]?: TTexturePackParams }>;
+export type TPointsMaterialTexturePack = Readonly<{ [key in TPointsMaterialPackKeys]?: TTexturePackParams }>;
 
 export type TMaterialTexturePack =
   | TBasicMaterialTexturePack
@@ -36,4 +36,4 @@ export type TMaterialTexturePack =
   | TPhysicalMaterialTexturePack
   | TToonMaterialTexturePack
   | TStandardMaterialTexturePack
-  | IPointsMaterialTexturePack;
+  | TPointsMaterialTexturePack;

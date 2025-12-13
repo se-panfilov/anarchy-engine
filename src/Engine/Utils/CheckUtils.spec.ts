@@ -2,7 +2,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { Vector2, Vector3, Vector4 } from 'three';
 
 import { ColorWrapper } from '@/Engine/Color';
-import type { IWithPosition2dProperty, IWithPosition3dProperty, IWithPosition4dProperty, TDestroyable, TRegistrable } from '@/Engine/Mixins';
+import type { TDestroyable, TRegistrable, TWithPosition2dProperty, TWithPosition3dProperty, TWithPosition4dProperty } from '@/Engine/Mixins';
 import { Vector2Wrapper, Vector3Wrapper, Vector4Wrapper } from '@/Engine/Vector';
 
 import {
@@ -29,9 +29,9 @@ import {
 } from './CheckUtils';
 
 describe('CheckUtils', () => {
-  const entity2d: IWithPosition2dProperty = { position: Vector2Wrapper({ x: 10, y: 10 }).entity };
-  const entity3d: IWithPosition3dProperty = { position: Vector3Wrapper({ x: 10, y: 10, z: 10 }).entity };
-  const entity4d: IWithPosition4dProperty = { position: Vector4Wrapper({ x: 10, y: 10, z: 10, w: 10 }).entity };
+  const entity2d: TWithPosition2dProperty = { position: Vector2Wrapper({ x: 10, y: 10 }).entity };
+  const entity3d: TWithPosition3dProperty = { position: Vector3Wrapper({ x: 10, y: 10, z: 10 }).entity };
+  const entity4d: TWithPosition4dProperty = { position: Vector4Wrapper({ x: 10, y: 10, z: 10, w: 10 }).entity };
 
   describe('isDefined', () => {
     it('should return "true" if value is "string"', () => {

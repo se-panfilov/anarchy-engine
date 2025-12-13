@@ -1,2 +1,2 @@
-export * from './IWithPosition';
-export * from './IWithPositionProperty';
+export * from './TWithPosition';
+export * from './TWithPositionProperty';

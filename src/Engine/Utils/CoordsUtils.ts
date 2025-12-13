@@ -1,6 +1,6 @@
 import type { TWithCoordsXY, TWithCoordsXZ, TWithCoordsYZ } from '@/Engine/Mixins';
 
-type ITempCoords = Readonly<{
+type TTempCoords = Readonly<{
   coord1: number;
   coord2: number;
 }>;
@@ -20,7 +20,7 @@ export function generateAnglesForCircle(numberOfPoints: number, numberOfCircles:
 }
 
 // Generates coords for circular movement
-function createCirclePath(angleArray: ReadonlyArray<number>, radius: number, circleCenter: ITempCoords): ReadonlyArray<ITempCoords> {
+function createCirclePath(angleArray: ReadonlyArray<number>, radius: number, circleCenter: TTempCoords): ReadonlyArray<TTempCoords> {
   return angleArray.map((angle: number) => {
     return {
       coord1: Math.cos(angle) * radius + circleCenter.coord1,
@@ -31,7 +31,7 @@ function createCirclePath(angleArray: ReadonlyArray<number>, radius: number, cir
 
 export function createCirclePathXY(angleArray: ReadonlyArray<number>, radius: number, circleCenter: TWithCoordsXY): ReadonlyArray<TWithCoordsXY> {
   return createCirclePath(angleArray, radius, { coord1: circleCenter.x, coord2: circleCenter.y }).map(
-    (coords: ITempCoords): TWithCoordsXY => ({
+    (coords: TTempCoords): TWithCoordsXY => ({
       x: coords.coord1,
       y: coords.coord2
     })
@@ -40,7 +40,7 @@ export function createCirclePathXY(angleArray: ReadonlyArray<number>, radius: nu
 
 export function createCirclePathXZ(angleArray: ReadonlyArray<number>, radius: number, circleCenter: TWithCoordsXZ): ReadonlyArray<TWithCoordsXZ> {
   return createCirclePath(angleArray, radius, { coord1: circleCenter.x, coord2: circleCenter.z }).map(
-    (coords: ITempCoords): TWithCoordsXZ => ({
+    (coords: TTempCoords): TWithCoordsXZ => ({
       x: coords.coord1,
       z: coords.coord2
     })
@@ -49,7 +49,7 @@ export function createCirclePathXZ(angleArray: ReadonlyArray<number>, radius: nu
 
 export function createCirclePathYZ(angleArray: ReadonlyArray<number>, radius: number, circleCenter: TWithCoordsYZ): ReadonlyArray<TWithCoordsYZ> {
   return createCirclePath(angleArray, radius, { coord1: circleCenter.y, coord2: circleCenter.z }).map(
-    (coords: ITempCoords): TWithCoordsYZ => ({
+    (coords: TTempCoords): TWithCoordsYZ => ({
       y: coords.coord1,
       z: coords.coord2
     })

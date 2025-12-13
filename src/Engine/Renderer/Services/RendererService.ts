@@ -1,9 +1,9 @@
-import type { IWithActiveMixinResult, TDestroyable } from '@/Engine/Mixins';
+import type { TDestroyable, TWithActiveMixinResult } from '@/Engine/Mixins';
 import { destroyableMixin, withActiveEntityServiceMixin } from '@/Engine/Mixins';
 import type { TRendererFactory, TRendererParams, TRendererRegistry, TRendererService, TRendererWrapper } from '@/Engine/Renderer/Models';
 
 export function RendererService(factory: TRendererFactory, registry: TRendererRegistry): TRendererService {
-  const withActive: IWithActiveMixinResult<TRendererWrapper> = withActiveEntityServiceMixin<TRendererWrapper>(registry);
+  const withActive: TWithActiveMixinResult<TRendererWrapper> = withActiveEntityServiceMixin<TRendererWrapper>(registry);
 
   registry.added$.subscribe((wrapper: TRendererWrapper): void => {
     if (wrapper.isActive()) withActive.active$.next(wrapper);

@@ -1,8 +1,8 @@
 import type { TEulerWrapper } from '@/Engine/Euler';
 import { EulerWrapper } from '@/Engine/Euler';
-import type { IWithScale, TScalable } from '@/Engine/Mixins/GameObjects/Models';
+import type { TScalable, TWithScale } from '@/Engine/Mixins/GameObjects/Models';
 
-export function scalableMixin(entity: IWithScale): TScalable {
+export function scalableMixin(entity: TWithScale): TScalable {
   const setScale = (x: number, y: number, z: number): TEulerWrapper => EulerWrapper(entity.scale.set(x, y, z));
   const getScale = (): TEulerWrapper => EulerWrapper(entity.scale);
 

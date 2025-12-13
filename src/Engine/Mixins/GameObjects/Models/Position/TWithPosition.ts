@@ -15,4 +15,4 @@ export type TWithPosition4d = Readonly<{
   getPosition: () => TVector4Wrapper;
 }>;
 
-export type IWithPosition = TWithPosition2d | TWithPosition3d | TWithPosition4d;
+export type TWithPosition = TWithPosition2d | TWithPosition3d | TWithPosition4d;

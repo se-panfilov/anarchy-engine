@@ -2,14 +2,14 @@ import type { Subscription } from 'rxjs';
 
 import type { TCameraConfig, TCameraFactory, TCameraParams, TCameraRegistry, TCameraService, TCameraWrapper } from '@/Engine/Camera/Models';
 import { ambientContext } from '@/Engine/Context';
-import type { IWithActiveMixinResult, TDestroyable } from '@/Engine/Mixins';
+import type { TDestroyable, TWithActiveMixinResult } from '@/Engine/Mixins';
 import { destroyableMixin, withActiveEntityServiceMixin } from '@/Engine/Mixins';
 import type { TSceneWrapper } from '@/Engine/Scene';
 import type { TScreenSizeValues } from '@/Engine/Screen';
 import { isNotDefined } from '@/Engine/Utils';
 
 export function CameraService(factory: TCameraFactory, registry: TCameraRegistry, scene: TSceneWrapper, isUpdateCamerasAspect: boolean = true): TCameraService {
-  const withActive: IWithActiveMixinResult<TCameraWrapper> = withActiveEntityServiceMixin<TCameraWrapper>(registry);
+  const withActive: TWithActiveMixinResult<TCameraWrapper> = withActiveEntityServiceMixin<TCameraWrapper>(registry);
   registry.added$.subscribe((wrapper: TCameraWrapper): void => {
     scene.addCamera(wrapper);
     if (wrapper.isActive()) withActive.active$.next(wrapper);

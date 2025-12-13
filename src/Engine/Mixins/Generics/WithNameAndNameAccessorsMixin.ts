@@ -1,6 +1,6 @@
-import type { IWithNameAndNameAccessorsMixin } from '@/Engine/Mixins/Generics/Models';
+import type { TWithNameAndNameAccessorsMixin } from '@/Engine/Mixins/Generics/Models';
 
-export function withNameAndNameAccessorsMixin(): IWithNameAndNameAccessorsMixin {
+export function withNameAndNameAccessorsMixin(): TWithNameAndNameAccessorsMixin {
   return {
     name: undefined,
     getName: function (): string | undefined {

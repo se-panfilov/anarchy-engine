@@ -1,8 +1,8 @@
 import type { TEulerWrapper } from '@/Engine/Euler';
 import { EulerWrapper } from '@/Engine/Euler';
-import type { IWithRotation, IWithRotationProperty } from '@/Engine/Mixins/GameObjects/Models';
+import type { TWithRotation, TWithRotationProperty } from '@/Engine/Mixins/GameObjects/Models';
 
-export function withRotationMixin(entity: IWithRotationProperty): IWithRotation {
+export function withRotationMixin(entity: TWithRotationProperty): TWithRotation {
   const setRotation = (x: number, y: number, z: number): TEulerWrapper => EulerWrapper(entity.rotation.set(x, y, z));
   const getRotation = (): TEulerWrapper => EulerWrapper(entity.rotation);
   return {

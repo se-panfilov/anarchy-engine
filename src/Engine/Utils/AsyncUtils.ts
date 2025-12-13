@@ -1,4 +1,4 @@
-export function createDeferredPromise<T>(): IDeferredPromise<T> {
+export function createDeferredPromise<T>(): TDeferredPromise<T> {
   let resolve: (value: T | PromiseLike<T>) => void;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   let reject: (reason?: any) => void;
@@ -20,7 +20,7 @@ export function createDeferredPromise<T>(): IDeferredPromise<T> {
   };
 }
 
-export type IDeferredPromise<T> = Readonly<{
+export type TDeferredPromise<T> = Readonly<{
   resolve: (value: T | PromiseLike<T>) => void;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   reject: (reason?: any) => void;
