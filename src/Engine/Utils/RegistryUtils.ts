@@ -23,6 +23,6 @@ export function addFromConfigToRegistry<E, W extends IWrapper<E>, C extends IAbs
   registry: IProtectedRegistry<W>
 ): void {
   if (isDestroyedFactory(factory)) throw new Error('Cannot add to registry: a factory is already destroyed');
-  if (!(factory as IFromConfigFactory<W, E, never, C>).fromConfig) throw new Error(`Factory "${factory.id}" of type "${factory.type}" doesn't meant to create entities from configs`);
-  configList.forEach((config: C): void => registry.add((factory as IFromConfigFactory<W, E, never, C>).fromConfig(config)));
+  if (!factory.fromConfig) throw new Error(`Factory "${factory.id}" of type "${factory.type}" doesn't meant to create entities from configs`);
+  configList.forEach((config: C): void => registry.add(factory.fromConfig(config)));
 }
