@@ -5,14 +5,13 @@ import type { TReadonlyQuaternion, TReadonlyVector3 } from '@/Engine/ThreeLib';
 import type { TransformAgent } from '@/Engine/TransformDrive/Constants';
 
 import type { TAbstractTransformAgent } from './TAbstractTransformAgent';
-import type { TProtectedTransformAgentFacade } from './TProtectedTransformAgentFacade';
 
 export type TTransformDrive<T extends Partial<Record<TransformAgent, TAbstractTransformAgent>>> = TTransformDriveMandatoryFields & T & TNoSpread & TDestroyable;
 
 export type TTransformDriveMandatoryFields = Readonly<{
   agent$: BehaviorSubject<TransformAgent>;
-  activeAgent$: ReplaySubject<TProtectedTransformAgentFacade<TAbstractTransformAgent>>;
-  getActiveAgent: () => TProtectedTransformAgentFacade<TAbstractTransformAgent>;
+  activeAgent$: ReplaySubject<TAbstractTransformAgent>;
+  getActiveAgent: () => TAbstractTransformAgent;
   position$: BehaviorSubject<TReadonlyVector3>;
   rotation$: BehaviorSubject<TReadonlyQuaternion>;
   scale$: BehaviorSubject<TReadonlyVector3>;

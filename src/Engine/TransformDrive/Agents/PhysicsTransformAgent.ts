@@ -51,10 +51,8 @@ export function PhysicsTransformAgent(params: TPhysicsTransformAgentParams, { ph
 
   const physicsBody$: BehaviorSubject<TPhysicsBody | undefined> = new BehaviorSubject<TPhysicsBody | undefined>(undefined);
 
-  const agent: TPhysicsTransformAgent = {
-    ...abstractTransformAgent,
-    physicsBody$
-  };
+  // eslint-disable-next-line functional/immutable-data
+  const agent: TPhysicsTransformAgent = Object.assign(abstractTransformAgent, { physicsBody$ });
 
   let previousPhysicsBodyType: RigidBodyTypesNames = physicsBody$.value?.getPhysicsBodyType() ?? RigidBodyTypesNames.Fixed;
 

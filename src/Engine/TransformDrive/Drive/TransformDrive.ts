@@ -7,15 +7,7 @@ import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
 import type { TReadonlyQuaternion, TReadonlyVector3 } from '@/Engine/ThreeLib';
 import { TransformAgent } from '@/Engine/TransformDrive/Constants';
-import { ProtectedTransformAgentFacade } from '@/Engine/TransformDrive/Facades';
-import type {
-  TAbstractTransformAgent,
-  TProtectedTransformAgentFacade,
-  TTransformDrive,
-  TTransformDriveMandatoryFields,
-  TTransformDriveParams,
-  TTransformDrivePerformanceOptions
-} from '@/Engine/TransformDrive/Models';
+import type { TAbstractTransformAgent, TTransformDrive, TTransformDriveMandatoryFields, TTransformDriveParams, TTransformDrivePerformanceOptions } from '@/Engine/TransformDrive/Models';
 import { getDynamicAgents, updateFromActiveAgent } from '@/Engine/TransformDrive/Utils';
 import { isNotDefined } from '@/Engine/Utils';
 
@@ -79,9 +71,9 @@ export function TransformDrive<T extends Partial<Record<TransformAgent, TAbstrac
     });
 
   //We don't expose these BehaviorSubjects, because they're vulnerable to external changes without .next() (e.g. "position.value = ...")
-  const activeAgentRep$: ReplaySubject<TProtectedTransformAgentFacade<TAbstractTransformAgent>> = new ReplaySubject(1);
+  const activeAgentRep$: ReplaySubject<TAbstractTransformAgent> = new ReplaySubject(1);
 
-  activeAgent$.subscribe((agent: TAbstractTransformAgent): void => activeAgentRep$.next(ProtectedTransformAgentFacade(agent)));
+  activeAgent$.subscribe((agent: TAbstractTransformAgent): void => activeAgentRep$.next(agent));
 
   // Update values of the active agent when drive.position$.next() is called from an external code
   position$.pipe(filter((value: TReadonlyVector3): boolean => value !== activeAgent$.value.position$.value)).subscribe((value: TReadonlyVector3): void => activeAgent$.value.position$.next(value));
@@ -113,7 +105,7 @@ export function TransformDrive<T extends Partial<Record<TransformAgent, TAbstrac
     id,
     agent$,
     activeAgent$: activeAgentRep$,
-    getActiveAgent: (): TProtectedTransformAgentFacade<TAbstractTransformAgent> => activeAgent$.value,
+    getActiveAgent: (): TAbstractTransformAgent => activeAgent$.value,
     position$,
     rotation$,
     scale$,
@@ -139,7 +131,7 @@ export function TransformDrive<T extends Partial<Record<TransformAgent, TAbstrac
     scale$.complete();
     scale$.unsubscribe();
 
-    Object.values(agents).forEach((agent: TProtectedTransformAgentFacade<TAbstractTransformAgent>): void => agent.destroy$.next());
+    Object.values(agents).forEach((agent: TAbstractTransformAgent): void => agent.destroy$.next());
   });
 
   return result as TTransformDrive<T>;

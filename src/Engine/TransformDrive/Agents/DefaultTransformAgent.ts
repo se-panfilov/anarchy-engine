@@ -43,11 +43,11 @@ export function DefaultTransformAgent(params: TTransformAgentParams): TDefaultTr
     (value: TReadonlyVector3): Vector3 => value.clone()
   ) as TWithScaleProperty;
 
-  return {
-    ...abstractTransformAgent,
+  // eslint-disable-next-line functional/immutable-data
+  return Object.assign(abstractTransformAgent, {
     ...withProxyTransform(abstractTransformAgent, proxyPositionObj, proxyRotationObj, proxyScaleObj),
     setPosition: (position: TReadonlyVector3): void => abstractTransformAgent.position$.next(position),
     setRotation: (rotation: TReadonlyQuaternion): void => abstractTransformAgent.rotation$.next(rotation),
     setScale: (scale: TReadonlyVector3): void => abstractTransformAgent.scale$.next(scale)
-  };
+  });
 }

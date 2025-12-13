@@ -1,5 +1,3 @@
-import type { TTransformAgents, TWithProtectedTransformAgents } from '@/Engine/TransformDrive';
+import type { TTransformAgents } from '@/Engine/TransformDrive';
 
 export type TActorTransformAgents = TTransformAgents;
-
-export type TActorProtectedTransformAgents = TWithProtectedTransformAgents<TActorTransformAgents>;

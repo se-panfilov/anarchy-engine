@@ -16,10 +16,10 @@ export function ConnectedTransformAgent(params: TTransformAgentParams): TConnect
     abstractTransformAgent.destroy$.next();
   });
 
-  return {
-    ...abstractTransformAgent,
+  // eslint-disable-next-line functional/immutable-data
+  return Object.assign(abstractTransformAgent, {
     ...withMutablePositionConnector(abstractTransformAgent.position$),
     ...withMutableRotationConnector(abstractTransformAgent.rotation$),
     ...withMutableScaleConnector(abstractTransformAgent.scale$)
-  };
+  });
 }

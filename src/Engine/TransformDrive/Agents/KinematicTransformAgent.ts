@@ -39,8 +39,8 @@ export function KinematicTransformAgent(params: TKinematicTransformAgentParams, 
     displacement = null as any;
   });
 
-  const agent: Omit<TKinematicTransformAgent, 'data'> & Readonly<{ data: TKinematicWritableData }> = {
-    ...abstractTransformAgent,
+  // eslint-disable-next-line functional/immutable-data
+  const agent: Omit<TKinematicTransformAgent, 'data'> & Readonly<{ data: TKinematicWritableData }> = Object.assign(abstractTransformAgent, {
     data: {
       state: {
         linearSpeed: params.state.linearSpeed ?? 0,
@@ -286,7 +286,7 @@ export function KinematicTransformAgent(params: TKinematicTransformAgentParams, 
       if (resetDirection) agent.setAngularDirection(new Quaternion());
     },
     autoUpdate$
-  };
+  });
 
   function doKinematicMove(delta: TMilliseconds): void {
     if (agent.data.state.linearSpeed <= 0) return;
