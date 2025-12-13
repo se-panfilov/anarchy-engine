@@ -19,13 +19,13 @@ export function AbstractSimpleRegistry<T>(type: RegistryType): TAbstractSimpleRe
   function add(key: string, value: T): void | never {
     if (registry.has(key)) throw new Error(`Cannot add to a registry("${id}") a value with key "${key}": The key is already exist in the registry`);
     registry.set(key, value);
-    added$.next(value);
+    added$.next({ key, value });
   }
 
   function replace(key: string, value: T): void | never {
     if (!registry.has(key)) throw new Error(`Cannot replace in a registry("${id}") a value with key "${key}": The key is not exist in the registry`);
     registry.set(key, value);
-    replaced$.next(value);
+    replaced$.next({ key, value });
   }
 
   const findByKey = (key: string): T | undefined => registry.get(key);
@@ -34,7 +34,7 @@ export function AbstractSimpleRegistry<T>(type: RegistryType): TAbstractSimpleRe
     const value: T | undefined = registry.get(key);
     if (isNotDefined(value)) throw new Error(`Cannot remove in a registry("${id}") a value with key "${key}": The key is not exist in the registry`);
     registry.delete(key);
-    removed$.next(value);
+    removed$.next({ key, value });
   }
 
   return {

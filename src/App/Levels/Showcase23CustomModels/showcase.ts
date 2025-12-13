@@ -1,7 +1,7 @@
 import type { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
 
 import type { TShowcase } from '@/App/Levels/Models';
-import type { TAppCanvas, TEngine, TModel3dFacade, TModel3dRegistry, TModel3dResourceAsyncRegistry, TSceneWrapper, TSpace, TSpaceConfig, TWithCoordsXYZ } from '@/Engine';
+import type { TAbstractRegistryPack, TAppCanvas, TEngine, TModel3dFacade, TModel3dRegistry, TModel3dResourceAsyncRegistry, TSceneWrapper, TSpace, TSpaceConfig, TWithCoordsXYZ } from '@/Engine';
 import { Engine, isNotDefined, KeyCode, spaceService, Vector3Wrapper } from '@/Engine';
 
 import spaceConfig from './showcase.json';
@@ -27,13 +27,9 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     const models3dRegistry: TModel3dRegistry = models3dService.getRegistry();
     const models3dResourceRegistry: TModel3dResourceAsyncRegistry = models3dService.getResourceRegistry();
 
-    // TODO CWP Think: do we need to really add configs to the loader/registry, or registry can return also a "name" in "added$"?
-
     //Adding loaded-from-js models3d to the scene
-    models3dResourceRegistry.added$.subscribe((gltf: GLTF): void => {
-      // TODO 9.0.0. RESOURCES: Would be nice if the loader also returns here the original params with witch the model was loaded,
-      //  so we can create a model with a proper name here
-      const model3dF: TModel3dFacade = models3dService.create({ name: 'qqqq' + Math.random(), model3dSource: gltf });
+    models3dResourceRegistry.added$.subscribe(({ key, value }: TAbstractRegistryPack<GLTF>): void => {
+      const model3dF: TModel3dFacade = models3dService.create({ name: key, model3dSource: value });
       sceneW.addModel3d(model3dF.getModel());
     });
 

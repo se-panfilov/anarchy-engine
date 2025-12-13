@@ -5,6 +5,7 @@ export * from './TAbstractLoader';
 export * from './TAbstractOnLoadFunction';
 export * from './TAbstractProtectedWatcher';
 export * from './TAbstractProtectedWatcherWithState';
+export * from './TAbstractRegistryPack';
 export * from './TAbstractResourceAsyncRegistry';
 export * from './TAbstractResourceConfig';
 export * from './TAbstractSimpleRegistry';

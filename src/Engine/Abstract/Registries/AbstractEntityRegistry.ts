@@ -26,13 +26,13 @@ export function AbstractEntityRegistry<T extends TRegistrable | TMultitonRegistr
       });
     }
     registry.set(entity.id, entity);
-    added$.next(entity);
+    added$.next({ key: entity.id, value: entity });
   }
 
   function replace(entity: T): void | never {
     if (!registry.has(entity.id)) throw new Error(`Cannot replace an entity with id "${entity.id}" in registry ${id}: not exist`);
     registry.set(entity.id, entity);
-    replaced$.next(entity);
+    replaced$.next({ key: entity.id, value: entity });
   }
 
   const findById = (id: string): T | undefined => registry.get(id);
@@ -42,7 +42,7 @@ export function AbstractEntityRegistry<T extends TRegistrable | TMultitonRegistr
     const entity: T | undefined = registry.get(id);
     if (isNotDefined(entity)) throw new Error(`Cannot remove an entity with id "${id}" from registry ${id}: not exist`);
     registry.delete(id);
-    removed$.next(entity);
+    removed$.next({ key: id, value: entity });
   }
 
   const findAllByTags = (tags: ReadonlyArray<string>, strategy: LookUpStrategy): ReadonlyArray<T> => getAllEntitiesWithTags(tags, registry, strategy);
