@@ -4,7 +4,7 @@ import { platformApiChannel, platformApiName } from '@Showcases/Shared';
 import { PlatformActions } from './src/Constants';
 import type { TLegalDoc } from 'showcases-shared';
 
-const { AppExit, SaveAppSettings, LoadAppSettings, LoadLegalDocs } = PlatformActions;
+const { AppExit, AppRestart, SaveAppSettings, LoadAppSettings, LoadLegalDocs } = PlatformActions;
 
 declare const __DESKTOP_APP_VERSION__: string;
 
@@ -16,7 +16,7 @@ const mapping: TShowcasesDesktopApi = {
   loadAppSettings: (): Promise<TShowcaseGameSettings> => ipcRenderer.invoke(platformApiChannel, LoadAppSettings),
   loadLegalDocs: (options: TLoadDocPayload): Promise<TLegalDoc> => ipcRenderer.invoke(platformApiChannel, LoadLegalDocs, options),
   node: (): string => process.versions.node,
-  restartApp: (args?: ReadonlyArray<string>): Promise<void> => ipcRenderer.invoke(platformApiChannel, 'restartApp', args),
+  restartApp: (args?: ReadonlyArray<string>): Promise<void> => ipcRenderer.invoke(platformApiChannel, AppRestart, args),
   saveAppSettings: (settings: TShowcaseGameSettings): Promise<void> => ipcRenderer.invoke(platformApiChannel, SaveAppSettings, settings)
 };
 

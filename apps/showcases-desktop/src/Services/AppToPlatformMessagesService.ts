@@ -42,14 +42,10 @@ export async function handleAppRequest(
     case PlatformActions.LoadLegalDocs:
       if (!isLoadDocPayload(payload)) throw new Error(`[DESKTOP]: Failed to load legal docs: Invalid payload`);
       return docsService.load(payload);
-    case PlatformActions.AppClose:
-      // TODO DESKTOP: Implement app close (and fix return type of the switch-case branch)
-      console.log('[DESKTOP]: (NOT IMPLEMENTED) Called app close');
-      return null;
+    case PlatformActions.AppExit:
+      return desktopAppService.closeApp();
     case PlatformActions.AppRestart:
-      // TODO DESKTOP: Implement app restart (and fix return type of the switch-case branch)
-      console.log('[DESKTOP]: (NOT IMPLEMENTED) Called app restart');
-      return null;
+      return desktopAppService.restartApp();
     default:
       throw new Error(`[DESKTOP]: Unknown platform action: ${type}`);
   }
