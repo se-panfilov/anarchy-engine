@@ -108,7 +108,7 @@ export function buildLevelFromConfig(canvas: IAppCanvas, config: ILevelConfig): 
   //build fogs
   const fogFactory: IFogFactory = FogFactory();
   const fogRegistry: IFogRegistry = FogRegistry();
-  const fogAddedSubscription: Subscription = fogRegistry.added$.subscribe((fog: IFogWrapper) => scene.addFog(fog));
+  const fogAddedSubscription: Subscription = fogRegistry.added$.subscribe((fog: IFogWrapper) => scene.setFog(fog));
   const fogEntityCreatedSubscription: Subscription = fogFactory.entityCreated$.subscribe((fog: IFogWrapper): void => fogRegistry.add(fog));
   fogs.forEach((fog: IFogConfig): IFogWrapper => fogFactory.create(fogFactory.configToParams({ ...fog, tags: [...fog.tags, CommonTag.FromConfig] })));
   messages$.next(`Fogs (${fogs.length}) created`);

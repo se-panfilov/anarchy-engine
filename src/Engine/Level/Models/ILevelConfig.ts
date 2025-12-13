@@ -15,7 +15,7 @@ export type ILevelConfig = Readonly<{
   actors: ReadonlyArray<IActorConfig>;
   cameras: ReadonlyArray<ICameraConfig>;
   lights: ReadonlyArray<ILightConfig>;
-  fog: ReadonlyArray<IFogConfig>;
+  fogs: ReadonlyArray<IFogConfig>;
   texts: ReadonlyArray<ITextConfig>;
   controls: ReadonlyArray<IOrbitControlsConfig>;
   envMaps: ReadonlyArray<string>;
