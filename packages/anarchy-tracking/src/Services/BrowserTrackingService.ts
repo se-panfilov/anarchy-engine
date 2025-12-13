@@ -4,7 +4,7 @@ import { rewriteFramesIntegrationBrowser } from '@Anarchy/Tracking/Utils/Integra
 import { scrubEvent } from '@Anarchy/Tracking/Utils/ScrubEvent';
 import { scrubUserPathsBrowser } from '@Anarchy/Tracking/Utils/ScrubsBrowser';
 import type { BrowserOptions, EventHint } from '@sentry/browser';
-import { captureException, init, setTag, setTags } from '@sentry/browser';
+import { captureException, init, setTags } from '@sentry/browser';
 import type { Client, ErrorEvent, Primitive } from '@sentry/core';
 
 export function BrowserTrackingService(options?: BrowserOptions, metaData?: Record<string, Primitive>): TTrackingService {
@@ -26,13 +26,13 @@ export function BrowserTrackingService(options?: BrowserOptions, metaData?: Reco
   });
 
   if (isDefined(metaData)) setTags(metaData);
+  const { platform, arch } = parseDistName(metaData?.dist);
   setTags({
     layer: 'web',
-    errorTracker: 'BrowserTrackingService'
+    errorTracker: 'BrowserTrackingService',
+    os: platform,
+    arch: arch
   });
-  const { platform, arch } = parseDistName(metaData?.dist);
-  setTag('os', platform);
-  setTag('arch', arch);
 
   const onError = (ev: any): void => void captureException(ev?.error ?? ev);
   const onRejection = (ev: PromiseRejectionEvent): void => void captureException((ev as PromiseRejectionEvent)?.reason ?? ev);

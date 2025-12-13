@@ -3,7 +3,6 @@ import type { TTrackingService } from '@Anarchy/Tracking/Models';
 import { rewriteFramesIntegrationNode } from '@Anarchy/Tracking/Utils/IntegrationsNode';
 import { scrubEvent } from '@Anarchy/Tracking/Utils/ScrubEvent';
 import { scrubUserPathsDesktop } from '@Anarchy/Tracking/Utils/ScrubsDesktop';
-import { setTag } from '@sentry/browser';
 import type { Primitive } from '@sentry/core';
 import type { ElectronMainOptions } from '@sentry/electron/esm/main';
 import type { ErrorEvent, EventHint } from '@sentry/electron/main';
@@ -28,13 +27,13 @@ export function DesktopTrackingService(options?: ElectronMainOptions, metaData?:
   });
 
   if (isDefined(metaData)) setTags(metaData);
+  const { platform, arch } = parseDistName(metaData?.dist);
   setTags({
     layer: 'electron-main',
-    errorTracker: 'DesktopTrackingService'
+    errorTracker: 'DesktopTrackingService',
+    os: platform,
+    arch: arch
   });
-  const { platform, arch } = parseDistName(metaData?.dist);
-  setTag('os', platform);
-  setTag('arch', arch);
 
   const onError = (ev: any): void => void captureException(ev?.error ?? ev);
   const onRejection = (ev: PromiseRejectionEvent): void => void captureException((ev as PromiseRejectionEvent)?.reason ?? ev);
