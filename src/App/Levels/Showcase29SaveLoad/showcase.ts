@@ -116,14 +116,18 @@ function saveSpaceConfigInMemory(name: string | undefined, spaceRegistry: TSpace
   const index: number = spacesInMemoryData.findIndex((s: TSpacesData): boolean => s.name === name);
   const config: TSpaceConfig = space.serialize();
 
+  const spaceData: TSpacesData | undefined = spacesData.find((s: TSpacesData): boolean => s.name === name);
+  if (isNotDefined(spaceData)) throw new Error(`[Showcase]: Space data is not found for space "${name}"`);
+  const { onCreate, onChange, onUnload } = spaceData;
+
   // eslint-disable-next-line functional/immutable-data
   spacesInMemoryData[index > -1 ? index : 0] = {
     name: space.name,
     config,
     container: config.canvasSelector,
-    onCreate: spacesData.find((s: TSpacesData): boolean => s.name === name)?.onCreate,
-    onChange: spacesData.find((s: TSpacesData): boolean => s.name === name)?.onChange,
-    onUnload: spacesData.find((s: TSpacesData): boolean => s.name === name)?.onUnload
+    onCreate,
+    onChange,
+    onUnload
   };
 }
 
