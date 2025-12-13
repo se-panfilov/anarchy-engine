@@ -14,6 +14,7 @@ import { spaceLightData } from '@/App/Levels/Showcase29SaveLoad/spaceLight/space
 import { spaceMaterialsData } from '@/App/Levels/Showcase29SaveLoad/spaceMaterials';
 import { spaceOrbitControlsData } from '@/App/Levels/Showcase29SaveLoad/spaceOrbitControls';
 import { spaceTextData } from '@/App/Levels/Showcase29SaveLoad/spaceTexts';
+import { spaceTransformDriveData } from '@/App/Levels/Showcase29SaveLoad/spaceTransformDrive';
 import { addBtn, addDropdown } from '@/App/Levels/Utils';
 import type { TSpace, TSpaceConfig, TSpaceRegistry } from '@/Engine';
 import { isNotDefined, spaceService } from '@/Engine';
@@ -42,7 +43,8 @@ const spacesData: ReadonlyArray<TSpacesData> = [
   spaceLightData,
   spaceMaterialsData,
   spaceOrbitControlsData,
-  spaceTextData
+  spaceTextData,
+  spaceTransformDriveData
 ];
 
 const spacesInMemoryData: Array<TSpacesData> = [];
@@ -60,7 +62,8 @@ export function start(): void {
   );
 
   //Initial space
-  loadSpace(spacesData.find((s: TSpacesData): boolean => s.name === spaceBasicData.name)?.name, spacesData);
+  // loadSpace(spacesData.find((s: TSpacesData): boolean => s.name === spaceBasicData.name)?.name, spacesData);
+  loadSpace(spacesData.find((s: TSpacesData): boolean => s.name === spaceTransformDriveData.name)?.name, spacesData);
 }
 
 function loadSpace(name: string | undefined, source: ReadonlyArray<TSpacesData>): void {
