@@ -34,7 +34,10 @@ function save({ locale }: TLocalizationState): void {
 }
 
 const options: ComputedRef<ReadonlyArray<TDropdownOption<TShowcaseLocaleIds>>> = computed((): ReadonlyArray<TDropdownOption<TShowcaseLocaleIds>> => {
-  return Object.values(ShowcasesLocales).map((locale: TLocale) => ({ value: locale.id as TShowcaseLocaleIds, label: locale.nativeName }));
+  return Object.values(ShowcasesLocales).map((locale: TLocale) => {
+    const label: string = `${locale.nativeName} (${locale.englishName}, ${locale.id})`;
+    return { value: locale.id as TShowcaseLocaleIds, label };
+  });
 });
 
 const viewTitleText: ShallowRef<string> = $t('main-menu.settings.localization.view.title');
