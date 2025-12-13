@@ -8,7 +8,7 @@ import { asRecord, createDomElement, isDefined, isNotDefined, spaceService } fro
 import spaceAlphaConfigJson from './spaceAlpha.json';
 import spaceBetaConfigJson from './spaceBeta.json';
 
-const tracked = new Map<Subscription, { sub: Subscription; stack: any }>();
+const tracked = new Map<Subscription, { sub: Subscription; stack: string }>();
 hackRxJsSubscriptions(tracked);
 
 const spaceAlphaConfig: TSpaceConfig = spaceAlphaConfigJson as TSpaceConfig;
@@ -107,9 +107,22 @@ function hackRxJsSubscriptions(tracked: Map<Subscription, { sub: Subscription; s
 
   // eslint-disable-next-line functional/immutable-data
   Observable.prototype.subscribe = function (...args: any[]): Subscription {
-    const stack = new Error('Subscription created here').stack;
-    const sub$: Subscription = originalSubscribe.apply(this, args as any);
-    tracked.set(sub$, { sub: sub$, stack });
-    return sub$;
+    const stack: string = new Error('Subscription created here').stack ?? '[no stack]';
+    const subscription: Subscription = originalSubscribe.apply(this, args as any);
+
+    if (!tracked.has(subscription)) tracked.set(subscription, { sub: subscription, stack });
+
+    const originalUnsubscribe = subscription.unsubscribe.bind(subscription);
+    // eslint-disable-next-line functional/immutable-data
+    subscription.unsubscribe = (): void => {
+      if (tracked.has(subscription)) {
+        tracked.delete(subscription);
+      } else {
+        console.warn('Attempted to unsubscribe untracked subscription');
+      }
+      return originalUnsubscribe();
+    };
+
+    return subscription;
   };
 }

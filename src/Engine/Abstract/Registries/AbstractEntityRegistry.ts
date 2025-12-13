@@ -14,7 +14,7 @@ export function AbstractEntityRegistry<T extends TRegistrable | TMultitonRegistr
   const registry: Map<string, T> = new Map();
 
   const destroyable: TDestroyable = destroyableMixin();
-  const { added$, replaced$, removed$ }: TWithReactiveRegistry<T> = withReactiveRegistry<T>(destroyable);
+  const { added$, replaced$, removed$ }: TWithReactiveRegistry<T> = withReactiveRegistry<T>(registry, destroyable);
   const { isEmpty, getLength, forEach, asArray, find, getRegistryCopy, clear }: TWithBaseAccessorsRegistry<T> = withBaseAccessorsRegistry<T>(registry);
 
   function add(entity: T): void | never {
@@ -54,32 +54,34 @@ export function AbstractEntityRegistry<T extends TRegistrable | TMultitonRegistr
 
   const asObject = (): Record<string, T> => Object.fromEntries(registry.entries());
 
-  return {
-    id,
-    add,
-    added$: added$.asObservable(),
-    find,
-    findAllByTag: findAllByTag,
-    findAllByTags: findAllByTags,
-    findById,
-    findByName,
-    findAllWithNames,
-    findByTag: findByTag,
-    findByTags: findByTags,
-    forEach,
-    asArray,
-    getRegistryCopy,
-    getLength,
-    isEmpty,
-    clear,
-    asObject,
-    remove,
-    removed$: removed$.asObservable(),
-    replace,
-    replaced$: replaced$.asObservable(),
-    type,
-    ...destroyable
-  };
+  return Object.assign(
+    {
+      id,
+      add,
+      added$: added$.asObservable(),
+      find,
+      findAllByTag: findAllByTag,
+      findAllByTags: findAllByTags,
+      findById,
+      findByName,
+      findAllWithNames,
+      findByTag: findByTag,
+      findByTags: findByTags,
+      forEach,
+      asArray,
+      getRegistryCopy,
+      getLength,
+      isEmpty,
+      clear,
+      asObject,
+      remove,
+      removed$: removed$.asObservable(),
+      replace,
+      replaced$: replaced$.asObservable(),
+      type
+    },
+    destroyable
+  );
 }
 
 function isMultitonEntity(entity: TRegistrable | TMultitonRegistrable): entity is TMultitonRegistrable {

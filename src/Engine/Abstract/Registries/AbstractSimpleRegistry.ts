@@ -13,7 +13,7 @@ export function AbstractSimpleRegistry<T>(type: RegistryType): TAbstractSimpleRe
   const registry: Map<string, T> = new Map();
 
   const destroyable: TDestroyable = destroyableMixin();
-  const { added$, replaced$, removed$ }: TWithReactiveRegistry<T> = withReactiveRegistry<T>(destroyable);
+  const { added$, replaced$, removed$ }: TWithReactiveRegistry<T> = withReactiveRegistry<T>(registry, destroyable);
   const { isEmpty, getLength, forEach, asArray, find, getRegistryCopy, clear }: TWithBaseAccessorsRegistry<T> = withBaseAccessorsRegistry<T>(registry);
 
   function add(key: string, value: T): void | never {
