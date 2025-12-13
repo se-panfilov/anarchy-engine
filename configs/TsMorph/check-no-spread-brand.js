@@ -16,6 +16,8 @@ function hasNoSpreadBrand(type) {
   return !!(type.getProperty && type.getProperty(BRAND_FIELD_NAME));
 }
 
+let violationCount = 0;
+
 for (const file of files) {
   const spreads = file.getDescendantsOfKind(SyntaxKind.SpreadAssignment);
 
@@ -28,6 +30,14 @@ for (const file of files) {
       const { line, column } = file.getLineAndColumnAtPos(spread.getStart());
       const filePath = file.getFilePath();
       console.warn(`🚫 Spread operator used on "__noSpreadBrand" branded object (creation of a copy by mistake) at ${filePath}:${line}:${column}`);
+      violationCount++;
     }
   }
+}
+
+if (violationCount > 0) {
+  console.error(`❌ Found ${violationCount} spread violation(s).`);
+  process.exit(1);
+} else {
+  console.log('✅ No spread violations found.');
 }
