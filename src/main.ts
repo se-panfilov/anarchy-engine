@@ -22,9 +22,9 @@ const sizes = {
   height: window.innerHeight
 };
 
-export const camera = new PerspectiveCamera(VERTICAL_FIELD_OF_VIEW, sizes.width, sizes.height);
+export const camera = new PerspectiveCamera(VERTICAL_FIELD_OF_VIEW, sizes.width / sizes.height);
 
-camera.position.set(9, 4, 9);
+camera.position.set(3, 2, 15);
 
 // Lights
 const ambientLight = new AmbientLight(0xffffff, 0.5);
