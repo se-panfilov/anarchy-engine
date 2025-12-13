@@ -168,7 +168,7 @@
         "cameras": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/TCameraConfig"
+            "$ref": "#/definitions/TAnyCameraConfig"
           }
         },
         "envMaps": {
@@ -1367,10 +1367,32 @@
       },
       "required": ["audioSource", "name"]
     },
-    "TCameraConfig": {
+    "TAnyCameraConfig": {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/TPerspectiveCameraConfig"
+        },
+        {
+          "$ref": "#/definitions/TOrthographicCameraConfig"
+        }
+      ]
+    },
+    "TPerspectiveCameraConfig": {
       "type": "object",
       "additionalProperties": false,
       "properties": {
+        "filmGauge": {
+          "type": "number"
+        },
+        "filmOffset": {
+          "type": "number"
+        },
+        "focus": {
+          "type": "number"
+        },
+        "fov": {
+          "type": "number"
+        },
         "position": {
           "$ref": "#/definitions/Vector3Like"
         },
@@ -1418,23 +1440,17 @@
             }
           ]
         },
-        "fov": {
+        "up": {
+          "$ref": "#/definitions/Vector3Like"
+        },
+        "far": {
           "type": "number"
         },
         "near": {
           "type": "number"
         },
-        "far": {
-          "type": "number"
-        },
-        "filmGauge": {
-          "type": "number"
-        },
-        "filmOffset": {
-          "type": "number"
-        },
-        "focus": {
-          "type": "number"
+        "type": {
+          "$ref": "#/definitions/CameraType"
         },
         "zoom": {
           "type": "number"
@@ -1455,11 +1471,111 @@
           }
         }
       },
-      "required": ["isActive", "name", "position"]
+      "required": ["isActive", "name", "position", "type"]
     },
     "Listeners": {
       "type": "string",
       "const": "main_listener"
+    },
+    "CameraType": {
+      "type": "string",
+      "enum": ["PerspectiveCamera", "OrthographicCamera"]
+    },
+    "TOrthographicCameraConfig": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "bottom": {
+          "type": "number"
+        },
+        "left": {
+          "type": "number"
+        },
+        "right": {
+          "type": "number"
+        },
+        "top": {
+          "type": "number"
+        },
+        "position": {
+          "$ref": "#/definitions/Vector3Like"
+        },
+        "rotation": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/TEulerLike"
+            },
+            {
+              "$ref": "#/definitions/QuaternionLike"
+            }
+          ]
+        },
+        "scale": {
+          "$ref": "#/definitions/Vector3Like"
+        },
+        "visible": {
+          "type": "boolean"
+        },
+        "castShadow": {
+          "type": "boolean"
+        },
+        "receiveShadow": {
+          "type": "boolean"
+        },
+        "layers": {
+          "type": "number"
+        },
+        "frustumCulled": {
+          "type": "boolean"
+        },
+        "renderOrder": {
+          "type": "number"
+        },
+        "lookAt": {
+          "$ref": "#/definitions/Vector3Like"
+        },
+        "audioListener": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/Listeners"
+            },
+            {
+              "type": "string"
+            }
+          ]
+        },
+        "up": {
+          "$ref": "#/definitions/Vector3Like"
+        },
+        "far": {
+          "type": "number"
+        },
+        "near": {
+          "type": "number"
+        },
+        "type": {
+          "$ref": "#/definitions/CameraType"
+        },
+        "zoom": {
+          "type": "number"
+        },
+        "agent": {
+          "$ref": "#/definitions/TransformAgent"
+        },
+        "name": {
+          "type": "string"
+        },
+        "isActive": {
+          "type": "boolean"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": ["isActive", "name", "position", "type"]
     },
     "TEnvMapConfig": {
       "type": "object",
@@ -1627,14 +1743,7 @@
           "$ref": "#/definitions/Vector2Like"
         },
         "camera": {
-          "type": "object",
-          "properties": {
-            "far": {
-              "type": "number"
-            }
-          },
-          "required": ["far"],
-          "additionalProperties": false
+          "$ref": "#/definitions/TShadowCameraConfig"
         },
         "normalBias": {
           "type": "number"
@@ -1653,6 +1762,85 @@
         }
       },
       "required": ["x", "y"],
+      "additionalProperties": false
+    },
+    "TShadowCameraConfig": {
+      "type": "object",
+      "properties": {
+        "far": {
+          "type": "number"
+        },
+        "near": {
+          "type": "number"
+        },
+        "type": {
+          "$ref": "#/definitions/CameraType"
+        },
+        "zoom": {
+          "type": "number"
+        },
+        "agent": {
+          "$ref": "#/definitions/TransformAgent"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "lookAt": {
+          "$ref": "#/definitions/Vector3Like"
+        },
+        "up": {
+          "$ref": "#/definitions/Vector3Like"
+        },
+        "visible": {
+          "type": "boolean"
+        },
+        "castShadow": {
+          "type": "boolean"
+        },
+        "receiveShadow": {
+          "type": "boolean"
+        },
+        "layers": {
+          "type": "number"
+        },
+        "frustumCulled": {
+          "type": "boolean"
+        },
+        "renderOrder": {
+          "type": "number"
+        },
+        "scale": {
+          "$ref": "#/definitions/Vector3Like"
+        },
+        "filmGauge": {
+          "type": "number"
+        },
+        "filmOffset": {
+          "type": "number"
+        },
+        "focus": {
+          "type": "number"
+        },
+        "fov": {
+          "type": "number"
+        },
+        "bottom": {
+          "type": "number"
+        },
+        "left": {
+          "type": "number"
+        },
+        "right": {
+          "type": "number"
+        },
+        "top": {
+          "type": "number"
+        }
+      },
+      "required": ["type"],
       "additionalProperties": false
     },
     "LightType": {
@@ -1768,14 +1956,14 @@
         "color": {
           "type": "string"
         },
-        "shadow": {
-          "$ref": "#/definitions/TDirectionalLightShadowConfig"
-        },
         "type": {
           "$ref": "#/definitions/LightType"
         },
         "intensity": {
           "type": "number"
+        },
+        "shadow": {
+          "$ref": "#/definitions/TLightShadowParams"
         },
         "agent": {
           "$ref": "#/definitions/TransformAgent"
@@ -1792,55 +1980,150 @@
       },
       "required": ["color", "name", "position", "type"]
     },
-    "TDirectionalLightShadowConfig": {
+    "TLightShadowParams": {
       "type": "object",
-      "additionalProperties": false,
       "properties": {
         "mapSize": {
-          "$ref": "#/definitions/Vector2Like"
+          "$ref": "#/definitions/Vector2"
         },
         "camera": {
-          "type": "object",
-          "properties": {
-            "far": {
-              "type": "number"
-            },
-            "left": {
-              "type": "number"
-            },
-            "right": {
-              "type": "number"
-            },
-            "top": {
-              "type": "number"
-            },
-            "bottom": {
-              "type": "number"
-            },
-            "near": {
-              "type": "number"
-            },
-            "type": {
-              "type": "string"
-            },
-            "up": {
-              "$ref": "#/definitions/Vector3Like"
-            },
-            "zoom": {
-              "type": "number"
-            },
-            "layers": {
-              "type": "number"
-            }
-          },
-          "required": ["far"],
-          "additionalProperties": false
+          "$ref": "#/definitions/TShadowCameraParams"
         },
         "normalBias": {
           "type": "number"
         }
       },
-      "required": ["camera", "mapSize", "normalBias"]
+      "required": ["mapSize", "camera", "normalBias"],
+      "additionalProperties": false
+    },
+    "Vector2": {
+      "type": "object",
+      "properties": {
+        "x": {
+          "type": "number",
+          "default": 0
+        },
+        "y": {
+          "type": "number",
+          "default": 0
+        },
+        "width": {
+          "type": "number"
+        },
+        "height": {
+          "type": "number"
+        },
+        "isVector2": {
+          "type": "boolean",
+          "const": true
+        }
+      },
+      "required": ["x", "y", "width", "height", "isVector2"],
+      "additionalProperties": false,
+      "description": "2D vector."
+    },
+    "TShadowCameraParams": {
+      "type": "object",
+      "properties": {
+        "far": {
+          "type": "number"
+        },
+        "lookAt": {
+          "$ref": "#/definitions/Vector3"
+        },
+        "near": {
+          "type": "number"
+        },
+        "type": {
+          "$ref": "#/definitions/CameraType"
+        },
+        "up": {
+          "$ref": "#/definitions/Vector3"
+        },
+        "zoom": {
+          "type": "number"
+        },
+        "agent": {
+          "$ref": "#/definitions/TransformAgent"
+        },
+        "scale": {
+          "$ref": "#/definitions/Vector3"
+        },
+        "visible": {
+          "type": "boolean"
+        },
+        "castShadow": {
+          "type": "boolean"
+        },
+        "receiveShadow": {
+          "type": "boolean"
+        },
+        "layers": {
+          "type": "number"
+        },
+        "frustumCulled": {
+          "type": "boolean"
+        },
+        "renderOrder": {
+          "type": "number"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "filmGauge": {
+          "type": "number"
+        },
+        "filmOffset": {
+          "type": "number"
+        },
+        "focus": {
+          "type": "number"
+        },
+        "fov": {
+          "type": "number"
+        },
+        "bottom": {
+          "type": "number"
+        },
+        "left": {
+          "type": "number"
+        },
+        "right": {
+          "type": "number"
+        },
+        "top": {
+          "type": "number"
+        }
+      },
+      "required": ["type"],
+      "additionalProperties": false
+    },
+    "Vector3": {
+      "type": "object",
+      "properties": {
+        "x": {
+          "type": "number",
+          "default": 0
+        },
+        "y": {
+          "type": "number",
+          "default": 0
+        },
+        "z": {
+          "type": "number",
+          "default": 0
+        },
+        "isVector3": {
+          "type": "boolean",
+          "const": true
+        }
+      },
+      "required": ["x", "y", "z", "isVector3"],
+      "additionalProperties": false,
+      "description": "3D vector.\n\nsee  {@link  https://github.com/mrdoob/three.js/blob/master/src/math/Vector3.js }"
     },
     "TPointLightConfig": {
       "$ref": "#/definitions/TAbstractLightConfig%3CTPointLightParams%3E"

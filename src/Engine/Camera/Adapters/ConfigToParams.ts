@@ -3,6 +3,7 @@ import { Vector3 } from 'three';
 
 import type { TAudioService } from '@/Engine/Audio';
 import type { TAnyCameraParams, TCameraServiceDependencies, TCommonCameraConfig } from '@/Engine/Camera/Models';
+import type { TShadowCameraConfig, TShadowCameraParams } from '@/Engine/Light';
 import { configToParamsObject3d } from '@/Engine/ThreeLib';
 import { isDefined, isNotDefined } from '@/Engine/Utils';
 
@@ -20,11 +21,22 @@ export function configToParams(config: TCommonCameraConfig, { audioService }: TC
 }
 
 export function configToParamsCameraOnly(config: TCommonCameraConfig): Omit<TAnyCameraParams, 'audioListener'> {
-  const { position, rotation, scale, layers, lookAt, up, ...rest } = config;
+  const { position, rotation, scale, layers, name, isActive } = config;
+
+  return {
+    name,
+    isActive,
+    ...configToParamsCameraOptionsOnly(config),
+    ...configToParamsObject3d({ position, rotation, scale, layers })
+  };
+}
+
+export function configToParamsCameraOptionsOnly(config: TCommonCameraConfig | TShadowCameraConfig): TShadowCameraParams {
+  const { scale, layers, lookAt, up, ...rest } = config;
 
   return {
     ...rest,
-    ...configToParamsObject3d({ position, rotation, scale, layers }),
+    ...configToParamsObject3d({ scale, layers }),
     lookAt: lookAt ? new Vector3(lookAt.x, lookAt.y, lookAt.z) : undefined,
     up: up ? new Vector3(up.x, up.y, up.z) : undefined
   };

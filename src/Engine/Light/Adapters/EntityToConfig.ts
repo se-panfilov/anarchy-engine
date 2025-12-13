@@ -1,7 +1,7 @@
 import type { Object3DJSONObject, Vector2Like } from 'three';
 import { Vector2 } from 'three';
 
-import type { TAnyCameraParams, TCommonCameraConfig, TCommonCameraParams, TPerspectiveCameraConfig } from '@/Engine/Camera';
+import type { TCommonCameraConfig, TCommonCameraParams, TPerspectiveCameraConfig } from '@/Engine/Camera';
 import { getCommonCameraConfig, getOrthographicCameraOnlyConfig, getPerspectiveCameraOnlyConfig, isOrthographicCameraParams, isPerspectiveCameraParams } from '@/Engine/Camera';
 import type { TOrthographicCameraConfig } from '@/Engine/Camera/Models/TOrthographicCameraConfig';
 import { serializeColor } from '@/Engine/Color';
@@ -22,6 +22,7 @@ import type {
   TPointLightWrapper,
   TRectAreaLightConfig,
   TRectAreaLightWrapper,
+  TShadowCameraParams,
   TSpotLightConfig,
   TSpotLightWrapper
 } from '@/Engine/Light/Models';
@@ -109,7 +110,7 @@ export function onlyLightShadowToConfig<T extends TAnyLight>(
   const lightConfig = json as unknown as TDirectionalLightParams | TAbstractLightParams;
   const shadow: TLightShadowParams | undefined = lightConfig.shadow;
   if (isNotDefined(shadow)) return {};
-  const camera: TAnyCameraParams = shadow.camera;
+  const camera: TShadowCameraParams = shadow.camera;
 
   const result: Readonly<{ shadow: TWriteable<TLightShadowConfig> }> = filterOutEmptyFields({
     shadow: {

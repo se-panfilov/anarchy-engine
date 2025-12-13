@@ -27,6 +27,8 @@ export type * from './TPointLightWrapper';
 export type * from './TRectAreaLight';
 export type * from './TRectAreaLightParams';
 export type * from './TRectAreaLightWrapper';
+export type * from './TShadowCameraConfig';
+export type * from './TShadowCameraParams';
 export type * from './TSpotLight';
 export type * from './TSpotLightParams';
 export type * from './TSpotLightWrapper';

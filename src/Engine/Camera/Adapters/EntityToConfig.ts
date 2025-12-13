@@ -1,5 +1,6 @@
 import type { AudioListener, OrthographicCameraJSONObject, PerspectiveCameraJSONObject, Vector3Like } from 'three';
 
+import type { TShadowCameraParams } from '@/Engine';
 import type { TAudioService } from '@/Engine/Audio';
 import type {
   TAnyCameraConfig,
@@ -47,7 +48,7 @@ export function getCameraOnlyConfig(entity: TAnyCameraWrapper): Omit<TCommonCame
 }
 
 export function getCommonCameraConfig(
-  json: PerspectiveCameraJSONObject | OrthographicCameraJSONObject | TCommonCameraParams
+  json: PerspectiveCameraJSONObject | OrthographicCameraJSONObject | TCommonCameraParams | TShadowCameraParams
 ): Omit<TCommonCameraConfig, 'position' | 'rotation' | 'audioListener' | 'name' | 'type' | 'isActive'> {
   let up: Vector3Like | undefined = undefined;
   if (isDefined(json.up)) {

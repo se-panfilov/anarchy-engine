@@ -1,7 +1,6 @@
 import type { Vector2Like } from 'three';
 import type { Color } from 'three/src/math/Color';
 
-import type { TAnyCameraConfig } from '@/Engine/Camera';
 import type { TWithTags } from '@/Engine/Mixins';
 import type { TObject3DParams, TObject3DPropConfig } from '@/Engine/ThreeLib';
 
@@ -11,6 +10,7 @@ import type { THemisphereLightParams } from './THemisphereLightParams';
 import type { TLightShadowParams } from './TLightShadowParams';
 import type { TPointLightParams } from './TPointLightParams';
 import type { TRectAreaLightParams } from './TRectAreaLightParams';
+import type { TShadowCameraConfig } from './TShadowCameraConfig';
 import type { TSpotLightParams } from './TSpotLightParams';
 
 export type TAbstractLightConfig<T extends Readonly<{ color: Color }>> = Omit<T, keyof TObject3DParams | 'color' | 'shadow'> &
@@ -38,5 +38,5 @@ export type TAnyLightConfig = TAmbientLightConfig | THemisphereLightConfig | TDi
 export type TLightShadowConfig = Omit<TLightShadowParams, 'mapSize' | 'camera'> &
   Readonly<{
     mapSize: Vector2Like;
-    camera: Omit<TAnyCameraConfig, 'audioListener' | 'position' | 'rotation' | 'name' | 'isActive'>;
+    camera: TShadowCameraConfig;
   }>;

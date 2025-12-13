@@ -1,7 +1,16 @@
 import { Vector3 } from 'three';
 
-import type { TOrthographicCameraParams, TPerspectiveCameraParams } from '@/Engine/Camera';
-import type { TAbstractLightParams, TAnyLight, TDirectionalLight, TLightParams, TPointLight, TSpotLight } from '@/Engine/Light/Models';
+import type {
+  TAbstractLightParams,
+  TAnyLight,
+  TDirectionalLight,
+  TLightParams,
+  TPointLight,
+  TShadowCameraParams,
+  TShadowOrthographicCameraParams,
+  TShadowPerspectiveCameraParams,
+  TSpotLight
+} from '@/Engine/Light/Models';
 import { isDirectionalLight, isPointLight, isSpotLight } from '@/Engine/Light/Utils';
 import type { TWriteable } from '@/Engine/Utils';
 import { isDefined, isNotDefined } from '@/Engine/Utils';
@@ -28,7 +37,7 @@ function applyShadowCameraParams(params: TAbstractLightParams, entity: TWriteabl
   if (isSpotLight(entity)) applySpotLightShadowCameraParams(params, entity);
 }
 
-function applyCommonCameraParams(params: TPerspectiveCameraParams | TOrthographicCameraParams, entity: TWriteable<TDirectionalLight | TPointLight | TSpotLight>): void {
+function applyCommonCameraParams(params: TShadowCameraParams, entity: TWriteable<TDirectionalLight | TPointLight | TSpotLight>): void {
   if (isNotDefined(params)) return;
 
   const { far, near, lookAt, up, layers, zoom } = params;
@@ -48,7 +57,7 @@ function applyCommonCameraParams(params: TPerspectiveCameraParams | TOrthographi
   if (isDefined(zoom)) entity.shadow.camera.zoom = zoom;
 }
 
-function applyOrthographicCameraParams(params: TOrthographicCameraParams, entity: TWriteable<TDirectionalLight>): void {
+function applyOrthographicCameraParams(params: TShadowOrthographicCameraParams, entity: TWriteable<TDirectionalLight>): void {
   const { left, right, top, bottom } = params;
 
   // eslint-disable-next-line functional/immutable-data
@@ -61,7 +70,7 @@ function applyOrthographicCameraParams(params: TOrthographicCameraParams, entity
   if (isDefined(top)) entity.shadow.camera.top = top;
 }
 
-function applyPerspectiveCameraParams(params: TPerspectiveCameraParams, entity: TWriteable<TPointLight | TSpotLight>): void {
+function applyPerspectiveCameraParams(params: TShadowPerspectiveCameraParams, entity: TWriteable<TPointLight | TSpotLight>): void {
   const { filmGauge, filmOffset, focus, fov } = params;
 
   // eslint-disable-next-line functional/immutable-data

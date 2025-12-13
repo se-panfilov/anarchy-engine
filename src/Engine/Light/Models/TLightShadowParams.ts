@@ -1,9 +1,9 @@
 import type { Vector2 } from 'three';
 
-import type { TAnyCameraParams } from '@/Engine/Camera';
+import type { TShadowCameraParams } from './TShadowCameraParams';
 
 export type TLightShadowParams = Readonly<{
   mapSize: Vector2;
-  camera: TAnyCameraParams;
+  camera: TShadowCameraParams;
   normalBias: number;
 }>;
