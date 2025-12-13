@@ -169,7 +169,7 @@
     "physics": {},
     "texts": [
       {
-        "type": "3d",
+        "type": "text_3d",
         "text": "W",
         "position": { "x": -19, "y": 3, "z": 9 },
         "rotation": { "x": -1.57, "y": 0, "z": 0 },
@@ -180,7 +180,7 @@
         "tags": ["text", "key", "W"]
       },
       {
-        "type": "3d",
+        "type": "text_3d",
         "text": "A",
         "position": { "x": -22, "y": 3, "z": 12 },
         "rotation": { "x": -1.57, "y": 0, "z": 0 },
@@ -191,7 +191,7 @@
         "tags": ["text", "key", "A"]
       },
       {
-        "type": "3d",
+        "type": "text_3d",
         "text": "S",
         "position": { "x": -19, "y": 3, "z": 12 },
         "rotation": { "x": -1.57, "y": 0, "z": 0 },
@@ -202,7 +202,7 @@
         "tags": ["text", "key", "S"]
       },
       {
-        "type": "3d",
+        "type": "text_3d",
         "text": "D",
         "position": { "x": -16, "y": 3, "z": 12 },
         "rotation": { "x": -1.57, "y": 0, "z": 0 },
@@ -213,7 +213,7 @@
         "tags": ["text", "key", "D"]
       },
       {
-        "type": "3d",
+        "type": "text_3d",
         "text": "L",
         "position": { "x": -12, "y": 3, "z": 9 },
         "rotation": { "x": -1.57, "y": 0, "z": 0 },
@@ -224,7 +224,7 @@
         "tags": ["text", "mkey", "Left"]
       },
       {
-        "type": "3d",
+        "type": "text_3d",
         "text": "R",
         "position": { "x": -8, "y": 3, "z": 9 },
         "rotation": { "x": -1.57, "y": 0, "z": 0 },
@@ -235,7 +235,7 @@
         "tags": ["text", "mkey", "Right"]
       },
       {
-        "type": "3d",
+        "type": "text_3d",
         "text": "Back",
         "position": { "x": -10, "y": 2, "z": 14 },
         "rotation": { "x": -1.57, "y": 0, "z": 0 },
@@ -246,7 +246,7 @@
         "tags": ["text", "mkey", "Back"]
       },
       {
-        "type": "3d",
+        "type": "text_3d",
         "text": "Forward",
         "position": { "x": -9, "y": 2, "z": 12 },
         "rotation": { "x": -1.57, "y": 0, "z": 0 },
@@ -257,7 +257,7 @@
         "tags": ["text", "mkey", "Forward"]
       },
       {
-        "type": "3d",
+        "type": "text_3d",
         "text": "Extra",
         "position": { "x": -10, "y": 2, "z": 16 },
         "rotation": { "x": -1.57, "y": 0, "z": 0 },

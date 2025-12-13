@@ -48,7 +48,7 @@
     "physics": {},
     "texts": [
       {
-        "type": "2d",
+        "type": "text_2d",
         "text": "Roboto",
         "position": { "x": -20, "y": 2, "z": 2 },
         "rotation": { "x": -1.57, "y": 0, "z": 0 },

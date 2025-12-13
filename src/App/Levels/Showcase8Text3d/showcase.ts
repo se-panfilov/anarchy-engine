@@ -1,7 +1,20 @@
 import './fonts.css';
 
 import type { TShowcase } from '@/App/Levels/Models';
-import type { TAnimationParams, TAppCanvas, TEngine, TModel3dFacade, TModel3dRegistry, TMoverService, TSceneWrapper, TSpace, TSpaceConfig, TText3dWrapper, TWithCoordsXZ } from '@/Engine';
+import type {
+  TAnimationParams,
+  TAppCanvas,
+  TEngine,
+  TModel3dFacade,
+  TModel3dRegistry,
+  TMoverService,
+  TSceneWrapper,
+  TSpace,
+  TSpaceConfig,
+  TText3dTextureWrapper,
+  TText3dWrapper,
+  TWithCoordsXZ
+} from '@/Engine';
 import { createCirclePathXZ, defaultMoverServiceConfig, Easing, Engine, EulerWrapper, generateAnglesForCircle, isNotDefined, spaceService, TextType, Vector3Wrapper } from '@/Engine';
 import { MoverService } from '@/Engine/Services/MoverService/MoverService';
 
@@ -18,8 +31,11 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
 
   const planeModel3dF: TModel3dFacade | undefined = models3dRegistry.findByName('surface_model');
   if (isNotDefined(planeModel3dF)) throw new Error('Plane model is not defined');
+  const sphereModel3dF: TModel3dFacade | undefined = models3dRegistry.findByName('sphere_model');
+  if (isNotDefined(sphereModel3dF)) throw new Error('Sphere model is not defined');
 
   sceneW.addModel3d(planeModel3dF.getModel());
+  sceneW.addModel3d(sphereModel3dF.getModel());
 
   textService.create({
     type: TextType.Text3d,
@@ -30,6 +46,20 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
       color: '#000000',
       fontSize: '0.2rem',
       backgroundColor: '#ff0000',
+      fontFamily: '"RubikDoodleTriangles", sans-serif'
+    },
+    tags: []
+  });
+
+  textService.create({
+    type: TextType.Text3dTexture,
+    text: '3D Texture Text (can be hidden by objects in the scene)',
+    position: Vector3Wrapper({ x: 8, y: 10, z: 2 }),
+    rotation: EulerWrapper({ x: -1.57, y: 0, z: 0 }),
+    cssProps: {
+      color: '#000000',
+      fontSize: '16rem',
+      backgroundColor: '#FFFFFF',
       fontFamily: '"RubikDoodleTriangles", sans-serif'
     },
     tags: []
@@ -48,7 +78,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     tags: []
   });
 
-  const floatingText: TText3dWrapper = textService.create({
+  const floatingText: TText3dWrapper | TText3dTextureWrapper = textService.create({
     type: TextType.Text3d,
     text: 'LongCang',
     position: Vector3Wrapper({ x: -10, y: 8, z: -8 }),
@@ -61,7 +91,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     tags: []
   });
 
-  const floatingText2: TText3dWrapper = textService.create({
+  const floatingText2: TText3dWrapper | TText3dTextureWrapper = textService.create({
     type: TextType.Text3d,
     text: 'VarelaRound',
     position: Vector3Wrapper({ x: -15, y: 6, z: -14 }),

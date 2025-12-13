@@ -2120,7 +2120,7 @@
     },
     "TextType": {
       "type": "string",
-      "enum": ["2d", "3d"]
+      "enum": ["text_2d", "text_3d", "text_3d_texture"]
     },
     "TTextCssProps": {
       "type": "object",

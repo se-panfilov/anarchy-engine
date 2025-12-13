@@ -11,7 +11,10 @@
   "resources": {
     "textures": [],
     "envMaps": [],
-    "materials": [{ "name": "surface_material", "type": "standard", "options": { "color": "#5EDCAE" } }],
+    "materials": [
+      { "name": "surface_material", "type": "standard", "options": { "color": "#5EDCAE" } },
+      { "name": "sphere_material", "type": "standard", "options": { "color": "#E91E63" } }
+    ],
     "models3d": []
   },
   "entities": {
@@ -41,6 +44,14 @@
         "receiveShadow": true,
         "position": { "x": 0, "y": 0, "z": 0 },
         "rotation": { "x": -1.57, "y": 0, "z": 0 }
+      },
+      {
+        "name": "sphere_model",
+        "model3dSource": "sphere",
+        "materialSource": "sphere_material",
+        "options": { "radius": 2 },
+        "position": { "x": 0, "y": 20, "z": 0 },
+        "castShadow": true
       }
     ],
     "actors": [],
@@ -48,7 +59,7 @@
     "physics": {},
     "texts": [
       {
-        "type": "3d",
+        "type": "text_3d",
         "text": "Roboto",
         "position": { "x": -25, "y": -18, "z": 18 },
         "rotation": { "x": -1.57, "y": 0, "z": 0 },

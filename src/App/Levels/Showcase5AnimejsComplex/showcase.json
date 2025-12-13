@@ -116,7 +116,7 @@
     "physics": {},
     "texts": [
       {
-        "type": "2d",
+        "type": "text_2d",
         "text": "Linear",
         "position": { "x": -20, "y": 2, "z": 2 },
         "rotation": { "x": -1.57, "y": 0, "z": 0 },
@@ -127,7 +127,7 @@
         "tags": ["actor", "red", "linear"]
       },
       {
-        "type": "2d",
+        "type": "text_2d",
         "text": "EaseInBack",
         "position": { "x": -20, "y": 2, "z": 0 },
         "rotation": { "x": -1.57, "y": 0, "z": 0 },
@@ -138,7 +138,7 @@
         "tags": ["actor", "green", "EaseInBack"]
       },
       {
-        "type": "2d",
+        "type": "text_2d",
         "text": "EaseInCirc",
         "position": { "x": -20, "y": 2, "z": -2 },
         "rotation": { "x": -1.57, "y": 0, "z": 0 },

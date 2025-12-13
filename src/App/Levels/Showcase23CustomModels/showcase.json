@@ -55,7 +55,7 @@
     "intersections": [],
     "texts": [
       {
-        "type": "3d",
+        "type": "text_3d",
         "text": "1",
         "position": { "x": -5, "y": 0, "z": 3 },
         "rotation": { "x": -1.57, "y": 0, "z": 0 },
@@ -66,7 +66,7 @@
         }
       },
       {
-        "type": "3d",
+        "type": "text_3d",
         "text": "2",
         "position": { "x": 0, "y": 0, "z": 3 },
         "rotation": { "x": -1.57, "y": 0, "z": 0 },
@@ -77,7 +77,7 @@
         }
       },
       {
-        "type": "3d",
+        "type": "text_3d",
         "text": "3",
         "position": { "x": 5, "y": 0, "z": 3 },
         "rotation": { "x": -1.57, "y": 0, "z": 0 },
