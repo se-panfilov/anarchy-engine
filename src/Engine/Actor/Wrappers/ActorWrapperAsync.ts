@@ -19,7 +19,7 @@ import { createActorMesh } from './ActorUtils';
 
 export async function ActorWrapperAsync(
   params: TActorParams,
-  { materialTextureService, kinematicLoopService, spatialLoopService, spatialGridService, collisionLoopService, collisionsService }: TActorDependencies
+  { materialTextureService, kinematicLoopService, spatialLoopService, spatialGridService, collisionsLoopService, collisionsService }: TActorDependencies
 ): Promise<TActorWrapperAsync> {
   // TODO (S.Panfilov) AWAIT: could speed up by not awaiting mesh to be build
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
@@ -40,7 +40,7 @@ export async function ActorWrapperAsync(
     ...withTextures(withMaterialEntity, materialTextureService),
     ...withKinematic(params),
     ...withSpatial(params),
-    ...withCollisions(params, collisionsService, collisionLoopService),
+    ...withCollisions(params, collisionsService, collisionsLoopService),
     ...withUpdateSpatialCell(),
     position$: position$.asObservable(),
     rotation$: rotation$.asObservable(),

@@ -9,7 +9,7 @@ export type TActorDependencies = Readonly<{
   kinematicLoopService: TKinematicLoopService;
   spatialLoopService: TSpatialLoopService;
   spatialGridService: TSpatialGridService;
-  collisionLoopService: TCollisionsLoopService;
+  collisionsLoopService: TCollisionsLoopService;
   collisionsService: TCollisionsService;
 }>;
 

@@ -62,7 +62,9 @@ export function initEntitiesServices(scene: TSceneWrapper, canvas: TAppCanvas): 
         physicsLoopService,
         kinematicLoopService,
         spatialLoopService,
-        spatialGridService
+        spatialGridService,
+        collisionsLoopService,
+        collisionsService
       },
       scene
     ),

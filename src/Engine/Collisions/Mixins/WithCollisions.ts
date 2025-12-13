@@ -7,7 +7,7 @@ import type { TSpatialCellWrapper } from '@/Engine/Spatial';
 import type { TWriteable } from '@/Engine/Utils';
 import { isDefined } from '@/Engine/Utils';
 
-export function withCollisions(params: TActorParams, collisionsService: TCollisionsService, collisionLoopService: TCollisionsLoopService): TWithCollisions {
+export function withCollisions(params: TActorParams, collisionsService: TCollisionsService, collisionsLoopService: TCollisionsLoopService): TWithCollisions {
   let _isAutoUpdate: boolean = params.isCollisionsAutoUpdate ?? false;
   const value$: Subject<TCollisionCheckResult> = new Subject<TCollisionCheckResult>();
 
@@ -29,7 +29,7 @@ export function withCollisions(params: TActorParams, collisionsService: TCollisi
         radius: params.collisions?.radius ?? 0.01
       },
       start(actorW: TActorWrapperAsync): void {
-        collisionLoopService.tick$.subscribe((): void => {
+        collisionsLoopService.tick$.subscribe((): void => {
           const collision: TCollisionCheckResult | undefined = collisionsService.checkCollisions(actorW, this.data.radius, getActorsToCheck(actorW));
           if (isDefined(collision)) value$.next(collision);
         });
@@ -65,7 +65,7 @@ export function withCollisions(params: TActorParams, collisionsService: TCollisi
         // actorSub$ = undefined;
         // unsubscribeFromCells();
         value$.complete();
-        collisionLoopService.tick$.unsubscribe();
+        collisionsLoopService.tick$.unsubscribe();
       },
       value$: value$.asObservable()
     }
