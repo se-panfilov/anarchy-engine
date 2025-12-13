@@ -1,21 +1,18 @@
+import type { TWindowService } from '@Showcases/Desktop/Models';
 import type { TShowcaseGameSettings } from '@Showcases/Shared';
 import type { BrowserWindow } from 'electron';
 
-export function windowReadyToShow(win: BrowserWindow, settings: TShowcaseGameSettings): void {
+export function windowReadyToShow(win: BrowserWindow, settings: TShowcaseGameSettings, windowService: TWindowService): void {
   win.once('ready-to-show', (): void => {
     console.log(`[DESKTOP] App's window is ready`);
     win.show();
-    applyFullscreen(win, settings);
+    applyFullscreen(settings, windowService);
   });
 }
 
-function applyFullscreen(win: BrowserWindow, settings: TShowcaseGameSettings): void {
+function applyFullscreen(settings: TShowcaseGameSettings, windowService: TWindowService): void {
   if (settings.graphics.isFullScreen) {
     console.log(`[DESKTOP] Starting fullscreen mode`);
-    if (process.platform === 'darwin') {
-      win.setSimpleFullScreen(true);
-    } else {
-      win.setFullScreen(true);
-    }
+    windowService.setFullScreen(true);
   }
 }

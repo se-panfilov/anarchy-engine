@@ -1,6 +1,7 @@
 import { existsSync } from 'node:fs';
 
 import { isDefined, isNotDefined } from '@Anarchy/Shared/Utils';
+import { FullScreenMode } from '@Showcases/Desktop/Constants/FullScreenModes';
 import type { TDesktopAppConfig, TWindowService } from '@Showcases/Desktop/Models';
 import { app, BrowserWindow, dialog } from 'electron';
 import { dirname, join } from 'path';
@@ -73,13 +74,51 @@ export function WindowService(): TWindowService {
     return win;
   }
 
+  function getWindow(): BrowserWindow | never {
+    if (isNotDefined(win)) throw new Error('[DESKTOP] Window is not defined');
+    return win;
+  }
+
+  //This is just a style preference to use SimpleFullScreen on macOS, not a "must"
+  const getFullScreenMode = (): FullScreenMode => (process.platform === 'darwin' ? FullScreenMode.SimpleFullScreen : FullScreenMode.FullScreen);
+
+  function setFullScreen(isFullScreen: boolean): void {
+    const win: BrowserWindow = getWindow();
+    const mode: FullScreenMode = getFullScreenMode();
+
+    switch (mode) {
+      case FullScreenMode.SimpleFullScreen:
+        win.setSimpleFullScreen(isFullScreen);
+        break;
+      case FullScreenMode.FullScreen:
+        win.setFullScreen(isFullScreen);
+        break;
+      default:
+        throw new Error(`[DESKTOP] Unhandled fullscreen mode: ${mode}`);
+    }
+  }
+
+  function isFullScreen(): boolean {
+    const win: BrowserWindow = getWindow();
+    const mode: FullScreenMode = getFullScreenMode();
+
+    switch (mode) {
+      case FullScreenMode.SimpleFullScreen:
+        return win.isSimpleFullScreen();
+      case FullScreenMode.FullScreen:
+        return win.isFullScreen();
+      default:
+        throw new Error(`[DESKTOP] Unhandled fullscreen mode: ${mode}`);
+    }
+  }
+
   return {
     createWindow,
     findWindow: (): BrowserWindow | undefined => win,
+    getFullScreenMode,
     getIndexHtmlPath,
-    getWindow: (): BrowserWindow | never => {
-      if (isNotDefined(win)) throw new Error('[DESKTOP] Window is not defined');
-      return win;
-    }
+    getWindow,
+    isFullScreen,
+    setFullScreen
   };
 }
