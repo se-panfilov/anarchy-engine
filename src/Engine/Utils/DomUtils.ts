@@ -109,3 +109,13 @@ export function trackScroll(element: HTMLElement): Observable<{ scrollTop: numbe
     distinctUntilChanged((a, b) => a.scrollTop === b.scrollTop && a.scrollLeft === b.scrollLeft)
   );
 }
+
+export function onFullScreenChange(container: TAppGlobalContainer, element: HTMLElement): Observable<DOMRect> {
+  return fromEvent(container.document, 'fullscreenchange').pipe(
+    startWith(null),
+    map((): DOMRect => {
+      return element.getBoundingClientRect();
+    }),
+    distinctUntilChanged((a: DOMRect, b: DOMRect): boolean => a.left === b.left && a.top === b.top && a.width === b.width && a.height === b.height)
+  );
+}

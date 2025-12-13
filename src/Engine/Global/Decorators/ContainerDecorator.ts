@@ -5,7 +5,7 @@ import { BehaviorSubject, Subject } from 'rxjs';
 import type { TAppGlobalContainer, TContainerDecorator } from '@/Engine/Global/Models';
 import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
-import { getWindowFromDomElement, isDefined, isNotDefined, observeResize, trackScroll } from '@/Engine/Utils';
+import { getWindowFromDomElement, isDefined, isNotDefined, observeResize, onFullScreenChange, trackScroll } from '@/Engine/Utils';
 
 // TODO 14-0-0: ContainerDecorator could fully replace ScreenSizeWatcher
 export function ContainerDecorator(container: TAppGlobalContainer | HTMLElement): TContainerDecorator {
@@ -27,6 +27,11 @@ export function ContainerDecorator(container: TAppGlobalContainer | HTMLElement)
     console.log('XXX scroll', a, b);
   });
 
+  // TODO 14-0-0: check if scroll works and necessary
+  const fullScreenChangeSub$: Subscription = onFullScreenChange(container).subscribe((rect: DOMRect): void => {
+    console.log('XXX fullscreen', rect);
+  });
+
   function getViewportRect(): DOMRect | undefined {
     return isDefined((container as HTMLElement).getBoundingClientRect) ? (container as HTMLElement).getBoundingClientRect() : undefined;
   }
@@ -41,6 +46,7 @@ export function ContainerDecorator(container: TAppGlobalContainer | HTMLElement)
     destroySub$.unsubscribe();
     screenSizeRectSub$.unsubscribe();
     trackScrollSub$.unsubscribe();
+    fullScreenChangeSub$.unsubscribe();
 
     resize$.complete();
     viewportRect$.complete();
