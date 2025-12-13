@@ -8,7 +8,7 @@ export function isDefined<T>(value: T | undefined | null): value is T {
 }
 
 export function isNotDefined<T>(value: T | undefined | null): value is undefined | null {
-  return <T>value === undefined || <T>value === null;
+  return !isDefined<T>(value);
 }
 
 export function isRegistrable<T>(obj: T | IRegistrable): obj is IRegistrable {

@@ -3,4 +3,6 @@ import type { IControlsRegistry } from '@/Engine/Domains/Controls';
 import type { IRendererWrapper } from '@/Engine/Domains/Renderer';
 import type { ISceneWrapper } from '@/Engine/Domains/Scene';
 
-export type LoopFn = (renderer: Readonly<IRendererWrapper>, scene: Readonly<ISceneWrapper>, delta: number, controlsRegistry: IControlsRegistry, cameraRegistry: ICameraRegistry) => void;
+import type { ILoopTimes } from './ILoopTimes';
+
+export type LoopFn = (renderer: Readonly<IRendererWrapper>, scene: Readonly<ISceneWrapper>, controlsRegistry: IControlsRegistry, cameraRegistry: ICameraRegistry, time: ILoopTimes) => void;

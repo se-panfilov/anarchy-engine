@@ -29,6 +29,7 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
     const loop: ILoopWrapper | undefined = loopRegistry.getUniqByTag(LoopTag.Main);
 
     function moveActor(): void {
+      //normally we should not use requestAnimationFrame outside of the loop
       requestAnimationFrame((): void => {
         if (isNotDefined(loop)) throw new Error(`Cannot start the main loop for the level: loop with tag "${LoopTag.Main}" is not defined`);
         const delta: number = loop.delta;

@@ -1,0 +1,92 @@
+{
+  "name": "Showcase level 04",
+  "version": "1.0.0",
+  "scenes": [
+    {
+      "name": "Showcase Scene 04",
+      "tags": ["current"]
+    }
+  ],
+  "actors": [
+    {
+      "width": 60,
+      "height": 40,
+      "widthSegments": 10,
+      "heightSegments": 10,
+      "materialParams": { "color": "#5ddc9a" },
+      "type": "plane",
+      "position": { "x": 0, "y": 0, "z": 0 },
+      "castShadow": false,
+      "tags": []
+    },
+    {
+      "type": "cube",
+      "width": 1,
+      "height": 1,
+      "position": { "x": -20, "y": 2, "z": -2 },
+      "castShadow": true,
+      "materialParams": { "color": "#5177ff" },
+      "tags": ["top_actor"]
+    },
+    {
+      "type": "cube",
+      "width": 1,
+      "height": 1,
+      "position": { "x": -20, "y": 2, "z": 0 },
+      "castShadow": true,
+      "materialParams": { "color": "#5177ff" },
+      "tags": ["central_actor"]
+    },
+    {
+      "type": "cube",
+      "width": 1,
+      "height": 1,
+      "position": { "x": -20, "y": 2, "z": 2 },
+      "castShadow": true,
+      "materialParams": { "color": "#5177ff" },
+      "tags": ["bottom_actor"]
+    }
+  ],
+  "cameras": [
+    {
+      "fov": 45,
+      "near": 1,
+      "far": 10000,
+      "position": { "x": 7, "y": 10, "z": 5 },
+      "rotation": { "x": 0, "y": 2, "z": -2 },
+      "tags": ["initial"]
+    }
+  ],
+  "lights": [
+    {
+      "type": "ambient",
+      "color": "#ffffff",
+      "intensity": 0.5,
+      "castShadow": false,
+      "position": { "x": 0.25, "y": 2, "z": 2.25 },
+      "tags": []
+    },
+    {
+      "type": "directional",
+      "color": "#ffffff",
+      "intensity": 0.5,
+      "castShadow": true,
+      "shadow": {
+        "mapSize": { "x": 1024, "y": 1024 },
+        "camera": { "far": 15 },
+        "normalBias": 0.05
+      },
+      "position": { "x": 0.25, "y": 2, "z": 2.25 },
+      "tags": []
+    }
+  ],
+  "controls": [
+    {
+      "type": "OrbitControls",
+      "cameraTag": "initial",
+      "enableDamping": true,
+      "tags": []
+    }
+  ],
+  "tags": ["build-in"]
+}
