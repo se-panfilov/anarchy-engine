@@ -12,7 +12,6 @@ defineProps<{
 @use 'anarchy-shared/src/assets/utils' as anarchy_utils;
 
 .page-title {
-  // TODO DESKTOP: Add font-family
   letter-spacing: 2.1px;
   font-size: anarchy_utils.px-to-rem(64px);
   line-height: 44px;

@@ -1,4 +1,4 @@
-// TODO DESKTOP: Make sure unit tests are running for the shared code
+// TODO DESKTOP: Make sure unit tests are running at the shared code
 export function cleanObject<T extends Record<string, unknown>>(obj: T): void {
   Object.keys(obj).forEach((key: keyof T): void => {
     // eslint-disable-next-line functional/immutable-data
