@@ -26,7 +26,6 @@ export function withModel3dEntities(entities: TModel3dEntities): TWithModel3dEnt
       Object.entries(actions).forEach(([key, value]: [string, AnimationAction]): void => {
         // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access,functional/immutable-data
         (result.actions as TWriteable<TAnimationActions>)[key as any] = value;
-        console.log('XXX result.actions', result.actions);
       });
     },
     getActions: (): TAnimationActions => result.actions
