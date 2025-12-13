@@ -3,8 +3,8 @@ import { existsSync } from 'node:fs';
 import { platformApiChannel } from '@Desktop/Constants';
 import { appCrashHandler, appWindowAllClosedHandler, windowNavigateHandler, windowSecondInstanceHandler } from '@Desktop/EventHandlers';
 import { handleAppRequest } from '@Desktop/Services';
-import { getDisplayInfo } from '@Desktop/Utils';
-import { app, BrowserWindow, dialog, ipcMain, Menu } from 'electron';
+import { getDisplayInfo, hideMenuBar, noZoom, turnOffMenuBarAndHotkeys } from '@Desktop/Utils';
+import { app, BrowserWindow, dialog, ipcMain } from 'electron';
 import { dirname, join } from 'path';
 import { fileURLToPath } from 'url';
 
@@ -76,29 +76,15 @@ app.whenReady().then((): void => {
   const win: BrowserWindow = createWindow(width, height);
 
   appWindowAllClosedHandler(app);
-
-  // Turn off the menu bar (and Hotkeys(!!!) such as Ctrl+R, Ctrl+F5, etc.)
-  const emptyMenu: Menu = Menu.buildFromTemplate([]);
-  Menu.setApplicationMenu(emptyMenu);
-
+  turnOffMenuBarAndHotkeys();
   // TODO DESKTOP: Make sure navigation isn't working (also from mouse extra buttons)
   windowNavigateHandler(win);
   // useWindowUnloadHandler(win);
-
-  // Hide the menu bar
-  win.setMenuBarVisibility(false);
-
-  // No zooming
-  win.webContents.setVisualZoomLevelLimits(1, 1).catch((err: any): void => {
-    console.log('[Desktop Main]: Error setting zoom level limits:');
-    console.error(err);
-  });
-
+  hideMenuBar(win);
+  noZoom(win);
   windowSecondInstanceHandler(app, win);
-
   // Some cleanup if needed
   //appQuitHandler(app);
-
   // On crash. Could try to restart the window or something
   appCrashHandler(app);
 });
