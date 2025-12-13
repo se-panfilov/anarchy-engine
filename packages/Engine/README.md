@@ -1,4 +1,4 @@
-# Anarchy monorepo
+# Anarchy engine
 
 A framework around three.js for game development.
 
@@ -35,4 +35,4 @@ This project is provided "as is", without warranty of any kind. The authors and 
 - China: Cybersecurity Law
 - India: Information Technology Act
 
-For details, see the full [DISCLAIMER.md](../../DISCLAIMER.md) file.
+For details, see the full [DISCLAIMER.md](DISCLAIMER.md) file.

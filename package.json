@@ -1,0 +1,21 @@
+{
+  "name": "anarchy_monorepo",
+  "author": "S. Panfilov",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "license": "MIT",
+  "scripts": {
+    "dev": "turbo run dev",
+    "build": "turbo run build",
+    "test": "turbo run test",
+    "e2e": "turbo run e2e"
+  },
+  "devDependencies": {
+    "turbo": "2.5.4"
+  }
+}
