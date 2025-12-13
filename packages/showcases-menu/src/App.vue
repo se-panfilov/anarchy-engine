@@ -4,17 +4,26 @@ import './assets/style.scss';
 import RouterView from '@Showcases/Menu/components/RouterView.vue';
 import { eventsService } from '@Showcases/Menu/services';
 import { useSettingsStore } from '@Showcases/Menu/stores/SettingsStore';
+import type { TInputShieldService } from '@Showcases/Shared';
+import { InputShieldService } from '@Showcases/Shared';
 import type { Subscription } from 'rxjs';
-import { onMounted, onUnmounted } from 'vue';
+import { onMounted, onUnmounted, ref } from 'vue';
 
 let appEventsSub$: Subscription | undefined;
+
+const root = ref<HTMLElement | null>(null);
+const inputShieldService: TInputShieldService = InputShieldService(() => root.value);
 
 onMounted((): void => {
   appEventsSub$ = eventsService.startListeningAppEvents();
   eventsService.emitGetMenuSettings();
+  inputShieldService.start();
 });
 
-onUnmounted((): void => appEventsSub$?.unsubscribe());
+onUnmounted((): void => {
+  appEventsSub$?.unsubscribe();
+  inputShieldService.start();
+});
 
 function save(): void {
   eventsService.emitSetMenuSettings(useSettingsStore().state);
@@ -22,7 +31,7 @@ function save(): void {
 </script>
 
 <template>
-  <div class="main-menu">
+  <div ref="root" class="main-menu">
     <RouterView class="main-menu__item -view" @save="save" />
   </div>
 </template>
