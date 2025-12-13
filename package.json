@@ -2,7 +2,7 @@
   "name": "Hanami",
   "author": "S. Panfilov",
   "private": true,
-  "version": "1.22.1",
+  "version": "1.23.1",
   "type": "module",
   "scripts": {
     "dev": "vite",
