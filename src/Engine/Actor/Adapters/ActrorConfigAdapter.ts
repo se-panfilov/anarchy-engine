@@ -11,7 +11,7 @@ export function configToParams(config: TActorConfig, dependencies: TActorConfigT
   const model3d: TModel3dFacade | undefined = dependencies.models3dService.getRegistry().findByName(model3dSource);
   if (isNotDefined(model3d)) throw new Error(`Actor. ConfigToParams: Model3d "${model3dSource}" not found, while actor initialization`);
 
-  // TODO 9.0.0. RESOURCES: 2. Physics should be extracted from Actor to a distinct entity (and we should have physicsSource in Actor)
+  // TODO Improvement: Physics could be extracted from Actor to a distinct entity (and we should have physicsSource in Actor)
   return {
     ...rest,
     model3dSource: model3d,
