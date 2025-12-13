@@ -1,5 +1,6 @@
 import type { LookUpStrategy } from '@/Engine/Abstract/Registry';
-import type { IRegistrable } from '@/Engine/Mixins';
+import { IRegistrable, IWithActive, IWithTags } from '@/Engine/Mixins';
+import { CommonTag, IAbstractEntityRegistry, IProtectedRegistry } from '@/Engine';
 
 export const getAll = <T>(registry: ReadonlyMap<string, T>): ReadonlyArray<T> => Array.from(registry.values());
 
@@ -19,3 +20,19 @@ export function getUniqEntityWithTags<T extends IRegistrable>(tagList: ReadonlyA
 export function getUniqEntityWithTag<T extends IRegistrable>(tag: string, registry: ReadonlyMap<string, T>): T | undefined {
   return Array.from(registry.values()).find((obj: T) => obj.hasTag(tag));
 }
+
+export function setActiveWrappedEntity<E extends IRegistrable & IWithTags<string>, AE extends IWithActive<E>>(registry: IProtectedRegistry<IAbstractEntityRegistry<AE>>, id: string): void {
+  registry.forEach((entity: AE): void => {
+    const isTarget: boolean = entity.id === id;
+    if (isTarget) {
+      entity.addTag(CommonTag.Active);
+      entity._setActive(true, true);
+    } else {
+      if (entity.hasTag(CommonTag.Active)) entity.removeTag(CommonTag.Active);
+      entity._setActive(false, true);
+    }
+  });
+}
+
+export const findActiveWrappedEntity = <E extends IRegistrable & IWithTags<string>, AE extends IWithActive<E>>(registry: IProtectedRegistry<IAbstractEntityRegistry<AE>>): AE | undefined =>
+  registry.find((entity: AE): boolean => entity.hasTag(CommonTag.Active) && entity.isActive);
