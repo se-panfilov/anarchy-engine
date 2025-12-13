@@ -1,9 +1,8 @@
 import { combineLatest } from 'rxjs';
 
 import type { IShowcase } from '@/App/Levels/Models';
-import type { IActorWrapper, IAppCanvas, ILevel, ILevelConfig, ITexture } from '@/Engine';
-import { ambientContext, buildLevelFromConfig, CameraTag, getRotationByCos, getRotationBySin, isDefined, isNotDefined } from '@/Engine';
-import { type ITexturePack, textureService } from '@/Engine/Domains/Texture';
+import type { IActorWrapper, IAppCanvas, ILevel, ILevelConfig, ITexture, ITexturePack, ITextureUploadPromises } from '@/Engine';
+import { ambientContext, buildLevelFromConfig, CameraTag, getRotationByCos, getRotationBySin, isDefined, isNotDefined, textureService } from '@/Engine';
 
 import levelConfig from './showcase-level-8.config.json';
 
@@ -13,14 +12,15 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
 
   // TODO (S.Panfilov) CWP add loading of textures from config
   const pack: ITexturePack = { map: { url: '/ShowcaseLevel8/Door_Wood/Door_Wood_001_basecolor.jpg' } };
-  const textures: Record<string, ITexture> = textureService.load(pack);
+  const textures: ITextureUploadPromises = textureService.load(pack);
 
-  function start(): void {
+  async function start(): Promise<void> {
     level.start();
     const { actorRegistry } = level.entities;
     const actor: IActorWrapper | undefined = actorRegistry.getUniqByTag('central_actor');
     if (isNotDefined(actor)) throw new Error('Actor is not found');
-    actor.useTexture({ map: textures.door });
+    const map: ITexture = await textures.map;
+    actor.useTexture({ map });
     initCameraRotation(level, actor);
   }
 

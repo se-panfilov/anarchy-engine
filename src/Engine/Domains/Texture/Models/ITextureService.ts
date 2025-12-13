@@ -1,6 +1,6 @@
 import type { ITexturePack } from './ITexturePack';
-import type { IUploadTexturePromises } from './IUploadTexturePromises';
+import type { ITextureUploadPromises } from './ITextureUploadPromises';
 
 export type ITextureService = {
-  load: (pack: ITexturePack) => IUploadTexturePromises;
+  load: (pack: ITexturePack) => ITextureUploadPromises;
 };

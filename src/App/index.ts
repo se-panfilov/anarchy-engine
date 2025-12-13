@@ -16,4 +16,4 @@ if (isNotDefined(canvas)) throw new Error('Canvas is not defined');
 const { level, start } = showcaseLevel(canvas);
 console.log(level);
 // level.messages$.subscribe((message: string) => console.log(message));
-start();
+void start();

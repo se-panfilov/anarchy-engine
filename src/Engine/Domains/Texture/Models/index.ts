@@ -5,4 +5,4 @@ export * from './ITexturePackParams';
 export * from './ITextureParams';
 export * from './ITextureProps';
 export * from './ITextureService';
-export * from './IUploadTexturePromises';
+export * from './ITextureUploadPromises';

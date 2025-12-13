@@ -15,6 +15,7 @@ export * from './Domains/Renderer';
 export * from './Domains/Scene';
 export * from './Domains/Screen';
 export * from './Domains/Text';
+export * from './Domains/Texture';
 export * from './Domains/ThreeLib';
 export * from './Mixins';
 export * from './Registries';
