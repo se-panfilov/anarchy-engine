@@ -15,7 +15,8 @@ import {
   getUniqEntityWithTag$,
   getUniqEntityWithTags$,
   getUniqEntityWithTagsAsync,
-  subscribeToEntityValue$
+  subscribeToEntityValue$,
+  subscribeToSimpleValue$
 } from './RegistryAsyncUtils';
 
 type TSimpeObj = { name: string };
@@ -599,7 +600,7 @@ describe('RegistryAsyncUtils', () => {
 
     it('should return an entity that was added sync before getting the value drom Sync registry', async () => {
       // setup
-      const registrySync: TAbstractEntityRegistry<TRegistrable> = AbstractEntityRegistry<TRegistrable>('mockEntity' as RegistryType);
+      const registrySync: TAbstractEntityRegistry<TRegistrable> = AbstractEntityRegistry<TRegistrable>('simpleObj' as RegistryType);
       const filterFn = (entity: TRegistrable): boolean => entity.id === mockEntity2.id;
 
       // execute
@@ -612,6 +613,42 @@ describe('RegistryAsyncUtils', () => {
       // check
       const result: TRegistrable = await subscription$;
       expect(result).toEqual(mockEntity2);
+    }, 100);
+  });
+
+  describe('subscribeToSimpleValue$', () => {
+    it('should return an entity that was added sync before getting the value', async () => {
+      // setup
+      const registryAsync: TAbstractSimpleAsyncRegistry<TSimpeObj> = AbstractSimpleAsyncRegistry<TSimpeObj>('simpleObj' as RegistryType);
+      const filterFn = (obj: TSimpeObj): boolean => obj.name === simpleObj2.name;
+
+      // execute
+      const subscription$ = firstValueFrom(subscribeToSimpleValue$(registryAsync, filterFn));
+
+      registryAsync.add(simpleObj1.name, simpleObj1);
+      registryAsync.add(simpleObj2.name, simpleObj2);
+      registryAsync.add(simpleObj3.name, simpleObj3);
+
+      // check
+      const result: TSimpeObj = await subscription$;
+      expect(result).toEqual(simpleObj2);
+    }, 100);
+
+    it('should return an entity that was added sync before getting the value drom Sync registry', async () => {
+      // setup
+      const registrySync: TAbstractSimpleRegistry<TSimpeObj> = AbstractSimpleRegistry<TSimpeObj>('simpleObj' as RegistryType);
+      const filterFn = (obj: TSimpeObj): boolean => obj.name === simpleObj2.name;
+
+      // execute
+      const subscription$ = firstValueFrom(subscribeToSimpleValue$(registrySync, filterFn));
+
+      registrySync.add(simpleObj1.name, simpleObj1);
+      registrySync.add(simpleObj2.name, simpleObj2);
+      registrySync.add(simpleObj3.name, simpleObj3);
+
+      // check
+      const result: TSimpeObj = await subscription$;
+      expect(result).toEqual(simpleObj2);
     }, 100);
   });
 
@@ -856,7 +893,7 @@ describe('RegistryAsyncUtils', () => {
         it('should return an entity that was added before getting the value', async () => {
           // setup
           const name: string = simpleObj2.name;
-          const registryAsync: TAbstractSimpleAsyncRegistry<TSimpeObj> = AbstractSimpleAsyncRegistry<TSimpeObj>('mockEntity' as RegistryType);
+          const registryAsync: TAbstractSimpleAsyncRegistry<TSimpeObj> = AbstractSimpleAsyncRegistry<TSimpeObj>('simpleObj' as RegistryType);
 
           registryAsync.add(simpleObj1.name, simpleObj1);
           registryAsync.add(simpleObj2.name, simpleObj2);
@@ -874,7 +911,7 @@ describe('RegistryAsyncUtils', () => {
         it('should return an entity that was added before getting the value from Sync registry', async () => {
           // setup
           const name: string = simpleObj3.name;
-          const registrySync: TAbstractSimpleRegistry<TSimpeObj> = AbstractSimpleRegistry<TSimpeObj>('mockEntity' as RegistryType);
+          const registrySync: TAbstractSimpleRegistry<TSimpeObj> = AbstractSimpleRegistry<TSimpeObj>('simpleObj' as RegistryType);
 
           registrySync.add(simpleObj1.name, simpleObj1);
           registrySync.add(simpleObj2.name, simpleObj2);
@@ -895,7 +932,7 @@ describe('RegistryAsyncUtils', () => {
       it('should return an entity that was added before getting the value', async () => {
         // setup
         const name: string = simpleObj2.name;
-        const registryAsync: TAbstractSimpleAsyncRegistry<TSimpeObj> = AbstractSimpleAsyncRegistry<TSimpeObj>('mockEntity' as RegistryType);
+        const registryAsync: TAbstractSimpleAsyncRegistry<TSimpeObj> = AbstractSimpleAsyncRegistry<TSimpeObj>('simpleObj' as RegistryType);
 
         // execute
         const subscription$ = firstValueFrom(getUniqEntityByKey$(name, registryAsync));
