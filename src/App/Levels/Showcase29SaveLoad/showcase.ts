@@ -22,10 +22,25 @@ export function runSpace(space: TSpace): void {
   space.start$.next(true);
 }
 
+function save(space: TSpace): void {
+  const serialized: TSpaceConfig = space.serialize() as TSpaceConfig;
+
+  const blob: Blob = new Blob([JSON.stringify(serialized, undefined, 2)], { type: 'application/json' }, 2);
+  const url: string = URL.createObjectURL(blob);
+  const a: HTMLAnchorElement = document.createElement('a');
+  // eslint-disable-next-line functional/immutable-data
+  a.href = url;
+  // eslint-disable-next-line functional/immutable-data
+  a.download = `${space.name}_${new Date().toISOString()}.json`;
+  a.click();
+  URL.revokeObjectURL(url);
+  a.remove();
+}
+
 export function createButtons(containerId: string | undefined, space: TSpace, isTop: boolean, isRight: boolean): void {
   const top: string | undefined = isTop ? undefined : 'calc(50% + 14px)';
   const right: string | undefined = !isRight ? 'calc(50% + 14px)' : '4px';
 
-  addBtn(`Save`, containerId, (): void => space.serialize(), { right, top });
+  addBtn(`Save`, containerId, (): void => save(space), { right, top });
   // addBtn(`Load`, containerId, (): void => space.start$.next(false));
 }
