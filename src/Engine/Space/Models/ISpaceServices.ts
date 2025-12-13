@@ -5,6 +5,7 @@ import type { IEnvMapService } from '@/Engine/EnvMap';
 import type { IFogService } from '@/Engine/Fog';
 import type { IIntersectionsWatcherService } from '@/Engine/Intersections';
 import type { ILightService } from '@/Engine/Light';
+import type { IParticlesService } from '@/Engine/Particles';
 import type { IRendererService } from '@/Engine/Renderer';
 import type { IScenesService } from '@/Engine/Scene';
 import type { ITextService } from '@/Engine/Text';
@@ -15,6 +16,7 @@ export type ISpaceServices = Readonly<{
   cameraService: ICameraService;
   intersectionsWatcherService: IIntersectionsWatcherService;
   lightService: ILightService;
+  particlesService: IParticlesService;
   fogService: IFogService;
   controlsService: IControlsService;
   scenesService: IScenesService;

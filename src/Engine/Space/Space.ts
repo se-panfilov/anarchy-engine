@@ -25,7 +25,7 @@ export function buildSpaceFromConfig(canvas: IAppCanvas, config: ISpaceConfig): 
     throw new Error('Failed to launch a space: invalid data format');
   }
 
-  const { name, actors, cameras, intersections, lights, fogs, texts, controls, scenes, tags } = config;
+  const { name, actors, cameras, intersections, lights, fogs, texts, controls, scenes, particles, tags } = config;
 
   screenService.setCanvas(canvas);
 
@@ -38,7 +38,7 @@ export function buildSpaceFromConfig(canvas: IAppCanvas, config: ISpaceConfig): 
     return activeScene;
   });
 
-  const { actorService, cameraService, controlsService, lightService, fogService, envMapService, textService, rendererService, intersectionsWatcherService } = services;
+  const { actorService, cameraService, controlsService, lightService, fogService, envMapService, textService, rendererService, intersectionsWatcherService, particlesService } = services;
 
   cameraService.createFromConfig(cameras);
   actorService.createFromConfig(actors);
@@ -51,6 +51,7 @@ export function buildSpaceFromConfig(canvas: IAppCanvas, config: ISpaceConfig): 
   lightService.createFromConfig(lights);
 
   fogService.createFromConfig(fogs);
+  particlesService.createFromConfig(fogs);
 
   envMapService.added$.subscribe((texture: IDataTexture): void => {
     activeScene.setBackground(texture);

@@ -12,6 +12,7 @@ import { SceneFactory, SceneRegistry, ScenesService } from '@/Engine/Scene';
 import type { ISpaceServices } from '@/Engine/Space/Models';
 import { Text2dRegistry, Text2dRendererRegistry, Text3dRegistry, Text3dRendererRegistry, TextFactory, TextService } from '@/Engine/Text';
 import { isNotDefined } from '@/Engine/Utils';
+import { ParticlesFactory, ParticlesRegistry, ParticlesService } from '@/Engine';
 
 export function initSceneService(): IScenesService {
   const sceneFactory: ISceneFactory = SceneFactory();
@@ -27,6 +28,7 @@ export function initEntitiesServices(scene: ISceneWrapper, canvas: IAppCanvas): 
     lightService: LightService(LightFactory(), LightRegistry(), scene),
     fogService: FogService(FogFactory(), FogRegistry(), scene),
     envMapService: EnvMapService(),
+    particlesService: ParticlesService(ParticlesFactory(), ParticlesRegistry(), scene),
     rendererService: RendererService(RendererFactory(), RendererRegistry()),
     textService: TextService(TextFactory(), Text2dRegistry(), Text3dRegistry(), Text2dRendererRegistry(), Text3dRendererRegistry(), scene),
     intersectionsWatcherService: IntersectionsWatcherService(IntersectionsWatcherFactory(), IntersectionsWatcherRegistry()),
