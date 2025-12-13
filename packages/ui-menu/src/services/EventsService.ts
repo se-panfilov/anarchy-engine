@@ -10,8 +10,8 @@ function EventsService(): TEventsService {
 
   function emitClose(): void | never {
     if (isNotDefined(bus$)) throw new Error('[EventsService]: bus$ is not defined. Call setBus() first.');
-    bus$.next({ type: Events.Close });
     console.log('[EventsService]: emitClose');
+    bus$.next({ type: Events.Close });
   }
 
   return { setBus, emitClose };

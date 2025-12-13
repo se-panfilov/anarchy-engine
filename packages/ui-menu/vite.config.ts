@@ -6,6 +6,7 @@ import { sharedAliases } from '../../vite.alias';
 import { visualizer } from 'rollup-plugin-visualizer';
 import vue from '@vitejs/plugin-vue';
 import vueJsx from '@vitejs/plugin-vue-jsx';
+import wasm from 'vite-plugin-wasm';
 
 export default defineConfig(({ mode, command }: ConfigEnv): UserConfig => {
   const root: string = process.cwd();
@@ -32,7 +33,7 @@ export default defineConfig(({ mode, command }: ConfigEnv): UserConfig => {
       vue(),
       vueJsx(),
       // vueDevTools(),
-
+      wasm(),
       //Compression is only for web builds (desktop and mobile cannot unpack .br/.gz files)
       ...(buildCompression
         ? [
