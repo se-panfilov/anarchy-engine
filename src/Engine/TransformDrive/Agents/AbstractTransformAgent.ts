@@ -10,8 +10,8 @@ import type { TAbstractTransformAgent, TTransformAgentParams } from '@/Engine/Tr
 
 export function AbstractTransformAgent(params: TTransformAgentParams, type: TransformAgent): TAbstractTransformAgent {
   const id: string = type + '_transform_agent_' + nanoid();
-  // TODO 8.0.0. MODELS: perhaps enabled$ should be false by default
-  const enabled$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
+  // TODO 8.0.0. MODELS: enabled$ doesn't do anything by default
+  const enabled$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(params.enabled ?? false);
   const position$: BehaviorSubject<TReadonlyVector3> = new BehaviorSubject<TReadonlyVector3>(params.position);
   const rotation$: BehaviorSubject<TReadonlyEuler> = new BehaviorSubject<TReadonlyEuler>(params.rotation);
   const scale$: BehaviorSubject<TReadonlyVector3> = new BehaviorSubject<TReadonlyVector3>(params.scale);

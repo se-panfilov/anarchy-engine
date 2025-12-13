@@ -4,4 +4,5 @@ export type TTransformAgentParams = Readonly<{
   position: TReadonlyVector3;
   rotation: TReadonlyEuler;
   scale: TReadonlyVector3;
+  enabled?: boolean;
 }>;

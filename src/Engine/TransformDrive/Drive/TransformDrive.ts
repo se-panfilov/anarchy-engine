@@ -24,6 +24,17 @@ export function TransformDrive(params: TTransformDriveParams, agents: TTransform
 
   const agentSub$: Subscription = agent$.subscribe((agent: TransformAgent): void => activeAgent$.next(agents[agent]));
 
+  const activeAgentSub$: Subscription = activeAgent$.subscribe((activeAgent: TAbstractTransformAgent): void => {
+    Object.values(agents).forEach((agent: TAbstractTransformAgent): void => {
+      agent.enabled$.next(agent.type === activeAgent.type);
+
+      // TODO 8.0.0. MODELS: make sure that this push value is working for all agents (after agent's switch should keep the same position/rotation/scale as it was with the prev agent)
+      // position$.next(agent.position$.value);
+      // rotation$.next(agent.rotation$.value);
+      // scale$.next(agent.scale$.value);
+    });
+  });
+
   const position$: BehaviorSubject<Vector3> = new BehaviorSubject<Vector3>(activeAgent$.value.position$.value);
   const rotation$: BehaviorSubject<Euler> = new BehaviorSubject<Euler>(activeAgent$.value.rotation$.value);
   const scale$: BehaviorSubject<Vector3> = new BehaviorSubject<Vector3>(activeAgent$.value.scale$.value);
@@ -88,6 +99,7 @@ export function TransformDrive(params: TTransformDriveParams, agents: TTransform
     rotationSub$.unsubscribe();
     scaleSub$.unsubscribe();
     agentSub$.unsubscribe();
+    activeAgentSub$.unsubscribe();
 
     //Stop subjects
     agent$.complete();
