@@ -4,6 +4,7 @@ import type { TControlsConfig } from '@/Engine/Controls';
 import type { TFogConfig } from '@/Engine/Fog';
 import type { TIntersectionsWatcherConfig } from '@/Engine/Intersections';
 import type { TAnyLightConfig } from '@/Engine/Light';
+import type { TMaterialConfig } from '@/Engine/Material';
 import type { TWithReadonlyTags } from '@/Engine/Mixins';
 import type { TModel3dConfig } from '@/Engine/Models3d';
 import type { TParticlesConfig } from '@/Engine/Particles';
@@ -13,6 +14,11 @@ import type { SpaceSchemaVersion } from '@/Engine/Space/Constants';
 import type { TSpatialGridConfig } from '@/Engine/Spatial';
 import type { TTextConfig } from '@/Engine/Text';
 
+// TODO CWP split config into resources and entities
+// TODO CWP preload all (async)resources before entities
+// TODO CWP save configs into config registries
+// TODO CWP use config registries to implement creation with overrides
+
 export type TSpaceConfig = Readonly<{
   name: string;
   version: SpaceSchemaVersion;
@@ -21,6 +27,7 @@ export type TSpaceConfig = Readonly<{
   actors: ReadonlyArray<TActorConfig>;
   cameras: ReadonlyArray<TCameraConfig>;
   models3d: ReadonlyArray<TModel3dConfig>;
+  materials: ReadonlyArray<TMaterialConfig>;
   intersections: ReadonlyArray<TIntersectionsWatcherConfig>;
   lights: ReadonlyArray<TAnyLightConfig>;
   particles: ReadonlyArray<TParticlesConfig>;

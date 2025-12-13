@@ -7,25 +7,25 @@ Done:
 - 6.0.x Complex models
 - 7.x.x Animations
 - 8.x.x Actors with models & animations
+- 9.x.x Split resources and entities load from config (among others: extracted materials, models, etc from actors)
 
 Roadmap:
-- 8.1.x Lines domain
-- 8.2.x Refactor Vector/TVectorWrapper, Euler/TEulerWrapper (should be Vector/Euler everywhere)
-- 9.0.x Sounds/Music
-- 9.1.x GUI
-- 9.2.x Pausing (timers)
-- 9.3.x Registries refactoring (explicitly register/not register entities)
-- 9.4.x Logging
-- 10.0.x Deletion (memory management)
-- 11.0.0 Multiple scenes full support (unload/load scenes)
-- 12.0.x Split apps and engine
-- 12.1.x Building app (desktop/mobile) (might be not a part of an engine)
-- 12.2.x Performance improvements (make sure actors, materials and env maps are async)
-- 12.3.x Extract materials form actors
-- 12.4.x npm package and a repo
-- 13.0.x Presets in configs (actors, materials, texts, models, physics, intersections, cameras, lights, controls, etc)
-- 14.0.x Shaders
-- 15.x.x Save/Load
+- 9.1.x Lines domain
+- 9.2.x Refactor Vector/TVectorWrapper, Euler/TEulerWrapper (should be Vector/Euler everywhere)
+- 10.0.x Sounds/Music
+- 10.1.x GUI
+- 10.2.x Pausing (timers)
+- 10.3.x Registries refactoring (explicitly register/not register entities)
+- 10.4.x Logging
+- 11.0.x Deletion (memory management)
+- 12.0.0 Multiple scenes full support (unload/load scenes)
+- 13.0.x Split apps and engine
+- 13.1.x Building app (desktop/mobile) (might be not a part of an engine)
+- 13.2.x Performance improvements (make sure actors, materials and env maps are async)
+- 13.4.x npm package and a repo
+- 14.0.x Presets in configs (actors, materials, texts, models, physics, intersections, cameras, lights, controls, etc)
+- 15.0.x Shaders
+- 16.x.x Save/Load
 
 Global Refactoring:
 - extract materials from actors, keep there an alias to a material to be able to reuse the same material

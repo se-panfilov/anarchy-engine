@@ -8,6 +8,7 @@ import type { TModel3dConfig } from '@/Engine/Models3d';
 import { isPrimitive } from '@/Engine/Models3d';
 import type { TPhysicsPresetConfig, TWithPresetNamePhysicsBodyConfig } from '@/Engine/Physics';
 import type { TSceneConfig } from '@/Engine/Scene/Models';
+import { SpaceSchemaVersion } from '@/Engine/Space/Constants';
 import type { TSpaceConfig } from '@/Engine/Space/Models';
 import TSpaceConfigSchema from '@/Engine/Space/Schemas/TSpaceConfig.json';
 import { isDefined, isNotDefined } from '@/Engine/Utils';
@@ -31,8 +32,11 @@ function validateJsonSchema(config: TSpaceConfig): TSchemaValidationResult {
   return { isValid, errors: validate.errors };
 }
 
-function validateData({ name, actors, cameras, scenes, spatialGrids, controls, intersections, lights, models3d, fogs, texts, tags, physics }: TSpaceConfig): TSchemaValidationResult {
+function validateData({ name, version, actors, cameras, scenes, spatialGrids, controls, intersections, lights, models3d, fogs, texts, tags, physics }: TSpaceConfig): TSchemaValidationResult {
   let errors: ReadonlyArray<string> = [];
+
+  //validate supported schema's version
+  const isSupportedVersion: boolean = version === SpaceSchemaVersion.V2;
 
   //must be defined
   const isNoScenesDefined: boolean = scenes.length === 0;
@@ -83,6 +87,7 @@ function validateData({ name, actors, cameras, scenes, spatialGrids, controls, i
   const isEveryModels3dUrlValid: boolean = validateFileUrls(models3d);
 
   //Adding errors
+  if (isSupportedVersion) errors = [...errors, `Unsupported schema's version(${version}). Supported version is: ${SpaceSchemaVersion.V2}`];
   if (isNoScenesDefined) errors = [...errors, 'No scenes are defined'];
   if (isMultipleActiveCameras) errors = [...errors, 'Can be only one active camera, but multiple set as active'];
   if (isMultipleActiveScenes) errors = [...errors, 'Can be only one active scene, but multiple set as active'];
