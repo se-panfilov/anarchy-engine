@@ -226,8 +226,8 @@
           "presetName": "box_physics",
           "shapeParams": {
             "hx": 100,
-            "hy": 0.025,
-            "hz": 100
+            "hy": 100,
+            "hz": 0.025
           }
         },
         "position": { "x": 0, "y": 0, "z": 0 },
@@ -253,7 +253,7 @@
       {
         "name": "box_static_1",
         "model3dSource": "box_1_model",
-        "agent": "kinematic",
+        "agent": "default",
         "kinematic": { "isAutoUpdate": true },
         "position": { "x": 24, "y": 2, "z": 14 },
         "spatial": { "grid": "main_grid", "isAutoUpdate": false }
@@ -261,7 +261,7 @@
       {
         "name": "box_static_2",
         "model3dSource": "box_2_model",
-        "agent": "kinematic",
+        "agent": "default",
         "kinematic": { "isAutoUpdate": true },
         "position": { "x": 26, "y": 1, "z": 17 },
         "spatial": { "grid": "main_grid", "isAutoUpdate": false }
@@ -269,7 +269,7 @@
       {
         "name": "box_static_3",
         "model3dSource": "box_3_model",
-        "agent": "kinematic",
+        "agent": "default",
         "kinematic": { "isAutoUpdate": true },
         "position": { "x": 23, "y": 2, "z": 22 },
         "spatial": { "grid": "main_grid", "isAutoUpdate": false }
@@ -277,7 +277,7 @@
       {
         "name": "box_static_4",
         "model3dSource": "box_4_model",
-        "agent": "kinematic",
+        "agent": "default",
         "kinematic": { "isAutoUpdate": true },
         "position": { "x": 32, "y": 1, "z": 20 },
         "spatial": { "grid": "main_grid", "isAutoUpdate": false }
@@ -285,7 +285,7 @@
       {
         "name": "box_static_5",
         "model3dSource": "box_5_model",
-        "agent": "kinematic",
+        "agent": "default",
         "kinematic": { "isAutoUpdate": true },
         "position": { "x": 40, "y": 1, "z": 20 },
         "spatial": { "grid": "main_grid", "isAutoUpdate": false }
@@ -293,7 +293,7 @@
       {
         "name": "box_static_6",
         "model3dSource": "box_6_model",
-        "agent": "kinematic",
+        "agent": "default",
         "kinematic": { "isAutoUpdate": true },
         "position": { "x": 14, "y": 1, "z": 28 },
         "spatial": { "grid": "main_grid", "isAutoUpdate": false }
@@ -301,7 +301,7 @@
       {
         "name": "box_static_7",
         "model3dSource": "box_7_model",
-        "agent": "kinematic",
+        "agent": "default",
         "kinematic": { "isAutoUpdate": true },
         "position": { "x": 1, "y": 1, "z": 30 },
         "rotation": { "x": 0, "y": 0.9, "z": 0 },

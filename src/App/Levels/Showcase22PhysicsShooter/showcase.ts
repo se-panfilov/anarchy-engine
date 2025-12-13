@@ -68,7 +68,8 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     if (isNotDefined(spatialGrid)) throw new Error(`Cannot find "main_grid" spatial grid`);
 
     // TODO 8.0.0. MODELS: A large number of blocks produces a heavy performance issue (which is not in master)
-    const blocks = await buildTower(actorService, models3dService, materialService, { x: 10, z: 0 }, 10, 10, 20, spatialGrid);
+    const blocks = await buildTower(actorService, models3dService, materialService, { x: 10, z: 0 }, 5, 5, 10, spatialGrid);
+    // const blocks = await buildTower(actorService, models3dService, materialService, { x: 10, z: 0 }, 10, 10, 20, spatialGrid);
     // const blocks2 = await buildTower(actorService, models3dService, materialService, { x: 45, z: 7 }, 6, 7, 18, spatialGrid);
     // const blocks3 = await buildTower(actorService, models3dService, materialService, { x: -15, z: -15 }, 10, 7, 15, spatialGrid);
 
@@ -89,7 +90,8 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
       isAutoStart: true,
       camera: cameraW,
       actors: [
-        // ...blocks,
+        ...blocks,
+        // TODO 8.0.0. MODELS: revert when performance issue is fixed
         // ...blocks2,
         // ...blocks3,
         surface,
@@ -119,17 +121,17 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
 
     const targetActor1: TActor | undefined = actorService.getRegistry().findByName('target_1');
     if (isNotDefined(targetActor1)) throw new Error(`Cannot find "target_1" actor`);
-    const targetActor2W: TActor | undefined = actorService.getRegistry().findByName('target_2');
-    if (isNotDefined(targetActor2W)) throw new Error(`Cannot find "target_2" actor`);
-    const targetActor3W: TActor | undefined = actorService.getRegistry().findByName('target_3');
-    if (isNotDefined(targetActor3W)) throw new Error(`Cannot find "target_3" actor`);
+    const targetActor2: TActor | undefined = actorService.getRegistry().findByName('target_2');
+    if (isNotDefined(targetActor2)) throw new Error(`Cannot find "target_2" actor`);
+    const targetActor3: TActor | undefined = actorService.getRegistry().findByName('target_3');
+    if (isNotDefined(targetActor3)) throw new Error(`Cannot find "target_3" actor`);
 
     // TODO CWP refactor objects creation (do not add to a registry immediately, cause in that case if we extend, there will be unextetended version in the registy)
     moveActorBounce(targetActor1, 4, -270, 3000);
     // TODO setTimout/setInterval is not a good idea (cause the game might be "on pause", e.g. when tab is not active)
-    setTimeout(() => moveActorBounce(targetActor2W, 4.5, -270, 3000), 500);
+    setTimeout(() => moveActorBounce(targetActor2, 4.5, -270, 3000), 500);
     // TODO setTimout/setInterval is not a good idea (cause the game might be "on pause", e.g. when tab is not active)
-    setTimeout(() => moveActorBounce(targetActor3W, 5, -270, 3000), 1000);
+    setTimeout(() => moveActorBounce(targetActor3, 5, -270, 3000), 1000);
 
     const shootingParams = {
       cooldownMs: 300,
