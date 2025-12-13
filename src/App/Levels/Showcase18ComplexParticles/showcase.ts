@@ -110,8 +110,8 @@ export function showcase(canvas: TAppCanvas): TShowcase {
     gui.add(parameters, 'spin').min(-5).max(5).step(0.001).onFinishChange(createGalaxy);
     gui.add(parameters, 'randomness').min(0).max(2).step(0.001).onFinishChange(createGalaxy);
     gui.add(parameters, 'randomnessPower').min(1).max(10).step(0.001).onFinishChange(createGalaxy);
-    gui.addColor(parameters, 'insideColor').onFinishChange(createGalaxy);
-    gui.addColor(parameters, 'outsideColor').onFinishChange(createGalaxy);
+    gui.addColor(parameters, 'insideColor').onChange(createGalaxy);
+    gui.addColor(parameters, 'outsideColor').onChange(createGalaxy);
 
     void createGalaxy();
   }
