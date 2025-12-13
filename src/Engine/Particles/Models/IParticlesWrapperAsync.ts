@@ -14,8 +14,8 @@ export type IParticlesWrapperAsync = IWrapper<IPoints> &
   IWithTextures &
   IWithTagsMixin &
   Readonly<{
-    setMaterialColors: (colors: IColor) => void;
-    getMaterialColors: () => IColor;
+    setMaterialColor: (colors: IColor) => void;
+    getMaterialColor: () => IColor;
     setIndividualMaterialColors: (colors: Float32Array) => void;
     getIndividualMaterialColors: () => Float32Array;
     setPositions: (positions: Float32Array) => void;

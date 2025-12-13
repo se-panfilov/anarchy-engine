@@ -6,6 +6,7 @@ import type { IWithMaterial } from '@/Engine/Material';
 import { isPointsMaterial, withMaterial } from '@/Engine/Material';
 import { scalableMixin, withMoveBy3dMixin, withObject3d, withRotationByXyzMixin } from '@/Engine/Mixins';
 import type { IParticlesParams, IParticlesWrapperAsync } from '@/Engine/Particles/Models';
+import { withTextures } from '@/Engine/Texture';
 import type { IPoints } from '@/Engine/ThreeLib';
 import { applyObject3dParams, applyPosition, applyRotation, applyScale, isDefined } from '@/Engine/Utils';
 
@@ -22,9 +23,9 @@ export async function ParticlesWrapperAsync(params: IParticlesParams): Promise<I
   // eslint-disable-next-line functional/immutable-data
   const setMaterialColor = (color: IColor): void => void (material.color = color);
   const getMaterialColor = (): IColor => material.color;
-  const setIndividualMaterialColor = (colors: Float32Array): void => void geometry.setAttribute('color', new BufferAttribute(colors, 3));
+  const setIndividualMaterialColors = (colors: Float32Array): void => void geometry.setAttribute('color', new BufferAttribute(colors, 3));
   // TODO (S.Panfilov) test this if it works
-  const getIndividualMaterialColor = (): Float32Array => geometry.getAttribute('color').array as Float32Array;
+  const getIndividualMaterialColors = (): Float32Array => geometry.getAttribute('color').array as Float32Array;
   const setPositions = (positions: Float32Array): void => void geometry.setAttribute('position', new BufferAttribute(positions, 3));
   // TODO (S.Panfilov) test this if it works
   const getPositions = (): Float32Array => geometry.getAttribute('position').array as Float32Array;
@@ -36,11 +37,11 @@ export async function ParticlesWrapperAsync(params: IParticlesParams): Promise<I
     ...scalableMixin(entity),
     ...withObject3d(entity),
     ...withMaterialEntity,
-    // ...withTextures(withMaterialEntity),
+    ...withTextures(withMaterialEntity),
     setMaterialColor,
     getMaterialColor,
-    setIndividualMaterialColor,
-    getIndividualMaterialColor,
+    setIndividualMaterialColors,
+    getIndividualMaterialColors,
     setPositions,
     getPositions,
     entity
