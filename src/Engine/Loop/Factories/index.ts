@@ -1,1 +1,1 @@
-export * from './Models3dFactory';
+export * from './LoopFactory';

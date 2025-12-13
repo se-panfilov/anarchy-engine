@@ -11,6 +11,7 @@ export enum RegistryType {
   IntersectionsWatcher = 'intersections_watcher_registry',
   KeyboardRecord = 'keyboard_record_registry',
   Light = 'light_registry',
+  Loop = 'loop_registry',
   Material = 'material_registry',
   Model3dRaw = 'model_3d_raw_registry',
   Model3dAnimations = 'model_3d_animations_registry',

@@ -1,18 +1,17 @@
-import { CollisionsLoop } from '@/Engine/Collisions';
-import { KinematicLoop } from '@/Engine/Kinematic';
+import type { TCollisionsLoop } from '@/Engine/Collisions';
+import { LoopType } from '@/Engine/Loop';
 import { milliseconds } from '@/Engine/Measurements';
-import { PhysicalLoop } from '@/Engine/Physics';
 import { SpaceMainLoopNames } from '@/Engine/Space/Constants';
-import { RenderLoop } from '@/Engine/Space/Loops';
 import type { TSpaceLoops, TSpaceServices } from '@/Engine/Space/Models';
-import { SpatialLoop } from '@/Engine/Spatial';
+import type { TSpatialLoop } from '@/Engine/Spatial';
 
 export function createLoops({ loopService, physicsWorldService }: TSpaceServices): TSpaceLoops {
+  // TODO 10.0.0. LOOPS: this creation must be done via the factory
   return {
-    renderLoop: RenderLoop(SpaceMainLoopNames.Render, loopService, requestAnimationFrame),
-    physicalLoop: PhysicalLoop(SpaceMainLoopNames.Physical, loopService, physicsWorldService, milliseconds(16)),
-    collisionsLoop: CollisionsLoop(SpaceMainLoopNames.Collisions, loopService, milliseconds(16)),
-    kinematicLoop: KinematicLoop(SpaceMainLoopNames.Kinematic, loopService, milliseconds(16)),
-    spatialLoop: SpatialLoop(SpaceMainLoopNames.Spatial, loopService, milliseconds(16))
+    renderLoop: loopService.create({ name: SpaceMainLoopNames.Render, type: LoopType.Render, trigger: requestAnimationFrame }),
+    physicalLoop: loopService.create({ name: SpaceMainLoopNames.Physical, type: LoopType.Physical, trigger: milliseconds(16), dependencies: { physicsWorldService } }),
+    collisionsLoop: loopService.create({ name: SpaceMainLoopNames.Collisions, type: LoopType.Collisions, trigger: milliseconds(16) }) as TCollisionsLoop,
+    kinematicLoop: loopService.create({ name: SpaceMainLoopNames.Kinematic, type: LoopType.Kinematic, trigger: milliseconds(16) }),
+    spatialLoop: loopService.create({ name: SpaceMainLoopNames.Spatial, type: LoopType.Spatial, trigger: milliseconds(16) }) as TSpatialLoop
   };
 }

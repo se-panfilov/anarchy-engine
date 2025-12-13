@@ -9,6 +9,7 @@ export enum FactoryType {
   FsmSource = 'fsm_source_factory',
   IntersectionsWatcher = 'intersections_watcher_factory',
   Light = 'light_factory',
+  Loop = 'loop_factory',
   Material = 'material_factory',
   MouseClickWatcher = 'mouse_click_watcher_factory',
   Models3d = 'models_3d_factory',

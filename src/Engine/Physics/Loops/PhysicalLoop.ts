@@ -15,7 +15,7 @@ import type { TPhysicalLoop } from '@/Engine/Physics/Models';
 // TODO 10.0.0. LOOPS: get rid of autoUpdate$ (and isAutoUpdate in config, guess)
 
 export function PhysicalLoop(name: string, loopService: TLoopService, physicsWorldService: TPhysicsWorldService, updateRate: TMilliseconds): TPhysicalLoop {
-  const loop: TLoop = loopService.createIntervalLoop(name, LoopType.Physical, milliseconds(updateRate));
+  const loop: TLoop = loopService.create({ name, type: LoopType.Physical, trigger: milliseconds(updateRate) });
   const loopSub$: Subscription = loop.tick$.subscribe((): void => physicsWorldService.getWorld()?.step());
 
   const destroySub$: Subscription = loop.destroy$.subscribe((): void => {

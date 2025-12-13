@@ -1,21 +1,24 @@
+import { nanoid } from 'nanoid';
 import type { Observable, Subscription } from 'rxjs';
 import { BehaviorSubject, EMPTY, Subject, switchMap } from 'rxjs';
 
-import type { LoopType } from '@/Engine/Loop/Constants';
 import { LoopTrigger } from '@/Engine/Loop/Constants';
-import type { TDelta, TDeltaCalculator, TLoop, TLoopTriggerFn } from '@/Engine/Loop/Models';
+import type { TDelta, TDeltaCalculator, TLoop, TLoopParams, TLoopTriggerFn } from '@/Engine/Loop/Models';
+import { enableFPSCounter } from '@/Engine/Loop/Utils';
 import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
 import { isDefined } from '@/Engine/Utils';
 
 import { DeltaCalculator } from './DeltaCalculator';
 
-export function Loop(name: string, type: LoopType, trigger: TLoopTriggerFn | number): TLoop {
+export function Loop({ name, type, trigger, showDebugInfo }: TLoopParams): TLoop {
   const enabled$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   const tick$: Subject<TDelta> = new Subject<TDelta>();
 
   const isTriggerFn: boolean = typeof trigger === 'function';
   const deltaCalc: TDeltaCalculator = DeltaCalculator(isTriggerFn);
+
+  if (showDebugInfo) enableFPSCounter(tick$);
 
   const tickSub$: Subscription = enabled$
     .pipe(switchMap((isEnabled: boolean): Subject<TDelta> | Observable<never> => (isEnabled && isTriggerFn ? tick$ : EMPTY)))
@@ -55,6 +58,7 @@ export function Loop(name: string, type: LoopType, trigger: TLoopTriggerFn | num
   });
 
   return {
+    id: `${nanoid()}_${type}`,
     name,
     tick$,
     type,

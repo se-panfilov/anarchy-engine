@@ -9,7 +9,7 @@ import { SpatialUpdatePriority } from '@/Engine/Spatial/Constants';
 import type { TSpatialLoop } from '@/Engine/Spatial/Models';
 
 export function SpatialLoop(name: string, loopService: TLoopService, updateRate: TMilliseconds): TSpatialLoop {
-  const loop: TLoop = loopService.createIntervalLoop(name, LoopType.Spatial, milliseconds(updateRate));
+  const loop: TLoop = loopService.create({ name, type: LoopType.Spatial, trigger: milliseconds(updateRate) });
   const priority$: BehaviorSubject<SpatialUpdatePriority> = new BehaviorSubject<SpatialUpdatePriority>(SpatialUpdatePriority.ASAP);
 
   const loopSub$: Subscription = loop.tick$.subscribe((): void => {
