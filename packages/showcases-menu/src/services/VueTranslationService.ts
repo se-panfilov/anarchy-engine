@@ -8,6 +8,7 @@ import { filter } from 'rxjs';
 import type { ShallowRef } from 'vue';
 import { onBeforeUnmount, onMounted, shallowRef } from 'vue';
 
+// TODO DESKTOP: extract this service to shared package: has to be reused in UI level
 export function VueTranslationService(localesMapping: TLocalesMapping = locales): TVueTranslationService {
   const i18n: TTranslationService = TranslationService(ShowcasesLocales['en-US'], ShowcasesFallbackLocale, localesMapping);
 
