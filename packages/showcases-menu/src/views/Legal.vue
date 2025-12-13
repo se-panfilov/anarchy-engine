@@ -13,8 +13,8 @@ const mainSettingsGroupTitleText: ShallowRef<string> = $t('main-menu.settings.le
 </script>
 
 <template>
-  <View class="audio" :title="viewTitleText">
-    <ViewForm name="audio" class="audio__view-form">
+  <View class="legal" :title="viewTitleText">
+    <ViewForm name="legal" class="legal__view-form">
       <SettingsGroup :title="mainSettingsGroupTitleText"> 123 </SettingsGroup>
       <Navigation class="settings__navigation" :back-btn="true" />
     </ViewForm>
