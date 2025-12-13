@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 type IFactory<P, T> = Readonly<{
   type: string;
   create: (params: P) => T;
@@ -14,25 +16,25 @@ function Factory<Params, Entity>(type: string, createFn: (params: Params) => Ent
   };
 }
 
-type IDestroyableFactory<P, T> = IFactory<P, T> &
+type IDestroyableFactory<F extends IFactory<any, any>> = F &
   Readonly<{
     destroy: () => void;
   }>;
-type IFromConfigFactory<P, T, C> = IFactory<P, T> &
+type IFromConfigFactory<F extends IFactory<any, T>, T, C> = F &
   Readonly<{
     fromConfig: (config: C) => T;
   }>;
-type IRegistrableFactory<P, T> = IFactory<P, T> &
+type IRegistrableFactory<F extends IFactory<any, any>> = F &
   Readonly<{
     id: string;
     tags: ReadonlyArray<string>;
   }>;
-type IDynamicFactory<P, T> = IFactory<P, T> &
+type IDynamicFactory<F extends IFactory<any, any>> = F &
   Readonly<{
     isAlive: () => boolean;
   }>;
 
-function DestroyableFactory<P, T>(factory: IFactory<P, T>): IDestroyableFactory<P, T> {
+function DestroyableFactory<F extends IFactory<any, any>>(factory: F): F & IDestroyableFactory<F> {
   return {
     ...factory,
     destroy: (): void => {
@@ -41,7 +43,7 @@ function DestroyableFactory<P, T>(factory: IFactory<P, T>): IDestroyableFactory<
   };
 }
 
-function RegistrableFactory<P, T>(factory: IFactory<P, T>, tags: ReadonlyArray<string>): IRegistrableFactory<P, T> {
+function RegistrableFactory<F extends IFactory<any, any>>(factory: F, tags: ReadonlyArray<string>): F & IRegistrableFactory<F> {
   return {
     ...factory,
     id: 'some-id-123',
@@ -49,7 +51,7 @@ function RegistrableFactory<P, T>(factory: IFactory<P, T>, tags: ReadonlyArray<s
   };
 }
 
-function FromConfigFactory<P, T, C>(factory: IFactory<P, T>): IFromConfigFactory<P, T, C> {
+function FromConfigFactory<F extends IFactory<any, any>, P, T, C>(factory: F): F & IFromConfigFactory<F, T, C> {
   function configToParams(config: C): P {
     return config as unknown as P;
   }
@@ -62,7 +64,7 @@ function FromConfigFactory<P, T, C>(factory: IFactory<P, T>): IFromConfigFactory
   };
 }
 
-function DynamicFactory<P, T>(factory: IFactory<P, T>): IDynamicFactory<P, T> {
+function DynamicFactory<F extends IFactory<any, any>>(factory: F): F & IDynamicFactory<F> {
   return {
     ...factory,
     isAlive: (): boolean => true
@@ -87,12 +89,14 @@ function catCreate(params: Readonly<ICatParams>): ICat {
   };
 }
 
-type ICatFactory<P, T, C> = IDestroyableFactory<P, T> & IFromConfigFactory<P, T, C> & IRegistrableFactory<P, T> & IDynamicFactory<P, T>;
+type ICatFactory<P, T, C> = IDestroyableFactory<IFactory<P, T>> & IFromConfigFactory<IFactory<P, T>, T, C> & IRegistrableFactory<IFactory<P, T>> & IDynamicFactory<IFactory<P, T>>;
 
-//error: Type DynamicFactory<Readonly<ICatParams>, ICat> is not assignable to type ICatFactory<ICatParams, ICat, ICatConfig> Property destroy is missing in type IDynamicFactory<Readonly<ICatParams>, ICat> but required in type Readonly<{ destroy: () => void; }>
 const factory: ICatFactory<ICatParams, ICat, ICatConfig> = DynamicFactory(FromConfigFactory(RegistrableFactory(DestroyableFactory(Factory('type-1', catCreate)), [])));
 
-factory.isAlive();
+factory.destroy(); //IDestroyableFactory
+factory.fromConfig({} as any); //IFromConfigFactory
+console.log(factory.tags); //IRegistrableFactory
+factory.isAlive(); //IDynamicFactory
 
 function getFactory<T, P>(factory: IFactory<T, P>): void {
   console.log(factory);
