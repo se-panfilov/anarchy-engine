@@ -61,4 +61,4 @@ The Technical File is maintained by the manufacturer and made available to compe
 
 **Place/Date:** {{DOC_PLACE}}, {{DOC_DATE}}
 **Name/Function:** {{SIGNATORY_NAME}}, {{SIGNATORY_FUNCTION}}
-**Signature:** **********\_\_**********
+**Signature:** ****\*\*****\_\_****\*\*****
