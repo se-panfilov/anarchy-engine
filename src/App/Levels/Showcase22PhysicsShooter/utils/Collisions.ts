@@ -11,7 +11,7 @@ export async function enableCollisions(
   // TODO (S.Panfilov) CWP 2. Visualize raycasting
   // TODO (S.Panfilov) CWP 3. Fix collision detection
   // TODO (S.Panfilov) CWP 4. make sure raycasting is working inside the grid only
-  // TODO (S.Panfilov) CWP 5. make bullets and actors can travel among grids
+  // TODO (S.Panfilov) CWP 5. make sure that bullets can travel among grids and do raycasting
   // TODO (S.Panfilov) CWP 6. add checks for spatial config (name, etc)
   // TODO (S.Panfilov) CWP 7. make sure actors are added properly via config (grid property should work, "cell" might be need to be removed )
 
