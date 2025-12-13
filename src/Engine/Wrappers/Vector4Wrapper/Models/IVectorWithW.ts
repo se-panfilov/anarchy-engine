@@ -1,3 +1,3 @@
-import type { IMovableW } from '@/Engine/Mixins';
+import type { IMovable4dW } from '@/Engine/Mixins';
 
-export type IVectorWithW = Omit<IMovableW, 'setPosition' | 'getPosition'>;
+export type IVectorWithW = Omit<IMovable4dW, 'setPosition' | 'getPosition'>;

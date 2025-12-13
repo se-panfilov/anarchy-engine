@@ -1,8 +1,5 @@
-import type { IWithPositionXYZW } from '@/Engine/Mixins/GameObject/Models/Position';
+import type { IWithPosition4d } from '@/Engine/Mixins/GameObject/Models/Position';
 
-export type IMovableW = IWithPositionXYZW &
-  Readonly<{
-    addW: (z: number) => number;
-    setW: (z: number) => number;
-    getW: () => number;
-  }>;
+import type { ICoordinateAccessorW } from './ICoordinateAccessor';
+
+export type IMovable4dW = IWithPosition4d & ICoordinateAccessorW;

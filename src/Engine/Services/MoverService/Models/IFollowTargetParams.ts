@@ -1,7 +1,7 @@
-import type { IMovableXYZ, IWithCoordsXYZ, IWithPositionXYZ } from '@/Engine/Mixins';
+import type { IMovable3dXYZ, IWithCoordsXYZ, IWithPosition3d } from '@/Engine/Mixins';
 
 export type IFollowTargetParams = Readonly<{
-  obj: IMovableXYZ;
-  target: IWithPositionXYZ;
+  obj: IMovable3dXYZ;
+  target: IWithPosition3d;
   offset?: Partial<IWithCoordsXYZ>;
 }>;

@@ -8,7 +8,7 @@ import { RelatedEntityAttribute, TextType } from '@/Engine/Domains/Text/Constant
 import type { ITextParams, ITextWrapper } from '@/Engine/Domains/Text/Models';
 import { getCssAccessors } from '@/Engine/Domains/Text/Wrapper/Accessors';
 import { applyHtmlElementParams, getWrapperTypeByTextType } from '@/Engine/Domains/Text/Wrapper/TextWrapperHelper';
-import { scalableMixin, withMoveByXyzMixin, withObject3d, withRotationByXyzMixin } from '@/Engine/Mixins';
+import { scalableMixin, withMoveBy3dMixin, withObject3d, withRotationByXyzMixin } from '@/Engine/Mixins';
 import { applyCenter, applyObject3dParams, applyPosition, applyRotation, applyScale, isDefined } from '@/Engine/Utils';
 
 export function createTextWrapper<T extends CSS2DObject | CSS3DObject>(params: ITextParams, type: TextType): ITextWrapper<T> {
@@ -22,7 +22,7 @@ export function createTextWrapper<T extends CSS2DObject | CSS3DObject>(params: I
     type,
     ...AbstractWrapper(entity, getWrapperTypeByTextType(type), params),
     ...getCssAccessors(element),
-    ...withMoveByXyzMixin(entity),
+    ...withMoveBy3dMixin(entity),
     ...withRotationByXyzMixin(entity),
     ...scalableMixin(entity),
     ...withObject3d(entity),

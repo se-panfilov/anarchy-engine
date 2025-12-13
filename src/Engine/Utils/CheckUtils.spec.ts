@@ -1,11 +1,33 @@
 import { BehaviorSubject, Observable } from 'rxjs';
+import { Vector2, Vector3, Vector4 } from 'three';
 
-import type { IDestroyable, IRegistrable } from '@/Engine/Mixins';
+import type { IDestroyable, IRegistrable, IWithPosition2dProperty, IWithPosition3dProperty, IWithPosition4dProperty } from '@/Engine/Mixins';
 import { ColorWrapper, Vector2Wrapper, Vector3Wrapper, Vector4Wrapper } from '@/Engine/Wrappers';
 
-import { isColorWrapper, isDefined, isDestroyable, isNotDefined, isRegistrable, isString, isVector2Wrapper, isVector3Wrapper, isVector4Wrapper, isWithWrapperId } from './CheckUtils';
+import {
+  isColorWrapper,
+  isDefined,
+  isDestroyable,
+  isEntityWith2dPosition,
+  isEntityWith3dPosition,
+  isEntityWith4dPosition,
+  isNotDefined,
+  isRegistrable,
+  isString,
+  isVector2,
+  isVector2Wrapper,
+  isVector3,
+  isVector3Wrapper,
+  isVector4,
+  isVector4Wrapper,
+  isWithWrapperId
+} from './CheckUtils';
 
 describe('CheckUtils', () => {
+  const entity2d: IWithPosition2dProperty = { position: Vector2Wrapper({ x: 10, y: 10 }).entity };
+  const entity3d: IWithPosition3dProperty = { position: Vector3Wrapper({ x: 10, y: 10, z: 10 }).entity };
+  const entity4d: IWithPosition4dProperty = { position: Vector4Wrapper({ x: 10, y: 10, z: 10, w: 10 }).entity };
+
   describe('isDefined', () => {
     it('should return "true" if value is "string"', () => {
       expect(isDefined('value')).toBe(true);
@@ -221,6 +243,63 @@ describe('CheckUtils', () => {
     });
   });
 
+  describe('isVector2', () => {
+    it('should return "true" if it is a vector2 wrapper', () => {
+      expect(isVector2(new Vector2(10, 10))).toBe(true);
+      expect(isVector2(new Vector2(0, 0))).toBe(true);
+    });
+
+    it('should return "false" if it is a vector3', () => {
+      expect(isVector2(new Vector3(0, 0))).toBe(false);
+      expect(isVector2(new Vector3(0, 0, 0))).toBe(false);
+      expect(isVector2(new Vector3(10, 10))).toBe(false);
+      expect(isVector2(new Vector3(10, 10, 10))).toBe(false);
+    });
+
+    it('should return "true" if it is a vector4', () => {
+      expect(isVector2(new Vector4(0, 0, 0, 0))).toBe(false);
+      expect(isVector2(new Vector4(10, 10, 10, 10))).toBe(false);
+    });
+  });
+
+  describe('isVector3', () => {
+    it('should return "false" if it is a vector2', () => {
+      expect(isVector3(new Vector2(0, 0))).toBe(false);
+      expect(isVector3(new Vector2(10, 10))).toBe(false);
+    });
+
+    it('should return "true" if it is a vector3', () => {
+      expect(isVector3(new Vector3(0, 0))).toBe(true);
+      expect(isVector3(new Vector3(0, 0, 0))).toBe(true);
+      expect(isVector3(new Vector3(10, 10))).toBe(true);
+      expect(isVector3(new Vector3(10, 10, 10))).toBe(true);
+    });
+
+    it('should return "false" if it is a vector4', () => {
+      expect(isVector3(new Vector4(0, 0, 0, 0))).toBe(false);
+      expect(isVector3(new Vector4(10, 10, 10, 10))).toBe(false);
+    });
+  });
+
+  describe('isVector4', () => {
+    it('should return "false" if it is a vector2 ', () => {
+      expect(isVector4(new Vector2(10, 10))).toBe(false);
+      expect(isVector4(new Vector2(0, 0))).toBe(false);
+    });
+
+    it('should return "false" if it is a vector3 ', () => {
+      expect(isVector4(new Vector3(0, 0))).toBe(false);
+      expect(isVector4(new Vector3(0, 0, 0))).toBe(false);
+      expect(isVector4(new Vector3(10, 10))).toBe(false);
+      expect(isVector4(new Vector3(10, 10, 10))).toBe(false);
+    });
+
+    it('should return "true" if it is a vector4 ', () => {
+      expect(isVector4(new Vector4(0, 0, 0, 0))).toBe(true);
+      expect(isVector4(new Vector4(10, 10, 10, 10))).toBe(true);
+    });
+  });
+
   describe('isVector2Wrapper', () => {
     it('should return "true" if it is a vector2 wrapper', () => {
       expect(isVector2Wrapper(Vector2Wrapper({ x: 10, y: 10 }))).toBe(true);
@@ -275,6 +354,48 @@ describe('CheckUtils', () => {
     it('should return "true" if it is a vector4 wrapper', () => {
       expect(isVector4Wrapper(Vector4Wrapper({ x: 0, y: 0, z: 0, w: 0 }))).toBe(true);
       expect(isVector4Wrapper(Vector4Wrapper({ x: 10, y: 10, z: 10, w: 10 }))).toBe(true);
+    });
+  });
+
+  describe('isEntityWith2dPosition', () => {
+    it('should return "true" for entity with 2d position', () => {
+      expect(isEntityWith2dPosition(entity2d)).toBe(true);
+    });
+
+    it('should return "false" for entity with 3d position', () => {
+      expect(isEntityWith2dPosition(entity3d)).toBe(false);
+    });
+
+    it('should return "false" for entity with 4d position', () => {
+      expect(isEntityWith2dPosition(entity4d)).toBe(false);
+    });
+  });
+
+  describe('isEntityWith3dPosition', () => {
+    it('should return "false" for entity with 2d position', () => {
+      expect(isEntityWith3dPosition(entity2d)).toBe(false);
+    });
+
+    it('should return "true" for entity with 3d position', () => {
+      expect(isEntityWith3dPosition(entity3d)).toBe(true);
+    });
+
+    it('should return "false" for entity with 4d position', () => {
+      expect(isEntityWith3dPosition(entity4d)).toBe(false);
+    });
+  });
+
+  describe('isEntityWith4dPosition', () => {
+    it('should return "false" for entity with 2d position', () => {
+      expect(isEntityWith4dPosition(entity2d)).toBe(false);
+    });
+
+    it('should return "false" for entity with 3d position', () => {
+      expect(isEntityWith4dPosition(entity3d)).toBe(false);
+    });
+
+    it('should return "true" for entity with 4d position', () => {
+      expect(isEntityWith4dPosition(entity4d)).toBe(true);
     });
   });
 });

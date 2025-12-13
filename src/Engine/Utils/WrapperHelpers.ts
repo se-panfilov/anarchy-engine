@@ -15,7 +15,7 @@ import type {
   IWithTexturesActor
 } from '@/Engine/Domains/Texture';
 import type { IObject3DParams } from '@/Engine/Domains/ThreeLib';
-import type { IMovableXYZ, IRotatable, IScalable, IWithObject3d } from '@/Engine/Mixins';
+import type { IMovable3dXYZ, IRotatable, IScalable, IWithObject3d } from '@/Engine/Mixins';
 import { isDefined } from '@/Engine/Utils/index';
 import type { IEulerWrapper, IVector2Wrapper, IVector3Wrapper } from '@/Engine/Wrappers';
 
@@ -27,7 +27,7 @@ export function applyObject3dParams(obj: IWithObject3d, { visible, castShadow, r
   if (isDefined(renderOrder)) obj.setRenderOrder(renderOrder);
 }
 
-export function applyPosition(obj: IMovableXYZ, position?: IVector3Wrapper): void {
+export function applyPosition(obj: IMovable3dXYZ, position?: IVector3Wrapper): void {
   if (isDefined(position)) obj.setPosition(position);
 }
 

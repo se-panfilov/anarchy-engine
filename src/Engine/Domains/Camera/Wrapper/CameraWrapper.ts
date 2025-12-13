@@ -5,7 +5,7 @@ import { ambientContext } from '@/Engine/Context';
 import { AbstractWrapper, WrapperType } from '@/Engine/Domains/Abstract';
 import type { ICameraParams, ICameraWrapper, IPerspectiveCamera } from '@/Engine/Domains/Camera/Models';
 import type { IScreenSizeValues, IScreenSizeWatcher } from '@/Engine/Domains/Screen';
-import { withMoveByXyzMixin, withObject3d, withRotationByXyzMixin } from '@/Engine/Mixins';
+import { withMoveBy3dMixin, withObject3d, withRotationByXyzMixin } from '@/Engine/Mixins';
 import { withTags } from '@/Engine/Mixins/Generic/WithTags';
 import type { IWriteable } from '@/Engine/Utils';
 import { applyObject3dParams, applyPosition, applyRotation, isDefined, isNotDefined } from '@/Engine/Utils';
@@ -38,7 +38,7 @@ export function CameraWrapper(params: ICameraParams, screenSizeWatcher: Readonly
     ...AbstractWrapper(entity, WrapperType.Camera, params),
     ...accessors,
     entity,
-    ...withMoveByXyzMixin(entity),
+    ...withMoveBy3dMixin(entity),
     ...withRotationByXyzMixin(entity),
     ...withObject3d(entity),
     ...withTags(tags)

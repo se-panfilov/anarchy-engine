@@ -1,8 +1,9 @@
-import type { IWithPositionXY } from '@/Engine/Mixins/GameObject/Models/Position';
+import type { IWithPosition2d, IWithPosition3d, IWithPosition4d } from '@/Engine/Mixins/GameObject/Models/Position';
 
-export type IMovableY = IWithPositionXY &
-  Readonly<{
-    addY: (y: number) => number;
-    setY: (y: number) => number;
-    getY: () => number;
-  }>;
+import type { ICoordinateAccessorY } from './ICoordinateAccessor';
+
+export type IMovable2dY = IWithPosition2d & ICoordinateAccessorY;
+export type IMovable3dY = IWithPosition3d & ICoordinateAccessorY;
+export type IMovable4dY = IWithPosition4d & ICoordinateAccessorY;
+
+export type IMovableY = IMovable2dY | IMovable3dY | IMovable4dY;

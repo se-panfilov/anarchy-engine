@@ -1,3 +1,4 @@
-export * from './WithPositionXyMixin';
-export * from './WithPositionXyzMixin';
-export * from './WithPositionXyzwMixin';
+export * from './WithPosition2dMixin';
+export * from './WithPosition3dMixin';
+export * from './WithPosition4dMixin';
+export * from './WithPositionMixin';

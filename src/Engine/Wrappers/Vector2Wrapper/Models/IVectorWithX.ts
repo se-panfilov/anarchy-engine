@@ -1,3 +1,3 @@
-import type { IMovableX } from '@/Engine/Mixins';
+import type { IMovable2dX } from '@/Engine/Mixins';
 
-export type IVectorWithX = Omit<IMovableX, 'setPosition' | 'getPosition'>;
+export type IVectorWithX = Omit<IMovable2dX, 'setPosition' | 'getPosition'>;

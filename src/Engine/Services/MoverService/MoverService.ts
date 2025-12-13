@@ -1,7 +1,7 @@
 import anime from 'animejs';
 
 import type { ILoopService } from '@/Engine/Domains/Loop';
-import type { IWithCoordsXYZ, IWithPositionXYZ } from '@/Engine/Mixins';
+import type { IWithCoordsXYZ, IWithPosition3d } from '@/Engine/Mixins';
 import { defaultMoverServiceConfig } from '@/Engine/Services/MoverService/Constants';
 import type { IAnimationParams, IFollowTargetParams, IKeyframeDestination, IMovableEntityWrapper, IMoverServiceConfig, IStopMoveCb } from '@/Engine/Services/MoverService/Models';
 import type { IMoveDestination } from '@/Engine/Services/MoverService/Models/IMoveDestination';
@@ -20,7 +20,7 @@ export function MoverService(loopService: ILoopService, { suspendWhenDocumentHid
     goByPath: (obj: IMovableEntityWrapper, path: ReadonlyArray<IKeyframeDestination>, animationParams: IAnimationParams): Promise<void> => {
       return performMove(byPathMove, loopService, { obj, path: getAccumulatedKeyframes(path, obj), animationParams });
     },
-    followTarget: (obj: IMovableEntityWrapper, target: IWithPositionXYZ, offset?: Partial<IWithCoordsXYZ>): IStopMoveCb => {
+    followTarget: (obj: IMovableEntityWrapper, target: IWithPosition3d, offset?: Partial<IWithCoordsXYZ>): IStopMoveCb => {
       return performMoveUntil(followTarget, loopService, { obj, target, offset } satisfies IFollowTargetParams);
     }
   };
