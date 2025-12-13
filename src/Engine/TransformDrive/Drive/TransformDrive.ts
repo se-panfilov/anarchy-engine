@@ -1,5 +1,5 @@
 import type { Subscription } from 'rxjs';
-import { BehaviorSubject, pairwise, ReplaySubject } from 'rxjs';
+import { BehaviorSubject, distinctUntilChanged, pairwise, ReplaySubject } from 'rxjs';
 import type { Euler, Vector3 } from 'three';
 
 import type { TDestroyable } from '@/Engine/Mixins';
@@ -42,24 +42,28 @@ export function TransformDrive<T extends Partial<Record<TransformAgent, TAbstrac
   const rotation$: BehaviorSubject<Euler> = new BehaviorSubject<Euler>(activeAgent$.value.rotation$.value);
   const scale$: BehaviorSubject<Vector3> = new BehaviorSubject<Vector3>(activeAgent$.value.scale$.value);
 
-  // TODO 8.0.0. MODELS: check if pairwise works correctly here (prev value behaves as expected)
-  const activeAgentSub$: Subscription = activeAgent$.pipe(pairwise()).subscribe(([prevAgent, newAgent]: [TAbstractTransformAgent, TAbstractTransformAgent]): void => {
-    const position: Vector3 = position$.value;
-    const rotation: Euler = rotation$.value;
-    const scale: Vector3 = scale$.value;
+  const activeAgentSub$: Subscription = activeAgent$
+    .pipe(
+      distinctUntilChanged((prev: TAbstractTransformAgent, curr: TAbstractTransformAgent): boolean => prev.type === curr.type),
+      pairwise()
+    )
+    .subscribe(([prevAgent, newAgent]: [TAbstractTransformAgent, TAbstractTransformAgent]): void => {
+      const position: Vector3 = position$.value;
+      const rotation: Euler = rotation$.value;
+      const scale: Vector3 = scale$.value;
 
-    prevAgent.onDeactivated$.next({ position, rotation, scale });
-    Object.values(agents).forEach((agent: TAbstractTransformAgent): void => {
-      const isActiveAgent: boolean = agent.type === newAgent.type;
-      agent.enabled$.next(isActiveAgent);
+      prevAgent.onDeactivated$.next({ position, rotation, scale });
+      Object.values(agents).forEach((agent: TAbstractTransformAgent): void => {
+        const isActiveAgent: boolean = agent.type === newAgent.type;
+        agent.enabled$.next(isActiveAgent);
 
-      //when we change the active agent, we need to update the values of the agent
-      agent.position$.next(position);
-      agent.rotation$.next(rotation);
-      agent.scale$.next(scale);
+        //when we change the active agent, we need to update the values of the agent
+        agent.position$.next(position);
+        agent.rotation$.next(rotation);
+        agent.scale$.next(scale);
+      });
+      newAgent.onActivated$.next({ position, rotation, scale });
     });
-    newAgent.onActivated$.next({ position, rotation, scale });
-  });
 
   //We don't expose these BehaviorSubjects, because they're vulnerable to external changes without .next() (e.g. "position.value = ...")
   const positionRep$: ReplaySubject<Vector3> = new ReplaySubject<Vector3>(1);
@@ -73,9 +77,36 @@ export function TransformDrive<T extends Partial<Record<TransformAgent, TAbstrac
   activeAgent$.subscribe((agent: TAbstractTransformAgent): void => activeAgentRep$.next(ProtectedTransformAgentFacade(agent)));
 
   // Update values of the active agent when drive.position$.next() is called from an external code
-  positionRep$.subscribe(activeAgent$.value.position$);
-  rotationRep$.subscribe(activeAgent$.value.rotation$);
-  scaleRep$.subscribe(activeAgent$.value.scale$);
+  // TODO CWP
+  // TODO 8.0.0. MODELS: when we push this value, max call stack exceeded (all agents). Maybe we don't need this, but use onActivated hook?
+  // positionRep$.subscribe(activeAgent$.value.position$);
+  // rotationRep$.subscribe(activeAgent$.value.rotation$);
+  // scaleRep$.subscribe(activeAgent$.value.scale$);
+
+  // TODO debug
+  // const threshold: number = 0.001;
+  // // TODO debug
+  // const prevValue: Float32Array = new Float32Array([0, 0, 0]);
+  // positionRep$
+  //   .pipe(
+  //     distinctUntilChanged((_prev: Vector3, curr: Vector3): boolean => {
+  //       return isEqualOrSimilarByXyzCoords(prevValue[0], prevValue[1], prevValue[2], curr.x, curr.y, curr.z, threshold);
+  //     }),
+  //     // TODO debug
+  //     // sampleTime(delay),
+  //     tap((value: Vector3): void => {
+  //       // eslint-disable-next-line functional/immutable-data
+  //       prevValue[0] = value.x;
+  //       // eslint-disable-next-line functional/immutable-data
+  //       prevValue[1] = value.y;
+  //       // eslint-disable-next-line functional/immutable-data
+  //       prevValue[2] = value.z;
+  //     })
+  //   )
+  //   .subscribe((value: Vector3): void => {
+  //     console.log('XXX', value);
+  //     activeAgent$.value.position$.next(value);
+  //   });
 
   const destroyable: TDestroyable = destroyableMixin();
 
