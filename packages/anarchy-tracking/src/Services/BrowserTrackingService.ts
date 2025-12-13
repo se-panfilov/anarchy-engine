@@ -34,7 +34,7 @@ export function BrowserTrackingService(options?: BrowserOptions, metaData?: TMet
     layer: 'web',
     errorTracker: 'BrowserTrackingService',
     os: platform,
-    arch: arch
+    arch
   });
 
   const onError = (ev: any): void => void captureException(ev?.error ?? ev);

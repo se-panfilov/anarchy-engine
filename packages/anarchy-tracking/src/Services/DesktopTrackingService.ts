@@ -34,7 +34,7 @@ export function DesktopTrackingService(options?: ElectronMainOptions, metaData?:
     layer: 'electron-main',
     errorTracker: 'DesktopTrackingService',
     os: platform,
-    arch: arch
+    arch
   });
 
   const onError = (ev: any): void => void captureException(ev?.error ?? ev);

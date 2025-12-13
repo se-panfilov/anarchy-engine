@@ -36,7 +36,7 @@ export function DesktopPreloadTrackingService(options?: Record<string, any>, met
     errorTracker: 'DesktopPreloadTrackingService',
     errorTrackerInitializer: 'DesktopPreloadTrackingService',
     os: platform,
-    arch: arch
+    arch
   });
 
   const onError = (ev: any): void => void captureException(ev?.error ?? ev);
