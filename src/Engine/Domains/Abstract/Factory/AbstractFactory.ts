@@ -1,4 +1,4 @@
-import type { ICreateFN } from '@Engine/Factories/AbstractFactory/Models';
+import type { ICreateFN } from '@Engine/Domains/Abstract/Models';
 import type { IAbstractFactory } from '@Engine/Models';
 import { nanoid } from 'nanoid';
 

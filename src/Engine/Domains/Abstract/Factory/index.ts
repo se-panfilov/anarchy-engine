@@ -3,4 +3,3 @@ export * from './AbstractDestroyableFromConfigFactory';
 export * from './AbstractFactory';
 export * from './AbstractFromConfigWrapperFactory';
 export * from './AbstractWrapperFactory';
-export * from './Models';

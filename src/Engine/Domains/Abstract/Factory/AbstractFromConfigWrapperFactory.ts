@@ -1,5 +1,5 @@
-import type { ICreateFN } from '@Engine/Factories';
-import { AbstractWrapperFactory } from '@Engine/Factories';
+import { AbstractWrapperFactory } from '@Engine/Domains/Abstract/Factory';
+import type { ICreateFN } from '@Engine/Domains/Abstract/Models';
 import type { IAbstractConfig, IAbstractFactory, IAbstractFromConfigWrapperFactory, IAbstractWrapperFactory, IWrapper } from '@Engine/Models';
 import { isNotDefined } from '@Engine/Utils';
 

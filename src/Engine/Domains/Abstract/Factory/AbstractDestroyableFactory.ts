@@ -1,5 +1,5 @@
-import { AbstractWrapperFactory } from '@Engine/Factories';
-import type { ICreateFN } from '@Engine/Factories/AbstractFactory/Models';
+import { AbstractWrapperFactory } from '@Engine/Domains/Abstract/Factory';
+import type { ICreateFN } from '@Engine/Domains/Abstract/Models';
 import type { IDestroyableFactory, IWrapper } from '@Engine/Models';
 import { cleanObject } from '@Engine/Utils';
 

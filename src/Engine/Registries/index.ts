@@ -1,4 +1,3 @@
-export * from './AbstractRegistry';
 export * from './IntersectionsWatcherRegistry';
 export * from './MouseClicksWatcherRegistry';
 export * from './MousePositionWatcherRegistry';

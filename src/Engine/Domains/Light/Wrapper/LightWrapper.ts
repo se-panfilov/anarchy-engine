@@ -1,5 +1,5 @@
+import { AbstractWrapper } from '@Engine/Domains/Abstract';
 import type { IAmbientLight, IDirectionalLight, ILightParams, ILightWrapper } from '@Engine/Domains/Light/Models';
-import { AbstractWrapper } from '@Engine/Wrappers';
 
 import { getAccessors } from './Accessors';
 import { getLight } from './utils';

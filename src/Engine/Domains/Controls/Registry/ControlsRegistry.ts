@@ -1,4 +1,5 @@
+import { AbstractRegistry } from '@Engine/Domains/Abstract';
 import type { IControlsRegistry, IControlsWrapper } from '@Engine/Domains/Controls/Models';
-import { AbstractRegistry, RegistryFacade, RegistryName } from '@Engine/Registries';
+import { RegistryFacade, RegistryName } from '@Engine/Registries';
 
 export const ControlsRegistry = (): IControlsRegistry => RegistryFacade(AbstractRegistry<IControlsWrapper>(RegistryName.Controls));

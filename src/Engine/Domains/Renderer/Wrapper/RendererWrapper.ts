@@ -1,9 +1,9 @@
+import { AbstractWrapper } from '@Engine/Domains/Abstract';
 import type { IRendererParams, IRendererWrapper } from '@Engine/Domains/Renderer/Models';
 import type { IScreenParams, IWrapper } from '@Engine/Models';
 import type { Writeable } from '@Engine/Utils';
 import { isNotDefined, isWebGLAvailable } from '@Engine/Utils';
 import type { IScreenSizeWatcher } from '@Engine/Watchers';
-import { AbstractWrapper } from '@Engine/Wrappers';
 import { PCFShadowMap, WebGLRenderer } from 'three';
 
 // TODO (S.Panfilov) Should we provide delta here?

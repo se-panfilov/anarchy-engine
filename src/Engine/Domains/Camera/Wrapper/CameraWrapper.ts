@@ -1,9 +1,9 @@
+import { AbstractWrapper } from '@Engine/Domains/Abstract';
 import type { ICameraParams, ICameraWrapper, IPerspectiveCamera } from '@Engine/Domains/Camera/Models';
 import type { IScreenParams } from '@Engine/Models';
 import type { Writeable } from '@Engine/Utils';
 import { isNotDefined } from '@Engine/Utils';
 import type { IScreenSizeWatcher } from '@Engine/Watchers';
-import { AbstractWrapper } from '@Engine/Wrappers';
 import { PerspectiveCamera } from 'three';
 
 import { getAccessors } from './Accessors';
