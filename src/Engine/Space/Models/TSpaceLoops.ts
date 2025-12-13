@@ -1,3 +1,4 @@
+import type { TAudioLoop } from '@/Engine/Audio';
 import type { TCollisionsLoop } from '@/Engine/Collisions';
 import type { TControlsLoop } from '@/Engine/Controls';
 import type { TIntersectionsLoop } from '@/Engine/Intersections';
@@ -13,6 +14,7 @@ import type { TRenderLoop } from './TRenderLoop';
 
 export type TSpaceLoops = Readonly<{
   renderLoop: TRenderLoop;
+  audioLoop: TAudioLoop;
   collisionsLoop: TCollisionsLoop;
   kinematicLoop: TKinematicLoop;
   physicalLoop: TPhysicalLoop;
