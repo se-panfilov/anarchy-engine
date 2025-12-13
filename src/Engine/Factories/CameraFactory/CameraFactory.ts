@@ -1,8 +1,11 @@
 import type { ICameraFactory, ICreateCameraFn } from './Models';
 import type { CameraParams } from '@Engine/Models';
-import { CameraWrapper, ICameraWrapper } from '@Engine/Wrappers';
+import { CameraWrapper } from '@Engine/Wrappers';
+import type { ICameraWrapper } from '@Engine/Wrappers';
 import { cameraAdapter } from '@Engine/Adapters';
 import { AbstractFactory } from '../AbstractFactory';
+import { ambientContext } from '@Engine/Context';
 
-const create: ICreateCameraFn = (params: CameraParams): ICameraWrapper => CameraWrapper(params);
+const create: ICreateCameraFn = (params: CameraParams): ICameraWrapper =>
+  CameraWrapper(params, ambientContext.deviceWatcher);
 export const CameraFactory = (): ICameraFactory => AbstractFactory('camera', create, cameraAdapter);
