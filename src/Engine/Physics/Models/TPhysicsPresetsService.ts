@@ -1,4 +1,4 @@
-import type { TDestroyable } from '@/Engine/Mixins';
+import type { TAbstractService } from '@/Engine/Abstract';
 import type { TWithRegistryService } from '@/Engine/Space';
 
 import type { TPhysicsBodyFactory } from './TPhysicsBodyFactory';
@@ -8,8 +8,8 @@ import type { TPhysicsPresetParams } from './TPhysicsPresetParams';
 import type { TPhysicsPresetRegistry } from './TPhysicsPresetRegistry';
 import type { TWithPresetNamePhysicsBodyConfig } from './TWithPresetNamePhysicsBodyConfig';
 
-export type TPhysicsPresetsService = TWithRegistryService<TPhysicsPresetRegistry> &
-  TDestroyable &
+export type TPhysicsPresetsService = TAbstractService &
+  TWithRegistryService<TPhysicsPresetRegistry> &
   Readonly<{
     addPresets: (presets: ReadonlyArray<TPhysicsPresetParams>) => void;
     addPresetsFromConfig: (presets: ReadonlyArray<TPhysicsPresetConfig>) => void;

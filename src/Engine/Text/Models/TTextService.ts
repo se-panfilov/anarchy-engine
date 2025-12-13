@@ -1,7 +1,7 @@
 import type { Observable } from 'rxjs';
 
+import type { TAbstractService } from '@/Engine/Abstract';
 import type { TAppGlobalContainer } from '@/Engine/Global';
-import type { TDestroyable, TNoSpread } from '@/Engine/Mixins';
 import type { TScreenSizeWatcher } from '@/Engine/Screen';
 import type { TWithCreateFromConfigService, TWithCreateService, TWithFactoryService, TWithSceneGetterService } from '@/Engine/Space';
 
@@ -17,7 +17,8 @@ import type { TTextConfig } from './TTextConfig';
 import type { TTextFactory } from './TTextFactory';
 import type { TTextParams } from './TTextParams';
 
-export type TTextService = TWithCreateService<TTextAnyWrapper, TTextParams> &
+export type TTextService = TAbstractService &
+  TWithCreateService<TTextAnyWrapper, TTextParams> &
   TWithCreateFromConfigService<TTextConfig, TTextAnyWrapper> &
   TWithFactoryService<TTextFactory> &
   Readonly<{
@@ -30,6 +31,4 @@ export type TTextService = TWithCreateService<TTextAnyWrapper, TTextParams> &
     getActiveText2dRenderer: () => TText2dRenderer | undefined;
     getActiveText3dRenderer: () => TText3dRenderer | undefined;
   }> &
-  TWithSceneGetterService &
-  TNoSpread &
-  TDestroyable;
+  TWithSceneGetterService;

@@ -1,4 +1,4 @@
-import type { TDestroyable, TNoSpread } from '@/Engine/Mixins';
+import type { TAbstractService } from '@/Engine/Abstract';
 import type { TWithCreateFromConfigService, TWithCreateService, TWithFactoryService, TWithRegistryService, TWithSceneGetterService } from '@/Engine/Space';
 
 import type { TActor } from './TActor';
@@ -7,10 +7,9 @@ import type { TActorFactory } from './TActorFactory';
 import type { TActorParams } from './TActorParams';
 import type { TActorRegistry } from './TActorRegistry';
 
-export type TActorService = TWithCreateService<TActor, TActorParams> &
+export type TActorService = TAbstractService &
+  TWithCreateService<TActor, TActorParams> &
   TWithCreateFromConfigService<TActorConfig, TActor> &
   TWithFactoryService<TActorFactory> &
   TWithRegistryService<TActorRegistry> &
-  TWithSceneGetterService &
-  TNoSpread &
-  TDestroyable;
+  TWithSceneGetterService;

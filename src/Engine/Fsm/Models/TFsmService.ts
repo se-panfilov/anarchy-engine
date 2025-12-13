@@ -1,11 +1,12 @@
+import type { TAbstractService } from '@/Engine/Abstract';
 import type { TFsmConfig, TFsmInstanceRegistry, TFsmParams, TFsmSource, TFsmWrapper } from '@/Engine/Fsm/Models';
-import type { TDestroyable } from '@/Engine/Mixins';
 import type { TWithFactoryService } from '@/Engine/Space';
 
 import type { TFsmInstanceFactory } from './TFsmInstanceFactory';
 import type { TFsmSourceRegistry } from './TFsmSourceRegistry';
 
-export type TFsmService = TWithFactoryService<TFsmInstanceFactory> &
+export type TFsmService = TAbstractService &
+  TWithFactoryService<TFsmInstanceFactory> &
   Readonly<{
     create: (params: TFsmParams, force?: boolean) => TFsmWrapper | never;
     createInstanceBySourceName: (sourceName: string) => TFsmWrapper | never;
@@ -14,5 +15,4 @@ export type TFsmService = TWithFactoryService<TFsmInstanceFactory> &
     createInstance: (source: TFsmSource) => TFsmWrapper;
     getSourceRegistry: () => TFsmSourceRegistry;
     getInstanceRegistry: () => TFsmInstanceRegistry;
-  }> &
-  TDestroyable;
+  }>;

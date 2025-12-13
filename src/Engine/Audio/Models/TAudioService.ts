@@ -1,6 +1,6 @@
 import type { AudioListener } from 'three';
 
-import type { TDestroyable, TNoSpread } from '@/Engine/Mixins';
+import type { TAbstractService } from '@/Engine/Abstract';
 import type { TWithCreateFromConfigService, TWithCreateService, TWithFactoryService, TWithLoadResourcesAsyncService, TWithRegistryService, TWithResourcesRegistryService } from '@/Engine/Space';
 
 import type { TAnyAudioConfig } from './TAnyAudioConfig';
@@ -12,7 +12,8 @@ import type { TAudioRegistry } from './TAudioRegistry';
 import type { TAudioResourceAsyncRegistry } from './TAudioResourceAsyncRegistry';
 import type { TAudioResourceConfig } from './TAudioResourceConfig';
 
-export type TAudioService = TWithCreateService<TAnyAudioWrapper, TAnyAudioParams> &
+export type TAudioService = TAbstractService &
+  TWithCreateService<TAnyAudioWrapper, TAnyAudioParams> &
   TWithCreateFromConfigService<TAnyAudioConfig, TAnyAudioWrapper> &
   TWithFactoryService<TAudioFactory> &
   TWithRegistryService<TAudioRegistry> &
@@ -21,6 +22,4 @@ export type TAudioService = TWithCreateService<TAnyAudioWrapper, TAnyAudioParams
     getListenersRegistry: () => TAudioListenersRegistry;
     getMainListener: () => AudioListener | undefined;
   }> &
-  TWithLoadResourcesAsyncService<TAudioResourceConfig, AudioBuffer> &
-  TNoSpread &
-  TDestroyable;
+  TWithLoadResourcesAsyncService<TAudioResourceConfig, AudioBuffer>;

@@ -1,4 +1,4 @@
-import type { TDestroyable, TNoSpread } from '@/Engine/Mixins';
+import type { TAbstractService } from '@/Engine/Abstract';
 import type { TWithCreateFromConfigService, TWithCreateService, TWithFactoryService, TWithRegistryService, TWithSceneGetterService } from '@/Engine/Space';
 
 import type { TAbstractLightWrapper } from './TAbstractLightWrapper';
@@ -8,10 +8,9 @@ import type { TLightFactory } from './TLightFactory';
 import type { TLightParams } from './TLightParams';
 import type { TLightRegistry } from './TLightRegistry';
 
-export type TLightService = TWithCreateService<TAbstractLightWrapper<TLight>, TLightParams> &
+export type TLightService = TAbstractService &
+  TWithCreateService<TAbstractLightWrapper<TLight>, TLightParams> &
   TWithCreateFromConfigService<TAnyLightConfig, TAbstractLightWrapper<TLight>> &
   TWithFactoryService<TLightFactory> &
   TWithRegistryService<TLightRegistry> &
-  TWithSceneGetterService &
-  TNoSpread &
-  TDestroyable;
+  TWithSceneGetterService;

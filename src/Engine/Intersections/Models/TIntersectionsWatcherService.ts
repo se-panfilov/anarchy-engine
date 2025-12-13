@@ -1,7 +1,7 @@
+import type { TAbstractService } from '@/Engine/Abstract';
 import type { TActorService } from '@/Engine/Actor';
 import type { TCameraService } from '@/Engine/Camera';
 import type { TLoopService } from '@/Engine/Loop';
-import type { TDestroyable, TNoSpread } from '@/Engine/Mixins';
 import type { TMouseService } from '@/Engine/Mouse';
 import type { TWithCreateFromConfigService, TWithCreateService, TWithFactoryService, TWithRegistryService } from '@/Engine/Space';
 
@@ -11,7 +11,8 @@ import type { TIntersectionsWatcherFactory } from './TIntersectionsWatcherFactor
 import type { TIntersectionsWatcherParams } from './TIntersectionsWatcherParams';
 import type { TIntersectionsWatcherRegistry } from './TIntersectionsWatcherRegistry';
 
-export type TIntersectionsWatcherService = TWithCreateService<TIntersectionsWatcher, TIntersectionsWatcherParams> &
+export type TIntersectionsWatcherService = TAbstractService &
+  TWithCreateService<TIntersectionsWatcher, TIntersectionsWatcherParams> &
   Omit<TWithCreateFromConfigService<TIntersectionsWatcherConfig, TIntersectionsWatcher>, 'createFromConfig'> &
   Readonly<{
     createFromConfig: (
@@ -23,6 +24,4 @@ export type TIntersectionsWatcherService = TWithCreateService<TIntersectionsWatc
     ) => ReadonlyArray<TIntersectionsWatcher>;
   }> &
   TWithFactoryService<TIntersectionsWatcherFactory> &
-  TWithRegistryService<TIntersectionsWatcherRegistry> &
-  TNoSpread &
-  TDestroyable;
+  TWithRegistryService<TIntersectionsWatcherRegistry>;

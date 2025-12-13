@@ -1,4 +1,4 @@
-import type { TDestroyable, TNoSpread } from '@/Engine/Mixins';
+import type { TAbstractService } from '@/Engine/Abstract';
 import type { TWithActiveAccessorsService, TWithCreateFromConfigService, TWithCreateService, TWithFactoryService, TWithRegistryService } from '@/Engine/Space';
 
 import type { TSceneConfig } from './TSceneConfig';
@@ -7,10 +7,9 @@ import type { TSceneParams } from './TSceneParams';
 import type { TSceneRegistry } from './TSceneRegistry';
 import type { TSceneWrapper } from './TSceneWrapper';
 
-export type TScenesService = TWithCreateService<TSceneWrapper, TSceneParams> &
+export type TScenesService = TAbstractService &
+  TWithCreateService<TSceneWrapper, TSceneParams> &
   TWithCreateFromConfigService<TSceneConfig, TSceneWrapper> &
   TWithActiveAccessorsService<TSceneWrapper> &
   TWithFactoryService<TSceneFactory> &
-  TWithRegistryService<TSceneRegistry> &
-  TNoSpread &
-  TDestroyable;
+  TWithRegistryService<TSceneRegistry>;

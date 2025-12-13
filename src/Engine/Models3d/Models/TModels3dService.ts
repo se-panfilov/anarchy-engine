@@ -2,7 +2,6 @@ import type { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
 
 import type { TAnimationsService } from '@/Engine/Animations';
 import type { TMaterialService } from '@/Engine/Material';
-import type { TDestroyable, TNoSpread } from '@/Engine/Mixins';
 import type { TModel3d, TModel3dConfig, TModel3dParams, TModel3dResourceConfig, TModels3dFactory, TModels3dRegistry, TModels3dResourceAsyncRegistry } from '@/Engine/Models3d/Models';
 import type { TWithCreateFromConfigService, TWithCreateService, TWithFactoryService, TWithLoadResourcesAsyncService, TWithRegistryService, TWithResourcesRegistryService } from '@/Engine/Space';
 import type { TOptional } from '@/Engine/Utils';
@@ -17,6 +16,4 @@ export type TModels3dService = Readonly<{
   TWithFactoryService<TModels3dFactory> &
   TWithRegistryService<TModels3dRegistry> &
   TWithResourcesRegistryService<TModels3dResourceAsyncRegistry> &
-  TWithLoadResourcesAsyncService<TModel3dResourceConfig, GLTF> &
-  TNoSpread &
-  TDestroyable;
+  TWithLoadResourcesAsyncService<TModel3dResourceConfig, GLTF>;
