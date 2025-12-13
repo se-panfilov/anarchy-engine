@@ -9,7 +9,8 @@
   "scripts": {
     "start": "electron .",
     "build": "tsc",
-    "build:desktop": "rimraf dist && npm run build && electron-builder"
+    "build:preload": "tsc -p tsconfig.preload.json",
+    "build:all": "rimraf dist && npm run build && npm run build:preload && electron-builder"
   },
   "devDependencies": {
     "electron": "37.2.1",
