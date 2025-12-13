@@ -1,6 +1,8 @@
+import type { TAnimationsFsmActor } from '@/Engine/Animations';
+
 import type { TActorStates } from './TActorStates';
 
 export type TWithActorStates = Readonly<{
   states: TActorStates;
-  setAnimationsFsm: (animationsFsm: any) => void;
+  setAnimationsFsm: (animationsFsmActor: TAnimationsFsmActor) => void;
 }>;

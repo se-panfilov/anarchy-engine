@@ -52,9 +52,6 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
       id: 'solder_animation_fsm',
       initial: Idle,
       states: {
-        // Idle: { on: { Walk: 'Walk', Run: 'Run' } },
-        // Walk: { on: { Idle: 'Idle', Run: 'Run' } },
-        // Run: { on: { Idle: 'Idle', Walk: 'Walk' } }
         [Idle]: { on: { [Walk]: Walk, [Run]: Run } },
         [Walk]: { on: { [Idle]: Idle, [Run]: Run } },
         [Run]: { on: { [Idle]: Idle, [Walk]: Walk } }
@@ -63,14 +60,14 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
 
     const solderActor: TActor | undefined = actorService.getRegistry().findByName('solder_actor_1');
     if (isNotDefined(solderActor)) throw new Error('Solder actor is not found');
-    solderActor.setAnimationsFsm(solderAnimFsm);
+    solderActor.setAnimationsFsm(solderAnimFsm.createActorFsm());
 
-    const { animationsFsm } = solderActor.states;
+    const { animationsFsmActor } = solderActor.states;
 
-    if (isNotDefined(animationsFsm)) throw new Error('Animations FSM is not defined');
+    if (isNotDefined(animationsFsmActor)) throw new Error('Animations FSM is not defined');
 
     let prev: any = '';
-    animationsFsm.subscribe((state) => {
+    animationsFsmActor.subscribe((state): void => {
       if (prev === state.value) return;
       // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
       prev = state.value;
@@ -92,11 +89,11 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
 
     onKey(KeyCode.W).pressing$.subscribe((): void => {
       const type = isKeyPressed(KeysExtra.Shift) ? Run : Walk;
-      if (animationsFsm.getSnapshot().value !== type) animationsFsm?.send({ type });
+      if (animationsFsmActor.getSnapshot().value !== type) animationsFsmActor?.send({ type });
     });
 
     onKey(KeyCode.W).released$.subscribe((): void => {
-      animationsFsm.send({ type: Idle });
+      animationsFsmActor.send({ type: Idle });
     });
   }
 
