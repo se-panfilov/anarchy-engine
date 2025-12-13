@@ -6,17 +6,17 @@
 
 **No Warranty.** The Software is provided **“AS IS,” without warranty of any kind**, express or implied, including but not limited to **merchantability, fitness for a particular purpose, and non-infringement**, **to the maximum extent permitted by applicable law**.
 
-**Limitation of Liability.** To the fullest extent permitted by law, Sergei Aleksandrovich Panfilov and contributors shall **not** be liable for any damages (including direct, indirect, incidental, special, exemplary, or consequential) arising from the use of, inability to use, or performance of the Software, even if advised of the possibility of such damages.
+**Limitation of Liability.** To the fullest extent permitted by law, Sergei Panfilov and contributors shall **not** be liable for any damages (including direct, indirect, incidental, special, exemplary, or consequential) arising from the use of, inability to use, or performance of the Software, even if advised of the possibility of such damages.
 
 **Statutory consumer rights are not affected.** Nothing in this disclaimer excludes or limits liability where such exclusion or limitation is unlawful (including for **death or personal injury**, **fraud**, or **wilful misconduct**).
 
 ## Regulatory Compliance Notice
 
-This repository is a **project** and **is not, by itself, a product placed on any market**. Publishing this repository does **not** make Sergei Aleksandrovich Panfilov a “manufacturer” under product-safety or cybersecurity regimes.
+This repository is a **project** and **is not, by itself, a product placed on any market**. Publishing this repository does **not** make Sergei Panfilov a “manufacturer” under product-safety or cybersecurity regimes.
 
 If **you** place a product on the market using the Software, **you** are responsible for compliance (e.g., product safety/cybersecurity such as the EU **CRA**, privacy/data protection such as **GDPR/UK-GDPR, CPRA, LGPD, PIPEDA, Australia Privacy Act, PIPL**, consumer protection, export/sanctions).
 
-Where Sergei Aleksandrovich Panfilov distributes **commercial binaries**, obligations (including security support and vulnerability handling) are addressed in the accompanying documents: see `SECURITY` and `SUPPORT`.
+Where Sergei Panfilov distributes **commercial binaries**, obligations (including security support and vulnerability handling) are addressed in the accompanying documents: see `SECURITY` and `SUPPORT`.
 
 ## Export Controls and Sanctions
 

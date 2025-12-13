@@ -2,11 +2,11 @@
 
 **Declaration No.:** DoC-showcases-desktop-TBD until market release (2.0.0)
 
-**Manufacturer (Legal Entity):** Sergei Aleksandrovich Panfilov
+**Manufacturer (Legal Entity):** Sergei Panfilov
 
 **Contact (regulatory):** TBD until market release
 
-> **We, Sergei Aleksandrovich Panfilov, declare under our sole responsibility** that the object of this declaration described below is in conformity with the relevant Union legislation identified herein.
+> **We, Sergei Panfilov, declare under our sole responsibility** that the object of this declaration described below is in conformity with the relevant Union legislation identified herein.
 
 ## Product Identification
 

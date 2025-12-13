@@ -5,7 +5,7 @@
 This product includes third-party components. Their **licenses and attributions** are listed below.
 For the **full license texts**, see `THIRD_PARTY_LICENSES.md`.
 
-Components listed: 35
+Components listed: 30
 
 ## 1) Mandatory Attributions (verbatim)
 
@@ -101,19 +101,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## ajv@8.17.1
-
-**License(s):** MIT
-
-**Repository:** ajv-validator/ajv
-
-**URL:** https://ajv.js.org
-
-**Attribution:** Copyright (c) 2015-2021 Evgeny Poberezkin
-
----
-
-## anarchy-engine@21.0.1
+## anarchy-engine@21.1.0
 
 **License(s):** MIT
 
@@ -189,30 +177,6 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## fast-deep-equal@3.1.3
-
-**License(s):** MIT
-
-**Repository:** git+https://github.com/epoberezkin/fast-deep-equal.git
-
-**URL:** https://github.com/epoberezkin/fast-deep-equal#readme
-
-**Attribution:** Copyright (c) 2017 Evgeny Poberezkin
-
----
-
-## fast-uri@3.1.0
-
-**License(s):** BSD-3-Clause
-
-**Repository:** git+https://github.com/fastify/fast-uri.git
-
-**URL:** https://github.com/fastify/fast-uri
-
-**Attribution:** Copyright (c) 2011-2021, Gary Court until https://github.com/garycourt/uri-js/commit/a1acf730b4bba3f1097c9f52e7d9d3aba8cdcaae
-
----
-
 ## intl-messageformat@10.7.16
 
 **License(s):** BSD-3-Clause
@@ -222,18 +186,6 @@ The following notices are reproduced as provided by the respective licensors (e.
 **URL:** https://github.com/formatjs/formatjs
 
 **Attribution:** Copyright (c) 2023, Oath Inc.
-
----
-
-## json-schema-traverse@1.0.0
-
-**License(s):** MIT
-
-**Repository:** git+https://github.com/epoberezkin/json-schema-traverse.git
-
-**URL:** https://github.com/epoberezkin/json-schema-traverse#readme
-
-**Attribution:** Copyright (c) 2017 Evgeny Poberezkin
 
 ---
 
@@ -290,16 +242,6 @@ The following notices are reproduced as provided by the respective licensors (e.
 **URL:** https://github.com/mourner/rbush
 
 **Attribution:** Copyright (c) 2024 Volodymyr Agafonkin
-
----
-
-## require-from-string@2.0.2
-
-**License(s):** MIT
-
-**Repository:** floatdrop/require-from-string
-
-**Attribution:** Copyright (c) Vsevolod Strukchinsky <floatdrop@gmail.com> (github.com/floatdrop)
 
 ---
 

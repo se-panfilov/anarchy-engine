@@ -38,7 +38,7 @@ export default {
       GOVERNING_VENUE: 'Amsterdam',
 
       // PERSONAL
-      LEGAL_ENTITY_NAME: 'Sergei Aleksandrovich Panfilov',
+      LEGAL_ENTITY_NAME: 'Sergei Panfilov',
 
       //CONTACTS
       SUPPORT_EMAIL: 'TBD until market release',

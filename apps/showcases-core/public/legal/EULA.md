@@ -4,7 +4,7 @@
 
 _This EULA applies to copies acquired on or after the Effective date. For earlier copies, the version bundled with that copy governs until you update._
 
-**Licensor (Developer):** Sergei Aleksandrovich Panfilov
+**Licensor (Developer):** Sergei Panfilov
 
 **Support/Legal Contact:** TBD until market release / TBD until market release
 
@@ -32,7 +32,7 @@ Subject to this EULA, Licensor grants you a personal, non-exclusive, revocable l
 
 ## 2. Ownership
 
-The Software is licensed, not sold. Sergei Aleksandrovich Panfilov and its licensors retain all title and IP rights. **Third-party components** are licensed under their respective terms.
+The Software is licensed, not sold. Sergei Panfilov and its licensors retain all title and IP rights. **Third-party components** are licensed under their respective terms.
 
 ## 3. Permitted Use, Sharing & Reverse Engineering
 
@@ -137,6 +137,6 @@ This agreement is drafted in English. Translations may be provided for convenien
 
 **Contact:** TBD until market release
 
-Trademarks. TBD until market release is a trademark of Sergei Aleksandrovich Panfilov.
+Trademarks. TBD until market release is a trademark of Sergei Panfilov.
 
 All other trademarks are the property of their respective owners.

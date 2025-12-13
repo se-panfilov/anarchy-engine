@@ -2,7 +2,7 @@
 
 **Effective date:** TBD until market release
 
-**Publisher/Developer:** Sergei Aleksandrovich Panfilov
+**Publisher/Developer:** Sergei Panfilov
 
 **Support contact:** TBD until market release
 

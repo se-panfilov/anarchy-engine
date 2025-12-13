@@ -1,6 +1,6 @@
 # Technical Documentation (Technical File) — TBD until market release
 
-**Manufacturer:** Sergei Aleksandrovich Panfilov
+**Manufacturer:** Sergei Panfilov
 
 **Contacts:** Reg./Legal TBD until market release · Security TBD until market release
 
