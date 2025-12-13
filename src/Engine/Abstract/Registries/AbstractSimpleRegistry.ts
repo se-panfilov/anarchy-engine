@@ -30,6 +30,12 @@ export function AbstractSimpleRegistry<T>(type: RegistryType): TAbstractSimpleRe
 
   const findByKey = (key: string): T | undefined => registry.get(key);
 
+  function findKeyByValue(value: T): string | undefined {
+    // eslint-disable-next-line functional/no-loop-statements
+    for (const [key, val] of registry.entries()) if (val === value) return key;
+    return undefined;
+  }
+
   function remove(key: string): void | never {
     const value: T | undefined = registry.get(key);
     if (isNotDefined(value)) throw new Error(`Cannot remove in a registry("${id}") a value with key "${key}": The key is not exist in the registry`);
@@ -46,6 +52,7 @@ export function AbstractSimpleRegistry<T>(type: RegistryType): TAbstractSimpleRe
       added$: reactiveRegistry.added$.asObservable(),
       find,
       findByKey,
+      findKeyByValue,
       forEach,
       asArray,
       getRegistryCopy,

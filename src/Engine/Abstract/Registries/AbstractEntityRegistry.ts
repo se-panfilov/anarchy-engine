@@ -52,6 +52,12 @@ export function AbstractEntityRegistry<T extends TRegistrable | TMultitonRegistr
   const findByTags = (tags: ReadonlyArray<string>, strategy: LookUpStrategy): T | undefined | never => getUniqEntityWithTags(tags, registry, strategy);
   const findByTag = (tag: string): T | undefined | never => getUniqEntityWithTag(tag, registry);
 
+  function findKeyByValue(value: T): string | undefined {
+    // eslint-disable-next-line functional/no-loop-statements
+    for (const [key, val] of registry.entries()) if (val === value) return key;
+    return undefined;
+  }
+
   const asObject = (): Record<string, T> => Object.fromEntries(registry.entries());
 
   return Object.assign(
@@ -60,13 +66,14 @@ export function AbstractEntityRegistry<T extends TRegistrable | TMultitonRegistr
       add,
       added$: reactiveRegistry.added$.asObservable(),
       find,
-      findAllByTag: findAllByTag,
-      findAllByTags: findAllByTags,
+      findAllByTag,
+      findAllByTags,
       findById,
       findByName,
       findAllWithNames,
-      findByTag: findByTag,
-      findByTags: findByTags,
+      findByTag,
+      findByTags,
+      findKeyByValue,
       forEach,
       asArray,
       getRegistryCopy,
