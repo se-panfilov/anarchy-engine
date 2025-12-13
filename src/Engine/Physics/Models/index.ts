@@ -23,7 +23,6 @@ export * from './TPhysicsService';
 export * from './TPhysicsShapeParams';
 export * from './TPhysicsWorldParams';
 export * from './TPhysicsWorldService';
-export * from './TWithPhysicsBody';
 export * from './TWithPhysicsBodyEntities';
 export * from './TWithPresetNamePhysicsBodyConfig';
 export * from './TWithPresetNamePhysicsBodyParams';
