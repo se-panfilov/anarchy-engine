@@ -10,7 +10,7 @@ import type { TOptional } from '@/Engine/Utils';
 export type TModels3dService = Readonly<{
   getAnimationsService: () => TAnimationsService;
   getMaterialService: () => TMaterialService;
-  clone: (model3dFacade: TModel3d, overrides?: TOptional<TModel3dParams>) => TModel3d;
+  clone: (model3d: TModel3d, overrides?: TOptional<TModel3dParams>) => TModel3d;
 }> &
   TWithCreateService<TModel3d, TModel3dParams> &
   TWithCreateFromConfigService<TModel3dConfig, TModel3d> &
