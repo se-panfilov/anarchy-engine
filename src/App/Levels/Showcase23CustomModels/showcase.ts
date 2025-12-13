@@ -22,6 +22,10 @@ import spaceConfig from './showcase.json';
 export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
   console.log('Press keys 1..3 to play animations of related models');
 
+  // TODO CWP 1. Finalize all the todoes "// TODO 9.0.0."
+  // TODO CWP 2. Implement "actors with models" feature (and showcase 24)
+  // TODO CWP 3. Finalize all the todoes "// TODO 8.0.0."
+
   const scale: TWithCoordsXYZ = { x: 0.025, y: 0.025, z: 0.025 };
   const originalName: string = 'fox_gltf_original';
   const cloneName: string = 'fox_gltf_clone_1';
