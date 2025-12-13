@@ -1,10 +1,10 @@
-import { actorStatesConfigToParams, model3dSettingsConfigToParams } from '@/Actor/Adapters/Helpers';
-import type { TActorConfig, TActorConfigToParamsDependencies, TActorParams } from '@/Actor/Models';
-import { kinematicConfigToParams } from '@/Kinematic';
-import type { TModel3d } from '@/Models3d';
-import { configToParamsSpatialData } from '@/Spatial';
-import { configToParamsObject3d } from '@/ThreeLib';
-import { isDefined } from '@/Utils';
+import { actorStatesConfigToParams, model3dSettingsConfigToParams } from '@Engine/Actor/Adapters/Helpers';
+import type { TActorConfig, TActorConfigToParamsDependencies, TActorParams } from '@Engine/Actor/Models';
+import { kinematicConfigToParams } from '@Engine/Kinematic';
+import type { TModel3d } from '@Engine/Models3d';
+import { configToParamsSpatialData } from '@Engine/Spatial';
+import { configToParamsObject3d } from '@Engine/ThreeLib';
+import { isDefined } from '@Engine/Utils';
 
 export function configToParams(config: TActorConfig, dependencies: TActorConfigToParamsDependencies): TActorParams {
   const { position, rotation, scale, physicsBodyName, spatial, states, model3dSource, kinematic, model3dSettings, ...rest } = config;

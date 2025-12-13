@@ -1,5 +1,5 @@
-import type { TCameraServiceDependencies, TCameraTransformAgents, TCameraTransformDrive, TCommonCameraParams } from '@/Camera/Models';
-import type { TTransformDriveParams } from '@/TransformDrive';
+import type { TCameraServiceDependencies, TCameraTransformAgents, TCameraTransformDrive, TCommonCameraParams } from '@Engine/Camera/Models';
+import type { TTransformDriveParams } from '@Engine/TransformDrive';
 
 export function CameraTransformDrive(
   params: TCommonCameraParams,

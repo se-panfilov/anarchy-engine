@@ -1,4 +1,4 @@
-import type { Rotation, Vector } from '@dimforge/rapier3d';
+import type { Rotation, Vector } from '@Enginedimforge/rapier3d';
 
 export type TRigidBodyTransformData = Readonly<{ position?: Float32Array; rotation?: Float32Array }>;
 

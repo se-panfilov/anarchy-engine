@@ -1,6 +1,5 @@
+import type { TAnimationActions } from '@Engine/Animations';
 import type { AnimationMixer } from 'three';
-
-import type { TAnimationActions } from '@/Animations';
 
 import type { TModel3dParams } from './TModel3dParams';
 import type { TRawModel3d } from './TRawModel3d';

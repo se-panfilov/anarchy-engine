@@ -1,8 +1,7 @@
+import type { WatcherType } from '@Engine/Abstract/Constants';
+import type { TAbstractWatcher, TAbstractWatcherWithState } from '@Engine/Abstract/Models';
 import type { Subscription } from 'rxjs';
 import { BehaviorSubject } from 'rxjs';
-
-import type { WatcherType } from '@/Abstract/Constants';
-import type { TAbstractWatcher, TAbstractWatcherWithState } from '@/Abstract/Models';
 
 import { AbstractWatcher } from './AbstractWatcher';
 

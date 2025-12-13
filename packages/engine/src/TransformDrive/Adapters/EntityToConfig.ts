@@ -1,8 +1,7 @@
+import { ignoreDefaultStateKinematic } from '@Engine/Kinematic';
+import type { TTransformDrive, TTransformDriveSerializedData } from '@Engine/TransformDrive/Models';
+import { eulerToXyz, vector3ToXyz } from '@Engine/Utils';
 import { Euler } from 'three';
-
-import { ignoreDefaultStateKinematic } from '@/Kinematic';
-import type { TTransformDrive, TTransformDriveSerializedData } from '@/TransformDrive/Models';
-import { eulerToXyz, vector3ToXyz } from '@/Utils';
 
 export function transformDriveToConfig(drive: TTransformDrive<any>): TTransformDriveSerializedData {
   const { position$, rotation$, scale$, agent$ } = drive;

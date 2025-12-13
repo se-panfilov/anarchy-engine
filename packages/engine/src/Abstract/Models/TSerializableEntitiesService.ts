@@ -1,4 +1,4 @@
-import type { TSerializable, TWithSerializableEntities } from '@/Mixins';
+import type { TSerializable, TWithSerializableEntities } from '@Engine/Mixins';
 
 import type { TAbstractService } from './TAbstractService';
 

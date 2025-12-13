@@ -1,9 +1,8 @@
+import type { TContainerDecorator } from '@Engine/Global';
+import type { TReadonlyVector3 } from '@Engine/ThreeLib';
 import type { BehaviorSubject } from 'rxjs';
 import type { ColorRepresentation, Vector3Like } from 'three';
 import type { Line2 } from 'three/examples/jsm/lines/Line2';
-
-import type { TContainerDecorator } from '@/Global';
-import type { TReadonlyVector3 } from '@/ThreeLib';
 
 import type { TIntersectionsWatcher } from './TIntersectionsWatcher';
 

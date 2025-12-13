@@ -1,10 +1,9 @@
+import type { TPhysicsBodyParams } from '@Engine/Physics';
+import { CollisionShape, RigidBodyTypesNames } from '@Engine/Physics';
+import type { TOptional } from '@Engine/Utils';
 import { Quaternion } from 'three';
 import { Vector3 } from 'three/src/math/Vector3';
 import { describe, expect, it } from 'vitest';
-
-import type { TPhysicsBodyParams } from '@/Physics';
-import { CollisionShape, RigidBodyTypesNames } from '@/Physics';
-import type { TOptional } from '@/Utils';
 
 import { isPhysicsBodyParamsComplete } from './ParamsUtils';
 

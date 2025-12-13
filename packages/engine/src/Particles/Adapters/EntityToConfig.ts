@@ -1,7 +1,7 @@
-import type { TAnyMaterialWrapper } from '@/Material';
-import { extractSerializableRegistrableFields } from '@/Mixins';
-import type { TParticlesConfig, TParticlesConfigToParamsDependencies, TParticlesWrapper } from '@/Particles/Models';
-import { filterOutEmptyFields } from '@/Utils';
+import type { TAnyMaterialWrapper } from '@Engine/Material';
+import { extractSerializableRegistrableFields } from '@Engine/Mixins';
+import type { TParticlesConfig, TParticlesConfigToParamsDependencies, TParticlesWrapper } from '@Engine/Particles/Models';
+import { filterOutEmptyFields } from '@Engine/Utils';
 
 export function particlesToConfig(entity: TParticlesWrapper, { materialRegistry }: TParticlesConfigToParamsDependencies): TParticlesConfig {
   const { drive } = entity;

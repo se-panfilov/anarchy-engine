@@ -1,4 +1,4 @@
-import type { MaterialType } from '@/Material/Constants';
+import type { MaterialType } from '@Engine/Material/Constants';
 
 export type TWithMaterialType = Readonly<{
   type: MaterialType;

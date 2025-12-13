@@ -1,5 +1,5 @@
-import type { TSerializableEntitiesService } from '@/Abstract';
-import type { TWithCreateFromConfigServiceWithHooks, TWithCreateServiceWithHooks, TWithFactoryService, TWithRegistryService } from '@/Mixins';
+import type { TSerializableEntitiesService } from '@Engine/Abstract';
+import type { TWithCreateFromConfigServiceWithHooks, TWithCreateServiceWithHooks, TWithFactoryService, TWithRegistryService } from '@Engine/Mixins';
 
 import type { TSpace } from './TSpace';
 import type { TSpaceConfig } from './TSpaceConfig';

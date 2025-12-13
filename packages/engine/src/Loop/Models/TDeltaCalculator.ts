@@ -1,6 +1,5 @@
+import type { TMilliseconds } from '@Engine/Math';
 import type { Clock } from 'three';
-
-import type { TMilliseconds } from '@/Math';
 
 export type TDeltaCalculator = Readonly<{
   isPaused: boolean;

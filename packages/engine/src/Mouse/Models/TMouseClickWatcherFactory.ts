@@ -1,5 +1,5 @@
-import type { TReactiveFactory } from '@/Abstract';
-import type { TMouseClickWatcher } from '@/Mouse/Models';
+import type { TReactiveFactory } from '@Engine/Abstract';
+import type { TMouseClickWatcher } from '@Engine/Mouse/Models';
 
 import type { TMouseClickWatcherParams } from './TMouseClickWatcherParams';
 

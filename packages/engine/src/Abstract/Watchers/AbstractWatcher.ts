@@ -1,12 +1,11 @@
+import type { WatcherType } from '@Engine/Abstract/Constants';
+import type { TAbstractWatcher } from '@Engine/Abstract/Models';
+import type { TDestroyable } from '@Engine/Mixins';
+import { destroyableMixin, withNameAndNameAccessorsMixin } from '@Engine/Mixins';
+import { isDefined } from '@Engine/Utils';
 import { nanoid } from 'nanoid';
 import type { Subscription } from 'rxjs';
 import { BehaviorSubject, Subject } from 'rxjs';
-
-import type { WatcherType } from '@/Abstract/Constants';
-import type { TAbstractWatcher } from '@/Abstract/Models';
-import type { TDestroyable } from '@/Mixins';
-import { destroyableMixin, withNameAndNameAccessorsMixin } from '@/Mixins';
-import { isDefined } from '@/Utils';
 
 export function AbstractWatcher<T>(type: WatcherType | string, name: string, tags: ReadonlyArray<string> = []): TAbstractWatcher<T> {
   const id: string = type + '_' + nanoid();

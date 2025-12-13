@@ -1,19 +1,18 @@
+import { AbstractWrapper, WrapperType } from '@Engine/Abstract';
+import type { TAnyCameraWrapper } from '@Engine/Camera';
+import { controlsToConfig } from '@Engine/Controls/Adapters';
+import type { ControlsType } from '@Engine/Controls/Constants';
+import type { TControlsServiceDependencies, TOrbitControlsConfig, TOrbitControlsParams, TOrbitControlsWrapper } from '@Engine/Controls/Models';
+import { updateCameraTransformDriveOnChange } from '@Engine/Controls/Utils';
+import { getOrbitControlsAccessors } from '@Engine/Controls/Wrappers/OrbitControls/OrbitControlsAccessors';
+import { applyOrbitControlsParams } from '@Engine/Controls/Wrappers/OrbitControls/OrbitControlsWrapperHelper';
+import type { TMilliseconds } from '@Engine/Math';
+import { withActiveMixin } from '@Engine/Mixins';
+import type { TReadonlyVector3 } from '@Engine/ThreeLib';
+import { isDefined, isEulerLike } from '@Engine/Utils';
 import type { Euler } from 'three';
 import { Quaternion, Vector3 } from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
-
-import { AbstractWrapper, WrapperType } from '@/Abstract';
-import type { TAnyCameraWrapper } from '@/Camera';
-import { controlsToConfig } from '@/Controls/Adapters';
-import type { ControlsType } from '@/Controls/Constants';
-import type { TControlsServiceDependencies, TOrbitControlsConfig, TOrbitControlsParams, TOrbitControlsWrapper } from '@/Controls/Models';
-import { updateCameraTransformDriveOnChange } from '@/Controls/Utils';
-import { getOrbitControlsAccessors } from '@/Controls/Wrappers/OrbitControls/OrbitControlsAccessors';
-import { applyOrbitControlsParams } from '@/Controls/Wrappers/OrbitControls/OrbitControlsWrapperHelper';
-import type { TMilliseconds } from '@/Math';
-import { withActiveMixin } from '@/Mixins';
-import type { TReadonlyVector3 } from '@/ThreeLib';
-import { isDefined, isEulerLike } from '@/Utils';
 
 export function OrbitControlsWrapper(params: TOrbitControlsParams): TOrbitControlsWrapper {
   const entity: OrbitControls = new OrbitControls(params.camera.entity, params.canvas);

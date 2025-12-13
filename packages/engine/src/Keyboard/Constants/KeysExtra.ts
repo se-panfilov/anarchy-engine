@@ -1,16 +1,16 @@
 export enum KeysExtra {
   PauseBreak = 'PauseBreak', //19
-  Space = '@Space', //32
-  TAB = '@TAB', //9
-  Enter = '@Enter', //13
-  Escape = '@Escape', //27
-  Backspace = '@Backspace', //8
-  Delete = '@Delete', //46
-  Insert = '@Insert', //45 ?????????
-  Home = '@Home', //36
-  End = '@End', //35
-  PageUp = '@PageUp', //33
-  PageDown = '@PageDown', //34
+  Space = '@EngineSpace', //32
+  TAB = '@EngineTAB', //9
+  Enter = '@EngineEnter', //13
+  Escape = '@EngineEscape', //27
+  Backspace = '@EngineBackspace', //8
+  Delete = '@EngineDelete', //46
+  Insert = '@EngineInsert', //45 ?????????
+  Home = '@EngineHome', //36
+  End = '@EngineEnd', //35
+  PageUp = '@EnginePageUp', //33
+  PageDown = '@EnginePageDown', //34
   Shift = 'Shift', //16 ?????????
 
   ArrowLeft = 'ArrowLeft', //37

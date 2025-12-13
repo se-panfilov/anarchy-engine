@@ -1,6 +1,5 @@
+import type { TThreeJsRendererParamsAccessors } from '@Engine/Renderer/Models';
 import type { WebGLRenderer } from 'three';
-
-import type { TThreeJsRendererParamsAccessors } from '@/Renderer/Models';
 
 export function withThreeJsRendererParamsAccessors(entity: WebGLRenderer): TThreeJsRendererParamsAccessors {
   // const setCanvas = (canvas: HTMLCanvasElement): void => void (entity.domElement = canvas);

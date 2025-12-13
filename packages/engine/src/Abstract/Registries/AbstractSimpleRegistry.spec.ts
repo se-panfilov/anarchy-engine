@@ -1,9 +1,8 @@
+import type { RegistryType } from '@Engine/Abstract/Constants';
+import type { TAbstractSimpleRegistry } from '@Engine/Abstract/Models';
+import { createMockEntity, validateSimpleRegistryReturnsOriginalObjects } from '@Engine/Abstract/Registries/ValidateRegistryOriginalsTestSuite';
+import type { TRegistrable } from '@Engine/Mixins';
 import { describe } from 'vitest';
-
-import type { RegistryType } from '@/Abstract/Constants';
-import type { TAbstractSimpleRegistry } from '@/Abstract/Models';
-import { createMockEntity, validateSimpleRegistryReturnsOriginalObjects } from '@/Abstract/Registries/ValidateRegistryOriginalsTestSuite';
-import type { TRegistrable } from '@/Mixins';
 
 import { AbstractSimpleRegistry } from './AbstractSimpleRegistry';
 

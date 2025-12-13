@@ -1,4 +1,4 @@
-import type { TCameraService } from '@/Camera';
+import type { TCameraService } from '@Engine/Camera';
 
 export type TControlsServiceDependencies = Readonly<{
   cameraService: TCameraService;

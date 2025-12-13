@@ -1,4 +1,4 @@
-import type { TAbstractSimpleRegistry } from '@/Abstract';
+import type { TAbstractSimpleRegistry } from '@Engine/Abstract';
 
 import type { TKeyboardRegistryValues } from './TKeyboardRegistryValues';
 

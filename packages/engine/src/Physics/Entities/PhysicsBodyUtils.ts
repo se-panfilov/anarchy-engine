@@ -1,9 +1,5 @@
-import type { Collider, RigidBody, TriMeshFlags, World } from '@dimforge/rapier3d';
-import { ColliderDesc, RigidBodyDesc } from '@dimforge/rapier3d';
-import type { Vector3 } from 'three';
-
-import { coordsXYZToMeters, meters } from '@/Measurements/Utils';
-import { CollisionShape, RigidBodyTypesNames } from '@/Physics/Constants';
+import { coordsXYZToMeters, meters } from '@Engine/Measurements/Utils';
+import { CollisionShape, RigidBodyTypesNames } from '@Engine/Physics/Constants';
 import type {
   TAllPhysicsShapeParams,
   TPhysicsBodyEntities,
@@ -19,9 +15,12 @@ import type {
   TPhysicsShapeRoundTriangleParams,
   TPhysicsShapeTriangleParams,
   TPhysicsShapeTriMeshParams
-} from '@/Physics/Models';
-import type { TOptional } from '@/Utils';
-import { isDefined, isNotDefined } from '@/Utils';
+} from '@Engine/Physics/Models';
+import type { TOptional } from '@Engine/Utils';
+import { isDefined, isNotDefined } from '@Engine/Utils';
+import type { Collider, RigidBody, TriMeshFlags, World } from '@Enginedimforge/rapier3d';
+import { ColliderDesc, RigidBodyDesc } from '@Enginedimforge/rapier3d';
+import type { Vector3 } from 'three';
 
 export function createPhysicsBodyEntities(params: TPhysicsBodyParams, world: World): TPhysicsBodyEntities {
   //Fixed objects (e.g. "ground" or "walls") usually don't need a rigid body (they might, but might bugs might appear)

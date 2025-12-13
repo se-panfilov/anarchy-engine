@@ -1,4 +1,4 @@
-import type { TSerializable } from '@/Mixins';
+import type { TSerializable } from '@Engine/Mixins';
 
 export type TWithSerializableEntities<E extends TSerializable<any>, C extends Record<string, any>> = Readonly<{
   serializeAllEntities: () => ReadonlyArray<C>;

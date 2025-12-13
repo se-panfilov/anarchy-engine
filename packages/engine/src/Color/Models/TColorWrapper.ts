@@ -1,4 +1,4 @@
-import type { TWrapper } from '@/Abstract';
+import type { TWrapper } from '@Engine/Abstract';
 
 import type { TColor } from './TColor';
 

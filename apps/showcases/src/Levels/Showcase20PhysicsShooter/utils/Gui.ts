@@ -1,6 +1,6 @@
 import GUI from 'lil-gui';
 
-import type { TActor, TActorService, TIntersectionEvent, TIntersectionsCameraWatcher, TSpatialGridService, TSpatialGridWrapper } from '@/Engine';
+import type { TActor, TActorService, TIntersectionEvent, TIntersectionsCameraWatcher, TSpatialGridService, TSpatialGridWrapper } from '@engine';
 
 export function initGui(
   mouseLineIntersectionsWatcher: TIntersectionsCameraWatcher,

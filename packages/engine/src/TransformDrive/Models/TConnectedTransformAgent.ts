@@ -1,4 +1,4 @@
-import type { TSerializable } from '@/Mixins';
+import type { TSerializable } from '@Engine/Mixins';
 
 import type { TAbstractTransformAgent } from './TAbstractTransformAgent';
 import type { TSerializedTransform } from './TSerializedTransform';

@@ -1,3 +1,3 @@
-import type { TBoxGeometryParams, TPlaneGeometryParams, TSphereGeometryParams } from '@/ThreeLib';
+import type { TBoxGeometryParams, TPlaneGeometryParams, TSphereGeometryParams } from '@Engine/ThreeLib';
 
 export type TPrimitiveModel3dParams = TBoxGeometryParams | TSphereGeometryParams | TPlaneGeometryParams;

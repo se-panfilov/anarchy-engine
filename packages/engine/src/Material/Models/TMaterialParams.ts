@@ -1,4 +1,4 @@
-import type { TWithName, TWithTags } from '@/Mixins';
+import type { TWithName, TWithTags } from '@Engine/Mixins';
 
 import type { TMaterialParamsOptions } from './TMaterialParamsOptions';
 import type { TMaterialParamsTextures } from './TMaterialParamsTextures';

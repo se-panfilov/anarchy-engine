@@ -1,7 +1,6 @@
+import type { TKinematicConfig } from '@Engine/Kinematic';
+import type { TObject3DParams, TObject3DPropConfig } from '@Engine/ThreeLib';
 import type { Vector2Like } from 'three';
-
-import type { TKinematicConfig } from '@/Kinematic';
-import type { TObject3DParams, TObject3DPropConfig } from '@/ThreeLib';
 
 import type { TTextParams } from './TTextParams';
 

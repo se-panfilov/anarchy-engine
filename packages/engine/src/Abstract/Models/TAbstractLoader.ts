@@ -1,7 +1,6 @@
+import type { LoaderType, TAbstractLoadedResourcePack, TAbstractOnLoadFunction, TAbstractResourceAsyncRegistry, TAbstractResourceConfig, TAbstractSimpleRegistry } from '@Engine/Abstract';
+import type { TDestroyable, TNoSpread, TWithId } from '@Engine/Mixins';
 import type { Observable } from 'rxjs';
-
-import type { LoaderType, TAbstractLoadedResourcePack, TAbstractOnLoadFunction, TAbstractResourceAsyncRegistry, TAbstractResourceConfig, TAbstractSimpleRegistry } from '@/Abstract';
-import type { TDestroyable, TNoSpread, TWithId } from '@/Mixins';
 
 export type TAbstractLoader<T, RC extends TAbstractResourceConfig, R extends TAbstractResourceAsyncRegistry<T>, M extends TAbstractSimpleRegistry<RC>> = Readonly<{
   type: LoaderType;

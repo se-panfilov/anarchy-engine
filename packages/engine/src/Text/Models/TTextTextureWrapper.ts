@@ -1,8 +1,7 @@
+import type { TWrapper } from '@Engine/Abstract';
+import type { TextType } from '@Engine/Text/Constants';
+import type { TAbstractTextWrapper } from '@Engine/Text/Models/TAbstractTextWrapper';
 import type { Mesh } from 'three';
-
-import type { TWrapper } from '@/Abstract';
-import type { TextType } from '@/Text/Constants';
-import type { TAbstractTextWrapper } from '@/Text/Models/TAbstractTextWrapper';
 
 import type { TTextCssProps } from './TTextCssProps';
 

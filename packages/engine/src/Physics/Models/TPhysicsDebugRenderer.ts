@@ -1,4 +1,4 @@
-import type { TDestroyable } from '@/Mixins';
+import type { TDestroyable } from '@Engine/Mixins';
 
 export type TPhysicsDebugRenderer = Readonly<{
   update: () => void;

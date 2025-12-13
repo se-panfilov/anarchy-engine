@@ -1,4 +1,4 @@
-import type { TAbstractResourceAsyncRegistry } from '@/Abstract';
+import type { TAbstractResourceAsyncRegistry } from '@Engine/Abstract';
 
 import type { TAnimations } from './TAnimations';
 

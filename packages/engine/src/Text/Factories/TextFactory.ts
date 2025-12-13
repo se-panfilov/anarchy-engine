@@ -1,8 +1,8 @@
-import type { TReactiveFactory } from '@/Abstract';
-import { FactoryType, ReactiveFactory } from '@/Abstract';
-import { configToParams } from '@/Text/Adapters';
-import type { TTextAnyWrapper, TTextFactory, TTextParams, TTextServiceDependencies } from '@/Text/Models';
-import { buildTextWrapper } from '@/Text/Wrappers';
+import type { TReactiveFactory } from '@Engine/Abstract';
+import { FactoryType, ReactiveFactory } from '@Engine/Abstract';
+import { configToParams } from '@Engine/Text/Adapters';
+import type { TTextAnyWrapper, TTextFactory, TTextParams, TTextServiceDependencies } from '@Engine/Text/Models';
+import { buildTextWrapper } from '@Engine/Text/Wrappers';
 
 export function TextFactory(): TTextFactory {
   const factory: TReactiveFactory<TTextAnyWrapper, TTextParams, TTextServiceDependencies> = ReactiveFactory(FactoryType.Text, buildTextWrapper);

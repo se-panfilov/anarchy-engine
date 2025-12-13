@@ -1,18 +1,17 @@
+import type { TAbstractWrapper } from '@Engine/Abstract';
+import { AbstractWrapper, WrapperType } from '@Engine/Abstract';
+import { fsmToConfig } from '@Engine/Fsm/Adapters';
+import { FsmEventsStrategy } from '@Engine/Fsm/Constants';
+import type { TFsmConfig, TFsmEvents, TFsmMachine, TFsmParams, TFsmStates, TFsmWrapper } from '@Engine/Fsm/Models';
 import type { Subscription } from 'rxjs';
 import { BehaviorSubject, concatMap, exhaustMap, filter, mergeMap, switchMap, takeUntil } from 'rxjs';
 import { StateMachine, t } from 'typescript-fsm';
-
-import type { TAbstractWrapper } from '@/Abstract';
-import { AbstractWrapper, WrapperType } from '@/Abstract';
-import { fsmToConfig } from '@/Fsm/Adapters';
-import { FsmEventsStrategy } from '@/Fsm/Constants';
-import type { TFsmConfig, TFsmEvents, TFsmMachine, TFsmParams, TFsmStates, TFsmWrapper } from '@/Fsm/Models';
 
 type TStrategyType = typeof concatMap | typeof exhaustMap | typeof switchMap | typeof mergeMap;
 
 export function FsmWrapper(params: TFsmParams): TFsmWrapper {
   const changed$: BehaviorSubject<TFsmStates> = new BehaviorSubject<TFsmStates>(params.currentState ?? params.initial);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  // eslint-disable-next-line @Enginetypescript-eslint/no-unused-vars
   const { name, ...machineParams } = params;
 
   const onChange = (val: TFsmStates): void => changed$.next(val);

@@ -1,7 +1,6 @@
+import type { TAnyCameraWrapper } from '@Engine/Camera';
 import type { Observable } from 'rxjs';
 import type { Vector2Like } from 'three';
-
-import type { TAnyCameraWrapper } from '@/Camera';
 
 import type { TAbstractIntersectionsWatcherParams } from './TAbstractIntersectionsWatcherParams';
 

@@ -1,9 +1,8 @@
+import type { TKinematicConfigState, TKinematicState, TKinematicTarget } from '@Engine/Kinematic';
+import { ForwardAxis } from '@Engine/Kinematic';
+import type { TMeters } from '@Engine/Math';
+import { eulerToXyz, vector3ToXyz } from '@Engine/Utils';
 import { Euler, Quaternion, Vector3 } from 'three';
-
-import type { TKinematicConfigState, TKinematicState, TKinematicTarget } from '@/Kinematic';
-import { ForwardAxis } from '@/Kinematic';
-import type { TMeters } from '@/Math';
-import { eulerToXyz, vector3ToXyz } from '@/Utils';
 
 export enum KinematicSpeed {
   Instant = 'instant'

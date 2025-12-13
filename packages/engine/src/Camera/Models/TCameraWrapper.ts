@@ -1,7 +1,7 @@
-import type { TWrapper } from '@/Abstract';
-import type { CameraType } from '@/Camera/Constants';
-import type { TWithActiveMixin, TWithObject3d } from '@/Mixins';
-import type { TWithTransformDrive } from '@/TransformDrive';
+import type { TWrapper } from '@Engine/Abstract';
+import type { CameraType } from '@Engine/Camera/Constants';
+import type { TWithActiveMixin, TWithObject3d } from '@Engine/Mixins';
+import type { TWithTransformDrive } from '@Engine/TransformDrive';
 
 import type { TAnyCamera } from './TAnyCamera';
 import type { TCameraTransformAgents } from './TCameraTransformAgents';

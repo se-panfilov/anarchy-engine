@@ -1,4 +1,4 @@
-import type { TAbstractResourceConfig } from '@/Abstract';
+import type { TAbstractResourceConfig } from '@Engine/Abstract';
 
 export type TWithLoadResourcesAsyncService<C extends TAbstractResourceConfig, T> = Readonly<{
   loadAsync: (config: C, onProgress?: (event: ProgressEvent) => void) => Promise<T>;

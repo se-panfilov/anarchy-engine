@@ -1,4 +1,4 @@
-import type { TMeters } from '@/Math';
+import type { TMeters } from '@Engine/Math';
 
 export type TSphereGeometryParams = Readonly<{
   radius?: TMeters;

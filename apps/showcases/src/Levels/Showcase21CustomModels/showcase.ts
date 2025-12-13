@@ -2,9 +2,9 @@ import type { AnimationAction } from 'three';
 import { Euler, Vector3 } from 'three';
 import type { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
 
-import { addGizmo } from '@/App/Levels/Utils';
-import type { TModel3d, TModels3dRegistry, TModels3dResourceAsyncRegistry, TRegistryPack, TSceneWrapper, TSpace, TSpaceConfig, TSpaceServices } from '@/Engine';
-import { asRecord, isNotDefined, KeyCode, spaceService } from '@/Engine';
+import { addGizmo } from '@/Levels/Utils';
+import type { TModel3d, TModels3dRegistry, TModels3dResourceAsyncRegistry, TRegistryPack, TSceneWrapper, TSpace, TSpaceConfig, TSpaceServices } from '@engine';
+import { asRecord, isNotDefined, KeyCode, spaceService } from '@engine';
 
 import spaceConfigJson from './space.json';
 

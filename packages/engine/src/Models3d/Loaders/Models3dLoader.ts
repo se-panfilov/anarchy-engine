@@ -1,10 +1,9 @@
+import { LoaderType } from '@Engine/Abstract';
+import type { TModel3dResourceConfig, TModels3dLoader, TModels3dMetaInfoRegistry, TModels3dResourceAsyncRegistry } from '@Engine/Models3d';
+import { applyObject3dParamsToModel3d, applyPositionToModel3d, applyRotationToModel3d, applyScaleToModel3d } from '@Engine/Models3d';
+import type { TWriteable } from '@Engine/Utils';
+import { isDefined, isNotDefined } from '@Engine/Utils';
 import type { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
-
-import { LoaderType } from '@/Abstract';
-import type { TModel3dResourceConfig, TModels3dLoader, TModels3dMetaInfoRegistry, TModels3dResourceAsyncRegistry } from '@/Models3d';
-import { applyObject3dParamsToModel3d, applyPositionToModel3d, applyRotationToModel3d, applyScaleToModel3d } from '@/Models3d';
-import type { TWriteable } from '@/Utils';
-import { isDefined, isNotDefined } from '@/Utils';
 
 import { Loader3dCore } from './Loader3dCore';
 

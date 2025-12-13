@@ -1,8 +1,7 @@
-import type { Vector } from '@dimforge/rapier3d/math';
+import type { TDegrees, TMeters, TMilliseconds, TRadians, TSeconds } from '@Engine/Math/Types';
+import { HOUR, METER, MINUTE, SECOND } from '@Engine/Measurements/Constants';
+import type { Vector } from '@Enginedimforge/rapier3d/math';
 import { Vector3 } from 'three';
-
-import type { TDegrees, TMeters, TMilliseconds, TRadians, TSeconds } from '@/Math/Types';
-import { HOUR, METER, MINUTE, SECOND } from '@/Measurements/Constants';
 
 // TODO CONFIG: values of meters/hours, etc should be configurable
 export const meters = (meters: number): TMeters => (meters * METER) as TMeters;

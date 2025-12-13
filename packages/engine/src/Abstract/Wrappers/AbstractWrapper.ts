@@ -1,12 +1,11 @@
+import type { TAbstractWrapper, TWithUserData, TWithWrapperId, TWithWrapperIdEntity, WrapperType } from '@Engine/Abstract';
+import { withNoWrapperIdMixin, withWrapperIdMixin } from '@Engine/Abstract';
+import type { TDestroyable, TRegistrable, TWithEntity, TWithName } from '@Engine/Mixins';
+import { destroyableMixin, withNameAndNameAccessorsMixin } from '@Engine/Mixins';
+import type { TWithTags } from '@Engine/Mixins/Generics/Models/TWithTags';
+import { genericEntityCleanUp, isDefined, isWithUserData, isWithWrapperIdAccessors, mergeAll } from '@Engine/Utils';
 import { nanoid } from 'nanoid';
 import type { Subscription } from 'rxjs';
-
-import type { TAbstractWrapper, TWithUserData, TWithWrapperId, TWithWrapperIdEntity, WrapperType } from '@/Abstract';
-import { withNoWrapperIdMixin, withWrapperIdMixin } from '@/Abstract';
-import type { TDestroyable, TRegistrable, TWithEntity, TWithName } from '@/Mixins';
-import { destroyableMixin, withNameAndNameAccessorsMixin } from '@/Mixins';
-import type { TWithTags } from '@/Mixins/Generics/Models/TWithTags';
-import { genericEntityCleanUp, isDefined, isWithUserData, isWithWrapperIdAccessors, mergeAll } from '@/Utils';
 
 type TWrapperParams = TWithTags & TWithName;
 

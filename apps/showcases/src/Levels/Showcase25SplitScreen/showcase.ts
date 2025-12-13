@@ -1,9 +1,9 @@
 import { combineLatest } from 'rxjs';
 import { Clock } from 'three';
 
-import { moveByCircle } from '@/App/Levels/Utils/MoveUtils';
-import type { TActor, TActorRegistry, TKeyboardPressingEvent, TSpace, TSpaceConfig, TSpaceServices } from '@/Engine';
-import { asRecord, createDomElement, isNotDefined, KeyCode, metersPerSecond, mpsSpeed, spaceService } from '@/Engine';
+import { moveByCircle } from '@/Levels/Utils/MoveUtils';
+import type { TActor, TActorRegistry, TKeyboardPressingEvent, TSpace, TSpaceConfig, TSpaceServices } from '@engine';
+import { asRecord, createDomElement, isNotDefined, KeyCode, metersPerSecond, mpsSpeed, spaceService } from '@engine';
 
 import spaceAlphaConfigJson from './spaceAlpha.json';
 import spaceBetaConfigJson from './spaceBeta.json';

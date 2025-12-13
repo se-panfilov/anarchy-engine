@@ -1,7 +1,6 @@
+import type { TAbstractService } from '@Engine/Abstract';
 import type { Observable } from 'rxjs';
 import type { Vector2Like } from 'three';
-
-import type { TAbstractService } from '@/Abstract';
 
 import type { TMouseClickWatcherFactory } from './TMouseClickWatcherFactory';
 import type { TMouseClickWatcherRegistry } from './TMouseClickWatcherRegistry';

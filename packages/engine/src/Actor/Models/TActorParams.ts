@@ -1,12 +1,12 @@
-import type { TCollisionsDataParams } from '@/Collisions';
-import type { TKinematicParams } from '@/Kinematic';
-import type { TWithName, TWithTags } from '@/Mixins';
-import type { TModel3d } from '@/Models3d';
-import type { TPhysicsBody } from '@/Physics';
-import type { TSpatialDataParams } from '@/Spatial';
-import type { TObject3DParams } from '@/ThreeLib';
-import type { TWithTransformAgentParam } from '@/TransformDrive';
-import type { TOptional } from '@/Utils';
+import type { TCollisionsDataParams } from '@Engine/Collisions';
+import type { TKinematicParams } from '@Engine/Kinematic';
+import type { TWithName, TWithTags } from '@Engine/Mixins';
+import type { TModel3d } from '@Engine/Models3d';
+import type { TPhysicsBody } from '@Engine/Physics';
+import type { TSpatialDataParams } from '@Engine/Spatial';
+import type { TObject3DParams } from '@Engine/ThreeLib';
+import type { TWithTransformAgentParam } from '@Engine/TransformDrive';
+import type { TOptional } from '@Engine/Utils';
 
 import type { TActorModel3dSettings } from './TActorModel3dSettings';
 import type { TActorStates } from './TActorStates';

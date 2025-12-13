@@ -8,8 +8,8 @@ import { visualizer } from 'rollup-plugin-visualizer';
 export default defineConfig({
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, './src'),
-      '@shared': path.resolve(__dirname, '../shared')
+      '@Engine': path.resolve(__dirname, './src'),
+      '@Shared': path.resolve(__dirname, '../shared')
     }
   },
   plugins: [

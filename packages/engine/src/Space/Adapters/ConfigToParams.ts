@@ -1,5 +1,5 @@
-import { configToParams as sceneConfigAdapter } from '@/Scene/Adapters';
-import type { TSpaceConfig, TSpaceParams } from '@/Space/Models';
+import { configToParams as sceneConfigAdapter } from '@Engine/Scene/Adapters';
+import type { TSpaceConfig, TSpaceParams } from '@Engine/Space/Models';
 
 export function configToParams(config: TSpaceConfig): TSpaceParams | never {
   const { scenes, ...rest } = config;

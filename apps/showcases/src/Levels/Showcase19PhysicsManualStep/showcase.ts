@@ -1,8 +1,8 @@
 import { Clock } from 'three';
 
-import { addGizmo } from '@/App/Levels/Utils';
-import type { TActor, TMilliseconds, TSpace, TSpaceConfig } from '@/Engine';
-import { asRecord, isNotDefined, KeysExtra, spaceService } from '@/Engine';
+import { addGizmo } from '@/Levels/Utils';
+import type { TActor, TMilliseconds, TSpace, TSpaceConfig } from '@engine';
+import { asRecord, isNotDefined, KeysExtra, spaceService } from '@engine';
 
 import spaceConfigJson from './space.json';
 

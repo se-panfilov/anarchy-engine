@@ -1,7 +1,6 @@
+import type { LookUpStrategy } from '@Engine/Abstract/Registries/Constants';
+import type { TDestroyable, TRegistrable } from '@Engine/Mixins';
 import type { Observable } from 'rxjs';
-
-import type { LookUpStrategy } from '@/Abstract/Registries/Constants';
-import type { TDestroyable, TRegistrable } from '@/Mixins';
 
 import type { TAbstractEntityRegistry } from './TAbstractEntityRegistry';
 

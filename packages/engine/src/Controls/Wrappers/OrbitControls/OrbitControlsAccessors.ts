@@ -1,9 +1,8 @@
+import type { TOrbitControlsAccessors } from '@Engine/Controls/Models';
+import type { TReadonlyVector3 } from '@Engine/ThreeLib';
+import type { TWriteable } from '@Engine/Utils';
 import type { Vector3 } from 'three';
 import type { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
-
-import type { TOrbitControlsAccessors } from '@/Controls/Models';
-import type { TReadonlyVector3 } from '@/ThreeLib';
-import type { TWriteable } from '@/Utils';
 
 export function getOrbitControlsAccessors(entity: TWriteable<OrbitControls>): TOrbitControlsAccessors {
   // eslint-disable-next-line functional/immutable-data

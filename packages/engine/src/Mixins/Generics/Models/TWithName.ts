@@ -1,4 +1,4 @@
-import type { TOptional, TWriteable } from '@/Utils';
+import type { TOptional, TWriteable } from '@Engine/Utils';
 
 export type TWithNameOptional = TOptional<TWithName>;
 export type TWithName = Readonly<{ name: string }>;

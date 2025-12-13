@@ -1,7 +1,6 @@
+import type { TWrapper } from '@Engine/Abstract';
 import type { BehaviorSubject, Subject } from 'rxjs';
 import type { AudioListener } from 'three';
-
-import type { TWrapper } from '@/Abstract';
 
 import type { TAnyAudio } from './TAnyAudio';
 import type { TAnyAudioConfig } from './TAnyAudioConfig';

@@ -1,9 +1,9 @@
-import type { TReactiveFactory } from '@/Abstract';
-import { FactoryType, ReactiveFactory } from '@/Abstract';
-import { configToParams } from '@/Controls/Adapters';
-import { ControlsType } from '@/Controls/Constants';
-import type { TAnyControlsWrapper, TControlsFactory, TControlsParams, TFpsControlsParams, TOrbitControlsParams } from '@/Controls/Models';
-import { FpsControlsWrapper, OrbitControlsWrapper } from '@/Controls/Wrappers';
+import type { TReactiveFactory } from '@Engine/Abstract';
+import { FactoryType, ReactiveFactory } from '@Engine/Abstract';
+import { configToParams } from '@Engine/Controls/Adapters';
+import { ControlsType } from '@Engine/Controls/Constants';
+import type { TAnyControlsWrapper, TControlsFactory, TControlsParams, TFpsControlsParams, TOrbitControlsParams } from '@Engine/Controls/Models';
+import { FpsControlsWrapper, OrbitControlsWrapper } from '@Engine/Controls/Wrappers';
 
 function create(params: TControlsParams): TAnyControlsWrapper | never {
   switch (params.type) {

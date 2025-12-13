@@ -1,5 +1,5 @@
-import type { TSpaceConfig } from '@/Space/Models';
-import { validSpaceConfig } from '@/Space/Validators';
+import type { TSpaceConfig } from '@Engine/Space/Models';
+import { validSpaceConfig } from '@Engine/Space/Validators';
 
 export function validateConfig(config: TSpaceConfig): void | never {
   const { isValid, errors } = validSpaceConfig(config);

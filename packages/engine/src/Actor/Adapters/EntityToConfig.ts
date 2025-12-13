@@ -1,10 +1,10 @@
-import type { TActor, TActorConfig, TActorEntityToConfigDependencies, TActorStates } from '@/Actor/Models';
-import type { TCollisionsDataConfig } from '@/Collisions';
-import type { TFsmConfig, TFsmWrapper } from '@/Fsm';
-import { extractSerializableRegistrableFields } from '@/Mixins';
-import type { TModel3d, TModels3dRegistry } from '@/Models3d';
-import type { TSpatialDataConfig } from '@/Spatial';
-import { filterOutEmptyFields, isNotDefined } from '@/Utils';
+import type { TActor, TActorConfig, TActorEntityToConfigDependencies, TActorStates } from '@Engine/Actor/Models';
+import type { TCollisionsDataConfig } from '@Engine/Collisions';
+import type { TFsmConfig, TFsmWrapper } from '@Engine/Fsm';
+import { extractSerializableRegistrableFields } from '@Engine/Mixins';
+import type { TModel3d, TModels3dRegistry } from '@Engine/Models3d';
+import type { TSpatialDataConfig } from '@Engine/Spatial';
+import { filterOutEmptyFields, isNotDefined } from '@Engine/Utils';
 
 export function actorToConfig(entity: TActor, { models3dService }: TActorEntityToConfigDependencies): TActorConfig {
   const { drive } = entity;

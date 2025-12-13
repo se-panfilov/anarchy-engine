@@ -1,12 +1,11 @@
+import type { TAppGlobalContainer, TContainerDecorator } from '@Engine/Global/Models';
+import type { TDestroyable } from '@Engine/Mixins';
+import { destroyableMixin } from '@Engine/Mixins';
+import type { TSpaceCanvas } from '@Engine/Space';
+import { exitFullScreen, getWindowFromDomElement, goFullScreen, isDefined, isFullScreen, isNotDefined, observeContainerRect } from '@Engine/Utils';
 import { nanoid } from 'nanoid';
 import type { Subscription } from 'rxjs';
 import { BehaviorSubject, distinctUntilChanged, skip, Subject, switchMap } from 'rxjs';
-
-import type { TAppGlobalContainer, TContainerDecorator } from '@/Global/Models';
-import type { TDestroyable } from '@/Mixins';
-import { destroyableMixin } from '@/Mixins';
-import type { TSpaceCanvas } from '@/Space';
-import { exitFullScreen, getWindowFromDomElement, goFullScreen, isDefined, isFullScreen, isNotDefined, observeContainerRect } from '@/Utils';
 
 export function ContainerDecorator(container: TAppGlobalContainer | HTMLElement): TContainerDecorator {
   const resize$: Subject<DOMRect> = new Subject<DOMRect>();

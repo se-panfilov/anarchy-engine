@@ -1,8 +1,7 @@
+import type { TWithReactivePosition } from '@Engine/Spatial/Models';
 import { Subject } from 'rxjs';
 import type { Group, Mesh, Object3D } from 'three';
 import { Vector3 } from 'three';
-
-import type { TWithReactivePosition } from '@/Spatial/Models';
 
 export function withReactivePosition(entity: Mesh | Group | Object3D): TWithReactivePosition {
   const position$: Subject<Vector3> = new Subject<Vector3>();

@@ -4,7 +4,7 @@ import { BehaviorSubject, combineLatest, startWith, Subject } from 'rxjs';
 import type { Mesh, MeshPhysicalMaterial, MeshStandardMaterial } from 'three';
 import { Euler, Vector3 } from 'three';
 
-import { addGizmo } from '@/App/Levels/Utils';
+import { addGizmo } from '@/Levels/Utils';
 import type {
   TActor,
   TActorRegistry,
@@ -28,8 +28,8 @@ import type {
   TWithSheenRoughness,
   TWithThickness,
   TWithTransmission
-} from '@/Engine';
-import { asRecord, ControlsType, getTags, isDefined, isNotDefined, isOrbitControls, KeyCode, LookUpStrategy, spaceService, TextType } from '@/Engine';
+} from '@engine';
+import { asRecord, ControlsType, getTags, isDefined, isNotDefined, isOrbitControls, KeyCode, LookUpStrategy, spaceService, TextType } from '@engine';
 
 import spaceConfigJson from './space.json';
 

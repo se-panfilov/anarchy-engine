@@ -1,13 +1,12 @@
+import type { TActorParams } from '@Engine/Actor';
+import { LoopUpdatePriority } from '@Engine/Loop';
+import type { TDestroyable } from '@Engine/Mixins';
+import { destroyableMixin } from '@Engine/Mixins';
+import type { TSpatialCellWrapper, TSpatialGridWrapper } from '@Engine/Spatial';
+import type { TSpatialData, TWithSpatial } from '@Engine/Spatial/Models';
+import type { TWriteable } from '@Engine/Utils';
 import type { Subscription } from 'rxjs';
 import { BehaviorSubject, Subject } from 'rxjs';
-
-import type { TActorParams } from '@/Actor';
-import { LoopUpdatePriority } from '@/Loop';
-import type { TDestroyable } from '@/Mixins';
-import { destroyableMixin } from '@/Mixins';
-import type { TSpatialCellWrapper, TSpatialGridWrapper } from '@/Spatial';
-import type { TSpatialData, TWithSpatial } from '@/Spatial/Models';
-import type { TWriteable } from '@/Utils';
 
 export function withSpatial(params: TActorParams): TWithSpatial {
   const autoUpdate$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(params.spatial.isAutoUpdate);

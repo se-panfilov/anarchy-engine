@@ -14,6 +14,7 @@
     "noUnusedParameters": true,
     "paths": {
       "@/*": ["./src/*"],
+      "@public/*": ["./public/*"],
       "@engine/*": ["../../packages/engine/src/*"]
     },
     "resolveJsonModule": true,

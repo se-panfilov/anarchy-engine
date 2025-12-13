@@ -1,9 +1,8 @@
+import type { RegistryType } from '@Engine/Abstract/Constants';
+import type { TAbstractResourceAsyncRegistry } from '@Engine/Abstract/Models';
+import { createMockEntity, validateSimpleAsyncRegistryReturnsOriginalObjects } from '@Engine/Abstract/Registries/ValidateRegistryOriginalsTestSuite';
+import type { TRegistrable } from '@Engine/Mixins';
 import { describe } from 'vitest';
-
-import type { RegistryType } from '@/Abstract/Constants';
-import type { TAbstractResourceAsyncRegistry } from '@/Abstract/Models';
-import { createMockEntity, validateSimpleAsyncRegistryReturnsOriginalObjects } from '@/Abstract/Registries/ValidateRegistryOriginalsTestSuite';
-import type { TRegistrable } from '@/Mixins';
 
 import { AbstractResourceAsyncRegistry } from './AbstractResourceAsyncRegistry';
 

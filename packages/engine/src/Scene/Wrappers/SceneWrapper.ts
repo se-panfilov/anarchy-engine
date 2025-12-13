@@ -1,26 +1,25 @@
+import type { TAbstractWrapper } from '@Engine/Abstract';
+import { AbstractWrapper, WrapperType } from '@Engine/Abstract';
+import type { TActor } from '@Engine/Actor';
+import type { TAnyCameraWrapper } from '@Engine/Camera';
+import type { TColor } from '@Engine/Color';
+import { ColorWrapper } from '@Engine/Color';
+import type { TEnvMapTexture } from '@Engine/EnvMap';
+import type { TFogWrapper } from '@Engine/Fog';
+import type { TAbstractLightWrapper, TAnyLight } from '@Engine/Light';
+import type { TDestroyable } from '@Engine/Mixins';
+import { withActiveMixin, withObject3d } from '@Engine/Mixins';
+import type { TModel3d } from '@Engine/Models3d';
+import type { TParticlesWrapper } from '@Engine/Particles';
+import { sceneToConfig } from '@Engine/Scene/Adapters';
+import type { TSceneConfig, TSceneObject, TSceneParams, TSceneWrapper } from '@Engine/Scene/Models';
+import type { TTextAnyWrapper } from '@Engine/Text';
+import type { TTexture } from '@Engine/Texture';
+import type { TWriteable } from '@Engine/Utils';
+import { isDefined, isNotDefined, isString } from '@Engine/Utils';
 import type { Subscription } from 'rxjs';
 import type { CubeTexture } from 'three';
 import { Scene } from 'three';
-
-import type { TAbstractWrapper } from '@/Abstract';
-import { AbstractWrapper, WrapperType } from '@/Abstract';
-import type { TActor } from '@/Actor';
-import type { TAnyCameraWrapper } from '@/Camera';
-import type { TColor } from '@/Color';
-import { ColorWrapper } from '@/Color';
-import type { TEnvMapTexture } from '@/EnvMap';
-import type { TFogWrapper } from '@/Fog';
-import type { TAbstractLightWrapper, TAnyLight } from '@/Light';
-import type { TDestroyable } from '@/Mixins';
-import { withActiveMixin, withObject3d } from '@/Mixins';
-import type { TModel3d } from '@/Models3d';
-import type { TParticlesWrapper } from '@/Particles';
-import { sceneToConfig } from '@/Scene/Adapters';
-import type { TSceneConfig, TSceneObject, TSceneParams, TSceneWrapper } from '@/Scene/Models';
-import type { TTextAnyWrapper } from '@/Text';
-import type { TTexture } from '@/Texture';
-import type { TWriteable } from '@/Utils';
-import { isDefined, isNotDefined, isString } from '@/Utils';
 
 export function SceneWrapper(params: TSceneParams): TSceneWrapper {
   const entity: TWriteable<Scene> = new Scene();

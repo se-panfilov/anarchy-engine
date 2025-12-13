@@ -1,8 +1,8 @@
 import type { GizmoOptions } from 'three-viewport-gizmo';
 import { ViewportGizmo } from 'three-viewport-gizmo';
 
-import type { TAnyCameraWrapper, TAnyControlsWrapper, TContainerDecorator, TOrbitControlsWrapper, TRendererWrapper, TSpaceLoops, TSpaceServices } from '@/Engine';
-import { ControlsType } from '@/Engine';
+import type { TAnyCameraWrapper, TAnyControlsWrapper, TContainerDecorator, TOrbitControlsWrapper, TRendererWrapper, TSpaceLoops, TSpaceServices } from '@engine';
+import { ControlsType } from '@engine';
 
 export function addGizmo(
   { cameraService, rendererService, controlsService }: Pick<TSpaceServices, 'cameraService' | 'rendererService' | 'controlsService' | 'loopService'>,

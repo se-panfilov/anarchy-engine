@@ -1,10 +1,9 @@
+import type { TAbstractWrapper } from '@Engine/Abstract';
+import type { TWithObject3d } from '@Engine/Mixins';
+import type { TObject3DParams } from '@Engine/ThreeLib';
+import { isDefined } from '@Engine/Utils/index';
 import type { Vector2 } from 'three';
 import type { CSS2DObject } from 'three/examples/jsm/renderers/CSS2DRenderer';
-
-import type { TAbstractWrapper } from '@/Abstract';
-import type { TWithObject3d } from '@/Mixins';
-import type { TObject3DParams } from '@/ThreeLib';
-import { isDefined } from '@/Utils/index';
 
 export function applyObject3dParams(obj: TWithObject3d, { visible, castShadow, receiveShadow, frustumCulled, renderOrder, layers }: Partial<TObject3DParams>): void {
   if (isDefined(visible)) obj.setVisible(visible);

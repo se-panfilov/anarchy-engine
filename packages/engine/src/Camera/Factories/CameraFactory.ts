@@ -1,9 +1,9 @@
-import type { TReactiveFactory } from '@/Abstract';
-import { FactoryType, ReactiveFactory } from '@/Abstract';
-import { configToParamsCamera } from '@/Camera/Adapters';
-import type { TAnyCameraParams, TAnyCameraWrapper, TCameraFactory, TCameraServiceDependencies } from '@/Camera/Models';
-import { isOrthographicCameraParams, isPerspectiveCameraParams } from '@/Camera/Utils';
-import { OrthographicCameraWrapper, PerspectiveCameraWrapper } from '@/Camera/Wrappers';
+import type { TReactiveFactory } from '@Engine/Abstract';
+import { FactoryType, ReactiveFactory } from '@Engine/Abstract';
+import { configToParamsCamera } from '@Engine/Camera/Adapters';
+import type { TAnyCameraParams, TAnyCameraWrapper, TCameraFactory, TCameraServiceDependencies } from '@Engine/Camera/Models';
+import { isOrthographicCameraParams, isPerspectiveCameraParams } from '@Engine/Camera/Utils';
+import { OrthographicCameraWrapper, PerspectiveCameraWrapper } from '@Engine/Camera/Wrappers';
 
 function create(params: TAnyCameraParams, deps: TCameraServiceDependencies): TAnyCameraWrapper | never {
   if (isPerspectiveCameraParams(params)) return PerspectiveCameraWrapper(params, deps);

@@ -1,9 +1,8 @@
+import type { TAnimationActions } from '@Engine/Animations/Models';
+import type { TModel3dEntities, TRawModel3d, TWithModel3dEntities } from '@Engine/Models3d/Models';
+import type { TWriteable } from '@Engine/Utils';
+import { isNotDefined } from '@Engine/Utils';
 import type { AnimationAction, AnimationClip, AnimationMixer } from 'three';
-
-import type { TAnimationActions } from '@/Animations/Models';
-import type { TModel3dEntities, TRawModel3d, TWithModel3dEntities } from '@/Models3d/Models';
-import type { TWriteable } from '@/Utils';
-import { isNotDefined } from '@/Utils';
 
 export function withModel3dEntities(entities: TModel3dEntities): TWithModel3dEntities {
   // eslint-disable-next-line functional/immutable-data

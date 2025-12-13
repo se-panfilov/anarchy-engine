@@ -1,6 +1,5 @@
+import type { TDestroyable } from '@Engine/Mixins';
 import type { BehaviorSubject, Observable } from 'rxjs';
-
-import type { TDestroyable } from '@/Mixins';
 
 import type { TSpatialCellWrapper } from './TSpatialCellWrapper';
 import type { TSpatialData } from './TSpatialData';

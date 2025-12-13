@@ -1,8 +1,7 @@
+import type { TWithPosition4d, TWithPosition4dProperty } from '@Engine/Mixins/GameObjects/Models';
+import { isVector4Like } from '@Engine/Utils';
 import type { Vector4Like } from 'three';
 import { Vector4 } from 'three';
-
-import type { TWithPosition4d, TWithPosition4dProperty } from '@/Mixins/GameObjects/Models';
-import { isVector4Like } from '@/Utils';
 
 export function withPosition4dMixin(entity: TWithPosition4dProperty): TWithPosition4d {
   const setPosition = (position: Vector4Like): Vector4 => {

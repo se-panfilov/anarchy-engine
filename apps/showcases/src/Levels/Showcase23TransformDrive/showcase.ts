@@ -4,7 +4,7 @@ import { Euler, Quaternion, Vector3 } from 'three';
 import type { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
 import { degToRad, radToDeg } from 'three/src/math/MathUtils';
 
-import { addGizmo, attachConnectorPositionToSubj, getMemoryUsage } from '@/App/Levels/Utils';
+import { addGizmo, attachConnectorPositionToSubj, getMemoryUsage } from '@/Levels/Utils';
 import type {
   TActor,
   TAnyCameraWrapper,
@@ -27,7 +27,7 @@ import type {
   TSpatialGridWrapper,
   TText3dWrapper,
   TTextAnyWrapper
-} from '@/Engine';
+} from '@engine';
 import {
   asRecord,
   CollisionShape,
@@ -49,7 +49,7 @@ import {
   spaceService,
   TextType,
   TransformAgent
-} from '@/Engine';
+} from '@engine';
 
 import spaceConfigJson from './space.json';
 import {

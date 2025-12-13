@@ -1,8 +1,7 @@
+import type { RegistryType } from '@Engine/Abstract/Constants';
+import type { TAbstractResourceAsyncRegistry, TAbstractResourceConfig, TAbstractSerializeDependencies, TAbstractSimpleRegistry } from '@Engine/Abstract/Models';
+import { getAsyncUniqEntityByKeyAsync, getUniqEntityByKey$, isNotDefined } from '@Engine/Utils';
 import type { Observable } from 'rxjs';
-
-import type { RegistryType } from '@/Abstract/Constants';
-import type { TAbstractResourceAsyncRegistry, TAbstractResourceConfig, TAbstractSerializeDependencies, TAbstractSimpleRegistry } from '@/Abstract/Models';
-import { getAsyncUniqEntityByKeyAsync, getUniqEntityByKey$, isNotDefined } from '@/Utils';
 
 import { AbstractSimpleRegistry } from './AbstractSimpleRegistry';
 

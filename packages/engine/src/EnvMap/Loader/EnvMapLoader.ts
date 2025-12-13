@@ -1,11 +1,10 @@
+import { AbstractLoader, LoaderType } from '@Engine/Abstract';
+import { EnvMapMappingTypesMap, EnvMapMappingTypesName } from '@Engine/EnvMap/Constants';
+import type { TEnvMapLoader, TEnvMapMetaInfoRegistry, TEnvMapResourceConfig, TEnvMapTexture, TEnvMapTextureAsyncRegistry } from '@Engine/EnvMap/Models';
+import type { TWriteable } from '@Engine/Utils';
+import { isDefined } from '@Engine/Utils';
 import { EquirectangularReflectionMapping } from 'three';
 import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader';
-
-import { AbstractLoader, LoaderType } from '@/Abstract';
-import { EnvMapMappingTypesMap, EnvMapMappingTypesName } from '@/EnvMap/Constants';
-import type { TEnvMapLoader, TEnvMapMetaInfoRegistry, TEnvMapResourceConfig, TEnvMapTexture, TEnvMapTextureAsyncRegistry } from '@/EnvMap/Models';
-import type { TWriteable } from '@/Utils';
-import { isDefined } from '@/Utils';
 
 export function EnvMapLoader(registry: TEnvMapTextureAsyncRegistry, metaInfoRegistry: TEnvMapMetaInfoRegistry): TEnvMapLoader {
   const envMapLoader: RGBELoader = new RGBELoader();

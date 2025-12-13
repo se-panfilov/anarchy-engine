@@ -1,8 +1,6 @@
-import { isEqual } from 'lodash-es';
-
-import type { TAbstractService } from '@/Abstract';
-import { AbstractService } from '@/Abstract';
-import type { FsmEventsStrategy } from '@/Fsm/Constants';
+import type { TAbstractService } from '@Engine/Abstract';
+import { AbstractService } from '@Engine/Abstract';
+import type { FsmEventsStrategy } from '@Engine/Fsm/Constants';
 import type {
   TFsmConfig,
   TFsmInstanceFactory,
@@ -16,9 +14,10 @@ import type {
   TFsmSourceService,
   TFsmStates,
   TFsmWrapper
-} from '@/Fsm/Models';
-import type { TDisposable } from '@/Mixins';
-import { isDefined } from '@/Utils';
+} from '@Engine/Fsm/Models';
+import type { TDisposable } from '@Engine/Mixins';
+import { isDefined } from '@Engine/Utils';
+import { isEqual } from 'lodash-es';
 
 import { FsmInstanceService } from './FsmInstanceService';
 import { FsmSourceService } from './FsmSourceService';
@@ -48,7 +47,7 @@ export function FsmService(instanceFactory: TFsmInstanceFactory, sourceFactory: 
   }
 
   function isParamsEqualsToSource(params: TFsmParams, source: TFsmSource): boolean {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    // eslint-disable-next-line @Enginetypescript-eslint/no-unused-vars
     const { id, tags, ...sourceParams } = source;
     return isEqual(params, sourceParams);
   }

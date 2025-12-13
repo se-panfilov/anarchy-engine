@@ -1,4 +1,4 @@
-import type { TKinematicData } from '@/Kinematic';
+import type { TKinematicData } from '@Engine/Kinematic';
 
 import type { TTransformAgentParams } from './TTransformAgentParams';
 

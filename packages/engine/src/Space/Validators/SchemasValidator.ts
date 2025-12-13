@@ -1,20 +1,17 @@
-import Ajv from 'ajv';
-import { isArray } from 'lodash-es';
-
-import type { TAbstractResourceConfig } from '@/Abstract';
-import type { TActorConfig } from '@/Actor';
-import type { TAnyAudioConfig, TAudioResourceConfig } from '@/Audio';
-import type { TAnyCameraConfig } from '@/Camera';
-import type { TControlsConfig } from '@/Controls';
-import type { TAnyIntersectionsWatcherConfig } from '@/Intersections';
-import { isIntersectionsCameraWatcherConfig } from '@/Intersections';
-import type { TActive, TWithName, TWithNameOptional, TWithTags } from '@/Mixins';
-import type { TModel3dConfig, TModel3dResourceConfig } from '@/Models3d';
-import type { TPhysicsBodyConfig, TPhysicsConfig } from '@/Physics';
-import type { TSceneConfig } from '@/Scene/Models';
-import { SpaceSchemaVersion } from '@/Space/Constants';
-import type { TSpaceConfig, TSpaceConfigEntities, TSpaceConfigResources } from '@/Space/Models';
-import TSpaceConfigSchema from '@/Space/Schemas/TSpaceConfig.json';
+import type { TAbstractResourceConfig } from '@Engine/Abstract';
+import type { TActorConfig } from '@Engine/Actor';
+import type { TAnyAudioConfig, TAudioResourceConfig } from '@Engine/Audio';
+import type { TAnyCameraConfig } from '@Engine/Camera';
+import type { TControlsConfig } from '@Engine/Controls';
+import type { TAnyIntersectionsWatcherConfig } from '@Engine/Intersections';
+import { isIntersectionsCameraWatcherConfig } from '@Engine/Intersections';
+import type { TActive, TWithName, TWithNameOptional, TWithTags } from '@Engine/Mixins';
+import type { TModel3dConfig, TModel3dResourceConfig } from '@Engine/Models3d';
+import type { TPhysicsBodyConfig, TPhysicsConfig } from '@Engine/Physics';
+import type { TSceneConfig } from '@Engine/Scene/Models';
+import { SpaceSchemaVersion } from '@Engine/Space/Constants';
+import type { TSpaceConfig, TSpaceConfigEntities, TSpaceConfigResources } from '@Engine/Space/Models';
+import TSpaceConfigSchema from '@Engine/Space/Schemas/TSpaceConfig.json';
 import {
   validate,
   validateActorNamesForEveryEntity,
@@ -29,8 +26,10 @@ import {
   validateNoSameName,
   validateTags,
   validateTagsForEveryEntity
-} from '@/Space/Utils';
-import { isDefined } from '@/Utils';
+} from '@Engine/Space/Utils';
+import { isDefined } from '@Engine/Utils';
+import Ajv from 'ajv';
+import { isArray } from 'lodash-es';
 
 const ajv: Ajv = new Ajv();
 

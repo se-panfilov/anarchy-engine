@@ -1,10 +1,10 @@
-import type { TReactiveFactory } from '@/Abstract';
-import { FactoryType, ReactiveFactory } from '@/Abstract';
-import { configToParams } from '@/Audio/Adapters';
-import type { TAnyAudioParams, TAnyAudioWrapper, TAudioFactory, TAudioServiceDependencies, TAudioWrapperDependencies } from '@/Audio/Models';
-import { isAudio3dParams } from '@/Audio/Utils';
-import { Audio3dWrapper, AudioWrapper } from '@/Audio/Wrappers';
-import type { TSpaceLoops } from '@/Space';
+import type { TReactiveFactory } from '@Engine/Abstract';
+import { FactoryType, ReactiveFactory } from '@Engine/Abstract';
+import { configToParams } from '@Engine/Audio/Adapters';
+import type { TAnyAudioParams, TAnyAudioWrapper, TAudioFactory, TAudioServiceDependencies, TAudioWrapperDependencies } from '@Engine/Audio/Models';
+import { isAudio3dParams } from '@Engine/Audio/Utils';
+import { Audio3dWrapper, AudioWrapper } from '@Engine/Audio/Wrappers';
+import type { TSpaceLoops } from '@Engine/Space';
 
 function create(params: TAnyAudioParams, loops: Pick<TSpaceLoops, 'audioLoop'> & TAudioServiceDependencies): TAnyAudioWrapper {
   if (isAudio3dParams(params)) return Audio3dWrapper(params, loops);

@@ -1,4 +1,4 @@
-import type { TQuaternionRotatable, TRotatable, TWithQuaternionRotationProperty, TWithRotationProperty } from '@/Mixins/GameObjects/Models';
+import type { TQuaternionRotatable, TRotatable, TWithQuaternionRotationProperty, TWithRotationProperty } from '@Engine/Mixins/GameObjects/Models';
 
 import { withQuaternionRotationByWMixin } from './WithRotationByWMixin';
 import { withQuaternionRotationByXMixin, withRotationByXMixin } from './WithRotationByXMixin';

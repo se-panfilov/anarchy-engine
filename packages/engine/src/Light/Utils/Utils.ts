@@ -1,4 +1,4 @@
-import { WrapperType } from '@/Abstract';
+import { WrapperType } from '@Engine/Abstract';
 import type {
   TAmbientLight,
   TAmbientLightParams,
@@ -14,8 +14,8 @@ import type {
   TRectAreaLightParams,
   TSpotLight,
   TSpotLightParams
-} from '@/Light/Models';
-import { isDefined } from '@/Utils';
+} from '@Engine/Light/Models';
+import { isDefined } from '@Engine/Utils';
 
 export function getWrapperType(light: TAnyLight): WrapperType | never {
   if (isAmbientLight(light)) return WrapperType.AmbientLight;

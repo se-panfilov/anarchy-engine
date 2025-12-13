@@ -1,8 +1,7 @@
+import { DefaultIsAutoUpdate, DefaultKinematicConfigState, DefaultKinematicTarget } from '@Engine/Kinematic';
+import type { TKinematicConfig } from '@Engine/Kinematic/Models';
+import { isNotDefined } from '@Engine/Utils';
 import _ from 'lodash';
-
-import { DefaultIsAutoUpdate, DefaultKinematicConfigState, DefaultKinematicTarget } from '@/Kinematic';
-import type { TKinematicConfig } from '@/Kinematic/Models';
-import { isNotDefined } from '@/Utils';
 
 export function ignoreDefaultStateKinematic(config: TKinematicConfig | undefined): TKinematicConfig | undefined {
   if (isNotDefined(config)) return undefined;

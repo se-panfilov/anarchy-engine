@@ -1,13 +1,22 @@
+import type { RegistryType } from '@Engine/Abstract/Constants';
+import type { TAbstractEntityRegistry, TWithBaseAccessorsRegistry, TWithReactiveRegistry } from '@Engine/Abstract/Models';
+import type { LookUpStrategy } from '@Engine/Abstract/Registries/Constants';
+import { withBaseAccessorsRegistry } from '@Engine/Abstract/Registries/Mixin';
+import { withReactiveRegistry } from '@Engine/Abstract/Registries/Mixin/Registry/WithReactiveRegistry';
+import type { TDestroyable, TMultitonRegistrable, TRegistrable } from '@Engine/Mixins';
+import { destroyableMixin } from '@Engine/Mixins';
+import {
+  findInMap,
+  findKeyWithValue,
+  getAllEntitiesWithNames,
+  getAllEntitiesWithTag,
+  getAllEntitiesWithTags,
+  getUniqEntityWithTag,
+  getUniqEntityWithTags,
+  isNotDefined,
+  mergeAll
+} from '@Engine/Utils';
 import { nanoid } from 'nanoid';
-
-import type { RegistryType } from '@/Abstract/Constants';
-import type { TAbstractEntityRegistry, TWithBaseAccessorsRegistry, TWithReactiveRegistry } from '@/Abstract/Models';
-import type { LookUpStrategy } from '@/Abstract/Registries/Constants';
-import { withBaseAccessorsRegistry } from '@/Abstract/Registries/Mixin';
-import { withReactiveRegistry } from '@/Abstract/Registries/Mixin/Registry/WithReactiveRegistry';
-import type { TDestroyable, TMultitonRegistrable, TRegistrable } from '@/Mixins';
-import { destroyableMixin } from '@/Mixins';
-import { findInMap, findKeyWithValue, getAllEntitiesWithNames, getAllEntitiesWithTag, getAllEntitiesWithTags, getUniqEntityWithTag, getUniqEntityWithTags, isNotDefined, mergeAll } from '@/Utils';
 
 export function AbstractEntityRegistry<T extends TRegistrable | TMultitonRegistrable>(type: RegistryType): TAbstractEntityRegistry<T> {
   const id: string = type + '_registry_' + nanoid();

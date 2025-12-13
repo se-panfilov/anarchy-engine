@@ -1,11 +1,10 @@
+import type { TWrapper } from '@Engine/Abstract';
+import type { TActor } from '@Engine/Actor';
+import type { TDestroyable } from '@Engine/Mixins';
+import type { TSceneWrapper } from '@Engine/Scene';
+import type { TSpatialCellId, TSpatialCellWrapper, TSpatialGridParams } from '@Engine/Spatial';
 import type { Observable } from 'rxjs';
 import type { ColorRepresentation } from 'three';
-
-import type { TWrapper } from '@/Abstract';
-import type { TActor } from '@/Actor';
-import type { TDestroyable } from '@/Mixins';
-import type { TSceneWrapper } from '@/Scene';
-import type { TSpatialCellId, TSpatialCellWrapper, TSpatialGridParams } from '@/Spatial';
 
 import type { TSpatialGrid } from './TSpatialGrid';
 

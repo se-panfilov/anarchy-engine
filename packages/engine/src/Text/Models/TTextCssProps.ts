@@ -1,5 +1,5 @@
-import type { THtmlElementStyleDeclaration } from '@/Abstract';
-import type { TextAlign, TextDirection, TextFontStyle, TextFontWeight, TextOverflowWrap, TextWhiteSpace } from '@/Text/Constants';
+import type { THtmlElementStyleDeclaration } from '@Engine/Abstract';
+import type { TextAlign, TextDirection, TextFontStyle, TextFontWeight, TextOverflowWrap, TextWhiteSpace } from '@Engine/Text/Constants';
 
 type TKeysOfCssProps = keyof Omit<THtmlElementStyleDeclaration, 'getPropertyPriority' | 'getPropertyValue' | 'item' | 'removeProperty' | 'setProperty' | 'parentRule'>;
 type TCssProps = Readonly<{ [key in TKeysOfCssProps]?: string }>;

@@ -1,4 +1,4 @@
-import type { TSerializable, TWithId, TWithTags } from '@/Mixins';
+import type { TSerializable, TWithId, TWithTags } from '@Engine/Mixins';
 
 import type { TFsmParams } from './TFsmParams';
 

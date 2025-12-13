@@ -1,7 +1,7 @@
-import type { TWrapper } from '@/Abstract';
-import type { LightType } from '@/Light/Constants';
-import type { TWithObject3d } from '@/Mixins';
-import type { TWithTransformDrive } from '@/TransformDrive';
+import type { TWrapper } from '@Engine/Abstract';
+import type { LightType } from '@Engine/Light/Constants';
+import type { TWithObject3d } from '@Engine/Mixins';
+import type { TWithTransformDrive } from '@Engine/TransformDrive';
 
 import type { TAnyLight } from './TAnyLight';
 import type { TLightTransformAgents } from './TLightTransformAgents';

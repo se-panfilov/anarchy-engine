@@ -1,4 +1,4 @@
-import type { TAbstractSimpleRegistry } from '@/Abstract';
+import type { TAbstractSimpleRegistry } from '@Engine/Abstract';
 
 import type { TModel3d } from './TModel3d';
 import type { TRawModel3d } from './TRawModel3d';

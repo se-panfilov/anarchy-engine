@@ -1,8 +1,7 @@
+import type { TWatcher } from '@Engine/Abstract';
+import type { TActor } from '@Engine/Actor';
+import type { TRawModel3d } from '@Engine/Models3d';
 import type { Raycaster } from 'three';
-
-import type { TWatcher } from '@/Abstract';
-import type { TActor } from '@/Actor';
-import type { TRawModel3d } from '@/Models3d';
 
 import type { TIntersectionEvent } from './TIntersectionEvent';
 import type { TIntersectionsLoop } from './TIntersectionsLoop';

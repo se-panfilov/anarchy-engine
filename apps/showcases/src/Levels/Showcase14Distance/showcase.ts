@@ -1,9 +1,9 @@
 import GUI from 'lil-gui';
 import { Vector3 } from 'three';
 
-import { addGizmo } from '@/App/Levels/Utils';
-import type { TActor, TActorRegistry, TMetersPerSecond, TMilliseconds, TReadonlyVector3, TSpace, TSpaceConfig } from '@/Engine';
-import { asRecord, isNotDefined, KeysExtra, meters, metersPerSecond, mpsSpeed, spaceService, TransformAgent } from '@/Engine';
+import { addGizmo } from '@/Levels/Utils';
+import type { TActor, TActorRegistry, TMetersPerSecond, TMilliseconds, TReadonlyVector3, TSpace, TSpaceConfig } from '@engine';
+import { asRecord, isNotDefined, KeysExtra, meters, metersPerSecond, mpsSpeed, spaceService, TransformAgent } from '@engine';
 
 import spaceConfigJson from './space.json';
 

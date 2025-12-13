@@ -1,5 +1,5 @@
-import { AbstractEntityRegistry, RegistryType } from '@/Abstract';
-import type { TEnvMapRegistry, TEnvMapWrapper } from '@/EnvMap/Models';
+import { AbstractEntityRegistry, RegistryType } from '@Engine/Abstract';
+import type { TEnvMapRegistry, TEnvMapWrapper } from '@Engine/EnvMap/Models';
 
 export function EnvMapRegistry(): TEnvMapRegistry {
   return AbstractEntityRegistry<TEnvMapWrapper>(RegistryType.EnvMap);

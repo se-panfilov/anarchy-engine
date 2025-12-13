@@ -1,8 +1,8 @@
-import type { TReactiveFactory } from '@/Abstract';
-import { FactoryType, ReactiveFactory } from '@/Abstract';
-import { configToParams } from '@/Actor/Adapters';
-import { Actor } from '@/Actor/Entities';
-import type { TActor, TActorFactory, TActorParams, TActorServiceDependencies } from '@/Actor/Models';
+import type { TReactiveFactory } from '@Engine/Abstract';
+import { FactoryType, ReactiveFactory } from '@Engine/Abstract';
+import { configToParams } from '@Engine/Actor/Adapters';
+import { Actor } from '@Engine/Actor/Entities';
+import type { TActor, TActorFactory, TActorParams, TActorServiceDependencies } from '@Engine/Actor/Models';
 
 export function ActorFactory(): TActorFactory {
   const factory: TReactiveFactory<TActor, TActorParams, TActorServiceDependencies> = ReactiveFactory(FactoryType.Actor, Actor);

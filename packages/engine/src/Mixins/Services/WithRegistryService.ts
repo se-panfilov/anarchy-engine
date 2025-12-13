@@ -1,4 +1,4 @@
-import type { TWithRegistryService } from '@/Mixins/Services/Models';
+import type { TWithRegistryService } from '@Engine/Mixins/Services/Models';
 
 export function withRegistryService<R>(registry: R): TWithRegistryService<R> {
   return {

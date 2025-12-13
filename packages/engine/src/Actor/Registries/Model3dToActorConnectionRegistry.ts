@@ -1,9 +1,9 @@
-import type { TAbstractSimpleRegistry } from '@/Abstract';
-import { AbstractSimpleRegistry, RegistryType } from '@/Abstract';
-import type { TActor, TModel3dToActorConnectionRegistry, TModel3dToActorConnectionRegistryExtension } from '@/Actor/Models';
-import type { TModel3d } from '@/Models3d';
-import type { TWriteable } from '@/Utils';
-import { isNotDefined } from '@/Utils';
+import type { TAbstractSimpleRegistry } from '@Engine/Abstract';
+import { AbstractSimpleRegistry, RegistryType } from '@Engine/Abstract';
+import type { TActor, TModel3dToActorConnectionRegistry, TModel3dToActorConnectionRegistryExtension } from '@Engine/Actor/Models';
+import type { TModel3d } from '@Engine/Models3d';
+import type { TWriteable } from '@Engine/Utils';
+import { isNotDefined } from '@Engine/Utils';
 
 export function Model3dToActorConnectionRegistry(): TModel3dToActorConnectionRegistry {
   const registry: TWriteable<TAbstractSimpleRegistry<string>> & TWriteable<TModel3dToActorConnectionRegistryExtension> = AbstractSimpleRegistry<string>(

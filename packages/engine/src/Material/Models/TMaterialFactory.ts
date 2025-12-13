@@ -1,4 +1,4 @@
-import type { TParamsFromConfigWithDependencies, TReactiveFactory } from '@/Abstract';
+import type { TParamsFromConfigWithDependencies, TReactiveFactory } from '@Engine/Abstract';
 
 import type { TAnyMaterialWrapper } from './TAnyMaterialWrapper';
 import type { TMaterialConfig } from './TMaterialConfig';

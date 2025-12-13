@@ -1,10 +1,9 @@
+import type { TKinematicData, TKinematicParams } from '@Engine/Kinematic';
+import { DEFAULT_RADIUS, ForwardAxis } from '@Engine/Kinematic';
+import { KinematicTransformAgent } from '@Engine/TransformDrive/Entities/Agents';
+import type { TKinematicAgentDependencies, TKinematicTransformAgent, TKinematicTransformAgentParams, TTransformAgentParams } from '@Engine/TransformDrive/Models';
+import type { TOptional } from '@Engine/Utils';
 import { Quaternion, Vector3 } from 'three';
-
-import type { TKinematicData, TKinematicParams } from '@/Kinematic';
-import { DEFAULT_RADIUS, ForwardAxis } from '@/Kinematic';
-import { KinematicTransformAgent } from '@/TransformDrive/Entities/Agents';
-import type { TKinematicAgentDependencies, TKinematicTransformAgent, TKinematicTransformAgentParams, TTransformAgentParams } from '@/TransformDrive/Models';
-import type { TOptional } from '@/Utils';
 
 export function getKinematicTransformAgent(params: TTransformAgentParams, kinematic: TOptional<TKinematicParams> | undefined, dependencies: TKinematicAgentDependencies): TKinematicTransformAgent {
   const agentParams: TTransformAgentParams = { position: params.position, rotation: params.rotation, scale: params.scale ?? new Vector3(1, 1, 1) };

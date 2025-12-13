@@ -1,13 +1,12 @@
+import type { TAnyMaterialWrapper, TMaterials } from '@Engine/Material';
+import type { TMeters } from '@Engine/Math';
+import { meters } from '@Engine/Measurements/Utils';
+import type { TModel3dConfig, TModel3dParams, TModel3dResourceConfig, TRawModel3d } from '@Engine/Models3d';
+import { PrimitiveModel3dType } from '@Engine/Models3d';
+import type { TBoxGeometryParams, TPlaneGeometryParams, TSphereGeometryParams } from '@Engine/ThreeLib';
+import { isDefined, isNotDefined } from '@Engine/Utils';
 import { BoxGeometry, Mesh, PlaneGeometry, SphereGeometry } from 'three';
 import type { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
-
-import type { TAnyMaterialWrapper, TMaterials } from '@/Material';
-import type { TMeters } from '@/Math';
-import { meters } from '@/Measurements/Utils';
-import type { TModel3dConfig, TModel3dParams, TModel3dResourceConfig, TRawModel3d } from '@/Models3d';
-import { PrimitiveModel3dType } from '@/Models3d';
-import type { TBoxGeometryParams, TPlaneGeometryParams, TSphereGeometryParams } from '@/ThreeLib';
-import { isDefined, isNotDefined } from '@/Utils';
 
 export function createPrimitiveModel3d(params: TModel3dParams): Mesh | never {
   if (!isPrimitiveModel3dSource(params.model3dSource)) throw new Error(`Model3d source is not a primitive model: "${String(params.model3dSource)}"`);

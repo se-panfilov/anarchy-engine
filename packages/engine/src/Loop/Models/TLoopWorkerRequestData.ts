@@ -1,4 +1,4 @@
-import type { LoopWorkerActions } from '@/Loop/Constants';
+import type { LoopWorkerActions } from '@Engine/Loop/Constants';
 
 export type TLoopWorkerStopRequestData = Readonly<{
   action: LoopWorkerActions;

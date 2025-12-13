@@ -1,11 +1,10 @@
-import type { World } from '@dimforge/rapier3d';
+import type { TDestroyable } from '@Engine/Mixins';
+import { destroyableMixin } from '@Engine/Mixins';
+import type { TPhysicsDebugRenderer, TPhysicsLoop } from '@Engine/Physics/Models';
+import type { TSceneWrapper } from '@Engine/Scene/Models';
+import type { World } from '@Enginedimforge/rapier3d';
 import type { Subscription } from 'rxjs';
 import { BufferAttribute, BufferGeometry, LineBasicMaterial, LineSegments } from 'three';
-
-import type { TDestroyable } from '@/Mixins';
-import { destroyableMixin } from '@/Mixins';
-import type { TPhysicsDebugRenderer, TPhysicsLoop } from '@/Physics/Models';
-import type { TSceneWrapper } from '@/Scene/Models';
 
 export function PhysicsDebugRenderer(sceneW: TSceneWrapper, world: World, loop: TPhysicsLoop): TPhysicsDebugRenderer {
   let mesh = new LineSegments(new BufferGeometry(), new LineBasicMaterial({ color: 0xffffff, vertexColors: true }));

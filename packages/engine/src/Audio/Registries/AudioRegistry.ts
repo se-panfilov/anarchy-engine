@@ -1,5 +1,5 @@
-import { AbstractEntityRegistry, RegistryType } from '@/Abstract';
-import type { TAnyAudioWrapper, TAudioRegistry } from '@/Audio/Models';
+import { AbstractEntityRegistry, RegistryType } from '@Engine/Abstract';
+import type { TAnyAudioWrapper, TAudioRegistry } from '@Engine/Audio/Models';
 
 export function AudioRegistry(): TAudioRegistry {
   return AbstractEntityRegistry<TAnyAudioWrapper>(RegistryType.Audio);

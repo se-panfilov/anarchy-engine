@@ -1,8 +1,5 @@
-import type { Subscription } from 'rxjs';
-import { distinctUntilChanged, takeUntil } from 'rxjs';
-
-import type { TAbstractService, TRegistryPack } from '@/Abstract';
-import { AbstractService } from '@/Abstract';
+import type { TAbstractService, TRegistryPack } from '@Engine/Abstract';
+import { AbstractService } from '@Engine/Abstract';
 import type {
   TAnyCameraConfig,
   TAnyCameraWrapper,
@@ -15,9 +12,9 @@ import type {
   TCameraServiceWithFactory,
   TCameraServiceWithRegistry,
   TCameraWrapperDependencies
-} from '@/Camera/Models';
-import { isOrthographicCameraWrapper, isPerspectiveCameraWrapper } from '@/Camera/Utils';
-import type { TDisposable, TWithActiveMixinResult } from '@/Mixins';
+} from '@Engine/Camera/Models';
+import { isOrthographicCameraWrapper, isPerspectiveCameraWrapper } from '@Engine/Camera/Utils';
+import type { TDisposable, TWithActiveMixinResult } from '@Engine/Mixins';
 import {
   withActiveEntityServiceMixin,
   withCreateFromConfigServiceMixin,
@@ -26,9 +23,11 @@ import {
   withRegistryService,
   withSceneGetterService,
   withSerializableEntities
-} from '@/Mixins';
-import type { TSceneWrapper } from '@/Scene';
-import { isNotDefined, mergeAll } from '@/Utils';
+} from '@Engine/Mixins';
+import type { TSceneWrapper } from '@Engine/Scene';
+import { isNotDefined, mergeAll } from '@Engine/Utils';
+import type { Subscription } from 'rxjs';
+import { distinctUntilChanged, takeUntil } from 'rxjs';
 
 export function CameraService(factory: TCameraFactory, registry: TCameraRegistry, scene: TSceneWrapper, dependencies: TCameraServiceDependencies): TCameraService {
   const withActive: TWithActiveMixinResult<TAnyCameraWrapper> = withActiveEntityServiceMixin<TAnyCameraWrapper>(registry);

@@ -1,5 +1,3 @@
-import type { Vector2Like, Vector3Like } from 'three';
-
 import type {
   BlendEquationName,
   BlendingDstFactorName,
@@ -13,8 +11,9 @@ import type {
   StencilFailName,
   StencilFuncName,
   StencilOpName
-} from '@/Material/Constants';
-import type { TEulerLike } from '@/ThreeLib';
+} from '@Engine/Material/Constants';
+import type { TEulerLike } from '@Engine/ThreeLib';
+import type { Vector2Like, Vector3Like } from 'three';
 
 import type {
   TBasicMaterialParamsOptions,

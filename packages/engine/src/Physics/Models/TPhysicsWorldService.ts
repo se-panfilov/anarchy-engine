@@ -1,9 +1,8 @@
-import type { World } from '@dimforge/rapier3d';
+import type { TAbstractService } from '@Engine/Abstract';
+import type { TWithSceneGetterService } from '@Engine/Mixins';
+import type { TPhysicsLoop, TPhysicsWorldConfig } from '@Engine/Physics';
+import type { World } from '@Enginedimforge/rapier3d';
 import type { Vector3 } from 'three';
-
-import type { TAbstractService } from '@/Abstract';
-import type { TWithSceneGetterService } from '@/Mixins';
-import type { TPhysicsLoop, TPhysicsWorldConfig } from '@/Physics';
 
 import type { TPhysicsDebugRenderer } from './TPhysicsDebugRenderer';
 import type { TPhysicsWorldParams } from './TPhysicsWorldParams';

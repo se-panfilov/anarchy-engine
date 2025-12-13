@@ -1,7 +1,5 @@
-import type { Subscription } from 'rxjs';
-
-import type { TAbstractService } from '@/Abstract';
-import { AbstractService } from '@/Abstract';
+import type { TAbstractService } from '@Engine/Abstract';
+import { AbstractService } from '@Engine/Abstract';
 import type {
   TFsmConfig,
   TFsmSource,
@@ -12,10 +10,11 @@ import type {
   TFsmSourceServiceWithCreateFromConfig,
   TFsmSourceServiceWithFactory,
   TFsmSourceServiceWithRegistry
-} from '@/Fsm/Models';
-import type { TDisposable } from '@/Mixins';
-import { withCreateFromConfigServiceMixin, withCreateServiceMixin, withFactoryService, withRegistryService, withSerializableEntities } from '@/Mixins';
-import { mergeAll } from '@/Utils';
+} from '@Engine/Fsm/Models';
+import type { TDisposable } from '@Engine/Mixins';
+import { withCreateFromConfigServiceMixin, withCreateServiceMixin, withFactoryService, withRegistryService, withSerializableEntities } from '@Engine/Mixins';
+import { mergeAll } from '@Engine/Utils';
+import type { Subscription } from 'rxjs';
 
 export function FsmSourceService(factory: TFsmSourceFactory, registry: TFsmSourceRegistry): TFsmSourceService {
   const factorySub$: Subscription = factory.entityCreated$.subscribe((fsm: TFsmSource): void => registry.add(fsm.name, fsm));

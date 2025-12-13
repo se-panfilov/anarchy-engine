@@ -1,7 +1,6 @@
+import type { TWithName, TWithTags } from '@Engine/Mixins';
+import type { TWithTransformAgentParam } from '@Engine/TransformDrive';
 import type { AudioListener, Vector3Like } from 'three';
-
-import type { TWithName, TWithTags } from '@/Mixins';
-import type { TWithTransformAgentParam } from '@/TransformDrive';
 
 import type { TAudioPerformanceOptions } from './TAudioPerformanceOptions';
 

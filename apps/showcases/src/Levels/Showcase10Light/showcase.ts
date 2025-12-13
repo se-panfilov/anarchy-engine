@@ -2,7 +2,7 @@ import GUI from 'lil-gui';
 import { CameraHelper, DirectionalLightHelper, HemisphereLightHelper, PointLightHelper, SpotLightHelper } from 'three';
 import { RectAreaLightHelper } from 'three/examples/jsm/helpers/RectAreaLightHelper';
 
-import { addGizmo } from '@/App/Levels/Utils';
+import { addGizmo } from '@/Levels/Utils';
 import type {
   TDirectionalLightWrapper,
   THemisphereLightWrapper,
@@ -15,8 +15,8 @@ import type {
   TSpace,
   TSpaceConfig,
   TSpotLightWrapper
-} from '@/Engine';
-import { asRecord, isNotDefined, spaceService } from '@/Engine';
+} from '@engine';
+import { asRecord, isNotDefined, spaceService } from '@engine';
 
 import spaceConfigJson from './space.json';
 

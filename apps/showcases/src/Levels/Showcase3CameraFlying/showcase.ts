@@ -1,8 +1,8 @@
 import { combineLatest, distinctUntilChanged } from 'rxjs';
 import type { Vector2Like, Vector3 } from 'three';
 
-import type { TActor, TActorRegistry, TAnyCameraWrapper, TSpace, TSpaceConfig } from '@/Engine';
-import { asRecord, getRotationByCos, getRotationBySin, isNotDefined, spaceService } from '@/Engine';
+import type { TActor, TActorRegistry, TAnyCameraWrapper, TSpace, TSpaceConfig } from '@engine';
+import { asRecord, getRotationByCos, getRotationBySin, isNotDefined, spaceService } from '@engine';
 
 import spaceConfigJson from './space.json';
 

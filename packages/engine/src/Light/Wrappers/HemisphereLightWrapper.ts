@@ -1,6 +1,5 @@
+import type { TAbstractLightWrapper, THemisphereLight, THemisphereLightParams, TLightServiceDependencies } from '@Engine/Light/Models';
 import { HemisphereLight } from 'three';
-
-import type { TAbstractLightWrapper, THemisphereLight, THemisphereLightParams, TLightServiceDependencies } from '@/Light/Models';
 
 import { AbstractLightWrapper } from './AbstractLightWrapper';
 

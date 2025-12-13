@@ -1,6 +1,5 @@
+import type { TAbstractLoader } from '@Engine/Abstract';
 import type { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
-
-import type { TAbstractLoader } from '@/Abstract';
 
 import type { TModel3dResourceConfig } from './TModel3dResourceConfig';
 import type { TModels3dMetaInfoRegistry } from './TModels3dMetaInfoRegistry';

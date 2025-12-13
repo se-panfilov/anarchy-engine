@@ -1,14 +1,13 @@
+import type { TAnimationStateConfig } from '@Engine/Animations';
+import { animationActionToConfig } from '@Engine/Animations';
+import type { TAnimations, TAnimationsResourceAsyncRegistry } from '@Engine/Animations/Models';
+import { extractSerializableRegistrableFields } from '@Engine/Mixins';
+import type { PrimitiveModel3dType } from '@Engine/Models3d/Constants';
+import type { TModel3d, TModel3dConfig, TModel3dConfigToParamsDependencies, TModel3dParams, TModels3dResourceAsyncRegistry, TRawModel3d } from '@Engine/Models3d/Models';
+import { isPrimitiveModel3dSource } from '@Engine/Models3d/Utils';
+import { eulerToXyz, filterOutEmptyFields, isDefined, isNotDefined, vector3ToXyz } from '@Engine/Utils';
 import type { AnimationAction, AnimationClip } from 'three';
 import type { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
-
-import type { TAnimationStateConfig } from '@/Animations';
-import { animationActionToConfig } from '@/Animations';
-import type { TAnimations, TAnimationsResourceAsyncRegistry } from '@/Animations/Models';
-import { extractSerializableRegistrableFields } from '@/Mixins';
-import type { PrimitiveModel3dType } from '@/Models3d/Constants';
-import type { TModel3d, TModel3dConfig, TModel3dConfigToParamsDependencies, TModel3dParams, TModels3dResourceAsyncRegistry, TRawModel3d } from '@/Models3d/Models';
-import { isPrimitiveModel3dSource } from '@/Models3d/Utils';
-import { eulerToXyz, filterOutEmptyFields, isDefined, isNotDefined, vector3ToXyz } from '@/Utils';
 
 export function model3dToConfig(
   entity: TModel3d,

@@ -1,5 +1,5 @@
-import type { TEntity } from '@/Abstract';
-import type { TWithObject3d } from '@/Mixins';
+import type { TEntity } from '@Engine/Abstract';
+import type { TWithObject3d } from '@Engine/Mixins';
 
 import type { TModel3dConfig } from './TModel3dConfig';
 import type { TModel3dConfigToParamsDependencies } from './TModel3dConfigToParamsDependencies';

@@ -1,6 +1,5 @@
+import type { TActor } from '@Engine/Actor';
 import type { BBox } from 'rbush';
-
-import type { TActor } from '@/Actor';
 
 export type TSpatialCellId = `spatial_cell_${number}_${number}`;
 

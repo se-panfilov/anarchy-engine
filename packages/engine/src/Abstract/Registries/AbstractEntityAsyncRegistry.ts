@@ -1,10 +1,9 @@
+import type { RegistryType } from '@Engine/Abstract/Constants';
+import type { TAbstractAsyncEntityRegistry, TAbstractEntityRegistry } from '@Engine/Abstract/Models';
+import type { LookUpStrategy } from '@Engine/Abstract/Registries/Constants';
+import type { TMultitonRegistrable, TRegistrable } from '@Engine/Mixins';
+import { getAsyncUniqEntityByNameAsync, getAsyncUniqEntityWithTag, getUniqEntityByName$, getUniqEntityWithTag$, getUniqEntityWithTags$, getUniqEntityWithTagsAsync, isNotDefined } from '@Engine/Utils';
 import type { Observable } from 'rxjs';
-
-import type { RegistryType } from '@/Abstract/Constants';
-import type { TAbstractAsyncEntityRegistry, TAbstractEntityRegistry } from '@/Abstract/Models';
-import type { LookUpStrategy } from '@/Abstract/Registries/Constants';
-import type { TMultitonRegistrable, TRegistrable } from '@/Mixins';
-import { getAsyncUniqEntityByNameAsync, getAsyncUniqEntityWithTag, getUniqEntityByName$, getUniqEntityWithTag$, getUniqEntityWithTags$, getUniqEntityWithTagsAsync, isNotDefined } from '@/Utils';
 
 import { AbstractEntityRegistry } from './AbstractEntityRegistry';
 

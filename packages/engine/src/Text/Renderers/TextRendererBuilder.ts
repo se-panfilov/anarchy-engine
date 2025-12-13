@@ -1,16 +1,15 @@
+import type { TContainerDecorator } from '@Engine/Global';
+import type { TDestroyable } from '@Engine/Mixins';
+import { destroyableMixin } from '@Engine/Mixins';
+import type { TextCssClass, TextRendererType } from '@Engine/Text/Constants';
+import { RelatedEntityAttribute } from '@Engine/Text/Constants';
+import type { TTextRenderer } from '@Engine/Text/Models';
+import { isAppGlobalContainer } from '@Engine/Utils';
 import { nanoid } from 'nanoid';
 import type { Subscription } from 'rxjs';
 import { distinctUntilChanged } from 'rxjs';
 import type { CSS2DRenderer } from 'three/examples/jsm/renderers/CSS2DRenderer';
 import type { CSS3DRenderer } from 'three/examples/jsm/renderers/CSS3DRenderer';
-
-import type { TContainerDecorator } from '@/Global';
-import type { TDestroyable } from '@/Mixins';
-import { destroyableMixin } from '@/Mixins';
-import type { TextCssClass, TextRendererType } from '@/Text/Constants';
-import { RelatedEntityAttribute } from '@/Text/Constants';
-import type { TTextRenderer } from '@/Text/Models';
-import { isAppGlobalContainer } from '@/Utils';
 
 export function getTextRenderer<T extends CSS2DRenderer | CSS3DRenderer>(renderer: T, cssClass: TextCssClass, type: TextRendererType, container: TContainerDecorator): TTextRenderer<T> {
   const id: string = 'text_renderer_' + nanoid();

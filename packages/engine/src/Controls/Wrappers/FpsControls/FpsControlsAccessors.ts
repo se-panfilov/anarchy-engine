@@ -1,7 +1,6 @@
+import type { TFpsControlsAccessors } from '@Engine/Controls/Models';
+import type { TWriteable } from '@Engine/Utils';
 import type { FirstPersonControls } from 'three/examples/jsm/controls/FirstPersonControls';
-
-import type { TFpsControlsAccessors } from '@/Controls/Models';
-import type { TWriteable } from '@/Utils';
 
 export function getFpsControlsAccessors(entity: TWriteable<FirstPersonControls>): TFpsControlsAccessors {
   // eslint-disable-next-line functional/immutable-data

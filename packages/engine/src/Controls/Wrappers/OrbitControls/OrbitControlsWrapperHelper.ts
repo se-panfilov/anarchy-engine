@@ -1,5 +1,5 @@
-import type { TOrbitControlsParamsOptions, TOrbitControlsWrapper } from '@/Controls/Models';
-import { isDefined, isNotDefined } from '@/Utils';
+import type { TOrbitControlsParamsOptions, TOrbitControlsWrapper } from '@Engine/Controls/Models';
+import { isDefined, isNotDefined } from '@Engine/Utils';
 
 export function applyOrbitControlsParams(wrapper: TOrbitControlsWrapper, options: TOrbitControlsParamsOptions | undefined): void {
   if (isNotDefined(options)) return;

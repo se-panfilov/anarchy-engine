@@ -1,17 +1,16 @@
+import type { TAbstractWrapper } from '@Engine/Abstract';
+import { AbstractWrapper } from '@Engine/Abstract';
+import { withObject3d } from '@Engine/Mixins';
+import { textToConfig } from '@Engine/Text/Adapters';
+import type { TextType } from '@Engine/Text/Constants';
+import type { TTextConfig, TTextCssProps, TTextParams, TTextServiceDependencies, TTextTextureWrapper, TTextTransformDrive } from '@Engine/Text/Models';
+import { TextTransformDrive } from '@Engine/Text/TransformDrive';
+import { getWrapperTypeByTextType } from '@Engine/Text/Wrappers/TextWrapperHelper';
+import type { TDriveToTargetConnector } from '@Engine/TransformDrive';
+import { DriveToTargetConnector } from '@Engine/TransformDrive';
+import { applyObject3dParams, stripUnits, toPx, toRem } from '@Engine/Utils';
 import type { Subscription } from 'rxjs';
 import { LinearFilter, Mesh, MeshBasicMaterial, PlaneGeometry, Texture } from 'three';
-
-import type { TAbstractWrapper } from '@/Abstract';
-import { AbstractWrapper } from '@/Abstract';
-import { withObject3d } from '@/Mixins';
-import { textToConfig } from '@/Text/Adapters';
-import type { TextType } from '@/Text/Constants';
-import type { TTextConfig, TTextCssProps, TTextParams, TTextServiceDependencies, TTextTextureWrapper, TTextTransformDrive } from '@/Text/Models';
-import { TextTransformDrive } from '@/Text/TransformDrive';
-import { getWrapperTypeByTextType } from '@/Text/Wrappers/TextWrapperHelper';
-import type { TDriveToTargetConnector } from '@/TransformDrive';
-import { DriveToTargetConnector } from '@/TransformDrive';
-import { applyObject3dParams, stripUnits, toPx, toRem } from '@/Utils';
 
 export function createTextTextureWrapper(params: TTextParams, type: TextType, dependencies: TTextServiceDependencies): TTextTextureWrapper<Mesh> {
   let canvas: HTMLCanvasElement = document.createElement('canvas');

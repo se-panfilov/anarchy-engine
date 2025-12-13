@@ -1,6 +1,5 @@
+import type { TDestroyable } from '@Engine/Mixins';
 import type { Observable } from 'rxjs';
-
-import type { TDestroyable } from '@/Mixins';
 
 import type { TAbstractResourceConfig } from './TAbstractResourceConfig';
 import type { TAbstractSerializeDependencies } from './TAbstractSerializeDependencies';

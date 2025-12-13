@@ -1,6 +1,5 @@
+import type { TWithPosition2d, TWithPosition2dProperty } from '@Engine/Mixins/GameObjects/Models';
 import { Vector2 } from 'three';
-
-import type { TWithPosition2d, TWithPosition2dProperty } from '@/Mixins/GameObjects/Models';
 
 export function withPosition2dMixin(entity: TWithPosition2dProperty): TWithPosition2d {
   const setPosition = (position: Vector2): Vector2 => entity.position.set(position.x, position.y);

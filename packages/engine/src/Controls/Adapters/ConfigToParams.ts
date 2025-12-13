@@ -1,7 +1,5 @@
-import { Vector3 } from 'three';
-
-import type { TGetParamsFn } from '@/Abstract';
-import { ControlsType } from '@/Controls/Constants';
+import type { TGetParamsFn } from '@Engine/Abstract';
+import { ControlsType } from '@Engine/Controls/Constants';
 import type {
   TAdditionalControlsConfigParams,
   TControlsConfig,
@@ -12,8 +10,9 @@ import type {
   TOrbitControlsConfigOptions,
   TOrbitControlsParams,
   TOrbitControlsParamsOptions
-} from '@/Controls/Models';
-import { isDefined, isNotDefined } from '@/Utils';
+} from '@Engine/Controls/Models';
+import { isDefined, isNotDefined } from '@Engine/Utils';
+import { Vector3 } from 'three';
 
 export const configToParams: TGetParamsFn<TControlsParams, TControlsConfig> = (config: TControlsConfig, additional: TAdditionalControlsConfigParams): TControlsParams | never => {
   if (config.type === ControlsType.OrbitControls) return getOrbitControlsParams(config as TOrbitControlsConfig, additional);

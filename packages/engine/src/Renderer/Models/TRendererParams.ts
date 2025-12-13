@@ -1,7 +1,6 @@
+import type { TActive, TWithName, TWithTags } from '@Engine/Mixins';
+import type { RendererModes } from '@Engine/Renderer/Constants';
 import type { WebGLRendererParameters } from 'three';
-
-import type { TActive, TWithName, TWithTags } from '@/Mixins';
-import type { RendererModes } from '@/Renderer/Constants';
 
 export type TRendererParams = WebGLRendererParameters &
   Readonly<{

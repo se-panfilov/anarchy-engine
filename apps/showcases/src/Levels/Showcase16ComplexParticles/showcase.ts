@@ -1,10 +1,10 @@
 import GUI from 'lil-gui';
 import { BufferGeometry, Color, PointsMaterial } from 'three';
 
-import { addGizmo } from '@/App/Levels/Utils';
-import type { TMaterialConfig, TMaterialParams, TMilliseconds, TParticlesConfig, TParticlesWrapper, TSpace, TSpaceConfig, TSpaceConfigEntities } from '@/Engine';
-import { asRecord, isDefined, isNotDefined, spaceService } from '@/Engine';
-import { configToParams as materialConfigToParams } from '@/Engine/Material/Adapters';
+import { addGizmo } from '@/Levels/Utils';
+import type { TMaterialConfig, TMaterialParams, TMilliseconds, TParticlesConfig, TParticlesWrapper, TSpace, TSpaceConfig, TSpaceConfigEntities } from '@engine';
+import { asRecord, isDefined, isNotDefined, spaceService } from '@engine';
+import { configToParams as materialConfigToParams } from '@engine/Material/Adapters';
 
 import spaceConfigJson from './space.json';
 

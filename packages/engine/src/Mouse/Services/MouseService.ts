@@ -1,10 +1,7 @@
-import type { Observable, Subscription } from 'rxjs';
-import { EMPTY, filter, map, merge, mergeMap, Subject } from 'rxjs';
-
-import type { TAbstractService } from '@/Abstract';
-import { AbstractService, WatcherTag } from '@/Abstract';
-import type { TContainerDecorator } from '@/Global';
-import { MouseButtonValue, MouseEventType, MouseWheelValue } from '@/Mouse/Constants';
+import type { TAbstractService } from '@Engine/Abstract';
+import { AbstractService, WatcherTag } from '@Engine/Abstract';
+import type { TContainerDecorator } from '@Engine/Global';
+import { MouseButtonValue, MouseEventType, MouseWheelValue } from '@Engine/Mouse/Constants';
 import type {
   TMouseClickWatcher,
   TMouseClickWatcherFactory,
@@ -15,8 +12,10 @@ import type {
   TMouseService,
   TMouseStateUpdate,
   TMouseWatcherEvent
-} from '@/Mouse/Models';
-import type { TSpaceLoops } from '@/Space';
+} from '@Engine/Mouse/Models';
+import type { TSpaceLoops } from '@Engine/Space';
+import type { Observable, Subscription } from 'rxjs';
+import { EMPTY, filter, map, merge, mergeMap, Subject } from 'rxjs';
 
 export function MouseService(
   container: TContainerDecorator,

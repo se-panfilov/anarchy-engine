@@ -1,5 +1,5 @@
-import type { RegistryType } from '@/Abstract/Constants';
-import type { TAbstractEntityRegistry, TAbstractProtectedWatcherWithState, TAbstractWatcher, TAbstractWatcherRegistry } from '@/Abstract/Models';
+import type { RegistryType } from '@Engine/Abstract/Constants';
+import type { TAbstractEntityRegistry, TAbstractProtectedWatcherWithState, TAbstractWatcher, TAbstractWatcherRegistry } from '@Engine/Abstract/Models';
 
 import { AbstractEntityRegistry } from './AbstractEntityRegistry';
 

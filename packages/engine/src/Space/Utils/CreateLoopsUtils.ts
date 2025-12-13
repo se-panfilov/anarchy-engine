@@ -1,19 +1,19 @@
-import type { TAudioLoop } from '@/Audio';
-import type { TCollisionsLoop } from '@/Collisions';
-import type { TControlsLoop } from '@/Controls';
-import { runtimeEnv } from '@/env';
-import type { TIntersectionsLoop } from '@/Intersections';
-import type { TKeyboardLoop } from '@/Keyboard';
-import type { TKinematicLoop } from '@/Kinematic';
-import type { TLoopService } from '@/Loop';
-import { getMainLoopNameByType, LoopType, LoopUpdatePriority } from '@/Loop';
-import { milliseconds } from '@/Measurements';
-import type { TMouseLoop } from '@/Mouse';
-import type { TPhysicsLoop } from '@/Physics';
-import type { TRenderLoop, TSpaceLoops } from '@/Space/Models';
-import type { TSpatialLoop } from '@/Spatial';
-import type { TTextLoop } from '@/Text';
-import type { TTransformLoop } from '@/TransformDrive';
+import type { TAudioLoop } from '@Engine/Audio';
+import type { TCollisionsLoop } from '@Engine/Collisions';
+import type { TControlsLoop } from '@Engine/Controls';
+import { runtimeEnv } from '@Engine/env';
+import type { TIntersectionsLoop } from '@Engine/Intersections';
+import type { TKeyboardLoop } from '@Engine/Keyboard';
+import type { TKinematicLoop } from '@Engine/Kinematic';
+import type { TLoopService } from '@Engine/Loop';
+import { getMainLoopNameByType, LoopType, LoopUpdatePriority } from '@Engine/Loop';
+import { milliseconds } from '@Engine/Measurements';
+import type { TMouseLoop } from '@Engine/Mouse';
+import type { TPhysicsLoop } from '@Engine/Physics';
+import type { TRenderLoop, TSpaceLoops } from '@Engine/Space/Models';
+import type { TSpatialLoop } from '@Engine/Spatial';
+import type { TTextLoop } from '@Engine/Text';
+import type { TTransformLoop } from '@Engine/TransformDrive';
 
 export function createLoops({ create }: TLoopService): TSpaceLoops {
   const { Audio, Render, Intersections, Spatial, Mouse, Text, Kinematic, Collisions, Controls, Transform, Keyboard, Physics } = LoopType;

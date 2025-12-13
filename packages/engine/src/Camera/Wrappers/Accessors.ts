@@ -1,7 +1,6 @@
+import type { TCommonCameraAccessors, TOrthographicCamera, TOrthographicCameraAccessors, TPerspectiveCamera, TPerspectiveCameraAccessors } from '@Engine/Camera/Models';
+import type { TWriteable } from '@Engine/Utils';
 import type { AudioListener, Vector3 } from 'three';
-
-import type { TCommonCameraAccessors, TOrthographicCamera, TOrthographicCameraAccessors, TPerspectiveCamera, TPerspectiveCameraAccessors } from '@/Camera/Models';
-import type { TWriteable } from '@/Utils';
 
 export function getCommonCameraAccessors(entity: TWriteable<TOrthographicCamera | TPerspectiveCamera>): TCommonCameraAccessors {
   const lookAt = (vector3: Vector3): void => entity.lookAt(vector3);

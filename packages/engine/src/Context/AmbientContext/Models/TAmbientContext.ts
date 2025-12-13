@@ -1,4 +1,4 @@
-import type { TContainerDecorator } from '@/Global';
+import type { TContainerDecorator } from '@Engine/Global';
 
 export type TAmbientContext = Readonly<{
   globalContainer: TContainerDecorator;

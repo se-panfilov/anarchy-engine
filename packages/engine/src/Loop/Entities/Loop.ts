@@ -1,9 +1,5 @@
-import { nanoid } from 'nanoid';
-import type { Observable, Subscription } from 'rxjs';
-import { BehaviorSubject, distinctUntilChanged, EMPTY, Subject, switchMap, takeUntil, takeWhile } from 'rxjs';
-
-import type { LoopUpdatePriority } from '@/Loop/Constants';
-import { LoopTrigger, LoopWorkerActions, MaxTicks } from '@/Loop/Constants';
+import type { LoopUpdatePriority } from '@Engine/Loop/Constants';
+import { LoopTrigger, LoopWorkerActions, MaxTicks } from '@Engine/Loop/Constants';
 import type {
   TDelta,
   TDeltaCalculator,
@@ -14,11 +10,14 @@ import type {
   TLoopWorkerResponseData,
   TLoopWorkerStartRequestData,
   TLoopWorkerStopRequestData
-} from '@/Loop/Models';
-import { enableFPSCounter } from '@/Loop/Utils';
-import type { TDestroyable } from '@/Mixins';
-import { destroyableMixin } from '@/Mixins';
-import { isDefined, isNotDefined } from '@/Utils';
+} from '@Engine/Loop/Models';
+import { enableFPSCounter } from '@Engine/Loop/Utils';
+import type { TDestroyable } from '@Engine/Mixins';
+import { destroyableMixin } from '@Engine/Mixins';
+import { isDefined, isNotDefined } from '@Engine/Utils';
+import { nanoid } from 'nanoid';
+import type { Observable, Subscription } from 'rxjs';
+import { BehaviorSubject, distinctUntilChanged, EMPTY, Subject, switchMap, takeUntil, takeWhile } from 'rxjs';
 
 import { DeltaCalculator } from './DeltaCalculator';
 

@@ -1,8 +1,8 @@
-import type { TAnimationsResourceConfig } from '@/Animations';
-import type { TAudioResourceConfig } from '@/Audio';
-import type { TEnvMapResourceConfig } from '@/EnvMap';
-import type { TModel3dResourceConfig } from '@/Models3d';
-import type { TTextureResourceConfig } from '@/Texture';
+import type { TAnimationsResourceConfig } from '@Engine/Animations';
+import type { TAudioResourceConfig } from '@Engine/Audio';
+import type { TEnvMapResourceConfig } from '@Engine/EnvMap';
+import type { TModel3dResourceConfig } from '@Engine/Models3d';
+import type { TTextureResourceConfig } from '@Engine/Texture';
 
 export type TSpaceConfigResources = Readonly<{
   animations: ReadonlyArray<TAnimationsResourceConfig>;

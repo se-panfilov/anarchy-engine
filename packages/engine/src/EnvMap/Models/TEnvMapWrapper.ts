@@ -1,5 +1,5 @@
-import type { TWrapper } from '@/Abstract';
-import type { TWithActiveMixin } from '@/Mixins';
+import type { TWrapper } from '@Engine/Abstract';
+import type { TWithActiveMixin } from '@Engine/Mixins';
 
 import type { TEnvMapConfig } from './TEnvMapConfig';
 import type { TEnvMapConfigToParamsDependencies } from './TEnvMapConfigToParamsDependencies';

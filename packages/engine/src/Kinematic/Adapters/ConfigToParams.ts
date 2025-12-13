@@ -1,8 +1,7 @@
+import type { TKinematicConfig, TKinematicParams } from '@Engine/Kinematic/Models';
+import { toQuaternion } from '@Engine/Math';
+import { isDefined } from '@Engine/Utils';
 import { Quaternion, Vector3 } from 'three';
-
-import type { TKinematicConfig, TKinematicParams } from '@/Kinematic/Models';
-import { toQuaternion } from '@/Math';
-import { isDefined } from '@/Utils';
 
 export function configToParams(config: TKinematicConfig): TKinematicParams {
   const { state, target, ...rest } = config;

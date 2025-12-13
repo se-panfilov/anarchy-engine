@@ -1,4 +1,4 @@
-import type { TMeters, TRadians } from '@/Math';
+import type { TMeters, TRadians } from '@Engine/Math';
 
 export type TTransformDrivePerformanceOptions = Readonly<{
   positionNoiseThreshold?: TMeters;

@@ -1,13 +1,12 @@
-import { bindKey, bindKeyCombo, checkKey, checkKeyCombo, unbindKey, unbindKeyCombo } from '@rwh/keystrokes';
+import type { TAbstractService } from '@Engine/Abstract';
+import { AbstractService } from '@Engine/Abstract';
+import type { TGameKey, TKeyboardLoop, TKeyboardPressingEvent, TKeyboardRegistry, TKeyboardRegistryValues, TKeyboardService, TKeyCombo, TKeySubscription } from '@Engine/Keyboard/Models';
+import { KeyboardRegistry } from '@Engine/Keyboard/Registries';
+import type { TDelta } from '@Engine/Loop';
+import { isDefined, isNotDefined } from '@Engine/Utils';
+import { bindKey, bindKeyCombo, checkKey, checkKeyCombo, unbindKey, unbindKeyCombo } from '@Enginerwh/keystrokes';
 import type { Subscription } from 'rxjs';
 import { filter, map, Subject } from 'rxjs';
-
-import type { TAbstractService } from '@/Abstract';
-import { AbstractService } from '@/Abstract';
-import type { TGameKey, TKeyboardLoop, TKeyboardPressingEvent, TKeyboardRegistry, TKeyboardRegistryValues, TKeyboardService, TKeyCombo, TKeySubscription } from '@/Keyboard/Models';
-import { KeyboardRegistry } from '@/Keyboard/Registries';
-import type { TDelta } from '@/Loop';
-import { isDefined, isNotDefined } from '@/Utils';
 
 export function KeyboardService(keyboardLoop: TKeyboardLoop): TKeyboardService {
   const keyboardRegistry: TKeyboardRegistry = KeyboardRegistry();

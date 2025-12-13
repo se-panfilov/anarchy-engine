@@ -1,7 +1,6 @@
+import type { TWithTransformDrive } from '@Engine/TransformDrive';
 import type { BehaviorSubject } from 'rxjs';
 import type { PositionalAudio, Vector3Like } from 'three';
-
-import type { TWithTransformDrive } from '@/TransformDrive';
 
 import type { TAbstractAudioWrapper } from './TAbstractAudioWrapper';
 import type { TAudio3dPerformanceOptions } from './TAudio3dPerformanceOptions';

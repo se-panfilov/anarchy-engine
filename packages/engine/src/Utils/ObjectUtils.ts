@@ -57,7 +57,7 @@ export function mergeChain<A extends object>(initial: A): TMergeBuilder<A> {
 }
 
 // type TMergeTupleToIntersection<T extends readonly object[]> = T extends [infer First extends object, ...infer Rest extends object[]] ? First & TMergeTupleToIntersection<Rest> : unknown;
-// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+// eslint-disable-next-line @Enginetypescript-eslint/no-empty-object-type
 type TMergeTupleToIntersection<T extends readonly object[]> = T extends [infer First extends object, ...infer Rest extends object[]] ? First & TMergeTupleToIntersection<Rest> : {};
 
 // This is a type-safe equivalent of Object.assign (which can lose type information with more than 2-3 arguments).

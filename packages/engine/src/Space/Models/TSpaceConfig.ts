@@ -1,4 +1,4 @@
-import type { TSceneConfig } from '@/Scene';
+import type { TSceneConfig } from '@Engine/Scene';
 
 import type { TSpaceConfigEntities } from './TSpaceConfigEntities';
 import type { TSpaceConfigResources } from './TSpaceConfigResources';

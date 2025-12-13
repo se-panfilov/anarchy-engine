@@ -1,4 +1,4 @@
-import type { TReadonlyVector3 } from '@/ThreeLib';
+import type { TReadonlyVector3 } from '@Engine/ThreeLib';
 
 import type { TAbstractIntersectionsWatcherParams } from './TAbstractIntersectionsWatcherParams';
 

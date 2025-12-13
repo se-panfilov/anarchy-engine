@@ -1,9 +1,8 @@
+import { AbstractWrapper, WrapperType } from '@Engine/Abstract';
+import { envMapToConfig } from '@Engine/EnvMap/Adapters';
+import type { TEnvMapConfig, TEnvMapConfigToParamsDependencies, TEnvMapParams, TEnvMapTexture, TEnvMapWrapper } from '@Engine/EnvMap/Models';
+import { withActiveMixin } from '@Engine/Mixins';
 import type { Subscription } from 'rxjs';
-
-import { AbstractWrapper, WrapperType } from '@/Abstract';
-import { envMapToConfig } from '@/EnvMap/Adapters';
-import type { TEnvMapConfig, TEnvMapConfigToParamsDependencies, TEnvMapParams, TEnvMapTexture, TEnvMapWrapper } from '@/EnvMap/Models';
-import { withActiveMixin } from '@/Mixins';
 
 export function EnvMapWrapper(params: TEnvMapParams): TEnvMapWrapper {
   const { texture, isActive } = params;

@@ -1,4 +1,4 @@
-import type { TParamsFromConfig, TReactiveFactory } from '@/Abstract';
+import type { TParamsFromConfig, TReactiveFactory } from '@Engine/Abstract';
 
 import type { TSceneConfig } from './TSceneConfig';
 import type { TSceneParams } from './TSceneParams';

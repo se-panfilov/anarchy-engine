@@ -1,6 +1,6 @@
-import type { TActorConfigToParamsDependencies, TActorStates, TActorStatesConfig, TAnimationsFsmSource } from '@/Actor/Models';
-import type { TFsmWrapper } from '@/Fsm';
-import { isNotDefined } from '@/Utils';
+import type { TActorConfigToParamsDependencies, TActorStates, TActorStatesConfig, TAnimationsFsmSource } from '@Engine/Actor/Models';
+import type { TFsmWrapper } from '@Engine/Fsm';
+import { isNotDefined } from '@Engine/Utils';
 
 export function actorStatesConfigToParams(states: TActorStatesConfig, dependencies: TActorConfigToParamsDependencies): TActorStates {
   const { animationsFsm } = states;

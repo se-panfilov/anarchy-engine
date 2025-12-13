@@ -1,6 +1,5 @@
+import type { TObject3DParams, TObject3DPropConfig } from '@Engine/ThreeLib';
 import type { Vector3Like } from 'three';
-
-import type { TObject3DParams, TObject3DPropConfig } from '@/ThreeLib';
 
 import type { TSceneParams } from './TSceneParams';
 

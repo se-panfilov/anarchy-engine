@@ -1,4 +1,4 @@
-import { FileSizes } from '@/Files';
+import { FileSizes } from '@Engine/Files';
 
 import { isDefined } from './CheckUtils';
 

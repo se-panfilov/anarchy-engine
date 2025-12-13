@@ -1,11 +1,7 @@
-import type { Subscription } from 'rxjs';
-import { takeUntil } from 'rxjs';
-import { PerspectiveCamera, Vector3 } from 'three';
-
-import type { TAbstractWrapper } from '@/Abstract';
-import { AbstractWrapper, WrapperType } from '@/Abstract';
-import { cameraToConfig } from '@/Camera/Adapters';
-import type { CameraType } from '@/Camera/Constants';
+import type { TAbstractWrapper } from '@Engine/Abstract';
+import { AbstractWrapper, WrapperType } from '@Engine/Abstract';
+import { cameraToConfig } from '@Engine/Camera/Adapters';
+import type { CameraType } from '@Engine/Camera/Constants';
 import type {
   TAnyCamera,
   TCameraTransformDrive,
@@ -16,14 +12,17 @@ import type {
   TPerspectiveCameraConfig,
   TPerspectiveCameraParams,
   TPerspectiveCameraWrapper
-} from '@/Camera/Models';
-import { CameraTransformDrive } from '@/Camera/TransformDrive';
-import { applyPerspectiveCameraParams } from '@/Camera/Utils';
-import { withActiveMixin, withObject3d } from '@/Mixins';
-import type { TDriveToTargetConnector } from '@/TransformDrive';
-import { DriveToTargetConnector } from '@/TransformDrive';
-import type { TOptional, TWriteable } from '@/Utils';
-import { applyObject3dParams, isDefined, mergeAll } from '@/Utils';
+} from '@Engine/Camera/Models';
+import { CameraTransformDrive } from '@Engine/Camera/TransformDrive';
+import { applyPerspectiveCameraParams } from '@Engine/Camera/Utils';
+import { withActiveMixin, withObject3d } from '@Engine/Mixins';
+import type { TDriveToTargetConnector } from '@Engine/TransformDrive';
+import { DriveToTargetConnector } from '@Engine/TransformDrive';
+import type { TOptional, TWriteable } from '@Engine/Utils';
+import { applyObject3dParams, isDefined, mergeAll } from '@Engine/Utils';
+import type { Subscription } from 'rxjs';
+import { takeUntil } from 'rxjs';
+import { PerspectiveCamera, Vector3 } from 'three';
 
 import { getCommonCameraAccessors, getPerspectiveCameraAccessors } from './Accessors';
 

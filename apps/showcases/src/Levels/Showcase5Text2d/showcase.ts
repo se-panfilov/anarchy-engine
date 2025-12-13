@@ -2,9 +2,9 @@ import '@public/Showcase/fonts.css';
 
 import { Euler, Vector3 } from 'three';
 
-import { addGizmo } from '@/App/Levels/Utils';
-import type { TModel3d, TModels3dRegistry, TSceneWrapper, TSpace, TSpaceConfig } from '@/Engine';
-import { asRecord, isNotDefined, spaceService, TextType, TransformAgent } from '@/Engine';
+import { addGizmo } from '@/Levels/Utils';
+import type { TModel3d, TModels3dRegistry, TSceneWrapper, TSpace, TSpaceConfig } from '@engine';
+import { asRecord, isNotDefined, spaceService, TextType, TransformAgent } from '@engine';
 
 import spaceConfigJson from './space.json';
 

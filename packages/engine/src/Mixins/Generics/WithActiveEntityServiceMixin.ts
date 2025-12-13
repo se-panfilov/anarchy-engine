@@ -1,8 +1,7 @@
+import type { TAbstractEntityRegistry } from '@Engine/Abstract/Models';
+import type { TRegistrable, TWithActiveMixin, TWithActiveMixinResult } from '@Engine/Mixins/Generics/Models';
+import { setActiveWrappedEntity } from '@Engine/Utils';
 import { BehaviorSubject } from 'rxjs';
-
-import type { TAbstractEntityRegistry } from '@/Abstract/Models';
-import type { TRegistrable, TWithActiveMixin, TWithActiveMixinResult } from '@/Mixins/Generics/Models';
-import { setActiveWrappedEntity } from '@/Utils';
 
 export function withActiveEntityServiceMixin<W extends TWithActiveMixin & TRegistrable>(registry: TAbstractEntityRegistry<W>): TWithActiveMixinResult<W> {
   const active$: BehaviorSubject<W | undefined> = new BehaviorSubject<W | undefined>(undefined);

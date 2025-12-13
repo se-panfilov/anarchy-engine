@@ -1,7 +1,7 @@
-import type { TAnyMaterialWrapper } from '@/Material';
-import type { TWithName, TWithTags } from '@/Mixins';
-import type { TObject3DParams } from '@/ThreeLib';
-import type { TWithTransformAgentParam } from '@/TransformDrive';
+import type { TAnyMaterialWrapper } from '@Engine/Material';
+import type { TWithName, TWithTags } from '@Engine/Mixins';
+import type { TObject3DParams } from '@Engine/ThreeLib';
+import type { TWithTransformAgentParam } from '@Engine/TransformDrive';
 
 export type TParticlesParams = Readonly<{
   material: TAnyMaterialWrapper;

@@ -1,3 +1,12 @@
+import type { TAbstractWrapper } from '@Engine/Abstract';
+import { AbstractWrapper, WrapperType } from '@Engine/Abstract';
+import type { TActor } from '@Engine/Actor';
+import type { TSceneWrapper } from '@Engine/Scene';
+import { entityToConfigSpatialGrid } from '@Engine/Spatial/Adapters/EntityToConfig';
+import type { TSpatialCellId, TSpatialCellParams, TSpatialCellWrapper, TSpatialGrid, TSpatialGridConfig, TSpatialGridParams, TSpatialGridWrapper } from '@Engine/Spatial/Models';
+import { createBoundingBox, createOutline } from '@Engine/Spatial/Services/SpatialHelper';
+import { SpatialCellWrapper } from '@Engine/Spatial/Wrappers/SpatialCellWrapper';
+import { isDefined, isNotDefined } from '@Engine/Utils';
 import RBush from 'rbush';
 import type { Subscription } from 'rxjs';
 import { Subject } from 'rxjs';
@@ -5,16 +14,6 @@ import type { Group, Mesh, Object3D } from 'three';
 import { Box3, Vector3 } from 'three';
 import type { Line2 } from 'three/examples/jsm/lines/Line2';
 import type { ColorRepresentation } from 'three/src/math/Color';
-
-import type { TAbstractWrapper } from '@/Abstract';
-import { AbstractWrapper, WrapperType } from '@/Abstract';
-import type { TActor } from '@/Actor';
-import type { TSceneWrapper } from '@/Scene';
-import { entityToConfigSpatialGrid } from '@/Spatial/Adapters/EntityToConfig';
-import type { TSpatialCellId, TSpatialCellParams, TSpatialCellWrapper, TSpatialGrid, TSpatialGridConfig, TSpatialGridParams, TSpatialGridWrapper } from '@/Spatial/Models';
-import { createBoundingBox, createOutline } from '@/Spatial/Services/SpatialHelper';
-import { SpatialCellWrapper } from '@/Spatial/Wrappers/SpatialCellWrapper';
-import { isDefined, isNotDefined } from '@/Utils';
 
 export function SpatialGridWrapper(params: TSpatialGridParams): TSpatialGridWrapper {
   const entity: TSpatialGrid = createEntity(params);

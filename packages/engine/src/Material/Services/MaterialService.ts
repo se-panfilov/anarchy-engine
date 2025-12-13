@@ -1,7 +1,5 @@
-import type { Subscription } from 'rxjs';
-
-import type { TAbstractService } from '@/Abstract';
-import { AbstractService } from '@/Abstract';
+import type { TAbstractService } from '@Engine/Abstract';
+import { AbstractService } from '@Engine/Abstract';
 import type {
   TAnyMaterialWrapper,
   TMaterialConfig,
@@ -14,10 +12,11 @@ import type {
   TMaterialServiceWithCreateFromConfig,
   TMaterialServiceWithFactory,
   TMaterialServiceWithRegistry
-} from '@/Material/Models';
-import type { TDisposable } from '@/Mixins';
-import { withCreateFromConfigServiceMixin, withCreateServiceMixin, withFactoryService, withRegistryService, withSerializableEntities } from '@/Mixins';
-import { mergeAll } from '@/Utils';
+} from '@Engine/Material/Models';
+import type { TDisposable } from '@Engine/Mixins';
+import { withCreateFromConfigServiceMixin, withCreateServiceMixin, withFactoryService, withRegistryService, withSerializableEntities } from '@Engine/Mixins';
+import { mergeAll } from '@Engine/Utils';
+import type { Subscription } from 'rxjs';
 
 export function MaterialService(factory: TMaterialFactory, registry: TMaterialRegistry, dependencies: TMaterialServiceDependencies): TMaterialService {
   const factorySub$: Subscription = factory.entityCreated$.subscribe((wrapper: TAnyMaterialWrapper): void => registry.add(wrapper));

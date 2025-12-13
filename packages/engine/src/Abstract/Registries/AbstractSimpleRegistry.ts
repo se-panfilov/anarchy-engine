@@ -1,12 +1,11 @@
+import type { RegistryType } from '@Engine/Abstract/Constants';
+import type { TAbstractSimpleRegistry, TWithBaseAccessorsRegistry, TWithReactiveRegistry } from '@Engine/Abstract/Models';
+import { withBaseAccessorsRegistry } from '@Engine/Abstract/Registries/Mixin';
+import { withReactiveRegistry } from '@Engine/Abstract/Registries/Mixin/Registry/WithReactiveRegistry';
+import type { TDestroyable } from '@Engine/Mixins';
+import { destroyableMixin } from '@Engine/Mixins';
+import { findKeyWithValue, isNotDefined, mergeAll } from '@Engine/Utils';
 import { nanoid } from 'nanoid';
-
-import type { RegistryType } from '@/Abstract/Constants';
-import type { TAbstractSimpleRegistry, TWithBaseAccessorsRegistry, TWithReactiveRegistry } from '@/Abstract/Models';
-import { withBaseAccessorsRegistry } from '@/Abstract/Registries/Mixin';
-import { withReactiveRegistry } from '@/Abstract/Registries/Mixin/Registry/WithReactiveRegistry';
-import type { TDestroyable } from '@/Mixins';
-import { destroyableMixin } from '@/Mixins';
-import { findKeyWithValue, isNotDefined, mergeAll } from '@/Utils';
 
 export function AbstractSimpleRegistry<T>(type: RegistryType): TAbstractSimpleRegistry<T> {
   const id: string = type + '_registry_' + nanoid();

@@ -3,8 +3,8 @@ import { BehaviorSubject, distinctUntilChanged } from 'rxjs';
 import type { AnimationAction } from 'three';
 import { Vector3 } from 'three';
 
-import type { TActor, TFsmStates, TModel3d, TSpace, TSpaceConfig } from '@/Engine';
-import { isNotDefined } from '@/Engine';
+import type { TActor, TFsmStates, TModel3d, TSpace, TSpaceConfig } from '@engine';
+import { isNotDefined } from '@engine';
 
 import type { TSpacesData } from '../ShowcaseTypes';
 import { getContainer } from '../utils';

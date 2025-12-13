@@ -1,13 +1,12 @@
+import type { TAbstractWrapper } from '@Engine/Abstract';
+import { AbstractWrapper, WrapperType } from '@Engine/Abstract';
+import { audioToConfig } from '@Engine/Audio/Adapters';
+import type { TAbstractAudioWrapper, TAnyAudio, TAnyAudioConfig, TAnyAudioParams, TAudioConfigToParamsDependencies, TAudioCreateFn } from '@Engine/Audio/Models';
+import { disposeAudio, seekAudio } from '@Engine/Audio/Utils';
+import { destroyAudio } from '@Engine/Utils';
 import type { Subscription } from 'rxjs';
 import { BehaviorSubject, skipWhile, Subject, takeUntil } from 'rxjs';
 import type { AudioListener } from 'three';
-
-import type { TAbstractWrapper } from '@/Abstract';
-import { AbstractWrapper, WrapperType } from '@/Abstract';
-import { audioToConfig } from '@/Audio/Adapters';
-import type { TAbstractAudioWrapper, TAnyAudio, TAnyAudioConfig, TAnyAudioParams, TAudioConfigToParamsDependencies, TAudioCreateFn } from '@/Audio/Models';
-import { disposeAudio, seekAudio } from '@/Audio/Utils';
-import { destroyAudio } from '@/Utils';
 
 export function AbstractAudioWrapper<T extends TAnyAudio>(params: TAnyAudioParams, createFn: TAudioCreateFn<T>): TAbstractAudioWrapper<T> {
   const { audioSource, volume } = params;

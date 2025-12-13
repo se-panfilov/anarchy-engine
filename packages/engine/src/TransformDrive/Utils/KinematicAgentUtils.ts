@@ -1,12 +1,11 @@
+import type { TKinematicState, TKinematicTarget } from '@Engine/Kinematic';
+import { KinematicSpeed } from '@Engine/Kinematic';
+import type { TMeters, TRadians } from '@Engine/Math';
+import type { TReadonlyQuaternion, TReadonlyVector3 } from '@Engine/ThreeLib';
+import type { TKinematicSpeed, TKinematicTransformAgent } from '@Engine/TransformDrive/Models';
+import type { TWriteable } from '@Engine/Utils';
+import { isDefined, isNotDefined } from '@Engine/Utils';
 import { Quaternion, Vector3 } from 'three';
-
-import type { TKinematicState, TKinematicTarget } from '@/Kinematic';
-import { KinematicSpeed } from '@/Kinematic';
-import type { TMeters, TRadians } from '@/Math';
-import type { TReadonlyQuaternion, TReadonlyVector3 } from '@/ThreeLib';
-import type { TKinematicSpeed, TKinematicTransformAgent } from '@/TransformDrive/Models';
-import type { TWriteable } from '@/Utils';
-import { isDefined, isNotDefined } from '@/Utils';
 
 export function getStepRotation(agent: TKinematicTransformAgent, rotationStep: TRadians, infinite: boolean): Quaternion | undefined {
   if (!infinite && isNotDefined(agent.data.target?.rotation)) return undefined;

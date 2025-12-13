@@ -1,10 +1,9 @@
+import type { TReadonlyEuler, TReadonlyQuaternion, TReadonlyVector3 } from '@Engine/ThreeLib';
+import type { TransformAgent } from '@Engine/TransformDrive/Constants';
+import type { TAbstractTransformAgent, TDriveToTargetConnector, TOffsets, TTransformDrive, TWithTransforms } from '@Engine/TransformDrive/Models';
+import { isNotDefined } from '@Engine/Utils';
 import type { Subscription } from 'rxjs';
 import { Euler } from 'three';
-
-import type { TReadonlyEuler, TReadonlyQuaternion, TReadonlyVector3 } from '@/ThreeLib';
-import type { TransformAgent } from '@/TransformDrive/Constants';
-import type { TAbstractTransformAgent, TDriveToTargetConnector, TOffsets, TTransformDrive, TWithTransforms } from '@/TransformDrive/Models';
-import { isNotDefined } from '@/Utils';
 
 export function DriveToTargetConnector<T extends Partial<Record<TransformAgent, TAbstractTransformAgent>>>(
   drive: TTransformDrive<T>,

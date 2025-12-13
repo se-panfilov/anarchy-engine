@@ -1,9 +1,8 @@
+import type { ForwardAxis } from '@Engine/Kinematic/Constants';
+import type { TMeters, TMetersPerSecond, TRadians, TRadiansPerSecond } from '@Engine/Math';
+import type { TReadonlyQuaternion, TReadonlyVector3 } from '@Engine/ThreeLib';
+import type { TKinematicSpeed } from '@Engine/TransformDrive/Models';
 import type { QuaternionLike, Vector3Like } from 'three';
-
-import type { ForwardAxis } from '@/Kinematic/Constants';
-import type { TMeters, TMetersPerSecond, TRadians, TRadiansPerSecond } from '@/Math';
-import type { TReadonlyQuaternion, TReadonlyVector3 } from '@/ThreeLib';
-import type { TKinematicSpeed } from '@/TransformDrive/Models';
 
 import type { TKinematicData } from './TKinematicData';
 

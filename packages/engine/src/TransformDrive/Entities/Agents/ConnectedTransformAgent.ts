@@ -1,8 +1,7 @@
+import { TransformAgent } from '@Engine/TransformDrive/Constants';
+import { withMutablePositionConnector, withMutableRotationConnector, withMutableScaleConnector } from '@Engine/TransformDrive/Mixins';
+import type { TAbstractTransformAgent, TConnectedTransformAgent, TTransformAgentParams } from '@Engine/TransformDrive/Models';
 import type { Subscription } from 'rxjs';
-
-import { TransformAgent } from '@/TransformDrive/Constants';
-import { withMutablePositionConnector, withMutableRotationConnector, withMutableScaleConnector } from '@/TransformDrive/Mixins';
-import type { TAbstractTransformAgent, TConnectedTransformAgent, TTransformAgentParams } from '@/TransformDrive/Models';
 
 import { AbstractTransformAgent } from './AbstractTransformAgent';
 

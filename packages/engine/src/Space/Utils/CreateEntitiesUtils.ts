@@ -1,7 +1,7 @@
-import type { TContainerDecorator } from '@/Global';
-import { CreateEntitiesStrategy } from '@/Space/Constants';
-import type { TSpaceConfigEntities, TSpaceParamsEntities, TSpaceServices } from '@/Space/Models';
-import { isDefined } from '@/Utils';
+import type { TContainerDecorator } from '@Engine/Global';
+import { CreateEntitiesStrategy } from '@Engine/Space/Constants';
+import type { TSpaceConfigEntities, TSpaceParamsEntities, TSpaceServices } from '@Engine/Space/Models';
+import { isDefined } from '@Engine/Utils';
 
 import { nextAnimationFrame, waitForCanvasGetSize } from './CanvasUtils';
 

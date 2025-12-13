@@ -1,5 +1,5 @@
-import type { TActorDependencies, TActorParams, TActorTransformAgents, TActorTransformDrive } from '@/Actor/Models';
-import type { TTransformDriveParams } from '@/TransformDrive';
+import type { TActorDependencies, TActorParams, TActorTransformAgents, TActorTransformDrive } from '@Engine/Actor/Models';
+import type { TTransformDriveParams } from '@Engine/TransformDrive';
 
 export function ActorTransformDrive(params: TActorParams, { transformDriveService }: Pick<TActorDependencies, 'transformDriveService'>, relatedEntityId: string): TActorTransformDrive {
   const transformAgents: TActorTransformAgents = transformDriveService.getTransformAgents(params, {

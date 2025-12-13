@@ -1,18 +1,17 @@
+import { AbstractWrapper, WrapperType } from '@Engine/Abstract';
+import type { TAnyCameraWrapper } from '@Engine/Camera';
+import { controlsToConfig } from '@Engine/Controls/Adapters';
+import type { ControlsType } from '@Engine/Controls/Constants';
+import type { TControlsServiceDependencies, TFpsControlsConfig, TFpsControlsParams, TFpsControlsWrapper } from '@Engine/Controls/Models';
+import { makeControlsEvented, updateCameraTransformDriveOnChange } from '@Engine/Controls/Utils';
+import { getFpsControlsAccessors } from '@Engine/Controls/Wrappers/FpsControls/FpsControlsAccessors';
+import { applyFpsControlsParams } from '@Engine/Controls/Wrappers/FpsControls/FpsControlsWrapperHelper';
+import type { TMilliseconds } from '@Engine/Math';
+import { withActiveMixin } from '@Engine/Mixins';
+import { isEulerLike } from '@Engine/Utils';
 import type { Euler } from 'three';
 import { MathUtils, Quaternion, Spherical, Vector3 } from 'three';
 import { FirstPersonControls } from 'three/examples/jsm/controls/FirstPersonControls';
-
-import { AbstractWrapper, WrapperType } from '@/Abstract';
-import type { TAnyCameraWrapper } from '@/Camera';
-import { controlsToConfig } from '@/Controls/Adapters';
-import type { ControlsType } from '@/Controls/Constants';
-import type { TControlsServiceDependencies, TFpsControlsConfig, TFpsControlsParams, TFpsControlsWrapper } from '@/Controls/Models';
-import { makeControlsEvented, updateCameraTransformDriveOnChange } from '@/Controls/Utils';
-import { getFpsControlsAccessors } from '@/Controls/Wrappers/FpsControls/FpsControlsAccessors';
-import { applyFpsControlsParams } from '@/Controls/Wrappers/FpsControls/FpsControlsWrapperHelper';
-import type { TMilliseconds } from '@/Math';
-import { withActiveMixin } from '@/Mixins';
-import { isEulerLike } from '@/Utils';
 
 export function FpsControlsWrapper(params: TFpsControlsParams): TFpsControlsWrapper {
   const entity: FirstPersonControls = new FirstPersonControls(params.camera.entity, params.canvas);

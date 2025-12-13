@@ -1,6 +1,6 @@
-import { RegistryType } from '@/Abstract/Constants';
-import { AbstractEntityRegistry } from '@/Abstract/Registries';
-import type { TAbstractCameraRegistry, TAnyCameraWrapper } from '@/Camera/Models';
+import { RegistryType } from '@Engine/Abstract/Constants';
+import { AbstractEntityRegistry } from '@Engine/Abstract/Registries';
+import type { TAbstractCameraRegistry, TAnyCameraWrapper } from '@Engine/Camera/Models';
 
 export function AbstractCameraRegistry(): TAbstractCameraRegistry {
   return AbstractEntityRegistry<TAnyCameraWrapper>(RegistryType.Camera);

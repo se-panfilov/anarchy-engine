@@ -1,13 +1,12 @@
+import type { TDestroyable } from '@Engine/Mixins';
+import { destroyableMixin } from '@Engine/Mixins';
+import type { TReadonlyQuaternion, TReadonlyVector3 } from '@Engine/ThreeLib';
+import type { TransformAgent } from '@Engine/TransformDrive/Constants';
+import type { TAbstractTransformAgent, TReadonlyTransform, TSerializedTransform, TTransformAgentParams } from '@Engine/TransformDrive/Models';
+import { isDefined } from '@Engine/Utils';
 import { nanoid } from 'nanoid';
 import type { Subscription } from 'rxjs';
 import { BehaviorSubject, Subject } from 'rxjs';
-
-import type { TDestroyable } from '@/Mixins';
-import { destroyableMixin } from '@/Mixins';
-import type { TReadonlyQuaternion, TReadonlyVector3 } from '@/ThreeLib';
-import type { TransformAgent } from '@/TransformDrive/Constants';
-import type { TAbstractTransformAgent, TReadonlyTransform, TSerializedTransform, TTransformAgentParams } from '@/TransformDrive/Models';
-import { isDefined } from '@/Utils';
 
 export function AbstractTransformAgent(params: TTransformAgentParams, type: TransformAgent): TAbstractTransformAgent {
   const id: string = type + '_transform_agent_' + nanoid();

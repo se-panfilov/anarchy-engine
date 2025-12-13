@@ -1,9 +1,7 @@
-import type { Subscription } from 'rxjs';
-
-import type { TAbstractService, TRegistryPack } from '@/Abstract';
-import { AbstractService } from '@/Abstract';
-import type { TAbstractCameraRegistry, TAnyCameraWrapper } from '@/Camera';
-import { controlsLoopEffect } from '@/Controls/Loop';
+import type { TAbstractService, TRegistryPack } from '@Engine/Abstract';
+import { AbstractService } from '@Engine/Abstract';
+import type { TAbstractCameraRegistry, TAnyCameraWrapper } from '@Engine/Camera';
+import { controlsLoopEffect } from '@Engine/Controls/Loop';
 import type {
   TAnyControlsWrapper,
   TControlsConfig,
@@ -14,11 +12,12 @@ import type {
   TControlsServiceDependencies,
   TControlsServiceWithFactory,
   TControlsServiceWithRegistry
-} from '@/Controls/Models';
-import type { TDisposable, TWithActiveMixinResult } from '@/Mixins';
-import { withActiveEntityServiceMixin, withFactoryService, withRegistryService, withSerializableEntities } from '@/Mixins';
-import type { TSpaceCanvas, TSpaceLoops } from '@/Space';
-import { mergeAll } from '@/Utils';
+} from '@Engine/Controls/Models';
+import type { TDisposable, TWithActiveMixinResult } from '@Engine/Mixins';
+import { withActiveEntityServiceMixin, withFactoryService, withRegistryService, withSerializableEntities } from '@Engine/Mixins';
+import type { TSpaceCanvas, TSpaceLoops } from '@Engine/Space';
+import { mergeAll } from '@Engine/Utils';
+import type { Subscription } from 'rxjs';
 
 export function ControlService(
   factory: TControlsFactory,

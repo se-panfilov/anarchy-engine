@@ -1,11 +1,10 @@
+import type { TAbstractService } from '@Engine/Abstract';
+import { AbstractService } from '@Engine/Abstract';
+import type { TActor } from '@Engine/Actor/Models';
+import type { TBvhService, TCollisionCheckResult, TCollisionsService } from '@Engine/Collisions/Models';
+import type { TReadonlyVector3 } from '@Engine/ThreeLib';
 import type { Vector3 } from 'three';
 import { Raycaster } from 'three';
-
-import type { TAbstractService } from '@/Abstract';
-import { AbstractService } from '@/Abstract';
-import type { TActor } from '@/Actor/Models';
-import type { TBvhService, TCollisionCheckResult, TCollisionsService } from '@/Collisions/Models';
-import type { TReadonlyVector3 } from '@/ThreeLib';
 
 import { BvhService } from './BvhService';
 

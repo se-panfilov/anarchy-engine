@@ -1,7 +1,7 @@
 import { combineLatest, Observable, Subscription } from 'rxjs';
 
-import type { TSpace, TSpaceConfig } from '@/Engine';
-import { asRecord, isNotDefined, spaceService } from '@/Engine';
+import type { TSpace, TSpaceConfig } from '@engine';
+import { asRecord, isNotDefined, spaceService } from '@engine';
 
 import type { TSubscriptionsData } from './Helpers';
 import { runAlpha, runBeta, runDelta, runGamma } from './Helpers';

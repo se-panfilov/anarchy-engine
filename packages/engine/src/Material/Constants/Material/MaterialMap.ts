@@ -1,3 +1,4 @@
+import type { TTypeOfMaterials } from '@Engine/Material/Models';
 import {
   LineBasicMaterial,
   LineDashedMaterial,
@@ -17,8 +18,6 @@ import {
   ShadowMaterial,
   SpriteMaterial
 } from 'three';
-
-import type { TTypeOfMaterials } from '@/Material/Models';
 
 import { MaterialType } from './MaterialType';
 

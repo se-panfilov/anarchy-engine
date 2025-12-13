@@ -1,8 +1,8 @@
-import type { TParamsFromConfig, TReactiveFactory } from '@/Abstract';
-import type { TActorService } from '@/Actor';
-import type { TCameraService } from '@/Camera';
-import type { TLoopService } from '@/Loop';
-import type { TMouseService } from '@/Mouse';
+import type { TParamsFromConfig, TReactiveFactory } from '@Engine/Abstract';
+import type { TActorService } from '@Engine/Actor';
+import type { TCameraService } from '@Engine/Camera';
+import type { TLoopService } from '@Engine/Loop';
+import type { TMouseService } from '@Engine/Mouse';
 
 import type { TAnyIntersectionsWatcher } from './TAnyIntersectionsWatcher';
 import type { TAnyIntersectionsWatcherConfig } from './TAnyIntersectionsWatcherConfig';

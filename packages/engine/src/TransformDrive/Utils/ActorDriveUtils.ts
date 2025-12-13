@@ -1,7 +1,6 @@
+import type { TVector3OrEuler, TVector4OrQuaternion } from '@Engine/ThreeLib';
+import type { TWriteable } from '@Engine/Utils';
 import type { Subject } from 'rxjs';
-
-import type { TVector3OrEuler, TVector4OrQuaternion } from '@/ThreeLib';
-import type { TWriteable } from '@/Utils';
 
 export function getXyzUpdateProxy<T extends TVector3OrEuler>(coordsObj: TWriteable<TVector3OrEuler>, subj$: Subject<T>): TVector3OrEuler {
   return new Proxy(coordsObj, {

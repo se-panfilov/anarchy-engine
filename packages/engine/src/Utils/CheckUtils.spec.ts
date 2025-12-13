@@ -1,9 +1,8 @@
+import { ColorWrapper } from '@Engine/Color';
+import type { TDestroyable, TWithPosition2dProperty, TWithPosition3dProperty, TWithPosition4dProperty } from '@Engine/Mixins';
 import { Subject } from 'rxjs';
 import { Vector2, Vector3, Vector4 } from 'three';
 import { describe, expect, it, vi } from 'vitest';
-
-import { ColorWrapper } from '@/Color';
-import type { TDestroyable, TWithPosition2dProperty, TWithPosition3dProperty, TWithPosition4dProperty } from '@/Mixins';
 
 import {
   isAllDefined,

@@ -1,4 +1,4 @@
-import type { Collider, ColliderDesc, RigidBody, RigidBodyDesc } from '@dimforge/rapier3d';
+import type { Collider, ColliderDesc, RigidBody, RigidBodyDesc } from '@Enginedimforge/rapier3d';
 
 export type TPhysicsBodyEntities = Readonly<{
   rigidBody: RigidBody | undefined;

@@ -1,7 +1,7 @@
-import type { TCameraService } from '@/Camera';
-import type { TLoopService } from '@/Loop';
-import type { TPhysicsBodyService } from '@/Physics';
-import type { TTransformDriveService } from '@/TransformDrive';
+import type { TCameraService } from '@Engine/Camera';
+import type { TLoopService } from '@Engine/Loop';
+import type { TPhysicsBodyService } from '@Engine/Physics';
+import type { TTransformDriveService } from '@Engine/TransformDrive';
 
 export type TTextServiceDependencies = Readonly<{
   physicsBodyService: TPhysicsBodyService;

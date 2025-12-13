@@ -1,18 +1,17 @@
+import type { TAbstractAudioWrapper, TAudio3dParams, TAudio3dPerformanceOptions, TAudio3dTransformDrive, TAudio3dWrapper, TAudioCreateFn, TAudioWrapperDependencies } from '@Engine/Audio/Models';
+import { Audio3dTransformDrive } from '@Engine/Audio/TransformDrive';
+import { createPositionalAudio, onAudioPositionUpdate } from '@Engine/Audio/Utils';
+import { AbstractAudioWrapper } from '@Engine/Audio/Wrappers/AbstractAudioWrapper';
+import { LoopUpdatePriority } from '@Engine/Loop';
+import type { TMeters, TMilliseconds } from '@Engine/Math';
+import { meters } from '@Engine/Measurements';
+import type { TReadonlyVector3 } from '@Engine/ThreeLib';
+import type { TDriveToTargetConnector } from '@Engine/TransformDrive';
+import { DriveToTargetConnector } from '@Engine/TransformDrive';
+import { isDefined } from '@Engine/Utils';
 import type { Observable, Subscription } from 'rxjs';
 import { BehaviorSubject, distinctUntilChanged, filter, sample, takeUntil } from 'rxjs';
 import type { AudioListener, PositionalAudio, Vector3Like } from 'three';
-
-import type { TAbstractAudioWrapper, TAudio3dParams, TAudio3dPerformanceOptions, TAudio3dTransformDrive, TAudio3dWrapper, TAudioCreateFn, TAudioWrapperDependencies } from '@/Audio/Models';
-import { Audio3dTransformDrive } from '@/Audio/TransformDrive';
-import { createPositionalAudio, onAudioPositionUpdate } from '@/Audio/Utils';
-import { AbstractAudioWrapper } from '@/Audio/Wrappers/AbstractAudioWrapper';
-import { LoopUpdatePriority } from '@/Loop';
-import type { TMeters, TMilliseconds } from '@/Math';
-import { meters } from '@/Measurements';
-import type { TReadonlyVector3 } from '@/ThreeLib';
-import type { TDriveToTargetConnector } from '@/TransformDrive';
-import { DriveToTargetConnector } from '@/TransformDrive';
-import { isDefined } from '@/Utils';
 
 export function Audio3dWrapper(params: TAudio3dParams, { audioLoop, transformDriveService }: TAudioWrapperDependencies): TAudio3dWrapper {
   const { performance } = params;

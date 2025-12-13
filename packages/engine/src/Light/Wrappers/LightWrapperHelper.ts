@@ -1,5 +1,3 @@
-import { Vector3 } from 'three';
-
 import type {
   TAbstractLightParams,
   TAnyLight,
@@ -10,10 +8,11 @@ import type {
   TShadowOrthographicCameraParams,
   TShadowPerspectiveCameraParams,
   TSpotLight
-} from '@/Light/Models';
-import { isDirectionalLight, isPointLight, isSpotLight } from '@/Light/Utils';
-import type { TWriteable } from '@/Utils';
-import { isDefined, isNotDefined } from '@/Utils';
+} from '@Engine/Light/Models';
+import { isDirectionalLight, isPointLight, isSpotLight } from '@Engine/Light/Utils';
+import type { TWriteable } from '@Engine/Utils';
+import { isDefined, isNotDefined } from '@Engine/Utils';
+import { Vector3 } from 'three';
 
 export function applyShadowParams<T extends TAnyLight, P extends TLightParams>(params: P, entity: TWriteable<T>): void {
   // eslint-disable-next-line functional/immutable-data

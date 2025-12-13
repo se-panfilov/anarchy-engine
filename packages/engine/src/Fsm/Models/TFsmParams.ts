@@ -1,5 +1,5 @@
-import type { FsmEventsStrategy, FsmType } from '@/Fsm/Constants';
-import type { TWithName, TWithTags } from '@/Mixins';
+import type { FsmEventsStrategy, FsmType } from '@Engine/Fsm/Constants';
+import type { TWithName, TWithTags } from '@Engine/Mixins';
 
 import type { TFsmEvents } from './TFsmEvents';
 import type { TFsmStates } from './TFsmStates';

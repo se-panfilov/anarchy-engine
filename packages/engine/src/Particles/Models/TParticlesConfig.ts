@@ -1,4 +1,4 @@
-import type { TObject3DParams, TObject3DPropConfig } from '@/ThreeLib';
+import type { TObject3DParams, TObject3DPropConfig } from '@Engine/ThreeLib';
 
 import type { TParticlesParams } from './TParticlesParams';
 

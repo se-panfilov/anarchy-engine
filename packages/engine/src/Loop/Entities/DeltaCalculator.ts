@@ -1,8 +1,7 @@
+import type { TDeltaCalculator } from '@Engine/Loop/Models';
+import type { TMilliseconds } from '@Engine/Math';
+import { isDefined } from '@Engine/Utils';
 import { Clock } from 'three';
-
-import type { TDeltaCalculator } from '@/Loop/Models';
-import type { TMilliseconds } from '@/Math';
-import { isDefined } from '@/Utils';
 
 export function DeltaCalculator(useClock: boolean = true): TDeltaCalculator {
   let clock: Clock | undefined = useClock ? new Clock() : undefined;

@@ -1,7 +1,7 @@
 import { BehaviorSubject } from 'rxjs';
 import { Euler } from 'three';
 
-import type { TOrbitControlsWrapper, TSpace, TSpaceConfig } from '@/Engine';
+import type { TOrbitControlsWrapper, TSpace, TSpaceConfig } from '@engine';
 
 import type { TSpacesData } from '../ShowcaseTypes';
 import { addModel3dToScene, getContainer } from '../utils';

@@ -1,7 +1,5 @@
-import type { Subscription } from 'rxjs';
-
-import type { TAbstractService, TRegistryPack } from '@/Abstract';
-import { AbstractService } from '@/Abstract';
+import type { TAbstractService, TRegistryPack } from '@Engine/Abstract';
+import { AbstractService } from '@Engine/Abstract';
 import type {
   TAbstractLightWrapper,
   TAnyLight,
@@ -15,11 +13,12 @@ import type {
   TLightServiceWithCreateFromConfig,
   TLightServiceWithFactory,
   TLightServiceWithRegistry
-} from '@/Light/Models';
-import type { TDisposable } from '@/Mixins';
-import { withCreateFromConfigServiceMixin, withCreateServiceMixin, withFactoryService, withRegistryService, withSceneGetterService, withSerializableEntities } from '@/Mixins';
-import type { TSceneWrapper } from '@/Scene';
-import { mergeAll } from '@/Utils';
+} from '@Engine/Light/Models';
+import type { TDisposable } from '@Engine/Mixins';
+import { withCreateFromConfigServiceMixin, withCreateServiceMixin, withFactoryService, withRegistryService, withSceneGetterService, withSerializableEntities } from '@Engine/Mixins';
+import type { TSceneWrapper } from '@Engine/Scene';
+import { mergeAll } from '@Engine/Utils';
+import type { Subscription } from 'rxjs';
 
 export function LightService(factory: TLightFactory, registry: TLightRegistry, dependencies: TLightServiceDependencies, scene: TSceneWrapper): TLightService {
   const registrySub$: Subscription = registry.added$.subscribe(({ value }: TRegistryPack<TAbstractLightWrapper<TAnyLight>>) => scene.addLight(value));

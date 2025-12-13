@@ -1,4 +1,4 @@
-import type { TAbstractMetaInfoRegistry } from '@/Abstract';
+import type { TAbstractMetaInfoRegistry } from '@Engine/Abstract';
 
 import type { TModel3dResourceConfig } from './TModel3dResourceConfig';
 

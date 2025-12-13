@@ -1,7 +1,7 @@
 import type { Vector3 } from 'three';
 
-import type { TActor, TAnyCameraWrapper, TReadonlyVector3, TSpace, TSpaceConfig } from '@/Engine';
-import { asRecord, isNotDefined, spaceService } from '@/Engine';
+import type { TActor, TAnyCameraWrapper, TReadonlyVector3, TSpace, TSpaceConfig } from '@engine';
+import { asRecord, isNotDefined, spaceService } from '@engine';
 
 import spaceConfigJson from './space.json';
 

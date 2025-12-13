@@ -1,14 +1,11 @@
-import type { Subscription } from 'rxjs';
-import { BehaviorSubject, merge } from 'rxjs';
-
-import type { TAbstractService, TRegistryPack } from '@/Abstract';
-import { AbstractService } from '@/Abstract';
-import type { TContainerDecorator } from '@/Global';
-import type { TDisposable } from '@/Mixins';
-import { withCreateFromConfigServiceMixin, withCreateServiceMixin, withFactoryService, withSceneGetterService } from '@/Mixins';
-import type { TSceneWrapper } from '@/Scene';
-import type { TSpaceLoops } from '@/Space';
-import { textLoopEffect } from '@/Text/Loop';
+import type { TAbstractService, TRegistryPack } from '@Engine/Abstract';
+import { AbstractService } from '@Engine/Abstract';
+import type { TContainerDecorator } from '@Engine/Global';
+import type { TDisposable } from '@Engine/Mixins';
+import { withCreateFromConfigServiceMixin, withCreateServiceMixin, withFactoryService, withSceneGetterService } from '@Engine/Mixins';
+import type { TSceneWrapper } from '@Engine/Scene';
+import type { TSpaceLoops } from '@Engine/Space';
+import { textLoopEffect } from '@Engine/Text/Loop';
 import type {
   TText2dRegistry,
   TText2dRenderer,
@@ -25,10 +22,12 @@ import type {
   TTextServiceWithCreate,
   TTextServiceWithCreateFromConfig,
   TTextServiceWithFactory
-} from '@/Text/Models';
-import { initText2dRenderer, initText3dRenderer } from '@/Text/Renderers';
-import { isText2dWrapper, isText3dTextureWrapper, isText3dWrapper } from '@/Text/Utils';
-import { mergeAll } from '@/Utils';
+} from '@Engine/Text/Models';
+import { initText2dRenderer, initText3dRenderer } from '@Engine/Text/Renderers';
+import { isText2dWrapper, isText3dTextureWrapper, isText3dWrapper } from '@Engine/Text/Utils';
+import { mergeAll } from '@Engine/Utils';
+import type { Subscription } from 'rxjs';
+import { BehaviorSubject, merge } from 'rxjs';
 
 export function TextService(
   factory: TTextFactory,

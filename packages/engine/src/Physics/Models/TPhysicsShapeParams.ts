@@ -1,5 +1,5 @@
-import type { HeightFieldFlags, TriMeshFlags } from '@dimforge/rapier3d/geometry/shape';
-import type { Vector } from '@dimforge/rapier3d/math';
+import type { HeightFieldFlags, TriMeshFlags } from '@Enginedimforge/rapier3d/geometry/shape';
+import type { Vector } from '@Enginedimforge/rapier3d/math';
 
 export type TPhysicsShapeBallParams = Readonly<{
   radius?: number;

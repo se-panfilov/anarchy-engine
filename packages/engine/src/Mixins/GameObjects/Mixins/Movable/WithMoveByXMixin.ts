@@ -1,4 +1,4 @@
-import type { TMovableX, TWithPositionProperty } from '@/Mixins/GameObjects/Models';
+import type { TMovableX, TWithPositionProperty } from '@Engine/Mixins/GameObjects/Models';
 
 export function withMoveByXMixin(entity: TWithPositionProperty): TMovableX {
   // eslint-disable-next-line functional/immutable-data

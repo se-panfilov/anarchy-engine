@@ -1,6 +1,5 @@
+import type { TAbstractLightWrapper, TAmbientLight, TAmbientLightParams, TLightServiceDependencies } from '@Engine/Light/Models';
 import { AmbientLight } from 'three';
-
-import type { TAbstractLightWrapper, TAmbientLight, TAmbientLightParams, TLightServiceDependencies } from '@/Light/Models';
 
 import { AbstractLightWrapper } from './AbstractLightWrapper';
 

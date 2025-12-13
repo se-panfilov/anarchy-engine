@@ -2,7 +2,7 @@ import { BehaviorSubject } from 'rxjs';
 import type { Fog } from 'three';
 import { Color } from 'three';
 
-import type { TFogWrapper, TSpace, TSpaceConfig, TWriteable } from '@/Engine';
+import type { TFogWrapper, TSpace, TSpaceConfig, TWriteable } from '@engine';
 
 import type { TSpacesData } from '../ShowcaseTypes';
 import { addModel3dToScene, getContainer } from '../utils';

@@ -1,10 +1,10 @@
 import { distinctUntilChanged } from 'rxjs';
 import { Clock } from 'three';
 
-import { initSolder1, initSolder2 } from '@/App/Levels/Showcase22ActorsWithModels/Utils';
-import { moveByCircle } from '@/App/Levels/Utils/MoveUtils';
-import type { TFsmStates, TFsmWrapper, TSpace } from '@/Engine';
-import { KeyCode, KeysExtra } from '@/Engine';
+import { initSolder1, initSolder2 } from '@/Levels/Showcase22ActorsWithModels/Utils';
+import { moveByCircle } from '@/Levels/Utils/MoveUtils';
+import type { TFsmStates, TFsmWrapper, TSpace } from '@engine';
+import { KeyCode, KeysExtra } from '@engine';
 
 import { addParticles } from './Utils';
 

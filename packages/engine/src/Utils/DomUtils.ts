@@ -1,10 +1,9 @@
+import { ambientContext } from '@Engine/Context';
+import type { TAppGlobalContainer, TContainerDecorator } from '@Engine/Global';
+import { ContainerDecorator } from '@Engine/Global';
+import { isDefined, isNotDefined } from '@Engine/Utils';
 import type { Subscriber } from 'rxjs';
 import { distinctUntilChanged, fromEvent, map, merge, Observable, startWith } from 'rxjs';
-
-import { ambientContext } from '@/Context';
-import type { TAppGlobalContainer, TContainerDecorator } from '@/Global';
-import { ContainerDecorator } from '@/Global';
-import { isDefined, isNotDefined } from '@/Utils';
 
 export function findDomElement(canvasSelector: string): HTMLElement | null {
   const appContainer: TAppGlobalContainer = ambientContext.globalContainer.getAppContainer();

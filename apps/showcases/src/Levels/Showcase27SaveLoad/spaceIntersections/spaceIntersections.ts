@@ -2,7 +2,7 @@ import { BehaviorSubject, skip } from 'rxjs';
 import type { Mesh, MeshStandardMaterial } from 'three';
 import type { Line2 } from 'three/examples/jsm/lines/Line2';
 
-import type { TActor, TIntersectionEvent, TIntersectionsCameraWatcher, TIntersectionsDirectionWatcher, TSpace, TSpaceConfig } from '@/Engine';
+import type { TActor, TIntersectionEvent, TIntersectionsCameraWatcher, TIntersectionsDirectionWatcher, TSpace, TSpaceConfig } from '@engine';
 
 import type { TSpacesData } from '../ShowcaseTypes';
 import { getContainer } from '../utils';

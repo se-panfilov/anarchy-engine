@@ -1,4 +1,4 @@
-import type { TPhysicsBodyConfig } from '@/Physics';
+import type { TPhysicsBodyConfig } from '@Engine/Physics';
 
 import type { TPhysicsWorldConfig } from './TPhysicsWorldConfig';
 

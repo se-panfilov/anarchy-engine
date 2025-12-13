@@ -1,4 +1,4 @@
-import type { TWithNameOptional } from '@/Mixins';
+import type { TWithNameOptional } from '@Engine/Mixins';
 
 export type TSpatialCellParams = Readonly<{
   minX: number;

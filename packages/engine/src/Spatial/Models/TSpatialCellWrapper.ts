@@ -1,9 +1,8 @@
+import type { TWrapper } from '@Engine/Abstract';
+import type { TActor } from '@Engine/Actor';
+import type { TWithName } from '@Engine/Mixins';
+import type { TSpatialCell } from '@Engine/Spatial';
 import type { Observable } from 'rxjs';
-
-import type { TWrapper } from '@/Abstract';
-import type { TActor } from '@/Actor';
-import type { TWithName } from '@/Mixins';
-import type { TSpatialCell } from '@/Spatial';
 
 export type TSpatialCellWrapper = Omit<TWrapper<TSpatialCell>, 'name'> &
   Readonly<{

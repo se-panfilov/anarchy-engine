@@ -1,12 +1,10 @@
-import type { Subscription } from 'rxjs';
-
-import type { TAbstractService } from '@/Abstract';
-import { AbstractService } from '@/Abstract';
-import type { TAnimationsResourceAsyncRegistry, TAnimationsService } from '@/Animations';
-import type { TMaterialRegistry, TMaterialService } from '@/Material';
-import type { TDisposable } from '@/Mixins';
-import { withCreateFromConfigServiceMixin, withCreateServiceMixin, withFactoryService, withRegistryService, withSerializableEntities, withSerializeAllResources } from '@/Mixins';
-import { Models3dLoader } from '@/Models3d/Loaders';
+import type { TAbstractService } from '@Engine/Abstract';
+import { AbstractService } from '@Engine/Abstract';
+import type { TAnimationsResourceAsyncRegistry, TAnimationsService } from '@Engine/Animations';
+import type { TMaterialRegistry, TMaterialService } from '@Engine/Material';
+import type { TDisposable } from '@Engine/Mixins';
+import { withCreateFromConfigServiceMixin, withCreateServiceMixin, withFactoryService, withRegistryService, withSerializableEntities, withSerializeAllResources } from '@Engine/Mixins';
+import { Models3dLoader } from '@Engine/Models3d/Loaders';
 import type {
   TModel3d,
   TModel3dConfig,
@@ -26,9 +24,10 @@ import type {
   TModels3dResourceAsyncRegistry,
   TModels3dService,
   TModels3dServiceDependencies
-} from '@/Models3d/Models';
-import type { TOptional } from '@/Utils';
-import { mergeAll } from '@/Utils';
+} from '@Engine/Models3d/Models';
+import type { TOptional } from '@Engine/Utils';
+import { mergeAll } from '@Engine/Utils';
+import type { Subscription } from 'rxjs';
 
 export function Models3dService(
   factory: TModels3dFactory,

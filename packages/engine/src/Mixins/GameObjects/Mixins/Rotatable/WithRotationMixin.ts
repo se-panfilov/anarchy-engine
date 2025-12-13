@@ -1,6 +1,5 @@
+import type { TWithRotation, TWithRotationProperty } from '@Engine/Mixins/GameObjects/Models';
 import { Euler } from 'three';
-
-import type { TWithRotation, TWithRotationProperty } from '@/Mixins/GameObjects/Models';
 
 export function withRotationMixin(entity: TWithRotationProperty): TWithRotation {
   const setRotation = (x: number, y: number, z: number): Euler => entity.rotation.set(x, y, z);

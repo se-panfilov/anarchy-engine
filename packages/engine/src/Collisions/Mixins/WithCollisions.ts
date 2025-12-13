@@ -1,15 +1,14 @@
+import type { TActor, TActorParams } from '@Engine/Actor';
+import type { TCollisionCheckResult, TCollisionsData, TCollisionsLoop, TCollisionsService, TWithCollisions } from '@Engine/Collisions/Models';
+import { LoopUpdatePriority } from '@Engine/Loop';
+import type { TMilliseconds } from '@Engine/Math';
+import type { TDestroyable } from '@Engine/Mixins';
+import { destroyableMixin } from '@Engine/Mixins';
+import type { TSpatialCellWrapper } from '@Engine/Spatial';
+import type { TWriteable } from '@Engine/Utils';
+import { isDefined, removeDuplicates } from '@Engine/Utils';
 import type { Observable, Subscription } from 'rxjs';
 import { BehaviorSubject, EMPTY, filter, Subject, switchMap } from 'rxjs';
-
-import type { TActor, TActorParams } from '@/Actor';
-import type { TCollisionCheckResult, TCollisionsData, TCollisionsLoop, TCollisionsService, TWithCollisions } from '@/Collisions/Models';
-import { LoopUpdatePriority } from '@/Loop';
-import type { TMilliseconds } from '@/Math';
-import type { TDestroyable } from '@/Mixins';
-import { destroyableMixin } from '@/Mixins';
-import type { TSpatialCellWrapper } from '@/Spatial';
-import type { TWriteable } from '@/Utils';
-import { isDefined, removeDuplicates } from '@/Utils';
 
 export function withCollisions(params: TActorParams, collisionsService: TCollisionsService, collisionsLoop: TCollisionsLoop): TWithCollisions {
   const autoUpdate$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(params.collisions?.isAutoUpdate ?? false);

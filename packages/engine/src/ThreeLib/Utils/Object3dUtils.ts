@@ -1,7 +1,6 @@
+import type { TObject3DParams, TObject3DPropConfig } from '@Engine/ThreeLib/Models';
+import { isDefined } from '@Engine/Utils';
 import { Euler, Vector3 } from 'three';
-
-import type { TObject3DParams, TObject3DPropConfig } from '@/ThreeLib/Models';
-import { isDefined } from '@/Utils';
 
 export function configToParamsObject3d(config: Partial<TObject3DPropConfig>): TObject3DParams {
   const { position, rotation, scale } = config;

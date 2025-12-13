@@ -5,7 +5,7 @@ import { withLatestFrom } from 'rxjs';
 import { BufferAttribute, BufferGeometry, Color, Euler, PointsMaterial, Vector3 } from 'three';
 import { Points } from 'three/src/objects/Points';
 
-import { createFlashLight } from '@/App/Levels/Showcase20PhysicsShooter/utils/Light';
+import { createFlashLight } from '@/Levels/Showcase20PhysicsShooter/utils/Light';
 import type {
   TActor,
   TActorParams,
@@ -27,9 +27,9 @@ import type {
   TSceneWrapper,
   TSpatialGridService,
   TSpatialGridWrapper
-} from '@/Engine';
-import { getTags, isDefined, isNotDefined, LoopUpdatePriority, MaterialType, metersPerSecond, mpsSpeed, PrimitiveModel3dType, TransformAgent } from '@/Engine';
-import { meters } from '@/Engine/Measurements/Utils';
+} from '@engine';
+import { getTags, isDefined, isNotDefined, LoopUpdatePriority, MaterialType, metersPerSecond, mpsSpeed, PrimitiveModel3dType, TransformAgent } from '@engine';
+import { meters } from '@engine/Measurements/Utils';
 
 export const BULLET_TAG = 'bullet';
 export const BULLET_TARGET_TAG = 'target';

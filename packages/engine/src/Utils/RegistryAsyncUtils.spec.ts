@@ -1,9 +1,8 @@
+import type { RegistryType, TAbstractAsyncEntityRegistry, TAbstractEntityRegistry, TAbstractResourceAsyncRegistry, TAbstractSimpleRegistry, TRegistryPack } from '@Engine/Abstract';
+import { AbstractEntityAsyncRegistry, AbstractEntityRegistry, AbstractResourceAsyncRegistry, AbstractSimpleRegistry, LookUpStrategy } from '@Engine/Abstract';
+import type { TRegistrable } from '@Engine/Mixins';
 import { firstValueFrom } from 'rxjs';
 import { beforeEach, describe, expect, it } from 'vitest';
-
-import type { RegistryType, TAbstractAsyncEntityRegistry, TAbstractEntityRegistry, TAbstractResourceAsyncRegistry, TAbstractSimpleRegistry, TRegistryPack } from '@/Abstract';
-import { AbstractEntityAsyncRegistry, AbstractEntityRegistry, AbstractResourceAsyncRegistry, AbstractSimpleRegistry, LookUpStrategy } from '@/Abstract';
-import type { TRegistrable } from '@/Mixins';
 
 import {
   getAsyncUniqEntityByKeyAsync,

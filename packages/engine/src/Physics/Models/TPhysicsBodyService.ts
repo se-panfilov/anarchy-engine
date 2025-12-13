@@ -1,6 +1,6 @@
-import type { TSerializableEntitiesService } from '@/Abstract';
-import type { TKinematicState } from '@/Kinematic';
-import type { TWithCreateFromConfigService, TWithCreateService, TWithFactoryService, TWithRegistryService } from '@/Mixins';
+import type { TSerializableEntitiesService } from '@Engine/Abstract';
+import type { TKinematicState } from '@Engine/Kinematic';
+import type { TWithCreateFromConfigService, TWithCreateService, TWithFactoryService, TWithRegistryService } from '@Engine/Mixins';
 
 import type { TPhysicsBody } from './TPhysicsBody';
 import type { TPhysicsBodyConfig } from './TPhysicsBodyConfig';

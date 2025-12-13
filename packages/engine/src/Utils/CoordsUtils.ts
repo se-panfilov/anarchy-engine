@@ -1,8 +1,7 @@
+import type { TMeters, TRadians } from '@Engine/Math';
+import { getAzimuthFromDirection, getElevationFromDirection } from '@Engine/Math';
+import type { TReadonlyVector3 } from '@Engine/ThreeLib';
 import { Vector3 } from 'three';
-
-import type { TMeters, TRadians } from '@/Math';
-import { getAzimuthFromDirection, getElevationFromDirection } from '@/Math';
-import type { TReadonlyVector3 } from '@/ThreeLib';
 
 type TTempCoords = Readonly<{
   coord1: number;

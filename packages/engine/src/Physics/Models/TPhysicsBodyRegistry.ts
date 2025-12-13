@@ -1,4 +1,4 @@
-import type { TAbstractEntityRegistry } from '@/Abstract';
+import type { TAbstractEntityRegistry } from '@Engine/Abstract';
 
 import type { TPhysicsBody } from './TPhysicsBody';
 

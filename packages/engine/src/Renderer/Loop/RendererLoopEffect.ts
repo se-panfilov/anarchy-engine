@@ -1,12 +1,11 @@
+import type { TAnyCameraWrapper, TCameraService } from '@Engine/Camera';
+import type { TMilliseconds } from '@Engine/Math';
+import type { TRendererWrapper } from '@Engine/Renderer';
+import type { TSceneWrapper } from '@Engine/Scene';
+import type { TRenderLoop } from '@Engine/Space';
+import { isNotDefined } from '@Engine/Utils';
 import type { BehaviorSubject, Subscription } from 'rxjs';
 import { withLatestFrom } from 'rxjs';
-
-import type { TAnyCameraWrapper, TCameraService } from '@/Camera';
-import type { TMilliseconds } from '@/Math';
-import type { TRendererWrapper } from '@/Renderer';
-import type { TSceneWrapper } from '@/Scene';
-import type { TRenderLoop } from '@/Space';
-import { isNotDefined } from '@/Utils';
 
 export function renderLoopEffect(loop: TRenderLoop, activeRenderer$: BehaviorSubject<TRendererWrapper | undefined>, cameraService: TCameraService, scene: TSceneWrapper): Subscription {
   return loop.tick$

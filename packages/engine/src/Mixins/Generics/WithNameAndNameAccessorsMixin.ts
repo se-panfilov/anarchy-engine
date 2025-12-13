@@ -1,5 +1,5 @@
-import type { TWithName, TWithNameAndNameAccessorsMixin } from '@/Mixins/Generics/Models';
-import type { TWriteable } from '@/Utils';
+import type { TWithName, TWithNameAndNameAccessorsMixin } from '@Engine/Mixins/Generics/Models';
+import type { TWriteable } from '@Engine/Utils';
 
 export function withNameAndNameAccessorsMixin<T extends TWriteable<TWithName>>(entity: T): TWithNameAndNameAccessorsMixin {
   return {

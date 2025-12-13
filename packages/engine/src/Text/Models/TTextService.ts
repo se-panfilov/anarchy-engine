@@ -1,8 +1,7 @@
+import type { TSerializableEntitiesService } from '@Engine/Abstract';
+import type { TContainerDecorator } from '@Engine/Global';
+import type { TWithCreateFromConfigService, TWithCreateService, TWithFactoryService, TWithSceneGetterService } from '@Engine/Mixins';
 import type { Observable } from 'rxjs';
-
-import type { TSerializableEntitiesService } from '@/Abstract';
-import type { TContainerDecorator } from '@/Global';
-import type { TWithCreateFromConfigService, TWithCreateService, TWithFactoryService, TWithSceneGetterService } from '@/Mixins';
 
 import type { TText2dRegistry } from './TText2dRegistry';
 import type { TText2dRenderer } from './TText2dRenderer';

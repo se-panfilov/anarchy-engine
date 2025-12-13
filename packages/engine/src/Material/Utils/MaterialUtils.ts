@@ -1,10 +1,9 @@
+import type { TMaterialParams, TMaterialParamsOptions, TMaterials, TTypeOfMaterials } from '@Engine/Material';
+import { MaterialMap } from '@Engine/Material/Constants';
+import type { TEulerLike, TEulerString } from '@Engine/ThreeLib';
+import type { TWithoutNull } from '@Engine/Utils';
+import { eulerToXyz, isNotDefined, vector2ToXy, vector3ToXyz } from '@Engine/Utils';
 import type { Material, PointsMaterial, Vector2Like, Vector3Like } from 'three';
-
-import type { TMaterialParams, TMaterialParamsOptions, TMaterials, TTypeOfMaterials } from '@/Material';
-import { MaterialMap } from '@/Material/Constants';
-import type { TEulerLike, TEulerString } from '@/ThreeLib';
-import type { TWithoutNull } from '@/Utils';
-import { eulerToXyz, isNotDefined, vector2ToXy, vector3ToXyz } from '@/Utils';
 
 export function isPointsMaterial<T extends Material | ReadonlyArray<Material>>(material: PointsMaterial | T): material is PointsMaterial {
   return !Array.isArray(material) && (material as Material).type === 'PointsMaterial';

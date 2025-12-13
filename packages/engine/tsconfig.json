@@ -13,8 +13,8 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "paths": {
-      "@/*": ["./src/*"],
-      "@shared/*": ["../shared/*"]
+      "@Engine/*": ["./src/*"],
+      "@Shared/*": ["../shared/*"]
     },
     "resolveJsonModule": true,
     "skipLibCheck": true,

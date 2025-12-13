@@ -1,6 +1,6 @@
 import { BehaviorSubject } from 'rxjs';
 
-import type { TModel3d, TSpace, TSpaceConfig } from '@/Engine';
+import type { TModel3d, TSpace, TSpaceConfig } from '@engine';
 
 import type { TSpacesData } from '../ShowcaseTypes';
 import { addModel3dToScene, getContainer } from '../utils';

@@ -1,7 +1,6 @@
+import { WrapperType } from '@Engine/Abstract';
+import { TextType } from '@Engine/Text';
 import { describe, expect, it } from 'vitest';
-
-import { WrapperType } from '@/Abstract';
-import { TextType } from '@/Text';
 
 import { getWrapperTypeByTextType } from './TextWrapperHelper';
 

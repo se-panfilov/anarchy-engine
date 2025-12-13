@@ -1,15 +1,14 @@
+import { LookUpStrategy } from '@Engine/Abstract/Registries';
+import type { TAudioService } from '@Engine/Audio';
+import type { TAnyCameraWrapper, TCameraRegistry, TPerspectiveCameraWrapper } from '@Engine/Camera';
+import { CameraRegistry, CameraType, PerspectiveCameraWrapper } from '@Engine/Camera';
+import type { TContainerDecorator } from '@Engine/Global';
+import type { TRegistrable } from '@Engine/Mixins';
+import type { TSceneRegistry, TSceneWrapper } from '@Engine/Scene';
+import { SceneRegistry, SceneWrapper } from '@Engine/Scene';
+import type { TTransformDriveService } from '@Engine/TransformDrive';
 import { Euler, Vector3 } from 'three';
 import { describe, expect, it } from 'vitest';
-
-import { LookUpStrategy } from '@/Abstract/Registries';
-import type { TAudioService } from '@/Audio';
-import type { TAnyCameraWrapper, TCameraRegistry, TPerspectiveCameraWrapper } from '@/Camera';
-import { CameraRegistry, CameraType, PerspectiveCameraWrapper } from '@/Camera';
-import type { TContainerDecorator } from '@/Global';
-import type { TRegistrable } from '@/Mixins';
-import type { TSceneRegistry, TSceneWrapper } from '@/Scene';
-import { SceneRegistry, SceneWrapper } from '@/Scene';
-import type { TTransformDriveService } from '@/TransformDrive';
 
 import { getAllEntitiesWithTag, getAllEntitiesWithTags, getUniqEntityWithTag, getUniqEntityWithTags, setActiveWrappedEntity, shouldHaveTags } from './RegistryUtils';
 

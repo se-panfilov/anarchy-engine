@@ -1,6 +1,5 @@
+import type { TMovableXYZ, TRotatable, TScaleMixin, TSerializable } from '@Engine/Mixins';
 import type { Quaternion, Vector3 } from 'three';
-
-import type { TMovableXYZ, TRotatable, TScaleMixin, TSerializable } from '@/Mixins';
 
 import type { TAbstractTransformAgent } from './TAbstractTransformAgent';
 import type { TSerializedTransform } from './TSerializedTransform';

@@ -1,11 +1,7 @@
-import type { Subscription } from 'rxjs';
-import { Vector3 } from 'three';
-import { OrthographicCamera } from 'three/src/cameras/OrthographicCamera';
-
-import type { TAbstractWrapper } from '@/Abstract';
-import { AbstractWrapper, WrapperType } from '@/Abstract';
-import { cameraToConfig } from '@/Camera/Adapters';
-import type { CameraType } from '@/Camera/Constants';
+import type { TAbstractWrapper } from '@Engine/Abstract';
+import { AbstractWrapper, WrapperType } from '@Engine/Abstract';
+import { cameraToConfig } from '@Engine/Camera/Adapters';
+import type { CameraType } from '@Engine/Camera/Constants';
 import type {
   TAnyCamera,
   TCameraTransformDrive,
@@ -15,15 +11,18 @@ import type {
   TOrthographicCameraAccessors,
   TOrthographicCameraParams,
   TOrthographicCameraWrapper
-} from '@/Camera/Models';
-import type { TOrthographicCameraConfig } from '@/Camera/Models/TOrthographicCameraConfig';
-import { CameraTransformDrive } from '@/Camera/TransformDrive';
-import { applyOrthographicCameraParams } from '@/Camera/Utils';
-import { withActiveMixin, withObject3d } from '@/Mixins';
-import type { TDriveToTargetConnector } from '@/TransformDrive';
-import { DriveToTargetConnector } from '@/TransformDrive';
-import type { TOptional, TWriteable } from '@/Utils';
-import { applyObject3dParams, isDefined, mergeAll } from '@/Utils';
+} from '@Engine/Camera/Models';
+import type { TOrthographicCameraConfig } from '@Engine/Camera/Models/TOrthographicCameraConfig';
+import { CameraTransformDrive } from '@Engine/Camera/TransformDrive';
+import { applyOrthographicCameraParams } from '@Engine/Camera/Utils';
+import { withActiveMixin, withObject3d } from '@Engine/Mixins';
+import type { TDriveToTargetConnector } from '@Engine/TransformDrive';
+import { DriveToTargetConnector } from '@Engine/TransformDrive';
+import type { TOptional, TWriteable } from '@Engine/Utils';
+import { applyObject3dParams, isDefined, mergeAll } from '@Engine/Utils';
+import type { Subscription } from 'rxjs';
+import { Vector3 } from 'three';
+import { OrthographicCamera } from 'three/src/cameras/OrthographicCamera';
 
 import { getCommonCameraAccessors, getOrthographicCameraAccessors } from './Accessors';
 

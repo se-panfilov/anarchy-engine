@@ -1,8 +1,8 @@
-import type { TReactiveFactory } from '@/Abstract';
-import { FactoryType, ReactiveFactory } from '@/Abstract';
-import { configToParams } from '@/Particles/Adapters';
-import type { TParticlesFactory, TParticlesParams, TParticlesServiceDependencies, TParticlesWrapper } from '@/Particles/Models';
-import { ParticlesWrapper } from '@/Particles/Wrappers';
+import type { TReactiveFactory } from '@Engine/Abstract';
+import { FactoryType, ReactiveFactory } from '@Engine/Abstract';
+import { configToParams } from '@Engine/Particles/Adapters';
+import type { TParticlesFactory, TParticlesParams, TParticlesServiceDependencies, TParticlesWrapper } from '@Engine/Particles/Models';
+import { ParticlesWrapper } from '@Engine/Particles/Wrappers';
 
 export function ParticlesFactory(): TParticlesFactory {
   const factory: TReactiveFactory<TParticlesWrapper, TParticlesParams, TParticlesServiceDependencies> = ReactiveFactory(FactoryType.Particles, ParticlesWrapper);

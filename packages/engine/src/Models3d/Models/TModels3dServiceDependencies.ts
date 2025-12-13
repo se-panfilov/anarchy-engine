@@ -1,5 +1,5 @@
-import type { TAnimationsService } from '@/Animations';
-import type { TMaterialService } from '@/Material';
+import type { TAnimationsService } from '@Engine/Animations';
+import type { TMaterialService } from '@Engine/Material';
 
 import type { TModel3dRawToModel3dConnectionRegistry } from './TModel3dRawToModel3dConnectionRegistry';
 

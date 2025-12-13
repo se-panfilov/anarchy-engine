@@ -1,4 +1,4 @@
-import type { TLoopService } from '@/Loop';
+import type { TLoopService } from '@Engine/Loop';
 
 export type TTransformDriveServiceDependencies = Readonly<{
   loopService: TLoopService;

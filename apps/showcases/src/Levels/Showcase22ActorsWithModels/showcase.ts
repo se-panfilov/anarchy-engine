@@ -1,9 +1,9 @@
 import { distinctUntilChanged } from 'rxjs';
 import type { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
 
-import { addGizmo } from '@/App/Levels/Utils';
-import type { TFsmStates, TFsmWrapper, TModels3dResourceAsyncRegistry, TRegistryPack, TSpace, TSpaceConfig, TSpaceServices } from '@/Engine';
-import { asRecord, isNotDefined, KeyCode, KeysExtra, spaceService } from '@/Engine';
+import { addGizmo } from '@/Levels/Utils';
+import type { TFsmStates, TFsmWrapper, TModels3dResourceAsyncRegistry, TRegistryPack, TSpace, TSpaceConfig, TSpaceServices } from '@engine';
+import { asRecord, isNotDefined, KeyCode, KeysExtra, spaceService } from '@engine';
 
 import spaceConfigJson from './space.json';
 import { initSolder1, initSolder2 } from './Utils';

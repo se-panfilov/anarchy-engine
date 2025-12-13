@@ -1,9 +1,8 @@
+import type { TTexture, TTextureOptions } from '@Engine/Texture/Models';
+import type { TWriteable } from '@Engine/Utils';
+import { isDefined, isNotDefined } from '@Engine/Utils';
 import type { MagnificationTextureFilter, MinificationTextureFilter } from 'three';
 import { LinearFilter, NearestFilter } from 'three';
-
-import type { TTexture, TTextureOptions } from '@/Texture/Models';
-import type { TWriteable } from '@/Utils';
-import { isDefined, isNotDefined } from '@/Utils';
 
 export const getMagFilter = (magFilter?: MagnificationTextureFilter): MagnificationTextureFilter => (isDefined(magFilter) ? magFilter : LinearFilter);
 export const getMinFilter = (minFilter?: MinificationTextureFilter): MinificationTextureFilter => (isDefined(minFilter) ? minFilter : NearestFilter);

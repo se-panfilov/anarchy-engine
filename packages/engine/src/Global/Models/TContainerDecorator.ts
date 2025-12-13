@@ -1,8 +1,7 @@
+import type { TAppGlobalContainer } from '@Engine/Global';
+import type { TDestroyable, TNoSpread, TWithId } from '@Engine/Mixins';
+import type { TSpaceCanvas } from '@Engine/Space';
 import type { BehaviorSubject, Observable } from 'rxjs';
-
-import type { TAppGlobalContainer } from '@/Global';
-import type { TDestroyable, TNoSpread, TWithId } from '@/Mixins';
-import type { TSpaceCanvas } from '@/Space';
 
 export type TContainerDecorator = Readonly<{
   getWidth: () => number;

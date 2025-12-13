@@ -1,3 +1,4 @@
+import type { TWrapper } from '@Engine/Abstract';
 import type {
   LineBasicMaterial,
   LineDashedMaterial,
@@ -17,8 +18,6 @@ import type {
   ShadowMaterial,
   SpriteMaterial
 } from 'three';
-
-import type { TWrapper } from '@/Abstract';
 
 import type { TMaterialConfig } from './TMaterialConfig';
 import type { TMaterialEntityToConfigDependencies } from './TMaterialEntityToConfigDependencies';

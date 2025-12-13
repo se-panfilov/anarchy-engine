@@ -1,6 +1,5 @@
+import type { TThreeJsRendererPropsAccessors } from '@Engine/Renderer/Models';
 import type { ShadowMapType, WebGLRenderer } from 'three';
-
-import type { TThreeJsRendererPropsAccessors } from '@/Renderer/Models';
 
 export function withThreeJsRendererPropsAccessors(entity: WebGLRenderer): TThreeJsRendererPropsAccessors {
   // eslint-disable-next-line functional/immutable-data
