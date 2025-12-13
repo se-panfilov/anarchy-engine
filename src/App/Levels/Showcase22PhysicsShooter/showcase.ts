@@ -1,10 +1,10 @@
-import type { Intersection } from 'three';
+import type { Intersection, Mesh, Object3D } from 'three';
 import { Box3, Vector3 } from 'three';
 import type { Line2 } from 'three/examples/jsm/lines/Line2';
 
 import type { TShowcase } from '@/App/Levels/Models';
 import type { TActorWrapperAsync, TActorWrapperWithPhysicsAsync, TAppCanvas, TCameraWrapper, TEngine, TIntersectionEvent, TIntersectionsWatcher, TSpace, TSpaceConfig, TWithCoordsXYZ } from '@/Engine';
-import { buildSpaceFromConfig, Engine, get3DAzimuth, isDefined, isNotDefined, KeysExtra, mouseService } from '@/Engine';
+import { buildSpaceFromConfig, collisionsService, Engine, get3DAzimuth, isDefined, isNotDefined, KeysExtra, mouseService } from '@/Engine';
 import { meters } from '@/Engine/Measurements/Utils';
 
 import spaceConfig from './showcase.json';
@@ -32,8 +32,8 @@ export function showcase(canvas: TAppCanvas): TShowcase {
 
     startMoveActorWithKeyboard(heroW, keyboardService);
 
-    const gridSize: Vector3 = new Box3().setFromObject(surface?.entity).getSize(new Vector3());
-    initGridHelper(actorService, gridSize.x, gridSize.z);
+    // const gridSize: Vector3 = new Box3().setFromObject(surface?.entity).getSize(new Vector3());
+    // initGridHelper(actorService, gridSize.x, gridSize.z);
 
     const blocks = await buildTower(actorService, { x: 0, z: 0 }, 10, 10, 20);
     // const blocks2 = await buildTower(actorService, { x: 20, z: 0 }, 5, 5, 15);
@@ -54,6 +54,17 @@ export function showcase(canvas: TAppCanvas): TShowcase {
       position$: mouseService.position$,
       tags: []
     });
+
+    //enable collisions
+    actorService.getScene().entity.traverse((object: Object3D): void => {
+      if ((object as Mesh).isMesh) {
+        collisionsService.initializeBVH(object as Mesh);
+        collisionsService.addObjectToGrid(object);
+        collisionsService.visualizeBVH(object as Mesh, actorService.getScene().entity);
+      }
+    });
+
+    collisionsService.visualizeRBush(collisionsService.getSpatialGrid(), actorService.getScene().entity);
 
     let mouseLineIntersections: TIntersectionEvent = { point: new Vector3(), distance: 0 } as Intersection;
     mouseLineIntersectionsWatcher.value$.subscribe((intersection: TIntersectionEvent): void => void (mouseLineIntersections = intersection));
