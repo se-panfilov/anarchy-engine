@@ -4,6 +4,8 @@ import type { IWrapper } from '@/Engine/Domains/Abstract';
 import { AbstractWrapper, WrapperType } from '@/Engine/Domains/Abstract';
 import type { IActorWrapper } from '@/Engine/Domains/Actor';
 import type { ICameraWrapper } from '@/Engine/Domains/Camera';
+import type { IColor } from '@/Engine/Domains/Color';
+import { ColorWrapper } from '@/Engine/Domains/Color';
 import type { IDataTexture } from '@/Engine/Domains/EnvMap';
 import type { ILightWrapper } from '@/Engine/Domains/Light';
 import type { ISceneObject, ISceneParams, ISceneWrapper } from '@/Engine/Domains/Scene/Models';
@@ -12,8 +14,6 @@ import type { ICubeTexture, ITexture } from '@/Engine/Domains/Texture';
 import { withObject3d } from '@/Engine/Mixins';
 import type { IWriteable } from '@/Engine/Utils';
 import { isDefined, isNotDefined, isString } from '@/Engine/Utils';
-import type { IColor } from '@/Engine/Wrappers';
-import { ColorWrapper } from '@/Engine/Wrappers';
 
 export function SceneWrapper(params: ISceneParams): ISceneWrapper {
   const entity: IWriteable<Scene> = new Scene();

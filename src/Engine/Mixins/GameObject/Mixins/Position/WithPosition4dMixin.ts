@@ -1,7 +1,7 @@
+import type { IVector4Wrapper } from '@/Engine/Domains/Vector';
+import { Vector4Wrapper } from '@/Engine/Domains/Vector';
 import type { IWithPosition4d, IWithPosition4dProperty } from '@/Engine/Mixins/GameObject/Models';
 import { isVector4Wrapper } from '@/Engine/Utils';
-import type { IVector4Wrapper } from '@/Engine/Wrappers';
-import { Vector4Wrapper } from '@/Engine/Wrappers';
 
 export function withPosition4dMixin(entity: IWithPosition4dProperty): IWithPosition4d {
   const setPosition = (position: IVector4Wrapper): IVector4Wrapper => {

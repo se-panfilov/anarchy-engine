@@ -4,9 +4,9 @@ import { AbstractWrapper, WrapperType } from '@/Engine/Domains/Abstract';
 import type { IOrbitControlsParams, IOrbitControlsWrapper } from '@/Engine/Domains/Controls/Models';
 import { getOrbitControlsAccessors } from '@/Engine/Domains/Controls/Wrapper/OrbitControlsAccessors';
 import { applyOrbitControlsParams } from '@/Engine/Domains/Controls/Wrapper/OrbitControlsWrapperHelper';
+import type { IVector3Wrapper } from '@/Engine/Domains/Vector';
+import { Vector3Wrapper } from '@/Engine/Domains/Vector';
 import { isDefined } from '@/Engine/Utils';
-import type { IVector3Wrapper } from '@/Engine/Wrappers';
-import { Vector3Wrapper } from '@/Engine/Wrappers';
 
 export function OrbitControlsWrapper(params: IOrbitControlsParams): IOrbitControlsWrapper {
   const entity: OrbitControls = new OrbitControls(params.camera.entity, params.canvas);

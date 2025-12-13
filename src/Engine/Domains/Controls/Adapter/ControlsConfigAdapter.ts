@@ -2,9 +2,9 @@ import type { IGetParamsFn } from '@/Engine/Domains/Abstract';
 import type { ICameraWrapper } from '@/Engine/Domains/Camera';
 import type { IAdditionalControlsConfigParams, IOrbitControlsConfig, IOrbitControlsParams } from '@/Engine/Domains/Controls/Models';
 import { IControlsType } from '@/Engine/Domains/Controls/Models';
+import { Vector3Wrapper } from '@/Engine/Domains/Vector';
 import type { IWriteable } from '@/Engine/Utils';
 import { isDefined, isNotDefined } from '@/Engine/Utils';
-import { Vector3Wrapper } from '@/Engine/Wrappers';
 
 export const configToParams: IGetParamsFn<IOrbitControlsParams, IOrbitControlsConfig> = (
   config: IOrbitControlsConfig,

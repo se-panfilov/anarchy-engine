@@ -1,8 +1,8 @@
 import type { IAppCanvas } from '@/Engine/Domains/App';
 import type { ICameraWrapper } from '@/Engine/Domains/Camera';
 import type { ControlsTag } from '@/Engine/Domains/Controls/Constants';
+import type { IVector3Wrapper } from '@/Engine/Domains/Vector';
 import type { IWithReadonlyTags } from '@/Engine/Mixins';
-import type { IVector3Wrapper } from '@/Engine/Wrappers';
 
 import type { IOrbitControlsProps } from './IOrbitControlsProps';
 

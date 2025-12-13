@@ -1,4 +1,4 @@
-import type { IVector2Wrapper, IVector3Wrapper } from '@/Engine/Wrappers';
+import type { IVector2Wrapper, IVector3Wrapper } from '@/Engine/Domains/Vector';
 
 export type ILightAccessors = Readonly<{
   setControls: (x: number, y: number, z: number) => IVector3Wrapper;

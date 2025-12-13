@@ -1,4 +1,4 @@
-import type { IVector3 } from '@/Engine/Wrappers';
+import type { IVector3 } from '@/Engine/Domains/Vector';
 
 export type IWithScale = {
   scale: {

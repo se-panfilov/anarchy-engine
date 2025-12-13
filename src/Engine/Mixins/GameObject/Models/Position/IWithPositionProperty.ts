@@ -1,4 +1,4 @@
-import type { IVector2, IVector3, IVector4 } from '@/Engine/Wrappers';
+import type { IVector2, IVector3, IVector4 } from '@/Engine/Domains/Vector';
 
 export type IWithPosition2dProperty = Readonly<{
   position: {

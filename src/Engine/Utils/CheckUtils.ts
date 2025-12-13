@@ -1,8 +1,9 @@
 import { Color } from 'three';
 
 import type { IAbstractEntityWithWrapperId } from '@/Engine/Domains/Abstract/Models';
+import type { IColorWrapper } from '@/Engine/Domains/Color';
+import type { IVector2, IVector2Wrapper, IVector3, IVector3Wrapper, IVector4, IVector4Wrapper } from '@/Engine/Domains/Vector';
 import type { IDestroyable, IRegistrable, IWithPosition2dProperty, IWithPosition3dProperty, IWithPosition4dProperty, IWithPositionProperty } from '@/Engine/Mixins';
-import type { IColorWrapper, IVector2, IVector2Wrapper, IVector3, IVector3Wrapper, IVector4, IVector4Wrapper } from '@/Engine/Wrappers';
 
 import { isObject } from './ObjectUtils';
 

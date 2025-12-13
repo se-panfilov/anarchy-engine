@@ -1,5 +1,6 @@
 import type { CSS2DObject } from 'three/examples/jsm/renderers/CSS2DRenderer';
 
+import type { IEulerWrapper } from '@/Engine/Domains/Euler';
 import type {
   IBasicMaterialTexturePack,
   IDepthMaterialTexturePack,
@@ -15,9 +16,9 @@ import type {
   IWithTexturesActor
 } from '@/Engine/Domains/Texture';
 import type { IObject3DParams } from '@/Engine/Domains/ThreeLib';
+import type { IVector2Wrapper, IVector3Wrapper } from '@/Engine/Domains/Vector';
 import type { IMovable3dXYZ, IRotatable, IScalable, IWithObject3d } from '@/Engine/Mixins';
 import { isDefined } from '@/Engine/Utils/index';
-import type { IEulerWrapper, IVector2Wrapper, IVector3Wrapper } from '@/Engine/Wrappers';
 
 export function applyObject3dParams(obj: IWithObject3d, { visible, castShadow, receiveShadow, frustumCulled, renderOrder }: Partial<IObject3DParams>): void {
   if (isDefined(visible)) obj.setVisible(visible);

@@ -1,5 +1,5 @@
+import type { IColor } from '@/Engine/Domains/Color';
 import type { ICubeTexture, ITexture } from '@/Engine/Domains/Texture';
-import type { IColor } from '@/Engine/Wrappers';
 
 export type ISceneProps = Readonly<{
   name: string;

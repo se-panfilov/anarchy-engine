@@ -8,8 +8,8 @@ import type { ICameraWrapper } from '@/Engine/Domains/Camera';
 import type { IIntersectionsWatcher, IIntersectionsWatcherParams } from '@/Engine/Domains/Intersections/Models';
 import type { IMousePosition } from '@/Engine/Domains/Mouse';
 import type { ISceneObject } from '@/Engine/Domains/Scene';
+import type { IVector3 } from '@/Engine/Domains/Vector';
 import { getNormalizedMousePosition, isNotDefined, unWrapEntities } from '@/Engine/Utils';
-import type { IVector3 } from '@/Engine/Wrappers';
 
 export function IntersectionsWatcher({ actors, camera, positionWatcher, tags = [] }: IIntersectionsWatcherParams): IIntersectionsWatcher {
   const abstractWatcher: IAbstractWatcher<IVector3> = AbstractWatcher(WatcherType.IntersectionWatcher, tags);

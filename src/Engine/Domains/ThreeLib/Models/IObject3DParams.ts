@@ -1,4 +1,5 @@
-import type { IEulerWrapper, IVector3Wrapper } from '@/Engine/Wrappers';
+import type { IEulerWrapper } from '@/Engine/Domains/Euler';
+import type { IVector3Wrapper } from '@/Engine/Domains/Vector';
 
 import type { IObject3DProps } from './IObject3DProps';
 

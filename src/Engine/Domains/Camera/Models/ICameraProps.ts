@@ -1,4 +1,4 @@
-import type { IVector3Wrapper } from '@/Engine/Wrappers';
+import type { IVector3Wrapper } from '@/Engine/Domains/Vector';
 
 export type ICameraProps = Readonly<{
   fov?: number;

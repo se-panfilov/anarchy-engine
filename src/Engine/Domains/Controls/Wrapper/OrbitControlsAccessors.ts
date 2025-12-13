@@ -1,8 +1,8 @@
 import type { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
 import type { IOrbitControlsAccessors } from '@/Engine/Domains/Controls/Models';
+import type { IVector3Wrapper } from '@/Engine/Domains/Vector';
 import type { IWriteable } from '@/Engine/Utils';
-import type { IVector3Wrapper } from '@/Engine/Wrappers';
 
 export function getOrbitControlsAccessors(entity: IWriteable<OrbitControls>): IOrbitControlsAccessors {
   // eslint-disable-next-line functional/immutable-data

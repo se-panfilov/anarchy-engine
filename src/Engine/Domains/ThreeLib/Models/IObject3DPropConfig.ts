@@ -1,6 +1,6 @@
 import type { IWithCoordsXYZ } from '@/Engine/Mixins';
 
-import type { IEuler3dConfig } from './IEuler3dConfig';
+import type { IEuler3dConfig } from '../../Euler/Models/IEuler3dConfig';
 import type { IObject3DParams } from './IObject3DParams';
 
 export type IObject3DPropConfig = Omit<IObject3DParams, 'layers' | 'animations' | 'position' | 'rotation' | 'scale'> &
