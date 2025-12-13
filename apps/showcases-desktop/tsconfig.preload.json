@@ -1,20 +1,23 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "module": "CommonJS",
+    "module": "ESNext",
     "moduleResolution": "node",
+    "types": ["vite/client", "node"],
+    "baseUrl": "../../",
     "paths": {
-      "@Anarchy/Shared": ["packages/anarchy-shared/src/index.ts"],
-      "@Anarchy/Shared/*": ["packages/anarchy-shared/src/*"],
-      "@Anarchy/Tracking": ["packages/anarchy-tracking/src/index.ts"],
-      "@Anarchy/Tracking/*": ["packages/anarchy-tracking/src/*"],
-      "@Showcases/Desktop/*": ["./src/*"],
+      "@Showcases/Shared": ["packages/showcases-shared/src/index.ts"],
+      "@Showcases/Shared/*": ["packages/showcases-shared/src/*"],
       "showcases-shared": ["packages/showcases-shared/src/index.ts"],
       "showcases-shared/*": ["packages/showcases-shared/src/*"],
       "anarchy-tracking": ["packages/anarchy-tracking/src/index.ts"],
-      "anarchy-tracking/*": ["packages/anarchy-tracking/src/*"]
+      "anarchy-tracking/*": ["packages/anarchy-tracking/src/*"],
+      "anarchy-shared": ["packages/anarchy-shared/src/index.ts"],
+      "anarchy-shared/*": ["packages/anarchy-shared/src/*"],
+      "anarchy-i18n": ["packages/anarchy-i18n/src/index.ts"],
+      "anarchy-i18n/*": ["packages/anarchy-i18n/src/*"]
     }
   },
-  "include": ["preload.ts"],
+  "include": ["preload.ts", "types"],
   "exclude": ["dist", "node_modules"]
 }

@@ -1,11 +1,12 @@
-import { contextBridge, ipcRenderer } from 'electron';
 import type { TLoadDocPayload, TShowcaseGameSettings, TShowcasesDesktopApi } from '@Showcases/Shared';
 import { platformApiChannel, platformApiName } from '@Showcases/Shared';
-import { PlatformActions } from './src/Constants';
-import type { TLegalDoc } from 'showcases-shared';
-import { TLocaleId } from 'anarchy-i18n';
+import type { TLocaleId } from 'anarchy-i18n';
 import type { TBrowserInfo } from 'anarchy-shared/src/Models';
 import { DesktopPreloadTrackingService } from 'anarchy-tracking/src/Services/DesktopPreloadTrackingService';
+import { contextBridge, ipcRenderer } from 'electron';
+import type { TLegalDoc } from 'showcases-shared';
+
+import { PlatformActions } from './src/Constants';
 
 const { AppExit, AppRestart, GetAppSettings, GetBrowserInfo, GetLegalDocs, GetPackagesVersions, GetPreferredLocales, SetAppSettings, UpdateAppSettings } = PlatformActions;
 

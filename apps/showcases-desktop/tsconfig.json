@@ -17,6 +17,6 @@
     "sourceMap": false,
     "noEmit": false
   },
-  "include": ["src/desktop-main.ts", "types"],
+  "include": ["src/desktop-main.ts", "preload.ts", "types"],
   "exclude": ["dist", "node_modules"]
 }
