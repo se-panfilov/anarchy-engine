@@ -1,6 +1,7 @@
 import type { TIntersectionEvent, TIntersectionsCameraWatcher, TModel3d, TModels3dRegistry, TSceneWrapper, TSpace, TSpaceConfig, TText3dWrapper } from '@Engine';
 import { asRecord, isNotDefined, spaceService } from '@Engine';
-import type { MenuEvents, TMenuEvent } from '@ShowcasesShared';
+import type { TMenuEvent } from '@ShowcasesShared';
+import { MenuEvents } from '@ShowcasesShared';
 import { filter, Subject } from 'rxjs';
 import { initMenuApp } from 'showcases_menu/src/main';
 
