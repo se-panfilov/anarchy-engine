@@ -3,7 +3,7 @@ import { Vector2 } from 'three';
 
 import type { TCamera } from '@/Engine/Camera';
 import { serializeColor } from '@/Engine/Color';
-import type { LightType } from '@/Engine/Light/Constants';
+import { LightType } from '@/Engine/Light/Constants';
 import type {
   TAbstractLightConfig,
   TAbstractLightParams,
@@ -60,12 +60,14 @@ export function lightToConfig<T extends TLight>(entity: TAbstractLightWrapper<T>
 // }
 
 export function onlyHemisphereLightToConfig(entity: THemisphereLightWrapper): Partial<THemisphereLightConfig> {
+  if (entity.getType() !== LightType.Hemisphere) return {} as THemisphereLightConfig;
   return filterOutEmptyFields({
     groundColor: serializeColor(entity.entity.groundColor)
   });
 }
 
 export function onlyRectAreaLightToConfig(entity: TRectAreaLightWrapper): Partial<TRectAreaLightConfig> {
+  if (entity.getType() !== LightType.RectArea) return {} as TRectAreaLightConfig;
   const json: Object3DJSONObject = entity.entity.toJSON().object;
 
   return filterOutEmptyFields({
@@ -75,6 +77,7 @@ export function onlyRectAreaLightToConfig(entity: TRectAreaLightWrapper): Partia
 }
 
 export function onlyPointLightToConfig(entity: TPointLightWrapper): Partial<TPointLightConfig> {
+  if (entity.getType() !== LightType.Point) return {} as TPointLightConfig;
   const json: Object3DJSONObject = entity.entity.toJSON().object;
 
   return filterOutEmptyFields({
@@ -84,6 +87,7 @@ export function onlyPointLightToConfig(entity: TPointLightWrapper): Partial<TPoi
 }
 
 export function onlySpotLightToConfig(entity: TSpotLightWrapper): Partial<TSpotLightConfig> {
+  if (entity.getType() !== LightType.Spot) return {} as TSpotLightConfig;
   const json: Object3DJSONObject = entity.entity.toJSON().object;
 
   return filterOutEmptyFields({

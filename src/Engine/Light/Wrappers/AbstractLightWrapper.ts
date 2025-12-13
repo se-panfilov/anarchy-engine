@@ -3,6 +3,7 @@ import type { Subscription } from 'rxjs';
 import type { TAbstractWrapper } from '@/Engine/Abstract';
 import { AbstractWrapper } from '@/Engine/Abstract';
 import { lightToConfig } from '@/Engine/Light/Adapters';
+import type { LightType } from '@/Engine/Light/Constants';
 import type { TAbstractLightConfig, TAbstractLightWrapper, TLight, TLightParams, TLightServiceDependencies, TLightTransformDrive } from '@/Engine/Light/Models';
 import { LightTransformDrive } from '@/Engine/Light/TransformDrive';
 import { getWrapperType } from '@/Engine/Light/Utils';
@@ -23,6 +24,7 @@ export function AbstractLightWrapper<T extends TLight>(entity: T, params: TLight
     driveToTargetConnector,
     ...withObject3d(entity),
     entity,
+    getType: (): LightType => entity.type as LightType,
     serialize: (): TAbstractLightConfig<T> => lightToConfig(result) as TAbstractLightConfig<T>
   });
 
