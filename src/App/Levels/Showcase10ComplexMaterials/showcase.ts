@@ -99,7 +99,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
 
   function addGuiToActor(actor: TActor): ReadonlyArray<GUI | Controller> {
     let controllers: ReadonlyArray<GUI | Controller> = [];
-    const model3d: Mesh = actor.entity.getRawModel3d() as Mesh;
+    const model3d: Mesh = actor.model.getRawModel3d() as Mesh;
     const isMetalness: boolean = isDefined((model3d.material as MeshStandardMaterial).metalness);
     const isRoughness: boolean = isDefined((model3d.material as MeshStandardMaterial).roughness);
     const isAoMap: boolean = isDefined((model3d.material as MeshStandardMaterial).aoMap);

@@ -54,7 +54,7 @@ export function SpatialGridWrapper(params: TSpatialGridParams): TSpatialGridWrap
   function addActor(this: TSpatialGridWrapper, actor: TActor): void | never {
     if (isNotDefined(actor.spatial.getGrid())) registerActorToGrid(actor, this);
 
-    const boundingBox: Box3 = getBoundingBox(actor.entity.getRawModel3d());
+    const boundingBox: Box3 = getBoundingBox(actor.model.getRawModel3d());
     const min: Vector3 = boundingBox.min;
     const max: Vector3 = boundingBox.max;
 
@@ -124,7 +124,7 @@ export function SpatialGridWrapper(params: TSpatialGridParams): TSpatialGridWrap
 
   // TODO test this function
   function findCellsByActorBox(actor: TActor): ReadonlyArray<TSpatialCellWrapper> {
-    const actorBox: Box3 = getBoundingBox(actor.entity.getRawModel3d());
+    const actorBox: Box3 = getBoundingBox(actor.model.getRawModel3d());
     return findCellsForBox({ minX: actorBox.min.x, minZ: actorBox.min.z, maxX: actorBox.max.x, maxZ: actorBox.max.z });
   }
 

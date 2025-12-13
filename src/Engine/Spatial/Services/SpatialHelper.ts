@@ -22,7 +22,7 @@ export function createLine(color: ColorRepresentation, width: number, positions:
 }
 
 export function createOutline(actor: TActor, color: ColorRepresentation, lineWidth: number): Line2 {
-  const boundingBox = new Box3().setFromObject(actor.entity.getRawModel3d());
+  const boundingBox = new Box3().setFromObject(actor.model.getRawModel3d());
   const min = boundingBox.min;
   const max = boundingBox.max;
   const positions = getBoxEdges(min, max);

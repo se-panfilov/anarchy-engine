@@ -176,7 +176,7 @@ export function withKinematic(params: TActorParams): TWithKinematic {
       const normalizedAngularDirection: Vector3 = this.kinematic.data.angularDirection.clone().normalize();
       const angle: TRadians = this.kinematic.data.angularSpeed * delta;
       const quaternion: Quaternion = new Quaternion().setFromAxisAngle(normalizedAngularDirection, angle);
-      (this as TActor).entity.getRawModel3d().quaternion.multiplyQuaternions(quaternion, (this as TActor).entity.getRawModel3d().quaternion);
+      (this as TActor).model.getRawModel3d().quaternion.multiplyQuaternions(quaternion, (this as TActor).model.getRawModel3d().quaternion);
     }
   };
 }
