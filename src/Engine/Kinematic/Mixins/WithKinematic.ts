@@ -10,23 +10,17 @@ import type { TDegrees, TRadians } from '@/Engine/Math';
 import { getAzimuthDegFromDirection, getAzimuthRadFromDirection, getElevationDegFromDirection, getElevationRadFromDirection } from '@/Engine/Math';
 import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
-import type { TObject3dMoveData } from '@/Engine/ThreeLib';
 import type { TWriteable } from '@/Engine/Utils';
 import { isDefined } from '@/Engine/Utils';
 
-export function withKinematic(
-  params: TActorParams,
-  kinematicLoopService: TKinematicLoopService,
-  drive$: BehaviorSubject<ActorDrive>,
-  { position, rotation }: Omit<TObject3dMoveData, 'scale'>
-): TWithKinematic {
+export function withKinematic(params: TActorParams, kinematicLoopService: TKinematicLoopService, drive$: BehaviorSubject<ActorDrive>): TWithKinematic {
   let _isAutoUpdate: boolean = (params.kinematic?.isAutoUpdate && drive$.value === ActorDrive.Kinematic) ?? false;
-  const position$: BehaviorSubject<Vector3> = new BehaviorSubject<Vector3>(position);
-  const rotation$: BehaviorSubject<Quaternion> = new BehaviorSubject<Quaternion>(new Quaternion().setFromEuler(rotation));
+  const position$: BehaviorSubject<Vector3> = new BehaviorSubject<Vector3>(params.position);
+  const rotation$: BehaviorSubject<Quaternion> = new BehaviorSubject<Quaternion>(new Quaternion().setFromEuler(params.rotation));
 
   drive$.subscribe((drive: ActorDrive): void => void (_isAutoUpdate = !!(drive === ActorDrive.Kinematic && params.kinematic?.isAutoUpdate)));
 
-  let kinematicSub$: Subscription;
+  let kinematicSub$: Subscription | undefined = undefined;
 
   const destroyable: TDestroyable = destroyableMixin();
   destroyable.destroyed$.subscribe((): void => {
@@ -36,6 +30,7 @@ export function withKinematic(
     position$.complete();
     rotation$.unsubscribe();
     rotation$.complete();
+    kinematicSub$?.unsubscribe();
   });
 
   const result = {
@@ -211,8 +206,6 @@ export function withKinematic(
     const normalizedAngularDirection: Vector3 = result.kinematic.data.angularDirection.clone().normalize();
     const angle: TRadians = result.kinematic.data.angularSpeed * delta;
     const quaternion: Quaternion = new Quaternion().setFromAxisAngle(normalizedAngularDirection, angle);
-
-    const rotation$: BehaviorSubject<Quaternion> = new BehaviorSubject<Quaternion>(new Quaternion().setFromEuler(rotation));
     rotation$.next(rotation$.value.clone().multiply(quaternion));
   }
 

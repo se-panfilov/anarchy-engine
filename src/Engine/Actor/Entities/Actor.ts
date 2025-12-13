@@ -1,6 +1,7 @@
 import type { Subscription } from 'rxjs';
-import { BehaviorSubject, combineLatest, Subject } from 'rxjs';
-import { Euler, Vector3 } from 'three';
+import { BehaviorSubject, combineLatest, distinctUntilChanged } from 'rxjs';
+import type { Euler } from 'three';
+import { Vector3 } from 'three';
 
 import { AbstractEntity, EntityType } from '@/Engine/Abstract';
 import type { ActorDrive } from '@/Engine/Actor/Constants';
@@ -11,20 +12,24 @@ import { withKinematic } from '@/Engine/Kinematic';
 import type { TModel3d } from '@/Engine/Models3d';
 import { withModel3d } from '@/Engine/Models3d';
 import type { TSpatialLoopServiceValue } from '@/Engine/Spatial';
-import { withReactivePosition, withReactiveRotation, withSpatial, withUpdateSpatialCell } from '@/Engine/Spatial';
-import { applyPosition, applyRotation, applyScale, isDefined } from '@/Engine/Utils';
+import { withSpatial, withUpdateSpatialCell } from '@/Engine/Spatial';
+import { isDefined } from '@/Engine/Utils';
 
 export function Actor(
   params: TActorParams,
   { kinematicLoopService, spatialLoopService, spatialGridService, collisionsLoopService, collisionsService, models3dService, model3dToActorConnectionRegistry }: TActorDependencies
 ): TActor {
-  const position$: Subject<Vector3> = new Subject<Vector3>();
-  const rotation$: Subject<Euler> = new Subject<Euler>();
-  const scale$: Subject<Vector3> = new Subject<Vector3>();
+  const position$: BehaviorSubject<Vector3> = new BehaviorSubject<Vector3>(params.position);
+  const rotation$: BehaviorSubject<Euler> = new BehaviorSubject<Euler>(params.rotation);
+  const scale$: BehaviorSubject<Vector3> = new BehaviorSubject<Vector3>(params.scale ?? new Vector3());
   const drive$: BehaviorSubject<ActorDrive> = new BehaviorSubject<ActorDrive>(params.drive);
 
   const isModelAlreadyInUse: boolean = isDefined(model3dToActorConnectionRegistry.findByModel3d(params.model3dSource));
   const model3d: TModel3d = isModelAlreadyInUse ? models3dService.clone(params.model3dSource) : params.model3dSource;
+
+  position$.pipe(distinctUntilChanged((prev: Vector3, curr: Vector3): boolean => prev.equals(curr))).subscribe((position: Vector3): Vector3 => model3d.getRawModel3d().position.copy(position));
+  rotation$.pipe(distinctUntilChanged((prev: Euler, curr: Euler): boolean => prev.equals(curr))).subscribe((rotation: Euler): Euler => model3d.getRawModel3d().rotation.copy(rotation));
+  scale$.pipe(distinctUntilChanged((prev: Vector3, curr: Vector3): boolean => prev.equals(curr))).subscribe((scale: Vector3): Vector3 => model3d.getRawModel3d().scale.copy(scale));
 
   // TODO 8.0.0. MODELS: maybe not needed at all, cause we can check current drive in mixins
   // drive$.subscribe((drive: ActorDrive): void => {
@@ -73,7 +78,7 @@ export function Actor(
     ...withModel3d(model3d),
     // TODO 8.0.0. MODELS: Kinematic should update rotation (and position?) (if "drive" is "kinematic")
     // TODO 8.0.0. MODELS: Physics should update position and rotation (if "drive" is "physics")
-    ...withKinematic(params, kinematicLoopService, drive$, { position$, rotation$ }),
+    ...withKinematic(params, kinematicLoopService, drive$),
     ...withSpatial(params),
     ...withCollisions(params, collisionsService, collisionsLoopService),
     ...withUpdateSpatialCell()
@@ -104,27 +109,23 @@ export function Actor(
     entities.physicsBody.destroy();
   });
 
-  let oldPosition: Vector3 = new Vector3();
-  let oldRotation: Euler = new Euler();
-  let oldScale: Vector3 = new Vector3();
-
   // TODO 8.0.0. MODELS: perhaps do this only once (without "if"'s), then just read this value from kinematic/physics and throw error if the drive is not None
   combineLatest([position$, rotation$, scale$]).subscribe(([position, rotation, scale]: [Vector3, Euler, Vector3]): void => {
     // TODO 8.0.0. MODELS: if drive is Physics, should also apply these props to the rigid body
-    if (!position.equals(oldPosition)) {
-      oldPosition = position;
-      applyPosition(entities, position);
-    }
-
-    if (!rotation.equals(oldRotation)) {
-      oldRotation = rotation;
-      applyRotation(entities, rotation);
-    }
-
-    if (!scale.equals(oldScale)) {
-      oldScale = scale;
-      applyScale(entities, scale);
-    }
+    // if (!position.equals(oldPosition)) {
+    //   oldPosition = position;
+    //   applyPosition(entities, position);
+    // }
+    //
+    // if (!rotation.equals(oldRotation)) {
+    //   oldRotation = rotation;
+    //   applyRotation(entities, rotation);
+    // }
+    //
+    // if (!scale.equals(oldScale)) {
+    //   oldScale = scale;
+    //   applyScale(entities, scale);
+    // }
 
     // TODO 8.0.0. MODELS: should it take in account scale and rotation? Otherwise trigger it only for position
     entities.updateSpatialCells(position);
