@@ -7,13 +7,10 @@
       "items": {
         "anyOf": [
           {
-            "$ref": "#/definitions/LevelTag"
+            "type": "string"
           },
           {
             "$ref": "#/definitions/CommonTag"
-          },
-          {
-            "type": "string"
           }
         ]
       }
@@ -22,7 +19,7 @@
       "type": "string"
     },
     "version": {
-      "$ref": "#/definitions/LevelSchemaVersion"
+      "$ref": "#/definitions/SpaceSchemaVersion"
     },
     "scenes": {
       "type": "array",
@@ -75,15 +72,11 @@
   },
   "required": ["actors", "cameras", "controls", "envMaps", "fogs", "lights", "name", "scenes", "tags", "texts", "version"],
   "definitions": {
-    "LevelTag": {
-      "type": "string",
-      "const": "build-in"
-    },
     "CommonTag": {
       "type": "string",
       "const": "from_config"
     },
-    "LevelSchemaVersion": {
+    "SpaceSchemaVersion": {
       "type": "string",
       "const": "1.0.0"
     },
