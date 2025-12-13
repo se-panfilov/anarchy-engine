@@ -7,119 +7,56 @@ import type { TKinematicSpeed, TKinematicTransformAgent } from '@/Engine/Transfo
 import type { TWriteable } from '@/Engine/Utils';
 import { isDefined, isNotDefined } from '@/Engine/Utils';
 
-export function getStepRotationToTarget(agent: TKinematicTransformAgent, rotationStep: TRadians): Quaternion | undefined {
-  if (isNotDefined(agent.data.target?.rotation)) return undefined;
+export function getStepRotation(agent: TKinematicTransformAgent, rotationStep: TRadians, infinite: boolean): Quaternion | undefined {
+  if (!infinite && isNotDefined(agent.data.target?.rotation)) return undefined;
 
-  const currentRotation: Quaternion = agent.rotation$.value.clone().normalize();
-  const targetNormalized: Quaternion = agent.data.target.rotation.clone().normalize();
+  // Retrieve the target rotation (for infinite mode, it's used as a descriptor).
+  const targetRotation = agent.data.target?.rotation ?? new Quaternion();
+  const targetNormalized = targetRotation.clone().normalize();
 
-  // Compute relative rotation
-  const qRelative: Quaternion = currentRotation.clone().invert().multiply(targetNormalized);
+  // Clamp w-component to prevent floating-point errors.
+  const clampedW = Math.min(Math.max(targetNormalized.w, -1), 1);
+  let angle = 2 * Math.acos(clampedW);
 
-  // Clamp w to avoid floating-point errors outside [-1,1]
-  const clampedW: number = Math.min(Math.max(qRelative.w, -1), 1);
-  const angle: TRadians = (2 * Math.acos(clampedW)) as TRadians;
+  // Correct angle to take the shortest rotation path.
+  if (angle > Math.PI) {
+    angle -= 2 * Math.PI;
+  }
 
-  // Compute rotation axis
-  const sinHalfAngle: number = Math.sqrt(1 - clampedW * clampedW);
-  const axis: Vector3 = sinHalfAngle > 1e-6 ? new Vector3(qRelative.x, qRelative.y, qRelative.z).divideScalar(sinHalfAngle).normalize() : new Vector3(0, 1, 0);
+  const sinHalfAngle = Math.sqrt(1 - clampedW * clampedW);
 
-  // Fix for shortest rotation path
-  const correctedAngle: number = angle > Math.PI ? angle - 2 * Math.PI : angle;
-  const stepAngle: number = Math.sign(correctedAngle) * Math.min(Math.abs(correctedAngle), rotationStep);
+  // Extract rotation axis; use a default axis if sinHalfAngle is too small.
+  const axis = sinHalfAngle > 1e-6 ? new Vector3(targetNormalized.x, targetNormalized.y, targetNormalized.z).divideScalar(sinHalfAngle).normalize() : new Vector3(0, 1, 0);
 
-  return stepAngle !== 0 ? new Quaternion().setFromAxisAngle(axis, stepAngle) : undefined;
-}
+  // Infinite Rotation Mode
+  if (infinite) {
+    // Use the computed sign (after correction) to determine rotation direction.
+    const stepAngle = Math.sign(angle) * rotationStep;
+    return new Quaternion().setFromAxisAngle(axis, stepAngle);
+  }
 
-// Fallback implementation for getStepRotation based on Euler angles
-// export function getStepRotationToTarget(agent: TKinematicTransformAgent, rotationStep: number): Quaternion | undefined {
-//   if (!agent.data.target?.rotation) return undefined;
-//
-//   const currentEuler = new Euler().setFromQuaternion(agent.rotation$.value, 'YXZ');
-//   const targetEuler = new Euler().setFromQuaternion(agent.data.target.rotation, 'YXZ');
-//
-//   const deltaX = targetEuler.x - currentEuler.x;
-//   const deltaY = targetEuler.y - currentEuler.y;
-//   const deltaZ = targetEuler.z - currentEuler.z;
-//
-//   const stepEuler = new Euler(
-//     Math.sign(deltaX) * Math.min(rotationStep, Math.abs(deltaX)),
-//     Math.sign(deltaY) * Math.min(rotationStep, Math.abs(deltaY)),
-//     Math.sign(deltaZ) * Math.min(rotationStep, Math.abs(deltaZ)),
-//     'YXZ'
-//   );
-//
-//   return new Quaternion().setFromEuler(stepEuler);
-// }
+  // Finite Rotation Mode
+  const currentRotation = agent.rotation$.value.clone().normalize();
+  const qRelative = currentRotation.clone().invert().multiply(targetNormalized);
 
-// export function getStepRotationInfinite(agent: TKinematicTransformAgent, rotationStep: TRadians): Quaternion {
-//   const angularDirection: Quaternion = agent.data.state.angularDirection;
-//   const axis = new Vector3(angularDirection.x, angularDirection.y, angularDirection.z);
-//   if (axis.lengthSq() < 1e-6) axis.set(0, 1, 0);
-//
-//   axis.normalize();
-//
-//   return new Quaternion().setFromAxisAngle(axis, rotationStep);
-// }
+  // Clamp w-component for relative rotation.
+  const relativeClampedW = Math.min(Math.max(qRelative.w, -1), 1);
+  let relativeAngle = 2 * Math.acos(relativeClampedW);
 
-// export function getStepRotationInfinite(agent: TKinematicTransformAgent, rotationStep: TRadians): Quaternion {
-//   const currentRotation: Quaternion = agent.rotation$.value.clone();
-//   const axis: Vector3 = new Vector3(0, 1, 0).applyQuaternion(currentRotation).normalize(); // Y axis
-//
-//   return new Quaternion().setFromAxisAngle(axis, rotationStep);
-// }
+  // Correct relative angle for the shortest path.
+  if (relativeAngle > Math.PI) {
+    relativeAngle -= 2 * Math.PI;
+  }
 
-// export function getStepRotationInfinite(agent: TKinematicTransformAgent, rotationStep: TRadians): Quaternion {
-//   const { angularDirection, forwardAxis } = agent.data.state;
-//
-//   const forward = new Vector3();
-//   if (forwardAxis === 'Z') {
-//     forward.set(0, 0, 1);
-//   } else {
-//     forward.set(1, 0, 0);
-//   }
-//   forward.applyQuaternion(angularDirection).normalize();
-//
-//   const rotationAxis = new Vector3(0, 1, 0); // По умолчанию вращаем вокруг Y (азимут)
-//
-//   // if (agent.data.state.isElevationChanging) {
-//   // rotationAxis.crossVectors(forward, new Vector3(0, 1, 0)).normalize();
-//   // }
-//
-//   if (rotationAxis.lengthSq() < 1e-6) {
-//     rotationAxis.set(0, 1, 0);
-//   }
-//
-//   return new Quaternion().setFromAxisAngle(rotationAxis, rotationStep);
-// }
+  const relativeSinHalfAngle = Math.sqrt(1 - relativeClampedW * relativeClampedW);
 
-// export function getStepRotationInfinite(agent: TKinematicTransformAgent, rotationStep: TRadians): Quaternion | undefined {
-//   const { angularDirection, forwardAxis } = agent.data.state;
-//
-//   // Determine rotation axis based on movement type
-//   let axis: Vector3;
-//   const currentEuler = new Euler().setFromQuaternion(angularDirection, 'YXZ');
-//
-//   if (Math.abs(currentEuler.x) > 0.001) {
-//     // Elevation change
-//     axis = new Vector3(1, 0, 0); // X-axis for elevation
-//   } else {
-//     axis =
-//       forwardAxis === 'Z'
-//         ? new Vector3(0, 1, 0) // Y-axis for Z-forward azimuth
-//         : new Vector3(0, 0, 1); // Z-axis for X-forward azimuth
-//   }
-//
-//   // Create rotation quaternion
-//   return new Quaternion().setFromAxisAngle(axis.normalize(), rotationStep).normalize();
-// }
+  // Extract the relative rotation axis.
+  const relativeAxis = relativeSinHalfAngle > 1e-6 ? new Vector3(qRelative.x, qRelative.y, qRelative.z).divideScalar(relativeSinHalfAngle).normalize() : new Vector3(0, 1, 0);
 
-export function getStepRotationInfinite(agent: TKinematicTransformAgent, rotationStep: TRadians): Quaternion {
-  const { angularDirection, forwardAxis } = agent.data.state;
-  if (angularDirection.equals(new Quaternion(0, 0, 0, 1))) return new Quaternion();
-  const axis = forwardAxis === 'Z' ? new Vector3(0, 1, 0) : new Vector3(0, 0, 1);
-  const sign = Math.sign(rotationStep) || 1;
-  return new Quaternion().setFromAxisAngle(axis, sign * Math.abs(rotationStep)).normalize();
+  // Compute the rotation step with the shortest path correction.
+  const stepAngle = Math.sign(relativeAngle) * Math.min(Math.abs(relativeAngle), rotationStep);
+
+  return stepAngle !== 0 ? new Quaternion().setFromAxisAngle(relativeAxis, stepAngle) : undefined;
 }
 
 export function isPointReached(target: TKinematicTarget | undefined, position: Vector3, state: TKinematicState): boolean {

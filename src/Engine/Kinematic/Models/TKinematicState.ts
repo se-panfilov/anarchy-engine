@@ -10,6 +10,7 @@ export type TKinematicState = Readonly<{
   angularSpeed: TRadiansPerSecond;
   angularDirection: Quaternion;
   forwardAxis: 'X' | 'Z';
+  isInfiniteRotation: boolean;
 }>;
 
 export type TKinematicConfigState = Omit<TKinematicState, 'linearDirection' | 'angularDirection'> &

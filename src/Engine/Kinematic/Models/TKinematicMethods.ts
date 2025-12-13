@@ -1,7 +1,7 @@
 import type { Quaternion, QuaternionLike, Vector3 } from 'three';
 import type { Vector3Like } from 'three/src/math/Vector3';
 
-import type { TMeters, TMetersPerSecond, TRadiansPerSecond } from '@/Engine/Math';
+import type { TMeters, TMetersPerSecond, TRadians, TRadiansPerSecond } from '@/Engine/Math';
 import type { TKinematicSpeed } from '@/Engine/TransformDrive/Models';
 
 import type { TKinematicData } from './TKinematicData';
@@ -10,7 +10,7 @@ export type TKinematicMethods = Readonly<{
   setData: (kinematic: TKinematicData) => void;
   getData: () => TKinematicData;
   moveTo: (vector: Vector3, speed: TKinematicSpeed) => void | never;
-  rotateTo: (quaternion: Quaternion, speed: TKinematicSpeed) => void | never;
+  rotateTo: (quaternion: Quaternion, speed: TKinematicSpeed, infinite?: boolean) => void | never;
   lookAt: (vector: Vector3, speed: TKinematicSpeed) => void | never;
   getRadius: () => TMeters;
   setRadius: (radius: TMeters) => void;
