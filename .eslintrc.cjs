@@ -15,6 +15,7 @@ module.exports = {
     'plugin:functional/stylistic'
   ],
   rules: {
+    'consistent-return': 'error',
     'import/no-unresolved': 'off',
     'import/order': 'off',
     'import/export': 'error',

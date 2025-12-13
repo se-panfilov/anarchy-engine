@@ -16,7 +16,7 @@ export enum RotationDirections {
   XZ = 'XZ'
 }
 
-export function getCircleRotation(rotateBy: RotationDirections, x: number, y: number, z: number, fullRotation: number = 1, distance: number): IWithCoordsXYZ {
+export function getCircleRotation(rotateBy: RotationDirections, x: number, y: number, z: number, fullRotation: number = 1, distance: number): IWithCoordsXYZ | never {
   const rotateTimes: number = 2 * Math.PI * fullRotation;
   switch (rotateBy) {
     case RotationDirections.XY:
@@ -38,4 +38,5 @@ export function getCircleRotation(rotateBy: RotationDirections, x: number, y: nu
         z: Math.cos(z * rotateTimes) * distance
       };
   }
+  throw new Error(`Unknown rotation direction "${rotateBy}"`);
 }
