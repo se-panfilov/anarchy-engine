@@ -1,8 +1,8 @@
-import type { BlendingDstFactor, BlendingSrcFactor } from 'three';
+import type { BlendingSrcFactor } from 'three';
 import { SrcAlphaSaturateFactor } from 'three';
 
 import { BlendingSrcFactorName } from './BlendingSrcFactorName';
 
-export const BlendingSrcFactorMap: Readonly<Record<BlendingSrcFactorName, BlendingDstFactor | BlendingSrcFactor>> = {
+export const BlendingSrcFactorMap: Readonly<Record<BlendingSrcFactorName, BlendingSrcFactor>> = {
   [BlendingSrcFactorName.SrcAlphaSaturateFactor]: SrcAlphaSaturateFactor
 };

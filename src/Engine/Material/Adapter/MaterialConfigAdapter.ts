@@ -13,7 +13,7 @@ export function configToParams(config: IMaterialConfig): IMaterialParams {
   if (isDefined(blending)) params = { ...params, blending: BlendingMap[blending] };
   if (isDefined(blendDst)) params = { ...params, blendDst: BlendingDstFactorMap[blendDst] };
   if (isDefined(blendEquation)) params = { ...params, blendEquation: BlendEquationMap[blendEquation] };
-  if (isDefined(blendSrc)) params = { ...params, blendSrc: BlendingSrcFactorMap[blendSrc] || BlendingDstFactorMap[blendSrc] };
+  if (isDefined(blendSrc)) params = { ...params, blendSrc: { ...BlendingSrcFactorMap, ...BlendingDstFactorMap }[blendSrc] };
   if (isDefined(side)) params = { ...params, side: SideMap[side] };
   if (isDefined(format)) params = { ...params, format: PixelFormatMap[format] };
   if (isDefined(stencilFunc)) params = { ...params, stencilFunc: StencilFuncMap[stencilFunc] };
