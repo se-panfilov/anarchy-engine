@@ -5,8 +5,8 @@ import type { ILoopFactory, ILoopRegistry, ILoopWrapper } from '@Engine/Domains/
 import { LoopFactory, LoopRegistry, LoopTag } from '@Engine/Domains/Loop';
 import type { IRendererFactory, IRendererRegistry, IRendererWrapper } from '@Engine/Domains/Renderer';
 import { RendererFactory, RendererModes, RendererRegistry, RendererTag } from '@Engine/Domains/Renderer';
-import type { ISceneWrapper } from '@Engine/Domains/Scene';
-import { SceneFactory } from '@Engine/Domains/Scene';
+import type { ISceneConfig, ISceneFactory, ISceneRegistry, ISceneWrapper } from '@Engine/Domains/Scene';
+import { SceneFactory, SceneRegistry, SceneTag } from '@Engine/Domains/Scene';
 import { isNotDefined, isValidLevelConfig } from '@Engine/Utils';
 import { Subject } from 'rxjs';
 
@@ -28,11 +28,17 @@ export function buildLevelFromConfig(canvas: IAppCanvas, config: ILevelConfig): 
   let isDestroyed: boolean = false;
 
   if (!isValidLevelConfig(config)) throw new Error('Failed to launch a level: invalid data format');
-  const { name, actors, cameras, lights, controls, tags } = config;
-
-  const scene: ISceneWrapper = SceneFactory().create({ name, tags });
+  const { name, actors, cameras, lights, controls, scenes, tags } = config;
 
   // TODO (S.Panfilov) refactor this maybe with command/strategy pattern?
+  const sceneFactory: ISceneFactory = SceneFactory();
+  const sceneRegistry: ISceneRegistry = SceneRegistry();
+  sceneFactory.entityCreated$.subscribe((instance: ISceneWrapper): void => sceneRegistry.add(instance));
+  scenes.forEach((scene: ISceneConfig): ISceneWrapper => sceneFactory.create(sceneFactory.getParams(scene)));
+
+  const scene: ISceneWrapper | undefined = sceneRegistry.getUniqByTag(SceneTag.Current);
+  if (isNotDefined(scene)) throw new Error(`Cannot find the current scene for level "${name}" during the level building.`);
+
   const actorFactory: IActorFactory = ActorFactory();
   const actorRegistry: IActorRegistry = ActorRegistry();
   actorRegistry.added$.subscribe((actor: IActorWrapper) => scene.addActor(actor));
@@ -102,7 +108,7 @@ export function buildLevelFromConfig(canvas: IAppCanvas, config: ILevelConfig): 
   });
 
   const initialCamera: ICameraWrapper | undefined = cameraRegistry.getUniqByTag(CameraTag.Initial);
-  if (isNotDefined(initialCamera)) throw new Error(`Cannot start the main loop for the level ${name}: initial camera is not defined`);
+  if (isNotDefined(initialCamera)) throw new Error(`Cannot start the main loop for the level "${name}": initial camera is not defined`);
 
   built$.next();
 
@@ -111,6 +117,7 @@ export function buildLevelFromConfig(canvas: IAppCanvas, config: ILevelConfig): 
   }
 
   return {
+    name,
     destroy,
     isDestroyed,
     start(): ILoopWrapper {
@@ -139,9 +146,14 @@ export function buildLevelFromConfig(canvas: IAppCanvas, config: ILevelConfig): 
       factory: { initial: loopFactory },
       registry: { initial: loopRegistry }
     },
+    scenes: {
+      factory: { initial: sceneFactory },
+      registry: { initial: sceneRegistry }
+    },
     renderer: {
       factory: { initial: rendererFactory },
       registry: { initial: rendererRegistry }
-    }
+    },
+    tags
   };
 }

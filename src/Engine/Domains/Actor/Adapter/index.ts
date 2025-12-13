@@ -1,1 +1,1 @@
-export * from './ActroConfigAdapter';
+export * from './ActrorConfigAdapter';

@@ -5,6 +5,12 @@
     "name": {
       "type": "string"
     },
+    "scenes": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/ISceneConfig"
+      }
+    },
     "actors": {
       "type": "array",
       "items": {
@@ -32,19 +38,42 @@
     "tags": {
       "type": "array",
       "items": {
-        "$ref": "#/definitions/SceneTag"
+        "$ref": "#/definitions/LevelTag"
       }
     }
   },
-  "required": ["name", "actors", "cameras", "lights", "controls", "tags"],
+  "required": ["name", "scenes", "actors", "cameras", "lights", "controls", "tags"],
   "additionalProperties": false,
   "definitions": {
+    "ISceneConfig": {
+      "$ref": "#/definitions/ISceneParams"
+    },
+    "ISceneParams": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/SceneTag"
+          }
+        }
+      },
+      "required": ["name", "tags"],
+      "additionalProperties": false
+    },
+    "SceneTag": {
+      "type": "string",
+      "const": "current"
+    },
     "IActorConfig": {
       "type": "object",
       "additionalProperties": false,
       "properties": {
         "type": {
-          "$ref": "#/definitions/IActorType"
+          "$ref": "#/definitions/ActorType"
         },
         "width": {
           "type": "number"
@@ -53,13 +82,16 @@
           "type": "number"
         },
         "materialParams": {
-          "$ref": "#/definitions/ActorMaterialConfig"
+          "$ref": "#/definitions/IActorMaterialConfig"
         },
         "position": {
           "$ref": "#/definitions/IVector3dConfig"
         },
         "castShadow": {
           "type": "boolean"
+        },
+        "depth": {
+          "type": "number"
         },
         "radius": {
           "type": "number"
@@ -68,6 +100,9 @@
           "type": "number"
         },
         "heightSegments": {
+          "type": "number"
+        },
+        "depthSegments": {
           "type": "number"
         },
         "rotation": {
@@ -82,11 +117,11 @@
       },
       "required": ["castShadow", "height", "materialParams", "position", "tags", "type", "width"]
     },
-    "IActorType": {
+    "ActorType": {
       "type": "string",
-      "enum": ["sphere", "plane"]
+      "enum": ["sphere", "plane", "cube"]
     },
-    "ActorMaterialConfig": {
+    "IActorMaterialConfig": {
       "type": "object",
       "properties": {
         "color": {
@@ -250,7 +285,7 @@
       "type": "object",
       "properties": {
         "type": {
-          "$ref": "#/definitions/ControlsType"
+          "$ref": "#/definitions/IControlsType"
         },
         "cameraTag": {
           "$ref": "#/definitions/CameraTag"
@@ -265,15 +300,14 @@
       "required": ["type", "cameraTag", "tags"],
       "additionalProperties": false
     },
-    "ControlsType": {
+    "IControlsType": {
       "type": "string",
       "const": "OrbitControls"
     },
     "ControlsTag": {
-      "type": "string",
-      "const": "standard"
+      "type": "string"
     },
-    "SceneTag": {
+    "LevelTag": {
       "type": "string",
       "const": "build-in"
     }

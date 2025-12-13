@@ -1,5 +1,11 @@
 {
-  "name": "Test scene 01",
+  "name": "Test level 01",
+  "scenes": [
+    {
+      "name": "Test scene 01",
+      "tags": ["current"]
+    }
+  ],
   "actors": [
     {
       "width": 60,

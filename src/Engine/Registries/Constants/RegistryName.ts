@@ -4,6 +4,7 @@ export enum RegistryName {
   Camera = 'camera_registry',
   Actor = 'actor_registry',
   Controls = 'controls_registry',
+  Scene = 'scene_registry',
   Renderer = 'renderer_registry',
   MouseClicksWatcher = 'mouse_clicks_watcher_registry',
   ScreenSizeWatcher = 'screen_size_watcher',

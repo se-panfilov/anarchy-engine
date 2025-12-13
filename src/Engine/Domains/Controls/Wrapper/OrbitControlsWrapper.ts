@@ -11,5 +11,7 @@ export function OrbitControlsWrapper(params: IOrbitControlsParams): IOrbitContro
     entity.target.set(params.target.x, params.target.y, params.target.z);
     entity.update();
   }
+  // eslint-disable-next-line functional/immutable-data
+  if (isDefined(params.damping)) entity.enableDamping = params.damping;
   return { ...AbstractWrapper(entity, params), entity };
 }

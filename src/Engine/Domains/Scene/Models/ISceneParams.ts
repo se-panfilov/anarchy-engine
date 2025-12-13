@@ -1,6 +1,6 @@
-import type { LevelTag } from '@Engine/Domains/Level';
+import type { SceneTag } from '@Engine/Domains/Scene';
 
 export type ISceneParams = Readonly<{
   name: string;
-  tags: ReadonlyArray<LevelTag>;
+  tags: ReadonlyArray<SceneTag>;
 }>;
