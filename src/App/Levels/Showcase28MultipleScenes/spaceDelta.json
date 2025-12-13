@@ -17,13 +17,27 @@
         }
       }
     ],
-    "audio": [],
+    "audio": [
+      {
+        "agent": "connected",
+        "audioSource": "gunshot_sound",
+        "maxDistance": 4,
+        "name": "gunshot_2",
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "refDistance": 1
+      }
+    ],
     "cameras": [
       {
+        "audioListener": "main_listener",
         "far": 10000,
         "fov": 45,
         "isActive": true,
-        "name": "main",
+        "name": "main_camera",
         "near": 1,
         "position": {
           "x": 0,
@@ -71,7 +85,12 @@
   "name": "showcase_space_delta",
   "resources": {
     "animations": [],
-    "audio": [],
+    "audio": [
+      {
+        "name": "gunshot_sound",
+        "url": "/Showcase/Audio/357-magnum-revolver-gunshot.mp3"
+      }
+    ],
     "envMaps": [],
     "materials": [
       {
