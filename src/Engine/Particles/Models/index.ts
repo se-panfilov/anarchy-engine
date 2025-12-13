@@ -2,7 +2,6 @@ export type * from './TParticlesConfig';
 export type * from './TParticlesConfigToParamsDependencies';
 export type * from './TParticlesFactory';
 export type * from './TParticlesParams';
-export type * from './TParticlesProps';
 export type * from './TParticlesRegistry';
 export type * from './TParticlesService';
 export type * from './TParticlesTransformAgents';

@@ -1,11 +1,9 @@
-import type { TWithReadonlyTags } from '@/Engine/Mixins';
-import type { TObject3DPropConfig } from '@/Engine/ThreeLib';
+import type { TObject3DParams, TObject3DPropConfig } from '@/Engine/ThreeLib';
 
-import type { TParticlesProps } from './TParticlesProps';
+import type { TParticlesParams } from './TParticlesParams';
 
-export type TParticlesConfig = Omit<TParticlesProps, 'materialSource'> &
+export type TParticlesConfig = Omit<TParticlesParams, keyof TObject3DParams | 'materialSource'> &
   Readonly<{
     materialSource: string;
   }> &
-  TObject3DPropConfig &
-  TWithReadonlyTags;
+  TObject3DPropConfig;
