@@ -1,5 +1,5 @@
-import { Languages } from '@Showcases/Menu/constants';
 import type { TDeepWriteable } from '@Anarchy/Shared/Utils';
+import { Languages } from '@Showcases/Menu/constants';
 import type { TAudioSettings, TDebugSettings, TGraphicsSettings, TInternalSettings, TLocalizationSettings, TResolution, TShowcaseGameSettings } from '@Showcases/Shared';
 import { defineStore } from 'pinia';
 import { computed, reactive } from 'vue';
