@@ -6,7 +6,7 @@ export type TSettingsWebDbService = Readonly<{
   findSettings: () => Promise<TShowcaseGameSettings | undefined>;
   getSettings: () => Promise<TShowcaseGameSettings> | never;
   setSettings: (value: TShowcaseGameSettings) => Promise<void>;
-  updateSettings: (patch: TDeepPartial<TShowcaseGameSettings>) => Promise<TShowcaseGameSettings> | never;
+  updateSettings: (patch: TDeepPartial<TShowcaseGameSettings>) => Promise<void> | never;
 }>;
 
 export type TSettingsWebDb = Dexie & Readonly<{ settings: EntityTable<TShowcaseGameSettings> }>;

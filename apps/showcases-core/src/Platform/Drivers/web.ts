@@ -85,8 +85,7 @@ export function Driver(): TPlatformDriver {
   }
 
   function setFirstRun(isFirstRun: boolean): Promise<void> {
-    console.log('XXX [WEB]', 'setFirstRun', isFirstRun);
-    return Promise.resolve();
+    return settingsWebDbService.updateSettings({ internal: { isFirstRun } });
   }
 
   async function setAppSettings(settings: TShowcaseGameSettings): Promise<void> {

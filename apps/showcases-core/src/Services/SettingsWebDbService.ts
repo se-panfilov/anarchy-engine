@@ -31,10 +31,10 @@ export function SettingsWebDbService(): TSettingsWebDbService {
     await table.put(value, id);
   }
 
-  async function updateSettings(patch: TDeepPartial<TShowcaseGameSettings>): Promise<TShowcaseGameSettings> | never {
+  async function updateSettings(patch: TDeepPartial<TShowcaseGameSettings>): Promise<void> | never {
     if (!isPartialSettings(patch)) throw new Error('[APP][SettingsWebDbService]: Invalid settings patch, cannot update settings');
 
-    return db.transaction('rw', table, async (): Promise<TShowcaseGameSettings> | never => {
+    return void db.transaction('rw', table, async (): Promise<TShowcaseGameSettings> | never => {
       const current: TShowcaseGameSettings | undefined = await findSettings();
       if (isNotDefined(current)) throw new Error(`[APP][SettingsWebDbService]: No settings found in the database "${dbName}", cannot update settings`);
       const value: TShowcaseGameSettings = patchObject(current, patch);
