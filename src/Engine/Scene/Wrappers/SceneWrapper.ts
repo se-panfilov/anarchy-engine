@@ -1,3 +1,4 @@
+import type { Subscription } from 'rxjs';
 import type { CubeTexture } from 'three';
 import { Scene } from 'three';
 
@@ -10,6 +11,7 @@ import { ColorWrapper } from '@/Engine/Color';
 import type { TEnvMapTexture } from '@/Engine/EnvMap';
 import type { TFogWrapper } from '@/Engine/Fog';
 import type { TAbstractLightWrapper, TLight } from '@/Engine/Light';
+import type { TDestroyable } from '@/Engine/Mixins';
 import { withActiveMixin, withObject3d } from '@/Engine/Mixins';
 import type { TModel3d } from '@/Engine/Models3d';
 import type { TParticlesWrapper } from '@/Engine/Particles';
@@ -70,6 +72,13 @@ export function SceneWrapper(params: TSceneParams): TSceneWrapper {
     ...withObject3d(entity),
     ...withActiveMixin(),
     entity
+  });
+
+  const destroySub$: Subscription = result.destroy$.subscribe((): void => {
+    entity.traverse((entity: unknown): void => (entity as TDestroyable).destroy$?.next());
+    entity.clear();
+
+    destroySub$.unsubscribe();
   });
 
   result._setActive(params.isActive, true);
