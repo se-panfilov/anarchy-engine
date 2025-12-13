@@ -9,6 +9,7 @@ export * from './MapUtils';
 export * from './MathUtils';
 export * from './ObjectUtils';
 export * from './RxJsUtils';
+export * from './SanitizeUtils';
 export * from './StringUtils';
 export * from './TypesUtils';
 export * from './UrlUtils';
