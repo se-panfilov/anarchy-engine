@@ -41,12 +41,15 @@ export function Models3dService(models3dRegistry: TModels3dAsyncRegistry, models
     const preResult: Pick<TModel3dLoadResult, 'url' | 'options'> = { url, options };
     if (!options.isForce) {
       const model: Mesh | Group | undefined = models3dRegistry.findByKey(url);
-      const animations: ReadonlyArray<AnimationClip> | undefined = models3dAnimationsRegistry.findByKey(url);
-      if (isDefined(model)) return Promise.resolve({ result: { ...preResult, model, animations: animations ?? [] }, isExisting: true });
+      const animations: Record<string, AnimationClip> | undefined = models3dAnimationsRegistry.findByKey(url);
+      if (isDefined(model)) return Promise.resolve({ result: { ...preResult, model, animations: animations ?? {} }, isExisting: true });
     }
 
     return models3dLoader.loadAsync(url).then((gltf: GLTF): TPerformLoadResult => {
-      return { result: { ...preResult, model: gltf.scene, animations: gltf.animations }, isExisting: false };
+      const animations: Record<string, AnimationClip> = {};
+      // eslint-disable-next-line functional/immutable-data
+      gltf.animations.forEach((a: AnimationClip): void => void (animations[a.name] = a));
+      return { result: { ...preResult, model: gltf.scene, animations }, isExisting: false };
     });
   }
 
