@@ -51,6 +51,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     // const tPoseAction: AnimationAction = actions['TPose'];
 
     const solderAnimFsm: TAnimationsFsmWrapper = animationsFsmService.create({
+      name: 'solder_anim_fsm',
       initial: Idle,
       transitions: [
         [Idle, Run, Run],
@@ -71,18 +72,24 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     if (isNotDefined(animationsFsm)) throw new Error('Animations FSM is not defined');
 
     solderAnimFsm.changed$.pipe(distinctUntilChanged()).subscribe((state: string | number | symbol): void => {
-      if (state === Idle) {
-        walkAction.fadeOut(fadeDuration);
-        runAction.fadeOut(fadeDuration);
-        idleAction.reset().fadeIn(fadeDuration).play();
-      } else if (state === Walk) {
-        idleAction.fadeOut(fadeDuration);
-        runAction.fadeOut(fadeDuration);
-        walkAction.reset().fadeIn(fadeDuration).play();
-      } else if (state === Run) {
-        idleAction.fadeOut(fadeDuration);
-        walkAction.fadeOut(fadeDuration);
-        runAction.reset().fadeIn(fadeDuration).play();
+      switch (state) {
+        case Idle:
+          walkAction.fadeOut(fadeDuration);
+          runAction.fadeOut(fadeDuration);
+          idleAction.reset().fadeIn(fadeDuration).play();
+          break;
+        case Walk:
+          idleAction.fadeOut(fadeDuration);
+          runAction.fadeOut(fadeDuration);
+          walkAction.reset().fadeIn(fadeDuration).play();
+          break;
+        case Run:
+          idleAction.fadeOut(fadeDuration);
+          walkAction.fadeOut(fadeDuration);
+          runAction.reset().fadeIn(fadeDuration).play();
+          break;
+        default:
+          throw new Error(`Unknown state: ${String(state)}`);
       }
     });
 
