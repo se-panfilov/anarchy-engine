@@ -47,6 +47,7 @@ export function CameraWrapper(params: TCameraParams, { screenService, transformD
   result._setActive(params.isActive, true);
 
   const destroySub$: Subscription = result.destroy$.subscribe((): void => {
+    if (isDefined(audioListener)) result.entity.remove(audioListener);
     destroySub$.unsubscribe();
   });
 
