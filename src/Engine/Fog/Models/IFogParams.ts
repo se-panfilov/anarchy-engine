@@ -1,6 +1,5 @@
 import type { IWithReadonlyTags } from '@/Engine/Mixins';
 
-export type IFogParams = Readonly<{
-  TODO: todo;
-}> &
-  IWithReadonlyTags<string>;
+import type { IFogProps } from './IFogProps';
+
+export type IFogParams = IFogProps & IWithReadonlyTags<string>;
