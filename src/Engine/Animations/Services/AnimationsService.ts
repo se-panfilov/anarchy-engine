@@ -32,7 +32,7 @@ export function AnimationsService(loopService: TLoopService): TAnimationsService
       throw new Error(`AnimationsService: Cannot auto-update mixer twice: subscribe is already exist. Mixer relates to the model facade (name: ${modelF.getName()}, id: ${modelF.id}})`);
 
     subscriptions.set(mixer, subs$);
-    return { model: modelF.getModel3d(), mixer, actions: modelF.getActions() };
+    return { model: modelF.getRawModel3d(), mixer, actions: modelF.getActions() };
   }
 
   function stopAutoUpdateMixer(mixer: AnimationMixer): void | never {

@@ -23,8 +23,8 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
   const sphereModel3dF: TModel3d | undefined = models3dRegistry.findByName('sphere_model');
   if (isNotDefined(sphereModel3dF)) throw new Error('Sphere model is not defined');
 
-  sceneW.addModel3d(planeModel3dF.getModel3d());
-  sceneW.addModel3d(sphereModel3dF.getModel3d());
+  sceneW.addModel3d(planeModel3dF.getRawModel3d());
+  sceneW.addModel3d(sphereModel3dF.getRawModel3d());
 
   textService.create({
     type: TextType.Text3d,

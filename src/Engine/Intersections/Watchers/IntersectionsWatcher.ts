@@ -36,7 +36,7 @@ export function IntersectionsWatcher({ position$, isAutoStart, tags, name, ...re
       const intersection: TIntersectionEvent | undefined = getIntersection(
         new Vector2(position.coords.x, position.coords.y),
         camera,
-        unWrapEntities(actors).map((e) => e.getModel3d())
+        unWrapEntities(actors).map((e) => e.getRawModel3d())
       );
       if (isDefined(intersection)) abstractWatcher.value$.next(intersection);
     });

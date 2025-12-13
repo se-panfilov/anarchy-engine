@@ -4,7 +4,7 @@ import { scalableMixin, withMoveBy3dMixin, withRotationByXyzMixin } from '@/Engi
 import type { TModel3d, TWithModel3dFacade } from '@/Engine/Models3d/Models';
 
 export function withModel3dFacade(model3dF: TModel3d): TWithModel3dFacade {
-  const model3d: Group | Mesh | Object3D = model3dF.getModel3d();
+  const model3d: Group | Mesh | Object3D = model3dF.getRawModel3d();
 
   return {
     model3d: {
