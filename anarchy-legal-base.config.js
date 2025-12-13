@@ -60,6 +60,12 @@ export default {
       USAGE_SCOPE: 'personal and commercial',
       IS_GAME: false, //If it's game, add game-specific messages, e.g. no cheating, etc.
 
+      //CRA (commercial)
+      HAS_NOTIFIED_BODY: false, //only for critical software, e.g. medical devices, automotive, etc.
+      CE_MARK_PLACEMENT: 'in-product Legal/About screen and documentation; on physical media/packaging where used',
+      CONFORMITY_ASSESSMENT_ROUTE: 'internal control',
+      IR_RECORD_RETENTION_MONTH: 24,
+
       //SECURITY
       HAS_OFFICIAL_CHANNELS_LIST: false,
 
