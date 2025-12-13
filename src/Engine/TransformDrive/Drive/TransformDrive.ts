@@ -1,7 +1,6 @@
 import type { Subscription } from 'rxjs';
-import { BehaviorSubject, distinctUntilChanged, map, pairwise, ReplaySubject, sampleTime, scan, switchMap } from 'rxjs';
+import { BehaviorSubject, distinctUntilChanged, pairwise, ReplaySubject, sampleTime, switchMap } from 'rxjs';
 import type { Euler, Vector3 } from 'three';
-import { Vector3Like } from 'three/src/math/Vector3';
 
 import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
@@ -88,40 +87,47 @@ export function TransformDrive<T extends Partial<Record<TransformAgent, TAbstrac
   const rotationThreshold: number = params.performance?.positionNoiseThreshold ?? 0.001;
   const scaleThreshold: number = params.performance?.positionNoiseThreshold ?? 0.001;
 
-  const prevPosition: Vector3 = position$.value.clone();
+  let prevPosition: { x: number; y: number; z: number } = { x: 0, y: 0, z: 0 };
   const positionSub$: Subscription = activeAgent$
     .pipe(
       switchMap((agent: TAbstractTransformAgent): BehaviorSubject<TReadonlyVector3> => agent.position$),
-      // map((position: TReadonlyVector3): TReadonlyVector3 => position.clone()),
-      // distinctUntilChanged((prev: Vector3, curr: Vector3): boolean => isEqualOrSimilarVector3Like(prev, curr, positionThreshold)),
-      // use scan instead of distinctUntilChanged, to prevent of comparing objects by references
-      // scan((prev: TReadonlyVector3, curr: TReadonlyVector3): TReadonlyVector3 => (!isEqualOrSimilarVector3Like(prev, curr, positionThreshold) ? curr : prev), new Vector3()),
+      //can't use distinctUntilChanged's prev value, because it's a reference to the same object
+      distinctUntilChanged((_prev: Vector3, curr: Vector3): boolean => isEqualOrSimilarVector3Like(prevPosition, curr, positionThreshold)),
       sampleTime(positionDelay)
     )
-    // .subscribe(position$);
-    .subscribe(position$);
+    .subscribe((position: Vector3): void => {
+      //assign like that to avoid sharing the same reference
+      prevPosition = { x: position.x, y: position.y, z: position.z };
+      position$.next(position);
+    });
 
+  let prevRotation: { x: number; y: number; z: number } = { x: 0, y: 0, z: 0 };
   const rotationSub$: Subscription = activeAgent$
     .pipe(
       switchMap((agent: TAbstractTransformAgent): BehaviorSubject<TReadonlyEuler> => agent.rotation$),
-      // map((rotation: TReadonlyEuler): TReadonlyEuler => rotation.clone()),
-      // distinctUntilChanged((prev: Euler, curr: Euler): boolean => isEqualOrSimilarVector3Like(prev, curr, rotationThreshold)),
-      // use scan instead of distinctUntilChanged, to prevent of comparing objects by references
-      // scan((prev: TReadonlyEuler, curr: TReadonlyEuler): TReadonlyEuler => (!isEqualOrSimilarVector3Like(prev, curr, rotationThreshold) ? curr : prev), activeAgent$.value.rotation$.value),
+      //can't use distinctUntilChanged's prev value, because it's a reference to the same object
+      distinctUntilChanged((_prev: Euler, curr: Euler): boolean => isEqualOrSimilarVector3Like(prevRotation, curr, rotationThreshold)),
       sampleTime(rotationDelay)
     )
-    .subscribe(rotation$);
+    .subscribe((rotation: Euler): void => {
+      //assign like that to avoid sharing the same reference
+      prevRotation = { x: rotation.x, y: rotation.y, z: rotation.z };
+      rotation$.next(rotation);
+    });
 
+  let prevScale: { x: number; y: number; z: number } = { x: 0, y: 0, z: 0 };
   const scaleSub$: Subscription = activeAgent$
     .pipe(
       switchMap((agent: TAbstractTransformAgent): BehaviorSubject<TReadonlyVector3> => agent.scale$),
-      // map((scale: TReadonlyVector3): TReadonlyVector3 => scale.clone()),
-      // distinctUntilChanged((prev: Vector3, curr: Vector3): boolean => isEqualOrSimilarVector3Like(prev, curr, scaleThreshold)),
-      // use scan instead of distinctUntilChanged, to prevent of comparing objects by references
-      // scan((prev: TReadonlyVector3, curr: TReadonlyVector3): TReadonlyVector3 => (!isEqualOrSimilarVector3Like(prev, curr, scaleThreshold) ? curr : prev), activeAgent$.value.scale$.value),
+      //can't use distinctUntilChanged's prev value, because it's a reference to the same object
+      distinctUntilChanged((_prev: Vector3, curr: Vector3): boolean => isEqualOrSimilarVector3Like(prevScale, curr, scaleThreshold)),
       sampleTime(scaleDelay)
     )
-    .subscribe(scale$);
+    .subscribe((scale: Vector3): void => {
+      //assign like that to avoid sharing the same reference
+      prevScale = { x: scale.x, y: scale.y, z: scale.z };
+      scale$.next(scale);
+    });
 
   const result: TTransformDriveMandatoryFields = {
     ...destroyable,
