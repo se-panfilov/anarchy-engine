@@ -31,7 +31,7 @@ Roadmap:
 - 22.x.x Postprocessing
 - 23.0.x Refactor withActive entities (use active$) (camera, renderer, etc)
 - 24.0.x Logging
-- 25.0.x Performance improvements (make sure actors, materials and env maps are async)
+- 25.0.x Performance improvements (make sure materials and env maps are async)
 - 26.0.x npm package and a repo
 
 Global Refactoring:
@@ -41,7 +41,7 @@ Global Refactoring:
 
 Bugs and issues:
 - Registries might be a mistake: if I create "bullet" which extends "actor", the actor will be registered, not the bullet (which is unexpected)
-- Timers are the issue (the game is paused when you are not in the tab, but timers such as "setTimeout" are still running)
+- Timers are an issue (the game is paused when you are not in the tab, but timers such as "setTimeout" are still running)
 - Production build is not working due to WASM integration
 - #191823 Text3dTextures doesn't update text values on textures on change
 
