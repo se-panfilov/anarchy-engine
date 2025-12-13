@@ -3,7 +3,7 @@ import type { TActorDependencies, TActorParams, TActorWrapperAsync } from '@/Eng
 import type { TWithMaterial } from '@/Engine/Material';
 import { withMaterial } from '@/Engine/Material';
 import { scalableMixin, withMoveBy3dMixin, withObject3d, withRotationByXyzMixin } from '@/Engine/Mixins';
-import type { TPhysicsBodyFacade } from '@/Engine/Physics';
+import type { TPhysicsBody } from '@/Engine/Physics';
 import { withTextures } from '@/Engine/Texture';
 import type { TMesh } from '@/Engine/ThreeLib';
 import { applyObject3dParams, applyPosition, applyRotation, applyScale, isDefined } from '@/Engine/Utils';
@@ -11,7 +11,7 @@ import { applyObject3dParams, applyPosition, applyRotation, applyScale, isDefine
 import { createActorMesh, createPhysicsBody } from './ActorUtils';
 
 export async function ActorWrapperAsync(params: TActorParams, { materialTextureService, physicsPresetService, physicsBodyFacadeService }: TActorDependencies): Promise<TActorWrapperAsync> {
-  let physicsBody: TPhysicsBodyFacade | undefined;
+  let physicsBody: TPhysicsBody | undefined;
   if (isDefined(params.physics) && Object.keys(params.physics).length > 0) physicsBody = createPhysicsBody(params.physics, { physicsPresetService, physicsBodyFacadeService });
 
   // TODO (S.Panfilov) AWAIT: could speed up by not awaiting mesh to be build

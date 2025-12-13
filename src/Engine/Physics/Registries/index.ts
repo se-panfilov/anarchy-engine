@@ -1,2 +1,2 @@
-export * from './PhysicsBodyFacadeRegistry';
+export * from './PhysicsBodyRegistry';
 export * from './PhysicsPresetRegistry';

@@ -1,2 +1,2 @@
-export * from './PhysicsBodyFacadeConfigAdapter';
+export * from './PhysicsBodyConfigAdapter';
 export * from './PhysicsPresetConfigAdapter';

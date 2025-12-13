@@ -1,4 +1,4 @@
-import type { TPhysicsBodyFacadeService } from './TPhysicsBodyFacadeService';
+import type { TPhysicsBodyService } from './TPhysicsBodyService';
 import type { TPhysicsPresetsService } from './TPhysicsPresetsService';
 
-export type TPhysicsService = TPhysicsBodyFacadeService & TPhysicsPresetsService;
+export type TPhysicsService = TPhysicsBodyService & TPhysicsPresetsService;

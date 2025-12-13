@@ -3,12 +3,12 @@ import { World } from '@dimforge/rapier3d';
 import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
 import type {
+  TPhysicsBody,
   TPhysicsBodyConfig,
-  TPhysicsBodyFacade,
-  TPhysicsBodyFacadeFactory,
-  TPhysicsBodyFacadeRegistry,
-  TPhysicsBodyFacadeService,
+  TPhysicsBodyFactory,
   TPhysicsBodyParams,
+  TPhysicsBodyRegistry,
+  TPhysicsBodyService,
   TPhysicsDebugRenderer,
   TPhysicsWorldParams
 } from '@/Engine/Physics/Models';
@@ -17,13 +17,13 @@ import type { TSceneWrapper } from '@/Engine/Scene';
 import { isNotDefined } from '@/Engine/Utils';
 import type { TVector3Wrapper } from '@/Engine/Vector';
 
-export function PhysicsBodyFacadeService(factory: TPhysicsBodyFacadeFactory, registry: TPhysicsBodyFacadeRegistry, scene: TSceneWrapper): TPhysicsBodyFacadeService {
+export function PhysicsBodyService(factory: TPhysicsBodyFactory, registry: TPhysicsBodyRegistry, scene: TSceneWrapper): TPhysicsBodyService {
   let world: World | undefined;
-  factory.entityCreated$.subscribe((coordinator: TPhysicsBodyFacade): void => registry.add(coordinator));
+  factory.entityCreated$.subscribe((coordinator: TPhysicsBody): void => registry.add(coordinator));
 
-  const create = (params: TPhysicsBodyParams): TPhysicsBodyFacade => factory.create(params);
+  const create = (params: TPhysicsBodyParams): TPhysicsBody => factory.create(params);
   const createFromConfig = (physics: ReadonlyArray<TPhysicsBodyConfig>): void => {
-    physics.forEach((config: TPhysicsBodyConfig): TPhysicsBodyFacade => factory.create(factory.configToParams(config)));
+    physics.forEach((config: TPhysicsBodyConfig): TPhysicsBody => factory.create(factory.configToParams(config)));
   };
 
   function createWorld({
@@ -85,8 +85,8 @@ export function PhysicsBodyFacadeService(factory: TPhysicsBodyFacadeFactory, reg
     getDebugRenderer,
     getWorld: (): World | undefined => world,
     setGravity,
-    getFactory: (): TPhysicsBodyFacadeFactory => factory,
-    getRegistry: (): TPhysicsBodyFacadeRegistry => registry,
+    getFactory: (): TPhysicsBodyFactory => factory,
+    getRegistry: (): TPhysicsBodyRegistry => registry,
     getScene: (): TSceneWrapper => scene,
     ...destroyable
   };
