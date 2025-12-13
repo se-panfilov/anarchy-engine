@@ -274,7 +274,9 @@ export type TScriptCode = ${getUnion(
 }
 
 function getUnion(list, key) {
-  return list.map((item) => `  | '${item[key]}'`).join('\n');
+  return removeDuplicates(list.map((item) => item[key]))
+    .map((val) => `  | '${val}'`)
+    .join('\n');
 }
 
 function toTs(locale) {
@@ -291,4 +293,8 @@ function kebabToCamel(input) {
     .split('-')
     .map((part, index) => (index === 0 ? part : part.charAt(0).toUpperCase() + part.slice(1)))
     .join('');
+}
+
+function removeDuplicates(array) {
+  return Array.from(new Set(array));
 }
