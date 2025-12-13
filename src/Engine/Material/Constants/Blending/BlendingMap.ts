@@ -1,5 +1,5 @@
+import type { Blending } from 'three';
 import { AdditiveBlending, CustomBlending, MultiplyBlending, NoBlending, NormalBlending, SubtractiveBlending } from 'three';
-import type { Blending } from 'three/src/constants';
 
 import { BlendingName } from './BlendingName';
 

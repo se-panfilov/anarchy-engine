@@ -1,5 +1,5 @@
-import type { NormalMapTypes } from 'three/src/constants';
-import { ObjectSpaceNormalMap, TangentSpaceNormalMap } from 'three/src/constants';
+import type { NormalMapTypes } from 'three';
+import { ObjectSpaceNormalMap, TangentSpaceNormalMap } from 'three';
 
 import { NormalMapTypesName } from './NormalMapTypesName';
 

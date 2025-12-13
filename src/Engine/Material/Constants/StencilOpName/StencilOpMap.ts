@@ -1,5 +1,5 @@
-import type { StencilOp } from 'three/src/constants';
-import { DecrementStencilOp, DecrementWrapStencilOp, IncrementStencilOp, IncrementWrapStencilOp, InvertStencilOp, KeepStencilOp, ReplaceStencilOp, ZeroStencilOp } from 'three/src/constants';
+import type { StencilOp } from 'three';
+import { DecrementStencilOp, DecrementWrapStencilOp, IncrementStencilOp, IncrementWrapStencilOp, InvertStencilOp, KeepStencilOp, ReplaceStencilOp, ZeroStencilOp } from 'three';
 
 import { StencilOpName } from './StencilOpName';
 

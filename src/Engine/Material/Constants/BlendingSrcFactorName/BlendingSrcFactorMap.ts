@@ -1,5 +1,5 @@
-import type { BlendingDstFactor, BlendingSrcFactor } from 'three/src/constants';
-import { SrcAlphaSaturateFactor } from 'three/src/constants';
+import type { BlendingDstFactor, BlendingSrcFactor } from 'three';
+import { SrcAlphaSaturateFactor } from 'three';
 
 import { BlendingSrcFactorName } from './BlendingSrcFactorName';
 

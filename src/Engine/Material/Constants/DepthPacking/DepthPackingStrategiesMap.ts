@@ -1,5 +1,5 @@
-import type { DepthPackingStrategies } from 'three/src/constants';
-import { BasicDepthPacking, RGBADepthPacking } from 'three/src/constants';
+import type { DepthPackingStrategies } from 'three';
+import { BasicDepthPacking, RGBADepthPacking } from 'three';
 
 import { DepthPackingStrategiesName } from './DepthPackingStrategiesName';
 

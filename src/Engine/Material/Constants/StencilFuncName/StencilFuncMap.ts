@@ -1,5 +1,5 @@
-import type { StencilFunc } from 'three/src/constants';
-import { AlwaysStencilFunc, EqualStencilFunc, GreaterEqualStencilFunc, GreaterStencilFunc, LessEqualStencilFunc, LessStencilFunc, NeverStencilFunc, NotEqualStencilFunc } from 'three/src/constants';
+import type { StencilFunc } from 'three';
+import { AlwaysStencilFunc, EqualStencilFunc, GreaterEqualStencilFunc, GreaterStencilFunc, LessEqualStencilFunc, LessStencilFunc, NeverStencilFunc, NotEqualStencilFunc } from 'three';
 
 import { StencilFuncName } from './StencilFuncName';
 

@@ -30,7 +30,7 @@ import type { IWithMaterialType } from './IWithMaterialType';
 
 type IOmitParamsOnlyFields<T> = Omit<
   T,
-  'blending' | 'BlendingDstFactor' | 'blendEquation' | 'blendSrc' | 'side' | 'format' | 'stencilFunc' | 'stencilFail' | 'stencilZFail' | 'stencilZPass' | 'combine' | 'depthPacking' | 'normalMapType'
+  'blending' | 'blendDst' | 'blendEquation' | 'blendSrc' | 'side' | 'format' | 'stencilFunc' | 'stencilFail' | 'stencilZFail' | 'stencilZPass' | 'combine' | 'depthPacking' | 'normalMapType'
 >;
 
 export type IAbstractMaterialConfig = IOmitParamsOnlyFields<IAbstractMaterialProps> & IWithMaterialType & IMaterialConfigFields;
@@ -59,9 +59,9 @@ export type IMaterialConfig =
   | IPhysicalMaterialConfig
   | IPointsMaterialConfig;
 
-export type IMaterialConfigFields = {
+export type IMaterialConfigFields = Readonly<{
   blending?: BlendingName;
-  blendingDstFactor?: BlendingDstFactorName;
+  blendDst?: BlendingDstFactorName;
   blendEquation?: BlendEquationName;
   blendSrc?: BlendingSrcFactorName | BlendingDstFactorName;
   side?: SideName;
@@ -73,4 +73,4 @@ export type IMaterialConfigFields = {
   combine?: CombineName;
   depthPacking?: DepthPackingStrategiesName;
   normalMapType?: NormalMapTypesName;
-};
+}>;

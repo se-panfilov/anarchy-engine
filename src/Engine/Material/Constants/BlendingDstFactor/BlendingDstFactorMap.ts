@@ -1,5 +1,5 @@
+import type { BlendingDstFactor } from 'three';
 import {
-  BlendingDstFactor,
   ConstantAlphaFactor,
   ConstantColorFactor,
   DstAlphaFactor,
@@ -14,7 +14,7 @@ import {
   SrcAlphaFactor,
   SrcColorFactor,
   ZeroFactor
-} from 'three/src/constants';
+} from 'three';
 
 import { BlendingDstFactorName } from './BlendingDstFactorName';
 

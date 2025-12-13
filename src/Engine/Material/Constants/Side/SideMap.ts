@@ -1,5 +1,5 @@
-import type { Side } from 'three/src/constants';
-import { BackSide, DoubleSide, FrontSide } from 'three/src/constants';
+import type { Side } from 'three';
+import { BackSide, DoubleSide, FrontSide } from 'three';
 
 import { SideName } from './SideName';
 
