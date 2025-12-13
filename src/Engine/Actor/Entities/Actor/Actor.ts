@@ -29,13 +29,13 @@ export function Actor(
   const driveToTargetConnector: TDriveToTargetConnector = DriveToTargetConnector(drive, model3d.getRawModel3d(), params.model3dSettings);
 
   // TODO CWP:
-  // TODO 9-3-0 STATE: allow FSM from config
   // TODO 8.0.0. MODELS: Close all todoes with tag 9.0.0
   // TODO 8.0.0. MODELS: Close all todoes with tag 9.2.0
   // TODO 8.0.0. MODELS: Close all todoes with tag 10.0.0
   // TODO 8.0.0. MODELS: Take a look to todoes with tag ANIMATIONS (uploading animations separately from a model)
   // TODO 8.0.0. MODELS: Take a look to todoes with tag Layers
   // TODO 8.0.0. MODELS: GET RID OF PROPS (Use params as defaults, and configs as extended)
+  // TODO 8.0.0. MODELS: Get rid of withTagsEntity (keep only with readonly tags), methods such as hasTag, addTah, should be in utils
 
   const entities: TActorEntities = {
     // TODO ACTOR: state encapsulate AI (connection)
@@ -49,6 +49,13 @@ export function Actor(
   };
 
   const actor: TActor = AbstractEntity(entities, EntityType.Actor, { ...params, id });
+
+  // if (params.states?.animationsFsm) {
+  //   console.log('XXX applied!');
+  //   actor.setAnimationsFsm(params.states.animationsFsm);
+  // }
+
+  // console.log('XXX7', actor.states);
 
   actor.destroy$.subscribe((): void => {
     //Remove model3d registration
