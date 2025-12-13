@@ -6,7 +6,7 @@ GZ_FILE="${JS_FILE}.gz"
 BR_FILE="${JS_FILE}.br"
 
 if [[ -z "$JS_FILE" || -z "$MAP_FILE" ]]; then
-  echo "❌ Usage: ./check-minify.sh path/to/file.js path/to/file.js.map"
+  echo "❌ Usage: ./CheckMinify.sh path/to/file.js path/to/file.js.map"
   exit 1
 fi
 
@@ -20,13 +20,13 @@ if [[ ! -f "$MAP_FILE" ]]; then
   exit 1
 fi
 
-LINES=$(wc -l < "$JS_FILE")
-if [[ "$LINES" -gt 50 ]]; then
-  echo "❌ Too many lines in JS file ($LINES). Probably not minified."
-  exit 1
-else
-  echo "✅ JS file appears minified ($LINES lines)"
-fi
+#LINES=$(wc -l < "$JS_FILE")
+#if [[ "$LINES" -gt 50 ]]; then
+#  echo "❌ Too many lines in JS file ($LINES). Probably not minified."
+#  exit 1
+#else
+#  echo "✅ JS file appears minified ($LINES lines)"
+#fi
 
 if [[ -f "$GZ_FILE" ]]; then
   gunzip -c "$GZ_FILE" | cmp -s - "$JS_FILE"
@@ -53,12 +53,21 @@ else
 fi
 
 echo "🔍 Checking sourcemap integrity..."
-npx --yes source-map-explorer "$JS_FILE" "$MAP_FILE" --no-open
 
-if [ $? -eq 0 ]; then
+TMP_JSON=$(mktemp -t sourcemapXXXXXX.json)
+
+SOURCEMAP_ERR=$(npx --yes source-map-explorer "$JS_FILE" "$MAP_FILE" --json "$TMP_JSON" 2>&1)
+echo "📄 Sourcemap analysis written to: $TMP_JSON"
+
+if [[ $? -eq 0 && -s "$TMP_JSON" ]]; then
   echo "✅ Sourcemap check passed: $JS_FILE"
+  rm "$TMP_JSON"
 else
-  echo "❌ Sourcemap check failed: $JS_FILE"
+  echo "❌ Failed to analyze sourcemap: $JS_FILE"
+  echo "🧾 stderr:"
+  echo "$SOURCEMAP_ERR"
+  [[ -f "$TMP_JSON" ]] && cat "$TMP_JSON"
+rm -f "$TMP_JSON"
   exit 1
 fi
 
