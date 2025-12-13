@@ -10,7 +10,7 @@ import type { TAudioFadeParams } from './TAudioFadeParams';
 
 export type TAudio3dWrapper = TWrapper<PositionalAudio> &
   Readonly<{
-    play: () => void;
+    play$: Subject<boolean>;
     pause$: BehaviorSubject<boolean>;
     fade$: Subject<TAudioFadeParams>;
     speed$: BehaviorSubject<number>;
