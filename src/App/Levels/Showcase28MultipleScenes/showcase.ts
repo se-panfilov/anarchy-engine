@@ -33,8 +33,8 @@ export function start(): void {
   const spaceDelta: TSpace = spaces[spaceDeltaConfig.name];
   if (isNotDefined(spaceAlpha)) throw new Error(`Showcase: Space "${spaceAlphaConfig.name}" is not defined`);
   if (isNotDefined(spaceBeta)) throw new Error(`Showcase: Space "${spaceBetaConfig.name}" is not defined`);
-  if (isNotDefined(spaceBeta)) throw new Error(`Showcase: Space "${spaceGamma.name}" is not defined`);
-  if (isNotDefined(spaceBeta)) throw new Error(`Showcase: Space "${spaceDelta.name}" is not defined`);
+  if (isNotDefined(spaceGamma)) throw new Error(`Showcase: Space "${spaceGammaConfig.name}" is not defined`);
+  if (isNotDefined(spaceDelta)) throw new Error(`Showcase: Space "${spaceDeltaConfig.name}" is not defined`);
 
   combineLatest([spaceAlpha.built$, spaceBeta.built$, spaceGamma.built$, spaceDelta.built$]).subscribe(([alpha, beta, gamma, delta]: ReadonlyArray<TSpace>): void => {
     runAlpha(alpha);
