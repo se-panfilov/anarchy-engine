@@ -44,7 +44,6 @@
         },
         "castShadow": false,
         "receiveShadow": true,
-        "position": { "x": 0, "y": 2, "z": 0 },
         "rotation": { "x": -1.57, "y": 0, "z": 0 }
       },
       {
@@ -77,7 +76,7 @@
       {
         "name": "surface_actor",
         "model3dEntity": "surface_model",
-        "position": { "x": 0, "y": 2, "z": 0 },
+        "position": { "x": 0, "y": 0.5, "z": 0 },
         "castShadow": false,
         "receiveShadow": true,
         "spatial": { "grid": "main_grid", "isAutoUpdate": true },
@@ -305,16 +304,24 @@
         "tags": []
       },
       {
+        "name": "dir_light",
         "type": "Directional",
         "color": "#ffffff",
-        "intensity": 1,
+        "intensity": 1.4,
         "castShadow": true,
+        "position": { "x": 0.25, "y": 15, "z": 2.25 },
         "shadow": {
           "mapSize": { "x": 1024, "y": 1024 },
-          "camera": { "far": 15 },
-          "normalBias": 0.05
+          "normalBias": 0.05,
+          "camera": {
+            "top": 50,
+            "bottom": -50,
+            "left": -50,
+            "right": 50,
+            "near": 0.1,
+            "far": 40
+          }
         },
-        "position": { "x": 0.25, "y": 2, "z": 2.25 },
         "tags": []
       }
     ],
