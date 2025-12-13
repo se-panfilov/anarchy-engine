@@ -80,12 +80,6 @@
       "type": "object",
       "additionalProperties": false,
       "properties": {
-        "background": {
-          "type": "string"
-        },
-        "name": {
-          "type": "string"
-        },
         "tags": {
           "type": "array",
           "items": {
@@ -101,6 +95,45 @@
               }
             ]
           }
+        },
+        "visible": {
+          "type": "boolean"
+        },
+        "castShadow": {
+          "type": "boolean"
+        },
+        "receiveShadow": {
+          "type": "boolean"
+        },
+        "frustumCulled": {
+          "type": "boolean"
+        },
+        "renderOrder": {
+          "type": "number"
+        },
+        "layers": {
+          "type": "number"
+        },
+        "animations": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "rotation": {
+          "$ref": "#/definitions/IEuler3dConfig"
+        },
+        "scale": {
+          "$ref": "#/definitions/IWithCoordsXYZ"
+        },
+        "position": {
+          "$ref": "#/definitions/IWithCoordsXYZ"
+        },
+        "background": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
         }
       },
       "required": ["name", "tags"]
@@ -108,95 +141,6 @@
     "SceneTag": {
       "type": "string",
       "const": "current"
-    },
-    "IActorConfig": {
-      "type": "object",
-      "additionalProperties": false,
-      "properties": {
-        "type": {
-          "$ref": "#/definitions/ActorType"
-        },
-        "width": {
-          "type": "number"
-        },
-        "height": {
-          "type": "number"
-        },
-        "materialParams": {
-          "$ref": "#/definitions/IActorMaterialConfig"
-        },
-        "position": {
-          "$ref": "#/definitions/IWithCoordsXYZ"
-        },
-        "rotation": {
-          "$ref": "#/definitions/IEuler3dConfig"
-        },
-        "castShadow": {
-          "type": "boolean"
-        },
-        "depth": {
-          "type": "number"
-        },
-        "radius": {
-          "type": "number"
-        },
-        "widthSegments": {
-          "type": "number"
-        },
-        "heightSegments": {
-          "type": "number"
-        },
-        "depthSegments": {
-          "type": "number"
-        },
-        "tags": {
-          "type": "array",
-          "items": {
-            "anyOf": [
-              {
-                "$ref": "#/definitions/ActorTag"
-              },
-              {
-                "$ref": "#/definitions/CommonTag"
-              },
-              {
-                "type": "string"
-              }
-            ]
-          }
-        }
-      },
-      "required": ["castShadow", "height", "materialParams", "position", "tags", "type", "width"]
-    },
-    "ActorType": {
-      "type": "string",
-      "enum": ["sphere", "plane", "cube"]
-    },
-    "IActorMaterialConfig": {
-      "type": "object",
-      "properties": {
-        "color": {
-          "type": "string"
-        }
-      },
-      "required": ["color"],
-      "additionalProperties": false
-    },
-    "IWithCoordsXYZ": {
-      "type": "object",
-      "additionalProperties": false,
-      "properties": {
-        "z": {
-          "type": "number"
-        },
-        "y": {
-          "type": "number"
-        },
-        "x": {
-          "type": "number"
-        }
-      },
-      "required": ["x", "y", "z"]
     },
     "IEuler3dConfig": {
       "type": "object",
@@ -220,32 +164,127 @@
       "type": "string",
       "enum": ["XYZ", "YXZ", "ZXY", "ZYX", "YZX", "XZY"]
     },
+    "IWithCoordsXYZ": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "z": {
+          "type": "number"
+        },
+        "y": {
+          "type": "number"
+        },
+        "x": {
+          "type": "number"
+        }
+      },
+      "required": ["x", "y", "z"]
+    },
+    "IActorConfig": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "tags": {
+          "type": "array",
+          "items": {
+            "anyOf": [
+              {
+                "$ref": "#/definitions/ActorTag"
+              },
+              {
+                "$ref": "#/definitions/CommonTag"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          }
+        },
+        "layers": {
+          "type": "number"
+        },
+        "animations": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "position": {
+          "$ref": "#/definitions/IWithCoordsXYZ"
+        },
+        "rotation": {
+          "$ref": "#/definitions/IEuler3dConfig"
+        },
+        "scale": {
+          "$ref": "#/definitions/IWithCoordsXYZ"
+        },
+        "visible": {
+          "type": "boolean"
+        },
+        "castShadow": {
+          "type": "boolean"
+        },
+        "receiveShadow": {
+          "type": "boolean"
+        },
+        "frustumCulled": {
+          "type": "boolean"
+        },
+        "renderOrder": {
+          "type": "number"
+        },
+        "type": {
+          "$ref": "#/definitions/ActorType"
+        },
+        "width": {
+          "type": "number"
+        },
+        "height": {
+          "type": "number"
+        },
+        "materialParams": {
+          "$ref": "#/definitions/IActorMaterialConfig"
+        },
+        "depth": {
+          "type": "number"
+        },
+        "radius": {
+          "type": "number"
+        },
+        "widthSegments": {
+          "type": "number"
+        },
+        "heightSegments": {
+          "type": "number"
+        },
+        "depthSegments": {
+          "type": "number"
+        }
+      },
+      "required": ["castShadow", "height", "materialParams", "position", "tags", "type", "width"]
+    },
     "ActorTag": {
       "type": "string",
       "const": "intersectable"
+    },
+    "ActorType": {
+      "type": "string",
+      "enum": ["sphere", "plane", "cube"]
+    },
+    "IActorMaterialConfig": {
+      "type": "object",
+      "properties": {
+        "color": {
+          "type": "string"
+        }
+      },
+      "required": ["color"],
+      "additionalProperties": false
     },
     "ICameraConfig": {
       "type": "object",
       "additionalProperties": false,
       "properties": {
-        "rotation": {
-          "$ref": "#/definitions/IWithCoordsXYZ"
-        },
-        "position": {
-          "$ref": "#/definitions/IWithCoordsXYZ"
-        },
-        "lookAt": {
-          "$ref": "#/definitions/IWithCoordsXYZ"
-        },
-        "fov": {
-          "type": "number"
-        },
-        "near": {
-          "type": "number"
-        },
-        "far": {
-          "type": "number"
-        },
         "tags": {
           "type": "array",
           "items": {
@@ -261,9 +300,54 @@
               }
             ]
           }
+        },
+        "layers": {
+          "type": "number"
+        },
+        "animations": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "position": {
+          "$ref": "#/definitions/IWithCoordsXYZ"
+        },
+        "rotation": {
+          "$ref": "#/definitions/IEuler3dConfig"
+        },
+        "scale": {
+          "$ref": "#/definitions/IWithCoordsXYZ"
+        },
+        "visible": {
+          "type": "boolean"
+        },
+        "castShadow": {
+          "type": "boolean"
+        },
+        "receiveShadow": {
+          "type": "boolean"
+        },
+        "frustumCulled": {
+          "type": "boolean"
+        },
+        "renderOrder": {
+          "type": "number"
+        },
+        "lookAt": {
+          "$ref": "#/definitions/IWithCoordsXYZ"
+        },
+        "fov": {
+          "type": "number"
+        },
+        "near": {
+          "type": "number"
+        },
+        "far": {
+          "type": "number"
         }
       },
-      "required": ["position", "rotation", "tags"]
+      "required": ["position", "tags"]
     },
     "CameraTag": {
       "type": "string",
@@ -273,24 +357,6 @@
       "type": "object",
       "additionalProperties": false,
       "properties": {
-        "type": {
-          "$ref": "#/definitions/ILightType"
-        },
-        "color": {
-          "type": "string"
-        },
-        "intensity": {
-          "type": "number"
-        },
-        "castShadow": {
-          "type": "boolean"
-        },
-        "shadow": {
-          "$ref": "#/definitions/LightShadowConfig"
-        },
-        "position": {
-          "$ref": "#/definitions/IWithCoordsXYZ"
-        },
         "tags": {
           "type": "array",
           "items": {
@@ -306,13 +372,58 @@
               }
             ]
           }
+        },
+        "layers": {
+          "type": "number"
+        },
+        "animations": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "position": {
+          "$ref": "#/definitions/IWithCoordsXYZ"
+        },
+        "rotation": {
+          "$ref": "#/definitions/IEuler3dConfig"
+        },
+        "scale": {
+          "$ref": "#/definitions/IWithCoordsXYZ"
+        },
+        "visible": {
+          "type": "boolean"
+        },
+        "castShadow": {
+          "type": "boolean"
+        },
+        "receiveShadow": {
+          "type": "boolean"
+        },
+        "frustumCulled": {
+          "type": "boolean"
+        },
+        "renderOrder": {
+          "type": "number"
+        },
+        "color": {
+          "type": "string"
+        },
+        "shadow": {
+          "$ref": "#/definitions/LightShadowConfig"
+        },
+        "type": {
+          "$ref": "#/definitions/ILightType"
+        },
+        "intensity": {
+          "type": "number"
         }
       },
-      "required": ["castShadow", "color", "intensity", "position", "tags", "type"]
+      "required": ["castShadow", "color", "position", "tags", "type"]
     },
-    "ILightType": {
+    "LightTag": {
       "type": "string",
-      "enum": ["ambient", "directional"]
+      "const": "ambient"
     },
     "LightShadowConfig": {
       "type": "object",
@@ -350,19 +461,62 @@
       },
       "required": ["x", "y"]
     },
-    "LightTag": {
+    "ILightType": {
       "type": "string",
-      "const": "ambient"
+      "enum": ["ambient", "directional"]
     },
     "ITextConfig": {
       "type": "object",
       "additionalProperties": false,
       "properties": {
+        "tags": {
+          "type": "array",
+          "items": {
+            "anyOf": [
+              {
+                "$ref": "#/definitions/TextTag"
+              },
+              {
+                "$ref": "#/definitions/CommonTag"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          }
+        },
+        "layers": {
+          "type": "number"
+        },
+        "animations": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
         "position": {
           "$ref": "#/definitions/IWithCoordsXYZ"
         },
         "rotation": {
+          "$ref": "#/definitions/IEuler3dConfig"
+        },
+        "scale": {
           "$ref": "#/definitions/IWithCoordsXYZ"
+        },
+        "visible": {
+          "type": "boolean"
+        },
+        "castShadow": {
+          "type": "boolean"
+        },
+        "receiveShadow": {
+          "type": "boolean"
+        },
+        "frustumCulled": {
+          "type": "boolean"
+        },
+        "renderOrder": {
+          "type": "number"
         },
         "color": {
           "type": "string"
@@ -488,25 +642,13 @@
         },
         "unicodeFontsUrl": {
           "type": "string"
-        },
-        "tags": {
-          "type": "array",
-          "items": {
-            "anyOf": [
-              {
-                "$ref": "#/definitions/TextTag"
-              },
-              {
-                "$ref": "#/definitions/CommonTag"
-              },
-              {
-                "type": "string"
-              }
-            ]
-          }
         }
       },
-      "required": ["fontSize", "position", "tags", "text"]
+      "required": ["position", "tags", "text"]
+    },
+    "TextTag": {
+      "type": "string",
+      "enum": ["ui", "action"]
     },
     "TextAlign": {
       "type": "string",
@@ -539,10 +681,6 @@
     "TextFontWeight": {
       "type": "string",
       "enum": ["normal", "bold"]
-    },
-    "TextTag": {
-      "type": "string",
-      "enum": ["ui", "action"]
     },
     "IControlsConfig": {
       "type": "object",
