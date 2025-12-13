@@ -56,10 +56,14 @@ export function Driver(): TPlatformDriver {
     };
   }
 
+  function buildPublicUrl(relPath: string): string {
+    const base = new URL(import.meta.env.BASE_URL, window.location.origin);
+    const clean = relPath.replace(/^\/+/, '');
+    return new URL(clean, base).toString();
+  }
+
   async function getLegalDocs({ name }: TLoadDocPayload): Promise<TLegalDoc> {
-    const legalFolder: string = `${import.meta.env.BASE_URL}legal/`; // /public/legal/ and /legal are the same here
-    const originBase: string = `${window.location.origin}${legalFolder}`;
-    const response: Response = await fetch(`${originBase}${name}.md`);
+    const response: Response = await fetch(`${buildPublicUrl('legal')}/${name}.md`);
 
     if (!response.ok) throw new Error(`Failed to load legal doc "${name}" from ${response.url}: ${response.status} ${response.statusText}`);
     const content: string = await response.text();
