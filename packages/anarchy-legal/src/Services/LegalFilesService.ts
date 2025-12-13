@@ -27,8 +27,6 @@ export function LegalFilesService(): TLegalFilesService {
     config: TAnarchyLegalConfig;
   }>;
 
-  // ---------------------- Utils ----------------------
-
   const readJson = async <T = any>(p: string): Promise<T> => JSON.parse(await fs.readFile(p, 'utf8')) as T;
 
   const exists = async (p: string): Promise<boolean> => {
@@ -72,13 +70,11 @@ export function LegalFilesService(): TLegalFilesService {
     return new Map(entries);
   }
 
-  // ---------------------- Config ----------------------
-
   async function readConfig(wsDir: string): Promise<TAnarchyLegalConfig> {
     const p = path.join(wsDir, '.anarchy-legal.config.json');
     if (!(await exists(p))) return [];
     try {
-      const json = await readJson<unknown>(p);
+      const json: TAnarchyLegalConfig | unknown = await readJson<unknown>(p);
       if (!Array.isArray(json)) throw new Error('config root must be an array');
       // very light validation
       return json.filter(Boolean) as TAnarchyLegalConfig;
@@ -89,8 +85,6 @@ export function LegalFilesService(): TLegalFilesService {
 
   const pickEntry = (config: TAnarchyLegalConfig, type: 'GENERIC' | TLegalDocumentType): TAnarchyLegalConfigEntry | undefined =>
     config.find((e: TAnarchyLegalConfigEntry): boolean => e?.type === type);
-
-  // ---------------------- Templates ----------------------
 
   const TEMPLATE_EXT: string = '.md';
   const DEFAULT_TEMPLATE_BASENAME = (t: TLegalDocumentType): string => `${t}_TEMPLATE`;
@@ -106,12 +100,11 @@ export function LegalFilesService(): TLegalFilesService {
     if (await exists(def)) return def;
     // 3) first match <TYPE>_*_TEMPLATE.md (alphabetically)
     const pattern: string = path.join(templatesDir, `${docType}_*${TEMPLATE_EXT}`);
+    // eslint-disable-next-line spellcheck/spell-checker
     const found: string[] = await globby([pattern], { absolute: true });
     const [first] = found.toSorted();
     return first;
   }
-
-  // ---------------------- Placeholder rendering ----------------------
 
   const PLACEHOLDER_RE = /{{\s*([A-Z0-9_]+)\s*}}/g;
 
