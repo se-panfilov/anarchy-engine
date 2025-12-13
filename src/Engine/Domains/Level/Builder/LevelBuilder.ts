@@ -90,7 +90,7 @@ export function buildLevelFromConfig(canvas: IAppCanvas, config: ILevelConfig): 
   const loopFactory: ILoopFactory = LoopFactory();
   const loopRegistry: ILoopRegistry = LoopRegistry();
   const loopEntityCreatedSubscription: Subscription = loopFactory.entityCreated$.subscribe((instance: ILoopWrapper): void => loopRegistry.add(instance));
-  const loop: ILoopWrapper = loopFactory.create({ tags: [LoopTag.Main] });
+  const loop: ILoopWrapper = loopFactory.create({ tags: [LoopTag.Main, CommonTags.FromConfig] });
 
   destroyed$.subscribe(() => {
     isDestroyed = true;
