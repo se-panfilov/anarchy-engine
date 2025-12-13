@@ -90,16 +90,18 @@ export function Actor(
   });
 
   abstract.destroyed$.subscribe(() => {
-    kinematicSub$.unsubscribe();
+    model3dToActorConnectionRegistry.removeByModel3d(model3d);
     spatialSub$.unsubscribe();
     position$.unsubscribe();
     position$.complete();
     rotation$.unsubscribe();
     rotation$.complete();
+    model3d.destroy();
     entities.spatial.destroy();
     entities.collisions?.destroy();
-    model3dToActorConnectionRegistry.removeByModel3d(model3d);
-    model3d.destroy();
+    entities.kinematic.destroy();
+    // TODO 8.0.0. MODELS: implement destroy of physics mixin (or remoe it if not needed)
+    entities.physicsBody.destroy();
   });
 
   let oldPosition: Vector3 = new Vector3();
@@ -128,13 +130,6 @@ export function Actor(
     entities.updateSpatialCells(position);
   });
 
-  // TODO 8.0.0. MODELS: check: should be applied both for actor and model3d
-  // applyPosition(entities, params.position);
-  // TODO 8.0.0. MODELS: check: should be applied both for actor and model3d
-  // applyRotation(entities, params.rotation);
-  // TODO 8.0.0. MODELS: do we need to apply scale for actor?
-
-  if (isDefined(params.scale)) applyScale(entities, params.scale);
   applySpatialGrid(params, entities, spatialGridService);
 
   // TODO 8.0.0. MODELS: check how collisions works with the model3d?
