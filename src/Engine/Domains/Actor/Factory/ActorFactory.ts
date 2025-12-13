@@ -7,4 +7,5 @@ import { ActorWrapper } from '../Wrapper';
 
 const create = (params: IActorParams): IActorWrapper => ActorWrapper(params);
 const factory: IFactory<IActorWrapper, IActorParams> = { ...AbstractFactory('actor'), create };
-export const ActorFactory = (): IActorFactory => withConfigFactoryMixin(factory, fromConfig);
+// TODO (S.Panfilov) CWP all factories should use mixins like this
+export const ActorFactory = (): IActorFactory => ({ ...factory, ...withConfigFactoryMixin(factory, fromConfig) });

@@ -1,1 +1,1 @@
-export type IFromConfigFn<T, C extends Record<string, any>> = (config: C, extra?: any) => T;
+export type IFromConfigFn<T, C = any> = (config: C, extra?: any) => T;
