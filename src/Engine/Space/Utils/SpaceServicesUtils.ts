@@ -1,3 +1,4 @@
+import type { TModel3dFacadeToActorConnectionRegistry } from '@/Engine/Actor';
 import { ActorFactory, ActorRegistry, ActorService, Model3dFacadeToActorConnectionRegistry } from '@/Engine/Actor';
 import type { TAnimationsService } from '@/Engine/Animations';
 import { AnimationsService } from '@/Engine/Animations';
@@ -17,8 +18,8 @@ import type { TLoopService } from '@/Engine/Loop';
 import { LoopService } from '@/Engine/Loop';
 import type { TMaterialService } from '@/Engine/Material';
 import { MaterialFactory, MaterialRegistry, MaterialService } from '@/Engine/Material';
-import type { TModels3dService } from '@/Engine/Models3d';
-import { Models3dFactory, Models3dRegistry, Models3dResourceAsyncRegistry, Models3dService } from '@/Engine/Models3d';
+import type { TModel3dToModel3dFacadeConnectionRegistry, TModels3dService } from '@/Engine/Models3d';
+import { Model3dToModel3dFacadeConnectionRegistry, Models3dFactory, Models3dRegistry, Models3dResourceAsyncRegistry, Models3dService } from '@/Engine/Models3d';
 import { MouseService } from '@/Engine/Mouse';
 import { ParticlesFactory, ParticlesRegistry, ParticlesService } from '@/Engine/Particles';
 import type { TPhysicsBodyService, TPhysicsLoopService, TPhysicsPresetsService, TPhysicsWorldService } from '@/Engine/Physics';
@@ -77,7 +78,13 @@ export function initEntitiesServices(sceneW: TSceneWrapper, canvas: TAppCanvas):
   const collisionsService: TCollisionsService = CollisionsService();
   const loopService: TLoopService = LoopService();
   const animationsService: TAnimationsService = AnimationsService(loopService);
-  const models3dService: TModels3dService = Models3dService(Models3dFactory(), Models3dRegistry(), Models3dResourceAsyncRegistry(), { materialService, animationsService });
+  const model3dFacadeToActorConnectionRegistry: TModel3dFacadeToActorConnectionRegistry = Model3dFacadeToActorConnectionRegistry();
+  const model3dToModel3dFacadeConnectionRegistry: TModel3dToModel3dFacadeConnectionRegistry = Model3dToModel3dFacadeConnectionRegistry();
+  const models3dService: TModels3dService = Models3dService(Models3dFactory(), Models3dRegistry(), Models3dResourceAsyncRegistry(), {
+    materialService,
+    animationsService,
+    model3dToModel3dFacadeConnectionRegistry
+  });
 
   return {
     actorService: ActorService(
@@ -92,7 +99,7 @@ export function initEntitiesServices(sceneW: TSceneWrapper, canvas: TAppCanvas):
         spatialGridService,
         collisionsLoopService,
         collisionsService,
-        model3dFacadeToActorConnectionRegistry: Model3dFacadeToActorConnectionRegistry()
+        model3dFacadeToActorConnectionRegistry
       },
       sceneW
     ),

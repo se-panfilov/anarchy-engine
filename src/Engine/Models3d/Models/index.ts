@@ -9,6 +9,7 @@ export * from './TModel3dProps';
 export * from './TModel3dRegistry';
 export * from './TModel3dResourceAsyncRegistry';
 export * from './TModel3dResourceConfig';
+export * from './TModel3dToModel3dFacadeConnectionRegistry';
 export * from './TModels3dFactory';
 export * from './TModels3dLoader';
 export * from './TModels3dService';

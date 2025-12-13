@@ -14,13 +14,10 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     if (isNotDefined(sceneW)) throw new Error('Scene is not defined');
 
     //Adding models3d to the scene
-    models3dResourceRegistry.added$.subscribe(({ key: name, value: model3dSource }: TRegistryPack<GLTF>): void => {
-      console.log(`Model "${name}" is loaded`);
-      models3dService.create({ name, model3dSource });
-    });
+    models3dResourceRegistry.added$.subscribe(({ key: name, value: model3dSource }: TRegistryPack<GLTF>): void => console.log(`Model "${name}" is loaded`, model3dSource));
 
-    models3dRegistry.added$.subscribe(({ key: name, value: model3dSource }: TRegistryPack<TModel3dFacade>): void => {
-      console.log(`Model "${name}" is created`, model3dSource.name);
+    models3dRegistry.added$.subscribe(({ key, value: model3dSource }: TRegistryPack<TModel3dFacade>): void => {
+      console.log(`Model "${model3dSource.name}" is created (${key})`, model3dSource);
       sceneW.addModel3d(model3dSource.getModel());
     });
   }

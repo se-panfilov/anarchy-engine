@@ -9,26 +9,13 @@ const registry: Omit<TWriteable<TAbstractSimpleRegistry<string>>, 'getAll'> & TW
 ) as Omit<TWriteable<TAbstractSimpleRegistry<string>>, 'getAll)'> & TWriteable<TModel3dFacadeToActorConnectionRegistryExtension>;
 
 // eslint-disable-next-line functional/immutable-data
-registry.addModel3dFacade = (model3d: TModel3dFacade, actor: TActorWrapper): void => registry.add(model3d.getModel().uuid, actor.id);
+registry.addModel3dFacade = (model3d: TModel3dFacade, actor: TActorWrapper): void => registry.add(model3d.id, actor.id);
 // eslint-disable-next-line functional/immutable-data
-registry.addModel3dFacadeId = (model3dId: string, actorId: string): void => registry.add(model3dId, actorId);
+registry.findByModel3dFacade = (model3d: TModel3dFacade): string | undefined => registry.findByKey(model3d.id);
 // eslint-disable-next-line functional/immutable-data
-registry.findByModel3dFacadeId = (id: string): string | undefined => registry.findByKey(id);
+registry.setByModel3dFacade = (model3d: TModel3dFacade, actor: TActorWrapper): void => registry.add(model3d.id, actor.id);
 // eslint-disable-next-line functional/immutable-data
-registry.findByModel3dFacade = (model3d: TModel3dFacade): string | undefined => registry.findByKey(model3d.getModel().uuid);
-// TODO I'm a bit too lazy to make sure that "find by actor" thing is working properly, so let's keep it as comments here
-// eslint-disable-next-line functional/immutable-data
-// registry.findByActorId = (id: string): string | undefined => registry.find((model3dId: string): boolean => model3dId === id);
-// eslint-disable-next-line functional/immutable-data
-// registry.findByActor = (actor: TActorWrapper): string | undefined => registry.find((model3dId: string): boolean => model3dId === actor.id);
-// eslint-disable-next-line functional/immutable-data
-registry.setByModel3dFacadeId = (model3dId: string, actorId: string): void => registry.add(model3dId, actorId);
-// eslint-disable-next-line functional/immutable-data
-registry.setByModel3dFacade = (model3d: TModel3dFacade, actor: TActorWrapper): void => registry.add(model3d.getModel().uuid, actor.id);
-// eslint-disable-next-line functional/immutable-data
-registry.removeByModel3dFacadeId = (model3dId: string): void => registry.remove(model3dId);
-// eslint-disable-next-line functional/immutable-data
-registry.removeByModel3dFacade = (model3d: TModel3dFacade): void => registry.remove(model3d.getModel().uuid);
+registry.removeByModel3dFacade = (model3d: TModel3dFacade): void => registry.remove(model3d.id);
 // eslint-disable-next-line functional/immutable-data
 registry.getAll = (): Record<string, string> => Object.fromEntries(registry.registry.entries());
 
