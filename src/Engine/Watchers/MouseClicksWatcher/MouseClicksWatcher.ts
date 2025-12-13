@@ -1,17 +1,27 @@
-import type { IMouseClicksWatcher } from '@Engine/Watchers';
 import { AbstractWatcher } from '@Engine/Watchers/AbstractWatcher/AbstractWatcher';
-import { Subject } from 'rxjs';
+import type { IMouseClicksWatcher } from '@Engine/Watchers';
+import type { IAbstractWatcher } from '@Engine/Watchers';
+import type { IGlobalContainerDecorator } from '@Engine/Global';
 
-export function MouseClicksWatcher(): IMouseClicksWatcher {
-  const value$: Subject<void> = new Subject<void>();
-  const onMouseUpListener = (): void => value$.next();
+export function MouseClicksWatcher(container: IGlobalContainerDecorator): IMouseClicksWatcher {
+  const abstractWatcher: IAbstractWatcher<void> = AbstractWatcher('mouse_clicks');
+  const onMouseUpListener = (): void => abstractWatcher.value$.next();
 
-  return {
-    ...AbstractWatcher('mouse_clicks'),
-    // TODO (S.Panfilov) global?
-    start: (): void => document.addEventListener('mousemove', onMouseUpListener),
-    // TODO (S.Panfilov) global?
-    stop: (): void => document.removeEventListener('mousemove', onMouseUpListener),
-    value$
+  function start(): IMouseClicksWatcher {
+    container.startWatch('mouseup', onMouseUpListener);
+    return result;
+  }
+
+  function stop(): IMouseClicksWatcher {
+    container.stopWatch('mouseup', onMouseUpListener);
+    return result;
+  }
+
+  const result: IMouseClicksWatcher = {
+    ...abstractWatcher,
+    start,
+    stop
   };
+
+  return result;
 }

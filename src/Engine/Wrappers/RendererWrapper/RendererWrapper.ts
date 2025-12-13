@@ -1,11 +1,10 @@
-import type { IRendererParams, IScreenParams } from '@Engine/Models';
-import { IWrapper } from '@Engine/Models';
-import { isNotDefined, isWebGLAvailable } from '@Engine/Utils';
-import type { IScreenSizeWatcher } from '@Engine/Watchers';
-import { AbstractWrapper } from '@Engine/Wrappers';
 import { PCFShadowMap, WebGL1Renderer } from 'three';
-
+import { isNotDefined, isWebGLAvailable, Writeable } from '@Engine/Utils';
+import type { IRendererParams, IScreenParams } from '@Engine/Models';
+import { AbstractWrapper } from '@Engine/Wrappers';
+import type { IScreenSizeWatcher } from '@Engine/Watchers';
 import type { IRendererWrapper } from './Models';
+import { IWrapper } from '@Engine/Models';
 
 // TODO (S.Panfilov) Should we provide delta here?
 export function RendererWrapper({ canvas }: IRendererParams, screenSizeWatcher: IScreenSizeWatcher): IRendererWrapper {
@@ -20,11 +19,17 @@ export function RendererWrapper({ canvas }: IRendererParams, screenSizeWatcher: 
   // eslint-disable-next-line functional/immutable-data
   entity.physicallyCorrectLights = true;
 
-  screenSizeWatcher.value$.subscribe(({ width, height, ratio }: IScreenParams): void => {
+  // eslint-disable-next-line functional/prefer-immutable-types
+  function setValues(entity: Writeable<WebGL1Renderer>, { width, height, ratio }: IScreenParams): void {
     if (isNotDefined(entity)) return;
     entity.setSize(width, height);
     entity.setPixelRatio(Math.min(ratio, 2));
-  });
+  }
+
+  //init with the values which came before the start of the subscription
+  setValues(entity, screenSizeWatcher.latest$.value);
+
+  screenSizeWatcher.value$.subscribe((params: IScreenParams): void => setValues(entity, params));
 
   screenSizeWatcher.destroy$.subscribe(() => {
     screenSizeWatcher.value$.unsubscribe();
