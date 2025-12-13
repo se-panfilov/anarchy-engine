@@ -1,4 +1,4 @@
-import { actorConfigToParams } from '@/Engine/Actor/Adapters';
+import { actorModel3dConfigAdapter } from '@/Engine/Actor/Adapters';
 import type { TActorConfig, TActorConfigToParamsDependencies, TActorParams } from '@/Engine/Actor/Models';
 import { configToParams as materialConfigToParams } from '@/Engine/Material/Adapters';
 import type { TMaterialPackParams, TMaterialTexturePack } from '@/Engine/MaterialTexturePack';
@@ -12,7 +12,7 @@ export function configToParams(config: TActorConfig, dependencies: TActorConfigT
 
   return {
     ...rest,
-    model3d: actorConfigToParams(model3d),
+    model3d: actorModel3dConfigAdapter(model3d),
     spatial: configToParamsSpatialData(spatial, dependencies),
     physics: physics ? configToOptionalParamsBody(physics) : undefined,
     material: { type: materialType, params: { ...restMaterialParams }, textures: material.textures } satisfies TMaterialPackParams<TMaterialTexturePack>,
