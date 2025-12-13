@@ -2,7 +2,7 @@ import { Euler, Vector3 } from 'three';
 
 import type { TShowcase } from '@/App/Levels/Models';
 import type { TActor, TActorParams, TActorRegistry, TAppCanvas, TEngine, TMaterialWrapper, TModel3d, TMoverService, TSpace, TSpaceConfig, TSpatialGridWrapper } from '@/Engine';
-import { defaultMoverServiceConfig, Engine, forEachEnum, LookUpStrategy, MaterialType, PrimitiveModel3dType, spaceService, TextType } from '@/Engine';
+import { defaultMoverServiceConfig, Engine, forEachEnum, LookUpStrategy, MaterialType, PrimitiveModel3dType, spaceService, TextType, TransformAgent } from '@/Engine';
 import type { TAnimationParams } from '@/Engine/Services';
 import { Easing } from '@/Engine/Services';
 import { MoverService } from '@/Engine/Services/MoverService/MoverService';
@@ -30,7 +30,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
 
     const materialW: TMaterialWrapper = materialService.create({ name: 'cube_material', type: MaterialType.Toon, options: { color: '#5177ff' } });
 
-    const cubeModel3dF: TModel3d = models3dService.create({
+    const cubeModel3d: TModel3d = models3dService.create({
       name: 'cube_model',
       model3dSource: PrimitiveModel3dType.Cube,
       animationsSource: [],
@@ -41,10 +41,11 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     });
 
     const actorTemplate: TActorParams = {
-      model3dSource: cubeModel3dF,
+      model3dSource: cubeModel3d,
       spatial: { isAutoUpdate: true, grid },
       position: new Vector3(-20, 2, -2),
       rotation: new Euler(0, 0, 0),
+      agent: TransformAgent.Connected,
       tags: [boxActorTag]
     };
 

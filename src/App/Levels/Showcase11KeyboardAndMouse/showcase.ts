@@ -17,7 +17,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
 
   const { actorService, cameraService, intersectionsWatcherService, loopService, mouseService } = space.services;
   const actorRegistry: TActorRegistry = actorService.getRegistry();
-  const { findByName, findByTag, findByTags } = actorRegistry;
+  const { findByName, findByTags } = actorRegistry;
   const { onKey } = keyboardService;
 
   function init(): void {
@@ -26,8 +26,8 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
 
     addGizmo(space.services, ambientContext.screenSizeWatcher, { placement: 'bottom-left' });
 
-    const actorKeyboard: TActor | undefined = findByTag('keyboard');
-    const actorMouse: TActor | undefined = findByTag('mouse');
+    const actorKeyboard: TActor | undefined = findByName('sphere_keyboard_actor');
+    const actorMouse: TActor | undefined = findByName('sphere_mouse_actor');
     const actorKeyW: TActor | undefined = findByTags(['key', 'W'], LookUpStrategy.Every);
     const actorKeyA: TActor | undefined = findByTags(['key', 'A'], LookUpStrategy.Every);
     const actorKeyS: TActor | undefined = findByTags(['key', 'S'], LookUpStrategy.Every);

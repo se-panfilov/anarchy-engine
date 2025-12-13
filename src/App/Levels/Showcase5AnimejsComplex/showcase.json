@@ -96,18 +96,21 @@
       {
         "model3dSource": "cube_red_model",
         "position": { "x": -20, "y": 2, "z": 2 },
+        "agent": "connected",
         "spatial": { "grid": "main_grid", "isAutoUpdate": false },
         "tags": ["actor", "red"]
       },
       {
         "model3dSource": "cube_green_model",
         "position": { "x": -20, "y": 2, "z": 4 },
+        "agent": "connected",
         "spatial": { "grid": "main_grid", "isAutoUpdate": false },
         "tags": ["actor", "green"]
       },
       {
         "model3dSource": "cube_blue_model",
         "position": { "x": -20, "y": 2, "z": 6 },
+        "agent": "connected",
         "spatial": { "grid": "main_grid", "isAutoUpdate": false },
         "tags": ["actor", "blue"]
       }
@@ -120,6 +123,7 @@
         "text": "Linear",
         "position": { "x": -20, "y": 2, "z": 2 },
         "rotation": { "x": -1.57, "y": 0, "z": 0 },
+        "agent": "connected",
         "cssProps": {
           "color": "#ff0000",
           "fontSize": "12px"
@@ -131,6 +135,7 @@
         "text": "EaseInBack",
         "position": { "x": -20, "y": 2, "z": 0 },
         "rotation": { "x": -1.57, "y": 0, "z": 0 },
+        "agent": "connected",
         "cssProps": {
           "color": "#00ff00",
           "fontSize": "12px"
@@ -142,6 +147,7 @@
         "text": "EaseInCirc",
         "position": { "x": -20, "y": 2, "z": -2 },
         "rotation": { "x": -1.57, "y": 0, "z": 0 },
+        "agent": "connected",
         "cssProps": {
           "color": "#0000ff",
           "fontSize": "12px"

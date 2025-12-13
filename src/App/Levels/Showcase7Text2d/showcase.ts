@@ -94,7 +94,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
 
   const moverService: TMoverService = MoverService(loopService, defaultMoverServiceConfig);
 
-  mouseService.clickLeftRelease$.subscribe(() => {
+  mouseService.clickLeftRelease$.subscribe((): void => {
     void moverService.goByPath(floatingText, circlePathXZ, { ...animationParams, easing: Easing.Linear });
     // TODO setTimout/setInterval is not a good idea (cause the game might be "on pause", e.g. when tab is not active)
     setTimeout(() => {
