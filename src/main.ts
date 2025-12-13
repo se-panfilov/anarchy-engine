@@ -9,7 +9,11 @@ import { isNotDefined } from '@Engine/Utils';
 const canvas: HTMLCanvasElement | null = document.querySelector('#app');
 if (isNotDefined(canvas)) throw new Error('Canvas is not defined');
 
-// TODO (S.Panfilov) for a production we need a runtime validation for the json (against a schema or type)
+function isValidScene(scene: ISceneConfig | unknown): scene is ISceneConfig {
+  return true;
+}
+
+if (!isValidScene(sceneConfig)) throw new Error('Failed to load a scene: invalid data format');
 const isLaunched: boolean = await launch(sceneConfig as unknown as ISceneConfig, canvas);
 console.log('Launched', isLaunched);
 
