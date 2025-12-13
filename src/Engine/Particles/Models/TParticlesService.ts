@@ -8,7 +8,7 @@ import type { TParticlesParams } from './TParticlesParams';
 import type { TParticlesWrapperAsync } from './TParticlesWrapperAsync';
 
 export type TParticlesService = TWithCreateAsyncService<TParticlesWrapperAsync, TParticlesParams> &
-  TWithCreateFromConfigAsyncService<TParticlesConfig, Promise<ReadonlyArray<TParticlesWrapperAsync>>> &
+  TWithCreateFromConfigAsyncService<TParticlesConfig, ReadonlyArray<TParticlesWrapperAsync>> &
   TWithFactoryService<TParticlesFactory> &
   TWithRegistryService<TParticlesAsyncRegistry> &
   TWithSceneGetterService &

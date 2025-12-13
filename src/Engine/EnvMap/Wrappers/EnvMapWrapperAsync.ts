@@ -9,6 +9,7 @@ export function EnvMapWrapperAsync(pack: TEnvMapParamsPack): TEnvMapWrapperAsync
   const result = {
     ...AbstractWrapper(entity, WrapperType.EnvMap),
     entity,
+    getUrl: (): string => entity.url,
     ...withActiveMixin()
   };
 
