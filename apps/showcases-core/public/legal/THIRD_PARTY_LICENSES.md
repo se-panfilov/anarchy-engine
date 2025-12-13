@@ -2,7 +2,7 @@
 
 ## Application: showcases-core
 
-Production dependencies (including transition dependencies): 218
+Production dependencies (including transition dependencies): 217
 
 ---
 
@@ -40,7 +40,7 @@ SOFTWARE.
 
 ---
 
-## @asamuzakjp/dom-selector@6.7.4
+## @asamuzakjp/dom-selector@6.7.5
 
 **License:** MIT
 
@@ -380,7 +380,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 ---
 
-## @csstools/css-syntax-patches-for-csstree@1.0.16
+## @csstools/css-syntax-patches-for-csstree@1.0.20
 
 **License:** MIT-0
 
@@ -8609,38 +8609,6 @@ limitations under the License.
 
 ---
 
-## @rwh/keystrokes@1.5.6
-
-**License:** MIT
-
-**Repository:** github:RobertWHurst/Keystrokes
-
-**Publisher:** Robert Hurst <robertwhurst@gmail.com>
-
-MIT License
-
-Copyright (c) 2023 Robert Hurst
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-
----
-
 ## @sentry-internal/browser-utils@10.17.0
 
 **License:** MIT
@@ -9951,7 +9919,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 ---
 
-## anarchy-engine@21.1.3
+## anarchy-engine@21.2.0
 
 **License:** MIT
 
@@ -10138,7 +10106,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 ---
 
-## birpc@2.8.0
+## birpc@2.9.0
 
 **License:** MIT
 
@@ -12208,29 +12176,69 @@ terms above.
 
 ---
 
-## lru-cache@11.2.2
+## lru-cache@11.2.4
 
-**License:** ISC
+**License:** BlueOak-1.0.0
 
 **Repository:** git://github.com/isaacs/node-lru-cache.git
 
 **Publisher:** Isaac Z. Schlueter <i@izs.me>
 
-The ISC License
+# Blue Oak Model License
 
-Copyright (c) 2010-2023 Isaac Z. Schlueter and Contributors
+Version 1.0.0
 
-Permission to use, copy, modify, and/or distribute this software for any
-purpose with or without fee is hereby granted, provided that the above
-copyright notice and this permission notice appear in all copies.
+## Purpose
 
-THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
-WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
-MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
-ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
-WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
-ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR
-IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+This license gives everyone as much permission to work with
+this software as possible, while protecting contributors
+from liability.
+
+## Acceptance
+
+In order to receive this license, you must agree to its
+rules. The rules of this license are both obligations
+under that agreement and conditions to your license.
+You must not do anything with this software that triggers
+a rule that you cannot or will not follow.
+
+## Copyright
+
+Each contributor licenses you to do everything with this
+software that would otherwise infringe that contributor's
+copyright in it.
+
+## Notices
+
+You must ensure that everyone who gets a copy of
+any part of this software from you, with or without
+changes, also gets the text of this license or a link to
+<https://blueoakcouncil.org/license/1.0.0>.
+
+## Excuse
+
+If anyone notifies you in writing that you have not
+complied with [Notices](#notices), you can keep your
+license by taking all practical steps to comply within 30
+days after the notice. If you do not do so, your license
+ends immediately.
+
+## Patent
+
+Each contributor licenses you to do everything with this
+software that would otherwise infringe any patent claims
+they can license or become able to license.
+
+## Reliability
+
+No contributor can revoke this license.
+
+## No Liability
+
+**_As far as the law allows, this software comes as is,
+without any warranty or condition, and no contributor
+will be liable to anyone for any damages related to this
+software or this license, under any kind of legal claim._**
 
 ---
 
@@ -13762,7 +13770,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 ---
 
-## showcases-gui@1.1.0
+## showcases-gui@1.1.2
 
 **License:** MIT
 
@@ -13852,7 +13860,7 @@ SOFTWARE.
 
 ---
 
-## showcases-shared@1.7.1
+## showcases-shared@1.7.2
 
 **License:** MIT
 
@@ -14015,7 +14023,7 @@ THE SOFTWARE.
 
 ---
 
-## superjson@2.2.5
+## superjson@2.2.6
 
 **License:** MIT
 
@@ -14217,7 +14225,7 @@ SOFTWARE.
 
 ---
 
-## tldts@7.0.18
+## tldts@7.0.19
 
 **License:** MIT
 
@@ -14243,7 +14251,7 @@ WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN 
 
 ---
 
-## tldts-core@7.0.18
+## tldts-core@7.0.19
 
 **License:** MIT
 

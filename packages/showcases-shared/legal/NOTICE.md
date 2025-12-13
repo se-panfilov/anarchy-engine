@@ -23,7 +23,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @asamuzakjp/dom-selector@6.7.4
+## @asamuzakjp/dom-selector@6.7.5
 
 **License(s):** MIT
 
@@ -95,7 +95,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @csstools/css-syntax-patches-for-csstree@1.0.16
+## @csstools/css-syntax-patches-for-csstree@1.0.20
 
 **License(s):** MIT-0
 
@@ -299,13 +299,13 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## lru-cache@11.2.2
+## lru-cache@11.2.4
 
-**License(s):** ISC
+**License(s):** BlueOak-1.0.0
 
 **Repository:** git://github.com/isaacs/node-lru-cache.git
 
-**Attribution:** Copyright (c) 2010-2023 Isaac Z. Schlueter and Contributors
+**Attribution:** copyright in it.
 
 ---
 
@@ -419,7 +419,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## tldts@7.0.18
+## tldts@7.0.19
 
 **License(s):** MIT
 
@@ -431,7 +431,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## tldts-core@7.0.18
+## tldts-core@7.0.19
 
 **License(s):** MIT
 

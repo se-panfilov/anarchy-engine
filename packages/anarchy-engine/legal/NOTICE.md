@@ -5,7 +5,7 @@
 This product includes third-party components. Their **licenses and attributions** are listed below.
 For the **full license texts**, see `THIRD_PARTY_LICENSES.md`.
 
-Components listed: 16
+Components listed: 15
 
 ## 1) Mandatory Attributions (verbatim)
 
@@ -32,16 +32,6 @@ The following notices are reproduced as provided by the respective licensors (e.
 **URL:** https://rapier.rs
 
 **Attribution:** copyright notice that is included in or attached to the work
-
----
-
-## @rwh/keystrokes@1.5.6
-
-**License(s):** MIT
-
-**Repository:** github:RobertWHurst/Keystrokes
-
-**Attribution:** Copyright (c) 2023 Robert Hurst
 
 ---
 
