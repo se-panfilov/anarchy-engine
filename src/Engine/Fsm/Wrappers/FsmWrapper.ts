@@ -4,7 +4,7 @@ import { StateMachine, t } from 'typescript-fsm';
 
 import type { TAbstractWrapper } from '@/Engine/Abstract';
 import { AbstractWrapper, WrapperType } from '@/Engine/Abstract';
-import { entityToConfig } from '@/Engine/Fsm/Adapters';
+import { fsmToConfig } from '@/Engine/Fsm/Adapters';
 import { FsmEventsStrategy } from '@/Engine/Fsm/Constants';
 import type { TFsmConfig, TFsmEvents, TFsmMachine, TFsmParams, TFsmStates, TFsmWrapper } from '@/Engine/Fsm/Models';
 
@@ -81,7 +81,7 @@ export function FsmWrapper(params: TFsmParams): TFsmWrapper {
     send$,
     strategy$,
     getState,
-    serialize: (): TFsmConfig => entityToConfig(result)
+    serialize: (): TFsmConfig => fsmToConfig(result)
   });
 
   return result;

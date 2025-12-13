@@ -4,7 +4,7 @@ import { PerspectiveCamera, Vector3 } from 'three';
 
 import type { TAbstractWrapper } from '@/Engine/Abstract';
 import { AbstractWrapper, WrapperType } from '@/Engine/Abstract';
-import { entityToConfig } from '@/Engine/Camera/Adapters';
+import { cameraToConfig } from '@/Engine/Camera/Adapters';
 import type { TCamera, TCameraAccessors, TCameraConfig, TCameraParams, TCameraTransformDrive, TCameraWrapper, TCameraWrapperDependencies, TPerspectiveCamera } from '@/Engine/Camera/Models';
 import { CameraTransformDrive } from '@/Engine/Camera/TransformDrive';
 import { withActiveMixin, withObject3d } from '@/Engine/Mixins';
@@ -36,7 +36,7 @@ export function CameraWrapper(params: TCameraParams, { container, transformDrive
     entity,
     ...withObject3d(entity),
     ...withActiveMixin(),
-    serialize: (): TCameraConfig => entityToConfig(result)
+    serialize: (): TCameraConfig => cameraToConfig(result)
   });
 
   applyObject3dParams(result, params);

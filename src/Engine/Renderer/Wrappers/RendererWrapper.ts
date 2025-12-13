@@ -6,7 +6,7 @@ import { PCFShadowMap, WebGLRenderer } from 'three';
 import type { TAbstractWrapper } from '@/Engine/Abstract';
 import { AbstractWrapper, WrapperType } from '@/Engine/Abstract';
 import { withActiveMixin } from '@/Engine/Mixins';
-import { entityToConfig } from '@/Engine/Renderer/Adapters';
+import { rendererToConfig } from '@/Engine/Renderer/Adapters';
 import { RendererModes } from '@/Engine/Renderer/Constants';
 import type { TRendererAccessors, TRendererConfig, TRendererParams, TRendererWrapper, TRendererWrapperDependencies } from '@/Engine/Renderer/Models';
 import type { TWriteable } from '@/Engine/Utils';
@@ -68,7 +68,7 @@ export function RendererWrapper(params: TRendererParams, { container }: TRendere
   });
 
   // eslint-disable-next-line functional/immutable-data
-  const result = Object.assign(wrapper, accessors, withActiveMixin(), entity, { serialize: (): TRendererConfig => entityToConfig(result) });
+  const result = Object.assign(wrapper, accessors, withActiveMixin(), entity, { serialize: (): TRendererConfig => rendererToConfig(result) });
 
   result._setActive(params.isActive, true);
 

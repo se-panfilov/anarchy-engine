@@ -1,7 +1,7 @@
 import type { TAnyAudioConfig, TAnyAudioWrapper, TAudio3dConfig } from '@/Engine/Audio/Models';
 import { isAudio3dWrapper } from '@/Engine/Audio/Utils';
 
-export function entityToConfig(entity: TAnyAudioWrapper): TAnyAudioConfig {
+export function audioToConfig(entity: TAnyAudioWrapper): TAnyAudioConfig {
   const { name, volume$, loop$, speed$, pause$, seek$ } = entity;
   // TODO 15-0-0: implement
 

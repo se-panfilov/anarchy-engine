@@ -4,7 +4,7 @@ import { LinearFilter, Mesh, MeshBasicMaterial, PlaneGeometry, Texture } from 't
 import type { TAbstractWrapper } from '@/Engine/Abstract';
 import { AbstractWrapper } from '@/Engine/Abstract';
 import { withObject3d } from '@/Engine/Mixins';
-import { entityToConfig } from '@/Engine/Text/Adapters';
+import { textToConfig } from '@/Engine/Text/Adapters';
 import type { TextType } from '@/Engine/Text/Constants';
 import type { TTextConfig, TTextParams, TTextServiceDependencies, TTextTextureWrapper, TTextTransformDrive } from '@/Engine/Text/Models';
 import { TextTransformDrive } from '@/Engine/Text/TransformDrive';
@@ -83,7 +83,7 @@ export function createTextTextureWrapper(params: TTextParams, type: TextType, de
     ...withObject3d(entity),
     getElement: () => canvas,
     setText,
-    serialize: (): TTextConfig => entityToConfig(result)
+    serialize: (): TTextConfig => textToConfig(result)
   });
 
   setText(params.text);

@@ -2,7 +2,7 @@ import type { TActor, TActorConfig } from '@/Engine/Actor/Models';
 
 // TODO 15-0-0: (finish 14-0-0 tasks)
 
-export function entityToConfig(entity: TActor): TActorConfig {
+export function actorToConfig(entity: TActor): TActorConfig {
   const { name, tags, drive } = entity;
   // TODO 15-0-0: implement
 

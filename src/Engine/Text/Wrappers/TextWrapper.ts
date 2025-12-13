@@ -7,7 +7,7 @@ import { CSS3DObject } from 'three/examples/jsm/renderers/CSS3DRenderer';
 import type { TAbstractWrapper } from '@/Engine/Abstract';
 import { AbstractWrapper } from '@/Engine/Abstract';
 import { withObject3d } from '@/Engine/Mixins';
-import { entityToConfig } from '@/Engine/Text/Adapters';
+import { textToConfig } from '@/Engine/Text/Adapters';
 import { RelatedEntityAttribute, TextCssClass, TextType } from '@/Engine/Text/Constants';
 import type { TTextConfig, TTextParams, TTextServiceDependencies, TTextTransformDrive, TTextWrapper } from '@/Engine/Text/Models';
 import { TextTransformDrive } from '@/Engine/Text/TransformDrive';
@@ -35,7 +35,7 @@ export function createTextWrapper<T extends CSS2DObject | CSS3DObject>(params: T
     ...getCssAccessors(element),
     ...withObject3d(entity),
     getElement: (): HTMLElement => element,
-    serialize: (): TTextConfig => entityToConfig(result)
+    serialize: (): TTextConfig => textToConfig(result)
   });
 
   element.setAttribute(RelatedEntityAttribute, result.id.toString());

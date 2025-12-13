@@ -1,6 +1,6 @@
 import type { TParticlesConfig, TParticlesWrapper } from '@/Engine/Particles/Models';
 
-export function entityToConfig(entity: TParticlesWrapper): TParticlesConfig {
+export function particlesToConfig(entity: TParticlesWrapper): TParticlesConfig {
   const { drive } = entity;
   // TODO 15-0-0: implement
 

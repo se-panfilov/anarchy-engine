@@ -4,7 +4,7 @@ import type { AudioListener } from 'three';
 
 import type { TAbstractWrapper } from '@/Engine/Abstract';
 import { AbstractWrapper, WrapperType } from '@/Engine/Abstract';
-import { entityToConfig } from '@/Engine/Audio/Adapters';
+import { audioToConfig } from '@/Engine/Audio/Adapters';
 import type { TAbstractAudioWrapper, TAnyAudio, TAnyAudioConfig, TAnyAudioParams, TAudioCreateFn } from '@/Engine/Audio/Models';
 import { disposeAudio, seekAudio } from '@/Engine/Audio/Utils';
 import { destroyAudio } from '@/Engine/Utils';
@@ -112,7 +112,7 @@ export function AbstractAudioWrapper<T extends TAnyAudio>(params: TAnyAudioParam
     getDuration: (): number | undefined => entity.buffer?.duration,
     volume$,
     listener$,
-    serialize: (): TAnyAudioConfig => entityToConfig(result)
+    serialize: (): TAnyAudioConfig => audioToConfig(result)
   });
 
   return result;

@@ -2,7 +2,7 @@ import { Fog } from 'three';
 
 import type { TAbstractWrapper } from '@/Engine/Abstract';
 import { AbstractWrapper, WrapperType } from '@/Engine/Abstract';
-import { entityToConfig } from '@/Engine/Fog/Adapters';
+import { fogToConfig } from '@/Engine/Fog/Adapters';
 import type { TFog, TFogConfig, TFogParams, TFogWrapper } from '@/Engine/Fog/Models';
 
 export function FogWrapper(params: TFogParams): TFogWrapper {
@@ -13,7 +13,7 @@ export function FogWrapper(params: TFogParams): TFogWrapper {
   // eslint-disable-next-line functional/immutable-data
   const result = Object.assign(wrapper, {
     entity,
-    serialize: (): TFogConfig => entityToConfig(result)
+    serialize: (): TFogConfig => fogToConfig(result)
   });
 
   return result;

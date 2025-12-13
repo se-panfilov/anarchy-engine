@@ -4,7 +4,7 @@ import { distinctUntilChanged, filter, sample, takeUntil, tap } from 'rxjs';
 import type { Vector3, Vector3Like } from 'three';
 
 import { AbstractEntity, EntityType } from '@/Engine/Abstract';
-import { entityToConfig } from '@/Engine/Actor/Adapters';
+import { actorToConfig } from '@/Engine/Actor/Adapters';
 import { withActorStates } from '@/Engine/Actor/Mixins';
 import type { TActor, TActorConfig, TActorDependencies, TActorEntities, TActorParams, TActorTransformDrive } from '@/Engine/Actor/Models';
 import { ActorTransformDrive } from '@/Engine/Actor/TransformDrive';
@@ -42,7 +42,7 @@ export function Actor(
     ...withUpdateSpatialCell()
   };
 
-  const actor: TActor = Object.assign(AbstractEntity(entities, EntityType.Actor, { ...params, id }), { serialize: (): TActorConfig => entityToConfig(actor) });
+  const actor: TActor = Object.assign(AbstractEntity(entities, EntityType.Actor, { ...params, id }), { serialize: (): TActorConfig => actorToConfig(actor) });
 
   const spatialLoop: TSpatialLoop = loopService.getSpatialLoop();
 

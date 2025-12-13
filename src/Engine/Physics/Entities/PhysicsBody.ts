@@ -2,7 +2,7 @@ import type { RigidBodyType } from '@dimforge/rapier3d';
 import type { Subscription } from 'rxjs';
 
 import { AbstractEntity, EntityType } from '@/Engine/Abstract';
-import { entityToConfig } from '@/Engine/Physics/Adapters';
+import { physicsToConfig } from '@/Engine/Physics/Adapters';
 import type { CollisionShape, RigidBodyTypesNames } from '@/Engine/Physics/Constants';
 import { RigidBodyTypesMap } from '@/Engine/Physics/Constants';
 import { withPhysicsBodyEntities } from '@/Engine/Physics/Mixins';
@@ -46,7 +46,7 @@ export function PhysicsBody(params: TPhysicsBodyParams, { world }: TPhysicsDepen
       return result;
     },
     getPhysicsBodyShape: (): CollisionShape => params.collisionShape,
-    serialize: (): TPhysicsBodyConfig => entityToConfig(result)
+    serialize: (): TPhysicsBodyConfig => physicsToConfig(result)
   });
 
   return result;

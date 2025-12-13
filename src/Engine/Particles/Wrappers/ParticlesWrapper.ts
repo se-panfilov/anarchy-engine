@@ -7,7 +7,7 @@ import type { TColor } from '@/Engine/Color';
 import type { TWithMaterial } from '@/Engine/Material';
 import { isPointsMaterial, withMaterial } from '@/Engine/Material';
 import { withObject3d } from '@/Engine/Mixins';
-import { entityToConfig } from '@/Engine/Particles/Adapters';
+import { particlesToConfig } from '@/Engine/Particles/Adapters';
 import type { TParticlesConfig, TParticlesParams, TParticlesServiceDependencies, TParticlesTransformDrive, TParticlesWrapper } from '@/Engine/Particles/Models';
 import { ParticlesTransformDrive } from '@/Engine/Particles/TransformDrive';
 import type { TBufferGeometry, TPoints } from '@/Engine/ThreeLib';
@@ -50,7 +50,7 @@ export function ParticlesWrapper(params: TParticlesParams, dependencies: TPartic
     setIndividualPositions,
     getIndividualPositions,
     entity,
-    serialize: (): TParticlesConfig => entityToConfig(result)
+    serialize: (): TParticlesConfig => particlesToConfig(result)
   });
 
   applyObject3dParams(result, params);

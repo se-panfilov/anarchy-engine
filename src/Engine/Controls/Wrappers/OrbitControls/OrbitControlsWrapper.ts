@@ -2,7 +2,7 @@ import { Vector3 } from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
 import { AbstractWrapper, WrapperType } from '@/Engine/Abstract';
-import { entityToConfig } from '@/Engine/Controls/Adapters';
+import { controlsToConfig } from '@/Engine/Controls/Adapters';
 import type { ControlsType } from '@/Engine/Controls/Constants';
 import type { TOrbitControlsConfig, TOrbitControlsParams, TOrbitControlsWrapper } from '@/Engine/Controls/Models';
 import { getOrbitControlsAccessors } from '@/Engine/Controls/Wrappers/OrbitControls/OrbitControlsAccessors';
@@ -60,7 +60,7 @@ export function OrbitControlsWrapper(params: TOrbitControlsParams): TOrbitContro
     ...withActiveMixin(),
     moveToTargetSmoothly,
     entity,
-    serialize: (): TOrbitControlsConfig => entityToConfig(result)
+    serialize: (): TOrbitControlsConfig => controlsToConfig(result)
   });
 
   applyOrbitControlsParams(result, params);

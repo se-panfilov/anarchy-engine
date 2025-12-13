@@ -6,7 +6,7 @@ import { meters, radians } from '@/Engine/Measurements';
 import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
 import type { TReadonlyQuaternion, TReadonlyVector3 } from '@/Engine/ThreeLib';
-import { entityToConfig } from '@/Engine/TransformDrive/Adapters';
+import { transformDriveToConfig } from '@/Engine/TransformDrive/Adapters';
 import { TransformAgent } from '@/Engine/TransformDrive/Constants';
 import type {
   TAbstractTransformAgent,
@@ -117,7 +117,7 @@ export function TransformDrive<T extends Partial<Record<TransformAgent, TAbstrac
     position$,
     rotation$,
     scale$,
-    serialize: (): TTransformDriveSerializedData => entityToConfig(result),
+    serialize: (): TTransformDriveSerializedData => transformDriveToConfig(result),
     ...getDynamicAgents(agents)
   };
 

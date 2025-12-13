@@ -15,7 +15,7 @@ import type { TDestroyable } from '@/Engine/Mixins';
 import { withActiveMixin, withObject3d } from '@/Engine/Mixins';
 import type { TModel3d } from '@/Engine/Models3d';
 import type { TParticlesWrapper } from '@/Engine/Particles';
-import { entityToConfig } from '@/Engine/Scene/Adapters';
+import { sceneToConfig } from '@/Engine/Scene/Adapters';
 import type { TSceneConfig, TSceneObject, TSceneParams, TSceneWrapper } from '@/Engine/Scene/Models';
 import type { TTextAnyWrapper } from '@/Engine/Text';
 import type { TTexture } from '@/Engine/Texture';
@@ -73,7 +73,7 @@ export function SceneWrapper(params: TSceneParams): TSceneWrapper {
     ...withObject3d(entity),
     ...withActiveMixin(),
     entity,
-    serialize: (): TSceneConfig => entityToConfig(result)
+    serialize: (): TSceneConfig => sceneToConfig(result)
   });
 
   const destroySub$: Subscription = result.destroy$.subscribe((): void => {

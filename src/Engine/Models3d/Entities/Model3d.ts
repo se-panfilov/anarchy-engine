@@ -3,7 +3,7 @@ import type { Subscription } from 'rxjs';
 import type { TAbstractEntity } from '@/Engine/Abstract';
 import { AbstractEntity, EntityType } from '@/Engine/Abstract';
 import { withObject3d } from '@/Engine/Mixins';
-import { entityToConfig } from '@/Engine/Models3d/Adapters';
+import { model3dToConfig } from '@/Engine/Models3d/Adapters';
 import { withModel3dEntities } from '@/Engine/Models3d/Mixins';
 import type { TModel3d, TModel3dConfig, TModel3dDependencies, TModel3dEntities, TModel3dParams, TWithModel3dEntities } from '@/Engine/Models3d/Models';
 import { applyObject3dParamsToModel3d, applyPositionToModel3d, applyRotationToModel3d, applyScaleToModel3d, createModels3dEntities, isModel3dAlreadyInUse } from '@/Engine/Models3d/Utils';
@@ -42,7 +42,7 @@ export function Model3d(params: TModel3dParams, { animationsService, model3dRawT
   const result: TModel3d = Object.assign(preResult, abstract, {
     getParams,
     _clone,
-    serialize: (): TModel3dConfig => entityToConfig(result)
+    serialize: (): TModel3dConfig => model3dToConfig(result)
   });
 
   const destroySub$: Subscription = abstract.destroy$.subscribe((): void => {

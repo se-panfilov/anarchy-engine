@@ -1,7 +1,7 @@
 import { FirstPersonControls } from 'three/examples/jsm/controls/FirstPersonControls';
 
 import { AbstractWrapper, WrapperType } from '@/Engine/Abstract';
-import { entityToConfig } from '@/Engine/Controls/Adapters';
+import { controlsToConfig } from '@/Engine/Controls/Adapters';
 import type { ControlsType } from '@/Engine/Controls/Constants';
 import type { TFpsControlsConfig, TFpsControlsParams, TFpsControlsWrapper } from '@/Engine/Controls/Models';
 import { getFpsControlsAccessors } from '@/Engine/Controls/Wrappers/FpsControls/FpsControlsAccessors';
@@ -43,7 +43,7 @@ export function FpsControlsWrapper(params: TFpsControlsParams): TFpsControlsWrap
     ...getFpsControlsAccessors(entity),
     ...withActiveMixin(),
     entity,
-    serialize: (): TFpsControlsConfig => entityToConfig(result)
+    serialize: (): TFpsControlsConfig => controlsToConfig(result)
   });
 
   applyFpsControlsParams(result, params);
