@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { vueTranslationService } from '@Showcases/Menu/services';
+import { vueTranslationService } from '@Showcases/i18n';
 import type { ShallowRef } from 'vue';
 
 defineEmits(['reset']);
