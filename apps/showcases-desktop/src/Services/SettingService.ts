@@ -1,7 +1,8 @@
 import * as fs from 'node:fs';
-import { join } from 'path';
+
+import type { TResolution } from '@Desktop/Models';
 import type { App } from 'electron';
-import { TResolution } from '@Desktop/Models';
+import { join } from 'path';
 
 type TDesktopAppSettings = Readonly<{ screen: TScreenSettings }>;
 type TScreenSettings = Readonly<{
