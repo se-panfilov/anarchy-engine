@@ -86,6 +86,12 @@ function loadSpace(name: string): void {
   const spaceData: TSpacesData | undefined = spacesData.find((s: TSpacesData): boolean => s.name === name);
   if (isNotDefined(spaceData)) throw new Error(`[Showcase]: Space data is not found for space "${name}"`);
 
+  // TODO debug
+  setInterval(() => {
+    console.log('XXX rotation', space.services.cameraService.findActive()?.entity.rotation);
+    console.log('XXX position', space.services.cameraService.findActive()?.entity.position);
+  }, 1000);
+
   const spaces: ReadonlyArray<TSpace> = spaceService.createFromConfig([spaceData.config]);
   const space: TSpace = spaces.find((s: TSpace): boolean => s.name === name) as TSpace;
   if (isNotDefined(space)) throw new Error(`[Showcase]: Cannot create the space "${name}"`);

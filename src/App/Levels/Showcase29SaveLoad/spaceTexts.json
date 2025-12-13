@@ -12,18 +12,26 @@
         "name": "main",
         "near": 1,
         "position": {
-          "x": 3,
-          "y": 20,
-          "z": 35
+          "x": 4.557771335235449,
+          "y": 28.817881148777833,
+          "z": 27.977784875694173
         },
         "rotation": {
-          "x": 0,
-          "y": 0,
-          "z": 0
+          "x": -0.8001886407642653,
+          "y": 0.11299286865102773,
+          "z": 0.11562026066859303
         }
       }
     ],
-    "controls": [],
+    "controls": [
+      {
+        "name": "orbit_controls",
+        "cameraName": "main",
+        "enableDamping": true,
+        "isActive": true,
+        "type": "OrbitControls"
+      }
+    ],
     "envMaps": [],
     "fogs": [],
     "fsm": [],
@@ -73,15 +81,15 @@
         },
         "position": {
           "x": -20,
-          "y": 2,
-          "z": 2
+          "y": 10,
+          "z": 0
         },
         "rotation": {
           "x": -1.57,
           "y": 0,
           "z": 0
         },
-        "text": "Roboto",
+        "text": "Text 2d",
         "type": "text_2d"
       },
       {
@@ -92,16 +100,16 @@
           "fontSize": "0.2rem"
         },
         "position": {
-          "x": -25,
-          "y": -18,
-          "z": 18
+          "x": 20,
+          "y": -10,
+          "z": 0
         },
         "rotation": {
           "x": -1.57,
           "y": 0,
           "z": 0
         },
-        "text": "Roboto",
+        "text": "Text 3d",
         "type": "text_3d"
       },
       {
@@ -112,21 +120,21 @@
           "fontSize": "16rem"
         },
         "position": {
-          "x": 8,
+          "x": 0,
           "y": 10,
-          "z": 2
+          "z": 10
         },
         "rotation": {
           "x": -1.57,
           "y": 0,
           "z": 0
         },
-        "text": "Roboto",
+        "text": "Text 3d (texture)",
         "type": "text_3d_texture"
       }
     ]
   },
-  "name": "spaceTexts",
+  "name": "SpaceTexts",
   "resources": {
     "animations": [],
     "audio": [],
