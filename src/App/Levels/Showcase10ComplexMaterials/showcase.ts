@@ -45,7 +45,6 @@ export function showcase(): TShowcase {
   const space: TSpace = spaces[0];
   const { textService } = space.services;
 
-  const engine: TEngine = Engine(space);
   const { keyboardService } = engine.services;
 
   addGizmo(space.services, ambientContext.screenSizeWatcher, space.loops, { placement: 'bottom-left' });

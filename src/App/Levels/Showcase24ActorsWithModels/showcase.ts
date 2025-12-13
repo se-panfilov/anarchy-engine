@@ -25,7 +25,6 @@ export function showcase(): TShowcase {
   const spaces: ReadonlyArray<TSpace> = spaceService.createFromConfig([spaceConfig], { beforeResourcesLoaded });
   // TODO 14-0-0: implement spaceService.findActive()
   const space: TSpace = spaces[0];
-  const engine: TEngine = Engine(space);
 
   const { keyboardService } = engine.services;
   const { onKey, isKeyPressed } = keyboardService;

@@ -83,7 +83,7 @@ export function showcase(): TShowcase {
   const spaces: ReadonlyArray<TSpace> = spaceService.createFromConfig([spaceConfig]);
   // TODO 14-0-0: implement spaceService.findActive()
   const space: TSpace = spaces[0];
-  const engine: TEngine = Engine(space);
+
   const { cameraService, controlsService, lightService, models3dService, mouseService, particlesService, physicsWorldService, rendererService, scenesService, spatialGridService, textService } =
     space.services;
   const { physicalLoop } = space.loops;

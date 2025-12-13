@@ -1,6 +1,6 @@
 import '@/App/style.css';
 
-import { showcase } from '@/App/Levels/Showcase1MovingActors';
+import { start } from '@/App/Levels/Showcase1MovingActors';
 // import { showcase } from '@/App/Levels/Showcase2TopDown';
 // import { showcase } from '@/App/Levels/Showcase3CameraFlying';
 // import { showcase } from '@/App/Levels/Showcase4AnimejsSimple';
@@ -27,5 +27,4 @@ import { showcase } from '@/App/Levels/Showcase1MovingActors';
 // import { showcase } from '@/App/Levels/Showcase25TransformDrive';
 // import { showcase } from '@/App/Levels/Showcase26Audio';
 
-const { start } = showcase();
 void start();

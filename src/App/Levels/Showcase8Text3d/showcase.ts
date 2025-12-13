@@ -18,7 +18,7 @@ export function showcase(): TShowcase {
   const spaces: ReadonlyArray<TSpace> = spaceService.createFromConfig([spaceConfig]);
   // TODO 14-0-0: implement spaceService.findActive()
   const space: TSpace = spaces[0];
-  const engine: TEngine = Engine(space);
+
   const { textService, models3dService, mouseService, scenesService } = space.services;
   const { transformLoop } = space.loops;
   const models3dRegistry: TModels3dRegistry = models3dService.getRegistry();

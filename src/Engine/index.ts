@@ -9,7 +9,6 @@ export * from './Color';
 export * from './Context';
 export * from './Controls';
 export * from './Distance';
-export * from './Engine';
 export * from './EnvMap';
 export * from './Files';
 export * from './Fog';
