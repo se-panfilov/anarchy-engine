@@ -57,7 +57,7 @@ export function showcase(canvas: TAppCanvas): TShowcase {
   const obstacle4ActorPromise: Promise<TActorWrapperAsync | undefined> = actorAsyncRegistry.findByNameAsync('obstacle_4');
 
   const world: World = new World(STANDARD_GRAVITY);
-  const physicsDebugRenderer: TPhysicsDebugRenderer = PhysicsDebugRenderer(sceneWrapper.entity, world);
+  PhysicsDebugRenderer(sceneWrapper, world, loopService).start();
 
   const ballRigidBodyDesc = RigidBodyDesc.dynamic().setTranslation(0, 6, 0);
   const ballRigidBody = world.createRigidBody(ballRigidBodyDesc);

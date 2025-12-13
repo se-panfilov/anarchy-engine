@@ -1,14 +1,18 @@
 import type { World } from '@dimforge/rapier3d';
-import type { Scene } from 'three';
+import type { Subscription } from 'rxjs';
 import { BufferAttribute, BufferGeometry, LineBasicMaterial, LineSegments } from 'three';
 
+import type { TLoopService } from '@/Engine/Loop';
+import type { TDestroyable } from '@/Engine/Mixins';
+import { destroyableMixin } from '@/Engine/Mixins';
 import type { TPhysicsDebugRenderer } from '@/Engine/Physics/Models';
+import type { TSceneWrapper } from '@/Engine/Scene/Models';
 
-export function PhysicsDebugRenderer(scene: Scene, world: World): TPhysicsDebugRenderer {
+export function PhysicsDebugRenderer(sceneW: TSceneWrapper, world: World, loopService: TLoopService): TPhysicsDebugRenderer {
   const mesh = new LineSegments(new BufferGeometry(), new LineBasicMaterial({ color: 0xffffff, vertexColors: true }));
   // eslint-disable-next-line functional/immutable-data
   mesh.frustumCulled = false;
-  scene.add(mesh);
+  sceneW.entity.add(mesh);
 
   let enabled: boolean = true;
 
@@ -25,16 +29,24 @@ export function PhysicsDebugRenderer(scene: Scene, world: World): TPhysicsDebugR
     }
   }
 
+  const loopSubscription$: Subscription = loopService.tick$.subscribe(update);
+
+  const destroyable: TDestroyable = destroyableMixin();
+  destroyable.destroyed$.subscribe(() => {
+    loopSubscription$.unsubscribe();
+  });
+
   return {
     update,
     isEnabled: (): boolean => {
       return enabled;
     },
-    enable(): void {
+    start(): void {
       enabled = true;
     },
-    disable(): void {
+    stop(): void {
       enabled = false;
-    }
+    },
+    ...destroyable
   };
 }
