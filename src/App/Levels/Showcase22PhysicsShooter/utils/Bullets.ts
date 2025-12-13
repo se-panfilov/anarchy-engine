@@ -104,7 +104,7 @@ export async function BulletAsync(params: TActorParams, actorService: TActorServ
       setDistanceTraveled(getDistanceTraveled() + mpsSpeed(speed, delta));
 
       const collisionCheckRadius: number = meters(5);
-      const collision = collisionsService.checkCollision(actor.entity, collisionCheckRadius);
+      const collision = collisionsService.checkCollision(actor, collisionCheckRadius);
       if (collision) {
         console.log('Hit detected', collision);
         // reset(actor);
