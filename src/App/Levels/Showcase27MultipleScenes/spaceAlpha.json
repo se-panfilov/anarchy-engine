@@ -87,7 +87,7 @@
     ],
     "texts": []
   },
-  "name": "showcase_alpha",
+  "name": "showcase_space_alpha",
   "resources": {
     "animations": [],
     "audio": [],
@@ -107,7 +107,7 @@
   "scenes": [
     {
       "isActive": true,
-      "name": "showcase_alpha",
+      "name": "showcase_scene",
       "tags": []
     }
   ],
