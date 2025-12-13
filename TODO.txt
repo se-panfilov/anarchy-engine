@@ -33,6 +33,7 @@ Roadmap:
 - 23.0.x Shaders
 
 Thoughts:
+- Maybe: Try to replace spread operator with Object.assign everywhere (for performance and make sure that we are not creating new objects)? Check with AbstractEntity first;
 - Maybe: Add domain for timers (based on web workers);
 - Maybe: Refactor withActive entities (use active$) (camera, renderer, etc);
 - Maybe: a single generic factory and registries for all entities (actor, model, etc), instead of files create them with params;
