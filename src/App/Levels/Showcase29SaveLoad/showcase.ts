@@ -33,6 +33,7 @@ const subscriptions: Record<string, Subscription> = {};
 // TODO 15-0-0: E2E: Perhaps serialization should return promise (cause it feels kinda async)
 const spacesData: ReadonlyArray<TSpacesData> = [
   spaceActorData,
+  spaceAnimationsData,
   spaceBasicData,
   spaceCameraData,
   spaceCustomModelsData,
