@@ -1,4 +1,4 @@
-import GUI from 'lil-gui';
+// import GUI from 'lil-gui';
 import { BehaviorSubject } from 'rxjs';
 
 import type { IShowcase } from '@/App/Levels/Models';
@@ -11,7 +11,7 @@ const { mouseClickWatcher } = ambientContext;
 
 //Showcase 10: Complex Materials
 export function showcaseLevel(canvas: IAppCanvas): IShowcase {
-  const gui = new GUI();
+  // const gui = new GUI();
 
   const level: ILevel = buildLevelFromConfig(canvas, levelConfig as ILevelConfig);
   const { textFactory, actorRegistry, cameraRegistry, controlsRegistry } = level.entities;

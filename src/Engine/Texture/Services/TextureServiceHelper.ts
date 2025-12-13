@@ -3,7 +3,7 @@ import { LinearFilter, NearestFilter, SRGBColorSpace } from 'three';
 
 import type { IMaterialPackKeys, IMaterialProps } from '@/Engine/Material';
 import { MaterialType } from '@/Engine/Material';
-import type { ITexture, ITexturePackParams, ITextureParams } from '@/Engine/Texture/Models';
+import type { IMaterialTexturePack, ITexture, ITexturePackParams, ITextureParams } from '@/Engine/Texture/Models';
 import type { IWriteable } from '@/Engine/Utils';
 import { isDefined, isNotDefined } from '@/Engine/Utils';
 
@@ -53,4 +53,5 @@ export function applyTextureParams(texture: IWriteable<ITexture>, params?: IText
 }
 
 export const isMaterialType = (value: ITexturePackParams | MaterialType): value is MaterialType => Object.values(MaterialType).includes(value as MaterialType);
-export const isIMaterialProps = (value: ITexturePackParams | IMaterialProps): value is IMaterialProps => (value as IMaterialProps).type !== undefined && isMaterialType((value as IMaterialProps).type);
+export const isIMaterialProps = (value: ITexturePackParams | IMaterialProps<IMaterialTexturePack>): value is IMaterialProps<IMaterialTexturePack> =>
+  (value as IMaterialProps<IMaterialTexturePack>).type !== undefined && isMaterialType((value as IMaterialProps<IMaterialTexturePack>).type);
