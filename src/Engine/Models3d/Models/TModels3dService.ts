@@ -26,6 +26,7 @@ export type TModels3dService = Readonly<{
   createPrimitiveFromConfig: (config: ReadonlyArray<TModel3dPrimitiveConfig>) => ReadonlyArray<Promise<TModel3dPrimitiveFacade>>;
   findModel3dAndOverride: (name: string, overrides?: TOptional<TModel3dConfig>) => TModel3dFacade | undefined;
   getAnimationService: () => TAnimationsService;
+  // TODO 9.0.0. RESOURCES: should use mixin that has entityCreated$ instead of added$ (and probably entityLoaded$ instead of loaded$)
   added$: Observable<TModel3dFacade>;
   loaded$: Observable<TModel3dComplexFacade>;
   clone: (model3dFacade: TModel3dFacade, overrides?: TOptional<TModel3dPack>) => TModel3dFacade;
