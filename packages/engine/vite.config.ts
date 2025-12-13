@@ -7,6 +7,7 @@ import { sharedAliases } from '../../vite.alias';
 import { visualizer } from 'rollup-plugin-visualizer';
 import wasm from 'vite-plugin-wasm';
 
+// TODO 18-0-0: Try terser minifier
 export default defineConfig({
   resolve: {
     alias: {
@@ -37,6 +38,7 @@ export default defineConfig({
     plugins: [wasm()]
   },
   build: {
+    assetsInlineLimit: 0, // Do not inline assets and wasm
     lib: {
       entry: path.resolve(__dirname, 'src/index.ts'),
       name: 'AnarchyEngine',
@@ -53,6 +55,7 @@ export default defineConfig({
         //   'anarchy-rapier3d': ['@dimforge/rapier3d'],
         //   'anarchy-three': ['three']
         // }
+        inlineDynamicImports: false, //extract workers to separate bundle
         manualChunks(id: string): string | undefined {
           if (id === 'three' || id.includes('node_modules/three/')) return 'anarchy-three';
           if (id.includes('@dimforge/rapier3d')) return 'anarchy-rapier3d';
