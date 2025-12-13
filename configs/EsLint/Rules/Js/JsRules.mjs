@@ -257,6 +257,7 @@ export const JsRules = {
         '[R-r]oboto',
         '[S-s]chema[s]?',
         '[S-s]creenable',
+        '[S-s]egoe',
         '[S-s]crollable',
         '[S-s]erializable',
         '[S-s]etter[s]?',
