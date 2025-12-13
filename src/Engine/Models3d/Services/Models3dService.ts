@@ -29,7 +29,6 @@ export function Models3dService(models3dRegistry: TModels3dAsyncRegistry, models
     if (options.shouldAddToScene) sceneW.addModel(model);
   });
 
-  // TODO (S.Panfilov) 5. CWP add validation rules for models3ds (in config)
   // TODO (S.Panfilov) 6. CWP return a cloned model from registry if it is already loaded
   // TODO (S.Panfilov) 7. CWP implement models load via actor (merge branch and create a new one before doing this)
   function performLoad({ url, options }: TModel3dParams): Promise<TModel3dLoadResult> {
