@@ -1,5 +1,5 @@
 import type { TActor, TActorRegistry, TMetersPerSecond, TMilliseconds, TReadonlyVector3, TSpace, TSpaceConfig } from '@Anarchy/Engine';
-import { filterKeyReleased, KeyCode, meters, metersPerSecond, mpsSpeed, spaceService, TransformAgent } from '@Anarchy/Engine';
+import { filterKeyPressed, KeyCode, meters, metersPerSecond, mpsSpeed, spaceService, TransformAgent } from '@Anarchy/Engine';
 import { asRecord, isNotDefined } from '@Anarchy/Shared/Utils';
 import GUI from 'lil-gui';
 import { Vector3 } from 'three';
@@ -34,7 +34,7 @@ export function showcase(space: TSpace): void {
   const { transformLoop } = space.loops;
   const actorRegistry: TActorRegistry = actorService.getRegistry();
   const { getByName } = actorRegistry;
-  const { released$ } = keyboardService;
+  const { keys$ } = keyboardService;
 
   const sphere: TActor = getByName('sphere_actor');
 
@@ -49,7 +49,7 @@ export function showcase(space: TSpace): void {
   gui.add(sphereCoords, 'y').listen();
   gui.add(sphereCoords, 'z').listen();
 
-  released$.pipe(filterKeyReleased(KeyCode.Enter)).subscribe((): void => {
+  keys$.pipe(filterKeyPressed(KeyCode.Enter)).subscribe((): void => {
     if (!mode.isKinematic) {
       if (sphere.drive.getActiveAgent().type !== TransformAgent.Default) sphere.drive.agent$.next(TransformAgent.Default);
       if (!isMove) isMove = true;
