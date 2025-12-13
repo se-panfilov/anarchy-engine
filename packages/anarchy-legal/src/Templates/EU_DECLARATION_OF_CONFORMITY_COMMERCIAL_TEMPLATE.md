@@ -19,6 +19,12 @@
 - **Version covered by this Declaration:** {{CONFORMITY_SERIES}} (baseline {{BASELINE_VERSION}} dated {{BASELINE_EFFECTIVE_DATE}}). Subsequent **minor/patch** updates within this series are **covered** by this Declaration **provided** they do **not introduce substantial changes** that could adversely affect compliance with essential requirements. Build identifiers (e.g., commit/tag) for released binaries are recorded in the **Technical Documentation** (Annex A).
 - **Intended use:** Standalone software (product with digital elements) operating **offline** by default; no personal-data processing by default.
 
+**Versioning / Series covered by this Declaration.**
+
+- Conformity series: {{CONFORMITY_SERIES}} (baseline {{BASELINE_VERSION}} dated {{BASELINE_EFFECTIVE_DATE}};.
+- Subsequent minor/patch releases within this series are covered provided they do not introduce substantial changes affecting conformity.
+- Internal pre-release builds prior to {{BASELINE_VERSION}} were not placed on the market and are outside the scope of this Declaration.
+
 ## Applicable Union Legislation
 
 The {{PRODUCT_TERM}} has been assessed for conformity with the **EU Cyber Resilience Act (CRA)** and applicable Union legislation for products with digital elements. Where applicable, conformity is demonstrated by internal control and/or third-party assessment as indicated below.
@@ -58,7 +64,7 @@ The manufacturer declares that the {{PRODUCT_TERM}} conforms to the applicable r
 
 ## Technical Documentation
 
-The Technical File is maintained by the manufacturer and made available to competent authorities upon request. See `TECHNICAL_DOCUMENTATION` (location: {{TECH_DOC_LOCATION}}).
+Technical Documentation is maintained by the manufacturer and will be made available to competent authorities upon request.
 
 **Place/Date:**
 

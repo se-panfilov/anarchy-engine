@@ -4,6 +4,7 @@ import base from './anarchy-legal.base.config.js';
 export default {
   ...base,
   GENERIC: {
+    ...base.GENERIC,
     messages: {
       ...base.GENERIC.messages,
 
