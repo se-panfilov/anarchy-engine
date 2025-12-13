@@ -26,7 +26,7 @@ import { isDefined, isNotDefined } from '@/Engine/Utils';
 export function createPhysicsBody(params: TPhysicsBodyParams, world: World): TPhysicsBodyFacadeEntities {
   const rigidBodyDesc: RigidBodyDesc = RigidBodyDesc[params.type]();
   if (isDefined(params.position)) rigidBodyDesc.setTranslation(params.position.getX(), params.position.getY(), params.position.getZ());
-  if (isDefined(params.rotation)) rigidBodyDesc.setRotation(params.rotation.toQuaternion());
+  if (isDefined(params.rotation)) rigidBodyDesc.setRotation(params.rotation.getCoords());
   const rigidBody: RigidBody = world.createRigidBody(rigidBodyDesc);
   const colliderDesc: ColliderDesc = getColliderDesc(params);
   const collider: Collider = world.createCollider(colliderDesc, rigidBody);

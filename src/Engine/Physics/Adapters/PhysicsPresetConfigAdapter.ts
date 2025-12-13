@@ -1,11 +1,13 @@
-import type { TPhysicsBodyConfig, TPhysicsPresetParams } from '@/Engine/Physics/Models';
+import type { TPhysicsPresetConfig, TPhysicsPresetParams } from '@/Engine/Physics/Models';
 
-export function configToParamsPreset(config: TPhysicsBodyConfig): TPhysicsPresetParams {
-  const { type, ...rest } = config;
+import { withCoordsToVector } from './PhysicsAdapterUtils';
+
+export function configToParamsPreset(config: TPhysicsPresetConfig): TPhysicsPresetParams {
+  const { position, rotation, ...rest } = config;
 
   return {
-    type,
+    ...rest,
     // type: RigidBodyTypesMap[RigidBodyTypesNames[type]],
-    ...rest
+    ...withCoordsToVector(position, rotation)
   };
 }

@@ -1,11 +1,14 @@
 import type { TPhysicsBodyConfig, TPhysicsBodyParams } from '@/Engine/Physics/Models';
 
-export function configToParamsBody(config: TPhysicsBodyConfig): TPhysicsBodyParams {
-  const { type, ...rest } = config;
+import { withCoordsToVector } from './PhysicsAdapterUtils';
 
+export function configToParamsBody(config: TPhysicsBodyConfig): TPhysicsBodyParams {
+  const { position, rotation, ...rest } = config;
+
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-return
   return {
-    type,
     // type: RigidBodyTypesMap[RigidBodyTypesNames[type]],
-    ...rest
+    ...rest,
+    ...withCoordsToVector(position, rotation)
   };
 }
