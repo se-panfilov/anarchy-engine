@@ -11,12 +11,13 @@ export type TRepoUtilsService = Readonly<{
   debugLog: (isDebug: boolean, message: string, ...args: any[]) => void;
   fillMissingInstallPaths: (collected: Map<string, TCollected>, wsDir: string, rootDir: string) => void;
   findMonorepoRoot: (startDir: string) => Promise<string>;
+  isDebug: () => boolean;
   isExist: (p: string) => Promise<boolean>;
   loadRoot: (rootDir: string) => Promise<TRootInfo>;
   loadWorkspaces: (rootDir: string) => Promise<ReadonlyMap<string, TWorkspaceInfo>>;
   npmLsJson: (rootDir: string, workspace: string) => Promise<TDependencyNode | undefined>;
+  readJson: <T extends Record<string, unknown>>(p: string) => Promise<T>;
   renderMarkdown: (workspaceLabel: string, items: ReadonlyArray<TLicenseEntry>, emptyNote?: string) => string;
   resolveWorkspaceFromArg: (arg: string, workspaces: ReadonlyMap<string, TWorkspaceInfo>, rootDir: string) => TWorkspaceInfo;
   setDebugMode: (isDebug: boolean) => void;
-  readJson: <T extends Record<string, unknown>>(p: string) => Promise<T>;
 }>;

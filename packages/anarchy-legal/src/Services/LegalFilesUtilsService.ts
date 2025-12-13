@@ -1,5 +1,6 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
+import { pathToFileURL } from 'node:url';
 
 import type {
   TAnarchyLegalConfig,
@@ -19,18 +20,36 @@ import { globby } from 'globby';
 import { LegalDocumentType } from '../Constants/LegalDocumentType.ts';
 
 export function LegalFilesUtilsService(repoUtilsService: TRepoUtilsService): TLegalFilesUtilsService {
-  const { readJson, isExist } = repoUtilsService;
+  const { debugLog, isExist, isDebug } = repoUtilsService;
 
   async function readConfig(wsDir: string): Promise<TAnarchyLegalConfig> | never {
-    const p: string = path.join(wsDir, '.anarchy-legal.config.json');
-    if (!(await isExist(p))) return [];
+    const candidates: ReadonlyArray<string> = [path.join(wsDir, 'anarchy-legal.config.js'), path.join(wsDir, 'anarchy-legal.config.mjs'), path.join(wsDir, 'anarchy-legal.config.cjs')];
+
+    const found: string | undefined = await candidates.reduce<Promise<string | undefined>>(async (prevPromise: Promise<string | undefined>, p: string): Promise<string | undefined> => {
+      const prev: string | undefined = await prevPromise;
+      if (prev) return prev;
+      return (await isExist(p)) ? p : undefined;
+    }, Promise.resolve(undefined));
+
+    if (!found) {
+      debugLog(isDebug(), 'config: <none> (no JS config found)');
+      return [];
+    }
+
     try {
-      const json: TAnarchyLegalConfig | unknown = await readJson<Record<string, unknown>>(p);
-      if (!Array.isArray(json)) throw new Error('config root must be an array');
-      // very light validation
-      return json.filter(Boolean) as TAnarchyLegalConfig;
+      const mod = await import(pathToFileURL(found).href);
+      // Support both ESM default export and CommonJS module.exports
+      const exported = (mod && 'default' in mod ? (mod as any).default : mod) as unknown;
+
+      if (!Array.isArray(exported)) throw new Error(`Invalid config export. Expected default export to be an Array. Got: ${typeof exported}`);
+
+      // Very light validation + strip falsy items
+      const config = (exported as unknown[]).filter(Boolean) as TAnarchyLegalConfig;
+      debugLog(isDebug(), 'config file:', found);
+      return config;
     } catch (e) {
-      throw new Error(`Failed to read ${p}: ${(e as Error).message}`);
+      const msg: string = e instanceof Error ? e.message : String(e);
+      throw new Error(`Failed to load config ${found}: ${msg}`);
     }
   }
 
@@ -46,7 +65,7 @@ export function LegalFilesUtilsService(repoUtilsService: TRepoUtilsService): TLe
       if (await isExist(exact)) return exact;
     }
     // 2) default <TYPE>_TEMPLATE.md
-    const def = path.join(templatesDir, `${defaultTemplateBaseName(docType)}${templateExtension}`);
+    const def: string = path.join(templatesDir, `${defaultTemplateBaseName(docType)}${templateExtension}`);
     if (await isExist(def)) return def;
     // 3) first match <TYPE>_*_TEMPLATE.md (alphabetically)
     const pattern: string = path.join(templatesDir, `${docType}_*${templateExtension}`);

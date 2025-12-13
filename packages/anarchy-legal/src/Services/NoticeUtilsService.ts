@@ -135,7 +135,7 @@ export function NoticeUtilsService(): TNoticeUtilsService {
 
   return {
     collectAllHeadingIds,
-    parseThirdPartyMarkdown,
-    loadUpstreamNotice
+    loadUpstreamNotice,
+    parseThirdPartyMarkdown
   };
 }

@@ -507,13 +507,14 @@ export function RepoUtilsService(): TRepoUtilsService {
     debugLog,
     fillMissingInstallPaths,
     findMonorepoRoot,
+    isDebug: (): boolean => isDebug,
     isExist,
     loadRoot,
     loadWorkspaces,
     npmLsJson,
+    readJson,
     renderMarkdown,
     resolveWorkspaceFromArg,
-    setDebugMode,
-    readJson
+    setDebugMode
   };
 }
