@@ -221,6 +221,7 @@
     {
       "isActive": true,
       "name": "showcase",
+      "background": "#87FEBF",
       "tags": []
     }
   ],

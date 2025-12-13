@@ -75,7 +75,6 @@
         "name": "main_fog",
         "color": "#353CA7",
         "far": 100,
-        "type": "PerspectiveCamera",
         "near": 1
       }
     ],
@@ -146,7 +145,7 @@
         "model3dSource": "sphere",
         "name": "sphere_model",
         "options": {
-          "radius": 0.7
+          "radius": 3
         }
       }
     ],

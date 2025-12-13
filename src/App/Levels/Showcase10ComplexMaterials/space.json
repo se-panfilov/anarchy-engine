@@ -418,9 +418,9 @@
     ],
     "controls": [
       {
-        "autoRotate": false,
         "cameraName": "main",
         "options": {
+          "autoRotate": false,
           "enableDamping": true
         },
         "isActive": true,
