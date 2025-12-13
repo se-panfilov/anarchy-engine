@@ -12,9 +12,6 @@ const desktopAppSettings: TDesktopAppConfig = {
   isOpenDevTools: true
 };
 
-//Allow tracking for production (only Electron part, web part should be tracked separately)
-if (__PLATFORM_MODE__.startsWith('production')) ElectronErrorTrackingService().start();
-
 // TODO DESKTOP: Add .env files for different platforms (macos, windows, linux).
 // TODO DESKTOP: We need e2e eventually
 // TODO DESKTOP: 3d texts doesn't work in Safari
@@ -27,6 +24,17 @@ if (__PLATFORM_MODE__.startsWith('production')) ElectronErrorTrackingService().s
 
 const filesService: TFilesService = FilesService(app);
 const desktopAppService: TDesktopAppService = DesktopAppService(app, { filesService });
+
+let packagesVersions: Record<string, string> = { error: 'Could not get versions' };
+try {
+  packagesVersions = await desktopAppService.getPackagesVersions();
+} catch (e) {
+  console.warn('Could not get packages versions for error tracking', e);
+}
+//Allow tracking for production (only Electron part, web part should be tracked separately)
+// TODO DESKTOP: Add mode check
+if (__PLATFORM_MODE__.startsWith('production')) ElectronErrorTrackingService().start(packagesVersions);
+
 const windowService: TWindowService = WindowService();
 const settingsService: TSettingsService = SettingsService(app, { filesService, windowService });
 const docsService: TDocsService = DocsService(filesService);

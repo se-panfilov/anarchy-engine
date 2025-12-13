@@ -53,7 +53,6 @@ export function DesktopAppService(app: App, { filesService }: TDesktopServiceDep
     app.exit(0);
   }
 
-  // TODO DESKTOP: Add this to crash reports
   async function getPackagesVersions(): Promise<any> {
     try {
       return await filesService.readFileAsJson('build-meta.json', AllowedAppFolders.DistDesktop, hasJsonStructure as any);

@@ -29,7 +29,7 @@ export async function handleAppRequest(
     case PlatformActions.GetBrowserInfo:
       return getBrowserInfo();
     case PlatformActions.GetPackagesVersions:
-      return { ...(await desktopAppService.getPackagesVersions()), 'showcases-desktop': __DESKTOP_APP_VERSION__ };
+      return { ...(await desktopAppService.getPackagesVersions()), desktop: __DESKTOP_APP_VERSION__ };
     case PlatformActions.GetPreferredLocales:
       return settingsService.getPreferredLocales();
     case PlatformActions.UpdateAppSettings:
