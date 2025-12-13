@@ -29,7 +29,7 @@ export function Loop({ name, type, trigger, showDebugInfo }: TLoopParams): TLoop
 
   let intervalId: number = runInterval();
 
-  const enableSub$: Subscription = enabled$.subscribe((isEnabled: boolean): void => {
+  const enableSub$: Subscription = enabled$.pipe(distinctUntilChanged()).subscribe((isEnabled: boolean): void => {
     if (isEnabled) {
       if (isTriggerFn) {
         tick$.next(0);

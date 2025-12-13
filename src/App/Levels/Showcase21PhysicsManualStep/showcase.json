@@ -231,8 +231,7 @@
           "restitution": 0.1,
           "collisionShape": "cuboid"
         }
-      ],
-      "isAutoUpdate": false
+      ]
     },
     "texts": [],
     "cameras": [

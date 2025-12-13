@@ -26,8 +26,6 @@ export function createEntities(entities: TSpaceConfigEntities, services: TSpaceS
     textService
   } = services;
 
-  const { physicalLoop } = loops;
-
   // better to create FSMs before any other entities
   fsmService.createSourceFromConfig(fsm);
 
