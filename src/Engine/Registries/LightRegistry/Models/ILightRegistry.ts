@@ -1,4 +1,4 @@
-import type { AbstractRegistry } from '@Engine/Registries';
-import type { LightWrapper } from '@Engine/Wrappers';
+import type { ILightWrapper } from '@Engine/Wrappers';
+import type { IAbstractRegistry, IProtectedRegistry } from '@Engine/Models';
 
-export type ILightRegistry = ReturnType<typeof AbstractRegistry<ReturnType<typeof LightWrapper>>>;
+export type ILightRegistry = IProtectedRegistry<ILightWrapper, IAbstractRegistry<ILightWrapper>>;

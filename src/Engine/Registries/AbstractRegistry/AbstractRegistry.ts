@@ -1,12 +1,11 @@
-import type { IReactiveWrapper, IRegistry } from '@Engine/Models';
+import type { IAbstractRegistry, IReactiveWrapper } from '@Engine/Models';
 import { nanoid } from 'nanoid';
 import { Subject } from 'rxjs';
 
-export function AbstractRegistry<T extends IReactiveWrapper<unknown>>(): IRegistry<T> {
+export function AbstractRegistry<T extends IReactiveWrapper<unknown>>(): IAbstractRegistry<T> {
   const id: string = nanoid();
   const add$: Subject<T> = new Subject<T>();
   const replace$: Subject<T> = new Subject<T>();
-  const get$: Subject<string> = new Subject<string>();
   const remove$: Subject<string> = new Subject<string>();
   const destroy$: Subject<void> = new Subject<void>();
 
@@ -24,10 +23,10 @@ export function AbstractRegistry<T extends IReactiveWrapper<unknown>>(): IRegist
     registry.set(entity.id, entity);
   });
 
-  get$.subscribe((id: string): void | never => {
-    if (registry.has(id)) throw new Error(`Cannot get an entity with id "${id}" from registry ${id}: not exist`);
-    registry.get(id);
-  });
+  function getById(id: string): T {
+    if (!registry.has(id)) throw new Error(`Cannot get an entity with id "${id}" from registry ${id}: not exist`);
+    return registry.get(id);
+  }
 
   remove$.subscribe((id: string): void | never => {
     if (registry.has(id)) throw new Error(`Cannot remove an entity with id "${id}" from registry ${id}: not exist`);
@@ -37,7 +36,6 @@ export function AbstractRegistry<T extends IReactiveWrapper<unknown>>(): IRegist
   destroy$.subscribe(() => {
     add$.complete();
     replace$.complete();
-    get$.complete();
     remove$.complete();
     destroy$.complete();
     registry.clear();
@@ -53,9 +51,8 @@ export function AbstractRegistry<T extends IReactiveWrapper<unknown>>(): IRegist
     get replace$(): Subject<T> {
       return replace$;
     },
-    get get$(): Subject<string> {
-      return get$;
-    },
+    getById,
+    registry,
     get remove$(): Subject<string> {
       return remove$;
     },

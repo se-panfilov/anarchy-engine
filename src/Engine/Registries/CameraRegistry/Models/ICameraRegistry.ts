@@ -1,4 +1,7 @@
-import type { AbstractRegistry } from '@Engine/Registries';
-import type { CameraWrapper } from '@Engine/Wrappers';
+import type { ICameraWrapper } from '@Engine/Wrappers';
+import type { IProtectedRegistry } from '@Engine/Models';
+import { IAbstractRegistry } from '@Engine/Models';
 
-export type ICameraRegistry = ReturnType<typeof AbstractRegistry<ReturnType<typeof CameraWrapper>>>;
+export type ICameraRegistry = IProtectedRegistry<ICameraWrapper, IAbstractRegistry<ICameraWrapper>> & {
+  readonly getByTag(id: string): ICameraWrapper | never;
+};

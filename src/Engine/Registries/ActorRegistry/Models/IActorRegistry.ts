@@ -1,4 +1,5 @@
-import type { AbstractRegistry } from '@Engine/Registries';
-import type { ActorWrapper } from '@Engine/Wrappers';
+import type { IActorWrapper } from '@Engine/Wrappers';
+import type { IProtectedRegistry } from '@Engine/Models';
+import type { IAbstractRegistry } from '@Engine/Models';
 
-export type IActorRegistry = ReturnType<typeof AbstractRegistry<ReturnType<typeof ActorWrapper>>>;
+export type IActorRegistry = IProtectedRegistry<IActorWrapper, IAbstractRegistry<IActorWrapper>>;

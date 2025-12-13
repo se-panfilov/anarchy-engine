@@ -1,9 +1,14 @@
-import type { IControlsFactory, ICreateControlsFn } from '@Engine/Factories';
-import { AbstractFactory } from '../AbstractFactory';
-import type { IControlsWrapper } from '@Engine/Wrappers';
-import { ControlsWrapper } from '@Engine/Wrappers';
-import type { IControlsParams } from '@Engine/Models';
+import type { IControlsFactory, IControlsFactoryParams, ICreateControlsFn } from '@Engine/Factories';
 import { controlsAdapter } from '@Engine/Adapters';
+import { AbstractFactory } from '../AbstractFactory';
+import { ControlsWrapper } from '@Engine/Wrappers';
+import type { IControlsConfig } from '@Engine/Launcher/Models';
+import type { IControlsParams } from '@Engine/Models';
+import type { IControlsWrapper } from '@Engine/Wrappers';
 
 const create: ICreateControlsFn = (params: IControlsParams): IControlsWrapper => ControlsWrapper(params);
-export const ControlsFactory = (): IControlsFactory => AbstractFactory('controls', create, controlsAdapter);
+export const ControlsFactory = ({ canvas, cameraRegistry }: IControlsFactoryParams): IControlsFactory => {
+  return AbstractFactory('controls', create, (config: IControlsConfig) =>
+    controlsAdapter(config, cameraRegistry, canvas)
+  );
+};

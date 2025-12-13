@@ -1,5 +1,5 @@
 import type { IActorConfig, ICameraConfig, IControlsConfig, ILightConfig, ISceneConfig } from '@Engine/Launcher/Models';
-import type { IMousePosition, IRegistry, IWatcher } from '@Engine/Models';
+import type { IAppCanvas, IMousePosition, IWatcher } from '@Engine/Models';
 import type {
   IActorFactory,
   ICameraFactory,
@@ -18,7 +18,14 @@ import {
   RendererFactory,
   SceneFactory
 } from '@Engine/Factories';
-import { ActorRegistry, CameraRegistry, LightRegistry } from '@Engine/Registries';
+import {
+  ActorRegistry,
+  CameraRegistry,
+  IActorRegistry,
+  ICameraRegistry,
+  ILightRegistry,
+  LightRegistry
+} from '@Engine/Registries';
 import { createDeferredPromise, isNotDefined } from '@Engine/Utils';
 import type {
   IActorWrapper,
@@ -32,7 +39,7 @@ import type {
 import { combineLatest } from 'rxjs';
 import { MouseClicksWatcher, MousePositionWatcher } from '@Engine/Watchers';
 
-export async function launch(sceneConfig: ISceneConfig, canvas: HTMLElement): Promise<void> {
+export async function launch(sceneConfig: ISceneConfig, canvas: IAppCanvas): Promise<void> {
   const { name, actors, cameras, lights, controls } = sceneConfig;
   const { promise, resolve } = createDeferredPromise<void>();
 
@@ -42,19 +49,19 @@ export async function launch(sceneConfig: ISceneConfig, canvas: HTMLElement): Pr
   const mousePositionWatcher: IWatcher<IMousePosition> = MousePositionWatcher();
   mousePositionWatcher.start$.next();
 
+  //Entities registries
+  const actorRegistry: IActorRegistry = ActorRegistry();
+  const cameraRegistry: ICameraRegistry = CameraRegistry();
+  const lightRegistry: ILightRegistry = LightRegistry();
+
   //Factories
   const sceneFactory: ISceneFactory = SceneFactory();
   const actorFactory: IActorFactory = ActorFactory();
   const cameraFactory: ICameraFactory = CameraFactory();
   const lightFactory: ILightFactory = LightFactory();
   const rendererFactory: IRendererFactory = RendererFactory();
-  const controlsFactory: IControlsFactory = ControlsFactory();
+  const controlsFactory: IControlsFactory = ControlsFactory({ canvas, cameraRegistry });
   const loopFactory: ILoopFactory = LoopFactory();
-
-  //Entities registries
-  const actorRegistry: IRegistry<IActorWrapper> = ActorRegistry();
-  const cameraRegistry: IRegistry<ICameraWrapper> = CameraRegistry();
-  const lightRegistry: IRegistry<ILightWrapper> = LightRegistry();
 
   //Subscriptions
   combineLatest([actorFactory.latest$, sceneFactory.latest$]).subscribe(
