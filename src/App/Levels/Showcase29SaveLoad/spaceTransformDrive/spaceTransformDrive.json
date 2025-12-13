@@ -3,11 +3,25 @@
   "entities": {
     "actors": [
       {
-        "model3dSource": "sphere_model",
-        "name": "sphere_actor",
+        "agent": "physical",
+        "model3dSource": "surface_model",
+        "name": "surface_actor",
+        "physics": {
+          "presetName": "wall_physics",
+          "shapeParams": {
+            "hx": 50,
+            "hy": 50,
+            "hz": 0.025
+          }
+        },
         "position": {
           "x": 0,
-          "y": 2,
+          "y": 0,
+          "z": 0
+        },
+        "rotation": {
+          "x": -1.57,
+          "y": 0,
           "z": 0
         },
         "spatial": {
@@ -20,32 +34,42 @@
     "cameras": [
       {
         "far": 10000,
-        "type": "PerspectiveCamera",
         "fov": 45,
         "isActive": true,
         "name": "main",
         "near": 1,
         "position": {
           "x": 3,
-          "y": 20,
-          "z": 35
+          "y": 15,
+          "z": 20
         },
         "rotation": {
-          "x": -0.519146114246523,
-          "y": 0.07428390319893977,
-          "z": 0.04238351982512054
-        }
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "type": "PerspectiveCamera"
       }
     ],
-    "controls": [],
+    "controls": [
+      {
+        "cameraName": "main",
+        "isActive": true,
+        "name": "orbit_controls",
+        "options": {
+          "enableDamping": true
+        },
+        "type": "OrbitControls"
+      }
+    ],
     "envMaps": [],
     "fogs": [],
     "fsm": [],
     "intersections": [],
     "lights": [
       {
-        "color": "#ffffff",
-        "intensity": 0.5,
+        "color": "#FFFFFF",
+        "intensity": 1,
         "name": "ambient_light",
         "position": {
           "x": 0.25,
@@ -53,34 +77,6 @@
           "z": 2.25
         },
         "type": "AmbientLight"
-      },
-      {
-        "castShadow": true,
-        "color": "#ffffff",
-        "intensity": 1.5,
-        "name": "directional_light",
-        "position": {
-          "x": 0.25,
-          "y": 15,
-          "z": 2.25
-        },
-        "shadow": {
-          "camera": {
-            "bottom": -50,
-            "far": 40,
-            "type": "OrthographicCamera",
-            "left": -50,
-            "near": 0.1,
-            "right": 50,
-            "top": 50
-          },
-          "mapSize": {
-            "x": 4096,
-            "y": 4096
-          },
-          "normalBias": 0.05
-        },
-        "type": "DirectionalLight"
       }
     ],
     "materials": [
@@ -88,13 +84,6 @@
         "name": "surface_material",
         "options": {
           "color": "#5EDCAE"
-        },
-        "type": "MeshStandardMaterial"
-      },
-      {
-        "name": "sphere_material",
-        "options": {
-          "color": "#E91E63"
         },
         "type": "MeshStandardMaterial"
       }
@@ -122,19 +111,30 @@
           "y": 0,
           "z": 0
         }
-      },
-      {
-        "castShadow": true,
-        "material": "sphere_material",
-        "model3dSource": "sphere",
-        "name": "sphere_model",
-        "options": {
-          "radius": 0.7
-        }
       }
     ],
     "particles": [],
-    "physics": {},
+    "physics": {
+      "global": {
+        "gravity": {
+          "x": 0,
+          "y": -9.81,
+          "z": 0
+        }
+      },
+      "presets": [
+        {
+          "collisionShape": "cuboid",
+          "name": "wall_physics",
+          "type": "fixed"
+        },
+        {
+          "collisionShape": "ball",
+          "name": "ball_physics",
+          "type": "dynamic"
+        }
+      ]
+    },
     "renderers": [
       {
         "alpha": true,
