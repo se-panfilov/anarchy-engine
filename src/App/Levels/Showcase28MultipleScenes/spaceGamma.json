@@ -1,5 +1,5 @@
 {
-  "canvasSelector": "#right_bottom_container #app_gamma",
+  "canvasSelector": "#left_bottom_container #app_gamma",
   "entities": {
     "renderers": [{ "mode": "webgl2", "isActive": true, "alpha": true }],
     "actors": [
@@ -14,6 +14,47 @@
         "spatial": {
           "grid": "main_grid",
           "isAutoUpdate": true
+        }
+      },
+      {
+        "agent": "default",
+        "model3dSource": "solder_model_entity_1",
+        "name": "solder_actor_1",
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "spatial": {
+          "grid": "main_grid",
+          "isAutoUpdate": true
+        }
+      },
+      {
+        "agent": "default",
+        "model3dSource": "solder_model_entity_2",
+        "name": "solder_actor_2",
+        "position": {
+          "x": 2,
+          "y": 0,
+          "z": 2
+        },
+        "rotation": {
+          "x": 0,
+          "y": 0.8,
+          "z": 0
+        },
+        "spatial": {
+          "grid": "main_grid",
+          "isAutoUpdate": true
+        },
+        "states": {
+          "animationsFsmSource": "dance_anim_fsm"
         }
       }
     ],
@@ -39,8 +80,25 @@
     ],
     "controls": [],
     "envMaps": [],
-    "fogs": [],
-    "fsm": [],
+    "fogs": [
+      {
+        "name": "main_fog",
+        "color": "#A0A0A0",
+        "far": 35,
+        "near": 10
+      }
+    ],
+    "fsm": [
+      {
+        "initial": "Idle",
+        "name": "dance_anim_fsm",
+        "transitions": [
+          ["Idle", "Dance", "Dance"],
+          ["Dance", "Idle", "Idle"]
+        ],
+        "type": "animation"
+      }
+    ],
     "intersections": [],
     "lights": [],
     "models3d": [
@@ -56,6 +114,17 @@
           "width": 1,
           "widthSegments": 1
         }
+      },
+      {
+        "castShadow": true,
+        "model3dSource": "solder_model",
+        "name": "solder_model_entity_1"
+      },
+      {
+        "animationsSource": ["dance_anim"],
+        "castShadow": true,
+        "model3dSource": "solder_model",
+        "name": "solder_model_entity_2"
       }
     ],
     "particles": [],
@@ -74,7 +143,12 @@
   },
   "name": "showcase_space_gamma",
   "resources": {
-    "animations": [],
+    "animations": [
+      {
+        "name": "dance_anim",
+        "url": "/Showcase/Models/Solder/animations/samba.glb"
+      }
+    ],
     "audio": [],
     "envMaps": [],
     "materials": [
@@ -86,7 +160,12 @@
         "type": "basic"
       }
     ],
-    "models3d": [],
+    "models3d": [
+      {
+        "name": "solder_model",
+        "url": "/Showcase/Models/Solder/Solder.glb"
+      }
+    ],
     "textures": []
   },
   "scenes": [

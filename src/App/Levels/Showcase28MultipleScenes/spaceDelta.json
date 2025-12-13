@@ -1,5 +1,5 @@
 {
-  "canvasSelector": "#left_bottom_container #app_delta",
+  "canvasSelector": "#right_bottom_container #app_delta",
   "entities": {
     "renderers": [{ "mode": "webgl2", "isActive": true, "alpha": true }],
     "actors": [
