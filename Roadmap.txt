@@ -32,6 +32,7 @@ Done:
 - 17.2.0 Get rid of animejs in the engine
 - 17.4.0 Better physics serizlization/deserialization
 - 17.5.0 Intersections watchers split to camera-mouse based and origin-direction based
+- 17.5.1 Replaced Object.assign with mergeAll (a fix for a broken TS types merging)
 
 Roadmap:
 - 18.0.x Split apps and engine (and add config for an app to set up engine)
