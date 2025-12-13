@@ -5,7 +5,7 @@
 This product includes third-party components. Their **licenses and attributions** are listed below.
 For the **full license texts**, see `THIRD_PARTY_LICENSES.md`.
 
-Components listed: 52
+Components listed: 49
 
 ## 1) Mandatory Attributions (verbatim)
 
@@ -23,7 +23,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @asamuzakjp/dom-selector@6.7.2
+## @asamuzakjp/dom-selector@6.7.4
 
 **License(s):** MIT
 
@@ -95,7 +95,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @csstools/css-syntax-patches-for-csstree@1.0.14
+## @csstools/css-syntax-patches-for-csstree@1.0.16
 
 **License(s):** MIT-0
 
@@ -161,7 +161,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## cssstyle@5.3.1
+## cssstyle@5.3.3
 
 **License(s):** MIT
 
@@ -331,16 +331,6 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## nanoid@3.3.11
-
-**License(s):** MIT
-
-**Repository:** ai/nanoid
-
-**Attribution:** Copyright 2017 Andrey Sitnik <andrey@sitnik.ru>
-
----
-
 ## parse5@8.0.0
 
 **License(s):** MIT
@@ -350,28 +340,6 @@ The following notices are reproduced as provided by the respective licensors (e.
 **URL:** https://parse5.js.org
 
 **Attribution:** Copyright (c) 2013-2019 Ivan Nikulin (ifaaan@gmail.com, https://github.com/inikulin)
-
----
-
-## picocolors@1.1.1
-
-**License(s):** ISC
-
-**Repository:** alexeyraspopov/picocolors
-
-**Attribution:** Copyright (c) 2021-2024 Oleksii Raspopov, Kostiantyn Denysov, Anton Verinov
-
----
-
-## postcss@8.5.6
-
-**License(s):** MIT
-
-**Repository:** postcss/postcss
-
-**URL:** https://postcss.org/
-
-**Attribution:** Copyright 2013 Andrey Sitnik <andrey@sitnik.ru>
 
 ---
 

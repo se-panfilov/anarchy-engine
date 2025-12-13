@@ -113,7 +113,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## anarchy-engine@21.1.1
+## anarchy-engine@21.1.2
 
 **License(s):** MIT
 

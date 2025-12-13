@@ -7068,7 +7068,7 @@ limitations under the License.
 
 ---
 
-## @opentelemetry/semantic-conventions@1.37.0
+## @opentelemetry/semantic-conventions@1.38.0
 
 **License:** Apache-2.0
 

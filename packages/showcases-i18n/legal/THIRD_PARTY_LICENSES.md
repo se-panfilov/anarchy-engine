@@ -388,7 +388,7 @@ SOFTWARE.
 
 ---
 
-## anarchy-engine@21.1.1
+## anarchy-engine@21.1.2
 
 **License:** MIT
 

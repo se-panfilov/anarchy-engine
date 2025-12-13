@@ -407,7 +407,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @opentelemetry/semantic-conventions@1.37.0
+## @opentelemetry/semantic-conventions@1.38.0
 
 **License(s):** Apache-2.0
 

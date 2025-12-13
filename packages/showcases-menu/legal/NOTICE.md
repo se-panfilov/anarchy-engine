@@ -5,7 +5,7 @@
 This product includes third-party components. Their **licenses and attributions** are listed below.
 For the **full license texts**, see `THIRD_PARTY_LICENSES.md`.
 
-Components listed: 118
+Components listed: 128
 
 ## 1) Mandatory Attributions (verbatim)
 
@@ -23,7 +23,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @asamuzakjp/dom-selector@6.7.2
+## @asamuzakjp/dom-selector@6.7.4
 
 **License(s):** MIT
 
@@ -59,7 +59,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @babel/helper-validator-identifier@7.27.1
+## @babel/helper-validator-identifier@7.28.5
 
 **License(s):** MIT
 
@@ -69,7 +69,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @babel/parser@7.28.4
+## @babel/parser@7.28.5
 
 **License(s):** MIT
 
@@ -81,7 +81,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @babel/types@7.28.4
+## @babel/types@7.28.5
 
 **License(s):** MIT
 
@@ -153,7 +153,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @csstools/css-syntax-patches-for-csstree@1.0.14
+## @csstools/css-syntax-patches-for-csstree@1.0.16
 
 **License(s):** MIT-0
 
@@ -303,7 +303,31 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
+## @vue/compiler-core@3.5.24
+
+**License(s):** MIT
+
+**Repository:** git+https://github.com/vuejs/core.git
+
+**URL:** https://github.com/vuejs/core/tree/main/packages/compiler-core#readme
+
+**Attribution:** Copyright (c) 2018-present, Yuxi (Evan) You
+
+---
+
 ## @vue/compiler-dom@3.5.22
+
+**License(s):** MIT
+
+**Repository:** git+https://github.com/vuejs/core.git
+
+**URL:** https://github.com/vuejs/core/tree/main/packages/compiler-dom#readme
+
+**Attribution:** Copyright (c) 2018-present, Yuxi (Evan) You
+
+---
+
+## @vue/compiler-dom@3.5.24
 
 **License(s):** MIT
 
@@ -327,6 +351,18 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
+## @vue/compiler-sfc@3.5.24
+
+**License(s):** MIT
+
+**Repository:** git+https://github.com/vuejs/core.git
+
+**URL:** https://github.com/vuejs/core/tree/main/packages/compiler-sfc#readme
+
+**Attribution:** Copyright (c) 2018-present, Yuxi (Evan) You
+
+---
+
 ## @vue/compiler-ssr@3.5.22
 
 **License(s):** MIT
@@ -339,7 +375,19 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @vue/devtools-api@7.7.7
+## @vue/compiler-ssr@3.5.24
+
+**License(s):** MIT
+
+**Repository:** git+https://github.com/vuejs/core.git
+
+**URL:** https://github.com/vuejs/core/tree/main/packages/compiler-ssr#readme
+
+**Attribution:** Copyright (c) 2018-present, Yuxi (Evan) You
+
+---
+
+## @vue/devtools-api@7.7.8
 
 **License(s):** MIT
 
@@ -349,7 +397,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @vue/devtools-kit@7.7.7
+## @vue/devtools-kit@7.7.8
 
 **License(s):** MIT
 
@@ -359,7 +407,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## @vue/devtools-shared@7.7.7
+## @vue/devtools-shared@7.7.8
 
 **License(s):** MIT
 
@@ -370,6 +418,18 @@ The following notices are reproduced as provided by the respective licensors (e.
 ---
 
 ## @vue/reactivity@3.5.22
+
+**License(s):** MIT
+
+**Repository:** git+https://github.com/vuejs/core.git
+
+**URL:** https://github.com/vuejs/core/tree/main/packages/reactivity#readme
+
+**Attribution:** Copyright (c) 2018-present, Yuxi (Evan) You
+
+---
+
+## @vue/reactivity@3.5.24
 
 **License(s):** MIT
 
@@ -393,7 +453,31 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
+## @vue/runtime-core@3.5.24
+
+**License(s):** MIT
+
+**Repository:** git+https://github.com/vuejs/core.git
+
+**URL:** https://github.com/vuejs/core/tree/main/packages/runtime-core#readme
+
+**Attribution:** Copyright (c) 2018-present, Yuxi (Evan) You
+
+---
+
 ## @vue/runtime-dom@3.5.22
+
+**License(s):** MIT
+
+**Repository:** git+https://github.com/vuejs/core.git
+
+**URL:** https://github.com/vuejs/core/tree/main/packages/runtime-dom#readme
+
+**Attribution:** Copyright (c) 2018-present, Yuxi (Evan) You
+
+---
+
+## @vue/runtime-dom@3.5.24
 
 **License(s):** MIT
 
@@ -417,7 +501,31 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
+## @vue/server-renderer@3.5.24
+
+**License(s):** MIT
+
+**Repository:** git+https://github.com/vuejs/core.git
+
+**URL:** https://github.com/vuejs/core/tree/main/packages/server-renderer#readme
+
+**Attribution:** Copyright (c) 2018-present, Yuxi (Evan) You
+
+---
+
 ## @vue/shared@3.5.22
+
+**License(s):** MIT
+
+**Repository:** git+https://github.com/vuejs/core.git
+
+**URL:** https://github.com/vuejs/core/tree/main/packages/shared#readme
+
+**Attribution:** Copyright (c) 2018-present, Yuxi (Evan) You
+
+---
+
+## @vue/shared@3.5.24
 
 **License(s):** MIT
 
@@ -439,7 +547,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## anarchy-engine@21.1.1
+## anarchy-engine@21.1.2
 
 **License(s):** MIT
 
@@ -473,7 +581,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## birpc@2.6.1
+## birpc@2.8.0
 
 **License(s):** MIT
 
@@ -519,7 +627,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## cssstyle@5.3.1
+## cssstyle@5.3.3
 
 **License(s):** MIT
 
@@ -773,11 +881,11 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## magic-string@0.30.19
+## magic-string@0.30.21
 
 **License(s):** MIT
 
-**Repository:** https://github.com/rich-harris/magic-string.git
+**Repository:** git+https://github.com/Rich-Harris/magic-string.git
 
 **Attribution:** Copyright 2018 Rich Harris
 
@@ -1035,7 +1143,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## showcases-shared@1.5.1
+## showcases-shared@1.7.0
 
 **License(s):** MIT
 
@@ -1079,7 +1187,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## superjson@2.2.3
+## superjson@2.2.5
 
 **License(s):** MIT
 
@@ -1220,6 +1328,18 @@ The following notices are reproduced as provided by the respective licensors (e.
 ---
 
 ## vue@3.5.22
+
+**License(s):** MIT
+
+**Repository:** git+https://github.com/vuejs/core.git
+
+**URL:** https://github.com/vuejs/core/tree/main/packages/vue#readme
+
+**Attribution:** Copyright (c) 2018-present, Yuxi (Evan) You
+
+---
+
+## vue@3.5.24
 
 **License(s):** MIT
 
