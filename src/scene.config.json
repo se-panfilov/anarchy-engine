@@ -1,0 +1,41 @@
+{
+  "name": "Test scene 01",
+  "actors": [
+    {
+      "type": "sphere",
+      "width": 32,
+      "height": 32,
+      "materialParams": { "color": "#E91E63" }
+    }
+  ],
+  "cameras": [
+    {
+      "params": {
+        "fov": 45,
+        "near": 1,
+        "far": 10000
+      },
+      "position": { "x": 3, "y": 20, "z": 35 },
+      "lookAt": { "x": 0, "y": 0, "z": 0 }
+    }
+  ],
+  "lights": [
+    {
+      "type": "ambient",
+      "color": "ffffff",
+      "intensity": 0.5
+    },
+    {
+      "type": "directional",
+      "color": "ffffff",
+      "intensity": 1,
+      "castShadow": true,
+      "shadow": {
+        "mapSize": { "x": 1024, "y": 1024 },
+        "camera": { "far": 15 },
+        "normalBias": 0.05
+      },
+      "position": { "x": 0.25, "y": 2, "z": 2.25 }
+    }
+  ]
+}
