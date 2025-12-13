@@ -9,24 +9,6 @@
   ],
   "actors": [
     {
-      "type": "plane",
-      "width": 1,
-      "height": 1,
-      "position": { "x": -3, "y": 0, "z": 0 },
-      "castShadow": true,
-      "materialParams": { "color": "#5177ff" },
-      "texturePack": {
-        "aoMap": { "url": "/ShowcaseLevel8/Door_Wood/Door_Wood_001_ambientOcclusion.jpg" },
-        "map": { "url": "/ShowcaseLevel8/Door_Wood/Door_Wood_001_basecolor.jpg" },
-        "normalMap": { "url": "/ShowcaseLevel8/Door_Wood/Door_Wood_001_normal.jpg" },
-        "alphaMap": { "url": "/ShowcaseLevel8/Door_Wood/Door_Wood_001_opacity.jpg" },
-        "metalnessMap": { "url": "/ShowcaseLevel8/Door_Wood/Door_Wood_001_metallic.jpg" },
-        "roughnessMap": { "url": "/ShowcaseLevel8/Door_Wood/Door_Wood_001_roughness.jpg" },
-        "material": "standard"
-      },
-      "tags": ["standard_plane"]
-    },
-    {
       "type": "cube",
       "width": 1,
       "height": 1,
@@ -42,13 +24,13 @@
         "roughnessMap": { "url": "/ShowcaseLevel8/Door_Wood/Door_Wood_001_roughness.jpg" },
         "material": "standard"
       },
-      "tags": ["standard_cube"]
+      "tags": ["standard"]
     },
     {
-      "type": "sphere",
+      "type": "cube",
       "width": 1,
       "height": 1,
-      "position": { "x": 3, "y": 0, "z": 0 },
+      "position": { "x": 2, "y": 0, "z": 0 },
       "castShadow": true,
       "materialParams": { "color": "#5177ff" },
       "texturePack": {
@@ -58,9 +40,9 @@
         "alphaMap": { "url": "/ShowcaseLevel8/Door_Wood/Door_Wood_001_opacity.jpg" },
         "metalnessMap": { "url": "/ShowcaseLevel8/Door_Wood/Door_Wood_001_metallic.jpg" },
         "roughnessMap": { "url": "/ShowcaseLevel8/Door_Wood/Door_Wood_001_roughness.jpg" },
-        "material": "standard"
+        "material": "basic"
       },
-      "tags": ["standard_sphere"]
+      "tags": ["basic"]
     }
   ],
   "texts": [],
