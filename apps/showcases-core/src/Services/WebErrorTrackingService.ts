@@ -25,6 +25,7 @@ export function WebErrorTrackingService(): TWebErrorTrackingService {
       platformVersion: platformApiService.getPlatformVersion(),
       node: platformApiService.getNodeVersion(),
       wrappedAppVersion: await platformApiService.getWrappedAppVersion()
+      // TODO DESKTOP: add here lang (two letters, e.g. "en") and some other short info
     };
 
     // TODO DESKTOP: Do the same at the Desktop app level
