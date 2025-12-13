@@ -43,10 +43,7 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
   function start(): void {
     level.start();
     void init();
-    // TODO (S.Panfilov) debug
-    // setTimeout(() => {
     startIntersections();
-    // }, 200);
   }
 
   return { start, level };

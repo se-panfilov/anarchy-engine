@@ -122,7 +122,6 @@ export function buildLevelFromConfig(canvas: IAppCanvas, config: ILevelConfig): 
       if (!text3dRegistry.isEmpty()) text3dRenderer.renderer.render(scene.entity, activeCamera.entity);
     }
 
-    // TODO (S.Panfilov) also perhaps make a controls service instead of a factory?
     // just for control's damping
     controlsRegistry.getAll().forEach((controls: IOrbitControlsWrapper): void => {
       if (controls.entity.enableDamping) controls.entity.update(delta);
