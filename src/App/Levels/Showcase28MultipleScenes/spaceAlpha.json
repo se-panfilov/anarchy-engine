@@ -1,7 +1,7 @@
 {
   "canvasSelector": "#left_top_container #app_alpha",
   "entities": {
-    "renderers": [{ "mode": "webgl2", "isActive": true, "alpha": true }],
+    "renderers": [{ "name": "main", "mode": "webgl2", "isActive": true, "alpha": true }],
     "actors": [
       {
         "model3dSource": "sphere_model",

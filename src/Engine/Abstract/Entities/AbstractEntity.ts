@@ -3,7 +3,7 @@ import type { Subscription } from 'rxjs';
 
 import type { EntityType } from '@/Engine/Abstract/Constants';
 import type { TEntity, TEntityParams } from '@/Engine/Abstract/Models';
-import type { TDestroyable, TNoSpread, TRegistrable, TWithNameAndNameAccessorsMixin } from '@/Engine/Mixins';
+import type { TDestroyable, TNoSpread, TRegistrable, TWithName } from '@/Engine/Mixins';
 import { destroyableMixin, withNameAndNameAccessorsMixin } from '@/Engine/Mixins';
 import { genericEntityCleanUp, isDefined } from '@/Engine/Utils';
 
@@ -12,7 +12,6 @@ import { genericEntityCleanUp, isDefined } from '@/Engine/Utils';
 export function AbstractEntity<T extends Record<string, any>, P extends TEntityParams>(entities: T, type: EntityType | string, params?: P): TEntity<T> {
   const id: string = isDefined(params?.id) ? params.id : type + '_' + nanoid();
 
-  const withNameAndNameAccessors: TWithNameAndNameAccessorsMixin = withNameAndNameAccessorsMixin();
   const destroyable: TDestroyable = destroyableMixin();
 
   const destroySub$: Subscription = destroyable.destroy$.subscribe((): void => {
@@ -20,18 +19,15 @@ export function AbstractEntity<T extends Record<string, any>, P extends TEntityP
     destroySub$.unsubscribe();
   });
 
-  const partialResult: T & TRegistrable & TNoSpread & TDestroyable = Object.assign(
-    {
-      ...params,
-      id,
-      ...entities,
-      tags: params?.tags ?? []
-    },
-    destroyable
-  );
+  const partialResult: T & TRegistrable & TNoSpread & TWithName = Object.assign({
+    ...params,
+    id,
+    ...entities,
+    tags: params?.tags ?? []
+  });
 
   // eslint-disable-next-line functional/immutable-data
-  const result: TEntity<T> = Object.assign(partialResult, withNameAndNameAccessors);
+  const result: TEntity<T> = Object.assign(partialResult, destroyable, withNameAndNameAccessorsMixin(partialResult));
 
   if (isDefined(params?.name)) result.setName(params.name);
 

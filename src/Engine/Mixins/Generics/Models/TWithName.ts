@@ -7,4 +7,4 @@ export type TWithNameAccessors = Readonly<{
   setName: (name: string) => void;
 }>;
 
-export type TWithNameAndNameAccessorsMixin = TWriteable<TWithNameOptional> & TWithNameAccessors;
+export type TWithNameAndNameAccessorsMixin = TWriteable<TWithName> & TWithNameAccessors;

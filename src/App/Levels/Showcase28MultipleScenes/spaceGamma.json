@@ -1,7 +1,7 @@
 {
   "canvasSelector": "#left_bottom_container #app_gamma",
   "entities": {
-    "renderers": [{ "mode": "webgl2", "isActive": true, "alpha": true }],
+    "renderers": [{ "name": "main", "mode": "webgl2", "isActive": true, "alpha": true }],
     "actors": [
       {
         "model3dSource": "box_model",

@@ -1,14 +1,15 @@
-import type { TWithNameAndNameAccessorsMixin } from '@/Engine/Mixins/Generics/Models';
+import type { TWithName, TWithNameAndNameAccessorsMixin } from '@/Engine/Mixins/Generics/Models';
+import type { TWriteable } from '@/Engine/Utils';
 
-export function withNameAndNameAccessorsMixin(): TWithNameAndNameAccessorsMixin {
+export function withNameAndNameAccessorsMixin<T extends TWriteable<TWithName>>(entity: T): TWithNameAndNameAccessorsMixin {
   return {
-    name: undefined,
+    name: entity.name,
     getName: function (): string | undefined {
-      return this.name;
+      return entity.name;
     },
     setName: function (name: string): void {
       // eslint-disable-next-line functional/immutable-data
-      this.name = name;
+      entity.name = name;
     }
   };
 }

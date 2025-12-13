@@ -27,16 +27,18 @@ export function AbstractWatcher<T>(type: WatcherType | string, name: string, tag
   });
 
   // eslint-disable-next-line functional/immutable-data
-  const result = Object.assign(destroyable, {
+  const partialResult = Object.assign(destroyable, {
     id,
     name,
     type,
     tags,
     value$,
     start$,
-    stop$,
-    ...withNameAndNameAccessorsMixin()
+    stop$
   });
+
+  // eslint-disable-next-line functional/immutable-data
+  const result: TAbstractWatcher<T> = Object.assign(partialResult, withNameAndNameAccessorsMixin(partialResult));
 
   if (isDefined(name)) result.setName(name);
 
