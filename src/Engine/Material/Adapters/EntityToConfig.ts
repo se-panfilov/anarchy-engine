@@ -43,7 +43,6 @@ import type { TTexture, TTextureAsyncRegistry } from '@/Engine/Texture';
 import type { TOptional } from '@/Engine/Utils';
 import { filterOutEmptyFields, isNotDefined, nullsToUndefined } from '@/Engine/Utils';
 
-// TODO 15-0-0: validate
 export function materialToConfig(entity: TMaterialWrapper, { textureResourceRegistry }: TMaterialEntityToConfigDependencies): TMaterialConfig {
   const options: TMaterialConfigOptions | undefined = getMaterialOptions(entity);
   const textures: TMaterialConfigTextures | undefined = getMaterialTextures(entity, textureResourceRegistry);

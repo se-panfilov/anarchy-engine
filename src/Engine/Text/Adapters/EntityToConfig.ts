@@ -4,7 +4,6 @@ import { extractSerializableRegistrableFields } from '@/Engine/Mixins';
 import type { TText2dWrapper, TText3dTextureWrapper, TTextAnyWrapper, TTextConfig, TTextCssProps } from '@/Engine/Text/Models';
 import { filterOutEmptyFields, isNotDefined, kebabToCamel, vector2ToXy } from '@/Engine/Utils';
 
-// TODO 15-0-0: validate result
 export function textToConfig(entity: TTextAnyWrapper): TTextConfig {
   const { drive } = entity;
 

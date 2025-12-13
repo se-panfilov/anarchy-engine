@@ -8,7 +8,6 @@ import type { TModel3d, TModel3dConfig, TModel3dConfigToParamsDependencies, TMod
 import { isPrimitiveModel3dSource } from '@/Engine/Models3d/Utils';
 import { eulerToXyz, filterOutEmptyFields, isDefined, isNotDefined, vector3ToXyz } from '@/Engine/Utils';
 
-// TODO 15-0-0: validate result
 export function model3dToConfig(
   entity: TModel3d,
   { animationsResourceAsyncRegistry, model3dResourceAsyncRegistry }: Pick<TModel3dConfigToParamsDependencies, 'animationsResourceAsyncRegistry' | 'model3dResourceAsyncRegistry'>
