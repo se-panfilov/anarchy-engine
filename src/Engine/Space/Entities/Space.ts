@@ -65,7 +65,9 @@ export function Space(params: TSpaceParams, hooks?: TSpaceHooks): TSpace {
       getCanvasElement,
       container,
       drop,
-      serialize: (): TSpaceConfig => spaceToConfig(space)
+      version,
+      getCanvasSelector: (): string => canvasSelector,
+      serialize: (): TSpaceConfig => spaceToConfig(space, space.services)
     }
   );
 

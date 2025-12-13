@@ -46,6 +46,7 @@ export function Actor(
   );
 
   const actor: TActor = Object.assign(AbstractEntity(entities, EntityType.Actor, { name: params.name, tags: params.tags, id }), {
+    // TODO 15-0-0: add serializer to the service to avoid dependencies passing
     serialize: (dependencies: TActorEntityToConfigDependencies): TActorConfig => actorToConfig(actor, dependencies),
     getModel3dSettings: (): TActorModel3dSettings | undefined => params.model3dSettings,
     getPhysicsSettings: (): TWithPresetNamePhysicsBodyParams | undefined => params.physics

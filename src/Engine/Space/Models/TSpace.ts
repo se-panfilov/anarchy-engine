@@ -8,7 +8,9 @@ export type TSpace = TEntity<
   TSpaceParts &
     Readonly<{
       getCanvasElement: () => TSpaceCanvas | never;
+      getCanvasSelector: () => string;
       container: TContainerDecorator;
+      version: string;
       drop: () => void;
     }>
 >;
