@@ -1,16 +1,6 @@
+import type { Observable } from 'rxjs';
+
 import type { ISceneWrapper } from '@/Engine/Scene';
-
-// export type IAbstractSpaceService<E, C, P> = Readonly<{
-//   create: (params: Record<string, any>) => IWrapper<E>;
-//   createFromConfig: (config: ReadonlyArray<C>) => void;
-//   setActive: (id: string) => void;
-//   findActive: () => IWrapper<E> | undefined;
-//   getFactory: () => IReactiveFactory<IWrapper<E>, P>;
-//   getRegistry: () => IProtectedRegistry<IAbstractEntityRegistry<IWrapper<E>>>;
-// }> &
-//   IDestroyable;
-
-// TODO (S.Panfilov) CWP use these mixins
 
 export type IWithCreateService<W, P> = Readonly<{
   create: (params: P) => W;
@@ -27,6 +17,7 @@ export type IWithCreateFromConfigService<C> = Readonly<{
 export type IWithActiveAccessorsService<W> = Readonly<{
   setActive: (id: string) => void;
   findActive: () => W | undefined;
+  active$: Observable<W>;
 }>;
 
 export type IWithFactoryService<F> = Readonly<{

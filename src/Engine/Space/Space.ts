@@ -65,8 +65,8 @@ export function buildSpaceFromConfig(canvas: IAppCanvas, config: ISpaceConfig): 
   const { text2dRegistry, text3dRegistry } = textService.getRegistries();
   const controlsRegistry = controlsService.getRegistry();
 
-  const camera: ICameraWrapper | undefined = cameraService.findActive();
-  if (isNotDefined(camera)) throw new Error(`Cannot find an active camera for space "${name}" during space's initialization.`);
+  let camera: ICameraWrapper | undefined;
+  cameraService.active$.subscribe((wrapper: ICameraWrapper | undefined): void => void (camera = wrapper));
   loopService.tick$.subscribe(({ delta }: ILoopTimes): void => spaceLoop(delta, camera, renderer, activeScene, text2dRegistry, text3dRegistry, text2dRenderer, text3dRenderer, controlsRegistry));
 
   const destroyable: IDestroyable = destroyableMixin();

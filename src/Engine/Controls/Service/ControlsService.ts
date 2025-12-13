@@ -1,3 +1,5 @@
+import { Subject } from 'rxjs';
+
 import type { IAppCanvas } from '@/Engine/App';
 import type { ICameraRegistry, ICameraWrapper } from '@/Engine/Camera';
 import type { IControlsConfig, IControlsFactory, IControlsParams, IControlsRegistry, IControlsService, IControlsWrapper } from '@/Engine/Controls/Models';
@@ -6,6 +8,10 @@ import { destroyableMixin } from '@/Engine/Mixins';
 import { findActiveWrappedEntity, isNotDefined, setActiveWrappedEntity } from '@/Engine/Utils';
 
 export function ControlService(factory: IControlsFactory, registry: IControlsRegistry, canvas: IAppCanvas): IControlsService {
+  const active$: Subject<IControlsWrapper> = new Subject<IControlsWrapper>();
+  registry.added$.subscribe((wrapper: IControlsWrapper): void => {
+    if (wrapper.isActive) active$.next(wrapper);
+  });
   factory.entityCreated$.subscribe((wrapper: IControlsWrapper): void => registry.add(wrapper));
 
   const create = (params: IControlsParams): IControlsWrapper => factory.create(params);
@@ -17,13 +23,17 @@ export function ControlService(factory: IControlsFactory, registry: IControlsReg
     });
   };
 
-  const setActive = (controlsId: string): void => setActiveWrappedEntity(registry, controlsId);
+  function setActive(id: string): void {
+    const active: IControlsWrapper = setActiveWrappedEntity(registry, id);
+    active$.next(active);
+  }
   const findActive = (): IControlsWrapper | undefined => findActiveWrappedEntity(registry);
 
   const destroyable: IDestroyable = destroyableMixin();
   destroyable.destroyed$.subscribe(() => {
     factory.destroy();
     registry.destroy();
+    active$.complete();
   });
 
   return {
@@ -31,6 +41,7 @@ export function ControlService(factory: IControlsFactory, registry: IControlsReg
     createFromConfig,
     setActive,
     findActive,
+    active$: active$.asObservable(),
     getFactory: (): IControlsFactory => factory,
     getRegistry: (): IControlsRegistry => registry,
     ...destroyable

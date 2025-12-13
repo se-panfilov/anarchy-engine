@@ -159,6 +159,25 @@ describe('RegistryUtils', () => {
       expect(registry.find((w: ISceneWrapper): boolean => w.id === mockObj1.id)?.isActive).toBe(false);
       expect(registry.find((w: ISceneWrapper): boolean => w.id === mockObjTarget.id)?.isActive).toBe(true);
     });
+
+    it('should return an active entity', () => {
+      const mockObj1: ISceneWrapper = SceneWrapper({ name: 'mock-scene-1', isActive: false, tags: [] });
+      const mockObj2: ISceneWrapper = SceneWrapper({ name: 'mock-scene-2', isActive: false, tags: [] });
+      const mockObj3: ISceneWrapper = SceneWrapper({ name: 'mock-scene-3', isActive: false, tags: [] });
+      const registry: ISceneRegistry = SceneRegistry();
+      registry.add(mockObj1);
+      registry.add(mockObj2);
+      registry.add(mockObj3);
+      const result: ISceneWrapper = setActiveWrappedEntity(registry, mockObj2.id);
+      expect(result).toEqual(mockObj2);
+    });
+
+    it('should throw an error if no entity with such id', () => {
+      const mockObj1: ISceneWrapper = SceneWrapper({ name: 'mock-scene-1', isActive: false, tags: [] });
+      const registry: ISceneRegistry = SceneRegistry();
+      registry.add(mockObj1);
+      expect(() => setActiveWrappedEntity(registry, 'whatever-id')).toThrow();
+    });
   });
 
   describe('findActiveWrappedEntity', () => {

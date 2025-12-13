@@ -3,11 +3,11 @@ import type { IControlsRegistry, IOrbitControlsWrapper } from '@/Engine/Controls
 import type { IRendererWrapper } from '@/Engine/Renderer';
 import type { ISceneWrapper } from '@/Engine/Scene';
 import type { IText2dRegistry, IText2dRenderer, IText3dRegistry, IText3dRenderer } from '@/Engine/Text';
-import { isDefined, isNotDefined } from '@/Engine/Utils';
+import { isDefined } from '@/Engine/Utils';
 
 export function spaceLoop(
   delta: number,
-  activeCamera: ICameraWrapper,
+  activeCamera: ICameraWrapper | undefined,
   renderer: IRendererWrapper,
   activeScene: ISceneWrapper,
   text2dRegistry: IText2dRegistry,
@@ -17,7 +17,6 @@ export function spaceLoop(
   controlsRegistry: IControlsRegistry
 ): void {
   if (isDefined(activeCamera)) {
-    if (isNotDefined(renderer)) throw new Error('Cannot find renderer');
     renderer.entity.render(activeScene.entity, activeCamera.entity);
     // TODO (S.Panfilov) update these text renderers only when there are any text (or maybe only when it's changed)
     if (!text2dRegistry?.isEmpty()) text2dRenderer?.renderer.render(activeScene.entity, activeCamera.entity);

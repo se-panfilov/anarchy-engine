@@ -1,4 +1,5 @@
 import type { Subscription } from 'rxjs';
+import { Subject } from 'rxjs';
 
 import type { ICameraConfig, ICameraFactory, ICameraParams, ICameraRegistry, ICameraService, ICameraWrapper } from '@/Engine/Camera/Models';
 import { ambientContext } from '@/Engine/Context';
@@ -9,7 +10,12 @@ import type { IScreenSizeValues } from '@/Engine/Screen';
 import { findActiveWrappedEntity, setActiveWrappedEntity } from '@/Engine/Utils';
 
 export function CameraService(factory: ICameraFactory, registry: ICameraRegistry, scene: ISceneWrapper, isUpdateCamerasAspect: boolean = true): ICameraService {
-  registry.added$.subscribe((wrapper: ICameraWrapper): void => scene.addCamera(wrapper));
+  const active$: Subject<ICameraWrapper> = new Subject<ICameraWrapper>();
+
+  registry.added$.subscribe((wrapper: ICameraWrapper): void => {
+    scene.addCamera(wrapper);
+    if (wrapper.isActive) active$.next(wrapper);
+  });
   factory.entityCreated$.subscribe((wrapper: ICameraWrapper): void => registry.add(wrapper));
 
   let screenSize$: Subscription | undefined = undefined;
@@ -33,13 +39,17 @@ export function CameraService(factory: ICameraFactory, registry: ICameraRegistry
   const create = (params: ICameraParams): ICameraWrapper => factory.create(params);
   const createFromConfig = (cameras: ReadonlyArray<ICameraConfig>): void => cameras.forEach((config: ICameraConfig): ICameraWrapper => factory.create(factory.configToParams(config)));
 
-  const setActive = (cameraId: string): void => setActiveWrappedEntity(registry, cameraId);
+  function setActive(id: string): void {
+    const active: ICameraWrapper = setActiveWrappedEntity(registry, id);
+    active$.next(active);
+  }
   const findActive = (): ICameraWrapper | undefined => findActiveWrappedEntity(registry);
 
   const destroyable: IDestroyable = destroyableMixin();
   destroyable.destroyed$.subscribe(() => {
     factory.destroy();
     registry.destroy();
+    active$.complete();
     screenSize$?.unsubscribe();
     screenSizeDestroy$.unsubscribe();
   });
@@ -49,6 +59,7 @@ export function CameraService(factory: ICameraFactory, registry: ICameraRegistry
     createFromConfig,
     setActive,
     findActive,
+    active$: active$.asObservable(),
     startUpdatingCamerasAspect,
     getFactory: (): ICameraFactory => factory,
     getRegistry: (): ICameraRegistry => registry,

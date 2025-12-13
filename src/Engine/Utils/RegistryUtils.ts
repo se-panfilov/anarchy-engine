@@ -1,6 +1,7 @@
 import type { IAbstractEntityRegistry, IProtectedRegistry } from '@/Engine/Abstract';
 import type { LookUpStrategy } from '@/Engine/Abstract/Registry';
 import type { IRegistrable, IWithActive } from '@/Engine/Mixins';
+import { isNotDefined } from '@/Engine/Utils';
 
 export const getAll = <T>(registry: ReadonlyMap<string, T>): ReadonlyArray<T> => Array.from(registry.values());
 
@@ -21,12 +22,19 @@ export function getUniqEntityWithTag<T extends IRegistrable>(tag: string, regist
   return Array.from(registry.values()).find((obj: T) => obj.hasTag(tag));
 }
 
-export function setActiveWrappedEntity<E extends IWithActive & IRegistrable>(registry: IProtectedRegistry<IAbstractEntityRegistry<E>>, id: string): void {
+export function setActiveWrappedEntity<E extends IWithActive & IRegistrable>(registry: IProtectedRegistry<IAbstractEntityRegistry<E>>, id: string): E | never {
+  let result: E | undefined;
   registry.forEach((entity: E): void => {
     const isTarget: boolean = entity.id === id;
-    if (isTarget) entity._setActive(true, true);
-    else entity._setActive(false, true);
+    if (isTarget) {
+      entity._setActive(true, true);
+      result = entity;
+    } else entity._setActive(false, true);
   });
+
+  if (isNotDefined(result)) throw new Error(`Cannot find an entity with id "${id}" in the registry.`);
+
+  return result;
 }
 
 export const findActiveWrappedEntity = <E extends IWithActive & IRegistrable>(registry: IProtectedRegistry<IAbstractEntityRegistry<E>>): E | undefined =>

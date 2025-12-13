@@ -1,7 +1,7 @@
 import '@/App/style.css';
 
-import { showcase } from '@/App/Levels/Showcase1MovingActors';
-// import { showcase } from '@/App/Levels/Showcase2TopDown';
+// import { showcase } from '@/App/Levels/Showcase1MovingActors';
+import { showcase } from '@/App/Levels/Showcase2TopDown';
 // import { showcase } from '@/App/Levels/Showcase3CameraFlying';
 // import { showcase } from '@/App/Levels/Showcase4AnimejsSimple';
 // import { showcase } from '@/App/Levels/Showcase5AnimejsComplex';
@@ -18,7 +18,5 @@ import { ambientContext, isNotDefined } from '@/Engine';
 
 const canvas: IAppCanvas | null = ambientContext.container.getCanvasElement('#app');
 if (isNotDefined(canvas)) throw new Error('Canvas is not defined');
-const { space, start } = showcase(canvas);
-console.log(space);
-// space.messages$.subscribe((message: string) => console.log(message));
+const { start } = showcase(canvas);
 void start();
