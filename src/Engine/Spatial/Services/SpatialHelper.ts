@@ -1,5 +1,5 @@
 import type { Vector3 } from 'three';
-import { Box3 } from 'three';
+import { Box3, Mesh, MeshBasicMaterial, PlaneGeometry } from 'three';
 import { Line2 } from 'three/examples/jsm/lines/Line2';
 import { LineGeometry } from 'three/examples/jsm/lines/LineGeometry';
 import { LineMaterial } from 'three/examples/jsm/lines/LineMaterial';
@@ -121,4 +121,14 @@ export function removeOutlines(scene: TSceneWrapper): void {
       delete object.userData.outline;
     }
   });
+}
+
+export function createBoundingBox(minX: number, minY: number, maxX: number, maxY: number, color: ColorRepresentation = '#00ff00', wireframe: boolean = true): Mesh {
+  const geometry: PlaneGeometry = new PlaneGeometry(maxX - minX, maxY - minY);
+  const material: MeshBasicMaterial = new MeshBasicMaterial({ color, wireframe });
+  const plane: Mesh = new Mesh(geometry, material);
+  plane.position.set((minX + maxX) / 2, 0, (minY + maxY) / 2);
+  // eslint-disable-next-line functional/immutable-data
+  plane.rotation.x = -Math.PI / 2;
+  return plane;
 }

@@ -3,6 +3,6 @@ import type { TSpatialConfigToParamsDependencies, TSpatialDataConfig, TSpatialDa
 export function configToParams(config: TSpatialDataConfig, { spatialGridRegistry }: TSpatialConfigToParamsDependencies): TSpatialDataParams {
   return {
     ...config,
-    grid: config.gridName ? spatialGridRegistry.findByKey(config.gridName) : undefined
+    grid: config.gridName ? spatialGridRegistry.findByName(config.gridName) : undefined
   };
 }

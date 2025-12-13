@@ -16,6 +16,7 @@ export enum WrapperType {
   Renderer = 'renderer_wrapper',
   Scene = 'scene_wrapper',
   SpotLight = 'spot_light_wrapper',
+  SpatialGrid = 'spatial_grid_wrapper',
   Text2d = 'text2d_wrapper',
   Text3d = 'text3d_wrapper',
   Texture = 'texture_wrapper',

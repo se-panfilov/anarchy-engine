@@ -1,5 +1,5 @@
-import type { TAbstractSimpleRegistry, TProtectedRegistry } from '@/Engine/Abstract';
+import type { TAbstractEntityRegistry, TProtectedRegistry } from '@/Engine/Abstract/Models';
 
-import type { TSpatialGrid } from './TSpatialGrid';
+import type { TSpatialGridWrapper } from './TSpatialGridWrapper';
 
-export type TSpatialGridRegistry = TProtectedRegistry<TAbstractSimpleRegistry<TSpatialGrid>>;
+export type TSpatialGridRegistry = TProtectedRegistry<TAbstractEntityRegistry<TSpatialGridWrapper>>;

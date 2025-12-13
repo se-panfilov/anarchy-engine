@@ -14,6 +14,7 @@ export enum FactoryType {
   Renderer = 'renderer_factory',
   Scene = 'scene_factory',
   ScreenSizeWatcher = 'screen_size_watcher_factory',
+  SpatialGrid = 'spatial_grid_factory',
   Text = 'text_factory',
   Texture = 'texture_factory'
 }
