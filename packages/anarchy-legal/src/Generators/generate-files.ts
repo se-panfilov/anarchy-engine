@@ -373,7 +373,7 @@ const main = async (): Promise<void> => {
   dlog('target workspace:', ws.name, ws.dir);
 
   // Resolve templates dir
-  const templatesDir = argv.templates ? (path.isAbsolute(argv.templates) ? argv.templates : path.resolve(process.cwd(), argv.templates)) : path.resolve(scriptDir, '../../src/templates');
+  const templatesDir = argv.templates ? (path.isAbsolute(argv.templates) ? argv.templates : path.resolve(process.cwd(), argv.templates)) : path.resolve(scriptDir, '../../src/Templates');
   dlog('templates dir:', templatesDir);
 
   // Resolve out dir
