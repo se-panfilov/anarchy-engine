@@ -3,7 +3,7 @@ export {};
 
 declare global {
   interface Window {
-    platformAPI: {
+    platformApi: {
       // TODO DESKTOP: Declare all platform API methods here
       // TODO DESKTOP: any
       saveAppSettings(settings: any): Promise<void>;

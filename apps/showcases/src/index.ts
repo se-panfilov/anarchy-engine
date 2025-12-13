@@ -43,11 +43,12 @@ const settings: TAppSettings = {
   }
 };
 
-// TODO DESKTOP: Implement save/load via platformAPI
+// TODO DESKTOP: Implement generic platformApiService for desktop and mobile
+// TODO DESKTOP: Implement save/load via platformApi
 // TODO DESKTOP: debug
-console.log('XXX platformAPI', window.platformAPI);
-window.platformAPI.chrome();
-window.platformAPI.desktopAppVersion().then(console.log);
+console.log('XXX platformApi', window.platformApi);
+window.platformApi.chrome();
+window.platformApi.desktopAppVersion().then(console.log);
 
 setBrowserSafeguards(window);
 
