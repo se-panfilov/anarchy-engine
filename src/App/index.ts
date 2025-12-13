@@ -46,8 +46,9 @@ moveActor();
 // START Experiment1: animations ---------------
 level.actor.factory.initial.create({
   type: ActorType.cube,
-  position: Vector3Wrapper({ x: 0, y: 2, z: 0 }).entity,
+  position: Vector3Wrapper({ x: 0, y: 3, z: 0 }).entity,
   castShadow: true,
+  materialParams: { color: '#5177ff' },
   tags: [ActorTag.Intersectable]
 } satisfies IActorParams);
 // END Experiment1: animations ---------------
