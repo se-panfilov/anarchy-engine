@@ -8,7 +8,7 @@ import { destroyableMixin, withNameAndNameAccessorsMixin } from '@/Engine/Mixins
 import { withTagsMixin } from '@/Engine/Mixins/Generic';
 import { isDefined, isWithUserData, isWithWrapperIdAccessors } from '@/Engine/Utils';
 
-type IWrapperParams = Readonly<{ tags: ReadonlyArray<string> } & IWithName>;
+type IWrapperParams = Readonly<{ tags?: ReadonlyArray<string> } & IWithName>;
 
 export function AbstractWrapper<T>(entity: T, type: WrapperType | string, params?: IWrapperParams): IWrapper<T>;
 export function AbstractWrapper<T extends IWithUserData>(entity: T, type: WrapperType | string, params?: IWrapperParams): IWrapper<IWithWrapperIdEntity<T>>;

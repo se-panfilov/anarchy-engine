@@ -6,10 +6,7 @@ export function MaterialService(factory: IMaterialFactory, registry: IMaterialRe
   factory.entityCreated$.subscribe((wrapper: IMaterialWrapper): void => registry.add(wrapper));
 
   const create = (params: IMaterialParams): IMaterialWrapper => factory.create(params);
-  const createFromConfig = (material: ReadonlyArray<IMaterialConfig>): void => {
-    // eslint-disable-next-line @typescript-eslint/no-misused-promises
-    material.forEach((config: IMaterialConfig): IMaterialWrapper => factory.create(factory.configToParams(config)));
-  };
+  const createFromConfig = (material: ReadonlyArray<IMaterialConfig>): void => material.forEach((config: IMaterialConfig): IMaterialWrapper => factory.create(factory.configToParams(config)));
 
   const destroyable: IDestroyable = destroyableMixin();
   destroyable.destroyed$.subscribe(() => {
