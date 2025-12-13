@@ -5,7 +5,7 @@
 This product includes third-party components. Their **licenses and attributions** are listed below.
 For the **full license texts**, see `THIRD_PARTY_LICENSES.md`.
 
-Components listed: 131
+Components listed: 152
 
 ## 1) Mandatory Attributions (verbatim)
 
@@ -339,6 +339,68 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
+## @sentry/cli@2.56.1
+
+**License(s):** BSD-3-Clause
+
+**Repository:** git://github.com/getsentry/sentry-cli.git
+
+**URL:** https://docs.sentry.io/hosted/learn/cli/
+
+**Attribution:** Copyright (c) 2016-2025 Sentry (https://sentry.io/) and individual contributors.
+
+---
+
+## @sentry/cli-darwin@2.56.1
+
+**License(s):** BSD-3-Clause
+
+**Repository:** https://github.com/getsentry/sentry-cli
+
+---
+
+## @sentry/cli-linux-arm@2.56.1
+
+**License(s):** UNKNOWN
+
+---
+
+## @sentry/cli-linux-arm64@2.56.1
+
+**License(s):** UNKNOWN
+
+---
+
+## @sentry/cli-linux-i686@2.56.1
+
+**License(s):** UNKNOWN
+
+---
+
+## @sentry/cli-linux-x64@2.56.1
+
+**License(s):** UNKNOWN
+
+---
+
+## @sentry/cli-win32-arm64@2.56.1
+
+**License(s):** UNKNOWN
+
+---
+
+## @sentry/cli-win32-i686@2.56.1
+
+**License(s):** UNKNOWN
+
+---
+
+## @sentry/cli-win32-x64@2.56.1
+
+**License(s):** UNKNOWN
+
+---
+
 ## @sentry/core@10.17.0
 
 **License(s):** MIT
@@ -501,6 +563,16 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
+## agent-base@6.0.2
+
+**License(s):** MIT
+
+**Repository:** git://github.com/TooTallNate/node-agent-base.git
+
+**Attribution:** Nathan Rajlich <nathan@tootallnate.net> (http://n8.io/)
+
+---
+
 ## agent-base@7.1.4
 
 **License(s):** MIT
@@ -535,7 +607,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## anarchy-tracking@1.0.0
+## anarchy-tracking@1.1.0
 
 **License(s):** MIT
 
@@ -717,6 +789,28 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
+## dotenv@17.2.2
+
+**License(s):** BSD-2-Clause
+
+**Repository:** git://github.com/motdotla/dotenv.git
+
+**URL:** https://github.com/motdotla/dotenv#readme
+
+**Attribution:** Copyright (c) 2015, Scott Motte
+
+---
+
+## encoding@0.1.13
+
+**License(s):** MIT
+
+**Repository:** https://github.com/andris9/encoding.git
+
+**Attribution:** Copyright (c) 2012-2014 Andris Reinman
+
+---
+
 ## entities@4.5.0
 
 **License(s):** BSD-2-Clause
@@ -777,6 +871,16 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
+## https-proxy-agent@5.0.1
+
+**License(s):** MIT
+
+**Repository:** git://github.com/TooTallNate/node-https-proxy-agent.git
+
+**Attribution:** Nathan Rajlich <nathan@tootallnate.net> (http://n8.io/)
+
+---
+
 ## https-proxy-agent@7.0.6
 
 **License(s):** MIT
@@ -832,6 +936,18 @@ The following notices are reproduced as provided by the respective licensors (e.
 **URL:** https://github.com/mesqueeb/is-what#readme
 
 **Attribution:** Copyright (c) 2018 Luca Ban - Mesqueeb
+
+---
+
+## isexe@2.0.0
+
+**License(s):** ISC
+
+**Repository:** git+https://github.com/isaacs/isexe.git
+
+**URL:** https://github.com/isaacs/isexe#readme
+
+**Attribution:** Copyright (c) Isaac Z. Schlueter and Contributors
 
 ---
 
@@ -975,6 +1091,18 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
+## node-fetch@2.7.0
+
+**License(s):** MIT
+
+**Repository:** https://github.com/bitinn/node-fetch.git
+
+**URL:** https://github.com/bitinn/node-fetch
+
+**Attribution:** Copyright (c) 2016 David Frank
+
+---
+
 ## parse5@7.3.0
 
 **License(s):** MIT
@@ -1028,6 +1156,28 @@ The following notices are reproduced as provided by the respective licensors (e.
 **URL:** https://postcss.org/
 
 **Attribution:** Copyright 2013 Andrey Sitnik <andrey@sitnik.ru>
+
+---
+
+## progress@2.0.3
+
+**License(s):** MIT
+
+**Repository:** git://github.com/visionmedia/node-progress
+
+**Attribution:** Copyright (c) 2017 TJ Holowaychuk <tj@vision-media.ca>
+
+---
+
+## proxy-from-env@1.1.0
+
+**License(s):** MIT
+
+**Repository:** https://github.com/Rob--W/proxy-from-env.git
+
+**URL:** https://github.com/Rob--W/proxy-from-env#readme
+
+**Attribution:** Copyright (C) 2016-2018 Rob Wu <rob@robwu.nl>
 
 ---
 
@@ -1307,6 +1457,18 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
+## tr46@0.0.3
+
+**License(s):** MIT
+
+**Repository:** git+https://github.com/Sebmaster/tr46.js.git
+
+**URL:** https://github.com/Sebmaster/tr46.js#readme
+
+**Attribution:** Sebastian Mayr
+
+---
+
 ## tr46@6.0.0
 
 **License(s):** MIT
@@ -1387,6 +1549,16 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
+## webidl-conversions@3.0.1
+
+**License(s):** BSD-2-Clause
+
+**Repository:** jsdom/webidl-conversions
+
+**Attribution:** Copyright (c) 2014, Domenic Denicola
+
+---
+
 ## webidl-conversions@8.0.0
 
 **License(s):** BSD-2-Clause
@@ -1424,6 +1596,26 @@ The following notices are reproduced as provided by the respective licensors (e.
 **Repository:** git+https://github.com/jsdom/whatwg-url.git
 
 **Attribution:** Copyright (c) Sebastian Mayr
+
+---
+
+## whatwg-url@5.0.0
+
+**License(s):** MIT
+
+**Repository:** jsdom/whatwg-url
+
+**Attribution:** Copyright (c) 2015–2016 Sebastian Mayr
+
+---
+
+## which@2.0.2
+
+**License(s):** ISC
+
+**Repository:** git://github.com/isaacs/node-which.git
+
+**Attribution:** Copyright (c) Isaac Z. Schlueter and Contributors
 
 ---
 

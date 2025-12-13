@@ -2,10 +2,10 @@
   "$schema": "http://cyclonedx.org/schema/bom-1.5.schema.json",
   "bomFormat": "CycloneDX",
   "specVersion": "1.5",
-  "serialNumber": "urn:uuid:22555c6b-9213-46ba-9d6d-b971e878be4d",
+  "serialNumber": "urn:uuid:dbe48b21-fa87-43b4-8100-bfc932e3087a",
   "version": 1,
   "metadata": {
-    "timestamp": "2025-10-09T23:26:36.225Z",
+    "timestamp": "2025-10-10T23:49:02.805Z",
     "lifecycles": [
       {
         "phase": "pre-build"
@@ -45,14 +45,14 @@
   },
   "components": [
     {
-      "bom-ref": "showcases-core@2.14.2",
+      "bom-ref": "showcases-core@2.14.3",
       "type": "library",
       "name": "showcases-core",
-      "version": "2.14.2",
+      "version": "2.14.3",
       "scope": "required",
       "author": "S. Panfilov",
       "description": "Anarchy Showcases Core – an application with demos for Anarchy-Engine.",
-      "purl": "pkg:npm/showcases-core@2.14.2",
+      "purl": "pkg:npm/showcases-core@2.14.3",
       "properties": [
         {
           "name": "cdx:npm:package:private",
@@ -498,6 +498,426 @@
         {
           "alg": "SHA-512",
           "content": "5f83a21840b3929ead23200a5c1ffd6de042da85f5c4a384903a38bffa6120a18fceb990e28e798f66bafd5db48d27d237bc3e91f679e882c4ef54b30bdc3569"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ]
+    },
+    {
+      "bom-ref": "@sentry/cli@2.56.1",
+      "type": "library",
+      "name": "@sentry/cli",
+      "version": "2.56.1",
+      "scope": "required",
+      "purl": "pkg:npm/%40sentry/cli@2.56.1",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/@sentry/cli/-/cli-2.56.1.tgz"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "54300883e8268cdb494b955465030348af5168a0bd858422dcfa17a4d6bea3035f40d93ad1b0a2f33f2391b59170a6cd1a7dd5e755aabeb400a8ba0d01d3dcf7"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "BSD-3-Clause"
+          }
+        }
+      ]
+    },
+    {
+      "bom-ref": "@sentry/cli-darwin@2.56.1",
+      "type": "library",
+      "name": "@sentry/cli-darwin",
+      "version": "2.56.1",
+      "scope": "optional",
+      "purl": "pkg:npm/%40sentry/cli-darwin@2.56.1",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/@sentry/cli-darwin/-/cli-darwin-2.56.1.tgz"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "cdf853f0caef079c7fc51748546c20fac1b40b1de2d06e911f6cc2add43f9a85a7f137e4c2c3343b593f031a706e97117c01c29156f4e0253fc8a7222b083628"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "BSD-3-Clause"
+          }
+        }
+      ]
+    },
+    {
+      "bom-ref": "@sentry/cli-linux-arm@2.56.1",
+      "type": "library",
+      "name": "@sentry/cli-linux-arm",
+      "version": "2.56.1",
+      "scope": "optional",
+      "purl": "pkg:npm/%40sentry/cli-linux-arm@2.56.1",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/@sentry/cli-linux-arm/-/cli-linux-arm-2.56.1.tgz"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "7cd07f360d751eb9063921080e0f9f737cdf4c257baba90975da7a9dd2b7425605b027df4529dc95a5f548ca7e9aac5d5a41ea7b5924a7ce4e63c1bfc79b805b"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "BSD-3-Clause"
+          }
+        }
+      ]
+    },
+    {
+      "bom-ref": "@sentry/cli-linux-arm64@2.56.1",
+      "type": "library",
+      "name": "@sentry/cli-linux-arm64",
+      "version": "2.56.1",
+      "scope": "optional",
+      "purl": "pkg:npm/%40sentry/cli-linux-arm64@2.56.1",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/@sentry/cli-linux-arm64/-/cli-linux-arm64-2.56.1.tgz"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "032a5723066f38c25bf5182323ff7c85301dd3a15c3a3aa3226e86f48474388e2924239c6805f3f4d297749ab1a5977ba6148c2670fe071ffc8983943de63bdc"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "BSD-3-Clause"
+          }
+        }
+      ]
+    },
+    {
+      "bom-ref": "@sentry/cli-linux-i686@2.56.1",
+      "type": "library",
+      "name": "@sentry/cli-linux-i686",
+      "version": "2.56.1",
+      "scope": "optional",
+      "purl": "pkg:npm/%40sentry/cli-linux-i686@2.56.1",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/@sentry/cli-linux-i686/-/cli-linux-i686-2.56.1.tgz"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "be71fe58912c52aecb7fbc5cf6e77313f3388680d75ec9e214562bffb06f7675ed09094d35a5853171db103600aa5ddb688947916a06f1c1075ae07f60aca78b"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "BSD-3-Clause"
+          }
+        }
+      ]
+    },
+    {
+      "bom-ref": "@sentry/cli-linux-x64@2.56.1",
+      "type": "library",
+      "name": "@sentry/cli-linux-x64",
+      "version": "2.56.1",
+      "scope": "optional",
+      "purl": "pkg:npm/%40sentry/cli-linux-x64@2.56.1",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/@sentry/cli-linux-x64/-/cli-linux-x64-2.56.1.tgz"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "dff06529ee5576789adfa31ea2f8211c90fc95b72e9b94c52312e9f8f49f1f6b156f4f7ee49a342fde684532362640fc16cf9036cb2f4ea4f1263e5e228fe7f8"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "BSD-3-Clause"
+          }
+        }
+      ]
+    },
+    {
+      "bom-ref": "@sentry/cli-win32-arm64@2.56.1",
+      "type": "library",
+      "name": "@sentry/cli-win32-arm64",
+      "version": "2.56.1",
+      "scope": "optional",
+      "purl": "pkg:npm/%40sentry/cli-win32-arm64@2.56.1",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/@sentry/cli-win32-arm64/-/cli-win32-arm64-2.56.1.tgz"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "1a0f1157b095ed3cf87e247510dd407f9015849b27117899bdfbdf417238969e7530a02173164832d11f83d1da5ac9f70e6ff08306018a7c9ecb07d66d35d80e"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "BSD-3-Clause"
+          }
+        }
+      ]
+    },
+    {
+      "bom-ref": "@sentry/cli-win32-i686@2.56.1",
+      "type": "library",
+      "name": "@sentry/cli-win32-i686",
+      "version": "2.56.1",
+      "scope": "optional",
+      "purl": "pkg:npm/%40sentry/cli-win32-i686@2.56.1",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/@sentry/cli-win32-i686/-/cli-win32-i686-2.56.1.tgz"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "eaee9ad3ad320b78bbe997b56a9aa05abe65b904b286e0f9343f387967e1fd46dd76c11ae365078e85473a20709a966a7ff86f35902dccb9c4e0d0af538cce32"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "BSD-3-Clause"
+          }
+        }
+      ]
+    },
+    {
+      "bom-ref": "@sentry/cli-win32-x64@2.56.1",
+      "type": "library",
+      "name": "@sentry/cli-win32-x64",
+      "version": "2.56.1",
+      "scope": "optional",
+      "purl": "pkg:npm/%40sentry/cli-win32-x64@2.56.1",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/@sentry/cli-win32-x64/-/cli-win32-x64-2.56.1.tgz"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "d7571d7e56a306b0d695166a23d30ebbba24daf9cfcc58ca99b53762f0585906a9344f871c0b1676c44bfeefcfd51994eb6be3ed8e3689251c8fac7548dadd3f"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "BSD-3-Clause"
+          }
+        }
+      ]
+    },
+    {
+      "bom-ref": "agent-base@6.0.2",
+      "type": "library",
+      "name": "agent-base",
+      "version": "6.0.2",
+      "scope": "required",
+      "purl": "pkg:npm/agent-base@6.0.2",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/agent-base/-/agent-base-6.0.2.tgz"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "45937035c945efe312ffc6c383bd1a9a0df6772799199c620ee42667128b025423af78c6c8bc7ee0a924e7c50eec3d90760148402a2fb92b991129dee911ba5d"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ]
+    },
+    {
+      "bom-ref": "https-proxy-agent@5.0.1",
+      "type": "library",
+      "name": "https-proxy-agent",
+      "version": "5.0.1",
+      "scope": "required",
+      "purl": "pkg:npm/https-proxy-agent@5.0.1",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/https-proxy-agent/-/https-proxy-agent-5.0.1.tgz"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "7457008e94d0160a0b3330b657053e0bf09b4bbb912f49569b10c84e6aa6ec2fbb17439d9a3eacf65e9a95973a0042d786b9e080cd827964971c639d5f662dc0"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ]
+    },
+    {
+      "bom-ref": "node-fetch@2.7.0",
+      "type": "library",
+      "name": "node-fetch",
+      "version": "2.7.0",
+      "scope": "required",
+      "purl": "pkg:npm/node-fetch@2.7.0",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/node-fetch/-/node-fetch-2.7.0.tgz"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "7381517d49bf75b71667b53ed56ab40300b214bfb79edd9b130d39c1fc52cfe0d6a56b22b609928189b2d9d41d5b2282d7af7810b3ea32cfd8cd448da332edf0"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ]
+    },
+    {
+      "bom-ref": "tr46@0.0.3",
+      "type": "library",
+      "name": "tr46",
+      "version": "0.0.3",
+      "scope": "required",
+      "purl": "pkg:npm/tr46@0.0.3",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/tr46/-/tr46-0.0.3.tgz"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "37758cb2ea95eba953df40ab5cd6c48f1e06130968c37bfaaebe2609cbfaa6b9dfc214b4d6b920c857633cd05877d6ebecba57575f849a1d357c79ead86760af"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ]
+    },
+    {
+      "bom-ref": "webidl-conversions@3.0.1",
+      "type": "library",
+      "name": "webidl-conversions",
+      "version": "3.0.1",
+      "scope": "required",
+      "purl": "pkg:npm/webidl-conversions@3.0.1",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/webidl-conversions/-/webidl-conversions-3.0.1.tgz"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "d89027df3f0047aae32bc4a6f28ad10b487f6dc97f0ea2fbb513dd199e08d428dd17e11a30b998c411f25ee28bf38f5eb9c3c586f068c4cb1f95f39bf24c5a79"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "BSD-2-Clause"
+          }
+        }
+      ]
+    },
+    {
+      "bom-ref": "whatwg-url@5.0.0",
+      "type": "library",
+      "name": "whatwg-url",
+      "version": "5.0.0",
+      "scope": "required",
+      "purl": "pkg:npm/whatwg-url@5.0.0",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/whatwg-url/-/whatwg-url-5.0.0.tgz"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "b1a139ee7ba9c64eafdc7637e7e8f307061ad2b292cb45d1f094b164fc202ebef2b34201ce11af880d7f4d41892e6495aacf296fd027bc809712e3872e9ad84f"
         }
       ],
       "licenses": [
@@ -1149,6 +1569,34 @@
       ]
     },
     {
+      "bom-ref": "proxy-from-env@1.1.0",
+      "type": "library",
+      "name": "proxy-from-env",
+      "version": "1.1.0",
+      "scope": "required",
+      "purl": "pkg:npm/proxy-from-env@1.1.0",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/proxy-from-env/-/proxy-from-env-1.1.0.tgz"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "0fece439109b03d7f5b5d5912b445a091dc63efe7470cc5caf3e17f24e4b4d2503d43930e3b98a24465036e9c8b514e45b082d6944a8d515454481bd65788562"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ]
+    },
+    {
       "bom-ref": "quickselect@3.0.0",
       "type": "library",
       "name": "quickselect",
@@ -1602,14 +2050,14 @@
       ]
     },
     {
-      "bom-ref": "anarchy-tracking@1.0.0",
+      "bom-ref": "anarchy-tracking@1.1.0",
       "type": "library",
       "name": "anarchy-tracking",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "scope": "required",
       "author": "S. Panfilov",
       "description": "Anarchy-Tracking – a library error monitoring in Anarchy Engine's based projects.",
-      "purl": "pkg:npm/anarchy-tracking@1.0.0",
+      "purl": "pkg:npm/anarchy-tracking@1.1.0",
       "properties": [
         {
           "name": "cdx:npm:package:private",
@@ -1702,26 +2150,26 @@
     {
       "ref": "anarchy-monorepo@2.1.8",
       "dependsOn": [
-        "showcases-core@2.14.2",
+        "showcases-core@2.14.3",
         "showcases-desktop@2.8.2",
         "showcases-e2e@1.0.4",
         "anarchy-engine@21.1.0",
         "anarchy-i18n@1.2.0",
         "anarchy-legal@1.10.4",
         "anarchy-shared@1.4.0",
-        "anarchy-tracking@1.0.0",
+        "anarchy-tracking@1.1.0",
         "showcases-i18n@1.3.0",
         "showcases-menu@1.8.0",
         "showcases-shared@1.4.0"
       ]
     },
     {
-      "ref": "showcases-core@2.14.2",
+      "ref": "showcases-core@2.14.3",
       "dependsOn": [
         "anarchy-engine@21.1.0",
         "anarchy-i18n@1.2.0",
         "anarchy-shared@1.4.0",
-        "anarchy-tracking@1.0.0",
+        "anarchy-tracking@1.1.0",
         "dexie@4.2.0",
         "lil-gui@0.20.0",
         "sanitize.css@13.0.0",
@@ -1734,7 +2182,7 @@
     },
     {
       "ref": "showcases-desktop@2.8.2",
-      "dependsOn": ["anarchy-shared@1.4.0", "showcases-core@2.14.2", "showcases-shared@1.4.0"]
+      "dependsOn": ["anarchy-shared@1.4.0", "showcases-core@2.14.3", "showcases-shared@1.4.0"]
     },
     {
       "ref": "showcases-e2e@1.0.4",
@@ -1795,6 +2243,78 @@
     {
       "ref": "@sentry/browser@10.17.0",
       "dependsOn": ["@sentry-internal/browser-utils@10.17.0", "@sentry-internal/feedback@10.17.0", "@sentry-internal/replay@10.17.0", "@sentry-internal/replay-canvas@10.17.0", "@sentry/core@10.17.0"]
+    },
+    {
+      "ref": "@sentry/cli@2.56.1",
+      "dependsOn": [
+        "https-proxy-agent@5.0.1",
+        "node-fetch@2.7.0",
+        "proxy-from-env@1.1.0",
+        "@sentry/cli-darwin@2.56.1",
+        "@sentry/cli-linux-arm@2.56.1",
+        "@sentry/cli-linux-arm64@2.56.1",
+        "@sentry/cli-linux-i686@2.56.1",
+        "@sentry/cli-linux-x64@2.56.1",
+        "@sentry/cli-win32-arm64@2.56.1",
+        "@sentry/cli-win32-i686@2.56.1",
+        "@sentry/cli-win32-x64@2.56.1"
+      ]
+    },
+    {
+      "ref": "@sentry/cli-darwin@2.56.1",
+      "dependsOn": []
+    },
+    {
+      "ref": "@sentry/cli-linux-arm@2.56.1",
+      "dependsOn": []
+    },
+    {
+      "ref": "@sentry/cli-linux-arm64@2.56.1",
+      "dependsOn": []
+    },
+    {
+      "ref": "@sentry/cli-linux-i686@2.56.1",
+      "dependsOn": []
+    },
+    {
+      "ref": "@sentry/cli-linux-x64@2.56.1",
+      "dependsOn": []
+    },
+    {
+      "ref": "@sentry/cli-win32-arm64@2.56.1",
+      "dependsOn": []
+    },
+    {
+      "ref": "@sentry/cli-win32-i686@2.56.1",
+      "dependsOn": []
+    },
+    {
+      "ref": "@sentry/cli-win32-x64@2.56.1",
+      "dependsOn": []
+    },
+    {
+      "ref": "agent-base@6.0.2",
+      "dependsOn": []
+    },
+    {
+      "ref": "https-proxy-agent@5.0.1",
+      "dependsOn": ["agent-base@6.0.2"]
+    },
+    {
+      "ref": "node-fetch@2.7.0",
+      "dependsOn": ["whatwg-url@5.0.0"]
+    },
+    {
+      "ref": "tr46@0.0.3",
+      "dependsOn": []
+    },
+    {
+      "ref": "webidl-conversions@3.0.1",
+      "dependsOn": []
+    },
+    {
+      "ref": "whatwg-url@5.0.0",
+      "dependsOn": ["tr46@0.0.3", "webidl-conversions@3.0.1"]
     },
     {
       "ref": "@sentry/core@10.17.0",
@@ -1889,6 +2409,10 @@
       "dependsOn": ["@vue/devtools-api@7.7.7"]
     },
     {
+      "ref": "proxy-from-env@1.1.0",
+      "dependsOn": []
+    },
+    {
       "ref": "quickselect@3.0.0",
       "dependsOn": []
     },
@@ -1969,8 +2493,8 @@
       "dependsOn": ["bowser@2.12.1"]
     },
     {
-      "ref": "anarchy-tracking@1.0.0",
-      "dependsOn": ["@sentry/browser@10.17.0"]
+      "ref": "anarchy-tracking@1.1.0",
+      "dependsOn": ["@sentry/browser@10.17.0", "@sentry/cli@2.56.1"]
     },
     {
       "ref": "showcases-i18n@1.3.0",
