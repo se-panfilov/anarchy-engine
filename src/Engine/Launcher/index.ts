@@ -32,19 +32,29 @@ export function launchScene(
   // TODO (S.Panfilov) everything below should be extracted from the launchScene()
   const renderer: IRendererWrapper = rendererFactory.create({ canvas, tags: [RendererTag.Main] });
 
-  // TODO (S.Panfilov) intersections
-  // const intersectionsService = IntersectionsService();
-  //
-  // ambientContext.mousePositionWatcher.value$.subscribe((position) => {
-  //   const intersectObj: IVector3 | undefined  = intersectionsService.getIntersection(position, cameraRegistry.getUniqWithTag([CameraTag.Initial]), actorRegistry.getAllWithTag(ActorTag.Intersectable));
-  //   if (intersectObj) {
-  //     console.log((intersectObj as any).point);
-  //   }
-  // });
+  // TODO (S.Panfilov) CWP
+  // TODO (S.Panfilov) UNDER CONSTRUCTION: intersections START///////////////////////////////////////////
+  const intersectionsService = IntersectionsService();
+
+  ambientContext.mousePositionWatcher.value$.subscribe((position) => {
+    const cameraTag: CameraTag = CameraTag.Initial;
+    const camera: ICameraWrapper | undefined = cameraRegistry.getUniqWithTag([cameraTag]);
+    if (isNotDefined(camera))
+      throw new Error(`Cannot init intersection service: camera with tag "${cameraTag}" is not defined`);
+    const intersectObj: IVector3 | undefined = intersectionsService.getIntersection(
+      position,
+      camera,
+      actorRegistry.getAllWithTag([ActorTag.Intersectable])
+    );
+    if (intersectObj) {
+      console.log((intersectObj as any).point);
+    }
+  });
 
   ambientContext.mouseClicksWatcher.value$.subscribe((): void => {
     console.log('int click:');
   });
+  // TODO (S.Panfilov) UNDER CONSTRUCTION: intersections END/////////////////////////////////////////////
   ////////////////////////////////////
 
   const loop: ILoopWrapper = loopFactory.create({ tags: [LoopTag.Main, sceneName] });
