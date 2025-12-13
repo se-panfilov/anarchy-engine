@@ -1,9 +1,11 @@
 import { CameraParams, CameraWrapper } from '@Engine/Wrappers/CameraWrapper';
 import { AbstractManager } from '@Engine/Managers/AbstractManager';
+import type { DeviceWatcher } from '@Engine/Watchers/DeviceWatcher';
 
 export class CameraManager extends AbstractManager<CameraWrapper> {
-  public create(params: CameraParams): CameraWrapper {
-    const wrapper = new CameraWrapper(params);
+  // TODO (S.Panfilov) deviceWatcher should be injected in CameraWrapper, not here
+  public create(params: CameraParams, deviceWatcher: DeviceWatcher): CameraWrapper {
+    const wrapper = new CameraWrapper(params, deviceWatcher);
     this.list$.next([...this.list$.value, wrapper]);
     return wrapper;
   }

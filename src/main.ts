@@ -55,19 +55,21 @@ const params: CameraParams = {
   near: 1,
   far: 10000
 };
-const wrappedCamera = cameraManager.create(params);
+const wrappedCamera = cameraManager.create(params, deviceWatcher);
 cameraManager.setCurrent(wrappedCamera);
 wrappedCamera.setPosition(3, 2, 15);
 wrappedCamera.lookAt(0, 0, 0);
 
 if (isNotDefined(cameraManager.current$.value)) throw new Error('Camera is not ready');
-if (isNotDefined(rendererManager.current$.value)) throw new Error('Renderer is not ready');
 
 const canvas: HTMLElement | null = document.querySelector('#app');
 if (isNotDefined(canvas)) throw new Error('Canvas is not defined');
 
-rendererManager.create(canvas, deviceWatcher);
-controlManager.create(cameraManager.current$.value, rendererManager.current$.value);
+const renderer = rendererManager.create(canvas, deviceWatcher);
+rendererManager.setCurrent(renderer);
+if (isNotDefined(rendererManager.current$.value)) throw new Error('Renderer is not ready');
+const controls = controlManager.create(cameraManager.current$.value, rendererManager.current$.value);
+controlManager.setCurrent(controls);
 
 lightManager.create({ type: 'ambient', color: 0xffffff, intensity: 0.5 });
 const wrappedDirectionalLight = lightManager.create({
@@ -81,15 +83,15 @@ wrappedDirectionalLight.entity.shadow.mapSize.set(1024, 1024);
 wrappedDirectionalLight.entity.shadow.normalBias = 0.05;
 wrappedDirectionalLight.entity.position.set(0.25, 2, 2.25);
 
-inputManager.initMousePointer().addIntersectionPointer().onClick(onMouseClick);
+// inputManager.initMousePointer().addIntersectionPointer().onClick(onMouseClick);
 
 loopManager.start();
 
 // TODO (S.Panfilov) move it to any other place
-function onMouseClick({ x, y, z }: Vector3, event: MouseEvent): void {
-  event.preventDefault();
-  const sphere = new Mesh(new SphereGeometry(1, 32, 32), new MeshToonMaterial({ color: new Color('#5EDCAE') }));
-  sphere.position.set(x, y, z);
-  sphere.castShadow = true;
-  scene.add(sphere);
-}
+// function onMouseClick({ x, y, z }: Vector3, event: MouseEvent): void {
+//   event.preventDefault();
+//   const sphere = new Mesh(new SphereGeometry(1, 32, 32), new MeshToonMaterial({ color: new Color('#5EDCAE') }));
+//   sphere.position.set(x, y, z);
+//   sphere.castShadow = true;
+//   scene.add(sphere);
+// }
