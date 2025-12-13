@@ -1,3 +1,5 @@
+import { Subject } from 'rxjs';
+
 import type { TActorParams } from '@/Engine/Actor';
 import type { TSpatialCellWrapper, TSpatialGridWrapper } from '@/Engine/Spatial';
 import { SpatialUpdatePriority } from '@/Engine/Spatial';
@@ -6,6 +8,7 @@ import type { TWriteable } from '@/Engine/Utils';
 
 export function withSpatial(params: TActorParams): TWithSpatial {
   let _isAutoUpdate: boolean = params.isSpatialAutoUpdate ?? false;
+  const cellsChanged$: Subject<ReadonlyArray<TSpatialCellWrapper>> = new Subject<ReadonlyArray<TSpatialCellWrapper>>();
 
   return {
     spatial: {
@@ -15,10 +18,8 @@ export function withSpatial(params: TActorParams): TWithSpatial {
         cells: params.spatial?.cells || []
       },
       setData({ updatePriority, cells }: TSpatialData): void {
-        // eslint-disable-next-line functional/immutable-data
-        (this.data as TWriteable<TSpatialData>).updatePriority = updatePriority;
-        // eslint-disable-next-line functional/immutable-data
-        (this.data as TWriteable<TSpatialData>).cells = cells;
+        this.setSpatialUpdatePriority(updatePriority);
+        this.setSpatialCells(cells);
       },
       getData(): TSpatialData {
         return this.data;
@@ -44,8 +45,7 @@ export function withSpatial(params: TActorParams): TWithSpatial {
         return this.data.grid;
       },
       resetGrid(): void {
-        // eslint-disable-next-line functional/immutable-data
-        (this.data as TWriteable<TSpatialData>).grid = undefined;
+        this.setGrid(undefined as unknown as TSpatialGridWrapper);
       },
       getSpatialCells(): ReadonlyArray<TSpatialCellWrapper> {
         return this.data.cells;
@@ -53,11 +53,17 @@ export function withSpatial(params: TActorParams): TWithSpatial {
       setSpatialCells(cells: ReadonlyArray<TSpatialCellWrapper>): void {
         // eslint-disable-next-line functional/immutable-data
         (this.data as TWriteable<TSpatialData>).cells = cells;
+        cellsChanged$.next(cells);
       },
       resetSpatialCells(): void {
-        // eslint-disable-next-line functional/immutable-data
-        (this.data as TWriteable<TSpatialData>).cells = [];
-      }
+        this.setSpatialCells([]);
+      },
+      destroy(): void {
+        this.resetGrid();
+        this.resetSpatialCells();
+        cellsChanged$.complete();
+      },
+      cellsChanged$: cellsChanged$.asObservable()
     }
   };
 }

@@ -66,6 +66,7 @@ export async function ActorWrapperAsync(
     position$.complete();
     rotation$.unsubscribe();
     rotation$.complete();
+    actorW.spatial.destroy();
   });
 
   applyPosition(actorW, params.position);
