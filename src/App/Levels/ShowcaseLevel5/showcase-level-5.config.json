@@ -42,8 +42,8 @@
     {
       "text": "Linear",
       "position": { "x": 0, "y": 2, "z": 0 },
-      "rotation": { "x": 90, "y": 90, "z": 90 },
-      "color": "#ffffff",
+      "rotation": { "x": 180  , "y": 90, "z": 180 },
+      "color": "#ff0000",
       "fontSize": 1,
       "tags": []
     }

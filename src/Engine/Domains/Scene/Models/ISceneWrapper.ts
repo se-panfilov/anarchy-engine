@@ -20,5 +20,6 @@ export type ISceneWrapper = IWrapper<Scene> &
     addText: (text: Readonly<ITextWrapper>) => void;
     setBackground: (color: string) => void;
     getBackground: () => IColor | ITexture | ICubeTexture | null;
-  }> &
-  IWithTags<SceneTag>;
+  }>
+  & IWithObject3d
+  & IWithTags<SceneTag>;

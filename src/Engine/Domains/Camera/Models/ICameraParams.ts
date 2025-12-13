@@ -1,13 +1,7 @@
 import type { CameraTag } from '@/Engine/Domains/Camera/Constants';
+import type { IObject3DPropConfig } from '@/Engine/Domains/ThreeLib';
 import type { IWithReadonlyTags } from '@/Engine/Mixins';
-import type { IEulerWrapper, IVector3Wrapper } from '@/Engine/Wrappers';
 
-export type ICameraParams = Readonly<{
-  fov?: number;
-  near?: number;
-  far?: number;
-  position: IVector3Wrapper;
-  rotation: IEulerWrapper;
-  lookAt?: IVector3Wrapper;
-}> &
-  IWithReadonlyTags<CameraTag>;
+import type { ICameraProps } from './ICameraProps';
+
+export type ICameraParams = ICameraProps & IObject3DPropConfig & IWithReadonlyTags<CameraTag>;

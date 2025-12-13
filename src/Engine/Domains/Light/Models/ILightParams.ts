@@ -1,18 +1,8 @@
-import type { Color } from 'three/src/math/Color';
 
 import type { LightTag } from '@/Engine/Domains/Light/Constants';
+import type { IObject3DPropConfig } from '@/Engine/Domains/ThreeLib';
 import type { IWithReadonlyTags } from '@/Engine/Mixins';
-import type { IVector3 } from '@/Engine/Wrappers';
 
-import type { ILightShadowParams } from './ILightShadowParams';
-import type { ILightType } from './ILightType';
+import type { ILightProps } from './ILightProps';
 
-export type ILightParams = Readonly<{
-  type: ILightType;
-  color: Color;
-  intensity?: number;
-  position: IVector3;
-  castShadow: boolean;
-  shadow?: ILightShadowParams;
-}> &
-  IWithReadonlyTags<LightTag>;
+export type ILightParams = ILightProps  & IObject3DPropConfig & IWithReadonlyTags<LightTag>;

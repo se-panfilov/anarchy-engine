@@ -5,4 +5,4 @@ import type { IWithTags } from '@/Engine/Mixins';
 import type { ICameraAccessors } from './ICameraAccessors';
 import type { IPerspectiveCamera } from './IPerspectiveCamera';
 
-export type ICameraWrapper = IWrapper<IPerspectiveCamera> & ICameraAccessors & IWithTags<CameraTag>;
+export type ICameraWrapper = IWrapper<IPerspectiveCamera> & IWithObject3d & ICameraAccessors & IWithTags<CameraTag>;

@@ -1,9 +1,5 @@
-import type { SceneTag } from '@/Engine/Domains/Scene';
+import type { ISceneProps, SceneTag } from '@/Engine/Domains/Scene';
+import type { IObject3DPropConfig } from '@/Engine/Domains/ThreeLib';
 import type { IWithReadonlyTags } from '@/Engine/Mixins';
-import type { IColor, ICubeTexture, ITexture } from '@/Engine/Wrappers';
 
-export type ISceneParams = Readonly<{
-  name: string;
-  background?: string | IColor | ITexture | ICubeTexture;
-}> &
-  IWithReadonlyTags<SceneTag>;
+export type ISceneParams = ISceneProps & IObject3DPropConfig & IWithReadonlyTags<SceneTag>;

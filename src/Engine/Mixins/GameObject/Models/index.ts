@@ -9,3 +9,4 @@ export * from './IWithCoordY';
 export * from './IWithCoordZ';
 export * from './IWithPosition';
 export * from './IWithRotation';
+export * from './IWithObject3d';

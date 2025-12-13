@@ -4,6 +4,7 @@ export * from './ILightAccessors';
 export * from './ILightConfig';
 export * from './ILightFactory';
 export * from './ILightParams';
+export * from './ILightProps';
 export * from './ILightRegistry';
 export * from './ILightShadowParams';
 export * from './ILightType';

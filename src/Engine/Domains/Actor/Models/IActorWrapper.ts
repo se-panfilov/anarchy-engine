@@ -5,4 +5,4 @@ import type { IWithTags } from '@/Engine/Mixins';
 import type { IActorAccessors } from './IActorAccessors';
 import type { IMesh } from './IMesh';
 
-export type IActorWrapper = IWrapper<IMesh> & IActorAccessors & IWithTags<ActorTag>;
+export type IActorWrapper = IWrapper<IMesh> & IActorAccessors & IWithObject3d & IWithTags<ActorTag>;

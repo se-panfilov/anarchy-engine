@@ -1,9 +1,10 @@
-import type { ActorType } from '@/Engine/Domains/Actor/Constants';
-import type { IActorParams } from '@/Engine/Domains/Actor/Models';
-import type { IEuler3dConfig } from '@/Engine/Domains/ThreeLib';
-import type { IWithCoordsXYZ } from '@/Engine/Mixins';
+import type { ActorTag, ActorType } from '@/Engine/Domains/Actor/Constants';
+import type { IEuler3dConfig, IObject3DPropConfig } from '@/Engine/Domains/ThreeLib';
+import type { IWithCoordsXYZ, IWithReadonlyTags } from '@/Engine/Mixins';
 
-export type IActorConfig = Omit<IActorParams, 'materialParams' | 'position' | 'rotation'> &
+import type { IActorProps } from './IActorProps';
+
+export type IActorConfig = Omit<IActorProps, 'materialParams' | 'position' | 'rotation'> &
   Readonly<{
     type: ActorType;
     width: number;
@@ -12,7 +13,7 @@ export type IActorConfig = Omit<IActorParams, 'materialParams' | 'position' | 'r
     position: IWithCoordsXYZ;
     rotation?: IEuler3dConfig;
     castShadow: boolean;
-  }>;
+  }> & IObject3DPropConfig & IWithReadonlyTags<ActorTag>;
 
 export type IActorMaterialConfig = Readonly<{
   color: string;

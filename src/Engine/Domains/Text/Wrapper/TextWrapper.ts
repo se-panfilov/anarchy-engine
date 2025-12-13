@@ -10,8 +10,12 @@ export function TextWrapper(params: ITextParams): ITextWrapper {
   const withAccessors: ITextAccessors = getAccessors(entity);
   applyParams(params, withAccessors);
 
-  return {
+  const res =  {
     ...AbstractWrapper(entity, WrapperType.Text, params),
     ...withAccessors
   };
+
+  console.log('TextWrapper', res);
+
+  return res;
 }
