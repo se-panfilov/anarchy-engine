@@ -5,7 +5,7 @@
 This product includes third-party components. Their **licenses and attributions** are listed below.
 For the **full license texts**, see `THIRD_PARTY_LICENSES.md`.
 
-Components listed: 31
+Components listed: 35
 
 ## 1) Mandatory Attributions (verbatim)
 
@@ -169,6 +169,26 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
+## detect-indent@5.0.0
+
+**License(s):** MIT
+
+**Repository:** sindresorhus/detect-indent
+
+**Attribution:** Copyright (c) Sindre Sorhus <sindresorhus@gmail.com> (sindresorhus.com)
+
+---
+
+## detect-newline@2.1.0
+
+**License(s):** MIT
+
+**Repository:** sindresorhus/detect-newline
+
+**Attribution:** Copyright (c) Sindre Sorhus <sindresorhus@gmail.com> (sindresorhus.com)
+
+---
+
 ## fast-deep-equal@3.1.3
 
 **License(s):** MIT
@@ -229,6 +249,18 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
+## minimist@1.2.8
+
+**License(s):** MIT
+
+**Repository:** git://github.com/minimistjs/minimist.git
+
+**URL:** https://github.com/minimistjs/minimist
+
+**Attribution:** COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+
+---
+
 ## nanoid@5.1.5
 
 **License(s):** MIT
@@ -280,6 +312,18 @@ The following notices are reproduced as provided by the respective licensors (e.
 **URL:** https://rxjs.dev
 
 **Attribution:** copyright notice that is included in or attached to the work
+
+---
+
+## sort-json@2.0.1
+
+**License(s):** MIT
+
+**Repository:** https://github.com/kesla/sort-json.git
+
+**URL:** https://github.com/kesla/sort-json
+
+**Attribution:** Copyright (c) 2019 David Björklund
 
 ---
 
