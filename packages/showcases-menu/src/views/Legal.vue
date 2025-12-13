@@ -5,6 +5,8 @@ import View from '@Showcases/Menu/components/View.vue';
 import ViewForm from '@Showcases/Menu/components/ViewForm.vue';
 import { eventsService, vueTranslationService } from '@Showcases/Menu/services';
 import { useLegalDocsStore } from '@Showcases/Menu/stores/LegalDocsStore';
+import { useSettingsStore } from '@Showcases/Menu/stores/SettingsStore';
+import type { TShowcaseLocaleIds } from '@Showcases/Shared';
 import { AllowedLegalDocNames } from '@Showcases/Shared';
 import type { ShallowRef } from 'vue';
 import { onMounted } from 'vue';
@@ -21,7 +23,7 @@ import { onMounted } from 'vue';
 // Render .md files in a scrollable view
 
 onMounted(() => {
-  eventsService.emitLoadLegalDocs({ name: AllowedLegalDocNames.EULA, locale: 'en-US' });
+  eventsService.emitLoadLegalDocs({ name: AllowedLegalDocNames.EULA, locale: useSettingsStore().localization.locale.id as TShowcaseLocaleIds });
 });
 
 const { $t } = vueTranslationService;
