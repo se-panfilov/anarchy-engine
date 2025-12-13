@@ -6,7 +6,14 @@ import type { Vector3Like } from 'three/src/math/Vector3';
 import type { KeyCode, KeysExtra, TActor, TCameraWrapper, TIntersectionsWatcher, TKeyboardService, TMaterialWrapper, TModel3d, TSpaceServices, TSpatialGridWrapper } from '@/Engine';
 import { isNotDefined, MaterialType, PrimitiveModel3dType, TransformAgent } from '@/Engine';
 
-export function createActor(name: string, grid: TSpatialGridWrapper, position: Vector3, color: string, { actorService, materialService, models3dService }: TSpaceServices): TActor {
+export function createActor(
+  name: string,
+  agent: TransformAgent,
+  grid: TSpatialGridWrapper,
+  position: Vector3,
+  color: string,
+  { actorService, materialService, models3dService }: TSpaceServices
+): TActor {
   const material: TMaterialWrapper = materialService.create({ name: `${name}_material`, type: MaterialType.Standard, options: { color } });
 
   const model: TModel3d = models3dService.create({
@@ -23,6 +30,7 @@ export function createActor(name: string, grid: TSpatialGridWrapper, position: V
   return actorService.create({
     name: `${name}_actor`,
     model3dSource: model,
+    agent,
     position: position.clone(),
     rotation: new Euler(0, 0, 0),
     spatial: { grid, isAutoUpdate: true }
@@ -30,7 +38,7 @@ export function createActor(name: string, grid: TSpatialGridWrapper, position: V
 }
 
 export function createRepeaterActor(actor: TActor, offset: Vector3Like, grid: TSpatialGridWrapper, gui: GUI, services: TSpaceServices, color: string = '#1ebae9'): void {
-  const repeaterActor: TActor = createActor('repeater', grid, actor.drive.getPosition().clone().add(offset), color, services);
+  const repeaterActor: TActor = createActor('repeater', TransformAgent.Connected, grid, actor.drive.getPosition().clone().add(offset), color, services);
 
   //"repeaterActor" is connected with "positionConnector" (from "connected" agent) to "sphereActor" position
   actor.drive.position$.subscribe((position: Vector3): void => {
