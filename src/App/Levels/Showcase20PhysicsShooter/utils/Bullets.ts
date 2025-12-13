@@ -10,12 +10,12 @@ import type {
   TActor,
   TActorParams,
   TActorService,
+  TAnyMaterialWrapper,
   TCollisionCheckResult,
   TIntersectionEvent,
   TIntersectionsCameraWatcher,
   TLightService,
   TMaterialService,
-  TMaterialWrapper,
   TMetersPerSecond,
   TMilliseconds,
   TModel3d,
@@ -54,7 +54,7 @@ export function getBulletsPool(
 ): ReadonlyArray<TBullet> {
   let bullets: ReadonlyArray<TBullet> = [];
   const grid: TSpatialGridWrapper = spatialGridService.getRegistry().getByName('main_grid');
-  const material: TMaterialWrapper = materialService.create({ name: 'bullet_material', type: MaterialType.Standard, options: { color: '#FF0000' } });
+  const material: TAnyMaterialWrapper = materialService.create({ name: 'bullet_material', type: MaterialType.Standard, options: { color: '#FF0000' } });
 
   // eslint-disable-next-line functional/no-loop-statements
   for (let i: number = 0; i < count; i++) {
