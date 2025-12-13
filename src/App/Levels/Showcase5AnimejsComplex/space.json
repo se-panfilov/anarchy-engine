@@ -151,9 +151,9 @@
         "model3dSource": "cube",
         "name": "cube_red_model",
         "options": {
-          "height": 3,
+          "height": 1,
           "heightSegments": 1,
-          "width": 3,
+          "width": 1,
           "widthSegments": 1
         },
         "receiveShadow": true
@@ -164,9 +164,9 @@
         "model3dSource": "cube",
         "name": "cube_green_model",
         "options": {
-          "height": 3,
+          "height": 1,
           "heightSegments": 1,
-          "width": 3,
+          "width": 1,
           "widthSegments": 1
         },
         "receiveShadow": true
@@ -177,9 +177,9 @@
         "model3dSource": "cube",
         "name": "cube_blue_model",
         "options": {
-          "height": 3,
+          "height": 1,
           "heightSegments": 1,
-          "width": 3,
+          "width": 1,
           "widthSegments": 1
         },
         "receiveShadow": true
