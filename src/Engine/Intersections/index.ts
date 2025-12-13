@@ -1,4 +1,4 @@
-export * from './Adapters';
+export { configToParams as intersectionsWatcherConfigToParams } from './Adapters';
 export * from './Factories';
 export * from './Models';
 export * from './Registries';

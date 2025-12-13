@@ -4,10 +4,7 @@ import { isPrimitive } from '@/Engine/Models3d/Utils';
 import { configToParamsObject3d } from '@/Engine/ThreeLib';
 import { isDefined, isNotDefined } from '@/Engine/Utils';
 
-export function model3dConfigToParams(
-  config: TModel3dComplexConfig | TModel3dPrimitiveConfig,
-  { materialService }: TModel3dConfigToParamsDependencies
-): TModel3dComplexParams | TModel3dPrimitiveParams {
+export function configToParams(config: TModel3dComplexConfig | TModel3dPrimitiveConfig, { materialService }: TModel3dConfigToParamsDependencies): TModel3dComplexParams | TModel3dPrimitiveParams {
   const { position, rotation, material: materialConfig, scale, ...rest } = config;
 
   if (isPrimitive(config) && isNotDefined(materialConfig)) throw new Error(`Model3dConfigAdapter: Material must be defined for primitive model, but it is not.`);
@@ -21,9 +18,9 @@ export function model3dConfigToParams(
 }
 
 export function model3dConfigComplexToParams(config: TModel3dComplexConfig, deps: TModel3dConfigToParamsDependencies): TModel3dComplexParams {
-  return model3dConfigToParams(config, deps) as TModel3dComplexParams;
+  return configToParams(config, deps) as TModel3dComplexParams;
 }
 
 export function model3dConfigPrimitiveToParams(config: TModel3dPrimitiveConfig, deps: TModel3dConfigToParamsDependencies): TModel3dPrimitiveParams {
-  return model3dConfigToParams(config, deps) as TModel3dPrimitiveParams;
+  return configToParams(config, deps) as TModel3dPrimitiveParams;
 }

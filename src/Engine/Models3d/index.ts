@@ -1,4 +1,4 @@
-export * from './Adapters';
+export { configToParams as model3dConfigToParams } from './Adapters';
 export * from './Constants';
 export * from './Mixins';
 export * from './Models';
