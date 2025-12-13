@@ -2,7 +2,7 @@
   "name": "anarchy_engine",
   "author": "S. Panfilov",
   "private": true,
-  "version": "12.0.2",
+  "version": "12.1.0",
   "type": "module",
   "license": "MIT",
   "scripts": {
@@ -80,7 +80,6 @@
     "typescript": "5.8.2",
     "typescript-eslint": "8.29.0",
     "vite": "6.2.4",
-    "vite-plugin-top-level-await": "1.5.0",
     "vite-plugin-wasm": "3.4.1",
     "vitest": "3.1.1"
   },

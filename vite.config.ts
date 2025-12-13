@@ -2,7 +2,6 @@
 import { defineConfig } from 'vite';
 import path from 'path';
 import wasm from 'vite-plugin-wasm';
-import topLevelAwait from 'vite-plugin-top-level-await';
 
 export default defineConfig({
   resolve: {
@@ -10,22 +9,14 @@ export default defineConfig({
       '@': path.resolve(__dirname, './src')
     }
   },
-  plugins: [
-    wasm(),
-    // "topLevelAwait" needed only if build.target is not "esnext"
-    topLevelAwait()
-  ],
+  plugins: [wasm()],
   worker: {
-    // keep "format" as default value (not "es") if you want to use "topLevelAwait" plugin
     //@ts-expect-error
-    plugins: [wasm(), topLevelAwait()]
+    plugins: [wasm()]
   },
   build: {
-    sourcemap: true,
-    rollupOptions: {
-      // TODO PRODUCTION: "treeshake: false" is due to the issue with Rapier3d wasm module, check later if we could enable it.
-      treeshake: false
-    }
+    target: 'esnext',
+    sourcemap: true
   },
   test: {
     globals: true,
