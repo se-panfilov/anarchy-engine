@@ -24,13 +24,13 @@ export function showcase(canvas: TAppCanvas): TShowcase {
 
   const rigidBodyDesc = RigidBodyDesc.dynamic()
     .setTranslation(0, 5, 0) //should take the position of the actor
-    .setLinvel(2, 0, 0);
+    .setLinvel(4, 0, 2);
   const rigidBody = world.createRigidBody(rigidBodyDesc);
   const colliderDesc = ColliderDesc.ball(meters(1));
   world.createCollider(colliderDesc, rigidBody);
 
   // Create the ground
-  const groundColliderDesc: ColliderDesc = ColliderDesc.cuboid(10.0, 0.1, 10.0);
+  const groundColliderDesc: ColliderDesc = ColliderDesc.cuboid(meters(10), meters(0.1), meters(10));
   world.createCollider(groundColliderDesc);
 
   async function init(): Promise<void> {

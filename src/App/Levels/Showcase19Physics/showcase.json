@@ -11,8 +11,8 @@
   "actors": [
     {
       "name": "surface",
-      "width": 60,
-      "height": 40,
+      "width": 20,
+      "height": 20,
       "widthSegments": 1,
       "heightSegments": 1,
       "material": { "type": "standard", "params": { "color": "#5EDCAE" } },
@@ -26,7 +26,7 @@
       "name": "ball",
       "type": "sphere",
       "radius": 1,
-      "material": { "type": "standard", "params": { "color": "#E90063" } },
+      "material": { "type": "standard", "params": { "color": "#80D9FA" } },
       "position": { "x": 0, "y": 6, "z": 0 },
       "castShadow": true,
       "tags": []
