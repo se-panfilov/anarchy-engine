@@ -46,8 +46,8 @@ export function createCirclePathYZ(angleArray: ReadonlyArray<number>, radius: nu
 
 export function getMouseAzimuthAndElevation(mousePosition: Vector3, playerPosition: Vector3): Readonly<{ azimuth: TRadians; elevation: TRadians }> {
   const direction: Vector3 = mousePosition.clone().sub(playerPosition).normalize();
-  const azimuth: number = getAzimuthRadFromDirection(direction);
-  const elevation: number = getElevationRadFromDirection(direction);
+  const azimuth: TRadians = getAzimuthRadFromDirection(direction);
+  const elevation: TRadians = getElevationRadFromDirection(direction);
 
   return { azimuth, elevation };
 }

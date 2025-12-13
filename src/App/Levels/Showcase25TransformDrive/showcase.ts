@@ -17,7 +17,7 @@ import type {
   TSpaceConfig,
   TSpatialGridWrapper
 } from '@/Engine';
-import { Engine, getMouseAzimuthAndElevation, isNotDefined, KeysExtra, radiansToDegreesPrecise, spaceService, TransformAgent } from '@/Engine';
+import { Engine, getMouseAzimuthAndElevation, isNotDefined, KeysExtra, spaceService, TransformAgent } from '@/Engine';
 import { meters } from '@/Engine/Measurements/Utils';
 
 import spaceConfig from './showcase.json';
@@ -71,12 +71,8 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     sceneW.entity.add(line);
 
     clickLeftRelease$
-      .pipe(withLatestFrom(intersectionsWatcher.value$, sphereActor.drive.agent$, sphereActor.drive.position$))
-      .subscribe(([, intersection, agent, position]: [TMouseWatcherEvent, TIntersectionEvent, TransformAgent, Vector3]): void => {
-        // TODO CWP implement kinematic move with this
-        const directionToMouse = getMouseAzimuthAndElevation(intersection.point, position);
-        console.log('XXX', radiansToDegreesPrecise(directionToMouse.azimuth).toNumber());
-        sphereActor.drive.kinematic.setLinearAzimuthRad(directionToMouse.azimuth);
+      .pipe(withLatestFrom(intersectionsWatcher.value$, sphereActor.drive.agent$))
+      .subscribe(([, intersection, agent]: [TMouseWatcherEvent, TIntersectionEvent, TransformAgent]): void => {
         moveActorTo(sphereActor, intersection.point, agent, mode.isTeleportationMode);
       });
 
@@ -103,6 +99,8 @@ function moveActorTo(actor: TActor, position: Vector3, agent: TransformAgent, is
       return undefined;
     case TransformAgent.Kinematic:
       // TODO (S.Panfilov) 8.0.0. MODELS: Implement Kinematic movement
+      const directionToMouse = getMouseAzimuthAndElevation(position, actor.drive.getPosition());
+      actor.drive.kinematic.setLinearAzimuthRad(directionToMouse.azimuth);
       return undefined;
     case TransformAgent.Connected:
       // TODO not needed, cause we track mouse position all the time
