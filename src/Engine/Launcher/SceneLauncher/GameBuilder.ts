@@ -45,7 +45,7 @@ export function buildGame(sceneConfig: ISceneConfig, canvas: IAppCanvas): IBuilt
   const controlsFactory: IControlsFactory = ControlsFactory();
   const controlsRegistry: IControlsRegistry = ControlsRegistry();
   controlsFactory.entityCreated$.subscribe((instance: IControlsWrapper): void => controlsRegistry.add(instance));
-  controls.forEach((control: IControlsConfig): IControlsWrapper => controlsFactory.create(controlsFactory.getParams(control)));
+  controls.forEach((control: IControlsConfig): IControlsWrapper => controlsFactory.create(controlsFactory.getParams(control, { cameraRegistry, canvas })));
 
   const lightFactory: ILightFactory = LightFactory();
   const lightRegistry: ILightRegistry = LightRegistry();

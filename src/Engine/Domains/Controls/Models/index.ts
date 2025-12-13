@@ -1,3 +1,4 @@
+export * from './IAdditionalControlsConfigParams';
 export * from './IControlsConfig';
 export * from './IControlsFactory';
 export * from './IControlsFactoryParams';
