@@ -11,7 +11,9 @@ import type {
   IPointLight,
   IPointLightParams,
   IRectAreaLight,
-  IRectAreaLightParams
+  IRectAreaLightParams,
+  ISpotLight,
+  ISpotLightParams
 } from '@/Engine/Light/Models';
 import { isDefined } from '@/Engine/Utils';
 
@@ -21,6 +23,7 @@ export function getWrapperType(light: ILight): WrapperType | never {
   else if (isPointLight(light)) return WrapperType.PointLight;
   else if (isHemisphereLight(light)) return WrapperType.HemisphereLight;
   else if (isRectAreaLight(light)) return WrapperType.RectAreaLight;
+  else if (isSpotLight(light)) return WrapperType.SpotLight;
   else throw new Error('Unknown light type');
 }
 
@@ -42,6 +45,10 @@ export function isHemisphereLight(light: ILight): light is IHemisphereLight {
 
 export function isRectAreaLight(light: ILight): light is IRectAreaLight {
   return Boolean((light as IRectAreaLight).isRectAreaLight);
+}
+
+export function isSpotLight(light: ILight): light is ISpotLight {
+  return Boolean((light as ISpotLight).isSpotLight);
 }
 
 export function isAmbientLightParams(params: ILightParams): params is IAmbientLightParams {
@@ -66,5 +73,16 @@ export function isRectAreaLightParams(params: ILightParams): params is IRectArea
     isDefined((params as IRectAreaLightParams).intensity) &&
     isDefined((params as IRectAreaLightParams).height) &&
     isDefined((params as IRectAreaLightParams).width)
+  );
+}
+
+export function isSpotLightParams(params: ILightParams): params is ISpotLightParams {
+  return (
+    isDefined((params as ISpotLightParams).color) &&
+    isDefined((params as ISpotLightParams).intensity) &&
+    isDefined((params as ISpotLightParams).angle) &&
+    isDefined((params as ISpotLightParams).penumbra) &&
+    isDefined((params as ISpotLightParams).decay) &&
+    isDefined((params as ISpotLightParams).distance)
   );
 }

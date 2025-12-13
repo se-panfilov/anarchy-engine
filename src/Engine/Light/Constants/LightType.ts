@@ -3,5 +3,6 @@ export enum LightType {
   Directional = 'Directional',
   Point = 'Point',
   Hemisphere = 'Hemisphere',
-  RectArea = 'RectArea'
+  RectArea = 'RectArea',
+  Spot = 'Spot'
 }

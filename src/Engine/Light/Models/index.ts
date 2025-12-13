@@ -28,3 +28,7 @@ export * from './IRectAreaLight';
 export * from './IRectAreaLightParams';
 export * from './IRectAreaLightProps';
 export * from './IRectAreaLightWrapper';
+export * from './ISpotLight';
+export * from './ISpotLightParams';
+export * from './ISpotLightProps';
+export * from './ISpotLightWrapper';
