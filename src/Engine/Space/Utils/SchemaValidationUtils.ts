@@ -1,3 +1,4 @@
+import type { TPhysicsBodyConfig, TPhysicsConfig } from '@/Engine';
 import type { TAbstractResourceConfig } from '@/Engine/Abstract';
 import type { TActorConfig } from '@/Engine/Actor';
 import type { TAnyAudioConfig, TAudioResourceConfig } from '@/Engine/Audio';
@@ -42,6 +43,17 @@ export const validate = (str: string | undefined): boolean => (isDefined(str) ? 
 export function validateAllActorsHasModel3d(actors: ReadonlyArray<TActorConfig>, models3d: ReadonlyArray<TModel3dConfig> | undefined): boolean {
   const sources: ReadonlyArray<string> = models3d?.map((v: TModel3dConfig): string => v.name) ?? [];
   return actors.every((actor: TActorConfig): boolean => (isNotDefined(models3d) ? true : sources.includes(actor.model3dSource)));
+}
+
+export function validateAllActorsWithPhysicsHasRelatedPhysicsBody(actors: ReadonlyArray<TActorConfig>, physics: TPhysicsConfig): boolean {
+  if (isNotDefined(physics.bodies)) return true;
+  const { bodies } = physics;
+  if (bodies.length === 0) return true;
+
+  return actors.every((actor: TActorConfig): boolean => {
+    if (isNotDefined(actor.physicsBodyName)) return true;
+    return bodies.some((body: TPhysicsBodyConfig): boolean => body.name === actor.physicsBodyName);
+  });
 }
 
 // TODO would be nice to check all the resources and relations (e.g. materials)

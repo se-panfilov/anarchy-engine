@@ -29,7 +29,6 @@ import { createContainersDivs, setContainerVisibility } from './utils';
 
 let subscriptions: Record<string, Subscription> = {};
 
-// TODO 15-0-0: E2E: Complex scene (similar to Showcase22PhysicsShooter)
 // TODO 15-0-0: Physics sync test has an issue: camera doesn't follow an actor (perhaps related to TransformDrive)
 
 // TODO 15-0-0: E2E: Perhaps serialization should return promise (cause it feels kinda async)

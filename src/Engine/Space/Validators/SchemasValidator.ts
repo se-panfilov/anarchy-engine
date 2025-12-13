@@ -9,6 +9,7 @@ import type { TAnyIntersectionsWatcherConfig } from '@/Engine/Intersections';
 import { isIntersectionsCameraWatcherConfig } from '@/Engine/Intersections';
 import type { TActive, TWithName, TWithNameOptional, TWithTags } from '@/Engine/Mixins';
 import type { TModel3dConfig, TModel3dResourceConfig } from '@/Engine/Models3d';
+import type { TPhysicsConfig } from '@/Engine/Physics';
 import type { TSceneConfig } from '@/Engine/Scene/Models';
 import { SpaceSchemaVersion } from '@/Engine/Space/Constants';
 import type { TSpaceConfig } from '@/Engine/Space/Models';
@@ -17,6 +18,7 @@ import {
   validate,
   validateActorNamesForEveryEntity,
   validateAllActorsHasModel3d,
+  validateAllActorsWithPhysicsHasRelatedPhysicsBody,
   validateAllAudioEntityHasValidResource,
   validateAllModel3dEntityHasValidResource,
   validateCameraNames,
@@ -32,7 +34,6 @@ const ajv: Ajv = new Ajv();
 type TSchemaValidationResult = Readonly<{ isValid: boolean; errors: ReadonlyArray<any> | null | undefined }>;
 
 // TODO 15-0-0: add validation of the same name of entities in every categories (materials, models, etc.)
-// TODO 15-0-0: check if "physicsBodyName" of actor has related physics body.
 export function validSpaceConfig(config: TSpaceConfig): TSchemaValidationResult {
   const jsonResult = validateJsonSchema(config);
   const dataResult = validateData(config);
@@ -50,11 +51,11 @@ function validateJsonSchema(config: TSpaceConfig): TSchemaValidationResult {
 
 function validateData({ name, version, scenes, resources, entities, canvasSelector, tags }: TSpaceConfig): TSchemaValidationResult {
   const { models3d: models3dResources, audio: audioResources, envMaps, textures } = resources;
-  const { actors, audio, cameras, spatialGrids, controls, intersections, lights, materials, models3d: models3dEntities, fogs, texts } = entities;
+  const { actors, audio, cameras, spatialGrids, controls, intersections, lights, materials, models3d: models3dEntities, physics, fogs, texts } = entities;
 
   const basicErrors: ReadonlyArray<string> = validateConfigBasics(name, version, scenes, canvasSelector, tags);
   const activeErrors: ReadonlyArray<string> = validateActiveEntities({ cameras, scenes, controls });
-  const relationsErrors: ReadonlyArray<string> = validateRelations(controls, cameras, actors, models3dEntities, models3dResources, audioResources, audio, intersections);
+  const relationsErrors: ReadonlyArray<string> = validateRelations(controls, cameras, actors, models3dEntities, models3dResources, audioResources, audio, intersections, physics);
   const namesErrors: ReadonlyArray<string> = validateEntityNames({
     scenes,
     spatialGrids,
@@ -125,7 +126,8 @@ function validateRelations(
   models3dResources: ReadonlyArray<TModel3dResourceConfig>,
   audioResources: ReadonlyArray<TAudioResourceConfig>,
   audio: ReadonlyArray<TAnyAudioConfig>,
-  intersections: ReadonlyArray<TAnyIntersectionsWatcherConfig>
+  intersections: ReadonlyArray<TAnyIntersectionsWatcherConfig>,
+  physics: TPhysicsConfig
 ): ReadonlyArray<string> {
   let errors: ReadonlyArray<string> = [];
 
@@ -133,6 +135,7 @@ function validateRelations(
   if (!controls.every((control: TControlsConfig): boolean => cameras.some((camera: TAnyCameraConfig): boolean => camera.name === control.cameraName)))
     errors = [...errors, 'Not every control has a camera'];
   if (!validateAllActorsHasModel3d(actors, models3dEntities)) errors = [...errors, 'Not every actor has a defined model3dSource (check actors model3dSource against models3d entities)'];
+  if (!validateAllActorsWithPhysicsHasRelatedPhysicsBody(actors, physics)) errors = [...errors, 'Not every actor has a defined model3dSource (check actors model3dSource against models3d entities)'];
   if (!validateAllModel3dEntityHasValidResource(models3dEntities, models3dResources)) errors = [...errors, 'Not every model3d entity has a valid resource (must be a primitive or an url)'];
   if (!validateAllAudioEntityHasValidResource(audio, audioResources)) errors = [...errors, 'Not every audio entity has a valid resource (must be a primitive or an url)'];
   if (!validateCameraNames(intersections.filter(isIntersectionsCameraWatcherConfig))) errors = [...errors, 'Not every intersection camera name is valid'];
