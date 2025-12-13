@@ -63,10 +63,13 @@
     },
     "linux": {
       "target": [
+        "deb",
+        "rpm",
         "AppImage",
         "tar.gz"
       ],
-      "icon": "assets/icon.png"
+      "icon": "assets/icon.png",
+      "category": "Game"
     }
   }
 }
