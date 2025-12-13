@@ -34,7 +34,6 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
 
     //Better to move actors via kinematic (or physics), but for a simple example we can just set coords
     loopService.tick$.subscribe(({ elapsedTime }) => {
-      // TODO 8.0.0. MODELS: These should work
       actor.drive.default.setX(Math.sin(elapsedTime) * 8);
       actor.drive.default.setZ(Math.cos(elapsedTime) * 8);
       // actor.drive.position$.next(new Vector3(Math.sin(elapsedTime) * 8, actor.drive.getPosition().y, Math.cos(elapsedTime) * 8));

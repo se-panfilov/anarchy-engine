@@ -29,10 +29,12 @@ export function Actor(
   // TODO CWP:
   // TODO 8.0.0. MODELS: Make sure, rotations are working (adjust showcase)
   // TODO 8.0.0. MODELS: Rigid body immediately created (should be created only when physics drive is initialized, maybe in hook)
-  // TODO 8.0.0. MODELS: Fix Kinematic and Physics agents: should respect external change of position, rotation, scale
+  // TODO 8.0.0. MODELS: Fix Physics agent: should respect external change of position, rotation, scale
 
   // TODO 8.0.0. MODELS: Make sure, that collisions are working
   // TODO 8.0.0. MODELS: In showcase check spatial and collisions
+
+  // TODO 8.0.0. MODELS: Kinematic drive needs additional methods: go to position (and stop), rotate to angle (and stop), move to point (calculate azimuth, elevation by itelf)
 
   // TODO 8.0.0. MODELS: close all issues (todoes) with tag 8.0.0
 
