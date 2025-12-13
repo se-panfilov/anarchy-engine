@@ -1,9 +1,9 @@
-import { AbstractSimpleAsyncRegistry, RegistryType } from '@/Engine/Abstract';
+import { AbstractResourceAsyncRegistry, RegistryType } from '@/Engine/Abstract';
 import type { TAudioResourceAsyncRegistry, TAudioResourceConfig, TAudioSerializeResourcesDependencies } from '@/Engine/Audio/Models';
 import { isNotDefined } from '@/Engine/Utils';
 
 export function AudioResourceAsyncRegistry(): TAudioResourceAsyncRegistry {
-  const registry = Object.assign(AbstractSimpleAsyncRegistry<AudioBuffer>(RegistryType.AudioRaw), {
+  const registry = Object.assign(AbstractResourceAsyncRegistry<AudioBuffer>(RegistryType.AudioRaw), {
     // TODO 15-0-0: could we extract this function as a generic one?
     serialize: ({ metaInfoRegistry }: TAudioSerializeResourcesDependencies): ReadonlyArray<TAudioResourceConfig> => {
       return registry.map((_value: AudioBuffer, key: string | undefined): TAudioResourceConfig => {

@@ -2,7 +2,7 @@ import { firstValueFrom } from 'rxjs';
 import { expect } from 'vitest';
 
 import type { RegistryType, TAbstractAsyncRegistry, TAbstractEntityRegistry, TAbstractResourceAsyncRegistry, TAbstractSimpleRegistry, TRegistryPack } from '@/Engine/Abstract';
-import { AbstractEntityAsyncRegistry, AbstractEntityRegistry, AbstractSimpleAsyncRegistry, AbstractSimpleRegistry, LookUpStrategy } from '@/Engine/Abstract';
+import { AbstractEntityAsyncRegistry, AbstractEntityRegistry, AbstractResourceAsyncRegistry, AbstractSimpleRegistry, LookUpStrategy } from '@/Engine/Abstract';
 import type { TRegistrable } from '@/Engine/Mixins';
 
 import {
@@ -344,7 +344,7 @@ describe('RegistryAsyncUtils', () => {
 
   describe('getAsyncUniqEntityByKeyAsync', () => {
     it('should return an uniq object by the key', async () => {
-      const registryAsync: TAbstractResourceAsyncRegistry<TSimpleObj> = AbstractSimpleAsyncRegistry<TSimpleObj>('simpleObj' as RegistryType);
+      const registryAsync: TAbstractResourceAsyncRegistry<TSimpleObj> = AbstractResourceAsyncRegistry<TSimpleObj>('simpleObj' as RegistryType);
       setTimeout(() => registryAsync.add(simpleObj1.name, simpleObj1), 20);
       const result: TSimpleObj | undefined = await getAsyncUniqEntityByKeyAsync(simpleObj1.name, registryAsync, waitingTime);
       expect(result).toEqual(simpleObj1);
@@ -358,12 +358,12 @@ describe('RegistryAsyncUtils', () => {
     }, 110);
 
     it('should return an empty array if the registryAsync is empty', async () => {
-      const result: TSimpleObj | undefined = await getAsyncUniqEntityByKeyAsync('some', AbstractSimpleAsyncRegistry<TSimpleObj>('mockEntity' as RegistryType), waitingTime);
+      const result: TSimpleObj | undefined = await getAsyncUniqEntityByKeyAsync('some', AbstractResourceAsyncRegistry<TSimpleObj>('mockEntity' as RegistryType), waitingTime);
       expect(result).toBeUndefined();
     }, 110);
 
     it('should return "undefined" if the entity is not in the registryAsync', async () => {
-      const registryAsync: TAbstractResourceAsyncRegistry<TSimpleObj> = AbstractSimpleAsyncRegistry<TSimpleObj>('mockEntity' as RegistryType);
+      const registryAsync: TAbstractResourceAsyncRegistry<TSimpleObj> = AbstractResourceAsyncRegistry<TSimpleObj>('mockEntity' as RegistryType);
       registryAsync.add(simpleObj3.name, simpleObj3);
       const result: TSimpleObj | undefined = await getAsyncUniqEntityByKeyAsync('some', registryAsync, waitingTime);
       expect(result).toBeUndefined();
@@ -645,7 +645,7 @@ describe('RegistryAsyncUtils', () => {
   describe('subscribeToSimpleValue$', () => {
     it('should return an entity that was added sync before getting the value', async () => {
       // setup
-      const registryAsync: TAbstractResourceAsyncRegistry<TSimpleObj> = AbstractSimpleAsyncRegistry<TSimpleObj>('simpleObj' as RegistryType);
+      const registryAsync: TAbstractResourceAsyncRegistry<TSimpleObj> = AbstractResourceAsyncRegistry<TSimpleObj>('simpleObj' as RegistryType);
       const filterFn = (pack: TRegistryPack<TSimpleObj>): boolean => pack.value.name === simpleObj2.name;
 
       // execute
@@ -919,7 +919,7 @@ describe('RegistryAsyncUtils', () => {
         it('should return an entity that was added before getting the value', async () => {
           // setup
           const name: string = simpleObj2.name;
-          const registryAsync: TAbstractResourceAsyncRegistry<TSimpleObj> = AbstractSimpleAsyncRegistry<TSimpleObj>('simpleObj' as RegistryType);
+          const registryAsync: TAbstractResourceAsyncRegistry<TSimpleObj> = AbstractResourceAsyncRegistry<TSimpleObj>('simpleObj' as RegistryType);
 
           registryAsync.add(simpleObj1.name, simpleObj1);
           registryAsync.add(simpleObj2.name, simpleObj2);
@@ -958,7 +958,7 @@ describe('RegistryAsyncUtils', () => {
       it('should return an entity that was added before getting the value', async () => {
         // setup
         const name: string = simpleObj2.name;
-        const registryAsync: TAbstractResourceAsyncRegistry<TSimpleObj> = AbstractSimpleAsyncRegistry<TSimpleObj>('simpleObj' as RegistryType);
+        const registryAsync: TAbstractResourceAsyncRegistry<TSimpleObj> = AbstractResourceAsyncRegistry<TSimpleObj>('simpleObj' as RegistryType);
 
         // execute
         const subscription$ = firstValueFrom(getUniqEntityByKey$(name, registryAsync));

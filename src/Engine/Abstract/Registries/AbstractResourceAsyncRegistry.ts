@@ -6,7 +6,7 @@ import { getAsyncUniqEntityByKeyAsync, getUniqEntityByKey$ } from '@/Engine/Util
 
 import { AbstractSimpleRegistry } from './AbstractSimpleRegistry';
 
-export function AbstractSimpleAsyncRegistry<T>(type: RegistryType): TAbstractResourceAsyncRegistry<T> {
+export function AbstractResourceAsyncRegistry<T>(type: RegistryType): TAbstractResourceAsyncRegistry<T> {
   const abstractSimpleAsyncRegistry: TAbstractSimpleRegistry<T> = AbstractSimpleRegistry<T>(type);
 
   const findByKeyAsync = (key: string): Promise<T | undefined> => getAsyncUniqEntityByKeyAsync(key, abstractSimpleAsyncRegistry);

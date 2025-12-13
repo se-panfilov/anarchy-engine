@@ -1,9 +1,9 @@
-import { AbstractSimpleAsyncRegistry, RegistryType } from '@/Engine/Abstract';
+import { AbstractResourceAsyncRegistry, RegistryType } from '@/Engine/Abstract';
 import type { TEnvMapResourceConfig, TEnvMapSerializeResourcesDependencies, TEnvMapTexture, TEnvMapTextureAsyncRegistry } from '@/Engine/EnvMap/Models';
 import { isNotDefined } from '@/Engine/Utils';
 
 export function EnvMapTextureAsyncRegistry(): TEnvMapTextureAsyncRegistry {
-  const registry = Object.assign(AbstractSimpleAsyncRegistry<TEnvMapTexture>(RegistryType.EnvMapTexture), {
+  const registry = Object.assign(AbstractResourceAsyncRegistry<TEnvMapTexture>(RegistryType.EnvMapTexture), {
     // TODO 15-0-0: could we extract this function as a generic one?
     serialize: ({ metaInfoRegistry }: TEnvMapSerializeResourcesDependencies): ReadonlyArray<TEnvMapResourceConfig> => {
       return registry.map((_value: TEnvMapTexture, key: string | undefined): TEnvMapResourceConfig => {

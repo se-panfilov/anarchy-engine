@@ -1,6 +1,6 @@
 export * from './AbstractEntityAsyncRegistry';
 export * from './AbstractEntityRegistry';
-export * from './AbstractSimpleAsyncRegistry';
+export * from './AbstractResourceAsyncRegistry';
 export * from './AbstractSimpleRegistry';
 export * from './AbstractWatcherRegistry';
 export * from './Constants';
