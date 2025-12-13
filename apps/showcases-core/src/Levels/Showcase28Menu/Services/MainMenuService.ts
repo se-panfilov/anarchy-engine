@@ -18,12 +18,12 @@ export function MainMenuService(): TMainMenuService {
   }
 
   async function saveSettings(settings: TShowcaseGameSettings): Promise<void> {
-    return platformApiService.saveAppSettings(settings);
+    return platformApiService.writeAppSettings(settings);
   }
 
   const closeApp = (): void => platformApiService.closeApp();
   const restartApp = (): void => platformApiService.restartApp();
-  const loadSettings = async (): Promise<TShowcaseGameSettings> => platformApiService.loadAppSettings();
+  const loadSettings = async (): Promise<TShowcaseGameSettings> => platformApiService.readAppSettings();
   const loadLegalDocs = async (options: TLoadDocPayload): Promise<TLegalDoc> => platformApiService.loadLegalDocs(options);
 
   return {

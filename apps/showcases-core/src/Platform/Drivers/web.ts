@@ -29,8 +29,8 @@ export function Driver(): TPlatformDriver {
     return Promise.resolve('XXX [WEB] mocked wrapped app version');
   }
 
-  function loadAppSettings(): Promise<TShowcaseGameSettings> {
-    console.log('XXX [WEB]', 'loadAppSettings');
+  function readAppSettings(): Promise<TShowcaseGameSettings> {
+    console.log('XXX [WEB]', 'readAppSettings');
     return Promise.resolve({} as any);
   }
 
@@ -49,8 +49,8 @@ export function Driver(): TPlatformDriver {
     console.log('XXX [WEB]', 'restartApp');
   }
 
-  function saveAppSettings(settings: TShowcaseGameSettings): Promise<void> {
-    console.log('XXX [WEB]', 'saveAppSettings', settings);
+  function writeAppSettings(settings: TShowcaseGameSettings): Promise<void> {
+    console.log('XXX [WEB]', 'writeAppSettings', settings);
     return Promise.resolve();
   }
 
@@ -60,9 +60,9 @@ export function Driver(): TPlatformDriver {
     getNodeVersion,
     getPlatformVersion,
     getWrappedAppVersion,
-    loadAppSettings,
+    readAppSettings,
     loadLegalDocs,
     restartApp,
-    saveAppSettings
+    writeAppSettings
   };
 }

@@ -6,8 +6,8 @@ export type TPlatformDriver = Readonly<{
   getNodeVersion: () => string;
   getPlatformVersion: () => string;
   getWrappedAppVersion: () => Promise<string>;
-  loadAppSettings: () => Promise<TShowcaseGameSettings>;
+  readAppSettings: () => Promise<TShowcaseGameSettings>;
   loadLegalDocs: (options: TLoadDocPayload) => Promise<TLegalDoc>;
   restartApp: (args?: ReadonlyArray<string>) => void;
-  saveAppSettings: (settings: TShowcaseGameSettings) => Promise<void>;
+  writeAppSettings: (settings: TShowcaseGameSettings) => Promise<void>;
 }>;
