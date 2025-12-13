@@ -1,4 +1,16 @@
-import type { IMaterialTexturePack } from '@/Engine/Domains/Texture';
+import type {
+  IBasicMaterialTexturePack,
+  IDepthMaterialTexturePack,
+  IDistanceMaterialTexturePack,
+  ILambertMaterialTexturePack,
+  IMatcapMaterialTexturePack,
+  IMaterialTexturePack,
+  INormalMaterialTexturePack,
+  IPhongMaterialTexturePack,
+  IPhysicalMaterialTexturePack,
+  IStandardMaterialTexturePack,
+  IToonMaterialTexturePack
+} from '@/Engine/Domains/Texture';
 import type { IObject3DParams } from '@/Engine/Domains/ThreeLib';
 import type { IMovableXYZ, IRotatable, IScalable, IWithObject3d, IWithTexturesActor } from '@/Engine/Mixins';
 import { isDefined } from '@/Engine/Utils/index';
@@ -16,8 +28,18 @@ export function applyPosition(obj: IMovableXYZ, position?: IVector3Wrapper): voi
   if (isDefined(position)) obj.setPosition(position.getX(), position.getY(), position.getZ());
 }
 
+export function applyTexturePack(obj: IWithTexturesActor, pack: IBasicMaterialTexturePack): Promise<void>;
+export function applyTexturePack(obj: IWithTexturesActor, pack: IDepthMaterialTexturePack): Promise<void>;
+export function applyTexturePack(obj: IWithTexturesActor, pack: IDistanceMaterialTexturePack): Promise<void>;
+export function applyTexturePack(obj: IWithTexturesActor, pack: INormalMaterialTexturePack): Promise<void>;
+export function applyTexturePack(obj: IWithTexturesActor, pack: IMatcapMaterialTexturePack): Promise<void>;
+export function applyTexturePack(obj: IWithTexturesActor, pack: ILambertMaterialTexturePack): Promise<void>;
+export function applyTexturePack(obj: IWithTexturesActor, pack: IPhongMaterialTexturePack): Promise<void>;
+export function applyTexturePack(obj: IWithTexturesActor, pack: IPhysicalMaterialTexturePack): Promise<void>;
+export function applyTexturePack(obj: IWithTexturesActor, pack: IToonMaterialTexturePack): Promise<void>;
+export function applyTexturePack(obj: IWithTexturesActor, pack: IStandardMaterialTexturePack): Promise<void>;
 export function applyTexturePack(obj: IWithTexturesActor, pack: IMaterialTexturePack): Promise<void> {
-  return obj.loadMaterialTexturePack({ ...pack });
+  return obj.loadMaterialTexturePack(pack);
 }
 
 export function applyRotation(obj: IRotatable, rotation?: IEulerWrapper): void {

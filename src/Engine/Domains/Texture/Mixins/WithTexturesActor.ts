@@ -61,11 +61,7 @@ export function withTexturesActor<T extends IWriteable<IMesh>>(entity: T): IWith
   function loadMaterialTexturePack(pack: IToonMaterialTexturePack): Promise<void>;
   function loadMaterialTexturePack(pack: IStandardMaterialTexturePack): Promise<void>;
   function loadMaterialTexturePack(pack: IMaterialTexturePack): Promise<void> {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-    return textureService
-      .load(pack as any)
-      .all()
-      .then(useTextureAsMaterial);
+    return textureService.load(pack).all().then(useTextureAsMaterial);
   }
 
   return {

@@ -23,25 +23,38 @@ import type {
   IToonMaterialTextureUploaded
 } from './IMaterialTextureUploaded';
 import type { ITexture } from './ITexture';
-import type { IWithBasicMaterialProperty } from './IWithMaterialProperty';
+import type {
+  IWithBasicMaterialProperty,
+  IWithDepthMaterialProperty,
+  IWithDistanceMaterialProperty,
+  IWithLambertMaterialProperty,
+  IWithMatcapMaterialProperty,
+  IWithNormalMaterialProperty,
+  IWithPhongMaterialProperty,
+  IWithPhysicalMaterialProperty,
+  IWithStandardMaterialProperty,
+  IWithToonMaterialProperty
+} from './IWithMaterialProperty';
 
 export type IGetAllTextures<T> = Readonly<{ all: () => Promise<T> }>;
 
 export type IBasicMaterialTextureUploadPromises = Readonly<{ [key in IBasicMaterialPackKeys]?: Promise<ITexture> } & IWithBasicMaterialProperty & IGetAllTextures<IBasicMaterialTextureUploaded>>;
-export type IDepthMaterialTextureUploadPromises = Readonly<{ [key in IDepthMaterialPackKeys]?: Promise<ITexture> } & IWithBasicMaterialProperty & IGetAllTextures<IDepthMaterialTextureUploaded>>;
+export type IDepthMaterialTextureUploadPromises = Readonly<{ [key in IDepthMaterialPackKeys]?: Promise<ITexture> } & IWithDepthMaterialProperty & IGetAllTextures<IDepthMaterialTextureUploaded>>;
 export type IDistanceMaterialTextureUploadPromises = Readonly<
-  { [key in IDistanceMaterialPackKeys]?: Promise<ITexture> } & IWithBasicMaterialProperty & IGetAllTextures<IDistanceMaterialTextureUploaded>
+  { [key in IDistanceMaterialPackKeys]?: Promise<ITexture> } & IWithDistanceMaterialProperty & IGetAllTextures<IDistanceMaterialTextureUploaded>
 >;
-export type INormalMaterialTextureUploadPromises = Readonly<{ [key in INormalMaterialPackKeys]?: Promise<ITexture> } & IWithBasicMaterialProperty & IGetAllTextures<INormalMaterialTextureUploaded>>;
-export type IMatcapMaterialTextureUploadPromises = Readonly<{ [key in IMatcapMaterialPackKeys]?: Promise<ITexture> } & IWithBasicMaterialProperty & IGetAllTextures<IMatcapMaterialTextureUploaded>>;
-export type ILambertMaterialTextureUploadPromises = Readonly<{ [key in ILambertMaterialPackKeys]?: Promise<ITexture> } & IWithBasicMaterialProperty & IGetAllTextures<ILambertMaterialTextureUploaded>>;
-export type IPhongMaterialTextureUploadPromises = Readonly<{ [key in IPhongMaterialPackKeys]?: Promise<ITexture> } & IWithBasicMaterialProperty & IGetAllTextures<IPhongMaterialTextureUploaded>>;
+export type INormalMaterialTextureUploadPromises = Readonly<{ [key in INormalMaterialPackKeys]?: Promise<ITexture> } & IWithNormalMaterialProperty & IGetAllTextures<INormalMaterialTextureUploaded>>;
+export type IMatcapMaterialTextureUploadPromises = Readonly<{ [key in IMatcapMaterialPackKeys]?: Promise<ITexture> } & IWithMatcapMaterialProperty & IGetAllTextures<IMatcapMaterialTextureUploaded>>;
+export type ILambertMaterialTextureUploadPromises = Readonly<
+  { [key in ILambertMaterialPackKeys]?: Promise<ITexture> } & IWithLambertMaterialProperty & IGetAllTextures<ILambertMaterialTextureUploaded>
+>;
+export type IPhongMaterialTextureUploadPromises = Readonly<{ [key in IPhongMaterialPackKeys]?: Promise<ITexture> } & IWithPhongMaterialProperty & IGetAllTextures<IPhongMaterialTextureUploaded>>;
 export type IPhysicalMaterialTextureUploadPromises = Readonly<
-  { [key in IPhysicalMaterialPackKeys]?: Promise<ITexture> } & IWithBasicMaterialProperty & IGetAllTextures<IPhysicalMaterialTextureUploaded>
+  { [key in IPhysicalMaterialPackKeys]?: Promise<ITexture> } & IWithPhysicalMaterialProperty & IGetAllTextures<IPhysicalMaterialTextureUploaded>
 >;
-export type IToonMaterialTextureUploadPromises = Readonly<{ [key in IToonMaterialPackKeys]?: Promise<ITexture> } & IWithBasicMaterialProperty & IGetAllTextures<IToonMaterialTextureUploaded>>;
+export type IToonMaterialTextureUploadPromises = Readonly<{ [key in IToonMaterialPackKeys]?: Promise<ITexture> } & IWithToonMaterialProperty & IGetAllTextures<IToonMaterialTextureUploaded>>;
 export type IStandardMaterialTextureUploadPromises = Readonly<
-  { [key in IStandardMaterialPackKeys]?: Promise<ITexture> } & IWithBasicMaterialProperty & IGetAllTextures<IStandardMaterialTextureUploaded>
+  { [key in IStandardMaterialPackKeys]?: Promise<ITexture> } & IWithStandardMaterialProperty & IGetAllTextures<IStandardMaterialTextureUploaded>
 >;
 
 export type IMaterialTextureUploadPromises =
