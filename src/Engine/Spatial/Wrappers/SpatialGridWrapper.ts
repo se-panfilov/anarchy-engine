@@ -1,4 +1,3 @@
-import type { BBox } from 'rbush';
 import RBush from 'rbush';
 import type { Mesh, Object3D, Vector3 } from 'three';
 import { Box3 } from 'three';
@@ -35,6 +34,7 @@ export function SpatialGridWrapper(params: TSpatialGridParams): TSpatialGridWrap
           minY: startZ + z,
           maxX: startX + x + cellSize,
           maxY: startZ + z + cellSize,
+          version: 0,
           objects: []
         };
 
@@ -72,12 +72,14 @@ export function SpatialGridWrapper(params: TSpatialGridParams): TSpatialGridWrap
       if (isNotDefined(cell.objects.find((aw: TActorWrapperAsync): boolean => aw.id === actorW.id))) {
         // eslint-disable-next-line functional/immutable-data
         cell.objects.push(actorW);
+        // eslint-disable-next-line functional/immutable-data
+        cell.version++;
       }
     }
     actorW.spatial.setSpatialCells(cells);
   }
 
-  const getAllItems = (): ReadonlyArray<TSpatialCell> => entity.all();
+  const getAllCells = (): ReadonlyArray<TSpatialCell> => entity.all();
 
   function getAllInCell(x: number, z: number): ReadonlyArray<TActorWrapperAsync> {
     const cells: ReadonlyArray<TSpatialCell> = entity.search({ minX: x, minY: z, maxX: x, maxY: z });
@@ -107,12 +109,18 @@ export function SpatialGridWrapper(params: TSpatialGridParams): TSpatialGridWrap
 
       // eslint-disable-next-line functional/immutable-data
       cell.objects.splice(index, 1);
+      // eslint-disable-next-line functional/immutable-data
+      cell.version++;
     }
 
     actorW.spatial.resetSpatialCells();
   }
 
-  const clearGrid = (): TSpatialGrid => entity.clear();
+  function clearGrid(): void {
+    entity.clear();
+    // eslint-disable-next-line functional/immutable-data
+    getAllCells().forEach((cell: TSpatialCell): void => void cell.version++);
+  }
 
   function updateActorCell(this: TSpatialGridWrapper, actorW: TActorWrapperAsync): void {
     removeFromGrid(actorW);
@@ -164,13 +172,13 @@ export function SpatialGridWrapper(params: TSpatialGridParams): TSpatialGridWrap
     });
   }
 
-  const result: TSpatialGridWrapper = {
+  return {
     ...wrapper,
     entity,
     destroy,
     // addToGridBulk,
     addActor,
-    getAllItems,
+    getAllCells,
     getAllInCell,
     getAllInCellByCellId,
     findCellsForPoint,
@@ -182,6 +190,4 @@ export function SpatialGridWrapper(params: TSpatialGridParams): TSpatialGridWrap
     _debugHighlightObjects,
     updateActorCell
   };
-
-  return result;
 }

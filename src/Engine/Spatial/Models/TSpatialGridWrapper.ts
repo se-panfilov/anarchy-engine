@@ -14,14 +14,14 @@ export type TSpatialGridWrapper = TWrapper<TSpatialGrid> &
   Readonly<{
     // addToGridBulk: (list: ReadonlyArray<TSpatialCell>) => TSpatialGrid;
     addActor: (actorW: TActorWrapperAsync) => void | never;
-    getAllItems: () => ReadonlyArray<TSpatialCell>;
+    getAllCells: () => ReadonlyArray<TSpatialCell>;
     getAllInCell: (x: number, z: number) => ReadonlyArray<TActorWrapperAsync>;
     getAllInCellByCellId: (cellId: TSpatialCellId) => ReadonlyArray<TActorWrapperAsync>;
     findCellsForPoint: (x: number, z: number) => ReadonlyArray<TSpatialCell>;
     findCellsForBox: (box: Readonly<{ minX: number; minZ: number; maxX: number; maxZ: number }>) => ReadonlyArray<TSpatialCell>;
     findCellById: (id: TSpatialCellId) => TSpatialCell | undefined;
     removeFromGrid: (actorW: TActorWrapperAsync) => void;
-    clearGrid: () => TSpatialGrid;
+    clearGrid: () => void;
     updateActorCell: (actorW: TActorWrapperAsync) => void;
     _debugVisualizeCells: (sceneW: TSceneWrapper, color?: ColorRepresentation, wireframe?: boolean) => void;
     _debugHighlightObjects: (sceneW: TSceneWrapper, x: number, z: number) => void;

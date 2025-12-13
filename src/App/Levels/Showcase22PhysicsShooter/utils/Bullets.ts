@@ -50,7 +50,7 @@ export function getBulletsPool(count: number, actorService: TActorService): Read
 }
 
 export async function BulletAsync(params: TActorParams, actorService: TActorService): Promise<TBullet> {
-  const actor: TActorWrapperAsync = await actorService.createAsync(params);
+  const actorW: TActorWrapperAsync = await actorService.createAsync(params);
   let distanceTraveled: number = 0;
   let active: boolean = false;
 
@@ -60,37 +60,37 @@ export async function BulletAsync(params: TActorParams, actorService: TActorServ
   const isActive = (): boolean => active;
 
   function reset(): void {
-    actor.setPosition(Vector3Wrapper({ x: 0, y: 0, z: 0 }));
-    actor.kinematic.setLinearAzimuthRad(0);
-    actor.kinematic.setLinearElevationRad(0);
+    actorW.setPosition(Vector3Wrapper({ x: 0, y: 0, z: 0 }));
+    actorW.kinematic.setLinearAzimuthRad(0);
+    actorW.kinematic.setLinearElevationRad(0);
     setDistanceTraveled(0);
     setActive(false);
     // eslint-disable-next-line functional/immutable-data
-    actor.entity.visible = false;
+    actorW.entity.visible = false;
   }
 
   function update(delta: number, spatialGrid: TSpatialGridWrapper): void {
     if (isActive()) {
-      const azimuthRadians: TRadians = actor.kinematic.getLinearAzimuthRad();
-      const elevationRadians: TRadians = actor.kinematic.getLinearElevationRad();
+      const azimuthRadians: TRadians = actorW.kinematic.getLinearAzimuthRad();
+      const elevationRadians: TRadians = actorW.kinematic.getLinearElevationRad();
       const vectorDirection: Vector3 = new Vector3(Math.cos(elevationRadians) * Math.cos(azimuthRadians), Math.sin(elevationRadians), Math.cos(elevationRadians) * Math.sin(azimuthRadians));
-      actor.kinematic.setLinearDirection(vectorDirection);
+      actorW.kinematic.setLinearDirection(vectorDirection);
 
-      setDistanceTraveled(getDistanceTraveled() + mpsSpeed(actor.kinematic.getLinearSpeed(), delta));
+      setDistanceTraveled(getDistanceTraveled() + mpsSpeed(actorW.kinematic.getLinearSpeed(), delta));
 
       const collisionCheckRadius: number = 0; //meters(5); set radius make sens for explosions and etc
       const collision = collisionsService.checkCollision(actor, collisionCheckRadius, spatialGrid);
       if (collision) {
         console.log('Hit detected', collision);
-        // reset(actor);
-        // } else if (actor.position.distanceTo(actor.startPosition) > maxDistance) {
-        //   resetBullet(actor);
+        // reset(actorW);
+        // } else if (actorW.position.distanceTo(actorW.startPosition) > maxDistance) {
+        //   resetBullet(actorW);
       }
     }
   }
 
   return {
-    ...actor,
+    ...actorW,
     setDistanceTraveled,
     getDistanceTraveled,
     setActive,
