@@ -13,8 +13,8 @@ export function WebErrorTrackingService(): TWebErrorTrackingService {
       {
         dsn: runtimeEnv.VITE_SENTRY_DSN,
         environment: __PLATFORM_MODE__,
-        // Release version must match the platform's one.
-        release: platformApiService.getPlatformVersion() ?? import.meta.env.__APP_VERSION__
+        // Release version must match the platform's release.
+        release: (await platformApiService.getWrappedAppVersion()) ?? import.meta.env.__APP_VERSION__
       },
       // TODO DESKTOP: Useful to get app's settings (resolution, locale, etc). But should not break GDPR
       // TODO DESKTOP: Implement an adapter to avoid users fingerprinting and send the settings fo Sentry. Same for Desktop.
