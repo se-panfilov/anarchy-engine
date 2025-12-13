@@ -1,20 +1,18 @@
+import type { TMaterialRegistry } from '@/Engine/Material';
 import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
 import { Models3dLoader } from '@/Engine/Models3d/Loaders';
 import type {
   TModel3dConfig,
   TModel3dFacade,
-  TModel3dPack,
   TModel3dParams,
   TModel3dRegistry,
   TModel3dResourceAsyncRegistry,
-  TModel3dResourceConfig,
   TModels3dFactory,
   TModels3dLoader,
   TModels3dService,
   TModels3dServiceDependencies
 } from '@/Engine/Models3d/Models';
-import { isPrimitiveModel3dConfig } from '@/Engine/Models3d/Utils';
 import type { TOptional } from '@/Engine/Utils';
 
 export function Models3dService(
@@ -25,10 +23,11 @@ export function Models3dService(
 ): TModels3dService {
   factory.entityCreated$.subscribe((wrapper: TModel3dFacade): void => registry.add(wrapper));
   const model3dLoader: TModels3dLoader = Models3dLoader(resourcesRegistry);
+  const materialRegistry: TMaterialRegistry = materialService.getRegistry();
 
   const create = (params: TModel3dParams): TModel3dFacade => factory.create(params, { animationsService });
   const createFromConfig = (models3d: ReadonlyArray<TModel3dConfig>): ReadonlyArray<TModel3dFacade> =>
-    models3d.map((config: TModel3dConfig): TModel3dFacade => create(factory.configToParams(config, { materialService })));
+    models3d.map((config: TModel3dConfig): TModel3dFacade => create(factory.configToParams(config, { materialRegistry, model3dResourceAsyncRegistry: resourcesRegistry })));
 
   // function createFromPack(pack: TModel3dPack): TModel3dFacade {
   //   const facade: TModel3dFacade = isPrimitive(pack) ? Model3dPrimitiveFacade(createPrimitiveModel3dPack(pack)) : Model3dFacade(pack, animationsService);
@@ -48,7 +47,7 @@ export function Models3dService(
   //   return Promise.all([...loadFromConfigAsync(complexModelsConfigs), ...createPrimitiveFromConfig(primitiveModelsConfigs)]);
   // }
 
-  function clone(model3dFacade: TModel3dFacade, overrides?: TOptional<TModel3dPack>): TModel3dFacade {
+  function clone(model3dFacade: TModel3dFacade, overrides?: TOptional<TModel3dParams>): TModel3dFacade {
     const cloned = model3dFacade._clone(overrides);
     registry.add(cloned);
     return cloned;
@@ -75,9 +74,6 @@ export function Models3dService(
   //   return Promise.all(promisesList);
   // }
 
-  const filterPrimitiveModel3dConfigs = (configs: ReadonlyArray<TModel3dResourceConfig>): ReadonlyArray<TModel3dResourceConfig> => configs.filter((c) => isPrimitiveModel3dConfig(c));
-  const filterLoadableModel3dConfigs = (configs: ReadonlyArray<TModel3dResourceConfig>): ReadonlyArray<TModel3dResourceConfig> => configs.filter((c) => !isPrimitiveModel3dConfig(c));
-
   const destroyable: TDestroyable = destroyableMixin();
   destroyable.destroyed$.subscribe(() => {
     registry.destroy();
@@ -90,9 +86,6 @@ export function Models3dService(
     createFromConfig,
     loadAsync: model3dLoader.loadAsync,
     loadFromConfigAsync: model3dLoader.loadFromConfigAsync,
-    // loadOrCreateFromConfigAsync,
-    filterPrimitiveModel3dConfigs,
-    filterLoadableModel3dConfigs,
     getFactory: (): TModels3dFactory => factory,
     getRegistry: (): TModel3dRegistry => registry,
     getResourceRegistry: (): TModel3dResourceAsyncRegistry => resourcesRegistry,

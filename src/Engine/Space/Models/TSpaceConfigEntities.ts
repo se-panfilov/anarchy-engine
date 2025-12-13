@@ -5,6 +5,7 @@ import type { TEnvMapConfig } from '@/Engine/EnvMap';
 import type { TFogConfig } from '@/Engine/Fog';
 import type { TIntersectionsWatcherConfig } from '@/Engine/Intersections';
 import type { TAnyLightConfig } from '@/Engine/Light';
+import type { TModel3dConfig } from '@/Engine/Models3d';
 import type { TParticlesConfig } from '@/Engine/Particles';
 import type { TPhysicsConfig } from '@/Engine/Physics';
 import type { TSpatialGridConfig } from '@/Engine/Spatial';
@@ -17,6 +18,7 @@ export type TSpaceConfigEntities = Readonly<{
   envMaps: ReadonlyArray<TEnvMapConfig>;
   intersections: ReadonlyArray<TIntersectionsWatcherConfig>;
   lights: ReadonlyArray<TAnyLightConfig>;
+  models3d: ReadonlyArray<TModel3dConfig>;
   particles: ReadonlyArray<TParticlesConfig>;
   physics: TPhysicsConfig;
   fogs: ReadonlyArray<TFogConfig>;

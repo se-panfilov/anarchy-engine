@@ -4,7 +4,7 @@ import type { TModel3dResourceConfig } from '@/Engine/Models3d';
 import type { TTextureResourceConfig } from '@/Engine/Texture';
 
 export type TSpaceConfigResources = Readonly<{
-  envMapTextures: ReadonlyArray<TEnvMapResourceConfig>;
+  envMaps: ReadonlyArray<TEnvMapResourceConfig>;
   materials: ReadonlyArray<TMaterialPackConfig<TMaterialTexturePack>>;
   models3d: ReadonlyArray<TModel3dResourceConfig>;
   textures: ReadonlyArray<TTextureResourceConfig>;

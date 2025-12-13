@@ -1,24 +1,23 @@
 import type { World } from '@dimforge/rapier3d';
-import type { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
 
 import { ambientContext } from '@/Engine/Context';
-import type { TEnvMapTexture, TEnvMapWrapper } from '@/Engine/EnvMap';
 import type { TIntersectionsWatcher } from '@/Engine/Intersections';
-import type { TModel3dFacade } from '@/Engine/Models3d/Models';
-import type { TSpaceConfigEntities, TSpaceConfigResources, TSpaceServices } from '@/Engine/Space/Models';
+import type { TSpaceConfigEntities, TSpaceServices } from '@/Engine/Space/Models';
 import { isDefined } from '@/Engine/Utils';
 
 // TODO SPACE: Maybe we need a space service, and factory, to create from config, and to create from the code.
 export function createEntities(entities: TSpaceConfigEntities, services: TSpaceServices): void {
-  const { actors, cameras, spatialGrids, controls, intersections, lights, fogs, texts, physics, particles } = entities;
+  const { actors, cameras, spatialGrids, controls, intersections, lights, models3d, envMaps, fogs, texts, physics, particles } = entities;
 
   const {
     actorService,
     cameraService,
     controlsService,
+    envMapService,
     fogService,
     intersectionsWatcherService,
     lightService,
+    models3dService,
     mouseService,
     particlesService,
     physicsLoopService,
@@ -28,7 +27,11 @@ export function createEntities(entities: TSpaceConfigEntities, services: TSpaceS
     textService
   } = services;
 
-  createResourceEntities(services);
+  fogService.createFromConfig(fogs);
+
+  envMapService.createFromConfig(envMaps);
+
+  models3dService.createFromConfig(models3d);
 
   if (isDefined(physics.global)) {
     const world: World = physicsWorldService.createWorld(physics.global);
@@ -46,9 +49,7 @@ export function createEntities(entities: TSpaceConfigEntities, services: TSpaceS
   controlsService.createFromConfig(controls, cameraService.getRegistry());
   lightService.createFromConfig(lights);
 
-  fogService.createFromConfig(fogs);
   spatialGridService.createFromConfig(spatialGrids);
-
   particlesService.createFromConfig(particles);
 
   intersectionsWatcherService.createFromConfig(intersections, mouseService, cameraService, actorService);
@@ -57,11 +58,4 @@ export function createEntities(entities: TSpaceConfigEntities, services: TSpaceS
   intersectionsWatcherService.getRegistry().added$.subscribe((watcher: TIntersectionsWatcher): void => {
     if (watcher.isAutoStart && !watcher.isStarted) watcher.start();
   });
-}
-
-// TODO CWP !!!
-// TODO 9.0.0. RESOURCES: fix create method of resource entities
-export function createResourceEntities(services: TSpaceServices): void {
-  services.models3dService.getResourceRegistry().forEach((model: GLTF): TModel3dFacade => services.models3dService.create(model));
-  services.envMapService.getResourceRegistry().forEach((envMap: TEnvMapTexture): TEnvMapWrapper => services.envMapService.create(envMap));
 }

@@ -2,10 +2,10 @@ import type { TEnvMapTexture } from '@/Engine/EnvMap/Models';
 import type { TSpaceConfigResources, TSpaceServices } from '@/Engine/Space/Models';
 
 export async function loadResources(resources: TSpaceConfigResources, { models3dService, envMapService, materialService, textureService }: TSpaceServices): Promise<void> {
-  const { models3d, envMapTextures, materials, textures } = resources;
+  const { models3d, envMaps, materials, textures } = resources;
 
   // EnvMaps could be loaded async, no need to wait
-  const envMapTexturePromise: Promise<ReadonlyArray<TEnvMapTexture>> = envMapService.loadFromConfigAsync(envMapTextures);
+  const envMapTexturePromise: Promise<ReadonlyArray<TEnvMapTexture>> = envMapService.loadFromConfigAsync(envMaps);
 
   // Textures should be loaded before materials and models
   await textureService.loadFromConfigAsync(textures);
@@ -15,8 +15,9 @@ export async function loadResources(resources: TSpaceConfigResources, { models3d
   //   However, materials (and textures) should be fully ready before models.
   materialService.createFromConfig(materials);
 
-  // Models3d could be considered both "entities" and "resources"
-  //   because primitives models (e.g. "cube") aren't loading from anywhere, but complex models do.
-  //   Here we just load models when needed, the creation of entities will be done after that
-  await Promise.all([models3dService.loadFromConfigAsync(models3dService.filterLoadableModel3dConfigs(models3d)), envMapTexturePromise]);
+  await Promise.all([
+    // Models3d contains of "entities" and "resources". Here only load model resources. And create them lately.
+    models3dService.loadFromConfigAsync(models3dService.filterLoadableModel3dConfigs(models3d)),
+    envMapTexturePromise
+  ]);
 }

@@ -8,7 +8,7 @@ export type TWithCreateService<W, P> = Readonly<{
   create: (params: P) => W;
 }>;
 
-export type TWithCreateAsyncService<W, P> = TWithCreateAsync<W, P>;
+export type TWithCreateAsyncService<W, P, D> = TWithCreateAsync<W, P, D>;
 
 export type TWithCreateFromConfigService<C, T> = Readonly<{
   createFromConfig: (config: ReadonlyArray<C>) => ReadonlyArray<T>;
