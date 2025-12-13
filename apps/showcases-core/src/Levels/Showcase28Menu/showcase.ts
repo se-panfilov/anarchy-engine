@@ -8,7 +8,7 @@ import { initMenuApp } from 'showcases-menu/src/main';
 
 import { runtimeEnv } from '@/env';
 import { fromGuiEventsBus$, fromMenuEventsBus$, toGuiEventsBus$, toMenuEventsBus$ } from '@/Levels/Showcase28Menu/EventsBus';
-import { initInputActors } from '@/Levels/Showcase28Menu/Helpers';
+import { initGuiEvents, initInputActors } from '@/Levels/Showcase28Menu/Helpers';
 import type { TAppService, TEventsService, TGuiService, TMainMenuService, TSettingsService } from '@/Levels/Showcase28Menu/Models';
 import { AppService, EventsService, GuiService, MainMenuService, SettingsService } from '@/Levels/Showcase28Menu/Services';
 import type { TAppSettings } from '@/Models';
@@ -62,12 +62,12 @@ export function showcase(space: TSpace): void {
 
   const watcherMenuCube: TIntersectionsCameraWatcher = intersectionsWatcherService.getCameraWatcher('watcher_menu_cube');
 
-  // TODO DESKTOP: Implement also UI (health, ammo, etc.) and make sure it is not under the menu
   let isMouseOverMenuCube: boolean = false;
   watcherMenuCube.value$.subscribe((value: TIntersectionEvent): void => void (isMouseOverMenuCube = !!value));
   clickLeftRelease$.pipe(filter((): boolean => isMouseOverMenuCube)).subscribe((): void => openMenu$.next(true));
 
   guiService.openGui();
+  initGuiEvents(keyboardService, mouseService, toGuiEventsBus$);
 
   openMenu$.pipe().subscribe(mainMenuService.openMainMenu);
 
