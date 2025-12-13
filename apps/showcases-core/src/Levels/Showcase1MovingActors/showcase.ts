@@ -46,3 +46,6 @@ export function showcase(space: TSpace): void {
 
   space.start$.next(true);
 }
+setTimeout(() => {
+  throw new Error('[DEBUG] test error');
+}, 1500);

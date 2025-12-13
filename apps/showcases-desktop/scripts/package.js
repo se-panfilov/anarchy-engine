@@ -141,6 +141,6 @@ const ebCmd = `npm run build:electron -- ${ebArgs}`.trim();
 run(ebCmd);
 
 // Clean postbuild artifacts via npm script
-run('npm run clean:postbuild');
+// run('npm run clean:postbuild'); //Do not clean, since we need sourcemaps for Sentry
 
 console.log('[package] done');
