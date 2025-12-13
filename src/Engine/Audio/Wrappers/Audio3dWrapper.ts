@@ -3,8 +3,7 @@ import { BehaviorSubject, combineLatest, distinctUntilChanged, filter, sample, t
 import { Vector3 } from 'three';
 
 import { AbstractWrapper, WrapperType } from '@/Engine/Abstract';
-import type { TAudio3dParams, TAudio3dWrapper, TAudio3dWrapperDependencies } from '@/Engine/Audio/Models';
-import type { TAudioLoop } from '@/Engine/Loop';
+import type { TAudio3dParams, TAudio3dWrapper, TAudio3dWrapperDependencies, TAudioLoop } from '@/Engine/Audio/Models';
 import { LoopUpdatePriority } from '@/Engine/Loop';
 import type { TMeters } from '@/Engine/Math';
 import { meters } from '@/Engine/Measurements';
@@ -14,7 +13,8 @@ import type { TReadonlyVector3 } from '@/Engine/ThreeLib';
 import { isEqualOrSimilarByXyzCoords } from '@/Engine/Utils';
 
 // TODO 11.0.0: transform drive position? (connected?)
-export function Audio3dWrapper({ sound, volume, position, name, performance }: TAudio3dParams, { loopService }: TAudio3dWrapperDependencies): TAudio3dWrapper {
+export function Audio3dWrapper(params: TAudio3dParams, { loopService }: TAudio3dWrapperDependencies): TAudio3dWrapper {
+  const { sound, volume, position, performance } = params;
   const entity: Howl = sound;
   const position$: BehaviorSubject<TReadonlyVector3> = new BehaviorSubject<TReadonlyVector3>(position);
   const listenerPosition$: BehaviorSubject<TReadonlyVector3> = new BehaviorSubject<TReadonlyVector3>(new Vector3());
@@ -69,8 +69,7 @@ export function Audio3dWrapper({ sound, volume, position, name, performance }: T
   });
 
   return {
-    ...AbstractWrapper(entity, WrapperType.Audio3d),
-    getName: (): string => name,
+    ...AbstractWrapper(entity, WrapperType.Audio3d, params),
     play: (): number => entity.play(),
     volume$,
     // TODO 11.0.0: shall I use transform drive instead?
