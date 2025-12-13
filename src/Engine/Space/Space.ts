@@ -2,7 +2,7 @@ import type { IAppCanvas } from '@/Engine/App';
 import type { ICameraWrapper } from '@/Engine/Camera';
 import { ambientContext } from '@/Engine/Context';
 import type { IDataTexture } from '@/Engine/EnvMap';
-import type { IIntersectionsWatcher } from '@/Engine/Intersections';
+import { IIntersectionsWatcher, IntersectionsWatcherService } from '@/Engine/Intersections';
 import type { ILoopTimes } from '@/Engine/Loop';
 import type { IDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
@@ -18,6 +18,7 @@ import { spaceLoop } from '@/Engine/Space/SpaceLoop';
 import type { IText2dRenderer, IText3dRenderer } from '@/Engine/Text';
 import { initText2dRenderer, initText3dRenderer } from '@/Engine/Text';
 import { isDestroyable, isNotDefined, validLevelConfig } from '@/Engine/Utils';
+import { mouseService } from '@/Engine';
 
 export function buildSpaceFromConfig(canvas: IAppCanvas, config: ISpaceConfig): ISpace {
   const { isValid, errors } = validLevelConfig(config);
@@ -65,16 +66,15 @@ export function buildSpaceFromConfig(canvas: IAppCanvas, config: ISpaceConfig): 
 
   //build intersections
   // TODO (S.Panfilov) CWP
-  // TODO (S.Panfilov) add "isAutoStart" to the config
   // TODO (S.Panfilov) turn of intersections watcher for inactive cameras (then turn on again on active)
   // TODO (S.Panfilov) we need a normal logging from services (which service with which id do what)
   // TODO (S.Panfilov) add validation for intersections config (names, uniq, patterns, etc)
   // TODO (S.Panfilov) stop watching actors after all the intersections are ready
-  const intersectionsWatcherPromisesList: ReadonlyArray<Promise<IIntersectionsWatcher>> = intersectionsService.getWatchersForFromConfigIntersections(
-    actorService.getRegistry(),
-    cameraService.getRegistry(),
-    intersections
-  );
+
+  // TODO (S.Panfilov) intersections should be added and launched async, as they depend on actors which are also async
+  // TODO (S.Panfilov) debug line, should be a part of Space's services
+  const intersectionsWatcherService = IntersectionsWatcherService(intersectionsService.getFactory(), intersectionsService.getRegistry());
+  intersectionsWatcherService.createFromConfig(intersections, mouseService, cameraService);
 
   let camera: ICameraWrapper | undefined;
   cameraService.active$.subscribe((wrapper: ICameraWrapper | undefined): void => void (camera = wrapper));
@@ -95,20 +95,18 @@ export function buildSpaceFromConfig(canvas: IAppCanvas, config: ISpaceConfig): 
   return {
     name,
     start(): void {
-      void intersectionsWatcherPromisesList.forEach(
-        (promise: Promise<IIntersectionsWatcher>): void =>
-          void promise.then((watcher: IIntersectionsWatcher) => {
-            // TODO (S.Panfilov) debug
-            console.log(watcher.getActors());
-            if (watcher.isAutoStart && !watcher.isStarted) watcher.start();
-          })
-      );
+      intersectionsWatcherService.getRegistry().forEach((watcher: IIntersectionsWatcher): void => {
+        if (watcher.isAutoStart && !watcher.isStarted) watcher.start();
+      });
+
       loopService.start();
     },
     stop(): void {
       // TODO (S.Panfilov) implement stop (not tested yet)
       loopService.stop();
-      void intersectionsWatcherPromisesList.forEach((promise: Promise<IIntersectionsWatcher>): void => void promise.then((watcher: IIntersectionsWatcher) => watcher.stop()));
+      void intersectionsWatcherService.getRegistry().forEach((watcher: IIntersectionsWatcher): void => {
+        if (watcher.isStarted) watcher.stop();
+      });
     },
     services,
     ...builtMixin,

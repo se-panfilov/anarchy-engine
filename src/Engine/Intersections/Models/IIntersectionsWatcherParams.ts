@@ -6,7 +6,7 @@ import type { IMousePosition } from '@/Engine/Mouse';
 
 import type { IIntersectionsWatcherProps } from './IIntersectionsWatcherProps';
 
-export type IIntersectionsWatcherParams = IIntersectionsWatcherProps &
+export type IIntersectionsWatcherParams = Omit<IIntersectionsWatcherProps, 'cameraName'> &
   Readonly<{
     camera: ICameraWrapper;
     position$: Observable<IMousePosition>;
