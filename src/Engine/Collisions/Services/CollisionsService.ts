@@ -6,7 +6,14 @@ import type { TBvhService, TCollisionCheckResult, TCollisionsService } from '@/E
 
 import { BvhService } from './BvhService';
 
-function createCapsule(start: Vector3, end: Vector3, radius: number) {
+interface TCapsule {
+  start: Vector3;
+  end: Vector3;
+  radius: number;
+  containsPoint: (point: Vector3) => boolean;
+}
+
+function createCapsule(start: Vector3, end: Vector3, radius: number): TCapsule {
   const startToEnd = new Vector3().subVectors(end, start);
   const startToEndLengthSq = startToEnd.lengthSq();
 
@@ -66,11 +73,10 @@ export function CollisionsService(): TCollisionsService {
   const interpolatedPositions = [];
 
   // TODO should be possible to check collisions against another grid
-  function checkCollisions(actorW: TActorWrapperAsync, radius: number, actorsToCheck: ReadonlyArray<TActorWrapperAsync>): TCollisionCheckResult | undefined {
+  function checkCollisions(actorW: TActorWrapperAsync, radius: number, actorsToCheck: ReadonlyArray<TActorWrapperAsync>, steps: number = 10): TCollisionCheckResult | undefined {
     const previousPosition = actorW.entity.position.clone();
     const currentPosition = previousPosition.clone().add(actorW.kinematic.getLinearDirection().multiplyScalar(radius));
 
-    const steps = 10;
     const stepVector = currentPosition.clone().sub(previousPosition).divideScalar(steps);
     const interpolatedPosition = new Vector3();
     const nextInterpolatedPosition = new Vector3();
@@ -87,7 +93,7 @@ export function CollisionsService(): TCollisionsService {
           raycaster.firstHitOnly = true;
           raycaster.set(interpolatedPosition, actorW.kinematic.getLinearDirection());
 
-          const capsule = createCapsule(interpolatedPosition, nextInterpolatedPosition, radius);
+          const capsule: TCapsule = createCapsule(interpolatedPosition, nextInterpolatedPosition, radius);
           const intersects: Array<Intersection> = [];
           bvhService.raycastWithBvh(object, raycaster, intersects);
 
