@@ -1,10 +1,10 @@
 import { AbstractWrapper } from '@Engine/Wrappers/AbstractWrapper';
-import type { RendererWrapper } from '@Engine/Wrappers/RendererWrapper';
-import { SceneWrapper } from '@Engine/Wrappers/SceneWrapper';
 import { CameraWrapper } from '@Engine/Wrappers/CameraWrapper';
-import type { LoopParams } from '@Engine/Models/LoopParams';
+import { getUtils } from './utils';
 import type { LoopFn } from '@Engine/Wrappers/LoopWrapper/Models/LoopFn';
-import { getUtils } from '@Engine/Wrappers/LoopWrapper/utils';
+import type { LoopParams } from '@Engine/Models';
+import { RendererWrapper } from '@Engine/Wrappers/RendererWrapper';
+import { SceneWrapper } from '@Engine/Wrappers/SceneWrapper';
 
 type ILoopWrapper = ReturnType<typeof AbstractWrapper<LoopFn>> & ReturnType<typeof getUtils>;
 

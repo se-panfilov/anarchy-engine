@@ -1,7 +1,6 @@
 import { Subject } from 'rxjs';
 import { nanoid } from 'nanoid';
-import type { Factory } from '../Models/Factory';
-import type { Entity } from '@Engine/Models/Entity';
+import type { Entity, Factory } from '@Engine/Models';
 
 export function AbstractFactory<T extends Entity<unknown>, R extends Record<string, any>>(
   create: (params: R) => T

@@ -1,6 +1,6 @@
 import { BehaviorSubject, Subject } from 'rxjs';
-import type { MousePosition } from '../Models/MousePosition';
 import { AbstractWrapper } from '@Engine/Wrappers/AbstractWrapper';
+import type { MousePosition } from '@Engine/Models';
 
 // TODO (S.Panfilov) any
 export class MousePointerWrapper extends AbstractWrapper<any> {

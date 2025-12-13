@@ -1,4 +1,4 @@
-import type { LightParams } from '@Engine/Models/LightParams';
+import type { LightParams } from '@Engine/Models';
 import { AmbientLight, DirectionalLight } from 'three';
 
 export function getLight({ type, color, intensity }: LightParams): AmbientLight | DirectionalLight | never {

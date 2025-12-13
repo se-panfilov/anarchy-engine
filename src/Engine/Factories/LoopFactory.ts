@@ -1,7 +1,6 @@
 import { AbstractFactory } from '@Engine/Factories/AbstractFactory';
 import { LoopWrapper } from '@Engine/Wrappers/LoopWrapper';
-import type { LoopParams } from '@Engine/Models/LoopParams';
-import type { Factory } from '@Engine/Models/Factory';
+import type { Factory, LoopParams } from '@Engine/Models';
 
 const create = (params: LoopParams): ReturnType<typeof LoopWrapper> => LoopWrapper(params);
 

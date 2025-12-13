@@ -1,6 +1,6 @@
 import type { Mesh } from 'three';
 import { AbstractWrapper } from '@Engine/Wrappers/AbstractWrapper';
-import type { ActorParams } from '@Engine/Models/ActorParams';
+import type { ActorParams } from '@Engine/Models';
 import { createActor } from './ActorUtils';
 import { getAccessors } from './Accessors';
 

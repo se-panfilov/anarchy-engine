@@ -1,7 +1,6 @@
 import { SceneWrapper } from '@Engine/Wrappers/SceneWrapper';
 import { AbstractFactory } from '@Engine/Factories/AbstractFactory';
-import type { Factory } from '@Engine/Models/Factory';
-import type { SceneParams } from '@Engine/Models/SceneParams';
+import type { Factory, SceneParams } from '@Engine/Models';
 
 const create = (params: SceneParams): ReturnType<typeof SceneWrapper> => SceneWrapper(params);
 

@@ -1,4 +1,4 @@
-import type { LightParams, LightType } from '@Engine/Models/LightParams';
+import type { LightParams, LightType } from '@Engine/Models';
 import type { Vector2dConfig } from './Vector2dConfig';
 import type { Vector3dConfig } from './Vector3dConfig';
 

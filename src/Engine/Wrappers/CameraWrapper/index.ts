@@ -1,7 +1,7 @@
 import { PerspectiveCamera } from 'three';
 import { AbstractWrapper } from '@Engine/Wrappers/AbstractWrapper';
 import { isNotDefined } from '@Engine/Utils';
-import type { CameraParams } from '@Engine/Models/CameraParams';
+import type { CameraParams } from '@Engine/Models';
 import { getAccessors } from './Accessors';
 
 type ICameraWrapper = ReturnType<typeof AbstractWrapper<PerspectiveCamera>> & ReturnType<typeof getAccessors>;

@@ -1,8 +1,7 @@
-import type { ActorParams } from '@Engine/Models/ActorParams';
 import type { ActorConfig, LightConfig } from '@Engine/Launcher/Models';
+import type { ActorParams, LightParams } from '@Engine/Models';
 import { Color } from 'three';
 import { isDefined } from '@Engine/Utils';
-import type { LightParams } from '@Engine/Models/LightParams';
 
 export function actorAdapter(config: ActorConfig): ActorParams {
   let result: ActorParams = { ...config };

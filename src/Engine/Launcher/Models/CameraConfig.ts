@@ -1,4 +1,4 @@
-import type { CameraParams } from '@Engine/Models/CameraParams';
+import type { CameraParams } from '@Engine/Models';
 import type { Vector3dConfig } from './Vector3dConfig';
 
 export interface CameraConfig {

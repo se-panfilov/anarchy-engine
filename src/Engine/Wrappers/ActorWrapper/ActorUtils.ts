@@ -1,5 +1,5 @@
-import { ActorParams } from '@Engine/Models/ActorParams';
 import { Mesh, MeshToonMaterial, PlaneGeometry, SphereGeometry } from 'three';
+import type { ActorParams } from '@Engine/Models';
 
 export function createActor(params: ActorParams): Mesh | never {
   if (params.type === 'plane') return createPlane(params);

@@ -1,13 +1,9 @@
-import { ActorFactory } from '@Engine/Factories/ActorFactory';
 import type { ActorConfig, CameraConfig, LightConfig, SceneConfig } from '@Engine/Launcher/Models';
+import type { ActorParams, LightParams } from '@Engine/Models';
+import { CameraFactory, LightFactory, RendererFactory, SceneFactory } from '@Engine/Factories';
+import { ActorFactory } from '@Engine/Factories/ActorFactory';
 import { createDeferredPromise, isNotDefined } from '@Engine/Utils';
 import { actorAdapter, lightAdapter } from '@Engine/Launcher/ConfigToParamAdapters';
-import type { ActorParams } from '@Engine/Models/ActorParams';
-import { SceneFactory } from '@Engine/Factories/SceneFactory';
-import { CameraFactory } from '@Engine/Factories/CameraFactory';
-import { RendererFactory } from '@Engine/Factories/RendererFactory';
-import { LightFactory } from '@Engine/Factories/LightFactory';
-import type { LightParams } from '@Engine/Models/LightParams';
 import { combineLatest } from 'rxjs';
 
 export async function launch(sceneConfig: SceneConfig): Promise<void> {

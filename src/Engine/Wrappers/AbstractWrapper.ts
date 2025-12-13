@@ -1,6 +1,6 @@
 import { Subject } from 'rxjs';
 import { nanoid } from 'nanoid';
-import type { Entity } from '@Engine/Models/Entity';
+import type { Entity } from '@Engine/Models';
 
 export function AbstractWrapper<T>(entity: T): Entity<T> {
   const id: string = nanoid();

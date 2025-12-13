@@ -1,6 +1,6 @@
 import { AmbientLight, DirectionalLight } from 'three';
 import { AbstractWrapper } from '@Engine/Wrappers/AbstractWrapper';
-import type { LightParams } from '@Engine/Models/LightParams';
+import type { LightParams } from '@Engine/Models';
 import { getLight } from '@Engine/Wrappers/LightWrapper/utils';
 import { getAccessors } from './Accessors';
 

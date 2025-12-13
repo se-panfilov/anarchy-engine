@@ -1,4 +1,4 @@
-import type { ActorParams } from '@Engine/Models/ActorParams';
+import type { ActorParams } from '@Engine/Models';
 import type { Vector3dConfig } from '@Engine/Launcher/Models/Vector3dConfig';
 
 export interface ActorConfig {

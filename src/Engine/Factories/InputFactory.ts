@@ -1,7 +1,6 @@
 import { AbstractFactory } from '@Engine/Factories/AbstractFactory';
 import { InputWrapper } from '@Engine/Wrappers/InputWrapper';
-import type { InputParams } from '@Engine/Models/InputParams';
-import type { Factory } from '@Engine/Models/Factory';
+import type { Factory, InputParams } from '@Engine/Models';
 
 const create = (params: InputParams): ReturnType<typeof InputWrapper> => InputWrapper(params);
 
