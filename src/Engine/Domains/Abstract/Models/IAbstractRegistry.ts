@@ -1,5 +1,5 @@
 import type { IReactiveDestroyable, IRegistrable } from '@Engine/Domains/Mixins';
-import type { Subject } from 'rxjs';
+import type { Observable } from 'rxjs';
 
 import type { RegistryType } from '@/Engine/Registries';
 
@@ -7,9 +7,9 @@ export type IAbstractRegistry<T extends IRegistrable> = Readonly<{
   id: string;
   type: RegistryType;
   add: (entity: T) => void;
-  added$: Subject<T>;
+  added$: Observable<T>;
   replace: (entity: T) => void;
-  replaced$: Subject<T>;
+  replaced$: Observable<T>;
   registry: Map<string, T>;
   getById: (id: string) => T | undefined;
   getAll: () => ReadonlyArray<T>;
@@ -19,6 +19,6 @@ export type IAbstractRegistry<T extends IRegistrable> = Readonly<{
   getUniqWithEveryTag: (tags: ReadonlyArray<string>) => T | undefined | never;
   getUniqByTag: (tag: string) => T | undefined | never;
   remove: (id: string) => void;
-  removed$: Subject<T>;
+  removed$: Observable<T>;
 }> &
   IReactiveDestroyable;

@@ -8,6 +8,7 @@ import { RendererFactory, RendererModes, RendererRegistry, RendererTag } from '@
 import type { ISceneConfig, ISceneFactory, ISceneRegistry, ISceneWrapper } from '@Engine/Domains/Scene';
 import { SceneFactory, SceneRegistry, SceneTag } from '@Engine/Domains/Scene';
 import { isNotDefined, isValidLevelConfig } from '@Engine/Utils';
+import type { Subscription } from 'rxjs';
 import { Subject } from 'rxjs';
 
 import type { IActorConfig, IActorFactory, IActorRegistry, IActorWrapper } from '@/Engine/Domains/Actor';
@@ -35,7 +36,7 @@ export function buildLevelFromConfig(canvas: IAppCanvas, config: ILevelConfig): 
   // TODO (S.Panfilov) refactor this maybe with command/strategy pattern?
   const sceneFactory: ISceneFactory = SceneFactory();
   const sceneRegistry: ISceneRegistry = SceneRegistry();
-  sceneFactory.entityCreated$.subscribe((instance: ISceneWrapper): void => sceneRegistry.add(instance));
+  const sceneEntityCreatedSubscription: Subscription = sceneFactory.entityCreated$.subscribe((instance: ISceneWrapper): void => sceneRegistry.add(instance));
   scenes.forEach((scene: ISceneConfig): ISceneWrapper => sceneFactory.create(sceneFactory.getParams(scene)));
 
   const scene: ISceneWrapper | undefined = sceneRegistry.getUniqByTag(SceneTag.Current);
@@ -43,65 +44,67 @@ export function buildLevelFromConfig(canvas: IAppCanvas, config: ILevelConfig): 
 
   const actorFactory: IActorFactory = ActorFactory();
   const actorRegistry: IActorRegistry = ActorRegistry();
-  actorRegistry.added$.subscribe((actor: IActorWrapper) => scene.addActor(actor));
-  actorFactory.entityCreated$.subscribe((instance: IActorWrapper): void => actorRegistry.add(instance));
+  const actorAddedSubscription: Subscription = actorRegistry.added$.subscribe((actor: IActorWrapper) => scene.addActor(actor));
+  const actorEntityCreatedSubscription: Subscription = actorFactory.entityCreated$.subscribe((instance: IActorWrapper): void => actorRegistry.add(instance));
   actors.forEach((actor: IActorConfig): IActorWrapper => actorFactory.create(actorFactory.getParams(actor)));
 
   const cameraFactory: ICameraFactory = CameraFactory();
   const cameraRegistry: ICameraRegistry = CameraRegistry();
-  cameraRegistry.added$.subscribe((camera: ICameraWrapper) => scene.addCamera(camera));
-  cameraFactory.entityCreated$.subscribe((instance: ICameraWrapper): void => cameraRegistry.add(instance));
+  const cameraAddedSubscription: Subscription = cameraRegistry.added$.subscribe((camera: ICameraWrapper) => scene.addCamera(camera));
+  const cameraEntityCreatedSubscription: Subscription = cameraFactory.entityCreated$.subscribe((instance: ICameraWrapper): void => cameraRegistry.add(instance));
   cameras.forEach((camera: ICameraConfig): ICameraWrapper => cameraFactory.create(cameraFactory.getParams(camera)));
 
   const controlsFactory: IControlsFactory = ControlsFactory();
   const controlsRegistry: IControlsRegistry = ControlsRegistry();
-  controlsFactory.entityCreated$.subscribe((instance: IOrbitControlsWrapper): void => controlsRegistry.add(instance));
+  const controlsEntityCreatedSubscription: Subscription = controlsFactory.entityCreated$.subscribe((instance: IOrbitControlsWrapper): void => controlsRegistry.add(instance));
   controls.forEach((control: IControlsConfig): IOrbitControlsWrapper => controlsFactory.create(controlsFactory.getParams(control, { cameraRegistry, canvas })));
 
   const lightFactory: ILightFactory = LightFactory();
   const lightRegistry: ILightRegistry = LightRegistry();
-  lightRegistry.added$.subscribe((light: ILightWrapper) => scene.addLight(light));
-  lightFactory.entityCreated$.subscribe((instance: ILightWrapper): void => lightRegistry.add(instance));
+  const lightAddedSubscription: Subscription = lightRegistry.added$.subscribe((light: ILightWrapper) => scene.addLight(light));
+  const lightEntityCreatedSubscription: Subscription = lightFactory.entityCreated$.subscribe((instance: ILightWrapper): void => lightRegistry.add(instance));
   lights.forEach((light: ILightConfig): ILightWrapper => lightFactory.create(lightFactory.getParams(light)));
 
   const rendererFactory: IRendererFactory = RendererFactory();
   const rendererRegistry: IRendererRegistry = RendererRegistry();
-  rendererFactory.entityCreated$.subscribe((instance: IRendererWrapper): void => rendererRegistry.add(instance));
+  const rendererEntityCreatedSubscription: Subscription = rendererFactory.entityCreated$.subscribe((instance: IRendererWrapper): void => rendererRegistry.add(instance));
   const renderer: IRendererWrapper = rendererFactory.create({ canvas, tags: [RendererTag.Main], mode: RendererModes.WebGL2 });
 
   const loopFactory: ILoopFactory = LoopFactory();
   const loopRegistry: ILoopRegistry = LoopRegistry();
-  loopFactory.entityCreated$.subscribe((instance: ILoopWrapper): void => loopRegistry.add(instance));
+  const loopEntityCreatedSubscription: Subscription = loopFactory.entityCreated$.subscribe((instance: ILoopWrapper): void => loopRegistry.add(instance));
   const loop: ILoopWrapper = loopFactory.create({ tags: [LoopTag.Main] });
 
   destroyed$.subscribe(() => {
     isDestroyed = true;
     built$.complete();
 
-    actorFactory.entityCreated$.unsubscribe();
+    sceneEntityCreatedSubscription.unsubscribe();
+
+    actorEntityCreatedSubscription.unsubscribe();
     actorFactory.destroy();
-    actorRegistry.added$.unsubscribe();
+    actorAddedSubscription.unsubscribe();
     actorRegistry.destroy();
 
-    cameraFactory.entityCreated$.unsubscribe();
+    cameraEntityCreatedSubscription.unsubscribe();
     cameraFactory.destroy();
-    cameraRegistry.added$.unsubscribe();
+    cameraAddedSubscription.unsubscribe();
     cameraRegistry.destroy();
 
-    lightFactory.entityCreated$.unsubscribe();
+    lightEntityCreatedSubscription.unsubscribe();
     lightFactory.destroy();
-    lightRegistry.added$.unsubscribe();
+    lightAddedSubscription.unsubscribe();
     lightRegistry.destroy();
 
-    controlsFactory.entityCreated$.unsubscribe();
+    controlsEntityCreatedSubscription.unsubscribe();
     controlsFactory.destroy();
     controlsRegistry.destroy();
 
-    loopFactory.entityCreated$.unsubscribe();
+    loopEntityCreatedSubscription.unsubscribe();
     loopFactory.destroy();
     loopRegistry.destroy();
 
-    rendererFactory.entityCreated$.unsubscribe();
+    rendererEntityCreatedSubscription.unsubscribe();
     rendererFactory.destroy();
     rendererRegistry.destroy();
 

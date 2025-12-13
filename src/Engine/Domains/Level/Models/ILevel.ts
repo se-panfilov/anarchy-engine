@@ -1,5 +1,5 @@
 import type { ILoopFactory, ILoopRegistry, ILoopWrapper } from '@Engine/Domains/Loop';
-import type { Subject } from 'rxjs';
+import type { Observable } from 'rxjs';
 
 import type { IActorFactory, IActorRegistry } from '@/Engine/Domains/Actor';
 import type { ICameraFactory, ICameraRegistry } from '@/Engine/Domains/Camera';
@@ -14,7 +14,7 @@ export type ILevel = IReactiveDestroyable &
   Readonly<{
     name: string;
     start: () => ILoopWrapper;
-    built$: Subject<void>;
+    built$: Observable<void>;
     actor: DomainTools<IActorFactory, IActorRegistry>;
     camera: DomainTools<ICameraFactory, ICameraRegistry>;
     light: DomainTools<ILightFactory, ILightRegistry>;

@@ -2,6 +2,7 @@ import type { IMultitonRegistrable, IRegistrable } from '@Engine/Domains/Mixins'
 import type { RegistryType } from '@Engine/Registries';
 import { getAll, getAllEntitiesWithEveryTag, getAllEntitiesWithSomeTag, isDestroyable, isNotDefined } from '@Engine/Utils';
 import { nanoid } from 'nanoid';
+import type { Observable } from 'rxjs';
 import { Subject } from 'rxjs';
 
 import type { IAbstractRegistry } from '../Models';
@@ -78,17 +79,17 @@ export function AbstractRegistry<T extends IRegistrable | IMultitonRegistrable>(
     get type(): RegistryType {
       return type;
     },
-    get added$(): Subject<T> {
-      return added$;
+    get added$(): Observable<T> {
+      return added$.asObservable();
     },
-    get replaced$(): Subject<T> {
-      return replaced$;
+    get replaced$(): Observable<T> {
+      return replaced$.asObservable();
     },
-    get destroyed$(): Subject<void> {
-      return destroyed$;
+    get destroyed$(): Observable<void> {
+      return destroyed$.asObservable();
     },
-    get removed$(): Subject<T> {
-      return removed$;
+    get removed$(): Observable<T> {
+      return removed$.asObservable();
     },
     add,
     replace,
