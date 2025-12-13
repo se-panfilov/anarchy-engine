@@ -250,8 +250,8 @@ describe('RegistryUtils', () => {
         expect(shouldHaveTags(obj5None, [tagB], LookUpStrategy.Every)).toEqual(false);
       });
 
-      it('should return "false" if NO tagList is provided', () => {
-        expect(shouldHaveTags(obj4BE, [], LookUpStrategy.Every)).toEqual(false);
+      it('should return "true" if tagList is empty', () => {
+        expect(shouldHaveTags(obj4BE, [], LookUpStrategy.Every)).toEqual(true);
       });
     });
 
@@ -274,7 +274,7 @@ describe('RegistryUtils', () => {
         expect(shouldHaveTags(obj5None, [tagB], LookUpStrategy.Some)).toEqual(false);
       });
 
-      it('should return "false" if NO tagList is provided', () => {
+      it('should return "false" if tagList is empty', () => {
         expect(shouldHaveTags(obj4BE, [], LookUpStrategy.Some)).toEqual(false);
       });
     });
