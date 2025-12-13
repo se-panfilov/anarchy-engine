@@ -6,7 +6,7 @@ export enum RegistryType {
   Controls = 'controls',
   Scene = 'scene',
   Renderer = 'renderer',
-  MouseClicksWatcher = 'mouse_clicks_watcher',
+  MouseClickWatcher = 'mouse_click_watcher',
   ScreenSizeWatcher = 'screen_size_watcher',
   MousePositionWatcher = 'mouse_position_watcher',
   IntersectionsWatcher = 'intersections_watcher'

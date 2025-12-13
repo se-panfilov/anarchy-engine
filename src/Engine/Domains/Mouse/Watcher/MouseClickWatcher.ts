@@ -1,25 +1,23 @@
 import type { IAbstractWatcher } from '@Engine/Domains/Abstract';
 import { AbstractWatcher } from '@Engine/Domains/Abstract';
-import type { IGlobalContainerDecorator } from '@Engine/Domains/Global';
+import type { IMouseClickWatcher, IMouseClickWatcherParams } from '@Engine/Domains/Mouse/Models';
 
-import type { IMouseClicksWatcher } from '../Models';
-
-export function MouseClicksWatcher(container: IGlobalContainerDecorator, tags: ReadonlyArray<string> = []): IMouseClicksWatcher {
+export function MouseClickWatcher({ container, tags = [] }: IMouseClickWatcherParams): IMouseClickWatcher {
   const containerIdTag: string = `container_id_${container.id}`;
   const abstractWatcher: IAbstractWatcher<void> = AbstractWatcher('mouse_clicks', tags);
   const onMouseUpListener = (): void => abstractWatcher.value$.next();
 
-  function start(): IMouseClicksWatcher {
+  function start(): IMouseClickWatcher {
     container.startWatch('mouseup', onMouseUpListener);
     return result;
   }
 
-  function stop(): IMouseClicksWatcher {
+  function stop(): IMouseClickWatcher {
     container.stopWatch('mouseup', onMouseUpListener);
     return result;
   }
 
-  const result: IMouseClicksWatcher = {
+  const result: IMouseClickWatcher = {
     ...abstractWatcher,
     key: containerIdTag,
     start,

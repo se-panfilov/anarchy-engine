@@ -1,9 +1,10 @@
 import type { IReactiveFactory } from '@Engine/Domains/Abstract';
 import { ReactiveFactory } from '@Engine/Domains/Abstract';
 
-import type { IMousePositionWatcherFactory, IMousePositionWatcherParams, IMousePositionWatcherWrapper } from '../Models';
-import { MousePositionWatcherWrapper } from '../Wrapper';
+import { MousePositionWatcher } from '@/Engine/Domains/Mouse/Watcher';
+
+import type { IMousePositionWatcher, IMousePositionWatcherFactory, IMousePositionWatcherParams } from '../Models';
 
 // TODO (S.Panfilov) no more auto-registration
-const factory: IReactiveFactory<IMousePositionWatcherWrapper, IMousePositionWatcherParams> = { ...ReactiveFactory('mouse_positions_watcher', MousePositionWatcherWrapper) };
+const factory: IReactiveFactory<IMousePositionWatcher, IMousePositionWatcherParams> = { ...ReactiveFactory('mouse_position_watcher', MousePositionWatcher) };
 export const MousePositionWatcherFactory = (): IMousePositionWatcherFactory => ({ ...factory });

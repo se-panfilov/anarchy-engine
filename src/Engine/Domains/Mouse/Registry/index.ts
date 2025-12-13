@@ -1,2 +1,2 @@
-export * from './MouseClicksWatcherRegistry';
+export * from './MouseClickWatcherRegistry';
 export * from './MousePositionWatcherRegistry';

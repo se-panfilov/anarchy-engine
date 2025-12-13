@@ -20,7 +20,7 @@ export function showcaseLevel1(canvas: IAppCanvas): void {
 
   intersectionsWatcher.start();
 
-  ambientContext.mouseClicksWatcher.value$.subscribe((): void => {
+  ambientContext.mouseClickWatcher.value$.subscribe((): void => {
     console.log('int click:');
   });
 
