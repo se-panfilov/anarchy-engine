@@ -1,6 +1,7 @@
-import type { IAbstractFactory, IAbstractFromConfigWrapperFactory } from '@Engine/Domains/Abstract';
+import type { IAbstractFactory } from '@Engine/Domains/Abstract';
+import type { IAbstractFromConfigWrapperFactory } from '@Engine/Domains/Mixins';
 
-import type { MOCK_INPUT_TYPE } from '../Wrapper';
+import type { MOCK_INPUT_TYPE } from '../Constants';
 import type { IInputParams } from './IInputParams';
 import type { IInputWrapper } from './IInputWrapper';
 

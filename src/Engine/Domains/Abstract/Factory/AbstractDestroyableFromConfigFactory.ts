@@ -1,6 +1,7 @@
+import type { IAbstractFromConfigWrapperFactory, IDestroyableFromConfigFactory } from '@Engine/Domains/Mixins';
 import { cleanObject } from '@Engine/Utils';
 
-import type { IAbstractConfig, IAbstractFactory, IAbstractFromConfigWrapperFactory, ICreateFN, IDestroyableFromConfigFactory, IWrapper } from '../Models';
+import type { IAbstractConfig, IAbstractFactory, ICreateFN, IWrapper } from '../Models';
 import { AbstractFromConfigWrapperFactory } from './AbstractFromConfigWrapperFactory';
 
 export function AbstractDestroyableFromConfigFactory<T extends IWrapper<E>, E, P, C extends IAbstractConfig, F extends IAbstractFromConfigWrapperFactory<T, E, P, C, IAbstractFactory<T, P>>>(

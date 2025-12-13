@@ -1,5 +1,5 @@
 import type { IWrapper } from '@Engine/Domains/Abstract';
 
-export type IInputWrapper = IWrapper<MOCK_INPUT_TYPE>;
+import type { MOCK_INPUT_TYPE } from '../Constants';
 
-export type MOCK_INPUT_TYPE = unknown;
+export type IInputWrapper = IWrapper<MOCK_INPUT_TYPE>;

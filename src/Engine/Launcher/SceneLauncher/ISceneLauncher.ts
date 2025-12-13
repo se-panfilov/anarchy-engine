@@ -1,4 +1,4 @@
-import type { IDestroyable } from '@Engine/Domains/Abstract';
+import type { IDestroyable } from '@Engine/Domains/Mixins';
 import type { ISceneConfig } from '@Engine/Domains/Scene';
 import type { ILaunchedScene } from '@Engine/Models';
 import type { IAppCanvas } from '@Engine/Models/IAppCanvas';

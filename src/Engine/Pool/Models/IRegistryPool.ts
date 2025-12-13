@@ -1,5 +1,5 @@
+import type { IDestroyablePool } from '@Engine/Domains/Mixins';
 import type { ISceneWrapper } from '@Engine/Domains/Scene';
-import type { IDestroyablePool } from '@Engine/Pool';
 
 import type { IRegistries } from './IRegistries';
 

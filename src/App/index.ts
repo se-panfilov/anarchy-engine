@@ -1,11 +1,10 @@
 import '@App/style.css';
 
 import sceneConfig from '@App/Scenes/debug-scene.config.json';
+import type { IActorWrapper, ICameraWrapper, ILaunchedEngine, ILaunchedScene, IRegistries, ISceneConfig, IVector3 } from '@Engine';
+import { ActorTag, ambientContext, CameraTag, isNotDefined, launchEngine, SceneLauncher } from '@Engine';
 import type { IIntersectionsWatcher } from '@Engine/Domains/Intersections';
 import { IntersectionsWatcherFactory } from '@Engine/Domains/Intersections';
-
-import type { IActorWrapper, ICameraWrapper, ILaunchedEngine, ILaunchedScene, IRegistries, ISceneConfig, IVector3 } from '@/Engine';
-import { ActorTag, ambientContext, CameraTag, isNotDefined, launchEngine, SceneLauncher } from '@/Engine';
 
 const { factories, canvas }: ILaunchedEngine = launchEngine('#app');
 const { registries }: ILaunchedScene = SceneLauncher().launch(sceneConfig as ISceneConfig, canvas, factories);

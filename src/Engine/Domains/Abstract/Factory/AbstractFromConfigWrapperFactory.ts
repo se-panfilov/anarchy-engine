@@ -1,6 +1,7 @@
+import type { IAbstractFromConfigWrapperFactory } from '@Engine/Domains/Mixins';
 import { isNotDefined } from '@Engine/Utils';
 
-import type { IAbstractConfig, IAbstractFactory, IAbstractFromConfigWrapperFactory, IAbstractWrapperFactory, ICreateFN, IWrapper } from '../Models';
+import type { IAbstractConfig, IAbstractFactory, IAbstractWrapperFactory, ICreateFN, IWrapper } from '../Models';
 import { AbstractWrapperFactory } from './AbstractWrapperFactory';
 
 export function AbstractFromConfigWrapperFactory<T extends IWrapper<E>, E, P, C extends IAbstractConfig>(

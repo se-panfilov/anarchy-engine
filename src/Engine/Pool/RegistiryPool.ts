@@ -1,5 +1,3 @@
-import type { IDestroyablePool } from '@Engine/Domains/Abstract';
-import { DestroyablePool } from '@Engine/Domains/Abstract';
 import type { IActorWrapper } from '@Engine/Domains/Actor';
 import { ActorRegistry } from '@Engine/Domains/Actor';
 import type { ICameraWrapper } from '@Engine/Domains/Camera';
@@ -8,6 +6,8 @@ import { ControlsRegistry } from '@Engine/Domains/Controls';
 import { IntersectionsWatcherRegistry } from '@Engine/Domains/Intersections';
 import type { ILightWrapper } from '@Engine/Domains/Light';
 import { LightRegistry } from '@Engine/Domains/Light';
+import type { IDestroyablePool } from '@Engine/Domains/Mixins';
+import { DestroyablePool } from '@Engine/Domains/Mixins';
 import { MouseClicksWatcherRegistry, MousePositionWatcherRegistry } from '@Engine/Domains/Mouse';
 import type { ISceneWrapper } from '@Engine/Domains/Scene';
 import { ScreenSizeWatcherRegistry } from '@Engine/Domains/Screen';

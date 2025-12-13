@@ -1,4 +1,5 @@
-import type { IAbstractFactory, IAbstractFromConfigWrapperFactory } from '@Engine/Domains/Abstract';
+import type { IAbstractFactory } from '@Engine/Domains/Abstract';
+import type { IAbstractFromConfigWrapperFactory } from '@Engine/Domains/Mixins';
 import type { WebGLRenderer } from 'three';
 
 import type { IRendererParams } from './IRendererParams';
