@@ -1,4 +1,4 @@
-import type { IMultitonRegistrable, IRegistrable } from '@Engine/Models';
+import type { IMultitonRegistrable, IRegistrable } from '@Engine/Mixins';
 import type { RegistryName } from '@Engine/Registries';
 import { getAllEntitiesWithEveryTag, getAllEntitiesWithSomeTag, isNotDefined } from '@Engine/Utils';
 import { nanoid } from 'nanoid';

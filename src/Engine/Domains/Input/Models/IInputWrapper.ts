@@ -1,4 +1,4 @@
-import type { IWrapper } from '@Engine/Models';
+import type { IWrapper } from '@Engine/Domains/Abstract';
 
 export type IInputWrapper = IWrapper<MOCK_INPUT_TYPE>;
 

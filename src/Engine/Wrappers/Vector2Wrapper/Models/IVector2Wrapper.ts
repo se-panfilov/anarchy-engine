@@ -1,4 +1,4 @@
-import type { IWrapper } from '@Engine/Models';
+import type { IWrapper } from '@Engine/Domains/Abstract';
 
 import type { IVector2 } from './IVector2';
 

@@ -1,5 +1,5 @@
+import type { IWrapper } from '@Engine/Domains/Abstract';
 import type { CameraTag, ICameraAccessors, IPerspectiveCamera } from '@Engine/Domains/Camera';
-import type { IWrapper } from '@Engine/Models';
 
 export type ICameraWrapper = IWrapper<IPerspectiveCamera> &
   ICameraAccessors &

@@ -1,9 +1,9 @@
 import type { ISceneConfig } from '@Engine/Domains/Scene';
+import type { IDestroyable } from '@Engine/Mixins';
 import type { IAppCanvas } from '@Engine/Models/IAppCanvas';
 import type { IFactories } from '@Engine/Pool';
 import type { BehaviorSubject } from 'rxjs';
 
-import type { IDestroyable } from './IDestroyable';
 import type { ILaunchedScene } from './ILaunchedScene';
 
 export type ISceneLauncher = Readonly<{

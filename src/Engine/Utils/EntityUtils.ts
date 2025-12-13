@@ -1,4 +1,4 @@
-import type { IWrapper } from '@Engine/Models';
+import type { IWrapper } from '@Engine/Domains/Abstract';
 
 export function unWrapEntities<T>(list: ReadonlyArray<IWrapper<T>>): ReadonlyArray<T> {
   return list.map(({ entity }: Readonly<IWrapper<T>>) => entity);

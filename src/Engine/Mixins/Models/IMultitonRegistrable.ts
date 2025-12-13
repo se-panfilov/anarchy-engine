@@ -1,4 +1,4 @@
-import type { IRegistrable } from '@Engine/Models/IRegistrable';
+import type { IRegistrable } from '@Engine/Mixins';
 
 export type IMultitonRegistrable = IRegistrable &
   Readonly<{

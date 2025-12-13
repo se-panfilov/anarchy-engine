@@ -1,4 +1,4 @@
-import type { IDestroyable, IMultitonRegistrable, IRegistrable } from '@Engine/Models';
+import type { IDestroyable, IMultitonRegistrable, IRegistrable } from '@Engine/Mixins';
 import type { Subject } from 'rxjs';
 
 export type IAbstractRegistry<T extends IRegistrable | IMultitonRegistrable> = Readonly<{
