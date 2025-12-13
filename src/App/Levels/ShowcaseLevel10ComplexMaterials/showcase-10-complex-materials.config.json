@@ -129,7 +129,7 @@
       "fov": 45,
       "near": 1,
       "far": 10000,
-      "position": { "x": 0, "y": 0, "z": 0 },
+      "position": { "x": 0, "y": 2, "z": 4 },
       "rotation": { "x": 0, "y": 0, "z": 0 },
       "tags": ["initial"]
     }
