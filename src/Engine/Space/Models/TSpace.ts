@@ -1,3 +1,5 @@
+import type { Observable } from 'rxjs';
+
 import type { TEntity } from '@/Engine/Abstract';
 import type { TContainerDecorator } from '@/Engine/Global';
 
@@ -11,6 +13,7 @@ export type TSpace = TEntity<
       getCanvasSelector: () => string;
       container: TContainerDecorator;
       version: string;
+      serializationInProgress$: Observable<boolean>;
       drop: () => void;
     }>
 >;

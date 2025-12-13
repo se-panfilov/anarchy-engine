@@ -18,6 +18,7 @@ export function Space(params: TSpaceParams, registry: TSpaceRegistry, hooks?: TS
   const { canvasSelector, version, name, tags } = params;
   const built$: BehaviorSubject<TSpace | undefined> = new BehaviorSubject<TSpace | undefined>(undefined);
   const start$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  const serializationInProgress$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   const canvas: TSpaceCanvas = getOrCreateCanvasFromSelector(canvasSelector);
   const container: TContainerDecorator = getCanvasContainer(canvas);
@@ -67,7 +68,13 @@ export function Space(params: TSpaceParams, registry: TSpaceRegistry, hooks?: TS
       drop,
       version,
       getCanvasSelector: (): string => canvasSelector,
-      serialize: (): TSpaceConfig => spaceToConfig(space, space.services)
+      serializationInProgress$: serializationInProgress$.asObservable(),
+      serialize: (): TSpaceConfig => {
+        serializationInProgress$.next(true);
+        const config: TSpaceConfig = spaceToConfig(space, space.services);
+        serializationInProgress$.next(false);
+        return config;
+      }
     }
   );
 
@@ -90,6 +97,7 @@ export function Space(params: TSpaceParams, registry: TSpaceRegistry, hooks?: TS
 
     built$.complete();
     start$.complete();
+    serializationInProgress$.complete();
     Object.values(services).forEach((service: TAbstractService): void => void (isDestroyable(service) && service.destroy$.next()));
     Object.values(loops).forEach((loop: TLoop): void => void (isDestroyable(loop) && loop.destroy$.next()));
 
