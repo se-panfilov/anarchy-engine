@@ -8,7 +8,7 @@
 - 2.5.0 Added Eslint & TS check for vue files
 - 2.6.0 UI menu (vue) extracted to a separate package
 - 2.8.0 App close/restart
-- 2.9.0 App close/restart
+- 2.9.0 Text fixes
 - 2.10.0 Manage "First Run" state
 - 2.11.0 IndexedDB for settings (web)
 - 2.12.0 Build meta info (versions)
