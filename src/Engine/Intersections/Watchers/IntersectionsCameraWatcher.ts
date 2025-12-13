@@ -49,7 +49,11 @@ export function IntersectionsCameraWatcher(params: TIntersectionsCameraWatcherPa
       filter(isDefined)
     )
     .subscribe(({ position }: Readonly<{ position: TReadonlyVector2 }>): void => {
-      if (isNotDefined(camera)) throw new Error('[IntersectionsWatcher]: Cannot start: camera is not defined');
+      if (isNotDefined(camera)) {
+        enabledSub$.unsubscribe();
+        throw new Error('[IntersectionsWatcher]: Cannot start: camera is not defined');
+      }
+
       const intersection: TIntersectionEvent | undefined = getIntersection(
         position as Vector2,
         camera,
@@ -77,7 +81,7 @@ export function IntersectionsCameraWatcher(params: TIntersectionsCameraWatcherPa
     setCamera
   });
 
-  setCamera(getCamera());
+  setCamera(params.camera);
 
   return result;
 }
