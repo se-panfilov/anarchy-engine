@@ -1,5 +1,5 @@
 import type { TLocale, TLocaleId } from '@Anarchy/i18n';
-import { getLocaleByLocaleId, getPreferLocaleId } from '@Anarchy/i18n';
+import { getLocaleByLocaleId, getPreferLocaleId, stringToLocaleId } from '@Anarchy/i18n';
 import { isDefined } from '@Anarchy/Shared/Utils';
 import { ShowcasesFallbackLocale, ShowcasesLocales } from '@Showcases/i18n';
 import type { TLegalDoc, TLoadDocPayload, TShowcaseGameSettings } from '@Showcases/Shared';
@@ -45,11 +45,10 @@ export function Driver(): TPlatformDriver {
     return defaultSettings;
   }
 
-  // TODO DESKTOP: this code returns en-us instead of en-US
   function getPreferredLocales(): Promise<ReadonlyArray<TLocaleId>> {
     const navigatorLanguages: ReadonlyArray<string> = Array.isArray(navigator.languages) ? navigator.languages : [];
     const languages: ReadonlyArray<string> = isDefined(navigator.language) ? [navigator.language, ...navigatorLanguages] : navigatorLanguages;
-    return Promise.resolve(Array.from(new Set(languages.map((lang: string): TLocaleId => lang as TLocaleId))));
+    return Promise.resolve(Array.from(new Set(languages.map(stringToLocaleId))));
   }
 
   async function buildDefaultSettings(): Promise<TShowcaseGameSettings> {
