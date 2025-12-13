@@ -43,12 +43,23 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
   const space: TSpace = await spaceService.buildSpaceFromConfig(canvas, spaceConfig as TSpaceConfig);
   const engine: TEngine = Engine(space);
   const { keyboardService } = engine.services;
-  const { physicsLoopService, cameraService, actorService, lightService, loopService, models3dService, materialService, mouseService, intersectionsWatcherService, spatialGridService } =
-    space.services;
+  const {
+    physicsLoopService,
+    cameraService,
+    physicsWorldService,
+    actorService,
+    lightService,
+    loopService,
+    models3dService,
+    materialService,
+    mouseService,
+    intersectionsWatcherService,
+    spatialGridService
+  } = space.services;
 
   async function init(): Promise<void> {
-    // physicsWorldService.getDebugRenderer(loopService).start();
-    // physicsLoopService.autoUpdate$.next(false);
+    physicsWorldService.getDebugRenderer(loopService).start();
+    physicsLoopService.autoUpdate$.next(false);
 
     initLight(lightService);
 
