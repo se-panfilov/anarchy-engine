@@ -22,7 +22,7 @@ import {
   Engine,
   EulerWrapper,
   getDistancePrecisely,
-  getHorizontalAzimuth,
+  getHorizontalAzimuthDeg,
   getPushCoordsFrom3dAzimuth,
   isActorHasPhysicsBody,
   isDefined,
@@ -111,7 +111,7 @@ export function showcase(canvas: TAppCanvas): TShowcase {
     loopService.tick$.subscribe(() => {
       if (isDefined(mouseLineIntersectionsCoords)) {
         const ballCoords: TWithCoordsXYZ = ballActorW.getPosition().getCoords();
-        azimuth = getHorizontalAzimuth({ x: ballCoords.x, z: ballCoords.z }, mouseLineIntersectionsCoords);
+        azimuth = getHorizontalAzimuthDeg({ x: ballCoords.x, z: ballCoords.z }, mouseLineIntersectionsCoords);
         azimuthText.setText(`Azimuth: ${azimuth}`);
         forcePowerText.setText(`Force: ${forcePower}`);
         forcePower = getDistancePrecisely(ballActorW.getPosition().getCoords(), mouseLineIntersectionsCoords).toNumber();

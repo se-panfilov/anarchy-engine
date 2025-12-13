@@ -1,6 +1,6 @@
-import { MathUtils, Vector3 } from 'three';
+import { Vector3 } from 'three';
 
-import type { TActorParams, TActorService, TActorWrapperAsync, TWithCoordsXYZ } from '@/Engine';
+import type { TActorParams, TActorService, TActorWrapperAsync, TRadians, TWithCoordsXYZ } from '@/Engine';
 import { ActorType, collisionsService, isDefined, MaterialType, mpsSpeed, Vector3Wrapper } from '@/Engine';
 import { meters } from '@/Engine/Measurements/Utils';
 
@@ -66,8 +66,8 @@ export async function BulletAsync(params: TActorParams, actorService: TActorServ
 
   function reset(): void {
     actor.setPosition(Vector3Wrapper({ x: 0, y: 0, z: 0 }));
-    actor.kinematic.setLinearAzimuth(0);
-    actor.kinematic.setLinearElevation(0);
+    actor.kinematic.setLinearAzimuthRad(0);
+    actor.kinematic.setLinearElevationRad(0);
     setDistanceTraveled(0);
     setActive(false);
     // eslint-disable-next-line functional/immutable-data
@@ -77,8 +77,8 @@ export async function BulletAsync(params: TActorParams, actorService: TActorServ
 
   function update(delta: number): void {
     if (isActive()) {
-      const azimuthRadians: number = MathUtils.degToRad(actor.kinematic.getLinearAzimuth());
-      const elevationRadians: number = MathUtils.degToRad(actor.kinematic.getLinearElevation());
+      const azimuthRadians: TRadians = actor.kinematic.getLinearAzimuthRad();
+      const elevationRadians: TRadians = actor.kinematic.getLinearElevationRad();
       const vectorDirection: Vector3 = new Vector3(Math.cos(elevationRadians) * Math.cos(azimuthRadians), Math.sin(elevationRadians), Math.cos(elevationRadians) * Math.sin(azimuthRadians));
       // const vectorDirection: Vector3 = new Vector3(Math.cos(azimuthRadians), elevationRadians, Math.sin(azimuthRadians));
       actor.entity.position.add(vectorDirection.clone().multiplyScalar(mpsSpeed(actor.kinematic.getLinearSpeed(), delta)));
@@ -113,12 +113,12 @@ export async function BulletAsync(params: TActorParams, actorService: TActorServ
   };
 }
 
-export function shoot(actorPosition: TWithCoordsXYZ, toAngle: number, elevation: number, speedMeters: number, fallSpeedMeters: number, bullets: ReadonlyArray<TBullet>): void {
+export function shoot(actorPosition: TWithCoordsXYZ, toAngle: TRadians, elevation: TRadians, speedMeters: number, fallSpeedMeters: number, bullets: ReadonlyArray<TBullet>): void {
   const bullet: TBullet | undefined = bullets.find((b: TBullet) => !b.isActive());
   if (isDefined(bullet)) {
     bullet.setPosition(Vector3Wrapper(actorPosition));
-    bullet.kinematic.setLinearAzimuth(toAngle);
-    bullet.kinematic.setLinearElevation(elevation);
+    bullet.kinematic.setLinearAzimuthRad(toAngle);
+    bullet.kinematic.setLinearElevationRad(elevation);
     bullet.setDistanceTraveled(0);
     bullet.setFallSpeed(meters(fallSpeedMeters));
     bullet.kinematic.setLinearSpeed(meters(speedMeters));

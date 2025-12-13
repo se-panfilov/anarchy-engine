@@ -3,8 +3,20 @@ import { Vector3 } from 'three';
 import type { Line2 } from 'three/examples/jsm/lines/Line2';
 
 import type { TShowcase } from '@/App/Levels/Models';
-import type { TActorWrapperAsync, TActorWrapperWithPhysicsAsync, TAppCanvas, TCameraWrapper, TEngine, TIntersectionEvent, TIntersectionsWatcher, TSpace, TSpaceConfig, TWithCoordsXYZ } from '@/Engine';
-import { buildSpaceFromConfig, collisionsService, Engine, get3DAzimuth, isDefined, isNotDefined, KeysExtra, mouseService } from '@/Engine';
+import type {
+  TActorWrapperAsync,
+  TActorWrapperWithPhysicsAsync,
+  TAppCanvas,
+  TCameraWrapper,
+  TEngine,
+  TIntersectionEvent,
+  TIntersectionsWatcher,
+  TRadians,
+  TSpace,
+  TSpaceConfig,
+  TWithCoordsXYZ
+} from '@/Engine';
+import { buildSpaceFromConfig, collisionsService, Engine, get3DAzimuthRad, isDefined, isNotDefined, KeysExtra, mouseService } from '@/Engine';
 import { meters } from '@/Engine/Measurements/Utils';
 
 import spaceConfig from './showcase.json';
@@ -72,7 +84,7 @@ export function showcase(canvas: TAppCanvas): TShowcase {
     const line: Line2 = createLine();
     actorService.getScene().entity.add(line);
 
-    let fromHeroAngles: Readonly<{ azimuth: number; elevation: number }> = {
+    let fromHeroAngles: Readonly<{ azimuth: TRadians; elevation: TRadians }> = {
       azimuth: 0,
       elevation: 0
     };
@@ -89,7 +101,7 @@ export function showcase(canvas: TAppCanvas): TShowcase {
       // TODO (S.Panfilov) this should be updated only if coords or angle are changed
       if (isDefined(mouseLineIntersections.point)) {
         const heroCoords: TWithCoordsXYZ = heroW.getPosition().getCoords();
-        fromHeroAngles = get3DAzimuth(heroCoords, mouseLineIntersections.point);
+        fromHeroAngles = get3DAzimuthRad(heroCoords, mouseLineIntersections.point);
         // TODO (S.Panfilov) could make some use of mouseLineIntersectionsWatcher.latest$ instead of mouseLineIntersections
         line.geometry.setPositions([heroCoords.x, heroCoords.y, heroCoords.z, mouseLineIntersections.point.x, mouseLineIntersections.point.y, mouseLineIntersections.point.z]);
         line.computeLineDistances();
