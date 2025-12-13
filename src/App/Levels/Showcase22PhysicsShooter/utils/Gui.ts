@@ -23,7 +23,7 @@ export function initGui(
     objectName: ''
   };
 
-  const cell: Record<string, string> = { id: '', actors: '' };
+  const cell: Record<string, string> = { name: '', actors: '' };
   const actor: Record<string, string> = { name: '' };
 
   mouseLineIntersectionsWatcher.value$.subscribe((intersection: TIntersectionEvent) => {
@@ -42,7 +42,7 @@ export function initGui(
     // eslint-disable-next-line functional/immutable-data
     mouse.objectName = intersection.object.name;
     // eslint-disable-next-line functional/immutable-data
-    cell.id = grid.findCellsForPoint(intersection.point.x, intersection.point.z)[0]?.id;
+    cell.name = grid.findCellsForPoint(intersection.point.x, intersection.point.z)[0]?.name;
     // eslint-disable-next-line functional/immutable-data
     actor.name = actorService.getRegistry().findById(mouse.wrapperId)?.name ?? '';
     // eslint-disable-next-line functional/immutable-data
@@ -61,8 +61,8 @@ export function initGui(
   mouseFolderGui.add(mouse, 'wrapperId').listen();
   mouseFolderGui.add(mouse, 'objectName').listen();
 
-  const gridFolderGui: GUI = gui.addFolder('Grid');
-  gridFolderGui.add(cell, 'id').listen();
+  const gridFolderGui: GUI = gui.addFolder('Spatial Grid');
+  gridFolderGui.add(cell, 'name').listen();
   gridFolderGui.add(cell, 'actors').listen();
 
   const actorFolderGui: GUI = gui.addFolder('Actor');

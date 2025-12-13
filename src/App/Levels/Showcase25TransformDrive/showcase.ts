@@ -21,7 +21,7 @@ import { Engine, getMouseAzimuthAndElevation, isNotDefined, KeysExtra, spaceServ
 import { meters } from '@/Engine/Measurements/Utils';
 
 import spaceConfig from './showcase.json';
-import { addActorFolderGui, attachConnectorToSubj, changeActorActiveAgent, createActor, createReactiveLineFromActor, createRepeaterActor, startIntersections } from './Utils';
+import { addActorFolderGui, addSpatialGuiFolder, attachConnectorToSubj, changeActorActiveAgent, createActor, createReactiveLineFromActor, createRepeaterActor, startIntersections } from './Utils';
 
 //This showcase should demonstrate the ways we can move the actor.
 // We have different "agents" (modes) which can be switched in runtime
@@ -66,6 +66,8 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     createRepeaterActor(sphereActor, { x: 0, y: 0, z: 4 }, grid, gui, space.services);
 
     const intersectionsWatcher: TIntersectionsWatcher = startIntersections(space.services);
+
+    addSpatialGuiFolder(gui, grid, intersectionsWatcher);
 
     const { line } = createReactiveLineFromActor('#E91E63', sphereActor, intersectionsWatcher);
     sceneW.entity.add(line);

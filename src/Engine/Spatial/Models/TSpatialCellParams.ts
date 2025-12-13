@@ -1,3 +1,5 @@
+import type { TWithNameOptional } from '@/Engine/Mixins';
+
 export type TSpatialCellParams = Readonly<{
   minX: number;
   minZ: number;
@@ -5,4 +7,5 @@ export type TSpatialCellParams = Readonly<{
   maxZ: number;
   x: number;
   z: number;
-}>;
+}> &
+  TWithNameOptional;

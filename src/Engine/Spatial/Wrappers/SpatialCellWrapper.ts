@@ -53,6 +53,7 @@ export function SpatialCellWrapper(params: TSpatialCellParams): TSpatialCellWrap
 
   return {
     ...wrapper,
+    name: params.name ?? entity.id,
     // eslint-disable-next-line no-restricted-syntax
     get minX(): number {
       return entity.minX;

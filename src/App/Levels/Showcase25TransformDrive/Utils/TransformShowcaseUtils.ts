@@ -94,7 +94,7 @@ export function changeActorActiveAgent(actor: TActor, key: KeyCode | KeysExtra, 
 
 export function addActorFolderGui(gui: GUI, actor: TActor): void {
   const folder: GUI = gui.addFolder(actor.name ?? 'nameless actor');
-  folder.add(actor.drive.agent$, 'value').listen();
+  folder.add(actor.drive.agent$, 'value').name('agent').listen();
 
   const position: Vector3 = new Vector3();
   actor.drive.position$.subscribe((p: Vector3): Vector3 => position.copy(p));
@@ -102,6 +102,24 @@ export function addActorFolderGui(gui: GUI, actor: TActor): void {
   folder.add(position, 'x').listen();
   folder.add(position, 'y').listen();
   folder.add(position, 'z').listen();
+}
+
+export function addSpatialGuiFolder(gui: GUI, grid: TSpatialGridWrapper, mouseLineIntersectionsWatcher: TIntersectionsWatcher): void {
+  const cell: Record<string, string> = { name: '', actors: '' };
+
+  mouseLineIntersectionsWatcher.value$.subscribe((intersection: TIntersectionEvent) => {
+    // eslint-disable-next-line functional/immutable-data
+    cell.name = grid.findCellsForPoint(intersection.point.x, intersection.point.z)[0]?.name;
+    // eslint-disable-next-line functional/immutable-data
+    cell.actors = grid
+      .getAllInCell(intersection.point.x, intersection.point.z)
+      .map((actorW: TActor): string | undefined => actorW.name)
+      .join(', ');
+  });
+
+  const gridFolderGui: GUI = gui.addFolder('Spatial Grid');
+  gridFolderGui.add(cell, 'name').listen();
+  gridFolderGui.add(cell, 'actors').listen();
 }
 
 // TODO LINES: refactor this with lines domain
