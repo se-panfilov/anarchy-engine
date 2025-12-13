@@ -1,7 +1,7 @@
 import GUI from 'lil-gui';
 
 import type { IShowcase } from '@/App/Levels/Models';
-import type { IAppCanvas, IDirectionalLightWrapper, IHemisphereLightWrapper, ILevel, ILevelConfig, IRectAreaLightWrapper } from '@/Engine';
+import type { IAppCanvas, IDirectionalLightWrapper, IHemisphereLightWrapper, ILevel, ILevelConfig, IPointLightWrapper, IRectAreaLightWrapper } from '@/Engine';
 import { buildLevelFromConfig, isNotDefined } from '@/Engine';
 
 import levelConfig from './showcase-12-light.json';
@@ -42,6 +42,14 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
     rectAreaFolder.add(rectAreaLight.entity, 'width').min(0).max(50).step(0.5);
     rectAreaFolder.add(rectAreaLight.entity, 'height').min(0).max(50).step(0.5);
     rectAreaFolder.add(rectAreaLight.entity, 'intensity').min(0).max(10).step(0.1);
+
+    const pointLight: IPointLightWrapper | undefined = lightRegistry.getUniqByTag('point') as IPointLightWrapper | undefined;
+    if (isNotDefined(pointLight)) throw new Error('Point light not found');
+    const pointFolder: GUI = gui.addFolder('Point light');
+    pointFolder.addColor(pointLight.entity, 'color');
+    pointFolder.add(pointLight.entity, 'intensity').min(0).max(100).step(0.1);
+    pointFolder.add(pointLight.entity, 'distance').min(0).max(100).step(0.1);
+    pointFolder.add(pointLight.entity, 'decay').min(0).max(100).step(0.1);
   }
 
   function start(): void {

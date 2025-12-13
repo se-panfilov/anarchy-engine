@@ -672,6 +672,15 @@
       "intensity": 0,
       "position": { "x": 0.25, "y": 2, "z": 2.25 },
       "tags": ["rect_area"]
+    },
+    {
+      "type": "Point",
+      "color": "#00ff00",
+      "intensity": 14,
+      "distance": 23,
+      "decay": 4.5,
+      "position": { "x": 6, "y": 2, "z": 2.25 },
+      "tags": ["point"]
     }
   ],
   "controls": [
