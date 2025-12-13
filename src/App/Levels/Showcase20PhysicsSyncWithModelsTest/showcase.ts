@@ -1,4 +1,4 @@
-import { Vector3 } from 'three/src/math/Vector3';
+import type { Vector3 } from 'three/src/math/Vector3';
 
 import type { TShowcase } from '@/App/Levels/Models';
 import type { TActorWrapper, TActorWrapperWithPhysics, TAppCanvas, TCameraWrapper, TEngine, TSpace, TSpaceConfig } from '@/Engine';
@@ -31,7 +31,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     actor3W.physicsBody?.getRigidBody()?.addTorque({ x: 0.01, y: 5, z: -0.05 }, true);
 
     const actor1Position: Vector3 = actor1W.getPosition();
-    cameraW.lookAt(new Vector3(actor1Position.x, actor1Position.y, actor1Position.z));
+    cameraW.lookAt(actor1Position);
     cameraW.setY(actor1Position.y);
 
     physicsWorldService.getDebugRenderer(loopService).start();

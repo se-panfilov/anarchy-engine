@@ -64,6 +64,8 @@ export function getBulletsPool(
         height: 0.3,
         depth: 0.5
       },
+      position: new Vector3(),
+      rotation: new Euler(0, 0, 0),
       castShadow: true,
       receiveShadow: false
     });

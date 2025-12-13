@@ -15,7 +15,7 @@ export function applyObject3dParams(obj: TWithObject3d, { visible, castShadow, r
 }
 
 export function applyPosition(obj: TMovable3dXYZ, position?: Vector3): void {
-  if (isDefined(position)) obj.setPosition(position);
+  if (isDefined(position)) obj.setPosition(position.clone());
 }
 
 export function applyCenter(obj: CSS2DObject, center?: Vector2): void {
