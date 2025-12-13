@@ -1,4 +1,5 @@
 export * from './TPhysicsBodyFactory';
+export * from './TPhysicsBodyParams';
 export * from './TPhysicsBodyRegistry';
 export * from './TPhysicsBodyWrapper';
 export * from './TPhysicsConfig';
@@ -6,7 +7,6 @@ export * from './TPhysicsDebugRenderer';
 export * from './TPhysicsGlobalConfig';
 export * from './TPhysicsGlobalParams';
 export * from './TPhysicsGlobalProps';
-export * from './TPhysicsBodyParams';
 export * from './TPhysicsParams';
 export * from './TPhysicsPresetConfig';
 export * from './TPhysicsPresetParams';

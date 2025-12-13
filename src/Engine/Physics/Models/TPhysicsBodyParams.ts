@@ -122,3 +122,22 @@ export type TPhysicsBodyParams =
   | TPhysicsBodyRoundCylinderParams
   | TPhysicsBodyConeParams
   | TPhysicsBodyRoundConeParams;
+
+export type TAllPhysicsBodyParams = TPhysicsBodyBallParams &
+  TPhysicsBodyHalfSpaceParams &
+  TPhysicsBodyCuboidParams &
+  TPhysicsBodyRoundCuboidParams &
+  TPhysicsBodyCapsuleParams &
+  TPhysicsBodyRoundCapsuleParams &
+  TPhysicsBodySegmentParams &
+  TPhysicsBodyTriangleParams &
+  TPhysicsBodyRoundTriangleParams &
+  TPhysicsBodyPolylineParams &
+  TPhysicsBodyTriMeshParams &
+  TPhysicsBodyConvexPolyhedronParams &
+  TPolyhedronPhysicsBodyRoundConvexPolyhedronParams &
+  TPhysicsBodyHeightfieldParams &
+  TPhysicsBodyCylinderParams &
+  TPhysicsBodyRoundCylinderParams &
+  TPhysicsBodyConeParams &
+  TPhysicsBodyRoundConeParams;
