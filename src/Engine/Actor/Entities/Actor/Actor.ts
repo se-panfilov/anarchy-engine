@@ -2,7 +2,6 @@ import type { Subscription } from 'rxjs';
 import { distinctUntilChanged } from 'rxjs';
 import type { Vector3 } from 'three';
 
-import type { TEntity } from '@/Engine/Abstract';
 import { AbstractEntity, EntityType } from '@/Engine/Abstract';
 import { ActorDriveMixin } from '@/Engine/Actor/Mixins';
 import type { TActor, TActorDependencies, TActorDriveMixin, TActorEntities, TActorParams, TDriveToModel3dConnector } from '@/Engine/Actor/Models';
@@ -31,28 +30,12 @@ export function Actor(
     entities.updateSpatialCells(position);
   });
 
-  // TODO CWP The Actor flow is the following:
-  //  Case "Kinematic":
-  //  ✅ Kinematic mixin should have position$ and rotation$ (which piped to return Vector3 and Euler)
-  //  ✅ "doKinematicMove", "doKinematicRotation" should update Kinematic's position$ and rotation$
-  //  ✅ Kinematic updates drive's position$/rotation$ on "doKinematicMove", "doKinematicRotation"
-  //  ✅ Model3d is subscribed to Drive's position$/rotation$/scale$
-  //  ✅ When Drive's position$/rotation$/scale$ updated, Model3d updates its position/rotation/scale
-  //  ✅ External update of Actor's position$/rotation$ is allowed (scale$ is allowed)
-  //  Kinematic mixin should have "teleport" method which updates Kinematic's position$ and rotation$ immediately (if rotation is set, also update angle, and the speed should be set to 0)
-  //  --
-  //  Case "Physics":
-  //  Physics mixin should have position$ and rotation$ (not sure if we need to  pipe them to return Vector3 and Euler)
-  //  Actor is subscribed to Physics's position$, rotation$ (and maybe scale$)
-  //  Model3d is subscribed to Actor's position$/rotation$/scale$
-  //  When Actor's position$/rotation$/scale$ updated, Model3d updates its position/rotation/scale
-  //  External update of Actor's position$/rotation$/scale$ is forbidden
-  //  Physics mixin should have "teleport" method which updates Physics's position$ and rotation$ immediately (and scale$?). Check with Rapier docs
-  //  --
-  //  Case "None":
-  //  External update of Actor's position$/rotation$/scale$ is allowed (do nothing with Kinematic/Physics)
-
-  // TODO 8.0.0. MODELS: position$, rotation$, scale$ should update related model3d values
+  // TODO CWP:
+  // TODO 8.0.0. MODELS: Finish Actor's implementation, make sure it works with the KinematicDriver
+  // TODO 8.0.0. MODELS: Implement PhysicsDriver
+  // TODO 8.0.0. MODELS: Make sure it works with the Physics
+  // TODO 8.0.0. MODELS: Make spatial is working
+  // TODO 8.0.0. MODELS: Make collisions are working
 
   // const { value$: position$, update: updatePosition } = withReactivePosition(model3d);
   // const { value$: rotation$, update: updateRotation } = withReactiveRotation(model3d);
@@ -65,7 +48,12 @@ export function Actor(
     ...withUpdateSpatialCell()
   };
 
-  const actor: TEntity<TActorEntities> = AbstractEntity(entities, EntityType.Actor, params);
+  const actor: TActor = {
+    ...AbstractEntity(entities, EntityType.Actor, params),
+    position$: drive.position$,
+    rotation$: drive.rotation$,
+    scale$: drive.scale$
+  };
 
   const spatialSub$: Subscription = spatialLoopService.tick$.subscribe(({ priority }: TSpatialLoopServiceValue): void => {
     if (!entities.spatial.isAutoUpdate()) return;
@@ -90,17 +78,12 @@ export function Actor(
     entities.collisions?.destroy$.next();
   });
 
-  applySpatialGrid(params, entities, spatialGridService);
+  applySpatialGrid(params, actor, spatialGridService);
 
   // TODO 8.0.0. MODELS: check how collisions works with the model3d?
-  startCollisions(entities);
+  startCollisions(actor);
 
-  model3dToActorConnectionRegistry.addModel3d(model3d, entities);
+  model3dToActorConnectionRegistry.addModel3d(model3d, actor);
 
-  return {
-    ...actor,
-    position$: drive.position$,
-    rotation$: drive.rotation$,
-    scale$: drive.scale$
-  };
+  return actor;
 }

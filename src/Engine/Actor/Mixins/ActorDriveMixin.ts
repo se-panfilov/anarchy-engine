@@ -1,5 +1,5 @@
 import type { Observable, Subscription } from 'rxjs';
-import { BehaviorSubject, switchMap } from 'rxjs';
+import { BehaviorSubject, distinctUntilChanged, filter, switchMap } from 'rxjs';
 import type { Euler, Vector3 } from 'three';
 
 import { ProtectedDriverFacade } from '@/Engine/Abstract';
@@ -24,11 +24,29 @@ export function ActorDriveMixin(params: TActorParams, { kinematicLoopService }: 
   const destroyable: TDestroyable = destroyableMixin();
   const availableDrives: TActorActiveDrivers = { [ActorDriver.Kinematic]: kinematicDriver, [ActorDriver.Physical]: physicsDriver };
 
-  const positionSub$: Subscription = driver$.pipe(switchMap((drive: ActorDriver): Observable<Vector3> => availableDrives[drive as keyof TActorActiveDrivers].position$)).subscribe(position$);
-  const rotationSub$: Subscription = driver$.pipe(switchMap((drive: ActorDriver): Observable<Euler> => availableDrives[drive as keyof TActorActiveDrivers].rotation$)).subscribe(rotation$);
-  const scaleSub$: Subscription = driver$.pipe(switchMap((drive: ActorDriver): Observable<Vector3 | undefined> => availableDrives[drive as keyof TActorActiveDrivers].scale$)).subscribe(scale$);
+  const positionSub$: Subscription = driver$
+    .pipe(
+      switchMap((drive: ActorDriver): Observable<Vector3> => availableDrives[drive as keyof TActorActiveDrivers].position$),
+      distinctUntilChanged((prev: Vector3, curr: Vector3): boolean => prev.equals(curr))
+    )
+    .subscribe(position$);
 
-  const entities = {
+  const rotationSub$: Subscription = driver$
+    .pipe(
+      switchMap((drive: ActorDriver): Observable<Euler> => availableDrives[drive as keyof TActorActiveDrivers].rotation$),
+      distinctUntilChanged((prev: Euler, curr: Euler): boolean => prev.equals(curr))
+    )
+    .subscribe(rotation$);
+
+  const scaleSub$: Subscription = driver$
+    .pipe(
+      switchMap((drive: ActorDriver): Observable<Vector3 | undefined> => availableDrives[drive as keyof TActorActiveDrivers].scale$),
+      filter((value: Vector3 | undefined): value is Vector3 => value !== undefined),
+      distinctUntilChanged((prev: Vector3, curr: Vector3): boolean => prev.equals(curr))
+    )
+    .subscribe(scale$);
+
+  const result = {
     ...destroyable,
     driver$,
     position$,
@@ -53,10 +71,10 @@ export function ActorDriveMixin(params: TActorParams, { kinematicLoopService }: 
     scale$.complete();
     scale$.unsubscribe();
 
-    entities.kinematic.destroy$.next();
-    // TODO 8.0.0. MODELS: implement destroy of physics mixin (or remoe it if not needed)
-    // entities.physicsBody.destroy$.next();
+    result.kinematic.destroy$.next();
+    // TODO 8.0.0. MODELS: implement destroy of physics mixin (or remove it if it isn't needed)
+    // result.physicsBody.destroy$.next();
   });
 
-  return entities;
+  return result;
 }

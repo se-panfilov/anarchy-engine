@@ -1,5 +1,5 @@
 import type { Subscription } from 'rxjs';
-import { distinctUntilChanged } from 'rxjs';
+import { distinctUntilChanged, filter } from 'rxjs';
 import type { Euler, Vector3 } from 'three';
 
 import type { TActorDriveMixin, TDriveToModel3dConnector } from '@/Engine/Actor/Models';
@@ -17,7 +17,10 @@ export function DriveToModel3dConnector(drive: TActorDriveMixin, model3d: TModel
     .subscribe((rotation: Euler): Euler => model3d.getRawModel3d().rotation.copy(rotation));
 
   const scaleSub$: Subscription = drive.scale$
-    .pipe(distinctUntilChanged((prev: Vector3, curr: Vector3): boolean => prev.equals(curr)))
+    .pipe(
+      filter((value: Vector3 | undefined): value is Vector3 => value !== undefined),
+      distinctUntilChanged((prev: Vector3, curr: Vector3): boolean => prev.equals(curr))
+    )
     .subscribe((scale: Vector3): Vector3 => model3d.getRawModel3d().scale.copy(scale));
 
   const destroyable: TDestroyable = destroyableMixin();
