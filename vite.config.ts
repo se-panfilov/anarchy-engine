@@ -34,7 +34,7 @@ export default defineConfig({
       //Since we cannot use wasm version of @dimforge/rapier3d in vitest
       '@dimforge/rapier3d': path.resolve(__dirname, 'node_modules/@dimforge/rapier3d-compat')
     },
-    // setupFiles: './vitest.setup.js',
+    setupFiles: './vitest.setup.js',
     reporters: ['default', 'html'],
     outputFile: './reports/html/unit.html',
     coverage: {
