@@ -5,6 +5,8 @@ import type { Observable, Subject } from 'rxjs';
 
 import type { TEventsService, TEventsServiceDependencies } from '@/Levels/Showcase28Menu/Models';
 
+const { CloseMenu, ExitApp, GetLegalDocs, GetSettings, SetSettings } = FromMenuEvents;
+
 // TODO DESKTOP: Async events here should trigger a global loader (we need to implement one)
 export function EventsService({ mainMenuService, appService, settingsService }: TEventsServiceDependencies): TEventsService {
   function handleFromMenuEvents(fromMenuEventsBus$: Observable<TFromMenuEvent>, toMenuEventsBus$: Subject<TToMenuEvent>): void {
@@ -16,11 +18,11 @@ export function EventsService({ mainMenuService, appService, settingsService }: 
 
     fromMenuEventsBus$.subscribe(async (event: TFromMenuEvent): Promise<void> => {
       switch (event.type) {
-        case FromMenuEvents.CloseMenu: {
+        case CloseMenu: {
           closeMainMenu();
           break;
         }
-        case FromMenuEvents.SetSettings: {
+        case SetSettings: {
           if (isNotDefined(event.payload)) throw new Error(`[APP] No settings provided for saving`);
           if (!isSettings(event.payload)) throw new Error('[APP] Attempted to save invalid app settings');
           await setSettings(event.payload as TShowcaseGameSettings);
@@ -28,7 +30,7 @@ export function EventsService({ mainMenuService, appService, settingsService }: 
           if (isRestartNeeded) appService.restartApp();
           break;
         }
-        case FromMenuEvents.GetSettings: {
+        case GetSettings: {
           try {
             settings = await getSettings();
           } catch (error) {
@@ -42,7 +44,7 @@ export function EventsService({ mainMenuService, appService, settingsService }: 
           });
           break;
         }
-        case FromMenuEvents.GetLegalDocs: {
+        case GetLegalDocs: {
           if (isNotDefined(event.payload)) throw new Error(`[APP] No legal docs params provided`);
           if (!isLoadDocPayload(event.payload)) throw new Error(`[APP] payload is not valid legal docs params: ${event.payload}`);
           try {
@@ -58,7 +60,7 @@ export function EventsService({ mainMenuService, appService, settingsService }: 
           });
           break;
         }
-        case FromMenuEvents.ExitApp: {
+        case ExitApp: {
           appService.closeApp();
           break;
         }
