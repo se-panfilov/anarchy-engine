@@ -8,3 +8,4 @@ export * from './IMoveFn';
 export * from './IMoveFnParams';
 export * from './IMoverService';
 export * from './IMoverServiceConfig';
+export * from './IStopMoveCb';

@@ -1,7 +1,6 @@
 import type { IShowcase } from '@/App/Levels/Models';
 import type { IActorWrapper, IAnimationParams, IAppCanvas, ILevel, ILevelConfig, ITextWrapper, IWithCoordsXZ } from '@/Engine';
 import { ambientContext, buildLevelFromConfig, createCirclePathXZ, Easing, generateAnglesForCircle, isNotDefined, standardMoverService } from '@/Engine';
-import { followTarget } from '@/Engine/Services/MoverService/MoveSet';
 
 import levelConfig from './showcase-level-5.config.json';
 

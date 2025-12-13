@@ -7,11 +7,13 @@ import type {
   IAnimationParams,
   IFullKeyframeDestination,
   IKeyframeDestination,
+  IMoveableByTick,
   IMoveByPathFn,
   IMoveByPathFnParams,
   IMoveDestination,
   IMoveFn,
-  IMoveFnParams
+  IMoveFnParams,
+  IStopMoveCb
 } from '@/Engine/Services/MoverService/Models';
 import { createDeferredPromise } from '@/Engine/Utils';
 
@@ -25,6 +27,20 @@ export function performMove(moveFn: IMoveFn | IMoveByPathFn, loopService: ILoopS
     move.tick(frameTime);
   });
   return promise.then(() => tickSubscription.unsubscribe());
+}
+
+export function performMoveUntil<F extends (params: P) => IMoveableByTick, P>(moveFn: F, loopService: ILoopService, params: P): IStopMoveCb {
+  let move: IMoveableByTick | undefined = moveFn(params);
+  const tickSubscription: Subscription = loopService.tick$.subscribe(({ frameTime }: ILoopTimes): void => {
+    // TODO (S.Panfilov) CWP what about delta time?
+    // TODO (S.Panfilov) I'm not sure if this makes animation independent from frame rate. Need to test.
+    move?.tick(frameTime);
+  });
+
+  return (): void => {
+    tickSubscription.unsubscribe();
+    move = undefined;
+  };
 }
 
 // Do not use this function for complex paths (with more than 1 point), it might not work as expected when partial coords are provided.

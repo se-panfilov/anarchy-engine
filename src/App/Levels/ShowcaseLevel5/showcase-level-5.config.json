@@ -41,20 +41,20 @@
   ],
   "texts": [
     {
-      "text": "EaseInCirc",
+      "text": "Linear",
       "position": { "x": -20, "y": 2, "z": 2 },
-      "rotation": { "x": -90, "y": 0, "z": 0 },
+      "rotation": { "x": -1.57, "y": 0, "z": 0 },
       "color": "#ff0000",
       "fontSize": 1,
-      "tags": ["actor", "red", "easeInCirc"]
+      "tags": ["actor", "red", "linear"]
     },
     {
-      "text": "Linear",
+      "text": "EaseInCirc",
       "position": { "x": -20, "y": 2, "z": 0 },
-      "rotation": { "x": -90, "y": 0, "z": 0 },
+      "rotation": { "x": -1.57, "y": 0, "z": 0 },
       "color": "#0000ff",
       "fontSize": 1,
-      "tags": ["actor", "blue", "linear"]
+      "tags": ["actor", "blue", "easeInCirc"]
     }
   ],
   "cameras": [
