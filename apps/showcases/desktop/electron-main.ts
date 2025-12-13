@@ -1,8 +1,11 @@
 import { app, BrowserWindow, dialog, ipcMain, Menu } from 'electron';
+import type { Event, WebContentsWillNavigateEventParams } from 'electron';
 import { dirname, join } from 'path';
 import { fileURLToPath } from 'url';
 import { existsSync } from 'node:fs';
 import { getDisplayInfo } from './src/Utils/DisplayUtils.js';
+import { handleAppRequest } from './src/Services/AppToPlatformMessagesService.js';
+import { APP_TO_PLATFORM_CHANNEL } from './src/Constants/AppToPlatformMessagesConstants.js';
 
 const __filename: string = fileURLToPath(import.meta.url);
 const __dirname: string = dirname(__filename);
@@ -21,6 +24,7 @@ const isOpenDevTools: boolean = true;
 // TODO DESKTOP: npm scripts, like clean reinstall, etc?
 // TODO DESKTOP: Maybe move desktop app to the apps/showcases level?
 // TODO DESKTOP: Can we avoid copying of dist-desktop to dist-app? (check paths in asar)
+// TODO DESKTOP: add "sanitize assets" script for desktop/assets and mobile/assets
 
 function getIndexHtmlPath(): string {
   const path: string = app.isPackaged ? join(app.getAppPath(), 'dist-app', 'index.html') : join(__dirname, '..', 'dist-app', 'index.html');
@@ -65,11 +69,7 @@ function createWindow(width: number, height: number): BrowserWindow {
   return win;
 }
 
-// TODO DESKTOP: could it be a better place for this?
-// TODO DESKTOP: "ping" is just a test api, remove it.
-ipcMain.handle('ping', async () => {
-  return 'pong';
-});
+ipcMain.handle(APP_TO_PLATFORM_CHANNEL, handleAppRequest);
 
 app.whenReady().then((): void => {
   // TODO DESKTOP: use "getDisplayInfo()" as default settings, prioritize saved user settings and use hardcoded fallback settings. Same for fullscreen mode
@@ -89,7 +89,7 @@ app.whenReady().then((): void => {
   Menu.setApplicationMenu(emptyMenu);
 
   // TODO DESKTOP: Make sure navigation isn't working (also from mouse extra buttons)
-  win.webContents.on('will-navigate', (event, url): void => {
+  win.webContents.on('will-navigate', (event: Event<WebContentsWillNavigateEventParams>, url: string): void => {
     console.log(`[Desktop Main] navigation to {event.url} `);
 
     // event.preventDefault(); // Prevent navigation to other pages

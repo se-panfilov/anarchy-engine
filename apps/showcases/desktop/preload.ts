@@ -1,11 +1,12 @@
 import { contextBridge, ipcRenderer } from 'electron';
-//
-// const { contextBridge, ipcRenderer } = require('electron');
 
-// TODO DESKTOP: add "sanitize assets" script for desktop/assets and mobile/assets
-contextBridge.exposeInMainWorld('electronAPI', {
+// TODO DESKTOP: Const duplications from AppToPlatformMessagesConstants
+const APP_TO_PLATFORM_CHANNEL: string = 'app-to-platform-channel';
+const PLATFORM_API_NAME: string = 'platformAPI';
+
+contextBridge.exposeInMainWorld(PLATFORM_API_NAME, {
   // TODO DESKTOP: "ping" is just a test api, remove it.
-  ping: () => ipcRenderer.invoke('ping'),
+  ping: (num: number) => ipcRenderer.invoke(APP_TO_PLATFORM_CHANNEL, 'arg1', 'arg2', num),
   // TODO DESKTOP: "readConfig" is an example of reading file.
   readConfig: () => ipcRenderer.invoke('read-config'),
   // TODO DESKTOP: debug

@@ -43,6 +43,10 @@ const settings: TAppSettings = {
   }
 };
 
+// TODO Desktop: debug
+console.log('XXX platformAPI', window.platformAPI.ping);
+window.platformAPI.ping(101);
+
 setBrowserSafeguards(window);
 
 void start(settings);
