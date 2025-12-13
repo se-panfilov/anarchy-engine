@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { isNotDefined } from '@Anarchy/Shared/Utils';
+import MdRenderer from '@Showcases/Menu/components/MdRenderer.vue';
 import Navigation from '@Showcases/Menu/components/Navigation/Navigation.vue';
 import SettingsGroup from '@Showcases/Menu/components/SettingsGroup.vue';
 import View from '@Showcases/Menu/components/View.vue';
@@ -11,21 +13,9 @@ import { AllowedLegalDocNames } from '@Showcases/Shared';
 import type { ShallowRef } from 'vue';
 import { onMounted } from 'vue';
 
-// TODO DESKTOP: LEGAL: Display legal info (based on platform) in the menu.
-// The Plan:
-//
-// During legal files generation:
-// - In showcases-core app copy ./legal into ./public/legal
-// - In showcases-desktop app copy ./legal into ./assets/legal
-//
-// Via platform service provide the possibility to lazy-load the docs (params: "name", "lang")
-// Add possibility to menu to receive that lazy-loaded content
-// Render .md files in a scrollable view
-
 // TODO DESKTOP: LEGAL: change legal folders to /legal/{locale} (also public/legal/{locale}, assets/legal/{locale})
-
 onMounted(() => {
-  eventsService.emitLoadLegalDocs({ name: AllowedLegalDocNames.EULA, locale: useSettingsStore().localization.locale.id as TShowcaseLocaleIds });
+  if (isNotDefined(useLegalDocsStore().state.EULA)) eventsService.emitLoadLegalDocs({ name: AllowedLegalDocNames.EULA, locale: useSettingsStore().localization.locale.id as TShowcaseLocaleIds });
 });
 
 const { $t } = vueTranslationService;
@@ -37,7 +27,9 @@ const mainSettingsGroupTitleText: ShallowRef<string> = $t('main-menu.settings.le
 <template>
   <View class="legal" :title="viewTitleText">
     <ViewForm name="legal" class="legal__view-form">
-      <SettingsGroup :title="mainSettingsGroupTitleText"> {{ useLegalDocsStore().state.EULA }} </SettingsGroup>
+      <SettingsGroup :title="mainSettingsGroupTitleText">
+        <MdRenderer :content="useLegalDocsStore().state.EULA" />
+      </SettingsGroup>
       <Navigation class="settings__navigation" :back-btn="true" />
     </ViewForm>
   </View>

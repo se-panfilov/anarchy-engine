@@ -1,4 +1,4 @@
-import type { TDeepWriteable } from '@Anarchy/Shared/Utils';
+import type { TWriteable } from '@Anarchy/Shared/Utils';
 import { isNotDefined } from '@Anarchy/Shared/Utils';
 import type { TLegalDoc } from '@Showcases/Shared';
 import { AllowedLegalDocNames } from '@Showcases/Shared';
@@ -6,7 +6,7 @@ import { defineStore } from 'pinia';
 import { computed, reactive } from 'vue';
 
 export const useLegalDocsStore = defineStore('legalDocsStore', () => {
-  const state: TDeepWriteable<Record<keyof typeof AllowedLegalDocNames, string | undefined>> = reactive({
+  const state: TWriteable<Record<keyof typeof AllowedLegalDocNames, string | undefined>> = reactive({
     [AllowedLegalDocNames.EULA]: undefined,
     [AllowedLegalDocNames.NOTICE]: undefined,
     [AllowedLegalDocNames.DISCLAIMER]: undefined,
