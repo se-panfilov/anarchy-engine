@@ -7,12 +7,15 @@ import type { BrowserOptions, EventHint } from '@sentry/browser';
 import { captureException, init, setTags } from '@sentry/browser';
 import type { Client, ErrorEvent } from '@sentry/core';
 
-export function BrowserTrackingService(options?: BrowserOptions, metaData?: TMetaData): TTrackingService {
+export function BrowserTrackingService(options?: BrowserOptions, metaData?: TMetaData, dynamicDataFn?: () => Record<string, any>): TTrackingService {
   let isStarted: boolean = false;
 
   const defaultOptions: BrowserOptions = {
     beforeSend(event: ErrorEvent, _hint: EventHint): PromiseLike<ErrorEvent | null> | ErrorEvent | null {
-      return scrubUserPathsBrowser(scrubEvent(event));
+      const result: ErrorEvent = scrubUserPathsBrowser(scrubEvent(event));
+      // eslint-disable-next-line functional/immutable-data
+      if (isDefined(dynamicDataFn)) result.contexts = { ...(result.contexts ?? {}), extra: dynamicDataFn() };
+      return result;
     },
     integrations: [rewriteFramesIntegrationBrowser()],
     tracesSampleRate: 0,

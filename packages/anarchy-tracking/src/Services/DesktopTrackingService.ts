@@ -7,12 +7,15 @@ import type { ElectronMainOptions } from '@sentry/electron/esm/main';
 import type { ErrorEvent, EventHint } from '@sentry/electron/main';
 import { captureException, init, setTags } from '@sentry/electron/main';
 
-export function DesktopTrackingService(options?: ElectronMainOptions, metaData?: TMetaData): TTrackingService {
+export function DesktopTrackingService(options?: ElectronMainOptions, metaData?: TMetaData, dynamicDataFn?: () => Record<string, any>): TTrackingService {
   let isStarted: boolean = false;
 
   const defaultOptions: ElectronMainOptions = {
     beforeSend(event: ErrorEvent, _hint: EventHint): PromiseLike<ErrorEvent | null> | ErrorEvent | null {
-      return scrubUserPathsDesktop(scrubEvent(event as any) as ErrorEvent);
+      const result: ErrorEvent = scrubUserPathsDesktop(scrubEvent(event as any) as ErrorEvent);
+      // eslint-disable-next-line functional/immutable-data
+      if (isDefined(dynamicDataFn)) result.contexts = { ...(result.contexts ?? {}), extra: dynamicDataFn() };
+      return result;
     },
     integrations: [rewriteFramesIntegrationNode()],
     tracesSampleRate: 0,

@@ -7,12 +7,15 @@ import type { Integration } from '@sentry/core';
 import type { ErrorEvent, EventHint } from '@sentry/electron/renderer';
 import { captureException, init, setTags } from '@sentry/electron/renderer';
 
-export function DesktopPreloadTrackingService(options?: Record<string, any>, metaData?: TMetaData): TTrackingService {
+export function DesktopPreloadTrackingService(options?: Record<string, any>, metaData?: TMetaData, dynamicDataFn?: () => Record<string, any>): TTrackingService {
   let isStarted: boolean = false;
 
   const defaultOptions = {
     beforeSend(event: ErrorEvent, _hint: EventHint): PromiseLike<ErrorEvent | null> | ErrorEvent | null {
-      return scrubUserPathsBrowser(scrubEvent(event as any)) as ErrorEvent;
+      const result: ErrorEvent = scrubUserPathsBrowser(scrubEvent(event as any)) as ErrorEvent;
+      // eslint-disable-next-line functional/immutable-data
+      if (isDefined(dynamicDataFn)) result.contexts = { ...(result.contexts ?? {}), extra: dynamicDataFn() };
+      return result;
     },
     integrations: [rewriteFramesIntegrationBrowser() as () => Integration],
     tracesSampleRate: 0,
