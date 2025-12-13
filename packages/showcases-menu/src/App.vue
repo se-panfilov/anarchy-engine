@@ -15,7 +15,7 @@ console.log('XXX1', translationService.translate('menu.start'));
 translationService.locale$.next(Locales.nl);
 setTimeout(() => {
   console.log('XXX2', translationService.translate('menu.start'));
-}, 100);
+}, 500);
 
 // console.log(i18n.translate('hud.fps', { count: '60' }));
 // console.log(i18n.formatNumber(1234.56, { style: 'currency', currency: 'EUR' }));
@@ -35,6 +35,7 @@ function save(): void {
 
 <template>
   <div class="main-menu">
+    <div>{{ translationService.translate('menu.start') }}</div>
     <RouterView class="main-menu__item -view" @save="save" />
   </div>
 </template>
