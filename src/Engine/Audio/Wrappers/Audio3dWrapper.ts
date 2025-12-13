@@ -36,8 +36,10 @@ export function Audio3dWrapper(params: TAudio3dParams, { audioLoop, transformDri
 
   const destroySub$: Subscription = wrapper.destroy$.subscribe((): void => {
     destroySub$.unsubscribe();
-    // TODO 14-0-0: how to disconnect listener?
-
+    // eslint-disable-next-line functional/immutable-data
+    if (listener$.value) listener$.value.context = null as any;
+    // eslint-disable-next-line functional/immutable-data
+    if (listener$.value) listener$.value.gain = null as any;
     listener$.complete();
   });
 
