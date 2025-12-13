@@ -12,12 +12,11 @@ export function AbstractFactory<T extends Entity<unknown>, R extends Record<stri
 
   add$.subscribe((val: R): void => latest$.next(create(val)));
 
-  function destroy(): void {
-    latest$.complete();
+  destroyed$.subscribe(() => {
     add$.complete();
-    destroyed$.next();
+    latest$.complete();
     destroyed$.complete();
-  }
+  });
 
   return {
     get id(): string {
@@ -29,7 +28,6 @@ export function AbstractFactory<T extends Entity<unknown>, R extends Record<stri
     get add$(): Subject<R> {
       return add$;
     },
-    destroy,
     get destroyed$(): Subject<void> {
       return destroyed$;
     }
