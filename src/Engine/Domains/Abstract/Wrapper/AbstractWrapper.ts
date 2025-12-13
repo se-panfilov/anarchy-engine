@@ -1,4 +1,5 @@
 import { nanoid } from 'nanoid';
+import type { Observable } from 'rxjs';
 import { BehaviorSubject } from 'rxjs';
 
 import type { WrapperType } from '@/Engine/Domains/Abstract';
@@ -36,6 +37,9 @@ export function AbstractWrapper<T>(entity: T, type: string, params?: Readonly<{ 
     tags: params?.tags ?? [],
     isRegistrable: true,
     destroy,
-    destroyed$
+    get destroyed$(): Observable<boolean> {
+      return destroyed$.asObservable();
+    },
+    isDestroyed: (): boolean => destroyed$.getValue()
   };
 }

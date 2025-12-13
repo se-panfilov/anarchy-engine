@@ -93,7 +93,6 @@ export function AbstractRegistry<T extends IRegistrable | IMultitonRegistrable>(
     get replaced$(): Observable<T> {
       return replaced$.asObservable();
     },
-    destroyed$,
     get removed$(): Observable<T> {
       return removed$.asObservable();
     },
@@ -108,7 +107,11 @@ export function AbstractRegistry<T extends IRegistrable | IMultitonRegistrable>(
     getUniqByTag,
     registry,
     remove,
-    destroy
+    destroy,
+    get destroyed$(): Observable<boolean> {
+      return destroyed$.asObservable();
+    },
+    isDestroyed: (): boolean => destroyed$.getValue()
   };
 }
 

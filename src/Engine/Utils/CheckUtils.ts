@@ -16,7 +16,7 @@ export function isRegistrable<T>(obj: T | IRegistrable): obj is IRegistrable {
 }
 
 export function isDestroyable<T>(obj: T | IDestroyable): obj is IDestroyable {
-  return isDefined((obj as unknown as IDestroyable).destroy) && isDefined((obj as unknown as IDestroyable).destroyed$);
+  return isDefined((obj as unknown as IDestroyable).destroy) && isDefined((obj as unknown as IDestroyable).destroyed$) && isDefined((obj as unknown as IDestroyable).isDestroyed);
 }
 
 export function isString(value: unknown): value is string {

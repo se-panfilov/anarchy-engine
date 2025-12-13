@@ -1,4 +1,5 @@
 import { nanoid } from 'nanoid';
+import type { Observable } from 'rxjs';
 import { BehaviorSubject, Subject } from 'rxjs';
 
 import type { CommonTag, WatcherType } from '@/Engine/Domains/Abstract/Constants';
@@ -29,15 +30,16 @@ export function AbstractWatcher<T>(type: WatcherType | string, tags: ReadonlyArr
     get value$(): Subject<T> {
       return value$;
     },
-    destroy,
-    get destroyed$(): BehaviorSubject<boolean> {
-      return destroyed$;
-    },
     get tags(): ReadonlyArray<CommonTag | string> {
       return tags;
     },
     get isRegistrable(): boolean {
       return true;
-    }
+    },
+    destroy,
+    get destroyed$(): Observable<boolean> {
+      return destroyed$.asObservable();
+    },
+    isDestroyed: (): boolean => destroyed$.getValue()
   };
 }

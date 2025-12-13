@@ -131,17 +131,22 @@ describe('CheckUtils', () => {
 
   describe('isDestroyable', () => {
     it('should return "true" if "destroy" and "destriyed$" is defined', () => {
-      const obj: IDestroyable = { destroy: () => undefined, destroyed$: new BehaviorSubject<boolean>(false) };
+      const obj: IDestroyable = { destroy: () => undefined, destroyed$: new BehaviorSubject<boolean>(false).asObservable(), isDestroyed: (): boolean => false };
       expect(isDestroyable(obj)).toBe(true);
     });
 
     it('should return "false" if "destroy" is NOT defined', () => {
-      const obj: any = { destroyed$: new BehaviorSubject<boolean>(false) };
+      const obj: any = { destroyed$: new BehaviorSubject<boolean>(false).asObservable(), isDestroyed: (): boolean => false };
       expect(isDestroyable(obj)).toBe(false);
     });
 
     it('should return "false" if "destroyed$" is NOT defined', () => {
-      const obj: any = { destroy: () => undefined };
+      const obj: any = { destroy: () => undefined, isDestroyed: (): boolean => false };
+      expect(isDestroyable(obj)).toBe(false);
+    });
+
+    it('should return "false" if "isDestroyed" is NOT defined', () => {
+      const obj: any = { destroy: () => undefined, destroyed$: new BehaviorSubject<boolean>(false).asObservable() };
       expect(isDestroyable(obj)).toBe(false);
     });
   });

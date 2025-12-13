@@ -8,7 +8,7 @@ import { RendererFactory, RendererModes, RendererRegistry, RendererTag } from '@
 import type { ISceneConfig, ISceneFactory, ISceneRegistry, ISceneWrapper } from '@Engine/Domains/Scene';
 import { SceneFactory, SceneRegistry, SceneTag } from '@Engine/Domains/Scene';
 import { isNotDefined, isValidLevelConfig } from '@Engine/Utils';
-import type { Subscription } from 'rxjs';
+import type { Observable, Subscription } from 'rxjs';
 import { BehaviorSubject } from 'rxjs';
 
 import { ambientContext } from '@/Engine/Context';
@@ -148,20 +148,19 @@ export function buildLevelFromConfig(canvas: IAppCanvas, config: ILevelConfig): 
   if (isNotDefined(initialCamera)) throw new Error(`Cannot start the main loop for the level "${name}": initial camera is not defined`);
 
   function markLevelAsBuilt(): void {
-    isInternalChange = true;
+    isBuiltInternalChange = true;
     built$.next(true);
   }
 
   markLevelAsBuilt();
 
   function destroy(): void {
-    isInternalChange = true;
+    isDestroyedInternalChange = true;
     destroyed$.next(true);
   }
 
   return {
     name,
-    destroy,
     start(): ILoopWrapper {
       intersectionsWatcher.start();
       loop.start(renderer, scene, initialCamera, controlsRegistry);
@@ -173,7 +172,6 @@ export function buildLevelFromConfig(canvas: IAppCanvas, config: ILevelConfig): 
       // loop.stop(renderer, scene, initialCamera, controlsRegistry);
     },
     built$,
-    destroyed$,
     actor: {
       factory: { initial: actorFactory },
       registry: { initial: actorRegistry }
@@ -206,6 +204,11 @@ export function buildLevelFromConfig(canvas: IAppCanvas, config: ILevelConfig): 
       factory: { initial: rendererFactory },
       registry: { initial: rendererRegistry }
     },
-    tags
+    tags,
+    destroy,
+    get destroyed$(): Observable<boolean> {
+      return destroyed$.asObservable();
+    },
+    isDestroyed: (): boolean => destroyed$.getValue()
   };
 }
