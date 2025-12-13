@@ -16,15 +16,17 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
 
   function init(): void {
     physicsWorldService.getDebugRenderer(physicalLoop).start();
+    // physicalLoop.enabled$.next(false);
 
     addGizmo(space.services, ambientContext.screenSizeWatcher, space.loops, { placement: 'bottom-left' });
-
-    const actor: TActor | undefined = actorService.getRegistry().findByName('sphere_4_actor');
-    if (isNotDefined(actor)) throw new Error('Non-physical actor not found');
 
     //run/stop physics loop
     keyboardService.onKey(KeysExtra.Space).pressed$.subscribe((): void => physicalLoop.enabled$.next(true));
     keyboardService.onKey(KeysExtra.Space).released$.subscribe((): void => physicalLoop.enabled$.next(false));
+    console.log('XXX5', physicalLoop.enabled$.value);
+
+    const actor: TActor | undefined = actorService.getRegistry().findByName('sphere_4_actor');
+    if (isNotDefined(actor)) throw new Error('Non-physical actor not found');
 
     //always running non-physical actor
     const clock: Clock = new Clock();

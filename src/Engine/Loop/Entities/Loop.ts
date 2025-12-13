@@ -27,7 +27,7 @@ export function Loop({ name, type, trigger, showDebugInfo }: TLoopParams): TLoop
 
   const runInterval = (): number => setInterval((): void => tick$.next(deltaCalc.update()), trigger as number) as unknown as number;
 
-  let intervalId: number = runInterval();
+  let intervalId: number | undefined;
 
   const enableSub$: Subscription = enabled$.pipe(distinctUntilChanged()).subscribe((isEnabled: boolean): void => {
     if (isEnabled) {
