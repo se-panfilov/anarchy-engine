@@ -1,3 +1,5 @@
+import type { TModels3dService } from 'src/Engine/Models3D';
+
 import type { TCollisionsLoopService, TCollisionsService } from '@/Engine/Collisions';
 import type { TKinematicLoopService } from '@/Engine/Kinematic';
 import type { TMaterialTextureService } from '@/Engine/MaterialTexturePack/Models';
@@ -6,6 +8,7 @@ import type { TSpatialGridService, TSpatialLoopService } from '@/Engine/Spatial'
 
 export type TActorDependencies = Readonly<{
   materialTextureService: TMaterialTextureService;
+  models3dService: TModels3dService;
   kinematicLoopService: TKinematicLoopService;
   spatialLoopService: TSpatialLoopService;
   spatialGridService: TSpatialGridService;

@@ -14,6 +14,7 @@ export async function createActorMesh(params: TActorParams, { materialTextureSer
   if (params.type === ActorType.Plane) return createPlane(params, materialWrapper.entity);
   if (params.type === ActorType.Sphere) return createSphere(params, materialWrapper.entity);
   if (params.type === ActorType.Cube) return createCube(params, materialWrapper.entity);
+  if (params.type === ActorType.Custom) return models3dService.createModel(params, materialWrapper.entity);
 
   throw new Error('Cannot create Actor: unknown actor type');
 }

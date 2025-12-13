@@ -15,15 +15,13 @@ import { withTextures } from '@/Engine/Texture';
 import type { TMesh } from '@/Engine/ThreeLib';
 import { applyObject3dParams, applyPosition, applyRotation, applyScale, isDefined } from '@/Engine/Utils';
 
-import { createActorMesh } from './ActorUtils';
-
 export async function ActorWrapperAsync(
   params: TActorParams,
-  { materialTextureService, kinematicLoopService, spatialLoopService, spatialGridService, collisionsLoopService, collisionsService }: TActorDependencies
+  { materialTextureService, models3dService, kinematicLoopService, spatialLoopService, spatialGridService, collisionsLoopService, collisionsService }: TActorDependencies
 ): Promise<TActorWrapperAsync> {
   // TODO AWAIT: could speed up by not awaiting mesh to be build
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-  const entity: TMesh = await createActorMesh(params, { materialTextureService });
+  const entity: TMesh = await models3dService.createModel(params);
 
   const withMaterialEntity: TWithMaterial = withMaterial(entity);
 
