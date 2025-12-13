@@ -6,7 +6,7 @@ import type { IActorAsyncRegistry, IActorConfig, IActorFactory, IActorWrapper } 
 import { ActorAsyncRegistry, ActorFactory } from '@/Engine/Actor';
 import type { IAppCanvas } from '@/Engine/App';
 import type { ICameraConfig, ICameraFactory, ICameraRegistry, ICameraWrapper } from '@/Engine/Camera';
-import { CameraFactory, CameraRegistry, CameraTag } from '@/Engine/Camera';
+import { CameraFactory, CameraRegistry } from '@/Engine/Camera';
 import { ambientContext } from '@/Engine/Context';
 import type { IControlsFactory, IControlsRegistry, IOrbitControlsConfig, IOrbitControlsWrapper } from '@/Engine/Controls';
 import { ControlsFactory, ControlsRegistry } from '@/Engine/Controls';
@@ -114,7 +114,7 @@ export function buildLevelFromConfig(canvas: IAppCanvas, config: ILevelConfig): 
   messages$.next(`Renderer created`);
 
   const loopTickSubscription: Subscription = standardLoopService.tick$.subscribe(({ delta }: ILoopTimes): void => {
-    const activeCamera: ICameraWrapper | undefined = cameraRegistry.getUniqByTag(CameraTag.Active);
+    const activeCamera: ICameraWrapper | undefined = cameraRegistry.getActiveCamera();
     if (isDefined(activeCamera)) {
       renderer.entity.render(scene.entity, activeCamera.entity);
       // TODO (S.Panfilov) update these text renderers only when there are any text (or maybe only when it's changed)
