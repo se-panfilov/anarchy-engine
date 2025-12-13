@@ -1,3 +1,4 @@
+import type { Locator } from '@playwright/test';
 import { expect, test } from '@playwright/test';
 
 const VIEWPORT = { width: 800, height: 600 };
@@ -6,42 +7,32 @@ const GAME_URL = `http://localhost:${process.env.PORT}`;
 
 test.use({ viewport: VIEWPORT });
 
-test('Save and load scene (no changes)', async ({ page }) => {
+test('SpaceBasic', async ({ page }) => {
   await page.goto(GAME_URL);
 
-  await page.waitForTimeout(500);
+  const spaceSelect: Locator = page.getByLabel('Spaces');
+  await expect(spaceSelect).toBeVisible();
 
-  // Take reference screenshot before saving
-  await expect(page).toHaveScreenshot('scene-before-save.png');
+  await page.getByLabel('Spaces').selectOption('SpaceBasic');
 
-  // Trigger save and load
-  // await page.click('#save-button');
-  // await page.click('#load-button');
-  // await page.getByRole('button', { name: /save/i }).click();
-  // await page.getByRole('button', { name: 'Save' }).click();
-  // await page.getByText('Save').click();
+  await expect(page.locator('canvas')).toHaveScreenshot('SpaceBasic-before.png');
 
-  await page.waitForTimeout(500);
+  await page.getByRole('button', { name: 'Change' }).click();
 
-  // Take screenshot after load
-  await expect(page).toHaveScreenshot('scene-after-load.png');
+  await expect(page.locator('canvas')).toHaveScreenshot('SpaceBasic-after.png');
 });
 
-// test('Test 2 — Save and Load after modifying actor', async ({ page }) => {
-//   await page.goto(GAME_URL);
-//
-//   // TODO get actor here
-//   const moveButton = await page.getByRole('button', { name: /move actor/i });
-//   await moveButton.click();
-//
-//   await page.waitForTimeout(500);
-//
-//   await expect(page).toHaveScreenshot('scene-before-save-moved');
-//
-//   await page.getByRole('button', { name: /save/i }).click();
-//   await page.getByRole('button', { name: /load/i }).click();
-//
-//   await page.waitForTimeout(500);
-//
-//   await expect(page).toHaveScreenshot('scene-after-load-moved');
-// });
+test('SpaceCustomModels', async ({ page }) => {
+  await page.goto(GAME_URL);
+
+  const spaceSelect: Locator = page.getByLabel('Spaces');
+  await expect(spaceSelect).toBeVisible();
+
+  await page.getByLabel('Spaces').selectOption('SpaceCustomModels');
+
+  await expect(page.locator('canvas')).toHaveScreenshot('SpaceCustomModels-before.png');
+
+  await page.getByRole('button', { name: 'Change' }).click();
+
+  await expect(page.locator('canvas')).toHaveScreenshot('SpaceCustomModels-after.png');
+});
