@@ -1,42 +1,16 @@
 import * as fs from 'node:fs';
 
-import type { TResolution } from '@ShowcasesShared';
+import { AllowedFolders } from '@Desktop/Constants';
+import type { TSettingsService } from '@Desktop/Models';
+import type { TGameSettings } from '@ShowcasesShared';
 import type { App } from 'electron';
 import { join } from 'path';
 
-type TDesktopAppSettings = Readonly<{ screen: TScreenSettings }>;
-type TScreenSettings = Readonly<{
-  resolution: TResolution;
-  fullscreen: boolean;
-}>;
-
-type TAllowedFolders =
-  | 'home'
-  | 'appData'
-  | 'userData'
-  | 'sessionData'
-  | 'temp'
-  | 'exe'
-  | 'module'
-  | 'desktop'
-  | 'documents'
-  | 'downloads'
-  | 'music'
-  | 'pictures'
-  | 'videos'
-  | 'recent'
-  | 'logs'
-  | 'crashDumps';
-const userDataFolder: TAllowedFolders = 'userData';
+const userDataFolder: AllowedFolders = AllowedFolders.UserData;
 const appSettingsFileName: string = 'user-config.json';
 
-export type TSettingsService = Readonly<{
-  loadAppSettings: () => TDesktopAppSettings | undefined;
-  saveAppSettings: (settings: TDesktopAppSettings) => void;
-}>;
-
 export function SettingsService(app: App): TSettingsService {
-  function loadAppSettings(): TDesktopAppSettings | undefined {
+  function loadAppSettings(): TGameSettings | undefined {
     try {
       const settingsFile: string = join(app.getPath(userDataFolder), appSettingsFileName);
       const raw: string = fs.readFileSync(settingsFile, 'utf-8');
@@ -47,7 +21,7 @@ export function SettingsService(app: App): TSettingsService {
     }
   }
 
-  function saveAppSettings(settings: TDesktopAppSettings): void {
+  function saveAppSettings(settings: TGameSettings): void {
     const settingsFile: string = join(app.getPath(userDataFolder), appSettingsFileName);
     fs.writeFileSync(settingsFile, JSON.stringify(settings, null, 2), 'utf-8');
   }

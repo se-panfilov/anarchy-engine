@@ -1,12 +1,12 @@
 import { platformApiChannel } from '@Desktop/Constants';
 import { appCrashHandler, appWindowAllClosedHandler, windowNavigateHandler, windowSecondInstanceHandler } from '@Desktop/EventHandlers';
-import type { TDesktopAppSettings } from '@Desktop/Models';
+import type { TDesktopAppConfig } from '@Desktop/Models';
 import { handleAppRequest, WindowService } from '@Desktop/Services';
 import { getDisplayInfo, hideMenuBar, noZoom, turnOffMenuBarAndHotkeys } from '@Desktop/Utils';
 import type { BrowserWindow } from 'electron';
 import { app, ipcMain } from 'electron';
 
-const desktopAppSettings: TDesktopAppSettings = {
+const desktopAppSettings: TDesktopAppConfig = {
   isOpenDevTools: true
 };
 

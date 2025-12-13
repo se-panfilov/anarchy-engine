@@ -1,6 +1,6 @@
 import { existsSync } from 'node:fs';
 
-import type { TDesktopAppSettings, TWindowService } from '@Desktop/Models';
+import type { TDesktopAppConfig, TWindowService } from '@Desktop/Models';
 import { app, BrowserWindow, dialog } from 'electron';
 import { dirname, join } from 'path';
 import { fileURLToPath } from 'url';
@@ -23,7 +23,7 @@ export function WindowService(): TWindowService {
     return path;
   }
 
-  function createWindow(width: number, height: number, { isOpenDevTools }: TDesktopAppSettings): BrowserWindow {
+  function createWindow(width: number, height: number, { isOpenDevTools }: TDesktopAppConfig): BrowserWindow {
     const win = new BrowserWindow({
       width,
       height,
