@@ -6,6 +6,7 @@
 - 2.4.0 Async read/write files
 - 2.5.0 App close/restart
 - 2.6.0 Patch settings
+- 2.7.0 Build meta info (versions)
 
 Roadmap:
 
