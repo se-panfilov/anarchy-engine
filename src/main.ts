@@ -4,7 +4,7 @@ import './style.css';
 import { launch } from '@Engine/Launcher';
 import type { ISceneConfig } from '@Engine/Launcher/Models';
 
-// TODO (S.Panfilov) for a production we need a runtime validation
+// TODO (S.Panfilov) for a production we need a runtime validation for the json (against a schema or type)
 launch(sceneConfig as unknown as ISceneConfig);
 
 //Ambient Context
