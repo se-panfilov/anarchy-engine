@@ -1,8 +1,9 @@
 import { Euler } from 'three';
 import { Vector3 } from 'three/src/math/Vector3';
 
+import type { TKinematicLoopService } from '@/Engine/Kinematic';
 import { TextType } from '@/Engine/Text/Constants';
-import type { TText2dWrapper, TText3dWrapper, TTextParams } from '@/Engine/Text/Models';
+import type { TText2dWrapper, TText3dWrapper, TTextDependencies, TTextParams } from '@/Engine/Text/Models';
 import { Text2dWrapper, Text3dWrapper } from '@/Engine/Text/Wrappers';
 
 import { isText2dWrapper, isText3dWrapper } from './TextUtils';
@@ -20,8 +21,10 @@ describe('TextUtils', () => {
     tags: []
   };
 
-  const text2dWrapper: TText2dWrapper = Text2dWrapper({ ...textPrams, type: TextType.Text2d });
-  const text3dWrapper: TText3dWrapper = Text3dWrapper({ ...textPrams, type: TextType.Text3d });
+  const dependencies: TTextDependencies = { kinematicLoopService: vi.fn() as any as TKinematicLoopService };
+
+  const text2dWrapper: TText2dWrapper = Text2dWrapper({ ...textPrams, type: TextType.Text2d }, dependencies);
+  const text3dWrapper: TText3dWrapper = Text3dWrapper({ ...textPrams, type: TextType.Text3d }, dependencies);
 
   describe('isText2dWrapper', () => {
     it('should return "true" for 2d text', () => {
