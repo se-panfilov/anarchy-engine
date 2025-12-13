@@ -53,3 +53,5 @@ export const isEntityWith4dPosition = (obj: IWithPositionProperty): obj is IWith
 
 export const isAsyncRegistry = (registry: IAbstractEntityRegistry<any> | IAbstractAsyncRegistry<any>): registry is IAbstractAsyncRegistry<any> =>
   isDefined((registry as IAbstractAsyncRegistry<any>).findByTagsAsync) && isDefined((registry as IAbstractAsyncRegistry<any>).findByTagAsync);
+
+export const isBoolean = (value: unknown): value is boolean => typeof value === 'boolean';

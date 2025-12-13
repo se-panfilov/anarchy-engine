@@ -7,6 +7,7 @@ import { Vector2Wrapper, Vector3Wrapper, Vector4Wrapper } from '@/Engine/Vector'
 
 import {
   isAsyncRegistry,
+  isBoolean,
   isColorWrapper,
   isDefined,
   isDestroyable,
@@ -442,6 +443,40 @@ describe('CheckUtils', () => {
       };
       // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
       expect(isAsyncRegistry(registry)).toBe(false);
+    });
+  });
+
+  describe('isBoolean', () => {
+    it('should return "true" from boolean "true"', () => {
+      expect(isBoolean(true)).toBe(true);
+    });
+
+    it('should return "true" from boolean "false"', () => {
+      expect(isBoolean(true)).toBe(true);
+    });
+
+    it('should return "false" from string "true"', () => {
+      expect(isBoolean('true')).toBe(false);
+    });
+
+    it('should return "false" from string "false"', () => {
+      expect(isBoolean('false')).toBe(false);
+    });
+
+    it('should return "false" from "undefined"', () => {
+      expect(isBoolean(undefined)).toBe(false);
+    });
+
+    it('should return "false" from string "null"', () => {
+      expect(isBoolean(undefined)).toBe(false);
+    });
+
+    it('should return "false" from "1"', () => {
+      expect(isBoolean(1)).toBe(false);
+    });
+
+    it('should return "false" from "0"', () => {
+      expect(isBoolean(0)).toBe(false);
     });
   });
 });
