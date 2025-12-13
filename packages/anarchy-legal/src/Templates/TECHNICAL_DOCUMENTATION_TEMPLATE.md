@@ -1,125 +1,87 @@
 # Technical Documentation (Technical File) — {{PRODUCT_DISPLAY_NAME}}{{TRADEMARK_SYMBOL}}
 
-**Maintained by:** {{LEGAL_ENTITY_NAME}}
+**Manufacturer:** {{LEGAL_ENTITY_NAME}}
+
 **Contacts:** Reg./Legal {{LEGAL_EMAIL}} · Security {{SECURITY_EMAIL}}
+
 **Product:** {{PRODUCT_DISPLAY_NAME}}{{TRADEMARK_SYMBOL}} (the “{{PRODUCT_TERM}}”)
+
 **Conformity series:** {{CONFORMITY_SERIES}} (baseline **{{BASELINE_VERSION}}**, dated **{{BASELINE_EFFECTIVE_DATE}}**)
+
 **Confidentiality:** Internal; provided to competent authorities upon request.
 
-> This index enumerates the artifacts comprising the **Technical File** for CRA conformity and related obligations. Sections may be separate files/folders referenced here. Unless noted, the {{PRODUCT_TERM}} operates **offline** by default and does **not** process personal data by default.
+> This index points to the core artifacts that substantiate CRA conformity. The {{PRODUCT_TERM}} works **offline by default** and **does not** process personal data by default. Where optional online/diagnostic features exist, see **PRIVACY**.
 
 ---
 
-## A. Release & Build Registry (Annex A)
+## A. Product description (what it is)
 
-Records referenced by the EU DoC.
-
-- **Baseline:** {{BASELINE_VERSION}} ({{BASELINE_EFFECTIVE_DATE}}) — commit/tag: {{BASELINE_COMMIT_OR_TAG}}
-- **Covered minor/patch releases** (within {{CONFORMITY_SERIES}} not introducing substantial change):
-  | Version | Date | Commit/Tag | Distribution channel(s) | Checksums / signatures |
-  |--------|------|------------|--------------------------|------------------------|
-  | | | | | |
-
-- **Reproducibility notes:** how to rebuild from source (toolchain/hash), SBOM link, CI pipeline reference.
+- **Intended use / environment:** non-safety-critical, personal use; standalone software (product with digital elements).
+- **Architecture overview:** high-level diagrams/notes (optional).
+- **Distribution channels:** as described in **INSTRUCTIONS** (e.g., installers, archives, store listings).
+- **Dependencies (runtime):** summarized; **full list** → **SBOM**.
 
 ---
 
-## B. Product Description
+## B. Conformity assessment route
 
-- **Intended use / environment:** {{INTENDED_USE}} (non-safety-critical; personal use).
-- **Architecture overview:** {{ARCHITECTURE_SUMMARY}} (diagrams if available).
-- **Distribution channels:** {{DISTRIBUTION_CHANNELS_LIST}}.
-- **Runtime dependencies (summary):** core libs/runtimes; **full list** → SBOM (Section F).
-
----
-
-## C. Conformity Assessment Route
-
-- **Route:** {{CONFORMITY_ASSESSMENT_ROUTE}} (e.g., internal control / third-party assessment).
+- **Route:** internal control (no fixed cadence of assessments unless required).
   {{#HAS_NOTIFIED_BODY}}
-- **Notified Body:** {{NOTIFIED_BODY_NAME}} (NB {{NOTIFIED_BODY_NUMBER}}) — activity/certificate: {{NOTIFIED_BODY_CERT_REF}}
+- **Notified Body:** {{NOTIFIED_BODY_NAME}} (NB {{NOTIFIED_BODY_NUMBER}}) — {{NOTIFIED_BODY_CERT_REF}}
   {{/HAS_NOTIFIED_BODY}}
 
 ---
 
-## D. CRA Essential Requirements Mapping
+## C. Essential requirements (CRA) — evidence map
 
-Evidence/artifacts per requirement (link to files/locations):
-
-- **Secure development & change control:** {{SECURE_DEV_PRACTICES}} (coding standards, code review, CI, dependency pinning, signing).
-- **Vulnerability handling:** `INCIDENT_RESPONSE.md` / `SECURITY.*` (CVD inbox {{SECURITY_EMAIL}}; intake/triage, severity, disclosure).
-- **Security updates policy:** {{UPDATE_POLICY_SUMMARY}} (delivery via distribution channels; no fixed cadence).
-- **Default configuration & hardening:** {{HARDENING_DEFAULTS}} (least privilege, sandboxing, permissions).
-- **Logging/diagnostics (local):** {{LOGGING_SUMMARY}} (no personal data by default).
-- **Data protection by design/by default:** **No personal data by default**; if optional online/crash-reports enabled → reference **PRIVACY.\*** and DPIA/ROPA (Annex D).
-- **Accessibility (EAA):** {{ACCESSIBILITY_MEASURES}}; contact: {{ACCESSIBILITY_CONTACT}}.
-- **Security support period:** shorter of **{{SECURITY_SUPPORT_PERIOD_MONTH}} months (major)** or **5 years** from initial commercial release (see `SECURITY.*`).
+- **Secure development & change control:** see **SECURITY** (CVD inbox {{SECURITY_EMAIL}}), repo policies, dependency pinning/signing (short note).
+- **Vulnerability handling & updates:** see **SECURITY** (delivery via distribution channels; **no SLA/cadence**).
+- **Default configuration / hardening:** minimal permissions; sandboxing/OS-policies where applicable (short note).
+- **Data protection by design/default:** **no personal data by default**; optional features/diagnostics → **PRIVACY** (+ DPIA/ROPA only if такие функции включены).
+- **Accessibility (EAA):** basic info & contact {{ACCESSIBILITY_CONTACT}} (или “N/A”).
+- **Security support period:** **{{SECURITY_SUPPORT_PERIOD_MONTH}} months** for the major version or **≤5 years** from initial commercial release (whichever is shorter) — see **SECURITY**.
 
 ---
 
-## E. Risk Assessment & Mitigations
+## D. Risk assessment (summary)
 
-- **Threat model / attack surface:** {{THREAT_MODEL_REF}} (assets, trust boundaries).
-- **Third-party component risks:** {{THIRD_PARTY_RISK_SUMMARY}} (ties to SBOM & update cadence).
-- **Residual risks / known limitations:** {{RESIDUAL_RISKS}} (and communicated user guidance).
-
----
-
-## F. Testing & Verification
-
-- **Security testing:** {{SECURITY_TESTS}} (SAST/DAST/manual review scope and key findings/closure).
-- **Functional/compat tests:** {{FUNC_TESTS}} (platforms/browsers/OSes).
-- **Penetration testing (if any):** {{PEN_TEST_SUMMARY}} (scope/date/provider), or **N/A**.
+- **Threat model / attack surface:** short summary (offline, local execution; main vectors: supply chain, integrity of bundles).
+- **Third-party components risk:** addressed via **SBOM** + updates.
+- **Residual risks / limitations:** brief list (e.g., modding at user’s risk; untrusted plugins not supported).
 
 ---
 
-## G. SBOM
+## E. Testing & verification (summary)
 
-- **Format & location:** {{SBOM_FORMAT}} at {{SBOM_LOCATION}} (e.g., CycloneDX JSON in `sbom/`).
-- **Generation process:** {{SBOM_PROCESS}} (tool/version; pipeline step; signature, if any).
-
----
-
-## H. Labels, Notices & Markings
-
-- **CE Marking placement:** see `INSTRUCTIONS.*` (section “CE Marking”); image at `ce-mark.png`.
-- **Legal notices packaged offline:** `EULA.*`, `PRIVACY.*`, `SECURITY.*`, `DISCLAIMER.*`, `NOTICE.*`, `THIRD_PARTY_LICENSES.*`, `LICENSE`, `EU_DECLARATION_OF_CONFORMITY.pdf`, `INSTRUCTIONS.*`.
+- **Security testing performed:** SAST/DAST/manual review (scope + one-line result).
+- **Compat/functional checks:** smoke tests on supported platforms (see **INSTRUCTIONS**).
+- **Pen-test:** N/A or short note (if ever done, attach brief).
 
 ---
 
-## I. Lifecycle, Support & Post-Market Monitoring
+## F. SBOM
 
-- **Security support period:** as above ({{SECURITY_SUPPORT_PERIOD_MONTH}} months or ≤5 years).
-- **End-of-support (EoS) procedure:** {{EOS_PROCEDURE}} (how users are notified; archival/read-only status).
-- **Post-market monitoring:** {{POST_MARKET_MONITORING}} (channels watched; intake from users/researchers; criteria for “substantial change” affecting conformity).
-- **Export controls & sanctions:** reference **DISCLAIMER/EULA**; classification notes (if cryptography): {{EXPORT_CLASSIFICATION}}.
+- **Location & format:** {{SBOM_LOCATION}} (e.g., `sbom/`, CycloneDX JSON).
+- **Generation:** brief (tool, pipeline step).
 
 ---
 
-## J. Privacy & Store Disclosures (matrix)
+## G. Labels, notices & marking
 
-> Only relevant if optional online features or crash-reporting are enabled.
-
-- **PRIVACY alignment:** `PRIVACY.*` (no data by default; opt-in diagnostics if enabled).
-- **Records:** DPIA/ROPA link or statement → **Annex D**.
-- **Store disclosure worksheet:** Apple Privacy Nutrition Label / Google Play Data Safety mapping (**expected status**: “No data collected”; diagnostics = **not linked**, **not for ads/tracking** when opt-in).
-  Worksheet location: {{STORE_DISCLOSURES_WORKSHEET}} (optional).
+- **CE Marking:** see **INSTRUCTIONS** (section “CE Marking”); image `ce-mark.png`.
+- **Legal docs packaged offline:** `EULA.*`, `PRIVACY.*`, `SECURITY.*`, `DISCLAIMER.*`, `NOTICE.*`, `THIRD_PARTY_LICENSES.*`, `LICENSE`, `EU_DECLARATION_OF_CONFORMITY.pdf`, `INSTRUCTIONS.*`.
 
 ---
 
-## K. Version Control & Document History
+## H. Lifecycle & post-market (summary)
 
-- **Release notes / changelogs:** {{RELEASE_NOTES_REF}} (e.g., `CHANGELOG`).
-- **Tech File revision log:** {{TECH_DOC_CHANGELOG_REF}} (doc version, date, editor, summary of changes).
+- **End-of-support:** how users are notified (e.g., release notes / in-product notice, if present).
+- **Post-market monitoring:** mailbox intake; watch store feedback/issue tracker; criteria of “substantial change” (one-liner).
+- **Export controls:** see **EULA/DISCLAIMER** (short pointer).
 
 ---
 
-### Annexes (evidence index)
+## I. Document history
 
-- **Annex A — Release & Build Registry:** (this document’s Section A — table is the canonical register).
-- **Annex B — Test Evidence Pack:** SAST/DAST reports, pen-test summaries, fix verification.
-- **Annex C — SBOM Artifacts:** generated SBOM(s) and signatures.
-- **Annex D — DPIA/ROPA (if applicable):** {{DPIA_LINK}} / {{ROPA_LINK}} or **N/A** (no processing by default).
-- **Annex E — Accessibility Conformance (EAA/WCAG):** {{ACCESSIBILITY_ACR_LINK}} or summary.
-- **Annex F — Keys & Signing (if applicable):** code-signing cert refs, package signatures, checksum publication process.
-- **Annex G — Incident Response / Vulnerability Handling Plan:** roles, timelines, notification triggers (CVD alignment).
+- **Changelog / release notes:** see `CHANGELOG`.
+- **Tech File updates:** log kept internally (date/editor/summary); available on request.
