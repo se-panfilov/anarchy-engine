@@ -2,10 +2,10 @@ import type { TAbstractAsyncEntityRegistry, TAbstractEntityRegistry, TWithUserDa
 import type { TColorWrapper } from '@Anarchy/Engine/Color';
 import type { TDestroyable, TWithPosition2dProperty, TWithPosition3dProperty, TWithPosition4dProperty, TWithPositionProperty } from '@Anarchy/Engine/Mixins';
 import type { TEulerLike } from '@Anarchy/Engine/ThreeLib';
+import type { TTransformDriveCompatibleEntity, TWithTransformDrive } from '@Anarchy/Engine/TransformDrive';
 import { isDefined, isNotDefined, isObject } from '@Anarchy/Shared/Utils';
 import type { BufferGeometry, Euler, Material, Quaternion, QuaternionLike, Vector2, Vector2Like, Vector3, Vector3Like, Vector4, Vector4Like } from 'three';
 import { Color } from 'three';
-import type { TTransformDriveCompatibleEntity, TWithTransformDrive } from '@Anarchy/Engine/TransformDrive';
 
 export function isDestroyable(obj: unknown): obj is TDestroyable {
   return isDefined((obj as TDestroyable).destroy$);
