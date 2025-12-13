@@ -18,6 +18,9 @@ test('SpaceBasic', async ({ page }) => {
   await expect(page.locator('canvas')).toHaveScreenshot('SpaceBasic-before.png');
 
   await page.getByRole('button', { name: 'Change' }).click();
+  await page.getByRole('button', { name: 'Save' }).click();
+  await page.getByRole('button', { name: 'Drop' }).click();
+  await page.getByRole('button', { name: 'Load' }).click();
 
   await expect(page.locator('canvas')).toHaveScreenshot('SpaceBasic-after.png');
 });
@@ -33,6 +36,9 @@ test('SpaceCustomModels', async ({ page }) => {
   await expect(page.locator('canvas')).toHaveScreenshot('SpaceCustomModels-before.png');
 
   await page.getByRole('button', { name: 'Change' }).click();
+  await page.getByRole('button', { name: 'Save' }).click();
+  await page.getByRole('button', { name: 'Drop' }).click();
+  await page.getByRole('button', { name: 'Load' }).click();
 
   await expect(page.locator('canvas')).toHaveScreenshot('SpaceCustomModels-after.png');
 });
