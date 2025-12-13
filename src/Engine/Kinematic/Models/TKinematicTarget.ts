@@ -9,6 +9,6 @@ export type TKinematicTarget = Readonly<{
 
 export type TKinematicConfigTarget = Omit<TKinematicTarget, 'position' | 'rotation'> &
   Readonly<{
-    position: Vector3Like | undefined;
-    rotation: QuaternionLike | undefined;
+    position?: Vector3Like | undefined;
+    rotation?: QuaternionLike | undefined;
   }>;
