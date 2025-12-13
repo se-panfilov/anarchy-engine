@@ -6,6 +6,7 @@ import type { TDestroyable } from '@/Engine/Mixins';
 
 export type TCollisionsLoopServiceValue = Readonly<{ delta: number; priority: CollisionsUpdatePriority }>;
 
+// TODO 10.0.0. LOOPS: do we need this?
 export type TCollisionsLoopService = TAbstractLoop<TCollisionsLoopServiceValue> &
   Readonly<{
     autoUpdate$: BehaviorSubject<boolean>;

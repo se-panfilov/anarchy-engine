@@ -6,8 +6,9 @@ import { destroyableMixin } from '@/Engine/Mixins';
 import { RendererModes } from '@/Engine/Renderer';
 import { screenService } from '@/Engine/Services';
 import { withBuiltMixin } from '@/Engine/Space/Mixins';
-import type { TSpace, TSpaceConfig, TSpaceHooks, TSpaceService, TWithBuilt } from '@/Engine/Space/Models';
+import type { TSpace, TSpaceConfig, TSpaceHooks, TSpaceLoops, TSpaceService, TWithBuilt } from '@/Engine/Space/Models';
 import { createEntities, loadResources, prepareServices } from '@/Engine/Space/Utils';
+import { createLoops } from '@/Engine/Space/Utils/CreateLoopsUtils';
 import { validateConfig } from '@/Engine/Space/Validators';
 import { isDestroyable } from '@/Engine/Utils';
 
@@ -44,9 +45,12 @@ export function SpaceService(): TSpaceService {
 
     builtMixin.build();
 
+    const loops: TSpaceLoops = createLoops(services);
+
     return {
       name: config.name,
       services,
+      loops,
       ...builtMixin,
       built$: builtMixin.built$.asObservable(),
       ...destroyable,

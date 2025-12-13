@@ -1,13 +1,9 @@
 import type { TCameraWrapper } from '@/Engine/Camera';
-import type { TCollisionsLoopService } from '@/Engine/Collisions';
 import { CollisionsUpdatePriority } from '@/Engine/Collisions';
 import type { TControlsRegistry, TOrbitControlsWrapper } from '@/Engine/Controls';
-import type { TKinematicLoopService } from '@/Engine/Kinematic';
 import type { TMilliseconds } from '@/Engine/Math';
-import type { TPhysicsLoopService } from '@/Engine/Physics';
 import type { TRendererWrapper } from '@/Engine/Renderer';
 import type { TSceneWrapper } from '@/Engine/Scene';
-import type { TSpatialLoopService } from '@/Engine/Spatial';
 import { SpatialUpdatePriority } from '@/Engine/Spatial';
 import type { TText2dRegistry, TText2dRenderer, TText3dRegistry, TText3dRenderer } from '@/Engine/Text';
 import { isDefined } from '@/Engine/Utils';
@@ -24,11 +20,7 @@ export function spaceLoop(
   text3dRegistry: TText3dRegistry,
   text2dRenderer: TText2dRenderer,
   text3dRenderer: TText3dRenderer,
-  controlsRegistry: TControlsRegistry,
-  physicsLoopService: TPhysicsLoopService,
-  kinematicLoopService: TKinematicLoopService,
-  spatialLoopService: TSpatialLoopService,
-  collisionsLoopService: TCollisionsLoopService
+  controlsRegistry: TControlsRegistry
 ): void {
   // TODO 10.0.0. LOOPS: We need independent loops for physics, kinematic, spatial, collisions, mouse, intersection and transforms. Those loops should be driven by time, not by frame rate
   const isAutoUpdatePhysicalWorld: boolean = physicsLoopService.autoUpdate$.value;

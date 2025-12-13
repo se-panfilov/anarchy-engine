@@ -22,7 +22,6 @@ export function createEntities(entities: TSpaceConfigEntities, services: TSpaceS
     models3dService,
     mouseService,
     particlesService,
-    physicsLoopService,
     physicsPresetService,
     physicsWorldService,
     spatialGridService,
@@ -40,6 +39,7 @@ export function createEntities(entities: TSpaceConfigEntities, services: TSpaceS
 
   if (isDefined(physics.global)) {
     const world: World = physicsWorldService.createWorld(physics.global);
+    // TODO 10.0.0. LOOPS: Fix
     physicsLoopService.autoUpdate$.next((isDefined(world) && physics.isAutoUpdate) ?? true);
   }
   if (isDefined(physics.presets)) physicsPresetService.addPresetsFromConfig(physics.presets);

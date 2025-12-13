@@ -4,7 +4,7 @@ import type { TDestroyable } from '@/Engine/Mixins';
 import type { TLoop } from './TLoop';
 
 export type TLoopService = Readonly<{
-  createRenderLoop: () => TLoop;
+  createRenderLoop: (fn?: (cb: FrameRequestCallback) => number, showDebugInfo?: boolean) => TLoop;
   createIntervalLoop: (interval: TMilliseconds) => TLoop;
 }> &
   TDestroyable;

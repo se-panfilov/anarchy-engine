@@ -29,8 +29,9 @@ export function LoopService(): TLoopService {
   });
 
   return {
-    createRenderLoop: (showDebugInfo: boolean = false): TLoop => {
-      const loop: TLoop = Loop(requestAnimationFrame);
+    // You can optionally pass a "requestAnimationFrame" function you want (e.g. window.requestAnimationFrame, display.requestAnimationFrame for VR, etc.)
+    createRenderLoop: (fn: (cb: FrameRequestCallback) => number = requestAnimationFrame, showDebugInfo: boolean = false): TLoop => {
+      const loop: TLoop = Loop(fn);
       if (showDebugInfo) debugInfoSub$ = enableFPSCounter(loop);
       return loop;
     },

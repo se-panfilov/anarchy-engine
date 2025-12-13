@@ -4,8 +4,8 @@ import type { TAnimationsService } from '@/Engine/Animations';
 import { AnimationsResourceAsyncRegistry, AnimationsService } from '@/Engine/Animations';
 import type { TAppCanvas } from '@/Engine/App';
 import { CameraFactory, CameraRegistry, CameraService } from '@/Engine/Camera';
-import type { TCollisionsLoopService, TCollisionsService } from '@/Engine/Collisions';
-import { CollisionsLoopService, CollisionsService } from '@/Engine/Collisions';
+import type { TCollisionsService } from '@/Engine/Collisions';
+import { CollisionsService } from '@/Engine/Collisions';
 import { ambientContext } from '@/Engine/Context';
 import { ControlService, ControlsFactory, ControlsRegistry } from '@/Engine/Controls';
 import { EnvMapFactory, EnvMapRegistry, EnvMapService, EnvMapTextureAsyncRegistry } from '@/Engine/EnvMap';
@@ -15,8 +15,6 @@ import { FsmInstanceFactory, FsmInstanceRegistry, FsmSourceRegistry } from '@/En
 import { FsmSourceFactory } from '@/Engine/Fsm/Factories/FsmSourceFactory';
 import { FsmService } from '@/Engine/Fsm/Services/FsmService';
 import { IntersectionsWatcherFactory, IntersectionsWatcherRegistry, IntersectionsWatcherService } from '@/Engine/Intersections';
-import type { TKinematicLoopService } from '@/Engine/Kinematic';
-import { KinematicLoopService } from '@/Engine/Kinematic';
 import { LightFactory, LightRegistry, LightService } from '@/Engine/Light';
 import type { TLoopService } from '@/Engine/Loop';
 import { LoopService } from '@/Engine/Loop';
@@ -26,14 +24,14 @@ import type { TModel3dRawToModel3dConnectionRegistry, TModels3dService } from '@
 import { Model3dRawToModel3dConnectionRegistry, Models3dFactory, Models3dRegistry, Models3dResourceAsyncRegistry, Models3dService } from '@/Engine/Models3d';
 import { MouseService } from '@/Engine/Mouse';
 import { ParticlesFactory, ParticlesRegistry, ParticlesService } from '@/Engine/Particles';
-import type { TPhysicsBodyService, TPhysicsLoopService, TPhysicsPresetsService, TPhysicsWorldService } from '@/Engine/Physics';
-import { PhysicsBodyFactory, PhysicsBodyRegistry, PhysicsBodyService, PhysicsLoopService, PhysicsPresetRegistry, PhysicsPresetsService, PhysicsWorldService } from '@/Engine/Physics';
+import type { TPhysicsBodyService, TPhysicsPresetsService, TPhysicsWorldService } from '@/Engine/Physics';
+import { PhysicsBodyFactory, PhysicsBodyRegistry, PhysicsBodyService, PhysicsPresetRegistry, PhysicsPresetsService, PhysicsWorldService } from '@/Engine/Physics';
 import { RendererFactory, RendererRegistry, RendererService } from '@/Engine/Renderer';
 import type { TSceneConfig, TSceneFactory, TSceneRegistry, TScenesService, TSceneWrapper } from '@/Engine/Scene';
 import { SceneFactory, SceneRegistry, ScenesService } from '@/Engine/Scene';
 import type { TSpaceServices } from '@/Engine/Space/Models';
-import type { TSpatialGridService, TSpatialLoopService } from '@/Engine/Spatial';
-import { SpatialGridFactory, SpatialGridRegistry, SpatialGridService, SpatialLoopService } from '@/Engine/Spatial';
+import type { TSpatialGridService } from '@/Engine/Spatial';
+import { SpatialGridFactory, SpatialGridRegistry, SpatialGridService } from '@/Engine/Spatial';
 import { Text2dRegistry, Text2dRendererRegistry, Text3dRegistry, Text3dRendererRegistry, Text3dTextureRegistry, TextFactory, TextService } from '@/Engine/Text';
 import type { TTextureService } from '@/Engine/Texture';
 import { TextureService } from '@/Engine/Texture';
@@ -74,11 +72,7 @@ export function initEntitiesServices(sceneW: TSceneWrapper, canvas: TAppCanvas):
   const physicsPresetService: TPhysicsPresetsService = PhysicsPresetsService(PhysicsPresetRegistry());
   const physicsWorldService: TPhysicsWorldService = PhysicsWorldService(sceneW);
   const physicsBodyService: TPhysicsBodyService = PhysicsBodyService(PhysicsBodyFactory(), PhysicsBodyRegistry(), physicsPresetService, physicsWorldService);
-  const physicsLoopService: TPhysicsLoopService = PhysicsLoopService(physicsWorldService);
-  const kinematicLoopService: TKinematicLoopService = KinematicLoopService();
-  const spatialLoopService: TSpatialLoopService = SpatialLoopService();
   const spatialGridService: TSpatialGridService = SpatialGridService(SpatialGridFactory(), SpatialGridRegistry());
-  const collisionsLoopService: TCollisionsLoopService = CollisionsLoopService();
   const collisionsService: TCollisionsService = CollisionsService();
   const loopService: TLoopService = LoopService();
   const animationsService: TAnimationsService = AnimationsService(loopService, AnimationsResourceAsyncRegistry());
@@ -98,10 +92,7 @@ export function initEntitiesServices(sceneW: TSceneWrapper, canvas: TAppCanvas):
       {
         models3dService,
         physicsBodyService,
-        physicsLoopService,
-        kinematicLoopService,
         spatialGridService,
-        collisionsLoopService,
         collisionsService,
         model3dToActorConnectionRegistry,
         fsmService
@@ -111,12 +102,10 @@ export function initEntitiesServices(sceneW: TSceneWrapper, canvas: TAppCanvas):
     cameraService: CameraService(CameraFactory(), CameraRegistry(), sceneW),
     controlsService: ControlService(ControlsFactory(), ControlsRegistry(), canvas),
     collisionsService,
-    collisionsLoopService,
     envMapService: EnvMapService(EnvMapFactory(), EnvMapRegistry(), EnvMapTextureAsyncRegistry(), sceneW),
     fogService: FogService(FogFactory(), FogRegistry(), sceneW),
     fsmService,
     intersectionsWatcherService: IntersectionsWatcherService(IntersectionsWatcherFactory(), IntersectionsWatcherRegistry()),
-    kinematicLoopService,
     lightService: LightService(LightFactory(), LightRegistry(), sceneW),
     loopService,
     materialService,
@@ -127,24 +116,9 @@ export function initEntitiesServices(sceneW: TSceneWrapper, canvas: TAppCanvas):
     physicsBodyService,
     physicsWorldService,
     physicsPresetService,
-    physicsLoopService,
     rendererService: RendererService(RendererFactory(), RendererRegistry()),
-    spatialLoopService,
     spatialGridService,
-    textService: TextService(
-      TextFactory(),
-      Text2dRegistry(),
-      Text3dRegistry(),
-      Text3dTextureRegistry(),
-      Text2dRendererRegistry(),
-      Text3dRendererRegistry(),
-      {
-        kinematicLoopService,
-        physicsBodyService,
-        physicsLoopService
-      },
-      sceneW
-    ),
+    textService: TextService(TextFactory(), Text2dRegistry(), Text3dRegistry(), Text3dTextureRegistry(), Text2dRendererRegistry(), Text3dRendererRegistry(), sceneW),
     textureService
   };
 }

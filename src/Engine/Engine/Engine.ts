@@ -35,22 +35,9 @@ export function Engine(space: TSpace): TEngine {
     if (isNotDefined(renderer)) throw new Error('Engine: Cannot find an active renderer');
 
     cameraService.active$.subscribe((wrapper: TCameraWrapper | undefined): void => void (camera = wrapper));
+    // TODO 10.0.0. LOOPS: fix this
     space.services.loopService.setBeforeEveryTick((delta: TDelta): void => {
-      spaceLoop(
-        delta,
-        camera,
-        renderer,
-        activeScene,
-        text2dRegistry,
-        text3dRegistry,
-        text2dRenderer,
-        text3dRenderer,
-        controlsRegistry,
-        physicsLoopService,
-        kinematicLoopService,
-        spatialLoopService,
-        collisionsLoopService
-      );
+      spaceLoop(delta, camera, renderer, activeScene, text2dRegistry, text3dRegistry, text2dRenderer, text3dRenderer, controlsRegistry);
     });
     space.services.loopService.start();
   }

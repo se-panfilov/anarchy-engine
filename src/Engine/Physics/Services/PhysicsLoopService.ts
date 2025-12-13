@@ -7,6 +7,7 @@ import { destroyableMixin } from '@/Engine/Mixins';
 import type { TPhysicsLoopService, TPhysicsWorldService } from '@/Engine/Physics/Models';
 import { isNotDefined } from '@/Engine/Utils';
 
+// TODO 10.0.0. LOOPS: do we need TPhysicsLoopService?
 export function PhysicsLoopService(physicsWorldService: TPhysicsWorldService): TPhysicsLoopService {
   const autoUpdate$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
   const tick$: Subject<void> = new Subject<void>();
