@@ -1,5 +1,5 @@
 import { EnvMapLoader } from '@/Engine/EnvMap/Loader';
-import type { TEnvMapAsyncRegistry, TEnvMapConfigPack, TEnvMapFactory, TEnvMapLoader, TEnvMapParamsPack, TEnvMapService, TEnvMapWrapperAsync } from '@/Engine/EnvMap/Models';
+import type { TEnvMapAsyncRegistry, TEnvMapConfig, TEnvMapFactory, TEnvMapLoader, TEnvMapParams, TEnvMapService, TEnvMapWrapperAsync } from '@/Engine/EnvMap/Models';
 import type { TDestroyable, TWithActiveMixinResult } from '@/Engine/Mixins';
 import { destroyableMixin, withActiveEntityServiceMixin } from '@/Engine/Mixins';
 import type { TSceneWrapper } from '@/Engine/Scene';
@@ -15,10 +15,10 @@ export function EnvMapService(factory: TEnvMapFactory, registry: TEnvMapAsyncReg
   const withActive: TWithActiveMixinResult<TEnvMapWrapperAsync> = withActiveEntityServiceMixin<TEnvMapWrapperAsync>(registry);
   const envMapLoader: TEnvMapLoader = EnvMapLoader(registry);
 
-  const createAsync = (params: TEnvMapParamsPack): Promise<TEnvMapWrapperAsync> => factory.createAsync(params, { envMapLoader });
-  const createFromConfigAsync = (envMaps: ReadonlyArray<TEnvMapConfigPack>): Promise<ReadonlyArray<TEnvMapWrapperAsync>> => {
+  const createAsync = (params: TEnvMapParams): Promise<TEnvMapWrapperAsync> => factory.createAsync(params, { envMapLoader });
+  const createFromConfigAsync = (envMaps: ReadonlyArray<TEnvMapConfig>): Promise<ReadonlyArray<TEnvMapWrapperAsync>> => {
     // eslint-disable-next-line @typescript-eslint/no-misused-promises
-    return Promise.all(envMaps.map((config: TEnvMapConfigPack): Promise<TEnvMapWrapperAsync> => factory.createAsync(factory.configToParams(config, { envMapLoader }))));
+    return Promise.all(envMaps.map((config: TEnvMapConfig): Promise<TEnvMapWrapperAsync> => factory.createAsync(factory.configToParams(config, { envMapLoader }))));
   };
 
   withActive.active$.subscribe((wrapper: TEnvMapWrapperAsync | undefined): void => {

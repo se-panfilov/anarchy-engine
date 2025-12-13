@@ -1,12 +1,11 @@
 import { EquirectangularReflectionMapping } from 'three';
 
 import { AbstractWrapper, WrapperType } from '@/Engine/Abstract';
-import type { TEnvMap, TEnvMapParamsPack, TEnvMapWrapperAsync, TEnvMapWrapperDependencies } from '@/Engine/EnvMap/Models';
+import type { TEnvMap, TEnvMapParams, TEnvMapWrapperAsync, TEnvMapWrapperDependencies } from '@/Engine/EnvMap/Models';
 import { withActiveMixin } from '@/Engine/Mixins';
 import type { TWriteable } from '@/Engine/Utils';
 
-// TODO 9.0.0. RESOURCES: get rid of "Pack" types (e.g. TEnvMapParamsPack)
-export async function EnvMapWrapperAsync(params: TEnvMapParamsPack, { envMapLoader }: TEnvMapWrapperDependencies): Promise<TEnvMapWrapperAsync> {
+export async function EnvMapWrapperAsync(params: TEnvMapParams, { envMapLoader }: TEnvMapWrapperDependencies): Promise<TEnvMapWrapperAsync> {
   const { url, isActive } = params;
   const entity: TEnvMap = await envMapLoader.loadAsync(params.url);
   // eslint-disable-next-line functional/immutable-data
