@@ -12,6 +12,6 @@ export type TObject3DProps = Readonly<{
   layers?: Layers;
   frustumCulled?: boolean;
   renderOrder?: number;
-  // TODO ANIMATIONS: animations are not supported at the moment
+  // Animations is a  responsibilities of Model3d and Animations domains, here we do nothing with that
   // animations?: ReadonlyArray<AnimationClip>;
 }>;
