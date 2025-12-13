@@ -24,10 +24,6 @@ export function Actor(
   const driveToTargetConnector: TDriveToTargetConnector = DriveToTargetConnector(drive, model3d.getRawModel3d());
 
   // TODO CWP:
-  // TODO 8.0.0. MODELS: Implement PhysicsAgent
-  // TODO 8.0.0. MODELS: Connect Physics body with the PhysicsAgent
-  // TODO 8.0.0. MODELS: Make sure external change of position$/rotation$/scale$ works with the PhysicsAgent
-
   // TODO 8.0.0. MODELS: Make sure, that collisions are working
 
   // TODO 8.0.0. MODELS: In showcase validate also rotation and scale

@@ -19,6 +19,9 @@ import { isDefined, isNotDefined } from '@/Engine/Utils';
 
 import { AbstractTransformAgent } from './AbstractTransformAgent';
 
+// Be careful, in current implementation, the physics body might not react or react wierdly to the changes
+// of the transform from any external source (e.g. position$.next()).
+// So, once physics object is set, better not to touch it from the outside.
 export function PhysicsTransformAgent(params: TPhysicsTransformAgentParams, { physicsBodyService, physicsLoopService }: TPhysicsAgentDependencies): TPhysicsTransformAgent {
   const adaptedParams: TPhysicsTransformAgentInternalParams = { ...params, rotation: new Quaternion().setFromEuler(params.rotation) };
   const abstractTransformAgent: TAbstractTransformAgent = AbstractTransformAgent(params, TransformAgent.Physical);
