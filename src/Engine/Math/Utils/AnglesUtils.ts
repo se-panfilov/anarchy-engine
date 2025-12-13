@@ -24,6 +24,8 @@ export function getHorizontalAzimuthDeg(x: number, z: number, point: Vector3Like
 
   if (azimuth.isNegative()) azimuth = azimuth.plus(360);
 
+  azimuth = azimuth.neg().mod(360);
+
   return azimuth.toNumber() as TDegrees;
 }
 
