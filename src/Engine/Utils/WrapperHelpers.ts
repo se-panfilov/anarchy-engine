@@ -9,10 +9,11 @@ import type {
   IPhongMaterialTexturePack,
   IPhysicalMaterialTexturePack,
   IStandardMaterialTexturePack,
-  IToonMaterialTexturePack
+  IToonMaterialTexturePack,
+  IWithTexturesActor
 } from '@/Engine/Domains/Texture';
 import type { IObject3DParams } from '@/Engine/Domains/ThreeLib';
-import type { IMovableXYZ, IRotatable, IScalable, IWithObject3d, IWithTexturesActor } from '@/Engine/Mixins';
+import type { IMovableXYZ, IRotatable, IScalable, IWithObject3d } from '@/Engine/Mixins';
 import { isDefined } from '@/Engine/Utils/index';
 import type { IEulerWrapper, IVector3Wrapper } from '@/Engine/Wrappers';
 

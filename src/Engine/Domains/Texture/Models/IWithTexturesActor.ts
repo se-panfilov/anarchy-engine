@@ -1,25 +1,27 @@
 import type {
   IBasicMaterialTexturePack,
-  IBasicMaterialTextureUploaded,
   IDepthMaterialTexturePack,
-  IDepthMaterialTextureUploaded,
   IDistanceMaterialTexturePack,
-  IDistanceMaterialTextureUploaded,
   ILambertMaterialTexturePack,
-  ILambertMaterialTextureUploaded,
   IMatcapMaterialTexturePack,
-  IMatcapMaterialTextureUploaded,
   INormalMaterialTexturePack,
-  INormalMaterialTextureUploaded,
   IPhongMaterialTexturePack,
-  IPhongMaterialTextureUploaded,
   IPhysicalMaterialTexturePack,
-  IPhysicalMaterialTextureUploaded,
   IStandardMaterialTexturePack,
+  IToonMaterialTexturePack
+} from './IMaterialTexturePack';
+import type {
+  IBasicMaterialTextureUploaded,
+  IDepthMaterialTextureUploaded,
+  IDistanceMaterialTextureUploaded,
+  ILambertMaterialTextureUploaded,
+  IMatcapMaterialTextureUploaded,
+  INormalMaterialTextureUploaded,
+  IPhongMaterialTextureUploaded,
+  IPhysicalMaterialTextureUploaded,
   IStandardMaterialTextureUploaded,
-  IToonMaterialTexturePack,
   IToonMaterialTextureUploaded
-} from '@/Engine/Domains/Texture';
+} from './IMaterialTextureUploaded';
 
 export type IWithBasicTexturesActor = {
   useTextureAsMaterial: (mt: IBasicMaterialTextureUploaded) => void;

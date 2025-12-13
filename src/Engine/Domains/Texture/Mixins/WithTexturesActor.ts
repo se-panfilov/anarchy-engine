@@ -26,7 +26,7 @@ import type {
   IToonMaterialTextureUploaded
 } from '@/Engine/Domains/Texture';
 import { textureService } from '@/Engine/Domains/Texture';
-import type { IWithTexturesActor } from '@/Engine/Mixins/GameObject/Models';
+import type { IWithTexturesActor } from '@/Engine/Domains/Texture/Models';
 import type { IWriteable } from '@/Engine/Utils';
 import { isNotDefined, omitInObjectWithoutMutation } from '@/Engine/Utils';
 
