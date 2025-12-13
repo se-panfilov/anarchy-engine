@@ -4,7 +4,7 @@ import { Euler, Quaternion, Vector3 } from 'three';
 
 import type { TKinematicData } from '@/Engine/Kinematic/Models';
 import type { TMetersPerSecond, TRadians } from '@/Engine/Math';
-import { getAzimuthRadFromDirection, getElevationRadFromDirection } from '@/Engine/Math';
+import { getAzimuthRadFromDirection, getElevationFromDirection } from '@/Engine/Math';
 import type { TReadonlyEuler, TReadonlyQuaternion, TReadonlyVector3 } from '@/Engine/ThreeLib';
 import { TransformAgent } from '@/Engine/TransformDrive/Constants';
 import type { TAbstractTransformAgent, TKinematicAgentDependencies, TKinematicTransformAgent, TKinematicTransformAgentParams } from '@/Engine/TransformDrive/Models';
@@ -92,7 +92,7 @@ export function KinematicTransformAgent(params: TKinematicTransformAgentParams, 
       agent.data.linearDirection.set(Math.cos(azimuthRad) * lengthXZ, agent.data.linearDirection.y, Math.sin(azimuthRad) * lengthXZ).normalize();
     },
     getLinearElevation(): TRadians {
-      return getElevationRadFromDirection(agent.data.linearDirection);
+      return getElevationFromDirection(agent.data.linearDirection);
     },
     setLinearElevation(elevationRad: TRadians): void {
       const currentAzimuth: number = Math.atan2(agent.data.linearDirection.z, agent.data.linearDirection.x);
@@ -131,7 +131,7 @@ export function KinematicTransformAgent(params: TKinematicTransformAgentParams, 
       agent.data.angularDirection.set(Math.cos(azimuthRad) * lengthXZ, agent.data.angularDirection.y, Math.sin(azimuthRad) * lengthXZ);
     },
     getAngularElevation(): TRadians {
-      return getElevationRadFromDirection(agent.data.angularDirection);
+      return getElevationFromDirection(agent.data.angularDirection);
     },
     setAngularElevation(elevationRad: TRadians): void {
       const currentAzimuth: number = Math.atan2(agent.data.angularDirection.z, agent.data.angularDirection.x);

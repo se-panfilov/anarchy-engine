@@ -1,7 +1,7 @@
 import { Vector3 } from 'three';
 
 import type { TMeters, TRadians } from '@/Engine/Math';
-import { getAzimuthRadFromDirection, getElevationRadFromDirection } from '@/Engine/Math';
+import { getAzimuthRadFromDirection, getElevationFromDirection } from '@/Engine/Math';
 
 type TTempCoords = Readonly<{
   coord1: number;
@@ -47,7 +47,7 @@ export function createCirclePathYZ(angleArray: ReadonlyArray<TRadians>, radius: 
 export function getMouseAzimuthAndElevation(mousePosition: Vector3, playerPosition: Vector3): Readonly<{ azimuth: TRadians; elevation: TRadians }> {
   const direction: Vector3 = mousePosition.clone().sub(playerPosition).normalize();
   const azimuth: TRadians = getAzimuthRadFromDirection(direction);
-  const elevation: TRadians = getElevationRadFromDirection(direction);
+  const elevation: TRadians = getElevationFromDirection(direction);
 
   return { azimuth, elevation };
 }

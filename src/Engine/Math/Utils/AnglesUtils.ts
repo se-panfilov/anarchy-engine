@@ -41,9 +41,7 @@ export const getAzimuthRadFromDirection = (direction: Vector3Like): TRadians => 
 // TODO add unit tests
 export const getAzimuthDegFromDirection = (direction: Vector3Like): TDegrees => radToDeg(getAzimuthRadFromDirection(direction)) as TDegrees;
 // TODO add unit tests
-export const getElevationRadFromDirection = (direction: Vector3Like): TRadians => Math.atan2(direction.y, Math.sqrt(direction.x ** 2 + direction.z ** 2)) as TRadians;
-// TODO add unit tests
-export const getElevationDegFromDirection = (direction: Vector3Like): TDegrees => radToDeg(getElevationRadFromDirection(direction)) as TDegrees;
+export const getElevationFromDirection = (direction: Vector3Like): TRadians => Math.atan2(direction.y, Math.sqrt(direction.x ** 2 + direction.z ** 2)) as TRadians;
 // TODO add unit tests
 export const getDirectionFromLinearVelocity = (linearVelocity: Vector3): Vector3 => linearVelocity.clone().normalize();
 // TODO add unit tests
@@ -56,7 +54,7 @@ export const getLinearVelocityByDeg = (speed: TMetersPerSecond, azimuth: TDegree
 };
 
 // TODO add unit tests
-export const getLinearVelocityByRad = (speed: TMetersPerSecond, azimuth: TRadians, elevation: TRadians): Vector3 =>
+export const getLinearVelocity = (speed: TMetersPerSecond, azimuth: TRadians, elevation: TRadians): Vector3 =>
   new Vector3(speed * Math.cos(elevation) * Math.cos(azimuth), speed * Math.sin(elevation), speed * Math.cos(elevation) * Math.sin(azimuth));
 
 // TODO add unit tests
@@ -66,26 +64,7 @@ export const getSpeedFromAngularVelocity = (angularVelocity: Vector3): TMetersPe
 export const getDirectionFromAngularVelocity = (angularVelocity: Vector3): Vector3 => angularVelocity.clone().normalize();
 
 // TODO add unit tests
-export function get3DAzimuthDeg(center: Vector3Like, point: Vector3Like): { azimuth: TDegrees; elevation: TDegrees } {
-  const dx: Decimal = new Decimal(point.x).minus(center.x);
-  const dy: Decimal = new Decimal(point.y).minus(center.y);
-  const dz: Decimal = new Decimal(point.z).minus(center.z);
-
-  let azimuth: Decimal = Decimal.atan2(dz, dx).times(180).div(Math.PI);
-
-  if (azimuth.isNegative()) azimuth = azimuth.plus(360);
-
-  const horizontalDistance: Decimal = Decimal.sqrt(dx.pow(2).plus(dz.pow(2)));
-  const elevation: Decimal = Decimal.atan2(dy, horizontalDistance).times(180).div(Math.PI);
-
-  return {
-    azimuth: azimuth.toNumber() as TDegrees,
-    elevation: elevation.toNumber() as TDegrees
-  };
-}
-
-// TODO add unit tests
-export function get3DAzimuthRad(center: Vector3Like, point: Vector3Like): { azimuth: TRadians; elevation: TRadians } {
+export function get3DAzimuth(center: Vector3Like, point: Vector3Like): { azimuth: TRadians; elevation: TRadians } {
   const dx: Decimal = new Decimal(point.x).minus(center.x);
   const dy: Decimal = new Decimal(point.y).minus(center.y);
   const dz: Decimal = new Decimal(point.z).minus(center.z);
