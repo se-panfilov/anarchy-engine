@@ -62,7 +62,6 @@ export function Models3dService(registry: TModels3dAsyncRegistry, animationsServ
 
     model3dList.forEach((m: TModel3dParams): void => {
       const p: Promise<TModel3dFacade> = performLoad(m).then(({ result, isExisting }: TPerformLoadResult): TModel3dFacade => {
-        // TODO why this if? (maybe add to added$ ?)
         if (!isExisting) loaded$.next({ result, isExisting });
         return result;
       });
