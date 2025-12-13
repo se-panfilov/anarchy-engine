@@ -21,7 +21,7 @@ import type { TSpatialGridRegistry } from '@/Engine/Spatial';
 export function ActorService(factory: TActorFactory, registry: TActorRegistry, actorServiceDependencies: TActorServiceDependencies, scene: TSceneWrapper): TActorService {
   const registrySub$: Subscription = registry.added$.subscribe(({ value }: TRegistryPack<TActor>): void => scene.addActor(value));
   const factorySub$: Subscription = factory.entityCreated$.subscribe((actor: TActor): void => registry.add(actor));
-  const disposable: ReadonlyArray<TDisposable> = [registry, factory, registrySub$, factorySub$];
+  const disposable: ReadonlyArray<TDisposable> = [registry, factory, registrySub$, factorySub$, actorServiceDependencies.model3dToActorConnectionRegistry];
   const abstractService: TAbstractService = AbstractService(disposable);
 
   const create = (params: TActorParams): TActor => factory.create(params, actorServiceDependencies);

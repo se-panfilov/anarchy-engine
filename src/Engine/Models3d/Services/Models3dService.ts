@@ -33,7 +33,7 @@ export function Models3dService(
   const model3dLoader: TModels3dLoader = Models3dLoader(resourcesRegistry);
   const materialRegistry: TMaterialRegistry = materialService.getRegistry();
   const animationsResourceAsyncRegistry: TAnimationsResourceAsyncRegistry = animationsService.getResourceRegistry();
-  const disposable: ReadonlyArray<TDisposable> = [registry, factory, resourcesRegistry, factorySub$, model3dLoader];
+  const disposable: ReadonlyArray<TDisposable> = [registry, factory, resourcesRegistry, model3dRawToModel3dConnectionRegistry, factorySub$, model3dLoader];
   const abstractService: TAbstractService = AbstractService(disposable);
 
   const withCreateService: TModel3dServiceWithCreate = withCreateServiceMixin(factory, { animationsService, model3dRawToModel3dConnectionRegistry });

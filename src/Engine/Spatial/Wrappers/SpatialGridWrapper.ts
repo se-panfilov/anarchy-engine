@@ -141,8 +141,6 @@ export function SpatialGridWrapper(params: TSpatialGridParams): TSpatialGridWrap
     update$.complete();
     getAllCells().forEach((cell: TSpatialCellWrapper): void => void cell.destroy$.next());
     entity.clear();
-
-    // TODO 14-0-0: check if SpatialGrid destroy is fully implemented
   });
 
   // this visualization is for debugging purposes only
