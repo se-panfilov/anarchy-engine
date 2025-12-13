@@ -212,7 +212,7 @@
       "type": "object",
       "additionalProperties": false,
       "properties": {
-        "lookAt": {
+        "rotation": {
           "$ref": "#/definitions/IVector3dConfig"
         },
         "position": {
@@ -244,7 +244,7 @@
           }
         }
       },
-      "required": ["lookAt", "position", "tags"]
+      "required": ["position", "rotation", "tags"]
     },
     "CameraTag": {
       "type": "string",

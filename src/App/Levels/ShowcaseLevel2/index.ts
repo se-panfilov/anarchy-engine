@@ -16,6 +16,5 @@ export function showcaseLevel2(canvas: IAppCanvas): void {
     materialParams: { color: '#5177ff' },
     tags: [ActorTag.Intersectable]
   } satisfies IActorParams);
-
   // // END Experiment1: animations ---------------
 }

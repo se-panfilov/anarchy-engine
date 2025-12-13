@@ -7,7 +7,7 @@ export type ICameraParams = Readonly<{
   fov?: number;
   near?: number;
   far?: number;
-  lookAt: IVector3;
+  rotation: IVector3;
   position: IVector3;
   tags: ReadonlyArray<CameraTag | CommonTags | string>;
 }>;
