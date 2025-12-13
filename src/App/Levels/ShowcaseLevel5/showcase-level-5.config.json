@@ -13,7 +13,7 @@
       "height": 40,
       "widthSegments": 10,
       "heightSegments": 10,
-      "materialParams": { "color": "#0000FF" },
+      "materialParams": { "color": "#5ddc9a" },
       "type": "plane",
       "position": { "x": 0, "y": 0, "z": 0 },
       "castShadow": false,
@@ -23,28 +23,10 @@
       "type": "cube",
       "width": 1,
       "height": 1,
-      "position": { "x": -20, "y": 2, "z": -2 },
-      "castShadow": true,
-      "materialParams": { "color": "#5177ff" },
-      "tags": ["top_actor"]
-    },
-    {
-      "type": "cube",
-      "width": 1,
-      "height": 1,
-      "position": { "x": -20, "y": 2, "z": 0 },
-      "castShadow": true,
-      "materialParams": { "color": "#5177ff" },
-      "tags": ["central_actor"]
-    },
-    {
-      "type": "cube",
-      "width": 1,
-      "height": 1,
       "position": { "x": -20, "y": 2, "z": 2 },
       "castShadow": true,
       "materialParams": { "color": "#ff0000" },
-      "tags": ["bottom_actor"]
+      "tags": ["actor"]
     }
   ],
   "cameras": [

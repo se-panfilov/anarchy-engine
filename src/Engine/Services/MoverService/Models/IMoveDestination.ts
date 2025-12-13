@@ -1,3 +1,3 @@
-import type { IWithCoords3 } from '@/Engine/Mixins';
+import type { IWithCoordsXYZ } from '@/Engine/Mixins';
 
-export type IMoveDestination = Partial<IWithCoords3>;
+export type IMoveDestination = Partial<IWithCoordsXYZ>;

@@ -1,6 +1,7 @@
 export * from './ArrayUtils';
 export * from './AsyncUtils';
 export * from './CheckUtils';
+export * from './CoordsUtils';
 export * from './EntityUtils';
 export * from './MouseUtils';
 export * from './ObjectUtils';
