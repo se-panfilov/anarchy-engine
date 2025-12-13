@@ -1,7 +1,6 @@
 import type { Subscription } from 'rxjs';
 import { BehaviorSubject } from 'rxjs';
 
-import type { TActorParams } from '@/Engine/Actor';
 import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
 import type { TPhysicsActorDriver } from '@/Engine/Physics/Models';

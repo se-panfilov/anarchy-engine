@@ -1,9 +1,12 @@
 import type { BehaviorSubject, ReplaySubject } from 'rxjs';
 import type { Euler, Vector3 } from 'three';
 
-import type { TWithInstantProtectedDriver, TWithKinematicProtectedDriver, TWithPhysicsProtectedDriver } from '@/Engine/Abstract';
-import type { ActorDriver } from '@/Engine/Actor/Constants';
 import type { TDestroyable } from '@/Engine/Mixins';
+import type { ActorDriver } from '@/Engine/TransformDrive/Constants';
+
+import type { TWithInstantProtectedDriver } from './TWithInstantProtectedDriver';
+import type { TWithKinematicProtectedDriver } from './TWithKinematicProtectedDriver';
+import type { TWithPhysicsProtectedDriver } from './TWithPhysicsProtectedDriver';
 
 export type TActorDrive = Readonly<{
   driver$: BehaviorSubject<ActorDriver>;

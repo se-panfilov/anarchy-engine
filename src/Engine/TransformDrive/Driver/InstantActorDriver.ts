@@ -2,13 +2,13 @@ import type { Subscription } from 'rxjs';
 import { BehaviorSubject } from 'rxjs';
 import { Vector3 } from 'three';
 
-import { withMutablePositionConnector } from '@/Engine/Actor/Drive/Mixins';
-import { withMutableRotationConnector } from '@/Engine/Actor/Drive/Mixins/WithMutableRotationConnector';
-import { withMutableScaleConnector } from '@/Engine/Actor/Drive/Mixins/WithMutableScaleConnector';
-import type { TActorParams, TInstantActorDriver } from '@/Engine/Actor/Models';
 import type { TDestroyable, TWithPosition3dProperty, TWithRotationProperty, TWithScaleProperty } from '@/Engine/Mixins';
 import { destroyableMixin, withMoveBy3dMixin, withRotationMixin, withScaleMixin } from '@/Engine/Mixins';
 import type { TReadonlyEuler, TReadonlyVector3 } from '@/Engine/ThreeLib';
+import { withMutablePositionConnector } from '@/Engine/TransformDrive/Mixins';
+import { withMutableRotationConnector } from '@/Engine/TransformDrive/Mixins/WithMutableRotationConnector';
+import { withMutableScaleConnector } from '@/Engine/TransformDrive/Mixins/WithMutableScaleConnector';
+import type { TInstantActorDriver } from '@/Engine/TransformDrive/Models';
 import type { TWithUndefined } from '@/Engine/Utils';
 import { updateSubjOnChange } from '@/Engine/Utils';
 

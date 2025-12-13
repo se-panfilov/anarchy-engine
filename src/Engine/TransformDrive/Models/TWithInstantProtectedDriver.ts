@@ -1,4 +1,4 @@
-import type { ActorDriver } from '@/Engine/Actor/Constants';
+import type { ActorDriver } from '@/Engine/TransformDrive/Constants';
 
 import type { TAbstractInstantDriver } from './TAbstractInstantDriver';
 import type { TProtectedDriverFacade } from './TProtectedDriverFacade';

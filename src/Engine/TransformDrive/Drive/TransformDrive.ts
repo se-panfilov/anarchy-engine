@@ -2,15 +2,14 @@ import type { Observable, Subscription } from 'rxjs';
 import { BehaviorSubject, distinctUntilChanged, filter, ReplaySubject, sampleTime, switchMap } from 'rxjs';
 import type { Euler, Vector3 } from 'three';
 
-import type { TAbstractDriver, TProtectedDriverFacade } from '@/Engine/Abstract';
-import { ProtectedDriverFacade } from '@/Engine/Abstract';
-import { ActorDriver } from '@/Engine/Actor/Constants';
-import type { TActorDrive, TActorDrivers, TActorParams, TProtectedActorDrivers } from '@/Engine/Actor/Models';
 import { isEqualOrSimilar } from '@/Engine/Actor/Utils';
 import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
+import { ActorDriver } from '@/Engine/TransformDrive/Constants';
+import { ProtectedDriverFacade } from '@/Engine/TransformDrive/Facades';
+import type { TAbstractDriver, TActorDrive, TActorDrivers, TProtectedActorDrivers, TProtectedDriverFacade } from '@/Engine/TransformDrive/Models';
 
-export function ActorDrive(params: TActorParams, drivers: TActorDrivers): TActorDrive {
+export function TransformDrive(params: TActorParams, drivers: TActorDrivers): TActorDrive {
   //We don't want to expose these BehaviorSubjects, because they're vulnerable to external changes without .next()
   const position$: BehaviorSubject<Vector3> = new BehaviorSubject<Vector3>(params.position);
   const positionRep$: ReplaySubject<Vector3> = new ReplaySubject<Vector3>(1);

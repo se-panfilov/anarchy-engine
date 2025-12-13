@@ -35,4 +35,5 @@ export * from './Spatial';
 export * from './Text';
 export * from './Texture';
 export * from './ThreeLib';
+export * from './TransformDrive';
 export * from './Utils';

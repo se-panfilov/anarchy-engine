@@ -5,11 +5,14 @@ import type { Vector3 } from 'three/src/math/Vector3';
 import { defaultAnimationParams, Easing } from '@/Engine/Services/MoverService/Constants';
 import type { TFollowTargetFn, TFollowTargetParams, TMoveableByTick, TMoveByPathFn, TMoveByPathFnParams, TMoveFn, TMoveFnParams } from '@/Engine/Services/MoverService/Models';
 import { getAnimationWrapperForComplexPathAnimation } from '@/Engine/Services/MoverService/MoverServiceUtils';
-import { isVector3 } from '@/Engine/Utils';
+import type { TWriteable } from '@/Engine/Utils';
+import { isDefined, isVector3 } from '@/Engine/Utils';
 
 export const goStraightMove: TMoveFn = ({ obj, destination, animationParams, complete }: TMoveFnParams): anime.AnimeInstance => {
+  console.log(112, obj.positionConnector);
   return anime({
-    targets: obj.getPosition(),
+    // targets: obj.getPosition(),
+    targets: obj.positionConnector,
     x: destination.x,
     y: destination.y,
     z: destination.z,

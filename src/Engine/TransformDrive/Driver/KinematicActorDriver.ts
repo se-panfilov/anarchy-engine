@@ -3,7 +3,6 @@ import { BehaviorSubject, map, takeWhile } from 'rxjs';
 import { Euler, Quaternion, Vector3 } from 'three';
 import { degToRad } from 'three/src/math/MathUtils';
 
-import type { TActorParams } from '@/Engine/Actor';
 import type { TKinematicActorDriver, TKinematicData, TKinematicLoopService } from '@/Engine/Kinematic/Models';
 import type { TDegrees, TRadians } from '@/Engine/Math';
 import { getAzimuthDegFromDirection, getAzimuthRadFromDirection, getElevationDegFromDirection, getElevationRadFromDirection } from '@/Engine/Math';
