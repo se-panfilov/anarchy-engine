@@ -4,6 +4,8 @@ import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader';
 import type { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 
+import type { TDestroyable } from '@/Engine/Mixins';
+import { destroyableMixin } from '@/Engine/Mixins';
 import { model3dConfigToParams } from '@/Engine/Models3d/Adapters';
 import { Model3dType } from '@/Engine/Models3d/Constants';
 import type { TModel3dConfig, TModel3dLoadResult, TModel3dParams, TModels3dAnimationsAsyncRegistry, TModels3dAsyncRegistry, TModels3dService, TPerformLoadResult } from '@/Engine/Models3d/Models';
@@ -74,11 +76,21 @@ export function Models3dService(models3dRegistry: TModels3dAsyncRegistry, models
     return promises;
   }
 
+  const destroyable: TDestroyable = destroyableMixin();
+  destroyable.destroyed$.subscribe(() => {
+    models3dRegistry.destroy();
+    models3dAnimationsRegistry.destroy();
+    added$.complete();
+    added$.unsubscribe();
+  });
+
   return {
     loadAsync,
     loadFromConfigAsync,
     added$: added$.asObservable(),
     getRegistry: (): TModels3dAsyncRegistry => models3dRegistry,
-    getAnimationsRegistry: (): TModels3dAnimationsAsyncRegistry => models3dAnimationsRegistry
+    getAnimationsRegistry: (): TModels3dAnimationsAsyncRegistry => models3dAnimationsRegistry,
+    getScene: (): TSceneWrapper => sceneW,
+    ...destroyable
   };
 }
