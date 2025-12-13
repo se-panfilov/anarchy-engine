@@ -23,7 +23,7 @@ const eventTypes = [
 export function InputShieldService(rootGetter: () => HTMLElement | null): TInputShieldService {
   if (isNotDefined(rootGetter)) throw new Error('[InputShieldService]: rootGetter is not defined');
 
-  const preventEvents = (e: Event): boolean => {
+  const preventEvents = (_e: Event): boolean => {
     // e.stopImmediatePropagation?.();
     // e.stopPropagation();
     // if (e.cancelable) e.preventDefault();
