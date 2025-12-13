@@ -5,6 +5,8 @@ import { buildSpaceFromConfig, Engine, isNotDefined, KeyCode, Vector3Wrapper } f
 import spaceConfig from './showcase.json';
 
 export function showcase(canvas: TAppCanvas): TShowcase {
+  console.log('Press keys 1..4 to play animations of related models');
+
   const space: TSpace = buildSpaceFromConfig(canvas, spaceConfig as TSpaceConfig);
   const engine: TEngine = Engine(space);
   const { keyboardService } = engine.services;
