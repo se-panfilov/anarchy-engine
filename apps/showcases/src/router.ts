@@ -3,7 +3,6 @@ import { isNotDefined } from '@Engine';
 import type { TAppSettings } from '@/Models';
 
 export const routerConfig: Record<string, string> = {
-  '/': 'Showcase1MovingActors',
   '/moving-actors': 'Showcase1MovingActors',
   '/top-down': 'Showcase2TopDown',
   '/camera-flying': 'Showcase3CameraFlying',
@@ -36,14 +35,17 @@ export const routerConfig: Record<string, string> = {
 export async function route(settings: TAppSettings): Promise<void> {
   // eslint-disable-next-line spellcheck/spell-checker
   const path: string = window.location.pathname;
-  const match = path.toLowerCase().match(/^\/([\w-]+)/);
-  if (isNotDefined(match) || match.length < 1) return;
+  let match = path.toLowerCase().match(/^\/([\w-]+)/);
+  if (isNotDefined(match) || match.length < 1) {
+    if (path === '/') match = ['/moving-actors'];
+    else throw new Error('[Router]: unknown path: ' + path);
+  }
   const levelName: string = match[0];
 
   let result;
   try {
     result = await import(`./Levels/${routerConfig[levelName]}/index.ts`);
-    console.log(`[Router]: Loading './Levels/${routerConfig[levelName]}/index.ts'`, result);
+    console.log(`[Router]: Loading './Levels/${routerConfig[levelName]}/index.ts'`);
     result.start(settings);
   } catch (err: any) {
     console.log(`[Router]: Showcase "${levelName}" not found: ` + err);

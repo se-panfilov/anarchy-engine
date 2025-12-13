@@ -1,9 +1,9 @@
 import { routerConfig } from '@/router';
 
 export function addNavigationPanel(container: HTMLElement): void {
-  const navPanel: HTMLElement = document.createElement('nav');
+  const navPanel: HTMLElement = document.createElement('div');
   // eslint-disable-next-line functional/immutable-data
-  navPanel.className = 'navigation-panel -dev';
+  navPanel.className = 'navigation-panel';
   const selectBox: HTMLSelectElement = document.createElement('select');
   // eslint-disable-next-line functional/immutable-data
   selectBox.name = 'navigation-select';
@@ -16,14 +16,18 @@ export function addNavigationPanel(container: HTMLElement): void {
       const option: HTMLOptionElement = document.createElement('option');
       // eslint-disable-next-line functional/immutable-data
       option.value = routerConfigKey;
+
+      // eslint-disable-next-line spellcheck/spell-checker
+      if (option.value === window.location.pathname) {
+        // eslint-disable-next-line functional/immutable-data
+        option.selected = true;
+      }
+
       // eslint-disable-next-line functional/immutable-data
       option.textContent = routerConfig[routerConfigKey];
       selectBox.appendChild(option);
     }
   }
-
-  navPanel.appendChild(selectBox);
-  container.appendChild(navPanel);
 
   selectBox.addEventListener('change', (event: Event): void => {
     // eslint-disable-next-line functional/immutable-data,spellcheck/spell-checker
@@ -37,5 +41,15 @@ export function addNavigationPanel(container: HTMLElement): void {
   // eslint-disable-next-line functional/immutable-data
   navPanel.style.bottom = '0';
   // eslint-disable-next-line functional/immutable-data
-  navPanel.style.right = '0';
+  navPanel.style.left = '0';
+  // eslint-disable-next-line functional/immutable-data
+  navPanel.style.display = 'flex';
+
+  const label: HTMLLabelElement = document.createElement('label');
+  // eslint-disable-next-line functional/immutable-data
+  label.textContent = 'textXXX';
+  label.appendChild(selectBox);
+
+  navPanel.appendChild(label);
+  container.appendChild(navPanel);
 }
