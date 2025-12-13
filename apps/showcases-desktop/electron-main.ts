@@ -27,6 +27,7 @@ const isOpenDevTools: boolean = true;
 // TODO DESKTOP: Can we avoid copying of dist-desktop to dist-app? (check paths in asar)
 // TODO DESKTOP: add "sanitize assets" script for desktop/assets and mobile/assets
 // TODO DESKTOP: We need e2e eventually
+// TODO DESKTOP: Add .env files for different platforms (macos, windows, linux).
 
 function getIndexHtmlPath(): string {
   const path: string = app.isPackaged ? join(app.getAppPath(), 'dist-app', 'index.html') : join(__dirname, '..', 'dist-app', 'index.html');
