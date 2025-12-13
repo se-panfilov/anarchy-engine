@@ -1015,6 +1015,9 @@
         },
         "fontWeight": {
           "$ref": "#/definitions/TextFontWeight"
+        },
+        "elementType": {
+          "type": "string"
         }
       },
       "required": ["fontSize", "position", "tags", "text"]
