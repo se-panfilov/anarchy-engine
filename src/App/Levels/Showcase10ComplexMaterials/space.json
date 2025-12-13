@@ -400,6 +400,7 @@
       {
         "far": 10000,
         "fov": 45,
+        "type": "PerspectiveCamera",
         "isActive": true,
         "name": "main",
         "near": 0.1,

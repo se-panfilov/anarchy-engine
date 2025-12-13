@@ -6,7 +6,7 @@ import { configToParamsObject3d } from '@/Engine/ThreeLib';
 import { isDefined, isNotDefined } from '@/Engine/Utils';
 
 export function configToParams(config: TCommonCameraConfig, { audioService }: TCameraServiceDependencies): TAnyCameraParams | never {
-  const { position, rotation, scale, layers, lookAt, audioListener, ...rest } = config;
+  const { position, rotation, scale, layers, lookAt, audioListener, up, ...rest } = config;
 
   let listener: AudioListener | undefined;
   if (isDefined(audioListener)) {
@@ -18,6 +18,7 @@ export function configToParams(config: TCommonCameraConfig, { audioService }: TC
     ...rest,
     audioListener: listener,
     ...configToParamsObject3d({ position, rotation, scale, layers }),
-    lookAt: lookAt ? new Vector3(lookAt.x, lookAt.y, lookAt.z) : undefined
+    lookAt: lookAt ? new Vector3(lookAt.x, lookAt.y, lookAt.z) : undefined,
+    up: up ? new Vector3(up.x, up.y, up.z) : undefined
   };
 }

@@ -11,7 +11,7 @@ export type TCommonCameraParams = Readonly<{
   far?: number;
   lookAt?: Vector3;
   near?: number;
-  type?: CameraType;
+  type: CameraType;
   up?: Vector3;
   zoom?: number;
 }> &

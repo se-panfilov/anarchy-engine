@@ -2,13 +2,13 @@ import type { TReactiveFactory } from '@/Engine/Abstract';
 import { FactoryType, ReactiveFactory } from '@/Engine/Abstract';
 import { configToParams } from '@/Engine/Camera/Adapters';
 import type { TAnyCameraParams, TAnyCameraWrapper, TCameraFactory, TCameraServiceDependencies } from '@/Engine/Camera/Models';
-import { isOrthographicCamera, isPerspectiveCamera } from '@/Engine/Camera/Utils';
+import { isOrthographicCameraParams, isPerspectiveCameraParams } from '@/Engine/Camera/Utils';
 import { OrthographicCameraWrapper, PerspectiveCameraWrapper } from '@/Engine/Camera/Wrappers';
 
 function create(params: TAnyCameraParams, deps: TCameraServiceDependencies): TAnyCameraWrapper | never {
-  if (isPerspectiveCamera(params)) return PerspectiveCameraWrapper(params, deps);
-  if (isOrthographicCamera(params)) return OrthographicCameraWrapper(params, deps);
-  else throw new Error(`[CameraFactory]: Cannot create camera from params: unknown camera type "${params.type}"`);
+  if (isPerspectiveCameraParams(params)) return PerspectiveCameraWrapper(params, deps);
+  if (isOrthographicCameraParams(params)) return OrthographicCameraWrapper(params, deps);
+  else throw new Error(`[CameraFactory]: Cannot create camera from params: unknown camera type "${(params as any).type}"`);
 }
 
 export function CameraFactory(): TCameraFactory {

@@ -3,8 +3,8 @@ import { expect } from 'vitest';
 
 import { LookUpStrategy } from '@/Engine/Abstract/Registries';
 import type { TAudioService } from '@/Engine/Audio';
-import type { TCameraRegistry, TPerspectiveCameraWrapper } from '@/Engine/Camera';
-import { CameraRegistry, PerspectiveCameraWrapper } from '@/Engine/Camera';
+import type { TAnyCameraWrapper, TCameraRegistry, TPerspectiveCameraWrapper } from '@/Engine/Camera';
+import { CameraRegistry, CameraType, PerspectiveCameraWrapper } from '@/Engine/Camera';
 import type { TContainerDecorator } from '@/Engine/Global';
 import type { TRegistrable } from '@/Engine/Mixins';
 import type { TSceneRegistry, TSceneWrapper } from '@/Engine/Scene';
@@ -185,7 +185,7 @@ describe('RegistryUtils', () => {
       const transformDriveService: TTransformDriveService = { name: 'mock-transform-drive-service' } as unknown as TTransformDriveService;
       const audioService: TAudioService = { name: 'mock-audio-service' } as unknown as TAudioService;
       const mockObj: TPerspectiveCameraWrapper = PerspectiveCameraWrapper(
-        { name: 'mock-camera', isActive: false, position: new Vector3(), rotation: new Euler() },
+        { name: 'mock-camera', type: CameraType.Perspective, isActive: false, position: new Vector3(), rotation: new Euler() },
         {
           container,
           transformDriveService,
@@ -195,7 +195,7 @@ describe('RegistryUtils', () => {
       const registry: TCameraRegistry = CameraRegistry();
       registry.add(mockObj);
       setActiveWrappedEntity(registry, mockObj.id);
-      expect(registry.find((w: TPerspectiveCameraWrapper): boolean => w.id === mockObj.id)?.isActive()).toBe(true);
+      expect(registry.find((w: TAnyCameraWrapper): boolean => w.id === mockObj.id)?.isActive()).toBe(true);
     });
 
     it('should set "isActive" to "false" for all entities in a registry but the target entity', () => {

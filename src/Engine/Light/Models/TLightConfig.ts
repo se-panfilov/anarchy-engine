@@ -1,19 +1,19 @@
-import type { Vector2Like, Vector3Like } from 'three';
+import type { Vector2Like } from 'three';
 import type { Color } from 'three/src/math/Color';
 
+import type { TAnyCameraConfig } from '@/Engine/Camera';
 import type { TWithTags } from '@/Engine/Mixins';
 import type { TObject3DParams, TObject3DPropConfig } from '@/Engine/ThreeLib';
 
 import type { TAmbientLightParams } from './TAmbientLightParams';
 import type { TDirectionalLightParams } from './TDirectionalLightParams';
-import type { TDirectionalLightShadowParams } from './TDirectionalLightShadowParams';
 import type { THemisphereLightParams } from './THemisphereLightParams';
 import type { TLightShadowParams } from './TLightShadowParams';
 import type { TPointLightParams } from './TPointLightParams';
 import type { TRectAreaLightParams } from './TRectAreaLightParams';
 import type { TSpotLightParams } from './TSpotLightParams';
 
-export type TAbstractLightConfig<T extends Readonly<{ color: Color; shadow?: TLightShadowConfig }>> = Omit<T, keyof TObject3DParams | 'color' | 'shadow'> &
+export type TAbstractLightConfig<T extends Readonly<{ color: Color }>> = Omit<T, keyof TObject3DParams | 'color' | 'shadow'> &
   Readonly<{
     color: string;
     shadow?: TLightShadowConfig;
@@ -21,10 +21,9 @@ export type TAbstractLightConfig<T extends Readonly<{ color: Color; shadow?: TLi
   TObject3DPropConfig &
   TWithTags;
 
-export type TDirectionalLightConfig = Omit<TDirectionalLightParams, keyof TObject3DParams | 'color' | 'shadow'> &
+export type TDirectionalLightConfig = Omit<TDirectionalLightParams, keyof TObject3DParams | 'color'> &
   Readonly<{
     color: string;
-    shadow?: TDirectionalLightShadowConfig;
   }> &
   TObject3DPropConfig;
 
@@ -39,22 +38,5 @@ export type TAnyLightConfig = TAmbientLightConfig | THemisphereLightConfig | TDi
 export type TLightShadowConfig = Omit<TLightShadowParams, 'mapSize' | 'camera'> &
   Readonly<{
     mapSize: Vector2Like;
-    camera: { far: number };
-  }>;
-
-export type TDirectionalLightShadowConfig = Omit<TDirectionalLightShadowParams, 'mapSize'> &
-  Readonly<{
-    mapSize: Vector2Like;
-    camera: {
-      far: number;
-      left?: number;
-      right?: number;
-      top?: number;
-      bottom?: number;
-      near?: number;
-      type?: string;
-      up?: Vector3Like;
-      zoom?: number;
-      layers?: number;
-    };
+    camera: TAnyCameraConfig;
   }>;

@@ -5,8 +5,10 @@ import { isDefined } from '@/Engine/Utils';
 
 export const isPerspectiveCamera = (camera: TOrthographicCamera | TPerspectiveCamera): camera is TPerspectiveCamera => camera.type === CameraType.Perspective;
 export const isPerspectiveCameraWrapper = (camera: TOrthographicCameraWrapper | TPerspectiveCameraWrapper): camera is TPerspectiveCameraWrapper => isPerspectiveCamera(camera.entity);
+export const isPerspectiveCameraParams = (params: TOrthographicCameraParams | TPerspectiveCameraParams): params is TPerspectiveCameraParams => params.type === CameraType.Perspective;
 export const isOrthographicCamera = (camera: TOrthographicCamera | TPerspectiveCamera): camera is TOrthographicCamera => camera.type === CameraType.Orthographic;
 export const isOrthographicCameraWrapper = (camera: TOrthographicCameraWrapper | TPerspectiveCameraWrapper): camera is TOrthographicCameraWrapper => isOrthographicCamera(camera.entity);
+export const isOrthographicCameraParams = (params: TOrthographicCameraParams | TPerspectiveCameraParams): params is TOrthographicCameraParams => params.type === CameraType.Orthographic;
 
 export function applyPerspectiveCameraParams(camera: TWriteable<TPerspectiveCamera>, params: TPerspectiveCameraParams): void {
   // eslint-disable-next-line functional/immutable-data

@@ -69,6 +69,7 @@
     "cameras": [
       {
         "far": 100,
+        "type": "PerspectiveCamera",
         "fov": 45,
         "isActive": true,
         "name": "main",

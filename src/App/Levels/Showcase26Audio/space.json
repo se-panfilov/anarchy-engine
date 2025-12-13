@@ -128,6 +128,7 @@
       {
         "audioListener": "main_listener",
         "far": 100,
+        "type": "PerspectiveCamera",
         "fov": 45,
         "isActive": true,
         "name": "main_camera",
@@ -162,6 +163,7 @@
       {
         "color": "#A0A0A0",
         "far": 35,
+        "type": "PerspectiveCamera",
         "name": "main_fog",
         "near": 10
       }
@@ -193,6 +195,7 @@
           "camera": {
             "bottom": -10,
             "far": 40,
+            "type": "PerspectiveCamera",
             "left": -10,
             "near": 0.1,
             "right": 10,

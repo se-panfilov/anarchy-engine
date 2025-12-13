@@ -1,7 +1,7 @@
 import type { Layers, Object3DJSONObject, Vector2Like } from 'three';
 import { Vector2 } from 'three';
 
-import type { TCamera } from '@/Engine/Camera';
+import type { TCommonCameraParams } from '@/Engine/Camera';
 import { serializeColor } from '@/Engine/Color';
 import { LightType } from '@/Engine/Light/Constants';
 import type {
@@ -11,8 +11,6 @@ import type {
   TAmbientLightConfig,
   TDirectionalLightConfig,
   TDirectionalLightParams,
-  TDirectionalLightShadowConfig,
-  TDirectionalLightShadowParams,
   THemisphereLightConfig,
   THemisphereLightWrapper,
   TLight,
@@ -101,20 +99,20 @@ export function onlySpotLightToConfig(entity: TSpotLightWrapper): Partial<TSpotL
 export function onlyLightShadowToConfig<T extends TLight>(
   entity: TAbstractLightWrapper<T>
 ): Readonly<{
-  shadow?: TDirectionalLightShadowConfig | TLightShadowConfig;
+  shadow?: TLightShadowConfig;
 }> {
   const json: Object3DJSONObject = entity.entity.toJSON().object;
 
   const lightConfig = json as unknown as TDirectionalLightParams | TAbstractLightParams;
-  const shadow: TLightShadowParams | TDirectionalLightShadowParams | undefined = lightConfig.shadow;
+  const shadow: TLightShadowParams | undefined = lightConfig.shadow;
   if (isNotDefined(shadow)) return {};
-  const camera = shadow.camera as TDirectionalLightShadowConfig['camera'] | undefined;
+  const camera = shadow.camera as TLightShadowConfig['camera'] | undefined;
 
-  const result = filterOutEmptyFields({
+  const result: Readonly<{ shadow?: TLightShadowConfig }> = filterOutEmptyFields({
     shadow: {
       ...shadow,
       mapSize: getMapSize(shadow),
-      camera: undefined as unknown as TCamera
+      camera: undefined as unknown as TCommonCameraParams
     }
   });
 
@@ -129,17 +127,17 @@ export function onlyLightShadowToConfig<T extends TLight>(
     right,
     top,
     bottom,
-    layers: layers as unknown as Layers,
+    layers: layers as unknown as Layers | number,
     near,
     type,
-    up: up as TDirectionalLightShadowConfig['camera']['up'],
+    up: up as TLightShadowConfig['camera']['up'],
     zoom
-  } as TCamera;
+  };
 
   return result;
 }
 
-function getMapSize(shadow: TLightShadowConfig | TDirectionalLightShadowConfig | TLightShadowParams | TDirectionalLightShadowParams | undefined): Vector2Like {
+function getMapSize(shadow: TLightShadowConfig | TLightShadowParams | undefined): Vector2Like {
   let mapSize: Vector2Like | undefined = undefined;
   if (isDefined(shadow) && isDefined(shadow.mapSize)) {
     mapSize =

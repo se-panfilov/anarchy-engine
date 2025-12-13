@@ -1,18 +1,9 @@
-import type { Vector2, Vector3Like } from 'three';
+import type { Vector2 } from 'three';
+
+import type { TAnyCameraParams } from '@/Engine/Camera';
 
 export type TLightShadowParams = Readonly<{
   mapSize: Vector2;
-  camera: {
-    far: number;
-    left?: number;
-    right?: number;
-    top?: number;
-    bottom?: number;
-    near?: number;
-    type?: string;
-    up?: Vector3Like;
-    zoom?: number;
-    layers?: number;
-  };
+  camera: TAnyCameraParams;
   normalBias: number;
 }>;
