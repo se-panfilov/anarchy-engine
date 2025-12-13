@@ -7,7 +7,6 @@ import { sharedAliases } from '../../vite.alias';
 import { visualizer } from 'rollup-plugin-visualizer';
 import wasm from 'vite-plugin-wasm';
 
-// TODO 18-0-0: MONO: Try terser minifier
 export default defineConfig({
   resolve: {
     alias: {
