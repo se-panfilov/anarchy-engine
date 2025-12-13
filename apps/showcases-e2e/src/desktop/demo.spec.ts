@@ -1,5 +1,5 @@
 import type { Page } from '@playwright/test';
-import { test } from '@playwright/test';
+import { expect, test } from '@playwright/test';
 import type { TLaunchContext } from '@Showcases/E2E/Models/TLaunchContext';
 
 import { launchPackagedElectronApp } from './LaunchPackagedElectronApp';
@@ -10,23 +10,58 @@ let context: TLaunchContext;
 
 test.describe('Space Transform Drive save/load Special tests (desktop packaged)', () => {
   test.beforeAll(async () => {
-    const { page } = await launchPackagedElectronApp();
+    const { electronApp, page } = await launchPackagedElectronApp();
 
-    context = { page };
+    context = { electronApp, page };
 
-    await page.goto(GAME_URL + '&e2eName=continuous-move');
+    await page.goto(GAME_URL);
 
-    await waitUntilReady('GO_TO_PAGE', page);
+    await waitUntilReady('GO_TO_PAGE', page, 30_000);
   });
 
-  test('GUI buttons should have translations', async () => {
+  test.afterAll(async () => {
+    if (context?.electronApp) await context.electronApp.close();
+  });
+
+  test.beforeEach(async () => {
     const { page } = context;
 
-    await page.getByRole('button', { name: 'Settings' }).click();
+    await waitUntilReady('RESET_AND_GO_TO_PAGE', page, 30_000);
+  });
+
+  test('Open plain page', async () => {
+    const { page } = context;
+
+    await expect(page).toHaveScreenshot('plain-page.png', { fullPage: true });
+  });
+
+  test('Translations for plain page should work', async () => {
+    const { page } = context;
+
+    await toggleLanguage(page);
+
+    await expect(page).toHaveScreenshot('plain-page-language-toggled.png', { fullPage: true });
+  });
+
+  test('Open menu', async () => {
+    const { page } = context;
+
+    await openSettings(page);
+
+    await expect(page).toHaveScreenshot('settings-open.png', { fullPage: true });
+  });
+
+  test('Open menu with language toggle', async () => {
+    const { page } = context;
+
+    await openSettings(page);
+    await toggleLanguage(page);
+
+    await expect(page).toHaveScreenshot('settings-open-language-toggled.png', { fullPage: true });
   });
 });
 
-export async function waitUntilReady(actionName: string, page: Page, timeout: number = 1000): Promise<void> {
+export async function waitUntilReady(actionName: string, page: Page, timeout: number = 30_000): Promise<void> {
   await page.waitForFunction(
     ({ actionName }): boolean | undefined => {
       console.log(`[E2E] is ${actionName} ready: `, (window as any)._isReady);
@@ -37,4 +72,14 @@ export async function waitUntilReady(actionName: string, page: Page, timeout: nu
     },
     { timeout, actionName }
   );
+}
+
+async function openSettings(page: Page): Promise<void> {
+  const settingsButton = page.getByRole('button', { name: /settings/i });
+  await settingsButton.click();
+}
+
+async function toggleLanguage(page: Page): Promise<void> {
+  const languageButton = page.getByRole('button', { name: /language/i });
+  await languageButton.click();
 }
