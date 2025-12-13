@@ -5,3 +5,4 @@
 - 1.4.0 Load settings
 - 1.5.0 i18n
 - 1.6.0 Legal screen
+- 1.7.0 Allow change fonts on locale change
