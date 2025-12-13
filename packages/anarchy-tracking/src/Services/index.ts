@@ -1,1 +1,1 @@
-export * from './TrackingService';
+export * from './BrowserTrackingService';
