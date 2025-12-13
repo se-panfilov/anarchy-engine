@@ -2,8 +2,14 @@
 // You need to define @font-face yourself and add "font" property to each locale.
 :root {
   --anarchy-i18n-font: system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
+  //--anarchy-i18n-font: sans-serif;
 }
 
+html,
 body {
+  font-family: var(--anarchy-i18n-font);
+}
+
+body * {
   font-family: var(--anarchy-i18n-font);
 }
