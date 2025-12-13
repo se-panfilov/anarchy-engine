@@ -2,6 +2,7 @@ import { execSync, spawn } from 'node:child_process';
 import { normalizeMode, resolveDryRun, resolveMode } from 'anarchy-shared/ScriptUtils/ModeUtils.js';
 import path from 'node:path';
 import fs from 'node:fs';
+import { writeDistInfo } from './utils.js';
 
 const argv = process.argv.slice(2);
 const mode = resolveMode(argv);
@@ -28,7 +29,18 @@ run('node ./scripts/clean.js dist');
 // 2) Prebuild with proper mode
 run(`node ./scripts/prebuild.js --mode=${mode}${dryRun ? ' --dry-run' : ''}`);
 
-// 3) Launch Electron app
+// 3) Write dist-info.json for dev run (treat as 'dir' target)
+try {
+  const platform = process.platform === 'darwin' ? 'mac' : process.platform === 'win32' ? 'win' : 'linux';
+  const arch = process.arch === 'arm64' ? 'arm64' : 'x64';
+  const outDir = path.resolve(process.cwd(), 'dist');
+  const { path: infoPath } = writeDistInfo({ mode, platforms: [platform], archs: [arch], installers: ['dir'], outDir });
+  console.log(`[start] wrote ${path.relative(process.cwd(), infoPath)}`);
+} catch (err) {
+  console.warn('[start] WARN: failed to write dist-info.json', err);
+}
+
+// 4) Launch Electron app
 const isWin = process.platform === 'win32';
 const localElectron = path.resolve(process.cwd(), 'node_modules', '.bin', isWin ? 'electron.cmd' : 'electron');
 

@@ -1,8 +1,9 @@
 import { loadModeEnv, parseBoolEnv, parseListEnv } from 'anarchy-shared/ScriptUtils/EnvUtils.js';
 import { normalizeMode, resolveDryRun, resolveMode } from 'anarchy-shared/ScriptUtils/ModeUtils.js';
 import { execSync } from 'node:child_process';
-import { mkdirSync, writeFileSync } from 'node:fs';
+import { mkdirSync } from 'node:fs';
 import path from 'node:path';
+import { parseInstallersFromCli, writeDistInfo } from './utils.js';
 
 const argv = process.argv.slice(2);
 const mode = resolveMode(argv);
@@ -40,10 +41,6 @@ const envPlatforms = parseListEnv(process.env.PACK_PLATFORMS || process.env.PACK
 const envArchs = parseListEnv(process.env.PACK_ARCHS || process.env.PACK_ARCH);
 const envDir = parseBoolEnv(process.env.PACK_DIR, false);
 
-// Extract explicit target tokens (e.g., dmg, nsis, AppImage, dir) from remaining CLI args
-const explicitTargets = cliArgs.filter((a) => !a.startsWith('-'));
-const hasDirTokenInCli = cliArgs.includes('--dir') || explicitTargets.includes('dir');
-
 // Helper: parse platforms/archs from CLI flags
 const parsePlatformsFromCli = () => {
   const out = [];
@@ -71,17 +68,23 @@ const resolvedPlatforms = hasPlatformFlags
 
 const resolvedArchs = hasArchFlags ? parseArchsFromCli() : envArchs.length > 0 ? envArchs : modeArchs.length > 0 ? modeArchs : [process.arch === 'arm64' ? 'arm64' : 'x64'];
 
+// Parse installers/targets using shared util (handles dir, portable, etc.)
+const { installers: parsedInstallers, hasDirTokenInCli } = parseInstallersFromCli(cliArgs, { envDir });
+
 // Synthesize args from resolution (dedup platform/arch/dir)
 const envArgs = [];
 for (const p of resolvedPlatforms) envArgs.push(`--${p}`);
 for (const a of resolvedArchs) envArgs.push(`--${a}`);
-const shouldAddDirFromEnv = envDir && !hasDirTokenInCli;
-if (hasDirTokenInCli || shouldAddDirFromEnv) envArgs.push('--dir');
+if (hasDirTokenInCli || envDir) envArgs.push('--dir');
 
-// Remove platform/arch/dir flags from CLI to avoid duplicates and rely on synthesized flags above
-const filteredCli = cliArgs.filter((a) => !platformFlags.includes(a) && !archFlags.includes(a) && a !== '--dir' && a !== 'dir');
+// Remove platform/arch/dir flags from CLI to avoid duplicates; also strip '--portable' (we'll add bare 'portable' token below if needed)
+const filteredCli = cliArgs.filter((a) => !platformFlags.includes(a) && !archFlags.includes(a) && a !== '--dir' && a !== 'dir' && a !== '--portable');
 
-const ebArgs = [...envArgs, ...filteredCli].join(' ').trim();
+// If user passed --portable (flag), convert to 'portable' token for EB
+const needsPortableToken = cliArgs.includes('--portable') && !cliArgs.includes('portable'); //gitleaks:allow
+const extraTargets = needsPortableToken ? ['portable'] : [];
+
+const ebArgs = [...envArgs, ...filteredCli, ...extraTargets].join(' ').trim();
 
 const run = (cmd, opts = {}) => {
   if (process.env.DRY_RUN === '1') {
@@ -102,36 +105,16 @@ run(`${cleanCmd}node ./scripts/prebuild.js --mode=${mode}${dryRun ? ' --dry-run'
 
 // === Write dist-info.json early for downstream tools (e.g., Sentry sourcemaps) ===
 try {
-  // Resolve output directory from electron-builder config default ("dist") relative to this workspace
   const outDir = path.resolve(process.cwd(), 'dist');
   mkdirSync(outDir, { recursive: true });
-
-  // Use the resolved sets (include CLI flags if present)
-  const platforms = resolvedPlatforms;
-  const archs = resolvedArchs;
-
-  // Effective installers: start with explicit tokens; add 'dir' if either CLI specified it or env adds it
-  const installers = [...explicitTargets];
-  if (hasDirTokenInCli || shouldAddDirFromEnv) installers.push('dir');
-  const installersDedup = Array.from(new Set(installers));
-
-  const primaryPlatform = platforms[0];
-  const primaryArch = archs[0];
-  const distName = `${primaryPlatform}-${primaryArch}`;
-
-  const info = {
+  const { path: infoPath } = writeDistInfo({
     mode,
-    platforms,
-    archs,
-    installers: installersDedup,
-    platform: primaryPlatform,
-    arch: primaryArch,
-    distName
-  };
-
-  const infoPath = path.join(outDir, 'dist-info.json');
-  writeFileSync(infoPath, JSON.stringify(info, null, 2));
-  console.log(`[package] wrote ${path.relative(process.cwd(), infoPath)} → ${distName}`);
+    platforms: resolvedPlatforms,
+    archs: resolvedArchs,
+    installers: parsedInstallers,
+    outDir
+  });
+  console.log(`[package] wrote ${path.relative(process.cwd(), infoPath)}`);
 } catch (err) {
   console.warn('[package] WARN: failed to write dist-info.json', err);
 }
