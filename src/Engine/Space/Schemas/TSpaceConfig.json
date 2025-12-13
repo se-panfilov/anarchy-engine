@@ -313,12 +313,6 @@
         "states": {
           "$ref": "#/definitions/TActorStatesConfig"
         },
-        "driveUpdateDelay": {
-          "type": "number"
-        },
-        "driveCoordsThreshold": {
-          "type": "number"
-        },
         "agent": {
           "$ref": "#/definitions/TransformAgent"
         },

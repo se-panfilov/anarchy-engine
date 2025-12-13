@@ -12,8 +12,6 @@ import type { TActorModel3dSettings } from './TActorModel3dSettings';
 import type { TActorStates } from './TActorStates';
 
 export type TActorParams = Readonly<{
-  driveUpdateDelay?: number;
-  driveCoordsThreshold?: number;
   model3dSettings?: TActorModel3dSettings;
   model3dSource: TModel3d;
   physics?: TWithPresetNamePhysicsBodyParams;

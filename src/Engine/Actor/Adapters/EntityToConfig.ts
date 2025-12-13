@@ -19,11 +19,6 @@ export function actorToConfig(entity: TActor, { models3dService }: TActorEntityT
   const model3dSource: string = model3d.name;
 
   return filterOutEmptyFields({
-    // driveUpdateDelay //needs a getter (maybe at TransformDrive)
-    //   driveCoordsThreshold?: number;  //needs a getter (maybe at TransformDrive)
-
-    //   model3dSettings?: TActorModel3dSettings;
-
     model3dSource,
     // physics?: TWithPresetNamePhysicsBodyConfig,
     // kinematic?: TKinematicConfig,
