@@ -5,33 +5,19 @@ import RouterView from '@Showcases/Menu/components/RouterView.vue';
 import { eventsService, vueTranslationService } from '@Showcases/Menu/services';
 import { useSettingsStore } from '@Showcases/Menu/stores/SettingsStore';
 import { Locales } from '@Showcases/Shared';
-import type { Observable, Subscription } from 'rxjs';
-import type { ShallowRef } from 'vue';
-import { onBeforeUnmount, onMounted, onUnmounted, shallowRef } from 'vue';
+import type { Subscription } from 'rxjs';
+import { onMounted, onUnmounted } from 'vue';
 
 let appEventsSub$: Subscription | undefined;
 
 const { $t } = vueTranslationService;
 
 // TODO DESKTOP: DEBUG CODE
-// console.log('XXX1', vueTranslationService.translate('menu.start'));
-// vueTranslationService.locale$.next(Locales.nl);
-// setTimeout(() => {
-//   console.log('XXX2', vueTranslationService.translate('menu.start'));
-// }, 500);
-
 setInterval(() => {
   vueTranslationService.locale$.next(vueTranslationService.locale$.value === Locales.nl ? Locales.en : Locales.nl);
 }, 1500);
 
 const translated = $t('menu.start');
-// const asd: any;
-// vueTranslationService.t$('menu.start').subscribe((v) => {
-//   console.log('XXX', v);
-// });
-
-// console.log(i18n.translate('hud.fps', { count: '60' }));
-// console.log(i18n.formatNumber(1234.56, { style: 'currency', currency: 'EUR' }));
 // TODO DESKTOP: DEBUG CODE END
 
 onMounted((): void => {
