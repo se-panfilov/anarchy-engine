@@ -15,7 +15,7 @@ export function AbstractEntityRegistry<T extends TRegistrable | TMultitonRegistr
 
   const destroyable: TDestroyable = destroyableMixin();
   const { added$, replaced$, removed$ }: TWithReactiveRegistry<T> = withReactiveRegistry<T>(destroyable);
-  const { isEmpty, getLength, forEach, getAll, find }: TWithBaseAccessorsRegistry<T> = withBaseAccessorsRegistry<T>(registry);
+  const { isEmpty, getLength, forEach, getAll, find, getRegistryCopy }: TWithBaseAccessorsRegistry<T> = withBaseAccessorsRegistry<T>(registry);
 
   function add(entity: T): void | never {
     if (registry.has(entity.id)) throw new Error(`Cannot add an entity with id "${entity.id}" to registry ${id}: already exist`);
@@ -64,6 +64,7 @@ export function AbstractEntityRegistry<T extends TRegistrable | TMultitonRegistr
     findByTags: findByTags,
     forEach,
     getAll,
+    getRegistryCopy,
     getLength,
     isEmpty,
     registry,

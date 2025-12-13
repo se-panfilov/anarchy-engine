@@ -6,12 +6,14 @@ export function withBaseAccessorsRegistry<T>(registry: Map<string, T>): TWithBas
   const getLength = (): number => registry.size;
   const forEach = (predicate: (entity: T) => void): void => registry.forEach(predicate);
   const find = (predicate: (entity: T, key: string) => boolean): T | undefined => findInMap(registry, predicate);
+  const getRegistryCopy = (): Map<string, T> => new Map(registry);
 
   return {
     isEmpty,
     getLength,
     forEach,
     getAll: () => getAll(registry),
+    getRegistryCopy,
     find
   };
 }

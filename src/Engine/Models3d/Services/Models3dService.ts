@@ -37,6 +37,7 @@ export function Models3dService(models3dRegistry: TModels3dAsyncRegistry, models
 
     const preResult: Pick<TModel3dLoadResult, 'url' | 'options'> = { url, options };
     if (!options.isForce) {
+      // TODO (S.Panfilov) CWP this check is doesn't work for some reason
       const model: Mesh | Group | undefined = models3dRegistry.findByKey(url);
       const animations: ReadonlyArray<AnimationClip> | undefined = models3dAnimationsRegistry.findByKey(url);
       // TODO find animations
