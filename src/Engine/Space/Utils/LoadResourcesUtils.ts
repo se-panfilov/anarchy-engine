@@ -17,7 +17,7 @@ export async function loadResources(resources: TSpaceConfigResources, { models3d
 
   await Promise.all([
     // Models3d contains of "entities" and "resources". Here only load model resources. And create them lately.
-    models3dService.loadFromConfigAsync(models3dService.filterLoadableModel3dConfigs(models3d)),
+    models3dService.loadFromConfigAsync(models3d),
     envMapTexturePromise
   ]);
 }
