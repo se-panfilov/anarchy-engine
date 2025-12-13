@@ -1173,9 +1173,25 @@
       "additionalProperties": false,
       "properties": {
         "animationsFsmSource": {
-          "type": "string"
+          "$ref": "#/definitions/TAnimationsFsmSource"
         }
       }
+    },
+    "TAnimationsFsmSource": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "currentState": {
+          "$ref": "#/definitions/TFsmStates"
+        }
+      },
+      "required": ["name"],
+      "additionalProperties": false
+    },
+    "TFsmStates": {
+      "type": ["string", "number"]
     },
     "TransformAgent": {
       "type": "string",
@@ -2535,9 +2551,6 @@
         }
       },
       "required": ["initial", "name", "transitions", "type"]
-    },
-    "TFsmStates": {
-      "type": ["string", "number"]
     },
     "TFsmEvents": {
       "type": ["string", "number"]

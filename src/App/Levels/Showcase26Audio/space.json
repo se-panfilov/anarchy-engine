@@ -65,7 +65,7 @@
           "isAutoUpdate": false
         },
         "states": {
-          "animationsFsmSource": "shoot_anim_fsm"
+          "animationsFsmSource": { "name": "shoot_anim_fsm" }
         }
       },
       {

@@ -1,5 +1,5 @@
 import type { TAbstractService } from '@/Engine/Abstract';
-import type { TFsmConfig, TFsmInstanceRegistry, TFsmParams, TFsmSource, TFsmWrapper } from '@/Engine/Fsm/Models';
+import type { TFsmConfig, TFsmInstanceRegistry, TFsmParams, TFsmSource, TFsmStates, TFsmWrapper } from '@/Engine/Fsm/Models';
 import type { TWithFactoryService } from '@/Engine/Mixins';
 
 import type { TFsmInstanceFactory } from './TFsmInstanceFactory';
@@ -12,7 +12,7 @@ export type TFsmService = TAbstractService &
   Readonly<{
     create: (params: TFsmParams, force?: boolean) => TFsmWrapper | never;
     createFromList: (params: ReadonlyArray<TFsmParams>, force?: boolean) => ReadonlyArray<TFsmWrapper>;
-    createInstanceBySourceName: (sourceName: string) => TFsmWrapper | never;
+    createInstanceBySourceName: (sourceName: string, currentState?: TFsmStates) => TFsmWrapper | never;
     createSource: (source: TFsmParams) => TFsmSource;
     createSourceFromList: (source: ReadonlyArray<TFsmParams>) => ReadonlyArray<TFsmSource>;
     createSourceFromConfig: (fsm: ReadonlyArray<TFsmConfig>) => ReadonlyArray<TFsmSource>;

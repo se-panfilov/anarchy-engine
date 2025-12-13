@@ -1,6 +1,6 @@
 import type { TActor, TActorConfig, TActorEntityToConfigDependencies, TActorStates } from '@/Engine/Actor/Models';
 import type { TCollisionsDataConfig } from '@/Engine/Collisions';
-import type { TFsmWrapper } from '@/Engine/Fsm';
+import type { TFsmConfig, TFsmWrapper } from '@/Engine/Fsm';
 import { extractSerializableRegistrableFields } from '@/Engine/Mixins';
 import type { TModel3d, TModels3dRegistry } from '@/Engine/Models3d';
 import type { TSpatialDataConfig } from '@/Engine/Spatial';
@@ -11,8 +11,6 @@ import { filterOutEmptyFields, isNotDefined } from '@/Engine/Utils';
 // TODO 15-0-0: validate result
 export function actorToConfig(entity: TActor, { models3dService }: TActorEntityToConfigDependencies): TActorConfig {
   const { drive } = entity;
-  // console.log('XXX entity', entity);
-  // console.log('XXX drive', drive);
 
   const models3dRegistry: TModels3dRegistry = models3dService.getRegistry();
   const model3d: TModel3d | undefined = models3dRegistry.findById(entity.model3d.id);

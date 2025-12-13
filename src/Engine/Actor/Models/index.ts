@@ -14,6 +14,7 @@ export type * from './TActorStates';
 export type * from './TActorStatesConfig';
 export type * from './TActorTransformAgents';
 export type * from './TActorTransformDrive';
+export type * from './TAnimationsFsmSource';
 export type * from './TModel3dToActorConnectionRegistry';
 export type * from './TParamsFromConfigActor';
 export type * from './TWithActorStates';

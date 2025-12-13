@@ -12,6 +12,7 @@ import type {
   TFsmSourceFactory,
   TFsmSourceRegistry,
   TFsmSourceService,
+  TFsmStates,
   TFsmWrapper
 } from '@/Engine/Fsm/Models';
 import type { TDisposable } from '@/Engine/Mixins';
@@ -50,10 +51,10 @@ export function FsmService(instanceFactory: TFsmInstanceFactory, sourceFactory: 
     return isEqual(params, sourceParams);
   }
 
-  function createInstanceBySourceName(sourceName: string): TFsmWrapper | never {
+  function createInstanceBySourceName(sourceName: string, currentState?: TFsmStates): TFsmWrapper | never {
     const source: TFsmSource | undefined = sourceService.getRegistry().findByKey(sourceName);
     if (isNotDefined(source)) throw new Error(`FsmService. Can't create a fsm instance by a source name "${sourceName}": fsm source not found`);
-    return instanceService.create(source);
+    return instanceService.create({ ...source, currentState });
   }
 
   // eslint-disable-next-line functional/immutable-data
