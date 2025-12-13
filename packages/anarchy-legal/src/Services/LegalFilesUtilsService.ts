@@ -3,7 +3,6 @@ import path from 'node:path';
 
 import type {
   TAnarchyLegalConfig,
-  TAnarchyLegalConfigEntry,
   TLegalDocumentType,
   TLegalFilesUtilsService,
   TRenderInput,
@@ -34,9 +33,6 @@ export function LegalFilesUtilsService(repoUtilsService: TRepoUtilsService): TLe
       throw new Error(`Failed to read ${p}: ${(e as Error).message}`);
     }
   }
-
-  const pickEntry = (config: TAnarchyLegalConfig, type: 'GENERIC' | TLegalDocumentType): TAnarchyLegalConfigEntry | undefined =>
-    config.find((e: TAnarchyLegalConfigEntry): boolean => e?.type === type);
 
   async function findTemplateFile(
     templatesDir: string,
@@ -188,7 +184,7 @@ export function LegalFilesUtilsService(repoUtilsService: TRepoUtilsService): TLe
     generic: Readonly<Record<string, unknown>> | undefined,
     specific: Readonly<Record<string, unknown>> | undefined
   ): Readonly<{ values: Record<string, string>; raw: Record<string, unknown> }> {
-    const values = buildPlaceholderValues(docType, tplText, pkg, generic as any, specific as any);
+    const values: Readonly<Record<string, string>> = buildPlaceholderValues(docType, tplText, pkg, generic as any, specific as any);
     const raw: Record<string, unknown> = {};
 
     for (const [k, v] of Object.entries(values)) raw[k] = v;
@@ -204,20 +200,8 @@ export function LegalFilesUtilsService(repoUtilsService: TRepoUtilsService): TLe
     return { values, raw };
   }
 
-  // Render
-  function renderTemplate(tpl: string, values: Readonly<Record<string, string>>, onMissing: (name: string) => void): string {
-    return tpl.replace(PLACEHOLDER_RE, (_m, g1: string): string => {
-      const v: string = values[g1];
-      if (v === undefined) {
-        onMissing(g1);
-        return '';
-      }
-      return v;
-    });
-  }
-
   // Replace variables {{VAR}} with materialized values
-  const renderVariables = (tpl: string, values: Readonly<Record<string, string>>, onMissing: (name: string) => void): string => {
+  function renderVariables(tpl: string, values: Readonly<Record<string, string>>, onMissing: (name: string) => void): string {
     const VAR_RE = /{{\s*([A-Z0-9_]+)\s*}}/g;
     return tpl.replace(VAR_RE, (_m, g1: string) => {
       const v = values[g1];
@@ -227,7 +211,7 @@ export function LegalFilesUtilsService(repoUtilsService: TRepoUtilsService): TLe
       }
       return v;
     });
-  };
+  }
 
   // Evaluate sections recursively until nothing left
   function renderSections(input: string, truthyMap: Readonly<Record<string, unknown>>): string {
@@ -236,12 +220,12 @@ export function LegalFilesUtilsService(repoUtilsService: TRepoUtilsService): TLe
     const isTruthy = (raw: unknown): boolean => Boolean(raw);
 
     let prev: string;
-    let out = input;
+    let out: string = input;
     do {
       prev = out;
       out = out.replace(SECTION_RE, (_m, sigil: '#' | '^', name: string, body: string) => {
-        const cond = isTruthy(truthyMap[name]);
-        const pass = sigil === '#' ? cond : !cond;
+        const condition: boolean = isTruthy(truthyMap[name]);
+        const pass: boolean = sigil === '#' ? condition : !condition;
         return pass ? renderSections(body, truthyMap) : '';
       });
     } while (out !== prev);
@@ -280,7 +264,7 @@ export function LegalFilesUtilsService(repoUtilsService: TRepoUtilsService): TLe
     const afterSections = renderSections(tplText, raw);
 
     const missing: string[] = [];
-    const namesAfter = collectPlaceholders(afterSections);
+    const namesAfter: ReadonlySet<string> = collectPlaceholders(afterSections);
     for (const name of namesAfter) {
       if (values[name] === undefined) missing.push(name);
     }
