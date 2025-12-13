@@ -1,20 +1,13 @@
-import type { TLocalesMapping, TTranslationService } from '@Anarchy/i18n';
-import { TranslationService } from '@Anarchy/i18n';
-import { ShowcasesFallbackLocale, ShowcasesLocales } from '@Showcases/i18n';
-import { locales } from '@Showcases/Menu/i18n';
-import type { TVueTranslationService } from '@Showcases/Menu/models';
+import { showcasesTranslationService } from '@Showcases/i18n';
 import type { Observable, Subscription } from 'rxjs';
 import { filter } from 'rxjs';
+import type { TVueTranslationService } from 'showcases-menu/src/models';
 import type { ShallowRef } from 'vue';
 import { onBeforeUnmount, onMounted, shallowRef } from 'vue';
 
-// TODO DESKTOP: extract this service to shared package: has to be reused in UI level
-export function VueTranslationService(localesMapping: TLocalesMapping = locales): TVueTranslationService {
-  // TODO DESKTOP: this initialization has to be the same as in the app (and UI), so we need a storage layer
-  const i18n: TTranslationService = TranslationService(ShowcasesLocales['en-US'], ShowcasesFallbackLocale, localesMapping);
-
+export function VueTranslationService(): TVueTranslationService {
   const isReadyPromise: Promise<void> = new Promise<void>((resolve, reject): void => {
-    const subscription$: Subscription = i18n.ready$.pipe(filter((isReady: boolean): boolean => isReady)).subscribe({
+    const subscription$: Subscription = showcasesTranslationService.ready$.pipe(filter((isReady: boolean): boolean => isReady)).subscribe({
       next: (): void => {
         subscription$.unsubscribe();
         return resolve();
@@ -43,10 +36,10 @@ export function VueTranslationService(localesMapping: TLocalesMapping = locales)
     return ref;
   }
 
-  const $t = (id: string, params?: Record<string, string> | Observable<Record<string, string>>): ShallowRef<string> => toRef(i18n.t$(id, params));
+  const $t = (id: string, params?: Record<string, string> | Observable<Record<string, string>>): ShallowRef<string> => toRef(showcasesTranslationService.t$(id, params));
 
   // eslint-disable-next-line functional/immutable-data
-  return Object.assign(i18n, { waitInitialReady, toRef, $t });
+  return Object.assign(showcasesTranslationService, { waitInitialReady, toRef, $t });
 }
 
 export const vueTranslationService: TVueTranslationService = VueTranslationService();
