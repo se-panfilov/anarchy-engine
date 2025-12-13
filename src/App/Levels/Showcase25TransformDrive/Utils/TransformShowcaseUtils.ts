@@ -72,14 +72,14 @@ export function createRepeaterActor(actor: TActor, offset: Vector3Like, grid: TS
   return subj$;
 }
 
-export function attachConnectorToSubj(actor: TActor, subj: Subject<Vector3> | Observable<Vector3>, offset: Vector3Like = { x: 0, y: 0, z: 0 }): Subscription {
+export function attachConnectorToSubj(connectedActor: TActor, subj: Subject<Vector3> | Observable<Vector3>, offset: Vector3Like = { x: 0, y: 0, z: 0 }): Subscription {
   return subj.subscribe((position: Vector3): void => {
     // eslint-disable-next-line functional/immutable-data
-    actor.drive.connected.positionConnector.x = position.x + offset.x;
+    connectedActor.drive.connected.positionConnector.x = position.x + offset.x;
     // eslint-disable-next-line functional/immutable-data
-    actor.drive.connected.positionConnector.y = position.y + offset.y;
+    connectedActor.drive.connected.positionConnector.y = position.y + offset.y;
     // eslint-disable-next-line functional/immutable-data
-    actor.drive.connected.positionConnector.z = position.z + offset.z;
+    connectedActor.drive.connected.positionConnector.z = position.z + offset.z;
   });
 }
 

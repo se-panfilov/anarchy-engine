@@ -86,9 +86,10 @@ export function TransformDrive<T extends Partial<Record<TransformAgent, TAbstrac
 
   // TODO ENV: limited fps, perhaps should be configurable
   const performance: Required<TTransformDrivePerformanceOptions> = {
-    updatePositionDelay: params.performance?.updatePositionDelay ?? 2,
-    updateRotationDelay: params.performance?.updateRotationDelay ?? 2,
-    updateScaleDelay: params.performance?.updateScaleDelay ?? 2,
+    //position delay is not recommended to use with "connected" agent (and "default in some cases"), but okay with "physical".
+    updatePositionDelay: params.performance?.updatePositionDelay ?? 0,
+    updateRotationDelay: params.performance?.updateRotationDelay ?? 0,
+    updateScaleDelay: params.performance?.updateScaleDelay ?? 0,
     positionNoiseThreshold: params.performance?.positionNoiseThreshold ?? 0.0000001,
     rotationNoiseThreshold: params.performance?.rotationNoiseThreshold ?? 0.0000001,
     scaleNoiseThreshold: params.performance?.scaleNoiseThreshold ?? 0.0000001
