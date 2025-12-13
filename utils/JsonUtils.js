@@ -18,7 +18,7 @@ const baseConfig = {
   minify: isMinify ?? false,
   // skipTypeCheck: false,
   // sortProps: true,
-  // strictTuples: false,
+  strictTuples: true,
   topRef: false,
   tsconfig: './tsconfig.json',
   type: '*' // Or <type-name> if you want to generate schema for that one type only,
