@@ -47,6 +47,7 @@ export const useSettingsStore = defineStore('settingsStore', () => {
   const setInternal = (newInternal: Partial<TInternalSettings>): void => void Object.assign(state.internal, { ...newInternal });
 
   return {
+    state: computed(() => state),
     graphics,
     setGraphics,
     audio,

@@ -3,9 +3,10 @@ import './assets/style.scss';
 
 import RouterView from '@Menu/components/RouterView.vue';
 import { eventsService } from '@Menu/services';
+import { useSettingsStore } from '@Menu/stores/SettingsStore';
 
 function save(): void {
-  eventsService.emitCloseMenu;
+  eventsService.emitSaveMenuSettings(useSettingsStore().state);
 }
 </script>
 

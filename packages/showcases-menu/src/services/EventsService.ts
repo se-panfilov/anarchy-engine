@@ -1,6 +1,6 @@
 import { isNotDefined } from '@Engine';
 import type { TEventsService } from '@Menu/models';
-import type { TMenuEvent } from '@ShowcasesShared';
+import type { TMenuEvent, TShowcaseGameSettings } from '@ShowcasesShared';
 import { MenuEvents } from '@ShowcasesShared';
 import type { Subject } from 'rxjs';
 
@@ -13,6 +13,20 @@ function EventsService(): TEventsService {
     if (isNotDefined(bus$)) throw new Error('[EventsService]: bus$ is not defined. Call setBus() first.');
     console.log('[EventsService]: emitCloseMenu');
     bus$.next({ type: MenuEvents.CloseMenu });
+  }
+
+  function emitSaveMenuSettings(settings: TShowcaseGameSettings): void | never {
+    if (isNotDefined(bus$)) throw new Error('[EventsService]: bus$ is not defined. Call setBus() first.');
+    console.log('[EventsService]: emitSaveMenuSettings');
+    bus$.next({ type: MenuEvents.SaveSettings, payload: settings });
+  }
+
+  function emitLoadMenuSettings(): void | never {
+    if (isNotDefined(bus$)) throw new Error('[EventsService]: bus$ is not defined. Call setBus() first.');
+    console.log('[EventsService]: emitLoadMenuSettings');
+    // TODO DESKTOP: Implement, make receive settings and apply to store
+    console.warn(`[EventsService]: emitLoadMenuSettings is not implemented yet.`);
+    bus$.next({ type: MenuEvents.LoadSettings });
   }
 
   function emitStartNewGame(): void | never {
@@ -33,7 +47,7 @@ function EventsService(): TEventsService {
     bus$.next({ type: MenuEvents.LoadGame });
   }
 
-  return { setBus, emitCloseMenu, emitStartNewGame, emitContinueGame, emitLoadGame };
+  return { setBus, emitCloseMenu, emitSaveMenuSettings, emitLoadMenuSettings, emitStartNewGame, emitContinueGame, emitLoadGame };
 }
 
 export const eventsService: TEventsService = EventsService();
