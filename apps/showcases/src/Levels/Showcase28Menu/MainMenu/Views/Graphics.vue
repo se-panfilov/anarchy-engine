@@ -1,9 +1,9 @@
 <script setup lang="ts">
-console.log('Some view');
+console.log('Graphics view');
 </script>
 
 <template>
-  <div>Some View</div>
+  <div>Graphics View</div>
 </template>
 
 <style scoped></style>

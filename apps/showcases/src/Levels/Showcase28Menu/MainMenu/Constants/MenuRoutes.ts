@@ -1,14 +1,20 @@
-import HomeView from '@/Levels/Showcase28Menu/MainMenu/Views/HomeView.vue';
-import SomeView from '@/Levels/Showcase28Menu/MainMenu/Views/SomeView.vue';
+import Audio from '@/Levels/Showcase28Menu/MainMenu/Views/Audio.vue';
+import Graphics from '@/Levels/Showcase28Menu/MainMenu/Views/Graphics.vue';
+import Home from '@/Levels/Showcase28Menu/MainMenu/Views/Home.vue';
+import Localization from '@/Levels/Showcase28Menu/MainMenu/Views/Localization.vue';
 
 export enum MenuRoutes {
   Home = '/',
-  Some = '/some'
+  Audio = '/audio',
+  Graphics = '/graphics',
+  Localization = '/localization'
 }
 
 // TODO DESKTOP: any?
 // TODO DESKTOP: can we do it lazy?
 export const menuRouteMap: Record<MenuRoutes, any> = {
-  [MenuRoutes.Home]: HomeView,
-  [MenuRoutes.Some]: SomeView
+  [MenuRoutes.Home]: Home,
+  [MenuRoutes.Audio]: Audio,
+  [MenuRoutes.Graphics]: Graphics,
+  [MenuRoutes.Localization]: Localization
 };
