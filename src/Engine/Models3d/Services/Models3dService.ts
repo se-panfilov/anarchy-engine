@@ -21,24 +21,22 @@ export function Models3dService(registry: TModels3dAsyncRegistry, animationsServ
   dracoLoader.setDecoderConfig({ type: 'wasm' });
   dracoLoader.preload();
   models3dLoader.setDRACOLoader(dracoLoader);
-  const loaded$: Subject<TPerformLoadResult> = new Subject<TPerformLoadResult>();
+  const loaded$: Subject<TModel3dFacade> = new Subject<TModel3dFacade>();
   const added$: Subject<TModel3dFacade> = new Subject<TModel3dFacade>();
 
-  loaded$.subscribe(({ result, isExisting }: TPerformLoadResult): void => {
-    const options = result.getOptions();
-    if (options.shouldAddToRegistry && !isExisting) registry.add(result);
-    if (options.shouldAddToScene) sceneW.addModel(result.getModel());
-    added$.next(result);
+  added$.subscribe((facade: TModel3dFacade): void => {
+    const options = facade.getOptions();
+    if (options.shouldAddToRegistry) registry.add(facade);
+    if (options.shouldAddToScene) sceneW.addModel(facade.getModel());
+  });
+
+  loaded$.subscribe((facade: TModel3dFacade): void => {
+    added$.next(facade);
   });
 
   function createFromPack(pack: TModel3dPack): TModel3dFacade {
     const facade = Model3dFacade(pack, animationsService);
-
-    if (pack.options.shouldAddToRegistry) registry.add(facade);
-    if (pack.options.shouldAddToScene) sceneW.addModel(facade.getModel());
-
     added$.next(facade);
-
     return facade;
   }
 
@@ -63,7 +61,7 @@ export function Models3dService(registry: TModels3dAsyncRegistry, animationsServ
 
     model3dList.forEach((m: TModel3dParams): void => {
       const p: Promise<TModel3dFacade> = performLoad(m).then(({ result, isExisting }: TPerformLoadResult): TModel3dFacade => {
-        if (!isExisting) loaded$.next({ result, isExisting });
+        if (!isExisting) loaded$.next(result);
         return result;
       });
 
@@ -76,9 +74,6 @@ export function Models3dService(registry: TModels3dAsyncRegistry, animationsServ
 
   function clone(model3dFacade: TModel3dFacade, overrides?: TOptional<TModel3dPack>): TModel3dFacade {
     const cloned = model3dFacade._clone(overrides);
-    const options = model3dFacade.getOptions();
-    if (options.shouldAddToRegistry) registry.add(cloned);
-    if (options.shouldAddToScene) sceneW.addModel(cloned.getModel());
     added$.next(cloned);
     return cloned;
   }

@@ -17,21 +17,23 @@ export function Model3dFacade(params: TModels3dFacadeParams, animationsService: 
 
   // TODO (S.Panfilov) CWP test this method, if it works correctly (animations are played for cloned model)
   // Be aware that this clone method doesn't save the facade to the registry, use clone() method of the service instead
-  function _clone(overrides?: TOptional<TModel3dPack>): TModel3dFacade {
+  function _clone(overrides: TOptional<TModel3dPack> = {}): TModel3dFacade {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { clonedFrom, ...rest } = overrides;
     const model = entities.model.clone();
     const animations: TAnimationsPack = {};
     // eslint-disable-next-line functional/immutable-data
     if (isNotDefined(overrides?.animations)) Object.entries(entities.animations).forEach(([key, value]: [string, AnimationClip]): void => void (animations[key] = value.clone()));
 
-    let mixer = overrides?.mixer;
-    let actions = overrides?.actions;
-    if (isNotDefined(overrides?.mixer || overrides?.actions)) {
+    let mixer = overrides.mixer;
+    let actions = overrides.actions;
+    if (isNotDefined(overrides.mixer || overrides?.actions)) {
       const actionsPack = animationsService.createActions(model, animations);
       mixer = actionsPack.mixer;
       actions = actionsPack.actions;
     }
 
-    return Model3dFacade({ ...entities, model, animations, mixer, actions, clonedFrom: facade.id, ...overrides }, animationsService);
+    return Model3dFacade({ ...entities, model, animations, mixer, actions, clonedFrom: facade.id, ...rest }, animationsService);
   }
 
   const getPack = (): TModel3dPack => entities;
