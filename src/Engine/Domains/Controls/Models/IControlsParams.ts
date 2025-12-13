@@ -1,6 +1,7 @@
 import type { ICameraWrapper } from '@Engine/Domains/Camera';
-import type { ControlsTag } from '@Engine/Domains/Controls';
 import type { IAppCanvas } from '@Engine/Models/IAppCanvas';
+
+import type { ControlsTag } from '../Constants';
 
 export type IControlsParams = Readonly<{
   camera: ICameraWrapper;

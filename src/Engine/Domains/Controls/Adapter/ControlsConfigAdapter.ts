@@ -1,8 +1,9 @@
 import type { ICameraRegistry, ICameraWrapper } from '@Engine/Domains/Camera';
-import type { IControlsConfig, IControlsParams } from '@Engine/Domains/Controls';
-import { IControlsType } from '@Engine/Domains/Controls';
 import type { IAppCanvas } from '@Engine/Models';
 import { isNotDefined } from '@Engine/Utils';
+
+import type { IControlsConfig, IControlsParams } from '../Models';
+import { IControlsType } from '../Models';
 
 export function controlsAdapter(config: IControlsConfig, cameraRegistry: ICameraRegistry, canvas: IAppCanvas): IControlsParams {
   const { type, cameraTag, tags } = config;
