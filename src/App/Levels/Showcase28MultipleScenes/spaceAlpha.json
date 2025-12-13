@@ -106,9 +106,18 @@
       {
         "name": "move_material",
         "options": {
-          "color": "#e66a36"
+          "clearcoat": 0.8,
+          "clearcoatRoughness": 0.09,
+          "displacementScale": 0.1,
+          "ior": 1.26,
+          "iridescence": 0,
+          "iridescenceIOR": 1.38,
+          "metalness": 0,
+          "roughness": 0,
+          "thickness": 0.5,
+          "transmission": 0.77
         },
-        "type": "basic"
+        "type": "physical"
       }
     ],
     "models3d": [],
