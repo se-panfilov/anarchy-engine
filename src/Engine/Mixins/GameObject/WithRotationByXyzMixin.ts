@@ -4,7 +4,6 @@ import { withRotationByYMixin } from '@/Engine/Mixins/GameObject/WithRotationByY
 import { withRotationByZMixin } from '@/Engine/Mixins/GameObject/WithRotationByZMixin';
 
 export function withRotationByXyzMixin(entity: IWithRotationProperty): IRotatable {
-
   return {
     ...withRotationByXMixin(entity),
     ...withRotationByYMixin(entity),

@@ -4,7 +4,7 @@ import { AbstractWrapper, WrapperType } from '@/Engine/Domains/Abstract';
 import type { ITextParams, ITextWrapper } from '@/Engine/Domains/Text/Models';
 import { getAccessors } from '@/Engine/Domains/Text/Wrapper/Accessors';
 import { applyTextParams } from '@/Engine/Domains/Text/Wrapper/TextWrapperHelper';
-import { scalableMixin, withMoveByXyzMixin, withObject3d,withRotationByXyzMixin } from '@/Engine/Mixins';
+import { scalableMixin, withMoveByXyzMixin, withObject3d, withRotationByXyzMixin } from '@/Engine/Mixins';
 import { applyObject3dParams, applyPosition, applyRotation, applyScale, isDefined } from '@/Engine/Utils';
 
 export function TextWrapper(params: ITextParams): ITextWrapper {

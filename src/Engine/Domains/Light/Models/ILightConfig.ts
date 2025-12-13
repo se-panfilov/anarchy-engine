@@ -9,7 +9,9 @@ export type ILightConfig = Omit<ILightProps, 'color' | 'shadow'> &
   Readonly<{
     color: string;
     shadow?: LightShadowConfig;
-  }> & IObject3DPropConfig & IWithReadonlyTags<LightTag>
+  }> &
+  IObject3DPropConfig &
+  IWithReadonlyTags<LightTag>;
 
 export type LightShadowConfig = Omit<ILightShadowParams, 'mapSize'> &
   Readonly<{

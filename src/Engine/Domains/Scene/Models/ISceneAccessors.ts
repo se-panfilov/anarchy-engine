@@ -6,7 +6,6 @@ import type { IColor, ICubeTexture, ITexture } from '@/Engine/Wrappers';
 
 import type { ISceneObject } from './ISceneObject';
 
-
 export type ISceneAccessors = Readonly<{
   add: (obj: ISceneObject) => void;
   addActor: (actor: Readonly<IActorWrapper>) => void;
@@ -15,4 +14,4 @@ export type ISceneAccessors = Readonly<{
   addText: (text: Readonly<ITextWrapper>) => void;
   setBackground: (color: string) => void;
   getBackground: () => IColor | ITexture | ICubeTexture | null;
-}>
+}>;

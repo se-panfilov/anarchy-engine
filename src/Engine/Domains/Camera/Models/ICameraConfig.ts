@@ -7,4 +7,6 @@ import type { ICameraProps } from './ICameraProps';
 export type ICameraConfig = Omit<ICameraProps, 'lookAt'> &
   Readonly<{
     lookAt?: IWithCoordsXYZ;
-  }> & IObject3DPropConfig & IWithReadonlyTags<CameraTag>;
+  }> &
+  IObject3DPropConfig &
+  IWithReadonlyTags<CameraTag>;

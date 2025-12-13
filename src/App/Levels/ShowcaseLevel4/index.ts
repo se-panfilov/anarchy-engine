@@ -1,11 +1,10 @@
 import type { IShowcase } from '@/App/Levels/Models';
-import { EulerWrapper, IActorParams, IActorWrapper, IAppCanvas, ILevel, ILevelConfig } from '@/Engine';
-import { ActorType, ambientContext, buildLevelFromConfig, forEachEnum, Vector3Wrapper } from '@/Engine';
+import type { IActorParams, IActorWrapper, IAppCanvas, ILevel, ILevelConfig } from '@/Engine';
+import { ActorType, ambientContext, buildLevelFromConfig, EulerWrapper, forEachEnum, Vector3Wrapper } from '@/Engine';
 import type { IAnimationParams } from '@/Engine/Services';
 import { Easing, standardMoverService } from '@/Engine/Services';
 
 import levelConfig from './showcase-level-4.config.json';
-import { Euler } from 'three';
 
 //Showcase 4: Anime.js simple animations (easing, etc.)
 export function showcaseLevel(canvas: IAppCanvas): IShowcase {

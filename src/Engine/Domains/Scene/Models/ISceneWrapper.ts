@@ -6,7 +6,4 @@ import type { IWithObject3d, IWithTags } from '@/Engine/Mixins';
 
 import type { ISceneAccessors } from './ISceneAccessors';
 
-export type ISceneWrapper = IWrapper<Scene> &
-  ISceneAccessors &
-  IWithObject3d &
-  IWithTags<SceneTag>;
+export type ISceneWrapper = IWrapper<Scene> & ISceneAccessors & IWithObject3d & IWithTags<SceneTag>;

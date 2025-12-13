@@ -10,4 +10,6 @@ export type ITextConfig = Omit<ITextProps, 'color' | 'strokeColor' | 'material'>
     strokeColor?: string | number;
     materialType?: 'MeshBasicMaterial' | 'MeshStandardMaterial';
     materialParams?: Record<string, any>; // MeshBasicMaterialParameters | MeshStandardMaterialParameters;
-  }> & IObject3DPropConfig & IWithReadonlyTags<TextTag>
+  }> &
+  IObject3DPropConfig &
+  IWithReadonlyTags<TextTag>;

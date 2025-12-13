@@ -12,7 +12,7 @@ export function applyObject3dParams(obj: IWithObject3d, { visible, castShadow, r
 }
 
 export function applyPosition(obj: IMovableXYZ, position?: IVector3Wrapper): void {
-  if (isDefined(position)) obj.setPosition(position.getX(), position.getY(), position.getZ())
+  if (isDefined(position)) obj.setPosition(position.getX(), position.getY(), position.getZ());
 }
 
 export function applyRotation(obj: IRotatable, rotation?: IEulerWrapper): void {

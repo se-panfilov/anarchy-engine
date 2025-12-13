@@ -13,4 +13,4 @@ export type IActorProps = Readonly<{
   depthSegments?: number;
   materialParams?: MeshToonMaterialParameters;
   castShadow: boolean;
-}>
+}>;
