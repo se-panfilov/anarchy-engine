@@ -22,7 +22,7 @@ export function LegalFilesUtilsService(repoUtilsService: TRepoUtilsService): TLe
   const { readJson, isExist } = repoUtilsService;
 
   async function readConfig(wsDir: string): Promise<TAnarchyLegalConfig> | never {
-    const p = path.join(wsDir, '.anarchy-legal.config.json');
+    const p: string = path.join(wsDir, '.anarchy-legal.config.json');
     if (!(await isExist(p))) return [];
     try {
       const json: TAnarchyLegalConfig | unknown = await readJson<Record<string, unknown>>(p);
@@ -145,7 +145,7 @@ export function LegalFilesUtilsService(repoUtilsService: TRepoUtilsService): TLe
         return arrStr((pkg as any).keywords);
       default: {
         // if someone uses {{PACKAGE_FOO_BAR}}, try a naive lower-cased lookup "foo_bar" then "fooBar"
-        const direct = (pkg as any)[key.toLowerCase()];
+        const direct: unknown = pkg[key.toLowerCase()];
         if (typeof direct === 'string') return direct;
         return undefined;
       }
@@ -212,11 +212,9 @@ export function LegalFilesUtilsService(repoUtilsService: TRepoUtilsService): TLe
   function renderSections(input: string, truthyMap: Readonly<Record<string, unknown>>): string {
     const SECTION_RE = /{{\s*([#^])\s*([A-Z0-9_]+)\s*}}([\s\S]*?){{\s*\/\s*\2\s*}}/g;
 
-    const isTruthy = (raw: unknown): boolean => Boolean(raw);
-
     const processUntilConverged = (current: string): string => {
       const next = current.replace(SECTION_RE, (_m, sigil: '#' | '^', name: string, body: string) => {
-        const condition: boolean = isTruthy(truthyMap[name]);
+        const condition: boolean = Boolean(truthyMap[name]);
         const pass: boolean = sigil === '#' ? condition : !condition;
         return pass ? renderSections(body, truthyMap) : '';
       });
