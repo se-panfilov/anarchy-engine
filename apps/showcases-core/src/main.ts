@@ -1,6 +1,7 @@
 import '@/style.scss';
 
 import { setBrowserSafeguards } from '@Anarchy/Engine';
+import { BrowserTrackingService } from '@Anarchy/Tracking';
 
 import { runtimeEnv } from '@/env';
 import type { TAppSettings } from '@/Models/TAppSettings';
@@ -17,6 +18,15 @@ const settings: TAppSettings = {
     // }
   }
 };
+
+//Enable error tracking
+BrowserTrackingService({
+  // eslint-disable-next-line spellcheck/spell-checker
+  dsn: runtimeEnv.VITE_SENTRY_DSN,
+  environment: __PLATFORM_MODE__,
+  // TODO DESKTOP: Add buildMetaInfo to the report
+  release: import.meta.env.__APP_VERSION__
+});
 
 // TODO MOBILE: Detect user locale in mobile app and send it to the app settings (menu)
 
