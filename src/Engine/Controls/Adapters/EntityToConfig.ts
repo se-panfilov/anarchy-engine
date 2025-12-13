@@ -8,10 +8,9 @@ import { filterOutEmptyFields, isNotDefined, vector3ToXyz } from '@/Engine/Utils
 
 export function controlsToConfig(entity: TControlsWrapper, { cameraService }: TControlsServiceDependencies): TControlsConfig {
   const camera: TAnyCamera | undefined = entity.entity.object as TAnyCamera;
-
   if (isNotDefined(camera)) throw new Error(`[Serialization] Controls: camera not found for entity with name: "${entity.name}", (id: "${entity.id}")`);
-  const cameraW: TAnyCameraWrapper | undefined = cameraService.getRegistry().find((cameraWrapper: TAnyCameraWrapper): boolean => cameraWrapper.entity === camera);
-  if (isNotDefined(cameraW)) throw new Error(`[Serialization] Controls: camera not found for entity with name: "${entity.name}", (id: "${entity.id}")`);
+
+  const cameraW: TAnyCameraWrapper = cameraService.getRegistry().get((cameraWrapper: TAnyCameraWrapper): boolean => cameraWrapper.entity === camera);
 
   const result: TWriteable<TControlsConfig> = filterOutEmptyFields({
     enabled: entity.isEnable(),

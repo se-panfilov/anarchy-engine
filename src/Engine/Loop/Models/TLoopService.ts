@@ -25,19 +25,19 @@ export type TLoopServiceWithRegistry = TWithRegistryService<TLoopRegistry>;
 
 export type TLoopService = TAbstractService &
   Readonly<{
-    getRenderLoop: (name?: string) => TRenderLoop | never;
-    getAudioLoop: (name?: string) => TAudioLoop | never;
-    getPhysicalLoop: (name?: string) => TPhysicalLoop | never;
-    getCollisionsLoop: (name?: string) => TCollisionsLoop | never;
-    getKinematicLoop: (name?: string) => TKinematicLoop | never;
-    getSpatialLoop: (name?: string) => TSpatialLoop | never;
-    getTransformLoop: (name?: string) => TTransformLoop | never;
-    getTextLoop: (name?: string) => TTextLoop | never;
-    getKeyboardLoop: (name?: string) => TKeyboardLoop | never;
-    getMouseLoop: (name?: string) => TMouseLoop | never;
-    getIntersectionsLoop: (name?: string) => TIntersectionsLoop | never;
-    getControlsLoop: (name?: string) => TControlsLoop | never;
-    getLoop: (name: string | undefined, type: LoopType) => TLoop | never;
+    getRenderLoop: (name?: string) => TRenderLoop;
+    getAudioLoop: (name?: string) => TAudioLoop;
+    getPhysicalLoop: (name?: string) => TPhysicalLoop;
+    getCollisionsLoop: (name?: string) => TCollisionsLoop;
+    getKinematicLoop: (name?: string) => TKinematicLoop;
+    getSpatialLoop: (name?: string) => TSpatialLoop;
+    getTransformLoop: (name?: string) => TTransformLoop;
+    getTextLoop: (name?: string) => TTextLoop;
+    getKeyboardLoop: (name?: string) => TKeyboardLoop;
+    getMouseLoop: (name?: string) => TMouseLoop;
+    getIntersectionsLoop: (name?: string) => TIntersectionsLoop;
+    getControlsLoop: (name?: string) => TControlsLoop;
+    getLoop: (name: string | undefined, type: LoopType) => TLoop;
   }> &
   TLoopServiceWithCreate &
   TLoopServiceWithFactory &

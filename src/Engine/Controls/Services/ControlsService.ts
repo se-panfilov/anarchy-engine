@@ -18,7 +18,6 @@ import type {
 import type { TDisposable, TWithActiveMixinResult } from '@/Engine/Mixins';
 import { withActiveEntityServiceMixin, withFactoryService, withRegistryService, withSerializeAllEntities } from '@/Engine/Mixins';
 import type { TSpaceCanvas, TSpaceLoops } from '@/Engine/Space';
-import { isNotDefined } from '@/Engine/Utils';
 
 export function ControlService(
   factory: TControlsFactory,
@@ -41,8 +40,7 @@ export function ControlService(
   const createFromList = (list: ReadonlyArray<TControlsParams>): ReadonlyArray<TControlsWrapper> => list.map(create);
   const createFromConfig = (controls: ReadonlyArray<TControlsConfig>): void => {
     controls.forEach((control: TControlsConfig): TControlsWrapper => {
-      const camera: TAnyCameraWrapper | undefined = cameraRegistry.find((camera: TAnyCameraWrapper): boolean => camera.getName() === control.cameraName);
-      if (isNotDefined(camera)) throw new Error(`Cannot find camera for controls (${control.type}) initialization`);
+      const camera: TAnyCameraWrapper = cameraRegistry.get((camera: TAnyCameraWrapper): boolean => camera.getName() === control.cameraName);
       return create(factory.configToParams(control, { camera, canvas }));
     });
   };

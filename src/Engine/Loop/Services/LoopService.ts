@@ -19,7 +19,6 @@ import type { TRenderLoop } from '@/Engine/Space';
 import type { TSpatialLoop } from '@/Engine/Spatial';
 import type { TTextLoop } from '@/Engine/Text';
 import type { TTransformLoop } from '@/Engine/TransformDrive';
-import { isNotDefined } from '@/Engine/Utils';
 
 export function LoopService(factory: TLoopFactory, registry: TLoopRegistry): TLoopService {
   const factorySub$: Subscription = factory.entityCreated$.subscribe((wrapper: TLoop): void => registry.add(wrapper));
@@ -30,30 +29,27 @@ export function LoopService(factory: TLoopFactory, registry: TLoopRegistry): TLo
   const withFactory: TLoopServiceWithFactory = withFactoryService(factory);
   const withRegistry: TLoopServiceWithRegistry = withRegistryService(registry);
 
-  function getLoop(name: string | undefined, type: LoopType): TLoop | never {
+  function getLoop(name: string | undefined, type: LoopType): TLoop {
     const searchName: string = name ?? getMainLoopNameByType(type);
-    const loop: TLoop | undefined = registry.find((loop: TLoop): boolean => loop.name === searchName);
     // If no name is provided, return the main loop
     // otherwise, return the loop with the specified name or throw an error
-    if (isNotDefined(loop)) throw new Error(`LoopService: No loop with name "${name}" found`);
-
-    return loop;
+    return registry.get((loop: TLoop): boolean => loop.name === searchName);
   }
 
   // eslint-disable-next-line functional/immutable-data
   return Object.assign(abstractService, withCreateService, withFactory, withRegistry, {
     getLoop,
-    getRenderLoop: (name?: string): TRenderLoop | never => getLoop(name, LoopType.Render) as TRenderLoop,
-    getAudioLoop: (name?: string): TAudioLoop | never => getLoop(name, LoopType.Audio) as TAudioLoop,
-    getPhysicalLoop: (name?: string): TPhysicalLoop | never => getLoop(name, LoopType.Physical) as TPhysicalLoop,
-    getCollisionsLoop: (name?: string): TCollisionsLoop | never => getLoop(name, LoopType.Collisions) as TCollisionsLoop,
-    getKinematicLoop: (name?: string): TKinematicLoop | never => getLoop(name, LoopType.Kinematic) as TKinematicLoop,
-    getSpatialLoop: (name?: string): TSpatialLoop | never => getLoop(name, LoopType.Spatial) as TSpatialLoop,
-    getTransformLoop: (name?: string): TTransformLoop | never => getLoop(name, LoopType.Transform) as TTransformLoop,
-    getTextLoop: (name?: string): TTextLoop | never => getLoop(name, LoopType.Text) as TTextLoop,
-    getKeyboardLoop: (name?: string): TKeyboardLoop | never => getLoop(name, LoopType.Keyboard) as TKeyboardLoop,
-    getMouseLoop: (name?: string): TMouseLoop | never => getLoop(name, LoopType.Mouse) as TMouseLoop,
-    getIntersectionsLoop: (name?: string): TIntersectionsLoop | never => getLoop(name, LoopType.Intersections) as TIntersectionsLoop,
-    getControlsLoop: (name?: string): TControlsLoop | never => getLoop(name, LoopType.Controls) as TControlsLoop
+    getRenderLoop: (name?: string): TRenderLoop => getLoop(name, LoopType.Render) as TRenderLoop,
+    getAudioLoop: (name?: string): TAudioLoop => getLoop(name, LoopType.Audio) as TAudioLoop,
+    getPhysicalLoop: (name?: string): TPhysicalLoop => getLoop(name, LoopType.Physical) as TPhysicalLoop,
+    getCollisionsLoop: (name?: string): TCollisionsLoop => getLoop(name, LoopType.Collisions) as TCollisionsLoop,
+    getKinematicLoop: (name?: string): TKinematicLoop => getLoop(name, LoopType.Kinematic) as TKinematicLoop,
+    getSpatialLoop: (name?: string): TSpatialLoop => getLoop(name, LoopType.Spatial) as TSpatialLoop,
+    getTransformLoop: (name?: string): TTransformLoop => getLoop(name, LoopType.Transform) as TTransformLoop,
+    getTextLoop: (name?: string): TTextLoop => getLoop(name, LoopType.Text) as TTextLoop,
+    getKeyboardLoop: (name?: string): TKeyboardLoop => getLoop(name, LoopType.Keyboard) as TKeyboardLoop,
+    getMouseLoop: (name?: string): TMouseLoop => getLoop(name, LoopType.Mouse) as TMouseLoop,
+    getIntersectionsLoop: (name?: string): TIntersectionsLoop => getLoop(name, LoopType.Intersections) as TIntersectionsLoop,
+    getControlsLoop: (name?: string): TControlsLoop => getLoop(name, LoopType.Controls) as TControlsLoop
   });
 }
