@@ -19,8 +19,6 @@ import { version as showcasesI18nVersion } from '../../packages/showcases-i18n/p
 import { version as showcasesMenuVersion } from '../../packages/showcases-menu/package.json';
 import { version as showcasesSharedVersion } from '../../packages/showcases-shared/package.json';
 import { emitDefineJson } from '../../packages/anarchy-shared/src/Plugins/EmitDefineVitePlugin';
-import csp from 'vite-plugin-csp-guard';
-import { PROD_CSP } from '../../configs/Security/Csp/CspConfig';
 
 // TODO DESKTOP: Make sure we can load legal files in production(web) (with and without CSP)
 export default defineConfig(({ mode, command }: ConfigEnv): UserConfig => {
@@ -70,13 +68,6 @@ export default defineConfig(({ mode, command }: ConfigEnv): UserConfig => {
       vue(),
       vueJsx(),
       //END: FOR GUI only///////
-
-      //Issue: CSP plugin doesn't add <Meta> tag in dev mode
-      csp({
-        dev: { run: true, outlierSupport: ['sass'] },
-        policy: PROD_CSP,
-        build: { sri: true }
-      }),
 
       //Build meta info (versions)
       emitDefineJson({ value: buildMetaInfo, fileName: 'build-meta.json' }),
