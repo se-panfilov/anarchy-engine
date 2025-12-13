@@ -56,10 +56,7 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
     const orbitControls: IOrbitControlsWrapper | undefined = controlsRegistry.getUniqByTag('orbit');
     if (isNotDefined(orbitControls)) throw new Error('Orbit controls are not found');
     orbitControls.setDamping(true);
-    // const getPolarAngle: number = orbitControls.entity.getPolarAngle();
-    // const getAzimuthalAngle: number = orbitControls.entity.getAzimuthalAngle();
-    // const getDistance: number = orbitControls.entity.getDistance();
-    orbitControls.setTarget(position);
+    orbitControls.moveToTargetSmoothly(position);
   }
 
   void envMapService.load('/Showcase/hdr/urban_alley_01_4k.hdr').then((envMap) => {
