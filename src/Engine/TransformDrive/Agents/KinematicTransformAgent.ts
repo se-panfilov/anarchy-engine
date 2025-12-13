@@ -9,10 +9,10 @@ import { getAzimuthDegFromDirection, getAzimuthRadFromDirection, getElevationDeg
 import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
 import type { TReadonlyEuler, TReadonlyQuaternion, TReadonlyVector3 } from '@/Engine/ThreeLib';
-import type { TKinematicTransformDriveParams, TKinematicTransformDriver } from '@/Engine/TransformDrive/Models';
+import type { TKinematicTransformAgent, TKinematicTransformAgentParams } from '@/Engine/TransformDrive/Models';
 import type { TWriteable } from '@/Engine/Utils';
 
-export function KinematicTransformDriver(params: TKinematicTransformDriveParams, kinematicLoopService: TKinematicLoopService): TKinematicTransformDriver {
+export function KinematicTransformAgent(params: TKinematicTransformAgentParams, kinematicLoopService: TKinematicLoopService): TKinematicTransformAgent {
   let _isAutoUpdate: boolean = params.isAutoUpdate ?? false;
   let _isEnabled: boolean = _isAutoUpdate;
   const position$: BehaviorSubject<TReadonlyVector3> = new BehaviorSubject<TReadonlyVector3>(params.position);
@@ -41,9 +41,9 @@ export function KinematicTransformDriver(params: TKinematicTransformDriveParams,
     destroyable.destroy$.unsubscribe();
   });
 
-  // TODO 8.0.0. MODELS: Could we replace "this" with "driver"?
+  // TODO 8.0.0. MODELS: Could we replace "this" with "agent"?
   // TODO 8.0.0. MODELS: remove degrees sheet, keep ony radians
-  const driver = {
+  const agent = {
     ...destroyable,
     data: {
       linearSpeed: params.linearSpeed ?? 0,
@@ -55,8 +55,8 @@ export function KinematicTransformDriver(params: TKinematicTransformDriveParams,
     rotation$,
     scale$: scale$,
     rotationQuaternion$,
-    runDriver: (): boolean => (_isEnabled = true),
-    stopDriver: (): boolean => (_isEnabled = false),
+    runAgent: (): boolean => (_isEnabled = true),
+    stopAgent: (): boolean => (_isEnabled = false),
     isEnabled: (): boolean => _isEnabled,
     setData({ linearSpeed, linearDirection, angularSpeed, angularDirection }: TKinematicData): void {
       // eslint-disable-next-line functional/immutable-data
@@ -207,26 +207,26 @@ export function KinematicTransformDriver(params: TKinematicTransformDriveParams,
   };
 
   function doKinematicMove(delta: number): void {
-    if (!driver.isEnabled()) return;
-    if (driver.data.linearSpeed <= 0) return;
-    const normalizedDirection: TReadonlyVector3 = driver.data.linearDirection.clone().normalize();
-    const displacement: TReadonlyVector3 = normalizedDirection.multiplyScalar(driver.data.linearSpeed * delta);
+    if (!agent.isEnabled()) return;
+    if (agent.data.linearSpeed <= 0) return;
+    const normalizedDirection: TReadonlyVector3 = agent.data.linearDirection.clone().normalize();
+    const displacement: TReadonlyVector3 = normalizedDirection.multiplyScalar(agent.data.linearSpeed * delta);
     position$.next(position$.value.clone().add(displacement));
   }
 
   function doKinematicRotation(delta: number): void {
-    if (!driver.isEnabled()) return;
-    if (driver.data.angularSpeed <= 0) return;
-    const normalizedAngularDirection: TReadonlyVector3 = driver.data.angularDirection.clone().normalize();
-    const angle: TRadians = driver.data.angularSpeed * delta;
+    if (!agent.isEnabled()) return;
+    if (agent.data.angularSpeed <= 0) return;
+    const normalizedAngularDirection: TReadonlyVector3 = agent.data.angularDirection.clone().normalize();
+    const angle: TRadians = agent.data.angularSpeed * delta;
     const quaternion: TReadonlyQuaternion = new Quaternion().setFromAxisAngle(normalizedAngularDirection, angle);
     rotationQuaternion$.next(rotationQuaternion$.value.clone().multiply(quaternion));
   }
 
-  kinematicSub$ = kinematicLoopService.tick$.pipe(takeWhile((): boolean => driver.isEnabled() && driver.isAutoUpdate())).subscribe((delta: number): void => {
+  kinematicSub$ = kinematicLoopService.tick$.pipe(takeWhile((): boolean => agent.isEnabled() && agent.isAutoUpdate())).subscribe((delta: number): void => {
     doKinematicMove(delta);
     doKinematicRotation(delta);
   });
 
-  return driver;
+  return agent;
 }

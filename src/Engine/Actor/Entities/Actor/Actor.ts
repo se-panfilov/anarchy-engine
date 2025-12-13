@@ -12,17 +12,17 @@ import type { TSpatialLoopServiceValue } from '@/Engine/Spatial';
 import { withSpatial, withUpdateSpatialCell } from '@/Engine/Spatial';
 import type {
   TDriveToModel3dConnector,
-  TInstantTransformDriver,
-  TKinematicTransformDriver,
-  TPhysicsTransformDriver,
+  TInstantTransformAgent,
+  TKinematicTransformAgent,
+  TPhysicsTransformAgent,
+  TTransformAgents,
   TTransformDrive,
-  TTransformDriveParams,
-  TTransformDrivers
+  TTransformDriveParams
 } from '@/Engine/TransformDrive';
-import { DriveToModel3dConnector, TransformDrive, TransformDriver } from '@/Engine/TransformDrive';
-import { InstantTransformDriver } from '@/Engine/TransformDrive/Driver/InstantTransformDriver';
-import { KinematicTransformDriver } from '@/Engine/TransformDrive/Driver/KinematicTransformDriver';
-import { PhysicsTransformDriver } from '@/Engine/TransformDrive/Driver/PhysicsTransformDriver';
+import { DriveToModel3dConnector, TransformAgent, TransformDrive } from '@/Engine/TransformDrive';
+import { InstantTransformAgent } from '@/Engine/TransformDrive/Agents/InstantTransformAgent';
+import { KinematicTransformAgent } from '@/Engine/TransformDrive/Agents/KinematicTransformAgent';
+import { PhysicsTransformAgent } from '@/Engine/TransformDrive/Agents/PhysicsTransformAgent';
 import { isDefined } from '@/Engine/Utils';
 
 export function Actor(
@@ -32,11 +32,11 @@ export function Actor(
   const isModelAlreadyInUse: boolean = isDefined(model3dToActorConnectionRegistry.findByModel3d(params.model3dSource));
   const model3d: TModel3d = isModelAlreadyInUse ? models3dService.clone(params.model3dSource) : params.model3dSource;
 
-  const driverParams: TTransformDriveParams = { ...params, driver: TransformDriver.Kinematic };
-  const kinematicDriver: TKinematicTransformDriver = KinematicTransformDriver(driverParams, kinematicLoopService);
-  const physicsDriver: TPhysicsTransformDriver = PhysicsTransformDriver(driverParams);
-  const instantDriver: TInstantTransformDriver = InstantTransformDriver(driverParams);
-  const drivers: TTransformDrivers = { [TransformDriver.Kinematic]: kinematicDriver, [TransformDriver.Physical]: physicsDriver, [TransformDriver.Instant]: instantDriver };
+  const driverParams: TTransformDriveParams = { ...params, driver: TransformAgent.Kinematic };
+  const kinematicDriver: TKinematicTransformAgent = KinematicTransformAgent(driverParams, kinematicLoopService);
+  const physicsDriver: TPhysicsTransformAgent = PhysicsTransformAgent(driverParams);
+  const instantDriver: TInstantTransformAgent = InstantTransformAgent(driverParams);
+  const drivers: TTransformAgents = { [TransformAgent.Kinematic]: kinematicDriver, [TransformAgent.Physical]: physicsDriver, [TransformAgent.Instant]: instantDriver };
   const drive: TTransformDrive = TransformDrive(driverParams, drivers);
   const driveToModel3dConnector: TDriveToModel3dConnector = DriveToModel3dConnector(drive, model3d);
 

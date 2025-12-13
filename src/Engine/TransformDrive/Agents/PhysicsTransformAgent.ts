@@ -4,10 +4,10 @@ import { BehaviorSubject } from 'rxjs';
 import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
 import type { TReadonlyEuler, TReadonlyVector3 } from '@/Engine/ThreeLib';
-import type { TPhysicsTransformDriver, TTransformDriverParams } from '@/Engine/TransformDrive/Models';
+import type { TPhysicsTransformAgent, TTransformAgentParams } from '@/Engine/TransformDrive/Models';
 
-// TODO 8.0.0. MODELS: This is a placeholder for PhysicsActorDrive
-export function PhysicsTransformDriver(params: TTransformDriverParams): TPhysicsTransformDriver {
+// TODO 8.0.0. MODELS: This is a placeholder for PhysicsActorAgent
+export function PhysicsTransformAgent(params: TTransformAgentParams): TPhysicsTransformAgent {
   const position$: BehaviorSubject<TReadonlyVector3> = new BehaviorSubject<TReadonlyVector3>(params.position);
   const rotation$: BehaviorSubject<TReadonlyEuler> = new BehaviorSubject<TReadonlyEuler>(params.rotation);
   const scale$: BehaviorSubject<TReadonlyVector3 | undefined> = new BehaviorSubject<TReadonlyVector3 | undefined>(params.scale);
@@ -26,12 +26,12 @@ export function PhysicsTransformDriver(params: TTransformDriverParams): TPhysics
     destroyable.destroy$.unsubscribe();
   });
 
-  const driver = {
+  const agent = {
     ...destroyable,
     position$,
     rotation$,
     scale$
   };
 
-  return driver;
+  return agent;
 }

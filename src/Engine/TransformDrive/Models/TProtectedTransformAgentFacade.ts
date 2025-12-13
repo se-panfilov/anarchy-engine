@@ -1,9 +1,9 @@
 import type { Observable } from 'rxjs';
 import type { Euler, Vector3 } from 'three';
 
-import type { TAbstractTransformDriver } from './TAbstractTransformDriver';
+import type { TAbstractTransformAgent } from './TAbstractTransformAgent';
 
-export type TProtectedTransformDriverFacade<T extends TAbstractTransformDriver> = Omit<T, 'position$' | 'rotation$' | 'scale$'> &
+export type TProtectedTransformAgentFacade<T extends TAbstractTransformAgent> = Omit<T, 'position$' | 'rotation$' | 'scale$'> &
   Readonly<{
     position$: Observable<Vector3>;
     rotation$: Observable<Euler>;

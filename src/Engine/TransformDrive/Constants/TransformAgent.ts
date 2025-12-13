@@ -1,4 +1,4 @@
-export enum TransformDriver {
+export enum TransformAgent {
   Kinematic = 'kinematic',
   Physical = 'physical',
   Instant = 'instant'
