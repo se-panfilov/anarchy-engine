@@ -2,7 +2,7 @@ import '@App/style.css';
 
 import sceneConfig from '@App/Scenes/debug-scene.config.json';
 
-import type { IActorWrapper, ICameraWrapper, ILaunchedEngine, ILaunchedScene, IRegistries, IVector3 } from '@/Engine';
+import type { IActorWrapper, ICameraWrapper, ILaunchedEngine, ILaunchedScene, IMousePosition, IRegistries, IVector3 } from '@/Engine';
 import { ActorTag, ambientContext, CameraTag, IntersectionsService, isNotDefined, launchEngine, SceneLauncher } from '@/Engine';
 
 const { factories, canvas }: ILaunchedEngine = launchEngine('#app');
@@ -17,7 +17,7 @@ const clickableActors: ReadonlyArray<IActorWrapper> = actorRegistry.getAllWithTa
 const cameraTag: CameraTag = CameraTag.Initial;
 const camera: ICameraWrapper | undefined = cameraRegistry.getUniqWithTag([cameraTag]);
 
-ambientContext.mousePositionWatcher.value$.subscribe((position) => {
+ambientContext.mousePositionWatcher.value$.subscribe((position: IMousePosition) => {
   if (isNotDefined(camera)) throw new Error(`Cannot init intersection service: camera with tag "${cameraTag}" is not defined`);
   const intersectObj: IVector3 | undefined = intersectionsService.getIntersection(position, camera, clickableActors);
   if (intersectObj) {
