@@ -4,22 +4,34 @@ import type {
   CameraParams,
   Factory,
   LightParams,
+  LoopParams,
   Registry,
   RendererParams,
   SceneParams
 } from '@Engine/Models';
-import { ActorFactory, CameraFactory, LightFactory, RendererFactory, SceneFactory } from '@Engine/Factories';
+import {
+  ActorFactory,
+  CameraFactory,
+  LightFactory,
+  LoopFactory,
+  RendererFactory,
+  SceneFactory
+} from '@Engine/Factories';
 import { ActorRegistry, CameraRegistry, LightRegistry } from '@Engine/Registries';
 import { createDeferredPromise, isNotDefined } from '@Engine/Utils';
-import type { IActorWrapper, ICameraWrapper, ILightWrapper, IRendererWrapper, ISceneWrapper } from '@Engine/Wrappers';
+import type {
+  IActorWrapper,
+  ICameraWrapper,
+  ILightWrapper,
+  ILoopWrapper,
+  IRendererWrapper,
+  ISceneWrapper
+} from '@Engine/Wrappers';
 import { combineLatest } from 'rxjs';
 
 export async function launch(sceneConfig: SceneConfig): Promise<void> {
   const { name, actors, cameras, lights } = sceneConfig;
   const { promise, resolve } = createDeferredPromise<void>();
-
-  // TODO (S.Panfilov) CWP
-  // debug the scene to make sure no errors and it's fully rendering
 
   //Factories
   const sceneFactory: Factory<ISceneWrapper, SceneParams> = SceneFactory();
@@ -27,6 +39,7 @@ export async function launch(sceneConfig: SceneConfig): Promise<void> {
   const cameraFactory: Factory<ICameraWrapper, CameraParams> = CameraFactory();
   const lightFactory: Factory<ILightWrapper, LightParams> = LightFactory();
   const rendererFactory: Factory<IRendererWrapper, RendererParams> = RendererFactory();
+  const loopFactory: Factory<ILoopWrapper, LoopParams> = LoopFactory();
 
   //Entities registries
   const actorRegistry: Registry<IActorWrapper> = ActorRegistry();
@@ -52,6 +65,17 @@ export async function launch(sceneConfig: SceneConfig): Promise<void> {
     scene.addLight$.next(light);
   });
 
+  // TODO (S.Panfilov) CWP
+  // debug the scene to make sure no errors and it's fully rendering
+  // and fix this loop
+  combineLatest([loopFactory.latest$, rendererFactory.latest$, sceneFactory.latest$, cameraFactory.latest$]).subscribe(
+    ([loop, renderer, scene, camera]) => {
+      console.log('111');
+      loop.start(renderer, scene, camera);
+      console.log(loop);
+    }
+  );
+
   //Dynamic create entities
   sceneFactory.create$.next({ name });
   actors.forEach((config: ActorConfig) => actorFactory.createFromConfig$.next(config));
@@ -63,7 +87,6 @@ export async function launch(sceneConfig: SceneConfig): Promise<void> {
   if (isNotDefined(canvas)) throw new Error('Canvas is not defined');
 
   rendererFactory.create$.next({ canvas });
-
   // create controls (needs camera, renderer)/////////////////////
   // TODO (S.Panfilov)
   ////////////////////////////////////
@@ -81,7 +104,9 @@ export async function launch(sceneConfig: SceneConfig): Promise<void> {
   ////////////////////////////////////
 
   // start loop (renderer, scene, camera)/////////////////////
-  // TODO (S.Panfilov)
+
+  // TODO (S.Panfilov) any
+  loopFactory.create$.next({} as any);
   ////////////////////////////////////
 
   resolve();
