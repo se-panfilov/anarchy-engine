@@ -58,6 +58,12 @@ function EventsService(): TEventsService {
     fromMenuBus$.next({ type: FromMenuEvents.LoadGame });
   }
 
+  function emitExitApp(): void | never {
+    if (isNotDefined(fromMenuBus$)) throw new Error(noBusError);
+    console.log('[EventsService]: emitExitApp');
+    fromMenuBus$.next({ type: FromMenuEvents.ExitApp });
+  }
+
   function startListeningAppEvents(): Subscription {
     if (isNotDefined(toMenuBus$)) throw new Error('[EventsService]: toMenuBus$ is not defined. Call setToMenuBus() first.');
     return toMenuBus$.subscribe(handleToMenuEvents);
@@ -85,15 +91,16 @@ function EventsService(): TEventsService {
   }
 
   return {
+    emitCloseMenu,
+    emitContinueGame,
+    emitExitApp,
+    emitLoadGame,
+    emitLoadLegalDocs,
+    emitLoadMenuSettings,
+    emitSaveMenuSettings,
+    emitStartNewGame,
     setFromMenuBus,
     setToMenuBus,
-    emitCloseMenu,
-    emitSaveMenuSettings,
-    emitLoadMenuSettings,
-    emitLoadLegalDocs,
-    emitStartNewGame,
-    emitContinueGame,
-    emitLoadGame,
     startListeningAppEvents,
     toMenuBus$
   };

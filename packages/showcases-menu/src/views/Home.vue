@@ -58,7 +58,7 @@ const navOptions: ReadonlyArray<TVueNavOption> = [
     name: 'exit-app',
     label: exitAppButtonText,
     condition: useMenuOptionsStore().showExitBtn,
-    action: () => eventsService.emitCloseMenu()
+    action: () => eventsService.emitExitApp()
   }
 ];
 
