@@ -33,7 +33,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     const solder2AnimFsm: TFsmWrapper = initSolder2('solder_actor_2', fadeDuration, space.services);
 
     onKey(KeyCode.W).pressing$.subscribe((): void => {
-      const action = isKeyPressed(KeysExtra.Shift) ? 'Run' : 'Walk';
+      const action: 'Run' | 'Walk' = isKeyPressed(KeysExtra.Shift) ? 'Run' : 'Walk';
       if (solder1AnimFsm.getState() !== action) solder1AnimFsm.send(action);
       solder2AnimFsm.send('Dance');
     });
