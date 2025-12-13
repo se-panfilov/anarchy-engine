@@ -73,7 +73,7 @@ export function buildSpaceFromConfig(canvas: IAppCanvas, config: ISpaceConfig): 
 
   // TODO (S.Panfilov) intersections should be added and launched async, as they depend on actors which are also async
   // TODO (S.Panfilov) debug line, should be a part of Space's services
-  intersectionsWatcherService.createFromConfig(intersections, mouseService, cameraService);
+  intersectionsWatcherService.createFromConfigAsync(intersections, mouseService, cameraService, actorService);
 
   let camera: ICameraWrapper | undefined;
   cameraService.active$.subscribe((wrapper: ICameraWrapper | undefined): void => void (camera = wrapper));

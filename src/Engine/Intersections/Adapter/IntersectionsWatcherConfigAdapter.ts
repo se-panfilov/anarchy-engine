@@ -4,7 +4,12 @@ import type { IIntersectionsWatcherConfig, IIntersectionsWatcherParams } from '@
 import type { IMouseService } from '@/Engine/Mouse';
 import { isNotDefined } from '@/Engine/Utils';
 
-export async function configToParams(config: IIntersectionsWatcherConfig, mouseService: IMouseService, cameraService: ICameraService, actorsService: IActorService): IIntersectionsWatcherParams {
+export async function configToParams(
+  config: IIntersectionsWatcherConfig,
+  mouseService: IMouseService,
+  cameraService: ICameraService,
+  actorsService: IActorService
+): Promise<IIntersectionsWatcherParams> {
   const camera: ICameraWrapper | undefined = cameraService.getRegistry().findByName(config.cameraName);
   if (isNotDefined(camera)) throw new Error(`configToParams: Cannot find camera "${config.cameraName}" for intersections watcher "${config.name}".`);
   const actorsPromises: ReadonlyArray<Promise<IActorWrapperAsync>> = config.actorNames.map((name: string): Promise<IActorWrapperAsync> => actorsService.getRegistry().findByNameAsync(name));

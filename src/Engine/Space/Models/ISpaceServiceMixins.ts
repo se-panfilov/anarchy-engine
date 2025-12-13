@@ -14,6 +14,10 @@ export type IWithCreateFromConfigService<C> = Readonly<{
   createFromConfig: (config: ReadonlyArray<C>) => void;
 }>;
 
+export type IWithCreateFromConfigAsyncService<C> = Readonly<{
+  createFromConfigAsync: (config: ReadonlyArray<C>) => Promise<void>;
+}>;
+
 export type IWithActiveAccessorsService<W> = Readonly<{
   setActive: (id: string) => void;
   findActive: () => W | undefined;

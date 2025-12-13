@@ -1,4 +1,4 @@
-import type { IParamsFromConfig, IReactiveFactory } from '@/Engine/Abstract';
+import type { IParamsFromConfigAsync, IReactiveFactory } from '@/Engine/Abstract';
 import type { IActorService } from '@/Engine/Actor';
 import type { ICameraService } from '@/Engine/Camera';
 import type { IDestroyable } from '@/Engine/Mixins';
@@ -8,9 +8,9 @@ import type { IIntersectionsWatcher } from './IIntersectionsWatcher';
 import type { IIntersectionsWatcherConfig } from './IIntersectionsWatcherConfig';
 import type { IIntersectionsWatcherParams } from './IIntersectionsWatcherParams';
 
-export type IControlsParamsFromConfig = Omit<IParamsFromConfig<IIntersectionsWatcherConfig, IIntersectionsWatcherParams>, 'configToParams'> &
+export type IIntersectionsWatcherParamsFromConfig = Omit<IParamsFromConfigAsync<IIntersectionsWatcherConfig, IIntersectionsWatcherParams>, 'configToParamsAsync'> &
   Readonly<{
-    configToParams: (config: IIntersectionsWatcherConfig, mouseService: IMouseService, cameraService: ICameraService, actorsService: IActorService) => IIntersectionsWatcherParams;
+    configToParamsAsync: (config: IIntersectionsWatcherConfig, mouseService: IMouseService, cameraService: ICameraService, actorsService: IActorService) => Promise<IIntersectionsWatcherParams>;
   }>;
 
-export type IIntersectionsWatcherFactory = IReactiveFactory<IIntersectionsWatcher, IIntersectionsWatcherParams> & IControlsParamsFromConfig & IDestroyable;
+export type IIntersectionsWatcherFactory = IReactiveFactory<IIntersectionsWatcher, IIntersectionsWatcherParams> & IIntersectionsWatcherParamsFromConfig & IDestroyable;

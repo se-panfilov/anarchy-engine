@@ -16,8 +16,16 @@ export function IntersectionsWatcherService(factory: IIntersectionsWatcherFactor
   factory.entityCreated$.subscribe((watcher: IIntersectionsWatcher): void => registry.add(watcher));
 
   const create = (params: IIntersectionsWatcherParams): IIntersectionsWatcher => factory.create(params);
-  const createFromConfig = (configs: ReadonlyArray<IIntersectionsWatcherConfig>, mouseService: IMouseService, cameraService: ICameraService, actorService: IActorService): void =>
-    configs.forEach((config: IIntersectionsWatcherConfig): IIntersectionsWatcher => factory.create(factory.configToParams(config, mouseService, cameraService, actorService)));
+  const createFromConfigAsync = (
+    configs: ReadonlyArray<IIntersectionsWatcherConfig>,
+    mouseService: IMouseService,
+    cameraService: ICameraService,
+    actorService: IActorService
+  ): Promise<ReadonlyArray<IIntersectionsWatcher>> => {
+    return Promise.all(
+      configs.map((config: IIntersectionsWatcherConfig): Promise<IIntersectionsWatcher> => factory.configToParamsAsync(config, mouseService, cameraService, actorService).then(factory.create))
+    );
+  };
 
   const destroyable: IDestroyable = destroyableMixin();
   destroyable.destroyed$.subscribe(() => {
@@ -27,7 +35,7 @@ export function IntersectionsWatcherService(factory: IIntersectionsWatcherFactor
 
   return {
     create,
-    createFromConfig,
+    createFromConfigAsync,
     getFactory: (): IIntersectionsWatcherFactory => factory,
     getRegistry: (): IIntersectionsWatcherRegistry => registry,
     ...destroyable
