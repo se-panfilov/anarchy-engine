@@ -1,20 +1,29 @@
 import { CommonTag } from '@/Engine/Abstract';
 import type { ISceneConfig, ISceneFactory, ISceneParams, ISceneRegistry, IScenesService, ISceneWrapper } from '@/Engine/Scene';
 import { findActiveWrappedEntity, setActiveWrappedEntity } from '@/Engine/Utils';
+import type { IDestroyable } from '@/Engine/Mixins';
+import { destroyableMixin } from '@/Engine/Mixins';
 
-export function ScenesService(sceneFactory: ISceneFactory, sceneRegistry: ISceneRegistry): IScenesService {
-  sceneFactory.entityCreated$.subscribe((wrapper: ISceneWrapper): void => sceneRegistry.add(wrapper));
+export function ScenesService(factory: ISceneFactory, registry: ISceneRegistry): IScenesService {
+  factory.entityCreated$.subscribe((wrapper: ISceneWrapper): void => registry.add(wrapper));
 
-  const create = (params: ISceneParams): ISceneWrapper => sceneFactory.create(params);
-  const createFromConfig = (config: ISceneConfig): ISceneWrapper => sceneFactory.create(sceneFactory.configToParams({ ...config, tags: [...config.tags, CommonTag.FromConfig] }));
+  const create = (params: ISceneParams): ISceneWrapper => factory.create(params);
+  const createFromConfig = (config: ISceneConfig): ISceneWrapper => factory.create(factory.configToParams({ ...config, tags: [...config.tags, CommonTag.FromConfig] }));
 
-  const setActiveScene = (scene: ISceneWrapper): void => setActiveWrappedEntity(sceneRegistry, scene.id);
-  const findActiveScene = (): ISceneWrapper | undefined => findActiveWrappedEntity(sceneRegistry);
+  const setActiveScene = (scene: ISceneWrapper): void => setActiveWrappedEntity(registry, scene.id);
+  const findActiveScene = (): ISceneWrapper | undefined => findActiveWrappedEntity(registry);
+
+  const destroyable: IDestroyable = destroyableMixin();
+  destroyable.destroyed$.subscribe(() => {
+    factory.destroy();
+    registry.destroy();
+  });
 
   return {
     create,
     createFromConfig,
     setActiveScene,
-    findActiveScene
+    findActiveScene,
+    ...destroyable
   };
 }
