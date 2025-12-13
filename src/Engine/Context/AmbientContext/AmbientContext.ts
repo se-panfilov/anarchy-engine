@@ -10,7 +10,7 @@ import type { IAmbientContext } from './Models';
 const container: IGlobalContainerDecorator = ContainerDecorator(window);
 const screenSizeWatcher: IScreenSizeWatcher = ScreenSizeWatcherFactory().create({ container }).start();
 const mouseClicksWatcher: IMouseClicksWatcher = MouseClicksWatcherFactory().create({ container }).start();
-const mousePositionWatcher: IMousePositionWatcher = MousePositionWatcherFactory().create({ container }).start();
+const mousePositionWatcher: IMousePositionWatcher = MousePositionWatcherFactory().create({ container, tags: [] }).start();
 
 export const ambientContext: IAmbientContext = {
   container,
