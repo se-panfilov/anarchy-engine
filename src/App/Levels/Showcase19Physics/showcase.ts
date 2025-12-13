@@ -9,13 +9,13 @@ import type {
   TAppCanvas,
   TCameraWrapper,
   TEngine,
-  THasPhysicsBody,
   TIntersectionEvent,
   TIntersectionsWatcher,
   TSceneWrapper,
   TSpace,
   TSpaceConfig,
-  TWithCoordsXYZ
+  TWithCoordsXYZ,
+  TWithMandatoryPhysicsBody
 } from '@/Engine';
 import {
   buildSpaceFromConfig,
@@ -46,10 +46,10 @@ export function showcase(canvas: TAppCanvas): TShowcase {
 
   const ballActorPromise: Promise<TActorWrapperAsync | undefined> = actorAsyncRegistry.findByNameAsync('ball');
   const surfaceActorPromise: Promise<TActorWrapperAsync | undefined> = actorAsyncRegistry.findByNameAsync('surface');
-  const obstacle1ActorPromise: Promise<TActorWrapperAsync | undefined> = actorAsyncRegistry.findByNameAsync('obstacle_1');
-  const obstacle2ActorPromise: Promise<TActorWrapperAsync | undefined> = actorAsyncRegistry.findByNameAsync('obstacle_2');
-  const obstacle3ActorPromise: Promise<TActorWrapperAsync | undefined> = actorAsyncRegistry.findByNameAsync('obstacle_3');
-  const obstacle4ActorPromise: Promise<TActorWrapperAsync | undefined> = actorAsyncRegistry.findByNameAsync('obstacle_4');
+  // const obstacle1ActorPromise: Promise<TActorWrapperAsync | undefined> = actorAsyncRegistry.findByNameAsync('obstacle_1');
+  // const obstacle2ActorPromise: Promise<TActorWrapperAsync | undefined> = actorAsyncRegistry.findByNameAsync('obstacle_2');
+  // const obstacle3ActorPromise: Promise<TActorWrapperAsync | undefined> = actorAsyncRegistry.findByNameAsync('obstacle_3');
+  // const obstacle4ActorPromise: Promise<TActorWrapperAsync | undefined> = actorAsyncRegistry.findByNameAsync('obstacle_4');
 
   physicsBodyService.getDebugRenderer(loopService).start();
 
@@ -71,29 +71,29 @@ export function showcase(canvas: TAppCanvas): TShowcase {
   let forcePower: number = 0;
 
   async function init(): Promise<void> {
-    const ballActorW: THasPhysicsBody<TActorWrapperAsync> | TActorWrapperAsync | undefined = await ballActorPromise;
+    const ballActorW: TWithMandatoryPhysicsBody<TActorWrapperAsync> | TActorWrapperAsync | undefined = await ballActorPromise;
     if (isNotDefined(ballActorW)) throw new Error(`Cannot find "ball" actor`);
     if (!isActorHasPhysicsBody(ballActorW)) throw new Error(`"ball" actor is not a physic actor`);
 
-    const surfaceActorW: THasPhysicsBody<TActorWrapperAsync> | TActorWrapperAsync | undefined = await surfaceActorPromise;
+    const surfaceActorW: TWithMandatoryPhysicsBody<TActorWrapperAsync> | TActorWrapperAsync | undefined = await surfaceActorPromise;
     if (isNotDefined(surfaceActorW)) throw new Error(`Cannot find "surfaceActor" actor`);
     if (!isActorHasPhysicsBody(surfaceActorW)) throw new Error(`"surfaceActor" actor is not a physic actor`);
 
-    const obstacle1ActorW: THasPhysicsBody<TActorWrapperAsync> | TActorWrapperAsync | undefined = await obstacle1ActorPromise;
-    if (isNotDefined(obstacle1ActorW)) throw new Error(`Cannot find "obstacle1Actor" actor`);
-    if (!isActorHasPhysicsBody(obstacle1ActorW)) throw new Error(`"obstacle1Actor" actor is not a physic actor`);
-
-    const obstacle2ActorW: THasPhysicsBody<TActorWrapperAsync> | TActorWrapperAsync | undefined = await obstacle2ActorPromise;
-    if (isNotDefined(obstacle2ActorW)) throw new Error(`Cannot find "obstacle2Actor" actor`);
-    if (!isActorHasPhysicsBody(obstacle2ActorW)) throw new Error(`"obstacle2Actor" actor is not a physic actor`);
-
-    const obstacle3ActorW: THasPhysicsBody<TActorWrapperAsync> | TActorWrapperAsync | undefined = await obstacle3ActorPromise;
-    if (isNotDefined(obstacle3ActorW)) throw new Error(`Cannot find "obstacle3Actor" actor`);
-    if (!isActorHasPhysicsBody(obstacle3ActorW)) throw new Error(`"obstacle3Actor" actor is not a physic actor`);
-
-    const obstacle4ActorW: THasPhysicsBody<TActorWrapperAsync> | TActorWrapperAsync | undefined = await obstacle4ActorPromise;
-    if (isNotDefined(obstacle4ActorW)) throw new Error(`Cannot find "obstacle4Actor" actor`);
-    if (!isActorHasPhysicsBody(obstacle4ActorW)) throw new Error(`"obstacle4Actor" actor is not a physic actor`);
+    // const obstacle1ActorW: THasPhysicsBody<TActorWrapperAsync> | TActorWrapperAsync | undefined = await obstacle1ActorPromise;
+    // if (isNotDefined(obstacle1ActorW)) throw new Error(`Cannot find "obstacle1Actor" actor`);
+    // if (!isActorHasPhysicsBody(obstacle1ActorW)) throw new Error(`"obstacle1Actor" actor is not a physic actor`);
+    //
+    // const obstacle2ActorW: THasPhysicsBody<TActorWrapperAsync> | TActorWrapperAsync | undefined = await obstacle2ActorPromise;
+    // if (isNotDefined(obstacle2ActorW)) throw new Error(`Cannot find "obstacle2Actor" actor`);
+    // if (!isActorHasPhysicsBody(obstacle2ActorW)) throw new Error(`"obstacle2Actor" actor is not a physic actor`);
+    //
+    // const obstacle3ActorW: THasPhysicsBody<TActorWrapperAsync> | TActorWrapperAsync | undefined = await obstacle3ActorPromise;
+    // if (isNotDefined(obstacle3ActorW)) throw new Error(`Cannot find "obstacle3Actor" actor`);
+    // if (!isActorHasPhysicsBody(obstacle3ActorW)) throw new Error(`"obstacle3Actor" actor is not a physic actor`);
+    //
+    // const obstacle4ActorW: THasPhysicsBody<TActorWrapperAsync> | TActorWrapperAsync | undefined = await obstacle4ActorPromise;
+    // if (isNotDefined(obstacle4ActorW)) throw new Error(`Cannot find "obstacle4Actor" actor`);
+    // if (!isActorHasPhysicsBody(obstacle4ActorW)) throw new Error(`"obstacle4Actor" actor is not a physic actor`);
 
     const cameraW: TCameraWrapper | undefined = cameraService.findActive();
     if (isNotDefined(cameraW)) throw new Error(`Cannot find active camera`);
@@ -102,7 +102,7 @@ export function showcase(canvas: TAppCanvas): TShowcase {
 
     mouseService.clickLeftRelease$.subscribe(() => {
       // TODO (S.Panfilov) debug "?" operator
-      ballActorW.physicsBody?.getRigidBody().applyImpulse(getPushCoordsFrom3dAzimuth(azimuth, 0, forcePower * 10.5), true);
+      ballActorW.physicsBody?.getRigidBody()?.applyImpulse(getPushCoordsFrom3dAzimuth(azimuth, 0, forcePower * 10.5), true);
     });
 
     // TODO (S.Panfilov) enable
@@ -148,7 +148,9 @@ export function showcase(canvas: TAppCanvas): TShowcase {
       // world.step();
 
       // TODO (S.Panfilov) debug: this should not be done here, but instead in the service (with an option to manual update)
-      physicsBodyService.getWorld()?.step();
+      const world = physicsBodyService.getWorld();
+      if (isNotDefined(world)) throw new Error(`Cannot find physics world`);
+      world.step();
 
       if (isDefined(mouseLineIntersectionsCoords)) {
         const ballCoords: TWithCoordsXYZ = ballActorW.getPosition().getCoords();
