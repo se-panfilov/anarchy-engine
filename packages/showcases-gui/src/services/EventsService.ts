@@ -1,5 +1,5 @@
 import { isNotDefined } from '@Anarchy/Shared/Utils';
-import { FromGuiActionEvent } from '@Showcases/GUI/events';
+import { createFromGuiActionEvent } from '@Showcases/GUI/events';
 import type { TEventsService, TToGuiActionEvent } from '@Showcases/GUI/models';
 import type { TFromGuiActionPayload } from '@Showcases/GUI/models/TFromGuiActionEvent';
 import { keyActionsService } from '@Showcases/GUI/services/KeyActionsService';
@@ -23,7 +23,7 @@ function EventsService(): TEventsService {
     return fromGuiBus$.next(event);
   }
 
-  const emitActionEvent = (payload?: TFromGuiActionPayload): void => emitEvent(FromGuiActionEvent(payload));
+  const emitActionEvent = (payload?: TFromGuiActionPayload): void => emitEvent(createFromGuiActionEvent(payload));
   const emitCloseGui = (): void => emitEvent({ type: CloseGui });
 
   function startListeningAppEvents(): Subscription {
