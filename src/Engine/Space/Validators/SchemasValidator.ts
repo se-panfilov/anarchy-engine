@@ -33,6 +33,9 @@ function validateJsonSchema(config: TSpaceConfig): TSchemaValidationResult {
   return { isValid, errors: validate.errors };
 }
 
+// TODO This is the worst piece of the code (not generic, hard to support, etc). Refactor.
+//  Maybe split resource and entities validation
+//  Also extract utils functions to a separate file
 function validateData({ name, version, scenes, resources, entities, tags }: TSpaceConfig): TSchemaValidationResult {
   const { models3d, envMaps, materials, textures } = resources;
   const { actors, cameras, spatialGrids, controls, intersections, lights, fogs, texts, physics } = entities;
