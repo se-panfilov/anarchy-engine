@@ -3,3 +3,4 @@ export type * from './TPlatformApiService';
 export type * from './TPlatformDriver';
 export type * from './TSettingsWebDbService';
 export type * from './TWebDbService';
+export type * from './TWebErrorTrackingService';
