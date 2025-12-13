@@ -9,7 +9,6 @@ import { genericEntityCleanUp, isDefined } from '@/Engine/Utils';
 
 // TODO 14-0-0: Validate canvasSelector strings (only allowed characters)
 // TODO 14-0-0: Check destroy with Text
-// TODO 14-0-0: Text renderer must be applied to the canvas's parent
 // TODO 14-0-0: Check destroy with Physics
 // TODO 14-0-0: Check destroy with Collisions
 // TODO 14-0-0: Check destroy with FSM
