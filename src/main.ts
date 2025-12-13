@@ -1,1 +1,1 @@
-import './showcases';
+import '../apps/showcases';
