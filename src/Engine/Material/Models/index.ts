@@ -15,4 +15,5 @@ export * from './TMaterialServiceDependencies';
 export * from './TMaterialTextureKeys';
 export * from './TMaterialWrapper';
 export * from './TWithMaterial';
+export * from './TWithMaterialProperties';
 export * from './TWithMaterialType';

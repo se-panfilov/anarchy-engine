@@ -6,7 +6,31 @@ import { Euler } from 'three';
 import { Vector3 } from 'three/src/math/Vector3';
 
 import type { TShowcase } from '@/App/Levels/Models';
-import type { TActor, TActorRegistry, TAppCanvas, TControlsRegistry, TEngine, TOrbitControlsWrapper, TRegistryPack, TSpace, TSpaceConfig } from '@/Engine';
+import type {
+  TActor,
+  TActorRegistry,
+  TAppCanvas,
+  TControlsRegistry,
+  TEngine,
+  TOrbitControlsWrapper,
+  TRegistryPack,
+  TSpace,
+  TSpaceConfig,
+  TWithAoIntensity,
+  TWithClearcoat,
+  TWithClearcoatRoughness,
+  TWithDisplacementScale,
+  TWithIOR,
+  TWithIridescence,
+  TWithIridescenceIOR,
+  TWithMetalness,
+  TWithRoughness,
+  TWithSheen,
+  TWithSheenColor,
+  TWithSheenRoughness,
+  TWithThickness,
+  TWithTransmission
+} from '@/Engine';
 import { Engine, isDefined, isNotDefined, KeyCode, LookUpStrategy, spaceService, TextType } from '@/Engine';
 
 import spaceConfig from './showcase.json';
@@ -110,10 +134,42 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     const isIridescence: boolean = isDefined((model3d.material as MeshPhysicalMaterial).iridescence);
     const isTransmission: boolean = isDefined((model3d.material as MeshPhysicalMaterial).transmission);
 
-    if (isMetalness) controllers = [...controllers, gui.add(model3d.material, 'metalness').min(0).max(1).step(0.0001)];
-    if (isRoughness) controllers = [...controllers, gui.add(model3d.material, 'roughness').min(0).max(1).step(0.0001)];
-    if (isAoMap) controllers = [...controllers, gui.add(model3d.material, 'aoMapIntensity').min(0).max(1).step(0.0001)];
-    if (isDisplacementMap) controllers = [...controllers, gui.add(model3d.material, 'displacementScale').min(0).max(1).step(0.0001)];
+    if (isMetalness)
+      controllers = [
+        ...controllers,
+        gui
+          .add(model3d.material as TWithMetalness, 'metalness')
+          .min(0)
+          .max(1)
+          .step(0.0001)
+      ];
+    if (isRoughness)
+      controllers = [
+        ...controllers,
+        gui
+          .add(model3d.material as TWithRoughness, 'roughness')
+          .min(0)
+          .max(1)
+          .step(0.0001)
+      ];
+    if (isAoMap)
+      controllers = [
+        ...controllers,
+        gui
+          .add(model3d.material as TWithAoIntensity, 'aoMapIntensity')
+          .min(0)
+          .max(1)
+          .step(0.0001)
+      ];
+    if (isDisplacementMap)
+      controllers = [
+        ...controllers,
+        gui
+          .add(model3d.material as TWithDisplacementScale, 'displacementScale')
+          .min(0)
+          .max(1)
+          .step(0.0001)
+      ];
     if (isNormalMap) {
       const scale = { normalScale: 1 };
       controllers = [
@@ -129,19 +185,61 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
       ];
     }
     if (isClearCoat) {
-      controllers = [...controllers, gui.add(model3d.material, 'clearcoat').min(0).max(1).step(0.0001)];
-      controllers = [...controllers, gui.add(model3d.material, 'clearcoatRoughness').min(0).max(1).step(0.0001)];
+      controllers = [
+        ...controllers,
+        gui
+          .add(model3d.material as TWithClearcoat, 'clearcoat')
+          .min(0)
+          .max(1)
+          .step(0.0001)
+      ];
+      controllers = [
+        ...controllers,
+        gui
+          .add(model3d.material as TWithClearcoatRoughness, 'clearcoatRoughness')
+          .min(0)
+          .max(1)
+          .step(0.0001)
+      ];
     }
 
     if (isSheen) {
-      controllers = [...controllers, gui.add(model3d.material, 'sheen').min(0).max(1).step(0.0001)];
-      controllers = [...controllers, gui.add(model3d.material, 'sheenRoughness').min(0).max(1).step(0.0001)];
-      controllers = [...controllers, gui.addColor(model3d.material, 'sheenColor')];
+      controllers = [
+        ...controllers,
+        gui
+          .add(model3d.material as TWithSheen, 'sheen')
+          .min(0)
+          .max(1)
+          .step(0.0001)
+      ];
+      controllers = [
+        ...controllers,
+        gui
+          .add(model3d.material as TWithSheenRoughness, 'sheenRoughness')
+          .min(0)
+          .max(1)
+          .step(0.0001)
+      ];
+      controllers = [...controllers, gui.addColor(model3d.material as TWithSheenColor, 'sheenColor')];
     }
 
     if (isIridescence) {
-      controllers = [...controllers, gui.add(model3d.material, 'iridescence').min(0).max(1).step(0.0001)];
-      controllers = [...controllers, gui.add(model3d.material, 'iridescenceIOR').min(0).max(2.333).step(0.0001)];
+      controllers = [
+        ...controllers,
+        gui
+          .add(model3d.material as TWithIridescence, 'iridescence')
+          .min(0)
+          .max(1)
+          .step(0.0001)
+      ];
+      controllers = [
+        ...controllers,
+        gui
+          .add(model3d.material as TWithIridescenceIOR, 'iridescenceIOR')
+          .min(0)
+          .max(2.333)
+          .step(0.0001)
+      ];
       controllers = [
         ...controllers,
         gui
@@ -161,9 +259,30 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     }
 
     if (isTransmission) {
-      controllers = [...controllers, gui.add(model3d.material, 'transmission').min(0).max(1).step(0.0001)];
-      controllers = [...controllers, gui.add(model3d.material, 'ior').min(1).max(10).step(0.0001)]; //diamond ior 2.417, water 1.333, glass 1.5, air 1.0003
-      controllers = [...controllers, gui.add(model3d.material, 'thickness').min(0).max(1).step(0.0001)];
+      controllers = [
+        ...controllers,
+        gui
+          .add(model3d.material as TWithTransmission, 'transmission')
+          .min(0)
+          .max(1)
+          .step(0.0001)
+      ];
+      controllers = [
+        ...controllers,
+        gui
+          .add(model3d.material as TWithIOR, 'ior')
+          .min(1)
+          .max(10)
+          .step(0.0001)
+      ]; //diamond ior 2.417, water 1.333, glass 1.5, air 1.0003
+      controllers = [
+        ...controllers,
+        gui
+          .add(model3d.material as TWithThickness, 'thickness')
+          .min(0)
+          .max(1)
+          .step(0.0001)
+      ];
     }
 
     return controllers;
