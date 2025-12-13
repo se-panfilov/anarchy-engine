@@ -1037,7 +1037,7 @@
           "$ref": "#/definitions/Vector3Like"
         },
         "angularDirection": {
-          "$ref": "#/definitions/Vector3Like"
+          "$ref": "#/definitions/TEulerLike"
         },
         "linearSpeed": {
           "$ref": "#/definitions/TMetersPerSecond"
@@ -1402,6 +1402,18 @@
           "type": "number"
         },
         "far": {
+          "type": "number"
+        },
+        "filmGauge": {
+          "type": "number"
+        },
+        "filmOffset": {
+          "type": "number"
+        },
+        "focus": {
+          "type": "number"
+        },
+        "zoom": {
           "type": "number"
         },
         "agent": {
