@@ -10,11 +10,11 @@ import type { TMouseClickWatcher, TMousePositionWatcher } from '@/Engine/Mouse';
 import type { TSceneWrapper } from '@/Engine/Scene';
 import { spaceToConfig } from '@/Engine/Space/Adapters';
 import { CreateEntitiesStrategy } from '@/Engine/Space/Constants';
-import type { TSpace, TSpaceBaseServices, TSpaceCanvas, TSpaceConfig, TSpaceHooks, TSpaceLoops, TSpaceParams, TSpaceParts, TSpaceServices } from '@/Engine/Space/Models';
+import type { TSpace, TSpaceBaseServices, TSpaceCanvas, TSpaceConfig, TSpaceHooks, TSpaceLoops, TSpaceParams, TSpaceParts, TSpaceRegistry, TSpaceServices } from '@/Engine/Space/Models';
 import { buildBaseServices, buildEntitiesServices, createEntities, createLoops } from '@/Engine/Space/Utils';
 import { findDomElement, getCanvasContainer, getOrCreateCanvasFromSelector, isCanvasElement, isDefined, isDestroyable, isNotDefined } from '@/Engine/Utils';
 
-export function Space(params: TSpaceParams, hooks?: TSpaceHooks): TSpace {
+export function Space(params: TSpaceParams, registry: TSpaceRegistry, hooks?: TSpaceHooks): TSpace {
   const { canvasSelector, version, name, tags } = params;
   const built$: BehaviorSubject<TSpace | undefined> = new BehaviorSubject<TSpace | undefined>(undefined);
   const start$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
@@ -92,6 +92,8 @@ export function Space(params: TSpaceParams, hooks?: TSpaceHooks): TSpace {
     start$.complete();
     Object.values(services).forEach((service: TAbstractService): void => void (isDestroyable(service) && service.destroy$.next()));
     Object.values(loops).forEach((loop: TLoop): void => void (isDestroyable(loop) && loop.destroy$.next()));
+
+    registry.remove(space.id);
   });
 
   // eslint-disable-next-line functional/immutable-data

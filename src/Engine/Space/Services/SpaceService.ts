@@ -31,11 +31,11 @@ export function SpaceService(factory: TSpaceFactory, registry: TSpaceRegistry): 
     return spaces.map((config: TSpaceConfig): TSpace => {
       hooks?.beforeConfigValidation?.(config);
       validateConfig(config);
-      return factory.create(factory.configToParams(config), { config, hooks });
+      return factory.create(factory.configToParams(config), { config, registry, hooks });
     });
   };
 
-  const withCreateService: TSpaceServiceWithCreate = withCreateServiceWithHooksMixin(factory, undefined);
+  const withCreateService: TSpaceServiceWithCreate = withCreateServiceWithHooksMixin(factory, { registry });
   const withFactory: TSpaceServiceWithFactory = withFactoryService(factory);
   const withRegistry: TSpaceServiceWithRegistry = withRegistryService(registry);
 
