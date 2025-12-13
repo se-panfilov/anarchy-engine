@@ -80,9 +80,9 @@
   "envMaps": [],
   "fogs": [
     {
-      "color": "#262837",
+      "color": "#353CA7",
       "near": 1,
-      "far": 15,
+      "far": 100,
       "tags": []
     }
   ],

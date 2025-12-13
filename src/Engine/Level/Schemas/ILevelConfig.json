@@ -48,6 +48,12 @@
         "$ref": "#/definitions/ILightConfig"
       }
     },
+    "fogs": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/IFogConfig"
+      }
+    },
     "texts": {
       "type": "array",
       "items": {
@@ -67,7 +73,7 @@
       }
     }
   },
-  "required": ["actors", "cameras", "controls", "envMaps", "lights", "name", "scenes", "tags", "texts", "version"],
+  "required": ["actors", "cameras", "controls", "envMaps", "fogs", "lights", "name", "scenes", "tags", "texts", "version"],
   "definitions": {
     "LevelTag": {
       "type": "string",
@@ -2878,6 +2884,34 @@
     "LightType": {
       "type": "string",
       "enum": ["Ambient", "Directional", "Point", "Hemisphere", "RectArea", "Spot"]
+    },
+    "IFogConfig": {
+      "type": "object",
+      "properties": {
+        "tags": {
+          "type": "array",
+          "items": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "$ref": "#/definitions/CommonTag"
+              }
+            ]
+          }
+        },
+        "color": {
+          "type": "string"
+        },
+        "near": {
+          "type": "number"
+        },
+        "far": {
+          "type": "number"
+        }
+      },
+      "required": ["color", "tags"]
     },
     "ITextConfig": {
       "type": "object",
