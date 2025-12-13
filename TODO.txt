@@ -1,5 +1,9 @@
 Done:
-- 3.x.x Physics
+- 2.0.x Spaces
+- 2.5.x Particles
+- 2.6.x Environment maps
+- 2.7.x Physics
+- 3.0.x WASM
 - 3.5.x Kinematic movement
 - 4.x.x Spatial grid detection
 - 5.x.x Raycasting & Collision detection
@@ -12,26 +16,26 @@ Done:
 - 10.0.x Refactor loops (physical, collision and etc) loops should be based on milliseconds, not frames. Only rendering loop should be based on frames
 
 Roadmap:
-- 11.0.x Pausing (timers)
-- 11.2.x Refactor withActive entities (use active$) (camera, renderer, etc)
-- 12.3.x Lines domain
-- 13.0.x Sounds/Music
-- 14.1.x GUI
-- 15.3.x Registries refactoring (explicitly register/not register entities)
-- 16.4.x Logging
-- 17.0.x Deletion and resource dispose (memory management)
-- 18.0.0 Multiple scenes full support (unload/load scenes one after another)
-- 19.0.x Split apps and engine (and add config for an app to setup engine)
-- 20.0.x Building app (desktop/mobile) (might be not a part of an engine)
-- 20.1.x Performance improvements (make sure actors, materials and env maps are async)
-- 21.4.x npm package and a repo
-- 22.0.x Shaders
-- 23.x.x Save/Load
-- 24.x.x Postprocessing
+- 11.0.x Sounds/Music
+- 12.0.x GUI
+- 13.0.x Registries refactoring (explicitly register/not register entities)
+- 14.0.x Lines domain
+- 15.0.x Deletion and resource dispose (memory management)
+- 16.x.x Save/Load
+- 17.0.0 Multiple scenes full support (unload/load scenes one after another)
+- 18.0.x Split apps and engine (and add config for an app to setup engine)
+- 19.0.x Building app (desktop/mobile) (might be not a part of an engine)
+- 20.0.x Shaders
+- 21.x.x Postprocessing
+- 22.0.x Refactor withActive entities (use active$) (camera, renderer, etc)
+- 23.0.x Logging
+- 24.0.x Performance improvements (make sure actors, materials and env maps are async)
+- 25.0.x npm package and a repo
 
 Global Refactoring:
 - feels like env map is not async at all (check for extra "await", and compare with vanilla env map loading)
 - Check if it makes sense to replace Rapier with Havok
+- Consider a single factory for all entities (actor, model, etc)
 
 Bugs and issues:
 - Registries might be a mistake: if I create "bullet" which extends "actor", the actor will be registered, not the bullet (which is unexpected)
