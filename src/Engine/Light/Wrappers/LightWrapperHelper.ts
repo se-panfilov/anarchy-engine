@@ -1,8 +1,8 @@
-import type { DirectionalLightShadow, PointLightShadow, SpotLightShadow } from 'three';
 import { Vector3 } from 'three';
 
-import { isOrthographicCameraParams, isPerspectiveCameraParams } from '@/Engine/Camera';
-import type { TAbstractLightParams, TAnyLight, TLightParams } from '@/Engine/Light/Models';
+import type { TOrthographicCameraParams, TPerspectiveCameraParams } from '@/Engine/Camera';
+import type { TAbstractLightParams, TAnyLight, TDirectionalLight, TLightParams, TPointLight, TSpotLight } from '@/Engine/Light/Models';
+import { isDirectionalLight, isPointLight, isSpotLight } from '@/Engine/Light/Utils';
 import type { TWriteable } from '@/Engine/Utils';
 import { isDefined, isNotDefined } from '@/Engine/Utils';
 
@@ -26,15 +26,19 @@ export function applyShadowParams<T extends TAnyLight, P extends TLightParams>(p
   }
 }
 
-function applyShadowCameraParams({ shadow }: TAbstractLightParams, entity: TWriteable<TAnyLight>): void {
-  if (isNotDefined(shadow)) return;
-  // eslint-disable-next-line functional/immutable-data
-  if (isNotDefined(entity.shadow)) entity.shadow = {} as unknown as DirectionalLightShadow | PointLightShadow | SpotLightShadow | undefined;
+function applyShadowCameraParams(params: TAbstractLightParams, entity: TWriteable<TAnyLight>): void {
+  const { shadow } = params;
+  if (isNotDefined(shadow?.camera)) return;
 
-  const { camera } = shadow;
-  if (isNotDefined(camera)) return;
+  if (isDirectionalLight(entity)) applyDirectionalLightShadowCameraParams(params, entity);
+  if (isPointLight(entity)) applyPointLightShadowCameraParams(params, entity);
+  if (isSpotLight(entity)) applySpotLightShadowCameraParams(params, entity);
+}
 
-  const { far, near, lookAt, up, layers, zoom } = camera;
+function applyCommonCameraParams(params: TPerspectiveCameraParams | TOrthographicCameraParams, entity: TWriteable<TDirectionalLight | TPointLight | TSpotLight>): void {
+  if (isNotDefined(params)) return;
+
+  const { far, near, lookAt, up, layers, zoom } = params;
 
   // eslint-disable-next-line functional/immutable-data
   if (isDefined(far)) entity.shadow.camera.far = far;
@@ -43,36 +47,57 @@ function applyShadowCameraParams({ shadow }: TAbstractLightParams, entity: TWrit
 
   if (isDefined(lookAt)) entity.shadow.camera.lookAt(lookAt);
   // eslint-disable-next-line functional/immutable-data
-  if (isDefined(up)) entity.shadow.camera.up = new Vector3().copy(camera.up ?? { x: 0, y: 1, z: 0 });
+  if (isDefined(up)) entity.shadow.camera.up = new Vector3().copy(params.up ?? { x: 0, y: 1, z: 0 });
 
   // eslint-disable-next-line functional/immutable-data
   if (isDefined(layers) && isDefined(entity.shadow.camera.layers?.mask)) entity.shadow.camera.layers.mask = layers ?? 1;
   // eslint-disable-next-line functional/immutable-data
   if (isDefined(zoom)) entity.shadow.camera.zoom = zoom;
+}
 
-  if (isOrthographicCameraParams(camera)) {
-    const { left, right, top, bottom } = camera;
+function applyOrthographicCameraParams(params: TOrthographicCameraParams, entity: TWriteable<TDirectionalLight>): void {
+  const { left, right, top, bottom } = params;
 
-    // eslint-disable-next-line functional/immutable-data
-    if (isDefined(left)) entity.shadow.camera.left = left;
-    // eslint-disable-next-line functional/immutable-data
-    if (isDefined(right)) entity.shadow.camera.right = right;
-    // eslint-disable-next-line functional/immutable-data
-    if (isDefined(bottom)) entity.shadow.camera.bottom = bottom;
-    // eslint-disable-next-line functional/immutable-data
-    if (isDefined(top)) entity.shadow.camera.top = top;
-  }
+  // eslint-disable-next-line functional/immutable-data
+  if (isDefined(left)) entity.shadow.camera.left = left;
+  // eslint-disable-next-line functional/immutable-data
+  if (isDefined(right)) entity.shadow.camera.right = right;
+  // eslint-disable-next-line functional/immutable-data
+  if (isDefined(bottom)) entity.shadow.camera.bottom = bottom;
+  // eslint-disable-next-line functional/immutable-data
+  if (isDefined(top)) entity.shadow.camera.top = top;
+}
 
-  if (isPerspectiveCameraParams(camera)) {
-    const { filmGauge, filmOffset, focus, fov } = camera;
+function applyPerspectiveCameraParams(params: TPerspectiveCameraParams, entity: TWriteable<TPointLight | TSpotLight>): void {
+  const { filmGauge, filmOffset, focus, fov } = params;
 
-    // eslint-disable-next-line functional/immutable-data
-    if (isDefined(filmGauge)) entity.shadow.camera.filmGauge = filmGauge;
-    // eslint-disable-next-line functional/immutable-data
-    if (isDefined(filmOffset)) entity.shadow.camera.filmOffset = filmOffset;
-    // eslint-disable-next-line functional/immutable-data
-    if (isDefined(focus)) entity.shadow.camera.focus = focus;
-    // eslint-disable-next-line functional/immutable-data
-    if (isDefined(fov)) entity.shadow.camera.fov = fov;
-  }
+  // eslint-disable-next-line functional/immutable-data
+  if (isDefined(filmGauge)) entity.shadow.camera.filmGauge = filmGauge;
+  // eslint-disable-next-line functional/immutable-data
+  if (isDefined(filmOffset)) entity.shadow.camera.filmOffset = filmOffset;
+  // eslint-disable-next-line functional/immutable-data
+  if (isDefined(focus)) entity.shadow.camera.focus = focus;
+  // eslint-disable-next-line functional/immutable-data
+  if (isDefined(fov)) entity.shadow.camera.fov = fov;
+}
+
+function applyDirectionalLightShadowCameraParams({ shadow }: TAbstractLightParams, entity: TWriteable<TDirectionalLight>): void {
+  if (isNotDefined(shadow?.camera)) return;
+
+  applyCommonCameraParams(shadow.camera, entity);
+  applyOrthographicCameraParams(shadow.camera, entity);
+}
+
+function applyPointLightShadowCameraParams({ shadow }: TAbstractLightParams, entity: TWriteable<TPointLight>): void {
+  if (isNotDefined(shadow?.camera)) return;
+
+  applyCommonCameraParams(shadow.camera, entity);
+  applyPerspectiveCameraParams(shadow.camera, entity);
+}
+
+function applySpotLightShadowCameraParams({ shadow }: TAbstractLightParams, entity: TWriteable<TSpotLight>): void {
+  if (isNotDefined(shadow?.camera)) return;
+
+  applyCommonCameraParams(shadow.camera, entity);
+  applyPerspectiveCameraParams(shadow.camera, entity);
 }
