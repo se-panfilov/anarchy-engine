@@ -2,8 +2,8 @@ import type { Subscription } from 'rxjs';
 import { merge, ReplaySubject } from 'rxjs';
 
 import { CommonTag } from '@/Engine/Abstract';
-import type { IActorAsyncRegistry, IActorConfig, IActorFactory, IActorParams, IActorWrapperAsync } from '@/Engine/Actor';
-import { ActorAsyncRegistry, ActorFactory } from '@/Engine/Actor';
+import type { IActorAsyncRegistry, IActorFactory, IActorService } from '@/Engine/Actor';
+import { ActorAsyncRegistry, ActorFactory, ActorService } from '@/Engine/Actor';
 import type { IAppCanvas } from '@/Engine/App';
 import type { ICameraFactory, ICameraRegistry, ICameraService, ICameraWrapper } from '@/Engine/Camera';
 import { CameraFactory, CameraRegistry, CameraService } from '@/Engine/Camera';
@@ -86,17 +86,7 @@ export function buildSpaceFromConfig(canvas: IAppCanvas, config: ISpaceConfig): 
     const actorRegistry: IActorAsyncRegistry = ActorAsyncRegistry();
     const actorService: IActorService = ActorService(actorFactory, actorRegistry, scene);
 
-    // TODO (S.Panfilov) move this into the service
-    actorRegistry.added$.subscribe((wrapper: IActorWrapperAsync) => scene.addActor(wrapper));
-    actorFactory.entityCreated$.subscribe((wrapper: IActorWrapperAsync): void => actorRegistry.add(wrapper));
-    ////
-
-    // TODO (S.Panfilov) use service
-    // eslint-disable-next-line @typescript-eslint/no-misused-promises
-    actors.forEach((config: IActorConfig): Promise<IActorWrapperAsync> => {
-      const params: IActorParams = actorFactory.configToParams({ ...config, tags: [...config.tags, CommonTag.FromConfig] });
-      return actorFactory.createAsync(params);
-    });
+    actorService.createFromConfig(actors);
 
     factories = { ...factories, actorFactory };
     registries = { ...registries, actorRegistry };
