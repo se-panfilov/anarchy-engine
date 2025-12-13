@@ -12,6 +12,7 @@ import type { CameraParams } from '@Engine/Wrappers/CameraWrapper';
 import type { ActorParams } from '@Engine/Wrappers/ActorWrapper';
 import { isNotDefined } from '@Engine/Utils';
 import { RendererManager } from '@Engine/Managers/RendererManager';
+import type { OrthographicCamera } from 'three/src/cameras/OrthographicCamera';
 
 const deviceWatcher = new DeviceWatcher({
   width: window.innerWidth,
@@ -64,10 +65,9 @@ if (isNotDefined(rendererManager.current$.value)) throw new Error('Renderer is n
 
 const canvas: HTMLElement | null = document.querySelector('#app');
 if (isNotDefined(canvas)) throw new Error('Canvas is not defined');
-const manager = rendererManager.create(canvas, deviceWatcher);
 
-const wrappedControl = controlManager.create(cameraManager.current$.value, rendererManager.current$.value);
-cameraManager.current$.value.setControls('OrbitControls');
+rendererManager.create(canvas, deviceWatcher);
+controlManager.create(cameraManager.current$.value, rendererManager.current$.value);
 
 lightManager.create({ type: 'ambient', color: 0xffffff, intensity: 0.5 });
 const wrappedDirectionalLight = lightManager.create({
@@ -77,7 +77,7 @@ const wrappedDirectionalLight = lightManager.create({
 });
 wrappedDirectionalLight.entity.castShadow = true;
 wrappedDirectionalLight.entity.shadow.mapSize.set(1024, 1024);
-wrappedDirectionalLight.entity.shadow.camera.far = 15;
+(wrappedDirectionalLight.entity.shadow.camera as OrthographicCamera).far = 15;
 wrappedDirectionalLight.entity.shadow.normalBias = 0.05;
 wrappedDirectionalLight.entity.position.set(0.25, 2, 2.25);
 
