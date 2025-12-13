@@ -31,30 +31,30 @@ export function isLineDashedMaterial<T extends Material | ReadonlyArray<Material
   return !Array.isArray(material) && (material as Material).type === MaterialType.LineDashed;
 }
 
-export function isMeshBasicMaterial<T extends Material | ReadonlyArray<Material>>(material: MeshBasicMaterial | T): material is MeshBasicMaterial {
+export function isBasicMaterial<T extends Material | ReadonlyArray<Material>>(material: MeshBasicMaterial | T): material is MeshBasicMaterial {
   return !Array.isArray(material) && (material as Material).type === MaterialType.Basic;
 }
 
-export function isMeshStandardMaterial<T extends Material | ReadonlyArray<Material>>(material: MeshStandardMaterial | T): material is MeshStandardMaterial {
+export function isStandardMaterial<T extends Material | ReadonlyArray<Material>>(material: MeshStandardMaterial | T): material is MeshStandardMaterial {
   return !Array.isArray(material) && (material as Material).type === MaterialType.Standard;
 }
 
-export function isMeshLambertMaterial<T extends Material | ReadonlyArray<Material>>(material: MeshLambertMaterial | T): material is MeshLambertMaterial {
+export function isLambertMaterial<T extends Material | ReadonlyArray<Material>>(material: MeshLambertMaterial | T): material is MeshLambertMaterial {
   return !Array.isArray(material) && (material as Material).type === MaterialType.Lambert;
 }
 
-export function isMeshDepthMaterial<T extends Material | ReadonlyArray<Material>>(material: MeshDepthMaterial | T): material is MeshDepthMaterial {
+export function isDepthMaterial<T extends Material | ReadonlyArray<Material>>(material: MeshDepthMaterial | T): material is MeshDepthMaterial {
   return !Array.isArray(material) && (material as Material).type === MaterialType.Depth;
 }
-export function isMeshMatcapMaterial<T extends Material | ReadonlyArray<Material>>(material: MeshMatcapMaterial | T): material is MeshMatcapMaterial {
+export function isMatcapMaterial<T extends Material | ReadonlyArray<Material>>(material: MeshMatcapMaterial | T): material is MeshMatcapMaterial {
   return !Array.isArray(material) && (material as Material).type === MaterialType.Matcap;
 }
 
-export function isSpriteNodeMaterial<T extends Material | ReadonlyArray<Material>>(material: SpriteMaterial | T): material is SpriteMaterial {
+export function isNodeMaterial<T extends Material | ReadonlyArray<Material>>(material: SpriteMaterial | T): material is SpriteMaterial {
   return !Array.isArray(material) && (material as Material).type === MaterialType.Sprite;
 }
 
-export function isMeshPhongMaterial<T extends Material | ReadonlyArray<Material>>(material: MeshPhongMaterial | T): material is MeshPhongMaterial {
+export function isPhongMaterial<T extends Material | ReadonlyArray<Material>>(material: MeshPhongMaterial | T): material is MeshPhongMaterial {
   return !Array.isArray(material) && (material as Material).type === MaterialType.Phong;
 }
 

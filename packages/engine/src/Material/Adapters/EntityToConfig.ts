@@ -25,16 +25,16 @@ import type {
 import {
   eulerToXyzIfPossible,
   getOptionNameIfPossible,
+  isBasicMaterial,
+  isDepthMaterial,
+  isLambertMaterial,
   isLineDashedMaterial,
-  isMeshBasicMaterial,
-  isMeshDepthMaterial,
-  isMeshLambertMaterial,
-  isMeshMatcapMaterial,
-  isMeshPhongMaterial,
-  isMeshStandardMaterial,
+  isMatcapMaterial,
+  isNodeMaterial,
+  isPhongMaterial,
   isPhysicalMaterial,
   isPointsMaterial,
-  isSpriteNodeMaterial,
+  isStandardMaterial,
   vector2ToXyIfPossible
 } from '@Engine/Material/Utils';
 import { extractSerializableRegistrableFields } from '@Engine/Mixins';
@@ -47,6 +47,8 @@ export function materialToConfig(entity: TAnyMaterialWrapper, { textureResourceR
   const options: TMaterialConfigOptions | undefined = getMaterialOptions(entity);
   const textures: TMaterialConfigTextures | undefined = getMaterialTextures(entity, textureResourceRegistry);
 
+  console.log('XXX', options);
+
   return filterOutEmptyFields({
     type: entity.entity.type as MaterialType,
     options,
@@ -56,15 +58,13 @@ export function materialToConfig(entity: TAnyMaterialWrapper, { textureResourceR
 }
 
 function getMaterialOptions({ entity }: TAnyMaterialWrapper): TOptional<TMaterialConfigOptions> | undefined {
-  console.log('XXX entity', entity);
-
   return filterOutEmptyFields(
     nullsToUndefined({
       alphaHash: entity.alphaHash,
       alphaToCoverage: entity.alphaToCoverage,
       anisotropy: isPhysicalMaterial(entity) ? entity.anisotropy : undefined,
       anisotropyRotation: isPhysicalMaterial(entity) ? entity.anisotropyRotation : undefined,
-      aoMapIntensity: isMeshPhongMaterial(entity) ? entity.aoMapIntensity : undefined,
+      aoMapIntensity: isPhongMaterial(entity) ? entity.aoMapIntensity : undefined,
       attenuationColor: serializeColorWhenPossible(isPhysicalMaterial(entity) ? entity.attenuationColor : undefined),
       attenuationDistance: isPhysicalMaterial(entity) ? entity.attenuationDistance : undefined,
       blendAlpha: entity.blendAlpha,
@@ -76,44 +76,44 @@ function getMaterialOptions({ entity }: TAnyMaterialWrapper): TOptional<TMateria
       blendSrc: getOptionNameIfPossible(entity.blendSrc, { ...BlendingSrcFactorMap, ...BlendingDstFactorMap }, 'blendSrc'),
       blendSrcAlpha: entity.blendSrcAlpha,
       blending: getOptionNameIfPossible(entity.blending, BlendingMap, 'blending'),
-      bumpScale: isMeshPhongMaterial(entity) ? entity.bumpScale : undefined,
+      bumpScale: isPhongMaterial(entity) ? entity.bumpScale : undefined,
       // clearcoat: isPhysicalMaterial(entity) ? entity.clearcoat : undefined,
       clearcoatNormalScale: vector2ToXyIfPossible(isPhysicalMaterial(entity) ? entity.clearcoatNormalScale : undefined),
       clearcoatRoughness: isPhysicalMaterial(entity) ? entity.clearcoatRoughness : undefined,
       clipIntersection: entity.clipIntersection,
       clipShadows: entity.clipShadows,
       clippingPlanes: entity.clippingPlanes,
-      color: serializeColorWhenPossible(isMeshBasicMaterial(entity) ? entity.color : undefined),
+      color: serializeColorWhenPossible(isBasicMaterial(entity) ? entity.color : undefined),
       colorWrite: entity.colorWrite,
-      combine: getOptionNameIfPossible(isMeshBasicMaterial(entity) ? entity.combine : undefined, CombineMap, 'combine'),
+      combine: getOptionNameIfPossible(isBasicMaterial(entity) ? entity.combine : undefined, CombineMap, 'combine'),
       dashSize: isLineDashedMaterial(entity) ? entity.dashSize : undefined,
       depthFunc: entity.depthFunc,
-      depthPacking: getOptionNameIfPossible(isMeshDepthMaterial(entity) ? entity.depthPacking : undefined, DepthPackingStrategiesMap, 'depthPacking'),
+      depthPacking: getOptionNameIfPossible(isDepthMaterial(entity) ? entity.depthPacking : undefined, DepthPackingStrategiesMap, 'depthPacking'),
       depthTest: entity.depthTest,
       depthWrite: entity.depthWrite,
-      displacementBias: isMeshPhongMaterial(entity) ? entity.displacementBias : undefined,
-      displacementScale: isMeshPhongMaterial(entity) ? entity.displacementScale : undefined,
+      displacementBias: isPhongMaterial(entity) ? entity.displacementBias : undefined,
+      displacementScale: isPhongMaterial(entity) ? entity.displacementScale : undefined,
       dithering: entity.dithering,
-      emissive: serializeColorWhenPossible(isMeshLambertMaterial(entity) ? entity.emissive : undefined),
-      emissiveIntensity: isMeshLambertMaterial(entity) ? entity.emissiveIntensity : undefined,
-      envMapIntensity: isMeshStandardMaterial(entity) ? entity.envMapIntensity : undefined,
-      envMapRotation: eulerToXyzIfPossible(isMeshPhongMaterial(entity) ? entity.envMapRotation : undefined),
+      emissive: serializeColorWhenPossible(isLambertMaterial(entity) ? entity.emissive : undefined),
+      emissiveIntensity: isLambertMaterial(entity) ? entity.emissiveIntensity : undefined,
+      envMapIntensity: isStandardMaterial(entity) ? entity.envMapIntensity : undefined,
+      envMapRotation: eulerToXyzIfPossible(isPhongMaterial(entity) ? entity.envMapRotation : undefined),
       // farDistance: isMeshDistanceMaterialParameters(entity) ? entity.farDistance : undefined,
-      flatShading: isMeshStandardMaterial(entity) ? entity.flatShading : undefined,
-      fog: isMeshPhongMaterial(entity) ? entity.fog : undefined,
+      flatShading: isStandardMaterial(entity) ? entity.flatShading : undefined,
+      fog: isPhongMaterial(entity) ? entity.fog : undefined,
       forceSinglePass: entity.forceSinglePass,
       gapSize: isLineDashedMaterial(entity) ? entity.gapSize : undefined,
       ior: isPhysicalMaterial(entity) ? entity.ior : undefined,
       // iridescence: isPhysicalMaterial(entity) ? entity.iridescence : undefined,
       iridescenceIOR: isPhysicalMaterial(entity) ? entity.iridescenceIOR : undefined,
       iridescenceThicknessRange: isPhysicalMaterial(entity) ? entity.iridescenceThicknessRange : undefined,
-      lightMapIntensity: isMeshPhongMaterial(entity) ? entity.lightMapIntensity : undefined,
+      lightMapIntensity: isPhongMaterial(entity) ? entity.lightMapIntensity : undefined,
       linewidth: isLineDashedMaterial(entity) ? entity.linewidth : undefined,
-      matcap: isMeshMatcapMaterial(entity) ? entity.matcap : undefined,
-      metalness: isMeshStandardMaterial(entity) ? entity.metalness : undefined,
+      matcap: isMatcapMaterial(entity) ? entity.matcap : undefined,
+      metalness: isStandardMaterial(entity) ? entity.metalness : undefined,
       // nearDistance: isMeshDistanceMaterialParameters(entity) ? entity.nearDistance : undefined,
-      normalMapType: getOptionNameIfPossible(isMeshStandardMaterial(entity) ? entity.normalMapType : undefined, NormalMapTypesMap, 'normalMapType'),
-      normalScale: vector2ToXyIfPossible(isMeshStandardMaterial(entity) ? entity.normalScale : undefined),
+      normalMapType: getOptionNameIfPossible(isStandardMaterial(entity) ? entity.normalMapType : undefined, NormalMapTypesMap, 'normalMapType'),
+      normalScale: vector2ToXyIfPossible(isStandardMaterial(entity) ? entity.normalScale : undefined),
       opacity: entity.opacity,
       polygonOffset: entity.polygonOffset,
       polygonOffsetFactor: entity.polygonOffsetFactor,
@@ -122,19 +122,19 @@ function getMaterialOptions({ entity }: TAnyMaterialWrapper): TOptional<TMateria
       premultipliedAlpha: entity.premultipliedAlpha,
       // referencePosition: vector3ToXyzIfPossible(isMeshDistanceMaterialParameters(entity) ? entity.referencePosition : undefined),
       reflectivity: isPhysicalMaterial(entity) ? entity.reflectivity : undefined,
-      refractionRatio: isMeshBasicMaterial(entity) ? entity.refractionRatio : undefined,
-      rotation: isSpriteNodeMaterial(entity) ? entity.rotation : undefined,
-      roughness: isMeshStandardMaterial(entity) ? entity.roughness : undefined,
+      refractionRatio: isBasicMaterial(entity) ? entity.refractionRatio : undefined,
+      rotation: isNodeMaterial(entity) ? entity.rotation : undefined,
+      roughness: isStandardMaterial(entity) ? entity.roughness : undefined,
       scale: isLineDashedMaterial(entity) ? entity.scale : undefined,
       shadowSide: entity.shadowSide,
       sheen: isPhysicalMaterial(entity) ? entity.sheen : undefined,
       sheenColor: serializeColorWhenPossible(isPhysicalMaterial(entity) ? entity.sheenColor : undefined),
       sheenRoughness: isPhysicalMaterial(entity) ? entity.sheenRoughness : undefined,
-      shininess: isMeshPhongMaterial(entity) ? entity.shininess : undefined,
+      shininess: isPhongMaterial(entity) ? entity.shininess : undefined,
       side: getOptionNameIfPossible(entity.side, SideMap, 'side'),
       size: isPointsMaterial(entity) ? entity.size : undefined,
       sizeAttenuation: isPointsMaterial(entity) ? entity.sizeAttenuation : undefined,
-      specular: serializeColorWhenPossible(isMeshPhongMaterial(entity) ? entity.specular : undefined),
+      specular: serializeColorWhenPossible(isPhongMaterial(entity) ? entity.specular : undefined),
       specularColor: serializeColorWhenPossible(isPhysicalMaterial(entity) ? entity.specularColor : undefined),
       specularIntensity: isPhysicalMaterial(entity) ? entity.specularIntensity : undefined,
       stencilFail: getOptionNameIfPossible(entity.stencilFail, StencilFailMap, 'stencilFail'),
@@ -151,10 +151,10 @@ function getMaterialOptions({ entity }: TAnyMaterialWrapper): TOptional<TMateria
       transparent: entity.transparent,
       vertexColors: entity.vertexColors,
       visible: entity.visible,
-      wireframe: isMeshPhongMaterial(entity) ? entity.wireframe : undefined,
+      wireframe: isPhongMaterial(entity) ? entity.wireframe : undefined,
       // wireframeLinecap: isMeshPhongMaterial(entity) ? entity.wireframeLinecap : undefined
       // wireframeLinejoin: isMeshPhongMaterial(entity) ? entity.wireframeLinejoin : undefined
-      wireframeLinewidth: isMeshPhongMaterial(entity) ? entity.wireframeLinewidth : undefined
+      wireframeLinewidth: isPhongMaterial(entity) ? entity.wireframeLinewidth : undefined
     })
   );
 }
