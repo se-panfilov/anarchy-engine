@@ -6,6 +6,8 @@ export type * from './TKeyboardRegistryRecords';
 export type * from './TKeyboardRegistryValues';
 export type * from './TKeyboardService';
 export type * from './TKeyCombo';
+export type * from './TKeyComboWatcher';
+export type * from './TKeyComboWatcherDependencies';
 export type * from './TKeySubscription';
 export type * from './TKeyWatcher';
 export type * from './TKeyWatcherFactory';

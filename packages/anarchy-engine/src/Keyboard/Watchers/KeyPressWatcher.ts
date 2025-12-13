@@ -9,13 +9,13 @@ export function KeyPressWatcher({ container, tags }: TKeyWatcherParams): TKeyWat
   const containerIdTag: string = `container_id_${container.id}`;
   const abstractWatcher: TAbstractWatcher<KeyboardEvent> = AbstractWatcher(WatcherType.KeyPressWatcher, 'key_press_watcher', tags);
 
-  const onMouseListener = (event: KeyboardEvent): void => abstractWatcher.value$.next(event);
+  const onChange = (event: KeyboardEvent): void => abstractWatcher.value$.next(event);
 
   abstractWatcher.enabled$.pipe(distinctUntilChanged(), takeUntil(abstractWatcher.destroy$)).subscribe((value: boolean): void => {
     if (value) {
-      container.startWatch(KeyboardEventType.KeyDown, onMouseListener);
+      container.startWatch(KeyboardEventType.KeyDown, onChange);
     } else {
-      container.stopWatch(KeyboardEventType.KeyDown, onMouseListener);
+      container.stopWatch(KeyboardEventType.KeyDown, onChange);
     }
   });
 

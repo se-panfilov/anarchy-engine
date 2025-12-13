@@ -21,10 +21,13 @@ export function initGuiEvents(keyboardService: TKeyboardService, mouseService: T
   onKey(KeyCode.I).released$.subscribe((): void => toGuiEventsBus$.next(createToGuiActionEvent(Inventory, false)));
   onKey(KeyCode.M).pressed$.subscribe((): void => toGuiEventsBus$.next(createToGuiActionEvent(MiniMap, true)));
   onKey(KeyCode.M).released$.subscribe((): void => toGuiEventsBus$.next(createToGuiActionEvent(MiniMap, false)));
-  // TODO DESKTOP: a bug: if pressed$ and released$ subscriptions are both present, pressed$ fires twice. Fix
-  onKey(KeysExtra.Escape).pressed$.subscribe((v): void => {
-    console.log('XXX0', v, true);
-    return toGuiEventsBus$.next(createToGuiActionEvent(Settings, true));
-  });
+  onKey(KeysExtra.Escape).pressed$.subscribe((): void => toGuiEventsBus$.next(createToGuiActionEvent(Settings, true)));
   onKey(KeysExtra.Escape).released$.subscribe((): void => toGuiEventsBus$.next(createToGuiActionEvent(Settings, false)));
+
+  // TODO DESKTOP: a bug: if pressed$ and released$ subscriptions are both present, pressed$ fires twice. Fix
+  onKey(KeyCode.X).pressed$.subscribe((v): void => {
+    console.log('XXX0', v, true);
+    return toGuiEventsBus$.next(createToGuiActionEvent(Inventory, true));
+  });
+  onKey(KeyCode.X).released$.subscribe((): void => toGuiEventsBus$.next(createToGuiActionEvent(Inventory, false)));
 }

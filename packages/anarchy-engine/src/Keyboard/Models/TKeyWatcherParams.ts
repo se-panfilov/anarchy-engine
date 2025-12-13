@@ -7,3 +7,5 @@ export type TKeyWatcherParams = Readonly<{
   container: TContainerDecorator;
   tags?: ReadonlyArray<WatcherTag | string>;
 }>;
+
+export type TKeyComboWatcherParams = Omit<TKeyWatcherParams, 'container'>;
