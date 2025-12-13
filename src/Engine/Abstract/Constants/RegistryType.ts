@@ -1,6 +1,8 @@
 export enum RegistryType {
   Actor = 'actor_registry',
   Animations = 'animations_registry',
+  Audio = 'audio_registry',
+  AudioRaw = 'audio_raw_registry',
   Camera = 'camera_registry',
   Controls = 'controls_registry',
   EnvMap = 'env_map_registry',

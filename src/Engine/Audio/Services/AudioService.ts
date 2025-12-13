@@ -1,8 +1,10 @@
 import { Howl } from 'howler';
 
 import type { AudioType } from '@/Engine/Audio/Constants';
-import type { TAudioOptions, TAudioService } from '@/Engine/Audio/Models';
+import { AudioLoader } from '@/Engine/Audio/Loader';
+import type { TAudioFactory, TAudioLoader, TAudioOptions, TAudioRegistry, TAudioResourceAsyncRegistry, TAudioService } from '@/Engine/Audio/Models';
 
+// TODO 11.0.0: Load all audio resources in Space (during config build)
 // TODO 11.0.0: Fix type TAudioService
 // TODO 11.0.0: How to upload a sound and reuse it?
 // TODO 11.0.0: Upload async
@@ -11,8 +13,9 @@ import type { TAudioOptions, TAudioService } from '@/Engine/Audio/Models';
 // TODO 11.0.0: Add Audio loop (to update 3d sounds, when position changes, but not more often than with tick$)
 // TODO 11.0.0: Implement "Sound Perception Manager" for NPCs to react to a sound (if they are in a radius)
 // TODO 11.0.0: Optionally implement raycast sound (if a sound is blocked by an object)
-export function AudioService(): TAudioService {
+export function AudioService(factory: TAudioFactory, registry: TAudioRegistry, resourcesRegistry: TAudioResourceAsyncRegistry): TAudioService {
   const sounds: Map<string, Howl> = new Map();
+  const audioLoader: TAudioLoader = AudioLoader(resourcesRegistry);
 
   function loadSound(name: string, src: string, type: AudioType, options: TAudioOptions = {}): void {
     const sound = new Howl({

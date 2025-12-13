@@ -6,4 +6,8 @@ export type * from './TAudio3dWrapperDependencies';
 export type * from './TAudioLoop';
 export type * from './TAudioOptions';
 export type * from './TAudioPerformanceOptions';
+export type * from './TAudioRegistry';
+export type * from './TAudioResourceAsyncRegistry';
+export type * from './TAudioResourceConfig';
+export type * from './TAudioResourceOptions';
 export type * from './TAudioService';
