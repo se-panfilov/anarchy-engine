@@ -1,4 +1,5 @@
 import type { Subscription } from 'rxjs';
+import { distinctUntilChanged, sampleTime } from 'rxjs';
 
 import type { TRegistryPack } from '@/Engine/Abstract';
 import type { TCameraConfig, TCameraFactory, TCameraParams, TCameraRegistry, TCameraService, TCameraWrapper } from '@/Engine/Camera/Models';
@@ -24,15 +25,21 @@ export function CameraService(factory: TCameraFactory, registry: TCameraRegistry
 
   // TODO 9.2.0 ACTIVE: This could be moved in active$ camera and applied in onActive hook
   function startUpdatingCamerasAspect(shouldUpdateOnlyActiveCamera: boolean = false): void {
-    screenSizeSub$ = ambientContext.screenSizeWatcher.value$.subscribe((params: TScreenSizeValues): void => {
-      if (shouldUpdateOnlyActiveCamera) {
-        const activeCamera: TCameraWrapper | undefined = findActive();
-        if (isNotDefined(activeCamera)) throw new Error('Cannot find an active camera during the aspect update.');
-        activeCamera.setAspect(params.width / params.height);
-      } else {
-        registry.getAll().forEach((camera: TCameraWrapper): void => camera.setAspect(params.width / params.height));
-      }
-    });
+    screenSizeSub$ = ambientContext.screenSizeWatcher.value$
+      .pipe(
+        // TODO we can have it as param if we move it to wrapper
+        sampleTime(4),
+        distinctUntilChanged((prev: TScreenSizeValues, curr: TScreenSizeValues): boolean => prev.width === curr.width && prev.height === curr.height)
+      )
+      .subscribe((params: TScreenSizeValues): void => {
+        if (shouldUpdateOnlyActiveCamera) {
+          const activeCamera: TCameraWrapper | undefined = findActive();
+          if (isNotDefined(activeCamera)) throw new Error('Cannot find an active camera during the aspect update.');
+          activeCamera.setAspect(params.width / params.height);
+        } else {
+          registry.getAll().forEach((camera: TCameraWrapper): void => camera.setAspect(params.width / params.height));
+        }
+      });
   }
 
   if (isUpdateCamerasAspect) startUpdatingCamerasAspect(false);
