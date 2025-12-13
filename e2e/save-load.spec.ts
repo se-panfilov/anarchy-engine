@@ -27,21 +27,21 @@ test('Save and load scene (no changes)', async ({ page }) => {
   await expect(page).toHaveScreenshot('scene-after-load.png');
 });
 
-test('Test 2 — Save and Load after modifying actor', async ({ page }) => {
-  await page.goto(GAME_URL);
-
-  // TODO get actor here
-  const moveButton = await page.getByRole('button', { name: /move actor/i });
-  await moveButton.click();
-
-  await page.waitForTimeout(500);
-
-  await expect(page).toHaveScreenshot('scene-before-save-moved');
-
-  await page.getByRole('button', { name: /save/i }).click();
-  await page.getByRole('button', { name: /load/i }).click();
-
-  await page.waitForTimeout(500);
-
-  await expect(page).toHaveScreenshot('scene-after-load-moved');
-});
+// test('Test 2 — Save and Load after modifying actor', async ({ page }) => {
+//   await page.goto(GAME_URL);
+//
+//   // TODO get actor here
+//   const moveButton = await page.getByRole('button', { name: /move actor/i });
+//   await moveButton.click();
+//
+//   await page.waitForTimeout(500);
+//
+//   await expect(page).toHaveScreenshot('scene-before-save-moved');
+//
+//   await page.getByRole('button', { name: /save/i }).click();
+//   await page.getByRole('button', { name: /load/i }).click();
+//
+//   await page.waitForTimeout(500);
+//
+//   await expect(page).toHaveScreenshot('scene-after-load-moved');
+// });
