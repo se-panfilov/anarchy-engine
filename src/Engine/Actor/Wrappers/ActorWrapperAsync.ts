@@ -75,6 +75,7 @@ export async function ActorWrapperAsync(
 
   applyPosition(actorW, params.position);
   applyRotation(actorW, params.rotation);
+  // TODO (S.Panfilov) CWP Should be guaranteed that spatial grid is build before in Space
   if (params.spatial?.tree) spatialGridService.addActorToGrid(params.spatial.tree, actorW);
   if (isDefined(params.scale)) applyScale(actorW, params.scale);
   applyObject3dParams(actorW, params);
