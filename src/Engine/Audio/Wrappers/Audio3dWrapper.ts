@@ -13,8 +13,10 @@ import { destroyableMixin } from '@/Engine/Mixins';
 import type { TReadonlyVector3 } from '@/Engine/ThreeLib';
 import { isEqualOrSimilarByXyzCoords } from '@/Engine/Utils';
 
-// TODO 11.0.0: add destroy$
+// TODO 11.0.0: Implement "Sound Perception Manager" for NPCs to react to a sound (if they are in a radius)
+// TODO 11.0.0: Optionally implement raycast sound (if a sound is blocked by an object)
 // TODO 11.0.0: transform drive position? (connected?)
+// TODO 11.0.0: sound radius param (for npcs to react)
 export function Audio3dWrapper({ sound, volume, position, name, performance }: TAudio3dParams): TAudio3dWrapper {
   const entity: Howl = sound;
   const position$: BehaviorSubject<Vector3Like> = new BehaviorSubject<Vector3Like>(position);
