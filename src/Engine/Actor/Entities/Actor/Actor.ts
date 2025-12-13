@@ -33,11 +33,6 @@ export function Actor(
   const drive: TActorDrive = ActorDrive(params, drivers);
   const driveToModel3dConnector: TDriveToModel3dConnector = DriveToModel3dConnector(drive, model3d);
 
-  const positionSub$: Subscription = drive.position$.pipe(distinctUntilChanged((prev: Vector3, curr: Vector3): boolean => prev.equals(curr))).subscribe((position: Vector3): void => {
-    // TODO 8.0.0. MODELS: not sure if "updateSpatialCells()" should happen on rotation$ and scale$ changes
-    entities.updateSpatialCells(position);
-  });
-
   // TODO CWP:
   // TODO 8.0.0. MODELS: Finish Actor's implementation, make sure it works with the KinematicDriver
   // TODO 8.0.0. MODELS: In ActorDriver implement external change of position$/rotation$/scale$ and make sure it works
@@ -58,6 +53,11 @@ export function Actor(
     ...withCollisions(params, collisionsService, collisionsLoopService),
     ...withUpdateSpatialCell()
   };
+
+  const positionSub$: Subscription = drive.position$.pipe(distinctUntilChanged((prev: Vector3, curr: Vector3): boolean => prev.equals(curr))).subscribe((position: Vector3): void => {
+    // TODO 8.0.0. MODELS: not sure if "updateSpatialCells()" should happen on rotation$ and scale$ changes
+    entities.updateSpatialCells(position);
+  });
 
   const actor: TActor = {
     ...AbstractEntity(entities, EntityType.Actor, params),
