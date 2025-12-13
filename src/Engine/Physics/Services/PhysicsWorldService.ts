@@ -2,7 +2,7 @@ import { World } from '@dimforge/rapier3d';
 import type { Subscription } from 'rxjs';
 import type { Vector3 } from 'three/src/math/Vector3';
 
-import type { TAbstractLoopService, TAbstractReadonlyLoopServiceWith } from '@/Engine/Abstract';
+import type { TAbstractLoop, TAbstractReadonlyLoopWith } from '@/Engine/Abstract';
 import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
 import { STANDARD_GRAVITY } from '@/Engine/Physics/Constants';
@@ -49,7 +49,7 @@ export function PhysicsWorldService(scene: TSceneWrapper): TPhysicsWorldService 
     return world;
   }
 
-  const getDebugRenderer = (loopService: TAbstractLoopService<unknown> | TAbstractReadonlyLoopServiceWith<unknown>): TPhysicsDebugRenderer => {
+  const getDebugRenderer = (loopService: TAbstractLoop<unknown> | TAbstractReadonlyLoopWith<unknown>): TPhysicsDebugRenderer => {
     if (isNotDefined(world)) throw new Error('Cannot get debug renderer: world is not defined');
     return PhysicsDebugRenderer(scene, world, loopService);
   };
