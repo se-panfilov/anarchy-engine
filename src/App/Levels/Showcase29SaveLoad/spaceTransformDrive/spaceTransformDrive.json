@@ -287,6 +287,7 @@
     ],
     "texts": [
       {
+        "agent": "kinematic",
         "cssProps": {
           "color": "#FF0000",
           "fontFamily": "\"Roboto\", sans-serif",

@@ -58,12 +58,14 @@ export const spaceTransformDriveData: TSpacesData = {
 };
 
 async function performNormalSaveLoadTest(space: TSpace): Promise<void> {
-  const { defaultActor, kinematicActor } = getShowcaseActors(space);
+  const { defaultActor, kinematicActor, kinematicLight, kinematicText } = getShowcaseActors(space);
 
   if (isOriginalSceneLoaded) {
     defaultActor.drive.default.addZ(4);
     kinematicActor.drive.kinematic.moveTo(new Vector3(0, 2, 0), metersPerSecond(0.05));
     kinematicActor.drive.kinematic.lookAt(new Vector3(0, 2, 0), metersPerSecond(0.00003));
+    // kinematicLight.drive.kinematic.moveTo(new Vector3(0, 2, 0), metersPerSecond(0.05));
+    kinematicText.drive.kinematic.moveTo(new Vector3(2, 2, 2.5), metersPerSecond(0.05));
   }
 
   return doKinematicSteps(space, 100, 15);
