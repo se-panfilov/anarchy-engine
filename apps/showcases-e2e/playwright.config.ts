@@ -36,7 +36,7 @@ export default defineConfig({
     },
 
     {
-      name: 'electron',
+      name: 'desktop',
       testDir: './src/desktop'
     }
 
