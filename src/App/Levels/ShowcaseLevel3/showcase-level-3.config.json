@@ -18,6 +18,7 @@
       "tags": ["central_actor"]
     }
   ],
+  "texts": [],
   "cameras": [
     {
       "fov": 45,

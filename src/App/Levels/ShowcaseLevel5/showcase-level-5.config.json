@@ -38,6 +38,7 @@
       "tags": ["actor", "blue"]
     }
   ],
+  "texts": [],
   "cameras": [
     {
       "fov": 45,

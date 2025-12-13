@@ -6,6 +6,7 @@ import type { IActorWrapper } from '@/Engine/Domains/Actor';
 import type { ICameraWrapper } from '@/Engine/Domains/Camera';
 import type { ILightWrapper } from '@/Engine/Domains/Light';
 import type { ISceneObject, ISceneParams, ISceneWrapper } from '@/Engine/Domains/Scene/Models';
+import type { ITextWrapper } from '@/Engine/Domains/Text';
 import type { IWriteable } from '@/Engine/Utils';
 import { isDefined, isNotDefined, isString } from '@/Engine/Utils';
 import type { IColor, ICubeTexture, ITexture } from '@/Engine/Wrappers';
@@ -21,21 +22,13 @@ export function SceneWrapper(params: ISceneParams): ISceneWrapper {
 
   const wrapper: IWrapper<Scene> = AbstractWrapper(entity, WrapperType.Scene, params);
 
-  function add(obj: ISceneObject): void {
+  const add = (obj: ISceneObject): void => {
     entity.add(obj);
-  }
-
-  function addCamera(camera: Readonly<ICameraWrapper>): void {
-    add(camera.entity);
-  }
-
-  function addActor(actor: Readonly<IActorWrapper>): void {
-    add(actor.entity);
-  }
-
-  function addLight(light: Readonly<ILightWrapper>): void {
-    add(light.entity);
-  }
+  };
+  const addCamera = (camera: Readonly<ICameraWrapper>): void => add(camera.entity);
+  const addActor = (actor: Readonly<IActorWrapper>): void => add(actor.entity);
+  const addLight = (light: Readonly<ILightWrapper>): void => add(light.entity);
+  const addText = (text: Readonly<ITextWrapper>): void => add(text.entity);
 
   function setBackground(color: string | IColor | ITexture | ICubeTexture): void {
     let background: string | IColor | ITexture | ICubeTexture | null = null;
@@ -50,5 +43,5 @@ export function SceneWrapper(params: ISceneParams): ISceneWrapper {
     return entity.background;
   }
 
-  return { ...wrapper, add, addActor, addCamera, addLight, setBackground, getBackground, entity };
+  return { ...wrapper, add, addActor, addCamera, addLight, addText, setBackground, getBackground, entity };
 }

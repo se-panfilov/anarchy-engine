@@ -29,6 +29,7 @@
       "tags": ["intersectable"]
     }
   ],
+  "texts": [],
   "cameras": [
     {
       "fov": 45,

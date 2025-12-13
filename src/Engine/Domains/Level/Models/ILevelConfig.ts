@@ -4,6 +4,7 @@ import type { IControlsConfig } from '@/Engine/Domains/Controls';
 import type { LevelTag } from '@/Engine/Domains/Level/Constants';
 import type { ILightConfig } from '@/Engine/Domains/Light';
 import type { ISceneConfig } from '@/Engine/Domains/Scene';
+import type { ITextConfig } from '@/Engine/Domains/Text';
 import type { IWithReadonlyTags } from '@/Engine/Mixins';
 import type { SchemaVersion } from '@/Engine/Schemas';
 
@@ -14,6 +15,7 @@ export type ILevelConfig = Readonly<{
   actors: ReadonlyArray<IActorConfig>;
   cameras: ReadonlyArray<ICameraConfig>;
   lights: ReadonlyArray<ILightConfig>;
+  texts: ReadonlyArray<ITextConfig>;
   controls: ReadonlyArray<IControlsConfig>;
 }> &
   IWithReadonlyTags<LevelTag>;

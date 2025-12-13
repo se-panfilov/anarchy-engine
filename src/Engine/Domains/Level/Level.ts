@@ -22,6 +22,8 @@ import type { IRendererFactory, IRendererRegistry, IRendererWrapper } from '@/En
 import { RendererFactory, RendererModes, RendererRegistry, RendererTag } from '@/Engine/Domains/Renderer';
 import type { ISceneConfig, ISceneFactory, ISceneRegistry, ISceneWrapper } from '@/Engine/Domains/Scene';
 import { SceneFactory, SceneRegistry, SceneTag } from '@/Engine/Domains/Scene';
+import type { ITextConfig, ITextFactory, ITextRegistry, ITextWrapper } from '@/Engine/Domains/Text';
+import { TextFactory, TextRegistry } from '@/Engine/Domains/Text';
 import type { IDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
 import { withTags } from '@/Engine/Mixins/Generic/WithTags';
@@ -29,7 +31,7 @@ import { isDefined, isNotDefined, isValidLevelConfig } from '@/Engine/Utils';
 
 export function buildLevelFromConfig(canvas: IAppCanvas, config: ILevelConfig): ILevel {
   if (!isValidLevelConfig(config)) throw new Error('Failed to launch a level: invalid data format');
-  const { name, actors, cameras, lights, controls, scenes, tags } = config;
+  const { name, actors, cameras, lights, texts, controls, scenes, tags } = config;
 
   const messages$: ReplaySubject<string> = new ReplaySubject<string>();
 
@@ -51,6 +53,14 @@ export function buildLevelFromConfig(canvas: IAppCanvas, config: ILevelConfig): 
   const actorEntityCreatedSubscription: Subscription = actorFactory.entityCreated$.subscribe((actor: IActorWrapper): void => actorRegistry.add(actor));
   actors.forEach((actor: IActorConfig): IActorWrapper => actorFactory.create(actorFactory.getParams({ ...actor, tags: [...actor.tags, CommonTag.FromConfig] })));
   messages$.next(`Actors (${actors.length}) created`);
+
+  //build texts
+  const textFactory: ITextFactory = TextFactory();
+  const textRegistry: ITextRegistry = TextRegistry();
+  const textAddedSubscription: Subscription = textRegistry.added$.subscribe((text: ITextWrapper) => scene.addText(text));
+  const textEntityCreatedSubscription: Subscription = textFactory.entityCreated$.subscribe((text: ITextWrapper): void => textRegistry.add(text));
+  texts.forEach((text: ITextConfig): ITextWrapper => textFactory.create(textFactory.getParams({ ...text, tags: [...text.tags, CommonTag.FromConfig] })));
+  messages$.next(`Texts (${texts.length}) created`);
 
   //build cameras
   const cameraFactory: ICameraFactory = CameraFactory();
@@ -128,6 +138,11 @@ export function buildLevelFromConfig(canvas: IAppCanvas, config: ILevelConfig): 
     actorAddedSubscription.unsubscribe();
     actorRegistry.destroy();
 
+    textEntityCreatedSubscription.unsubscribe();
+    textFactory.destroy();
+    textAddedSubscription.unsubscribe();
+    textRegistry.destroy();
+
     cameraEntityCreatedSubscription.unsubscribe();
     cameraFactory.destroy();
     cameraAddedSubscription.unsubscribe();
@@ -173,6 +188,8 @@ export function buildLevelFromConfig(canvas: IAppCanvas, config: ILevelConfig): 
     entities: {
       actorRegistry: actorRegistry,
       actorFactory: actorFactory,
+      textRegistry: textRegistry,
+      textFactory: textFactory,
       cameraRegistry: cameraRegistry,
       cameraFactory: cameraFactory,
       lightRegistry: lightRegistry,
