@@ -1,10 +1,11 @@
+import type { FsmType } from '@/Engine/Fsm/Constants';
 import type { TWithName, TWithReadonlyTags } from '@/Engine/Mixins';
 
 import type { TFsmEvents } from './TFsmEvents';
 import type { TFsmStates } from './TFsmStates';
 
 export type TFsmParams = Readonly<{
-  type: string;
+  type: FsmType | string;
   initial: TFsmStates;
   transitions: ReadonlyArray<Readonly<[TFsmStates, TFsmEvents, TFsmStates]>>;
 }> &
