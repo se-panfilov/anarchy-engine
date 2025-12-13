@@ -5,9 +5,9 @@ import { filter, Subject } from 'rxjs';
 import { initMenuApp } from 'showcases-menu/src/main';
 
 import { runtimeEnv } from '@/env';
-import { openMainMenu } from '@/Levels/Showcase28Menu/MainMenuService';
-import { handleFromMenuEvents } from '@/Levels/Showcase28Menu/MenuActions';
-import { fromMenuEventsBus$, toMenuEventsBus$ } from '@/Levels/Showcase28Menu/MenuEventsBus';
+import { fromMenuEventsBus$, toMenuEventsBus$ } from '@/Levels/Showcase28Menu/Bus';
+import type { TAppService, TEventsService, TMainMenuService, TSettingsService } from '@/Levels/Showcase28Menu/Models';
+import { AppService, EventsService, MainMenuService, SettingsService } from '@/Levels/Showcase28Menu/Services';
 import type { TAppSettings } from '@/Models';
 import { addGizmo } from '@/Utils';
 
@@ -40,8 +40,13 @@ export function showcase(space: TSpace): void {
   sceneW.addModel3d(planeModel3d);
   sceneW.addText(text3d);
 
+  const mainMenuService: TMainMenuService = MainMenuService();
+  const appService: TAppService = AppService();
+  const settingsService: TSettingsService = SettingsService();
+  const eventsService: TEventsService = EventsService({ mainMenuService, appService, settingsService });
+
   //Subscribe the menu app's events (clicks, etc.).
-  handleFromMenuEvents(fromMenuEventsBus$.asObservable(), toMenuEventsBus$);
+  eventsService.handleFromMenuEvents(fromMenuEventsBus$.asObservable(), toMenuEventsBus$);
 
   // Init the menu app.
   initMenuApp('#menu', fromMenuEventsBus$, toMenuEventsBus$.asObservable(), {
@@ -58,7 +63,7 @@ export function showcase(space: TSpace): void {
 
   mouseService.clickLeftRelease$.pipe(filter((): boolean => isMouseOverMenuCube)).subscribe((): void => openMenu$.next(true));
 
-  openMenu$.pipe().subscribe(openMainMenu);
+  openMenu$.pipe().subscribe(mainMenuService.openMainMenu);
 
   space.start$.next(true);
 }

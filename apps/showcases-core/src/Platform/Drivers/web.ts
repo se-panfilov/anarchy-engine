@@ -5,9 +5,24 @@ import type { TPlatformDriver } from '@/Models';
 // TODO DESKTOP: Make sure ALL these methods are working correctly
 // TODO DESKTOP: Implement the web driver
 export function Driver(): TPlatformDriver {
-  function saveAppSettings(settings: TShowcaseGameSettings): Promise<void> {
-    console.log('XXX [WEB]', 'saveAppSettings', settings);
-    return Promise.resolve();
+  function getChromeVersion(): string {
+    console.log('XXX [WEB]', 'getChromeVersion');
+    return 'XXX [WEB] mocked chrome version';
+  }
+
+  function getNodeVersion(): string {
+    console.log('XXX [WEB]', 'getNodeVersion');
+    return 'XXX [WEB] mocked node version';
+  }
+
+  function getPlatformVersion(): string {
+    console.log('XXX [WEB]', 'getPlatformVersion');
+    return 'XXX [WEB] mocked platform version';
+  }
+
+  function getWrappedAppVersion(): Promise<string> {
+    console.log('XXX [WEB]', 'getWrappedAppVersion');
+    return Promise.resolve('XXX [WEB] mocked wrapped app version');
   }
 
   function loadAppSettings(): Promise<TShowcaseGameSettings> {
@@ -26,33 +41,18 @@ export function Driver(): TPlatformDriver {
     return { name, content: result };
   }
 
-  function getNodeVersion(): string {
-    console.log('XXX [WEB]', 'getNodeVersion');
-    return 'XXX [WEB] mocked node version';
-  }
-
-  function getChromeVersion(): string {
-    console.log('XXX [WEB]', 'getChromeVersion');
-    return 'XXX [WEB] mocked chrome version';
-  }
-
-  function getPlatformVersion(): string {
-    console.log('XXX [WEB]', 'getPlatformVersion');
-    return 'XXX [WEB] mocked platform version';
-  }
-
-  function getWrappedAppVersion(): Promise<string> {
-    console.log('XXX [WEB]', 'getWrappedAppVersion');
-    return Promise.resolve('XXX [WEB] mocked wrapped app version');
+  function saveAppSettings(settings: TShowcaseGameSettings): Promise<void> {
+    console.log('XXX [WEB]', 'saveAppSettings', settings);
+    return Promise.resolve();
   }
 
   return {
-    saveAppSettings,
+    getChromeVersion,
+    getNodeVersion,
+    getPlatformVersion,
+    getWrappedAppVersion,
     loadAppSettings,
     loadLegalDocs,
-    getNodeVersion,
-    getChromeVersion,
-    getPlatformVersion,
-    getWrappedAppVersion
+    saveAppSettings
   };
 }
