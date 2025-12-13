@@ -37,7 +37,7 @@ function validateJsonSchema(config: TSpaceConfig): TSchemaValidationResult {
 // TODO This is the worst piece of the code (not generic, hard to support, etc). Refactor.
 //  Maybe split resource and entities validation
 //  Also extract utils functions to a separate file
-function validateData({ name, version, scenes, resources, entities, tags }: TSpaceConfig): TSchemaValidationResult {
+function validateData({ name, version, scenes, resources, entities, canvasSelector, tags }: TSpaceConfig): TSchemaValidationResult {
   const { models3d: models3dResources, audio: audioResources, envMaps, materials, textures } = resources;
   const { actors, audio, cameras, spatialGrids, controls, intersections, lights, models3d: models3dEntities, fogs, texts, physics } = entities;
 
@@ -46,23 +46,26 @@ function validateData({ name, version, scenes, resources, entities, tags }: TSpa
   //validate supported schema's version
   const isSupportedVersion: boolean = version === SpaceSchemaVersion.V2;
 
-  //must be defined
+  //Must be defined
   const isNoScenesDefined: boolean = scenes.length === 0;
 
-  //check active entities
+  //Selectors
+  const isCanvasSelectorValid: boolean = /^[a-zA-Z0-9\s.#\-_>[\]='"*^$~|(),:]+$/.test(canvasSelector);
+
+  //Check active entities
   const isMultipleActiveCameras: boolean = cameras.filter((camera: TCameraConfig): boolean => camera.isActive).length > 1;
   const isMultipleActiveScenes: boolean = scenes.filter((scene: TSceneConfig): boolean => scene.isActive).length > 1;
   const isMultipleActiveControls: boolean = controls.filter((control: TControlsConfig): boolean => control.isActive).length > 1;
 
-  //check relations
+  //Check relations
   const isControlsWithoutCamera: boolean = controls.length > 0 && cameras.length === 0;
   const isEveryControlsHasCamera: boolean = controls.every((control: TControlsConfig): boolean => cameras.some((camera: TCameraConfig): boolean => camera.name === control.cameraName));
 
-  //check actors' physics presets
+  //Check actors' physics presets
   const isAllActorsHasPhysicsPreset = validateAllActorsHasPhysicsPreset(actors, physics.presets);
 
   //Regexp checks (ts-json schema does not support regexp patterns atm)
-  //names
+  //Names
   const isConfigNameValid: boolean = validate(name);
   const isEverySceneNameValid: boolean = validateNames(scenes);
   const isEveryActorNameValid: boolean = validateNames(actors);
@@ -78,7 +81,7 @@ function validateData({ name, version, scenes, resources, entities, tags }: TSpa
   const isEveryActorsPhysicsPresetNameValid: boolean = validatePresetNames(actors);
   const isEverySpatialGridNameValid: boolean = validateNames(spatialGrids);
 
-  //tags
+  //Tags
   const isConfigTagsValid: boolean = validateTags(tags);
   const isEverySceneTagsValid: boolean = validateTagsForEveryEntity(scenes);
   const isEverySpatialGridsTagsValid: boolean = validateTagsForEveryEntity(spatialGrids);
@@ -113,7 +116,10 @@ function validateData({ name, version, scenes, resources, entities, tags }: TSpa
   if (isControlsWithoutCamera) errors = [...errors, 'Controls cannot be defined without at least one camera, but there are no cameras'];
   if (!isEveryControlsHasCamera) errors = [...errors, 'Not every control has a camera'];
 
-  //names
+  //Selectors
+  if (!isCanvasSelectorValid) errors = [...errors, 'Canvas selector must be defined and contain only allowed characters (a normal css selector)'];
+
+  //Names
   if (!isConfigNameValid) errors = [...errors, 'Space config name must be defined and contain only letters, numbers and underscores'];
   if (!isEverySceneNameValid) errors = [...errors, 'Scene names must be defined and contain only letters, numbers and underscores'];
   if (!isEverySpatialGridNameValid) errors = [...errors, 'SpatialGrids names must be defined and contain only letters, numbers and underscores'];
@@ -129,7 +135,7 @@ function validateData({ name, version, scenes, resources, entities, tags }: TSpa
   if (!isEveryPhysicsPresetNameValid) errors = [...errors, 'Physics presets names must be defined and contain only letters, numbers and underscores'];
   if (!isEveryActorsPhysicsPresetNameValid) errors = [...errors, 'Actors physics preset names must be defined and contain only letters, numbers and underscores'];
 
-  //tags
+  //Tags
   if (!isConfigTagsValid) errors = [...errors, 'Space config tags must contain only letters, numbers and underscores'];
   if (!isEverySceneTagsValid) errors = [...errors, 'Scene tags must contain only letters, numbers and underscores'];
   if (!isEverySpatialGridsTagsValid) errors = [...errors, 'SpatialGrids tags must contain only letters, numbers and underscores'];
@@ -145,12 +151,12 @@ function validateData({ name, version, scenes, resources, entities, tags }: TSpa
   if (!isEveryEnvMapsTagsValid) errors = [...errors, 'EnvMaps tags must contain only letters, numbers and underscores'];
   if (!isEveryTextureTagsValid) errors = [...errors, 'Textures tags must contain only letters, numbers and underscores'];
 
-  //urls
+  //Urls
   if (!isEveryModels3dUrlValid) errors = [...errors, 'Models3d urls must contain only valid characters (a normal path to a file)'];
   if (!isEveryEnvMapsUrlValid) errors = [...errors, 'EnvMaps urls must contain only valid characters (a normal path to a file)'];
   if (!isEveryTextureUrlValid) errors = [...errors, 'Textures urls must contain only valid characters (a normal path to a file)'];
 
-  //presets
+  //Presets
   if (!isAllActorsHasPhysicsPreset) errors = [...errors, 'Not every actor has a defined physics preset (check actors presetName against physics presets names)'];
 
   //Resources

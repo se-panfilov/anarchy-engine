@@ -7,7 +7,6 @@ import type { TDestroyable, TNoSpread, TRegistrable, TWithNameAndNameAccessorsMi
 import { destroyableMixin, withNameAndNameAccessorsMixin } from '@/Engine/Mixins';
 import { genericEntityCleanUp, isDefined } from '@/Engine/Utils';
 
-// TODO 14-0-0: Validate canvasSelector strings (only allowed characters)
 // TODO 14-0-0: Make sure we are destroying FSM
 // TODO 14-0-0: Make sure we are destroying Intersections
 // TODO 14-0-0: Make sure Intersections are working properly with canvas in divs (coords are working well)
