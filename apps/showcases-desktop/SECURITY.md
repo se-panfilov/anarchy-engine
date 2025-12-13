@@ -1,38 +1,57 @@
-# Security Policy — showcases-desktop
+# Security Policy —
 
 **Effective date:** TBD until market release
-**Security Contact:**
+**Security Contact:** TBD until market release
 
 ## Scope
 
-This policy applies to commercial builds of **showcases-desktop** distributed via \***\*. It explains how to report potential security issues and how we handle them. **It does not create SLAs, warranties, or contractual obligations.\*\*
+This policy applies to commercial builds of \***\* (the “Software”). It explains how to report
+potential security issues and how we handle them. **It does not create service levels, warranties, or contractual obligations.** Distribution and
+updates may occur via any **distribution channels\*\* in use from time to time (including installers, physical media, or package archives).
 
 ## Coordinated Vulnerability Disclosure (CVD)
 
-- **Report:** email \*\*\*\*. Include affected version/platform, minimal reproduction steps, impact, and (if possible) a small PoC.
-- **Encryption:** not required; if you prefer secure exchange or need to share large files, contact us first.
+- **Report:** email **TBD until market release**. Include affected version/platform, minimal reproduction steps, impact, and (if possible) a small PoC.
+- **File exchange:** if you need to share large files or sensitive artifacts, contact us first to arrange a secure channel.
 
 ## Handling
 
-We make a **good-faith effort** to triage and prioritize reports. We do not promise specific response times. Availability may be reduced during weekends, holidays, or maintainer absences.
+We will make a **good-faith effort** to triage and prioritize reports. We **do not** promise specific response times or remediation timelines.
+Availability may be reduced during weekends, holidays, or maintainer absences. There is **no bug bounty** unless explicitly announced.
+
+### Research Guidelines (please follow)
+
+- Avoid accessing, modifying, or exfiltrating data you do not own; minimize impact and stop testing if you encounter personal data.
+- Do not perform tests that degrade availability for others (e.g., volumetric DoS).
+- Only test assets reasonably in our control; third-party platforms and distribution channels are out of scope.
+- Comply with applicable law and third-party terms.
 
 ## Regulatory Notifications
 
-Where required by law, we will **notify competent authorities and/or users within the legally mandated timelines** for actively exploited vulnerabilities or other reportable events.
+Where required by law, we will **notify competent authorities and/or users within the legally mandated timelines** for actively exploited
+vulnerabilities or other reportable events. This may include obligations under EU law when applicable. No additional contractual commitments are
+created by this section.
 
 ## Security Updates & Delivery
 
-- **Delivery:** through applicable Distribution Channels in use from time to time, which may include automatic updates where available, or by providing updated files in the distribution package.
-- **Advisories / release notes:** may be provided within the product or the update package, or via the applicable Distribution Channel. No specific location is guaranteed.
-- **Security support period:** TBD until market release (counted from the initial commercial release of the relevant major version), unless a longer period is required by applicable law.
+- **Delivery:** through applicable distribution channels in use from time to time, which may include automatic updates where available, or by
+  providing updated files in the distribution package.
+- **Advisories / release notes:** may be provided within the product, in the update package, or via the applicable distribution channel. No specific
+  location or cadence is guaranteed.
+- **Security support period:** **TBD until market release** (counted from the initial commercial release of the relevant major version), unless a
+  longer period is required by applicable law. Older or unofficial builds may not receive fixes.
 
-## In/Out of Scope
+## In / Out of Scope
 
-**In scope:** issues that materially impact the confidentiality, integrity, or availability of the shipped product or its update mechanism.
-**Out of scope:** social engineering, physical attacks, DDoS on third-party platforms, vulnerabilities in third-party stores or OS kernels not packaged with the product.
+- **In scope:** issues that materially impact the confidentiality, integrity, or availability of the shipped Software or its **update
+  mechanism**.
+- **Out of scope:** social engineering, physical attacks, denial-of-service on third-party platforms, vulnerabilities in third-party stores or OS
+  kernels not packaged with the Software, issues in unofficial forks or repackaged distributions.
 
 ## Safe Harbor
 
-If you comply with this policy and act in good faith, we **do not intend** to pursue legal action solely for your research on our product. This policy does not authorize any activity that violates applicable law or third-party terms.
+If you comply with this policy and act in good faith, we **do not intend** to pursue legal action **solely** for your security research on the
+Software. This policy does not authorize any activity that violates applicable law or third-party terms, and it does not protect actions that
+cause harm or data loss.
 
-**Governing Law:** subject to mandatory law, handled under **The Netherlands/Amsterdam**.
+**Governing Law:** subject to mandatory law, matters under this policy are handled under **The Netherlands/Amsterdam**.

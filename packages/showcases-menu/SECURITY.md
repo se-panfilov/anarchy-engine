@@ -1,7 +1,7 @@
 # Security Policy — showcases-menu (Open Source)
 
 **Effective date:** TBD until market release
-**Security Contact:** (email preferred for sensitive reports)
+**Security Contact:** TBD until market release (email preferred for sensitive reports)
 
 ## Scope
 
@@ -9,7 +9,7 @@ This policy covers the **open-source code** in \***\*. It is for community coord
 
 ## Reporting
 
-Email \*\*\*\* with a minimal reproduction, affected commit/tag, and impact if known. If you can, include a short patch or mitigation suggestion. If you prefer encrypted exchange, contact us.
+Email **TBD until market release** with a minimal reproduction, affected commit/tag, and impact if known. If you can, include a short patch or mitigation suggestion. If you prefer encrypted exchange, contact us.
 
 ## Handling & Disclosure
 

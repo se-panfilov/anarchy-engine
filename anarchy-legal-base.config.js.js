@@ -40,6 +40,7 @@ export default [
       SUPPORT_EMAIL: 'TBD until market release',
       LEGAL_EMAIL: 'TBD until market release',
       PRIVACY_EMAIL: 'TBD until market release',
+      SECURITY_EMAIL: 'TBD until market release',
       DPO_EMAIL: 'TBD until market release',
       EU_REPRESENTATIVE_CONTACT: 'TBD until market release',
       CHINA_REPRESENTATIVE_CONTACT: 'TBD until market release',
