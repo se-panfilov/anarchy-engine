@@ -9,6 +9,165 @@
   ],
   "actors": [
     {
+      "type": "sphere",
+      "width": 1,
+      "height": 1,
+      "position": { "x": 0, "y": 2, "z": 0 },
+      "widthSegments": 64,
+      "heightSegments": 64,
+      "castShadow": true,
+      "material": {
+        "type": "standard",
+        "params": {
+          "displacementScale": 0.1
+        },
+        "textures": {
+          "aoMap": { "url": "/Showcase/Door_Wood/Door_Wood_001_ambientOcclusion.jpg" },
+          "map": { "url": "/Showcase/Door_Wood/Door_Wood_001_basecolor.jpg" },
+          "normalMap": { "url": "/Showcase/Door_Wood/Door_Wood_001_normal.jpg" },
+          "displacementMap": { "url": "/Showcase/Door_Wood/Door_Wood_001_height.png" },
+          "alphaMap": { "url": "/Showcase/Door_Wood/Door_Wood_001_opacity.jpg" },
+          "metalnessMap": { "url": "/Showcase/Door_Wood/Door_Wood_001_metallic.jpg" },
+          "roughnessMap": { "url": "/Showcase/Door_Wood/Door_Wood_001_roughness.jpg" }
+        }
+      },
+      "tags": ["standard", "iron"]
+    },
+    {
+      "type": "sphere",
+      "width": 1,
+      "height": 1,
+      "position": { "x": 2, "y": 2, "z": 0 },
+      "widthSegments": 64,
+      "heightSegments": 64,
+      "castShadow": true,
+      "material": {
+        "type": "physical",
+        "params": {
+          "displacementScale": 0.1
+        },
+        "textures": {
+          "aoMap": { "url": "/Showcase/Door_Wood/Door_Wood_001_ambientOcclusion.jpg" },
+          "map": { "url": "/Showcase/Door_Wood/Door_Wood_001_basecolor.jpg" },
+          "normalMap": { "url": "/Showcase/Door_Wood/Door_Wood_001_normal.jpg" },
+          "displacementMap": { "url": "/Showcase/Door_Wood/Door_Wood_001_height.png" },
+          "alphaMap": { "url": "/Showcase/Door_Wood/Door_Wood_001_opacity.jpg" },
+          "metalnessMap": { "url": "/Showcase/Door_Wood/Door_Wood_001_metallic.jpg" },
+          "roughnessMap": { "url": "/Showcase/Door_Wood/Door_Wood_001_roughness.jpg" }
+        }
+      },
+      "tags": ["physical", "iron"]
+    },
+    {
+      "type": "sphere",
+      "width": 1,
+      "height": 1,
+      "position": { "x": 4, "y": 2, "z": 0 },
+      "widthSegments": 64,
+      "heightSegments": 64,
+      "castShadow": true,
+      "material": {
+        "type": "basic",
+        "textures": {
+          "aoMap": { "url": "/Showcase/Door_Wood/Door_Wood_001_ambientOcclusion.jpg" },
+          "map": { "url": "/Showcase/Door_Wood/Door_Wood_001_basecolor.jpg" },
+          "alphaMap": { "url": "/Showcase/Door_Wood/Door_Wood_001_opacity.jpg" }
+        }
+      },
+      "tags": ["basic", "iron"]
+    },
+    {
+      "type": "sphere",
+      "width": 1,
+      "height": 1,
+      "position": { "x": 6, "y": 2, "z": 0 },
+      "widthSegments": 64,
+      "heightSegments": 64,
+      "castShadow": true,
+      "material": {
+        "type": "phong",
+        "params": {
+          "displacementScale": 0.1
+        },
+        "textures": {
+          "aoMap": { "url": "/Showcase/Door_Wood/Door_Wood_001_ambientOcclusion.jpg" },
+          "map": { "url": "/Showcase/Door_Wood/Door_Wood_001_basecolor.jpg" },
+          "normalMap": { "url": "/Showcase/Door_Wood/Door_Wood_001_normal.jpg" },
+          "displacementMap": { "url": "/Showcase/Door_Wood/Door_Wood_001_height.png" },
+          "alphaMap": { "url": "/Showcase/Door_Wood/Door_Wood_001_opacity.jpg" }
+        }
+      },
+      "tags": ["phong", "iron"]
+    },
+    {
+      "type": "sphere",
+      "width": 1,
+      "height": 1,
+      "position": { "x": 8, "y": 2, "z": 0 },
+      "widthSegments": 64,
+      "heightSegments": 64,
+      "castShadow": true,
+      "material": {
+        "type": "lambert",
+        "params": {
+          "displacementScale": 0.1
+        },
+        "textures": {
+          "aoMap": { "url": "/Showcase/Door_Wood/Door_Wood_001_ambientOcclusion.jpg" },
+          "map": { "url": "/Showcase/Door_Wood/Door_Wood_001_basecolor.jpg" },
+          "normalMap": { "url": "/Showcase/Door_Wood/Door_Wood_001_normal.jpg" },
+          "displacementMap": { "url": "/Showcase/Door_Wood/Door_Wood_001_height.png" },
+          "alphaMap": { "url": "/Showcase/Door_Wood/Door_Wood_001_opacity.jpg" }
+        }
+      },
+      "tags": ["lambert", "iron"]
+    },
+    {
+      "type": "sphere",
+      "width": 1,
+      "height": 1,
+      "position": { "x": 10, "y": 2, "z": 0 },
+      "widthSegments": 64,
+      "heightSegments": 64,
+      "castShadow": true,
+      "material": {
+        "type": "toon",
+        "params": {
+          "displacementScale": 0.1
+        },
+        "textures": {
+          "aoMap": { "url": "/Showcase/Door_Wood/Door_Wood_001_ambientOcclusion.jpg" },
+          "map": { "url": "/Showcase/Door_Wood/Door_Wood_001_basecolor.jpg" },
+          "normalMap": { "url": "/Showcase/Door_Wood/Door_Wood_001_normal.jpg" },
+          "displacementMap": { "url": "/Showcase/Door_Wood/Door_Wood_001_height.png" },
+          "alphaMap": { "url": "/Showcase/Door_Wood/Door_Wood_001_opacity.jpg" }
+        }
+      },
+      "tags": ["toon", "iron"]
+    },
+    {
+      "type": "sphere",
+      "width": 1,
+      "height": 1,
+      "position": { "x": 12, "y": 2, "z": 0 },
+      "widthSegments": 64,
+      "heightSegments": 64,
+      "castShadow": true,
+      "material": {
+        "type": "matcap",
+        "params": {
+          "displacementScale": 0.1
+        },
+        "textures": {
+          "map": { "url": "/Showcase/Door_Wood/Door_Wood_001_basecolor.jpg" },
+          "normalMap": { "url": "/Showcase/Door_Wood/Door_Wood_001_normal.jpg" },
+          "displacementMap": { "url": "/Showcase/Door_Wood/Door_Wood_001_height.png" },
+          "alphaMap": { "url": "/Showcase/Door_Wood/Door_Wood_001_opacity.jpg" }
+        }
+      },
+      "tags": ["matcap", "iron"]
+    },
+    {
       "type": "cube",
       "width": 1,
       "height": 1,
@@ -31,7 +190,7 @@
           "roughnessMap": { "url": "/Showcase/Door_Wood/Door_Wood_001_roughness.jpg" }
         }
       },
-      "tags": ["standard"]
+      "tags": ["standard", "wood"]
     },
     {
       "type": "cube",
@@ -56,7 +215,7 @@
           "roughnessMap": { "url": "/Showcase/Door_Wood/Door_Wood_001_roughness.jpg" }
         }
       },
-      "tags": ["physical"]
+      "tags": ["physical", "wood"]
     },
     {
       "type": "cube",
@@ -74,7 +233,7 @@
           "alphaMap": { "url": "/Showcase/Door_Wood/Door_Wood_001_opacity.jpg" }
         }
       },
-      "tags": ["basic"]
+      "tags": ["basic", "wood"]
     },
     {
       "type": "cube",
@@ -97,7 +256,7 @@
           "alphaMap": { "url": "/Showcase/Door_Wood/Door_Wood_001_opacity.jpg" }
         }
       },
-      "tags": ["phong"]
+      "tags": ["phong", "wood"]
     },
     {
       "type": "cube",
@@ -120,7 +279,7 @@
           "alphaMap": { "url": "/Showcase/Door_Wood/Door_Wood_001_opacity.jpg" }
         }
       },
-      "tags": ["lambert"]
+      "tags": ["lambert", "wood"]
     },
     {
       "type": "cube",
@@ -143,7 +302,7 @@
           "alphaMap": { "url": "/Showcase/Door_Wood/Door_Wood_001_opacity.jpg" }
         }
       },
-      "tags": ["toon"]
+      "tags": ["toon", "wood"]
     },
     {
       "type": "cube",
@@ -165,7 +324,316 @@
           "alphaMap": { "url": "/Showcase/Door_Wood/Door_Wood_001_opacity.jpg" }
         }
       },
-      "tags": ["matcap"]
+      "tags": ["matcap", "wood"]
+    },
+    {
+      "type": "sphere",
+      "width": 1,
+      "height": 1,
+      "position": { "x": 0, "y": -2, "z": 0 },
+      "widthSegments": 64,
+      "heightSegments": 64,
+      "castShadow": true,
+      "material": {
+        "type": "standard",
+        "params": {
+          "displacementScale": 0.1
+        },
+        "textures": {
+          "aoMap": { "url": "/Showcase/Door_Wood/Door_Wood_001_ambientOcclusion.jpg" },
+          "map": { "url": "/Showcase/Door_Wood/Door_Wood_001_basecolor.jpg" },
+          "normalMap": { "url": "/Showcase/Door_Wood/Door_Wood_001_normal.jpg" },
+          "displacementMap": { "url": "/Showcase/Door_Wood/Door_Wood_001_height.png" },
+          "alphaMap": { "url": "/Showcase/Door_Wood/Door_Wood_001_opacity.jpg" },
+          "metalnessMap": { "url": "/Showcase/Door_Wood/Door_Wood_001_metallic.jpg" },
+          "roughnessMap": { "url": "/Showcase/Door_Wood/Door_Wood_001_roughness.jpg" }
+        }
+      },
+      "tags": ["standard", "glass"]
+    },
+    {
+      "type": "sphere",
+      "width": 1,
+      "height": 1,
+      "position": { "x": 2, "y": -2, "z": 0 },
+      "widthSegments": 64,
+      "heightSegments": 64,
+      "castShadow": true,
+      "material": {
+        "type": "physical",
+        "params": {
+          "displacementScale": 0.1
+        },
+        "textures": {
+          "aoMap": { "url": "/Showcase/Door_Wood/Door_Wood_001_ambientOcclusion.jpg" },
+          "map": { "url": "/Showcase/Door_Wood/Door_Wood_001_basecolor.jpg" },
+          "normalMap": { "url": "/Showcase/Door_Wood/Door_Wood_001_normal.jpg" },
+          "displacementMap": { "url": "/Showcase/Door_Wood/Door_Wood_001_height.png" },
+          "alphaMap": { "url": "/Showcase/Door_Wood/Door_Wood_001_opacity.jpg" },
+          "metalnessMap": { "url": "/Showcase/Door_Wood/Door_Wood_001_metallic.jpg" },
+          "roughnessMap": { "url": "/Showcase/Door_Wood/Door_Wood_001_roughness.jpg" }
+        }
+      },
+      "tags": ["physical", "glass"]
+    },
+    {
+      "type": "sphere",
+      "width": 1,
+      "height": 1,
+      "position": { "x": 4, "y": -2, "z": 0 },
+      "widthSegments": 64,
+      "heightSegments": 64,
+      "castShadow": true,
+      "material": {
+        "type": "basic",
+        "textures": {
+          "aoMap": { "url": "/Showcase/Door_Wood/Door_Wood_001_ambientOcclusion.jpg" },
+          "map": { "url": "/Showcase/Door_Wood/Door_Wood_001_basecolor.jpg" },
+          "alphaMap": { "url": "/Showcase/Door_Wood/Door_Wood_001_opacity.jpg" }
+        }
+      },
+      "tags": ["basic", "glass"]
+    },
+    {
+      "type": "sphere",
+      "width": 1,
+      "height": 1,
+      "position": { "x": 6, "y": -2, "z": 0 },
+      "widthSegments": 64,
+      "heightSegments": 64,
+      "castShadow": true,
+      "material": {
+        "type": "phong",
+        "params": {
+          "displacementScale": 0.1
+        },
+        "textures": {
+          "aoMap": { "url": "/Showcase/Door_Wood/Door_Wood_001_ambientOcclusion.jpg" },
+          "map": { "url": "/Showcase/Door_Wood/Door_Wood_001_basecolor.jpg" },
+          "normalMap": { "url": "/Showcase/Door_Wood/Door_Wood_001_normal.jpg" },
+          "displacementMap": { "url": "/Showcase/Door_Wood/Door_Wood_001_height.png" },
+          "alphaMap": { "url": "/Showcase/Door_Wood/Door_Wood_001_opacity.jpg" }
+        }
+      },
+      "tags": ["phong", "glass"]
+    },
+    {
+      "type": "sphere",
+      "width": 1,
+      "height": 1,
+      "position": { "x": 8, "y": -2, "z": 0 },
+      "widthSegments": 64,
+      "heightSegments": 64,
+      "castShadow": true,
+      "material": {
+        "type": "lambert",
+        "params": {
+          "displacementScale": 0.1
+        },
+        "textures": {
+          "aoMap": { "url": "/Showcase/Door_Wood/Door_Wood_001_ambientOcclusion.jpg" },
+          "map": { "url": "/Showcase/Door_Wood/Door_Wood_001_basecolor.jpg" },
+          "normalMap": { "url": "/Showcase/Door_Wood/Door_Wood_001_normal.jpg" },
+          "displacementMap": { "url": "/Showcase/Door_Wood/Door_Wood_001_height.png" },
+          "alphaMap": { "url": "/Showcase/Door_Wood/Door_Wood_001_opacity.jpg" }
+        }
+      },
+      "tags": ["lambert", "glass"]
+    },
+    {
+      "type": "sphere",
+      "width": 1,
+      "height": 1,
+      "position": { "x": 10, "y": -2, "z": 0 },
+      "widthSegments": 64,
+      "heightSegments": 64,
+      "castShadow": true,
+      "material": {
+        "type": "toon",
+        "params": {
+          "displacementScale": 0.1
+        },
+        "textures": {
+          "aoMap": { "url": "/Showcase/Door_Wood/Door_Wood_001_ambientOcclusion.jpg" },
+          "map": { "url": "/Showcase/Door_Wood/Door_Wood_001_basecolor.jpg" },
+          "normalMap": { "url": "/Showcase/Door_Wood/Door_Wood_001_normal.jpg" },
+          "displacementMap": { "url": "/Showcase/Door_Wood/Door_Wood_001_height.png" },
+          "alphaMap": { "url": "/Showcase/Door_Wood/Door_Wood_001_opacity.jpg" }
+        }
+      },
+      "tags": ["toon", "glass"]
+    },
+    {
+      "type": "sphere",
+      "width": 1,
+      "height": 1,
+      "position": { "x": 12, "y": -2, "z": 0 },
+      "widthSegments": 64,
+      "heightSegments": 64,
+      "castShadow": true,
+      "material": {
+        "type": "matcap",
+        "params": {
+          "displacementScale": 0.1
+        },
+        "textures": {
+          "map": { "url": "/Showcase/Door_Wood/Door_Wood_001_basecolor.jpg" },
+          "normalMap": { "url": "/Showcase/Door_Wood/Door_Wood_001_normal.jpg" },
+          "displacementMap": { "url": "/Showcase/Door_Wood/Door_Wood_001_height.png" },
+          "alphaMap": { "url": "/Showcase/Door_Wood/Door_Wood_001_opacity.jpg" }
+        }
+      },
+      "tags": ["matcap", "glass"]
+    },
+    {
+      "type": "sphere",
+      "width": 1,
+      "height": 1,
+      "position": { "x": 0, "y": -4, "z": 0 },
+      "widthSegments": 64,
+      "heightSegments": 64,
+      "castShadow": true,
+      "material": {
+        "type": "standard",
+        "params": {
+          "displacementScale": 0.1
+        },
+        "textures": {
+          "aoMap": { "url": "/Showcase/Dirty_Carpet/dirty_carpet_ao_1k.jpg" },
+          "map": { "url": "/Showcase/Dirty_Carpet/dirty_carpet_diff_1k.jpg" },
+          "normalMap": { "url": "/Showcase/Dirty_Carpet/dirty_carpet_nor_dx_1k.jpg" },
+          "displacementMap": { "url": "/Showcase/Dirty_Carpet/dirty_carpet_disp_1k.png" },
+          "roughnessMap": { "url": "/Showcase/Dirty_Carpet/dirty_carpet_rough_1k.jpg" }
+        }
+      },
+      "tags": ["standard", "textile"]
+    },
+    {
+      "type": "sphere",
+      "width": 1,
+      "height": 1,
+      "position": { "x": 2, "y": -4, "z": 0 },
+      "widthSegments": 64,
+      "heightSegments": 64,
+      "castShadow": true,
+      "material": {
+        "type": "physical",
+        "params": {
+          "displacementScale": 0.1
+        },
+        "textures": {
+          "aoMap": { "url": "/Showcase/Dirty_Carpet/dirty_carpet_ao_1k.jpg" },
+          "map": { "url": "/Showcase/Dirty_Carpet/dirty_carpet_diff_1k.jpg" },
+          "normalMap": { "url": "/Showcase/Dirty_Carpet/dirty_carpet_nor_dx_1k.jpg" },
+          "displacementMap": { "url": "/Showcase/Dirty_Carpet/dirty_carpet_disp_1k.png" },
+          "roughnessMap": { "url": "/Showcase/Dirty_Carpet/dirty_carpet_rough_1k.jpg" }
+        }
+      },
+      "tags": ["physical", "textile"]
+    },
+    {
+      "type": "sphere",
+      "width": 1,
+      "height": 1,
+      "position": { "x": 4, "y": -4, "z": 0 },
+      "widthSegments": 64,
+      "heightSegments": 64,
+      "castShadow": true,
+      "material": {
+        "type": "basic",
+        "textures": {
+          "aoMap": { "url": "/Showcase/Dirty_Carpet/dirty_carpet_ao_1k.jpg" },
+          "map": { "url": "/Showcase/Dirty_Carpet/dirty_carpet_diff_1k.jpg" }
+        }
+      },
+      "tags": ["basic", "textile"]
+    },
+    {
+      "type": "sphere",
+      "width": 1,
+      "height": 1,
+      "position": { "x": 6, "y": -4, "z": 0 },
+      "widthSegments": 64,
+      "heightSegments": 64,
+      "castShadow": true,
+      "material": {
+        "type": "phong",
+        "params": {
+          "displacementScale": 0.1
+        },
+        "textures": {
+          "aoMap": { "url": "/Showcase/Dirty_Carpet/dirty_carpet_ao_1k.jpg" },
+          "map": { "url": "/Showcase/Dirty_Carpet/dirty_carpet_diff_1k.jpg" },
+          "normalMap": { "url": "/Showcase/Dirty_Carpet/dirty_carpet_nor_dx_1k.jpg" },
+          "displacementMap": { "url": "/Showcase/Dirty_Carpet/dirty_carpet_disp_1k.png" }
+        }
+      },
+      "tags": ["phong", "textile"]
+    },
+    {
+      "type": "sphere",
+      "width": 1,
+      "height": 1,
+      "position": { "x": 8, "y": -4, "z": 0 },
+      "widthSegments": 64,
+      "heightSegments": 64,
+      "castShadow": true,
+      "material": {
+        "type": "lambert",
+        "params": {
+          "displacementScale": 0.1
+        },
+        "textures": {
+          "aoMap": { "url": "/Showcase/Dirty_Carpet/dirty_carpet_ao_1k.jpg" },
+          "map": { "url": "/Showcase/Dirty_Carpet/dirty_carpet_diff_1k.jpg" },
+          "normalMap": { "url": "/Showcase/Dirty_Carpet/dirty_carpet_nor_dx_1k.jpg" },
+          "displacementMap": { "url": "/Showcase/Dirty_Carpet/dirty_carpet_disp_1k.png" }
+        }
+      },
+      "tags": ["lambert", "textile"]
+    },
+    {
+      "type": "sphere",
+      "width": 1,
+      "height": 1,
+      "position": { "x": 10, "y": -4, "z": 0 },
+      "widthSegments": 64,
+      "heightSegments": 64,
+      "castShadow": true,
+      "material": {
+        "type": "toon",
+        "params": {
+          "displacementScale": 0.1
+        },
+        "textures": {
+          "aoMap": { "url": "/Showcase/Dirty_Carpet/dirty_carpet_ao_1k.jpg" },
+          "map": { "url": "/Showcase/Dirty_Carpet/dirty_carpet_diff_1k.jpg" },
+          "normalMap": { "url": "/Showcase/Dirty_Carpet/dirty_carpet_nor_dx_1k.jpg" },
+          "displacementMap": { "url": "/Showcase/Dirty_Carpet/dirty_carpet_disp_1k.png" }
+        }
+      },
+      "tags": ["toon", "textile"]
+    },
+    {
+      "type": "sphere",
+      "width": 1,
+      "height": 1,
+      "position": { "x": 12, "y": -4, "z": 0 },
+      "widthSegments": 64,
+      "heightSegments": 64,
+      "castShadow": true,
+      "material": {
+        "type": "matcap",
+        "params": {
+          "displacementScale": 0.1
+        },
+        "textures": {
+          "map": { "url": "/Showcase/Dirty_Carpet/dirty_carpet_diff_1k.jpg" },
+          "normalMap": { "url": "/Showcase/Dirty_Carpet/dirty_carpet_nor_dx_1k.jpg" },
+          "displacementMap": { "url": "/Showcase/Dirty_Carpet/dirty_carpet_disp_1k.png" }
+        }
+      },
+      "tags": ["matcap", "textile"]
     }
   ],
   "texts": [],

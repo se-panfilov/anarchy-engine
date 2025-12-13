@@ -1,10 +1,11 @@
-import GUI, { Controller } from 'lil-gui';
-import { BehaviorSubject, Subject } from 'rxjs';
+import type { Controller } from 'lil-gui';
+import GUI from 'lil-gui';
+import { BehaviorSubject, combineLatest, Subject } from 'rxjs';
 import type { MeshPhysicalMaterial, MeshStandardMaterial } from 'three';
 
 import type { IShowcase } from '@/App/Levels/Models';
 import type { IActorWrapperAsync, IAppCanvas, ILevel, ILevelConfig, IOrbitControlsWrapper, IVector3Wrapper } from '@/Engine';
-import { buildLevelFromConfig, envMapService, EulerWrapper, isDefined, isNotDefined, keyboardService, KeyCode, TextType, Vector3Wrapper } from '@/Engine';
+import { buildLevelFromConfig, envMapService, EulerWrapper, isDefined, isNotDefined, keyboardService, KeyCode, LookUpStrategy, TextType, Vector3Wrapper } from '@/Engine';
 
 import levelConfig from './showcase-10-complex-materials.config.json';
 
@@ -15,14 +16,23 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
   const level: ILevel = buildLevelFromConfig(canvas, levelConfig as ILevelConfig);
   const { textFactory, actorRegistry, controlsRegistry } = level.entities;
 
+  const currentActor$: Subject<IActorWrapperAsync> = new Subject();
+
   const materials: ReadonlyArray<string> = ['standard', 'physical', 'basic', 'phong', 'lambert', 'toon', 'matcap'];
   const currentMaterialIndex$: BehaviorSubject<number> = new BehaviorSubject(0);
   const currentMaterial$: Subject<string> = new Subject();
-  const currentActor$: Subject<IActorWrapperAsync> = new Subject();
+
   currentMaterialIndex$.subscribe((index: number): void => currentMaterial$.next(materials[index]));
+
+  const materialType: ReadonlyArray<string> = ['metal', 'wood', 'glass', 'textile'];
+  const currentMaterialTypeIndex$: BehaviorSubject<number> = new BehaviorSubject(0);
+  const currentMaterialType$: Subject<string> = new Subject();
+  currentMaterialTypeIndex$.subscribe((index: number): void => currentMaterialType$.next(materialType[index]));
+
   // eslint-disable-next-line @typescript-eslint/no-misused-promises
-  currentMaterial$.subscribe(async (material: string): Promise<void> => {
-    const actor: IActorWrapperAsync = await actorRegistry.getUniqByTagAsync(material);
+  combineLatest([currentMaterial$, currentMaterialType$]).subscribe(async ([material, type]: ReadonlyArray<string>): Promise<void> => {
+    const actor: IActorWrapperAsync = await actorRegistry.getUniqByTagsAsync([material, type], LookUpStrategy.Every);
+    console.log('material', material, 'type', type, actor.getTags());
     if (isNotDefined(actor)) throw new Error(`Actor with tag "${material}" is not found`);
     currentActor$.next(actor);
   });
@@ -53,6 +63,14 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
     currentMaterialIndex$.next((currentMaterialIndex$.value - 1 + materials.length) % materials.length);
   });
 
+  keyboardService.onKey(KeyCode.W).pressing$.subscribe((): void => {
+    currentMaterialTypeIndex$.next((currentMaterialTypeIndex$.value - 1 + materialType.length) % materialType.length);
+  });
+
+  keyboardService.onKey(KeyCode.S).pressing$.subscribe((): void => {
+    currentMaterialTypeIndex$.next((currentMaterialTypeIndex$.value + 1) % materialType.length);
+  });
+
   const state = {
     controllers: [] as ReadonlyArray<GUI | Controller>
   };
@@ -70,7 +88,7 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
 
   void envMapService.load('/Showcase/hdr/urban_alley_01_4k.hdr');
 
-  actorRegistry.added$.subscribe((actor: IActorWrapperAsync): void => addTextToActor(actor));
+  actorRegistry.added$.subscribe(addTextToActor);
 
   function addGuiToActor(actor: IActorWrapperAsync): ReadonlyArray<GUI | Controller> {
     let controllers: ReadonlyArray<GUI | Controller> = [];
