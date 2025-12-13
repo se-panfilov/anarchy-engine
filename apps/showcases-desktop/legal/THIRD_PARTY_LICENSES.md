@@ -14835,7 +14835,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 ---
 
-## showcases-core@2.15.0
+## showcases-core@2.15.1
 
 **License:** MIT
 
@@ -14925,7 +14925,7 @@ SOFTWARE.
 
 ---
 
-## showcases-shared@1.4.0
+## showcases-shared@1.4.1
 
 **License:** MIT
 

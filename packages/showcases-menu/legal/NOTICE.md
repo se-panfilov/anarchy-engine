@@ -1047,7 +1047,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## showcases-shared@1.4.0
+## showcases-shared@1.4.1
 
 **License(s):** MIT
 
