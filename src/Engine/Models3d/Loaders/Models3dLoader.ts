@@ -6,8 +6,7 @@ import type { TAbstractLoader } from '@/Engine/Abstract';
 import { AbstractLoader, LoaderType } from '@/Engine/Abstract';
 import type { TModel3dResourceAsyncRegistry, TModel3dResourceConfig, TModels3dLoader } from '@/Engine/Models3d';
 import { applyObject3dParamsToModel3d, applyPositionToModel3d, applyScaleToModel3d } from '@/Engine/Models3d';
-import type { TObject3DProps } from '@/Engine/ThreeLib';
-import type { TOptional, TWriteable } from '@/Engine/Utils';
+import type { TWriteable } from '@/Engine/Utils';
 import { isDefined, isNotDefined } from '@/Engine/Utils';
 import { Vector3Wrapper } from '@/Engine/Vector';
 
@@ -21,7 +20,7 @@ export function Models3dLoader(registry: TModel3dResourceAsyncRegistry): TModels
 
   const loader: TAbstractLoader<GLTF, TModel3dResourceConfig> = AbstractLoader(models3dLoader, registry, LoaderType.Model3d);
 
-  function applyParamsOnLoaded(loaded: TWriteable<GLTF>, options?: TOptional<TObject3DProps>): GLTF {
+  function applyParamsOnLoaded(loaded: TWriteable<GLTF>, options?: TModel3dResourceConfig['options']): GLTF {
     if (isNotDefined(options)) return loaded;
     loaded.scenes.forEach((scene) => {
       applyObject3dParamsToModel3d(scene, options);
