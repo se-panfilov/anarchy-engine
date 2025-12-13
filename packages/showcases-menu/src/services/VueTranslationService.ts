@@ -1,5 +1,5 @@
-import type { TLocalesMapping, TTranslateService } from '@Anarchy/i18n';
-import { TranslateService } from '@Anarchy/i18n';
+import type { TLocalesMapping, TTranslationService } from '@Anarchy/i18n';
+import { TranslationService } from '@Anarchy/i18n';
 import { locales } from '@Showcases/Menu/i18n';
 import type { TTranslationService } from '@Showcases/Menu/models';
 import { Locales } from '@Showcases/Shared';
@@ -7,7 +7,7 @@ import type { Subscription } from 'rxjs';
 import { filter } from 'rxjs';
 
 export function VueTranslationService(localesMapping: TLocalesMapping<Locales> = locales): TTranslationService {
-  const i18n: TTranslateService<Locales> = TranslateService<Locales>(Locales.en, Locales.en, localesMapping);
+  const i18n: TTranslationService<Locales> = TranslationService<Locales>(Locales.en, Locales.en, localesMapping);
 
   const isReadyPromise: Promise<void> = new Promise<void>((resolve, reject): void => {
     const subscription$: Subscription = i18n.ready$.pipe(filter((isReady: boolean): boolean => isReady)).subscribe({

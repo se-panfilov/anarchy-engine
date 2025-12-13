@@ -1,1 +1,1 @@
-export * from './TranslateService';
+export * from './TranslationService';

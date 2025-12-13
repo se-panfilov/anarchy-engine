@@ -1,5 +1,5 @@
 import { ReactiveTranslationMixin } from '@Anarchy/i18n/Mixins';
-import type { TLocalesMapping, TMessages, TTranslateService } from '@Anarchy/i18n/Models';
+import type { TLocalesMapping, TMessages, TTranslationService } from '@Anarchy/i18n/Models';
 import { isDefined } from '@Anarchy/Shared/Utils';
 import type { FormatNumberOptions, IntlCache, IntlShape } from '@formatjs/intl';
 import { createIntl, createIntlCache } from '@formatjs/intl';
@@ -7,8 +7,7 @@ import type { FormatDateOptions } from '@formatjs/intl/src/types';
 import type { Subscription } from 'rxjs';
 import { BehaviorSubject, concatMap, distinctUntilChanged, from, map, Subject } from 'rxjs';
 
-// TODO DESKTOP: fix names TTranslateService vs TTranslationService (too confusing)
-export function TranslateService<TLocale extends string>(initialLocale: TLocale, defaultLocale: TLocale, locales: TLocalesMapping<TLocale>): TTranslateService<TLocale> {
+export function TranslationService<TLocale extends string>(initialLocale: TLocale, defaultLocale: TLocale, locales: TLocalesMapping<TLocale>): TTranslationService<TLocale> {
   const loaded: Map<TLocale, TMessages> = new Map<TLocale, TMessages>();
   const loadingLocale$: BehaviorSubject<Set<TLocale>> = new BehaviorSubject<Set<TLocale>>(new Set());
 
