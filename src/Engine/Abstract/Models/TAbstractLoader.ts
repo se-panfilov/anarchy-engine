@@ -1,15 +1,17 @@
 import type { Observable } from 'rxjs';
 
-import type { LoaderType, TAbstractLoadedResourcePack, TAbstractOnLoadFunction, TAbstractResourceConfig } from '@/Engine/Abstract';
+import type { LoaderType, TAbstractLoadedResourcePack, TAbstractOnLoadFunction, TAbstractResourceAsyncRegistry, TAbstractResourceConfig, TAbstractSimpleRegistry } from '@/Engine/Abstract';
 import type { TDestroyable, TNoSpread, TWithId } from '@/Engine/Mixins';
 
-export type TAbstractLoader<T, C extends TAbstractResourceConfig> = Readonly<{
+export type TAbstractLoader<T, RC extends TAbstractResourceConfig, R extends TAbstractResourceAsyncRegistry<T>, M extends TAbstractSimpleRegistry<RC>> = Readonly<{
   type: LoaderType;
-  loadAsync: (config: C) => Promise<T>;
-  loadListAsync: (configs: ReadonlyArray<C>) => Promise<ReadonlyArray<T>>;
-  loadFromConfigAsync: (configs: ReadonlyArray<C>) => Promise<ReadonlyArray<T>>;
-  setOnLoadedFn: (onLoaded: TAbstractOnLoadFunction<T, C['options']>, options?: C['options']) => void;
-  loaded$: Observable<TAbstractLoadedResourcePack<T, C>>;
+  loadAsync: (config: RC) => Promise<T>;
+  loadListAsync: (configs: ReadonlyArray<RC>) => Promise<ReadonlyArray<T>>;
+  loadFromConfigAsync: (configs: ReadonlyArray<RC>) => Promise<ReadonlyArray<T>>;
+  setOnLoadedFn: (onLoaded: TAbstractOnLoadFunction<T, RC['options']>, options?: RC['options']) => void;
+  loaded$: Observable<TAbstractLoadedResourcePack<T, RC>>;
+  getRegistry: () => R;
+  getMetaInfoRegistry: () => M;
 }> &
   TWithId &
   TDestroyable &

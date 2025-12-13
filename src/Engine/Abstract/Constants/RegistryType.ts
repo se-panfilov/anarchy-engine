@@ -1,12 +1,15 @@
 export enum RegistryType {
   Actor = 'actor',
   Animations = 'animations',
+  AnimationsMetaInfo = 'animations_meta_info',
   Audio = 'audio',
   AudioListeners = 'audio_listeners',
+  AudioMetaInfo = 'audio_meta_info',
   AudioRaw = 'audio_raw',
   Camera = 'camera',
   Controls = 'controls',
   EnvMap = 'env_map',
+  EnvMapMetaInfo = 'env_map_meta_info',
   EnvMapTexture = 'env_map_texture',
   Fog = 'fog',
   FsmInstance = 'fsm_instance',
@@ -17,6 +20,7 @@ export enum RegistryType {
   Loop = 'loop',
   Material = 'material',
   Model3d = 'model_3d',
+  Model3dMetaInfo = 'model_3d_meta_info',
   Model3dRaw = 'model_3d_raw',
   Models3dRawToModels3dToConnection = 'models_3d_raw_to_models_3d_connection',
   Models3dToActorConnection = 'models_3d_to_actor_connection',
@@ -34,5 +38,6 @@ export enum RegistryType {
   Text3dTexture = 'text_3d_texture',
   TextRenderer = 'text_renderer',
   Texture = 'texture',
+  TextureMetaInfo = 'texture_meta_info',
   TransformDrive = 'transform_drive'
 }
