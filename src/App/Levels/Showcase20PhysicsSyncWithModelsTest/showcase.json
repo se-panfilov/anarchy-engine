@@ -67,6 +67,7 @@
       {
         "name": "actor_1",
         "model3dSource": "sphere_1_model",
+        "agent": "physical",
         "physics": {
           "presetName": "ball_physics",
           "shapeParams": {
@@ -79,6 +80,7 @@
       {
         "name": "actor_2",
         "model3dSource": "cube_1_model",
+        "agent": "physical",
         "physics": {
           "presetName": "box_physics",
           "shapeParams": {
@@ -94,6 +96,7 @@
       {
         "name": "actor_3",
         "model3dSource": "cube_2_model",
+        "agent": "physical",
         "physics": {
           "presetName": "box_physics",
           "shapeParams": {
@@ -123,7 +126,8 @@
           "type": "dynamic",
           "collisionShape": "cuboid"
         }
-      ]
+      ],
+      "isAutoUpdate": true
     },
     "texts": [],
     "cameras": [
