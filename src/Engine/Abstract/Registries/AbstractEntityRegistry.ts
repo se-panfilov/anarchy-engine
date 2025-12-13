@@ -7,7 +7,7 @@ import { withBaseAccessorsRegistry } from '@/Engine/Abstract/Registries/Mixin';
 import { withReactiveRegistry } from '@/Engine/Abstract/Registries/Mixin/Registry/WithReactiveRegistry';
 import type { TDestroyable, TMultitonRegistrable, TRegistrable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
-import { findInMap, getAllEntitiesWithNames, getAllEntitiesWithTag, getAllEntitiesWithTags, getKeyByValue, getUniqEntityWithTag, getUniqEntityWithTags, isNotDefined } from '@/Engine/Utils';
+import { findInMap, findKeyWithValue, getAllEntitiesWithNames, getAllEntitiesWithTag, getAllEntitiesWithTags, getUniqEntityWithTag, getUniqEntityWithTags, isNotDefined } from '@/Engine/Utils';
 
 export function AbstractEntityRegistry<T extends TRegistrable | TMultitonRegistrable>(type: RegistryType): TAbstractEntityRegistry<T> {
   const id: string = type + '_registry_' + nanoid();
@@ -52,24 +52,49 @@ export function AbstractEntityRegistry<T extends TRegistrable | TMultitonRegistr
   const findByTags = (tags: ReadonlyArray<string>, strategy: LookUpStrategy): T | undefined | never => getUniqEntityWithTags(tags, registry, strategy);
   const findByTag = (tag: string): T | undefined | never => getUniqEntityWithTag(tag, registry);
 
-  const findKeyByValue = (value: T): string | undefined => getKeyByValue(registry, value);
+  const findKeyByValue = (value: T): string | undefined => findKeyWithValue(registry, value);
 
   const asObject = (): Record<string, T> => Object.fromEntries(registry.entries());
 
   return Object.assign(
     {
-      id,
       add,
       added$: reactiveRegistry.added$.asObservable(),
+      asObject,
       findAllByTag,
       findAllByTags,
+      findAllWithNames,
       findById,
       findByName,
-      findAllWithNames,
       findByTag,
       findByTags,
       findKeyByValue,
-      asObject,
+      getById: (entityId: string): T | never => {
+        const entity: T | undefined = findById(entityId);
+        if (isNotDefined(entity)) throw new Error(`[REGISTRY]: Cannot get an entity with id "${entityId}" from registry ${id}`);
+        return entity;
+      },
+      getByName: (name: string): T | never => {
+        const entity: T | undefined = findByName(name);
+        if (isNotDefined(entity)) throw new Error(`[REGISTRY]: Cannot get an entity with name "${name}" from registry ${id}`);
+        return entity;
+      },
+      getByTag: (tag: string): T | never => {
+        const entity: T | undefined = findByTag(tag);
+        if (isNotDefined(entity)) throw new Error(`[REGISTRY]: Cannot get an entity with tag "${tag}" from registry ${id}`);
+        return entity;
+      },
+      getByTags: (tags: ReadonlyArray<string>, strategy: LookUpStrategy): T | never => {
+        const entity: T | undefined = findByTags(tags, strategy);
+        if (isNotDefined(entity)) throw new Error(`[REGISTRY]: Cannot get an entity with tags "${tags.join(', ')}" from registry ${id}`);
+        return entity;
+      },
+      getKeyByValue: (value: T): string | never => {
+        const key: string | undefined = findKeyByValue(value);
+        if (isNotDefined(key)) throw new Error(`[REGISTRY]: Cannot get a key by value from registry ${id}: Does not exist in the registry.`);
+        return key;
+      },
+      id,
       remove,
       removed$: reactiveRegistry.removed$.asObservable(),
       replace,
