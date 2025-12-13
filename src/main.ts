@@ -28,7 +28,7 @@ const loopManager = new LoopManager();
 const sceneManager = new SceneManager();
 const rendererManager = new RendererManager();
 
-const scene = sceneManager.create();
+const scene = sceneManager.create('test_scene_1');
 sceneManager.setCurrent(scene);
 
 // sceneManager.attachTo(actorManager, scene);

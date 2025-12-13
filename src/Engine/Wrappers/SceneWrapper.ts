@@ -6,9 +6,10 @@ import { AbstractWrapper } from '@Engine/Wrappers/AbstractWrapper';
 export class SceneWrapper extends AbstractWrapper<Scene> {
   public entity: Scene;
 
-  constructor() {
+  constructor(name: string) {
     super();
     this.entity = new Scene();
+    this.entity.name = name;
   }
 
   public addCamera(camera: CameraWrapper): void {
