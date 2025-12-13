@@ -22,8 +22,7 @@ export function configToParams(
 
   return {
     ...config,
-    position$: mouseService.position$,
-    // position$: mouseService.normalizedPosition$,
+    position$: mouseService.normalizedPosition$,
     camera,
     actors,
     intersectionsLoop

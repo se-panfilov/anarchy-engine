@@ -60,7 +60,7 @@ export function MousePositionWatcher({ container, tags, performance }: TMousePos
     valueNormalized$: abstractWatcher.value$.pipe(
       withLatestFrom(container.viewportRect$),
       filter(([, rect]: [Vector2Like, DOMRect | undefined]): boolean => rect !== undefined),
-      map(([mouse, rect]: [Vector2Like, DOMRect | undefined]): Vector2Like => getNormalizedMousePosition(mouse, rect!))
+      map(([coords, rect]: [Vector2Like, DOMRect | undefined]): Vector2Like => getNormalizedMousePosition(coords, rect!))
     ),
     key: containerIdTag
   });
