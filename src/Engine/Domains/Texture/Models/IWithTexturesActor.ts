@@ -1,9 +1,24 @@
 import type {
+  Material,
+  MeshBasicMaterial,
+  MeshDepthMaterial,
+  MeshDistanceMaterial,
+  MeshLambertMaterial,
+  MeshMatcapMaterial,
+  MeshNormalMaterial,
+  MeshPhongMaterial,
+  MeshPhysicalMaterial,
+  MeshStandardMaterial,
+  MeshToonMaterial
+} from 'three';
+
+import type {
   IBasicMaterialTexturePack,
   IDepthMaterialTexturePack,
   IDistanceMaterialTexturePack,
   ILambertMaterialTexturePack,
   IMatcapMaterialTexturePack,
+  IMaterialTexturePack,
   INormalMaterialTexturePack,
   IPhongMaterialTexturePack,
   IPhysicalMaterialTexturePack,
@@ -22,55 +37,87 @@ import type {
   IStandardMaterialTextureUploaded,
   IToonMaterialTextureUploaded
 } from './IMaterialTextureUploaded';
+import type {
+  IBasicMaterialTextureUploadPromises,
+  IDepthMaterialTextureUploadPromises,
+  IDistanceMaterialTextureUploadPromises,
+  ILambertMaterialTextureUploadPromises,
+  IMatcapMaterialTextureUploadPromises,
+  INormalMaterialTextureUploadPromises,
+  IPhongMaterialTextureUploadPromises,
+  IPhysicalMaterialTextureUploadPromises,
+  IStandardMaterialTextureUploadPromises,
+  IToonMaterialTextureUploadPromises
+} from './IMaterialTextureUploadPromises.ts';
 
 export type IWithBasicTexturesActor = {
-  useTextureAsMaterial: (mt: IBasicMaterialTextureUploaded) => void;
-  loadMaterialTexturePack: (pack: IBasicMaterialTexturePack) => Promise<void>;
+  getTexturedMaterial: (mt: IBasicMaterialTextureUploaded) => MeshBasicMaterial;
+  loadMaterialTexturePack: (pack: IBasicMaterialTexturePack) => IBasicMaterialTextureUploadPromises;
+  loadAndApplyMaterialTexturePack: (pack: IMaterialTexturePack) => Promise<void>;
+  useMaterial: (material: Material) => void;
 };
 
 export type IWithDepthTexturesActor = {
-  useTextureAsMaterial: (mt: IDepthMaterialTextureUploaded) => void;
-  loadMaterialTexturePack: (pack: IDepthMaterialTexturePack) => Promise<void>;
+  getTexturedMaterial: (mt: IDepthMaterialTextureUploaded) => MeshDepthMaterial;
+  loadMaterialTexturePack: (pack: IDepthMaterialTexturePack) => IDepthMaterialTextureUploadPromises;
+  loadAndApplyMaterialTexturePack: (pack: IMaterialTexturePack) => Promise<void>;
+  useMaterial: (material: Material) => void;
 };
 
 export type IWithDistanceTexturesActor = {
-  useTextureAsMaterial: (mt: IDistanceMaterialTextureUploaded) => void;
-  loadMaterialTexturePack: (pack: IDistanceMaterialTexturePack) => Promise<void>;
+  getTexturedMaterial: (mt: IDistanceMaterialTextureUploaded) => MeshDistanceMaterial;
+  loadMaterialTexturePack: (pack: IDistanceMaterialTexturePack) => IDistanceMaterialTextureUploadPromises;
+  loadAndApplyMaterialTexturePack: (pack: IMaterialTexturePack) => Promise<void>;
+  useMaterial: (material: Material) => void;
 };
 
 export type IWithNormalTexturesActor = {
-  useTextureAsMaterial: (mt: INormalMaterialTextureUploaded) => void;
-  loadMaterialTexturePack: (pack: INormalMaterialTexturePack) => Promise<void>;
+  getTexturedMaterial: (mt: INormalMaterialTextureUploaded) => MeshNormalMaterial;
+  loadMaterialTexturePack: (pack: INormalMaterialTexturePack) => INormalMaterialTextureUploadPromises;
+  loadAndApplyMaterialTexturePack: (pack: IMaterialTexturePack) => Promise<void>;
+  useMaterial: (material: Material) => void;
 };
 
 export type IWithMatcapTexturesActor = {
-  useTextureAsMaterial: (mt: IMatcapMaterialTextureUploaded) => void;
-  loadMaterialTexturePack: (pack: IMatcapMaterialTexturePack) => Promise<void>;
+  getTexturedMaterial: (mt: IMatcapMaterialTextureUploaded) => MeshMatcapMaterial;
+  loadMaterialTexturePack: (pack: IMatcapMaterialTexturePack) => IMatcapMaterialTextureUploadPromises;
+  loadAndApplyMaterialTexturePack: (pack: IMaterialTexturePack) => Promise<void>;
+  useMaterial: (material: Material) => void;
 };
 
 export type IWithLambertTexturesActor = {
-  useTextureAsMaterial: (mt: ILambertMaterialTextureUploaded) => void;
-  loadMaterialTexturePack: (pack: ILambertMaterialTexturePack) => Promise<void>;
+  getTexturedMaterial: (mt: ILambertMaterialTextureUploaded) => MeshLambertMaterial;
+  loadMaterialTexturePack: (pack: ILambertMaterialTexturePack) => ILambertMaterialTextureUploadPromises;
+  loadAndApplyMaterialTexturePack: (pack: IMaterialTexturePack) => Promise<void>;
+  useMaterial: (material: Material) => void;
 };
 
 export type IWithPhongTexturesActor = {
-  useTextureAsMaterial: (mt: IPhongMaterialTextureUploaded) => void;
-  loadMaterialTexturePack: (pack: IPhongMaterialTexturePack) => Promise<void>;
+  getTexturedMaterial: (mt: IPhongMaterialTextureUploaded) => MeshPhongMaterial;
+  loadMaterialTexturePack: (pack: IPhongMaterialTexturePack) => IPhongMaterialTextureUploadPromises;
+  loadAndApplyMaterialTexturePack: (pack: IMaterialTexturePack) => Promise<void>;
+  useMaterial: (material: Material) => void;
 };
 
 export type IWithPhysicalTexturesActor = {
-  useTextureAsMaterial: (mt: IPhysicalMaterialTextureUploaded) => void;
-  loadMaterialTexturePack: (pack: IPhysicalMaterialTexturePack) => Promise<void>;
+  getTexturedMaterial: (mt: IPhysicalMaterialTextureUploaded) => MeshPhysicalMaterial;
+  loadMaterialTexturePack: (pack: IPhysicalMaterialTexturePack) => IPhysicalMaterialTextureUploadPromises;
+  loadAndApplyMaterialTexturePack: (pack: IMaterialTexturePack) => Promise<void>;
+  useMaterial: (material: Material) => void;
 };
 
 export type IWithToonTexturesActor = {
-  useTextureAsMaterial: (mt: IToonMaterialTextureUploaded) => void;
-  loadMaterialTexturePack: (pack: IToonMaterialTexturePack) => Promise<void>;
+  getTexturedMaterial: (mt: IToonMaterialTextureUploaded) => MeshToonMaterial;
+  loadMaterialTexturePack: (pack: IToonMaterialTexturePack) => IToonMaterialTextureUploadPromises;
+  loadAndApplyMaterialTexturePack: (pack: IMaterialTexturePack) => Promise<void>;
+  useMaterial: (material: Material) => void;
 };
 
 export type IWithStandardTexturesActor = {
-  useTextureAsMaterial: (mt: IStandardMaterialTextureUploaded) => void;
-  loadMaterialTexturePack: (pack: IStandardMaterialTexturePack) => Promise<void>;
+  getTexturedMaterial: (mt: IStandardMaterialTextureUploaded) => MeshStandardMaterial;
+  loadMaterialTexturePack: (pack: IStandardMaterialTexturePack) => IStandardMaterialTextureUploadPromises;
+  loadAndApplyMaterialTexturePack: (pack: IMaterialTexturePack) => Promise<void>;
+  useMaterial: (material: Material) => void;
 };
 
 export type IWithTexturesActor =

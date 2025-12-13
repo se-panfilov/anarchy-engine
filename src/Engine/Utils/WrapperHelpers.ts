@@ -40,7 +40,7 @@ export function applyTexturePack(obj: IWithTexturesActor, pack: IPhysicalMateria
 export function applyTexturePack(obj: IWithTexturesActor, pack: IToonMaterialTexturePack): Promise<void>;
 export function applyTexturePack(obj: IWithTexturesActor, pack: IStandardMaterialTexturePack): Promise<void>;
 export function applyTexturePack(obj: IWithTexturesActor, pack: IMaterialTexturePack): Promise<void> {
-  return obj.loadMaterialTexturePack(pack);
+  return obj.loadAndApplyMaterialTexturePack(pack);
 }
 
 export function applyRotation(obj: IRotatable, rotation?: IEulerWrapper): void {
