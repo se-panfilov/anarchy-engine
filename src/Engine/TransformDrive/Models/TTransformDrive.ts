@@ -17,5 +17,6 @@ export type TTransformDriveMandatoryFields = Readonly<{
   position$: BehaviorSubject<TReadonlyVector3>;
   rotation$: BehaviorSubject<TReadonlyQuaternion>;
   scale$: BehaviorSubject<TReadonlyVector3>;
+  relatedEntityId: string;
 }> &
   TWithId;

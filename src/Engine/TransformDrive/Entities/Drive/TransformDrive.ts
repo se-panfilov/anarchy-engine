@@ -119,6 +119,7 @@ export function TransformDrive<T extends Partial<Record<TransformAgent, TAbstrac
     position$,
     rotation$,
     scale$,
+    relatedEntityId: params.relatedEntityId,
     serialize: (): TTransformDriveSerializedData => transformDriveToConfig(result),
     ...getDynamicAgents(agents)
   };
