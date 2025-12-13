@@ -37,13 +37,12 @@ export function AbstractWrapper<T extends TWithUserData>(entity: T, type: Wrappe
     result.destroy$.next();
     result.destroy$.complete();
 
-    (entity as any).dispose?.();
-
     if (isDefined((entity as any).traverse)) {
-      (entity as any).traverse((child: Object3D<any>): void => {
-        if (child.parent) child.parent.remove(child);
-      });
+      (entity as any).traverse((child: Object3D<any>): void => void child.parent?.remove(child));
     }
+
+    (entity as any).dispose?.();
+    (entity as any).clear?.();
   });
 
   //apply params

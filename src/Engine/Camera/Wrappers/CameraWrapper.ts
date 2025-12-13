@@ -43,8 +43,6 @@ export function CameraWrapper(params: TCameraParams): TCameraWrapper {
     //Destroy transform drive
     drive.destroy$.next();
     driveToTargetConnector.destroy$.next();
-
-    wrapper.destroy$.next();
   });
 
   if (isDefined(lookAt)) accessors.lookAt(new Vector3(lookAt.x, lookAt.y, lookAt.z));

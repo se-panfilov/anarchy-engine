@@ -21,9 +21,12 @@ export function SpatialCellWrapper(params: TSpatialCellParams): TSpatialCellWrap
   const update$: Subject<TSpatialCell> = new Subject<TSpatialCell>();
 
   const sub$: Subscription = wrapper.destroy$.subscribe((): void => {
+    sub$.unsubscribe();
+
     // eslint-disable-next-line functional/immutable-data
     entity.objects = [];
     sub$.unsubscribe();
+
     update$.complete();
     update$.unsubscribe();
   });

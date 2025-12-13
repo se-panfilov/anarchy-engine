@@ -137,12 +137,13 @@ export function SpatialGridWrapper(params: TSpatialGridParams): TSpatialGridWrap
 
   const destroyable: TDestroyable = destroyableMixin();
   const destroySub$: Subscription = destroyable.destroy$.subscribe((): void => {
+    _debugOutlines = [];
+    _debugOutlinesIds = [];
     destroySub$.unsubscribe();
 
     update$.complete();
     update$.unsubscribe();
-    wrapper.destroy$.next();
-    // getAllCells().forEach((cell: TSpatialCellWrapper): void => void cell.destroy$.next());
+    getAllCells().forEach((cell: TSpatialCellWrapper): void => void cell.destroy$.next());
     entity.clear();
 
     // TODO DESTROY: implement destroy

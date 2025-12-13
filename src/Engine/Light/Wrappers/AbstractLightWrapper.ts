@@ -30,8 +30,6 @@ export function AbstractLightWrapper<T extends TLight>(entity: T, params: TLight
     drive.destroy$.next();
     driveToTargetConnector.destroy$.next();
 
-    wrapper.destroy$.next();
-
     (entity as any).shadow?.map?.dispose();
     entity.dispose();
   });
