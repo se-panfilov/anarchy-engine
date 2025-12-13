@@ -27,7 +27,7 @@
     "generate:legal:files:all": "npm run generate:legal:files:showcases-core && npm run generate:legal:files:showcases-desktop && npm run generate:legal:files:showcases-e2e && npm run generate:legal:files:anarchy-engine && npm run generate:legal:files:anarchy-i18n && npm run generate:legal:files:anarchy-shared && npm run generate:legal:files:anarchy-legal && npm run generate:legal:files:showcases-menu && npm run generate:legal:files:showcases-shared",
     "generate:legal:files:anarchy-engine": "npm run -w anarchy-legal generate:files -- --workspace packages/anarchy-engine --out ../../packages/anarchy-engine  --debug",
     "generate:legal:files:anarchy-i18n": "npm run -w anarchy-legal generate:files -- --workspace packages/anarchy-i18n --out ../../packages/anarchy-i18n  --debug",
-    "generate:legal:files:anarchy-legal": "npm run -w anarchy-legal generate:files -- --workspace anarchy-legal --out ../../anarchy-legal  --debug",
+    "generate:legal:files:anarchy-legal": "npm run -w anarchy-legal generate:files -- --workspace anarchy-legal --out ../../packages/anarchy-legal  --debug",
     "generate:legal:files:anarchy-shared": "npm run -w anarchy-legal generate:files -- --workspace packages/anarchy-shared --out ../../packages/anarchy-shared  --debug",
     "generate:legal:files:showcases-core": "npm run -w anarchy-legal generate:files -- --workspace apps/showcases-core --out ../../apps/showcases-core  --debug",
     "generate:legal:files:showcases-desktop": "npm run -w anarchy-legal generate:files -- --workspace apps/showcases-desktop --out ../../apps/showcases-desktop  --debug",
