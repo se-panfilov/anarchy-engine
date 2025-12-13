@@ -28,7 +28,7 @@
     "files": [
       "dist/electron-main.js",
       "dist/preload.js",
-      "../dist/**"
+      "game-dist/**"
     ],
     "mac": {
       "target": [

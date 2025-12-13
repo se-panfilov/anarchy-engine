@@ -12,18 +12,7 @@ const FAKE_ENV_WINDOW_WIDTH: number = 1280;
 const FAKE_ENV_IS_OPEN_DEV_TOOLS: boolean = true;
 
 function getIndexHtmlPath(): string {
-  //console.log('XXX app.isPackaged', app.isPackaged);
-  //   // console.log('XXX resolve', join(process.resourcesPath, 'dist', 'index.html'));
-  //   const indexPath: string = false ? resolve(__dirname, '../../dist/index.html') : join(process.resourcesPath, 'dist', 'index.html');
-  //   // const indexPath: string = resolve(__dirname, '../../dist/index.html');
-  const path: string = app.isPackaged ? join(process.resourcesPath, 'dist', 'index.html') : resolve(__dirname, '../../dist/index.html');
-  // const path: string = app.isPackaged ? `file://${join(__dirname, 'dist', 'index.html')}` : `file://${resolve(__dirname, '../../dist/index.html')}`;
-  //   console.log('Resolved index.html path:', path);
-  //   console.log('Exists:', fs.existsSync(path));
-
-  // console.log('process.resourcesPath =', process.resourcesPath);
-  // console.log('Contents of dist folder inside resources:');
-  // console.log(fs.readdirSync(join(process.resourcesPath)));
+  const path: string = app.isPackaged ? join(app.getAppPath(), 'game-dist', 'index.html') : join(__dirname, '..', 'game-dist', 'index.html');
 
   if (!existsSync(path)) {
     const errMsg: string = `[Main] index.html not found at: ${path}`;
