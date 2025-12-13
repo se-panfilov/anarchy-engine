@@ -53,6 +53,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     forEachEnum(Easing, (easing: string | number, _key: string | number, i: number): void => {
       actorService.create({
         ...actorTemplate,
+        name: `box_${easing}`,
         position: new Vector3(-20, 2, positionZ + gap * i),
         tags: [...(actorTemplate.tags ?? []), String(easing)]
       });
@@ -82,7 +83,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
 
       actorRegistry.findAllByTags([boxActorTag], LookUpStrategy.Some).forEach((actor: TActor) => {
         const easing = actor.getTags()[1] as Easing;
-        void moverService.goToPosition(actor, { x: 20 }, { ...animationParams, easing });
+        void moverService.goToPosition(actor.drive.instant, { x: 20 }, { ...animationParams, easing });
       });
     });
   }
