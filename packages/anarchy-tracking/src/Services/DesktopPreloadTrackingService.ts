@@ -1,8 +1,9 @@
-import { isDefined } from '@Anarchy/Shared/Utils';
+import { isDefined, parseDistName } from '@Anarchy/Shared/Utils';
 import type { TTrackingService } from '@Anarchy/Tracking/Models';
 import { rewriteFramesIntegrationBrowser } from '@Anarchy/Tracking/Utils/IntegrationsBrowser';
 import { scrubEvent } from '@Anarchy/Tracking/Utils/ScrubEvent';
 import { scrubUserPathsBrowser } from '@Anarchy/Tracking/Utils/ScrubsBrowser';
+import { setTag } from '@sentry/browser';
 import type { Integration, Primitive } from '@sentry/core';
 import type { ErrorEvent, EventHint } from '@sentry/electron/renderer';
 import { captureException, init, setTags } from '@sentry/electron/renderer';
@@ -32,6 +33,9 @@ export function DesktopPreloadTrackingService(options?: Record<string, any>, met
     errorTracker: 'DesktopPreloadTrackingService',
     errorTrackerInitializer: 'DesktopPreloadTrackingService'
   });
+  const { platform, arch } = parseDistName(metaData?.dist);
+  setTag('os', platform);
+  setTag('arch', arch);
 
   const onError = (ev: any): void => void captureException(ev?.error ?? ev);
   const onRejection = (ev: PromiseRejectionEvent): void => void captureException((ev as PromiseRejectionEvent)?.reason ?? ev);
