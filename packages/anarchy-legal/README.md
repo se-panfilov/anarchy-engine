@@ -1,4 +1,4 @@
-# Anarchy engine anarchy-i18n package
+# Anarchy engine anarchy-legal package
 
 Shared utilities and types for the Anarchy engine showcases app.
 

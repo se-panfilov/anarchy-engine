@@ -6,6 +6,9 @@
   "type": "module",
   "sideEffects": false,
   "license": "MIT",
+  "bin": {
+    "anarchy-legal": "./dist/cli.js"
+  },
   "scripts": {
     "before:release": "npm run before:release:check && npm run generate:third-party-list && npm run generate:licenses",
     "before:release:check": "npm run ts:check && npm run prettier:check && npm run lint",
@@ -16,8 +19,9 @@
     "ts:check": "tsc --noEmit",
     "ts:check:watch": "tsc --watch --noEmit"
   },
-  "dependencies": {
-    "@formatjs/intl": "3.1.6",
-    "rxjs": "7.8.2"
+  "devDependencies": {
+    "globby": "14.1.0",
+    "license-checker-rseidelsohn": "4.4.2",
+    "yargs": "18.0.0"
   }
 }
