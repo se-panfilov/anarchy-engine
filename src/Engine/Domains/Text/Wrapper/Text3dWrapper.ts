@@ -39,8 +39,6 @@ export function Text3dWrapper(params: ITextParams): IText3dWrapper {
   applyElement2dParams(result, params);
   applyObject3dParams(result, params);
   applyPosition(result, params.position);
-  // TODO (S.Panfilov) applyCenter?
-  // applyCenter(entity, params.center);
   applyRotation(result, params.rotation);
   if (isDefined(params.scale)) applyScale(result, params.scale);
 
