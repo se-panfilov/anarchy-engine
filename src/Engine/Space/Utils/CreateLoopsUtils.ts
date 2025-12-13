@@ -1,6 +1,7 @@
 import type { TAudioLoop } from '@/Engine/Audio';
 import type { TCollisionsLoop } from '@/Engine/Collisions';
 import type { TControlsLoop } from '@/Engine/Controls';
+import { runtimeEnv } from '@/Engine/env';
 import type { TIntersectionsLoop } from '@/Engine/Intersections';
 import type { TKeyboardLoop } from '@/Engine/Keyboard';
 import type { TKinematicLoop } from '@/Engine/Kinematic';
@@ -21,33 +22,33 @@ export function createLoops({ create }: TLoopService): TSpaceLoops {
   // TODO 16-0-0: CONFIG: A fake config, unless we have a way to load this from space config or something
   const config: Record<string, any> = {};
 
-  const showDebugInfo: boolean = config.showDebugInfo ?? import.meta.env.VITE_SHOW_DEBUG_INFO;
+  const showDebugInfo: boolean = config.showDebugInfo ?? runtimeEnv.VITE_SHOW_DEBUG_INFO;
 
   //steps
-  const audioLoopStep: number = config.audioLoopStep ?? import.meta.env.VITE_AUDIO_LOOP_STEP;
-  const physicalLoopStep: number = config.physicalLoopStep ?? import.meta.env.VITE_PHYSICAL_LOOP_STEP;
-  const collisionsLoopStep: number = config.collisionsLoopStep ?? import.meta.env.VITE_COLLISIONS_LOOP_STEP;
-  const kinematicLoopStep: number = config.kinematicLoopStep ?? import.meta.env.VITE_KINEMATIC_LOOP_STEP;
-  const spatialLoopStep: number = config.spatialLoopStep ?? import.meta.env.VITE_SPATIAL_LOOP_STEP;
-  const transformLoopStep: number = config.transformLoopStep ?? import.meta.env.VITE_TRANSFORM_LOOP_STEP;
-  const textLoopStep: number = config.textLoopStep ?? import.meta.env.VITE_TEXT_LOOP_STEP;
-  const keyboardLoopStep: number = config.keyboardLoopStep ?? import.meta.env.VITE_KEYBOARD_LOOP_STEP;
-  const mouseLoopStep: number = config.mouseLoopStep ?? import.meta.env.VITE_MOUSE_LOOP_STEP;
-  const intersectionsLoopStep: number = config.intersectionsLoopStep ?? import.meta.env.VITE_INTERSECTIONS_LOOP_STEP;
-  const controlsLoopStep: number = config.controlsLoopStep ?? import.meta.env.VITE_CONTROLS_LOOP_STEP;
+  const audioLoopStep: number = config.audioLoopStep ?? runtimeEnv.VITE_AUDIO_LOOP_STEP;
+  const physicalLoopStep: number = config.physicalLoopStep ?? runtimeEnv.VITE_PHYSICAL_LOOP_STEP;
+  const collisionsLoopStep: number = config.collisionsLoopStep ?? runtimeEnv.VITE_COLLISIONS_LOOP_STEP;
+  const kinematicLoopStep: number = config.kinematicLoopStep ?? runtimeEnv.VITE_KINEMATIC_LOOP_STEP;
+  const spatialLoopStep: number = config.spatialLoopStep ?? runtimeEnv.VITE_SPATIAL_LOOP_STEP;
+  const transformLoopStep: number = config.transformLoopStep ?? runtimeEnv.VITE_TRANSFORM_LOOP_STEP;
+  const textLoopStep: number = config.textLoopStep ?? runtimeEnv.VITE_TEXT_LOOP_STEP;
+  const keyboardLoopStep: number = config.keyboardLoopStep ?? runtimeEnv.VITE_KEYBOARD_LOOP_STEP;
+  const mouseLoopStep: number = config.mouseLoopStep ?? runtimeEnv.VITE_MOUSE_LOOP_STEP;
+  const intersectionsLoopStep: number = config.intersectionsLoopStep ?? runtimeEnv.VITE_INTERSECTIONS_LOOP_STEP;
+  const controlsLoopStep: number = config.controlsLoopStep ?? runtimeEnv.VITE_CONTROLS_LOOP_STEP;
 
   // Parallel mode
-  const isAudioParallel: boolean = config.isAudioParallel ?? import.meta.env.VITE_AUDIO_LOOP_IS_PARALLEL;
-  const isPhysicalParallel: boolean = config.isPhysicalParallel ?? import.meta.env.VITE_PHYSICAL_LOOP_IS_PARALLEL;
-  const isCollisionsParallel: boolean = config.isCollisionsParallel ?? import.meta.env.VITE_COLLISIONS_LOOP_IS_PARALLEL;
-  const isKinematicParallel: boolean = config.isKinematicParallel ?? import.meta.env.VITE_KINEMATIC_LOOP_IS_PARALLEL;
-  const isSpatialParallel: boolean = config.isSpatialParallel ?? import.meta.env.VITE_SPATIAL_LOOP_IS_PARALLEL;
-  const isTransformParallel: boolean = config.isTransformParallel ?? import.meta.env.VITE_TRANSFORM_LOOP_IS_PARALLEL;
-  const isTextParallel: boolean = config.isTextParallel ?? import.meta.env.VITE_TEXT_LOOP_IS_PARALLEL;
-  const isKeyboardParallel: boolean = config.isKeyboardParallel ?? import.meta.env.VITE_KEYBOARD_LOOP_IS_PARALLEL;
-  const isMouseParallel: boolean = config.isMouseParallel ?? import.meta.env.VITE_MOUSE_LOOP_IS_PARALLEL;
-  const isIntersectionsParallel: boolean = config.isIntersectionsParallel ?? import.meta.env.VITE_INTERSECTIONS_LOOP_IS_PARALLEL;
-  const isControlsParallel: boolean = config.isControlsParallel ?? import.meta.env.VITE_CONTROLS_LOOP_IS_PARALLEL;
+  const isAudioParallel: boolean = config.isAudioParallel ?? runtimeEnv.VITE_AUDIO_LOOP_IS_PARALLEL;
+  const isPhysicalParallel: boolean = config.isPhysicalParallel ?? runtimeEnv.VITE_PHYSICAL_LOOP_IS_PARALLEL;
+  const isCollisionsParallel: boolean = config.isCollisionsParallel ?? runtimeEnv.VITE_COLLISIONS_LOOP_IS_PARALLEL;
+  const isKinematicParallel: boolean = config.isKinematicParallel ?? runtimeEnv.VITE_KINEMATIC_LOOP_IS_PARALLEL;
+  const isSpatialParallel: boolean = config.isSpatialParallel ?? runtimeEnv.VITE_SPATIAL_LOOP_IS_PARALLEL;
+  const isTransformParallel: boolean = config.isTransformParallel ?? runtimeEnv.VITE_TRANSFORM_LOOP_IS_PARALLEL;
+  const isTextParallel: boolean = config.isTextParallel ?? runtimeEnv.VITE_TEXT_LOOP_IS_PARALLEL;
+  const isKeyboardParallel: boolean = config.isKeyboardParallel ?? runtimeEnv.VITE_KEYBOARD_LOOP_IS_PARALLEL;
+  const isMouseParallel: boolean = config.isMouseParallel ?? runtimeEnv.VITE_MOUSE_LOOP_IS_PARALLEL;
+  const isIntersectionsParallel: boolean = config.isIntersectionsParallel ?? runtimeEnv.VITE_INTERSECTIONS_LOOP_IS_PARALLEL;
+  const isControlsParallel: boolean = config.isControlsParallel ?? runtimeEnv.VITE_CONTROLS_LOOP_IS_PARALLEL;
 
   // You could use testTickRate() to test the tick rate of the loop in the main stream and in "parallel mode" (in the worker),
   // cause usually loops in workers fires a way faster due to the fact that the worker is not blocked by the main thread (rendering and etc)

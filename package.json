@@ -6,7 +6,7 @@
   "type": "module",
   "license": "MIT",
   "scripts": {
-    "start:dev": "vite",
+    "start:dev": "vite --mode dev",
     "start:e2e": "vite --mode e2e --port 5073",
     "build": "rimraf ./dist tsc && vite build",
     "before:release:check": "npm run ts:check && npm run prettier:check && npm run check:ts-morph && npm run lint && unit:coverage",
@@ -54,7 +54,8 @@
     "three-mesh-bvh": "0.9.0",
     "three-viewport-gizmo": "2.2.0",
     "ts-key-enum": "3.0.13",
-    "typescript-fsm": "1.6.0"
+    "typescript-fsm": "1.6.0",
+    "valibot": "1.1.0"
   },
   "devDependencies": {
     "@dimforge/rapier3d-compat": "0.16.0",

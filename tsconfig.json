@@ -13,7 +13,8 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "@shared/*": ["./shared/*"]
       //      "@App/*": ["./src/App/*"],
       //      "@Engine/*": ["./src/Engine/*"]
     },
@@ -27,5 +28,5 @@
     "useDefineForClassFields": true,
     "typeRoots": ["./node_modules/@types", "./node_modules", "./src/Engine/Types", "./types"]
   },
-  "include": ["src", "vite.config.ts", "playwright.config.ts", "types", "e2e"]
+  "include": ["src", "vite.config.ts", "playwright.config.ts", "types", "e2e", "shared"]
 }

@@ -1,17 +1,6 @@
 import { defineConfig, devices } from '@playwright/test';
-import * as dotenv from 'dotenv';
-import * as path from 'path';
 
-/**
- * Read environment variables from file.
- * https://github.com/motdotla/dotenv
- */
-// import dotenv from 'dotenv';
-// import path from 'path';
-// dotenv.config({ path: path.resolve(__dirname, '.env') });
-
-// Load environment variables from .env.e2e file
-dotenv.config({ path: path.join(process.cwd(), '.env.e2e') });
+import { nodeEnv } from './e2e/env.e2e';
 
 /**
  * See https://playwright.dev/docs/test-configuration.
@@ -21,18 +10,18 @@ export default defineConfig({
   /* Run tests in files in parallel */
   fullyParallel: true,
   /* Fail the build on CI if you accidentally left test.only in the source code. */
-  forbidOnly: !!process.env.CI,
+  forbidOnly: nodeEnv.CI,
   /* Retry on CI only */
-  retries: process.env.CI ? 2 : 0,
+  retries: nodeEnv.CI ? 2 : 0,
   /* Opt out of parallel tests on CI. */
-  workers: process.env.CI ? 1 : undefined,
+  workers: nodeEnv.CI ? 1 : undefined,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: [['html', { outputFolder: 'reports/e2e/playwright-report', open: 'never' }]],
   outputDir: 'reports/e2e/test-results/',
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     /* Base URL to use in actions like `await page.goto('/')`. */
-    baseURL: `http://localhost:${process.env.PORT}`,
+    baseURL: `http://localhost:${nodeEnv.PORT}`,
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry'
@@ -79,15 +68,15 @@ export default defineConfig({
   /* Run your local dev server before starting the tests */
   // webServer: {
   //   command: 'npm run start:e2e',
-  //   url: `http://localhost:${process.env.PORT}`,
-  //   reuseExistingServer: !process.env.CI
+  //   url: `http://localhost:${nodeEnv.PORT}`,
+  //   reuseExistingServer: !nodeEnv.CI
   // }
 
   webServer: {
     command: 'npm run start:e2e',
-    // command: `node_modules/.bin/vite --mode e2e --port ${process.env.PORT}`,
-    port: process.env.PORT,
+    // command: `node_modules/.bin/vite --mode e2e --port ${nodeEnv.PORT}`,
+    port: nodeEnv.PORT,
     timeout: 5 * 1000,
-    reuseExistingServer: !process.env.CI
+    reuseExistingServer: !nodeEnv.CI
   }
 });
