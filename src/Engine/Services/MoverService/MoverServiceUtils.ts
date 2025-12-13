@@ -21,21 +21,13 @@ export function performMove(moveFn: IMoveFn | IMoveByPathFn, loopService: ILoopS
   const { promise, resolve } = createDeferredPromise();
   // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
   const move = moveFn({ ...params, complete: resolve } as any);
-  const tickSubscription: Subscription = loopService.tick$.subscribe(({ frameTime }: ILoopTimes): void => {
-    // TODO (S.Panfilov) CWP what about delta time?
-    // TODO (S.Panfilov) I'm not sure if this makes animation independent from frame rate. Need to test.
-    move.tick(frameTime);
-  });
+  const tickSubscription: Subscription = loopService.tick$.subscribe(({ frameTime }: ILoopTimes): void => move.tick(frameTime));
   return promise.then(() => tickSubscription.unsubscribe());
 }
 
 export function performMoveUntil<F extends (params: P) => IMoveableByTick, P>(moveFn: F, loopService: ILoopService, params: P): IStopMoveCb {
   let move: IMoveableByTick | undefined = moveFn(params);
-  const tickSubscription: Subscription = loopService.tick$.subscribe(({ frameTime }: ILoopTimes): void => {
-    // TODO (S.Panfilov) CWP what about delta time?
-    // TODO (S.Panfilov) I'm not sure if this makes animation independent from frame rate. Need to test.
-    move?.tick(frameTime);
-  });
+  const tickSubscription: Subscription = loopService.tick$.subscribe(({ frameTime }: ILoopTimes): void => move?.tick(frameTime));
 
   return (): void => {
     tickSubscription.unsubscribe();

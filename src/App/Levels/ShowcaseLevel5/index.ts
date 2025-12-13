@@ -48,8 +48,8 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
       const bluePath: ReadonlyArray<IWithCoordsXZ> = createCirclePathXZ(angleArray, radius - 2, { x: 0, z: 0 });
       void standardMoverService.goByPath(redActor, redPath, { ...animationParams, easing: Easing.Linear }).then(() => console.log('red done'));
       void standardMoverService.goByPath(blueActor, bluePath, { ...animationParams, easing: Easing.EaseInCirc }).then(() => console.log('blue done'));
-      standardMoverService.followTarget(redText, redActor);
-      standardMoverService.followTarget(blueText, blueActor);
+      standardMoverService.followTarget(redText, redActor, { x: 1 });
+      standardMoverService.followTarget(blueText, blueActor, { x: 1 });
     });
   }
 
