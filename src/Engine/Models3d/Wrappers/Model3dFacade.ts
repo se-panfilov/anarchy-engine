@@ -3,7 +3,7 @@ import { AbstractFacade } from '@/Engine/Abstract/Wrappers/AbstractFacade';
 import type { TAnimationsService } from '@/Engine/Animations/Models';
 import { withModel3dFacadeEntities } from '@/Engine/Models3d/Mixins';
 import type { TModel3dEntities, TModel3dFacade, TModel3dPack, TModels3dFacadeParams } from '@/Engine/Models3d/Models';
-import { applyPosition, applyRotation, applyScale } from '@/Engine/Models3d/Services/Models3dServiceHelper';
+import { applyCastShadow, applyPosition, applyRotation, applyScale } from '@/Engine/Models3d/Services/Models3dServiceHelper';
 import type { TOptional } from '@/Engine/Utils';
 import { isDefined, omitInObjectWithoutMutation } from '@/Engine/Utils';
 
@@ -25,6 +25,7 @@ export function Model3dFacade(params: TModels3dFacadeParams, animationsService: 
   if (isDefined(params.scale)) applyScale(entities.model, params.scale);
   if (isDefined(params.rotation)) applyRotation(entities.model, params.rotation);
   if (isDefined(params.position)) applyPosition(entities.model, params.position);
+  if (isDefined(params.castShadow)) applyCastShadow(entities.model, params.castShadow);
 
   return {
     ...facade,

@@ -43,8 +43,9 @@
       "name": "solder_model",
       "url": "/Showcase/Models/Solder/Solder.glb",
       "position": { "x": 0, "y": 0, "z": 0 },
+      "castShadow": true,
       "options": {
-        "shouldAddToScene": false,
+        "shouldAddToScene": true,
         "shouldAddToRegistry": true
       },
       "tags": []

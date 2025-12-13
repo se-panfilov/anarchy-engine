@@ -2039,6 +2039,9 @@
             }
           ]
         },
+        "castShadow": {
+          "type": "boolean"
+        },
         "name": {
           "type": "string"
         },
@@ -2165,6 +2168,9 @@
               "$ref": "#/definitions/Model3dType"
             }
           ]
+        },
+        "castShadow": {
+          "type": "boolean"
         },
         "options": {
           "$ref": "#/definitions/TModel3dLoadOptions"

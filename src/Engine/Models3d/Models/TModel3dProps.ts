@@ -6,6 +6,7 @@ import type { TModel3dLoadOptions } from './TModel3dLoadOptions';
 
 export type TModel3dProps = Readonly<{
   url: string | Model3dType;
+  castShadow?: boolean;
   options: TModel3dLoadOptions;
 }> &
   Readonly<{
