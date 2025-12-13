@@ -16,3 +16,6 @@ export * from './TDriveToModel3dConnector';
 export * from './TInstantActorDriver';
 export * from './TModel3dToActorConnectionRegistry';
 export * from './TParamsFromConfigActor';
+export * from './TWithMutablePositionConnector';
+export * from './TWithMutableRotationConnector';
+export * from './TWithMutableScaleConnector';

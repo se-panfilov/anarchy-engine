@@ -11,3 +11,4 @@ export * from './TReadonlyEuler';
 export * from './TReadonlyQuaternion';
 export * from './TReadonlyVector3';
 export * from './TSphereGeometryProps';
+export * from './TVector3OrEuler';

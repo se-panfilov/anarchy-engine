@@ -55,6 +55,7 @@ export function Actor(
     ...withUpdateSpatialCell()
   };
 
+  // TODO 8.0.0. MODELS: This might not be triggered if vectors aren't cloned (considered as the same, due to the same reference)
   const positionSub$: Subscription = drive.position$.pipe(distinctUntilChanged((prev: Vector3, curr: Vector3): boolean => prev.equals(curr))).subscribe((position: Vector3): void => {
     // TODO 8.0.0. MODELS: not sure if "updateSpatialCells()" should happen on rotation$ and scale$ changes
     entities.updateSpatialCells(position);

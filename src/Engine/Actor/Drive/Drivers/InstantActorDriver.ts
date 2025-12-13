@@ -2,6 +2,9 @@ import type { Subscription } from 'rxjs';
 import { BehaviorSubject } from 'rxjs';
 import { Vector3 } from 'three';
 
+import { withMutablePositionConnector } from '@/Engine/Actor/Drive/Mixins';
+import { withMutableRotationConnector } from '@/Engine/Actor/Drive/Mixins/WithMutableRotationConnector';
+import { withMutableScaleConnector } from '@/Engine/Actor/Drive/Mixins/WithMutableScaleConnector';
 import type { TActorParams, TInstantActorDriver } from '@/Engine/Actor/Models';
 import type { TDestroyable, TWithPosition3dProperty, TWithRotationProperty, TWithScaleProperty } from '@/Engine/Mixins';
 import { destroyableMixin, withMoveBy3dMixin, withRotationMixin, withScaleMixin } from '@/Engine/Mixins';
@@ -32,7 +35,7 @@ export function InstantActorDriver(params: TActorParams): TInstantActorDriver {
   const rotationObj: TWithRotationProperty = { rotation: rotation$.value.clone() };
   const scaleObj: TWithScaleProperty = { scale: scale$.value?.clone() ?? new Vector3(1, 1, 1) };
 
-  const proxyTransformObj: TWithPosition3dProperty = updateSubjOnChange(positionObj, 'position', position$, (value: TReadonlyVector3): TReadonlyVector3 => value.clone());
+  const proxyPositionObj: TWithPosition3dProperty = updateSubjOnChange(positionObj, 'position', position$, (value: TReadonlyVector3): TReadonlyVector3 => value.clone());
   const proxyRotationObj: TWithRotationProperty = updateSubjOnChange(rotationObj, 'rotation', rotation$, (value: TReadonlyEuler): TReadonlyEuler => value.clone());
   const proxyScaleObj: TWithScaleProperty = updateSubjOnChange(
     scaleObj as TWithUndefined<TWithScaleProperty>,
@@ -46,8 +49,11 @@ export function InstantActorDriver(params: TActorParams): TInstantActorDriver {
     position$,
     rotation$,
     scale$,
-    ...withMoveBy3dMixin(proxyTransformObj),
+    ...withMoveBy3dMixin(proxyPositionObj),
     ...withRotationMixin(proxyRotationObj),
-    ...withScaleMixin(proxyScaleObj)
+    ...withScaleMixin(proxyScaleObj),
+    ...withMutablePositionConnector(position$),
+    ...withMutableRotationConnector(rotation$),
+    ...withMutableScaleConnector(scale$)
   };
 }
