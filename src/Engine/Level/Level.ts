@@ -12,6 +12,8 @@ import type { IControlsFactory, IControlsRegistry, IOrbitControlsConfig, IOrbitC
 import { ControlsFactory, ControlsRegistry } from '@/Engine/Controls';
 import type { IDataTexture } from '@/Engine/EnvMap';
 import { envMapService } from '@/Engine/EnvMap';
+import type { IFogConfig, IFogFactory, IFogRegistry, IFogWrapper } from '@/Engine/Fog';
+import { FogFactory, FogRegistry } from '@/Engine/Fog';
 import { setInitialActiveCamera } from '@/Engine/Level/LevelHelper';
 import { withBuiltMixin } from '@/Engine/Level/Mixin';
 import type { ILevel, ILevelConfig, IWithBuilt } from '@/Engine/Level/Models';
@@ -30,8 +32,6 @@ import { screenService } from '@/Engine/Services';
 import type { IText2dRegistry, IText2dRenderer, IText3dRegistry, IText3dRenderer, ITextAnyWrapper, ITextConfig, ITextFactory } from '@/Engine/Text';
 import { initText2dRenderer, initText3dRenderer, isText2dWrapper, isText3dWrapper, Text2dRegistry, Text3dRegistry, TextFactory } from '@/Engine/Text';
 import { isDefined, isNotDefined, validLevelConfig } from '@/Engine/Utils';
-import { FogRegistry, IFogConfig, IFogFactory, IFogRegistry, IFogWrapper } from '@/Engine/Fog';
-import { FogFactory } from '@/Engine/Fog';
 
 export function buildLevelFromConfig(canvas: IAppCanvas, config: ILevelConfig): ILevel {
   const { isValid, errors } = validLevelConfig(config);

@@ -1,5 +1,6 @@
+import { ColorWrapper } from '@/Engine/Color';
+import { FogFactory } from '@/Engine/Fog/Factory';
 import type { IFogService, IFogWrapper } from '@/Engine/Fog/Models';
-import { ColorWrapper, FogFactory } from '@/Engine';
 
 export function FogService(): IFogService {
   function createFog(): IFogWrapper {

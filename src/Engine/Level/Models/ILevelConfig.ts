@@ -1,12 +1,12 @@
 import type { IActorConfig } from '@/Engine/Actor';
 import type { ICameraConfig } from '@/Engine/Camera';
 import type { IOrbitControlsConfig } from '@/Engine/Controls';
+import type { IFogConfig } from '@/Engine/Fog';
 import type { LevelSchemaVersion, LevelTag } from '@/Engine/Level/Constants';
 import type { ILightConfig } from '@/Engine/Light';
 import type { IWithReadonlyTags } from '@/Engine/Mixins';
 import type { ISceneConfig } from '@/Engine/Scene';
 import type { ITextConfig } from '@/Engine/Text';
-import type { IFogConfig } from '@/Engine/Fog';
 
 export type ILevelConfig = Readonly<{
   name: string;
