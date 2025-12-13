@@ -1,4 +1,4 @@
-import { bindKey, unbindKey } from '@rwh/keystrokes';
+import { bindKey, bindKeyCombo, unbindKey, unbindKeyCombo } from '@rwh/keystrokes';
 import { Subject } from 'rxjs';
 
 import type { IKeyboardRegistry, IKeyboardRegistryValues, IKeyboardService, IKeySubscription } from '@/Engine/Keyboard/Models';
@@ -8,39 +8,63 @@ import { isNotDefined } from '@/Engine/Utils';
 export function KeyboardService(): IKeyboardService {
   const keyboardRegistry: IKeyboardRegistry = KeyboardRegistry();
 
-  // TODO (S.Panfilov) combo
-  function onKey(key: string): IKeySubscription {
-    if (!keyboardRegistry.getByKey(key)) {
+  function createKeySubscriptions(key: string): IKeySubscription {
+    const subscriptions: IKeyboardRegistryValues | undefined = keyboardRegistry.getByKey(key);
+    if (!subscriptions) {
       const pressed$: Subject<string> = new Subject();
       const pressing$: Subject<string> = new Subject();
       const released$: Subject<string> = new Subject();
 
       keyboardRegistry.add(key, { pressed$, pressing$, released$ });
+      return { pressed$, pressing$, released$ };
     }
-
-    return bind(key);
+    return subscriptions;
   }
 
-  function bind(key: string): IKeySubscription {
+  function onKey(key: string): IKeySubscription {
+    createKeySubscriptions(key);
+    return bind(key, false);
+  }
+
+  function onKeyCombo(combo: string): IKeySubscription {
+    createKeySubscriptions(combo);
+    return bind(combo, true);
+  }
+
+  function bind(key: string, isCombo: boolean): IKeySubscription {
     const subjects: IKeyboardRegistryValues | undefined = keyboardRegistry.getByKey(key);
     if (isNotDefined(subjects)) throw new Error(`Key ${key} is not found in registry`);
     const { pressed$, pressing$, released$ } = subjects;
 
-    bindKey(key, {
-      onPressed: () => pressed$.next(key),
-      onPressedWithRepeat: () => pressing$.next(key),
-      onReleased: () => released$.next(key)
-    });
+    if (isCombo) {
+      bindKeyCombo(key, {
+        onPressed: () => pressed$.next(key),
+        onPressedWithRepeat: () => pressing$.next(key),
+        onReleased: () => released$.next(key)
+      });
+    } else {
+      bindKey(key, {
+        onPressed: () => pressed$.next(key),
+        onPressedWithRepeat: () => pressing$.next(key),
+        onReleased: () => released$.next(key)
+      });
+    }
 
     return { pressed$: pressed$.asObservable(), pressing$: pressing$.asObservable(), released$: released$.asObservable() };
   }
 
   const pauseKeyBinding = (key: string): void => unbindKey(key);
-  const resumeKeyBinding = (key: string): void => void bind(key);
+  const pauseKeyComboBinding = (combo: string): void => unbindKeyCombo(combo);
+  const resumeKeyBinding = (key: string): void => void bind(key, false);
+  const resumeKeyComboBinding = (combo: string): void => void bind(combo, true);
 
-  // TODO (S.Panfilov) combo
-  function removeKeyBinding(key: string): void {
-    unbindKey(key);
+  function removeBinding(key: string, isCombo: boolean): void {
+    if (isCombo) {
+      unbindKeyCombo(key);
+    } else {
+      unbindKey(key);
+    }
+
     const subjects: IKeyboardRegistryValues | undefined = keyboardRegistry.getByKey(key);
     if (isNotDefined(subjects)) throw new Error(`Cannot remove key "${key}": it's not in the registry`);
     subjects.pressed$.complete();
@@ -49,11 +73,18 @@ export function KeyboardService(): IKeyboardService {
     keyboardRegistry.remove(key);
   }
 
+  const removeKeyBinding = (key: string): void => removeBinding(key, false);
+  const removeKeyComboBinding = (key: string): void => removeBinding(key, true);
+
   return {
     onKey,
-    removeKeyBinding,
+    onKeyCombo,
     pauseKeyBinding,
-    resumeKeyBinding
+    pauseKeyComboBinding,
+    resumeKeyBinding,
+    resumeKeyComboBinding,
+    removeKeyBinding,
+    removeKeyComboBinding
   };
 }
 
