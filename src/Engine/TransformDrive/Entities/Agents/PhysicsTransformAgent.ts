@@ -1,5 +1,5 @@
 import type { Subscription } from 'rxjs';
-import { BehaviorSubject, combineLatest, distinctUntilChanged, EMPTY, filter, map, switchMap, takeWhile, withLatestFrom } from 'rxjs';
+import { BehaviorSubject, distinctUntilChanged, EMPTY, filter, map, switchMap, takeWhile, withLatestFrom } from 'rxjs';
 import type { QuaternionLike, Vector3Like } from 'three';
 import { Quaternion, Vector3 } from 'three';
 
@@ -27,12 +27,6 @@ import { AbstractTransformAgent } from './AbstractTransformAgent';
 export function PhysicsTransformAgent(params: TPhysicsTransformAgentParams, { physicalLoop }: TPhysicsAgentDependencies): TPhysicsTransformAgent {
   const positionNoiseThreshold: TMeters = params.performance?.positionNoiseThreshold ?? meters(0.0000001);
   const rotationNoiseThreshold: TRadians = params.performance?.rotationNoiseThreshold ?? radians(0.0000001);
-
-  // TODO 15-0-0: Remove?
-  // const adaptedParams: TPhysicsTransformAgentInternalParams = {
-  //   ...params,
-  //   rotation: isEulerLike(params.rotation) ? new Quaternion().setFromEuler(params.rotation) : params.rotation
-  // };
   const abstractTransformAgent: TAbstractTransformAgent = AbstractTransformAgent(params, TransformAgent.Physical);
 
   const onDeactivated$Sub: Subscription = abstractTransformAgent.onDeactivated$.pipe(takeWhile((): boolean => isNotDefined(params.onDeactivated))).subscribe((): void => {
@@ -45,7 +39,6 @@ export function PhysicsTransformAgent(params: TPhysicsTransformAgentParams, { ph
 
   //apply the latest position/rotation to the physics body on activation
   const onActivated$Sub: Subscription = abstractTransformAgent.onActivated$.subscribe(({ position, rotation }: TReadonlyTransform): void => {
-    // TODO 15-0-0: Does this position/rotation works? (check on reactivation)
     if (isNotDefined(physicsBody$.value)) physicsBody$.next(params.physicBody);
     applyLatestTransform(physicsBody$.value?.getRigidBody(), position, rotation);
   });
@@ -102,15 +95,10 @@ export function PhysicsTransformAgent(params: TPhysicsTransformAgentParams, { ph
   let prevPosition: Vector3Like | undefined = undefined;
   let prevRotation: QuaternionLike | undefined = undefined;
 
-  //Watching $ticks only when agent is enabled and physics loop is auto-updating
-  physicsSub$ = combineLatest([agent.enabled$, physicalLoop.enabled$])
+  physicsSub$ = agent.enabled$
     .pipe(
-      distinctUntilChanged(([a1, b1]: [boolean, boolean], [a2, b2]: [boolean, boolean]): boolean => a1 === a2 && b1 === b2),
-      //If agent is enabled and physics loop is auto-updating, then we are switching to the physics loop ticks
-      switchMap(([isEnabled, isLoopEnabled]: ReadonlyArray<boolean>) => {
-        if (isEnabled && isLoopEnabled) return physicalLoop.tick$;
-        return EMPTY;
-      }),
+      distinctUntilChanged(),
+      switchMap((isEnabled: boolean) => (isEnabled ? physicalLoop.tick$ : EMPTY)),
       filter((): boolean => {
         const body: TPhysicsBody | undefined = physicsBody$.value;
         return isDefined(body) && body.getPhysicsBodyType() !== RigidBodyTypesNames.Fixed;
