@@ -1,6 +1,6 @@
 import '@Public/Showcase/fonts.css';
 
-import type { TModel3d, TModels3dRegistry, TSceneWrapper, TSpace, TSpaceConfig } from '@Engine';
+import type { TModel3d, TModels3dRegistry, TSceneWrapper, TSpace, TSpaceConfig, TSpaceFlags } from '@Engine';
 import { asRecord, isNotDefined, spaceService, TextType, TransformAgent } from '@Engine';
 import { Euler, Vector3 } from 'three';
 
@@ -10,8 +10,8 @@ import spaceConfigJson from './space.json';
 
 const spaceConfig: TSpaceConfig = spaceConfigJson as TSpaceConfig;
 
-export function start(): void {
-  const spaces: Record<string, TSpace> = asRecord('name', spaceService.createFromConfig([spaceConfig]));
+export function start(flags: TSpaceFlags): void {
+  const spaces: Record<string, TSpace> = asRecord('name', spaceService.createFromConfig([spaceConfig], { flags }));
   const space: TSpace = spaces[spaceConfig.name];
   if (isNotDefined(space)) throw new Error(`Showcase "${spaceConfig.name}": Space is not defined`);
 

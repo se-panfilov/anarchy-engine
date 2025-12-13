@@ -1,4 +1,4 @@
-import type { TSpace, TSpaceConfig } from '@Engine';
+import type { TSpace, TSpaceConfig, TSpaceFlags } from '@Engine';
 import { asRecord, isNotDefined, spaceService } from '@Engine';
 import { combineLatest, Observable, Subscription } from 'rxjs';
 
@@ -22,10 +22,10 @@ const spaceBetaConfig: TSpaceConfig = spaceBetaConfigJson as TSpaceConfig;
 const spaceGammaConfig: TSpaceConfig = spaceGammaConfigJson as TSpaceConfig;
 const spaceDeltaConfig: TSpaceConfig = spaceDeltaConfigJson as TSpaceConfig;
 
-export function start(): void {
+export function start(flags: TSpaceFlags): void {
   createContainersDivs();
 
-  const spaces: Record<string, TSpace> = asRecord('name', spaceService.createFromConfig([spaceAlphaConfig, spaceBetaConfig, spaceGammaConfig, spaceDeltaConfig]));
+  const spaces: Record<string, TSpace> = asRecord('name', spaceService.createFromConfig([spaceAlphaConfig, spaceBetaConfig, spaceGammaConfig, spaceDeltaConfig], { flags }));
   const spaceAlpha: TSpace = spaces[spaceAlphaConfig.name];
   const spaceBeta: TSpace = spaces[spaceBetaConfig.name];
   const spaceGamma: TSpace = spaces[spaceGammaConfig.name];

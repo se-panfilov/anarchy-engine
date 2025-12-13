@@ -1,4 +1,4 @@
-import type { TSceneWrapper, TSpace, TSpaceConfig } from '@Engine';
+import type { TSceneWrapper, TSpace, TSpaceConfig, TSpaceFlags } from '@Engine';
 import { asRecord, isNotDefined, spaceService } from '@Engine';
 import GUI from 'lil-gui';
 import type { Fog } from 'three';
@@ -9,8 +9,8 @@ import spaceConfigJson from './space.json';
 
 const spaceConfig: TSpaceConfig = spaceConfigJson as TSpaceConfig;
 
-export function start(): void {
-  const spaces: Record<string, TSpace> = asRecord('name', spaceService.createFromConfig([spaceConfig]));
+export function start(flags: TSpaceFlags): void {
+  const spaces: Record<string, TSpace> = asRecord('name', spaceService.createFromConfig([spaceConfig], { flags }));
   const space: TSpace = spaces[spaceConfig.name];
   if (isNotDefined(space)) throw new Error(`Showcase "${spaceConfig.name}": Space is not defined`);
 

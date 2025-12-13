@@ -1,7 +1,7 @@
 import '@Public/Showcase/fonts.css';
 import './style.css';
 
-import type { TSpace, TSpaceConfig, TSpaceRegistry } from '@Engine';
+import type { TSpace, TSpaceConfig, TSpaceFlags, TSpaceRegistry } from '@Engine';
 import { isNotDefined, spaceService } from '@Engine';
 import type { Subscription } from 'rxjs';
 
@@ -59,26 +59,27 @@ let currentSpaceName: string | undefined;
 // eslint-disable-next-line functional/immutable-data
 (window as any)._isReady = false;
 
-export function start(): void {
+export function start(flags: TSpaceFlags): void {
   createContainersDivs(spacesData);
 
   createForm(
     undefined,
     true,
     true,
-    spacesData.map((space: TSpacesData): string => space.name)
+    spacesData.map((space: TSpacesData): string => space.name),
+    flags
   );
 
-  loadSpace(spacesData.find((s: TSpacesData): boolean => s.name === initialSpaceDataName)?.name, spacesData);
+  loadSpace(spacesData.find((s: TSpacesData): boolean => s.name === initialSpaceDataName)?.name, spacesData, flags);
 }
 
-function loadSpace(name: string | undefined, source: ReadonlyArray<TSpacesData>): void {
+function loadSpace(name: string | undefined, source: ReadonlyArray<TSpacesData>, flags: TSpaceFlags): void {
   setSpaceReady(false);
   if (isNotDefined(name)) throw new Error('[Showcase]: Space name is not defined');
   const spaceData: TSpacesData | undefined = source.find((s: TSpacesData): boolean => s.name === name);
   if (isNotDefined(spaceData)) throw new Error(`[Showcase]: Space data is not found for space "${name}"`);
 
-  const spaces: ReadonlyArray<TSpace> = spaceService.createFromConfig([spaceData.config]);
+  const spaces: ReadonlyArray<TSpace> = spaceService.createFromConfig([spaceData.config], { flags });
   const space: TSpace = spaces.find((s: TSpace): boolean => s.name === name) as TSpace;
   if (isNotDefined(space)) throw new Error(`[Showcase]: Cannot create the space "${name}"`);
 
@@ -147,7 +148,7 @@ function saveSpaceConfigInMemory(name: string | undefined, spaceRegistry: TSpace
   };
 }
 
-export function createForm(containerId: string | undefined, isTop: boolean, isRight: boolean, options: ReadonlyArray<string>): void {
+export function createForm(containerId: string | undefined, isTop: boolean, isRight: boolean, options: ReadonlyArray<string>, flags: TSpaceFlags): void {
   const top: string | undefined = isTop ? undefined : 'calc(50% + 14px)';
   const right: string | undefined = !isRight ? 'calc(50% + 14px)' : '4px';
   const spaceRegistry: TSpaceRegistry = spaceService.getRegistry();
@@ -157,7 +158,7 @@ export function createForm(containerId: string | undefined, isTop: boolean, isRi
     containerId,
     (name: string): void => {
       unloadSpace(currentSpaceName, spaceRegistry);
-      loadSpace(name, spacesData);
+      loadSpace(name, spacesData, flags);
     },
     options,
     initialSpaceDataName,
@@ -181,7 +182,7 @@ export function createForm(containerId: string | undefined, isTop: boolean, isRi
 
   // TODO: enable to check false positive screenshot compare
   // addBtn(`Load`, containerId, (): void => loadSpace(currentSpaceName));
-  addBtn(`Load`, containerId, (): void => loadSpace(currentSpaceName, spacesInMemoryData));
+  addBtn(`Load`, containerId, (): void => loadSpace(currentSpaceName, spacesInMemoryData, flags));
 }
 
 function setSpaceReady(isReady: boolean): void | never {
