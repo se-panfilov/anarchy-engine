@@ -17,8 +17,6 @@ import type { TLoopService } from '@/Engine/Loop';
 import { LoopService } from '@/Engine/Loop';
 import type { TMaterialService } from '@/Engine/Material';
 import { MaterialFactory, MaterialRegistry, MaterialService } from '@/Engine/Material';
-import type { TMaterialTextureService } from '@/Engine/MaterialTexturePack';
-import { MaterialTextureService } from '@/Engine/MaterialTexturePack';
 import type { TModels3dService } from '@/Engine/Models3d';
 import { Models3dFactory, Models3dRegistry, Models3dResourceAsyncRegistry, Models3dService } from '@/Engine/Models3d';
 import { MouseService } from '@/Engine/Mouse';
@@ -47,7 +45,6 @@ export function initSceneService(): TScenesService {
 export function initEntitiesServices(sceneW: TSceneWrapper, canvas: TAppCanvas): Omit<TSpaceServices, 'scenesService'> {
   const materialService: TMaterialService = MaterialService(MaterialFactory(), MaterialRegistry());
   const textureService: TTextureService = TextureService(TextureAsyncRegistry());
-  const materialTextureService: TMaterialTextureService = MaterialTextureService(materialService, { textureService });
   const physicsPresetService: TPhysicsPresetsService = PhysicsPresetsService(PhysicsPresetRegistry());
   const physicsWorldService: TPhysicsWorldService = PhysicsWorldService(sceneW);
   const physicsBodyService: TPhysicsBodyService = PhysicsBodyService(PhysicsBodyFactory(), PhysicsBodyRegistry(), physicsPresetService, physicsWorldService);
@@ -88,7 +85,6 @@ export function initEntitiesServices(sceneW: TSceneWrapper, canvas: TAppCanvas):
     lightService: LightService(LightFactory(), LightRegistry(), sceneW),
     loopService,
     materialService,
-    materialTextureService,
     models3dService,
     animationsService,
     mouseService: MouseService(ambientContext.container, { loopService }),

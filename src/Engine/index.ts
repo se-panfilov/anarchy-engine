@@ -20,7 +20,6 @@ export * from './Kinematic';
 export * from './Light';
 export * from './Loop';
 export * from './Material';
-export * from './MaterialTexturePack';
 export * from './Math';
 export * from './Measurements';
 export * from './Mixins';
