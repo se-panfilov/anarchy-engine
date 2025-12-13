@@ -6,17 +6,11 @@ type TDesktopAppLaunchResult = Readonly<{
   page: Page;
 }>;
 
-const VIEWPORT = {
-  width: 800,
-  height: 600
-} as const;
+const VIEWPORT = { width: 800, height: 600 };
 
 export async function launchPackagedElectronApp(): Promise<TDesktopAppLaunchResult> {
   const executablePath: string | undefined = process.env.DESKTOP_E2E_APP_PATH;
-
-  if (!executablePath) {
-    throw new Error('DESKTOP_E2E_APP_PATH env variable is required for packaged Electron tests');
-  }
+  if (!executablePath) throw new Error('DESKTOP_E2E_APP_PATH env variable is required for packaged Electron tests');
 
   const electronApp: ElectronApplication = await electron.launch({
     executablePath,
@@ -30,8 +24,5 @@ export async function launchPackagedElectronApp(): Promise<TDesktopAppLaunchResu
   const page: Page = await electronApp.firstWindow();
   await page.setViewportSize(VIEWPORT);
 
-  return {
-    electronApp,
-    page
-  } as const;
+  return { electronApp, page };
 }
