@@ -5,12 +5,13 @@ import type { IIntersectionsWatcherFactory, IIntersectionsWatcherRegistry } from
 import type { ILightFactory, ILightRegistry } from '@/Engine/Domains/Light';
 import type { IRendererFactory, IRendererRegistry } from '@/Engine/Domains/Renderer';
 import type { ISceneFactory, ISceneRegistry } from '@/Engine/Domains/Scene';
-import type { ITextFactory, ITextRegistry } from '@/Engine/Domains/Text';
+import type { IText2dRegistry, IText3dRegistry, ITextFactory } from '@/Engine/Domains/Text';
 
 export type ILevelEntities = {
   actorRegistry: IActorRegistry;
   actorFactory: IActorFactory;
-  textRegistry: ITextRegistry;
+  text2dRegistry: IText2dRegistry;
+  text3dRegistry: IText3dRegistry;
   textFactory: ITextFactory;
   cameraRegistry: ICameraRegistry;
   cameraFactory: ICameraFactory;

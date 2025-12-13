@@ -157,6 +157,7 @@ export function buildLevelFromConfig(canvas: IAppCanvas, config: ILevelConfig): 
     textFactory.destroy();
     textAddedSubscription.unsubscribe();
     text2dRegistry.destroy();
+    text3dRegistry.destroy();
 
     cameraEntityCreatedSubscription.unsubscribe();
     cameraFactory.destroy();
@@ -203,7 +204,8 @@ export function buildLevelFromConfig(canvas: IAppCanvas, config: ILevelConfig): 
     entities: {
       actorRegistry: actorRegistry,
       actorFactory: actorFactory,
-      textRegistry: text2dRegistry,
+      text2dRegistry: text2dRegistry,
+      text3dRegistry: text3dRegistry,
       textFactory: textFactory,
       cameraRegistry: cameraRegistry,
       cameraFactory: cameraFactory,

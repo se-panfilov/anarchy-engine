@@ -12,7 +12,7 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
 
   function start(): void {
     level.start();
-    const { actorRegistry, actorFactory, textRegistry, textFactory } = level.entities;
+    const { actorRegistry, actorFactory, textFactory } = level.entities;
 
     let isClickBlocked: boolean = false;
 
@@ -51,8 +51,6 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
         tags: [...actorTemplate.tags, String(easing)]
       });
     });
-
-    console.log(textRegistry.getAll());
 
     ambientContext.mouseClickWatcher.value$.subscribe(() => {
       if (isClickBlocked) {

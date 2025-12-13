@@ -1,5 +1,5 @@
 import type { IShowcase } from '@/App/Levels/Models';
-import type { IActorWrapper, IAnimationParams, IAppCanvas, ILevel, ILevelConfig, ITextAnyWrapper, IWithCoordsXZ } from '@/Engine';
+import type { IActorWrapper, IAnimationParams, IAppCanvas, ILevel, ILevelConfig, IText2dWrapper, ITextAnyWrapper, IWithCoordsXZ } from '@/Engine';
 import { ambientContext, buildLevelFromConfig, createCirclePathXZ, Easing, EulerWrapper, generateAnglesForCircle, isNotDefined, standardMoverService, TextType, Vector3Wrapper } from '@/Engine';
 
 import levelConfig from './showcase-5-animejs-complex.config.json';
@@ -10,7 +10,7 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
 
   function start(): void {
     level.start();
-    const { actorRegistry, cameraRegistry, controlsRegistry, textRegistry, textFactory } = level.entities;
+    const { actorRegistry, cameraRegistry, controlsRegistry, text2dRegistry, textFactory } = level.entities;
 
     controlsRegistry.getAll()[0]?.entity.target.set(6, 0, 0);
     cameraRegistry.getAll()[0]?.setPosition(6, 30, 0);
@@ -20,9 +20,9 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
     const greenActor: IActorWrapper | undefined = actorRegistry.getUniqByTag('green');
     if (isNotDefined(redActor) || isNotDefined(blueActor) || isNotDefined(greenActor)) throw new Error('Actors are not defined');
 
-    const redText: ITextAnyWrapper | undefined = textRegistry.getUniqByTag('red');
-    const blueText: ITextAnyWrapper | undefined = textRegistry.getUniqByTag('blue');
-    const greenText: ITextAnyWrapper | undefined = textRegistry.getUniqByTag('green');
+    const redText: IText2dWrapper | undefined = text2dRegistry.getUniqByTag('red');
+    const blueText: IText2dWrapper | undefined = text2dRegistry.getUniqByTag('blue');
+    const greenText: IText2dWrapper | undefined = text2dRegistry.getUniqByTag('green');
     if (isNotDefined(redText) || isNotDefined(blueText) || isNotDefined(greenText)) throw new Error('Texts are not defined');
 
     let isClickBlocked: boolean = false;
