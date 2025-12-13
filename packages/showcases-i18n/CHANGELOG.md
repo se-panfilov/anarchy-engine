@@ -1,2 +1,3 @@
 - 1.0.0 Initial
 - 1.3.0 Sort json keys
+- 1.4.0 Rework i18n service

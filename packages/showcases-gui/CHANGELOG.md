@@ -1,1 +1,2 @@
 - 1.0.0 Created a separate package for the GUI
+- 1.1.0 Interact with other app, and work in multi-app environment
