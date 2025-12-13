@@ -1,3 +1,4 @@
+import { Vector2 } from 'three';
 import { Vector3 } from 'three/src/math/Vector3';
 
 import type {
@@ -9,7 +10,7 @@ import type {
   TIntersectionsDirectionWatcherParams
 } from '@/Engine/Intersections/Models';
 import type { TReadonlyVector2, TReadonlyVector3 } from '@/Engine/ThreeLib';
-import { isDefined } from '@/Engine/Utils';
+import { isDefined, isNotDefined } from '@/Engine/Utils';
 
 export function isIntersectionsDirectionWatcherConfig(config: TIntersectionsCameraWatcherConfig | TIntersectionsDirectionWatcherConfig): config is TIntersectionsDirectionWatcherConfig {
   return isDefined((config as TIntersectionsDirectionWatcherConfig).origin) && isDefined((config as TIntersectionsDirectionWatcherConfig).direction);
@@ -63,7 +64,7 @@ export function getChangedOriginAndDirection(
   const directionChanged: boolean =
     Math.abs(tmpDirection[0] - prevDirection[0]) > threshold || Math.abs(tmpDirection[1] - prevDirection[1]) > threshold || Math.abs(tmpDirection[2] - prevDirection[2]) > threshold;
 
-  if (!originChanged && !directionChanged) return undefined;
+  if (originChanged && !directionChanged) return undefined;
 
   prevOrigin.set(tmpOrigin);
   prevDirection.set(tmpDirection);
@@ -75,6 +76,7 @@ export function getChangedOriginAndDirection(
 }
 
 export function getChangedPosition(tmp: Float32Array, prev: Float32Array, position: TReadonlyVector2, threshold: number): Readonly<{ position: TReadonlyVector2 }> | undefined {
+  if (isNotDefined(position)) return undefined;
   // eslint-disable-next-line functional/immutable-data
   tmp[0] = position.x;
   // eslint-disable-next-line functional/immutable-data

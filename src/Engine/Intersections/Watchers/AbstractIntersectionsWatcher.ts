@@ -5,7 +5,14 @@ import type { TAbstractWatcher } from '@/Engine/Abstract';
 import { AbstractWatcher, WatcherType } from '@/Engine/Abstract';
 import type { TActor } from '@/Engine/Actor';
 import { intersectionsToConfig } from '@/Engine/Intersections/Adapters';
-import type { TAbstractIntersectionsWatcher, TAnyIntersectionsWatcherConfig, TAnyIntersectionsWatcherParams, TIntersectionEvent, TIntersectionsLoop } from '@/Engine/Intersections/Models';
+import type {
+  TAbstractIntersectionsWatcher,
+  TAnyIntersectionsWatcher,
+  TAnyIntersectionsWatcherConfig,
+  TAnyIntersectionsWatcherParams,
+  TIntersectionEvent,
+  TIntersectionsLoop
+} from '@/Engine/Intersections/Models';
 import type { TWriteable } from '@/Engine/Utils';
 
 export function AbstractIntersectionsWatcher({ isAutoStart, tags, name, intersectionsLoop, ...rest }: TAnyIntersectionsWatcherParams): TAbstractIntersectionsWatcher {
@@ -40,7 +47,7 @@ export function AbstractIntersectionsWatcher({ isAutoStart, tags, name, intersec
     removeActor,
     removeActors,
     raycaster,
-    serialize: (): TAnyIntersectionsWatcherConfig => intersectionsToConfig(result)
+    serialize: (): TAnyIntersectionsWatcherConfig => intersectionsToConfig(result as TAnyIntersectionsWatcher)
   });
 
   if (rest.actors.length > 0) addActors(rest.actors);
