@@ -2,7 +2,6 @@ import type { CommonTag } from '@/Engine/Domains/Abstract';
 import type { IWithTags } from '@/Engine/Mixins/Generic/Models';
 import { omit } from '@/Engine/Utils';
 
-// TODO (S.Panfilov) add unit tests
 export function withTags<T>(tagsList: ReadonlyArray<T | CommonTag | string> = []): IWithTags<T> {
   const state: { tags: ReadonlyArray<T | CommonTag | string> } = { tags: [...tagsList] };
 
