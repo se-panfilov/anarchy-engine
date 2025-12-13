@@ -1,3 +1,5 @@
+import { Vector3 } from 'three';
+
 import type { TActorParams } from '@/Engine/Actor';
 import type { TKinematicData, TWithKinematic } from '@/Engine/Kinematic/Models';
 import { getAzimuthByLinearVelocity, getElevationByLinearVelocity, getLinearVelocity, getSpeedByLinearVelocity } from '@/Engine/Math';
@@ -26,14 +28,18 @@ export function withKinematic(params: TActorParams): TWithKinematic {
     },
     doKinematicMove(delta: number): void {
       if (isNotDefined(this.kinematic.linearVelocity)) return;
-      // TODO (S.Panfilov) set or add values?
-      (this as unknown as TWithPosition3d).setPosition(
-        Vector3Wrapper({
-          x: this.kinematic.linearVelocity.x * delta,
-          y: this.kinematic.linearVelocity.y * delta,
-          z: this.kinematic.linearVelocity.z * delta
-        })
-      );
+      const { x, y, z } = this.kinematic.linearVelocity;
+      const displacement: Vector3 = new Vector3(x, y, z).clone().multiplyScalar(delta);
+      (this as unknown as TWithPosition3d).addPosition(Vector3Wrapper(displacement));
+      // this.entity.position.add(displacement);
+
+      // (this as unknown as TWithPosition3d).setPosition(
+      //   Vector3Wrapper({
+      //     x: this.kinematic.linearVelocity.x * delta,
+      //     y: this.kinematic.linearVelocity.y * delta,
+      //     z: this.kinematic.linearVelocity.z * delta
+      //   })
+      // );
     },
     isKinematicAutoUpdate: params.isKinematicAutoUpdate ?? false,
     doKinematicRotation(delta: number): void {
@@ -41,31 +47,31 @@ export function withKinematic(params: TActorParams): TWithKinematic {
       // TODO (S.Panfilov) set or add values?
       (this as unknown as TWithRotation).setRotation(this.kinematic.angularVelocity.x * delta, this.kinematic.angularVelocity.y * delta, this.kinematic.angularVelocity.z * delta);
     },
-    getSpeed(): number {
+    getKinematicSpeed(): number {
       if (isNotDefined(this.kinematic.linearVelocity)) return 0;
       return getSpeedByLinearVelocity(this.kinematic.linearVelocity);
     },
-    setSpeed(speed: number, azimuth: number): void {
+    setKinematicSpeed(speed: number): void {
       // eslint-disable-next-line functional/immutable-data
-      (this.kinematic as TWriteable<TKinematicData>).linearVelocity = getLinearVelocity(speed, azimuth, this.getElevation());
+      (this.kinematic as TWriteable<TKinematicData>).linearVelocity = getLinearVelocity(speed, this.getKinematicAzimuth(), this.getKinematicElevation());
     },
-    getAzimuth(): number {
+    getKinematicAzimuth(): number {
       if (isNotDefined(this.kinematic.linearVelocity)) return 0;
       return getAzimuthByLinearVelocity(this.kinematic.linearVelocity);
     },
-    setAzimuth(azimuth: number): void {
+    setKinematicAzimuth(azimuth: number): void {
       // eslint-disable-next-line functional/immutable-data
-      (this.kinematic as TWriteable<TKinematicData>).linearVelocity = getLinearVelocity(this.getSpeed(), azimuth, this.getElevation());
+      (this.kinematic as TWriteable<TKinematicData>).linearVelocity = getLinearVelocity(this.getKinematicSpeed(), azimuth, this.getKinematicElevation());
     },
-    getElevation(): number {
+    getKinematicElevation(): number {
       if (isNotDefined(this.kinematic.linearVelocity)) return 0;
       return getElevationByLinearVelocity(this.kinematic.linearVelocity);
     },
-    setElevation(elevation: number): void {
+    setKinematicElevation(elevation: number): void {
       // eslint-disable-next-line functional/immutable-data
-      (this.kinematic as TWriteable<TKinematicData>).linearVelocity = getLinearVelocity(this.getSpeed(), this.getAzimuth(), elevation);
+      (this.kinematic as TWriteable<TKinematicData>).linearVelocity = getLinearVelocity(this.getKinematicSpeed(), this.getKinematicAzimuth(), elevation);
     },
-    setLinearVelocity(speed: number, azimuth: number, elevation: number): void {
+    setKinematicLinearVelocity(speed: number, azimuth: number, elevation: number): void {
       // eslint-disable-next-line functional/immutable-data
       (this.kinematic as TWriteable<TKinematicData>).linearVelocity = getLinearVelocity(speed, azimuth, elevation);
     }

@@ -7,11 +7,11 @@ export type TWithKinematic = {
   doKinematicMove: (delta: number) => void;
   doKinematicRotation: (delta: number) => void;
   isKinematicAutoUpdate: boolean;
-  getSpeed: () => number;
-  setSpeed: (speed: number, azimuth: number) => void;
-  getAzimuth: () => number;
-  setAzimuth: (azimuth: number) => void;
-  getElevation: () => number;
-  setElevation: (elevation: number) => void;
-  setLinearVelocity: (speed: number, azimuth: number, elevation: number) => void;
+  getKinematicSpeed: () => number;
+  setKinematicSpeed: (speed: number) => void;
+  getKinematicAzimuth: () => number;
+  setKinematicAzimuth: (azimuth: number) => void;
+  getKinematicElevation: () => number;
+  setKinematicElevation: (elevation: number) => void;
+  setKinematicLinearVelocity: (speed: number, azimuth: number, elevation: number) => void;
 };

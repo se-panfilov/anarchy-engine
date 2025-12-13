@@ -77,7 +77,12 @@ export function showcase(canvas: TAppCanvas): TShowcase {
       elevation: 0
     };
 
-    loopService.tick$.subscribe((delta) => {
+    // TODO (S.Panfilov) debug
+    // setInterval((): void => {
+    //   console.log(heroW.kinematic);
+    // }, 300);
+
+    loopService.tick$.subscribe((delta): void => {
       cameraFollowingActor(cameraW, heroW);
       updateBullets(bullets, delta.delta);
 
