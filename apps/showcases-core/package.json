@@ -2,7 +2,7 @@
   "name": "showcases-core",
   "author": "S. Panfilov",
   "private": true,
-  "version": "2.7.4",
+  "version": "2.7.5",
   "type": "module",
   "license": "MIT",
   "description": "Anarchy Showcases Core – an application with demos for Anarchy-Engine.",
