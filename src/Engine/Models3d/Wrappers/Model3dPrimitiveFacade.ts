@@ -2,11 +2,9 @@ import { FacadeType } from '@/Engine/Abstract';
 import { AbstractFacade } from '@/Engine/Abstract/Wrappers/AbstractFacade';
 import { withModel3dPrimitiveFacadeEntities } from '@/Engine/Models3d/Mixins';
 import type { TModel3dPrimitiveEntities, TModel3dPrimitiveFacade, TModel3dPrimitiveFacadeParams, TModel3dPrimitivePack } from '@/Engine/Models3d/Models';
-import { applyCastShadow, applyPosition, applyRotation, applyScale } from '@/Engine/Models3d/Services/Models3dServiceHelper';
+import { applyCastShadow, applyPosition, applyRotation, applyScale, createModels3dPrimitiveEntities } from '@/Engine/Models3d/Utils';
 import type { TOptional } from '@/Engine/Utils';
 import { isDefined, omitInObjectWithoutMutation } from '@/Engine/Utils';
-
-import { createModels3dPrimitiveEntities } from './UtilsModel3dFacade';
 
 export function Model3dPrimitiveFacade(params: TModel3dPrimitiveFacadeParams): TModel3dPrimitiveFacade {
   const entities: TModel3dPrimitiveEntities = createModels3dPrimitiveEntities(params);

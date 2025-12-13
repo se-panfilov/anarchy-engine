@@ -3,11 +3,9 @@ import { AbstractFacade } from '@/Engine/Abstract/Wrappers/AbstractFacade';
 import type { TAnimationsService } from '@/Engine/Animations/Models';
 import { withModel3dComplexFacadeEntities } from '@/Engine/Models3d/Mixins';
 import type { TModel3dComplexEntities, TModel3dComplexFacade, TModel3dComplexFacadeParams, TModel3dComplexPack } from '@/Engine/Models3d/Models';
-import { applyCastShadow, applyPosition, applyRotation, applyScale } from '@/Engine/Models3d/Services/Models3dServiceHelper';
+import { applyCastShadow, applyPosition, applyRotation, applyScale, createModels3dEntities } from '@/Engine/Models3d/Utils';
 import type { TOptional } from '@/Engine/Utils';
 import { isDefined, omitInObjectWithoutMutation } from '@/Engine/Utils';
-
-import { createModels3dEntities } from './UtilsModel3dFacade';
 
 export function Model3dComplexFacade(params: TModel3dComplexFacadeParams, animationsService: TAnimationsService): TModel3dComplexFacade {
   const entities: TModel3dComplexEntities = createModels3dEntities(params, animationsService);

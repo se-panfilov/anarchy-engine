@@ -9,6 +9,7 @@
 import type { TModel3dPrimitivePack, TModel3dPrimitiveParams } from '@/Engine/Models3d';
 import { isDefined } from '@/Engine/Utils';
 
+// TODO CWP enable all the commented out code here!
 export function createPrimitiveModel3dPack(params: TModel3dPrimitiveParams): TModel3dPrimitivePack | never {
   // const { primitive, material } = params;
   const { primitive } = params;
