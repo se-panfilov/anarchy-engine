@@ -5,8 +5,9 @@ import { MouseClicksWatcherRegistry } from '@/Engine/Registries';
 
 export function MouseClicksWatcher(container: IGlobalContainerDecorator, tags: ReadonlyArray<string> = []): IMouseClicksWatcher {
   // TODO (S.Panfilov) this check should be a part of a factory
-  if (MouseClicksWatcherRegistry.getByContainerId()) throw new Error(`MouseClicksWatcher for container with id "${container.id}" is already existed`);
-  const abstractWatcher: IAbstractWatcher<void> = AbstractWatcher('mouse_clicks', tags);
+  const containerIdTag: string = `container_id_${container.id}`;
+  if (MouseClicksWatcherRegistry().getUniqByTag(containerIdTag)) throw new Error(`MouseClicksWatcher for container with id "${container.id}" is already existed`);
+  const abstractWatcher: IAbstractWatcher<void> = AbstractWatcher('mouse_clicks', [...tags, containerIdTag]);
   const onMouseUpListener = (): void => abstractWatcher.value$.next();
 
   function start(): IMouseClicksWatcher {
@@ -21,6 +22,7 @@ export function MouseClicksWatcher(container: IGlobalContainerDecorator, tags: R
 
   const result: IMouseClicksWatcher = {
     ...abstractWatcher,
+    containerId: container.id,
     start,
     stop
   };

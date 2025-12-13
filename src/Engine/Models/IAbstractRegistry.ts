@@ -9,8 +9,11 @@ export type IAbstractRegistry<T extends IRegistrableEntity> = Readonly<{
   replaced$: Subject<T>;
   registry: ReadonlyMap<string, T>;
   getById: (id: string) => T | undefined;
-  getAllWithTag: (tags: ReadonlyArray<string>, shouldMuchEveryTag?: boolean) => ReadonlyArray<T> | never;
-  getUniqWithTag: (tags: ReadonlyArray<string>, shouldMuchEveryTag?: boolean) => T | undefined | never;
+  getAllWithSomeTag: (tags: ReadonlyArray<string>) => ReadonlyArray<T> | never;
+  getAllWithEveryTag: (tags: ReadonlyArray<string>) => ReadonlyArray<T> | never;
+  getUniqWithSomeTag: (tags: ReadonlyArray<string>) => T | undefined | never;
+  getUniqWithEveryTag: (tags: ReadonlyArray<string>) => T | undefined | never;
+  getUniqByTag: (tag: string) => T | undefined | never;
   remove: (id: string) => void;
   removed$: Subject<T>;
 }> &

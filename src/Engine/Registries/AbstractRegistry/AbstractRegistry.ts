@@ -41,14 +41,20 @@ export function AbstractRegistry<T extends IRegistrableEntity>(name: RegistryNam
     registry.clear();
   }
 
-  function getUniqWithTag(tags: ReadonlyArray<string>): T | undefined | never {
+  function getUniqWithSomeTag(tags: ReadonlyArray<string>): T | undefined | never {
     const result: ReadonlyArray<T> = getAllEntitiesWithSomeTag(tags, registry);
     if (result.length > 1) throw new Error(`Entity with tags "${tags.toString()}" is not uniq in "${name}"`);
     return result[0];
   }
 
-  function getAllWithTag(tags: ReadonlyArray<string>, shouldMuchEveryTag: boolean = false): ReadonlyArray<T> {
-    return shouldMuchEveryTag ? getAllEntitiesWithEveryTag(tags, registry) : getAllEntitiesWithSomeTag(tags, registry);
+  function getUniqWithEveryTag(tags: ReadonlyArray<string>): T | undefined | never {
+    const result: ReadonlyArray<T> = getAllEntitiesWithEveryTag(tags, registry);
+    if (result.length > 1) throw new Error(`Entity with tags "${tags.toString()}" is not uniq in "${name}"`);
+    return result[0];
+  }
+
+  function getUniqByTag(tag: string): T | undefined | never {
+    return getUniqWithSomeTag([tag]);
   }
 
   return {
@@ -67,8 +73,11 @@ export function AbstractRegistry<T extends IRegistrableEntity>(name: RegistryNam
     add,
     replace,
     getById,
-    getAllWithTag,
-    getUniqWithTag,
+    getAllWithEveryTag: (tags: ReadonlyArray<string>): ReadonlyArray<T> => getAllEntitiesWithEveryTag(tags, registry),
+    getAllWithSomeTag: (tags: ReadonlyArray<string>): ReadonlyArray<T> => getAllEntitiesWithSomeTag(tags, registry),
+    getUniqWithSomeTag,
+    getUniqWithEveryTag,
+    getUniqByTag,
     registry,
     remove,
     destroy
