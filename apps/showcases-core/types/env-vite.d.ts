@@ -15,6 +15,7 @@ interface ImportMetaEnv {
   VITE_APP_SHOW_DEV_NAV: string; // should be cast to boolean
   VITE_SHOW_EXIT_GAME_MENU_BTN: string; // should be cast to boolean
   VITE_RELEASE_NAME_PREFIX: string;
+  VITE_DIST_NAME: string | undefined;
   __APP_VERSION__: string;
   // VITE_APP_DRACO_DECODER_PATH: string;
 }
