@@ -1,7 +1,7 @@
 import type { AnimationAction, AnimationClip } from 'three';
 import type { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
 
-import type { TAnimationsConfig } from '@/Engine/Animations';
+import type { TAnimationStateConfig } from '@/Engine/Animations';
 import { animationActionToConfig } from '@/Engine/Animations';
 import type { TAnimations, TAnimationsResourceAsyncRegistry } from '@/Engine/Animations/Models';
 import { extractSerializableRegistrableFields } from '@/Engine/Mixins';
@@ -59,7 +59,7 @@ function getAllAnimationsSource(entity: TModel3d, animationsResourceAsyncRegistr
   return animationsSource.length > 0 ? animationsSource : undefined;
 }
 
-function serializeActiveAnimations(entity: TModel3d): ReadonlyArray<TAnimationsConfig> {
+function serializeActiveAnimations(entity: TModel3d): ReadonlyArray<TAnimationStateConfig> {
   const MIN_WEIGHT = 1e-3;
   return Object.values(entity.actions)
     .filter((action: AnimationAction): boolean => {

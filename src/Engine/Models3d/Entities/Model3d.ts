@@ -6,7 +6,15 @@ import { withObject3d } from '@/Engine/Mixins';
 import { model3dToConfig } from '@/Engine/Models3d/Adapters';
 import { withModel3dEntities } from '@/Engine/Models3d/Mixins';
 import type { TModel3d, TModel3dConfig, TModel3dConfigToParamsDependencies, TModel3dDependencies, TModel3dEntities, TModel3dParams, TWithModel3dEntities } from '@/Engine/Models3d/Models';
-import { applyObject3dParamsToModel3d, applyPositionToModel3d, applyRotationToModel3d, applyScaleToModel3d, createModels3dEntities, isModel3dAlreadyInUse } from '@/Engine/Models3d/Utils';
+import {
+  applyAnimationsState,
+  applyObject3dParamsToModel3d,
+  applyPositionToModel3d,
+  applyRotationToModel3d,
+  applyScaleToModel3d,
+  createModels3dEntities,
+  isModel3dAlreadyInUse
+} from '@/Engine/Models3d/Utils';
 import { applyObject3dParams, destroyModel3dAnimationEntities, disposeGltf, isDefined } from '@/Engine/Utils';
 
 export function Model3d(params: TModel3dParams, { animationsService, model3dRawToModel3dConnectionRegistry }: TModel3dDependencies): TModel3d {
@@ -45,6 +53,7 @@ export function Model3d(params: TModel3dParams, { animationsService, model3dRawT
   });
 
   applyObject3dParams(result, params);
+  applyAnimationsState(result, params);
 
   return result;
 }

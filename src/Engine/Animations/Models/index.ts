@@ -1,11 +1,12 @@
 export type * from './TAnimationActions';
 export type * from './TAnimationActionsPack';
 export type * from './TAnimations';
-export type * from './TAnimationsConfig';
 export type * from './TAnimationsLoader';
 export type * from './TAnimationsMetaInfoRegistry';
 export type * from './TAnimationsResourceAsyncRegistry';
 export type * from './TAnimationsResourceConfig';
 export type * from './TAnimationsSerializeResourcesDependencies';
 export type * from './TAnimationsService';
+export type * from './TAnimationStateConfig';
+export type * from './TAnimationStateParams';
 export type * from './TModel3dAnimations';

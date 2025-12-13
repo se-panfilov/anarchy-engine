@@ -1,6 +1,7 @@
 import type { AnimationClip } from 'three';
 import type { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
 
+import type { TAnimationStateParams } from '@/Engine/Animations';
 import type { TMaterialWrapper } from '@/Engine/Material';
 import type { TWithName, TWithTags } from '@/Engine/Mixins';
 import type { PrimitiveModel3dType } from '@/Engine/Models3d/Constants';
@@ -11,6 +12,7 @@ import type { TModel3dOptions } from './TModel3dOptions';
 export type TModel3dParams = Readonly<{
   model3dSource: GLTF | PrimitiveModel3dType;
   animationsSource?: ReadonlyArray<AnimationClip>;
+  animationsState?: ReadonlyArray<TAnimationStateParams>;
   material?: TMaterialWrapper;
   forceClone?: boolean;
   options?: TModel3dOptions;

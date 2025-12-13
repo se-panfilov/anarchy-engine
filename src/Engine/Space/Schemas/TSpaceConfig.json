@@ -5971,7 +5971,7 @@
         "animationsState": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/TAnimationsConfig"
+            "$ref": "#/definitions/TAnimationStateConfig"
           }
         },
         "material": {
@@ -6017,10 +6017,13 @@
       "type": "string",
       "enum": ["cube", "plane", "sphere"]
     },
-    "TAnimationsConfig": {
+    "TAnimationStateConfig": {
+      "$ref": "#/definitions/TAnimationStateParams"
+    },
+    "TAnimationStateParams": {
       "type": "object",
       "properties": {
-        "clipName": {
+        "name": {
           "type": "string"
         },
         "time": {
@@ -6048,7 +6051,7 @@
           "type": "boolean"
         }
       },
-      "required": ["clipName", "time", "weight", "loop", "repetitions", "clampWhenFinished", "timeScale", "enabled", "paused"],
+      "required": ["name"],
       "additionalProperties": false
     },
     "AnimationActionLoopStyles": {
