@@ -1,6 +1,6 @@
 import GUI from 'lil-gui';
 import { BehaviorSubject, Subject } from 'rxjs';
-import type { MeshStandardMaterial } from 'three';
+import type { MeshPhysicalMaterial, MeshStandardMaterial } from 'three';
 
 import type { IShowcase } from '@/App/Levels/Models';
 import type { IActorWrapperAsync, IAppCanvas, ILevel, ILevelConfig, IOrbitControlsWrapper, IVector3Wrapper } from '@/Engine';
@@ -72,9 +72,12 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
     const isAoMap: boolean = isDefined((actor.entity.material as MeshStandardMaterial).aoMap);
     const isDisplacementMap: boolean = isDefined((actor.entity.material as MeshStandardMaterial).displacementMap);
     const isNormalMap: boolean = isDefined((actor.entity.material as MeshStandardMaterial).normalMap);
-    const hasTunableProps: boolean = isMetalness || isRoughness || isAoMap || isDisplacementMap;
+    const isClearCoat: boolean = isDefined((actor.entity.material as MeshPhysicalMaterial).clearcoat);
+    const isSheen: boolean = isDefined((actor.entity.material as MeshPhysicalMaterial).sheen);
+    const isIridescence: boolean = isDefined((actor.entity.material as MeshPhysicalMaterial).iridescence);
+    const isTransmission: boolean = isDefined((actor.entity.material as MeshPhysicalMaterial).transmission);
 
-    if (hasTunableProps) gui.addFolder(actor.getTags()[0]);
+    gui.addFolder(actor.getTags()[0]);
     if (isMetalness) gui.add(actor.entity.material, 'metalness').min(0).max(1).step(0.0001);
     if (isRoughness) gui.add(actor.entity.material, 'roughness').min(0).max(1).step(0.0001);
     if (isAoMap) gui.add(actor.entity.material, 'aoMapIntensity').min(0).max(1).step(0.0001);
@@ -89,6 +92,37 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
         .onChange((value: number): void => {
           (actor.entity.material as MeshStandardMaterial).normalScale.set(value, value);
         });
+    }
+    if (isClearCoat) {
+      gui.add(actor.entity.material, 'clearcoat').min(0).max(1).step(0.0001);
+      gui.add(actor.entity.material, 'clearcoatRoughness').min(0).max(1).step(0.0001);
+    }
+
+    if (isSheen) {
+      gui.add(actor.entity.material, 'sheen').min(0).max(1).step(0.0001);
+      gui.add(actor.entity.material, 'sheenRoughness').min(0).max(1).step(0.0001);
+      gui.addColor(actor.entity.material, 'sheenColor');
+    }
+
+    if (isIridescence) {
+      gui.add(actor.entity.material, 'iridescence').min(0).max(1).step(0.0001);
+      gui.add(actor.entity.material, 'iridescenceIOR').min(0).max(2.333).step(0.0001);
+      gui
+        .add((actor.entity.material as MeshPhysicalMaterial).iridescenceThicknessRange, '0')
+        .min(0)
+        .max(1000)
+        .step(1);
+      gui
+        .add((actor.entity.material as MeshPhysicalMaterial).iridescenceThicknessRange, '1')
+        .min(0)
+        .max(1000)
+        .step(1);
+    }
+
+    if (isTransmission) {
+      gui.add(actor.entity.material, 'transmission').min(0).max(1).step(0.0001);
+      gui.add(actor.entity.material, 'ior').min(1).max(10).step(0.0001); //diamond ior 2.417, water 1.333, glass 1.5, air 1.0003
+      gui.add(actor.entity.material, 'thickness').min(0).max(1).step(0.0001);
     }
   });
 
