@@ -1,4 +1,5 @@
-import { Box3, GridHelper, MathUtils, Plane, Raycaster, Vector2, Vector3 } from 'three';
+import type { Intersection, Plane, Raycaster } from 'three';
+import { Box3, GridHelper, MathUtils, Vector2, Vector3 } from 'three';
 import { Line2 } from 'three/examples/jsm/lines/Line2';
 import { LineGeometry } from 'three/examples/jsm/lines/LineGeometry';
 import { LineMaterial } from 'three/examples/jsm/lines/LineMaterial';
@@ -13,6 +14,8 @@ import type {
   TCameraWrapper,
   TEngine,
   TGameKey,
+  TIntersectionEvent,
+  TIntersectionsWatcher,
   TKeySubscription,
   TSpace,
   TSpaceConfig,
@@ -25,6 +28,7 @@ import {
   buildSpaceFromConfig,
   CollisionShape,
   Engine,
+  get3DAzimuth,
   isDefined,
   isNotDefined,
   KeyCode,
@@ -63,8 +67,8 @@ export function showcase(canvas: TAppCanvas): TShowcase {
     const gridSize: Vector3 = new Box3().setFromObject(surface?.entity).getSize(new Vector3());
     initGridHelper(actorService, gridSize.x, gridSize.z);
 
-    await buildTower(actorService, { x: 0, z: 0 }, 10, 10, 20);
-    // await buildTower(actorService, { x: 20, z: 0 }, 5, 5, 15);
+    const blocks = await buildTower(actorService, { x: 0, z: 0 }, 10, 10, 20);
+    // const blocks2 = await buildTower(actorService, { x: 20, z: 0 }, 5, 5, 15);
     // await buildTower(actorService, { x: 0, z: 30 }, 6, 7, 18);
     // await buildTower(actorService, { x: 17, z: 30 }, 7, 7, 35);
     // await buildTower(actorService, { x: -15, z: -15 }, 10, 7, 15);
@@ -74,37 +78,44 @@ export function showcase(canvas: TAppCanvas): TShowcase {
     const bullets: ReadonlyArray<TBullet> = await Promise.all(getBulletsPool(maxBulletsSameTime, actorService));
     actorService.getScene().entity.add(...bullets.map((b: TBullet) => b.entity));
 
-    const raycaster: Raycaster = new Raycaster();
-    const plane: Plane = new Plane(new Vector3(0, 1, 0), 0); // XZ plane
-    const planeNormal: Vector3 = new Vector3(0, 1, 0); // Normal vector of the XZ plane
-
-    let heroMousePointer: THeroADC = {
-      angle: 0,
-      distance: 0,
-      coords: undefined
-    };
-
-    mouseService.position$.subscribe(({ normalizedCoords }): void => {
-      heroMousePointer = getADCFromActor(heroW, normalizedCoords, raycaster, cameraW, plane, planeNormal);
+    const mouseLineIntersectionsWatcher: TIntersectionsWatcher = intersectionsWatcherService.create({
+      name: 'mouse_line_intersections_watcher',
+      isAutoStart: true,
+      camera: cameraW,
+      actors: [...blocks, surface],
+      position$: mouseService.position$,
+      tags: []
     });
+
+    let mouseLineIntersections: TIntersectionEvent = { point: new Vector3(), distance: 0 } as Intersection;
+    mouseLineIntersectionsWatcher.value$.subscribe((intersection: TIntersectionEvent): void => void (mouseLineIntersections = intersection));
 
     const line: Line2 = createLine();
     actorService.getScene().entity.add(line);
+
+    let fromHeroAngles: Readonly<{ azimuth: number; elevation: number }> = {
+      azimuth: 0,
+      elevation: 0
+    };
 
     loopService.tick$.subscribe((delta) => {
       cameraFollowingActor(cameraW, heroW);
       updateBullets(bullets, delta.delta);
 
-      if (isDefined(heroMousePointer.coords)) {
+      // TODO (S.Panfilov) this should be updated only if coords or angle are changed
+      if (isDefined(mouseLineIntersections.point)) {
         const heroCoords: TWithCoordsXYZ = heroW.getPosition().getCoords();
-        line.geometry.setPositions([heroCoords.x, heroCoords.y, heroCoords.z, heroMousePointer.coords.x, heroMousePointer.coords.y, heroMousePointer.coords.z]);
+        console.log(mouseLineIntersections);
+        fromHeroAngles = get3DAzimuth(heroCoords, mouseLineIntersections.point);
+        // TODO (S.Panfilov) could make some use of mouseLineIntersectionsWatcher.latest$ instead of mouseLineIntersections
+        line.geometry.setPositions([heroCoords.x, heroCoords.y, heroCoords.z, mouseLineIntersections.point.x, mouseLineIntersections.point.y, mouseLineIntersections.point.z]);
         line.computeLineDistances();
       }
     });
 
     mouseService.clickLeftRelease$.subscribe((): void => {
       if (isNotDefined(heroW)) throw new Error(`Cannot find "hero" actor`);
-      shoot(heroW.getPosition().getCoords(), heroMousePointer.coords, heroMousePointer.angle, heroMousePointer.distance, bullets);
+      shoot(heroW.getPosition().getCoords(), mouseLineIntersections.point, fromHeroAngles.azimuth, mouseLineIntersections.distance, bullets);
     });
 
     physicsLoopService.shouldAutoUpdate(true);
