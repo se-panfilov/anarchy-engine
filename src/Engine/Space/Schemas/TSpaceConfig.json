@@ -2087,9 +2087,6 @@
     "TMaterialConfigOptions": {
       "anyOf": [
         {
-          "$ref": "#/definitions/TAbstractMaterialConfigOptions"
-        },
-        {
           "$ref": "#/definitions/TBasicMaterialConfigOptions"
         },
         {
@@ -2123,277 +2120,6 @@
           "$ref": "#/definitions/TPointsMaterialConfigOptions"
         }
       ]
-    },
-    "TAbstractMaterialConfigOptions": {
-      "type": "object",
-      "additionalProperties": false,
-      "properties": {
-        "blending": {
-          "$ref": "#/definitions/BlendingName"
-        },
-        "blendDst": {
-          "$ref": "#/definitions/BlendingDstFactorName"
-        },
-        "blendEquation": {
-          "$ref": "#/definitions/BlendEquationName"
-        },
-        "blendSrc": {
-          "anyOf": [
-            {
-              "$ref": "#/definitions/BlendingSrcFactorName"
-            },
-            {
-              "$ref": "#/definitions/BlendingDstFactorName"
-            }
-          ]
-        },
-        "side": {
-          "$ref": "#/definitions/SideName"
-        },
-        "format": {
-          "$ref": "#/definitions/PixelFormatName"
-        },
-        "stencilFunc": {
-          "$ref": "#/definitions/StencilFuncName"
-        },
-        "stencilFail": {
-          "$ref": "#/definitions/StencilFailName"
-        },
-        "stencilZFail": {
-          "$ref": "#/definitions/StencilOpName"
-        },
-        "stencilZPass": {
-          "$ref": "#/definitions/StencilOpName"
-        },
-        "combine": {
-          "$ref": "#/definitions/CombineName"
-        },
-        "depthPacking": {
-          "$ref": "#/definitions/DepthPackingStrategiesName"
-        },
-        "normalMapType": {
-          "$ref": "#/definitions/NormalMapTypesName"
-        },
-        "map": {
-          "type": ["string", "null"]
-        },
-        "alphaMap": {
-          "type": ["string", "null"]
-        },
-        "alphaHash": {
-          "type": "boolean"
-        },
-        "alphaTest": {
-          "type": "number"
-        },
-        "alphaToCoverage": {
-          "type": "boolean"
-        },
-        "blendAlpha": {
-          "type": "number"
-        },
-        "blendColor": {
-          "$ref": "#/definitions/ColorRepresentation"
-        },
-        "blendDstAlpha": {
-          "type": "number"
-        },
-        "blendEquationAlpha": {
-          "type": "number"
-        },
-        "blendSrcAlpha": {
-          "type": "number"
-        },
-        "clipIntersection": {
-          "type": "boolean"
-        },
-        "clipShadows": {
-          "type": "boolean"
-        },
-        "colorWrite": {
-          "type": "boolean"
-        },
-        "defines": {},
-        "depthFunc": {
-          "$ref": "#/definitions/DepthModes"
-        },
-        "depthTest": {
-          "type": "boolean"
-        },
-        "depthWrite": {
-          "type": "boolean"
-        },
-        "name": {
-          "type": "string"
-        },
-        "opacity": {
-          "type": "number"
-        },
-        "polygonOffset": {
-          "type": "boolean"
-        },
-        "polygonOffsetFactor": {
-          "type": "number"
-        },
-        "polygonOffsetUnits": {
-          "type": "number"
-        },
-        "precision": {
-          "type": "string",
-          "enum": ["highp", "mediump", "lowp"]
-        },
-        "premultipliedAlpha": {
-          "type": "boolean"
-        },
-        "forceSinglePass": {
-          "type": "boolean"
-        },
-        "dithering": {
-          "type": "boolean"
-        },
-        "shadowSide": {
-          "$ref": "#/definitions/Side"
-        },
-        "toneMapped": {
-          "type": "boolean"
-        },
-        "transparent": {
-          "type": "boolean"
-        },
-        "vertexColors": {
-          "type": "boolean"
-        },
-        "visible": {
-          "type": "boolean"
-        },
-        "stencilWrite": {
-          "type": "boolean"
-        },
-        "stencilRef": {
-          "type": "number"
-        },
-        "stencilWriteMask": {
-          "type": "number"
-        },
-        "stencilFuncMask": {
-          "type": "number"
-        },
-        "userData": {
-          "type": "object"
-        }
-      }
-    },
-    "BlendingName": {
-      "type": "string",
-      "enum": ["AdditiveBlending", "CustomBlending", "MultiplyBlending", "NoBlending", "NormalBlending", "SubtractiveBlending"]
-    },
-    "BlendingDstFactorName": {
-      "type": "string",
-      "enum": [
-        "ConstantAlphaFactor",
-        "ConstantColorFactor",
-        "DstAlphaFactor",
-        "DstColorFactor",
-        "OneFactor",
-        "OneMinusConstantAlphaFactor",
-        "OneMinusConstantColorFactor",
-        "OneMinusDstAlphaFactor",
-        "OneMinusDstColorFactor",
-        "OneMinusSrcAlphaFactor",
-        "OneMinusSrcColorFactor",
-        "SrcAlphaFactor",
-        "SrcColorFactor",
-        "ZeroFactor"
-      ]
-    },
-    "BlendEquationName": {
-      "type": "string",
-      "enum": ["AddEquation", "MaxEquation", "MinEquation", "ReverseSubtractEquation", "SubtractEquation"]
-    },
-    "BlendingSrcFactorName": {
-      "type": "string",
-      "const": "SrcAlphaSaturateFactor"
-    },
-    "SideName": {
-      "type": "string",
-      "enum": ["BackSide", "DoubleSide", "FrontSide"]
-    },
-    "PixelFormatName": {
-      "type": "string",
-      "enum": ["AlphaFormat", "DepthFormat", "DepthStencilFormat", "RGBAFormat", "RGBAIntegerFormat", "RGBFormat", "RGBIntegerFormat", "RGFormat", "RGIntegerFormat", "RedFormat", "RedIntegerFormat"]
-    },
-    "StencilFuncName": {
-      "type": "string",
-      "enum": ["AlwaysStencilFunc", "EqualStencilFunc", "GreaterEqualStencilFunc", "GreaterStencilFunc", "LessEqualStencilFunc", "LessStencilFunc", "NeverStencilFunc", "NotEqualStencilFunc"]
-    },
-    "StencilFailName": {
-      "type": "string",
-      "enum": ["DecrementStencilOp", "DecrementWrapStencilOp", "IncrementStencilOp", "IncrementWrapStencilOp", "InvertStencilOp", "KeepStencilOp", "ReplaceStencilOp", "ZeroStencilOp"]
-    },
-    "StencilOpName": {
-      "type": "string",
-      "enum": ["DecrementStencilOp", "DecrementWrapStencilOp", "IncrementStencilOp", "IncrementWrapStencilOp", "InvertStencilOp", "KeepStencilOp", "ReplaceStencilOp", "ZeroStencilOp"]
-    },
-    "CombineName": {
-      "type": "string",
-      "enum": ["AddOperation", "MixOperation", "MultiplyOperation"]
-    },
-    "DepthPackingStrategiesName": {
-      "type": "string",
-      "enum": ["BasicDepthPacking", "RGBADepthPacking"]
-    },
-    "NormalMapTypesName": {
-      "type": "string",
-      "enum": ["ObjectSpaceNormalMap", "TangentSpaceNormalMap"]
-    },
-    "ColorRepresentation": {
-      "anyOf": [
-        {
-          "$ref": "#/definitions/Color"
-        },
-        {
-          "type": "string"
-        },
-        {
-          "type": "number"
-        }
-      ]
-    },
-    "Color": {
-      "type": "object",
-      "properties": {
-        "isColor": {
-          "type": "boolean",
-          "const": true
-        },
-        "r": {
-          "type": "number",
-          "description": "Red channel value between `0.0` and `1.0`. Default is `1`.",
-          "default": 1
-        },
-        "g": {
-          "type": "number",
-          "description": "Green channel value between `0.0` and `1.0`. Default is `1`.",
-          "default": 1
-        },
-        "b": {
-          "type": "number",
-          "description": "Blue channel value between `0.0` and `1.0`. Default is `1`.",
-          "default": 1
-        }
-      },
-      "required": ["isColor", "r", "g", "b"],
-      "additionalProperties": false,
-      "description": "Class representing a color.\n\nA Color instance is represented by RGB components in the linear <i>working color space</i>, which defaults to `LinearSRGBColorSpace`. Inputs conventionally using `SRGBColorSpace` (such as hexadecimals and CSS strings) are converted to the working color space automatically.\n\n``` // converted automatically from SRGBColorSpace to LinearSRGBColorSpace const color = new THREE.Color().setHex( 0x112233 ); ```\n\nSource color spaces may be specified explicitly, to ensure correct conversions.\n\n``` // assumed already LinearSRGBColorSpace; no conversion const color = new THREE.Color().setRGB( 0.5, 0.5, 0.5 );\n\n// converted explicitly from SRGBColorSpace to LinearSRGBColorSpace const color = new THREE.Color().setRGB( 0.5, 0.5, 0.5, SRGBColorSpace ); ```\n\nIf THREE.ColorManagement is disabled, no conversions occur. For details, see <i>Color management</i>.\n\nIterating through a Color instance will yield its components (r, g, b) in the corresponding order."
-    },
-    "DepthModes": {
-      "type": "number",
-      "enum": [0, 1, 2, 3, 4, 5, 6, 7]
-    },
-    "Side": {
-      "type": "number",
-      "enum": [0, 1, 2],
-      "description": "Defines which side of faces will be rendered - front, back or both. Default is  {@link  FrontSide } ."
     },
     "TBasicMaterialConfigOptions": {
       "type": "object",
@@ -2583,6 +2309,118 @@
           "type": "string"
         }
       }
+    },
+    "BlendingName": {
+      "type": "string",
+      "enum": ["AdditiveBlending", "CustomBlending", "MultiplyBlending", "NoBlending", "NormalBlending", "SubtractiveBlending"]
+    },
+    "BlendingDstFactorName": {
+      "type": "string",
+      "enum": [
+        "ConstantAlphaFactor",
+        "ConstantColorFactor",
+        "DstAlphaFactor",
+        "DstColorFactor",
+        "OneFactor",
+        "OneMinusConstantAlphaFactor",
+        "OneMinusConstantColorFactor",
+        "OneMinusDstAlphaFactor",
+        "OneMinusDstColorFactor",
+        "OneMinusSrcAlphaFactor",
+        "OneMinusSrcColorFactor",
+        "SrcAlphaFactor",
+        "SrcColorFactor",
+        "ZeroFactor"
+      ]
+    },
+    "BlendEquationName": {
+      "type": "string",
+      "enum": ["AddEquation", "MaxEquation", "MinEquation", "ReverseSubtractEquation", "SubtractEquation"]
+    },
+    "BlendingSrcFactorName": {
+      "type": "string",
+      "const": "SrcAlphaSaturateFactor"
+    },
+    "SideName": {
+      "type": "string",
+      "enum": ["BackSide", "DoubleSide", "FrontSide"]
+    },
+    "PixelFormatName": {
+      "type": "string",
+      "enum": ["AlphaFormat", "DepthFormat", "DepthStencilFormat", "RGBAFormat", "RGBAIntegerFormat", "RGBFormat", "RGBIntegerFormat", "RGFormat", "RGIntegerFormat", "RedFormat", "RedIntegerFormat"]
+    },
+    "StencilFuncName": {
+      "type": "string",
+      "enum": ["AlwaysStencilFunc", "EqualStencilFunc", "GreaterEqualStencilFunc", "GreaterStencilFunc", "LessEqualStencilFunc", "LessStencilFunc", "NeverStencilFunc", "NotEqualStencilFunc"]
+    },
+    "StencilFailName": {
+      "type": "string",
+      "enum": ["DecrementStencilOp", "DecrementWrapStencilOp", "IncrementStencilOp", "IncrementWrapStencilOp", "InvertStencilOp", "KeepStencilOp", "ReplaceStencilOp", "ZeroStencilOp"]
+    },
+    "StencilOpName": {
+      "type": "string",
+      "enum": ["DecrementStencilOp", "DecrementWrapStencilOp", "IncrementStencilOp", "IncrementWrapStencilOp", "InvertStencilOp", "KeepStencilOp", "ReplaceStencilOp", "ZeroStencilOp"]
+    },
+    "CombineName": {
+      "type": "string",
+      "enum": ["AddOperation", "MixOperation", "MultiplyOperation"]
+    },
+    "DepthPackingStrategiesName": {
+      "type": "string",
+      "enum": ["BasicDepthPacking", "RGBADepthPacking"]
+    },
+    "NormalMapTypesName": {
+      "type": "string",
+      "enum": ["ObjectSpaceNormalMap", "TangentSpaceNormalMap"]
+    },
+    "ColorRepresentation": {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/Color"
+        },
+        {
+          "type": "string"
+        },
+        {
+          "type": "number"
+        }
+      ]
+    },
+    "Color": {
+      "type": "object",
+      "properties": {
+        "isColor": {
+          "type": "boolean",
+          "const": true
+        },
+        "r": {
+          "type": "number",
+          "description": "Red channel value between `0.0` and `1.0`. Default is `1`.",
+          "default": 1
+        },
+        "g": {
+          "type": "number",
+          "description": "Green channel value between `0.0` and `1.0`. Default is `1`.",
+          "default": 1
+        },
+        "b": {
+          "type": "number",
+          "description": "Blue channel value between `0.0` and `1.0`. Default is `1`.",
+          "default": 1
+        }
+      },
+      "required": ["isColor", "r", "g", "b"],
+      "additionalProperties": false,
+      "description": "Class representing a color.\n\nA Color instance is represented by RGB components in the linear <i>working color space</i>, which defaults to `LinearSRGBColorSpace`. Inputs conventionally using `SRGBColorSpace` (such as hexadecimals and CSS strings) are converted to the working color space automatically.\n\n``` // converted automatically from SRGBColorSpace to LinearSRGBColorSpace const color = new THREE.Color().setHex( 0x112233 ); ```\n\nSource color spaces may be specified explicitly, to ensure correct conversions.\n\n``` // assumed already LinearSRGBColorSpace; no conversion const color = new THREE.Color().setRGB( 0.5, 0.5, 0.5 );\n\n// converted explicitly from SRGBColorSpace to LinearSRGBColorSpace const color = new THREE.Color().setRGB( 0.5, 0.5, 0.5, SRGBColorSpace ); ```\n\nIf THREE.ColorManagement is disabled, no conversions occur. For details, see <i>Color management</i>.\n\nIterating through a Color instance will yield its components (r, g, b) in the corresponding order."
+    },
+    "DepthModes": {
+      "type": "number",
+      "enum": [0, 1, 2, 3, 4, 5, 6, 7]
+    },
+    "Side": {
+      "type": "number",
+      "enum": [0, 1, 2],
+      "description": "Defines which side of faces will be rendered - front, back or both. Default is  {@link  FrontSide } ."
     },
     "TDepthMaterialConfigOptions": {
       "type": "object",

@@ -19,8 +19,6 @@ import { extractSerializableRegistrableFields } from '@/Engine/Mixins';
 import type { TTexture, TTextureAsyncRegistry } from '@/Engine/Texture';
 import { eulerToXyz, filterOutEmptyFields, isNotDefined, nullsToUndefined } from '@/Engine/Utils';
 
-// TODO 15-0-0: materials options are does not match
-
 // TODO 15-0-0: validate
 export function materialToConfig(entity: TMaterialWrapper, { textureResourceRegistry }: TMaterialEntityToConfigDependencies): TMaterialConfig {
   const json: MaterialJSON = entity.entity.toJSON();

@@ -17,7 +17,6 @@ import type {
 import type { TOptional } from '@/Engine/Utils';
 
 import type {
-  TAbstractMaterialParamsOptions,
   TBasicMaterialParamsOptions,
   TDepthMaterialParamsOptions,
   TDistanceMaterialParamsOptions,
@@ -50,7 +49,6 @@ type TOmitParamsOnlyFields<T> = Omit<
   | 'normalMapType'
 >;
 
-export type TAbstractMaterialConfigOptions = TOmitParamsOnlyFields<TAbstractMaterialParamsOptions> & TMaterialConfigFields;
 export type TBasicMaterialConfigOptions = TOmitParamsOnlyFields<TBasicMaterialParamsOptions> & TMaterialConfigFields;
 export type TDepthMaterialConfigOptions = TOmitParamsOnlyFields<TDepthMaterialParamsOptions> & TMaterialConfigFields;
 export type TDistanceMaterialConfigOptions = TOmitParamsOnlyFields<TWithReferencePositionConfig<TDistanceMaterialParamsOptions>> & TMaterialConfigFields;
@@ -64,8 +62,7 @@ export type TPhysicalMaterialConfigOptions = TOmitParamsOnlyFields<TWithNormalSc
 export type TPointsMaterialConfigOptions = TOmitParamsOnlyFields<TPointsMaterialParamsOptions> & TMaterialConfigFields;
 
 export type TAllMaterialConfigOptions = TOptional<
-  TAbstractMaterialConfigOptions &
-    TBasicMaterialConfigOptions &
+  TBasicMaterialConfigOptions &
     TDepthMaterialConfigOptions &
     TDistanceMaterialConfigOptions &
     TNormalMaterialConfigOptions &
@@ -79,7 +76,6 @@ export type TAllMaterialConfigOptions = TOptional<
 >;
 
 export type TMaterialConfigOptions =
-  | TAbstractMaterialConfigOptions
   | TBasicMaterialConfigOptions
   | TDepthMaterialConfigOptions
   | TDistanceMaterialConfigOptions
