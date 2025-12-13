@@ -27,7 +27,11 @@ export function getHorizontalAzimuthDeg(center: TWithCoordsXZ, point: TWithCoord
 }
 
 // TODO (S.Panfilov) add unit tests
-export const getAzimuthRadFromDirection = (direction: Vector3): TRadians => Math.atan2(direction.z, direction.x);
+export const getAzimuthRadFromDirection = (direction: Vector3): TRadians => {
+  let azimuth: TRadians = Math.atan2(direction.z, direction.x);
+  if (azimuth < 0) azimuth += 2 * Math.PI;
+  return azimuth;
+};
 // TODO (S.Panfilov) add unit tests
 export const getAzimuthDegFromDirection = (direction: Vector3): TDegrees => radiansToDegrees(getAzimuthRadFromDirection(direction)).toNumber();
 // TODO (S.Panfilov) add unit tests
@@ -39,12 +43,11 @@ export const getDirectionFromLinearVelocity = (linearVelocity: Vector3): Vector3
 // TODO (S.Panfilov) add unit tests
 export const getSpeedFromLinearVelocity = (linearVelocity: Vector3): number => linearVelocity.length();
 // TODO (S.Panfilov) add unit tests
-export const getLinearVelocityByDeg = (speed: number, azimuth: TDegrees, elevation: TDegrees): Vector3 =>
-  new Vector3(
-    speed * Math.cos(degToRad(elevation).toNumber()) * Math.cos(degToRad(azimuth).toNumber()),
-    speed * Math.sin(degToRad(elevation).toNumber()),
-    speed * Math.cos(degToRad(elevation).toNumber()) * Math.sin(degToRad(azimuth).toNumber())
-  );
+export const getLinearVelocityByDeg = (speed: number, azimuth: TDegrees, elevation: TDegrees): Vector3 => {
+  const azimuthRad: TRadians = degToRad(azimuth).toNumber();
+  const elevationRad: TRadians = degToRad(elevation).toNumber();
+  return new Vector3(speed * Math.cos(elevationRad) * Math.cos(azimuthRad), speed * Math.sin(elevationRad), speed * Math.cos(elevationRad) * Math.sin(azimuthRad));
+};
 
 // TODO (S.Panfilov) add unit tests
 export const getLinearVelocityByRad = (speed: number, azimuth: TRadians, elevation: TRadians): Vector3 =>
@@ -52,6 +55,7 @@ export const getLinearVelocityByRad = (speed: number, azimuth: TRadians, elevati
 
 // TODO (S.Panfilov) add unit tests
 export const getSpeedFromAngularVelocity = (angularVelocity: Vector3): number => angularVelocity.length();
+
 // TODO (S.Panfilov) add unit tests
 export const getDirectionFromAngularVelocity = (angularVelocity: Vector3): Vector3 => angularVelocity.clone().normalize();
 

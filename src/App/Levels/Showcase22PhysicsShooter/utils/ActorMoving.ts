@@ -32,14 +32,14 @@ export function startMoveActorWithKeyboard(actorW: TActorWrapperAsync, keyboardS
 
       actorW.kinematic.setLinearAzimuthRad(azimuth);
       // console.log(getAzimuthDegFromDirection(actorW.kinematic.getLinearDirection()));
-      console.log(actorW.kinematic.getLinearSpeed());
-      // actorW.kinematic.setLinearElevation(elevation);
+      // console.log(actorW.kinematic.getLinearSpeed(), getAzimuthDegFromDirection(actorW.kinematic.getLinearDirection()));
+      actorW.kinematic.setLinearElevationRad(elevation);
 
       // player.isMoving = player.linearVelocity.lengthSq() > 0;
     });
 
   keyboardService.onKey(KeyCode.W).pressing$.subscribe((): void => actorW.kinematic.setLinearSpeed(speed));
-  // keyboardService.onKey(KeyCode.S).pressing$.subscribe((): void => actorW.setKinematicSpeed(speed));
+  keyboardService.onKey(KeyCode.S).pressing$.subscribe((): void => actorW.kinematic.setLinearSpeed(0));
 }
 
 function getMouseAzimuthAndElevation(mousePosition: Vector3, playerPosition: Vector3): Readonly<{ azimuth: TRadians; elevation: TRadians }> {

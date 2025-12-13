@@ -70,8 +70,8 @@ export function withKinematic(params: TActorParams): TWithKinematic {
         this.setLinearAzimuthRad(azimuthRadians);
       },
       setLinearAzimuthRad(azimuthRad: TRadians): void {
-        const lengthXZ: number = Math.sqrt(this.data.linearDirection.x ** 2 + this.data.linearDirection.z ** 2);
-        this.data.linearDirection.set(Math.cos(azimuthRad) * lengthXZ, this.data.linearDirection.y, Math.sin(azimuthRad) * lengthXZ);
+        const lengthXZ: number = Math.sqrt(this.data.linearDirection.x ** 2 + this.data.linearDirection.z ** 2) || 1;
+        this.data.linearDirection.set(Math.cos(azimuthRad) * lengthXZ, this.data.linearDirection.y, Math.sin(azimuthRad) * lengthXZ).normalize();
       },
       getLinearElevationDeg(): TDegrees {
         return getElevationDegFromDirection(this.data.linearDirection);
