@@ -1,5 +1,6 @@
 export enum WrapperType {
   AmbientLight = 'ambient_light_wrapper',
+  AnimationsFsm = 'animations_fsm_wrapper',
   Camera = 'camera_wrapper',
   Color = 'color_wrapper',
   Controls = 'controls_wrapper',

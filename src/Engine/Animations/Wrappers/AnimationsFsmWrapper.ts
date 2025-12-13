@@ -1,39 +1,33 @@
+import { createMachine, interpret } from 'robot3';
 import type { Subscription } from 'rxjs';
-import type { ActorLogic as ActorFsmLogic } from 'xstate';
-import { createActor, createMachine } from 'xstate';
+import { Subject } from 'rxjs';
 
 import type { TWrapper } from '@/Engine/Abstract';
 import { AbstractWrapper, WrapperType } from '@/Engine/Abstract';
-import type { TAnimationsFsmActor, TAnimationsFsmParams, TAnimationsFsmWrapper } from '@/Engine/Animations/Models';
+import type { TAnimationsFsmInstance, TAnimationsFsmMachine, TAnimationsFsmParams, TAnimationsFsmState, TAnimationsFsmWrapper } from '@/Engine/Animations/Models';
 import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
-import { omitInArray } from '@/Engine/Utils';
 
 export function AnimationsFsmWrapper(params: TAnimationsFsmParams): TAnimationsFsmWrapper {
-  // TODO 9.3.0 STATE: fix any
-  const entity: ActorFsmLogic<any, any> = createMachine(params);
-  let instances: ReadonlyArray<string> = [];
+  const changed$: Subject<TAnimationsFsmState> = new Subject<TAnimationsFsmState>();
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { name, ...machineParams } = params;
+  const machine: TAnimationsFsmMachine = createMachine(machineParams);
+  const entity: TAnimationsFsmInstance = interpret(machine, (v: TAnimationsFsmState): void => changed$.next(v));
 
-  const registerInstance = (id: string): void => void (instances = [...instances, id]);
-  const unRegisterInstance = (id: string): void => void (instances = omitInArray(instances, id));
-  const getInstances = (): ReadonlyArray<string> => [...instances];
+  const wrapper: TWrapper<TAnimationsFsmInstance> = AbstractWrapper(entity, WrapperType.AnimationsFsm, params);
 
-  function createActorFsm(): TAnimationsFsmActor {
-    const result = createActor(entity).start();
-    registerInstance(result.id);
-    return result;
+  function getCurrentState(): TAnimationsFsmState {
+    return entity.machine.current;
   }
-
-  // TODO 9.3.0 STATE: fix any
-  const wrapper: TWrapper<ActorFsmLogic<any, any>> = AbstractWrapper(entity, WrapperType.Fog, params);
 
   const destroyable: TDestroyable = destroyableMixin();
   const destroySub$: Subscription = destroyable.destroy$.subscribe((): void => {
     destroySub$.unsubscribe();
 
-    // TODO DESTROY: implement destroy
-    throw new Error('Fog destroy not implemented');
+    changed$.complete();
+    changed$.unsubscribe();
   });
 
-  return { ...wrapper, entity, createActorFsm, registerInstance, unRegisterInstance, getInstances, ...destroyable };
+  return { ...wrapper, entity, changed$, send: entity.send, getCurrentState, ...destroyable };
 }

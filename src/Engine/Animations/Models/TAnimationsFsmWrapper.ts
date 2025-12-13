@@ -1,16 +1,15 @@
-import type { ActorLogic as ActorFsmLogic } from 'xstate';
+import type { SendFunction } from 'robot3';
+import type { Subject } from 'rxjs';
 
 import type { TWrapper } from '@/Engine/Abstract';
 import type { TDestroyable } from '@/Engine/Mixins';
 
-import type { TAnimationsFsmActor } from './TAnimationsFsmActor';
+import type { TAnimationsFsmInstance, TAnimationsFsmState } from './TAnimationsFsmInstance';
 
-// TODO 9.3.0 STATE: fix any
-export type TAnimationsFsmWrapper = TWrapper<ActorFsmLogic<any, any>> &
+export type TAnimationsFsmWrapper = TWrapper<TAnimationsFsmInstance> &
   Readonly<{
-    createActorFsm: () => TAnimationsFsmActor;
-    registerInstance: (id: string) => void;
-    unRegisterInstance: (id: string) => void;
-    getInstances: () => ReadonlyArray<string>;
+    changed$: Subject<TAnimationsFsmState>;
+    send: SendFunction<any>;
+    getCurrentState: () => TAnimationsFsmState;
   }> &
   TDestroyable;

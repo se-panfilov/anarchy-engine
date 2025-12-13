@@ -1,17 +1,17 @@
 import type { TActorParams, TActorStates, TWithActorStates } from '@/Engine/Actor/Models';
-import type { TAnimationsFsmActor } from '@/Engine/Animations';
+import type { TAnimationsFsmWrapper } from '@/Engine/Animations';
 import type { TWriteable } from '@/Engine/Utils';
 
 export function withActorStates(params: TActorParams): TWithActorStates {
   const states: TWriteable<TActorStates> = {};
 
-  function setAnimationsFsm(animationsFsmActor: TAnimationsFsmActor): void {
+  function setAnimationsFsm(animationsFsmW: TAnimationsFsmWrapper): void {
     // eslint-disable-next-line functional/immutable-data
-    states.animationsFsmActor = animationsFsmActor.getSnapshot().status !== 'active' ? animationsFsmActor.start() : animationsFsmActor;
+    states.animationsFsm = animationsFsmW;
   }
 
-  if (params.states?.animationsFsmActor) {
-    setAnimationsFsm(params.states.animationsFsmActor);
+  if (params.states?.animationsFsm) {
+    setAnimationsFsm(params.states.animationsFsm);
   }
 
   return {
