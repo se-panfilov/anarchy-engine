@@ -29,6 +29,7 @@ export function Model3dFacade(params: TModel3dParams, { animationsService }: TMo
   if (isDefined(params.castShadow)) applyCastShadowToModel3d(entities.model3dSource, params.castShadow);
   if (isDefined(params.receiveShadow)) applyReceiveShadowToModel3d(entities.model3dSource, params.receiveShadow);
 
+  // TODO 9.0.0. RESOURCES: add facade id to model3d's userData
   return {
     ...facade,
     getParams,

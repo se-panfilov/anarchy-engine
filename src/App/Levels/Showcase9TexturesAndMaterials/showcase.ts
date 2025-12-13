@@ -1,8 +1,8 @@
-import { combineLatest } from 'rxjs';
+import { combineLatest, distinctUntilChanged } from 'rxjs';
 
 import type { TShowcase } from '@/App/Levels/Models';
-import type { TActorRegistry, TActorWrapper, TAppCanvas, TCameraWrapper, TEngine, TMouseService, TSpace, TSpaceConfig } from '@/Engine';
-import { ambientContext, buildSpaceFromConfig, Engine, getRotationByCos, getRotationBySin, isDefined, isNotDefined, spaceService } from '@/Engine';
+import type { TAppCanvas, TCameraWrapper, TEngine, TModel3dFacade, TModel3dRegistry, TMouseService, TSceneWrapper, TSpace, TSpaceConfig, TVector3 } from '@/Engine';
+import { ambientContext, Engine, getRotationByCos, getRotationBySin, isDefined, isNotDefined, spaceService, Vector3Wrapper } from '@/Engine';
 
 import spaceConfig from './showcase.json';
 
@@ -10,21 +10,18 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
   const space: TSpace = await spaceService.buildSpaceFromConfig(canvas, spaceConfig as TSpaceConfig);
   const engine: TEngine = Engine(space);
 
-  // Load texture dynamically
-  // const pack: IBasicMaterialTexturePack = {
-  //   map: { url: '/Showcase/Door_Wood/Door_Wood_001_basecolor.jpg' },
-  //   material: MaterialType.Basic
-  // };
-
   function init(): void {
-    const { actorService, mouseService } = space.services;
-    const actorRegistry: TActorRegistry = actorService.getRegistry();
-    const actor: TActorWrapper | undefined = actorRegistry.findByTag('central_actor');
-    if (isNotDefined(actor)) throw new Error('Actor is not found');
+    const { models3dService, mouseService, scenesService } = space.services;
+    const model3dRegistry: TModel3dRegistry = models3dService.getRegistry();
+    const modelF: TModel3dFacade | undefined = model3dRegistry.findByName('wood_cube_model');
+    if (isNotDefined(modelF)) throw new Error('Model is not found');
 
-    //apply textures async, without blocking the main thread (game might be started before textures are loaded)
-    // void actor.loadAndApplyMaterialTexturePack(pack);
-    initCameraRotation(space, actor, mouseService);
+    const sceneW: TSceneWrapper | undefined = scenesService.findActive();
+    if (isNotDefined(sceneW)) throw new Error('Scene is not defined');
+
+    sceneW.addModel3d(modelF.getModel());
+
+    initCameraRotation(space, modelF, mouseService);
   }
 
   function start(): void {
@@ -36,24 +33,32 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
 }
 
 // This is mostly a copy of Showcase 3 (camera rotation)
-function initCameraRotation(space: TSpace, actor: TActorWrapper | undefined, mouseService: TMouseService): void {
+function initCameraRotation(space: TSpace, modelF: TModel3dFacade | undefined, mouseService: TMouseService): void {
   const { cameraService } = space.services;
 
   const camera: TCameraWrapper | undefined = cameraService.findActive();
 
   const { screenSizeWatcher } = ambientContext;
-  combineLatest([mouseService.position$, screenSizeWatcher.latest$]).subscribe(([{ coords }, { width, height }]): void => {
-    if (isNotDefined(camera)) return;
-    const xRatio: number = coords.x / width - 0.5;
-    const yRatio: number = -(coords.y / height - 0.5);
+  combineLatest([mouseService.position$, screenSizeWatcher.latest$])
+    .pipe(
+      distinctUntilChanged((previous, current) => {
+        return previous[0].coords.x === current[0].coords.x && previous[0].coords.y === current[0].coords.y && previous[1].width === current[1].width && previous[1].height === current[1].height;
+      })
+    )
+    .subscribe(([{ coords }, { width, height }]): void => {
+      if (isNotDefined(camera)) return;
+      const xRatio: number = coords.x / width - 0.5;
+      const yRatio: number = -(coords.y / height - 0.5);
 
-    const xRotation: number = getRotationBySin(xRatio, 1, 2);
-    const yRotation: number = getRotationByCos(xRatio, 1, 2);
-    // camera.setX(xRatio * 10);
-    camera.setX(xRotation);
-    camera.setY(yRatio * 10);
-    camera.setZ(yRotation);
+      const xRotation: number = getRotationBySin(xRatio, 1, 2);
+      const yRotation: number = getRotationByCos(xRatio, 1, 2);
+      // camera.setX(xRatio * 10);
+      camera.setX(xRotation);
+      camera.setY(yRatio * 10);
+      camera.setZ(yRotation);
 
-    if (isDefined(actor)) camera.lookAt(actor.getPosition());
-  });
+      const vector: TVector3 | undefined = modelF?.getModel().position;
+      if (isNotDefined(vector)) throw new Error('Model3d has no position');
+      if (isDefined(modelF)) camera.lookAt(Vector3Wrapper(vector));
+    });
 }
