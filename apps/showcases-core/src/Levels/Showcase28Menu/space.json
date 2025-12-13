@@ -178,6 +178,25 @@
     "texts": [
       {
         "cssProps": {
+          "color": "#000000",
+          "fontSize": "1rem"
+        },
+        "name": "text_2d",
+        "position": {
+          "x": -2,
+          "y": 2,
+          "z": -4
+        },
+        "rotation": {
+          "x": -1.57,
+          "y": 0,
+          "z": 0
+        },
+        "text": "Welcome",
+        "type": "text_2d"
+      },
+      {
+        "cssProps": {
           "color": "#D7D200",
           "fontSize": "0.2rem"
         },
@@ -194,6 +213,25 @@
         },
         "text": "Menu",
         "type": "text_3d"
+      },
+      {
+        "name": "text_3d_2",
+        "type": "text_3d_texture",
+        "text": "Click on the \"menu\" button",
+        "position": {
+          "x": -1,
+          "y": 2,
+          "z": 4
+        },
+        "rotation": {
+          "x": -1.57,
+          "y": 0,
+          "z": 0
+        },
+        "cssProps": {
+          "color": "#000000",
+          "fontSize": "16rem"
+        }
       }
     ]
   },
