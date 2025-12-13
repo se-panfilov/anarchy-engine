@@ -24,8 +24,7 @@ export function actorToConfig(entity: TActor, { models3dService }: TActorEntityT
     model3dSource,
     // TODO 15-0-0: should we save physic's state to config (impulse, velocity, etc.)?
     physics: getPhysics(entity, drive),
-    // TODO 15-0-0: should we save kinematic state to config?
-    // kinematic?: TKinematicConfig,
+    kinematic: drive.kinematic?.serialize(),
     spatial: getSpatial(entity),
     collisions: getCollisions(entity),
     model3dSettings: entity.getModel3dSettings(),
