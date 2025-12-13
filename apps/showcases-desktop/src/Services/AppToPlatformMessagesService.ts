@@ -25,6 +25,8 @@ export async function handleAppRequest(
       return null;
     case PlatformActions.GetAppSettings:
       return settingsService.getAppSettings();
+    case PlatformActions.GetPreferredLocales:
+      return settingsService.getPreferredLocales();
     case PlatformActions.UpdateAppSettings:
       if (!isPartialSettings(payload)) throw new Error(`[DESKTOP] Failed to update settings: Invalid payload`);
       return settingsService.updateAppSettings(payload);

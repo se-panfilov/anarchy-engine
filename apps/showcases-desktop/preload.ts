@@ -3,8 +3,9 @@ import type { TLoadDocPayload, TShowcaseGameSettings, TShowcasesDesktopApi } fro
 import { platformApiChannel, platformApiName } from '@Showcases/Shared';
 import { PlatformActions } from './src/Constants';
 import type { TLegalDoc } from 'showcases-shared';
+import { TLocaleId } from 'anarchy-i18n';
 
-const { AppExit, AppRestart, GetAppSettings, GetLegalDocs, SetAppSettings, UpdateAppSettings } = PlatformActions;
+const { AppExit, AppRestart, GetAppSettings, GetLegalDocs, GetPreferredLocales, SetAppSettings, UpdateAppSettings } = PlatformActions;
 
 declare const __DESKTOP_APP_VERSION__: string;
 
@@ -15,6 +16,7 @@ const mapping: TShowcasesDesktopApi = {
   electron: (): string => process.versions.electron,
   getAppSettings: (): Promise<TShowcaseGameSettings> => ipcRenderer.invoke(platformApiChannel, GetAppSettings),
   getLegalDocs: (options: TLoadDocPayload): Promise<TLegalDoc> => ipcRenderer.invoke(platformApiChannel, GetLegalDocs, options),
+  getPreferredLocales: (): Promise<ReadonlyArray<TLocaleId>> => ipcRenderer.invoke(platformApiChannel, GetPreferredLocales),
   node: (): string => process.versions.node,
   restartApp: (args?: ReadonlyArray<string>): Promise<void> => ipcRenderer.invoke(platformApiChannel, AppRestart, args),
   setAppSettings: (settings: TShowcaseGameSettings): Promise<void> => ipcRenderer.invoke(platformApiChannel, SetAppSettings, settings),
