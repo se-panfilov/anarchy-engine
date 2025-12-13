@@ -1,4 +1,4 @@
-import { app, BrowserWindow, dialog, ipcMain } from 'electron';
+import { app, BrowserWindow, dialog, ipcMain, Menu } from 'electron';
 import { dirname, join } from 'path';
 import { fileURLToPath } from 'url';
 import { existsSync } from 'node:fs';
@@ -12,7 +12,6 @@ const isOpenDevTools: boolean = true;
 
 // TODO CWP
 // TODO DESKTOP: Save/Load with files?
-// TODO DESKTOP: Block browser's hotkeys and navigation
 // TODO DESKTOP: Can we avoid copying of dist-desktop to dist-app? (check paths in asar)
 
 function getIndexHtmlPath(): string {
@@ -73,4 +72,8 @@ app.whenReady().then((): void => {
     // explicitly with Cmd + Q.
     if (process.platform !== 'darwin') app.quit();
   });
+
+  // Turn off the menu bar (and Hotkeys(!!!) such as Ctrl+R, Ctrl+F5, etc.)
+  const emptyMenu: Menu = Menu.buildFromTemplate([]);
+  Menu.setApplicationMenu(emptyMenu);
 });
