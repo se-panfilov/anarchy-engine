@@ -1,7 +1,8 @@
-import { Euler, Vector3 } from 'three';
+import { Vector3 } from 'three';
 
 import type { TActorConfig, TActorConfigToParamsDependencies, TActorModel3dSettings, TActorModel3dSettingsConfig, TActorParams } from '@/Engine/Actor/Models';
 import { kinematicConfigToParams } from '@/Engine/Kinematic';
+import { toQuaternion } from '@/Engine/Math';
 import type { TModel3d } from '@/Engine/Models3d';
 import { configToOptionalParamsBody } from '@/Engine/Physics';
 import { configToParamsSpatialData } from '@/Engine/Spatial';
@@ -32,7 +33,7 @@ function model3dSettingsConfigToParams(settings: TActorModel3dSettingsConfig): T
   return {
     ...rest,
     positionOffset: isDefined(positionOffset) ? new Vector3(positionOffset.x, positionOffset.y, positionOffset.z) : undefined,
-    rotationOffset: isDefined(rotationOffset) ? new Euler(rotationOffset.x, rotationOffset.y, rotationOffset.z) : undefined,
+    rotationOffset: isDefined(rotationOffset) ? toQuaternion(rotationOffset) : undefined,
     scaleOffset: isDefined(scaleOffset) ? new Vector3(scaleOffset.x, scaleOffset.y, scaleOffset.z) : undefined
   };
 }

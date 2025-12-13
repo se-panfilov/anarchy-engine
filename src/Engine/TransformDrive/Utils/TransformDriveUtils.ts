@@ -1,6 +1,6 @@
 import type { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { distinctUntilChanged, EMPTY, switchMap, tap } from 'rxjs';
-import type { Euler, Vector3 } from 'three';
+import type { Quaternion, Vector3 } from 'three';
 
 import type { TransformAgent } from '@/Engine/TransformDrive/Constants';
 import { ProtectedTransformAgentFacade } from '@/Engine/TransformDrive/Facades';
@@ -11,7 +11,7 @@ export function getDynamicAgents<T extends Partial<Record<TransformAgent, TAbstr
   return Object.fromEntries(Object.entries(agents).map((v) => [v[0], ProtectedTransformAgentFacade(v[1])])) as TWithProtectedTransformAgents<T>;
 }
 
-export function updateFromActiveAgent<T extends Vector3 | Euler>(
+export function updateFromActiveAgent<T extends Vector3 | Quaternion>(
   activeAgent$: BehaviorSubject<TAbstractTransformAgent>,
   agentProp: 'position$' | 'rotation$' | 'scale$',
   { threshold }: Readonly<{ threshold: number }>

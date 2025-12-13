@@ -1,5 +1,5 @@
 import type { BehaviorSubject, ReplaySubject } from 'rxjs';
-import type { Euler, Vector3 } from 'three';
+import type { Quaternion, Vector3 } from 'three';
 
 import type { TDestroyable, TWithId } from '@/Engine/Mixins';
 import type { TransformAgent } from '@/Engine/TransformDrive/Constants';
@@ -15,8 +15,8 @@ export type TTransformDriveMandatoryFields = Readonly<{
   getActiveAgent: () => TProtectedTransformAgentFacade<TAbstractTransformAgent>;
   position$: ReplaySubject<Vector3>;
   getPosition: () => Vector3;
-  rotation$: ReplaySubject<Euler>;
-  getRotation: () => Euler;
+  rotation$: ReplaySubject<Quaternion>;
+  getRotation: () => Quaternion;
   scale$: ReplaySubject<Vector3>;
   getScale: () => Vector3;
 }> &

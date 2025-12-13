@@ -156,7 +156,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     gui.add(mode, 'isTeleportationMode').name('Teleportation mode');
     addActorFolderGui(gui, sphereActor);
 
-    combineLatest([sphereActor.drive.position$, sphereActor.drive.rotation$]).subscribe(([p, r]: [Vector3, Euler]): void => {
+    combineLatest([sphereActor.drive.position$, sphereActor.drive.rotation$]).subscribe(([p, r]: [Vector3, Quaternion]): void => {
       sphereText.setText(`x: ${p.x.toFixed(2)} y: ${p.y.toFixed(2)} z: ${p.z.toFixed(2)}, Rotation: ${radToDeg(r.y).toFixed(2)}`);
     });
 
@@ -186,7 +186,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
 
     azimuth$.pipe(withLatestFrom(sphereActor.drive.agent$)).subscribe(([degrees, agent]: [TDegrees, TransformAgent]): void => {
       azimuthText.setText(`Azimuth: ${degrees.toFixed(2)}`);
-      rotateActorTo(sphereActor, new Euler(0, degToRad(degrees), 0, 'YXZ'), agent);
+      rotateActorTo(sphereActor, new Quaternion().setFromEuler(new Euler(0, degToRad(degrees), 0, 'YXZ')), agent);
     });
 
     intersectionsWatcher.value$.pipe(withLatestFrom(sphereActor.drive.position$)).subscribe(([v, actorPosition]: [TIntersectionEvent, Vector3]): void => {
@@ -242,21 +242,20 @@ function moveActorTo(actor: TActor, position: Vector3, agent: TransformAgent, is
   }
 }
 
-function rotateActorTo(actor: TActor, rotation: Euler, agent: TransformAgent): void {
-  const rotationXYZ: Euler = rotation.clone().reorder('XYZ');
-
+function rotateActorTo(actor: TActor, rotation: Quaternion, agent: TransformAgent): void {
   // For debug reasons: here is how we can rotate the model3d without TransformDrive
   // actor.model3d.getRawModel3d().rotation.set(0, rotationXYZ.y, 0);
   // return actor.model3d.getRawModel3d().rotation.set(0, degToRad(180), 0);
 
   switch (agent) {
     case TransformAgent.Default:
-      return actor.drive.default.setRotation(rotationXYZ);
+      return actor.drive.default.setRotation(rotation);
     case TransformAgent.Kinematic:
       // actor.drive.kinematic.setAngularAzimuth(radians(rotationXYZ.y));
-      // actor.drive.kinematic.setAngularAzimuth(radians(degToRad(-90)));
+      // actor.drive.kinematic.setAngularAzimuth(radians(degToRad(90)));
       // return actor.drive.kinematic.setAngularSpeed(metersPerSecond(2));
-      return actor.drive.kinematic.rotateTo(new Quaternion().setFromEuler(new Euler(rotationXYZ.x, rotationXYZ.y, rotationXYZ.z)), metersPerSecond(5), meters(1)); //actor.model3d.getParams().radius);
+      // return actor.drive.kinematic.rotateTo(new Quaternion().setFromEuler(new Euler(rotationXYZ.x, rotationXYZ.y, rotationXYZ.z)), metersPerSecond(5), meters(1)); //actor.model3d.getParams().radius);
+      return actor.drive.kinematic.rotateTo(rotation, metersPerSecond(5), meters(1)); //actor.model3d.getParams().radius);
     case TransformAgent.Connected:
       // no need to do anything here, cause already connected
       return undefined;

@@ -4,7 +4,7 @@ import { BehaviorSubject, Subject } from 'rxjs';
 
 import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
-import type { TReadonlyEuler, TReadonlyVector3 } from '@/Engine/ThreeLib';
+import type { TReadonlyQuaternion, TReadonlyVector3 } from '@/Engine/ThreeLib';
 import type { TransformAgent } from '@/Engine/TransformDrive/Constants';
 import type { TAbstractTransformAgent, TReadonlyTransform, TTransformAgentParams } from '@/Engine/TransformDrive/Models';
 import { isDefined } from '@/Engine/Utils';
@@ -15,7 +15,7 @@ export function AbstractTransformAgent(params: TTransformAgentParams, type: Tran
   // TODO 8.0.0. MODELS: enabled$ doesn't do anything by default
   const enabled$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(params.enabled ?? false);
   const position$: BehaviorSubject<TReadonlyVector3> = new BehaviorSubject<TReadonlyVector3>(params.position);
-  const rotation$: BehaviorSubject<TReadonlyEuler> = new BehaviorSubject<TReadonlyEuler>(params.rotation);
+  const rotation$: BehaviorSubject<TReadonlyQuaternion> = new BehaviorSubject<TReadonlyQuaternion>(params.rotation);
   const scale$: BehaviorSubject<TReadonlyVector3> = new BehaviorSubject<TReadonlyVector3>(params.scale);
   const onActivated$: Subject<TReadonlyTransform> = new Subject<TReadonlyTransform>();
   const onDeactivated$: Subject<TReadonlyTransform> = new Subject<TReadonlyTransform>();

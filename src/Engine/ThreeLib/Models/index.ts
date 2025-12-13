@@ -13,3 +13,4 @@ export type * from './TReadonlyQuaternion';
 export type * from './TReadonlyVector3';
 export type * from './TSphereGeometryProps';
 export type * from './TVector3OrEuler';
+export type * from './TVector4OrQuaternion';

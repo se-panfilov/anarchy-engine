@@ -32,6 +32,7 @@ export function Actor(
 
   // TODO 8.0.0. MODELS: Replace all rotations with Quaternions (kill TEulerLike)
   // TODO 8.0.0. MODELS: In showcase 25, physics x and z seems to be swapped unintentionally, fix
+  // TODO 8.0.0. MODELS: test rotations offsets again (now with quaternions)
   // TODO 8.0.0. MODELS: close all issues (todoes) with tag 8.0.0
   // TODO 8.0.0. MODELS: close all issues (todoes) with tag 9.2.0
   // TODO 8.0.0. MODELS: make sure animations are working with actors & models

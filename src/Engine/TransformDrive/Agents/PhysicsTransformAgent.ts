@@ -1,12 +1,11 @@
 import type { Subscription } from 'rxjs';
 import { BehaviorSubject, combineLatest, distinctUntilChanged, EMPTY, map, scan, switchMap, takeWhile, withLatestFrom } from 'rxjs';
 import type { QuaternionLike } from 'three';
-import { Euler, Quaternion, Vector3 } from 'three';
+import { Quaternion, Vector3 } from 'three';
 import type { Vector3Like } from 'three/src/math/Vector3';
 
 import type { TPhysicsBody } from '@/Engine/Physics';
 import { RigidBodyTypesNames } from '@/Engine/Physics';
-import type { TReadonlyEuler, TReadonlyQuaternion } from '@/Engine/ThreeLib';
 import { TransformAgent } from '@/Engine/TransformDrive/Constants';
 import type {
   TAbstractTransformAgent,
@@ -19,7 +18,7 @@ import type {
   TRigidBodyTransformData
 } from '@/Engine/TransformDrive/Models';
 import { applyLatestTransform, createPhysicsBody, getPhysicalBodyTransform } from '@/Engine/TransformDrive/Utils';
-import { isDefined, isEqualOrSimilarVector3Like, isEqualOrSimilarVector4Like, isNotDefined } from '@/Engine/Utils';
+import { isDefined, isEqualOrSimilarVector3Like, isEqualOrSimilarVector4Like, isEulerLike, isNotDefined } from '@/Engine/Utils';
 
 import { AbstractTransformAgent } from './AbstractTransformAgent';
 
@@ -29,7 +28,7 @@ import { AbstractTransformAgent } from './AbstractTransformAgent';
 export function PhysicsTransformAgent(params: TPhysicsTransformAgentParams, { physicsBodyService, physicsLoopService }: TPhysicsAgentDependencies): TPhysicsTransformAgent {
   const noiseThreshold: number = params.performance?.noiseThreshold ?? 0.0000001;
 
-  const adaptedParams: TPhysicsTransformAgentInternalParams = { ...params, rotation: new Quaternion().setFromEuler(params.rotation) };
+  const adaptedParams: TPhysicsTransformAgentInternalParams = { ...params, rotation: isEulerLike(params.rotation) ? new Quaternion().setFromEuler(params.rotation) : params.rotation };
   const abstractTransformAgent: TAbstractTransformAgent = AbstractTransformAgent(params, TransformAgent.Physical);
 
   const onDeactivated$Sub: Subscription = abstractTransformAgent.onDeactivated$.pipe(takeWhile((): boolean => isNotDefined(params.onDeactivated))).subscribe((): void => {
@@ -46,18 +45,12 @@ export function PhysicsTransformAgent(params: TPhysicsTransformAgentParams, { ph
     applyLatestTransform(physicsBody$.value?.getRigidBody(), position, rotation);
   });
 
-  const rotationQuaternion$: BehaviorSubject<TReadonlyQuaternion> = new BehaviorSubject<TReadonlyQuaternion>(
-    new Quaternion(adaptedParams.rotation.x, adaptedParams.rotation.y, adaptedParams.rotation.z, adaptedParams.rotation.w)
-  );
-  const rotationQuaternionSub$: Subscription = rotationQuaternion$.pipe(map((q: TReadonlyQuaternion): TReadonlyEuler => new Euler().setFromQuaternion(q))).subscribe(abstractTransformAgent.rotation$);
-
   let physicsSub$: Subscription | undefined = undefined;
 
   const physicsBody$: BehaviorSubject<TPhysicsBody | undefined> = new BehaviorSubject<TPhysicsBody | undefined>(undefined);
 
   const agent: TPhysicsTransformAgent = {
     ...abstractTransformAgent,
-    rotationQuaternion$,
     physicsBody$
   };
 
@@ -85,7 +78,6 @@ export function PhysicsTransformAgent(params: TPhysicsTransformAgentParams, { ph
   const destroySub$: Subscription = abstractTransformAgent.destroy$.subscribe((): void => {
     //Stop subscriptions
     destroySub$.unsubscribe();
-    rotationQuaternionSub$.unsubscribe();
     physicsSub$?.unsubscribe();
     enabledSub$.unsubscribe();
     prevBodyTypeSub.unsubscribe();
@@ -128,7 +120,7 @@ export function PhysicsTransformAgent(params: TPhysicsTransformAgentParams, { ph
     )
     .subscribe(({ prevPosition, currPosition, prevRotation, currRotation }: TAccumulatedRigidBodyTransformData): void => {
       if (shouldUpdatePosition(prevPosition, currPosition, noiseThreshold)) agent.position$.next(new Vector3(currPosition.x, currPosition.y, currPosition.z));
-      if (shouldUpdateRotation(prevRotation, currRotation, noiseThreshold)) rotationQuaternion$.next(new Quaternion(currRotation.x, currRotation.y, currRotation.z, currRotation.w));
+      if (shouldUpdateRotation(prevRotation, currRotation, noiseThreshold)) agent.rotation$.next(new Quaternion(currRotation.x, currRotation.y, currRotation.z, currRotation.w));
     });
   // )
   // .subscribe(({ position, rotation }: TRigidBodyTransformData): void => {

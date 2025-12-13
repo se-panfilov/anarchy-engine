@@ -1,8 +1,8 @@
 import type { Subscription } from 'rxjs';
-import type { Euler, Vector3 } from 'three';
+import type { Quaternion, Vector3 } from 'three';
+import { Euler } from 'three';
 
 import type { TActorModel3dSettings } from '@/Engine/Actor/Models';
-import { applyRotationOffsetWithReorder } from '@/Engine/Math';
 import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
 import type { TransformAgent } from '@/Engine/TransformDrive/Constants';
@@ -21,9 +21,10 @@ export function DriveToTargetConnector<T extends Partial<Record<TransformAgent, 
     return target.position.copy(position).add(positionOffset);
   });
 
-  const rotationSub$: Subscription = drive.rotation$.subscribe((rotation: Euler): Euler | void => {
-    if (isNotDefined(rotationOffset)) return target.rotation.copy(rotation);
-    return applyRotationOffsetWithReorder(target.rotation, rotation, rotationOffset);
+  const rotationSub$: Subscription = drive.rotation$.subscribe((rotation: Quaternion): Euler | void => {
+    const rotationEuler: Euler = new Euler().setFromQuaternion(rotation);
+    if (isNotDefined(rotationOffset)) return target.rotation.copy(rotationEuler);
+    return target.rotation.copy(new Euler().setFromQuaternion(rotation.clone().multiply(rotationOffset)));
   });
 
   const scaleSub$: Subscription = drive.scale$.subscribe((scale: Vector3): Vector3 => {

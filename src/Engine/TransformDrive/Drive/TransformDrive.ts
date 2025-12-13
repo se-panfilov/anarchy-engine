@@ -1,7 +1,7 @@
 import { nanoid } from 'nanoid';
 import type { Observable, Subscription } from 'rxjs';
 import { BehaviorSubject, distinctUntilChanged, filter, map, merge, ReplaySubject } from 'rxjs';
-import type { Euler, Vector3 } from 'three';
+import type { Quaternion, Vector3 } from 'three';
 
 import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
@@ -52,7 +52,7 @@ export function TransformDrive<T extends Partial<Record<TransformAgent, TAbstrac
   });
 
   const position$: BehaviorSubject<Vector3> = new BehaviorSubject<Vector3>(activeAgent$.value.position$.value);
-  const rotation$: BehaviorSubject<Euler> = new BehaviorSubject<Euler>(activeAgent$.value.rotation$.value);
+  const rotation$: BehaviorSubject<Quaternion> = new BehaviorSubject<Quaternion>(activeAgent$.value.rotation$.value);
   const scale$: BehaviorSubject<Vector3> = new BehaviorSubject<Vector3>(activeAgent$.value.scale$.value);
 
   let prevAgent: TAbstractTransformAgent | undefined;
@@ -60,7 +60,7 @@ export function TransformDrive<T extends Partial<Record<TransformAgent, TAbstrac
     .pipe(distinctUntilChanged((prev: TAbstractTransformAgent, curr: TAbstractTransformAgent): boolean => prev.type === curr.type))
     .subscribe((newAgent: TAbstractTransformAgent): void => {
       const position: Vector3 = position$.value;
-      const rotation: Euler = rotation$.value;
+      const rotation: Quaternion = rotation$.value;
       const scale: Vector3 = scale$.value;
 
       prevAgent?.onDeactivated$.next({ position, rotation, scale });
@@ -79,7 +79,7 @@ export function TransformDrive<T extends Partial<Record<TransformAgent, TAbstrac
 
   //We don't expose these BehaviorSubjects, because they're vulnerable to external changes without .next() (e.g. "position.value = ...")
   const positionRep$: ReplaySubject<Vector3> = new ReplaySubject<Vector3>(1);
-  const rotationRep$: ReplaySubject<Euler> = new ReplaySubject<Euler>(1);
+  const rotationRep$: ReplaySubject<Quaternion> = new ReplaySubject<Quaternion>(1);
   const scaleRep$: ReplaySubject<Vector3> = new ReplaySubject<Vector3>(1);
   const activeAgentRep$: ReplaySubject<TProtectedTransformAgentFacade<TAbstractTransformAgent>> = new ReplaySubject(1);
 
@@ -92,7 +92,7 @@ export function TransformDrive<T extends Partial<Record<TransformAgent, TAbstrac
   // Update values of the active agent when drive.position$.next() is called from an external code
   // TODO CWP: Looks like "physics agent" is doesn't work like this. Have to fix. Maybe disable->setPosition->enable?
   positionRep$.pipe(filter((value: Vector3): boolean => value !== activeAgent$.value.position$.value)).subscribe((value: Vector3): void => activeAgent$.value.position$.next(value));
-  rotationRep$.pipe(filter((value: Euler): boolean => value !== activeAgent$.value.rotation$.value)).subscribe((value: Euler): void => activeAgent$.value.rotation$.next(value));
+  rotationRep$.pipe(filter((value: Quaternion): boolean => value !== activeAgent$.value.rotation$.value)).subscribe((value: Quaternion): void => activeAgent$.value.rotation$.next(value));
   scaleRep$.pipe(filter((value: Vector3): boolean => value !== activeAgent$.value.scale$.value)).subscribe((value: Vector3): void => activeAgent$.value.scale$.next(value));
 
   const destroyable: TDestroyable = destroyableMixin();
@@ -107,7 +107,7 @@ export function TransformDrive<T extends Partial<Record<TransformAgent, TAbstrac
   const positionSub$: Subscription = updateFromActiveAgent<Vector3>(activeAgent$, 'position$', { threshold: performance.positionNoiseThreshold })
     // TODO 8.0.0. MODELS: get rid of .subscribe(val$), use subscribe(() => val$.next()) instead due to potential "this" context issue (replace that everywhere)
     .subscribe(position$);
-  const rotationSub$: Subscription = updateFromActiveAgent<Euler>(activeAgent$, 'rotation$', { threshold: performance.rotationNoiseThreshold }).subscribe(rotation$);
+  const rotationSub$: Subscription = updateFromActiveAgent<Quaternion>(activeAgent$, 'rotation$', { threshold: performance.rotationNoiseThreshold }).subscribe(rotation$);
   const scaleSub$: Subscription = updateFromActiveAgent<Vector3>(activeAgent$, 'scale$', { threshold: performance.scaleNoiseThreshold }).subscribe(scale$);
 
   const result: TTransformDriveMandatoryFields = {
@@ -119,7 +119,7 @@ export function TransformDrive<T extends Partial<Record<TransformAgent, TAbstrac
     position$: positionRep$,
     getPosition: (): Vector3 => position$.value.clone(),
     rotation$: rotationRep$,
-    getRotation: (): Euler => rotation$.value.clone(),
+    getRotation: (): Quaternion => rotation$.value.clone(),
     scale$: scaleRep$,
     getScale: (): Vector3 => scale$.value.clone(),
     ...getDynamicAgents(agents)

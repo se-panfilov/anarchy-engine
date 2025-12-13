@@ -1,7 +1,6 @@
-export type TVector3OrEuler = Readonly<{
-  x: number;
-  y: number;
-  z: number;
-  equals: (v: any) => boolean;
-  clone: () => TVector3OrEuler;
-}>;
+import type { TVector4OrQuaternion } from './TVector4OrQuaternion';
+
+export type TVector3OrEuler = Omit<TVector4OrQuaternion, 'w' | 'clone'> &
+  Readonly<{
+    clone: () => TVector3OrEuler;
+  }>;

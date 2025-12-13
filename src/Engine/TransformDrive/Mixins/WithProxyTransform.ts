@@ -1,16 +1,16 @@
-import type { TMovableXYZ, TRotatable, TScaleMixin, TWithPosition3dProperty, TWithRotationProperty, TWithScaleProperty } from '@/Engine/Mixins';
-import { withMoveBy3dMixin, withRotationByXyzMixin, withScaleMixin } from '@/Engine/Mixins';
+import type { TMovableXYZ, TQuaternionRotatable, TScaleMixin, TWithPosition3dProperty, TWithQuaternionRotationProperty, TWithScaleProperty } from '@/Engine/Mixins';
+import { withMoveBy3dMixin, withQuaternionRotationByXyzMixin, withScaleMixin } from '@/Engine/Mixins';
 import type { TAbstractTransformAgent } from '@/Engine/TransformDrive/Models';
 
 export function withProxyTransform(
   abstractTransformAgent: TAbstractTransformAgent,
   proxyPositionObj: TWithPosition3dProperty,
-  proxyRotationObj: TWithRotationProperty,
+  proxyRotationObj: TWithQuaternionRotationProperty,
   proxyScaleObj: TWithScaleProperty
-): TMovableXYZ & TScaleMixin & TRotatable {
+): TMovableXYZ & TScaleMixin & TQuaternionRotatable {
   const { getX, getZ, getY } = withMoveBy3dMixin(proxyPositionObj);
   const { getScaleX, getScaleY, getScaleZ } = withScaleMixin(proxyScaleObj);
-  const { getRotationX, getRotationY, getRotationZ } = withRotationByXyzMixin(proxyRotationObj);
+  const { getRotationX, getRotationY, getRotationZ, getRotationW } = withQuaternionRotationByXyzMixin(proxyRotationObj);
 
   return {
     getX,
@@ -22,6 +22,7 @@ export function withProxyTransform(
     getRotationX,
     getRotationY,
     getRotationZ,
+    getRotationW,
     setX: (x: number): number => {
       // eslint-disable-next-line functional/immutable-data
       proxyPositionObj.position.x = x;
@@ -76,6 +77,12 @@ export function withProxyTransform(
       abstractTransformAgent.rotation$.next(proxyRotationObj.rotation);
       return z;
     },
+    setRotationW: (w: number): number => {
+      // eslint-disable-next-line functional/immutable-data
+      proxyRotationObj.rotation.w = w;
+      abstractTransformAgent.rotation$.next(proxyRotationObj.rotation);
+      return w;
+    },
     adjustRotationByX: (x: number): number => {
       // eslint-disable-next-line functional/immutable-data
       proxyRotationObj.rotation.x += x;
@@ -93,6 +100,12 @@ export function withProxyTransform(
       proxyRotationObj.rotation.z += z;
       abstractTransformAgent.rotation$.next(proxyRotationObj.rotation);
       return proxyRotationObj.rotation.z;
+    },
+    adjustRotationByW: (w: number): number => {
+      // eslint-disable-next-line functional/immutable-data
+      proxyRotationObj.rotation.w += w;
+      abstractTransformAgent.rotation$.next(proxyRotationObj.rotation);
+      return proxyRotationObj.rotation.w;
     },
     setScaleX: (x: number): number => {
       // eslint-disable-next-line functional/immutable-data

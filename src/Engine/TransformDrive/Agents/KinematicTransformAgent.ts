@@ -1,5 +1,5 @@
 import type { Observable, Subscription } from 'rxjs';
-import { BehaviorSubject, combineLatest, EMPTY, map, switchMap } from 'rxjs';
+import { BehaviorSubject, combineLatest, EMPTY, switchMap } from 'rxjs';
 import type { QuaternionLike } from 'three';
 import { Euler, Quaternion, Vector3 } from 'three';
 import type { Vector3Like } from 'three/src/math/Vector3';
@@ -8,10 +8,10 @@ import type { TKinematicData, TKinematicState, TKinematicTarget, TKinematicWrita
 import type { TMeters, TMetersPerSecond, TMilliseconds, TRadians } from '@/Engine/Math';
 import { getAzimuthFromDirection, getElevationFromDirection } from '@/Engine/Math';
 import { radians } from '@/Engine/Measurements';
-import type { TReadonlyEuler, TReadonlyQuaternion } from '@/Engine/ThreeLib';
+import type { TReadonlyQuaternion } from '@/Engine/ThreeLib';
 import { TransformAgent } from '@/Engine/TransformDrive/Constants';
 import type { TAbstractTransformAgent, TKinematicAgentDependencies, TKinematicTransformAgent, TKinematicTransformAgentParams } from '@/Engine/TransformDrive/Models';
-import { isDefined, isNotDefined, isQuaternionLike } from '@/Engine/Utils';
+import { isDefined, isNotDefined } from '@/Engine/Utils';
 
 import { AbstractTransformAgent } from './AbstractTransformAgent';
 
@@ -19,30 +19,18 @@ export function KinematicTransformAgent(params: TKinematicTransformAgentParams, 
   const autoUpdate$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(params.isAutoUpdate ?? false);
   const abstractTransformAgent: TAbstractTransformAgent = AbstractTransformAgent(params, TransformAgent.Kinematic);
 
-  const rotationQuaternion$: BehaviorSubject<TReadonlyQuaternion> = new BehaviorSubject<TReadonlyQuaternion>(
-    isQuaternionLike(params.rotation) ? new Quaternion().copy(params.rotation) : new Quaternion().setFromEuler(params.rotation)
-  );
-  // TODO 8.0.0. MODELS: Refactor abstractTransformAgent to use quaternions, so no need in this subscription
-  const rotationQuaternionSub$: Subscription = rotationQuaternion$.pipe(map((q: TReadonlyQuaternion): TReadonlyEuler => new Euler().setFromQuaternion(q))).subscribe(abstractTransformAgent.rotation$);
-
   let kinematicSub$: Subscription | undefined = undefined;
 
   const destroySub$: Subscription = abstractTransformAgent.destroy$.subscribe((): void => {
     //Stop subscriptions
     destroySub$.unsubscribe();
     kinematicSub$?.unsubscribe();
-    rotationQuaternionSub$?.unsubscribe();
-
-    //Complete subjects
-    rotationQuaternion$.complete();
-    rotationQuaternion$.unsubscribe();
 
     abstractTransformAgent.destroy$.next();
   });
 
   const agent: Omit<TKinematicTransformAgent, 'data'> & Readonly<{ data: TKinematicWritableData }> = {
     ...abstractTransformAgent,
-    rotationQuaternion$,
     data: {
       state: {
         linearSpeed: params.state.linearSpeed ?? 0,
@@ -112,7 +100,7 @@ export function KinematicTransformAgent(params: TKinematicTransformAgentParams, 
       agent.data.target.rotation = targetRotation;
 
       // Calculate angle to the target using dot product
-      const dot: number = rotationQuaternion$.value.dot(targetRotation);
+      const dot: number = agent.rotation$.value.dot(targetRotation);
       const angleToTarget: number = Math.acos(2 * dot * dot - 1);
       if (angleToTarget < agent.data.target.rotationThreshold) return agent.setAngularSpeed(0);
 
@@ -258,13 +246,13 @@ export function KinematicTransformAgent(params: TKinematicTransformAgentParams, 
   function doKinematicRotation(delta: TMilliseconds): void {
     if (agent.data.state.angularSpeed <= 0) return;
 
-    if (isRotationReached(agent.data.target, rotationQuaternion$.value, agent.data.state, delta)) return;
+    if (isRotationReached(agent.data.target, agent.rotation$.value, agent.data.state, delta)) return;
 
     const angle: TRadians = (agent.data.state.angularSpeed * delta) as TRadians;
     if (angle < angleThreshold) return;
 
     const quaternion: TReadonlyQuaternion = tempQuaternion.setFromAxisAngle(agent.data.state.angularDirection, angle);
-    rotationQuaternion$.next(rotationQuaternion$.value.clone().multiply(quaternion));
+    agent.rotation$.next(agent.rotation$.value.clone().multiply(quaternion));
   }
 
   kinematicSub$ = combineLatest([agent.enabled$, agent.autoUpdate$])

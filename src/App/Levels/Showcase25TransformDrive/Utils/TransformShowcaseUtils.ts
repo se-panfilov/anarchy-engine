@@ -1,7 +1,7 @@
 import type GUI from 'lil-gui';
 import type { Observable, Subject, Subscription } from 'rxjs';
 import { combineLatest, distinctUntilChanged, map } from 'rxjs';
-import type { ColorRepresentation } from 'three';
+import type { ColorRepresentation, Quaternion } from 'three';
 import { Euler, Vector3 } from 'three';
 import { Line2 } from 'three/examples/jsm/lines/Line2';
 import { LineGeometry } from 'three/examples/jsm/lines/LineGeometry';
@@ -92,14 +92,16 @@ export function attachConnectorPositionToSubj(connectedActor: TActor, subj: Subj
   });
 }
 
-export function attachConnectorRotationToSubj(connectedActor: TActor, subj: Subject<Euler> | Observable<Euler>): Subscription {
-  return subj.subscribe((rotation: Euler): void => {
+export function attachConnectorRotationToSubj(connectedActor: TActor, subj: Subject<Quaternion> | Observable<Quaternion>): Subscription {
+  return subj.subscribe((rotation: Quaternion): void => {
     // eslint-disable-next-line functional/immutable-data
-    connectedActor.drive.connected.rotationConnector.x = rotation.x;
+    connectedActor.drive.connected.rotationQuaternionConnector.x = rotation.x;
     // eslint-disable-next-line functional/immutable-data
-    connectedActor.drive.connected.rotationConnector.y = rotation.y;
+    connectedActor.drive.connected.rotationQuaternionConnector.y = rotation.y;
     // eslint-disable-next-line functional/immutable-data
-    connectedActor.drive.connected.rotationConnector.z = rotation.z;
+    connectedActor.drive.connected.rotationQuaternionConnector.z = rotation.z;
+    // eslint-disable-next-line functional/immutable-data
+    connectedActor.drive.connected.rotationQuaternionConnector.w = rotation.w;
   });
 }
 

@@ -1,7 +1,6 @@
 import type { RigidBody } from '@dimforge/rapier3d';
 import type { BehaviorSubject } from 'rxjs';
-import type { Euler, Vector3 } from 'three';
-import { Quaternion } from 'three';
+import type { Quaternion, Vector3 } from 'three';
 
 import type { TPhysicsBody, TPhysicsBodyService, TWithPresetNamePhysicsBodyParams } from '@/Engine/Physics';
 import { isPhysicsBodyParamsComplete, RigidBodyTypesNames } from '@/Engine/Physics';
@@ -24,8 +23,8 @@ export function createPhysicsBody(physics: TWithPresetNamePhysicsBodyParams, phy
   return physicsBodyService.create(rest);
 }
 
-export function applyLatestTransform(rigidBody: RigidBody | undefined, position: Vector3, rotation: Euler): void {
+export function applyLatestTransform(rigidBody: RigidBody | undefined, position: Vector3, rotation: Quaternion): void {
   if (isNotDefined(rigidBody)) return;
   rigidBody.setTranslation(position, false);
-  rigidBody.setRotation(new Quaternion().setFromEuler(rotation), false);
+  rigidBody.setRotation(rotation, false);
 }

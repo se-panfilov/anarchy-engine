@@ -6,6 +6,8 @@ import type { Vector3Like } from 'three/src/math/Vector3';
 
 import { metersPerSecond } from '@/Engine/Distance';
 import type { TDegrees, TMetersPerSecond, TRadians } from '@/Engine/Math';
+import type { TEulerLike } from '@/Engine/ThreeLib';
+import { isEulerLike, isQuaternionLike } from '@/Engine/Utils';
 
 // TODO add unit tests
 export const degToRadPrecise = (degrees: TDegrees): Decimal => new Decimal(degrees).times(Math.PI).div(180);
@@ -142,4 +144,10 @@ export function applyRotationOffsetWithReorder(target: Euler, source: Euler, off
   target.set(source.x + offset.x, source.y + offset.y, source.z + offset.z, order);
 
   target.set(euclideanModulo(target.x + Math.PI, Math.PI * 2) - Math.PI, euclideanModulo(target.y + Math.PI, Math.PI * 2) - Math.PI, euclideanModulo(target.z + Math.PI, Math.PI * 2) - Math.PI);
+}
+
+export function toQuaternion(quaternionOrEuler: QuaternionLike | TEulerLike): Quaternion | never {
+  if (isQuaternionLike(quaternionOrEuler)) return new Quaternion(quaternionOrEuler.x, quaternionOrEuler.y, quaternionOrEuler.z, quaternionOrEuler.w);
+  if (isEulerLike(quaternionOrEuler)) return new Quaternion().setFromEuler(new Euler(quaternionOrEuler.x, quaternionOrEuler.y, quaternionOrEuler.z));
+  throw new Error('Entity must be Quaternion or Euler, but it is something else');
 }
