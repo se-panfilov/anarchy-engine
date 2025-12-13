@@ -48,7 +48,6 @@ export const BASE_CSP: TCspRulles = {
   // Required for WebWorker/three.js/wasm
   'worker-src': ["'self'", 'blob:'],
 
-  'child-src': ["'none'"],
   'object-src': ["'none'"],
   'base-uri': ["'none'"],
   'form-action': ["'none'"] //When billing is added, change it to 'self' and the billing provider URL
@@ -60,13 +59,11 @@ export const BASE_CSP: TCspRulles = {
   // 'upgrade-insecure-requests': []
 };
 
-// export const DEV_CSP: TCspRulles = {
-//   ...BASE_CSP,
-//   'connect-src': [...BASE_CSP['connect-src']!, 'http://localhost:5173', 'ws://localhost:5173']
-// };
-
-export const PROD_CSP: TCspRulles = {
+export const DESKTOP_CSP: TCspRulles = {
   ...BASE_CSP,
-  'connect-src': ["'self'"]
-  // maybe add 'upgrade-insecure-requests' as a separate plugin directive, if it supports
+  'img-src': ["'self'", 'data:', 'blob:', 'file:'],
+  'font-src': ["'self'", 'data:', 'file:'],
+  'connect-src': ["'self'", 'blob:', 'file:'],
+  'media-src': ["'self'", 'blob:', 'file:'],
+  'worker-src': ["'self'", 'blob:', 'file:']
 };

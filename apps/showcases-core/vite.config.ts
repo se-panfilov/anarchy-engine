@@ -20,7 +20,7 @@ import { version as showcasesMenuVersion } from '../../packages/showcases-menu/p
 import { version as showcasesSharedVersion } from '../../packages/showcases-shared/package.json';
 import { emitDefineJson } from '../../packages/anarchy-shared/src/Plugins/EmitDefineVitePlugin';
 import csp from 'vite-plugin-csp-guard';
-import { PROD_CSP } from '../../configs/Security/Csp/CspConfig';
+import { BASE_CSP, DESKTOP_CSP, TCspRulles } from '../../configs/Security/Csp/CspConfig';
 
 // TODO DESKTOP: Make sure we can load legal files in production(web) (with and without CSP)
 export default defineConfig(({ mode, command }: ConfigEnv): UserConfig => {
@@ -46,6 +46,17 @@ export default defineConfig(({ mode, command }: ConfigEnv): UserConfig => {
     'showcases-menu': showcasesMenuVersion,
     'showcases-shared': showcasesSharedVersion
   };
+
+  function getCspRules(platform: string): TCspRulles {
+    switch (platform) {
+      case 'desktop':
+        return DESKTOP_CSP;
+      case 'web':
+      case 'mobile':
+      default:
+        return BASE_CSP;
+    }
+  }
 
   return {
     base: './',
@@ -74,7 +85,7 @@ export default defineConfig(({ mode, command }: ConfigEnv): UserConfig => {
       //Issue: CSP plugin doesn't add <Meta> tag in dev mode
       csp({
         dev: { run: true, outlierSupport: ['sass'] },
-        policy: PROD_CSP,
+        policy: getCspRules(VITE_BUILD_PLATFORM),
         build: { sri: true }
       }),
 
