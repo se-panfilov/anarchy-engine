@@ -21,7 +21,7 @@ export async function loadResourcesFromConfig(
   await animationsService.loadFromConfigAsync(animations);
 
   return await Promise.all([
-    // Models3d contains of "entities" and "resources". Here only load model resources. And create them lately.
+    // A "Models3d" has two parts: "entities" and "resources". Here we only load model resources. And create "entities" them lately (in the other place).
     models3dService.loadFromConfigAsync(models3d),
     audioService.loadFromConfigAsync(audio),
     envMapTexturePromise
