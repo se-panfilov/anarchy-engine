@@ -23,10 +23,12 @@ In the root folder (every app):
 - THIRD_PARTY_LICENSES
 - ce-mark.png
 - sbom/cyclonedx.json
-- **in the ./compliance folder**:
-  EU_DECLARATION_OF_CONFORMITY.md
-  TECHNICAL_DOCUMENTATION.md
-  VULN_HANDLING.md
+
+**in the ./compliance folder**:
+
+- EU_DECLARATION_OF_CONFORMITY.md
+- TECHNICAL_DOCUMENTATION.md
+- VULN_HANDLING.md
 
 Other:
 /.well-known/security.txt (a copy of CVD from SECURITY)
