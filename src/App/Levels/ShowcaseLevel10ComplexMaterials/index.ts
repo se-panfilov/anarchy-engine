@@ -1,8 +1,8 @@
 import { BehaviorSubject } from 'rxjs';
 
 import type { IShowcase } from '@/App/Levels/Models';
-import type { IActorWrapper, IAppCanvas, ICameraWrapper, ILevel, ILevelConfig, IOrbitControlsWrapper, ITextAnyWrapper, IVector3Wrapper } from '@/Engine';
-import { ambientContext, buildLevelFromConfig, CameraTag, isNotDefined, TextType, Vector3Wrapper } from '@/Engine';
+import type { IActorWrapper, IAppCanvas, ICameraWrapper, ILevel, ILevelConfig, IOrbitControlsWrapper, IVector3Wrapper } from '@/Engine';
+import { ambientContext, buildLevelFromConfig, CameraTag, EulerWrapper, isNotDefined, TextType, Vector3Wrapper } from '@/Engine';
 
 import levelConfig from './showcase-10-complex-materials.config.json';
 
@@ -14,13 +14,6 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
   const { textFactory, actorRegistry, cameraRegistry, controlsRegistry } = level.entities;
   const camera: ICameraWrapper | undefined = cameraRegistry.getUniqByTag(CameraTag.Active);
   if (isNotDefined(camera)) throw new Error('Camera is not found');
-
-  const textDescription: ITextAnyWrapper = textFactory.create({
-    type: TextType.Text2d,
-    text: '',
-    cssProps: { fontSize: '2rem', color: 'red' },
-    tags: []
-  });
 
   const materials: ReadonlyArray<string> = ['standard', 'basic', 'phong', 'lambert', 'toon', 'physical', 'matcap'];
   const currentMaterialIndex$: BehaviorSubject<number> = new BehaviorSubject(0);
@@ -35,18 +28,23 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
     currentActor$.next(actor);
   });
 
-  currentActor$.subscribe((actor: IActorWrapper): void => {
-    moveTextToActor(actor);
-    moveCameraToActor(actor);
-  });
+  currentActor$.subscribe(moveCameraToActor);
+  actorRegistry.getAll().forEach(addTextToActor);
 
-  function moveTextToActor(actor: IActorWrapper): void {
+  function addTextToActor(actor: IActorWrapper): void {
     const position: IVector3Wrapper = actor.getPosition();
     const x: number = position.getX();
     const y: number = position.getY();
     const z: number = position.getZ();
-    textDescription.setPosition(Vector3Wrapper({ x: x - 1.5, y: y + 1, z }));
-    textDescription.setText(currentMaterial$.value + ' material');
+
+    textFactory.create({
+      type: TextType.Text3d,
+      text: actor.getTags()[0] + ' material',
+      cssProps: { fontSize: '0.3px', color: 'red' },
+      tags: [],
+      position: Vector3Wrapper({ x: x, y: y - 0.5, z: z + 1.2 }),
+      rotation: EulerWrapper({ x: -1.57, y: 0, z: 0 })
+    });
   }
 
   mouseClickWatcher.value$.subscribe((): void => {
