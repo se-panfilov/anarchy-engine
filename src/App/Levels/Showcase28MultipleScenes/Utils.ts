@@ -1,6 +1,6 @@
 import type { Subscription } from 'rxjs';
 
-import type { TActor, TActorRegistry, TKeyboardPressingEvent, TSpaceServices } from '@/Engine';
+import type { TActor, TActorRegistry, TKeyboardPressingEvent, TSpace, TSpaceServices } from '@/Engine';
 import { createDomElement, isDefined, isNotDefined, KeyCode, metersPerSecond, mpsSpeed } from '@/Engine';
 
 export function createContainersDivs(): void {
@@ -34,7 +34,9 @@ export function createContainersDivs(): void {
   );
 }
 
-export function addBtn(text: string, containerId: string, cb: (...rest: ReadonlyArray<any>) => void, right?: string, left?: string, top?: string): void {
+export function addBtn(text: string, containerId: string, cb: (...rest: ReadonlyArray<any>) => void, params?: { right?: string; left?: string; top?: string }): void {
+  const { right, left, top } = params ?? {};
+
   let container: HTMLDivElement | null = document.querySelector('#' + containerId);
   if (isNotDefined(container)) {
     container = document.createElement('div');
@@ -84,4 +86,25 @@ export function destroySpace(totalSubscriptions: number, completedSubscriptions:
   setTimeout(() => console.log(`Completed: ${completedSubscriptions}`), 1000);
   setTimeout(() => console.log(`Active: ${totalSubscriptions - completedSubscriptions}`), 1100);
   if (shouldLogStack) setTimeout(() => console.log(subscriptionStacks), 1200);
+}
+
+export function createButtons(
+  sceneName: string,
+  containerId: string,
+  space: TSpace,
+  isTop: boolean,
+  isRight: boolean,
+  totalSubscriptions: number,
+  completedSubscriptions: number,
+  subscriptionStacks: Map<Subscription, string>,
+  shouldLogStack: boolean = false
+): void {
+  const top: string | undefined = isTop ? undefined : 'calc(50% + 14px)';
+  const right: string | undefined = !isRight ? 'calc(50% + 14px)' : '4px';
+  // const left: string | undefined = isRight ? 'calc(50% + 14px)' : undefined;
+
+  addBtn(`Start ${sceneName}`, containerId, (): void => space.start$.next(true), { right, top });
+  addBtn(`Stop  ${sceneName}`, containerId, (): void => space.start$.next(false));
+  addBtn(`Destroy  ${sceneName}`, containerId, (): void => destroySpace(totalSubscriptions, completedSubscriptions, subscriptionStacks, (): void => space.destroy$.next(), shouldLogStack));
+  addBtn(`Drop  ${sceneName}`, containerId, (): void => destroySpace(totalSubscriptions, completedSubscriptions, subscriptionStacks, (): void => space.drop(), shouldLogStack));
 }

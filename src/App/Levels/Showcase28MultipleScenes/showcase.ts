@@ -11,7 +11,7 @@ import spaceAlphaConfigJson from './spaceAlpha.json';
 import spaceBetaConfigJson from './spaceBeta.json';
 import spaceDeltaConfigJson from './spaceDelta.json';
 import spaceGammaConfigJson from './spaceGamma.json';
-import { addBtn, createContainersDivs, destroySpace } from './Utils';
+import { createButtons, createContainersDivs } from './Utils';
 
 const subscriptionStacks = new Map<Subscription, string>();
 let totalSubscriptions = 0;
@@ -48,25 +48,10 @@ export function start(): void {
   const leftBottomContainerId = 'btn-container-left-bottom';
   const rightBottomContainerId = 'btn-container-right-bottom';
 
-  addBtn('Start Alpha', leftTopContainerId, (): void => spaceAlpha.start$.next(true), 'calc(50% + 4px)');
-  addBtn('Stop Alpha', leftTopContainerId, (): void => spaceAlpha.start$.next(false));
-  addBtn('Destroy Alpha', leftTopContainerId, (): void => destroySpace(totalSubscriptions, completedSubscriptions, subscriptionStacks, (): void => spaceAlpha.destroy$.next()));
-  addBtn('Drop Alpha', leftTopContainerId, (): void => destroySpace(totalSubscriptions, completedSubscriptions, subscriptionStacks, (): void => spaceAlpha.drop()));
-
-  addBtn('Start Beta', rightTopContainerId, (): void => spaceBeta.start$.next(true), '4px');
-  addBtn('Stop Beta', rightTopContainerId, (): void => spaceBeta.start$.next(false));
-  addBtn('Destroy Beta', rightTopContainerId, (): void => destroySpace(totalSubscriptions, completedSubscriptions, subscriptionStacks, (): void => spaceBeta.destroy$.next()));
-  addBtn('Drop Beta', rightTopContainerId, (): void => destroySpace(totalSubscriptions, completedSubscriptions, subscriptionStacks, (): void => spaceBeta.drop()));
-
-  addBtn('Start Gamma', leftBottomContainerId, (): void => spaceGamma.start$.next(true), 'calc(50% + 4px)', undefined, 'calc(50% + 14px)');
-  addBtn('Stop Gamma', leftBottomContainerId, (): void => spaceGamma.start$.next(false));
-  addBtn('Destroy Gamma', leftBottomContainerId, (): void => destroySpace(totalSubscriptions, completedSubscriptions, subscriptionStacks, (): void => spaceGamma.destroy$.next()));
-  addBtn('Drop Gamma', leftBottomContainerId, (): void => destroySpace(totalSubscriptions, completedSubscriptions, subscriptionStacks, (): void => spaceGamma.drop()));
-
-  addBtn('Start Delta', rightBottomContainerId, (): void => spaceDelta.start$.next(true), '4px', undefined, 'calc(50% + 14px)');
-  addBtn('Stop Delta', rightBottomContainerId, (): void => spaceDelta.start$.next(false));
-  addBtn('Destroy Delta', rightBottomContainerId, (): void => destroySpace(totalSubscriptions, completedSubscriptions, subscriptionStacks, (): void => spaceDelta.destroy$.next()));
-  addBtn('Drop Delta', rightBottomContainerId, (): void => destroySpace(totalSubscriptions, completedSubscriptions, subscriptionStacks, (): void => spaceDelta.drop()));
+  createButtons('Alpha', leftTopContainerId, spaceAlpha, true, false, totalSubscriptions, completedSubscriptions, subscriptionStacks);
+  createButtons('Beta', rightTopContainerId, spaceBeta, true, true, totalSubscriptions, completedSubscriptions, subscriptionStacks);
+  createButtons('Gamma', leftBottomContainerId, spaceGamma, false, false, totalSubscriptions, completedSubscriptions, subscriptionStacks);
+  createButtons('Delta', rightBottomContainerId, spaceDelta, false, true, totalSubscriptions, completedSubscriptions, subscriptionStacks);
 }
 
 //Hack RxJS to track subscriptions to prevent memory leaks (DO NOT USE IN PRODUCTION);
