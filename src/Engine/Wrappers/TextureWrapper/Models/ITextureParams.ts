@@ -1,4 +1,4 @@
-import type { ColorSpace, MagnificationTextureFilter, Mapping, MinificationTextureFilter, PixelFormat, TextureDataType, Wrapping, OffscreenCanvas } from 'three';
+import type { ColorSpace, MagnificationTextureFilter, Mapping, MinificationTextureFilter, OffscreenCanvas, PixelFormat, TextureDataType, Wrapping } from 'three';
 
 export type ITextureParams = Readonly<{
   image?: TexImageSource | OffscreenCanvas;

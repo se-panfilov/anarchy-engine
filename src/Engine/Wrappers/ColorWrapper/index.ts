@@ -1,2 +1,2 @@
-export * from './Models';
 export * from './ColorWrapper';
+export * from './Models';

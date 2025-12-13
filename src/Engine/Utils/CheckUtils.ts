@@ -1,6 +1,7 @@
+import { Color } from 'three';
+
 import type { IDestroyable, IReactiveDestroyable, IRegistrable } from '@/Engine/Domains/Mixins';
 import type { IColorWrapper } from '@/Engine/Wrappers';
-import { Color } from 'three';
 
 export function isDefined<T>(value: T | undefined | null): value is T {
   return <T>value !== undefined && <T>value !== null;
