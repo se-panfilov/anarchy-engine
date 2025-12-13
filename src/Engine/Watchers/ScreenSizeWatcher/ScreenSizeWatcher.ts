@@ -22,7 +22,7 @@ export function ScreenSizeWatcher(container: IGlobalContainerDecorator): IScreen
   const stop = (): void => container.stopWatch('resize', onResize);
 
   return {
-    ...AbstractWatcher('device', start, stop),
+    ...AbstractWatcher('screen-size', start, stop),
     value$
   };
 }
