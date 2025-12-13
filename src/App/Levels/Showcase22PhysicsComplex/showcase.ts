@@ -169,9 +169,12 @@ function getBlocks(startCoords: TWithCoordsXZ, rows: number, cols: number, level
             height,
             depth,
             position: Vector3Wrapper({
-              x: startCoords.x + i * (width + gap),
-              y: k * (height + gap / 4),
-              z: startCoords.z + j * (depth + gap)
+              // x: startCoords.x + i * (width + gap),
+              // y: k * (height + gap / 4),
+              // z: startCoords.z + j * (depth + gap)
+              x: startCoords.x + i * width,
+              y: k * height,
+              z: startCoords.z + j * depth
             })
           }
         ];
@@ -197,8 +200,8 @@ function createLine(): Line2 {
 
 function cameraFollowingActor(cameraW: TCameraWrapper, actorW: TActorWrapperAsync): void {
   const actorCoords: TWithCoordsXYZ = actorW.getPosition().getCoords();
-  const cameraCoords: TWithCoordsXYZ = cameraW.getPosition().getCoords();
-  cameraW.setPosition(Vector3Wrapper({ x: actorCoords.x, y: actorCoords.y + 10, z: actorCoords.z + 10 }));
+  // const cameraCoords: TWithCoordsXYZ = cameraW.getPosition().getCoords();
+  cameraW.setPosition(Vector3Wrapper({ x: actorCoords.x, y: actorCoords.y + 50, z: actorCoords.z + 10 }));
   cameraW.lookAt(Vector3Wrapper(actorCoords));
 }
 

@@ -92,8 +92,15 @@
     }
   ],
   "controls": [],
-  "envMaps": [],
+  "envMaps": ["/Showcase/hdr/kloppenheim_02_puresky_4k.hdr"],
   "particles": [],
-  "fogs": [],
+  "fogs": [
+    {
+      "color": "#454b55",
+      "near": 1,
+      "far": 100,
+      "tags": []
+    }
+  ],
   "tags": []
 }
