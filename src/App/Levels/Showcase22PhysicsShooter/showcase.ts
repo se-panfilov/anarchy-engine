@@ -153,10 +153,10 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
 
     initGui(mouseLineIntersectionsWatcher, spatialGridService, actorService, shootingParams);
 
-    loopService.tick$.subscribe((delta): void => {
-      cameraFollowingActor(cameraW, hero);
-      updateBullets(bullets, delta.delta, spatialGrid);
+    cameraFollowingActor(cameraW, hero);
 
+    loopService.tick$.subscribe((delta): void => {
+      updateBullets(bullets, delta.delta, spatialGrid);
       // TODO this should be updated only if coords or angle are changed
       if (isDefined(mouseLineIntersections.point)) {
         const heroCoords: Vector3 = hero.drive.getPosition();
