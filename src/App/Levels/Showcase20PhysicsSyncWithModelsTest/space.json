@@ -1,7 +1,7 @@
 {
   "canvasSelector": "#app",
   "entities": {
-    "renderers": [],
+    "renderers": [{ "mode": "webgl2", "isActive": true }],
     "actors": [
       {
         "agent": "physical",
