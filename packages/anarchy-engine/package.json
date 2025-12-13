@@ -35,6 +35,7 @@
     "check:no-spread-brand": "node ../../configs/TsMorph/check-no-spread-brand.js",
     "check:ts-morph": "npm run check:no-spread-brand",
     "check:ts-morph:fix": "npm run check:no-spread-brand -- --fix",
+    "check:circular-dependencies": "npx dpdm -T --no-warning --no-tree --exit-code circular:1 ./src/index.ts",
     "generate:dependency-graph": "npx madge src/index.ts --extensions ts --image graph.svg",
     "generate:legal": "npm run generate:legal:3rd-party-licenses && npm run generate:legal:notice && npm run generate:legal:files && npm run generate:legal:sbom",
     "generate:legal:3rd-party-licenses": "npm run -w anarchy-legal generate:licenses -- --workspace packages/anarchy-engine --out ../../packages/anarchy-engine/legal/THIRD_PARTY_LICENSES.md",
