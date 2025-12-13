@@ -12,5 +12,5 @@ function textBuilder(params: ITextParams): IText2dWrapper | IText3dWrapper | nev
   throw new Error('Unsupported text type');
 }
 
-const factory: IReactiveFactory<IText2dWrapper, ITextParams> = { ...ReactiveFactory(FactoryType.Text, textBuilder) };
+const factory: IReactiveFactory<IText2dWrapper | IText3dWrapper, ITextParams> = { ...ReactiveFactory(FactoryType.Text, textBuilder) };
 export const TextFactory = (): ITextFactory => ({ ...factory, configToParams });

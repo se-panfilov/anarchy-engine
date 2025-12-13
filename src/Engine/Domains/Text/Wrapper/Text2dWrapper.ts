@@ -17,7 +17,7 @@ export function Text2dWrapper(params: ITextParams): IText2dWrapper {
   const entity: CSS2DObject = new CSS2DObject(element);
 
   const result = {
-    ...AbstractWrapper(entity, WrapperType.Text, params),
+    ...AbstractWrapper(entity, WrapperType.Text2d, params),
     ...getElement2dAccessors(element),
     ...withMoveByXyzMixin(entity),
     ...withRotationByXyzMixin(entity),

@@ -1,8 +1,8 @@
 import './fonts.css';
 
 import type { IShowcase } from '@/App/Levels/Models';
-import type { IAnimationParams, IAppCanvas, ILevel, ILevelConfig, IText2dWrapper, IWithCoordsXZ } from '@/Engine';
-import { ambientContext, buildLevelFromConfig, createCirclePathXZ, Easing, EulerWrapper, generateAnglesForCircle, standardMoverService, Vector3Wrapper } from '@/Engine';
+import type { IAnimationParams, IAppCanvas, ILevel, ILevelConfig, IText3dWrapper, IWithCoordsXZ } from '@/Engine';
+import { ambientContext, buildLevelFromConfig, createCirclePathXZ, Easing, EulerWrapper, generateAnglesForCircle, standardMoverService, TextType, Vector3Wrapper } from '@/Engine';
 
 import levelConfig from './showcase-8-text-3d.config.json';
 
@@ -12,7 +12,7 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
   const { textFactory } = level.entities;
 
   textFactory.create({
-    type: 'text',
+    type: TextType.Text3d,
     text: '3D text (RubikDoodleTriangles)',
     position: Vector3Wrapper({ x: -4, y: 8, z: 0 }),
     rotation: EulerWrapper({ x: -1.57, y: 0, z: 0 }),
@@ -23,6 +23,7 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
   });
 
   textFactory.create({
+    type: TextType.Text3d,
     text: 'RubikScribble',
     position: Vector3Wrapper({ x: -5, y: 12, z: 6 }),
     rotation: EulerWrapper({ x: -1.57, y: 0, z: 0 }),
@@ -32,7 +33,8 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
     tags: []
   });
 
-  const floatingText: IText2dWrapper = textFactory.create({
+  const floatingText: IText3dWrapper = textFactory.create({
+    type: TextType.Text3d,
     text: 'LongCang',
     position: Vector3Wrapper({ x: -10, y: 8, z: -8 }),
     rotation: EulerWrapper({ x: -1.57, y: 0, z: 0 }),
@@ -42,7 +44,8 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
     tags: []
   });
 
-  const floatingText2: IText2dWrapper = textFactory.create({
+  const floatingText2: IText3dWrapper = textFactory.create({
+    type: TextType.Text3d,
     text: 'VarelaRound',
     position: Vector3Wrapper({ x: -15, y: 6, z: -14 }),
     rotation: EulerWrapper({ x: -1.57, y: 0, z: 0 }),

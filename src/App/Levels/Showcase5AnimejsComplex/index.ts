@@ -1,6 +1,6 @@
 import type { IShowcase } from '@/App/Levels/Models';
 import type { IActorWrapper, IAnimationParams, IAppCanvas, ILevel, ILevelConfig, IText2dWrapper, IWithCoordsXZ } from '@/Engine';
-import { ambientContext, buildLevelFromConfig, createCirclePathXZ, Easing, EulerWrapper, generateAnglesForCircle, isNotDefined, standardMoverService, Vector3Wrapper } from '@/Engine';
+import { ambientContext, buildLevelFromConfig, createCirclePathXZ, Easing, EulerWrapper, generateAnglesForCircle, isNotDefined, standardMoverService, TextType, Vector3Wrapper } from '@/Engine';
 
 import levelConfig from './showcase-5-animejs-complex.config.json';
 
@@ -63,6 +63,7 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
     }
 
     const notification: IText2dWrapper = textFactory.create({
+      type: TextType.Text2d,
       text: 'Click is blocked',
       fontSize: '12px',
       position: Vector3Wrapper({ x: 0, y: 0, z: 1 }),

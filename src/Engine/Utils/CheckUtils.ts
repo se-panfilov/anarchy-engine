@@ -30,6 +30,6 @@ export function isColorWrapper(obj: unknown): obj is IColorWrapper {
   return isDefined((obj as IColorWrapper).entity) && (obj as IColorWrapper).entity instanceof Color;
 }
 
-export function isWithWrapperId(obj: unknown | IAbstractEntityWithWrapperId): obj is IAbstractEntityWithWrapperId {
+export function isWithWrapperId(obj: unknown): obj is IAbstractEntityWithWrapperId {
   return isDefined(obj) && isObject(obj) && isDefined((obj as IAbstractEntityWithWrapperId).userData) && isDefined((obj as IAbstractEntityWithWrapperId).userData.wrapperId);
 }

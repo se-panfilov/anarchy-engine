@@ -1,6 +1,6 @@
 import type { IShowcase } from '@/App/Levels/Models';
 import type { IActorParams, IActorWrapper, IAppCanvas, ILevel, ILevelConfig } from '@/Engine';
-import { ActorType, ambientContext, buildLevelFromConfig, EulerWrapper, forEachEnum, Vector3Wrapper } from '@/Engine';
+import { ActorType, ambientContext, buildLevelFromConfig, EulerWrapper, forEachEnum, TextType, Vector3Wrapper } from '@/Engine';
 import type { IAnimationParams } from '@/Engine/Services';
 import { Easing, standardMoverService } from '@/Engine/Services';
 
@@ -43,6 +43,7 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
       });
 
       textFactory.create({
+        type: TextType.Text2d,
         text: String(easing),
         fontSize: '12px',
         position: Vector3Wrapper({ x: -32, y: 2, z: positionZ - 1 + gap * i }),

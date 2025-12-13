@@ -8,7 +8,7 @@ import type { IText3dWrapper, ITextParams } from '@/Engine/Domains/Text/Models';
 import { getElement2dAccessors } from '@/Engine/Domains/Text/Wrapper/Accessors';
 import { applyElement2dParams } from '@/Engine/Domains/Text/Wrapper/TextWrapperHelper';
 import { scalableMixin, withMoveByXyzMixin, withObject3d, withRotationByXyzMixin } from '@/Engine/Mixins';
-import { applyCenter, applyObject3dParams, applyPosition, applyRotation, applyScale, isDefined } from '@/Engine/Utils';
+import { applyObject3dParams, applyPosition, applyRotation, applyScale, isDefined } from '@/Engine/Utils';
 
 export function Text3dWrapper(params: ITextParams): IText3dWrapper {
   const element: HTMLElement = document.createElement(params.elementType || 'div');
@@ -17,7 +17,8 @@ export function Text3dWrapper(params: ITextParams): IText3dWrapper {
   const entity: CSS3DObject = new CSS3DObject(element);
 
   const result = {
-    ...AbstractWrapper(entity, WrapperType.Text, params),
+    ...AbstractWrapper(entity, WrapperType.Text3d, params),
+    // TODO (S.Panfilov) getElement2dAccessors?
     ...getElement2dAccessors(element),
     ...withMoveByXyzMixin(entity),
     ...withRotationByXyzMixin(entity),
@@ -33,9 +34,11 @@ export function Text3dWrapper(params: ITextParams): IText3dWrapper {
 
   document.body.appendChild(element);
 
+  // TODO (S.Panfilov) applyElement2dParams?
   applyElement2dParams(result, params);
   applyObject3dParams(result, params);
   applyPosition(result, params.position);
+  // TODO (S.Panfilov) applyCenter?
   // applyCenter(entity, params.center);
   applyRotation(result, params.rotation);
   if (isDefined(params.scale)) applyScale(result, params.scale);
