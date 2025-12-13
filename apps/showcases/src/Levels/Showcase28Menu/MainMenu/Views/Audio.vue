@@ -5,10 +5,10 @@
     <div class="main-menu-view__title">Audio settings</div>
     <div class="main-menu-view__group">
       <div class="main-menu-view__group-title">Group 1</div>
-      <div class="main-menu-view__setting -masterVolume">
-        <div class="main-menu-view__setting-description">MasterVolume</div>
-        <input type="number" class="main-menu-view__setting-value" />
-      </div>
+      <label class="main-menu-view__setting -masterVolume">
+        <span class="main-menu-view__setting-description">MasterVolume</span>
+        <input type="range" min="0" max="100" class="main-menu-view__setting-value -range" />
+      </label>
     </div>
   </div>
 </template>
