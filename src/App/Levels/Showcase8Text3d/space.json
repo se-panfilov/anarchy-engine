@@ -27,7 +27,9 @@
       {
         "name": "orbit_controls",
         "cameraName": "main",
-        "enableDamping": true,
+        "options": {
+          "enableDamping": true
+        },
         "isActive": true,
         "type": "OrbitControls"
       }

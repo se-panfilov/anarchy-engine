@@ -148,9 +148,11 @@
         "name": "fps_controls",
         "cameraName": "main_camera",
         "isActive": true,
-        "lookSpeed": 0.05,
-        "lookVertical": false,
-        "movementSpeed": 3,
+        "options": {
+          "lookSpeed": 0.05,
+          "lookVertical": false,
+          "movementSpeed": 3
+        },
         "type": "FirstPersonControls"
       }
     ],

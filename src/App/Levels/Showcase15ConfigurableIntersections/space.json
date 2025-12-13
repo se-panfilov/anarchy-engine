@@ -116,7 +116,9 @@
       {
         "name": "orbit_controls",
         "cameraName": "camera_red",
-        "enableDamping": true,
+        "options": {
+          "enableDamping": true
+        },
         "isActive": true,
         "type": "OrbitControls"
       }
