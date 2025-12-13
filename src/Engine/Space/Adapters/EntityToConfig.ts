@@ -29,8 +29,6 @@ export function spaceToConfig(
     textureService
   }: TSpaceServices
 ): TSpaceConfig {
-  console.log('XXX entity space', entity);
-
   const entities: TSpaceConfigEntities = {
     actors: actorService.serializeAllEntities(),
     audio: audioService.serializeAllEntities(),
