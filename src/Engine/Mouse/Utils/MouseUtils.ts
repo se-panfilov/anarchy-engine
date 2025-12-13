@@ -4,7 +4,10 @@ import type { TMouseWatcherEvent } from '@/Engine/Mouse';
 import { MouseButtonValue, MouseEventType, MouseWheelValue } from '@/Engine/Mouse';
 import { isNotDefined } from '@/Engine/Utils';
 
-export const getNormalizedMousePosition = ({ x, y }: Vector2Like): Vector2Like => ({ x: (x / window.innerWidth) * 2 - 1, y: -(y / window.innerHeight) * 2 + 1 });
+export const getNormalizedMousePosition = ({ x, y }: Vector2Like, containerRect: DOMRect): Vector2Like => ({
+  x: ((x - containerRect.left) / containerRect.width) * 2 - 1,
+  y: -((y - containerRect.top) / containerRect.height) * 2 + 1
+});
 
 export function getMouseButtonValue({ button }: MouseEvent | WheelEvent): MouseButtonValue {
   switch (button) {

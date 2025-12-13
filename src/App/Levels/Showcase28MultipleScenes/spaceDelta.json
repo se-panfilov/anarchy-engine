@@ -85,7 +85,15 @@
         }
       }
     ],
-    "controls": [],
+    "controls": [
+      {
+        "name": "orbit_controls",
+        "cameraName": "main_camera",
+        "enableDamping": true,
+        "isActive": true,
+        "type": "OrbitControls"
+      }
+    ],
     "envMaps": [],
     "fogs": [],
     "fsm": [],

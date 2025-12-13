@@ -1,3 +1,5 @@
+import type { BehaviorSubject, Observable } from 'rxjs';
+
 import type { TAppGlobalContainer } from '@/Engine/Global';
 import type { TNoSpread, TWithId } from '@/Engine/Mixins';
 
@@ -9,6 +11,8 @@ export type TContainerDecorator = Readonly<{
   stopWatch: (type: string, cb: (...args: ReadonlyArray<never>) => void) => void;
   getAppContainer: () => TAppGlobalContainer | never;
   getElement: () => TAppGlobalContainer | HTMLElement;
+  resize$: Observable<ReadonlyArray<ResizeObserverEntry> | Event>;
+  viewportRect$: BehaviorSubject<DOMRect | undefined>;
 }> &
   TWithId &
   TNoSpread;

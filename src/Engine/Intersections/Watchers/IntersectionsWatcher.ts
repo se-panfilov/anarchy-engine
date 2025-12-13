@@ -9,7 +9,6 @@ import type { TActor } from '@/Engine/Actor';
 import type { TCameraWrapper } from '@/Engine/Camera';
 import type { TIntersectionEvent, TIntersectionsWatcher, TIntersectionsWatcherParams } from '@/Engine/Intersections/Models';
 import type { TRawModel3d } from '@/Engine/Models3d';
-import { getNormalizedMousePosition } from '@/Engine/Mouse';
 import type { TSceneObject } from '@/Engine/Scene';
 import type { TWriteable } from '@/Engine/Utils';
 import { isDefined, isEqualOrSimilarByXyCoords, isNotDefined } from '@/Engine/Utils';
@@ -32,7 +31,7 @@ export function IntersectionsWatcher({ position$, isAutoStart, tags, name, perfo
   let positionSub$: Subscription | undefined;
 
   const threshold: number = performance?.noiseThreshold ?? 0.001;
-  // shouldUseDistinct might improve performance, however won't fire an event if the mouse is not moving (and actor or scene is moving)
+  // shouldUseDistinct might improve performance, however, won't fire an event if the mouse is not moving (and actor or scene is moving)
   const shouldUseDistinct: boolean = performance?.shouldUseDistinct ?? false;
 
   const startSub$: Subscription = abstractWatcher.start$.subscribe((): void => {
@@ -70,8 +69,7 @@ export function IntersectionsWatcher({ position$, isAutoStart, tags, name, perfo
 
   function getIntersection(coords: Vector2Like, cameraWrapper: Readonly<TCameraWrapper>, list: Array<TSceneObject>): TIntersectionEvent | undefined | never {
     if (isNotDefined(raycaster)) throw new Error('Intersections service: cannot get intersection: a raycaster is not defined');
-    const normalizedPosition: Vector2Like = getNormalizedMousePosition(coords);
-    raycaster.setFromCamera(new Vector2(normalizedPosition.x, normalizedPosition.y), cameraWrapper.entity);
+    raycaster.setFromCamera(new Vector2(coords.x, coords.y), cameraWrapper.entity);
     return raycaster.intersectObjects(list)[0];
   }
 

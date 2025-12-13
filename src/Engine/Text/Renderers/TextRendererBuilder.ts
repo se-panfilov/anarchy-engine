@@ -11,7 +11,7 @@ import type { TScreenSizeValues, TScreenSizeWatcher } from '@/Engine/Screen';
 import type { TextCssClass, TextRendererType } from '@/Engine/Text/Constants';
 import { RelatedEntityAttribute } from '@/Engine/Text/Constants';
 import type { TTextRenderer } from '@/Engine/Text/Models';
-import { isDefined } from '@/Engine/Utils';
+import { isAppGlobalContainer } from '@/Engine/Utils';
 
 export function getTextRenderer<T extends CSS2DRenderer | CSS3DRenderer>(
   renderer: T,
@@ -71,8 +71,4 @@ export function getTextRenderer<T extends CSS2DRenderer | CSS3DRenderer>(
   });
 
   return { id, type, renderer, updateSize, ...destroyable };
-}
-
-function isAppGlobalContainer(container: TAppGlobalContainer | TContainerDecorator): container is TAppGlobalContainer {
-  return isDefined((container as TAppGlobalContainer).document);
 }

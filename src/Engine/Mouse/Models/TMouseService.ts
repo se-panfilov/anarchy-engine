@@ -43,6 +43,7 @@ export type TMouseService = TAbstractService &
     wheelDown$: Observable<TMouseWatcherEvent>;
 
     position$: Observable<Vector2Like>;
+    normalizedPosition$: Observable<Vector2Like>;
 
     getMouseClickWatcherRegistry: () => TMouseClickWatcherRegistry;
     getMouseClickWatcherFactory: () => TMouseClickWatcherFactory;

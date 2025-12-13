@@ -207,6 +207,7 @@ export function MouseService(
     wheelDown$: wheelDown$.asObservable(),
 
     position$: mousePositionWatcher.value$,
+    normalizedPosition$: mousePositionWatcher.valueNormalized$,
 
     getMouseClickWatcherRegistry: (): TMouseClickWatcherRegistry => mouseClickWatcherRegistry,
     getMouseClickWatcherFactory: (): TMouseClickWatcherFactory => mouseClickWatcherFactory,

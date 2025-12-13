@@ -1,3 +1,6 @@
+import type { Observable } from 'rxjs';
+import { distinctUntilChanged, fromEvent, map, startWith } from 'rxjs';
+
 import { ambientContext } from '@/Engine/Context';
 import type { TAppGlobalContainer, TContainerDecorator } from '@/Engine/Global';
 import { ContainerDecorator } from '@/Engine/Global';
@@ -66,4 +69,37 @@ export function getCanvasContainer(canvas: HTMLCanvasElement): TContainerDecorat
   const parent: HTMLElement | null = canvas.parentElement;
   if (isNotDefined(parent)) throw new Error(`Can't find canvas' parent element`);
   return ContainerDecorator(parent);
+}
+
+export function isAppGlobalContainer(container: TAppGlobalContainer | TContainerDecorator): container is TAppGlobalContainer {
+  return isDefined((container as TAppGlobalContainer).document);
+}
+
+export function observeResize(container: TAppGlobalContainer | HTMLElement, callback: (list: ReadonlyArray<ResizeObserverEntry> | Event) => void): () => void {
+  if (container === window) {
+    window.addEventListener('resize', callback);
+    return (): void => {
+      window.removeEventListener('resize', callback);
+    };
+  }
+
+  const resizeObserver = new ResizeObserver(callback);
+
+  resizeObserver.observe(container);
+
+  return (): void => {
+    resizeObserver.unobserve(container);
+    resizeObserver.disconnect();
+  };
+}
+
+export function trackScroll(element: HTMLElement): Observable<{ scrollTop: number; scrollLeft: number }> {
+  return fromEvent(element, 'scroll').pipe(
+    startWith(null),
+    map(() => ({
+      scrollTop: element.scrollTop,
+      scrollLeft: element.scrollLeft
+    })),
+    distinctUntilChanged((a, b) => a.scrollTop === b.scrollTop && a.scrollLeft === b.scrollLeft)
+  );
 }
