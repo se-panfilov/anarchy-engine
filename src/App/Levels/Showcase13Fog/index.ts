@@ -10,7 +10,7 @@ import spaceConfig from './showcase-13-fog.json';
 export function showcase(canvas: IAppCanvas): IShowcase {
   const gui: GUI = new GUI();
   const space: ISpace = buildSpaceFromConfig(canvas, spaceConfig as ISpaceConfig);
-  const { scenesRegistry, rendererRegistry } = space.registries;
+  const { scenesRegistry } = space.registries;
   const { rendererService } = space.services;
 
   function init(): void {

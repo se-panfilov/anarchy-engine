@@ -12,7 +12,7 @@ export function showcase(canvas: IAppCanvas): IShowcase {
 
   function start(): void {
     space.start();
-    const { actorFactory, cameraFactory } = space.factories;
+    const { actorService, cameraService } = space.services;
 
     const actorDefaultParams: IActorParams = {
       type: ActorType.cube,
@@ -31,14 +31,14 @@ export function showcase(canvas: IAppCanvas): IShowcase {
     const actorParams5: IActorParams = { ...actorDefaultParams, position: Vector3Wrapper({ x: 2, y: 0, z: 0 }) };
 
     // eslint-disable-next-line @typescript-eslint/no-misused-promises
-    [actorParams1, actorParams2, actorParams3, actorParams4, actorParams5].forEach(actorFactory.createAsync);
+    [actorParams1, actorParams2, actorParams3, actorParams4, actorParams5].forEach(actorService.createAsync);
 
-    const camera: ICameraWrapper = cameraFactory.create({
+    const camera: ICameraWrapper = cameraService.create({
       position: Vector3Wrapper({ x: 0, y: 0, z: 3 }),
       rotation: EulerWrapper({ x: 0, y: 0, z: 0 }),
       tags: []
     });
-    camera.setActive(true);
+    cameraService.setActiveCamera(true);
 
     const { screenSizeWatcher } = ambientContext;
     combineLatest([mouseService.position$, screenSizeWatcher.latest$]).subscribe(([{ x, y }, { width, height }]): void => {

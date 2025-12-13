@@ -11,6 +11,7 @@ export function showcase(canvas: IAppCanvas): IShowcase {
   async function init(): Promise<void> {
     const { actorRegistry, cameraRegistry, controlsRegistry, text2dRegistry } = space.registries;
     const { textFactory } = space.factories;
+    const { textService } = space.services;
 
     controlsRegistry.getAll()[0]?.entity.target.set(6, 0, 0);
     cameraRegistry.getAll()[0]?.setPosition(Vector3Wrapper({ x: 6, y: 30, z: 0 }));
@@ -62,7 +63,7 @@ export function showcase(canvas: IAppCanvas): IShowcase {
       followersCb.blue?.();
     }
 
-    const notification: ITextAnyWrapper = textFactory.create({
+    const notification: ITextAnyWrapper = textService.create({
       type: TextType.Text2d,
       text: 'Click is blocked',
       cssProps: {

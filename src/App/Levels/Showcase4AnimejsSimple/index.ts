@@ -13,7 +13,7 @@ export function showcase(canvas: IAppCanvas): IShowcase {
   function start(): void {
     space.start();
     const { actorRegistry } = space.registries;
-    const { actorFactory, textFactory } = space.factories;
+    const { actorService, textService } = space.services;
 
     let isClickBlocked: boolean = false;
 
@@ -37,13 +37,13 @@ export function showcase(canvas: IAppCanvas): IShowcase {
     const positionZ: number = -30;
     const gap: number = 2;
     forEachEnum(Easing, (easing: string | number, _key: string | number, i: number): void => {
-      void actorFactory.createAsync({
+      void actorService.createAsync({
         ...actorTemplate,
         position: Vector3Wrapper({ x: -20, y: 2, z: positionZ + gap * i }),
         tags: [...actorTemplate.tags, String(easing)]
       });
 
-      textFactory.create({
+      textService.create({
         type: TextType.Text2d,
         text: String(easing),
         cssProps: {

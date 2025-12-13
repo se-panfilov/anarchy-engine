@@ -9,9 +9,9 @@ import spaceConfig from './showcase-7-text-2d.config.json';
 //Showcase 7: Text 2d
 export function showcase(canvas: IAppCanvas): IShowcase {
   const space: ISpace = buildSpaceFromConfig(canvas, spaceConfig as ISpaceConfig);
-  const { textFactory } = space.factories;
+  const { textService } = space.services;
 
-  textFactory.create({
+  textService.create({
     type: TextType.Text2d,
     text: '2D text (RubikDoodleTriangles)',
     position: Vector3Wrapper({ x: -4, y: 8, z: 0 }),
@@ -24,7 +24,7 @@ export function showcase(canvas: IAppCanvas): IShowcase {
     tags: []
   });
 
-  textFactory.create({
+  textService.create({
     type: TextType.Text2d,
     text: 'RubikScribble',
     position: Vector3Wrapper({ x: -5, y: 12, z: 6 }),
@@ -37,7 +37,7 @@ export function showcase(canvas: IAppCanvas): IShowcase {
     tags: []
   });
 
-  const floatingText: ITextAnyWrapper = textFactory.create({
+  const floatingText: ITextAnyWrapper = textService.create({
     type: TextType.Text2d,
     text: 'LongCang',
     position: Vector3Wrapper({ x: -10, y: 8, z: -8 }),
@@ -50,7 +50,7 @@ export function showcase(canvas: IAppCanvas): IShowcase {
     tags: []
   });
 
-  const floatingText2: ITextAnyWrapper = textFactory.create({
+  const floatingText2: ITextAnyWrapper = textService.create({
     type: TextType.Text2d,
     text: 'VarelaRound',
     position: Vector3Wrapper({ x: -15, y: 6, z: -14 }),

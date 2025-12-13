@@ -2,14 +2,15 @@ import { filter } from 'rxjs';
 
 import type { IShowcase } from '@/App/Levels/Models';
 import type { IActorWrapperAsync, IAppCanvas, ICameraWrapper, IIntersectionEvent, IIntersectionsWatcher, ISpace, ISpaceConfig } from '@/Engine';
-import { buildSpaceFromConfig, intersectionsService, isNotDefined, mouseService, standardLoopService } from '@/Engine';
+import { buildSpaceFromConfig, isNotDefined, mouseService, standardLoopService } from '@/Engine';
 
 import spaceConfig from './showcase-1-moving-actors.config.json';
 
 //Showcase 1: Moving actor with intersections & reading data from config
 export function showcase(canvas: IAppCanvas): IShowcase {
   const space: ISpace = buildSpaceFromConfig(canvas, spaceConfig as ISpaceConfig);
-  const { actorRegistry, cameraRegistry } = space.registries;
+  const { actorRegistry } = space.registries;
+  const { cameraService, intersectionsService } = space.services;
 
   async function init(): Promise<void> {
     const actor: IActorWrapperAsync = await actorRegistry.findByTagAsync('intersectable');
@@ -22,7 +23,7 @@ export function showcase(canvas: IAppCanvas): IShowcase {
   }
 
   function startIntersections(): void {
-    const camera: ICameraWrapper | undefined = cameraService.getActiveCamera();
+    const camera: ICameraWrapper | undefined = cameraService.findActiveCamera();
     if (isNotDefined(camera)) throw new Error('Camera is not defined');
     // const actors: ReadonlyArray<IActorWrapperAsync> = actorRegistry.findAllByTags(['intersectable'], LookUpStrategy.Every);
     const intersectionsWatcher: IIntersectionsWatcher = intersectionsService.buildWatcher(camera);

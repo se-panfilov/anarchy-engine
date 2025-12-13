@@ -14,7 +14,7 @@ export function showcase(canvas: IAppCanvas): IShowcase {
   const gui: GUI = new GUI();
 
   const space: ISpace = buildSpaceFromConfig(canvas, spaceConfig as ISpaceConfig);
-  const { textFactory } = space.factories;
+  const { textService } = space.services;
   const { actorRegistry, controlsRegistry } = space.registries;
 
   const currentActor$: Subject<IActorWrapperAsync> = new Subject();
@@ -49,7 +49,7 @@ export function showcase(canvas: IAppCanvas): IShowcase {
     const y: number = position.getY();
     const z: number = position.getZ();
 
-    textFactory.create({
+    textService.create({
       type: TextType.Text3d,
       text: actor.getTags()[0],
       cssProps: { fontSize: '0.3px', color: 'red' },
