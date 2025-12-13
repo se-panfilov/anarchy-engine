@@ -1,5 +1,5 @@
 import type { Subscription } from 'rxjs';
-import { distinctUntilChanged, identity, map, tap, withLatestFrom } from 'rxjs';
+import { distinctUntilChanged, identity, sample, tap } from 'rxjs';
 import type { Vector2Like } from 'three';
 import { Raycaster, Vector2 } from 'three';
 
@@ -38,18 +38,16 @@ export function IntersectionsWatcher({ position$, isAutoStart, tags, name, perfo
 
   function start(): TIntersectionsWatcher {
     const prevValue: Float32Array = new Float32Array([0, 0]);
-    positionSub$ = intersectionsLoop.tick$
+    positionSub$ = position$
       .pipe(
-        withLatestFrom(position$),
-        // TODO 10.0.0. LOOPS: could we get rid of map?
-        map(({ 1: position }: { 1: Vector2Like }): Vector2Like => position),
         shouldUseDistinct ? distinctUntilChanged((_prev: Vector2Like, curr: Vector2Like): boolean => isEqualOrSimilarByXyCoords(prevValue[0], prevValue[1], curr.x, curr.y, threshold)) : identity,
         tap((value: Vector2Like): void => {
           // eslint-disable-next-line functional/immutable-data
           prevValue[0] = value.x;
           // eslint-disable-next-line functional/immutable-data
           prevValue[1] = value.y;
-        })
+        }),
+        sample(intersectionsLoop.tick$)
       )
       .subscribe((position: Vector2Like): void => {
         if (isNotDefined(camera)) throw new Error('Intersections service: cannot start: a camera is not defined');
