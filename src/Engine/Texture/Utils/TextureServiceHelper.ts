@@ -8,19 +8,12 @@ import { isDefined, isNotDefined } from '@/Engine/Utils';
 export const getMagFilter = (magFilter?: MagnificationTextureFilter): MagnificationTextureFilter => (isDefined(magFilter) ? magFilter : LinearFilter);
 export const getMinFilter = (minFilter?: MinificationTextureFilter): MinificationTextureFilter => (isDefined(minFilter) ? minFilter : NearestFilter);
 
-// TODO 9.0.0. RESOURCES: Applying of colorSpace is turned off for now (find out how to work with it properly. Can we add it toTTextureParams?)
-// export const applyColorSpace = (name: TMaterialPackKeys, texture: TWriteable<TTexture>, options?: TTextureOptions): void => {
-//   let defaultColorSpace: ColorSpace;
-//
-//   if (name === 'map' || name === 'matcap') {
-//     defaultColorSpace = SRGBColorSpace;
-//   } else {
-//     defaultColorSpace = texture.colorSpace;
-//   }
-//
-//   // eslint-disable-next-line functional/immutable-data
-//   texture.colorSpace = isDefined(options?.colorSpace) ? options.colorSpace : defaultColorSpace;
-// };
+export const applyColorSpace = (texture: TWriteable<TTexture>, options?: TTextureOptions): void => {
+  if (isNotDefined(options)) return;
+
+  // eslint-disable-next-line functional/immutable-data
+  if (isDefined(options.colorSpace)) texture.colorSpace = options.colorSpace;
+};
 
 export function applyFilters(texture: TWriteable<TTexture>, options?: TTextureOptions): void {
   if (isNotDefined(options)) return;
