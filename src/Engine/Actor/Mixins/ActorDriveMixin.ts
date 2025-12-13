@@ -4,18 +4,13 @@ import type { Euler } from 'three';
 import { Vector3 } from 'three';
 
 import { ActorDrive } from '@/Engine/Actor/Constants';
-import type { TActorDependencies, TActorDriveMixin, TActorParams } from '@/Engine/Actor/Models';
+import type { TActorActiveDrives, TActorDependencies, TActorDriveMixin, TActorParams } from '@/Engine/Actor/Models';
 import type { TKinematicActorDrive } from '@/Engine/Kinematic';
 import { KinematicActorDrive } from '@/Engine/Kinematic';
 import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
-
-// TODO 8.0.0. MODELS: extract to separate file
-type TAvailableDrives = Readonly<{
-  [ActorDrive.Kinematic]: TKinematicActorDrive;
-  // TODO 8.0.0. MODELS: implement physics drive
-  // [ActorDrive.Physical]: TWithPhysics;
-}>;
+import type { TPhysicsActorDrive } from '@/Engine/Physics';
+import { PhysicsActorDrive } from '@/Engine/Physics';
 
 export function ActorDriveMixin(params: TActorParams, { kinematicLoopService }: Pick<TActorDependencies, 'kinematicLoopService'>): TActorDriveMixin {
   const position$: BehaviorSubject<Vector3> = new BehaviorSubject<Vector3>(params.position);
@@ -24,23 +19,20 @@ export function ActorDriveMixin(params: TActorParams, { kinematicLoopService }: 
   const drive$: BehaviorSubject<ActorDrive> = new BehaviorSubject<ActorDrive>(params.drive);
 
   const kinematicDrive: TKinematicActorDrive = KinematicActorDrive(params, kinematicLoopService, drive$);
-  // TODO 8.0.0. MODELS: implement physics drive
-  // const physicsDrive: TWithPhysics = withPhysicsDrive(params, physicsLoopService, drive$);
+  const physicsDrive: TPhysicsActorDrive = PhysicsActorDrive(params, drive$);
 
   const destroyable: TDestroyable = destroyableMixin();
-  // TODO 8.0.0. MODELS: implement physics drive
+  const availableDrives: TActorActiveDrives = { [ActorDrive.Kinematic]: kinematicDrive, [ActorDrive.Physical]: physicsDrive };
 
-  const availableDrives: TAvailableDrives = { [ActorDrive.Kinematic]: kinematicDrive /*, [ActorDrive.Physical]: physicsDrive */ };
-
-  const positionSub$: Subscription = drive$.pipe(switchMap((drive: ActorDrive): Observable<Vector3> => availableDrives[drive as keyof TAvailableDrives].position$)).subscribe(position$);
-  const rotationSub$: Subscription = drive$.pipe(switchMap((drive: ActorDrive): Observable<Euler> => availableDrives[drive as keyof TAvailableDrives].rotation$)).subscribe(rotation$);
-  const scaleSub$: Subscription = drive$.pipe(switchMap((drive: ActorDrive): Observable<Vector3 | undefined> => availableDrives[drive as keyof TAvailableDrives].scale$)).subscribe(scale$);
+  const positionSub$: Subscription = drive$.pipe(switchMap((drive: ActorDrive): Observable<Vector3> => availableDrives[drive as keyof TActorActiveDrives].position$)).subscribe(position$);
+  const rotationSub$: Subscription = drive$.pipe(switchMap((drive: ActorDrive): Observable<Euler> => availableDrives[drive as keyof TActorActiveDrives].rotation$)).subscribe(rotation$);
+  const scaleSub$: Subscription = drive$.pipe(switchMap((drive: ActorDrive): Observable<Vector3 | undefined> => availableDrives[drive as keyof TActorActiveDrives].scale$)).subscribe(scale$);
 
   const entities = {
     drive$,
-    position$: position$.asObservable(),
-    rotation$: rotation$.asObservable(),
-    scale$: scale$.asObservable(),
+    position$,
+    rotation$,
+    scale$,
     ...destroyable,
     // TODO 8.0.0. MODELS: implement "ProtectedDriveFacade" to hide position$/rotation$/scale$ from external modifications (make them observable?)
     kinematic: ProtectedDriveFacade(kinematicDrive)

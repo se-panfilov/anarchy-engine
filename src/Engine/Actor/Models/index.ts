@@ -1,5 +1,6 @@
 export * from './TActor';
 export * from './TActor';
+export * from './TActorActiveDrives';
 export * from './TActorConfig';
 export * from './TActorConfigToParamsDependencies';
 export * from './TActorDependencies';
