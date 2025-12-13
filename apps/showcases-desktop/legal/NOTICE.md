@@ -5,7 +5,7 @@
 This product includes third-party components. Their **licenses and attributions** are listed below.
 For the **full license texts**, see `THIRD_PARTY_LICENSES.md`.
 
-Components listed: 76
+Components listed: 77
 
 ## 1) Mandatory Attributions (verbatim)
 
@@ -689,7 +689,15 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## showcases-core@2.8.1
+## showcases-core@2.9.1
+
+**License(s):** MIT
+
+**Attribution:** Copyright (c) 2025 Sergei Panfilov
+
+---
+
+## showcases-i18n@1.2.0
 
 **License(s):** MIT
 
@@ -705,7 +713,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## showcases-shared@1.1.0
+## showcases-shared@1.3.0
 
 **License(s):** MIT
 
