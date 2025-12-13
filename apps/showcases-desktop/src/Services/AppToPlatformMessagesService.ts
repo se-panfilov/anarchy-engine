@@ -8,15 +8,10 @@ import type { IpcMainInvokeEvent } from 'electron';
 // TODO DESKTOP: Current task:
 //  - [DONE] Implement close app
 //  - [DONE] Implement restart app
-//  - Split platform and app settings
 //  - Implement apply of desktop settings (e.g. resolution)
 //  - Implement apply of App settings (e.g. language)
+//  - Trigger applying of settings on app start and on settings save
 //  - Detect if restart is needed after settings change (and do it)
-
-// TODO DESKTOP: Next task – fix no settings file case:
-//  - [DONE] Detect desktop params (e.g. resolution)
-//  - [DONE] Apply detected params (as defaults)
-//  - [DONE] Send platform settings to the menu (partial delivery of settings, so menu should merge values)
 
 // TODO DESKTOP: any
 export async function handleAppRequest(
