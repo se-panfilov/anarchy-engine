@@ -1,0 +1,7 @@
+🎵 Audio Attribution (CC-BY License)
+
+The following audio files are used in this project under the Creative Commons Attribution (CC-BY) license:
+
+ - "Persimmon" by Pierce Murphy – https://freemusicarchive.org/music/Pierce_Murphy/fellow-traveler/persimmon/ (Licensed under CC-BY)
+
+Full CC-BY license: https://creativecommons.org/licenses/by/4.0/
