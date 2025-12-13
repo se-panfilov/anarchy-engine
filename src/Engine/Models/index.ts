@@ -26,7 +26,7 @@ export * from './IMousePosition';
 export * from './IOrthographicCamera';
 export * from './IPerspectiveCamera';
 export * from './IProtectedRegistry';
-export * from './IRegistrableEntity';
+export * from './IRegistrable';
 export * from './IRendererParams';
 export * from './IScene';
 export * from './ISceneConfig';

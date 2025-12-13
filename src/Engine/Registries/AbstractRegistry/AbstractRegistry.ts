@@ -1,10 +1,10 @@
-import type { IAbstractRegistry, IRegistrableEntity } from '@Engine/Models';
+import type { IAbstractRegistry, IRegistrable } from '@Engine/Models';
 import { RegistryName } from '@Engine/Registries';
 import { getAllEntitiesWithEveryTag, getAllEntitiesWithSomeTag, isNotDefined } from '@Engine/Utils';
 import { nanoid } from 'nanoid';
 import { Subject } from 'rxjs';
 
-export function AbstractRegistry<T extends IRegistrableEntity>(name: RegistryName): IAbstractRegistry<T> {
+export function AbstractRegistry<T extends IRegistrable>(name: RegistryName): IAbstractRegistry<T> {
   const id: string = nanoid();
   const registry: Map<string, T> = new Map();
   const added$: Subject<T> = new Subject<T>();
