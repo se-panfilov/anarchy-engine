@@ -58,6 +58,7 @@ Thoughts:
 - TASK: Check performance (make sure materials and env maps are async)
 - TASK: Take a look on entities in runtime (console.log) to see what fields are there, what are values, etc.;
 - TASK: Clean up dependencies (some should be used by the app, not the engine);
+- TASK: Align types name: intersection types should start with TAny..., e.g. TAnyMaterial = TMaterial1 | TMaterial2;
 
 Won't be implemented soon:
 - Maybe: Split data entities from functional entities – ECS approach (too hard to migrate now);
