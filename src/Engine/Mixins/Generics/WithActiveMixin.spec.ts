@@ -48,7 +48,6 @@ describe('adjustWthActive', () => {
   });
 
   it('should NOT change the value to "true" for constant alias', (): void => {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     const entity1: TMockEntity = { name: 'mock-entity' } as any;
     const entity2: TMockEntity = { ...entity1, ...withActiveMixin() };
     expect(entity1.isActive).toBeUndefined();

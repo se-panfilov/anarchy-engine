@@ -10,7 +10,6 @@ import type { TBoxGeometryParams, TPlaneGeometryParams, TSphereGeometryParams } 
 import { isDefined, isNotDefined } from '@/Engine/Utils';
 
 export function createPrimitiveModel3d(params: TModel3dParams): Mesh | never {
-  // eslint-disable-next-line @typescript-eslint/no-base-to-string
   if (!isPrimitiveModel3dSource(params.model3dSource)) throw new Error(`Model3d source is not a primitive model: "${String(params.model3dSource)}"`);
   const model3dSource: PrimitiveModel3dType = params.model3dSource;
   const materialSource: TMaterialWrapper | undefined = params.materialSource;

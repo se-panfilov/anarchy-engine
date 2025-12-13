@@ -15,7 +15,6 @@ export function getDuration(minutes: number, locale: string, unit: 'long' | 'sho
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 function timeUnitFormatter(locale: string, unit: 'hour' | 'minute', unitDisplay: 'long' | 'short' | 'narrow') {
-  // eslint-disable-next-line @typescript-eslint/unbound-method
   return Intl.NumberFormat(locale, { style: 'unit', unit, unitDisplay }).format;
 }
 

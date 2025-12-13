@@ -23,7 +23,7 @@ export function validSpaceConfig(config: TSpaceConfig): TSchemaValidationResult 
   const dataResult = validateData(config);
   const jsonErrors: ReadonlyArray<any> = jsonResult.errors ?? [];
   const dataErrors: ReadonlyArray<any> = dataResult.errors ?? [];
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+
   return { isValid: jsonResult.isValid && dataResult.isValid, errors: [...jsonErrors, ...dataErrors] };
 }
 
@@ -165,13 +165,10 @@ const validateCameraName = (entity: Readonly<{ cameraName: string }>): boolean =
 const validatePresetName = (entity: Readonly<{ presetName: string }>): boolean => validateField(entity, 'presetName');
 
 function validatePresetNames(entities: ReadonlyArray<Readonly<{ physics?: TWithPresetNamePhysicsBodyConfig }>>): boolean {
-  return (
-    entities
-      .map((entity) => entity.physics)
-      .filter(isDefined)
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-      .every((physics) => isNotDefined(physics.presetName) || validatePresetName(physics as any))
-  );
+  return entities
+    .map((entity) => entity.physics)
+    .filter(isDefined)
+    .every((physics) => isNotDefined(physics.presetName) || validatePresetName(physics as any));
 }
 
 const validateActorNamesForEveryEntity = (entities: ReadonlyArray<Readonly<{ actorNames: ReadonlyArray<string> }>>): boolean => entities.every(validateActorNames);
@@ -180,9 +177,7 @@ const validateActorNames = (entity: Readonly<{ actorNames: ReadonlyArray<string>
 const validateTagsForEveryEntity = (entities: ReadonlyArray<TWithTags>): boolean => entities.every((e: TWithTags): boolean => validateTags(e.tags));
 const validateTags = (tags: ReadonlyArray<string> | undefined): boolean => (tags ? tags.every(validate) : true);
 
-// eslint-disable-next-line @typescript-eslint/no-unsafe-argument
 const validateField = <T extends Record<string, any>>(obj: T, field: keyof T): boolean => validate(obj[field]);
-// eslint-disable-next-line @typescript-eslint/no-unsafe-call,@typescript-eslint/no-unsafe-return
 const validateArrayField = <T extends Record<string, any>>(obj: T, field: keyof T): boolean => obj[field].every(validate);
 
 const validate = (str: string | undefined): boolean => (isDefined(str) ? str.length > 0 && /^[A-z0-9_]+$/gm.test(str) : true);

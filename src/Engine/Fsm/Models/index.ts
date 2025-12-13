@@ -4,7 +4,6 @@ export type * from './TFsmInstanceFactory';
 export type * from './TFsmInstanceRegistry';
 export type * from './TFsmInstanceService';
 export type * from './TFsmMachine';
-export type * from './TFsmMachine';
 export type * from './TFsmParams';
 export type * from './TFsmService';
 export type * from './TFsmSource';

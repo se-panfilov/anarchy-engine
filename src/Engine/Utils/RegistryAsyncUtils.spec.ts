@@ -462,11 +462,9 @@ describe('RegistryAsyncUtils', () => {
     }, 100);
 
     it('should not interfere with other registries ("registryB" should not throw an error)', async () => {
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
       const registryA: TAbstractAsyncRegistry<TRegistrable> = AbstractEntityAsyncRegistry<TRegistrable>('mockEntity' as RegistryType);
       registryA.add(mockEntity1);
       setTimeout(() => registryA.add(mockEntity2), 25);
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
       const registryB: TAbstractAsyncRegistry<TRegistrable> = AbstractEntityAsyncRegistry<TRegistrable>('mockEntityB' as any);
       registryB.add(mockEntity3);
       setTimeout(() => registryB.add(mockEntity4), 25);

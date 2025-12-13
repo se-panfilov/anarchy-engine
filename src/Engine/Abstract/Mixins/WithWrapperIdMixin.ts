@@ -22,12 +22,10 @@ export function withWrapperIdMixin<T extends TWriteable<TWithUserData>>(entity: 
 
 export function withNoWrapperIdMixin<T extends TWriteable<TWithUserData>>(entity: T): TWithWrapperId {
   function setWrapperId(id: string): void | never {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     throw new Error(`setWrapperId is not allowed for this entity (id: "${(entity as any).id}", wrapperId: "${id}")`);
   }
 
   function getWrapperId(): string | undefined | never {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     throw new Error(`getWrapperId is not allowed for this entity ("${(entity as any).id}")`);
   }
 

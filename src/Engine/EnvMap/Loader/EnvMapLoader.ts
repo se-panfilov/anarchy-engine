@@ -13,7 +13,7 @@ export function EnvMapLoader(registry: TEnvMapTextureAsyncRegistry): TEnvMapLoad
   const loader: TAbstractLoader<TEnvMapTexture, TEnvMapResourceConfig> = AbstractLoader(envMapLoader, registry, LoaderType.EnvMap);
 
   function applyParamsOnLoaded(loaded: TWriteable<TEnvMapTexture>, options?: TEnvMapResourceConfig['options']): TEnvMapTexture {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment,functional/immutable-data
+    // eslint-disable-next-line functional/immutable-data
     loaded.mapping = isDefined(options?.mapping) ? EnvMapMappingTypesMap[EnvMapMappingTypesName[options.mapping]] : EquirectangularReflectionMapping;
 
     return loaded;

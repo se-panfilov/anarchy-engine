@@ -34,11 +34,8 @@ export function KinematicTransformAgent(params: TKinematicTransformAgentParams, 
     abstractTransformAgent.destroy$.next();
 
     tempObject.parent?.remove(tempObject);
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     tempObject = null as any;
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     linearDirection = null as any;
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     displacement = null as any;
   });
 
@@ -67,11 +64,11 @@ export function KinematicTransformAgent(params: TKinematicTransformAgentParams, 
 
       // eslint-disable-next-line functional/immutable-data
       agent.data.state.linearSpeed = linearSpeed;
-      // eslint-disable-next-line functional/immutable-data
+
       agent.data.state.linearDirection.copy(linearDirection);
       // eslint-disable-next-line functional/immutable-data
       agent.data.state.angularSpeed = angularSpeed;
-      // eslint-disable-next-line functional/immutable-data
+
       agent.data.state.angularDirection.copy(angularDirection);
       // eslint-disable-next-line functional/immutable-data
       agent.data.state.forwardAxis = forwardAxis;

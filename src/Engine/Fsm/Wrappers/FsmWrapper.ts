@@ -55,7 +55,6 @@ export function FsmWrapper(params: TFsmParams): TFsmWrapper {
       switchMap((operator: TStrategyType) =>
         send$.pipe(
           filter((event: TFsmStates): boolean => event !== entity.getState()),
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-argument,@typescript-eslint/no-unsafe-call
           (operator as any)((event: TFsmEvents): Promise<void> => entity.dispatch(event))
         )
       )

@@ -64,14 +64,12 @@ export function getColliderDesc(params: TPhysicsBodyParams): ColliderDesc | neve
       if (isNotDefined(halfHeight) || isNotDefined(radius)) throw new Error(`Collider shape is "${collisionShape}" but "halfHeight"(${halfHeight}) or "radius"(${radius}) are not defined`);
       return ColliderDesc[collisionShape](halfHeight, radius);
     case CollisionShape.Segment:
-      // eslint-disable-next-line @typescript-eslint/no-base-to-string
       if (isNotDefined(a) || isNotDefined(b)) throw new Error(`Collider shape is "${collisionShape}" but "a"(${a}) or "b"(${b}) are not defined`);
       return ColliderDesc[collisionShape](a, b);
     case CollisionShape.Polyline:
       if (isNotDefined(vertices) || isNotDefined(indices)) throw new Error(`Collider shape is "${collisionShape}" but "vertices"(${vertices}) are not defined`);
       return ColliderDesc[collisionShape](vertices, indices);
     case CollisionShape.Triangle:
-      // eslint-disable-next-line @typescript-eslint/no-base-to-string
       if (isNotDefined(a) || isNotDefined(b) || isNotDefined(c)) throw new Error(`Collider shape is "${collisionShape}" but "a"(${a}), "b"(${b}), or "c"(${c}) are not defined`);
       return ColliderDesc[collisionShape](a, b, c);
     case CollisionShape.TriMesh:
@@ -79,7 +77,6 @@ export function getColliderDesc(params: TPhysicsBodyParams): ColliderDesc | neve
       return ColliderDesc[collisionShape](vertices, indices, flags);
     case CollisionShape.HeightField:
       if (isNotDefined(nrows) || isNotDefined(ncols) || isNotDefined(heights) || isNotDefined(scale))
-        // eslint-disable-next-line @typescript-eslint/no-base-to-string
         throw new Error(`Collider shape is "${collisionShape}" but "nrows"(${nrows}), "ncols"(${ncols}), "heights"(${heights}), or "scale"(${scale}) are not defined`);
       return ColliderDesc[collisionShape](nrows, ncols, heights, scale, flags);
     case CollisionShape.Compound:
@@ -100,7 +97,6 @@ export function getColliderDesc(params: TPhysicsBodyParams): ColliderDesc | neve
       return ColliderDesc[collisionShape](hx, hy, hz, borderRadius);
     case CollisionShape.RoundTriangle:
       if (isNotDefined(a) || isNotDefined(b) || isNotDefined(c) || isNotDefined(borderRadius))
-        // eslint-disable-next-line @typescript-eslint/no-base-to-string
         throw new Error(`Collider shape is "${collisionShape}" but "a"(${a}), "b"(${b}), "c"(${c}), or "radius"(${radius}) are not defined`);
       return ColliderDesc[collisionShape](a, b, c, borderRadius);
     case CollisionShape.RoundCylinder:

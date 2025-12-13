@@ -88,7 +88,6 @@ export function getValueAsync<T>(
       timeout(waitingTime),
       catchError((error: any) => {
         // TODO LOGGER: instead of console should be forwarded to some kind of logger
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
         if (error?.name === 'TimeoutError') console.error(`Cannot get entity async from registry ("${reg.id}"): timeout error has occurred`);
         else console.error(`Cannot get entity async from registry ("${reg.id}"): unknown error has occurred`);
         return of(undefined);

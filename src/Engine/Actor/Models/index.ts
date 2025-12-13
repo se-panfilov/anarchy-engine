@@ -1,5 +1,4 @@
 export type * from './TActor';
-export type * from './TActor';
 export type * from './TActorConfig';
 export type * from './TActorConfigToParamsDependencies';
 export type * from './TActorDependencies';

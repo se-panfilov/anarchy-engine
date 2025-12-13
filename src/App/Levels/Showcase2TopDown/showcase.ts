@@ -31,7 +31,6 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     const actorParams4: TActorParams = { ...actorDefaultParams, model3dSource: createCube(models3dService, 'cube4', materialW), position: new Vector3(-2, 2, 0) };
     const actorParams5: TActorParams = { ...actorDefaultParams, model3dSource: createCube(models3dService, 'cube5', materialW), position: new Vector3(2, 0, 0) };
 
-    // eslint-disable-next-line @typescript-eslint/no-misused-promises
     [actorParams1, actorParams2, actorParams3, actorParams4, actorParams5].forEach((actor: TActorParams) => actorService.create(actor));
 
     const camera: TCameraWrapper = cameraService.create({

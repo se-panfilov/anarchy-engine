@@ -19,7 +19,6 @@ import { createDeferredPromise } from '@/Engine/Utils';
 
 export function performMove(moveFn: TMoveFn | TMoveByPathFn, transformLoop: TTransformLoop, params: Omit<TMoveFnParams, 'complete'> | Omit<TMoveByPathFnParams, 'complete'>): Promise<void> {
   const { promise, resolve } = createDeferredPromise();
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
   const move = moveFn({ ...params, complete: resolve } as any);
   const tickSubscription: Subscription = transformLoop.tick$.subscribe((): void => move.tick(performance.now()));
 

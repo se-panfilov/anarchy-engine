@@ -8,7 +8,6 @@ export function disposeGltf(gltf: Object3D | null): void {
 
   gltf.traverse((child: Object3D): void => {
     if (child instanceof Mesh) {
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access,@typescript-eslint/no-unsafe-call
       if (child.geometry) (child as any).geometry?.dispose();
 
       const materials: ReadonlyArray<Material> = Array.isArray(child.material) ? child.material : [child.material];

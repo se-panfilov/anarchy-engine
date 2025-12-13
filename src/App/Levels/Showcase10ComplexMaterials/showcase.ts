@@ -64,11 +64,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
   const currentMaterialType$: Subject<string> = new Subject();
   currentMaterialTypeIndex$.subscribe((index: number): void => currentMaterialType$.next(materialType[index]));
 
-  combineLatest([
-    currentMaterial$.pipe(startWith(materials[0])),
-    currentMaterialType$.pipe(startWith(materialType[3]))
-    // eslint-disable-next-line @typescript-eslint/no-misused-promises
-  ]).subscribe(([material, type]: ReadonlyArray<string>): void => {
+  combineLatest([currentMaterial$.pipe(startWith(materials[0])), currentMaterialType$.pipe(startWith(materialType[3]))]).subscribe(([material, type]: ReadonlyArray<string>): void => {
     const actor: TActor | undefined = actorRegistry.findByTags([material, type], LookUpStrategy.Every);
     if (isNotDefined(actor)) throw new Error(`Actor with tag "${material}" is not found`);
     currentActor$.next(actor);
@@ -112,6 +108,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
 
   function moveCameraToActor(actor: TActor): void {
     state.controllers.forEach((controller: GUI | Controller): void => controller.destroy());
+
     // eslint-disable-next-line functional/immutable-data
     state.controllers = addGuiToActor(actor);
     const position: Vector3 = actor.drive.position$.value;

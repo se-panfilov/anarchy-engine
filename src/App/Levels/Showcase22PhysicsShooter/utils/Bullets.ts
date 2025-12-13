@@ -77,7 +77,6 @@ export function getBulletsPool(
       receiveShadow: false
     });
 
-    // eslint-disable-next-line @typescript-eslint/no-floating-promises
     bullets = [
       ...bullets,
       Bullet(
@@ -116,7 +115,7 @@ export function Bullet(params: TActorParams, actorService: TActorService): TBull
 
   function setActive(act: boolean): void {
     actor.collisions.autoUpdate$.next(act);
-    // eslint-disable-next-line functional/immutable-data
+
     // (actor.model3d.getRawModel3d() as Mesh).visible = true;
     active = act;
   }
@@ -130,7 +129,7 @@ export function Bullet(params: TActorParams, actorService: TActorService): TBull
     actor.drive.kinematic.resetLinear(true, true);
     setDistanceTraveled(0);
     setActive(false);
-    // eslint-disable-next-line functional/immutable-data
+
     // (actor.model3d.getRawModel3d() as Mesh).visible = false;
   }
 
@@ -203,7 +202,7 @@ export function createHitEffect(position: Vector3, sceneW: TSceneWrapper, lightS
   const positions = new Float32Array(particleCount * 3);
 
   // eslint-disable-next-line functional/no-loop-statements
-  for (let i = 0; i < particleCount; i++) {
+  for (let i: number = 0; i < particleCount; i++) {
     // eslint-disable-next-line functional/immutable-data
     positions[i * 3] = position.x + (Math.random() - 0.5) * 0.9;
     // eslint-disable-next-line functional/immutable-data

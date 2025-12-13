@@ -49,5 +49,4 @@ export type TMaterialTextureKeys =
   | TPhysicalMaterialTextureKeys
   | TToonMaterialTextureKeys
   | TStandardMaterialTextureKeys
-  // eslint-disable-next-line @typescript-eslint/no-duplicate-type-constituents
   | TPointsMaterialTextureKeys;

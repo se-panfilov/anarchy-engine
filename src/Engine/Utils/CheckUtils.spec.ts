@@ -503,7 +503,7 @@ describe('CheckUtils', () => {
         findByTagsAsync: vi.fn(),
         findByTagAsync: vi.fn()
       };
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+
       expect(isAsyncRegistry(registry)).toBe(true);
     });
 
@@ -513,7 +513,7 @@ describe('CheckUtils', () => {
         getUniqWithEveryTag: vi.fn(),
         getUniqByTag: vi.fn()
       };
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+
       expect(isAsyncRegistry(registry)).toBe(false);
     });
   });

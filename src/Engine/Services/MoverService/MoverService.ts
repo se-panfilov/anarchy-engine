@@ -11,7 +11,7 @@ import type { TTransformLoop, TWithConnectedTransformAgent, TWithTransformDrive 
 import { TransformAgent } from '@/Engine/TransformDrive';
 
 export function MoverService(transformLoop: TTransformLoop, { suspendWhenDocumentHidden }: TMoverServiceConfig = defaultMoverServiceConfig): TMoverService {
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access,functional/immutable-data
+  // eslint-disable-next-line functional/immutable-data
   (anime as any).suspendWhenDocumentHidden = suspendWhenDocumentHidden;
 
   return {

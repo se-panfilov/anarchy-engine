@@ -15,7 +15,6 @@ export function ActorService(factory: TActorFactory, registry: TActorRegistry, a
   const createFromConfig = (actors: ReadonlyArray<TActorConfig>): ReadonlyArray<TActor> => {
     const spatialGridRegistry: TSpatialGridRegistry = actorServiceDependencies.spatialGridService.getRegistry();
     return actors.map(
-      // eslint-disable-next-line @typescript-eslint/no-misused-promises
       (config: TActorConfig): TActor =>
         create(factory.configToParams(config, { spatialGridRegistry, models3dService: actorServiceDependencies.models3dService, fsmService: actorServiceDependencies.fsmService }))
     );

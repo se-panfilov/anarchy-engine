@@ -29,7 +29,6 @@ export function withObject3d<T extends TObject3D>(entity: T): TWithObject3d {
   const setRenderOrder = (renderOrder: number): void => void ((entity as TWriteable<T>).renderOrder = renderOrder);
   const getRenderOrder = (): number => entity.renderOrder;
 
-  // eslint-disable-next-line functional/immutable-data
   // const setAnimations = (animations: ReadonlyArray<AnimationClip>): void => void ((entity as TWriteable<T>).animations = animations as Array<AnimationClip>);
   // const getAnimations = (): ReadonlyArray<AnimationClip> => entity.animations;
 

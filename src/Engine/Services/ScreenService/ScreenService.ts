@@ -24,14 +24,12 @@ export function isFullScreen(container: TAppGlobalContainer | undefined): boolea
   if (isNotDefined(container)) throw new Error('Container (window?) is not defined');
   if (isNotDefined(container.document)) throw new Error('Container (document?) is not defined');
 
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
   return Boolean(container.document.fullscreenElement || (container.document as any).webkitFullscreenElement);
 }
 
 export function goFullScreen(canvas: TAppCanvas | undefined): Promise<void> | never {
   if (isNotDefined(canvas)) throw new Error('Canvas is not defined');
   if (canvas.requestFullscreen) return canvas.requestFullscreen();
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access,@typescript-eslint/no-unsafe-return,@typescript-eslint/no-unsafe-call
   if ((canvas as any).webkitRequestFullscreen) return (canvas as any).webkitRequestFullscreen();
 
   throw new Error('Fullscreen is not supported');

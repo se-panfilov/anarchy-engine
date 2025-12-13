@@ -42,7 +42,6 @@ export function RendererWrapper(params: TRendererParams, screenSizeWatcher: Read
   accessors.setShadowMapEnabled(params.isShadowMapEnabled ?? true);
   accessors.setShadowMapType(PCFShadowMap);
 
-  // eslint-disable-next-line functional/prefer-immutable-types
   function setValues(entity: TWriteable<WebGLRenderer>, { width, height, ratio }: TScreenSizeValues): void {
     if (isNotDefined(entity)) return;
     accessors.setSize(width, height);

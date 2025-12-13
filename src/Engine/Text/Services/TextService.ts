@@ -43,7 +43,6 @@ export function TextService(
     if (isText2dWrapper(text)) text2dRegistry.add(text);
     else if (isText3dWrapper(text)) text3dRegistry.add(text);
     else if (isText3dTextureWrapper(text)) text3dTextureRegistry.add(text);
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     else throw new Error(`TextService. EntityCreated: Unknown text type "${(text as any).type ? (text as any).type : ''}"`);
   });
 
