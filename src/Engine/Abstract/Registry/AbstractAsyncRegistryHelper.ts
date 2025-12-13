@@ -21,10 +21,11 @@ export function getValueAsync<T extends IRegistrable | IMultitonRegistrable>(
 
   const sub$: Subscription = reg.added$
     .pipe(
+      // TODO (S.Panfilov) I'm not sure, that timeout is a good idea here. (maybe it's better to use some kind of retry mechanism, or something)
       timeout(waitingTime),
       catchError((error: any) => {
         // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-        if (error?.name === 'TimeoutError') console.error('Cannot get entity async: timeout error has occurred');
+        if (error?.name === 'TimeoutError') console.error(`Cannot get entity async from registry ("${reg.id}"): timeout error has occurred`);
 
         throw error;
       }),
