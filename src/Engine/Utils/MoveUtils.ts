@@ -99,7 +99,7 @@ const lastElapsedTime = 0; // Для хранения времени после�
 //   return promise;
 // }
 
-let startTime = 0; // Начальное время для отслеживания общего времени анимации
+let lastTime = 0; // Начальное время для отслеживания общего времени анимации
 
 export function goToPosition(actor: IActorWrapper, targetPosition: Position, params: IAnimationParams): void {
   let animationRunning = false;
@@ -117,18 +117,22 @@ export function goToPosition(actor: IActorWrapper, targetPosition: Position, par
     }
   });
 
-  startTime = new Clock().getElapsedTime(); // Инициализируем начальное время
-
   // Функция для обновления анимации, вызывается в цикле обновления
-  function animate(t: number): void {
-    console.log(t);
+  function animate(currentTime: number): void {
+    // console.log(currentTime);
     if (!animationRunning) return;
-    console.log('animate');
-    const currentTime = new Clock().getElapsedTime(); // Получаем текущее время
-    const elapsedTime = currentTime - startTime; // Вычисляем общее прошедшее время с начала анимации
+    // console.log('animate');
+
+     if (lastTime === 0) {
+      lastTime = currentTime; // Инициализируем lastTime в первом кадре
+    }
+    // console.log(currentTime);
+    const deltaTime = currentTime - lastTime; // Вычисляем delta time
+    lastTime = currentTime; // Обновляем lastTime для следующего кадра
 
     // animation.tick(elapsedTime * 1000); // Обновляем анимацию, преобразуем в миллисекунды
-    animation.tick(t); // Обновляем анимацию, преобразуем в миллисекунды
+    // animation.tick(t); // Обновляем анимацию, преобразуем в миллисекунды
+   animation.tick(currentTime);
 
     requestAnimationFrame(animate); // Планируем следующий кадр
   }
