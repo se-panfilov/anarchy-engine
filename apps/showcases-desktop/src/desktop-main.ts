@@ -24,6 +24,7 @@ const desktopAppSettings: TDesktopAppConfig = {
 // TODO DESKTOP: Add .env files for different platforms (macos, windows, linux).
 // TODO DESKTOP: Does "exit to desktop" button displayed (and works)?
 // TODO DESKTOP: Send user locale to the app (then to menu) for translations
+// TODO DESKTOP: Try to use rollup-plugin-license to generate legal docs
 
 const windowService = WindowService();
 const settingsService = SettingsService(app);
