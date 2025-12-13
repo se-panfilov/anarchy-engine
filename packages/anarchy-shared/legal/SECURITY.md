@@ -1,48 +1,48 @@
-# Security Policy —
+# Security Policy — anarchy-shared
 
 **Effective date:** TBD until market release
-**Security Contact:** TBD until market release
+**Security Contact:** TBD until market release (email preferred for sensitive reports)
 
 ## Scope
 
-This policy applies to commercial builds of \***\* (the “Project”). It explains how to report potential security issues and how we handle them. **It does not create service levels, warranties, or contractual obligations.** Distribution and updates may occur via any **distribution channels\*\* in use from time to time (including installers, physical media, or package archives).
+This policy applies to the open-source project **anarchy-shared** (the “Project”). It is provided for community coordination only and **does not create service levels (SLAs), warranties, or contractual obligations**.
+It covers the Project’s **source code** and our **officially published release artifacts** (e.g., package registries, release archives, documentation sites, **container images**, or **CDN bundles**) that **we** publish. It does **not** cover third-party repackaging, unofficial builds, downstream products, hosting-platform infrastructure, or **commercial editions**.
 
-## Coordinated Vulnerability Disclosure (CVD)
+**Technical identifiers (optional):** `anarchy-shared`.
 
-- **Report:** email **TBD until market release**. Include affected version/platform, minimal reproduction steps, impact, and (if possible) a small PoC.
-- **File exchange:** if you need to share large files or sensitive artifacts, contact us first to arrange a secure channel.
-- **Public disclosure:** please coordinate timing with us to allow a fix or mitigation to be available where reasonably possible.
+## Reporting (CVD)
 
-## Handling
+- **Report:** email **TBD until market release** with steps to reproduce, affected commit/tag, and impact (if known). If possible, include a short patch or mitigation suggestion.
+- **Public disclosure:** please **do not file public issues with exploit details**; coordinate timing with us to allow a fix or mitigation to be available where reasonably possible.
 
-We will make a **good-faith effort** to triage and prioritize reports. We **do not** promise specific response times or remediation timelines. Availability may be reduced during weekends, holidays, or maintainer absences. There is **no bug bounty** unless explicitly announced.
+## Handling & Disclosure
+
+This is a volunteer-maintained Project. We’ll make a **good-faith effort** to review and prioritize reports; **no timelines are promised**. We may publish an advisory if the issue materially impacts users. There is **no bug bounty** unless explicitly announced.
 
 ### Research Guidelines (please follow)
 
 - Avoid accessing, modifying, or exfiltrating data you do not own; minimize impact and stop testing if you encounter personal data.
 - Do not perform tests that degrade availability for others (e.g., volumetric DoS).
-- Only test assets reasonably in our control; third-party platforms and distribution channels are out of scope.
+- Test only assets we publish through our **official channels** and that are reasonably within this Project’s scope.
+- Vulnerabilities in **third-party platform infrastructure** (e.g., registry/hosting/CDN systems) are **out of scope** unless they result **directly** from our published code or configuration.
 - Comply with applicable law and third-party terms.
 
-## Regulatory Notifications
+## Version Support
 
-Where required by law, we will **notify competent authorities and/or users within the legally mandated timelines** for actively exploited vulnerabilities or other reportable events. This may include obligations under EU law when applicable. No additional contractual commitments are created by this section.
+We generally address issues on **main** and the **latest stable** release. Older releases may not receive fixes; please upgrade.
 
-**US CIRCIA.** If we are a **covered entity** under the U.S. Cyber Incident Reporting for Critical Infrastructure Act, we will submit reports to **CISA** within the timelines mandated by law for covered cyber incidents or ransom payments.
+## Advisories
 
-## Security Updates & Delivery
-
-- **Delivery:** through applicable distribution channels in use from time to time, which may include automatic updates where available, or by providing updated files in the distribution package.
-- **Advisories/release notes:** may be provided within the product, in the update package, or via the applicable distribution channel. No specific location or cadence is guaranteed.
-- **Security support period:** the **shorter** of **(i)** the declared expected lifetime for the relevant **major version** (**24 months**) **and (ii)** **five (5) years** from its **initial commercial release**. Older or unofficial builds may not receive fixes. For clarity, **“major version”** refers to the first segment of semantic versioning (e.g., **2.x.y**).
+If warranted, we will publish a security note or advisory in the repository or adjacent Project materials (e.g., `SECURITY`, `CHANGELOG`, release notes, or the advisories section). There is **no SLA**.
+Copies of public content may also appear in mirrors, forks, caches, or package registries controlled by others; **we do not control those third-party copies**.
 
 ## In / Out of Scope
 
-- **In scope:** issues that materially impact the confidentiality, integrity, or availability of the shipped Project or its **update mechanism**.
-- **Out of scope:** social engineering, physical attacks, denial-of-service on third-party platforms, vulnerabilities in third-party stores or OS kernels not packaged with the Project, issues in unofficial forks or repackaged distributions.
+- **In scope:** issues that materially impact the confidentiality, integrity, or availability of the Project’s code or its documented build/update mechanisms, as **we** publish them.
+- **Out of scope:** social engineering, physical attacks, denial-of-service on third-party platforms, vulnerabilities in hosting/store/kernel infrastructure not packaged with the Project, issues in **unofficial forks**, repackaged distributions, or downstream products.
 
 ## Safe Harbor
 
-If you comply with this policy and act in good faith, we **do not intend** to pursue legal action **solely** for your security research on the Project. This policy does not authorize any activity that violates applicable law or third-party terms, and it does not protect actions that cause harm or data loss.
+We welcome good-faith research that avoids privacy violations and service disruption. If you comply with this policy and act in good faith, we **do not intend** to pursue legal action **solely** for your security research on this Project. This policy does not authorize unlawful activity or override third-party terms, and it does not protect actions that cause harm or data loss.
 
 **Governing Law:** subject to mandatory law, matters under this policy are handled under **The Netherlands/Amsterdam**.

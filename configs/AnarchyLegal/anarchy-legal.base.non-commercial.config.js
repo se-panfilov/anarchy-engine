@@ -17,7 +17,7 @@ export default {
 
   //LEGAL folder (include in a package/binary)
   DISCLAIMER: { template: 'DISCLAIMER_TEMPLATE', relativeOutput: './legal' },
-  EULA: { template: 'EULA_COMMERCIAL_TEMPLATE', relativeOutput: './legal' },
-  PRIVACY: { template: 'PRIVACY_COMMERCIAL_TEMPLATE', relativeOutput: './legal' },
-  SECURITY: { template: 'SECURITY_COMMERCIAL_TEMPLATE', relativeOutput: './legal' }
+  EULA: { template: 'EULA_NON_COMMERCIAL_TEMPLATE', relativeOutput: './legal' },
+  PRIVACY: { template: 'PRIVACY_NON_COMMERCIAL_TEMPLATE', relativeOutput: './legal' },
+  SECURITY: { template: 'SECURITY_NON_COMMERCIAL_TEMPLATE', relativeOutput: './legal' }
 };
