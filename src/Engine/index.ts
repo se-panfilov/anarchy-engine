@@ -20,7 +20,6 @@ export * from './Domains/Texture';
 export * from './Domains/ThreeLib';
 export * from './Mixins';
 export * from './Registries';
-export * from './Schemas';
 export * from './Services';
 export * from './Utils';
 export * from './Wrappers';

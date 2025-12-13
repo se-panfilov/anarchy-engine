@@ -23,7 +23,7 @@
       "type": "string"
     },
     "version": {
-      "$ref": "#/definitions/SchemaVersion"
+      "$ref": "#/definitions/LevelSchemaVersion"
     },
     "scenes": {
       "type": "array",
@@ -78,7 +78,7 @@
       "type": "string",
       "const": "from_config"
     },
-    "SchemaVersion": {
+    "LevelSchemaVersion": {
       "type": "string",
       "const": "1.0.0"
     },
