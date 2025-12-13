@@ -1,1 +1,1 @@
-export * from './IShowcase';
+export * from './TShowcase';

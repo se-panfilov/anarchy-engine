@@ -1,7 +1,7 @@
-import type { IVector2 } from '@/Engine/Vector';
+import type { TVector2 } from '@/Engine/Vector';
 
 export type ILightShadowParams = Readonly<{
-  mapSize: IVector2;
+  mapSize: TVector2;
   camera: { far: number };
   normalBias: number;
 }>;

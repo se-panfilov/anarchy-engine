@@ -1,12 +1,12 @@
-import type { IShowcase } from '@/App/Levels/Models';
-import type { IAppCanvas, IEngine, IParticlesWrapperAsync, ISpace, ISpaceConfig } from '@/Engine';
+import type { TShowcase } from '@/App/Levels/Models';
+import type { TAppCanvas, TEngine, IParticlesWrapperAsync, TSpace, TSpaceConfig } from '@/Engine';
 import { buildSpaceFromConfig, Engine, isNotDefined } from '@/Engine';
 
 import spaceConfig from './showcase.json';
 
-export function showcase(canvas: IAppCanvas): IShowcase {
-  const space: ISpace = buildSpaceFromConfig(canvas, spaceConfig as ISpaceConfig);
-  const engine: IEngine = Engine(space);
+export function showcase(canvas: TAppCanvas): TShowcase {
+  const space: TSpace = buildSpaceFromConfig(canvas, spaceConfig as TSpaceConfig);
+  const engine: TEngine = Engine(space);
   const { particlesService } = space.services;
 
   async function init(): Promise<void> {

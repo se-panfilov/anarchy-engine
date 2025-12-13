@@ -1,8 +1,8 @@
 import type { Vector3, Vector4 } from 'three';
 
-import type { IVectorWithZ } from '@/Engine/Vector/Models';
+import type { TVectorWithZ } from '@/Engine/Vector/Models';
 
-export function vectorMoveByZMixin(entity: Vector3 | Vector4): IVectorWithZ {
+export function vectorMoveByZMixin(entity: Vector3 | Vector4): TVectorWithZ {
   // eslint-disable-next-line functional/immutable-data
   const setZ = (z: number): number => (entity.z = z);
   const getZ = (): number => entity.z;

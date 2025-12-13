@@ -1,7 +1,7 @@
 import type { ICameraWrapper } from '@/Engine/Camera';
-import type { IControlsRegistry, IOrbitControlsWrapper } from '@/Engine/Controls';
+import type { TControlsRegistry, TOrbitControlsWrapper } from '@/Engine/Controls';
 import type { IRendererWrapper } from '@/Engine/Renderer';
-import type { ISceneWrapper } from '@/Engine/Scene';
+import type { TSceneWrapper } from '@/Engine/Scene';
 import type { IText2dRegistry, IText2dRenderer, IText3dRegistry, IText3dRenderer } from '@/Engine/Text';
 import { isDefined } from '@/Engine/Utils';
 
@@ -9,12 +9,12 @@ export function spaceLoop(
   delta: number,
   activeCamera: ICameraWrapper | undefined,
   renderer: IRendererWrapper,
-  activeScene: ISceneWrapper,
+  activeScene: TSceneWrapper,
   text2dRegistry: IText2dRegistry,
   text3dRegistry: IText3dRegistry,
   text2dRenderer: IText2dRenderer,
   text3dRenderer: IText3dRenderer,
-  controlsRegistry: IControlsRegistry
+  controlsRegistry: TControlsRegistry
 ): void {
   if (isDefined(activeCamera)) {
     renderer.entity.render(activeScene.entity, activeCamera.entity);
@@ -24,7 +24,7 @@ export function spaceLoop(
   }
 
   // just for control's damping
-  controlsRegistry.getAll().forEach((controls: IOrbitControlsWrapper): void => {
+  controlsRegistry.getAll().forEach((controls: TOrbitControlsWrapper): void => {
     if (controls.entity.enableDamping) controls.entity.update(delta);
   });
 }

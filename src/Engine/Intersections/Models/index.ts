@@ -1,5 +1,5 @@
 export * from './IIntersectionEvent';
-export * from './IIntersectionsWatcher';
+export * from './TIntersectionsWatcher';
 export * from './IIntersectionsWatcherAsyncRegistry';
 export * from './IIntersectionsWatcherConfig';
 export * from './IIntersectionsWatcherFactory';

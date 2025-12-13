@@ -1,20 +1,20 @@
-import type { IActorAsyncRegistry, IActorConfig, IActorFactory, IActorParams, IActorService, IActorWrapperAsync } from '@/Engine/Actor/Models';
+import type { TActorAsyncRegistry, IActorConfig, IActorFactory, IActorParams, IActorService, TActorWrapperAsync } from '@/Engine/Actor/Models';
 import type { IMaterialTextureService } from '@/Engine/MaterialTexturePack';
-import type { IDestroyable } from '@/Engine/Mixins';
+import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
-import type { ISceneWrapper } from '@/Engine/Scene';
+import type { TSceneWrapper } from '@/Engine/Scene';
 
-export function ActorService(factory: IActorFactory, registry: IActorAsyncRegistry, materialTextureService: IMaterialTextureService, scene: ISceneWrapper): IActorService {
-  registry.added$.subscribe((wrapper: IActorWrapperAsync): void => scene.addActor(wrapper));
-  factory.entityCreated$.subscribe((wrapper: IActorWrapperAsync): void => registry.add(wrapper));
+export function ActorService(factory: IActorFactory, registry: TActorAsyncRegistry, materialTextureService: IMaterialTextureService, scene: TSceneWrapper): IActorService {
+  registry.added$.subscribe((wrapper: TActorWrapperAsync): void => scene.addActor(wrapper));
+  factory.entityCreated$.subscribe((wrapper: TActorWrapperAsync): void => registry.add(wrapper));
 
-  const createAsync = (params: IActorParams): Promise<IActorWrapperAsync> => factory.createAsync(params, { materialTextureService });
+  const createAsync = (params: IActorParams): Promise<TActorWrapperAsync> => factory.createAsync(params, { materialTextureService });
   const createFromConfig = (actors: ReadonlyArray<IActorConfig>): void => {
     // eslint-disable-next-line @typescript-eslint/no-misused-promises
-    actors.forEach((config: IActorConfig): Promise<IActorWrapperAsync> => factory.createAsync(factory.configToParams(config), { materialTextureService }));
+    actors.forEach((config: IActorConfig): Promise<TActorWrapperAsync> => factory.createAsync(factory.configToParams(config), { materialTextureService }));
   };
 
-  const destroyable: IDestroyable = destroyableMixin();
+  const destroyable: TDestroyable = destroyableMixin();
   destroyable.destroyed$.subscribe(() => {
     factory.destroy();
     registry.destroy();
@@ -24,8 +24,8 @@ export function ActorService(factory: IActorFactory, registry: IActorAsyncRegist
     createAsync,
     createFromConfig,
     getFactory: (): IActorFactory => factory,
-    getRegistry: (): IActorAsyncRegistry => registry,
-    getScene: (): ISceneWrapper => scene,
+    getRegistry: (): TActorAsyncRegistry => registry,
+    getScene: (): TSceneWrapper => scene,
     ...destroyable
   };
 }

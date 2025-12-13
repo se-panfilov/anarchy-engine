@@ -1,8 +1,8 @@
-import type { IAppCanvas } from '@/Engine/App';
+import type { TAppCanvas } from '@/Engine/App';
 
 export type IScreenService = Readonly<{
-  setCanvas: (canvas: IAppCanvas) => void;
-  getCanvas: () => IAppCanvas | undefined;
+  setCanvas: (canvas: TAppCanvas) => void;
+  getCanvas: () => TAppCanvas | undefined;
   goFullScreen: () => Promise<void>;
   exitFullScreen: () => Promise<void>;
   toggleFullScreen: () => Promise<void>;

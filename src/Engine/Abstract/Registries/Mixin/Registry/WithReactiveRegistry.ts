@@ -1,10 +1,10 @@
 import { Subject } from 'rxjs';
 
-import type { IWithReactiveRegistry } from '@/Engine/Abstract/Models';
-import type { IDestroyable } from '@/Engine/Mixins';
+import type { TWithReactiveRegistry } from '@/Engine/Abstract/Models';
+import type { TDestroyable } from '@/Engine/Mixins';
 import { isDestroyable } from '@/Engine/Utils';
 
-export function withReactiveRegistry<T>(destroyable: IDestroyable): IWithReactiveRegistry<T> {
+export function withReactiveRegistry<T>(destroyable: TDestroyable): TWithReactiveRegistry<T> {
   const registry: Map<string, T> = new Map();
   const added$: Subject<T> = new Subject<T>();
   const replaced$: Subject<T> = new Subject<T>();

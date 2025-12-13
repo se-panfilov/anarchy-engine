@@ -1,16 +1,16 @@
 import type { Observable, Subscription } from 'rxjs';
 import { BehaviorSubject, catchError, filter, of, take, timeout } from 'rxjs';
 
-import type { IAbstractAsyncRegistry, IAbstractEntityRegistry, LookUpStrategy } from '@/Engine/Abstract';
-import type { IMultitonRegistrable, IRegistrable } from '@/Engine/Mixins';
+import type { TAbstractAsyncRegistry, TAbstractEntityRegistry, LookUpStrategy } from '@/Engine/Abstract';
+import type { TMultitonRegistrable, TRegistrable } from '@/Engine/Mixins';
 
 import { createDeferredPromise } from './AsyncUtils';
 import { isDefined } from './CheckUtils';
 import { shouldHaveTags } from './RegistryUtils';
 
-export function getUniqEntityWithTagsAsync<T extends IRegistrable>(
+export function getUniqEntityWithTagsAsync<T extends TRegistrable>(
   tags: ReadonlyArray<string>,
-  registry: IAbstractEntityRegistry<T> | IAbstractAsyncRegistry<T>,
+  registry: TAbstractEntityRegistry<T> | TAbstractAsyncRegistry<T>,
   strategy: LookUpStrategy,
   // TODO (S.Panfilov) should be set from default config
   waitingTime: number = 3000
@@ -19,38 +19,38 @@ export function getUniqEntityWithTagsAsync<T extends IRegistrable>(
 }
 
 // TODO (S.Panfilov) all waiting times should be set from default config
-export function getAsyncUniqEntityWithTag<T extends IRegistrable>(tag: string, registry: IAbstractEntityRegistry<T> | IAbstractAsyncRegistry<T>, waitingTime: number = 3000): Promise<T | undefined> {
+export function getAsyncUniqEntityWithTag<T extends TRegistrable>(tag: string, registry: TAbstractEntityRegistry<T> | TAbstractAsyncRegistry<T>, waitingTime: number = 3000): Promise<T | undefined> {
   return getValueAsync<T>(registry, (entity: T): boolean => entity.hasTag(tag), undefined, waitingTime);
 }
 
-export function getAsyncUniqEntityByNameAsync<T extends IRegistrable>(
+export function getAsyncUniqEntityByNameAsync<T extends TRegistrable>(
   name: string,
-  registry: IAbstractEntityRegistry<T> | IAbstractAsyncRegistry<T>,
+  registry: TAbstractEntityRegistry<T> | TAbstractAsyncRegistry<T>,
   waitingTime: number = 3000
 ): Promise<T | undefined> {
   return getValueAsync<T>(registry, (entity: T): boolean => isDefined(entity) && entity.name === name, undefined, waitingTime);
 }
 
-export function getUniqEntityWithTags$<T extends IRegistrable>(tags: ReadonlyArray<string>, registry: IAbstractEntityRegistry<T> | IAbstractAsyncRegistry<T>, strategy: LookUpStrategy): Observable<T> {
-  const result: T | undefined = isDefined((registry as IAbstractEntityRegistry<T>).findByTags) ? (registry as IAbstractEntityRegistry<T>).findByTags(tags, strategy) : undefined;
+export function getUniqEntityWithTags$<T extends TRegistrable>(tags: ReadonlyArray<string>, registry: TAbstractEntityRegistry<T> | TAbstractAsyncRegistry<T>, strategy: LookUpStrategy): Observable<T> {
+  const result: T | undefined = isDefined((registry as TAbstractEntityRegistry<T>).findByTags) ? (registry as TAbstractEntityRegistry<T>).findByTags(tags, strategy) : undefined;
   if (isDefined(result)) return new BehaviorSubject(result).asObservable();
   return subscribeToValue$<T>(registry, (entity: T): boolean => shouldHaveTags(entity, tags, strategy));
 }
 
-export function getUniqEntityWithTag$<T extends IRegistrable>(tag: string, registry: IAbstractEntityRegistry<T> | IAbstractAsyncRegistry<T>): Observable<T> {
-  const result: T | undefined = isDefined((registry as IAbstractEntityRegistry<T>).findByTag) ? (registry as IAbstractEntityRegistry<T>).findByTag(tag) : undefined;
+export function getUniqEntityWithTag$<T extends TRegistrable>(tag: string, registry: TAbstractEntityRegistry<T> | TAbstractAsyncRegistry<T>): Observable<T> {
+  const result: T | undefined = isDefined((registry as TAbstractEntityRegistry<T>).findByTag) ? (registry as TAbstractEntityRegistry<T>).findByTag(tag) : undefined;
   if (isDefined(result)) return new BehaviorSubject(result).asObservable();
   return subscribeToValue$<T>(registry, (entity: T): boolean => entity.hasTag(tag));
 }
 
-export function getUniqEntityByName$<T extends IRegistrable>(name: string, registry: IAbstractEntityRegistry<T> | IAbstractAsyncRegistry<T>): Observable<T> {
-  const result: T | undefined = isDefined((registry as IAbstractEntityRegistry<T>).findByName) ? (registry as IAbstractEntityRegistry<T>).findByName(name) : undefined;
+export function getUniqEntityByName$<T extends TRegistrable>(name: string, registry: TAbstractEntityRegistry<T> | TAbstractAsyncRegistry<T>): Observable<T> {
+  const result: T | undefined = isDefined((registry as TAbstractEntityRegistry<T>).findByName) ? (registry as TAbstractEntityRegistry<T>).findByName(name) : undefined;
   if (isDefined(result)) return new BehaviorSubject(result).asObservable();
   return subscribeToValue$<T>(registry, (entity: T): boolean => entity.name === name);
 }
 
-export function getValueAsync<T extends IRegistrable | IMultitonRegistrable>(
-  reg: IAbstractEntityRegistry<T> | IAbstractAsyncRegistry<T>,
+export function getValueAsync<T extends TRegistrable | TMultitonRegistrable>(
+  reg: TAbstractEntityRegistry<T> | TAbstractAsyncRegistry<T>,
   filterFn: (entity: T) => boolean,
   stopCb?: (stop: () => void) => void,
   // TODO (S.Panfilov) this time should be bigger and different for different entities (DEFAULT_WAITING_TIME + from params)
@@ -92,5 +92,5 @@ export function getValueAsync<T extends IRegistrable | IMultitonRegistrable>(
   return promise;
 }
 
-export const subscribeToValue$ = <T extends IRegistrable | IMultitonRegistrable>(reg: IAbstractEntityRegistry<T> | IAbstractAsyncRegistry<T>, filterFn: (entity: T) => boolean): Observable<T> =>
+export const subscribeToValue$ = <T extends TRegistrable | TMultitonRegistrable>(reg: TAbstractEntityRegistry<T> | TAbstractAsyncRegistry<T>, filterFn: (entity: T) => boolean): Observable<T> =>
   reg.added$.pipe(filter(filterFn), take(1));

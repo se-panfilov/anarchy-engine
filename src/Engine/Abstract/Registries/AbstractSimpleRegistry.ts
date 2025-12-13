@@ -1,20 +1,20 @@
 import { nanoid } from 'nanoid';
 
 import type { RegistryType } from '@/Engine/Abstract/Constants';
-import type { IAbstractSimpleRegistry, IWithBaseAccessorsRegistry, IWithReactiveRegistry } from '@/Engine/Abstract/Models';
+import type { TAbstractSimpleRegistry, TWithBaseAccessorsRegistry, TWithReactiveRegistry } from '@/Engine/Abstract/Models';
 import { withBaseAccessorsRegistry } from '@/Engine/Abstract/Registries/Mixin';
 import { withReactiveRegistry } from '@/Engine/Abstract/Registries/Mixin/Registry/WithReactiveRegistry';
-import type { IDestroyable } from '@/Engine/Mixins';
+import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
 import { isNotDefined } from '@/Engine/Utils';
 
-export function AbstractSimpleRegistry<T>(type: RegistryType): IAbstractSimpleRegistry<T> {
+export function AbstractSimpleRegistry<T>(type: RegistryType): TAbstractSimpleRegistry<T> {
   const id: string = type + '_registry_' + nanoid();
   const registry: Map<string, T> = new Map();
 
-  const destroyable: IDestroyable = destroyableMixin();
-  const { added$, replaced$, removed$ }: IWithReactiveRegistry<T> = withReactiveRegistry<T>(destroyable);
-  const { isEmpty, getLength, forEach, getAll, find }: IWithBaseAccessorsRegistry<T> = withBaseAccessorsRegistry<T>(registry);
+  const destroyable: TDestroyable = destroyableMixin();
+  const { added$, replaced$, removed$ }: TWithReactiveRegistry<T> = withReactiveRegistry<T>(destroyable);
+  const { isEmpty, getLength, forEach, getAll, find }: TWithBaseAccessorsRegistry<T> = withBaseAccessorsRegistry<T>(registry);
 
   function add(key: string, value: T): void | never {
     if (registry.has(key)) throw new Error(`Cannot add to a registry("${id}") a value with key "${key}": The key is already exist in the registry`);

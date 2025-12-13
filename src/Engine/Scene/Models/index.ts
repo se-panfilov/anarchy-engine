@@ -5,5 +5,5 @@ export * from './ISceneObject';
 export * from './ISceneParams';
 export * from './ISceneProps';
 export * from './ISceneRegistry';
-export * from './IScenesService';
-export * from './ISceneWrapper';
+export * from './TScenesService';
+export * from './TSceneWrapper';

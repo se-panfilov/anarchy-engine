@@ -1,4 +1,4 @@
-import type { IAppCanvas } from '@/Engine/App';
+import type { TAppCanvas } from '@/Engine/App';
 import type { IAppGlobalContainer } from '@/Engine/Global';
 
 export type IGlobalContainerDecorator = Readonly<{
@@ -8,6 +8,6 @@ export type IGlobalContainerDecorator = Readonly<{
   getRatio: () => number;
   startWatch: (type: string, cb: (...args: ReadonlyArray<never>) => void) => void;
   stopWatch: (type: string, cb: (...args: ReadonlyArray<never>) => void) => void;
-  getCanvasElement: (selector: string) => IAppCanvas | null;
+  getCanvasElement: (selector: string) => TAppCanvas | null;
   getAppContainer: () => IAppGlobalContainer;
 }>;

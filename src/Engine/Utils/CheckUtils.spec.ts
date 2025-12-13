@@ -2,7 +2,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { Vector2, Vector3, Vector4 } from 'three';
 
 import { ColorWrapper } from '@/Engine/Color';
-import type { IDestroyable, IRegistrable, IWithPosition2dProperty, IWithPosition3dProperty, IWithPosition4dProperty } from '@/Engine/Mixins';
+import type { TDestroyable, TRegistrable, IWithPosition2dProperty, IWithPosition3dProperty, IWithPosition4dProperty } from '@/Engine/Mixins';
 import { Vector2Wrapper, Vector3Wrapper, Vector4Wrapper } from '@/Engine/Vector';
 
 import {
@@ -141,34 +141,34 @@ describe('CheckUtils', () => {
 
   describe('isRegistrable', () => {
     it('should return "true"', () => {
-      const obj: Partial<IRegistrable> = { id: 'mock-id', getTags: vi.fn(), addTag: vi.fn() };
+      const obj: Partial<TRegistrable> = { id: 'mock-id', getTags: vi.fn(), addTag: vi.fn() };
       expect(isRegistrable(obj)).toBe(true);
     });
 
     it('should return "false" if  "getTags" is "undefined"', () => {
-      const obj: Partial<IRegistrable> = { id: 'mock-id', addTag: vi.fn() };
+      const obj: Partial<TRegistrable> = { id: 'mock-id', addTag: vi.fn() };
       expect(isRegistrable(obj)).toBe(false);
     });
 
     it('should return "false" if addTag is undefined', () => {
-      const obj: Partial<IRegistrable> = { id: 'mock-id', getTags: vi.fn() };
+      const obj: Partial<TRegistrable> = { id: 'mock-id', getTags: vi.fn() };
       expect(isRegistrable(obj)).toBe(false);
     });
   });
 
   describe('isDestroyable', () => {
     it('should return "true" if "destroy" and "destriyed$" is defined', () => {
-      const obj: IDestroyable = { destroy: () => undefined, destroyed$: new Observable<void>(), isDestroyed: (): boolean => false };
+      const obj: TDestroyable = { destroy: () => undefined, destroyed$: new Observable<void>(), isDestroyed: (): boolean => false };
       expect(isDestroyable(obj)).toBe(true);
     });
 
     it('should return "false" if "destroy" is NOT defined', () => {
-      const obj: Omit<IDestroyable, 'destroy'> = { destroyed$: new Observable<void>(), isDestroyed: (): boolean => false };
+      const obj: Omit<TDestroyable, 'destroy'> = { destroyed$: new Observable<void>(), isDestroyed: (): boolean => false };
       expect(isDestroyable(obj)).toBe(false);
     });
 
     it('should return "false" if "destroyed$" is NOT defined', () => {
-      const obj: Omit<IDestroyable, 'destroyed$'> = { destroy: () => undefined, isDestroyed: (): boolean => false };
+      const obj: Omit<TDestroyable, 'destroyed$'> = { destroy: () => undefined, isDestroyed: (): boolean => false };
       expect(isDestroyable(obj)).toBe(false);
     });
 

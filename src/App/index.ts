@@ -17,10 +17,10 @@ import '@/App/style.css';
 // import { showcase } from '@/App/Levels/Showcase15ConfigurableIntersections';
 // import { showcase } from '@/App/Levels/Showcase16Distance';
 import { showcase } from '@/App/Levels/Showcase17Particles';
-import type { IAppCanvas } from '@/Engine';
+import type { TAppCanvas } from '@/Engine';
 import { ambientContext, isNotDefined } from '@/Engine';
 
-const canvas: IAppCanvas | null = ambientContext.container.getCanvasElement('#app');
+const canvas: TAppCanvas | null = ambientContext.container.getCanvasElement('#app');
 if (isNotDefined(canvas)) throw new Error('Canvas is not defined');
 const { start } = showcase(canvas);
 void start();

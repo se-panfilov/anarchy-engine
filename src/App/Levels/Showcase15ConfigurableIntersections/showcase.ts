@@ -1,15 +1,15 @@
 import GUI from 'lil-gui';
 
-import type { IShowcase } from '@/App/Levels/Models';
-import type { IAppCanvas, ICameraRegistry, ICameraWrapper, IEngine, IIntersectionEvent, IIntersectionsWatcher, ISpace, ISpaceConfig } from '@/Engine';
+import type { TShowcase } from '@/App/Levels/Models';
+import type { TAppCanvas, ICameraRegistry, ICameraWrapper, TEngine, IIntersectionEvent, TIntersectionsWatcher, TSpace, TSpaceConfig } from '@/Engine';
 import { buildSpaceFromConfig, Engine, isNotDefined, mouseService } from '@/Engine';
 
 import spaceConfig from './showcase.json';
 
-export function showcase(canvas: IAppCanvas): IShowcase {
+export function showcase(canvas: TAppCanvas): TShowcase {
   const gui: GUI = new GUI();
-  const space: ISpace = buildSpaceFromConfig(canvas, spaceConfig as ISpaceConfig);
-  const engine: IEngine = Engine(space);
+  const space: TSpace = buildSpaceFromConfig(canvas, spaceConfig as TSpaceConfig);
+  const engine: TEngine = Engine(space);
 
   const { cameraService, intersectionsWatcherService } = space.services;
   const cameraRegistry: ICameraRegistry = cameraService.getRegistry();
@@ -19,11 +19,11 @@ export function showcase(canvas: IAppCanvas): IShowcase {
     intersectionsWatcherService.getRegistry().findByName$('watcher_red').subscribe(onRedWatcher);
     intersectionsWatcherService.getRegistry().findByName$('watcher_blue').subscribe(onBlueWatcher);
 
-    function onRedWatcher(redWatcher: IIntersectionsWatcher): void {
+    function onRedWatcher(redWatcher: TIntersectionsWatcher): void {
       redWatcher.value$.subscribe((value: IIntersectionEvent) => console.log('redWatcher', value));
     }
 
-    function onBlueWatcher(blueWatcher: IIntersectionsWatcher): void {
+    function onBlueWatcher(blueWatcher: TIntersectionsWatcher): void {
       blueWatcher.value$.subscribe((value: IIntersectionEvent) => console.log('blueWatcher', value));
     }
 

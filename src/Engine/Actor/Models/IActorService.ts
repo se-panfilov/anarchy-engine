@@ -1,15 +1,15 @@
-import type { IDestroyable } from '@/Engine/Mixins';
-import type { IWithCreateAsyncService, IWithCreateFromConfigService, IWithFactoryService, IWithRegistryService, IWithSceneGetterService } from '@/Engine/Space';
+import type { TDestroyable } from '@/Engine/Mixins';
+import type { TWithCreateAsyncService, TWithCreateFromConfigService, TWithFactoryService, TWithRegistryService, TWithSceneGetterService } from '@/Engine/Space';
 
-import type { IActorAsyncRegistry } from './IActorAsyncRegistry';
+import type { TActorAsyncRegistry } from './TActorAsyncRegistry';
 import type { IActorConfig } from './IActorConfig';
 import type { IActorFactory } from './IActorFactory';
 import type { IActorParams } from './IActorParams';
-import type { IActorWrapperAsync } from './IActorWrapperAsync';
+import type { TActorWrapperAsync } from './TActorWrapperAsync';
 
-export type IActorService = IWithCreateAsyncService<IActorWrapperAsync, IActorParams> &
-  IWithCreateFromConfigService<IActorConfig> &
-  IWithFactoryService<IActorFactory> &
-  IWithRegistryService<IActorAsyncRegistry> &
-  IWithSceneGetterService &
-  IDestroyable;
+export type IActorService = TWithCreateAsyncService<TActorWrapperAsync, IActorParams> &
+  TWithCreateFromConfigService<IActorConfig> &
+  TWithFactoryService<IActorFactory> &
+  TWithRegistryService<TActorAsyncRegistry> &
+  TWithSceneGetterService &
+  TDestroyable;

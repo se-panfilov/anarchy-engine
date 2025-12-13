@@ -2,28 +2,28 @@ import GUI from 'lil-gui';
 import { CameraHelper, DirectionalLightHelper, HemisphereLightHelper, PointLightHelper, SpotLightHelper } from 'three';
 import { RectAreaLightHelper } from 'three/examples/jsm/helpers/RectAreaLightHelper';
 
-import type { IShowcase } from '@/App/Levels/Models';
+import type { TShowcase } from '@/App/Levels/Models';
 import type {
-  IAppCanvas,
+  TAppCanvas,
   IDirectionalLightWrapper,
-  IEngine,
+  TEngine,
   IHemisphereLightWrapper,
   ILightRegistry,
   IPointLightWrapper,
   IRectAreaLightWrapper,
-  ISceneWrapper,
-  ISpace,
-  ISpaceConfig,
+  TSceneWrapper,
+  TSpace,
+  TSpaceConfig,
   ISpotLightWrapper
 } from '@/Engine';
 import { buildSpaceFromConfig, Engine, isNotDefined } from '@/Engine';
 
 import spaceConfig from './showcase.json';
 
-export function showcase(canvas: IAppCanvas): IShowcase {
+export function showcase(canvas: TAppCanvas): TShowcase {
   const gui: GUI = new GUI();
-  const space: ISpace = buildSpaceFromConfig(canvas, spaceConfig as ISpaceConfig);
-  const engine: IEngine = Engine(space);
+  const space: TSpace = buildSpaceFromConfig(canvas, spaceConfig as TSpaceConfig);
+  const engine: TEngine = Engine(space);
   const { lightService, scenesService } = space.services;
 
   const lightRegistry: ILightRegistry = lightService.getRegistry();
@@ -31,7 +31,7 @@ export function showcase(canvas: IAppCanvas): IShowcase {
   // void envMapService.load('/Showcase/hdr/urban_alley_01_4k.hdr');
 
   function init(): void {
-    const scene: ISceneWrapper | undefined = scenesService.findActive();
+    const scene: TSceneWrapper | undefined = scenesService.findActive();
     if (isNotDefined(scene)) throw new Error('Scene not found');
 
     //directional light

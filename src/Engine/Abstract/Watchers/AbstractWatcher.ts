@@ -2,16 +2,16 @@ import { nanoid } from 'nanoid';
 import { Subject } from 'rxjs';
 
 import type { WatcherType } from '@/Engine/Abstract/Constants';
-import type { IAbstractWatcher } from '@/Engine/Abstract/Models';
-import type { IDestroyable } from '@/Engine/Mixins';
+import type { TAbstractWatcher } from '@/Engine/Abstract/Models';
+import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin, withNameAndNameAccessorsMixin } from '@/Engine/Mixins';
 import { withTagsMixin } from '@/Engine/Mixins/Generics';
 import { isDefined } from '@/Engine/Utils';
 
-export function AbstractWatcher<T>(type: WatcherType | string, name: string | undefined, tags: ReadonlyArray<string> = []): IAbstractWatcher<T> {
+export function AbstractWatcher<T>(type: WatcherType | string, name: string | undefined, tags: ReadonlyArray<string> = []): TAbstractWatcher<T> {
   const id: string = type + '_' + nanoid();
   const value$: Subject<T> = new Subject<T>();
-  const destroyable: IDestroyable = destroyableMixin();
+  const destroyable: TDestroyable = destroyableMixin();
 
   destroyable.destroyed$.subscribe((): void => value$.complete());
 

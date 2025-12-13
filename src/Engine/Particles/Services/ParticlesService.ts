@@ -1,10 +1,10 @@
 import type { IMaterialTextureService } from '@/Engine/MaterialTexturePack';
-import type { IDestroyable } from '@/Engine/Mixins';
+import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
 import type { IParticlesAsyncRegistry, IParticlesConfig, IParticlesFactory, IParticlesParams, IParticlesService, IParticlesWrapperAsync } from '@/Engine/Particles/Models';
-import type { ISceneWrapper } from '@/Engine/Scene';
+import type { TSceneWrapper } from '@/Engine/Scene';
 
-export function ParticlesService(factory: IParticlesFactory, registry: IParticlesAsyncRegistry, materialTextureService: IMaterialTextureService, scene: ISceneWrapper): IParticlesService {
+export function ParticlesService(factory: IParticlesFactory, registry: IParticlesAsyncRegistry, materialTextureService: IMaterialTextureService, scene: TSceneWrapper): IParticlesService {
   registry.added$.subscribe((wrapper: IParticlesWrapperAsync): void => scene.addParticles(wrapper));
   factory.entityCreated$.subscribe((wrapper: IParticlesWrapperAsync): void => registry.add(wrapper));
 
@@ -14,7 +14,7 @@ export function ParticlesService(factory: IParticlesFactory, registry: IParticle
     particles.forEach((config: IParticlesConfig): Promise<IParticlesWrapperAsync> => factory.createAsync(factory.configToParams(config), { materialTextureService }));
   };
 
-  const destroyable: IDestroyable = destroyableMixin();
+  const destroyable: TDestroyable = destroyableMixin();
   destroyable.destroyed$.subscribe(() => {
     factory.destroy();
     registry.destroy();
@@ -25,7 +25,7 @@ export function ParticlesService(factory: IParticlesFactory, registry: IParticle
     createFromConfig,
     getFactory: (): IParticlesFactory => factory,
     getRegistry: (): IParticlesAsyncRegistry => registry,
-    getScene: (): ISceneWrapper => scene,
+    getScene: (): TSceneWrapper => scene,
     ...destroyable
   };
 }

@@ -1,10 +1,10 @@
-import type { IAbstractWatcher } from '@/Engine/Abstract';
+import type { TAbstractWatcher } from '@/Engine/Abstract';
 import { AbstractWatcher, WatcherType } from '@/Engine/Abstract';
 import type { IMouseEvent, IMousePosition, IMousePositionWatcher, IMousePositionWatcherParams } from '@/Engine/Mouse/Models';
 
 export function MousePositionWatcher({ container, tags = [] }: IMousePositionWatcherParams): IMousePositionWatcher {
   const containerIdTag: string = `container_id_${container.id}`;
-  const abstractWatcher: IAbstractWatcher<IMousePosition> = AbstractWatcher(WatcherType.MousePositionWatcher, 'global_mouse_position_watcher', tags);
+  const abstractWatcher: TAbstractWatcher<IMousePosition> = AbstractWatcher(WatcherType.MousePositionWatcher, 'global_mouse_position_watcher', tags);
   const onMouseMoveListener = ({ clientX: x, clientY: y }: IMouseEvent): void => abstractWatcher.value$.next({ x, y });
 
   function start(): IMousePositionWatcher {

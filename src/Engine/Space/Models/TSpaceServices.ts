@@ -1,0 +1,29 @@
+import type { IActorService } from '@/Engine/Actor';
+import type { ICameraService } from '@/Engine/Camera';
+import type { IControlsService } from '@/Engine/Controls';
+import type { IEnvMapService } from '@/Engine/EnvMap';
+import type { IFogService } from '@/Engine/Fog';
+import type { IIntersectionsWatcherService } from '@/Engine/Intersections';
+import type { ILightService } from '@/Engine/Light';
+import type { IMaterialService } from '@/Engine/Material';
+import type { IMaterialTextureService } from '@/Engine/MaterialTexturePack';
+import type { IParticlesService } from '@/Engine/Particles';
+import type { IRendererService } from '@/Engine/Renderer';
+import type { TScenesService } from '@/Engine/Scene';
+import type { ITextService } from '@/Engine/Text';
+
+export type TSpaceServices = Readonly<{
+  actorService: IActorService;
+  textService: ITextService;
+  cameraService: ICameraService;
+  intersectionsWatcherService: IIntersectionsWatcherService;
+  lightService: ILightService;
+  particlesService: IParticlesService;
+  fogService: IFogService;
+  controlsService: IControlsService;
+  materialService: IMaterialService;
+  materialTextureService: IMaterialTextureService;
+  scenesService: TScenesService;
+  rendererService: IRendererService;
+  envMapService: IEnvMapService;
+}>;

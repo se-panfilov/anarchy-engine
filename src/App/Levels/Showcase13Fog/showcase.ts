@@ -1,19 +1,19 @@
 import GUI from 'lil-gui';
 
-import type { IShowcase } from '@/App/Levels/Models';
-import type { IAppCanvas, IEngine, ISceneWrapper, ISpace, ISpaceConfig } from '@/Engine';
+import type { TShowcase } from '@/App/Levels/Models';
+import type { TAppCanvas, TEngine, TSceneWrapper, TSpace, TSpaceConfig } from '@/Engine';
 import { buildSpaceFromConfig, Engine, isNotDefined } from '@/Engine';
 
 import spaceConfig from './showcase.json';
 
-export function showcase(canvas: IAppCanvas): IShowcase {
+export function showcase(canvas: TAppCanvas): TShowcase {
   const gui: GUI = new GUI();
-  const space: ISpace = buildSpaceFromConfig(canvas, spaceConfig as ISpaceConfig);
-  const engine: IEngine = Engine(space);
+  const space: TSpace = buildSpaceFromConfig(canvas, spaceConfig as TSpaceConfig);
+  const engine: TEngine = Engine(space);
   const { rendererService, scenesService } = space.services;
 
   function init(): void {
-    const scene: ISceneWrapper | undefined = scenesService.findActive();
+    const scene: TSceneWrapper | undefined = scenesService.findActive();
     if (isNotDefined(scene)) throw new Error('Scene not found');
     if (isNotDefined(scene.entity.fog)) throw new Error("Scene's fog not found");
 

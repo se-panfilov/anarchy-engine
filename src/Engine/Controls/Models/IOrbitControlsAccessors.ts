@@ -1,9 +1,9 @@
-import type { IVector3Wrapper } from '@/Engine/Vector';
+import type { TVector3Wrapper } from '@/Engine/Vector';
 
 export type IOrbitControlsAccessors = {
   setDamping: (isEnabled: boolean) => void;
   getDamping: () => boolean;
-  setTarget: (target: IVector3Wrapper) => void;
+  setTarget: (target: TVector3Wrapper) => void;
   setAutoRotate: (isEnabled: boolean) => void;
   getAutoRotate: () => boolean;
   setMinDistance: (minDistance: number) => void;

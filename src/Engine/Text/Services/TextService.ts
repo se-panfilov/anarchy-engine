@@ -1,9 +1,9 @@
 import { merge } from 'rxjs';
 
 import type { IAppGlobalContainer } from '@/Engine/Global';
-import type { IDestroyable } from '@/Engine/Mixins';
+import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
-import type { ISceneWrapper } from '@/Engine/Scene';
+import type { TSceneWrapper } from '@/Engine/Scene';
 import type { IScreenSizeWatcher } from '@/Engine/Screen';
 import type {
   IText2dRegistry,
@@ -27,7 +27,7 @@ export function TextService(
   text3dRegistry: IText3dRegistry,
   text2dRendererRegistry: IText2dRendererRegistry,
   text3dRendererRegistry: IText3dRendererRegistry,
-  scene: ISceneWrapper
+  scene: TSceneWrapper
 ): ITextService {
   merge(text2dRegistry.added$, text3dRegistry.added$).subscribe((text: ITextAnyWrapper) => scene.addText(text));
   factory.entityCreated$.subscribe((text: ITextAnyWrapper): void => {
@@ -38,7 +38,7 @@ export function TextService(
   const create = (params: ITextParams): ITextAnyWrapper => factory.create(params);
   const createFromConfig = (texts: ReadonlyArray<ITextConfig>): void => texts.forEach((text: ITextConfig): ITextAnyWrapper => factory.create(factory.configToParams(text)));
 
-  const destroyable: IDestroyable = destroyableMixin();
+  const destroyable: TDestroyable = destroyableMixin();
   destroyable.destroyed$.subscribe((): void => {
     factory.destroy();
     text2dRegistry.destroy();
@@ -63,7 +63,7 @@ export function TextService(
     create,
     createFromConfig,
     getFactory: (): ITextFactory => factory,
-    getScene: (): ISceneWrapper => scene,
+    getScene: (): TSceneWrapper => scene,
     createText2dRenderer,
     createText3dRenderer,
     getRegistries: () => ({ text2dRegistry, text3dRegistry }),

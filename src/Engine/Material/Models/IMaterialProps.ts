@@ -15,7 +15,7 @@ import type {
 import type { ColorRepresentation } from 'three/src/math/Color';
 
 import type { ITexture } from '@/Engine/Texture/Models';
-import type { IVector2, IVector3 } from '@/Engine/Vector';
+import type { TVector2, TVector3 } from '@/Engine/Vector';
 
 export type IAbstractMaterialProps = Readonly<{
   alphaHash?: boolean;
@@ -96,14 +96,14 @@ export type IDistanceMaterialProps = IAbstractMaterialProps &
     displacementBias?: number;
     farDistance?: number;
     nearDistance?: number;
-    referencePosition?: IVector3;
+    referencePosition?: TVector3;
   }>;
 
 export type INormalMaterialProps = IAbstractMaterialProps &
   Readonly<{
     bumpScale?: number;
     normalMapType?: NormalMapTypes;
-    normalScale?: IVector2;
+    normalScale?: TVector2;
     displacementScale?: number;
     displacementBias?: number;
     wireframe?: boolean;
@@ -115,7 +115,7 @@ export type IMatcapMaterialProps = IAbstractMaterialProps &
     color?: ColorRepresentation;
     bumpScale?: number;
     normalMapType?: NormalMapTypes;
-    normalScale?: IVector2;
+    normalScale?: TVector2;
     displacementScale?: number;
     displacementBias?: number;
     fog?: boolean;
@@ -132,7 +132,7 @@ export type ILambertMaterialProps = IAbstractMaterialProps &
     emissiveIntensity?: number;
     flatShading?: boolean;
     lightMapIntensity?: number;
-    normalScale?: IVector2;
+    normalScale?: TVector2;
     aoMapIntensity?: number;
     combine?: Combine;
     reflectivity?: number;
@@ -156,7 +156,7 @@ export type IPhongMaterialProps = IAbstractMaterialProps &
     emissiveIntensity?: number;
     bumpScale?: number;
     normalMapType?: NormalMapTypes;
-    normalScale?: IVector2;
+    normalScale?: TVector2;
     displacementScale?: number;
     displacementBias?: number;
     combine?: Combine;
@@ -180,7 +180,7 @@ export type IToonMaterialProps = IAbstractMaterialProps &
     emissiveIntensity?: number;
     bumpScale?: number;
     normalMapType?: NormalMapTypes;
-    normalScale?: IVector2;
+    normalScale?: TVector2;
     displacementScale?: number;
     displacementBias?: number;
     wireframe?: boolean;
@@ -201,7 +201,7 @@ export type IStandardMaterialProps = IAbstractMaterialProps &
     emissiveIntensity?: number;
     bumpScale?: number;
     normalMapType?: NormalMapTypes;
-    normalScale?: IVector2;
+    normalScale?: TVector2;
     displacementScale?: number;
     displacementBias?: number;
     envMapIntensity?: number;
@@ -215,7 +215,7 @@ export type IPhysicalMaterialProps = IStandardMaterialProps &
   Readonly<{
     clearcoat?: number;
     clearcoatRoughness?: number;
-    clearcoatNormalScale?: IVector2;
+    clearcoatNormalScale?: TVector2;
     reflectivity?: number;
     ior?: number;
     sheen?: number;

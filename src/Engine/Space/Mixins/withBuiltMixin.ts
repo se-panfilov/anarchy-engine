@@ -1,8 +1,8 @@
 import { Subject } from 'rxjs';
 
-import type { IWithBuilt } from '@/Engine/Space/Models';
+import type { TWithBuilt } from '@/Engine/Space/Models';
 
-export function withBuiltMixin(): IWithBuilt {
+export function withBuiltMixin(): TWithBuilt {
   const built$: Subject<void> = new Subject<void>();
   let isBuilt: boolean = false;
 

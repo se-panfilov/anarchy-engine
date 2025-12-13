@@ -1,24 +1,24 @@
 import GUI from 'lil-gui';
 
-import type { IShowcase } from '@/App/Levels/Models';
-import type { IActorAsyncRegistry, IActorWrapperAsync, IAppCanvas, ICameraRegistry, ICameraWrapper, IEngine, ISpace, ISpaceConfig } from '@/Engine';
+import type { TShowcase } from '@/App/Levels/Models';
+import type { TActorAsyncRegistry, TActorWrapperAsync, TAppCanvas, ICameraRegistry, ICameraWrapper, TEngine, TSpace, TSpaceConfig } from '@/Engine';
 import { buildSpaceFromConfig, Engine, isNotDefined, mouseService } from '@/Engine';
 
 import spaceConfig from './showcase.json';
 
-export function showcase(canvas: IAppCanvas): IShowcase {
+export function showcase(canvas: TAppCanvas): TShowcase {
   const gui: GUI = new GUI();
-  const space: ISpace = buildSpaceFromConfig(canvas, spaceConfig as ISpaceConfig);
-  const engine: IEngine = Engine(space);
+  const space: TSpace = buildSpaceFromConfig(canvas, spaceConfig as TSpaceConfig);
+  const engine: TEngine = Engine(space);
   const { loopService } = engine.services;
 
   const { actorService, cameraService } = space.services;
-  const actorRegistry: IActorAsyncRegistry = actorService.getRegistry();
+  const actorRegistry: TActorAsyncRegistry = actorService.getRegistry();
   const cameraRegistry: ICameraRegistry = cameraService.getRegistry();
   const { clickLeftRelease$ } = mouseService;
 
   async function init(): Promise<void> {
-    const actor: IActorWrapperAsync | undefined = await actorRegistry.findByNameAsync('ball');
+    const actor: TActorWrapperAsync | undefined = await actorRegistry.findByNameAsync('ball');
     if (isNotDefined(actor)) throw new Error('Cannot find actor"');
     actor.setY(2);
 

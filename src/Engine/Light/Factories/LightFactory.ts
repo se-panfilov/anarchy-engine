@@ -1,4 +1,4 @@
-import type { IReactiveFactory } from '@/Engine/Abstract';
+import type { TReactiveFactory } from '@/Engine/Abstract';
 import { FactoryType, ReactiveFactory } from '@/Engine/Abstract';
 import { configToParams } from '@/Engine/Light/Adapters';
 import { LightType } from '@/Engine/Light/Constants';
@@ -16,5 +16,5 @@ function create(params: ILightParams): ILightWrapper | never {
   throw new Error(`Unsupported light type: "${params.type}" or invalid params (doest not match the light type)`);
 }
 
-const factory: IReactiveFactory<ILightWrapper, ILightParams> = { ...ReactiveFactory(FactoryType.Light, create) };
+const factory: TReactiveFactory<ILightWrapper, ILightParams> = { ...ReactiveFactory(FactoryType.Light, create) };
 export const LightFactory = (): ILightFactory => ({ ...factory, configToParams });

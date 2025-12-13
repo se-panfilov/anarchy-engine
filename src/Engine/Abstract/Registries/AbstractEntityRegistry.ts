@@ -1,27 +1,27 @@
 import { nanoid } from 'nanoid';
 
 import type { RegistryType } from '@/Engine/Abstract/Constants';
-import type { IAbstractEntityRegistry, IWithBaseAccessorsRegistry, IWithReactiveRegistry } from '@/Engine/Abstract/Models';
+import type { TAbstractEntityRegistry, TWithBaseAccessorsRegistry, TWithReactiveRegistry } from '@/Engine/Abstract/Models';
 import type { LookUpStrategy } from '@/Engine/Abstract/Registries/Constants';
 import { withBaseAccessorsRegistry } from '@/Engine/Abstract/Registries/Mixin';
 import { withReactiveRegistry } from '@/Engine/Abstract/Registries/Mixin/Registry/WithReactiveRegistry';
-import type { IDestroyable, IMultitonRegistrable, IRegistrable } from '@/Engine/Mixins';
+import type { TDestroyable, TMultitonRegistrable, TRegistrable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
 import { findInMap, getAllEntitiesWithTag, getAllEntitiesWithTags, getUniqEntityWithTag, getUniqEntityWithTags, isNotDefined } from '@/Engine/Utils';
 
-export function AbstractEntityRegistry<T extends IRegistrable | IMultitonRegistrable>(type: RegistryType): IAbstractEntityRegistry<T> {
+export function AbstractEntityRegistry<T extends TRegistrable | TMultitonRegistrable>(type: RegistryType): TAbstractEntityRegistry<T> {
   const id: string = type + '_registry_' + nanoid();
   const registry: Map<string, T> = new Map();
 
-  const destroyable: IDestroyable = destroyableMixin();
-  const { added$, replaced$, removed$ }: IWithReactiveRegistry<T> = withReactiveRegistry<T>(destroyable);
-  const { isEmpty, getLength, forEach, getAll, find }: IWithBaseAccessorsRegistry<T> = withBaseAccessorsRegistry<T>(registry);
+  const destroyable: TDestroyable = destroyableMixin();
+  const { added$, replaced$, removed$ }: TWithReactiveRegistry<T> = withReactiveRegistry<T>(destroyable);
+  const { isEmpty, getLength, forEach, getAll, find }: TWithBaseAccessorsRegistry<T> = withBaseAccessorsRegistry<T>(registry);
 
   function add(entity: T): void | never {
     if (registry.has(entity.id)) throw new Error(`Cannot add an entity with id "${entity.id}" to registry ${id}: already exist`);
     if (isMultitonEntity(entity)) {
       registry.forEach((v: T): void => {
-        if ((v as IMultitonRegistrable).key === entity.key)
+        if ((v as TMultitonRegistrable).key === entity.key)
           throw new Error(`Cannot add an entity with key "${entity.key}" to multiton registry ${id}: already added. Only one instance per key is allowed.`);
       });
     }
@@ -76,6 +76,6 @@ export function AbstractEntityRegistry<T extends IRegistrable | IMultitonRegistr
   };
 }
 
-function isMultitonEntity(entity: IRegistrable | IMultitonRegistrable): entity is IMultitonRegistrable {
-  return !!(entity as IMultitonRegistrable).key;
+function isMultitonEntity(entity: TRegistrable | TMultitonRegistrable): entity is TMultitonRegistrable {
+  return !!(entity as TMultitonRegistrable).key;
 }

@@ -1,19 +1,19 @@
-import type { IShowcase } from '@/App/Levels/Models';
-import type { IActorAsyncRegistry, IActorWrapperAsync, IAppCanvas, IEngine, ISpace, ISpaceConfig } from '@/Engine';
+import type { TShowcase } from '@/App/Levels/Models';
+import type { TActorAsyncRegistry, TActorWrapperAsync, TAppCanvas, TEngine, TSpace, TSpaceConfig } from '@/Engine';
 import { buildSpaceFromConfig, Engine, isNotDefined, mouseService, screenService } from '@/Engine';
 
 import spaceConfig from './showcase.json';
 
-export function showcase(canvas: IAppCanvas): IShowcase {
-  const space: ISpace = buildSpaceFromConfig(canvas, spaceConfig as ISpaceConfig);
-  const engine: IEngine = Engine(space);
+export function showcase(canvas: TAppCanvas): TShowcase {
+  const space: TSpace = buildSpaceFromConfig(canvas, spaceConfig as TSpaceConfig);
+  const engine: TEngine = Engine(space);
   const { loopService } = engine.services;
 
   const { actorService } = space.services;
-  const actorRegistry: IActorAsyncRegistry = actorService.getRegistry();
+  const actorRegistry: TActorAsyncRegistry = actorService.getRegistry();
 
   async function init(): Promise<void> {
-    const actor: IActorWrapperAsync | undefined = await actorRegistry.findByTagAsync('sphere');
+    const actor: TActorWrapperAsync | undefined = await actorRegistry.findByTagAsync('sphere');
     if (isNotDefined(actor)) throw new Error('Actor not found');
     actor.setY(2);
 

@@ -1,10 +1,10 @@
 import type { IActive, IWithName } from '@/Engine/Mixins';
-import type { IVector3 } from '@/Engine/Vector';
+import type { TVector3 } from '@/Engine/Vector';
 
 export type IOrbitControlsProps = Readonly<{
   enabled?: boolean;
-  target?: IVector3;
-  cursor?: IVector3;
+  target?: TVector3;
+  cursor?: TVector3;
   minDistance?: number;
   maxDistance?: number;
   minZoom?: number;

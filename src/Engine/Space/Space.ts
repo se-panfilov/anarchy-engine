@@ -1,23 +1,23 @@
-import type { IAppCanvas } from '@/Engine/App';
+import type { TAppCanvas } from '@/Engine/App';
 import { ambientContext } from '@/Engine/Context';
 import type { IDataTexture } from '@/Engine/EnvMap';
-import type { IIntersectionsWatcher } from '@/Engine/Intersections';
-import type { IDestroyable } from '@/Engine/Mixins';
+import type { TIntersectionsWatcher } from '@/Engine/Intersections';
+import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
 import { withTagsMixin } from '@/Engine/Mixins/Generics';
 import { mouseService } from '@/Engine/Mouse';
 import { RendererModes } from '@/Engine/Renderer';
-import type { IScenesService, ISceneWrapper } from '@/Engine/Scene';
+import type { TScenesService, TSceneWrapper } from '@/Engine/Scene';
 import { screenService } from '@/Engine/Services';
 import { withBuiltMixin } from '@/Engine/Space/Mixins';
-import type { ISpace, ISpaceConfig, ISpaceServices, IWithBuilt } from '@/Engine/Space/Models';
+import type { TSpace, TSpaceConfig, TSpaceServices, TWithBuilt } from '@/Engine/Space/Models';
 import { initServices } from '@/Engine/Space/SpaceHelpers';
 import { isDestroyable, isNotDefined, validLevelConfig } from '@/Engine/Utils';
 
 // TODO (S.Panfilov) SPACE: we need a space service, and factory, to create from config, and to create from the code.
 
 // TODO (S.Panfilov) LOGGER: add a logger globally (not only for errors, but I'd like to know, which service with which id did what).
-export function buildSpaceFromConfig(canvas: IAppCanvas, config: ISpaceConfig): ISpace {
+export function buildSpaceFromConfig(canvas: TAppCanvas, config: TSpaceConfig): TSpace {
   const { isValid, errors } = validLevelConfig(config);
   if (!isValid) {
     // TODO (S.Panfilov) LOGGER: should be forwarded to the errors hub (which is not implemented yet)
@@ -29,10 +29,10 @@ export function buildSpaceFromConfig(canvas: IAppCanvas, config: ISpaceConfig): 
 
   screenService.setCanvas(canvas);
 
-  let activeScene: ISceneWrapper;
-  const services: ISpaceServices = initServices(canvas, (scenesService: IScenesService): ISceneWrapper | never => {
+  let activeScene: TSceneWrapper;
+  const services: TSpaceServices = initServices(canvas, (scenesService: TScenesService): TSceneWrapper | never => {
     scenesService.createFromConfig(scenes);
-    const scene: ISceneWrapper | undefined = scenesService.findActive();
+    const scene: TSceneWrapper | undefined = scenesService.findActive();
     if (isNotDefined(scene)) throw new Error(`Cannot find an active scene for space "${name}" during space's services initialization.`);
     activeScene = scene;
     return activeScene;
@@ -63,12 +63,12 @@ export function buildSpaceFromConfig(canvas: IAppCanvas, config: ISpaceConfig): 
   //build intersections
   void intersectionsWatcherService.createFromConfigAsync(intersections, mouseService, cameraService, actorService);
 
-  intersectionsWatcherService.getRegistry().added$.subscribe((watcher: IIntersectionsWatcher): void => {
+  intersectionsWatcherService.getRegistry().added$.subscribe((watcher: TIntersectionsWatcher): void => {
     if (watcher.isAutoStart && !watcher.isStarted) watcher.start();
   });
 
-  const destroyable: IDestroyable = destroyableMixin();
-  const builtMixin: IWithBuilt = withBuiltMixin();
+  const destroyable: TDestroyable = destroyableMixin();
+  const builtMixin: TWithBuilt = withBuiltMixin();
 
   destroyable.destroyed$.subscribe(() => {
     builtMixin.built$.complete();

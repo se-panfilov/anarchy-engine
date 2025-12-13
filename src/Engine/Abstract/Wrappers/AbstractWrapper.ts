@@ -1,33 +1,33 @@
 import { nanoid } from 'nanoid';
 
-import type { IWithUserData, IWithWrapperId, IWithWrapperIdEntity, WrapperType } from '@/Engine/Abstract';
+import type { TWithUserData, TWithWrapperId, TWithWrapperIdEntity, WrapperType } from '@/Engine/Abstract';
 import { withNoWrapperIdMixin, withWrapperIdMixin } from '@/Engine/Abstract';
-import type { IWrapper } from '@/Engine/Abstract/Models';
-import type { IDestroyable, IRegistrable, IWithEntity, IWithName, IWithNameAndNameAccessorsMixin, IWithTagsMixin } from '@/Engine/Mixins';
+import type { TWrapper } from '@/Engine/Abstract/Models';
+import type { TDestroyable, TRegistrable, IWithEntity, IWithName, IWithNameAndNameAccessorsMixin, IWithTagsMixin } from '@/Engine/Mixins';
 import { destroyableMixin, withNameAndNameAccessorsMixin } from '@/Engine/Mixins';
 import { withTagsMixin } from '@/Engine/Mixins/Generics';
 import { isDefined, isWithUserData, isWithWrapperIdAccessors } from '@/Engine/Utils';
 
 type IWrapperParams = Readonly<{ tags?: ReadonlyArray<string> } & IWithName>;
 
-export function AbstractWrapper<T>(entity: T, type: WrapperType | string, params?: IWrapperParams): IWrapper<T>;
-export function AbstractWrapper<T extends IWithUserData>(entity: T, type: WrapperType | string, params?: IWrapperParams): IWrapper<IWithWrapperIdEntity<T>>;
-export function AbstractWrapper<T extends IWithUserData>(entity: T, type: WrapperType | string, params?: IWrapperParams): IWrapper<IWithWrapperIdEntity<any>> | IWrapper<T> {
+export function AbstractWrapper<T>(entity: T, type: WrapperType | string, params?: IWrapperParams): TWrapper<T>;
+export function AbstractWrapper<T extends TWithUserData>(entity: T, type: WrapperType | string, params?: IWrapperParams): TWrapper<TWithWrapperIdEntity<T>>;
+export function AbstractWrapper<T extends TWithUserData>(entity: T, type: WrapperType | string, params?: IWrapperParams): TWrapper<TWithWrapperIdEntity<any>> | TWrapper<T> {
   const id: string = type + '_' + nanoid();
 
   const withNameAndNameAccessors: IWithNameAndNameAccessorsMixin = withNameAndNameAccessorsMixin();
-  const withWrapperId: IWithWrapperId = isWithUserData(entity) ? withWrapperIdMixin(entity) : withNoWrapperIdMixin(entity);
-  const destroyable: IDestroyable = destroyableMixin();
+  const withWrapperId: TWithWrapperId = isWithUserData(entity) ? withWrapperIdMixin(entity) : withNoWrapperIdMixin(entity);
+  const destroyable: TDestroyable = destroyableMixin();
   const withTags: IWithTagsMixin = withTagsMixin(params ? params.tags : []);
 
-  const partialResult: IWithEntity<T> & IRegistrable & IWithTagsMixin & IDestroyable = {
+  const partialResult: IWithEntity<T> & TRegistrable & IWithTagsMixin & TDestroyable = {
     id,
     entity,
     ...withTags,
     ...destroyable
   };
 
-  const result: IWrapper<T> = { ...partialResult, ...withWrapperId, ...withNameAndNameAccessors };
+  const result: TWrapper<T> = { ...partialResult, ...withWrapperId, ...withNameAndNameAccessors };
 
   //apply params
   if (isWithUserData(entity) && isWithWrapperIdAccessors(result)) result.setWrapperId(id);

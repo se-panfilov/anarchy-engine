@@ -1,25 +1,25 @@
 import type { IActorService } from '@/Engine/Actor';
 import type { ICameraService } from '@/Engine/Camera';
-import type { IDestroyable } from '@/Engine/Mixins';
+import type { TDestroyable } from '@/Engine/Mixins';
 import type { IMouseService } from '@/Engine/Mouse';
-import type { IWithCreateFromConfigAsyncService, IWithCreateService, IWithFactoryService, IWithRegistryService } from '@/Engine/Space';
+import type { TWithCreateFromConfigAsyncService, TWithCreateService, TWithFactoryService, TWithRegistryService } from '@/Engine/Space';
 
-import type { IIntersectionsWatcher } from './IIntersectionsWatcher';
+import type { TIntersectionsWatcher } from './TIntersectionsWatcher';
 import type { IIntersectionsWatcherAsyncRegistry } from './IIntersectionsWatcherAsyncRegistry';
 import type { IIntersectionsWatcherConfig } from './IIntersectionsWatcherConfig';
 import type { IIntersectionsWatcherFactory } from './IIntersectionsWatcherFactory';
 import type { IIntersectionsWatcherParams } from './IIntersectionsWatcherParams';
 
-export type IIntersectionsWatcherService = IWithCreateService<IIntersectionsWatcher, IIntersectionsWatcherParams> &
-  Omit<IWithCreateFromConfigAsyncService<IIntersectionsWatcherConfig>, 'createFromConfigAsync'> &
+export type IIntersectionsWatcherService = TWithCreateService<TIntersectionsWatcher, IIntersectionsWatcherParams> &
+  Omit<TWithCreateFromConfigAsyncService<IIntersectionsWatcherConfig>, 'createFromConfigAsync'> &
   Readonly<{
     createFromConfigAsync: (
       configs: ReadonlyArray<IIntersectionsWatcherConfig>,
       mouseService: IMouseService,
       cameraService: ICameraService,
       actorsService: IActorService
-    ) => Promise<ReadonlyArray<IIntersectionsWatcher>>;
+    ) => Promise<ReadonlyArray<TIntersectionsWatcher>>;
   }> &
-  IWithFactoryService<IIntersectionsWatcherFactory> &
-  IWithRegistryService<IIntersectionsWatcherAsyncRegistry> &
-  IDestroyable;
+  TWithFactoryService<IIntersectionsWatcherFactory> &
+  TWithRegistryService<IIntersectionsWatcherAsyncRegistry> &
+  TDestroyable;

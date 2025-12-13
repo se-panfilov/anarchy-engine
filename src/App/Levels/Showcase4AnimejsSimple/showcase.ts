@@ -1,5 +1,5 @@
-import type { IShowcase } from '@/App/Levels/Models';
-import type { IActorAsyncRegistry, IActorParams, IActorWrapperAsync, IAppCanvas, IEngine, IMoverService, ISpace, ISpaceConfig } from '@/Engine';
+import type { TShowcase } from '@/App/Levels/Models';
+import type { TActorAsyncRegistry, IActorParams, TActorWrapperAsync, TAppCanvas, TEngine, IMoverService, TSpace, TSpaceConfig } from '@/Engine';
 import { ActorType, buildSpaceFromConfig, defaultMoverServiceConfig, Engine, EulerWrapper, forEachEnum, LookUpStrategy, MaterialType, mouseService, TextType, Vector3Wrapper } from '@/Engine';
 import type { IAnimationParams } from '@/Engine/Services';
 import { Easing } from '@/Engine/Services';
@@ -7,15 +7,15 @@ import { MoverService } from '@/Engine/Services/MoverService/MoverService';
 
 import spaceConfig from './showcase.json';
 
-export function showcase(canvas: IAppCanvas): IShowcase {
-  const space: ISpace = buildSpaceFromConfig(canvas, spaceConfig as ISpaceConfig);
-  const engine: IEngine = Engine(space);
+export function showcase(canvas: TAppCanvas): TShowcase {
+  const space: TSpace = buildSpaceFromConfig(canvas, spaceConfig as TSpaceConfig);
+  const engine: TEngine = Engine(space);
   const { loopService } = engine.services;
 
   function start(): void {
     engine.start();
     const { actorService, textService } = space.services;
-    const actorRegistry: IActorAsyncRegistry = actorService.getRegistry();
+    const actorRegistry: TActorAsyncRegistry = actorService.getRegistry();
 
     let isClickBlocked: boolean = false;
 
@@ -68,7 +68,7 @@ export function showcase(canvas: IAppCanvas): IShowcase {
 
       const moverService: IMoverService = MoverService(loopService, defaultMoverServiceConfig);
 
-      actorRegistry.findAllByTags([boxActorTag], LookUpStrategy.Some).forEach((actor: IActorWrapperAsync) => {
+      actorRegistry.findAllByTags([boxActorTag], LookUpStrategy.Some).forEach((actor: TActorWrapperAsync) => {
         const easing = actor.getTags()[1] as Easing;
         void moverService.goToPosition(actor, { x: 20 }, { ...animationParams, easing });
       });

@@ -2,14 +2,14 @@ import type { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
 import type { IOrbitControlsAccessors } from '@/Engine/Controls/Models';
 import type { IWriteable } from '@/Engine/Utils';
-import type { IVector3Wrapper } from '@/Engine/Vector';
+import type { TVector3Wrapper } from '@/Engine/Vector';
 
 export function getOrbitControlsAccessors(entity: IWriteable<OrbitControls>): IOrbitControlsAccessors {
   // eslint-disable-next-line functional/immutable-data
   const setDamping = (isEnabled: boolean): void => void (entity.enableDamping = isEnabled);
   const getDamping = (): boolean => entity.enableDamping;
 
-  function setTarget(position: IVector3Wrapper): void {
+  function setTarget(position: TVector3Wrapper): void {
     entity.target.set(position.getX(), position.getY(), position.getZ());
     entity.update();
   }

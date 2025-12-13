@@ -1,12 +1,12 @@
 import type { ICameraAccessors, IPerspectiveCamera } from '@/Engine/Camera/Models';
 import type { IWriteable } from '@/Engine/Utils';
-import type { IVector3Wrapper } from '@/Engine/Vector';
+import type { TVector3Wrapper } from '@/Engine/Vector';
 import { Vector3Wrapper } from '@/Engine/Vector';
 
 // eslint-disable-next-line functional/prefer-immutable-types
 export function getAccessors(entity: IWriteable<IPerspectiveCamera>): ICameraAccessors {
-  const setControls = (x: number, y: number, z: number): IVector3Wrapper => Vector3Wrapper(entity.position.set(x, y, z));
-  const lookAt = (vector3: IVector3Wrapper): void => entity.lookAt(vector3.entity);
+  const setControls = (x: number, y: number, z: number): TVector3Wrapper => Vector3Wrapper(entity.position.set(x, y, z));
+  const lookAt = (vector3: TVector3Wrapper): void => entity.lookAt(vector3.entity);
 
   function setFov(fov: number): void {
     // eslint-disable-next-line functional/immutable-data

@@ -1,5 +1,5 @@
-import type { IDestroyable } from '@/Engine/Mixins';
-import type { IWithCreateFromConfigService, IWithCreateService, IWithFactoryService, IWithRegistryService, IWithSceneGetterService } from '@/Engine/Space';
+import type { TDestroyable } from '@/Engine/Mixins';
+import type { TWithCreateFromConfigService, TWithCreateService, TWithFactoryService, TWithRegistryService, TWithSceneGetterService } from '@/Engine/Space';
 
 import type { IAbstractLightWrapper } from './IAbstractLightWrapper';
 import type { ILight } from './ILight';
@@ -8,9 +8,9 @@ import type { ILightFactory } from './ILightFactory';
 import type { ILightParams } from './ILightParams';
 import type { ILightRegistry } from './ILightRegistry';
 
-export type ILightService = IWithCreateService<IAbstractLightWrapper<ILight>, ILightParams> &
-  IWithCreateFromConfigService<IAnyLightConfig> &
-  IWithFactoryService<ILightFactory> &
-  IWithRegistryService<ILightRegistry> &
-  IWithSceneGetterService &
-  IDestroyable;
+export type ILightService = TWithCreateService<IAbstractLightWrapper<ILight>, ILightParams> &
+  TWithCreateFromConfigService<IAnyLightConfig> &
+  TWithFactoryService<ILightFactory> &
+  TWithRegistryService<ILightRegistry> &
+  TWithSceneGetterService &
+  TDestroyable;

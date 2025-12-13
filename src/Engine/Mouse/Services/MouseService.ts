@@ -3,7 +3,7 @@ import { filter, Subject } from 'rxjs';
 import { WatcherTag } from '@/Engine/Abstract';
 import { ambientContext } from '@/Engine/Context';
 import type { IGlobalContainerDecorator } from '@/Engine/Global';
-import type { IDestroyable } from '@/Engine/Mixins';
+import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
 import { MouseButtonValue, MouseEventType, MouseWheelValue } from '@/Engine/Mouse/Constants';
 import { MouseClickWatcherFactory, MousePositionWatcherFactory } from '@/Engine/Mouse/Factories';
@@ -103,7 +103,7 @@ export function MouseService(container: IGlobalContainerDecorator): IMouseServic
     if (event.type === MouseEventType.Wheel) wheel$.next(event);
   });
 
-  const destroyable: IDestroyable = destroyableMixin();
+  const destroyable: TDestroyable = destroyableMixin();
   destroyable.destroyed$.subscribe(() => {
     clickPress$.complete();
     clickLeftPress$.complete();

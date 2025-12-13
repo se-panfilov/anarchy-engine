@@ -1,34 +1,34 @@
 import GUI from 'lil-gui';
 import { withLatestFrom } from 'rxjs';
 
-import type { IShowcase } from '@/App/Levels/Models';
+import type { TShowcase } from '@/App/Levels/Models';
 import type {
-  IActorAsyncRegistry,
-  IActorWrapperAsync,
-  IAppCanvas,
+  TActorAsyncRegistry,
+  TActorWrapperAsync,
+  TAppCanvas,
   ICameraRegistry,
   ICameraWrapper,
-  IEngine,
+  TEngine,
   IIntersectionEvent,
-  IIntersectionsWatcher,
+  TIntersectionsWatcher,
   IMouseWatcherEvent,
   IMoverService,
-  ISpace,
-  ISpaceConfig
+  TSpace,
+  TSpaceConfig
 } from '@/Engine';
 import { buildSpaceFromConfig, defaultMoverServiceConfig, Easing, Engine, isNotDefined, KeyCode, LookUpStrategy, mouseService, mpsSpeed } from '@/Engine';
 import { MoverService } from '@/Engine/Services/MoverService/MoverService';
 
 import spaceConfig from './showcase.json';
 
-export function showcase(canvas: IAppCanvas): IShowcase {
+export function showcase(canvas: TAppCanvas): TShowcase {
   const gui: GUI = new GUI();
-  const space: ISpace = buildSpaceFromConfig(canvas, spaceConfig as ISpaceConfig);
-  const engine: IEngine = Engine(space);
+  const space: TSpace = buildSpaceFromConfig(canvas, spaceConfig as TSpaceConfig);
+  const engine: TEngine = Engine(space);
   const { keyboardService } = engine.services;
 
   const { actorService, cameraService, intersectionsWatcherService } = space.services;
-  const actorRegistry: IActorAsyncRegistry = actorService.getRegistry();
+  const actorRegistry: TActorAsyncRegistry = actorService.getRegistry();
   const cameraRegistry: ICameraRegistry = cameraService.getRegistry();
   if (isNotDefined(actorRegistry)) throw new Error('Actor registry is not defined');
   if (isNotDefined(cameraRegistry)) throw new Error('Camera registry is not defined');
@@ -36,18 +36,18 @@ export function showcase(canvas: IAppCanvas): IShowcase {
   const { onKey } = keyboardService;
 
   async function init(): Promise<void> {
-    const actorKeyboard: IActorWrapperAsync | undefined = await findByTagAsync('keyboard');
-    const actorMouse: IActorWrapperAsync | undefined = await findByTagAsync('mouse');
-    const actorKeyW: IActorWrapperAsync | undefined = await findByTagsAsync(['key', 'W'], LookUpStrategy.Every);
-    const actorKeyA: IActorWrapperAsync | undefined = await findByTagsAsync(['key', 'A'], LookUpStrategy.Every);
-    const actorKeyS: IActorWrapperAsync | undefined = await findByTagsAsync(['key', 'S'], LookUpStrategy.Every);
-    const actorKeyD: IActorWrapperAsync | undefined = await findByTagsAsync(['key', 'D'], LookUpStrategy.Every);
-    const actorMkeyLeft: IActorWrapperAsync | undefined = await findByTagsAsync(['mkey', 'Left'], LookUpStrategy.Every);
-    const actorMkeyRight: IActorWrapperAsync | undefined = await findByTagsAsync(['mkey', 'Right'], LookUpStrategy.Every);
-    const actorMkeyMiddle: IActorWrapperAsync | undefined = await findByTagsAsync(['mkey', 'Middle'], LookUpStrategy.Every);
-    const actorMkeyBack: IActorWrapperAsync | undefined = await findByTagsAsync(['mkey', 'Back'], LookUpStrategy.Every);
-    const actorMkeyForward: IActorWrapperAsync | undefined = await findByTagsAsync(['mkey', 'Forward'], LookUpStrategy.Every);
-    const actorMkeyExtra: IActorWrapperAsync | undefined = await findByTagsAsync(['mkey', 'Extra'], LookUpStrategy.Every);
+    const actorKeyboard: TActorWrapperAsync | undefined = await findByTagAsync('keyboard');
+    const actorMouse: TActorWrapperAsync | undefined = await findByTagAsync('mouse');
+    const actorKeyW: TActorWrapperAsync | undefined = await findByTagsAsync(['key', 'W'], LookUpStrategy.Every);
+    const actorKeyA: TActorWrapperAsync | undefined = await findByTagsAsync(['key', 'A'], LookUpStrategy.Every);
+    const actorKeyS: TActorWrapperAsync | undefined = await findByTagsAsync(['key', 'S'], LookUpStrategy.Every);
+    const actorKeyD: TActorWrapperAsync | undefined = await findByTagsAsync(['key', 'D'], LookUpStrategy.Every);
+    const actorMkeyLeft: TActorWrapperAsync | undefined = await findByTagsAsync(['mkey', 'Left'], LookUpStrategy.Every);
+    const actorMkeyRight: TActorWrapperAsync | undefined = await findByTagsAsync(['mkey', 'Right'], LookUpStrategy.Every);
+    const actorMkeyMiddle: TActorWrapperAsync | undefined = await findByTagsAsync(['mkey', 'Middle'], LookUpStrategy.Every);
+    const actorMkeyBack: TActorWrapperAsync | undefined = await findByTagsAsync(['mkey', 'Back'], LookUpStrategy.Every);
+    const actorMkeyForward: TActorWrapperAsync | undefined = await findByTagsAsync(['mkey', 'Forward'], LookUpStrategy.Every);
+    const actorMkeyExtra: TActorWrapperAsync | undefined = await findByTagsAsync(['mkey', 'Extra'], LookUpStrategy.Every);
 
     if (isNotDefined(actorKeyboard)) throw new Error('Actor keyboard is not defined');
     if (isNotDefined(actorMouse)) throw new Error('Actor mouse is not defined');
@@ -78,7 +78,7 @@ export function showcase(canvas: IAppCanvas): IShowcase {
     onKey(KeyCode.D).pressed$.subscribe((): void => void actorKeyD.addY(-0.2));
     onKey(KeyCode.D).released$.subscribe((): void => void actorKeyD.addY(0.2));
 
-    const intersectionsWatcher: IIntersectionsWatcher = await startIntersections();
+    const intersectionsWatcher: TIntersectionsWatcher = await startIntersections();
     const coordsUI: { x: number; z: number } = { x: 0, z: 0 };
 
     gui.add(coordsUI, 'x').listen();
@@ -114,10 +114,10 @@ export function showcase(canvas: IAppCanvas): IShowcase {
     wheelDown$.subscribe((): void => actorMkeyMiddle.adjustRotationByX(-10));
   }
 
-  async function startIntersections(): Promise<IIntersectionsWatcher> {
+  async function startIntersections(): Promise<TIntersectionsWatcher> {
     const camera: ICameraWrapper | undefined = cameraService.findActive();
     if (isNotDefined(camera)) throw new Error('Camera is not defined');
-    const actor: IActorWrapperAsync | undefined = await findByNameAsync('surface');
+    const actor: TActorWrapperAsync | undefined = await findByNameAsync('surface');
     if (isNotDefined(actor)) throw new Error('Actor is not defined');
 
     return intersectionsWatcherService.create({ actors: [actor], camera, isAutoStart: true, position$: mouseService.position$, tags: [] });

@@ -1,19 +1,19 @@
 import type { ICameraRegistry } from '@/Engine/Camera';
-import type { IDestroyable } from '@/Engine/Mixins';
-import type { IWithActiveAccessorsService, IWithCreateFromConfigService, IWithCreateService, IWithFactoryService, IWithRegistryService } from '@/Engine/Space';
+import type { TDestroyable } from '@/Engine/Mixins';
+import type { TWithActiveAccessorsService, TWithCreateFromConfigService, TWithCreateService, TWithFactoryService, TWithRegistryService } from '@/Engine/Space';
 
 import type { IControlsConfig } from './IControlsConfig';
 import type { IControlsFactory } from './IControlsFactory';
 import type { IControlsParams } from './IControlsParams';
-import type { IControlsRegistry } from './IControlsRegistry';
+import type { TControlsRegistry } from './TControlsRegistry';
 import type { IControlsWrapper } from './IControlsWrapper';
 
-export type IControlsService = IWithCreateService<IControlsWrapper, IControlsParams> &
-  Omit<IWithCreateFromConfigService<IControlsConfig>, 'createFromConfig'> &
+export type IControlsService = TWithCreateService<IControlsWrapper, IControlsParams> &
+  Omit<TWithCreateFromConfigService<IControlsConfig>, 'createFromConfig'> &
   Readonly<{
     createFromConfig: (controls: ReadonlyArray<IControlsConfig>, camerasRegistry: ICameraRegistry) => void;
   }> &
-  IWithActiveAccessorsService<IControlsWrapper> &
-  IWithFactoryService<IControlsFactory> &
-  IWithRegistryService<IControlsRegistry> &
-  IDestroyable;
+  TWithActiveAccessorsService<IControlsWrapper> &
+  TWithFactoryService<IControlsFactory> &
+  TWithRegistryService<TControlsRegistry> &
+  TDestroyable;

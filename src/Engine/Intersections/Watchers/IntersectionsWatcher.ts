@@ -1,11 +1,11 @@
 import type { Subscription } from 'rxjs';
 import { Raycaster } from 'three';
 
-import type { IAbstractWatcher } from '@/Engine/Abstract';
+import type { TAbstractWatcher } from '@/Engine/Abstract';
 import { AbstractWatcher, WatcherType } from '@/Engine/Abstract';
-import type { IActorWrapperAsync } from '@/Engine/Actor';
+import type { TActorWrapperAsync } from '@/Engine/Actor';
 import type { ICameraWrapper } from '@/Engine/Camera';
-import type { IIntersectionEvent, IIntersectionsWatcher, IIntersectionsWatcherParams } from '@/Engine/Intersections/Models';
+import type { IIntersectionEvent, TIntersectionsWatcher, IIntersectionsWatcherParams } from '@/Engine/Intersections/Models';
 import type { IMousePosition } from '@/Engine/Mouse';
 import { getNormalizedMousePosition } from '@/Engine/Mouse';
 import type { ISceneObject } from '@/Engine/Scene';
@@ -13,24 +13,24 @@ import type { IMesh } from '@/Engine/ThreeLib';
 import type { IWriteable } from '@/Engine/Utils';
 import { isDefined, isNotDefined, unWrapEntities } from '@/Engine/Utils';
 
-export function IntersectionsWatcher({ position$, isAutoStart, tags, name, ...rest }: IIntersectionsWatcherParams): IIntersectionsWatcher {
-  const abstractWatcher: IAbstractWatcher<IIntersectionEvent> = AbstractWatcher(WatcherType.IntersectionWatcher, name, tags);
+export function IntersectionsWatcher({ position$, isAutoStart, tags, name, ...rest }: IIntersectionsWatcherParams): TIntersectionsWatcher {
+  const abstractWatcher: TAbstractWatcher<IIntersectionEvent> = AbstractWatcher(WatcherType.IntersectionWatcher, name, tags);
   let raycaster: Readonly<Raycaster> | undefined = new Raycaster();
-  let actors: ReadonlyArray<IActorWrapperAsync> = [];
+  let actors: ReadonlyArray<TActorWrapperAsync> = [];
   let camera: Readonly<ICameraWrapper> | undefined;
 
-  const addActors = (actorWrappers: ReadonlyArray<IActorWrapperAsync>): void => void (actors = [...actors, ...actorWrappers]);
-  const addActor = (actorWrapper: IActorWrapperAsync): void => void (actors = [...actors, actorWrapper]);
-  const getActors = (): ReadonlyArray<IActorWrapperAsync> => actors;
-  const removeActors = (actorWrapperIds: ReadonlyArray<string>): void => void (actors = actors.filter((actor: IActorWrapperAsync): boolean => !actorWrapperIds.includes(actor.id)));
-  const removeActor = (actorWrapperId: string): void => void (actors = actors.filter((actor: IActorWrapperAsync): boolean => actorWrapperId !== actor.id));
+  const addActors = (actorWrappers: ReadonlyArray<TActorWrapperAsync>): void => void (actors = [...actors, ...actorWrappers]);
+  const addActor = (actorWrapper: TActorWrapperAsync): void => void (actors = [...actors, actorWrapper]);
+  const getActors = (): ReadonlyArray<TActorWrapperAsync> => actors;
+  const removeActors = (actorWrapperIds: ReadonlyArray<string>): void => void (actors = actors.filter((actor: TActorWrapperAsync): boolean => !actorWrapperIds.includes(actor.id)));
+  const removeActor = (actorWrapperId: string): void => void (actors = actors.filter((actor: TActorWrapperAsync): boolean => actorWrapperId !== actor.id));
 
   const setCamera = (cam: ICameraWrapper): void => void (camera = cam);
   const getCamera = (): ICameraWrapper | undefined => camera;
 
   let mousePos$: Subscription | undefined;
 
-  function start(): IIntersectionsWatcher {
+  function start(): TIntersectionsWatcher {
     mousePos$ = position$.subscribe((position: IMousePosition): void => {
       if (isNotDefined(camera)) throw new Error('Intersections service: cannot start: a camera is not defined');
       const intersection: IIntersectionEvent | undefined = getIntersection(position, camera, unWrapEntities(actors) as Array<IMesh>);
@@ -41,7 +41,7 @@ export function IntersectionsWatcher({ position$, isAutoStart, tags, name, ...re
     return result;
   }
 
-  function stop(): IIntersectionsWatcher {
+  function stop(): TIntersectionsWatcher {
     mousePos$?.unsubscribe();
     // eslint-disable-next-line functional/immutable-data
     result.isStarted = false;
@@ -60,7 +60,7 @@ export function IntersectionsWatcher({ position$, isAutoStart, tags, name, ...re
     abstractWatcherSubscription.unsubscribe();
   });
 
-  const result: IWriteable<IIntersectionsWatcher> = {
+  const result: IWriteable<TIntersectionsWatcher> = {
     ...abstractWatcher,
     value$: abstractWatcher.value$.asObservable(),
     addActors,

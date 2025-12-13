@@ -1,5 +1,5 @@
-import type { IDestroyable } from '@/Engine/Mixins';
-import type { IWithActiveAccessorsService, IWithCreateFromConfigService, IWithCreateService, IWithFactoryService, IWithRegistryService, IWithSceneGetterService } from '@/Engine/Space';
+import type { TDestroyable } from '@/Engine/Mixins';
+import type { TWithActiveAccessorsService, TWithCreateFromConfigService, TWithCreateService, TWithFactoryService, TWithRegistryService, TWithSceneGetterService } from '@/Engine/Space';
 
 import type { ICameraConfig } from './ICameraConfig';
 import type { ICameraFactory } from './ICameraFactory';
@@ -10,10 +10,10 @@ import type { ICameraWrapper } from './ICameraWrapper';
 export type ICameraService = Readonly<{
   startUpdatingCamerasAspect: (isOnlyActive: boolean) => void;
 }> &
-  IWithCreateService<ICameraWrapper, ICameraParams> &
-  IWithCreateFromConfigService<ICameraConfig> &
-  IWithActiveAccessorsService<ICameraWrapper> &
-  IWithFactoryService<ICameraFactory> &
-  IWithRegistryService<ICameraRegistry> &
-  IWithSceneGetterService &
-  IDestroyable;
+  TWithCreateService<ICameraWrapper, ICameraParams> &
+  TWithCreateFromConfigService<ICameraConfig> &
+  TWithActiveAccessorsService<ICameraWrapper> &
+  TWithFactoryService<ICameraFactory> &
+  TWithRegistryService<ICameraRegistry> &
+  TWithSceneGetterService &
+  TDestroyable;

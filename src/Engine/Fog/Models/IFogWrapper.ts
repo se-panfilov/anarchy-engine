@@ -1,6 +1,6 @@
-import type { IWrapper } from '@/Engine/Abstract';
-import type { IDestroyable, IWithTagsMixin } from '@/Engine/Mixins';
+import type { TWrapper } from '@/Engine/Abstract';
+import type { TDestroyable, IWithTagsMixin } from '@/Engine/Mixins';
 
 import type { IFog } from './IFog';
 
-export type IFogWrapper = IWrapper<IFog> & IWithTagsMixin & IDestroyable;
+export type IFogWrapper = TWrapper<IFog> & IWithTagsMixin & TDestroyable;

@@ -1,10 +1,10 @@
-import type { IAsyncReactiveFactory, ICreateAsyncEntityFactoryFn } from '@/Engine/Abstract';
+import type { TAsyncReactiveFactory, TCreateAsyncEntityFactoryFn } from '@/Engine/Abstract';
 import { AsyncReactiveFactory, FactoryType } from '@/Engine/Abstract';
 import { configToParams } from '@/Engine/Actor/Adapters';
-import type { IActorFactory, IActorParams, IActorWrapperAsync } from '@/Engine/Actor/Models';
+import type { IActorFactory, IActorParams, TActorWrapperAsync } from '@/Engine/Actor/Models';
 import { ActorWrapperAsync } from '@/Engine/Actor/Wrappers';
 
-const factory: IAsyncReactiveFactory<IActorWrapperAsync, IActorParams> = {
-  ...AsyncReactiveFactory(FactoryType.Actor, ActorWrapperAsync as ICreateAsyncEntityFactoryFn<IActorWrapperAsync, IActorParams>)
+const factory: TAsyncReactiveFactory<TActorWrapperAsync, IActorParams> = {
+  ...AsyncReactiveFactory(FactoryType.Actor, ActorWrapperAsync as TCreateAsyncEntityFactoryFn<TActorWrapperAsync, IActorParams>)
 };
 export const ActorFactory = (): IActorFactory => ({ ...factory, configToParams });

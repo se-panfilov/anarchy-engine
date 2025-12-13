@@ -1,15 +1,15 @@
-import type { IAppCanvas } from '@/Engine/App';
+import type { TAppCanvas } from '@/Engine/App';
 import { ambientContext } from '@/Engine/Context';
 import type { IAppGlobalContainer } from '@/Engine/Global';
 import type { IScreenService } from '@/Engine/Services/ScreenService/Models';
 import { isNotDefined } from '@/Engine/Utils';
 
 export function ScreenService(): IScreenService {
-  let canvas: IAppCanvas | undefined;
+  let canvas: TAppCanvas | undefined;
 
   return {
-    setCanvas: (appCanvas: IAppCanvas): void => void (canvas = appCanvas),
-    getCanvas: (): IAppCanvas | undefined => canvas,
+    setCanvas: (appCanvas: TAppCanvas): void => void (canvas = appCanvas),
+    getCanvas: (): TAppCanvas | undefined => canvas,
     goFullScreen: (): Promise<void> => goFullScreen(canvas),
     exitFullScreen: (): Promise<void> => exitFullScreen(ambientContext.container.getAppContainer()),
     toggleFullScreen: (): Promise<void> => {
@@ -28,7 +28,7 @@ export function isFullScreen(container: IAppGlobalContainer | undefined): boolea
   return Boolean(container.document.fullscreenElement || (container.document as any).webkitFullscreenElement);
 }
 
-export function goFullScreen(canvas: IAppCanvas | undefined): Promise<void> | never {
+export function goFullScreen(canvas: TAppCanvas | undefined): Promise<void> | never {
   if (isNotDefined(canvas)) throw new Error('Canvas is not defined');
   if (canvas.requestFullscreen) return canvas.requestFullscreen();
   // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access,@typescript-eslint/no-unsafe-return,@typescript-eslint/no-unsafe-call

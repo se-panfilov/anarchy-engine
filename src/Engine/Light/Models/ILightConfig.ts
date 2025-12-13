@@ -1,6 +1,6 @@
 import type { Color } from 'three/src/math/Color';
 
-import type { IWithCoordsXY, IWithReadonlyTags } from '@/Engine/Mixins';
+import type { TWithCoordsXY, IWithReadonlyTags } from '@/Engine/Mixins';
 import type { IObject3DPropConfig } from '@/Engine/ThreeLib';
 
 import type { IAmbientLightProps } from './IAmbientLightProps';
@@ -30,7 +30,7 @@ export type IAnyLightConfig = IAmbientLightConfig | IHemisphereLightConfig | IDi
 
 export type ILightShadowConfig = Omit<ILightShadowParams, 'mapSize'> &
   Readonly<{
-    mapSize: IWithCoordsXY;
+    mapSize: TWithCoordsXY;
     camera: { far: number };
     normalBias: number;
   }>;

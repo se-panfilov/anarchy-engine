@@ -1,5 +1,5 @@
-import type { IAbstractSimpleRegistry, IProtectedRegistry } from '@/Engine/Abstract';
+import type { TAbstractSimpleRegistry, TProtectedRegistry } from '@/Engine/Abstract';
 
 import type { IKeyboardRegistryValues } from './IKeyboardRegistryValues';
 
-export type IKeyboardRegistry = IProtectedRegistry<IAbstractSimpleRegistry<IKeyboardRegistryValues>>;
+export type IKeyboardRegistry = TProtectedRegistry<TAbstractSimpleRegistry<IKeyboardRegistryValues>>;

@@ -1,5 +1,5 @@
-import type { IAbstractAsyncRegistry, IProtectedRegistry } from '@/Engine/Abstract/Models';
+import type { TAbstractAsyncRegistry, TProtectedRegistry } from '@/Engine/Abstract/Models';
 
-import type { IIntersectionsWatcher } from './IIntersectionsWatcher';
+import type { TIntersectionsWatcher } from './TIntersectionsWatcher';
 
-export type IIntersectionsWatcherAsyncRegistry = IProtectedRegistry<IAbstractAsyncRegistry<IIntersectionsWatcher>>;
+export type IIntersectionsWatcherAsyncRegistry = TProtectedRegistry<TAbstractAsyncRegistry<TIntersectionsWatcher>>;

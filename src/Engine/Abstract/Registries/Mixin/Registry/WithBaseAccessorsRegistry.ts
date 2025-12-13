@@ -1,7 +1,7 @@
-import type { IWithBaseAccessorsRegistry } from '@/Engine/Abstract/Models';
+import type { TWithBaseAccessorsRegistry } from '@/Engine/Abstract/Models';
 import { findInMap, getAll } from '@/Engine/Utils';
 
-export function withBaseAccessorsRegistry<T>(registry: Map<string, T>): IWithBaseAccessorsRegistry<T> {
+export function withBaseAccessorsRegistry<T>(registry: Map<string, T>): TWithBaseAccessorsRegistry<T> {
   const isEmpty = (): boolean => registry.size === 0;
   const getLength = (): number => registry.size;
   const forEach = (predicate: (entity: T) => void): void => registry.forEach(predicate);

@@ -1,8 +1,8 @@
 import { Subject } from 'rxjs';
 
-import type { IDestroyable } from '@/Engine/Mixins/Generics/Models';
+import type { TDestroyable } from '@/Engine/Mixins/Generics/Models';
 
-export function destroyableMixin(): IDestroyable {
+export function destroyableMixin(): TDestroyable {
   const destroyed$: Subject<void> = new Subject<void>();
   let isDestroyed: boolean = false;
 

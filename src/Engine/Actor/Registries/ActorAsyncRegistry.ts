@@ -1,4 +1,4 @@
 import { AbstractAsyncRegistry, RegistryFacade, RegistryType } from '@/Engine/Abstract';
-import type { IActorAsyncRegistry, IActorWrapperAsync } from '@/Engine/Actor/Models';
+import type { TActorAsyncRegistry, TActorWrapperAsync } from '@/Engine/Actor/Models';
 
-export const ActorAsyncRegistry = (): IActorAsyncRegistry => RegistryFacade(AbstractAsyncRegistry<IActorWrapperAsync>(RegistryType.Actor));
+export const ActorAsyncRegistry = (): TActorAsyncRegistry => RegistryFacade(AbstractAsyncRegistry<TActorWrapperAsync>(RegistryType.Actor));

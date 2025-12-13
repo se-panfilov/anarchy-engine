@@ -1,5 +1,5 @@
-import type { IParamsFromConfig, IReactiveFactory } from '@/Engine/Abstract';
-import type { IDestroyable } from '@/Engine/Mixins';
+import type { IParamsFromConfig, TReactiveFactory } from '@/Engine/Abstract';
+import type { TDestroyable } from '@/Engine/Mixins';
 
 import type { IAdditionalControlsConfigParams } from './IAdditionalControlsConfigParams';
 import type { IControlsConfig } from './IControlsConfig';
@@ -11,4 +11,4 @@ export type IControlsParamsFromConfig = Omit<IParamsFromConfig<IControlsConfig, 
     configToParams: (config: IControlsConfig, dependencies: IAdditionalControlsConfigParams) => IControlsParams;
   }>;
 
-export type IControlsFactory = IReactiveFactory<IControlsWrapper, IControlsParams> & IControlsParamsFromConfig & IDestroyable;
+export type IControlsFactory = TReactiveFactory<IControlsWrapper, IControlsParams> & IControlsParamsFromConfig & TDestroyable;

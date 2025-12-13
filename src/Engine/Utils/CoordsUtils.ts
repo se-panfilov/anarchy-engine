@@ -1,4 +1,4 @@
-import type { IWithCoordsXY, IWithCoordsXZ, IWithCoordsYZ } from '@/Engine/Mixins';
+import type { TWithCoordsXY, IWithCoordsXZ, IWithCoordsYZ } from '@/Engine/Mixins';
 
 type ITempCoords = Readonly<{
   coord1: number;
@@ -29,9 +29,9 @@ function createCirclePath(angleArray: ReadonlyArray<number>, radius: number, cir
   });
 }
 
-export function createCirclePathXY(angleArray: ReadonlyArray<number>, radius: number, circleCenter: IWithCoordsXY): ReadonlyArray<IWithCoordsXY> {
+export function createCirclePathXY(angleArray: ReadonlyArray<number>, radius: number, circleCenter: TWithCoordsXY): ReadonlyArray<TWithCoordsXY> {
   return createCirclePath(angleArray, radius, { coord1: circleCenter.x, coord2: circleCenter.y }).map(
-    (coords: ITempCoords): IWithCoordsXY => ({
+    (coords: ITempCoords): TWithCoordsXY => ({
       x: coords.coord1,
       y: coords.coord2
     })

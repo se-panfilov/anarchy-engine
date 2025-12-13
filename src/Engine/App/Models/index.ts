@@ -1,1 +1,1 @@
-export * from './IAppCanvas';
+export * from './TAppCanvas';

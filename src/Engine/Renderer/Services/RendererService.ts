@@ -1,4 +1,4 @@
-import type { IDestroyable, IWithActiveMixinResult } from '@/Engine/Mixins';
+import type { TDestroyable, IWithActiveMixinResult } from '@/Engine/Mixins';
 import { destroyableMixin, withActiveEntityServiceMixin } from '@/Engine/Mixins';
 import type { IRendererFactory, IRendererParams, IRendererRegistry, IRendererService, IRendererWrapper } from '@/Engine/Renderer/Models';
 
@@ -12,7 +12,7 @@ export function RendererService(factory: IRendererFactory, registry: IRendererRe
 
   const create = (params: IRendererParams): IRendererWrapper => factory.create(params);
 
-  const destroyable: IDestroyable = destroyableMixin();
+  const destroyable: TDestroyable = destroyableMixin();
   destroyable.destroyed$.subscribe(() => {
     factory.destroy();
     registry.destroy();

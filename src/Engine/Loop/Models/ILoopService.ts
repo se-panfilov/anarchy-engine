@@ -1,6 +1,6 @@
 import type { Observable } from 'rxjs';
 
-import type { IDestroyable } from '@/Engine/Mixins';
+import type { TDestroyable } from '@/Engine/Mixins';
 
 import type { ILoopTimes } from './ILoopTimes';
 
@@ -10,4 +10,4 @@ export type ILoopService = Readonly<{
   tick$: Observable<ILoopTimes>;
   getIsLooping: () => boolean;
 }> &
-  IDestroyable;
+  TDestroyable;

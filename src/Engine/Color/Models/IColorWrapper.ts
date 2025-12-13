@@ -1,5 +1,5 @@
-import type { IWrapper } from '@/Engine/Abstract';
+import type { TWrapper } from '@/Engine/Abstract';
 
 import type { IColor } from './IColor';
 
-export type IColorWrapper = IWrapper<IColor>;
+export type IColorWrapper = TWrapper<IColor>;

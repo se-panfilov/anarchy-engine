@@ -1,33 +1,33 @@
 import type { IActorService } from '@/Engine/Actor';
 import type { ICameraService } from '@/Engine/Camera';
 import type {
-  IIntersectionsWatcher,
+  TIntersectionsWatcher,
   IIntersectionsWatcherAsyncRegistry,
   IIntersectionsWatcherConfig,
   IIntersectionsWatcherFactory,
   IIntersectionsWatcherParams,
   IIntersectionsWatcherService
 } from '@/Engine/Intersections/Models';
-import type { IDestroyable } from '@/Engine/Mixins';
+import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
 import type { IMouseService } from '@/Engine/Mouse';
 
 export function IntersectionsWatcherService(factory: IIntersectionsWatcherFactory, registry: IIntersectionsWatcherAsyncRegistry): IIntersectionsWatcherService {
-  factory.entityCreated$.subscribe((watcher: IIntersectionsWatcher): void => registry.add(watcher));
+  factory.entityCreated$.subscribe((watcher: TIntersectionsWatcher): void => registry.add(watcher));
 
-  const create = (params: IIntersectionsWatcherParams): IIntersectionsWatcher => factory.create(params);
+  const create = (params: IIntersectionsWatcherParams): TIntersectionsWatcher => factory.create(params);
   const createFromConfigAsync = (
     configs: ReadonlyArray<IIntersectionsWatcherConfig>,
     mouseService: IMouseService,
     cameraService: ICameraService,
     actorService: IActorService
-  ): Promise<ReadonlyArray<IIntersectionsWatcher>> => {
+  ): Promise<ReadonlyArray<TIntersectionsWatcher>> => {
     return Promise.all(
-      configs.map((config: IIntersectionsWatcherConfig): Promise<IIntersectionsWatcher> => factory.configToParamsAsync(config, mouseService, cameraService, actorService).then(factory.create))
+      configs.map((config: IIntersectionsWatcherConfig): Promise<TIntersectionsWatcher> => factory.configToParamsAsync(config, mouseService, cameraService, actorService).then(factory.create))
     );
   };
 
-  const destroyable: IDestroyable = destroyableMixin();
+  const destroyable: TDestroyable = destroyableMixin();
   destroyable.destroyed$.subscribe(() => {
     factory.destroy();
     registry.destroy();

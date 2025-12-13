@@ -1,11 +1,11 @@
-import type { IAppCanvas } from '@/Engine/App';
+import type { TAppCanvas } from '@/Engine/App';
 import type { ICameraRegistry, ICameraWrapper } from '@/Engine/Camera';
-import type { IControlsConfig, IControlsFactory, IControlsParams, IControlsRegistry, IControlsService, IControlsWrapper } from '@/Engine/Controls/Models';
-import type { IDestroyable, IWithActiveMixinResult } from '@/Engine/Mixins';
+import type { IControlsConfig, IControlsFactory, IControlsParams, TControlsRegistry, IControlsService, IControlsWrapper } from '@/Engine/Controls/Models';
+import type { TDestroyable, IWithActiveMixinResult } from '@/Engine/Mixins';
 import { destroyableMixin, withActiveEntityServiceMixin } from '@/Engine/Mixins';
 import { isNotDefined } from '@/Engine/Utils';
 
-export function ControlService(factory: IControlsFactory, registry: IControlsRegistry, canvas: IAppCanvas): IControlsService {
+export function ControlService(factory: IControlsFactory, registry: TControlsRegistry, canvas: TAppCanvas): IControlsService {
   const withActive: IWithActiveMixinResult<IControlsWrapper> = withActiveEntityServiceMixin<IControlsWrapper>(registry);
   registry.added$.subscribe((wrapper: IControlsWrapper): void => {
     if (wrapper.isActive()) withActive.active$.next(wrapper);
@@ -21,7 +21,7 @@ export function ControlService(factory: IControlsFactory, registry: IControlsReg
     });
   };
 
-  const destroyable: IDestroyable = destroyableMixin();
+  const destroyable: TDestroyable = destroyableMixin();
   destroyable.destroyed$.subscribe(() => {
     factory.destroy();
     registry.destroy();
@@ -35,7 +35,7 @@ export function ControlService(factory: IControlsFactory, registry: IControlsReg
     findActive: withActive.findActive,
     active$: withActive.active$.asObservable(),
     getFactory: (): IControlsFactory => factory,
-    getRegistry: (): IControlsRegistry => registry,
+    getRegistry: (): TControlsRegistry => registry,
     ...destroyable
   };
 }

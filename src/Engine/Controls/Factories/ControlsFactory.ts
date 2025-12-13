@@ -1,4 +1,4 @@
-import type { IReactiveFactory } from '@/Engine/Abstract';
+import type { TReactiveFactory } from '@/Engine/Abstract';
 import { FactoryType, ReactiveFactory } from '@/Engine/Abstract';
 import { configToParams } from '@/Engine/Controls/Adapters';
 import type { IControlsFactory, IControlsParams, IControlsWrapper, IOrbitControlsParams } from '@/Engine/Controls/Models';
@@ -10,5 +10,5 @@ function create(params: IOrbitControlsParams): IControlsWrapper {
   return OrbitControlsWrapper(params);
 }
 
-export const controlsWithConfigFactory: IReactiveFactory<IControlsWrapper, IControlsParams> = { ...ReactiveFactory(FactoryType.Controls, create) };
+export const controlsWithConfigFactory: TReactiveFactory<IControlsWrapper, IControlsParams> = { ...ReactiveFactory(FactoryType.Controls, create) };
 export const ControlsFactory = (): IControlsFactory => ({ ...controlsWithConfigFactory, configToParams });

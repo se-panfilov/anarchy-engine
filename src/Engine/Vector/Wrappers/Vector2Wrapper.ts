@@ -1,16 +1,16 @@
 import { Vector2 } from 'three';
 
 import { AbstractWrapper, WrapperType } from '@/Engine/Abstract';
-import type { IWithCoordsXY } from '@/Engine/Mixins';
+import type { TWithCoordsXY } from '@/Engine/Mixins';
 import { vectorMoveByXMixin, vectorMoveByYMixin } from '@/Engine/Vector/Mixins';
-import type { IVector2Params } from '@/Engine/Vector/Models';
+import type { TVector2Params } from '@/Engine/Vector/Models';
 
-import type { IVector2, IVector2Wrapper } from '../Models';
+import type { TVector2, TVector2Wrapper } from '../Models';
 
-export function Vector2Wrapper(params: IVector2Params): IVector2Wrapper {
-  const entity: IVector2 = new Vector2(params.x, params.y);
+export function Vector2Wrapper(params: TVector2Params): TVector2Wrapper {
+  const entity: TVector2 = new Vector2(params.x, params.y);
 
-  function getCoords(): IWithCoordsXY {
+  function getCoords(): TWithCoordsXY {
     return { x: entity.x, y: entity.y };
   }
 

@@ -1,5 +1,5 @@
 import { ActorAsyncRegistry, ActorFactory, ActorService } from '@/Engine/Actor';
-import type { IAppCanvas } from '@/Engine/App';
+import type { TAppCanvas } from '@/Engine/App';
 import { CameraFactory, CameraRegistry, CameraService } from '@/Engine/Camera';
 import { ControlService, ControlsFactory, ControlsRegistry } from '@/Engine/Controls';
 import { EnvMapService } from '@/Engine/EnvMap';
@@ -12,21 +12,21 @@ import type { IMaterialTextureService } from '@/Engine/MaterialTexturePack';
 import { MaterialTextureService } from '@/Engine/MaterialTexturePack';
 import { ParticlesAsyncRegistry, ParticlesFactory, ParticlesService } from '@/Engine/Particles';
 import { RendererFactory, RendererRegistry, RendererService } from '@/Engine/Renderer';
-import type { ISceneFactory, ISceneRegistry, IScenesService, ISceneWrapper } from '@/Engine/Scene';
+import type { ISceneFactory, ISceneRegistry, TScenesService, TSceneWrapper } from '@/Engine/Scene';
 import { SceneFactory, SceneRegistry, ScenesService } from '@/Engine/Scene';
-import type { ISpaceServices } from '@/Engine/Space/Models';
+import type { TSpaceServices } from '@/Engine/Space/Models';
 import { Text2dRegistry, Text2dRendererRegistry, Text3dRegistry, Text3dRendererRegistry, TextFactory, TextService } from '@/Engine/Text';
 import { textureService } from '@/Engine/Texture';
 import { isNotDefined } from '@/Engine/Utils';
 
-export function initSceneService(): IScenesService {
+export function initSceneService(): TScenesService {
   const sceneFactory: ISceneFactory = SceneFactory();
   const sceneRegistry: ISceneRegistry = SceneRegistry();
 
   return ScenesService(sceneFactory, sceneRegistry);
 }
 
-export function initEntitiesServices(scene: ISceneWrapper, canvas: IAppCanvas): Omit<ISpaceServices, 'scenesService'> {
+export function initEntitiesServices(scene: TSceneWrapper, canvas: TAppCanvas): Omit<TSpaceServices, 'scenesService'> {
   const materialService: IMaterialService = MaterialService(MaterialFactory(), MaterialRegistry());
   const materialTextureService: IMaterialTextureService = MaterialTextureService(materialService, textureService);
 
@@ -46,9 +46,9 @@ export function initEntitiesServices(scene: ISceneWrapper, canvas: IAppCanvas): 
   };
 }
 
-export function initServices(canvas: IAppCanvas, buildScenesFn: (scenesService: IScenesService) => ISceneWrapper): ISpaceServices | never {
-  const scenesService: IScenesService = initSceneService();
-  const scene: ISceneWrapper = buildScenesFn(scenesService);
+export function initServices(canvas: TAppCanvas, buildScenesFn: (scenesService: TScenesService) => TSceneWrapper): TSpaceServices | never {
+  const scenesService: TScenesService = initSceneService();
+  const scene: TSceneWrapper = buildScenesFn(scenesService);
 
   if (isNotDefined(scene)) throw new Error(`Cannot find the active scene for space during the services initialization.`);
 

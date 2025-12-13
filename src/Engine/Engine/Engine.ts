@@ -1,27 +1,27 @@
 import type { ICameraWrapper } from '@/Engine/Camera';
-import type { IControlsRegistry } from '@/Engine/Controls';
-import type { IEngine } from '@/Engine/Engine/Models';
-import type { IIntersectionsWatcher } from '@/Engine/Intersections';
+import type { TControlsRegistry } from '@/Engine/Controls';
+import type { TEngine } from '@/Engine/Engine/Models';
+import type { TIntersectionsWatcher } from '@/Engine/Intersections';
 import type { IKeyboardService } from '@/Engine/Keyboard';
 import { KeyboardService } from '@/Engine/Keyboard';
 import type { ILoopService, ILoopTimes } from '@/Engine/Loop';
 import { LoopService } from '@/Engine/Loop';
 import type { IRendererWrapper } from '@/Engine/Renderer';
-import type { ISceneWrapper } from '@/Engine/Scene';
-import type { ISpace } from '@/Engine/Space';
+import type { TSceneWrapper } from '@/Engine/Scene';
+import type { TSpace } from '@/Engine/Space';
 import { spaceLoop } from '@/Engine/Space/SpaceLoop';
 import type { IText2dRenderer, IText3dRenderer } from '@/Engine/Text';
 import { isNotDefined } from '@/Engine/Utils';
 
-export function Engine(space: ISpace): IEngine {
+export function Engine(space: TSpace): TEngine {
   const loopService: ILoopService = LoopService();
   const keyboardService: IKeyboardService = KeyboardService(loopService);
 
   const { cameraService, rendererService, scenesService, textService, controlsService } = space.services;
-  const activeScene: ISceneWrapper | undefined = scenesService.findActive();
+  const activeScene: TSceneWrapper | undefined = scenesService.findActive();
 
   const { text2dRegistry, text3dRegistry } = textService.getRegistries();
-  const controlsRegistry: IControlsRegistry = controlsService.getRegistry();
+  const controlsRegistry: TControlsRegistry = controlsService.getRegistry();
   const renderer: IRendererWrapper | undefined = rendererService.findActive();
 
   const { text2dRendererRegistry, text3dRendererRegistry } = textService.getRendererRegistries();
@@ -45,7 +45,7 @@ export function Engine(space: ISpace): IEngine {
     if (isNotDefined(space)) throw new Error('Engine is not started yet (space is not defined)');
     const { intersectionsWatcherService } = space.services;
     loopService.stop();
-    void intersectionsWatcherService.getRegistry().forEach((watcher: IIntersectionsWatcher): void => {
+    void intersectionsWatcherService.getRegistry().forEach((watcher: TIntersectionsWatcher): void => {
       if (watcher.isStarted) watcher.stop();
     });
   }

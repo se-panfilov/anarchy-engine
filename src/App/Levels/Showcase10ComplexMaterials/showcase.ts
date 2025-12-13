@@ -3,26 +3,26 @@ import GUI from 'lil-gui';
 import { BehaviorSubject, combineLatest, startWith, Subject } from 'rxjs';
 import type { MeshPhysicalMaterial, MeshStandardMaterial } from 'three';
 
-import type { IShowcase } from '@/App/Levels/Models';
-import type { IActorAsyncRegistry, IActorWrapperAsync, IAppCanvas, IControlsRegistry, IEngine, IOrbitControlsWrapper, ISpace, ISpaceConfig, IVector3Wrapper } from '@/Engine';
+import type { TShowcase } from '@/App/Levels/Models';
+import type { TActorAsyncRegistry, TActorWrapperAsync, TAppCanvas, TControlsRegistry, TEngine, TOrbitControlsWrapper, TSpace, TSpaceConfig, TVector3Wrapper } from '@/Engine';
 import { buildSpaceFromConfig, Engine, EulerWrapper, isDefined, isNotDefined, KeyCode, LookUpStrategy, TextType, Vector3Wrapper } from '@/Engine';
 
 import spaceConfig from './showcase.json';
 
-export function showcase(canvas: IAppCanvas): IShowcase {
+export function showcase(canvas: TAppCanvas): TShowcase {
   const gui: GUI = new GUI();
 
-  const space: ISpace = buildSpaceFromConfig(canvas, spaceConfig as ISpaceConfig);
+  const space: TSpace = buildSpaceFromConfig(canvas, spaceConfig as TSpaceConfig);
   const { textService } = space.services;
 
-  const engine: IEngine = Engine(space);
+  const engine: TEngine = Engine(space);
   const { keyboardService } = engine.services;
 
   const { actorService, controlsService, envMapService } = space.services;
-  const actorRegistry: IActorAsyncRegistry = actorService.getRegistry();
-  const controlsRegistry: IControlsRegistry = controlsService.getRegistry();
+  const actorRegistry: TActorAsyncRegistry = actorService.getRegistry();
+  const controlsRegistry: TControlsRegistry = controlsService.getRegistry();
 
-  const currentActor$: Subject<IActorWrapperAsync> = new Subject();
+  const currentActor$: Subject<TActorWrapperAsync> = new Subject();
 
   const materials: ReadonlyArray<string> = ['standard', 'physical', 'basic', 'phong', 'lambert', 'toon', 'matcap'];
   const currentMaterialIndex$: BehaviorSubject<number> = new BehaviorSubject(0);
@@ -40,15 +40,15 @@ export function showcase(canvas: IAppCanvas): IShowcase {
     currentMaterialType$.pipe(startWith(materialType[3]))
     // eslint-disable-next-line @typescript-eslint/no-misused-promises
   ]).subscribe(async ([material, type]: ReadonlyArray<string>): Promise<void> => {
-    const actor: IActorWrapperAsync | undefined = await actorRegistry.findByTagsAsync([material, type], LookUpStrategy.Every);
+    const actor: TActorWrapperAsync | undefined = await actorRegistry.findByTagsAsync([material, type], LookUpStrategy.Every);
     if (isNotDefined(actor)) throw new Error(`Actor with tag "${material}" is not found`);
     currentActor$.next(actor);
   });
 
   currentActor$.subscribe(moveCameraToActor);
 
-  function addTextToActor(actor: IActorWrapperAsync): void {
-    const position: IVector3Wrapper = actor.getPosition();
+  function addTextToActor(actor: TActorWrapperAsync): void {
+    const position: TVector3Wrapper = actor.getPosition();
     const x: number = position.getX();
     const y: number = position.getY();
     const z: number = position.getZ();
@@ -83,12 +83,12 @@ export function showcase(canvas: IAppCanvas): IShowcase {
     controllers: [] as ReadonlyArray<GUI | Controller>
   };
 
-  function moveCameraToActor(actor: IActorWrapperAsync): void {
+  function moveCameraToActor(actor: TActorWrapperAsync): void {
     state.controllers.forEach((controller: GUI | Controller): void => controller.destroy());
     // eslint-disable-next-line functional/immutable-data
     state.controllers = addGuiToActor(actor);
-    const position: IVector3Wrapper = actor.getPosition();
-    const orbitControls: IOrbitControlsWrapper | undefined = controlsRegistry.findByTag('orbit');
+    const position: TVector3Wrapper = actor.getPosition();
+    const orbitControls: TOrbitControlsWrapper | undefined = controlsRegistry.findByTag('orbit');
     if (isNotDefined(orbitControls)) throw new Error('Orbit controls are not found');
     orbitControls.setDamping(true);
     orbitControls.moveToTargetSmoothly(position);
@@ -98,7 +98,7 @@ export function showcase(canvas: IAppCanvas): IShowcase {
 
   actorRegistry.added$.subscribe(addTextToActor);
 
-  function addGuiToActor(actor: IActorWrapperAsync): ReadonlyArray<GUI | Controller> {
+  function addGuiToActor(actor: TActorWrapperAsync): ReadonlyArray<GUI | Controller> {
     let controllers: ReadonlyArray<GUI | Controller> = [];
     const isMetalness: boolean = isDefined((actor.entity.material as MeshStandardMaterial).metalness);
     const isRoughness: boolean = isDefined((actor.entity.material as MeshStandardMaterial).roughness);

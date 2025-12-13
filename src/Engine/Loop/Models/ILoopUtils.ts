@@ -1,9 +1,9 @@
 import type { ICameraRegistry } from '@/Engine/Camera';
-import type { IControlsRegistry } from '@/Engine/Controls';
+import type { TControlsRegistry } from '@/Engine/Controls';
 import type { IRendererWrapper } from '@/Engine/Renderer';
-import type { ISceneWrapper } from '@/Engine/Scene';
+import type { TSceneWrapper } from '@/Engine/Scene';
 
 export type ILoopUtils = Readonly<{
-  start: (renderer: Readonly<IRendererWrapper>, scene: Readonly<ISceneWrapper>, controlsRegistry: IControlsRegistry, cameraRegistry: ICameraRegistry) => void;
+  start: (renderer: Readonly<IRendererWrapper>, scene: Readonly<TSceneWrapper>, controlsRegistry: TControlsRegistry, cameraRegistry: ICameraRegistry) => void;
   stop: () => void;
 }>;

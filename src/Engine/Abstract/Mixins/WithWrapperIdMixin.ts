@@ -1,8 +1,8 @@
-import type { IWithUserData, IWithWrapperId } from '@/Engine/Abstract/Models';
+import type { TWithUserData, TWithWrapperId } from '@/Engine/Abstract/Models';
 import type { IWriteable } from '@/Engine/Utils';
 import { isNotDefined } from '@/Engine/Utils';
 
-export function withWrapperIdMixin<T extends IWriteable<IWithUserData>>(entity: T): IWithWrapperId {
+export function withWrapperIdMixin<T extends IWriteable<TWithUserData>>(entity: T): TWithWrapperId {
   function setWrapperId(id: string): void {
     // eslint-disable-next-line functional/immutable-data
     if (isNotDefined(entity.userData)) entity.userData = {};
@@ -20,7 +20,7 @@ export function withWrapperIdMixin<T extends IWriteable<IWithUserData>>(entity: 
   };
 }
 
-export function withNoWrapperIdMixin<T extends IWriteable<IWithUserData>>(entity: T): IWithWrapperId {
+export function withNoWrapperIdMixin<T extends IWriteable<TWithUserData>>(entity: T): TWithWrapperId {
   function setWrapperId(id: string): void | never {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     throw new Error(`setWrapperId is not allowed for this entity (id: "${(entity as any).id}", wrapperId: "${id}")`);

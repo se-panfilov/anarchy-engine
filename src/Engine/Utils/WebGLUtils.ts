@@ -1,7 +1,7 @@
-import type { IAppCanvas } from '@/Engine/App';
+import type { TAppCanvas } from '@/Engine/App';
 
 export function isWebGLAvailable(): boolean {
-  let canvas: IAppCanvas | undefined = undefined;
+  let canvas: TAppCanvas | undefined = undefined;
 
   try {
     if (!window || !document) return false;
@@ -16,7 +16,7 @@ export function isWebGLAvailable(): boolean {
 }
 
 export function isWebGL2Available(): boolean {
-  let canvas: IAppCanvas | undefined = undefined;
+  let canvas: TAppCanvas | undefined = undefined;
 
   try {
     if (!window || !document) return false;

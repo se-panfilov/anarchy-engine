@@ -4,7 +4,7 @@ import type { ICameraConfig } from '@/Engine/Camera';
 import type { IControlsConfig } from '@/Engine/Controls';
 import type { IWithName, IWithReadonlyTags } from '@/Engine/Mixins';
 import type { ISceneConfig } from '@/Engine/Scene';
-import type { ISpaceConfig } from '@/Engine/Space';
+import type { TSpaceConfig } from '@/Engine/Space';
 import ISpaceConfigSchema from '@/Engine/Space/Schemas/ISpaceConfig.json';
 
 import { isDefined } from './CheckUtils';
@@ -13,7 +13,7 @@ const ajv: Ajv = new Ajv();
 
 type ISchemaValidationResult = Readonly<{ isValid: boolean; errors: ReadonlyArray<any> | null | undefined }>;
 
-export function validLevelConfig(config: ISpaceConfig): ISchemaValidationResult {
+export function validLevelConfig(config: TSpaceConfig): ISchemaValidationResult {
   const jsonResult = validateJsonSchema(config);
   const dataResult = validateData(config);
   const jsonErrors: ReadonlyArray<any> = jsonResult.errors ?? [];
@@ -22,13 +22,13 @@ export function validLevelConfig(config: ISpaceConfig): ISchemaValidationResult 
   return { isValid: jsonResult.isValid && dataResult.isValid, errors: [...jsonErrors, ...dataErrors] };
 }
 
-function validateJsonSchema(config: ISpaceConfig): ISchemaValidationResult {
+function validateJsonSchema(config: TSpaceConfig): ISchemaValidationResult {
   const validate = ajv.compile(ISpaceConfigSchema);
   const isValid: boolean = validate(config);
   return { isValid, errors: validate.errors };
 }
 
-function validateData({ name, actors, cameras, scenes, controls, intersections, lights, fogs, texts, tags }: ISpaceConfig): ISchemaValidationResult {
+function validateData({ name, actors, cameras, scenes, controls, intersections, lights, fogs, texts, tags }: TSpaceConfig): ISchemaValidationResult {
   let errors: ReadonlyArray<string> = [];
 
   //must be defined

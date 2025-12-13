@@ -2,13 +2,13 @@ import type { Subscription } from 'rxjs';
 
 import type { ICameraConfig, ICameraFactory, ICameraParams, ICameraRegistry, ICameraService, ICameraWrapper } from '@/Engine/Camera/Models';
 import { ambientContext } from '@/Engine/Context';
-import type { IDestroyable, IWithActiveMixinResult } from '@/Engine/Mixins';
+import type { TDestroyable, IWithActiveMixinResult } from '@/Engine/Mixins';
 import { destroyableMixin, withActiveEntityServiceMixin } from '@/Engine/Mixins';
-import type { ISceneWrapper } from '@/Engine/Scene';
+import type { TSceneWrapper } from '@/Engine/Scene';
 import type { IScreenSizeValues } from '@/Engine/Screen';
 import { isNotDefined } from '@/Engine/Utils';
 
-export function CameraService(factory: ICameraFactory, registry: ICameraRegistry, scene: ISceneWrapper, isUpdateCamerasAspect: boolean = true): ICameraService {
+export function CameraService(factory: ICameraFactory, registry: ICameraRegistry, scene: TSceneWrapper, isUpdateCamerasAspect: boolean = true): ICameraService {
   const withActive: IWithActiveMixinResult<ICameraWrapper> = withActiveEntityServiceMixin<ICameraWrapper>(registry);
   registry.added$.subscribe((wrapper: ICameraWrapper): void => {
     scene.addCamera(wrapper);
@@ -42,7 +42,7 @@ export function CameraService(factory: ICameraFactory, registry: ICameraRegistry
   const create = (params: ICameraParams): ICameraWrapper => factory.create(params);
   const createFromConfig = (cameras: ReadonlyArray<ICameraConfig>): void => cameras.forEach((config: ICameraConfig): ICameraWrapper => factory.create(factory.configToParams(config)));
 
-  const destroyable: IDestroyable = destroyableMixin();
+  const destroyable: TDestroyable = destroyableMixin();
   destroyable.destroyed$.subscribe(() => {
     factory.destroy();
     registry.destroy();
@@ -60,7 +60,7 @@ export function CameraService(factory: ICameraFactory, registry: ICameraRegistry
     startUpdatingCamerasAspect,
     getFactory: (): ICameraFactory => factory,
     getRegistry: (): ICameraRegistry => registry,
-    getScene: (): ISceneWrapper => scene,
+    getScene: (): TSceneWrapper => scene,
     ...destroyable
   };
 }

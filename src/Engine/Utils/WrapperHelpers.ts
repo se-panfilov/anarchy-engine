@@ -20,7 +20,7 @@ import type { IMovable3dXYZ, IRotatable, IScalable, IWithObject3d } from '@/Engi
 import type { IWithTextures } from '@/Engine/Texture';
 import type { IObject3DParams } from '@/Engine/ThreeLib';
 import { isDefined } from '@/Engine/Utils/index';
-import type { IVector2Wrapper, IVector3Wrapper } from '@/Engine/Vector';
+import type { TVector2Wrapper, TVector3Wrapper } from '@/Engine/Vector';
 
 export function applyObject3dParams(obj: IWithObject3d, { visible, castShadow, receiveShadow, frustumCulled, renderOrder }: Partial<IObject3DParams>): void {
   if (isDefined(visible)) obj.setVisible(visible);
@@ -30,11 +30,11 @@ export function applyObject3dParams(obj: IWithObject3d, { visible, castShadow, r
   if (isDefined(renderOrder)) obj.setRenderOrder(renderOrder);
 }
 
-export function applyPosition(obj: IMovable3dXYZ, position?: IVector3Wrapper): void {
+export function applyPosition(obj: IMovable3dXYZ, position?: TVector3Wrapper): void {
   if (isDefined(position)) obj.setPosition(position);
 }
 
-export function applyCenter(obj: CSS2DObject, center?: IVector2Wrapper): void {
+export function applyCenter(obj: CSS2DObject, center?: TVector2Wrapper): void {
   if (isDefined(center)) obj.center.set(center.getX(), center.getY());
 }
 
@@ -56,6 +56,6 @@ export function applyRotation(obj: IRotatable, rotation?: IEulerWrapper): void {
   if (isDefined(rotation)) obj.setRotation(rotation.getRotationX(), rotation.getRotationY(), rotation.getRotationZ());
 }
 
-export function applyScale(obj: IScalable, scale?: IVector3Wrapper): void {
+export function applyScale(obj: IScalable, scale?: TVector3Wrapper): void {
   if (isDefined(scale)) obj.setScale(scale.getX(), scale.getY(), scale.getZ());
 }

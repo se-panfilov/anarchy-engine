@@ -1,14 +1,14 @@
 import { combineLatest } from 'rxjs';
 
-import type { IShowcase } from '@/App/Levels/Models';
-import type { IActorAsyncRegistry, IActorWrapperAsync, IAppCanvas, ICameraWrapper, IEngine, ISpace, ISpaceConfig } from '@/Engine';
+import type { TShowcase } from '@/App/Levels/Models';
+import type { TActorAsyncRegistry, TActorWrapperAsync, TAppCanvas, ICameraWrapper, TEngine, TSpace, TSpaceConfig } from '@/Engine';
 import { ambientContext, buildSpaceFromConfig, Engine, getRotationByCos, getRotationBySin, isDefined, isNotDefined, mouseService } from '@/Engine';
 
 import spaceConfig from './showcase.json';
 
-export function showcase(canvas: IAppCanvas): IShowcase {
-  const space: ISpace = buildSpaceFromConfig(canvas, spaceConfig as ISpaceConfig);
-  const engine: IEngine = Engine(space);
+export function showcase(canvas: TAppCanvas): TShowcase {
+  const space: TSpace = buildSpaceFromConfig(canvas, spaceConfig as TSpaceConfig);
+  const engine: TEngine = Engine(space);
 
   // Load texture dynamically
   // const pack: IBasicMaterialTexturePack = {
@@ -18,8 +18,8 @@ export function showcase(canvas: IAppCanvas): IShowcase {
 
   async function init(): Promise<void> {
     const { actorService } = space.services;
-    const actorRegistry: IActorAsyncRegistry = actorService.getRegistry();
-    const actor: IActorWrapperAsync | undefined = await actorRegistry.findByTagAsync('central_actor');
+    const actorRegistry: TActorAsyncRegistry = actorService.getRegistry();
+    const actor: TActorWrapperAsync | undefined = await actorRegistry.findByTagAsync('central_actor');
     if (isNotDefined(actor)) throw new Error('Actor is not found');
 
     //apply textures async, without blocking the main thread (game might be started before textures are loaded)
@@ -36,7 +36,7 @@ export function showcase(canvas: IAppCanvas): IShowcase {
 }
 
 // This is mostly a copy of Showcase 3 (camera rotation)
-function initCameraRotation(space: ISpace, actor: IActorWrapperAsync | undefined): void {
+function initCameraRotation(space: TSpace, actor: TActorWrapperAsync | undefined): void {
   const { cameraService } = space.services;
 
   const camera: ICameraWrapper | undefined = cameraService.findActive();

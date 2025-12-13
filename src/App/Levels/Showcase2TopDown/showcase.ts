@@ -1,14 +1,14 @@
 import { combineLatest } from 'rxjs';
 
-import type { IShowcase } from '@/App/Levels/Models';
-import type { IActorParams, IAppCanvas, ICameraWrapper, IEngine, ISpace, ISpaceConfig } from '@/Engine';
+import type { TShowcase } from '@/App/Levels/Models';
+import type { IActorParams, TAppCanvas, ICameraWrapper, TEngine, TSpace, TSpaceConfig } from '@/Engine';
 import { ActorType, ambientContext, buildSpaceFromConfig, Engine, EulerWrapper, isNotDefined, MaterialType, mouseService, Vector3Wrapper } from '@/Engine';
 
 import spaceConfig from './showcase.json';
 
-export function showcase(canvas: IAppCanvas): IShowcase {
-  const space: ISpace = buildSpaceFromConfig(canvas, spaceConfig as ISpaceConfig);
-  const engine: IEngine = Engine(space);
+export function showcase(canvas: TAppCanvas): TShowcase {
+  const space: TSpace = buildSpaceFromConfig(canvas, spaceConfig as TSpaceConfig);
+  const engine: TEngine = Engine(space);
 
   function start(): void {
     engine.start();

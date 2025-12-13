@@ -1,5 +1,5 @@
-import type { IAbstractEntityRegistry, IProtectedRegistry } from '@/Engine/Abstract/Models';
+import type { TAbstractEntityRegistry, TProtectedRegistry } from '@/Engine/Abstract/Models';
 
-import type { ISceneWrapper } from './ISceneWrapper';
+import type { TSceneWrapper } from './TSceneWrapper';
 
-export type ISceneRegistry = IProtectedRegistry<IAbstractEntityRegistry<ISceneWrapper>>;
+export type ISceneRegistry = TProtectedRegistry<TAbstractEntityRegistry<TSceneWrapper>>;

@@ -2,7 +2,7 @@ import type { Subscription } from 'rxjs';
 import type { WebGLRendererParameters } from 'three';
 import { PCFShadowMap, WebGLRenderer } from 'three';
 
-import type { IWrapper } from '@/Engine/Abstract';
+import type { TWrapper } from '@/Engine/Abstract';
 import { AbstractWrapper, WrapperType } from '@/Engine/Abstract';
 import { withActiveMixin } from '@/Engine/Mixins';
 import { RendererModes } from '@/Engine/Renderer/Constants';
@@ -57,7 +57,7 @@ export function RendererWrapper(params: IRendererParams, screenSizeWatcher: Read
     screenSizeWatcherSubscription.unsubscribe();
   });
 
-  const wrapper: IWrapper<WebGLRenderer> = AbstractWrapper(entity, WrapperType.Renderer, params);
+  const wrapper: TWrapper<WebGLRenderer> = AbstractWrapper(entity, WrapperType.Renderer, params);
 
   function destroy(): void {
     screenSize$.unsubscribe();

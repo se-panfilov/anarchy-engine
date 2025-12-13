@@ -1,15 +1,15 @@
-import type { IShowcase } from '@/App/Levels/Models';
+import type { TShowcase } from '@/App/Levels/Models';
 import type {
-  IActorAsyncRegistry,
-  IActorWrapperAsync,
+  TActorAsyncRegistry,
+  TActorWrapperAsync,
   IAnimationParams,
-  IAppCanvas,
+  TAppCanvas,
   ICameraRegistry,
-  IControlsRegistry,
-  IEngine,
+  TControlsRegistry,
+  TEngine,
   IMoverService,
-  ISpace,
-  ISpaceConfig,
+  TSpace,
+  TSpaceConfig,
   IText2dWrapper,
   ITextAnyWrapper,
   IWithCoordsXZ
@@ -31,24 +31,24 @@ import { MoverService } from '@/Engine/Services/MoverService/MoverService';
 
 import spaceConfig from './showcase.json';
 
-export function showcase(canvas: IAppCanvas): IShowcase {
-  const space: ISpace = buildSpaceFromConfig(canvas, spaceConfig as ISpaceConfig);
-  const engine: IEngine = Engine(space);
+export function showcase(canvas: TAppCanvas): TShowcase {
+  const space: TSpace = buildSpaceFromConfig(canvas, spaceConfig as TSpaceConfig);
+  const engine: TEngine = Engine(space);
   const { loopService } = engine.services;
 
   async function init(): Promise<void> {
     const { actorService, cameraService, controlsService, textService } = space.services;
-    const actorRegistry: IActorAsyncRegistry = actorService.getRegistry();
+    const actorRegistry: TActorAsyncRegistry = actorService.getRegistry();
     const cameraRegistry: ICameraRegistry = cameraService.getRegistry();
-    const controlsRegistry: IControlsRegistry = controlsService.getRegistry();
+    const controlsRegistry: TControlsRegistry = controlsService.getRegistry();
     const { text2dRegistry } = textService.getRegistries();
 
     controlsRegistry.getAll()[0]?.entity.target.set(6, 0, 0);
     cameraRegistry.getAll()[0]?.setPosition(Vector3Wrapper({ x: 6, y: 30, z: 0 }));
 
-    const redActor: IActorWrapperAsync | undefined = await actorRegistry.findByTagAsync('red');
-    const blueActor: IActorWrapperAsync | undefined = await actorRegistry.findByTagAsync('blue');
-    const greenActor: IActorWrapperAsync | undefined = await actorRegistry.findByTagAsync('green');
+    const redActor: TActorWrapperAsync | undefined = await actorRegistry.findByTagAsync('red');
+    const blueActor: TActorWrapperAsync | undefined = await actorRegistry.findByTagAsync('blue');
+    const greenActor: TActorWrapperAsync | undefined = await actorRegistry.findByTagAsync('green');
     if (isNotDefined(redActor) || isNotDefined(blueActor) || isNotDefined(greenActor)) throw new Error('Actors are not defined');
 
     const redText: IText2dWrapper | undefined = text2dRegistry.findByTag('red');

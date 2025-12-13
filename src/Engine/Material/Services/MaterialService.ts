@@ -1,5 +1,5 @@
 import type { IMaterialConfig, IMaterialFactory, IMaterialParams, IMaterialRegistry, IMaterialService, IMaterialWrapper } from '@/Engine/Material/Models';
-import type { IDestroyable } from '@/Engine/Mixins';
+import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
 
 export function MaterialService(factory: IMaterialFactory, registry: IMaterialRegistry): IMaterialService {
@@ -8,7 +8,7 @@ export function MaterialService(factory: IMaterialFactory, registry: IMaterialRe
   const create = (params: IMaterialParams): IMaterialWrapper => factory.create(params);
   const createFromConfig = (material: ReadonlyArray<IMaterialConfig>): void => material.forEach((config: IMaterialConfig): IMaterialWrapper => factory.create(factory.configToParams(config)));
 
-  const destroyable: IDestroyable = destroyableMixin();
+  const destroyable: TDestroyable = destroyableMixin();
   destroyable.destroyed$.subscribe(() => {
     factory.destroy();
     registry.destroy();

@@ -1,15 +1,15 @@
 import './fonts.css';
 
-import type { IShowcase } from '@/App/Levels/Models';
-import type { IAnimationParams, IAppCanvas, IEngine, IMoverService, ISpace, ISpaceConfig, IText3dWrapper, IWithCoordsXZ } from '@/Engine';
+import type { TShowcase } from '@/App/Levels/Models';
+import type { IAnimationParams, TAppCanvas, TEngine, IMoverService, TSpace, TSpaceConfig, IText3dWrapper, IWithCoordsXZ } from '@/Engine';
 import { buildSpaceFromConfig, createCirclePathXZ, defaultMoverServiceConfig, Easing, Engine, EulerWrapper, generateAnglesForCircle, mouseService, TextType, Vector3Wrapper } from '@/Engine';
 import { MoverService } from '@/Engine/Services/MoverService/MoverService';
 
 import spaceConfig from './showcase.json';
 
-export function showcase(canvas: IAppCanvas): IShowcase {
-  const space: ISpace = buildSpaceFromConfig(canvas, spaceConfig as ISpaceConfig);
-  const engine: IEngine = Engine(space);
+export function showcase(canvas: TAppCanvas): TShowcase {
+  const space: TSpace = buildSpaceFromConfig(canvas, spaceConfig as TSpaceConfig);
+  const engine: TEngine = Engine(space);
   const { loopService } = engine.services;
   const { textService } = space.services;
 

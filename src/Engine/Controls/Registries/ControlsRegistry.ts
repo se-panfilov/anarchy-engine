@@ -1,5 +1,5 @@
 import { RegistryType } from '@/Engine/Abstract/Constants';
 import { AbstractEntityRegistry, RegistryFacade } from '@/Engine/Abstract/Registries';
-import type { IControlsRegistry, IControlsWrapper } from '@/Engine/Controls/Models';
+import type { TControlsRegistry, IControlsWrapper } from '@/Engine/Controls/Models';
 
-export const ControlsRegistry = (): IControlsRegistry => RegistryFacade(AbstractEntityRegistry<IControlsWrapper>(RegistryType.Controls));
+export const ControlsRegistry = (): TControlsRegistry => RegistryFacade(AbstractEntityRegistry<IControlsWrapper>(RegistryType.Controls));
