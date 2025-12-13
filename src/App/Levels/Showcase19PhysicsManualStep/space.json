@@ -7,6 +7,7 @@
         "model3dSource": "surface_model",
         "name": "surface_actor",
         "physics": {
+          "name": "surface_physics",
           "collisionShape": "cuboid",
           "shapeParams": {
             "hx": 10,
@@ -35,6 +36,7 @@
         "model3dSource": "sphere_1_model",
         "name": "sphere_1_actor",
         "physics": {
+          "name": "sphere_1_physics",
           "collisionShape": "ball",
           "shapeParams": {
             "radius": 1
@@ -56,6 +58,7 @@
         "model3dSource": "cube_1_model",
         "name": "cube_1_actor",
         "physics": {
+          "name": "cube_1_physics",
           "collisionShape": "cuboid",
           "restitution": 0.1,
           "shapeParams": {
@@ -85,6 +88,7 @@
         "model3dSource": "cube_2_model",
         "name": "cube_2_actor",
         "physics": {
+          "name": "cube_2_physics",
           "collisionShape": "cuboid",
           "restitution": 0.1,
           "shapeParams": {
@@ -114,6 +118,7 @@
         "model3dSource": "sphere_2_model",
         "name": "sphere_2_actor",
         "physics": {
+          "name": "sphere_2_physics",
           "collisionShape": "ball",
           "restitution": 0.9,
           "shapeParams": {
@@ -136,6 +141,7 @@
         "model3dSource": "sphere_3_model",
         "name": "sphere_3_actor",
         "physics": {
+          "name": "sphere_3_physics",
           "collisionShape": "ball",
           "restitution": 0.9,
           "shapeParams": {

@@ -7,6 +7,7 @@
         "model3dSource": "surface_model",
         "name": "surface",
         "physics": {
+          "name": "surface_physics",
           "collisionShape": "cuboid",
           "friction": 0.5,
           "mass": 1,

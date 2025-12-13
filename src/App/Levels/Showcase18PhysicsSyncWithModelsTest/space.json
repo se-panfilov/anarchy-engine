@@ -29,6 +29,7 @@
         "model3dSource": "cube_1_model",
         "name": "actor_2",
         "physics": {
+          "name": "actor_2_physics",
           "collisionShape": "cuboid",
           "shapeParams": {
             "hx": 0.5,
@@ -57,6 +58,7 @@
         "model3dSource": "cube_2_model",
         "name": "actor_3",
         "physics": {
+          "name": "actor_3_physics",
           "collisionShape": "cuboid",
           "shapeParams": {
             "hx": 0.5,
