@@ -2,7 +2,7 @@ import type { Subscription } from 'rxjs';
 import { combineLatest, Subject } from 'rxjs';
 import { Euler, Vector3 } from 'three';
 
-import { FacadeType } from '@/Engine/Abstract';
+import { EntityType } from '@/Engine/Abstract';
 import { AbstractFacade } from '@/Engine/Abstract/Wrappers/AbstractFacade';
 import type { ActorDrive } from '@/Engine/Actor/Constants';
 import type { TActor, TActorDependencies, TActorEntities, TActorParams } from '@/Engine/Actor/Models';
@@ -47,7 +47,7 @@ export function Actor(
     ...withUpdateSpatialCell()
   };
 
-  const facade = AbstractFacade(entities, FacadeType.Actor, params);
+  const facade = AbstractFacade(entities, EntityType.Actor, params);
 
   const kinematicSub$: Subscription = kinematicLoopService.tick$.subscribe((delta: number): void => {
     if (!entities.kinematic.isAutoUpdate()) return;

@@ -1,4 +1,4 @@
-export * from './FacadeType';
+export * from './EntityType';
 export * from './FactoryType';
 export * from './LoaderType';
 export * from './RegistryType';

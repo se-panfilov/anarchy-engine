@@ -1,4 +1,4 @@
-import { FacadeType } from '@/Engine/Abstract';
+import { EntityType } from '@/Engine/Abstract';
 import { AbstractFacade } from '@/Engine/Abstract/Wrappers/AbstractFacade';
 import { withPhysicsBodyFacadeEntities } from '@/Engine/Physics/Mixins';
 import type { TPhysicsBodyFacade, TPhysicsBodyFacadeEntities, TPhysicsBodyParams, TPhysicsFacadeDependencies } from '@/Engine/Physics/Models';
@@ -14,7 +14,7 @@ export function PhysicsBodyFacade(params: TPhysicsBodyParams, { world }: TPhysic
   if (isSleep) entities.rigidBody?.sleep();
 
   return {
-    ...AbstractFacade(withPhysicsBodyFacadeEntities(entities), FacadeType.PhysicsBody, params),
+    ...AbstractFacade(withPhysicsBodyFacadeEntities(entities), EntityType.PhysicsBody, params),
     getPhysicsBodyType: () => params.type,
     getPhysicsBodyShape: () => params.collisionShape,
     shouldUpdateKinematic: () => _shouldUpdateKinematic,

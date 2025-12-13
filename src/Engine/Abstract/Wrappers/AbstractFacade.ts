@@ -1,6 +1,6 @@
 import { nanoid } from 'nanoid';
 
-import type { FacadeType } from '@/Engine/Abstract';
+import type { EntityType } from '@/Engine/Abstract';
 import type { TFacade } from '@/Engine/Abstract/Models';
 import type { TDestroyable, TRegistrable, TWithName, TWithNameAndNameAccessorsMixin, TWithTagsMixin } from '@/Engine/Mixins';
 import { destroyableMixin, withNameAndNameAccessorsMixin } from '@/Engine/Mixins';
@@ -9,7 +9,7 @@ import { isDefined } from '@/Engine/Utils';
 
 type TFacadeParams = Readonly<{ tags?: ReadonlyArray<string> } & TWithName>;
 
-export function AbstractFacade<T extends Record<string, any>>(entities: T, type: FacadeType | string, params?: TFacadeParams): TFacade<T> {
+export function AbstractFacade<T extends Record<string, any>>(entities: T, type: EntityType | string, params?: TFacadeParams): TFacade<T> {
   const id: string = type + '_' + nanoid();
 
   const withNameAndNameAccessors: TWithNameAndNameAccessorsMixin = withNameAndNameAccessorsMixin();
