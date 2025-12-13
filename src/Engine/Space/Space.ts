@@ -8,8 +8,8 @@ import type { IAppCanvas } from '@/Engine/App';
 import type { ICameraFactory, ICameraRegistry, ICameraService, ICameraWrapper } from '@/Engine/Camera';
 import { CameraFactory, CameraRegistry, CameraService } from '@/Engine/Camera';
 import { ambientContext } from '@/Engine/Context';
-import { ControlService, IControlsFactory, IControlsRegistry, IOrbitControlsConfig, IOrbitControlsWrapper } from '@/Engine/Controls';
-import { ControlsFactory, ControlsRegistry } from '@/Engine/Controls';
+import type { IControlsFactory, IControlsRegistry, IControlsService, IOrbitControlsWrapper } from '@/Engine/Controls';
+import { ControlService, ControlsFactory, ControlsRegistry } from '@/Engine/Controls';
 import type { IDataTexture, IEnvMapService } from '@/Engine/EnvMap';
 import { EnvMapService } from '@/Engine/EnvMap';
 import type { IFogConfig, IFogFactory, IFogRegistry, IFogService, IFogWrapper } from '@/Engine/Fog';
@@ -141,11 +141,7 @@ export function buildSpaceFromConfig(canvas: IAppCanvas, config: ISpaceConfig): 
     const controlsRegistry: IControlsRegistry = ControlsRegistry();
     const controlsService: IControlsService = ControlService(controlsFactory, controlsRegistry, registries.cameraRegistry, canvas);
 
-    // TODO (S.Panfilov) use service
-    controls.forEach((control: IOrbitControlsConfig): IOrbitControlsWrapper => {
-      if (isNotDefined(registries.cameraRegistry)) throw new Error(`Cannot find camera registry for controls (${control.type}) initialization`);
-      return controlsFactory.create(controlsFactory.configToParams({ ...control, tags: [...control.tags, CommonTag.FromConfig] }, { cameraRegistry: registries.cameraRegistry, canvas }));
-    });
+    controlsService.createFromConfig(controls);
 
     factories = { ...factories, controlsFactory };
     registries = { ...registries, controlsRegistry };
