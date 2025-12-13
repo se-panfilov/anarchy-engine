@@ -1,6 +1,6 @@
 import type { IGlobalContainerDecorator } from '@Engine/Global';
 import type { IScreenParams } from '@Engine/Models';
-import { AbstractWatcherWithState, IAbstractWatcherWithState } from '@Engine/Watchers';
+import { AbstractWatcherWithState, type IAbstractWatcherWithState } from '@Engine/Watchers';
 import type { IScreenSizeWatcher } from '@Engine/Watchers/ScreenSizeWatcher/Models/IScreenSizeWatcher';
 
 export function ScreenSizeWatcher(container: IGlobalContainerDecorator): IScreenSizeWatcher {
