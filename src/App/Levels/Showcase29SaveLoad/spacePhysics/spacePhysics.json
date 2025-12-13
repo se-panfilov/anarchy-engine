@@ -1,7 +1,89 @@
 {
   "canvasSelector": "#physics_container #app",
   "entities": {
-    "actors": [],
+    "actors": [
+      {
+        "agent": "physical",
+        "model3dSource": "surface_model",
+        "name": "surface_actor",
+        "physics": {
+          "presetName": "wall_physics",
+          "shapeParams": {
+            "hx": 10,
+            "hy": 10,
+            "hz": 0.025
+          }
+        },
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "rotation": {
+          "x": -1.57,
+          "y": 0,
+          "z": 0
+        },
+        "spatial": {
+          "grid": "main_grid",
+          "isAutoUpdate": false
+        }
+      },
+      {
+        "agent": "physical",
+        "model3dSource": "cube_1_model",
+        "name": "cube_1_actor",
+        "physics": {
+          "presetName": "box_physics",
+          "shapeParams": {
+            "hx": 0.5,
+            "hy": 2,
+            "hz": 0.5
+          }
+        },
+        "position": {
+          "x": -4,
+          "y": 4,
+          "z": 3
+        },
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "spatial": {
+          "grid": "main_grid",
+          "isAutoUpdate": false
+        }
+      },
+      {
+        "agent": "physical",
+        "model3dSource": "cube_2_model",
+        "name": "cube_2_actor",
+        "physics": {
+          "presetName": "box_physics",
+          "shapeParams": {
+            "hx": 0.5,
+            "hy": 2,
+            "hz": 0.5
+          }
+        },
+        "position": {
+          "x": 4,
+          "y": 9,
+          "z": -4
+        },
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "spatial": {
+          "grid": "main_grid",
+          "isAutoUpdate": false
+        }
+      }
+    ],
     "audio": [],
     "cameras": [
       {
@@ -76,6 +158,13 @@
           "color": "#E77B9B"
         },
         "type": "MeshStandardMaterial"
+      },
+      {
+        "name": "box_material",
+        "options": {
+          "color": "#8FAA8F"
+        },
+        "type": "MeshStandardMaterial"
       }
     ],
     "models3d": [
@@ -101,10 +190,57 @@
           "y": 0,
           "z": 0
         }
+      },
+      {
+        "castShadow": true,
+        "material": "box_material",
+        "model3dSource": "cube",
+        "name": "cube_1_model",
+        "options": {
+          "depth": 1,
+          "height": 4,
+          "heightSegments": 1,
+          "width": 1,
+          "widthSegments": 1
+        }
+      },
+      {
+        "castShadow": true,
+        "material": "box_material",
+        "model3dSource": "cube",
+        "name": "cube_2_model",
+        "options": {
+          "depth": 1,
+          "height": 4,
+          "heightSegments": 1,
+          "width": 1,
+          "widthSegments": 1
+        }
       }
     ],
     "particles": [],
-    "physics": {},
+    "physics": {
+      "global": {
+        "gravity": {
+          "x": 0,
+          "y": -9.81,
+          "z": 0
+        }
+      },
+      "presets": [
+        {
+          "collisionShape": "cuboid",
+          "name": "wall_physics",
+          "type": "fixed"
+        },
+        {
+          "collisionShape": "cuboid",
+          "name": "box_physics",
+          "restitution": 0.1,
+          "type": "dynamic"
+        }
+      ]
+    },
     "renderers": [
       {
         "alpha": true,
