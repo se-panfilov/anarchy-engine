@@ -81,9 +81,14 @@
         "model3dSource": "fox_glb",
         "name": "fox_model_3d",
         "position": {
-          "x": 5,
-          "y": 0,
-          "z": 0
+          "x": 1.2,
+          "y": 25,
+          "z": 1.2
+        },
+        "rotation": {
+          "x": 0,
+          "y": 1.57,
+          "z": -1.57
         },
         "scale": {
           "x": 0.025,

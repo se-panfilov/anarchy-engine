@@ -21,8 +21,8 @@
         "model3dSource": "solder_model_entity_1",
         "name": "solder_actor_1",
         "position": {
-          "x": -5,
-          "y": 20,
+          "x": -3,
+          "y": 25,
           "z": 2
         },
         "rotation": {
@@ -41,7 +41,7 @@
         "name": "solder_actor_2",
         "position": {
           "x": 4,
-          "y": 20,
+          "y": 23,
           "z": 2
         },
         "rotation": {
