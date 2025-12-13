@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { TLocale } from '@Anarchy/i18n';
 import type { TShowcaseLocaleIds } from '@Showcases/i18n';
-import { ShowcasesLocales, vueTranslationService } from '@Showcases/i18n';
+import { ShowcasesLocales } from '@Showcases/i18n';
 import Dropdown from '@Showcases/Menu/components/Dropdown.vue';
 import Navigation from '@Showcases/Menu/components/Navigation/Navigation.vue';
 import SettingsGroup from '@Showcases/Menu/components/SettingsGroup.vue';
@@ -15,7 +15,6 @@ import { computed, reactive } from 'vue';
 
 const emit = defineEmits(['reset', 'save']);
 
-const { $t } = vueTranslationService.useTranslations();
 const settingsStore = useSettingsStore();
 
 type TLocalizationState = { locale: TShowcaseLocaleIds };

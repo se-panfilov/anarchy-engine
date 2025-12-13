@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { isNotDefined } from '@Anarchy/Shared/Utils';
 import type { TShowcaseLocaleIds } from '@Showcases/i18n';
-import { vueTranslationService } from '@Showcases/i18n';
 import MdRenderer from '@Showcases/Menu/components/MdRenderer.vue';
 import Navigation from '@Showcases/Menu/components/Navigation/Navigation.vue';
 import View from '@Showcases/Menu/components/View.vue';
@@ -28,8 +27,6 @@ onMounted(() => {
   if (isNotDefined(legalDocsStore.translatedSecurity)) eventsService.emitGetLegalDocs({ name: SECURITY, locale });
   if (isNotDefined(legalDocsStore.translatedThirdPartyLicenses)) eventsService.emitGetLegalDocs({ name: THIRD_PARTY_LICENSES, locale });
 });
-
-const { $t } = vueTranslationService.useTranslations();
 </script>
 
 <template>

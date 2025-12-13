@@ -1,13 +1,10 @@
 <script setup lang="ts">
 import { isNotDefined } from '@Anarchy/Shared/Utils';
-import { vueTranslationService } from '@Showcases/i18n';
 import { NavDirection, NavStyle } from '@Showcases/Menu/components/Navigation/constants';
 import type { TVueNavOption } from '@Showcases/Menu/models';
 import { useRouterStore } from '@Showcases/Menu/stores/RouterStore';
 import type { ComputedRef } from 'vue';
 import { computed } from 'vue';
-
-const { $t } = vueTranslationService.useTranslations();
 
 const props = withDefaults(
   defineProps<{

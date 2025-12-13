@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import type { TWriteable } from '@Anarchy/Shared/Utils';
-import { vueTranslationService } from '@Showcases/i18n';
 import Checkbox from '@Showcases/Menu/components/Checkbox.vue';
 import Navigation from '@Showcases/Menu/components/Navigation/Navigation.vue';
 import SettingsGroup from '@Showcases/Menu/components/SettingsGroup.vue';
@@ -13,7 +12,6 @@ import { reactive } from 'vue';
 
 const emit = defineEmits(['reset', 'save']);
 
-const { $t } = vueTranslationService.useTranslations();
 const settingsStore = useSettingsStore();
 
 const state: TWriteable<TGraphicsSettings> = reactive({
@@ -37,7 +35,7 @@ function save(payload: TGraphicsSettings): void {
 <template>
   <View class="graphics" :title="$t('main-menu.settings.graphics.view.title')">
     <ViewForm name="graphics" class="graphics__view-form" @submit="save(state)">
-      <SettingsGroup :title="mainSettingsGroupTitleText">
+      <SettingsGroup :title="$t('main-menu.settings.graphics.group.main-graphics-settings.title')">
         <Checkbox v-model="state.isFullScreen" class="graphics__setting -fullscreen" :label="$t('main-menu.settings.graphics.is-fullscreen.label')" />
         <!--        <Dropdown v-model="state.resolution" :options="options" class="graphics__setting -resolution" :label="resolutionLabelText" />-->
       </SettingsGroup>

@@ -1,9 +1,5 @@
 <script setup lang="ts">
-import { vueTranslationService } from '@Showcases/i18n';
-
 defineEmits(['reset']);
-
-const { $t } = vueTranslationService.useTranslations();
 </script>
 
 <template>

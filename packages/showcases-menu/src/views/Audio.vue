@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import type { TWriteable } from '@Anarchy/Shared/Utils';
-import { vueTranslationService } from '@Showcases/i18n';
 import Navigation from '@Showcases/Menu/components/Navigation/Navigation.vue';
 import Range from '@Showcases/Menu/components/Range.vue';
 import SettingsGroup from '@Showcases/Menu/components/SettingsGroup.vue';
@@ -13,7 +12,6 @@ import { reactive } from 'vue';
 
 const emit = defineEmits(['reset', 'save']);
 
-const { $t } = vueTranslationService.useTranslations();
 const settingsStore = useSettingsStore();
 
 const state: TWriteable<TAudioSettings> = reactive({ masterVolume: settingsStore.audio.masterVolume });
