@@ -1,1 +1,1 @@
-export * from './RendererConfigAdapter';
+export * from './ConfigToParams';
