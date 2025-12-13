@@ -8,7 +8,9 @@ import { destroyableMixin } from '@/Engine/Mixins';
 
 import { DeltaCalculator } from './DeltaCalculator';
 
-export function Loop(triggerFn: (cb: CallableFunction) => void): TLoop {
+type TTriggerFn = ((cb: CallableFunction) => void) | ((cb: FrameRequestCallback) => number);
+
+export function Loop(triggerFn: TTriggerFn): TLoop {
   const enabled$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   const tick$: Subject<TDelta> = new Subject<TDelta>();
 
@@ -17,7 +19,7 @@ export function Loop(triggerFn: (cb: CallableFunction) => void): TLoop {
   // TODO 10.0.0. LOOPS: Add stats (for FPS)
   const tickSub$: Subscription = enabled$
     .pipe(switchMap((isEnabled: boolean): Subject<TDelta> | Observable<never> => (isEnabled ? tick$ : EMPTY)))
-    .subscribe((): void => triggerFn((): void => tick$.next(deltaCalc.update())));
+    .subscribe((): number | void => triggerFn((): void => tick$.next(deltaCalc.update())));
 
   const enableSub$: Subscription = enabled$.pipe(filter((isEnabled: boolean): boolean => isEnabled)).subscribe((): void => tick$.next(0));
 
