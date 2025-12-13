@@ -28,15 +28,19 @@
     "pinia": "3.0.3",
     "rxjs": "7.8.2",
     "sanitize.css": "13.0.0",
+    "tailwindcss": "4.1.11",
     "vue": "3.5.18"
   },
   "devDependencies": {
     "@playwright/test": "1.54.1",
+    "@tailwindcss/vite": "4.1.11",
     "@types/node": "22.16.5",
     "@vitejs/plugin-vue": "6.0.1",
     "@vitejs/plugin-vue-jsx": "5.0.1",
     "@vue/test-utils": "2.4.6",
+    "autoprefixer": "10.4.21",
     "eslint-plugin-vue": "10.4.0",
+    "postcss": "8.5.6",
     "sass-embedded": "1.89.2",
     "vite-plugin-wasm": "3.5.0",
     "vue-tsc": "3.0.5"
