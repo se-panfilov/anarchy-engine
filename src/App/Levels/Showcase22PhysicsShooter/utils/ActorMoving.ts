@@ -1,6 +1,6 @@
 import { distinctUntilChanged, map } from 'rxjs';
 import type { Vector3 } from 'three';
-import { degToRad, radToDeg } from 'three/src/math/MathUtils';
+import { degToRad } from 'three/src/math/MathUtils';
 
 import type { TActorWrapperAsync, TIntersectionEvent, TIntersectionsWatcher, TKeyboardService, TRadians } from '@/Engine';
 import { getAzimuthRadFromDirection, getElevationRadFromDirection, KeyCode } from '@/Engine';
@@ -31,7 +31,9 @@ export function startMoveActorWithKeyboard(actorW: TActorWrapperAsync, keyboardS
   // TODO (S.Panfilov) DEBUG: remove. Testing kinematic movement
   setInterval(() => {
     actorW.kinematic.setLinearSpeed(getActorMoveSpeed(keyStates, 5, 4, 3));
-    actorW.kinematic.setLinearAzimuthRad(getActorMoveAzimuthRad(keyStates));
+    actorW.kinematic.setLinearAzimuthRad(baseAzimuthRad + getActorMoveAzimuthRad(keyStates));
+    // actorW.kinematic.setAngularSpeed(5);
+    // actorW.kinematic.setAngularAzimuthRad(baseAzimuthRad);
   }, 40);
 }
 
