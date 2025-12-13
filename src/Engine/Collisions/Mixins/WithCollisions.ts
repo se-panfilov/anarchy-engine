@@ -8,7 +8,7 @@ import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
 import type { TSpatialCellWrapper } from '@/Engine/Spatial';
 import type { TWriteable } from '@/Engine/Utils';
-import { isDefined } from '@/Engine/Utils';
+import { isDefined, removeDuplicates } from '@/Engine/Utils';
 
 export function withCollisions(params: TActorParams, collisionsService: TCollisionsService, collisionsLoopService: TCollisionsLoopService): TWithCollisions {
   const autoUpdate$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(params.collisions?.isAutoUpdate ?? false);
@@ -32,7 +32,7 @@ export function withCollisions(params: TActorParams, collisionsService: TCollisi
     const cells: ReadonlyArray<TSpatialCellWrapper> = actor.spatial.getSpatialCells();
     if (cells.length > 0) {
       const objects: ReadonlyArray<TActor> = actor.spatial.getSpatialCells().flatMap((cell: TSpatialCellWrapper): ReadonlyArray<TActor> => cell.getObjects());
-      return isDefined(filterFn) ? objects.filter(filterFn) : objects;
+      return removeDuplicates(isDefined(filterFn) ? objects.filter(filterFn) : objects);
     }
     return [];
     // TODO this code is probably an extra overcomplicated corner case
