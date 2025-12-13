@@ -1,6 +1,6 @@
 import type { IControlsFactory, IControlsFactoryParams, ICreateControlsFn } from '@Engine/Factories';
-import { controlsAdapter } from '@Engine/Adapters';
 import { AbstractFactory } from '../AbstractFactory';
+import { controlsAdapter } from '@Engine/Adapters';
 import { ControlsWrapper } from '@Engine/Wrappers';
 import type { IControlsConfig } from '@Engine/Launcher/Models';
 import type { IControlsParams } from '@Engine/Models';

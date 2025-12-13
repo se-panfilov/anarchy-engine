@@ -10,9 +10,11 @@ export const CameraRegistry = (): ICameraRegistry => {
   return {
     ...RegistryFacade(abstractRegistry),
     getByTag(tag: string): ICameraWrapper | never {
-      const key: string | undefined = findKeyByTag(tag, abstractRegistry.registry);
-      if (isNotDefined(key)) throw new Error(`Cannot find an entity with by tag`);
-      return abstractRegistry.registry.get(key) as ICameraWrapper;
+      const id: string | undefined = findKeyByTag(tag, abstractRegistry.registry);
+      if (isNotDefined(id)) throw new Error(`Cannot find a camera with tag ${tag}`);
+      const camera: ICameraWrapper | undefined = abstractRegistry.registry.get(id);
+      if (isNotDefined(camera)) throw new Error(`Cannot find a camera with id ${id}`);
+      return camera;
     }
   };
 };

@@ -1,4 +1,5 @@
 import type { Vector3 } from 'three';
+import type { CameraTag } from '@Engine/Constants';
 
 export interface ICameraParams {
   readonly fov?: number;
@@ -6,5 +7,5 @@ export interface ICameraParams {
   readonly far?: number;
   readonly lookAt: Vector3;
   readonly position: Vector3;
-  readonly tag?: string;
+  readonly tag: CameraTag;
 }

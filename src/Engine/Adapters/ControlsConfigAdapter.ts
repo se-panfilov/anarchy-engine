@@ -11,7 +11,8 @@ export function controlsAdapter(
 ): IControlsParams {
   const { type, cameraTag } = config;
 
-  if (type !== ControlsType.OrbitControls) throw new Error(`Cannot create controls of unknown type "${type}"`);
+  if (type !== ControlsType.OrbitControls)
+    throw new Error(`Cannot create controls of unknown type "${type as string}"`);
   if (isNotDefined(cameraTag)) throw new Error(`Cannot attach controls ("${type}") to undefined camera tag`);
 
   return {

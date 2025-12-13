@@ -31,6 +31,7 @@ import type {
   ISceneWrapper
 } from '@Engine/Wrappers';
 import { MouseClicksWatcher, MousePositionWatcher } from '@Engine/Watchers';
+import { CameraTag } from '@Engine/Constants';
 
 export async function launch(sceneConfig: ISceneConfig, canvas: IAppCanvas): Promise<boolean> {
   const { name, actors, cameras, lights, controls } = sceneConfig;
@@ -104,7 +105,8 @@ export async function launch(sceneConfig: ISceneConfig, canvas: IAppCanvas): Pro
   // TODO (S.Panfilov) any
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const loop: ILoopWrapper = loopFactory.create({} as any);
-  loop.start(renderer, scene, camera);
+  const initialCamera: ICameraWrapper = cameraRegistry.getByTag(CameraTag.Initial);
+  loop.start(renderer, scene, initialCamera);
   ////////////////////////////////////
 
   resolve(true);
