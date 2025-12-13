@@ -5,7 +5,7 @@ export type TPhysicsBodyBallParams = Readonly<{
   radius?: number;
 }>;
 
-export type TSpacePhysicsBodyHalfParams = Readonly<{
+export type TPhysicsBodyHalfSpaceParams = Readonly<{
   normal: Vector;
 }>;
 
@@ -67,7 +67,7 @@ export type TPhysicsBodyConvexPolyhedronParams = Readonly<{
   indices?: Uint32Array | null;
 }>;
 
-export type TPolyhedronPhysicsBodyRoundConvexParams = Readonly<{
+export type TPolyhedronPhysicsBodyRoundConvexPolyhedronParams = Readonly<{
   vertices: Float32Array;
   indices: Uint32Array | null | undefined;
   borderRadius: number;
@@ -105,7 +105,7 @@ export type TPhysicsBodyRoundConeParams = Readonly<{
 
 export type TPhysicsBodyParams =
   | TPhysicsBodyBallParams
-  | TSpacePhysicsBodyHalfParams
+  | TPhysicsBodyHalfSpaceParams
   | TPhysicsBodyCuboidParams
   | TPhysicsBodyRoundCuboidParams
   | TPhysicsBodyCapsuleParams
@@ -116,7 +116,7 @@ export type TPhysicsBodyParams =
   | TPhysicsBodyPolylineParams
   | TPhysicsBodyTriMeshParams
   | TPhysicsBodyConvexPolyhedronParams
-  | TPolyhedronPhysicsBodyRoundConvexParams
+  | TPolyhedronPhysicsBodyRoundConvexPolyhedronParams
   | TPhysicsBodyHeightfieldParams
   | TPhysicsBodyCylinderParams
   | TPhysicsBodyRoundCylinderParams
