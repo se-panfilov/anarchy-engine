@@ -34,12 +34,12 @@ export function RepoUtilsService(isDebug: boolean): TRepoUtilsService {
   };
 
   const findMonorepoRoot = async (startDir: string): Promise<string> => {
-    const start = path.resolve(startDir);
+    const start: string = path.resolve(startDir);
     debugLog(isDebug, 'findMonorepoRoot: start at', start);
 
     const searchUp = async (dir: string, depth: number): Promise<string | undefined> => {
       if (depth > 50) return undefined;
-      const pkgPath = path.join(dir, 'package.json');
+      const pkgPath: string = path.join(dir, 'package.json');
       debugLog(isDebug, '  check', pkgPath);
       if (await exists(pkgPath)) {
         try {
@@ -52,12 +52,12 @@ export function RepoUtilsService(isDebug: boolean): TRepoUtilsService {
           debugLog(isDebug, '  ! failed to parse', pkgPath, '-', (e as Error).message);
         }
       }
-      const parent = path.dirname(dir);
+      const parent: string = path.dirname(dir);
       if (parent === dir) return undefined;
       return searchUp(parent, depth + 1);
     };
 
-    const found = await searchUp(start, 0);
+    const found: string | undefined = await searchUp(start, 0);
     if (!found) throw new Error(`Monorepo root not found starting from "${startDir}". Provide --root explicitly pointing to a package.json with "workspaces".`);
     return found;
   };
@@ -65,11 +65,11 @@ export function RepoUtilsService(isDebug: boolean): TRepoUtilsService {
   // ---------- Load root + workspaces ----------
 
   const loadRoot = async (rootDir: string): Promise<TRootInfo> => {
-    const rootPkgPath = path.join(rootDir, 'package.json');
+    const rootPkgPath: string = path.join(rootDir, 'package.json');
     if (!(await exists(rootPkgPath))) {
       throw new Error(`Root package.json not found at: ${rootPkgPath}`);
     }
-    const rootPkg = await readJson<TRootInfo['rootPkg']>(rootPkgPath);
+    const rootPkg: TRootInfo['rootPkg'] = await readJson<TRootInfo['rootPkg']>(rootPkgPath);
     const wsField = rootPkg.workspaces;
     if (!wsField) {
       throw new Error(`"workspaces" not found in root package.json at ${rootPkgPath}`);
@@ -82,7 +82,7 @@ export function RepoUtilsService(isDebug: boolean): TRepoUtilsService {
     debugLog(isDebug, 'workspaces patterns:', patterns);
 
     // eslint-disable-next-line spellcheck/spell-checker
-    const dirs = await globby(patterns as string[], {
+    const dirs: ReadonlyArray<string> = await globby(patterns as string[], {
       cwd: rootDir,
       onlyDirectories: true,
       absolute: true,
@@ -95,7 +95,7 @@ export function RepoUtilsService(isDebug: boolean): TRepoUtilsService {
 
     const entries: Array<[string, TWorkspaceInfo]> = (
       await Promise.all(
-        dirs.map(async (dir): Promise<[string, TWorkspaceInfo] | undefined> => {
+        dirs.map(async (dir: string): Promise<[string, TWorkspaceInfo] | undefined> => {
           const pkgPath = path.join(dir, 'package.json');
           if (!(await exists(pkgPath))) return undefined;
           const pkg = await readJson<TWorkspaceInfo['pkg']>(pkgPath);
@@ -128,10 +128,10 @@ export function RepoUtilsService(isDebug: boolean): TRepoUtilsService {
   // ---------- Workspace dependency graph ----------
 
   const buildWsGraph = (ws: ReadonlyMap<string, TWorkspaceInfo>): ReadonlyMap<string, ReadonlySet<string>> => {
-    const names = new Set(ws.keys());
+    const names: Set<string> = new Set(ws.keys());
     const graph = Array.from(ws.entries()).reduce((acc, [name, info]) => {
-      const deps = info.pkg.dependencies ?? {};
-      const edges = new Set<string>(Object.keys(deps).filter((dependencyName) => names.has(dependencyName)));
+      const deps: Record<string, string> = info.pkg.dependencies ?? {};
+      const edges: Set<string> = new Set<string>(Object.keys(deps).filter((dependencyName) => names.has(dependencyName)));
       acc.set(name, edges);
       return acc;
     }, new Map<string, ReadonlySet<string>>());
@@ -144,15 +144,15 @@ export function RepoUtilsService(isDebug: boolean): TRepoUtilsService {
   };
 
   const assertNoCycles = (graph: ReadonlyMap<string, ReadonlySet<string>>, start: string): void => {
-    const temp = new Set<string>();
-    const perm = new Set<string>();
+    const temp: Set<string> = new Set<string>();
+    const perm: Set<string> = new Set<string>();
     const pathStack: string[] = [];
 
     const dfs = (u: string): void => {
       if (perm.has(u)) return;
       if (temp.has(u)) {
-        const idx = pathStack.lastIndexOf(u);
-        const cyclePath = [...pathStack.slice(idx), u].join(' -> ');
+        const idx: number = pathStack.lastIndexOf(u);
+        const cyclePath: string = [...pathStack.slice(idx), u].join(' -> ');
         throw new Error(`Cycle detected between workspaces (prod deps): ${cyclePath}`);
       }
       temp.add(u);
@@ -184,15 +184,15 @@ export function RepoUtilsService(isDebug: boolean): TRepoUtilsService {
   // ---------- npm ls (prod) ----------
 
   const npmLsJson = async (rootDir: string, workspace: string): Promise<TDependencyNode | undefined> =>
-    new Promise((resolve, reject) => {
-      const args = ['ls', '-w', workspace, '--json', '--omit=dev', '--all', '--long'];
+    new Promise((resolve, reject): void => {
+      const args: ReadonlyArray<string> = ['ls', '-w', workspace, '--json', '--omit=dev', '--all', '--long'];
       debugLog(isDebug, 'spawn:', 'npm', args.join(' '), 'cwd:', rootDir);
       const child = spawn('npm', args, { cwd: rootDir, stdio: ['ignore', 'pipe', 'pipe'] });
-      let out = '';
-      let err = '';
+      let out: string = '';
+      let err: string = '';
       child.stdout.on('data', (d) => (out += String(d)));
       child.stderr.on('data', (d) => (err += String(d)));
-      child.on('close', (code) => {
+      child.on('close', (code: number | null) => {
         if (code !== 0 && !out) {
           return reject(new Error(`npm ls failed (code ${code}): ${err || 'unknown error'}`));
         }
@@ -230,12 +230,12 @@ export function RepoUtilsService(isDebug: boolean): TRepoUtilsService {
   // ---------- Seeds from package.json ----------
 
   const collectExternalSeedNames = (closure: ReadonlySet<string>, wsMap: ReadonlyMap<string, TWorkspaceInfo>, wsNames: ReadonlySet<string>): ReadonlySet<string> => {
-    const seeds = new Set<string>();
-    [...closure].forEach((wsName) => {
-      const info = wsMap.get(wsName);
+    const seeds: Set<string> = new Set<string>();
+    [...closure].forEach((wsName: string): void => {
+      const info: TWorkspaceInfo | undefined = wsMap.get(wsName);
       if (!info) return;
-      const deps = info.pkg.dependencies ?? {};
-      Object.keys(deps).forEach((dependencyName) => {
+      const deps: Record<string, string> = info.pkg.dependencies ?? {};
+      Object.keys(deps).forEach((dependencyName: string): void => {
         if (!wsNames.has(dependencyName)) seeds.add(dependencyName);
       });
     });
@@ -245,25 +245,25 @@ export function RepoUtilsService(isDebug: boolean): TRepoUtilsService {
   // ---------- Collect third-party (with install paths) ----------
 
   const collectThirdPartyMap = (root: TDependencyNode | undefined, wsNames: ReadonlySet<string>, seedNames: ReadonlySet<string>): ReadonlyMap<string, TCollected> => {
-    const acc = new Map<string, TCollected>();
+    const acc: Map<string, TCollected> = new Map<string, TCollected>();
     if (!root || !root.dependencies) return acc;
     if (seedNames.size === 0) return acc;
 
     const visit = (node: TDependencyNode, inside: boolean): void => {
-      const isWs = wsNames.has(node.name);
-      const nowInside = inside || seedNames.has(node.name);
+      const isWs: boolean = wsNames.has(node.name);
+      const nowInside: boolean = inside || seedNames.has(node.name);
 
       if (nowInside && !isWs && node.version && node.version !== '0.0.0') {
-        const id = `${node.name}@${node.version}`;
-        const prev = acc.get(id);
-        const installPath = node.path;
+        const id: string = `${node.name}@${node.version}`;
+        const prev: TCollected | undefined = acc.get(id);
+        const installPath: string | undefined = node.path;
         if (!prev) acc.set(id, { id, name: node.name, version: node.version, installPath });
         else if (!prev.installPath && installPath) acc.set(id, { ...prev, installPath });
       }
       if (node.dependencies) Object.values(node.dependencies).forEach((child) => visit(child, nowInside));
     };
 
-    Object.values(root.dependencies).forEach((child) => visit(child, false));
+    Object.values(root.dependencies).forEach((child: TDependencyNode) => visit(child, false));
 
     debugLog(isDebug, 'third-party collected (seed-filtered):', acc.size);
     return acc;
@@ -273,8 +273,8 @@ export function RepoUtilsService(isDebug: boolean): TRepoUtilsService {
 
   const resolvePackageDir = (pkgName: string, fromDir: string): string | undefined => {
     try {
-      const req = createRequire(path.join(fromDir, 'package.json'));
-      const p = req.resolve(`${pkgName}/package.json`);
+      const req: NodeJS.Require = createRequire(path.join(fromDir, 'package.json'));
+      const p: string = req.resolve(`${pkgName}/package.json`);
       return path.dirname(p);
     } catch {
       return undefined;
@@ -282,10 +282,10 @@ export function RepoUtilsService(isDebug: boolean): TRepoUtilsService {
   };
 
   const fillMissingInstallPaths = (collected: Map<string, TCollected>, wsDir: string, rootDir: string): void => {
-    let filled = 0;
-    Array.from(collected.entries()).forEach(([id, item]) => {
+    let filled: number = 0;
+    Array.from(collected.entries()).forEach(([id, item]): void => {
       if (!item.installPath) {
-        const p = resolvePackageDir(item.name, wsDir) ?? resolvePackageDir(item.name, rootDir);
+        const p: string | undefined = resolvePackageDir(item.name, wsDir) ?? resolvePackageDir(item.name, rootDir);
         if (p) {
           collected.set(id, { ...item, installPath: p });
           filled++;
@@ -300,7 +300,7 @@ export function RepoUtilsService(isDebug: boolean): TRepoUtilsService {
   const findLicenseFile = async (dir: string): Promise<string | undefined> => {
     try {
       const list: Array<string> = await fs.readdir(dir);
-      const c = list.find((f: string) => {
+      const c: string | undefined = list.find((f: string) => {
         const base: string = f.toLowerCase();
         return /^(license|licence|copying|unlicense|notice)(\..+)?$/.test(base);
       });
@@ -314,14 +314,14 @@ export function RepoUtilsService(isDebug: boolean): TRepoUtilsService {
     if (!licenseField) return undefined;
     const s = typeof licenseField === 'string' ? licenseField : typeof (licenseField as any)?.type === 'string' ? (licenseField as any).type : undefined;
     if (!s) return undefined;
-    const m = /see\s+license\s+in\s+(.+)$/i.exec(s);
+    const m: RegExpExecArray | null = /see\s+license\s+in\s+(.+)$/i.exec(s);
     return m?.[1]?.trim();
   };
 
   const tryReadLicenseText = async (pkgDir: string, licenseField: unknown): Promise<string | undefined> => {
-    const see = parseSeeLicenseIn(licenseField);
+    const see: string | undefined = parseSeeLicenseIn(licenseField);
     if (see) {
-      const p = path.join(pkgDir, see);
+      const p: string = path.join(pkgDir, see);
       if (await exists(p)) {
         try {
           return await fs.readFile(p, 'utf8');
@@ -347,7 +347,7 @@ export function RepoUtilsService(isDebug: boolean): TRepoUtilsService {
     if (!licenseField) return 'UNKNOWN';
     if (typeof licenseField === 'string') return licenseField;
     if (Array.isArray(licenseField)) {
-      const arr = (licenseField as any[]).map((x) => (typeof x === 'string' ? x : typeof (x as any)?.type === 'string' ? (x as any).type : 'UNKNOWN'));
+      const arr: any[] = (licenseField as any[]).map((x) => (typeof x === 'string' ? x : typeof (x as any)?.type === 'string' ? (x as any).type : 'UNKNOWN'));
       return arr.length > 0 ? arr : 'UNKNOWN';
     }
     if (typeof licenseField === 'object') {
@@ -423,16 +423,16 @@ export function RepoUtilsService(isDebug: boolean): TRepoUtilsService {
   // ---------- Workspace license entries ----------
 
   const buildWorkspaceLicenseEntries = async (names: ReadonlySet<string>, wsMap: ReadonlyMap<string, TWorkspaceInfo>, excludeName?: string): Promise<ReadonlyArray<TLicenseEntry>> => {
-    const filtered = [...names].filter((name) => !(excludeName && name === excludeName));
+    const filtered: any[] = [...names].filter((name) => !(excludeName && name === excludeName));
     const entries = await Promise.all(
       filtered
-        .map((name) => wsMap.get(name))
-        .filter((info): info is TWorkspaceInfo => Boolean(info))
+        .map((name: string) => wsMap.get(name))
+        .filter((info: TWorkspaceInfo | undefined): info is TWorkspaceInfo => Boolean(info))
         .map(async (info) => {
-          const version = info.pkg.version ?? '0.0.0';
+          const version: string = info.pkg.version ?? '0.0.0';
           const meta = await readPackageMeta(info.dir);
-          const licenseType = normalizeLicenseValue(meta.licenseField);
-          const licenseText = await tryReadLicenseText(info.dir, meta.licenseField);
+          const licenseType: string | string[] = normalizeLicenseValue(meta.licenseField);
+          const licenseText: string | undefined = await tryReadLicenseText(info.dir, meta.licenseField);
           return {
             id: `${info.name}@${version}`,
             name: info.name,
@@ -453,12 +453,12 @@ export function RepoUtilsService(isDebug: boolean): TRepoUtilsService {
   // ---------- Markdown ----------
 
   const renderMarkdown = (workspaceLabel: string, items: ReadonlyArray<TLicenseEntry>, emptyNote?: string): string => {
-    const header = [`# Third-Party Licenses`, `## Application: ${workspaceLabel}`, `Production dependencies (including transition dependencies): ${items.length}`, ``];
-    const note = items.length === 0 && emptyNote ? [`**Note:** ${emptyNote}`, ``] : [];
+    const header: string[] = [`# Third-Party Licenses`, `## Application: ${workspaceLabel}`, `Production dependencies (including transition dependencies): ${items.length}`, ``];
+    const note: string[] = items.length === 0 && emptyNote ? [`**Note:** ${emptyNote}`, ``] : [];
 
-    const body = items.flatMap((it) => {
-      const licenseStr = Array.isArray(it.licenses) ? it.licenses.join(', ') : String(it.licenses ?? 'UNKNOWN');
-      const fields = [
+    const body: string[] = items.flatMap((it) => {
+      const licenseStr: string = Array.isArray(it.licenses) ? it.licenses.join(', ') : String(it.licenses ?? 'UNKNOWN');
+      return [
         `---`,
         ``,
         `## ${it.name}@${it.version}`,
@@ -469,7 +469,6 @@ export function RepoUtilsService(isDebug: boolean): TRepoUtilsService {
         ``,
         ...(it.licenseText ? [it.licenseText.trim(), ``] : [`_No license text file found; relying on package metadata._`, ``])
       ];
-      return fields;
     });
 
     return [...header, ...note, ...body].join('\n');
@@ -478,11 +477,11 @@ export function RepoUtilsService(isDebug: boolean): TRepoUtilsService {
   // ---------- Resolve workspace from arg ----------
 
   const resolveWorkspaceFromArg = (arg: string, workspaces: ReadonlyMap<string, TWorkspaceInfo>, rootDir: string): Readonly<{ wsName: string; wsDir: string }> => {
-    const info = workspaces.get(arg);
+    const info: TWorkspaceInfo | undefined = workspaces.get(arg);
     if (info) return { wsName: info.name, wsDir: info.dir };
-    const asPath = path.isAbsolute(arg) ? arg : path.join(rootDir, arg);
-    const normalized = path.resolve(asPath);
-    const found = [...workspaces.values()].find((w) => path.resolve(w.dir) === normalized);
+    const asPath: string = path.isAbsolute(arg) ? arg : path.join(rootDir, arg);
+    const normalized: string = path.resolve(asPath);
+    const found: TWorkspaceInfo | undefined = [...workspaces.values()].find((w) => path.resolve(w.dir) === normalized);
     if (found) return { wsName: found.name, wsDir: found.dir };
     throw new Error(`Workspace "${arg}" not found. Use a workspace *name* (package.json:name) or a *path* to its directory (relative to monorepo root).`);
   };

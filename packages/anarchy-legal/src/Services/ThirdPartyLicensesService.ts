@@ -2,7 +2,7 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-import type { TLicenseEntry, TRepoUtilsService, TThirdPartyLicensesService } from '@Anarchy/Legal/Models';
+import type { TCollected, TDependencyNode, TLicenseEntry, TRepoUtilsService, TThirdPartyLicensesService } from '@Anarchy/Legal/Models';
 // eslint-disable-next-line spellcheck/spell-checker
 import yargs from 'yargs';
 import { hideBin } from 'yargs/helpers';
@@ -77,10 +77,10 @@ export function ThirdPartyLicensesService(): TThirdPartyLicensesService {
 
     // 2) Find monorepo root
     const monorepoRoot: string | undefined = await startCandidates.reduce<Promise<string | undefined>>(async (prev, c) => {
-      const acc = await prev;
+      const acc: string | undefined = await prev;
       if (acc) return acc;
       try {
-        const found = await findMonorepoRoot(c);
+        const found: string = await findMonorepoRoot(c);
         debugLog(isDebug, 'monorepo root picked:', found, '(from', c + ')');
         return found;
       } catch (e) {
@@ -101,20 +101,20 @@ export function ThirdPartyLicensesService(): TThirdPartyLicensesService {
     debugLog(isDebug, 'target workspace:', wsName, 'dir:', wsDir);
 
     // 5) Cycle check
-    const graph = buildWsGraph(root.workspaces);
+    const graph: ReadonlyMap<string, ReadonlySet<string>> = buildWsGraph(root.workspaces);
     assertNoCycles(graph, wsName);
 
     // 6) Workspace closure and seeds
-    const closure = collectWorkspaceClosure(graph, wsName);
-    const wsNamesSet = new Set(root.workspaces.keys());
-    const seedNames = collectExternalSeedNames(closure, root.workspaces, wsNamesSet);
+    const closure: ReadonlySet<string> = collectWorkspaceClosure(graph, wsName);
+    const wsNamesSet: ReadonlySet<string> = new Set(root.workspaces.keys());
+    const seedNames: ReadonlySet<string> = collectExternalSeedNames(closure, root.workspaces, wsNamesSet);
     debugLog(isDebug, 'workspace closure size:', closure.size, 'seed external deps:', seedNames.size, 'sample:', [...seedNames].slice(0, 10));
 
     // 7) Resolved prod tree
-    const tree = await npmLsJson(root.rootDir, wsName);
+    const tree: TDependencyNode | undefined = await npmLsJson(root.rootDir, wsName);
 
     // 8) Collect external packages WITH paths (seed-filtered)
-    const thirdPartyMap = new Map(collectThirdPartyMap(tree, wsNamesSet, seedNames));
+    const thirdPartyMap: Map<string, TCollected> = new Map(collectThirdPartyMap(tree, wsNamesSet, seedNames));
     fillMissingInstallPaths(thirdPartyMap, wsDir, root.rootDir);
 
     if (thirdPartyMap.size === 0) debugLog(isDebug, `[info] No third-party prod deps reachable from seeds.`);
@@ -132,18 +132,18 @@ export function ThirdPartyLicensesService(): TThirdPartyLicensesService {
     }
 
     // 10) Third-party licenses
-    const thirdEntries = await buildLicenseEntries(thirdPartyMap);
+    const thirdEntries: ReadonlyArray<TLicenseEntry> = await buildLicenseEntries(thirdPartyMap);
     debugLog(isDebug, 'third-party license entries:', thirdEntries.length);
 
     // 11) Merge & write
-    const merged = [...wsEntries, ...thirdEntries];
-    const sorted = [...merged].sort((a, b) => (a.name === b.name ? a.version.localeCompare(b.version) : a.name.localeCompare(b.name)));
+    const merged: ReadonlyArray<TLicenseEntry> = [...wsEntries, ...thirdEntries];
+    const sorted: ReadonlyArray<TLicenseEntry> = [...merged].sort((a, b) => (a.name === b.name ? a.version.localeCompare(b.version) : a.name.localeCompare(b.name)));
 
     const outPath: string = path.isAbsolute(argv.out as string) ? (argv.out as string) : path.join(process.cwd(), argv.out as string);
 
     let emptyNote: string | undefined;
     if (sorted.length === 0) {
-      const noSeeds = seedNames.size === 0;
+      const noSeeds: boolean = seedNames.size === 0;
       emptyNote = noSeeds
         ? 'This workspace declares no production dependencies and has no reachable internal workspaces. Therefore, there are no third-party licenses to list.'
         : 'There are no third-party production dependencies reachable from this workspace. Therefore, there are no third-party licenses to list.';
@@ -151,7 +151,7 @@ export function ThirdPartyLicensesService(): TThirdPartyLicensesService {
 
     debugLog(isDebug, 'write output to:', outPath, 'total entries:', sorted.length);
 
-    const md = renderMarkdown(wsName, sorted, emptyNote);
+    const md: string = renderMarkdown(wsName, sorted, emptyNote);
     await fs.mkdir(path.dirname(outPath), { recursive: true });
     await fs.writeFile(outPath, md, 'utf8');
     console.log(`The result file written to: ${outPath}`);
