@@ -2,11 +2,11 @@ import type {
   IActorRegistry,
   ICameraRegistry,
   IControlsRegistry,
+  IIntersectionsWatcherRegistry,
   ILightRegistry,
   IMouseClicksWatcherRegistry,
-  IScreenSizeWatcherRegistry,
   IMousePositionWatcherRegistry,
-  IIntersectionsWatcherRegistry
+  IScreenSizeWatcherRegistry
 } from '@Engine/Registries';
 
 export type IRegistries = Readonly<{

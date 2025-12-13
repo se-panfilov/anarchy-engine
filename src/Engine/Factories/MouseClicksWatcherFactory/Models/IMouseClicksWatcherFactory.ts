@@ -1,3 +1,3 @@
-import type { IMouseClicksWatcher, IAbstractFactory, IMouseClickWatcherParams } from '@/Engine';
+import type { IAbstractFactory, IMouseClicksWatcher, IMouseClickWatcherParams } from '@/Engine';
 
 export type IMouseClicksWatcherFactory = IAbstractFactory<IMouseClicksWatcher, IMouseClickWatcherParams>;

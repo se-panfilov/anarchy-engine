@@ -3,11 +3,11 @@ import {
   ActorRegistry,
   CameraRegistry,
   ControlsRegistry,
+  IntersectionsWatcherRegistry,
   LightRegistry,
   MouseClicksWatcherRegistry,
-  ScreenSizeWatcherRegistry,
   MousePositionWatcherRegistry,
-  IntersectionsWatcherRegistry
+  ScreenSizeWatcherRegistry
 } from '@Engine/Registries';
 import { isNotDefined } from '@Engine/Utils';
 import type { IActorWrapper, ICameraWrapper, ILightWrapper, ISceneWrapper } from '@Engine/Wrappers';

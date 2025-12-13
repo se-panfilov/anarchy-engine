@@ -1,4 +1,4 @@
-import type { IAbstractConfig, IAbstractWrapperFactory, IAbstractFromConfigWrapperFactory, ICreateFN, IWrapper } from '@/Engine';
+import type { IAbstractConfig, IAbstractFromConfigWrapperFactory, IAbstractWrapperFactory, ICreateFN, IWrapper } from '@/Engine';
 import { AbstractWrapperFactory, isNotDefined } from '@/Engine';
 
 export function AbstractFromConfigWrapperFactory<T extends IWrapper<ENT>, ENT, PRMS, C extends IAbstractConfig>(

@@ -1,10 +1,10 @@
+import type { IMouseClickWatcherParams } from '@/Engine';
 import type { IMouseClicksWatcherRegistry } from '@/Engine/Registries';
 import { MouseClicksWatcherRegistry } from '@/Engine/Registries';
 import type { IMouseClicksWatcher } from '@/Engine/Watchers';
 import { MouseClicksWatcher } from '@/Engine/Watchers';
 
 import type { IMouseClicksWatcherFactory } from './Models';
-import type { IMouseClickWatcherParams } from '@/Engine';
 
 export function MouseClicksWatcherFactory(): IMouseClicksWatcherFactory {
   const registry: IMouseClicksWatcherRegistry = MouseClicksWatcherRegistry();
