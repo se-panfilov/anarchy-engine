@@ -21,36 +21,7 @@ export function Model3dFacade(params: TModels3dFacadeParams, animationsService: 
     return Model3dFacade({ ...getPack(), clonedFrom: facade.id, ..._overrides }, animationsService);
   }
 
-  // TODO (S.Panfilov) CWP test this method, if it works correctly (animations are played for cloned model)
-  // Be aware that this clone method doesn't save the facade to the registry, use clone() method of the service instead
-  // function _clone(overrides: TOptional<TModel3dPack> = {}): TModel3dFacade {
-  //   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  //   const { clonedFrom, ...overridesRest } = overrides;
-  //
-  //   // model.traverse((child) => {
-  //   //   if ((child as Mesh).isMesh) {
-  //   //     if (Array.isArray((child as Mesh).material)) {
-  //   //       (child as Mesh).material = (child as Mesh).material.map((material) => material.clone());
-  //   //     } else {
-  //   //       (child as Mesh).material = (child as Mesh).material.clone();
-  //   //     }
-  //   //   }
-  //   // });
-  //
-  //   // const animations: TAnimationsPack = {};
-  //   // eslint-disable-next-line functional/immutable-data
-  //   // if (isNotDefined(overrides?.animations)) Object.entries(entities.animations).forEach(([key, value]: [string, AnimationClip]): void => void (animations[key] = value.clone()));
-  //   // if (isNotDefined(overrides?.animations)) {
-  //   //   Object.entries(entities.animations).forEach(([key, value]: [string, AnimationClip]): void => {
-  //   //     // eslint-disable-next-line functional/immutable-data
-  //   //     animations[key] = value.clone();
-  //   //   });
-  //   // }
-  //
-  //   return Model3dFacade({ ...getPack(), clonedFrom: facade.id, ...overridesRest }, animationsService);
-  // }
-
-  //apply model params
+  //applying model's params
   if (isDefined(params.scale)) applyScale(entities.model, params.scale);
   if (isDefined(params.rotation)) applyRotation(entities.model, params.rotation);
   if (isDefined(params.position)) applyPosition(entities.model, params.position);

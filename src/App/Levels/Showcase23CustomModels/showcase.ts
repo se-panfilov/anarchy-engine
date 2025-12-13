@@ -24,7 +24,7 @@ export function showcase(canvas: TAppCanvas): TShowcase {
     let mixerGltf: AnimationMixer | undefined = undefined;
 
     //cloned gltf model
-    let runAnimationGLTFClone: AnimationAction | undefined = undefined;
+    let runAnimationGltfClone: AnimationAction | undefined = undefined;
     const nameGltfClone: string = 'fox_gltf_clone';
     let mixerGltfClone: AnimationMixer | undefined = undefined;
 
@@ -33,16 +33,15 @@ export function showcase(canvas: TAppCanvas): TShowcase {
     let mixerGLB: AnimationMixer | undefined = undefined;
 
     models3dService.added$.subscribe((facade: TModel3dFacade): void => {
+      // TODO (S.Panfilov) CWP animations of a cloned model are not playing
       const actions: TAnimationActions = facade.getActions();
       if (facade.getUrl() === urlGLTF && facade.getName() === nameGltf) {
-        // console.log('original', actions['Run'].getMixer().getRoot().uuid);
         runAnimationGltf = actions['Run'];
         mixerGltf = facade.getMixer();
       }
 
       if (facade.getUrl() === urlGLTF && facade.getName() === nameGltfClone) {
-        // console.log('clonned', actions['Run']);
-        runAnimationGLTFClone = actions['Run'];
+        runAnimationGltfClone = actions['Run'];
         mixerGltfClone = facade.getMixer();
       }
 
@@ -64,20 +63,32 @@ export function showcase(canvas: TAppCanvas): TShowcase {
     const foxGltfOriginal: TModel3dFacade | undefined = modelsList.find((model: TModel3dFacade): boolean => model.getName() === nameGltf);
     if (isNotDefined(foxGltfOriginal)) throw new Error(`Fox GLTF("${nameGltf}") model is not defined`);
 
-    const foxGltfClone: TModel3dFacade = models3dService.clone(foxGltfOriginal, { name: nameGltfClone, position: Vector3Wrapper({ x: 0, y: 0, z: 5 }) });
+    // const foxGltfClone: TModel3dFacade = models3dService.clone(foxGltfOriginal, {
+    //   name: nameGltfClone,
+    //   options: { shouldAddToRegistry: true, shouldAddToScene: true, isForce: false },
+    //   position: Vector3Wrapper({ x: 0, y: 0, z: 5 })
+    // });
+
+    const pack = foxGltfOriginal.getPack();
+    const foxGltfClone: TModel3dFacade = models3dService.createFromPack({
+      ...pack,
+      name: nameGltfClone,
+      // options: { shouldAddToRegistry: true, shouldAddToScene: true, isForce: false },
+      position: Vector3Wrapper({ x: 0, y: 0, z: 5 })
+    });
 
     // TODO (S.Panfilov) CWP make animation play via service, so we don't need loop and tick everywhere
     keyboardService.onKey(KeyCode.One).pressed$.subscribe((): void => void runAnimationGltf?.play());
     keyboardService.onKey(KeyCode.One).released$.subscribe((): void => void runAnimationGltf?.stop());
     keyboardService.onKey(KeyCode.Two).pressed$.subscribe((): void => void runAnimationGlb?.play());
     keyboardService.onKey(KeyCode.Two).released$.subscribe((): void => void runAnimationGlb?.stop());
-    keyboardService.onKey(KeyCode.Three).pressed$.subscribe((): void => void runAnimationGLTFClone?.play());
-    keyboardService.onKey(KeyCode.Three).released$.subscribe((): void => void runAnimationGLTFClone?.stop());
+    keyboardService.onKey(KeyCode.Three).pressed$.subscribe((): void => void runAnimationGltfClone?.play());
+    keyboardService.onKey(KeyCode.Three).released$.subscribe((): void => void runAnimationGltfClone?.stop());
 
     loopService.tick$.subscribe(({ delta }) => {
       if (runAnimationGltf && mixerGltf) mixerGltf.update(delta);
       if (runAnimationGlb && mixerGLB) mixerGLB.update(delta);
-      if (runAnimationGLTFClone && mixerGltfClone) mixerGltfClone.update(delta);
+      if (runAnimationGltfClone && mixerGltfClone) mixerGltfClone.update(delta);
     });
   }
 
