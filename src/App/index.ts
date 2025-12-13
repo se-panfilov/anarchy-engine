@@ -11,7 +11,6 @@ import '@/App/style.css';
 // import { showcaseLevel } from '@/App/Levels/Showcase9TexturesAndMaterials'; // Textures & Materials
 // import { showcaseLevel } from '@/App/Levels/Showcase10ComplexMaterials'; // Textures & Materials
 import { showcaseLevel } from '@/App/Levels/Showcase11KeyboardAndMouse'; // Keyboard and mouse
-
 import type { IAppCanvas } from '@/Engine';
 import { ambientContext, isNotDefined } from '@/Engine';
 
