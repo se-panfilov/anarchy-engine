@@ -264,6 +264,7 @@ export const JsRules = {
         '[O-o]gg',
         '[O-o]klab',
         '[P-p]inia',
+        '[P-p]osix',
         '[P-p]rotanopia',
         '[Q-q]uaternion[s]?',
         '[R-r]adian[s]?',
