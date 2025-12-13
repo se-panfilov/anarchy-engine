@@ -13,12 +13,12 @@ export function makeWrapperWithPhysicsBody<T extends TWrapper<any> & TWithOption
   additionalParams?: Record<string, any>
 ): TWithMandatoryPhysicsBody<T> {
   // eslint-disable-next-line functional/immutable-data
-  (wrapper as TWriteable<T>).physicsBody = customCreatePhysicsBodyFn ? customCreatePhysicsBodyFn(physics, physicsBodyService, additionalParams) : createPhysicsBody(physics, physicsBodyService);
+  (wrapper as TWriteable<T>).physicsBody = customCreatePhysicsBodyFn ? customCreatePhysicsBodyFn(physics, physicsBodyService, additionalParams) : createPhysicsBodyObject(physics, physicsBodyService);
 
   return wrapper as TWithMandatoryPhysicsBody<T>;
 }
 
-function createPhysicsBody(physics: TWithPresetNamePhysicsBodyParams, physicsBodyService: TPhysicsBodyService): TPhysicsBody {
+export function createPhysicsBodyObject(physics: TWithPresetNamePhysicsBodyParams, physicsBodyService: TPhysicsBodyService): TPhysicsBody {
   const { presetName, ...rest } = physics;
   if (isDefined(presetName)) return physicsBodyService.createWithPresetName(physics, presetName);
   if (!isPhysicsBodyParamsComplete(rest))
