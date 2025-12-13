@@ -56,7 +56,8 @@ export function CameraWrapper(params: TCameraParams, { container, transformDrive
   if (isDefined(params.focus)) entity.focus = params.focus;
   // eslint-disable-next-line functional/immutable-data
   if (isDefined(params.zoom)) entity.zoom = params.zoom;
-  if (isDefined(params.layers)) entity.layers.set(params.layers);
+  // eslint-disable-next-line functional/immutable-data
+  entity.layers.mask = params.layers ?? 1;
   if (isDefined(audioListener)) accessors.addListener(audioListener);
 
   return result;
