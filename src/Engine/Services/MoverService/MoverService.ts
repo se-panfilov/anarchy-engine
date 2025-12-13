@@ -15,6 +15,7 @@ export function MoverService(loopService: ILoopService, { suspendWhenDocumentHid
   // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access,functional/immutable-data
   (anime as any).suspendWhenDocumentHidden = suspendWhenDocumentHidden;
 
+  // TODO (S.Panfilov) refactore theese functions to extract the common code
   function performMove(moveFn: IMoveFn, actor: IActorWrapper, destination: IMoveDestination, animationParams: IAnimationParams): Promise<void> {
     const { promise, resolve } = createDeferredPromise();
     const params: IMoveFnParams = { actor, destination: prepareDestination(destination, actor), animationParams, complete: resolve };
