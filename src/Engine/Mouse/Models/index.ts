@@ -9,3 +9,4 @@ export * from './IMousePositionWatcherFactory';
 export * from './IMousePositionWatcherParams';
 export * from './IMousePositionWatcherRegistry';
 export * from './IMouseService';
+export * from './IMouseWatcherEvent';

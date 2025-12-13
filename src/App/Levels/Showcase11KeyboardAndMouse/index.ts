@@ -13,9 +13,9 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
     const actorKeyboard: IActorWrapperAsync = await actorRegistry.getUniqByTagAsync('keyboard');
     const actorMouse: IActorWrapperAsync = await actorRegistry.getUniqByTagAsync('mouse');
 
-    mouseService.position$.subscribe((pos: IMousePosition) => {
-      console.log('position', pos);
-    });
+    // mouseService.position$.subscribe((pos: IMousePosition) => {
+    //   console.log('position', pos);
+    // });
 
     mouseService.click$.subscribe((): void => {
       console.log('click');
