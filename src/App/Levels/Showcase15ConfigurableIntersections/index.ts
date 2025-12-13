@@ -1,27 +1,20 @@
-import { filter } from 'rxjs';
+import GUI from 'lil-gui';
 
 import type { IShowcase } from '@/App/Levels/Models';
-import type { IActorAsyncRegistry, IActorWrapperAsync, IAppCanvas, ICameraRegistry, ICameraWrapper, IIntersectionEvent, IIntersectionsWatcher, ISpace, ISpaceConfig } from '@/Engine';
+import type { IAppCanvas, ICameraRegistry, ICameraWrapper, ISpace, ISpaceConfig } from '@/Engine';
 import { buildSpaceFromConfig, isNotDefined, mouseService } from '@/Engine';
 
 import spaceConfig from './showcase-15.json';
-import GUI from 'lil-gui';
 
 //Showcase 15: configurable intersections
 export function showcase(canvas: IAppCanvas): IShowcase {
   const gui: GUI = new GUI();
   const space: ISpace = buildSpaceFromConfig(canvas, spaceConfig as ISpaceConfig);
-  const { actorService, cameraService, loopService } = space.services;
-  const actorRegistry: IActorAsyncRegistry = actorService.getRegistry();
+  const { cameraService } = space.services;
   const cameraRegistry: ICameraRegistry = cameraService.getRegistry();
   const { clickLeftRelease$ } = mouseService;
 
   function init(): void {
-    // const actor1: IActorWrapperAsync = await actorRegistry.findByNameAsync('actor_red_1');
-    // const actor2: IActorWrapperAsync = await actorRegistry.findByNameAsync('actor_red_2');
-    // const actor3: IActorWrapperAsync = await actorRegistry.findByNameAsync('actor_blue_1');
-    // const actor4: IActorWrapperAsync = await actorRegistry.findByNameAsync('actor_blue_');
-
     let cameraFolder: GUI | undefined;
     let cameraName: string = 'red';
     clickLeftRelease$.subscribe((): void => {
@@ -33,10 +26,6 @@ export function showcase(canvas: IAppCanvas): IShowcase {
       cameraService.setActive(camera.id);
       cameraName = cameraName === 'red' ? 'blue' : 'red';
     });
-
-    // loopService.tick$.subscribe(({ elapsedTime }) => {
-    //
-    // });
   }
 
   function resetGui(folder: GUI | undefined, camera: ICameraWrapper): GUI {

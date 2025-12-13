@@ -1,9 +1,8 @@
-import type { IActorWrapperAsync } from '@/Engine/Actor';
 import type { IAppCanvas } from '@/Engine/App';
 import type { ICameraWrapper } from '@/Engine/Camera';
 import { ambientContext } from '@/Engine/Context';
 import type { IDataTexture } from '@/Engine/EnvMap';
-import type { IIntersectionConfig, IIntersectionsWatcher } from '@/Engine/Intersections';
+import type { IIntersectionsWatcher } from '@/Engine/Intersections';
 import type { ILoopTimes } from '@/Engine/Loop';
 import type { IDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
@@ -18,7 +17,7 @@ import { initServices } from '@/Engine/Space/SpaceHelpers';
 import { spaceLoop } from '@/Engine/Space/SpaceLoop';
 import type { IText2dRenderer, IText3dRenderer } from '@/Engine/Text';
 import { initText2dRenderer, initText3dRenderer } from '@/Engine/Text';
-import { isDefined, isDestroyable, isNotDefined, validLevelConfig } from '@/Engine/Utils';
+import { isDestroyable, isNotDefined, validLevelConfig } from '@/Engine/Utils';
 
 export function buildSpaceFromConfig(canvas: IAppCanvas, config: ISpaceConfig): ISpace {
   const { isValid, errors } = validLevelConfig(config);
@@ -53,24 +52,6 @@ export function buildSpaceFromConfig(canvas: IAppCanvas, config: ISpaceConfig): 
   controlsService.createFromConfig(controls, cameraService.getRegistry());
   lightService.createFromConfig(lights);
 
-  //build intersections
-  if (isDefined(intersections) && intersections.length > 0) {
-    actorService.getRegistry().added$.subscribe((actorWrapper: IActorWrapperAsync): void => {
-      if (isDefined(actorWrapper.name)) {
-        const intersection: IIntersectionConfig | undefined = intersections.find((int: IIntersectionConfig) => isDefined(actorWrapper.name) && int.actorNames.includes(actorWrapper.name));
-        if (isNotDefined(intersection)) return;
-        const camera: ICameraWrapper | undefined = cameraService.getRegistry().findByName(intersection.cameraName);
-        if (isNotDefined(camera)) throw new Error(`Intersections: Cannot find camera ("${intersection.cameraName}") for actor ("${actorWrapper.name}")`);
-        const watcherId: IIntersectionsWatcher = intersectionsService.buildWatcher(camera);
-        intersectionsService.addActorsToWatcher(watcherId.id, [actorWrapper]);
-      }
-      // TODO (S.Panfilov) turn of intersections watcher for inactive cameras (then turn on again on active)
-      // TODO (S.Panfilov) we need a normal logging from services (which service with which id do what)
-      // TODO (S.Panfilov) add validation for intersections config (names, uniq, patterns, etc)
-      // TODO (S.Panfilov) stop watching actors after all the intersections are ready
-    });
-  }
-
   fogService.createFromConfig(fogs);
 
   envMapService.added$.subscribe((texture: IDataTexture): void => {
@@ -81,6 +62,18 @@ export function buildSpaceFromConfig(canvas: IAppCanvas, config: ISpaceConfig): 
   const renderer: IRendererWrapper = rendererService.create({ canvas, tags: [], mode: RendererModes.WebGL2, isActive: true });
   const { text2dRegistry, text3dRegistry } = textService.getRegistries();
   const controlsRegistry = controlsService.getRegistry();
+
+  //build intersections
+  // TODO (S.Panfilov) CWP
+  // TODO (S.Panfilov) turn of intersections watcher for inactive cameras (then turn on again on active)
+  // TODO (S.Panfilov) we need a normal logging from services (which service with which id do what)
+  // TODO (S.Panfilov) add validation for intersections config (names, uniq, patterns, etc)
+  // TODO (S.Panfilov) stop watching actors after all the intersections are ready
+  const intersectionsWatcherPromisesList: ReadonlyArray<Promise<IIntersectionsWatcher>> = intersectionsService.getWatchersForFromConfigIntersections(
+    actorService.getRegistry(),
+    cameraService.getRegistry(),
+    intersections
+  );
 
   let camera: ICameraWrapper | undefined;
   cameraService.active$.subscribe((wrapper: ICameraWrapper | undefined): void => void (camera = wrapper));
@@ -101,12 +94,13 @@ export function buildSpaceFromConfig(canvas: IAppCanvas, config: ISpaceConfig): 
   return {
     name,
     start(): void {
+      void intersectionsWatcherPromisesList.forEach((promise: Promise<IIntersectionsWatcher>): void => void promise.then((watcher: IIntersectionsWatcher) => watcher.start()));
       loopService.start();
     },
     stop(): void {
-      // TODO (S.Panfilov) implement stop
-      // if (isDefined(intersectionsWatcher)) intersectionsWatcher.stop();
-      // loop.stop(renderer, activeScene, controlsRegistry, cameraRegistry);
+      // TODO (S.Panfilov) implement stop (not tested yet)
+      loopService.stop();
+      void intersectionsWatcherPromisesList.forEach((promise: Promise<IIntersectionsWatcher>): void => void promise.then((watcher: IIntersectionsWatcher) => watcher.stop()));
     },
     services,
     ...builtMixin,
