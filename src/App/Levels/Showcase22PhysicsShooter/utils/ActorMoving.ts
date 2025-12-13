@@ -1,14 +1,15 @@
-import { BehaviorSubject, distinctUntilChanged, map } from 'rxjs';
+import { BehaviorSubject, combineLatest, map, Subject } from 'rxjs';
 import type { Vector3 } from 'three';
 
 import type { TActorWrapperAsync, TIntersectionEvent, TIntersectionsWatcher, TKeyboardService, TRadians } from '@/Engine';
 import { getAzimuthRadFromDirection, getElevationRadFromDirection, KeyCode } from '@/Engine';
 
 type TMoveKeysState = { Forward: boolean; Left: boolean; Right: boolean; Backward: boolean };
+type TIntersectionDirection = Readonly<{ azimuth: TRadians; elevation: TRadians }>;
 
 export function startMoveActorWithKeyboard(actorW: TActorWrapperAsync, keyboardService: TKeyboardService, mouseLineIntersectionsWatcher: TIntersectionsWatcher): void {
   const keyStates$: BehaviorSubject<TMoveKeysState> = new BehaviorSubject<TMoveKeysState>({ Forward: false, Left: false, Right: false, Backward: false });
-  let baseAzimuthRad: TRadians = 0;
+  const intersectionDirection$: Subject<TIntersectionDirection> = new Subject<TIntersectionDirection>();
 
   keyboardService.onKey(KeyCode.W).pressed$.subscribe((): void => keyStates$.next({ ...keyStates$.value, Forward: true }));
   keyboardService.onKey(KeyCode.A).pressed$.subscribe((): void => keyStates$.next({ ...keyStates$.value, Left: true }));
@@ -21,15 +22,12 @@ export function startMoveActorWithKeyboard(actorW: TActorWrapperAsync, keyboardS
   keyboardService.onKey(KeyCode.D).released$.subscribe((): void => keyStates$.next({ ...keyStates$.value, Right: false }));
 
   mouseLineIntersectionsWatcher.value$
-    .pipe(
-      map((intersection: TIntersectionEvent) => getMouseAzimuthAndElevation(intersection.point, actorW.getPosition().entity)),
-      distinctUntilChanged()
-    )
-    .subscribe(({ azimuth }: Readonly<{ azimuth: TRadians; elevation: TRadians }>): void => void (baseAzimuthRad = azimuth));
+    .pipe(map((intersection: TIntersectionEvent) => getMouseAzimuthAndElevation(intersection.point, actorW.getPosition().entity)))
+    .subscribe((value: TIntersectionDirection): void => intersectionDirection$.next(value));
 
-  keyStates$.subscribe((keyStates: TMoveKeysState): void => {
+  combineLatest([keyStates$, intersectionDirection$]).subscribe(([keyStates, { azimuth }]: [TMoveKeysState, TIntersectionDirection]): void => {
     actorW.kinematic.setLinearSpeed(getActorMoveSpeed(keyStates, 5, 4, 3));
-    actorW.kinematic.setLinearAzimuthRad(baseAzimuthRad + getActorMoveAzimuthRad(keyStates));
+    actorW.kinematic.setLinearAzimuthRad(azimuth + getActorMoveAzimuthRad(keyStates));
     // actorW.kinematic.setAngularSpeed(5);
     // actorW.kinematic.setAngularAzimuthRad(baseAzimuthRad);
   });
