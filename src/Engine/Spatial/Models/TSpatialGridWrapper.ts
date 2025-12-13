@@ -3,14 +3,13 @@ import type { ColorRepresentation } from 'three';
 
 import type { TWrapper } from '@/Engine/Abstract';
 import type { TActorWrapper } from '@/Engine/Actor';
-import type { TDestroyable, TWithTagsMixin } from '@/Engine/Mixins';
+import type { TDestroyable } from '@/Engine/Mixins';
 import type { TSceneWrapper } from '@/Engine/Scene';
 import type { TSpatialCellId, TSpatialCellWrapper } from '@/Engine/Spatial';
 
 import type { TSpatialGrid } from './TSpatialGrid';
 
 export type TSpatialGridWrapper = TWrapper<TSpatialGrid> &
-  TWithTagsMixin &
   TDestroyable &
   Readonly<{
     addActor: (actorW: TActorWrapper) => void | never;
