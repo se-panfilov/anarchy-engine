@@ -1,13 +1,13 @@
 import type { IShowcase } from '@/App/Levels/Models';
-import type { IActorWrapperAsync, IAppCanvas, ILevel, ILevelConfig, IMouseWatcherEvent } from '@/Engine';
-import { buildLevelFromConfig, keyboardService, KeyCode, mouseService } from '@/Engine';
-
+import type { IActorWrapperAsync, IAppCanvas, ICameraWrapper, IIntersectionEvent, IIntersectionsWatcher, ILevel, ILevelConfig, IMouseWatcherEvent } from '@/Engine';
+import { buildLevelFromConfig, intersectionsService, isNotDefined, keyboardService, KeyCode, mouseService } from '@/Engine';
+import { withLatestFrom } from 'rxjs';
 import levelConfig from './showcase-11-keyboard-and-mouse.json';
 
 //Showcase 11: Keyboard and Mouse
 export function showcaseLevel(canvas: IAppCanvas): IShowcase {
   const level: ILevel = buildLevelFromConfig(canvas, levelConfig as ILevelConfig);
-  const { actorRegistry } = level.entities;
+  const { actorRegistry, cameraRegistry } = level.entities;
 
   async function init(): Promise<void> {
     const actorKeyboard: IActorWrapperAsync = await actorRegistry.getUniqByTagAsync('keyboard');
@@ -18,11 +18,11 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
     keyboardService.onKey(KeyCode.A).pressing$.subscribe((): void => void actorKeyboard.addX(-0.3));
     keyboardService.onKey(KeyCode.D).pressing$.subscribe((): void => void actorKeyboard.addX(0.3));
 
-    mouseService.clickLeftRelease$.subscribe((event: IMouseWatcherEvent): void => {
-      // TODO (S.Panfilov) this is not in game coords, the cords should be in respect of clicking on a plane actor
-      const { x, y } = event;
-      actorMouse.setX(x);
-      actorMouse.setY(y);
+    const intersectionsWatcher: IIntersectionsWatcher = await startIntersections();
+
+    mouseService.clickLeftRelease$.pipe(withLatestFrom(intersectionsWatcher.value$)).subscribe(([, intersection]: [IMouseWatcherEvent, IIntersectionEvent]): void => {
+      actorMouse.setX(intersection.point.x);
+      actorMouse.setZ(intersection.point.z);
     });
 
     //console output of mouse events
@@ -45,6 +45,18 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
 
     mouseService.wheelUp$.subscribe((event: IMouseWatcherEvent): void => console.log('wheel up', event));
     mouseService.wheelDown$.subscribe((event: IMouseWatcherEvent): void => console.log('wheel down', event));
+  }
+
+  async function startIntersections(): Promise<IIntersectionsWatcher> {
+    const camera: ICameraWrapper | undefined = cameraRegistry.getActiveCamera();
+    if (isNotDefined(camera)) throw new Error('Camera is not defined');
+    const intersectionsWatcher: IIntersectionsWatcher = intersectionsService.buildWatcher(camera);
+
+    // actorRegistry.added$.pipe(filter((a: IActorWrapperAsync) => a.hasTag(ActorTag.Intersectable))).subscribe((actor: IActorWrapperAsync): void => intersectionsWatcher.addActor(actor));
+    await actorRegistry.getUniqByTagAsync('surface').then((actor: IActorWrapperAsync) => intersectionsWatcher.addActor(actor));
+
+    intersectionsWatcher.start();
+    return intersectionsWatcher;
   }
 
   function start(): void {

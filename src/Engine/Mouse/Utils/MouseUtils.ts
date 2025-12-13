@@ -1,6 +1,6 @@
-import { isNotDefined } from '@/Engine';
 import type { IMousePosition, IMouseWatcherEvent } from '@/Engine/Mouse';
 import { MouseButtonValue, MouseEventType, MouseWheelValue } from '@/Engine/Mouse';
+import { isNotDefined } from '@/Engine/Utils';
 import type { IVector2, IVector3 } from '@/Engine/Vector';
 import { Vector2Wrapper } from '@/Engine/Vector';
 
