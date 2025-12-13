@@ -8,6 +8,9 @@ const GAME_URL: string = `http://localhost:${process.env.PORT ?? '4173'}?path=me
 
 let context: TLaunchContext;
 
+// Run tests in serial mode to avoid multiple Electron instances running simultaneously
+test.describe.configure({ mode: 'serial' });
+
 test.describe('Desktop app Menu/GUI text tests', () => {
   test.beforeAll(async () => {
     const { electronApp, page } = await launchPackagedElectronApp();
@@ -17,10 +20,11 @@ test.describe('Desktop app Menu/GUI text tests', () => {
     await page.goto(GAME_URL);
   });
 
-  //Not sure if this is needed
-  // test.afterAll(async () => {
-  //   if (context?.electronApp) await context.electronApp.close();
-  // });
+  test.afterAll(async () => {
+    if (context?.electronApp) {
+      await context.electronApp.close();
+    }
+  });
 
   test('Open plain page', async () => {
     const { page } = context;
@@ -28,30 +32,30 @@ test.describe('Desktop app Menu/GUI text tests', () => {
     await expect(page).toHaveScreenshot('plain-page.png', { fullPage: true });
   });
 
-  // test('Translations for plain page should work', async () => {
-  //   const { page } = context;
-  //
-  //   await toggleLanguage(page);
-  //
-  //   await expect(page).toHaveScreenshot('plain-page-language-toggled.png', { fullPage: true });
-  // });
-  //
-  // test('Open menu', async () => {
-  //   const { page } = context;
-  //
-  //   await openSettings(page);
-  //
-  //   await expect(page).toHaveScreenshot('settings-open.png', { fullPage: true });
-  // });
-  //
-  // test('Open menu with language toggle', async () => {
-  //   const { page } = context;
-  //
-  //   await openSettings(page);
-  //   await toggleLanguage(page);
-  //
-  //   await expect(page).toHaveScreenshot('settings-open-language-toggled.png', { fullPage: true });
-  // });
+  test('Translations for plain page should work', async () => {
+    const { page } = context;
+
+    await toggleLanguage(page);
+
+    await expect(page).toHaveScreenshot('plain-page-language-toggled.png', { fullPage: true });
+  });
+
+  test('Open menu', async () => {
+    const { page } = context;
+
+    await openSettings(page);
+
+    await expect(page).toHaveScreenshot('settings-open.png', { fullPage: true });
+  });
+
+  test('Open menu with language toggle', async () => {
+    const { page } = context;
+
+    await openSettings(page);
+    await toggleLanguage(page);
+
+    await expect(page).toHaveScreenshot('settings-open-language-toggled.png', { fullPage: true });
+  });
 });
 
 export async function waitUntilReady(actionName: string, page: Page, timeout: number = 30_000): Promise<void> {
@@ -68,11 +72,11 @@ export async function waitUntilReady(actionName: string, page: Page, timeout: nu
 }
 
 async function openSettings(page: Page): Promise<void> {
-  const settingsButton = page.getByRole('button', { name: /settings/i });
+  const settingsButton = page.getByRole('button', { name: 'Settings' });
   await settingsButton.click();
 }
 
 async function toggleLanguage(page: Page): Promise<void> {
-  const languageButton = page.getByRole('button', { name: /language/i });
+  const languageButton = page.getByRole('button', { name: 'Language' });
   await languageButton.click();
 }
