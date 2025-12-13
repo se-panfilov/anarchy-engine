@@ -75,24 +75,25 @@ export function CollisionsService(): TCollisionsService {
   // TODO should be possible to check collisions against another grid
   function checkCollisions(actorW: TActorWrapperAsync, radius: number, actorsToCheck: ReadonlyArray<TActorWrapperAsync>, steps: number = 10): TCollisionCheckResult | undefined {
     const previousPosition = actorW.entity.position.clone();
-    const direction = actorW.kinematic.getLinearDirection().normalize();
-    const movementLength = direction.length() * radius;
-    const currentPosition = previousPosition.clone().addScaledVector(direction, movementLength);
-    const stepLength = movementLength / steps;
-    const stepVector = direction.clone().multiplyScalar(stepLength);
+    const direction = actorW.kinematic.getLinearDirection().clone().normalize();
+    const currentPosition = previousPosition.clone().add(direction.multiplyScalar(radius));
 
+    const stepVector = currentPosition.clone().sub(previousPosition).divideScalar(steps);
+    const interpolatedPosition = new Vector3();
+    const nextInterpolatedPosition = new Vector3();
     const raycaster = new Raycaster();
+    // eslint-disable-next-line functional/immutable-data
     raycaster.firstHitOnly = true;
-    const capsule = createCapsule(previousPosition, currentPosition, radius);
 
-    const tempRayOrigin = new Vector3();
-    const nextPosition = new Vector3();
-
+    // eslint-disable-next-line functional/no-loop-statements
     for (let i = 0; i < steps; i++) {
-      tempRayOrigin.copy(previousPosition).addScaledVector(stepVector, i);
-      nextPosition.copy(tempRayOrigin).add(stepVector);
-      raycaster.set(tempRayOrigin, direction);
+      interpolatedPosition.copy(previousPosition).add(stepVector.clone().multiplyScalar(i));
+      nextInterpolatedPosition.copy(previousPosition).add(stepVector.clone().multiplyScalar(i + 1));
 
+      const capsule: TCapsule = createCapsule(interpolatedPosition, nextInterpolatedPosition, radius);
+      raycaster.set(interpolatedPosition, direction);
+
+      // eslint-disable-next-line functional/no-loop-statements
       for (const object of actorsToCheck) {
         if (object.id === actorW.id) continue;
 
@@ -106,7 +107,7 @@ export function CollisionsService(): TCollisionsService {
               object,
               distance: intersect.distance,
               collisionPoint: intersect.point,
-              bulletPosition: nextPosition.clone()
+              bulletPosition: nextInterpolatedPosition.clone()
             };
           }
         }
