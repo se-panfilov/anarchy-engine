@@ -24,9 +24,9 @@ function writeSchema(outputPath, schemaString) {
 }
 
 function generateLevelConfigSchema() {
-  const config = { ...baseConfig, path: './src/Engine/Space/Models/ISpaceConfig.ts' };
+  const config = { ...baseConfig, path: './src/Engine/Space/Models/TSpaceConfig.ts' };
   const schemaString = generate(config);
-  const outputPath = './src/Engine/Space/Schemas/ISpaceConfig.json';
+  const outputPath = './src/Engine/Space/Schemas/TSpaceConfig.json';
   writeSchema(outputPath, schemaString);
 }
 
