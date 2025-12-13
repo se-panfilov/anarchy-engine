@@ -5,11 +5,11 @@ import type { TRawModel } from '@/Engine/Models3d/Models';
 import type { TObject3DParams } from '@/Engine/ThreeLib';
 import { isDefined } from '@/Engine/Utils';
 
-export const applyScaleToModel3d = (model: Group | Mesh | Object3D, scale: Vector3): void => void model.scale.copy(scale);
-export const applyRotationToModel3d = (model: Group | Mesh | Object3D, rotation: Euler): void => void model.rotation.copy(rotation);
-export const applyPositionToModel3d = (model: Group | Mesh | Object3D, position: Vector3): void => void model.position.copy(position);
+export const applyScaleToModel3d = (model: TRawModel, scale: Vector3): void => void model.scale.copy(scale);
+export const applyRotationToModel3d = (model: TRawModel, rotation: Euler): void => void model.rotation.copy(rotation);
+export const applyPositionToModel3d = (model: TRawModel, position: Vector3): void => void model.position.copy(position);
 
-export function applyObject3dParamsToModel3d(model3d: Group | Mesh | Object3D, { visible, castShadow, receiveShadow, frustumCulled, renderOrder }: Partial<TObject3DParams>): void {
+export function applyObject3dParamsToModel3d(model3d: TRawModel, { visible, castShadow, receiveShadow, frustumCulled, renderOrder }: Partial<TObject3DParams>): void {
   if (isDefined(visible)) applyWithTraverseToModel3d(model3d, 'visible', visible);
   if (isDefined(castShadow)) applyWithTraverseToModel3d(model3d, 'castShadow', castShadow);
   if (isDefined(receiveShadow)) applyWithTraverseToModel3d(model3d, 'receiveShadow', receiveShadow);

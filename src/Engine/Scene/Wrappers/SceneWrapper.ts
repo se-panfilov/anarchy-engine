@@ -1,4 +1,4 @@
-import type { CubeTexture, Group, Mesh, Object3D } from 'three';
+import type { CubeTexture } from 'three';
 import { Scene } from 'three';
 
 import type { TWrapper } from '@/Engine/Abstract';
@@ -16,6 +16,7 @@ import type { TTextAnyWrapper } from '@/Engine/Text';
 import type { TTexture } from '@/Engine/Texture';
 import type { TWriteable } from '@/Engine/Utils';
 import { isDefined, isNotDefined, isString } from '@/Engine/Utils';
+import type { TRawModel } from '@/Engine/Models3d';
 
 export function SceneWrapper(params: TSceneParams): TSceneWrapper {
   const entity: TWriteable<Scene> = new Scene();
@@ -26,7 +27,7 @@ export function SceneWrapper(params: TSceneParams): TSceneWrapper {
 
   const add = (obj: TSceneObject): void => void entity.add(obj);
   const addCamera = (camera: TCameraWrapper): void => add(camera.entity);
-  const addModel3d = (model3d: Group | Mesh | Object3D): void => add(model3d);
+  const addModel3d = (model3d: TRawModel): void => add(model3d);
   const addLight = <T extends TLight>(light: Readonly<TAbstractLightWrapper<T>>): void => add(light.entity);
   const addParticles = (particles: Readonly<TParticlesWrapper>): void => add(particles.entity);
 

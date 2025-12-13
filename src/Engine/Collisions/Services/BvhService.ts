@@ -5,6 +5,7 @@ import { acceleratedRaycast, computeBoundsTree, disposeBoundsTree, MeshBVHHelper
 import type { TActor } from '@/Engine/Actor';
 import type { TBvhOptions, TBvhService } from '@/Engine/Collisions/Models';
 import type { TSceneWrapper } from '@/Engine/Scene';
+import type { TRawModel } from '@/Engine/Models3d';
 
 export function BvhService(): TBvhService {
   const computeBVHBoundsTree = (geometry: BufferGeometry, options?: TBvhOptions): MeshBVH => computeBoundsTree.call(geometry, options);
@@ -47,7 +48,7 @@ export function BvhService(): TBvhService {
   };
 }
 
-function processEntity(entity: Group | Mesh | Object3D, callback: (mesh: Mesh) => void): void {
+function processEntity(entity: TRawModel, callback: (mesh: Mesh) => void): void {
   if ((entity as Mesh).isMesh) return callback(entity as Mesh);
   if ((entity as Group).isGroup || (entity as Object3D).isObject3D) {
     return entity.traverse((object: unknown) => {

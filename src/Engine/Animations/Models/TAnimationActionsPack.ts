@@ -1,9 +1,10 @@
-import type { AnimationMixer, Group, Mesh, Object3D } from 'three';
+import type { AnimationMixer } from 'three';
 
 import type { TAnimationActions } from './TAnimationActions';
+import type { TRawModel } from '@/Engine/Models3d';
 
 export type TAnimationActionsPack = Readonly<{
-  model: Group | Mesh | Object3D;
+  model: TRawModel;
   mixer: AnimationMixer;
   actions: TAnimationActions;
 }>;
