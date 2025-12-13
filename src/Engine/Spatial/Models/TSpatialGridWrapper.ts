@@ -1,3 +1,4 @@
+import type { Observable } from 'rxjs';
 import type { ColorRepresentation } from 'three';
 
 import type { TWrapper } from '@/Engine/Abstract';
@@ -25,4 +26,5 @@ export type TSpatialGridWrapper = TWrapper<TSpatialGrid> &
     updateActorCell: (actorW: TActorWrapperAsync) => void;
     _debugVisualizeCells: (sceneW: TSceneWrapper, color?: ColorRepresentation, wireframe?: boolean) => void;
     _debugHighlightObjects: (sceneW: TSceneWrapper, x: number, z: number) => void;
+    update$: Observable<TSpatialCell>;
   }>;

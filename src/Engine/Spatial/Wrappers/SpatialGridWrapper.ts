@@ -1,4 +1,5 @@
 import RBush from 'rbush';
+import { Subject } from 'rxjs';
 import type { Mesh, Object3D, Vector3 } from 'three';
 import { Box3 } from 'three';
 import type { Line2 } from 'three/examples/jsm/lines/Line2';
@@ -17,6 +18,7 @@ export function SpatialGridWrapper(params: TSpatialGridParams): TSpatialGridWrap
   const entity: TSpatialGrid = createEntity(params);
   let _debugOutlines: Array<Line2> = [];
   let _debugOutlinesIds: Array<number> = [];
+  const update$: Subject<TSpatialCell> = new Subject<TSpatialCell>();
 
   function createEntity({ mapWidth, mapHeight, cellSize, centerX, centerZ }: TSpatialGridParams): TSpatialGrid {
     const startX: number = centerX - Math.floor(mapWidth / cellSize / 2) * cellSize;
@@ -74,6 +76,7 @@ export function SpatialGridWrapper(params: TSpatialGridParams): TSpatialGridWrap
         cell.objects.push(actorW);
         // eslint-disable-next-line functional/immutable-data
         cell.version++;
+        update$.next(cell);
       }
     }
     actorW.spatial.setSpatialCells(cells);
@@ -111,6 +114,7 @@ export function SpatialGridWrapper(params: TSpatialGridParams): TSpatialGridWrap
       cell.objects.splice(index, 1);
       // eslint-disable-next-line functional/immutable-data
       cell.version++;
+      update$.next(cell);
     }
 
     actorW.spatial.resetSpatialCells();
@@ -118,8 +122,11 @@ export function SpatialGridWrapper(params: TSpatialGridParams): TSpatialGridWrap
 
   function clearGrid(): void {
     entity.clear();
-    // eslint-disable-next-line functional/immutable-data
-    getAllCells().forEach((cell: TSpatialCell): void => void cell.version++);
+    getAllCells().forEach((cell: TSpatialCell): void => {
+      // eslint-disable-next-line functional/immutable-data
+      cell.version++;
+      update$.next(cell);
+    });
   }
 
   function updateActorCell(this: TSpatialGridWrapper, actorW: TActorWrapperAsync): void {
@@ -137,6 +144,11 @@ export function SpatialGridWrapper(params: TSpatialGridParams): TSpatialGridWrap
   }
 
   function destroy(): void {
+    update$.complete();
+    wrapper.destroy();
+    // getAllCells().forEach((cell: TSpatialCell): void => void cell.destroy());
+    entity.clear();
+
     // TODO (S.Panfilov) DESTROY: implement destroy
     throw new Error('SpatialGrid destroy not implemented');
   }
@@ -188,6 +200,7 @@ export function SpatialGridWrapper(params: TSpatialGridParams): TSpatialGridWrap
     clearGrid,
     _debugVisualizeCells,
     _debugHighlightObjects,
-    updateActorCell
+    updateActorCell,
+    update$: update$.asObservable()
   };
 }
