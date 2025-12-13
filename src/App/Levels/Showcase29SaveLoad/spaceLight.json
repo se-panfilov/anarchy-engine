@@ -226,8 +226,8 @@
       {
         "castShadow": true,
         "color": "#00FF00",
-        "decay": 4.5,
-        "distance": 23,
+        "decay": 2,
+        "distance": 20,
         "intensity": 27,
         "name": "point_light",
         "position": {
@@ -264,7 +264,7 @@
         },
         "shadow": {
           "camera": {
-            "far": 15
+            "far": 57
           },
           "mapSize": {
             "x": 1024,
