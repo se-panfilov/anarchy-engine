@@ -6,7 +6,7 @@ import type { TSceneParams } from './TSceneParams';
 
 export type TSceneConfig = Omit<TSceneParams, keyof TObject3DParams | 'background'> &
   Readonly<{
-    position?: Vector3Like; //scene may have an optional position
+    position?: Vector3Like; //a scene may have an optional position
     background?: string;
   }> &
   Omit<TObject3DPropConfig, 'position'>;
