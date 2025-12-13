@@ -61,17 +61,8 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
       repeaterActor.drive.instant.positionConnector.z = position.z;
     });
 
-    const sphereActorFolder: GUI = gui.addFolder('Sphere Actor');
-    sphereActorFolder.add(sphereActor.drive.agent$, 'value').listen();
-    // TODO (S.Panfilov) fix this
-    sphereActorFolder.add(sphereActor.drive.getPosition(), 'x').listen();
-    sphereActorFolder.add(sphereActor.drive.getPosition(), 'y').listen();
-    sphereActorFolder.add(sphereActor.drive.getPosition(), 'z').listen();
-    const repeaterActorFolder: GUI = gui.addFolder('Repeater Actor');
-    repeaterActorFolder.add(repeaterActor.drive.agent$, 'value').listen();
-    repeaterActorFolder.add(repeaterActor.drive.getPosition(), 'x').listen();
-    repeaterActorFolder.add(repeaterActor.drive.getPosition(), 'y').listen();
-    repeaterActorFolder.add(repeaterActor.drive.getPosition(), 'z').listen();
+    addActorFolderGui(gui, sphereActor);
+    addActorFolderGui(gui, repeaterActor);
 
     const intersectionsWatcher: TIntersectionsWatcher = startIntersections(space.services);
 
@@ -150,4 +141,16 @@ function moveActorTo(actor: TActor, position: Vector3, agent: TransformAgent): v
   }
   // actor.drive.position$.next(position);
   // void moverService.goToPosition(actorMouse.drive.instant.positionConnector, { x: intersection.point.x, z: intersection.point.z }, { duration: 1000, easing: Easing.EaseInCubic });
+}
+
+function addActorFolderGui(gui: GUI, actor: TActor): void {
+  const folder: GUI = gui.addFolder(actor.name ?? 'nameless actor');
+  folder.add(actor.drive.agent$, 'value').listen();
+
+  const position: Vector3 = new Vector3();
+  actor.drive.position$.subscribe((p: Vector3): Vector3 => position.copy(p));
+
+  folder.add(position, 'x').listen();
+  folder.add(position, 'y').listen();
+  folder.add(position, 'z').listen();
 }
