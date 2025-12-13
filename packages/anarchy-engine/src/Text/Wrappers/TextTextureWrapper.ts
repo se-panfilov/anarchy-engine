@@ -13,7 +13,7 @@ import { FallBackFonts } from '@Anarchy/Shared/Constants';
 import { isDefined, isNotDefined, stripUnits, toPx, toRem } from '@Anarchy/Shared/Utils';
 import type { Subscription } from 'rxjs';
 import { distinctUntilChanged } from 'rxjs';
-import { LinearFilter, Mesh, MeshBasicMaterial, PlaneGeometry, Texture } from 'three';
+import { CanvasTexture, LinearFilter, Mesh, MeshBasicMaterial, PlaneGeometry, SRGBColorSpace } from 'three';
 
 export function createTextTextureWrapper(params: TTextParams, type: TextType, dependencies: TTextServiceDependencies): TTextTextureWrapper<Mesh> {
   let canvas: HTMLCanvasElement = document.createElement('canvas');
@@ -22,9 +22,17 @@ export function createTextTextureWrapper(params: TTextParams, type: TextType, de
   let textKey: string | undefined = params.textKey;
   let textTranslationService: TTextTranslationService | undefined;
 
-  const texture: Texture = new Texture(canvas);
+  const texture: CanvasTexture = new CanvasTexture(canvas);
   // eslint-disable-next-line functional/immutable-data
   texture.minFilter = LinearFilter;
+  // eslint-disable-next-line functional/immutable-data
+  texture.magFilter = LinearFilter;
+  // eslint-disable-next-line functional/immutable-data
+  texture.generateMipmaps = false; // важно для NPOT
+  // eslint-disable-next-line functional/immutable-data
+  texture.colorSpace = SRGBColorSpace; // если твой UI в sRGB
+  // eslint-disable-next-line functional/immutable-data
+  texture.needsUpdate = true;
 
   const material: MeshBasicMaterial = new MeshBasicMaterial({
     map: texture,
@@ -103,6 +111,37 @@ export function createTextTextureWrapper(params: TTextParams, type: TextType, de
     context.fillText(text, canvas.width / 2, canvas.height / 2);
     // eslint-disable-next-line functional/immutable-data
     texture.needsUpdate = true;
+
+    if (canvas.width !== prevW || canvas.height !== prevH) {
+      const oldMap = material.map as CanvasTexture | null;
+      const newMap = new CanvasTexture(canvas);
+      // eslint-disable-next-line functional/immutable-data
+      newMap.minFilter = LinearFilter;
+      // eslint-disable-next-line functional/immutable-data
+      newMap.magFilter = LinearFilter;
+      // eslint-disable-next-line functional/immutable-data
+      newMap.generateMipmaps = false;
+      // eslint-disable-next-line functional/immutable-data
+      newMap.colorSpace = SRGBColorSpace;
+      // eslint-disable-next-line functional/immutable-data
+      newMap.needsUpdate = true;
+
+      // eslint-disable-next-line functional/immutable-data
+      material.map = newMap;
+      // eslint-disable-next-line functional/immutable-data
+      material.needsUpdate = true;
+      oldMap?.dispose();
+
+      const newGeometryWidth: number = canvas.width / 256;
+      const newGeometryHeight: number = canvas.height / 256;
+
+      entity.geometry.dispose();
+      // eslint-disable-next-line functional/immutable-data
+      entity.geometry = new PlaneGeometry(newGeometryWidth, newGeometryHeight);
+    } else {
+      // eslint-disable-next-line functional/immutable-data
+      texture.needsUpdate = true;
+    }
 
     if (canvas.width !== prevW || canvas.height !== prevH) {
       const newGeometryWidth: number = canvas.width / 256;
