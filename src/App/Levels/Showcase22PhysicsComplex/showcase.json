@@ -12,17 +12,17 @@
     {
       "name": "surface",
       "type": "plane",
-      "width": 50,
-      "height": 50,
+      "width": 200,
+      "height": 200,
       "widthSegments": 1,
       "heightSegments": 1,
       "material": { "type": "standard", "params": { "color": "#8E8E8E" } },
       "physics": {
         "presetName": "wall_physics",
         "shapeParams": {
-          "hx": 25,
+          "hx": 100,
           "hy": 0.025,
-          "hz": 25
+          "hz": 100
         },
         "position": { "x": 0, "y": -0.025, "z": 0 },
         "rotation": { "x": 0, "y": 0, "z": 0, "w": 1 }
@@ -102,16 +102,8 @@
       "tags": []
     }
   ],
-  "controls": [
-    {
-      "type": "OrbitControls",
-      "cameraName": "main",
-      "enableDamping": true,
-      "tags": [],
-      "isActive": true
-    }
-  ],
-  "envMaps": ["/Showcase/hdr/medieval_cafe_4k.hdr"],
+  "controls": [],
+  "envMaps": [],
   "particles": [],
   "fogs": [],
   "tags": []
