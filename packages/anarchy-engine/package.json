@@ -19,6 +19,7 @@
     "framework"
   ],
   "files": [
+    "CHANGELOG.txt",
     "DISCLAIMER.md",
     "EULA.md",
     "LICENSE",

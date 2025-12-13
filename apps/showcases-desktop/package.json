@@ -72,6 +72,15 @@
       "buildResources": "assets"
     },
     "files": [
+      "CHANGELOG.txt",
+      "DISCLAIMER.md",
+      "EULA.md",
+      "LICENSE",
+      "NOTICE.md",
+      "PRIVACY.md",
+      "README.md",
+      "SECURITY.md",
+      "THIRD_PARTY_LICENSES.md",
       "dist/dist-desktop/**",
       "dist/desktop-main.js",
       "dist/preload.js",

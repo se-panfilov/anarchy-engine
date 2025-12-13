@@ -11,6 +11,18 @@
     "showcases",
     "anarchy-showcases"
   ],
+  "files": [
+    "CHANGELOG.txt",
+    "DISCLAIMER.md",
+    "EULA.md",
+    "LICENSE",
+    "NOTICE.md",
+    "PRIVACY.md",
+    "README.md",
+    "SECURITY.md",
+    "THIRD_PARTY_LICENSES.md",
+    "dist-web/"
+  ],
   "scripts": {
     "before:release": "npm run before:release:check && npm run sanitize-assets",
     "before:release:check": "npm run ts:check && npm run prettier:check && npm run lint",
