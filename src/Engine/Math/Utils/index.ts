@@ -1,1 +1,2 @@
-export * from './MathUtils';
+export * from './AnglesUtils';
+export * from './DistanceUtils';
