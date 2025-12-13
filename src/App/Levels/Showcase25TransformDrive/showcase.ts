@@ -26,7 +26,7 @@ import type {
   TText3dWrapper,
   TWithPresetNamePhysicsBodyParams
 } from '@/Engine';
-import { Engine, getDistancePrecisely, getMouseAzimuthAndElevation, getPushCoordsFrom3dAzimuthRad, isNotDefined, KeysExtra, spaceService, TransformAgent } from '@/Engine';
+import { Engine, getDistancePrecisely, getMouseAzimuthAndElevation, getPushCoordsFrom3dAzimuthDeg, isNotDefined, KeysExtra, spaceService, TransformAgent } from '@/Engine';
 import { meters } from '@/Engine/Measurements/Utils';
 import { getHumanReadableMemorySize } from '@/Engine/Utils/FileUtils';
 
@@ -186,9 +186,8 @@ function moveActorTo(actor: TActor, position: Vector3, agent: TransformAgent, is
       // no need to do anything here, cause already connected
       return undefined;
     case TransformAgent.Physical:
-      // TODO 8.0.0. MODELS: Implement Physics movement
       forcePower = getDistancePrecisely(actor.drive.getPosition(), position).toNumber();
-      actor.drive.physical.physicsBody$.value?.getRigidBody()?.applyImpulse(getPushCoordsFrom3dAzimuthRad(radToDeg(azimuth), 0, forcePower * 1.5), true);
+      actor.drive.physical.physicsBody$.value?.getRigidBody()?.applyImpulse(getPushCoordsFrom3dAzimuthDeg(radToDeg(azimuth), 0, forcePower * 1.5), true);
       return undefined;
     default:
       throw new Error(`Unknown agent: ${agent}`);

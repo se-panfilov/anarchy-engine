@@ -5,7 +5,7 @@ import { LineMaterial } from 'three/examples/jsm/lines/LineMaterial';
 
 import type { TShowcase } from '@/App/Levels/Models';
 import type { TActor, TAppCanvas, TCameraWrapper, TEngine, TIntersectionEvent, TIntersectionsWatcher, TSceneWrapper, TSpace, TSpaceConfig } from '@/Engine';
-import { Engine, getDistancePrecisely, getHorizontalAzimuthDeg, getPushCoordsFrom3dAzimuthRad, isActorHasPhysicsBody, isDefined, isNotDefined, KeysExtra, spaceService, TextType } from '@/Engine';
+import { Engine, getDistancePrecisely, getHorizontalAzimuthDeg, getPushCoordsFrom3dAzimuthDeg, isActorHasPhysicsBody, isDefined, isNotDefined, KeysExtra, spaceService, TextType } from '@/Engine';
 import { meters } from '@/Engine/Measurements/Utils';
 
 import spaceConfig from './showcase.json';
@@ -40,7 +40,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     if (isNotDefined(cameraW)) throw new Error(`Cannot find active camera`);
 
     mouseService.clickLeftRelease$.subscribe(() => {
-      ballActorW.physicsBody.getRigidBody()?.applyImpulse(getPushCoordsFrom3dAzimuthRad(azimuth, 0, forcePower * 10.5), true);
+      ballActorW.physicsBody.getRigidBody()?.applyImpulse(getPushCoordsFrom3dAzimuthDeg(azimuth, 0, forcePower * 10.5), true);
     });
 
     keyboardService.onKey(KeysExtra.Space).pressed$.subscribe((): void => {
