@@ -1,3 +1,4 @@
+import { isEmpty } from 'lodash-es';
 import type { MaterialJSON } from 'three';
 
 import { serializeColor } from '@/Engine/Color';
@@ -102,14 +103,20 @@ function getMaterialTextures({ entity }: TMaterialWrapper, textureResourceRegist
     mapsKeys[key] = textureName;
   });
 
-  return mapsKeys;
+  return isEmpty(mapsKeys) ? undefined : mapsKeys;
+}
+
+function isTextureKey(key: string): key is keyof TMaterialParamsTextures {
+  return key.toLowerCase().endsWith('map');
 }
 
 function getMaps(entity: TMaterials): TMaterialParamsTextures {
   return filterOutEmptyFields(
-    Object.entries(entity).reduce((acc: TMaterialParamsTextures, [key, value]: [string, string]): TMaterialParamsTextures => {
-      // eslint-disable-next-line functional/immutable-data
-      if (key.toLowerCase().endsWith('map')) acc[key] = value;
+    Object.entries(entity).reduce((acc: TMaterialParamsTextures, [key, value]): TMaterialParamsTextures => {
+      if (isTextureKey(key)) {
+        // eslint-disable-next-line functional/immutable-data
+        acc[key] = value as TMaterialParamsTextures[typeof key];
+      }
       return acc;
     }, {})
   );
