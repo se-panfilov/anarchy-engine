@@ -6,24 +6,12 @@ import { LineGeometry } from 'three/examples/jsm/lines/LineGeometry';
 import { LineMaterial } from 'three/examples/jsm/lines/LineMaterial';
 
 import type { TShowcase } from '@/App/Levels/Models';
-import type {
-  TActorWrapperAsync,
-  TAppCanvas,
-  TCameraWrapper,
-  TEngine,
-  TIntersectionEvent,
-  TIntersectionsWatcher,
-  TPhysicsDebugRenderer,
-  TSceneWrapper,
-  TSpace,
-  TSpaceConfig,
-  TWithCoordsXYZ
-} from '@/Engine';
 import {
   buildSpaceFromConfig,
   degreesToQuaternion,
   Engine,
   EulerWrapper,
+  getDistance,
   getHorizontalAzimuth,
   getPushCoordsFrom3dAzimuth,
   isDefined,
@@ -32,7 +20,18 @@ import {
   mouseService,
   PhysicsDebugRenderer,
   STANDARD_GRAVITY,
+  TActorWrapperAsync,
+  TAppCanvas,
+  TCameraWrapper,
+  TEngine,
   TextType,
+  TIntersectionEvent,
+  TIntersectionsWatcher,
+  TPhysicsDebugRenderer,
+  TSceneWrapper,
+  TSpace,
+  TSpaceConfig,
+  TWithCoordsXYZ,
   Vector3Wrapper
 } from '@/Engine';
 import { meters } from '@/Engine/Measurements/Utils';
@@ -62,29 +61,13 @@ export function showcase(canvas: TAppCanvas): TShowcase {
   const line: Line2 = createLine();
   sceneWrapper.entity.add(line);
 
-  const groundColliderDesc: ColliderDesc = ColliderDesc.cuboid(meters(10), meters(0.1), meters(10));
-  world.createCollider(groundColliderDesc);
-
-  const wallLeftColliderDesc: ColliderDesc = ColliderDesc.cuboid(meters(0.5), meters(2.5), meters(10)).setTranslation(-10.5, 0, 0);
-  world.createCollider(wallLeftColliderDesc);
-
-  const wallRightColliderDesc: ColliderDesc = ColliderDesc.cuboid(meters(0.5), meters(2.5), meters(10)).setTranslation(10.5, 0, 0);
-  world.createCollider(wallRightColliderDesc);
-
-  const wallFrontColliderDesc: ColliderDesc = ColliderDesc.cuboid(meters(0.5), meters(2.5), meters(11))
-    .setTranslation(0, 0, -10.5)
-    .setRotation(degreesToQuaternion({ x: 0, y: 90, z: 0 }));
-  world.createCollider(wallFrontColliderDesc);
-
-  const wallBackColliderDesc: ColliderDesc = ColliderDesc.cuboid(meters(0.5), meters(2.5), meters(11))
-    .setTranslation(0, 0, 10.5)
-    .setRotation(degreesToQuaternion({ x: 0, y: 90, z: 0 }));
-  world.createCollider(wallBackColliderDesc);
+  createWallsAndFloor(world);
 
   let azimuth: number = 0;
+  let forcePower: number = 0;
 
   mouseService.clickLeftRelease$.subscribe(() => {
-    ballRigidBody.setLinvel(getPushCoordsFrom3dAzimuth(azimuth, 0, 5), true);
+    ballRigidBody.setLinvel(getPushCoordsFrom3dAzimuth(azimuth, 0, forcePower * 1.5), true);
   });
 
   keyboardService.onKey(KeysExtra.Space).pressed$.subscribe((): void => {
@@ -120,12 +103,23 @@ export function showcase(canvas: TAppCanvas): TShowcase {
       tags: []
     });
 
+    const forcePowerText = textService.create({
+      text: 'Force...',
+      type: TextType.Text3d,
+      cssProps: { fontSize: '0.05rem' },
+      position: Vector3Wrapper({ x: 3, y: 0, z: 7 }),
+      rotation: EulerWrapper({ x: -1.57, y: 0, z: 0 }),
+      tags: []
+    });
+
     let mouseLineIntersectionsCoords: Vector3 | undefined = undefined;
     mouseLineIntersectionsWatcher.value$.subscribe((intersection: TIntersectionEvent) => {
       mouseLineIntersectionsCoords = intersection.point;
+      forcePower = getDistance(ballActorW.getPosition().getCoords(), mouseLineIntersectionsCoords);
       const ballCoords: TWithCoordsXYZ = ballActorW.getPosition().getCoords();
       azimuth = getHorizontalAzimuth({ x: ballCoords.x, z: ballCoords.z }, mouseLineIntersectionsCoords);
       azimuthText.setText(`Azimuth: ${azimuth}`);
+      forcePowerText.setText(`Force: ${forcePower}`);
     });
 
     // TODO (S.Panfilov) extract physics world update to the main loop
@@ -169,4 +163,25 @@ function createLine(): Line2 {
   geometry.setPositions([0, 0, 0, 0, 0, 0]);
 
   return new Line2(geometry, material);
+}
+
+function createWallsAndFloor(world: World): void {
+  const groundColliderDesc: ColliderDesc = ColliderDesc.cuboid(meters(10), meters(0.1), meters(10));
+  world.createCollider(groundColliderDesc);
+
+  const wallLeftColliderDesc: ColliderDesc = ColliderDesc.cuboid(meters(0.5), meters(2.5), meters(10)).setTranslation(-10.5, 0, 0);
+  world.createCollider(wallLeftColliderDesc);
+
+  const wallRightColliderDesc: ColliderDesc = ColliderDesc.cuboid(meters(0.5), meters(2.5), meters(10)).setTranslation(10.5, 0, 0);
+  world.createCollider(wallRightColliderDesc);
+
+  const wallFrontColliderDesc: ColliderDesc = ColliderDesc.cuboid(meters(0.5), meters(2.5), meters(11))
+    .setTranslation(0, 0, -10.5)
+    .setRotation(degreesToQuaternion({ x: 0, y: 90, z: 0 }));
+  world.createCollider(wallFrontColliderDesc);
+
+  const wallBackColliderDesc: ColliderDesc = ColliderDesc.cuboid(meters(0.5), meters(2.5), meters(11))
+    .setTranslation(0, 0, 10.5)
+    .setRotation(degreesToQuaternion({ x: 0, y: 90, z: 0 }));
+  world.createCollider(wallBackColliderDesc);
 }
