@@ -1,12 +1,11 @@
 import { AbstractWrapper, WrapperType } from '@/Engine/Domains/Abstract';
-import { textureService } from '@/Engine/Domains/Texture';
-import type { ITexture, ITextureParams, ITextureWrapper } from '@/Engine/Domains/Texture/Models';
+import type { ITexture, ITextureWrapper } from '@/Engine/Domains/Texture/Models';
 
-export function TextureWrapper(params: ITextureParams): ITextureWrapper {
-  const entity: ITexture = textureService.load(params);
+export function TextureWrapper(texture: ITexture): ITextureWrapper {
+  const entity: ITexture = texture;
 
   return {
-    ...AbstractWrapper(entity, WrapperType.Texture, params),
+    ...AbstractWrapper(entity, WrapperType.Texture),
     entity
   };
 }
