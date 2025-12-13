@@ -13,7 +13,7 @@ export const useSettingsStore = defineStore('settingsStore', () => {
     ...DefaultShowcaseGameSettings
   });
 
-  const onLocaleChanged = (nextLocale: TLocale): void => vueTranslationService.locale$.next(nextLocale);
+  const onLocaleChanged = (nextLocale: TLocale): Promise<void> => vueTranslationService.setLocale(nextLocale);
 
   watch(
     () => state.localization.locale.id,

@@ -5,7 +5,7 @@ import type { FormatNumberOptions, IntlCache, IntlShape } from '@formatjs/intl';
 import { createIntl, createIntlCache } from '@formatjs/intl';
 import type { FormatDateOptions } from '@formatjs/intl/src/types';
 import type { Observable, Subscription } from 'rxjs';
-import { BehaviorSubject, concatMap, distinctUntilChanged, filter, firstValueFrom, from, map, Subject } from 'rxjs';
+import { BehaviorSubject, distinctUntilChanged, filter, firstValueFrom, Subject } from 'rxjs';
 
 export function TranslationService(initialLocale: TLocale, defaultLocale: TLocale, locales: TLocalesMapping): TTranslationService {
   const loaded: Map<TLocaleId, TMessages> = new Map<TLocaleId, TMessages>();
@@ -20,18 +20,12 @@ export function TranslationService(initialLocale: TLocale, defaultLocale: TLocal
   const intl$: BehaviorSubject<IntlShape<string> | undefined> = new BehaviorSubject<IntlShape<string> | undefined>(undefined);
 
   function getIntl(locale: TLocale): IntlShape<string> {
-    // console.log('XXX11', ready$.value);
-    console.log('XXX8 1 getIntl', locale.id);
     const existed: IntlShape<string> | undefined = intlMap.get(locale.id);
-    console.log('XXX8 2 existed', locale.id, existed?.locale);
     if (isDefined(existed)) return existed;
 
     const current: TMessages = loaded.get(locale.id) ?? {};
     const fallback: TMessages = loaded.get(defaultLocale.id) ?? {};
 
-    console.log('XXX10 1', current);
-    console.log('XXX10 2', fallback);
-    console.log('XXX10 3', loaded);
     const intl: IntlShape<string> = createIntl({ locale: locale.id, defaultLocale: defaultLocale.id, messages: { ...fallback, ...current } }, cache);
 
     intlMap.set(locale.id, intl);
@@ -59,13 +53,8 @@ export function TranslationService(initialLocale: TLocale, defaultLocale: TLocal
     if (isNotDefined(loadFn)) throw new Error('[TranslateService]: The locale is not defined in the locales mapping');
     const messages: TMessages = await loadLocaleSafe(loadFn, locale.id);
 
-    console.log('XXX9', locale.id, messages['gui.bottom.button.attack.title']);
-
     loaded.set(locale.id, messages);
     removeFromLoading(locale.id);
-
-    // intlMap.clear();
-    // intl$.next(getIntl(locale));
 
     return Promise.resolve();
   }
@@ -78,30 +67,29 @@ export function TranslationService(initialLocale: TLocale, defaultLocale: TLocal
     }
   }
 
-  const localeSub$: Subscription = locale$
-    .pipe(
-      distinctUntilChanged((prev: TLocale, current: TLocale): boolean => prev.id === current.id),
-      concatMap((locale: TLocale) => from(loadLocale(locale)).pipe(map((): [TLocale, IntlShape<string>] => [locale, getIntl(locale)])))
-    )
-    .subscribe(([locale, intl]: [TLocale, IntlShape<string>]): void => {
-      const html: HTMLElement | undefined = document?.documentElement;
-      html?.setAttribute?.('lang', intl.locale);
-      html?.setAttribute?.('dir', locale.direction);
+  async function setLocale(locale: TLocale): Promise<void> {
+    await loadLocale(locale);
+    getIntl(locale);
+    locale$.next(locale);
+  }
 
-      // This allows to change the font depending on the locale.
-      // To have effect, you should define in related @fontFaces and add variable, e.g.:
-      //:root {
-      //   --anarchy-i18n-font: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
-      // }
-      // body { font-family: var(--anarchy-i18n-font); }
-      if (isDefined(locale.font)) html?.style?.setProperty('--anarchy-i18n-font', locale.font);
+  const localeSub$: Subscription = locale$.pipe(distinctUntilChanged((prev: TLocale, current: TLocale): boolean => prev.id === current.id)).subscribe((locale: TLocale): void => {
+    const html: HTMLElement | undefined = document?.documentElement;
+    html?.setAttribute?.('lang', intl$.value?.locale ?? locale.id);
+    html?.setAttribute?.('dir', locale.direction);
 
-      return void intl$.next(intl);
-    });
+    // This allows to change the font depending on the locale.
+    // To have effect, you should define in related @fontFaces and add variable, e.g.:
+    //:root {
+    //   --anarchy-i18n-font: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+    // }
+    // body { font-family: var(--anarchy-i18n-font); }
+    if (isDefined(locale.font)) html?.style?.setProperty('--anarchy-i18n-font', locale.font);
+  });
 
   //Preload the locales (without waiting for the result)
-  locale$.next(defaultLocale);
-  if (defaultLocale.id !== initialLocale.id) locale$.next(initialLocale);
+  setLocale(defaultLocale);
+  if (defaultLocale.id !== initialLocale.id) setLocale(initialLocale);
 
   const destroySub$: Subscription = destroy$.subscribe((): void => {
     destroySub$.unsubscribe();
@@ -111,32 +99,27 @@ export function TranslationService(initialLocale: TLocale, defaultLocale: TLocal
     intl$.complete();
   });
 
-  const waitForTrue = async (source$: Observable<boolean>): Promise<void> => firstValueFrom(source$.pipe(filter(Boolean)));
+  const waitForTrue = async (source$: Observable<boolean>): Promise<boolean> => firstValueFrom(source$.pipe(filter(Boolean)));
+
+  function translate(id: string, params?: Record<string, string>): string | never {
+    const intl: IntlShape<string> | undefined = intl$.value;
+    // const intl: IntlShape<string> | undefined = getIntl(locale$.value);
+    if (isNotDefined(intl)) throw new Error(`[TranslateService]: The service is not ready. Tried to translate: "${id}"`);
+
+    const defaultMessage: string = (loaded.get(defaultLocale.id) ?? {})[id] ?? id;
+    const result: string = intl.formatMessage({ id, defaultMessage }, params);
+
+    if (result === id) console.warn(`[TranslateService]: Can't find translation for "${id}".`);
+    return result;
+  }
 
   const result: Omit<TTranslationService, keyof TReactiveTranslationMixin> = {
-    // translate: (id: string, params?: Record<string, string>): string | never => {
-    translate: async (id: string, params?: Record<string, string>): Promise<string> | never => {
+    setLocale,
+    translateSafe: async (id: string, params?: Record<string, string>): Promise<string> => {
       await waitForTrue(ready$);
-      console.log('XXX12', ready$.value);
-      console.log('XXX13', getIntl(locale$.value).locale, locale$.value.id);
-      //awaiting for ready$.value is true
-      // await new Promise<void>((resolve: () => void): void => {
-      //   if (ready$.value) return resolve();
-      // });
-
-      // const intl: IntlShape<string> | undefined = intl$.value;
-      const intl: IntlShape<string> | undefined = getIntl(locale$.value);
-      console.log('XXX8 3 intl.locale', intl?.locale);
-      if (isNotDefined(intl)) throw new Error(`[TranslateService]: The service is not ready. Tried to translate: "${id}"`);
-
-      const defaultMessage: string = (loaded.get(defaultLocale.id) ?? {})[id] ?? id;
-      const result: string = intl.formatMessage({ id, defaultMessage }, params);
-      if (id === 'gui.bottom.button.attack.title') console.log('XXX8 4 result', intl.locale, locale$.value.id, defaultMessage, result);
-
-      if (result === id) console.warn(`[TranslateService]: Can't find translation for "${id}".`);
-      return result;
+      return translate(id, params);
     },
-    // TODO DESKTOP: formatDate and formatNumber also should be async to wait for intl to be ready
+    translate,
     formatDate: (value: Date | number, options?: FormatDateOptions): string | never => {
       const intl: IntlShape<string> | undefined = intl$.value;
       if (isDefined(intl)) return intl.formatDate(value, options);
@@ -148,7 +131,8 @@ export function TranslationService(initialLocale: TLocale, defaultLocale: TLocal
       throw new Error(`[TranslateService]: The service is not ready. Tried to formatNumber: "${value}"`);
     },
     ready$,
-    locale$,
+    locale$: locale$.asObservable(),
+    getCurrentLocale: (): TLocale => locale$.value,
     destroy$,
     intl$: intl$.asObservable()
   };
