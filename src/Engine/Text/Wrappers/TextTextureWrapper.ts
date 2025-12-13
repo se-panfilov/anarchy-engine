@@ -34,6 +34,7 @@ export function createTextTextureWrapper(params: TTextParams, type: TextType, de
   async function setText(newText: string): Promise<void> {
     text = newText;
     const fontSize: string = toPx(params.cssProps?.fontSize);
+
     const fontSizeNoUnits: number = stripUnits(fontSize);
     const fontFamily: string | undefined = params.cssProps?.fontFamily;
 
@@ -42,9 +43,6 @@ export function createTextTextureWrapper(params: TTextParams, type: TextType, de
 
     // eslint-disable-next-line functional/immutable-data
     context.font = `${fontSize} ${fontFamily ?? 'Arial'}`;
-
-    // TODO CWP font size after the load doesn't match (due to units?)
-    console.log('XXX2 context.font', context.font);
 
     const textMetrics: TextMetrics = context.measureText(text);
     const padding: number = fontSizeNoUnits * 0.2;
