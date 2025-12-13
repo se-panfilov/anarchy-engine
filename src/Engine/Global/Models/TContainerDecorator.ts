@@ -11,7 +11,7 @@ export type TContainerDecorator = Readonly<{
   stopWatch: (type: string, cb: (...args: ReadonlyArray<never>) => void) => void;
   getAppContainer: () => TAppGlobalContainer | never;
   getElement: () => TAppGlobalContainer | HTMLElement;
-  resize$: Observable<ReadonlyArray<ResizeObserverEntry> | Event>;
+  resize$: Observable<DOMRect>;
   viewportRect$: BehaviorSubject<DOMRect | undefined>;
 }> &
   TWithId &

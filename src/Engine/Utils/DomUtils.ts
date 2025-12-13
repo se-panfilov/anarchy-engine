@@ -1,5 +1,5 @@
-import type { Observable } from 'rxjs';
-import { distinctUntilChanged, fromEvent, map, startWith } from 'rxjs';
+import type { Subscriber } from 'rxjs';
+import { distinctUntilChanged, fromEvent, map, merge, Observable, startWith } from 'rxjs';
 
 import { ambientContext } from '@/Engine/Context';
 import type { TAppGlobalContainer, TContainerDecorator } from '@/Engine/Global';
@@ -75,6 +75,43 @@ export function isAppGlobalContainer(container: TAppGlobalContainer | TContainer
   return isDefined((container as TAppGlobalContainer).document);
 }
 
+function getRect(container: HTMLElement | TAppGlobalContainer): DOMRect {
+  if (isAppGlobalContainer(container)) {
+    return {
+      top: 0,
+      left: 0,
+      width: window.innerWidth,
+      height: window.innerHeight
+    } as DOMRect;
+  } else {
+    return container.getBoundingClientRect();
+  }
+}
+
+export function observeContainerRect(container: HTMLElement | TAppGlobalContainer): Observable<DOMRect> {
+  const resizeObserver$ = new Observable<DOMRect>((observer: Subscriber<DOMRect>) => {
+    if (isAppGlobalContainer(container)) return undefined;
+
+    const resizeObserver = new ResizeObserver((): void => observer.next(getRect(container)));
+    resizeObserver.observe(container as HTMLElement);
+
+    return (): void => resizeObserver.disconnect();
+  });
+
+  const generalEvents$: Observable<DOMRect> = merge(
+    fromEvent(window, 'resize'),
+    fromEvent(window, 'scroll', { passive: true }),
+    fromEvent(document, 'fullscreenchange'),
+    fromEvent(window, 'orientationchange'),
+    fromEvent(document, 'visibilitychange')
+  ).pipe(map((): DOMRect => getRect(container)));
+
+  return merge(generalEvents$, resizeObserver$).pipe(
+    startWith(getRect(container)),
+    distinctUntilChanged((a: DOMRect, b: DOMRect): boolean => a.top === b.top && a.left === b.left && a.width === b.width && a.height === b.height)
+  );
+}
+
 export function observeResize(
   container: TAppGlobalContainer | HTMLElement,
   callback: (list: ReadonlyArray<ResizeObserverEntry> | Event) => void
@@ -97,25 +134,4 @@ export function observeResize(
       resizeObserver.disconnect();
     }
   };
-}
-
-export function trackScroll(element: HTMLElement): Observable<{ scrollTop: number; scrollLeft: number }> {
-  return fromEvent(element, 'scroll').pipe(
-    startWith(null),
-    map(() => ({
-      scrollTop: element.scrollTop,
-      scrollLeft: element.scrollLeft
-    })),
-    distinctUntilChanged((a, b) => a.scrollTop === b.scrollTop && a.scrollLeft === b.scrollLeft)
-  );
-}
-
-export function onFullScreenChange(container: TAppGlobalContainer, element: HTMLElement): Observable<DOMRect> {
-  return fromEvent(container.document, 'fullscreenchange').pipe(
-    startWith(null),
-    map((): DOMRect => {
-      return element.getBoundingClientRect();
-    }),
-    distinctUntilChanged((a: DOMRect, b: DOMRect): boolean => a.left === b.left && a.top === b.top && a.width === b.width && a.height === b.height)
-  );
 }
