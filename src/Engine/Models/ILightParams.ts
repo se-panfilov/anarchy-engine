@@ -1,19 +1,19 @@
 import type { Vector2, Vector3 } from 'three';
 import type { Color } from 'three/src/math/Color';
 
-export interface ILightParams {
-  readonly type: ILightType;
-  readonly color: Color;
-  readonly intensity?: number;
-  readonly position: Vector3;
-  readonly castShadow: boolean;
-  readonly shadow?: ILightShadowParams;
-}
+export type ILightParams = Readonly<{
+  type: ILightType;
+  color: Color;
+  intensity?: number;
+  position: Vector3;
+  castShadow: boolean;
+  shadow?: ILightShadowParams;
+}>;
 
-export interface ILightShadowParams {
-  readonly mapSize: Vector2;
-  readonly camera: Readonly<{ far: number }>;
-  readonly normalBias: number;
-}
+export type ILightShadowParams = Readonly<{
+  mapSize: Vector2;
+  camera: Readonly<{ far: number }>;
+  normalBias: number;
+}>;
 
 export type ILightType = 'ambient' | 'directional';

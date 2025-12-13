@@ -1,3 +1,3 @@
-export interface ISceneParams {
-  readonly name: string;
-}
+export type ISceneParams = Readonly<{
+  name: string;
+}>;

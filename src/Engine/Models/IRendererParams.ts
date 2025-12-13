@@ -1,3 +1,3 @@
-export interface IRendererParams {
-  readonly canvas: HTMLElement;
-}
+export type IRendererParams = Readonly<{
+  canvas: HTMLElement;
+}>;

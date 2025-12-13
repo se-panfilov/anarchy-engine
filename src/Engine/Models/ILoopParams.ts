@@ -1,3 +1,3 @@
-export type ILoopParams = {
+export type ILoopParams = Readonly<{
   tag: string;
-};
+}>;

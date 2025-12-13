@@ -10,6 +10,6 @@ export interface IActorConfig extends Omit<IActorParams, 'materialParams' | 'pos
   readonly castShadow: boolean;
 }
 
-export interface ActorMaterialConfig {
-  readonly color: string;
-}
+export type ActorMaterialConfig = Readonly<{
+  color: string;
+}>;

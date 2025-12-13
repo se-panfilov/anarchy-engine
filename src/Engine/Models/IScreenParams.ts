@@ -1,5 +1,5 @@
-export interface IScreenParams {
-  readonly width: number;
-  readonly height: number;
-  readonly ratio: number;
-}
+export type IScreenParams = Readonly<{
+  width: number;
+  height: number;
+  ratio: number;
+}>;

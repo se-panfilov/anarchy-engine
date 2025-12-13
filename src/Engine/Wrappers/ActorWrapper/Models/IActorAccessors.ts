@@ -1,6 +1,6 @@
 import type { Vector3 } from 'three';
 
-export interface IActorAccessors {
-  readonly setPosition: (x: number, y: number, z: number) => Vector3;
-  readonly setCastShadow: (value: boolean) => boolean;
-}
+export type IActorAccessors = Readonly<{
+  setPosition: (x: number, y: number, z: number) => Vector3;
+  setCastShadow: (value: boolean) => boolean;
+}>;

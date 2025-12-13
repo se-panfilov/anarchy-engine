@@ -1,16 +1,16 @@
 import type { MeshToonMaterialParameters, Vector3 } from 'three';
 
-export interface IActorParams {
-  readonly type: IActorType;
-  readonly width?: number;
-  readonly height?: number;
-  readonly radius?: number;
-  readonly widthSegments?: number;
-  readonly heightSegments?: number;
-  readonly materialParams?: MeshToonMaterialParameters;
-  readonly position: Vector3;
-  readonly rotation?: Vector3;
-  readonly castShadow: boolean;
-}
+export type IActorParams = Readonly<{
+  type: IActorType;
+  width?: number;
+  height?: number;
+  radius?: number;
+  widthSegments?: number;
+  heightSegments?: number;
+  materialParams?: MeshToonMaterialParameters;
+  position: Vector3;
+  rotation?: Vector3;
+  castShadow: boolean;
+}>;
 
 export type IActorType = 'sphere' | 'plane';

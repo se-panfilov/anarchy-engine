@@ -1,10 +1,10 @@
 import type { Vector3, Vector2 } from 'three';
 
-export interface ILightAccessors {
-  readonly setPosition: (x: number, y: number, z: number) => Vector3;
-  readonly setCastShadow: (value: boolean) => boolean;
-  readonly setControls: (x: number, y: number, z: number) => Vector3;
-  readonly setShadowMapSize: (x: number, y: number) => Vector2;
-  readonly setFar: (value: number) => number;
-  readonly setNormalBias: (val: number) => number;
-}
+export type ILightAccessors = Readonly<{
+  setPosition: (x: number, y: number, z: number) => Vector3;
+  setCastShadow: (value: boolean) => boolean;
+  setControls: (x: number, y: number, z: number) => Vector3;
+  setShadowMapSize: (x: number, y: number) => Vector2;
+  setFar: (value: number) => number;
+  setNormalBias: (val: number) => number;
+}>;

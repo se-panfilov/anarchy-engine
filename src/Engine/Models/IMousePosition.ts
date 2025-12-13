@@ -1,4 +1,4 @@
-export interface IMousePosition {
-  readonly x: number;
-  readonly y: number;
-}
+export type IMousePosition = Readonly<{
+  x: number;
+  y: number;
+}>;
