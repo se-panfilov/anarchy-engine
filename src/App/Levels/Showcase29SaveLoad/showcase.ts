@@ -79,9 +79,7 @@ export function start(): void {
     spacesData.map((space: TSpacesData): string => space.name)
   );
 
-  // TODO debug
-  // loadSpace(spaceBasicConfig.name);
-  loadSpace(spaceCustomModelsConfig.name);
+  loadSpace(spaceBasicConfig.name);
 }
 
 function loadSpace(name: string): void {
@@ -137,8 +135,6 @@ function loadSpaceConfigFromMemory(name: string | undefined): void {
   if (isNotDefined(name)) return;
   const spaceData: TSpacesData | undefined = spacesInMemoryData.find((s: TSpacesData): boolean => s.name === name);
   if (isNotDefined(spaceData)) throw new Error(`[Showcase]: Space data is not found for space "${name}"`);
-
-  console.log('XXX', spaceData.config);
 
   const spaces: ReadonlyArray<TSpace> = spaceService.createFromConfig([spaceData.config]);
   const space: TSpace = spaces.find((s: TSpace): boolean => s.name === name) as TSpace;
