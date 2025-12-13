@@ -1,12 +1,14 @@
 import type { Observable, Subscription } from 'rxjs';
 import { BehaviorSubject, combineLatest, EMPTY, switchMap } from 'rxjs';
 import type { QuaternionLike } from 'three';
-import { Object3D, Quaternion, Vector3 } from 'three';
+import { Euler, Object3D, Quaternion, Vector3 } from 'three';
+import { radToDeg } from 'three/src/math/MathUtils';
 import type { Vector3Like } from 'three/src/math/Vector3';
 
 import { metersPerSecond } from '@/Engine/Distance';
 import type { TKinematicData, TKinematicWritableData } from '@/Engine/Kinematic/Models';
 import type { TMeters, TMetersPerSecond, TMilliseconds, TRadians, TRadiansPerSecond } from '@/Engine/Math';
+import { getAzimuthElevationFromVector, getAzimuthFromDirection, getElevationFromDirection } from '@/Engine/Math';
 import { meters } from '@/Engine/Measurements';
 import { TransformAgent } from '@/Engine/TransformDrive/Constants';
 import type { TAbstractTransformAgent, TKinematicAgentDependencies, TKinematicSpeed, TKinematicTransformAgent, TKinematicTransformAgentParams } from '@/Engine/TransformDrive/Models';
@@ -45,6 +47,9 @@ export function KinematicTransformAgent(params: TKinematicTransformAgentParams, 
         angularSpeed: params.state.angularSpeed ?? 0,
         radius: params.state.radius ?? meters(1),
         angularDirection: params.state.angularDirection?.clone() ?? new Quaternion()
+        angularDirection: params.state.angularDirection?.clone() ?? new Quaternion(),
+        // TODO 8.0.0. MODELS: the default "forwardAxis" perhaps should be "X"
+        forwardAxis: params.state.forwardAxis ?? 'Z'
       },
       target: {
         positionThreshold: 0.01,
@@ -87,6 +92,13 @@ export function KinematicTransformAgent(params: TKinematicTransformAgentParams, 
     setRadius(radius: TMeters): void {
       // eslint-disable-next-line functional/immutable-data
       agent.data.state.radius = radius;
+    },
+    getForwardAxis(): 'X' | 'Z' {
+      return agent.data.state.forwardAxis;
+    },
+    setForwardAxis(axis: 'X' | 'Z'): void {
+      // eslint-disable-next-line functional/immutable-data
+      agent.data.state.forwardAxis = axis;
     },
     moveTo(targetPosition: Vector3, speed: TKinematicSpeed): void | never {
       if (isInstant(speed)) return moveInstantly(agent, targetPosition);

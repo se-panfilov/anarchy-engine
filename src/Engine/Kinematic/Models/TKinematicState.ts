@@ -9,6 +9,7 @@ export type TKinematicState = Readonly<{
   radius: TMeters;
   angularSpeed: TRadiansPerSecond;
   angularDirection: Quaternion;
+  forwardAxis: 'X' | 'Z';
 }>;
 
 export type TKinematicConfigState = Omit<TKinematicState, 'linearDirection' | 'angularDirection'> &

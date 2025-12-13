@@ -9,21 +9,12 @@ import type { TDegrees, TMetersPerSecond, TRadians } from '@/Engine/Math';
 import type { TEulerLike } from '@/Engine/ThreeLib';
 import { isEulerLike, isQuaternionLike } from '@/Engine/Utils';
 
-// TODO add unit tests
-export const degToRadPrecise = (degrees: TDegrees): Decimal => new Decimal(degrees).times(Math.PI).div(180);
-// TODO add unit tests
-export const cosPrecise = (value: Decimal): Decimal => Decimal.cos(value);
-// TODO add unit tests
-export const sinPrecise = (value: Decimal): Decimal => Decimal.sin(value);
-// TODO add unit tests
-export const radiansToDegreesPrecise = (radians: TRadians): Decimal => new Decimal(radians).times(180).div(Math.PI);
-
-export function getHorizontalAzimuth(x: number, z: number, point: Vector3Like): TRadians {
+export function getHorizontalAzimuth(x: number, z: number, point: Vector3Like, forwardAxis: 'X' | 'Z' = 'X'): TRadians {
   const dx: number = point.x - x;
   const dz: number = point.z - z;
 
   let azimuthRad: number = Math.atan2(dz, dx);
-  azimuthRad = -azimuthRad + Math.PI / 2;
+  if (forwardAxis.toLocaleLowerCase() === 'Z'.toLocaleLowerCase()) azimuthRad = -azimuthRad + Math.PI / 2;
   azimuthRad = euclideanModulo(azimuthRad, Math.PI * 2);
 
   return azimuthRad as TRadians;
@@ -38,6 +29,30 @@ export function getElevation(x: number, y: number, z: number, point: Vector3Like
   const horizontalDistance: number = Math.sqrt(dx ** 2 + dz ** 2);
 
   return Math.atan2(dy, horizontalDistance) as TRadians;
+}
+
+// TODO add unit tests
+export function getAzimuthElevationFromQuaternion(q: Quaternion): { azimuth: TRadians; elevation: TRadians } {
+  const { x, y, z, w } = q;
+
+  const azimuth: TRadians = Math.atan2(2 * (w * z + x * y), 1 - 2 * (y * y + z * z)) as TRadians;
+  const elevation: TRadians = Math.asin(2 * (w * y - z * x)) as TRadians;
+
+  return { azimuth, elevation };
+}
+
+export function getAzimuthElevationFromVector(v: Vector3Like, forwardAxis: 'X' | 'Z' = 'X'): { azimuth: TRadians; elevation: TRadians } {
+  let azimuth: TRadians;
+
+  if (forwardAxis === 'Z') {
+    azimuth = Math.atan2(v.x, v.z) as TRadians;
+  } else {
+    azimuth = Math.atan2(v.z, v.x) as TRadians;
+  }
+
+  const elevation: TRadians = Math.atan2(v.y, Math.sqrt(v.x * v.x + v.z * v.z)) as TRadians;
+
+  return { azimuth: euclideanModulo(azimuth, Math.PI * 2) as TRadians, elevation };
 }
 
 // TODO add unit tests
@@ -63,8 +78,6 @@ export const getAzimutFromQuaternionDirection = (quaternion: QuaternionLike): TR
   return azimuth;
 };
 
-// TODO add unit tests
-export const getAzimuthDegFromDirection = (direction: Vector3Like): TDegrees => radToDeg(getAzimuthFromDirection(direction)) as TDegrees;
 // TODO add unit tests
 export const getElevationFromDirection = (direction: Vector3Like): TRadians => Math.atan2(direction.y, Math.sqrt(direction.x ** 2 + direction.z ** 2)) as TRadians;
 // TODO add unit tests
