@@ -87,6 +87,7 @@ export const JsRules = {
         'euler',
         'ffmpeg',
         'fov',
+        'gitignore',
         'glb',
         'gltf',
         'gog',
@@ -259,6 +260,7 @@ export const JsRules = {
         '[W-w]ebgl[0-9]?',
         '[W-w]ebgpu[0-9]?',
         '[W-w]ebkit',
+        '[W-w]orkspace[s]?',
         '[X-x]yz[w]?'
       ],
       minLength: 3
