@@ -4,6 +4,7 @@
   "scenes": [
     {
       "name": "showcase",
+      "background": "#A0A0A0",
       "tags": [],
       "isActive": true
     }
@@ -22,11 +23,11 @@
   "actors": [
     {
       "name": "surface",
-      "width": 60,
-      "height": 40,
+      "width": 100,
+      "height": 100,
       "widthSegments": 1,
       "heightSegments": 1,
-      "material": { "type": "standard", "params": { "color": "#5EDCAE" } },
+      "material": { "type": "phong", "params": { "color": "#CBCBCB", "depthWrite": false } },
       "model3d": {
         "url": "plane"
       },
@@ -62,7 +63,6 @@
       "far": 100,
       "position": { "x": -0.58, "y": 1.9, "z": -1.93 },
       "rotation": { "x": 0, "y": 0, "z": 0 },
-      "tags": [],
       "isActive": true
     }
   ],
@@ -71,7 +71,7 @@
       "name": "dir_light",
       "type": "Directional",
       "color": "#ffffff",
-      "intensity": 0.5,
+      "intensity": 3,
       "castShadow": true,
       "position": { "x": -3, "y": 10, "z": -10 },
       "shadow": {
@@ -90,8 +90,8 @@
     {
       "name": "ambient_light",
       "type": "Hemisphere",
-      "color": "#ffffff",
-      "groundColor": "#8d8d8d",
+      "color": "#FFFFFF",
+      "groundColor": "#8D8D8D",
       "position": { "x": 0, "y": 20, "z": 0 },
       "intensity": 3
     }
@@ -100,13 +100,18 @@
     {
       "type": "OrbitControls",
       "cameraName": "main",
-      "target": { "x": 0, "y": 1, "z": 0 },
+      "target": { "x": 0, "y": 1.2, "z": 0 },
       "enableDamping": true,
       "isActive": true
     }
   ],
   "envMaps": [],
   "particles": [],
-  "fogs": [],
-  "tags": []
+  "fogs": [
+    {
+      "color": "#A0A0A0",
+      "near": 10,
+      "far": 50
+    }
+  ]
 }
