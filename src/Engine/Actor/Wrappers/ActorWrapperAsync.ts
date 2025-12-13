@@ -4,14 +4,14 @@ import type { TWithMaterial } from '@/Engine/Material';
 import { withMaterial } from '@/Engine/Material';
 import { scalableMixin, withMoveBy3dMixin, withObject3d, withRotationByXyzMixin } from '@/Engine/Mixins';
 import { withTextures } from '@/Engine/Texture';
-import type { IMesh } from '@/Engine/ThreeLib';
+import type { TMesh } from '@/Engine/ThreeLib';
 import { applyObject3dParams, applyPosition, applyRotation, applyScale, isDefined } from '@/Engine/Utils';
 
 import { createActor } from './ActorUtils';
 
 export async function ActorWrapperAsync(params: TActorParams, { materialTextureService }: TActorDependencies): Promise<TActorWrapperAsync> {
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-  const entity: IMesh = await createActor(params, materialTextureService);
+  const entity: TMesh = await createActor(params, materialTextureService);
 
   const withMaterialEntity: TWithMaterial = withMaterial(entity);
 
