@@ -46,7 +46,7 @@
     "fast-glob": "3.3.3",
     "fs-extra": "11.3.2",
     "png-to-ico": "3.0.1",
-    "sharp": "0.34.3",
+    "sharp": "0.34.4",
     "svgo": "4.0.0",
     "ts-json-schema-generator": "2.4.0"
   }

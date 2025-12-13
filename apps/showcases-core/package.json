@@ -57,8 +57,8 @@
     "anarchy-i18n": "*",
     "anarchy-shared": "*",
     "anarchy-tracking": "*",
-    "dexie": "4.2.0",
-    "lil-gui": "0.20.0",
+    "dexie": "4.2.1",
+    "lil-gui": "0.21.0",
     "rxjs": "7.8.2",
     "sanitize.css": "13.0.0",
     "showcases-i18n": "*",
@@ -70,6 +70,6 @@
   "devDependencies": {
     "@vitejs/plugin-vue": "6.0.1",
     "@vitejs/plugin-vue-jsx": "5.1.1",
-    "sass-embedded": "1.92.1"
+    "sass-embedded": "1.93.2"
   }
 }

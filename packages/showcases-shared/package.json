@@ -42,7 +42,7 @@
     "unit:watch": "vitest"
   },
   "dependencies": {
-    "dompurify": "3.2.6",
-    "isomorphic-dompurify": "2.28.0"
+    "dompurify": "3.3.0",
+    "isomorphic-dompurify": "2.30.1"
   }
 }

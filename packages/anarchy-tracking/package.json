@@ -38,11 +38,11 @@
     "ts:check:watch": "tsc --watch --noEmit"
   },
   "dependencies": {
-    "@sentry/browser": "10.17.0",
-    "@sentry/electron": "7.1.1",
-    "dotenv": "17.2.2"
+    "@sentry/browser": "10.21.0",
+    "@sentry/electron": "7.2.0",
+    "dotenv": "17.2.3"
   },
   "devDependencies": {
-    "@sentry/cli": "2.56.1"
+    "@sentry/cli": "2.57.0"
   }
 }
