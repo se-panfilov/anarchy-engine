@@ -45,5 +45,5 @@ export function FsmWrapper(params: TFsmParams): TFsmWrapper {
     changed$.unsubscribe();
   });
 
-  return { ...wrapper, entity, changed$: changed$.asObservable(), send, getState, ...destroyable };
+  return { ...wrapper, entity, type: params.type, changed$: changed$.asObservable(), send, getState, ...destroyable };
 }
