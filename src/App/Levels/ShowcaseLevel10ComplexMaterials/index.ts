@@ -1,8 +1,8 @@
 import { BehaviorSubject } from 'rxjs';
 
 import type { IShowcase } from '@/App/Levels/Models';
-import { IActorWrapper, IAppCanvas, ICameraWrapper, ILevel, ILevelConfig, IOrbitControlsWrapper, ITextAnyWrapper, IVector3Wrapper, Vector3Wrapper } from '@/Engine';
-import { ambientContext, buildLevelFromConfig, CameraTag, isNotDefined, TextType } from '@/Engine';
+import type { IActorWrapper, IAppCanvas, ICameraWrapper, ILevel, ILevelConfig, IOrbitControlsWrapper, ITextAnyWrapper, IVector3Wrapper } from '@/Engine';
+import { ambientContext, buildLevelFromConfig, CameraTag, isNotDefined, TextType, Vector3Wrapper } from '@/Engine';
 
 import levelConfig from './showcase-10-complex-materials.config.json';
 
