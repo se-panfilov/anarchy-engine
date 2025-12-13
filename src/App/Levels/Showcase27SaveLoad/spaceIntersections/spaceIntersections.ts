@@ -21,8 +21,6 @@ export const spaceIntersectionsData: TSpacesData = {
 
     const line: Line2 = directionWatcherBlue._debugGetRayVisualizationLine(space.container, 25);
     space.services.scenesService.getActive().entity.add(line);
-    // const dir = directionWatcherBlue.targetPointToDirection(directionWatcherBlue.origin$.value, { x: 13, y: 0, z: 8 });
-    // console.log('XXX', dir);
 
     cameraWatcherRed.value$.pipe(skip(1)).subscribe((value: TIntersectionEvent): void => {
       // console.log('redWatcher', new Date().getMilliseconds(), value.object.name);
