@@ -23,28 +23,3 @@ html {
 canvas {
   z-index: 1;
 }
-
-#menu {
-  display: none;
-  position: absolute;
-  inset: 0;
-  z-index: 10;
-  pointer-events: auto;
-  backdrop-filter: blur(4px);
-
-  &.-active {
-    display: flex;
-  }
-}
-
-#ui {
-  display: none;
-  position: absolute;
-  inset: 0;
-  z-index: 10;
-  pointer-events: auto;
-
-  &.-active {
-    display: flex;
-  }
-}
