@@ -28,6 +28,33 @@
           "grid": "main_grid",
           "isAutoUpdate": true
         }
+      },
+      {
+        "agent": "physical",
+        "model3dSource": "cube_1_model",
+        "name": "actor_2",
+        "physics": {
+          "presetName": "box_physics",
+          "shapeParams": {
+            "hx": 0.5,
+            "hy": 2,
+            "hz": 0.5
+          }
+        },
+        "position": {
+          "x": -4,
+          "y": 24,
+          "z": 3
+        },
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "spatial": {
+          "grid": "main_grid",
+          "isAutoUpdate": false
+        }
       }
     ],
     "audio": [],
@@ -74,17 +101,45 @@
         "options": {
           "radius": 1
         }
+      },
+      {
+        "castShadow": true,
+        "materialSource": "box_material",
+        "model3dSource": "cube",
+        "name": "cube_1_model",
+        "options": {
+          "depth": 1,
+          "height": 4,
+          "heightSegments": 1,
+          "width": 1,
+          "widthSegments": 1
+        }
       }
     ],
     "particles": [],
-    "physics": {},
+    "physics": {
+      "global": {
+        "gravity": {
+          "x": 0,
+          "y": -1,
+          "z": 0
+        }
+      },
+      "presets": [
+        {
+          "collisionShape": "cuboid",
+          "name": "box_physics",
+          "type": "dynamic"
+        }
+      ]
+    },
     "spatialGrids": [
       {
         "cellSize": 10,
         "centerX": 0,
         "centerZ": 0,
-        "mapHeight": 100,
-        "mapWidth": 100,
+        "mapHeight": 10,
+        "mapWidth": 10,
         "name": "main_grid"
       }
     ],
@@ -118,6 +173,13 @@
           "transmission": 0.77
         },
         "type": "physical"
+      },
+      {
+        "name": "box_material",
+        "options": {
+          "color": "#8E8E8E"
+        },
+        "type": "standard"
       }
     ],
     "models3d": [],
