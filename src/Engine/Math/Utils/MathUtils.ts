@@ -1,11 +1,17 @@
 import Decimal from 'decimal.js';
+import { Euler, Quaternion } from 'three';
 
-import type { TWithCoordsXZ } from '@/Engine/Mixins';
+import type { TEuler } from '@/Engine/Euler';
+import type { TWithCoordsXYZ, TWithCoordsXYZW, TWithCoordsXZ } from '@/Engine/Mixins';
 
+// TODO (S.Panfilov) add unit tests
 export const degToRad = (degrees: number): Decimal => new Decimal(degrees).times(Math.PI).div(180);
-export const cos = (value: Decimal): Decimal => new Decimal(Math.cos(value.toNumber()));
-export const sin = (value: Decimal): Decimal => new Decimal(Math.sin(value.toNumber()));
+// TODO (S.Panfilov) add unit tests
+export const cos = (value: Decimal): Decimal => new Decimal(Decimal.cos(value));
+// TODO (S.Panfilov) add unit tests
+export const sin = (value: Decimal): Decimal => new Decimal(Decimal.sin(value));
 
+// TODO (S.Panfilov) add unit tests
 export function getHorizontalAzimuth(center: TWithCoordsXZ, point: TWithCoordsXZ): number {
   const dx: Decimal = new Decimal(point.x).minus(new Decimal(center.x));
   const dz: Decimal = new Decimal(point.z).minus(new Decimal(center.z));
@@ -15,4 +21,40 @@ export function getHorizontalAzimuth(center: TWithCoordsXZ, point: TWithCoordsXZ
   if (azimuth.isNegative()) azimuth = azimuth.plus(new Decimal(360));
 
   return azimuth.toNumber();
+}
+
+// TODO (S.Panfilov) add unit tests
+export function degreesToEuler(degrees: TWithCoordsXYZ): TWithCoordsXYZ {
+  // TODO (S.Panfilov) can I use "degToRad" here?
+  const radians = {
+    x: new Decimal(degrees.x).times(Decimal.acos(-1).div(180)),
+    y: new Decimal(degrees.y).times(Decimal.acos(-1).div(180)),
+    z: new Decimal(degrees.z).times(Decimal.acos(-1).div(180))
+  };
+
+  return {
+    x: radians.x.toNumber(),
+    y: radians.y.toNumber(),
+    z: radians.z.toNumber()
+  };
+}
+
+// TODO (S.Panfilov) add unit tests
+export function degreesToQuaternion(degrees: TWithCoordsXYZ): TWithCoordsXYZW {
+  // TODO (S.Panfilov) can I use "degToRad" here?
+  const radians = {
+    x: new Decimal(degrees.x).times(Decimal.acos(-1).div(180)),
+    y: new Decimal(degrees.y).times(Decimal.acos(-1).div(180)),
+    z: new Decimal(degrees.z).times(Decimal.acos(-1).div(180))
+  };
+
+  const euler: TEuler = new Euler(radians.x.toNumber(), radians.y.toNumber(), radians.z.toNumber());
+  const quaternion: Quaternion = new Quaternion().setFromEuler(euler);
+
+  return {
+    w: new Decimal(quaternion.w).toNumber(),
+    x: new Decimal(quaternion.x).toNumber(),
+    y: new Decimal(quaternion.y).toNumber(),
+    z: new Decimal(quaternion.z).toNumber()
+  };
 }
