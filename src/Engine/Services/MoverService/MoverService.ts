@@ -2,7 +2,7 @@ import anime from 'animejs';
 import type { Vector3 } from 'three';
 
 import type { TLoopService } from '@/Engine/Loop';
-import type { TMovable3dXYZ, TWithPosition3d } from '@/Engine/Mixins';
+import type { TWithCoordsXYZ, TWithPosition3d } from '@/Engine/Mixins';
 import { defaultMoverServiceConfig } from '@/Engine/Services/MoverService/Constants';
 import type { TAnimationParams, TFollowTargetParams, TKeyframeDestination, TMoverServiceConfig, TStopMoveCb } from '@/Engine/Services/MoverService/Models';
 import type { TMoveDestination } from '@/Engine/Services/MoverService/Models/TMoveDestination';
@@ -15,13 +15,13 @@ export function MoverService(loopService: TLoopService, { suspendWhenDocumentHid
   (anime as any).suspendWhenDocumentHidden = suspendWhenDocumentHidden;
 
   return {
-    goToPosition: (obj: TMovable3dXYZ, destination: TMoveDestination, animationParams: TAnimationParams): Promise<void> => {
+    goToPosition: (obj: TWithCoordsXYZ, destination: TMoveDestination, animationParams: TAnimationParams): Promise<void> => {
       return performMove(goStraightMove, loopService, { obj, destination: prepareDestination(destination, obj), animationParams });
     },
-    goByPath: (obj: TMovable3dXYZ, path: ReadonlyArray<TKeyframeDestination>, animationParams: TAnimationParams): Promise<void> => {
+    goByPath: (obj: TWithCoordsXYZ, path: ReadonlyArray<TKeyframeDestination>, animationParams: TAnimationParams): Promise<void> => {
       return performMove(byPathMove, loopService, { obj, path: getAccumulatedKeyframes(path, obj), animationParams });
     },
-    followTarget: (obj: TMovable3dXYZ, target: TWithPosition3d, offset?: Partial<Vector3>): TStopMoveCb => {
+    followTarget: (obj: TWithCoordsXYZ, target: TWithPosition3d, offset?: Partial<Vector3>): TStopMoveCb => {
       return performMoveUntil(followTarget, loopService, { obj, target, offset } satisfies TFollowTargetParams);
     }
   };

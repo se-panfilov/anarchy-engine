@@ -5,14 +5,12 @@ import type { Vector3 } from 'three/src/math/Vector3';
 import { defaultAnimationParams, Easing } from '@/Engine/Services/MoverService/Constants';
 import type { TFollowTargetFn, TFollowTargetParams, TMoveableByTick, TMoveByPathFn, TMoveByPathFnParams, TMoveFn, TMoveFnParams } from '@/Engine/Services/MoverService/Models';
 import { getAnimationWrapperForComplexPathAnimation } from '@/Engine/Services/MoverService/MoverServiceUtils';
-import type { TWriteable } from '@/Engine/Utils';
-import { isDefined, isVector3 } from '@/Engine/Utils';
+import { isVector3 } from '@/Engine/Utils';
 
 export const goStraightMove: TMoveFn = ({ obj, destination, animationParams, complete }: TMoveFnParams): anime.AnimeInstance => {
   console.log(112, obj.positionConnector);
   return anime({
-    // targets: obj.getPosition(),
-    targets: obj.positionConnector,
+    targets: obj,
     x: destination.x,
     y: destination.y,
     z: destination.z,
@@ -26,7 +24,7 @@ export const goStraightMove: TMoveFn = ({ obj, destination, animationParams, com
 export const byPathMove: TMoveByPathFn = ({ obj, path, animationParams, complete }: TMoveByPathFnParams): anime.AnimeInstance => {
   return getAnimationWrapperForComplexPathAnimation(
     anime({
-      targets: obj.getPosition(),
+      targets: obj,
       keyframes: path,
       ...defaultAnimationParams,
       ...animationParams,
@@ -43,9 +41,12 @@ export const followTarget: TFollowTargetFn = ({ obj, target, offset }: TFollowTa
   return {
     tick: (): void => {
       const position: Vector3 | Vector2 = target.getPosition();
-      obj.setX(position.x + (offset?.x ?? 0));
-      obj.setY(position.y + (offset?.y ?? 0));
-      if (isVector3(position)) obj.setZ(position.z + (offset?.z ?? 0));
+      // eslint-disable-next-line functional/immutable-data
+      obj.x = position.x + (offset?.x ?? 0);
+      // eslint-disable-next-line functional/immutable-data
+      obj.y = position.y + (offset?.y ?? 0);
+      // eslint-disable-next-line functional/immutable-data
+      if (isVector3(position)) obj.z = position.z + (offset?.z ?? 0);
     }
   };
 };

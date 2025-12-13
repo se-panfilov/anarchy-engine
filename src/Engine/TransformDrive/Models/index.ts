@@ -1,4 +1,3 @@
-export * from './TAbstractInstantTransformAgent';
 export * from './TAbstractTransformAgent';
 export * from './TDriveToModel3dConnector';
 export * from './TInstantTransformAgent';

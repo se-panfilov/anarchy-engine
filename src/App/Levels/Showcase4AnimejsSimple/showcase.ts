@@ -70,7 +70,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
       });
     });
 
-    mouseService.clickLeftRelease$.subscribe(() => {
+    mouseService.clickLeftRelease$.subscribe((): void => {
       if (isClickBlocked) {
         console.log('click is blocked');
         isClickBlocked = false;
@@ -81,9 +81,9 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
 
       const moverService: TMoverService = MoverService(loopService, defaultMoverServiceConfig);
 
-      actorRegistry.findAllByTags([boxActorTag], LookUpStrategy.Some).forEach((actor: TActor) => {
+      actorRegistry.findAllByTags([boxActorTag], LookUpStrategy.Some).forEach((actor: TActor): void => {
         const easing = actor.getTags()[1] as Easing;
-        void moverService.goToPosition(actor.drive.instant, { x: 20 }, { ...animationParams, easing });
+        void moverService.goToPosition(actor.drive.instant.positionConnector, { x: 20 }, { ...animationParams, easing });
       });
     });
   }

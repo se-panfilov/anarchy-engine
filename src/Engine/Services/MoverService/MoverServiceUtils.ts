@@ -2,7 +2,7 @@ import anime from 'animejs';
 import type { Subscription } from 'rxjs';
 
 import type { TLoopService, TLoopTimes } from '@/Engine/Loop';
-import type { TMovable3dXYZ } from '@/Engine/Mixins';
+import type { TWithCoordsXYZ } from '@/Engine/Mixins';
 import type {
   TAnimationParams,
   TFullKeyframeDestination,
@@ -36,16 +36,16 @@ export function performMoveUntil<F extends (params: P) => TMoveableByTick, P>(mo
 }
 
 // Do not use this function for complex paths (with more than 1 point), it might not work as expected when partial coords are provided.
-export function addMissingCoords<T extends TKeyframeDestination | TMoveDestination>(destination: T, obj: TMovable3dXYZ): TKeyframeDestination | Required<TMoveDestination> {
-  return { ...destination, x: destination.x ?? obj.getX(), y: destination.y ?? obj.getY(), z: destination.z ?? obj.getZ() };
+export function addMissingCoords<T extends TKeyframeDestination | TMoveDestination>(destination: T, obj: TWithCoordsXYZ): TKeyframeDestination | Required<TMoveDestination> {
+  return { ...destination, x: destination.x ?? obj.x, y: destination.y ?? obj.y, z: destination.z ?? obj.z };
 }
 
-export function getAccumulatedKeyframes(path: ReadonlyArray<TKeyframeDestination>, obj: TMovable3dXYZ): ReadonlyArray<TFullKeyframeDestination> {
+export function getAccumulatedKeyframes(path: ReadonlyArray<TKeyframeDestination>, obj: TWithCoordsXYZ): ReadonlyArray<TFullKeyframeDestination> {
   return path.reduce((acc: ReadonlyArray<TFullKeyframeDestination>, destination: TKeyframeDestination, index: number) => {
     const prevDestination: TKeyframeDestination | undefined = acc[index - 1];
-    const prevX: number = prevDestination?.x ?? obj.getX();
-    const prevY: number = prevDestination?.y ?? obj.getY();
-    const prevZ: number = prevDestination?.z ?? obj.getZ();
+    const prevX: number = prevDestination?.x ?? obj.x;
+    const prevY: number = prevDestination?.y ?? obj.y;
+    const prevZ: number = prevDestination?.z ?? obj.z;
     const x: number = destination.x ?? prevX;
     const y: number = destination.y ?? prevY;
     const z: number = destination.z ?? prevZ;
@@ -54,11 +54,11 @@ export function getAccumulatedKeyframes(path: ReadonlyArray<TKeyframeDestination
   }, []);
 }
 
-export function prepareDestination(destination: TMoveDestination, obj: TMovable3dXYZ): Required<TMoveDestination> {
+export function prepareDestination(destination: TMoveDestination, obj: TWithCoordsXYZ): Required<TMoveDestination> {
   return addMissingCoords(destination, obj) as Required<TMoveDestination>;
 }
 
-export function preparePathList(list: ReadonlyArray<TKeyframeDestination>, obj: TMovable3dXYZ): ReadonlyArray<TFullKeyframeDestination> {
+export function preparePathList(list: ReadonlyArray<TKeyframeDestination>, obj: TWithCoordsXYZ): ReadonlyArray<TFullKeyframeDestination> {
   return list.map((destination: TKeyframeDestination) => addMissingCoords(destination, obj) as TFullKeyframeDestination);
 }
 
