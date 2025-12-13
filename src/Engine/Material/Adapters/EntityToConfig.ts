@@ -1,7 +1,7 @@
 import { isEmpty } from 'lodash-es';
 import type { MaterialJSON } from 'three';
 
-import { serializeColor } from '@/Engine/Color';
+import { serializeColorWhenPossible } from '@/Engine/Color';
 import type { MaterialType } from '@/Engine/Material/Constants';
 import { BlendEquationMap, BlendingDstFactorMap, BlendingMap, BlendingSrcFactorMap, NormalMapTypesMap, SideMap, StencilFailMap, StencilFuncMap, StencilOpMap } from '@/Engine/Material/Constants';
 import type {
@@ -43,10 +43,10 @@ function getMaterialOptions({ entity }: TMaterialWrapper): TAllMaterialConfigOpt
       alphaHash: entity.alphaHash,
       alphaTest: entity.alphaTest,
       alphaToCoverage: entity.alphaToCoverage,
-      attenuationColor: serializeColor((entity as any).attenuationColor),
+      attenuationColor: serializeColorWhenPossible((entity as any).attenuationColor),
       attenuationDistance: (entity as any).attenuationDistance,
       blendAlpha: entity.blendAlpha,
-      blendColor: serializeColor((entity as any).blendColor),
+      blendColor: serializeColorWhenPossible((entity as any).blendColor),
       blendDst: getOptionName(entity.blendDst, BlendingDstFactorMap, 'blendDst'),
       blendDstAlpha: entity.blendDstAlpha,
       blendEquation: getOptionName(entity.blendEquation, BlendEquationMap, 'blendEquation'),
@@ -59,7 +59,7 @@ function getMaterialOptions({ entity }: TMaterialWrapper): TAllMaterialConfigOpt
       clipIntersection: entity.clipIntersection,
       clipShadows: entity.clipShadows,
       clippingPlanes: entity.clippingPlanes,
-      color: serializeColor((entity as any).color),
+      color: serializeColorWhenPossible((entity as any).color),
       colorWrite: entity.colorWrite,
       combine: (entity as any).combine,
       depthFunc: entity.depthFunc,
@@ -67,7 +67,7 @@ function getMaterialOptions({ entity }: TMaterialWrapper): TAllMaterialConfigOpt
       depthTest: entity.depthTest,
       depthWrite: entity.depthWrite,
       dithering: entity.dithering,
-      emissive: serializeColor((entity as any).emissive),
+      emissive: serializeColorWhenPossible((entity as any).emissive),
       emissiveIntensity: (entity as any).emissiveIntensity,
       envMapIntensity: (entity as any).envMapIntensity,
       flatShading: (entity as any).flatShading,
@@ -88,13 +88,13 @@ function getMaterialOptions({ entity }: TMaterialWrapper): TAllMaterialConfigOpt
       roughness: (entity as any).roughness,
       shadowSide: entity.shadowSide,
       sheen: (entity as any).sheen,
-      sheenColor: serializeColor((entity as any).sheenColor),
+      sheenColor: serializeColorWhenPossible((entity as any).sheenColor),
       sheenRoughness: (entity as any).sheenRoughness,
       side: getOptionName(entity.side, SideMap, 'side'),
       size: (entity as any).size,
       sizeAttenuation: (entity as any).sizeAttenuation,
-      specular: serializeColor((entity as any).specular),
-      specularColor: serializeColor((entity as any).specularColor),
+      specular: serializeColorWhenPossible((entity as any).specular),
+      specularColor: serializeColorWhenPossible((entity as any).specularColor),
       specularIntensity: (entity as any).specularIntensity,
       stencilFail: getOptionName(entity.stencilFail, StencilFailMap, 'stencilFail'),
       stencilFunc: getOptionName(entity.stencilFunc, StencilFuncMap, 'stencilFunc'),
