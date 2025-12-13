@@ -13,6 +13,7 @@ export function CollisionsService(): TCollisionsService {
   // TODO (S.Panfilov) debug box
   let box: any;
 
+  // TODO (S.Panfilov) should be possible to check collisions against another grid
   function checkCollisions(actorW: TActorWrapperAsync, radius: number, actorsToCheck: ReadonlyArray<TActorWrapperAsync>): TCollisionCheckResult | undefined {
     const actorBox: Box3 = new Box3().setFromObject(actorW.entity);
     const queryBox = {

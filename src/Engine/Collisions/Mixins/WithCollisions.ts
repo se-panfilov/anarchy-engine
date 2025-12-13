@@ -33,6 +33,8 @@ export function withCollisions(params: TActorParams, collisionsService: TCollisi
       start(actorW: TActorWrapperAsync): void {
         collisionsLoopServiceSub$ = collisionsLoopService.tick$.subscribe(({ priority }): void => {
           if (priority < this.getCollisionsUpdatePriority()) return;
+
+          // TODO (S.Panfilov) should be possible to check collisions against another grid
           const collision: TCollisionCheckResult | undefined = collisionsService.checkCollisions(actorW, this.data.radius, getActorsToCheck(actorW));
           if (isDefined(collision)) value$.next(collision);
         });

@@ -1,8 +1,8 @@
 import { nanoid } from 'nanoid';
 import { Vector3 } from 'three';
 
-import type { TActorParams, TActorService, TActorWrapperAsync, TRadians, TSpatialGridWrapper, TWithCoordsXYZ } from '@/Engine';
-import { ActorType, EulerWrapper, isDefined, MaterialType, mpsSpeed, Vector3Wrapper } from '@/Engine';
+import type { TActorParams, TActorService, TActorWrapperAsync, TRadians, TSpatialGridService, TSpatialGridWrapper, TWithCoordsXYZ } from '@/Engine';
+import { ActorType, EulerWrapper, isDefined, isNotDefined, MaterialType, mpsSpeed, Vector3Wrapper } from '@/Engine';
 import { meters } from '@/Engine/Measurements/Utils';
 
 export type TBullet = TActorWrapperAsync &
@@ -15,8 +15,10 @@ export type TBullet = TActorWrapperAsync &
     update: (delta: number, spatialGrid: TSpatialGridWrapper) => void;
   }>;
 
-export function getBulletsPool(count: number, actorService: TActorService): ReadonlyArray<Promise<TBullet>> {
+export function getBulletsPool(count: number, actorService: TActorService, spatialGridService: TSpatialGridService): ReadonlyArray<Promise<TBullet>> {
   let bullets: ReadonlyArray<Promise<TBullet>> = [];
+  const grid: TSpatialGridWrapper | undefined = spatialGridService.getRegistry().findByName('main_grid');
+  if (isNotDefined(grid)) throw new Error(`Failed to create bullet: Cannot find "main_grid" spatial grid`);
 
   // eslint-disable-next-line functional/no-loop-statements
   for (let i: number = 0; i < count; i++) {
@@ -37,6 +39,7 @@ export function getBulletsPool(count: number, actorService: TActorService): Read
           isKinematicAutoUpdate: true,
           isSpatialAutoUpdate: true,
           isCollisionsAutoUpdate: true,
+          spatial: { grid },
           collisions: { radius: 1 },
           kinematic: {
             linearSpeed: meters(5)
@@ -72,6 +75,7 @@ export async function BulletAsync(params: TActorParams, actorService: TActorServ
   }
 
   actorW.collisions.value$.subscribe((collision: any): void => {
+    // TODO (S.Panfilov) CWP this should work, but it doesn't. Debug
     console.log('Bullet hit', collision);
   });
 

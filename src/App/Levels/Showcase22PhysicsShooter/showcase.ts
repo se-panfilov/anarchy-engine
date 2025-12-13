@@ -58,7 +58,7 @@ export function showcase(canvas: TAppCanvas): TShowcase {
 
     // TODO (S.Panfilov) temp
     const maxBulletsSameTime: number = 15;
-    const bullets: ReadonlyArray<TBullet> = await Promise.all(getBulletsPool(maxBulletsSameTime, actorService));
+    const bullets: ReadonlyArray<TBullet> = await Promise.all(getBulletsPool(maxBulletsSameTime, actorService, spatialGridService));
     actorService.getScene().entity.add(...bullets.map((b: TBullet) => b.entity));
 
     const mouseLineIntersectionsWatcher: TIntersectionsWatcher = intersectionsWatcherService.create({

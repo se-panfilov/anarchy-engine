@@ -7,7 +7,6 @@ import type { ColorRepresentation } from 'three/src/math/Color';
 
 import type { TActorWrapperAsync } from '@/Engine/Actor';
 import { meters } from '@/Engine/Measurements/Utils';
-import type { TSceneWrapper } from '@/Engine/Scene';
 
 export function createLine(color: ColorRepresentation, width: number, positions: Array<number>): Line2 {
   const material = new LineMaterial({
@@ -111,16 +110,6 @@ function getBoxEdges(min: Vector3, max: Vector3): Array<number> {
     max.y,
     max.z
   ];
-}
-
-export function removeOutlines(scene: TSceneWrapper): void {
-  scene.entity.traverse((object): void => {
-    if (object.userData.outline) {
-      scene.entity.remove(object.userData.outline);
-      // eslint-disable-next-line functional/immutable-data
-      delete object.userData.outline;
-    }
-  });
 }
 
 export function createBoundingBox(minX: number, minZ: number, maxX: number, maxZ: number, color: ColorRepresentation = '#00ff00', wireframe: boolean = true): Mesh {
