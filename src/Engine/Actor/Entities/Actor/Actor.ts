@@ -51,13 +51,6 @@ export function Actor(
 
   const actor: TActor = AbstractEntity(entities, EntityType.Actor, { ...params, id });
 
-  // if (params.states?.animationsFsm) {
-  //   console.log('XXX applied!');
-  //   actor.setAnimationsFsm(params.states.animationsFsm);
-  // }
-
-  // console.log('XXX7', actor.states);
-
   actor.destroy$.subscribe((): void => {
     //Remove model3d registration
     model3dToActorConnectionRegistry.removeByModel3d(model3d);
