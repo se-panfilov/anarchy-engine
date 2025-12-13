@@ -13,6 +13,7 @@ export const spaceCameraData: TSpacesData = {
   name: config.name,
   config: config,
   container: getContainer(config.canvasSelector),
+  awaits: [],
   onChange: (space: TSpace): void => {
     const camera: TPerspectiveCameraWrapper | undefined = space.services.cameraService.findActive() as TPerspectiveCameraWrapper | undefined;
     if (isNotDefined(camera)) throw new Error(`[Showcase]: Camera is not found`);

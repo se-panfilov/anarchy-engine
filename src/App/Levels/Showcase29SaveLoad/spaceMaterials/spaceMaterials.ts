@@ -14,6 +14,7 @@ export const spaceMaterialsData: TSpacesData = {
   name: config.name,
   config: config,
   container: getContainer(config.canvasSelector),
+  awaits: [],
   onChange: (space: TSpace): void => {
     // TODO 15-0-0: test textures change
 

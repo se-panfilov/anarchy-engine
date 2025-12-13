@@ -13,6 +13,7 @@ export const spaceLightData: TSpacesData = {
   name: config.name,
   config: config,
   container: getContainer(config.canvasSelector),
+  awaits: [],
   onChange: (space: TSpace): void => {
     const hemisphere: THemisphereLightWrapper = space.services.lightService.getRegistry().findByName('hemisphere_light') as THemisphereLightWrapper;
     const pointLight: TPointLightWrapper = space.services.lightService.getRegistry().findByName('point_light') as TPointLightWrapper;

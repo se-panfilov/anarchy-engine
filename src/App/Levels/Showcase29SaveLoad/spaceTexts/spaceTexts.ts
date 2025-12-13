@@ -10,6 +10,7 @@ export const spaceTextData: TSpacesData = {
   name: config.name,
   config: config,
   container: getContainer(config.canvasSelector),
+  awaits: [],
   onChange: (space: TSpace): void => {
     const { text2dRegistry, text3dRegistry, text3dTextureRegistry } = space.services.textService.getRegistries();
     changeText('text_2d', text2dRegistry);

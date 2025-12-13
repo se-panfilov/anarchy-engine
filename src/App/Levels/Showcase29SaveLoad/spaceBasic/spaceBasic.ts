@@ -13,6 +13,7 @@ export const spaceBasicData: TSpacesData = {
   name: config.name,
   config: config,
   container: getContainer(config.canvasSelector),
+  awaits: [],
   onCreate: (space: TSpace, subscriptions?: Record<string, Subscription>): void | never => {
     const sub$: Subscription = space.services.models3dService.getRegistry().added$.subscribe(({ value: model3dSource }: TRegistryPack<TModel3d>): void => {
       if (model3dSource.name === 'surface_model') space.services.scenesService.findActive()?.addModel3d(model3dSource);

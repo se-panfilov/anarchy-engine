@@ -10,4 +10,5 @@ export type TSpacesData = Readonly<{
   onSpaceReady?: (space: TSpace, subscriptions?: Record<string, Subscription>) => void;
   onChange?: (space: TSpace, subscriptions?: Record<string, Subscription>) => void;
   onUnload?: (space: TSpace, subscriptions?: Record<string, Subscription>) => void;
+  awaits: Array<Promise<any>>;
 }>;

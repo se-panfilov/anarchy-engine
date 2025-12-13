@@ -23,6 +23,7 @@ export const spaceActorData: TSpacesData = {
   name: config.name,
   config: config,
   container: getContainer(config.canvasSelector),
+  awaits: [],
   onSpaceReady(space: TSpace, subscriptions?: Record<string, Subscription>): void {
     const fadeDuration = 0.3;
 
