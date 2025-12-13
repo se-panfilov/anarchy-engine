@@ -21,6 +21,8 @@
       "@Anarchy/Shared/*": ["packages/anarchy-shared/src/*"],
       "@Anarchy/i18n": ["packages/anarchy-i18n/src/index.ts"],
       "@Anarchy/i18n/*": ["packages/anarchy-i18n/src/*"],
+      "@Anarchy/Tracking": ["packages/anarchy-tracking/src/index.ts"],
+      "@Anarchy/Tracking/*": ["packages/anarchy-tracking/src/*"],
       "@Showcases/E2E": ["apps/showcases-e2e/src/index.ts"],
       "@Showcases/E2E/*": ["apps/showcases-e2e/src/*"],
       "@Showcases/Menu": ["packages/showcases-menu/src/index.ts"],

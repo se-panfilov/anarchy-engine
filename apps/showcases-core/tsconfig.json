@@ -9,6 +9,8 @@
       "@Anarchy/Shared/*": ["packages/anarchy-shared/src/*"],
       "@Anarchy/i18n": ["packages/anarchy-i18n/src/index.ts"],
       "@Anarchy/i18n/*": ["packages/anarchy-i18n/src/*"],
+      "@Anarchy/Tracking": ["packages/anarchy-tracking/src/index.ts"],
+      "@Anarchy/Tracking/*": ["packages/anarchy-tracking/src/*"],
       "@Public/*": ["apps/showcases-core/public/*"],
       "@Showcases/E2E": ["apps/showcases-e2e/src/index.ts"],
       "@Showcases/E2E/*": ["apps/showcases-e2e/src/*"],

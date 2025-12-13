@@ -6,6 +6,8 @@
       "@Anarchy/Shared/*": ["packages/anarchy-shared/src/*"],
       "@Anarchy/i18n": ["packages/anarchy-i18n/src/index.ts"],
       "@Anarchy/i18n/*": ["packages/anarchy-i18n/src/*"],
+      "@Anarchy/Tracking": ["packages/anarchy-tracking/src/index.ts"],
+      "@Anarchy/Tracking/*": ["packages/anarchy-tracking/src/*"],
       "@Showcases/Shared": ["packages/showcases-shared/src/index.ts"],
       "@Showcases/Shared/*": ["packages/showcases-shared/src/*"],
       "@Showcases/i18n": ["packages/showcases-i18n/src/index.ts"],
