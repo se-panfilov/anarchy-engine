@@ -22,5 +22,5 @@ export function addGizmo(
 
   container.resize$.subscribe((): ViewportGizmo => gizmo.update());
 
-  renderLoop.tick$.subscribe(() => gizmo.render());
+  renderLoop.tick$.subscribe((): ViewportGizmo => gizmo.render());
 }
