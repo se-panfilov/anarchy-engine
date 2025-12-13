@@ -12,6 +12,7 @@ export * from './TPhysicsFacadeDependencies';
 export * from './TPhysicsGlobalConfig';
 export * from './TPhysicsGlobalParams';
 export * from './TPhysicsGlobalProps';
+export * from './TPhysicsLoopService';
 export * from './TPhysicsParams';
 export * from './TPhysicsPresetConfig';
 export * from './TPhysicsPresetParams';

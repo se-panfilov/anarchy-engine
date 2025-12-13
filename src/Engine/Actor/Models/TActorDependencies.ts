@@ -1,6 +1,5 @@
-import type { TLoopService } from '@/Engine/Loop';
 import type { TMaterialTextureService } from '@/Engine/MaterialTexturePack/Models';
-import type { TPhysicsBodyService } from '@/Engine/Physics';
+import type { TPhysicsBodyService, TPhysicsLoopService } from '@/Engine/Physics';
 
 export type TActorDependencies = Readonly<{
   materialTextureService: TMaterialTextureService;
@@ -9,7 +8,7 @@ export type TActorDependencies = Readonly<{
 export type TActorWithPhysicsDependencies = TActorDependencies &
   Readonly<{
     physicsBodyService: TPhysicsBodyService;
-    loopService: TLoopService;
+    physicsLoopService: TPhysicsLoopService;
   }>;
 
 export type TActorServiceDependencies = TActorDependencies & TActorWithPhysicsDependencies;

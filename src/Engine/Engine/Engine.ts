@@ -8,7 +8,7 @@ import type { TLoopTimes } from '@/Engine/Loop';
 import type { TRendererWrapper } from '@/Engine/Renderer';
 import type { TSceneWrapper } from '@/Engine/Scene';
 import type { TSpace } from '@/Engine/Space';
-import { spaceLoop } from '@/Engine/Space/SpaceLoop';
+import { spaceLoop } from '@/Engine/Space';
 import type { TText2dRenderer, TText3dRenderer } from '@/Engine/Text';
 import { isNotDefined } from '@/Engine/Utils';
 

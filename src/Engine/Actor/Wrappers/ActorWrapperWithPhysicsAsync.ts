@@ -19,7 +19,7 @@ export async function ActorWrapperWithPhysicsAsync(
   const actorW: TActorWrapperAsync = await ActorWrapperAsync(params, deps);
   const actorPhysicalW = makeWrapperWithPhysicsBody(actorW, params.physics, deps.physicsBodyService, customCreatePhysicsBodyFn, additionalParams);
 
-  const sub$: Subscription = deps.loopService.tick$.subscribe(() => updateActorByPhysicalBody(actorPhysicalW));
+  const sub$: Subscription = deps.physicsLoopService.tick$.subscribe((): void => updateActorByPhysicalBody(actorPhysicalW));
 
   actorPhysicalW.destroyed$.subscribe(() => sub$.unsubscribe());
 

@@ -13,8 +13,8 @@ import { MaterialFactory, MaterialRegistry, MaterialService } from '@/Engine/Mat
 import type { TMaterialTextureService } from '@/Engine/MaterialTexturePack';
 import { MaterialTextureService } from '@/Engine/MaterialTexturePack';
 import { ParticlesAsyncRegistry, ParticlesFactory, ParticlesService } from '@/Engine/Particles';
-import type { TPhysicsBodyService, TPhysicsPresetsService, TPhysicsWorldService } from '@/Engine/Physics';
-import { PhysicsBodyFactory, PhysicsBodyRegistry, PhysicsBodyService, PhysicsPresetRegistry, PhysicsPresetsService, PhysicsWorldService } from '@/Engine/Physics';
+import type { TPhysicsBodyService, TPhysicsLoopService, TPhysicsPresetsService, TPhysicsWorldService } from '@/Engine/Physics';
+import { PhysicsBodyFactory, PhysicsBodyRegistry, PhysicsBodyService, PhysicsLoopService, PhysicsPresetRegistry, PhysicsPresetsService, PhysicsWorldService } from '@/Engine/Physics';
 import { RendererFactory, RendererRegistry, RendererService } from '@/Engine/Renderer';
 import type { TSceneFactory, TSceneRegistry, TScenesService, TSceneWrapper } from '@/Engine/Scene';
 import { SceneFactory, SceneRegistry, ScenesService } from '@/Engine/Scene';
@@ -36,10 +36,11 @@ export function initEntitiesServices(scene: TSceneWrapper, canvas: TAppCanvas): 
   const physicsPresetService: TPhysicsPresetsService = PhysicsPresetsService(PhysicsPresetRegistry());
   const physicsWorldService: TPhysicsWorldService = PhysicsWorldService(scene);
   const physicsBodyService: TPhysicsBodyService = PhysicsBodyService(PhysicsBodyFactory(), PhysicsBodyRegistry(), physicsPresetService, physicsWorldService);
+  const physicsLoopService: TPhysicsLoopService = PhysicsLoopService();
   const loopService: TLoopService = LoopService();
 
   return {
-    actorService: ActorService(ActorFactory(), ActorAsyncRegistry(), { materialTextureService, physicsBodyService, loopService }, scene),
+    actorService: ActorService(ActorFactory(), ActorAsyncRegistry(), { materialTextureService, physicsBodyService, physicsLoopService }, scene),
     cameraService: CameraService(CameraFactory(), CameraRegistry(), scene),
     controlsService: ControlService(ControlsFactory(), ControlsRegistry(), canvas),
     envMapService: EnvMapService(EnvMapAsyncRegistry()),
@@ -53,6 +54,7 @@ export function initEntitiesServices(scene: TSceneWrapper, canvas: TAppCanvas): 
     physicsBodyService,
     physicsWorldService,
     physicsPresetService,
+    physicsLoopService,
     rendererService: RendererService(RendererFactory(), RendererRegistry()),
     textService: TextService(TextFactory(), Text2dRegistry(), Text3dRegistry(), Text2dRendererRegistry(), Text3dRendererRegistry(), scene)
   };

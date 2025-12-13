@@ -53,7 +53,7 @@ export function LoopService(): TLoopService {
     stop,
     setBeforeEveryTick,
     tick$: tick$.asObservable(),
-    getIsLooping: (): boolean => state.isLooping,
+    isLooping: (): boolean => state.isLooping,
     ...destroyable
   };
 }
