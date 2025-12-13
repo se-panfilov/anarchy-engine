@@ -4,6 +4,7 @@ import type { Euler, Vector3 } from 'three';
 
 import { FacadeType } from '@/Engine/Abstract';
 import { AbstractFacade } from '@/Engine/Abstract/Wrappers/AbstractFacade';
+import { ActorDrive } from '@/Engine/Actor/Constants';
 import type { TActorDependencies, TActorFacade, TActorFacadeEntities, TActorParams } from '@/Engine/Actor/Models';
 import { applySpatialGrid, startCollisions } from '@/Engine/Actor/Wrappers/ActorWrapperHelper';
 import { withCollisions } from '@/Engine/Collisions';
@@ -21,12 +22,11 @@ export function ActorFacade(
   { kinematicLoopService, spatialLoopService, spatialGridService, collisionsLoopService, collisionsService, models3dService, model3dFacadeToActorConnectionRegistry }: TActorDependencies
 ): TActorFacade {
   // TODO 8.0.0. MODELS: Actor should be driven either by kinematic or physics or none (direct applying of position)
-  // TODO 8.0.0. MODELS: Extract to constants
   // TODO 8.0.0. MODELS: Allow to switch "drive" it in runtime
-  let drive: 'kinematic' | 'physics' | 'none' = 'kinematic';
+  let drive: ActorDrive = ActorDrive.KINEMATIC;
 
-  const setDrive = (mode: 'kinematic' | 'physics' | 'none'): string => (drive = mode);
-  const getDrive = (): string => drive;
+  const setDrive = (mode: ActorDrive): string => (drive = mode);
+  const getDrive = (): ActorDrive => drive;
 
   const position$: Subject<Vector3> = new Subject<Vector3>();
   const rotation$: Subject<Euler> = new Subject<Euler>();
