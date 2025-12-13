@@ -3,7 +3,10 @@ import { BehaviorSubject, catchError, filter, of, take, timeout } from 'rxjs';
 
 import type { IAbstractAsyncRegistry, IAbstractEntityRegistry, LookUpStrategy } from '@/Engine/Abstract';
 import type { IMultitonRegistrable, IRegistrable } from '@/Engine/Mixins';
-import { createDeferredPromise, isDefined } from '@/Engine/Utils';
+
+import { createDeferredPromise } from './AsyncUtils';
+import { isDefined } from './CheckUtils';
+import { shouldHaveTags } from './RegistryUtils';
 
 export function getUniqEntityWithTagsAsync<T extends IRegistrable>(
   tags: ReadonlyArray<string>,
@@ -12,7 +15,7 @@ export function getUniqEntityWithTagsAsync<T extends IRegistrable>(
   // TODO (S.Panfilov) should be set from default config
   waitingTime: number = 3000
 ): Promise<T | undefined> {
-  return getValueAsync<T>(registry, (entity: T): boolean => tags[strategy]((tag: string) => entity.hasTag(tag)), undefined, waitingTime);
+  return getValueAsync<T>(registry, (entity: T): boolean => shouldHaveTags(entity, tags, strategy), undefined, waitingTime);
 }
 
 // TODO (S.Panfilov) all waiting times should be set from default config
@@ -31,7 +34,7 @@ export function getAsyncUniqEntityByNameAsync<T extends IRegistrable>(
 export function getUniqEntityWithTags$<T extends IRegistrable>(tags: ReadonlyArray<string>, registry: IAbstractEntityRegistry<T> | IAbstractAsyncRegistry<T>, strategy: LookUpStrategy): Observable<T> {
   const result: T | undefined = isDefined((registry as IAbstractEntityRegistry<T>).findByTags) ? (registry as IAbstractEntityRegistry<T>).findByTags(tags, strategy) : undefined;
   if (isDefined(result)) new BehaviorSubject(result).asObservable();
-  return subscribeToValue$<T>(registry, (entity: T): boolean => entity.getTags()[strategy]((tag: string) => tags.includes(tag)));
+  return subscribeToValue$<T>(registry, (entity: T): boolean => shouldHaveTags(entity, tags, strategy));
 }
 
 export function getUniqEntityWithTag$<T extends IRegistrable>(tag: string, registry: IAbstractEntityRegistry<T> | IAbstractAsyncRegistry<T>): Observable<T> {

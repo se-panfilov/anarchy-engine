@@ -504,24 +504,22 @@ describe('RegistryAsyncUtils', () => {
   describe('getUniqEntityWithTags$', () => {
     describe('LookUpStrategy "every"', () => {
       describe('added before subscription started', () => {
-        describe('added after subscription started', () => {
-          it('should return an entity that was added before getting the value', async () => {
-            // setup
-            const registry: IAbstractAsyncRegistry<IRegistrable> = AbstractAsyncRegistry<IRegistrable>('mockEntity' as RegistryType);
+        it('should return an entity that was added before getting the value', async () => {
+          // setup
+          const registry: IAbstractAsyncRegistry<IRegistrable> = AbstractAsyncRegistry<IRegistrable>('mockEntity' as RegistryType);
 
-            registry.add(obj1AB);
-            registry.add(obj9Uniq2);
-            setTimeout(() => registry.add(obj2B), 50);
+          registry.add(obj1AB);
+          registry.add(obj9Uniq2);
+          setTimeout(() => registry.add(obj2B), 50);
 
-            // execute
-            const subscription$ = firstValueFrom(getUniqEntityWithTags$([tagD, tagC], registry, LookUpStrategy.Every));
-            // const subscription$ = firstValueFrom(getUniqEntityWithTags$([tagD, tagUniq2, tagC, tagE], registry, LookUpStrategy.Every));
+          // execute
+          const subscription$ = firstValueFrom(getUniqEntityWithTags$([tagD, tagC], registry, LookUpStrategy.Every));
+          // const subscription$ = firstValueFrom(getUniqEntityWithTags$([tagD, tagUniq2, tagC, tagE], registry, LookUpStrategy.Every));
 
-            // check
-            const result: IRegistrable = await subscription$;
-            expect(result).toEqual(obj9Uniq2);
-          }, 1000);
-        });
+          // check
+          const result: IRegistrable = await subscription$;
+          expect(result).toEqual(obj9Uniq2);
+        }, 1000);
       });
 
       describe('added after subscription started', () => {

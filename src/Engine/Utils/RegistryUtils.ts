@@ -7,7 +7,7 @@ export const getAll = <T>(registry: ReadonlyMap<string, T>): ReadonlyArray<T> =>
 
 export function getAllEntitiesWithTags<T extends IRegistrable>(tagList: ReadonlyArray<string>, registry: ReadonlyMap<string, T>, strategy: LookUpStrategy): ReadonlyArray<T> {
   if (tagList.length === 0) return [];
-  return Array.from(registry.values()).filter((obj: T) => tagList[strategy]((tag: string) => obj.hasTag(tag)));
+  return Array.from(registry.values()).filter((obj: T) => shouldHaveTags(obj, tagList, strategy));
 }
 
 export function getAllEntitiesWithTag<T extends IRegistrable>(tag: string, registry: ReadonlyMap<string, T>): ReadonlyArray<T> {
@@ -15,7 +15,7 @@ export function getAllEntitiesWithTag<T extends IRegistrable>(tag: string, regis
 }
 
 export function getUniqEntityWithTags<T extends IRegistrable>(tagList: ReadonlyArray<string>, registry: ReadonlyMap<string, T>, strategy: LookUpStrategy): T | undefined {
-  return Array.from(registry.values()).find((obj: T) => tagList[strategy]((tag: string) => obj.hasTag(tag)));
+  return Array.from(registry.values()).find((obj: T) => shouldHaveTags(obj, tagList, strategy));
 }
 
 export function getUniqEntityWithTag<T extends IRegistrable>(tag: string, registry: ReadonlyMap<string, T>): T | undefined {
@@ -36,3 +36,5 @@ export function setActiveWrappedEntity<E extends IWithActiveMixin & IRegistrable
 
   return result;
 }
+
+export const shouldHaveTags = <T extends IRegistrable>(obj: T, tagList: ReadonlyArray<string>, strategy: LookUpStrategy): boolean => tagList[strategy]((tag: string) => obj.hasTag(tag));
