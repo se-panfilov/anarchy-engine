@@ -1,3 +1,4 @@
+import type { Subscription } from 'rxjs';
 import { LinearFilter, Mesh, MeshBasicMaterial, PlaneGeometry, Texture } from 'three';
 
 import { AbstractWrapper } from '@/Engine/Abstract';
@@ -85,7 +86,8 @@ export function createTextTextureWrapper(params: TTextParams, type: TextType, de
   setText(params.text);
   applyObject3dParams(result, params);
 
-  result.destroy$.subscribe((): void => {
+  const destroySub$: Subscription = result.destroy$.subscribe((): void => {
+    destroySub$.unsubscribe();
     texture.dispose();
     context?.clearRect(0, 0, canvas.width, canvas.height);
     if (canvas?.parentNode) canvas.parentNode?.removeChild(canvas);

@@ -1,5 +1,6 @@
 import '@/Engine/Text/Styles/font-elements.css';
 
+import type { Subscription } from 'rxjs';
 import { CSS2DObject } from 'three/examples/jsm/renderers/CSS2DRenderer';
 import { CSS3DObject } from 'three/examples/jsm/renderers/CSS3DRenderer';
 
@@ -37,7 +38,9 @@ export function createTextWrapper<T extends CSS2DObject | CSS3DObject>(params: T
 
   element.setAttribute(RelatedEntityAttribute, result.id.toString());
 
-  result.destroy$.subscribe(() => {
+  const destroySub$: Subscription = result.destroy$.subscribe((): void => {
+    destroySub$.unsubscribe();
+
     // eslint-disable-next-line functional/immutable-data
     element.className = '';
     element.removeAttribute('style');
