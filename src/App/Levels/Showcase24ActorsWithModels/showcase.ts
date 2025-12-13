@@ -22,7 +22,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
 
   const { keyboardService } = engine.services;
   const { actorService, animationsService, animationsFsmService, models3dService } = space.services;
-  const { onKey, onKeyCombo, isKeyPressed } = keyboardService;
+  const { onKey, isKeyPressed } = keyboardService;
 
   function init(): void {
     addGizmo(space.services, ambientContext.screenSizeWatcher, { placement: 'bottom-left' });
@@ -63,11 +63,14 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     if (isNotDefined(solderActor)) throw new Error('Solder actor is not found');
     solderActor.setAnimationsFsm(solderAnimFsm);
 
-    if (isNotDefined(solderActor.states.animationsFsm)) throw new Error('Animations FSM is not defined');
+    const { animationsFsm } = solderActor.states;
+
+    if (isNotDefined(animationsFsm)) throw new Error('Animations FSM is not defined');
 
     let prev: any = '';
-    solderActor.states.animationsFsm.subscribe((state) => {
+    animationsFsm.subscribe((state) => {
       if (prev === state.value) return;
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
       prev = state.value;
 
       if (state.matches(AnimationActions.Idle)) {
@@ -87,11 +90,11 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
 
     onKey(KeyCode.W).pressing$.subscribe((): void => {
       const type = isKeyPressed(KeysExtra.Shift) ? AnimationActions.Run : AnimationActions.Walk;
-      if (solderActor.states.animationsFsm?.getSnapshot().value !== type) solderActor.states.animationsFsm?.send({ type });
+      if (animationsFsm.getSnapshot().value !== type) animationsFsm?.send({ type });
     });
 
     onKey(KeyCode.W).released$.subscribe((): void => {
-      solderActor.states.animationsFsm?.send({ type: AnimationActions.Idle });
+      animationsFsm.send({ type: AnimationActions.Idle });
     });
   }
 
