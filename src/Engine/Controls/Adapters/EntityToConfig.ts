@@ -1,5 +1,6 @@
 import type { TCamera, TCameraWrapper } from '@/Engine/Camera';
 import type { TControlsConfig, TControlsServiceDependencies, TControlsWrapper, TFpsControlsConfig, TFpsControlsWrapper, TOrbitControlsConfig, TOrbitControlsWrapper } from '@/Engine/Controls/Models';
+import { isFpsControls, isOrbitControls } from '@/Engine/Controls/Utils';
 import { extractSerializableRegistrableFields } from '@/Engine/Mixins';
 import { filterOutEmptyFields, isNotDefined } from '@/Engine/Utils';
 
@@ -15,15 +16,21 @@ export function controlsToConfig(entity: TControlsWrapper, { cameraService }: TC
   const cameraName: string | undefined = cameraService.getRegistry().findKey((cameraWrapper: TCameraWrapper): boolean => cameraWrapper.entity === camera);
   if (isNotDefined(cameraName)) throw new Error(`[Serialization] Controls: camera with name "${cameraName}" not found for entity with name: "${entity.name}", (id: "${entity.id}")`);
 
-  return filterOutEmptyFields({
+  const result = filterOutEmptyFields({
     enabled: entity.isEnable(),
     type: entity.getType(),
     isActive: entity.isActive(),
     cameraName,
-    ...getFpsControlsFields(entity as TFpsControlsWrapper),
-    ...getOrbitControlsFields(entity as TOrbitControlsWrapper),
     ...extractSerializableRegistrableFields(entity)
   });
+
+  // eslint-disable-next-line functional/immutable-data
+  if (isOrbitControls(entity)) Object.assign(result, getOrbitControlsFields(entity as TOrbitControlsWrapper));
+
+  // eslint-disable-next-line functional/immutable-data
+  if (isFpsControls(entity)) Object.assign(result, getFpsControlsFields(entity as TFpsControlsWrapper));
+
+  return result;
 }
 
 function getOrbitControlsFields(entity: TOrbitControlsWrapper): Omit<TOrbitControlsConfig, 'type' | 'isActive' | 'name' | 'cameraName'> {
@@ -50,9 +57,9 @@ function getOrbitControlsFields(entity: TOrbitControlsWrapper): Omit<TOrbitContr
     screenSpacePanning: entity.getScreenSpacePanning(),
     keyPanSpeed: entity.getKeyPanSpeed(),
     autoRotate: entity.getAutoRotate(),
-    autoRotateSpeed: entity.getAutoRotateSpeed(),
-    target: entity.getTarget(),
-    cursor: entity.getCursor()
+    autoRotateSpeed: entity.getAutoRotateSpeed()
+    // target: entity.getTarget(),
+    // cursor: entity.getCursor()
   });
 }
 
