@@ -1,4 +1,4 @@
 export type TAppService = Readonly<{
-  restartApp: () => void;
   closeApp: () => void;
+  restartApp: (args?: ReadonlyArray<string>) => void;
 }>;

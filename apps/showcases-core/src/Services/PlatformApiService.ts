@@ -6,7 +6,7 @@ import type { TPlatformApiService, TPlatformDriver } from '@/Models';
 export function PlatformApiService(): TPlatformApiService {
   const driver: TPlatformDriver = Driver();
 
-  const closeApp = (): void => platformApiService.closeApp();
+  const closeApp = (): void => driver.closeApp();
   const getChromeVersion = (): string => driver.getChromeVersion();
   const getDriver = (): TPlatformDriver => driver;
   const getNodeVersion = (): string => driver.getNodeVersion();
@@ -14,7 +14,7 @@ export function PlatformApiService(): TPlatformApiService {
   const getWrappedAppVersion = (): Promise<string> => driver.getWrappedAppVersion();
   const loadAppSettings = (): Promise<TShowcaseGameSettings> => driver.loadAppSettings();
   const loadLegalDocs = (options: TLoadDocPayload): Promise<TLegalDoc> => driver.loadLegalDocs(options);
-  const restartApp = (): void => platformApiService.restartApp();
+  const restartApp = (args?: ReadonlyArray<string>): void => driver.restartApp(args);
   const saveAppSettings = (settings: TShowcaseGameSettings): Promise<void> => driver.saveAppSettings(settings);
 
   return {

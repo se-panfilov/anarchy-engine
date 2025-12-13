@@ -63,6 +63,10 @@ export function EventsService({ mainMenuService, appService, settingsService }: 
           });
           break;
         }
+        case FromMenuEvents.ExitApp: {
+          appService.closeApp();
+          break;
+        }
         default: {
           console.warn(`[Showcase]: Unknown event type "${event.type}" received in menuEventsBus$`);
         }
