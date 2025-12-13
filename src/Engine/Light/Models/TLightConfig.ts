@@ -2,18 +2,18 @@ import type { Vector2Like } from 'three';
 import type { Color } from 'three/src/math/Color';
 
 import type { TWithReadonlyTags } from '@/Engine/Mixins';
-import type { TObject3DPropConfig } from '@/Engine/ThreeLib';
+import type { TObject3DParams, TObject3DPropConfig } from '@/Engine/ThreeLib';
 
-import type { TAmbientLightProps } from './TAmbientLightProps';
-import type { TDirectionalLightProps } from './TDirectionalLightProps';
+import type { TAmbientLightParams } from './TAmbientLightParams';
+import type { TDirectionalLightParams } from './TDirectionalLightParams';
 import type { TDirectionalLightShadowParams } from './TDirectionalLightShadowParams';
-import type { THemisphereLightProps } from './THemisphereLightProps';
+import type { THemisphereLightParams } from './THemisphereLightParams';
 import type { TLightShadowParams } from './TLightShadowParams';
-import type { TPointLightProps } from './TPointLightProps';
-import type { TRectAreaLightProps } from './TRectAreaLightProps';
-import type { TSpotLightProps } from './TSpotLightProps';
+import type { TPointLightParams } from './TPointLightParams';
+import type { TRectAreaLightParams } from './TRectAreaLightParams';
+import type { TSpotLightParams } from './TSpotLightParams';
 
-export type TAbstractLightConfig<T extends Readonly<{ color: Color; shadow?: TLightShadowParams }>> = Omit<T, 'color' | 'shadow'> &
+export type TAbstractLightConfig<T extends Readonly<{ color: Color; shadow?: TLightShadowParams }>> = Omit<T, keyof TObject3DParams | 'color' | 'shadow'> &
   Readonly<{
     color: string;
     shadow?: TLightShadowConfig;
@@ -21,7 +21,7 @@ export type TAbstractLightConfig<T extends Readonly<{ color: Color; shadow?: TLi
   TObject3DPropConfig &
   TWithReadonlyTags;
 
-export type TDirectionalLightConfig = Omit<TDirectionalLightProps, 'color' | 'shadow'> &
+export type TDirectionalLightConfig = Omit<TDirectionalLightParams, keyof TObject3DParams | 'color' | 'shadow'> &
   Readonly<{
     color: string;
     shadow?: TDirectionalLightShadowConfig;
@@ -29,11 +29,11 @@ export type TDirectionalLightConfig = Omit<TDirectionalLightProps, 'color' | 'sh
   TObject3DPropConfig &
   TWithReadonlyTags;
 
-export type TAmbientLightConfig = TAbstractLightConfig<TAmbientLightProps>;
-export type THemisphereLightConfig = Omit<TAbstractLightConfig<THemisphereLightProps>, 'groundColor'> & Readonly<{ groundColor: string }>;
-export type TPointLightConfig = TAbstractLightConfig<TPointLightProps>;
-export type TRectAreaLightConfig = TAbstractLightConfig<TRectAreaLightProps>;
-export type TSpotLightConfig = TAbstractLightConfig<TSpotLightProps>;
+export type TAmbientLightConfig = TAbstractLightConfig<TAmbientLightParams>;
+export type THemisphereLightConfig = Omit<TAbstractLightConfig<THemisphereLightParams>, 'groundColor'> & Readonly<{ groundColor: string }>;
+export type TPointLightConfig = TAbstractLightConfig<TPointLightParams>;
+export type TRectAreaLightConfig = TAbstractLightConfig<TRectAreaLightParams>;
+export type TSpotLightConfig = TAbstractLightConfig<TSpotLightParams>;
 
 export type TAnyLightConfig = TAmbientLightConfig | THemisphereLightConfig | TDirectionalLightConfig | TPointLightConfig | TRectAreaLightConfig | TSpotLightConfig;
 

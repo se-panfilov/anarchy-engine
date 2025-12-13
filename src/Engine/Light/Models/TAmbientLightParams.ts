@@ -1,6 +1,14 @@
+import type { Color } from 'three/src/math/Color';
+
 import type { TWithReadonlyTags } from '@/Engine/Mixins';
 import type { TObject3DParams } from '@/Engine/ThreeLib';
 
-import type { TAmbientLightProps } from './TAmbientLightProps';
+import type { TAbstractLightParams } from './TAbstractLightParams';
 
-export type TAmbientLightParams = TAmbientLightProps & TObject3DParams & TWithReadonlyTags;
+export type TAmbientLightParams = TAbstractLightParams &
+  Readonly<{
+    color: Color;
+    intensity?: number;
+  }> &
+  TObject3DParams &
+  TWithReadonlyTags;

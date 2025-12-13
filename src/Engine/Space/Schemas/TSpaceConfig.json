@@ -1324,9 +1324,9 @@
       ]
     },
     "TAmbientLightConfig": {
-      "$ref": "#/definitions/TAbstractLightConfig%3CTAmbientLightProps%3E"
+      "$ref": "#/definitions/TAbstractLightConfig%3CTAmbientLightParams%3E"
     },
-    "TAbstractLightConfig<TAmbientLightProps>": {
+    "TAbstractLightConfig<TAmbientLightParams>": {
       "type": "object",
       "additionalProperties": false,
       "properties": {
@@ -1452,6 +1452,12 @@
         "name": {
           "type": "string"
         },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
         "color": {
           "type": "string"
         },
@@ -1491,12 +1497,6 @@
         },
         "scale": {
           "$ref": "#/definitions/Vector3Like"
-        },
-        "tags": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
         }
       },
       "required": ["color", "groundColor", "position", "type"]
@@ -1604,9 +1604,9 @@
       "required": ["camera", "mapSize", "normalBias"]
     },
     "TPointLightConfig": {
-      "$ref": "#/definitions/TAbstractLightConfig%3CTPointLightProps%3E"
+      "$ref": "#/definitions/TAbstractLightConfig%3CTPointLightParams%3E"
     },
-    "TAbstractLightConfig<TPointLightProps>": {
+    "TAbstractLightConfig<TPointLightParams>": {
       "type": "object",
       "additionalProperties": false,
       "properties": {
@@ -1678,9 +1678,9 @@
       "required": ["color", "position", "type"]
     },
     "TRectAreaLightConfig": {
-      "$ref": "#/definitions/TAbstractLightConfig%3CTRectAreaLightProps%3E"
+      "$ref": "#/definitions/TAbstractLightConfig%3CTRectAreaLightParams%3E"
     },
-    "TAbstractLightConfig<TRectAreaLightProps>": {
+    "TAbstractLightConfig<TRectAreaLightParams>": {
       "type": "object",
       "additionalProperties": false,
       "properties": {
@@ -1752,9 +1752,9 @@
       "required": ["color", "height", "position", "type", "width"]
     },
     "TSpotLightConfig": {
-      "$ref": "#/definitions/TAbstractLightConfig%3CTSpotLightProps%3E"
+      "$ref": "#/definitions/TAbstractLightConfig%3CTSpotLightParams%3E"
     },
-    "TAbstractLightConfig<TSpotLightProps>": {
+    "TAbstractLightConfig<TSpotLightParams>": {
       "type": "object",
       "additionalProperties": false,
       "properties": {
