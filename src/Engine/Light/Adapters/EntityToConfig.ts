@@ -1,4 +1,4 @@
-import type { Object3DJSONObject } from 'three';
+import type { Object3DJSONObject, Vector2Like } from 'three';
 
 import type { LightType } from '@/Engine/Light/Constants';
 import type {
@@ -20,7 +20,7 @@ import type {
   TSpotLightWrapper
 } from '@/Engine/Light/Models';
 import { extractSerializableRegistrableFields } from '@/Engine/Mixins';
-import { filterOutEmptyFields } from '@/Engine/Utils';
+import { filterOutEmptyFields, isDefined } from '@/Engine/Utils';
 
 // TODO 15-0-0: validate result
 export function lightToConfig<T extends TLight>(entity: TAbstractLightWrapper<T>): TDirectionalLightConfig | THemisphereLightConfig | TRectAreaLightConfig | TAmbientLightConfig | TSpotLightConfig {
@@ -98,7 +98,21 @@ export function onlyLightShadowToConfig<T extends TLight>(
 }> {
   const json: Object3DJSONObject = entity.entity.toJSON().object;
 
+  const shadow: TLightShadowConfig | TDirectionalLightShadowConfig | undefined = (json as unknown as TDirectionalLightConfig | TAbstractLightConfig<T>).shadow;
+
   return filterOutEmptyFields({
-    shadow: (json as unknown as TDirectionalLightConfig | TAbstractLightConfig<T>).shadow
+    shadow,
+    mapSize: getMapSize(shadow)
   });
+}
+
+function getMapSize(shadow: TLightShadowConfig | TDirectionalLightShadowConfig | undefined): Vector2Like | undefined {
+  let mapSize: Vector2Like | undefined = undefined;
+  if (isDefined(shadow) && isDefined(shadow.mapSize)) {
+    mapSize =
+      isDefined(shadow?.mapSize) && isDefined((shadow?.mapSize as any)[0]) && isDefined((shadow?.mapSize as any)[1])
+        ? { x: (shadow.mapSize as any)[0] as number, y: (shadow.mapSize as any)[1] as number }
+        : undefined;
+  }
+  return mapSize;
 }

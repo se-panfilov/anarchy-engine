@@ -19,7 +19,7 @@ function getLightColorParams(colorStr: string): Readonly<{ color: Color }> {
   return { color: new Color(colorStr) };
 }
 
-function getLightShadowParams(shadow: TLightShadowConfig | undefined): Readonly<{ shadow: TLightShadowParams }> | undefined {
-  if (isNotDefined(shadow)) return undefined;
+function getLightShadowParams(shadow: TLightShadowConfig | undefined): Readonly<{ shadow?: TLightShadowParams }> {
+  if (isNotDefined(shadow)) return {};
   return { shadow: { ...shadow, mapSize: new Vector2(shadow.mapSize.x, shadow.mapSize.y) } };
 }
