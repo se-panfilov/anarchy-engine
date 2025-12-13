@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { omitInObjectWithMutation, omitInObjectWithoutMutation, patchObject } from './ObjectUtils';
+import { filterOutEmptyFieldsRecursive, omitInObjectWithMutation, omitInObjectWithoutMutation, patchObject } from './ObjectUtils';
 
 describe('ObjectUtils', () => {
   describe('omitInObjectWithoutMutation', () => {
@@ -107,6 +107,99 @@ describe('ObjectUtils', () => {
     it('should modify multiple deep-level values', () => {
       const expected = { ...origin, levelA1: { ...origin.levelA1, levelA2: { ...origin.levelA1.levelA2, valueA1: false, valueA3: false } } };
       expect(patchObject(origin, { levelA1: { levelA2: { valueA1: false, valueA3: false } } })).toEqual(expected);
+    });
+  });
+
+  describe('filterOutEmptyFieldsRecursive', () => {
+    it('should remove "undefined" keys from plain object (shallow)', () => {
+      const src: Record<string, any> = { a: 1, b: undefined, c: 3, d: undefined };
+      const out: Record<string, any> = filterOutEmptyFieldsRecursive(src);
+      expect(out).toEqual({ a: 1, c: 3 });
+    });
+
+    it('should remove undefined keys deeply (nested objects)', () => {
+      const src: Record<string, any> = { a: { x: 1, y: undefined }, b: { c: { d: undefined, e: 2, g: undefined } }, f: undefined };
+      const out: Record<string, any> = filterOutEmptyFieldsRecursive(src);
+      expect(out).toEqual({ a: { x: 1 }, b: { c: { e: 2 } } });
+    });
+
+    it('should remove undefined elements from arrays by default', () => {
+      const src: Record<string, any> = { arr: [1, undefined, 3, undefined] };
+      const out: Record<string, any> = filterOutEmptyFieldsRecursive(src);
+      expect(out).toEqual({ arr: [1, 3] });
+    });
+
+    it('should remove undefined inside nested arrays and objects', () => {
+      const src: Record<string, any> = { arr: [1, { x: undefined, y: 2 }, [undefined, 4, undefined, undefined], []] };
+      const out: Record<string, any> = filterOutEmptyFieldsRecursive(src);
+      expect(out).toEqual({ arr: [1, { y: 2 }, [4], []] });
+    });
+
+    it('should  not mutate the original input', () => {
+      const src: Record<string, any> = { a: 1, b: { c: undefined } };
+      const snapshot: string = JSON.stringify(src);
+      void filterOutEmptyFieldsRecursive(src);
+      expect(JSON.stringify(src)).toBe(snapshot);
+    });
+
+    it('should preserves Date instances (value equality)', () => {
+      const d = new Date('2020-01-01T00:00:00.000Z');
+      const out = filterOutEmptyFieldsRecursive({ d, u: undefined }) as { d: Date };
+      expect(out.d instanceof Date).toBe(true);
+    });
+
+    it('should preserves RegExp instances', () => {
+      const r = /test/gi;
+      const out = filterOutEmptyFieldsRecursive({ r, u: undefined }) as { r: RegExp };
+      expect(out.r instanceof RegExp).toBe(true);
+    });
+
+    it('should preserves Map instances (structure)', () => {
+      const m = new Map<string, any>([
+        ['k1', 1],
+        ['k2', undefined]
+      ]);
+      const out = filterOutEmptyFieldsRecursive({ m }) as { m: Map<string, any> };
+      expect(out.m instanceof Map).toBe(true);
+    });
+
+    it('should preserves Set instances (structure)', () => {
+      const s = new Set<any>([1, undefined, 3]);
+      const out = filterOutEmptyFieldsRecursive({ s }) as { s: Set<any> };
+      expect(out.s instanceof Set).toBe(true);
+    });
+
+    it('should preserves TypedArray instances', () => {
+      const ta = new Uint8Array([1, 2, 3]);
+      const out = filterOutEmptyFieldsRecursive({ ta }) as { ta: Uint8Array };
+      expect(out.ta instanceof Uint8Array).toBe(true);
+    });
+
+    it('should keep class instances (prototype intact)', () => {
+      class Foo {
+        x = 1;
+        getX() {
+          return this.x;
+        }
+      }
+      const foo = new Foo();
+      const out = filterOutEmptyFieldsRecursive({ foo }) as { foo: Foo };
+      expect(out.foo instanceof Foo).toBe(true);
+    });
+
+    it('should handles root-level undefined by returning undefined', () => {
+      const out = filterOutEmptyFieldsRecursive(undefined as unknown as any);
+      expect(out).toBeUndefined();
+    });
+
+    it('should return empty object if all keys were undefined', () => {
+      const out = filterOutEmptyFieldsRecursive({ a: undefined, b: undefined });
+      expect(out).toEqual({});
+    });
+
+    it('should handle empty arrays', () => {
+      const out = filterOutEmptyFieldsRecursive({ arr: [] });
+      expect(out).toEqual({ arr: [] });
     });
   });
 });

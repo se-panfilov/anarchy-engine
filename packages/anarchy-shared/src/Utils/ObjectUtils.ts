@@ -1,4 +1,5 @@
 import type { TDeepPartial } from '@Anarchy/Shared/Utils/TypesUtils';
+import { cloneDeepWith, isPlainObject } from 'lodash-es';
 
 export function cleanObject<T extends Record<string, unknown>>(obj: T): void {
   Object.keys(obj).forEach((key: keyof T): void => {
@@ -34,8 +35,47 @@ export const omitInObjectWithMutation = <T extends Record<string, unknown>, K ex
   return obj;
 };
 
-export function filterOutEmptyFields<T extends Record<string, unknown>>(obj: T): T {
-  return Object.fromEntries(Object.entries(obj).filter(([, value]: [string, unknown]): boolean => value !== undefined && value !== null && value !== Infinity && value !== -Infinity)) as T;
+const filterValues = (value: unknown): boolean => value !== undefined && value !== null && value !== Infinity && value !== -Infinity;
+
+export function filterOutEmptyFields<T extends Record<string, unknown> | ReadonlyArray<unknown>>(item: T): T {
+  if (Array.isArray(item)) return item.filter(filterValues) as unknown as T;
+  return Object.fromEntries(Object.entries(item).filter(([, value]: [string, unknown]): boolean => filterValues(value))) as T;
+}
+
+export function filterOutEmptyFieldsRecursive<T extends Record<string, unknown> | ReadonlyArray<unknown>>(input: T): T {
+  const customizer = (value: unknown): unknown => {
+    if (
+      value === null ||
+      typeof value !== 'object' ||
+      value instanceof Date ||
+      value instanceof RegExp ||
+      value instanceof Map ||
+      value instanceof Set ||
+      (typeof ArrayBuffer !== 'undefined' && ArrayBuffer.isView(value)) // TypedArray/DataView
+    ) {
+      return undefined;
+    }
+
+    if (Array.isArray(value)) {
+      const cleaned = (value as ReadonlyArray<unknown>).map((v) => cloneDeepWith(v, customizer));
+      return cleaned.filter((v) => v !== undefined);
+    }
+
+    if (isPlainObject(value)) {
+      const src = value as Record<string, unknown>;
+      const out: Record<string, unknown> = {};
+      for (const [k, v] of Object.entries(src)) {
+        if (v === undefined) continue;
+        const cleaned = cloneDeepWith(v, customizer);
+        if (cleaned !== undefined) out[k] = cleaned;
+      }
+      return out;
+    }
+
+    return undefined;
+  };
+
+  return cloneDeepWith(input, customizer) as T;
 }
 
 // Merges objects but overrides only defined values from patch
