@@ -6,7 +6,9 @@ import type { TContainerDecorator } from '@Anarchy/Engine/Global';
 import type { TRegistrable } from '@Anarchy/Engine/Mixins';
 import type { TSceneRegistry, TSceneWrapper } from '@Anarchy/Engine/Scene';
 import { SceneRegistry, SceneWrapper } from '@Anarchy/Engine/Scene';
+import type { TSpaceCanvas } from '@Anarchy/Engine/Space/Models';
 import type { TTransformDriveService } from '@Anarchy/Engine/TransformDrive';
+import { BehaviorSubject, Subject } from 'rxjs';
 import { Euler, Vector3 } from 'three';
 import { describe, expect, it } from 'vitest';
 
@@ -180,8 +182,22 @@ describe('RegistryUtils', () => {
     });
 
     it('should set "isActive" to "true" for an entity in a registry', () => {
-      const container: TContainerDecorator = { name: 'mock-container' } as unknown as TContainerDecorator;
-      const transformDriveService: TTransformDriveService = { name: 'mock-transform-drive-service' } as unknown as TTransformDriveService;
+      const container: TContainerDecorator = {
+        id: 'mock-container',
+        getWidth: vi.fn(),
+        getHeight: vi.fn(),
+        getRatio: vi.fn((): number => 1),
+        startWatch: vi.fn(),
+        stopWatch: vi.fn(),
+        getAppContainer: vi.fn(),
+        getElement: vi.fn(),
+        resize$: new BehaviorSubject<DOMRect>(new DOMRect()).asObservable(),
+        canvas$: new BehaviorSubject<TSpaceCanvas | undefined>(undefined),
+        destroy$: new Subject<void>(),
+        fullScreen$: new BehaviorSubject<boolean>(false),
+        viewportRect$: new BehaviorSubject(new DOMRect())
+      };
+      const transformDriveService: TTransformDriveService = { name: 'mock-transform-drive-service', getTransformAgents: vi.fn(), create: vi.fn() } as unknown as TTransformDriveService;
       const audioService: TAudioService = { name: 'mock-audio-service' } as unknown as TAudioService;
       const mockObj: TPerspectiveCameraWrapper = PerspectiveCameraWrapper(
         { name: 'mock-camera', type: CameraType.Perspective, isActive: false, position: new Vector3(), rotation: new Euler() },
