@@ -21,41 +21,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
 
     const bgMusic: TAudioWrapper | undefined = audioService.getRegistry().findByName('bg_music');
     if (isNotDefined(bgMusic)) throw new Error('Background music is not found');
-
-    const state = {
-      playBgMusic: (): void => bgMusic.play$.next(true),
-      pauseBgMusic: (): void => bgMusic.pause$.next(true),
-      resumeBgMusic: (): void => bgMusic.pause$.next(false),
-      stopBgMusic: (): void => bgMusic.play$.next(false),
-      seekPlus: (): void => {
-        const currentTime: number = bgMusic.seek$.getValue();
-        bgMusic.seek$.next(currentTime + 10);
-      },
-      seekMinus: (): void => {
-        const currentTime: number = bgMusic.seek$.getValue();
-        bgMusic.seek$.next(currentTime - 10);
-      },
-      loop: (): void => {
-        const currentLoop: boolean = bgMusic.loop$.getValue();
-        bgMusic.loop$.next(!currentLoop);
-      },
-      volume: 1,
-      progress: 0
-    };
-
-    bgMusicFolder.add(state, 'playBgMusic').name('Play background music');
-    bgMusicFolder.add(state, 'pauseBgMusic').name('Pause background music');
-    bgMusicFolder.add(state, 'resumeBgMusic').name('Resume background music');
-    bgMusicFolder.add(state, 'stopBgMusic').name('Stop background music');
-    bgMusicFolder.add(state, 'seekPlus').name('Seek +10s');
-    bgMusicFolder.add(state, 'seekMinus').name('Seek -10s');
-    bgMusicFolder.add(state, 'loop').name('loop');
-    bgMusicFolder
-      .add(state, 'volume', 0, 1)
-      .name('Volume')
-      .onChange((value: number): void => {
-        bgMusic.volume$.next(value);
-      });
+    initBgMusic(bgMusic, bgMusicFolder);
   }
 
   function start(): void {
@@ -75,4 +41,41 @@ function initMutant1(actorName: string, fadeDuration: number, { animationsServic
 
   const danceAction: AnimationAction = actions['Armature|mixamo.com|Layer0'];
   danceAction.reset().fadeIn(fadeDuration).play();
+}
+
+function initBgMusic(bgMusic: TAudioWrapper, folder: GUI): void {
+  const state = {
+    playBgMusic: (): void => bgMusic.play$.next(true),
+    pauseBgMusic: (): void => bgMusic.pause$.next(true),
+    resumeBgMusic: (): void => bgMusic.pause$.next(false),
+    stopBgMusic: (): void => bgMusic.play$.next(false),
+    seekPlus: (): void => {
+      const currentTime: number = bgMusic.seek$.getValue();
+      bgMusic.seek$.next(currentTime + 10);
+    },
+    seekMinus: (): void => {
+      const currentTime: number = bgMusic.seek$.getValue();
+      bgMusic.seek$.next(currentTime - 10);
+    },
+    loop: (): void => {
+      const currentLoop: boolean = bgMusic.loop$.getValue();
+      bgMusic.loop$.next(!currentLoop);
+    },
+    volume: 1,
+    progress: 0
+  };
+
+  folder.add(state, 'playBgMusic').name('Play background music');
+  folder.add(state, 'pauseBgMusic').name('Pause background music');
+  folder.add(state, 'resumeBgMusic').name('Resume background music');
+  folder.add(state, 'stopBgMusic').name('Stop background music');
+  folder.add(state, 'seekPlus').name('Seek +10s');
+  folder.add(state, 'seekMinus').name('Seek -10s');
+  folder.add(state, 'loop').name('loop');
+  folder
+    .add(state, 'volume', 0, 1)
+    .name('Volume')
+    .onChange((value: number): void => {
+      bgMusic.volume$.next(value);
+    });
 }
