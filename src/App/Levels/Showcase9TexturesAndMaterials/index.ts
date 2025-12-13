@@ -38,7 +38,7 @@ export function showcase(canvas: IAppCanvas): IShowcase {
 function initCameraRotation(space: ISpace, actor: IActorWrapperAsync | undefined): void {
   const { cameraService } = space.services;
 
-  const camera: ICameraWrapper | undefined = cameraService.findActiveCamera();
+  const camera: ICameraWrapper | undefined = cameraService.findActive();
 
   const { screenSizeWatcher } = ambientContext;
   combineLatest([mouseService.position$, screenSizeWatcher.latest$]).subscribe(([{ x, y }, { width, height }]): void => {

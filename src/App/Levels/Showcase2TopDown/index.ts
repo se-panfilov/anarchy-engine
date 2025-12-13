@@ -38,7 +38,7 @@ export function showcase(canvas: IAppCanvas): IShowcase {
       rotation: EulerWrapper({ x: 0, y: 0, z: 0 }),
       tags: []
     });
-    cameraService.setActiveCamera(true);
+    cameraService.setActive(true);
 
     const { screenSizeWatcher } = ambientContext;
     combineLatest([mouseService.position$, screenSizeWatcher.latest$]).subscribe(([{ x, y }, { width, height }]): void => {

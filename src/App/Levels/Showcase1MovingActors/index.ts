@@ -23,7 +23,7 @@ export function showcase(canvas: IAppCanvas): IShowcase {
   }
 
   function startIntersections(): void {
-    const camera: ICameraWrapper | undefined = cameraService.findActiveCamera();
+    const camera: ICameraWrapper | undefined = cameraService.findActive();
     if (isNotDefined(camera)) throw new Error('Camera is not defined');
     // const actors: ReadonlyArray<IActorWrapperAsync> = actorRegistry.findAllByTags(['intersectable'], LookUpStrategy.Every);
     const intersectionsWatcher: IIntersectionsWatcher = intersectionsService.buildWatcher(camera);

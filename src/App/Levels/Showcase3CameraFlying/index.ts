@@ -15,7 +15,7 @@ export function showcase(canvas: IAppCanvas): IShowcase {
     const { actorRegistry, cameraRegistry } = space.registries;
     const { cameraService } = space.services;
 
-    const camera: ICameraWrapper | undefined = cameraService.findActiveCamera();
+    const camera: ICameraWrapper | undefined = cameraService.findActive();
 
     const { screenSizeWatcher } = ambientContext;
     combineLatest([mouseService.position$, screenSizeWatcher.latest$]).subscribe(([{ x, y }, { width, height }]): void => {

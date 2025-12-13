@@ -87,7 +87,7 @@ export function showcase(canvas: IAppCanvas): IShowcase {
   }
 
   async function startIntersections(): Promise<IIntersectionsWatcher> {
-    const camera: ICameraWrapper | undefined = cameraService.findActiveCamera();
+    const camera: ICameraWrapper | undefined = cameraService.findActive();
     if (isNotDefined(camera)) throw new Error('Camera is not defined');
     const intersectionsWatcher: IIntersectionsWatcher = intersectionsService.buildWatcher(camera);
 

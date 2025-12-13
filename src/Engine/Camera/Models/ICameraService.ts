@@ -1,5 +1,5 @@
 import type { IDestroyable } from '@/Engine/Mixins';
-import type { ISceneWrapper } from '@/Engine/Scene';
+import type { IWithActiveAccessorsService, IWithCreateFromConfigService, IWithCreateService, IWithFactoryService, IWithRegistryService, IWithSceneGetterService } from '@/Engine/Space';
 
 import type { ICameraConfig } from './ICameraConfig';
 import type { ICameraFactory } from './ICameraFactory';
@@ -8,13 +8,12 @@ import type { ICameraRegistry } from './ICameraRegistry';
 import type { ICameraWrapper } from './ICameraWrapper';
 
 export type ICameraService = Readonly<{
-  create: (params: ICameraParams) => ICameraWrapper;
-  createFromConfig: (cameras: ReadonlyArray<ICameraConfig>) => void;
-  setActiveCamera: (cameraId: string) => void;
-  findActiveCamera: () => ICameraWrapper | undefined;
   startUpdatingCamerasAspect: (isOnlyActive: boolean) => void;
-  getFactory: () => ICameraFactory;
-  getRegistry: () => ICameraRegistry;
-  getScene: () => ISceneWrapper;
 }> &
+  IWithCreateService<ICameraWrapper, ICameraParams> &
+  IWithCreateFromConfigService<ICameraConfig> &
+  IWithActiveAccessorsService<ICameraWrapper> &
+  IWithFactoryService<ICameraFactory> &
+  IWithRegistryService<ICameraRegistry> &
+  IWithSceneGetterService &
   IDestroyable;

@@ -33,8 +33,8 @@ export function CameraService(factory: ICameraFactory, registry: ICameraRegistry
   const create = (params: ICameraParams): ICameraWrapper => factory.create(params);
   const createFromConfig = (cameras: ReadonlyArray<ICameraConfig>): void => cameras.forEach((config: ICameraConfig): ICameraWrapper => factory.create(factory.configToParams(config)));
 
-  const setActiveCamera = (cameraId: string): void => setActiveWrappedEntity(registry, cameraId);
-  const findActiveCamera = (): ICameraWrapper | undefined => findActiveWrappedEntity(registry);
+  const setActive = (cameraId: string): void => setActiveWrappedEntity(registry, cameraId);
+  const findActive = (): ICameraWrapper | undefined => findActiveWrappedEntity(registry);
 
   const destroyable: IDestroyable = destroyableMixin();
   destroyable.destroyed$.subscribe(() => {
@@ -47,8 +47,8 @@ export function CameraService(factory: ICameraFactory, registry: ICameraRegistry
   return {
     create,
     createFromConfig,
-    setActiveCamera,
-    findActiveCamera,
+    setActive,
+    findActive,
     startUpdatingCamerasAspect,
     getFactory: (): ICameraFactory => factory,
     getRegistry: (): ICameraRegistry => registry,
