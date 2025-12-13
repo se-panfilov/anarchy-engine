@@ -1,6 +1,6 @@
 import type { IShowcase } from '@/App/Levels/Models';
 import type { IActorWrapper, IAppCanvas, ICameraWrapper, IIntersectionsWatcher, ILevel, ILevelConfig, IVector3 } from '@/Engine';
-import { ActorTag, ambientContext, buildLevelFromConfig, CameraTag, intersectionsService, isNotDefined, LookUpStrategy, standardLoopService } from '@/Engine';
+import { ActorTag, ambientContext, buildLevelFromConfig, intersectionsService, isNotDefined, LookUpStrategy, standardLoopService } from '@/Engine';
 
 import levelConfig from './showcase-1-moving-actors.config.json';
 
@@ -20,7 +20,7 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
   }
 
   function startIntersections(): void {
-    const camera: ICameraWrapper | undefined = cameraRegistry.getUniqByTag(CameraTag.Initial);
+    const camera: ICameraWrapper | undefined = cameraRegistry.getActiveCamera();
     if (isNotDefined(camera)) throw new Error('Camera is not defined');
     const actors: ReadonlyArray<IActorWrapper> = actorRegistry.getAllByTags([ActorTag.Intersectable], LookUpStrategy.Every);
 

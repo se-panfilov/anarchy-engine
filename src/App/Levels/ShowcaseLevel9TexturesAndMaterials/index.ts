@@ -2,7 +2,7 @@ import { combineLatest } from 'rxjs';
 
 import type { IShowcase } from '@/App/Levels/Models';
 import type { IActorWrapper, IAppCanvas, ICameraWrapper, ILevel, ILevelConfig } from '@/Engine';
-import { ambientContext, buildLevelFromConfig, CameraTag, getRotationByCos, getRotationBySin, isDefined, isNotDefined } from '@/Engine';
+import { ambientContext, buildLevelFromConfig, getRotationByCos, getRotationBySin, isDefined, isNotDefined } from '@/Engine';
 
 import levelConfig from './showcase-9-textures-and-materials.config.json';
 
@@ -38,7 +38,7 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
 function initCameraRotation(level: ILevel, actor: IActorWrapper | undefined): void {
   const { cameraRegistry } = level.entities;
 
-  const camera: ICameraWrapper | undefined = cameraRegistry.getUniqByTag(CameraTag.Active);
+  const camera: ICameraWrapper | undefined = cameraRegistry.getActiveCamera();
 
   const { mousePositionWatcher, screenSizeWatcher } = ambientContext;
   combineLatest([mousePositionWatcher.value$, screenSizeWatcher.latest$]).subscribe(([{ x, y }, { width, height }]): void => {
