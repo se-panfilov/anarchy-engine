@@ -13,7 +13,7 @@ import type { TPointLightParams } from './TPointLightParams';
 import type { TRectAreaLightParams } from './TRectAreaLightParams';
 import type { TSpotLightParams } from './TSpotLightParams';
 
-export type TAbstractLightConfig<T extends Readonly<{ color: Color; shadow?: TLightShadowParams }>> = Omit<T, keyof TObject3DParams | 'color' | 'shadow'> &
+export type TAbstractLightConfig<T extends Readonly<{ color: Color; shadow?: TLightShadowConfig }>> = Omit<T, keyof TObject3DParams | 'color' | 'shadow'> &
   Readonly<{
     color: string;
     shadow?: TLightShadowConfig;
@@ -36,7 +36,7 @@ export type TSpotLightConfig = TAbstractLightConfig<TSpotLightParams>;
 
 export type TAnyLightConfig = TAmbientLightConfig | THemisphereLightConfig | TDirectionalLightConfig | TPointLightConfig | TRectAreaLightConfig | TSpotLightConfig;
 
-export type TLightShadowConfig = Omit<TLightShadowParams, 'mapSize'> &
+export type TLightShadowConfig = Omit<TLightShadowParams, 'mapSize' | 'camera'> &
   Readonly<{
     mapSize: Vector2Like;
     camera: { far: number };

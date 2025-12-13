@@ -1631,11 +1631,9 @@
           "properties": {
             "far": {
               "type": "number"
-            },
-            "near": {
-              "type": "number"
             }
           },
+          "required": ["far"],
           "additionalProperties": false
         },
         "normalBias": {

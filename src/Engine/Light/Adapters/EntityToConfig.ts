@@ -1,4 +1,4 @@
-import type { Object3DJSONObject, Vector2Like } from 'three';
+import type { Layers, Object3DJSONObject, Vector2Like } from 'three';
 import { Vector2 } from 'three';
 
 import type { TCamera } from '@/Engine/Camera';
@@ -129,13 +129,12 @@ export function onlyLightShadowToConfig<T extends TLight>(
     right,
     top,
     bottom,
-    layers,
+    layers: layers as unknown as Layers,
     near,
     type,
-    up,
+    up: up as TDirectionalLightShadowConfig['camera']['up'],
     zoom
-    // TODO 15-0-0: types doesn't match, due to "layers".
-  } as unknown as TCamera;
+  } as TCamera;
 
   return result;
 }
