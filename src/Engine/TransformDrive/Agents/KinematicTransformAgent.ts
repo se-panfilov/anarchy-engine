@@ -1,5 +1,5 @@
-import type { Subscription } from 'rxjs';
-import { BehaviorSubject, filter, map, switchMap } from 'rxjs';
+import type { Subject, Subscription } from 'rxjs';
+import { BehaviorSubject, combineLatest, filter, map, switchMap } from 'rxjs';
 import { Euler, Quaternion, Vector3 } from 'three';
 import { degToRad } from 'three/src/math/MathUtils';
 
@@ -204,9 +204,12 @@ export function KinematicTransformAgent(params: TKinematicTransformAgentParams, 
     rotationQuaternion$.next(rotationQuaternion$.value.clone().multiply(quaternion));
   }
 
-  kinematicSub$ = agent.enabled$
-    //Do not update if agent is disabled
-    .pipe(switchMap((isEnabled: boolean) => (isEnabled ? kinematicLoopService.tick$.pipe(filter((): boolean => agent.autoUpdate$.value)) : [])))
+  kinematicSub$ = combineLatest([agent.enabled$, agent.autoUpdate$])
+    .pipe(
+      //Do not update if agent is disabled or autoUpdate is turned off
+      filter(([isEnabled, isAutoUpdate]: ReadonlyArray<boolean>): boolean => isEnabled && isAutoUpdate),
+      switchMap((): Subject<number> => kinematicLoopService.tick$)
+    )
     .subscribe((delta: number): void => {
       doKinematicRotation(delta);
       doKinematicMove(delta);

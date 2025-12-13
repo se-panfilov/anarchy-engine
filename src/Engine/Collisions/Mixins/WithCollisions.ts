@@ -1,9 +1,9 @@
 import type { Subscription } from 'rxjs';
-import { BehaviorSubject, filter, Subject } from 'rxjs';
+import { BehaviorSubject, Subject, switchMap } from 'rxjs';
 
 import type { TActor, TActorParams } from '@/Engine/Actor';
 import { CollisionsUpdatePriority } from '@/Engine/Collisions/Constants';
-import type { TCollisionCheckResult, TCollisionsData, TCollisionsLoopService, TCollisionsService, TWithCollisions } from '@/Engine/Collisions/Models';
+import type { TCollisionCheckResult, TCollisionsData, TCollisionsLoopService, TCollisionsLoopServiceValue, TCollisionsService, TWithCollisions } from '@/Engine/Collisions/Models';
 import type { TDestroyable } from '@/Engine/Mixins';
 import { destroyableMixin } from '@/Engine/Mixins';
 import type { TSpatialCellWrapper } from '@/Engine/Spatial';
@@ -46,7 +46,8 @@ export function withCollisions(params: TActorParams, collisionsService: TCollisi
       },
       start(actor: TActor): void {
         const collisionsInterpolationLengthMultiplier: number = 4;
-        collisionsLoopServiceSub$ = collisionsLoopService.tick$.pipe(filter(() => _isAutoUpdate)).subscribe(({ delta, priority }): void => {
+
+        collisionsLoopServiceSub$ = autoUpdate$.pipe(switchMap((): Subject<TCollisionsLoopServiceValue> => collisionsLoopService.tick$)).subscribe(({ delta, priority }): void => {
           if (priority < this.getCollisionsUpdatePriority()) return;
 
           // TODO should be possible to check collisions against another grid

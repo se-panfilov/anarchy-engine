@@ -1,4 +1,5 @@
-import type { Subscription } from 'rxjs';
+import type { Subject, Subscription } from 'rxjs';
+import { switchMap } from 'rxjs';
 import type { Vector3 } from 'three';
 
 import { AbstractEntity, EntityType } from '@/Engine/Abstract';
@@ -57,14 +58,15 @@ export function Actor(
 
   const actor: TActor = AbstractEntity(entities, EntityType.Actor, params);
 
-  const spatialSub$: Subscription = spatialLoopService.tick$.subscribe(({ priority }: TSpatialLoopServiceValue): void => {
-    if (!entities.spatial.autoUpdate$.value) return;
-    if (entities.spatial.getSpatialUpdatePriority() >= priority) {
-      // TODO 8.0.0. MODELS: Fix the following code
-      // updatePosition();
-      // updateRotation();
-    }
-  });
+  const spatialSub$: Subscription = spatialLoopService.autoUpdate$
+    .pipe(switchMap((): Subject<TSpatialLoopServiceValue> => spatialLoopService.tick$))
+    .subscribe(({ priority }: TSpatialLoopServiceValue): void => {
+      if (entities.spatial.getSpatialUpdatePriority() >= priority) {
+        // TODO 8.0.0. MODELS: Fix the following code
+        // updatePosition();
+        // updateRotation();
+      }
+    });
 
   actor.destroy$.subscribe(() => {
     //Remove model3d registration
