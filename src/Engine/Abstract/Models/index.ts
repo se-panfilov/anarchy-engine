@@ -3,6 +3,7 @@ export * from './TAbstractEntityRegistry';
 export * from './TAbstractPool';
 export * from './TAbstractProtectedWatcher';
 export * from './TAbstractProtectedWatcherWithState';
+export * from './TAbstractSimpleAsyncRegistry';
 export * from './TAbstractSimpleRegistry';
 export * from './TAbstractWatcher';
 export * from './TAbstractWatcherWithState';
