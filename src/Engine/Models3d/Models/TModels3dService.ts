@@ -28,14 +28,14 @@ export type TModel3dServiceWithFactory = TWithFactoryService<
 export type TModel3dServiceWithRegistry = TWithRegistryService<TModels3dRegistry>;
 
 export type TModels3dService = TAbstractService &
-  Readonly<{
-    getAnimationsService: () => TAnimationsService;
-    getMaterialService: () => TMaterialService;
-    clone: (model3d: TModel3d, overrides?: TOptional<TModel3dParams>) => TModel3d;
-  }> &
   TModel3dServiceWithCreate &
   TModel3dServiceWithCreateFromConfig &
   TModel3dServiceWithFactory &
   TModel3dServiceWithRegistry &
   TWithResourcesRegistryService<TModels3dResourceAsyncRegistry> &
-  TWithLoadResourcesAsyncService<TModel3dResourceConfig, GLTF>;
+  TWithLoadResourcesAsyncService<TModel3dResourceConfig, GLTF> &
+  Readonly<{
+    getAnimationsService: () => TAnimationsService;
+    getMaterialService: () => TMaterialService;
+    clone: (model3d: TModel3d, overrides?: TOptional<TModel3dParams>) => TModel3d;
+  }>;
