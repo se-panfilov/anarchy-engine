@@ -2,7 +2,7 @@
   "name": "anarchy_engine",
   "author": "S. Panfilov",
   "private": true,
-  "version": "2.5.8",
+  "version": "2.6.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
