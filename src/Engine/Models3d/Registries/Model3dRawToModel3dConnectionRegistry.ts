@@ -17,6 +17,6 @@ registry.setByModel3d = (model3dRaw: TRawModel3d, model3d: TModel3d): void => re
 // eslint-disable-next-line functional/immutable-data
 registry.removeByModel3d = (model3dRaw: TRawModel3d): void => registry.remove(model3dRaw.uuid);
 // eslint-disable-next-line functional/immutable-data
-registry.getAll = (): Record<string, string> => Object.fromEntries(registry.registry.entries());
+registry.asObject = (): Record<string, string> => Object.fromEntries(registry.registry.entries());
 
 export const Model3dRawToModel3dConnectionRegistry = (): TModel3dRawToModel3dConnectionRegistry => RegistryFacade(registry);

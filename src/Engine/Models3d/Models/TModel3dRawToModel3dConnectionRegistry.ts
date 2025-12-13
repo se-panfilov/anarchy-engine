@@ -8,7 +8,7 @@ export type TModel3dRawToModel3dConnectionRegistryExtension = Readonly<{
   findByModel3d: (model3dId: TRawModel3d) => string | undefined;
   setByModel3d: (model3dId: TRawModel3d, model3d: TModel3d) => void;
   removeByModel3d: (model3dId: TRawModel3d) => void;
-  getAll: () => Record<string, string>;
+  asObject: () => Record<string, string>;
 }>;
 
 export type TModel3dRawToModel3dConnectionRegistry = Omit<TProtectedRegistry<TAbstractSimpleRegistry<string>>, 'asArray'> & TModel3dRawToModel3dConnectionRegistryExtension;
