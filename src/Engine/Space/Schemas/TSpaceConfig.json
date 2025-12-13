@@ -2054,7 +2054,7 @@
         "shouldAddToScene": {
           "type": "boolean"
         },
-        "shouldSaveToRegistry": {
+        "shouldAddToRegistry": {
           "type": "boolean"
         },
         "isForce": {
@@ -2172,14 +2172,14 @@
         "shouldAddToScene": {
           "type": "boolean"
         },
-        "shouldSaveToRegistry": {
+        "shouldAddToRegistry": {
           "type": "boolean"
         },
         "isForce": {
           "type": "boolean"
         }
       },
-      "required": ["shouldAddToScene", "shouldSaveToRegistry"],
+      "required": ["shouldAddToScene", "shouldAddToRegistry"],
       "additionalProperties": false
     },
     "TIntersectionsWatcherConfig": {

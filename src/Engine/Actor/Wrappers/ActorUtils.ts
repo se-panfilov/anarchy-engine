@@ -20,7 +20,7 @@ export async function createActorModel3d(
     url: params.model3d.url,
     animations: [],
     model: undefined,
-    options: { shouldAddToScene: false, shouldSaveToRegistry: true, isForce: false }
+    options: { shouldAddToScene: false, shouldAddToRegistry: true, isForce: false }
   } as unknown as TModel3dPack;
   if ((params.model3d.url as Model3dType) === Model3dType.Plane) result = { ...result, model: createPlane(params, materialWrapper.entity) };
   else if ((params.model3d.url as Model3dType) === Model3dType.Sphere) result = { ...result, model: createSphere(params, materialWrapper.entity) };

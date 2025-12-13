@@ -25,7 +25,7 @@ export function Models3dService(registry: TModels3dAsyncRegistry, animationsServ
 
   loaded$.subscribe(({ result, isExisting }: TPerformLoadResult): void => {
     const options = result.getOptions();
-    if (options.shouldSaveToRegistry && !isExisting) registry.add(result);
+    if (options.shouldAddToRegistry && !isExisting) registry.add(result);
     if (options.shouldAddToScene) sceneW.addModel(result.getModel());
     added$.next(result);
   });
@@ -33,7 +33,7 @@ export function Models3dService(registry: TModels3dAsyncRegistry, animationsServ
   function createFromPack(pack: TModel3dPack): TModel3dFacade {
     const facade = Model3dFacade(pack, animationsService);
 
-    if (pack.options.shouldSaveToRegistry) registry.add(facade);
+    if (pack.options.shouldAddToRegistry) registry.add(facade);
     if (pack.options.shouldAddToScene) sceneW.addModel(facade.getModel());
 
     added$.next(facade);
@@ -73,6 +73,13 @@ export function Models3dService(registry: TModels3dAsyncRegistry, animationsServ
     return promises;
   }
 
+  function clone(model3dFacade: TModel3dFacade, shouldAddToRegistry: boolean): TModel3dFacade {
+    const cloned = model3dFacade._clone();
+    if (shouldAddToRegistry) registry.add(cloned);
+    added$.next(cloned);
+    return cloned;
+  }
+
   const destroyable: TDestroyable = destroyableMixin();
   destroyable.destroyed$.subscribe(() => {
     registry.destroy();
@@ -93,6 +100,7 @@ export function Models3dService(registry: TModels3dAsyncRegistry, animationsServ
     getRegistry: (): TModels3dAsyncRegistry => registry,
     getScene: (): TSceneWrapper => sceneW,
     getAnimationService: (): TAnimationsService => animationsService,
+    clone,
     ...destroyable
   };
 }

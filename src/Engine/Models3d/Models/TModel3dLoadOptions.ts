@@ -1,5 +1,5 @@
 export type TModel3dLoadOptions = Readonly<{
   shouldAddToScene: boolean;
-  shouldSaveToRegistry: boolean;
+  shouldAddToRegistry: boolean;
   isForce?: boolean;
 }>;

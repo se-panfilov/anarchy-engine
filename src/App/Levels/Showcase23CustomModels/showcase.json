@@ -45,7 +45,7 @@
       "position": { "x": 5, "y": 0, "z": 0 },
       "options": {
         "shouldAddToScene": true,
-        "shouldSaveToRegistry": true,
+        "shouldAddToRegistry": true,
         "isForce": false
       },
       "tags": ["compressed"]

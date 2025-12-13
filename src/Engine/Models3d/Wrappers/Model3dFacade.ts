@@ -13,8 +13,9 @@ import { createModels3dEntities } from './Model3dFacadeUtils';
 export function Model3dFacade(params: TModels3dFacadeParams, animationsService: TAnimationsService): TModel3dFacade {
   const entities: TModel3dPack = createModels3dEntities(params, animationsService);
 
-  // TODO test this method, if it works correctly (animations are played for cloned model)
-  function clone(): TModel3dFacade {
+  // TODO (S.Panfilov) CWP test this method, if it works correctly (animations are played for cloned model)
+  // Be aware that this clone method doesn't save the facade to the registry, use clone() method of the service instead
+  function _clone(): TModel3dFacade {
     const model = entities.model.clone();
     const animations: TAnimationsPack = {};
     // eslint-disable-next-line functional/immutable-data
@@ -30,6 +31,6 @@ export function Model3dFacade(params: TModels3dFacadeParams, animationsService: 
 
   return {
     ...AbstractFacade(withModel3dFacadeEntities(entities), FacadeType.Model3d, params),
-    clone
+    _clone
   };
 }

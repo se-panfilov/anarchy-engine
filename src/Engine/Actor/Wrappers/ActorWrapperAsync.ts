@@ -25,7 +25,7 @@ export async function ActorWrapperAsync(
 
   // TODO Maybe this options should be the same as for the actor. But actor doesn't have them yet (refactoring is needed)
   const options = {
-    shouldSaveToRegistry: params.model3d.options?.shouldSaveToRegistry ?? true,
+    shouldAddToRegistry: params.model3d.options?.shouldAddToRegistry ?? true,
     shouldAddToScene: params.model3d.options?.shouldAddToScene ?? false,
     isForce: params.model3d.options?.isForce ?? false
   };

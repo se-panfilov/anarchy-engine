@@ -13,7 +13,7 @@ export function showcase(canvas: TAppCanvas): TShowcase {
 
   async function init(): Promise<void> {
     const scale: TVector3Wrapper = Vector3Wrapper({ x: 0.025, y: 0.025, z: 0.025 });
-    const options: TModel3dLoadOptions = { shouldSaveToRegistry: true, shouldAddToScene: true, isForce: false };
+    const options: TModel3dLoadOptions = { shouldAddToRegistry: true, shouldAddToScene: true, isForce: false };
     const urlGLTF: string = '/Showcase/models/fox/Fox.gltf';
     const urlGLB: string = '/Showcase/models/fox/Fox.glb';
     let runAnimationGLTF: AnimationClip | undefined = undefined;

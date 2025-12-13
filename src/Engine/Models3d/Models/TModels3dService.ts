@@ -14,6 +14,7 @@ export type TModels3dService = Readonly<{
   getAnimationService: () => TAnimationsService;
   added$: Observable<TModel3dFacade>;
   loaded$: Observable<TPerformLoadResult>;
+  clone: (model3dFacade: TModel3dFacade, shouldAddToRegistry: boolean) => TModel3dFacade;
 }> &
   TWithRegistryService<TModels3dAsyncRegistry> &
   TWithSceneGetterService &
