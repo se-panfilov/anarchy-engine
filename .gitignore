@@ -23,5 +23,9 @@ dist-ssr
 *.sln
 *.sw?
 
+# Workspaces
+packages/*/package-lock.json
+apps/*/package-lock.json
+
 # Playwright
 /playwright/.cache/
