@@ -67,7 +67,7 @@ The Game may receive updates, patches, bug fixes, or content changes (“Updates
 
 Where we provide release notes or advisories, they may be delivered within the product, in the update package, or via the applicable Distribution Channel. No specific location or publication cadence is guaranteed.
 
-We do not commit to any service levels, availability targets, or ongoing support unless expressly agreed in a separate written agreement.
+We do **not** commit to any service levels, availability targets, or ongoing support unless expressly agreed in a separate written agreement.
 
 ## 6. Third-Party Services
 
@@ -114,7 +114,7 @@ If you are a consumer, **mandatory consumer protection laws of your country of r
 
 ## 15. Changes
 
-We may update this EULA. Material changes will be communicatWe may update this EULA. Material changes may be communicated **within the product or the update package** (for example, via an in-product notice, a prompt to review the EULA on update, or release notes included with the distribution), or via the applicable Distribution Channel. Continued use after the effective date constitutes acceptance.
+We may update this EULA. Material changes may be communicated within the product or the update package (for example, via an in-product notice, a prompt to review the EULA on update, or release notes included with the distribution), or via the applicable Distribution Channel. Continued use after the effective date constitutes acceptance.
 
 ## Governing Language
 
