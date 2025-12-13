@@ -1,4 +1,4 @@
-import { Model3dFacade } from 'src/Engine/Models3d/Entities';
+import { Model3d } from 'src/Engine/Models3d/Entities';
 
 import type { TReactiveFactoryWithDependencies } from '@/Engine/Abstract';
 import { FactoryType, ReactiveFactoryWithDependencies } from '@/Engine/Abstract';
@@ -9,5 +9,5 @@ const factory: TReactiveFactoryWithDependencies<
   TModel3d,
   TModel3dParams,
   Pick<TModels3dServiceDependencies, 'animationsService' | 'model3dToModel3dFacadeConnectionRegistry'>
-> = ReactiveFactoryWithDependencies(FactoryType.Models3d, Model3dFacade);
+> = ReactiveFactoryWithDependencies(FactoryType.Models3d, Model3d);
 export const Models3dFactory = (): TModels3dFactory => ({ ...factory, configToParams });

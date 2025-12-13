@@ -7,7 +7,7 @@ import { applyObject3dParamsToModel3d, applyPositionToModel3d, applyRotationToMo
 import type { TOptional } from '@/Engine/Utils';
 import { isDefined } from '@/Engine/Utils';
 
-export function Model3dFacade(params: TModel3dParams, { animationsService, model3dToModel3dFacadeConnectionRegistry }: TModel3dFacadeDependencies): TModel3d {
+export function Model3d(params: TModel3dParams, { animationsService, model3dToModel3dFacadeConnectionRegistry }: TModel3dFacadeDependencies): TModel3d {
   const entities: TModel3dEntities = createModels3dEntities(params, animationsService);
 
   const isModelAlreadyInUse: boolean = isDefined(model3dToModel3dFacadeConnectionRegistry.findByModel3d(entities.model3dSource));
@@ -22,8 +22,7 @@ export function Model3dFacade(params: TModel3dParams, { animationsService, model
   const getParams = (): TModel3dParams => ({ ...params });
 
   // IMPORTANT!!!: This clone() doesn't save the facade to the registry. Consider using of clone() the models3d service instead.
-  const _clone = (overrides: TOptional<TModel3dParams> = {}): TModel3d =>
-    Model3dFacade({ ...getParams(), forceClone: true, ...overrides }, { animationsService, model3dToModel3dFacadeConnectionRegistry });
+  const _clone = (overrides: TOptional<TModel3dParams> = {}): TModel3d => Model3d({ ...getParams(), forceClone: true, ...overrides }, { animationsService, model3dToModel3dFacadeConnectionRegistry });
 
   // TODO 8.0.0. MODELS: apply all the params from object3d (can we do it in a more generic way?)
   // TODO 8.0.0. MODELS: Remove duplication: extract applying of params to utils
