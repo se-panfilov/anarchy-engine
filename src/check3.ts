@@ -172,17 +172,21 @@ type PipableFunction<A, B> = (a: A) => B;
 
 type PipeResult<T, Fns extends any[]> = Fns extends [PipableFunction<T, infer U>, ...infer Rest] ? PipeResult<U, Rest> : T;
 
-function pipe<T, Fns extends PipableFunction<any, any>[]>(initial: T, ...fns: Fns): PipeResult<T, Fns> {
-  return fns.reduce((acc: T, fn) => fn(acc), initial) as PipeResult<T, Fns>;
+// function pipe<T, Fns extends PipableFunction<any, any>[]>(initial: T, ...fns: Fns): PipeResult<T, Fns> {
+//   return fns.reduce((acc: T, fn) => fn(acc), initial) as PipeResult<T, Fns>;
+// }
+
+function pipe<T>(initial: T, ...fns: Array<(arg: T) => T>): T {
+  return fns.reduce((acc: T, fn) => fn(acc), initial);
 }
 
-// function pipe<T>(initial: T, ...fns: Array<(arg: T) => T>): T {
-//   return fns.reduce((acc: T, fn) => fn(acc), initial);
-// }
-//
+//https://chat.openai.com/share/eefaf27b-c94d-4343-b9bc-fe79541184f2
 
-const cat70 = pipe(Factory('cat_factory', catCreate), DynamicMixin, RegistrableMixin, FromConfigMixin, DestroyableMixin, CatFactoryMixin);
-const cat77: ICat = pipe(Factory('cat_factory', catCreate), DynamicMixin, RegistrableMixin, FromConfigMixin, DestroyableMixin, CatFactoryMixin);
+const catFactory70 = pipe(Factory('cat_factory', catCreate), DynamicMixin, RegistrableMixin, FromConfigMixin, DestroyableMixin, CatFactoryMixin);
+const catFactory77: ICatFactory = pipe(Factory('cat_factory', catCreate), DynamicMixin, RegistrableMixin, FromConfigMixin, DestroyableMixin, CatFactoryMixin);
+
+const cat70 = catFactory70.create(12323); // error
+const cat77: ICat = catFactory77.create({ name: 'Tom' }); //nice!
 
 console.log(cat70.name, cat77.meow());
 
