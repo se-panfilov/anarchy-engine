@@ -11,21 +11,7 @@ import { onBeforeUnmount, onMounted, onUnmounted, shallowRef } from 'vue';
 
 let appEventsSub$: Subscription | undefined;
 
-const { t$ } = vueTranslationService;
-
-function useText(obs$: Observable<string>): ShallowRef<string> {
-  const r: ShallowRef<string> = shallowRef<string>('');
-  let sub: Subscription | undefined;
-
-  onMounted((): void => {
-    // eslint-disable-next-line functional/immutable-data
-    sub = obs$.subscribe((value): void => void (r.value = value));
-  });
-
-  onBeforeUnmount((): void => sub?.unsubscribe());
-
-  return r;
-}
+const { $t } = vueTranslationService;
 
 // TODO DESKTOP: DEBUG CODE
 // console.log('XXX1', vueTranslationService.translate('menu.start'));
@@ -38,8 +24,7 @@ setInterval(() => {
   vueTranslationService.locale$.next(vueTranslationService.locale$.value === Locales.nl ? Locales.en : Locales.nl);
 }, 1500);
 
-const translated = useText(t$('menu.start'));
-
+const translated = $t('menu.start');
 // const asd: any;
 // vueTranslationService.t$('menu.start').subscribe((v) => {
 //   console.log('XXX', v);

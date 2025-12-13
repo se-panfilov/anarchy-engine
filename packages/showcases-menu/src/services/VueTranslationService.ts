@@ -41,8 +41,10 @@ export function VueTranslationService(localesMapping: TLocalesMapping<Locales> =
     return ref;
   }
 
+  const $t = (id: string, params?: Record<string, string> | Observable<Record<string, string>>): ShallowRef<string> => toRef(i18n.t$(id, params));
+
   // eslint-disable-next-line functional/immutable-data
-  return Object.assign(i18n, { waitInitialReady, toRef });
+  return Object.assign(i18n, { waitInitialReady, toRef, $t });
 }
 
 export const vueTranslationService: TVueTranslationService = VueTranslationService();

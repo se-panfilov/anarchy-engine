@@ -7,4 +7,5 @@ export type TVueTranslationService = TTranslationService<Locales> &
   Readonly<{
     waitInitialReady: () => Promise<void>;
     toRef: (obs$: Observable<string>) => ShallowRef<string>;
+    $t: (id: string, params?: Record<string, string> | Observable<Record<string, string>>) => ShallowRef<string>;
   }>;
