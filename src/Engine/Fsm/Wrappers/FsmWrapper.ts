@@ -6,8 +6,6 @@ import type { TWrapper } from '@/Engine/Abstract';
 import { AbstractWrapper, WrapperType } from '@/Engine/Abstract';
 import { FsmEventsStrategy } from '@/Engine/Fsm/Constants';
 import type { TFsmEvents, TFsmMachine, TFsmParams, TFsmStates, TFsmWrapper } from '@/Engine/Fsm/Models';
-import type { TDestroyable } from '@/Engine/Mixins';
-import { destroyableMixin } from '@/Engine/Mixins';
 
 type TStrategyType = typeof concatMap | typeof exhaustMap | typeof switchMap | typeof mergeMap;
 
@@ -61,8 +59,7 @@ export function FsmWrapper(params: TFsmParams): TFsmWrapper {
     )
     .subscribe();
 
-  const destroyable: TDestroyable = destroyableMixin();
-  const destroySub$: Subscription = destroyable.destroy$.subscribe((): void => {
+  const destroySub$: Subscription = wrapper.destroy$.subscribe((): void => {
     destroySub$.unsubscribe();
     sendSub$.unsubscribe();
     strategySub$.unsubscribe();
@@ -87,7 +84,6 @@ export function FsmWrapper(params: TFsmParams): TFsmWrapper {
     changed$: changed$.asObservable(),
     send$,
     strategy$,
-    getState,
-    ...destroyable
+    getState
   });
 }

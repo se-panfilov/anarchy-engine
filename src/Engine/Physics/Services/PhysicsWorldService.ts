@@ -52,9 +52,14 @@ export function PhysicsWorldService(scene: TSceneWrapper, { physicalLoop }: TSpa
   // Auto-update world on every tick of the physical loop
   const loopSub$: Subscription = physicalLoop.tick$.subscribe((): void => world?.step());
 
+  const debugRenderersList: Array<TPhysicsDebugRenderer> = [];
+
   const getDebugRenderer = (loop: TPhysicalLoop): TPhysicsDebugRenderer => {
     if (isNotDefined(world)) throw new Error('Cannot get debug renderer: world is not defined');
-    return PhysicsDebugRenderer(scene, world, loop);
+    const res = PhysicsDebugRenderer(scene, world, loop);
+    // eslint-disable-next-line functional/immutable-data
+    debugRenderersList.push(res);
+    return res;
   };
 
   function setGravity(vector: Vector3): void {
@@ -65,6 +70,8 @@ export function PhysicsWorldService(scene: TSceneWrapper, { physicalLoop }: TSpa
 
   const destroyable: TDestroyable = destroyableMixin();
   const destroySub$: Subscription = destroyable.destroy$.subscribe((): void => {
+    debugRenderersList.forEach((renderer: TPhysicsDebugRenderer): void => renderer.destroy$.next());
+
     destroySub$.unsubscribe();
 
     loopSub$?.unsubscribe();

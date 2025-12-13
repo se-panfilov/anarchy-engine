@@ -5,8 +5,7 @@ import { PCFShadowMap, WebGLRenderer } from 'three';
 
 import type { TWrapper } from '@/Engine/Abstract';
 import { AbstractWrapper, WrapperType } from '@/Engine/Abstract';
-import type { TDestroyable } from '@/Engine/Mixins';
-import { destroyableMixin, withActiveMixin } from '@/Engine/Mixins';
+import { withActiveMixin } from '@/Engine/Mixins';
 import { RendererModes } from '@/Engine/Renderer/Constants';
 import type { TRendererAccessors, TRendererParams, TRendererWrapper } from '@/Engine/Renderer/Models';
 import type { TScreenSizeValues, TScreenSizeWatcher } from '@/Engine/Screen';
@@ -63,15 +62,14 @@ export function RendererWrapper(params: TRendererParams, screenSizeWatcher: Read
 
   const wrapper: TWrapper<WebGLRenderer> = AbstractWrapper(entity, WrapperType.Renderer, params);
 
-  const destroyable: TDestroyable = destroyableMixin();
-  const destroySub$: Subscription = destroyable.destroy$.subscribe((): void => {
+  const destroySub$: Subscription = wrapper.destroy$.subscribe((): void => {
     destroySub$.unsubscribe();
     screenSize$.unsubscribe();
     screenSizeWatcherSubscription.unsubscribe();
   });
 
   // eslint-disable-next-line functional/immutable-data
-  const result = Object.assign(wrapper, { ...accessors, ...withActiveMixin(), entity, ...destroyable });
+  const result = Object.assign(wrapper, { ...accessors, ...withActiveMixin(), entity });
 
   result._setActive(params.isActive, true);
 

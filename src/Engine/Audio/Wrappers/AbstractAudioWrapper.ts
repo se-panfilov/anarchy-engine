@@ -6,8 +6,6 @@ import type { TWrapper } from '@/Engine/Abstract';
 import { AbstractWrapper, WrapperType } from '@/Engine/Abstract';
 import type { TAbstractAudioWrapper, TAnyAudio, TAnyAudioParams, TAudioCreateFn } from '@/Engine/Audio/Models';
 import { disposeAudio, seekAudio } from '@/Engine/Audio/Utils';
-import type { TDestroyable } from '@/Engine/Mixins';
-import { destroyableMixin } from '@/Engine/Mixins';
 import { destroyAudio } from '@/Engine/Utils';
 
 export function AbstractAudioWrapper<T extends TAnyAudio>(params: TAnyAudioParams, createFn: TAudioCreateFn<T>): TAbstractAudioWrapper<T> {
@@ -76,8 +74,7 @@ export function AbstractAudioWrapper<T extends TAnyAudio>(params: TAnyAudioParam
 
   const wrapper: TWrapper<T> = AbstractWrapper(entity, WrapperType.Audio, params);
 
-  const destroyable: TDestroyable = destroyableMixin();
-  const destroySub$: Subscription = destroyable.destroy$.subscribe((): void => {
+  const destroySub$: Subscription = wrapper.destroy$.subscribe((): void => {
     wrapper.entity.stop();
     destroyAudio(wrapper.entity as TAnyAudio);
 
@@ -117,7 +114,6 @@ export function AbstractAudioWrapper<T extends TAnyAudio>(params: TAnyAudioParam
     isPlaying: (): boolean => entity.isPlaying,
     getDuration: (): number | undefined => entity.buffer?.duration,
     volume$,
-    listener$,
-    ...destroyable
+    listener$
   });
 }

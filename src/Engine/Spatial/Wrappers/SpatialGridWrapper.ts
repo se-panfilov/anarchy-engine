@@ -9,8 +9,6 @@ import type { ColorRepresentation } from 'three/src/math/Color';
 import type { TWrapper } from '@/Engine/Abstract';
 import { AbstractWrapper, WrapperType } from '@/Engine/Abstract';
 import type { TActor } from '@/Engine/Actor';
-import type { TDestroyable } from '@/Engine/Mixins';
-import { destroyableMixin } from '@/Engine/Mixins';
 import type { TSceneWrapper } from '@/Engine/Scene';
 import type { TSpatialCellId, TSpatialCellParams, TSpatialCellWrapper, TSpatialGrid, TSpatialGridParams, TSpatialGridWrapper } from '@/Engine/Spatial/Models';
 import { createBoundingBox, createOutline } from '@/Engine/Spatial/Services/SpatialHelper';
@@ -135,8 +133,7 @@ export function SpatialGridWrapper(params: TSpatialGridParams): TSpatialGridWrap
     return entity.all().filter((cell: TSpatialCellWrapper): boolean => cell.id === id)[0];
   }
 
-  const destroyable: TDestroyable = destroyableMixin();
-  const destroySub$: Subscription = destroyable.destroy$.subscribe((): void => {
+  const destroySub$: Subscription = wrapper.destroy$.subscribe((): void => {
     _debugOutlines = [];
     _debugOutlinesIds = [];
     destroySub$.unsubscribe();
@@ -197,7 +194,6 @@ export function SpatialGridWrapper(params: TSpatialGridParams): TSpatialGridWrap
     _debugVisualizeCells,
     _debugHighlightObjects,
     updateActorCell,
-    ...destroyable,
     update$: update$.asObservable()
   });
 }
