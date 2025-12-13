@@ -1,9 +1,8 @@
 import type { CameraParams } from '@Engine/Models';
-import { CameraWrapper } from '@Engine/Wrappers';
+import { CameraWrapper, ICameraWrapper } from '@Engine/Wrappers';
 import { cameraAdapter } from '@Engine/Adapters';
 import type { ICameraFactory, ICreateCameraFn } from './Models';
 import { AbstractFactory } from '../AbstractFactory';
 
-const create: ICreateCameraFn = (params: CameraParams): ReturnType<typeof CameraWrapper> => CameraWrapper(params);
-
+const create: ICreateCameraFn = (params: CameraParams): ICameraWrapper => CameraWrapper(params);
 export const CameraFactory = (): ICameraFactory => AbstractFactory('camera', create, cameraAdapter);
