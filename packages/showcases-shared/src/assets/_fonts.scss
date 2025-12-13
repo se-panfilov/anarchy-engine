@@ -16,7 +16,7 @@
 }
 // IMPORTANT!!!: This font-face (LongCang) is used only for dev purposes (to see if font change actually works), no need on the real production.
 // Remove it (and the font file) when not needed.
-@include font-face('LongCang', 'LongCang-Regular');
+@include font-face('LongCang', 'LongCang');
 
 // ===== UNIVERSAL LATIN + GREEK + CYRILLIC + VIETNAMESE =====
 // Covers: af-ZA, az-Latn-AZ, bs-BA, ca-ES, cs-CZ, cy-GB, da-DK,
@@ -26,81 +26,81 @@
 // it-CH, it-IT, jv-ID, lt-LT, lv-LV, ms-MY, nb-NO, nn-NO, nl-BE, nl-NL,
 // pl-PL, pt-BR, pt-PT, ro-RO, sk-SK, sl-SI, sq-AL, sr-Cyrl-RS, sr-Latn-RS,
 // sv-FI, sv-SE, sw-KE, tr-TR, vi-VN, zu-ZA, be-BY, bg-BG, ru-RU, uk-UA, el-GR
-@include font-face('Noto Sans', 'NotoSans-Regular');
+@include font-face('Noto Sans', 'NotoSans-VariableFont_wdth,wght');
 
 // ===== ARABIC SCRIPT =====
 // Covers: ar-SA, fa-IR (Persian), az-Arab-IR
-@include font-face('Noto Sans Arabic', 'NotoSansArabic-Regular');
+@include font-face('Noto Sans Arabic', 'NotoSansArabic');
 
 // Covers:ur-PK,
-@include font-face('Noto Nastaliq Urdu', 'NotoNastaliqUrdu-Regular');
+@include font-face('Noto Nastaliq Urdu', 'NotoNastaliqUrdu');
 
 // ===== HEBREW =====
 // Covers: he-IL
-@include font-face('Noto Sans Hebrew', 'NotoSansHebrew-Regular');
+@include font-face('Noto Sans Hebrew', 'NotoSansHebrew');
 
 // ===== DEVANAGARI =====
 // Covers: hi-IN (Hindi), mr-IN (Marathi), ne-NP (Nepali)
-@include font-face('Noto Sans Devanagari', 'NotoSansDevanagari-Regular');
+@include font-face('Noto Sans Devanagari', 'NotoSansDevanagari');
 
 // ===== BENGALI =====
 // Covers: bn-BD, bn-IN
-@include font-face('Noto Sans Bengali', 'NotoSansBengali-Regular');
+@include font-face('Noto Sans Bengali', 'NotoSansBengali');
 
 // ===== GURMUKHI =====
 // Covers: pa-IN (Punjabi)
-@include font-face('Noto Sans Gurmukhi', 'NotoSansGurmukhi-Regular');
+@include font-face('Noto Sans Gurmukhi', 'NotoSansGurmukhi');
 
 // ===== GUJARATI =====
 // Covers: gu-IN
-@include font-face('Noto Sans Gujarati', 'NotoSansGujarati-Regular');
+@include font-face('Noto Sans Gujarati', 'NotoSansGujarati');
 
 // ===== KANNADA =====
 // Covers: kn-IN
-@include font-face('Noto Sans Kannada', 'NotoSansKannada-Regular');
+@include font-face('Noto Sans Kannada', 'NotoSansKannada');
 
 // ===== MALAYALAM =====
 // Covers: ml-IN
-@include font-face('Noto Sans Malayalam', 'NotoSansMalayalam-Regular');
+@include font-face('Noto Sans Malayalam', 'NotoSansMalayalam');
 
 // ===== SINHALA =====
 // Covers: si-LK
-@include font-face('Noto Sans Sinhala', 'NotoSansSinhala-Regular');
+@include font-face('Noto Sans Sinhala', 'NotoSansSinhala');
 
 // ===== TAMIL =====
 // Covers: ta-IN, ta-LK
-@include font-face('Noto Sans Tamil', 'NotoSansTamil-Regular');
+@include font-face('Noto Sans Tamil', 'NotoSansTamil');
 
 // ===== THAI =====
 // Covers: th-TH
-@include font-face('Noto Sans Thai', 'NotoSansThai-Regular');
+@include font-face('Noto Sans Thai', 'NotoSansThai');
 
 // ===== KHMER =====
 // Covers: km-KH
-@include font-face('Noto Sans Khmer', 'NotoSansKhmer-Regular');
+@include font-face('Noto Sans Khmer', 'NotoSansKhmer');
 
 // ===== LAO =====
 // Covers: lo-LA
-@include font-face('Noto Sans Lao', 'NotoSansLao-Regular');
+@include font-face('Noto Sans Lao', 'NotoSansLao');
 
 // ===== ETHIOPIC (AMHARIC) =====
 // Covers: am-ET
-@include font-face('Noto Sans Ethiopic', 'NotoSansEthiopic-Regular');
+@include font-face('Noto Sans Ethiopic', 'NotoSansEthiopic');
 
 // ===== Chinese =====
 // Simplified Chinese — Covers: zh-Hans-CN, zh-Hans-SG
-@include font-face('Noto Sans SC', 'NotoSansSC-Regular');
+@include font-face('Noto Sans SC', 'NotoSansSC');
 
 // Traditional Chinese for Hong Kong — Covers: zh-Hant-HK
-@include font-face('Noto Sans HK', 'NotoSansHK-Regular');
+@include font-face('Noto Sans HK', 'NotoSansHK');
 
 // Traditional Chinese for Taiwan — Covers: zh-Hant-TW
-@include font-face('Noto Sans TC', 'NotoSansTC-Regular');
+@include font-face('Noto Sans TC', 'NotoSansTC');
 
 // ===== Japanese =====
 // Covers: ja-JP
-@include font-face('Noto Sans JP', 'NotoSansJP-Regular');
+@include font-face('Noto Sans JP', 'NotoSansJP');
 
 // ===== Korean =====
 // Covers: ko-KR
-@include font-face('Noto Sans KR', 'NotoSansKR-Regular');
+@include font-face('Noto Sans KR', 'NotoSansKR');
