@@ -4,7 +4,7 @@ import { ambientContext, buildLevelFromConfig, createCirclePathXZ, Easing, gener
 
 import levelConfig from './showcase-level-5.config.json';
 
-//Showcase 5: Anime.js complex animations (easing, etc.)
+//Showcase 5: Anime.js animation with complex path and easing
 export function showcaseLevel(canvas: IAppCanvas): IShowcase {
   const level: ILevel = buildLevelFromConfig(canvas, levelConfig as ILevelConfig);
 
@@ -15,8 +15,9 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
     controlsRegistry.getAll()[0]?.entity.target.set(6, 0, 0);
     cameraRegistry.getAll()[0]?.setPosition(6, 30, 0);
 
-    const actor: IActorWrapper | undefined = actorRegistry.getUniqByTag('actor');
-    if (isNotDefined(actor)) throw new Error('Actor is not defined');
+    const redActor: IActorWrapper | undefined = actorRegistry.getUniqByTag('red');
+    const blueActor: IActorWrapper | undefined = actorRegistry.getUniqByTag('blue');
+    if (isNotDefined(redActor) || isNotDefined(blueActor)) throw new Error('Actors are not defined');
     let isClickBlocked: boolean = false;
 
     const animationParams: IAnimationParams = {
@@ -32,14 +33,16 @@ export function showcaseLevel(canvas: IAppCanvas): IShowcase {
       }
       isClickBlocked = true;
 
-      const numberOfPoints: number = 6;
-      const numberOfCircles: number = 0.3;
+      const numberOfPoints: number = 160;
+      const numberOfCircles: number = 1;
       const startAngle: number = 100;
       const radius: number = 15;
       const angleArray: ReadonlyArray<number> = generateAnglesForCircle(numberOfPoints, numberOfCircles, startAngle);
 
-      const path: ReadonlyArray<IWithCoordsXZ> = createCirclePathXZ(angleArray, radius, { x: 0, z: 0 });
-      void standardMoverService.goByPath(actor, path, { ...animationParams, easing: Easing.EaseInCubic });
+      const redPath: ReadonlyArray<IWithCoordsXZ> = createCirclePathXZ(angleArray, radius, { x: 0, z: 0 });
+      const bluePath: ReadonlyArray<IWithCoordsXZ> = createCirclePathXZ(angleArray, radius - 2, { x: 0, z: 0 });
+      void standardMoverService.goByPath(redActor, redPath, { ...animationParams, easing: Easing.Linear }).then(() => console.log('red done'));
+      void standardMoverService.goByPath(blueActor, bluePath, { ...animationParams, easing: Easing.EaseInCirc }).then(() => console.log('blue done'));
     });
   }
 

@@ -26,7 +26,16 @@
       "position": { "x": -20, "y": 2, "z": 2 },
       "castShadow": true,
       "materialParams": { "color": "#ff0000" },
-      "tags": ["actor"]
+      "tags": ["actor", "red"]
+    },
+    {
+      "type": "cube",
+      "width": 1,
+      "height": 1,
+      "position": { "x": -20, "y": 2, "z": 0 },
+      "castShadow": true,
+      "materialParams": { "color": "#0000ff" },
+      "tags": ["actor", "blue"]
     }
   ],
   "cameras": [
