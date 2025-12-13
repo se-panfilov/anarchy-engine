@@ -24,7 +24,7 @@ export function DocsService(app: App): TDocsService {
   // TODO DESKTOP: Better to make all of this async
   function load({ name }: TLoadDocPayload): string | never {
     const filePath = resolveDocPath(name);
-    if (!fs.existsSync(filePath)) throw new Error(`[DESKTOP]: Document "{name}" does not found: ${filePath}`);
+    if (!fs.existsSync(filePath)) throw new Error(`[DESKTOP]: Document "${name}" does not found: ${filePath}`);
 
     const result = readFile(filePath, 'utf-8');
     // TODO DESKTOP: sanitize result
