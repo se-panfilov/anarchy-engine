@@ -179,7 +179,6 @@
       {
         "cssProps": {
           "color": "#D7D200",
-          "fontFamily": "\"Roboto\", sans-serif",
           "fontSize": "0.2rem"
         },
         "name": "text_3d_1",
