@@ -1,15 +1,13 @@
 import type { Vector3Like } from 'three/src/math/Vector3';
 
 import type { ControlsType } from '@/Engine/Controls/Constants';
-import type { TWithReadonlyTags } from '@/Engine/Mixins';
 
-import type { TOrbitControlsProps } from './TOrbitControlsProps';
+import type { TOrbitControlsParams } from './TOrbitControlsParams';
 
-export type TOrbitControlsConfig = Omit<TOrbitControlsProps, 'target' | 'cursor'> &
+export type TOrbitControlsConfig = Omit<TOrbitControlsParams, 'target' | 'cursor' | 'canvas' | 'camera'> &
   Readonly<{
     type: ControlsType;
     cameraName: string;
     target?: Vector3Like;
     cursor?: Vector3Like;
-  }> &
-  TWithReadonlyTags;
+  }>;

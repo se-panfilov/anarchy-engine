@@ -3973,12 +3973,6 @@
       "type": "object",
       "additionalProperties": false,
       "properties": {
-        "tags": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
         "type": {
           "$ref": "#/definitions/ControlsType"
         },
@@ -4068,6 +4062,12 @@
         },
         "isActive": {
           "type": "boolean"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
         }
       },
       "required": ["cameraName", "isActive", "type"]

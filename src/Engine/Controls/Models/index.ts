@@ -9,5 +9,4 @@ export type * from './TControlsWrapper';
 export type * from './TOrbitControlsAccessors';
 export type * from './TOrbitControlsConfig';
 export type * from './TOrbitControlsParams';
-export type * from './TOrbitControlsProps';
 export type * from './TOrbitControlsWrapper';
