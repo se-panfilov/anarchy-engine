@@ -28,6 +28,8 @@ We will make a **good-faith effort** to triage and prioritize reports. We **do n
 
 Where required by law, we will **notify competent authorities and/or users within the legally mandated timelines** for actively exploited vulnerabilities or other reportable events. This may include obligations under EU law when applicable. No additional contractual commitments are created by this section.
 
+**US CIRCIA.** If we are a **covered entity** under the U.S. Cyber Incident Reporting for Critical Infrastructure Act, we will submit reports to **CISA** within the timelines mandated by law for covered cyber incidents or ransom payments.
+
 ## Security Updates & Delivery
 
 - **Delivery:** through applicable distribution channels in use from time to time, which may include automatic updates where available, or by providing updated files in the distribution package.
