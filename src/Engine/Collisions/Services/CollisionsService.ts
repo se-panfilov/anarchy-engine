@@ -1,11 +1,27 @@
-import type { ColorRepresentation, Intersection, Line, Vector3 } from 'three';
-import { ArrowHelper, Box3, BufferGeometry, LineBasicMaterial, LineSegments, Mesh, MeshBasicMaterial, Raycaster, SphereGeometry } from 'three';
+import type { ColorRepresentation, Intersection } from 'three';
+import { ArrowHelper, BufferGeometry, LineBasicMaterial, LineSegments, Raycaster, Vector3 } from 'three';
 
 import type { TActorWrapperAsync } from '@/Engine/Actor/Models';
 import type { TBvhService, TCollisionCheckResult, TCollisionsService } from '@/Engine/Collisions/Models';
-import { createBoundingBox } from '@/Engine/Spatial/Services/SpatialHelper';
 
 import { BvhService } from './BvhService';
+
+function createCapsule(start: Vector3, end: Vector3, radius: number) {
+  function containsPoint(point: Vector3): boolean {
+    const startToPoint = new Vector3().subVectors(point, start);
+    const startToEnd = new Vector3().subVectors(end, start);
+    const projection = startToPoint.dot(startToEnd) / startToEnd.lengthSq();
+    const closestPoint = new Vector3().copy(start).add(startToEnd.multiplyScalar(projection));
+    return closestPoint.distanceTo(point) <= radius;
+  }
+
+  return {
+    start,
+    end,
+    radius,
+    containsPoint
+  };
+}
 
 export function CollisionsService(): TCollisionsService {
   const bvhService: TBvhService = BvhService();
@@ -14,6 +30,7 @@ export function CollisionsService(): TCollisionsService {
   let box: any;
 
   let arrowHelper: ArrowHelper;
+
   function _debugVisualizeRaycaster(raycaster: Raycaster, length: number, color: ColorRepresentation = 0x0000ff): ArrowHelper {
     const direction = raycaster.ray.direction.clone().normalize();
     const origin = raycaster.ray.origin.clone();
@@ -48,40 +65,29 @@ export function CollisionsService(): TCollisionsService {
 
   // TODO should be possible to check collisions against another grid
   function checkCollisions(actorW: TActorWrapperAsync, radius: number, actorsToCheck: ReadonlyArray<TActorWrapperAsync>): TCollisionCheckResult | undefined {
-    const actorBox: Box3 = new Box3().setFromObject(actorW.entity);
-    const queryBox = {
-      minX: actorBox.min.x - radius,
-      minY: actorBox.min.y - radius,
-      minZ: actorBox.min.z - radius,
-      maxX: actorBox.max.x + radius,
-      maxY: actorBox.max.y + radius,
-      maxZ: actorBox.max.z + radius
-    };
-
-    // TODO debug (window as any).sceneW
-    if (box) (window as any).sceneW.entity.remove(box);
-    box = createBoundingBox(queryBox.minX, queryBox.minZ, queryBox.maxX, queryBox.maxZ, 'red');
-    (window as any).sceneW.entity.add(box);
+    const previousPosition = actorW.entity.position.clone();
+    const currentPosition = previousPosition.clone().add(actorW.kinematic.getLinearDirection().multiplyScalar(radius));
 
     // eslint-disable-next-line functional/no-loop-statements
     for (const object of actorsToCheck) {
       if (object.id !== actorW.id) {
         const raycaster: Raycaster = new Raycaster();
-        // eslint-disable-next-line functional/immutable-data
         raycaster.firstHitOnly = true;
-        raycaster.set(actorW.entity.position, actorW.kinematic.getLinearDirection());
+        raycaster.set(previousPosition, actorW.kinematic.getLinearDirection());
 
+        // Check for collision using a capsule (swept sphere)
+        const capsule = createCapsule(previousPosition, currentPosition, radius);
         const intersects: Array<Intersection> = [];
         bvhService.raycastWithBvh(object, raycaster, intersects);
 
-        if (intersects.length > 0) {
-          const intersect = intersects[0];
-          if (intersect.distance <= radius) {
+        // eslint-disable-next-line functional/no-loop-statements
+        for (const intersect of intersects) {
+          if (capsule.containsPoint(intersect.point)) {
             return {
               object,
               distance: intersect.distance,
               collisionPoint: intersect.point,
-              bulletPosition: actorW.entity.position.clone()
+              bulletPosition: currentPosition.clone()
             };
           }
         }
