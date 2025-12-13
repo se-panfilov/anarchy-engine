@@ -65,7 +65,7 @@ export default defineConfig(({ mode, command }: ConfigEnv): UserConfig => {
         //  external: ['three', 'rxjs', '@dimforge/rapier3d'], — If you want to exclude some dependencies from the bundle
         output: {
           // manualChunks: {
-          // anarchy_engine: ['@Engine']
+          // anarchy-engine: ['@Engine']
           // },
           inlineDynamicImports: false //extract workers to separate bundle
         },

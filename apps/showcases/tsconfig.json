@@ -4,8 +4,8 @@
     "paths": {
       "@/*": ["apps/showcases/src/*"],
       "@Public/*": ["apps/showcases/public/*"],
-      "@Engine/*": ["packages/anarchy_engine/src/*"],
-      "@Engine": ["packages/anarchy_engine/src/index.ts"],
+      "@Engine/*": ["packages/anarchy-engine/src/*"],
+      "@Engine": ["packages/anarchy-engine/src/index.ts"],
       "@Shared/*": ["packages/shared/src/*"],
       "@Shared": ["packages/shared/src/index.ts"],
       "@AnarchyI18n/*": ["packages/anarchy_i18n/src/*"],

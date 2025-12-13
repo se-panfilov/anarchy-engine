@@ -23,7 +23,7 @@
     "ts:check": "vue-tsc --noEmit"
   },
   "dependencies": {
-    "anarchy_engine": "*",
+    "anarchy-engine": "*",
     "anarchy_engine_shared": "*",
     "showcases_shared": "*",
     "anarchy_i18n": "*",
