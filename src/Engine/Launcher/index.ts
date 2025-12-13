@@ -6,10 +6,10 @@ import type { ActorParams } from '@Engine/Models/ActorParams';
 import type { ActorWrapper } from '@Engine/Wrappers/ActorWrapper';
 import { SceneManager } from '@Engine/Managers/SceneManager';
 import type { SceneWrapper } from '@Engine/Wrappers/SceneWrapper';
-import { CameraManager } from '@Engine/Managers/CameraManager';
+import { CameraFactory, CameraManager } from '@Engine/Managers/CameraFactory';
 import type { CameraWrapper } from '@Engine/Wrappers/CameraWrapper';
 import { RendererManager } from '@Engine/Managers/RendererManager';
-import { LightManager } from '@Engine/Managers/LightManager';
+import { LightFactory, LightManager } from '@Engine/Managers/LightManager';
 import type { LightParams } from '@Engine/Models/LightParams';
 
 export async function launch(sceneConfig: SceneConfig): Promise<void> {
@@ -24,9 +24,8 @@ export async function launch(sceneConfig: SceneConfig): Promise<void> {
   // create actors/////////////////////
   ActorFactory().latest$.subscribe(scene.addActor);
   CameraFactory().latest$.subscribe(scene.addCamera);
+  LightFactory().latest$.subscribe(scene.addLight);
 
-  const cameraManager = new CameraManager();
-  const lightManager = new LightManager();
   const rendererManager = new RendererManager();
 
   // add actors to scene/////////////////////

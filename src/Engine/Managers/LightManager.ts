@@ -1,11 +1,8 @@
 import { LightWrapper } from '@Engine/Wrappers/LightWrapper';
 import { AbstractFactory } from '@Engine/Managers/AbstractFactory';
 import type { LightParams } from '@Engine/Models/LightParams';
+import type { Factory } from '@Engine/Models/Factory';
 
-export class LightManager extends AbstractFactory<LightWrapper> {
-  public create(params: LightParams): LightWrapper {
-    const light = new LightWrapper(params);
-    this.list$.next([...this.list$.value, new LightWrapper(params)]);
-    return light;
-  }
-}
+const create = (params: LightParams): ReturnType<typeof LightWrapper> => LightWrapper(params);
+
+export const LightFactory = (): Factory<ReturnType<typeof LightWrapper>, LightParams> => AbstractFactory(create);

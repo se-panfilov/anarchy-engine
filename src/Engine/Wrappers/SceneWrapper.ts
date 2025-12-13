@@ -19,4 +19,8 @@ export class SceneWrapper extends AbstractWrapper<Scene> {
   public addActor(actor: ActorWrapper): void {
     this.entity.add(actor.entity);
   }
+
+  public addLight(actor: LightWrapper): void {
+    this.entity.add(actor.entity);
+  }
 }
