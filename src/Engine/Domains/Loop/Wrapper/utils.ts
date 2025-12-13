@@ -1,13 +1,14 @@
 import type { ICameraWrapper } from '@Engine/Domains/Camera';
+import type { IControlsRegistry } from '@/Engine/Domains/Controls';
 import type { IRendererWrapper } from '@Engine/Domains/Renderer';
 import type { ISceneWrapper } from '@Engine/Domains/Scene';
-import { Clock } from 'three';
 
+import { Clock } from 'three';
 import type { ILoopUtils, LoopFn } from '../Models';
 
 export function getUtils(entity: LoopFn): ILoopUtils {
-  function start(renderer: Readonly<IRendererWrapper>, scene: Readonly<ISceneWrapper>, camera: Readonly<ICameraWrapper>): void {
-    loopWrapper(entity, renderer, scene, camera)();
+  function start(renderer: Readonly<IRendererWrapper>, scene: Readonly<ISceneWrapper>, camera: Readonly<ICameraWrapper>, controlsRegistry: IControlsRegistry): void {
+    loopWrapper(entity, renderer, scene, camera, controlsRegistry)();
   }
 
   // TODO (S.Panfilov) implement stop loop
@@ -15,11 +16,11 @@ export function getUtils(entity: LoopFn): ILoopUtils {
   return { start };
 }
 
-function loopWrapper(fn: LoopFn, renderer: Readonly<IRendererWrapper>, scene: Readonly<ISceneWrapper>, camera: Readonly<ICameraWrapper>): () => void {
+function loopWrapper(fn: LoopFn, renderer: Readonly<IRendererWrapper>, scene: Readonly<ISceneWrapper>, camera: Readonly<ICameraWrapper>, controlsRegistry: IControlsRegistry): () => void {
   const clock: Clock = new Clock();
   const loop = (): void => {
     // (fpsGraph as any).begin();
-    fn(renderer, scene, camera, clock.getElapsedTime());
+    fn(renderer, scene, camera, clock.getElapsedTime(), controlsRegistry);
 
     // (fpsGraph as any).end();
     requestAnimationFrame(loop);

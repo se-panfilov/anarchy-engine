@@ -18,6 +18,7 @@ export const getParams: IGetParamsFn<IControlsParams, IControlsConfig> = (config
   return {
     camera,
     canvas,
+    enableDamping: config.enableDamping,
     tags
   };
 };

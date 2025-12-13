@@ -22,7 +22,6 @@ import type { ILevel, ILevelConfig } from '../Models';
 // TODO (S.Panfilov) CWP All factories should be self-registrable
 // TODO (S.Panfilov) Registries' destroy() should kill all registered instances
 
-// TODO (S.Panfilov) CWP 1. Add dumpling for every loop for every control
 // TODO (S.Panfilov) CWP 2. Add relations to all wrappers during the level build
 
 export function buildLevelFromConfig(canvas: IAppCanvas, config: ILevelConfig): ILevel {
@@ -124,7 +123,7 @@ export function buildLevelFromConfig(canvas: IAppCanvas, config: ILevelConfig): 
     destroy,
     isDestroyed,
     start(): ILoopWrapper {
-      loop.start(renderer, scene, initialCamera);
+      loop.start(renderer, scene, initialCamera, controlsRegistry);
       return loop;
     },
     built$,

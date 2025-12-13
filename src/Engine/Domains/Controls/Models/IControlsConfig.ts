@@ -6,5 +6,6 @@ import type { IControlsType } from './IControlsType';
 export type IControlsConfig = Readonly<{
   type: IControlsType;
   cameraTag: CameraTag;
+  enableDamping?: boolean;
   tags: ReadonlyArray<ControlsTag>;
 }>;

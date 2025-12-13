@@ -6,5 +6,6 @@ import type { ControlsTag } from '../Constants';
 export type IControlsParams = Readonly<{
   camera: ICameraWrapper;
   canvas: IAppCanvas;
+  enableDamping?: boolean;
   tags: ReadonlyArray<ControlsTag>;
 }>;

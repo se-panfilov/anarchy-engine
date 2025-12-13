@@ -65,6 +65,7 @@
     {
       "type": "OrbitControls",
       "cameraTag": "initial",
+      "enableDamping": true,
       "tags": []
     }
   ],

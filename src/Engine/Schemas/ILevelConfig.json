@@ -290,6 +290,9 @@
         "cameraTag": {
           "$ref": "#/definitions/CameraTag"
         },
+        "enableDamping": {
+          "type": "boolean"
+        },
         "tags": {
           "type": "array",
           "items": {
