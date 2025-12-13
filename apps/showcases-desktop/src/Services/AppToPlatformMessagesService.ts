@@ -14,9 +14,9 @@ import type { IpcMainInvokeEvent } from 'electron';
 //  - Detect if restart is needed after settings change (and do it)
 
 // TODO DESKTOP: Next task – fix no settings file case:
-//  - Detect desktop params (e.g. resolution)
-//  - Apply detected params (as defaults)
-//  - Send platform settings to the menu (partial delivery of settings, so menu should merge values)
+//  - [DONE] Detect desktop params (e.g. resolution)
+//  - [DONE] Apply detected params (as defaults)
+//  - [DONE] Send platform settings to the menu (partial delivery of settings, so menu should merge values)
 
 // TODO DESKTOP: any
 export async function handleAppRequest(
