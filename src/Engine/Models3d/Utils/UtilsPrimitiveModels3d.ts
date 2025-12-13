@@ -4,7 +4,8 @@ import type { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
 
 import type { TMaterials, TMaterialWrapper } from '@/Engine/Material';
 import { meters } from '@/Engine/Measurements/Utils';
-import type { PrimitiveModel3dType, TModel3dConfig, TModel3dParams, TModel3dResourceConfig } from '@/Engine/Models3d';
+import type { TModel3dConfig, TModel3dParams, TModel3dResourceConfig } from '@/Engine/Models3d';
+import { PrimitiveModel3dType } from '@/Engine/Models3d';
 import type { TBoxGeometryProps, TPlaneGeometryProps, TSphereGeometryProps } from '@/Engine/ThreeLib';
 import { isDefined, isNotDefined } from '@/Engine/Utils';
 
