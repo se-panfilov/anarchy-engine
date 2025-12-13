@@ -11,9 +11,9 @@ describe('DestroyableUtils', () => {
 
     describe('Not destroyed factories', () => {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any,@typescript-eslint/no-unsafe-return
-      const abstractFactory: IFactory<any, any, any, any> = AbstractFactory('mock', () => ({}) as any);
+      const abstractFactory: IFactory<any, any, any, any> = AbstractFactory('mock', () => ({} as any));
       // eslint-disable-next-line @typescript-eslint/no-explicit-any,@typescript-eslint/no-unsafe-return
-      const abstractDestroyableFactory: IDestroyableFactory<any, any, any, any> = AbstractDestroyableFactory('mock', () => ({}) as any);
+      const abstractDestroyableFactory: IDestroyableFactory<any, any, any, any> = AbstractDestroyableFactory('mock', () => ({} as any));
       const actorFactory: IActorFactory = ActorFactory();
       const cameraFactory: ICameraFactory = CameraFactory();
       const controlsFactory: IControlsFactory = ControlsFactory(controlsFactoryParams);
@@ -40,7 +40,7 @@ describe('DestroyableUtils', () => {
     describe('destroyed factories', () => {
       it('should return "true" for destroyed ControlsFactory', () => {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any,@typescript-eslint/no-unsafe-return
-        const abstractDestroyableFactory: IDestroyableFactory<any, any, any, any> = AbstractDestroyableFactory('mock', () => ({}) as any);
+        const abstractDestroyableFactory: IDestroyableFactory<any, any, any, any> = AbstractDestroyableFactory('mock', () => ({} as any));
         abstractDestroyableFactory.destroy();
         expect(isDestroyedFactory(abstractDestroyableFactory)).toBe(true);
       });
