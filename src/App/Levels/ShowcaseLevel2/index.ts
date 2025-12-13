@@ -1,4 +1,6 @@
-import type { IActorParams, IAppCanvas, ILevel, ILevelConfig, IMousePosition } from '@/Engine';
+import { combineLatest } from 'rxjs';
+
+import type { IActorParams, IAppCanvas, ILevel, ILevelConfig } from '@/Engine';
 import { ActorType, ambientContext, buildLevelFromConfig, Vector3Wrapper } from '@/Engine';
 
 import levelConfig from './showcase-level-2.config.json';
@@ -19,7 +21,7 @@ export function showcaseLevel2(canvas: IAppCanvas): void {
     tags: []
   } satisfies IActorParams);
 
-  ambientContext.mousePositionWatcher.value$.subscribe(({ x, y }: IMousePosition): void => {
+  combineLatest([ambientContext.mousePositionWatcher.value$, ambientContext.screenSizeWatcher.latest$]).subscribe(([mousePosition, screenSize]) => {
     // const { camera } = level;
     // const { width, height } = canvas;
     // const xRatio = x / width;
@@ -32,7 +34,9 @@ export function showcaseLevel2(canvas: IAppCanvas): void {
     // camera.registry.initial.getAll()[0].entity.position.set(xPosition, yPosition, zPosition);
     // camera.registry.initial.getAll()[0].entity.lookAt(0, 0, 0);
     // level.camera.registry.initial.getAll()[0].setX(x);
+
     // level.camera.registry.initial.getAll()[0].setY(y);
+    console.log(mousePosition, screenSize);
   });
 
   // END Experiment1: custom controls ---------------

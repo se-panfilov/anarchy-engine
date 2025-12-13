@@ -1,5 +1,5 @@
 import { nanoid } from 'nanoid';
-import { Subject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 
 import type { CommonTag, WatcherType } from '@/Engine/Domains/Abstract/Constants';
 import type { IAbstractWatcher } from '@/Engine/Domains/Abstract/Models';
@@ -7,13 +7,17 @@ import type { IAbstractWatcher } from '@/Engine/Domains/Abstract/Models';
 export function AbstractWatcher<T>(type: WatcherType | string, tags: ReadonlyArray<string> = []): IAbstractWatcher<T> {
   const id: string = type + '_' + nanoid();
   const value$: Subject<T> = new Subject<T>();
-  const destroy$: Subject<void> = new Subject<void>();
+  const destroyed$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
-  destroy$.subscribe(() => {
+  destroyed$.subscribe(() => {
     value$.complete();
-    destroy$.unsubscribe();
-    destroy$.complete();
+    destroyed$.unsubscribe();
+    destroyed$.complete();
   });
+
+  function destroy(): void {
+    destroyed$.next(true);
+  }
 
   return {
     get id(): string {
@@ -25,8 +29,9 @@ export function AbstractWatcher<T>(type: WatcherType | string, tags: ReadonlyArr
     get value$(): Subject<T> {
       return value$;
     },
-    get destroy$(): Subject<void> {
-      return destroy$;
+    destroy,
+    get destroyed$(): BehaviorSubject<boolean> {
+      return destroyed$;
     },
     get tags(): ReadonlyArray<CommonTag | string> {
       return tags;

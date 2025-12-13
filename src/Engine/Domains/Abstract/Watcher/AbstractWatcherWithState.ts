@@ -16,15 +16,15 @@ export function AbstractWatcherWithState<T>(type: WatcherType | string, initialV
   });
 
   latest$.subscribe((val: T): void => {
-    if (!isInternalChange) throw new Error(`Watcher("${type}") doesn't allow to modify "latest$" from outside. Attempt to set value: ${String(val)}`);
+    if (!isInternalChange) throw new Error(`Watcher ("${type}") doesn't allow to modify "latest$" from outside. Attempt to set value: ${String(val)}`);
     isInternalChange = false;
   });
 
-  abstractWatcher.destroy$.subscribe((): void => {
+  abstractWatcher.destroyed$.subscribe((): void => {
     latest$.unsubscribe();
     latest$.complete();
     abstractWatcher.value$.unsubscribe();
-    abstractWatcher.destroy$.unsubscribe();
+    abstractWatcher.destroyed$.unsubscribe();
   });
 
   return {

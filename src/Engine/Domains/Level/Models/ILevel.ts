@@ -1,5 +1,5 @@
 import type { ILoopFactory, ILoopRegistry, ILoopWrapper } from '@Engine/Domains/Loop';
-import type { Observable } from 'rxjs';
+import type { BehaviorSubject } from 'rxjs';
 
 import type { CommonTag } from '@/Engine/Domains/Abstract';
 import type { IActorFactory, IActorRegistry } from '@/Engine/Domains/Actor';
@@ -8,16 +8,16 @@ import type { IControlsFactory, IControlsRegistry } from '@/Engine/Domains/Contr
 import type { IIntersectionsWatcherFactory, IIntersectionsWatcherRegistry } from '@/Engine/Domains/Intersections';
 import type { LevelTag } from '@/Engine/Domains/Level';
 import type { ILightFactory, ILightRegistry } from '@/Engine/Domains/Light';
-import type { IReactiveDestroyable } from '@/Engine/Domains/Mixins';
+import type { IDestroyable } from '@/Engine/Domains/Mixins';
 import type { IRendererFactory, IRendererRegistry } from '@/Engine/Domains/Renderer';
 import type { ISceneFactory, ISceneRegistry } from '@/Engine/Domains/Scene';
 
-export type ILevel = IReactiveDestroyable &
+export type ILevel = IDestroyable &
   Readonly<{
     name: string;
     start: () => ILoopWrapper;
     stop: () => void;
-    built$: Observable<void>;
+    built$: BehaviorSubject<boolean>;
     actor: DomainTools<IActorFactory, IActorRegistry>;
     camera: DomainTools<ICameraFactory, ICameraRegistry>;
     light: DomainTools<ILightFactory, ILightRegistry>;

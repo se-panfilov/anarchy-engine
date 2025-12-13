@@ -3,17 +3,23 @@ import type { RegistryType } from '@Engine/Registries';
 import { getAll, getAllEntitiesWithEveryTag, getAllEntitiesWithSomeTag, isDestroyable, isNotDefined } from '@Engine/Utils';
 import { nanoid } from 'nanoid';
 import type { Observable } from 'rxjs';
-import { Subject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 
 import type { IAbstractRegistry } from '../Models';
 
 export function AbstractRegistry<T extends IRegistrable | IMultitonRegistrable>(type: RegistryType): IAbstractRegistry<T> {
   const id: string = type + '_registry_' + nanoid();
   const registry: Map<string, T> = new Map();
+  let isInternalChange: boolean = true;
   const added$: Subject<T> = new Subject<T>();
   const replaced$: Subject<T> = new Subject<T>();
   const removed$: Subject<T> = new Subject<T>();
-  const destroyed$: Subject<void> = new Subject<void>();
+  const destroyed$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+
+  destroyed$.subscribe((val: boolean): void => {
+    if (!isInternalChange) throw new Error(`Registry ("${type}") doesn't allow to modify "destroyed$" from outside. Attempt to set value: ${String(val)}`);
+    isInternalChange = false;
+  });
 
   function add(entity: T): void | never {
     if (registry.has(entity.id)) throw new Error(`Cannot add an entity with id "${entity.id}" to registry ${id}: already exist`);
@@ -45,7 +51,9 @@ export function AbstractRegistry<T extends IRegistrable | IMultitonRegistrable>(
   }
 
   function destroy(): void {
-    destroyed$.next();
+    isInternalChange = true;
+    destroyed$.next(true);
+    destroyed$.unsubscribe();
     destroyed$.complete();
     added$.complete();
     replaced$.complete();
@@ -85,9 +93,7 @@ export function AbstractRegistry<T extends IRegistrable | IMultitonRegistrable>(
     get replaced$(): Observable<T> {
       return replaced$.asObservable();
     },
-    get destroyed$(): Observable<void> {
-      return destroyed$.asObservable();
-    },
+    destroyed$,
     get removed$(): Observable<T> {
       return removed$.asObservable();
     },
@@ -102,7 +108,6 @@ export function AbstractRegistry<T extends IRegistrable | IMultitonRegistrable>(
     getUniqByTag,
     registry,
     remove,
-    isDestroyed: false,
     destroy
   };
 }

@@ -1,9 +1,9 @@
-import { Subject } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 
-import type { IDestroyable, IReactiveDestroyable, IRegistrable } from '@/Engine/Domains/Mixins';
+import type { IDestroyable, IRegistrable } from '@/Engine/Domains/Mixins';
 import { ColorWrapper } from '@/Engine/Wrappers';
 
-import { isColorWrapper, isDefined, isDestroyable, isNotDefined, isReactiveDestroyable, isRegistrable, isString } from './CheckUtils';
+import { isColorWrapper, isDefined, isDestroyable, isNotDefined, isRegistrable, isString } from './CheckUtils';
 
 describe('CheckUtils', () => {
   describe('isDefined', () => {
@@ -129,26 +129,19 @@ describe('CheckUtils', () => {
     });
   });
 
-  describe('isReactiveDestroyable', () => {
-    it('should return "true" if it is reactive destroyable', () => {
-      const obj: IReactiveDestroyable = { destroyed$: new Subject<void>(), isDestroyed: false, destroy: () => undefined };
-      expect(isReactiveDestroyable(obj)).toBe(true);
-    });
-
-    it('should return "false" if it is no "destroyed$"', () => {
-      const obj: any = { isDestroyed: false, destroy: () => undefined };
-      expect(isReactiveDestroyable(obj)).toBe(false);
-    });
-  });
-
   describe('isDestroyable', () => {
-    it('should return "true" if "destroy" is defined', () => {
-      const obj: IDestroyable = { isDestroyed: true, destroy: () => undefined };
+    it('should return "true" if "destroy" and "destriyed$" is defined', () => {
+      const obj: IDestroyable = { destroy: () => undefined, destroyed$: new BehaviorSubject<boolean>(false) };
       expect(isDestroyable(obj)).toBe(true);
     });
 
     it('should return "false" if "destroy" is NOT defined', () => {
-      const obj: any = { isDestroyed: true };
+      const obj: any = { destroyed$: new BehaviorSubject<boolean>(false) };
+      expect(isDestroyable(obj)).toBe(false);
+    });
+
+    it('should return "false" if "destroyed$" is NOT defined', () => {
+      const obj: any = { destroy: () => undefined };
       expect(isDestroyable(obj)).toBe(false);
     });
   });

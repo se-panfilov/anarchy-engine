@@ -1,4 +1,6 @@
+import type { BehaviorSubject } from 'rxjs';
+
 export type IDestroyable = Readonly<{
-  isDestroyed: boolean;
+  destroyed$: BehaviorSubject<boolean>;
   destroy: () => void;
 }>;

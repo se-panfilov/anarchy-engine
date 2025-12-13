@@ -47,9 +47,9 @@ export function RendererWrapper(params: IRendererParams, screenSizeWatcher: Read
 
   screenSizeWatcher.value$.subscribe((params: IScreenSizeValues): void => setValues(entity, params));
 
-  screenSizeWatcher.destroy$.subscribe(() => {
+  screenSizeWatcher.destroyed$.subscribe(() => {
     screenSizeWatcher.value$.unsubscribe();
-    screenSizeWatcher.destroy$.unsubscribe();
+    screenSizeWatcher.destroyed$.unsubscribe();
   });
 
   const wrapper: IWrapper<WebGLRenderer> = AbstractWrapper(entity, WrapperType.Renderer, params);

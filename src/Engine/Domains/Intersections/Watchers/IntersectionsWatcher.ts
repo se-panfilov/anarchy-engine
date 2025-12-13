@@ -35,10 +35,10 @@ export function IntersectionsWatcher({ actors, camera, positionWatcher, tags = [
     return intersectObj ? intersectObj.point : undefined;
   }
 
-  abstractWatcher.destroy$.subscribe(() => {
+  abstractWatcher.destroyed$.subscribe(() => {
     raycaster = undefined;
     positionWatcher.value$.unsubscribe();
-    abstractWatcher.destroy$.unsubscribe();
+    abstractWatcher.destroyed$.unsubscribe();
   });
 
   const result: IIntersectionsWatcher = {
