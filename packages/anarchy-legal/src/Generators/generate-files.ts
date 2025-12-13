@@ -71,7 +71,7 @@ type TRenderInput = Readonly<{
 // ---------------------- Utils ----------------------
 
 let isDebug: boolean = false;
-const dlog = (...args: ReadonlyArray<unknown>): void => {
+const debugLog = (...args: ReadonlyArray<unknown>): void => {
   if (isDebug) console.log('[debug]', ...args);
 };
 
@@ -87,20 +87,20 @@ const exists = async (p: string): Promise<boolean> => {
 };
 
 // Monorepo discovery (simple: look upward for workspaces field)
-const hasWorkspacesField = (pkg: any): boolean => {
+function hasWorkspacesField(pkg: any): boolean {
   const ws = pkg?.workspaces;
   if (!ws) return false;
   if (Array.isArray(ws)) return ws.length > 0;
   if (typeof ws === 'object' && Array.isArray(ws.packages)) return ws.packages.length > 0;
   return false;
-};
+}
 
-const findMonorepoRoot = async (startDir: string): Promise<string> => {
+async function findMonorepoRoot(startDir: string): Promise<string> {
   let dir = path.resolve(startDir);
-  dlog('findMonorepoRoot: start at', dir);
+  debugLog('findMonorepoRoot: start at', dir);
   for (let i = 0; i < 50; i++) {
     const p = path.join(dir, 'package.json');
-    dlog('  check', p);
+    debugLog('  check', p);
     if (await exists(p)) {
       try {
         const pkg = await readJson<any>(p);
@@ -114,9 +114,9 @@ const findMonorepoRoot = async (startDir: string): Promise<string> => {
     dir = parent;
   }
   throw new Error(`Monorepo root not found from ${startDir}`);
-};
+}
 
-const loadWorkspaces = async (rootDir: string): Promise<ReadonlyMap<string, TWorkspaceInfo>> => {
+async function loadWorkspaces(rootDir: string): Promise<ReadonlyMap<string, TWorkspaceInfo>> {
   const rootPkg = await readJson<any>(path.join(rootDir, 'package.json'));
   const patterns: string[] = Array.isArray(rootPkg.workspaces) ? rootPkg.workspaces : (rootPkg.workspaces?.packages ?? []);
   if (!patterns.length) throw new Error(`No workspaces patterns in ${path.join(rootDir, 'package.json')}`);
@@ -131,9 +131,9 @@ const loadWorkspaces = async (rootDir: string): Promise<ReadonlyMap<string, TWor
     entries.push([name, { name, dir, pkgPath, pkg }]);
   }
   return new Map(entries);
-};
+}
 
-const resolveWorkspaceFromArg = (arg: string, workspaces: ReadonlyMap<string, TWorkspaceInfo>, rootDir: string): Readonly<{ ws: TWorkspaceInfo }> => {
+function resolveWorkspaceFromArg(arg: string, workspaces: ReadonlyMap<string, TWorkspaceInfo>, rootDir: string): Readonly<{ ws: TWorkspaceInfo }> {
   const byName = workspaces.get(arg);
   if (byName) return { ws: byName };
   const asPath = path.isAbsolute(arg) ? arg : path.join(rootDir, arg);
@@ -142,11 +142,11 @@ const resolveWorkspaceFromArg = (arg: string, workspaces: ReadonlyMap<string, TW
     if (path.resolve(w.dir) === norm) return { ws: w };
   }
   throw new Error(`Workspace "${arg}" not found by name or path`);
-};
+}
 
 // ---------------------- Config ----------------------
 
-const readConfig = async (wsDir: string): Promise<TConfig> => {
+async function readConfig(wsDir: string): Promise<TConfig> {
   const p = path.join(wsDir, '.anarchy-legal.config.json');
   if (!(await exists(p))) return [];
   try {
@@ -157,7 +157,7 @@ const readConfig = async (wsDir: string): Promise<TConfig> => {
   } catch (e) {
     throw new Error(`Failed to read ${p}: ${(e as Error).message}`);
   }
-};
+}
 
 const pickEntry = (cfg: TConfig, type: 'GENERIC' | TDocType): TConfigEntry | undefined => cfg.find((e) => e?.type === type);
 
@@ -166,7 +166,7 @@ const pickEntry = (cfg: TConfig, type: 'GENERIC' | TDocType): TConfigEntry | und
 const TEMPLATE_EXT = '.md';
 const DEFAULT_TEMPLATE_BASENAME = (t: TDocType): string => `${t}_TEMPLATE`;
 
-const findTemplateFile = async (templatesDir: string, docType: TDocType, desiredBase?: string): Promise<string | undefined> => {
+async function findTemplateFile(templatesDir: string, docType: TDocType, desiredBase?: string): Promise<string | undefined> {
   // 1) exact by desiredBase
   if (desiredBase) {
     const exact = path.join(templatesDir, `${desiredBase}${TEMPLATE_EXT}`);
@@ -180,14 +180,14 @@ const findTemplateFile = async (templatesDir: string, docType: TDocType, desired
   const found = await globby([pattern], { absolute: true });
   found.sort();
   return found[0];
-};
+}
 
 // ---------------------- Placeholder rendering ----------------------
 
 // Very small mustache-like renderer: only {{NAME}} (no sections/conditions)
 const PLACEHOLDER_RE = /{{\s*([A-Z0-9_]+)\s*}}/g;
 
-const formatDate = (dateStr: string, fmt: string): string => {
+function formatDate(dateStr: string, fmt: string): string {
   const d = dateStr === 'now' ? new Date() : new Date(dateStr);
   // naive pad helper
   const pad2 = (n: number): string => String(n).padStart(2, '0');
@@ -195,35 +195,35 @@ const formatDate = (dateStr: string, fmt: string): string => {
   const MM = pad2(d.getMonth() + 1);
   const DD = pad2(d.getDate());
   return fmt.replace(/YYYY/g, YYYY).replace(/MM/g, MM).replace(/DD/g, DD);
-};
+}
 
 // Convert message value (string | {date,format}) -> string
-const materializeMessage = (v: unknown): string => {
+function materializeMessage(v: unknown): string {
   if (typeof v === 'string') return v;
   if (v && typeof v === 'object' && 'date' in (v as any) && 'format' in (v as any)) {
     const { date, format } = v as TDateMessage;
     if (typeof date === 'string' && typeof format === 'string') return formatDate(date, format);
   }
   return '';
-};
+}
 
 // Extract placeholders present in a template text
-const collectPlaceholders = (tpl: string): ReadonlySet<string> => {
+function collectPlaceholders(tpl: string): ReadonlySet<string> {
   const names = new Set<string>();
   let m: RegExpExecArray | null;
   while ((m = PLACEHOLDER_RE.exec(tpl))) names.add(m[1]);
   return names;
-};
+}
 
 // PACKAGE_* resolution from package.json
-const packagePlaceholder = (key: string, pkg: Readonly<Record<string, unknown>>): string | undefined => {
+function packagePlaceholder(key: string, pkg: Readonly<Record<string, unknown>>): string | undefined {
   // key is suffix after "PACKAGE_", e.g. NAME, VERSION, AUTHOR, AUTHORS, LICENSE, REPOSITORY, HOMEPAGE, BUGS_URL, DESCRIPTION
   const k = key.toUpperCase();
 
   const str = (v: unknown): string | undefined => (typeof v === 'string' ? v : undefined);
   const arrStr = (v: unknown): string | undefined => (Array.isArray(v) ? (v as unknown[]).map((x) => (typeof x === 'string' ? x : JSON.stringify(x))).join(', ') : undefined);
 
-  const authorToString = (a: unknown): string | undefined => {
+  function authorToString(a: unknown): string | undefined {
     if (!a) return undefined;
     if (typeof a === 'string') return a;
     if (typeof a === 'object') {
@@ -233,7 +233,7 @@ const packagePlaceholder = (key: string, pkg: Readonly<Record<string, unknown>>)
       return [n, e ? `<${e}>` : '', w ? `(${w})` : ''].filter(Boolean).join(' ').trim();
     }
     return undefined;
-  };
+  }
 
   switch (k) {
     case 'NAME':
@@ -271,16 +271,16 @@ const packagePlaceholder = (key: string, pkg: Readonly<Record<string, unknown>>)
       if (typeof direct === 'string') return direct;
       return undefined;
   }
-};
+}
 
 // Build final map for a given doc type
-const buildPlaceholderValues = (
+function buildPlaceholderValues(
   docType: TDocType,
   tplText: string,
   pkg: Readonly<Record<string, unknown>>,
   generic: TMessages | undefined,
   specific: TMessages | undefined
-): Readonly<Record<string, string>> => {
+): Readonly<Record<string, string>> {
   const names = collectPlaceholders(tplText);
   const out: Record<string, string> = {};
 
@@ -303,10 +303,10 @@ const buildPlaceholderValues = (
   }
 
   return out;
-};
+}
 
 // Render
-const renderTemplate = (tpl: string, values: Readonly<Record<string, string>>, onMissing: (name: string) => void): string => {
+function renderTemplate(tpl: string, values: Readonly<Record<string, string>>, onMissing: (name: string) => void): string {
   return tpl.replace(PLACEHOLDER_RE, (_m, g1: string) => {
     const v = values[g1];
     if (v === undefined) {
@@ -315,11 +315,11 @@ const renderTemplate = (tpl: string, values: Readonly<Record<string, string>>, o
     }
     return v;
   });
-};
+}
 
 // ---------------------- Main rendering pipeline ----------------------
 
-const generateForType = async (i: TRenderInput, docType: TDocType): Promise<void> => {
+async function generateForType(i: TRenderInput, docType: TDocType): Promise<void> {
   const cfgGeneric = pickEntry(i.config, 'GENERIC');
   const cfgSpecific = pickEntry(i.config, docType);
   const desiredBase = cfgSpecific?.template;
@@ -344,18 +344,18 @@ const generateForType = async (i: TRenderInput, docType: TDocType): Promise<void
   await fs.mkdir(path.dirname(outPath), { recursive: true });
   await fs.writeFile(outPath, rendered, 'utf8');
   console.log(`✔ ${docType}.md written -> ${outPath}`);
-};
+}
 
-const generateAll = async (i: TRenderInput): Promise<void> => {
+async function generateAll(i: TRenderInput): Promise<void> {
   for (const t of DOC_TYPES) {
     if (!i.types.has(t)) continue;
     await generateForType(i, t);
   }
-};
+}
 
 // ---------------------- CLI ----------------------
 
-const main = async (): Promise<void> => {
+async function main(): Promise<void> {
   const argv = await yargs(hideBin(process.argv))
     .scriptName('anarchy-legal:files')
     .usage('$0 --workspace <name|path> --out <dir> [--templates <dir>] [--types DISCLAIMER,EULA,...] [--debug]')
@@ -379,7 +379,7 @@ const main = async (): Promise<void> => {
       rootDir = await findMonorepoRoot(c);
       break;
     } catch (e) {
-      dlog('no root from', c, ':', (e as Error).message);
+      debugLog('no root from', c, ':', (e as Error).message);
     }
   }
   if (!rootDir) throw new Error(`Failed to find monorepo root from: ${startCandidates.join(', ')}`);
@@ -387,15 +387,15 @@ const main = async (): Promise<void> => {
   // Load workspaces and resolve target
   const workspaces = await loadWorkspaces(rootDir);
   const { ws } = resolveWorkspaceFromArg(String(argv.workspace), workspaces, rootDir);
-  dlog('target workspace:', ws.name, ws.dir);
+  debugLog('target workspace:', ws.name, ws.dir);
 
   // Resolve templates dir
   const templatesDir = argv.templates ? (path.isAbsolute(argv.templates) ? argv.templates : path.resolve(process.cwd(), argv.templates)) : path.resolve(scriptDir, '../../src/Templates');
-  dlog('templates dir:', templatesDir);
+  debugLog('templates dir:', templatesDir);
 
   // Resolve out dir
   const outDir = path.isAbsolute(argv.out as string) ? (argv.out as string) : path.resolve(process.cwd(), String(argv.out));
-  dlog('out dir:', outDir);
+  debugLog('out dir:', outDir);
 
   // Types
   const typesSet: ReadonlySet<TDocType> = (() => {
@@ -415,15 +415,15 @@ const main = async (): Promise<void> => {
   // Read config (optional)
   const config = await readConfig(ws.dir);
   if (config.length)
-    dlog(
+    debugLog(
       'config entries:',
       config.map((c) => c.type)
     );
-  else dlog('config: <none>');
+  else debugLog('config: <none>');
 
   // Go
   await generateAll({ ws, outDir, templatesDir, types: typesSet, config });
-};
+}
 
 main().catch((e) => {
   console.error(`✖ ${e instanceof Error ? e.message : String(e)}`);
