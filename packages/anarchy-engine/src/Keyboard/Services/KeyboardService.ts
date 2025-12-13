@@ -20,7 +20,7 @@ export function KeyboardService(container: TContainerDecorator, keyWatcherFactor
   const tags: ReadonlyArray<WatcherTag | string> = [WatcherTag.Initial, WatcherTag.Global];
   const keyPressWatcher: TKeyWatcher = keyWatcherFactory.create({ type: KeyWatcherType.Press, container, tags }, undefined) as TKeyWatcher;
   const keyReleaseWatcher: TKeyWatcher = keyWatcherFactory.create({ type: KeyWatcherType.Release, container, tags }, undefined) as TKeyWatcher;
-  const keyComboWatcher: TKeyComboWatcher = keyWatcherFactory.create({ type: KeyWatcherType.Combo, tags }, { keyPressWatcher, keyReleaseWatcher }) as TKeyComboWatcher;
+  const keyComboWatcher: TKeyComboWatcher = keyWatcherFactory.create({ type: KeyWatcherType.Combo, container, tags }, { keyPressWatcher, keyReleaseWatcher }) as TKeyComboWatcher;
 
   keyComboWatcher.enabled$.next(true);
   keyReleaseWatcher.enabled$.next(true);

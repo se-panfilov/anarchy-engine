@@ -1,13 +1,15 @@
 import type { TAbstractWatcherWithState } from '@Anarchy/Engine/Abstract';
 import { AbstractWatcherWithState, WatcherType } from '@Anarchy/Engine/Abstract';
+import { ContainerEvents } from '@Anarchy/Engine/Global';
 import type { TGameKey, TKeyComboWatcher, TKeyComboWatcherDependencies, TKeyComboWatcherParams, TKeysState } from '@Anarchy/Engine/Keyboard';
+import { KeyboardEventType } from '@Anarchy/Engine/Keyboard';
 import type { TKeysEvent } from '@Anarchy/Engine/Keyboard/Models/TKeysEvent';
 import type { Subscription } from 'rxjs';
 import { distinctUntilChanged, takeUntil } from 'rxjs';
 
-export function KeyComboWatcher({ tags }: TKeyComboWatcherParams, { keyPressWatcher, keyReleaseWatcher }: TKeyComboWatcherDependencies): TKeyComboWatcher {
+export function KeyComboWatcher({ container, tags }: TKeyComboWatcherParams, { keyPressWatcher, keyReleaseWatcher }: TKeyComboWatcherDependencies): TKeyComboWatcher {
   const keys: TKeysState = new Set<TGameKey>();
-  const watcher: TAbstractWatcherWithState<TKeysEvent> = AbstractWatcherWithState(WatcherType.KeyPressWatcher, 'key_combo_watcher', { keys, event: undefined }, tags);
+  const watcher: TAbstractWatcherWithState<TKeysEvent> = AbstractWatcherWithState(WatcherType.KeyPressWatcher, 'key_combo_watcher', { keys }, tags);
 
   function onPress(event: KeyboardEvent): void {
     if (keys.has(event.code as TGameKey)) return;
@@ -21,6 +23,18 @@ export function KeyComboWatcher({ tags }: TKeyComboWatcherParams, { keyPressWatc
     (keys as Set<TGameKey>).delete(event.code as TGameKey);
     watcher.value$.next({ keys, released: event.code as TGameKey, event });
   }
+
+  //When focus leave the container, release all keys
+  const releaseAllKeys = (): void => watcher.value$.value.keys.forEach((key: TGameKey): void => onRelease({ code: key } as KeyboardEvent));
+  container.startWatch(ContainerEvents.Blur, releaseAllKeys);
+
+  watcher.enabled$.pipe(distinctUntilChanged(), takeUntil(watcher.destroy$)).subscribe((value: boolean): void => {
+    if (value) {
+      container.startWatch(KeyboardEventType.KeyDown, releaseAllKeys);
+    } else {
+      container.stopWatch(KeyboardEventType.KeyDown, releaseAllKeys);
+    }
+  });
 
   let pressSub$: Subscription | undefined;
   let releaseSub$: Subscription | undefined;

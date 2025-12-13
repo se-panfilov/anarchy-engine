@@ -8,4 +8,4 @@ export type TKeyWatcherParams = Readonly<{
   tags?: ReadonlyArray<WatcherTag | string>;
 }>;
 
-export type TKeyComboWatcherParams = Omit<TKeyWatcherParams, 'container'>;
+export type TKeyComboWatcherParams = TKeyWatcherParams;

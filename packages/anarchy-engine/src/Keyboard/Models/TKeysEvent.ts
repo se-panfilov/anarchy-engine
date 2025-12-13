@@ -5,5 +5,5 @@ export type TKeysEvent = Readonly<{
   keys: TKeysState;
   pressed?: TGameKey;
   released?: TGameKey;
-  event: KeyboardEvent | undefined;
+  event?: KeyboardEvent;
 }>;
