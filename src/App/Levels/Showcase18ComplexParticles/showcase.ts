@@ -21,7 +21,9 @@ export function showcase(canvas: TAppCanvas): TShowcase {
 
   let particles: TParticlesWrapperAsync | undefined;
 
-  const parameters: Record<string, string | number> = {
+  type TGalaxyParams = { count: number; size: number; radius: number; branches: number; spin: number; randomness: number; randomnessPower: number; insideColor: string; outsideColor: string };
+
+  const parameters: TGalaxyParams = {
     count: 42000,
     size: (particlesDefaultParams.material.params as TPointsMaterialProps).size ?? 0.01,
     radius: 7.2,
@@ -49,11 +51,11 @@ export function showcase(canvas: TAppCanvas): TShowcase {
     }
 
     geometry = new BufferGeometry();
-    const { positions, colors } = generateParams();
+    const { positions, colors } = generateParams(parameters);
 
     material = new PointsMaterial({
       ...particlesDefaultParams.material.params,
-      size: parameters.size as number
+      size: parameters.size
     });
 
     particles = await particlesService.getRegistry().findByNameAsync(particlesName);
@@ -63,7 +65,7 @@ export function showcase(canvas: TAppCanvas): TShowcase {
     particles.setIndividualMaterialColors(colors);
   }
 
-  function generateParams(): { positions: Float32Array; colors: Float32Array; colorInside: Color; colorOutside: Color } {
+  function generateParams(parameters: TGalaxyParams): { positions: Float32Array; colors: Float32Array } {
     const positions: Float32Array = new Float32Array(parameters.count * 3);
     const colors: Float32Array = new Float32Array(parameters.count * 3);
 
@@ -96,7 +98,7 @@ export function showcase(canvas: TAppCanvas): TShowcase {
       colors[i3 + 2] = mixedColor.b;
     }
 
-    return { positions, colors, colorInside, colorOutside };
+    return { positions, colors };
   }
 
   function init(): void {
