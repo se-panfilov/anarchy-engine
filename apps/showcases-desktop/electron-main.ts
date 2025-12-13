@@ -94,6 +94,7 @@ app.whenReady().then((): void => {
   win.webContents.on('will-navigate', (event: Event<WebContentsWillNavigateEventParams>, url: string): void => {
     console.log(`[Desktop Main] navigation to {event.url} `);
 
+    // TODO DESKTOP: Make this configurable
     // event.preventDefault(); // Prevent navigation to other pages
 
     // Prevent drag and drop navigation
