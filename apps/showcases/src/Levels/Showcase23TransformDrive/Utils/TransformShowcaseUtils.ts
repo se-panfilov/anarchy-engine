@@ -1,14 +1,3 @@
-import type GUI from 'lil-gui';
-import type { Subscription } from 'rxjs';
-import { combineLatest, distinctUntilChanged, map } from 'rxjs';
-import type { ColorRepresentation, Vector3Like } from 'three';
-import { Euler, Quaternion, Vector3 } from 'three';
-import { Line2 } from 'three/examples/jsm/lines/Line2';
-import { LineGeometry } from 'three/examples/jsm/lines/LineGeometry';
-import { LineMaterial } from 'three/examples/jsm/lines/LineMaterial';
-import type { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
-
-import { attachConnectorPositionToSubj, attachConnectorRotationToSubj } from '@/Levels/Utils';
 import type {
   KeyCode,
   KeysExtra,
@@ -31,6 +20,17 @@ import type {
 } from '@Engine';
 import { ForwardAxis, isDefined, MaterialType, metersPerSecond, TransformAgent } from '@Engine';
 import { meters } from '@Engine/Measurements/Utils';
+import type GUI from 'lil-gui';
+import type { Subscription } from 'rxjs';
+import { combineLatest, distinctUntilChanged, map } from 'rxjs';
+import type { ColorRepresentation, Vector3Like } from 'three';
+import { Euler, Quaternion, Vector3 } from 'three';
+import { Line2 } from 'three/examples/jsm/lines/Line2';
+import { LineGeometry } from 'three/examples/jsm/lines/LineGeometry';
+import { LineMaterial } from 'three/examples/jsm/lines/LineMaterial';
+import type { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
+
+import { attachConnectorPositionToSubj, attachConnectorRotationToSubj } from '@/Levels/Utils';
 
 export function createActor(
   name: string,

@@ -1,11 +1,4 @@
 import type { RigidBody } from '@dimforge/rapier3d';
-import { nanoid } from 'nanoid';
-import type { Observable } from 'rxjs';
-import { withLatestFrom } from 'rxjs';
-import { BufferAttribute, BufferGeometry, Color, Euler, PointsMaterial, Vector3 } from 'three';
-import { Points } from 'three/src/objects/Points';
-
-import { createFlashLight } from '@/Levels/Showcase20PhysicsShooter/utils/Light';
 import type {
   TActor,
   TActorParams,
@@ -30,6 +23,13 @@ import type {
 } from '@Engine';
 import { getTags, isDefined, isNotDefined, LoopUpdatePriority, MaterialType, metersPerSecond, mpsSpeed, PrimitiveModel3dType, TransformAgent } from '@Engine';
 import { meters } from '@Engine/Measurements/Utils';
+import { nanoid } from 'nanoid';
+import type { Observable } from 'rxjs';
+import { withLatestFrom } from 'rxjs';
+import { BufferAttribute, BufferGeometry, Color, Euler, PointsMaterial, Vector3 } from 'three';
+import { Points } from 'three/src/objects/Points';
+
+import { createFlashLight } from '@/Levels/Showcase20PhysicsShooter/utils/Light';
 
 export const BULLET_TAG = 'bullet';
 export const BULLET_TARGET_TAG = 'target';

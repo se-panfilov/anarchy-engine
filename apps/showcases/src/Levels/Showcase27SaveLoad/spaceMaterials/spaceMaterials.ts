@@ -1,7 +1,6 @@
-import { BehaviorSubject } from 'rxjs';
-
 import type { TMaterialConfigOptions, TPhysicalMaterialWrapper, TSpace, TSpaceConfig } from '@Engine';
 import { isNotDefined } from '@Engine';
+import { BehaviorSubject } from 'rxjs';
 
 import type { TSpacesData } from '../ShowcaseTypes';
 import { getContainer } from '../utils';

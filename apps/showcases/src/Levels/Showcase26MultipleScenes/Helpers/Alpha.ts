@@ -1,7 +1,7 @@
+import type { TSpace } from '@Engine';
 import { Clock } from 'three';
 
 import { moveByCircle } from '@/Levels/Utils/MoveUtils';
-import type { TSpace } from '@Engine';
 
 import { addParticles, driveByKeyboard } from './Utils';
 

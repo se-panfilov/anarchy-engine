@@ -1,8 +1,7 @@
-import { distinctUntilChanged } from 'rxjs';
-import type { AnimationAction } from 'three';
-
 import type { TActor, TFsmStates, TFsmWrapper, TModel3d, TSpaceServices } from '@Engine';
 import { isNotDefined } from '@Engine';
+import { distinctUntilChanged } from 'rxjs';
+import type { AnimationAction } from 'three';
 
 export function initSolder1(actorName: string, fadeDuration: number, { animationsService, fsmService, actorService }: TSpaceServices): TFsmWrapper {
   const actor: TActor = actorService.getRegistry().getByName(actorName);

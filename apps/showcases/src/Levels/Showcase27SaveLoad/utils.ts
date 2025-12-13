@@ -1,8 +1,7 @@
-import type { BehaviorSubject } from 'rxjs';
-import { Euler, Vector3 } from 'three';
-
 import type { TModel3d, TSpace, TSpaceConfig, TText2dRegistry, TText2dWrapper, TText3dRegistry, TText3dTextureRegistry, TText3dTextureWrapper, TText3dWrapper } from '@Engine';
 import { createDomElement, isNotDefined, TextType } from '@Engine';
+import type { BehaviorSubject } from 'rxjs';
+import { Euler, Vector3 } from 'three';
 
 import type { TSpacesData } from './ShowcaseTypes';
 

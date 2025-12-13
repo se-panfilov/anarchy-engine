@@ -1,8 +1,7 @@
-import GUI from 'lil-gui';
-import { Clock } from 'three';
-
 import type { TActor, TActorRegistry, TAnyCameraWrapper, TCameraRegistry, TMilliseconds, TSpace, TSpaceConfig } from '@Engine';
 import { asRecord, isNotDefined, spaceService } from '@Engine';
+import GUI from 'lil-gui';
+import { Clock } from 'three';
 
 import spaceConfigJson from './space.json';
 

@@ -1,7 +1,6 @@
+import type { TPerspectiveCameraWrapper, TSpace, TSpaceConfig } from '@Engine';
 import { BehaviorSubject } from 'rxjs';
 import { Euler, Quaternion, Vector3 } from 'three';
-
-import type { TPerspectiveCameraWrapper, TSpace, TSpaceConfig } from '@Engine';
 
 import type { TSpacesData } from '../ShowcaseTypes';
 import { getContainer } from '../utils';

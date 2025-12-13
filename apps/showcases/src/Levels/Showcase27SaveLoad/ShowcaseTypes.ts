@@ -1,6 +1,5 @@
-import type { BehaviorSubject, Subscription } from 'rxjs';
-
 import type { TSpace, TSpaceConfig } from '@Engine';
+import type { BehaviorSubject, Subscription } from 'rxjs';
 
 export type TSpacesData = Readonly<{
   name: string;

@@ -1,8 +1,7 @@
+import type { TActor, TSpace, TSpaceConfig } from '@Engine';
 import { BehaviorSubject } from 'rxjs';
 import type { AnimationAction, AnimationClip, AnimationMixer } from 'three';
 import { LoopOnce } from 'three';
-
-import type { TActor, TSpace, TSpaceConfig } from '@Engine';
 
 import type { TSpacesData } from '../ShowcaseTypes';
 import { addAwait, getContainer, removeAwait } from '../utils';

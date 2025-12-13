@@ -1,10 +1,3 @@
-import GUI from 'lil-gui';
-import { BehaviorSubject, combineLatest, map, withLatestFrom } from 'rxjs';
-import { Euler, Quaternion, Vector3 } from 'three';
-import type { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
-import { degToRad, radToDeg } from 'three/src/math/MathUtils';
-
-import { addGizmo, attachConnectorPositionToSubj, getMemoryUsage } from '@/Levels/Utils';
 import type {
   TActor,
   TAnyCameraWrapper,
@@ -50,6 +43,13 @@ import {
   TextType,
   TransformAgent
 } from '@Engine';
+import GUI from 'lil-gui';
+import { BehaviorSubject, combineLatest, map, withLatestFrom } from 'rxjs';
+import { Euler, Quaternion, Vector3 } from 'three';
+import type { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
+import { degToRad, radToDeg } from 'three/src/math/MathUtils';
+
+import { addGizmo, attachConnectorPositionToSubj, getMemoryUsage } from '@/Levels/Utils';
 
 import spaceConfigJson from './space.json';
 import {

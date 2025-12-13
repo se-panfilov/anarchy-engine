@@ -1,7 +1,8 @@
-import type { TSubscriptionsData } from '@/Levels/Showcase26MultipleScenes/Helpers/TSubscriptionsData';
-import { addBtn } from '@/Levels/Utils';
 import type { TActor, TActorRegistry, TKeyboardPressingEvent, TParticlesWrapper, TSpace, TSpaceServices } from '@Engine';
 import { createDomElement, KeyCode, metersPerSecond, mpsSpeed } from '@Engine';
+
+import type { TSubscriptionsData } from '@/Levels/Showcase26MultipleScenes/Helpers/TSubscriptionsData';
+import { addBtn } from '@/Levels/Utils';
 
 export function createContainersDivs(): void {
   createDomElement(

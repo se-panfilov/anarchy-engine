@@ -1,7 +1,6 @@
-import GUI from 'lil-gui';
-
 import type { TAnyCameraWrapper, TCameraRegistry, TIntersectionEvent, TIntersectionsCameraWatcher, TSpace, TSpaceConfig } from '@Engine';
 import { asRecord, isNotDefined, spaceService } from '@Engine';
+import GUI from 'lil-gui';
 
 import spaceConfigJson from './space.json';
 

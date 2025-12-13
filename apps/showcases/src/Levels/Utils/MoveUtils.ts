@@ -1,7 +1,6 @@
+import type { TActor, TActorRegistry, TActorService, TMilliseconds, TTransformLoop } from '@Engine';
 import type { Subscription } from 'rxjs';
 import type { Clock } from 'three';
-
-import type { TActor, TActorRegistry, TActorService, TMilliseconds, TTransformLoop } from '@Engine';
 
 export function moveByCircle(actorName: string, actorService: TActorService, transformLoop: TTransformLoop, clock: Clock): Subscription {
   const actorRegistry: TActorRegistry = actorService.getRegistry();

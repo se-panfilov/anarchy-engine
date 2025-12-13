@@ -1,8 +1,7 @@
 import type { RigidBody, Vector, World } from '@dimforge/rapier3d';
+import type { TSpace, TSpaceConfig } from '@Engine';
 import { BehaviorSubject } from 'rxjs';
 import { Vector3 } from 'three/src/math/Vector3';
-
-import type { TSpace, TSpaceConfig } from '@Engine';
 
 import type { TSpacesData } from '../ShowcaseTypes';
 import { addAwait, getContainer, removeAwait } from '../utils';

@@ -1,10 +1,9 @@
+import type { TActor, TFsmStates, TModel3d, TSpace, TSpaceConfig } from '@Engine';
+import { isNotDefined } from '@Engine';
 import type { Subscription } from 'rxjs';
 import { BehaviorSubject, distinctUntilChanged } from 'rxjs';
 import type { AnimationAction } from 'three';
 import { Vector3 } from 'three';
-
-import type { TActor, TFsmStates, TModel3d, TSpace, TSpaceConfig } from '@Engine';
-import { isNotDefined } from '@Engine';
 
 import type { TSpacesData } from '../ShowcaseTypes';
 import { getContainer } from '../utils';

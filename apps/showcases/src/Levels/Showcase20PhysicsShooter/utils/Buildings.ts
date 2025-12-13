@@ -1,7 +1,3 @@
-import type { Vector3Like } from 'three';
-import { Euler, Quaternion, Vector3 } from 'three';
-
-import { BULLET_TARGET_TAG } from '@/Levels/Showcase20PhysicsShooter/utils/Bullets';
 import type {
   TActor,
   TActorService,
@@ -17,6 +13,10 @@ import type {
   TSpatialGridWrapper
 } from '@Engine';
 import { CollisionShape, MaterialType, meters, PrimitiveModel3dType, RigidBodyTypesNames, TransformAgent } from '@Engine';
+import type { Vector3Like } from 'three';
+import { Euler, Quaternion, Vector3 } from 'three';
+
+import { BULLET_TARGET_TAG } from '@/Levels/Showcase20PhysicsShooter/utils/Bullets';
 
 export type TBuidingBlock = Required<Pick<TBoxGeometryParams, 'height' | 'width' | 'depth'>> & Required<Pick<TObject3DParams, 'position'>>;
 

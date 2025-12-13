@@ -1,10 +1,3 @@
-import type { Intersection } from 'three';
-import { Vector3 } from 'three';
-import type { Line2 } from 'three/examples/jsm/lines/Line2';
-import { degToRad } from 'three/src/math/MathUtils';
-
-import { enableCollisions } from '@/Levels/Showcase20PhysicsShooter/utils/Collisions';
-import { initLight } from '@/Levels/Showcase20PhysicsShooter/utils/Light';
 import type {
   TActor,
   TAnyCameraWrapper,
@@ -22,6 +15,13 @@ import type {
 } from '@Engine';
 import { asRecord, isDefined, isNotDefined, KeysExtra, metersPerSecond, milliseconds, spaceService } from '@Engine';
 import { radians } from '@Engine/Measurements/Utils';
+import type { Intersection } from 'three';
+import { Vector3 } from 'three';
+import type { Line2 } from 'three/examples/jsm/lines/Line2';
+import { degToRad } from 'three/src/math/MathUtils';
+
+import { enableCollisions } from '@/Levels/Showcase20PhysicsShooter/utils/Collisions';
+import { initLight } from '@/Levels/Showcase20PhysicsShooter/utils/Light';
 
 import spaceConfigJson from './space.json';
 import type { TBullet } from './utils';

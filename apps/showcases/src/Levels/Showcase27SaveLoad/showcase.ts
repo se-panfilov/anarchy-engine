@@ -1,6 +1,8 @@
 import '@Public/Showcase/fonts.css';
 import './style.css';
 
+import type { TSpace, TSpaceConfig, TSpaceRegistry } from '@Engine';
+import { isNotDefined, spaceService } from '@Engine';
 import type { Subscription } from 'rxjs';
 
 import { spaceActorData } from '@/Levels/Showcase27SaveLoad/spaceActor';
@@ -21,8 +23,6 @@ import { spaceSpatialData } from '@/Levels/Showcase27SaveLoad/spaceSpatial';
 import { spaceTextData } from '@/Levels/Showcase27SaveLoad/spaceTexts';
 import { spaceTransformDriveData } from '@/Levels/Showcase27SaveLoad/spaceTransformDrive';
 import { addBtn, addDropdown } from '@/Levels/Utils';
-import type { TSpace, TSpaceConfig, TSpaceRegistry } from '@Engine';
-import { isNotDefined, spaceService } from '@Engine';
 
 import type { TSpacesData } from './ShowcaseTypes';
 import { createContainersDivs, setContainerVisibility } from './utils';

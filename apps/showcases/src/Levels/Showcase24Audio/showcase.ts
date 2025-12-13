@@ -1,8 +1,3 @@
-import GUI from 'lil-gui';
-import { distinctUntilChanged } from 'rxjs';
-import type { AnimationAction, AudioListener } from 'three';
-import { Clock } from 'three';
-
 import type {
   TActor,
   TAnyAudioWrapper,
@@ -21,6 +16,10 @@ import type {
   TSpaceServices
 } from '@Engine';
 import { asRecord, DebugAudioRenderer, isAudio3dWrapper, isDefined, isNotDefined, spaceService } from '@Engine';
+import GUI from 'lil-gui';
+import { distinctUntilChanged } from 'rxjs';
+import type { AnimationAction, AudioListener } from 'three';
+import { Clock } from 'three';
 
 import spaceConfigJson from './space.json';
 
