@@ -215,7 +215,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## dompurify@3.2.7
+## dompurify@3.3.0
 
 **License(s):** (MPL-2.0 OR Apache-2.0)
 

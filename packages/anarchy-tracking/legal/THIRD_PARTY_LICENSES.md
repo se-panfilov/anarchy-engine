@@ -2,7 +2,7 @@
 
 ## Application: anarchy-tracking
 
-Production dependencies (including transition dependencies): 106
+Production dependencies (including transition dependencies): 113
 
 ---
 
@@ -8524,6 +8524,62 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 **License:** BSD-3-Clause
 
 **Repository:** https://github.com/getsentry/sentry-cli
+
+_No license text file found; relying on package metadata._
+
+---
+
+## @sentry/cli-linux-arm@2.56.1
+
+**License:** UNKNOWN
+
+_No license text file found; relying on package metadata._
+
+---
+
+## @sentry/cli-linux-arm64@2.56.1
+
+**License:** UNKNOWN
+
+_No license text file found; relying on package metadata._
+
+---
+
+## @sentry/cli-linux-i686@2.56.1
+
+**License:** UNKNOWN
+
+_No license text file found; relying on package metadata._
+
+---
+
+## @sentry/cli-linux-x64@2.56.1
+
+**License:** UNKNOWN
+
+_No license text file found; relying on package metadata._
+
+---
+
+## @sentry/cli-win32-arm64@2.56.1
+
+**License:** UNKNOWN
+
+_No license text file found; relying on package metadata._
+
+---
+
+## @sentry/cli-win32-i686@2.56.1
+
+**License:** UNKNOWN
+
+_No license text file found; relying on package metadata._
+
+---
+
+## @sentry/cli-win32-x64@2.56.1
+
+**License:** UNKNOWN
 
 _No license text file found; relying on package metadata._
 

@@ -2,7 +2,7 @@
 
 ## Application: showcases-core
 
-Production dependencies (including transition dependencies): 227
+Production dependencies (including transition dependencies): 234
 
 ---
 
@@ -9363,6 +9363,62 @@ _No license text file found; relying on package metadata._
 
 ---
 
+## @sentry/cli-linux-arm@2.56.1
+
+**License:** UNKNOWN
+
+_No license text file found; relying on package metadata._
+
+---
+
+## @sentry/cli-linux-arm64@2.56.1
+
+**License:** UNKNOWN
+
+_No license text file found; relying on package metadata._
+
+---
+
+## @sentry/cli-linux-i686@2.56.1
+
+**License:** UNKNOWN
+
+_No license text file found; relying on package metadata._
+
+---
+
+## @sentry/cli-linux-x64@2.56.1
+
+**License:** UNKNOWN
+
+_No license text file found; relying on package metadata._
+
+---
+
+## @sentry/cli-win32-arm64@2.56.1
+
+**License:** UNKNOWN
+
+_No license text file found; relying on package metadata._
+
+---
+
+## @sentry/cli-win32-i686@2.56.1
+
+**License:** UNKNOWN
+
+_No license text file found; relying on package metadata._
+
+---
+
+## @sentry/cli-win32-x64@2.56.1
+
+**License:** UNKNOWN
+
+_No license text file found; relying on package metadata._
+
+---
+
 ## @sentry/core@10.11.0
 
 **License:** MIT
@@ -10393,7 +10449,7 @@ SOFTWARE.
 
 ---
 
-## anarchy-shared@1.4.0
+## anarchy-shared@1.4.1
 
 **License:** MIT
 
@@ -10423,7 +10479,7 @@ SOFTWARE.
 
 ---
 
-## anarchy-tracking@1.2.0
+## anarchy-tracking@1.3.0
 
 **License:** MIT
 
@@ -11753,7 +11809,7 @@ Exhibit B - “Incompatible With Secondary Licenses” Notice
 
 ---
 
-## dompurify@3.2.7
+## dompurify@3.3.0
 
 **License:** (MPL-2.0 OR Apache-2.0)
 

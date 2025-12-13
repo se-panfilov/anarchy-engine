@@ -2,10 +2,10 @@
   "$schema": "http://cyclonedx.org/schema/bom-1.5.schema.json",
   "bomFormat": "CycloneDX",
   "specVersion": "1.5",
-  "serialNumber": "urn:uuid:903f985f-29ff-40a2-9eb7-f1d1f9000689",
+  "serialNumber": "urn:uuid:e05f452d-d3bb-4b8b-ae78-3aa8f85840ab",
   "version": 1,
   "metadata": {
-    "timestamp": "2025-10-12T17:18:55.618Z",
+    "timestamp": "2025-10-13T23:20:17.933Z",
     "lifecycles": [
       {
         "phase": "pre-build"
@@ -69,14 +69,14 @@
       ]
     },
     {
-      "bom-ref": "showcases-desktop@2.9.0",
+      "bom-ref": "showcases-desktop@2.10.0",
       "type": "library",
       "name": "showcases-desktop",
-      "version": "2.9.0",
+      "version": "2.10.0",
       "scope": "required",
       "author": "S. Panfilov",
       "description": "Anarchy Desktop Showcases  – a desktop wrapper-application for showcases-core.",
-      "purl": "pkg:npm/showcases-desktop@2.9.0",
+      "purl": "pkg:npm/showcases-desktop@2.10.0",
       "properties": [
         {
           "name": "cdx:npm:package:private",
@@ -336,6 +336,1070 @@
         {
           "license": {
             "id": "MIT"
+          }
+        }
+      ]
+    },
+    {
+      "bom-ref": "@opentelemetry/api@1.9.0",
+      "type": "library",
+      "name": "@opentelemetry/api",
+      "version": "1.9.0",
+      "scope": "required",
+      "purl": "pkg:npm/%40opentelemetry/api@1.9.0",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/@opentelemetry/api/-/api-1.9.0.tgz"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "de0880390bd9887e45f5b325322bfcf8648f31eaa0d1d6da7a8e7cff44a503db314aa6619d4b71cd7f7fd85cf2852f6c5907f94b418913400a06b16a8e979872"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ]
+    },
+    {
+      "bom-ref": "@opentelemetry/api-logs@0.203.0",
+      "type": "library",
+      "name": "@opentelemetry/api-logs",
+      "version": "0.203.0",
+      "scope": "required",
+      "purl": "pkg:npm/%40opentelemetry/api-logs@0.203.0",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/@opentelemetry/api-logs/-/api-logs-0.203.0.tgz"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "f41f515341fb61ad43c7f464c9ce2cb6e059486550176ed68a08ad227c76410a23e8a52910560f2a85a37454ee9c96319979a1d7b1de06f6cc6b51211b23e6a9"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ]
+    },
+    {
+      "bom-ref": "@opentelemetry/context-async-hooks@2.1.0",
+      "type": "library",
+      "name": "@opentelemetry/context-async-hooks",
+      "version": "2.1.0",
+      "scope": "required",
+      "purl": "pkg:npm/%40opentelemetry/context-async-hooks@2.1.0",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/@opentelemetry/context-async-hooks/-/context-async-hooks-2.1.0.tgz"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "ccec9eb66669a67c13c8faede12ee331f5e2497f72c9f174871940f01e68a364ed2a5fbf4460b2edf8b80eb05f21fde508fae42ac441599643ed11688caec50e"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ]
+    },
+    {
+      "bom-ref": "@opentelemetry/core@2.1.0",
+      "type": "library",
+      "name": "@opentelemetry/core",
+      "version": "2.1.0",
+      "scope": "required",
+      "purl": "pkg:npm/%40opentelemetry/core@2.1.0",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/@opentelemetry/core/-/core-2.1.0.tgz"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "44c12d1ecc49b3f1a21c7c584f9f08639ed45c0413b949d955ca3aca60c4a9336524a4e298ce2a3d43d57bc227345c818e11c1100c7893743c2ed35ac81b1b51"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ]
+    },
+    {
+      "bom-ref": "@opentelemetry/instrumentation@0.203.0",
+      "type": "library",
+      "name": "@opentelemetry/instrumentation",
+      "version": "0.203.0",
+      "scope": "required",
+      "purl": "pkg:npm/%40opentelemetry/instrumentation@0.203.0",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/@opentelemetry/instrumentation/-/instrumentation-0.203.0.tgz"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "91ed6ac8cfb700adb33ee04f6fa1e4fc60ac7397b06cbbcf36412e10bc7f26600d784a7a6639d9fb0ca93c0252b9c4f0d30bc21ab51a89b0d275cac61685b129"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ]
+    },
+    {
+      "bom-ref": "@opentelemetry/instrumentation-amqplib@0.50.0",
+      "type": "library",
+      "name": "@opentelemetry/instrumentation-amqplib",
+      "version": "0.50.0",
+      "scope": "required",
+      "purl": "pkg:npm/%40opentelemetry/instrumentation-amqplib@0.50.0",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/@opentelemetry/instrumentation-amqplib/-/instrumentation-amqplib-0.50.0.tgz"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "93036cfe2b5e8471bfa9a401715acb35cbd754f5b4238142395b70dcb1cc2dd608a83ec627a62fda75fe6b86078f36f321e4588fc8b2329d0197bb6592276ae7"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ]
+    },
+    {
+      "bom-ref": "@opentelemetry/instrumentation-connect@0.47.0",
+      "type": "library",
+      "name": "@opentelemetry/instrumentation-connect",
+      "version": "0.47.0",
+      "scope": "required",
+      "purl": "pkg:npm/%40opentelemetry/instrumentation-connect@0.47.0",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/@opentelemetry/instrumentation-connect/-/instrumentation-connect-0.47.0.tgz"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "a637a7be347af8f3116faff85fce4be0eb64402a28b606ff27387f97f52dbb74891c189dd45fa093db13194d855ae86111f57a3fb319ec19827475d08e0278da"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ]
+    },
+    {
+      "bom-ref": "@opentelemetry/instrumentation-dataloader@0.21.1",
+      "type": "library",
+      "name": "@opentelemetry/instrumentation-dataloader",
+      "version": "0.21.1",
+      "scope": "required",
+      "purl": "pkg:npm/%40opentelemetry/instrumentation-dataloader@0.21.1",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/@opentelemetry/instrumentation-dataloader/-/instrumentation-dataloader-0.21.1.tgz"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "84d026fdbc066b02ccf150e3291d1950327f0ffa8a477b3a940e4d57e6ed35a3d59b669caa13dc4f8ee5dae0958beef49678369b2c1f427728afdbfcff292ecb"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ]
+    },
+    {
+      "bom-ref": "@opentelemetry/instrumentation-express@0.52.0",
+      "type": "library",
+      "name": "@opentelemetry/instrumentation-express",
+      "version": "0.52.0",
+      "scope": "required",
+      "purl": "pkg:npm/%40opentelemetry/instrumentation-express@0.52.0",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/@opentelemetry/instrumentation-express/-/instrumentation-express-0.52.0.tgz"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "5bba62ccdd16875fdc6cd8614dfec2eb6369c98c3b55f0854d88340d889e493aed3c14f5be6a1265e8b5f707ca2e7accb33dec1dac828341f10952f673e733e7"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ]
+    },
+    {
+      "bom-ref": "@opentelemetry/instrumentation-fs@0.23.0",
+      "type": "library",
+      "name": "@opentelemetry/instrumentation-fs",
+      "version": "0.23.0",
+      "scope": "required",
+      "purl": "pkg:npm/%40opentelemetry/instrumentation-fs@0.23.0",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/@opentelemetry/instrumentation-fs/-/instrumentation-fs-0.23.0.tgz"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "3ee6a7f90a2958703f28d62f0df39937a33f26d17a6ee5c4c83f77e2fadbf1686c5f5fc5b8ceceb6832543222a01a76713c16aa832f82833e211f0901faa5071"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ]
+    },
+    {
+      "bom-ref": "@opentelemetry/instrumentation-generic-pool@0.47.0",
+      "type": "library",
+      "name": "@opentelemetry/instrumentation-generic-pool",
+      "version": "0.47.0",
+      "scope": "required",
+      "purl": "pkg:npm/%40opentelemetry/instrumentation-generic-pool@0.47.0",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/@opentelemetry/instrumentation-generic-pool/-/instrumentation-generic-pool-0.47.0.tgz"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "51f1ea7f7cd82be0b00f012d4e3683d76b94a86193b3067ba1f2c111d438b04269f461d2489310da14f7a60071c8a003cd4768c5002fffb36abcbe36648f906f"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ]
+    },
+    {
+      "bom-ref": "@opentelemetry/instrumentation-graphql@0.51.0",
+      "type": "library",
+      "name": "@opentelemetry/instrumentation-graphql",
+      "version": "0.51.0",
+      "scope": "required",
+      "purl": "pkg:npm/%40opentelemetry/instrumentation-graphql@0.51.0",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/@opentelemetry/instrumentation-graphql/-/instrumentation-graphql-0.51.0.tgz"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "2dc8643aef57e43ad70273c8d7e674ea1fc41ffcc2ec3eac03cea184fae4ddebcb96c253cf482b3eb90bff250933d4f2d022ffcb61d2be65900a36c9133fc00e"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ]
+    },
+    {
+      "bom-ref": "@opentelemetry/instrumentation-hapi@0.50.0",
+      "type": "library",
+      "name": "@opentelemetry/instrumentation-hapi",
+      "version": "0.50.0",
+      "scope": "required",
+      "purl": "pkg:npm/%40opentelemetry/instrumentation-hapi@0.50.0",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/@opentelemetry/instrumentation-hapi/-/instrumentation-hapi-0.50.0.tgz"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "e711aeb1738541729a72b6660dba47433a980f580892b316bb0be5ac43e460eb2352a1948e5d476f10ac9f963d6d45ce0a03f52e3e80e0f70ab7552227632e8c"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ]
+    },
+    {
+      "bom-ref": "@opentelemetry/instrumentation-http@0.203.0",
+      "type": "library",
+      "name": "@opentelemetry/instrumentation-http",
+      "version": "0.203.0",
+      "scope": "required",
+      "purl": "pkg:npm/%40opentelemetry/instrumentation-http@0.203.0",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/@opentelemetry/instrumentation-http/-/instrumentation-http-0.203.0.tgz"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "cb7b9001c08e0309ceeaf12e355a1c9a95731b73c447afd866a6cf6db7df0dd27db5ee4d9071247d230dce50b7fafeca944f968a73c673737b311df41b51d8da"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ]
+    },
+    {
+      "bom-ref": "@opentelemetry/core@2.0.1",
+      "type": "library",
+      "name": "@opentelemetry/core",
+      "version": "2.0.1",
+      "scope": "required",
+      "purl": "pkg:npm/%40opentelemetry/core@2.0.1",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/@opentelemetry/core/-/core-2.0.1.tgz"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "31a664f522480e0a35a5e29ebe56e13faf88c0888d3cd9acc0d2f8005d1669024b6c75e3afd4ab64c812d76fa2aabf53a15e19568b0271cd1ff1183aecb5e3c7"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ]
+    },
+    {
+      "bom-ref": "@opentelemetry/instrumentation-ioredis@0.52.0",
+      "type": "library",
+      "name": "@opentelemetry/instrumentation-ioredis",
+      "version": "0.52.0",
+      "scope": "required",
+      "purl": "pkg:npm/%40opentelemetry/instrumentation-ioredis@0.52.0",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/@opentelemetry/instrumentation-ioredis/-/instrumentation-ioredis-0.52.0.tgz"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "ad4be5c99c08f741d140f622731a431a14fcb1eb4cae51caa240ad06d660631416445e5105b1b8ab4a46b5b66f77b932b1eb876c5a40dc8ff9cfb33c6ffe72c2"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ]
+    },
+    {
+      "bom-ref": "@opentelemetry/api-logs@0.204.0",
+      "type": "library",
+      "name": "@opentelemetry/api-logs",
+      "version": "0.204.0",
+      "scope": "required",
+      "purl": "pkg:npm/%40opentelemetry/api-logs@0.204.0",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/@opentelemetry/api-logs/-/api-logs-0.204.0.tgz"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "0eac58f32a006a204f8afa090f852d82b312f20126cd9e659dac733e88f32d51c11aa3f18169b8cdcbaf7141d98aa43a9115f62a57a5dabf72f1c0361c0b6aa7"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ]
+    },
+    {
+      "bom-ref": "@opentelemetry/instrumentation@0.204.0",
+      "type": "library",
+      "name": "@opentelemetry/instrumentation",
+      "version": "0.204.0",
+      "scope": "required",
+      "purl": "pkg:npm/%40opentelemetry/instrumentation@0.204.0",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/@opentelemetry/instrumentation/-/instrumentation-0.204.0.tgz"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "bd5e7e592c64b73a0c3fc26861629ea290a1cba1b71ca938510da11120910d451366a437fa7337bbc9e8546d0b98d7d15b07050676d9ef518a0bbbda618749d6"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ]
+    },
+    {
+      "bom-ref": "@opentelemetry/instrumentation-kafkajs@0.13.0",
+      "type": "library",
+      "name": "@opentelemetry/instrumentation-kafkajs",
+      "version": "0.13.0",
+      "scope": "required",
+      "purl": "pkg:npm/%40opentelemetry/instrumentation-kafkajs@0.13.0",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/@opentelemetry/instrumentation-kafkajs/-/instrumentation-kafkajs-0.13.0.tgz"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "14f43226c44439a187eb885cc65cd3b081100b80d800d813c078e207bcfd965766bee6b52d13159f7fc57c19735e8a85d7bf41d15198be2cfaae7ef913dc2c0f"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ]
+    },
+    {
+      "bom-ref": "@opentelemetry/instrumentation-knex@0.48.0",
+      "type": "library",
+      "name": "@opentelemetry/instrumentation-knex",
+      "version": "0.48.0",
+      "scope": "required",
+      "purl": "pkg:npm/%40opentelemetry/instrumentation-knex@0.48.0",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/@opentelemetry/instrumentation-knex/-/instrumentation-knex-0.48.0.tgz"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "579c2e6813effe5c06c6e1e30ba35ad891518ed3e0b2dc35f634c59750756facef697f335436140da47984bee096742d51208c92d3edb50b202b87615e975d70"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ]
+    },
+    {
+      "bom-ref": "@opentelemetry/instrumentation-koa@0.51.0",
+      "type": "library",
+      "name": "@opentelemetry/instrumentation-koa",
+      "version": "0.51.0",
+      "scope": "required",
+      "purl": "pkg:npm/%40opentelemetry/instrumentation-koa@0.51.0",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/@opentelemetry/instrumentation-koa/-/instrumentation-koa-0.51.0.tgz"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "5cd2d678c4cc1b5fc491005b80f63309e043d1cc0eadf9e7f1aa3885680bbf47cd08542ed640ac258ca0cf672f2ae0acdf8d119671b88b7db5857ed1f208f746"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ]
+    },
+    {
+      "bom-ref": "@opentelemetry/instrumentation-lru-memoizer@0.48.0",
+      "type": "library",
+      "name": "@opentelemetry/instrumentation-lru-memoizer",
+      "version": "0.48.0",
+      "scope": "required",
+      "purl": "pkg:npm/%40opentelemetry/instrumentation-lru-memoizer@0.48.0",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/@opentelemetry/instrumentation-lru-memoizer/-/instrumentation-lru-memoizer-0.48.0.tgz"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "2945b6f707cc9533d7d70173f8d36b984ec8ccdecd5990eb98558733f549726144b901a79c1b9321db0fe790a7043c4a810feaa98169e2e75014db63785a2c3f"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ]
+    },
+    {
+      "bom-ref": "@opentelemetry/instrumentation-mongodb@0.56.0",
+      "type": "library",
+      "name": "@opentelemetry/instrumentation-mongodb",
+      "version": "0.56.0",
+      "scope": "required",
+      "purl": "pkg:npm/%40opentelemetry/instrumentation-mongodb@0.56.0",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/@opentelemetry/instrumentation-mongodb/-/instrumentation-mongodb-0.56.0.tgz"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "606e485d4526c57dcc7766ee54cbf19bd35694a003ae76af237ea16c9b2286aaaf046b169c87e0b9fd2b50fe52aebd297cfaa142350ff9a80b32cbeed06994a4"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ]
+    },
+    {
+      "bom-ref": "@opentelemetry/instrumentation-mongoose@0.50.0",
+      "type": "library",
+      "name": "@opentelemetry/instrumentation-mongoose",
+      "version": "0.50.0",
+      "scope": "required",
+      "purl": "pkg:npm/%40opentelemetry/instrumentation-mongoose@0.50.0",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/@opentelemetry/instrumentation-mongoose/-/instrumentation-mongoose-0.50.0.tgz"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "026f299350adf79d6be2a0a2aa405c1a63c88068680e215c46da8f48b6c9ad466a10f52c8a08ed323a160d12c6d4a8b534780e17b0f41fb77eb2e5b3d40022cf"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ]
+    },
+    {
+      "bom-ref": "@opentelemetry/instrumentation-mysql@0.49.0",
+      "type": "library",
+      "name": "@opentelemetry/instrumentation-mysql",
+      "version": "0.49.0",
+      "scope": "required",
+      "purl": "pkg:npm/%40opentelemetry/instrumentation-mysql@0.49.0",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/@opentelemetry/instrumentation-mysql/-/instrumentation-mysql-0.49.0.tgz"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "414f4850da8db2b95f1377499199c51ea2e3967762537f6597f600004bd6138d2c18e0a2f40b4e17aae6106cc9d48b30a19de8c9e3d5eead8c3fc4ab8497d500"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ]
+    },
+    {
+      "bom-ref": "@opentelemetry/instrumentation-mysql2@0.50.0",
+      "type": "library",
+      "name": "@opentelemetry/instrumentation-mysql2",
+      "version": "0.50.0",
+      "scope": "required",
+      "purl": "pkg:npm/%40opentelemetry/instrumentation-mysql2@0.50.0",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/@opentelemetry/instrumentation-mysql2/-/instrumentation-mysql2-0.50.0.tgz"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "3e838ca66abbdeb3881379e54cd2dfdc1d52c8d606b29ed05c760a99e4d96672763aeeff7dd511b8e856388d1ee906798127a6d7c211d6c262e863942c1409f6"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ]
+    },
+    {
+      "bom-ref": "@opentelemetry/instrumentation-pg@0.55.0",
+      "type": "library",
+      "name": "@opentelemetry/instrumentation-pg",
+      "version": "0.55.0",
+      "scope": "required",
+      "purl": "pkg:npm/%40opentelemetry/instrumentation-pg@0.55.0",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/@opentelemetry/instrumentation-pg/-/instrumentation-pg-0.55.0.tgz"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "c9f2796d813b0a7916fee36c9ebc28b86fc547b9e6834f73764d8c4acee4d1938c9030c01375811a9545140a4680dbb653e82dccb804cce406e08fd7fbad215f"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ]
+    },
+    {
+      "bom-ref": "@opentelemetry/instrumentation-redis@0.51.0",
+      "type": "library",
+      "name": "@opentelemetry/instrumentation-redis",
+      "version": "0.51.0",
+      "scope": "required",
+      "purl": "pkg:npm/%40opentelemetry/instrumentation-redis@0.51.0",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/@opentelemetry/instrumentation-redis/-/instrumentation-redis-0.51.0.tgz"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "b8bfc6b41034bbbd983cf7a1c0ebed8407be59ff24dd3f9740f06cb09993625e9fcee66336af334dfc5516197d9d116315511ef82b6260d4f4437032a96d59d0"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ]
+    },
+    {
+      "bom-ref": "@opentelemetry/instrumentation-tedious@0.22.0",
+      "type": "library",
+      "name": "@opentelemetry/instrumentation-tedious",
+      "version": "0.22.0",
+      "scope": "required",
+      "purl": "pkg:npm/%40opentelemetry/instrumentation-tedious@0.22.0",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/@opentelemetry/instrumentation-tedious/-/instrumentation-tedious-0.22.0.tgz"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "5ebacd4940b21231f56b1f6df94a3a96fd12d85082ca4705ee14b104cc4a7fb5e7d1b3d1c43dcac85519cb6e5a417cdb6db50786d7718f7af687cf127c433768"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ]
+    },
+    {
+      "bom-ref": "@opentelemetry/instrumentation-undici@0.14.0",
+      "type": "library",
+      "name": "@opentelemetry/instrumentation-undici",
+      "version": "0.14.0",
+      "scope": "required",
+      "purl": "pkg:npm/%40opentelemetry/instrumentation-undici@0.14.0",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/@opentelemetry/instrumentation-undici/-/instrumentation-undici-0.14.0.tgz"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "d8737eef3b71011797bb1cebb40dd66e800a95f3f93ac3c0e7b2909f601d6196c9df37913dc2d7c96e2e3bf8e92c4e8f2e6d1046d99e18299f629a91970812c2"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ]
+    },
+    {
+      "bom-ref": "@opentelemetry/redis-common@0.38.2",
+      "type": "library",
+      "name": "@opentelemetry/redis-common",
+      "version": "0.38.2",
+      "scope": "required",
+      "purl": "pkg:npm/%40opentelemetry/redis-common@0.38.2",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/@opentelemetry/redis-common/-/redis-common-0.38.2.tgz"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "d4109c53dde2c12459bc3020c14c42fc35784ffe34e9290c7f11aabb9a2373702f348f88f46855eefd09d47963b1cceeba172714b62a0f9566c155df0861f3c4"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ]
+    },
+    {
+      "bom-ref": "@opentelemetry/resources@2.1.0",
+      "type": "library",
+      "name": "@opentelemetry/resources",
+      "version": "2.1.0",
+      "scope": "required",
+      "purl": "pkg:npm/%40opentelemetry/resources@2.1.0",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/@opentelemetry/resources/-/resources-2.1.0.tgz"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "d422637f72c2be879f50e81e8318bc87aaf807fc0b4b3227ca118fd94988058365a38424e4267bdded5e1325a67d7bc5b66d726e499f6f60ea5afb29b182eb5b"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ]
+    },
+    {
+      "bom-ref": "@opentelemetry/sdk-trace-base@2.1.0",
+      "type": "library",
+      "name": "@opentelemetry/sdk-trace-base",
+      "version": "2.1.0",
+      "scope": "required",
+      "purl": "pkg:npm/%40opentelemetry/sdk-trace-base@2.1.0",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/@opentelemetry/sdk-trace-base/-/sdk-trace-base-2.1.0.tgz"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "b935fd141955426e12da05503b5b1be6ac812eafc53e36e9fad986a31bb8b4882d606981601e38f8a5ffef6e511437b7d32052680f4c97d7eaa617b585b5322d"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ]
+    },
+    {
+      "bom-ref": "@opentelemetry/semantic-conventions@1.37.0",
+      "type": "library",
+      "name": "@opentelemetry/semantic-conventions",
+      "version": "1.37.0",
+      "scope": "required",
+      "purl": "pkg:npm/%40opentelemetry/semantic-conventions@1.37.0",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/@opentelemetry/semantic-conventions/-/semantic-conventions-1.37.0.tgz"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "243e837ab20a7491a6469e234325f9165ad08c0e2d8cec3572f7ec3c06577ce38412b3141e33dc3d22024bee969ccd2707479f48501187428066cb3e6ef13138"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ]
+    },
+    {
+      "bom-ref": "@opentelemetry/sql-common@0.41.2",
+      "type": "library",
+      "name": "@opentelemetry/sql-common",
+      "version": "0.41.2",
+      "scope": "required",
+      "purl": "pkg:npm/%40opentelemetry/sql-common@0.41.2",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/@opentelemetry/sql-common/-/sql-common-0.41.2.tgz"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "e268569b767ccfe8b9d3ccd027bafa5e2ef2e269a826976f1f47d93c54645ab769e5fabb8616761e162890438b91fa923203d1e19f44c81dc30646ca18ea9989"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ]
+    },
+    {
+      "bom-ref": "@prisma/instrumentation@6.14.0",
+      "type": "library",
+      "name": "@prisma/instrumentation",
+      "version": "6.14.0",
+      "scope": "required",
+      "purl": "pkg:npm/%40prisma/instrumentation@6.14.0",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/@prisma/instrumentation/-/instrumentation-6.14.0.tgz"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "3e8fc7af2e5b01eba7443ab4c8042e78aa28916de09693feaa38efbf239f9ba748d8a1b9fd8e81820dda87259dec1d2ed84f967fdc51936aed75d6bbc9280ad4"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ]
+    },
+    {
+      "bom-ref": "@opentelemetry/api-logs@0.57.2",
+      "type": "library",
+      "name": "@opentelemetry/api-logs",
+      "version": "0.57.2",
+      "scope": "required",
+      "purl": "pkg:npm/%40opentelemetry/api-logs@0.57.2",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/@opentelemetry/api-logs/-/api-logs-0.57.2.tgz"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "b885f9d8d9d333488187ce0c4a1969a2e23b50aaa467b32b52ccd399aca91c1bb8afb3687f39d29d045f27eb94783b500e3eb0f1e1468392812c303000fcf5f8"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ]
+    },
+    {
+      "bom-ref": "@opentelemetry/instrumentation@0.57.2",
+      "type": "library",
+      "name": "@opentelemetry/instrumentation",
+      "version": "0.57.2",
+      "scope": "required",
+      "purl": "pkg:npm/%40opentelemetry/instrumentation@0.57.2",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/@opentelemetry/instrumentation/-/instrumentation-0.57.2.tgz"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "05d046850061f088d9da82085fa176fd0dcb2a6fc50c32a2e9c71829c0537a2961e9235d34abde0ce2e4ef70644898d02c993aa9ee1887e847c3550f8420ddae"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
           }
         }
       ]
@@ -957,6 +2021,454 @@
       ]
     },
     {
+      "bom-ref": "@sentry/electron@7.1.1",
+      "type": "library",
+      "name": "@sentry/electron",
+      "version": "7.1.1",
+      "scope": "required",
+      "purl": "pkg:npm/%40sentry/electron@7.1.1",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/@sentry/electron/-/electron-7.1.1.tgz"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "a91b31165b8a95c5571b70a0bef91ad40e1bb908f93bec90856b69a6aa9a22dc7c9723720959157f32dd32f10e03a61c71fbaebc8129ebfb041132563ad1818f"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ]
+    },
+    {
+      "bom-ref": "@sentry-internal/browser-utils@10.11.0",
+      "type": "library",
+      "name": "@sentry-internal/browser-utils",
+      "version": "10.11.0",
+      "scope": "required",
+      "purl": "pkg:npm/%40sentry-internal/browser-utils@10.11.0",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/@sentry-internal/browser-utils/-/browser-utils-10.11.0.tgz"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "7e7325cf99ed6a9eb1e2f46c2ce1f03ea5e1eedf364ad800891b7e11aa9c317d2df65f02d30d1d7fcab0ace34a5ef13919d1d64cd1498f9a91d79144452920dd"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ]
+    },
+    {
+      "bom-ref": "@sentry-internal/feedback@10.11.0",
+      "type": "library",
+      "name": "@sentry-internal/feedback",
+      "version": "10.11.0",
+      "scope": "required",
+      "purl": "pkg:npm/%40sentry-internal/feedback@10.11.0",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/@sentry-internal/feedback/-/feedback-10.11.0.tgz"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "0037b2e7520869adbd91ea5bf01eda4a04864ab7324fb419751b0dd6b862b5e7f3aebb87ce9494722e5cd843c8be659f289abc5a7bee926f411d765700020ecc"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ]
+    },
+    {
+      "bom-ref": "@sentry-internal/replay@10.11.0",
+      "type": "library",
+      "name": "@sentry-internal/replay",
+      "version": "10.11.0",
+      "scope": "required",
+      "purl": "pkg:npm/%40sentry-internal/replay@10.11.0",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/@sentry-internal/replay/-/replay-10.11.0.tgz"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "b783366f1329dab2862bf97b6e45568cdfb1570f47f55d768c079798efc5b24cf645c1b564d2d09ca4b1fd6ff3091324f24ef139016c7e2029abecc337ece228"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ]
+    },
+    {
+      "bom-ref": "@sentry-internal/replay-canvas@10.11.0",
+      "type": "library",
+      "name": "@sentry-internal/replay-canvas",
+      "version": "10.11.0",
+      "scope": "required",
+      "purl": "pkg:npm/%40sentry-internal/replay-canvas@10.11.0",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/@sentry-internal/replay-canvas/-/replay-canvas-10.11.0.tgz"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "6eb590f7421843266be382294e9ae59af6edcf8976001ccb7693fde04821d763a77ffaba9f80a32ca680db9379917d2e8201ea5f546cedd35a1b498fdc44c784"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ]
+    },
+    {
+      "bom-ref": "@sentry/browser@10.11.0",
+      "type": "library",
+      "name": "@sentry/browser",
+      "version": "10.11.0",
+      "scope": "required",
+      "purl": "pkg:npm/%40sentry/browser@10.11.0",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/@sentry/browser/-/browser-10.11.0.tgz"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "a9e99a28224a2471c2c8606974bab6df12f9bbd5ef8abdb45cded81539c7704ab826f8f41a85acb25c4a8b971007626fa589fad96c538838152de42595e6614a"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ]
+    },
+    {
+      "bom-ref": "@sentry/core@10.11.0",
+      "type": "library",
+      "name": "@sentry/core",
+      "version": "10.11.0",
+      "scope": "required",
+      "purl": "pkg:npm/%40sentry/core@10.11.0",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/@sentry/core/-/core-10.11.0.tgz"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "dfd4719fc7035c2a27c77f9228e080856fbf86494ced40dacfe535385cc5303953e7dbd74a97c8e9b717b4d8850eb6cec65436857f3202ac7c61196d8127eda0"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ]
+    },
+    {
+      "bom-ref": "@sentry/node@10.11.0",
+      "type": "library",
+      "name": "@sentry/node",
+      "version": "10.11.0",
+      "scope": "required",
+      "purl": "pkg:npm/%40sentry/node@10.11.0",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/@sentry/node/-/node-10.11.0.tgz"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "4db723af78900048d88bbfd0229752f1a7effcb5354f00d38b2e71f3b312a55128785719edfda2142e065747e1077a78a83b8574bd89195b0822bcdaa69f18e0"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ]
+    },
+    {
+      "bom-ref": "@sentry/node-core@10.11.0",
+      "type": "library",
+      "name": "@sentry/node-core",
+      "version": "10.11.0",
+      "scope": "required",
+      "purl": "pkg:npm/%40sentry/node-core@10.11.0",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/@sentry/node-core/-/node-core-10.11.0.tgz"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "764559d3a17e5b95b40ac0f8ec04d34ce4d3a1c99c713fdeceb17d89db2942af8754e723a0a494eb45a95a8db6363b5535d49828b9e89b4ab52ca46869103f5b"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ]
+    },
+    {
+      "bom-ref": "@sentry/opentelemetry@10.11.0",
+      "type": "library",
+      "name": "@sentry/opentelemetry",
+      "version": "10.11.0",
+      "scope": "required",
+      "purl": "pkg:npm/%40sentry/opentelemetry@10.11.0",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/@sentry/opentelemetry/-/opentelemetry-10.11.0.tgz"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "058d92b159512880b33543bd6ad532d3ae0166a627855e40fcef898c4c74923ef296afa865dfbece61a492cd34ad2c1a244db6d1c55c561a70ab170552973687"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ]
+    },
+    {
+      "bom-ref": "@types/connect@3.4.38",
+      "type": "library",
+      "name": "@types/connect",
+      "version": "3.4.38",
+      "scope": "required",
+      "purl": "pkg:npm/%40types/connect@3.4.38",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/@types/connect/-/connect-3.4.38.tgz"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "2bab9139fd4b0fcf2e0d0a890a4b40e32ccbd586002ba3607ec234bff9938323ca5ac5f50a72745cf48385589e8ebbb519c4642d66fc465cc560946a1946daba"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ]
+    },
+    {
+      "bom-ref": "@types/mysql@2.15.27",
+      "type": "library",
+      "name": "@types/mysql",
+      "version": "2.15.27",
+      "scope": "required",
+      "purl": "pkg:npm/%40types/mysql@2.15.27",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/@types/mysql/-/mysql-2.15.27.tgz"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "61f5a2575e8863439e05f04293cfa15ca99d4caaca97028dd4c34a00f06ee496312f0044665ed0cde1291a79596f754c189aeb1a607ce205e21fea1fb3f4decc"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ]
+    },
+    {
+      "bom-ref": "@types/pg@8.15.4",
+      "type": "library",
+      "name": "@types/pg",
+      "version": "8.15.4",
+      "scope": "required",
+      "purl": "pkg:npm/%40types/pg@8.15.4",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/@types/pg/-/pg-8.15.4.tgz"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "23a50d54102861bbee5a4914de8a2c0bccb1a87db57f8fc97380caef524b1b7753da676519ed73f9ea7f2d019768a68e81cbd4aec4283d1a9f82d31cbd988986"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ]
+    },
+    {
+      "bom-ref": "@types/pg-pool@2.0.6",
+      "type": "library",
+      "name": "@types/pg-pool",
+      "version": "2.0.6",
+      "scope": "required",
+      "purl": "pkg:npm/%40types/pg-pool@2.0.6",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/@types/pg-pool/-/pg-pool-2.0.6.tgz"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "4da014139aead95418c5a6f94eced666128d9ae37bf10e8f885a274c37696f1f1ad47d0cd6f872deb86232397e7b68879a8832330ee3645e05ac4e9e254cb91d"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ]
+    },
+    {
+      "bom-ref": "@types/shimmer@1.2.0",
+      "type": "library",
+      "name": "@types/shimmer",
+      "version": "1.2.0",
+      "scope": "required",
+      "purl": "pkg:npm/%40types/shimmer@1.2.0",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/@types/shimmer/-/shimmer-1.2.0.tgz"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "504ee8c6140b2ddf60b9be892880210ead3a4f417a167cedc0c351bd882379048178c735646fed038ec4c1f76ebe4b904bc6a96e433f9692e95ac682798b1756"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ]
+    },
+    {
+      "bom-ref": "@types/tedious@4.0.14",
+      "type": "library",
+      "name": "@types/tedious",
+      "version": "4.0.14",
+      "scope": "required",
+      "purl": "pkg:npm/%40types/tedious@4.0.14",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/@types/tedious/-/tedious-4.0.14.tgz"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "2873ec7d7fc5a156d419bc98be4d6af4c3101cb3de45985125974ee39438623bc592fe2130d8210964efcbbadd29eb2c06c9adcf87ae58258007afed56923523"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ]
+    },
+    {
       "bom-ref": "@types/trusted-types@2.0.7",
       "type": "library",
       "name": "@types/trusted-types",
@@ -1069,6 +2581,34 @@
       ]
     },
     {
+      "bom-ref": "acorn-import-attributes@1.9.5",
+      "type": "library",
+      "name": "acorn-import-attributes",
+      "version": "1.9.5",
+      "scope": "required",
+      "purl": "pkg:npm/acorn-import-attributes@1.9.5",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/acorn-import-attributes/-/acorn-import-attributes-1.9.5.tgz"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "9f4d95ca4bf9b80dde1c633f676750adc0f9ea42fc4f20dbda9d7ed0ff373c294c9c2fe773e6a76d046120e5a74aae0a7bf2af0cfad8dc2f610ed0bf0377879d"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ]
+    },
+    {
       "bom-ref": "birpc@2.6.1",
       "type": "library",
       "name": "birpc",
@@ -1114,6 +2654,34 @@
         {
           "alg": "SHA-512",
           "content": "cf8ac4d86c61eedbec850e2196e213ed7705ae02c841ac3d5f703e9134d1768bc2cf93ccba49bfd100bf04a4983e3de8985e507f2a67f4efdce648299af6140b"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ]
+    },
+    {
+      "bom-ref": "cjs-module-lexer@1.4.3",
+      "type": "library",
+      "name": "cjs-module-lexer",
+      "version": "1.4.3",
+      "scope": "required",
+      "purl": "pkg:npm/cjs-module-lexer@1.4.3",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/cjs-module-lexer/-/cjs-module-lexer-1.4.3.tgz"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "f73f1365a18cd697ecc18797ad4a733eb931f149d661d849725b2260c9bac7fc39fa737ef137ff2e70207cb1900a6e7da803b153c5b01c4ab6bcdc05ea2e23f9"
         }
       ],
       "licenses": [
@@ -1263,6 +2831,34 @@
       ]
     },
     {
+      "bom-ref": "forwarded-parse@2.1.2",
+      "type": "library",
+      "name": "forwarded-parse",
+      "version": "2.1.2",
+      "scope": "required",
+      "purl": "pkg:npm/forwarded-parse@2.1.2",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/forwarded-parse/-/forwarded-parse-2.1.2.tgz"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "6a54c565940328ca68ac11fbefce7aa57833844cda51598b08393e7a02e02201ecb774e99ddcf3f0c9ca7be1b344945fbd5767ebd1e1a56edc997cefb4bbc903"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ]
+    },
+    {
       "bom-ref": "hookable@5.5.3",
       "type": "library",
       "name": "hookable",
@@ -1286,6 +2882,34 @@
         {
           "license": {
             "id": "MIT"
+          }
+        }
+      ]
+    },
+    {
+      "bom-ref": "import-in-the-middle@1.15.0",
+      "type": "library",
+      "name": "import-in-the-middle",
+      "version": "1.15.0",
+      "scope": "required",
+      "purl": "pkg:npm/import-in-the-middle@1.15.0",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/import-in-the-middle/-/import-in-the-middle-1.15.0.tgz"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "6e9432f82aec466626a0f30013fd06df78b046ac16e28baa75183c8e06c7dda2ae0ad39cf25c609985e0d9d30cf760918863faeb412d05cca61ff79552909268"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
           }
         }
       ]
@@ -1375,23 +2999,23 @@
       ]
     },
     {
-      "bom-ref": "dompurify@3.2.7",
+      "bom-ref": "dompurify@3.3.0",
       "type": "library",
       "name": "dompurify",
-      "version": "3.2.7",
+      "version": "3.3.0",
       "scope": "required",
-      "purl": "pkg:npm/dompurify@3.2.7",
+      "purl": "pkg:npm/dompurify@3.3.0",
       "properties": [],
       "externalReferences": [
         {
           "type": "distribution",
-          "url": "https://registry.npmjs.org/dompurify/-/dompurify-3.2.7.tgz"
+          "url": "https://registry.npmjs.org/dompurify/-/dompurify-3.3.0.tgz"
         }
       ],
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "5a12ff62ebdec865c969ead594c6065a1bd0b306bb9b20c6d7b3fb56eeb91160b4e68f2f7de35bbcd7f877f04ebc7f7df995be2e542c73518328c6b5bcd2ba77"
+          "content": "afe7fa318475806375789bf44d541b840ee27ff53b3fcedc74f9771cde6b8a4a9a0520712e209bfdbf4efb6786d1cc73d2087253e994d5091bb0ec0444c62559"
         }
       ],
       "licenses": [
@@ -1513,6 +3137,34 @@
       ]
     },
     {
+      "bom-ref": "module-details-from-path@1.0.4",
+      "type": "library",
+      "name": "module-details-from-path",
+      "version": "1.0.4",
+      "scope": "required",
+      "purl": "pkg:npm/module-details-from-path@1.0.4",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/module-details-from-path/-/module-details-from-path-1.0.4.tgz"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "10658a83100b18c833bf1605d54c864f2d075d7ff6bc72e4c3af8dbc3296da3ca959b1e98d0ba3e1431ca905971c444985518a8a4a254f4e86ddb70a7b87e2ef"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ]
+    },
+    {
       "bom-ref": "perfect-debounce@1.0.0",
       "type": "library",
       "name": "perfect-debounce",
@@ -1541,6 +3193,90 @@
       ]
     },
     {
+      "bom-ref": "pg-int8@1.0.1",
+      "type": "library",
+      "name": "pg-int8",
+      "version": "1.0.1",
+      "scope": "required",
+      "purl": "pkg:npm/pg-int8@1.0.1",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/pg-int8/-/pg-int8-1.0.1.tgz"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "582b5a6d2eadddcf129290c15256f59233acee5ebac6c19d2a920f66c838c11f81dfebbd500ba6da8752b05f6d9efc60f348786712d6332e294633ac148a90a7"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "ISC"
+          }
+        }
+      ]
+    },
+    {
+      "bom-ref": "pg-protocol@1.10.3",
+      "type": "library",
+      "name": "pg-protocol",
+      "version": "1.10.3",
+      "scope": "required",
+      "purl": "pkg:npm/pg-protocol@1.10.3",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/pg-protocol/-/pg-protocol-1.10.3.tgz"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "e8320180141a4ca0c9cb19d768b88b47cc01a5041c196b80112911057fede8ec00f18b2a3fe8954a2a27776103cba63f76c1a4f2b87f8ed6b1de3b3935e57b25"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ]
+    },
+    {
+      "bom-ref": "pg-types@2.2.0",
+      "type": "library",
+      "name": "pg-types",
+      "version": "2.2.0",
+      "scope": "required",
+      "purl": "pkg:npm/pg-types@2.2.0",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/pg-types/-/pg-types-2.2.0.tgz"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "a9300096b12c97cb383a211063af700ef70c21d40deb0773e688d088ecba61132eca7c5e9ce3743b9a02a4923a96c85ceac720018f2abc9d8e9ffa7e09763418"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ]
+    },
+    {
       "bom-ref": "pinia@3.0.3",
       "type": "library",
       "name": "pinia",
@@ -1558,6 +3294,118 @@
         {
           "alg": "SHA-512",
           "content": "b6d5cefc89d450b51790c1e94dda7d163e212e90ffd80a0976601b01e5b6caed62cb593ea6415e9105f0e55a42d3fe69e7520e47f8c368345f45646730cb0638"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ]
+    },
+    {
+      "bom-ref": "postgres-array@2.0.0",
+      "type": "library",
+      "name": "postgres-array",
+      "version": "2.0.0",
+      "scope": "required",
+      "purl": "pkg:npm/postgres-array@2.0.0",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/postgres-array/-/postgres-array-2.0.0.tgz"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "56966b52a53903af5e4325b6739080d63b4b79c0ac37653f6c3e958a5ac50d6ab9fb95081153bb9dacd2dd311c1dfd73b8f60efeca86bd4bd6eb683ce915d9b8"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ]
+    },
+    {
+      "bom-ref": "postgres-bytea@1.0.0",
+      "type": "library",
+      "name": "postgres-bytea",
+      "version": "1.0.0",
+      "scope": "required",
+      "purl": "pkg:npm/postgres-bytea@1.0.0",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/postgres-bytea/-/postgres-bytea-1.0.0.tgz"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "c72de998bb90a910590570d42f2eca6da8ad62a2dc9b18a0c35e10e6c8fc40154ba84c177dec9b20a5568aa0174e572f76f6f4fb190eb436df40c39fe25493d7"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ]
+    },
+    {
+      "bom-ref": "postgres-date@1.0.7",
+      "type": "library",
+      "name": "postgres-date",
+      "version": "1.0.7",
+      "scope": "required",
+      "purl": "pkg:npm/postgres-date@1.0.7",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/postgres-date/-/postgres-date-1.0.7.tgz"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "b2e0e68cb55083bf2730ad94678e788401be3805be1d03d9ea7fbe4cd0d45fe2f4fae5252f2c27a3124a0e8bb9d599becd30a3ac297436ae89f42e613fdbcafd"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ]
+    },
+    {
+      "bom-ref": "postgres-interval@1.2.0",
+      "type": "library",
+      "name": "postgres-interval",
+      "version": "1.2.0",
+      "scope": "required",
+      "purl": "pkg:npm/postgres-interval@1.2.0",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/postgres-interval/-/postgres-interval-1.2.0.tgz"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "f5985728cfebc37e74375a2fb961db1b19c687f48d278727c4788cd2bc44e15378d70b20f0ff335a7f61bff6ee2b4d113f85af94ecabfd10438a9b72c556e465"
         }
       ],
       "licenses": [
@@ -1653,6 +3501,34 @@
       ]
     },
     {
+      "bom-ref": "require-in-the-middle@7.5.2",
+      "type": "library",
+      "name": "require-in-the-middle",
+      "version": "7.5.2",
+      "scope": "required",
+      "purl": "pkg:npm/require-in-the-middle@7.5.2",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/require-in-the-middle/-/require-in-the-middle-7.5.2.tgz"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "80067e90ba817476ab5c1eb85e901ed950a307bac846ffa653cb5f456ce21d1279ba62ac207376b4b2efe84b4cc3b58274fd7d4b411154c95d36fc580879e149"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ]
+    },
+    {
       "bom-ref": "sanitize.css@13.0.0",
       "type": "library",
       "name": "sanitize.css",
@@ -1676,6 +3552,34 @@
         {
           "license": {
             "id": "CC0-1.0"
+          }
+        }
+      ]
+    },
+    {
+      "bom-ref": "shimmer@1.2.1",
+      "type": "library",
+      "name": "shimmer",
+      "version": "1.2.1",
+      "scope": "required",
+      "purl": "pkg:npm/shimmer@1.2.1",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/shimmer/-/shimmer-1.2.1.tgz"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "b104ca0b545efeb33a5f214ce9f20018744f546bf25df833203bf3a2aeb4f2f33e8dec950f44eed44e8da7429cdb3008156223f7add5dbcd34885ffd2cf89e43"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "BSD-2-Clause"
           }
         }
       ]
@@ -1926,6 +3830,34 @@
       ]
     },
     {
+      "bom-ref": "xtend@4.0.2",
+      "type": "library",
+      "name": "xtend",
+      "version": "4.0.2",
+      "scope": "required",
+      "purl": "pkg:npm/xtend@4.0.2",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/xtend/-/xtend-4.0.2.tgz"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "2ca614d620172575200179fd5118e2bbe3168725171ecbdfa7b99cb989bd75250a2b4fc28edad4c050310fcdbf98259bb4bb068c521a774c08b28778ceb4c011"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ]
+    },
+    {
       "bom-ref": "anarchy-engine@21.1.0",
       "type": "library",
       "name": "anarchy-engine",
@@ -2026,14 +3958,14 @@
       ]
     },
     {
-      "bom-ref": "anarchy-shared@1.4.0",
+      "bom-ref": "anarchy-shared@1.4.1",
       "type": "library",
       "name": "anarchy-shared",
-      "version": "1.4.0",
+      "version": "1.4.1",
       "scope": "required",
       "author": "S. Panfilov",
       "description": "Anarchy-shared – a library with shared utilities and scripts for Anarchy Engine.",
-      "purl": "pkg:npm/anarchy-shared@1.4.0",
+      "purl": "pkg:npm/anarchy-shared@1.4.1",
       "properties": [
         {
           "name": "cdx:npm:package:private",
@@ -2050,14 +3982,14 @@
       ]
     },
     {
-      "bom-ref": "anarchy-tracking@1.1.0",
+      "bom-ref": "anarchy-tracking@1.3.0",
       "type": "library",
       "name": "anarchy-tracking",
-      "version": "1.1.0",
+      "version": "1.3.0",
       "scope": "required",
       "author": "S. Panfilov",
       "description": "Anarchy-Tracking – a library error monitoring in Anarchy Engine's based projects.",
-      "purl": "pkg:npm/anarchy-tracking@1.1.0",
+      "purl": "pkg:npm/anarchy-tracking@1.3.0",
       "properties": [
         {
           "name": "cdx:npm:package:private",
@@ -2151,13 +4083,13 @@
       "ref": "anarchy-monorepo@2.1.8",
       "dependsOn": [
         "showcases-core@2.15.0",
-        "showcases-desktop@2.9.0",
+        "showcases-desktop@2.10.0",
         "showcases-e2e@1.0.4",
         "anarchy-engine@21.1.0",
         "anarchy-i18n@1.2.0",
         "anarchy-legal@1.10.4",
-        "anarchy-shared@1.4.0",
-        "anarchy-tracking@1.1.0",
+        "anarchy-shared@1.4.1",
+        "anarchy-tracking@1.3.0",
         "showcases-i18n@1.3.0",
         "showcases-menu@1.8.0",
         "showcases-shared@1.4.0"
@@ -2168,8 +4100,8 @@
       "dependsOn": [
         "anarchy-engine@21.1.0",
         "anarchy-i18n@1.2.0",
-        "anarchy-shared@1.4.0",
-        "anarchy-tracking@1.1.0",
+        "anarchy-shared@1.4.1",
+        "anarchy-tracking@1.3.0",
         "dexie@4.2.0",
         "lil-gui@0.20.0",
         "sanitize.css@13.0.0",
@@ -2181,12 +4113,12 @@
       ]
     },
     {
-      "ref": "showcases-desktop@2.9.0",
-      "dependsOn": ["anarchy-shared@1.4.0", "showcases-core@2.15.0", "showcases-shared@1.4.0"]
+      "ref": "showcases-desktop@2.10.0",
+      "dependsOn": ["anarchy-shared@1.4.1", "showcases-core@2.15.0", "showcases-shared@1.4.0"]
     },
     {
       "ref": "showcases-e2e@1.0.4",
-      "dependsOn": ["anarchy-engine@21.1.0", "anarchy-shared@1.4.0"]
+      "dependsOn": ["anarchy-engine@21.1.0", "anarchy-shared@1.4.1"]
     },
     {
       "ref": "@cfworker/json-schema@4.1.1",
@@ -2219,6 +4151,166 @@
     {
       "ref": "@formatjs/intl-localematcher@0.6.1",
       "dependsOn": []
+    },
+    {
+      "ref": "@opentelemetry/api@1.9.0",
+      "dependsOn": []
+    },
+    {
+      "ref": "@opentelemetry/api-logs@0.203.0",
+      "dependsOn": ["@opentelemetry/api@1.9.0"]
+    },
+    {
+      "ref": "@opentelemetry/context-async-hooks@2.1.0",
+      "dependsOn": ["@opentelemetry/api@1.9.0"]
+    },
+    {
+      "ref": "@opentelemetry/core@2.1.0",
+      "dependsOn": ["@opentelemetry/api@1.9.0", "@opentelemetry/semantic-conventions@1.37.0"]
+    },
+    {
+      "ref": "@opentelemetry/instrumentation@0.203.0",
+      "dependsOn": ["@opentelemetry/api@1.9.0", "@opentelemetry/api-logs@0.203.0", "import-in-the-middle@1.15.0", "require-in-the-middle@7.5.2"]
+    },
+    {
+      "ref": "@opentelemetry/instrumentation-amqplib@0.50.0",
+      "dependsOn": ["@opentelemetry/api@1.9.0", "@opentelemetry/core@2.1.0", "@opentelemetry/instrumentation@0.203.0", "@opentelemetry/semantic-conventions@1.37.0"]
+    },
+    {
+      "ref": "@opentelemetry/instrumentation-connect@0.47.0",
+      "dependsOn": ["@opentelemetry/api@1.9.0", "@opentelemetry/core@2.1.0", "@opentelemetry/instrumentation@0.203.0", "@opentelemetry/semantic-conventions@1.37.0", "@types/connect@3.4.38"]
+    },
+    {
+      "ref": "@opentelemetry/instrumentation-dataloader@0.21.1",
+      "dependsOn": ["@opentelemetry/api@1.9.0", "@opentelemetry/instrumentation@0.203.0"]
+    },
+    {
+      "ref": "@opentelemetry/instrumentation-express@0.52.0",
+      "dependsOn": ["@opentelemetry/api@1.9.0", "@opentelemetry/core@2.1.0", "@opentelemetry/instrumentation@0.203.0", "@opentelemetry/semantic-conventions@1.37.0"]
+    },
+    {
+      "ref": "@opentelemetry/instrumentation-fs@0.23.0",
+      "dependsOn": ["@opentelemetry/api@1.9.0", "@opentelemetry/core@2.1.0", "@opentelemetry/instrumentation@0.203.0"]
+    },
+    {
+      "ref": "@opentelemetry/instrumentation-generic-pool@0.47.0",
+      "dependsOn": ["@opentelemetry/api@1.9.0", "@opentelemetry/instrumentation@0.203.0"]
+    },
+    {
+      "ref": "@opentelemetry/instrumentation-graphql@0.51.0",
+      "dependsOn": ["@opentelemetry/api@1.9.0", "@opentelemetry/instrumentation@0.203.0"]
+    },
+    {
+      "ref": "@opentelemetry/instrumentation-hapi@0.50.0",
+      "dependsOn": ["@opentelemetry/api@1.9.0", "@opentelemetry/core@2.1.0", "@opentelemetry/instrumentation@0.203.0", "@opentelemetry/semantic-conventions@1.37.0"]
+    },
+    {
+      "ref": "@opentelemetry/instrumentation-http@0.203.0",
+      "dependsOn": ["@opentelemetry/api@1.9.0", "@opentelemetry/core@2.0.1", "@opentelemetry/instrumentation@0.203.0", "@opentelemetry/semantic-conventions@1.37.0", "forwarded-parse@2.1.2"]
+    },
+    {
+      "ref": "@opentelemetry/core@2.0.1",
+      "dependsOn": ["@opentelemetry/api@1.9.0", "@opentelemetry/semantic-conventions@1.37.0"]
+    },
+    {
+      "ref": "@opentelemetry/instrumentation-ioredis@0.52.0",
+      "dependsOn": ["@opentelemetry/api@1.9.0", "@opentelemetry/instrumentation@0.204.0", "@opentelemetry/redis-common@0.38.2", "@opentelemetry/semantic-conventions@1.37.0"]
+    },
+    {
+      "ref": "@opentelemetry/api-logs@0.204.0",
+      "dependsOn": ["@opentelemetry/api@1.9.0"]
+    },
+    {
+      "ref": "@opentelemetry/instrumentation@0.204.0",
+      "dependsOn": ["@opentelemetry/api@1.9.0", "@opentelemetry/api-logs@0.204.0", "import-in-the-middle@1.15.0", "require-in-the-middle@7.5.2"]
+    },
+    {
+      "ref": "@opentelemetry/instrumentation-kafkajs@0.13.0",
+      "dependsOn": ["@opentelemetry/api@1.9.0", "@opentelemetry/instrumentation@0.203.0", "@opentelemetry/semantic-conventions@1.37.0"]
+    },
+    {
+      "ref": "@opentelemetry/instrumentation-knex@0.48.0",
+      "dependsOn": ["@opentelemetry/api@1.9.0", "@opentelemetry/instrumentation@0.203.0", "@opentelemetry/semantic-conventions@1.37.0"]
+    },
+    {
+      "ref": "@opentelemetry/instrumentation-koa@0.51.0",
+      "dependsOn": ["@opentelemetry/api@1.9.0", "@opentelemetry/core@2.1.0", "@opentelemetry/instrumentation@0.203.0", "@opentelemetry/semantic-conventions@1.37.0"]
+    },
+    {
+      "ref": "@opentelemetry/instrumentation-lru-memoizer@0.48.0",
+      "dependsOn": ["@opentelemetry/api@1.9.0", "@opentelemetry/instrumentation@0.203.0"]
+    },
+    {
+      "ref": "@opentelemetry/instrumentation-mongodb@0.56.0",
+      "dependsOn": ["@opentelemetry/api@1.9.0", "@opentelemetry/instrumentation@0.203.0", "@opentelemetry/semantic-conventions@1.37.0"]
+    },
+    {
+      "ref": "@opentelemetry/instrumentation-mongoose@0.50.0",
+      "dependsOn": ["@opentelemetry/api@1.9.0", "@opentelemetry/core@2.1.0", "@opentelemetry/instrumentation@0.203.0", "@opentelemetry/semantic-conventions@1.37.0"]
+    },
+    {
+      "ref": "@opentelemetry/instrumentation-mysql@0.49.0",
+      "dependsOn": ["@opentelemetry/api@1.9.0", "@opentelemetry/instrumentation@0.203.0", "@opentelemetry/semantic-conventions@1.37.0", "@types/mysql@2.15.27"]
+    },
+    {
+      "ref": "@opentelemetry/instrumentation-mysql2@0.50.0",
+      "dependsOn": ["@opentelemetry/api@1.9.0", "@opentelemetry/instrumentation@0.203.0", "@opentelemetry/semantic-conventions@1.37.0", "@opentelemetry/sql-common@0.41.2"]
+    },
+    {
+      "ref": "@opentelemetry/instrumentation-pg@0.55.0",
+      "dependsOn": [
+        "@opentelemetry/api@1.9.0",
+        "@opentelemetry/core@2.1.0",
+        "@opentelemetry/instrumentation@0.203.0",
+        "@opentelemetry/semantic-conventions@1.37.0",
+        "@opentelemetry/sql-common@0.41.2",
+        "@types/pg@8.15.4",
+        "@types/pg-pool@2.0.6"
+      ]
+    },
+    {
+      "ref": "@opentelemetry/instrumentation-redis@0.51.0",
+      "dependsOn": ["@opentelemetry/api@1.9.0", "@opentelemetry/instrumentation@0.203.0", "@opentelemetry/redis-common@0.38.2", "@opentelemetry/semantic-conventions@1.37.0"]
+    },
+    {
+      "ref": "@opentelemetry/instrumentation-tedious@0.22.0",
+      "dependsOn": ["@opentelemetry/api@1.9.0", "@opentelemetry/instrumentation@0.203.0", "@opentelemetry/semantic-conventions@1.37.0", "@types/tedious@4.0.14"]
+    },
+    {
+      "ref": "@opentelemetry/instrumentation-undici@0.14.0",
+      "dependsOn": ["@opentelemetry/api@1.9.0", "@opentelemetry/core@2.1.0", "@opentelemetry/instrumentation@0.203.0"]
+    },
+    {
+      "ref": "@opentelemetry/redis-common@0.38.2",
+      "dependsOn": []
+    },
+    {
+      "ref": "@opentelemetry/resources@2.1.0",
+      "dependsOn": ["@opentelemetry/api@1.9.0", "@opentelemetry/core@2.1.0", "@opentelemetry/semantic-conventions@1.37.0"]
+    },
+    {
+      "ref": "@opentelemetry/sdk-trace-base@2.1.0",
+      "dependsOn": ["@opentelemetry/api@1.9.0", "@opentelemetry/core@2.1.0", "@opentelemetry/resources@2.1.0", "@opentelemetry/semantic-conventions@1.37.0"]
+    },
+    {
+      "ref": "@opentelemetry/semantic-conventions@1.37.0",
+      "dependsOn": []
+    },
+    {
+      "ref": "@opentelemetry/sql-common@0.41.2",
+      "dependsOn": ["@opentelemetry/api@1.9.0", "@opentelemetry/core@2.1.0"]
+    },
+    {
+      "ref": "@prisma/instrumentation@6.14.0",
+      "dependsOn": ["@opentelemetry/api@1.9.0", "@opentelemetry/instrumentation@0.57.2"]
+    },
+    {
+      "ref": "@opentelemetry/api-logs@0.57.2",
+      "dependsOn": ["@opentelemetry/api@1.9.0"]
+    },
+    {
+      "ref": "@opentelemetry/instrumentation@0.57.2",
+      "dependsOn": ["@opentelemetry/api@1.9.0", "@opentelemetry/api-logs@0.57.2", "@types/shimmer@1.2.0", "import-in-the-middle@1.15.0", "require-in-the-middle@7.5.2", "shimmer@1.2.1"]
     },
     {
       "ref": "@rwh/keystrokes@1.5.6",
@@ -2321,6 +4413,123 @@
       "dependsOn": []
     },
     {
+      "ref": "@sentry/electron@7.1.1",
+      "dependsOn": ["@sentry/browser@10.11.0", "@sentry/core@10.11.0", "@sentry/node@10.11.0"]
+    },
+    {
+      "ref": "@sentry-internal/browser-utils@10.11.0",
+      "dependsOn": ["@sentry/core@10.11.0"]
+    },
+    {
+      "ref": "@sentry-internal/feedback@10.11.0",
+      "dependsOn": ["@sentry/core@10.11.0"]
+    },
+    {
+      "ref": "@sentry-internal/replay@10.11.0",
+      "dependsOn": ["@sentry-internal/browser-utils@10.11.0", "@sentry/core@10.11.0"]
+    },
+    {
+      "ref": "@sentry-internal/replay-canvas@10.11.0",
+      "dependsOn": ["@sentry-internal/replay@10.11.0", "@sentry/core@10.11.0"]
+    },
+    {
+      "ref": "@sentry/browser@10.11.0",
+      "dependsOn": ["@sentry-internal/browser-utils@10.11.0", "@sentry-internal/feedback@10.11.0", "@sentry-internal/replay@10.11.0", "@sentry-internal/replay-canvas@10.11.0", "@sentry/core@10.11.0"]
+    },
+    {
+      "ref": "@sentry/core@10.11.0",
+      "dependsOn": []
+    },
+    {
+      "ref": "@sentry/node@10.11.0",
+      "dependsOn": [
+        "@opentelemetry/api@1.9.0",
+        "@opentelemetry/context-async-hooks@2.1.0",
+        "@opentelemetry/core@2.1.0",
+        "@opentelemetry/instrumentation@0.203.0",
+        "@opentelemetry/instrumentation-amqplib@0.50.0",
+        "@opentelemetry/instrumentation-connect@0.47.0",
+        "@opentelemetry/instrumentation-dataloader@0.21.1",
+        "@opentelemetry/instrumentation-express@0.52.0",
+        "@opentelemetry/instrumentation-fs@0.23.0",
+        "@opentelemetry/instrumentation-generic-pool@0.47.0",
+        "@opentelemetry/instrumentation-graphql@0.51.0",
+        "@opentelemetry/instrumentation-hapi@0.50.0",
+        "@opentelemetry/instrumentation-http@0.203.0",
+        "@opentelemetry/instrumentation-ioredis@0.52.0",
+        "@opentelemetry/instrumentation-kafkajs@0.13.0",
+        "@opentelemetry/instrumentation-knex@0.48.0",
+        "@opentelemetry/instrumentation-koa@0.51.0",
+        "@opentelemetry/instrumentation-lru-memoizer@0.48.0",
+        "@opentelemetry/instrumentation-mongodb@0.56.0",
+        "@opentelemetry/instrumentation-mongoose@0.50.0",
+        "@opentelemetry/instrumentation-mysql@0.49.0",
+        "@opentelemetry/instrumentation-mysql2@0.50.0",
+        "@opentelemetry/instrumentation-pg@0.55.0",
+        "@opentelemetry/instrumentation-redis@0.51.0",
+        "@opentelemetry/instrumentation-tedious@0.22.0",
+        "@opentelemetry/instrumentation-undici@0.14.0",
+        "@opentelemetry/resources@2.1.0",
+        "@opentelemetry/sdk-trace-base@2.1.0",
+        "@opentelemetry/semantic-conventions@1.37.0",
+        "@prisma/instrumentation@6.14.0",
+        "@sentry/core@10.11.0",
+        "@sentry/node-core@10.11.0",
+        "@sentry/opentelemetry@10.11.0",
+        "import-in-the-middle@1.15.0"
+      ]
+    },
+    {
+      "ref": "@sentry/node-core@10.11.0",
+      "dependsOn": [
+        "@opentelemetry/api@1.9.0",
+        "@opentelemetry/context-async-hooks@2.1.0",
+        "@opentelemetry/core@2.1.0",
+        "@opentelemetry/instrumentation@0.203.0",
+        "@opentelemetry/resources@2.1.0",
+        "@opentelemetry/sdk-trace-base@2.1.0",
+        "@opentelemetry/semantic-conventions@1.37.0",
+        "@sentry/core@10.11.0",
+        "@sentry/opentelemetry@10.11.0",
+        "import-in-the-middle@1.15.0"
+      ]
+    },
+    {
+      "ref": "@sentry/opentelemetry@10.11.0",
+      "dependsOn": [
+        "@opentelemetry/api@1.9.0",
+        "@opentelemetry/context-async-hooks@2.1.0",
+        "@opentelemetry/core@2.1.0",
+        "@opentelemetry/sdk-trace-base@2.1.0",
+        "@opentelemetry/semantic-conventions@1.37.0",
+        "@sentry/core@10.11.0"
+      ]
+    },
+    {
+      "ref": "@types/connect@3.4.38",
+      "dependsOn": []
+    },
+    {
+      "ref": "@types/mysql@2.15.27",
+      "dependsOn": []
+    },
+    {
+      "ref": "@types/pg@8.15.4",
+      "dependsOn": ["pg-protocol@1.10.3", "pg-types@2.2.0"]
+    },
+    {
+      "ref": "@types/pg-pool@2.0.6",
+      "dependsOn": ["@types/pg@8.15.4"]
+    },
+    {
+      "ref": "@types/shimmer@1.2.0",
+      "dependsOn": []
+    },
+    {
+      "ref": "@types/tedious@4.0.14",
+      "dependsOn": []
+    },
+    {
       "ref": "@types/trusted-types@2.0.7",
       "dependsOn": []
     },
@@ -2337,11 +4546,19 @@
       "dependsOn": []
     },
     {
+      "ref": "acorn-import-attributes@1.9.5",
+      "dependsOn": []
+    },
+    {
       "ref": "birpc@2.6.1",
       "dependsOn": []
     },
     {
       "ref": "bowser@2.12.1",
+      "dependsOn": []
+    },
+    {
+      "ref": "cjs-module-lexer@1.4.3",
       "dependsOn": []
     },
     {
@@ -2365,8 +4582,16 @@
       "dependsOn": ["@types/trusted-types@2.0.7"]
     },
     {
+      "ref": "forwarded-parse@2.1.2",
+      "dependsOn": []
+    },
+    {
       "ref": "hookable@5.5.3",
       "dependsOn": []
+    },
+    {
+      "ref": "import-in-the-middle@1.15.0",
+      "dependsOn": ["acorn-import-attributes@1.9.5", "cjs-module-lexer@1.4.3", "module-details-from-path@1.0.4"]
     },
     {
       "ref": "intl-messageformat@10.7.16",
@@ -2378,10 +4603,10 @@
     },
     {
       "ref": "isomorphic-dompurify@2.28.0",
-      "dependsOn": ["dompurify@3.2.7"]
+      "dependsOn": ["dompurify@3.3.0"]
     },
     {
-      "ref": "dompurify@3.2.7",
+      "ref": "dompurify@3.3.0",
       "dependsOn": ["@types/trusted-types@2.0.7"]
     },
     {
@@ -2401,12 +4626,44 @@
       "dependsOn": []
     },
     {
+      "ref": "module-details-from-path@1.0.4",
+      "dependsOn": []
+    },
+    {
       "ref": "perfect-debounce@1.0.0",
       "dependsOn": []
     },
     {
+      "ref": "pg-int8@1.0.1",
+      "dependsOn": []
+    },
+    {
+      "ref": "pg-protocol@1.10.3",
+      "dependsOn": []
+    },
+    {
+      "ref": "pg-types@2.2.0",
+      "dependsOn": ["pg-int8@1.0.1", "postgres-array@2.0.0", "postgres-bytea@1.0.0", "postgres-date@1.0.7", "postgres-interval@1.2.0"]
+    },
+    {
       "ref": "pinia@3.0.3",
       "dependsOn": ["@vue/devtools-api@7.7.7"]
+    },
+    {
+      "ref": "postgres-array@2.0.0",
+      "dependsOn": []
+    },
+    {
+      "ref": "postgres-bytea@1.0.0",
+      "dependsOn": []
+    },
+    {
+      "ref": "postgres-date@1.0.7",
+      "dependsOn": []
+    },
+    {
+      "ref": "postgres-interval@1.2.0",
+      "dependsOn": ["xtend@4.0.2"]
     },
     {
       "ref": "proxy-from-env@1.1.0",
@@ -2421,7 +4678,15 @@
       "dependsOn": ["quickselect@3.0.0"]
     },
     {
+      "ref": "require-in-the-middle@7.5.2",
+      "dependsOn": ["module-details-from-path@1.0.4"]
+    },
+    {
       "ref": "sanitize.css@13.0.0",
+      "dependsOn": []
+    },
+    {
+      "ref": "shimmer@1.2.1",
       "dependsOn": []
     },
     {
@@ -2461,12 +4726,16 @@
       "dependsOn": []
     },
     {
+      "ref": "xtend@4.0.2",
+      "dependsOn": []
+    },
+    {
       "ref": "anarchy-engine@21.1.0",
       "dependsOn": [
         "@cfworker/json-schema@4.1.1",
         "@dimforge/rapier3d@0.19.0",
         "@rwh/keystrokes@1.5.6",
-        "anarchy-shared@1.4.0",
+        "anarchy-shared@1.4.1",
         "lodash-es@4.17.21",
         "nanoid@5.1.5",
         "rbush@4.0.1",
@@ -2489,20 +4758,20 @@
       "dependsOn": []
     },
     {
-      "ref": "anarchy-shared@1.4.0",
+      "ref": "anarchy-shared@1.4.1",
       "dependsOn": ["bowser@2.12.1"]
     },
     {
-      "ref": "anarchy-tracking@1.1.0",
-      "dependsOn": ["@sentry/browser@10.17.0", "@sentry/cli@2.56.1"]
+      "ref": "anarchy-tracking@1.3.0",
+      "dependsOn": ["@sentry/browser@10.17.0", "@sentry/cli@2.56.1", "@sentry/electron@7.1.1"]
     },
     {
       "ref": "showcases-i18n@1.3.0",
-      "dependsOn": ["anarchy-engine@21.1.0", "anarchy-i18n@1.2.0", "anarchy-shared@1.4.0", "sort-json@2.0.1"]
+      "dependsOn": ["anarchy-engine@21.1.0", "anarchy-i18n@1.2.0", "anarchy-shared@1.4.1", "sort-json@2.0.1"]
     },
     {
       "ref": "showcases-menu@1.8.0",
-      "dependsOn": ["anarchy-engine@21.1.0", "anarchy-i18n@1.2.0", "anarchy-shared@1.4.0", "marked@16.3.0", "pinia@3.0.3", "sanitize.css@13.0.0", "showcases-i18n@1.3.0", "showcases-shared@1.4.0"]
+      "dependsOn": ["anarchy-engine@21.1.0", "anarchy-i18n@1.2.0", "anarchy-shared@1.4.1", "marked@16.3.0", "pinia@3.0.3", "sanitize.css@13.0.0", "showcases-i18n@1.3.0", "showcases-shared@1.4.0"]
     },
     {
       "ref": "showcases-shared@1.4.0",

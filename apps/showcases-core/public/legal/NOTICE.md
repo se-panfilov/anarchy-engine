@@ -5,7 +5,7 @@
 This product includes third-party components. Their **licenses and attributions** are listed below.
 For the **full license texts**, see `THIRD_PARTY_LICENSES.md`.
 
-Components listed: 227
+Components listed: 234
 
 ## 1) Mandatory Attributions (verbatim)
 
@@ -875,6 +875,48 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
+## @sentry/cli-linux-arm@2.56.1
+
+**License(s):** UNKNOWN
+
+---
+
+## @sentry/cli-linux-arm64@2.56.1
+
+**License(s):** UNKNOWN
+
+---
+
+## @sentry/cli-linux-i686@2.56.1
+
+**License(s):** UNKNOWN
+
+---
+
+## @sentry/cli-linux-x64@2.56.1
+
+**License(s):** UNKNOWN
+
+---
+
+## @sentry/cli-win32-arm64@2.56.1
+
+**License(s):** UNKNOWN
+
+---
+
+## @sentry/cli-win32-i686@2.56.1
+
+**License(s):** UNKNOWN
+
+---
+
+## @sentry/cli-win32-x64@2.56.1
+
+**License(s):** UNKNOWN
+
+---
+
 ## @sentry/core@10.11.0
 
 **License(s):** MIT
@@ -1237,7 +1279,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## anarchy-shared@1.4.0
+## anarchy-shared@1.4.1
 
 **License(s):** MIT
 
@@ -1245,7 +1287,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## anarchy-tracking@1.2.0
+## anarchy-tracking@1.3.0
 
 **License(s):** MIT
 
@@ -1451,7 +1493,7 @@ The following notices are reproduced as provided by the respective licensors (e.
 
 ---
 
-## dompurify@3.2.7
+## dompurify@3.3.0
 
 **License(s):** (MPL-2.0 OR Apache-2.0)
 

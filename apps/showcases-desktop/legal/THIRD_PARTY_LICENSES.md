@@ -10393,7 +10393,7 @@ SOFTWARE.
 
 ---
 
-## anarchy-shared@1.4.0
+## anarchy-shared@1.4.1
 
 **License:** MIT
 
@@ -10423,7 +10423,7 @@ SOFTWARE.
 
 ---
 
-## anarchy-tracking@1.2.0
+## anarchy-tracking@1.3.0
 
 **License:** MIT
 
@@ -11753,7 +11753,7 @@ Exhibit B - “Incompatible With Secondary Licenses” Notice
 
 ---
 
-## dompurify@3.2.7
+## dompurify@3.3.0
 
 **License:** (MPL-2.0 OR Apache-2.0)
 
