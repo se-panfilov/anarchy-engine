@@ -49,22 +49,12 @@ function getCommonCameraConfig(entity: TAnyCameraWrapper, json: PerspectiveCamer
   };
 }
 
-function getPerspectiveCameraOnlyConfig(json: PerspectiveCameraJSONObject): TPerspectiveCameraOnlyConfig {
-  return {
-    fov: json.fov,
-    filmGauge: json.filmGauge,
-    filmOffset: json.filmOffset,
-    focus: json.focus
-  };
+function getPerspectiveCameraOnlyConfig({ fov, filmGauge, filmOffset, focus }: PerspectiveCameraJSONObject): TPerspectiveCameraOnlyConfig {
+  return { fov, filmGauge, filmOffset, focus };
 }
 
-function getOrthographicCameraOnlyConfig(json: OrthographicCameraJSONObject): TOrthographicCameraOnlyConfig {
-  return {
-    left: json.left,
-    right: json.right,
-    top: json.top,
-    bottom: json.bottom
-  };
+function getOrthographicCameraOnlyConfig({ left, right, top, bottom }: OrthographicCameraJSONObject): TOrthographicCameraOnlyConfig {
+  return { left, right, top, bottom };
 }
 
 function getAudioListenerName(json: PerspectiveCameraJSONObject | OrthographicCameraJSONObject, audioService: TAudioService): string | undefined {
