@@ -1,9 +1,3 @@
-import type { BehaviorSubject } from 'rxjs';
+import type { TLoopWithPriority } from '@/Engine/Loop/Models';
 
-import type { TLoop } from '@/Engine/Loop/Models';
-import type { SpatialUpdatePriority } from '@/Engine/Spatial';
-
-export type TSpatialLoop = TLoop &
-  Readonly<{
-    priority$: BehaviorSubject<SpatialUpdatePriority>;
-  }>;
+export type TSpatialLoop = TLoopWithPriority & { __brand: 'spatial_loop' };

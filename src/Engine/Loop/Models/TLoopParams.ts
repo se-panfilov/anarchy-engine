@@ -7,5 +7,6 @@ export type TLoopParams = Readonly<{
   type: LoopType;
   // You can optionally pass a "requestAnimationFrame" function you want (e.g. window.requestAnimationFrame, display.requestAnimationFrame for VR, etc.) or an amount of milliseconds (number)
   trigger: TLoopTriggerFn | number;
+  maxPriority?: number;
   showDebugInfo?: boolean;
 }>;
