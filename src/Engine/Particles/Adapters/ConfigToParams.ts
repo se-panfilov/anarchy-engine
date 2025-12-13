@@ -1,10 +1,10 @@
-import type { TMaterialWrapper } from '@/Engine/Material';
+import type { TAnyMaterialWrapper } from '@/Engine/Material';
 import type { TParticlesConfig, TParticlesConfigToParamsDependencies, TParticlesParams } from '@/Engine/Particles/Models';
 import { configToParamsObject3d } from '@/Engine/ThreeLib';
 
 export function configToParams(config: TParticlesConfig, { materialRegistry }: TParticlesConfigToParamsDependencies): TParticlesParams | never {
   const { position, rotation, layers, scale, ...rest } = config;
-  const material: TMaterialWrapper = materialRegistry.getByName(config.material);
+  const material: TAnyMaterialWrapper = materialRegistry.getByName(config.material);
 
   return {
     ...rest,

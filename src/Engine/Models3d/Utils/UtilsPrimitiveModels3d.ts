@@ -1,7 +1,7 @@
 import { BoxGeometry, Mesh, PlaneGeometry, SphereGeometry } from 'three';
 import type { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
 
-import type { TMaterials, TMaterialWrapper } from '@/Engine/Material';
+import type { TAnyMaterialWrapper, TMaterials } from '@/Engine/Material';
 import type { TMeters } from '@/Engine/Math';
 import { meters } from '@/Engine/Measurements/Utils';
 import type { TModel3dConfig, TModel3dParams, TModel3dResourceConfig, TRawModel3d } from '@/Engine/Models3d';
@@ -12,7 +12,7 @@ import { isDefined, isNotDefined } from '@/Engine/Utils';
 export function createPrimitiveModel3d(params: TModel3dParams): Mesh | never {
   if (!isPrimitiveModel3dSource(params.model3dSource)) throw new Error(`Model3d source is not a primitive model: "${String(params.model3dSource)}"`);
   const model3dSource: PrimitiveModel3dType = params.model3dSource;
-  const material: TMaterialWrapper | undefined = params.material;
+  const material: TAnyMaterialWrapper | undefined = params.material;
   if (isNotDefined(material)) throw new Error(`Primitive model "${model3dSource}" has no material, but primitive models must have one`);
 
   if (isNotDefined(params.options)) throw new Error(`Primitive model "${model3dSource}" has no options`);
