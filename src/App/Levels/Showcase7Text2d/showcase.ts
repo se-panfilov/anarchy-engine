@@ -5,7 +5,7 @@ import { Euler, Vector3 } from 'three';
 import type { TShowcase } from '@/App/Levels/Models';
 import { addGizmo } from '@/App/Levels/Utils';
 import type { TAnimationParams, TAppCanvas, TEngine, TModel3d, TModel3dRegistry, TMoverService, TSceneWrapper, TSpace, TSpaceConfig, TTextAnyWrapper } from '@/Engine';
-import { ambientContext, createCirclePathXZ, defaultMoverServiceConfig, Easing, Engine, generateAnglesForCircle, isNotDefined, spaceService, TextType } from '@/Engine';
+import { ambientContext, createCirclePathXZ, defaultMoverServiceConfig, Easing, Engine, generateAnglesForCircle, isNotDefined, spaceService, TextType, TransformAgent } from '@/Engine';
 import { MoverService } from '@/Engine/Services/MoverService/MoverService';
 
 import spaceConfig from './showcase.json';
@@ -58,6 +58,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     text: 'LongCang',
     position: new Vector3(-10, 8, -8),
     rotation: new Euler(-1.57, 0, 0),
+    agent: TransformAgent.Connected,
     cssProps: {
       color: '#ff0000',
       fontSize: '4rem',
@@ -71,6 +72,7 @@ export async function showcase(canvas: TAppCanvas): Promise<TShowcase> {
     text: 'VarelaRound',
     position: new Vector3(-15, 6, -14),
     rotation: new Euler(-1.57, 0, 0),
+    agent: TransformAgent.Connected,
     cssProps: {
       color: '#ff0000',
       fontSize: '4rem',
