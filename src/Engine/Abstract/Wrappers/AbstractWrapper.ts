@@ -1,4 +1,5 @@
 import { nanoid } from 'nanoid';
+import type { Object3D } from 'three';
 
 import type { TWithUserData, TWithWrapperId, TWithWrapperIdEntity, WrapperType } from '@/Engine/Abstract';
 import { withNoWrapperIdMixin, withWrapperIdMixin } from '@/Engine/Abstract';
@@ -27,7 +28,23 @@ export function AbstractWrapper<T extends TWithUserData>(entity: T, type: Wrappe
     ...destroyable
   };
 
-  const result: TWrapper<T> = { ...partialResult, ...withWrapperId, ...withNameAndNameAccessors };
+  // eslint-disable-next-line functional/immutable-data
+  const result: TWrapper<T> = Object.assign(partialResult, withWrapperId, withNameAndNameAccessors);
+
+  const destroyableSub$ = destroyable.destroy$.subscribe((): void => {
+    destroyableSub$.unsubscribe();
+
+    result.destroy$.next();
+    result.destroy$.complete();
+
+    (entity as any).dispose?.();
+
+    if (isDefined((entity as any).traverse)) {
+      (entity as any).traverse((child: Object3D<any>): void => {
+        if (child.parent) child.parent.remove(child);
+      });
+    }
+  });
 
   //apply params
   if (isWithUserData(entity) && isWithWrapperIdAccessors(result)) result.setWrapperId(id);
