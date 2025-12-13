@@ -46,8 +46,7 @@ export function KinematicTransformAgent(params: TKinematicTransformAgentParams, 
         angularSpeed: params.state.angularSpeed ?? 0,
         radius: params.state.radius ?? 0,
         angularDirection: params.state.angularDirection?.clone() ?? new Quaternion(),
-        // TODO 8.0.0. MODELS: the default "forwardAxis" perhaps should be "X"
-        forwardAxis: params.state.forwardAxis ?? ForwardAxis.Z,
+        forwardAxis: params.state.forwardAxis ?? ForwardAxis.X,
         isInfiniteRotation: params.state.isInfiniteRotation ?? false
       },
       target: {
