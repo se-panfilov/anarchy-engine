@@ -1851,6 +1851,28 @@
             }
           ]
         },
+        "model3dSource": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "$ref": "#/definitions/PrimitiveModel3dType"
+            }
+          ]
+        },
+        "animationsSource": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "materialSource": {
+          "type": "string"
+        },
+        "forceClone": {
+          "type": "boolean"
+        },
         "options": {
           "$ref": "#/definitions/TModel3dOptions"
         },
@@ -1880,28 +1902,13 @@
           "items": {
             "type": "string"
           }
-        },
-        "model3dSource": {
-          "anyOf": [
-            {
-              "type": "string"
-            },
-            {
-              "$ref": "#/definitions/PrimitiveModel3dType"
-            }
-          ]
-        },
-        "animationsSource": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "materialSource": {
-          "type": "string"
         }
       },
       "required": ["model3dSource"]
+    },
+    "PrimitiveModel3dType": {
+      "type": "string",
+      "enum": ["cube", "plane", "sphere"]
     },
     "TModel3dOptions": {
       "$ref": "#/definitions/TOptional%3CTPrimitiveModel3dProps%3E"
@@ -1956,10 +1963,6 @@
       "required": ["mask"],
       "additionalProperties": false,
       "description": "A  {@link  THREE.Layers Layers }  object assigns an  {@link  THREE.Object3D Object3D }  to 1 or more of 32 layers numbered `0` to `31` - internally the layers are stored as a  {@link  https://en.wikipedia.org/wiki/Mask_(computing) bit mask } , and by default all Object3Ds are a member of layer `0`."
-    },
-    "PrimitiveModel3dType": {
-      "type": "string",
-      "enum": ["cube", "plane", "sphere"]
     },
     "TParticlesConfig": {
       "type": "object",

@@ -5,7 +5,6 @@ export type * from './TModel3dDependencies';
 export type * from './TModel3dEntities';
 export type * from './TModel3dOptions';
 export type * from './TModel3dParams';
-export type * from './TModel3dProps';
 export type * from './TModel3dRawToModel3dConnectionRegistry';
 export type * from './TModel3dRegistry';
 export type * from './TModel3dResourceAsyncRegistry';
