@@ -2,6 +2,7 @@ export * from './TAbstractAsyncRegistry';
 export * from './TAbstractEntityRegistry';
 export * from './TAbstractLoadedResourcePack';
 export * from './TAbstractLoader';
+export * from './TAbstractLoopService';
 export * from './TAbstractOnLoadFunction';
 export * from './TAbstractProtectedWatcher';
 export * from './TAbstractProtectedWatcherWithState';

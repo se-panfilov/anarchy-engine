@@ -25,6 +25,7 @@ export function PhysicsTransformAgent(params: TPhysicsTransformAgentParams, { ph
 
   // TODO 8.0.0. MODELS: PhysicsTransformAgent should do nothing if actor has no "physics" field.
   // TODO 8.0.0. MODELS: Make sure we can work with presets
+  // TODO 8.0.0. MODELS: Add physics config to text (and to adapter)
 
   const agent: TPhysicsTransformAgent = {
     ...abstractTransformAgent,
