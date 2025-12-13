@@ -180,8 +180,6 @@ function pipe<T>(initial: T, ...fns: Array<(arg: T) => T>): T {
   return fns.reduce((acc: T, fn) => fn(acc), initial);
 }
 
-//https://chat.openai.com/share/eefaf27b-c94d-4343-b9bc-fe79541184f2
-
 const catFactory70 = pipe(Factory('cat_factory', catCreate), DynamicMixin, RegistrableMixin, FromConfigMixin, DestroyableMixin, CatFactoryMixin);
 const catFactory77: ICatFactory = pipe(Factory('cat_factory', catCreate), DynamicMixin, RegistrableMixin, FromConfigMixin, DestroyableMixin, CatFactoryMixin);
 
