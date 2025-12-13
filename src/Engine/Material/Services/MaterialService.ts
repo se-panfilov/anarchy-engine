@@ -4,6 +4,7 @@ import type { TAbstractService } from '@/Engine/Abstract';
 import { AbstractService } from '@/Engine/Abstract';
 import type {
   TMaterialConfig,
+  TMaterialEntityToConfigDependencies,
   TMaterialFactory,
   TMaterialRegistry,
   TMaterialService,
@@ -28,5 +29,12 @@ export function MaterialService(factory: TMaterialFactory, registry: TMaterialRe
   const withRegistry: TMaterialServiceWithRegistry = withRegistryService(registry);
 
   // eslint-disable-next-line functional/immutable-data
-  return Object.assign(abstractService, withCreateService, withCreateFromConfigService, withFactory, withRegistry, withSerializeAllEntities<TMaterialConfig, undefined>(registry));
+  return Object.assign(
+    abstractService,
+    withCreateService,
+    withCreateFromConfigService,
+    withFactory,
+    withRegistry,
+    withSerializeAllEntities<TMaterialConfig, TMaterialEntityToConfigDependencies>(registry, { textureResourceRegistry: dependencies.textureService.getResourceRegistry() })
+  );
 }
