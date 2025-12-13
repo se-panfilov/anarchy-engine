@@ -19,7 +19,6 @@ import { extractSerializableRegistrableFields } from '@/Engine/Mixins';
 import type { TTexture, TTextureAsyncRegistry } from '@/Engine/Texture';
 import { filterOutEmptyFields, isNotDefined, nullsToUndefined } from '@/Engine/Utils';
 
-// TODO 15-0-0: validate if "textures" are match
 // TODO 15-0-0: materials options are does not match
 
 // TODO 15-0-0: validate
