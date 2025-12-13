@@ -67,15 +67,15 @@ export function showcase(canvas: IAppCanvas): IShowcase {
     onKey(KeyCode.W).pressed$.subscribe((): void => void actorKeyW.addY(-0.2));
     onKey(KeyCode.W).released$.subscribe((): void => void actorKeyW.addY(0.2));
 
-    onKey(KeyCode.A).pressing$.subscribe((): void => void actorKeyboard.addX(-0.3));
+    onKey(KeyCode.A).pressing$.subscribe(({ delta }): void => void actorKeyboard.addX(-10 * delta.delta));
     onKey(KeyCode.A).pressed$.subscribe((): void => void actorKeyA.addY(-0.2));
     onKey(KeyCode.A).released$.subscribe((): void => void actorKeyA.addY(0.2));
 
-    onKey(KeyCode.S).pressing$.subscribe((): void => void actorKeyboard.addZ(0.3));
+    onKey(KeyCode.S).pressing$.subscribe(({ delta }): void => void actorKeyboard.addZ(10 * delta.delta));
     onKey(KeyCode.S).pressed$.subscribe((): void => void actorKeyS.addY(-0.2));
     onKey(KeyCode.S).released$.subscribe((): void => void actorKeyS.addY(0.2));
 
-    onKey(KeyCode.D).pressing$.subscribe((): void => void actorKeyboard.addX(0.3));
+    onKey(KeyCode.D).pressing$.subscribe(({ delta }): void => void actorKeyboard.addX(10 * delta.delta));
     onKey(KeyCode.D).pressed$.subscribe((): void => void actorKeyD.addY(-0.2));
     onKey(KeyCode.D).released$.subscribe((): void => void actorKeyD.addY(0.2));
 

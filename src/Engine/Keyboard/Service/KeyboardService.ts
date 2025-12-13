@@ -41,7 +41,6 @@ export function KeyboardService(loopService: ILoopService): IKeyboardService {
     let pressedKey: IGameKey | IKeyCombo | undefined = undefined;
 
     loopService.tick$.subscribe((delta) => {
-      // TODO (S.Panfilov) pass delta to pressing
       if (isDefined(pressedKey)) pressing$.next({ key: pressedKey, delta });
     });
 
