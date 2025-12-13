@@ -14,7 +14,8 @@ function createWindow(): void {
     webPreferences: {
       // TODO DESKTOP: what is "contextIsolation"?
       contextIsolation: true,
-      preload: join(__dirname, 'preload.js')
+      preload: join(__dirname, 'preload.js'),
+      nodeIntegration: false //Must be off fore security reasons
     }
   });
 
@@ -24,7 +25,6 @@ function createWindow(): void {
   console.log('📁 Exists:', fs.existsSync(indexPath));
 
   win.loadFile(indexPath);
-  // win.loadURL(`file://${encodeURI(join(__dirname, '../dist/index.html'))}`);
 
   // TODO DESKTOP: Should come from .env file, to enable/disable dev tools.
   win.webContents.openDevTools();
