@@ -42,15 +42,15 @@ export function buildGame(sceneConfig: ISceneConfig, canvas: IAppCanvas): IBuilt
   cameraFactory.entityCreated$.subscribe((instance: ICameraWrapper): void => cameraRegistry.add(instance));
   cameras.forEach((camera: ICameraConfig): ICameraWrapper => cameraFactory.create(cameraFactory.getParams(camera)));
 
-  const lightFactory: ILightFactory = LightFactory();
-  const lightRegistry: ILightRegistry = LightRegistry();
-  lightFactory.entityCreated$.subscribe((instance: ILightWrapper): void => lightRegistry.add(instance));
-  lights.forEach((light: ILightConfig): ILightWrapper => lightFactory.create(lightFactory.getParams(light)));
-
   const controlsFactory: IControlsFactory = ControlsFactory();
   const controlsRegistry: IControlsRegistry = ControlsRegistry();
   controlsFactory.entityCreated$.subscribe((instance: IControlsWrapper): void => controlsRegistry.add(instance));
   controls.forEach((control: IControlsConfig): IControlsWrapper => controlsFactory.create(controlsFactory.getParams(control)));
+
+  const lightFactory: ILightFactory = LightFactory();
+  const lightRegistry: ILightRegistry = LightRegistry();
+  lightFactory.entityCreated$.subscribe((instance: ILightWrapper): void => lightRegistry.add(instance));
+  lights.forEach((light: ILightConfig): ILightWrapper => lightFactory.create(lightFactory.getParams(light)));
 
   const rendererFactory: IRendererFactory = RendererFactory();
   const rendererRegistry: IRendererRegistry = RendererRegistry();
