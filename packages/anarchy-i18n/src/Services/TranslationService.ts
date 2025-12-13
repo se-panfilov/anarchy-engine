@@ -1,5 +1,5 @@
 import { ReactiveTranslationMixin } from '@Anarchy/i18n/Mixins';
-import type { TLocalesMapping, TMessages, TTranslationService } from '@Anarchy/i18n/Models';
+import type { TLocale, TLocalesMapping, TMessages, TReactiveTranslationMixin, TTranslationService } from '@Anarchy/i18n/Models';
 import { isDefined } from '@Anarchy/Shared/Utils';
 import type { FormatNumberOptions, IntlCache, IntlShape } from '@formatjs/intl';
 import { createIntl, createIntlCache } from '@formatjs/intl';
@@ -7,7 +7,7 @@ import type { FormatDateOptions } from '@formatjs/intl/src/types';
 import type { Subscription } from 'rxjs';
 import { BehaviorSubject, concatMap, distinctUntilChanged, from, map, Subject } from 'rxjs';
 
-export function TranslationService<TLocale extends string>(initialLocale: TLocale, defaultLocale: TLocale, locales: TLocalesMapping<TLocale>): TTranslationService<TLocale> {
+export function TranslationService(initialLocale: TLocale, defaultLocale: TLocale, locales: TLocalesMapping): TTranslationService {
   const loaded: Map<TLocale, TMessages> = new Map<TLocale, TMessages>();
   const loadingLocale$: BehaviorSubject<Set<TLocale>> = new BehaviorSubject<Set<TLocale>>(new Set());
 
@@ -28,7 +28,7 @@ export function TranslationService<TLocale extends string>(initialLocale: TLocal
 
     const current: TMessages = loaded.get(locale) ?? {};
     const fallback: TMessages = loaded.get(defaultLocale) ?? {};
-    const intl: IntlShape<string> = createIntl({ locale, defaultLocale, messages: { ...fallback, ...current } }, cache);
+    const intl: IntlShape<string> = createIntl({ locale: locale.id, defaultLocale: defaultLocale.id, messages: { ...fallback, ...current } }, cache);
 
     intlMap.set(locale, intl);
 
@@ -38,7 +38,7 @@ export function TranslationService<TLocale extends string>(initialLocale: TLocal
   async function loadLocale(locale: TLocale): Promise<void> {
     try {
       loadingLocale$.next(new Set([...loadingLocale$.value, locale]));
-      if (!loaded.has(locale)) loaded.set(locale, await locales[locale]());
+      if (!loaded.has(locale)) loaded.set(locale, await locales[locale.id]());
       //I'm not 100% sure, that intlMap.clear() is really needed here
       intlMap.clear();
       intl$.next(getIntl(locale));
@@ -75,7 +75,7 @@ export function TranslationService<TLocale extends string>(initialLocale: TLocal
     intl$.complete();
   });
 
-  const result = {
+  const result: Omit<TTranslationService, keyof TReactiveTranslationMixin> = {
     translate: (id: string, params?: Record<string, string>): string | never => {
       const intl: IntlShape<string> | undefined = intl$.value;
       if (isDefined(intl)) {

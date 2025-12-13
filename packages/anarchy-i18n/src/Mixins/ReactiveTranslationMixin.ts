@@ -5,7 +5,7 @@ import type { FormatDateOptions } from '@formatjs/intl/src/types';
 import type { Observable } from 'rxjs';
 import { combineLatest, distinctUntilChanged, filter, map, shareReplay } from 'rxjs';
 
-export function ReactiveTranslationMixin<TLocale extends string>(service: TTranslationService<TLocale>): TReactiveTranslationMixin {
+export function ReactiveTranslationMixin(service: Omit<TTranslationService, keyof TReactiveTranslationMixin>): TReactiveTranslationMixin {
   const intlReady$: Observable<IntlShape<string>> = service.intl$.pipe(filter(isDefined), distinctUntilChanged(), shareReplay({ bufferSize: 1, refCount: true }));
 
   function t$(id: string, params?: Record<string, string> | Observable<Record<string, string>>): Observable<string> {

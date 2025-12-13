@@ -1,10 +1,11 @@
+import type { TLocale } from '@Anarchy/i18n/Models/TLocale';
 import type { FormatNumberOptions, IntlShape } from '@formatjs/intl';
 import type { FormatDateOptions } from '@formatjs/intl/src/types';
 import type { BehaviorSubject, Observable, Subject } from 'rxjs';
 
 import type { TReactiveTranslationMixin } from './TReactiveTranslationMixin';
 
-export type TTranslationService<TLocale extends string> = Readonly<{
+export type TTranslationService = Readonly<{
   translate: (id: string, params?: Record<string, string>) => string | never;
   formatDate: (value: Date | number, options?: FormatDateOptions) => string;
   formatNumber: (value: number, options?: FormatNumberOptions) => string;
