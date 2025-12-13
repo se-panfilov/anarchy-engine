@@ -1,4 +1,5 @@
-import { combineLatest } from 'rxjs';
+import { combineLatest, distinctUntilChanged } from 'rxjs';
+import type { Vector2Like } from 'three';
 import { Euler, Vector3 } from 'three';
 
 import type { TActorParams, TCameraWrapper, TMaterialWrapper, TModel3d, TModels3dService, TSpace, TSpaceConfig, TSpatialGridWrapper } from '@/Engine';
@@ -69,13 +70,22 @@ export function showcase(space: TSpace): void {
     isActive: true
   });
 
-  combineLatest([mouseService.position$, space.container.resize$]).subscribe(([coords, { width, height }]): void => {
-    if (isNotDefined(camera)) return;
-    const xRatio: number = coords.x / width - 0.5;
-    const yRatio: number = -(coords.y / height - 0.5);
-    camera.drive.default.setX(xRatio * 5);
-    camera.drive.default.setY(yRatio * 5);
-  });
+  combineLatest([mouseService.position$, space.container.viewportRect$])
+    .pipe(
+      distinctUntilChanged((prev: [Vector2Like, DOMRect], curr: [Vector2Like, DOMRect]): boolean => {
+        const prevVector: Vector2Like = prev[0];
+        const currVector: Vector2Like = curr[0];
+        return prevVector.x === currVector.x && prevVector.y === currVector.y;
+      })
+    )
+    .subscribe(([coords, { width, height }]: [Vector2Like, DOMRect]): void => {
+      console.log('XXX', 123);
+      if (isNotDefined(camera)) return;
+      const xRatio: number = coords.x / width - 0.5;
+      const yRatio: number = -(coords.y / height - 0.5);
+      camera.drive.default.setX(xRatio * 5);
+      camera.drive.default.setY(yRatio * 5);
+    });
 
   space.start$.next(true);
 }

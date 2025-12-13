@@ -15,7 +15,7 @@ export type TContainerDecorator = Readonly<{
   resize$: Observable<DOMRect>;
   canvas$: BehaviorSubject<TSpaceCanvas | undefined>;
   fullScreen$: BehaviorSubject<boolean>;
-  viewportRect$: BehaviorSubject<DOMRect | undefined>;
+  viewportRect$: BehaviorSubject<DOMRect>;
 }> &
   TWithId &
   TNoSpread &
