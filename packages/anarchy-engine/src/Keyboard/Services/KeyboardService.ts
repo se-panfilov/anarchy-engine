@@ -35,7 +35,7 @@ export function KeyboardService(container: TContainerDecorator, keyWatcherFactor
   // eslint-disable-next-line functional/immutable-data
   return Object.assign(abstractService, {
     keys$: keyComboWatcher.value$.asObservable(),
-    currentKeys: keyComboWatcher.value$.value,
+    currentKeys: keyComboWatcher.value$.value.keys,
     pressed$: keyPressWatcher.value$.asObservable(),
     released$: keyReleaseWatcher.value$.asObservable()
   });
