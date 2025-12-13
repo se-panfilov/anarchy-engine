@@ -4,9 +4,8 @@ import { Vector3 } from 'three';
 
 import { createReactiveLineFromActor } from '@/App/Levels/Showcase23TransformDrive/Utils';
 import { addGizmo } from '@/App/Levels/Utils';
-import type { TActor, TActorRegistry, TAnyCameraWrapper, TIntersectionEvent, TIntersectionsWatcher, TKeyboardPressingEvent, TMouseWatcherEvent, TMoverService, TSpace, TSpaceConfig } from '@/Engine';
-import { asRecord, defaultMoverServiceConfig, Easing, isNotDefined, KeyCode, LookUpStrategy, metersPerSecond, mpsSpeed, spaceService, TransformAgent } from '@/Engine';
-import { MoverService } from '@/Engine/Services/MoverService/MoverService';
+import type { TActor, TActorRegistry, TAnyCameraWrapper, TIntersectionEvent, TIntersectionsWatcher, TKeyboardPressingEvent, TMouseWatcherEvent, TSpace, TSpaceConfig } from '@/Engine';
+import { asRecord, isNotDefined, KeyCode, LookUpStrategy, metersPerSecond, mpsSpeed, spaceService } from '@/Engine';
 
 import spaceConfigJson from './space.json';
 
@@ -26,7 +25,7 @@ export function showcase(space: TSpace): void {
   const { keyboardService } = space.services;
 
   const { actorService, cameraService, intersectionsWatcherService, mouseService, scenesService } = space.services;
-  const { transformLoop, intersectionsLoop } = space.loops;
+  const { intersectionsLoop } = space.loops;
   const actorRegistry: TActorRegistry = actorService.getRegistry();
   const { getByName, getByTags } = actorRegistry;
   const { onKey } = keyboardService;
@@ -83,28 +82,9 @@ export function showcase(space: TSpace): void {
   const { clickLeftRelease$, isLeftPressed$, isRightPressed$, isMiddlePressed$, isBackPressed$, isForwardPressed$, isExtraPressed$, doubleLeftClick$, doubleRightClick$, wheelUp$, wheelDown$ } =
     mouseService;
 
-  const moverService: TMoverService = MoverService(transformLoop, defaultMoverServiceConfig);
-
-  const folder: GUI = gui.addFolder('Mouse Actor');
-  const mode = { isKinematicMouseActor: false };
-  folder.add(mode, 'isKinematicMouseActor').name('Mouse actor is in kinematic mode');
-
   clickLeftRelease$.pipe(withLatestFrom(intersectionsWatcher.value$)).subscribe(([, intersection]: [TMouseWatcherEvent, TIntersectionEvent]): void => {
-    if (!mode.isKinematicMouseActor) {
-      if (actorMouse.drive.getActiveAgent().type !== TransformAgent.Connected) actorMouse.drive.agent$.next(TransformAgent.Connected);
-      void moverService.goToPosition(
-        actorMouse,
-        { x: intersection.point.x, z: intersection.point.z },
-        {
-          duration: 1000,
-          easing: Easing.EaseInCubic
-        }
-      );
-    } else {
-      if (actorMouse.drive.getActiveAgent().type !== TransformAgent.Kinematic) actorMouse.drive.agent$.next(TransformAgent.Kinematic);
-      const position: Vector3 = intersection.point.clone().add(new Vector3(0, 1.5, 0));
-      actorMouse.drive.kinematic.moveTo(position, metersPerSecond(15));
-    }
+    const position: Vector3 = intersection.point.clone().add(new Vector3(0, 1.5, 0));
+    actorMouse.drive.kinematic.moveTo(position, metersPerSecond(15));
   });
 
   isLeftPressed$.subscribe((isPressed: boolean): void => void actorMkeyLeft.drive.default.addY(isPressed ? -0.2 : 0.2));

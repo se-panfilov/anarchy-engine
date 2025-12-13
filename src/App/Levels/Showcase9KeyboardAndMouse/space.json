@@ -36,7 +36,7 @@
         "tags": ["keyboard"]
       },
       {
-        "agent": "connected",
+        "agent": "kinematic",
         "model3dSource": "sphere_mouse_model",
         "name": "sphere_mouse_actor",
         "position": {
