@@ -84,7 +84,7 @@ function loadSpace(name: string | undefined, source: ReadonlyArray<TSpacesData>,
   const spaceData: TSpacesData | undefined = source.find((s: TSpacesData): boolean => s.name === name);
   if (isNotDefined(spaceData)) throw new Error(`[Showcase]: Space data is not found for space "${name}"`);
 
-  const spaces: ReadonlyArray<TSpace> = spaceService.createFromConfig([spaceData.config]);
+  const spaces: ReadonlyArray<TSpace> = spaceService.createFromConfig([spaceData.config], settings.spaceSettings);
   const space: TSpace = spaces.find((s: TSpace): boolean => s.name === name) as TSpace;
   if (isNotDefined(space)) throw new Error(`[Showcase]: Cannot create the space "${name}"`);
 

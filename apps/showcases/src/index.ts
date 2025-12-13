@@ -1,7 +1,5 @@
 import '@/style.css';
 
-import type { TSpaceSettings } from '@Engine';
-
 import { runtimeEnv } from '@/env';
 // import { start } from '@/Levels/Showcase1MovingActors';
 // import { start } from '@/Levels/Showcase2TopDown';
@@ -32,7 +30,7 @@ import { runtimeEnv } from '@/env';
 import { start } from '@/Levels/Showcase27SaveLoad';
 import type { TAppSettings } from '@/Models/TAppSettings';
 
-const settings: TAppSettings & Readonly<{ spaceSettings: TSpaceSettings }> = {
+const settings: TAppSettings = {
   loopsDebugInfo: runtimeEnv.VITE_APP_SHOW_DEBUG_INFO,
   spaceSettings: {
     threeJsSettings: {
